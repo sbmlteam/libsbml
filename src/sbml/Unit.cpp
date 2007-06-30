@@ -639,18 +639,29 @@ Unit::getElementName () const
  * ('substance', 'volume', 'area', 'length' or 'time'), false otherwise.
  */
 bool
-Unit::isBuiltIn (const std::string& name)
+Unit::isBuiltIn (const std::string& name, unsigned int level)
 {
-  return
-    name == "substance" ||
-    name == "volume"    ||
-    name == "area"      ||
-    name == "length"    ||
-    name == "time";
+  if (level == 1)
+  {
+    return
+      name == "substance" ||
+      name == "volume"    ||
+      name == "time";
+  }
+  else
+  {
+    return
+      name == "substance" ||
+      name == "volume"    ||
+      name == "area"      ||
+      name == "length"    ||
+      name == "time";
+  }
 }
 
 bool
-Unit::isUnitKind(const std::string &name, unsigned int level, unsigned int version)
+Unit::isUnitKind(const std::string &name, unsigned int level, 
+                                         unsigned int version)
 {
   if (level == 1)
   {
@@ -1820,12 +1831,14 @@ Unit_setOffset (Unit_t *u, double value)
  * @return nonzero (for true) if @p name is one of the five SBML
  * builtin Unit names (@c "substance", @c "volume, @c "area", @c "length"
  * or @c "time"), zero (0) otherwise
+ *
+ * @note: @c "length" and @c "area" were added in Level 2 Version 1
  */
 LIBSBML_EXTERN
 int
-Unit_isBuiltIn (const char *name)
+Unit_isBuiltIn (const char *name, unsigned int level)
 {
-  return Unit::isBuiltIn(name != NULL ? name : "");
+  return Unit::isBuiltIn(name != NULL ? name : "", level);
 }
 
 

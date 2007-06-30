@@ -861,7 +861,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
      * unit to be reassigned using a unit definition and thus will have 
      * been picked up above
      */
-    if (Unit_isBuiltIn(units) && ud == NULL)
+    if (Unit_isBuiltIn(units, model->getLevel()) && ud == NULL)
     {
       ud   = new UnitDefinition();
 
@@ -984,7 +984,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
      * unit to be reassigned using a unit definition and thus will have 
      * been picked up above
      */
-    if (Unit_isBuiltIn(units) && subsUD == NULL)
+    if (Unit_isBuiltIn(units, model->getLevel()) && subsUD == NULL)
     {
       subsUD   = new UnitDefinition();
 
@@ -1059,7 +1059,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
      * unit to be reassigned using a unit definition and thus will have 
      * been picked up above
      */
-    if (Unit_isBuiltIn(spatialUnits) && sizeUD == NULL)
+    if (Unit_isBuiltIn(spatialUnits, model->getLevel()) && sizeUD == NULL)
     {
       sizeUD   = new UnitDefinition();
 
@@ -1168,7 +1168,7 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter
      * unit to be reassigned using a unit definition and thus will have 
      * been picked up above
      */
-    if (Unit_isBuiltIn(units) && ud == NULL)
+    if (Unit_isBuiltIn(units, model->getLevel()) && ud == NULL)
     {
       ud   = new UnitDefinition();
 
@@ -1284,7 +1284,7 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
      * unit to be reassigned using a unit definition and thus will have 
      * been picked up above
      */
-    if (Unit_isBuiltIn(units) && ud == NULL)
+    if (Unit_isBuiltIn(units, model->getLevel()) && ud == NULL)
     {
       ud   = new UnitDefinition();
 

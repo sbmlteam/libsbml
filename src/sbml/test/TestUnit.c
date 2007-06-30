@@ -234,16 +234,26 @@ END_TEST
 
 START_TEST (test_Unit_isBuiltIn)
 {
-  fail_unless( Unit_isBuiltIn( "substance") );
-  fail_unless( Unit_isBuiltIn( "volume"   ) );
-  fail_unless( Unit_isBuiltIn( "area"     ) );
-  fail_unless( Unit_isBuiltIn( "length"   ) );
-  fail_unless( Unit_isBuiltIn( "time"     ) );
+  fail_unless( Unit_isBuiltIn( "substance", 1) );
+  fail_unless( Unit_isBuiltIn( "volume"   , 1) );
+  fail_unless( !Unit_isBuiltIn( "area"     , 1) );
+  fail_unless( !Unit_isBuiltIn( "length"   , 1) );
+  fail_unless( Unit_isBuiltIn( "time"     , 1) );
 
-  fail_unless( !Unit_isBuiltIn( NULL     ) );
-  fail_unless( !Unit_isBuiltIn( ""       ) );
-  fail_unless( !Unit_isBuiltIn( "volt"   ) );
-  fail_unless( !Unit_isBuiltIn( "foobar" ) );
+  fail_unless( Unit_isBuiltIn( "substance", 2) );
+  fail_unless( Unit_isBuiltIn( "volume"   , 2) );
+  fail_unless( Unit_isBuiltIn( "area"     , 2) );
+  fail_unless( Unit_isBuiltIn( "length"   , 2) );
+  fail_unless( Unit_isBuiltIn( "time"     , 2) );
+
+  fail_unless( !Unit_isBuiltIn( NULL     , 1) );
+  fail_unless( !Unit_isBuiltIn( ""       , 1) );
+  fail_unless( !Unit_isBuiltIn( "volt"   , 1) );
+  fail_unless( !Unit_isBuiltIn( "foobar" , 1) );
+  fail_unless( !Unit_isBuiltIn( NULL     , 2) );
+  fail_unless( !Unit_isBuiltIn( ""       , 2) );
+  fail_unless( !Unit_isBuiltIn( "volt"   , 2) );
+  fail_unless( !Unit_isBuiltIn( "foobar" , 2) );
 }
 END_TEST
 

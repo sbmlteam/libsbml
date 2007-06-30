@@ -701,8 +701,11 @@ public:
    * @return @c true if @p name is one of the five SBML builtin Unit names
    * (@c "substance", @c "volume, @c "area", @c "length" or @c "time"), @c
    * false otherwise
+   *
+   * @note: @c "length" and @c "area" were added in Level 2 Version 1
    */
-  static bool isBuiltIn (const std::string& name);
+  static bool isBuiltIn (const std::string& name, unsigned int level);
+
 
 
   /**
@@ -1120,7 +1123,7 @@ Unit_setOffset (Unit_t *u, double value);
 
 LIBSBML_EXTERN
 int
-Unit_isBuiltIn (const char *name);
+Unit_isBuiltIn (const char *name, unsigned int level);
 
 
 END_C_DECLS
