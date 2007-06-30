@@ -14,7 +14,7 @@ present, must follow the math element. (References: L2V2 Section 4.12.)
 				<math xmlns="http://www.w3.org/1998/Math/MathML">
 					<apply>
 						<lt/>
-						<cn>  1 </cn>
+						<ci> C1 </ci>
 						<ci> C1 </ci>
 					</apply>
 				</math>

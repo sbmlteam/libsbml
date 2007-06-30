@@ -15,7 +15,7 @@ present, must follow the math element. (References: L2V2 Section 4.12.)
 					<apply>
 						<lt/>
 						<cn>  1 </cn>
-						<ci> C1 </ci>
+						<cn>  2 </cn>
 					</apply>
 				</math>
 				<message>

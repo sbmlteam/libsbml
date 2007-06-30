@@ -1426,21 +1426,23 @@ EXTERN_CONSTRAINT(20906, AssignmentCycles)
 
 START_CONSTRAINT (21001, Constraint, c)
 {
+  pre ( c.getLevel() == 2 && c.getVersion() > 1);
+  pre( c.isSetMath() );
+
   msg =
     "A <constraint> 'math' expression must evaluate to a value of type "
     "'boolean'. (References: L2V2 Section 4.12.)";
 
-  pre( c.isSetMath() );
   inv( m.isBoolean( c.getMath() ) );
 }
 END_CONSTRAINT
 
 
 // 21002: ordering - caught at read
-// 21003: message namespace - TO DO
-// 21004: message no XML - TO DO
-// 21005: message - no DOCTYPE - TO DO
-// 21006: message format - TO DO
+// 21003: message namespace - caught at read
+// 21004: message no XML - caught at read
+// 21005: message - no DOCTYPE - caught at read
+// 21006: message format - caught at read
 
 //Reaction validation
 

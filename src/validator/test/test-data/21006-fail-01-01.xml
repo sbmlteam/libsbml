@@ -15,12 +15,12 @@ present, must follow the math element. (References: L2V2 Section 4.12.)
 					<apply>
 						<lt/>
 						<cn>  1 </cn>
-						<ci> C1 </ci>
+						<cn>  2 </cn>
 					</apply>
 				</math>
 				<message>
-						<center xmlns="http://www.w3.org/1999/xhtml"/>
-						<p> "Hello"</p>
+					<center xmlns="http://www.w3.org/1999/xhtml"/>
+					<p> "Hello"</p>
 				</message>
 			</constraint>
 		</listOfConstraints>

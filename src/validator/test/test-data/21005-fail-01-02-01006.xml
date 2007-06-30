@@ -4,7 +4,7 @@ Pass: (21002) The order of subelements within Constraint must be the
 following: math, message. The message element is optional, but if
 present, must follow the math element. (References: L2V2 Section 4.12.)
 -->
-<sbml xmlns="http://www.sbml.org/sbml/level2/version2" level="2" version="2">
+<sbml xmlns="http://www.sbml.org/sbml/level2/version3" level="2" version="3">
 	<model>
 		<listOfCompartments>
 			<compartment id="C1"/>
@@ -21,7 +21,7 @@ present, must follow the math element. (References: L2V2 Section 4.12.)
 				<message>
 					<body xmlns="http://www.w3.org/1999/xhtml">
 						<center>
-							<?xml version="1.0" encoding="UTF-8"?>
+			<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 							<h2>A Simple Mitotic Oscillator</h2>
 						</center>
 						<p>A minimal cascade model for the mitotic oscillator involving cyclin and cdc2 kinase</p>

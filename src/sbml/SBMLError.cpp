@@ -113,42 +113,6 @@ static const sbmlErrorTableEntry_old errorTable_old[] =
 
 
 
-  // 20409
-  { SBMLError::EmptyListOfUnits, SBMLError::SBML, SBMLError::Error,
-    "The 'listOfUnits' container in a <unitDefinition> cannot be empty. "
-    "(References: L2V2 Section 4.4.)" },
-
-  // 21002
-  { SBMLError::IncorrectOrderInConstraint, SBMLError::SBML, SBMLError::Error,
-    "The order of subelements within Constraint must be the following: math, "
-    "message. The message element is optional, but if present, must follow the "
-    "math element. (References: L2V2 Section 4.12.)" },
-
-  // 21003
-  { SBMLError::ConstraintNotInXHTMLNamespace, SBMLError::SBML, SBMLError::Error,
-    "The contents of the message element in a Constraint must be explicitly "
-    "placed in the XHTML XML namespace. (References: L2V3 Section 3.2.3.)" },
-
-  // 21004
-  { SBMLError::ConstraintContainsXMLDecl, SBMLError::SBML, SBMLError::Error,
-    "The contents of the message element must not contain an XML declaration "
-    "(i.e., a string of the form \"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\" "
-    "or similar). (References: L2V2 Section 3.3.2; L2V3 Section 3.2.3.)" },
-
-  // 21005
-  { SBMLError::ConstraintContainsDOCTYPE, SBMLError::SBML, SBMLError::Error,
-    "The contents of the message element must not contain an XML DOCTYPE "
-    "declaration (i.e., a string beginning with the characters \"<!DOCTYPE\". "
-    "(References: L2V2 Section 3.3.2; L2V3 Section 3.2.3.)" },
-
-  // 21006
-  { SBMLError::InvalidConstraintContent, SBMLError::SBML, SBMLError::Error,
-    "The XHTML content inside a Constraint's message element can only take one "
-    "of the following general forms: (1) a complete XHTML document beginning "
-    "with the element <html> and ending with </html>; (2) the \"body\" portion "
-    "of a document beginning with the element <body> and ending with </body>; "
-    "or (3) XHTML content that is permitted within a <body> ... </body> "
-    "elements. (References: L2V2 Section 3.3.2; L2V3 Section 3.2.3.)" },
 
   // 21102
   { SBMLError::IncorrectOrderInReaction, SBMLError::SBML, SBMLError::Error,
