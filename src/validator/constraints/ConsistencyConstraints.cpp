@@ -1149,17 +1149,20 @@ EXTERN_CONSTRAINT(20610, SpeciesReactionOrRule)
 // TO DO - get this to reference line no of species 
 START_CONSTRAINT (20611, SpeciesReference, sr)
 {
+  pre (sr.getLevel() == 2);
+
+  /* doesnt apply if the SpeciesReference is a modifier */
+  pre(!sr.isModifier());
+  const Species* s = m.getSpecies( sr.getSpecies() );
+
+  pre( s != NULL );
+  
   msg =
     "A Species having boundaryCondition=\"false\" cannot appear as a "
     "reactant or product in any reaction if that Species also has "
     "constant=\"true\". (References: L2V1 Section 4.6.5; L2V2 Section 4.8.6.)";
 
-  /* doesnt apply if the SpeciesReference is a modifier */
-  pre(!sr.isModifier());
 
-  const Species* s = m.getSpecies( sr.getSpecies() );
-
-  pre( s != NULL );
   inv( ! (s->getConstant() == true && s->getBoundaryCondition() == false) ); 
 }
 END_CONSTRAINT
@@ -1167,14 +1170,14 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20612, Species, s)
 {
+  pre( s.getLevel() == 2 && (s.getVersion() == 2 || s.getVersion() == 3) );
+  pre( s.isSetSpeciesType() );
+
   msg =
     "SpeciesType '" + s.getSpeciesType() + "' is undefined. "
     "The value of 'speciesType' in a <species> definition must be the "
     "identifier of an existing <speciesType>. (References: L2V2 Section "
     "4.8.2.)";
-
-  pre( s.getLevel() == 2 && (s.getVersion() == 2 || s.getVersion() == 3) );
-  pre( s.isSetSpeciesType() );
 
   inv( m.getSpeciesType( s.getSpeciesType() ) != NULL );
 }
@@ -1198,12 +1201,12 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20615, Species, s)
 {
+  pre(s.getLevel() == 2 && s.getVersion() == 3);
+
   msg =
     "The spatialSizeUnits attribute on Species, previously available "
     "in SBML Level 2 versions prior to Version 3, has been removed as "
     "of SBML Level 2 Version 3. (References: L2V3 Section 4.8.)";
-
-  pre(s.getLevel() == 2 && s.getVersion() == 3);
 
   inv( s.isSetSpatialSizeUnits() == false);
 }
@@ -1212,9 +1215,10 @@ END_CONSTRAINT
 
 // Parameter validation
 
-// NOTE: This constraint also applies to L1 Models.
 START_CONSTRAINT (20701, Parameter, p)
 {
+  pre( p.isSetUnits() );
+
   msg =
     "The 'units' in a <parameter> definition must be a value chosen from "
     "among the following: a value from the 'UnitKind' enumeration (e.g., "
@@ -1222,13 +1226,10 @@ START_CONSTRAINT (20701, Parameter, p)
     "'time', etc.), or the identifier of a <unitDefinition> in the model. "
     "(References: L2V1 Section 4.7.3; L2V2 Section 4.9.3.)";
 
-
-  pre( p.isSetUnits() );
-
   const string& units = p.getUnits();
 
   inv_or( Unit::isUnitKind(units, p.getLevel(), p.getVersion())    );
-  inv_or( Unit::isBuiltIn(units)     );
+  inv_or( Unit::isBuiltIn(units, p.getLevel())     );
   inv_or( m.getUnitDefinition(units) );
 }
 END_CONSTRAINT
@@ -1238,13 +1239,12 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20801, InitialAssignment, ia)
 {
+  pre( ia.isSetSymbol() );
+
   msg =
     "The value of 'symbol' in an <initialAssignment> definition must be the "
     "identifier of an existing <compartment>, <species>, or <parameter> "
     "defined in the model. (References: L2V2 Section 4.10.)";
-
-
-  pre( ia.isSetSymbol() );
 
   const string& id = ia.getSymbol();
 

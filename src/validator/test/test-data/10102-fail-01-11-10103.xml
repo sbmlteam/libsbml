@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Fail: (1411) If the SpeciesType field is given a value in a Species 
+    it must contain the identifier of an existing SpeciesType. 
+    (L2V2 Section 4.7.2).
+-->
+<sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="1">
+	<model>
+		<listOfSpecieTypes>
+			<specieType name="gg"/>
+		</listOfSpecieTypes>
+		<listOfCompartments>
+			<compartment name="c"/>
+		</listOfCompartments>
+		<listOfSpecie>
+			<specie name="s" compartment="c" specieType="hh" initialAmount="0"/>
+		</listOfSpecie>
+	</model>
+</sbml>
