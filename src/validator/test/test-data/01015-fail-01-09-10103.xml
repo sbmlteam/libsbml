@@ -6,8 +6,15 @@
 			<compartment name="a"/>
 			<compartment name="c"/>
 		</listOfCompartments>
-		<listOfSpecie>
+		<listOfSpecies>
 			<specie name="s" initialAmount="0"/>
-		</listOfSpecie>
+		</listOfSpecies>
+		<listOfReactions>
+			<reaction name="r">
+				<listOfReactants>
+					<specieReference specie="s"/>
+				</listOfReactants>
+			</reaction>
+		</listOfReactions>
 	</model>
 </sbml>

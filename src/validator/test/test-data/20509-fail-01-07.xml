@@ -10,5 +10,15 @@ variant of 'metre' with exponent='3' or a variant of 'litre'
 		<listOfCompartments>
 			<compartment name="c" units="metre"/>
 		</listOfCompartments>
+		<listOfSpecies>
+			<specie name="s" compartment="c" initialAmount="0"/>
+		</listOfSpecies>
+		<listOfReactions>
+			<reaction name="r">
+				<listOfReactants>
+					<specieReference specie="s"/>
+				</listOfReactants>
+			</reaction>
+		</listOfReactions>
 	</model>
 </sbml>

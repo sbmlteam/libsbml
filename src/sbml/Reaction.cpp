@@ -716,6 +716,11 @@ Reaction::createObject (XMLInputStream& stream)
   }
   else if (name == "listOfModifiers")
   {
+    if (getLevel() == 1)
+    {
+      return NULL;
+    }
+
     if (mModifiers.size() != 0)
     {
       logError(SBMLError::NotSchemaConformant);

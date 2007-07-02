@@ -5,8 +5,11 @@ Species, or Parameter.
 -->
 <sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="2">
 	<model>
+		<listOfCompartments>
+			<compartment name="c"/>
+		</listOfCompartments>
 		<listOfRules>
-			<parameterRule  type="rate" name="x" formula="3"/>
+			<parameterRule type="rate" name="x" formula="3"/>
 		</listOfRules>
 	</model>
 </sbml>

@@ -114,30 +114,6 @@ static const sbmlErrorTableEntry_old errorTable_old[] =
 
 
 
-  // 21102
-  { SBMLError::IncorrectOrderInReaction, SBMLError::SBML, SBMLError::Error,
-    "The order of subelements within Reaction must be the following: "
-    "listOfReactants (optional), listOfProducts (optional), "
-    "listOfModifiers (optional), kineticLaw. (References: L2V2 Section 4.13.)" },
-
-  // 21103
-  { SBMLError::EmptyListInReaction, SBMLError::SBML, SBMLError::Error,
-    "The following containers are all optional in a <reaction>, but if any "
-    "present is, it must not be empty: 'listOfReactants', 'listOfProducts', "
-    "'listOfModifiers', 'kineticLaw'. (References: L2V2 Section 4.13.)" },
-
-  // 21104
-  { SBMLError::InvalidReactantsProductsList, SBMLError::SBML, SBMLError::Error,
-    "The list of reactants ('listOfReactants') and list of products "
-    "('listOfProducts') in a <reaction> can only contain 'speciesReference' "
-    "elements. (References: L2V1 Section 4.9; L2V2 Section 4.13.)" },
-
-  // 21105
-  { SBMLError::InvalidModifiersList, SBMLError::SBML, SBMLError::Error,
-    "The list of modifiers ('listOfModifiers') in a <reaction> can only "
-    "contain 'modifierSpeciesReference' elements. (References: L2V1 Section "
-    "4.9; L2V2 Section 4.13.)" },
-
   // 21122
   { SBMLError::IncorrectOrderInKineticLaw, SBMLError::SBML, SBMLError::Error,
     "The order of subelements within KineticLaw must be the following: math, "

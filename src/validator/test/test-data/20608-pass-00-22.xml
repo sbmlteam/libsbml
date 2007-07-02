@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Pass: (1408): A Species' substanceUnits must be 'substance', 'item',
+Pass: (1408): A Specie' substanceUnits must be 'substance', 'item',
 'mole', or the id of a UnitDefinition that defines a variant of 'item'
 or 'mole'.
 -->
@@ -17,7 +17,14 @@ or 'mole'.
 			<compartment name="c"/>
 		</listOfCompartments>
 		<listOfSpecies>
-			<species name="s" compartment="c" initialAmount="0" units="mi"/>
+			<specie name="s" compartment="c" initialAmount="0" units="mi"/>
 		</listOfSpecies>
+		<listOfReactions>
+			<reaction name="r">
+				<listOfReactants>
+					<specieReference specie="s"/>
+				</listOfReactants>
+			</reaction>
+		</listOfReactions>
 	</model>
 </sbml>

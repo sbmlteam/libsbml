@@ -1446,7 +1446,6 @@ END_CONSTRAINT
 
 //Reaction validation
 
-// NOTE: This constraint also applies to L1 Models.
 START_CONSTRAINT (21101, Reaction, r)
 {
   msg =
@@ -1485,15 +1484,18 @@ END_CONSTRAINT
 
 START_CONSTRAINT (21113, SpeciesReference, sr)
 {
+  pre (sr.getLevel() == 2);
+
+  /* doesnt apply if the SpeciesReference is a modifier */
+  pre(!sr.isModifier());
+  pre( sr.isSetStoichiometryMath()  );
+
   msg =
     "A <speciesReference> must not have a value for both 'stoichiometry' and "
     "'stoichiometryMath'; they are mutually exclusive. (References: L2V1 "
     "Section 4.9.5; L2V2 Section 4.13.3.)";
 
-  /* doesnt apply if the SpeciesReference is a modifier */
-  pre(!sr.isModifier());
 
-  pre( sr.isSetStoichiometryMath()  );
   inv( sr.getStoichiometry() == 1.0 );
 }
 END_CONSTRAINT

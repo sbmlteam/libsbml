@@ -8,8 +8,15 @@ AssignmentRule must have constant='false'.
 		<listOfCompartments>
 			<compartment name="c"/>
 		</listOfCompartments>
-		<listOfSpecie>
+		<listOfSpecies>
 			<specie name="s" compartment="c" constant="false" initialAmount="2"/>
-		</listOfSpecie>
+		</listOfSpecies>
+		<listOfReactions>
+			<reaction name="r">
+				<listOfReactants>
+					<specieReference specie="s"/>
+				</listOfReactants>
+			</reaction>
+		</listOfReactions>
 	</model>
 </sbml>

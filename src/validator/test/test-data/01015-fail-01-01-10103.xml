@@ -9,7 +9,14 @@ must not have an initialConcentration.
 			<compartment name="c"/>
 		</listOfCompartments>
 		<listOfSpecies>
-			<species name="s" compartment="c" initialConcentration="2.4"/>
+			<specie name="s" compartment="c" initialConcentration="2.4"/>
 		</listOfSpecies>
+		<listOfReactions>
+			<reaction name="r">
+				<listOfReactants>
+					<specieReference specie="s"/>
+				</listOfReactants>
+			</reaction>		
+		</listOfReactions>
 	</model>
 </sbml>

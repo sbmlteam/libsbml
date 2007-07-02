@@ -11,5 +11,8 @@ Fail: (1210) The kind of unit can only be predefined.
 				</listOfUnits>
 			</unitDefinition>
 		</listOfUnitDefinitions>
+		<listOfCompartments>
+			<compartment name="c"/>
+		</listOfCompartments>
 	</model>
 </sbml>

@@ -5,6 +5,9 @@ Species, or Parameter.
 -->
 <sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="2">
 	<model>
+		<listOfCompartments>
+			<compartment name="c"/>
+		</listOfCompartments>
 		<listOfInitialAssignments>
 			<initialAssignment symbol="x"/>
 		</listOfInitialAssignments>

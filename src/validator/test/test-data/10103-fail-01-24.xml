@@ -11,5 +11,8 @@ Pass: (1207) A 'volume' UnitDefinition with a single Unit of kind
 				</listOfUnits>
 			</unitDefinition>
 		</listOfUnitDefinitions>
+		<listOfCompartments>
+			<compartment name="c"/>
+		</listOfCompartments>
 	</model>
 </sbml>

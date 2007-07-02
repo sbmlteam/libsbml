@@ -127,16 +127,42 @@ SBMLReader::readInternal (const char* content, bool isFile)
     {
       if (stream.getEncoding() == "")
       {
-	d->getErrorLog()->logError(XMLError::MissingXMLDecl);
+	      d->getErrorLog()->logError(XMLError::MissingXMLDecl);
       }
       else if (stream.getEncoding() != "UTF-8")
       {
-	d->getErrorLog()->logError(SBMLError::NotUTF8);
+	      d->getErrorLog()->logError(SBMLError::NotUTF8);
       }
 
       if (d->getModel() == 0)
       {
-	d->getErrorLog()->logError(SBMLError::MissingModel);
+	      d->getErrorLog()->logError(SBMLError::MissingModel);
+      }
+      // in level 1 some listOfElements were required
+      else if (d->getLevel() == 1)
+      {
+        if (d->getModel()->getNumCompartments() == 0)
+        {
+          d->getErrorLog()->logError(SBMLError::NotSchemaConformant,
+            d->getLevel(), d->getVersion(), 
+            "A level 1 model must contain at least one compartment");
+        }
+
+        if (d->getVersion() == 1)
+        {
+          if (d->getModel()->getNumSpecies() == 0)
+          {
+            d->getErrorLog()->logError(SBMLError::NotSchemaConformant,
+            d->getLevel(), d->getVersion(), 
+            "A level 1 version 1  model must contain at least one species");
+          }
+          if (d->getModel()->getNumReactions() == 0)
+          {
+            d->getErrorLog()->logError(SBMLError::NotSchemaConformant,
+            d->getLevel(), d->getVersion(), 
+            "A level 1 version 1  model must contain at least one reaction");
+          }
+        }
       }
     }
   }

@@ -7,6 +7,9 @@ Pass: (1308) If the compartmentType field is given a value in a Compartment
 <sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="2">
 	<model>
 		<listOfCompartments>
-    </listOfCompartments>
+			<compartment name="c"/>
+		</listOfCompartments>
+		<listOfSpecies>
+    		</listOfSpecies>
 	</model>
 </sbml>

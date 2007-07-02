@@ -5,6 +5,9 @@ unit, or the id of a UnitDefinition.
 -->
 <sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="2">
 	<model>
+		<listOfCompartments>
+			<compartment name="c"/>
+		</listOfCompartments>
 		<listOfParameters>
 			<parameter name="p3" units="substance" value="1"/>
 			<parameter name="p4" units="time" value="1"/>

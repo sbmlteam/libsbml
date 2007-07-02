@@ -8,9 +8,9 @@ constant='true' and boundaryCondition='false'.
 		<listOfCompartments>
 			<compartment name="c"/>
 		</listOfCompartments>
-		<listOfSpecie>
+		<listOfSpecies>
 			<specie name="s" compartment="c" constant="true" boundaryCondition="false" initialAmount="0"/>
-		</listOfSpecie>
+		</listOfSpecies>
 		<listOfReactions>
 			<reaction name="r">
 				<listOfReactants>

@@ -13,5 +13,8 @@ kind 'litre' or 'metre'.
 				</listOfUnits>
 			</unitDefinition>
 		</listOfUnitDefinitions>
+		<listOfCompartments>
+			<compartment name="c"/>
+		</listOfCompartments>
 	</model>
 </sbml>

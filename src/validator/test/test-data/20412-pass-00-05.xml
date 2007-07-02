@@ -13,6 +13,9 @@ SBML Level 1 and Level 2 Version 1, has been removed as of SBML Level
 				</listOfUnits>
 			</unitDefinition>
 		</listOfUnitDefinitions>
+		<listOfCompartments>
+			<compartment name="c"/>
+		</listOfCompartments>
 		<listOfParameters>
 			<parameter name="p" units="celsius"/>
 		</listOfParameters>

@@ -6,14 +6,21 @@ Fail: (1411) If the SpeciesType field is given a value in a Species
 -->
 <sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="1">
 	<model>
-		<listOfSpecieTypes>
+		<listOfSpeciesTypes>
 			<specieType name="gg"/>
-		</listOfSpecieTypes>
+		</listOfSpeciesTypes>
 		<listOfCompartments>
 			<compartment name="c"/>
 		</listOfCompartments>
-		<listOfSpecie>
+		<listOfSpecies>
 			<specie name="s" compartment="c" specieType="hh" initialAmount="0"/>
-		</listOfSpecie>
+		</listOfSpecies>
+		<listOfReactions>
+			<reaction name="r">
+				<listOfReactants>
+					<specieReference specie="s"/>
+				</listOfReactants>
+			</reaction>
+		</listOfReactions>
 	</model>
 </sbml>

@@ -11,7 +11,7 @@ listOfEvents. (References: L2V2 Section 4.2.)
 <sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="1">
 	<model>
 		<listOfSpecies>
-			<species name="s" compartment="c" initialAmount="2"/>
+			<specie name="s" compartment="c" initialAmount="2"/>
 		</listOfSpecies>
 		<listOfCompartments>
 			<compartment name="c"/>
@@ -19,5 +19,12 @@ listOfEvents. (References: L2V2 Section 4.2.)
 		<listOfParameters>
 			<parameter name="p" value="3"/>
 		</listOfParameters>
+		<listOfReactions>
+			<reaction name="r">
+				<listOfReactants>
+					<specieReference specie="s"/>
+				</listOfReactants>
+			</reaction>
+		</listOfReactions>
 	</model>
 </sbml>

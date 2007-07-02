@@ -82,6 +82,9 @@ MathMLBase::check_ (const Model& m, const Model& object)
 {
   unsigned int n, ea, sr, p;
 
+  // there shouldnt be any math inside a level 1 model
+  if (object.getLevel() == 1) return;
+
   /* create a list of local parameters ids */
   for (n = 0; n < m.getNumReactions(); n++)
   {

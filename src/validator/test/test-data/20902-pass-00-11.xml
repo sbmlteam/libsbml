@@ -8,14 +8,22 @@ Species, or Parameter.
 		<listOfCompartments>
 			<compartment name="c"/>
 		</listOfCompartments>
-		<listOfSpecie>
+		<listOfSpecies>
 			<specie name="s" compartment="c" initialAmount="0"/>
-		</listOfSpecie>
+			<specie name="s1" compartment="c" initialAmount="0"/>
+		</listOfSpecies>
 		<listOfParameters>
 			<parameter name="p" value="0"/>
 		</listOfParameters>
 		<listOfRules>
 			<specieConcentrationRule type="rate" specie="s" formula="p"/>
 		</listOfRules>
+		<listOfReactions>
+			<reaction name="r">
+				<listOfReactants>
+					<specieReference specie="s1"/>
+				</listOfReactants>
+			</reaction>
+		</listOfReactions>
 	</model>
 </sbml>

@@ -8,5 +8,8 @@ of unit.
 		<listOfUnitDefinitions>
 			<unitDefinition name="myunit"/>
 		</listOfUnitDefinitions>
+		<listOfCompartments>
+			<compartment name="c"/>
+		</listOfCompartments>
 	</model>
 </sbml>

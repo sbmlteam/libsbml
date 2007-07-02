@@ -511,6 +511,10 @@ SpeciesReference::createObject (XMLInputStream& stream)
   
   if (name == "stoichiometryMath")
   {
+    if (getLevel() == 1)
+    {
+      return NULL;
+    }
     delete mStoichiometryMath;
 
     mStoichiometryMath = new StoichiometryMath();

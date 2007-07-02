@@ -8,15 +8,18 @@ FunctionDefinition (L2v1 Section 4.3.2).
 		<listOfFunctionDefinitions>
 			<functionDefinition id="pow3">
 				<math xmlns="http://www.w3.org/1998/Math/MathML">
-				    <semantics>
+					<semantics>
 						<apply>
 							<power/>
 							<ci> x </ci>
 							<cn> 3 </cn>
 						</apply>
-				    </semantics>
+					</semantics>
 				</math>
 			</functionDefinition>
 		</listOfFunctionDefinitions>
+		<listOfCompartments>
+			<compartment name="c"/>
+		</listOfCompartments>
 	</model>
 </sbml>

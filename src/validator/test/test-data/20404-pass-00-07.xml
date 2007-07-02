@@ -12,5 +12,8 @@ kind 'metre' and the Unit's exponent must be '2'.
 				</listOfUnits>
 			</unitDefinition>
 		</listOfUnitDefinitions>
+		<listOfCompartments>
+			<compartment name="c"/>
+		</listOfCompartments>
 	</model>
 </sbml>

@@ -5,8 +5,21 @@ AssignmentRule must have constant='false'.
 -->
 <sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="1">
 	<model>
+		<listOfCompartments>
+			<compartment name="c"/>
+		</listOfCompartments>
+		<listOfSpecies>
+			<specie name="s" compartment="c" initialAmount="0"/>
+		</listOfSpecies>
 		<listOfParameters>
 			<parameter name="p" constant="false" value="2"/>
 		</listOfParameters>
+		<listOfReactions>
+			<reaction name="r">
+				<listOfReactants>
+					<specieReference specie="s"/>
+				</listOfReactants>
+			</reaction>
+		</listOfReactions>
 	</model>
 </sbml>

@@ -901,7 +901,8 @@ SBase::read (XMLInputStream& stream)
 
         object->mSBML = mSBML;
         object->read(stream);
-        if (object->getTypeCode() == SBML_SPECIES_REFERENCE)
+        if (object->getTypeCode() == SBML_SPECIES_REFERENCE 
+          && object->getLevel() == 2)
         {
           static_cast <SpeciesReference *> (object)->sortMath();
         }

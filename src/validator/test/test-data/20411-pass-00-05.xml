@@ -13,5 +13,8 @@ Pass: (1209) The offset field in Unit is deprecated as of SBML Level 2 Version 2
 				</listOfUnits>
 			</unitDefinition>
 		</listOfUnitDefinitions>
+		<listOfCompartments>
+			<compartment name="c"/>
+		</listOfCompartments>
 	</model>
 </sbml>

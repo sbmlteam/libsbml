@@ -1795,7 +1795,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The order of subelements within Reaction must be the following: "
+    "listOfReactants (optional), listOfProducts (optional), "
+    "listOfModifiers (optional), kineticLaw. (References: L2V2 Section 4.13.)"
   },
 
   //21103
@@ -1807,7 +1809,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The following containers are all optional in a <reaction>, but if any "
+    "present is, it must not be empty: 'listOfReactants', 'listOfProducts', "
+    "'listOfModifiers', 'kineticLaw'. (References: L2V2 Section 4.13.)" 
   },
 
   //21104
@@ -1819,7 +1823,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The list of reactants ('listOfReactants') and list of products "
+    "('listOfProducts') in a <reaction> can only contain 'speciesReference' "
+    "elements. (References: L2V1 Section 4.9; L2V2 Section 4.13.)"
   },
 
   //21105
@@ -1831,7 +1837,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The list of modifiers ('listOfModifiers') in a <reaction> can only "
+    "contain 'modifierSpeciesReference' elements. (References: L2V1 Section "
+    "4.9; L2V2 Section 4.13.)" 
   },
 
   //21111

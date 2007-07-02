@@ -6,10 +6,10 @@
 		<listOfCompartments>
 			<compartment name="c"/>
 		</listOfCompartments>
-		<listOfSpecie>
+		<listOfSpecies>
 			<specie name="s" compartment="c" initialAmount="0"/>
 			<specie name="x" compartment="c" initialAmount="0"/>
-		</listOfSpecie>
+		</listOfSpecies>
 		<listOfRules>
 			<specieConcentrationRule specie="s" formula="s"/>
 		</listOfRules>

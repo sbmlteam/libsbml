@@ -5,6 +5,12 @@ unit, or the id of a UnitDefinition.
 -->
 <sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="1">
 	<model>
+		<listOfCompartments>
+			<compartment name="c"/>
+		</listOfCompartments>
+		<listOfSpecies>
+			<specie name="s" compartment="c" initialAmount="0"/>
+		</listOfSpecies>
 		<listOfParameters>
 			<parameter name="p01" units="ampere" value="1"/>
 			<parameter name="p02" units="becquerel" value="1"/>
@@ -42,5 +48,12 @@ unit, or the id of a UnitDefinition.
 			<parameter name="p34" units="watt" value="1"/>
 			<parameter name="p35" units="weber" value="1"/>
 		</listOfParameters>
+		<listOfReactions>
+			<reaction name="r">
+				<listOfReactants>
+					<specieReference specie="s"/>
+				</listOfReactants>
+			</reaction>
+		</listOfReactions>
 	</model>
 </sbml>

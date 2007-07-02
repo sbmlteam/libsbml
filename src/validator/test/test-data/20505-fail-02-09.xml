@@ -15,5 +15,15 @@ attribute (L2v1 erratum).  Compartment 'a' encloses itself via 'a' ->
 			<compartment name="c" outside="d"/>
 			<compartment name="d" outside="a"/>
 		</listOfCompartments>
+		<listOfSpecies>
+			<specie name="s" compartment="c" initialAmount="0"/>
+		</listOfSpecies>
+		<listOfReactions>
+			<reaction name="r">
+				<listOfReactants>
+					<specieReference specie="s"/>
+				</listOfReactants>
+			</reaction>
+		</listOfReactions>
 	</model>
 </sbml>
