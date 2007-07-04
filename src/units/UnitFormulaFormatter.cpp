@@ -613,11 +613,15 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node)
 
   if ((node->isNumber()) || (node->getType() == AST_CONSTANT_E))
   {
-    unit = new Unit("dimensionless");
     ud   = new UnitDefinition();
-    
-    ud->addUnit(unit);
-    delete unit;
+    undeclaredUnits = 1;
+    /* temporary HACK while I figure this out */
+    canIgnoreUndeclaredUnits = 0;
+    //unit = new Unit("dimensionless");
+    //ud   = new UnitDefinition();
+    //
+    //ud->addUnit(unit);
+    //delete unit;
   }
   else if (node->getType() == AST_CONSTANT_PI)
   {
