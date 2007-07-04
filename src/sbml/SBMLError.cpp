@@ -141,8 +141,8 @@ SBMLError::SBMLError (  const unsigned int            errorId
                       , const unsigned int            version 
                       , const std::string&            details
                       , const unsigned int            line
-  		                , const unsigned int            column
-		                  , const SBMLError::SBMLSeverity severity
+                      , const unsigned int            column
+                      , const SBMLError::SBMLSeverity severity
                       , const SBMLError::SBMLCategory category ):
     XMLError(errorId, details, line, column, severity, category)
 {
@@ -201,15 +201,14 @@ SBMLError::SBMLError (  const unsigned int            errorId
         }
 
 
-	      ostringstream newMsg;
+        ostringstream newMsg;
         if (mSeverity == SBMLError::SchemaError)
         {
           mErrorId = 10103;
           mSeverity = SBMLError::Error;
 
-	        newMsg << "This fails to satisfy SBML validation rule number 10103: " 
-            << errorTable[3].message << endl;
-          newMsg << errorTable[i].message << endl;
+          newMsg << errorTable[3].message
+                 << " " << errorTable[i].message << endl;
         }
         else if (mSeverity == SBMLError::GeneralWarning)
         {
@@ -220,17 +219,21 @@ SBMLError::SBMLError (  const unsigned int            errorId
         }
         else
         {
-	        newMsg << "This fails to satisfy SBML validation rule number " <<
-            errorTable[i].code << ": " << errorTable[i].message << endl;
+          newMsg << errorTable[i].message;
         }
+
         if (!details.empty())
         {
-          newMsg << details << "." << endl;
+          newMsg << " " << details << endl;
         }
+        else
+        {
+          newMsg << endl;
+        }          
       
         mMessage  = newMsg.str();
-	      mCategory = errorTable[i].category;
-	      return;
+        mCategory = errorTable[i].category;
+        return;
       }
     }
       
@@ -249,7 +252,7 @@ SBMLError::SBMLError (  const unsigned int            errorId
     // except the measure of last resort: the standard error output.
     
     cerr << "Internal error: unknown error code '" << errorId
-	        << "' encountered while processing error" << endl;
+          << "' encountered while processing error" << endl;
   }
 
   // It's not an error code in the XML layer, so assume the caller has
