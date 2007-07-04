@@ -39,11 +39,25 @@ to compile that example.
 To run the example programs, you must have libsbmlj.jar in your Java
 CLASSPATH *and* you must also have set up your object library search
 path to find the libSBML libray file.  The exact method to use depends
-on the particular operating system you are running:
+on the particular operating system you are running, but all involve
+putting the pathname of the installation directory in a certain
+environment variable:
 
-     (On Linux)      libsbmlj.so     in your  LD_LIBRARY_PATH
-     (On Mac OS X)   libsbml.jnilib  in your  DYLD_LIBRARY_PATH
-     (On Windows)    sbmlj.dll       in your  PATH
+ System    Directory                              Environment variable
+ ........  ................................       ....................
+ Linux     directory containing libsbmlj.so       LD_LIBRARY_PATH
+ MacOS X   directory containing libsbml.jnilib    DYLD_LIBRARY_PATH
+ Windows   directory containing sbmlj.dll         PATH
+
+For example, on MacOS X, if you configured libSBML with a prefix of
+/usr/local and did a normal "make install", and you are using the
+typical sh or bash shell in your terminal, you would need to execute
+
+  export DYLD_LIBRARY_PATH="/usr/local/lib:$DYLD_LIBRARY_PATH"
+
+or put the above in your shell's initialization file (.bashrc or
+.profile in your home directory) and cause the shell to re-read the
+initialization file.
 
 To run the examples on some SBML files, a number of files are readily
 available in ../sample-models/.  For example:
