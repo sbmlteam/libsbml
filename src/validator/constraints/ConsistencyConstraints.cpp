@@ -1708,6 +1708,9 @@ END_CONSTRAINT
 
 START_CONSTRAINT (21204, Event, e)
 {
+  pre (e.getVersion() != 3);
+  pre( e.isSetTimeUnits() );
+
   msg =
     "The value of an <event>'s 'timeUnits' must be 'time', 'second', "
     "'dimensionless', or the identifier of a <unitDefinition> derived from "
@@ -1715,16 +1718,13 @@ START_CONSTRAINT (21204, Event, e)
     "(References: L2V1 Section 4.10.4; L2V2 Section 4.14.)";
 
   // does not apply to L2V3 models
-  pre (e.getVersion() != 3);
-
-  pre( e.isSetTimeUnits() );
 
   const string&         units = e.getTimeUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
   /* dimensionless is allowable in L2V2 */
   if (  e.getLevel() == 2 
-    &&  (e.getVersion() == 2 || e.getVersion() == 3))
+    &&  (e.getVersion() == 2))
   {
     inv_or( units == "time" );
     inv_or( units == "second"  );
@@ -1747,12 +1747,12 @@ END_CONSTRAINT
 
 START_CONSTRAINT (21206, Event, e)
 {
+  pre (e.getVersion() == 3);
+
   msg =
     "The timeUnits attribute on Event, previously available in SBML "
     "Level 2 versions prior to Version 3, has been removed as of SBML "
     "Level 2 Version 3. (References: L2V3 Section 4.14.)";
-
-  pre (e.getVersion() == 3);
 
   inv( e.isSetTimeUnits() == false);
 
@@ -1764,13 +1764,13 @@ END_CONSTRAINT
 
 START_CONSTRAINT (21211, EventAssignment, ea)
 {
+  pre( ea.isSetVariable() );
+
   msg = 
     "The value of 'variable' in an <eventAssignment> can only be the "
     "identifier of a <compartment>, <species>, or model-wide <parameter> "
     "definition. (References: L2V1 Section 4.10.5; L2V2 Section 4.14.)";
 
-
-  pre( ea.isSetVariable() );
 
   const string& id = ea.getVariable();
 
@@ -1783,14 +1783,13 @@ END_CONSTRAINT
 
 START_CONSTRAINT (21212, EventAssignment, ea)
 {
+ pre( ea.isSetVariable() );
+
   msg =
     "Any <compartment>, <species> or <parameter> definition whose identifier "
     "is used as the value of 'variable' in an <eventAssignment> must have a "
     "value of 'false' for its 'constant' attribute. (References: L2V1 Section "
     "4.10.5; L2V2 Section 4.14.)";
-
-
-  pre( ea.isSetVariable() );
 
   const string& id = ea.getVariable();
 

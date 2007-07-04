@@ -2061,7 +2061,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The order of subelements within Event must be the following: trigger, "
+    "delay, listOfEventAssignments. The delay element is optional, but if "
+    "present, must follow trigger. (References: L2V2 Section 4.14.)" 
   },
 
   //21206
