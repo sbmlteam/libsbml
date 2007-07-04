@@ -42,7 +42,7 @@
 static const char* PREAMBLE =
     "The units of the expressions used as arguments to a function call must "
     "match the units expected for the arguments of that function. "
-    "(References: L2V2 Section 3.5.)";
+    "(References: L2V2 Section 3.5.) ";
 
 /** @cond doxygen-ignored */
 
