@@ -13,6 +13,7 @@ Fail: (3002) The units returned by the assignment rule that assigns value
     </listOfCompartments>
     <listOfParameters>
       <parameter id="p" value="1" units="ampere" constant="false"/>
+      <parameter id="p1" value="1" units="dimensionless"/>
     </listOfParameters>
     <listOfInitialAssignments>
       <initialAssignment symbol="p">
@@ -20,7 +21,7 @@ Fail: (3002) The units returned by the assignment rule that assigns value
           <apply>
             <times/>
             <ci> c </ci>
-            <cn> 2 </cn>
+            <ci> p1 </ci>
           </apply>
         </math>
       </initialAssignment>

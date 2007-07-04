@@ -13,6 +13,7 @@ Fail: (3102) The units returned by the rate rule that assigns a rate
     </listOfCompartments>
     <listOfParameters>
       <parameter id="p" value="1" units="ampere" constant="false"/>
+      <parameter id="p1" value="1" units="dimensionless"/>
     </listOfParameters>
     <listOfRules>
       <rateRule variable="p">
@@ -20,7 +21,7 @@ Fail: (3102) The units returned by the rate rule that assigns a rate
           <apply>
             <times/>
             <ci> c </ci>
-            <cn> 2 </cn>
+            <ci> p1 </ci>
           </apply>
         </math>
       </rateRule>

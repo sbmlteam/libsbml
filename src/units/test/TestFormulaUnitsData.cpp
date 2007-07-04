@@ -385,7 +385,7 @@ START_TEST (test_FormulaUnitsData_getinitialassignment)
 
   fail_unless(!strcmp(fud->getId().c_str(), "z2"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getTypecode()), "InitialAssignment"), NULL);
-  fail_unless(fud->getContainsParametersWithUndeclaredUnits() == 0);
+  fail_unless(fud->getContainsParametersWithUndeclaredUnits() == 1);
   fail_unless(fud->getCanIgnoreUndeclaredUnits() == 0);
 
   fail_unless(fud->getUnitDefinition()->getNumUnits() == 1);
@@ -407,18 +407,13 @@ START_TEST (test_FormulaUnitsData_getrule)
 
   fail_unless(!strcmp(fud->getId().c_str(), "x"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getTypecode()), "AssignmentRule"), NULL);
-  fail_unless(fud->getContainsParametersWithUndeclaredUnits() == 0);
+  fail_unless(fud->getContainsParametersWithUndeclaredUnits() == 1);
   fail_unless(fud->getCanIgnoreUndeclaredUnits() == 0);
 
-  fail_unless(fud->getUnitDefinition()->getNumUnits() == 1);
+  fail_unless(fud->getUnitDefinition()->getNumUnits() == 0);
 
   fail_unless(!strcmp(fud->getUnitDefinition()->getId().c_str(), ""), NULL);
 
-  fail_unless(fud->getUnitDefinition()->getUnit(0)->getMultiplier() == 1);
-  fail_unless(fud->getUnitDefinition()->getUnit(0)->getScale() == 0);
-  fail_unless(fud->getUnitDefinition()->getUnit(0)->getExponent() == 1);
-  fail_unless(fud->getUnitDefinition()->getUnit(0)->getOffset() == 0.0);
-  fail_unless(fud->getUnitDefinition()->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
 
   fud = m->getFormulaUnitsData(10);
 
@@ -500,15 +495,10 @@ START_TEST (test_FormulaUnitsData_getreaction)
   fail_unless(fud->getContainsParametersWithUndeclaredUnits() == 1);
   fail_unless(fud->getCanIgnoreUndeclaredUnits() == 0);
 
-  fail_unless(fud->getUnitDefinition()->getNumUnits() == 1);
+  fail_unless(fud->getUnitDefinition()->getNumUnits() == 0);
 
   fail_unless(!strcmp(fud->getUnitDefinition()->getId().c_str(), ""), NULL);
 
-  fail_unless(fud->getUnitDefinition()->getUnit(0)->getMultiplier() == 1);
-  fail_unless(fud->getUnitDefinition()->getUnit(0)->getScale() == 0);
-  fail_unless(fud->getUnitDefinition()->getUnit(0)->getExponent() == 1);
-  fail_unless(fud->getUnitDefinition()->getUnit(0)->getOffset() == 0.0);
-  fail_unless(fud->getUnitDefinition()->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
 
 }
 END_TEST
@@ -520,24 +510,18 @@ START_TEST (test_FormulaUnitsData_getevent)
 
   fail_unless(!strcmp(fud->getId().c_str(), "e1"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getTypecode()), "Event"), NULL);
-  fail_unless(fud->getContainsParametersWithUndeclaredUnits() == 0);
+  fail_unless(fud->getContainsParametersWithUndeclaredUnits() == 1);
   fail_unless(fud->getCanIgnoreUndeclaredUnits() == 0);
 
-  fail_unless(fud->getUnitDefinition()->getNumUnits() == 1);
+  fail_unless(fud->getUnitDefinition()->getNumUnits() == 0);
 
   fail_unless(!strcmp(fud->getUnitDefinition()->getId().c_str(), ""), NULL);
-
-  fail_unless(fud->getUnitDefinition()->getUnit(0)->getMultiplier() == 1);
-  fail_unless(fud->getUnitDefinition()->getUnit(0)->getScale() == 0);
-  fail_unless(fud->getUnitDefinition()->getUnit(0)->getExponent() == 1);
-  fail_unless(fud->getUnitDefinition()->getUnit(0)->getOffset() == 0.0);
-  fail_unless(fud->getUnitDefinition()->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
 
   fud = m->getFormulaUnitsData(15);
 
   fail_unless(!strcmp(fud->getId().c_str(), "cell"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getTypecode()), "EventAssignment"), NULL);
-  fail_unless(fud->getContainsParametersWithUndeclaredUnits() == 0);
+  fail_unless(fud->getContainsParametersWithUndeclaredUnits() == 1);
   fail_unless(fud->getCanIgnoreUndeclaredUnits() == 0);
 
   fail_unless(fud->getUnitDefinition()->getNumUnits() == 2);
@@ -599,15 +583,10 @@ START_TEST (test_FormulaUnitsData_getById)
   fail_unless(fud->getContainsParametersWithUndeclaredUnits() == 1);
   fail_unless(fud->getCanIgnoreUndeclaredUnits() == 0);
 
-  fail_unless(fud->getUnitDefinition()->getNumUnits() == 1);
+  fail_unless(fud->getUnitDefinition()->getNumUnits() == 0);
 
   fail_unless(!strcmp(fud->getUnitDefinition()->getId().c_str(), ""), NULL);
 
-  fail_unless(fud->getUnitDefinition()->getUnit(0)->getMultiplier() == 1);
-  fail_unless(fud->getUnitDefinition()->getUnit(0)->getScale() == 0);
-  fail_unless(fud->getUnitDefinition()->getUnit(0)->getExponent() == 1);
-  fail_unless(fud->getUnitDefinition()->getUnit(0)->getOffset() == 0.0);
-  fail_unless(fud->getUnitDefinition()->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
 
 }
 END_TEST
