@@ -1,7 +1,29 @@
-This section summarizes how to read and write SBML content in Java
-using the facilities provided by libSBML Java API.
+<center style="margin-bottom: 2em">
+<table border="0">
+<tr>
+<td style="font-size: small;">
+<a href="#getting-started">Getting Started: The 1-Minute Introduction</a>
+</td></tr><tr><td style="font-size: small;">
+<a href="#configuring">Configuring your environment to use the Java version of libSBML</a>
+</td></tr><tr><td style="font-size: small;">
+<a href="#reading">Reading SBML</a>
+</td></tr><tr><td style="font-size: small;">
+<a href="#"sbmldocument>The SBMLDocument Container</a>
+</td></tr><tr><td style="font-size: small;">
+<a href="#writing">Writing SBML</a>
+</td></tr><tr><td style="font-size: small;">
+<a href="#static">Static methods for common reading and writing operations</a>
+</td>
+</tr>
+</table>
+</center>
 
-<h2><a class="anchor" name="rf-started">Getting Started: The 1-Minute Introduction</a></h2>
+
+This section summarizes how to read and write SBML content in Java using
+the facilities provided by the libSBML Java API.
+
+
+<h2><a class="anchor" name="getting-started">Getting Started: The 1-Minute Introduction</a></h2>
 
 LibSBML uses the class <a
 href="org/sbml/libsbml/SBMLDocument.html">SBMLDocument</a> as a
@@ -71,7 +93,47 @@ href="org/sbml/libsbml/SBMLDocument.html#printErrors()">printErrors()</a>
 prints them to the standard error output stream.
 
 
-<h2><a class="anchor" name="rf-reading">Reading SBML</a></h2>
+<h2><a class="anchor" name="configuring">Configuring your environment to use
+the Java version of libSBML</a></h2>
+
+<p>
+Dynamically loaded software libraries such as libSBML usually require some
+configuration steps in order to allow your computing environment to find
+the libraries when running applications that depend upon them.  For the
+libSBML Java API, please make sure to read the subsections titled <a
+href="libsbml-installation.html#accessing"><em>Accessing libSBML</em></a>
+and <a href="libsbml-installation.html#accessing-java"><em>Accessing
+libSBML from Java</em></a> in the <a
+href="libsbml-installation.html"></em>LibSBML Installation</em></a> section
+of this manual.  To summarize: you must make sure that your
+<code>CLASSPATH</code> environment variable includes the file
+<code>libsbmlj.jar</code>, and that your dynamic library search path
+variable includes the directory in which the <code>libsbml.so</code>,
+<code>libsbml.dll</code>, or <code>libsbml.dylib</code> file (depending on
+the operating system) is located.
+</p>
+
+<p>
+As an example, if you were running under Linux and you configured libSBML
+with a prefix of <code>/usr/local</code> and did a normal "make install",
+and you were using the typical <em>sh</em> or <em>bash</em> shell in your
+terminal, you would need to execute
+
+<div class="fragment"><pre class="fragment">
+  export DYLD_LIBRARY_PATH="/usr/local/lib:$DYLD_LIBRARY_PATH"
+</pre></div>
+
+or put the above in your shell's initialization file (<code>.bashrc</code>
+or <code>.profile</code> in your home directory) and cause the shell to
+re-read the initialization file.  In addition, prior to running Java
+programs, you would need to either (1) set your <code>CLASSPATH</code>
+environment variable to include the <code>libsbml.jar</code> file, or (2)
+include the file in the <code>-classpath</code> option passed to the Java
+interpreter when it is started.
+</p>
+
+
+<h2><a class="anchor" name="reading">Reading SBML</a></h2>
 
 SBML may be read from a file or from an in-memory character string
 using the methods provided by the class <a
@@ -108,7 +170,7 @@ applications still need to be concerned about the SBML
 substantial differences between SBML Level&nbsp;1 and Level&nbsp;2!)
 
 
-<h2><a class="anchor" name="rf-sbmldocument">The SBMLDocument Container</a></h2>
+<h2><a class="anchor" name="sbmldocument">The SBMLDocument Container</a></h2>
 
 As might be deduced from the examples so far, an <a
 href="org/sbml/libsbml/SBMLDocument.html">SBMLDocument</a> object in
@@ -251,7 +313,7 @@ Level&nbsp;2 Version&nbsp;3, which is why the compatibility checks above
 only refer to Level&nbsp;2 Version&nbsp;2 at the most.
 
 
-<h2><a class="anchor" name="rf-writing">Writing SBML</a></h2>
+<h2><a class="anchor" name="writing">Writing SBML</a></h2>
 
 Writing SBML is, in the end, a very simple matter in libSBML.  The library
 provides the <a href="org/sbml/libsbml/SBMLWriter.html">SBMLWriter</a>
@@ -277,7 +339,7 @@ it, or throws an exception if a failure occurred.
 </ul>
 
 
-<h2><a class="anchor" name="rf-convenience">Static methods for
+<h2><a class="anchor" name="static">Static methods for
 common reading and writing operations</a></h2>
 
 LibSBML provides a number of static methods in the class <a
