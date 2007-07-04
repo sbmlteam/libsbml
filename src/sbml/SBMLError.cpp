@@ -50,64 +50,9 @@ static const sbmlErrorTableEntry_old errorTable_old[] =
   { SBMLError::UnknownError, SBMLError::SBML, SBMLError::Fatal,
     "Unrecognized error encountered" },
 
-  // 10308
-  { SBMLError::InvalidSBOTermSyntax, SBMLError::SBML, SBMLError::Error,
-    "The value of a sboTerm attribute must have the data type SBOTerm, "
-    "which is a string consisting of the characters 'S', 'B', 'O', ':' "
-    "followed by exactly seven digits. (References: L2V2 Section 3.1.8.)"},
 
-  // 10309
-  { SBMLError::InvalidMetaidSyntax, SBMLError::SBML, SBMLError::Error,
-    "The syntax of 'metaid' attribute values must conform to the syntax of the "
-    "XML type 'ID'. (References: L2V2 Sections 3.3.1 and 3.1.6.)" },
 
-  // 10310
-  { SBMLError::InvalidIdSyntax, SBMLError::SBML, SBMLError::Error,
-    "The syntax of 'id' attribute values must conform to the syntax of the SBML "
-    "type 'SId'. (References: L2V2 Sections 3.1.7.)" },
 
-  // 10401
-  { SBMLError::MissingAnnotationNamespace, SBMLError::SBML, SBMLError::Error,
-    "Every top-level element within an annotation element must have a "
-    "namespace declared. (References: L2V2 Section 3.3.3.)" },
-
-  // 10402
-  { SBMLError::DuplicateAnnotationNamespaces, SBMLError::SBML, SBMLError::Error,
-    "There cannot be more than one top-level element using a given namespace "
-    "inside a given annotation element. (References: L2V2 Section 3.3.3.)" },
-
-  // 10403
-  { SBMLError::SBMLNamespaceInAnnotation, SBMLError::SBML, SBMLError::Error,
-    "Top-level elements within an annotation element cannot use any SBML "
-    "namespace, whether explicitly (by declaring the namespace to be one of "
-    "the URIs, or implicitly (by failing to declare any namespace). "
-    "(References: L2V2 Section 3.3.3.)" },
-
-  // 10801
-  { SBMLError::NotesNotInXHTMLNamespace, SBMLError::SBML, SBMLError::Error,
-    "The contents of the notes element must be explicitly placed in the XHTML "
-    "XML namespace. (References: L2V3 Section 3.2.3.)" },
-
-  // 10802
-  { SBMLError::NotesContainsXMLDecl, SBMLError::SBML, SBMLError::Error,
-    "The contents of the notes element must not contain an XML declaration "
-    "(i.e., a string of the form \"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\" "
-    "or similar). (References: L2V2 Section 3.3.2; L2V3 Section 3.2.3.)" },
-
-  // 10803
-  { SBMLError::NotesContainsDOCTYPE, SBMLError::SBML, SBMLError::Error,
-    "The contents of the notes element must not contain an XML DOCTYPE "
-    "declaration (i.e., a string beginning with the characters \"<!DOCTYPE\". "
-    "(References: L2V2 Section 3.3.2; L2V3 Section 3.2.3.)" },
-
-  // 10804
-  { SBMLError::InvalidNotesContent, SBMLError::SBML, SBMLError::Error,
-    "The XHTML content inside a notes element can only take one of the "
-    "following general forms: (1) a complete XHTML document beginning with "
-    "the element <html> and ending with </html>; (2) the \"body\" portion of "
-    "a document beginning with the element <body> and ending with </body>; or "
-    "(3) XHTML content that is permitted within a <body> ... </body> elements. "
-    "(References: L2V2 Section 3.3.2; L2V3 Section 3.2.3.)" },
 
 
 

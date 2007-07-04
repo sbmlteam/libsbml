@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sbml xmlns="http://www.sbml.org/sbml/level2/version2" level="2" version="2"
-      xmlns:math="http://www.w3.org/1998/Math/MathML">
+<sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="2">
     <model>
         <listOfCompartments>
-			<compartment id="c"/>
+			<compartment name="1c"/>
         </listOfCompartments>
         <listOfSpecies>
-			<species id="s" compartment="c"/>
+			<species name="s" compartment="1c" initialAmount="2"/>
         </listOfSpecies>
         <listOfParameters>
-			<parameter id="p"/>
+			<parameter name="p"/>
         </listOfParameters>
     </model>
 </sbml>

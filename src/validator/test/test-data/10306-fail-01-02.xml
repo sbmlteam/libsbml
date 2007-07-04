@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
-Fail: (904) The variables (LHS) for EventAssignments (within each
-Event) must be unique (L2v1 erratum).
+Fail: (905) An identifier used as the value of the variable in an EventAssignment
+  cannot also appear as the value of a variable in an assignment rule
+  (L2V1 Section 4.10.5; L2V2 Section 4.1.4).
 -->
-
 <sbml xmlns="http://www.sbml.org/sbml/level2/version2" level="2" version="2">
   <model>
     <listOfCompartments>
       <compartment id="c" constant="false"/>
       <compartment id="d" constant="false"/>
     </listOfCompartments>
+    <listOfRules>
+      <assignmentRule variable="c"/>
+    </listOfRules>
     <listOfEvents>
       <event id="e">
         <trigger>
@@ -19,7 +21,6 @@ Event) must be unique (L2v1 erratum).
           </math>
         </trigger>
         <listOfEventAssignments>
-          <eventAssignment variable="c"/>
           <eventAssignment variable="c"/>
         </listOfEventAssignments>
       </event>

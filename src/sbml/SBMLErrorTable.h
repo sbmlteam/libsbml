@@ -438,7 +438,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of a sboTerm attribute must have the data type SBOTerm, "
+    "which is a string consisting of the characters 'S', 'B', 'O', ':' "
+    "followed by exactly seven digits. (References: L2V2 Section 3.1.8.)"
   },
 
   //10309
@@ -450,7 +452,8 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The syntax of 'metaid' attribute values must conform to the syntax of the "
+    "XML type 'ID'. (References: L2V2 Sections 3.3.1 and 3.1.6.)" 
   },
 
   //10310
@@ -462,7 +465,8 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The syntax of 'id' attribute values must conform to the syntax of the SBML "
+    "type 'SId'. (References: L2V2 Sections 3.1.7.)" 
   },
 
   //10311
@@ -897,7 +901,8 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::SchemaError,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The contents of the notes element must be explicitly placed in the XHTML "
+    "XML namespace. (References: L2V3 Section 3.2.3.)" 
   },
 
   //10802
@@ -909,7 +914,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The contents of the notes element must not contain an XML declaration "
+    "(i.e., a string of the form \"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\" "
+    "or similar). (References: L2V2 Section 3.3.2; L2V3 Section 3.2.3.)"
   },
 
   //10803
@@ -921,7 +928,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The contents of the notes element must not contain an XML DOCTYPE "
+    "declaration (i.e., a string beginning with the characters \"<!DOCTYPE\". "
+    "(References: L2V2 Section 3.3.2; L2V3 Section 3.2.3.)"
   },
 
   //10804
@@ -933,7 +942,12 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The XHTML content inside a notes element can only take one of the "
+    "following general forms: (1) a complete XHTML document beginning with "
+    "the element <html> and ending with </html>; (2) the \"body\" portion of "
+    "a document beginning with the element <body> and ending with </body>; or "
+    "(3) XHTML content that is permitted within a <body> ... </body> elements. "
+    "(References: L2V2 Section 3.3.2; L2V3 Section 3.2.3.)"
   },
 
   //20101

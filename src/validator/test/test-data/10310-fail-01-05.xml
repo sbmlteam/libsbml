@@ -6,7 +6,7 @@
 			<compartment id="c"/>
         </listOfCompartments>
         <listOfSpecies>
-			<species id="s" compartment="c"/>
+			<species id="*s" compartment="c"/>
         </listOfSpecies>
         <listOfParameters>
 			<parameter id="p"/>

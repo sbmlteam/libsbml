@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
 Fail: (902) The ids of all Parameters within a KineticLaw must be
 unique (L2v1 Sections 3.5 and 4.9.7).
 -->
-
-<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+<sbml xmlns="http://www.sbml.org/sbml/level2/version3" level="2" version="3">
   <model>
     <listOfCompartments>
       <compartment id="c"/>
@@ -27,7 +25,6 @@ unique (L2v1 Sections 3.5 and 4.9.7).
           </apply>
         </math>
         <listOfParameters>
-          <parameter id="k1" value="0"/>
           <parameter id="k1" value="0"/>
           <parameter id="k1" value="0"/>
         </listOfParameters>
