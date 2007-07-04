@@ -44,3 +44,41 @@ to avoid this problem are either to avoid using the strings "pi" and "Pi"
 in this context, or to avoid using the text-string expressions altogether
 and instead use ASTs.  All libSBML methods that accept text-string
 mathematical formulas have variants that accept ASTs instead.
+
+
+<h2>Differences in XML parser behavior</h2>
+
+The different parsers supported by libSBML (Xerces, Expat, libxml2) behave
+slightly differently when reading files, and the differences are difficult
+for libSBML to hide.  The following are the differences of which we are
+currently aware:
+
+<ol>
+
+<li style="margin-bottom: 1em">Expat and libxml2 tend to quit earlier than
+Xerces when they encounter an XML error in an input stream, whereas Xerces
+tends to process the input further and report an error as being on the
+element in which the XML error occurs.  The result is that the first error
+reported by libSBML is sometimes different, depending on which of the
+underlying XML parsers is being used.  In our tests this affects almost
+exclusively low-level XML syntax errors (such as start/end tag mismatches,
+unterminated strings) and not SBML errors per se, although a basic XML
+error can of course mask other, more substantive errors.  The exceptional
+cases (the reason for the "almost" in the previous sentence) concern SBML
+Level&nbsp;2 Version&nbsp;3 validation rules 10309 (detection of metaid
+syntax), and rules 10802, 10803, 21004 and 21005 (detection of disallowed
+XML constructs inside <code>&lt;notes&gt;</code> and
+<code>&lt;annotation&gt;</code> elements).</li>
+
+<li style="margin-bottom: 1em">Xerces 2.5 and 2.7 (and probably other
+versions) under Windows apparently suffers from a bug in transcoding
+multibyte UTF-8 characters.  The underlying reason for the problem is that
+the Xerces transcoding functions in the Xerces 2.7 file
+<code>Win32TransService.cpp</code> calls the Windows transcoding function
+<code>WideCharToMultiByte</code> with a first argument of
+<code>CP_ACP</code> (meaning the Windows ANSI code page) rather than
+<code>CP_UTF8</code>.  Why this is the case is a mystery to us.  The effect
+is that Xerces on Windows does not translate some non-text UTF-8 characters
+the same way as on other platforms.</li>
+
+</ol>
