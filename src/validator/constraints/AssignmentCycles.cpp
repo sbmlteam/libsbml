@@ -64,6 +64,10 @@ AssignmentCycles::~AssignmentCycles ()
 void
 AssignmentCycles::check_ (const Model& m, const Model& object)
 {
+  // this rule ony applies in l2v2 and beyond
+  if (object.getLevel() != 2 || object.getVersion() == 1)
+    return;
+
   unsigned int n;
 
   mCheckedList.clear();
