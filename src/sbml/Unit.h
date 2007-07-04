@@ -698,11 +698,15 @@ public:
    *
    * @param name a string to be tested against the built-in unit names
    *
+   * @param level the Level of SBML for which the determination should be
+   * made (necessary because there are a few small differences between
+   * SBML Level&nbsp;1 and Level&nbsp;2)
+   * 
    * @return @c true if @p name is one of the five SBML builtin Unit names
-   * (@c "substance", @c "volume, @c "area", @c "length" or @c "time"), @c
+   * (@c "substance", @c "volume", @c "area", @c "length" or @c "time"), @c
    * false otherwise
    *
-   * @note: @c "length" and @c "area" were added in Level 2 Version 1
+   * @note @c "length" and @c "area" were added in Level&nbsp;2 Version&nbsp;1
    */
   static bool isBuiltIn (const std::string& name, unsigned int level);
 
