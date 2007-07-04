@@ -223,7 +223,7 @@ endef
 
 core-sources = $(wildcard ../../src/*/*.[cpp,h])
 
-cpp-manual $(cpp-manual): doxygen-config-cpp-txt $(core-sources)
+cpp-manual $(cpp-manual): doxygen-config-cpp.txt $(core-sources)
 	$(call run_doxygen,doxygen-config-cpp.txt,$(cpp-manual))
 
 c-manual $(c-manual): doxygen-config-c.txt $(core-sources)
