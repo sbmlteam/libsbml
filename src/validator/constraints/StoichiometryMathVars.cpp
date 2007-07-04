@@ -59,6 +59,8 @@ StoichiometryMathVars::~StoichiometryMathVars ()
 void
 StoichiometryMathVars::check_ (const Model& m, const Reaction& r)
 {
+  if (r.getLevel() == 1) return;
+
   unsigned int n, ns;
   
   for (n = 0; n < r.getNumReactants(); n++)

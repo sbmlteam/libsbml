@@ -34,7 +34,7 @@ but if present, must follow math. (References: L2V2 Section 4.13.9.).
             </apply>
           </math>
           <listOfParameters>
-            <parameter id="k" value="1" units="second"/>
+            <parameter id="k" constant="false" value="1" units="second"/>
           </listOfParameters>
         </kineticLaw>
       </reaction>

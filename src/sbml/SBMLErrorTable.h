@@ -1897,12 +1897,14 @@ static const sbmlErrorTableEntry errorTable[] =
   {
     SBMLError::IncorrectOrderInKineticLaw,
     SBMLError::SBML,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    SBMLError::Error,
-    SBMLError::Error,
-    ""
+    "The order of subelements within KineticLaw must be the following: math, "
+    "listOfParameters. The listOfParameters is optional, but if present, must "
+    "follow math. (References: L2V2 Section 4.13.9.)." 
   },
 
   //21123
@@ -1914,7 +1916,8 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "If present, the 'listOfParameters' in a <kineticLaw> must not be an "
+    "empty list. (References: L2V2 Section 4.13.)" 
   },
 
   //21124
@@ -1936,8 +1939,8 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::NotApplicable,
     SBMLError::NotApplicable,
-    SBMLError::Error,
-    SBMLError::Error,
+    SBMLError::SchemaError,
+    SBMLError::SchemaError,
     ""
   },
 
@@ -1948,8 +1951,8 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::NotApplicable,
     SBMLError::NotApplicable,
-    SBMLError::Error,
-    SBMLError::Error,
+    SBMLError::SchemaError,
+    SBMLError::SchemaError,
     ""
   },
 

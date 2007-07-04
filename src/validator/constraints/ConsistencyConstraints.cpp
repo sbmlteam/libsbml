@@ -1512,13 +1512,15 @@ EXTERN_CONSTRAINT(21121, KineticLawVars)
 
 START_CONSTRAINT (21124, KineticLaw, kl)
 {
+  pre(kl.getLevel() == 2);
+
+  pre(kl.getNumParameters() != 0);
+
   msg =
     "The 'constant' attribute on a <parameter> local to a <kineticLaw> cannot "
     "have a value other than 'true'. The values of parameters local to "
     "<kineticLaw> definitions cannot be changed, and therefore they are "
     "always constant. (References: L2V2 Section 4.13.5.)";
-
-  pre(kl.getNumParameters() != 0);
 
   for (unsigned int n = 0; n < kl.getNumParameters(); ++n)
   {
@@ -1530,6 +1532,8 @@ END_CONSTRAINT
 
 START_CONSTRAINT (21125, KineticLaw, kl)
 {
+  pre( kl.getLevel() == 2 && (kl.getVersion() == 2 || kl.getVersion() == 3) );
+
   msg =
     "The 'substanceUnits' attribute on <kineticLaw>, previously available in "
     "SBML Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
@@ -1537,7 +1541,6 @@ START_CONSTRAINT (21125, KineticLaw, kl)
     "rate expression are those of the global 'substance' units of the model. "
     "(References: L2V2 Section 4.13.5.)";
 
-  pre( kl.getLevel() == 2 && (kl.getVersion() == 2 || kl.getVersion() == 3) );
   inv( kl.isSetSubstanceUnits() == false );
 }
 END_CONSTRAINT
@@ -1545,6 +1548,8 @@ END_CONSTRAINT
 
 START_CONSTRAINT (21126, KineticLaw, kl)
 {
+  pre( kl.getLevel() == 2 && (kl.getVersion() == 2 || kl.getVersion() == 3) );
+
   msg =
     "The 'timeUnits' attribute on <kineticLaw>, previously available in SBML "
     "Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
@@ -1552,7 +1557,6 @@ START_CONSTRAINT (21126, KineticLaw, kl)
     "expression are those of the global 'time' units of the model. "
     "(References: L2V2 Section 4.13.5.)";
 
-  pre( kl.getLevel() == 2 && (kl.getVersion() == 2 || kl.getVersion() == 3) );
   inv( kl.isSetTimeUnits() == false );
 }
 END_CONSTRAINT
@@ -1560,84 +1564,57 @@ END_CONSTRAINT
 
 START_CONSTRAINT (21127, KineticLaw, kl)
 {
+  pre( kl.getLevel() == 1 || kl.getVersion() == 1);
+  pre( kl.isSetSubstanceUnits() );
+  
   msg =
     "A KineticLaw's substanceUnits must be 'substance', 'item', 'mole', or "
     "the id of a UnitDefinition that defines a variant of 'item' or 'mole' "
     "(L2v1 Section 4.9.7).";
 
 
-  /* not in L2V3 */
-  pre( kl.getVersion() != 3);
-  pre( kl.isSetSubstanceUnits() );
 
   const string&         units = kl.getSubstanceUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
-  /* dimensionless is allowable in L2V2 */
-  if (  kl.getLevel() == 2 
-    &&  kl.getVersion() == 2)
-  {
-    inv_or( units == "substance" );
-    inv_or( units == "item"  );
-    inv_or( units == "mole"      );
-    inv_or( units == "dimensionless"  );
-    inv_or( defn  != NULL && defn->isVariantOfSubstance() );
-    inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
-  }
-  else
-  {
     inv_or( units == "substance" );
     inv_or( units == "item"      );
     inv_or( units == "mole"      );
     inv_or( defn  != NULL && defn->isVariantOfSubstance() );
-  }
 }
 END_CONSTRAINT
 
 
 START_CONSTRAINT (21128, KineticLaw, kl)
 {
+  pre( kl.getLevel() == 1 || kl.getVersion() == 1);
+  pre( kl.isSetTimeUnits() );
+
   msg =
     "A KineticLaw's timeUnits must be 'time', 'second', or the id of a "
     "UnitDefnition that defines a variant of 'second' with exponent='1' "
     "(L2v1 Section 4.9.7).";
 
 
-  /* not in L2V3 */
-  pre( kl.getVersion() != 3);
-  pre( kl.isSetTimeUnits() );
 
   const string&         units = kl.getTimeUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
-  /* dimensionless is allowable in L2V2 */
-  if (  kl.getLevel() == 2 
-    &&  kl.getVersion() == 2)
-  {
-    inv_or( units == "time" );
-    inv_or( units == "second"  );
-    inv_or( units == "dimensionless"  );
-    inv_or( defn  != NULL && defn->isVariantOfTime() );
-    inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
-  }
-  else
-  {
-    inv_or( units == "time"   );
-    inv_or( units == "second" );
-    inv_or( defn  != NULL && defn->isVariantOfTime() );
-  }
+  inv_or( units == "time"   );
+  inv_or( units == "second" );
+  inv_or( defn  != NULL && defn->isVariantOfTime() );
 }
 END_CONSTRAINT
 
 START_CONSTRAINT (21129, KineticLaw, kl)
 {
+  pre (m.getLevel() == 1);
+  pre (kl.isSetFormula() == 1);
+
   msg =
     "In a Level 1 model only predefined functions are permitted "
      "within the KineticLaw formula. (L1V2 Appendix C)";
 
-  pre (m.getLevel() == 1);
-
-  pre (kl.isSetFormula() == 1);
 
   FormulaTokenizer_t * ft = FormulaTokenizer_createFromFormula (kl.getFormula().c_str());
   Token_t * t = FormulaTokenizer_nextToken (ft);

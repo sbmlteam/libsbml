@@ -114,16 +114,6 @@ static const sbmlErrorTableEntry_old errorTable_old[] =
 
 
 
-  // 21122
-  { SBMLError::IncorrectOrderInKineticLaw, SBMLError::SBML, SBMLError::Error,
-    "The order of subelements within KineticLaw must be the following: math, "
-    "listOfParameters. The listOfParameters is optional, but if present, must "
-    "follow math. (References: L2V2 Section 4.13.9.)." },
-
-  // 21123
-  { SBMLError::EmptyListInKineticLaw, SBMLError::SBML, SBMLError::Error,
-    "If present, the 'listOfParameters' in a <kineticLaw> must not be an "
-    "empty list. (References: L2V2 Section 4.13.)" },
 
   // 21205
   { SBMLError::IncorrectOrderInEvent, SBMLError::SBML, SBMLError::Error,

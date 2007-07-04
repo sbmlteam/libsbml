@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Pass (21122): The order of subelements within KineticLaw must be the
+Fail (21122): The order of subelements within KineticLaw must be the
 following: math, listOfParameters. The listOfParameters is optional,
 but if present, must follow math. (References: L2V2 Section 4.13.9.).
 -->
@@ -26,6 +26,9 @@ but if present, must follow math. (References: L2V2 Section 4.13.9.).
           <modifierSpeciesReference species="e"/>
         </listOfModifiers>
         <kineticLaw>
+          <listOfParameters>
+            <parameter id="k" value="1" units="second"/>
+          </listOfParameters>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <divide/>
@@ -33,9 +36,6 @@ but if present, must follow math. (References: L2V2 Section 4.13.9.).
               <ci> k </ci>
             </apply>
           </math>
-          <listOfParameters>
-            <parameter id="k" value="1" units="second"/>
-          </listOfParameters>
         </kineticLaw>
       </reaction>
     </listOfReactions>
