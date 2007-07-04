@@ -118,6 +118,7 @@ distfiles =                                    \
         graphics/unitdefinition.eps            \
         graphics/unitdefinition.pdf            \
         graphics/unitdefinition.vtt            \
+        libsbml-authors.html                   \
         libsbml-coding.txt                     \
         libsbml-communications.html            \
         libsbml-communications.txt             \
