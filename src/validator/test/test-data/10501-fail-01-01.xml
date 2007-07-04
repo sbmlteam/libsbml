@@ -12,6 +12,7 @@ Fail: (3300) Inconsistent math
     </listOfCompartments>
     <listOfParameters>
       <parameter id="p" value="1" units="litre" constant="false"/>
+      <parameter id="p1" value="1" units="metre" constant="false"/>
     </listOfParameters>
     <listOfRules>
       <algebraicRule>
@@ -19,6 +20,7 @@ Fail: (3300) Inconsistent math
           <apply>
             <plus/>
             <ci> p </ci>
+            <ci> p1 </ci>
             <cn> 0.5 </cn>
           </apply>
         </math>

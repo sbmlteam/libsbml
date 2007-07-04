@@ -10,6 +10,7 @@ Fail: (3300) Inconsistent math
 		</listOfCompartments>
 		<listOfParameters>
 			<parameter id="p" value="1" units="litre" constant="false"/>
+			<parameter id="p1" value="1" units="metre" constant="false"/>
 		</listOfParameters>
 		<listOfConstraints>
 			<constraint>
@@ -17,7 +18,7 @@ Fail: (3300) Inconsistent math
 					<apply>
 						<geq/>
 						<ci> p </ci>
-						<cn> 0.5 </cn>
+						<ci> p1 </ci>
 					</apply>
 				</math>
 			</constraint>

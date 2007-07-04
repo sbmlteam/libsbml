@@ -486,7 +486,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "Top-level elements within an annotation element cannot use any SBML "
+    "namespace, whether explicitly (by declaring the namespace to be one of "
+    "the URIs, or implicitly (by failing to declare any namespace). "
+    "(References: L2V2 Section 3.3.3.)" 
   },
 
   //10501

@@ -1484,6 +1484,9 @@ SBase::checkIdSyntax()
 void
 SBase::checkAnnotation()
 {
+  // this didnt apply before l2v2
+  if (getLevel() == 1 || getVersion() == 1) return;
+
   unsigned int nNodes = 0;
   unsigned int match = 0;
   int n = 0;
