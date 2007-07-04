@@ -110,10 +110,20 @@ and related matters.
 the same locations as the libSBML distribution (namely, the SBML
 project on <a
 href="http://sourceforge.net/project/showfiles.php?group_id=71971">SourceForge</a>
-and the <a href="http://sbml.org/software/libsbml">SBML.org
-website</a>).  You may also regenerate it from the source code
-distribution; see the section on <a href="#docs">Generating
-documentation</a> below.
+and the <a href="http://sbml.org/software/libsbml"
+target="libSBML">SBML.org website</a>).  You may also regenerate the
+documentation from the source code distribution if you have <a
+href="http://doxygen.org">Doxygen</a> version 1.4.5 installed and have
+configured libSBML with the <code>--with-doxygen</code> flag.  Then
+you can execute the following to generate and install the AP
+documentation files:
+
+<div class="fragment"><pre class="fragment">
+  make install-docs
+</pre></div>
+
+Please see the section <a href="#docs">Generating documentation</a>
+below for more information.
 
 
 
@@ -326,7 +336,7 @@ connecting applications to libSBML.  These are described below on a
 case-by-case basis.
 
 
-<h4><a class="anchor" name="accessing-java">Acessing libSBML from Java</a></h4>
+<h4><a class="anchor" name="accessing-java">Accessing libSBML from Java</a></h4>
 
 <p> In addition to the instructions for configuring the
 <code>LD_LIBRARY_PATH</code> or <code>DYLD_LIBRARY_PATH</code>
@@ -483,7 +493,7 @@ the following software tools in addition to a Unix-like environment
 (or Cygwin under Windows):
 <ul>
 
-<li style="margin-bottom: 1em"><em>For the C and C++ API
+<li style="margin-bottom: 1em"><em>For the C, C++ and Python API
 documentation</em>: You will need <a
 href="http://doxygen.org">Doxygen</a> version 1.4.9 and a reasonably
 complete installation of <a
@@ -519,13 +529,6 @@ known as version 5.0, confusingly enough), which should have come
 supplied with your installation of Java 1.5 or later.  No additional
 configuration of libSBML is needed beyond supplying the
 <code>--with-java</code> option to <code>configure</code>.
-</li>
-
-<li style="margin-bottom: 1em"><em>For the Python API
-documentation</em>: You will need <code>pydoc</code>, which should
-have come supplied with your installation of Python.  No additional
-configuration of libSBML is needed beyond supplying the
-<code>--with-python</code> option to <code>configure</code>.  
 </li>
 </ul>
 
