@@ -32,19 +32,30 @@
             </unitDefinition>
         </listOfUnitDefinitions>
         <listOfCompartments>
-            <compartment id="Extracellular" spatialDimensions="3" size="1"/>
-            <compartment id="PlasmaMembrane" outside="Extracellular" spatialDimensions="2" size="1"/>
-            <compartment id="Cytosol" outside="PlasmaMembrane" spatialDimensions="3" size="1"/>
+            <compartment id="Extracellular" 
+                         spatialDimensions="3" size="1"/>
+            <compartment id="PlasmaMembrane" 
+                         outside="Extracellular" spatialDimensions="2" size="1"/>
+            <compartment id="Cytosol" 
+                         outside="PlasmaMembrane" spatialDimensions="3" size="1"/>
         </listOfCompartments>
         <listOfSpecies>
-            <species id="CaBPB_C" compartment="Cytosol" initialConcentration="47.17"/>
-            <species id="B_C" compartment="Cytosol" initialConcentration="396.04"/>
-            <species id="CaB_C" compartment="Cytosol" initialConcentration="3.96"/>
-            <species id="Ca_EC" name="Ca" compartment="Extracellular" initialConcentration="1000"/>
-            <species id="Ca_C" name="Ca" compartment="Cytosol" initialConcentration="0.1"/>
-            <species id="CaCh_PM" compartment="PlasmaMembrane" initialConcentration="1"/>
-            <species id="CaPump_PM" compartment="PlasmaMembrane" initialConcentration="1"/>
-            <species id="CaBP_C" compartment="Cytosol" initialConcentration="202.83"/>
+            <species id="CaBPB_C" 
+                     compartment="Cytosol" initialConcentration="47.17"/>
+            <species id="B_C" 
+                     compartment="Cytosol" initialConcentration="396.04"/>
+            <species id="CaB_C" 
+                     compartment="Cytosol" initialConcentration="3.96"/>
+            <species id="Ca_C" 
+                     name="Ca" compartment="Cytosol" initialConcentration="0.1"/>
+            <species id="Ca_EC"
+                      name="Ca" compartment="Extracellular" initialConcentration="1000"/>
+            <species id="CaCh_PM" 
+                     compartment="PlasmaMembrane" initialConcentration="1"/>
+            <species id="CaPump_PM" 
+                     compartment="PlasmaMembrane" initialConcentration="1"/>
+            <species id="CaBP_C" 
+                     compartment="Cytosol" initialConcentration="202.83"/>
         </listOfSpecies>
         <listOfReactions>
             <reaction id="CalciumCalbindin_gt_BoundCytosol" fast="true">
@@ -58,9 +69,9 @@
                 <kineticLaw>
                     <notes>
                         <p xmlns="http://www.w3.org/1999/xhtml">
-                               (((Kf_CalciumCalbindin_BoundCytosol * CaBP_C) * Ca_C) -
-                                  (Kr_CalciumCalbindin_BoundCytosol * CaBPB_C))
-                           </p>
+                           (((Kf_CalciumCalbindin_BoundCytosol * CaBP_C) * Ca_C) -
+                              (Kr_CalciumCalbindin_BoundCytosol * CaBPB_C))
+                        </p>
                     </notes>
                     <math xmlns="http://www.w3.org/1998/Math/MathML">
                         <apply>
@@ -103,7 +114,7 @@
                         <p xmlns="http://www.w3.org/1999/xhtml">
                         (((Kf_CalciumBuffer_BoundCytosol * Ca_C) * B_C) -
                             (Kr_CalciumBuffer_BoundCytosol * CaB_C))
-                      </p>
+                        </p>
                     </notes>
                     <math xmlns="http://www.w3.org/1998/Math/MathML">
                     <apply>
@@ -146,14 +157,14 @@
                 <kineticLaw>
                     <notes>
                         <p xmlns="http://www.w3.org/1999/xhtml">
-                        ((Vmax * kP * ((Ca_C - Ca_Rest) / (Ca_C + kP)) / (Ca_Rest + kP)) *
-                            CaPump_PM)
-                      </p>
+                        ((Vmax * kP * ((Ca_C - Ca_Rest) / (Ca_C + kP)) / 
+                            (Ca_Rest + kP)) * CaPump_PM)
+                        </p>
                     </notes>
                     <math xmlns="http://www.w3.org/1998/Math/MathML">
                     <apply>
-                          <times/>
-                          <ci> PlasmaMembrane</ci>
+                        <times/>
+                        <ci> PlasmaMembrane</ci>
                         <apply>
                             <divide/>
                             <apply>
@@ -203,8 +214,8 @@
                 <kineticLaw>
                     <notes>
                         <p xmlns="http://www.w3.org/1999/xhtml">
-                        (J0 * Kc * (Ca_EC - Ca_C) / (Kc + Ca_C) * CaCh_PM)
-                      </p>
+                            (J0 * Kc * (Ca_EC - Ca_C) / (Kc + Ca_C) * CaCh_PM)
+                        </p>
                     </notes>
                     <math xmlns="http://www.w3.org/1998/Math/MathML">
                     <apply>

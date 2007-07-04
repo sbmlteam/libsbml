@@ -28,7 +28,6 @@
             <parameter id="tau"  value="0.25" units="concentration"/>
             <parameter id="G1"   value="1"    units="concentration" constant="false"/>
             <parameter id="G2"   value="0"    units="concentration" constant="false"/>
-            <parameter id="conc" value="1"    units="concentration"/>
         </listOfParameters>
         <listOfRules>
             <rateRule variable="P1">
@@ -73,9 +72,7 @@
                     <eventAssignment variable="G2">
                         <math:math>
                             <math:apply>
-                                <math:times/>
-                                <math:ci> conc </math:ci>
-                                <math:cn> 1 </math:cn>
+                              <math:cn> 1 </math:cn>
                             </math:apply>
                         </math:math>
                     </eventAssignment>
@@ -95,9 +92,7 @@
                     <eventAssignment variable="G2">
                         <math:math>
                             <math:apply>
-                                <math:times/>
-                                <math:ci> conc </math:ci>
-                                <math:cn> 0 </math:cn>
+                              <math:cn> 0 </math:cn>
                             </math:apply>
                         </math:math>
                     </eventAssignment>
