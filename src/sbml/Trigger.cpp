@@ -281,7 +281,7 @@ Trigger::readAttributes (const XMLAttributes& attributes)
   std::vector<std::string> expectedAttributes;
   expectedAttributes.clear();
   expectedAttributes.push_back("metaid");
-  if (level == 2 && version > 1)
+  if (level == 2 && version > 2)
   {
     expectedAttributes.push_back("sboTerm");
   }

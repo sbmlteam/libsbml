@@ -279,10 +279,12 @@ Delay::readAttributes (const XMLAttributes& attributes)
 
   std::vector<std::string> expectedAttributes;
   expectedAttributes.clear();
-  if (level == 2 && version > 1)
+  if (level == 2)
   {
-    expectedAttributes.push_back("metaid");
-    expectedAttributes.push_back("sboTerm");
+    if (version > 1)
+      expectedAttributes.push_back("metaid");
+    if (version > 2)
+      expectedAttributes.push_back("sboTerm");
   }
 
   // check that all attributes are expected
