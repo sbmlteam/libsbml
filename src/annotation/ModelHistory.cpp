@@ -421,7 +421,8 @@ Date::parseDateStringToNumbers()
   else
   {
     const char * cdate = mDate.c_str();
-    char year[4];
+    char year[5];
+    year[4] = '\0';
     char block[3];
     block[2] = '\0';
     
