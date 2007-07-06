@@ -35,6 +35,8 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
+/** @cond doxygen-libsbml-internal */
+
 /**
  * Creates a new empty SBMLErrorLog.
  */
@@ -97,6 +99,9 @@ SBMLErrorLog::add (const std::list<SBMLError>& errors)
   for (iter = errors.begin(); iter != end; ++iter)
     XMLErrorLog::add( XMLError(*iter) );
 }
+
+
+/** @endcond doxygen-libsbml-internal */
 
 
 /**
