@@ -352,6 +352,10 @@ public:
    * special values) for @p severity and @p category.
    *
    * @param errorId an unsigned int, the identification number of the error.
+   *
+   * @param level the SBML Level of the SBML model
+   *
+   * @param version the SBML Version within the Level of the SBML model
    * 
    * @param details a string containing additional details about the error.
    * If the error code in @p errorId is one that is recognized by SBMLError,
