@@ -64,6 +64,7 @@ VConstraint::getSeverity () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Logs a constraint failure to the validator for the given SBML object.
  */
@@ -72,8 +73,10 @@ VConstraint::logFailure (const SBase& object)
 {
   logFailure(object, msg);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Logs a constraint failure to the validator for the given SBML object.
  * The parameter message is used instead of the constraint's member
@@ -88,3 +91,4 @@ VConstraint::logFailure (const SBase& object, const std::string& message)
                   SBMLError::Error, SBMLError::SBML ));
 
 }
+/** @endcond doxygen-libsbml-internal */
