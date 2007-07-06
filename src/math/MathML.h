@@ -63,9 +63,9 @@ void
 writeMathML (const ASTNode* node, XMLOutputStream& stream);
 
 
-#endif  /* __cplusplus */
-
 /** @endcond doxygen-libsbml-internal */
+
+#endif  /* __cplusplus */
 
 
 BEGIN_C_DECLS
