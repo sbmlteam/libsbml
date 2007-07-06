@@ -146,6 +146,7 @@ docs =         \
   COPYING.txt  \
   FUNDING.txt  \
   LICENSE.txt  \
+  LICENSE.html \
   NEWS.txt     \
   README.txt   \
   VERSION.txt  \
@@ -170,6 +171,7 @@ distfiles =                         \
   COPYING.txt                       \
   FUNDING.txt                       \
   LICENSE.txt                       \
+  LICENSE.html                      \
   Makefile.in                       \
   NEWS.txt                          \
   README.txt                        \
