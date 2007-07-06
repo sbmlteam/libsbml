@@ -1,5 +1,5 @@
 /**
- * @file    SBMLErrorTable.
+ * @file    SBMLErrorTable.h
  * @brief   Represents SBML errors and other diagnostics
  * @author  Sarah Keating
  *
