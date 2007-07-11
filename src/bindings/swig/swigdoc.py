@@ -407,12 +407,45 @@ def sanitizeForPerl (docstring):
   C++/Doxygen docstring.
   """
 
-  docstring = docstring.replace('/**', '').replace('*/', '').replace('*', '')
+  # Get rid of the /** ... */ and leading *'s.
+  docstring = docstring.replace('/**', '').replace('*/', '').replace('*', ' ')
+
+  # Get rid of indentation
+  p = re.compile('^\s+(\S*\s*)', re.MULTILINE)
+  docstring = p.sub(r'\1', docstring)
+
+  # Get rid of paragraph indentation not caught by the code above.
+  p = re.compile('^[ \t]+(\S)', re.MULTILINE)
+  docstring = p.sub(r'\1', docstring)
+
+  # Get rid of blank lines.
+  p = re.compile('^[ \t]+$', re.MULTILINE)
+  docstring = p.sub(r'', docstring)
+
+  # Get rid of the %foo quoting.
+  docstring = re.sub('(\s)%(\w)', r'\1\2', docstring)
+
+  # The following are done in pairs because I couldn't come up with a
+  # better way to catch the case where @c and @em end up alone at the end
+  # of a line and the thing to be formatted starts on the next one after
+  # the comment '*' character on the beginning of the line.
+
+  docstring = re.sub('@c *([^ ,.:;()/*\n\t]+)', r'C<\1>', docstring)
+  docstring = re.sub('@c(\n[ \t]*\*[ \t]*)([^ ,.:;()/*\n\t]+)', r'\1C<\2>', docstring)
+  docstring = re.sub('@p +([^ ,.:;()/*\n\t]+)', r'C<\1>', docstring)
+  docstring = re.sub('@p(\n[ \t]*\*[ \t]+)([^ ,.:;()/*\n\t]+)', r'\1C<\2>', docstring)
+  docstring = re.sub('@em *([^ ,.:;()/*\n\t]+)', r'I<\1>', docstring)
+  docstring = re.sub('@em(\n[ \t]*\*[ \t]*)([^ ,.:;()/*\n\t]+)', r'\1I<\2>', docstring)
+
+  docstring = docstring.replace('<ul>', '\n=over\n')
+  docstring = docstring.replace('<li> ', '\n=item\n\n')
+  docstring = docstring.replace('</ul>', '\n=back\n')
+
   docstring = docstring.replace('@return', 'Returns')
   docstring = docstring.replace(' < ', ' E<lt> ').replace(' > ', ' E<gt> ')
-  docstring = ' '.join(docstring.split())
   docstring = re.sub('<code>([^<]*)</code>', r'C<\1>', docstring)
   docstring = re.sub('<b>([^<]*)</b>', r'B<\1>', docstring)  
+
   return docstring
 
 
@@ -462,13 +495,18 @@ def writeDocstring (ostream, language, docstring, methodname, classname, args=No
 
 def writeClassDocstring (ostream, language, docstring, classname):
   if language == 'java':
-    pre  = '%typemap(javaimports)'
-    docstring = sanitizeForJava(docstring)
-  elif language == 'python':
-    pre  = '%feature("docstring")'
-    docstring = sanitizeForPython(docstring)
+    pre = '%typemap(javaimports) '
+    docstring = sanitizeForJava(docstring)    
+    output = pre + classname + ' "\n' + docstring + '"\n\n'
 
-  output = pre + ' ' + classname + ' "\n' + docstring + '"\n\n'
+  elif language == 'python':
+    pre = '%feature("docstring") '
+    docstring = sanitizeForPython(docstring)
+    output = pre + classname + ' "\n' + docstring + '"\n\n'
+
+  elif language == 'perl':
+    docstring = sanitizeForPerl(docstring)
+    output = '=back\n\n=head2 ' + classname + '\n\n' + docstring + '\n\n=over\n\n'
 
   ostream.write(output)
   ostream.flush()
