@@ -93,6 +93,9 @@ distfiles =                                    \
         doxygen-tabs.css                       \
         doxygen-tree.css                       \
         Makefile.in                            \
+        examples/readmath.cpp                  \
+        examples/readSBML.java                 \
+        examples/simpleread.cpp                \
         graphics/astnode-illustration.jpg      \
         graphics/built-in-units.jpg            \
         graphics/compartment-size.jpg          \
@@ -138,7 +141,13 @@ distfiles =                                    \
         libsbml-math.txt                       \
         libsbml-python-mainpage.txt            \
         libsbml-reading-files.txt              \
-	pythondocfilter.py
+        python.txt                             \
+        pythondocfilter.py                     \
+        templates/c++.txt                      \
+        templates/c.txt                        \
+        templates/m4.txt                       \
+        templates/makefile.txt                 \
+	templates/python.txt
 
 
 # -----------------------------------------------------------------------------
