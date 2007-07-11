@@ -98,26 +98,27 @@
  * "units" attribute or (if "units" is not set) the default value listed in
  * the table above, are used in the following ways when the compartment has
  * a "spatialDimensions" value greater than @c 0:
- *
- * @li The value of the "units" attribute is used as the units of the
+ * <ul>
+ * <li> The value of the "units" attribute is used as the units of the
  * compartment identifier when the identifier appears as a numerical
  * quantity in a mathematical formula expressed in MathML.
- *
- * @li The @c math element of an AssignmentRule or InitialAssignment
+ * 
+ * <li> The @c math element of an AssignmentRule or InitialAssignment
  * referring to this compartment must have identical units.
  *
- * @li In RateRule objects that set the rate of change of the compartment's
+ * <li> In RateRule objects that set the rate of change of the compartment's
  * size, the units of the rule's @c math element must be identical to the
  * compartment's "units" attribute divided by the default @em time units.
  * (In other words, the units for the rate of change of compartment size
  * are <em>compartment size</em>/<em>time</em> units.
  *
- * @li When a Species is to be treated in terms of concentrations or
+ * <li> When a Species is to be treated in terms of concentrations or
  * density, the units of the spatial size portion of the concentration
  * value (i.e., the denominator in the units formula @em substance/@em
  * size) are those indicated by the value of the "units" attribute on the
  * compartment in which the species is located.
- * 
+ * </ul>
+ *
  * Compartments with "spatialDimensions"=@c 0 require special treatment in
  * this framework.  If a compartment has no size or dimensional units, how
  * should such a compartment's identifier be interpreted when it appears in
@@ -301,10 +302,11 @@ public:
   /**
    * Initializes the fields of this Compartment to the defaults defined in
    * the specification of the relevant Level/Version of %SBML.
-   *
-   * @li (SBML Level 1 only) sets attribute "volume" to @c 1.0
-   * @li (SBML Level 2 only) sets attribute "spatialDimensions" to @c 3
-   * @li (SBML Level 2 only) sets attribute "constant" to @c 1 (true)
+   * <ul>
+   * <li> (SBML Level 1 only) sets attribute "volume" to @c 1.0
+   * <li> (SBML Level 2 only) sets attribute "spatialDimensions" to @c 3
+   * <li> (SBML Level 2 only) sets attribute "constant" to @c 1 (true)
+   * </ul>
    */
   void initDefaults ();
 

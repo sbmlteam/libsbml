@@ -239,8 +239,10 @@ public:
    * Initializes the fields of this Parameter to the defaults defined in
    * the specification of the relevant Level/Version of %SBML.
    *
-   * The exact actions of this are as follows
-   * @li (%SBML Level 2 only) set the "constant" attribute to @c true.
+   * The exact actions of this are as follows:
+   * <ul>
+   * <li> (%SBML Level 2 only) set the "constant" attribute to @c true.
+   * </ul>
    */
   void initDefaults ();
 

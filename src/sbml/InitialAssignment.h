@@ -95,21 +95,22 @@
  * The actions of all InitialAssignment objects are in general terms
  * the same, but differ in the precise details depending on the type
  * of variable being set:
- * 
- * @li <em>In the case of a species</em>, an InitialAssignment sets the
+ * <ul>
+ * <li> <em>In the case of a species</em>, an InitialAssignment sets the
  * referenced species' initial quantity (concentration or amount of
  * substance) to the value determined by the formula in the "math"
  * subelement.
  * 
- * @li <em>In the case of a compartment</em>, an InitialAssignment sets the
+ * <li> <em>In the case of a compartment</em>, an InitialAssignment sets the
  * referenced compartment's initial size to the size determined by the
  * formula in "math".  The overall units of the formula must be the same as
  * the units specified for the size of the compartment.
  * 
- * @li <em>In the case of a parameter</em>, an InitialAssignment sets the
+ * <li> <em>In the case of a parameter</em>, an InitialAssignment sets the
  * referenced parameter's initial value to that determined by the formula
  * in "math".  The overall units of the formula must be the same as the
  * units defined for the parameter.
+ * </ul>
  * 
  * In the context of a simulation, initial assignments establish values
  * that are in effect prior to and including the start of simulation time,

@@ -98,8 +98,8 @@
  * HTML would not be usable because whatever appears inside the "notes"
  * element must be compatible with XML, which HTML is not, and in any case,
  * the requirement for using XHTML does not prevent users from entering
- * plain-text content ,which they can do using the standard <code>&lt;pre>
- * ... &lt;/pre></code> elements of [X]HTML.)
+ * plain-text content ,which they can do using the standard <code>&lt;pre&gt;
+ * ... &lt;/pre&gt;</code> elements of [X]HTML.)
  *
  * The XML content of a "notes" subelement must declare the use of the
  * XHTML XML namespace.  This can be done in multiple ways.  One way is to
@@ -168,8 +168,8 @@
  * the complexity of implementing software that can interpret the content.
  * The content of the "notes" subelement in SBML can consist only of the
  * following possibilities:
- *
- * @li A complete XHTML document (minus the XML and DOCTYPE declarations,
+ * <ul>
+ * <li> A complete XHTML document (minus the XML and DOCTYPE declarations,
  * of course), that is, XHTML content beginning with the @c html tag.
  * @verbatim
 <notes>
@@ -179,7 +179,7 @@
 </notes>
 @endverbatim
  *
- * @li The @c body element from an XHTML document.  The following is an
+ * <li> The @c body element from an XHTML document.  The following is an
  * example skeleton:
  * @verbatim
 <notes>
@@ -189,7 +189,7 @@
 </notes>
 @endverbatim
  *
- * @li Any XHTML content that would be permitted within a @c body element.
+ * <li> Any XHTML content that would be permitted within a @c body element.
  * If this consists of multiple elements, each one must declare the XML
  * namespace separately.  The following is an example fragment:
  * @verbatim
@@ -202,6 +202,7 @@
     </p>
 </notes>
 @endverbatim
+ * </ul>
  *
  * Another way to summarize the restrictions above is simply to say that
  * the content of an SBML "notes" element can be only be a complete @c html
@@ -229,24 +230,25 @@
  * entirely contained inside a single <em>top-level element</em> within the
  * SBML "annotation" subelement.  SBML Level 2 Versions 2 and 3 place the
  * following restrictions on annotations:
- *
- * @li Within a given SBML "annotation" element, there can only be one
+ * <ul>
+ * <li> Within a given SBML "annotation" element, there can only be one
  * top-level element using a given namespace.  An annotation element can
  * contain multiple top-level elements but each must be in a different
  * namespace.
  *
- * @li No top-level element in an "annotation" may use an SBML XML
+ * <li> No top-level element in an "annotation" may use an SBML XML
  * namespace, either explicitly by referencing one of the SBML XML
  * namespace URIs or implicitly by failing to specify any namespace on the
  * annotation.
  *
- * @li The ordering of top-level elements within a given "annotation"
+ * <li> The ordering of top-level elements within a given "annotation"
  * element is <em>not</em> significant.  An application should not expect
  * that its annotation content appears first in the "annotation" element,
  * nor in any other particular location.  Moreover, the ordering of
  * top-level annotation elements may be changed by different applications
  * as they read and write the same SBML file.
- *
+ * </ul>
+ * 
  * The use of XML namespaces in this manner is intended to improve the
  * ability of multiple applications to place annotations on SBML model
  * elements with reduced risks of interference or name collisions.
@@ -273,7 +275,7 @@
  * Some more examples hopefully will make these points more clear.  The
  * next example is invalid because it contains a top-level element in the
  * SBML XML namespace&mdash;this happens because no namespace is declared
- * for the <code>&lt;cytoplasm></code> element, which means by default it
+ * for the <code>&lt;cytoplasm&gt;</code> element, which means by default it
  * falls into the enclosing SBML namespace:
  * @verbatim
 <annotation>
@@ -284,10 +286,10 @@
  * The following example is also invalid, this time because it contains two
  * top-level elements using the same XML namespace.  Note that it does not
  * matter that these are two different top-level elements
- * (<code>&lt;nodecolors></code> and <code>&lt;textcolors></code>); what
- * matters is that these separate elements are both in the same namespace
- * rather than having been collected and placed inside one overall
- * container element for that namespace.
+ * (<code>&lt;nodecolors&gt;</code> and <code>&lt;textcolors&gt;</code>); 
+ * what matters is that these separate elements are both in the same 
+ * namespace rather than having been collected and placed inside one 
+ * overall container element for that namespace.
  * @verbatim
 <annotation>
     <mysim:nodecolors xmlns:mysim="http://www.mysim.org/ns"

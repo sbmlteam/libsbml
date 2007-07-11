@@ -122,7 +122,7 @@ public:
    * Reads an SBML document from the given XML string.
    *
    * If the string does not begin with the XML declaration
-   * <code>&lt;?xml version='1.0' encoding='UTF-8'?></code>
+   * <code>&lt;?xml version='1.0' encoding='UTF-8'?&gt;</code>
    * then such a string will be prepended to the given input.
    *
    * This method will log a fatal error if the content given in the

@@ -426,9 +426,10 @@ public:
 
   /**
    * Initializes the attributes of this SpeciesReference to their defaults.
-   *
-   * @li stoichiometry is set to @c 1
-   * @li denominator is set to @c 1
+   * <ul>
+   * <li> stoichiometry is set to @c 1
+   * <li> denominator is set to @c 1
+   * </ul>
    *
    * @see getDenominator(), setDenominator(), getStoichiometry(),
    * setStoichiometry(), getStoichiometryMath(), setStoichiometryMath().

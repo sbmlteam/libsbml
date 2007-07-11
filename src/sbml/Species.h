@@ -149,17 +149,17 @@
  * the the built-in unit @c "substance".
  *
  * The <em>units of the species</em> are used in the following ways:
- *
- * @li The species identifier has these units when the identifier appears
+ * <ul>
+ * <li> The species identifier has these units when the identifier appears
  * as a numerical quantity in a mathematical formula expressed in MathML.
  *
- * @li The "math" subelement of an AssignmentRule or InitialAssignment
+ * <li> The "math" subelement of an AssignmentRule or InitialAssignment
  * referring to this species must have identical units.
  *
- * @li In RateRule structures that set the rate of change of the species'
+ * <li> In RateRule structures that set the rate of change of the species'
  * quantity, the units of the rule's "math" subelement must be identical to
  * the <em>units of the species</em> divided by the model's @em time units.
- *
+ * </ul>
  *
  * @section species-constant The "constant" and "boundaryCondition" attributes
  *
@@ -328,10 +328,11 @@ public:
   /**
    * Initializes the fields of this Species to the defaults defined
    * in the specification of the relevant Level/Version of SBML.
-   * 
-   * @li sets "boundaryCondition" to @c 1 (true)
-   * @li (Level 2 only) sets "constant" to @c 0 (false)
-   * @li (Level 2 only) sets "hasOnlySubstanceUnits" to @c 0 (false)
+   * <ul>
+   * <li> sets "boundaryCondition" to @c 1 (true)
+   * <li> (Level 2 only) sets "constant" to @c 0 (false)
+   * <li> (Level 2 only) sets "hasOnlySubstanceUnits" to @c 0 (false)
+   * </ul>
    */
   void initDefaults ();
 

@@ -36,37 +36,38 @@
  *
  * Each ASTNode has a type whose value is one of the elements of this
  * enumeration.  The types have the following meanings:
- *
- * @li If the node is basic mathematical operator (e.g., "+"), then the
+ * <ul>
+ * <li> If the node is basic mathematical operator (e.g., "+"), then the
  * node's type will be AST_PLUS, AST_MINUS, AST_TIMES, AST_DIVIDE, or
  * AST_POWER, as appropriate.
  *
- * @li If the node is a predefined function or operator from %SBML Level 1
+ * <li> If the node is a predefined function or operator from %SBML Level 1
  * (in the string-based formula syntax used in Level 1) or %SBML Level 2
  * (in the subset of MathML used in SBML Level 2), then the node's type
  * will be either AST_FUNCTION_<em>x</em>, AST_LOGICAL_<em>x</em>, or
  * AST_RELATIONAL_<em>x</em>, as appropriate.  (Examples:
  * AST_FUNCTION_LOG, AST_RELATIONAL_LEQ.)
  *
- * @li If the node refers to a user-defined function, the node's type will
+ * <li> If the node refers to a user-defined function, the node's type will
  * be AST_NAME (because it holds the name of the function).
  *
- * @li If the node is a lambda expression, its type will be AST_LAMBDA.
+ * <li> If the node is a lambda expression, its type will be AST_LAMBDA.
  * 
- * @li If the node is a predefined constant ("ExponentialE", "Pi", "True"
+ * <li> If the node is a predefined constant ("ExponentialE", "Pi", "True"
  * or "False"), then the node's type will be AST_CONSTANT_E,
  * AST_CONSTANT_PI, AST_CONSTANT_TRUE, or AST_CONSTANT_FALSE.
  * 
- * @li (Level 2 only) If the node is the special MathML csymbol @c time,
+ * <li> (Level 2 only) If the node is the special MathML csymbol @c time,
  * the value of the node will be AST_NAME_TIME.  (Note, however, that the
  * MathML csymbol @c delay is translated into a node of type
  * AST_FUNCTION_DELAY.  The difference is due to the fact that @c time is a
  * single variable, whereas @c delay is actually a function taking
  * arguments.)
  *
- * @li If the node contains a numerical value, its type will be
+ * <li> If the node contains a numerical value, its type will be
  * AST_INTEGER, AST_REAL, AST_REAL_E, or AST_RATIONAL, as appropriate.
- *
+ * </ul>
+ * 
  * @note Nodes of type AST_UNKNOWN are used internally as the AST is being
  * constructed, but this will not be exposed to calling code.  ASTNode
  * trees returned by SBML_parseFormula() will not contain unknown nodes.
@@ -192,24 +193,25 @@ class List;
  * @image latex astnode-illustration.jpg "Example AST representation of a mathematical representation."
  *
  * The following are noteworthy about the AST representation in libSBML:
- * 
- * @li A numerical value represented in MathML as a real number with an
+ * <ul>
+ * <li> A numerical value represented in MathML as a real number with an
  * exponent is preserved as such in the AST node representation, even if
  * the number could be stored in a @c double data type.  This is done
  * so that when an %SBML model is read in and then written out again, the
  * amount of change introduced by libSBML to the SBML during the round-trip
  * activity is minimized.
  *  
- * @li Rational numbers are represented in an AST node using separate
+ * <li> Rational numbers are represented in an AST node using separate
  * numerator and denominator values.  These can be retrieved using the
  * methods getNumerator() and getDenominator()
  * 
- * @li The children of an ASTNode are other ASTNode objects.  The list of
+ * <li> The children of an ASTNode are other ASTNode objects.  The list of
  * children is empty for nodes that are leaf elements, such as numbers.
  * For nodes that are actually roots of expression subtrees, the list of
  * children points to the parsed objects that make up the rest of the
  * expression.
- *
+ * </ul>
+ * 
  * Finally, for many applications, the details of ASTs are irrelevant
  * because the applications can use the text-string based translation
  * functions such as SBML_formulaToString() and readMathMLFromString().  If
@@ -262,15 +264,16 @@ public:
    * successful, false otherwise.
    *
    * The rules determining the canonical form conversion are as follows:
-   *
-   * @li If the node type is AST_NAME and the node name matches
+   * <ul>
+   * <li> If the node type is AST_NAME and the node name matches
    *   "ExponentialE", "Pi", "True" or "False" the node type is converted
    *   to the corresponding AST_CONSTANT_<em>x</em> type.
    *
-   * @li If the node type is an AST_FUNCTION and the node name matches an
+   * <li> If the node type is an AST_FUNCTION and the node name matches an
    *   %SBML Level 1 or L2 (MathML) function name, logical operator name, or
    *   relational operator name, the node is converted to the correspnding
    *   AST_FUNCTION_<em>x</em> or AST_LOGICAL_<em>x</em> type.
+   * </ul>
    *
    * %SBML Level 1 function names are searched first; thus, for example,
    * canonicalizing @c log will result in a node type of AST_FUNCTION_LN.

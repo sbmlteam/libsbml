@@ -56,11 +56,11 @@
  * must not contain an XML declaration or a DOCTYPE declaration, and the
  * permitted content can only take one of the following general forms: (1)
  * a complete XHTML document beginning with the element
- * <code>&lt;html></code> and ending with <code>&lt;/xhtml></code>; (2) the
- * body portion of a document beginning with the element
- * <code>&lt;body></code> and ending with <code>&lt;/body></code>; or (3)
- * XHTML content that is permitted within a <code>&lt;body></code> ...
- * <code>&lt;/body></code> elements.  The appendix of the SBML Level 2
+ * <code>&lt;html&gt;</code> and ending with <code>&lt;/xhtml&gt;</code>; 
+ * (2) the body portion of a document beginning with the element
+ * <code>&lt;body&gt;</code> and ending with <code>&lt;/body&gt;</code>; or
+ * (3) XHTML content that is permitted within a <code>&lt;body&gt;</code> ...
+ * <code>&lt;/body&gt;</code> elements.  The appendix of the SBML Level 2
  * Version 3 specification document describes one approach to reading the
  * "message" subelement content.
  *

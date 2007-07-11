@@ -55,16 +55,16 @@
  * EventAssignment.
  * 
  * Certain restrictions are placed on what can appear in "variable":
- *  
- * @li The object identified by the value of the EventAssignment attribute
+ * <ul>
+ * <li> The object identified by the value of the EventAssignment attribute
  * "variable" must not have its "constant" attribute set to or default to
  * @c true.  (Constants cannot be affected by events.)
  *
- * @li The "variable" attribute must not contain the identifier of a
+ * <li> The "variable" attribute must not contain the identifier of a
  * reaction; only species, compartment and parameter values may be set by
  * an Event.
  *
- * @li The value of every "variable" attribute must be unique among the set
+ * <li> The value of every "variable" attribute must be unique among the set
  * of EventAssignment structures within a given Event structure.  In other
  * words, a single event cannot have multiple EventAssignment objects
  * assigning the same variable.  (All of them would be performed at the
@@ -72,12 +72,13 @@
  * indeterminacy.)  However, @em separate Event instances can refer to the
  * same variable.
  *  
- * @li A variable cannot be assigned a value in an EventAssignment object
+ * <li> A variable cannot be assigned a value in an EventAssignment object
  * instance and also be assigned a value by an AssignmentRule; i.e., the
  * value of an EventAssignment's "variable" attribute cannot be the same as
  * the value of a AssignmentRule' "variable" attribute.  (Assignment rules
  * hold at all times, therefore it would be inconsistent to also define an
  * event that reassigns the value of the same variable.)
+ * </ul>
  *
  * @section event-math The "math" subelement in an EventAssignment
  * 
@@ -94,23 +95,24 @@
  * In all cases, as would be expected, the units of the formula in an
  * EventAssignment must be consistent with the units of the object
  * identified by the @c variable attribute.  More precisely:
- *   
- * @li In the case of a species, an EventAssignment sets the referenced
+ * <ul>
+ * <li> In the case of a species, an EventAssignment sets the referenced
  * species' quantity (concentration or amount of substance) to the value
  * determined by the formula in the EventAssignment's "math" subelement.
  * The units of the "math" formula must be identical to the units of the
  * species.
- *   
- * @li In the case of a compartment, an EventAssignment sets the referenced
+ *
+ * <li> In the case of a compartment, an EventAssignment sets the referenced
  * compartment's size to the size determined by the formula in the "math"
  * subelement of the EventAssignment.  The overall units of the formula
  * must be identical to the units specified for the size of the compartment
  * identified by the EventAssignment's "variable" attribute.
- *   
- * @li In the case of a parameter, an EventAssignment sets the referenced
+ *
+ * <li> In the case of a parameter, an EventAssignment sets the referenced
  * parameter's value to that determined by the formula in "math".  The
  * overall units of the formula must be identical to the units defined for
  * the parameter
+ * </ul>
  * 
  * Note that the formula placed in the "math" element <em>has no assumed
  * units</em>.  The consistency of the units of the formula, and the units

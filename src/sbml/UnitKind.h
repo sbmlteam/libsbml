@@ -42,16 +42,17 @@
  *
  * The UnitKind_t enumeration in libSBML has a small number of differences
  * compared to the SBML specifications:
- *
- * @li The alternate spelling @c "meter" is included in addition to the
+ * <ul>
+ * <li> The alternate spelling @c "meter" is included in addition to the
  * official SI spelling @c "metre".
  *
- * @li The alternate spelling @c "liter" is included in addition to the
+ * <li> The alternate spelling @c "liter" is included in addition to the
  * official SI spelling @c "litre".
  *
- * @li The unit @c "Celsius" is included because of its presence in
+ * <li> The unit @c "Celsius" is included because of its presence in
  * specifications of SBML prior to SBML Level 2 Version 3.
- *
+ * </ul>
+ * 
  * Readers are directed to the descriptions of the UnitDefinition_t
  * and Unit_t data structures for more information about units in SBML
  * and the use of the UnitKind_t enumeraion.

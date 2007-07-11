@@ -192,13 +192,14 @@ public:
    * 
    * The valid combinations as of this release of libSBML are the
    * following: 
-   *
-   * @li Level 1 Version 1
-   * @li Level 1 Version 2
-   * @li Level 2 Version 1
-   * @li Level 2 Version 2
-   * @li Level 2 Version 3
-   *  
+   * <ul>
+   * <li> Level 1 Version 1
+   * <li> Level 1 Version 2
+   * <li> Level 2 Version 1
+   * <li> Level 2 Version 2
+   * <li> Level 2 Version 3
+   * </ul>
+   * 
    * @param level the desired SBML Level
    *  
    * @param version the desired Version within the SBML Level

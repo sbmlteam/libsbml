@@ -72,7 +72,7 @@
  * </model>
  * @endcode
  * 
- * The <tt>&lt;cn> 1 &lt;/cn></tt> within the mathematical formula of the
+ * The <tt>&lt;cn&gt; 1 &lt;/cn&gt;</tt> within the mathematical formula of the
  * @c delay above has <em>no units declared</em>.  To make the expression
  * have the needed units of time, we must use one of the techniques
  * discussed in the SBML Level 2 Version 3 specification, namely, either

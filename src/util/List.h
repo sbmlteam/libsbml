@@ -48,11 +48,11 @@
  * This is a typedef for a pointer to a function that compares two list
  * items.  The return value semantics are the same as for the C library
  * function @c strcmp:
- * 
- * @li -1: @p item1 <  @p item2
- * @li 0:  @p item1 == @p item2
- * @li 1:  @p item1 >  @p item2
- *
+ * <ul>
+ * <li> -1: @p item1 <  @p item2
+ * <li> 0:  @p item1 == @p item2
+ * <li> 1:  @p item1 >  @p item2
+ * </ul>
  * @see List_find()
  */
 typedef int (*ListItemComparator) (const void *item1, const void *item2);
@@ -146,11 +146,12 @@ public:
    * @endcode
    * The return value semantics are the same as for the C library function
    * @c strcmp:
+   * <ul>
+   * <li> -1: @p item1 <  @p item2
+   * <li> 0:  @p item1 == @p item2
+   * <li> 1:  @p item1 >  @p item2
+   * </ul>
    * 
-   * @li -1: @p item1 <  @p item2
-   * @li 0:  @p item1 == @p item2
-   * @li 1:  @p item1 >  @p item2
-   *
    * @param item1 a pointer to the item being sought
    *
    * @param comparator a pointer to a ListItemComparator function used to

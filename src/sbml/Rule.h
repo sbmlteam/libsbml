@@ -56,27 +56,28 @@
  * In their general form given above, there is little to distinguish
  * between @em assignment and @em algebraic rules.  They are treated as
  * separate cases for the following reasons:
- *
- * @li @em Assignment rules can simply be evaluated to calculate
+ * <ul>
+ * <li> @em Assignment rules can simply be evaluated to calculate
  * intermediate values for use in numerical methods.  They are statements
  * of equality that hold at all times.  (For assignments that are only
  * performed once, see InitialAssignment.)
  *
- * @li SBML needs to place restrictions on assignment rules, for example
+ * <li> SBML needs to place restrictions on assignment rules, for example
  * the restriction that assignment rules cannot contain algebraic loops.
  *
- * @li Some simulators do not contain numerical solvers capable of solving
+ * <li> Some simulators do not contain numerical solvers capable of solving
  * unconstrained algebraic equations, and providing more direct forms such
  * as assignment rules may enable those simulators to process models they
  * could not process if the same assignments were put in the form of
  * general algebraic equations;
  *
- * @li Those simulators that @em can solve these algebraic equations make a
+ * <li> Those simulators that @em can solve these algebraic equations make a
  * distinction between the different categories listed above; and
  *
- * @li Some specialized numerical analyses of models may only be applicable
+ * <li> Some specialized numerical analyses of models may only be applicable
  * to models that do not contain @em algebraic rules.
- *
+ * </ul>
+ * 
  * The approach taken to covering these cases in SBML is to define an
  * abstract Rule structure containing a subelement, "math", to hold the
  * right-hand side expression, then to derive subtypes of Rule that add
@@ -222,8 +223,8 @@
  * not have its "constant" attribute set to @c true.  The effects of an
  * AssignmentRule are in general terms the same, but differ in the precise
  * details depending on the type of variable being set:
- *
- * @li <em>In the case of a species</em>, an AssignmentRule sets the
+ * <ul>
+ * <li> <em>In the case of a species</em>, an AssignmentRule sets the
  * referenced species' quantity (@em concentration or <em>amount of
  * substance</em>) to the value determined by the formula in the subelement
  * "math" of the AssignmentRule object.  The units of the formula in "math"
@@ -236,18 +237,19 @@
  * defined for a species that is created or destroyed in a reaction unless
  * that species is defined as a boundary condition in the model.
  *
- * @li <em>In the case of a compartment</em>, an AssignmentRule sets the
+ * <li> <em>In the case of a compartment</em>, an AssignmentRule sets the
  * referenced compartment's size to the value determined by the formula in
  * the "math" subelement of the AssignmentRule object.  The overall units
  * of the formula in "math" must be the same as the units of the size of
  * the compartment.
  *
- * @li <em>In the case of a parameter</em>, an AssignmentRule sets the
+ * <li> <em>In the case of a parameter</em>, an AssignmentRule sets the
  * referenced parameter's value to that determined by the formula in the
  * "math" subelement of the AssignmentRule object.  The overall units of
  * the formula in the "math" subelement must be the same as the units
  * defined for the parameter.
- *
+ * </ul>
+ * 
  * In the context of a simulation, assignment rules are in effect at all
  * times, <em>t</em> \f$\geq\f$ <em>0</em>.  For purposes of evaluating
  * expressions that involve the <em>delay</em> "csymbol" (see the SBML
@@ -300,8 +302,8 @@
  * to @c false.  The effects of a RateRule are in general terms the same,
  * but differ in the precise details depending on which variable is being
  * set:
- *
- * @li <em>In the case of a species</em>, a RateRule sets the rate of
+ * <ul>
+ * <li> <em>In the case of a species</em>, a RateRule sets the rate of
  * change of the species' quantity (<em>concentration</em> or <em>amount of
  * substance</em>) to the value determined by the formula in the "math"
  * subelement of the RateRule object.  The overall units of the formula in
@@ -315,19 +317,20 @@
  * is created or destroyed in a reaction, unless that species is defined as
  * a boundary condition in the model.
  *
- * @li <em>In the case of a compartment</em>, a RateRule sets the rate of
+ * <li> <em>In the case of a compartment</em>, a RateRule sets the rate of
  * change of the compartment's size to the value determined by the formula
  * in the "math" subelement of the RateRule object.  The overall units of
  * the formula must be <em>size</em>/<em>time</em>, where the <em>time</em>
  * units are the SBML built-in units of time and the <em>size</em> units
  * are the units of size on the compartment.
  *
- * @li <em>In the case of a parameter</em>, a RateRule sets the rate of
+ * <li> <em>In the case of a parameter</em>, a RateRule sets the rate of
  * change of the parameter's value to that determined by the formula in the
  * "math" subelement of the RateRule object.  The overall units of the
  * formula must be <em>x</em>/<em>time</em>, where <em>x</em> are the units
  * of the parameter.
- *
+ * </ul>
+ * 
  * In the context of a simulation, rate rules are in effect for simulation
  * time <em>t</em> &lt; <em>0</em>.  The SBML Level 2 Version 3
  * specification provides additional information about the semantics of
@@ -685,14 +688,16 @@ public:
    * kind of rule this is.
    *
    * The rules as of libSBML 3.0.0 are the following:
-   * @li (Level 2) RateRule: returns @c "rateRule"
-   * @li (Level 2) AssignmentRule: returns @c "assignmentRule" 
-   * @li (Level 2) AlgebraicRule: returns @c "algebraicRule"
-   * @li (Level 1 Version 1) SpecieConcentrationRule: returns @c "specieConcentrationRule"
-   * @li (Level 1 Version 2) SpeciesConcentrationRule: returns @c "speciesConcentrationRule"
-   * @li (Level 1) CompartmentVolumeRule: returns @c "compartmentVolumeRule"
-   * @li (Level 1) ParameterRule: returns @c "parameterRule"
-   * @li Unknown rule type: returns @c "unknownRule"
+   * <ul>
+   * <li> (Level 2) RateRule: returns @c "rateRule"
+   * <li> (Level 2) AssignmentRule: returns @c "assignmentRule" 
+   * <li> (Level 2) AlgebraicRule: returns @c "algebraicRule"
+   * <li> (Level 1 Version 1) SpecieConcentrationRule: returns @c "specieConcentrationRule"
+   * <li> (Level 1 Version 2) SpeciesConcentrationRule: returns @c "speciesConcentrationRule"
+   * <li> (Level 1) CompartmentVolumeRule: returns @c "compartmentVolumeRule"
+   * <li> (Level 1) ParameterRule: returns @c "parameterRule"
+   * <li> Unknown rule type: returns @c "unknownRule"
+   * </ul>
    * 
    * @return the name of this element
    */

@@ -63,11 +63,11 @@ public:
    * Creates a new XMLTriple by splitting triplet on sepchar.  
    *
    * Triplet may be in one of the following formats:
-   *
-   * @li name
-   * @li uri sepchar name
-   * @li uri sepchar name sepchar prefix
-   *
+   * <ul>
+   * <li> name
+   * <li> uri sepchar name
+   * <li> uri sepchar name sepchar prefix
+   * </ul>
    * @param triplet a string representing the triplet as above
    * @param sepchar a character, the sepchar used in the triplet
    */

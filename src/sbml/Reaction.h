@@ -52,24 +52,25 @@
  * "listOfReactants", "listOfProducts" and "listOfModifiers".  Certain
  * restrictions are placed on the appearance of species in reaction
  * definitions:
- *
- * @li The ability of a species to appear as a reactant or product of any
+ * <ul>
+ * <li> The ability of a species to appear as a reactant or product of any
  * reaction in a model is governed by certain flags in that species'
  * definition; see the definition of Species for more information.
  *
- * @li Any species appearing in the mathematical formula of the subelement
+ * <li> Any species appearing in the mathematical formula of the subelement
  * "kineticLaw" (described below) of a Reaction must be declared in at
  * least one of that Reaction's lists of reactants, products, and/or
  * modifiers.  Put another way, it is an error for a reaction's kinetic law
  * formula to refer to species that have not been declared for that
  * reaction.
  *
- * @li A reaction definition can contain an empty list of reactants
+ * <li> A reaction definition can contain an empty list of reactants
  * <em>or</em> an empty list of products, but it must have at least one
  * reactant or product; in other words, a reaction without any reactant or
  * product species is not permitted.  (This restriction does not apply to
  * modifier species, which remain optional in all cases.)
- *
+ * </ul>
+ * 
  * A reaction can contain up to one KineticLaw object in a subelement named
  * "kineticLaw".  It defines the speed at which the process defined by the
  * reaction takes place.  The description of KineticLaw provides more
@@ -237,10 +238,11 @@ public:
   /**
    * Initializes certain attributes of this Reaction object to default
    * values.
-   *
-   * @li Sets the "reversible" attribute to @c true
-   * @li (SBML Level 1 only) Sets the "fast" attribute to @c false
-   *
+   * <ul>
+   * <li> Sets the "reversible" attribute to @c true
+   * <li> (SBML Level 1 only) Sets the "fast" attribute to @c false
+   * </ul>
+   * 
    * @warning The "fast" attribute must be used with care.  SBML
    * definitions before SBML Level 2 Version 2 incorrectly indicated that
    * software tools could ignore this attribute if they did not implement

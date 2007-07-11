@@ -44,7 +44,7 @@
  * An important question is whether an event can fire prior to, or at,
  * initial simulation time, that is <em>t &lt; 0</em>.  The answer is no:
  * an event can only be triggered immediately after initial simulation time
- * i.e., <em>t > 0</em>.
+ * i.e., <em>t &gt; 0</em>.
  *
  * @see Event, Delay, EventAssignment.
  */
