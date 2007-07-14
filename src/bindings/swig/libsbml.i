@@ -144,6 +144,7 @@
 %newobject RDFAnnotationParser::createAnnotation;
 %newobject RDFAnnotationParser::createRDFDescription;
 %newobject RDFAnnotationParser::createCVTerms;
+%newobject XMLNode::convertStringToXMLNode;
 
 /**
  * In the wrapped languages, these methods will appear as:
