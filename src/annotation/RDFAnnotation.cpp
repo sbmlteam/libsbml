@@ -102,7 +102,7 @@ RDFAnnotationParser::deleteRDFAnnotation(const XMLNode * annotation)
   const string&  name = annotation->getName();
   unsigned int children = annotation->getNumChildren();
   unsigned int n = 0;
-  XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
+  XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), annotation->getAttributes(),annotation->getNamespaces());
   XMLNode * newAnnotation = NULL;
 
   if (name != "annotation")
