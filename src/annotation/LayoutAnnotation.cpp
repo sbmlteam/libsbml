@@ -110,7 +110,7 @@ XMLNode* deleteLayoutAnnotation(XMLNode* pAnnotation)
 {
   const string&  name = pAnnotation->getName();
   unsigned int n = 0;
-  XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
+  XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), pAnnotation->getAttributes(),pAnnotation->getNamespaces());
   XMLNode *newAnnotation = new XMLNode(ann_token);
 
   // need to find each annotation and remove it if it is an RDF
