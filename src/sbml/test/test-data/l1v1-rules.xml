@@ -17,8 +17,8 @@
       <parameter name="k2" value="1000"/>
       <parameter name="k3" value="3000"/>
       <parameter name="k4" value="4.5"/>
-      <parameter name="k"/>
-      <parameter name="t"/>
+      <parameter name="k"  value="1.5"/>
+      <parameter name="t"  value="1.5"/>
    </listOfParameters>
     <listOfRules>
       <parameterRule name="t" formula="s1 + s2"/>
