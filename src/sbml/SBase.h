@@ -447,6 +447,19 @@ public:
 
 
   /**
+   * Returns the content of the "notes" subelement of this object by string.
+   *
+   * The notes content will be in XML form, but libSBML does not provide an
+   * object model specifically for the content of notes.  Callers will need
+   * to traverse the XML tree structure using the facilities available on
+   * XMLNode and related objects.
+   *
+   * @return the content of the "notes" subelement of this SBML object.
+   */
+  std::string getNotesString ();
+
+
+  /**
    * Returns the content of the "annotation" subelement of this object.
    *
    * Annotations will be in XML form.  LibSBML provides an object model and
@@ -459,6 +472,22 @@ public:
    * @see ModelHistory, CVTerm, RDFAnnotation.
    */
   XMLNode* getAnnotation ();
+
+
+  /**
+   * Returns the content of the "annotation" subelement of this object by.
+   * string.
+   *
+   * Annotations will be in XML form.  LibSBML provides an object model and
+   * related interfaces for certain specific kinds of annotations, namely
+   * model history information and RDF content.  See the relevant object
+   * classes for more information about the facilities available.
+   *
+   * @return the annotation string of this SBML object.
+   *
+   * @see ModelHistory, CVTerm, RDFAnnotation.
+   */
+  std::string getAnnotationString ();
 
 
   /**
@@ -647,7 +676,26 @@ public:
    *
    * @see appendAnnotation().
    */
-  void setAnnotation (const XMLNode* annotation);
+  virtual void setAnnotation (const XMLNode* annotation);
+
+
+  /**
+   * Sets the value of the "annotation" subelement of this SBML object to a
+   * copy of @p annotation.
+   *
+   * Any existing content of the "annotation" subelement is discarded.
+   * Unless you have taken steps to first copy and reconstitute any
+   * existing annotations into the @p annotation that is about to be
+   * assigned, it is likely that performing such wholesale replacement is
+   * unfriendly towards other software applications whose annotations are
+   * discarded.  An alternative may be to use appendAnnotation().
+   *
+   * @param annotation an XML string that is to be used as the content
+   * of the "annotation" subelement of this object
+   *
+   * @see appendAnnotation().
+   */
+  virtual void setAnnotation (const std::string& annotation);
 
 
   /**
@@ -663,7 +711,23 @@ public:
    *
    * @see setAnnotation().
    */
-  void appendAnnotation (const XMLNode* annotation);
+  virtual void appendAnnotation (const XMLNode* annotation);
+
+
+  /**
+   * Appends annotation content to any existing content in the "annotation"
+   * subelement of this object.
+   *
+   * The content in @p annotation is copied.  Unlike setAnnotation(), this
+   * method allows other annotations to be preserved when an application
+   * adds its own data.
+   *
+   * @param annotation an XML string that is to be copied and appended
+   * to the content of the "annotation" subelement of this object
+   *
+   * @see setAnnotation().
+   */
+  virtual void appendAnnotation (const std::string& annotation);
 
 
   /**
@@ -681,6 +745,20 @@ public:
 
 
   /**
+   * Sets the value of the "notes" subelement of this SBML object to a copy
+   * of @p notes.
+   *
+   * Any existing content of the "notes" subelement is discarded.
+   *
+   * @param notes an XML string that is to be used as the content of the
+   * "notes" subelement of this object
+   *
+   * @see appendNotes()
+   */
+  void setNotes(const std::string& notes);
+
+
+  /**
    * Appends annotation content to any existing content in the "annotation"
    * subelement of this object.
    *
@@ -692,6 +770,20 @@ public:
    * @see setNotes()
    */
   void appendNotes(const XMLNode* notes);
+
+
+  /**
+   * Appends annotation content to any existing content in the "annotation"
+   * subelement of this object.
+   *
+   * The content in @p notes is copied.
+   *
+   * @param notes an XML string that is to appended to the content of
+   * the "notes" subelement of this object
+   *
+   * @see setNotes()
+   */
+  void appendNotes(const std::string& notes);
 
 
   /**
@@ -991,6 +1083,19 @@ protected:
 
 
   /**
+   * Synchronizes the annotation of this SBML object.
+   *
+   * Annotation element (XMLNode* mAnnotation) is synchronized with the 
+   * current CVTerm objects (List* mCVTerm).
+   * Currently, this method is called in getAnnotation, isSetAnnotation,
+   * and writeElements methods.
+   * 
+   */
+
+  virtual void syncAnnotation();
+
+
+  /**
    * Checks that SBML element has been read in the proper order.  If object
    * is not in the expected position, an error is logged.
    */
@@ -1178,8 +1283,18 @@ SBase_getNotes (SBase_t *sb);
 
 
 LIBSBML_EXTERN
+char*
+SBase_getNotesString (SBase_t *sb);
+
+
+LIBSBML_EXTERN
 XMLNode_t *
 SBase_getAnnotation (SBase_t *sb);
+
+
+LIBSBML_EXTERN
+char*
+SBase_getAnnotationString (SBase_t *sb);
 
 
 LIBSBML_EXTERN
@@ -1239,7 +1354,37 @@ SBase_setNotes (SBase_t *sb, XMLNode_t *notes);
 
 LIBSBML_EXTERN
 void
+SBase_setNotesString (SBase_t *sb, char *notes);
+
+
+LIBSBML_EXTERN
+void
+SBase_appendNotes (SBase_t *sb, XMLNode_t *notes);
+
+
+LIBSBML_EXTERN
+void
+SBase_appendNotesString (SBase_t *sb, char *notes);
+
+
+LIBSBML_EXTERN
+void
 SBase_setAnnotation (SBase_t *sb, XMLNode_t *annotation);
+
+
+LIBSBML_EXTERN
+void
+SBase_setAnnotationString (SBase_t *sb, char *annotation);
+
+
+LIBSBML_EXTERN
+void
+SBase_appendAnnotation (SBase_t *sb, XMLNode_t *annotation);
+
+
+LIBSBML_EXTERN
+void
+SBase_appendAnnotationString (SBase_t *sb, char *annotation);
 
 
 LIBSBML_EXTERN

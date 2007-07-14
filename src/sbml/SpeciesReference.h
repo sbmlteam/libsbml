@@ -627,6 +627,75 @@ public:
   void unsetStoichiometryMath ();
 
 
+  /**
+   * Sets the value of the "annotation" subelement of this SBML object to a
+   * copy of @p annotation.
+   *
+   * Any existing content of the "annotation" subelement is discarded.
+   * Unless you have taken steps to first copy and reconstitute any
+   * existing annotations into the @p annotation that is about to be
+   * assigned, it is likely that performing such wholesale replacement is
+   * unfriendly towards other software applications whose annotations are
+   * discarded.  An alternative may be to use appendAnnotation().
+   *
+   * @param annotation an XML structure that is to be used as the content
+   * of the "annotation" subelement of this object
+   *
+   * @see appendAnnotation().
+   */
+  virtual void setAnnotation (const XMLNode* annotation);
+
+
+  /**
+   * Sets the value of the "annotation" subelement of this SBML object to a
+   * copy of @p annotation.
+   *
+   * Any existing content of the "annotation" subelement is discarded.
+   * Unless you have taken steps to first copy and reconstitute any
+   * existing annotations into the @p annotation that is about to be
+   * assigned, it is likely that performing such wholesale replacement is
+   * unfriendly towards other software applications whose annotations are
+   * discarded.  An alternative may be to use appendAnnotation().
+   *
+   * @param annotation an XML string that is to be used as the content
+   * of the "annotation" subelement of this object
+   *
+   * @see appendAnnotation().
+   */
+  virtual void setAnnotation (const std::string& annotation);
+
+
+  /**
+   * Appends annotation content to any existing content in the "annotation"
+   * subelement of this object.
+   *
+   * The content in @p annotation is copied.  Unlike setAnnotation(), this
+   * method allows other annotations to be preserved when an application
+   * adds its own data.
+   *
+   * @param annotation an XML structure that is to be copied and appended
+   * to the content of the "annotation" subelement of this object
+   *
+   * @see setAnnotation().
+   */
+  virtual void appendAnnotation (const XMLNode* annotation);
+
+
+  /**
+   * Appends annotation content to any existing content in the "annotation"
+   * subelement of this object.
+   *
+   * The content in @p annotation is copied.  Unlike setAnnotation(), this
+   * method allows other annotations to be preserved when an application
+   * adds its own data.
+   *
+   * @param annotation an XML string that is to be copied and appended
+   * to the content of the "annotation" subelement of this object
+   *
+   * @see setAnnotation().
+   */
+  virtual void appendAnnotation (const std::string& annotation);
+
 
   /**
    * Returns the libSBML type code for this %SBML object.
@@ -694,6 +763,17 @@ protected:
    * of this method as well.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
+
+  /**
+   *
+   * Synchronizes the annotation of this SBML object.
+   *
+   * Annotation element (XMLNode* mAnnotation) is synchronized with the
+   * current CVTerm objects (List* mCVTerm) and id string (std::string mId)
+   * Currently, this method is called in getAnnotation, isSetAnnotation,
+   * and writeElements methods.
+   */
+  virtual void syncAnnotation();
 
 
   double    mStoichiometry;

@@ -470,6 +470,114 @@ SpeciesReference::getTypeCode () const
 
 
 /**
+ * Sets the annotation of this SBML object to a copy of annotation.
+ */
+void
+SpeciesReference::setAnnotation (const XMLNode* annotation)
+{
+  SBase::setAnnotation(annotation);
+
+#ifdef USE_LAYOUT
+  if(this->getLevel()==1 || (this->getLevel()==2 && this->getVersion()==1))
+  {
+    // clear existing SBase::mID 
+    setId("");
+
+    if(mAnnotation)
+    {
+      // parse mAnnotation (if any) and set mId 
+      parseSpeciesReferenceAnnotation(mAnnotation,*this);
+    }
+  }
+#endif // USE_LAYOUT
+}
+
+
+/**
+ * Sets the annotation (by string) of this SBML object to a copy of annotation.
+ */
+void
+SpeciesReference::setAnnotation (const std::string& annotation)
+{
+  if(annotation.empty())
+  {
+    unsetAnnotation();
+    return;
+  }
+
+  XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+  XMLNode* annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns);
+  if(annt_xmln)
+  {
+    setAnnotation(annt_xmln);
+    delete annt_xmln;
+  }
+}
+
+
+/**
+ * Appends annotation to the existing annotations.
+ * This allows other annotations to be preserved whilst
+ * adding additional information.
+ */
+void
+SpeciesReference::appendAnnotation (const XMLNode* annotation)
+{
+  if(!annotation) return;
+
+  XMLNode* new_annotation = NULL;
+
+#ifdef USE_LAYOUT
+  if(this->getLevel()==1 || (this->getLevel()==2 && this->getVersion()==1))
+  {
+    XMLNode* new_annotation = NULL;
+    const string&  name = annotation->getName();
+
+    // check for annotation tags and add if necessary 
+    if (name != "annotation")
+    {
+      XMLToken ann_t = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
+      new_annotation = new XMLNode(ann_t);
+      new_annotation->addChild(*annotation);
+    }
+    else
+    {
+      new_annotation = annotation->clone();
+    }
+
+    // parse new_annotation and reset SBase::mId 
+    parseSpeciesReferenceAnnotation(new_annotation,*this);
+
+    // delete mId from new_annotation 
+//    XMLNode* tmp_annotation=deleteLayoutIdAnnotation(new_annotation);
+//    delete new_annotation;
+//    new_annotation = tmp_annotation;
+  }
+#endif // USE_LAYOUT
+  SBase::appendAnnotation(new_annotation);
+
+  delete new_annotation;
+}
+
+/**
+ * Appends annotation (by string) to the existing annotations.
+ * This allows other annotations to be preserved whilst
+ * adding additional information.
+ */
+void
+SpeciesReference::appendAnnotation (const std::string& annotation)
+{
+  XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+  XMLNode* annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns);
+  if(annt_xmln)
+  {
+    appendAnnotation(annt_xmln);
+    delete annt_xmln;
+  }
+}
+
+
+/**
  * @return the name of this element ie "speciesReference".
  
  */
@@ -613,7 +721,7 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
 
   if (name == "annotation")
   {
-    XMLNode* new_annotation = NULL;
+//    XMLNode* new_annotation = NULL;
     /* if annotation already exists then it is an error 
      */
     if (mAnnotation)
@@ -633,9 +741,10 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
     }
     mCVTerms = new List();
     RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
-    new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
-    delete mAnnotation;
-    mAnnotation = new_annotation;
+//    new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
+//    delete mAnnotation;
+//    mAnnotation = new_annotation;
+
 #ifdef USE_LAYOUT
     // only parse the id annotation if it is Level 1 or Level 2 Version 1
     // everything after Level 2 Version 1 has ids.
@@ -643,9 +752,10 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
     {
       parseSpeciesReferenceAnnotation(mAnnotation,*this);
       checkAnnotation();
-      new_annotation=deleteLayoutIdAnnotation(mAnnotation);
-      delete mAnnotation;
-      mAnnotation = new_annotation;
+
+//      new_annotation=deleteLayoutIdAnnotation(mAnnotation);
+//      delete mAnnotation;
+//      mAnnotation = new_annotation;
     }
 #endif // USE_LAYOUT
     read = true;
@@ -732,7 +842,11 @@ SpeciesReference::writeAttributes (XMLOutputStream& stream) const
 void
 SpeciesReference::writeElements (XMLOutputStream& stream) const
 {
-  SBase::writeElements(stream);
+  if ( mNotes ) stream << *mNotes;
+  SpeciesReference * sr = const_cast <SpeciesReference *> (this);
+  sr->syncAnnotation();
+  if ( mAnnotation ) stream << *mAnnotation;
+
   if (getLevel() == 2)
   {
     if (mStoichiometryMath || mDenominator != 1)
@@ -750,26 +864,57 @@ SpeciesReference::writeElements (XMLOutputStream& stream) const
         writeMathML(&node, stream);
         stream.endElement("stoichiometryMath");
       }
-#ifdef USE_LAYOUT
-    if(this->getLevel()==1 || (this->getLevel()==2 && this->getVersion()==1))
-    {
-      if (this->isSetId())
-      {
-        SpeciesReference * sr = const_cast <SpeciesReference *> (this);
-        XMLNode * idAnnotation = parseLayoutId(this);
-        if(!mAnnotation)
-        {
-          if (idAnnotation) static_cast <SBase *> (sr)->setAnnotation(idAnnotation);
-        }
-        else
-        {
-          if (idAnnotation) static_cast <SBase *> (sr)->appendAnnotation(idAnnotation);
-        }
-      }
-    }
-#endif // USE_LAYOUT    
     }
   }
+
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/**
+ * Synchronizes the annotation of this SBML object.
+ */
+void
+SpeciesReference::syncAnnotation ()
+{
+  SBase::syncAnnotation();
+
+#ifdef USE_LAYOUT
+  if (getLevel() == 2)
+  {
+    if(this->getLevel()==1 || (this->getLevel()==2 && this->getVersion()==1))
+    {
+      if(mAnnotation)
+      {
+        XMLNode* new_annotation = deleteLayoutIdAnnotation(mAnnotation);
+        delete mAnnotation;
+        mAnnotation = new_annotation;
+      }
+
+      if (this->isSetId())
+      {
+        XMLNode * idAnnotation = parseLayoutId(this);
+        if (idAnnotation)
+        {
+          if (!mAnnotation)
+          {
+            mAnnotation = idAnnotation;
+          }
+          else
+          {
+            if (mAnnotation->isEnd())
+            {
+              mAnnotation->unsetEnd();
+            }
+            mAnnotation->addChild(idAnnotation->getChild(0));
+          }
+        }
+
+      }
+    }
+  }
+#endif // USE_LAYOUT
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -860,7 +1005,7 @@ ModifierSpeciesReference::readOtherXML (XMLInputStream& stream)
 
   if (name == "annotation")
   {
-    XMLNode* new_annotation = NULL;
+//    XMLNode* new_annotation = NULL;
     /* if annotation already exists then it is an error 
      */
     if (mAnnotation)
@@ -879,16 +1024,16 @@ ModifierSpeciesReference::readOtherXML (XMLInputStream& stream)
     }
     mCVTerms = new List();
     RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
-    new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
-    delete mAnnotation;
-    mAnnotation = new_annotation;
+//    new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
+//    delete mAnnotation;
+//    mAnnotation = new_annotation;
     
     if(this->getLevel()==1 || (this->getLevel()==2 && this->getVersion()==1))
     {
       parseSpeciesReferenceAnnotation(mAnnotation,*this);
-      new_annotation=deleteLayoutIdAnnotation(mAnnotation);
-      delete mAnnotation;
-      mAnnotation = new_annotation;
+//      new_annotation=deleteLayoutIdAnnotation(mAnnotation);
+//      delete mAnnotation;
+//      mAnnotation = new_annotation;
     }
     read=true;
   }

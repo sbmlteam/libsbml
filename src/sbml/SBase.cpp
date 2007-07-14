@@ -324,13 +324,36 @@ SBase::getNotes()
   return mNotes;
 }
 
+
+/**
+ * @return the notes of this SBML object by string.
+ */
+std::string
+SBase::getNotesString() 
+{
+  return XMLNode::convertXMLNodeToString(mNotes);
+}
+
+
 /**
  * @return the annotation of this SBML object.
  */
 XMLNode* 
 SBase::getAnnotation ()
 {
+  syncAnnotation();
+
   return mAnnotation;
+}
+
+
+/**
+ * @return the annotation of this SBML object by string.
+ */
+std::string
+SBase::getAnnotationString ()
+{
+  return XMLNode::convertXMLNodeToString(getAnnotation());
 }
 
 
@@ -437,6 +460,7 @@ SBase::isSetNotes () const
 bool
 SBase::isSetAnnotation () const
 {
+  const_cast <SBase *> (this)->syncAnnotation();
   return (mAnnotation != 0);
 }
 
@@ -482,17 +506,73 @@ SBase::setName (const std::string& name)
   else mName = name;
 }
 
-
 /**
  * Sets the annotation of this SBML object to a copy of annotation.
  */
 void 
 SBase::setAnnotation (const XMLNode* annotation)
 {
-  if (mAnnotation == annotation) return;
+  if ( (mAnnotation != annotation) || !annotation)
+  { 
+    delete mAnnotation;
+    if (annotation)
+    {
+      // check for annotation tags and add if necessary
+      const string&  name = annotation->getName();
+      if (name != "annotation")
+      {
+        XMLToken ann_t = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
+        mAnnotation = new XMLNode(ann_t);
+        mAnnotation->addChild(*annotation);
+      }
+      else
+      {
+        mAnnotation = annotation->clone();
+      }
+    }
+    else
+    {
+      // unset annotation if annotation is NULL, 
+      mAnnotation = 0;
+    }
+  }
 
-  delete mAnnotation;
-  mAnnotation = (annotation != 0) ? static_cast<XMLNode*>( annotation->clone() ) : 0;
+  if (mCVTerms)
+  {
+    // delete existing mCVTerms (if any)
+    unsigned int size = mCVTerms->getSize();
+    while (size--) delete static_cast<CVTerm*>( mCVTerms->remove(0) );
+    delete mCVTerms;
+    mCVTerms = NULL;
+  }
+
+  if(mAnnotation)
+  {
+    // parse mAnnotation (if any) and set mCVTerms 
+    mCVTerms = new List();
+    RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
+  }
+}
+
+/**
+ * Sets the annotation (by string) of this SBML object to a copy of annotation.
+ */
+void
+SBase::setAnnotation (const std::string& annotation)
+{
+  if(annotation.empty()) 
+  {
+    unsetAnnotation();
+    return;
+  }
+
+  XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+  XMLNode* annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns); 
+  if(annt_xmln)
+  {
+    setAnnotation(annt_xmln);
+    delete annt_xmln;
+  }
 }
 
 
@@ -504,46 +584,71 @@ SBase::setAnnotation (const XMLNode* annotation)
 void 
 SBase::appendAnnotation (const XMLNode* annotation)
 {
+  if(!annotation) return;
+
+  XMLNode* new_annotation = NULL;
   const string&  name = annotation->getName();
+
+  // check for annotation tags and add if necessary 
+  if (name != "annotation")
+  {
+    XMLToken ann_t = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
+    new_annotation = new XMLNode(ann_t);
+    new_annotation->addChild(*annotation);
+  }
+  else
+  {
+    new_annotation = annotation->clone();
+  }
+
+  // parse new_annotation and add mCVTerms (if any) 
+  RDFAnnotationParser::parseRDFAnnotation(new_annotation,mCVTerms);
+
+  // delete RDFAnnotation (CVTerm and ModelHistory) from new_annotation 
+//  XMLNode* tmp_annotation = RDFAnnotationParser::deleteRDFAnnotation(new_annotation);
+//  delete new_annotation;
+//  new_annotation = tmp_annotation;
 
   if (mAnnotation != 0)
   {
-    /* if mAnnotation is just <annotation/> need to tell
-     * it to no longer be an end
-     */
+    // if mAnnotation is just <annotation/> need to tell
+    // it to no longer be an end
     if (mAnnotation->isEnd())
     {
       mAnnotation->unsetEnd();
     }
 
-    /* check for annotation tags and remove */
-
-    if (name == "annotation")
+    for(unsigned int i=0; i < new_annotation->getNumChildren(); i++)
     {
-      mAnnotation->addChild(annotation->getChild(0));
-    }
-    else
-    {
-      mAnnotation->addChild(*annotation);
+      mAnnotation->addChild(new_annotation->getChild(i));
     }
   }
   else
   {
-    /* check for annotation tags and add if necessary */
+    setAnnotation(new_annotation);
+  }
 
-    if (name == "annotation")
-    {
-      setAnnotation(annotation);
-    }
-    else
-    {
-      XMLToken ann_t = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
-      XMLNode * ann = new XMLNode(ann_t);
-      ann->addChild(*annotation);
-      setAnnotation(ann);
-    }
+  delete new_annotation;
+}
+
+/**
+ * Appends annotation (by string) to the existing annotations.
+ * This allows other annotations to be preserved whilst
+ * adding additional information.
+ */
+void
+SBase::appendAnnotation (const std::string& annotation)
+{
+  XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+  XMLNode* annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns);
+  if(annt_xmln)
+  {
+    appendAnnotation(annt_xmln);
+    delete annt_xmln;
   }
 }
+
+
 
 /**
  * Sets the notes of this SBML object to a copy of notes.
@@ -557,6 +662,26 @@ SBase::setNotes(const XMLNode* notes)
   mNotes = (notes != 0) ? static_cast<XMLNode*>( notes->clone() ) : 0;
 }
 
+/**
+ * Sets the notes (by std::string) of this SBML object to a copy of notes.
+ */
+void
+SBase::setNotes(const std::string& notes)
+{
+  if (notes.empty())
+  {
+    unsetNotes();
+    return;
+  }
+
+  XMLNode* notes_xmln = XMLNode::convertStringToXMLNode(notes);
+  if(notes_xmln)
+  {
+    setNotes(notes_xmln);
+    delete notes_xmln;
+  }
+}
+
 
 /**
  * Appends notes to the existing notes.
@@ -566,6 +691,8 @@ SBase::setNotes(const XMLNode* notes)
 void 
 SBase::appendNotes(const XMLNode* notes)
 {
+  if(!notes) return;
+
   const string&  name = notes->getName();
 
   if (mNotes != 0)
@@ -574,7 +701,11 @@ SBase::appendNotes(const XMLNode* notes)
 
     if (name == "notes")
     {
-      mNotes->addChild(notes->getChild(0));
+      int num_children = notes->getNumChildren();
+      for(int i=0; i < num_children; i++)
+      {
+        mNotes->addChild(notes->getChild(i));
+      }
     }
     else
     {
@@ -598,6 +729,22 @@ SBase::appendNotes(const XMLNode* notes)
     }
   }
 
+}
+
+/**
+ * Appends notes (by string) to the existing notes.
+ * This allows other notes to be preserved whilst
+ * adding additional information.
+ */
+void
+SBase::appendNotes(const std::string& notes)
+{
+  XMLNode* notes_xmln = XMLNode::convertStringToXMLNode(notes);
+  if(notes_xmln)
+  {
+    appendNotes(notes_xmln);
+    delete notes_xmln;
+  }
 }
 
 
@@ -668,8 +815,8 @@ SBase::unsetNotes ()
 void
 SBase::unsetAnnotation ()
 {
-  delete mAnnotation;
-  mAnnotation = 0;
+  XMLNode* empty = NULL;
+  setAnnotation(empty);
 }
 
 
@@ -959,26 +1106,11 @@ SBase::writeElements (XMLOutputStream& stream) const
   if ( mNotes      ) stream << *mNotes;
 
   /*
-   * in order to only save information once RDF annotations are stripped
-   * from the saved annotation and then must be replaced
-   *
    * NOTE: CVTerms on a model have already been dealt with
    */
 
-  if (this->getTypeCode() != SBML_MODEL)
-  {
-    XMLNode * cvTerms = RDFAnnotationParser::parseCVTerms(this);
-    if (!mAnnotation)
-    {
-      if (cvTerms)  const_cast <SBase *> (this)->setAnnotation(cvTerms);
-    }
-    else
-    {
-      if (cvTerms)  const_cast <SBase *> (this)->appendAnnotation(cvTerms);
-    }
-  }
-
-  if ( mAnnotation ) stream << *mAnnotation;
+  const_cast <SBase *> (this)->syncAnnotation();
+  if (mAnnotation) stream << *mAnnotation;
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -1026,7 +1158,7 @@ SBase::readAnnotation (XMLInputStream& stream)
 
   if (name == "annotation")
   {
-    XMLNode* new_annotation = NULL;
+//    XMLNode* new_annotation = NULL;
     // If this is a level 1 document then annotations are not allowed on
     // the sbml container
     if (getLevel() == 1 && getTypeCode() == SBML_DOCUMENT)
@@ -1055,10 +1187,9 @@ SBase::readAnnotation (XMLInputStream& stream)
     }
     mCVTerms = new List();
     RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
-    new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
-    delete mAnnotation;
-    mAnnotation = new_annotation;
-
+//    new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
+//    delete mAnnotation;
+//    mAnnotation = new_annotation;
     return true;
   }
 
@@ -1196,6 +1327,50 @@ SBase::writeAttributes (XMLOutputStream& stream) const
   if ( getLevel() == 2 && !mMetaId.empty() )
   {
     stream.writeAttribute("metaid", mMetaId);
+  }
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/**
+ * Synchronizes the annotation of this SBML object. 
+ */
+void
+SBase::syncAnnotation ()
+{
+  if (this->getTypeCode() != SBML_MODEL)
+  {
+    if(mAnnotation)
+    {
+      XMLNode* new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
+      if(!new_annotation)
+      {
+         XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
+         new_annotation = new XMLNode(ann_token);
+         new_annotation->addChild(*mAnnotation);
+      }
+      delete mAnnotation;
+      mAnnotation = new_annotation;
+    }
+  }
+
+  XMLNode * cvTerms = RDFAnnotationParser::parseCVTerms(this);
+
+  if (cvTerms)
+  {
+    if (!mAnnotation)
+    {
+      mAnnotation = cvTerms;
+    }
+    else
+    {
+      if (mAnnotation->isEnd())
+      {
+        mAnnotation->unsetEnd();
+      }
+      mAnnotation->addChild(cvTerms->getChild(0));
+    }
   }
 }
 /** @endcond doxygen-libsbml-internal */
@@ -1484,9 +1659,6 @@ SBase::checkIdSyntax()
 void
 SBase::checkAnnotation()
 {
-  // this didnt apply before l2v2
-  if (getLevel() == 1 || getVersion() == 1) return;
-
   unsigned int nNodes = 0;
   unsigned int match = 0;
   int n = 0;
@@ -3374,6 +3546,23 @@ SBase_getNotes (SBase_t *sb)
 
 
 /**
+ * Returns the notes string from given SBML object.
+ * The string is owned by the caller and should be freed
+ * (with free()) when no longer needed.  
+ *
+ * @param sb the given SBML object.
+ *
+ * @return the string (char*) representing the notes from this object.
+ */
+LIBSBML_EXTERN
+char*
+SBase_getNotesString (SBase_t *sb)
+{
+  return sb->isSetNotes() ? safe_strdup(sb->getNotesString().c_str()) : NULL;
+}
+
+
+/**
  * Returns the annotation from given SBML object.
  *
  * @param sb the given SBML object.
@@ -3385,6 +3574,23 @@ XMLNode_t *
 SBase_getAnnotation (SBase_t *sb)
 {
   return sb->getAnnotation();
+}
+
+
+/**
+ * Returns the annotation string from given SBML object.
+ * The string is owned by the caller and should be freed
+ * (with free()) when no longer needed.
+ *
+ * @param sb the given SBML object.
+ *
+ * @return the string (char*) representing the annotation from this object.
+ */
+LIBSBML_EXTERN
+char*
+SBase_getAnnotationString (SBase_t *sb)
+{
+  return sb->isSetAnnotation() ? safe_strdup(sb->getAnnotationString().c_str()) : NULL;
 }
 
 
@@ -3603,6 +3809,58 @@ SBase_setNotes (SBase_t *sb, XMLNode_t *notes)
 
 
 /**
+ * Sets the notes for the given SBML object.
+ *
+ * @param sb the given SBML object.
+ * @param notes the string (const char*) respresenting the notes.
+ */
+LIBSBML_EXTERN
+void
+SBase_setNotesString (SBase_t *sb, char *notes)
+{
+  if(notes == NULL)
+  {
+    sb->unsetNotes();
+  }
+  else
+  {
+    sb->setNotes(notes);
+  }
+}
+
+
+/**
+ * Appends the notes for the given SBML object.
+ *
+ * @param sb the given SBML object.
+ * @param notes the XMLNode_t structure respresenting the notes.
+ */
+LIBSBML_EXTERN
+void
+SBase_appendNotes (SBase_t *sb, XMLNode_t *notes)
+{
+  sb->appendNotes(notes);
+}
+
+
+/**
+ * Appends the notes for the given SBML object.
+ *
+ * @param sb the given SBML object.
+ * @param notes the string (const char*) respresenting the notes.
+ */
+LIBSBML_EXTERN
+void
+SBase_appendNotesString (SBase_t *sb, char *notes)
+{
+  if(notes != NULL)
+  {
+    sb->appendNotes(notes);
+  }
+}
+
+
+/**
  * Sets the annotation for the given SBML object.
  *
  * @param sb the given SBML object.
@@ -3613,6 +3871,58 @@ void
 SBase_setAnnotation (SBase_t *sb, XMLNode_t *annotation)
 {
   sb->setAnnotation(annotation);
+}
+
+
+/**
+ * Sets the annotation for the given SBML object.
+ *
+ * @param sb the given SBML object.
+ * @param annotation the string (const char*) respresenting the annotation.
+ */
+LIBSBML_EXTERN
+void
+SBase_setAnnotationString (SBase_t *sb, char *annotation)
+{
+  if(annotation == NULL)
+  {
+    sb->unsetAnnotation();
+  }
+  else
+  {
+    sb->setAnnotation(annotation);
+  }
+}
+
+
+/**
+ * Appends the annotation for the given SBML object.
+ *
+ * @param sb the given SBML object.
+ * @param annotation the XMLNode_t structure respresenting the annotation.
+ */
+LIBSBML_EXTERN
+void
+SBase_appendAnnotation (SBase_t *sb, XMLNode_t *annotation)
+{
+  sb->appendAnnotation(annotation);
+}
+
+
+/**
+ * Appends the annotation for the given SBML object.
+ *
+ * @param sb the given SBML object.
+ * @param annotation the string (const char*) respresenting the annotation.
+ */
+LIBSBML_EXTERN
+void
+SBase_appendAnnotationString (SBase_t *sb, char *annotation)
+{
+  if(annotation != NULL)
+  {
+    sb->appendAnnotation(annotation);
+  }
 }
 
 

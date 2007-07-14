@@ -634,6 +634,203 @@ Model::createEventAssignment ()
 
 
 /**
+ * Sets the annotation of this SBML object to a copy of annotation.
+ */
+void
+Model::setAnnotation (const XMLNode* annotation)
+{
+  SBase::setAnnotation(annotation);
+
+  // delete existing mHistory 
+  delete mHistory;
+  mHistory = NULL;
+
+  if(mAnnotation)
+  {
+    // parse mAnnotation (if any) and set mHistory
+    mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation);
+  }
+#ifdef USE_LAYOUT
+  // delete existing mLayouts 
+  for(unsigned int i=0; i < mLayouts.size(); i++)
+  {
+    Layout* lo = static_cast<Layout*>(mLayouts.remove(0));
+    delete lo;
+  }
+
+  if(mAnnotation)
+  {
+    // parse mAnnotation (if any) and set mLayouts 
+    parseLayoutAnnotation(mAnnotation,mLayouts);
+  }
+#endif // USE_LAYOUT
+}
+
+
+/**
+ * Sets the annotation (by string) of this SBML object to a copy of annotation.
+ */
+void
+Model::setAnnotation (const std::string& annotation)
+{
+  if(annotation.empty())
+  {
+    unsetAnnotation();
+    return;
+  }
+
+  XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+  XMLNode* annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns);
+  if(annt_xmln)
+  {
+    setAnnotation(annt_xmln);
+    delete annt_xmln;
+  }
+}
+
+
+/**
+ * Appends annotation to the existing annotations.
+ * This allows other annotations to be preserved whilst
+ * adding additional information.
+ */
+void
+Model::appendAnnotation (const XMLNode* annotation)
+{
+  if(!annotation) return;
+
+  XMLNode* new_annotation = NULL;
+  const string&  name = annotation->getName();
+
+  // check for annotation tags and add if necessary
+  if (name != "annotation")
+  {
+    XMLToken ann_t = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
+    new_annotation = new XMLNode(ann_t);
+    new_annotation->addChild(*annotation);
+  }
+  else
+  {
+    new_annotation = annotation->clone();
+  }
+
+  // parse new_annotation and reset mHistory 
+  ModelHistory* new_mhistory = RDFAnnotationParser::parseRDFAnnotation(new_annotation);
+  if(new_mhistory)
+  {
+    delete mHistory;
+    mHistory = new_mhistory;
+  }
+
+#ifdef USE_LAYOUT
+  // parse new_annotation and add mLayouts 
+  parseLayoutAnnotation(new_annotation,mLayouts);
+
+  // delete annotation for layout from new_annotation 
+  //XMLNode* tmp_annotation = deleteLayoutAnnotation(new_annotation);
+  //delete new_annotation;
+  //new_annotation = tmp_annotation;
+#endif // USE_LAYOUT
+
+  SBase::appendAnnotation(new_annotation);
+
+  delete new_annotation;
+}
+
+
+/**
+ * Appends annotation (by string) to the existing annotations.
+ * This allows other annotations to be preserved whilst
+ * adding additional information.
+ */
+void
+Model::appendAnnotation (const std::string& annotation)
+{
+  XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+  XMLNode* annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns);
+  if(annt_xmln)
+  {
+    appendAnnotation(annt_xmln);
+    delete annt_xmln;
+  }
+}
+
+
+/** @cond doxygen-libsbml-internal */
+/**
+ * Synchronizes the annotation of this SBML object.
+ */
+void
+Model::syncAnnotation ()
+{
+  SBase::syncAnnotation();
+
+  XMLNode * history = RDFAnnotationParser::parseModelHistory(this);
+
+  if(mAnnotation)
+  {
+    XMLNode* new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
+    if(!new_annotation)
+    {
+      XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
+      new_annotation = new XMLNode(ann_token);
+      new_annotation->addChild(*mAnnotation);
+    }
+    delete mAnnotation;
+    mAnnotation = new_annotation;
+  }
+
+  if (history)
+  {
+    if (!mAnnotation)
+    {
+      mAnnotation = history;
+    }
+    else
+    {
+      if (mAnnotation->isEnd())
+      {
+        mAnnotation->unsetEnd();
+      }
+      mAnnotation->addChild(history->getChild(0));
+    }
+  }
+
+#ifdef USE_LAYOUT
+  if(mAnnotation)
+  {
+    XMLNode* new_annotation = deleteLayoutAnnotation(mAnnotation);
+    delete mAnnotation;
+    mAnnotation = new_annotation;
+  }
+
+  if (this->getListOfLayouts()->size()!=0)
+  {
+    XMLNode * layouts = parseLayouts(this);
+
+    if (layouts)
+    {
+      if (!mAnnotation)
+      {
+        mAnnotation = layouts;
+      }
+      else
+      {
+        if (mAnnotation->isEnd())
+        {
+          mAnnotation->unsetEnd();
+        }
+        mAnnotation->addChild(layouts->getChild(0));
+      }
+    }
+  }
+#endif // USE_LAYOUT
+
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/**
  * @return the list of FunctionDefinitions for this Model.
  */
 const ListOfFunctionDefinitions*
@@ -1612,7 +1809,7 @@ Model::readOtherXML (XMLInputStream& stream)
 
   if (name == "annotation")
   {
-    XMLNode* new_annotation = NULL;
+//    XMLNode* new_annotation = NULL;
     /* if annotation already exists then it is an error 
      */
     if (mAnnotation)
@@ -1634,14 +1831,14 @@ Model::readOtherXML (XMLInputStream& stream)
     delete mHistory;
     mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation);
     RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
-    new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
-    delete mAnnotation;
-    mAnnotation = new_annotation;
+//    new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
+//    delete mAnnotation;
+//    mAnnotation = new_annotation;
 #ifdef USE_LAYOUT
     parseLayoutAnnotation(mAnnotation,mLayouts);
-    new_annotation=deleteLayoutAnnotation(mAnnotation);
-    delete mAnnotation;
-    mAnnotation = new_annotation;
+//    new_annotation=deleteLayoutAnnotation(mAnnotation);
+//    delete mAnnotation;
+//    mAnnotation = new_annotation;
 #endif // USE_LAYOUT
 	
     read = true;
@@ -1927,38 +2124,10 @@ Model::writeAttributes (XMLOutputStream& stream) const
 void
 Model::writeElements (XMLOutputStream& stream) const
 {
-  /* add/append model history to annotation */
-  if (getModelHistory())
-  {
-    Model * m = const_cast <Model *> (this);
-    XMLNode * history = RDFAnnotationParser::parseModelHistory(this);
-    if(!mAnnotation)
-
-    {
-      if (history) static_cast <SBase *> (m)->setAnnotation(history);
-    }
-    else
-    {
-      if (history) static_cast <SBase *> (m)->appendAnnotation(history);
-    }
-  }
-#ifdef USE_LAYOUT
-    if (this->getListOfLayouts()->size()!=0)
-    {
-      Model * m = const_cast <Model *> (this);
-      XMLNode * layouts = parseLayouts(this);
-      if(!mAnnotation)
-      {
-        if (layouts) static_cast <SBase *> (m)->setAnnotation(layouts);
-      }
-      else
-      {
-        if (layouts) static_cast <SBase *> (m)->appendAnnotation(layouts);
-      }
-    }
-#endif // USE_LAYOUT    
-
-  SBase::writeElements(stream);
+  if ( mNotes ) stream << *mNotes;
+  Model * m = const_cast <Model *> (this);
+  m->syncAnnotation();
+  if ( mAnnotation ) stream << *mAnnotation;
 
   const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
