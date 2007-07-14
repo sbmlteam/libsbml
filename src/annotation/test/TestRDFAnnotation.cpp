@@ -327,7 +327,7 @@ START_TEST (test_RDFAnnotation_deleteWithOther)
 {
   Compartment* c = m->getCompartment(1);
 
-  XMLNode* node = c->getAnnotation();
+  XMLNode* node = RDFAnnotationParser::deleteRDFAnnotation(c->getAnnotation());
   const char * expected =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
     "<annotation>\n"
