@@ -177,8 +177,8 @@ START_TEST (test_SBase_setAnnotation)
 
   XMLNode_t *t1 = SBase_getAnnotation(S);
 
-  fail_unless(XMLNode_getNumChildren(t1) == 0);
-  fail_unless(!strcmp(XMLNode_getCharacters(t1), "This is a test note"));
+  fail_unless(XMLNode_getNumChildren(t1) == 1);
+  fail_unless(!strcmp(XMLNode_getCharacters(XMLNode_getChild(t1,0)), "This is a test note"));
 
   if (SBase_getAnnotation(S) == node)
   {
@@ -187,7 +187,7 @@ START_TEST (test_SBase_setAnnotation)
 
   /* Reflexive case (pathological) */
   SBase_setAnnotation(S, SBase_getAnnotation(S));
-  fail_unless(!strcmp(XMLNode_getCharacters(SBase_getAnnotation(S)), "This is a test note"));
+  fail_unless(!strcmp(XMLNode_getCharacters(XMLNode_getChild(SBase_getAnnotation(S),0)), "This is a test note"));
 
   SBase_setAnnotation(S, NULL);
   fail_unless(SBase_isSetAnnotation(S) == 0 );
