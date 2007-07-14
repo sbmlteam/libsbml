@@ -21,6 +21,11 @@
  * also available online as http://sbml.org/software/libsbml/license.html
  *----------------------------------------------------------------------- -->*/
 
+#include <sstream>
+
+#include <sbml/util/memory.h>
+#include <sbml/util/util.h>
+
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
@@ -199,6 +204,70 @@ XMLNode::write (XMLOutputStream& stream) const
     stream.endElement( mTriple );
   }
 
+}
+
+
+/**
+ * Returns a string which is converted from a given XMLNode.
+ */
+std::string XMLNode::convertXMLNodeToString(const XMLNode* xnode)
+{
+  if(xnode == NULL) return "";
+
+  std::ostringstream oss;
+  XMLOutputStream xos(oss,"UTF-8",false);
+  xnode->write(xos);
+
+  return oss.str();
+}
+
+
+/**
+ * Returns a XMLNode which is converted from a given string.
+ */
+XMLNode* XMLNode::convertStringToXMLNode(const std::string& xmlstr, const XMLNamespaces* xmlns)
+{
+  XMLNode* xmlnode     = NULL;
+  std::ostringstream oss;
+  const char* dummy_element_start = "<dummy";
+  const char* dummy_element_end   = "</dummy>";
+
+
+  oss << dummy_element_start;
+  if(xmlns){
+    for(int i=0; i < xmlns->getLength(); i++)
+    {
+      oss << " xmlns";
+      if(xmlns->getPrefix(i) != "") oss << ":" << xmlns->getPrefix(i);
+      oss << "=\"" << xmlns->getURI(i) << '"';
+    }
+  }
+  oss << ">";
+  oss << xmlstr;
+  oss << dummy_element_end;
+
+
+  const char* xmlstr_c = safe_strdup(oss.str().c_str());
+  XMLInputStream xis(xmlstr_c,false);
+  XMLNode* xmlnode_tmp = new XMLNode(xis);
+
+  if(xis.isError() || (xmlnode_tmp->getNumChildren() == 0) )
+  {
+    delete xmlnode_tmp;
+    return NULL;
+  }
+
+
+  xmlnode = new XMLNode(xmlnode_tmp->getChild(0));
+  for(unsigned int i=1; i < xmlnode_tmp->getNumChildren(); i++)
+  {
+    xmlnode->addChild(xmlnode_tmp->getChild(i));
+  }
+
+  delete xmlnode_tmp;
+  safe_free(const_cast<char*>(xmlstr_c));
+
+  return xmlnode;
 }
 
 

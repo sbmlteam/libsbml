@@ -137,6 +137,29 @@ public:
    */
   void write (XMLOutputStream& stream) const;
 
+  /**
+   * Returns a string which is converted from a given XMLNode. 
+   *
+   * @param node XMLNode to be converted to a string.
+   *
+   * @return a string which is converted from a given XMLNode.
+   */
+  static std::string convertXMLNodeToString(const XMLNode* node);
+
+  /**
+   * Returns a XMLNode which is converted from a given string. 
+   *
+   * XMLNamespaces (the second argument) must be given if the corresponding 
+   * xmlns attribute is not included in the string of the first argument. 
+   *
+   * @param xmlstr string to be converted to a XML node.
+   * @param xmlns XMLNamespaces the namespaces to set (default value is NULL).
+   *
+   * @return a XMLNode which is converted from a given string. The caller owns
+   * the returned XMLNode and is reponsible for deleting it.
+   */
+  static XMLNode* convertStringToXMLNode(const std::string& xmlstr, const XMLNamespaces* xmlns=NULL);
+
 
 #ifndef SWIG
 
