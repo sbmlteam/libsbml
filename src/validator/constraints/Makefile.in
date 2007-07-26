@@ -74,11 +74,13 @@ thisdir   = src/validator/constraints
 
 sources =                                     \
   ArgumentsUnitsCheck.cpp                     \
+  ArgumentsUnitsCheckWarnings.cpp             \
   AssignmentCycles.cpp                        \
   CiElementMathCheck.cpp                      \
   CompartmentOutsideCycles.cpp                \
   ConsistencyConstraints.cpp                  \
   EqualityArgsMathCheck.cpp                   \
+  ExponentUnitsCheck.cpp					  \
   FunctionApplyMathCheck.cpp                  \
   FunctionDefinitionVars.cpp                  \
   FunctionReferredToExists.cpp                \
@@ -100,6 +102,7 @@ sources =                                     \
   OverDeterminedCheck.cpp                     \
   PieceBooleanMathCheck.cpp                   \
   PiecewiseValueMathCheck.cpp                 \
+  PowerUnitsCheck.cpp						  \
   SBOConsistencyConstraints.cpp               \
   SpeciesReactionOrRule.cpp                   \
   StoichiometryMathVars.cpp                   \
@@ -130,6 +133,7 @@ headers =               \
 
 other_headers = \
   ArgumentsUnitsCheck.h                    \
+  ArgumentsUnitsCheckWarnings.h            \
   AssignmentCycles.h                       \
   CiElementMathCheck.h                     \
   CompartmentOutsideCycles.h               \

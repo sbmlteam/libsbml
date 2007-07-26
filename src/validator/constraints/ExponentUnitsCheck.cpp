@@ -112,57 +112,137 @@ ExponentUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBase
   * Checks that the units of the power function are consistent
   *
   * If inconsistent units are found, an error message is logged.
+  *
+  * The two arguments to root, which are of the form root(n, a) 
+  * where the degree n is optional (defaulting to “2”), should be as follows: 
+  * (1) if the optional degree qualifier n is an integer, 
+  * then it must be possible to derive the n-th root of a; 
+  * (2) if the optional degree qualifier n is a rational n/m 
+  * then it must be possible to derive the n-th root of (a{unit})m, 
+  * where {unit} signifies the units associated with a; 
+  * otherwise, (3) the units of a must be “dimensionless”.  
   */
 void 
 ExponentUnitsCheck::checkUnitsFromRoot (const Model& m, 
                                         const ASTNode& node, 
                                         const SBase & sb)
 {
+  UnitDefinition *dim = new UnitDefinition();
+  Unit *unit = new Unit("dimensionless");
+  dim->addUnit(unit);
   /* root (v, n) = v^1/n 
    * the exponent of the resulting unit must be integral
    */
 
   int root = 1;
-  unsigned int n;
-  UnitDefinition * tempUD;
+  UnitDefinition * unitsArg1;
   UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
 
-  tempUD = unitFormat->getUnitDefinition(node.getLeftChild());
+  unitsArg1 = unitFormat->getUnitDefinition(node.getLeftChild());
+  unsigned int undeclaredUnits = 
+    unitFormat->hasUndeclaredUnits(node.getLeftChild());
   ASTNode * child = node.getRightChild();
-    
-  /* exponent must have integral form */
-  if (!child->isInteger())
+   
+  // The first argument is dimensionless then it doesnt matter 
+  // what the root is
+
+  if (undeclaredUnits == 0 && !areEquivalent(dim, unitsArg1))
   {
-    if (!child->isReal()) 
+    // if not argument needs to be an integer or a rational 
+    unsigned int isInteger = 0;
+    unsigned int isRational = 0;
+
+    if (child->isRational())
     {
-      logUnitConflict(node, sb);
+      isRational = 1;
     }
-    else if (ceil(child->getReal()) != child->getReal())
+    else if (child->isInteger())
     {
-      logUnitConflict(node, sb);
+      isInteger = 1;
+      root = child->getInteger();
+    }
+    else if (child->isReal())
+    {
+      if (ceil(child->getReal()) == child->getReal())
+      {
+        isInteger = 1;
+        root = (int) child->getReal();
+      }
+      else
+      {
+        logNonIntegerPowerConflict(node, sb);
+      }
     }
     else 
     {
-      root = (int) child->getReal();
-    }
-  }
-  else
-  {
-    root = child->getInteger();
-  }
-  
-  for (n = 0; n < tempUD->getNumUnits(); n++)
-  {
-    if (tempUD->getUnit(n)->getExponent() % root != 0)
-    {
       logUnitConflict(node, sb);
     }
+
+    if (isRational == 1)
+    {
+      //* (2) if the second argument b is a rational number n/m, 
+      //* it must be possible to derive the m-th root of (a{unit})n,
+      //* where {unit} signifies the units associated with a; 
+      unsigned int impossible = 0;
+      for (unsigned int n = 0; impossible == 0, n < unitsArg1->getNumUnits(); n++)
+      {
+        if (unitsArg1->getUnit(n)->getExponent() * child->getInteger() %
+          child->getDenominator() != 0)
+          impossible = 1;
+      }
+
+      if (impossible)
+        logRationalPowerConflict(node, sb);
+
+    }
+    else if (isInteger == 1)
+    {
+      unsigned int impossible = 0;
+      for (unsigned int n = 0; impossible == 0, n < unitsArg1->getNumUnits(); n++)
+      {
+        if (unitsArg1->getUnit(n)->getExponent() % root != 0)
+          impossible = 1;
+      }
+
+      if (impossible)
+        logNonIntegerPowerConflict(node, sb);
+    }
+
   }
+
+  ///* exponent must have integral form */
+  //if (!child->isInteger())
+  //{
+  //  if (!child->isReal()) 
+  //  {
+  //    logUnitConflict(node, sb);
+  //  }
+  //  else if (ceil(child->getReal()) != child->getReal())
+  //  {
+  //    logUnitConflict(node, sb);
+  //  }
+  //  else 
+  //  {
+  //    root = (int) child->getReal();
+  //  }
+  //}
+  //else
+  //{
+  //  root = child->getInteger();
+  //}
+  //
+  //for (n = 0; n < tempUD->getNumUnits(); n++)
+  //{
+  //  if (tempUD->getUnit(n)->getExponent() % root != 0)
+  //  {
+  //    logUnitConflict(node, sb);
+  //  }
+  //}
 
   checkUnits(m, *node.getLeftChild(), sb);
 
   delete unitFormat;
-  delete tempUD;
+  delete unitsArg1;
 }
 
 
@@ -187,4 +267,42 @@ ExponentUnitsCheck::getMessage (const ASTNode& node, const SBase& object)
   msg << "invalid units.";
 
   return msg.str();
+}
+
+void 
+ExponentUnitsCheck::logRationalPowerConflict (const ASTNode & node, 
+                                             const SBase & sb)
+{
+  msg == getPreamble();
+
+  msg += "The formula '"; 
+  msg += SBML_formulaToString(&node);
+  msg += "' in the ";
+  msg += getFieldname();
+  msg += " element of the " ;
+  msg += getTypename(sb);
+  msg += " contains a rational power that is inconsistent and thus may produce ";
+  msg += "invalid units.";
+  
+  logFailure(sb, msg);
+
+}
+
+void 
+ExponentUnitsCheck::logNonIntegerPowerConflict (const ASTNode & node, 
+                                             const SBase & sb)
+{
+  msg == getPreamble();
+
+  msg += "The formula '"; 
+  msg += SBML_formulaToString(&node);
+  msg += "' in the ";
+  msg += getFieldname();
+  msg += " element of the " ;
+  msg += getTypename(sb);
+  msg += " contains a root that is not an integer and thus may produce ";
+  msg += "invalid units.";
+  
+  logFailure(sb, msg);
+
 }

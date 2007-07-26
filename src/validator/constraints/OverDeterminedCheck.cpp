@@ -184,6 +184,10 @@ OverDeterminedCheck::writeVariableVertexes(const Model& m)
     {
       mVariables.append(m.getCompartment(n)->getId());
     }
+    else if (m.getLevel() == 1)
+    {
+      mVariables.append(m.getCompartment(n)->getId());
+    }
   }
 
   for (n = 0; n < m.getNumSpecies(); n++)
@@ -192,11 +196,19 @@ OverDeterminedCheck::writeVariableVertexes(const Model& m)
     {
       mVariables.append(m.getSpecies(n)->getId());
     }
+    else if (m.getLevel() == 1)
+    {
+      mVariables.append(m.getSpecies(n)->getId());
+    }
   }
 
   for (n = 0; n < m.getNumParameters(); n++)
   {
     if (!m.getParameter(n)->getConstant())
+    {
+      mVariables.append(m.getParameter(n)->getId());
+    }
+    else if (m.getLevel() == 1)
     {
       mVariables.append(m.getParameter(n)->getId());
     }

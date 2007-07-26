@@ -93,6 +93,11 @@ protected:
   virtual const std::string
   getMessage (const ASTNode& node, const SBase& object);
 
+  void logRationalPowerConflict (const ASTNode & node, 
+                                             const SBase & sb);
+  void logNonIntegerPowerConflict (const ASTNode & node, 
+                                             const SBase & sb);
+
 };
 
 

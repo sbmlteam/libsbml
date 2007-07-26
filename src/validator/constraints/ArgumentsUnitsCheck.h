@@ -110,25 +110,10 @@ protected:
                               const SBase & sb);
 
   /**
-   * Checks that the units of the arguments 
-   * of the function are dimensionless
-   *
-   * If inconsistent units are found, an error message is logged.
-   */
-  void checkDimensionlessArgs (const Model& m, const ASTNode& node, 
-                              const SBase & sb);
-
-  /**
   * Logs a message about a function that should return same units
   * as the arguments
   */
   void logInconsistentSameUnits (const ASTNode & node, const SBase & sb);
-
-  /**
-  * Logs a message about a function that should have dmensionless
-  * as the arguments
-  */
-  void logInconsistentDimensionless (const ASTNode & node, const SBase & sb);
 
   /**
   * Logs a message about a delay function that should have time units

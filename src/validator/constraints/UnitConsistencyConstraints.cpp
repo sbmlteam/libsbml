@@ -57,9 +57,10 @@
 
 //#include "FormulaUnitsCheck.h"
 
-//#include "PowerUnitsCheck.h"
-//#include "ExponentUnitsCheck.h"
+#include "PowerUnitsCheck.h"
+#include "ExponentUnitsCheck.h"
 #include "ArgumentsUnitsCheck.h"
+#include "ArgumentsUnitsCheckWarnings.h"
 
 #include "LogicalArgsMathCheck.h"
 #include "NumericArgsMathCheck.h"
@@ -91,20 +92,34 @@ using namespace std;
 
 
 EXTERN_CONSTRAINT(10501, ArgumentsUnitsCheck)
+EXTERN_CONSTRAINT(10502, ArgumentsUnitsCheckWarnings)
+EXTERN_CONSTRAINT(10503, PowerUnitsCheck)
+EXTERN_CONSTRAINT(10504, ExponentUnitsCheck)
 
 START_CONSTRAINT (10511, AssignmentRule, ar)
 {
-  msg =
-    "When the 'variable' in an <assignmentRule> refers to a <compartment>, "
-    "the units of the rule's right-hand side must be consistent with the "
-    "units of that compartment's size. (References: L2V2 Section 4.11.3.)";
-
-
   const string& variable = ar.getVariable();
   const Compartment* c = m.getCompartment(variable);
 
   pre ( c != NULL);
   pre ( ar.isSetMath() == 1 );
+
+  if (ar.getLevel() == 2)
+  {
+    msg =
+      "When the 'variable' in an <assignmentRule> refers to a <compartment>, "
+      "the units of the rule's right-hand side must be consistent with the "
+      "units of that compartment's size. (References: L2V2 Section 4.11.3.)";
+  }
+  else
+  {
+    msg =
+      "In a <compartmentVolumeRule>, "
+      "the units of the rule's right-hand side must be consistent with the "
+      "units of that compartment's volume.";
+  }
+
+
 
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_COMPARTMENT);
   const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_ASSIGNMENT_RULE);
@@ -139,17 +154,28 @@ END_CONSTRAINT
 
 START_CONSTRAINT (10512, AssignmentRule, ar)
 {
-  msg =
-    "When the 'variable' in an <assignmentRule> refers to a <species>, the "
-    "units of the rule's right-hand side must be consistent with the units "
-    "of the species' quantity. (References: L2V2 Section 4.11.3.)";
-   
-
   const string& variable = ar.getVariable();
   const Species * s = m.getSpecies(variable);
 
   pre ( s != NULL);
   pre ( ar.isSetMath() == 1 );
+
+  if (ar.getLevel() == 2)
+  {
+    msg =
+      "When the 'variable' in an <assignmentRule> refers to a <species>, the "
+      "units of the rule's right-hand side must be consistent with the units "
+      "of the species' quantity. (References: L2V2 Section 4.11.3.)";
+  }
+  else
+  {
+    msg =
+      "In a <speciesConcentrationRule>, the "
+      "units of the rule's right-hand side must be consistent with the units "
+      "of the species' quantity.";
+  }
+   
+
 
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_SPECIES);
   const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_ASSIGNMENT_RULE);
@@ -157,38 +183,32 @@ START_CONSTRAINT (10512, AssignmentRule, ar)
   pre ( formulaUnits != 0 );
   pre ( variableUnits != 0); 
 
-  /* if the formula is dimensionless then we assume that the user
-   * intends it to have default units
-   * so shouldnt fail the constraint
-   *
-   * this changed for l2v3
-   *
-  if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
-  {
-    pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
-                                                                       "dimensionless")); 
-  }
-  */
-
   /* check that the formula is okay ie has no parameters with undeclared units */
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
     || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
         formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
 
-  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
-                          variableUnits->getUnitDefinition()) == 1);
+  if (ar.getLevel() == 1)
+  {
+    /* need to adapt for the fact that in level 1 the assignment rule was
+     * for speciesConcetration although species only had substance units
+     */
+
+    inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+                        variableUnits->getL1SpeciesConcUnitDefinition()) == 1);
+
+  }
+  else
+  {
+    inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+                            variableUnits->getUnitDefinition()) == 1);
+  }
 }
 END_CONSTRAINT
 
 
 START_CONSTRAINT (10513, AssignmentRule, ar)
 {
-  msg =
-    "When the 'variable' in an <assignmentRule> refers to a <parameter>, the "
-    "units of the rule's right-hand side must be consistent with the units "
-    "declared for that parameter. (References: L2V2 Section 4.11.3.)";
-   
-
   const string& variable = ar.getVariable();
   const Parameter* p = m.getParameter(variable);
 
@@ -196,6 +216,21 @@ START_CONSTRAINT (10513, AssignmentRule, ar)
   pre ( ar.isSetMath() == 1 );
   /* check that the parameter has units declared */
   pre ( p->isSetUnits());
+
+  if (ar.getLevel() == 2)
+  {
+    msg =
+      "When the 'variable' in an <assignmentRule> refers to a <parameter>, the "
+      "units of the rule's right-hand side must be consistent with the units "
+      "declared for that parameter. (References: L2V2 Section 4.11.3.)";
+  }
+  else
+  {
+    msg =
+      "In a <parameterRule>, the "
+      "units of the rule's right-hand side must be consistent with the units "
+      "declared for that parameter.";
+  }
 
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_PARAMETER);
   const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_ASSIGNMENT_RULE);
@@ -229,18 +264,18 @@ END_CONSTRAINT
 
 START_CONSTRAINT (10521, InitialAssignment, ia)
 {
+  const string& variable = ia.getSymbol();
+  const Compartment* c = m.getCompartment(variable);
+
+  pre ( c != NULL);
+  pre ( ia.isSetMath() == 1 );
+
   msg =
     "When the 'variable' in an <initialAssignment> refers to a "
     "<compartment>, the units of the <initialAssignment>'s 'math' expression "
     "must be consistent with the units of that compartment's size. "
     "(References: L2V2 Section 4.10.)";
 
-
-  const string& variable = ia.getSymbol();
-  const Compartment* c = m.getCompartment(variable);
-
-  pre ( c != NULL);
-  pre ( ia.isSetMath() == 1 );
 
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_COMPARTMENT);
   const FormulaUnitsData * formulaUnits = 
@@ -275,18 +310,18 @@ END_CONSTRAINT
 
 START_CONSTRAINT (10522, InitialAssignment, ia)
 {
+  const string& variable = ia.getSymbol();
+  const Species * s = m.getSpecies(variable);
+
+  pre ( s != NULL);
+  pre ( ia.isSetMath() == 1 );
+
   msg =
     "When the 'variable' in an <initialAssignment> refers to a <species>, "
     "the units of the <initialAssignment>'s 'math' expression must be "
     "consistent with the units of that species' quantity. (References: L2V2 "
     "Section 4.11.3.)";
    
-
-  const string& variable = ia.getSymbol();
-  const Species * s = m.getSpecies(variable);
-
-  pre ( s != NULL);
-  pre ( ia.isSetMath() == 1 );
 
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_SPECIES);
   const FormulaUnitsData * formulaUnits = 
@@ -321,13 +356,6 @@ END_CONSTRAINT
 
 START_CONSTRAINT (10523, InitialAssignment, ia)
 {
-  msg =
-    "When the 'variable' in an <initialAssignment> refers to a <parameter>, "
-    "the units of the <initialAssignment>'s 'math' expression must be "
-    "consistent with the units declared for that parameter. (References: "
-    "L2V2 Section 4.11.3.)";
-   
-
   const string& variable = ia.getSymbol();
   const Parameter* p = m.getParameter(variable);
 
@@ -335,6 +363,13 @@ START_CONSTRAINT (10523, InitialAssignment, ia)
   pre ( ia.isSetMath() == 1 );
   /* check that the parameter has units declared */
   pre ( p->isSetUnits());
+
+  msg =
+    "When the 'variable' in an <initialAssignment> refers to a <parameter>, "
+    "the units of the <initialAssignment>'s 'math' expression must be "
+    "consistent with the units declared for that parameter. (References: "
+    "L2V2 Section 4.11.3.)";
+   
 
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_PARAMETER);
   const FormulaUnitsData * formulaUnits = 
@@ -369,21 +404,34 @@ END_CONSTRAINT
 
 START_CONSTRAINT (10531, RateRule, rr)
 {
-  msg =
-    "When the 'variable' in a <rateRule> definition refers to a "
-    "<compartment>, the units of the rule's right-hand side must be of the "
-    "form _x per time_, where _x_ is either the 'units' in that "
-    "<compartment> definition, or (in the absence of explicit units declared "
-    "for the compartment size) the default units for that compartment, and "
-    "_time_ refers to the units of time for the model. (References: L2V2 "
-    "Section 4.11.4.)";
-   
-
   const string& variable = rr.getVariable();
   const Compartment* c = m.getCompartment(variable);
 
   pre ( c != NULL);
   pre ( rr.isSetMath() == 1 );
+
+  if (rr.getLevel() == 2)
+  {
+    msg =
+      "When the 'variable' in a <rateRule> definition refers to a "
+      "<compartment>, the units of the rule's right-hand side must be of the "
+      "form _x per time_, where _x_ is either the 'units' in that "
+      "<compartment> definition, or (in the absence of explicit units declared "
+      "for the compartment size) the default units for that compartment, and "
+      "_time_ refers to the units of time for the model. (References: L2V2 "
+      "Section 4.11.4.)";
+  }
+  else
+  {
+    msg =
+      "When a <compartmentVolumeRule> definition is of type 'rate' "
+      "the units of the rule's right-hand side must be of the "
+      "form _x per time_, where _x_ is either the 'units' in that "
+      "<compartment> definition, or (in the absence of explicit units declared "
+      "for the compartment volume) the default units for that compartment, and "
+      "_time_ refers to the units of time for the model.";
+  }
+   
 
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_COMPARTMENT);
   const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_RATE_RULE);
@@ -391,18 +439,6 @@ START_CONSTRAINT (10531, RateRule, rr)
   pre ( formulaUnits != 0 );
   pre ( variableUnits != 0); 
 
-  /* if the formula is dimensionless then we assume that the user
-   * intends it to have default units
-   * so shouldnt fail the constraint
-   *
-   * this changed for l2v3
-   *
-  if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
-  {
-    pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
-                                                                       "dimensionless")); 
-  }
-  */
 
   /* check that the formula is okay ie has no parameters with undeclared units */
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
@@ -418,19 +454,30 @@ END_CONSTRAINT
 
 START_CONSTRAINT (10532, RateRule, rr)
 {
-  msg =
-    "When the 'variable' in a <rateRule> definition refers to a <species>, "
-    "the units of the rule's right-hand side must be of the form _x per "
-    "time_, where _x_ is the units of that species' quantity, and _time_ "
-    "refers to the units of time for the model. (References: L2V2 Section "
-    "4.11.4.)";
- 
   const string& variable = rr.getVariable();
   const Species* s = m.getSpecies(variable);
 
   pre ( s != NULL);
   pre ( rr.isSetMath() == 1 );
 
+  if (rr.getLevel() == 2)
+  {
+    msg =
+      "When the 'variable' in a <rateRule> definition refers to a <species>, "
+      "the units of the rule's right-hand side must be of the form _x per "
+      "time_, where _x_ is the units of that species' quantity, and _time_ "
+      "refers to the units of time for the model. (References: L2V2 Section "
+      "4.11.4.)";
+  }
+  else
+  {
+    msg =
+      "When a <speciesConcentrationRule> definition is of type 'rate' "
+      "the units of the rule's right-hand side must be of the form _x per "
+      "time_, where _x_ is the units of that species' quantity, and _time_ "
+      "refers to the units of time for the model.";
+  }
+ 
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_SPECIES);
   const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_RATE_RULE);
 
@@ -455,22 +502,27 @@ START_CONSTRAINT (10532, RateRule, rr)
     || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
         formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
 
-  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
-                                           variableUnits->getPerTimeUnitDefinition()) == 1);
+  if (rr.getLevel() == 1)
+  {
+    /* need to adapt for the fact that in level 1 the assignment rule was
+     * for speciesConcetration although species only had substance units
+     */
+
+    inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+                variableUnits->getL1SpeciesConcPerTimeUnitDefinition()) == 1);
+
+  }
+  else
+  {
+    inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+                            variableUnits->getPerTimeUnitDefinition()) == 1);
+  }
 }
 END_CONSTRAINT
 
 
 START_CONSTRAINT (10533, RateRule, rr)
 {
-  msg =
-    "When the 'variable' in a <rateRule> definition refers to a <parameter>, "
-    "the units of the rule's right-hand side must be of the form _x per "
-    "time_, where _x_ is the 'units' in that <parameter> definition, and "
-    "_time_ refers to the units of time for the model. (References: L2V2 "
-    "Section 4.11.4.)";
-   
-
   const string& variable = rr.getVariable();
   const Parameter* p = m.getParameter(variable);
 
@@ -478,6 +530,24 @@ START_CONSTRAINT (10533, RateRule, rr)
   pre ( rr.isSetMath() == 1 );
   /* check that the parameter has units declared */
   pre ( p->isSetUnits());
+
+  if (rr.getLevel() == 2)
+  {
+    msg =
+      "When the 'variable' in a <rateRule> definition refers to a <parameter>, "
+      "the units of the rule's right-hand side must be of the form _x per "
+      "time_, where _x_ is the 'units' in that <parameter> definition, and "
+      "_time_ refers to the units of time for the model. (References: L2V2 "
+      "Section 4.11.4.)";
+  }
+  else
+  {
+    msg =
+      "When a <parameterRule> definition has type 'rate' "
+      "the units of the rule's right-hand side must be of the form _x per "
+      "time_, where _x_ is the 'units' in that <parameter> definition, and "
+      "_time_ refers to the units of time for the model.";
+  }
 
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_PARAMETER);
   const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_RATE_RULE);

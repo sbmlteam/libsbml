@@ -107,49 +107,6 @@ ArgumentsUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBas
       checkSameUnitsAsArgs(m, node, sb);
       break;
 
-    /* functions that take a single dimensionless argument */
-    /* inverse hyerbolic functions */
-    case AST_FUNCTION_ARCCOSH:
-    case AST_FUNCTION_ARCCOTH:
-    case AST_FUNCTION_ARCCSCH:
-    case AST_FUNCTION_ARCSECH:
-    case AST_FUNCTION_ARCSINH:
-    case AST_FUNCTION_ARCTANH:
-    
-    /* inverse trig functions */
-    case AST_FUNCTION_ARCCOS:
-    case AST_FUNCTION_ARCCOT:
-    case AST_FUNCTION_ARCCSC:
-    case AST_FUNCTION_ARCSEC:
-    case AST_FUNCTION_ARCSIN:
-    case AST_FUNCTION_ARCTAN: 
-  
-    /* hyperbolic functions */
-    case AST_FUNCTION_COSH:
-    case AST_FUNCTION_COTH:
-    case AST_FUNCTION_CSCH:
-    case AST_FUNCTION_SECH:
-    case AST_FUNCTION_SINH:
-    case AST_FUNCTION_TANH: 
-
-    /* trigonometry functions */
-    case AST_FUNCTION_COS:
-    case AST_FUNCTION_COT:
-    case AST_FUNCTION_CSC:
-    case AST_FUNCTION_SEC:
-    case AST_FUNCTION_SIN:
-    case AST_FUNCTION_TAN: 
-
-    /* logarithmic functions */
-    case AST_FUNCTION_EXP:
-    case AST_FUNCTION_LN:
-    case AST_FUNCTION_LOG:
-
-    case AST_FUNCTION_FACTORIAL:
-
-      checkDimensionlessArgs(m, node, sb);
-      break;
-
     case AST_FUNCTION_DELAY:
 
       checkUnitsFromDelay(m, node, sb);
@@ -318,38 +275,6 @@ ArgumentsUnitsCheck::checkSameUnitsAsArgs (const Model& m,
   delete ud;
 }
 
-/**
-  * Checks that the units of the arguments 
-  * of the function are dimensionless
-  * and that there is only one argument
-  *
-  * If inconsistent units are found, an error message is logged.
-  */
-void 
-ArgumentsUnitsCheck::checkDimensionlessArgs (const Model& m, 
-                                           const ASTNode& node, 
-                                           const SBase & sb)
-{
-  UnitDefinition * dim = new UnitDefinition();
-  UnitDefinition * tempUD;
-  Unit * unit = new Unit("dimensionless");
-  dim->addUnit(unit);
-  
-  UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
-
-  tempUD = unitFormat->getUnitDefinition(node.getChild(0));
-  
-  if (tempUD->getNumUnits() != 0 && !areEquivalent(dim, tempUD)) 
-  {
-    logInconsistentDimensionless(node, sb);
-  }
-
-  delete tempUD;
-  delete dim;
-  delete unit;
-  delete unitFormat;
-
-}
 
 /**
  * @return the error message to use when logging constraint violations.
@@ -373,7 +298,6 @@ ArgumentsUnitsCheck::getMessage (const ASTNode& node, const SBase& object)
 
   return msg.str();
 }
-
 /**
 * Logs a message about a function that should return same units
 * as the arguments
@@ -389,26 +313,6 @@ ArgumentsUnitsCheck::logInconsistentSameUnits (const ASTNode & node,
   msg += "' in the math element of the ";
   msg += getTypename(sb);
   msg += " can only act on variables with the same units.";
-  
-  logFailure(sb, msg);
-
-}
-
-/**
-* Logs a message about a function that should have dmensionless
-* as the arguments
-*/
-void 
-ArgumentsUnitsCheck::logInconsistentDimensionless (const ASTNode & node, 
-                                                 const SBase & sb)
-{
-  msg = getPreamble();
-  msg += "The formula ";
-  msg += SBML_formulaToString(&node);
-  msg += "' in the math element of the ";
-  msg += getTypename(sb);
-  msg += " uses a function ";
-  msg += " which can only act on dimensionless variables.";
   
   logFailure(sb, msg);
 

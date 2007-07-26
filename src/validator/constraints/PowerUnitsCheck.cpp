@@ -90,9 +90,9 @@ PowerUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBase & 
 
   switch (type) 
   {
-    case AST_DIVIDE:
-      checkForPowersBeingDivided(m, node, sb);
-      break;
+    //case AST_DIVIDE:
+    //  checkForPowersBeingDivided(m, node, sb);
+    //  break;
     case AST_POWER:
     case AST_FUNCTION_POWER:
 
@@ -117,6 +117,17 @@ PowerUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBase & 
   * Checks that the units of the power function are consistent
   *
   * If inconsistent units are found, an error message is logged.
+  * 
+  * The two arguments to power, which are of the form power(a, b) 
+  * with the meaning a^b, should be as follows: 
+  * (1) if the second argument is an integer, 
+  *     then the first argument can have any units; 
+  * (2) if the second argument b is a rational number n/m, 
+  * it must be possible to derive the m-th root of (a{unit})n,
+  * where {unit} signifies the units associated with a; 
+  * otherwise, (3) the units of the first argument must be “dimensionless”. 
+  * The second argument (b) should always have units of “dimensionless”.
+  *
   */
 void 
 PowerUnitsCheck::checkUnitsFromPower (const Model& m, 
@@ -124,115 +135,233 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
                                         const SBase & sb)
 {
   double value;
-  /* power (v, n) = v^n 
-   * if v has units other than dimensionless then
-   * n must be an integer
-   */
   UnitDefinition *dim = new UnitDefinition();
   Unit *unit = new Unit("dimensionless");
   dim->addUnit(unit);
 
   UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
 
-  UnitDefinition *tempUD, *tempUD1;
-  tempUD = unitFormat->getUnitDefinition(node.getLeftChild());
+  UnitDefinition *unitsArg1, *unitsArgPower;
+  unitsArg1 = unitFormat->getUnitDefinition(node.getLeftChild());
+  unsigned int undeclaredUnits = 
+    unitFormat->hasUndeclaredUnits(node.getLeftChild());
+
   ASTNode *child = node.getRightChild();
-  tempUD1 = unitFormat->getUnitDefinition(child);
+  unitsArgPower = unitFormat->getUnitDefinition(child);
+  unsigned int undeclaredUnitsPower = 
+    unitFormat->hasUndeclaredUnits(child);
 
-  if (!areEquivalent(dim, tempUD)) 
+  // The second argument (b) should always have units of “dimensionless”.
+  // or it has undeclared units that we assume are correct
+
+  if (undeclaredUnitsPower == 0 && !areEquivalent(dim, unitsArgPower))
   {
-    /* 'v' does not have units of dimensionless. */
+    logNonDimensionlessPowerConflict(node, sb);
+  }
 
-    /* If the power 'n' is a parameter, check if its units are either
-     * undeclared or declared as dimensionless.  If either is the case,
-     * the value of 'n' must be an integer.
-     */
+  // The first argument is dimensionless then it doesnt matter 
+  // what the power is
 
-    const Parameter *param = NULL;
-
-    if (child->isName())
-    {
-      /* Parameters may be declared in two places (the model and the
-       * kinetic law's local parameter list), so we have to check both.
-       */
-
-      if (sb.getTypeCode() == SBML_KINETIC_LAW)
-      {
-	      const KineticLaw* kl = dynamic_cast<const KineticLaw*>(&sb);
-
-	      /* First try local parameters and if null is returned, try
-	      * the global parameters */
-	      if (kl != NULL)
-	      {
-	        param = kl->getParameter(child->getName());
-	      }
-      }
-
-	    if (param == NULL)
-	    {
-	      param = m.getParameter(child->getName());
-	    }
-      
-    }
-
-    if (param != NULL)
-    {
-      /* We found a parameter with this identifier. */
-
-      if (areEquivalent(dim, tempUD1) || unitFormat->hasUndeclaredUnits(child))
-      {
-        value = param->getValue();
-        if (value != 0)
-        {
-          if (ceil(value) != value)
-          {
-            logUnitConflict(node, sb);
-          }
-        }
-
-      }
-      else
-      {
-	/* No parameter definition found for child->getName() */
-        logUnitConflict(node, sb);
-      }
-    }
-    else if (child->isFunction() || child->isOperator())
-    {
-      /* cannot test whether the value will be appropriate */
-      if (!areEquivalent(dim, tempUD1))
-      {
-        logUnitConflict(node, sb);
-      }
-    }
+  if (undeclaredUnits == 0 && !areEquivalent(dim, unitsArg1))
+  {
+    // if not argument needs to be an integer or a rational 
+    unsigned int isInteger = 0;
+    unsigned int isRational = 0;
     /* power must be an integer
      * but need to check that it is not a real
      * number that is integral
      * i.e. mathml <cn> 2 </cn> will record a "real"
      */
-    else if (!child->isInteger())
+    if (child->isRational())
     {
-      if (!child->isReal()) 
+      isRational = 1;
+    }
+    else if (child->isInteger())
+    {
+      isInteger = 1;
+    }
+    else if (child->isReal())
+    {
+      if (ceil(child->getReal()) == child->getReal())
       {
-        logUnitConflict(node, sb);
-      }
-      else if (ceil(child->getReal()) != child->getReal())
-      {
-        logUnitConflict(node, sb);
+        isInteger = 1;
       }
     }
+    else
+    {
+      // power could be a parameter
+      const Parameter *param = NULL;
+
+      if (child->isName())
+      {
+        /* Parameters may be declared in two places (the model and the
+        * kinetic law's local parameter list), so we have to check both.
+        */
+
+        if (sb.getTypeCode() == SBML_KINETIC_LAW)
+        {
+	        const KineticLaw* kl = dynamic_cast<const KineticLaw*>(&sb);
+
+	        /* First try local parameters and if null is returned, try
+	        * the global parameters */
+	        if (kl != NULL)
+	        {
+	          param = kl->getParameter(child->getName());
+	        }
+        }
+
+	      if (param == NULL)
+	      {
+	        param = m.getParameter(child->getName());
+	      }
+        
+      }
+
+      if (param != NULL)
+      {
+        /* We found a parameter with this identifier. */
+
+        if (areEquivalent(dim, unitsArgPower) || undeclaredUnitsPower)
+        {
+          value = param->getValue();
+          if (value != 0)
+          {
+            if (ceil(value) == value)
+            {
+              isInteger = 1;
+            }
+          }
+
+        }
+        else
+        {
+	  /* No parameter definition found for child->getName() */
+          logUnitConflict(node, sb);
+        }
+      }
+    }
+
+    if (isRational == 1)
+    {
+      //* (2) if the second argument b is a rational number n/m, 
+      //* it must be possible to derive the m-th root of (a{unit})n,
+      //* where {unit} signifies the units associated with a; 
+      unsigned int impossible = 0;
+      for (unsigned int n = 0; impossible == 0, n < unitsArg1->getNumUnits(); n++)
+      {
+        if (unitsArg1->getUnit(n)->getExponent() * child->getInteger() %
+          child->getDenominator() != 0)
+          impossible = 1;
+      }
+
+      if (impossible)
+        logRationalPowerConflict(node, sb);
+
+    }
+    else if (isInteger == 0)
+    {
+      logNonIntegerPowerConflict(node, sb);
+    }
+
   }
-  else if (!areEquivalent(dim, tempUD1)) 
-  {
-    /* power (3, k) */
-    logUnitConflict(node, sb);
-  }
+
+
+
+
+ // if (!areEquivalent(dim, unitsPower)) 
+ // {
+ //   /* 'v' does not have units of dimensionless. */
+
+ //   /* If the power 'n' is a parameter, check if its units are either
+ //    * undeclared or declared as dimensionless.  If either is the case,
+ //    * the value of 'n' must be an integer.
+ //    */
+
+ //   const Parameter *param = NULL;
+
+ //   if (child->isName())
+ //   {
+ //     /* Parameters may be declared in two places (the model and the
+ //      * kinetic law's local parameter list), so we have to check both.
+ //      */
+
+ //     if (sb.getTypeCode() == SBML_KINETIC_LAW)
+ //     {
+	//      const KineticLaw* kl = dynamic_cast<const KineticLaw*>(&sb);
+
+	//      /* First try local parameters and if null is returned, try
+	//      * the global parameters */
+	//      if (kl != NULL)
+	//      {
+	//        param = kl->getParameter(child->getName());
+	//      }
+ //     }
+
+	//    if (param == NULL)
+	//    {
+	//      param = m.getParameter(child->getName());
+	//    }
+ //     
+ //   }
+
+ //   if (param != NULL)
+ //   {
+ //     /* We found a parameter with this identifier. */
+
+ //     if (areEquivalent(dim, unitsArgPower) || unitFormat->hasUndeclaredUnits(child))
+ //     {
+ //       value = param->getValue();
+ //       if (value != 0)
+ //       {
+ //         if (ceil(value) != value)
+ //         {
+ //           logUnitConflict(node, sb);
+ //         }
+ //       }
+
+ //     }
+ //     else
+ //     {
+	///* No parameter definition found for child->getName() */
+ //       logUnitConflict(node, sb);
+ //     }
+ //   }
+ //   else if (child->isFunction() || child->isOperator())
+ //   {
+ //     /* cannot test whether the value will be appropriate */
+ //     if (!areEquivalent(dim, unitsArgPower))
+ //     {
+ //       logUnitConflict(node, sb);
+ //     }
+ //   }
+ //   /* power must be an integer
+ //    * but need to check that it is not a real
+ //    * number that is integral
+ //    * i.e. mathml <cn> 2 </cn> will record a "real"
+ //    */
+ //   else if (!child->isInteger())
+ //   {
+ //     if (!child->isReal()) 
+ //     {
+ //       logUnitConflict(node, sb);
+ //     }
+ //     else if (ceil(child->getReal()) != child->getReal())
+ //     {
+ //       logUnitConflict(node, sb);
+ //     }
+ //   }
+ // }
+ // else if (!areEquivalent(dim, unitsArgPower)) 
+ // {
+ //   /* power (3, k) */
+ //   logUnitConflict(node, sb);
+ // }
 
   checkUnits(m, *node.getLeftChild(), sb);
 
   delete unitFormat;
-  delete tempUD;
-  delete tempUD1;
+  delete unitsArg1;
+  delete unitsArgPower;
 }
 
 
@@ -260,66 +389,128 @@ PowerUnitsCheck::getMessage (const ASTNode& node, const SBase& object)
 }
 
 
+//void 
+//PowerUnitsCheck::checkForPowersBeingDivided (const Model& m, const ASTNode& node, 
+//                              const SBase & sb)
+//{
+//  ASTNode* left = node.getLeftChild();
+//  ASTNode* right = node.getRightChild();
+//
+//  if (left->getType() == AST_POWER || left->getType() == AST_FUNCTION_POWER)
+//  {
+//    if (right->getType() == AST_POWER || right->getType() == AST_FUNCTION_POWER)
+//    {
+//      /* have a power divided by a power */
+//      /* check whether objects have same units */
+//        UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
+//
+//        UnitDefinition *tempUD, *tempUD1, *tempUD2, *tempUD3;
+//        tempUD = unitFormat->getUnitDefinition(left->getLeftChild());
+//        tempUD1 = unitFormat->getUnitDefinition(right->getLeftChild());
+//        tempUD2 = unitFormat->getUnitDefinition(right->getRightChild());
+//        tempUD3 = unitFormat->getUnitDefinition(left->getRightChild());
+//
+//        if (!areEquivalent(tempUD, tempUD1))
+//        {
+//          checkChildren(m, node, sb);
+//        }
+//        else
+//        {
+//          if(!areEquivalent(tempUD2, tempUD3))
+//          {
+//            logUnitConflict(node, sb);
+//          }
+//          else
+//          {
+//            /* create an ASTNode with pow(object, left_exp - right_exp) */
+//            ASTNode *newPower = new ASTNode(AST_POWER);
+//            ASTNode * newMinus = new ASTNode(AST_MINUS);
+//            newMinus->addChild(left->getRightChild()->deepCopy());
+//            newMinus->addChild(right->getRightChild()->deepCopy());
+//            newPower->addChild(left->getLeftChild()->deepCopy());
+//            newPower->addChild(newMinus);
+//
+//            checkUnitsFromPower(m, *newPower, sb);
+//
+//            delete newPower;
+//          }
+//        }
+//
+//        delete unitFormat;
+//        delete tempUD;
+//        delete tempUD1;
+//        delete tempUD2;
+//        delete tempUD3;
+//    }
+//    else
+//    {
+//      checkChildren(m, node, sb);
+//    }
+//  }
+//  else 
+//  {
+//    checkChildren(m, node, sb);
+//  }
+//}
+/**
+* Logs a message about a function that should return same units
+* as the arguments
+*/
 void 
-PowerUnitsCheck::checkForPowersBeingDivided (const Model& m, const ASTNode& node, 
-                              const SBase & sb)
+PowerUnitsCheck::logNonDimensionlessPowerConflict (const ASTNode & node, 
+                                             const SBase & sb)
 {
-  ASTNode* left = node.getLeftChild();
-  ASTNode* right = node.getRightChild();
+  msg == getPreamble();
 
-  if (left->getType() == AST_POWER || left->getType() == AST_FUNCTION_POWER)
-  {
-    if (right->getType() == AST_POWER || right->getType() == AST_FUNCTION_POWER)
-    {
-      /* have a power divided by a power */
-      /* check whether objects have same units */
-        UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
+  msg += "The formula '"; 
+  msg += SBML_formulaToString(&node);
+  msg += "' in the ";
+  msg += getFieldname();
+  msg += " element of the " ;
+  msg += getTypename(sb);
+  msg += " contains a power that is not dimensionless and thus may produce ";
+  msg += "invalid units.";
+  
+  logFailure(sb, msg);
 
-        UnitDefinition *tempUD, *tempUD1, *tempUD2, *tempUD3;
-        tempUD = unitFormat->getUnitDefinition(left->getLeftChild());
-        tempUD1 = unitFormat->getUnitDefinition(right->getLeftChild());
-        tempUD2 = unitFormat->getUnitDefinition(right->getRightChild());
-        tempUD3 = unitFormat->getUnitDefinition(left->getRightChild());
-
-        if (!areEquivalent(tempUD, tempUD1))
-        {
-          checkChildren(m, node, sb);
-        }
-        else
-        {
-          if(!areEquivalent(tempUD2, tempUD3))
-          {
-            logUnitConflict(node, sb);
-          }
-          else
-          {
-            /* create an ASTNode with pow(object, left_exp - right_exp) */
-            ASTNode *newPower = new ASTNode(AST_POWER);
-            ASTNode * newMinus = new ASTNode(AST_MINUS);
-            newMinus->addChild(left->getRightChild()->deepCopy());
-            newMinus->addChild(right->getRightChild()->deepCopy());
-            newPower->addChild(left->getLeftChild()->deepCopy());
-            newPower->addChild(newMinus);
-
-            checkUnitsFromPower(m, *newPower, sb);
-
-            delete newPower;
-          }
-        }
-
-        delete unitFormat;
-        delete tempUD;
-        delete tempUD1;
-        delete tempUD2;
-        delete tempUD3;
-    }
-    else
-    {
-      checkChildren(m, node, sb);
-    }
-  }
-  else 
-  {
-    checkChildren(m, node, sb);
-  }
 }
+
+
+void 
+PowerUnitsCheck::logNonIntegerPowerConflict (const ASTNode & node, 
+                                             const SBase & sb)
+{
+  msg == getPreamble();
+
+  msg += "The formula '"; 
+  msg += SBML_formulaToString(&node);
+  msg += "' in the ";
+  msg += getFieldname();
+  msg += " element of the " ;
+  msg += getTypename(sb);
+  msg += " contains a power that is not an integer and thus may produce ";
+  msg += "invalid units.";
+  
+  logFailure(sb, msg);
+
+}
+
+void 
+PowerUnitsCheck::logRationalPowerConflict (const ASTNode & node, 
+                                             const SBase & sb)
+{
+  msg == getPreamble();
+
+  msg += "The formula '"; 
+  msg += SBML_formulaToString(&node);
+  msg += "' in the ";
+  msg += getFieldname();
+  msg += " element of the " ;
+  msg += getTypename(sb);
+  msg += " contains a rational power that is inconsistent and thus may produce ";
+  msg += "invalid units.";
+  
+  logFailure(sb, msg);
+
+}
+
