@@ -157,6 +157,9 @@
 				RelativePath="..\..\src\validator\constraints\ArgumentsUnitsCheck.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\ArgumentsUnitsCheckWarnings.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\constraints\AssignmentCycles.cpp">
 			</File>
 			<File
@@ -197,6 +200,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\EventAssignment.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\ExponentUnitsCheck.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\math\FormulaFormatter.c">
@@ -317,6 +323,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\PiecewiseValueMathCheck.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\PowerUnitsCheck.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\annotation\RDFAnnotation.cpp">
@@ -527,6 +536,9 @@
 				RelativePath="..\..\src\validator\constraints\ArgumentsUnitsCheck.h">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\ArgumentsUnitsCheckWarnings.h">
+			</File>
+			<File
 				RelativePath="..\..\src\math\ASTNode.h">
 			</File>
 			<File
@@ -564,6 +576,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\EventAssignment.h">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\ExponentUnitsCheck.h">
 			</File>
 			<File
 				RelativePath="..\..\src\common\extern.h">
@@ -680,6 +695,9 @@
 				RelativePath="..\..\src\validator\constraints\PiecewiseValueMathCheck.h">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\PowerUnitsCheck.h">
+			</File>
+			<File
 				RelativePath="..\..\src\annotation\RDFAnnotation.h">
 			</File>
 			<File
@@ -699,6 +717,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\SBMLErrorLog.h">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\SBMLErrorTable.h">
 			</File>
 			<File
 				RelativePath="..\..\src\common\sbmlfwd.h">
