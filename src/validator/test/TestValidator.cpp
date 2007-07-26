@@ -116,6 +116,11 @@ TestValidator::test (const TestFile& file)
   bool error = false;
 
   unsigned int id       = file.getConstraintId();
+
+  /* change numbers for specific units tests that report same number */
+  if (id == 10502 || id == 10503 || id == 10504)
+    id = 10501;
+
   unsigned int expected = file.getNumFailures();
   unsigned int others   = file.getAdditionalFailId();
 
