@@ -475,7 +475,7 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::SBMLConsistencyIdentifier,
     SBMLError::NotApplicable,
     SBMLError::NotApplicable,
-    SBMLError::Error,
+    SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
     ""
@@ -505,6 +505,42 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::GeneralWarning,
     SBMLError::Error,
     SBMLError::Error,
+    ""
+  },
+
+  //10502
+  {
+    SBMLError::InconsistentArgUnitsWarnings,
+    SBMLError::SBMLConsistencyUnits,
+    SBMLError::GeneralWarning,
+    SBMLError::GeneralWarning,
+    SBMLError::GeneralWarning,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    ""
+  },
+
+  //10503
+  {
+    SBMLError::InconsistentPowerUnitsWarnings,
+    SBMLError::SBMLConsistencyUnits,
+    SBMLError::GeneralWarning,
+    SBMLError::GeneralWarning,
+    SBMLError::GeneralWarning,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    ""
+  },
+
+  //10503
+  {
+    SBMLError::InconsistentExponUnitsWarnings,
+    SBMLError::SBMLConsistencyUnits,
+    SBMLError::GeneralWarning,
+    SBMLError::GeneralWarning,
+    SBMLError::GeneralWarning,
+    SBMLError::Warning,
+    SBMLError::Warning,
     ""
   },
 

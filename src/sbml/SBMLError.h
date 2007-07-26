@@ -122,6 +122,9 @@ public:
   , DuplicateAnnotationNamespaces    = 10402 /*!< SBML L2v3 validation rule #10402 */
   , SBMLNamespaceInAnnotation        = 10403 /*!< SBML L2v3 validation rule #10403 */
   , InconsistentArgUnits             = 10501 /*!< SBML L2v3 validation rule #10501 */
+  , InconsistentArgUnitsWarnings     = 10502 /*!< SBML L2v3 validation rule #10501 */
+  , InconsistentPowerUnitsWarnings   = 10503 /*!< SBML L2v3 validation rule #10501 */
+  , InconsistentExponUnitsWarnings   = 10504 /*!< SBML L2v3 validation rule #10501 */
   , AssignRuleCompartmentMismatch    = 10511 /*!< SBML L2v3 validation rule #10511 */
   , AssignRuleSpeciesMismatch        = 10512 /*!< SBML L2v3 validation rule #10512 */
   , AssignRuleParameterMismatch      = 10513 /*!< SBML L2v3 validation rule #10513 */

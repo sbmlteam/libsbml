@@ -37,34 +37,6 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-typedef struct {
-  unsigned int            code;
-  SBMLError::SBMLCategory category;
-  SBMLError::SBMLSeverity severity;
-  const char*             message;
-} sbmlErrorTableEntry_old;
-
-static const sbmlErrorTableEntry_old errorTable_old[] =
-{
-  // 0
-  { SBMLError::UnknownError, SBMLError::SBML, SBMLError::Fatal,
-    "Unrecognized error encountered" },
-
-
-
-
-
-
-
-
-
-
-
-};
-
-
-
-
 
 SBMLError::SBMLError (  const unsigned int            errorId
                       , const unsigned int            level
@@ -150,6 +122,14 @@ SBMLError::SBMLError (  const unsigned int            errorId
         else
         {
           newMsg << errorTable[i].message;
+        }
+
+        /* report all these as 10501 */
+        if (mErrorId == 10502
+          || mErrorId == 10503
+          || mErrorId == 10504)
+        {
+          mErrorId = 10501;
         }
 
         if (!details.empty())

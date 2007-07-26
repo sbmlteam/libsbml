@@ -372,11 +372,6 @@ SBMLDocument::checkConsistency ()
     return nerrors;
   }
 
-  ///* create list of formula units for validation */
-  //if (!getModel()->isWrittenFormulaUnitsData())
-  //{
-  //  getModel()->createListFormulaUnitsData();
-  //}
   unit_validator.init();
   nerrors += unit_validator.validate(*this);
   if (nerrors) 
