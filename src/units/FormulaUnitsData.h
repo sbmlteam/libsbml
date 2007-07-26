@@ -125,6 +125,18 @@ public:
   const UnitDefinition * getEventTimeUnitDefinition() const { return mEventTimeUnitDefinition; };
 
   /**
+  * returns the L1SpeciesConcUnitDefinition relating to the FormulaUnitsData object
+  */
+  UnitDefinition * getL1SpeciesConcUnitDefinition() { return mL1SpeciesConcUnitDefinition; };
+  const UnitDefinition * getL1SpeciesConcUnitDefinition() const { return mL1SpeciesConcUnitDefinition; };
+
+  /**
+  * returns the L1SpeciesConcPerTimeUnitDefinition relating to the FormulaUnitsData object
+  */
+  UnitDefinition * getL1SpeciesConcPerTimeUnitDefinition() { return mL1SpeciesConcPerTimeUnitDefinition; };
+  const UnitDefinition * getL1SpeciesConcPerTimeUnitDefinition() const { return mL1SpeciesConcPerTimeUnitDefinition; };
+
+  /**
    * sets the id of the FormulaUnitsData
    *
    */
@@ -178,6 +190,26 @@ public:
   };
 
   /**
+  * sets the EventTimeUnitDefinition relating to the FormulaUnitsData object
+  */
+  void setL1SpeciesConcUnitDefinition(UnitDefinition * ud) 
+  { 
+    if(ud == mL1SpeciesConcUnitDefinition) return;
+    delete mL1SpeciesConcUnitDefinition;
+    mL1SpeciesConcUnitDefinition = ud; 
+  };
+
+  /**
+  * sets the EventTimeUnitDefinition relating to the FormulaUnitsData object
+  */
+  void setL1SpeciesConcPerTimeUnitDefinition(UnitDefinition * ud) 
+  { 
+    if(ud == mL1SpeciesConcPerTimeUnitDefinition) return;
+    delete mL1SpeciesConcPerTimeUnitDefinition;
+    mL1SpeciesConcPerTimeUnitDefinition = ud; 
+  };
+
+  /**
    * Returns the libSBML type code for this %SBML object.
    * 
    * @return the SBMLTypeCode_t of this object or SBML_UNKNOWN (default).
@@ -205,6 +237,8 @@ protected:
     UnitDefinition * mUnitDefinition;
     UnitDefinition * mPerTimeUnitDefinition;
     UnitDefinition * mEventTimeUnitDefinition;
+    UnitDefinition * mL1SpeciesConcUnitDefinition;
+    UnitDefinition * mL1SpeciesConcPerTimeUnitDefinition;
 
 };
 

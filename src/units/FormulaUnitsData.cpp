@@ -157,7 +157,7 @@ Model::createListFormulaUnitsData()
     else
       ud = unitFormatter->getUnitDefinitionFromSpecies(s);
     fud->setUnitDefinition(ud);
-
+    
     if (ud != NULL)
     {
       ud = new UnitDefinition();
@@ -169,6 +169,34 @@ Model::createListFormulaUnitsData()
       fud->setPerTimeUnitDefinition(ud);
     }
 
+    if (ud != NULL && getLevel() == 1)
+    {
+      ud = new UnitDefinition();
+      for (j = 0; j < fud->getUnitDefinition()->getNumUnits(); j++)
+        ud->addUnit(fud->getUnitDefinition()->getUnit(j));
+      UnitDefinition *compUD = unitFormatter->getUnitDefinitionFromCompartment
+        (getCompartment(s->getCompartment()));
+
+      for (j = 0; j < compUD->getNumUnits(); j++)
+      {
+        Unit * u = new Unit(*compUD->getUnit(j));
+        u->setExponent(u->getExponent() * -1);
+        ud->addUnit(u);
+        delete u;
+      }
+      fud->setL1SpeciesConcUnitDefinition(ud);
+
+      if (ud != NULL)
+      {
+        ud = new UnitDefinition();
+        for (j = 0; j < fud->getL1SpeciesConcUnitDefinition()->getNumUnits(); j++)
+          ud->addUnit(fud->getL1SpeciesConcUnitDefinition()->getUnit(j));
+        u = new Unit("second", -1);
+        ud->addUnit(u);
+        delete u;
+        fud->setL1SpeciesConcPerTimeUnitDefinition(ud);
+      }
+    }
     // addFormulaUnitsData(fud);
   }
 
@@ -541,6 +569,8 @@ FormulaUnitsData::FormulaUnitsData()
   mUnitDefinition = new UnitDefinition();
   mPerTimeUnitDefinition = new UnitDefinition();
   mEventTimeUnitDefinition = new UnitDefinition();
+  mL1SpeciesConcUnitDefinition = new UnitDefinition();
+  mL1SpeciesConcPerTimeUnitDefinition = new UnitDefinition();
 }
 
 FormulaUnitsData::FormulaUnitsData(const FormulaUnitsData& rhs)
@@ -575,13 +605,33 @@ FormulaUnitsData::FormulaUnitsData(const FormulaUnitsData& rhs)
   {
     mEventTimeUnitDefinition = NULL;
   }
+  if (rhs.mL1SpeciesConcUnitDefinition)
+  {
+    mL1SpeciesConcUnitDefinition = static_cast <UnitDefinition*> 
+                                        (rhs.mL1SpeciesConcUnitDefinition->clone());
+  }
+  else
+  {
+    mL1SpeciesConcUnitDefinition = NULL;
+  }
+  if (rhs.mL1SpeciesConcPerTimeUnitDefinition)
+  {
+    mL1SpeciesConcPerTimeUnitDefinition = static_cast <UnitDefinition*> 
+                                        (rhs.mL1SpeciesConcPerTimeUnitDefinition->clone());
+  }
+  else
+  {
+    mL1SpeciesConcPerTimeUnitDefinition = NULL;
+  }
 }
 
 FormulaUnitsData::~FormulaUnitsData()
 {
-  if (mUnitDefinition)          delete mUnitDefinition;
-  if (mPerTimeUnitDefinition)   delete mPerTimeUnitDefinition;
-  if (mEventTimeUnitDefinition) delete mEventTimeUnitDefinition;
+  if (mUnitDefinition)              delete mUnitDefinition;
+  if (mPerTimeUnitDefinition)       delete mPerTimeUnitDefinition;
+  if (mEventTimeUnitDefinition)     delete mEventTimeUnitDefinition;
+  if (mL1SpeciesConcUnitDefinition) delete mL1SpeciesConcUnitDefinition;
+  if (mL1SpeciesConcPerTimeUnitDefinition) delete mL1SpeciesConcPerTimeUnitDefinition;
 }
 
 /**
