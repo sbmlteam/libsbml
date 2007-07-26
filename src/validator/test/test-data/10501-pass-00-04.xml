@@ -22,7 +22,7 @@ Pass: (3300) Inconsistent math
 						</apply>
 						<apply>
 							<minus/>
-							<ci> p </ci>
+							<cn> 4.5 </cn>
 							<ci> c </ci>
 						</apply>
 					</apply>

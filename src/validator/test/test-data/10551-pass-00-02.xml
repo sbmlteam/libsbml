@@ -34,10 +34,7 @@ Pass: (3400) When a delay is specified within an event the units
 				</trigger>
 				<delay>
 					<math xmlns="http://www.w3.org/1998/Math/MathML">
-						<apply>
-							<abs/>
-							<ci> p </ci>
-						</apply>
+						<cn> 2.5 </cn>
 					</math>
 				</delay>
 				<listOfEventAssignments>
