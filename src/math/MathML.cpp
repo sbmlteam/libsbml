@@ -511,6 +511,14 @@ readMathML (ASTNode& node, XMLInputStream& stream)
 
       readMathML(node, stream);
       if (node.isName()) node.setType(AST_FUNCTION);
+      if (node.isNumber()) 
+      {
+        /* <apply> <cn/> is not valid mathML */
+        static_cast <SBMLErrorLog*> (stream.getErrorLog())
+                                        ->logError(SBMLError::BadMathML);
+        return;
+
+      }
     }
     else if (name == "lambda")
     {
