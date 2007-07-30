@@ -329,61 +329,84 @@ SBMLDocument::createModel (const std::string& sid)
  * @return the number of failed checks (errors) encountered.
  */
 unsigned int
-SBMLDocument::checkConsistency ()
+SBMLDocument::checkConsistency (unsigned char checks)
 {
   unsigned int nerrors = 0;
-  unsigned int no_warnings = 0;
 
-  /* calls each validator in turn - stopping when errors are encountered */
+  /* determine which validators to run */
+  bool id    = ((checks & 0x01) == 0x01);
+  bool sbml  = ((checks & 0x02) == 0x02);
+  bool sbo   = ((checks & 0x04) == 0x04);
+  bool math  = ((checks & 0x08) == 0x08);
+  bool units = ((checks & 0x10) == 0x10);
+
   IdentifierConsistencyValidator id_validator;
   ConsistencyValidator validator;
   SBOConsistencyValidator sbo_validator;
   MathMLConsistencyValidator math_validator;
   UnitConsistencyValidator unit_validator;
 
-  id_validator.init();
-  nerrors += id_validator.validate(*this);
-  if (nerrors) 
+  /* calls each specified validator in turn 
+   * - stopping when errors are encountered */
+
+  if (id)
   {
-    mErrorLog.add( id_validator.getMessages() );
-    return nerrors;
-  }
-  
-  validator.init();
-  nerrors += validator.validate(*this);
-  if (nerrors) 
-  {
-    mErrorLog.add( validator.getMessages() );
-    /* only want to bail if errors not warnings */
-    if (mErrorLog.getNumSeverityErrors() > 0)
+    id_validator.init();
+    nerrors += id_validator.validate(*this);
+    if (nerrors) 
+    {
+      mErrorLog.add( id_validator.getMessages() );
       return nerrors;
+    }
   }
 
-  sbo_validator.init();
-  nerrors += sbo_validator.validate(*this);
-  if (nerrors) 
+  if (sbml)
   {
-    mErrorLog.add( sbo_validator.getMessages() );
-    /* only want to bail if errors not warnings */
-    if (mErrorLog.getNumSeverityErrors() > 0)
-      return nerrors;
+    validator.init();
+    nerrors += validator.validate(*this);
+    if (nerrors) 
+    {
+      mErrorLog.add( validator.getMessages() );
+      /* only want to bail if errors not warnings */
+      if (mErrorLog.getNumSeverityErrors() > 0)
+        return nerrors;
+    }
   }
 
-  math_validator.init();
-  nerrors += math_validator.validate(*this);
-  if (nerrors) 
+  if (sbo)
   {
-    mErrorLog.add( math_validator.getMessages() );
-    /* only want to bail if errors not warnings */
-    if (mErrorLog.getNumSeverityErrors() > 0)
-      return nerrors;
+    sbo_validator.init();
+    nerrors += sbo_validator.validate(*this);
+    if (nerrors) 
+    {
+      mErrorLog.add( sbo_validator.getMessages() );
+      /* only want to bail if errors not warnings */
+      if (mErrorLog.getNumSeverityErrors() > 0)
+        return nerrors;
+    }
   }
 
-  unit_validator.init();
-  nerrors += unit_validator.validate(*this);
-  if (nerrors) 
+  if (math)
   {
-    mErrorLog.add( unit_validator.getMessages() );
+    math_validator.init();
+    nerrors += math_validator.validate(*this);
+    if (nerrors) 
+    {
+      mErrorLog.add( math_validator.getMessages() );
+      /* only want to bail if errors not warnings */
+      if (mErrorLog.getNumSeverityErrors() > 0)
+        return nerrors;
+    }
+  }
+
+  if (units)
+  {
+    unit_validator.init();
+    nerrors += unit_validator.validate(*this);
+    if (nerrors) 
+    {
+      mErrorLog.add( unit_validator.getMessages() );
+    }
   }
 
   return nerrors;

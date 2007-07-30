@@ -240,9 +240,12 @@ public:
    * Callers should query the results of the consistency check by calling
    * getError().
    *
+   * Different validators can be turned off by passing a parameter
+   * NEEDS WRITING
+   *
    * @return the number of failed checks (errors) encountered.
    */
-  unsigned int checkConsistency ();
+  unsigned int checkConsistency (unsigned char checks = 0x1f);
 
 
   /**
