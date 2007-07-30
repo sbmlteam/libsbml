@@ -106,18 +106,30 @@ SBMLError::SBMLError (  const unsigned int            errorId
         ostringstream newMsg;
         if (mSeverity == SBMLError::SchemaError)
         {
+          /* change number of schema error and
+           * report schema failure message plus
+           * additional information message
+           */
           mErrorId = 10103;
           mSeverity = SBMLError::Error;
 
-          newMsg << errorTable[3].message
+          newMsg << "ERROR\n" << errorTable[3].message
                  << " " << errorTable[i].message << endl;
         }
         else if (mSeverity == SBMLError::GeneralWarning)
         {
-          newMsg << "General warning: Although SBML Level " << level 
+          newMsg << "GENERAL WARNING\nAlthough SBML Level " << level 
             << " Version " << version
             << " does not explicitly define this as an error, more recent "
             << "versions of SBML do. " << endl;
+        }
+        else if (mSeverity == SBMLError::Error)
+        {
+          newMsg << "ERROR\n" << errorTable[i].message;
+        }
+        else if (mSeverity == SBMLError::Warning)
+        {
+          newMsg << "WARNING\n" << errorTable[i].message;
         }
         else
         {
@@ -134,7 +146,7 @@ SBMLError::SBMLError (  const unsigned int            errorId
 
         if (!details.empty())
         {
-          newMsg << " " << details << endl;
+          newMsg << details << endl;
         }
         else
         {
@@ -147,13 +159,10 @@ SBMLError::SBMLError (  const unsigned int            errorId
       }
     }
       
-    //if (fromValidator == 1)
-    //{
-      mMessage  = details;
-      mSeverity = severity;
-      mCategory = category;
-      return;
-    //}
+    mMessage  = details;
+    mSeverity = severity;
+    mCategory = category;
+    return;
 
 
     // The id is in the range of error numbers that are supposed to be in
