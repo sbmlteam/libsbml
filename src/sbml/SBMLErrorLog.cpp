@@ -100,6 +100,23 @@ SBMLErrorLog::add (const std::list<SBMLError>& errors)
     XMLErrorLog::add( XMLError(*iter) );
 }
 
+/**
+  * Returns number of errors that are logged with severity Error
+  */
+unsigned int
+SBMLErrorLog::getNumSeverityErrors()
+{
+  unsigned int noErrors = 0;
+
+  for (unsigned int n = 0; n < mErrors.size(); n++)
+  {
+    if (mErrors.at(n).getSeverity() == SBMLError::Error)
+      noErrors++;
+  }
+
+  return noErrors;
+}
+
 
 /** @endcond doxygen-libsbml-internal */
 

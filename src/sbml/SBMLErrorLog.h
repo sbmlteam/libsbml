@@ -141,6 +141,11 @@ public:
    */
   void add (const std::list<SBMLError>& errors);
 
+  /**
+   * Returns number of errors that are logged with severity Error
+   */
+  unsigned int getNumSeverityErrors();
+
   /** @endcond doxygen-libsbml-internal */
 };
 

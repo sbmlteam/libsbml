@@ -332,6 +332,7 @@ unsigned int
 SBMLDocument::checkConsistency ()
 {
   unsigned int nerrors = 0;
+  unsigned int no_warnings = 0;
 
   /* calls each validator in turn - stopping when errors are encountered */
   IdentifierConsistencyValidator id_validator;
@@ -353,7 +354,9 @@ SBMLDocument::checkConsistency ()
   if (nerrors) 
   {
     mErrorLog.add( validator.getMessages() );
-    return nerrors;
+    /* only want to bail if errors not warnings */
+    if (mErrorLog.getNumSeverityErrors() > 0)
+      return nerrors;
   }
 
   sbo_validator.init();
@@ -361,7 +364,9 @@ SBMLDocument::checkConsistency ()
   if (nerrors) 
   {
     mErrorLog.add( sbo_validator.getMessages() );
-    return nerrors;
+    /* only want to bail if errors not warnings */
+    if (mErrorLog.getNumSeverityErrors() > 0)
+      return nerrors;
   }
 
   math_validator.init();
@@ -369,7 +374,9 @@ SBMLDocument::checkConsistency ()
   if (nerrors) 
   {
     mErrorLog.add( math_validator.getMessages() );
-    return nerrors;
+    /* only want to bail if errors not warnings */
+    if (mErrorLog.getNumSeverityErrors() > 0)
+      return nerrors;
   }
 
   unit_validator.init();
@@ -377,7 +384,6 @@ SBMLDocument::checkConsistency ()
   if (nerrors) 
   {
     mErrorLog.add( unit_validator.getMessages() );
-    return nerrors;
   }
 
   return nerrors;
