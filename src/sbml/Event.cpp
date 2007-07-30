@@ -517,6 +517,7 @@ Event::readAttributes (const XMLAttributes& attributes)
   // removed in l2v3
   //
   attributes.readInto("timeUnits", mTimeUnits);
+  SBase::checkUnitSyntax();
 
 
   //

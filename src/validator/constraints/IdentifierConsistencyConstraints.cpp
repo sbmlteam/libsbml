@@ -59,4 +59,5 @@ EXTERN_CONSTRAINT( 10307, UniqueMetaId                 )
 // 10308: SBO term - caught at read
 // 10309: syntax of metid - caught at read but not finished TO DO
 // 10310: syntax of id - caught at read
+// 10311: syntax of UnitSId - caught at read
 

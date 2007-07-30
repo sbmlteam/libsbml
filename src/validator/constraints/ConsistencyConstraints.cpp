@@ -221,7 +221,7 @@ START_CONSTRAINT (20401, UnitDefinition, ud)
   if (ud.getLevel() == 1)
   {
     msg =
-      "The value of the 'name' attribute in a <unitDefinition> must not be of"
+      "The value of the 'name' attribute in a <unitDefinition> must be of"
       " type UnitSId and not be identical "
       "to any unit predefined in SBML. That is, the identifier must not be the "
       "same as any of the following predefined units: 'ampere' 'Celsius' "
@@ -239,7 +239,7 @@ START_CONSTRAINT (20401, UnitDefinition, ud)
     if (ud.getVersion() == 1)
     {
       msg =
-        "The value of the 'id' attribute in a <unitDefinition> must not be of"
+        "The value of the 'id' attribute in a <unitDefinition> must be of"
         " type UnitSId and not be identical "
         "to any unit predefined in SBML. That is, the identifier must not be "
         "the same as any of the following predefined units: 'ampere' 'Celsius' "
@@ -253,7 +253,7 @@ START_CONSTRAINT (20401, UnitDefinition, ud)
     else
     {
       msg =
-        "The value of the 'id' attribute in a <unitDefinition> must not be of"
+        "The value of the 'id' attribute in a <unitDefinition> must be of"
         " type UnitSId and not be identical "
         "to any unit predefined in SBML. That is, the identifier must not be "
         "the same as any of the following predefined units: 'ampere' 'gram' "

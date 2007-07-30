@@ -1648,6 +1648,74 @@ SBase::checkIdSyntax()
 
   if (!okay) logError(SBMLError::InvalidIdSyntax);
 }
+
+
+/**
+  * Checks the syntax of the unit attribute.
+  * The syntax of an unit is of type UnitSId which is defined as:
+  *
+  *  - letter ::= 'a'..'z','A'..'Z'
+  *  - digit  ::= '0'..'9'
+  *  - idChar ::= letter | digit | '_'
+  *  - UnitSId    ::= ( letter | '_' ) idChar*
+  *
+  * If the syntax of the unit attribute of this object is incorrect, 
+  * an error is logged
+  */
+void 
+SBase::checkUnitSyntax(unsigned int flag)
+{
+  std::string units = "";
+  if (getTypeCode() == SBML_SPECIES)
+  {
+    if (flag != 0)
+      units = static_cast <Species*> (this)->getSpatialSizeUnits();
+    else
+      units = static_cast <Species*> (this)->getUnits();
+  }
+
+  else if (getTypeCode() == SBML_EVENT)
+  {
+    units = static_cast <Event*> (this)->getTimeUnits();
+  }
+  else if (getTypeCode() == SBML_COMPARTMENT)
+  {
+    units = static_cast <Compartment*> (this)->getUnits();
+  }
+  else if (getTypeCode() == SBML_PARAMETER)
+  {
+    units = static_cast <Parameter*> (this)->getUnits();
+  }
+  else
+  {
+    units  = "";
+  }
+
+  unsigned int size = units.size();
+
+  if (size == 0)
+  {
+      return;
+  }
+
+  unsigned int n = 0;
+
+  char c = units[n];
+  bool okay = (isalpha(c) || (c == '_'));
+  n++;
+
+  while (okay && n < size)
+  {
+    units = units[n];
+    okay = (isalnum(c) || c == '_');
+    n++;
+  }
+
+  if (!okay) logError(SBMLError::InvalidUnitIdSyntax);
+
+}
+
+
 /** @endcond doxygen-libsbml-internal */
 
 

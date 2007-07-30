@@ -1140,6 +1140,21 @@ protected:
 
 
   /**
+    * Checks the syntax of the unit attribute.
+    * The syntax of an unit is of type UnitSId which is defined as:
+    *
+    *  - letter ::= 'a'..'z','A'..'Z'
+    *  - digit  ::= '0'..'9'
+    *  - idChar ::= letter | digit | '_'
+    *  - UnitSId    ::= ( letter | '_' ) idChar*
+    *
+    * If the syntax of the unit attribute of this object is incorrect, 
+    * an error is logged
+    */
+  void checkUnitSyntax(unsigned int flag = 0);
+
+
+  /**
     * Checks the annotation does not declare an sbml namespace.
     * If the annotation declares an sbml namespace an error is logged.
     */

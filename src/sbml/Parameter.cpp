@@ -359,6 +359,7 @@ Parameter::readAttributes (const XMLAttributes& attributes)
   // units: SId    { use="optional" }  (L2v1, L2v2)
   //
   attributes.readInto("units", mUnits);
+  SBase::checkUnitSyntax();
 
   //
   // constant: boolean  { use="optional" default="true" }  (L2v1, L2v2)

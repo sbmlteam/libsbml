@@ -713,6 +713,7 @@ Species::readAttributes (const XMLAttributes& attributes)
   //
   const string units = (level == 1) ? "units" : "substanceUnits";
   attributes.readInto(units, mSubstanceUnits);
+  SBase::checkUnitSyntax();
 
   if (level == 2)
   {
@@ -720,6 +721,7 @@ Species::readAttributes (const XMLAttributes& attributes)
     // spatialSizeUnits: SId  { use="optional" }  (L2v1, L2v2) removed in l2v3
     //
     attributes.readInto("spatialSizeUnits", mSpatialSizeUnits);
+    SBase::checkUnitSyntax(1);
 
     //
     // hasOnlySubstanceUnits: boolean

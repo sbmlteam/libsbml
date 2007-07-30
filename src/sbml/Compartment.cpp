@@ -528,6 +528,7 @@ Compartment::readAttributes (const XMLAttributes& attributes)
   // units  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
   //
   attributes.readInto("units", mUnits, getErrorLog(), false);
+  SBase::checkUnitSyntax();
 
   //
   // outside  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
