@@ -57,6 +57,8 @@ RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation, List * CVTer
   const XMLNode*  RDFTop = NULL;
   unsigned int n = 0;
   CVTerm * term;
+  if (CVTerms == NULL)
+    CVTerms = new List();
 
   // need to find the RDF desciption opening annotation
   if (name == "annotation" && annotation->getNumChildren() > 0)
