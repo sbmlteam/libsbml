@@ -6,3 +6,4 @@ config.status
 include
 TAGS
 CTAGS
+libsbml.pc
