@@ -198,6 +198,7 @@ distfiles =                         \
   config/xercesc.m4                 \
   configure                         \
   configure.ac                      \
+  libsbml.pc.in                     \
   $(examples)                              
 
 # The files listed in `extra_distclean' are items created by configure or
@@ -205,7 +206,7 @@ distfiles =                         \
 # makefile-common-actions.mk.
 
 extra_distclean = config.status config.cache config.log autom4te.cache \
-	src/common/config.h src/common/stamp-h1
+	src/common/config.h src/common/stamp-h1 libsbml.pc
 
 # It's safer to remove and recreate the copy of the include files after
 # a make clean.  Previously we did it in a make distclean only, but I've
@@ -263,7 +264,7 @@ tags: etags-recursive ctags-recursive
 # Installation.
 # -----------------------------------------------------------------------------
 
-install: all install-recursive install-warnings
+install: all install-recursive install-warnings install-pc
 
 install-docs: install-docs-recursive
 
@@ -278,6 +279,12 @@ ifneq "$(HOST_TYPE)" "darwin"
 	@echo "2) set the LD_LIBRARY_PATH (or equivalent) environment variable"
 	@echo ""
 endif
+
+install-pc: libsbml.pc
+	cp -p libsbml.pc "$(DESTDIR)$(LIBDIR)/pkgconfig"
+
+libsbml.pc: libsbml.pc.in
+	$(SHELL) ./config.status $(thisdir)/$@
 
 uninstall: uninstall-recursive
 	@if test -d "$(DESTDIR)$(LIBDIR)"; then \
