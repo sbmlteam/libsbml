@@ -72,16 +72,10 @@ catch
     Path_to_libs = strcat(Path_to_libs, '\bin\win32');
 
     % determine the location of the library files
-    lib{1} = '..\..\win32\bin\libsbml.lib';
-    lib{2} = '..\..\win32\bin\xerces-c_2.lib';
-    lib{3} = '..\..\win32\bin\libsbml.dll';
-    lib{4} = '..\..\win32\bin\xerces-c_2_2_0.dll';
-    lib{5} = '..\..\win32\bin\libsbmlD.lib';
-    lib{6} = '..\..\win32\bin\xerces-c_2D.lib';
-    lib{7} = '..\..\win32\bin\libsbmlD.dll';
-    lib{8} = '..\..\win32\bin\xerces-c_2_2_0D.dll';
+    lib{1} = '..\..\..\win32\bin\libsbml.lib';
+    lib{2} = '..\..\..\win32\bin\libsbml.dll';
 
-    for i = 1:8
+    for i = 1:2
         copyfile(lib{i}, Path_to_libs);
     end;
 end;

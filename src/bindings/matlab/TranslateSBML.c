@@ -326,9 +326,9 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
   pacName        = Model_getId(sbmlModel);
   pacTypecode    = TypecodeToChar(SBase_getTypeCode((SBase_t*) sbmlModel));
-/*  pacNotes       = SBase_getNotes((SBase_t*) sbmlModel);
-  pacAnnotations = SBase_getAnnotation((SBase_t*) sbmlModel);
-*/
+  pacNotes       = SBase_getNotesString((SBase_t*) sbmlModel);
+  pacAnnotations = SBase_getAnnotationString((SBase_t*) sbmlModel);
+
   if (pacName == NULL)
   {
     pacName = "";
@@ -753,9 +753,9 @@ GetSpecies ( Model_t      *pModel,
     
     /* determine the values */
     pacTypecode        = TypecodeToChar(SBase_getTypeCode((SBase_t*) pSpecies));
-  /*pacNotes           = SBase_getNotes((SBase_t*) pSpecies);
-    pacAnnotations     = SBase_getAnnotation((SBase_t*) pSpecies);
-  */  
+    pacNotes           = SBase_getNotesString((SBase_t*) pSpecies);
+    pacAnnotations     = SBase_getAnnotationString((SBase_t*) pSpecies);
+    
     pacName            = Species_getId(pSpecies);
     pacCompartment     = Species_getCompartment(pSpecies);
     dInitialAmount     = Species_getInitialAmount(pSpecies);
@@ -976,9 +976,9 @@ GetUnitDefinition ( Model_t      *pModel,
     /* determine the values */
 
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t*) pUnitDefinition));
-/*  pacNotes        = SBase_getNotes((SBase_t*) pUnitDefinition);
-    pacAnnotations  = SBase_getAnnotation((SBase_t*) pUnitDefinition);
-  */  
+    pacNotes        = SBase_getNotesString((SBase_t*) pUnitDefinition);
+    pacAnnotations  = SBase_getAnnotationString((SBase_t*) pUnitDefinition);
+    
     pacName         = UnitDefinition_getId(pUnitDefinition);
     GetUnit(pUnitDefinition, unSBMLLevel, unSBMLVersion);
     
@@ -1161,10 +1161,10 @@ GetCompartment ( Model_t      *pModel,
 
     /* determine the values */
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t*) pCompartment));
-/*  
-    pacNotes        = SBase_getNotes((SBase_t*) pCompartment);
-    pacAnnotations  = SBase_getAnnotation((SBase_t*) pCompartment);
-  */  
+  
+    pacNotes        = SBase_getNotesString((SBase_t*) pCompartment);
+    pacAnnotations  = SBase_getAnnotationString((SBase_t*) pCompartment);
+    
     pacName         = Compartment_getId(pCompartment);
     pacUnits        = Compartment_getUnits(pCompartment);
     pacOutside      = Compartment_getOutside(pCompartment);
@@ -1383,10 +1383,10 @@ GetParameter ( Model_t      *pModel,
 
     /* determine the values */
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t*) pParameter));
-/*  
-    pacNotes        = SBase_getNotes((SBase_t*) pParameter);
-    pacAnnotations  = SBase_getAnnotation((SBase_t*) pParameter);
-  */  
+  
+    pacNotes        = SBase_getNotesString((SBase_t*) pParameter);
+    pacAnnotations  = SBase_getAnnotationString((SBase_t*) pParameter);
+    
     pacName         = Parameter_getId(pParameter);
     dValue          = Parameter_getValue(pParameter);
     pacUnits        = Parameter_getUnits(pParameter);
@@ -1582,10 +1582,10 @@ void GetReaction ( Model_t      *pModel,
 
     /* determine the values */
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t*) pReaction));
-/*    
-    pacNotes        = SBase_getNotes((SBase_t*) pReaction);
-    pacAnnotations  = SBase_getAnnotation((SBase_t*) pReaction);
- */   
+    
+    pacNotes        = SBase_getNotesString((SBase_t*) pReaction);
+    pacAnnotations  = SBase_getAnnotationString((SBase_t*) pReaction);
+    
     pacName         = Reaction_getId(pReaction);
     nReversible     = Reaction_getReversible(pReaction);
     nFast           = Reaction_getFast(pReaction);
@@ -1776,10 +1776,10 @@ GetUnit ( UnitDefinition_t *pUnitDefinition,
 
     /* determine the values */
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t*) pUnit));
-/*    
-    pacNotes        = SBase_getNotes((SBase_t*) pUnit);
-    pacAnnotations  = SBase_getAnnotation((SBase_t*) pUnit);
- */   
+    
+    pacNotes        = SBase_getNotesString((SBase_t*) pUnit);
+    pacAnnotations  = SBase_getAnnotationString((SBase_t*) pUnit);
+    
     pacUnitKind     = UnitKind_toString(Unit_getKind(pUnit));
     nExponent       = Unit_getExponent(pUnit);
     nScale          = Unit_getScale(pUnit);
@@ -1944,10 +1944,10 @@ GetReactants ( Reaction_t   *pReaction,
 
     /* determine the values */
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t*) pReactant));
-/*    
-    pacNotes        = SBase_getNotes((SBase_t*) pReactant);
-    pacAnnotations  = SBase_getAnnotation((SBase_t*) pReactant);
-  */  
+    
+    pacNotes        = SBase_getNotesString((SBase_t*) pReactant);
+    pacAnnotations  = SBase_getAnnotationString((SBase_t*) pReactant);
+    
     pacSpecies      = SpeciesReference_getSpecies(pReactant);
     if (unSBMLLevel == 1) 
     {
@@ -2142,10 +2142,10 @@ const int nNoFields_l2v2 = 9;
 
     /* determine the values */
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t*) pProduct));
-/*    
-    pacNotes        = SBase_getNotes((SBase_t*) pProduct);
-    pacAnnotations  = SBase_getAnnotation((SBase_t*) pProduct);
-  */  
+    
+    pacNotes        = SBase_getNotesString((SBase_t*) pProduct);
+    pacAnnotations  = SBase_getAnnotationString((SBase_t*) pProduct);
+    
     pacSpecies      = SpeciesReference_getSpecies(pProduct);
     if (unSBMLLevel == 1) 
     {
@@ -2339,10 +2339,10 @@ GetKineticLaw ( Reaction_t   *pReaction,
   if (pKineticLaw != NULL)
   {
     pacTypecode = TypecodeToChar(SBase_getTypeCode((SBase_t*) pKineticLaw));
-/*    
-    pacNotes          = SBase_getNotes((SBase_t*) pKineticLaw);
-    pacAnnotations    = SBase_getAnnotation((SBase_t*) pKineticLaw);
-*/    
+    
+    pacNotes          = SBase_getNotesString((SBase_t*) pKineticLaw);
+    pacAnnotations    = SBase_getAnnotationString((SBase_t*) pKineticLaw);
+    
     pacFormula        = KineticLaw_getFormula(pKineticLaw);
 
     GetKineticLawParameters(pKineticLaw, unSBMLLevel, unSBMLVersion);
@@ -2572,10 +2572,10 @@ GetKineticLawParameters ( const KineticLaw_t *pKineticLaw,
     pParameter = KineticLaw_getParameter(pKineticLaw, i);
     /* determine the values */
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t*) pParameter));
-/*    
-    pacNotes        = SBase_getNotes((SBase_t*) pParameter);
-    pacAnnotations  = SBase_getAnnotation((SBase_t*) pParameter);
-*/    
+    
+    pacNotes        = SBase_getNotesString((SBase_t*) pParameter);
+    pacAnnotations  = SBase_getAnnotationString((SBase_t*) pParameter);
+    
     pacName         = Parameter_getId(pParameter);
     dValue          = Parameter_getValue(pParameter);
     pacUnits        = Parameter_getUnits(pParameter);
@@ -2736,10 +2736,10 @@ GetModifier ( Reaction_t   *pReaction,
 
     /* determine the values */
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t*) pModifier));
-/*    
-    pacNotes        = SBase_getNotes((SBase_t*) pModifier);
-    pacAnnotations  = SBase_getAnnotation((SBase_t*) pModifier);
-*/    
+    
+    pacNotes        = SBase_getNotesString((SBase_t*) pModifier);
+    pacAnnotations  = SBase_getAnnotationString((SBase_t*) pModifier);
+    
     pacSpecies      = SpeciesReference_getSpecies(pModifier);
     switch (unSBMLVersion)
     {
@@ -2920,10 +2920,10 @@ GetRule ( Model_t      *pModel,
     else
       pacTypecode     = TypecodeToChar(Rule_getL1TypeCode(pRule));
 
-/*    
-    pacNotes        = SBase_getNotes((SBase_t*) pRule);
-    pacAnnotations  = SBase_getAnnotation((SBase_t*) pRule);
-*/    
+    
+    pacNotes        = SBase_getNotesString((SBase_t*) pRule);
+    pacAnnotations  = SBase_getAnnotationString((SBase_t*) pRule);
+    
     if (unSBMLLevel == 1) 
     {
       pacFormula = Rule_getFormula(pRule);
@@ -3307,10 +3307,10 @@ GetFunctionDefinition ( Model_t      *pModel,
     
     /* determine the values */
     pacTypecode        = TypecodeToChar(SBase_getTypeCode((SBase_t *) pFuncDefinition));
-/*    
-    pacNotes            = SBase_getNotes((SBase_t *) pFuncDefinition);
-    pacAnnotations      = SBase_getAnnotation((SBase_t *) pFuncDefinition);
-*/    
+    
+    pacNotes            = SBase_getNotesString((SBase_t *) pFuncDefinition);
+    pacAnnotations      = SBase_getAnnotationString((SBase_t *) pFuncDefinition);
+    
     pacName             = FunctionDefinition_getId(pFuncDefinition);
     pacId               = FunctionDefinition_getId(pFuncDefinition);
        
@@ -3488,10 +3488,10 @@ GetEvent (Model_t      *pModel,
 
     /* determine the values */
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t *) pEvent));
- /*   
-    pacNotes        = SBase_getNotes((SBase_t *) pEvent);
-    pacAnnotations  = SBase_getAnnotation((SBase_t *) pEvent);
- */  
+    
+    pacNotes        = SBase_getNotesString((SBase_t *) pEvent);
+    pacAnnotations  = SBase_getAnnotationString((SBase_t *) pEvent);
+   
     pacName         = Event_getId(pEvent);
     pacId = Event_getId(pEvent);
 
@@ -3714,10 +3714,10 @@ GetEventAssignment ( Event_t      *pEvent,
 
     /* determine the values */
     pacTypecode       = TypecodeToChar(SBase_getTypeCode((SBase_t *) pEventAssignment));
-/*    
-    pacNotes          = SBase_getNotes((SBase_t *) pEventAssignment);
-    pacAnnotations    = SBase_getAnnotation((SBase_t *) pEventAssignment);
-*/    
+    
+    pacNotes          = SBase_getNotesString((SBase_t *) pEventAssignment);
+    pacAnnotations    = SBase_getAnnotationString((SBase_t *) pEventAssignment);
+    
     pacVariable       = EventAssignment_getVariable(pEventAssignment);
     switch (unSBMLVersion)
     {
@@ -3930,10 +3930,10 @@ GetCompartmentType (Model_t      *pModel,
 
     /* determine the values */
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t *) pCompartmentType));
- /*   
-    pacNotes        = SBase_getNotes((SBase_t *) pCompartmentType);
-    pacAnnotations  = SBase_getAnnotation((SBase_t *) pCompartmentType);
- */   
+    
+    pacNotes        = SBase_getNotesString((SBase_t *) pCompartmentType);
+    pacAnnotations  = SBase_getAnnotationString((SBase_t *) pCompartmentType);
+    
     pacName         = CompartmentType_getId(pCompartmentType);
     pacId = CompartmentType_getId(pCompartmentType);
     switch (unSBMLVersion)
@@ -4058,10 +4058,10 @@ GetSpeciesType (Model_t      *pModel,
 
     /* determine the values */
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t *) pSpeciesType));
- /*   
-    pacNotes        = SBase_getNotes((SBase_t *) pSpeciesType);
-    pacAnnotations  = SBase_getAnnotation((SBase_t *) pSpeciesType);
- */   
+    
+    pacNotes        = SBase_getNotesString((SBase_t *) pSpeciesType);
+    pacAnnotations  = SBase_getAnnotationString((SBase_t *) pSpeciesType);
+    
     pacName         = SpeciesType_getId(pSpeciesType);
     pacId = SpeciesType_getId(pSpeciesType);
     switch (unSBMLVersion)
@@ -4188,10 +4188,10 @@ GetInitialAssignment (Model_t      *pModel,
 
     /* determine the values */
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t *) pInitialAssignment));
- /*   
-    pacNotes        = SBase_getNotes((SBase_t *) pInitialAssignment);
-    pacAnnotations  = SBase_getAnnotation((SBase_t *) pInitialAssignment);
- */ 
+    
+    pacNotes        = SBase_getNotesString((SBase_t *) pInitialAssignment);
+    pacAnnotations  = SBase_getAnnotationString((SBase_t *) pInitialAssignment);
+  
     pacSymbol       = InitialAssignment_getSymbol(pInitialAssignment);
     if (SBase_isSetSBOTerm((SBase_t*) pInitialAssignment)){
       nSBO = SBase_getSBOTerm((SBase_t*) pInitialAssignment);
@@ -4339,10 +4339,10 @@ GetConstraint (Model_t      *pModel,
 
     /* determine the values */
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t *) pConstraint));
- /* 
-    pacNotes        = SBase_getNotes((SBase_t *) pConstraint);
-    pacAnnotations  = SBase_getAnnotation((SBase_t *) pConstraint);
-*/
+  
+    pacNotes        = SBase_getNotesString((SBase_t *) pConstraint);
+    pacAnnotations  = SBase_getAnnotationString((SBase_t *) pConstraint);
+
     if (Constraint_isSetMessage(pConstraint)) {
       /* need to think about this one 
       pacMessage = Constraint_getMessage(pConstraint);
