@@ -159,6 +159,9 @@
 				RelativePath="..\..\validator\constraints\ArgumentsUnitsCheck.cpp">
 			</File>
 			<File
+				RelativePath="..\..\validator\constraints\ArgumentsUnitsCheckWarnings.cpp">
+			</File>
+			<File
 				RelativePath="..\..\validator\constraints\AssignmentCycles.cpp">
 			</File>
 			<File
@@ -199,6 +202,9 @@
 			</File>
 			<File
 				RelativePath="..\..\sbml\EventAssignment.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\ExponentUnitsCheck.cpp">
 			</File>
 			<File
 				RelativePath="..\..\math\FormulaFormatter.c">
@@ -315,6 +321,12 @@
 				RelativePath="..\..\validator\constraints\OverDeterminedCheck.cpp">
 			</File>
 			<File
+				RelativePath="..\..\validator\constraints\OverdeterminedConstraints.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\OverdeterminedValidator.cpp">
+			</File>
+			<File
 				RelativePath="..\..\sbml\Parameter.cpp">
 			</File>
 			<File
@@ -322,6 +334,9 @@
 			</File>
 			<File
 				RelativePath="..\..\validator\constraints\PiecewiseValueMathCheck.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\PowerUnitsCheck.cpp">
 			</File>
 			<File
 				RelativePath="..\..\annotation\RDFAnnotation.cpp">
