@@ -35,6 +35,7 @@
 #include <sbml/validator/MathMLConsistencyValidator.h>
 #include <sbml/validator/SBOConsistencyValidator.h>
 #include <sbml/validator/UnitConsistencyValidator.h>
+#include <sbml/validator/OverdeterminedValidator.h>
 #include <sbml/validator/L1CompatibilityValidator.h>
 #include <sbml/validator/L2v1CompatibilityValidator.h>
 #include <sbml/validator/L2v2CompatibilityValidator.h>
@@ -339,12 +340,14 @@ SBMLDocument::checkConsistency (unsigned char checks)
   bool sbo   = ((checks & 0x04) == 0x04);
   bool math  = ((checks & 0x08) == 0x08);
   bool units = ((checks & 0x10) == 0x10);
+  bool over  = ((checks & 0x20) == 0x20);
 
   IdentifierConsistencyValidator id_validator;
   ConsistencyValidator validator;
   SBOConsistencyValidator sbo_validator;
   MathMLConsistencyValidator math_validator;
   UnitConsistencyValidator unit_validator;
+  OverdeterminedValidator over_validator;
 
   /* calls each specified validator in turn 
    * - stopping when errors are encountered */
@@ -406,9 +409,21 @@ SBMLDocument::checkConsistency (unsigned char checks)
     if (nerrors) 
     {
       mErrorLog.add( unit_validator.getMessages() );
+      /* only want to bail if errors not warnings */
+      if (mErrorLog.getNumSeverityErrors() > 0)
+        return nerrors;
     }
   }
 
+  if (over)
+  {
+    over_validator.init();
+    nerrors += over_validator.validate(*this);
+    if (nerrors) 
+    {
+      mErrorLog.add( over_validator.getMessages() );
+    }
+  }
   return nerrors;
 }
 

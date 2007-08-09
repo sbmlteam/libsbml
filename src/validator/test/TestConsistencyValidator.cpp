@@ -32,6 +32,7 @@
 #include <sbml/validator/IdentifierConsistencyValidator.h>
 #include <sbml/validator/SBOConsistencyValidator.h>
 #include <sbml/validator/UnitConsistencyValidator.h>
+#include <sbml/validator/OverdeterminedValidator.h>
 #include <sbml/validator/L1CompatibilityValidator.h>
 #include <sbml/validator/L2v1CompatibilityValidator.h>
 #include <sbml/validator/L2v2CompatibilityValidator.h>
@@ -115,6 +116,22 @@ bool
 runUnitTest (const TestFile& file)
 {
   UnitConsistencyValidator validator;
+  TestValidator        tester(validator);
+
+
+  validator.init();
+
+  return tester.test(file);
+}
+
+/**
+ * @return true if the Validator behaved as expected when validating
+ * TestFile, false otherwise.
+ */
+bool
+runOverTest (const TestFile& file)
+{
+  OverdeterminedValidator validator;
   TestValidator        tester(validator);
 
 
@@ -247,8 +264,11 @@ main (int argc, char* argv[])
   failed += runTests( "Testing General Annotation Consistency Constraints (10400 - 10499)",
 		      "test-data", 10400, 10499, runMainTest, library);
 
-  failed += runTests( "Testing Unit Consistency Constraints (10500 - 10699)",
-		      "test-data", 10500, 10699, runUnitTest, library);
+  failed += runTests( "Testing Unit Consistency Constraints (10500 - 10599)",
+		      "test-data", 10500, 10599, runUnitTest, library);
+
+  failed += runTests( "Testing Overdetermined Constraints (10600 - 10699)",
+		      "test-data", 10600, 10699, runOverTest, library);
 
   failed += runTests( "Testing SBO Consistency Constraints (10700 - 10799)",
 		      "test-data", 10700, 10799, runSBOTest, library);

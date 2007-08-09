@@ -72,31 +72,33 @@ thisdir   = src/validator
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-headers = \
-  ConsistencyValidator.h     \
-  IdentifierConsistencyValidator.h     \
-  MathMLConsistencyValidator.h     \
-  UnitConsistencyValidator.h     \
-  SBOConsistencyValidator.h     \
-  VConstraint.h               \
-  ConstraintMacros.h         \
-  L1CompatibilityValidator.h \
-  L2v1CompatibilityValidator.h \
-  L2v2CompatibilityValidator.h \
+headers =								\
+  ConsistencyValidator.h				\
+  IdentifierConsistencyValidator.h		\
+  MathMLConsistencyValidator.h			\
+  UnitConsistencyValidator.h			\
+  SBOConsistencyValidator.h				\
+  OverdeterminedValidator.h				\
+  VConstraint.h							\
+  ConstraintMacros.h					\
+  L1CompatibilityValidator.h			\
+  L2v1CompatibilityValidator.h			\
+  L2v2CompatibilityValidator.h			\
   Validator.h
 
 header_inst_prefix = validator
 
-sources = \
-  ConsistencyValidator.cpp     \
-  IdentifierConsistencyValidator.cpp     \
-  MathMLConsistencyValidator.cpp     \
-  UnitConsistencyValidator.cpp     \
-  SBOConsistencyValidator.cpp     \
-  VConstraint.cpp               \
-  L1CompatibilityValidator.cpp \
-  L2v1CompatibilityValidator.cpp \
-  L2v2CompatibilityValidator.cpp \
+sources =								\
+  ConsistencyValidator.cpp				\
+  IdentifierConsistencyValidator.cpp    \
+  MathMLConsistencyValidator.cpp		\
+  UnitConsistencyValidator.cpp			\
+  SBOConsistencyValidator.cpp			\
+  OverdeterminedValidator.cpp			\
+  VConstraint.cpp						\
+  L1CompatibilityValidator.cpp			\
+  L2v1CompatibilityValidator.cpp		\
+  L2v2CompatibilityValidator.cpp		\
   Validator.cpp
 
 subdirs = constraints test

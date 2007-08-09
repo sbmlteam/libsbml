@@ -245,7 +245,7 @@ public:
    *
    * @return the number of failed checks (errors) encountered.
    */
-  unsigned int checkConsistency (unsigned char checks = 0x1f);
+  unsigned int checkConsistency (unsigned char checks = 0x3f);
 
 
   /**

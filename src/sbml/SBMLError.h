@@ -283,6 +283,7 @@ public:
   , SBMLConsistencyUnits      = 9 /*!< Error in validating units. */
   , SBMLConsistencyMathML     = 10 /*!< Error in validating MathML. */
   , SBMLConsistencySBO        = 11 /*!< Error in validation SBO. */
+  , SBMLOverdetermined        = 12 /*!<Error in equations of model. */
   };
 
 

@@ -793,7 +793,3 @@ START_CONSTRAINT (10563, EventAssignment, ea)
 }
 END_CONSTRAINT
 
-
-// General model validation
-
-EXTERN_CONSTRAINT( 10601, OverDeterminedCheck)
