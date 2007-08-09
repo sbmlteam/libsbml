@@ -316,6 +316,12 @@
 				RelativePath="..\..\src\validator\constraints\OverDeterminedCheck.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\OverdeterminedConstraints.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\OverdeterminedValidator.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\sbml\Parameter.cpp">
 			</File>
 			<File
@@ -686,6 +692,9 @@
 				RelativePath="..\..\src\validator\constraints\OverDeterminedCheck.h">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\OverdeterminedValidator.h">
+			</File>
+			<File
 				RelativePath="..\..\src\sbml\Parameter.h">
 			</File>
 			<File
@@ -906,9 +915,6 @@
 			Name="Resource Files"
 			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
 		</Filter>
-		<File
-			RelativePath="..\..\src\sbml\config.h.in">
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

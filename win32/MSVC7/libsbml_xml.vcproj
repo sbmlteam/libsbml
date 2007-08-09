@@ -328,6 +328,12 @@
 				RelativePath="..\..\src\validator\constraints\OverDeterminedCheck.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\OverdeterminedConstraints.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\OverdeterminedValidator.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\sbml\Parameter.cpp">
 			</File>
 			<File
@@ -699,6 +705,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\OverDeterminedCheck.h">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\OverdeterminedValidator.h">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Parameter.h">
