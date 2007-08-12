@@ -224,7 +224,7 @@ extra_clean = include
 # of the form `foo-recursive' to run 'make foo' in directories defined in
 # variable `subdirs'.
 
-all: configure Makefile include all-recursive
+all: configure Makefile include all-recursive libsbml.pc
 
 docs: docs-recursive
 
@@ -261,6 +261,40 @@ tags: etags-recursive ctags-recursive
 
 
 # -----------------------------------------------------------------------------
+# libsbml.pc.
+# -----------------------------------------------------------------------------
+
+base-libs = -lsbml -lstdc++ -lm
+
+libsbml.pc: Makefile
+	@rm -f libsbml.pc
+	@echo "Name: @PACKAGE_NAME@"                   > libsbml.pc
+	@echo "Description: An API library for reading/writing/manipulating SBML" >> libsbml.pc
+	@echo "URL: http://sbml.org/software/libsbml" >> libsbml.pc
+	@echo "Version: @PACKAGE_VERSION@"            >> libsbml.pc
+	@echo ""                                      >> libsbml.pc
+	@echo "prefix=@prefix@"                       >> libsbml.pc
+	@echo "exec_prefix=@exec_prefix@"             >> libsbml.pc
+	@echo "libdir=@libdir@"                       >> libsbml.pc
+	@echo "includedir=@includedir@"               >> libsbml.pc
+	@echo ""                                      >> libsbml.pc
+ifdef USE_XERCES
+	@echo "Libs: -L\$${libdir} ${XERCES_LDFLAGS} ${XERCES_LIBS} ${base-libs}" >> libsbml.pc
+	@echo "Cflags: -I\$${includedir} ${XERCES_CPPFLAGS}" >> libsbml.pc
+	@echo "Conflicts: xerces-c = 2.6.0"           >> libsbml.pc
+endif
+ifdef USE_EXPAT
+	@echo "Libs: -L\$${libdir} ${EXPAT_LDFLAGS} ${EXPAT_LIBS} ${base-libs}" >> libsbml.pc
+	@echo "Cflags: -I\$${includedir} ${EXPAT_CPPFLAGS}"  >> libsbml.pc
+endif
+ifdef USE_LIBXML
+	@echo "Libs: -L\$${libdir} ${base-libs}"      >> libsbml.pc
+	@echo "Cflags: -I\$${includedir}"             >> libsbml.pc
+	@echo "Requires: libxml-2.0 >= 2.6.22"        >> libsbml.pc
+endif
+
+
+# -----------------------------------------------------------------------------
 # Installation.
 # -----------------------------------------------------------------------------
 
@@ -282,9 +316,6 @@ endif
 
 install-pc: libsbml.pc
 	cp -p libsbml.pc "$(DESTDIR)$(LIBDIR)/pkgconfig"
-
-libsbml.pc: libsbml.pc.in
-	$(SHELL) ./config.status $(thisdir)/$@
 
 uninstall: uninstall-recursive
 	@if test -d "$(DESTDIR)$(LIBDIR)"; then \
