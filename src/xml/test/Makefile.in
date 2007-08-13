@@ -53,6 +53,7 @@ test_sources =          \
   TestXMLInputStream.c  \
   TestXMLNamespaces.c   \
   TestXMLNode.c         \
+  TestXMLOutputStream.c \
   TestXMLToken.c        \
   TestXMLTriple.c       \
   TestRunner.c

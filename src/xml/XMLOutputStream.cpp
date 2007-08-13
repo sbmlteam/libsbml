@@ -21,8 +21,14 @@
  * also available online as http://sbml.org/software/libsbml/license.html
  *----------------------------------------------------------------------- -->*/
 
+#include <iostream>
+#include <sstream>
+#include <fstream>
+
+#include <cstdio>
 #include <sbml/xml/XMLTriple.h>
 #include <sbml/xml/XMLOutputStream.h>
+#include <sbml/util/util.h>
 
 /** @cond doxygen-ignored */
 
@@ -44,6 +50,7 @@ XMLOutputStream::XMLOutputStream (  std::ostream&       stream
  , mIndent  ( 0        )
  , mInText  ( false    )
 {
+  unsetStringStream();
   mStream.imbue( locale::classic() );
   if (writeXMLDecl) this->writeXMLDecl();
 }
@@ -616,22 +623,67 @@ XMLOutputStream::operator<< (const long& value)
 
   return *this;
 }
+/** @cond doxygen-libsbml-internal */
 
-#if 0
+XMLOutputStringStream::XMLOutputStringStream (  std::ostringstream& stream
+                   , const std::string&  encoding
+                   , bool                writeXMLDecl):
+  XMLOutputStream(stream, encoding, writeXMLDecl)
+    , mString(stream)
+
+{
+  setStringStream();
+}
+
+XMLOutputFileStream::XMLOutputFileStream (  std::ofstream& stream
+                   , const std::string&  encoding
+                   , bool                writeXMLDecl):
+  XMLOutputStream(stream, encoding, writeXMLDecl)
+
+{
+}
+
+/** @endcond doxygen-libsbml-internal */
+
 /** @cond doxygen-c-only */
 /**
- * 
+ * Creates a new XMLOutputStream_t that wraps std output stream.
  **/
 LIBLAX_EXTERN
 XMLOutputStream_t *
-XMLOutputStream_create (const char* encoding, int writeXMLDecl)
+XMLOutputStream_createAsStdout (char * encoding, int writeXMLDecl)
 {
-  return new(nothrow) XMLOutputStream(std::cout);
+  return new(nothrow) XMLOutputStream(std::cout, encoding, writeXMLDecl);
 }
 
 
 /**
- * 
+ * Creates a new XMLOutputStream_t that wraps std string output stream.
+ **/
+LIBLAX_EXTERN
+XMLOutputStream_t *
+XMLOutputStream_createAsString (char * encoding, int writeXMLDecl)
+{
+  std::ostringstream *out = new std::ostringstream();
+
+  return new(nothrow) XMLOutputStringStream(*out, encoding, writeXMLDecl);
+}
+
+
+/**
+ * Creates a new XMLOutputStream_t that wraps std file output stream.
+ **/
+LIBLAX_EXTERN
+XMLOutputStream_t *
+XMLOutputStream_createFile (char * filename, char * encoding, int writeXMLDecl)
+{
+  std::ofstream *fout = new std::ofstream(filename, std::ios::out);
+  return new(nothrow) XMLOutputFileStream(*fout, encoding, writeXMLDecl);
+}
+
+
+/**
+ * Deletes this XMLOutputStream_t. 
  **/
 LIBLAX_EXTERN
 void
@@ -640,19 +692,332 @@ XMLOutputStream_free (XMLOutputStream_t *stream)
   delete static_cast<XMLOutputStream*>(stream);
 }  
 
+
+/**
+ * Writes the XML declaration:
+ * <?xml version="1.0" encoding="..."?>
+ */
+LIBLAX_EXTERN
+void 
+XMLOutputStream_writeXMLDecl (XMLOutputStream_t *stream)
+{
+  stream->writeXMLDecl();
+}
+
+
+/**
+ * Increases the indentation level for this XMLOutputStream.
+ */
 LIBLAX_EXTERN
 void
-XMLOutputStream_write (XMLOutputStream_t *stream, const char* chars)
+XMLOutputStream_upIndent(XMLOutputStream_t *stream)
+{
+  stream->upIndent();
+}
+
+
+/**
+ * Decreases the indentation level for this XMLOutputStream.
+ */
+LIBLAX_EXTERN
+void
+XMLOutputStream_downIndent(XMLOutputStream_t *stream)
+{
+  stream->downIndent();
+}
+
+
+/**
+  * Writes the given XML end element name to this XMLOutputStream.
+  */
+LIBLAX_EXTERN
+void 
+XMLOutputStream_endElement (XMLOutputStream_t *stream, const char* name)
+{
+  stream->endElement(name);
+}
+
+
+/**
+ * Writes the given XML end element 'prefix:name' to this
+ * XMLOutputStream.
+ */
+LIBLAX_EXTERN
+void 
+XMLOutputStream_endElementTriple (XMLOutputStream_t *stream, 
+                                  const XMLTriple_t *triple)
+{
+  stream->endElement(*triple);
+}
+
+
+/**
+ * Turns automatic indentation on or off for this XMLOutputStream.
+ */
+LIBLAX_EXTERN
+void 
+XMLOutputStream_setAutoIndent (XMLOutputStream_t *stream, int indent)
+{
+  stream->setAutoIndent(static_cast<bool>(indent));
+}
+
+
+/**
+ * Writes the given XML start element name to this XMLOutputStream.
+ */
+LIBLAX_EXTERN
+void 
+XMLOutputStream_startElement (XMLOutputStream_t *stream, const char* name)
+{
+  stream->startElement(name);
+}
+
+
+/**
+ * Writes the given XML start element 'prefix:name' to this
+ * XMLOutputStream.
+ */
+LIBLAX_EXTERN
+void 
+XMLOutputStream_startElementTriple (XMLOutputStream_t *stream, 
+                                    const XMLTriple_t *triple)
+{
+  stream->startElement(*triple);
+}
+
+
+/**
+ * Writes the given XML start and end element name to this XMLOutputStream.
+ */
+LIBLAX_EXTERN
+void 
+XMLOutputStream_startEndElement (XMLOutputStream_t *stream, const char* name)
+{
+  stream->startEndElement(name);
+}
+
+
+/**
+ * Writes the given XML start and end element 'prefix:name' to this
+ * XMLOutputStream.
+ */
+LIBLAX_EXTERN
+void 
+XMLOutputStream_startEndElementTriple (XMLOutputStream_t *stream, 
+                                       const XMLTriple_t *triple)
+{
+  stream->startEndElement(*triple);
+}
+
+
+/**
+ * Writes the given attribute, name="value" to this XMLOutputStream.
+ */
+LIBLAX_EXTERN
+void 
+XMLOutputStream_writeAttributeChars (XMLOutputStream_t *stream, 
+                                     const char* name, const char* chars)
+{
+  stream->writeAttribute(name, string(chars));
+}
+
+
+/**
+ * Writes the given attribute, prefix:name="value" to this
+ * XMLOutputStream.
+ */
+LIBLAX_EXTERN
+void 
+XMLOutputStream_writeAttributeCharsTriple (XMLOutputStream_t *stream, 
+                                           const XMLTriple_t *triple,
+                                           const char* chars)
+{
+  stream->writeAttribute(*triple, string(chars));
+}
+
+
+/**
+ * Writes the given attribute, name="true" or name="false" to this
+ * XMLOutputStream.
+ */
+LIBLAX_EXTERN
+void 
+XMLOutputStream_writeAttributeBool (XMLOutputStream_t *stream, 
+                                    const char* name,
+                                    const int flag)
+{
+  stream->writeAttribute(name, static_cast<bool>(flag));
+}
+
+
+/**
+ * Writes the given attribute, prefix:name="true" or prefix:name="false"
+ * to this XMLOutputStream.
+ */
+LIBLAX_EXTERN
+void 
+XMLOutputStream_writeAttributeBoolTriple (XMLOutputStream_t *stream, 
+                                          const XMLTriple_t *triple,
+                                          const int flag)
+{
+  stream->writeAttribute(*triple, static_cast<bool>(flag));
+}
+
+
+/**
+ * Writes the given attribute, name="value" to this XMLOutputStream.
+ */
+LIBLAX_EXTERN
+void 
+XMLOutputStream_writeAttributeDouble (XMLOutputStream_t *stream, 
+                                      const char* name,
+                                      const double value)
+{
+  stream->writeAttribute(name, value);
+}
+
+
+/**
+ * Writes the given attribute, prefix:name="value" to this XMLOutputStream.
+ */
+LIBLAX_EXTERN
+void 
+XMLOutputStream_writeAttributeDoubleTriple (XMLOutputStream_t *stream, 
+                                            const XMLTriple_t *triple,
+                                            const double value)
+{
+  stream->writeAttribute(*triple, value);
+}
+
+
+/**
+ * Writes the given attribute, name="value" to this XMLOutputStream.
+ */
+LIBLAX_EXTERN
+void 
+XMLOutputStream_writeAttributeLong (XMLOutputStream_t *stream, 
+                                    const char* name,
+                                    const long value)
+{
+  stream->writeAttribute(name, value);
+}
+
+
+/**
+ * Writes the given attribute, prefix:name="value" to this XMLOutputStream.
+ */
+LIBLAX_EXTERN
+void 
+XMLOutputStream_writeAttributeLongTriple (XMLOutputStream_t *stream, 
+                                          const XMLTriple_t *triple,
+                                          const long value)
+{
+  stream->writeAttribute(*triple, value);
+}
+
+
+/**
+ * Writes the given attribute, name="value" to this XMLOutputStream.
+ */
+LIBLAX_EXTERN
+void 
+XMLOutputStream_writeAttributeInt (XMLOutputStream_t *stream, 
+                                   const char* name,
+                                   const int value)
+{
+  stream->writeAttribute(name, value);
+}
+
+
+/**
+ * Writes the given attribute, prefix:name="value" to this XMLOutputStream.
+ */
+LIBLAX_EXTERN
+void 
+XMLOutputStream_writeAttributeIntTriple (XMLOutputStream_t *stream, 
+                                         const XMLTriple_t *triple,
+                                         const int value)
+{
+  stream->writeAttribute(*triple, value);
+}
+
+
+/**
+ * Writes the given attribute, name="value" to this XMLOutputStream.
+ */
+LIBLAX_EXTERN
+void 
+XMLOutputStream_writeAttributeUInt (XMLOutputStream_t *stream, 
+                                    const char* name,
+                                    const unsigned int value)
+{
+  stream->writeAttribute(name, value);
+}
+
+
+/**
+ * Writes the given attribute, prefix:name="value" to this XMLOutputStream.
+ */
+LIBLAX_EXTERN
+void 
+XMLOutputStream_writeAttributeUIntTriple (XMLOutputStream_t *stream, 
+                                          const XMLTriple_t *triple,
+                                          const unsigned int value)
+{
+  stream->writeAttribute(*triple, value);
+}
+
+
+/**
+ * Outputs the given characters to the underlying stream.
+ */
+LIBLAX_EXTERN
+void
+XMLOutputStream_writeChars (XMLOutputStream_t *stream, const char* chars)
 {
   stream->operator <<(chars);
 }
 
+
+/**
+ * Outputs the given double to the underlying stream.
+ */
 LIBLAX_EXTERN
 void
-XMLOutputStream_write (XMLOutputStream_t *stream, const double& value)
+XMLOutputStream_writeDouble (XMLOutputStream_t *stream, const double value)
 {
   stream->operator <<(value);
 }
 
+
+/**
+ * Outputs the given long to the underlying stream.
+ */
+LIBLAX_EXTERN
+void
+XMLOutputStream_writeLong (XMLOutputStream_t *stream, const long value)
+{
+  stream->operator <<(value);
+}
+
+
+/**
+ * Returns the given string associated to the underlying string stream.
+ */
+LIBLAX_EXTERN
+const char *
+XMLOutputStream_getString(XMLOutputStream_t* stream)
+{
+  if (stream->getStringStream())
+  {
+    std::string buffer = static_cast <XMLOutputStringStream*>
+                                                  (stream)->getString().str();
+    return safe_strdup(buffer.c_str());
+  }
+  else
+    return "";
+}
+
+
 /** @endcond doxygen-c-only */
-#endif
+

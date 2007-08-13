@@ -22,6 +22,7 @@ Suite *create_suite_XMLError (void);
 Suite *create_suite_XMLError_C (void);
 Suite *create_suite_XMLErrorLog (void);
 Suite *create_suite_XMLInputStream (void);
+Suite *create_suite_XMLOutputStream (void);
 
 int
 main (int argc, char* argv[]) 
@@ -38,28 +39,15 @@ main (int argc, char* argv[])
   srunner_add_suite(runner, create_suite_XMLError_C());
   srunner_add_suite(runner, create_suite_XMLErrorLog());
   srunner_add_suite(runner, create_suite_XMLInputStream());
+  srunner_add_suite(runner, create_suite_XMLOutputStream());
 
   if (argc > 1 && !strcmp(argv[1], "-nofork"))
   {
     srunner_set_fork_status( runner, CK_NOFORK );
   }
-#ifdef TRACE_MEMORY
-  srunner_set_fork_status(runner, CK_NOFORK);
-#endif
 
   srunner_run_all(runner, CK_NORMAL);
   num_failed = srunner_ntests_failed(runner);
-
-#ifdef TRACE_MEMORY
-
-  if (MemTrace_getNumLeaks() > 0)
-  {
-    MemTrace_printLeaks(stdout);
-  }
-
-  MemTrace_printStatistics(stdout);
-
-#endif
 
   srunner_free(runner);
 

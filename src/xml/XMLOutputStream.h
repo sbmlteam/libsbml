@@ -229,7 +229,10 @@ public:
    * Increases the indentation level for this XMLOutputStream.
    */
   void upIndent ();
+  /** @cond doxygen-libsbml-internal */
 
+  bool getStringStream()   { return mStringStream;  }
+  /** @endcond doxygen-libsbml-internal */
 
 protected:
   /** @cond doxygen-libsbml-internal */
@@ -308,12 +311,50 @@ protected:
   unsigned int mIndent;
   bool mInText;
 
+  /* this is needed for the derived classes used to create the C wrapper */
+  bool mStringStream;
+  void setStringStream()   { mStringStream = true;  }
+  void unsetStringStream() { mStringStream = false; }
+
   /** @endcond doxygen-libsbml-internal */
 };
+  /** @cond doxygen-libsbml-internal */
+
+class LIBLAX_EXTERN XMLOutputStringStream : public XMLOutputStream
+{
+public:
+
+  /**
+   * Creates a new XMLOutputStream that wraps stream.
+   */
+  XMLOutputStringStream (  std::ostringstream&       stream
+                   , const std::string&  encoding     = "UTF-8"
+                   , bool                writeXMLDecl = true );
+  
+  std::ostringstream& getString() { return mString; }
+
+protected:
+
+  std::ostringstream& mString;
+};
+
+class LIBLAX_EXTERN XMLOutputFileStream : public XMLOutputStream
+{
+public:
+
+  /**
+   * Creates a new XMLOutputStream that wraps stream.
+   */
+  XMLOutputFileStream (  std::ofstream&       stream
+                   , const std::string&  encoding     = "UTF-8"
+                   , bool                writeXMLDecl = true );
+
+};
+  /** @endcond doxygen-libsbml-internal */
 
 #endif  /* __cplusplus */
 
-#if 0
+
 
 #ifndef SWIG
 
@@ -323,29 +364,154 @@ BEGIN_C_DECLS
  * See the .cpp file for the documentation of the following functions.
  *---------------------------------------------------------------------------*/
 
+LIBLAX_EXTERN
+XMLOutputStream_t *
+XMLOutputStream_createAsStdout (char * encoding, int writeXMLDecl);
 
 LIBLAX_EXTERN
 XMLOutputStream_t *
-XMLOutputStream_create (const char* encoding, int writeXMLDecl);
-//std::ostream&       stream
-//                   , const std::string&  encoding     = "UTF-8"
-//                   , bool                writeXMLDecl = true );
-//
+XMLOutputStream_createAsString (char * encoding, int writeXMLDecl);
+
+LIBLAX_EXTERN
+XMLOutputStream_t *
+XMLOutputStream_createFile (char * filename, char * encoding, int writeXMLDecl);
+
 LIBLAX_EXTERN
 void
 XMLOutputStream_free (XMLOutputStream_t *stream);
+LIBLAX_EXTERN
+void 
+XMLOutputStream_writeXMLDecl (XMLOutputStream_t *stream);
+
+LIBLAX_EXTERN
+void 
+XMLOutputStream_endElement (XMLOutputStream_t *stream, const char* name);
+
+LIBLAX_EXTERN
+void 
+XMLOutputStream_endElementTriple (XMLOutputStream_t *stream, 
+                                  const XMLTriple_t *triple);
+
+LIBLAX_EXTERN
+void 
+XMLOutputStream_setAutoIndent (XMLOutputStream_t *stream, int indent);
 
 LIBLAX_EXTERN
 void
-XMLOutputStream_write (XMLOutputStream_t *stream, const char* chars);
+XMLOutputStream_upIndent(XMLOutputStream_t *stream);
 
 LIBLAX_EXTERN
 void
-XMLOutputStream_write (XMLOutputStream_t *stream, const double& value);
+XMLOutputStream_downIndent(XMLOutputStream_t *stream);
+
+LIBLAX_EXTERN
+void 
+XMLOutputStream_startElement (XMLOutputStream_t *stream, const char* name);
+
+LIBLAX_EXTERN
+void 
+XMLOutputStream_startElementTriple (XMLOutputStream_t *stream, 
+                                    const XMLTriple_t *triple);
+
+LIBLAX_EXTERN
+void 
+XMLOutputStream_startEndElement (XMLOutputStream_t *stream, const char* name);
+
+LIBLAX_EXTERN
+void 
+XMLOutputStream_startEndElementTriple (XMLOutputStream_t *stream, 
+                                       const XMLTriple_t *triple);
+
+LIBLAX_EXTERN
+void 
+XMLOutputStream_writeAttributeChars (XMLOutputStream_t *stream, 
+                                     const char* name, const char* chars);
+
+LIBLAX_EXTERN
+void 
+XMLOutputStream_writeAttributeCharsTriple (XMLOutputStream_t *stream, 
+                                           const XMLTriple_t *triple,
+                                           const char* chars);
+
+LIBLAX_EXTERN
+void 
+XMLOutputStream_writeAttributeBool (XMLOutputStream_t *stream, 
+                                    const char* name,
+                                    const int flag);
+
+LIBLAX_EXTERN
+void 
+XMLOutputStream_writeAttributeBoolTriple (XMLOutputStream_t *stream, 
+                                          const XMLTriple_t *triple,
+                                          const int flag);
+
+LIBLAX_EXTERN
+void 
+XMLOutputStream_writeAttributeDouble (XMLOutputStream_t *stream, 
+                                      const char* name,
+                                      const double value);
+
+LIBLAX_EXTERN
+void 
+XMLOutputStream_writeAttributeDoubleTriple (XMLOutputStream_t *stream, 
+                                            const XMLTriple_t *triple,
+                                            const double value);
+
+LIBLAX_EXTERN
+void 
+XMLOutputStream_writeAttributeLong (XMLOutputStream_t *stream, 
+                                    const char* name,
+                                    const long value);
+
+LIBLAX_EXTERN
+void 
+XMLOutputStream_writeAttributeLongTriple (XMLOutputStream_t *stream, 
+                                          const XMLTriple_t *triple,
+                                          const long value);
+
+LIBLAX_EXTERN
+void 
+XMLOutputStream_writeAttributeInt (XMLOutputStream_t *stream, 
+                                   const char* name,
+                                   const int value);
+
+LIBLAX_EXTERN
+void 
+XMLOutputStream_writeAttributeIntTriple (XMLOutputStream_t *stream, 
+                                         const XMLTriple_t *triple,
+                                         const int value);
+
+LIBLAX_EXTERN
+void 
+XMLOutputStream_writeAttributeUInt (XMLOutputStream_t *stream, 
+                                    const char* name,
+                                    const unsigned int value);
+
+LIBLAX_EXTERN
+void 
+XMLOutputStream_writeAttributeUIntTriple (XMLOutputStream_t *stream, 
+                                          const XMLTriple_t *triple,
+                                          const unsigned int value);
+
+LIBLAX_EXTERN
+void
+XMLOutputStream_writeChars (XMLOutputStream_t *stream, const char* chars);
+
+LIBLAX_EXTERN
+void
+XMLOutputStream_writeDouble (XMLOutputStream_t *stream, const double value);
+
+LIBLAX_EXTERN
+void
+XMLOutputStream_writeLong (XMLOutputStream_t *stream, const long value);
+
+LIBLAX_EXTERN
+const char *
+XMLOutputStream_getString(XMLOutputStream_t* stream);
 
 END_C_DECLS
 
 #endif  /* !SWIG */
-#endif
+
 
 #endif  /* XMLOutputStream_h */
