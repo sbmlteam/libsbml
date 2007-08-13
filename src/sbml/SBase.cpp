@@ -993,7 +993,6 @@ SBase::getTypeCode () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
 /**
  * @return the partial SBML that describes this SBML object.
  */
@@ -1007,7 +1006,6 @@ SBase::toSBML ()
 
   return safe_strdup( os.str().c_str() );
 }
-/** @endcond doxygen-libsbml-internal */
 
 
 /** @cond doxygen-libsbml-internal */

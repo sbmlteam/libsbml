@@ -950,14 +950,17 @@ public:
   virtual const std::string& getElementName () const = 0;
 
 
-  /** @cond doxygen-libsbml-internal */
-
-
   /**
+   * Returns a string that consists of the partial SBML describing this
+   * object.  This is primarily provided for testing and debugging
+   * purposes.  It may be removed in a future version of libSBML.
+   * 
    * @return the partial SBML that describes this SBML object.
    */
   char* toSBML ();
 
+
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Reads (initializes) this SBML object by reading from XMLInputStream.
