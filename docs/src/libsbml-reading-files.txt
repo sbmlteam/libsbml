@@ -1,4 +1,4 @@
-/** @page libsbml-reading-files Reading and Writing SBML Content
+/** @page libsbml-reading-files Reading and writing SBML content from your software
 
 This section summarizes how to read and write SBML content using the
 facilities provided by libSBML.
