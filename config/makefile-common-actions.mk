@@ -107,7 +107,11 @@ ifeq "$(HOST_TYPE)" "darwin"
   platform_link_flags ?= -dynamiclib -flat_namespace \
 	-current_version $(library_version)
 else
+ifeq "$(HOST_TYPE)" "aix5.3.0.0" 
+  platform_link_flags ?= -G
+else
   platform_link_flags ?= -shared
+endif
 endif
 
 # The following defines the default function for linking objects into a
@@ -165,8 +169,15 @@ include $(wildcard $(DEPDIR)/*.$(DEPEXT)) /dev/null
 # The next set of rules are generic for creating .a, .so, and other styles
 # of static and shared library files.
 
+ifneq "$(HOST_TYPE)" "aix"
+# Both shared and static libraries in AIX have the same extension (.a).
+# We have to choose what's built.  Shared is more likely to be preferred,
+# so we leave out this rule for static libraries when building under AIX.
+
 %.a ../%.a: $(objfiles)
 	$(call link_static_lib,$@)
+
+endif
 
 %.so ../%.so: $(objfiles)
 	$(call link_shared_lib,$@)
@@ -179,14 +190,32 @@ include $(wildcard $(DEPDIR)/*.$(DEPEXT)) /dev/null
 
 # The following define generic rules for creating object files.
 
+ifeq "$(HOST_TYPE)" "aix"
+
+.c.$(OBJEXT):
+	$(compile) -c -o $@ $<
+
+.c.obj:
+	if $(compile) -c -o $@ \
+	  `if test -f '$<'; then $(CYGPATH_W) '$<'; else $(CYGPATH_W) '$(srcdir)/$<'; fi`; \
+	then mv "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.$(DEPEXT)"; \
+	else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; \
+	fi
+
+.cpp.$(OBJEXT) .cxx.$(OBJEXT):
+	$(cxxcompile) -c -o $@ $<
+
+.cpp.obj:
+	if $(cxxcompile) -c -o $@ \
+	  `if test -f '$<'; then $(CYGPATH_W) '$<'; else $(CYGPATH_W) '$(srcdir)/$<'; fi`; \
+	then mv "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.$(DEPEXT)"; \
+	else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; \
+	fi
+
+else
+
 .c.$(OBJEXT):
 	$(compile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.$(DEPEXT)" -c -o $@ $<
-
-.cpp.$(OBJEXT):
-	$(cxxcompile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.$(DEPEXT)" -c -o $@ $<
-
-.cxx.$(OBJEXT):
-	$(cxxcompile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.$(DEPEXT)" -c -o $@ $<
 
 .c.obj:
 	if $(compile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" \
@@ -195,12 +224,17 @@ include $(wildcard $(DEPDIR)/*.$(DEPEXT)) /dev/null
 	else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; \
 	fi
 
+.cpp.$(OBJEXT) .cxx.$(OBJEXT):
+	$(cxxcompile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.$(DEPEXT)" -c -o $@ $<
+
 .cpp.obj:
 	if $(cxxcompile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" \
 	  -c -o $@ `if test -f '$<'; then $(CYGPATH_W) '$<'; else $(CYGPATH_W) '$(srcdir)/$<'; fi`; \
 	then mv "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.$(DEPEXT)"; \
 	else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; \
 	fi
+
+endif
 
 # This next line ensures that the object output directory is created first.
 # Got this from a posting by Paul D. Smith to gnu.utils.help, 2001-12-03.
