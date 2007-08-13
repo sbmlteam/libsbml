@@ -708,7 +708,7 @@ writeCSymbol (const ASTNode& node, XMLOutputStream& stream)
 
 
 /**
- * Writes the given doube precision value.  This function handles the
+ * Writes the given double precision value.  This function handles the
  * special case where the value, converted to a string, contains an
  * exponent part.
  */
