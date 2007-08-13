@@ -129,7 +129,7 @@ SBMLReader::readInternal (const char* content, bool isFile)
       {
 	      d->getErrorLog()->logError(XMLError::MissingXMLDecl);
       }
-      else if (stream.getEncoding() != "UTF-8")
+      else if (strcmp_insensitive(stream.getEncoding().c_str(), "UTF-8"))
       {
 	      d->getErrorLog()->logError(SBMLError::NotUTF8);
       }
