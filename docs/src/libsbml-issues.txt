@@ -1,4 +1,4 @@
-/** @page libsbml-issues Known Issues and Pitfalls
+/** @page libsbml-issues Known issues and pitfalls
 
 @htmlinclude libsbml-issues.html
 

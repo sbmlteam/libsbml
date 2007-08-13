@@ -13,7 +13,7 @@ report bugs and other issues with libSBML using the tracker at <a
 href="http://sbml.org/software/libsbml/issue-tracker">
 http://sbml.org/software/libsbml/issue-tracker</a>.
 
-@section main-general General Information
+@section main-general General information
 - @subpage libsbml-installation
 - @subpage libsbml-features
 - @subpage libsbml-communications
@@ -21,7 +21,7 @@ http://sbml.org/software/libsbml/issue-tracker</a>.
 @section main-programming Programming with libSBML
 - @subpage libsbml-issues
 
-@section main-other Other Topics
+@section main-other Other topics
 - @subpage libsbml-coding for developers and contributors
 - @subpage license
 

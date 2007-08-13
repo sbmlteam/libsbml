@@ -1,4 +1,4 @@
-/** @page libsbml-coding Coding Conventions for libSBML
+/** @page libsbml-coding Coding conventions for libSBML
 
 The following is a collection of guidelines for libSBML authors and other
 interested persons to follow when writing libSBML code and documenting it.

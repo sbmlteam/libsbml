@@ -3,7 +3,7 @@
 This section summarizes how to read and write SBML content using the
 facilities provided by libSBML.
 
-@section rf-started Getting Started: The 1-Minute Introduction
+@section rf-started Getting started: the 1-minute introduction
 
 LibSBML uses the class SBMLDocument as a top-level container for storing
 SBML content and data associated with it (such as warnings and error
@@ -70,7 +70,7 @@ there are substantial differences between SBML Level&nbsp;1 and
 Level&nbsp;2!)
 
 
-@section rf-sbmldocument The SBMLDocument Container
+@section rf-sbmldocument The SBMLDocument container
 
 As might be deduced from the examples so far, an SBMLDocument object in
 libSBML represents a whole SBML model and its associated data.

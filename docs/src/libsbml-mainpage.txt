@@ -1,4 +1,4 @@
-/** @mainpage About libSBML and Its Use
+/** @mainpage About libSBML and its use
 
 @htmlinclude libsbml-authors.html
 
@@ -13,17 +13,18 @@ report bugs and other issues with libSBML using the tracker at <a
 href="http://sbml.org/software/libsbml/issue-tracker">
 http://sbml.org/software/libsbml/issue-tracker</a>.
 
-@section main-general General Information
+@section main-general General information
 - @subpage libsbml-installation
 - @subpage libsbml-features
 - @subpage libsbml-communications
 
 @section main-programming Programming with libSBML
+- @subpage libsbml-accessing
 - @subpage libsbml-reading-files
 - @subpage libsbml-math
 - @subpage libsbml-issues
 
-@section main-other Other Topics
+@section main-other Other topics
 - @subpage libsbml-coding for developers and contributors
 - @subpage license
 
