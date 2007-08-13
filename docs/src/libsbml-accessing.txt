@@ -1,0 +1,5 @@
+/** @page libsbml-accessing Making libSBML accessible to your software
+
+@htmlinclude libsbml-accessing.html
+
+*/

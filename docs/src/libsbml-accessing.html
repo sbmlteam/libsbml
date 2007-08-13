@@ -1,0 +1,132 @@
+<center>
+<table border="0">
+<tr><td style="font-size: small" width="90">
+<a href="#accessing-c">C++ and C</a>
+</td><td style="font-size: small" width="90">
+<a href="#accessing-java">Java</a>
+</td><td style="font-size: small" width="90">
+<a href="#accessing-python">Python</a>
+</td><td style="font-size: small" width="90">
+<a href="#accessing-perl">Perl</a>
+</td><td style="font-size: small; padding-right: 15px" width="90">
+<a href="#accessing-lisp">Common Lisp</a>
+</td><td style="font-size: small" width="90">
+<a href="#accessing-matlab">MATLAB</a>
+</td></tr>
+</table>
+</center>
+
+
+
+<p> Once libSBML has been installed on a computer, you will still need
+to link your software with libSBML to make its API accessible from
+your software.  (Note that this is separate from the issue of your
+software being able to find libSBML at run time; see the <a
+href="libsbml-installation.html#accessing">section about accessing
+libSBML</a> for more information.)  This section provides information
+about how to do that.
+
+
+<h2><a class="anchor" name="accessing-c">C++
+and C</a></h2>
+
+<p> If libSBML has been configured normally, compiling C++ or C
+software to use it is a matter of supplying certain compilation and
+linking options.  There are two main sets of settings:
+<ul>
+<li> The flag <code>-I</code><i>prefix</i><code>/include</code> needs
+to be supplied to the compiler, where <i>prefix</i> is the value of
+the <code>--prefix=</code><i>value</i> option given during
+configuration of libSBML.  In addition, it may be necessary to supply
+a second <code>-I</code> flag with the directory containing the
+include files of the XML parser being used by libSBML.  For example,
+if you are using the Xerces XML parser and you compiled and installed
+Xerces in <code>/usr/local</code>, then when compiling your software
+to use libSBML, you will also need to add the flag
+<code>-I/usr/local/include</code>.
+
+<p>
+
+<li> The flags <code>-L</code><i>prefix</i><code>/lib -lsbml
+-lstdc++ -lm</code> need to be supplied to the compiler or linker,
+where <i>prefix</i> is again the value of the
+<code>--prefix=</code><i>value</i> option given during configuration
+of libSBML.  In addition, you may need to supply a corresponding
+<code>-L</code> flag value to tell the linker where to find the XML
+parser library being used by libSBML.
+</ul>
+
+<p> If you have the <code>pkg-config</code> utility, the steps above
+can be substantially simplified.  First, make sure that your
+<code>PKG_CONFIG_PATH</code> environment variable includes the path to
+the directory <i>prefix</i><code>/lib/pkgconfig</code> (which is the
+directory where the file <code>libsbml.pc</code> will be installed by
+libSBML's <code>make install</code> step).  Then, you can run
+<code>pkg-config</code> with the <code>--cflags</code> and/or
+<code>--libs</code> flags in your compilation/linking command.  Here
+is an example:
+
+<div class="fragment"><pre class="fragment">
+g++ `pkg-config --cflags --libs libsbml` myprogram.cpp
+</pre></div>
+
+Note the use of the backward quote in the shell command above; it has
+the effect of running the command <code>pkg-config --cflags --libs
+libsbml</code> and substituting in place the flags returned by the
+command.
+
+
+<h2><a class="anchor" name="accessing-java">Java</a></h2>
+
+<p> In addition to the instructions for configuring the
+<code>LD_LIBRARY_PATH</code> or <code>DYLD_LIBRARY_PATH</code>
+variables (see the <a
+href="libsbml-installation.html#accessing">section about accessing
+libSBML</a>), Java applications separately need to have their class
+search paths include the libSBML <code>.jar</code> file.  The exact
+recipe depends on the operating system in use.
+
+<ul>
+<li style="margin-bottom: 1em"><em>On Linux, MacOS X and similar Unix-like systems</em>:
+
+You must either (1) set your <code>CLASSPATH</code> environment
+variable to include the <code>.jar</code> file, or (2) the file must
+be listed in the <code>-classpath</code> option passed to the Java
+interpreter when it is started.  As an example of the former approach,
+if you had configured libSBML to install itself into
+<code>/usr/local</code>, the <code>libsbmlj.jar</code> file will end
+up as <code>/usr/local/lib/libsbml.jar</code> and your environment
+variable would at minimum need to be set as follows:
+
+<div class="fragment"><pre class="fragment">
+  CLASSPATH=.:/usr/local/lib/libsbmlj.jar
+</pre></div>
+</li>
+
+<li style="margin-bottom: 1em"><em>On Windows systems</em>:
+
+The instructions are essentially the same as for the case of Linux and
+similar systems, but the name of the <code>.jar</code> file is
+different on Windows systems.  The class path must include
+<code>sbmlj.jar</code>.  For example, if you had installed libSBML
+into <code>C:\libsbml</code> on your system, you might set your
+environment variable as follows:
+
+<div class="fragment"><pre class="fragment">
+  CLASSPATH=.;C:\libsbml\sbmlj.jar
+</pre></div>
+
+Note: to set an environmental variable in Windows, use the
+<em>System</em> option in the Control Panel.
+
+</li>
+</ul>
+
+<h2><a class="anchor" name="accessing-python">Python</a></h2>
+
+<h2><a class="anchor" name="accessing-perl">Perl</a></h2>
+
+<h2><a class="anchor" name="accessing-lisp">Common Lisp</a></h2>
+
+<h2><a class="anchor" name="accessing-matlab">MATLAB</a></h2>
+
