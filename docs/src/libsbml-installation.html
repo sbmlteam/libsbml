@@ -11,17 +11,10 @@
 <tr><td style="font-size: small;">
 <a href="#detailed">Detailed instructions for configuring and installing LibSBML</a>
 <ul>
-<li style="font-size: small;"><a href="#basic-config">Configuring for Linux, MacOS X, and Solaris</a></li>
-<li style="font-size: small;"><a href="#other-lang">Configuring interfaces to Java, Lisp, Perl, Python and MATLAB</a></li>
+<li style="font-size: small;"><a href="#basic-config">Configuring libSBML for Linux, MacOS X, and Solaris</a></li>
+<li style="font-size: small;"><a href="#other-lang">Configuring libSBML interfaces to Java, Lisp, Perl, Python and MATLAB</a></li>
 <li style="font-size: small;"><a href="#compiling">Compiling and installing LibSBML</a></li>
-<li style="font-size: small;"><a href="#accessing">Accessing libSBML</a></li>
-<ul>
-<li style="font-size: small;"><a href="#accessing-java">Acessing libSBML from Java</a></li>
-<li style="font-size: small;"><a href="#accessing-python">Acessing libSBML from Python</a></li>
-<li style="font-size: small;"><a href="#accessing-perl">Acessing libSBML from Perl</a></li>
-<li style="font-size: small;"><a href="#accessing-lisp">Acessing libSBML from Common Lisp</a></li>
-<li style="font-size: small;"><a href="#accessing-matlab">Acessing libSBML from MATLAB</a></li>
-</ul>
+<li style="font-size: small;"><a href="#accessing">Making libSBML accessible to other software on Unix, Linux and MacOS&nbsp;X systems</a></li>
 <li style="font-size: small;"><a href="#other-options">Additional options for configuring LibSBML</a></li>
 <ul>
 <li style="font-size: small;"><a href="#swig">Configuring for SWIG</a></li>
@@ -29,6 +22,7 @@
 <li style="font-size: small;"><a href="#docs">Configuring for generating documentation</a></li>
 </ul>
 <li style="font-size: small;"><a href="#windows">Configuring and building for Windows</li>
+</ul>
 </ul>
 </tr></td>
 </table>
@@ -103,8 +97,9 @@ compiler to link with the installed libSBML library:
 
 <p> If the compiler cannot find the library, refer to the <a
 href="#accessing">section on accessing libSBML</a> below for
-information about <code>ldconfig</code>, <code>LD_LIBRARY_PATH</code>,
-and related matters.
+information about <code>ldconfig</code>,
+<code>LD_LIBRARY_PATH</code>/<code>DYLD_LIBRARY_PATH</code>, and
+related matters.
 
 <p> Documentation for libSBML is available as a separate download from
 the same locations as the libSBML distribution (namely, the SBML
@@ -271,7 +266,8 @@ be installed and shipped with applications <em>along with</em> the
 basic libSBML library file.
 
 
-<h3><a class="anchor" name="compiling">Compiling and installing LibSBML</a></h3>
+<h3><a class="anchor" name="compiling">Compiling and installing libSBML on
+Unix, Linux and MacOS X</a></h3>
 
 <p>
 Once configured, building should be very easy.  Simply execute the
@@ -305,21 +301,23 @@ installed on your system, in either the default location
 (<code>/usr/local/</code>) or in the location you indicated during the
 configuration step as explained above.
 
-<p> Once the libSBML files are installed, you will need to do one more
-configuration step to make it accessible from other software at run
-time.  This step is described in the next section.
 
 
-<h3><a class="anchor" name="accessing">Accessing libSBML</a></h3>
+<h3><a class="anchor" name="accessing">Making libSBML accessible to other
+software on Unix, Linux and MacOS&nbsp;X systems</a></h3>
 
-<p> Once libSBML is moved to the desired installation directory, you
-and your users' software environments may need to be configured to
-find the libSBML library files.  On most platforms, you will need to
-either run the system program <code>ldconfig</code> as user 'root'
-(consult the man page for ldconfig if this is unfamiliar), or else set
-the environment variable <code>LD_LIBRARY_PATH</code> in your terminal
-shell window.  (On MacOS&nbsp;X, the variable is named
-<code>DYLD_LIBRARY_PATH</code>.)  The path added to the
+<p> Once the libSBML files are installed as described in the previous
+section, you will need to do one more configuration step to make it
+accessible from other software at <i>run</i> time: you and your users'
+software environments may need to be configured to <i>find</i> the
+libSBML library files.  On most platforms, this must be done either by
+running the system program <code>ldconfig</code> as user 'root'
+(consult the man page for ldconfig if this is unfamiliar), or else
+each user must set the environment variable
+<code>LD_LIBRARY_PATH</code> in their command shells.  (On
+MacOS&nbsp;X, the variable is named <code>DYLD_LIBRARY_PATH</code>.
+Also, there is no equivalent on MacOS&nbsp;X to the
+<code>ldconfig</code> facility.)  The path added to the
 <code>LD_LIBRARY_PATH</code> or <code>DYLD_LIBRARY_PATH</code>
 variable must be the directory used as the value of the
 <code>--prefix=</code><em>DIR</em> option used during the
@@ -328,66 +326,8 @@ above</a>.
 
 <p> If your run-time environment and the run-time environment for your
 software applications do not know to look in the installation
-directory for libSBML, attempting to link other programs with the
-libSBML library will fail with errors about being unable to find it.
-
-<p> Most of the language APIs have additional requirements for
-connecting applications to libSBML.  These are described below on a
-case-by-case basis.
-
-
-<h4><a class="anchor" name="accessing-java">Accessing libSBML from Java</a></h4>
-
-<p> In addition to the instructions for configuring the
-<code>LD_LIBRARY_PATH</code> or <code>DYLD_LIBRARY_PATH</code>
-variables <a href="#accessing">described above</a>, Java applications
-need to have their class search paths include the libSBML
-<code>.jar</code> file.  The exact recipe depends on the operating
-system in use.
-
-<ul>
-<li style="margin-bottom: 1em"><em>On Linux, MacOS X and similar Unix-like systems</em>:
-
-You must either (1) set your <code>CLASSPATH</code> environment
-variable to include the <code>.jar</code> file, or (2) the file must
-be listed in the <code>-classpath</code> option passed to the Java
-interpreter when it is started.  As an example of the former approach,
-if you had configured libSBML to install itself into
-<code>/usr/local</code>, the <code>libsbmlj.jar</code> file will end
-up as <code>/usr/local/lib/libsbml.jar</code> and your environment
-variable would at minimum need to be set as follows:
-
-<div class="fragment"><pre class="fragment">
-  CLASSPATH=.:/usr/local/lib/libsbmlj.jar
-</pre></div>
-</li>
-
-<li style="margin-bottom: 1em"><em>On Windows systems</em>:
-
-The instructions are essentially the same as for the case of Linux and
-similar systems, but the name of the <code>.jar</code> file is
-different on Windows systems.  The class path must include
-<code>sbmlj.jar</code>.  For example, if you had installed libSBML
-into <code>C:\libsbml</code> on your system, you might set your
-environment variable as follows:
-
-<div class="fragment"><pre class="fragment">
-  CLASSPATH=.;C:\libsbml\sbmlj.jar
-</pre></div>
-
-Note: to set an environmental variable in Windows, use the
-<em>System</em> option in the Control Panel.
-
-</li>
-</ul>
-
-<h4><a class="anchor" name="accessing-python">Acessing libSBML from Python</a></h4>
-
-<h4><a class="anchor" name="accessing-perl">Acessing libSBML from Perl</a></h4>
-
-<h4><a class="anchor" name="accessing-lisp">Acessing libSBML from Common Lisp</a></h4>
-
-<h4><a class="anchor" name="accessing-matlab">Acessing libSBML from MATLAB</a></h4>
+directory for libSBML, programs that require libSBML will fail to run
+with errors about being unable to find it.
 
 
 
@@ -396,6 +336,7 @@ Note: to set an environmental variable in Windows, use the
 <p> In addition to the <code>--prefix</code> and other options already
 described, the libSBML configuration command supports the options
 described below.
+
 
 
 <h4><a class="anchor" name="swig">Configuring SWIG</a></h4>
@@ -605,3 +546,4 @@ In <code>&lt;libsbml&gt;/win32</code> run the <code>createInclude</code> batch f
  Select Build->Rebuild All from the Visual Studio main menu.
 </li>
 </ol>
+
