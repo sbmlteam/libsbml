@@ -1,4 +1,4 @@
-/** @mainpage About libSBML and Its Use
+/** @mainpage About libSBML and its use
 
 @htmlinclude libsbml-authors.html
 
