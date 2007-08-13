@@ -111,8 +111,6 @@ dnl ---------------------------------------------------------------------------
 
 AC_CANONICAL_HOST
 
-TestDataDirectory="\$(srcdir)"
-
 case $host_os in
   *linux*)
     CPPFLAGS="-DLINUX $CPPFLAGS"
@@ -136,19 +134,16 @@ case $host_os in
     CPPFLAGS="-DMACOSX $CPPFLAGS"
     HOST_TYPE="darwin"
     SHAREDLIBEXT="dylib"
-    TestDataDirectory="."
     ;;
 
   *aix*)
     CPPFLAGS="-DAIX $CPPFLAGS"
     HOST_TYPE="aix"
     SHAREDLIBEXT="a"
-    TestDataDirectory="."
     ;;
 
 esac
 
-AC_SUBST(TestDataDirectory)
 AC_SUBST(HOST_TYPE)
 AC_SUBST(SHAREDLIBEXT)
 
