@@ -138,6 +138,14 @@ case $host_os in
     SHAREDLIBEXT="dylib"
     TestDataDirectory="."
     ;;
+
+  *aix*)
+    CPPFLAGS="-DAIX $CPPFLAGS"
+    HOST_TYPE="aix"
+    SHAREDLIBEXT="a"
+    TestDataDirectory="."
+    ;;
+
 esac
 
 AC_SUBST(TestDataDirectory)
