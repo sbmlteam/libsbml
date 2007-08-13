@@ -1591,24 +1591,7 @@ SBase::checkMetaIdSyntax()
 void 
 SBase::checkIdSyntax()
 {
-  string& id = const_cast<string &> (getId());
-
-  // need to check inside initial assign/ rules/event assign
-
-  if (getTypeCode() == SBML_INITIAL_ASSIGNMENT)
-  {
-    id = static_cast <InitialAssignment*> (this)->getSymbol();
-  }
-  else if (getTypeCode() == SBML_EVENT_ASSIGNMENT)
-  {
-    id = static_cast <EventAssignment*> (this)->getVariable();
-  }
-  else if (getTypeCode() == SBML_ASSIGNMENT_RULE || 
-	   getTypeCode() == SBML_RATE_RULE)
-  {
-    id = static_cast <Rule*> (this)->getVariable();
-  }
-
+  string& id        = const_cast<string &> (getId());
   unsigned int size = id.size();
 
   if (size == 0)
