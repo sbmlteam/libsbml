@@ -1401,6 +1401,8 @@ public:
    *
    **************************************************************/
 
+  /** @cond doxygen-libsbml-internal */
+
   /**
    * Populates the ListFormulaDataUnits with the units of each 
    * set of math encountered in the model
@@ -1468,6 +1470,8 @@ public:
   * returns true if the list has been populated, false otherwise
   */
   bool isWrittenFormulaUnitsData();
+
+  /** @endcond doxygen-libsbml-internal */
 
 
 protected:
