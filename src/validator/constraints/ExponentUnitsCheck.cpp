@@ -184,7 +184,7 @@ ExponentUnitsCheck::checkUnitsFromRoot (const Model& m,
       //* it must be possible to derive the m-th root of (a{unit})n,
       //* where {unit} signifies the units associated with a; 
       unsigned int impossible = 0;
-      for (unsigned int n = 0; impossible == 0, n < unitsArg1->getNumUnits(); n++)
+      for (unsigned int n = 0; impossible == 0 && n < unitsArg1->getNumUnits(); n++)
       {
         if (unitsArg1->getUnit(n)->getExponent() * child->getInteger() %
           child->getDenominator() != 0)
@@ -198,7 +198,7 @@ ExponentUnitsCheck::checkUnitsFromRoot (const Model& m,
     else if (isInteger == 1)
     {
       unsigned int impossible = 0;
-      for (unsigned int n = 0; impossible == 0, n < unitsArg1->getNumUnits(); n++)
+      for (unsigned int n = 0; impossible == 0 && n < unitsArg1->getNumUnits(); n++)
       {
         if (unitsArg1->getUnit(n)->getExponent() % root != 0)
           impossible = 1;

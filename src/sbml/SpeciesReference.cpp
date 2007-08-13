@@ -777,10 +777,6 @@ SpeciesReference::readAttributes (const XMLAttributes& attributes)
 {
   SimpleSpeciesReference::readAttributes(attributes);
 
-  const unsigned int level   = getLevel  ();
-  const unsigned int version = getVersion();
-
-
   //
   // stoichiometry: integer  { use="optional" default="1" }  (L1v1, L1v2)
   // stoichiometry: double   { use="optional" default="1" }  (L2v1, L2v2)

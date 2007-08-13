@@ -1295,9 +1295,6 @@ void
 SBase::readAttributes (const XMLAttributes& attributes)
 {
   const_cast<XMLAttributes&>(attributes).setErrorLog(getErrorLog());
-  const unsigned int level   = getLevel  ();
-  const unsigned int version = getVersion();
-
 
   attributes.readInto("metaid", mMetaId);
   /*
