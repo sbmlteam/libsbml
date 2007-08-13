@@ -170,7 +170,19 @@ objfiles  = $(objects) $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
 
 # The libraries are actually placed in the parent directory.
 
+ifeq "$(HOST_TYPE)" "aix"
+# The nutty thing about AIX is that it uses the same extension (.a) for both
+# shared and static libraries.  You have to pick whether you want one or
+# the other; you can't provide both at the same time.  I'd like to know why
+# they thought this was a good idea.
+
+libraries = ../$(PACKAGE).$(SHAREDLIBEXT)
+
+else
+
 libraries = ../$(PACKAGE).a ../$(PACKAGE).$(SHAREDLIBEXT)
+
+endif
 
 # `distfiles' determines the files and directories included in a distribution.
 # `distfiles_exclude' is used to filter out specific items, so that even if
