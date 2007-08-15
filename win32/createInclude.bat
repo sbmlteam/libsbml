@@ -5,6 +5,7 @@ mkdir sbml
 cd sbml
 mkdir annotation
 mkdir common
+mkdir layout
 mkdir math
 mkdir units
 mkdir util
@@ -12,6 +13,9 @@ mkdir validator
 mkdir xml
 cd ..\..\src\sbml
 echo a | xcopy *.h ..\..\include\sbml
+cd layout
+echo a | xcopy *.h ..\..\..\include\sbml\layout
+cd ..
 cd ..\math
 echo a | xcopy *.h ..\..\include\sbml\math
 cd ..\common

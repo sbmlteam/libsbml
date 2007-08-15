@@ -22,7 +22,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBSBML_EXPORTS;LIBLAX_EXPORTS;USE_LIBXML"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBSBML_EXPORTS;LIBLAX_EXPORTS;USE_LIBXML;USE_LAYOUT"
 				ExceptionHandling="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -90,7 +90,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="0"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBSBML_EXPORTS;USE_LIBXML;LIBLAX_EXPORTS"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBSBML_EXPORTS;USE_LIBXML;LIBLAX_EXPORTS;USE_LAYOUT"
 				StringPooling="FALSE"
 				ExceptionHandling="TRUE"
 				BasicRuntimeChecks="0"
@@ -166,10 +166,16 @@
 				RelativePath="..\..\src\math\ASTNode.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\sbml\layout\BoundingBox.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\constraints\CiElementMathCheck.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Compartment.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\layout\CompartmentGlyph.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\CompartmentOutsideCycles.cpp">
@@ -187,10 +193,19 @@
 				RelativePath="..\..\src\sbml\Constraint.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\sbml\layout\CubicBezier.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\layout\Curve.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\annotation\CVTerm.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Delay.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\layout\Dimensions.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\EqualityArgsMathCheck.cpp">
@@ -227,6 +242,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\FunctionReferredToExists.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\layout\GraphicalObject.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\IdBase.cpp">
@@ -271,6 +289,15 @@
 				RelativePath="..\..\src\validator\constraints\LambdaMathCheck.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\sbml\layout\Layout.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\annotation\LayoutAnnotation.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\layout\LayoutUtilities.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\xml\LibXMLAttributes.cpp">
 			</File>
 			<File
@@ -281,6 +308,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\xml\LibXMLParser.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\layout\LineSegment.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\util\List.cpp">
@@ -343,6 +373,9 @@
 				RelativePath="..\..\src\validator\constraints\PiecewiseValueMathCheck.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\sbml\layout\Point.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\constraints\PowerUnitsCheck.cpp">
 			</File>
 			<File
@@ -350,6 +383,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Reaction.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\layout\ReactionGlyph.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Rule.cpp">
@@ -394,10 +430,16 @@
 				RelativePath="..\..\src\sbml\Species.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\sbml\layout\SpeciesGlyph.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\constraints\SpeciesReactionOrRule.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\SpeciesReference.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\layout\SpeciesReferenceGlyph.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\SpeciesType.cpp">
@@ -413,6 +455,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\util\StringBuffer.c">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\layout\TextGlyph.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Trigger.cpp">
@@ -548,6 +593,9 @@
 				RelativePath="..\..\src\math\ASTNode.h">
 			</File>
 			<File
+				RelativePath="..\..\src\sbml\layout\BoundingBox.h">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\constraints\CiElementMathCheck.h">
 			</File>
 			<File
@@ -555,6 +603,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Compartment.h">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\layout\CompartmentGlyph.h">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\CompartmentOutsideCycles.h">
@@ -569,10 +620,19 @@
 				RelativePath="..\..\src\sbml\Constraint.h">
 			</File>
 			<File
+				RelativePath="..\..\src\sbml\layout\CubicBezier.h">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\layout\Curve.h">
+			</File>
+			<File
 				RelativePath="..\..\src\annotation\CVTerm.h">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Delay.h">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\layout\Dimensions.h">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\EqualityArgsMathCheck.h">
@@ -614,6 +674,9 @@
 				RelativePath="..\..\src\validator\constraints\FunctionReferredToExists.h">
 			</File>
 			<File
+				RelativePath="..\..\src\sbml\layout\GraphicalObject.h">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\constraints\IdBase.h">
 			</File>
 			<File
@@ -644,6 +707,18 @@
 				RelativePath="..\..\src\validator\constraints\LambdaMathCheck.h">
 			</File>
 			<File
+				RelativePath="..\..\src\sbml\layout\Layout.h">
+			</File>
+			<File
+				RelativePath="..\..\src\annotation\LayoutAnnotation.h">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\layout\layoutfwd.h">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\layout\LayoutUtilities.h">
+			</File>
+			<File
 				RelativePath="..\..\src\common\libsbml-config-win.h">
 			</File>
 			<File
@@ -663,6 +738,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\xml\LibXMLTranscode.h">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\layout\LineSegment.h">
 			</File>
 			<File
 				RelativePath="..\..\src\util\List.h">
@@ -719,6 +797,9 @@
 				RelativePath="..\..\src\validator\constraints\PiecewiseValueMathCheck.h">
 			</File>
 			<File
+				RelativePath="..\..\src\sbml\layout\Point.h">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\constraints\PowerUnitsCheck.h">
 			</File>
 			<File
@@ -726,6 +807,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Reaction.h">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\layout\ReactionGlyph.h">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Rule.h">
@@ -770,10 +854,19 @@
 				RelativePath="..\..\src\sbml\Species.h">
 			</File>
 			<File
+				RelativePath="..\..\src\sbml\layout\SpeciesGlyph.h">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\constraints\SpeciesReactionOrRule.h">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\SpeciesReference.h">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\layout\SpeciesReferenceGlyph.h">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\layout\SpeciesReferenceRole.h">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\SpeciesType.h">
@@ -789,6 +882,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\util\StringMap.h">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\layout\TextGlyph.h">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Trigger.h">
