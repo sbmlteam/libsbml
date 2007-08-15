@@ -24,7 +24,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(JAVA_INCLUDE),$(JAVA_INCLUDE)\win32"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBSBML_EXPORTS;LIBLAX_EXPORTS;USE_XERCES;USE_LAYOUT"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBSBML_EXPORTS;LIBLAX_EXPORTS;USE_EXPAT;USE_LAYOUT"
 				ExceptionHandling="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -42,7 +42,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib ../../../win32/bin/xerces-c_2D.lib"
+				AdditionalDependencies="odbc32.lib odbccp32.lib ../../../win32/bin/libexpat.lib"
 				OutputFile="./libs/sbmljD.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -95,7 +95,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="$(JAVA_INCLUDE),$(JAVA_INCLUDE)\win32"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBSBML_EXPORTS;USE_XERCES;LIBLAX_EXPORTS;USE_LAYOUT"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBSBML_EXPORTS;USE_EXPAT;LIBLAX_EXPORTS;USE_LAYOUT"
 				StringPooling="FALSE"
 				ExceptionHandling="TRUE"
 				RuntimeLibrary="2"
@@ -113,7 +113,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib ../../../win32/bin/xerces-c_2.lib"
+				AdditionalDependencies="odbc32.lib odbccp32.lib ../../../win32/bin/libexpat.lib"
 				OutputFile="./libs/sbmlj.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -219,6 +219,15 @@
 			</File>
 			<File
 				RelativePath="..\..\sbml\EventAssignment.cpp">
+			</File>
+			<File
+				RelativePath="..\..\xml\ExpatAttributes.cpp">
+			</File>
+			<File
+				RelativePath="..\..\xml\ExpatHandler.cpp">
+			</File>
+			<File
+				RelativePath="..\..\xml\ExpatParser.cpp">
 			</File>
 			<File
 				RelativePath="..\..\validator\constraints\ExponentUnitsCheck.cpp">
@@ -528,18 +537,6 @@
 			</File>
 			<File
 				RelativePath="..\..\validator\VConstraint.cpp">
-			</File>
-			<File
-				RelativePath="..\..\xml\XercesAttributes.cpp">
-			</File>
-			<File
-				RelativePath="..\..\xml\XercesHandler.cpp">
-			</File>
-			<File
-				RelativePath="..\..\xml\XercesNamespaces.cpp">
-			</File>
-			<File
-				RelativePath="..\..\xml\XercesParser.cpp">
 			</File>
 			<File
 				RelativePath="..\..\xml\XMLAttributes.cpp">
