@@ -284,6 +284,7 @@ public:
   , SBMLConsistencyMathML     = 10 /*!< Error in validating MathML. */
   , SBMLConsistencySBO        = 11 /*!< Error in validation SBO. */
   , SBMLOverdetermined        = 12 /*!<Error in equations of model. */
+  , SBMLL2v3Compatibility     = 13 /*!< Error in converting to SBML L2V3. */
   };
 
 

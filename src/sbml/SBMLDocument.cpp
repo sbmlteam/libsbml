@@ -39,6 +39,7 @@
 #include <sbml/validator/L1CompatibilityValidator.h>
 #include <sbml/validator/L2v1CompatibilityValidator.h>
 #include <sbml/validator/L2v2CompatibilityValidator.h>
+#include <sbml/validator/L2v3CompatibilityValidator.h>
 
 #include <sbml/Model.h>
 #include <sbml/SBMLErrorLog.h>
@@ -67,7 +68,8 @@ static unsigned int ignorable[] = {
   93001,
   91003,
   91005,
-  91006
+  91006,
+  91013
 };
 
 
@@ -255,22 +257,51 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
         }
       }
       /* check for conversion between L2 versions */
-      else if (mVersion > 1 && version == 1)
+      else if (version == 1)
       {
         checkL2v1Compatibility();
       }
-      else if (mVersion == 3 && version == 2)
+      else if (version == 2)
       {
         checkL2v2Compatibility();
       }
+      else if (version == 3)
+      {
+        checkL2v3Compatibility();
+      }
     }
   }
+
+  std::ostringstream conversion_note;
+  conversion_note << "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n";
+  conversion_note << "<p> This sbml model has been converted from SBML Level ";
+  conversion_note << mLevel << " Version " << mVersion << ".</p>\n";
+  if (getNumErrors() > 0)
+  {
+    conversion_note << "<p> The following should be noted: </p>\n";
+    for (unsigned int n = 0; n < getNumErrors(); n++)
+    {
+      conversion_note << "<p> (" << getError(n)->getId() << ") " 
+        << getError(n)->getMessage() << " </p>\n";
+    }
+    if (!conversion_errors(getNumErrors()))
+    {
+      conversion_note << "<p> Conversion successful. </p>\n";
+    }
+    else
+    {
+      conversion_note << "<p> Conversion NOT successful. </p>\n";
+    }
+      
+  }
+  conversion_note << "</body>\n";
+
+  mModel->appendNotes(conversion_note.str());
 
   mLevel   = level;
   mVersion = version;
 
   if (mNamespaces == 0) mNamespaces = new XMLNamespaces;
-
 
 
   if (mLevel == 1)
@@ -485,6 +516,28 @@ SBMLDocument::checkL2v2Compatibility ()
   if (mModel == 0) return 0;
 
   L2v2CompatibilityValidator validator;
+  validator.init();
+
+  unsigned int nerrors = validator.validate(*this);
+  if (nerrors) mErrorLog.add( validator.getMessages() );
+
+  return nerrors;
+}
+
+
+/**
+ * Performs a set of semantic consistency checks on the document to establish
+ * whether it is compatible with L2v3 and can be converted.  Query
+ * the results by calling getNumErrors() and getError().
+ *
+ * @return the number of failed checks (errors) encountered.
+ */
+unsigned int
+SBMLDocument::checkL2v3Compatibility ()
+{
+  if (mModel == 0) return 0;
+
+  L2v3CompatibilityValidator validator;
   validator.init();
 
   unsigned int nerrors = validator.validate(*this);
@@ -1088,6 +1141,27 @@ unsigned int
 SBMLDocument_checkL2v2Compatibility (SBMLDocument_t *d)
 {
   return d->checkL2v2Compatibility();
+}
+
+
+
+/**
+ * Performs a set of consistency checks on the document to establish
+ * whether it is compatible with SBML Level 2 Version 3 and can be
+ * converted to Level 2 Version 3.
+ *
+ * Callers should query the results of the consistency check by calling
+ * getError().
+ *
+ * @param d the SBMLDocument_t structure
+ *
+ * @return the number of failed checks (errors) encountered.
+ */
+LIBSBML_EXTERN
+unsigned int 
+SBMLDocument_checkL2v3Compatibility (SBMLDocument_t *d)
+{
+  return d->checkL2v3Compatibility();
 }
 
 

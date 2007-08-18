@@ -27,21 +27,22 @@
 #include "TestFile.h"
 #include "TestValidator.h"
 
-#include <sbml/validator/ConsistencyValidator.h>
-#include <sbml/validator/MathMLConsistencyValidator.h>
-#include <sbml/validator/IdentifierConsistencyValidator.h>
-#include <sbml/validator/SBOConsistencyValidator.h>
-#include <sbml/validator/UnitConsistencyValidator.h>
+#include "ConsistencyValidator.h"
+#include "MathMLConsistencyValidator.h"
+#include "IdentifierConsistencyValidator.h"
+#include "SBOConsistencyValidator.h"
+#include "UnitConsistencyValidator.h"
 #include <sbml/validator/OverdeterminedValidator.h>
-#include <sbml/validator/L1CompatibilityValidator.h>
-#include <sbml/validator/L2v1CompatibilityValidator.h>
-#include <sbml/validator/L2v2CompatibilityValidator.h>
+#include "L1CompatibilityValidator.h"
+#include "L2v1CompatibilityValidator.h"
+#include "L2v2CompatibilityValidator.h"
+#include "L2v3CompatibilityValidator.h"
 
 /** @cond doxygen-ignored */
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond doxgen-ignored */
 
 
 /**
@@ -193,6 +194,22 @@ runL2v2Test (const TestFile& file)
  * TestFile, false otherwise.
  */
 bool
+runL2v3Test (const TestFile& file)
+{
+  L2v3CompatibilityValidator validator;
+  TestValidator            tester(validator);
+
+
+  validator.init();
+
+  return tester.test(file);
+}
+
+/**
+ * @return true if the Validator behaved as expected when validating
+ * TestFile, false otherwise.
+ */
+bool
 runTestBadXML (const TestFile& file)
 {
   ConsistencyValidator validator;
@@ -235,7 +252,7 @@ runTests ( const string& msg,
  * Runs the libSBML ConsistencyValidator on all consistency TestFiles in
  * the test-data/ directory.
  * Runs the libSBML L1CompatibilityValidator on all TestFiles in the
- * test-data-l2-l1-conversion/ directory.
+ * test-data-conversion/ directory.
  */
 int
 main (int argc, char* argv[])
@@ -287,6 +304,9 @@ main (int argc, char* argv[])
 
   failed += runTests("Testing L2v2 Compatibility Constraints (93000 - 93999)",
 		     "test-data-l2-l1-conversion", 93000, 93999, runL2v2Test, library);
+
+  failed += runTests("Testing L2v2 Compatibility Constraints (94000 - 94999)",
+		     "test-data-conversion", 94000, 94999, runL2v3Test, library);
 
   return failed;
 }

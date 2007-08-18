@@ -122,26 +122,6 @@ START_CONSTRAINT (92005, Unit, u)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (92005, CompartmentType, ct)
-{
-  msg =
-    "No sboTerm information is represented in Level 2 Version 1.";
-
-  inv( ct.getSBOTerm() == -1 );
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT (92005, SpeciesType, st)
-{
-  msg =
-    "No sboTerm information is represented in Level 2 Version 1.";
-
-  inv( st.getSBOTerm() == -1 );
-}
-END_CONSTRAINT
-
-
 START_CONSTRAINT (92005, Compartment, c)
 {
   msg =
@@ -172,16 +152,6 @@ START_CONSTRAINT (92005, Parameter, p)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (92005, InitialAssignment, ia)
-{
-  msg =
-    "No sboTerm information is represented in Level 2 Version 1.";
-
-  inv( ia.getSBOTerm() == -1 );
-}
-END_CONSTRAINT
-
-
 START_CONSTRAINT (92005, AssignmentRule, r)
 {
   msg =
@@ -208,16 +178,6 @@ START_CONSTRAINT (92005, AlgebraicRule, r)
     "No sboTerm information is represented in Level 2 Version 1.";
 
   inv( r.getSBOTerm() == -1 );
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT (92005, Constraint, c)
-{
-  msg =
-    "No sboTerm information is represented in Level 2 Version 1.";
-
-  inv( c.getSBOTerm() == -1 );
 }
 END_CONSTRAINT
 

@@ -59,12 +59,12 @@
  * Version 2 and Version 3 specification documents.  The primary interface
  * is SBMLDocument::checkConsistency().  Additional useful methods are
  * SBMLDocument::checkL1Compatibility(),
- * SBMLDocument::checkL2v1Compatibility(), and
- * SBMLDocument::checkL2v2Compatibility(), which allow callers to check the
+ * SBMLDocument::checkL2v1Compatibility(),
+ * SBMLDocument::checkL2v2Compatibility(), and
+ * SBMLDocument::checkL2v3Compatibility(), which allow callers to check the
  * downward compatibility of a model with other Levels/Versions of SBML.
  * At the time of this writing, the most recent release of SBML is Level 2
- * Version 3, which is why the compatibility-checking methods above only
- * refer to Level 2 Version 2.
+ * Version 3.
  */
 
 
@@ -285,6 +285,19 @@ public:
    * @return the number of failed checks (errors) encountered.
    */
   unsigned int checkL2v2Compatibility ();
+
+
+  /**
+   * Performs a set of consistency checks on the document to establish
+   * whether it is compatible with SBML Level 2 Version 3 and can be
+   * converted to Level 2 Version 3.
+   *
+   * Callers should query the results of the consistency check by calling
+   * getError().
+   *
+   * @return the number of failed checks (errors) encountered.
+   */
+  unsigned int checkL2v3Compatibility ();
 
 
   /**
@@ -532,6 +545,11 @@ SBMLDocument_checkL2v1Compatibility (SBMLDocument_t *d);
 LIBSBML_EXTERN
 unsigned int 
 SBMLDocument_checkL2v2Compatibility (SBMLDocument_t *d);
+
+
+LIBSBML_EXTERN
+unsigned int 
+SBMLDocument_checkL2v3Compatibility (SBMLDocument_t *d);
 
 
 LIBSBML_EXTERN

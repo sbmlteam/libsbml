@@ -166,3 +166,136 @@ START_CONSTRAINT (91011, Species, s)
   inv( s.isSetCompartment() );
 }
 END_CONSTRAINT
+
+
+START_CONSTRAINT (91012, Species, s)
+{
+  msg =
+    "The spatialSizeUnit information on a Species is not "
+    "represented in Level 1.";
+
+
+  inv( !s.isSetSpatialSizeUnits() );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91013, Model, x)
+{
+  msg =
+    "No sboTerm information is represented in Level 1.";
+
+  inv( m.getSBOTerm() == -1 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91013, UnitDefinition, ud)
+{
+  msg =
+    "No sboTerm information is represented in Level 1.";
+
+  inv( ud.getSBOTerm() == -1 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91013, Unit, u)
+{
+  msg =
+    "No sboTerm information is represented in Level 1.";
+
+  inv( u.getSBOTerm() == -1 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91013, Compartment, c)
+{
+  msg =
+    "No sboTerm information is represented in Level 1.";
+
+  inv( c.getSBOTerm() == -1 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91013, Species, s)
+{
+  msg =
+    "No sboTerm information is represented in Level 1.";
+
+  inv( s.getSBOTerm() == -1 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91013, Parameter, p)
+{
+  msg =
+    "No sboTerm information is represented in Level 1.";
+
+  inv( p.getSBOTerm() == -1 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91013, AssignmentRule, r)
+{
+  msg =
+    "No sboTerm information is represented in Level 1.";
+
+  inv( r.getSBOTerm() == -1 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91013, RateRule, r)
+{
+  msg =
+    "No sboTerm information is represented in Level 1.";
+
+  inv( r.getSBOTerm() == -1 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91013, AlgebraicRule, r)
+{
+  msg =
+    "No sboTerm information is represented in Level 1.";
+
+  inv( r.getSBOTerm() == -1 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91013, Reaction, r)
+{
+  msg =
+    "No sboTerm information is represented in Level 1.";
+
+  inv( r.getSBOTerm() == -1 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91013, SpeciesReference, sr)
+{
+  msg =
+    "No sboTerm information is represented in Level 1.";
+
+  inv( sr.getSBOTerm() == -1 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91013, KineticLaw, kl)
+{
+  msg =
+    "No sboTerm information is represented in Level 1.";
+
+  inv( kl.getSBOTerm() == -1 );
+}
+END_CONSTRAINT
+

@@ -91,6 +91,7 @@ sources =                                     \
   L1CompatibilityConstraints.cpp              \
   L2v1CompatibilityConstraints.cpp            \
   L2v2CompatibilityConstraints.cpp            \
+  L2v3CompatibilityConstraints.cpp            \
   LambdaMathCheck.cpp                         \
   LocalParameterMathCheck.cpp                 \
   LogicalArgsMathCheck.cpp                    \
