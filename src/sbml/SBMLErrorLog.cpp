@@ -132,7 +132,9 @@ private:
 void
 SBMLErrorLog::remove (const unsigned int errorId)
 {
-  remove_if(mErrors.begin(), mErrors.end(), MatchErrorId(errorId));
+  mErrors.erase(
+    remove_if(mErrors.begin(), mErrors.end(), MatchErrorId(errorId)));
+
 }
 
 
