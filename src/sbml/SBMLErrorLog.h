@@ -91,6 +91,7 @@ public:
    */
   virtual ~SBMLErrorLog ();
 
+
   /**
    * Convenience function that combines creating an SBMLError object and
    * adding it to the log.
@@ -134,12 +135,21 @@ public:
 
 
   /**
-   * Logs (copies) the SBMLErrors in the given SBMLError list to this
+   * Adds (copies) the SBMLErrors in the given SBMLError list to this
    * SBMLErrorLog.
    *
    * @param errors list, a list of SBMLError to be added to the log.
    */
   void add (const std::list<SBMLError>& errors);
+
+
+  /**
+   * Removes the error(s) having errorId from the SBMLError list.
+   *
+   * @param errorId the error identifier of the error to be removed.
+   */
+  void remove (const unsigned int errorId);
+
 
   /**
    * Returns number of errors that are logged with severity Error
