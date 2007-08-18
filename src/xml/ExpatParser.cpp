@@ -247,7 +247,7 @@ ExpatParser::parseFirst (const char* content, bool isFile)
 
     if (mSource->error())
     {
-      reportError(XMLError::FileUnreadable, content, getLine(), getColumn());
+      reportError(XMLError::FileUnreadable, content, 0, 0);
       return false;
     }
   }
@@ -255,18 +255,19 @@ ExpatParser::parseFirst (const char* content, bool isFile)
   {
     mSource = new XMLMemoryBuffer(content, strlen(content));
 
-    if (mSource == 0) reportError( XMLError::OutOfMemory, "", 0, 0 );
+    if (mSource == 0)
+    {
+      reportError(XMLError::OutOfMemory, "", 0, 0);
+      return false;
+    }
   }
 
   if ( !mSource->error() )
   {
     mHandler.startDocument();
-    return true;
   }
-  else
-  {
-    return false;
-  }
+
+  return true;
 }
 
 
