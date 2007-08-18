@@ -89,6 +89,11 @@ for information about ldconfig, LD_LIBRARY_PATH, and related matters.
 1.2 Windows
 -----------
 
+We should point out at the outset that the main developers have been
+using only Windows XP, and do not have direct experience building
+libSBML under other versions of Windows.  Users do report some success
+on other versions of Windows, but your mileage may vary.
+
 Download and run the self-extracting windows installer for libSBML.
 There are debug (libsbmld) and release (libsbml) versions of libSBML,
 with .dll and .lib files for both versions in the 'win32/bin'
