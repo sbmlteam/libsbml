@@ -540,7 +540,7 @@ readMathML (ASTNode& node, XMLInputStream& stream)
       readMathML(*child, stream);
       stream.skipText();
 
-      if (stream.peek().getName() == "piece") stream.next();
+      if (stream.peek().getName() == "piece" && stream.isGood()) stream.next();
     }
   }
 
