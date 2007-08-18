@@ -51,7 +51,7 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
       with_python=`echo $with_python | sed -e 's,\(.*\)/$,\1,g'`
 
       AC_PATH_PROG([PYTHON], [python], [$with_python/bin/python],
-                     [no-python-found], [$with_python/bin])
+                   [no-python-found], [$with_python/bin])
     else
       AC_PATH_PROG([PYTHON], [python])
     fi
@@ -83,34 +83,50 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
     case $host in
     *darwin*) 
 	dnl Got an ugly situation on MacOS X: need different args depending
-	dnl on whether the system-installed or Fink-installed version of
-	dnl Python is being used.  The following is a heuristic approach
-	dnl that may not be correct for all situations.  The heuristic is:
-	dnl if the Python system prefix begins with /System/, assume it's the
-	dnl system-installed version and use -framework; otherwise, assume
-	dnl it's either the Fink version or something else, and don't use
-	dnl -framework.
+	dnl on whether the Python came from MacOS, Fink, or the Mac Python
+	dnl from www.python.org.  The following uses a set of heuristics.
+	dnl 1. If the python comes from /Library, assume it's Mac Python.
+	dnl    Use the -framework flag.
+	dnl 2. If it's from /System, assume it's the standard MacOS one.
+	dnl    Use the -framework flag.
+	dnl 3. If it's from anywhere else assume it's either the Fink
+	dnl    version or something else, and don't use -framework.
 
-	macosx_version=`sw_vers -productVersion | cut -d"." -f1,2` 
-	if test ${macosx_version} '>' 10.2; then
-	  dnl According to configure.in of Python source code, -undefined dynamic_lookup
-	  dnl should be used for 10.3 or later. Actually, the option is needed to avoid 
-	  dnl undefined symbols error when building a Python binding library with non-system-installed
-	  dnl Python on 10.3 or later.
-	  dnl Also, according to the man page of ld, environment variable MACOSX_DEPLOYMENT_TARGET 
-	  dnl must be set to 10.3 or higher to use -undefined dynamic_lookup.
-	  dnl Currently, the environment variables is set in src/binding/python/Makefile.in.
+	
+	if test `expr "${PYTHON_PREFIX}" ':' '/Library/Frameworks/.*'` -ne 0; then
+	  dnl Assume Mac Python from www.python.org/download/mac
+
    	  PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
-	  PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -undefined dynamic_lookup"
+	  PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -F/Library/Frameworks -framework Python"
+
+	elif test `expr "${PYTHON_PREFIX}" ':' '/System/Library/Frameworks/.*'` -ne 0; then
+	  dnl MacOSX-installed version of Python (we hope).
+
+   	  PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
+	  PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -F/System/Library/Frameworks -framework Python"
+
 	else
-	  if test `expr "${PYTHON_PREFIX}" ':' '.*/System/Library/Frameworks/.*'` -ne 0; then
-	    dnl MacOSX-installed version of Python (we hope).
+	  macosx_version=`sw_vers -productVersion | cut -d"." -f1,2` 
+          if test ${macosx_version} '>' 10.2; then
+            dnl According to configure.in of Python source code, -undefined
+            dnl dynamic_lookup should be used for 10.3 or later. Actually,
+            dnl the option is needed to avoid undefined symbols error when
+            dnl building a Python binding library with non-system-installed
+            dnl Python on 10.3 or later.  Also, according to the man page of
+            dnl ld, environment variable MACOSX_DEPLOYMENT_TARGET must be set
+            dnl to 10.3 or higher to use -undefined dynamic_lookup.
+            dnl Currently, the environment variables is set in
+            dnl src/binding/python/Makefile.in.
+  
    	    PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
-	    PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -F/System/Library/Frameworks -framework Python"
+	    PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -undefined dynamic_lookup"
+
 	  else
 	    dnl Fink-installed version of Python, or something else.
+
    	    PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
 	    PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -bundle_loader ${PYTHON}"
+
 	  fi
 	fi
         CONFIG_ADD_LDPATH(${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload)
