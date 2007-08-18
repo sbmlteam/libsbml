@@ -76,15 +76,15 @@ AC_DEFUN([CONFIG_LIB_LIBXML],
              sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\2/'`
       xml_config_micro_version=`$XML2_CONFIG $xml_config_args --version | \
              sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\3/'`
-      if test "x$enable_xmltest" = "xyes" ; then
-        CPPFLAGS="$CPPFLAGS $LIBXML_CPPFLAGS"
-        LIBS="$LIBXML_LIBS $LIBS"
 
-        dnl Now check if the installed libxml is sufficiently new.
-        dnl (Also sanity checks the results of xml2-config to some extent)
+      CPPFLAGS="$CPPFLAGS $LIBXML_CPPFLAGS"
+      LIBS="$LIBXML_LIBS $LIBS"
 
-        rm -f conf.xmltest
-        AC_TRY_RUN([
+      dnl Now check if the installed libxml is sufficiently new.
+      dnl (Also sanity checks the results of xml2-config to some extent)
+
+      rm -f conf.xmltest
+      AC_TRY_RUN([
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -171,16 +171,14 @@ main()
   return 1;
 }
 ],, no_xml=yes,[echo $ac_n "cross compiling; assumed OK... $ac_c"])
-        CPPFLAGS="$ac_save_CPPFLAGS"
-        LIBS="$ac_save_LIBS"
-      fi
+      CPPFLAGS="$ac_save_CPPFLAGS"
+      LIBS="$ac_save_LIBS"
     fi
 
     if test "x$no_xml" = x ; then
       AC_MSG_RESULT(yes (version $xml_config_major_version.$xml_config_minor_version.$xml_config_micro_version))
       ifelse([$2], , :, [$2])     
     else
-      AC_MSG_RESULT(no)
       if test "$XML2_CONFIG" = "no" ; then
         echo "*** The xml2-config script installed by LIBXML could not be found"
         echo "*** If libxml was installed in PREFIX, make sure PREFIX/bin is in"
@@ -188,7 +186,7 @@ main()
         echo "*** full path to xml2-config."
       else
         if test -f conf.xmltest ; then
-         :
+          AC_MSG_ERROR(installed version of libxml2 is too old!)	
         else
           echo "*** Could not run libxml test program, checking why..."
           CPPFLAGS="$CPPFLAGS $LIBXML_CPPFLAGS"
