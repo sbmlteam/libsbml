@@ -1030,6 +1030,9 @@ SBase::read (XMLInputStream& stream)
     stream.skipText();
     const XMLToken& next = stream.peek();
 
+    // Re-check stream.isGood() because stream.peek() could hit something.
+    if ( !stream.isGood() ) break;
+
     if ( next.isEndFor(element) )
     {
       stream.next();
@@ -1046,24 +1049,23 @@ SBase::read (XMLInputStream& stream)
 
         object->mSBML = mSBML;
         object->read(stream);
+
+        if ( !stream.isGood() ) break;
+
         if (object->getTypeCode() == SBML_SPECIES_REFERENCE 
-          && object->getLevel() == 2)
+            && object->getLevel() == 2)
         {
           static_cast <SpeciesReference *> (object)->sortMath();
         }
-        if (stream.isGood())
-        {
-          checkListOfPopulated(object);
-        }
-
+        checkListOfPopulated(object);
       }
       else if ( !( readOtherXML(stream)
-		   || readAnnotation(stream)
-		   || readNotes(stream) ))
+                   || readAnnotation(stream)
+                   || readNotes(stream) ))
       {
-	      logError( SBMLError::UnrecognizedElement, getLevel(), getVersion(),  
-		        "Unrecognized element '" + next.getName() + "'");
-              stream.skipPastEnd( stream.next() );
+        logError( SBMLError::UnrecognizedElement, getLevel(), getVersion(),
+                  "Unrecognized element '" + next.getName() + "'");
+        stream.skipPastEnd( stream.next() );
       }
     }
     else
@@ -1171,7 +1173,7 @@ SBase::readAnnotation (XMLInputStream& stream)
     if (mAnnotation)
     {
       logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
-	     "Multiple annotation elements not permitted on the same element");
+             "Multiple annotation elements not permitted on the same element");
     }
 
     delete mAnnotation;
@@ -1221,12 +1223,12 @@ SBase::readNotes (XMLInputStream& stream)
     if (mNotes)
     {
       logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
-	       "Multiple notes elements not permitted on the same element");
+               "Multiple notes elements not permitted on the same element");
     }
     else if (mAnnotation)
     {
       logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
-	       "Incorrect ordering of annotation and notes elements");
+               "Incorrect ordering of annotation and notes elements");
     }
 
     delete mNotes;
@@ -1275,9 +1277,9 @@ SBase::getErrorLog ()
  */
 void
 SBase::logError (  unsigned int       id
-     , const unsigned int level
-     , const unsigned int version
-		 , const std::string& details )
+                 , const unsigned int level
+                 , const unsigned int version
+                 , const std::string& details )
 {
   if ( SBase::getErrorLog() ) 
     getErrorLog()->logError(id, getLevel(), getVersion(), details);
@@ -1391,7 +1393,7 @@ SBase::checkOrderAndLogError (SBase* object, int expected)
 
       if (tc == SBML_SPECIES_REFERENCE || tc == SBML_MODIFIER_SPECIES_REFERENCE)
       {
-	error = SBMLError::IncorrectOrderInReaction;
+        error = SBMLError::IncorrectOrderInReaction;
       }
     }
     else if (object->getTypeCode() == SBML_TRIGGER)
@@ -1427,21 +1429,21 @@ SBase::checkListOfPopulated(SBase* object)
       switch (tc)
       {
       case SBML_UNIT:
-	error = SBMLError::EmptyListOfUnits;
-	break;
+        error = SBMLError::EmptyListOfUnits;
+        break;
 
       case SBML_SPECIES_REFERENCE:
       case SBML_MODIFIER_SPECIES_REFERENCE:
-	error = SBMLError::EmptyListInReaction;
-	break;
+        error = SBMLError::EmptyListInReaction;
+        break;
 
       case SBML_PARAMETER:
         // If listOfParameters is inside a KineticLaw, we have a separate code.
         if (this->getTypeCode() == SBML_KINETIC_LAW)
         {
-	  error = SBMLError::EmptyListInKineticLaw;
+          error = SBMLError::EmptyListInKineticLaw;
         }
-	break;
+        break;
 
       default:;
       }
@@ -1595,10 +1597,10 @@ SBase::checkIdSyntax()
  //   // if they're zero-length.
 
  //   if (getTypeCode() == SBML_MODEL
-	//|| getTypeCode() == SBML_ALGEBRAIC_RULE
-	//|| getTypeCode() == SBML_EVENT
-	//|| getTypeCode() == SBML_MODIFIER_SPECIES_REFERENCE
-	//|| getTypeCode() == SBML_SPECIES_REFERENCE)
+        //|| getTypeCode() == SBML_ALGEBRAIC_RULE
+        //|| getTypeCode() == SBML_EVENT
+        //|| getTypeCode() == SBML_MODIFIER_SPECIES_REFERENCE
+        //|| getTypeCode() == SBML_SPECIES_REFERENCE)
  //   {
       return;
  //   }
@@ -1606,7 +1608,7 @@ SBase::checkIdSyntax()
  //   {
  //     // This is a schema validation error: no id on an object that needs it.
  //     logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
-	//       "Missing 'id' on an element that requires an identifier");
+        //       "Missing 'id' on an element that requires an identifier");
  //     return;
  //   }
   }
@@ -1764,7 +1766,7 @@ SBase::checkXHTML(const XMLNode * xhtml)
     errorDOC  = SBMLError::ConstraintContainsDOCTYPE;
     errorELEM = SBMLError::InvalidConstraintContent;
   }
-  else					// We shouldn't ever get to this point.
+  else                                  // We shouldn't ever get to this point.
   {
     logError(SBMLError::UnknownError);
     return;
