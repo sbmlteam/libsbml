@@ -102,6 +102,39 @@ SBMLReader::readSBMLFromString (const std::string& xml)
 
 
 /** @cond doxygen-libsbml-internal */
+static bool
+isCriticalError(const unsigned int errorId)
+{
+  switch (errorId)
+  {
+  case XMLError::InternalParserError:
+  case XMLError::UnrecognizedParserCode:
+  case XMLError::TranscoderError:
+  case XMLError::NotWellFormed:
+  case XMLError::InvalidConstruct:
+  case XMLError::UnclosedToken:
+  case XMLError::TagMismatch:
+  case XMLError::BadPrefix:
+  case XMLError::MissingAttributeValue:
+  case XMLError::BadXMLComment:
+  case XMLError::UnexpectedEOF:
+  case XMLError::UninterpretableContent:
+  case XMLError::BadDocumentStructure:
+  case XMLError::InvalidAfterContent:
+  case XMLError::ExpectedQuotedString:
+  case XMLError::EmptyValueNotPermitted:
+  case XMLError::MissingElements:
+  case XMLError::BadXMLDeclLocation:
+    return true;
+
+  default:
+    return false;
+  }
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
 /**
  * Used by readSBML() and readSBMLFromString().
  */
@@ -120,32 +153,61 @@ SBMLReader::readInternal (const char* content, bool isFile)
 
     d->read(stream);
     
-    // Low-level XML errors will have been caught in the first read,
-    // before we even attempt to interpret the content as SBML.
-
-    if (! stream.isError())
+    if (stream.isError())
     {
+      // If we encountered an error, some parsers will report it sooner
+      // than others.  Unfortunately, those that fail sooner do it in an
+      // opaque call, so we can't change the behavior.  Since we don't want
+      // different parsers to report different validation errors, we bring
+      // all parsers back to the same point.
+
+      d->setModel(NULL);
+
+      for (unsigned int i = 0; i < d->getNumErrors(); ++i)      
+      {
+        if (isCriticalError(d->getError(i)->getId()))
+        {
+          // If we find even one critical error, all other errors are
+          // suspect and may be bogus.  Remove them.
+
+          for (unsigned int n = 0; n < d->getNumErrors(); ++n)      
+            if (!isCriticalError(d->getError(n)->getId()))
+            {
+              d->getErrorLog()->remove(d->getError(n)->getId());
+            }
+
+          break;
+        }
+      }
+    }
+    else
+    {
+      // Low-level XML errors will have been caught in the first read,
+      // before we even attempt to interpret the content as SBML.  Here
+      // we want to start checking some basic SBML-level errors.
+
       if (stream.getEncoding() == "")
       {
-	      d->getErrorLog()->logError(XMLError::MissingXMLDecl);
+        d->getErrorLog()->logError(XMLError::MissingXMLDecl);
       }
-      else if (strcmp_insensitive(stream.getEncoding().c_str(), "UTF-8"))
+      else if (strcmp_insensitive(stream.getEncoding().c_str(), "UTF-8") != 0)
       {
-	      d->getErrorLog()->logError(SBMLError::NotUTF8);
+        d->getErrorLog()->logError(SBMLError::NotUTF8);
       }
 
       if (d->getModel() == 0)
       {
-	      d->getErrorLog()->logError(SBMLError::MissingModel);
+        d->getErrorLog()->logError(SBMLError::MissingModel);
       }
-      // in level 1 some listOfElements were required
       else if (d->getLevel() == 1)
       {
+	// In Level 1, some listOfElements were required.
+
         if (d->getModel()->getNumCompartments() == 0)
         {
           d->getErrorLog()->logError(SBMLError::NotSchemaConformant,
-            d->getLevel(), d->getVersion(), 
-            "A level 1 model must contain at least one compartment");
+				     d->getLevel(), d->getVersion(), 
+            "An SBML Level 1 model must contain at least one compartment");
         }
 
         if (d->getVersion() == 1)
@@ -153,14 +215,14 @@ SBMLReader::readInternal (const char* content, bool isFile)
           if (d->getModel()->getNumSpecies() == 0)
           {
             d->getErrorLog()->logError(SBMLError::NotSchemaConformant,
-            d->getLevel(), d->getVersion(), 
-            "A level 1 version 1  model must contain at least one species");
+				       d->getLevel(), d->getVersion(), 
+            "An SBML Level 1 Version 1  model must contain at least one species");
           }
           if (d->getModel()->getNumReactions() == 0)
           {
             d->getErrorLog()->logError(SBMLError::NotSchemaConformant,
-            d->getLevel(), d->getVersion(), 
-            "A level 1 version 1  model must contain at least one reaction");
+				       d->getLevel(), d->getVersion(), 
+            "An SBML Level 1 Version 1  model must contain at least one reaction");
           }
         }
       }
