@@ -146,7 +146,7 @@ SBMLError::SBMLError (  const unsigned int            errorId
 
         if (!details.empty())
         {
-          newMsg << details << endl;
+          newMsg << " " << details << endl;
         }
         else
         {
