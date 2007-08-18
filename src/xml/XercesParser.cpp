@@ -288,8 +288,10 @@ XercesParser::XercesParser (XMLHandler& handler) :
     mReader->setContentHandler(&mHandler);
     mReader->setErrorHandler(&mHandler);
 
-    mReader->setFeature( XMLUni::fgSAX2CoreNameSpaces       , true );
-    mReader->setFeature( XMLUni::fgSAX2CoreNameSpacePrefixes, true );
+    mReader->setFeature( XMLUni::fgSAX2CoreNameSpaces,            true );
+    mReader->setFeature( XMLUni::fgSAX2CoreNameSpacePrefixes,     true );
+    mReader->setFeature( XMLUni::fgXercesValidationErrorAsFatal,  true );
+    mReader->setFeature( XMLUni::fgXercesContinueAfterFatalError, false );
   }
   catch (...)
   {
