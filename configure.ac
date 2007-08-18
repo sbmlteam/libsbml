@@ -193,7 +193,7 @@ dnl config macro needs to know whether any other XML libraries have been
 dnl chosen instead of it.
 
 CONFIG_LIB_EXPAT(1.95.8)
-CONFIG_LIB_LIBXML
+CONFIG_LIB_LIBXML(2.6.16)
 CONFIG_LIB_XERCES
 CONFIG_LIB_LIBCHECK(0.9.2)
 
