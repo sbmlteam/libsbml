@@ -665,19 +665,19 @@ KineticLaw::writeAttributes (XMLOutputStream& stream) const
   //
   // formula: string  { use="required" }  (L1v1, L1v2)
   //
-  if (getLevel() == 1) stream.writeAttribute("formula", getFormula());
+  if (level == 1) stream.writeAttribute("formula", getFormula());
 
-  if (version != 3)
+  if (level == 1  || version == 1)
   {
     //
-    // timeUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
-    // removed in l2v3
+    // timeUnits  { use="optional" }  (L1v1, L1v2, L2v1)
+    // removed in l2v2
     //
     stream.writeAttribute("timeUnits", mTimeUnits);
 
     //
-    // substanceUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
-    // removed in l2v3
+    // substanceUnits  { use="optional" }  (L1v1, L1v2, L2v1)
+    // removed in l2v2
     //
     stream.writeAttribute("substanceUnits", mSubstanceUnits);
   }
