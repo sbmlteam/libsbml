@@ -134,15 +134,19 @@ static struct libxmlErrors {
   { XML_WAR_NS_URI,		       XMLError::BadPrefix},
   { XML_WAR_NS_URI_RELATIVE,	       XMLError::BadPrefix},
   { XML_ERR_MISSING_ENCODING,	       XMLError::MissingXMLEncoding},
+#if LIBXML_VERSION >= 20627
   { XML_WAR_SPACE_VALUE,	       XMLError::NotWellFormed},
   { XML_ERR_NOT_STANDALONE,	       XMLError::NotWellFormed},
   { XML_ERR_NOTATION_PROCESSING,       XMLError::NotWellFormed},
   { XML_WAR_NS_COLUMN,		       XMLError::NotWellFormed},
+#endif
   { XML_NS_ERR_XML_NAMESPACE,	       XMLError::BadPrefixValue},
   { XML_NS_ERR_UNDEFINED_NAMESPACE,    XMLError::BadPrefix},
   { XML_NS_ERR_QNAME,		       XMLError::BadPrefix},
   { XML_NS_ERR_ATTRIBUTE_REDEFINED,    XMLError::NotWellFormed},
+#if LIBXML_VERSION >= 20627
   { XML_NS_ERR_EMPTY,		       XMLError::NotWellFormed},
+#endif
   // The next one should always be last.  It's used only as a marker.
   { 205,			       XMLError::UnknownError},
 };
