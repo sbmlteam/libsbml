@@ -58,23 +58,14 @@ START_TEST (test_XMLInputStream_create)
   fail_unless(XMLInputStream_isGood(stream) == 1);
   fail_unless(XMLInputStream_isError(stream) == 0);
 
-  /* this is a nightmare
-   * in Xerces the encoding is set when the input stream is created
-   * but in Expat and LibXML it isnt set until the first read
-   * ARRRRRRRRRGGGGGGHHHHHH!
-   */
-#ifdef USE_XERCES
-  fail_unless(strcmp(XMLInputStream_getEncoding(stream), "UTF-8") == 0);
-#else
   XMLInputStream_next(stream);
   fail_unless(strcmp(XMLInputStream_getEncoding(stream), "UTF-8") == 0);
-#endif
-
 
   XMLInputStream_free(stream);
 
 }
 END_TEST
+
 
 START_TEST (test_XMLInputStream_next_peek)
 {
