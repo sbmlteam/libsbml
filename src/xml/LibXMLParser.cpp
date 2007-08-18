@@ -57,7 +57,7 @@ static struct libxmlErrors {
   const int           libxmlCode;
   enum XMLError::Code ourCode;
 } libxmlErrorTable[] = {
-  { XML_ERR_INTERNAL_ERROR, 	       XMLError::InternalParserError},
+  { XML_ERR_INTERNAL_ERROR, 	       XMLError::NotWellFormed},
   { XML_ERR_NO_MEMORY,		       XMLError::OutOfMemory},
   { XML_ERR_DOCUMENT_START,	       XMLError::NotWellFormed},
   { XML_ERR_DOCUMENT_EMPTY,	       XMLError::EmptyXML},
@@ -70,6 +70,8 @@ static struct libxmlErrors {
   { XML_ERR_CHARREF_IN_PROLOG,	       XMLError::NotWellFormed},
   { XML_ERR_CHARREF_IN_EPILOG,	       XMLError::NotWellFormed},
   { XML_ERR_CHARREF_IN_DTD,	       XMLError::NotWellFormed},
+  { XML_ERR_UNDECLARED_ENTITY,         XMLError::UndefinedEntity},
+  { XML_WAR_UNDECLARED_ENTITY,         XMLError::UndefinedEntity},
   { XML_ERR_UNKNOWN_ENCODING,	       XMLError::BadXMLDecl},
   { XML_ERR_UNSUPPORTED_ENCODING,      XMLError::BadXMLDecl},
   { XML_ERR_STRING_NOT_STARTED,        XMLError::NotWellFormed},
@@ -319,6 +321,7 @@ LibXMLParser::parseFirst (const char* content, bool isFile)
     if ( mSource->error() )
     {
       reportError(XMLError::FileUnreadable, content, 0, 0);
+      return false;
     }
   }
   else
@@ -326,7 +329,11 @@ LibXMLParser::parseFirst (const char* content, bool isFile)
     mSource = new XMLMemoryBuffer(content, strlen(content));
   }
 
-  if ( mSource == 0 ) reportError(XMLError::OutOfMemory, "", 0, 0);
+  if ( mSource == 0 )
+  {
+    reportError(XMLError::OutOfMemory, "", 0, 0);
+    return false;
+  }
 
   if ( !error() )
   {
