@@ -657,9 +657,29 @@ void
 SBase::setNotes(const XMLNode* notes)
 {
   if (mNotes == notes) return;
- 
+   
   delete mNotes;
-  mNotes = (notes != 0) ? static_cast<XMLNode*>( notes->clone() ) : 0;
+  const string&  name = notes->getName();
+
+  if (notes != 0)
+  {
+    /* check for notes tags and add if necessary */
+
+    if (name == "notes")
+    {
+      mNotes = static_cast<XMLNode*>( notes->clone() );
+    }
+    else
+    {
+      XMLToken notes_t = XMLToken(XMLTriple("notes", "", ""), XMLAttributes());
+      mNotes = new XMLNode(notes_t);
+      mNotes->addChild(*notes);
+    }
+  }
+  else
+  {
+    mNotes = 0;
+  }
 }
 
 /**
