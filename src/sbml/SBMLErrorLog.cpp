@@ -22,6 +22,8 @@
  *----------------------------------------------------------------------- -->*/
 
 #include <string>
+#include <list>
+
 #include <sbml/xml/XMLToken.h>
 #include <sbml/xml/XMLParser.h>
 #include <sbml/SBMLError.h>
@@ -68,7 +70,7 @@ SBMLErrorLog::logError ( const unsigned int  errorId
                        , SBMLError::SBMLCategory category )
 {
   add( SBMLError( errorId, level, version, details, line, column, 
-                                                         severity, category ));
+                  severity, category ));
 }
 
 
@@ -100,24 +102,68 @@ SBMLErrorLog::add (const std::list<SBMLError>& errors)
     XMLErrorLog::add( XMLError(*iter) );
 }
 
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Helper class used by SBMLErrorLog::remove.
+ */
+class MatchErrorId
+{
+public:
+  MatchErrorId(const unsigned int theId) : idToFind(theId) {};
+
+  bool operator() (XMLError e) const
+  {
+    return e.getId() == idToFind;
+  };
+
+private:
+  unsigned int idToFind;
+};
+/** @endcond doxygen-libsbml-internal */
+
+
+/**
+ * Removes the error(s) having errorId from the SBMLError list.
+ *
+ * @param errorId the error identifier of the error to be removed.
+ */
+void
+SBMLErrorLog::remove (const unsigned int errorId)
+{
+  remove_if(mErrors.begin(), mErrors.end(), MatchErrorId(errorId));
+}
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Helper class used by SBMLErrorLog::getNumSeverityErrors().
+ */
+class MatchSeverity
+{
+public:
+  MatchSeverity(const SBMLError::SBMLSeverity s) : severity(s) {};
+
+  bool operator() (XMLError e) const
+  {
+    return e.getSeverity() == severity;
+  };
+
+private:
+  unsigned int severity;
+};
+/** @endcond doxygen-libsbml-internal */
+
+
 /**
   * Returns number of errors that are logged with severity Error
   */
 unsigned int
 SBMLErrorLog::getNumSeverityErrors()
 {
-  unsigned int noErrors = 0;
-
-  for (unsigned int n = 0; n < mErrors.size(); n++)
-  {
-    if (mErrors.at(n).getSeverity() == SBMLError::Error)
-      noErrors++;
-  }
-
-  return noErrors;
+  return count_if(mErrors.begin(), mErrors.end(),
+                  MatchSeverity(SBMLError::Error));
 }
-
-
 /** @endcond doxygen-libsbml-internal */
 
 
