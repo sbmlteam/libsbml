@@ -21,6 +21,7 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  *----------------------------------------------------------------------- -->*/
 
+#include <algorithm>
 #include <string>
 #include <list>
 
