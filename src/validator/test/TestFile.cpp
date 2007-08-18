@@ -195,24 +195,6 @@ TestFile::getFilesIn ( const string& directory,
        // xerces bug in reading multibyte chars
         if (id == 10309) continue;
       }
-      else 
-      {
-       // expat/libXML quits when it hits an xml error whereas xerces
-        // continues and reports an error on the element
-        // where the bad xml occurred- so dont test these with expat
-        if (id == 1009 && file.getAdditionalFailId() != 0)
-          continue;
-        else if (id == 1011 && file.getAdditionalFailId() != 0)
-          continue;
-        else if (id == 10802)
-          continue;
-        else if (id == 10803)
-          continue;
-        else if (id == 21004)
-          continue;
-        else if (id == 21005)
-          continue;
-      }
 
       if ((begin == 0 && end == 0) || (id >= begin && id <= end))
       {
