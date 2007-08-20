@@ -521,25 +521,21 @@ libSBML directory.
 To build libsbml on Windows:
 <ol>
 
-<li style="margin-bottom: 1em"> You need to create the include directory structure.
-In <code>&lt;libsbml&gt;/win32</code> run the <code>createInclude</code> batch file.
-</li>
-
 <li style="margin-bottom: 1em">
  In Visual Studio 7, open <code>&lt;libsbml&gt;/win32/MSVC7/libsbml.sln</code>.
-   In Visual Studio 6, open <code>&lt;libsbml&gt;/win32/MSVC6/libsbml.dsw</code>.
 </li>
 
 <li style="margin-bottom: 1em">
- Select Tools->Options, and select Projects/Directories (VS7) or
-   click the Directories tab (VS6).
+ Select Tools->Options, and select Projects/Directories.
    The screen for indicating which directories contain project-relevant
    files appears.
 </li>
 
 <li style="margin-bottom: 1em">
  At "Show Directories For:", select "Include Files".  Add the
-   following if it's not already shown: <code><em>libsbml</em>/src</code>
+   following if it's not already shown: <code><em>libsbml</em>/include</code>
+ <p>Note: you will also need to add the path to the include files 
+ relevant to the XML Parser library.</p>
 </li>
 
 <li style="margin-bottom: 1em">

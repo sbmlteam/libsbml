@@ -367,31 +367,48 @@ attempting to compile libSBML.  The DLL for xerces or expat must be
 placed in the win32/bin subdirectory of the libSBML directory.
 
 To build libsbml on Windows:
-   1. You need to create the include directory structure.
-      In (libsbml)/win32 run the createInclude batch file.
+   
+   1. In Visual Studio 7, open (libsbml)/win32/MSVC7/libsbml.sln.
 
-
-   2. In Visual Studio 7, open (libsbml)/win32/MSVC7/libsbml.sln.
-      In Visual Studio 6, open (libsbml)/win32/MSVC6/libsbml.dsw.
-
-   3. Select Tools->Options, and select Projects/Directories (VS7) or
-   click the Directories tab (VS6).
+   2. Select Tools->Options, and select Projects/Directories.
 
    The screen for indicating which directories contain project-relevant
    files appears.
 
-   4. At "Show Directories For:", select "Include Files".  Add the
+   3. At "Show Directories For:", select "Include Files".  Add the
    following if they're not already shown:
 
-      (libsbml)/src
+      (libsbml)/include
+      path to Xerces/Expat include files
 
-   5. At "Show Directories For:", select "Library Files".  Add the
+   4. At "Show Directories For:", select "Library Files".  Add the
    following it's not already shown:
 
       (libsbml)/win32/bin
 
-   6. Select Build->Rebuild All from the Visual Studio main menu.
+   5. Select Build->Rebuild All from the Visual Studio main menu.
 
+To build libsbml for java/python on Windows:
+
+   1. You will need the additional include directorie:
+   
+     (libsbml)/src/bindings/swig  
+   
+   2. Set the Environmental Variables
+		
+		JAVA_INCLUDE = path to java include files
+	  
+	  or
+	  	
+		PYTHON_INLUDE = path to python include files
+		PYTHON_LIB = path to python library files
+		
+   3. Open the appropriate object file from either the java or python
+      directory under (libsbml)/src/bindings.
+      
+   4. Select Build.
+     
+    
 
 -----------------------------------
 5. THE libsbml-discuss MAILING LIST
