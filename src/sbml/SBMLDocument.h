@@ -232,6 +232,24 @@ public:
    */
   Model* createModel (const std::string& sid = "");
 
+  /**
+   * Allows particular validators to be turned on or off prior to
+   * calling checkConsistency. By default all validators are applied.
+   *
+   * @param validator the SBMLCategory of the validator to turn on/off
+   * 
+   * Categories are:
+   * @li SBMLConsistency           - Error in validating SBML consistency.
+   * @li SBMLConsistencyIdentifier - Error in validating identifiers. 
+   * @li SBMLConsistencyUnits      - Error in validating units. 
+   * @li SBMLConsistencyMathML     - Error in validating MathML. 
+   * @li SBMLConsistencySBO        - Error in validation SBO. 
+   * @li SBMLOverdetermined        - Error in equations of model. 
+   *
+   * @param apply boolean indicating whether the validator 
+   * should be applied or not.
+   */
+  void setValidatorApplicationStatus(SBMLError::SBMLCategory validator, bool apply);
 
   /**
    * Performs a set of consistency and validation checks on this SBML
@@ -240,12 +258,9 @@ public:
    * Callers should query the results of the consistency check by calling
    * getError().
    *
-   * Different validators can be turned off by passing a parameter
-   * NEEDS WRITING
-   *
    * @return the number of failed checks (errors) encountered.
    */
-  unsigned int checkConsistency (unsigned char checks = 0x3f);
+  unsigned int checkConsistency ();
 
 
   /**
@@ -455,6 +470,9 @@ protected:
 
   SBMLErrorLog mErrorLog;
 
+  unsigned char mApplicableValidators;
+
+
   friend class SBase;
   friend class SBMLReader;
   /** @endcond doxygen-libsbml-internal */
@@ -526,6 +544,11 @@ LIBSBML_EXTERN
 Model_t *
 SBMLDocument_createModel (SBMLDocument_t *d);
 
+LIBSBML_EXTERN
+void
+SBMLDocument_setValidatorApplicationStatus(SBMLDocument_t *d, 
+                                     int validator,
+                                     int apply);
 
 LIBSBML_EXTERN
 unsigned int

@@ -150,6 +150,8 @@ SBMLDocument::SBMLDocument (unsigned int level, unsigned int version) :
   if (mLevel   == 0)  mLevel   = getDefaultLevel  ();
   if (mVersion == 0)  mVersion = getDefaultVersion();
 
+  mApplicableValidators = 0x3f; // turn all validators ON
+
   // This needs to be fixed some other way.
   //  setLevelAndVersion(mLevel,mVersion);
 }
@@ -172,6 +174,7 @@ SBMLDocument::SBMLDocument (const SBMLDocument& orig) :
  , mLevel   ( orig.mLevel   )
  , mVersion ( orig.mVersion )
  , mModel   ( 0             )
+ , mApplicableValidators (orig.mApplicableValidators)
 {
   mSBML = this;
 
@@ -353,6 +356,62 @@ SBMLDocument::createModel (const std::string& sid)
   return mModel;
 }
 
+void 
+SBMLDocument::setValidatorApplicationStatus(SBMLError::SBMLCategory validator, 
+                                   bool apply)
+{
+  switch (validator)
+  {
+  case SBMLError::SBMLConsistencyIdentifier:
+    if (apply)
+      mApplicableValidators |= 0x01;
+    else
+      mApplicableValidators &= 0xfe;
+
+    break;
+
+  case SBMLError::SBMLConsistency:
+    if (apply)
+      mApplicableValidators |= 0x02;
+    else
+      mApplicableValidators &= 0xfd;
+
+    break;
+  case SBMLError::SBMLConsistencySBO:
+    if (apply)
+      mApplicableValidators |= 0x04;
+    else
+      mApplicableValidators &= 0xfb;
+
+    break;
+  case SBMLError::SBMLConsistencyMathML:
+    if (apply)
+      mApplicableValidators |= 0x08;
+    else
+      mApplicableValidators &= 0xf7;
+
+    break;
+  case SBMLError::SBMLConsistencyUnits:
+    if (apply)
+      mApplicableValidators |= 0x10;
+    else
+      mApplicableValidators &= 0xef;
+
+    break;
+  case SBMLError::SBMLOverdetermined:
+    if (apply)
+      mApplicableValidators |= 0x20;
+    else
+      mApplicableValidators &= 0xdf;
+
+    break;
+  default:
+      mApplicableValidators = 0x3f;
+    break;
+  }
+
+}
+
 
 /**
  * Performs a set of semantic consistency checks on the document.  Query
@@ -361,17 +420,17 @@ SBMLDocument::createModel (const std::string& sid)
  * @return the number of failed checks (errors) encountered.
  */
 unsigned int
-SBMLDocument::checkConsistency (unsigned char checks)
+SBMLDocument::checkConsistency ()
 {
   unsigned int nerrors = 0;
 
   /* determine which validators to run */
-  bool id    = ((checks & 0x01) == 0x01);
-  bool sbml  = ((checks & 0x02) == 0x02);
-  bool sbo   = ((checks & 0x04) == 0x04);
-  bool math  = ((checks & 0x08) == 0x08);
-  bool units = ((checks & 0x10) == 0x10);
-  bool over  = ((checks & 0x20) == 0x20);
+  bool id    = ((mApplicableValidators & 0x01) == 0x01);
+  bool sbml  = ((mApplicableValidators & 0x02) == 0x02);
+  bool sbo   = ((mApplicableValidators & 0x04) == 0x04);
+  bool math  = ((mApplicableValidators & 0x08) == 0x08);
+  bool units = ((mApplicableValidators & 0x10) == 0x10);
+  bool over  = ((mApplicableValidators & 0x20) == 0x20);
 
   IdentifierConsistencyValidator id_validator;
   ConsistencyValidator validator;
@@ -1061,6 +1120,33 @@ Model_t *
 SBMLDocument_createModel (SBMLDocument_t *d)
 {
   return d->createModel();
+}
+
+/**
+  * Allows particular validators to be turned on or off prior to
+  * calling checkConsistency. By default all validators are applied.
+  *
+  * @param d the SBMLDocument_t structure
+  * @param validator the SBMLCategory of the validator to turn on/off
+  * 
+  * Categories are:
+  * @li SBMLConsistency = 7           - Error in validating SBML consistency.
+  * @li SBMLConsistencyIdentifier = 8 - Error in validating identifiers. 
+  * @li SBMLConsistencyUnits = 9      - Error in validating units. 
+  * @li SBMLConsistencyMathML = 10    - Error in validating MathML. 
+  * @li SBMLConsistencySBO = 11       - Error in validation SBO. 
+  * @li SBMLOverdetermined = 12       - Error in equations of model. 
+  *
+  * @param apply boolean indicating whether the validator 
+  * should be applied or not.
+  */
+LIBSBML_EXTERN
+void
+SBMLDocument_setValidatorApplicationStatus(SBMLDocument_t * d, 
+                                     int validator,
+                                     int apply)
+{
+  d->setValidatorApplicationStatus(SBMLError::SBMLCategory(validator), apply);
 }
 
 
