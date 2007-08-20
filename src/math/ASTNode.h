@@ -673,6 +673,28 @@ public:
   LIBSBML_EXTERN
   void swapChildren (ASTNode *that);
 
+  /** @cond doxygen-ignored */
+
+  /**
+   * Sets the flag indicating that this ASTNode has semantics attached
+   */
+  LIBSBML_EXTERN
+  void setSemanticsFlag() { hasSemantics = true; }
+
+  /**
+   * Unsets the flag indicating that this ASTNode has semantics attached
+   */
+  LIBSBML_EXTERN
+  void unsetSemanticsFlag() { hasSemantics = false; }
+
+  /**
+   * gets the flag indicating that this ASTNode has semantics attached
+   */
+  LIBSBML_EXTERN
+  bool getSemanticsFlag() const;
+
+  /** @endcond doxygen-ignored */
+
 
 protected:
 
@@ -703,6 +725,7 @@ protected:
     long mExponent;
   };
 
+  bool hasSemantics;
   List *mChildren;
 
 

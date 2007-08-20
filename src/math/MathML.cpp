@@ -551,6 +551,18 @@ readMathML (ASTNode& node, XMLInputStream& stream)
     if (name == "piece") return;
   }
 
+  else if (name == "semantics")
+  {
+    /**
+     * FIRST ATTEMPT HACK 
+     * read in the underlying math without worrying about this 
+     * semantics bit
+     */
+    stream.next();
+    readMathML(node, stream);
+    node.setSemanticsFlag();
+    stream.skipPastEnd(elem);
+  }
   else
   {
     setType(node, elem, stream);

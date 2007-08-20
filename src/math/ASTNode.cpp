@@ -163,6 +163,7 @@ static const char *AST_RELATIONAL_STRINGS[] =
 LIBSBML_EXTERN
 ASTNode::ASTNode (ASTNodeType_t type)
 {
+  unsetSemanticsFlag();
   mInteger  = 0;
   mExponent = 0;
   mType     = AST_UNKNOWN;
@@ -180,6 +181,7 @@ ASTNode::ASTNode (ASTNodeType_t type)
  */
 ASTNode::ASTNode (Token_t* token)
 {
+  unsetSemanticsFlag();
   mInteger  = 0;
   mExponent = 0;
   mType     = AST_UNKNOWN;
@@ -1369,6 +1371,15 @@ ASTNode::swapChildren (ASTNode *that)
   that->mChildren = temp;
 }
 
+  /**
+   * gets the flag indicating that this ASTNode has semantics attached
+   */
+  LIBSBML_EXTERN
+  bool 
+  ASTNode::getSemanticsFlag() const
+  {
+    return hasSemantics;
+  }
 
 
 
