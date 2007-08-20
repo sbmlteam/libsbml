@@ -8654,8 +8654,6 @@ _ACEOF
 
           ac_config_files="$ac_config_files win32/Makefile"
 
-          ac_config_files="$ac_config_files win32/MSVC6/Makefile"
-
           ac_config_files="$ac_config_files win32/MSVC7/Makefile"
 
 
@@ -9231,7 +9229,6 @@ do
   "docs/src/doxygen-config-python.txt" ) CONFIG_FILES="$CONFIG_FILES docs/src/doxygen-config-python.txt" ;;
   "docs/src/Makefile" ) CONFIG_FILES="$CONFIG_FILES docs/src/Makefile" ;;
   "win32/Makefile" ) CONFIG_FILES="$CONFIG_FILES win32/Makefile" ;;
-  "win32/MSVC6/Makefile" ) CONFIG_FILES="$CONFIG_FILES win32/MSVC6/Makefile" ;;
   "win32/MSVC7/Makefile" ) CONFIG_FILES="$CONFIG_FILES win32/MSVC7/Makefile" ;;
   "examples/c/Makefile" ) CONFIG_FILES="$CONFIG_FILES examples/c/Makefile" ;;
   "examples/c++/Makefile" ) CONFIG_FILES="$CONFIG_FILES examples/c++/Makefile" ;;
