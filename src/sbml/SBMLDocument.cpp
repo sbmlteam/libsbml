@@ -1127,7 +1127,8 @@ SBMLDocument_createModel (SBMLDocument_t *d)
   * calling checkConsistency. By default all validators are applied.
   *
   * @param d the SBMLDocument_t structure
-  * @param validator the SBMLCategory of the validator to turn on/off
+  * @param validator an integer representing the SBMLCategory of 
+  * the validator to turn on/off
   * 
   * Categories are:
   * @li SBMLConsistency = 7           - Error in validating SBML consistency.
