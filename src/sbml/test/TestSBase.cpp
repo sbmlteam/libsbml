@@ -134,15 +134,15 @@ START_TEST (test_SBase_setNotes)
   }
   XMLNode_t *t1 = SBase_getNotes(S);
 
-  fail_unless(XMLNode_getNumChildren(t1) == 0);
-  fail_unless(!strcmp(XMLNode_getCharacters(t1), "This is a test note"));
+  fail_unless(XMLNode_getNumChildren(t1) == 1);
+  fail_unless(!strcmp(XMLNode_getCharacters(XMLNode_getChild(t1,0)), "This is a test note"));
 
 
   /* Reflexive case (pathological)  */
   SBase_setNotes(S, SBase_getNotes(S));
   t1 = SBase_getNotes(S);
-  fail_unless(XMLNode_getNumChildren(t1) == 0);
-  const char * chars = XMLNode_getCharacters(t1);
+  fail_unless(XMLNode_getNumChildren(t1) == 1);
+  const char * chars = XMLNode_getCharacters(XMLNode_getChild(t1,0));
   fail_unless(!strcmp(chars, "This is a test note"));
 
   SBase_setNotes(S, NULL);
