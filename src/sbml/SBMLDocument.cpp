@@ -296,7 +296,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
   }
   conversion_note << "</body>\n";
 
-  mModel->appendNotes(conversion_note.str());
+  if (mModel) mModel->appendNotes(conversion_note.str());
 
   mLevel   = level;
   mVersion = version;
