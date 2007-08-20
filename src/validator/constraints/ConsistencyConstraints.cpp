@@ -147,13 +147,12 @@ START_CONSTRAINT (20301, FunctionDefinition, fd)
       "one and only one 'lambda'. (References: L2V1 Section 4.3.2; L2V2 Section 4.3.2.)";
   }
 
-  if (fd.getVersion() == 3)
+  if (fd.getVersion() != 3)
   {
+    inv( !fd.getMath()->getSemanticsFlag() );
   }
-  else
-  {
-    inv( fd.getMath()->isLambda() );
-  }
+
+  inv( fd.getMath()->isLambda() );
 }
 END_CONSTRAINT
 
@@ -174,7 +173,6 @@ START_CONSTRAINT (20303, FunctionDefinition, fd)
   pre( fd.isSetMath()            );
   pre( fd.getBody() != NULL      );
   pre( fd.getNumArguments() != 0 );
-  //NEEDS TO ALTER IN CASE OF SEMANTICS
   
   const string  id = fd.getId();
 
@@ -205,7 +203,6 @@ START_CONSTRAINT (20305, FunctionDefinition, fd)
   pre( fd.isSetMath()           );
   pre( fd.getBody() != NULL      );
 
-  //NEEDS TO ALTER IN CASE OF SEMANTICS
   inv_or( fd.getBody()->isBoolean() );
   inv_or( fd.getBody()->isNumber()  );
   inv_or( fd.getBody()->isFunction());
