@@ -257,6 +257,8 @@ public:
   , EventAssignmentForConstantEntity = 21212 /*!< SBML L2v3 validation rule #21212 */
 
   , GeneralWarningNotSpecified       = 29999
+
+  , CannotConvertToL1V1              = 90000
     // Bounds
   , SBMLCodesUpperBound              = 99999 /*!< 99999 */
   };

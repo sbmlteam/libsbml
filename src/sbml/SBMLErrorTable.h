@@ -2170,6 +2170,20 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     ""
+  },
+
+  //90000
+  {
+    SBMLError::CannotConvertToL1V1,
+    SBMLError::SBMLL1Compatibility,
+    SBMLError::NotApplicable,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::Error,
+    "Use of SBML Level 1 Version 1 is not recommended and conversion is "
+    "not supported by libSBML."
   }
+
 
 };

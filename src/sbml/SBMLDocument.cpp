@@ -254,6 +254,11 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
     {
       if (level == 1)
       {
+        if (version == 1)
+        {
+          mErrorLog.add(SBMLError::CannotConvertToL1V1);
+          return;
+        }
         if (!conversion_errors(checkL1Compatibility()))
         {
           mModel->convertToL1();
@@ -277,7 +282,9 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
 
   std::ostringstream conversion_note;
   conversion_note << "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n";
-  conversion_note << "<p> This sbml model has been converted from SBML Level ";
+  conversion_note << "<p> This sbml model was automatically converted by ";
+  conversion_note << "libSBML version " << PACKAGE_VERSION;
+  conversion_note << " from SBML Level ";
   conversion_note << mLevel << " Version " << mVersion << ".</p>\n";
   if (getNumErrors() > 0)
   {
