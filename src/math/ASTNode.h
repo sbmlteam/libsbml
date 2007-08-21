@@ -698,15 +698,15 @@ public:
    * sets the definitionURL attributes
    */
   LIBSBML_EXTERN
-  void setURL(XMLAttributes url);
+  void setDefinitionURL(XMLAttributes url);
+  /** @endcond doxygen-ignored */
 
   /**
    * gets the definitionURL attributes
    */
   LIBSBML_EXTERN
-  XMLAttributes* getURL() const;
+  XMLAttributes* getDefinitionURL() const;
 
-  /** @endcond doxygen-ignored */
 
 
 protected:

@@ -550,7 +550,7 @@ readMathML (ASTNode& node, XMLInputStream& stream)
   else if (name == "bvar")
   {
     /** read in attributes */
-    node.setURL(elem.getAttributes());
+    node.setDefinitionURL(elem.getAttributes());
     readMathML(node, stream);
   }
 
@@ -564,7 +564,7 @@ readMathML (ASTNode& node, XMLInputStream& stream)
   else if (name == "semantics")
   {
     /** read in attributes */
-    node.setURL(elem.getAttributes());
+    node.setDefinitionURL(elem.getAttributes());
     stream.next();
     readMathML(node, stream);
     node.setSemanticsFlag();
@@ -919,9 +919,9 @@ writeLambda (const ASTNode& node, XMLOutputStream& stream)
   for (n = 0; n < bvars; n++)
   {
     stream.startElement("bvar");
-    if (node.getChild(n)->getURL())
+    if (node.getChild(n)->getDefinitionURL())
       stream.writeAttribute("definitionURL", 
-      node.getChild(n)->getURL()->getValue(0));
+      node.getChild(n)->getDefinitionURL()->getValue(0));
     writeNode(*node.getChild(n), stream);
     stream.endElement("bvar");
   }
@@ -1049,8 +1049,9 @@ writeNode (const ASTNode& node, XMLOutputStream& stream)
   if (node.getSemanticsFlag() && semantics)
   {
     stream.startElement("semantics");
-    if (node.getURL())
-      stream.writeAttribute("definitionURL", node.getURL()->getValue(0));
+    if (node.getDefinitionURL())
+      stream.writeAttribute("definitionURL", 
+                             node.getDefinitionURL()->getValue(0));
     semantics = false;
     writeNode(node, stream);
     stream.endElement("semantics");

@@ -1405,7 +1405,7 @@ ASTNode::getSemanticsFlag() const
   * sets the definitionURL attributes
   */
 void 
-ASTNode::setURL(XMLAttributes url)
+ASTNode::setDefinitionURL(XMLAttributes url)
 {
   mDefinitionURL = static_cast<XMLAttributes *>(url.clone());
 }
@@ -1413,8 +1413,9 @@ ASTNode::setURL(XMLAttributes url)
 /**
   * gets the definitionURL attributes
   */
+LIBSBML_EXTERN
 XMLAttributes*
-ASTNode::getURL() const
+ASTNode::getDefinitionURL() const
 {
   return mDefinitionURL;
 }
