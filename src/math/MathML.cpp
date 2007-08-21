@@ -494,7 +494,10 @@ readMathML (ASTNode& node, XMLInputStream& stream)
       (stream.getErrorLog())->logError(SBMLError::DisallowedMathMLEncodingUse);
   }
 
-  if ( !url.empty() && name != "csymbol")
+  // allow definition url on csmbol/semantics and bvar
+  if ( !url.empty() && (name != "csymbol"
+                     && name != "semantics"
+                     && name != "bvar"))
   {
     static_cast <SBMLErrorLog*>
       (stream.getErrorLog())->logError(SBMLError::DisallowedDefinitionURLUse);
@@ -1035,6 +1038,15 @@ writePiecewise (const ASTNode& node, XMLOutputStream& stream)
 static void
 writeNode (const ASTNode& node, XMLOutputStream& stream)
 {
+  static bool semantics = true;
+  if (node.getSemanticsFlag() && semantics)
+  {
+      stream.startElement("semantics");
+      semantics = false;
+      writeNode(node, stream);
+      stream.endElement("semantics");
+
+  }
        if (  node.isNumber   () ) writeCN       (node, stream);
   else if (  node.isName     () ) writeCI       (node, stream);
   else if (  node.isConstant () ) writeConstant (node, stream);

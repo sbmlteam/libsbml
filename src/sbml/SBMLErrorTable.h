@@ -157,7 +157,14 @@ static const sbmlErrorTableEntry errorTable[] =
   },
 
   //10204
-  {
+  { /**
+      * This is a rule that was not implemented in libSBML-2.3.4
+      * To be strictly in line with sbml specifications it should
+      * only allow semantics on csymbol until l2v3 rel 2
+      * BUT since no one ever applied it anyway I havent implemented
+      * this as it would require a seperate rule that then
+      * reverted to this id
+      */
     SBMLError::DisallowedDefinitionURLUse,
     SBMLError::SBMLConsistencyMathML,
     SBMLError::NotApplicable,
@@ -166,7 +173,8 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     "In the SBML subset of MathML 2.0, the MathML attribute "
-    "definitionURL is only permitted on csymbol. No other MathML elements "
+    "definitionURL is only permitted on csymbol, semantics or bvar. No other "
+    "MathML elements "
     "may have a definitionURL attribute. (References: L2V2 Section 3.5.1.)."
   },
 
