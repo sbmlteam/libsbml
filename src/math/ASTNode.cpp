@@ -29,6 +29,7 @@
 #include <sbml/util/List.h>
 
 #include <sbml/math/ASTNode.h>
+#include <sbml/xml/XMLAttributes.h>
 
 /** @cond doxygen-ignored */
 
@@ -164,6 +165,7 @@ LIBSBML_EXTERN
 ASTNode::ASTNode (ASTNodeType_t type)
 {
   unsetSemanticsFlag();
+  mDefinitionURL = new XMLAttributes();
   mInteger  = 0;
   mExponent = 0;
   mType     = AST_UNKNOWN;
@@ -182,6 +184,7 @@ ASTNode::ASTNode (ASTNodeType_t type)
 ASTNode::ASTNode (Token_t* token)
 {
   unsetSemanticsFlag();
+  mDefinitionURL = new XMLAttributes();
   mInteger  = 0;
   mExponent = 0;
   mType     = AST_UNKNOWN;
@@ -1371,15 +1374,50 @@ ASTNode::swapChildren (ASTNode *that)
   that->mChildren = temp;
 }
 
-  /**
-   * gets the flag indicating that this ASTNode has semantics attached
-   */
-  LIBSBML_EXTERN
-  bool 
-  ASTNode::getSemanticsFlag() const
-  {
-    return hasSemantics;
-  }
+/**
+  * Sets the flag indicating that this ASTNode has semantics attached
+  */
+void 
+ASTNode::setSemanticsFlag() 
+{ 
+  hasSemantics = true; 
+}
+
+/**
+  * Unsets the flag indicating that this ASTNode has semantics attached
+  */
+void 
+ASTNode::unsetSemanticsFlag()
+{ 
+  hasSemantics = false; 
+}
+
+/**
+  * gets the flag indicating that this ASTNode has semantics attached
+  */
+bool 
+ASTNode::getSemanticsFlag() const
+{
+  return hasSemantics;
+}
+
+/**
+  * sets the definitionURL attributes
+  */
+void 
+ASTNode::setURL(XMLAttributes url)
+{
+  mDefinitionURL = static_cast<XMLAttributes *>(url.clone());
+}
+
+/**
+  * gets the definitionURL attributes
+  */
+XMLAttributes*
+ASTNode::getURL() const
+{
+  return mDefinitionURL;
+}
 
 
 

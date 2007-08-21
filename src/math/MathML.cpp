@@ -547,7 +547,14 @@ readMathML (ASTNode& node, XMLInputStream& stream)
     }
   }
 
-  else if (name == "bvar"  || name == "degree" || name == "logbase" ||
+  else if (name == "bvar")
+  {
+    /** read in attributes */
+    node.setURL(elem.getAttributes());
+    readMathML(node, stream);
+  }
+
+  else if (name == "degree" || name == "logbase" ||
            name == "piece" || name == "otherwise" )
   {
     readMathML(node, stream);
@@ -556,11 +563,8 @@ readMathML (ASTNode& node, XMLInputStream& stream)
 
   else if (name == "semantics")
   {
-    /**
-     * FIRST ATTEMPT HACK 
-     * read in the underlying math without worrying about this 
-     * semantics bit
-     */
+    /** read in attributes */
+    node.setURL(elem.getAttributes());
     stream.next();
     readMathML(node, stream);
     node.setSemanticsFlag();
@@ -915,6 +919,9 @@ writeLambda (const ASTNode& node, XMLOutputStream& stream)
   for (n = 0; n < bvars; n++)
   {
     stream.startElement("bvar");
+    if (node.getChild(n)->getURL())
+      stream.writeAttribute("definitionURL", 
+      node.getChild(n)->getURL()->getValue(0));
     writeNode(*node.getChild(n), stream);
     stream.endElement("bvar");
   }
@@ -1041,19 +1048,24 @@ writeNode (const ASTNode& node, XMLOutputStream& stream)
   static bool semantics = true;
   if (node.getSemanticsFlag() && semantics)
   {
-      stream.startElement("semantics");
-      semantics = false;
-      writeNode(node, stream);
-      stream.endElement("semantics");
+    stream.startElement("semantics");
+    if (node.getURL())
+      stream.writeAttribute("definitionURL", node.getURL()->getValue(0));
+    semantics = false;
+    writeNode(node, stream);
+    stream.endElement("semantics");
 
   }
-       if (  node.isNumber   () ) writeCN       (node, stream);
-  else if (  node.isName     () ) writeCI       (node, stream);
-  else if (  node.isConstant () ) writeConstant (node, stream);
-  else if (  node.isOperator () ) writeOperator (node, stream);
-  else if (  node.isLambda   () ) writeLambda   (node, stream);
-  else if (  node.isPiecewise() ) writePiecewise(node, stream);
-  else if ( !node.isUnknown  () ) writeFunction (node, stream);
+  else
+  {
+        if (  node.isNumber   () ) writeCN       (node, stream);
+    else if (  node.isName     () ) writeCI       (node, stream);
+    else if (  node.isConstant () ) writeConstant (node, stream);
+    else if (  node.isOperator () ) writeOperator (node, stream);
+    else if (  node.isLambda   () ) writeLambda   (node, stream);
+    else if (  node.isPiecewise() ) writePiecewise(node, stream);
+    else if ( !node.isUnknown  () ) writeFunction (node, stream);
+  }
 }
 
 

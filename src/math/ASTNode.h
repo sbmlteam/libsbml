@@ -29,6 +29,7 @@
 #include <sbml/common/sbmlfwd.h>
 
 #include <sbml/math/FormulaTokenizer.h>
+#include <sbml/xml/XMLAttributes.h>
 
 
 /**
@@ -679,19 +680,31 @@ public:
    * Sets the flag indicating that this ASTNode has semantics attached
    */
   LIBSBML_EXTERN
-  void setSemanticsFlag() { hasSemantics = true; }
+  void setSemanticsFlag();
 
   /**
    * Unsets the flag indicating that this ASTNode has semantics attached
    */
   LIBSBML_EXTERN
-  void unsetSemanticsFlag() { hasSemantics = false; }
+  void unsetSemanticsFlag();
 
   /**
    * gets the flag indicating that this ASTNode has semantics attached
    */
   LIBSBML_EXTERN
   bool getSemanticsFlag() const;
+
+  /**
+   * sets the definitionURL attributes
+   */
+  LIBSBML_EXTERN
+  void setURL(XMLAttributes url);
+
+  /**
+   * gets the definitionURL attributes
+   */
+  LIBSBML_EXTERN
+  XMLAttributes* getURL() const;
 
   /** @endcond doxygen-ignored */
 
@@ -725,7 +738,9 @@ protected:
     long mExponent;
   };
 
+  XMLAttributes* mDefinitionURL;
   bool hasSemantics;
+
   List *mChildren;
 
 
