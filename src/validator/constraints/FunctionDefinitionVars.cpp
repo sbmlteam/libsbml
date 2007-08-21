@@ -74,7 +74,20 @@ FunctionDefinitionVars::check_ (const Model& m, const FunctionDefinition& fd)
     ASTNode* node = static_cast<ASTNode*>( variables->get(n) );
     string   name = node->getName() ? node->getName() : "";
 
-    if ( !fd.getArgument(name) ) logUndefined(fd, name);
+    if ( !fd.getArgument(name) ) 
+    {
+      /* if this is the csymbol time - technically it is allowed 
+       * in L2v1 and L2v2
+       */
+      if (node->getType() == AST_NAME_TIME)
+      {
+        if (fd.getVersion() == 3)  logUndefined(fd, name);
+      }
+      else
+      {
+        logUndefined(fd, name);
+      }
+    }
   }
 }
 
