@@ -140,7 +140,8 @@ SBMLErrorLog::remove (const unsigned int errorId)
 
 /** @cond doxygen-libsbml-internal */
 /*
- * Helper class used by SBMLErrorLog::getNumSeverityErrors().
+ * Helper class used by 
+ * SBMLErrorLog::getNumFailsWithSeverity(SBMLError::Severity).
  */
 class MatchSeverity
 {
@@ -162,12 +163,11 @@ private:
   * Returns number of errors that are logged with severity Error
   */
 unsigned int
-SBMLErrorLog::getNumSeverityErrors()
+SBMLErrorLog::getNumFailsWithSeverity(SBMLError::SBMLSeverity severity)
 {
   return count_if(mErrors.begin(), mErrors.end(),
-                  MatchSeverity(SBMLError::Error));
+                  MatchSeverity(severity));
 }
-/** @endcond doxygen-libsbml-internal */
 
 
 /**

@@ -318,9 +318,9 @@ public:
 				 * software should terminate
 				 * immediately. */
 
-  , NotApplicable 
   , SchemaError
   , GeneralWarning
+  , NotApplicable 
   };
 
 

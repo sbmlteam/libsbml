@@ -78,6 +78,20 @@ public:
   const SBMLError* getError (unsigned int n) const;
 
 
+  /**
+   * Returns number of errors that are logged with the given severity.
+   * 
+   * @param SBMLError::Severity severity of the fails to count.
+   *
+   * @li Info  
+   * @li Warning   
+   * @li Error 
+   * @li Fatal
+   * @li SchemaError
+   * @li GeneralWarning
+   */
+  unsigned int getNumFailsWithSeverity(SBMLError::SBMLSeverity severity);
+
   /** @cond doxygen-libsbml-internal */
 
   /**
@@ -150,11 +164,6 @@ public:
    */
   void remove (const unsigned int errorId);
 
-
-  /**
-   * Returns number of errors that are logged with severity Error
-   */
-  unsigned int getNumSeverityErrors();
 
   /** @endcond doxygen-libsbml-internal */
 };

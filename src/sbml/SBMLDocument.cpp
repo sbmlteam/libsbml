@@ -468,7 +468,7 @@ SBMLDocument::checkConsistency ()
     {
       mErrorLog.add( validator.getMessages() );
       /* only want to bail if errors not warnings */
-      if (mErrorLog.getNumSeverityErrors() > 0)
+      if (mErrorLog.getNumFailsWithSeverity(SBMLError::Error) > 0)
         return nerrors;
     }
   }
@@ -481,7 +481,7 @@ SBMLDocument::checkConsistency ()
     {
       mErrorLog.add( sbo_validator.getMessages() );
       /* only want to bail if errors not warnings */
-      if (mErrorLog.getNumSeverityErrors() > 0)
+      if (mErrorLog.getNumFailsWithSeverity(SBMLError::Error) > 0)
         return nerrors;
     }
   }
@@ -494,7 +494,7 @@ SBMLDocument::checkConsistency ()
     {
       mErrorLog.add( math_validator.getMessages() );
       /* only want to bail if errors not warnings */
-      if (mErrorLog.getNumSeverityErrors() > 0)
+      if (mErrorLog.getNumFailsWithSeverity(SBMLError::Error) > 0)
         return nerrors;
     }
   }
@@ -507,7 +507,7 @@ SBMLDocument::checkConsistency ()
     {
       mErrorLog.add( unit_validator.getMessages() );
       /* only want to bail if errors not warnings */
-      if (mErrorLog.getNumSeverityErrors() > 0)
+      if (mErrorLog.getNumFailsWithSeverity(SBMLError::Error) > 0)
         return nerrors;
     }
   }
