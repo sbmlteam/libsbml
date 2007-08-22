@@ -91,7 +91,7 @@ static const xmlErrorTableEntry errorTable[] =
 
   // 1003
   { XMLError::BadXMLDecl, XMLError::XML, XMLError::Error,
-    "Invalid, malformed or unrecognized XML declaration" },
+    "Invalid or unrecognized XML declaration or XML encoding" },
 
   // 1004
   { XMLError::BadDOCTYPE, XMLError::XML, XMLError::Error,
