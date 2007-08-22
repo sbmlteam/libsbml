@@ -15,6 +15,7 @@ http://sbml.org/software/libsbml/issue-tracker</a>.
 
 @section main-general General information
 - @subpage libsbml-installation
+- @subpage libsbml-accessing
 - @subpage libsbml-features
 - @subpage libsbml-communications
 

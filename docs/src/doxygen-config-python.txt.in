@@ -69,6 +69,7 @@ BRIEF_MEMBER_DESC      = NO
 # the files relevant for the Python bindings.
 
 INPUT = \
+  libsbml-accessing.txt \
   libsbml-python-mainpage.txt \
   libsbml-features.txt        \
   libsbml-installation.txt    \
