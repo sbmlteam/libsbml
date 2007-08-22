@@ -175,7 +175,7 @@ DIV.fragment {
   background-color: #f5f5f5;
   padding-left: 5px;
   margin: 7px;
-  padding-above: 4px;
+  padding-top: 4px;
 }
 
 DIV.ah {
@@ -375,6 +375,14 @@ TD.tiny {
 
 PRE { 
   font-size: 12px;
+}
+
+TT {
+  width: 92%;
+  padding-left: 5px;
+  margin: 7px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 TD.simpletableleft { 
