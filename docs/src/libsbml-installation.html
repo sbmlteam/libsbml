@@ -33,30 +33,33 @@
 
 <p> If you are using the Xerces XML library, beware there is a known
 bug in Xerces 2.6.0 that cannot be worked around at this time and
-causes errors in software using it.  Xerces versions 2.2 - 2.5 and
-2.7.0 are known to work properly.  We recommend Xerces 2.7.
+causes errors in software using it.  Xerces versions 2.2 &#150; 2.5 and
+2.7.0 are known to work properly.  We recommend <a
+href="http://xml.apache.org/xerces-c/">Xerces 2.7</a>.
 
 
 <h3><a class="anchor" name="quick-unix">Linux, MacOS&nbsp;X, and Solaris</a></h3>
 
 <p> At a shell (terminal) command prompt, untar the distribution, cd
-into the directory thereby created (e.g., <code>libsbml-2.4</code>),
+into the directory thereby created (e.g., <code>libsbml-3.0.0</code>),
 and first type:
 
 <div class="fragment"><pre class="fragment">
   ./configure
 </pre></div>
 
-<p> If you do not have the Xerces-C++ XML library on your system, the
-configure step will fail.  In that case, you can try using the Expat
-or libxml libraries instead.  For Expat, use
+<p> It will by default attempt to use the Xerces-C++ XML library; if you do
+not have the Xerces library on your system, the configure step will fail.
+In that case, you can try using the <a
+href="http://expat.sourceforge.net/">Expat</a> or <a
+href="http://xmlsoft.org/">libxml2</a> libraries instead.  For Expat, use
 
 <div class="fragment"><pre class="fragment">
   ./configure --with-expat
 </pre></div>
 
 <p>
-and for libxml, use
+and for libxml2, use
 
 <div class="fragment"><pre class="fragment">
   ./configure --with-libxml
@@ -95,11 +98,11 @@ compiler to link with the installed libSBML library:
   gcc -o myapp.c myapp.c -lsbml
 </pre></div>
 
-<p> If the compiler cannot find the library, refer to the <a
-href="#accessing">section on accessing libSBML</a> below for
-information about <code>ldconfig</code>,
-<code>LD_LIBRARY_PATH</code>/<code>DYLD_LIBRARY_PATH</code>, and
-related matters.
+<p> If your compiler returns an error about being unable to find the
+library, please refer to the <a href="#accessing">section on accessing
+libSBML</a> below for information about <code>ldconfig</code>,
+<code>LD_LIBRARY_PATH</code>/<code>DYLD_LIBRARY_PATH</code>, and related
+matters.
 
 <p> Documentation for libSBML is available as a separate download from
 the same locations as the libSBML distribution (namely, the SBML
@@ -110,7 +113,7 @@ target="libSBML">SBML.org website</a>).  You may also regenerate the
 documentation from the source code distribution if you have <a
 href="http://doxygen.org">Doxygen</a> version 1.4.5 installed and have
 configured libSBML with the <code>--with-doxygen</code> flag.  Then
-you can execute the following to generate and install the AP
+you can execute the following to generate and install the libSBML
 documentation files:
 
 <div class="fragment"><pre class="fragment">
@@ -127,7 +130,7 @@ below for more information.
 <p> We should point out at the outset that the main developers have been
 using only Windows XP, and do not have direct experience building libSBML
 under other versions of Windows.  Users do report some success on other
-versions of Windows, but your mileage may vary.
+versions of Windows, but your results may vary.
 
 <p> Download and run the self-extracting windows installer for
 libSBML.  There are debug (<code>libsbmld</code>) and release
@@ -289,17 +292,15 @@ installation directory ( <code>/usr/local</code>) or you set <code>
 --prefix</code> to a system directory that only root is permitted to
 write into.
 
-<p> Depending on your operating system, the basic libSBML object
+<p> Depending on your operating system, the basic libSBML shared object
 library file installed by the commands above will be a file named
-<code>libsbml.so</code>, <code>libsbml.dll</code>, or
-<code>libsbml.dylib</code>, and on Unix-like systems (e.g., Linux,
-MacOS&nbsp;X), a static library file as well (<code>libsbml.a</code>).
-If you have compiled additional language extensions with libSBML,
-these files will also be installed in the same directory.  For
-example, as discussed above, the Java language API files consist of a
-file named <code>libsbmlj.jar</code> and a native object library file
-named <code>libsbmlj.jnilib</code>; these will be installed in the
-same directory as the core libSBML library file.
+<code>libsbml.so</code> or <code>libsbml.dylib</code>, and a static library
+named <code>libsbml.a</code> will be installed as well.  If you have
+compiled additional language extensions with libSBML, these files will also
+be installed in the same directory.  For example, as discussed above, the
+Java language API files consist of a file named <code>libsbmlj.jar</code>
+and a native object library file named <code>libsbmlj.jnilib</code>; these
+will be installed in the same directory as the core libSBML library file.
 
 <p> If all went as it should, libSBML should end up compiled and
 installed on your system, in either the default location
@@ -312,22 +313,19 @@ configuration step as explained above.
 software on Unix, Linux and MacOS&nbsp;X systems</a></h3>
 
 <p> Once the libSBML files are installed as described in the previous
-section, you will need to do one more configuration step to make it
-accessible from other software at <i>run</i> time: you and your users'
-software environments may need to be configured to <i>find</i> the
-libSBML library files.  On most platforms, this must be done either by
-running the system program <code>ldconfig</code> as user 'root'
-(consult the man page for ldconfig if this is unfamiliar), or else
-each user must set the environment variable
-<code>LD_LIBRARY_PATH</code> in their command shells.  (On
-MacOS&nbsp;X, the variable is named <code>DYLD_LIBRARY_PATH</code>.
-Also, there is no equivalent on MacOS&nbsp;X to the
-<code>ldconfig</code> facility.)  The path added to the
-<code>LD_LIBRARY_PATH</code> or <code>DYLD_LIBRARY_PATH</code>
-variable must be the directory used as the value of the
+section, you may need to do one more configuration step so that you and
+your users' software can find the libSBML library files at <i>run</i> time.
+On most Linux-based platforms, this must be done either by running the
+system program <code>ldconfig</code> as user 'root' (consult the man page
+for <code>ldconfig</code> if this is unfamiliar), or else each user must
+set the environment variable <code>LD_LIBRARY_PATH</code> in their command
+shells.  (On MacOS&nbsp;X, the variable is named
+<code>DYLD_LIBRARY_PATH</code>.  Also, there is no equivalent on
+MacOS&nbsp;X to the <code>ldconfig</code> facility.)  The path added to the
+<code>LD_LIBRARY_PATH</code> or <code>DYLD_LIBRARY_PATH</code> variable
+must be the directory used as the value of the
 <code>--prefix=</code><em>DIR</em> option used during the
-<code>configure</code> step <a href="#basic-config">discussed
-above</a>.
+<code>configure</code> step <a href="#basic-config">discussed above</a>.
 
 <p> If your run-time environment and the run-time environment for your
 software applications do not know to look in the installation
@@ -348,7 +346,7 @@ described below.
 
 <p> <strong>Important</strong>: At this time, libSBML is known to work
 <em>only</em> with the latest stable version of SWIG (1.3.31); earlier
-versions are known not to work.
+versions are known <em>not</em> to work.
 
 <p> SWIG is the <em>Simplified Wrapper and Interface Generator</em>
 and in libSBML it is used to create the bindings for Java, Python, and
@@ -364,21 +362,23 @@ option as in the following example:
   ./configure --with-swig="DIR"
 </pre></div>
 
-<p> As with Expat and Xerces, the directory <code>/sw</code> is what
-you would specify if you were running on MacOS&nbsp;X and you used <a
-href="http://finkproject.org">Fink</a> to install SWIG, Python, etc.
+<p> Note that the last time we checked (22 August 2007), the version of
+SWIG provided by <a href="http://finkproject.org">Fink</a> on MacOS&nbsp;X
+was version 1.3.20, which is <em>not</em> sufficiently recent.  You will
+probably have to compile and install your own copye of SWIG version 1.3.31
+on this system.
 
 
-<h4><a class="anchor" name="unit-testing">Configuring unit testing</a></h4>
+<h4><a class="anchor" name="unit-testing">Configuring the unit testing system</a></h4>
 
-<p> libSBML provides built-in facilities for testing itself.  To run
-the unit tests, a second library is required, <code>libcheck</code>
-(version 0.9.2 or higher).  Check is a very lightweight C unit test
+<p> libSBML provides built-in facilities for testing itself.  To run the
+unit tests, a second library is required, <code>libcheck</code> (version
+0.9.2 or higher).  <em>Check</em> is a very lightweight C unit test
 framework based on the xUnit framework popularized by Kent Beck and <a
 href="http://en.wikipedia.org/wiki/Extreme_Programming">eXtreme
-Programming</a>.  Check is quite small and once installed, it consists
-of only two files: <code>libcheck.a</code> and <code>check.h</code>.
-To download Check, visit <a
+Programming</a>.  Check is quite small and once installed, it consists of
+only two files: <code>libcheck.a</code> and <code>check.h</code>.  To
+download Check, visit <a
 href="http://check.sf.net/">http://check.sf.net/</a>.
 
 <p> (Note: Debian users can find Check as a standard add-on package
