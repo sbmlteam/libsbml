@@ -36,6 +36,8 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
+/** @cond doxygen-libsbml-internal */
+
 typedef struct {
   unsigned int            code;
   SBMLError::SBMLCategory category;
@@ -2187,3 +2189,5 @@ static const sbmlErrorTableEntry errorTable[] =
 
 
 };
+
+/** @endcond doxygen-libsbml-internal */
