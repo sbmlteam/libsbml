@@ -213,6 +213,10 @@ doxygen-config-python.txt:  $(doxygen-py-conf) $(TOP_SRCDIR)/VERSION.txt
 	cd $(TOP_BUILDDIR) && \
 	  $(SHELL) ./config.status $(thisdir)/doxygen-config-python.txt
 
+core-sources = \
+  $(wildcard ../../src/*/*.[cpp,h]) \
+  $(wildcard libsbml-*.txt) \
+  $(wildcard libsbml-*.html)
 
 ifneq "$(USE_DOXYGEN)" ""
 
@@ -232,8 +236,6 @@ define run_doxygen
   tail -n +15 $(2)/tree.html >> tmp.html
   mv -f tmp.html $(2)/tree.html
 endef
-
-core-sources = $(wildcard ../../src/*/*.[cpp,h])
 
 cpp-manual $(cpp-manual): doxygen-config-cpp.txt $(core-sources)
 	$(call run_doxygen,doxygen-config-cpp.txt,$(cpp-manual))
@@ -282,7 +284,7 @@ define merge_html
   | sed -e 's/%%title%%/$(3)/g;s/%%version%%/@PACKAGE_VERSION@/g' > $(2)
 endef
 
-java-manual $(java-manual):
+java-manual $(java-manual): $(core-sources)
 	javadoc -use -public -version -author -sourcetab 4 \
 	    -header $(javadoc-header) \
 	    -bottom $(javadoc-footer) \
@@ -321,29 +323,25 @@ $(pdffiles): %.pdf: %.eps
 # the destination directory.
 
 install install-docs: $(docs)
-	@if test -z '$(docs)'; then \
+	if test -z '$(docs)'; then \
 	  echo 'Nothing to be done for install-docs'; \
 	else \
-	  list='$(docs)'; for file in $$list; do \
-	    if test -f $$file || test -d $$file; then d=.; else d=$(srcdir); fi; \
-	    dir=`echo "$$file" | sed -e 's,$(formatted),,'`; \
-	    dir=`echo "$$dir" | sed -e 's,/[^/]*$$,,'`; \
-	    if test "$$dir" != "$$file" && test "$$dir" != "."; then \
-	      dir="$$dir"; \
-	      $(MKINSTALLDIRS) "$(DOCDIR)/$$dir"; \
-	    else \
-	      dir=''; \
+	  list='$(docs)'; for docdir in $$list; do \
+	    if test -d $$docdir; then d=.; else d=$(srcdir); fi; \
+	    dirname=`basename "$$docdir"`; \
+	    if test "$$dirname" != "$$docdir" && test "$$dirname" != "."; then \
+	      $(MKINSTALLDIRS) "$(DOCDIR)/$$dirname"; \
 	    fi; \
-	    if test -d $$d/$$file; then \
-	      if test -d $(srcdir)/$$file && test $$d != $(srcdir); then \
-	        echo Copying $(srcdir)/$$file; \
-	        cp -pR $(srcdir)/$$file $(DOCDIR)$$dir || exit 1; \
+	    echo Copying to $(DOCDIR)/$$dirname; \
+	    if test -d $$d/$$docdir; then \
+	      if test -d $(srcdir)/$$docdir && test $$d != $(srcdir); then \
+	        cp -pR $(srcdir)/$$docdir $(DOCDIR) || exit 1; \
+	      else \
+	        cp -pR $$d/$$docdir $(DOCDIR) || exit 1; \
 	      fi; \
-	      cp -pR $$d/$$file $(DOCDIR)$$dir || exit 1; \
 	    else \
-	      echo Copying $(DOCDIR)/$$file; \
-	      test -f $(DOCDIR)/$$file \
-	      || cp -p $$d/$$file $(DOCDIR)/$$dir \
+	      test -f $(DOCDIR)/$$docdir \
+	      || cp -p $$d/$$docdir $(DOCDIR)/$$dirname \
 	      || exit 1; \
 	    fi; \
 	  done; \
