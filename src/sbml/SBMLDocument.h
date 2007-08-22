@@ -232,24 +232,29 @@ public:
    */
   Model* createModel (const std::string& sid = "");
 
+
   /**
-   * Allows particular validators to be turned on or off prior to
-   * calling checkConsistency. By default all validators are applied.
+   * Allows particular consistency-checking validators to be turned on or
+   * off prior to calling checkConsistency().
+   *
+   * By default, all validation checks are applied to a model unless this
+   * function is called to indicate only a subset should be applied.  The
+   * first argument allows the caller to set the particular validations
+   * that should be applied.  The possible categories are the following:
+   * @li SBMLError::SBMLConsistency:            Error in validating SBML consistency.
+   * @li SBMLError::SBMLConsistencyIdentifier:  Error in validating identifiers. 
+   * @li SBMLError::SBMLConsistencyUnits:       Error in validating units. 
+   * @li SBMLError::SBMLConsistencyMathML:      Error in validating MathML. 
+   * @li SBMLError::SBMLConsistencySBO:         Error in validation SBO. 
+   * @li SBMLError::SBMLOverdetermined:         Error in equations of model. 
    *
    * @param validator the SBMLCategory of the validator to turn on/off
-   * 
-   * Categories are:
-   * @li SBMLConsistency           - Error in validating SBML consistency.
-   * @li SBMLConsistencyIdentifier - Error in validating identifiers. 
-   * @li SBMLConsistencyUnits      - Error in validating units. 
-   * @li SBMLConsistencyMathML     - Error in validating MathML. 
-   * @li SBMLConsistencySBO        - Error in validation SBO. 
-   * @li SBMLOverdetermined        - Error in equations of model. 
    *
    * @param apply boolean indicating whether the validator 
    * should be applied or not.
    */
   void setValidatorApplicationStatus(SBMLError::SBMLCategory validator, bool apply);
+
 
   /**
    * Performs a set of consistency and validation checks on this SBML
