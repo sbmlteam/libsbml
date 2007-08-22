@@ -30,7 +30,7 @@ about how to do that.
 <h2><a class="anchor" name="accessing-c">C++
 and C</a></h2>
 
-<p> If libSBML has been configured normally, compiling C++ or C
+<p> If libSBML has been configured normally, then compiling C++ or C
 software to use it is a matter of supplying certain compilation and
 linking options.  There are two main sets of settings:
 <ul>
@@ -106,11 +106,10 @@ variable would at minimum need to be set as follows:
 <li style="margin-bottom: 1em"><em>On Windows systems</em>:
 
 The instructions are essentially the same as for the case of Linux and
-similar systems, but the name of the <code>.jar</code> file is
-different on Windows systems.  The class path must include
-<code>sbmlj.jar</code>.  For example, if you had installed libSBML
-into <code>C:\libsbml</code> on your system, you might set your
-environment variable as follows:
+similar systems, but the name of the <code>.jar</code> file is different on
+Windows systems: it is called <code>sbmlj.jar</code>.  For example, if you
+had installed libSBML into <code>C:\libsbml</code> on your system, you
+might set your environment variable as follows:
 
 <div class="fragment"><pre class="fragment">
   CLASSPATH=.;C:\libsbml\sbmlj.jar
@@ -136,11 +135,11 @@ configuration of libSBML and <i>version</i> is the version of your
 copy of Python, then the value of <code>PYTHONPATH</code> needs to be set
 as follows:
 
-<div class="fragment"><tt class="fragment" style="font-size: 12px">
+<div class="fragment"><tt class="fragment" style="font-size: 12px;">
 export PYTHONPATH=<i><u>prefix</u></i>/lib/<i><u>version</u></i>/site-packages/libsbml:<i><u>prefix</u></i>/lib/<i><u>version</u></i>/site-packages
 </tt></div>
 for <i>sh</i>-based shells such as Bash, or 
-<div class="fragment"><tt class="fragment" style="font-size: 12px">
+<div class="fragment"><tt class="fragment" style="font-size: 12px;">
 set PYTHONPATH = <i><u>prefix</u></i>/lib/<i><u>version</u></i>/site-packages/libsbml:<i><u>prefix</u></i>/lib/<i><u>version</u></i>/site-packages
 </tt></div>
 for <i>csh</i>-based shells.  What is crucial in both cases is that the two
