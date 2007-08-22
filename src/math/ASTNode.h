@@ -674,7 +674,7 @@ public:
   LIBSBML_EXTERN
   void swapChildren (ASTNode *that);
 
-  /** @cond doxygen-ignored */
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Sets the flag indicating that this ASTNode has semantics attached
@@ -699,7 +699,8 @@ public:
    */
   LIBSBML_EXTERN
   void setDefinitionURL(XMLAttributes url);
-  /** @endcond doxygen-ignored */
+
+  /** @endcond doxygen-libsbml-internal */
 
   /**
    * gets the definitionURL attributes
