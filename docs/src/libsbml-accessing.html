@@ -124,6 +124,46 @@ Note: to set an environmental variable in Windows, use the
 
 <h2><a class="anchor" name="accessing-python">Python</a></h2>
 
+<p> In addition to the instructions for configuring the
+<code>LD_LIBRARY_PATH</code> or <code>DYLD_LIBRARY_PATH</code> variables
+(see the <a href="libsbml-installation.html#accessing">section about
+accessing libSBML</a>), Python needs another environment variable named
+<code>PYTHONPATH</code> to be set according to where the libSBML Python
+binaries have been installed.  Unfortunately, this variable's value is
+confusing to set.  On Unix-based systems at least, if <i>prefix</i> is the
+value of the <code>--prefix=</code><i>value</i> option given during
+configuration of libSBML and <i>version</i> is the version of your
+copy of Python, then the value of <code>PYTHONPATH</code> needs to be set
+as follows:
+
+<div class="fragment"><tt class="fragment" style="font-size: 12px">
+export PYTHONPATH=<i><u>prefix</u></i>/lib/<i><u>version</u></i>/site-packages/libsbml:<i><u>prefix</u></i>/lib/<i><u>version</u></i>/site-packages
+</tt></div>
+for <i>sh</i>-based shells such as Bash, or 
+<div class="fragment"><tt class="fragment" style="font-size: 12px">
+set PYTHONPATH = <i><u>prefix</u></i>/lib/<i><u>version</u></i>/site-packages/libsbml:<i><u>prefix</u></i>/lib/<i><u>version</u></i>/site-packages
+</tt></div>
+for <i>csh</i>-based shells.  What is crucial in both cases is that the two
+directories listed on the path are the directories containing the files
+<code>_libsbml.so</code> and <code>libsbml.py</code>.
+
+Once both the library path environment variable and <code>PYTHONPATH</code>
+have been set, you should be able to start the Python interpreter and type
+the following command to import the libSBML package for Python:
+
+<div class="fragment"><pre class="fragment">
+from libsbml import *
+</pre></div>
+
+If Python produces an import error or a failure in linking a new module, it
+almost certainly means that the environment variables have not been set
+correctly.  It may also mean that the read/write permissions of the
+installed library files or a directory in the hierarchy containing them are
+such that you are not allowed to access the files.  In that case, please
+consult your systems administrator or (if you have administrator
+priviledges) reset the permissions yourself.
+
+
 <h2><a class="anchor" name="accessing-perl">Perl</a></h2>
 
 <h2><a class="anchor" name="accessing-lisp">Common Lisp</a></h2>
