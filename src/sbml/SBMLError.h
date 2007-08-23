@@ -199,12 +199,12 @@ public:
   , Invalid3DCompartmentUnits        = 20509 /*!< SBML L2v3 validation rule #20509 */
   , InvalidCompartmentTypeRef        = 20510 /*!< SBML L2v3 validation rule #20510 */
   , InvalidSpeciesCompartmentRef     = 20601 /*!< SBML L2v3 validation rule #20601 */
-  , HasOnlySubsNoSpatialUnits        = 20602
-  , NoSpatialUnitsInZeroD            = 20603
+  , HasOnlySubsNoSpatialUnits        = 20602 /*!< SBML L2v3 validation rule #20602 */
+  , NoSpatialUnitsInZeroD            = 20603 /*!< SBML L2v3 validation rule #20603 */
   , NoConcentrationInZeroD           = 20604 /*!< SBML L2v3 validation rule #20604 */
-  , SpatialUnitsInOneD               = 20605
-  , SpatialUnitsInTwoD               = 20606
-  , SpatialUnitsInThreeD             = 20607
+  , SpatialUnitsInOneD               = 20605 /*!< SBML L2v3 validation rule #20605 */
+  , SpatialUnitsInTwoD               = 20606 /*!< SBML L2v3 validation rule #20606 */
+  , SpatialUnitsInThreeD             = 20607 /*!< SBML L2v3 validation rule #20607 */
   , InvalidSpeciesSusbstanceUnits    = 20608 /*!< SBML L2v3 validation rule #20608 */
   , BothAmountAndConcentrationSet    = 20609 /*!< SBML L2v3 validation rule #20609 */
   , NonBoundarySpeciesAssignedAndUsed= 20610 /*!< SBML L2v3 validation rule #20610 */
@@ -221,7 +221,7 @@ public:
   , InvalidRateRuleVariable          = 20902 /*!< SBML L2v3 validation rule #20902 */
   , AssignmentToConstantEntity       = 20903 /*!< SBML L2v3 validation rule #20903 */
   , RateRuleForConstantEntity        = 20904 /*!< SBML L2v3 validation rule #20904 */
-  , RepeatedRule10304                = 20905
+  , RepeatedRule10304                = 20905 /*!< SBML L2v3 validation rule #20905 */
   , CircularRuleDependency           = 20906 /*!< SBML L2v3 validation rule #20906 */
   , ConstraintMathNotBoolean         = 21001 /*!< SBML L2v3 validation rule #21001 */
   , IncorrectOrderInConstraint       = 21002 /*!< SBML L2v3 validation rule #21002 */
@@ -235,14 +235,14 @@ public:
   , InvalidReactantsProductsList     = 21104 /*!< SBML L2v3 validation rule #21104 */
   , InvalidModifiersList             = 21105 /*!< SBML L2v3 validation rule #21105 */
   , InvalidSpeciesReference          = 21111 /*!< SBML L2v3 validation rule #21111 */
-  , RepeatedRule20611                = 21112
+  , RepeatedRule20611                = 21112 /*!< SBML L2v3 validation rule #21112 */
   , BothStoichiometryAndMath         = 21113 /*!< SBML L2v3 validation rule #21113 */
   , UndeclaredSpeciesRef             = 21121 /*!< SBML L2v3 validation rule #21121 */
   , IncorrectOrderInKineticLaw       = 21122 /*!< SBML L2v3 validation rule #21122 */
   , EmptyListInKineticLaw            = 21123 /*!< SBML L2v3 validation rule #21123 */
   , NonConstantLocalParameter        = 21124 /*!< SBML L2v3 validation rule #21124 */
-  , SubsUnitsNoLongerValid           = 21125
-  , TimeUnitsNoLongerValid           = 21126
+  , SubsUnitsNoLongerValid           = 21125 /*!< SBML L2v3 validation rule #21125 */
+  , TimeUnitsNoLongerValid           = 21126 /*!< SBML L2v3 validation rule #21126 */
   , SubsUnitsAllowedInKL             = 21127
   , TimeUnitsAllowedInKL             = 21128
   , FormulaInLevel1KL                = 21129
@@ -250,7 +250,7 @@ public:
   , MissingTriggerInEvent            = 21201 /*!< SBML L2v3 validation rule #21201 */
   , TriggerMathNotBoolean            = 21202 /*!< SBML L2v3 validation rule #21202 */
   , MissingEventAssignment           = 21203 /*!< SBML L2v3 validation rule #21203 */
-  , TimeUnitsEvent                   = 21204
+  , TimeUnitsEvent                   = 21204 /*!< SBML L2v3 validation rule #21204 */
   , IncorrectOrderInEvent            = 21205 /*!< SBML L2v3 validation rule #21205 */
   , TimeUnitsRemoved                 = 21206 /*!< SBML L2v3 validation rule #21206 */
   , InvalidEventAssignmentVariable   = 21211 /*!< SBML L2v3 validation rule #21211 */
@@ -276,16 +276,16 @@ public:
    */
   enum SBMLCategory
   {
-    SBML                      = 3 /*!< General SBML error. */
-  , SBMLL1Compatibility       = 4 /*!< Error in converting to SBML Level 1. */
-  , SBMLL2v1Compatibility     = 5 /*!< Error in converting to SBML L1V1. */
-  , SBMLL2v2Compatibility     = 6 /*!< Error in converting to SBML L1V2. */
-  , SBMLConsistency           = 7 /*!< Error in validating SBML consistency. */
-  , SBMLConsistencyIdentifier = 8 /*!< Error in validating identifiers. */
-  , SBMLConsistencyUnits      = 9 /*!< Error in validating units. */
+    SBML                      = 3  /*!< General SBML error. */
+  , SBMLL1Compatibility       = 4  /*!< Error in converting to SBML Level 1. */
+  , SBMLL2v1Compatibility     = 5  /*!< Error in converting to SBML L1V1. */
+  , SBMLL2v2Compatibility     = 6  /*!< Error in converting to SBML L1V2. */
+  , SBMLConsistency           = 7  /*!< Error in validating SBML consistency.*/
+  , SBMLConsistencyIdentifier = 8  /*!< Error in validating identifiers. */
+  , SBMLConsistencyUnits      = 9  /*!< Error in validating units. */
   , SBMLConsistencyMathML     = 10 /*!< Error in validating MathML. */
   , SBMLConsistencySBO        = 11 /*!< Error in validation SBO. */
-  , SBMLOverdetermined        = 12 /*!<Error in equations of model. */
+  , SBMLOverdetermined        = 12 /*!< Error in equations of model. */
   , SBMLL2v3Compatibility     = 13 /*!< Error in converting to SBML L2V3. */
   };
 
@@ -298,29 +298,40 @@ public:
   enum SBMLSeverity
   {
     Info    = XMLError::Info    /*!< The error is actually informational
-				 * and not necessarily a serious problem. */
+                                 * and not necessarily a serious problem. */
 
   , Warning = XMLError::Warning /*!< The error object represents a 
-				 * problem that is not serious enough to
-				 * necessarily stop the problem, but
-				 * applications should take note of the
-				 * problem and evaluate what its
-				 * implications may be. */
+                                 * problem that is not serious enough to
+                                 * necessarily stop the parser, but
+                                 * applications should take note of the
+                                 * problem and evaluate what its
+                                 * implications may be. */
 
-  , Error   = XMLError::Error  /*!< The error object represents a serious
-				 * error.  The application may continue
-				 * running but it is unlikely to be able to
-				 * continue processing the same XML file or
-				 * data stream. */
+  , Error   = XMLError::Error   /*!< The error object represents a serious
+                                 * problem.  The application may continue
+                                 * running but it is unlikely to be able to
+                                 * continue processing the same XML file or
+                                 * data stream. */
 
-  , Fatal   = XMLError::Fatal  /*!< A serious error occurred, such as an
-				 * out-of-memory condition, and the
-				 * software should terminate
-				 * immediately. */
+  , Fatal   = XMLError::Fatal   /*!< A unrecoverable error occurred, such as
+                                 * an out-of-memory condition, and the
+                                 * software should terminate
+                                 * immediately. */
 
-  , SchemaError
-  , GeneralWarning
-  , NotApplicable 
+  , SchemaError                 /*!< The XML content does not conform to
+                                 * the relevant version of the SBML XML 
+                                 * Schema.  The content is not valid SBML. */
+
+  , GeneralWarning              /*!< The XML content is invalid for some
+                                 * levels/versions of SBML, and while it
+                                 * may be valid in others, it is something
+                                 * that is best avoided anyway.  LibSBML
+                                 * will issue warnings in those cases it
+                                 * can recognize. */
+
+  , NotApplicable               /*!< This error code is only a placeholder
+				 * for errors that have relevance to some
+				 * versions of SBML but not others. */
   };
 
 
