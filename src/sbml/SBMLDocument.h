@@ -238,7 +238,7 @@ public:
    * whether it is Level 1.  (If the conversion to Level 1 failed, the
    * Level of this model will be left unchanged.)
    */
-  void setLevelAndVersion (unsigned int level, unsigned int version);
+  bool setLevelAndVersion (unsigned int level, unsigned int version);
 
 
   /**
@@ -559,7 +559,7 @@ SBMLDocument_getModel (SBMLDocument_t *d);
 
 
 LIBSBML_EXTERN
-void
+int
 SBMLDocument_setLevelAndVersion (  SBMLDocument_t *d
                                  , unsigned int    level
                                  , unsigned int    version );

@@ -245,14 +245,16 @@ SBMLDocument::getModel ()
  * This function checks whether the required conversion 
  * is possible.
  */
-void
+bool
 SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
 {
+  bool conversionSuccess = false;
   if (mModel != 0)
   {
     if (mLevel == 1 && level == 2)
     {
       mModel->convertToL2();
+      conversionSuccess = true;
     }
     else if (mLevel == 2)
     {
@@ -261,57 +263,69 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
         if (version == 1)
         {
           mErrorLog.add(SBMLError::CannotConvertToL1V1);
-          return;
         }
         if (!conversion_errors(checkL1Compatibility()))
         {
           mModel->convertToL1();
+          conversionSuccess = true;
         }
       }
       /* check for conversion between L2 versions */
       else if (version == 1)
       {
-        checkL2v1Compatibility();
+        if (!conversion_errors(checkL2v1Compatibility()))
+        {
+          conversionSuccess = true;
+        }
       }
       else if (version == 2)
       {
-        checkL2v2Compatibility();
+        if (!conversion_errors(checkL2v2Compatibility()))
+        {
+          conversionSuccess = true;
+        }
       }
       else if (version == 3)
       {
-        checkL2v3Compatibility();
+        if (!conversion_errors(checkL2v3Compatibility()))
+        {
+          conversionSuccess = true;
+        }
       }
     }
   }
 
-  std::ostringstream conversion_note;
-  conversion_note << "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n";
-  conversion_note << "<p> This sbml model was automatically converted by ";
-  conversion_note << "libSBML version " << PACKAGE_VERSION;
-  conversion_note << " from SBML Level ";
-  conversion_note << mLevel << " Version " << mVersion << ".</p>\n";
-  if (getNumErrors() > 0)
+  if (conversionSuccess)
   {
-    conversion_note << "<p> The following should be noted: </p>\n";
-    for (unsigned int n = 0; n < getNumErrors(); n++)
+    std::ostringstream conversion_note;
+    conversion_note << "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n";
+    conversion_note << "<p> This sbml model was automatically converted by ";
+    conversion_note << "libSBML version " << PACKAGE_VERSION;
+    conversion_note << " from SBML Level ";
+    conversion_note << mLevel << " Version " << mVersion << ".</p>\n";
+    if (getNumErrors() > 0)
     {
-      conversion_note << "<p> (" << getError(n)->getErrorId() << ") " 
-        << getError(n)->getMessage() << " </p>\n";
+      conversion_note << "<p> The following possible loss of information ";
+      conversion_note << "should be noted: </p>\n";
+      for (unsigned int n = 0; n < getNumErrors(); n++)
+      {
+        conversion_note << "<p> (" << getError(n)->getErrorId() << ") " 
+          << getError(n)->getMessage() << " </p>\n";
+      }
+      if (!conversion_errors(getNumErrors()))
+      {
+        conversion_note << "<p> Conversion successful. </p>\n";
+      }
+      else
+      {
+        conversion_note << "<p> Conversion NOT successful. </p>\n";
+      }
+        
     }
-    if (!conversion_errors(getNumErrors()))
-    {
-      conversion_note << "<p> Conversion successful. </p>\n";
-    }
-    else
-    {
-      conversion_note << "<p> Conversion NOT successful. </p>\n";
-    }
-      
+    conversion_note << "</body>\n";
+
+    if (mModel) mModel->appendNotes(conversion_note.str());
   }
-  conversion_note << "</body>\n";
-
-  if (mModel) mModel->appendNotes(conversion_note.str());
-
   mLevel   = level;
   mVersion = version;
 
@@ -334,6 +348,9 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
   {
     mNamespaces->add("http://www.sbml.org/sbml/level2/version3");
   }
+
+
+  return conversionSuccess;
 }
 
 /**
@@ -1121,12 +1138,12 @@ SBMLDocument_getModel (SBMLDocument_t *d)
  * of this model will be left unchanged.)
  */
 LIBSBML_EXTERN
-void
+int
 SBMLDocument_setLevelAndVersion (  SBMLDocument_t *d
                                  , unsigned int    level
                                  , unsigned int    version )
 {
-  d->setLevelAndVersion(level, version);
+  return static_cast <int> (d->setLevelAndVersion(level, version));
 }
 
 
