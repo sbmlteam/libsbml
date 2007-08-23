@@ -50,22 +50,23 @@ main (int argc, char *argv[])
   {
     unsigned int olevel   = SBMLDocument_getLevel(d);
     unsigned int oversion = SBMLDocument_getVersion(d);
+    int success;
 
     if (olevel < latestLevel || oversion < latestVersion)
     {
       printf("Attempting to convert model to SBML Level %d Version %d.\n",
              latestLevel, latestVersion);
-      SBMLDocument_setLevelAndVersion(d, latestLevel, latestVersion);
+      success = SBMLDocument_setLevelAndVersion(d, latestLevel, latestVersion);
     }
     else
     {
       printf("Attempting to convert model to SBML Level 1 Version 2.\n");
-      SBMLDocument_setLevelAndVersion(d, 1, 2);
+      success = SBMLDocument_setLevelAndVersion(d, 1, 2);
     }
 
     errors = SBMLDocument_getNumErrors(d);
 
-    if (errors > 0)
+    if (!success)
     {
       printf("Unable to perform conversion due to the following:\n");
       SBMLDocument_printErrors(d, stdout);
@@ -74,6 +75,13 @@ main (int argc, char *argv[])
       printf("ability to convert this model, or (automatic) conversion\n");
       printf("is not possible in this case.\n");
     }
+    else if (errors > 0)
+    {
+      printf("Information may have been lost in conversion; but a valid model ");
+      printf("was produced by the conversion.\nThe following information ");
+      printf("was provided:\n");
+      SBMLDocument_printErrors(d, stdout);
+      writeSBML(d, argv[2]);
     else
     { 	    
       printf("Conversion completed.\n");

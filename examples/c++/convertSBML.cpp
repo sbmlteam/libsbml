@@ -19,53 +19,6 @@
 using namespace std;
 
 
-/*
- * 'ignorable' is a list of libSBML error codes that can be ignored for the
- * purposes of this conversion program.  Some conversions are not fatal,
- * but indicate loss of information that does not affect the mathematical
- * structure of a model.
- */
-static unsigned int ignorable[] = {
-  92001,
-  92003,
-  92004,
-  92005,
-  92006,
-  93001,
-  91003,
-  91005,
-  91006
-};
-
-/*
- * Predicate returning true if the errors encountered are not ignorable.
- */
-bool
-conversion_errors(SBMLDocument* document, unsigned int errors)
-{
-  for (unsigned int i = 0; i < errors; i++)
-  {
-    bool failure = true;
-
-    for (unsigned int n = 0; n < sizeof(ignorable)/sizeof(ignorable[0]); n++)
-    {
-      if (document->getError(i)->getErrorId() == ignorable[n])
-      {
-	failure = false;
-	break;
-      }
-    }
-
-    if (failure) return failure;
-  }
-
-  return false;
-}
-
-
-/*
- * Main routine.
- */
 int
 main (int argc, char *argv[])
 {
@@ -110,24 +63,25 @@ main (int argc, char *argv[])
 
   unsigned int olevel   = document->getLevel();
   unsigned int oversion = document->getVersion();
+  bool success;
 
   if (olevel < latestLevel || oversion < latestVersion)
   {
     cout << "Attempting to convert Level " << olevel << " Version " << oversion
 	 << " model to Level " << latestLevel
 	 << " Version " << latestVersion << "."  << endl;
-    document->setLevelAndVersion(latestLevel, latestVersion);
+    success = document->setLevelAndVersion(latestLevel, latestVersion);
   }
   else
   {
     cout << "Attempting to convert Level " << olevel << " Version " << oversion
 	 << " model to Level 1 Version 2." << endl;
-    document->setLevelAndVersion(1, 2);
+    success = document->setLevelAndVersion(1, 2);
   }
 
   errors = document->getNumErrors();
 
-  if (conversion_errors(document, errors))
+  if (!success)
   {
     cerr << "Unable to perform conversion due to the following:" << endl;
     document->printErrors(cerr);
@@ -137,7 +91,15 @@ main (int argc, char *argv[])
 	 << "conversion is not possible in this case." << endl;
 
     return errors;
-  }    
+  }   
+  else if (errors > 0)
+  {
+    cout << "Information may have been lost in conversion; but a valid model ";
+    cout << "was produced by the conversion.\nThe following information ";
+    cout << "was provided:\n";
+    document->printErrors(cout);
+    writeSBML(document, outputFile);
+  }
   else
   {
     cout << "Conversion completed." << endl;
