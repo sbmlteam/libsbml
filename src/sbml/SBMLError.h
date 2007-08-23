@@ -107,7 +107,6 @@ public:
   , KineticLawParametersAreLocalOnly = 10216 /*!< SBML L2v3 validation rule #10216 */
   , MathResultMustBeNumeric          = 10217 /*!< SBML L2v3 validation rule #10217 */
   , OpsNeedCorrectNumberOfArgs       = 10218 /*!< SBML L2v3 validation rule #10218 */
-  , BadMathML                        = 10219
   , DuplicateComponentId             = 10301 /*!< SBML L2v3 validation rule #10301 */
   , DuplicateUnitDefinitionId        = 10302 /*!< SBML L2v3 validation rule #10302 */
   , DuplicateLocalParameterId        = 10303 /*!< SBML L2v3 validation rule #10303 */
@@ -175,7 +174,6 @@ public:
   , RecursiveFunctionDefinition      = 20303 /*!< SBML L2v3 validation rule #20303 */
   , InvalidCiInLambda                = 20304 /*!< SBML L2v3 validation rule #20304 */
   , InvalidFunctionDefReturnType     = 20305 /*!< SBML L2v3 validation rule #20305 */
-  , ArgsPassedAsVariables            = 20306
   , InvalidUnitDefId                 = 20401 /*!< SBML L2v3 validation rule #20401 */
   , InvalidSubstanceRedefinition     = 20402 /*!< SBML L2v3 validation rule #20402 */
   , InvalidLengthRedefinition        = 20403 /*!< SBML L2v3 validation rule #20403 */

@@ -355,18 +355,6 @@ static const sbmlErrorTableEntry errorTable[] =
     ""
   },
 
-  //10219
-  {
-    SBMLError::BadMathML,
-    SBMLError::SBMLConsistencyMathML,
-    SBMLError::NotApplicable,
-    SBMLError::NotApplicable,
-    SBMLError::Error,
-    SBMLError::Error,
-    SBMLError::Error,
-    "Invalid MathML"
-  },
-
   //10301
   {
     SBMLError::DuplicateComponentId,
@@ -1184,18 +1172,6 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    SBMLError::Error,
-    ""
-  },
-
-  //20306
-  {
-    SBMLError::ArgsPassedAsVariables,
-    SBMLError::SBMLConsistency,
-    SBMLError::NotApplicable,
-    SBMLError::NotApplicable,
-    SBMLError::GeneralWarning,
-    SBMLError::GeneralWarning,
     SBMLError::Error,
     ""
   },
