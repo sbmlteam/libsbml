@@ -107,6 +107,7 @@ public:
   , KineticLawParametersAreLocalOnly = 10216 /*!< SBML L2v3 validation rule #10216 */
   , MathResultMustBeNumeric          = 10217 /*!< SBML L2v3 validation rule #10217 */
   , OpsNeedCorrectNumberOfArgs       = 10218 /*!< SBML L2v3 validation rule #10218 */
+  , BadMathML                        = 10219
   , DuplicateComponentId             = 10301 /*!< SBML L2v3 validation rule #10301 */
   , DuplicateUnitDefinitionId        = 10302 /*!< SBML L2v3 validation rule #10302 */
   , DuplicateLocalParameterId        = 10303 /*!< SBML L2v3 validation rule #10303 */
