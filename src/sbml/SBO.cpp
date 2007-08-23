@@ -393,8 +393,8 @@ SBO::isPhysicalParticipant  (unsigned int sboTerm)
 void 
 SBO::populateSBOTree()
 {
-  // generated from SBO on June 4th 2007
-mParent.insert( make_pair(  1,  64) );
+  // generated from SBO on August 23rd 2007
+  mParent.insert( make_pair(  1,  64) );
   mParent.insert( make_pair(  3, 235) );
   mParent.insert( make_pair(  5,  64) );
   mParent.insert( make_pair(  6,   2) );
