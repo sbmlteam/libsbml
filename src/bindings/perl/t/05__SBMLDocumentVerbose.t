@@ -26,7 +26,7 @@ $pm = $d->getError($errors);
 ok(!defined($pm));
 $pm = $d->getError($errors-1);
 ok(defined($pm));
-ok($pm->getId(), 2);
+ok($pm->getErrorId(), 2);
 
 # non-sbml file: xsd file
 $file = File::Spec->catfile($testDataDir, 'sbml-l1v1.xsd');
@@ -35,7 +35,7 @@ $errors = $d->getNumErrors();
 ok($errors > 0);
 $pm = $d->getError($errors-1);
 ok(defined($pm));
-ok($pm->getId(),20201);
+ok($pm->getErrorId(),20201);
 
 # non-sbml file
 $file = File::Spec->catfile($testDataDir, 'not-sbml.xml');
@@ -44,7 +44,7 @@ $errors = $d->getNumErrors();
 ok($errors > 0);
 $pm = $d->getError($errors-1);
 ok(defined($pm));
-ok($pm->getId(),20201);
+ok($pm->getErrorId(),20201);
 ok($pm->getLine(), 3);
 
 # proper sbml file l1v1 from file
