@@ -71,9 +71,7 @@
                 <listOfEventAssignments>
                     <eventAssignment variable="G2">
                         <math:math>
-                        <math:apply>
                               <math:cn> 1 </math:cn>
-                        </math:apply>
                         </math:math>
                     </eventAssignment>
                 </listOfEventAssignments>
