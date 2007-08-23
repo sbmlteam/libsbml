@@ -283,8 +283,8 @@ SBMLReader::readSBML(const std::string&)
 
       if d.getNumErrors() > 0:
         pm = d.getError(0)
-        if pm.getId() == libsbml.SBML_READ_ERROR_FILE_NOT_FOUND: ..
-        if pm.getId() == libsbml.SBML_READ_ERROR_NOT_SBML: ...
+        if pm.getErrorId() == libsbml.SBML_READ_ERROR_FILE_NOT_FOUND: ..
+        if pm.getErrorId() == libsbml.SBML_READ_ERROR_NOT_SBML: ...
     """
     args_copy    = list(args)
     args_copy[1] = conditional_abspath(args[1])
@@ -316,8 +316,8 @@ def readSBML(*args):
 
     if d.getNumErrors() > 0:
       pm = d.getError(0)
-      if pm.getId() == libsbml.SBML_READ_ERROR_FILE_NOT_FOUND: ...
-      if pm.getId() == libsbml.SBML_READ_ERROR_NOT_SBML: ...
+      if pm.getErrorId() == libsbml.SBML_READ_ERROR_FILE_NOT_FOUND: ...
+      if pm.getErrorId() == libsbml.SBML_READ_ERROR_NOT_SBML: ...
   """
   reader = SBMLReader()
   return reader.readSBML(args[0])

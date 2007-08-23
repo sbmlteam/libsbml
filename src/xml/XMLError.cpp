@@ -296,7 +296,7 @@ XMLError::~XMLError ()
  * @return the id of this XMLError.
  */
 const unsigned int
-XMLError::getId () const
+XMLError::getErrorId () const
 {
   return mErrorId;
 }
@@ -486,7 +486,7 @@ XMLError::getStandardMessage (const int code)
  * Outputs this XMLError to stream in the following format (and followed by
  * a newline):
  *
- *   line: (id) message
+ *   line: (error id) message
  */
 ostream& operator<< (ostream& s, const XMLError& error)
 {
@@ -593,9 +593,9 @@ XMLError_free(XMLError_t* error)
  */
 LIBLAX_EXTERN
 unsigned int
-XMLError_getId (const XMLError_t *error)
+XMLError_getErrorId (const XMLError_t *error)
 {
-  return error->getId();
+  return error->getErrorId();
 }
 
 

@@ -165,15 +165,15 @@ SBMLReader::readInternal (const char* content, bool isFile)
 
       for (unsigned int i = 0; i < d->getNumErrors(); ++i)      
       {
-        if (isCriticalError(d->getError(i)->getId()))
+        if (isCriticalError(d->getError(i)->getErrorId()))
         {
           // If we find even one critical error, all other errors are
           // suspect and may be bogus.  Remove them.
 
           for (int n = d->getNumErrors()-1; n >=0; n--)      
-            if (!isCriticalError(d->getError(n)->getId()))
+            if (!isCriticalError(d->getError(n)->getErrorId()))
             {
-              d->getErrorLog()->remove(d->getError(n)->getId());
+              d->getErrorLog()->remove(d->getError(n)->getErrorId());
             }
 
           break;

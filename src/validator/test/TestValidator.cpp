@@ -93,7 +93,7 @@ struct HasId : public unary_function<SBMLError, bool>
   unsigned int id;
 
   HasId (unsigned int id) : id(id) { }
-  bool operator() (const SBMLError& msg) { return msg.getId() == id; }
+  bool operator() (const SBMLError& msg) { return msg.getErrorId() == id; }
 };
 
 
@@ -102,7 +102,7 @@ struct HasId : public unary_function<SBMLError, bool>
  */
 struct ToId : public unary_function<SBMLError, unsigned int>
 {
-  unsigned int operator() (const SBMLError& msg) { return msg.getId(); }
+  unsigned int operator() (const SBMLError& msg) { return msg.getErrorId(); }
 };
 
 

@@ -1801,11 +1801,11 @@ SBase::checkXHTML(const XMLNode * xhtml)
    */
   for (i = 0; i < getErrorLog()->getNumErrors(); i++)
   {
-    if (getErrorLog()->getError(i)->getId() == XMLError::BadXMLDeclLocation)
+    if (getErrorLog()->getError(i)->getErrorId() == XMLError::BadXMLDeclLocation)
     {
       logError(errorXML);
     }
-    if (getErrorLog()->getError(i)->getId() == XMLError::NotWellFormed)
+    if (getErrorLog()->getError(i)->getErrorId() == XMLError::NotWellFormed)
     {
       logError(errorDOC);
     }

@@ -39,7 +39,7 @@ START_TEST (test_XMLError_create_C)
 
   error = XMLError_createWithIdAndMessage(12345, "My message");
   fail_unless( strcmp(XMLError_getMessage(error), "My message") == 0 );
-  fail_unless( XMLError_getId(error) == 12345 );
+  fail_unless( XMLError_getErrorId(error) == 12345 );
   XMLError_free(error);
 }
 END_TEST

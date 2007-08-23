@@ -39,6 +39,8 @@ using namespace std;
 
 
 /** @cond doxygen-libsbml-internal */
+/** Most of the methods are internal.  A few visible ones are at the end. */
+
 
 /**
  * Creates a new empty SBMLErrorLog.
@@ -104,7 +106,6 @@ SBMLErrorLog::add (const std::list<SBMLError>& errors)
 }
 
 
-/** @cond doxygen-libsbml-internal */
 /*
  * Helper class used by SBMLErrorLog::remove.
  */
@@ -115,13 +116,12 @@ public:
 
   bool operator() (XMLError e) const
   {
-    return e.getId() == idToFind;
+    return e.getErrorId() == idToFind;
   };
 
 private:
   unsigned int idToFind;
 };
-/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -138,7 +138,6 @@ SBMLErrorLog::remove (const unsigned int errorId)
 }
 
 
-/** @cond doxygen-libsbml-internal */
 /*
  * Helper class used by 
  * SBMLErrorLog::getNumFailsWithSeverity(SBMLError::Severity).
@@ -156,6 +155,9 @@ public:
 private:
   unsigned int severity;
 };
+
+
+
 /** @endcond doxygen-libsbml-internal */
 
 
@@ -182,4 +184,3 @@ SBMLErrorLog::getError (unsigned int n) const
 {
   return static_cast<const SBMLError*>(XMLErrorLog::getError(n));
 }
-

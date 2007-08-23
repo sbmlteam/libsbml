@@ -86,7 +86,7 @@ SBMLDocument::conversion_errors(unsigned int errors)
 
     for (unsigned int n = 0; n < sizeof(ignorable)/sizeof(ignorable[0]); n++)
     {
-      if (getError(i)->getId() == ignorable[n])
+      if (getError(i)->getErrorId() == ignorable[n])
       {
 	      failure = false;
 	       break;
@@ -291,7 +291,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
     conversion_note << "<p> The following should be noted: </p>\n";
     for (unsigned int n = 0; n < getNumErrors(); n++)
     {
-      conversion_note << "<p> (" << getError(n)->getId() << ") " 
+      conversion_note << "<p> (" << getError(n)->getErrorId() << ") " 
         << getError(n)->getMessage() << " </p>\n";
     }
     if (!conversion_errors(getNumErrors()))

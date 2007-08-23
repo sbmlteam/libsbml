@@ -44,21 +44,21 @@ START_TEST (test_XMLError_create)
   delete error;
 
   error = new XMLError(XMLError::DuplicateAttribute);
-  fail_unless( error->getId() == XMLError::DuplicateAttribute );
+  fail_unless( error->getErrorId() == XMLError::DuplicateAttribute );
   fail_unless( error->getSeverity() == XMLError::Error );
   fail_unless( error->getCategory() == XMLError::XML );
   fail_unless( error->getMessage() == "Duplicate attribute" );
   delete error;
 
   error = new XMLError(12345, "My message");
-  fail_unless( error->getId() == 12345 );
+  fail_unless( error->getErrorId() == 12345 );
   fail_unless( error->getMessage() == "My message" );
   fail_unless( error->getSeverity() == XMLError::Fatal );
   fail_unless( error->getCategory() == XMLError::Internal );
   delete error;
 
   error = new XMLError(12345, "My message", 0, 0, XMLError::Info, XMLError::System);
-  fail_unless( error->getId() == 12345 );
+  fail_unless( error->getErrorId() == 12345 );
   fail_unless( error->getMessage() == "My message" );
   fail_unless( error->getSeverity() == XMLError::Info );
   fail_unless( error->getCategory() == XMLError::System );
@@ -67,7 +67,7 @@ START_TEST (test_XMLError_create)
   delete error;
 
   error = new XMLError(10000, "Another message", 0, 0, XMLError::Fatal, XMLError::XML);
-  fail_unless( error->getId() == 10000 );
+  fail_unless( error->getErrorId() == 10000 );
   fail_unless( error->getMessage() == "Another message" );
   fail_unless( error->getSeverity() == XMLError::Fatal );
   fail_unless( error->getCategory() == XMLError::XML );
