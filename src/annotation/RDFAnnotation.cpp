@@ -374,7 +374,8 @@ RDFAnnotationParser::createCVTerms(const SBase * object)
 	      break;
       }
     }
-    else
+    else if (static_cast <CVTerm *> (object->getCVTerms()->get(n))
+      ->getQualifierType() == BIOLOGICAL_QUALIFIER)
     {
       prefix = "bqbiol";
       uri = "http://biomodels.net/biological-qualifiers/";
@@ -408,6 +409,11 @@ RDFAnnotationParser::createCVTerms(const SBase * object)
       	break;
       }
     }
+    else
+    {
+      continue;
+    }
+    
     type_triple = new XMLTriple(name, uri, prefix);
     type_token = new XMLToken (*(type_triple), blank_att);
     type = new XMLNode(*(type_token));

@@ -278,6 +278,36 @@ CVTerm::addResource(std::string resource)
 }
 
 
+/**
+  * removes a resource to the term
+  */
+void 
+CVTerm::removeResource(std::string resource)
+{
+  for (int n = 0; n < mResources->getLength(); n++)
+  {
+    if (resource == mResources->getValue(n))
+    {
+      mResources->removeResource(n);
+    }
+  }
+
+  if (mResources->getLength() == 0)
+  {
+    if (getQualifierType() == MODEL_QUALIFIER)
+    {
+      setModelQualifierType(BQM_UNKNOWN);
+      setQualifierType(UNKNOWN_QUALIFIER);
+    }
+    else
+    {
+      setBiologicalQualifierType(BQB_UNKNOWN);
+      setQualifierType(UNKNOWN_QUALIFIER);
+    }
+  }
+}
+
+
 
 
 
@@ -472,5 +502,20 @@ CVTerm_addResource(CVTerm_t * term, const char * resource)
 {
   term->addResource(resource);
 }
+
+/**
+ * Removes a resource from the CVTerm_t.
+ *
+ * @param term the CVTerm_t structure.
+ * @param resource string representing the resource 
+ * e.g. http://www.geneontology.org/#GO:0005892
+ */
+LIBSBML_EXTERN
+void 
+CVTerm_removeResource(CVTerm_t * term, const char * resource)
+{
+  term->removeResource(resource);
+}
+
 
 /** @endcond doxygen-c-only */

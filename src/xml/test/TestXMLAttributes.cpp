@@ -297,6 +297,35 @@ START_TEST(test_XMLAttributes_clone)
 }
 END_TEST
 
+START_TEST(test_XMLAttributes_add_removeResource)
+{
+  XMLAttributes *att1 = new XMLAttributes;
+
+  att1->addResource("rdf", "http://foo.org/");
+  att1->addResource("rdf", "http://foo1.org/");
+  fail_unless( att1->getLength() == 2     );
+  fail_unless( att1->isEmpty()   == false );
+  fail_unless( att1->getName(0) ==  "rdf" );
+  fail_unless( att1->getValue(0) == "http://foo.org/" );
+  fail_unless( att1->getName(1) ==  "rdf" );
+  fail_unless( att1->getValue(1) == "http://foo1.org/" );
+
+  att1->addResource("rdf", "http://foo2.org/");
+  fail_unless( att1->getLength() == 3     );
+  fail_unless( att1->isEmpty()   == false );
+  fail_unless( att1->getName(2) ==  "rdf" );
+  fail_unless( att1->getValue(2) == "http://foo2.org/" );
+
+  att1->removeResource(1);
+  fail_unless( att1->getLength() == 2     );
+  fail_unless( att1->isEmpty()   == false );
+  fail_unless( att1->getName(0) ==  "rdf" );
+  fail_unless( att1->getValue(0) == "http://foo.org/" );
+  fail_unless( att1->getName(1) ==  "rdf" );
+  fail_unless( att1->getValue(1) == "http://foo2.org/" );
+}
+END_TEST
+
 
 Suite *
 create_suite_XMLAttributes (void)
@@ -312,6 +341,7 @@ create_suite_XMLAttributes (void)
   tcase_add_test( tcase, test_XMLAttributes_copy            );
   tcase_add_test( tcase, test_XMLAttributes_assignment      );
   tcase_add_test( tcase, test_XMLAttributes_clone           );
+  tcase_add_test( tcase, test_XMLAttributes_add_removeResource);
 
   suite_add_tcase(suite, tcase);
 

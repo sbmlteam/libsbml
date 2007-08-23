@@ -109,6 +109,14 @@ public:
    * @param value a string, the value of the attribute.
   */
   void addResource (const std::string& name, const std::string& value);
+  
+ /**
+  * Removes a name/value pair from this XMLAttributes set.  
+  *
+  * @param n an integer the index of the resource to be deleted
+  */
+  void removeResource (int n);
+
 
 
   /**
@@ -398,7 +406,7 @@ public:
 protected:
   /** @cond doxygen-libsbml-internal */
 
-  /**
+/**
    * Used by attributeTypeError().
    */ 
   enum DataType { Boolean = 0, Double = 1, Integer = 2 };
@@ -481,6 +489,11 @@ void
 XMLAttributes_addResource (XMLAttributes_t *xa, 
 			   const char *name, 
 			   const char *value);
+
+
+LIBLAX_EXTERN
+void
+XMLAttributes_removeResource (XMLAttributes_t *xa, int n);
 
 
 LIBLAX_EXTERN

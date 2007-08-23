@@ -203,6 +203,14 @@ public:
    */
   void addResource(std::string resource);
 
+  /**
+   * Removes a resource from the CVTerm.
+   *
+   * @param resource string representing the resource 
+   * e.g. http://www.geneontology.org/#GO:0005892
+   */
+  void removeResource(std::string resource);
+
 protected:
 
   XMLAttributes * mResources;
@@ -305,6 +313,12 @@ LIBSBML_EXTERN
 void 
 CVTerm_addResource(CVTerm_t * CVT, const char * resource);
 
+/**
+  * remove a resource to the term
+  */
+LIBSBML_EXTERN
+void 
+CVTerm_removeResource(CVTerm_t * CVT, const char * resource);
 
 
 END_C_DECLS

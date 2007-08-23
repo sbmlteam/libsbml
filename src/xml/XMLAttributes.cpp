@@ -150,6 +150,29 @@ XMLAttributes::addResource (const std::string& name, const std::string& value)
 
 
 /**
+ * Removes a name/value pair from this XMLAttributes set.  
+ * This is for annotations
+ */
+void
+XMLAttributes::removeResource (int n)
+{
+  vector<XMLTriple>::iterator names_iter;
+  vector<std::string>::iterator values_iter;
+
+  names_iter = mNames.begin();
+  values_iter = mValues.begin();
+
+  for (int p = 0; p < n; p++)
+  {
+    names_iter++;
+    values_iter++;
+  }
+  mNames.erase(names_iter);
+  mValues.erase(values_iter);
+}
+
+
+/**
  * Lookup the index of an attribute by name.
  *
  * @return the index of the given attribute, or -1 if not present.
@@ -752,6 +775,18 @@ XMLAttributes_addResource (XMLAttributes_t *xa,
 }
 
 
+/**
+ * Removes a name/value pair from this XMLAttributes set.  
+ *
+ * @param xa the XMLAttributes_t structure.
+ * @param n an integer the index of the resource to be deleted
+ */
+LIBLAX_EXTERN
+void
+XMLAttributes_removeResource (XMLAttributes_t *xa, int n)
+{
+  xa->removeResource(n);
+}
 /**
  * Return the index of an attribute by name.
  *
