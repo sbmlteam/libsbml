@@ -23,16 +23,47 @@
  *------------------------------------------------------------------------- -->
  *
  * @class XMLError
- * @brief Abstraction and processing of errors in the XML layer.
+ * @brief Representation of errors, warnings and other diagnostics
  *
  * LibSBML can be configured to use any of a number of XML parsers; at the
  * time of this writing, libSBML supported Xerces 2.4&ndash;2.7, Expat
- * 1.95.x, and libxml2.  These parsers each report different status codes
- * for the various exceptions that can occur during XML processing.
- * The XMLError object class abstracts away from the particular diagnostics
- * reported by the different parsers and presents a single uniform
- * interface and set of status codes, along with operations for
- * manipulating the error objects.
+ * 1.95.x, and libxml2 2.6.16 or higher.  These parsers each report
+ * different status codes for the various exceptions that can occur during
+ * XML processing.  The XMLError object class abstracts away from the
+ * particular diagnostics reported by the different parsers and presents a
+ * single uniform interface and set of status codes, along with operations
+ * for manipulating the error objects.
+ *
+ * When the libSBML XML parser layer encounters an error in the XML content
+ * being processed, or when there is something else wrong (such as an
+ * out-of-memory condition), the problems are reported as XMLError objects.
+ *
+ * Each XMLError object instance has an identification number that
+ * identifies the nature of the problem.  This number will be up to five
+ * digits long.  Applications can use the error identifiers as a means of
+ * recognizing and switching behavior based on the error encountered.
+ *
+ * XMLError also logs a text message describing the nature of the error.
+ * The text message is suitable for displaying to humans.
+ *
+ * Each XMLError object also contains a @em category code, drawn
+ * from the enumeration XMLCategory.  Categories are used to provide more
+ * information about the nature of a given error, such as whether it is
+ * a system problem or a problem with the XML content.
+ *
+ * Each XMLError object also has a @em severity code, drawn from the
+ * enumeration XMLSeverity.  Severity levels currently range from
+ * informational (XMLError::Info) to fatal errors (XMLError::Fatal).
+ *
+ * Finally, XMLError objects record the line and column near where the
+ * problem occurred in the XML content.  We say "near", because a lot of
+ * factors affect how accurate the line/column information ultimately is.
+ * For example, different XML parsers have different conventions for which
+ * line and column number they report for a particular problem (which makes
+ * a difference when a problem involves an opening XML tag on one line and
+ * a closing tag on another line).  When communicating problems to humans,
+ * it is generally best to provide all three pieces of information
+ * (message, line, column), to help them determine the actual error.
  */
 
 
@@ -66,56 +97,123 @@ public:
    */
   enum Code
   {
-    UnknownError             =    0
+    UnknownError             =    0 /*!< Unknown error encountered. */
 
     // System diagnostics: numbers below 100
-  , OutOfMemory              =    1
-  , FileUnreadable           =    2
-  , FileUnwritable           =    3
-  , FileOperationError       =    4
-  , NetworkAccessError       =    5
+  , OutOfMemory              =    1 /*!< LibSBML unexpected encountered an out
+				     *   of memory condition from the operating
+				     *   system. */
+
+  , FileUnreadable           =    2 /*!< Could not open or read the file. */
+
+  , FileUnwritable           =    3 /*!< Could not write to the file. */
+
+  , FileOperationError       =    4 /*!< Error encountered while attempting
+				     *   a file operation. */
+
+  , NetworkAccessError       =    5 /*!< Error encountered while attempting
+				     *   a network access. */
 
     // Internal diagnostics: numbers about 100 and below 1000
-  , InternalParserError      =  101
-  , UnrecognizedParserCode   =  102
-  , TranscoderError          =  103
+
+  , InternalParserError      =  101 /*!< Internal error in XML parser. */
+
+  , UnrecognizedParserCode   =  102 /*!< The XML parser returned an error
+				     *   code that is not recognized by
+				     *   libSBML. */
+
+  , TranscoderError          =  103 /*!< The character transcoder reported
+				     *   an error. */
 
     // Content errors: numbers about 1000 and below 9999
-  , MissingXMLDecl           = 1001
-  , MissingXMLEncoding       = 1002
-  , BadXMLDecl               = 1003
-  , BadDOCTYPE               = 1004
-  , InvalidChar              = 1005
-  , NotWellFormed            = 1006
-  , UnclosedToken            = 1007
-  , InvalidConstruct         = 1008
-  , TagMismatch              = 1009
-  , DuplicateAttribute       = 1010
-  , UndefinedEntity          = 1011
-  , BadProcessingInstruction = 1012
-  , BadPrefix                = 1013
-  , BadPrefixValue           = 1014
-  , MissingRequiredAttribute = 1015
-  , AttributeTypeMismatch    = 1016
-  , BadUTF8Content           = 1017
-  , MissingAttributeValue    = 1018
-  , BadAttributeValue        = 1019
-  , BadAttribute             = 1020
-  , UnrecognizedElement      = 1021
-  , BadXMLComment            = 1022
-  , BadXMLDeclLocation       = 1023
-  , UnexpectedEOF            = 1024
-  , BadXMLIDValue            = 1025
-  , BadXMLIDRef              = 1026
-  , UninterpretableContent   = 1027
-  , BadDocumentStructure     = 1028
-  , InvalidAfterContent      = 1029
-  , ExpectedQuotedString     = 1030
-  , EmptyValueNotPermitted   = 1031
-  , BadNumber                = 1032
-  , BadColon                 = 1033
-  , MissingElements          = 1034
-  , EmptyXML                 = 1035
+
+  , MissingXMLDecl           = 1001 /*!< Missing XML declaration at beginning
+				     *   of XML input. */
+
+  , MissingXMLEncoding       = 1002 /*!< Missing encoding attribute in
+				     *   XML declaration. */
+
+  , BadXMLDecl               = 1003 /*!< Invalid or unrecognized XML
+				     *   declaration or XML encoding. */
+
+  , BadDOCTYPE               = 1004 /*!< Invalid, malformed or unrecognized
+				     *   XML DOCTYPE declaration. */
+
+  , InvalidChar              = 1005 /*!< Invalid character in XML content. */
+
+  , NotWellFormed            = 1006 /*!< Badly formed XML. */
+
+  , UnclosedToken            = 1007 /*!< Unclosed token. */
+
+  , InvalidConstruct         = 1008 /*!< XML construct is invalid or
+				     *   not permitted. */
+
+  , TagMismatch              = 1009 /*!< Element tag mismatch or missing tag.*/
+
+  , DuplicateAttribute       = 1010 /*!< Duplicate attribute. */
+
+  , UndefinedEntity          = 1011 /*!< Undefined XML entity. */
+
+  , BadProcessingInstruction = 1012 /*!< Invalid, malformed or unrecognized
+				     *   XML processing instruction. */
+
+  , BadPrefix                = 1013 /*!< Invalid or undefined XML
+				     *   Namespace prefix. */
+
+  , BadPrefixValue           = 1014 /*!< Invalid XML Namespace prefix value. */
+
+  , MissingRequiredAttribute = 1015 /*!< Required attribute is missing. */
+
+  , AttributeTypeMismatch    = 1016 /*!< Data type mismatch for attribute
+				     *   value. */
+
+  , BadUTF8Content           = 1017 /*!< Invalid UTF8 content. */
+
+  , MissingAttributeValue    = 1018 /*!< Missing or improperly formed
+				     *   attribute value. */
+
+  , BadAttributeValue        = 1019 /*!< Invalid or unrecognizable attribute
+				     *   value. */
+
+  , BadAttribute             = 1020 /*!< Invalid, unrecognized or malformed
+				     *   attribute. */
+
+  , UnrecognizedElement      = 1021 /*!< Element either not recognized or
+				     *   not permitted. */
+
+  , BadXMLComment            = 1022 /*!< Badly formed XML comment. */
+
+  , BadXMLDeclLocation       = 1023 /*!< XML declaration not permitted in
+				     *   this location. */
+
+  , UnexpectedEOF            = 1024 /*!< Reached end of input unexpectedly. */
+
+  , BadXMLIDValue            = 1025 /*!< Value is invalid for XML ID, or has
+				     *   already been used. */
+
+  , BadXMLIDRef              = 1026 /*!< XML ID value was never declared. */
+
+  , UninterpretableContent   = 1027 /*!< Unable to interpret content. */
+
+  , BadDocumentStructure     = 1028 /*!< Bad XML document structure. */
+
+  , InvalidAfterContent      = 1029 /*!< Encountered invalid content after
+				     *   expected content. */
+
+  , ExpectedQuotedString     = 1030 /*!< Expected to find a quoted string. */
+
+  , EmptyValueNotPermitted   = 1031 /*!< An empty value is not permitted in
+				     *   this context. */
+
+  , BadNumber                = 1032 /*!< Invalid or unrecognized number. */
+
+  , BadColon                 = 1033 /*!< Colon characters are invalid in
+				     *   this context. */
+
+  , MissingElements          = 1034 /*!< One or more expected elements
+				     *   are missing. */
+
+  , EmptyXML                 = 1035 /*!< Main XML content is empty. */
 
     // Bounds
   , ErrorCodesUpperBound     = 9999
@@ -158,8 +256,9 @@ public:
   {
     Internal = 0, /*!< A problem involving the libSBML software itself or
 		   * the underlying XML parser.  This almost certainly 
-		   * indicates a software defect (i.e., bug).  Please
-		   * report instances of this to the libSBML developers. */
+		   * indicates a software defect (i.e., bug) in libSBML.
+		   * Please report instances of this to the libSBML
+		   * developers. */
 
     System = 1,   /*!< A problem reported by the operating system, such as
 		   * an inability to read or write a file.  This indicates
@@ -180,12 +279,12 @@ public:
    * the exception.  These numbers are drawn from the enumeration
    * XMLError::Code.  The argument @p errorId to this constructor @em can be
    * (but does not have to be) a value from this enumeration.  If it is a
-   * value from XMLError::Code, the XMLError class assumes it the error is
+   * value from XMLError::Code, the XMLError class assumes the error is
    * a low-level system or XML layer error and prepends a predefined error
    * message to any string passed in @p details.  In addition, all
    * XMLError::Code errors have associated severity and category codes, and
    * these fields are filled-in as well from the enumerations
-   * XMLError::Severity and XMLError::Category, respectively
+   * XMLError::Severity and XMLError::Category, respectively.
    *
    * If the error identifier @p errorId is a number greater than 9999, the
    * XMLError class assumes the error was generated from another part of
@@ -246,7 +345,7 @@ public:
    *
    * @return the id of this XMLError.
    */
-  const unsigned int getId () const;
+  const unsigned int getErrorId () const;
 
 
   /**
@@ -400,7 +499,7 @@ public:
    * Outputs this XMLError to stream in the following format (and followed
    * by a newline):
    *
-   *   line: (id) message
+   *   line: (error id) message
    *
    * @param stream the output stream to write to.
    * @param error the XMLError to write.
@@ -485,7 +584,7 @@ XMLError_free(XMLError_t* error);
 
 LIBLAX_EXTERN
 unsigned int
-XMLError_getId (const XMLError_t *error);
+XMLError_getErrorId (const XMLError_t *error);
 
 
 LIBLAX_EXTERN
