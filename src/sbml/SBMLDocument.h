@@ -90,6 +90,20 @@ class Model;
 class SBMLVisitor;
 class XMLError;
 
+/* Constants for setting/unsetting particular consistency checks */
+#define IdCheckON         0x01;
+#define IdCheckOFF        0xfe;
+#define SBMLCheckON       0x02;
+#define SBMLCheckOFF      0xfd;
+#define SBOCheckON        0x04;
+#define SBOCheckOFF       0xfb;
+#define MathCheckON       0x08;
+#define MathCheckOFF      0xf7;
+#define UnitsCheckON      0x10;
+#define UnitsCheckOFF     0xef;
+#define OverdeterCheckON  0x20;
+#define OverdeterCheckOFF 0xdf;
+#define AllChecksON       0x3f;
 
 class LIBSBML_EXTERN SBMLDocument: public SBase
 {
@@ -264,7 +278,7 @@ public:
    * @param apply boolean indicating whether the validator 
    * should be applied or not.
    */
-  void setValidatorApplicationStatus(SBMLError::SBMLCategory validator, bool apply);
+  void setConsistencyChecks(SBMLError::SBMLCategory validator, bool apply);
 
 
   /**
@@ -562,7 +576,7 @@ SBMLDocument_createModel (SBMLDocument_t *d);
 
 LIBSBML_EXTERN
 void
-SBMLDocument_setValidatorApplicationStatus(SBMLDocument_t *d, 
+SBMLDocument_setConsistencyChecks(SBMLDocument_t *d, 
                                      int validator,
                                      int apply);
 

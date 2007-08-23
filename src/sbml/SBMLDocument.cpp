@@ -157,7 +157,7 @@ SBMLDocument::SBMLDocument (unsigned int level, unsigned int version) :
     setLevelAndVersion(mLevel, mVersion);
   }
 
-  mApplicableValidators = 0x3f; // turn all validators ON
+  mApplicableValidators = AllChecksON; // turn all validators ON
 }
 
 
@@ -368,56 +368,84 @@ SBMLDocument::createModel (const std::string& sid)
 }
 
 void 
-SBMLDocument::setValidatorApplicationStatus(SBMLError::SBMLCategory validator, 
+SBMLDocument::setConsistencyChecks(SBMLError::SBMLCategory validator, 
                                    bool apply)
 {
   switch (validator)
   {
   case SBMLError::SBMLConsistencyIdentifier:
     if (apply)
-      mApplicableValidators |= 0x01;
+    {
+      mApplicableValidators |= IdCheckON;
+    }
     else
-      mApplicableValidators &= 0xfe;
+    {
+      mApplicableValidators &= IdCheckOFF;
+    }
 
     break;
 
   case SBMLError::SBMLConsistency:
     if (apply)
-      mApplicableValidators |= 0x02;
+    {
+      mApplicableValidators |= SBMLCheckON;
+    }
     else
-      mApplicableValidators &= 0xfd;
+    {
+      mApplicableValidators &= SBMLCheckOFF;
+    }
 
     break;
+  
   case SBMLError::SBMLConsistencySBO:
     if (apply)
-      mApplicableValidators |= 0x04;
+    {
+      mApplicableValidators |= SBOCheckON;
+    }
     else
-      mApplicableValidators &= 0xfb;
+    {
+      mApplicableValidators &= SBOCheckOFF;
+    }
 
     break;
+  
   case SBMLError::SBMLConsistencyMathML:
     if (apply)
-      mApplicableValidators |= 0x08;
+    {
+      mApplicableValidators |= MathCheckON;
+    }
     else
-      mApplicableValidators &= 0xf7;
+    {
+      mApplicableValidators &= MathCheckOFF;
+    }
 
     break;
+  
   case SBMLError::SBMLConsistencyUnits:
     if (apply)
-      mApplicableValidators |= 0x10;
+    {
+      mApplicableValidators |= UnitsCheckON;
+    }
     else
-      mApplicableValidators &= 0xef;
+    {
+      mApplicableValidators &= UnitsCheckOFF;
+    }
 
     break;
+  
   case SBMLError::SBMLOverdetermined:
     if (apply)
-      mApplicableValidators |= 0x20;
+    {
+      mApplicableValidators |= OverdeterCheckON;
+    }
     else
-      mApplicableValidators &= 0xdf;
+    {
+      mApplicableValidators &= OverdeterCheckOFF;
+    }
 
     break;
   default:
-      mApplicableValidators = 0x3f;
+      mApplicableValidators = AllChecksON;
     break;
   }
 
@@ -1154,11 +1182,11 @@ SBMLDocument_createModel (SBMLDocument_t *d)
   */
 LIBSBML_EXTERN
 void
-SBMLDocument_setValidatorApplicationStatus(SBMLDocument_t * d, 
+SBMLDocument_setConsistencyChecks(SBMLDocument_t * d, 
                                      int validator,
                                      int apply)
 {
-  d->setValidatorApplicationStatus(SBMLError::SBMLCategory(validator), apply);
+  d->setConsistencyChecks(SBMLError::SBMLCategory(validator), apply);
 }
 
 
