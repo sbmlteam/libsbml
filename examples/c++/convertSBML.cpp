@@ -49,7 +49,7 @@ conversion_errors(SBMLDocument* document, unsigned int errors)
 
     for (unsigned int n = 0; n < sizeof(ignorable)/sizeof(ignorable[0]); n++)
     {
-      if (document->getError(i)->getId() == ignorable[n])
+      if (document->getError(i)->getErrorId() == ignorable[n])
       {
 	failure = false;
 	break;
