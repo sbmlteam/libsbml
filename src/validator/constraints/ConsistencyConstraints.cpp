@@ -203,10 +203,34 @@ START_CONSTRAINT (20305, FunctionDefinition, fd)
   pre( fd.isSetMath()           );
   pre( fd.getBody() != NULL      );
 
+  /**
+   * need to look at the special case where the body of the lambda function
+   * contains only one of the bvar elements
+   * eg
+   *  <lambda>
+	 *		<bvar>	<ci> v </ci> </bvar>
+	 *		<ci> v </ci>
+   *  </lambda>
+   */
+
+  bool specialCase = false;
+  if (fd.getBody()->isName() && fd.getBody()->getNumChildren() == 0)
+  {
+    for (unsigned int n = 0; n < fd.getNumArguments(); n++)
+    {
+      if (!strcmp(fd.getArgument(n)->getName(), fd.getBody()->getName()))
+      {
+        specialCase = true;
+        break;
+      }
+    }
+  }
+
   inv_or( fd.getBody()->isBoolean() );
   inv_or( fd.getBody()->isNumber()  );
   inv_or( fd.getBody()->isFunction());
   inv_or( fd.getBody()->isOperator());
+  inv_or( specialCase);
 }
 END_CONSTRAINT
 
