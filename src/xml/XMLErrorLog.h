@@ -24,7 +24,7 @@
  * @class XMLErrorLog
  * @brief Log of errors and other events encountered while processing XML.
  *
- * XMLErrorLog is simply a list.  The XML layer of libSBML maintains an
+ * The error log is simply a list.  The XML layer of libSBML maintains an
  * error log associated with a given XML document or data stream.  When an
  * operation results in an error, or when there is something wrong with the
  * XML content, the problem is reported as an XMLError object stored in the
