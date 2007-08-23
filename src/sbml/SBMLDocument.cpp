@@ -145,15 +145,19 @@ SBMLDocument::SBMLDocument (unsigned int level, unsigned int version) :
  , mVersion ( version )
  , mModel   ( 0       )
 {
+  bool setExplicitly = (mLevel != 0 && mVersion != 0);
+
   mSBML = this;
 
   if (mLevel   == 0)  mLevel   = getDefaultLevel  ();
   if (mVersion == 0)  mVersion = getDefaultVersion();
 
-  mApplicableValidators = 0x3f; // turn all validators ON
+  if (setExplicitly)
+  {
+    setLevelAndVersion(mLevel, mVersion);
+  }
 
-  // This needs to be fixed some other way.
-  //  setLevelAndVersion(mLevel,mVersion);
+  mApplicableValidators = 0x3f; // turn all validators ON
 }
 
 

@@ -119,12 +119,23 @@ public:
    * Creates a new SBMLDocument, optionally with given values for the SBML
    * Level and Version.
    *
-   * If not specified, the SBML Level and Version attributes default to the
-   * most recent SBML specification (at the time this libSBML was
-   * released).
+   * If <em>both</em> the SBML Level and Version attributes are not
+   * specified, the SBML document is treated as having the latest Level and
+   * Version (Level 2 Version 3 as of the libSBML 3.0.0 release);
+   * <em>however</em>, it is otherwise left blank.  In particular, the
+   * blank SBMLDocument object has no associated XML attributes yet such as
+   * an XML Namespace declaration.  The latter is not added until the model
+   * is written out, <em>or</em> the method setLevelAndVersion() is called.
+   * This may be important to keep in mind if an application needs to add
+   * additional XML namespace declarations on the <code>&lt;sbml&gt;</code>
+   * element.  Application writers should either provide values for @param
+   * level and @param version on the call to this constructor, or else call
+   * setLevelAndVersion() shortly after creating the SBMLDocument object.
    *
    * @param level an integer for the SBML Level
    * @param version an integer for the Version within the SBML Level
+   *
+   * @see setLevelAndVersion()
    */
   SBMLDocument (unsigned int level = 0, unsigned int version = 0);
 
