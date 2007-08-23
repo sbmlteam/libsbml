@@ -25,10 +25,10 @@
  * @class SBMLErrorLog
  * @brief Log of errors and other events encountered during SBML processing.
  *
- * SBMLErrorLog is simply a list.  Each SBMLDocument maintains its own
+ * The error log is simply a list.  Each SBMLDocument maintains its own
  * SBMLErrorLog.  When a libSBML operation on SBML content results in an
- * error, or when there is something wrong with the SBML content, the
- * problem is reported as an SBMLError object stored in the SBMLErrorLog
+ * error, or when there is something worth noting about the SBML content, 
+ * the issue is reported as an SBMLError object stored in the SBMLErrorLog
  * list.
  *
  * SBMLErrorLog is derived from XMLErrorLog, an object class that serves
@@ -41,7 +41,7 @@
  * as SBMLDocument.  Callers should then use getNumErrors() to inquire how
  * many error objects there are in the list.  (The answer may be 0.)  If
  * there is at least one SBMLError object in the SBMLErrorLog instance,
- * calles can then iterate over the list using getError() and use methods
+ * callers can then iterate over the list using getError() and use methods
  * on SBMLError to find out the error code and associated information such
  * as the error message and line number.
  *
@@ -69,7 +69,8 @@ public:
    *
    * Callers should first inquire about the number of items in the log by
    * using the getNumErrors() method defined on the parent class
-   * (XMLErrorLog).
+   * (XMLErrorLog).  Attempting to using an error index number that exceed
+   * the number of errors in the log will result in a NULL being returned.
    *
    * @param n unsigned int number of the error to retrieve.
    *
@@ -81,16 +82,10 @@ public:
   /**
    * Returns number of errors that are logged with the given severity.
    * 
-   * @param SBMLError::Severity severity of the fails to count.
-   *
-   * @li Info  
-   * @li Warning   
-   * @li Error 
-   * @li Fatal
-   * @li SchemaError
-   * @li GeneralWarning
+   * @param severity The Severity value of the fails to count.
    */
   unsigned int getNumFailsWithSeverity(SBMLError::SBMLSeverity severity);
+
 
   /** @cond doxygen-libsbml-internal */
 
