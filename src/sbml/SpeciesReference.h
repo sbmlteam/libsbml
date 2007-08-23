@@ -205,7 +205,7 @@
  * <!---------------------------------------------------------------------- -->
  *
  * @class ListOfSpeciesReferences
- * @brief LibSBML implementation of %SBML's ListOfSpeciesReferences construct.
+ * @brief Container class for lists of SpeciesReference objects in a Model.
  *
  * The ListOfSpeciesReferences class is used to store lists of reactants
  * and products in a Reaction object.
