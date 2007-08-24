@@ -25,10 +25,11 @@
   | 1. Quick start                                                  |
   | 2. Introduction                                                 |
   | 3. Detailed instructions for configuring and installing LibSBML |
-  | 4. Building on Windows with Visual C++                          |
-  | 5. The libsbml-discuss mailing list                             |
-  | 6. The sbml-cvs-libsbml mailing list                            |
-  | 7. Reporting bugs and other problems                            |
+  | 4. The libsbml-discuss mailing list                             |
+  | 5. The sbml-cvs-libsbml mailing list                            |
+  | 6. Reporting bugs and other problems                            |
+  | 7. Licensing and distribution                                   |
+  | 8. Acknowledgments                                              |
    `----------------------------------------------------------------'
     Date of last update to this file: $Date$
 
@@ -52,9 +53,13 @@ libsbml-2.4/), and first type:
 
 If you do not have the Xerces-C++ XML library on your system, the
 configure step will fail.  In that case, you can try using the Expat
-library instead:
+or libxml2 libraries instead.  For Expat,  use
 
   ./configure --with-expat
+
+and for libxml2, use
+
+  ./configure --with-libxml
 
 By default, libSBML only builds the C and C++ API library.  If you
 want to configure libSBML to build the Java, Python, Perl, Lisp and/or
@@ -83,7 +88,18 @@ the installed libSBML library:
   gcc -o myapp.c myapp.c -lsbml
 
 If the compiler cannot find the library, refer to Section 3.2 below
-for information about ldconfig, LD_LIBRARY_PATH, and related matters.
+for information about ldconfig, LD_LIBRARY_PATH/DYLD_LIBRARY_PATH, and
+related matters.
+
+Documentation for libSBML is available as a separate download from the
+same locations as the libSBML distribution (namely, the SBML project
+SourceForge and the http://sbml.org/software/libsbml web page).  You
+may also regenerate the documentation from the source code
+distribution if you have Doxygen version 1.4.5 installed and have
+configured libSBML with the --with-doxygen flag.  Then you can execute
+the following to generate and install the libSBML documentation files:
+
+  make install-docs
 
 
 1.2 Windows
@@ -128,290 +144,95 @@ please visit the website http://sbml.org/.
 Feature Highlights:
 -------------------
 
-  - Complete user manual
+* Parser abstraction layer.  LibSBML relies on third-party XML parser
+  libraries, but thanks to its implementation of an abstraction layer,
+  libSBML can use any of three different popular XML parser libraries:
+  Expat, Apache Xerces-C++, and Libxml2.  LibSBML provides identical
+  functionality and checking of XML syntax is now available no matter
+  which one is used.  SBML Documents are parsed and manipulated in the
+  Unicode codepage for efficiency (this is Xerces-C++ native format);
+  however, strings are transcoded to the local code page for SBML
+  structures.
 
-      Documentation is available in the "docs" subdirectory in both
-      pre-formatted and source form.  Full documentation, including
-      copies of the API references, are also available online from
-      http://sbml.org/software/libsbml/.
+* Small memory footprint and fast runtime.  The parser is event-based
+  (SAX2) and loads SBML data into C++ structures that mirror the SBML
+  specification.
 
-  - Small memory footprint and fast runtime
+* Full SBML Support.  All constructs in SBML Level 1 (Versions 1 and
+  2) and SBML Level 2 are supported.  These exceptions will be removed
+  in the near future.  LibSBML handles such SBML differences as the
+  alternate spellings of species and annotation between the SBML
+  specifications.  For compatibility with some technically incorrect
+  but popular Level 1 documents, the parser recognizes and stores
+  notes and annotations defined for the top-level <sbml> element
+  (logging a warning).
 
-      The parser is event-based (SAX2) and loads SBML data into C++
-      structures that mirror the SBML specification.
+* Dimensional analysis and unit checking.  LibSBML implements a
+  thorough system for dimensional analysis and checking units of
+  quantities in a model.  The validation rules for units that are
+  specified in SBML Level 2 Version 2 and Version 3 are fully
+  implemented, including checking units in mathematical formulas.
 
-      The Gepasi generated 100 Yeast file (2Mb; 2000 reactions
-      http://www.gepasi.org/gep3sbml.html) loads in 1.18s on a 1 GHz
-      AMD Athlon XP and uses 1.4Mb of memory.
+* Unified SBML Level 2 and Level 1 object models.  All objects have
+  .getSBMLDocument(), .getModel(), .getLevel(), and .getVersion(),
+  methods among other things.  Also, the interface to SBML's Rules
+  abstracts away some of the individual rule type (assignment, rate,
+  algebraic) differences.
 
-  - Fully supports <notes> and <annotation> elements, including XML
-    namespaces
+* Access to SBML annotations and notes as XML objects.  Annotations
+  and notes are read and manipulated as XML structures instead of text
+  strings.  Further, in order to facilitate the support of MIRIAM
+  compatible annotations, there are new object classes ModelHistory
+  and CVTerm.  These classes facilitate the creation and addition of
+  RDF annotations inside <annotation> elements by providing parsing
+  and manipulation functions that treat the annotations in terms of
+  XMLNode objects implemented by the new XML layer.  Both ModelHistory
+  and CVTerm follow the general libSBML format of providing getters
+  and setters for each variable stored within the class.
+      
+* Interfaces for C, C++, Java, Python, Perl Lisp, and MATLAB.  C and
+  C++ interfaces are implemented natively; the Java, Perl, and Python
+  interfaces are implemented using SWIG, the Simplified Wrapper
+  Interface Generator.
 
-  - Portable, pure ISO C and C++
-
-      The build system uses GNU tools (Autoconf, GNU Make) to build
-      shared and static libraries.
-
-  - Support for the Apache Xerces-C++, libXML, and Expat XML Libraries.
+* Well tested: version 3.0.0 has over 1280 unit tests and 5800
+  individual assertions.  The entire library was written using the
+  test-first approach popularized by Kent Beck and eXtreme
+  Programming, where it's one of the 12 principles.
     
-      The Apache Xerces-C++ XML library supports:
-        - SAX 1 and 2
-        - DOM 1, 2, and 3
-        - Full DTD and Schema validation
-        - XML Namespaces
-        - Unicode
+* Written in portable, pure ISO C and C++. The build system uses GNU
+  tools (Autoconf, GNU Make) to build shared and static libraries.
 
-      SBML Documents are parsed and manipulated in the Unicode codepage
-      for efficiency (this is Xerces-C++ native format); however,
-      strings are transcoded to the local code page for SBML structures.
+* Full XML and SBML Validation.  All XML and Schema warning, error and
+  fatal error messages are logged with line and column number
+  information and may be retrieved and manipulated programmatically.
 
-  - Well tested: over 1280 unit tests, over 5500 individual assertions.
-
-      The entire library was written using the test-first approach
-      popularized by Kent Beck and eXtreme Programming, where it's one
-      of the 12 principles.  Extensive unit tests are provided and
-      can be invoked by linking with the Check library (an option
-      provided in the 'configure' program).
+* Complete user manual.  The manual is generated from the source code
+  and closely reflects the actual API.
 
 
 ---------------------------------------------------------------
 3. DETAILED INSTRUCTIONS FOR CONFIGURING AND INSTALLING LIBSBML
 ---------------------------------------------------------------
 
-LibSBML requires a separate XML library for low-level XML tokenizing
-and Unicode support.  As of libSBML 3.0, it supports the Xerces-C++,
-Expat, and libXML XML libraries on Linux, Windows, MacOS X and Solaris.
-Many Linux systems provide one or more of these libraries either as
-part of their standard distribution or as an optional RPM, Debian,
-Mandrake or other package.  For more information, see
-http://xml.apache.org/xerces-c/ for Xerces and http://expat.sf.net for
-Expat.
+Detailed instructions for building and configuring libSBML are now
+included as part of the full documentation available for libSBML.
+You may find the documentation online at 
 
-3.1 Linux, MacOS X and Solaris
-------------------------------
+  http://sbml.org/software/libsbml
 
-If you have obtained the libSBML source code distribution, then at
-your Linux, MacOS X or Solaris command prompt, unpack the
-distribution, cd into the directory created (e.g., libsbml-2.4.0), and
-type the following command in a terminal shell window to configure
-libSBML for your system:
+You may also download a compressed archive of the formatted
+documentation from the same place you found this libSBML source
+distribution (e.g., from http://sourceforge.net/projects/sbml/).
 
-  ./configure
+Lastly you can format the documentation from the sources, which are
+provided as part of this libSBML source distribution in the "docs"
+subdirectory.  (To do that, however, you will need certain additional
+software tools such as Doxygen and a full latex distribution.)
 
-To specify Expat explicitly rather than the libSBML default of Xerces,
-use a command such as the following instead (and make sure to read
-about the limitations surrounding the use of Expat explained below):
-
-  ./configure --with-expat
-
-If either Expat or Xerces is installed in a non-standard location on
-your computer system (e.g., a private home directory), configure will
-not be able to detect it.  In this case, configure needs to be told
-explicitly where to find the libraries.  Use the following forms:
-
-  ./configure --with-expat="DIR"
-
-or
-
-  ./configure --with-xerces="DIR"
-
-where DIR is the parent directory of where the 'include' and 'lib'
-directories of Xerces or Expat (whichever one you are trying to use)
-is located.  For example, on MacOS X, if you used Fink to install
-Expat in Fink's default software tree, you would configure libSBML
-using the following command:
-
-  ./configure --with-xerces="/sw"
-
-During the installation phase (i.e., during make install, discussed
-below), the default libSBML installation commands will copy header
-files to /usr/local/include/sbml, the (shared and static) library
-files to /usr/local/lib, and documentation files in various formats to
-/usr/local/share/doc/libsbml-VERSION, by default.  To specify a
-different installation location, use the --prefix argument to
-configure.  For example,
-
-  ./configure --prefix="/my/favorite/path"
-
-Of course, you can combine the flags to configure, giving both
---prefix and --with-expat or --with-xerces to set both options.  
-
-
-3.2 Building and Installing LibSBML
------------------------------------
-
-Once configured, building should be very easy.  Simply execute the
-following commands at your Linux, MacOS X or Solaris command prompt:
-
-  make
-  make install
-
-Note that you will probably have to perform the make install command
-as the user 'root' on your system if you used the default installation
-directory (/usr/local) or you set --prefix to a system directory that
-only root is permitted to write into.
-
-Finally, on most platforms, you will also need to either run the
-system program 'ldconfig' as user 'root' (consult the man page for
-ldconfig if this is unfamiliar), or else set the environment variable
-LD_LIBRARY_PATH in your terminal shell window.  (On MacOS X, the
-variable is named DYLD_LIBRARY_PATH.)  If you do not do this,
-attempting to link other programs with the libSBML library will fail
-with errors about being unable to find it.
-
-If all went as it should, libSBML should end up compiled and installed
-on your system, in either the default location ('/usr/local/') or in
-the location you indicated during the configuration step as explained
-above.
-
-
-3.3 Additional Options for Configuring LibSBML
-----------------------------------------------
-
-In addition to the --prefix, --with-expat and --with-xerces options
-already described, the libSBML configuration command supports the
-options described below.
-
-
-3.3.1 Interfaces to Java, Lisp, Perl, Python and MATLAB
-.......................................................
-
-libSBML includes language bindings for Java, Perl, Python, Common Lisp
-and MATLAB, enabling you to write Java, Perl, Python, Lisp and MATLAB
-programs that call libSBML methods, and work with libSBML through
-Python's and MATLAB's interactive modes.  Short tutorials for how to
-use these facilities are available in the libSBML documentation.
-
-To enable the library extensions for Java, Python, Lisp and MATLAB,
-you need to supply additional options to configure.  These options are
---with-java, --with-perl, --with-python, --with-lisp, and
---with-matlab.  As with other configure options, these three take an
-optional prefix argument; for example,
-
-  ./configure --with-java="DIR"
-
-If you want to build multiple language bindings for libSBML, combine
-multiple flags together as in the following example:
-
-  ./configure --with-java --with-python
-
-The libSBML distribution ships with certain interface files provided,
-so that you do not need to have the software necessary to recreate
-them.  However, if you obtained the libSBML distribution from CVS or
-want to recreate the files deliberately, you will need SWIG, the
-Simplified Wrapper and Interface Generator.  More information about
-SWIG is available from http://www.swig.org.  At this time, libSBML is
-known to work only with the latest stable version of SWIG (1.3.24);
-earlier versions are known not to work.  To tell configure to enable
-the use of SWIG to regenerate the interface files, use the --with-swig
-option to configure.  If your copy of SWIG is installed in a
-non-standard location, you can specify it on the configure command
-line like this:
-
-  ./configure --with-swig="DIR"
-
-As with Expat and Xerces, the directory '/sw' is what you would
-specify if you were running on MacOS X and you used Fink to install
-SWIG, Python, etc.
-
-
-3.3.2 Unit Testing
-..................
-
-libSBML provides built-in facilities for testing itself.  To run the
-unit tests, a second library is required, libcheck (version 0.9.2 or
-higher).  Check is a very lightweight C unit test framework based on
-the xUnit framework popularized by Kent Beck and eXtreme Programming.
-Check is quite small and once installed, it consists of only two
-files: libcheck.a and check.h.  To download Check, visit:
-
-  http://check.sf.net/
-
-(Note: Debian users can find Check as a standard add-on package (.deb).
-As of 11 Feb. 2007, MacOS X users cannot use Fink's version of check
-because it is an old version, 0.8.x.  LibSBML needs version 0.9.x.)
-
-To enable the unit testing facilities in libSBML, add the --with-check
-flag to the configure command:
-
-  ./configure --with-check
-
-Following this, you must build libSBML and then you can run the tests:
-
-  make
-  make check
-
-The make check step is optional and will build and run an extensive
-suite of unit tests to verify all facets of the library.  These tests
-are meant primarily for developers of libSBML and running them is not
-required for the library to function properly.  All tests should pass
-with no failures or errors.  If for some reason this is not the case
-on your system, please submit a bug report using the facilities at
-http://sbml.org/software/libsbml/.
-
-
---------------------------------------
-4. BUILDING ON WINDOWS WITH VISUAL C++
---------------------------------------
-
-The Windows distributions of libSBML come in the form of both
-precompiled binaries (with a self-extracting installer), and source
-code.  The precompiled binaries come ready-to-use and only need to be
-installed.  The source distribution is a .zip file containing the
-libSBML code that must be extracted in a directory on your system,
-compiled and installed.
-
-As mentioned above, libSBML requires that the Xerces-C or Expat
-XML parsing libraries be available on your computer prior to
-attempting to compile libSBML.  The DLL for xerces or expat must be
-placed in the win32/bin subdirectory of the libSBML directory.
-
-To build libsbml on Windows:
-   
-   1. In Visual Studio 7, open (libsbml)/win32/MSVC7/libsbml.sln.
-
-   2. Select Tools->Options, and select Projects/Directories.
-
-   The screen for indicating which directories contain project-relevant
-   files appears.
-
-   3. At "Show Directories For:", select "Include Files".  Add the
-   following if they're not already shown:
-
-      (libsbml)/include
-      path to Xerces/Expat include files
-
-   4. At "Show Directories For:", select "Library Files".  Add the
-   following it's not already shown:
-
-      (libsbml)/win32/bin
-
-   5. Select Build->Rebuild All from the Visual Studio main menu.
-
-To build libsbml for java/python on Windows:
-
-   1. You will need the additional include directorie:
-   
-     (libsbml)/src/bindings/swig  
-   
-   2. Set the Environmental Variables
-		
-		JAVA_INCLUDE = path to java include files
-	  
-	  or
-	  	
-		PYTHON_INLUDE = path to python include files
-		PYTHON_LIB = path to python library files
-		
-   3. Open the appropriate object file from either the java or python
-      directory under (libsbml)/src/bindings.
-      
-   4. Select Build.
-     
-    
 
 -----------------------------------
-5. THE libsbml-discuss MAILING LIST
+4. THE libsbml-discuss MAILING LIST
 -----------------------------------
 
 Please join the libsbml-discuss mailing list by visiting the URL
@@ -431,7 +252,7 @@ The libsbml-discuss archives are available at http://sbml.org/forums/.
 
 
 ------------------------------------
-6. THE sbml-cvs-libsbml MAILING LIST
+5. THE sbml-cvs-libsbml MAILING LIST
 ------------------------------------
 
 If you are obtaining your libSBML files from CVS, you may wish to
@@ -445,7 +266,7 @@ Thank you for your interest in SBML and libSBML.
 
 
 ------------------------------------
-7. REPORTING BUGS AND OTHER PROBLEMS
+6. REPORTING BUGS AND OTHER PROBLEMS
 ------------------------------------
 
 We invite you to report bugs and other problems using the issue
@@ -460,14 +281,68 @@ experienced the issue and offer a workaround more quickly than the
 libSBML developers can respond.
 
 
+-----------------------------
+7. LICENSING AND DISTRIBUTION
+-----------------------------
+
+Copyright 2005-2007 California Institute of Technology.
+Copyright 2002-2005 California Institute of Technology and the
+                    Japan Science and Technology Agency.
+
+LibSBML is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License as published
+by the Free Software Foundation; either version 2.1 of the License, or
+any later version.
+
+This software is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
+MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
+documentation provided hereunder is on an "as is" basis, and the
+California Institute of Technology and the Japan Science and
+Technology Agency have no obligations to provide maintenance, support,
+updates, enhancements or modifications.  In no event shall the
+California Institute of Technology or the Japan Science and Technology
+Agency be liable to any party for direct, indirect, special,
+incidental or consequential damages, including lost profits, arising
+out of the use of this software and its documentation, even if the
+California Institute of Technology and/or the Japan Science and
+Technology Agency have been advised of the possibility of such damage.
+See the GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library in the file named "LICENSE.txt"
+included with the software distribution.  A copy is also available
+online at the Internet address
+http://sbml.org/software/libsbml/license.html for your convenience.
+You may also write to obtain a copy from the Free Software Foundation,
+Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
 
 
--------------------------------------------
-File author: B. Bornstein, M. Hucka
+------------------
+8. ACKNOWLEDGMENTS
+------------------
+
+This and other projects of the SBML Team have been supported by the
+following organizations: the National Institutes of Health (USA) under
+grants R01 GM070923 and R01 GM077671; the International Joint Research
+Program of NEDO (Japan); the JST ERATO-SORST Program (Japan); the
+Japanese Ministry of Agriculture; the Japanese Ministry of Education,
+Culture, Sports, Science and Technology; the BBSRC e-Science
+Initiative (UK); the DARPA IPTO Bio-Computation Program (USA); the
+Army Research Office's Institute for Collaborative Biotechnologies
+(USA); the Air Force Office of Scientific Research (USA); the
+California Institute of Technology (USA); the University of
+Hertfordshire (UK); the Molecular Sciences Institute (USA); the
+Systems Biology Institute (Japan); and Keio University (Japan).
+
+
+
+-----------------------------------------------
+File author: M. Hucka, B. Bornstein, S. Keating
 Last Modified: $Date$
 Last Modified By: $Author$
 $Source$
--------------------------------------------
+-----------------------------------------------
 
 # The following is for [X]Emacs users.  Please leave in place.
 # Local Variables:
