@@ -53,7 +53,7 @@ def reformatDocString (match):
   # every method documentation string is the signature of the method.
   # The \A at the beginning of the regexp forces it that way.
 
-  sigRE = '\A(\s*)((\w+\([\w()=:"<>?, ]*\)( -> [\w()=:"<>?|, \t]+)?\s*)+)'
+  sigRE = '\A(\s*)((\w+\([\w()=:"<>?,. ]*\)( -> [\w()=:"<>?|, \t]+)?\s*)+)'
 
   # This matches when the signatures are the only thing in a docstring.
   p = re.compile(sigRE + '\Z', re.MULTILINE)
