@@ -357,7 +357,7 @@ def sanitizeForHTML (docstring):
   docstring = re.sub('@em *([^ ,.:;()/*\n\t]+)', r'<em>\1</em>', docstring)
   docstring = re.sub('@em(\n[ \t]*\*[ \t]*)([^ ,.:;()/*\n\t]+)', r'\1<em>\2</em>', docstring)
 
-  docstring = docstring.replace('@li', '<li>')
+  docstring = re.sub(r'@li\b', '<li>', docstring)
 
   docstring = re.sub(r'\s*\Z', '\n', docstring)
 
