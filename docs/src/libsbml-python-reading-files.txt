@@ -1,0 +1,183 @@
+/** @page libsbml-python-reading-files Reading and writing SBML content from your software
+
+This section summarizes how to read and write SBML content using the
+facilities provided by the libSBML Python API.
+
+@section rf-started Getting started: the 1-minute introduction
+
+In LibSBML, the class libsbml::SBMLDocument is used as a top-level
+container for storing SBML content and data associated with it (such as
+warnings and error messages).  Here is a simple example to start this
+discussion, using Python in interactive mode:
+@verbatim
+>>> from libsbml import *
+>>> reader = SBMLReader()
+>>> document = reader.readSBML("examples/sample-models/from-spec/level-2/enzymekinetics.xml")
+>>> document.getNumErrors()
+0
+>>>
+@endverbatim
+
+The code above illustrates probably the simplest possible use of libsbml:
+reading a model and printing any errors encountered.  The code begins with
+a Python <code>import</code> command to load the libSBML API into the
+running Python interpreter.  Next, it instantiates an libsbml::SBMLReader
+object and stores it in a variable called <code>reader</code>.  Then, it
+uses this object to read an SBML model stored in a file, creating an
+libsbml::SBMLDocument object in the process and storing it in the variable
+<code>document</code>.  Finally, it calls on the
+libsbml::SBMLDocument::getNumErrors() method to check if any errors were
+encountered.
+
+
+@section rf-reading Reading SBML
+
+As shown in the example above, SBML may be read from a file or an in-memory
+character string into a libsbml::SBMLDocument object.  LibSBML defines two
+basic, global functions for reading SBML:
+
+@li <code>libsbml::SBMLDocument libsbml::readSBML(string filename)</code>.
+This function takes a file name, attempts to read an SBML document from the
+file, and returns a libsbml::SBMLDocument object if successful.
+
+@li <code>libsbml::SBMLDocument libsbml::readSBMLFromString(string
+xml)</code>.  This function takes a string assumed to contain XML content,
+attempts to read an SBML document from the string, and returns a
+libsbml::SBMLDocument object if successful.
+
+The model may be either in SBML Level&nbsp;1 or SBML Level&nbsp;2 format.
+LibSBML implements an unified object model for SBML that encompasses both
+Level&nbsp;1 and Level&nbsp;2, so applications generally do not need to
+worry about differences in syntax between these definitions of SBML when
+reading and writing models.  (However, applications still need to be
+concerned about the @em constructs used and how they are interpreted, since
+there are substantial differences between SBML Level&nbsp;1 and
+Level&nbsp;2!)
+
+
+@section rf-sbmldocument The libsbml::SBMLDocument container
+
+As might be deduced from the examples so far, an libsbml::SBMLDocument
+object in libSBML represents a whole SBML model and its associated data.
+The libsbml::SBMLDocument class corresponds roughly to the class
+<i>Sbml</i> defined in the SBML Level&nbsp;2 specification, but it does not
+have a direct correspondence in SBML Level&nbsp;1.  (But, it is created by
+libSBML no matter whether the model is Level&nbsp;1 or Level&nbsp;2.)
+
+libsbml::SBMLDocument is derived from libsbml::SBase, so that it contains
+the usual libsbml::SBase attributes (in SBML Level&nbsp;2 Version&nbsp;3)
+of "metaid" and "sboTerm", as well as the subelements "notes" and
+"annotation".  It also contains the attributes "level" and "version"
+indicating the Level and Version of the SBML read.  libsbml::SBase (and
+thus its subclasses such as libsbml::SBMLDocument) provides methods for
+querying this information:
+
+@li <code>int libsbml::SBMLDocument::getLevel()</code> returns the SBML
+Level of the model.
+
+@li <code>int libsbml::SBMLDocument::getVersion()</code> returns the SBML
+Version within the Level of the model.
+
+Of course, the whole point of reading an SBML file or data stream is to get
+at the SBML model it contains.  The following method allows access to the
+Model object within an SBML document:
+
+@li <code>libsbml::SBMLDocument::getModel()</code> returns a libsbml::Model
+object for the SBML model contained in the libsbml::SBMLDocument.
+
+Here is an example of using this:
+@verbatim
+>>> from libsbml import *
+>>> reader = SBMLReader()
+>>> document = reader.readSBML("examples/sample-models/from-spec/level-2/enzymekinetics.xml")
+>>> model = document.getModel()
+>>> model.getNumSpecies()
+4
+>>> 
+@endverbatim
+
+libsbml::SBMLDocument also acts to log any problems encountered while
+reading the model from the file or data stream.  Whether the problems are
+warnings or errors, they are reported through a single common interface
+involving the object class SBMLError.  The example earlier on this page
+already showed some of the methods available for accessing errors and
+warnings; here is a slightly more complete list:
+
+@li <code>int SBMLDocument::getNumErrors()</code> returns a count of the
+diagnostic messages logged during while attempting to read an SBML model
+using either libsbml::readSBML(filename) or
+libsbml::readFromString(string).
+
+@li <code>libsbml::SBMLError libsbml::SBMLDocument::getError(int n)</code>
+returns the error indexed by integer @c n in the error log.  The
+libsbml::SBMLError object class provides methods for displaying an error
+message, assessing the severity of the problem encountered, and for finding
+out the line and column number of where the problem occurred in the SBML
+input.
+
+@li <code>libsbml::SBMLDocument::printErrors()</code> prints to standard
+output all of the errors and diagnostics logged with the given
+libsbml::SBMLDocument().
+
+@li <code>libsbml::SBMLDocument::printErrors(ostream stream)</code> is
+identical to the method above, but prints all of the diagnostics to the
+given output stream instead of the terminal.
+
+Finally, another set of libsbml::SBMLDocument methods worth mentioning in
+the context of reading SBML are those for running consistency-checking and
+validation rules on the SBML content.  These methods assess whether the
+SBML is legal according to basic rules listed in the SBML Level&nbsp;2
+Version&nbsp;2 and Version&nbsp;3 specification documents.  Note that they
+are mostly structural checks, in the sense that they can indicate whether
+the SBML is properly constructed; they cannot tell if a model is nonsense.
+(But at least they can assess whether it's syntactically correct
+nonsense!).
+
+@li <code>int libsbml::SBMLDocument::checkConsistency()</code> performs a
+set of structural and mathematical checks on the SBML content and reports
+the number of failed checks (errors) encountered.  Use the
+libsbml::SBMLDocument::getNumErrors() and
+libsbml::SBMLDocument::getError(int n) interfaces to examine the individual
+errors.
+
+@li <code>int libsbml::SBMLDocument::checkL1Compatibility()</code> peforms
+a set of semantic consistency checks on the document to establish whether
+it can be converted to SBML Level&nbsp;1, and returns the number of
+failures.  If all the checks succeed, it returns 0.
+
+@li <code>int libsbml::SBMLDocument::checkL2v1Compatibility()</code>
+peforms a set of semantic consistency checks on the document to establish
+whether it can be converted to SBML Level&nbsp;2 Version 1, and returns the
+number of failures.  If all the checks succeed, it returns 0.
+
+@li <code>int libsbml::SBMLDocument::checkL2v2Compatibility()</code>
+peforms a set of semantic consistency checks on the document to establish
+whether it can be converted to SBML Level&nbsp;2 Version&nbsp;2, and
+returns the number of failures.  If all the checks succeed, it returns 0.
+
+At the time of this writing, the most recent release of SBML is
+Level&nbsp;2 Version&nbsp;3, which is why the compatibility checks above
+only refer to Level&nbsp;2 Version&nbsp;2 at the most.
+
+
+@section rf-writing Writing SBML
+
+Writing SBML is, in the end, a very simple matter in libSBML.  The library
+provides the following two global functions for this purposes:
+
+@li <code>int libsbml::writeSBML(SBMLDocument d, string filename)</code>
+writes the given SBML document to a file, and returns either @c 1 on
+success or @c 0 on failure.  Reasons for failure can be, for example, that
+the named file could not be opened for writing.
+
+@li <code>int libsbml::writeSBML(SBMLDocument d, ostream stream)</code>
+writes the given SBML document to an <code>ostream</code> output stream,
+and returns either @c 1 on success or @c 0 on failure.
+
+@li <code>string libsbml::writeSBMLToString(SBMLDocument d)</code> returns
+the given SBML document as a character string, or returns an empty string
+if a failure occurred.
+
+
+
+*/
