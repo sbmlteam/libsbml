@@ -87,3 +87,8 @@ INPUT = \
 # to standard output.
 
 INPUT_FILTER           = ./pythondocfilter.py
+
+# Because of the way the proxies are done, @param never works properly.
+# So don't bother telling us.
+
+WARN_IF_DOC_ERROR      = NO
