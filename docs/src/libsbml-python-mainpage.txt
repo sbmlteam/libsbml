@@ -20,6 +20,7 @@ http://sbml.org/software/libsbml/issue-tracker</a>.
 - @subpage libsbml-communications
 
 @section main-programming Programming with libSBML
+- @subpage libsbml-python-reading-files
 - @subpage libsbml-issues
 
 @section main-other Other topics
