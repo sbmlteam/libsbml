@@ -26,9 +26,8 @@
  *
  * LibSBML uses the class SBMLDocument as a top-level container for storing
  * SBML content and data associated with it (such as warnings and error
- * messages).  The two primary means of reading an SBML model, @link
- * readSBML(const char *filename) readSBML() @endlink and @link
- * readSBMLFromString(const char *xml) readSBMLFromString() @endlink, both
+ * messages).  The two primary means of reading an SBML model, 
+ * SBMLReader::readSBML() and SBMLReader::readSBMLFromString(), both
  * return a pointer to an SBMLDocument object.  From there, callers can
  * inquire about any errors encountered (e.g., using
  * SBMLDocument::getNumErrors()), access the Model object, and perform
@@ -142,8 +141,8 @@ public:
    * is written out, <em>or</em> the method setLevelAndVersion() is called.
    * This may be important to keep in mind if an application needs to add
    * additional XML namespace declarations on the <code>&lt;sbml&gt;</code>
-   * element.  Application writers should either provide values for @param
-   * level and @param version on the call to this constructor, or else call
+   * element.  Application writers should either provide values for @p
+   * level and @p version on the call to this constructor, or else call
    * setLevelAndVersion() shortly after creating the SBMLDocument object.
    *
    * @param level an integer for the SBML Level
