@@ -400,11 +400,15 @@ def sanitizeForPython (docstring):
 
   Performs some mimimal Python specific sanitizations on the
   C++/Doxygen docstring.
+
+  Note: this is not the only processing performed for the Python
+  documentation.  In docs/src, the doxygen-based code has an additional,
+  more elaborate filter that processes the output of *this* filter.
   """
 
   docstring = docstring.replace('/**', '').replace('*/', '')
-  p = re.compile('^(\s*)\*[ \t]*', re.MULTILINE)
-  docstring = p.sub(r'', docstring)
+  p = re.compile('^(\s*)\*([ \t]*)', re.MULTILINE)
+  docstring = p.sub(r'\2', docstring)
 
   # Need to escape the quotation marks:
   docstring = docstring.replace('"', "'")
