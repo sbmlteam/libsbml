@@ -373,7 +373,21 @@ def sanitizeForJava (docstring):
 
   docstring = sanitizeForHTML(docstring)
 
+  # The pound sign is used to separate members from classes:
+
+  docstring = docstring.replace(r'::', '.')
+
+  # Try to rewrite some of the data type references to equivalent Java types.
+
+  docstring = docstring.replace(r'const char *', 'string ')
+
+  # The syntax for @link is vastly different.
+  
+  p = re.compile('@link([\s/*]+[\w\s,.:#()*]+[\s/*]+[\w():#]+[\s/*]+)@endlink', re.DOTALL)
+  docstring = p.sub(r'{@link \1}', docstring)
+
   # Need to escape the quotation marks:
+
   docstring = docstring.replace('"', "'")
   docstring = docstring.replace(r"'", r"\'")
 
