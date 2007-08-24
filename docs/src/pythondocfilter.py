@@ -46,13 +46,14 @@ def reformatDocString (match):
   sEnd   = '</pre>'
 
   # Regexp for one or more signatures of the form
+  #    foo() -> result(arg, arg, ...)
   #    foo(arg, arg, ...) -> result(arg, arg, ...)
   #    bar(arg, arg ...) -> result(arg, arg, ...)
   # This relies on the fact that the first line(s) (up to a blank line) in
   # every method documentation string is the signature of the method.
   # The \A at the beginning of the regexp forces it that way.
 
-  sigRE = '\A(\s*)((\w+\([\w()=:"<>?, ]+\)( -> [\w()=:"<>?|, \t]+)?\s*)+)'
+  sigRE = '\A(\s*)((\w+\([\w()=:"<>?, ]*\)( -> [\w()=:"<>?|, \t]+)?\s*)+)'
 
   # This matches when the signatures are the only thing in a docstring.
   p = re.compile(sigRE + '\Z', re.MULTILINE)
