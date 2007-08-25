@@ -394,6 +394,10 @@ EXCLUDE =                            \
   ../../src/xml/LibXMLParser.cpp     \
   ../../src/xml/XercesTranscode.h    \
   ../../src/xml/LibXMLTranscode.h    \
+  ../../src/xml/XMLInputStream.cpp   \
+  ../../src/xml/XMLInputStream.h     \
+  ../../src/xml/XMLOutputStream.cpp  \
+  ../../src/xml/XMLOutputStream.h    \
   ../../src/xml/XMLBuffer.cpp        \
   ../../src/xml/XMLBuffer.h          \
   ../../src/xml/XMLFileBuffer.cpp    \
