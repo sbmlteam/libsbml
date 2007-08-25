@@ -142,6 +142,7 @@ distfiles =                                    \
         libsbml-mainpage.txt                   \
         libsbml-math.txt                       \
         libsbml-python-mainpage.txt            \
+        libsbml-python-reading-files.txt       \
         libsbml-reading-files.txt              \
         python.txt                             \
         pythondocfilter.py                     \
