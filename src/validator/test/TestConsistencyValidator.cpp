@@ -297,15 +297,15 @@ main (int argc, char* argv[])
 		      "test-data", 20000, 29999, runMainTest, library);
 
   failed += runTests( "Testing L1 Compatibility Constraints (90000 - 91999)",
-		      "test-data-l2-l1-conversion", 90000, 91999, runL1Test, library);
+		      "test-data-conversion", 90000, 91999, runL1Test, library);
 
   failed += runTests( "Testing L2v1 Compatibility Constraints (92000 - 92999)",
-		      "test-data-l2-l1-conversion", 92000, 92999, runL2v1Test, library);
+		      "test-data-conversion", 92000, 92999, runL2v1Test, library);
 
   failed += runTests("Testing L2v2 Compatibility Constraints (93000 - 93999)",
-		     "test-data-l2-l1-conversion", 93000, 93999, runL2v2Test, library);
+		     "test-data-conversion", 93000, 93999, runL2v2Test, library);
 
-  failed += runTests("Testing L2v2 Compatibility Constraints (94000 - 94999)",
+  failed += runTests("Testing L2v3 Compatibility Constraints (94000 - 94999)",
 		     "test-data-conversion", 94000, 94999, runL2v3Test, library);
 
   return failed;
