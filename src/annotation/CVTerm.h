@@ -5,8 +5,8 @@
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2003 California Institute of Technology and Japan Science and
+ *
+ *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
@@ -20,11 +20,30 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  *------------------------------------------------------------------------- -->
- * 
- * @class CVTerm.
- * @brief LibSBML implementation of a CVTerm construct.
  *
- * A <em>CV term</em> is
+ * @class CVTerm.
+ * @brief Object class for representing a controlled vocabulary annotation.
+ *
+ * CVTerm is a libSBML construct used as part of the libSBML support for
+ * annotations conforming to the guidelines specified by MIRIAM ("Minimum
+ * Information Requested in the Annotation of biochemical Models").  The
+ * general scheme is as follows.  A set of RDF-based annotations attached
+ * to a given SBML <code>&lt;annotation&gt;</code> element are read by
+ * RDFAnnotationParser and converted into a list of CVTerm objects.  Each
+ * CVTerm object instance stores the following components of an annotation:
+ * 
+ * <ul>
+ * <li>The qualifier, which can be a MIRIAM "biological qualifier", a
+ * "model qualifier", or an unknown qualifier (as far as the CVTerm class
+ * is concerned).  Qualifiers are used in MIRIAM to indicate the nature of
+ * the relationship between the object being annotated and the resource.
+ * In CVTerm, the qualifiers can be manipulated using the methods
+ * getQualifierType(), setQualifierType(), and related methods.
+ * 
+ * <li>The resource, represent by a URI (note: not a URL).  In CVTerm, the
+ * resource component can be manipulated using the methods addResource()
+ * and removeResource().
+ * </ul>
  */
 
 #ifndef CVTerm_h
@@ -89,6 +108,7 @@ public:
    */
   CVTerm(QualifierType_t type = UNKNOWN_QUALIFIER);
 
+
   /**
    * Create a new CVTerm from the given XMLNode.
    *
@@ -104,10 +124,12 @@ public:
    */
   CVTerm(const XMLNode node);
 
+
   /**
    * Destroys this CVTerm.
    */
   ~CVTerm();
+
 
   /**
    * Copy constructor; creates a copy of a CVTerm.
@@ -130,12 +152,14 @@ public:
    */  
   CVTerm* clone() const; 
 
+
   /**
    * Returns the Qualifier Type code for this %CVTerm.
    * 
    * @return the QualifierType_t of this object or UNKNOWN_QUALIFIER (default).
    */
   QualifierType_t getQualifierType();
+
 
   /**
    * Returns the Model QualifierType code for this %CVTerm.
@@ -144,6 +168,7 @@ public:
    */
   ModelQualifierType_t getModelQualifierType();
 
+
   /**
    * Returns the Biological QualifierType code for this %CVTerm.
    * 
@@ -151,12 +176,14 @@ public:
    */
   BiolQualifierType_t getBiologicalQualifierType();
 
+
   /**
    * Returns the resources for this %CVTerm.
    * 
    * @return the XMLAttributes that store the resources of this %CVTerm.
    */
   XMLAttributes * getResources(); 
+
   
   /**
    * Returns the resources for this %CVTerm.
@@ -164,6 +191,7 @@ public:
    * @return the XMLAttributes that store the resources of this %CVTerm.
    */
   const XMLAttributes * getResources() const; 
+
   
   /**
    * Sets the "QualifierType_t" of this %CVTerm.
@@ -171,6 +199,7 @@ public:
    * @param type the QualifierType_t 
    */
   void setQualifierType(QualifierType_t type);
+
 
   /**
    * Sets the "ModelQualifierType_t" of this %CVTerm.
@@ -182,6 +211,7 @@ public:
    */
   void setModelQualifierType(ModelQualifierType_t type);
 
+
   /**
    * Sets the "BiolQualifierType_t" of this %CVTerm.
    *
@@ -192,22 +222,24 @@ public:
    */
   void setBiologicalQualifierType(BiolQualifierType_t type);
 
+
   /**
    * Adds a resource to the CVTerm.
    *
-   * @param resource string representing the resource 
-   * e.g. http://www.geneontology.org/#GO:0005892
+   * @param resource string representing the resource; e.g.,
+   * "http://www.geneontology.org/#GO:0005892"
    *
    * @note this method adds the name "rdf:resource" to the attribute prior
    * to adding it to the resources in this CVTerm.
    */
   void addResource(std::string resource);
 
+
   /**
    * Removes a resource from the CVTerm.
    *
-   * @param resource string representing the resource 
-   * e.g. http://www.geneontology.org/#GO:0005892
+   * @param resource string representing the resource; e.g.,
+   * "http://www.geneontology.org/#GO:0005892"
    */
   void removeResource(std::string resource);
 
@@ -229,93 +261,70 @@ protected:
 
 BEGIN_C_DECLS
 
-/**
- *
- */
+/*-----------------------------------------------------------------------------
+ * See the .cpp file for the documentation of the following functions.
+ *---------------------------------------------------------------------------*/
+
 LIBSBML_EXTERN
 CVTerm_t*
 CVTerm_createWithQualifierType(QualifierType_t type);
 
-/**
- * 
- */
+
 LIBSBML_EXTERN
 CVTerm_t*
 CVTerm_createFromNode(const XMLNode_t *);
 
-/**
- *
- */
+
 LIBSBML_EXTERN
 void
 CVTerm_free(CVTerm_t *);
+
 
 LIBSBML_EXTERN
 CVTerm_t *
 CVTerm_clone (const CVTerm_t* c);
 
 
-/**
- * gets the Qualifier type
- */
 LIBSBML_EXTERN
 QualifierType_t 
 CVTerm_getQualifierType(CVTerm_t *);
 
-/**
-  * gets the Model Qualifier type
-  */
+
 LIBSBML_EXTERN
 ModelQualifierType_t 
 CVTerm_getModelQualifierType(CVTerm_t *);
 
-/**
-  * gets the biological Qualifier type
-  */
+
 LIBSBML_EXTERN
 BiolQualifierType_t 
 CVTerm_getBiologicalQualifierType(CVTerm_t *);
 
-/**
-* gets the resources
-*/
+
 LIBSBML_EXTERN
 XMLAttributes_t * 
 CVTerm_getResources(CVTerm_t *); 
 
-/**
-  * set the qualifier type
-  */
+
 LIBSBML_EXTERN
 void 
 CVTerm_setQualifierType(CVTerm_t * CVT, QualifierType_t type);
 
-/**
-  * set the model qualifier type
-  * this should be consistent with the mQualifier == MODEL_QUALIFIER
-  */
+
 LIBSBML_EXTERN
 void 
 CVTerm_setModelQualifierType(CVTerm_t * CVT, ModelQualifierType_t type);
 
-/**
-  * set the biological qualifier type
-  * this should be consistent with the mQualifier == BIOLOGICAL_QUALIFIER
-  */
+
 LIBSBML_EXTERN
 void 
 CVTerm_setBiologicalQualifierType(CVTerm_t * CVT, BiolQualifierType_t type);
 
-/**
-  * adds a resource to the term
-  */
+
 LIBSBML_EXTERN
 void 
 CVTerm_addResource(CVTerm_t * CVT, const char * resource);
 
-/**
-  * remove a resource to the term
-  */
+
 LIBSBML_EXTERN
 void 
 CVTerm_removeResource(CVTerm_t * CVT, const char * resource);
