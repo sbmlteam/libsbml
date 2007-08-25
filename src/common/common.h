@@ -59,6 +59,8 @@
  */
 #define LIBSBML_FLOAT_FORMAT "%.15g"
 
+#define LIBSBML_DOUBLE_PRECISION 15
+
 
 #include <sbml/common/extern.h>
 #include <sbml/util/memory.h>

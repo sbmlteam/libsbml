@@ -29,6 +29,8 @@
 
 #include <sbml/util/util.h>
 
+#include <sbml/common/common.h>
+
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/MathML.h>
 
@@ -736,7 +738,7 @@ writeDouble (const double& value, XMLOutputStream& stream)
 {
   ostringstream output;
 
-  output.precision(15);
+  output.precision(LIBSBML_DOUBLE_PRECISION);
   output << value;
 
   string            value_string = output.str();
@@ -771,7 +773,7 @@ writeENotation (  const double&    mantissa
 {
   ostringstream output;
 
-  output.precision(15);
+  output.precision(LIBSBML_DOUBLE_PRECISION);
   output << mantissa;
 
   const string      value_string = output.str();

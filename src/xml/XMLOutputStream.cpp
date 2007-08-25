@@ -29,6 +29,7 @@
 #include <sbml/xml/XMLTriple.h>
 #include <sbml/xml/XMLOutputStream.h>
 #include <sbml/util/util.h>
+#include <sbml/common/common.h>
 
 /** @cond doxygen-ignored */
 
@@ -509,7 +510,7 @@ XMLOutputStream::writeValue (const double& value)
   }
   else
   {
-    mStream.precision(15);
+    mStream.precision(LIBSBML_DOUBLE_PRECISION);
     mStream <<   value;
   }
 
