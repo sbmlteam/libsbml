@@ -28,8 +28,10 @@
 #include <sstream>
 
 #include <sbml/xml/XMLErrorLog.h>
-#include <sbml/xml/XMLOutputStream.h>
 #include <sbml/xml/XMLAttributes.h>
+/** @cond doxygen-libsbml-internal */
+#include <sbml/xml/XMLOutputStream.h>
+/** @endcond doxygen-libsbml-internal */
 
 /** @cond doxygen-ignored */
 
@@ -557,6 +559,7 @@ XMLAttributes::readInto (  const std::string& name
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Writes this XMLAttributes set to stream.
  */
@@ -575,6 +578,7 @@ XMLAttributes::write (XMLOutputStream& stream) const
     }
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -662,6 +666,7 @@ XMLAttributes::setErrorLog (XMLErrorLog* log)
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Inserts this XMLAttributes set into stream.
  */
@@ -672,7 +677,7 @@ operator<< (XMLOutputStream& stream, const XMLAttributes& attributes)
   attributes.write(stream);
   return stream;
 }
-
+/** @endcond doxygen-libsbml-internal */
 
 
 /** @cond doxygen-c-only */

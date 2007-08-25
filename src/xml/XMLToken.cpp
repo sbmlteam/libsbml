@@ -23,7 +23,9 @@
 
 #include <sstream>
 
+/** @cond doxygen-libsbml-internal */
 #include <sbml/xml/XMLOutputStream.h>
+/** @endcond doxygen-libsbml-internal */
 #include <sbml/xml/XMLToken.h>
 
 /** @cond doxygen-ignored */
@@ -393,6 +395,7 @@ XMLToken::setEOF ()
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Writes this XMLToken to stream.
  */
@@ -411,6 +414,7 @@ XMLToken::write (XMLOutputStream& stream) const
   if ( isStart() ) stream << mNamespaces << mAttributes;
   if ( isEnd()   ) stream.endElement( mTriple );
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -441,6 +445,7 @@ XMLToken::toString ()
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Inserts this XMLToken into stream.
  */
@@ -451,6 +456,7 @@ operator<< (XMLOutputStream& stream, const XMLToken& token)
   token.write(stream);
   return stream;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /** @cond doxygen-c-only */

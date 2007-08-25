@@ -30,8 +30,10 @@
 
 #include <sbml/xml/XMLExtern.h>
 #include <sbml/xml/XMLAttributes.h>
+/** @cond doxygen-libsbml-internal */
 #include <sbml/xml/XMLNamespaces.h>
 #include <sbml/xml/XMLOutputStream.h>
+/** @endcond doxygen-libsbml-internal */
 #include <sbml/xml/XMLToken.h>
 #include <sbml/common/sbmlfwd.h>
 
@@ -41,8 +43,9 @@
 #include <string>
 
 
-
+/** @cond doxygen-libsbml-internal */
 class XMLOutputStream;
+/** @endcond doxygen-libsbml-internal */
 
 
 class LIBLAX_EXTERN XMLToken
@@ -285,6 +288,9 @@ public:
    * Declares this XML start/end element is no longer an end element.
    */
   void unsetEnd ();
+
+
+  /** @cond doxygen-libsbml-internal */
   /**
    * Writes this XMLToken to stream.
    *
@@ -292,7 +298,7 @@ public:
    * is to be written.
    */
   void write (XMLOutputStream& stream) const;
-
+  /** @endcond doxygen-libsbml-internal */
 
   /**
    * Prints a string representation of the underlying token stream, for
@@ -302,6 +308,8 @@ public:
 
 
 #ifndef SWIG
+
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Inserts this XMLToken into stream.
@@ -315,6 +323,8 @@ public:
   LIBLAX_EXTERN
   friend
   XMLOutputStream& operator<< (XMLOutputStream& stream, const XMLToken& token);
+
+  /** @endcond doxygen-libsbml-internal */
 
 #endif  /* !SWIG */
 

@@ -42,7 +42,9 @@
 
 
 class XMLErrorLog;
+/** @cond doxygen-libsbml-internal */
 class XMLOutputStream;
+/** @endcond doxygen-libsbml-internal */
 
 
 class LIBLAX_EXTERN XMLAttributes
@@ -367,6 +369,7 @@ public:
                  , bool                required = false ) const;
 
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Writes this XMLAttributes set to stream.
    *
@@ -374,6 +377,7 @@ public:
    * set is to be written.
    */
   void write (XMLOutputStream& stream) const;
+  /** @endcond doxygen-libsbml-internal */
 
 
   /**
@@ -387,6 +391,7 @@ public:
 
 #ifndef SWIG
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Inserts this XMLAttributes set into stream.
    *
@@ -399,6 +404,7 @@ public:
   LIBLAX_EXTERN
   friend XMLOutputStream&
   operator<< (XMLOutputStream& stream, const XMLAttributes& attributes);
+  /** @endcond doxygen-libsbml-internal */
 
 #endif  /* !SWIG */
 

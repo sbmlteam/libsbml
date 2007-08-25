@@ -37,7 +37,9 @@
 #include <string>
 #include <vector>
 
+/** @cond doxygen-libsbml-internal */
 class XMLOutputStream;
+/** @endcond doxygen-libsbml-internal */
 
 
 class LIBLAX_EXTERN XMLNamespaces
@@ -175,6 +177,8 @@ public:
 
 #ifndef SWIG
 
+  /** @cond doxygen-libsbml-internal */
+
   /**
    * Writes this XMLNamespaces set to stream.
    *
@@ -196,6 +200,8 @@ public:
   LIBLAX_EXTERN
   friend XMLOutputStream&
   operator<< (XMLOutputStream& stream, const XMLNamespaces& namespaces);
+
+  /** @endcond doxygen-libsbml-internal */
 
 #endif  /* !SWIG */
 

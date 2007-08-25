@@ -21,9 +21,11 @@
  * also available online as http://sbml.org/software/libsbml/license.html
  *----------------------------------------------------------------------- -->*/
 
+/** @cond doxygen-libsbml-internal */
 #include <sbml/xml/XMLOutputStream.h>
-#include <sbml/xml/XMLTriple.h>
+/** @endcond doxygen-libsbml-internal */
 
+#include <sbml/xml/XMLTriple.h>
 #include <sbml/xml/XMLNamespaces.h>
 
 
@@ -214,6 +216,7 @@ XMLNamespaces::removeDefault ()
 
 #ifndef SWIG
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Writes the XML namespace declarations to stream.
  */
@@ -233,8 +236,10 @@ XMLNamespaces::write (XMLOutputStream& stream) const
     }
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Inserts this XML namespace declarations into stream.
  */
@@ -245,6 +250,7 @@ operator<< (XMLOutputStream& stream, const XMLNamespaces& namespaces)
   namespaces.write(stream);
   return stream;
 }
+/** @endcond doxygen-libsbml-internal */
 
 #endif  /* !SWIG */
 

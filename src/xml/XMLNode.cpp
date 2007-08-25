@@ -26,8 +26,10 @@
 #include <sbml/util/memory.h>
 #include <sbml/util/util.h>
 
+/** @cond doxygen-libsbml-internal */
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
+/** @endcond doxygen-libsbml-internal */
 
 #include <sbml/xml/XMLNode.h>
 
@@ -77,6 +79,7 @@ XMLNode::XMLNode (const XMLToken& token) : XMLToken(token)
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Creates a new XMLNode by reading XMLTokens from stream.  The stream must
  * be positioned on a start element (stream.peek().isStart() == true) and
@@ -112,6 +115,7 @@ XMLNode::XMLNode (XMLInputStream& stream) : XMLToken( stream.next() )
     }
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -184,6 +188,7 @@ XMLNode::getNumChildren () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Writes this XMLNode and its children to stream.
  */
@@ -205,6 +210,7 @@ XMLNode::write (XMLOutputStream& stream) const
   }
 
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -271,6 +277,7 @@ XMLNode* XMLNode::convertStringToXMLNode(const std::string& xmlstr, const XMLNam
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Inserts this XMLNode and its children into stream.
  */
@@ -280,6 +287,7 @@ XMLOutputStream& operator<< (XMLOutputStream& stream, const XMLNode& node)
   node.write(stream);
   return stream;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /** @cond doxygen-c-only */
