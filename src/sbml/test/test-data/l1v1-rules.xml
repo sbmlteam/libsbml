@@ -19,12 +19,13 @@
       <parameter name="k4" value="4.5"/>
       <parameter name="k"  value="1.5"/>
       <parameter name="t"  value="1.5"/>
+      <parameter name="p" value="1"/>
    </listOfParameters>
     <listOfRules>
       <parameterRule name="t" formula="s1 + s2"/>
       <parameterRule name="k" formula="k3/k2"/>
       <specieConcentrationRule specie="x2" formula="k * (s1+s2)/(1 + k)"/>
-      <specieConcentrationRule specie="x3" formula="t - s2"/>
+      <specieConcentrationRule specie="x3" formula="p*(t - s2)"/>
     </listOfRules>
     <listOfReactions>
       <reaction name="j1">
