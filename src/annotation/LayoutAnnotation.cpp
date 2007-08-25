@@ -24,7 +24,6 @@
 
 #include <sbml/xml/XMLToken.h>
 #include <sbml/xml/XMLNode.h>
-#include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLErrorLog.h>
 
 #include <sbml/SBase.h>
