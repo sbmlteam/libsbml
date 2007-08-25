@@ -20,6 +20,24 @@
  * in the file named "LICENSE.txt" included with this software distribution and
  * also available online as http://sbml.org/software/libsbml/license.html
  *----------------------------------------------------------------------- -->
+ *
+ * @class XMLNode
+ * @brief Representation of a node in an XML document tree.
+ * 
+ * Beginning with version 3.0.0, libSBML implements an XML abstraction
+ * layer.  This layer presents a uniform XML interface to calling programs
+ * regardless of which underlying XML parser libSBML has actually been
+ * configured to use.  The basic data object in the XML abstraction is a
+ * @em node, represented by XMLNode.
+ *
+ * An XMLNode can contain any number of children.  Each child is another
+ * XMLNode, forming a tree.  The methods getNumChildren() and getChild()
+ * can be used to access the tree structure starting from a given node.
+ *
+ * Each XMLNode is subclassed from XMLToken, and thus has the same methods
+ * available as XMLToken.  These methods include XMLToken::getNamespaces(),
+ * XMLToken::getPrefix(), XMLToken::getName(), XMLToken::getURI(), and
+ * XMLToken::getAttributes().
  */
 
 #ifndef XMLNode_h
@@ -35,20 +53,12 @@
 #include <vector>
 
 
+/** @cond doxygen-libsbml-internal */
 class XMLInputStream;
 class XMLOutputStream;
+/** @endcond doxygen-libsbml-internal */
 
 
-/**
- * Objects of type XMLNode represent a node in an XML document tree.
- * 
- * Beginning with version 3.0.0, libSBML implements an XML abstraction
- * layer; this layer presents a uniform XML interface to calling programs
- * regardless of which underlying XML parser libSBML has actually been
- * configured to use.  The basic data object in the XML abstraction is a
- * @em node, represented by XMLNode.  A node can contain other child nodes,
- * forming a tree.  XMLNode is subclassed from XMLToken.
- */
 class LIBLAX_EXTERN XMLNode : public XMLToken
 {
 public:
@@ -67,16 +77,18 @@ public:
   XMLNode (const XMLToken& token);
 
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Creates a new XMLNode by reading XMLTokens from stream.  
    *
-   * The stream must
-   * be positioned on a start element (stream.peek().isStart() == true) and
-   * will be read until the matching end element is found.
+   * The stream must be positioned on a start element
+   * (<code>stream.peek().isStart() == true</code>) and will be read until
+   * the matching end element is found.
    *
    * @param stream XMLInputStream from which XMLNode is to be created.
    */
   XMLNode (XMLInputStream& stream);
+  /** @endcond doxygen-libsbml-internal */
 
 
   /**
@@ -87,6 +99,8 @@ public:
   
   /**
    * Copy constructor; creates a copy of this XMLNode.
+   * 
+   * @param orig the XMLNode instance to copy.
    */
   XMLNode(const XMLNode& orig);
 
@@ -116,6 +130,8 @@ public:
   /**
    * Returns the nth child of this XMLNode.
    *
+   * @param n the index of the node to return
+   * 
    * @return the nth child of this XMLNode.
    */
   const XMLNode& getChild (unsigned int n) const;
@@ -129,6 +145,7 @@ public:
   unsigned int getNumChildren () const;
 
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Writes this XMLNode and its children to stream.
    *
@@ -136,6 +153,8 @@ public:
    * is to be written.
    */
   void write (XMLOutputStream& stream) const;
+  /** @endcond doxygen-libsbml-internal */
+
 
   /**
    * Returns a string which is converted from a given XMLNode. 
@@ -146,8 +165,10 @@ public:
    */
   static std::string convertXMLNodeToString(const XMLNode* node);
 
+
   /**
-   * Returns a XMLNode which is converted from a given string. 
+   * Returns an XMLNode which is converted from a given string containing
+   * XML content.
    *
    * XMLNamespaces (the second argument) must be given if the corresponding 
    * xmlns attribute is not included in the string of the first argument. 
@@ -163,6 +184,7 @@ public:
 
 #ifndef SWIG
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Inserts this XMLNode and its children into stream.
    *
@@ -175,6 +197,7 @@ public:
   LIBLAX_EXTERN
   friend
   XMLOutputStream& operator<< (XMLOutputStream& stream, const XMLNode& node);
+  /** @endcond doxygen-libsbml-internal */
 
 #endif  /* !SWIG */
 
@@ -223,6 +246,7 @@ LIBLAX_EXTERN
 void
 XMLNode_addChild (XMLNode_t *node, const XMLNode_t *child);
 
+
 LIBLAX_EXTERN
 const XMLAttributes_t *
 XMLNode_getAttributes (const XMLNode_t *node);
@@ -231,6 +255,7 @@ XMLNode_getAttributes (const XMLNode_t *node);
 LIBLAX_EXTERN
 const char *
 XMLNode_getCharacters (const XMLNode_t *node);
+
 
 LIBLAX_EXTERN
 const XMLNamespaces_t *
