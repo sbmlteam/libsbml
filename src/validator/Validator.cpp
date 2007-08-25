@@ -638,23 +638,23 @@ Validator::addConstraint (VConstraint* c)
 
 
 /**
- * Clears the Validator's list of messages.
+ * Clears the Validator's list of failures.
  *
  * If you are validating multiple SBML documents with the same Validator,
- * call this method after you have processed the list of messages from the
+ * call this method after you have processed the list of failures from the
  * last Validation run and before validating the next document.
  */
 void
-Validator::clearMessages ()
+Validator::clearFailures ()
 {
-  mMessages.clear();
+  mFailures.clear();
 }
 
 
 /**
  * @return the category covered by this Validator.  A category is a
  * string, similiar in spirit to an XML namespace, which partitions error
- * messages to prevent id conflicts.  Example categories include:
+ * failures to prevent id conflicts.  Example categories include:
  *
  *   http://sbml.org/validator/consistency
  *   http://sbml.org/validator/consistency/units
@@ -668,28 +668,28 @@ Validator::getCategory () const
 
 
 /**
- * @return a list of messages logged during validation.
+ * @return a list of failures logged during validation.
  */
 const std::list<SBMLError>&
-Validator::getMessages () const
+Validator::getFailures () const
 {
-  return mMessages;
+  return mFailures;
 }
 
 
 /**
- * Adds the given message to this list of Validators messages.
+ * Adds the given failure to this list of Validators failures.
  */
 void
-Validator::logMessage (const SBMLError& msg)
+Validator::logFailure (const SBMLError& msg)
 {
-  mMessages.push_back(msg);
+  mFailures.push_back(msg);
 }
 
 
 /**
- * Validates the given SBMLDocument.  Error messages logged during
- * validation may be retrieved via <code>getMessages()</code>.
+ * Validates the given SBMLDocument.  Failures logged during
+ * validation may be retrieved via <code>getFailures()</code>.
  *
  * @return the number of validation errors that occurred.
  */
@@ -712,13 +712,13 @@ Validator::validate (const SBMLDocument& d)
     d.accept(vv);
   }
 
-  return mMessages.size();
+  return mFailures.size();
 }
 
 
 /**
- * Validates the given SBMLDocument.  Error messages logged during
- * validation may be retrieved via <code>getMessages()</code>.
+ * Validates the given SBMLDocument.  Failures logged during
+ * validation may be retrieved via <code>getFailures()</code>.
  *
  * @return the number of validation errors that occurred.
  */
@@ -731,7 +731,7 @@ Validator::validate (const std::string& filename)
 
   for (unsigned int n = 0; n < d.getNumErrors(); ++n)
   {
-    logMessage( *d.getError(n) );
+    logFailure( *d.getError(n) );
   }
 
   return validate(d);

@@ -85,7 +85,7 @@ VConstraint::logFailure (const SBase& object)
 void
 VConstraint::logFailure (const SBase& object, const std::string& message)
 {
-  mValidator.logMessage
+  mValidator.logFailure
     ( SBMLError( mId, object.getLevel(), object.getVersion(),
                message, object.getLine(), object.getColumn(),
                   SBMLError::Error, SBMLError::SBML ));

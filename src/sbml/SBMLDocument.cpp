@@ -504,7 +504,7 @@ SBMLDocument::checkConsistency ()
     nerrors += id_validator.validate(*this);
     if (nerrors) 
     {
-      mErrorLog.add( id_validator.getMessages() );
+      mErrorLog.add( id_validator.getFailures() );
       return nerrors;
     }
   }
@@ -515,7 +515,7 @@ SBMLDocument::checkConsistency ()
     nerrors += validator.validate(*this);
     if (nerrors) 
     {
-      mErrorLog.add( validator.getMessages() );
+      mErrorLog.add( validator.getFailures() );
       /* only want to bail if errors not warnings */
       if (mErrorLog.getNumFailsWithSeverity(SBMLError::Error) > 0)
         return nerrors;
@@ -528,7 +528,7 @@ SBMLDocument::checkConsistency ()
     nerrors += sbo_validator.validate(*this);
     if (nerrors) 
     {
-      mErrorLog.add( sbo_validator.getMessages() );
+      mErrorLog.add( sbo_validator.getFailures() );
       /* only want to bail if errors not warnings */
       if (mErrorLog.getNumFailsWithSeverity(SBMLError::Error) > 0)
         return nerrors;
@@ -541,7 +541,7 @@ SBMLDocument::checkConsistency ()
     nerrors += math_validator.validate(*this);
     if (nerrors) 
     {
-      mErrorLog.add( math_validator.getMessages() );
+      mErrorLog.add( math_validator.getFailures() );
       /* only want to bail if errors not warnings */
       if (mErrorLog.getNumFailsWithSeverity(SBMLError::Error) > 0)
         return nerrors;
@@ -554,7 +554,7 @@ SBMLDocument::checkConsistency ()
     nerrors += unit_validator.validate(*this);
     if (nerrors) 
     {
-      mErrorLog.add( unit_validator.getMessages() );
+      mErrorLog.add( unit_validator.getFailures() );
       /* only want to bail if errors not warnings */
       if (mErrorLog.getNumFailsWithSeverity(SBMLError::Error) > 0)
         return nerrors;
@@ -567,7 +567,7 @@ SBMLDocument::checkConsistency ()
     nerrors += over_validator.validate(*this);
     if (nerrors) 
     {
-      mErrorLog.add( over_validator.getMessages() );
+      mErrorLog.add( over_validator.getFailures() );
     }
   }
   return nerrors;
@@ -590,7 +590,7 @@ SBMLDocument::checkL1Compatibility ()
   validator.init();
 
   unsigned int nerrors = validator.validate(*this);
-  if (nerrors) mErrorLog.add( validator.getMessages() );
+  if (nerrors) mErrorLog.add( validator.getFailures() );
 
   return nerrors;
 }
@@ -612,7 +612,7 @@ SBMLDocument::checkL2v1Compatibility ()
   validator.init();
 
   unsigned int nerrors = validator.validate(*this);
-  if (nerrors) mErrorLog.add( validator.getMessages() );
+  if (nerrors) mErrorLog.add( validator.getFailures() );
 
   return nerrors;
 }
@@ -634,7 +634,7 @@ SBMLDocument::checkL2v2Compatibility ()
   validator.init();
 
   unsigned int nerrors = validator.validate(*this);
-  if (nerrors) mErrorLog.add( validator.getMessages() );
+  if (nerrors) mErrorLog.add( validator.getFailures() );
 
   return nerrors;
 }
@@ -656,7 +656,7 @@ SBMLDocument::checkL2v3Compatibility ()
   validator.init();
 
   unsigned int nerrors = validator.validate(*this);
-  if (nerrors) mErrorLog.add( validator.getMessages() );
+  if (nerrors) mErrorLog.add( validator.getFailures() );
 
   return nerrors;
 }

@@ -126,8 +126,8 @@ TestValidator::test (const TestFile& file)
 
   unsigned int actual   = mValidator.validate( file.getFullname() );
 
-  list<SBMLError>::const_iterator begin = mValidator.getMessages().begin();
-  list<SBMLError>::const_iterator end   = mValidator.getMessages().end();
+  list<SBMLError>::const_iterator begin = mValidator.getFailures().begin();
+  list<SBMLError>::const_iterator end   = mValidator.getFailures().end();
 
 
 
@@ -188,14 +188,14 @@ TestValidator::test (const TestFile& file)
     copy(begin, end, ostream_iterator<SBMLError>(cout, "\n"));
   }
 
-  mValidator.clearMessages();
+  mValidator.clearFailures();
 
   return error == false;
 }
 
 
 /**
- * @return true if the all Validator messages for the given Constraint id
+ * @return true if the all Validator failures for the given Constraint id
  * test cases should be printed, false otherwise.
  */
 bool

@@ -47,6 +47,7 @@ public:
 
   virtual ~Validator ();
 
+
   /**
    * Initializes this Validator with a set of Constraints.
    *
@@ -55,24 +56,27 @@ public:
    */
   virtual void init () = 0;
 
+
   /**
    * Adds the given Contraint to this validator.
    */
   void addConstraint (VConstraint* c);
 
+
   /**
-   * Clears the Validator's list of messages.
+   * Clears the Validator's list of failures.
    *
    * If you are validating multiple SBML documents with the same Validator,
-   * call this method after you have processed the list of messages from
+   * call this method after you have processed the list of failures from
    * the last Validation run and before validating the next document.
    */
-  void clearMessages ();
+  void clearFailures ();
+
 
   /**
    * @return the category covered by this Validator.  A category is a
    * string, similiar in spirit to an XML namespace, which partitions error
-   * messages to prevent id conflicts.  Example categories include:
+   * failures to prevent id conflicts.  Example categories include:
    *
    *   http://sbml.org/validator/consistency
    *   http://sbml.org/validator/consistency/units
@@ -80,27 +84,31 @@ public:
    */
   const SBMLError::SBMLCategory getCategory () const;
 
-  /**
-   * @return a list of messages logged during validation.
-   */
-  const std::list<SBMLError>& getMessages () const;
 
   /**
-   * Adds the given message to this list of Validators messages.
+   * @return a list of failures logged during validation.
    */
-  void logMessage (const SBMLError& msg);
+  const std::list<SBMLError>& getFailures () const;
+
 
   /**
-   * Validates the given SBMLDocument.  Error messages logged during
-   * validation may be retrieved via <code>getMessages()</code>.
+   * Adds the given failure to this list of Validators failures.
+   */
+  void logFailure (const SBMLError& msg);
+
+
+  /**
+   * Validates the given SBMLDocument.  Failures logged during
+   * validation may be retrieved via <code>getFailures()</code>.
    *
    * @return the number of validation errors that occurred.
    */
   unsigned int validate (const SBMLDocument& d);
 
+
   /**
-   * Validates the given SBMLDocument.  Error messages logged during
-   * validation may be retrieved via <code>getMessages()</code>.
+   * Validates the given SBMLDocument.  Failures logged during
+   * validation may be retrieved via <code>getFailures()</code>.
    *
    * @return the number of validation errors that occurred.
    */
@@ -112,7 +120,7 @@ protected:
 
 
   ValidatorConstraints*   mConstraints;
-  std::list<SBMLError>    mMessages;
+  std::list<SBMLError>    mFailures;
   SBMLError::SBMLCategory mCategory;
 
 
