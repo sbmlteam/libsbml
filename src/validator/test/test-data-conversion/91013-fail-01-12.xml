@@ -22,9 +22,6 @@ but if present, must follow math. (References: L2V2 Section 4.13.9.).
         <listOfProducts>
           <speciesReference species="p"/>
         </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference species="e"/>
-        </listOfModifiers>
         <kineticLaw sboTerm="SBO:0000192">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
