@@ -295,6 +295,9 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
     }
   }
 
+  /* commented out addition of note on conversion - it seemed like a good idea
+   * at the time but needs to located differently :-)
+
   if (conversionSuccess)
   {
     std::ostringstream conversion_note;
@@ -326,6 +329,8 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
 
     if (mModel) mModel->appendNotes(conversion_note.str());
   }
+  */
+
   mLevel   = level;
   mVersion = version;
 
