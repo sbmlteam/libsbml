@@ -55,19 +55,20 @@ subdirs = test
 # they appear in `distfiles', they will not be copied in the distribution.
 
 distfiles = \
+        AUTHORS.txt            \
         BuildTranslate_Win32.c \
         BuildTranslate_Win32.m \
+        CheckAndConvert.m      \
         Contents.m             \
-        install.m              \
-        make.bat               \
-        mexopts-libsbml.sh     \
+        Makefile.in            \
         README.txt             \
-        test.xml               \
         TranslateSBML.c        \
         TranslateSBML.m        \
-        CheckAndConvert.m      \
-        Makefile.in
-
+        install.m              \
+        make.bat               \
+	matlab-tags-regexp.txt \
+        mexopts-libsbml.sh     \
+        test.xml
 
 # `extra_clean' and `extra_distclean' determine the files and directories
 # removed during "make clean" and "make distclean".
