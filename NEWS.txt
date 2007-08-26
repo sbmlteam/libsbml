@@ -1,6 +1,60 @@
            libsbml NEWS -- History of user-visible changes
 
  
+ === Version 3.0.0 Final ===
+
+* New features relative to 3.0.0 prerelease:
+
+  - Notes and annotations can now once again be set and retrieved as
+    strings, not only as objects.  Thanks to Akiya Jouraku for the
+    hard work behind this.
+
+  - As a result of the above, the MATLAB bindings now support setting
+    notes and annotations as strings.
+
+  - Error and consistency checking and reporting have been
+    significantly overhauled:
+
+    + A new method, SBMLDocument::setConsistencyChecks(...), allows an
+      application to indicate which set of validation rules should be
+      applied.  By default, all SBML validation rules are applied; 
+      setConsistencyChecks() thus a caller to turn some off prior to
+      calling checkConsistency().
+
+    + LibSBML now has an internal table relating errors and validation
+      rules, the SBML Levels and Versions in which they are valid, and
+      their severities for each Level and Version.  The testing is now
+      more accurate for different SBML Levels/Versions.  As an
+      additional benefit, rather than all being errors, some issues
+      are now reported as warnings.
+
+    + Errors now have "severity" levels.  This can be used by an
+      application to gauge the implications of a particular warning or
+      error.
+
+  - SBMLDocument::setLevelAndVersion(...) now returns a boolean value
+    to indicate whether the conversion was successful, if a conversion
+    was implied by setting the SBML Level and Version of a given
+    model.  Applications should make sure to check the return value,
+    because a return value of false implies that something went wrong
+    and the model may be invalid.  Applications should next call
+    getNumErrors() and getError() to find out what happened.
+
+  - Support for the candidate layout implementation is now included by
+    default in the Windows binaries we distribute.
+
+  - The interface between CVTerms and ModelHistory and annotations is
+    now hidden so getAnnotation() or getCVTerm() will return the same
+    information in both cases (i.e., in the annotation and CVTerm
+    forms).  Manipulating either will cause the other to be updated,
+    so if setCVTerm() is called, then getAnnotation() will return the
+    CVTerm info.  Likewise, if you then manipulate that and
+    setAnnotation() followed by getCVTerm(), the changes will be
+    reflected in the CVTerm form.
+
+  - Added support for Octave.  Thanks to Bill Denney for having worked
+    out how to do it.
+
  === Version 3.0.0 Prerelease ===
 
 * New Features relative to 3.0.0 beta_2:
@@ -8,7 +62,7 @@
   - Java, Perl and Python bindings are once again available, thanks to
     work by Akiya Jouraku.  
     
-  - Matlab binding is available without support for Notes and Annotations.
+  - MATLAB binding is available without support for Notes and Annotations.
     
   - The following is a partial list of API changes relative to previous 
     versions of the Java bindings. Almost all are due to changes in the 
