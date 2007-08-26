@@ -95,7 +95,7 @@ link-sources:
 	  fi; \
 	done
 
-flags = $(MKOCTFILE_FLAGS) -I../.. -L../..
+flags = $(MKOCTFILE_FLAGS) -DUSE_OCTAVE -I../.. -L../..
 
 %.$(OCTAVEEXT): %.c
 	$(MKOCTFILE) $(flags) $^ -lsbml $(MKOCTFILE_LIBS)
