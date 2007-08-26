@@ -1,3 +1,4 @@
+.deps
 Makefile
 BuildTranslate_Win32.*
 CheckAndConvert.*
