@@ -26,10 +26,10 @@
 #include <string.h>
 
 #include <mex.h>
-#include <matrix.h>
 
-
-
+#ifndef USE_OCTAVE
+#include <Matrix.h>
+#endif
 
 #include "sbml/SBMLReader.h"
 #include "sbml/SBMLTypes.h"
@@ -57,7 +57,7 @@ void GetProducts   (Reaction_t *, unsigned int, unsigned int);
 void GetKineticLaw (Reaction_t *, unsigned int, unsigned int);
 void GetModifier   (Reaction_t *, unsigned int, unsigned int);
 
-void GetKineticLawParameters (const KineticLaw_t *, unsigned int, unsigned int);
+void GetKineticLawParameters (KineticLaw_t *, unsigned int, unsigned int);
 
 void GetEventAssignment (Event_t *, unsigned int, unsigned int);
 
@@ -2302,7 +2302,7 @@ GetKineticLaw ( Reaction_t   *pReaction,
   const char * pacMathFormula = NULL;
   int nSBO = -1;
 
-  const KineticLaw_t *pKineticLaw;
+  KineticLaw_t *pKineticLaw;
   
   /* variables for mathML - matlab hack */
   int nStatus, nBuflen;
@@ -2475,7 +2475,7 @@ GetKineticLaw ( Reaction_t   *pReaction,
  *            listed as for the kinetic law
  */
 void
-GetKineticLawParameters ( const KineticLaw_t *pKineticLaw,
+GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
                           unsigned int unSBMLLevel,
                           unsigned int unSBMLVersion )
 {
@@ -3824,7 +3824,7 @@ LookForCSymbolTime(const ASTNode_t * astMath)
          * replace the name in this instance
          */
         if (pacCSymbolTime == NULL) {
-          pacCSymbolTime = ASTNode_getName(astChild);
+          pacCSymbolTime = (char *) ASTNode_getName(astChild);
         }
         else {
           ASTNode_setName(astChild, pacCSymbolTime);
