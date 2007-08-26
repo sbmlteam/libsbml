@@ -1554,8 +1554,6 @@ void GetReaction ( Model_t      *pModel,
 
   int i;
   
-  int nZero = 0;
-
   /* create the structure array */
   if (unSBMLLevel == 1) 
   {
