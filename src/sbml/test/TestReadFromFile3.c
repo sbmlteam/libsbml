@@ -166,7 +166,7 @@ START_TEST (test_read_l1v1_rules)
    *   <parameter name="k4" value="4.5"/>
    * </listOfParameters>
    */
-  fail_unless( Model_getNumParameters(m) == 6, NULL );
+  fail_unless( Model_getNumParameters(m) == 7, NULL );
 
   p = Model_getParameter(m, 0);
   fail_unless( !strcmp(Parameter_getName(p), "k1"), NULL );
@@ -210,7 +210,7 @@ START_TEST (test_read_l1v1_rules)
 
   scr = Model_getRule(m, 3);
   fail_unless( !strcmp(Rule_getVariable(scr), "x3"), NULL );
-  fail_unless( !strcmp(Rule_getFormula((Rule_t *) scr), "t - s2"), NULL );
+  fail_unless( !strcmp(Rule_getFormula((Rule_t *) scr), "p*(t - s2)"), NULL );
 
 
   /**
