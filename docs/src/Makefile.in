@@ -144,7 +144,6 @@ distfiles =                                    \
         libsbml-python-mainpage.txt            \
         libsbml-python-reading-files.txt       \
         libsbml-reading-files.txt              \
-        python.txt                             \
         pythondocfilter.py                     \
         templates/c++.txt                      \
         templates/c.txt                        \
