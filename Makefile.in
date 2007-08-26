@@ -171,7 +171,6 @@ distfiles =                         \
   config/xercesc.m4                 \
   configure                         \
   configure.ac                      \
-  libsbml.pc.in                     \
   $(examples)                              
 
 # The files listed in `extra_distclean' are items created by configure or
