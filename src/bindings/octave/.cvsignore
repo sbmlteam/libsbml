@@ -1,0 +1,9 @@
+Makefile
+BuildTranslate_Win32.*
+CheckAndConvert.*
+Contents.m             
+README.txt             
+TranslateSBML.*
+install.m              
+make.bat               
+test.xml
