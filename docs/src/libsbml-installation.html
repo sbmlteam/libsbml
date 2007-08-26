@@ -3,26 +3,52 @@
 <tr><td style="font-size: small;">
 <a href="#quick">Quick start instructions</a>
 <ul>
-<li style="font-size: small;"><a href="#quick-unix">Linux, MacOS X, and Solaris</a></li>
+<li style="font-size: small;"><a href="#quick-unix">Linux, MacOS X, and
+Solaris</a></li> 
+
 <li style="font-size: small;"><a href="#quick-windows">Windows</a></li>
 </ul>
 </td></tr>
 
 <tr><td style="font-size: small;">
-<a href="#detailed">Detailed instructions for configuring and installing LibSBML</a>
+<a href="#detailed">Detailed instructions for configuring and installing
+LibSBML</a> 
+
 <ul>
-<li style="font-size: small;"><a href="#basic-config">Configuring libSBML for Linux, MacOS X, and Solaris</a></li>
-<li style="font-size: small;"><a href="#other-lang">Configuring libSBML interfaces to Java, Lisp, Perl, Python and MATLAB</a></li>
-<li style="font-size: small;"><a href="#compiling">Compiling and installing LibSBML</a></li>
-<li style="font-size: small;"><a href="#accessing">Making libSBML accessible to other software on Unix, Linux and MacOS&nbsp;X systems</a></li>
-<li style="font-size: small;"><a href="#other-options">Additional options for configuring LibSBML</a></li>
+
+<li style="font-size: small;"><a href="#basic-config">Configuring libSBML
+for Linux, MacOS X, and Solaris</a></li> 
+
+<li style="font-size: small;"><a href="#other-lang">Configuring libSBML
+interfaces to Java, Lisp, Perl, Python, MATLAB and Octave</a></li> 
+
+<li style="font-size: small;"><a href="#compiling">Compiling and installing
+LibSBML</a></li> 
+
+<li style="font-size: small;"><a href="#accessing">Making libSBML
+accessible to other software on Unix, Linux and MacOS&nbsp;X
+systems</a></li> 
+
+<li style="font-size: small;"><a href="#other-options">Additional options
+for configuring LibSBML</a></li> 
+
 <ul>
+
 <li style="font-size: small;"><a href="#swig">Configuring for SWIG</a></li>
-<li style="font-size: small;"><a href="#unit-testing">Configuring for unit testing</a></li>
-<li style="font-size: small;"><a href="#docs">Configuring for generating documentation</a></li>
+
+<li style="font-size: small;"><a href="#unit-testing">Configuring for unit
+testing</a></li> 
+
+<li style="font-size: small;"><a href="#docs">Configuring for generating
+documentation</a></li> 
+
 </ul>
-<li style="font-size: small;"><a href="#windows">Configuring and building for Windows</li>
+
+<li style="font-size: small;"><a href="#windows">Configuring and building
+for Windows</li> 
+
 </ul>
+
 </ul>
 </tr></td>
 </table>
@@ -65,12 +91,13 @@ and for libxml2, use
   ./configure --with-libxml
 </pre></div>
 
-<p> By default, libSBML only builds the C and C++ API library.  If you
-want to configure libSBML to build the Java, Python, Perl, Lisp and/or
-MATLAB API libraries as well, add the flags <code>--with-java</code>,
+<p> By default, libSBML only builds the C and C++ API library.  If you want
+to configure libSBML to build the Java, Python, Perl, Lisp, MATLAB, and/or
+Octave API libraries as well, add the flags <code>--with-java</code>,
 <code>--with-python</code>, <code>--with-perl</code>,
-<code>--with-lisp</code> and/or <code>--with-matlab</code> to the
-configure command.  You can combine options.
+<code>--with-lisp</code>, <code>--with-matlab</code>, and/or
+<code>--with-octave</code> to the configure command.  You can combine
+options.
 
 <p> Depending on your system, you may need to tell the configure
 program where to find some of these extra components by adding a
@@ -233,16 +260,17 @@ default.  To specify a different installation location, use the <code>
 options.
 
 
-<h3><a class="anchor" name="other-lang">Configuring interfaces to Java, Lisp, Perl, Python and MATLAB</a></h3>
+<h3><a class="anchor" name="other-lang">Configuring interfaces to Java,
+Lisp, Perl, Python, MATLAB, and Octave</a></h3>
 
-<p> LibSBML's core is written in C and C++, but libSBML comes with
-APIs for other languages as well.  To enable the library extensions
-for Java, Python, Lisp and MATLAB, you need to supply additional
-options to <code>configure</code>.  These options are
-<code>--with-java</code>, <code>--with-perl</code>,
-<code>--with-python</code>, <code>--with-lisp</code>, and
-<code>--with-matlab</code>.  As with other configure options, these
-take an optional prefix argument; for example,
+<p> LibSBML's core is written in C and C++, but libSBML comes with APIs for
+other languages as well.  To enable the library extensions for Java,
+Python, Lisp, MATLAB, and/or Octave, you need to supply additional options
+to <code>configure</code>.  These options are <code>--with-java</code>,
+<code>--with-perl</code>, <code>--with-python</code>,
+<code>--with-lisp</code>, <code>--with-matlab</code>, and
+<code>--with-matlab</code>.  As with other configure options, these take an
+optional prefix argument; for example,
 
 <div class="fragment"><pre class="fragment">
   ./configure --with-java="DIR"
