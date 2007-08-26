@@ -4827,7 +4827,7 @@ echo "$as_me: error: installed version of mkoctfile is too old!" >&2;}
 
 
     MKOCTFILE_FLAGS="--mex"
-    OCTAVEEXT=".mex"
+    OCTAVEEXT="mex"
 
 
 cat >>confdefs.h <<\_ACEOF

@@ -136,7 +136,7 @@ AC_DEFUN([CONFIG_PROG_OCTAVE],
     dnl variations need to be.  So punt.
 
     MKOCTFILE_FLAGS="--mex"
-    OCTAVEEXT=".mex"
+    OCTAVEEXT="mex"
 
     AC_DEFINE([USE_OCTAVE], 1, [Define to 1 to use Octave])
     AC_SUBST(USE_OCTAVE, 1)
