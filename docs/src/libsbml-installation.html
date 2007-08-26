@@ -346,7 +346,8 @@ described below.
 
 <p> <strong>Important</strong>: At this time, libSBML is known to work
 <em>only</em> with the latest stable version of SWIG (1.3.31); earlier
-versions are known <em>not</em> to work.
+versions are known <em>not</em> to work.  You <em>must</em> use version
+1.3.31.
 
 <p> SWIG is the <em>Simplified Wrapper and Interface Generator</em>
 and in libSBML it is used to create the bindings for Java, Python, and
@@ -361,12 +362,6 @@ option as in the following example:
 <div class="fragment"><pre class="fragment">
   ./configure --with-swig="DIR"
 </pre></div>
-
-<p> Note that the last time we checked (22 August 2007), the version of
-SWIG provided by <a href="http://finkproject.org">Fink</a> on MacOS&nbsp;X
-was version 1.3.20, which is <em>not</em> sufficiently recent.  You will
-probably have to compile and install your own copye of SWIG version 1.3.31
-on this system.
 
 
 <h4><a class="anchor" name="unit-testing">Configuring the unit testing system</a></h4>
