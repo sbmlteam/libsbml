@@ -115,6 +115,12 @@ MEX               = @MEX@
 MEX_FLAGS         = @MEX_FLAGS@
 MEXEXT            = @MEXEXT@
 
+USE_OCTAVE        = @USE_OCTAVE@
+OCTAVE            = @OCTAVE@
+MKOCTFILE         = @MKOCTFILE@
+MKOCTFILE_FLAGS   = @MKOCTFILE_FLAGS@
+OCTAVEEXT         = @OCTAVEEXT@
+
 USE_LISP          = @USE_LISP@
 LISP              = @LISP@
 LISPEXIT          = @LISPEXIT@
