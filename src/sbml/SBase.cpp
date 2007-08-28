@@ -717,19 +717,227 @@ SBase::appendNotes(const XMLNode* notes)
 
   if (mNotes != 0)
   {
-    /* check for notes tags and remove */
-
+    XMLNode *newNotes = new XMLNode();
+    /* check for notes tags on the added notes and strip if present*/
     if (name == "notes")
     {
       int num_children = notes->getNumChildren();
       for(int i=0; i < num_children; i++)
       {
-        mNotes->addChild(notes->getChild(i));
+        newNotes->addChild(notes->getChild(i));
       }
     }
     else
     {
-      mNotes->addChild(*notes);
+      newNotes= notes->clone();
+    }
+
+
+    /*
+     * BUT we also have the issue of the rules relating to notes
+     * contents and where to add them ie we cannot add a second body element
+     * etc...
+     */
+    XMLToken notesToken = XMLToken(XMLTriple("notes", "", ""), XMLAttributes());
+
+    XMLNode* newHTMLTag=NULL;
+    XMLNode* newHeadTag=NULL;
+    XMLNode* newBodyTag=NULL;
+    unsigned int i;
+
+    if (mNotes->getNumChildren() == 1 
+      && mNotes->getChild(0).getName() == "html")
+    {
+      XMLNode* NotesTag = new XMLNode(notesToken);
+      XMLNode* HTMLTag = new XMLNode(mNotes->getChild(0));
+      HTMLTag->removeChildren();
+      XMLNode* BodyTag = new XMLNode(mNotes->getChild(0).getChild(1));
+      XMLNode* HeadTag = new XMLNode(mNotes->getChild(0).getChild(0));
+
+      if (newNotes->getNumChildren() == 2 
+        && newNotes->getName() == "html")
+      {
+        // add head and body from new notes to existing head and body
+        newHeadTag = new XMLNode(newNotes->getChild(0));
+        newBodyTag = new XMLNode(newNotes->getChild(1));
+
+        for(i = 0; i < newHeadTag->getNumChildren(); i++)
+        {
+          HeadTag->addChild(*newHeadTag->getChild(i).clone());
+        }
+        for(i = 0; i < newBodyTag->getNumChildren(); i++)
+        {
+          BodyTag->addChild(*newBodyTag->getChild(i).clone());
+        }
+        
+        HTMLTag->addChild(*HeadTag);
+        HTMLTag->addChild(*BodyTag);
+        NotesTag->addChild(*HTMLTag);
+        delete HTMLTag;
+        delete BodyTag;
+        delete HeadTag;
+        setNotes(NotesTag);
+      }
+      else if (newNotes->getName() == "body")
+      {
+        // add contents of new body to existing body
+        newBodyTag = new XMLNode(*newNotes);
+        for(i = 0; i < newBodyTag->getNumChildren(); i++)
+        {
+          BodyTag->addChild(*newBodyTag->getChild(i).clone());
+        }
+ 
+        HTMLTag->addChild(*HeadTag);
+        HTMLTag->addChild(*BodyTag);
+        NotesTag->addChild(*HTMLTag);
+        delete HTMLTag;
+        delete BodyTag;
+        delete HeadTag;
+        setNotes(NotesTag);
+      }
+      else
+      {
+        // add new notes to body of existing
+
+        /* TO DO: first "child" is not returned properly from 
+         * convertStringToXMLNode
+         */
+        for(i = 0; i < newNotes->getNumChildren(); i++)
+        {
+          BodyTag->addChild(*newNotes->getChild(i).clone());
+        }
+
+        HTMLTag->addChild(*HeadTag);
+        HTMLTag->addChild(*BodyTag);
+        NotesTag->addChild(*HTMLTag);
+        delete HTMLTag;
+        delete BodyTag;
+        delete HeadTag;
+        setNotes(NotesTag);
+      }
+    }
+
+    else if (mNotes->getNumChildren() == 1 
+      && mNotes->getChild(0).getName() == "body")
+    {
+      XMLNode* NotesTag = new XMLNode(notesToken);
+
+      if (newNotes->getNumChildren() == 2 
+        && newNotes->getName() == "html")
+      {
+        /* in this case the original doesnt have a html tag
+         * so we need to add one
+         */
+        XMLNode* HTMLTag = new XMLNode(*newNotes);
+        HTMLTag->removeChildren();
+        XMLNode* BodyTag = new XMLNode(newNotes->getChild(1));
+        XMLNode* HeadTag = new XMLNode(newNotes->getChild(0));
+        
+        // add body from existing notes to newly created body
+        newBodyTag = new XMLNode(mNotes->getChild(0));
+
+        for(i = 0; i < newBodyTag->getNumChildren(); i++)
+        {
+          BodyTag->addChild(*newBodyTag->getChild(i).clone());
+        }
+        
+        HTMLTag->addChild(*HeadTag);
+        HTMLTag->addChild(*BodyTag);
+        NotesTag->addChild(*HTMLTag);
+        delete HTMLTag;
+        delete BodyTag;
+        delete HeadTag;
+        setNotes(NotesTag);
+      }
+      else if (newNotes->getName() == "body")
+      {
+        XMLNode* BodyTag = new XMLNode(mNotes->getChild(0));
+        // add contents of new body to existing body
+        newBodyTag = new XMLNode(*newNotes);
+        for(i = 0; i < newBodyTag->getNumChildren(); i++)
+        {
+          BodyTag->addChild(*newBodyTag->getChild(i).clone());
+        }
+        
+        NotesTag->addChild(*BodyTag);
+        delete BodyTag;
+        setNotes(NotesTag);
+      }
+      else
+      {
+        // add new notes to body of existing
+        XMLNode* BodyTag = new XMLNode(mNotes->getChild(0));
+        
+        /* TO DO: first "child" is not returned properly from 
+         * convertStringToXMLNode
+         */
+        for(i = 0; i < newNotes->getNumChildren(); i++)
+        {
+          BodyTag->addChild(*newNotes->getChild(i).clone());
+        }
+        NotesTag->addChild(*BodyTag);
+        delete BodyTag;
+        setNotes(NotesTag);
+      }
+    }
+
+    else
+    {
+
+      if (newNotes->getNumChildren() == 2 
+        && newNotes->getName() == "html")
+      {
+        /* in this case the original doesnt have a html tag
+         * so we need to add one
+         */
+        XMLNode* NotesTag = new XMLNode(notesToken);
+        XMLNode* HTMLTag = new XMLNode(*newNotes);
+        HTMLTag->removeChildren();
+        XMLNode* BodyTag = new XMLNode(newNotes->getChild(1));
+        XMLNode* HeadTag = new XMLNode(newNotes->getChild(0));
+        
+        for(i = 0; i < mNotes->getNumChildren(); i++)
+        {
+          BodyTag->addChild(*mNotes->getChild(i).clone());
+        }
+        
+        HTMLTag->addChild(*HeadTag);
+        HTMLTag->addChild(*BodyTag);
+        NotesTag->addChild(*HTMLTag);
+        delete HTMLTag;
+        delete BodyTag;
+        delete HeadTag;
+        setNotes(NotesTag);
+      }
+      else if (newNotes->getName() == "body")
+      {
+        /* in this case the original doesnt have a body tag
+         * so we need to add one
+         */
+        XMLNode* NotesTag = new XMLNode(notesToken);
+        XMLNode* BodyTag = new XMLNode(*newNotes);
+        for(i = 0; i < mNotes->getNumChildren(); i++)
+        {
+          BodyTag->addChild(*mNotes->getChild(i).clone());
+        }
+        
+        NotesTag->addChild(*BodyTag);
+        delete BodyTag;
+        setNotes(NotesTag);
+      }
+      else
+      {
+        /* TO DO: first "child" is not returned properly from 
+         * convertStringToXMLNode
+         */
+        XMLNode* NotesTag = new XMLNode(*mNotes);
+
+        for(i = 0; i < newNotes->getNumChildren(); i++)
+        {
+          NotesTag->addChild(*newNotes->getChild(i).clone());
+        }
+        setNotes(NotesTag);
+      }
     }
   }
   else

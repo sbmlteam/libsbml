@@ -180,6 +180,10 @@ public:
    * the returned XMLNode and is reponsible for deleting it.
    */
   static XMLNode* convertStringToXMLNode(const std::string& xmlstr, const XMLNamespaces* xmlns=NULL);
+  /** @cond doxygen-libsbml-internal */
+
+  void removeChildren() {mChildren.clear();}
+  /** @endcond doxygen-libsbml-internal */
 
 
 #ifndef SWIG
