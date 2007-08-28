@@ -164,6 +164,7 @@ distfiles =                         \
   config/matlab.m4                  \
   config/missing                    \
   config/mkinstalldirs              \
+  config/octave.m4                  \
   config/perl.m4                    \
   config/python.m4                  \
   config/runldpath.m4               \
