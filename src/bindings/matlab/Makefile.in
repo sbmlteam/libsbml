@@ -82,7 +82,7 @@ extra_clean = TranslateSBML.$(MEXTEXT)
 
 all: Makefile $(libraries)
 
-flags = $(MEX_FLAGS) $(MATLAB_CPPFLAGS) -I../.. -L../..
+flags = $(MEX_FLAGS) $(MATLAB_CPPFLAGS) -I../.. -I../../../include -L../..
 
 %.$(MEXEXT): %.c
 	$(MEX) $(flags) $^ -lsbml $(MATLAB_LIBS)
