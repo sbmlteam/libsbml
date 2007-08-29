@@ -60,6 +60,11 @@ examples =                                                       \
   examples/c/util.h                                              \
   examples/c/validateSBML.c                                      \
   examples/c++/Makefile.in                                       \
+  examples/c++/appendAnnotation.cpp                              \
+  examples/c++/printAnnotation.cpp                               \
+  examples/c++/printNotes.cpp                                    \
+  examples/c++/unsetAnnotation.cpp                               \
+  examples/c++/unsetNotes.cpp                                    \
   examples/c++/addCVTerms.cpp                                    \
   examples/c++/addModelHistory.cpp                               \
   examples/c++/convertSBML.cpp                                   \
