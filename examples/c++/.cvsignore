@@ -13,3 +13,7 @@ printUnits
 echoSBML
 addCVTerms
 addModelHistory
+appendAnnotation
+printAnnotation
+unsetAnnotation
+unsetNotes
