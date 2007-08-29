@@ -55,6 +55,9 @@
   - Added support for Octave.  Thanks to Bill Denney for having worked
     out how to do it.
 
+  - Libxml2 version as old as 2.6.16 are now supported.
+
+
  === Version 3.0.0 Prerelease ===
 
 * New Features relative to 3.0.0 beta_2:
