@@ -9,8 +9,8 @@
     strings, not only as objects.  Thanks to Akiya Jouraku for the
     hard work behind this.
 
-  - As a result of the above, the MATLAB bindings now support setting
-    notes and annotations as strings.
+  - The MATLAB bindings now support setting notes and annotations as
+    strings.
 
   - Error and consistency checking and reporting have been
     significantly overhauled:
@@ -40,9 +40,6 @@
     and the model may be invalid.  Applications should next call
     getNumErrors() and getError() to find out what happened.
 
-  - Support for the candidate layout implementation is now included by
-    default in the Windows binaries we distribute.
-
   - The interface between CVTerms and ModelHistory and annotations is
     now hidden so getAnnotation() or getCVTerm() will return the same
     information in both cases (i.e., in the annotation and CVTerm
@@ -55,7 +52,13 @@
   - Added support for Octave.  Thanks to Bill Denney for having worked
     out how to do it.
 
+  - Support for the candidate layout implementation is now included by
+    default in the Windows binaries we distribute.
+
   - Libxml2 version as old as 2.6.16 are now supported.
+
+  - Python documentation is now available using the same Doxygen-based
+    system as for C++, Java and C.
 
 
  === Version 3.0.0 Prerelease ===
