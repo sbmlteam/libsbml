@@ -21,9 +21,36 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  *------------------------------------------------------------------------- -->
  * @class XMLTriple.
- * @brief Implementation of %XMLTriple construct.
+ * @brief Representation of a qualified XML name.
+ *
+ * A "triple" in the libSBML XML layer encapsulates the notion of qualified
+ * name, meaning an element name or an attribute name with an optional
+ * namespace qualifier.  An XMLTriple instance carries up to three data items:
+ * 
+ * <ul>
+ *
+ * <li> The name of the attribute or element; that is, the attribute name
+ * as it appears in an XML document or data stream;
+ *
+ * <li> The XML namespace prefix (if any) of the attribute.  For example,
+ * in the following fragment of XML, the namespace prefix is the string
+ * <code>mysim</code> and it appears on both the element
+ * <code>someelement</code> and the attribute <code>attribA</code>.  When
+ * both the element and the attribute are stored as XMLTriple objects,
+ * their <i>prefix</i> is <code>mysim</code>.
+ * @verbatim
+<mysim:someelement mysim:attribA="value" />
+@endverbatim
+ *
+ * <li> The XML namespace URI with which the prefix is associated.  In
+ * XML, every namespace used must be declared and mapped to a URI.
+ *
+ * </ul>
+ *
+ * XMLTriple objects are the lowest-level data item in the XML layer
+ * of libSBML.  Other objects such as XMLToken make use of XMLTriple
+ * objects.
  */
-
 
 #ifndef XMLTriple_h
 #define XMLTriple_h
@@ -42,13 +69,13 @@ class LIBLAX_EXTERN XMLTriple
 public:
 
   /**
-   * Creates a new empty XMLTriple.
+   * Creates a new, empty XMLTriple.
    */
   XMLTriple ();
 
 
   /**
-   * Creates a new XMLTriple with name, prefix and uri.
+   * Creates a new XMLTriple with the given @p name, @p prefix and and @p uri.
    *
    * @param name a string, name for the XMLTriple.
    * @param uri a string, URI of the XMLTriple.
@@ -60,7 +87,8 @@ public:
 
 
   /**
-   * Creates a new XMLTriple by splitting triplet on sepchar.  
+   * Creates a new XMLTriple by splitting the given @p triplet on the
+   * separator character @p sepchar.
    *
    * Triplet may be in one of the following formats:
    * <ul>
