@@ -29,6 +29,8 @@
 
 #ifndef USE_OCTAVE
 #include <Matrix.h>
+#else
+#include <matrix.h>
 #endif
 
 #include "sbml/SBMLReader.h"
