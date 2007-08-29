@@ -208,11 +208,11 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
   SBMLDocument_t *sbmlDocument;
   Model_t *sbmlModel;
-  const char * pacName;
+  const char * pacName = NULL;
   const char * pacId = NULL;
   const char * pacNotes = NULL;
   const char * pacAnnotations = NULL;
-  const char * pacTypecode;
+  const char * pacTypecode = NULL;
   int nSBO = -1;
   unsigned int unSBMLLevel;
   unsigned int unSBMLVersion;
@@ -703,17 +703,17 @@ GetSpecies ( Model_t      *pModel,
   const char * pacName;
   const char * pacId = NULL;
   const char * pacCompartment;
-  const char * pacUnits;
+  const char * pacUnits = NULL;
   const char * pacSpatialSizeUnits = NULL;
   const char * pacSpeciesType = NULL;
 
-  double dInitialAmount;
-  double dInitialConcentration;
+  double dInitialAmount = 0.0;
+  double dInitialConcentration = 0.0;
 
-  int nHasOnlySubsUnits;
-  int nBoundaryCondition;
-  int nCharge;
-  int nConstant;
+  int nHasOnlySubsUnits = 0;
+  int nBoundaryCondition = 0;
+  int nCharge = 1;
+  int nConstant = 0;
   int nSBO = -1;
 
   unsigned int unIsSetInit = 1;
@@ -1120,14 +1120,14 @@ GetCompartment ( Model_t      *pModel,
   const char * pacOutside;
   const char * pacCompartmentType = NULL;
 
-  double dVolume;
-  double dSize;
+  double dVolume = 1.0;
+  double dSize = 1.0;
 
-  unsigned int unSpatialDimensions;
+  unsigned int unSpatialDimensions = 3;
   unsigned int unIsSetVolume = 1;
   unsigned int unIsSetSize = 1;
 
-  int nConstant;
+  int nConstant = 1;
   int nSBO = -1;
 
   Compartment_t *pCompartment;
@@ -1349,7 +1349,7 @@ GetParameter ( Model_t      *pModel,
   double dValue;
 
   unsigned int unIsSetValue = 1;
-  int nConstant;
+  int nConstant = 1;
 
   Parameter_t *pParameter;
 
@@ -1738,10 +1738,10 @@ GetUnit ( UnitDefinition_t *pUnitDefinition,
   const char * pacNotes = NULL;
   const char * pacAnnotations = NULL;
   const char * pacUnitKind;
-  int nExponent;
-  int nScale;
-  double dMultiplier;
-  double dOffset;
+  int nExponent = 1;
+  int nScale = 0;
+  double dMultiplier = 1.0;
+  double dOffset = 0.0;
   int nSBO = -1;
 
   Unit_t *pUnit;
@@ -1907,10 +1907,10 @@ GetReactants ( Reaction_t   *pReaction,
   const char * pacName = NULL;
   int nSBO = -1;
   
-  int nStoichiometry;
-  int nDenominator;
+  int nStoichiometry = 1;
+  int nDenominator = 1;
   
-  double dStoichiometry;
+  double dStoichiometry = 1.0;
 
   SpeciesReference_t *pReactant;
   int i;
@@ -2105,10 +2105,10 @@ const int nNoFields_l2v2 = 9;
   const char * pacName = NULL;
   int nSBO = -1;
   
-  int nStoichiometry;
-  int nDenominator;
+  int nStoichiometry = 1;
+  int nDenominator = 1;
   
-  double dStoichiometry;
+  double dStoichiometry = 1.0;
 
   SpeciesReference_t *pProduct;
   int i;
@@ -2536,7 +2536,7 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
   double dValue;
 
   unsigned int unIsSetValue = 1;
-  int nConstant;
+  int nConstant = 1;
 
   Parameter_t *pParameter;
 
@@ -3264,7 +3264,7 @@ GetFunctionDefinition ( Model_t      *pModel,
   const char * pacAnnotations = NULL;
   const char * pacName;
   const char * pacId = NULL;
-  const char * pacFormula;
+  const char * pacFormula = NULL;
 
   int nSBO = -1;
 
