@@ -28,8 +28,6 @@
 #include <mex.h>
 
 #ifndef USE_OCTAVE
-#include <Matrix.h>
-#else
 #include <matrix.h>
 #endif
 
