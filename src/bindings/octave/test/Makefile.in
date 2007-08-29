@@ -61,7 +61,7 @@ matlab_sources = \
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles = Makefile.in test-data
+distfiles = Makefile.in
 
 # `extra_clean' and `extra_distclean' determine the files and directories
 # removed during "make clean" and "make distclean".
@@ -91,7 +91,11 @@ link-sources:
 # -----------------------------------------------------------------------------
 
 check: all
-	$(OCTAVE) --path .. --eval testBinding
+	@echo Running Tests in $(thisdir)
+	@echo -----------------------------------------------------------------
+	@$(call libsbmlrun,$(OCTAVE) --path .. --eval testBinding)
+	@echo -----------------------------------------------------------------
+	@echo
 
 
 # -----------------------------------------------------------------------------
