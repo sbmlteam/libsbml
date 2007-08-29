@@ -773,9 +773,8 @@ SBase::appendNotes(const XMLNode* notes)
         HTMLTag->addChild(*HeadTag);
         HTMLTag->addChild(*BodyTag);
         NotesTag->addChild(*HTMLTag);
-        delete HTMLTag;
-        delete BodyTag;
-        delete HeadTag;
+        delete newHeadTag;
+        delete newBodyTag;
         setNotes(NotesTag);
       }
       else if (newNotes->getName() == "body")
@@ -790,18 +789,13 @@ SBase::appendNotes(const XMLNode* notes)
         HTMLTag->addChild(*HeadTag);
         HTMLTag->addChild(*BodyTag);
         NotesTag->addChild(*HTMLTag);
-        delete HTMLTag;
-        delete BodyTag;
-        delete HeadTag;
+        delete newBodyTag;
         setNotes(NotesTag);
       }
       else
       {
         // add new notes to body of existing
 
-        /* TO DO: first "child" is not returned properly from 
-         * convertStringToXMLNode
-         */
         for(i = 0; i < newNotes->getNumChildren(); i++)
         {
           BodyTag->addChild(*newNotes->getChild(i).clone());
@@ -810,11 +804,13 @@ SBase::appendNotes(const XMLNode* notes)
         HTMLTag->addChild(*HeadTag);
         HTMLTag->addChild(*BodyTag);
         NotesTag->addChild(*HTMLTag);
-        delete HTMLTag;
-        delete BodyTag;
-        delete HeadTag;
         setNotes(NotesTag);
       }
+
+      delete HTMLTag;
+      delete BodyTag;
+      delete HeadTag;
+
     }
 
     else if (mNotes->getNumChildren() == 1 
@@ -847,6 +843,7 @@ SBase::appendNotes(const XMLNode* notes)
         delete HTMLTag;
         delete BodyTag;
         delete HeadTag;
+        delete newBodyTag;
         setNotes(NotesTag);
       }
       else if (newNotes->getName() == "body")
@@ -861,6 +858,7 @@ SBase::appendNotes(const XMLNode* notes)
         
         NotesTag->addChild(*BodyTag);
         delete BodyTag;
+        delete newBodyTag;
         setNotes(NotesTag);
       }
       else
@@ -939,6 +937,8 @@ SBase::appendNotes(const XMLNode* notes)
         setNotes(NotesTag);
       }
     }
+
+    delete newNotes;
   }
   else
   {
