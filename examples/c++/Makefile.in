@@ -74,6 +74,24 @@ translateMath: translateMath.cpp
 validateSBML: validateSBML.cpp util.c
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
+# The following are still somewhat experimental and are not built by
+# default, but are provided for interested persons.
+
+appendAnnotation: appendAnnotation.cpp util.c
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+printAnnotation: printAnnotation.cpp util.c
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+printNotes: printNotes.cpp util.c
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+unsetAnnotation: unsetAnnotation.cpp util.c
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+unsetNotes: unsetNotes.cpp util.c
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
 clean:
 	/bin/rm -f $(programs) *~
 
