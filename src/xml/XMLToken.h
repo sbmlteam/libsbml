@@ -20,8 +20,9 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  *------------------------------------------------------------------------- -->
+ *
  * @class XMLToken.
- * @brief Implementation of %XMLToken construct.
+ * @brief Representation of a token in an XML stream.
  */
 
 
@@ -164,7 +165,8 @@ public:
 
   
   /**
-   * Returns the column at which this XMLToken occurred.
+   * Returns the column at which this XMLToken occurred in the input
+   * document or data stream.
    *
    * @return the column at which this XMLToken occurred.
    */
@@ -172,7 +174,8 @@ public:
 
 
   /**
-   * Returns the line at which this XMLToken occurred.
+   * Returns the line at which this XMLToken occurred in the input document
+   * or data stream.
    *
    * @return the line at which this XMLToken occurred.
    */
