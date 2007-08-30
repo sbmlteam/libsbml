@@ -740,7 +740,6 @@ SBase::appendNotes(const XMLNode* notes)
      */
     XMLToken notesToken = XMLToken(XMLTriple("notes", "", ""), XMLAttributes());
 
-    XMLNode* newHTMLTag=NULL;
     XMLNode* newHeadTag=NULL;
     XMLNode* newBodyTag=NULL;
     unsigned int i;
