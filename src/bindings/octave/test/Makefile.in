@@ -54,14 +54,17 @@ matlab_sources = \
   testReadFromFile5.m \
   testReadFromFile6.m \
   testReadFromFile7.m \
-  testReadFromFile8.m \
+  testReadFromFile8.m
+
+local_sources = \
   testReadFromFile9.m
+
 
 # `distfiles' determines the files and directories included in a distribution.
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles = Makefile.in
+distfiles = Makefile.in $(local_sources)
 
 # `extra_clean' and `extra_distclean' determine the files and directories
 # removed during "make clean" and "make distclean".
