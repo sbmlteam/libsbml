@@ -12,7 +12,7 @@ AppUpdatesURL=http://sbml.org
 DefaultDirName={pf}\SBML\libSBML-3.0.0-xerces
 DefaultGroupName=libSBML
 DisableProgramGroupPage=yes
-OutputDir=..\..\..\libsbml\win32\installer\Output
+OutputDir=..\..\..\libsbml_3\win32\installer\Output
 OutputBaseFilename=libSBML-3.0.0-win-xerces
 WizardSmallImageFile=libsbml-installer-mini-logo.bmp
 WizardImageFile=libsbml-installer-graphic-v3.bmp
@@ -24,22 +24,24 @@ SolidCompression=yes
 Name: english; MessagesFile: compiler:Default.isl
 
 [Files]
-Source: C:\libsbml\win32\installer\libsbml_xerces\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: C:\libsbml\win32\installer\libsbml_xerces\bindings\java\sbmlj.lib; DestDir: {sys}; Check: GetJava
-Source: C:\libsbml\win32\installer\libsbml_xerces\bindings\java\sbmlj.dll; DestDir: {sys}; Check: GetJava
-Source: C:\libsbml\win32\installer\libsbml_xerces\bindings\matlab\*; DestDir: {code:GetMatlabDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetMatlab
-Source: C:\libsbml\win32\installer\libsbml_xerces\bindings\python\python23\_libsbml.lib; DestDir: {sys}; Check: GetPython23
-Source: C:\libsbml\win32\installer\libsbml_xerces\bindings\python\python23\_libsbml.dll; DestDir: {sys}; Check: GetPython23
-Source: C:\libsbml\win32\installer\libsbml_xerces\bindings\python\python24\_libsbml.lib; DestDir: {sys}; Check: GetPython24
-Source: C:\libsbml\win32\installer\libsbml_xerces\bindings\python\python24\_libsbml.dll; DestDir: {sys}; Check: GetPython24
-Source: C:\libsbml\win32\installer\libsbml_xerces\win32\bin\xerces-c_2D.lib; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml\win32\installer\libsbml_xerces\win32\bin\libsbml.dll; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml\win32\installer\libsbml_xerces\win32\bin\libsbml.lib; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml\win32\installer\libsbml_xerces\win32\bin\libsbmlD.dll; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml\win32\installer\libsbml_xerces\win32\bin\libsbmlD.lib; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml\win32\installer\libsbml_xerces\win32\bin\xerces-c_2.lib; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml\win32\installer\libsbml_xerces\win32\bin\xerces-c_2_5_0.dll; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml\win32\installer\libsbml_xerces\win32\bin\xerces-c_2_5_0D.dll; DestDir: {sys}; Check: GetLibrary
+Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\java\sbmlj.lib; DestDir: {sys}; Check: GetJava
+Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\java\sbmlj.dll; DestDir: {sys}; Check: GetJava
+Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\matlab\*; DestDir: {code:GetMatlabDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetMatlab
+Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python23\_libsbml.lib; DestDir: {sys}; Check: GetPython23
+Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python23\_libsbml.dll; DestDir: {sys}; Check: GetPython23
+Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python24\_libsbml.lib; DestDir: {sys}; Check: GetPython24
+Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python24\_libsbml.dll; DestDir: {sys}; Check: GetPython24
+Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python25\_libsbml.lib; DestDir: {sys}; Check: GetPython25
+Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python25\_libsbml.dll; DestDir: {sys}; Check: GetPython25
+Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\xerces-c_2D.lib; DestDir: {sys}; Check: GetLibrary
+Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\libsbml.dll; DestDir: {sys}; Check: GetLibrary
+Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\libsbml.lib; DestDir: {sys}; Check: GetLibrary
+Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\libsbmlD.dll; DestDir: {sys}; Check: GetLibrary
+Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\libsbmlD.lib; DestDir: {sys}; Check: GetLibrary
+Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\xerces-c_2.lib; DestDir: {sys}; Check: GetLibrary
+Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\xerces-c_2_7.dll; DestDir: {sys}; Check: GetLibrary
+Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\xerces-c_2_7D.dll; DestDir: {sys}; Check: GetLibrary
 
 [Registry]
 Root: HKCU; Subkey: Software\SBML; Flags: uninsdeletekeyifempty
@@ -159,7 +161,7 @@ begin
 
   Note: it includes a version number
 **********************************************************************************************************}
-  MsgBox('This setup installs the Windows release of libSBML 3.0.0 built using the Xerces XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);
+  MsgBox('This setup installs the Windows version of libSBML 3.0.0 built using the Xerces XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);
  { MsgBox('This setup installs the Windows release of libSBML 3.0.0 built using the Expat XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);  }
 end;
 
@@ -235,6 +237,7 @@ begin
     'Select the version of python you wish to install', True, False);
   PythonPage.Add('Python 2.3');
   PythonPage.Add('Python 2.4');
+  PythonPage.Add('Python 2.5');
 
   { matlab page : location to install matlab binding }
   MatlabPage := CreateInputDirPage(InstallOptionsPage.ID,
@@ -284,8 +287,9 @@ begin
   case GetPreviousData('PythonVers', '') of
     'Python 2.3': PythonPage.SelectedValueIndex := 0;
     'Python 2.4': PythonPage.SelectedValueIndex := 1;
+    'Python 2.5': PythonPage.SelectedValueIndex := 2;
   else
-    PythonPage.SelectedValueIndex := 1;
+    PythonPage.SelectedValueIndex := 2;
   end;
 
   {matlab page}
@@ -348,6 +352,7 @@ begin
   case PythonPage.SelectedValueIndex of
     0: PythonVers := 'Python 2.3';
     1: PythonVers := 'Python 2.4';
+    2: PythonVers := 'Python 2.5';
   end;
   SetPreviousData(PreviousDataKey, 'PythonVers', PythonVers);
 
@@ -435,9 +440,14 @@ begin
           S := S + 'Writing libSBML Python 2.3 library files (_libsbml.*) to system directory' + NewLine;
           S := S + '      ' + GetSystemDir();
           S := S + NewLine;
-        end else begin
+        end else if (PythonPage.SelectedValueIndex = 1) then begin
           S := S + NewLine;
           S := S + 'Writing libSBML Python 2.4 library files (_libsbml.*) to system directory' + NewLine;
+          S := S + '      ' + GetSystemDir();
+          S := S + NewLine;
+        end else begin
+          S := S + NewLine;
+          S := S + 'Writing libSBML Python 2.5 library files (_libsbml.*) to system directory' + NewLine;
           S := S + '      ' + GetSystemDir();
           S := S + NewLine;
         end;
@@ -477,8 +487,12 @@ begin
       S := S + 'Writing libSBML Python 2.3 library files (_libsbml.*) to system directory' + NewLine;
       S := S + '      ' + GetSystemDir();
       S := S + NewLine + NewLine;
-    end else begin
+    end else if (PythonPage.SelectedValueIndex = 1) then begin
       S := S + 'Writing libSBML Python 2.4 library files (_libsbml.*) to system directory' + NewLine;
+      S := S + '      ' + GetSystemDir();
+      S := S + NewLine + NewLine;
+    end else begin
+      S := S + 'Writing libSBML Python 2.5 library files (_libsbml.*) to system directory' + NewLine;
       S := S + '      ' + GetSystemDir();
       S := S + NewLine + NewLine;
     end;
@@ -506,6 +520,14 @@ end;
 function GetPython23() : Boolean;
 begin
   if (InstallOptionsPage.Values[2] = True) and (PythonPage.SelectedValueIndex = 0) then
+    Result := True
+  else
+    Result := False;
+end;
+
+function GetPython25() : Boolean;
+begin
+  if (InstallOptionsPage.Values[2] = True) and (PythonPage.SelectedValueIndex = 2) then
     Result := True
   else
     Result := False;
