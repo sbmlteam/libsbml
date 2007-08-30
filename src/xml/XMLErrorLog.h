@@ -32,10 +32,11 @@
  * inability to open a file) to XML syntax errors (such as mismatched tags
  * or other problems).
  *
- * In normal circumstances, user-level programs will obtain an SBMLErrorLog
- * rather than an actual XMLErrorLog.  The former is subclassed from
- * XMLErrorLog and simply wraps commands for working with SBMLError objects
- * rather than the low-level XMLError objects.
+ * In normal circumstances, programs using libSBML will actually obtain an
+ * SBMLErrorLog rather than an actual XMLErrorLog.  The former is
+ * subclassed from XMLErrorLog and simply wraps commands for working with
+ * SBMLError objects rather than the low-level XMLError objects.  Classes
+ * such as SBMLDocument use the higher-level SBMLErrorLog.
  */
 
 #ifndef XMLErrorLog_h
@@ -63,6 +64,9 @@ public:
   /**
    * Returns the number of errors that have been logged.
    *
+   * To retrieve individual errors from the log, callers may use
+   * getError().
+   *
    * @return the number of errors that have been logged.
    */
   unsigned int getNumErrors () const;
@@ -71,9 +75,14 @@ public:
   /**
    * Returns the nth XMLError in this log.
    *
-   * @param n unsigned int number of the error to retrieve.
+   * Callers should first use getNumErrors() to find out how many errors
+   * are in the log.
    *
-   * @return the nth XMLError in this log.
+   * @param n the index number of the error to retrieve (with 0 being the
+   * first error)
+   *
+   * @return the nth XMLError in this log, or NULL if @p n is greater than
+   * or equal to getNumErrors().
    */
   const XMLError* getError (unsigned int n) const;
 
