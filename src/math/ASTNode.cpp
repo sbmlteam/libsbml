@@ -1374,6 +1374,8 @@ ASTNode::swapChildren (ASTNode *that)
   that->mChildren = temp;
 }
 
+
+/** @cond doxygen-libsbml-internal */
 /**
   * Sets the flag indicating that this ASTNode has semantics attached
   */
@@ -1382,7 +1384,10 @@ ASTNode::setSemanticsFlag()
 { 
   hasSemantics = true; 
 }
+/** @endcond doxygen-libsbml-internal */
 
+
+/** @cond doxygen-libsbml-internal */
 /**
   * Unsets the flag indicating that this ASTNode has semantics attached
   */
@@ -1391,7 +1396,10 @@ ASTNode::unsetSemanticsFlag()
 { 
   hasSemantics = false; 
 }
+/** @endcond doxygen-libsbml-internal */
 
+
+/** @cond doxygen-libsbml-internal */
 /**
   * gets the flag indicating that this ASTNode has semantics attached
   */
@@ -1400,7 +1408,10 @@ ASTNode::getSemanticsFlag() const
 {
   return hasSemantics;
 }
+/** @endcond doxygen-libsbml-internal */
 
+
+/** @cond doxygen-libsbml-internal */
 /**
   * sets the definitionURL attributes
   */
@@ -1409,6 +1420,8 @@ ASTNode::setDefinitionURL(XMLAttributes url)
 {
   mDefinitionURL = static_cast<XMLAttributes *>(url.clone());
 }
+/** @endcond doxygen-libsbml-internal */
+
 
 /**
   * gets the definitionURL attributes
