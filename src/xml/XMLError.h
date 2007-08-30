@@ -26,7 +26,7 @@
  * @brief Representation of errors, warnings and other diagnostics
  *
  * LibSBML can be configured to use any of a number of XML parsers; at the
- * time of this writing, libSBML supported Xerces 2.4&ndash;2.7, Expat
+ * time of this writing, libSBML supports Xerces 2.4&ndash;2.7, Expat
  * 1.95.x, and libxml2 2.6.16 or higher.  These parsers each report
  * different status codes for the various exceptions that can occur during
  * XML processing.  The XMLError object class abstracts away from the
