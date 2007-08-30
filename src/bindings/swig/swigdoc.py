@@ -395,6 +395,16 @@ def sanitizeForJava (docstring):
 
 
 
+def indentVerbatimForPython (match):
+  text = match.group()
+
+  p = re.compile('^(.)', re.MULTILINE)
+  text = p.sub(r'  \1', text)
+
+  return text
+
+
+
 def sanitizeForPython (docstring):
   """sanitizeForPython (docstring) -> docstring
 
@@ -413,6 +423,12 @@ def sanitizeForPython (docstring):
   # Need to escape the quotation marks:
   docstring = docstring.replace('"', "'")
   docstring = docstring.replace(r"'", r"\'")
+
+  # SWIG does some bizarre truncation of leading characters that
+  # happens to hit us because of how we have to format verbatim's.
+  # This tries to kluge around it:  
+  p = re.compile('@verbatim.+?@endverbatim', re.DOTALL)
+  docstring = p.sub(indentVerbatimForPython, docstring)
 
   return docstring
 
