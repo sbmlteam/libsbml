@@ -254,17 +254,21 @@ typedef CLASS_OR_STRUCT XMLNamespaces		  XMLNamespaces_t;
  */
 typedef CLASS_OR_STRUCT XMLToken                  XMLToken_t;
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @var typedef class XMLInputStream XMLInputStream_t
  * @copydoc XMLInputStream
  */
 typedef CLASS_OR_STRUCT XMLInputStream            XMLInputStream_t;
+/** @endcond doxygen-libsbml-internal */
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @var typedef class XMLOutputStream XMLOutputStream_t
  * @copydoc XMLOutputStream
  */
 typedef CLASS_OR_STRUCT XMLOutputStream           XMLOutputStream_t;
+/** @endcond doxygen-libsbml-internal */
 
 /**
  * @var typedef class XMLTriple XMLTriple_t
