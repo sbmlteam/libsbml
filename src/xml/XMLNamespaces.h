@@ -20,10 +20,17 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  *------------------------------------------------------------------------- -->
+ *
  * @class XMLNamespaces.
- * @brief Implementation of %XMLNamespaces construct.
+ * @brief Object class for storing a list of XML namespaces.
+ *
+ * This class serves to organize functionality for tracking XML namespaces
+ * in a document or data stream.  The XMLNamespaces class stores namespace
+ * declarations as a list and provides operators such as add(), getLength()
+ * and clear() to manipulate the list.  Individual namespaces stored in a
+ * given XMLNamespace object instance can be retrieved by their index using
+ * getPrefix() or by other characteristics such as their URI.
  */
-
 
 #ifndef XMLNamespaces_h
 #define XMLNamespaces_h
@@ -59,7 +66,9 @@ public:
 
 
   /**
-   * Copy constructor; creates a copy of this XMLNamespaces set.
+   * Copy constructor; creates a copy of this XMLNamespaces list.
+   *
+   * @param orig the XMLNamespaces object to copy
    */
   XMLNamespaces(const XMLNamespaces& orig);
 
@@ -71,15 +80,15 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this XMLNamespaces set.
+   * Creates and returns a deep copy of this XMLNamespaces list.
    * 
-   * @return a (deep) copy of this XMLNamespaces set.
+   * @return a (deep) copy of this XMLNamespaces list.
    */
   XMLNamespaces* clone () const;
 
 
   /**
-   * Appends an XML namespace prefix/URI pair to this list of namespace
+   * Appends an XML namespace prefix and URI pair to this list of namespace
    * declarations.
    *
    * @param uri a string, the uri for the namespace
@@ -89,13 +98,14 @@ public:
 
 
   /**
-   * Clears (deletes) all XML namespace declarations.
+   * Clears (deletes) all XML namespace declarations in this XMLNamespaces
+   * object.
    */
   void clear ();
 
 
   /**
-   * Lookup the index of an XML namespace declaration by URI.
+   * Look up the index of an XML namespace declaration by URI.
    *
    * @param uri a string, uri of the required namespace.
    *
@@ -105,7 +115,8 @@ public:
 
 
   /**
-   * Returns the number of namespaces in the list.
+   * Returns the number of XML namespaces stored in this particular
+   * XMLNamespaces instance.
    *
    * @return the number of namespaces in this list.
    */
@@ -113,7 +124,10 @@ public:
 
 
   /**
-   * Lookup the prefix of an XML namespace declaration by position.
+   * Look up the prefix of an XML namespace declaration by position.
+   *
+   * Callers should use getLength() to find out how many namespaces
+   * are stored in the list.
    *
    * @param index an integer, position of the required prefix.
    *
@@ -122,55 +136,57 @@ public:
    *
    * @note If index is out of range, an empty string will be
    * returned.
+   *
+   * @see getLength()
    */
   std::string getPrefix (int index) const;
 
 
   /**
-   * Lookup the prefix of an XML namespace declaration by URI.
+   * Look up the prefix of an XML namespace declaration by its URI.
    *
-   * @param uri a string, uri of the required prefix
+   * @param uri a string, the URI of the prefix being sought
    *
    * @return the prefix of an XML namespace declaration given its URI.  
    *
-   * @note If
-   * URI does not exist, an empty string will be returned.
+   * @note If @p uri does not exist, an empty string will be returned.
    */
   std::string getPrefix (const std::string& uri) const;
 
 
   /**
-   * Lookup the URI of an XML namespace declaration by position.
+   * Look up the URI of an XML namespace declaration by its position.
    *
    * @param index an integer, position of the required URI.
    *
    * @return the URI of an XML namespace declaration in this list (by
    * position).  
    *
-   * @note If index is out of range, an empty string will be
+   * @note If @p index is out of range, an empty string will be
    * returned.
+   *
+   * @see getLength()
    */
   std::string getURI (int index) const;
 
 
   /**
-   * Lookup the URI of an XML namespace declaration by prefix.
+   * Look up the URI of an XML namespace declaration by its prefix.
    *
-   * @param prefix a string, prefix of the required URI
+   * @param prefix a string, the prefix of the required URI
    *
    * @return the URI of an XML namespace declaration given its prefix.  
    *
-   * @note If
-   * prefix does not exist, an empty string will be returned.
+   * @note If @p prefix does not exist, an empty string will be returned.
    */
   std::string getURI (const std::string& prefix = "") const;
 
 
   /**
    * Predicate returning @c true or @c false depending on whether 
-   * this XMLNamespaces set is empty.
+   * this XMLNamespaces list is empty.
    * 
-   * @return @c true if this XMLNamespaces set is empty, @c false otherwise.
+   * @return @c true if this XMLNamespaces list is empty, @c false otherwise.
    */
   bool isEmpty () const;
 
@@ -180,19 +196,19 @@ public:
   /** @cond doxygen-libsbml-internal */
 
   /**
-   * Writes this XMLNamespaces set to stream.
+   * Writes this XMLNamespaces list to stream.
    *
    * @param stream XMLOutputStream, stream to which this XMLNamespaces
-   * set is to be written.
+   * list is to be written.
    */
   void write (XMLOutputStream& stream) const;
 
 
   /**
-   * Inserts this XMLNamespaces set into stream.
+   * Inserts this XMLNamespaces list into stream.
    *
    * @param stream XMLOutputStream, stream to which the XMLNamespaces
-   * set is to be written.
+   * list is to be written.
    * @param namespaces XMLNamespaces, namespaces to be written to stream.
    *
    * @return the stream with the namespaces inserted.
