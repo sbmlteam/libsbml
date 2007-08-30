@@ -132,11 +132,11 @@ manipulating files and data streams containing the Systems Biology
 Markup Language (SBML).  The library supports both SBML Level 1 and
 SBML Level 2.
 
-The library is written in ISO C and C++ and currently provides an API
-for the languages C, C++, Java, Lisp, Perl, Python, MATLAB and Octave.
-LibSBML is known to run on Linux, Windows, and MacOS X, but is
-portable and support for other platforms should be straightforward to
-implement.
+The library is written in ISO standard C and C++ and currently
+provides an API for the languages C, C++, Java, Lisp, Perl, Python,
+MATLAB and Octave.  LibSBML is known to run on Linux, Windows, and
+MacOS X, but is portable and support for other platforms should be
+straightforward to implement.
 
 LibSBML is entirely open-source and all specifications and source code
 are freely and publicly available.  For more information about SBML,
@@ -181,15 +181,17 @@ Feature Highlights:
   algebraic) differences.
 
 * Access to SBML annotations and notes as XML objects.  Annotations
-  and notes are read and manipulated as XML structures instead of text
-  strings.  Further, in order to facilitate the support of MIRIAM
-  compatible annotations, there are new object classes ModelHistory
-  and CVTerm.  These classes facilitate the creation and addition of
-  RDF annotations inside <annotation> elements by providing parsing
-  and manipulation functions that treat the annotations in terms of
-  XMLNode objects implemented by the new XML layer.  Both ModelHistory
-  and CVTerm follow the general libSBML format of providing getters
-  and setters for each variable stored within the class.
+  and notes in libSBML 3.x are read and manipulated as XML structures;
+  a text-string interface is available for backward compatibility with
+  the libSBML 2.x series.  Further, in order to facilitate the support
+  of MIRIAM compatible annotations, there are new object classes
+  ModelHistory and CVTerm.  These classes facilitate the creation and
+  addition of RDF annotations inside <annotation> elements by
+  providing parsing and manipulation functions that treat the
+  annotations in terms of XMLNode objects implemented by the new XML
+  layer.  Both ModelHistory and CVTerm follow the general libSBML
+  format of providing getters and setters for each variable stored
+  within the class.
       
 * Interfaces for C, C++, Java, Python, Perl Lisp, MATLAB and Octave.
   C and C++ interfaces are implemented natively; the Java, Perl, and
