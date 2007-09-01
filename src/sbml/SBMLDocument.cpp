@@ -484,6 +484,7 @@ unsigned int
 SBMLDocument::checkConsistency ()
 {
   unsigned int nerrors = 0;
+  unsigned int total_errors = 0;
 
   /* determine which validators to run */
   bool id    = ((mApplicableValidators & 0x01) == 0x01);
@@ -506,76 +507,82 @@ SBMLDocument::checkConsistency ()
   if (id)
   {
     id_validator.init();
-    nerrors += id_validator.validate(*this);
+    nerrors = id_validator.validate(*this);
+    total_errors += nerrors;
     if (nerrors) 
     {
       mErrorLog.add( id_validator.getFailures() );
-      return nerrors;
+      return total_errors;
     }
   }
 
   if (sbml)
   {
     validator.init();
-    nerrors += validator.validate(*this);
+    nerrors = validator.validate(*this);
+    total_errors += nerrors;
     if (nerrors) 
     {
       mErrorLog.add( validator.getFailures() );
       /* only want to bail if errors not warnings */
       if (mErrorLog.getNumFailsWithSeverity(SBMLError::Error) > 0)
-        return nerrors;
+        return total_errors;
     }
   }
 
   if (sbo)
   {
     sbo_validator.init();
-    nerrors += sbo_validator.validate(*this);
+    nerrors = sbo_validator.validate(*this);
+    total_errors += nerrors;
     if (nerrors) 
     {
       mErrorLog.add( sbo_validator.getFailures() );
       /* only want to bail if errors not warnings */
       if (mErrorLog.getNumFailsWithSeverity(SBMLError::Error) > 0)
-        return nerrors;
+        return total_errors;
     }
   }
 
   if (math)
   {
     math_validator.init();
-    nerrors += math_validator.validate(*this);
+    nerrors = math_validator.validate(*this);
+    total_errors += nerrors;
     if (nerrors) 
     {
       mErrorLog.add( math_validator.getFailures() );
       /* only want to bail if errors not warnings */
       if (mErrorLog.getNumFailsWithSeverity(SBMLError::Error) > 0)
-        return nerrors;
+        return total_errors;
     }
   }
 
   if (units)
   {
     unit_validator.init();
-    nerrors += unit_validator.validate(*this);
+    nerrors = unit_validator.validate(*this);
+    total_errors += nerrors;
     if (nerrors) 
     {
       mErrorLog.add( unit_validator.getFailures() );
       /* only want to bail if errors not warnings */
       if (mErrorLog.getNumFailsWithSeverity(SBMLError::Error) > 0)
-        return nerrors;
+        return total_errors;
     }
   }
 
   if (over)
   {
     over_validator.init();
-    nerrors += over_validator.validate(*this);
+    nerrors = over_validator.validate(*this);
+    total_errors += nerrors;
     if (nerrors) 
     {
       mErrorLog.add( over_validator.getFailures() );
     }
   }
-  return nerrors;
+  return total_errors;
 }
 
 
