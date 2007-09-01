@@ -1383,7 +1383,8 @@ SBase::readAnnotation (XMLInputStream& stream)
 {
   const string& name = stream.peek().getName();
 
-  if (name == "annotation")
+  if (name == "annotation" 
+    || (getLevel() == 1 && getVersion() == 1 && name == "annotations"))
   {
 //    XMLNode* new_annotation = NULL;
     // If this is a level 1 document then annotations are not allowed on
