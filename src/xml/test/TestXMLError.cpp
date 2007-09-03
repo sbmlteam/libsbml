@@ -47,7 +47,7 @@ START_TEST (test_XMLError_create)
   fail_unless( error->getErrorId() == XMLError::DuplicateAttribute );
   fail_unless( error->getSeverity() == XMLError::Error );
   fail_unless( error->getCategory() == XMLError::XML );
-  fail_unless( error->getMessage() == "Duplicate attribute" );
+  fail_unless( error->getMessage() == "Duplicate attribute." );
   delete error;
 
   error = new XMLError(12345, "My message");
