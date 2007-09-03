@@ -38,188 +38,188 @@ static const xmlErrorTableEntry errorTable[] =
 {
   // 0
   { XMLError::UnknownError, XMLError::Internal, XMLError::Fatal,
-    "Unrecognized error encountered internally" },
+    "Unrecognized error encountered internally." },
 
 
   // System diagnostics:
 
   // 0001
   { XMLError::OutOfMemory, XMLError::System, XMLError::Fatal,
-    "Out of memory" },
+    "Out of memory." },
 
   // 0002
   { XMLError::FileUnreadable, XMLError::System, XMLError::Error,
-    "File unreadable" },
+    "File unreadable." },
 
   // 0003
   { XMLError::FileUnwritable, XMLError::System, XMLError::Error,
-    "File unwritable" },
+    "File unwritable." },
 
   // 0004
   { XMLError::FileOperationError, XMLError::System, XMLError::Error,
-    "Error encountered while attempting file operation" },
+    "Error encountered while attempting file operation." },
 
   // 0005
   { XMLError::NetworkAccessError, XMLError::System, XMLError::Error,
-    "Network access error" },
+    "Network access error." },
 
 
   // Internal diagnostics:
 
   // 0101
   { XMLError::InternalParserError, XMLError::Internal, XMLError::Fatal,
-    "Internal XML parser state error" },
+    "Internal XML parser state error." },
 
   // 0102
   { XMLError::UnrecognizedParserCode, XMLError::Internal, XMLError::Fatal,
-    "XML parser returned an unrecognized error code" },
+    "XML parser returned an unrecognized error code." },
 
   // 0102
   { XMLError::TranscoderError, XMLError::Internal, XMLError::Fatal,
-    "Character transcoder error" },
+    "Character transcoder error." },
 
 
   // Diagnostics about XML content:
 
   // 1001
   { XMLError::MissingXMLDecl, XMLError::XML, XMLError::Error,
-    "Missing XML declaration at beginning of XML input" },
+    "Missing XML declaration at beginning of XML input." },
 
   // 1002
   { XMLError::MissingXMLEncoding, XMLError::XML, XMLError::Error,
-    "Missing encoding attribute in XML declaration" },
+    "Missing encoding attribute in XML declaration." },
 
   // 1003
   { XMLError::BadXMLDecl, XMLError::XML, XMLError::Error,
-    "Invalid or unrecognized XML declaration or XML encoding" },
+    "Invalid or unrecognized XML declaration or XML encoding." },
 
   // 1004
   { XMLError::BadDOCTYPE, XMLError::XML, XMLError::Error,
-    "Invalid, malformed or unrecognized XML DOCTYPE declaration" },
+    "Invalid, malformed or unrecognized XML DOCTYPE declaration." },
 
   // 1005
   { XMLError::InvalidChar, XMLError::XML, XMLError::Error,
-    "Invalid character in XML content" },
+    "Invalid character in XML content." },
 
   // 1006
   { XMLError::NotWellFormed, XMLError::XML, XMLError::Error,
-    "Badly formed XML" },
+    "Badly formed XML." },
 
   // 1007
   { XMLError::UnclosedToken, XMLError::XML, XMLError::Error,
-    "Unclosed token" },
+    "Unclosed token." },
 
   // 1008
   { XMLError::InvalidConstruct, XMLError::XML, XMLError::Error,
-    "XML construct is invalid or not permitted" },
+    "XML construct is invalid or not permitted." },
 
   // 1009
   { XMLError::TagMismatch, XMLError::XML, XMLError::Error,
-    "Element tag mismatch or missing tag" },
+    "Element tag mismatch or missing tag." },
 
   // 1010
   { XMLError::DuplicateAttribute, XMLError::XML, XMLError::Error,
-    "Duplicate attribute" },
+    "Duplicate attribute." },
 
   // 1011
   { XMLError::UndefinedEntity, XMLError::XML, XMLError::Error,
-    "Undefined XML entity" },
+    "Undefined XML entity." },
 
   // 1012
   { XMLError::BadProcessingInstruction, XMLError::XML, XMLError::Error,
-    "Invalid, malformed or unrecognized XML processing instruction" },
+    "Invalid, malformed or unrecognized XML processing instruction." },
 
   // 1013
   { XMLError::BadPrefix, XMLError::XML, XMLError::Error,
-    "Invalid or undefined XML Namespace prefix" },
+    "Invalid or undefined XML Namespace prefix." },
 
   // 1014
   { XMLError::BadPrefixValue, XMLError::XML, XMLError::Error,
-    "Invalid XML Namespace prefix value" },
+    "Invalid XML Namespace prefix value." },
 
   // 1015
   { XMLError::MissingRequiredAttribute, XMLError::XML, XMLError::Error,
-    "Required attribute is missing" },
+    "Required attribute is missing." },
 
   // 1016
   { XMLError::AttributeTypeMismatch, XMLError::XML, XMLError::Error,
-    "Data type mismatch for attribute value" },
+    "Data type mismatch for attribute value." },
 
   // 1017
   { XMLError::BadUTF8Content, XMLError::XML, XMLError::Error,
-    "Invalid UTF8 content" },
+    "Invalid UTF8 content." },
 
   // 1018
   { XMLError::MissingAttributeValue, XMLError::XML, XMLError::Error,
-    "Missing or improperly formed attribute value" },
+    "Missing or improperly formed attribute value." },
 
   // 1019
   { XMLError::BadAttributeValue, XMLError::XML, XMLError::Error,
-    "Invalid or unrecognizable attribute value" },
+    "Invalid or unrecognizable attribute value." },
 
   // 1020
   { XMLError::BadAttribute, XMLError::XML, XMLError::Error,
-    "Invalid, unrecognized or malformed attribute" },
+    "Invalid, unrecognized or malformed attribute." },
 
   // 1021
   { XMLError::UnrecognizedElement, XMLError::XML, XMLError::Error,
-    "Element either not recognized or not permitted" },
+    "Element either not recognized or not permitted." },
 
   // 1022
   { XMLError::BadXMLComment, XMLError::XML, XMLError::Error,
-    "Badly formed XML comment" },
+    "Badly formed XML comment." },
 
   // 1023
   { XMLError::BadXMLDeclLocation, XMLError::XML, XMLError::Error,
-    "XML declaration not permitted in this location" },
+    "XML declaration not permitted in this location." },
 
   // 1024
   { XMLError::UnexpectedEOF, XMLError::XML, XMLError::Error,
-    "Reached end of input unexpectedly" },
+    "Reached end of input unexpectedly." },
 
   // 1025
   { XMLError::BadXMLIDValue, XMLError::XML, XMLError::Error,
-    "Value is invalid for XML ID, or has already been used" },
+    "Value is invalid for XML ID, or has already been used." },
 
   // 1026
   { XMLError::BadXMLIDRef, XMLError::XML, XMLError::Error,
-    "XML ID value was never declared" },
+    "XML ID value was never declared." },
 
   // 1027
   { XMLError::UninterpretableContent, XMLError::XML, XMLError::Error,
-    "Unable to interpret content" },
+    "Unable to interpret content." },
 
   // 1028
   { XMLError::BadDocumentStructure, XMLError::XML, XMLError::Error,
-    "Bad XML document structure" },
+    "Bad XML document structure." },
 
   // 1029
   { XMLError::InvalidAfterContent, XMLError::XML, XMLError::Error,
-    "Encountered invalid content after expected content" },
+    "Encountered invalid content after expected content." },
 
   // 1031
   { XMLError::ExpectedQuotedString, XMLError::XML, XMLError::Error,
-    "Expected to find a quoted string" },
+    "Expected to find a quoted string." },
 
   // 1032
   { XMLError::EmptyValueNotPermitted, XMLError::XML, XMLError::Error,
-    "An empty value is not permitted in this context" },
+    "An empty value is not permitted in this context." },
 
   // 1033
   { XMLError::BadNumber, XMLError::XML, XMLError::Error,
-    "Invalid or unrecognized number" },
+    "Invalid or unrecognized number." },
 
   // 1034
   { XMLError::BadColon, XMLError::XML, XMLError::Error,
-    "Colon characters are invalid in this context" },
+    "Colon characters are invalid in this context." },
 
   // 1035
   { XMLError::MissingElements, XMLError::XML, XMLError::Error,
-    "One or more expected elements are missing" },
+    "One or more expected elements are missing." },
 
   // 1036
   { XMLError::EmptyXML, XMLError::XML, XMLError::Error,
-    "Main XML content is empty" },
+    "Main XML content is empty." },
 
 };
 
