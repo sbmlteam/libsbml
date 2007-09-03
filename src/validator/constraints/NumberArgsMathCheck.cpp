@@ -112,7 +112,6 @@ NumberArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase
   case AST_FUNCTION_FACTORIAL:
   case AST_FUNCTION_FLOOR:
   case AST_FUNCTION_LN:
-  case AST_FUNCTION_LOG:
   case AST_FUNCTION_SEC:
   case AST_FUNCTION_SECH:
   case AST_FUNCTION_SIN:
@@ -131,6 +130,7 @@ NumberArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase
     case AST_POWER:
     case AST_RELATIONAL_NEQ:
     case AST_FUNCTION_POWER:
+    case AST_FUNCTION_LOG:       // a log ASTNode has a child for base
       if (node.getNumChildren() != 2)
       {
         logMathConflict(node, sb);
