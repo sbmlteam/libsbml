@@ -123,9 +123,11 @@ public:
   , DuplicateAnnotationNamespaces    = 10402 /*!< SBML L2v3 validation rule #10402 */
   , SBMLNamespaceInAnnotation        = 10403 /*!< SBML L2v3 validation rule #10403 */
   , InconsistentArgUnits             = 10501 /*!< SBML L2v3 validation rule #10501 */
+    /** @cond doxygen-libsbml-internal */
   , InconsistentArgUnitsWarnings     = 10502 /*!< SBML L2v3 validation rule #10501 */
   , InconsistentPowerUnitsWarnings   = 10503 /*!< SBML L2v3 validation rule #10501 */
   , InconsistentExponUnitsWarnings   = 10504 /*!< SBML L2v3 validation rule #10501 */
+    /** @endcond doxygen-libsbml-internal */
   , AssignRuleCompartmentMismatch    = 10511 /*!< SBML L2v3 validation rule #10511 */
   , AssignRuleSpeciesMismatch        = 10512 /*!< SBML L2v3 validation rule #10512 */
   , AssignRuleParameterMismatch      = 10513 /*!< SBML L2v3 validation rule #10513 */
@@ -257,9 +259,46 @@ public:
 
   , GeneralWarningNotSpecified       = 29999
 
-  , CannotConvertToL1V1              = 90000
+    // Lower bound for additional error codes returned by libSBML but not
+    // defined in SBML specifications.
+
+  , LibSBMLAdditionalCodesLowerBound = 90000
+
+  , CannotConvertToL1V1              = 90001
+  , NoEventsInL1		     = 91001
+  , NoFunctionDefinitionsInL1	     = 91002
+  , NoConstraintsInL1		     = 91003
+  , NoInitialAssignmentsInL1	     = 91004
+  , NoSpeciesTypesInL1		     = 91005
+  , NoCompartmentTypeInL1	     = 91006
+  , NoNon3DComparmentsInL1	     = 91107
+  , NoFancyStoichiometryMathInL1     = 91008
+  , NoNonIntegerStoichiometryInL1    = 91009
+  , NoUnitMultipliersOrOffsetsInL1   = 91010
+  , SpeciesCompartmentRequiredInL1   = 91011
+  , NoSpeciesSpatialSizeUnitsInL1    = 91012
+  , NoSBOTermsInL1		     = 91013
+  , NoConstraintsInL2v1		     = 92001
+  , NoInitialAssignmentsInL2v1	     = 92002
+  , NoSpeciesTypeInL2v1		     = 92003
+  , NoCompartmentTypeInL2v1	     = 92004
+  , NoSBOTermsInL2v1		     = 92005
+  , NoIdOnSpeciesReferenceInL2v1     = 92006
+  , SBOTermNotUniversalInL2v2	     = 93001
+  , NoUnitOffsetInL2v2		     = 93002
+  , NoKineticLawTimeUnitsInL2v2	     = 93003
+  , NoKineticLawSubstanceUnitsInL2v2 = 93004
+  , NoUnitOffsetInL2v3		     = 94001
+  , NoKineticLawTimeUnitsInL2v3	     = 94002
+  , NoKineticLawSubstanceUnitsInL2v3 = 94003
+  , NoSpeciesSpatialSizeUnitsInL2v3  = 94004
+  , NoEventTimeUnitsInL2v3	     = 94005
+
     // Bounds
-  , SBMLCodesUpperBound              = 99999 /*!< 99999 */
+  , SBMLCodesUpperBound              = 99999 /*!< 99999, the upper bound of
+					      * all libSBML codes.
+					      * Application-specific codes
+					      * should begin at 100000. */
   };
 
 
@@ -320,6 +359,13 @@ public:
                                  * software should terminate
                                  * immediately. */
 
+  /** @cond doxygen-libsbml-internal **/
+
+  /* The following are used internally in SBMLErrorTable, but publicly,
+   * we only report one of the 4 categories above.  Translation of the
+   * codes is done in SBMLError.cpp.
+   */
+
   , SchemaError                 /*!< The XML content does not conform to
                                  * the relevant version of the SBML XML 
                                  * Schema.  The content is not valid SBML. */
@@ -334,6 +380,9 @@ public:
   , NotApplicable               /*!< This error code is only a placeholder
 				 * for errors that have relevance to some
 				 * versions of SBML but not others. */
+
+  /** @endcond doxygen-libsbml-internal **/
+
   };
 
 
