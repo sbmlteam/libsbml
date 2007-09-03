@@ -43,7 +43,7 @@ using namespace std;
 START_CONSTRAINT (94001, Unit, u)
 {
   msg =
-    "The offset attribute on unit previously available in SBML Level 2 "
+    "The 'offset' attribute on <unit> previously available in SBML Level 2 "
     "Version 1, has been removed as of SBML Level 2 Version 2. (References: "
     "L2V2 Section 4.4.)";
 
@@ -54,7 +54,7 @@ END_CONSTRAINT
 START_CONSTRAINT (94002, KineticLaw, kl)
 {
   msg =
-    "The timeUnits attribute on kineticLaw, previously available in SBML "
+    "The 'timeUnits' attribute on <kineticLaw>, previously available in SBML "
     "Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
     "Version 2. In SBML Level 2 Version 2, the time units of a reaction rate "
     "expression are those of the global 'time' units of the model. "
@@ -67,7 +67,7 @@ END_CONSTRAINT
 START_CONSTRAINT (94003, KineticLaw, kl)
 {
   msg =
-    "The substanceUnits attribute on kineticLaw, previously available in "
+    "The 'substanceUnits' attribute on <kineticLaw>, previously available in "
     "SBML Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
     "Version 2. In SBML Level 2 Version 2, the substance units of a reaction "
     "rate expression are those of the global 'substance' units of the model. "
@@ -80,7 +80,7 @@ END_CONSTRAINT
 START_CONSTRAINT (94004, Species, s)
 {
   msg =
-    "The spatialSizeUnits attribute on Species, previously available "
+    "The 'spatialSizeUnits' attribute on <species>, previously available "
     "in SBML Level 2 versions prior to Version 3, has been removed as "
     "of SBML Level 2 Version 3. (References: L2V3 Section 4.8.)";
 
@@ -91,7 +91,7 @@ END_CONSTRAINT
 START_CONSTRAINT (94005, Event, e)
 {
   msg =
-    "The timeUnits attribute on Event, previously available in SBML "
+    "The 'timeUnits' attribute on <event>, previously available in SBML "
     "Level 2 versions prior to Version 3, has been removed as of SBML "
     "Level 2 Version 3. (References: L2V3 Section 4.14.)";
 

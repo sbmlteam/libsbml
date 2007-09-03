@@ -42,7 +42,7 @@ using namespace std;
 START_CONSTRAINT (91001, Model, x)
 {
   msg =
-    "A Model with Events cannot be represented in Level 1.";
+    "A model with <event> definitions cannot be represented in SBML Level 1.";
 
   inv( m.getNumEvents() == 0 );
 }
@@ -52,8 +52,8 @@ END_CONSTRAINT
 START_CONSTRAINT (91002, Model, x)
 {
   msg =
-    "Conversion of a model with FunctionDefinitions to Level 1 is not yet "
-    "supported.";
+    "Conversion of a model with <functionDefinition>s to SBML Level 1 is not "
+    "yet supported.";
 
   inv( m.getNumFunctionDefinitions() == 0 );
 }
@@ -63,7 +63,7 @@ END_CONSTRAINT
 START_CONSTRAINT (91003, Model, x)
 {
   msg =
-    "Conversion of a model with Constraints to Level 1 may result "
+    "Conversion of a model with <constraint>s to SBML Level 1 may result "
     "in loss of information.";
 
   inv( m.getNumConstraints() == 0 );
@@ -74,8 +74,8 @@ END_CONSTRAINT
 START_CONSTRAINT (91004, Model, x)
 {
   msg =
-    "Conversion of a model with InitialAssignments to Level 1 is not yet "
-    "supported.";
+    "Conversion of a model with <initialAssignment>s to SBML Level 1 is not "
+    "yet supported.";
 
   inv( m.getNumInitialAssignments() == 0 );
 }
@@ -85,7 +85,7 @@ END_CONSTRAINT
 START_CONSTRAINT (91005, Model, x)
 {
   msg =
-    "SpeciesType information is not represented in Level 1.";
+    "<speciesType> definitions cannot be represented in SBML Level 1.";
 
   inv( m.getNumSpeciesTypes() == 0 );
 }
@@ -95,7 +95,7 @@ END_CONSTRAINT
 START_CONSTRAINT (91006, Model, x)
 {
   msg =
-    "CompartmentType information is not represented in Level 1.";
+    "<compartmentType> definitions cannot be represented in SBML Level 1.";
 
   inv( m.getNumCompartmentTypes() == 0 );
 }
@@ -105,8 +105,8 @@ END_CONSTRAINT
 START_CONSTRAINT (91007, Compartment, c)
 {
   msg =
-    "A Compartment with 'spatialDimensions' not equal to 3 cannot be "
-    "represented in Level 1.";
+    "A <compartment> with 'spatialDimensions' not equal to 3 cannot be "
+    "represented in SBML Level 1.";
 
   inv( c.getSpatialDimensions() == 3 );
 }
@@ -116,8 +116,8 @@ END_CONSTRAINT
 START_CONSTRAINT (91008, SpeciesReference, sr) 
 {
   msg =
-    "A SpeciesReference containing a non-integer or non-rational "
-    "'stoichiometryMath' subelement cannot be represented in Level 1.";
+    "A <peciesReference> containing a non-integer or non-rational "
+    "<stoichiometryMath> subelement cannot be represented in SBML Level 1.";
 
   /* doesnt apply if the SpeciesReference is a modifier */
   pre(!sr.isModifier());
@@ -133,8 +133,8 @@ END_CONSTRAINT
 START_CONSTRAINT (91009, SpeciesReference, sr)
 {
   msg =
-    "A SpeciesReference containing a non-integer 'stoichiometry' subelement "
-    "cannot be represented in Level 1.";
+    "A <peciesReference> containing a non-integer 'stoichiometry' attribute "
+    "value cannot be represented in SBML Level 1.";
 
 
   pre( !sr.isSetStoichiometryMath() );
@@ -146,8 +146,8 @@ END_CONSTRAINT
 START_CONSTRAINT (91010, Unit, u)
 {
   msg =
-    "A Unit containing multipliers or offsets cannot be represented in "
-    "Level 1.";
+    "A <unit> containing multipliers or offsets cannot be represented in "
+    "SBML Level 1.";
 
 
   inv( u.getMultiplier() == 1.0 );
@@ -159,8 +159,8 @@ END_CONSTRAINT
 START_CONSTRAINT (91011, Species, s)
 {
   msg =
-    "A Species that does not identify its compartment cannot be "
-    "represented in Level 1.";
+    "A <species> that does not identify its compartment cannot be "
+    "represented in SBML Level 1.";
 
 
   inv( s.isSetCompartment() );
@@ -171,8 +171,9 @@ END_CONSTRAINT
 START_CONSTRAINT (91012, Species, s)
 {
   msg =
-    "The spatialSizeUnit information on a Species is not "
-    "represented in Level 1.";
+    "The information represented by the value of a 'spatialSizeUnit' "
+    "attribute on a <species> definition cannot be represented in "
+    "SBML Level 1.";
 
 
   inv( !s.isSetSpatialSizeUnits() );
@@ -183,7 +184,7 @@ END_CONSTRAINT
 START_CONSTRAINT (91013, Model, x)
 {
   msg =
-    "No sboTerm information is represented in Level 1.";
+    "SBO terms cannot be represented directly in SBML Level 1.";
 
   inv( m.getSBOTerm() == -1 );
 }
@@ -193,7 +194,7 @@ END_CONSTRAINT
 START_CONSTRAINT (91013, UnitDefinition, ud)
 {
   msg =
-    "No sboTerm information is represented in Level 1.";
+    "SBO terms cannot be represented directly in SBML Level 1.";
 
   inv( ud.getSBOTerm() == -1 );
 }
@@ -203,7 +204,7 @@ END_CONSTRAINT
 START_CONSTRAINT (91013, Unit, u)
 {
   msg =
-    "No sboTerm information is represented in Level 1.";
+    "SBO terms cannot be represented directly in SBML Level 1.";
 
   inv( u.getSBOTerm() == -1 );
 }
@@ -213,7 +214,7 @@ END_CONSTRAINT
 START_CONSTRAINT (91013, Compartment, c)
 {
   msg =
-    "No sboTerm information is represented in Level 1.";
+    "SBO terms cannot be represented directly in SBML Level 1.";
 
   inv( c.getSBOTerm() == -1 );
 }
@@ -223,7 +224,7 @@ END_CONSTRAINT
 START_CONSTRAINT (91013, Species, s)
 {
   msg =
-    "No sboTerm information is represented in Level 1.";
+    "SBO terms cannot be represented directly in SBML Level 1.";
 
   inv( s.getSBOTerm() == -1 );
 }
@@ -233,7 +234,7 @@ END_CONSTRAINT
 START_CONSTRAINT (91013, Parameter, p)
 {
   msg =
-    "No sboTerm information is represented in Level 1.";
+    "SBO terms cannot be represented directly in SBML Level 1.";
 
   inv( p.getSBOTerm() == -1 );
 }
@@ -243,7 +244,7 @@ END_CONSTRAINT
 START_CONSTRAINT (91013, AssignmentRule, r)
 {
   msg =
-    "No sboTerm information is represented in Level 1.";
+    "SBO terms cannot be represented directly in SBML Level 1.";
 
   inv( r.getSBOTerm() == -1 );
 }
@@ -253,7 +254,7 @@ END_CONSTRAINT
 START_CONSTRAINT (91013, RateRule, r)
 {
   msg =
-    "No sboTerm information is represented in Level 1.";
+    "SBO terms cannot be represented directly in SBML Level 1.";
 
   inv( r.getSBOTerm() == -1 );
 }
@@ -263,7 +264,7 @@ END_CONSTRAINT
 START_CONSTRAINT (91013, AlgebraicRule, r)
 {
   msg =
-    "No sboTerm information is represented in Level 1.";
+    "SBO terms cannot be represented directly in SBML Level 1.";
 
   inv( r.getSBOTerm() == -1 );
 }
@@ -273,7 +274,7 @@ END_CONSTRAINT
 START_CONSTRAINT (91013, Reaction, r)
 {
   msg =
-    "No sboTerm information is represented in Level 1.";
+    "SBO terms cannot be represented directly in SBML Level 1.";
 
   inv( r.getSBOTerm() == -1 );
 }
@@ -283,7 +284,7 @@ END_CONSTRAINT
 START_CONSTRAINT (91013, SpeciesReference, sr)
 {
   msg =
-    "No sboTerm information is represented in Level 1.";
+    "SBO terms cannot be represented directly in SBML Level 1.";
 
   inv( sr.getSBOTerm() == -1 );
 }
@@ -293,7 +294,7 @@ END_CONSTRAINT
 START_CONSTRAINT (91013, KineticLaw, kl)
 {
   msg =
-    "No sboTerm information is represented in Level 1.";
+    "SBO terms cannot be represented directly in SBML Level 1.";
 
   inv( kl.getSBOTerm() == -1 );
 }

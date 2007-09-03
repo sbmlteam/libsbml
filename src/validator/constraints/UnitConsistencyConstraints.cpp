@@ -109,7 +109,8 @@ START_CONSTRAINT (10511, AssignmentRule, ar)
     msg =
       "When the 'variable' in an <assignmentRule> refers to a <compartment>, "
       "the units of the rule's right-hand side must be consistent with the "
-      "units of that compartment's size. (References: L2V2 Section 4.11.3.)";
+      "units of that compartment's size. (References: L2V2 Section 4.11.3; "
+      "L2V3 Section 4.11.3.)";
   }
   else
   {
@@ -118,7 +119,6 @@ START_CONSTRAINT (10511, AssignmentRule, ar)
       "the units of the rule's right-hand side must be consistent with the "
       "units of that compartment's volume.";
   }
-
 
 
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_COMPARTMENT);
@@ -165,7 +165,8 @@ START_CONSTRAINT (10512, AssignmentRule, ar)
     msg =
       "When the 'variable' in an <assignmentRule> refers to a <species>, the "
       "units of the rule's right-hand side must be consistent with the units "
-      "of the species' quantity. (References: L2V2 Section 4.11.3.)";
+      "of the species' quantity. (References: L2V2 Section 4.11.3; L2V3 "
+      "Section 4.11.3.)";
   }
   else
   {
@@ -174,7 +175,6 @@ START_CONSTRAINT (10512, AssignmentRule, ar)
       "units of the rule's right-hand side must be consistent with the units "
       "of the species' quantity.";
   }
-   
 
 
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_SPECIES);
@@ -222,7 +222,8 @@ START_CONSTRAINT (10513, AssignmentRule, ar)
     msg =
       "When the 'variable' in an <assignmentRule> refers to a <parameter>, the "
       "units of the rule's right-hand side must be consistent with the units "
-      "declared for that parameter. (References: L2V2 Section 4.11.3.)";
+      "declared for that parameter. (References: L2V2 Section 4.11.3; L2V3 "
+      "Section 4.11.3.)";
   }
   else
   {
@@ -272,9 +273,9 @@ START_CONSTRAINT (10521, InitialAssignment, ia)
 
   msg =
     "When the 'variable' in an <initialAssignment> refers to a "
-    "<compartment>, the units of the <initialAssignment>'s 'math' expression "
+    "<compartment>, the units of the <initialAssignment>'s <math> expression "
     "must be consistent with the units of that compartment's size. "
-    "(References: L2V2 Section 4.10.)";
+    "(References: L2V2 Section 4.10.4; L2V3 Section 4.10.)";
 
 
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_COMPARTMENT);
@@ -318,9 +319,9 @@ START_CONSTRAINT (10522, InitialAssignment, ia)
 
   msg =
     "When the 'variable' in an <initialAssignment> refers to a <species>, "
-    "the units of the <initialAssignment>'s 'math' expression must be "
+    "the units of the <initialAssignment>'s <math> expression must be "
     "consistent with the units of that species' quantity. (References: L2V2 "
-    "Section 4.11.3.)";
+    "Section 4.10.4; L2V3 Section 4.11.3.)";
    
 
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_SPECIES);
@@ -366,9 +367,9 @@ START_CONSTRAINT (10523, InitialAssignment, ia)
 
   msg =
     "When the 'variable' in an <initialAssignment> refers to a <parameter>, "
-    "the units of the <initialAssignment>'s 'math' expression must be "
+    "the units of the <initialAssignment>'s <math> expression must be "
     "consistent with the units declared for that parameter. (References: "
-    "L2V2 Section 4.11.3.)";
+    "L2V2 Section 4.10.4; L2V3 Section 4.11.3.)";
    
 
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_PARAMETER);
@@ -419,7 +420,7 @@ START_CONSTRAINT (10531, RateRule, rr)
       "<compartment> definition, or (in the absence of explicit units declared "
       "for the compartment size) the default units for that compartment, and "
       "_time_ refers to the units of time for the model. (References: L2V2 "
-      "Section 4.11.4.)";
+      "Section 4.11.4; L2V3 Section 4.11.4.)";
   }
   else
   {
@@ -467,7 +468,7 @@ START_CONSTRAINT (10532, RateRule, rr)
       "the units of the rule's right-hand side must be of the form _x per "
       "time_, where _x_ is the units of that species' quantity, and _time_ "
       "refers to the units of time for the model. (References: L2V2 Section "
-      "4.11.4.)";
+      "4.11.4; L2V3 Section 4.11.4.)";
   }
   else
   {
@@ -538,7 +539,7 @@ START_CONSTRAINT (10533, RateRule, rr)
       "the units of the rule's right-hand side must be of the form _x per "
       "time_, where _x_ is the 'units' in that <parameter> definition, and "
       "_time_ refers to the units of time for the model. (References: L2V2 "
-      "Section 4.11.4.)";
+      "Section 4.11.4; L2V3 Section 4.11.4.)";
   }
   else
   {
@@ -623,10 +624,10 @@ END_CONSTRAINT
 START_CONSTRAINT (10551, Event, e)
 {
   msg =
-    "When a value for 'delay' is given in a <event> definition, the units of "
+    "When a value for <delay> is given in a <event> definition, the units of "
     "the delay formula must correspond to either the value of 'timeUnits' in "
     "the <event> or (if no 'timeUnits' are given), the model's default units "
-    "of time. (References: L2V2 Section 4.14.)";
+    "of time. (References: L2V2 Section 4.14; L2V3 Section 4.14.3.)";
 
   pre ( e.isSetDelay() == 1 );
 
@@ -663,8 +664,9 @@ START_CONSTRAINT (10561, EventAssignment, ea)
 {
   msg =
     "When the 'variable' in an <eventAssignment> refers to a <compartment>, "
-    "the units of the eventAssignment's math expression must be consistent with the "
-    "units of that compartment's size. (References: L2V2 Section 4.14.2.)";
+    "the units of the <eventAssignment>'s <math> expression must be consistent "
+    "with the units of that compartment's size. (References: L2V2 Section "
+    "4.14.2; L2V3 Section 4.14.4.)";
 
 
   const string& variable = ea.getVariable();
@@ -708,8 +710,9 @@ START_CONSTRAINT (10562, EventAssignment, ea)
 {
   msg =
     "When the 'variable' in an <eventAssignment> refers to a <species>, the "
-    "units of the eventAssignment's math expression must be consistent with the units "
-    "of the species' quantity. (References: L2V2 Section 4.14.2.)";
+    "units of the <eventAssignment>'s <math> expression must be consistent "
+    "with the units of the species' quantity. (References: L2V2 Section "
+    "4.14.2; L2V3 Section 4.14.4.)";
    
 
   const string& variable = ea.getVariable();
@@ -752,8 +755,9 @@ START_CONSTRAINT (10563, EventAssignment, ea)
 {
   msg =
     "When the 'variable' in an <eventAssignment> refers to a <parameter>, the "
-    "units of the eventAssignment's math expression must be consistent with the units "
-    "declared for that parameter. (References: L2V2 Section 4.11.3.)";
+    "units of the <eventAssignment>'s <math> expression must be consistent "
+    "with the units declared for that parameter. (References: L2V2 Section "
+    "4.14.2; L2V3 Section 4.14.4)";
    
 
   const string& variable = ea.getVariable();

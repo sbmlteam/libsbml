@@ -96,10 +96,10 @@ START_CONSTRAINT(10701, Model, m1)
   pre(m1.isSetSBOTerm());
 
   msg = 
-    "The value of the sboTerm attribute on a Model must be an SBO identifier "
+    "The value of the 'sboTerm' attribute on a <model> must be an SBO identifier "
     "(http://www.biomodels.net/SBO/) referring to a modeling framework "
     "defined in SBO (i.e., terms derived from SBO:0000004, \"modeling "
-    "framework\"). (References: L2V2 Section 4.2.1.)";
+    "framework\"). (References: L2V2 Section 4.2.1; L2V3 Section 4.2.2.)";
 
 
   inv(SBO::isModellingFramework(m1.getSBOTerm()));
@@ -113,10 +113,10 @@ START_CONSTRAINT(10702, FunctionDefinition, fd)
   pre(fd.isSetSBOTerm());
 
   msg = 
-    "The value of the sboTerm attribute on a FunctionDefinition must be an SBO "
+    "The value of the 'sboTerm' attribute on a <functionDefinition> must be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
     "expression (i.e., terms derived from SBO:0000064, \"mathematical "
-    "expression\"). (References: L2V2 Section 4.3.3.)";
+    "expression\"). (References: L2V2 Section 4.3.3; L2V3 Section 4.3.3.)";
 
   inv(SBO::isMathematicalExpression(fd.getSBOTerm()));
 }
@@ -129,10 +129,10 @@ START_CONSTRAINT(10703, Parameter, p)
   pre(p.isSetSBOTerm());
 
   msg = 
-    "The value of the sboTerm attribute on a Parameter must be an SBO identifier "
+    "The value of the 'sboTerm' attribute on a <parameter> must be an SBO identifier "
     "(http://www.biomodels.net/SBO/) referring to a quantitative parameter "
     "defined in SBO (i.e., terms derived from SBO:0000002, \"quantitative "
-    "parameter\"). (References: L2V2 Section 4.9.5.)";
+    "parameter\"). (References: L2V2 Section 4.9.5; L2V3 Section 4.9.5.)";
 
   inv(SBO::isQuantitativeParameter(p.getSBOTerm()));
 }
@@ -145,10 +145,10 @@ START_CONSTRAINT(10704, InitialAssignment, ia)
   pre(ia.isSetSBOTerm());
 
   msg = 
-    "The value of the sboTerm attribute on an InitialAssignment must be an SBO "
+    "The value of the 'sboTerm' attribute on an <initialAssignment> must be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
     "expression (i.e., terms derived from SBO:0000064, \"mathematical "
-    "expression\"). (References: L2V2 Section 4.10.3.)";
+    "expression\"). (References: L2V2 Section 4.10.3; L2V3 Section 4.10.3.)";
 
   inv(SBO::isMathematicalExpression(ia.getSBOTerm()));
 }
@@ -161,11 +161,11 @@ START_CONSTRAINT(10705, AssignmentRule, r)
   pre(r.isSetSBOTerm());
 
   msg = 
-    "The value of the sboTerm attribute on a Rule must be an SBO identifier "
+    "The value of the 'sboTerm' attribute on a rule must be an SBO identifier "
     "(http://www.biomodels.net/SBO/) referring to a mathematical expression "
     "(i.e., terms derived from SBO:0000064, \"mathematical expression\"). Note: "
-    "This applies to AlgebraicRules in addition to Rate and Assignment Rules. "
-    "(References: L2V2 Section 4.11.1.)";
+    "This applies to Algebraic Rules in addition to Rate and Assignment Rules. "
+    "(References: L2V2 Section 4.11.1; L2V3 Section 4.11.1.)";
 
   inv(SBO::isMathematicalExpression(r.getSBOTerm()));
 }
@@ -178,11 +178,11 @@ START_CONSTRAINT(10705, RateRule, r)
   pre(r.isSetSBOTerm());
 
   msg = 
-    "The value of the sboTerm attribute on a Rule must be an SBO identifier "
+    "The value of the 'sboTerm' attribute on a rule must be an SBO identifier "
     "(http://www.biomodels.net/SBO/) referring to a mathematical expression "
     "(i.e., terms derived from SBO:0000064, \"mathematical expression\"). Note: "
-    "This applies to AlgebraicRules in addition to Rate and Assignment Rules. "
-    "(References: L2V2 Section 4.11.1.)";
+    "This applies to Algebraic Rules in addition to Rate and Assignment Rules. "
+    "(References: L2V2 Section 4.11.1; L2V3 Section 4.11.1.)";
 
   inv(SBO::isMathematicalExpression(r.getSBOTerm()));
 }
@@ -195,11 +195,11 @@ START_CONSTRAINT(10705, AlgebraicRule, r)
   pre(r.isSetSBOTerm());
 
   msg = 
-    "The value of the sboTerm attribute on a Rule must be an SBO identifier "
+    "The value of the 'sboTerm' attribute on a rule must be an SBO identifier "
     "(http://www.biomodels.net/SBO/) referring to a mathematical expression "
     "(i.e., terms derived from SBO:0000064, \"mathematical expression\"). Note: "
-    "This applies to AlgebraicRules in addition to Rate and Assignment Rules. "
-    "(References: L2V2 Section 4.11.1.)";
+    "This applies to Algebraic Rules in addition to Rate and Assignment Rules. "
+    "(References: L2V2 Section 4.11.1; L2V3 Section 4.11.1.)";
 
   inv(SBO::isMathematicalExpression(r.getSBOTerm()));
 }
@@ -212,10 +212,10 @@ START_CONSTRAINT(10706, Constraint, c)
   pre(c.isSetSBOTerm());
 
   msg = 
-    "The value of the sboTerm attribute on a Constraint must be an SBO identifier "
+    "The value of the 'sboTerm' attribute on a <constraint> must be an SBO identifier "
     "(http://www.biomodels.net/SBO/) referring to a mathematical expression "
     "(i.e., terms derived from SBO:0000064, \"mathematical expression\"). "
-    "(References: L2V2 Section 4.12.3.)";
+    "(References: L2V2 Section 4.12.3; L2V3 Section 4.12.3.)";
 
   inv(SBO::isMathematicalExpression(c.getSBOTerm()));
 }
@@ -228,10 +228,10 @@ START_CONSTRAINT(10707, Reaction, r)
   pre(r.isSetSBOTerm());
 
   msg = 
-    "The value of the sboTerm attribute on a Reaction must be an SBO identifier "
+    "The value of the 'sboTerm' attribute on a <reaction> must be an SBO identifier "
     "(http://www.biomodels.net/SBO/) referring to an event defined "
     "in SBO (i.e., terms derived from SBO:0000231, \"event\"). "
-    "(References: L2V2 Section 4.13.1.)";
+    "(References: L2V2 Section 4.13.1; L2V3 Section 4.13.1)";
 
   inv(SBO::isEvent(r.getSBOTerm()));
 }
@@ -244,14 +244,15 @@ START_CONSTRAINT(10708, SpeciesReference, sr)
    pre(sr.isSetSBOTerm());
 
    msg = 
-    "The value of the sboTerm attribute on a SpeciesReference must be an SBO "
-    "identifier (http://www.biomodels.net/SBO/) referring to a participant "
-    "role. The appropriate term depends on whether the object is a reactant, "
-    "product or modifier. If a reactant, then it should be a term in the "
-    "SBO:0000010, \"reactant\" hierarchy; if a product, then it should be a "
-    "term in the SBO:0000011, \"product\" hierarchy; and if a modifier, then it "
-    "should be a term in the SBO:0000019, \"modifier\" hierarchy. (References: "
-    "L2V2 Section 4.13.2.)";
+     "The value of the 'sboTerm' attribute on a <speciesReference> "
+     "or <modifierSpeciesReference> must be an SBO "
+     "identifier (http://www.biomodels.net/SBO/) referring to a participant "
+     "role. The appropriate term depends on whether the object is a reactant, "
+     "product or modifier. If a reactant, then it should be a term in the "
+     "SBO:0000010, \"reactant\" hierarchy; if a product, then it should be a "
+     "term in the SBO:0000011, \"product\" hierarchy; and if a modifier, then it "
+     "should be a term in the SBO:0000019, \"modifier\" hierarchy. (References: "
+     "L2V2 Section 4.13.2; L2V3Sections 4.13.1 and 5.)";
 
   if (!sr.isModifier())
   {
@@ -272,7 +273,7 @@ START_CONSTRAINT(10709, KineticLaw, kl)
   pre(kl.isSetSBOTerm());
 
   msg = 
-    "The value of the sboTerm attribute on a KineticLaw must be an SBO identifier "
+    "The value of the 'sboTerm' attribute on a <kineticLaw> must be an SBO identifier "
     "(http://www.biomodels.net/SBO/) referring rate law defined in SBO (i.e., "
     "terms derived from SBO:0000001, \"rate law\"). (References: L2V2 Section 4.13.5.)";
 
@@ -287,10 +288,10 @@ START_CONSTRAINT(10710, Event, e)
   pre(e.isSetSBOTerm());
 
   msg = 
-    "The value of the sboTerm attribute on an Event must be an SBO identifier "
+    "The value of the 'sboTerm' attribute on an <event> must be an SBO identifier "
     "(http://www.biomodels.net/SBO/) referring to an event defined in SBO "
     "(i.e., terms derived from SBO:0000231, \"event\"). "
-    "(References: L2V2 Section 4.14.1.)";
+    "(References: L2V2 Section 4.14.1; L2V3 Section 4.14.1.)";
  
   inv(SBO::isEvent(e.getSBOTerm()));
 }
@@ -303,10 +304,10 @@ START_CONSTRAINT(10711, EventAssignment, ea)
   pre(ea.isSetSBOTerm());
 
   msg = 
-    "The value of the sboTerm attribute on an EventAssignment must be an SBO "
+    "The value of the 'sboTerm' attribute on an <eventAssignment> must be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
     "expression (i.e., terms derived from SBO:0000064, \"mathematical "
-    "expression\"). (References: L2V2 Section 4.14.2.)";
+    "expression\"). (References: L2V2 Section 4.14.2; L2V3 Section 4.14.1.)";
 
   inv(SBO::isMathematicalExpression(ea.getSBOTerm()));
 }
@@ -319,7 +320,7 @@ START_CONSTRAINT(10712, Compartment, c)
   pre(c.isSetSBOTerm());
 
   msg = 
-    "The value of the sboTerm attribute on a Compartment must be an SBO "
+    "The value of the 'sboTerm' attribute on a <compartment> must be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to a participant "
     "physical type (i.e., terms derived from SBO:0000236, \"participant "
     "physical type\"). (References: L2V3 Section 5.2.2.)";
@@ -335,7 +336,7 @@ START_CONSTRAINT(10713, Species, s)
   pre(s.isSetSBOTerm());
 
   msg = 
-    "The value of the sboTerm attribute on a Species must be an SBO "
+    "The value of the 'sboTerm' attribute on a <species> must be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to a participant "
     "physical type (i.e., terms derived from SBO:0000236, \"participant "
     "physical type\"). (References: L2V3 Section 5.2.2.)";
@@ -351,7 +352,7 @@ START_CONSTRAINT(10714, CompartmentType, c)
   pre(c.isSetSBOTerm());
 
   msg = 
-    "The value of the sboTerm attribute on a CompartmentType must be an SBO "
+    "The value of the 'sboTerm' attribute on a <compartmentType> must be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to a participant "
     "physical type (i.e., terms derived from SBO:0000236, \"participant "
     "physical type\"). (References: L2V3 Section 5.2.2.)";
@@ -367,7 +368,7 @@ START_CONSTRAINT(10715, SpeciesType, s)
   pre(s.isSetSBOTerm());
 
   msg = 
-    "The value of the sboTerm attribute on a SpeciesType must be an SBO "
+    "The value of the 'sboTerm' attribute on a <speciesType> must be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to a participant "
     "physical type (i.e., terms derived from SBO:0000236, \"participant "
     "physical type\"). (References: L2V3 Section 5.2.2.)";
@@ -383,7 +384,7 @@ START_CONSTRAINT(10716, Trigger, t)
   pre(t.isSetSBOTerm());
 
   msg = 
-    "The value of the sboTerm attribute on a Trigger must be an SBO "
+    "The value of the 'sboTerm' attribute on a <trigger> must be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
     "expression (i.e., terms derived from SBO:0000064, \"mathematical "
     "expression\"). (References: L2V3 Section 5.2.2.)";
@@ -399,7 +400,7 @@ START_CONSTRAINT(10717, Delay, d)
   pre(d.isSetSBOTerm());
 
   msg = 
-    "The value of the sboTerm attribute on a Delay must be an SBO "
+    "The value of the 'sboTerm' attribute on a <delay> must be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
     "expression (i.e., terms derived from SBO:0000064, \"mathematical "
     "expression\"). (References: L2V3 Section 5.2.2.)";

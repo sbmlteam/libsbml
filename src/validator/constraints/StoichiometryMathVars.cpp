@@ -127,13 +127,14 @@ StoichiometryMathVars::logUndefined ( const Reaction& r,
     "All species referenced in the <stoichiometryMath> formula of a given "
     "reaction must first be declared using <speciesReference> or "
     "<modifierSpeciesReference>. More formally, if a <species> identifier "
-    "appears in a 'ci' element of a <reaction>'s <stoichiometryMath> "
+    "appears in a <ci> element of a <reaction>'s <stoichiometryMath> "
     "formula, that same identifier must also appear in at least one "
     "<speciesReference> or <modifierSpeciesReference> in the <reaction> "
-    "definition. (References: L2V2 Section 4.13.5.) The species '";
+    "definition. (References: L2V2 Sections 4.13.2 and 4.13.4; L2V3 Sections "
+    "4.13.2 and 4.13.4.) The species '";
 
   msg += varname;
-  msg += "' is not listed as a product/reactant/modifier of Reaction '";
+  msg += "' is not listed as a product/reactant/modifier of reaction '";
   msg += r.getId();
   msg += "'.";
   

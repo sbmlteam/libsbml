@@ -75,7 +75,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "beginning of the XML data stream cannot have a value other than "
     "'UTF-8'. An example valid declaration is "
     "'<?xml version=\"1.0\" encoding=\"UTF-8\"?>'. (References: L2V2 Section "
-    "4.1.)"
+    "4.1; L2V3 Section 4.1.)"
   },
 
   //10102
@@ -90,7 +90,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "An SBML XML document must not contain undefined elements or attributes "
     "in the SBML namespace. Documents containing unknown elements or "
     "attributes placed in the SBML namespace do not conform to the SBML "
-    "specification. (References: L2V2 Section 4.1.)"  
+    "specification. (References: L2V2 Section 4.1; L2V3 Section 4.1.)"  
   },
 
   //10103
@@ -103,10 +103,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     "An SBML XML document must conform to the XML Schema for the corresponding "
-    "SBML Level, Version and Revision. The XML Schema for SBML defines the "
+    "SBML Level, Version and Release. The XML Schema for SBML defines the "
     "basic SBML object structure, the data types used by those objects, and the "
     "order in which the objects may appear in an SBML document. (References: "
-    "L2V2 Section 4.1.)"
+    "L2V2 Section 4.1; L2V3 Section 4.1.)"
   },
 
   //10201
@@ -118,10 +118,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    "All MathML content in SBML must appear within a 'math' element, and the "
-    "'math' element must be either explicitly or implicitly in the XML "
-    "namespace 'http://www.w3.org/1998/Math/MathML'. (References: L2V2 "
-    "Section 3.5.)"
+    "All MathML content in SBML must appear within a <math> element, and the "
+    "<math> element must be either explicitly or implicitly in the XML "
+    "namespace \"http://www.w3.org/1998/Math/MathML\". (References: L2V2 "
+    "Section 3.5; L2V3 Section 3.4.)"
   },
 
   //10202
@@ -134,14 +134,16 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     "The only permitted MathML 2.0 elements in SBML Level 2 are "
-    "the following: cn, ci, csymbol, sep, apply, piecewise, piece, otherwise, "
-    "eq, neq, gt, lt, geq, leq, plus, minus, times, divide, power, root, abs, "
-    "exp, ln, log, floor, ceiling, factorial, and, or, xor, not, degree, bvar, "
-    "logbase, sin, cos, tan, sec, csc, cot, sinh, cosh, tanh, sech, csch, "
-    "coth, arcsin, arccos, arctan, arcsec, arccsc, arccot, arcsinh, arccosh, "
-    "arctanh, arcsech, arccsch, arccoth, true, false, notanumber, pi, "
-    "infinity, exponentiale, semantics, annotation, and annotation-xml. "
-    "(References: L2V2 Section 3.5.1.)"
+    "the following: <cn>, <ci>, <csymbol>, <sep>, <apply>, <piecewise>, "
+    "<piece>, <otherwise>, <eq>, <neq>, <gt>, <lt>, <geq>, <leq>, <plus>, "
+    "<minus>, <times>, <divide>, <power>, <root>, <abs>, <exp>, <ln>, <log>, "
+    "<floor>, <ceiling>, <factorial>, <and>, <or>, <xor>, <not>, <degree>, "
+    "<bvar>, <logbase>, <sin>, <cos>, <tan>, <sec>, <csc>, <cot>, <sinh>, "
+    "<cosh>, <tanh>, <sech>, <csch>, <coth>, <arcsin>, <arccos>, <arctan>, "
+    "<arcsec>, <arccsc>, <arccot>, <arcsinh>, <arccosh>, <arctanh>, "
+    "<arcsech>, <arccsch>, <arccoth>, <true>, <false>, <notanumber>, <pi>, "
+    "<infinity>, <exponentiale>, <semantics>, <annotation>, and "
+    "<annotation-xml>. (References: L2V2 Section 3.5.1; L2V3 Section 3.4.1.)"
   },
 
   //10203
@@ -154,8 +156,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     "In the SBML subset of MathML 2.0, the MathML attribute "
-    "encoding is only permitted on csymbol. No other MathML elements may "
-    "have a encoding attribute. (References: L2V2 Section 3.5.1.)."
+    "'encoding' is only permitted on <csymbol>. No other MathML elements may "
+    "have an 'encoding' attribute. (References: L2V2 Section 3.5.1; L2V3 "
+    "Section 3.4.1)."
   },
 
   //10204
@@ -175,9 +178,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     "In the SBML subset of MathML 2.0, the MathML attribute "
-    "definitionURL is only permitted on csymbol, semantics or bvar. No other "
-    "MathML elements "
-    "may have a definitionURL attribute. (References: L2V2 Section 3.5.1.)."
+    "'definitionURL' is only permitted on <csymbol>, <semantics> or <bvar>. "
+    "No other MathML elements may have a 'definitionURL' attribute. "
+    "(References: L2V2 Section 3.5.1; L2V3 Section 3.4.1.)."
   },
 
   //10205
@@ -189,10 +192,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    "In SBML Level 2 Versions 1 and Version 2, the only values permitted for "
-    "definitionURL on a csymbol are \"http://www.sbml.org/sbml/symbols/time\" "
-    "and \"http://www.sbml.org/sbml/symbols/delay\".(References: L2V2 "
-    "Section 3.5.5.)." 
+    "In SBML Level 2, the only values permitted for 'definitionURL' on "
+    "a <csymbol> element are \"http://www.sbml.org/sbml/symbols/time\" "
+    "and \"http://www.sbml.org/sbml/symbols/delay\". (References: L2V2 "
+    "Section 3.5.5; L2V3 Section 3.4.6.)." 
   },
 
   //10206
@@ -205,8 +208,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     "In the SBML subset of MathML 2.0, the MathML attribute "
-    "type is only permitted on the cn construct. No other MathML elements "
-    "may have a type attribute. (References: L2V2 Section 3.5.1.)." 
+    "'type' is only permitted on the <cn> construct. No other MathML elements "
+    "may have a 'type' attribute. (References: L2V2 Section 3.5.1; L2V3 "
+    "Section 3.4.1.)." 
   },
 
   //10207
@@ -218,9 +222,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    "The only permitted values for the 'type' attribute on MathML 'cn' "
+    "The only permitted values for the 'type' attribute on MathML <cn> "
     "elements are 'e-notation', 'real', 'integer', and 'rational'. "
-    "(References: L2V2 Section 3.5.2.)"
+    "(References: L2V2 Section 3.5.2; L2V3 Section 3.4.2.)"
   },
 
   //10208
@@ -355,7 +359,7 @@ static const sbmlErrorTableEntry errorTable[] =
     ""
   },
 
-  //10219   
+  //10219   FIXME
   {   
     SBMLError::BadMathML,   
     SBMLError::SBMLConsistencyMathML,   
@@ -460,9 +464,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    "The value of a sboTerm attribute must have the data type SBOTerm, "
+    "The value of an 'sboTerm' attribute must have the data type 'SBOTerm', "
     "which is a string consisting of the characters 'S', 'B', 'O', ':' "
-    "followed by exactly seven digits. (References: L2V2 Section 3.1.8.)"
+    "followed by exactly seven digits. (References: L2V2 Section 3.1.8; L2V3 "
+    "Section 3.1.9.)"
   },
 
   //10309
@@ -475,7 +480,8 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     "The syntax of 'metaid' attribute values must conform to the syntax of the "
-    "XML type 'ID'. (References: L2V2 Sections 3.3.1 and 3.1.6.)" 
+    "XML type 'ID'. (References: L2V2 Sections 3.3.1 and 3.1.6; L2V3 Sections "
+    "3.2.1 and 3.1.6.)" 
   },
 
   //10310
@@ -488,7 +494,7 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     "The syntax of 'id' attribute values must conform to the syntax of the SBML "
-    "type 'SId'. (References: L2V2 Sections 3.1.7.)" 
+    "type 'SId'. (References: L2V2 Sections 3.1.7; L2V3 Section 3.1.7.)" 
   },
 
   //10311
@@ -514,8 +520,12 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     "Top-level elements within an annotation element cannot use any SBML "
     "namespace, whether explicitly (by declaring the namespace to be one of "
-    "the URIs, or implicitly (by failing to declare any namespace). "
-    "(References: L2V2 Section 3.3.3.)" 
+    "the URIs \"http://www.sbml.org/sbml/level1\", "
+    "\"http://www.sbml.org/sbml/level2\", "
+    "\"http://www.sbml.org/sbml/level2/version2\", or "
+    "\"http://www.sbml.org/sbml/level2/version3\", or implicitly (by failing "
+    "to declare any namespace). (References: L2V2 Section 3.3.3; L2V3 "
+    "Section 3.2.4.)" 
   },
 
   //10501
@@ -959,8 +969,8 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::SchemaError,
     SBMLError::Error,
     SBMLError::Error,
-    "The contents of the notes element must be explicitly placed in the XHTML "
-    "XML namespace. (References: L2V3 Section 3.2.3.)" 
+    "The contents of the <notes> element must be explicitly placed in the "
+    "XHTML XML namespace. (References: L2V3 Section 3.2.3.)" 
   },
 
   //10802
@@ -972,7 +982,7 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    "The contents of the notes element must not contain an XML declaration "
+    "The contents of the <notes> element must not contain an XML declaration "
     "(i.e., a string of the form \"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\" "
     "or similar). (References: L2V2 Section 3.3.2; L2V3 Section 3.2.3.)"
   },
@@ -986,7 +996,7 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    "The contents of the notes element must not contain an XML DOCTYPE "
+    "The contents of the <notes> element must not contain an XML DOCTYPE "
     "declaration (i.e., a string beginning with the characters \"<!DOCTYPE\". "
     "(References: L2V2 Section 3.3.2; L2V3 Section 3.2.3.)"
   },
@@ -1000,7 +1010,7 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    "The XHTML content inside a notes element can only take one of the "
+    "The XHTML content inside a <notes> element can only take one of the "
     "following general forms: (1) a complete XHTML document beginning with "
     "the element <html> and ending with </html>; (2) the \"body\" portion of "
     "a document beginning with the element <body> and ending with </body>; or "
@@ -1017,10 +1027,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    "The 'sbml' container element must declare the XML Namespace for SBML, "
+    "The <sbml> container element must declare the XML Namespace for SBML, "
     "and this declaration must be consistent with the values of the 'level' "
-    "and 'version' attributes on the 'sbml' element. (References: L2V2 "
-    "Section 4.1.)" 
+    "and 'version' attributes on the <sbml> element. (References: L2V2 "
+    "Section 4.1; L2V3 Section 4.1.)" 
   },
 
   //20102
@@ -1032,10 +1042,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    "The 'sbml' container element must declare the SBML Level using the "
+    "The <sbml> container element must declare the SBML Level using the "
     "attribute 'level', and this declaration must be consistent with the XML "
-    "Namespace declared for the 'sbml' element. (References: L2V2 Section "
-    "4.1.)" 
+    "Namespace declared for the <sbml> element. (References: L2V2 Section "
+    "4.1; L2V3 Section 4.1.)" 
   },
 
   //20103
@@ -1047,13 +1057,13 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    "The 'sbml' container element must declare the SBML Version using the "
+    "The <sbml> container element must declare the SBML Version using the "
     "attribute 'version', and this declaration must be consistent with the "
-    "XML Namespace declared for the 'sbml' element. (References: L2V2 "
-    "Section 4.1.)" 
+    "XML Namespace declared for the <sbml> element. (References: L2V2 "
+    "Section 4.1; L2V3 Section 4.1.)" 
   },
 
-  //20104
+  //20104   FIXME
   {
     SBMLError::AnnotationNotesNotAllowedLevel1,
     SBMLError::SBML,
@@ -1062,8 +1072,8 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::NotApplicable,
     SBMLError::NotApplicable,
-    "The 'sbml' container element cannot contain notes or annotations in an "
-    "SBML Level 1 document. (References: )" 
+    "The <sbml> container element cannot contain <notes> or <annotations> in "
+    "an SBML Level 1 document."
   },
 
   //20201
@@ -1075,8 +1085,8 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    "An SBML document must contain a <model> definition. (References: L2V1 "
-    "and L2V2 Section 4.1)." 
+    "An SBML document must contain a <model> definition. (References: L2V1, "
+    "L2V2 and L2V3 Section 4.1.)" 
   },
 
   //20202
@@ -1088,12 +1098,13 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    "The order of subelements within Model must be the following (where any "
-    "one may be optional, but the ordering must be maintained): "
-    "listOfFunctionDefinitions, listOfUnitDefinitions, listOfCompartmentTypes, "
-    "listOfSpeciesTypes, listOfCompartments, listOfSpecies, listOfParameters, "
-    "listOfInitialAssignments, listOfRules, listOfConstraints, listOfReactions "
-    "and listOfEvents. (References: L2V2 Section 4.2.)" 
+    "The order of subelements within a <model> must be the following (where "
+    "any one may be optional, but the ordering must be maintained): "
+    "<listOfFunctionDefinitions>, <listOfUnitDefinitions>, "
+    "<listOfCompartmentTypes>, <listOfSpeciesTypes>, <listOfCompartments>, "
+    "<listOfSpecies>, <listOfParameters>, <listOfInitialAssignments>, "
+    "<listOfRules>, <listOfConstraints>, <listOfReactions> "
+    "and <listOfEvents>. (References: L2V2 Section 4.2; L2V3 Section 4.2.)" 
   },
 
   //20203
@@ -1105,15 +1116,15 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    "The 'listOf___' containers in a <model> are optional, but if present, "
+    "The <listOf___> containers in a <model> are optional, but if present, "
     "the lists cannot be empty. Specifically, if any of the following are "
     "present in a <model>, they must not be empty: "
-    "'listOfFunctionDefinitions', 'listOfUnitDefinitions', "
-    "'listOfCompartmentTypes', 'listOfSpeciesTypes', 'listOfCompartments',  "
-    "'listOfSpecies', 'listOfParameters', 'listOfInitialAssignments', "
-    "'listOfRules', 'listOfConstraints', 'listOfReactions' and "
-    "'listOfEvents'. (References: This is a requirement stemming from the "
-    "XML Schema used for SBML.)" 
+    "<listOfFunctionDefinitions>, <listOfUnitDefinitions>, "
+    "<listOfCompartmentTypes>, <listOfSpeciesTypes>, <listOfCompartments>,  "
+    "<listOfSpecies>, <listOfParameters>, <listOfInitialAssignments>, "
+    "<listOfRules>, <listOfConstraints>, <listOfReactions> and "
+    "<listOfEvents>. (References: This is a requirement stemming from the "
+    "XML Schema used for SBML; L2V3 Section 4.2.)" 
   },
 
   //20204
@@ -1293,8 +1304,8 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::SchemaError,
     SBMLError::Error,
     SBMLError::Error,
-    "The 'listOfUnits' container in a <unitDefinition> cannot be empty. "
-    "(References: L2V2 Section 4.4.)" 
+    "The <listOfUnits> container in a <unitDefinition> cannot be empty. "
+    "(References: L2V2 Section 4.4; L2V3 Section 4.4.)" 
   },
 
   //20410
@@ -1774,9 +1785,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    "The order of subelements within Constraint must be the following: math, "
-    "message. The message element is optional, but if present, must follow the "
-    "math element. (References: L2V2 Section 4.12.)"
+    "The order of subelements within <constraint> must be the following: "
+    "<math>, <message>. The <message> element is optional, but if present, "
+    "must follow the <math> element. (References: L2V2 Section 4.12; L2V3 "
+    "Section 4.12.)"
   },
 
   //21003
@@ -1788,8 +1800,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    "The contents of the message element in a Constraint must be explicitly "
-    "placed in the XHTML XML namespace. (References: L2V3 Section 3.2.3.)" 
+    "The contents of the <message> element in a <constraint> must be "
+    "explicitly placed in the XHTML XML namespace. (References: L2V3 "
+    "Section 3.2.3.)" 
   },
 
   //21004
@@ -1801,7 +1814,7 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    "The contents of the message element must not contain an XML declaration "
+    "The contents of the <message> element must not contain an XML declaration "
     "(i.e., a string of the form \"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\" "
     "or similar). (References: L2V2 Section 3.3.2; L2V3 Section 3.2.3.)" 
   },
@@ -1829,7 +1842,7 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    "The XHTML content inside a Constraint's message element can only take one "
+    "The XHTML content inside a <constraint>s message element can only take one "
     "of the following general forms: (1) a complete XHTML document beginning "
     "with the element <html> and ending with </html>; (2) the \"body\" portion "
     "of a document beginning with the element <body> and ending with </body>; "
@@ -1858,9 +1871,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    "The order of subelements within Reaction must be the following: "
-    "listOfReactants (optional), listOfProducts (optional), "
-    "listOfModifiers (optional), kineticLaw. (References: L2V2 Section 4.13.)"
+    "The order of subelements within <reaction> must be the following: "
+    "<listOfReactants> (optional), <listOfProducts> (optional), "
+    "<listOfModifiers> (optional), <kineticLaw>. (References: L2V2 Section "
+    "4.13; L2V3 Section 4.13.)"
   },
 
   //21103
@@ -1873,8 +1887,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     "The following containers are all optional in a <reaction>, but if any "
-    "present is, it must not be empty: 'listOfReactants', 'listOfProducts', "
-    "'listOfModifiers', 'kineticLaw'. (References: L2V2 Section 4.13.)" 
+    "is present, it must not be empty: <listOfReactants>, <listOfProducts>, "
+    "<listOfModifiers>, <kineticLaw>. (References: L2V2 Section 4.13; L2V3 "
+    "Section 4.13.)" 
   },
 
   //21104
@@ -1886,9 +1901,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    "The list of reactants ('listOfReactants') and list of products "
-    "('listOfProducts') in a <reaction> can only contain 'speciesReference' "
-    "elements. (References: L2V1 Section 4.9; L2V2 Section 4.13.)"
+    "The list of reactants (<listOfReactants>) and list of products "
+    "(<listOfProducts>) in a <reaction> can only contain <speciesReference> "
+    "elements. (References: L2V1 Section 4.9; L2V2 Section 4.13; L2V3 Section "
+    "4.13.)"
   },
 
   //21105
@@ -1900,9 +1916,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    "The list of modifiers ('listOfModifiers') in a <reaction> can only "
-    "contain 'modifierSpeciesReference' elements. (References: L2V1 Section "
-    "4.9; L2V2 Section 4.13.)" 
+    "The list of modifiers (<listOfModifiers>) in a <reaction> can only "
+    "contain <modifierSpeciesReference> elements. (References: L2V1 Section "
+    "4.9; L2V2 Section 4.13; L2V3 Section 4.13.)" 
   },
 
   //21111
@@ -1962,9 +1978,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    "The order of subelements within KineticLaw must be the following: math, "
-    "listOfParameters. The listOfParameters is optional, but if present, must "
-    "follow math. (References: L2V2 Section 4.13.9.)." 
+    "The order of subelements within <kineticLaw> must be the following: "
+    "<math>, <listOfParameters>. The <listOfParameters> is optional, but "
+    "if present, must follow <math>. (References: L2V2 Section 4.13.9; "
+    "L2V3 Section 4.13.5.)" 
   },
 
   //21123
@@ -1976,8 +1993,8 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    "If present, the 'listOfParameters' in a <kineticLaw> must not be an "
-    "empty list. (References: L2V2 Section 4.13.)" 
+    "If present, the <listOfParameters> in a <kineticLaw> must not be an "
+    "empty list. (References: L2V2 Section 4.13.5; L2V3 Section 4.13.)" 
   },
 
   //21124
@@ -2121,9 +2138,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    "The order of subelements within Event must be the following: trigger, "
-    "delay, listOfEventAssignments. The delay element is optional, but if "
-    "present, must follow trigger. (References: L2V2 Section 4.14.)" 
+    "The order of subelements within <event> must be the following: "
+    "<trigger>, <delay>, <listOfEventAssignments>. The <delay> element "
+    "is optional, but if present, must follow <trigger>. (References: L2V2 "
+    "Section 4.14; L2V3 Section 4.14.)" 
   },
 
   //21206
