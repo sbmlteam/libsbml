@@ -87,12 +87,13 @@ simplifyUnitDefinition(UnitDefinition * ud)
   }
 
   /* may have cancelled units - in which case exponent will be 0 */
-  for (n = 0; n < units->size(); n++)
+  unsigned int numUnits = units->size();
+  for (n = numUnits; n > 0; n--)
   {
-    unit = (Unit *) units->get(n);
+    unit = (Unit *) units->get(n-1);
     if (unit->getExponent() == 0)
     {
-      units->remove(n);
+      units->remove(n-1);
     }
   }
 }
