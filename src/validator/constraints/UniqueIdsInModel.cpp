@@ -39,7 +39,7 @@ static const char* PREAMBLE =
     "<speciesReference>, <modifierSpeciesReference>, <event>, and model-wide "
     "<parameter>s. Note that <unitDefinition> and parameters defined inside "
     "a reaction are treated separately. (References: L2V1 Section 3.5; L2V2 "
-    "Section 3.4)";
+    "Section 3.4; L2V3 Section 3.3.)";
 
 
 /**

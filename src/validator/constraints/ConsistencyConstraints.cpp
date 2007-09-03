@@ -899,7 +899,7 @@ START_CONSTRAINT (20510, Compartment, c)
   pre( c.isSetCompartmentType());
 
   msg =
-    "CompartmentType '" + c.getCompartmentType() + "' is undefined. "
+    "Compartment type '" + c.getCompartmentType() + "' is undefined. "
     "If the 'compartmentType' attribute is given a value in a <compartment> "
     "definition, it must contain the identifier of an existing "
     "<compartmentType>. (References: L2V2 Section 4.7.2; L2V3 Section 4.7.2.)";

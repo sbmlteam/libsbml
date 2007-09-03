@@ -134,7 +134,7 @@ StoichiometryMathVars::logUndefined ( const Reaction& r,
     "4.13.2 and 4.13.4.) The species '";
 
   msg += varname;
-  msg += "' is not listed as a product/reactant/modifier of reaction '";
+  msg += "' is not listed as a product, reactant, or modifier of reaction '";
   msg += r.getId();
   msg += "'.";
   

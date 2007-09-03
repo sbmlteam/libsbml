@@ -122,10 +122,11 @@ UniqueSpeciesTypesInCompartment::logConflict (const Species& s, const Compartmen
     "is set to that compartment's identifier and (ii) the <species>' "
     "'speciesType' is set the same value as the 'speciesType' of another "
     "<species> that also sets its 'compartment' to that compartment "
-    "identifier. (References: L2V2 Section 4.8.2.) The compartment '";
+    "identifier. (References: L2V2 Section 4.8.2; L2V3 Section 4.8.2) The "
+    "compartment '";
 
   msg += c.getId();
-  msg += "' contains more than one species withSpeciesType '";
+  msg += "' contains more than one species with species type '";
   msg += s.getSpeciesType();
   msg += "'.";
 

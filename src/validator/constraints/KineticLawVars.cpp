@@ -109,10 +109,10 @@ KineticLawVars::logUndefined ( const Reaction& r,
     "appears in a 'ci' element of a <reaction>'s <kineticLaw> formula, that "
     "same identifier must also appear in at least one <speciesReference> or "
     "<modifierSpeciesReference> in the <reaction> definition. (References: "
-    "L2V2 Section 4.13.5.) The species '";
+    "L2V2 Section 4.13.5; L2V3 Section 4.13.5.) The species '";
 
   msg += varname;
-  msg += "' is not listed as a product/reactant/modifier of Reaction '";
+  msg += "' is not listed as a product, reactant, or modifier of reaction '";
   msg += r.getId();
   msg += "'.";
   

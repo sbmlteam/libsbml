@@ -252,7 +252,7 @@ START_CONSTRAINT(10708, SpeciesReference, sr)
      "SBO:0000010, \"reactant\" hierarchy; if a product, then it should be a "
      "term in the SBO:0000011, \"product\" hierarchy; and if a modifier, then it "
      "should be a term in the SBO:0000019, \"modifier\" hierarchy. (References: "
-     "L2V2 Section 4.13.2; L2V3Sections 4.13.1 and 5.)";
+     "L2V2 Section 4.13.2; L2V3 Sections 4.13.1 and 5.)";
 
   if (!sr.isModifier())
   {
