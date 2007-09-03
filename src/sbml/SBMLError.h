@@ -275,7 +275,10 @@ public:
    */
   enum SBMLCategory
   {
-    SBML                      = 3  /*!< General SBML error. */
+    Internal                  = XMLError::Internal
+  , System                    = XMLError::System
+  , XML                       = XMLError::XML
+  , SBML                      = 3  /*!< General SBML error. */
   , SBMLL1Compatibility       = 4  /*!< Error in converting to SBML Level 1. */
   , SBMLL2v1Compatibility     = 5  /*!< Error in converting to SBML L1V1. */
   , SBMLL2v2Compatibility     = 6  /*!< Error in converting to SBML L1V2. */
