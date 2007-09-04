@@ -34,32 +34,54 @@ main (int argc, char* argv[])
   SBMLDocument* document;
   SBMLReader reader;
   unsigned long start, stop;
-  unsigned int errors;
 
   start    = getCurrentMillis();
   document = reader.readSBML(filename);
   stop     = getCurrentMillis();
 
-  errors = document->getNumErrors();
+  unsigned int errors = document->getNumErrors();
 
   cout << endl;
   cout << "             filename: " << filename              << endl;
   cout << "            file size: " << getFileSize(filename) << endl;
   cout << "       read time (ms): " << stop - start          << endl;
 
+  bool seriousErrors = false;
+
   if (errors > 0)
   {
-    cerr << "Encountered the following SBML errors:" << endl;
+    for (unsigned int i = 0; i < errors; i++)
+    {
+      unsigned int severity = document->getError(i)->getSeverity();
+      if (severity == SBMLError::Error || severity == SBMLError::Fatal)
+      {
+        seriousErrors = true;
+        break;
+      }
+    }
+
+    cerr << endl << "Encountered " << errors << " "
+         << (seriousErrors ? "error" : "warning") << (errors == 1 ? "" : "s")
+         << " in this file:" << endl;
     document->printErrors(cerr);
+  }
+
+  // If serious errors are encountered while reading an SBML document, it
+  // does not make sense to go on and do full consistency checking because
+  // the model may be nonsense in the first place.
+
+  if (seriousErrors)
+  {
     cerr << endl << "Further consistency checking aborted." << endl;
   }
   else
   {
-    errors = document->checkConsistency();
-    if (errors > 0)
+    unsigned int failures = document->checkConsistency();
+
+    if (failures > 0)
     {
-      cout << " consistency error(s): " << errors << endl;
-      cout << endl;
+      cout << endl << "Encountered " << failures << " consistency failure"
+           << (failures == 1 ? "" : "s") << " in this file:" << endl;
       document->printErrors(cerr);
     }
     else
