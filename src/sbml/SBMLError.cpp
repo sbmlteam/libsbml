@@ -37,6 +37,47 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
+/** @cond doxygen-ignored **/
+/** 
+ * Helper function for SBMLError().  Takes an index, SBML level and version,
+ * and returns the appropriate field for the severity code out of the
+   errorTable entry.
+ */
+static const SBMLError::SBMLSeverity
+getSeverityForEntry(unsigned int index,
+                     unsigned int level,
+                     unsigned int version)
+{
+  if ( level == 1 )
+  {
+    switch (version)
+    {
+    case 1:
+      return errorTable[index].l1v1_severity;
+
+    case 2: 
+    default:
+      return errorTable[index].l1v2_severity;
+    }
+  }
+  else   // Must be level 2.
+  {
+    switch (version)
+    {
+    case 1:
+      return errorTable[index].l2v1_severity;
+
+    case 2:
+      return errorTable[index].l2v2_severity;
+
+    case 3:
+    default:
+      return errorTable[index].l2v3_severity;
+    }
+  }
+}
+/** @endcond doxygen-ignored **/
+
 
 SBMLError::SBMLError (  const unsigned int            errorId
                       , const unsigned int            level
@@ -52,9 +93,9 @@ SBMLError::SBMLError (  const unsigned int            errorId
   // it is, fill in the fields of the error object with the appropriate
   // content.  If it's not in the table, take the content as-is.
 
-  mErrorId     = errorId;
-  mLine   = line;
-  mColumn = column;
+  mErrorId = errorId;
+  mLine    = line;
+  mColumn  = column;
 
   if ( errorId >= 0 && errorId < XMLError::ErrorCodesUpperBound )
   {
@@ -62,116 +103,89 @@ SBMLError::SBMLError (  const unsigned int            errorId
     return;
   }
   else if ( errorId > XMLError::ErrorCodesUpperBound
-       && errorId < SBMLError::SBMLCodesUpperBound )
+            && errorId < SBMLError::SBMLCodesUpperBound )
   {
-    unsigned int tableSize = sizeof(errorTable)/sizeof(errorTable[0]);    
+    unsigned int tableSize = sizeof(errorTable)/sizeof(errorTable[0]);
+    unsigned int index = 0;
 
     for ( unsigned int i = 0; i < tableSize; i++ )
     {
-      if ( errorTable[i].code == errorId )
+      if ( errorId == errorTable[i].code )
       {
-        switch (level)
-        {
-        case 1:
-          switch (version)
-          {
-          case 1:
-            mSeverity = errorTable[i].l1v1_severity;
-            break;
-          case 2:
-            mSeverity = errorTable[i].l1v2_severity;
-          default:
-            break;
-          }
-          break;
-        case 2:
-        default:
-          switch (version)
-          {
-          case 1:
-            mSeverity = errorTable[i].l2v1_severity;
-            break;
-          case 2:
-            mSeverity = errorTable[i].l2v2_severity;
-            break;
-          case 3:
-          default:
-            mSeverity = errorTable[i].l2v3_severity;
-            break;
-          }
-          break;
-        }
-
-
-        ostringstream newMsg;
-        if (mSeverity == SBMLError::SchemaError)
-        {
-          /* change number of schema error and
-           * report schema failure message plus
-           * additional information message
-           */
-          mErrorId = 10103;
-          mSeverity = SBMLError::Error;
-
-          newMsg << "ERROR\n" << errorTable[3].message
-                 << " " << errorTable[i].message << endl;
-        }
-        else if (mSeverity == SBMLError::GeneralWarning)
-        {
-          newMsg << "GENERAL WARNING\nAlthough SBML Level " << level 
-            << " Version " << version
-            << " does not explicitly define this as an error, more recent "
-            << "versions of SBML do. " << endl;
-        }
-        else if (mSeverity == SBMLError::Error)
-        {
-          newMsg << "ERROR\n" << errorTable[i].message;
-        }
-        else if (mSeverity == SBMLError::Warning)
-        {
-          newMsg << "WARNING\n" << errorTable[i].message;
-        }
-        else
-        {
-          newMsg << errorTable[i].message;
-        }
-
-        /* report all these as 10501 */
-        if (mErrorId == 10502
-          || mErrorId == 10503
-          || mErrorId == 10504)
-        {
-          mErrorId = 10501;
-        }
-
-        if (!details.empty())
-        {
-          newMsg << " " << details << endl;
-        }
-        else
-        {
-          newMsg << endl;
-        }          
-      
-        mMessage  = newMsg.str();
-        mCategory = errorTable[i].category;
-        return;
+        index = i;
+        break;
       }
     }
-      
-    mMessage  = details;
-    mSeverity = severity;
-    mCategory = category;
-    return;
 
-
-    // The id is in the range of error numbers that are supposed to be in
-    // the SBML layer, but it's NOT in our table. This is an internal error.
-    // Unfortunately, we don't have an error log or anywhere to report it
-    // except the measure of last resort: the standard error output.
+    if ( index == 0 && !(errorId > SBMLError::LibSBMLAdditionalCodesLowerBound
+                         && errorId < SBMLError::SBMLCodesUpperBound) )
+    {
+      // The id is in the range of error numbers that are supposed to be in
+      // the SBML layer, but it's NOT in our table. This is an internal error.
+      // Unfortunately, we don't have an error log or anywhere to report it
+      // except the measure of last resort: the standard error output.
     
-    cerr << "Internal error: unknown error code '" << errorId
-          << "' encountered while processing error" << endl;
+      cerr << "Internal error: unknown error code '" << errorId
+           << "' encountered while processing error." << endl;
+      return;
+    }
+
+    // The rest of this block massages the results to account for how some
+    // internal bookkeeping is done in libSBML 3, and also to provide
+    // additional info in the messages.
+
+    if ( mErrorId == SBMLError::InconsistentArgUnitsWarnings
+         || mErrorId == SBMLError::InconsistentPowerUnitsWarnings
+         || mErrorId == SBMLError::InconsistentExponUnitsWarnings )
+    {
+      mErrorId = SBMLError::InconsistentArgUnits;
+    }
+
+    ostringstream newMsg;
+    mSeverity = getSeverityForEntry(index, level, version);
+
+    if (mSeverity == SBMLError::SchemaError)
+    {
+      // Prior to L2v3, many possible errors were not listed separately as
+      // validation rules because they were assumed to be caught by a
+      // schema-aware XML parser.  In L2v3, we stopped relying on this and
+      // listed schema errors separately.  This poses a problem for how
+      // libSBML should errors for documents having levels/versions < L2v3.
+      // LibSBML handles this internally by using the special severity code
+      // SchemaError in SBMLErrorTable.h for those SBML level/version
+      // combinations that didn't have separate validation rules, then
+      // here, we translate the errors into the same basic error code and
+      // add some elaboration to the error text message.
+
+      mErrorId  = SBMLError::NotSchemaConformant;
+      mSeverity = SBMLError::Error;
+      newMsg << errorTable[3].message << " "; // FIXME
+    }
+    else if (mSeverity == SBMLError::GeneralWarning)
+    {
+      // General warnings are our internal code for non-XML-schema issues
+      // that were not defined as errors in prior levels/versions, but then
+      // were defined as errors at some later time.  Like with SchemaError,
+      // we use the GeneralWarning code for those cases in SBMLErrorTable.h
+      // and then here we translate them into regular warnings.
+
+      mSeverity = SBMLError::Warning;
+      newMsg << "[Although SBML Level " << level
+             << " Version " << version << " does not explicitly define the "
+             << "following as an error, more recent Levels and/or Versions "
+             << "of SBML do.] " << endl;
+    }
+
+    newMsg << errorTable[index].message;
+    if (!details.empty())
+    {
+      newMsg << " " << details;
+    }      
+    newMsg << endl;
+      
+    mMessage  = newMsg.str();
+    mCategory = errorTable[index].category;
+    return;
   }
 
   // It's not an error code in the XML layer, so assume the caller has
