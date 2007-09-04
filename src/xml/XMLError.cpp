@@ -139,7 +139,7 @@ static const xmlErrorTableEntry errorTable[] =
 
   // 1015
   { XMLError::MissingRequiredAttribute, XMLError::XML, XMLError::Error,
-    "Required attribute is missing." },
+    "Missing required attribute." },
 
   // 1016
   { XMLError::AttributeTypeMismatch, XMLError::XML, XMLError::Error,
@@ -255,7 +255,7 @@ XMLError::XMLError (  const int errorId
 
         if ( !details.empty() )
         {
-          mMessage.append(": ");
+          mMessage.append(" ");
           mMessage.append(details);
         }
 
@@ -492,7 +492,17 @@ ostream& operator<< (ostream& s, const XMLError& error)
 {
   s << "line " << error.mLine << ": ("
     << setfill('0') << setw(5) << error.mErrorId
-    << ") " << error.mMessage << endl;
+    << " [";
+
+  switch (error.getSeverity())
+  {
+  case XMLError::Info:      s << "Advisory"; break;
+  case XMLError::Warning:   s << "Warning";  break;
+  case XMLError::Fatal:     s << "Fatal";    break;
+  case XMLError::Error:     s << "Error";    break;
+  }
+
+  s << "]) " << error.mMessage << endl;
   return s;
 }
 
