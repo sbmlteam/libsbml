@@ -1,5 +1,19 @@
            libsbml NEWS -- History of user-visible changes
 
+ === Version 3.0.1 (in progress) ===
+
+* Bug fixes and enhancements:
+
+  - The format of error, warning and other diagnostic messages has
+    been improved and made more regular, and the message strings of
+    validation rules been updated to match more closely those in the
+    Level 2 Version 3 specification.  The formatting of messages
+    printed by SBMLDocument.printErrors() has changed as a result.
+
+  - A document with a missing XML encoding attribute should cause
+    XMLError::MissingXMLEncoding to be returned, not MissingXMLDecl,
+    as was mistakenly the case previously.
+
  
  === Version 3.0.0 Final ===
 
