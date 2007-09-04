@@ -648,7 +648,7 @@ XMLAttributes::attributeRequiredError (const std::string&  name,
 
   message << "The ";
   if ( !mElementName.empty() ) message << mElementName << ' ';
-  message << name << " attribute is required.";
+  message << "attribute '" << name << "' is required.";
 
   log->add( XMLError(XMLError::MissingRequiredAttribute, message.str()) );
 }
