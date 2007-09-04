@@ -379,7 +379,8 @@ UnitDefinition::createObject (XMLInputStream& stream)
     if (mUnits.size() != 0)
     {
       logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
-	       "Multiple listOfUnits elements not permitted");
+	       "Only one <listOfUnits> elements is permitted in a "
+	       "given <unitDefinition>.");
     }
     return &mUnits;
   }
@@ -425,8 +426,7 @@ UnitDefinition::readAttributes (const XMLAttributes& attributes)
     std::string name = attributes.getName(i);
     if (std::find(begin, end, name) == end)
     {
-      getErrorLog()->logError(SBMLError::NotSchemaConformant, level, version,
-        "Attribute " + name + " is not part of UnitDefinition");
+      logUnknownAttribute(name, level, version, "<unitDefinition>");
     }
   }
 

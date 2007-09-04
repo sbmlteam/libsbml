@@ -161,8 +161,7 @@ CompartmentType::readAttributes (const XMLAttributes& attributes)
     std::string name = attributes.getName(i);
     if (std::find(begin, end, name) == end)
     {
-      getErrorLog()->logError(SBMLError::NotSchemaConformant, level, version,
-        "Attribute " + name + " is not part of CompartmentType");
+      logUnknownAttribute(name, level, version, "<compartmentType>");
     }
   }
 

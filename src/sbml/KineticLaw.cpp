@@ -486,7 +486,8 @@ KineticLaw::createObject (XMLInputStream& stream)
     if (mParameters.size() != 0)
     {
       logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
-	       "Multiple 'listOfParameters' elements not permitted");
+	       "Only one <listOfParameters> elements is permitted "
+	       "in a given <kineticLaw> element.");
     }
     return &mParameters;
   }
@@ -515,7 +516,7 @@ KineticLaw::readOtherXML (XMLInputStream& stream)
     if (getLevel() == 1) 
     {
       logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
-              "SBML Level 1 does not support MathML");
+	       "SBML Level 1 does not support MathML.");
       delete mMath;
       return false;
     }
@@ -616,8 +617,7 @@ KineticLaw::readAttributes (const XMLAttributes& attributes)
     std::string name = attributes.getName(i);
     if (std::find(begin, end, name) == end)
     {
-      getErrorLog()->logError(SBMLError::NotSchemaConformant, level, version,
-        "Attribute " + name + " is not part of KineticLaw");
+      logUnknownAttribute(name, level, version, "<kineticLaw>");
     }
   }
 

@@ -711,10 +711,9 @@ SBMLDocument::printErrors (std::ostream& stream) const
 
   if (numErrors > 0)
   {
-    stream << numErrors << " error" << ((numErrors > 1) ? "s:" : ":") << endl;
     for (unsigned int n = 0; n < numErrors; n++)
     {
-      stream << "  " << *(getError(n));
+      stream << *(getError(n));
     }
   }
 }
@@ -837,8 +836,7 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
     std::string name = attributes.getName(i);
     if (std::find(begin, end, name) == end)
     {
-      getErrorLog()->logError(SBMLError::NotSchemaConformant, getDefaultLevel(),
-        getDefaultVersion(), "Attribute " + name + " is not part of SBMLDocument");
+      logUnknownAttribute(name, getLevel(), getVersion(), "<sbml>");
     }
   }
 
@@ -1397,12 +1395,8 @@ SBMLDocument_printErrors (SBMLDocument_t *d, FILE *stream)
 
   if (numErrors > 0)
   {
-    printf("%d error", numErrors);
-    printf((numErrors > 1) ? "s:\n" : ":\n");
-  
     for (unsigned int n = 0; n < numErrors; n++)
     {
-      fprintf(stream, "  ");
       XMLError_print(d->getError(n), stream);
     }
   }

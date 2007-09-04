@@ -1058,10 +1058,26 @@ protected:
    * This is essentially a short form of getErrorLog()->logError(...)
    */
   void logError (  unsigned int       id
-     , const unsigned int level         = 2
-     , const unsigned int version       = 3
-		 , const std::string& details = "" );
+                 , const unsigned int level   = 2
+                 , const unsigned int version = 3
+                 , const std::string& details = "" );
 
+
+  /**
+   * Helper to log a common type of error.
+   */
+  void logUnknownAttribute( std::string attribute,
+			    const unsigned int level,
+			    const unsigned int version,
+			    const std::string element );
+
+
+  /**
+   * Helper to log a common type of error.
+   */
+  void logUnknownElement( const std::string element,
+			  const unsigned int level,
+			  const unsigned int version );
 
  
   /**

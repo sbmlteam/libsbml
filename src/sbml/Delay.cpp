@@ -210,7 +210,7 @@ Delay::readOtherXML (XMLInputStream& stream)
     if (getLevel() == 1) 
     {
       logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
-              "SBML Level 1 does not support MathML");
+	       "SBML Level 1 does not support MathML.");
       delete mMath;
       return false;
     }
@@ -295,8 +295,7 @@ Delay::readAttributes (const XMLAttributes& attributes)
     std::string name = attributes.getName(i);
     if (std::find(begin, end, name) == end)
     {
-      getErrorLog()->logError(SBMLError::NotSchemaConformant, level, version,
-        "Attribute " + name + " is not part of Delay");
+      logUnknownAttribute(name, level, version, "<delay>");
     }
   }
 

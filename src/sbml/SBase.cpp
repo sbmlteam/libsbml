@@ -1290,9 +1290,8 @@ SBase::read (XMLInputStream& stream)
                    || readAnnotation(stream)
                    || readNotes(stream) ))
       {
-        logError( SBMLError::UnrecognizedElement, getLevel(), getVersion(),
-                  "Unrecognized element '" + next.getName() + "'");
-        stream.skipPastEnd( stream.next() );
+	logUnknownElement(next.getName(), getLevel(), getVersion());
+	stream.skipPastEnd( stream.next() );
       }
     }
     else
@@ -1401,7 +1400,8 @@ SBase::readAnnotation (XMLInputStream& stream)
     if (mAnnotation)
     {
       logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
-             "Multiple annotation elements not permitted on the same element");
+	       "Only one <annotation> element is permitted inside any "
+	       "particular containing element.");
     }
 
     delete mAnnotation;
@@ -1451,12 +1451,15 @@ SBase::readNotes (XMLInputStream& stream)
     if (mNotes)
     {
       logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
-               "Multiple notes elements not permitted on the same element");
+               "Only one <notes> element is permitted inside a "
+	       "particualr containing element.");
     }
     else if (mAnnotation)
     {
       logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
-               "Incorrect ordering of annotation and notes elements");
+               "Incorrect ordering of <annotation> and <notes> elements -- "
+	       "<notes> must come before <annotation> due to the way that "
+	       "the XML Schema for SBML is defined.");
     }
 
     delete mNotes;
@@ -1492,6 +1495,48 @@ SBMLErrorLog*
 SBase::getErrorLog ()
 {
   return (mSBML != 0) ? mSBML->getErrorLog() : 0;
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/**
+ * Helper to log a common type of error.
+ */
+void
+SBase::logUnknownAttribute( string attribute,
+                            const unsigned int level,
+                            const unsigned int version,
+                            string element )
+{
+  ostringstream msg;
+
+  msg << "Attribute '" << attribute << "' is not part of the "
+      << "definition of an SBML Level " << level
+      << " Version " << version << " " << element << " element.";
+      
+  getErrorLog()->logError(SBMLError::NotSchemaConformant,
+			  level, version, msg.str());
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/**
+ * Helper to log a common type of error.
+ */
+void
+SBase::logUnknownElement( string element,
+			  const unsigned int level,
+			  const unsigned int version )
+{
+  ostringstream msg;
+
+  msg << "Element '" << element << "' is not part of the definition of "
+      << "SBML Level " << level << " Version " << version << ".";
+      
+  getErrorLog()->logError(SBMLError::UnrecognizedElement,
+			  level, version, msg.str());
 }
 /** @endcond doxygen-libsbml-internal */
 

@@ -424,7 +424,8 @@ Event::createObject (XMLInputStream& stream)
     if (mEventAssignments.size() != 0)
     {
       logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
-	       "Multiple 'listOfEventAssignments' elements not permitted.");
+	       "Only one <listOfEventAssignments> elements is permitted "
+	       "in a single <event> element.");
     }
     return &mEventAssignments;
   }
@@ -440,7 +441,8 @@ Event::createObject (XMLInputStream& stream)
     if (mDelay)
     {
       logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
-	       "Only one delay element is permitted in an event definition");
+	       "Only one <delay> element is permitted in a single "
+	       "<event> element.");
     }
     delete mDelay;
 
@@ -496,8 +498,7 @@ Event::readAttributes (const XMLAttributes& attributes)
     std::string name = attributes.getName(i);
     if (std::find(begin, end, name) == end)
     {
-      getErrorLog()->logError(SBMLError::NotSchemaConformant, level, version,
-        "Attribute " + name + " is not part of Event");
+      logUnknownAttribute(name, level, version, "<event>");
     }
   }
 

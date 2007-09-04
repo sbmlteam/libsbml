@@ -190,8 +190,7 @@ SimpleSpeciesReference::readAttributes (const XMLAttributes& attributes)
     std::string name = attributes.getName(i);
     if (std::find(begin, end, name) == end)
     {
-      getErrorLog()->logError(SBMLError::NotSchemaConformant, level, version,
-        "Attribute " + name + " is not part of SpeciesReference");
+      logUnknownAttribute(name, level, version, "<speciesReference>");
     }
   }
 
@@ -727,8 +726,8 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
     if (mAnnotation)
     {
       logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
-	     "Multiple annotation elements not permitted on the same element");
-
+	       "Only one <annotation> element is permitted inside a "
+	       "particular containing element.");
     }
     delete mAnnotation;
     mAnnotation = new XMLNode(stream);
@@ -1007,7 +1006,8 @@ ModifierSpeciesReference::readOtherXML (XMLInputStream& stream)
     if (mAnnotation)
     {
       logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
-	     "Multiple annotation elements not permitted on the same element");
+	       "Only one <annotation> element is permitted inside a "
+	       "particular containing element.");
     }
     delete mAnnotation;
     mAnnotation = new XMLNode(stream);

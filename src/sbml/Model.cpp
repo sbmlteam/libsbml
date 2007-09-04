@@ -1815,7 +1815,7 @@ Model::readOtherXML (XMLInputStream& stream)
     if (mAnnotation)
     {
       logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
-	       "Multiple annotation elements not permitted");
+	       "Multiple <annotation> elements not permitted.");
     }
 
     delete mAnnotation;
@@ -2052,8 +2052,7 @@ Model::readAttributes (const XMLAttributes& attributes)
     std::string name = attributes.getName(i);
     if (std::find(begin, end, name) == end)
     {
-      getErrorLog()->logError(SBMLError::NotSchemaConformant, level, version,
-        "Attribute " + name + " is not part of Model");
+      logUnknownAttribute(name, level, version, "<model>");
     }
   }
 
