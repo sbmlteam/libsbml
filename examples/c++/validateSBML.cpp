@@ -3,6 +3,7 @@
  * @brief   Validates an SBML file against the appropriate schema
  * @author  Sarah Keating
  * @author  Ben Bornstein
+ * @author  Michael Hucka
  *
  * $Id$
  * $Source$
