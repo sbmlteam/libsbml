@@ -170,7 +170,7 @@ SBMLReader::readInternal (const char* content, bool isFile)
           // If we find even one critical error, all other errors are
           // suspect and may be bogus.  Remove them.
 
-          for (int n = d->getNumErrors()-1; n >=0; n--)      
+          for (int n = d->getNumErrors()-1; n >= 0; n--)      
             if (!isCriticalError(d->getError(n)->getErrorId()))
             {
               d->getErrorLog()->remove(d->getError(n)->getErrorId());
@@ -188,7 +188,7 @@ SBMLReader::readInternal (const char* content, bool isFile)
 
       if (stream.getEncoding() == "")
       {
-        d->getErrorLog()->logError(XMLError::MissingXMLDecl);
+        d->getErrorLog()->logError(XMLError::MissingXMLEncoding);
       }
       else if (strcmp_insensitive(stream.getEncoding().c_str(), "UTF-8") != 0)
       {
@@ -207,7 +207,7 @@ SBMLReader::readInternal (const char* content, bool isFile)
         {
           d->getErrorLog()->logError(SBMLError::NotSchemaConformant,
 				     d->getLevel(), d->getVersion(), 
-            "An SBML Level 1 model must contain at least one compartment");
+            "An SBML Level 1 model must contain at least one <compartment>.");
         }
 
         if (d->getVersion() == 1)
@@ -216,13 +216,13 @@ SBMLReader::readInternal (const char* content, bool isFile)
           {
             d->getErrorLog()->logError(SBMLError::NotSchemaConformant,
 				       d->getLevel(), d->getVersion(), 
-            "An SBML Level 1 Version 1  model must contain at least one species");
+            "An SBML Level 1 Version 1 model must contain at least one <species>.");
           }
           if (d->getModel()->getNumReactions() == 0)
           {
             d->getErrorLog()->logError(SBMLError::NotSchemaConformant,
 				       d->getLevel(), d->getVersion(), 
-            "An SBML Level 1 Version 1  model must contain at least one reaction");
+            "An SBML Level 1 Version 1 model must contain at least one <reaction>.");
           }
         }
       }
