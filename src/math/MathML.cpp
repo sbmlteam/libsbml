@@ -570,7 +570,8 @@ readMathML (ASTNode& node, XMLInputStream& stream)
     stream.next();
     readMathML(node, stream);
     node.setSemanticsFlag();
-    stream.skipPastEnd(elem);
+    // take this out since it is repeated
+    //stream.skipPastEnd(elem);
   }
   else
   {
