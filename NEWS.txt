@@ -4,6 +4,9 @@
 
 * Bug fixes and enhancements:
 
+  - Support for <annotation> and <annotation-xml> with a <semantics>
+    element in MathML has been added.
+
   - The format of error, warning and other diagnostic messages has
     been improved and made more regular, and the message strings of
     validation rules been updated to match more closely those in the
