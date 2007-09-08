@@ -173,6 +173,8 @@ ASTNode::ASTNode (ASTNodeType_t type)
   setType(type);
 
   mChildren = new List;
+  mSemanticsAnnotations = new List;
+  
 }
 
 
@@ -190,6 +192,7 @@ ASTNode::ASTNode (Token_t* token)
   mType     = AST_UNKNOWN;
 
   mChildren = new List;
+  mSemanticsAnnotations = new List;
 
   if (token->type == TT_NAME)
   {
@@ -225,6 +228,10 @@ ASTNode::~ASTNode ()
 
   while (size--) delete static_cast<ASTNode*>( mChildren->remove(0) );
   delete mChildren;
+
+  size = mSemanticsAnnotations->getSize();
+  while (size--)  mSemanticsAnnotations->remove(0) ;
+  delete mSemanticsAnnotations;
 
   freeName();
 }
@@ -636,6 +643,39 @@ ASTNode::getNumChildren () const
   return mChildren->getSize();
 }
 
+
+/**
+ * Adds the given xmlnode as an annotation of this ASTNode.  
+ */
+LIBSBML_EXTERN
+void 
+ASTNode::addSemanticsAnnotation (XMLNode* annotation)
+{
+  mSemanticsAnnotations->add(annotation);
+}
+
+
+/**
+ * @return the number of annotations of this ASTNode.  
+ */
+LIBSBML_EXTERN
+unsigned int 
+ASTNode::getNumSemanticsAnnotations () const
+{
+  return mSemanticsAnnotations->getSize();
+}
+
+
+/**
+ * @return the nth annotation of this ASTNode or NULL if this node has no nth
+ * annotation.
+ */
+LIBSBML_EXTERN
+XMLNode* 
+ASTNode::getSemanticsAnnotation (unsigned int n) const
+{
+  return static_cast<XMLNode*>( mSemanticsAnnotations->get(n) );
+}
 
 /**
  * Performs a depth-first search (DFS) of the tree rooted at node and

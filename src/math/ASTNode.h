@@ -347,6 +347,25 @@ public:
   unsigned int getNumChildren () const;
 
   /**
+   * Adds the given xmlnode as an annotation of this ASTNode.  
+   */
+  LIBSBML_EXTERN
+  void addSemanticsAnnotation (XMLNode* annotation);
+
+  /**
+   * @return the number of annotations of this ASTNode.  
+   */
+  LIBSBML_EXTERN
+  unsigned int getNumSemanticsAnnotations () const;
+
+  /**
+   * @return the nth annotation of this ASTNode or NULL if this node has no nth
+   * annotation (n > ASTNode_getNumChildren() - 1).
+   */
+  LIBSBML_EXTERN
+  XMLNode* getSemanticsAnnotation (unsigned int n) const;
+
+  /**
    * Performs a depth-first search (DFS) of the tree rooted at node and
    * returns the List of nodes where predicate(node) returns true.
    *
@@ -743,6 +762,8 @@ protected:
   bool hasSemantics;
 
   List *mChildren;
+
+  List *mSemanticsAnnotations;
 
 
   friend class MathMLFormatter;

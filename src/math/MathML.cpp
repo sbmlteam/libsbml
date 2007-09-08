@@ -22,6 +22,7 @@
  *----------------------------------------------------------------------- -->*/
 
 #include <sbml/xml/XMLToken.h>
+#include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLInputStream.h>
 
 #include <sbml/SBMLError.h>
@@ -570,8 +571,20 @@ readMathML (ASTNode& node, XMLInputStream& stream)
     stream.next();
     readMathML(node, stream);
     node.setSemanticsFlag();
-    // take this out since it is repeated
-    //stream.skipPastEnd(elem);
+    /** need to look for any annotation on the semantics element **/
+    while ( stream.isGood() && !stream.peek().isEndFor(elem))
+    {
+      if (stream.peek().getName() == "annotation"
+        || stream.peek().getName() == "annotation-xml")
+      {
+        XMLNode semanticAnnotation = XMLNode(stream);
+        node.addSemanticsAnnotation(semanticAnnotation.clone());
+      }
+      else
+      {
+        stream.next();
+      }
+    }
   }
   else
   {
@@ -1042,34 +1055,45 @@ writePiecewise (const ASTNode& node, XMLOutputStream& stream)
 
 
 /**
+ * Formats the given ASTNode as a <semantics> element.
+ */
+static void
+writeSemantics(const ASTNode& node, XMLOutputStream& stream, bool &inSemantics)
+{
+  inSemantics = true;
+  stream.startElement("semantics");
+  if (node.getDefinitionURL())
+    stream.writeAttribute("definitionURL", 
+                            node.getDefinitionURL()->getValue(0));
+  writeNode(node, stream);
+
+  for (unsigned int n = 0; n < node.getNumSemanticsAnnotations(); n++)
+  {
+    stream << *node.getSemanticsAnnotation(n);
+  }
+  stream.endElement("semantics");
+}
+
+
+/**
  * Writes the given ASTNode (and its children) to the XMLOutputStream as
  * MathML.
  */
 static void
 writeNode (const ASTNode& node, XMLOutputStream& stream)
 {
-  static bool semantics = true;
-  if (node.getSemanticsFlag() && semantics)
-  {
-    stream.startElement("semantics");
-    if (node.getDefinitionURL())
-      stream.writeAttribute("definitionURL", 
-                             node.getDefinitionURL()->getValue(0));
-    semantics = false;
-    writeNode(node, stream);
-    stream.endElement("semantics");
+  static bool inSemantics = false;
+  
+  if (node.getSemanticsFlag() && !inSemantics)
+                     writeSemantics(node, stream, inSemantics);
 
-  }
-  else
-  {
-        if (  node.isNumber   () ) writeCN       (node, stream);
-    else if (  node.isName     () ) writeCI       (node, stream);
-    else if (  node.isConstant () ) writeConstant (node, stream);
-    else if (  node.isOperator () ) writeOperator (node, stream);
-    else if (  node.isLambda   () ) writeLambda   (node, stream);
-    else if (  node.isPiecewise() ) writePiecewise(node, stream);
-    else if ( !node.isUnknown  () ) writeFunction (node, stream);
-  }
+  else if (  node.isNumber   () ) writeCN       (node, stream);
+  else if (  node.isName     () ) writeCI       (node, stream);
+  else if (  node.isConstant () ) writeConstant (node, stream);
+  else if (  node.isOperator () ) writeOperator (node, stream);
+  else if (  node.isLambda   () ) writeLambda   (node, stream);
+  else if (  node.isPiecewise() ) writePiecewise(node, stream);
+  else if ( !node.isUnknown  () ) writeFunction (node, stream);
 }
 
 
