@@ -30,6 +30,9 @@
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/MathML.h>
 
+#include <sbml/xml/XMLToken.h>
+#include <sbml/xml/XMLNode.h>
+
 /** @cond doxygen-ignored */
 
 using namespace std;
@@ -797,6 +800,143 @@ START_TEST (test_MathMLFormatter_piecewise_otherwise)
 END_TEST
 
 
+START_TEST (test_MathMLFormatter_semantics)
+{
+  const char* expected = wrapMathML
+  (
+    "  <semantics>\n"
+    "    <apply>\n"
+    "      <lt/>\n"
+    "      <ci> x </ci>\n"
+    "      <cn type=\"integer\"> 0 </cn>\n"
+    "    </apply>\n"
+    "  </semantics>\n"
+  );
+
+  N = SBML_parseFormula("lt(x, 0)");
+  N->setSemanticsFlag();
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
+START_TEST (test_MathMLFormatter_semantics_url)
+{
+  const char* expected = wrapMathML
+  (
+    "  <semantics definitionURL=\"foobar\">\n"
+    "    <apply>\n"
+    "      <lt/>\n"
+    "      <ci> x </ci>\n"
+    "      <cn type=\"integer\"> 0 </cn>\n"
+    "    </apply>\n"
+    "  </semantics>\n"
+  );
+
+  XMLAttributes *xa = new XMLAttributes();
+  xa->add("definitionURL", "foobar");
+  
+  N = SBML_parseFormula("lt(x, 0)");
+  N->setSemanticsFlag();
+  N->setDefinitionURL(*xa);
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
+START_TEST (test_MathMLFormatter_semantics_ann)
+{
+  const char* expected = wrapMathML
+  (
+    "  <semantics>\n"
+    "    <apply>\n"
+    "      <lt/>\n"
+    "      <ci> x </ci>\n"
+    "      <cn type=\"integer\"> 0 </cn>\n"
+    "    </apply>\n"
+    "    <annotation encoding=\"bar\">foo</annotation>\n"
+    "  </semantics>\n"
+  );
+
+  XMLAttributes xa = XMLAttributes();
+  xa.add("encoding", "bar");
+  
+  XMLTriple triple = XMLTriple("annotation", "", "");
+  
+  XMLToken ann_token = XMLToken(triple, xa);
+  
+  XMLNode *ann = new XMLNode(ann_token);
+  XMLToken text = XMLToken("foo");
+  XMLNode textNode = XMLNode(text);
+  ann->addChild(textNode);
+  
+  N = SBML_parseFormula("lt(x, 0)");
+  N->setSemanticsFlag();
+  N->addSemanticsAnnotation(ann);
+
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
+START_TEST (test_MathMLFormatter_semantics_annxml)
+{
+  const char* expected = wrapMathML
+  (
+    "  <semantics>\n"
+    "    <apply>\n"
+    "      <lt/>\n"
+    "      <ci> x </ci>\n"
+    "      <cn type=\"integer\"> 0 </cn>\n"
+    "    </apply>\n"
+    "    <annotation-xml encoding=\"bar\">\n"
+    "      <foobar>\n"
+    "        <bar id=\"c\"/>\n"
+    "      </foobar>\n"
+    "    </annotation-xml>\n"
+    "  </semantics>\n"
+  );
+
+  XMLAttributes xa = XMLAttributes();
+  xa.add("encoding", "bar");
+  
+  XMLAttributes xa1 = XMLAttributes();
+  xa1.add("id", "c");
+
+  XMLAttributes blank = XMLAttributes();
+
+  XMLTriple triple = XMLTriple("annotation-xml", "", "");
+  XMLTriple foo_triple = XMLTriple("foobar", "", "");
+  XMLTriple bar_triple = XMLTriple("bar", "", "");
+  
+  XMLToken ann_token = XMLToken(triple, xa);
+  XMLToken foo_token = XMLToken(foo_triple, blank);
+  XMLToken bar_token = XMLToken(bar_triple, xa1);
+  
+  XMLNode bar = XMLNode(bar_token);
+  XMLNode foo = XMLNode(foo_token);
+  XMLNode *ann = new XMLNode(ann_token);
+
+  foo.addChild(bar);
+  ann->addChild(foo);
+  
+  N = SBML_parseFormula("lt(x, 0)");
+  N->setSemanticsFlag();
+  N->addSemanticsAnnotation(ann);
+
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
 Suite *
 create_suite_WriteMathML ()
 {
@@ -845,6 +985,11 @@ create_suite_WriteMathML ()
   tcase_add_test( tcase, test_MathMLFormatter_lambda_no_bvars       );
   tcase_add_test( tcase, test_MathMLFormatter_piecewise             );
   tcase_add_test( tcase, test_MathMLFormatter_piecewise_otherwise   );
+
+  tcase_add_test( tcase, test_MathMLFormatter_semantics             );
+  tcase_add_test( tcase, test_MathMLFormatter_semantics_url         );
+  tcase_add_test( tcase, test_MathMLFormatter_semantics_ann         );
+  tcase_add_test( tcase, test_MathMLFormatter_semantics_annxml      );
 
   suite_add_tcase(suite, tcase);
 

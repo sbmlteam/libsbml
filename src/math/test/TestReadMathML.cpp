@@ -31,6 +31,8 @@
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/MathML.h>
 
+#include <sbml/xml/XMLNode.h>
+
 
 /**
  * Wraps the string s in the appropriate XML or MathML boilerplate.
@@ -1260,6 +1262,232 @@ START_TEST (test_element_xor)
 END_TEST
 
 
+START_TEST (test_element_semantics)
+{
+  const char* s = wrapMathML
+  (
+  "<semantics> <apply> <xor/> <ci>a</ci> <ci>b</ci> <ci>b</ci> <ci>a</ci> </apply> </semantics>"
+  );
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N->getSemanticsFlag() == true );
+  fail_unless( N != 0 );
+
+
+  F = SBML_formulaToString(N);
+
+  fail_unless( !strcmp(F, "xor(a, b, b, a)") );
+}
+END_TEST
+
+
+START_TEST (test_element_semantics_URL)
+{
+  const char* s = wrapMathML
+  (
+    "<semantics definitionURL='foobar'>"
+    "<apply> <xor/> <ci>a</ci> <ci>b</ci> <ci>b</ci> <ci>a</ci> </apply>"
+    "</semantics>"
+  );
+
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != 0 );
+
+  fail_unless( N->getSemanticsFlag() == true );
+  fail_unless( N->getDefinitionURL()->getValue(0) == "foobar");
+
+  F = SBML_formulaToString(N);
+  fail_unless( !strcmp(F, "xor(a, b, b, a)") );
+}
+END_TEST
+
+
+START_TEST (test_element_semantics_annotation)
+{
+  const char* s = wrapMathML
+  (
+    "<semantics>"
+    "<apply> <xor/> <ci>a</ci> <ci>b</ci> <ci>b</ci> <ci>a</ci> </apply>"
+    "<annotation encoding='Mathematica'> N[23] </annotation>"
+    "</semantics>"
+  );
+
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != 0 );
+
+  fail_unless( N->getSemanticsFlag() == true );
+  fail_unless( N->getNumSemanticsAnnotations() == 1);
+
+  std::string ann1 = XMLNode::convertXMLNodeToString(N->getSemanticsAnnotation(0));
+  std::string annotation = "<annotation encoding=\"Mathematica\"> N[23] </annotation>";
+  fail_unless( ann1 == annotation );
+}
+END_TEST
+
+
+START_TEST (test_element_semantics_annxml)
+{
+  const char* s = wrapMathML
+  (
+    "<semantics>"
+    "<apply> <xor/> <ci>a</ci> <ci>b</ci> <ci>b</ci> <ci>a</ci> </apply>"
+    "<annotation-xml encoding='OpenMath'>"
+    "<OMA xmlns=\"http://www.openmath.org/OpenMath\">"
+    "<OMS cd=\"arith1\" name=\"divide\"/>"
+    "<OMI>123</OMI>"
+    "<OMI>456</OMI>"
+    "</OMA>"
+    "</annotation-xml>"
+    "</semantics>"
+  );
+
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != 0 );
+
+  fail_unless( N->getSemanticsFlag() == true );
+  fail_unless( N->getNumSemanticsAnnotations() == 1);
+
+  std::string ann1 = XMLNode::convertXMLNodeToString(N->getSemanticsAnnotation(0));
+  std::string annotation = 
+    "<annotation-xml encoding=\"OpenMath\">\n"
+    "  <OMA xmlns=\"http://www.openmath.org/OpenMath\">\n"
+    "    <OMS cd=\"arith1\" name=\"divide\"/>\n"
+    "    <OMI>123</OMI>\n"
+    "    <OMI>456</OMI>\n"
+    "  </OMA>\n"
+    "</annotation-xml>";
+  fail_unless( ann1 == annotation );
+}
+END_TEST
+
+
+START_TEST (test_element_semantics_lambda)
+{
+  const char* s = wrapMathML
+  (
+  "<semantics>"
+  "<lambda> <bvar> <ci> a </ci> </bvar>"
+  "<apply> <xor/> <ci>a</ci> <ci>b</ci> <ci>b</ci> <ci>a</ci> </apply>"
+  "</lambda>  </semantics>"
+  );
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N->getSemanticsFlag() == true );
+  fail_unless( N != 0 );
+
+
+  F = SBML_formulaToString(N);
+
+  fail_unless( !strcmp(F, "lambda(a, xor(a, b, b, a))") );
+}
+END_TEST
+
+
+START_TEST (test_element_semantics_URL_lambda)
+{
+  const char* s = wrapMathML
+  (
+    "<semantics definitionURL='foobar'>"
+    "<lambda> <bvar> <ci> a </ci> </bvar>"
+    "<apply> <xor/> <ci>a</ci> <ci>b</ci> <ci>b</ci> <ci>a</ci> </apply>"
+    "</lambda> </semantics>"
+  );
+
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != 0 );
+
+  fail_unless( N->getSemanticsFlag() == true );
+  fail_unless( N->getDefinitionURL()->getValue(0) == "foobar");
+
+  F = SBML_formulaToString(N);
+  fail_unless( !strcmp(F, "lambda(a, xor(a, b, b, a))") );
+}
+END_TEST
+
+
+START_TEST (test_element_semantics_ann_lambda)
+{
+  const char* s = wrapMathML
+  (
+    "<semantics> <lambda> <bvar> <ci> a </ci> </bvar>"
+    "<apply> <xor/> <ci>a</ci> <ci>b</ci> <ci>b</ci> <ci>a</ci> </apply>"
+    "</lambda>"
+    "<annotation encoding='Mathematica'> N[23] </annotation>"
+    "</semantics>"
+  );
+
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != 0 );
+
+  fail_unless( N->getSemanticsFlag() == true );
+  fail_unless( N->getNumSemanticsAnnotations() == 1);
+
+  std::string ann1 = XMLNode::convertXMLNodeToString(N->getSemanticsAnnotation(0));
+  std::string annotation = "<annotation encoding=\"Mathematica\"> N[23] </annotation>";
+  fail_unless( ann1 == annotation );
+}
+END_TEST
+
+
+START_TEST (test_element_semantics_annxml_lambda)
+{
+  const char* s = wrapMathML
+  (
+  "<semantics> <lambda> <bvar> <ci> a </ci> </bvar>"
+    "<apply> <xor/> <ci>a</ci> <ci>b</ci> <ci>b</ci> <ci>a</ci> </apply>"
+    "</lambda>"
+    "<annotation-xml encoding='OpenMath'>"
+    "<OMA xmlns=\"http://www.openmath.org/OpenMath\">"
+    "<OMS cd=\"arith1\" name=\"divide\"/>"
+    "<OMI>123</OMI>"
+    "<OMI>456</OMI>"
+    "</OMA>"
+    "</annotation-xml>"
+    "</semantics>"
+  );
+
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != 0 );
+
+  fail_unless( N->getSemanticsFlag() == true );
+  fail_unless( N->getNumSemanticsAnnotations() == 1);
+
+  std::string ann1 = XMLNode::convertXMLNodeToString(N->getSemanticsAnnotation(0));
+  std::string annotation = 
+    "<annotation-xml encoding=\"OpenMath\">\n"
+    "  <OMA xmlns=\"http://www.openmath.org/OpenMath\">\n"
+    "    <OMS cd=\"arith1\" name=\"divide\"/>\n"
+    "    <OMI>123</OMI>\n"
+    "    <OMI>456</OMI>\n"
+    "  </OMA>\n"
+    "</annotation-xml>";
+  fail_unless( ann1 == annotation );
+}
+END_TEST
+
+
 //
 // libSBML Expat was not correctly interpreting XML namespace prefixes or
 // their corresponding qualified element names.  That is, while the
@@ -1617,6 +1845,16 @@ create_suite_ReadMathML ()
   tcase_add_test( tcase, test_element_tan                       );
   tcase_add_test( tcase, test_element_tanh                      );
   tcase_add_test( tcase, test_element_xor                       );
+
+  tcase_add_test( tcase, test_element_semantics                 );
+  tcase_add_test( tcase, test_element_semantics_URL             );
+  tcase_add_test( tcase, test_element_semantics_annotation      );
+  tcase_add_test( tcase, test_element_semantics_annxml          );
+  tcase_add_test( tcase, test_element_semantics_lambda          );
+  tcase_add_test( tcase, test_element_semantics_URL_lambda      );
+  tcase_add_test( tcase, test_element_semantics_ann_lambda      );
+  tcase_add_test( tcase, test_element_semantics_annxml_lambda   );
+
   tcase_add_test( tcase, test_element_bug_math_xmlns            );
   tcase_add_test( tcase, test_element_bug_apply_ci_1            );
   tcase_add_test( tcase, test_element_bug_apply_ci_2            );

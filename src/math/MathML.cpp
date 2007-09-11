@@ -491,7 +491,8 @@ readMathML (ASTNode& node, XMLInputStream& stream)
       (stream.getErrorLog())->logError(SBMLError::DisallowedMathTypeAttributeUse);
   }
 
-  if ( !encoding.empty() && name != "csymbol")
+  if ( !encoding.empty() && (name != "csymbol"
+                          && name != "semantics"))
   {
     static_cast <SBMLErrorLog*>
       (stream.getErrorLog())->logError(SBMLError::DisallowedMathMLEncodingUse);
@@ -568,7 +569,6 @@ readMathML (ASTNode& node, XMLInputStream& stream)
   {
     /** read in attributes */
     node.setDefinitionURL(elem.getAttributes());
-    stream.next();
     readMathML(node, stream);
     node.setSemanticsFlag();
     /** need to look for any annotation on the semantics element **/
