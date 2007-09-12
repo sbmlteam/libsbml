@@ -4,6 +4,19 @@
 
 * Bug fixes and enhancements:
 
+  - The error ids for a small number of consistency checks has changed. 
+    These relate to validation rules that were never part of the written 
+    specification of SBML and thus do not have published numbers.
+    These rules check that the timeUnits/substanceUnits and formula of a 
+    KineticLaw are valid in versions of SBML prior to Level 2 Version 2. 
+    The changes are as follows:
+			21127  changed to  99127
+			21128  changed to  99128
+			21129  changed to  99129
+			
+  - The error id of the check on the general consistency of MathML has changed
+    from 10219 to 99219.    
+
   - Support for <annotation> and <annotation-xml> with a <semantics>
     element in MathML has been added.
 
