@@ -359,18 +359,6 @@ static const sbmlErrorTableEntry errorTable[] =
     ""
   },
 
-  //10219   FIXME
-  {   
-    SBMLError::BadMathML,   
-    SBMLError::SBMLConsistencyMathML,   
-    SBMLError::NotApplicable,   
-    SBMLError::NotApplicable,   
-    SBMLError::Error,   
-    SBMLError::Error,   
-    SBMLError::Error,   
-    "Invalid MathML"   
-  }, 
-
   //10301
   {
     SBMLError::DuplicateComponentId,
@@ -537,42 +525,6 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::GeneralWarning,
     SBMLError::Error,
     SBMLError::Error,
-    ""
-  },
-
-  //10502
-  {
-    SBMLError::InconsistentArgUnitsWarnings,
-    SBMLError::SBMLConsistencyUnits,
-    SBMLError::GeneralWarning,
-    SBMLError::GeneralWarning,
-    SBMLError::GeneralWarning,
-    SBMLError::Warning,
-    SBMLError::Warning,
-    ""
-  },
-
-  //10503
-  {
-    SBMLError::InconsistentPowerUnitsWarnings,
-    SBMLError::SBMLConsistencyUnits,
-    SBMLError::GeneralWarning,
-    SBMLError::GeneralWarning,
-    SBMLError::GeneralWarning,
-    SBMLError::Warning,
-    SBMLError::Warning,
-    ""
-  },
-
-  //10503
-  {
-    SBMLError::InconsistentExponUnitsWarnings,
-    SBMLError::SBMLConsistencyUnits,
-    SBMLError::GeneralWarning,
-    SBMLError::GeneralWarning,
-    SBMLError::GeneralWarning,
-    SBMLError::Warning,
-    SBMLError::Warning,
     ""
   },
 
@@ -2033,42 +1985,6 @@ static const sbmlErrorTableEntry errorTable[] =
     ""
   },
 
-  //21127
-  {
-    SBMLError::SubsUnitsAllowedInKL,
-    SBMLError::SBMLConsistency,
-    SBMLError::Error,
-    SBMLError::Error,
-    SBMLError::Error,
-    SBMLError::NotApplicable,
-    SBMLError::NotApplicable,
-    ""
-  },
-
-  //21128
-  {
-    SBMLError::TimeUnitsAllowedInKL,
-    SBMLError::SBMLConsistency,
-    SBMLError::Error,
-    SBMLError::Error,
-    SBMLError::Error,
-    SBMLError::NotApplicable,
-    SBMLError::NotApplicable,
-    ""
-  },
-
-  //21129
-  {
-    SBMLError::FormulaInLevel1KL,
-    SBMLError::SBMLConsistency,
-    SBMLError::Error,
-    SBMLError::Error,
-    SBMLError::NotApplicable,
-    SBMLError::NotApplicable,
-    SBMLError::NotApplicable,
-    ""
-  },
-
   //21131
   {
     SBMLError::UndeclaredSpeciesInStoichMath,
@@ -2191,8 +2107,91 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     "Use of SBML Level 1 Version 1 is not recommended and conversion is "
     "not supported by libSBML."
-  }
+  },
 
+  //99127
+  {
+    SBMLError::SubsUnitsAllowedInKL,
+    SBMLError::SBMLConsistency,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    ""
+  },
+
+  //99128
+  {
+    SBMLError::TimeUnitsAllowedInKL,
+    SBMLError::SBMLConsistency,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    ""
+  },
+
+  //99129
+  {
+    SBMLError::FormulaInLevel1KL,
+    SBMLError::SBMLConsistency,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    ""
+  },
+
+  //99502
+  {
+    SBMLError::InconsistentArgUnitsWarnings,
+    SBMLError::SBMLConsistencyUnits,
+    SBMLError::GeneralWarning,
+    SBMLError::GeneralWarning,
+    SBMLError::GeneralWarning,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    ""
+  },
+
+  //99503
+  {
+    SBMLError::InconsistentPowerUnitsWarnings,
+    SBMLError::SBMLConsistencyUnits,
+    SBMLError::GeneralWarning,
+    SBMLError::GeneralWarning,
+    SBMLError::GeneralWarning,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    ""
+  },
+
+  //99504
+  {
+    SBMLError::InconsistentExponUnitsWarnings,
+    SBMLError::SBMLConsistencyUnits,
+    SBMLError::GeneralWarning,
+    SBMLError::GeneralWarning,
+    SBMLError::GeneralWarning,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    ""
+  },
+
+  //99219   FIXME
+  {   
+    SBMLError::BadMathML,   
+    SBMLError::SBMLConsistencyMathML,   
+    SBMLError::NotApplicable,   
+    SBMLError::NotApplicable,   
+    SBMLError::Error,   
+    SBMLError::Error,   
+    SBMLError::Error,   
+    "Invalid MathML"   
+  }
 
 };
 

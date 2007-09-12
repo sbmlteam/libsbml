@@ -221,6 +221,43 @@ runTestBadXML (const TestFile& file)
   return tester.test(file);
 }
 
+bool
+runAdditionalSBMLTest (const TestFile& file)
+{
+  ConsistencyValidator validator;
+  TestValidator        tester(validator);
+
+
+  validator.init();
+
+  return tester.test(file);
+}
+
+bool
+runAdditionalUnitTest (const TestFile& file)
+{
+  UnitConsistencyValidator validator;
+  TestValidator        tester(validator);
+
+
+  validator.init();
+
+  return tester.test(file);
+}
+
+bool
+runAdditionalMathTest (const TestFile& file)
+{
+  MathMLConsistencyValidator validator;
+  TestValidator        tester(validator);
+
+
+  validator.init();
+
+  return tester.test(file);
+}
+
+
 /**
  * Run a given set of tests and print the results.
  */
@@ -307,6 +344,15 @@ main (int argc, char* argv[])
 
   failed += runTests("Testing L2v3 Compatibility Constraints (94000 - 94999)",
 		     "test-data-conversion", 94000, 94999, runL2v3Test, library);
+
+  failed += runTests("Testing Additional SBML Constraints (99100 - 99199)",
+		     "test-data", 99100, 99199, runAdditionalSBMLTest, library);
+
+  failed += runTests("Testing Additional Math Constraints (99200 - 99299)",
+		     "test-data", 99200, 99299, runAdditionalMathTest, library);
+
+  failed += runTests("Testing Additional Unit Constraints (99500 - 99599)",
+		     "test-data", 99500, 99599, runAdditionalUnitTest, library);
 
   return failed;
 }

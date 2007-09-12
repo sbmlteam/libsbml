@@ -92,9 +92,9 @@ using namespace std;
 
 
 EXTERN_CONSTRAINT(10501, ArgumentsUnitsCheck)
-EXTERN_CONSTRAINT(10502, ArgumentsUnitsCheckWarnings)
-EXTERN_CONSTRAINT(10503, PowerUnitsCheck)
-EXTERN_CONSTRAINT(10504, ExponentUnitsCheck)
+EXTERN_CONSTRAINT(99502, ArgumentsUnitsCheckWarnings)
+EXTERN_CONSTRAINT(99503, PowerUnitsCheck)
+EXTERN_CONSTRAINT(99504, ExponentUnitsCheck)
 
 START_CONSTRAINT (10511, AssignmentRule, ar)
 {

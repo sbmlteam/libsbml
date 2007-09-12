@@ -1594,7 +1594,7 @@ START_CONSTRAINT (21126, KineticLaw, kl)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (21127, KineticLaw, kl)
+START_CONSTRAINT (99127, KineticLaw, kl)
 {
   pre( kl.getLevel() == 1 || kl.getVersion() == 1);
   pre( kl.isSetSubstanceUnits() );
@@ -1616,7 +1616,7 @@ START_CONSTRAINT (21127, KineticLaw, kl)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (21128, KineticLaw, kl)
+START_CONSTRAINT (99128, KineticLaw, kl)
 {
   pre( kl.getLevel() == 1 || kl.getVersion() == 1);
   pre( kl.isSetTimeUnits() );
@@ -1636,7 +1636,7 @@ START_CONSTRAINT (21128, KineticLaw, kl)
 }
 END_CONSTRAINT
 
-START_CONSTRAINT (21129, KineticLaw, kl)
+START_CONSTRAINT (99129, KineticLaw, kl)
 {
   pre (m.getLevel() == 1);
   pre (kl.isSetFormula() == 1);

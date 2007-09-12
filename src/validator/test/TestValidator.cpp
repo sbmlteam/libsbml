@@ -118,7 +118,7 @@ TestValidator::test (const TestFile& file)
   unsigned int id       = file.getConstraintId();
 
   /* change numbers for specific units tests that report same number */
-  if (id == 10502 || id == 10503 || id == 10504)
+  if (id == 99502 || id == 99503 || id == 99504)
     id = 10501;
 
   unsigned int expected = file.getNumFailures();
