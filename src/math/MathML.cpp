@@ -491,8 +491,7 @@ readMathML (ASTNode& node, XMLInputStream& stream)
       (stream.getErrorLog())->logError(SBMLError::DisallowedMathTypeAttributeUse);
   }
 
-  if ( !encoding.empty() && (name != "csymbol"
-                          && name != "semantics"))
+  if ( !encoding.empty() && name != "csymbol")
   {
     static_cast <SBMLErrorLog*>
       (stream.getErrorLog())->logError(SBMLError::DisallowedMathMLEncodingUse);
@@ -1072,6 +1071,7 @@ writeSemantics(const ASTNode& node, XMLOutputStream& stream, bool &inSemantics)
     stream << *node.getSemanticsAnnotation(n);
   }
   stream.endElement("semantics");
+  inSemantics = false;
 }
 
 
