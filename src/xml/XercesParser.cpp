@@ -106,6 +106,7 @@ static struct xercesError {
   { XMLErrs::XMLException_Fatal,           XMLError::UnrecognizedParserCode},
   { XMLErrs::XMLVersionRequired, 	   XMLError::BadXMLDecl},
   { XMLErrs::ExpectedCommentOrCDATA, XMLError::NotWellFormed},
+  { XMLErrs::ExpectedAttrName, XMLError::NotWellFormed},
 
   // The next one should always be last.  It's used only as a marker.
   { XMLErrs::F_HighBounds,                 XMLError::UnknownError},
@@ -125,8 +126,10 @@ translateError(const int xercesCode)
     // who cares how efficient the error look-up is?
 
     for (unsigned int i = 0; i < tableSize; i++)
+    {
       if (xercesErrorTable[i].xercesCode == xercesCode)
-	return xercesErrorTable[i].ourCode;
+	      return xercesErrorTable[i].ourCode;
+    }
 
     // If we get here, we haven't found it in the table.  This means Xerces
     // returned a code we don't have, either because our table is
