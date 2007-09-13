@@ -64,7 +64,7 @@ main (int argc, char *argv[])
     c->setFamilyName("Keating");
     c->setGivenName("Sarah");
     c->setEmail("sbml-team@caltech.edu");
-    c->setOrganisation("University of Hertfordshire");
+    c->setOrganization("University of Hertfordshire");
 
     h->addCreator(c);
 

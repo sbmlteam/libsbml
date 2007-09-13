@@ -350,94 +350,97 @@ RDFAnnotationParser::createCVTerms(const SBase * object)
 
   /* loop through the cv terms and add */
   /* want to add these in blocks of same qualifier */
-  for (unsigned int n = 0; n < object->getCVTerms()->getSize(); n++)
+  if (object->getCVTerms())
   {
-
-    if (static_cast <CVTerm *> (object->getCVTerms()->get(n))
-      ->getQualifierType() == MODEL_QUALIFIER)
+    for (unsigned int n = 0; n < object->getCVTerms()->getSize(); n++)
     {
-      prefix = "bqmodel";
-      uri = "http://biomodels.net/model-qualifiers/";
 
-      switch (static_cast <CVTerm *> (object->getCVTerms()->get(n))
-                                          ->getModelQualifierType())
+      if (static_cast <CVTerm *> (object->getCVTerms()->get(n))
+        ->getQualifierType() == MODEL_QUALIFIER)
       {
-      case BQM_IS:
-        name = "is";
-        break;
-      case BQM_IS_DESCRIBED_BY:
-        name = "isDescribedBy";
-        break;
-      case BQM_UNKNOWN:
-        return NULL;
-	      break;
-      }
-    }
-    else if (static_cast <CVTerm *> (object->getCVTerms()->get(n))
-      ->getQualifierType() == BIOLOGICAL_QUALIFIER)
-    {
-      prefix = "bqbiol";
-      uri = "http://biomodels.net/biological-qualifiers/";
+        prefix = "bqmodel";
+        uri = "http://biomodels.net/model-qualifiers/";
 
-      switch (static_cast <CVTerm *> (object->getCVTerms()->get(n))
-                                          ->getBiologicalQualifierType())
+        switch (static_cast <CVTerm *> (object->getCVTerms()->get(n))
+                                            ->getModelQualifierType())
+        {
+        case BQM_IS:
+          name = "is";
+          break;
+        case BQM_IS_DESCRIBED_BY:
+          name = "isDescribedBy";
+          break;
+        case BQM_UNKNOWN:
+          return NULL;
+	        break;
+        }
+      }
+      else if (static_cast <CVTerm *> (object->getCVTerms()->get(n))
+        ->getQualifierType() == BIOLOGICAL_QUALIFIER)
       {
-      case BQB_IS:
-        name = "is";
-        break;
-      case BQB_HAS_PART:
-        name = "hasPart";
-        break;
-      case BQB_IS_PART_OF:
-        name = "isPartOf";
-        break;
-      case BQB_IS_VERSION_OF:
-        name = "isVersionOf";
-        break;
-      case BQB_HAS_VERSION:
-        name = "hasVersion";
-        break;
-      case BQB_IS_HOMOLOG_TO:
-        name = "isHomologTo";
-        break;
-      case BQB_IS_DESCRIBED_BY:
-        name = "isDescribedBy";
-        break;
-      case BQB_UNKNOWN:
-        return NULL;
-      	break;
+        prefix = "bqbiol";
+        uri = "http://biomodels.net/biological-qualifiers/";
+
+        switch (static_cast <CVTerm *> (object->getCVTerms()->get(n))
+                                            ->getBiologicalQualifierType())
+        {
+        case BQB_IS:
+          name = "is";
+          break;
+        case BQB_HAS_PART:
+          name = "hasPart";
+          break;
+        case BQB_IS_PART_OF:
+          name = "isPartOf";
+          break;
+        case BQB_IS_VERSION_OF:
+          name = "isVersionOf";
+          break;
+        case BQB_HAS_VERSION:
+          name = "hasVersion";
+          break;
+        case BQB_IS_HOMOLOG_TO:
+          name = "isHomologTo";
+          break;
+        case BQB_IS_DESCRIBED_BY:
+          name = "isDescribedBy";
+          break;
+        case BQB_UNKNOWN:
+          return NULL;
+      	  break;
+        }
       }
-    }
-    else
-    {
-      continue;
-    }
-    
-    type_triple = new XMLTriple(name, uri, prefix);
-    type_token = new XMLToken (*(type_triple), blank_att);
-    type = new XMLNode(*(type_token));
-    bag = new XMLNode(bag_token);
-
-    resources = static_cast <CVTerm *> (object->getCVTerms()->get(n))
-                                                      ->getResources();
-
-    for (int r = 0; r < resources->getLength(); r++)
-    {
-      att = new XMLAttributes();
-      att->add(resources->getName(r), resources->getValue(r)); 
+      else
+      {
+        continue;
+      }
       
-      li_token = XMLToken(li_triple, *(att));
-      li_token.setEnd();
+      type_triple = new XMLTriple(name, uri, prefix);
+      type_token = new XMLToken (*(type_triple), blank_att);
+      type = new XMLNode(*(type_token));
+      bag = new XMLNode(bag_token);
 
-      li = XMLNode(li_token);
+      resources = static_cast <CVTerm *> (object->getCVTerms()->get(n))
+                                                        ->getResources();
 
-      bag->addChild(li);
+      for (int r = 0; r < resources->getLength(); r++)
+      {
+        att = new XMLAttributes();
+        att->add(resources->getName(r), resources->getValue(r)); 
+        
+        li_token = XMLToken(li_triple, *(att));
+        li_token.setEnd();
+
+        li = XMLNode(li_token);
+
+        bag->addChild(li);
+      }
+
+      type->addChild(*(bag));
+      description->addChild(*(type));
     }
 
-    type->addChild(*(bag));
-    description->addChild(*(type));
   }
-
   return description;
 }
 

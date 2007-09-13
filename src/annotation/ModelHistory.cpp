@@ -530,7 +530,7 @@ ModelCreator::ModelCreator(const XMLNode creator)
       }
       else if (name == "ORG")
       {
-        setOrganisation(creator.getChild(n).getChild(0).getChild(0).getCharacters());
+        setOrganization(creator.getChild(n).getChild(0).getChild(0).getCharacters());
       }
     }
   }
@@ -550,7 +550,7 @@ ModelCreator::ModelCreator(const ModelCreator& orig):
    mFamilyName   ( orig.mFamilyName )
  , mGivenName    ( orig.mGivenName )
  , mEmail        ( orig.mEmail )
- , mOrganisation ( orig.mOrganisation )
+ , mOrganization ( orig.mOrganization )
 {
 }
 
@@ -562,7 +562,7 @@ ModelCreator& ModelCreator::operator=(const ModelCreator& orig)
   mFamilyName   = orig.mFamilyName;
   mGivenName    = orig.mGivenName;
   mEmail        = orig.mEmail;
-  mOrganisation = orig.mOrganisation;
+  mOrganization = orig.mOrganization;
   return *this;
 }
 
@@ -594,10 +594,17 @@ ModelCreator::isSetEmail()
 }
 
 bool 
+ModelCreator::isSetOrganization()
+{
+  return (mOrganization.empty() == false);
+}
+
+bool 
 ModelCreator::isSetOrganisation()
 {
-  return (mOrganisation.empty() == false);
+  return isSetOrganization();
 }
+
 
 
 /**
@@ -629,14 +636,16 @@ ModelCreator::setEmail(std::string email)
   mEmail = email;
 }
 
-
-/**
- * sets the org
- */
 void 
-ModelCreator::setOrganisation(std::string org)
+ModelCreator::setOrganization(std::string organization)
 {
-  mOrganisation = org;
+  mOrganization = organization;
+}
+
+void 
+ModelCreator::setOrganisation(std::string organization)
+{
+  setOrganization(organization);
 }
 
 void 
@@ -658,9 +667,15 @@ ModelCreator::unsetEmail()
 }
 
 void 
+ModelCreator::unsetOrganization()
+{
+  mOrganization.erase();
+}
+
+void 
 ModelCreator::unsetOrganisation()
 {
-  mOrganisation.erase();
+  unsetOrganization();
 }
 
 
@@ -909,7 +924,11 @@ Date_clone (const Date_t* c)
 
 
 /**
- * returns the date as a string
+ * Returns the Date as a string.
+ *
+ * @param c the Date_t structure to be queried
+ * 
+ * @return the date as a string.
  */
 LIBSBML_EXTERN
 const char *
@@ -921,7 +940,11 @@ Date_getDateAsString(Date_t * date)
 
 
 /**
- * returns Year
+ * Returns the year from this Date.
+ *
+ * @param c the Date_t structure to be queried
+ * 
+ * @return the year from this Date.
  */
 LIBSBML_EXTERN
 unsigned int
@@ -931,7 +954,11 @@ Date_getYear(Date_t * date)
 }
 
 /**
- * returns Month
+ * Returns the month from this Date.
+ *
+ * @param c the Date_t structure to be queried
+ * 
+ * @return the month from this Date.
  */
 LIBSBML_EXTERN
 unsigned int
@@ -942,7 +969,11 @@ Date_getMonth(Date_t * date)
 
 
 /**
- * returns Day
+ * Returns the day from this Date.
+ *
+ * @param c the Date_t structure to be queried
+ * 
+ * @return the day from this Date.
  */
 LIBSBML_EXTERN
 unsigned int
@@ -953,7 +984,11 @@ Date_getDay(Date_t * date)
 
 
 /**
- * returns Hour
+ * Returns the hour from this Date.
+ *
+ * @param c the Date_t structure to be queried
+ * 
+ * @return the hour from this Date.
  */
 LIBSBML_EXTERN
 unsigned int
@@ -964,7 +999,11 @@ Date_getHour(Date_t * date)
 
 
 /**
- * returns Minute
+ * Returns the minute from this Date.
+ *
+ * @param c the Date_t structure to be queried
+ * 
+ * @return the minute from this Date.
  */
 LIBSBML_EXTERN
 unsigned int
@@ -975,7 +1014,11 @@ Date_getMinute(Date_t * date)
 
 
 /**
- * returns Second
+ * Returns the seconds from this Date.
+ *
+ * @param c the Date_t structure to be queried
+ * 
+ * @return the seconds from this Date.
  */
 LIBSBML_EXTERN
 unsigned int
@@ -985,7 +1028,11 @@ Date_getSecond(Date_t * date)
 } 
 
 /**
- * returns SignOffset
+ * Returns the sign of the offset from this Date.
+ *
+ * @param c the Date_t structure to be queried
+ * 
+ * @return the sign of the offset from this Date.
  */
 LIBSBML_EXTERN
 unsigned int
@@ -995,7 +1042,11 @@ Date_getSignOffset(Date_t * date)
 } 
 
 /**
- * returns HoursOffset
+ * Returns the hours of the offset from this Date.
+ *
+ * @param c the Date_t structure to be queried
+ * 
+ * @return the hours of the offset from this Date.
  */
 LIBSBML_EXTERN
 unsigned int
@@ -1005,7 +1056,11 @@ Date_getHoursOffset(Date_t * date)
 } 
 
 /**
- * returns MinutesOffset
+ * Returns the minutes of the offset from this Date.
+ *
+ * @param c the Date_t structure to be queried
+ * 
+ * @return the minutes of the offset from this Date.
  */
 LIBSBML_EXTERN
 unsigned int
@@ -1196,6 +1251,13 @@ ModelCreator_getOrganisation(ModelCreator_t *mc)
 }
 
 LIBSBML_EXTERN
+const char * 
+ModelCreator_getOrganization(ModelCreator_t *mc)
+{
+  return ModelCreator_getOrganisation(mc);
+}
+
+LIBSBML_EXTERN
 int 
 ModelCreator_isSetFamilyName(ModelCreator_t *mc)
 {
@@ -1221,6 +1283,13 @@ int
 ModelCreator_isSetOrganisation(ModelCreator_t *mc)
 {
   return static_cast<int>(mc->isSetOrganisation());
+}
+
+LIBSBML_EXTERN
+int 
+ModelCreator_isSetOrganization(ModelCreator_t *mc)
+{
+  return ModelCreator_isSetOrganisation(mc);
 }
 
 /**
@@ -1269,6 +1338,14 @@ ModelCreator_setOrganisation(ModelCreator_t *mc, char * name)
 
 LIBSBML_EXTERN
 void 
+ModelCreator_setOrganization(ModelCreator_t *mc, char * name)
+{
+  ModelCreator_setOrganisation(mc, name);
+}
+
+
+LIBSBML_EXTERN
+void 
 ModelCreator_unsetFamilyName(ModelCreator_t *mc)
 {
   mc->unsetFamilyName();
@@ -1293,6 +1370,13 @@ void
 ModelCreator_unsetOrganisation(ModelCreator_t *mc)
 {
   mc->unsetOrganisation();
+}
+
+LIBSBML_EXTERN
+void 
+ModelCreator_unsetOrganization(ModelCreator_t *mc)
+{
+  ModelCreator_unsetOrganisation(mc);
 }
 
 /**

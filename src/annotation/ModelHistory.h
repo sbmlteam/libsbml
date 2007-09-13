@@ -344,12 +344,15 @@ public:
   std::string getEmail()        {  return  mEmail;  }
 
   /**
-   * Returns the organisation from the ModelCreator.
+   * Returns the organization from the ModelCreator.
    *
-   * @return organisation from the ModelCreator.
+   * @return organization from the ModelCreator.
    */
-  std::string getOrganisation() {  return  mOrganisation;  }
+  std::string getOrganization() {  return  mOrganization;  }
 
+  /** @cond doxygen-libsbml-internal */
+  std::string getOrganisation() {  return  mOrganization;  }
+  /** @endcond doxygen-libsbml-internal */
  
   /**
    * Predicate returning @c true or @c false depending on whether this
@@ -377,11 +380,14 @@ public:
 
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * ModelCreator's organisation has been set.
+   * ModelCreator's organization has been set.
    *
-   * @return @c true if the organisation of this ModelCreator has been set, @c false otherwise.
+   * @return @c true if the organization of this ModelCreator has been set, @c false otherwise.
    */
+  bool isSetOrganization();
+  /** @cond doxygen-libsbml-internal */
   bool isSetOrganisation();
+  /** @endcond doxygen-libsbml-internal */
 
 
   /**
@@ -406,12 +412,16 @@ public:
   void setEmail(std::string email);
 
   /**
-   * Sets the organisation
+   * Sets the organization
    *  
-   * @param organization a string representing the organisation of the 
+   * @param organization a string representing the organization of the 
    * ModelCreator. 
    */
+  void setOrganization(std::string organization);
+  /** @cond doxygen-libsbml-internal */
   void setOrganisation(std::string organization);
+  /** @endcond doxygen-libsbml-internal */
+
 
   /**
    * Unsets the familyName of this ModelCreator.
@@ -429,16 +439,19 @@ public:
   void unsetEmail();
 
   /**
-   * Unsets the organisation of this ModelCreator.
+   * Unsets the organization of this ModelCreator.
    */
+  void unsetOrganization();
+  /** @cond doxygen-libsbml-internal */
   void unsetOrganisation();
+  /** @endcond doxygen-libsbml-internal */
 
 protected:
 
   std::string mFamilyName;
   std::string mGivenName;
   std::string mEmail;
-  std::string mOrganisation;
+  std::string mOrganization;
 
 };
 
@@ -678,6 +691,10 @@ const char *
 ModelCreator_getOrganisation(ModelCreator_t *mc);
 
 LIBSBML_EXTERN
+const char * 
+ModelCreator_getOrganization(ModelCreator_t *mc);
+
+LIBSBML_EXTERN
 int 
 ModelCreator_isSetFamilyName(ModelCreator_t *mc);
 
@@ -692,6 +709,10 @@ ModelCreator_isSetEmail(ModelCreator_t *mc);
 LIBSBML_EXTERN
 int 
 ModelCreator_isSetOrganisation(ModelCreator_t *mc);
+
+LIBSBML_EXTERN
+int 
+ModelCreator_isSetOrganization(ModelCreator_t *mc);
 
 LIBSBML_EXTERN
 void 
@@ -711,6 +732,10 @@ ModelCreator_setOrganisation(ModelCreator_t *mc, char * name);
 
 LIBSBML_EXTERN
 void 
+ModelCreator_setOrganization(ModelCreator_t *mc, char * name);
+
+LIBSBML_EXTERN
+void 
 ModelCreator_unsetFamilyName(ModelCreator_t *mc);
 
 LIBSBML_EXTERN
@@ -724,6 +749,10 @@ ModelCreator_unsetEmail(ModelCreator_t *mc);
 LIBSBML_EXTERN
 void 
 ModelCreator_unsetOrganisation(ModelCreator_t *mc);
+
+LIBSBML_EXTERN
+void 
+ModelCreator_unsetOrganization(ModelCreator_t *mc);
 
 LIBSBML_EXTERN
 ModelHistory_t * ModelHistory_create ();

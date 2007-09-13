@@ -187,6 +187,20 @@ START_TEST(test_ModelCreator_setters)
   fail_unless(ModelCreator_isSetGivenName(mc) == 0);
   fail_unless(ModelCreator_isSetEmail(mc) == 0);
   fail_unless(ModelCreator_isSetOrganisation(mc) == 0);
+
+  // test alternate spelling functions
+  fail_unless(ModelCreator_isSetOrganization(mc) == 0);
+  
+  ModelCreator_setOrganization(mc, "UH");
+
+  fail_unless(!strcmp(ModelCreator_getOrganization(mc), "UH"));
+  fail_unless(ModelCreator_isSetOrganization(mc) == 1);
+
+  ModelCreator_unsetOrganisation(mc);
+
+  fail_unless(!strcmp(ModelCreator_getOrganization(mc), ""));
+  fail_unless(ModelCreator_isSetOrganization(mc) == 0);
+
   ModelCreator_free(mc);
 
 }
