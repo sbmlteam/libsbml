@@ -260,13 +260,13 @@ public:
   , CannotConvertToL1V1              = 90001
 
   //L1Compatability
-  , NoEventsInL1		                 = 91001
-  , NoFunctionDefinitionsInL1	       = 91002
-  , NoConstraintsInL1		             = 91003
-  , NoInitialAssignmentsInL1	       = 91004
-  , NoSpeciesTypesInL1		           = 91005
-  , NoCompartmentTypeInL1	           = 91006
-  , NoNon3DComparmentsInL1	         = 91007
+  , NoEventsInL1                     = 91001
+  , NoFunctionDefinitionsInL1        = 91002
+  , NoConstraintsInL1                = 91003
+  , NoInitialAssignmentsInL1         = 91004
+  , NoSpeciesTypesInL1               = 91005
+  , NoCompartmentTypeInL1            = 91006
+  , NoNon3DComparmentsInL1           = 91007
   , NoFancyStoichiometryMathInL1     = 91008
   , NoNonIntegerStoichiometryInL1    = 91009
   , NoUnitMultipliersOrOffsetsInL1   = 91010
