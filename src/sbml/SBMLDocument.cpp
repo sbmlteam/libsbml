@@ -36,6 +36,7 @@
 #include <sbml/validator/SBOConsistencyValidator.h>
 #include <sbml/validator/UnitConsistencyValidator.h>
 #include <sbml/validator/OverdeterminedValidator.h>
+#include <sbml/validator/ModelingPracticeValidator.h>
 #include <sbml/validator/L1CompatibilityValidator.h>
 #include <sbml/validator/L2v1CompatibilityValidator.h>
 #include <sbml/validator/L2v2CompatibilityValidator.h>
@@ -493,6 +494,7 @@ SBMLDocument::checkConsistency ()
   bool math  = ((mApplicableValidators & 0x08) == 0x08);
   bool units = ((mApplicableValidators & 0x10) == 0x10);
   bool over  = ((mApplicableValidators & 0x20) == 0x20);
+  bool practice = ((mApplicableValidators & 0x40) == 0x40);
 
   IdentifierConsistencyValidator id_validator;
   ConsistencyValidator validator;
@@ -500,6 +502,7 @@ SBMLDocument::checkConsistency ()
   MathMLConsistencyValidator math_validator;
   UnitConsistencyValidator unit_validator;
   OverdeterminedValidator over_validator;
+  ModelingPracticeValidator practice_validator;
 
   /* calls each specified validator in turn 
    * - stopping when errors are encountered */
@@ -580,8 +583,24 @@ SBMLDocument::checkConsistency ()
     if (nerrors) 
     {
       mErrorLog.add( over_validator.getFailures() );
+      /* only want to bail if errors not warnings */
+      if (mErrorLog.getNumFailsWithSeverity(SBMLError::Error) > 0)
+        return total_errors;
     }
   }
+
+  if (practice)
+  {
+    practice_validator.init();
+    nerrors = practice_validator.validate(*this);
+    total_errors += nerrors;
+    if (nerrors) 
+    {
+      mErrorLog.add( practice_validator.getFailures() );
+    }
+  }
+
+
   return total_errors;
 }
 

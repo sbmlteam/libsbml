@@ -52,6 +52,7 @@ headers =								\
   UnitConsistencyValidator.h			\
   SBOConsistencyValidator.h				\
   OverdeterminedValidator.h				\
+  ModelingPracticeValidator.h	    	\
   VConstraint.h							\
   ConstraintMacros.h					\
   L1CompatibilityValidator.h			\
@@ -69,6 +70,7 @@ sources =								\
   UnitConsistencyValidator.cpp			\
   SBOConsistencyValidator.cpp			\
   OverdeterminedValidator.cpp			\
+  ModelingPracticeValidator.cpp	    	\
   VConstraint.cpp						\
   L1CompatibilityValidator.cpp			\
   L2v1CompatibilityValidator.cpp		\

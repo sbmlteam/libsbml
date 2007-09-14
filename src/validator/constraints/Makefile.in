@@ -97,6 +97,7 @@ sources =                                     \
   LogicalArgsMathCheck.cpp                    \
   MathMLBase.cpp                              \
   MathMLConsistencyConstraints.cpp            \
+  ModelingPracticeConstraints.cpp             \
   NumberArgsMathCheck.cpp                     \
   NumericArgsMathCheck.cpp                    \
   NumericReturnMathCheck.cpp                  \

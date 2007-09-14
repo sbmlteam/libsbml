@@ -102,7 +102,9 @@ class XMLError;
 #define UnitsCheckOFF     0xef;
 #define OverdeterCheckON  0x20;
 #define OverdeterCheckOFF 0xdf;
-#define AllChecksON       0x3f;
+#define PracticeCheckON   0x40;
+#define PracticeCheckOFF  0xef;
+#define AllChecksON       0x7f;
 
 class LIBSBML_EXTERN SBMLDocument: public SBase
 {

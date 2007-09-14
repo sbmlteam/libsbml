@@ -345,6 +345,12 @@
 				RelativePath="..\..\src\annotation\ModelHistory.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\ModelingPracticeConstraints.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\ModelingPracticeValidator.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\constraints\NumberArgsMathCheck.cpp">
 			</File>
 			<File
@@ -767,6 +773,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\annotation\ModelHistory.h">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\ModelingPracticeValidator.h">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\NumberArgsMathCheck.h">
