@@ -115,15 +115,15 @@ void
 UniqueSpeciesTypesInCompartment::logConflict (const Species& s, const Compartment& c)
 {
   msg =
-    "There cannot be more than one species of a given <speciesType> in the "
-    "same compartment of a model. More formally, for any given compartment, "
-    "there cannot be more than one <species> definition in which both of the "
-    "following hold simultaneously: (i) the <species>' 'compartment' value "
-    "is set to that compartment's identifier and (ii) the <species>' "
-    "'speciesType' is set the same value as the 'speciesType' of another "
-    "<species> that also sets its 'compartment' to that compartment "
-    "identifier. (References: L2V2 Section 4.8.2; L2V3 Section 4.8.2) The "
-    "compartment '";
+    //"There cannot be more than one species of a given <speciesType> in the "
+    //"same compartment of a model. More formally, for any given compartment, "
+    //"there cannot be more than one <species> definition in which both of the "
+    //"following hold simultaneously: (i) the <species>' 'compartment' value "
+    //"is set to that compartment's identifier and (ii) the <species>' "
+    //"'speciesType' is set the same value as the 'speciesType' of another "
+    //"<species> that also sets its 'compartment' to that compartment "
+    //"identifier. (References: L2V2 Section 4.8.2; L2V3 Section 4.8.2)"
+    "The compartment '";
 
   msg += c.getId();
   msg += "' contains more than one species with species type '";

@@ -163,7 +163,7 @@ LocalParameterMathCheck::getMessage (const ASTNode& node, const SBase& object)
 
   ostringstream msg;
 
-  msg << getPreamble();
+  //msg << getPreamble();
 
   msg << "\nThe formula '";
   msg << "' in the " << getFieldname() << " element of the " << getTypename(object);

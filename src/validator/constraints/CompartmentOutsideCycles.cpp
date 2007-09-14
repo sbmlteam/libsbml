@@ -135,13 +135,13 @@ CompartmentOutsideCycles::isInCycle (const Compartment* c)
 void
 CompartmentOutsideCycles::logCycle (const Compartment* c, const IdList& cycle)
 {
-  msg  = 
-    "A <compartment> may not enclose itself through a chain of references "
-    "involving the 'outside' field. This means that a compartment cannot "
-    "have its own identifier as the value of 'outside', nor can it point to "
-    "another compartment whose 'outside' field points directly or indirectly "
-    "to the compartment. (References: L2V1 erratum 11; L2V2 Section 4.7.7.) ";
-  msg += "Compartment '" + c->getId() + "' encloses itself";
+  //msg  = 
+  //  "A <compartment> may not enclose itself through a chain of references "
+  //  "involving the 'outside' field. This means that a compartment cannot "
+  //  "have its own identifier as the value of 'outside', nor can it point to "
+  //  "another compartment whose 'outside' field points directly or indirectly "
+  //  "to the compartment. (References: L2V1 erratum 11; L2V2 Section 4.7.7.) ";
+  msg = "Compartment '" + c->getId() + "' encloses itself";
 
   if (cycle.size() > 1)
   {

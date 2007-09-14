@@ -164,7 +164,7 @@ UniqueMetaId::getMessage (const string& id, const SBase& object)
   const SBase&  previous = *(iter->second);
 
 
-  msg << getPreamble();
+  //msg << getPreamble();
 
   //
   // Example message: 

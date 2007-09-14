@@ -111,12 +111,12 @@ using namespace std;
 
 START_CONSTRAINT (20204, Model, x)
 {
-  msg =
-    "If a model defines any species, then the model must also define at "
-    "least one compartment. This is an implication of the fact that the "
-    "'compartment' attribute on the <species> element is not optional. "
-    "(References: L2V1 Section 4.5; L2V2 Section 4.8.3; L2V3 Section "
-    "4.8.3.)";
+  //msg =
+  //  "If a model defines any species, then the model must also define at "
+  //  "least one compartment. This is an implication of the fact that the "
+  //  "'compartment' attribute on the <species> element is not optional. "
+  //  "(References: L2V1 Section 4.5; L2V2 Section 4.8.3; L2V3 Section "
+  //  "4.8.3.)";
 
   // not valid in level 1
   pre( m.getLevel() == 2);
@@ -165,11 +165,11 @@ EXTERN_CONSTRAINT(20302, FunctionReferredToExists)
 
 START_CONSTRAINT (20303, FunctionDefinition, fd)
 {
-  msg =
-    "Inside the <lambda> of a <functionDefinition>, the identifier of that "
-    "<functionDefinition> cannot appear as the value of a <ci> element. SBML "
-    "functions are not permitted to be recursive. (References: L2V2 Sections "
-    "3.5.3 and 4.3.2; L2V3 Sections 3.4.3 and 4.3.2.)";
+  //msg =
+  //  "Inside the <lambda> of a <functionDefinition>, the identifier of that "
+  //  "<functionDefinition> cannot appear as the value of a <ci> element. SBML "
+  //  "functions are not permitted to be recursive. (References: L2V2 Sections "
+  //  "3.5.3 and 4.3.2; L2V3 Sections 3.4.3 and 4.3.2.)";
 
   //only applies to level 2
   pre( fd.getLevel() == 2        );
@@ -197,10 +197,10 @@ EXTERN_CONSTRAINT(20304, FunctionDefinitionVars)
 
 START_CONSTRAINT (20305, FunctionDefinition, fd)
 {
-  msg =
-    "The value type returned by a <functionDefinition>'s <lambda> must be "
-    "either boolean or numeric. (References: L2V2 Section 3.5.8; L2V3 "
-    "Section 3.4.9.)";
+  //msg =
+  //  "The value type returned by a <functionDefinition>'s <lambda> must be "
+  //  "either boolean or numeric. (References: L2V2 Section 3.5.8; L2V3 "
+  //  "Section 3.4.9.)";
 
   //only applies to level 2
   pre( fd.getLevel() == 2        );
@@ -566,11 +566,11 @@ START_CONSTRAINT (20407, UnitDefinition, ud)
   pre( ud.getNumUnits() == 1        );
   pre( ud.getUnit(0)->isLitre()     );
 
-  msg =
-    "If a <unitDefinition> for 'volume' simplifies to a <unit> in which the "
-    "'kind' attribute value is 'litre', then its 'exponent' attribute value "
-    "must be '1'. (References: L2V1 Section 4.4.3; L2V2 Section 4.4.3; L2V3 "
-    "Section 4.4.3.)";
+  //msg =
+  //  "If a <unitDefinition> for 'volume' simplifies to a <unit> in which the "
+  //  "'kind' attribute value is 'litre', then its 'exponent' attribute value "
+  //  "must be '1'. (References: L2V1 Section 4.4.3; L2V2 Section 4.4.3; L2V3 "
+  //  "Section 4.4.3.)";
 
   inv( ud.getUnit(0)->getExponent() == 1 );
 }
@@ -584,11 +584,11 @@ START_CONSTRAINT (20408, UnitDefinition, ud)
   pre( ud.getId()       == "volume" );
   pre( ud.getNumUnits() == 1        );
   pre( ud.getUnit(0)->isMetre()     );
-  msg =
-    "If a <unitDefinition> for 'volume' simplifies to a <unit> in which the "
-    "'kind' attribute value is 'metre', then its 'exponent' attribute value "
-    "must be '3'. (References: L2V1 Section 4.4.3; L2V2 Section 4.4.3; L2V3 "
-    "Section 4.4.3.)";
+  //msg =
+  //  "If a <unitDefinition> for 'volume' simplifies to a <unit> in which the "
+  //  "'kind' attribute value is 'metre', then its 'exponent' attribute value "
+  //  "must be '3'. (References: L2V1 Section 4.4.3; L2V2 Section 4.4.3; L2V3 "
+  //  "Section 4.4.3.)";
 
 
   inv( ud.getUnit(0)->getExponent() == 3 );
@@ -601,12 +601,12 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20410, UnitDefinition, ud)
 {
-  msg =
-    "The value of the 'kind' attribute of a <unit> can only be one of the "
-    "predefined units enumerated by 'UnitKind'; that is, the SBML unit "
-    "system is not hierarchical and user-defined units cannot be defined "
-    "using other user-defined units. (References: L2V2 Section 4.4.2; L2V3 "
-    "Section 4.4.2.)";
+  //msg =
+  //  "The value of the 'kind' attribute of a <unit> can only be one of the "
+  //  "predefined units enumerated by 'UnitKind'; that is, the SBML unit "
+  //  "system is not hierarchical and user-defined units cannot be defined "
+  //  "using other user-defined units. (References: L2V2 Section 4.4.2; L2V3 "
+  //  "Section 4.4.2.)";
 
   for (unsigned int n = 0; n < ud.getNumUnits(); ++n)
   {
@@ -621,10 +621,10 @@ START_CONSTRAINT (20411, UnitDefinition, ud)
 {
   pre( ud.getLevel() == 2 && (ud.getVersion() == 2 || ud.getVersion() == 3) );
 
-  msg =
-    "The 'offset' attribute on <unit> previously available in SBML Level 2 "
-    "Version 1, has been removed as of SBML Level 2 Version 2. (References: "
-    "L2V2 Section 4.4.)";
+  //msg =
+  //  "The 'offset' attribute on <unit> previously available in SBML Level 2 "
+  //  "Version 1, has been removed as of SBML Level 2 Version 2. (References: "
+  //  "L2V2 Section 4.4.)";
 
 
   for (unsigned int n = 0; n < ud.getNumUnits(); ++n)
@@ -639,10 +639,10 @@ START_CONSTRAINT (20412, Unit, u)
 {
   pre( u.getLevel() == 2 && (u.getVersion() == 2 || u.getVersion() == 3) );
 
-  msg =
-    "The predefined unit 'Celsius', previously available in SBML Level 1 and "
-    "Level 2 Version 1, has been removed as of SBML Level 2 Version 2. "
-    "(References: L2V2 Section 4.4.)";
+  //msg =
+  //  "The predefined unit 'Celsius', previously available in SBML Level 1 and "
+  //  "Level 2 Version 1, has been removed as of SBML Level 2 Version 2. "
+  //  "(References: L2V2 Section 4.4.)";
 
   inv( u.isCelsius() == false );
 }
@@ -653,10 +653,10 @@ START_CONSTRAINT (20412, Parameter, p)
 {
   pre( p.getLevel() == 2 && (p.getVersion() == 2 || p.getVersion() == 3) );
 
-  msg =
-    "The predefined unit 'Celsius', previously available in SBML Level 1 and "
-    "Level 2 Version 1, has been removed as of SBML Level 2 Version 2. "
-    "(References: L2V2 Section 4.4.)";
+  //msg =
+  //  "The predefined unit 'Celsius', previously available in SBML Level 1 and "
+  //  "Level 2 Version 1, has been removed as of SBML Level 2 Version 2. "
+  //  "(References: L2V2 Section 4.4.)";
 
   inv( UnitKind_forName( p.getUnits().c_str() ) != UNIT_KIND_CELSIUS );
 }
@@ -670,10 +670,10 @@ START_CONSTRAINT (20501, Compartment, c)
   pre( c.getLevel() == 2);
   pre( c.getSpatialDimensions() == 0 );
   
-  msg =
-    "The size of a <compartment> must not be set if the compartment's "
-    "'spatialDimensions' attribute has value '0'. (References: L2V1 Section "
-    "4.5.3; L2V2 Section 4.7.4; L2V3 Section 4.7.5.)";
+  //msg =
+  //  "The size of a <compartment> must not be set if the compartment's "
+  //  "'spatialDimensions' attribute has value '0'. (References: L2V1 Section "
+  //  "4.5.3; L2V2 Section 4.7.4; L2V3 Section 4.7.5.)";
 
   inv( c.isSetSize() == false );
 }
@@ -685,11 +685,11 @@ START_CONSTRAINT (20502, Compartment, c)
   pre( c.getLevel() == 2);
   pre( c.getSpatialDimensions() == 0 );
 
-  msg =
-    "If a <compartment> definition has a 'spatialDimensions' value of '0', "
-    "then its 'units' attribute must not be set. If the compartment has no "
-    "dimensions, then no units can be associated with a non-existent size. "
-    "(References: L2V1 Section 4.5.4; L2V2 Section 4.7.5; L2V3 Section 4.7.5.)";
+  //msg =
+  //  "If a <compartment> definition has a 'spatialDimensions' value of '0', "
+  //  "then its 'units' attribute must not be set. If the compartment has no "
+  //  "dimensions, then no units can be associated with a non-existent size. "
+  //  "(References: L2V1 Section 4.5.4; L2V2 Section 4.7.5; L2V3 Section 4.7.5.)";
 
   
   inv( c.isSetUnits() == false       );
@@ -702,34 +702,32 @@ START_CONSTRAINT (20503, Compartment, c)
   pre( c.getLevel() == 2);
   pre( c.getSpatialDimensions() == 0 );
 
-  msg =
-    "If a <compartment> definition has a 'spatialDimensions' value of '0', "
-    "then its 'constant' attribute value must either default to or be set to "
-    "'true'. If the compartment has no dimensions, then its size can never "
-    "change. (References: L2V1 Section 4.5.5; L2V2 Section 4.7.4; L2V3 "
-    "Section 4.7.6.)";
+  //msg =
+  //  "If a <compartment> definition has a 'spatialDimensions' value of '0', "
+  //  "then its 'constant' attribute value must either default to or be set to "
+  //  "'true'. If the compartment has no dimensions, then its size can never "
+  //  "change. (References: L2V1 Section 4.5.5; L2V2 Section 4.7.4; L2V3 "
+  //  "Section 4.7.6.)";
 
   inv( c.getConstant() == true       );
 }
 END_CONSTRAINT
 
 
-// NOTE: This constraint also applies to L1 Models.
 START_CONSTRAINT (20504, Compartment, c)
 {
   pre( c.isSetOutside() );
 
-  msg =
-    "The 'outside' attribute value of a <compartment> must be the identifier of "
-    "another <compartment> defined in the model. (References: L2V1 Section "
-    "4.5.6; L2V2 Section 4.7.7; L2V3 Section 4.7.7.)";
+  //msg =
+  //  "The 'outside' attribute value of a <compartment> must be the identifier of "
+  //  "another <compartment> defined in the model. (References: L2V1 Section "
+  //  "4.5.6; L2V2 Section 4.7.7; L2V3 Section 4.7.7.)";
 
   inv( m.getCompartment( c.getOutside() ) != NULL );
 }
 END_CONSTRAINT
 
 
-// NOTE: This constraint also applies to L1 Models.
 EXTERN_CONSTRAINT(20505, CompartmentOutsideCycles)
 
 
@@ -738,13 +736,13 @@ START_CONSTRAINT (20506, Compartment, c)
   pre (c.getLevel() == 2);
   pre( c.isSetOutside() && c.getSpatialDimensions() == 0 );
 
-  msg =
-    "The 'outside' attribute value of a <compartment> cannot be a compartment "
-    "whose 'spatialDimensions' value is '0', unless both compartments have "
-    "'spatialDimensions'='0'. Simply put, a zero-dimensional compartment "
-    "cannot enclose compartments that have anything other than zero "
-    "dimensions themselves. (References: L2V2 Section 4.7.7; L2V3 Section "
-    "4.7.7.)";
+  //msg =
+  //  "The 'outside' attribute value of a <compartment> cannot be a compartment "
+  //  "whose 'spatialDimensions' value is '0', unless both compartments have "
+  //  "'spatialDimensions'='0'. Simply put, a zero-dimensional compartment "
+  //  "cannot enclose compartments that have anything other than zero "
+  //  "dimensions themselves. (References: L2V2 Section 4.7.7; L2V3 Section "
+  //  "4.7.7.)";
 
 
   inv( m.getCompartment( c.getOutside() )->getSpatialDimensions() == 0 );
@@ -899,10 +897,10 @@ START_CONSTRAINT (20510, Compartment, c)
   pre( c.isSetCompartmentType());
 
   msg =
-    "Compartment type '" + c.getCompartmentType() + "' is undefined. "
-    "If the 'compartmentType' attribute is given a value in a <compartment> "
-    "definition, it must contain the identifier of an existing "
-    "<compartmentType>. (References: L2V2 Section 4.7.2; L2V3 Section 4.7.2.)";
+    "Compartment type '" + c.getCompartmentType() + "' is undefined. ";
+    //"If the 'compartmentType' attribute is given a value in a <compartment> "
+    //"definition, it must contain the identifier of an existing "
+    //"<compartmentType>. (References: L2V2 Section 4.7.2; L2V3 Section 4.7.2.)";
 
 
   inv( m.getCompartmentType( c.getCompartmentType() ) != NULL );
@@ -916,10 +914,10 @@ START_CONSTRAINT (20601, Species, s)
   pre( s.isSetCompartment() );
 
   msg =
-    "Compartment '" + s.getCompartment() + "' is undefined. "
-    "The value of 'compartment' in a <species> definition must be the "
-    "identifier of an existing <compartment> defined in the model. "
-    "(References: L2V1 Section 4.6.2; L2V2 Section 4.8.3; L2V3 Section 4.8.3.)";
+    "Compartment '" + s.getCompartment() + "' is undefined. ";
+    //"The value of 'compartment' in a <species> definition must be the "
+    //"identifier of an existing <compartment> defined in the model. "
+    //"(References: L2V1 Section 4.6.2; L2V2 Section 4.8.3; L2V3 Section 4.8.3.)";
 
   inv( m.getCompartment( s.getCompartment() ) != NULL );
 }
@@ -931,10 +929,10 @@ START_CONSTRAINT (20602, Species, s)
   pre ( s.getLevel() == 2 && s.getVersion() != 3);
   pre( s.getHasOnlySubstanceUnits() == true );
 
-  msg =
-    "If a <species> definition sets 'hasOnlySubstanceUnits' to 'true', then "
-    "it must not have a value for 'spatialSizeUnits'. (References: L2V1 "
-    "Section 4.6.4; L2V2 Section 4.8.5.)";
+  //msg =
+  //  "If a <species> definition sets 'hasOnlySubstanceUnits' to 'true', then "
+  //  "it must not have a value for 'spatialSizeUnits'. (References: L2V1 "
+  //  "Section 4.6.4; L2V2 Section 4.8.5.)";
 
   inv( !s.isSetSpatialSizeUnits()           );
 }
@@ -948,10 +946,10 @@ START_CONSTRAINT (20603, Species, s)
   const Compartment* c = m.getCompartment( s.getCompartment() );
   pre( c != NULL && c->getSpatialDimensions() == 0 );
 
-  msg =
-    "A <species> definition must not set 'spatialSizeUnits' if the "
-    "<compartment> in which it is located has a 'spatialDimensions' value of "
-    "'0'. (References: L2V1 Section 4.6.4; L2V2 Section 4.8.5.)";
+  //msg =
+  //  "A <species> definition must not set 'spatialSizeUnits' if the "
+  //  "<compartment> in which it is located has a 'spatialDimensions' value of "
+  //  "'0'. (References: L2V1 Section 4.6.4; L2V2 Section 4.8.5.)";
 
   inv( !s.isSetSpatialSizeUnits()                  );
 }
@@ -966,11 +964,11 @@ START_CONSTRAINT (20604, Species, s)
 
   pre( c != NULL && c->getSpatialDimensions() == 0 );
 
-  msg =
-    "If a <species> located in a <compartment> whose 'spatialDimensions' is "
-    "set to '0', then that <species> definition cannot set "
-    "'initialConcentration'. (References: L2V1 Section 4.6.3; L2V2 Section "
-    "4.8.4; L2V3 Section 4.8.4.)";
+  //msg =
+  //  "If a <species> located in a <compartment> whose 'spatialDimensions' is "
+  //  "set to '0', then that <species> definition cannot set "
+  //  "'initialConcentration'. (References: L2V1 Section 4.6.3; L2V2 Section "
+  //  "4.8.4; L2V3 Section 4.8.4.)";
 
 
   inv( !s.isSetInitialConcentration()              );
@@ -987,13 +985,13 @@ START_CONSTRAINT (20605, Species, s)
   pre( c != NULL && c->getSpatialDimensions() == 1 );
   pre( s.isSetSpatialSizeUnits() );
 
-  msg =
-    "If a <species> is located in a <compartment> whose 'spatialDimensions' "
-    "has value '1', then that <species> definition can only set "
-    "'spatialSizeUnits' to a value of 'length', 'metre', 'dimensionless', or "
-    "the identifier of a <unitDefinition> derived from 'metre' (with an "
-    "'exponent' value of '1') or 'dimensionless'. (References: L2V1 Section "
-    "4.6.4; L2V2 Section 4.8.5.)";
+  //msg =
+    //"If a <species> is located in a <compartment> whose 'spatialDimensions' "
+    //"has value '1', then that <species> definition can only set "
+    //"'spatialSizeUnits' to a value of 'length', 'metre', 'dimensionless', or "
+    //"the identifier of a <unitDefinition> derived from 'metre' (with an "
+    //"'exponent' value of '1') or 'dimensionless'. (References: L2V1 Section "
+    //"4.6.4; L2V2 Section 4.8.5.)";
 
 
   const string&         units = s.getSpatialSizeUnits();
@@ -1027,13 +1025,13 @@ START_CONSTRAINT (20606, Species, s)
   pre( c != NULL && c->getSpatialDimensions() == 2 );
   pre( s.isSetSpatialSizeUnits() );
 
-  msg =
-    "If a <species> is located in a <compartment> whose 'spatialDimensions' "
-    "has value '2', then that <species> definition can only set "
-    "'spatialSizeUnits' to a value of 'area', 'dimensionless', or the "
-    "identifier of a <unitDefinition> derived from either 'metre' (with an "
-    "'exponent' value of '2') or 'dimensionless'. (References: L2V1 Section "
-    "4.6.4; L2V2 Section 4.8.5.)";
+  //msg =
+    //"If a <species> is located in a <compartment> whose 'spatialDimensions' "
+    //"has value '2', then that <species> definition can only set "
+    //"'spatialSizeUnits' to a value of 'area', 'dimensionless', or the "
+    //"identifier of a <unitDefinition> derived from either 'metre' (with an "
+    //"'exponent' value of '2') or 'dimensionless'. (References: L2V1 Section "
+    //"4.6.4; L2V2 Section 4.8.5.)";
 
 
   const string&         units = s.getSpatialSizeUnits();
@@ -1065,13 +1063,13 @@ START_CONSTRAINT (20607, Species, s)
   pre( c != NULL && c->getSpatialDimensions() == 3 );
   pre( s.isSetSpatialSizeUnits() );
 
-  msg =
-    "If a <species> is located in a <compartment> whose 'spatialDimensions' "
-    "has value '3', then that <species> definition can only set "
-    "'spatialSizeUnits' to a value of 'volume', 'litre', 'dimensionless', or "
-    "the identifier of a <unitDefinition> derived from either 'litre', "
-    "'metre' (with an 'exponent' value of '3') or 'dimensionless'. "
-    "(References: L2V1 Section 4.6.4; L2V2 Section 4.8.5.)";
+  //msg =
+  //  "If a <species> is located in a <compartment> whose 'spatialDimensions' "
+  //  "has value '3', then that <species> definition can only set "
+  //  "'spatialSizeUnits' to a value of 'volume', 'litre', 'dimensionless', or "
+  //  "the identifier of a <unitDefinition> derived from either 'litre', "
+  //  "'metre' (with an 'exponent' value of '3') or 'dimensionless'. "
+  //  "(References: L2V1 Section 4.6.4; L2V2 Section 4.8.5.)";
 
   const string&         units = s.getSpatialSizeUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
@@ -1164,10 +1162,10 @@ START_CONSTRAINT (20609, Species, s)
   pre ( s.getLevel() == 2);
   pre(  s.isSetInitialAmount()        );
   
-  msg =
-    "A <species> cannot set values for both 'initialConcentration' and "
-    "'initialAmount' because they are mutually exclusive. (References: L2V1 "
-    "Section 4.6.3; L2V2 Section 4.8.4; L2V3 Section 4.8.4.)";
+  //msg =
+  //  "A <species> cannot set values for both 'initialConcentration' and "
+  //  "'initialAmount' because they are mutually exclusive. (References: L2V1 "
+  //  "Section 4.6.3; L2V2 Section 4.8.4; L2V3 Section 4.8.4.)";
 
   inv( !s.isSetInitialConcentration() );
 }
@@ -1187,11 +1185,11 @@ START_CONSTRAINT (20611, SpeciesReference, sr)
 
   pre( s != NULL );
   
-  msg =
-    "A <species> having boundaryCondition=\"false\" cannot appear as a "
-    "reactant or product in any reaction if that Species also has "
-    "constant=\"true\". (References: L2V1 Section 4.6.5; L2V2 Section "
-    "4.8.6; L2V3 Section 4.8.6.)";
+  //msg =
+  //  "A <species> having boundaryCondition=\"false\" cannot appear as a "
+  //  "reactant or product in any reaction if that Species also has "
+  //  "constant=\"true\". (References: L2V1 Section 4.6.5; L2V2 Section "
+  //  "4.8.6; L2V3 Section 4.8.6.)";
 
 
   inv( ! (s->getConstant() == true && s->getBoundaryCondition() == false) ); 
@@ -1205,10 +1203,10 @@ START_CONSTRAINT (20612, Species, s)
   pre( s.isSetSpeciesType() );
 
   msg =
-    "Species type '" + s.getSpeciesType() + "' is undefined. "
-    "The value of 'speciesType' in a <species> definition must be the "
-    "identifier of an existing <speciesType>. (References: L2V2 Section "
-    "4.8.2; L2V3 Section 4.8.2)";
+    "Species type '" + s.getSpeciesType() + "' is undefined. ";
+    //"The value of 'speciesType' in a <species> definition must be the "
+    //"identifier of an existing <speciesType>. (References: L2V2 Section "
+    //"4.8.2; L2V3 Section 4.8.2)";
 
   inv( m.getSpeciesType( s.getSpeciesType() ) != NULL );
 }
@@ -1220,10 +1218,10 @@ EXTERN_CONSTRAINT(20613, UniqueSpeciesTypesInCompartment)
 
 START_CONSTRAINT (20614, Species, s)
 {
-  msg =
-    "The 'compartment' attribute in a <species> is mandatory. A <species> "
-    "definition in a model must include a value for this attribute. "
-    "(References: L2V2 Section 4.8.3; L2V3 Section 4.8.3.)";
+  //msg =
+  //  "The 'compartment' attribute in a <species> is mandatory. A <species> "
+  //  "definition in a model must include a value for this attribute. "
+  //  "(References: L2V2 Section 4.8.3; L2V3 Section 4.8.3.)";
 
   inv( s.isSetCompartment() );
 }
@@ -1234,10 +1232,10 @@ START_CONSTRAINT (20615, Species, s)
 {
   pre(s.getLevel() == 2 && s.getVersion() == 3);
 
-  msg =
-    "The 'spatialSizeUnits' attribute on <species>, previously available "
-    "in SBML Level 2 versions prior to Version 3, has been removed as "
-    "of SBML Level 2 Version 3. (References: L2V3 Section 4.8.)";
+  //msg =
+  //  "The 'spatialSizeUnits' attribute on <species>, previously available "
+  //  "in SBML Level 2 versions prior to Version 3, has been removed as "
+  //  "of SBML Level 2 Version 3. (References: L2V3 Section 4.8.)";
 
   inv( s.isSetSpatialSizeUnits() == false);
 }
@@ -1250,12 +1248,12 @@ START_CONSTRAINT (20701, Parameter, p)
 {
   pre( p.isSetUnits() );
 
-  msg =
-    "The 'units' in a <parameter> definition must be a value chosen from "
-    "among the following: a value from the 'UnitKind' enumeration (e.g., "
-    "'litre', 'mole', 'metre', etc.), a built-in unit (e.g., 'substance', "
-    "'time', etc.), or the identifier of a <unitDefinition> in the model. "
-    "(References: L2V1 Section 4.7.3; L2V2 Section 4.9.3; L2V3 Section 4.9.3.)";
+  //msg =
+  //  "The 'units' in a <parameter> definition must be a value chosen from "
+  //  "among the following: a value from the 'UnitKind' enumeration (e.g., "
+  //  "'litre', 'mole', 'metre', etc.), a built-in unit (e.g., 'substance', "
+  //  "'time', etc.), or the identifier of a <unitDefinition> in the model. "
+  //  "(References: L2V1 Section 4.7.3; L2V2 Section 4.9.3; L2V3 Section 4.9.3.)";
 
   const string& units = p.getUnits();
 
@@ -1272,10 +1270,10 @@ START_CONSTRAINT (20801, InitialAssignment, ia)
 {
   pre( ia.isSetSymbol() );
 
-  msg =
-    "The value of 'symbol' in an <initialAssignment> definition must be the "
-    "identifier of an existing <compartment>, <species>, or <parameter> "
-    "defined in the model. (References: L2V2 Section 4.10; L2V3 Section 4.10.)";
+  //msg =
+  //  "The value of 'symbol' in an <initialAssignment> definition must be the "
+  //  "identifier of an existing <compartment>, <species>, or <parameter> "
+  //  "defined in the model. (References: L2V2 Section 4.10; L2V3 Section 4.10.)";
 
   const string& id = ia.getSymbol();
 
@@ -1401,11 +1399,11 @@ START_CONSTRAINT (20903, AssignmentRule, r)
   pre( r.getLevel() == 2);
   pre( r.isSetVariable() );
 
-  msg =
-    "Any <compartment>, <species> or <parameter> whose identifier is the "
-    "value of a 'variable' attribute in an <assignmentRule>, must have a value "
-    "of 'false' for 'constant'. (References: L2V1 Section 4.8.4; L2V2 "
-    "Section 4.11.3; L2V3 Section 4.11.3.)";
+  //msg =
+  //  "Any <compartment>, <species> or <parameter> whose identifier is the "
+  //  "value of a 'variable' attribute in an <assignmentRule>, must have a value "
+  //  "of 'false' for 'constant'. (References: L2V1 Section 4.8.4; L2V2 "
+  //  "Section 4.11.3; L2V3 Section 4.11.3.)";
 
 
   const string& id = r.getVariable();
@@ -1461,9 +1459,9 @@ START_CONSTRAINT (21001, Constraint, c)
   pre ( c.getLevel() == 2 && c.getVersion() > 1);
   pre( c.isSetMath() );
 
-  msg =
-    "A <constraint>'s <math> expression must evaluate to a value of type "
-    "boolean. (References: L2V2 Section 4.12.1; L2V3 Section 4.12.)";
+  //msg =
+  //  "A <constraint>'s <math> expression must evaluate to a value of type "
+  //  "boolean. (References: L2V2 Section 4.12.1; L2V3 Section 4.12.)";
 
   inv( m.isBoolean( c.getMath() ) );
 }
@@ -1480,12 +1478,12 @@ END_CONSTRAINT
 
 START_CONSTRAINT (21101, Reaction, r)
 {
-  msg =
-    "A <reaction> definition must contain at least one <speciesReference>, "
-    "either in its <listOfReactants> or its <listOfProducts>. A reaction "
-    "without any reactant or product species is not permitted, regardless of "
-    "whether the reaction has any modifier species. (References: L2V2 "
-    "Section 4.13.1; L2V3 Section 4.13.3.)";
+  //msg =
+  //  "A <reaction> definition must contain at least one <speciesReference>, "
+  //  "either in its <listOfReactants> or its <listOfProducts>. A reaction "
+  //  "without any reactant or product species is not permitted, regardless of "
+  //  "whether the reaction has any modifier species. (References: L2V2 "
+  //  "Section 4.13.1; L2V3 Section 4.13.3.)";
 
   inv( r.getNumReactants() > 0 || r.getNumProducts() > 0 );
 }
@@ -1503,10 +1501,10 @@ END_CONSTRAINT
 START_CONSTRAINT (21111, SpeciesReference, sr)
 {
   msg =
-    "Species '" + sr.getSpecies() + "' is undefined. "
-    "The value of a <speciesReference> 'species' attribute must be the "
-    "identifier of an existing <species> in the model. (References: L2V1 "
-    "Section 4.9.5; L2V2 Section 4.13.2. L2V3 Section 4.13.3.)";
+    "Species '" + sr.getSpecies() + "' is undefined. ";
+    //"The value of a <speciesReference> 'species' attribute must be the "
+    //"identifier of an existing <species> in the model. (References: L2V1 "
+    //"Section 4.9.5; L2V2 Section 4.13.2. L2V3 Section 4.13.3.)";
 
   inv( m.getSpecies( sr.getSpecies() ) != NULL );
 }
@@ -1522,10 +1520,10 @@ START_CONSTRAINT (21113, SpeciesReference, sr)
   pre(!sr.isModifier());
   pre( sr.isSetStoichiometryMath()  );
 
-  msg =
-    "A <speciesReference> must not have a value for both 'stoichiometry' and "
-    "'stoichiometryMath'; they are mutually exclusive. (References: L2V1 "
-    "Section 4.9.5; L2V2 Section 4.13.3; L2V3 Section 4.13.3.)";
+  //msg =
+  //  "A <speciesReference> must not have a value for both 'stoichiometry' and "
+  //  "'stoichiometryMath'; they are mutually exclusive. (References: L2V1 "
+  //  "Section 4.9.5; L2V2 Section 4.13.3; L2V3 Section 4.13.3.)";
 
 
   inv( sr.getStoichiometry() == 1.0 );
@@ -1548,11 +1546,11 @@ START_CONSTRAINT (21124, KineticLaw, kl)
 
   pre(kl.getNumParameters() != 0);
 
-  msg =
-    "The 'constant' attribute on a <parameter> local to a <kineticLaw> cannot "
-    "have a value other than 'true'. The values of parameters local to "
-    "<kineticLaw> definitions cannot be changed, and therefore they are "
-    "always constant. (References: L2V2 Section 4.9.4; L2V3 Section 4.9.4.)";
+  //msg =
+  //  "The 'constant' attribute on a <parameter> local to a <kineticLaw> cannot "
+  //  "have a value other than 'true'. The values of parameters local to "
+  //  "<kineticLaw> definitions cannot be changed, and therefore they are "
+  //  "always constant. (References: L2V2 Section 4.9.4; L2V3 Section 4.9.4.)";
 
   for (unsigned int n = 0; n < kl.getNumParameters(); ++n)
   {
@@ -1566,12 +1564,12 @@ START_CONSTRAINT (21125, KineticLaw, kl)
 {
   pre( kl.getLevel() == 2 && (kl.getVersion() == 2 || kl.getVersion() == 3) );
 
-  msg =
-    "The 'substanceUnits' attribute on <kineticLaw>, previously available in "
-    "SBML Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
-    "Version 2. In SBML Level 2 Version 2, the substance units of a reaction "
-    "rate expression are those of the global 'substance' units of the model. "
-    "(References: L2V2 Section 4.13.5.)";
+  //msg =
+  //  "The 'substanceUnits' attribute on <kineticLaw>, previously available in "
+  //  "SBML Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
+  //  "Version 2. In SBML Level 2 Version 2, the substance units of a reaction "
+  //  "rate expression are those of the global 'substance' units of the model. "
+  //  "(References: L2V2 Section 4.13.5.)";
 
   inv( kl.isSetSubstanceUnits() == false );
 }
@@ -1582,12 +1580,12 @@ START_CONSTRAINT (21126, KineticLaw, kl)
 {
   pre( kl.getLevel() == 2 && (kl.getVersion() == 2 || kl.getVersion() == 3) );
 
-  msg =
-    "The 'timeUnits' attribute on <kineticLaw>, previously available in SBML "
-    "Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
-    "Version 2. In SBML Level 2 Version 2, the time units of a reaction rate "
-    "expression are those of the global 'time' units of the model. "
-    "(References: L2V2 Section 4.13.5.)";
+  //msg =
+  //  "The 'timeUnits' attribute on <kineticLaw>, previously available in SBML "
+  //  "Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
+  //  "Version 2. In SBML Level 2 Version 2, the time units of a reaction rate "
+  //  "expression are those of the global 'time' units of the model. "
+  //  "(References: L2V2 Section 4.13.5.)";
 
   inv( kl.isSetTimeUnits() == false );
 }
@@ -1599,10 +1597,10 @@ START_CONSTRAINT (99127, KineticLaw, kl)
   pre( kl.getLevel() == 1 || kl.getVersion() == 1);
   pre( kl.isSetSubstanceUnits() );
   
-  msg =
-    "A KineticLaw's substanceUnits must be 'substance', 'item', 'mole', or "
-    "the id of a UnitDefinition that defines a variant of 'item' or 'mole' "
-    "(L2v1 Section 4.9.7).";
+  //msg =
+  //  "A KineticLaw's substanceUnits must be 'substance', 'item', 'mole', or "
+  //  "the id of a UnitDefinition that defines a variant of 'item' or 'mole' "
+  //  "(L2v1 Section 4.9.7).";
 
 
   const string&         units = kl.getSubstanceUnits();
@@ -1621,10 +1619,10 @@ START_CONSTRAINT (99128, KineticLaw, kl)
   pre( kl.getLevel() == 1 || kl.getVersion() == 1);
   pre( kl.isSetTimeUnits() );
 
-  msg =
-    "A KineticLaw's timeUnits must be 'time', 'second', or the id of a "
-    "UnitDefnition that defines a variant of 'second' with exponent='1' "
-    "(L2v1 Section 4.9.7).";
+  //msg =
+  //  "A KineticLaw's timeUnits must be 'time', 'second', or the id of a "
+  //  "UnitDefnition that defines a variant of 'second' with exponent='1' "
+  //  "(L2v1 Section 4.9.7).";
 
 
   const string&         units = kl.getTimeUnits();
@@ -1641,9 +1639,9 @@ START_CONSTRAINT (99129, KineticLaw, kl)
   pre (m.getLevel() == 1);
   pre (kl.isSetFormula() == 1);
 
-  msg =
-    "In a Level 1 model only predefined functions are permitted "
-     "within the KineticLaw formula. (L1V2 Appendix C)";
+  //msg =
+  //  "In a Level 1 model only predefined functions are permitted "
+  //   "within the KineticLaw formula. (L1V2 Appendix C)";
 
 
   FormulaTokenizer_t * ft = FormulaTokenizer_createFromFormula (kl.getFormula().c_str());
@@ -1702,9 +1700,9 @@ EXTERN_CONSTRAINT(21131, StoichiometryMathVars)
 
 START_CONSTRAINT (21201, Event, e)
 {
-  msg =
-    "An <event> object must have a 'trigger'. (References: L2V1 Section "
-    "4.10.2; L2V2 Section 4.14.)";
+  //msg =
+  //  "An <event> object must have a 'trigger'. (References: L2V1 Section "
+  //  "4.10.2; L2V2 Section 4.14.)";
 
   inv( e.isSetTrigger() != 0 );
 }
@@ -1714,10 +1712,10 @@ END_CONSTRAINT
 
 START_CONSTRAINT (21202, Trigger, t)
 {
-  msg =
-    "An <event>'s <trigger> expression must evaluate to a value of type "
-    "boolean. (References: L2V1 Section 4.10.2; L2V2 Section 4.14.1; L2V3 "
-    "Section 4.14.2.)";
+  //msg =
+  //  "An <event>'s <trigger> expression must evaluate to a value of type "
+  //  "boolean. (References: L2V1 Section 4.10.2; L2V2 Section 4.14.1; L2V3 "
+  //  "Section 4.14.2.)";
 
   pre( t.isSetMath() );
   inv( m.isBoolean( t.getMath() ) );
@@ -1727,10 +1725,10 @@ END_CONSTRAINT
 
 START_CONSTRAINT (21203, Event, e)
 {
-  msg =
-    "An <event> object must have at least one <eventAssignment> object in "
-    "its <listOfEventAssignments>. (References: L2V1 Section 4.10.5; L2V2 "
-    "Section 4.14; L2V3 Section 4.14.)";
+  //msg =
+  //  "An <event> object must have at least one <eventAssignment> object in "
+  //  "its <listOfEventAssignments>. (References: L2V1 Section 4.10.5; L2V2 "
+  //  "Section 4.14; L2V3 Section 4.14.)";
 
   inv( e.getNumEventAssignments() != 0 );
 }
@@ -1742,11 +1740,11 @@ START_CONSTRAINT (21204, Event, e)
   pre (e.getVersion() != 3);
   pre( e.isSetTimeUnits() );
 
-  msg =
-    "The value of an <event>'s 'timeUnits' attribute must be 'time', 'second', "
-    "'dimensionless', or the identifier of a <unitDefinition> derived from "
-    "either 'second' (with an 'exponent' value of '1') or 'dimensionless'. "
-    "(References: L2V1 Section 4.10.4; L2V2 Section 4.14.)";
+  //msg =
+  //  "The value of an <event>'s 'timeUnits' attribute must be 'time', 'second', "
+  //  "'dimensionless', or the identifier of a <unitDefinition> derived from "
+  //  "either 'second' (with an 'exponent' value of '1') or 'dimensionless'. "
+  //  "(References: L2V1 Section 4.10.4; L2V2 Section 4.14.)";
 
   // does not apply to L2V3 models
 
@@ -1782,10 +1780,10 @@ START_CONSTRAINT (21206, Event, e)
 {
   pre (e.getVersion() == 3);
 
-  msg =
-    "The 'timeUnits' attribute on <event>, previously available in SBML "
-    "Level 2 versions prior to Version 3, has been removed as of SBML "
-    "Level 2 Version 3. (References: L2V3 Section 4.14.)";
+  //msg =
+  //  "The 'timeUnits' attribute on <event>, previously available in SBML "
+  //  "Level 2 versions prior to Version 3, has been removed as of SBML "
+  //  "Level 2 Version 3. (References: L2V3 Section 4.14.)";
 
   inv( e.isSetTimeUnits() == false);
 
@@ -1799,11 +1797,11 @@ START_CONSTRAINT (21211, EventAssignment, ea)
 {
   pre( ea.isSetVariable() );
 
-  msg = 
-    "The value of 'variable' in an <eventAssignment> can only be the "
-    "identifier of a <compartment>, <species>, or model-wide <parameter> "
-    "definition. (References: L2V1 Section 4.10.5; L2V2 Section 4.14.2; "
-    "L2V3 Section 4.14.4.)";
+  //msg = 
+  //  "The value of 'variable' in an <eventAssignment> can only be the "
+  //  "identifier of a <compartment>, <species>, or model-wide <parameter> "
+  //  "definition. (References: L2V1 Section 4.10.5; L2V2 Section 4.14.2; "
+  //  "L2V3 Section 4.14.4.)";
 
 
   const string& id = ea.getVariable();
@@ -1819,11 +1817,11 @@ START_CONSTRAINT (21212, EventAssignment, ea)
 {
  pre( ea.isSetVariable() );
 
-  msg =
-    "Any <compartment>, <species> or <parameter> definition whose identifier "
-    "is used as the value of 'variable' in an <eventAssignment> must have a "
-    "value of 'false' for its 'constant' attribute. (References: L2V1 Section "
-    "4.10.5; L2V2 Section 4.14.2; L2V3 Section 4.14.4.)";
+  //msg =
+  //  "Any <compartment>, <species> or <parameter> definition whose identifier "
+  //  "is used as the value of 'variable' in an <eventAssignment> must have a "
+  //  "value of 'false' for its 'constant' attribute. (References: L2V1 Section "
+  //  "4.10.5; L2V2 Section 4.14.2; L2V3 Section 4.14.4.)";
 
   const string& id = ea.getVariable();
 

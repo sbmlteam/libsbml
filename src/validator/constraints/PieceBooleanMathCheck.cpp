@@ -138,7 +138,7 @@ PieceBooleanMathCheck::getMessage (const ASTNode& node, const SBase& object)
 
   ostringstream msg;
 
-  msg << getPreamble();
+  //msg << getPreamble();
 
   msg << "The formula '" << SBML_formulaToString(&node);
   msg << "' in the " << getFieldname() << " element of the " << getTypename(object);

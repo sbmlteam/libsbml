@@ -147,7 +147,7 @@ PiecewiseValueMathCheck::getMessage (const ASTNode& node, const SBase& object)
 
   ostringstream msg;
 
-  msg << getPreamble();
+  //msg << getPreamble();
 
   msg << "\nThe piecewise formula ";
   msg << "in the " << getFieldname() << " element of the " << getTypename(object);

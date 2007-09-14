@@ -103,13 +103,14 @@ KineticLawVars::logUndefined ( const Reaction& r,
                                        const string& varname )
 {
   msg =
-    "All species referenced in the <kineticLaw> formula of a given reaction "
-    "must first be declared using <speciesReference> or "
-    "<modifierSpeciesReference>. More formally, if a <species> identifier "
-    "appears in a 'ci' element of a <reaction>'s <kineticLaw> formula, that "
-    "same identifier must also appear in at least one <speciesReference> or "
-    "<modifierSpeciesReference> in the <reaction> definition. (References: "
-    "L2V2 Section 4.13.5; L2V3 Section 4.13.5.) The species '";
+    //"All species referenced in the <kineticLaw> formula of a given reaction "
+    //"must first be declared using <speciesReference> or "
+    //"<modifierSpeciesReference>. More formally, if a <species> identifier "
+    //"appears in a 'ci' element of a <reaction>'s <kineticLaw> formula, that "
+    //"same identifier must also appear in at least one <speciesReference> or "
+    //"<modifierSpeciesReference> in the <reaction> definition. (References: "
+    //"L2V2 Section 4.13.5; L2V3 Section 4.13.5.)"
+    "The species '";
 
   msg += varname;
   msg += "' is not listed as a product, reactant, or modifier of reaction '";

@@ -132,13 +132,14 @@ void
 SpeciesReactionOrRule::logConflict (const Species& s, const Reaction& r)
 {
   msg =
-    "A <species>'s quantity cannot be determined simultaneously by both "
-    "reactions and rules. More formally, if the identifier of a <species> "
-    "definition having 'boundaryCondition'='false' and 'constant'='false' is "
-    "referenced by a <speciesReference> anywhere in a model, then this "
-    "identifier cannot also appear as the value of a 'variable' in an "
-    "<assignmentRule> or a <rateRule>. (References: L2V1 Section 4.6.5; L2V2 "
-    "Section 4.8.6; L2V3 Section 4.8.6.) The species '";
+    //"A <species>'s quantity cannot be determined simultaneously by both "
+    //"reactions and rules. More formally, if the identifier of a <species> "
+    //"definition having 'boundaryCondition'='false' and 'constant'='false' is "
+    //"referenced by a <speciesReference> anywhere in a model, then this "
+    //"identifier cannot also appear as the value of a 'variable' in an "
+    //"<assignmentRule> or a <rateRule>. (References: L2V1 Section 4.6.5; L2V2 "
+    //"Section 4.8.6; L2V3 Section 4.8.6.) 
+    "The species '";
 
   msg += s.getId();
   msg += "' occurs in both a rule and reaction '";

@@ -236,7 +236,12 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "MathML 'lambda' elements are only permitted as the first element inside "
+    "the 'math' element of a <functionDefinition> or as the first element "
+    "of a semantics element immediately inside inside the math element "
+    "of a <functionDefinition>; they may not be used "
+    "elsewhere in an SBML model. (References: L2V2 Sections 4.3.2; L2V3 "
+    "Section 4.3.2.)"
   },
 
   //10209
@@ -248,7 +253,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::GeneralWarning,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The arguments of the MathML logical operators 'and', 'or', 'xor', and "
+    "'not' must have boolean values. (References: L2V2 Section 3.5.8; "
+    "L2V3 Section 3.4.9.)"
   },
 
   //10210
@@ -260,7 +267,13 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::GeneralWarning,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The arguments to the following MathML constructs must have a numeric "
+    "type: 'plus', 'minus', 'times', 'divide', 'power', 'root', 'abs', "
+    "'exp', 'ln', 'log', 'floor', 'ceiling', 'factorial', 'sin', 'cos', "
+    "'tan', 'sec', 'csc', 'cot', 'sinh', 'cosh', 'tanh', 'sech', 'csch', "
+    "'coth', 'arcsin', 'arccos', 'arctan', 'arcsec', 'arccsc', 'arccot', "
+    "'arcsinh', 'arccosh', 'arctanh', 'arcsech', 'arccsch', 'arccoth'. "
+    "(References: L2V2 Section 3.5.8; L2V3 Section 3.4.9.)"
   },
 
   //10211
@@ -272,7 +285,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::GeneralWarning,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The values of all arguments to 'eq' and 'neq' operators should have the "
+    "same type (either all boolean or all numeric). (References: L2V2 "
+    "Section 3.5.8.; L2V3 Section 3.4.9.)"
   },
 
   //10212
@@ -284,7 +299,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::GeneralWarning,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The types of values within 'piecewise' operators should all be "
+    "consistent: the set of expressions that make up the first arguments of "
+    "the 'piece' and 'otherwise' operators within the same 'piecewise' "
+    "operator should all return values of the same type. (References: L2V2 "
+    "Section 3.5.8; L2V3 Section 3.4.9.)"
   },
 
   //10213
@@ -296,7 +315,8 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::GeneralWarning,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The second argument of a MathML 'piece' operator must have a boolean "
+    "value. (References: L2V2 Section 3.5.8; L2V3 Section 3.4.9.)"
   },
 
   //10214
@@ -308,7 +328,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::GeneralWarning,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "Outside of a <functionDefinition>, if a 'ci' element is the first "
+    "element within a MathML 'apply', then the 'ci''s value can only be "
+    "chosen from the set of identifiers of <functionDefinition>s defined in "
+    "the SBML model. (References: L2V2 Section 4.3.2; L2V3 Section 4.3.2.)"
   },
 
   //10215
@@ -320,7 +343,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::GeneralWarning,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "Outside of a <functionDefinition>, if a 'ci' element is not the first "
+    "element within a MathML 'apply', then the 'ci''s value can only be "
+    "chosen from the set of identifiers of <species>, <compartment>, "
+    "<parameter> or <reaction> objects defined in the SBML model. "
+    "(References: L2V2 Section 3.5.3.; L2V3 Section 3.4.3.)"
   },
 
   //10216
@@ -332,7 +359,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::GeneralWarning,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The 'id' value of a <parameter> defined within a <kineticLaw> can only "
+    "be used in 'ci' elements within the MathML content of that same "
+    "<kineticLaw>; the identifier is not visible to other parts of the "
+    "model. (References: L2V2 Section 3.5.3; L2V3 Section 3.4.3.)"
   },
 
   //10217
@@ -344,7 +374,12 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::GeneralWarning,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The MathML formulas in the following elements must yield numeric "
+    "expressions: 'math' in <kineticLaw>, 'stoichiometryMath' in "
+    "<speciesReference>, 'math' in <initialAssignment>, 'math' in "
+    "<assignmentRule>, 'math' in <rateRule>, 'math' in <algebraicRule>, and "
+    "'delay' in <event>, and 'math' in <eventAssignment>. "
+    "(References: L2V2 Section 3.5.8; L2V3 Section 3.4.9.)"
   },
 
   //10218
@@ -356,7 +391,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::GeneralWarning,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "A MathML operator must be supplied the number of arguments "
+    "appropriate for that operator. (References: SBML L2V2 Section "
+    "SBML 3.5.1; L2V3 Section 3.4.1.)"
   },
 
   //10301
@@ -368,7 +405,13 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of the 'id' field on every instance of the following type of "
+    "object in a model must be unique: <model>, <functionDefinition>, "
+    "<compartmentType>, <compartment>, <speciesType>, <species>, <reaction>, "
+    "<speciesReference>, <modifierSpeciesReference>, <event>, and model-wide "
+    "<parameter>s. Note that <unitDefinition> and parameters defined inside "
+    "a reaction are treated separately. (References: L2V1 Section 3.5; L2V2 "
+    "Section 3.4; L2V3 Section 3.3.)"
   },
 
   //10302
@@ -380,7 +423,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of the 'id' field of every <unitDefinition> must be unique "
+    "across the set of all <unitDefinition>s in the entire model. "
+    "(References: L2V2 Section 4.4; L2V1 Section 3.4.1 and 4.4.1.)"
   },
 
   //10303
@@ -392,7 +437,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of the 'id' field of each parameter defined locally within a "
+    "<kineticLaw> must be unique across the set of all such parameter "
+    "definitions in that <kineticLaw>. (References: L2V2 Sections 3.4.1 and "
+    "4.13.9; L2V1 Sections 3.4.1 and 4.13.5.)"
   },
 
   //10304
@@ -404,7 +452,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of the 'variable' field in all <assignmentRule> and "
+    "<rateRule> definitions must be unique across the set of all such rule "
+    "definitions in a model. (References: L2V1 Section 4.8.4; L2V2 Section "
+    "4.11.3.)"
   },
 
   //10305
@@ -416,7 +467,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "In each <event>, the value of the 'variable' field within every "
+    "<eventAssignment> definition must be unique across the set of all "
+    "<eventAssignment>s within that <event>. (References: L2V1 erratum 17; "
+    "L2V2 Section 4.14.)"
   },
 
   //10306
@@ -428,7 +482,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "An identifier used as the value of 'variable' in an <eventAssignment> "
+    "cannot also appear as the value of 'variable' in an <assignmentRule>. "
+    "(References: L2V1 Section 4.10.5; L2V2 Section 4.14.)"
   },
 
   //10307
@@ -440,7 +496,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "Every 'metaid' attribute value must be unique across the set of all "
+    "'metaid' values in a model. (References: L2V2 Sections 3.3.1 and "
+    "3.1.6.)"
   },
 
   //10308
@@ -494,7 +552,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The syntax of unit identifiers (i.e., the values of the id attribute "
+    "on UnitDefinition, the units attribute on Compartment, the units "
+    "attribute on Parameter, and the substanceUnits attribute on Species) "
+    "must conform to the syntax of the SBML type UnitSId. "
+    "(References: L2V3 Section 3.1.8.)"
   },
 
   //10403
@@ -525,7 +587,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::GeneralWarning,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The units of the expressions used as arguments to a function call must "
+    "match the units expected for the arguments of that function. "
+    "(References: L2V2 Section 3.5.) "
   },
 
   //10511
@@ -573,7 +637,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "When the 'variable' in an <initialAssignment> refers to a "
+    "<compartment>, the units of the <initialAssignment>'s <math> expression "
+    "must be consistent with the units of that compartment's size. "
+    "(References: L2V2 Section 4.10.4; L2V3 Section 4.10.)"
   },
 
   //10522
@@ -585,7 +652,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "When the 'variable' in an <initialAssignment> refers to a <species>, "
+    "the units of the <initialAssignment>'s <math> expression must be "
+    "consistent with the units of that species' quantity. (References: L2V2 "
+    "Section 4.10.4; L2V3 Section 4.11.3.)"
   },
 
   //10523
@@ -597,7 +667,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "When the 'variable' in an <initialAssignment> refers to a <parameter>, "
+    "the units of the <initialAssignment>'s <math> expression must be "
+    "consistent with the units declared for that parameter. (References: "
+    "L2V2 Section 4.10.4; L2V3 Section 4.11.3.)"
   },
 
   //10531
@@ -645,7 +718,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The units of the 'math' formula in a <kineticLaw> definition must be "
+    "the equivalent of _substance per time_. (References: L2V2 Section "
+    "4.13.5.)"
   },
 
   //10551
@@ -657,7 +732,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "When a value for <delay> is given in a <event> definition, the units of "
+    "the delay formula must correspond to either the value of 'timeUnits' in "
+    "the <event> or (if no 'timeUnits' are given), the model's default units "
+    "of time. (References: L2V2 Section 4.14; L2V3 Section 4.14.3.)"
   },
 
   //10561
@@ -669,7 +747,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "When the 'variable' in an <eventAssignment> refers to a <compartment>, "
+    "the units of the <eventAssignment>'s <math> expression must be consistent "
+    "with the units of that compartment's size. (References: L2V2 Section "
+    "4.14.2; L2V3 Section 4.14.4.)"
   },
 
   //10562
@@ -681,7 +762,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "When the 'variable' in an <eventAssignment> refers to a <species>, the "
+    "units of the <eventAssignment>'s <math> expression must be consistent "
+    "with the units of the species' quantity. (References: L2V2 Section "
+    "4.14.2; L2V3 Section 4.14.4.)"
   },
 
   //10563
@@ -693,7 +777,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "When the 'variable' in an <eventAssignment> refers to a <parameter>, the "
+    "units of the <eventAssignment>'s <math> expression must be consistent "
+    "with the units declared for that parameter. (References: L2V2 Section "
+    "4.14.2; L2V3 Section 4.14.4)"
   },
 
   //10601
@@ -705,7 +792,8 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::GeneralWarning,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The system of equations created from an SBML model must not be "
+    "overdetermined. (References: L2V2 Section 4.11.5.)"
   },
 
   //10701
@@ -717,7 +805,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of the 'sboTerm' attribute on a <model> must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a modeling "
+    "framework defined in SBO (i.e., terms derived from SBO:0000004, "
+    "\"modeling framework\"). "
+    "(References: L2V2 Section 4.2.1; L2V3 Section 4.2.2.)"
   },
 
   //10702
@@ -729,7 +821,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of the 'sboTerm' attribute on a <functionDefinition> must be "
+    "an SBO identifier (http://www.biomodels.net/SBO/) referring to a "
+    "mathematical expression (i.e., terms derived from SBO:0000064, "
+    "\"mathematical expression\"). "
+    "(References: L2V2 Section 4.3.3; L2V3 Section 4.3.3.)"
   },
 
   //10703
@@ -741,7 +837,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of the 'sboTerm' attribute on a <parameter> must be an "
+    "SBO identifier (http://www.biomodels.net/SBO/) referring to a "
+    "quantitative parameter defined in SBO (i.e., terms derived from "
+    "SBO:0000002, \"quantitative parameter\"). "
+    "(References: L2V2 Section 4.9.5; L2V3 Section 4.9.5.)"
   },
 
   //10704
@@ -753,7 +853,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of the 'sboTerm' attribute on an <initialAssignment> must "
+    "be an SBO identifier (http://www.biomodels.net/SBO/) referring to a "
+    "mathematical expression (i.e., terms derived from SBO:0000064, "
+    "\"mathematical expression\"). "
+    "(References: L2V2 Section 4.10.3; L2V3 Section 4.10.3.)"
   },
 
   //10705
@@ -765,7 +869,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of the 'sboTerm' attribute on a rule must be an SBO identifier "
+    "(http://www.biomodels.net/SBO/) referring to a mathematical expression "
+    "(i.e., terms derived from SBO:0000064, \"mathematical expression\"). "
+    "Note: This applies to Algebraic Rules in addition to Rate and Assignment "
+    "Rules. (References: L2V2 Section 4.11.1; L2V3 Section 4.11.1.)"
   },
 
   //10706
@@ -777,7 +885,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of the 'sboTerm' attribute on a <constraint> must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
+    "expression (i.e., terms derived from SBO:0000064, \"mathematical "
+    "expression\"). "
+    "(References: L2V2 Section 4.12.3; L2V3 Section 4.12.3.)"
   },
 
   //10707
@@ -789,7 +901,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of the 'sboTerm' attribute on a <reaction> must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to an event defined "
+    "in SBO (i.e., terms derived from SBO:0000231, \"event\"). "
+    "(References: L2V2 Section 4.13.1; L2V3 Section 4.13.1)"
   },
 
   //10708
@@ -801,7 +916,15 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of the 'sboTerm' attribute on a <speciesReference> "
+    "or <modifierSpeciesReference> must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a participant "
+    "role. The appropriate term depends on whether the object is a reactant, "
+    "product or modifier. If a reactant, then it should be a term in the "
+    "SBO:0000010, \"reactant\" hierarchy; if a product, then it should be a "
+    "term in the SBO:0000011, \"product\" hierarchy; and if a modifier, then "
+    "it should be a term in the SBO:0000019, \"modifier\" hierarchy. "
+    "(References: L2V2 Section 4.13.2; L2V3 Sections 4.13.1 and 5.)"
   },
 
   //10709
@@ -813,7 +936,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of the 'sboTerm' attribute on a <kineticLaw> must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring rate law defined "
+    "in SBO (i.e., terms derived from SBO:0000001, \"rate law\"). "
+    "(References: L2V2 Section 4.13.5.)"
   },
 
   //10710
@@ -825,7 +951,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of the 'sboTerm' attribute on an <event> must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to an event "
+    "defined in SBO (i.e., terms derived from SBO:0000231, \"event\"). "
+    "(References: L2V2 Section 4.14.1; L2V3 Section 4.14.1.)"
   },
 
   //10711
@@ -837,7 +966,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of the 'sboTerm' attribute on an <eventAssignment> must be an "
+    "SBO identifier (http://www.biomodels.net/SBO/) referring to a "
+    "mathematical expression (i.e., terms derived from SBO:0000064, "
+    "\"mathematical expression\"). "
+    "(References: L2V2 Section 4.14.2; L2V3 Section 4.14.1.)"
   },
 
   //10712
@@ -849,7 +982,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::NotApplicable,
     SBMLError::Error,
-    ""
+    "The value of the 'sboTerm' attribute on a <compartment> must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a participant "
+    "physical type (i.e., terms derived from SBO:0000236, \"participant "
+    "physical type\"). (References: L2V3 Section 5.2.2.)"
   },
 
   //10713
@@ -861,7 +997,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::NotApplicable,
     SBMLError::Error,
-    ""
+    "The value of the 'sboTerm' attribute on a <species> must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a participant "
+    "physical type (i.e., terms derived from SBO:0000236, \"participant "
+    "physical type\"). (References: L2V3 Section 5.2.2.)"
   },
 
   //10714
@@ -873,7 +1012,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::NotApplicable,
     SBMLError::Error,
-    ""
+    "The value of the 'sboTerm' attribute on a <compartmentType> must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a participant "
+    "physical type (i.e., terms derived from SBO:0000236, \"participant "
+    "physical type\"). (References: L2V3 Section 5.2.2.)"
   },
 
   //10715
@@ -885,7 +1027,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::NotApplicable,
     SBMLError::Error,
-    ""
+    "The value of the 'sboTerm' attribute on a <speciesType> must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a participant "
+    "physical type (i.e., terms derived from SBO:0000236, \"participant "
+    "physical type\"). (References: L2V3 Section 5.2.2.)"
   },
 
   //10716
@@ -897,7 +1042,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::NotApplicable,
     SBMLError::Error,
-    ""
+    "The value of the 'sboTerm' attribute on a <trigger> must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
+    "expression (i.e., terms derived from SBO:0000064, \"mathematical "
+    "expression\"). (References: L2V3 Section 5.2.2.)"
   },
 
   //10717
@@ -909,7 +1057,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::NotApplicable,
     SBMLError::Error,
-    ""
+    "The value of the 'sboTerm' attribute on a <delay> must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
+    "expression (i.e., terms derived from SBO:0000064, \"mathematical "
+    "expression\"). (References: L2V3 Section 5.2.2.)"
   },
 
   //10801
@@ -1088,7 +1239,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "If a model defines any species, then the model must also define at "
+    "least one compartment. This is an implication of the fact that the "
+    "'compartment' attribute on the <species> element is not optional. "
+    "(References: L2V1 Section 4.5; L2V2 Section 4.8.3; L2V3 Section "
+    "4.8.3.)"
   },
 
   //20301
@@ -1112,7 +1267,12 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "Inside the 'lambda' of a <functionDefinition>, if a 'ci' element is the "
+    "first element within a MathML 'apply', then the 'ci''s value can only "
+    "be chosen from the set of identifiers of other SBML "
+    "<functionDefinition>s defined prior to that point in the SBML model. In "
+    "other words, forward references to user-defined functions are not "
+    "permitted. (References: L2V2 Section 4.3.2.)"
   },
 
   //20303
@@ -1124,7 +1284,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "Inside the <lambda> of a <functionDefinition>, the identifier of that "
+    "<functionDefinition> cannot appear as the value of a <ci> element. SBML "
+    "functions are not permitted to be recursive. (References: L2V2 Sections "
+    "3.5.3 and 4.3.2; L2V3 Sections 3.4.3 and 4.3.2.)"
   },
 
   //20304
@@ -1136,7 +1299,12 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "Inside the 'lambda' of a <functionDefinition>, if a 'ci' element is not "
+    "the first element within a MathML 'apply', then the 'ci''s value can "
+    "only be the value of a 'bvar' element declared in that 'lambda'. In "
+    "other words, all model entities referenced inside a function definition "
+    "must be passed arguments to that function. (References: L2V2 Section "
+    "4.3.2.)" 
   },
 
   //20305
@@ -1148,7 +1316,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value type returned by a <functionDefinition>'s <lambda> must be "
+    "either boolean or numeric. (References: L2V2 Section 3.5.8; L2V3 "
+    "Section 3.4.9.)"
   },
 
   //20401
@@ -1232,7 +1402,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "If a <unitDefinition> for 'volume' simplifies to a <unit> in which the "
+    "'kind' attribute value is 'litre', then its 'exponent' attribute value "
+    "must be '1'. (References: L2V1 Section 4.4.3; L2V2 Section 4.4.3; L2V3 "
+    "Section 4.4.3.)"
   },
 
   //20408
@@ -1244,7 +1417,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "If a <unitDefinition> for 'volume' simplifies to a <unit> in which the "
+    "'kind' attribute value is 'metre', then its 'exponent' attribute value "
+    "must be '3'. (References: L2V1 Section 4.4.3; L2V2 Section 4.4.3; L2V3 "
+    "Section 4.4.3.)"
   },
 
   //20409
@@ -1269,7 +1445,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of the 'kind' attribute of a <unit> can only be one of the "
+    "predefined units enumerated by 'UnitKind'; that is, the SBML unit "
+    "system is not hierarchical and user-defined units cannot be defined "
+    "using other user-defined units. (References: L2V2 Section 4.4.2; L2V3 "
+    "Section 4.4.2.)"
   },
 
   //20411
@@ -1281,7 +1461,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::SchemaError,
     SBMLError::SchemaError,
-    ""
+    "The 'offset' attribute on <unit> previously available in SBML Level 2 "
+    "Version 1, has been removed as of SBML Level 2 Version 2. (References: "
+    "L2V2 Section 4.4.)"
   },
 
   //20412
@@ -1293,7 +1475,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::SchemaError,
     SBMLError::SchemaError,
-    ""
+    "The predefined unit 'Celsius', previously available in SBML Level 1 and "
+    "Level 2 Version 1, has been removed as of SBML Level 2 Version 2. "
+    "(References: L2V2 Section 4.4.)"
   },
 
   //20501
@@ -1305,7 +1489,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The size of a <compartment> must not be set if the compartment's "
+    "'spatialDimensions' attribute has value '0'. (References: L2V1 Section "
+    "4.5.3; L2V2 Section 4.7.4; L2V3 Section 4.7.5.)"
   },
 
   //20502
@@ -1317,7 +1503,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "If a <compartment> definition has a 'spatialDimensions' value of '0', "
+    "then its 'units' attribute must not be set. If the compartment has no "
+    "dimensions, then no units can be associated with a non-existent size. "
+    "(References: L2V1 Section 4.5.4; L2V2 Section 4.7.5; L2V3 Section 4.7.5.)"
   },
 
   //20503
@@ -1329,7 +1518,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "If a <compartment> definition has a 'spatialDimensions' value of '0', "
+    "then its 'constant' attribute value must either default to or be set to "
+    "'true'. If the compartment has no dimensions, then its size can never "
+    "change. (References: L2V1 Section 4.5.5; L2V2 Section 4.7.4; L2V3 "
+    "Section 4.7.6.)"
   },
 
   //20504
@@ -1341,7 +1534,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The 'outside' attribute value of a <compartment> must be the identifier of "
+    "another <compartment> defined in the model. (References: L2V1 Section "
+    "4.5.6; L2V2 Section 4.7.7; L2V3 Section 4.7.7.)"
   },
 
   //20505
@@ -1353,7 +1548,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::GeneralWarning,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "A <compartment> may not enclose itself through a chain of references "
+    "involving the 'outside' field. This means that a compartment cannot "
+    "have its own identifier as the value of 'outside', nor can it point to "
+    "another compartment whose 'outside' field points directly or indirectly "
+    "to the compartment. (References: L2V1 erratum 11; L2V2 Section 4.7.7.) "
   },
 
   //20506
@@ -1365,7 +1564,12 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::GeneralWarning,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The 'outside' attribute value of a <compartment> cannot be a compartment "
+    "whose 'spatialDimensions' value is '0', unless both compartments have "
+    "'spatialDimensions'='0'. Simply put, a zero-dimensional compartment "
+    "cannot enclose compartments that have anything other than zero "
+    "dimensions themselves. (References: L2V2 Section 4.7.7; L2V3 Section "
+    "4.7.7.)"
   },
 
   //20507
@@ -1413,7 +1617,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "If the 'compartmentType' attribute is given a value in a <compartment> "
+    "definition, it must contain the identifier of an existing "
+    "<compartmentType>. (References: L2V2 Section 4.7.2; L2V3 Section 4.7.2.)"
   },
 
   //20601
@@ -1425,7 +1631,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of 'compartment' in a <species> definition must be the "
+    "identifier of an existing <compartment> defined in the model. "
+    "(References: L2V1 Section 4.6.2; L2V2 Section 4.8.3; L2V3 Section 4.8.3.)"
   },
 
   //20602
@@ -1437,7 +1645,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::NotApplicable,
-    ""
+    "If a <species> definition sets 'hasOnlySubstanceUnits' to 'true', then "
+    "it must not have a value for 'spatialSizeUnits'. (References: L2V1 "
+    "Section 4.6.4; L2V2 Section 4.8.5.)"
   },
 
   //20603
@@ -1449,7 +1659,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::NotApplicable,
-    ""
+    "A <species> definition must not set 'spatialSizeUnits' if the "
+    "<compartment> in which it is located has a 'spatialDimensions' value of "
+    "'0'. (References: L2V1 Section 4.6.4; L2V2 Section 4.8.5.)"
   },
 
   //20604
@@ -1461,7 +1673,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "If a <species> located in a <compartment> whose 'spatialDimensions' is "
+    "set to '0', then that <species> definition cannot set "
+    "'initialConcentration'. (References: L2V1 Section 4.6.3; L2V2 Section "
+    "4.8.4; L2V3 Section 4.8.4.)"
   },
 
   //20605
@@ -1473,7 +1688,12 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::NotApplicable,
-    ""
+    "If a <species> is located in a <compartment> whose 'spatialDimensions' "
+    "has value '1', then that <species> definition can only set "
+    "'spatialSizeUnits' to a value of 'length', 'metre', 'dimensionless', or "
+    "the identifier of a <unitDefinition> derived from 'metre' (with an "
+    "'exponent' value of '1') or 'dimensionless'. (References: L2V1 Section "
+    "4.6.4; L2V2 Section 4.8.5.)"
   },
 
   //20606
@@ -1485,7 +1705,12 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::NotApplicable,
-    ""
+    "If a <species> is located in a <compartment> whose 'spatialDimensions' "
+    "has value '2', then that <species> definition can only set "
+    "'spatialSizeUnits' to a value of 'area', 'dimensionless', or the "
+    "identifier of a <unitDefinition> derived from either 'metre' (with an "
+    "'exponent' value of '2') or 'dimensionless'. (References: L2V1 Section "
+    "4.6.4; L2V2 Section 4.8.5.)"
   },
 
   //20607
@@ -1497,7 +1722,12 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::NotApplicable,
-    ""
+    "If a <species> is located in a <compartment> whose 'spatialDimensions' "
+    "has value '3', then that <species> definition can only set "
+    "'spatialSizeUnits' to a value of 'volume', 'litre', 'dimensionless', or "
+    "the identifier of a <unitDefinition> derived from either 'litre', "
+    "'metre' (with an 'exponent' value of '3') or 'dimensionless'. "
+    "(References: L2V1 Section 4.6.4; L2V2 Section 4.8.5.)"
   },
 
   //20608
@@ -1521,7 +1751,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "A <species> cannot set values for both 'initialConcentration' and "
+    "'initialAmount' because they are mutually exclusive. (References: L2V1 "
+    "Section 4.6.3; L2V2 Section 4.8.4; L2V3 Section 4.8.4.)"
   },
 
   //20610
@@ -1533,7 +1765,13 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "A <species>'s quantity cannot be determined simultaneously by both "
+    "reactions and rules. More formally, if the identifier of a <species> "
+    "definition having 'boundaryCondition'='false' and 'constant'='false' is "
+    "referenced by a <speciesReference> anywhere in a model, then this "
+    "identifier cannot also appear as the value of a 'variable' in an "
+    "<assignmentRule> or a <rateRule>. (References: L2V1 Section 4.6.5; L2V2 "
+    "Section 4.8.6; L2V3 Section 4.8.6.)" 
   },
 
   //20611
@@ -1545,7 +1783,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "A <species> having boundaryCondition=\"false\" cannot appear as a "
+    "reactant or product in any reaction if that Species also has "
+    "constant=\"true\". (References: L2V1 Section 4.6.5; L2V2 Section "
+    "4.8.6; L2V3 Section 4.8.6.)"
   },
 
   //20612
@@ -1557,7 +1798,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of 'speciesType' in a <species> definition must be the "
+    "identifier of an existing <speciesType>. (References: L2V2 Section "
+    "4.8.2; L2V3 Section 4.8.2)"
   },
 
   //20613
@@ -1569,7 +1812,14 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "There cannot be more than one species of a given <speciesType> in the "
+    "same compartment of a model. More formally, for any given compartment, "
+    "there cannot be more than one <species> definition in which both of the "
+    "following hold simultaneously: (i) the <species>' 'compartment' value "
+    "is set to that compartment's identifier and (ii) the <species>' "
+    "'speciesType' is set the same value as the 'speciesType' of another "
+    "<species> that also sets its 'compartment' to that compartment "
+    "identifier. (References: L2V2 Section 4.8.2; L2V3 Section 4.8.2)"
   },
 
   //20614
@@ -1581,7 +1831,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The 'compartment' attribute in a <species> is mandatory. A <species> "
+    "definition in a model must include a value for this attribute. "
+    "(References: L2V2 Section 4.8.3; L2V3 Section 4.8.3.)"
   },
 
   //20615
@@ -1593,7 +1845,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::NotApplicable,
     SBMLError::SchemaError,
-    ""
+    "The 'spatialSizeUnits' attribute on <species>, previously available "
+    "in SBML Level 2 versions prior to Version 3, has been removed as "
+    "of SBML Level 2 Version 3. (References: L2V3 Section 4.8.)"
   },
 
   //20701
@@ -1605,7 +1859,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The 'units' in a <parameter> definition must be a value chosen from "
+    "among the following: a value from the 'UnitKind' enumeration (e.g., "
+    "'litre', 'mole', 'metre', etc.), a built-in unit (e.g., 'substance', "
+    "'time', etc.), or the identifier of a <unitDefinition> in the model. "
+    "(References: L2V1 Section 4.7.3; L2V2 Section 4.9.3; L2V3 Section 4.9.3.)"
   },
 
   //20801
@@ -1617,7 +1875,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of 'symbol' in an <initialAssignment> definition must be the "
+    "identifier of an existing <compartment>, <species>, or <parameter> "
+    "defined in the model. (References: L2V2 Section 4.10; L2V3 Section 4.10.)"
   },
 
   //20802
@@ -1629,7 +1889,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "A given identifier cannot appear as the value of more than one 'symbol' "
+    "field across the set of <initialAssignment>s in a model. (References: "
+    "L2V2 Section 4.10.)"
   },
 
   //20803
@@ -1641,7 +1903,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of a 'symbol' field in any <initialAssignment> definition "
+    "cannot also appear as the value of a 'variable' field in an "
+    "<assignmentRule>. (References: L2V2 Section 4.10.)"
   },
 
   //20901
@@ -1677,7 +1941,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "Any <compartment>, <species> or <parameter> whose identifier is the "
+    "value of a 'variable' attribute in an <assignmentRule>, must have a value "
+    "of 'false' for 'constant'. (References: L2V1 Section 4.8.4; L2V2 "
+    "Section 4.11.3; L2V3 Section 4.11.3.)"
   },
 
   //20904
@@ -1689,7 +1956,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "Any <compartment>, <species> or <parameter> whose identifier is the "
+    "value of a 'variable' attribute in an <rateRule>, must have a value of "
+    "'false' for 'constant'. (References: L2V1 Section 4.8.4; L2V2 Section "
+    "4.11.4; L2V3 Section 4.11.4)"
   },
 
   //20905
@@ -1713,7 +1983,16 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "There must not be circular dependencies in the combined set of "
+    "<initialAssignment>, <assignmentRule> and <kineticLaw> definitions in a "
+    "model. Each of these constructs has the effect of assigning a value to "
+    "an identifier (i.e. the identifier given in the field 'symbol' in "
+    "<initialAssignment>, the field 'variable' in <assignmentRule>, and the "
+    "field 'id' on the <kineticLaw>'s enclosing <reaction>). Each of these "
+    "constructs computes the value using a mathematical formula. The formula "
+    "for a given identifier cannot make reference to a second identifier "
+    "whose own definition depends directly or indirectly on the first "
+    "identifier. (References: L2V2 Section 4.11.5.)" 
   },
 
   //21001
@@ -1725,7 +2004,8 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "A <constraint>'s <math> expression must evaluate to a value of type "
+    "boolean. (References: L2V2 Section 4.12.1; L2V3 Section 4.12.)"
   },
 
   //21002
@@ -1811,7 +2091,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "A <reaction> definition must contain at least one <speciesReference>, "
+    "either in its <listOfReactants> or its <listOfProducts>. A reaction "
+    "without any reactant or product species is not permitted, regardless of "
+    "whether the reaction has any modifier species. (References: L2V2 "
+    "Section 4.13.1; L2V3 Section 4.13.3.)"
   },
 
   //21102
@@ -1882,7 +2166,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of a <speciesReference> 'species' attribute must be the "
+    "identifier of an existing <species> in the model. (References: L2V1 "
+    "Section 4.9.5; L2V2 Section 4.13.2. L2V3 Section 4.13.3.)"
   },
 
   //21112
@@ -1906,7 +2192,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "A <speciesReference> must not have a value for both 'stoichiometry' and "
+    "'stoichiometryMath'; they are mutually exclusive. (References: L2V1 "
+    "Section 4.9.5; L2V2 Section 4.13.3; L2V3 Section 4.13.3.)"
   },
 
   //21121
@@ -1918,7 +2206,13 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "All species referenced in the <kineticLaw> formula of a given reaction "
+    "must first be declared using <speciesReference> or "
+    "<modifierSpeciesReference>. More formally, if a <species> identifier "
+    "appears in a 'ci' element of a <reaction>'s <kineticLaw> formula, that "
+    "same identifier must also appear in at least one <speciesReference> or "
+    "<modifierSpeciesReference> in the <reaction> definition. (References: "
+    "L2V2 Section 4.13.5; L2V3 Section 4.13.5.)"
   },
 
   //21122
@@ -1958,7 +2252,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::GeneralWarning,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The 'constant' attribute on a <parameter> local to a <kineticLaw> cannot "
+    "have a value other than 'true'. The values of parameters local to "
+    "<kineticLaw> definitions cannot be changed, and therefore they are "
+    "always constant. (References: L2V2 Section 4.9.4; L2V3 Section 4.9.4.)"
   },
 
   //21125
@@ -1970,7 +2267,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::SchemaError,
     SBMLError::SchemaError,
-    ""
+    "The 'substanceUnits' attribute on <kineticLaw>, previously available in "
+    "SBML Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
+    "Version 2. In SBML Level 2 Version 2, the substance units of a reaction "
+    "rate expression are those of the global 'substance' units of the model. "
+    "(References: L2V2 Section 4.13.5.)"
   },
 
   //21126
@@ -1982,7 +2283,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::SchemaError,
     SBMLError::SchemaError,
-    ""
+    "The 'timeUnits' attribute on <kineticLaw>, previously available in SBML "
+    "Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
+    "Version 2. In SBML Level 2 Version 2, the time units of a reaction rate "
+    "expression are those of the global 'time' units of the model. "
+    "(References: L2V2 Section 4.13.5.)"
   },
 
   //21131
@@ -1994,7 +2299,14 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::GeneralWarning,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "All species referenced in the <stoichiometryMath> formula of a given "
+    "reaction must first be declared using <speciesReference> or "
+    "<modifierSpeciesReference>. More formally, if a <species> identifier "
+    "appears in a <ci> element of a <reaction>'s <stoichiometryMath> "
+    "formula, that same identifier must also appear in at least one "
+    "<speciesReference> or <modifierSpeciesReference> in the <reaction> "
+    "definition. (References: L2V2 Sections 4.13.2 and 4.13.4; L2V3 Sections "
+    "4.13.2 and 4.13.4.)"
   },
 
   //21201
@@ -2006,7 +2318,8 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::SchemaError,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "An <event> object must have a 'trigger'. (References: L2V1 Section "
+    "4.10.2; L2V2 Section 4.14.)"
   },
 
   //21202
@@ -2018,7 +2331,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "An <event>'s <trigger> expression must evaluate to a value of type "
+    "boolean. (References: L2V1 Section 4.10.2; L2V2 Section 4.14.1; L2V3 "
+    "Section 4.14.2.)"
   },
 
   //21203
@@ -2030,7 +2345,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "An <event> object must have at least one <eventAssignment> object in "
+    "its <listOfEventAssignments>. (References: L2V1 Section 4.10.5; L2V2 "
+    "Section 4.14; L2V3 Section 4.14.)"
   },
 
   //21204
@@ -2042,7 +2359,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::NotApplicable,
-    ""
+    "The value of an <event>'s 'timeUnits' attribute must be 'time', 'second', "
+    "'dimensionless', or the identifier of a <unitDefinition> derived from "
+    "either 'second' (with an 'exponent' value of '1') or 'dimensionless'. "
+    "(References: L2V1 Section 4.10.4; L2V2 Section 4.14.)"
   },
 
   //21205
@@ -2069,7 +2389,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::NotApplicable,
     SBMLError::Error,
-    ""
+    "The 'timeUnits' attribute on <event>, previously available in SBML "
+    "Level 2 versions prior to Version 3, has been removed as of SBML "
+    "Level 2 Version 3. (References: L2V3 Section 4.14.)"
   },
 
   //21211
@@ -2081,7 +2403,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of 'variable' in an <eventAssignment> can only be the "
+    "identifier of a <compartment>, <species>, or model-wide <parameter> "
+    "definition. (References: L2V1 Section 4.10.5; L2V2 Section 4.14.2; "
+    "L2V3 Section 4.14.4.)"
   },
 
   //21212
@@ -2093,8 +2418,24 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::GeneralWarning,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "Any <compartment>, <species> or <parameter> definition whose identifier "
+    "is used as the value of 'variable' in an <eventAssignment> must have a "
+    "value of 'false' for its 'constant' attribute. (References: L2V1 Section "
+    "4.10.5; L2V2 Section 4.14.2; L2V3 Section 4.14.4.)"
   },
+  // undecided on number for this FIXME
+  // 50501
+  {
+    SBMLError::CompartmentShouldHaveSize,
+    SBMLError::SBMLModelingPractice,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    "It is recommended that the size of a compartment is set."
+  },
+
 
   //90000
   {
@@ -2109,6 +2450,174 @@ static const sbmlErrorTableEntry errorTable[] =
     "not supported by libSBML."
   },
 
+  //91001
+  {
+    SBMLError::NoEventsInL1,
+    SBMLError::SBMLL1Compatibility,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::Error,
+    ""
+  },
+
+  //91002
+  {
+    SBMLError::NoFunctionDefinitionsInL1,
+    SBMLError::SBMLL1Compatibility,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::Error,
+    ""
+  },
+
+  //91003
+  {
+    SBMLError::NoConstraintsInL1,
+    SBMLError::SBMLL1Compatibility,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::Error,
+    ""
+  },
+
+  //91004
+  {
+    SBMLError::NoInitialAssignmentsInL1,
+    SBMLError::SBMLL1Compatibility,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::Error,
+    ""
+  },
+
+  //91005
+  {
+    SBMLError::NoSpeciesTypesInL1,
+    SBMLError::SBMLL1Compatibility,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::Error,
+    ""
+  },
+
+  //91006
+  {
+    SBMLError::NoCompartmentTypeInL1,
+    SBMLError::SBMLL1Compatibility,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::Error,
+    ""
+  },
+
+  //91007
+  {
+    SBMLError::NoNon3DComparmentsInL1,
+    SBMLError::SBMLL1Compatibility,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::Error,
+    ""
+  },
+
+  //91008
+  {
+    SBMLError::NoFancyStoichiometryMathInL1,
+    SBMLError::SBMLL1Compatibility,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::Error,
+    ""
+  },
+
+  //91009
+  {
+    SBMLError::NoNonIntegerStoichiometryInL1,
+    SBMLError::SBMLL1Compatibility,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::Error,
+    ""
+  },
+
+  //91010
+  {
+    SBMLError::NoUnitMultipliersOrOffsetsInL1,
+    SBMLError::SBMLL1Compatibility,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::Error,
+    ""
+  },
+
+  //91011
+  {
+    SBMLError::SpeciesCompartmentRequiredInL1,
+    SBMLError::SBMLL1Compatibility,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::Error,
+    ""
+  },
+
+  //91012
+  {
+    SBMLError::NoSpeciesSpatialSizeUnitsInL1,
+    SBMLError::SBMLL1Compatibility,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::Error,
+    ""
+  },
+
+  //91013
+  {
+    SBMLError::NoSBOTermsInL1,
+    SBMLError::SBMLL1Compatibility,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::Error,
+    ""
+  },
+
+  //92001
+  {
+    SBMLError::NoConstraintsInL2v1,
+    SBMLError::SBMLL2v1Compatibility,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::NotApplicable,
+    SBMLError::Error,
+    SBMLError::Error,
+    ""
+  },
+
   //99127
   {
     SBMLError::SubsUnitsAllowedInKL,
@@ -2118,7 +2627,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::NotApplicable,
     SBMLError::NotApplicable,
-    ""
+    "A KineticLaw's substanceUnits must be 'substance', 'item', 'mole', or "
+    "the id of a UnitDefinition that defines a variant of 'item' or 'mole' "
+    "(L2v1 Section 4.9.7)."
   },
 
   //99128
@@ -2130,7 +2641,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::NotApplicable,
     SBMLError::NotApplicable,
-    ""
+    "A KineticLaw's timeUnits must be 'time', 'second', or the id of a "
+    "UnitDefnition that defines a variant of 'second' with exponent='1' "
+    "(L2v1 Section 4.9.7)."
   },
 
   //99129
@@ -2142,10 +2655,12 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::NotApplicable,
     SBMLError::NotApplicable,
-    ""
+    "In a Level 1 model only predefined functions are permitted "
+    "within the KineticLaw formula. (L1V2 Appendix C)"
   },
 
   //99502
+  // This is an internal error that reverts to 10501
   {
     SBMLError::InconsistentArgUnitsWarnings,
     SBMLError::SBMLConsistencyUnits,
@@ -2158,6 +2673,7 @@ static const sbmlErrorTableEntry errorTable[] =
   },
 
   //99503
+  // This is an internal error that reverts to 10501
   {
     SBMLError::InconsistentPowerUnitsWarnings,
     SBMLError::SBMLConsistencyUnits,
@@ -2170,6 +2686,7 @@ static const sbmlErrorTableEntry errorTable[] =
   },
 
   //99504
+  // This is an internal error that reverts to 10501
   {
     SBMLError::InconsistentExponUnitsWarnings,
     SBMLError::SBMLConsistencyUnits,
@@ -2181,7 +2698,7 @@ static const sbmlErrorTableEntry errorTable[] =
     ""
   },
 
-  //99219   FIXME
+  //99219
   {   
     SBMLError::BadMathML,   
     SBMLError::SBMLConsistencyMathML,   

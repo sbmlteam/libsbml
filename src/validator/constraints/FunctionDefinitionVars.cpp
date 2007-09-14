@@ -102,12 +102,12 @@ FunctionDefinitionVars::logUndefined ( const FunctionDefinition& fd,
 {
   msg =
   msg =
-    "Inside the 'lambda' of a <functionDefinition>, if a 'ci' element is not "
-    "the first element within a MathML 'apply', then the 'ci''s value can "
-    "only be the value of a 'bvar' element declared in that 'lambda'. In "
-    "other words, all model entities referenced inside a function definition "
-    "must be passed arguments to that function. (References: L2V2 Section "
-    "4.3.2.)" 
+    //"Inside the 'lambda' of a <functionDefinition>, if a 'ci' element is not "
+    //"the first element within a MathML 'apply', then the 'ci''s value can "
+    //"only be the value of a 'bvar' element declared in that 'lambda'. In "
+    //"other words, all model entities referenced inside a function definition "
+    //"must be passed arguments to that function. (References: L2V2 Section "
+    //"4.3.2.)" 
     "The variable '";
 
   msg += varname;
