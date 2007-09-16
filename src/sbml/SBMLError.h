@@ -272,28 +272,28 @@ public:
   , NoUnitMultipliersOrOffsetsInL1   = 91010
   , SpeciesCompartmentRequiredInL1   = 91011
   , NoSpeciesSpatialSizeUnitsInL1    = 91012
-  , NoSBOTermsInL1		               = 91013
+  , NoSBOTermsInL1                   = 91013
 
   //L2v1 compatability
-  , NoConstraintsInL2v1		           = 92001
-  , NoInitialAssignmentsInL2v1	     = 92002
-  , NoSpeciesTypeInL2v1		           = 92003
-  , NoCompartmentTypeInL2v1	         = 92004
-  , NoSBOTermsInL2v1		             = 92005
+  , NoConstraintsInL2v1              = 92001
+  , NoInitialAssignmentsInL2v1       = 92002
+  , NoSpeciesTypeInL2v1              = 92003
+  , NoCompartmentTypeInL2v1          = 92004
+  , NoSBOTermsInL2v1                 = 92005
   , NoIdOnSpeciesReferenceInL2v1     = 92006
 
   //l2v2 compatability
-  , SBOTermNotUniversalInL2v2	       = 93001
-  , NoUnitOffsetInL2v2		           = 93002
-  , NoKineticLawTimeUnitsInL2v2	     = 93003
+  , SBOTermNotUniversalInL2v2        = 93001
+  , NoUnitOffsetInL2v2               = 93002
+  , NoKineticLawTimeUnitsInL2v2      = 93003
   , NoKineticLawSubstanceUnitsInL2v2 = 93004
 
   //l2v3 compatability 
-  , NoUnitOffsetInL2v3		           = 94001
-  , NoKineticLawTimeUnitsInL2v3	     = 94002
+  , NoUnitOffsetInL2v3               = 94001
+  , NoKineticLawTimeUnitsInL2v3      = 94002
   , NoKineticLawSubstanceUnitsInL2v3 = 94003
   , NoSpeciesSpatialSizeUnitsInL2v3  = 94004
-  , NoEventTimeUnitsInL2v3	         = 94005
+  , NoEventTimeUnitsInL2v3           = 94005
 
   // These are errors checked by libSBML that were never
   // published in a spec

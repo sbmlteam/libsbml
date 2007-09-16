@@ -2459,7 +2459,7 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "A model with <event> definitions cannot be represented in SBML Level 1."
   },
 
   //91002
@@ -2471,7 +2471,8 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "Conversion of a model with <functionDefinition>s to SBML Level 1 is not "
+    "yet supported."
   },
 
   //91003
@@ -2480,10 +2481,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::SBMLL1Compatibility,
     SBMLError::NotApplicable,
     SBMLError::NotApplicable,
-    SBMLError::Error,
-    SBMLError::Error,
-    SBMLError::Error,
-    ""
+    SBMLError::NotApplicable,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    "Conversion of a model with <constraint>s to SBML Level 1 may result "
+    "in loss of information."
   },
 
   //91004
@@ -2492,10 +2494,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::SBMLL1Compatibility,
     SBMLError::NotApplicable,
     SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    SBMLError::Error,
-    ""
+    "Conversion of a model with <initialAssignment>s to SBML Level 1 is not "
+    "yet supported."
   },
 
   //91005
@@ -2504,10 +2507,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::SBMLL1Compatibility,
     SBMLError::NotApplicable,
     SBMLError::NotApplicable,
-    SBMLError::Error,
-    SBMLError::Error,
-    SBMLError::Error,
-    ""
+    SBMLError::NotApplicable,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    "<speciesType> definitions cannot be represented in SBML Level 1."
   },
 
   //91006
@@ -2516,10 +2519,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::SBMLL1Compatibility,
     SBMLError::NotApplicable,
     SBMLError::NotApplicable,
-    SBMLError::Error,
-    SBMLError::Error,
-    SBMLError::Error,
-    ""
+    SBMLError::NotApplicable,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    "<compartmentType> definitions cannot be represented in SBML Level 1."
   },
 
   //91007
@@ -2531,7 +2534,8 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "A <compartment> with 'spatialDimensions' not equal to 3 cannot be "
+    "represented in SBML Level 1."
   },
 
   //91008
@@ -2543,7 +2547,8 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "A <speciesReference> containing a non-integer or non-rational "
+    "<stoichiometryMath> subelement cannot be represented in SBML Level 1."
   },
 
   //91009
@@ -2555,7 +2560,8 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "A <speciesReference> containing a non-integer 'stoichiometry' attribute "
+    "value cannot be represented in SBML Level 1."
   },
 
   //91010
@@ -2567,7 +2573,8 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "A <unit> containing multipliers or offsets cannot be represented in "
+    "SBML Level 1."
   },
 
   //91011
@@ -2579,7 +2586,8 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "A <species> that does not identify its compartment cannot be "
+    "represented in SBML Level 1."
   },
 
   //91012
@@ -2591,7 +2599,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The information represented by the value of a 'spatialSizeUnit' "
+    "attribute on a <species> definition cannot be represented in "
+    "SBML Level 1."
   },
 
   //91013
@@ -2600,22 +2610,222 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::SBMLL1Compatibility,
     SBMLError::NotApplicable,
     SBMLError::NotApplicable,
-    SBMLError::Error,
-    SBMLError::Error,
-    SBMLError::Error,
-    ""
+    SBMLError::NotApplicable,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    "SBO terms cannot be represented directly in SBML Level 1."
   },
 
   //92001
   {
     SBMLError::NoConstraintsInL2v1,
     SBMLError::SBMLL2v1Compatibility,
-    SBMLError::Error,
-    SBMLError::Error,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    "Conversion of a model with <constraints> to SBML Level 2 Version 1 may "
+    "result in loss of information."
+  },
+
+  //92002
+  {
+    SBMLError::NoInitialAssignmentsInL2v1,
+    SBMLError::SBMLL2v1Compatibility,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
     SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "Conversion of a model with <initialAssignments> to SBML Level 2 Version 1 "
+    "is not yet supported."
+  },
+
+  //92003
+  {
+    SBMLError::NoSpeciesTypeInL2v1,
+    SBMLError::SBMLL2v1Compatibility,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    "<speciesType> definitions cannot be represented in SBML Level 2 "
+    "Version 1."
+  },
+
+  //92004
+  {
+    SBMLError::NoCompartmentTypeInL2v1,
+    SBMLError::SBMLL2v1Compatibility,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    "<compartmentType> definitions cannot be represented in SBML Level 2 "
+    "Version 1."
+  },
+
+  //92005
+  {
+    SBMLError::NoSBOTermsInL2v1,
+    SBMLError::SBMLL2v1Compatibility,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    "SBO terms cannot be represented directly in SBML Level 2 Version 1."
+  },
+
+  //92006
+  {
+    SBMLError::NoIdOnSpeciesReferenceInL2v1,
+    SBMLError::SBMLL2v1Compatibility,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    "The 'id' attribute value of a <speciesReference> cannot be "
+    "represented directly in SBML Level 2 Version 1."
+  },
+
+  //93001
+  {
+    SBMLError::SBOTermNotUniversalInL2v2,
+    SBMLError::SBMLL2v2Compatibility,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::Warning,
+    "In SBML Level 2 Version 2, an 'sboTerm' attribute is only permitted on "
+    "the following elements: <model>, <functionDefinition>, <parameter>, "
+    "<initialAssignment>, <rule>, <constraint>, <reaction>, "
+    "<speciesReference>, <kineticLaw>, <event> and <eventAssignment>."
+  },
+
+  //93002
+  {
+    SBMLError::NoUnitOffsetInL2v2,
+    SBMLError::SBMLL2v2Compatibility,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::Error,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    "The 'offset' attribute on <unit> previously available in SBML Level 2 "
+    "Version 1, has been removed as of SBML Level 2 Version 2. (References: "
+    "L2V2 Section 4.4.)"
+  },
+
+  //93003
+  {
+    SBMLError::NoKineticLawTimeUnitsInL2v2,
+    SBMLError::SBMLL2v2Compatibility,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    "The 'timeUnits' attribute on <kineticLaw>, previously available in SBML "
+    "Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
+    "Version 2. In SBML Level 2 Version 2, the time units of a reaction rate "
+    "expression are those of the global 'time' units of the model. "
+    "(References: L2V2 Section 4.13.5.)"
+  },
+
+  //93004
+  {
+    SBMLError::NoKineticLawSubstanceUnitsInL2v2,
+    SBMLError::SBMLL2v2Compatibility,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    "The 'substanceUnits' attribute on <kineticLaw>, previously available in "
+    "SBML Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
+    "Version 2. In SBML Level 2 Version 2, the substance units of a reaction "
+    "rate expression are those of the global 'substance' units of the model. "
+    "(References: L2V2 Section 4.13.5.)"
+  },
+
+  //94001
+  {
+    SBMLError::NoUnitOffsetInL2v3,
+    SBMLError::SBMLL2v3Compatibility,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::Error,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    "The 'offset' attribute on <unit> previously available in SBML Level 2 "
+    "Version 1, has been removed as of SBML Level 2 Version 2. (References: "
+    "L2V2 Section 4.4.)"
+  },
+
+  //94002
+  {
+    SBMLError::NoKineticLawTimeUnitsInL2v3,
+    SBMLError::SBMLL2v3Compatibility,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    "The 'timeUnits' attribute on <kineticLaw>, previously available in SBML "
+    "Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
+    "Version 2. In SBML Level 2 Version 3, the time units of a reaction rate "
+    "expression are those of the global 'time' units of the model. "
+    "(References: L2V2 Section 4.13.5.)"
+  },
+
+  //94003
+  {
+    SBMLError::NoKineticLawSubstanceUnitsInL2v3,
+    SBMLError::SBMLL2v3Compatibility,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    "The 'substanceUnits' attribute on <kineticLaw>, previously available in "
+    "SBML Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
+    "Version 2. In SBML Level 2 Version 3, the substance units of a reaction "
+    "rate expression are those of the global 'substance' units of the model. "
+    "(References: L2V2 Section 4.13.5.)"
+  },
+
+  //94004
+  {
+    SBMLError::NoSpeciesSpatialSizeUnitsInL2v3,
+    SBMLError::SBMLL2v3Compatibility,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::NotApplicable,
+    "The 'spatialSizeUnits' attribute on <species>, previously available "
+    "in SBML Level 2 versions prior to Version 3, has been removed as "
+    "of SBML Level 2 Version 3. (References: L2V3 Section 4.8.)"
+  },
+
+  //94005
+  {
+    SBMLError::NoEventTimeUnitsInL2v3,
+    SBMLError::SBMLL2v3Compatibility,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::Error,
+    SBMLError::Error,
+    SBMLError::NotApplicable,
+    "The 'timeUnits' attribute on <event>, previously available in SBML "
+    "Level 2 versions prior to Version 3, has been removed as of SBML "
+    "Level 2 Version 3. (References: L2V3 Section 4.14.)"
   },
 
   //99127

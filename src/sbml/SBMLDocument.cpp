@@ -60,18 +60,18 @@ using namespace std;
  * Some conversions will lose information but the model will still be valid
  * when converted.
  */
-static unsigned int ignorable[] = {
-  92001,
-  92003,
-  92004,
-  92005,
-  92006,
-  93001,
-  91003,
-  91005,
-  91006,
-  91013
-};
+//static unsigned int ignorable[] = {
+//  92001,
+//  92003,
+//  92004,
+//  92005,
+//  92006,
+//  93001,
+//  91003,
+//  91005,
+//  91006,
+//  91013
+//};
 
 
 /** @cond doxygen-libsbml-internal */
@@ -81,23 +81,41 @@ static unsigned int ignorable[] = {
 bool
 SBMLDocument::conversion_errors(unsigned int errors)
 {
-  for (unsigned int i = 0; i < errors; i++)
+  /** 
+   * changed this code in line with the rest of the validation 
+   * errors: ie each now assigns a severity
+   * Error would imply conversion not possible
+   * Warning implies lose of data but conversion still possible
+   */
+  if (errors > 0)
   {
-    bool failure = true;
-
-    for (unsigned int n = 0; n < sizeof(ignorable)/sizeof(ignorable[0]); n++)
-    {
-      if (getError(i)->getErrorId() == ignorable[n])
-      {
-	      failure = false;
-	       break;
-      }
-    }
-
-    if (failure) return failure;
+    if (mErrorLog.getNumFailsWithSeverity(SBMLError::Error) > 0)
+      return true;
+    else
+      return false;
+  }
+  else
+  {
+    return false;
   }
 
-  return false;
+  //for (unsigned int i = 0; i < errors; i++)
+  //{
+  //  bool failure = true;
+  //    
+  //  for (unsigned int n = 0; n < sizeof(ignorable)/sizeof(ignorable[0]); n++)
+  //  {
+  //    if (getError(i)->getErrorId() == ignorable[n])
+  //    {
+  //      failure = false;
+  //      break;
+  //    }
+  //  }
+
+  //  if (failure) return failure;
+  //}
+
+  //return false;
 }
 /** @endcond doxygen-libsbml-internal */
 

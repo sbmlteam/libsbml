@@ -41,11 +41,11 @@ using namespace std;
 
 START_CONSTRAINT (93001, UnitDefinition, ud)
 {
-  msg =
-    "In SBML Level 2 Version 2, an 'sboTerm' attribute is only permitted on "
-    "the following elements: <model>, <functionDefinition>, <parameter>, "
-    "<initialAssignment>, <rule>, <constraint>, <reaction>, "
-    "<speciesReference>, <kineticLaw>, <event> and <eventAssignment>.";
+  //msg =
+  //  "In SBML Level 2 Version 2, an 'sboTerm' attribute is only permitted on "
+  //  "the following elements: <model>, <functionDefinition>, <parameter>, "
+  //  "<initialAssignment>, <rule>, <constraint>, <reaction>, "
+  //  "<speciesReference>, <kineticLaw>, <event> and <eventAssignment>.";
 
   inv( ud.getSBOTerm() == -1 );
 }
@@ -54,11 +54,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT (93001, Unit, u)
 {
-  msg =
-    "In SBML Level 2 Version 2, an 'sboTerm' attribute is only permitted on "
-    "the following elements: <model>, <functionDefinition>, <parameter>, "
-    "<initialAssignment>, <rule>, <constraint>, <reaction>, "
-    "<speciesReference>, <kineticLaw>, <event> and <eventAssignment>.";
+  //msg =
+  //  "In SBML Level 2 Version 2, an 'sboTerm' attribute is only permitted on "
+  //  "the following elements: <model>, <functionDefinition>, <parameter>, "
+  //  "<initialAssignment>, <rule>, <constraint>, <reaction>, "
+  //  "<speciesReference>, <kineticLaw>, <event> and <eventAssignment>.";
 
   inv( u.getSBOTerm() == -1 );
 }
@@ -67,11 +67,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT (93001, CompartmentType, ct)
 {
-  msg =
-    "In SBML Level 2 Version 2, an 'sboTerm' attribute is only permitted on "
-    "the following elements: <model>, <functionDefinition>, <parameter>, "
-    "<initialAssignment>, <rule>, <constraint>, <reaction>, "
-    "<speciesReference>, <kineticLaw>, <event> and <eventAssignment>.";
+  //msg =
+  //  "In SBML Level 2 Version 2, an 'sboTerm' attribute is only permitted on "
+  //  "the following elements: <model>, <functionDefinition>, <parameter>, "
+  //  "<initialAssignment>, <rule>, <constraint>, <reaction>, "
+  //  "<speciesReference>, <kineticLaw>, <event> and <eventAssignment>.";
 
   inv( ct.getSBOTerm() == -1 );
 }
@@ -80,11 +80,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT (93001, SpeciesType, st)
 {
-  msg =
-    "In SBML Level 2 Version 2, an 'sboTerm' attribute is only permitted on "
-    "the following elements: <model>, <functionDefinition>, <parameter>, "
-    "<initialAssignment>, <rule>, <constraint>, <reaction>, "
-    "<speciesReference>, <kineticLaw>, <event> and <eventAssignment>.";
+  //msg =
+  //  "In SBML Level 2 Version 2, an 'sboTerm' attribute is only permitted on "
+  //  "the following elements: <model>, <functionDefinition>, <parameter>, "
+  //  "<initialAssignment>, <rule>, <constraint>, <reaction>, "
+  //  "<speciesReference>, <kineticLaw>, <event> and <eventAssignment>.";
 
   inv( st.getSBOTerm() == -1 );
 }
@@ -93,11 +93,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT (93001, Compartment, c)
 {
-  msg =
-    "In SBML Level 2 Version 2, an 'sboTerm' attribute is only permitted on "
-    "the following elements: <model>, <functionDefinition>, <parameter>, "
-    "<initialAssignment>, <rule>, <constraint>, <reaction>, "
-    "<speciesReference>, <kineticLaw>, <event> and <eventAssignment>.";
+  //msg =
+  //  "In SBML Level 2 Version 2, an 'sboTerm' attribute is only permitted on "
+  //  "the following elements: <model>, <functionDefinition>, <parameter>, "
+  //  "<initialAssignment>, <rule>, <constraint>, <reaction>, "
+  //  "<speciesReference>, <kineticLaw>, <event> and <eventAssignment>.";
 
   inv( c.getSBOTerm() == -1 );
 }
@@ -106,11 +106,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT (93001, Species, s)
 {
-  msg =
-    "In SBML Level 2 Version 2, an 'sboTerm' attribute is only permitted on "
-    "the following elements: <model>, <functionDefinition>, <parameter>, "
-    "<initialAssignment>, <rule>, <constraint>, <reaction>, "
-    "<speciesReference>, <kineticLaw>, <event> and <eventAssignment>.";
+  //msg =
+  //  "In SBML Level 2 Version 2, an 'sboTerm' attribute is only permitted on "
+  //  "the following elements: <model>, <functionDefinition>, <parameter>, "
+  //  "<initialAssignment>, <rule>, <constraint>, <reaction>, "
+  //  "<speciesReference>, <kineticLaw>, <event> and <eventAssignment>.";
 
   inv( s.getSBOTerm() == -1 );
 }
@@ -119,11 +119,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT (93001, Trigger, t)
 {
-  msg =
-    "In SBML Level 2 Version 2, an 'sboTerm' attribute is only permitted on "
-    "the following elements: <model>, <functionDefinition>, <parameter>, "
-    "<initialAssignment>, <rule>, <constraint>, <reaction>, "
-    "<speciesReference>, <kineticLaw>, <event> and <eventAssignment>.";
+  //msg =
+  //  "In SBML Level 2 Version 2, an 'sboTerm' attribute is only permitted on "
+  //  "the following elements: <model>, <functionDefinition>, <parameter>, "
+  //  "<initialAssignment>, <rule>, <constraint>, <reaction>, "
+  //  "<speciesReference>, <kineticLaw>, <event> and <eventAssignment>.";
 
   inv( t.getSBOTerm() == -1 );
 }
@@ -132,11 +132,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT (93001, Delay, d)
 {
-  msg =
-    "In SBML Level 2 Version 2, an 'sboTerm' attribute is only permitted on "
-    "the following elements: <model>, <functionDefinition>, <parameter>, "
-    "<initialAssignment>, <rule>, <constraint>, <reaction>, "
-    "<speciesReference>, <kineticLaw>, <event> and <eventAssignment>.";
+  //msg =
+  //  "In SBML Level 2 Version 2, an 'sboTerm' attribute is only permitted on "
+  //  "the following elements: <model>, <functionDefinition>, <parameter>, "
+  //  "<initialAssignment>, <rule>, <constraint>, <reaction>, "
+  //  "<speciesReference>, <kineticLaw>, <event> and <eventAssignment>.";
 
   inv( d.getSBOTerm() == -1 );
 }
@@ -145,10 +145,10 @@ END_CONSTRAINT
 
 START_CONSTRAINT (93002, Unit, u)
 {
-  msg =
-    "The 'offset' attribute on <unit> previously available in SBML Level 2 "
-    "Version 1, has been removed as of SBML Level 2 Version 2. (References: "
-    "L2V2 Section 4.4.)";
+  //msg =
+  //  "The 'offset' attribute on <unit> previously available in SBML Level 2 "
+  //  "Version 1, has been removed as of SBML Level 2 Version 2. (References: "
+  //  "L2V2 Section 4.4.)";
 
   inv( u.getOffset() == 0.0 );
 }
@@ -156,12 +156,12 @@ END_CONSTRAINT
 
 START_CONSTRAINT (93003, KineticLaw, kl)
 {
-  msg =
-    "The 'timeUnits' attribute on <kineticLaw>, previously available in SBML "
-    "Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
-    "Version 2. In SBML Level 2 Version 2, the time units of a reaction rate "
-    "expression are those of the global 'time' units of the model. "
-    "(References: L2V2 Section 4.13.5.)";
+  //msg =
+  //  "The 'timeUnits' attribute on <kineticLaw>, previously available in SBML "
+  //  "Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
+  //  "Version 2. In SBML Level 2 Version 2, the time units of a reaction rate "
+  //  "expression are those of the global 'time' units of the model. "
+  //  "(References: L2V2 Section 4.13.5.)";
 
   inv( kl.isSetTimeUnits() == false );
 }
@@ -169,12 +169,12 @@ END_CONSTRAINT
 
 START_CONSTRAINT (93004, KineticLaw, kl)
 {
-  msg =
-    "The 'substanceUnits' attribute on <kineticLaw>, previously available in "
-    "SBML Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
-    "Version 2. In SBML Level 2 Version 2, the substance units of a reaction "
-    "rate expression are those of the global 'substance' units of the model. "
-    "(References: L2V2 Section 4.13.5.)";
+  //msg =
+  //  "The 'substanceUnits' attribute on <kineticLaw>, previously available in "
+  //  "SBML Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
+  //  "Version 2. In SBML Level 2 Version 2, the substance units of a reaction "
+  //  "rate expression are those of the global 'substance' units of the model. "
+  //  "(References: L2V2 Section 4.13.5.)";
 
   inv( kl.isSetSubstanceUnits() == false );
 }

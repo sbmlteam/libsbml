@@ -1426,11 +1426,11 @@ START_CONSTRAINT (20904, RateRule, r)
   pre( r.getLevel() == 2);
   pre( r.isSetVariable() );
 
-  msg =
-    "Any <compartment>, <species> or <parameter> whose identifier is the "
-    "value of a 'variable' attribute in an <rateRule>, must have a value of "
-    "'false' for 'constant'. (References: L2V1 Section 4.8.4; L2V2 Section "
-    "4.11.4; L2V3 Section 4.11.4)";
+  //msg =
+  //  "Any <compartment>, <species> or <parameter> whose identifier is the "
+  //  "value of a 'variable' attribute in an <rateRule>, must have a value of "
+  //  "'false' for 'constant'. (References: L2V1 Section 4.8.4; L2V2 Section "
+  //  "4.11.4; L2V3 Section 4.11.4)";
 
 
   const string& id = r.getVariable();
