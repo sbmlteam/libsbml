@@ -106,16 +106,16 @@ START_CONSTRAINT (10511, AssignmentRule, ar)
 
   if (ar.getLevel() == 2)
   {
-    msg =
-      "When the 'variable' in an <assignmentRule> refers to a <compartment>, "
-      "the units of the rule's right-hand side must be consistent with the "
-      "units of that compartment's size. (References: L2V2 Section 4.11.3; "
-      "L2V3 Section 4.11.3.)";
+    //msg =
+    //  "When the 'variable' in an <assignmentRule> refers to a <compartment>, "
+    //  "the units of the rule's right-hand side must be consistent with the "
+    //  "units of that compartment's size. (References: L2V2 Section 4.11.3; "
+    //  "L2V3 Section 4.11.3.)";
   }
   else
   {
     msg =
-      "In a <compartmentVolumeRule>, "
+      "In a level 1 model this implies that in a <compartmentVolumeRule>, "
       "the units of the rule's right-hand side must be consistent with the "
       "units of that compartment's volume.";
   }
@@ -152,16 +152,16 @@ START_CONSTRAINT (10512, AssignmentRule, ar)
 
   if (ar.getLevel() == 2)
   {
-    msg =
-      "When the 'variable' in an <assignmentRule> refers to a <species>, the "
-      "units of the rule's right-hand side must be consistent with the units "
-      "of the species' quantity. (References: L2V2 Section 4.11.3; L2V3 "
-      "Section 4.11.3.)";
+    //msg =
+    //  "When the 'variable' in an <assignmentRule> refers to a <species>, the "
+    //  "units of the rule's right-hand side must be consistent with the units "
+    //  "of the species' quantity. (References: L2V2 Section 4.11.3; L2V3 "
+    //  "Section 4.11.3.)";
   }
   else
   {
     msg =
-      "In a <speciesConcentrationRule>, the "
+      "In a level 1 model this implies that in a <speciesConcentrationRule>, the "
       "units of the rule's right-hand side must be consistent with the units "
       "of the species' quantity.";
   }
@@ -212,16 +212,16 @@ START_CONSTRAINT (10513, AssignmentRule, ar)
 
   if (ar.getLevel() == 2)
   {
-    msg =
-      "When the 'variable' in an <assignmentRule> refers to a <parameter>, the "
-      "units of the rule's right-hand side must be consistent with the units "
-      "declared for that parameter. (References: L2V2 Section 4.11.3; L2V3 "
-      "Section 4.11.3.)";
+    //msg =
+    //  "When the 'variable' in an <assignmentRule> refers to a <parameter>, the "
+    //  "units of the rule's right-hand side must be consistent with the units "
+    //  "declared for that parameter. (References: L2V2 Section 4.11.3; L2V3 "
+    //  "Section 4.11.3.)";
   }
   else
   {
     msg =
-      "In a <parameterRule>, the "
+      "In a level 1 model this implies that in a <parameterRule>, the "
       "units of the rule's right-hand side must be consistent with the units "
       "declared for that parameter.";
   }
@@ -362,19 +362,20 @@ START_CONSTRAINT (10531, RateRule, rr)
 
   if (rr.getLevel() == 2)
   {
-    msg =
-      "When the 'variable' in a <rateRule> definition refers to a "
-      "<compartment>, the units of the rule's right-hand side must be of the "
-      "form _x per time_, where _x_ is either the 'units' in that "
-      "<compartment> definition, or (in the absence of explicit units declared "
-      "for the compartment size) the default units for that compartment, and "
-      "_time_ refers to the units of time for the model. (References: L2V2 "
-      "Section 4.11.4; L2V3 Section 4.11.4.)";
+    //msg =
+    //  "When the 'variable' in a <rateRule> definition refers to a "
+    //  "<compartment>, the units of the rule's right-hand side must be of the "
+    //  "form _x per time_, where _x_ is either the 'units' in that "
+    //  "<compartment> definition, or (in the absence of explicit units declared "
+    //  "for the compartment size) the default units for that compartment, and "
+    //  "_time_ refers to the units of time for the model. (References: L2V2 "
+    //  "Section 4.11.4; L2V3 Section 4.11.4.)";
   }
   else
   {
     msg =
-      "When a <compartmentVolumeRule> definition is of type 'rate' "
+      "In a level 1 model this implies that "
+      "when a <compartmentVolumeRule> definition is of type 'rate' "
       "the units of the rule's right-hand side must be of the "
       "form _x per time_, where _x_ is either the 'units' in that "
       "<compartment> definition, or (in the absence of explicit units declared "
@@ -414,17 +415,18 @@ START_CONSTRAINT (10532, RateRule, rr)
 
   if (rr.getLevel() == 2)
   {
-    msg =
-      "When the 'variable' in a <rateRule> definition refers to a <species>, "
-      "the units of the rule's right-hand side must be of the form _x per "
-      "time_, where _x_ is the units of that species' quantity, and _time_ "
-      "refers to the units of time for the model. (References: L2V2 Section "
-      "4.11.4; L2V3 Section 4.11.4.)";
+    //msg =
+    //  "When the 'variable' in a <rateRule> definition refers to a <species>, "
+    //  "the units of the rule's right-hand side must be of the form _x per "
+    //  "time_, where _x_ is the units of that species' quantity, and _time_ "
+    //  "refers to the units of time for the model. (References: L2V2 Section "
+    //  "4.11.4; L2V3 Section 4.11.4.)";
   }
   else
   {
     msg =
-      "When a <speciesConcentrationRule> definition is of type 'rate' "
+      "In a level 1 model this implies that "
+      "when a <speciesConcentrationRule> definition is of type 'rate' "
       "the units of the rule's right-hand side must be of the form _x per "
       "time_, where _x_ is the units of that species' quantity, and _time_ "
       "refers to the units of time for the model.";
@@ -475,17 +477,18 @@ START_CONSTRAINT (10533, RateRule, rr)
 
   if (rr.getLevel() == 2)
   {
-    msg =
-      "When the 'variable' in a <rateRule> definition refers to a <parameter>, "
-      "the units of the rule's right-hand side must be of the form _x per "
-      "time_, where _x_ is the 'units' in that <parameter> definition, and "
-      "_time_ refers to the units of time for the model. (References: L2V2 "
-      "Section 4.11.4; L2V3 Section 4.11.4.)";
+    //msg =
+    //  "When the 'variable' in a <rateRule> definition refers to a <parameter>, "
+    //  "the units of the rule's right-hand side must be of the form _x per "
+    //  "time_, where _x_ is the 'units' in that <parameter> definition, and "
+    //  "_time_ refers to the units of time for the model. (References: L2V2 "
+    //  "Section 4.11.4; L2V3 Section 4.11.4.)";
   }
   else
   {
     msg =
-      "When a <parameterRule> definition has type 'rate' "
+      "In a level 1 model this implies that "
+      "when a <parameterRule> definition has type 'rate' "
       "the units of the rule's right-hand side must be of the form _x per "
       "time_, where _x_ is the 'units' in that <parameter> definition, and "
       "_time_ refers to the units of time for the model.";

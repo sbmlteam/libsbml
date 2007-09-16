@@ -139,15 +139,13 @@ START_CONSTRAINT (20301, FunctionDefinition, fd)
     msg =
       "The top-level element within <math> in a <functionDefinition> must be "
       "one and only one <lambda> or a <semantics> element containing one "
-      "and only one <lambda> element. (References: L2V1 Section 4.3.2; L2V3 "
-      "L2V2 Section 4.3.2; L2V3 Section 4.3.2.)";
+      "and only one <lambda> element.";
   }
   else
   {
     msg =
       "The top-level element within <math> in a <functionDefinition> must be "
-      "one and only one <lambda>. (References: L2V1 Section 4.3.2; L2V2 "
-      "Section 4.3.2.)";
+      "one and only one <lambda>.";
   }
 
   if (fd.getVersion() != 3)
@@ -246,9 +244,10 @@ START_CONSTRAINT (20401, UnitDefinition, ud)
   if (ud.getLevel() == 1)
   {
     msg =
-      "The value of the 'name' attribute in a <unitDefinition> must be of "
-      "type 'UnitSId' and not be identical "
-      "to any unit predefined in SBML. That is, the identifier must not be the "
+      //"The value of the 'name' attribute in a <unitDefinition> must be of "
+      //"type 'UnitSId' and not be identical "
+      //"to any unit predefined in SBML. 
+      "That is, the identifier must not be the "
       "same as any of the following predefined units: 'ampere' 'Celsius' "
       "'gram' "
       "'katal' 'metre' 'meter' 'second' 'watt' 'becquerel' 'gray' 'kelvin' "
@@ -256,38 +255,36 @@ START_CONSTRAINT (20401, UnitDefinition, ud)
       "'siemens' 'weber' 'candela' 'henry' 'kilogram' 'newton' 'sievert' "
       "'coulomb' 'hertz' 'litre' 'liter' 'ohm' 'steradian' 'dimensionless' "
       "'item' "
-      "'lumen' 'pascal' 'tesla' 'farad' 'joule' 'lux' 'radian' 'volt'. "
-      "(References: L2V1 erratum 14; L2V2 Section 4.4.2.)";
+      "'lumen' 'pascal' 'tesla' 'farad' 'joule' 'lux' 'radian' 'volt'. ";
   }
   else
   {
     if (ud.getVersion() == 1)
     {
       msg =
-        "The value of the 'id' attribute in a <unitDefinition> must be of "
-        "type 'UnitSId' and not be identical "
-        "to any unit predefined in SBML. That is, the identifier must not be "
+        //"The value of the 'id' attribute in a <unitDefinition> must be of "
+        //"type 'UnitSId' and not be identical "
+        //"to any unit predefined in SBML. 
+        "That is, the identifier must not be "
         "the same as any of the following predefined units: 'ampere' 'Celsius' "
         "'gram' "
         "'katal' 'metre' 'second' 'watt' 'becquerel' 'gray' 'kelvin' 'mole' "
         "'siemens' 'weber' 'candela' 'henry' 'kilogram' 'newton' 'sievert' "
         "'coulomb' 'hertz' 'litre' 'ohm' 'steradian' 'dimensionless' 'item' "
-        "'lumen' 'pascal' 'tesla' 'farad' 'joule' 'lux' 'radian' 'volt'. "
-        "(References: L2V1 erratum 14; L2V2 Section 4.4.2.)";
+        "'lumen' 'pascal' 'tesla' 'farad' 'joule' 'lux' 'radian' 'volt'. ";
     }
     else
     {
       msg =
-        "The value of the 'id' attribute in a <unitDefinition> must be of "
-        "type UnitSId and not be identical "
-        "to any unit predefined in SBML. That is, the identifier must not be "
+        //"The value of the 'id' attribute in a <unitDefinition> must be of "
+        //"type UnitSId and not be identical "
+        //"to any unit predefined in SBML. 
+        "That is, the identifier must not be "
         "the same as any of the following predefined units: 'ampere' 'gram' "
         "'katal' 'metre' 'second' 'watt' 'becquerel' 'gray' 'kelvin' 'mole' "
         "'siemens' 'weber' 'candela' 'henry' 'kilogram' 'newton' 'sievert' "
         "'coulomb' 'hertz' 'litre' 'ohm' 'steradian' 'dimensionless' 'item' "
-        "'lumen' 'pascal' 'tesla' 'farad' 'joule' 'lux' 'radian' 'volt'. "
-        "(References: L2V1 erratum 14; L2V2 Section 4.4.2; L2V3 Section "
-	"4.4.2.)";
+        "'lumen' 'pascal' 'tesla' 'farad' 'joule' 'lux' 'radian' 'volt'. ";
     }
   }
    
@@ -308,8 +305,7 @@ START_CONSTRAINT (20402, UnitDefinition, ud)
       "formally, a <unitDefinition> for 'substance' must simplify to a single "
       "<unit> whose 'kind' attribute has a value of 'mole', 'item', 'gram', "
       "'kilogram', or 'dimensionless', and whose 'exponent' attribute has a "
-      "value of '1'. (References: L2V1 Section 4.4.3; L2V2 Section 4.4.3; "
-      "L2V3 Section 4.4.3.)";
+      "value of '1'.";
   }
   else
   {
@@ -319,7 +315,7 @@ START_CONSTRAINT (20402, UnitDefinition, ud)
       "formally, a <unitDefinition> for 'substance' must simplify to a single "
       "<unit> whose 'kind' attribute has a value of 'mole' or 'item', and whose "
       "'exponent' attribute has a value "
-      "of '1'. (References: L2V1 Section 4.4.3.)";
+      "of '1'.";
   }
 
 
@@ -365,7 +361,7 @@ START_CONSTRAINT (20403, UnitDefinition, ud)
       "'metre'. More formally, a <unitDefinition> for "
       "'length' must simplify to a single <unit> in which the "
       "'kind' attribute has a value of 'metre' and the 'exponent' attribute "
-      "has a value of '1'. (References: L2V1 Section 4.4.3.)";
+      "has a value of '1'.";
     }
     else
     {
@@ -376,8 +372,7 @@ START_CONSTRAINT (20403, UnitDefinition, ud)
         "'kind' attribute has a value of 'metre' and the 'exponent' attribute "
         "has a value of '1', or (b) the 'kind' attribute has a value of "
         "'dimensionless' "
-        "with any 'exponent' value. (References: L2V2 "
-        "Section 4.4.3; L2V3 Section 4.4.3.)";
+        "with any 'exponent' value.";
     }
   }
 
@@ -407,7 +402,7 @@ START_CONSTRAINT (20404, UnitDefinition, ud)
   if (ud.getLevel() == 1)
   {
     msg =
-      "In later versions of SBML 'length' was added to the built-in units "
+      "In later versions of SBML 'area' was added to the built-in units "
       "with restrictions on <unitDefinition>. Care would need be taken "
       "if this model were to be converted to a later level and version.";
   }
@@ -420,8 +415,7 @@ START_CONSTRAINT (20404, UnitDefinition, ud)
         "'metre's. More formally, a <unitDefinition> for "
         "'area' must simplify to a single <unit> in which  the 'kind' "
         "attribute has a value of 'metre' and the 'exponent' attribute has a "
-        "value of "
-        "'2'. (References: L2V1 Section 4.4.3)";
+        "value of '2'.";
     }
     else
     {
@@ -432,7 +426,7 @@ START_CONSTRAINT (20404, UnitDefinition, ud)
         "attribute has a value of 'metre' and the 'exponent' attribute has a "
         "value of "
         "'2', or (b) the 'kind' attribute has a value of 'dimensionless' with any "
-        "'exponent' value. (References: L2V2 Section 4.4.3; L2V3 Section 4.4.3.)";
+        "'exponent' value.";
     }
   }
 
@@ -466,8 +460,7 @@ START_CONSTRAINT (20405, UnitDefinition, ud)
       "<unit> in which either (a) the 'kind' attribute has a value of 'second' "
       "and the 'exponent' attribute has a value of '1', or (b) the 'kind' "
       "attribute has a "
-      "value of 'dimensionless' with any 'exponent' value. (References: L2V1 "
-      "Section 4.4.3; L2V2 Section 4.4.3.)";
+      "value of 'dimensionless' with any 'exponent' value.";
   }
   else
   {
@@ -475,8 +468,7 @@ START_CONSTRAINT (20405, UnitDefinition, ud)
       "Redefinitions of the built-in unit 'time' must be based on 'second'. "
       "More formally, a <unitDefinition> for 'time' must simplify to a single "
       "<unit> in which the 'kind' attribute has a value of 'second' and "
-      "the 'exponent' attribute has a value of '1'. (References: L2V1 "
-      "Section 4.4.3; L2V2 Section 4.4.3; L2V3 Section 4.4.3.)";
+      "the 'exponent' attribute has a value of '1'.";
   }
 
 
@@ -512,8 +504,7 @@ START_CONSTRAINT (20406, UnitDefinition, ud)
         "'volume' must simplify to a single <unit> in which the 'kind' "
         "attribute "
         "value is either 'litre', 'metre', or 'dimensionless'. Additional "
-        "constraints apply if the kind is 'litre' or 'metre'. (References: L2V1 "
-        "Section 4.4.3; L2V2 Section 4.4.3; L2V3 Section 4.4.3.)";
+        "constraints apply if the kind is 'litre' or 'metre'.";
     }
     else
     {
@@ -523,8 +514,7 @@ START_CONSTRAINT (20406, UnitDefinition, ud)
         "'volume' must simplify to a single <unit> in which the 'kind' "
         "attribute "
         "value is either 'litre' or 'metre'. Additional "
-        "constraints apply if the kind is 'litre' or 'metre'. (References: L2V1 "
-        "Section 4.4.3)";
+        "constraints apply if the kind is 'litre' or 'metre'.";
     }
   }
   else
@@ -762,8 +752,7 @@ START_CONSTRAINT (20507, Compartment, c)
       "The value of the 'units' attribute on a <compartment> having "
       "'spatialDimensions' of '1' must be either 'length' or 'metre', "
       "or the identifier of a <unitDefinition> based on "
-      "either 'metre' (with 'exponent' equal to '1'). "
-      "(References: L2V2 Section 4.7.5.)";
+      "either 'metre' (with 'exponent' equal to '1').";
   }
   else
   {
@@ -771,8 +760,7 @@ START_CONSTRAINT (20507, Compartment, c)
       "The value of the 'units' attribute on a <compartment> having "
       "'spatialDimensions' of '1' must be either 'length', 'metre', "
       "'dimensionless', or the identifier of a <unitDefinition> based on "
-      "either 'metre' (with 'exponent' equal to '1') or 'dimensionless'. "
-      "(References: L2V2 Section 4.7.5; L2V3 Section 4.7.5.)";
+      "either 'metre' (with 'exponent' equal to '1') or 'dimensionless'.";
   }
 
   const string&         units = c.getUnits();
@@ -809,8 +797,7 @@ START_CONSTRAINT (20508, Compartment, c)
       "The value of the 'units' attribute on a <compartment> having "
       "'spatialDimensions' of '2' must be either 'area' or "
       "the identifier of a <unitDefinition> based on 'metre' (with "
-      "'exponent' equal to '2'). (References: L2V1 Section "
-      "4.5.4.)";
+      "'exponent' equal to '2').";
   }
   else
   {
@@ -818,8 +805,7 @@ START_CONSTRAINT (20508, Compartment, c)
       "The value of the 'units' attribute on a <compartment> having "
       "'spatialDimensions' of '2' must be either 'area', 'dimensionless', or "
       "the identifier of a <unitDefinition> based on either 'metre' (with "
-      "'exponent' equal to '2') or 'dimensionless'. (References: L2V1 Section "
-      "4.5.4; L2V2 Section 4.7.5; L2V3 Section 4.7.5.)";
+      "'exponent' equal to '2') or 'dimensionless'.";
   }
 
   const string&         units = c.getUnits();
@@ -854,8 +840,7 @@ START_CONSTRAINT (20509, Compartment, c)
       "The value of the 'units' attribute on a <compartment> having "
       "'spatialDimensions' of '3' must be either 'volume', 'litre', or the "
       "identifier of a <unitDefinition> based on either 'litre', 'metre' (with "
-      "'exponent' equal to '3'), or 'dimensionless'. (References: L2V1 Section "
-      "4.5.4; L2V2 Section 4.7.5; L2V3 Section 4.7.5.)";
+      "'exponent' equal to '3'), or 'dimensionless'.";
   }
   else
   {
@@ -863,8 +848,7 @@ START_CONSTRAINT (20509, Compartment, c)
       "The value of the 'units' attribute on a <compartment> having "
       "'spatialDimensions' of '3' must be either 'volume', 'litre', or the "
       "identifier of a <unitDefinition> based on either 'litre', 'metre' (with "
-      "'exponent' equal to '3'). (References: L2V1 Section "
-      "4.5.4.)";
+      "'exponent' equal to '3').";
   }
 
   const string&         units = c.getUnits();
@@ -1104,7 +1088,7 @@ START_CONSTRAINT (20608, Species, s)
       "of the following: 'substance', "
       "or the identifier of a <unitDefinition> derived from "
       "'mole' (with an 'exponent' of '1') or 'item' (with an 'exponent' "
-      "of '1'). (References: L2V1 Section 4.6.4.)";
+      "of '1').";
   }
   else
   {
@@ -1115,7 +1099,7 @@ START_CONSTRAINT (20608, Species, s)
         "of the following: 'substance', 'mole' or 'item' "
         "or the identifier of a <unitDefinition> derived from "
         "'mole' (with an 'exponent' of '1') or 'item' (with an 'exponent' "
-        "of '1'). (References: L2V1 Section 4.6.4.)";
+        "of '1').";
     }
     else
     {
@@ -1125,8 +1109,7 @@ START_CONSTRAINT (20608, Species, s)
         "'dimensionless', or the identifier of a <unitDefinition> derived from "
         "'mole' (with an 'exponent' of '1'), 'item' (with an 'exponent' of '1')"
         ", 'gram' (with an 'exponent' of '1'), 'kilogram' (with an 'exponent' "
-        "of '1'), or 'dimensionless'. (References: L2V1 Section 4.6.4; "
-        "L2V2 Section 4.8.5; L2V3 Section 4.8.5.)";
+        "of '1'), or 'dimensionless'.";
     }
   }
 
@@ -1300,34 +1283,34 @@ START_CONSTRAINT (20901, AssignmentRule, r)
 
   if (r.getLevel() == 2)
   {
-    msg =
-      "The value of an <assignmentRule>'s 'variable' must be the identifier of "
-      "an existing <compartment>, <species>, or globally-defined <parameter>. "
-      "(References: L2V1 Section 4.8.2; L2V2 Section 4.11.3; L2V3 Section "
-      "4.11.3.)";
+    //msg =
+    //  "The value of an <assignmentRule>'s 'variable' must be the identifier of "
+    //  "an existing <compartment>, <species>, or globally-defined <parameter>. "
+    //  "(References: L2V1 Section 4.8.2; L2V2 Section 4.11.3; L2V3 Section "
+    //  "4.11.3.)";
   }
   else
   {
     if (r.isCompartmentVolume())
     {
       msg =
-        "The value of a <compartmentVolumeRule>'s 'compartment' must be the "
-        "identifier of an existing <compartment>. "
-        "(References: L1V2 Section 4.6.3.)";
+        "In a level 1 model this implies that "
+        "the value of a <compartmentVolumeRule>'s 'compartment' must be the "
+        "identifier of an existing <compartment>. ";
     }
     else if (r.isSpeciesConcentration())
     {
       msg =
-        "The value of a <speciesConcentrationRule>'s 'species' must be the "
-        "identifier of an existing <species>. "
-        "(References: L1V2 Section 4.6.2.)";
+        "In a level 1 model this implies that "
+        "the value of a <speciesConcentrationRule>'s 'species' must be the "
+        "identifier of an existing <species>. ";
     }
     else
     {
       msg =
-        "The value of a <parameterRule>'s 'name' must be the "
-        "identifier of an existing <parameter>. "
-        "(References: L1V2 Section 4.6.4.)";
+        "In a level 1 model this implies that "
+        "the value of a <parameterRule>'s 'name' must be the "
+        "identifier of an existing <parameter>. ";
     }
   }
 
@@ -1352,34 +1335,34 @@ START_CONSTRAINT (20902, RateRule, r)
 
   if (r.getLevel() == 2)
   {
-    msg =
-      "The value of a <rateRule>'s 'variable' must be the identifier of an "
-      "existing <compartment>, <species>, or globally-defined <parameter>. "
-      "(References: L2V1 Section 4.8.3; L2V2 Section 4.11.4; L2V3 Section "
-      "4.11.4.)";
+    //msg =
+    //  "The value of a <rateRule>'s 'variable' must be the identifier of an "
+    //  "existing <compartment>, <species>, or globally-defined <parameter>. "
+    //  "(References: L2V1 Section 4.8.3; L2V2 Section 4.11.4; L2V3 Section "
+    //  "4.11.4.)";
   }
   else
   {
     if (r.isCompartmentVolume())
     {
       msg =
-        "The value of a <compartmentVolumeRule>'s 'compartment' must be the "
-        "identifier of an existing <compartment>. "
-        "(References: L1V2 Section 4.6.3.)";
+        "In a level 1 model this implies that "
+        "the value of a <compartmentVolumeRule>'s 'compartment' must be the "
+        "identifier of an existing <compartment>. ";
     }
     else if (r.isSpeciesConcentration())
     {
       msg =
-        "The value of a <speciesConcentrationRule>'s 'species' must be the "
-        "identifier of an existing <species>. "
-        "(References: L1V2 Section 4.6.2.)";
+        "In a level 1 model this implies that "
+        "the value of a <speciesConcentrationRule>'s 'species' must be the "
+        "identifier of an existing <species>. ";
     }
     else
     {
       msg =
-        "The value of a <parameterRule>'s 'name' must be the "
-        "identifier of an existing <parameter>. "
-        "(References: L1V2 Section 4.6.4.)";
+        "In a level 1 model this implies that "
+        "the value of a <parameterRule>'s 'name' must be the "
+        "identifier of an existing <parameter>. ";
     }
   }
 

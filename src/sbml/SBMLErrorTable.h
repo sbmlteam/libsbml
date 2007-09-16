@@ -601,7 +601,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "When the 'variable' in an <assignmentRule> refers to a <compartment>, "
+    "the units of the rule's right-hand side must be consistent with the "
+    "units of that compartment's size. (References: L2V2 Section 4.11.3; "
+    "L2V3 Section 4.11.3.)"
   },
 
   //10512
@@ -613,7 +616,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "When the 'variable' in an <assignmentRule> refers to a <species>, the "
+    "units of the rule's right-hand side must be consistent with the units "
+    "of the species' quantity. (References: L2V2 Section 4.11.3; L2V3 "
+    "Section 4.11.3.)"
   },
 
   //10513
@@ -625,7 +631,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "When the 'variable' in an <assignmentRule> refers to a <parameter>, the "
+    "units of the rule's right-hand side must be consistent with the units "
+    "declared for that parameter. (References: L2V2 Section 4.11.3; L2V3 "
+    "Section 4.11.3.)"
   },
 
   //10521
@@ -682,7 +691,13 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "When the 'variable' in a <rateRule> definition refers to a "
+    "<compartment>, the units of the rule's right-hand side must be of the "
+    "form _x per time_, where _x_ is either the 'units' in that "
+    "<compartment> definition, or (in the absence of explicit units declared "
+    "for the compartment size) the default units for that compartment, and "
+    "_time_ refers to the units of time for the model. (References: L2V2 "
+    "Section 4.11.4; L2V3 Section 4.11.4.)"
   },
 
   //10532
@@ -694,7 +709,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "When the 'variable' in a <rateRule> definition refers to a <species>, "
+    "the units of the rule's right-hand side must be of the form _x per "
+    "time_, where _x_ is the units of that species' quantity, and _time_ "
+    "refers to the units of time for the model. (References: L2V2 Section "
+    "4.11.4; L2V3 Section 4.11.4.)"
   },
 
   //10533
@@ -706,7 +725,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "When the 'variable' in a <rateRule> definition refers to a <parameter>, "
+    "the units of the rule's right-hand side must be of the form _x per "
+    "time_, where _x_ is the 'units' in that <parameter> definition, and "
+    "_time_ refers to the units of time for the model. (References: L2V2 "
+    "Section 4.11.4; L2V3 Section 4.11.4.)"
   },
 
   //10541
@@ -1255,7 +1278,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The top-level element within <math> in a <functionDefinition> is "
+    "restricted. (References: L2V1 Section 4.3.2; L2V2 Section 4.3.2; "
+    "L2V3 Section 4.3.2.)"
+    // actual restrictions are listed in constraint 
+    // as these vary between levels/versions
   },
 
   //20302
@@ -1330,7 +1357,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of the 'id' attribute in a <unitDefinition> must be of "
+    "type 'UnitSId' and not be identical to any unit predefined in SBML. "
+    "(References: L2V1 erratum 14; L2V2 Section 4.4.2; L2V3 Section 4.4.2.)"
+    // actual unit are listed in constraint 
+    // as these vary between levels/versions
   },
 
   //20402
@@ -1342,7 +1373,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "Redefinitions of the built-in unit 'substance' are restricted."
+    "(References: L2V1 Section 4.4.3; L2V2 Section 4.4.3; L2V3 Section 4.4.3.)"
+     // actual restrictions are listed in constraint 
+    // as these vary between levels/versions
   },
 
   //20403
@@ -1354,7 +1388,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "Redefinitions of the built-in unit 'length' are restricted. (References: L2V2 "
+    "Section 4.4.3; L2V3 Section 4.4.3.)"
+    // actual restrictions are listed in constraint 
+    // as these vary between levels/versions
   },
 
   //20404
@@ -1366,7 +1403,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "Redefinitions of the built-in unit 'area' are restricted. "
+    "(References: L2V2 Section 4.4.3; L2V3 Section 4.4.3.)"
+    // actual restrictions are listed in constraint 
+    // as these vary between levels/versions
   },
 
   //20405
@@ -1378,7 +1418,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "Redefinitions of the built-in unit 'time' are restricted. (References: L2V1 "
+    "Section 4.4.3; L2V2 Section 4.4.3; L2V3 Section 4.4.3.)"
+    // actual restrictions are listed in constraint 
+    // as these vary between levels/versions
   },
 
   //20406
@@ -1390,7 +1433,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "Redefinitions of the built-in unit 'volume' are restricted. (References: L2V1 "
+    "Section 4.4.3; L2V2 Section 4.4.3; L2V3 Section 4.4.3.)"
+    // actual restrictions are listed in constraint 
+    // as these vary between levels/versions
   },
 
   //20407
@@ -1581,7 +1627,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of the 'units' attribute on a <compartment> having "
+    "'spatialDimensions' of '1' is restricted. "
+    "(References: L2V2 Section 4.7.5; L2V3 Section 4.7.5.)"
+    // actual restrictions are listed in constraint 
+    // as these vary between levels/versions
   },
 
   //20508
@@ -1593,7 +1643,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of the 'units' attribute on a <compartment> having "
+    "'spatialDimensions' of '2' is restricted. (References: L2V1 Section "
+    "4.5.4; L2V2 Section 4.7.5; L2V3 Section 4.7.5.)"
+    // actual restrictions are listed in constraint 
+    // as these vary between levels/versions
   },
 
   //20509
@@ -1605,7 +1659,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of the 'units' attribute on a <compartment> having "
+    "'spatialDimensions' of '3' is restricted. (References: L2V1 Section "
+    "4.5.4; L2V2 Section 4.7.5; L2V3 Section 4.7.5.)"
+    // actual restrictions are listed in constraint 
+    // as these vary between levels/versions
   },
 
   //20510
@@ -1739,7 +1797,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of a <species>'s 'units' attribute is restricted. "
+    "(References: L2V1 Section 4.6.4; L2V2 Section 4.8.5; L2V3 Section 4.8.5.)"
+    // actual restrictions are listed in constraint 
+    // as these vary between levels/versions
   },
 
   //20609
@@ -1917,7 +1978,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of an <assignmentRule>'s 'variable' must be the identifier of "
+    "an existing <compartment>, <species>, or globally-defined <parameter>. "
+    "(References: L2V1 Section 4.8.2; L2V2 Section 4.11.3; L2V3 Section "
+    "4.11.3.)"
   },
 
   //20902
@@ -1929,7 +1993,10 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The value of a <rateRule>'s 'variable' must be the identifier of an "
+    "existing <compartment>, <species>, or globally-defined <parameter>. "
+    "(References: L2V1 Section 4.8.3; L2V2 Section 4.11.4; L2V3 Section "
+    "4.11.4.)"
   },
 
   //20903
