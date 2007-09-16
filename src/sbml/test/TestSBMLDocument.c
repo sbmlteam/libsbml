@@ -128,6 +128,73 @@ START_TEST (test_SBMLDocument_setModel)
 END_TEST
 
 
+START_TEST (test_SBMLDocument_setLevelAndVersion)
+{
+  SBMLDocument_t *d  = SBMLDocument_create();
+  SBMLDocument_setLevelAndVersion(d, 2, 2);
+  
+  Model_t        *m1 = Model_create();
+
+  SBMLDocument_setModel(d, m1);
+
+  fail_unless(SBMLDocument_setLevelAndVersion(d,2,3) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersion(d,2,1) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersion(d,1,2) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersion(d,1,1) == 0);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLDocument_setLevelAndVersion_Warning)
+{
+  SBMLDocument_t *d  = SBMLDocument_create();
+  SBMLDocument_setLevelAndVersion(d, 2, 2);
+  
+  Model_t        *m1 = Model_create();
+  SBase_setSBOTerm(m1, 2);
+
+  SBMLDocument_setModel(d, m1);
+
+  fail_unless(SBMLDocument_setLevelAndVersion(d,2,3) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersion(d,2,1) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersion(d,1,2) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersion(d,1,1) == 0);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLDocument_setLevelAndVersion_Error)
+{
+  SBMLDocument_t *d  = SBMLDocument_create();
+  SBMLDocument_setLevelAndVersion(d, 2, 1);
+  
+  Model_t        *m1 = Model_create();
+
+  /* add unitDefinition */
+  Unit_t * u = Unit_create();
+  Unit_setKind(u, "mole");
+  Unit_setOffset(u, 3.2);
+
+  UnitDefinition_t *ud = UnitDefinition_create();
+  UnitDefinition_addUnit(ud, u);
+
+  Model_addUnitDefinition(m1, ud);
+  SBMLDocument_setModel(d, m1);
+
+  fail_unless(SBMLDocument_setLevelAndVersion(d,2,2) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersion(d,2,3) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersion(d,1,2) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersion(d,1,1) == 0);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLDocument (void) 
 { 
@@ -139,6 +206,10 @@ create_suite_SBMLDocument (void)
   tcase_add_test(tcase, test_SBMLDocument_createWith );
   tcase_add_test(tcase, test_SBMLDocument_free_NULL  );
   tcase_add_test(tcase, test_SBMLDocument_setModel   );
+
+  tcase_add_test(tcase, test_SBMLDocument_setLevelAndVersion         );
+  tcase_add_test(tcase, test_SBMLDocument_setLevelAndVersion_Warning );
+  tcase_add_test(tcase, test_SBMLDocument_setLevelAndVersion_Error   );
 
   suite_add_tcase(suite, tcase);
 
