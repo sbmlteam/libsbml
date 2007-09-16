@@ -485,6 +485,17 @@ SBMLDocument::setConsistencyChecks(SBMLError::SBMLCategory validator,
     }
 
     break;
+  case SBMLError::SBMLModelingPractice:
+    if (apply)
+    {
+      mApplicableValidators |= PracticeCheckON;
+    }
+    else
+    {
+      mApplicableValidators &= PracticeCheckOFF;
+    }
+
+    break;
   default:
       mApplicableValidators = AllChecksON;
     break;
@@ -1240,6 +1251,7 @@ SBMLDocument_createModel (SBMLDocument_t *d)
   * @li SBMLConsistencyMathML = 10    - Error in validating MathML. 
   * @li SBMLConsistencySBO = 11       - Error in validation SBO. 
   * @li SBMLOverdetermined = 12       - Error in equations of model. 
+  * @li SBMLModelingPractice = 14     - Error in model practice. 
   *
   * @param apply boolean indicating whether the validator 
   * should be applied or not.

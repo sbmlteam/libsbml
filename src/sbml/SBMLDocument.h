@@ -273,6 +273,7 @@ public:
    * @li SBMLError::SBMLConsistencyMathML:      Error in validating MathML. 
    * @li SBMLError::SBMLConsistencySBO:         Error in validation SBO. 
    * @li SBMLError::SBMLOverdetermined:         Error in equations of model. 
+   * @li SBMLError::SBMLModelingPractice:       Error in modeling practice. 
    *
    * @param validator the SBMLCategory of the validator to turn on/off
    *
