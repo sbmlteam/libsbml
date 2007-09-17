@@ -2956,6 +2956,11 @@ GetRule ( Model_t      *pModel,
       pacTypecode     = TypecodeToChar(Rule_getTypeCode(pRule));
     else
       pacTypecode     = TypecodeToChar(Rule_getL1TypeCode(pRule));
+    
+    /* need to look for an l1 algebraic rule */
+    if (!strcmp(pacTypecode, "ERROR"))
+       pacTypecode     = TypecodeToChar(Rule_getTypeCode(pRule));
+       
 
     
     pacNotes        = SBase_getNotesString((SBase_t*) pRule);
