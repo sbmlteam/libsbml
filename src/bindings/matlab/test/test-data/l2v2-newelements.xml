@@ -47,6 +47,15 @@
                 <listOfReactants>
                     <speciesReference species="X0" id="me" name="sarah"/>
                 </listOfReactants>
+                <kineticLaw>
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <apply>
+                        <times/>
+                        <cn> 1 </cn>
+                        <ci> cell </ci>
+                    </apply>
+                </math>
+                </kineticLaw>
             </reaction>
         </listOfReactions>
     </model>

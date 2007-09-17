@@ -4,7 +4,7 @@ filename = fullfile(pwd,'test-data', 'l2v2-newelements.xml');
 
 m = TranslateSBML(filename);
 
-test = 33;
+test = 34;
 Totalfail = 0;
 
 Totalfail = Totalfail + fail_unless(m.SBML_level == 2);
@@ -123,6 +123,8 @@ Totalfail = Totalfail + fail_unless(m.sboTerm == 4);
   Totalfail = Totalfail + fail_unless( strcmp(m.reaction(1).reactant.species, 'X0'));
   Totalfail = Totalfail + fail_unless( strcmp(m.reaction(1).reactant.id, 'me'));
   Totalfail = Totalfail + fail_unless( strcmp(m.reaction(1).reactant.name, 'sarah'));
+
+  Totalfail = Totalfail + fail_unless( m.reaction(1).kineticLaw.sboTerm == -1);
 
 disp('Testing readFromFile7:');
 disp(sprintf('Number tests: %d', test));
