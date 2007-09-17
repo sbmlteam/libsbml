@@ -1093,7 +1093,7 @@ GetCompartment ( Model_t      *pModel,
 		"constant", 
 		"isSetSize", 
 		"isSetVolume"};
-  const int nNoFields_l2v3 = 13;
+  const int nNoFields_l2v3 = 14;
   const char *field_names_l2v3[] = {	
     "typecode", 
 		"notes", 
@@ -1402,6 +1402,11 @@ GetParameter ( Model_t      *pModel,
       case 1:
         break;
       case 2:
+        if (SBase_isSetSBOTerm((SBase_t*) pParameter)) 
+        {
+          nSBO = SBase_getSBOTerm((SBase_t*) pParameter);
+        }
+        break;
       case 3:
         if (SBase_isSetSBOTerm((SBase_t*) pParameter)) 
         {
@@ -1606,6 +1611,11 @@ void GetReaction ( Model_t      *pModel,
       case 1:
         break;
       case 2:
+        if (SBase_isSetSBOTerm((SBase_t*) pReaction)) 
+        {
+          nSBO = SBase_getSBOTerm((SBase_t*) pReaction);
+        }
+        break;
       case 3:
         if (SBase_isSetSBOTerm((SBase_t*) pReaction)) 
         {
@@ -1966,6 +1976,12 @@ GetReactants ( Reaction_t   *pReaction,
         nDenominator = SpeciesReference_getDenominator(pReactant);
         break;
       case 2:
+        pacId       = SpeciesReference_getId(pReactant);
+        pacName     = SpeciesReference_getName(pReactant);
+        if (SBase_isSetSBOTerm((SBase_t*) pReactant)) {
+          nSBO = SBase_getSBOTerm((SBase_t*) pReactant);
+        }
+        break;
       case 3:
         pacId       = SpeciesReference_getId(pReactant);
         pacName     = SpeciesReference_getName(pReactant);
@@ -2164,6 +2180,12 @@ const int nNoFields_l2v2 = 9;
         nDenominator = SpeciesReference_getDenominator(pProduct);
         break;
       case 2:
+        pacId       = SpeciesReference_getId(pProduct);
+        pacName     = SpeciesReference_getName(pProduct);
+        if (SBase_isSetSBOTerm((SBase_t*) pProduct)) {
+          nSBO = SBase_getSBOTerm((SBase_t*) pProduct);
+        }
+        break;
       case 3:
         pacId       = SpeciesReference_getId(pProduct);
         pacName     = SpeciesReference_getName(pProduct);
@@ -2272,7 +2294,7 @@ GetKineticLaw ( Reaction_t   *pReaction,
 		"parameter",
 		"timeUnits", 
 		"substanceUnits"};
-  const int nNoFields_l2v2 = 9;
+  const int nNoFields_l2v2 = 7;
   const char *field_names_l2v2[] = {	
     "typecode", 
 		"notes", 
@@ -2368,6 +2390,11 @@ GetKineticLaw ( Reaction_t   *pReaction,
         pacSubstanceUnits = KineticLaw_getSubstanceUnits(pKineticLaw);
         break;
       case 2:
+        if (SBase_isSetSBOTerm((SBase_t*) pKineticLaw)) 
+        {
+          nSBO = SBase_getSBOTerm((SBase_t*) pKineticLaw);
+        }
+        break;
       case 3:
         if (SBase_isSetSBOTerm((SBase_t*) pKineticLaw)) 
         {
@@ -2453,7 +2480,7 @@ GetKineticLaw ( Reaction_t   *pReaction,
     mxSetField(mxKineticLawReturn,0,"substanceUnits",mxCreateString(pacSubstanceUnits)); 
   }
   if (unSBMLLevel == 2 && unSBMLVersion == 2) {
-  mxSetField(mxKineticLawReturn,0,"sboTerm",CreateIntScalar(nSBO)); 
+    mxSetField(mxKineticLawReturn,0,"sboTerm",CreateIntScalar(nSBO)); 
   }
 
 }
@@ -2588,6 +2615,11 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
       case 1:
         break;
       case 2:
+        if (SBase_isSetSBOTerm((SBase_t*) pParameter)) 
+        {
+          nSBO = SBase_getSBOTerm((SBase_t*) pParameter);
+        }
+        break;
       case 3:
         if (SBase_isSetSBOTerm((SBase_t*) pParameter)) 
         {
@@ -2744,6 +2776,13 @@ GetModifier ( Reaction_t   *pReaction,
     case 1:
       break;
     case 2:
+      pacId   = SpeciesReference_getId(pModifier);
+      pacName = SpeciesReference_getName(pModifier);
+      if (SBase_isSetSBOTerm((SBase_t*) pModifier)) 
+      {
+        nSBO = SBase_getSBOTerm((SBase_t*) pModifier);
+      }
+      break;
     case 3:
       pacId   = SpeciesReference_getId(pModifier);
       pacName = SpeciesReference_getName(pModifier);
@@ -3317,6 +3356,11 @@ GetFunctionDefinition ( Model_t      *pModel,
     case 1:
       break;
     case 2:
+      if (SBase_isSetSBOTerm((SBase_t*) pFuncDefinition)) 
+      {
+        nSBO = SBase_getSBOTerm((SBase_t*) pFuncDefinition);
+      }
+      break;
     case 3:
       if (SBase_isSetSBOTerm((SBase_t*) pFuncDefinition)) 
       {
@@ -3722,6 +3766,11 @@ GetEventAssignment ( Event_t      *pEvent,
     case 1:
       break;
     case 2:
+      if (SBase_isSetSBOTerm((SBase_t*) pEventAssignment))
+      {
+        nSBO = SBase_getSBOTerm((SBase_t*) pEventAssignment);
+      }
+      break;
     case 3:
       if (SBase_isSetSBOTerm((SBase_t*) pEventAssignment))
       {
