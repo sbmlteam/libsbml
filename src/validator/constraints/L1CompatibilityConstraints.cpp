@@ -135,9 +135,11 @@ START_CONSTRAINT (91009, SpeciesReference, sr)
   //msg =
   //  "A <speciesReference> containing a non-integer 'stoichiometry' attribute "
   //  "value cannot be represented in SBML Level 1.";
-
-
+  
+  /* doesnt apply if the SpeciesReference is a modifier */
+  pre(!sr.isModifier());
   pre( !sr.isSetStoichiometryMath() );
+
   inv( floor(sr.getStoichiometry()) == sr.getStoichiometry() );
 }
 END_CONSTRAINT
