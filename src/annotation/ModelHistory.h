@@ -221,7 +221,7 @@ public:
   /**
    * Sets the value of the offset sign checking appropriateness.
    *  
-   * @param sign of the offset an unsign of the offseted int representing 
+   * @param sign an unsigned int representing 
    * the sign of the offset to set.  
    */
   void setSignOffset   (unsigned int sign); 
@@ -466,76 +466,108 @@ public:
   ModelHistory ();
 
   /**
-   * destructor
+   * Destroys the ModelHistory.
    */
   ~ModelHistory();
 
   /**
-  * Copy constructor.
+  * Copy constructor; creates a copy of the ModelHistory.
   */
   ModelHistory(const ModelHistory& orig);
 
   /**
-   * Assignment operator
+   * Assignment operator.
    */
   ModelHistory& operator=(const ModelHistory& orig);
 
   /**
+   * Creates and returns a copy of this ModelHistory.
+   *
    * @return a (deep) copy of this ModelHistory.
    */
   ModelHistory* clone () const;
 
   /**
-   * adds the creator to the model history
+   * Returns the createdDate from the ModelHistory.
+   *
+   * @return Date object representing the createdDate
+   * from the ModelHistory.
    */
-  void addCreator(ModelCreator *);
-
-  /**
-   * sets the created date
-   */
-  void setCreatedDate(Date*);
-
-  /**
-   * sets teh modiefied date
-   */
-  void setModifiedDate(Date*);
-
-  /**
-  * return the List of creators
-  */
-  List * getListCreators();
-
-  /**
-  * return created date
-  */
   Date * getCreatedDate();
 
   /**
-  * return modified date
-  */
+   * Returns the modifiedDate from the ModelHistory.
+   *
+   * @return Date object representing the modifiedDate
+   * from the ModelHistory.
+   */
   Date * getModifiedDate();
 
   /**
-   * @return number in List of Creator
-   */
-  unsigned int getNumCreators();
-
-  /**
-   * @return nth Creator
-   */
-  ModelCreator* getCreator(unsigned int n);
-
-  /**
-   * @return true if the created Date has been set, false
-   * otherwise.
+   * Predicate returning @c true or @c false depending on whether this
+   * ModelHistory's createdDate has been set.
+   *
+   * @return @c true if the createdDate of this ModelHistory has been set, 
+   * @c false otherwise.
    */
   bool isSetCreatedDate();
 
   /**
-   * @return true if the modified Date has been set, false
-   * otherwise.
+   * Predicate returning @c true or @c false depending on whether this
+   * ModelHistory's modifiedDate has been set.
+   *
+   * @return @c true if the modifiedDate of this ModelHistory has been set, 
+   * @c false otherwise.
    */
   bool isSetModifiedDate();
+
+  /**
+   * Sets the createdDate.
+   *  
+   * @param date a Date object representing the date
+   * the ModelHistory was created. 
+   */
+  void setCreatedDate(Date* date);
+
+  /**
+   * Sets the modifiedDate.
+   *  
+   * @param date a Date object representing the date
+   * the ModelHistory was modified. 
+   */
+  void setModifiedDate(Date* date);
+
+  /**
+   * Adds a copy of the given ModelCreator object to 
+   * this ModelHistory.
+   *
+   * @param mc the ModelCreator to add
+   */
+  void addCreator(ModelCreator * mc);
+
+  /**
+   * Get the List of ModelCreator objects in this 
+   * ModelHistory.
+   * 
+   * @return the list of ModelCreators for this ModelHistory.
+   */
+  List * getListCreators();
+
+  /**
+   * Get the nth ModelCreator object in this ModelHistory.
+   * 
+   * @return the nth ModelCreator of this ModelHistory.
+   */
+  ModelCreator* getCreator(unsigned int n);
+
+  /**
+   * Get the number of ModelCreator objects in this 
+   * ModelHistory.
+   * 
+   * @return the number of ModelCreators in this 
+   * ModelHistory.
+   */
+  unsigned int getNumCreators();
 
 
 
@@ -545,8 +577,8 @@ protected:
 
   List * mCreators;
 
-  Date* mCreated;
-  Date* mModified;
+  Date* mCreatedDate;
+  Date* mModifiedDate;
 
 
 
@@ -654,7 +686,7 @@ Date_free(Date_t *);
 
 LIBSBML_EXTERN
 Date_t *
-Date_t_clone (const Date_t* c);
+Date_clone (const Date_t* date);
 
 
 LIBSBML_EXTERN
@@ -766,37 +798,37 @@ ModelHistory_clone (const Compartment_t* c);
 
 
 LIBSBML_EXTERN
-void ModelHistory_addCreator(ModelHistory_t * history, 
+void ModelHistory_addCreator(ModelHistory_t * mh, 
                              ModelCreator_t * mc);
 
 LIBSBML_EXTERN
-void ModelHistory_setCreatedDate(ModelHistory_t * history, 
+void ModelHistory_setCreatedDate(ModelHistory_t * mh, 
                                  Date_t * date);
 
 LIBSBML_EXTERN
-void ModelHistory_setModifiedDate(ModelHistory_t * history, 
+void ModelHistory_setModifiedDate(ModelHistory_t * mh, 
                                   Date_t * date);
 
 LIBSBML_EXTERN
-List_t * ModelHistory_getListCreators(ModelHistory_t * history);
+List_t * ModelHistory_getListCreators(ModelHistory_t * mh);
 
 LIBSBML_EXTERN
-Date_t * ModelHistory_getCreatedDate(ModelHistory_t * history);
+Date_t * ModelHistory_getCreatedDate(ModelHistory_t * mh);
 
 LIBSBML_EXTERN
-Date_t * ModelHistory_getModifiedDate(ModelHistory_t * history);
+Date_t * ModelHistory_getModifiedDate(ModelHistory_t * mh);
 
 LIBSBML_EXTERN
-unsigned int ModelHistory_getNumCreators(ModelHistory_t * history);
+unsigned int ModelHistory_getNumCreators(ModelHistory_t * mh);
 
 LIBSBML_EXTERN
-ModelCreator_t* ModelHistory_getCreator(ModelHistory_t * history, unsigned int n);
+ModelCreator_t* ModelHistory_getCreator(ModelHistory_t * mh, unsigned int n);
 
 LIBSBML_EXTERN
-int ModelHistory_isSetCreatedDate(ModelHistory_t * history);
+int ModelHistory_isSetCreatedDate(ModelHistory_t * mh);
 
 LIBSBML_EXTERN
-int ModelHistory_isSetModifiedDate(ModelHistory_t * history);
+int ModelHistory_isSetModifiedDate(ModelHistory_t * mh);
 
 
 END_C_DECLS

@@ -687,8 +687,8 @@ ModelCreator::unsetOrganisation()
  */
 ModelHistory::ModelHistory ()
 {
-  mCreated = NULL;
-  mModified = NULL;
+  mCreatedDate = NULL;
+  mModifiedDate = NULL;
   mCreators = new List();
 }
 
@@ -698,8 +698,8 @@ ModelHistory::ModelHistory ()
 ModelHistory::~ModelHistory()
 {
   if (mCreators) delete mCreators;
-  if (mCreated) delete mCreated;
-  if (mModified) delete mModified;
+  if (mCreatedDate) delete mCreatedDate;
+  if (mModifiedDate) delete mModifiedDate;
 }
 
 /**
@@ -712,21 +712,21 @@ ModelHistory::ModelHistory(const ModelHistory& orig)
   {
     this->addCreator(static_cast<ModelCreator*>(orig.mCreators->get(i)));
   }
-  if (orig.mCreated) 
+  if (orig.mCreatedDate) 
   {
-    setCreatedDate(orig.mCreated);
+    setCreatedDate(orig.mCreatedDate);
   }
   else
   {
-    mCreated = NULL;
+    mCreatedDate = NULL;
   }
-  if (orig.mModified)
+  if (orig.mModifiedDate)
   {
-    setModifiedDate(orig.mModified);
+    setModifiedDate(orig.mModifiedDate);
   }
   else
   {
-    mModified = NULL;
+    mModifiedDate = NULL;
   }
 }
 
@@ -741,8 +741,8 @@ ModelHistory::operator=(const ModelHistory& orig)
     addCreator(static_cast<ModelCreator*>(orig.mCreators->get(i)));
   }
 
-  if (orig.mCreated) setCreatedDate(orig.mCreated);
-  if (orig.mModified)setModifiedDate(orig.mModified);
+  if (orig.mCreatedDate) setCreatedDate(orig.mCreatedDate);
+  if (orig.mModifiedDate)setModifiedDate(orig.mModifiedDate);
   return *this;
 }
 
@@ -769,7 +769,7 @@ ModelHistory::addCreator(ModelCreator * creator)
 void 
 ModelHistory::setCreatedDate(Date* date)
 {
-  mCreated = date->clone();
+  mCreatedDate = date->clone();
 }
 
 /**
@@ -778,7 +778,7 @@ ModelHistory::setCreatedDate(Date* date)
 void 
 ModelHistory::setModifiedDate(Date* date)
 {
-  mModified = date->clone();
+  mModifiedDate = date->clone();
 }
 
 /**
@@ -797,7 +797,7 @@ ModelHistory::getListCreators()
 Date *
 ModelHistory::getCreatedDate()
 {
-  return mCreated;
+  return mCreatedDate;
 }
 
 
@@ -807,7 +807,7 @@ ModelHistory::getCreatedDate()
 Date *
 ModelHistory::getModifiedDate()
 {
-  return mModified;
+  return mModifiedDate;
 }
 
 /**
@@ -834,7 +834,7 @@ ModelHistory::getCreator(unsigned int n)
 bool 
 ModelHistory::isSetCreatedDate()
 {
-  return mCreated != 0;
+  return mCreatedDate != 0;
 }
 
 /**
@@ -844,7 +844,7 @@ ModelHistory::isSetCreatedDate()
 bool 
 ModelHistory::isSetModifiedDate()
 {
-  return mModified != 0;
+  return mModifiedDate != 0;
 }
 
 
@@ -911,22 +911,22 @@ Date_free(Date_t * date)
 /**
  * Creates a deep copy of the given Date_t structure
  * 
- * @param c the Date_t structure to be copied
+ * @param date the Date_t structure to be copied
  * 
  * @return a (deep) copy of the given Date_t structure.
  */
 LIBSBML_EXTERN
 Date_t *
-Date_clone (const Date_t* c)
+Date_clone (const Date_t* date)
 {
-  return static_cast<Date*>( c->clone() );
+  return static_cast<Date*>( date->clone() );
 }
 
 
 /**
  * Returns the Date as a string.
  *
- * @param c the Date_t structure to be queried
+ * @param date the Date_t structure to be queried
  * 
  * @return the date as a string.
  */
@@ -942,7 +942,7 @@ Date_getDateAsString(Date_t * date)
 /**
  * Returns the year from this Date.
  *
- * @param c the Date_t structure to be queried
+ * @param date the Date_t structure to be queried
  * 
  * @return the year from this Date.
  */
@@ -956,7 +956,7 @@ Date_getYear(Date_t * date)
 /**
  * Returns the month from this Date.
  *
- * @param c the Date_t structure to be queried
+ * @param date the Date_t structure to be queried
  * 
  * @return the month from this Date.
  */
@@ -971,7 +971,7 @@ Date_getMonth(Date_t * date)
 /**
  * Returns the day from this Date.
  *
- * @param c the Date_t structure to be queried
+ * @param date the Date_t structure to be queried
  * 
  * @return the day from this Date.
  */
@@ -986,7 +986,7 @@ Date_getDay(Date_t * date)
 /**
  * Returns the hour from this Date.
  *
- * @param c the Date_t structure to be queried
+ * @param date the Date_t structure to be queried
  * 
  * @return the hour from this Date.
  */
@@ -1001,7 +1001,7 @@ Date_getHour(Date_t * date)
 /**
  * Returns the minute from this Date.
  *
- * @param c the Date_t structure to be queried
+ * @param date the Date_t structure to be queried
  * 
  * @return the minute from this Date.
  */
@@ -1016,7 +1016,7 @@ Date_getMinute(Date_t * date)
 /**
  * Returns the seconds from this Date.
  *
- * @param c the Date_t structure to be queried
+ * @param date the Date_t structure to be queried
  * 
  * @return the seconds from this Date.
  */
@@ -1030,7 +1030,7 @@ Date_getSecond(Date_t * date)
 /**
  * Returns the sign of the offset from this Date.
  *
- * @param c the Date_t structure to be queried
+ * @param date the Date_t structure to be queried
  * 
  * @return the sign of the offset from this Date.
  */
@@ -1044,7 +1044,7 @@ Date_getSignOffset(Date_t * date)
 /**
  * Returns the hours of the offset from this Date.
  *
- * @param c the Date_t structure to be queried
+ * @param date the Date_t structure to be queried
  * 
  * @return the hours of the offset from this Date.
  */
@@ -1058,7 +1058,7 @@ Date_getHoursOffset(Date_t * date)
 /**
  * Returns the minutes of the offset from this Date.
  *
- * @param c the Date_t structure to be queried
+ * @param date the Date_t structure to be queried
  * 
  * @return the minutes of the offset from this Date.
  */
@@ -1070,7 +1070,10 @@ Date_getMinutesOffset(Date_t * date)
 } 
 
 /**
- * sets the value of Year
+ * Sets the value of the year checking appropriateness.
+ *  
+ * @param date the Date_t structure to be set
+ * @param value an unsigned int representing the year to set.  
  */
 LIBSBML_EXTERN
 void
@@ -1080,7 +1083,10 @@ Date_setYear(Date_t * date, unsigned int value)
 }
 
 /**
- * sets the value of Month
+ * Sets the value of the month checking appropriateness.
+ *  
+ * @param date the Date_t structure to be set
+ * @param value an unsigned int representing the month to set.  
  */
 LIBSBML_EXTERN
 void
@@ -1090,7 +1096,10 @@ Date_setMonth(Date_t * date, unsigned int value)
 }
 
 /**
- * sets the value of Day
+ * Sets the value of the day checking appropriateness.
+ *  
+ * @param date the Date_t structure to be set
+ * @param value an unsigned int representing the day to set.  
  */
 LIBSBML_EXTERN
 void
@@ -1100,7 +1109,10 @@ Date_setDay(Date_t * date, unsigned int value)
 }
 
 /**
- * sets the value of Hour
+ * Sets the value of the hour checking appropriateness.
+ *  
+ * @param date the Date_t structure to be set
+ * @param value an unsigned int representing the hour to set.  
  */
 LIBSBML_EXTERN
 void
@@ -1110,7 +1122,10 @@ Date_setHour(Date_t * date, unsigned int value)
 }
 
 /**
- * sets the value of Minute
+ * Sets the value of the minute checking appropriateness.
+ *  
+ * @param date the Date_t structure to be set
+ * @param value an unsigned int representing the minute to set.  
  */
 LIBSBML_EXTERN
 void
@@ -1120,7 +1135,10 @@ Date_setMinute(Date_t * date, unsigned int value)
 }
 
 /**
- * sets the value of Second
+ * Sets the value of the second checking appropriateness.
+ *  
+ * @param date the Date_t structure to be set
+ * @param value an unsigned int representing the second to set.  
  */
 LIBSBML_EXTERN
 void
@@ -1130,7 +1148,11 @@ Date_setSecond(Date_t * date, unsigned int value)
 }
 
 /**
- * sets the value of SignOffset
+ * Sets the value of the offset sign checking appropriateness.
+ *  
+ * @param date the Date_t structure to be set
+ * @param value an unsigned int representing the sign of the 
+ * offset to set.  
  */
 LIBSBML_EXTERN
 void
@@ -1140,7 +1162,11 @@ Date_setSignOffset(Date_t * date, unsigned int value)
 }
 
 /**
- * sets the value of HoursOffset
+ * Sets the value of the offset hour checking appropriateness.
+ *  
+ * @param date the Date_t structure to be set
+ * @param value an unsigned int representing the hours of the 
+ * offset to set.  
  */
 LIBSBML_EXTERN
 void
@@ -1150,7 +1176,11 @@ Date_setHoursOffset(Date_t * date, unsigned int value)
 }
 
 /**
- * sets the value of MinutesOffset
+ * Sets the value of the offset minutes checking appropriateness.
+ *  
+ * @param date the Date_t structure to be set
+ * @param value an unsigned int representing the minutes of the 
+ * offset to set.  
  */
 LIBSBML_EXTERN
 void
@@ -1185,6 +1215,11 @@ ModelCreator_createFromNode(const XMLNode_t * node)
   return new(nothrow) ModelCreator(*node);
 }
 
+/**
+ * Destroys this ModelCreator.
+ *
+ * @param mc ModelCreator_t structure to be freed.
+ */
 LIBSBML_EXTERN
 void
 ModelCreator_free(ModelCreator_t * mc)
@@ -1195,21 +1230,25 @@ ModelCreator_free(ModelCreator_t * mc)
 /**
  * Creates a deep copy of the given ModelCreator_t structure
  * 
- * @param c the ModelCreator_t structure to be copied
+ * @param mc the ModelCreator_t structure to be copied
  * 
- * @return a (deep) copy of the given Compartment_t structure.
+ * @return a (deep) copy of the given ModelCreator_t structure.
  */
 LIBSBML_EXTERN
 ModelCreator_t *
-ModelCreator_clone (const ModelCreator_t* c)
+ModelCreator_clone (const ModelCreator_t* mc)
 {
-  return static_cast<ModelCreator*>( c->clone() );
+  return static_cast<ModelCreator*>( mc->clone() );
 }
 
 
 /**
-  * ModelCreator_gets the family name
-  */
+ * Returns the familyName from the ModelCreator.
+ * 
+ * @param mc the ModelCreator_t structure to be queried
+ *
+ * @return familyName from the ModelCreator.
+ */
 LIBSBML_EXTERN
 const char * 
 ModelCreator_getFamilyName(ModelCreator_t *mc)
@@ -1219,8 +1258,12 @@ ModelCreator_getFamilyName(ModelCreator_t *mc)
 
 
 /**
-  * ModelCreator_gets the given name
-  */
+ * Returns the givenName from the ModelCreator.
+ * 
+ * @param mc the ModelCreator_t structure to be queried
+ *
+ * @return givenName from the ModelCreator.
+ */
 LIBSBML_EXTERN
 const char * 
 ModelCreator_getGivenName(ModelCreator_t *mc)
@@ -1230,8 +1273,12 @@ ModelCreator_getGivenName(ModelCreator_t *mc)
 
 
 /**
-  * ModelCreator_gets the email
-  */
+ * Returns the email from the ModelCreator.
+ * 
+ * @param mc the ModelCreator_t structure to be queried
+ *
+ * @return email from the ModelCreator.
+ */
 LIBSBML_EXTERN
 const char * 
 ModelCreator_getEmail(ModelCreator_t *mc)
@@ -1240,6 +1287,7 @@ ModelCreator_getEmail(ModelCreator_t *mc)
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
   * ModelCreator_gets the org
   */
@@ -1249,7 +1297,15 @@ ModelCreator_getOrganisation(ModelCreator_t *mc)
 {
   return mc->getOrganisation().c_str();
 }
+/** @endcond doxygen-libsbml-internal */
 
+/**
+ * Returns the organization from the ModelCreator.
+ * 
+ * @param mc the ModelCreator_t structure to be queried
+ *
+ * @return organization from the ModelCreator.
+ */
 LIBSBML_EXTERN
 const char * 
 ModelCreator_getOrganization(ModelCreator_t *mc)
@@ -1257,6 +1313,15 @@ ModelCreator_getOrganization(ModelCreator_t *mc)
   return ModelCreator_getOrganisation(mc);
 }
 
+/**
+ * Predicate indicating whether this
+ * ModelCreator's familyName has been set.
+ *
+ * @param mc the ModelCreator_t structure to be queried
+ *
+ * @return true (non-zero) if the familyName of this 
+ * ModelCreator_t structure has been set, false (0) otherwise.
+ */
 LIBSBML_EXTERN
 int 
 ModelCreator_isSetFamilyName(ModelCreator_t *mc)
@@ -1264,6 +1329,15 @@ ModelCreator_isSetFamilyName(ModelCreator_t *mc)
   return static_cast<int>(mc->isSetFamilyName());
 }
 
+/**
+ * Predicate indicating whether this
+ * ModelCreator's givenName has been set.
+ *
+ * @param mc the ModelCreator_t structure to be queried
+ *
+ * @return true (non-zero) if the givenName of this 
+ * ModelCreator_t structure has been set, false (0) otherwise.
+ */
 LIBSBML_EXTERN
 int 
 ModelCreator_isSetGivenName(ModelCreator_t *mc)
@@ -1271,6 +1345,15 @@ ModelCreator_isSetGivenName(ModelCreator_t *mc)
   return static_cast<int>(mc->isSetGivenName());
 }
 
+/**
+ * Predicate indicating whether this
+ * ModelCreator's email has been set.
+ *
+ * @param mc the ModelCreator_t structure to be queried
+ *
+ * @return true (non-zero) if the email of this 
+ * ModelCreator_t structure has been set, false (0) otherwise.
+ */
 LIBSBML_EXTERN
 int 
 ModelCreator_isSetEmail(ModelCreator_t *mc)
@@ -1278,13 +1361,24 @@ ModelCreator_isSetEmail(ModelCreator_t *mc)
   return static_cast<int>(mc->isSetEmail());
 }
 
+/** @cond doxygen-libsbml-internal */
 LIBSBML_EXTERN
 int 
 ModelCreator_isSetOrganisation(ModelCreator_t *mc)
 {
   return static_cast<int>(mc->isSetOrganisation());
 }
+/** @endcond doxygen-libsbml-internal */
 
+/**
+ * Predicate indicating whether this
+ * ModelCreator's organization has been set.
+ *
+ * @param mc the ModelCreator_t structure to be queried
+ *
+ * @return true (non-zero) if the organization of this 
+ * ModelCreator_t structure has been set, false (0) otherwise.
+ */
 LIBSBML_EXTERN
 int 
 ModelCreator_isSetOrganization(ModelCreator_t *mc)
@@ -1293,8 +1387,11 @@ ModelCreator_isSetOrganization(ModelCreator_t *mc)
 }
 
 /**
-  * ModelCreator_sets the family name
-  */
+ * Sets the family name
+ *  
+ * @param mc the ModelCreator_t structure
+ * @param name a string representing the familyName of the ModelCreator. 
+ */
 LIBSBML_EXTERN
 void 
 ModelCreator_setFamilyName(ModelCreator_t *mc, char * name)
@@ -1304,8 +1401,11 @@ ModelCreator_setFamilyName(ModelCreator_t *mc, char * name)
 
 
 /**
-  * ModelCreator_sets the given name
-  */
+ * Sets the given name
+ *  
+ * @param mc the ModelCreator_t structure
+ * @param name a string representing the givenName of the ModelCreator. 
+ */
 LIBSBML_EXTERN
 void 
 ModelCreator_setGivenName(ModelCreator_t *mc, char * name)
@@ -1315,8 +1415,11 @@ ModelCreator_setGivenName(ModelCreator_t *mc, char * name)
 
 
 /**
-  * ModelCreator_sets the email
-  */
+ * Sets the email
+ *  
+ * @param mc the ModelCreator_t structure
+ * @param email a string representing the email of the ModelCreator. 
+ */
 LIBSBML_EXTERN
 void 
 ModelCreator_setEmail(ModelCreator_t *mc, char * email)
@@ -1325,6 +1428,7 @@ ModelCreator_setEmail(ModelCreator_t *mc, char * email)
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
   * ModelCreator_sets the org
   */
@@ -1334,16 +1438,26 @@ ModelCreator_setOrganisation(ModelCreator_t *mc, char * name)
 {
   mc->setOrganisation(name);
 }
+/** @endcond doxygen-libsbml-internal */
 
-
+/**
+ * Sets the organization
+ *  
+ * @param mc the ModelCreator_t structure
+ * @param org a string representing the organisation of the ModelCreator. 
+ */
 LIBSBML_EXTERN
 void 
-ModelCreator_setOrganization(ModelCreator_t *mc, char * name)
+ModelCreator_setOrganization(ModelCreator_t *mc, char * org)
 {
-  ModelCreator_setOrganisation(mc, name);
+  ModelCreator_setOrganisation(mc, org);
 }
 
-
+/**
+ * Unsets the familyName of this ModelCreator.
+ *
+ * @param mc the ModelCreator_t structure.
+ */
 LIBSBML_EXTERN
 void 
 ModelCreator_unsetFamilyName(ModelCreator_t *mc)
@@ -1351,6 +1465,11 @@ ModelCreator_unsetFamilyName(ModelCreator_t *mc)
   mc->unsetFamilyName();
 }
 
+/**
+ * Unsets the givenName of this ModelCreator.
+ *
+ * @param mc the ModelCreator_t structure.
+ */
 LIBSBML_EXTERN
 void 
 ModelCreator_unsetGivenName(ModelCreator_t *mc)
@@ -1358,6 +1477,11 @@ ModelCreator_unsetGivenName(ModelCreator_t *mc)
   mc->unsetGivenName();
 }
 
+/**
+ * Unsets the email of this ModelCreator.
+ *
+ * @param mc the ModelCreator_t structure.
+ */
 LIBSBML_EXTERN
 void 
 ModelCreator_unsetEmail(ModelCreator_t *mc)
@@ -1365,13 +1489,20 @@ ModelCreator_unsetEmail(ModelCreator_t *mc)
   mc->unsetEmail();
 }
 
+/** @cond doxygen-libsbml-internal */
 LIBSBML_EXTERN
 void 
 ModelCreator_unsetOrganisation(ModelCreator_t *mc)
 {
   mc->unsetOrganisation();
 }
+/** @endcond doxygen-libsbml-internal */
 
+/**
+ * Unsets the organization of this ModelCreator.
+ *
+ * @param mc the ModelCreator_t structure.
+ */
 LIBSBML_EXTERN
 void 
 ModelCreator_unsetOrganization(ModelCreator_t *mc)
@@ -1380,8 +1511,10 @@ ModelCreator_unsetOrganization(ModelCreator_t *mc)
 }
 
 /**
-  * Creates a new ModelHistory.
-  */
+ * Creates a new ModelHistory_t structure and returns a pointer to it.
+ *
+ * @return pointer to newly created ModelHistory_t structure.
+ */
 LIBSBML_EXTERN
 ModelHistory_t * 
 ModelHistory_create ()
@@ -1390,13 +1523,15 @@ ModelHistory_create ()
 }
 
 /**
-  * destructor
-  */
+ * Destroys this ModelHistory.
+ *
+ * @param mh ModelHistory_t structure to be freed.
+ */
 LIBSBML_EXTERN
 void 
-ModelHistory_free(ModelHistory_t * history)
+ModelHistory_free(ModelHistory_t * mh)
 {
-  delete static_cast<ModelHistory*>(history);
+  delete static_cast<ModelHistory*>(mh);
 }
 
 
@@ -1416,94 +1551,156 @@ ModelHistory_t_clone (const ModelHistory_t* mh)
 
 
 /**
-  * adds the creator to the model history
-  */
+ * Returns the createdDate from the ModelHistory.
+ *
+ * @param mh the ModelHistory_t structure
+ * 
+ * @return Date_t structure representing the createdDate
+ * from the ModelHistory_t structure.
+ */
 LIBSBML_EXTERN
-void 
-ModelHistory_addCreator(ModelHistory_t * history, 
-                             ModelCreator_t * mc)
+Date_t * ModelHistory_getCreatedDate(ModelHistory_t * mh)
 {
-  history->addCreator(mc);
+  return mh->getCreatedDate();
+}
+
+
+/**
+ * Returns the modifiedDate from the ModelHistory.
+ *
+ * @param mh the ModelHistory_t structure
+ * 
+ * @return Date_t structure representing the modifiedDate
+ * from the ModelHistory_t structure.
+ */
+LIBSBML_EXTERN
+Date_t * ModelHistory_getModifiedDate(ModelHistory_t * mh)
+{
+  return mh->getModifiedDate();
+}
+
+
+/**
+ * Predicate indicating whether this
+ * ModelHistory's createdDate has been set.
+ *
+ * @param mh the ModelHistory_t structure to be queried
+ *
+ * @return true (non-zero) if the createdDate of this 
+ * ModelHistory_t structure has been set, false (0) otherwise.
+ */
+LIBSBML_EXTERN
+int ModelHistory_isSetCreatedDate(ModelHistory_t * mh)
+{
+  return static_cast<int> (mh->isSetCreatedDate());
 }
 
 /**
-  * sets the created date
-  */
+ * Predicate indicating whether this
+ * ModelHistory's modifiedDate has been set.
+ *
+ * @param mh the ModelHistory_t structure to be queried
+ *
+ * @return true (non-zero) if the modifiedDate of this 
+ * ModelHistory_t structure has been set, false (0) otherwise.
+ */
 LIBSBML_EXTERN
-void ModelHistory_setCreatedDate(ModelHistory_t * history, 
+int ModelHistory_isSetModifiedDate(ModelHistory_t * mh)
+{
+  return static_cast<int> (mh->isSetModifiedDate());
+}
+
+
+/**
+ * Sets the createdDate.
+ *  
+ * @param mh the ModelHistory_t structure
+ * @param date the Date_t structure representing the date
+ * the ModelHistory was created. 
+ */
+LIBSBML_EXTERN
+void ModelHistory_setCreatedDate(ModelHistory_t * mh, 
                                  Date_t * date)
 {
-  history->setCreatedDate(date);
+  mh->setCreatedDate(date);
 }
 
 
 /**
-  * sets teh modiefied date
-  */
+ * Sets the modifiedDate.
+ *  
+ * @param mh the ModelHistory_t structure
+ * @param date the Date_t structure representing the date
+ * the ModelHistory was modified. 
+ */
 LIBSBML_EXTERN
-void ModelHistory_setModifiedDate(ModelHistory_t * history, 
+void ModelHistory_setModifiedDate(ModelHistory_t * mh, 
                                   Date_t * date)
 {
-  history->setModifiedDate(date);
+  mh->setModifiedDate(date);
 }
 
 
 /**
-* return the List of creators
-*/
+ * Adds a copy of a ModelCreator_t structure to the 
+ * ModelHistory_t structure.
+ *
+ * @param mh the ModelHistory_t structure
+ * @param mc the ModelCreator_t structure to add.
+ */
 LIBSBML_EXTERN
-List_t * ModelHistory_getListCreators(ModelHistory_t * history)
+void 
+ModelHistory_addCreator(ModelHistory_t * mh, 
+                             ModelCreator_t * mc)
 {
-  return history->getListCreators();
+  mh->addCreator(mc);
+}
+
+/**
+ * Get the List of ModelCreator objects in this 
+ * ModelHistory.
+ *
+ * @param mh the ModelHistory_t structure
+ * 
+ * @return a pointer to the List_t structure of ModelCreators 
+ * for this ModelHistory_t structure.
+ */
+LIBSBML_EXTERN
+List_t * ModelHistory_getListCreators(ModelHistory_t * mh)
+{
+  return mh->getListCreators();
 }
 
 
 /**
-* return created date
-*/
+ * Get the nth ModelCreator_t structure in this ModelHistory_t.
+ * 
+ * @param mh the ModelHistory_t structure
+ * @param n, an unsigned int indicating which ModelCreator
+ *
+ * @return the nth ModelCreator of this ModelHistory.
+ */
 LIBSBML_EXTERN
-Date_t * ModelHistory_getCreatedDate(ModelHistory_t * history)
+ModelCreator_t* ModelHistory_getCreator(ModelHistory_t * mh, unsigned int n)
 {
-  return history->getCreatedDate();
+  return mh->getCreator(n);
 }
 
 
 /**
-* return modified date
-*/
+ * Get the number of ModelCreator objects in this 
+ * ModelHistory.
+ * 
+ * @param mh the ModelHistory_t structure
+ * 
+ * @return the number of ModelCreators in this 
+ * ModelHistory.
+ */
 LIBSBML_EXTERN
-Date_t * ModelHistory_getModifiedDate(ModelHistory_t * history)
+unsigned int ModelHistory_getNumCreators(ModelHistory_t * mh)
 {
-  return history->getModifiedDate();
+  return mh->getNumCreators();
 }
-
-
-
-LIBSBML_EXTERN
-unsigned int ModelHistory_getNumCreators(ModelHistory_t * history)
-{
-  return history->getNumCreators();
-}
-
-LIBSBML_EXTERN
-ModelCreator_t* ModelHistory_getCreator(ModelHistory_t * history, unsigned int n)
-{
-  return history->getCreator(n);
-}
-
-LIBSBML_EXTERN
-int ModelHistory_isSetCreatedDate(ModelHistory_t * history)
-{
-  return static_cast<int> (history->isSetCreatedDate());
-}
-
-LIBSBML_EXTERN
-int ModelHistory_isSetModifiedDate(ModelHistory_t * history)
-{
-  return static_cast<int> (history->isSetModifiedDate());
-}
-
-
 
 
 
