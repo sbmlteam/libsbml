@@ -1117,7 +1117,7 @@ Compartment_isSetOutside (const Compartment_t *c)
  * NULL, this function performs unsetId() instead.
  *
  * @param c the Compartment_t structure.
- * @oaram sid the identifier to which the structures "id" attribute should
+ * @param sid the identifier to which the structures "id" attribute should
  * be set.
  */
 LIBSBML_EXTERN
@@ -1136,7 +1136,7 @@ Compartment_setId (Compartment_t *c, const char *sid)
  *
  * @param c the Compartment_t structure
  *
- * @oaram string the identifier to which the structures "id" attribute
+ * @param string the identifier to which the structures "id" attribute
  * should be set.
  */
 LIBSBML_EXTERN
