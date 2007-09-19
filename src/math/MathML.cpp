@@ -497,10 +497,9 @@ readMathML (ASTNode& node, XMLInputStream& stream)
       (stream.getErrorLog())->logError(SBMLError::DisallowedMathMLEncodingUse);
   }
 
-  // allow definition url on csmbol/semantics and bvar
+  // allow definition url on csymbol/semantics and bvar
   if ( !url.empty() && (name != "csymbol"
-                     && name != "semantics"
-                     && name != "bvar"))
+                     && name != "semantics"))
   {
     static_cast <SBMLErrorLog*>
       (stream.getErrorLog())->logError(SBMLError::DisallowedDefinitionURLUse);
