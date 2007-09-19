@@ -250,10 +250,11 @@ public:
 
   , GeneralWarningNotSpecified       = 29999
 
-  // undecided on number for this FIXME
-  , CompartmentShouldHaveSize        = 50501
-    // Lower bound for additional error codes returned by libSBML but not
-    // defined in SBML specifications.
+  // ModelingPractice contraints
+  , CompartmentShouldHaveSize        = 80501
+    
+  // Lower bound for additional error codes returned by libSBML but not
+   // defined in SBML specifications.
 
   , LibSBMLAdditionalCodesLowerBound = 90000
 

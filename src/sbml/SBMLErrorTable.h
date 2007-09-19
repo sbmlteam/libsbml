@@ -2490,8 +2490,8 @@ static const sbmlErrorTableEntry errorTable[] =
     "value of 'false' for its 'constant' attribute. (References: L2V1 Section "
     "4.10.5; L2V2 Section 4.14.2; L2V3 Section 4.14.4.)"
   },
-  // undecided on number for this FIXME
-  // 50501
+
+  // 80501
   {
     SBMLError::CompartmentShouldHaveSize,
     SBMLError::SBMLModelingPractice,
@@ -2500,7 +2500,11 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Warning,
     SBMLError::Warning,
     SBMLError::Warning,
-    "It is recommended that the size of a compartment is set."
+    "As a principle of best modeling practice, the size of a <compartment> "
+    "should be set to a value rather than be left undefined.  Doing so "
+    "improves the portability of models between different simulation and "
+    "analysis systems, and helps make it easier to detect potential errors "
+    "in models."
   },
 
 

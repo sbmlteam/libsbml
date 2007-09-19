@@ -40,7 +40,7 @@ using namespace std;
 
 // Compartment validation
 
-START_CONSTRAINT (50501, Compartment, c)
+START_CONSTRAINT (80501, Compartment, c)
 {
   pre( c.getSpatialDimensions() != 0 );
   
