@@ -1086,14 +1086,14 @@ Layout_addTextGlyph (Layout_t *l, TextGlyph_t *go);
  */
 LIBSBML_EXTERN
 CompartmentGlyph_t *
-Layout_getCompartmentGlyph (const Layout_t *l, unsigned int index);
+Layout_getCompartmentGlyph (Layout_t *l, unsigned int index);
 
 /**
  * Returns a pointer to the SpeciesGlyph with the given index.
  */
 LIBSBML_EXTERN
 SpeciesGlyph_t *
-Layout_getSpeciesGlyph (const Layout_t *l, unsigned int index);
+Layout_getSpeciesGlyph (Layout_t *l, unsigned int index);
 
 
 /**
@@ -1101,7 +1101,7 @@ Layout_getSpeciesGlyph (const Layout_t *l, unsigned int index);
  */
 LIBSBML_EXTERN
 ReactionGlyph_t *
-Layout_getReactionGlyph (const Layout_t *l, unsigned int index);
+Layout_getReactionGlyph (Layout_t *l, unsigned int index);
 
 
 /**
@@ -1109,14 +1109,14 @@ Layout_getReactionGlyph (const Layout_t *l, unsigned int index);
  */
 LIBSBML_EXTERN
 GraphicalObject_t *
-Layout_getAdditionalGraphicalObject (const Layout_t *l, unsigned int index);
+Layout_getAdditionalGraphicalObject (Layout_t *l, unsigned int index);
 
 /**
  * Returns a pointer to the GraphicalObject with the given index.
  */
 LIBSBML_EXTERN
 TextGlyph_t *
-Layout_getTextGlyph (const Layout_t *l, unsigned int index);
+Layout_getTextGlyph (Layout_t *l, unsigned int index);
 
 
 /**

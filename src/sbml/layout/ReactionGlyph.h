@@ -483,7 +483,7 @@ ReactionGlyph_getNumSpeciesReferenceGlyphs (const ReactionGlyph_t *rg);
  */
 LIBSBML_EXTERN
 SpeciesReferenceGlyph_t *
-ReactionGlyph_getSpeciesReferenceGlyph (const ReactionGlyph_t *rg,
+ReactionGlyph_getSpeciesReferenceGlyph (ReactionGlyph_t *rg,
                                         unsigned int index);
 
 
@@ -522,7 +522,7 @@ ReactionGlyph_setCurve (ReactionGlyph_t *rg, Curve_t *c);
  */
 LIBSBML_EXTERN
 Curve_t *
-ReactionGlyph_getCurve (const ReactionGlyph_t *rg);
+ReactionGlyph_getCurve (ReactionGlyph_t *rg);
 
 /**
  * Returns true if the Curve has one or more LineSegment.

@@ -2058,7 +2058,7 @@ Model_getLayout (Model_t *m, unsigned int index);
  
 LIBSBML_EXTERN
 void 
-Model_addLayout (Model_t *m, Layout_t *layout);
+Model_addLayout (Model_t *m, const Layout_t *layout);
 
 
 LIBSBML_EXTERN

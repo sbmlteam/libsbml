@@ -422,7 +422,7 @@ SpeciesReferenceGlyph_setCurve (SpeciesReferenceGlyph_t *srg, Curve_t *c);
  */
 LIBSBML_EXTERN
 Curve_t *
-SpeciesReferenceGlyph_getCurve (const SpeciesReferenceGlyph_t *srg);
+SpeciesReferenceGlyph_getCurve (SpeciesReferenceGlyph_t *srg);
 
 /**
  * Returns true if the Curve has one or more LineSegment.

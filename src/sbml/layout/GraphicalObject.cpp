@@ -503,7 +503,7 @@ GraphicalObject_initDefaults (GraphicalObject_t *go)
  */
 LIBSBML_EXTERN
 int
-GraphicalObject_isSetId(GraphicalObject_t* go){
+GraphicalObject_isSetId(const GraphicalObject_t* go){
     return (int)go->isSetId();
 }
 

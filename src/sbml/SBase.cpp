@@ -3783,7 +3783,7 @@ SBase_getName (const SBase_t *sb)
  */
 LIBSBML_EXTERN
 const SBMLDocument_t *
-SBase_getSBMLDocument (const SBase_t *sb)
+SBase_getSBMLDocument (SBase_t *sb)
 {
   return sb->getSBMLDocument();
 }

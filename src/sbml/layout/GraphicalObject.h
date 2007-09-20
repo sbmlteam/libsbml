@@ -327,6 +327,10 @@ LIBSBML_EXTERN
 void
 GraphicalObject_initDefaults (GraphicalObject_t *go);
 
+LIBSBML_EXTERN
+int
+GraphicalObject_isSetId(const GraphicalObject_t* go);
+
 /**
  * @return a (deep) copy of this Model.
  */

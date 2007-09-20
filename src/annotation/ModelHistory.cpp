@@ -1544,7 +1544,7 @@ ModelHistory_free(ModelHistory_t * mh)
  */
 LIBSBML_EXTERN
 ModelHistory_t *
-ModelHistory_t_clone (const ModelHistory_t* mh)
+ModelHistory_clone (const ModelHistory_t* mh)
 {
   return static_cast<ModelHistory*>( mh->clone() );
 }

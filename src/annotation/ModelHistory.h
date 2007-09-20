@@ -790,11 +790,11 @@ LIBSBML_EXTERN
 ModelHistory_t * ModelHistory_create ();
 
 LIBSBML_EXTERN
- void ModelHistory_free(ModelHistory_t *);
+void ModelHistory_free(ModelHistory_t *);
 
 LIBSBML_EXTERN
 ModelHistory_t *
-ModelHistory_clone (const Compartment_t* c);
+ModelHistory_clone (const ModelHistory* mh);
 
 
 LIBSBML_EXTERN

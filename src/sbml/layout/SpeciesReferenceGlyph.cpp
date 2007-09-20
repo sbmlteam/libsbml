@@ -732,9 +732,9 @@ SpeciesReferenceGlyph_isSetCurve (SpeciesReferenceGlyph_t *srg)
 LIBSBML_EXTERN
 void
 SpeciesReferenceGlyph_setRole (SpeciesReferenceGlyph_t *srg,
-                               SpeciesReferenceRole_t   role)
+                               const char *r)
 {
-  srg->setRole(role);
+  srg->setRole(r);
 }
 
 

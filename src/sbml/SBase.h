@@ -1292,7 +1292,7 @@ SBase_getName (const SBase_t *sb);
 
 
 LIBSBML_EXTERN
-SBMLDocument_t *
+const SBMLDocument_t *
 SBase_getSBMLDocument (SBase_t *sb);
 
 
