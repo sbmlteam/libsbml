@@ -351,3 +351,4 @@ extern std::ostream clog;
 %rename(nextToken) XMLInputStream::next;
 %rename(nextToken) XMLTokenizer::next;
 
+%include list_of_fix.i
