@@ -546,7 +546,7 @@ LIBLAX_EXTERN
 int
 XMLAttributes_readIntoBoolean (XMLAttributes_t *xa,
 			       const char *name,
-			       int value,
+			       int *value,
 			       XMLErrorLog_t *log,
 			       int required);
 
@@ -555,7 +555,7 @@ LIBLAX_EXTERN
 int
 XMLAttributes_readIntoDouble (XMLAttributes_t *xa,
 			      const char *name,
-			      double value,
+			      double *value,
 			      XMLErrorLog_t *log,
 			      int required);
 
@@ -564,7 +564,7 @@ LIBLAX_EXTERN
 int
 XMLAttributes_readIntoLong (XMLAttributes_t *xa,
 			    const char *name,
-			    long value,
+			    long *value,
 			    XMLErrorLog_t *log,
 			    int required);
 
@@ -573,7 +573,7 @@ LIBLAX_EXTERN
 int
 XMLAttributes_readIntoInt (XMLAttributes_t *xa,
 			   const char *name,
-			   int value,
+			   int *value,
 			   XMLErrorLog_t *log,
 			   int required);
 
@@ -582,7 +582,7 @@ LIBLAX_EXTERN
 int
 XMLAttributes_readIntoUnsignedInt (XMLAttributes_t *xa,
 				   const char *name,
-				   unsigned int value,
+				   unsigned int *value,
 				   XMLErrorLog_t *log,
 				   int required);
 
