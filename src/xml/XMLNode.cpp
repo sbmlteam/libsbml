@@ -525,7 +525,39 @@ XMLNode_getNumChildren (const XMLNode_t *node)
   return node->getNumChildren();
 }
 
+/**
+ * Returns a string which is converted from a given XMLNode. 
+ *
+ * @param node XMLNode_t to be converted to a string.
+ *
+ * @return a string which is converted from a given XMLNode.
+ */
+LIBLAX_EXTERN
+const char *
+XMLNode_convertXMLNodeToString(const XMLNode_t *node)
+{
+  return (XMLNode::convertXMLNodeToString(node)).c_str();
+}
 
+
+/**
+ * Returns an XMLNode_t pointer which is converted from a given string containing
+ * XML content.
+ *
+ * XMLNamespaces (the second argument) must be given if the corresponding 
+ * xmlns attribute is not included in the string of the first argument. 
+ *
+ * @param xml string to be converted to a XML node.
+ * @param xmlns XMLNamespaces_t structure the namespaces to set.
+ *
+ * @return pointer to XMLNode_t structure which is converted from a given string. 
+ */
+LIBLAX_EXTERN
+XMLNode_t *
+XMLNode_convertStringToXMLNode(const char * xml, const XMLNamespaces_t* xmlns)
+{
+  return XMLNode::convertStringToXMLNode(xml, xmlns);
+}
 
 
 

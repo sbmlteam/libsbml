@@ -1157,6 +1157,12 @@ ListOf_t *
 Layout_getListOfTextGlyphs (Layout_t *l);
 
 
+/**
+ * Returns a Dimensions_t pointer from the layout.
+ */
+LIBSBML_EXTERN
+Dimensions_t*
+Layout_getDimensions(Layout_t *l);
 
 /**
  * Returns a the id of the layout.

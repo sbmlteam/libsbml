@@ -291,8 +291,14 @@ unsigned int
 XMLNode_getNumChildren (const XMLNode_t *node);
 
 
+LIBLAX_EXTERN
+const char *
+XMLNode_convertXMLNodeToString(const XMLNode_t *node);
 
 
+LIBLAX_EXTERN
+XMLNode_t *
+XMLNode_convertStringToXMLNode(const char * xml, const XMLNamespaces_t* xmlns);
 
 END_C_DECLS
 

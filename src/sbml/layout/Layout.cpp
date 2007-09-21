@@ -2378,6 +2378,17 @@ Layout_getId (const Layout_t *l)
 
 
 /**
+ * @return the dimensions of the layout
+ */
+LIBSBML_EXTERN
+Dimensions_t*
+Layout_getDimensions(Layout_t *l)
+{
+  return l->getDimensions();
+}
+
+
+/**
  * Returns the number of CompartmentGlyphs.
  */
 LIBSBML_EXTERN
