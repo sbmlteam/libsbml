@@ -56,8 +56,9 @@ XMLDeclHandler (void* userData,
                 const XML_Char* encoding,
                 int)
 {
-  if (version == 0) return;
-  if (encoding == 0) return;
+  // call this function even if version or encoding arent set
+  //if (version == 0) return;
+  //if (encoding == 0) return;
   static_cast<ExpatHandler*>(userData)->XML(version, encoding);
 }
 
@@ -114,6 +115,7 @@ ExpatHandler::ExpatHandler (XML_Parser parser, XMLHandler& handler) :
   XML_SetUserData            ( mParser, static_cast<void*>(this)     );
   XML_SetReturnNSTriplet     ( mParser, 1                            );
   mHandlerError = 0;
+  setHasXMLDeclaration(false);
 }
 
 
@@ -139,14 +141,28 @@ ExpatHandler::startDocument ()
  * Receive notification of the XML declaration, i.e.
  * <?xml version="1.0" encoding="UTF-8"?>
  */
-void
+int
 ExpatHandler::XML (const XML_Char* version, const XML_Char* encoding)
 {
+  setHasXMLDeclaration(true);
+
   XML_SetUnknownEncodingHandler( mParser, &unknownEncodingHandler, 0 );
   if (encoding == 0)
+  {
     mHandler.XML(version, "");
+    return XML_STATUS_ERROR;
+  }
+  else if (version == 0)
+  {
+    mHandler.XML("", encoding);
+    return XML_STATUS_ERROR;
+  }
   else
+  {
     mHandler.XML(version, encoding);
+  }
+
+  return 0;
 }
 
 

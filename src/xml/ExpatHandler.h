@@ -65,7 +65,7 @@ public:
    * Receive notification of the XML declaration, i.e.
    * <?xml version="1.0" encoding="UTF-8"?>
    */
-  void XML (const XML_Char* version, const XML_Char* encoding);
+  int XML (const XML_Char* version, const XML_Char* encoding);
 
 
   /**
@@ -127,14 +127,19 @@ public:
    */
   XMLError* error() { return mHandlerError; };
 
+  bool hasXMLDeclaration() { return gotXMLDecl; } 
+  void setHasXMLDeclaration(bool value) { gotXMLDecl = value; }
 
 protected:
+
+  bool gotXMLDecl;
 
   XML_Parser    mParser;
   XMLHandler&   mHandler;
   XMLNamespaces mNamespaces;
 
   XMLError*     mHandlerError;
+
 };
 
 

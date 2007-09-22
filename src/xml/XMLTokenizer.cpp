@@ -65,6 +65,16 @@ XMLTokenizer::getEncoding ()
 
 
 /**
+ * @return the version of the underlying XML document.
+ */
+const string&
+XMLTokenizer::getVersion ()
+{
+  return mVersion;
+}
+
+
+/**
  * @return true if this XMLTokenizer has at least one XMLToken ready to
  * deliver, false otherwise.
  *
@@ -143,6 +153,7 @@ XMLTokenizer::toString ()
 void
 XMLTokenizer::XML (const string& version, const string& encoding)
 {
+  mVersion = version;
   mEncoding = encoding;
 }
 

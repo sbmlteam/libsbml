@@ -50,7 +50,9 @@ XMLInputStream::XMLInputStream (  const char*   content
 {
   if ( !isGood() ) return;
   if ( errorLog ) setErrorLog(errorLog);
-  mParser->parseFirst(content, isFile); 
+  // if this fails we should probably flag the stream as error
+  if (!mParser->parseFirst(content, isFile))
+    mIsError = true; 
 }
 
 
@@ -70,6 +72,16 @@ const string&
 XMLInputStream::getEncoding ()
 {
   return mTokenizer.getEncoding();
+}
+
+
+/**
+ * @return the version of the XML stream.
+ */
+const string&
+XMLInputStream::getVersion ()
+{
+  return mTokenizer.getVersion();
 }
 
 

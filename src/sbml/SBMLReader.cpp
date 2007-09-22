@@ -195,6 +195,15 @@ SBMLReader::readInternal (const char* content, bool isFile)
         d->getErrorLog()->logError(SBMLError::NotUTF8);
       }
 
+      if (stream.getVersion() == "")
+      {
+        d->getErrorLog()->logError(XMLError::BadXMLDecl);
+      }
+      else if (strcmp_insensitive(stream.getVersion().c_str(), "1.0") != 0)
+      {
+        d->getErrorLog()->logError(XMLError::BadXMLDecl);
+      }
+
       if (d->getModel() == 0)
       {
         d->getErrorLog()->logError(SBMLError::MissingModel);

@@ -65,6 +65,12 @@ public:
 
 
   /**
+   * @return the version of the XML stream.
+   */
+  const std::string& getVersion ();
+
+
+  /**
    * @return an XMLErrorLog which can be used to log XML parse errors and
    * other validation errors (and messages).
    */

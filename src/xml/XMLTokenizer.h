@@ -60,6 +60,12 @@ public:
 
 
   /**
+   * @return the xml version of the underlying XML document.
+   */
+  const std::string& getVersion ();
+
+
+  /**
    * @return true if this XMLTokenizer has at least one XMLToken ready to
    * deliver, false otherwise.
    *
@@ -139,6 +145,7 @@ protected:
   bool mEOFSeen;
 
   std::string mEncoding;
+  std::string mVersion;
 
   XMLToken             mCurrent;
   std::deque<XMLToken> mTokens;

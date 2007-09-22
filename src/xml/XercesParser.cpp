@@ -98,7 +98,7 @@ static struct xercesError {
   { XMLErrs::UnsupportedXMLVersion, 	   XMLError::BadXMLDecl},
   { XMLErrs::UnterminatedComment, 	   XMLError::BadXMLComment},
   { XMLErrs::UnterminatedEndTag, 	   XMLError::NotWellFormed},
-  { XMLErrs::UnterminatedPI, 		   XMLError::BadProcessingInstruction},
+  { XMLErrs::UnterminatedPI, 		   XMLError::NotWellFormed},
   { XMLErrs::UnterminatedStartTag, 	   XMLError::NotWellFormed},
   { XMLErrs::UnterminatedXMLDecl, 	   XMLError::BadXMLDecl},
   { XMLErrs::XMLDeclMustBeFirst, 	   XMLError::BadXMLDeclLocation},
@@ -229,7 +229,7 @@ class XercesReader : public SAX2XMLReaderImpl
 {
 public:
 
-  XercesReader (XMLHandler& handler) : mHandler(handler) { }
+  XercesReader (XMLHandler& handler) : mHandler(handler), gotXMLDecl (false) { }
   virtual ~XercesReader () { }
 
   /**
@@ -243,6 +243,7 @@ public:
 		       )
   {
     mHandler.XML( XercesTranscode(version), XercesTranscode(encoding) );
+    setHasXMLDeclaration(true);
   }
 
   /**
@@ -270,6 +271,13 @@ public:
   }
 
   XMLHandler&  mHandler;
+
+  bool hasXMLDeclaration() { return gotXMLDecl; } 
+  void setHasXMLDeclaration(bool value) { gotXMLDecl = value; }
+
+protected:
+
+  bool gotXMLDecl;
 };
 
 
@@ -418,6 +426,15 @@ XercesParser::parse (const char* content, bool isFile, bool isProgressive)
       result = false;
     }
   }
+
+  // Xerces throws an exception here if the xml declaration is corrupt
+  catch (const OurSAXParseException& e)
+  {
+    reportError(translateError(e.lastXercesError), 
+      XMLString::transcode(e.getMessage()),
+		e.getLineNumber(), e.getColumnNumber());
+    result = false;
+  }
   catch (...)
   {
     result = false;
@@ -506,6 +523,13 @@ XercesParser::parseNext ()
     reportError(XMLError::UnknownError, "thrown by Xerces", 0, 0);
     result = false;
   }
+
+  if (! static_cast <XercesReader *> (mReader) ->hasXMLDeclaration())
+  {
+    reportError(XMLError::MissingXMLDecl, "", 1, 1);
+    return false;
+  }
+
   return result;
 }
 
