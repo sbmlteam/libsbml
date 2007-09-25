@@ -104,21 +104,25 @@ START_CONSTRAINT (10511, AssignmentRule, ar)
   pre ( c != NULL);
   pre ( ar.isSetMath() == 1 );
 
-  if (ar.getLevel() == 2)
-  {
-    //msg =
-    //  "When the 'variable' in an <assignmentRule> refers to a <compartment>, "
-    //  "the units of the rule's right-hand side must be consistent with the "
-    //  "units of that compartment's size. (References: L2V2 Section 4.11.3; "
-    //  "L2V3 Section 4.11.3.)";
-  }
-  else
-  {
-    msg =
-      "In a level 1 model this implies that in a <compartmentVolumeRule>, "
-      "the units of the rule's right-hand side must be consistent with the "
-      "units of that compartment's volume.";
-  }
+  //if (ar.getLevel() == 2)
+  //{
+  //  //msg =
+  //  //  "When the 'variable' in an <assignmentRule> refers to a <compartment>, "
+  //  //  "the units of the rule's right-hand side must be consistent with the "
+  //  //  "units of that compartment's size. (References: L2V2 Section 4.11.3; "
+  //  //  "L2V3 Section 4.11.3.)";
+  //}
+  //else
+  //{
+  //  msg =
+  //    "In a level 1 model this implies that in a <compartmentVolumeRule>, "
+  //    "the units of the rule's right-hand side must be consistent with the "
+  //    "units of that compartment's volume. Expected units are ";
+  //  msg += printUnits(variableUnits->getUnitDefinition());
+  //  msg += " but the units returned by the <compartmentVolumeRule>'s formula are ";
+  //  msg += printUnits(formulaUnits->getUnitDefinition());
+  //  msg += ".";
+  //}
 
 
   const FormulaUnitsData * variableUnits = 
@@ -135,6 +139,26 @@ START_CONSTRAINT (10511, AssignmentRule, ar)
 	|| (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1
 	    && formulaUnits->getCanIgnoreUndeclaredUnits() == 1) );
 
+  if (ar.getLevel() == 1)
+  {
+    msg =
+      "In a level 1 model this implies that in a <compartmentVolumeRule>, "
+      "the units of the rule's right-hand side must be consistent with the "
+      "units of that <compartment>'s volume. Expected units are ";
+    msg += printUnits(variableUnits->getUnitDefinition());
+    msg += " but the units returned by the <compartmentVolumeRule>'s formula are ";
+    msg += printUnits(formulaUnits->getUnitDefinition());
+    msg += ".";
+  }
+  else
+  {
+    msg =  " Expected units are ";
+    msg += printUnits(variableUnits->getUnitDefinition());
+    msg += " but the units returned by the <assignmentRule>'s <math> expression are ";
+    msg += printUnits(formulaUnits->getUnitDefinition());
+    msg += ".";
+  }
+
   inv (areEquivalent(formulaUnits->getUnitDefinition(), 
                           variableUnits->getUnitDefinition()) == 1);
 
@@ -150,21 +174,21 @@ START_CONSTRAINT (10512, AssignmentRule, ar)
   pre ( s != NULL);
   pre ( ar.isSetMath() == 1 );
 
-  if (ar.getLevel() == 2)
-  {
-    //msg =
-    //  "When the 'variable' in an <assignmentRule> refers to a <species>, the "
-    //  "units of the rule's right-hand side must be consistent with the units "
-    //  "of the species' quantity. (References: L2V2 Section 4.11.3; L2V3 "
-    //  "Section 4.11.3.)";
-  }
-  else
-  {
-    msg =
-      "In a level 1 model this implies that in a <speciesConcentrationRule>, the "
-      "units of the rule's right-hand side must be consistent with the units "
-      "of the species' quantity.";
-  }
+  //if (ar.getLevel() == 2)
+  //{
+  //  //msg =
+  //  //  "When the 'variable' in an <assignmentRule> refers to a <species>, the "
+  //  //  "units of the rule's right-hand side must be consistent with the units "
+  //  //  "of the species' quantity. (References: L2V2 Section 4.11.3; L2V3 "
+  //  //  "Section 4.11.3.)";
+  //}
+  //else
+  //{
+  //  msg =
+  //    "In a level 1 model this implies that in a <speciesConcentrationRule>, the "
+  //    "units of the rule's right-hand side must be consistent with the units "
+  //    "of the species' quantity.";
+  //}
 
 
   const FormulaUnitsData * variableUnits = 
@@ -180,6 +204,26 @@ START_CONSTRAINT (10512, AssignmentRule, ar)
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
     || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
         formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
+
+  if (ar.getLevel() == 1)
+  {
+    msg =
+      "In a level 1 model this implies that in a <speciesConcentrationRule>, "
+      "the units of the rule's right-hand side must be consistent with the "
+      "units of that <species> quantity. Expected units are ";
+    msg += printUnits(variableUnits->getUnitDefinition());
+    msg += " but the units returned by the <speciesConcentrationRule>'s formula are ";
+    msg += printUnits(formulaUnits->getUnitDefinition());
+    msg += ".";
+  }
+  else
+  {
+    msg =  " Expected units are ";
+    msg += printUnits(variableUnits->getUnitDefinition());
+    msg += " but the units returned by the <assignmentRule>'s <math> expression are ";
+    msg += printUnits(formulaUnits->getUnitDefinition());
+    msg += ".";
+  }
 
   if (ar.getLevel() == 1)
   {
@@ -210,21 +254,21 @@ START_CONSTRAINT (10513, AssignmentRule, ar)
   /* check that the parameter has units declared */
   pre ( p->isSetUnits());
 
-  if (ar.getLevel() == 2)
-  {
-    //msg =
-    //  "When the 'variable' in an <assignmentRule> refers to a <parameter>, the "
-    //  "units of the rule's right-hand side must be consistent with the units "
-    //  "declared for that parameter. (References: L2V2 Section 4.11.3; L2V3 "
-    //  "Section 4.11.3.)";
-  }
-  else
-  {
-    msg =
-      "In a level 1 model this implies that in a <parameterRule>, the "
-      "units of the rule's right-hand side must be consistent with the units "
-      "declared for that parameter.";
-  }
+  //if (ar.getLevel() == 2)
+  //{
+  //  //msg =
+  //  //  "When the 'variable' in an <assignmentRule> refers to a <parameter>, the "
+  //  //  "units of the rule's right-hand side must be consistent with the units "
+  //  //  "declared for that parameter. (References: L2V2 Section 4.11.3; L2V3 "
+  //  //  "Section 4.11.3.)";
+  //}
+  //else
+  //{
+  //  msg =
+  //    "In a level 1 model this implies that in a <parameterRule>, the "
+  //    "units of the rule's right-hand side must be consistent with the units "
+  //    "declared for that parameter.";
+  //}
 
   const FormulaUnitsData * variableUnits = 
                                 m.getFormulaUnitsData(variable, SBML_PARAMETER);
@@ -239,6 +283,26 @@ START_CONSTRAINT (10513, AssignmentRule, ar)
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
     || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
         formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
+
+  if (ar.getLevel() == 1)
+  {
+    msg =
+      "In a level 1 model this implies that in a <parameterRule>, "
+      "the units of the rule's right-hand side must be consistent with the "
+      "units declared for that <parameter>. Expected units are ";
+    msg += printUnits(variableUnits->getUnitDefinition());
+    msg += " but the units returned by the <parameterRule>'s formula are ";
+    msg += printUnits(formulaUnits->getUnitDefinition());
+    msg += ".";
+  }
+  else
+  {
+    msg =  " Expected units are ";
+    msg += printUnits(variableUnits->getUnitDefinition());
+    msg += " but the units returned by the <assignmentRule>'s <math> expression are ";
+    msg += printUnits(formulaUnits->getUnitDefinition());
+    msg += ".";
+  }
 
   inv (areEquivalent(formulaUnits->getUnitDefinition(), 
                           variableUnits->getUnitDefinition()) == 1);
@@ -275,6 +339,12 @@ START_CONSTRAINT (10521, InitialAssignment, ia)
     || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
         formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
 
+  msg =  "Expected units are ";
+  msg += printUnits(variableUnits->getUnitDefinition());
+  msg += " but the units returned by the <initialAssignment>'s <math> expression are ";
+  msg += printUnits(formulaUnits->getUnitDefinition());
+  msg += ".";
+
   inv (areEquivalent(formulaUnits->getUnitDefinition(), 
                           variableUnits->getUnitDefinition()) == 1);
 }
@@ -309,6 +379,12 @@ START_CONSTRAINT (10522, InitialAssignment, ia)
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
     || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
         formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
+
+  msg =  "Expected units are ";
+  msg += printUnits(variableUnits->getUnitDefinition());
+  msg += " but the units returned by the <initialAssignment>'s <math> expression are ";
+  msg += printUnits(formulaUnits->getUnitDefinition());
+  msg += ".";
 
   inv (areEquivalent(formulaUnits->getUnitDefinition(), 
                           variableUnits->getUnitDefinition()) == 1);
@@ -346,6 +422,12 @@ START_CONSTRAINT (10523, InitialAssignment, ia)
     || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
         formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
 
+  msg =  "Expected units are ";
+  msg += printUnits(variableUnits->getUnitDefinition());
+  msg += " but the units returned by the <initialAssignment>'s <math> expression are ";
+  msg += printUnits(formulaUnits->getUnitDefinition());
+  msg += ".";
+
   inv (areEquivalent(formulaUnits->getUnitDefinition(), 
                           variableUnits->getUnitDefinition()) == 1);
 }
@@ -360,28 +442,28 @@ START_CONSTRAINT (10531, RateRule, rr)
   pre ( c != NULL);
   pre ( rr.isSetMath() == 1 );
 
-  if (rr.getLevel() == 2)
-  {
-    //msg =
-    //  "When the 'variable' in a <rateRule> definition refers to a "
-    //  "<compartment>, the units of the rule's right-hand side must be of the "
-    //  "form _x per time_, where _x_ is either the 'units' in that "
-    //  "<compartment> definition, or (in the absence of explicit units declared "
-    //  "for the compartment size) the default units for that compartment, and "
-    //  "_time_ refers to the units of time for the model. (References: L2V2 "
-    //  "Section 4.11.4; L2V3 Section 4.11.4.)";
-  }
-  else
-  {
-    msg =
-      "In a level 1 model this implies that "
-      "when a <compartmentVolumeRule> definition is of type 'rate' "
-      "the units of the rule's right-hand side must be of the "
-      "form _x per time_, where _x_ is either the 'units' in that "
-      "<compartment> definition, or (in the absence of explicit units declared "
-      "for the compartment volume) the default units for that compartment, and "
-      "_time_ refers to the units of time for the model.";
-  }
+  //if (rr.getLevel() == 2)
+  //{
+  //  //msg =
+  //  //  "When the 'variable' in a <rateRule> definition refers to a "
+  //  //  "<compartment>, the units of the rule's right-hand side must be of the "
+  //  //  "form _x per time_, where _x_ is either the 'units' in that "
+  //  //  "<compartment> definition, or (in the absence of explicit units declared "
+  //  //  "for the compartment size) the default units for that compartment, and "
+  //  //  "_time_ refers to the units of time for the model. (References: L2V2 "
+  //  //  "Section 4.11.4; L2V3 Section 4.11.4.)";
+  //}
+  //else
+  //{
+  //  msg =
+  //    "In a level 1 model this implies that "
+  //    "when a <compartmentVolumeRule> definition is of type 'rate' "
+  //    "the units of the rule's right-hand side must be of the "
+  //    "form _x per time_, where _x_ is either the 'units' in that "
+  //    "<compartment> definition, or (in the absence of explicit units declared "
+  //    "for the compartment volume) the default units for that compartment, and "
+  //    "_time_ refers to the units of time for the model.";
+  //}
    
 
   const FormulaUnitsData * variableUnits = 
@@ -398,6 +480,30 @@ START_CONSTRAINT (10531, RateRule, rr)
     || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
         formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
 
+  if (rr.getLevel() == 1)
+  {
+    msg =
+    "In a level 1 model this implies that "
+    "when a <compartmentVolumeRule> definition is of type 'rate' "
+    "the units of the rule's right-hand side must be of the "
+    "form _x per time_, where _x_ is either the 'units' in that "
+    "<compartment> definition, or (in the absence of explicit units declared "
+    "for the compartment volume) the default units for that compartment, and "
+    "_time_ refers to the units of time for the model. Expected units are ";    
+    msg += printUnits(variableUnits->getUnitDefinition());
+    msg += " but the units returned by the <compartmentVolumeRule>'s formula are ";
+    msg += printUnits(formulaUnits->getUnitDefinition());
+    msg += ".";
+  }
+  else
+  {
+    msg =  " Expected units are ";
+    msg += printUnits(variableUnits->getUnitDefinition());
+    msg += " but the units returned by the <rateRule>'s <math> expression are ";
+    msg += printUnits(formulaUnits->getUnitDefinition());
+    msg += ".";
+  }
+
   inv (areEquivalent(formulaUnits->getUnitDefinition(), 
                                variableUnits->getPerTimeUnitDefinition()) == 1);
 
@@ -413,24 +519,24 @@ START_CONSTRAINT (10532, RateRule, rr)
   pre ( s != NULL);
   pre ( rr.isSetMath() == 1 );
 
-  if (rr.getLevel() == 2)
-  {
-    //msg =
-    //  "When the 'variable' in a <rateRule> definition refers to a <species>, "
-    //  "the units of the rule's right-hand side must be of the form _x per "
-    //  "time_, where _x_ is the units of that species' quantity, and _time_ "
-    //  "refers to the units of time for the model. (References: L2V2 Section "
-    //  "4.11.4; L2V3 Section 4.11.4.)";
-  }
-  else
-  {
-    msg =
-      "In a level 1 model this implies that "
-      "when a <speciesConcentrationRule> definition is of type 'rate' "
-      "the units of the rule's right-hand side must be of the form _x per "
-      "time_, where _x_ is the units of that species' quantity, and _time_ "
-      "refers to the units of time for the model.";
-  }
+  //if (rr.getLevel() == 2)
+  //{
+  //  //msg =
+  //  //  "When the 'variable' in a <rateRule> definition refers to a <species>, "
+  //  //  "the units of the rule's right-hand side must be of the form _x per "
+  //  //  "time_, where _x_ is the units of that species' quantity, and _time_ "
+  //  //  "refers to the units of time for the model. (References: L2V2 Section "
+  //  //  "4.11.4; L2V3 Section 4.11.4.)";
+  //}
+  //else
+  //{
+  //  msg =
+  //    "In a level 1 model this implies that "
+  //    "when a <speciesConcentrationRule> definition is of type 'rate' "
+  //    "the units of the rule's right-hand side must be of the form _x per "
+  //    "time_, where _x_ is the units of that species' quantity, and _time_ "
+  //    "refers to the units of time for the model.";
+  //}
  
   const FormulaUnitsData * variableUnits = 
                                   m.getFormulaUnitsData(variable, SBML_SPECIES);
@@ -445,6 +551,28 @@ START_CONSTRAINT (10532, RateRule, rr)
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
     || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
         formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
+
+  if (rr.getLevel() == 1)
+  {
+    msg =
+    "In a level 1 model this implies that "
+    "when a <speciesConcentrationRule> definition is of type 'rate' "
+    "the units of the rule's right-hand side must be of the form _x per "
+    "time_, where _x_ is the units of that species' quantity, and _time_ "
+    "refers to the units of time for the model. Expected units are ";    
+    msg += printUnits(variableUnits->getUnitDefinition());
+    msg += " but the units returned by the <speciesConcentrationRule>'s formula are ";
+    msg += printUnits(formulaUnits->getUnitDefinition());
+    msg += ".";
+  }
+  else
+  {
+    msg =  " Expected units are ";
+    msg += printUnits(variableUnits->getUnitDefinition());
+    msg += " but the units returned by the <rateRule>'s <math> expression are ";
+    msg += printUnits(formulaUnits->getUnitDefinition());
+    msg += ".";
+  }
 
   if (rr.getLevel() == 1)
   {
@@ -475,24 +603,24 @@ START_CONSTRAINT (10533, RateRule, rr)
   /* check that the parameter has units declared */
   pre ( p->isSetUnits());
 
-  if (rr.getLevel() == 2)
-  {
-    //msg =
-    //  "When the 'variable' in a <rateRule> definition refers to a <parameter>, "
-    //  "the units of the rule's right-hand side must be of the form _x per "
-    //  "time_, where _x_ is the 'units' in that <parameter> definition, and "
-    //  "_time_ refers to the units of time for the model. (References: L2V2 "
-    //  "Section 4.11.4; L2V3 Section 4.11.4.)";
-  }
-  else
-  {
-    msg =
-      "In a level 1 model this implies that "
-      "when a <parameterRule> definition has type 'rate' "
-      "the units of the rule's right-hand side must be of the form _x per "
-      "time_, where _x_ is the 'units' in that <parameter> definition, and "
-      "_time_ refers to the units of time for the model.";
-  }
+  //if (rr.getLevel() == 2)
+  //{
+  //  //msg =
+  //  //  "When the 'variable' in a <rateRule> definition refers to a <parameter>, "
+  //  //  "the units of the rule's right-hand side must be of the form _x per "
+  //  //  "time_, where _x_ is the 'units' in that <parameter> definition, and "
+  //  //  "_time_ refers to the units of time for the model. (References: L2V2 "
+  //  //  "Section 4.11.4; L2V3 Section 4.11.4.)";
+  //}
+  //else
+  //{
+  //  msg =
+  //    "In a level 1 model this implies that "
+  //    "when a <parameterRule> definition has type 'rate' "
+  //    "the units of the rule's right-hand side must be of the form _x per "
+  //    "time_, where _x_ is the 'units' in that <parameter> definition, and "
+  //    "_time_ refers to the units of time for the model.";
+  //}
 
   const FormulaUnitsData * variableUnits = 
                                 m.getFormulaUnitsData(variable, SBML_PARAMETER);
@@ -507,6 +635,28 @@ START_CONSTRAINT (10533, RateRule, rr)
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
     || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
         formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
+
+  if (rr.getLevel() == 1)
+  {
+    msg =
+    "In a level 1 model this implies that "
+    "when a <parameterRule> definition has type 'rate' "
+    "the units of the rule's right-hand side must be of the form _x per "
+    "time_, where _x_ is the 'units' in that <parameter> definition, and "
+    "_time_ refers to the units of time for the model. Expected units are ";    
+    msg += printUnits(variableUnits->getUnitDefinition());
+    msg += " but the units returned by the <parameterRule>'s formula are ";
+    msg += printUnits(formulaUnits->getUnitDefinition());
+    msg += ".";
+  }
+  else
+  {
+    msg =  " Expected units are ";
+    msg += printUnits(variableUnits->getUnitDefinition());
+    msg += " but the units returned by the <rateRule>'s <math> expression are ";
+    msg += printUnits(formulaUnits->getUnitDefinition());
+    msg += ".";
+  }
 
   inv (areEquivalent(formulaUnits->getUnitDefinition(), 
                               variableUnits->getPerTimeUnitDefinition()) == 1);
@@ -537,6 +687,13 @@ START_CONSTRAINT (10541, KineticLaw, kl)
     || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
         formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
 
+  msg =  "Expected units are ";
+  msg += printUnits(variableUnits->getUnitDefinition());
+  msg += " but the units returned by the <kineticLaw>'s <math> expression are ";
+  msg += printUnits(formulaUnits->getUnitDefinition());
+  msg += ".";
+
+
   inv (areEquivalent(formulaUnits->getUnitDefinition(), 
                                       variableUnits->getUnitDefinition()) == 1);
 }
@@ -563,6 +720,12 @@ START_CONSTRAINT (10551, Event, e)
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
     || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
         formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
+
+  msg =  "Expected units are ";
+  msg += printUnits(formulaUnits->getEventTimeUnitDefinition());
+  msg += " but the units returned by the <event>'s <delay> are ";
+  msg += printUnits(formulaUnits->getUnitDefinition());
+  msg += ".";
 
   inv (areIdentical(formulaUnits->getUnitDefinition(), 
                               formulaUnits->getEventTimeUnitDefinition()) == 1);
@@ -600,6 +763,12 @@ START_CONSTRAINT (10561, EventAssignment, ea)
     || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
         formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
 
+  msg =  "Expected units are ";
+  msg += printUnits(variableUnits->getUnitDefinition());
+  msg += " but the units returned by the <eventAssignment>'s <math> expression are ";
+  msg += printUnits(formulaUnits->getUnitDefinition());
+  msg += ".";
+
   inv (areEquivalent(formulaUnits->getUnitDefinition(), 
                           variableUnits->getUnitDefinition()) == 1);
 
@@ -635,6 +804,12 @@ START_CONSTRAINT (10562, EventAssignment, ea)
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
     || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
         formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
+
+  msg =  "Expected units are ";
+  msg += printUnits(variableUnits->getUnitDefinition());
+  msg += " but the units returned by the <eventAssignment>'s <math> expression are ";
+  msg += printUnits(formulaUnits->getUnitDefinition());
+  msg += ".";
 
   inv (areEquivalent(formulaUnits->getUnitDefinition(), 
                           variableUnits->getUnitDefinition()) == 1);
@@ -672,6 +847,12 @@ START_CONSTRAINT (10563, EventAssignment, ea)
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
     || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
         formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
+
+  msg =  "Expected units are ";
+  msg += printUnits(variableUnits->getUnitDefinition());
+  msg += " but the units returned by the <eventAssignment>'s <math> expression are ";
+  msg += printUnits(formulaUnits->getUnitDefinition());
+  msg += ".";
 
   inv (areEquivalent(formulaUnits->getUnitDefinition(), 
                           variableUnits->getUnitDefinition()) == 1);
