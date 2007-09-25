@@ -87,6 +87,10 @@ int areEquivalent(const UnitDefinition *, UnitDefinition *);
 LIBSBML_EXTERN
 void combine(UnitDefinition *, UnitDefinition *);
 
+LIBSBML_EXTERN
+std::string
+printUnits(const UnitDefinition * ud);
+
 
 #endif
 #endif  /* Utils_UnitDefinition_h */

@@ -395,5 +395,31 @@ void combine(UnitDefinition *ud1, UnitDefinition *ud2)
   simplifyUnitDefinition(ud1);
 }
 
+LIBSBML_EXTERN
+std::string
+printUnits(const UnitDefinition * ud)
+{
+  std::string unitDef;
+  for (unsigned int p = 0; p < ud->getNumUnits(); p++)
+  {
+	  UnitKind_t kind = ud->getUnit(p)->getKind();
+	  int exp = ud->getUnit(p)->getExponent();
+
+    char unit[40];
+    sprintf(unit, "%s (exponent = %i)", UnitKind_toString(kind), exp);
+    unitDef += unit;
+    //msg +=  UnitKind_toString(kind);
+    //msg += " (exponent = ";
+    //msg += exp;
+    //msg +=  ")";
+
+	  if (p + 1 < ud->getNumUnits())
+	  {
+	    unitDef += ", ";
+	  }	  
+  }
+
+  return unitDef;
+}
 
 /** @endcond doxygen-libsbml-internal */
