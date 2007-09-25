@@ -313,12 +313,15 @@ UnitFormulaFormatter::getUnitDefinitionFromTimes(const ASTNode * node)
   int numChildren = node->getNumChildren();
   int n = 0;
   unsigned int i;
+  unsigned int currentIgnore = canIgnoreUndeclaredUnits;;
 
   ud = getUnitDefinition(node->getChild(n));
+  if (canIgnoreUndeclaredUnits == 0) currentIgnore = 0;
 
   for(n = 1; n < numChildren; n++)
   {
     tempUD = getUnitDefinition(node->getChild(n));
+    if (canIgnoreUndeclaredUnits == 0) currentIgnore = 0;
     for (i = 0; i < tempUD->getNumUnits(); i++)
     {
       ud->addUnit(tempUD->getUnit(i));
@@ -326,6 +329,7 @@ UnitFormulaFormatter::getUnitDefinitionFromTimes(const ASTNode * node)
     delete tempUD;
   }
 
+  canIgnoreUndeclaredUnits = currentIgnore;
   return ud;
 }
 
@@ -602,7 +606,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node)
   UnitDefinition * ud = NULL;
   Unit * unit;
 
-  unsigned int n, p, found;
+  unsigned int n, found;
 
   const KineticLaw * kl;
 
@@ -646,68 +650,47 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node)
     {
       found = 0;
       n = 0;
-      while (found == 0 && n < model->getNumCompartments())
-      {
-        if (!strcmp(node->getName(), model->getCompartment(n)->getId().c_str()))
-        {
-          ud = getUnitDefinitionFromCompartment(model->getCompartment(n));
-          found = 1;
-          break;
-        }
-        else
-        {
-          n++;
-        }
-      }
-
-      n = 0;
-      while (found == 0 && n < model->getNumSpecies())
-      {
-        if (!strcmp(node->getName(), model->getSpecies(n)->getId().c_str()))
-        {
-          ud = getUnitDefinitionFromSpecies(model->getSpecies(n));
-          found = 1;
-          break;
-        }
-        else
-        {
-          n++;
-        }
-      }
-
-      n = 0;
-      while (found == 0 && n < model->getNumParameters())
-      {
-        if (!strcmp(node->getName(), model->getParameter(n)->getId().c_str()))
-        {
-          ud = getUnitDefinitionFromParameter(model->getParameter(n));
-          found = 1;
-          break;
-        }
-        else
-        {
-          n++;
-        }
-      }
-      
-      n = 0;
       while (found == 0 && n < model->getNumReactions())
       {
         if (model->getReaction(n)->isSetKineticLaw())
         {
           kl = model->getReaction(n)->getKineticLaw();
-          for (p = 0; p < kl->getNumParameters(); p++)
+          ud = getUnitDefinitionFromParameter(kl->getParameter(node->getName()));
+          if (ud)
           {
-            if (!strcmp(node->getName(), kl->getParameter(p)->getId().c_str()))
-            {
-              ud = getUnitDefinitionFromParameter(kl->getParameter(p));
-              found = 1;
-              break;
-            }
+            found = 1;
+            break;
           }
         }
         n++;
       }
+      if (found == 0)// && n < model->getNumCompartments())
+      {
+        ud = getUnitDefinitionFromCompartment(model->getCompartment(node->getName()));
+        if (ud)
+        {
+          found = 1;
+        }
+      }
+
+      if (found == 0)//&& n < model->getNumSpecies())
+      {
+        ud = getUnitDefinitionFromSpecies(model->getSpecies(node->getName()));
+        if (ud)
+        {
+          found = 1;
+        }
+      }
+
+      if (found == 0 )//&& n < model->getNumParameters())
+      {
+        ud = getUnitDefinitionFromParameter(model->getParameter(node->getName()));
+        if (ud)
+        {
+          found = 1;
+        }
+      }
+      
     }
   }
 
@@ -728,6 +711,11 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node)
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compartment)
 {
+  if (!compartment)
+  {
+    return NULL;
+  }
+
   UnitDefinition * ud = NULL;
   const UnitDefinition * tempUD;
   Unit * unit = NULL;
@@ -904,6 +892,11 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
 {
+  if (!species)
+  {
+    return NULL;
+  }
+  
   UnitDefinition * ud = NULL;
   const UnitDefinition * tempUd;
   UnitDefinition *subsUD = NULL;
@@ -1115,6 +1108,11 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter)
 {
+  if (!parameter)
+  {
+    return NULL;
+  }
+
   UnitDefinition * ud = NULL;
   Unit * unit = NULL;
   unsigned int n, p;
@@ -1221,6 +1219,10 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
 {
+  if (!event)
+  {
+    return NULL;
+  }
   UnitDefinition * ud = NULL;
   const UnitDefinition * tempUd;
   Unit * unit;
