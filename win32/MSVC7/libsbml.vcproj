@@ -316,6 +316,9 @@
 				RelativePath="..\..\src\validator\constraints\LocalParameterMathCheck.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\LocalParameterShadowsIdInModel.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\constraints\LogicalArgsMathCheck.cpp">
 			</File>
 			<File
@@ -750,6 +753,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\LocalParameterMathCheck.h">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\LocalParameterShadowsIdInModel.h">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\LogicalArgsMathCheck.h">

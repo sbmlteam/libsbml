@@ -328,6 +328,9 @@
 				RelativePath="..\..\src\validator\constraints\LocalParameterMathCheck.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\LocalParameterShadowsIdInModel.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\constraints\LogicalArgsMathCheck.cpp">
 			</File>
 			<File
@@ -767,6 +770,9 @@
 				RelativePath="..\..\src\validator\constraints\LocalParameterMathCheck.h">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\LocalParameterShadowsIdInModel.h">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\constraints\LogicalArgsMathCheck.h">
 			</File>
 			<File
@@ -1029,9 +1035,6 @@
 			Name="Resource Files"
 			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
 		</Filter>
-		<File
-			RelativePath="..\..\src\sbml\config.h.in">
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

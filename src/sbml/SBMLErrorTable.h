@@ -2508,6 +2508,18 @@ static const sbmlErrorTableEntry errorTable[] =
   },
 
 
+  // 81121
+  {
+    SBMLError::LocalParameterShadowsId,
+    SBMLError::SBMLModelingPractice,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    "As a principle of best modeling practice, avoid this."
+  },
+
   //90000
   {
     SBMLError::CannotConvertToL1V1,

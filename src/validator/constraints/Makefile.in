@@ -94,6 +94,7 @@ sources =                                     \
   L2v3CompatibilityConstraints.cpp            \
   LambdaMathCheck.cpp                         \
   LocalParameterMathCheck.cpp                 \
+  LocalParameterShadowsIdInModel.cpp          \
   LogicalArgsMathCheck.cpp                    \
   MathMLBase.cpp                              \
   MathMLConsistencyConstraints.cpp            \
@@ -148,6 +149,7 @@ other_headers = \
   KineticLawVars.h                         \
   LambdaMathCheck.h                        \
   LocalParameterMathCheck.h                \
+  LocalParameterShadowsIdInModel.h         \
   LogicalArgsMathCheck.h                   \
   Makefile                                 \
   Makefile.in                              \

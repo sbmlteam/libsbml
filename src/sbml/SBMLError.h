@@ -252,6 +252,7 @@ public:
 
   // ModelingPractice contraints
   , CompartmentShouldHaveSize        = 80501
+  , LocalParameterShadowsId          = 81121
     
   // Lower bound for additional error codes returned by libSBML but not
    // defined in SBML specifications.

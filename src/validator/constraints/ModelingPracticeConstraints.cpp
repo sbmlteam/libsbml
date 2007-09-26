@@ -30,6 +30,7 @@
 
 #include <sbml/validator/ConstraintMacros.h>
 
+#include "LocalParameterShadowsIdInModel.h"
 /** @cond doxygen-ignored */
 
 using namespace std;
@@ -50,5 +51,8 @@ START_CONSTRAINT (80501, Compartment, c)
   inv( c.isSetSize() == true );
 }
 END_CONSTRAINT
+
+EXTERN_CONSTRAINT( 81121, LocalParameterShadowsIdInModel             )
+
 
 
