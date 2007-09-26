@@ -336,7 +336,7 @@ XercesParser::createSource (const char* content, bool isFile)
     {
       source = new LocalFileInputSource(filename);
     }
-    catch (const XMLException& e)
+    catch (const XMLException& )
     {
       reportError(XMLError::FileUnreadable, content, 0, 0);
     }
