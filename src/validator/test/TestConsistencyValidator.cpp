@@ -37,6 +37,7 @@
 #include "L2v1CompatibilityValidator.h"
 #include "L2v2CompatibilityValidator.h"
 #include "L2v3CompatibilityValidator.h"
+#include <sbml/validator/ModelingPracticeValidator.h>
 
 /** @cond doxygen-ignored */
 
@@ -258,6 +259,19 @@ runAdditionalMathTest (const TestFile& file)
 }
 
 
+bool
+runModelingPracticeTest (const TestFile& file)
+{
+  ModelingPracticeValidator validator;
+  TestValidator        tester(validator);
+
+
+  validator.init();
+
+  return tester.test(file);
+}
+
+
 /**
  * Run a given set of tests and print the results.
  */
@@ -353,6 +367,9 @@ main (int argc, char* argv[])
 
   failed += runTests("Testing Additional Unit Constraints (99500 - 99599)",
 		     "test-data", 99500, 99599, runAdditionalUnitTest, library);
+
+  failed += runTests("Testing Modeling Practice Constraints (80000 - 89999)",
+		     "test-data", 80000, 89999, runModelingPracticeTest, library);
 
   return failed;
 }
