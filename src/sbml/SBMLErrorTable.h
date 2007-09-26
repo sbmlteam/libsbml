@@ -2517,7 +2517,12 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Warning,
     SBMLError::Warning,
     SBMLError::Warning,
-    "As a principle of best modeling practice, avoid this."
+    "In SBML’s simple symbol system, there is no separation of symbols "
+    "by class of object; consequently, inside the kinetic law mathematical "
+    "formula, the value of a local parameter having the same identifier as "
+    "a species or compartment or other global model entity will override "
+    "the global value. Modelers may wish to take precautions to avoid this "
+    "happening accidentally."
   },
 
   //90000

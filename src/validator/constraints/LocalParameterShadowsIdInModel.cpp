@@ -170,12 +170,12 @@ LocalParameterShadowsIdInModel::logConflict (const Parameter& p,
     //"identifier cannot also appear as the value of a 'variable' in an "
     //"<assignmentRule> or a <rateRule>. (References: L2V1 Section 4.6.5; L2V2 "
     //"Section 4.8.6; L2V3 Section 4.8.6.) 
-    "The id '";
+    "In this instance the local parameter with id '";
 
   msg += p.getId();
-  msg += "' used for a local parameter also occurs as the id of a '";
+  msg += "' will shadow the '";
   msg += SBMLTypeCode_toString(object.getTypeCode());
-  msg += "'.";
+  msg += "' with an identical id.";
 
   
   logFailure(p);
