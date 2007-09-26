@@ -53,6 +53,9 @@
 
 #include <sbml/SBase.h>
 #include <sbml/Model.h>
+#include <sbml/Unit.h>
+#include <sbml/UnitKind.h>
+#include <sbml/UnitDefinition.h>
 #include <sbml/SBMLDocument.h>
 
 #include <check.h>
@@ -153,7 +156,7 @@ START_TEST (test_SBMLDocument_setLevelAndVersion_Warning)
   SBMLDocument_setLevelAndVersion(d, 2, 2);
   
   Model_t        *m1 = Model_create();
-  SBase_setSBOTerm(m1, 2);
+  SBase_setSBOTerm((SBase_t*)(m1), 2);
 
   SBMLDocument_setModel(d, m1);
 
@@ -176,7 +179,7 @@ START_TEST (test_SBMLDocument_setLevelAndVersion_Error)
 
   /* add unitDefinition */
   Unit_t * u = Unit_create();
-  Unit_setKind(u, "mole");
+  Unit_setKind(u, UnitKind_forName("mole"));
   Unit_setOffset(u, 3.2);
 
   UnitDefinition_t *ud = UnitDefinition_create();
