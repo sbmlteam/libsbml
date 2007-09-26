@@ -620,10 +620,7 @@ LIBLAX_EXTERN
 const char *
 XMLError_getMessage (const XMLError_t *error)
 {
-  const string msg = error->getMessage();
-
-
-  return msg.empty() ? 0 : msg.c_str();
+  return error->getMessage().empty() ? 0 : error->getMessage().c_str();
 }
 
 
