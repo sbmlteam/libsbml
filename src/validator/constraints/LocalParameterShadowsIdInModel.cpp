@@ -130,17 +130,17 @@ LocalParameterShadowsIdInModel::check_ (const Model& m, const Model& object)
       if (mAll.contains(id))
       {
         // find the element of conflict
-        const SBase * object;
+        const SBase * conflictObject = NULL;
         if (m.getFunctionDefinition(id)) 
-          object = static_cast <const SBase *> (m.getFunctionDefinition(id));
+          conflictObject = static_cast <const SBase *> (m.getFunctionDefinition(id));
         else if (m.getCompartment(id))
-          object = static_cast <const SBase *> (m.getCompartment(id));
+          conflictObject = static_cast <const SBase *> (m.getCompartment(id));
         else if (m.getSpecies(id))
-          object = static_cast <const SBase *> (m.getSpecies(id));
+          conflictObject = static_cast <const SBase *> (m.getSpecies(id));
         else if (m.getParameter(id))
-          object = static_cast <const SBase *> (m.getParameter(id));
+          conflictObject = static_cast <const SBase *> (m.getParameter(id));
         else if (m.getReaction(id))
-          object = static_cast <const SBase *> (m.getReaction(id));
+          conflictObject = static_cast <const SBase *> (m.getReaction(id));
         //else if (m.getCompartmentType(id))
         //  object = static_cast <const SBase *> (m.getCompartmentType(id));
         //else if (m.getSpeciesType(id))
@@ -148,7 +148,7 @@ LocalParameterShadowsIdInModel::check_ (const Model& m, const Model& object)
         //else if (m.getEvent(id))
         //  object = static_cast <const SBase *> (m.getEvent(id));
 
-        logConflict(*(kl->getParameter(p)), *object);
+        logConflict(*(kl->getParameter(p)), *conflictObject);
       }
     }
   }
