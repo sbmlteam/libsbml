@@ -202,7 +202,8 @@ XMLNode::write (XMLOutputStream& stream) const
   if (children > 0)
   {
     for (unsigned int c = 0; c < children; ++c) stream << getChild(c);
-    stream.endElement( mTriple );
+    if (!mTriple.isEmpty())
+      stream.endElement( mTriple );
   }
   else if ( isStart() && !isEnd() ) 
   {
@@ -235,10 +236,12 @@ XMLNode* XMLNode::convertStringToXMLNode(const std::string& xmlstr, const XMLNam
 {
   XMLNode* xmlnode     = NULL;
   std::ostringstream oss;
+  const char* dummy_xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
   const char* dummy_element_start = "<dummy";
   const char* dummy_element_end   = "</dummy>";
 
 
+  oss << dummy_xml;
   oss << dummy_element_start;
   if(xmlns){
     for(int i=0; i < xmlns->getLength(); i++)
