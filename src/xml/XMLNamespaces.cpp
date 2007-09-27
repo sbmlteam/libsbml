@@ -23,6 +23,7 @@
 
 /** @cond doxygen-libsbml-internal */
 #include <sbml/xml/XMLOutputStream.h>
+#include <sbml/util/util.h>
 /** @endcond doxygen-libsbml-internal */
 
 #include <sbml/xml/XMLTriple.h>
@@ -160,7 +161,7 @@ XMLNamespaces::getPrefix (const std::string& uri) const
  * position).  If index is out of range, an empty string will be
  * returned.
  */
-string
+std::string
 XMLNamespaces::getURI (int index) const
 {
   return (index < 0 || index >= getLength()) ? "" : mNamespaces[index].second;
@@ -359,7 +360,15 @@ LIBLAX_EXTERN
 const char *
 XMLNamespaces_getPrefix (const XMLNamespaces_t *ns, int index)
 {
-  return ns->getPrefix(index).empty() ? NULL : ns->getPrefix(index).c_str();
+  /**
+   * I did this because MSVC and gcc handle .c_str() in different ways
+   * meaning that with MSVC the actual string goes out of scope before 
+   * the char * is returned and thus the char * is garbage once returned
+   */
+  if (ns->getPrefix(index).empty())
+    return NULL;
+  else
+    return safe_strdup(ns->getPrefix(index).c_str());
 }
 
 
@@ -370,7 +379,15 @@ LIBLAX_EXTERN
 const char *
 XMLNamespaces_getPrefixByURI (const XMLNamespaces_t *ns, const char *uri)
 {
-  return ns->getPrefix(uri).empty() ? NULL : ns->getPrefix(uri).c_str();
+  /**
+   * I did this because MSVC and gcc handle .c_str() in different ways
+   * meaning that with MSVC the actual string goes out of scope before 
+   * the char * is returned and thus the char * is garbage once returned
+   */
+  if (ns->getPrefix(uri).empty())
+    return NULL;
+  else
+    return safe_strdup(ns->getPrefix(uri).c_str());
 }
 
 /**
@@ -380,7 +397,15 @@ LIBLAX_EXTERN
 const char *
 XMLNamespaces_getURI (const XMLNamespaces_t *ns, int index)
 {
-  return ns->getURI(index).empty() ? NULL : ns->getURI(index).c_str();
+  /**
+   * I did this because MSVC and gcc handle .c_str() in different ways
+   * meaning that with MSVC the actual string goes out of scope before 
+   * the char * is returned and thus the char * is garbage once returned
+   */
+  if (ns->getURI(index).empty())
+    return NULL;
+  else
+    return safe_strdup(ns->getURI(index).c_str());
 }
 
 /**
@@ -390,7 +415,15 @@ LIBLAX_EXTERN
 const char *
 XMLNamespaces_getURIByPrefix (const XMLNamespaces_t *ns, const char *prefix)
 {
-  return ns->getURI(prefix).empty() ? NULL : ns->getURI(prefix).c_str();
+  /**
+   * I did this because MSVC and gcc handle .c_str() in different ways
+   * meaning that with MSVC the actual string goes out of scope before 
+   * the char * is returned and thus the char * is garbage once returned
+   */
+  if (ns->getURI(prefix).empty())
+    return NULL;
+  else
+    return safe_strdup(ns->getURI(prefix).c_str());
 }
 
 /**

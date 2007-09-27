@@ -31,6 +31,7 @@
 #include <sbml/xml/XMLAttributes.h>
 /** @cond doxygen-libsbml-internal */
 #include <sbml/xml/XMLOutputStream.h>
+#include <sbml/util/util.h>
 /** @endcond doxygen-libsbml-internal */
 
 /** @cond doxygen-ignored */
@@ -840,7 +841,15 @@ LIBLAX_EXTERN
 const char *
 XMLAttributes_getName (const XMLAttributes_t *xa, int index)
 {
-  return xa->getName(index).empty() ? NULL : xa->getName(index).c_str();
+  /**
+   * I did this because MSVC and gcc handle .c_str() in different ways
+   * meaning that with MSVC the actual string goes out of scope before 
+   * the char * is returned and thus the char * is garbage once returned
+   */
+  if (xa->getName(index).empty())
+    return NULL;
+  else
+    return safe_strdup(xa->getName(index).c_str());
 }
 
 
@@ -861,7 +870,15 @@ LIBLAX_EXTERN
 const char *
 XMLAttributes_getPrefix (const XMLAttributes_t *xa, int index)
 {
-  return xa->getPrefix(index).empty() ? NULL : xa->getPrefix(index).c_str();
+  /**
+   * I did this because MSVC and gcc handle .c_str() in different ways
+   * meaning that with MSVC the actual string goes out of scope before 
+   * the char * is returned and thus the char * is garbage once returned
+   */
+  if (xa->getPrefix(index).empty())
+    return NULL;
+  else
+    return safe_strdup(xa->getPrefix(index).c_str());
 }
 
 
@@ -881,7 +898,15 @@ LIBLAX_EXTERN
 const char *
 XMLAttributes_getURI (const XMLAttributes_t *xa, int index)
 {
-  return xa->getURI(index).empty() ? NULL : xa->getURI(index).c_str();
+  /**
+   * I did this because MSVC and gcc handle .c_str() in different ways
+   * meaning that with MSVC the actual string goes out of scope before 
+   * the char * is returned and thus the char * is garbage once returned
+   */
+  if (xa->getURI(index).empty())
+    return NULL;
+  else
+    return safe_strdup(xa->getURI(index).c_str());
 }
 
 
@@ -902,7 +927,15 @@ LIBLAX_EXTERN
 const char *
 XMLAttributes_getValue (const XMLAttributes_t *xa, int index)
 {
-  return xa->getValue(index).empty() ? NULL : xa->getValue(index).c_str();
+  /**
+   * I did this because MSVC and gcc handle .c_str() in different ways
+   * meaning that with MSVC the actual string goes out of scope before 
+   * the char * is returned and thus the char * is garbage once returned
+   */
+  if (xa->getValue(index).empty())
+    return NULL;
+  else
+    return safe_strdup(xa->getValue(index).c_str());
 }
 
 
@@ -922,7 +955,15 @@ LIBLAX_EXTERN
 const char *
 XMLAttributes_getValueByName (const XMLAttributes_t *xa, const char *name)
 {
-  return xa->getValue(name).empty() ? NULL : xa->getValue(name).c_str();
+  /**
+   * I did this because MSVC and gcc handle .c_str() in different ways
+   * meaning that with MSVC the actual string goes out of scope before 
+   * the char * is returned and thus the char * is garbage once returned
+   */
+  if (xa->getValue(name).empty())
+    return NULL;
+  else
+    return safe_strdup(xa->getValue(name).c_str());
 }
 
 
