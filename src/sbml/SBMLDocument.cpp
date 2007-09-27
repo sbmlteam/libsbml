@@ -1473,6 +1473,22 @@ SBMLDocument_getDefaultVersion ()
   return SBMLDocument::getDefaultVersion();
 }
 
+/**
+ * Returns a list of XMLNamespaces_t associated with the XML content
+ * of this SBML document.
+ *
+ * @param d the SBMLDocument_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with this SBML object
+ */
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+SBMLDocument_getNamespaces(SBMLDocument_t *d)
+{
+  return d->getNamespaces();
+}
+
+
 
 
 /** @endcond doxygen-c-only */

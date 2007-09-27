@@ -631,6 +631,9 @@ LIBSBML_EXTERN
 unsigned int
 SBMLDocument_getDefaultVersion (void);
 
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+SBMLDocument_getNamespaces(SBMLDocument_t *d);
 
 END_C_DECLS
 
