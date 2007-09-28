@@ -80,6 +80,8 @@ public class Test
     testValidationValidSBML();
     testCreateSBML();
     testCloneObject();
+    testSetAnnotation();
+    testSetAnnotationAsString();
 
     System.gc();
 
@@ -100,10 +102,16 @@ public class Test
     for (int i=0; i < listValidSBML.length; i++) {
       SBMLDocument d = r.readSBML("../../sbml/test/test-data/" + listValidSBML[i]);
       d.checkConsistency();
-      Assert(d.getNumErrors() == 0);
-      if (d.getNumErrors() > 0) {
-        System.out.println(listValidSBML[i] + " is judged as invalid");
-        d.printErrors(libsbml.cerr);
+      long n = d.getNumErrors();
+      if (n > 0)
+      {
+        SBMLErrorLog log = d.getErrorLog();
+        Assert(log.getNumFailsWithSeverity(SBMLError.Error) == 0);
+        if (log.getNumFailsWithSeverity(SBMLError.Error) > 0) 
+        {
+          System.out.println(listValidSBML[i] + " is judged as invalid");
+          d.printErrors(libsbml.cerr);
+        }
       }
     }
   }
@@ -888,6 +896,70 @@ public class Test
     Assert( s1.equals(s2) );
   }
 
+  public static void testSetAnnotation()
+  {
+    System.out.println(">>>>> testSetAnnotation <<<<<");
+
+    String s1;
+    String s2;
+    Species   s = new Species();
+    XMLOutputStream xos;
+    OStringStream   oss;
+
+
+    XMLNode node = XMLNode.convertStringToXMLNode("<myApp:dim xmlns:myApp='http://www.mysim.org/'>sometext</myApp:dim>");
+    s.setAnnotation(node);
+    oss = new OStringStream();
+    xos = new XMLOutputStream(oss);
+
+    s.write(xos);
+    s1 = oss.str();
+
+    s2 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+    s2 = s2.concat("<species>\n");
+    s2 = s2.concat("  <annotation>\n");
+    s2 = s2.concat("    <myApp:dim xmlns:myApp=\"http://www.mysim.org/\">");
+    s2 = s2.concat("sometext</myApp:dim>\n");
+    s2 = s2.concat("  </annotation>\n");
+    s2 = s2.concat("</species>");
+
+//    System.out.println("SBML String :\n" + s1);
+//    System.out.println("SBML String :\n" + s2);
+    Assert( s1.equals(s2) );
+  }
+  
+  public static void testSetAnnotationAsString()
+  {
+    System.out.println(">>>>> testSetAnnotationAsString <<<<<");
+
+    String s1;
+    String s2;
+    Species   s = new Species();
+    XMLOutputStream xos;
+    OStringStream   oss;
+
+
+
+    s.setAnnotation("<myApp:dim xmlns:myApp='http://www.mysim.org/'>sometext</myApp:dim>");
+    oss = new OStringStream();
+    xos = new XMLOutputStream(oss);
+
+    s.write(xos);
+    s1 = oss.str();
+
+    s2 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+    s2 = s2.concat("<species>\n");
+    s2 = s2.concat("  <annotation>\n");
+    s2 = s2.concat("    <myApp:dim xmlns:myApp=\"http://www.mysim.org/\">");
+    s2 = s2.concat("sometext</myApp:dim>\n");
+    s2 = s2.concat("  </annotation>\n");
+    s2 = s2.concat("</species>");
+
+    //    System.out.println("SBML String :\n" + s1);
+    //    System.out.println("SBML String :\n" + s2);
+    Assert( s1.equals(s2) );
+  }
+  
   public static void testParseFormula()
   {
     System.out.println(">>>>> testParseFormula <<<<<");
