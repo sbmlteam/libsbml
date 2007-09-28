@@ -4,6 +4,21 @@
 
 * Bug fixes and enhancements:
   
+  - It appears there is a difference in the way gcc and MSVC deal with
+    the clean-up of strings following calls to the c_str() function. In
+    the case of MSVC this can on occasion result in a returned char * 
+    being garbage. Since the unit tests for libSBML run using gcc this 
+    has only recently come to light and should now be fixed.
+
+  - The MATLAB binding function has a second optional argument
+    that indicates whether the model is to be validated prior to import.
+    The default value is 0; indicating no validation. In the case of no
+    argument to the function; which opens a browse window to locate the
+    file to import; the user will be prompted to indicate whether 
+    validation should be done. In the case of validation errors these will
+    be displayed to the user, who will be prompted as to whether to import
+    the model regardless.
+  
   - An additional 'ModelingPractice' validator has been added to the
     set of validators available for consistency checking. This validator
     reports 
