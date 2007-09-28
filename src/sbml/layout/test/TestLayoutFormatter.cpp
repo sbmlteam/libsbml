@@ -88,6 +88,7 @@ LayoutFormatterTest_teardown (void)
 START_TEST (test_LayoutFormatter_Layout)
 {
     const char* s = 
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<layout id=\"layout_1\">\n"
       "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfCompartmentGlyphs>\n"
@@ -157,6 +158,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_Layout_notes)
 {
     const char* s = 
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<layout id=\"layout_1\">\n"
       "  <notes>\n"
       "    <body>Test note.</body>\n"
@@ -171,7 +173,7 @@ START_TEST (test_LayoutFormatter_Layout_notes)
 
     Dimensions dim=Dimensions(200.0,400.0);
     Layout l("layout_1",&dim);
-    XMLInputStream stream2("<body>Test note.</body>",false);
+    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body>Test note.</body>",false);
     XMLNode notes(stream2);
     l.appendNotes(&notes);
 
@@ -183,6 +185,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_Layout_annotation)
 {
     const char* s = 
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<layout id=\"layout_1\">\n"
       "  <annotation>\n"
       "    <this-is-a-test/>\n"
@@ -192,6 +195,7 @@ START_TEST (test_LayoutFormatter_Layout_annotation)
     ;
 
     const char* a =
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "    <this-is-a-test/>\n"
       "  </annotation>";
@@ -215,7 +219,8 @@ END_TEST
 START_TEST (test_LayoutFormatter_Layout_skipOptional)
 {
     const char* s = 
-      "<layout id=\"layout_1\">\n"
+     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+     "<layout id=\"layout_1\">\n"
       "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "</layout>\n"     
     ;
@@ -236,6 +241,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_CompartmentGlyph)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<compartmentGlyph id=\"compartmentGlyph_1\" compartment=\"compartment_1\">\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
@@ -266,6 +272,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_CompartmentGlyph_notes)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<compartmentGlyph id=\"compartmentGlyph_1\">\n"
       "  <notes>\n"
       "    <body>Test note.</body>\n"
@@ -284,7 +291,7 @@ START_TEST (test_LayoutFormatter_CompartmentGlyph_notes)
     
     CompartmentGlyph cg=CompartmentGlyph();
     cg.setId("compartmentGlyph_1");
-    XMLInputStream stream2("<body>Test note.</body>",false);
+    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body>Test note.</body>",false);
     XMLNode notes(stream2);
     cg.appendNotes(&notes);
 
@@ -301,11 +308,13 @@ END_TEST
 START_TEST (test_LayoutFormatter_CompartmentGlyph_annotation)
 {
     const char* a =
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<compartmentGlyph id=\"compartmentGlyph_1\">\n"
       "  <annotation>\n"
       "    <this-is-a-test/>\n"
@@ -341,6 +350,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_CompartmentGlyph_skipOptional)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<compartmentGlyph id=\"compartmentGlyph_1\">\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
@@ -369,6 +379,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_SpeciesGlyph)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<speciesGlyph id=\"speciesGlyph_1\" species=\"species_1\">\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
@@ -399,6 +410,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_SpeciesGlyph_notes)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<speciesGlyph id=\"speciesGlyph_1\">\n"
       "  <notes>\n"
       "    <body>Test note.</body>\n"
@@ -417,7 +429,7 @@ START_TEST (test_LayoutFormatter_SpeciesGlyph_notes)
     
     SpeciesGlyph sg=SpeciesGlyph();
     sg.setId("speciesGlyph_1");
-    XMLInputStream stream2("<body>Test note.</body>",false);
+    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body>Test note.</body>",false);
     XMLNode notes(stream2);
     sg.appendNotes(&notes);
 
@@ -434,11 +446,13 @@ END_TEST
 START_TEST (test_LayoutFormatter_SpeciesGlyph_annotation)
 {
     const char* a =
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<speciesGlyph id=\"speciesGlyph_1\">\n"
       "  <annotation>\n"
       "    <this-is-a-test/>\n"
@@ -474,6 +488,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_SpeciesGlyph_skipOptional)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<speciesGlyph id=\"speciesGlyph_1\">\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
@@ -502,6 +517,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_ReactionGlyph_Curve)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
       "  <curve>\n"
@@ -536,6 +552,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_ReactionGlyph_BoundingBox)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
@@ -566,6 +583,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_ReactionGlyph_notes)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
       "  <notes>\n"
       "    <body>Test note.</body>\n"
@@ -584,7 +602,7 @@ START_TEST (test_LayoutFormatter_ReactionGlyph_notes)
     
     ReactionGlyph rg=ReactionGlyph();
     rg.setId("reactionGlyph_1");
-    XMLInputStream stream2("<body>Test note.</body>",false);
+    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body>Test note.</body>",false);
     XMLNode notes(stream2);
     rg.appendNotes(&notes);
 
@@ -602,11 +620,13 @@ END_TEST
 START_TEST (test_LayoutFormatter_ReactionGlyph_annotation)
 {
     const char* a =
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
       "  <annotation>\n"
       "    <this-is-a-test/>\n"
@@ -643,6 +663,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_ReactionGlyph_skipOptional)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<reactionGlyph id=\"reactionGlyph_1\">\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
@@ -671,6 +692,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_Curve)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" speciesReference=\"speciesReference_1\" speciesGlyph=\"speciesGlyph_1\" role=\"modifier\">\n"
       "  <curve>\n"
@@ -708,6 +730,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_BoundingBox)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" speciesReference=\"speciesReference_1\" speciesGlyph=\"speciesGlyph_1\" role=\"modifier\">\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
@@ -740,6 +763,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_notes)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" role=\"modifier\">\n"
       "  <notes>\n"
       "    <body>Test note.</body>\n"
@@ -757,7 +781,7 @@ START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_notes)
 
     
     SpeciesReferenceGlyph srg=SpeciesReferenceGlyph();
-    XMLInputStream stream2("<body>Test note.</body>",false);
+    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body>Test note.</body>",false);
     XMLNode notes(stream2);
     srg.appendNotes(&notes);
 
@@ -776,11 +800,13 @@ END_TEST
 START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_annotation)
 {
     const char* a =
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" role=\"modifier\">\n"
       "  <annotation>\n"
       "    <this-is-a-test/>\n"
@@ -817,6 +843,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_skipOptional)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\">\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
@@ -845,6 +872,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_TextGlyph_text)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" text=\"test text\">\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
@@ -876,6 +904,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_TextGlyph_originOfText)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" originOfText=\"reactionGlyph_1\">\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
@@ -907,6 +936,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_TextGlyph_notes)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" originOfText=\"reactionGlyph_1\">\n"
       "  <notes>\n"
       "    <body>Test note.</body>\n"
@@ -925,7 +955,7 @@ START_TEST (test_LayoutFormatter_TextGlyph_notes)
     
     TextGlyph tg=TextGlyph();
     tg.setId("textGlyph_1");
-    XMLInputStream stream2("<body>Test note.</body>",false);
+    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body>Test note.</body>",false);
     XMLNode notes(stream2);
     tg.appendNotes(&notes);
 
@@ -945,11 +975,13 @@ END_TEST
 START_TEST (test_LayoutFormatter_TextGlyph_annotation)
 {
     const char* a =
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" originOfText=\"reactionGlyph_1\">\n"
       "  <annotation>\n"
       "    <this-is-a-test/>\n"
@@ -988,6 +1020,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_TextGlyph_skipOptional)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<textGlyph id=\"textGlyph_1\">\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
@@ -1017,6 +1050,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_GraphicalObject)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<graphicalObject id=\"graphicalObject_1\">\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
@@ -1046,6 +1080,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_GraphicalObject_notes)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<graphicalObject id=\"graphicalObject_1\">\n"
       "  <notes>\n"
       "    <body>Test note.</body>\n"
@@ -1063,7 +1098,7 @@ START_TEST (test_LayoutFormatter_GraphicalObject_notes)
 
     
     GraphicalObject go=GraphicalObject();
-    XMLInputStream stream2("<body>Test note.</body>",false);
+    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body>Test note.</body>",false);
     XMLNode notes(stream2);
     go.appendNotes(&notes);
 
@@ -1082,11 +1117,13 @@ END_TEST
 START_TEST (test_LayoutFormatter_GraphicalObject_annotation)
 {
     const char* a =
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<graphicalObject id=\"graphicalObject_1\">\n"
       "  <annotation>\n"
       "    <this-is-a-test/>\n"
@@ -1123,6 +1160,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_Curve)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curve>\n"
       "  <listOfCurveSegments>\n"
@@ -1153,6 +1191,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_Curve_notes)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curve>\n"
       "  <notes>\n"
@@ -1173,7 +1212,7 @@ START_TEST (test_LayoutFormatter_Curve_notes)
 
 
     Curve c=Curve();
-    XMLInputStream stream2("<body>Test note.</body>",false);
+    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body>Test note.</body>",false);
     XMLNode notes(stream2);
     c.appendNotes(&notes);
 
@@ -1190,11 +1229,13 @@ END_TEST
 START_TEST (test_LayoutFormatter_Curve_annotation)
 {
     const char* a =
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curve>\n"
       "  <annotation>\n"
@@ -1231,6 +1272,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_Curve_skipOptional)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<curve>\n"
       "</curve>\n"
     ;
@@ -1249,6 +1291,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_LineSegment)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curveSegment xsi:type=\"LineSegment\">\n" 
       "  <start x=\"10\" y=\"10\"/>\n" 
@@ -1273,6 +1316,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_LineSegment_notes)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curveSegment xsi:type=\"LineSegment\">\n" 
       "  <notes>\n"
@@ -1291,7 +1335,7 @@ START_TEST (test_LayoutFormatter_LineSegment_notes)
     LineSegment ls=LineSegment();
     ls.setStart(10.0,10.0);
     ls.setEnd(20.0,10.0);
-    XMLInputStream stream2("<body>Test note.</body>",false);
+    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body>Test note.</body>",false);
     XMLNode notes(stream2);
     ls.appendNotes(&notes);
 
@@ -1304,11 +1348,13 @@ END_TEST
 START_TEST (test_LayoutFormatter_LineSegment_annotation)
 {
     const char* a =
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curveSegment xsi:type=\"LineSegment\">\n" 
       "  <annotation>\n"
@@ -1340,6 +1386,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_CubicBezier)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curveSegment xsi:type=\"CubicBezier\">\n" 
       "  <start x=\"10\" y=\"10\"/>\n" 
@@ -1368,6 +1415,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_CubicBezier_notes)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curveSegment xsi:type=\"CubicBezier\">\n" 
       "  <notes>\n"
@@ -1390,7 +1438,7 @@ START_TEST (test_LayoutFormatter_CubicBezier_notes)
     cb.setEnd(20.0,10.0);
     cb.setBasePoint1(15.0,5.0);
     cb.setBasePoint2(15.0,15.0);
-    XMLInputStream stream2("<body>Test note.</body>",false);
+    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body>Test note.</body>",false);
     XMLNode notes(stream2);
     cb.appendNotes(&notes);
 
@@ -1403,11 +1451,13 @@ END_TEST
 START_TEST (test_LayoutFormatter_CubicBezier_annotation)
 {
     const char* a =
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curveSegment xsi:type=\"CubicBezier\">\n" 
       "  <annotation>\n"
@@ -1443,6 +1493,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_Point)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<point x=\"200.5\" y=\"400.5\" z=\"455.2\"/>\n" 
     ;
 
@@ -1460,6 +1511,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_Point_notes)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<point x=\"200.5\" y=\"400.5\" z=\"455.2\">\n" 
       "  <notes>\n"
       "    <body>Test note.</body>\n"
@@ -1472,7 +1524,7 @@ START_TEST (test_LayoutFormatter_Point_notes)
     XMLNode node(stream);
 
     Point p=Point(200.5,400.5,455.2);
-    XMLInputStream stream2("<body>Test note.</body>",false);
+    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body>Test note.</body>",false);
     XMLNode notes(stream2);
     p.appendNotes(&notes);
 
@@ -1485,11 +1537,13 @@ END_TEST
 START_TEST (test_LayoutFormatter_Point_annotation)
 {
     const char* a =
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<point x=\"200.5\" y=\"400.5\" z=\"455.2\">\n" 
       "  <annotation>\n"
       "    <this-is-a-test/>\n"
@@ -1515,6 +1569,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_Point_skipOptional)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<point x=\"200.5\" y=\"400.5\"/>\n" 
     ;
 
@@ -1532,6 +1587,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_Dimensions)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<dimensions width=\"200.5\" height=\"400.5\" depth=\"455.2\"/>\n" 
     ;
 
@@ -1549,6 +1605,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_Dimensions_notes)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<dimensions width=\"200.5\" height=\"400.5\" depth=\"455.2\">\n" 
       "  <notes>\n"
       "    <body>Test note.</body>\n"
@@ -1561,7 +1618,7 @@ START_TEST (test_LayoutFormatter_Dimensions_notes)
     XMLNode node(stream);
 
     Dimensions dim=Dimensions(200.5,400.5,455.2);
-    XMLInputStream stream2("<body>Test note.</body>",false);
+    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body>Test note.</body>",false);
     XMLNode notes(stream2);
     dim.appendNotes(&notes);
 
@@ -1574,11 +1631,13 @@ END_TEST
 START_TEST (test_LayoutFormatter_Dimensions_annotation)
 {
     const char* a =
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<dimensions width=\"200.5\" height=\"400.5\" depth=\"455.2\">\n" 
       "  <annotation>\n"
       "    <this-is-a-test/>\n"
@@ -1604,6 +1663,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_Dimensions_skipOptional)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<dimensions width=\"200.5\" height=\"400.5\"/>\n" 
     ;
 
@@ -1622,6 +1682,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_BoundingBox)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<boundingBox id=\"boundingBox_1\">\n"
       "  <position x=\"10.3\" y=\"20\"/>\n"
       "  <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
@@ -1645,6 +1706,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_BoundingBox_notes)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<boundingBox>\n"
       "  <notes>\n"
       "    <body>Test note.</body>\n"
@@ -1661,7 +1723,7 @@ START_TEST (test_LayoutFormatter_BoundingBox_notes)
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
     BoundingBox box=BoundingBox("",&pos,&dim);
-    XMLInputStream stream2("<body>Test note.</body>",false);
+    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body>Test note.</body>",false);
     XMLNode notes(stream2);
     box.appendNotes(&notes);
 
@@ -1674,11 +1736,13 @@ END_TEST
 START_TEST (test_LayoutFormatter_BoundingBox_annotation)
 {
     const char* a =
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<boundingBox>\n"
       "  <annotation>\n"
       "    <this-is-a-test/>\n"
@@ -1711,6 +1775,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_BoundingBox_skipOptional)
 {
     char* s=
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<boundingBox>\n"
       "  <position x=\"10.3\" y=\"20\"/>\n"
       "  <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
@@ -1734,7 +1799,8 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_locale)
 {
-  const char* s = "<dimensions width=\"1.2\" height=\"3.4\"/>\n";
+  const char* s =       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+        "<dimensions width=\"1.2\" height=\"3.4\"/>\n";
 
 
   setlocale(LC_NUMERIC, "de_DE");
