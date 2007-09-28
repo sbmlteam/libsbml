@@ -61,6 +61,8 @@ void GetKineticLawParameters (KineticLaw_t *, unsigned int, unsigned int);
 
 void GetEventAssignment (Event_t *, unsigned int, unsigned int);
 
+void GetNamespaces   (SBMLDocument_t *);
+
 mxArray * CreateIntScalar (int);
 char    * TypecodeToChar  (SBMLTypeCode_t);
 char    * RuleType_toString (RuleType_t);
@@ -86,6 +88,7 @@ static mxArray * mxCompartmentTypeReturn     = NULL;
 static mxArray * mxSpeciesTypeReturn         = NULL;
 static mxArray * mxInitialAssignReturn       = NULL;
 static mxArray * mxConstraintReturn          = NULL;
+static mxArray * mxNSReturn          = NULL;
 
 char *    pacCSymbolTime              = NULL;
 
@@ -112,11 +115,20 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   int nBufferLen, nStatus, nBuflen;
   FILE *fp;
   mxArray * mxFilename[2], * mxExt[1];
+  int validateFlag = 0;
 
-  int nNoFields_l1v1 = 12;
-  int nNoFields_l2v1 = 16;
-  int nNoFields_l2v2 = 21;
-  int nNoFields_l2v3 = 21;
+//   unsigned int SBMLConsistency = 7; 
+//   unsigned int SBMLConsistencyIdentifier = 8; - Error in validating identifiers. 
+//   unsigned int SBMLConsistencyUnits = 9      - Error in validating units. 
+//   unsigned int SBMLConsistencyMathML = 10    - Error in validating MathML. 
+//   unsigned int SBMLConsistencySBO = 11       - Error in validation SBO. 
+//   unsigned int SBMLOverdetermined = 12       - Error in equations of model. 
+//   unsigned int SBMLModelingPractice = 14     - Error in model practice. 
+  
+  int nNoFields_l1v1 = 13;
+  int nNoFields_l2v1 = 17;
+  int nNoFields_l2v2 = 22;
+  int nNoFields_l2v3 = 22;
 
   const char *field_names_l1v1[] =
   {
@@ -131,7 +143,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     "species",
     "parameter",
     "rule",
-    "reaction"
+    "reaction",
+    "namespaces"
   };
 
   const char *field_names_l2v1[] =
@@ -151,7 +164,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     "rule",
     "reaction",
     "event",
-    "time_symbol"
+    "time_symbol",
+    "namespaces"
   };
 
   const char *field_names_l2v2[] =
@@ -176,7 +190,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     "constraint",
     "reaction",
     "event",
-    "time_symbol"
+    "time_symbol",
+    "namespaces"
   };
 
   const char *field_names_l2v3[] =
@@ -201,7 +216,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     "constraint",
     "reaction",
     "event",
-    "time_symbol"
+    "time_symbol",
+    "namespaces"
   };
 
   int dims[2] = {1, 1};
@@ -216,8 +232,17 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   int nSBO = -1;
   unsigned int unSBMLLevel;
   unsigned int unSBMLVersion;
+  unsigned int errors = 0;
+  mxArray * mxErrors[1];
+  char * pacErrors, * pacError;
+  unsigned int i;
+  mxArray *mxPrompt[2], *mxReply[1];
+  char *pacPromptValid = "Do you want to validate the model? Enter y/n ";
+  char *pacPrompt = "Do you want to load the model anyway? Enter y/n ";
+  char *pacReply;
   
   pacCSymbolTime = NULL;
+  
 
   /**
    * check number and type of arguments
@@ -238,13 +263,18 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
    if (nrhs > 0)
    {
        /**
-        * MUST be one input argument
-        * a row vector of type string
+        * MUST be at least one input argument
+        * first argument must be a row vector of type string
         * i.e. the filename containing the sbml to be read
         */
-        if ((nrhs != 1) || (mxIsChar(prhs[0]) != 1) || (mxGetM(prhs[0]) != 1))
+        if ((nrhs > 2) || (mxIsChar(prhs[0]) != 1) || (mxGetM(prhs[0]) != 1))
         {
-            mexErrMsgTxt("Usage: = TranslateSBML(filename)");
+            mexErrMsgTxt("Usage: = TranslateSBML(filename, validFlag(optional))");
+        }
+        
+        if (nrhs == 2 && !mxIsNumeric(prhs[1]))
+        {
+            mexErrMsgTxt("Usage:TranslateSBML(filename, flag(optional))\n flag is optional but must be a number");
         }
 
        /**
@@ -270,6 +300,15 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
         {
             fclose(fp);
         }
+        
+        /* if a second argument has been given this is the flag indicating
+         * whether to validate the model or not
+         */
+        if (nrhs == 2)
+        {
+          validateFlag = mxGetScalar(prhs[1]);   
+        }
+            
    }
    /* no argument supplied - browse */
    else
@@ -316,12 +355,69 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
         {
             fclose(fp);
         }
+    
+        mxPrompt[0]= mxCreateString(pacPromptValid);
+        mxPrompt[1]= mxCreateString("s");
+        mexCallMATLAB(1, mxReply, 2, mxPrompt, "input");
+        nBufferLen = (mxGetM(mxReply[0])*mxGetN(mxReply[0])+1);
+        pacReply = (char *) mxCalloc(nBufferLen, sizeof(char));
+        mxGetString(mxReply[0], pacReply, nBufferLen);
+  
+        if (strcmp_insensitive(pacReply, "y") == 0)
+        {
+            validateFlag = 1;
+        }
  
   }
 
 
   sbmlDocument = readSBML(pacFilename);
  
+  /* check for errors in the sbml document */
+  errors = SBMLDocument_getNumErrors(sbmlDocument);
+
+  if (~errors)
+  {
+    errors += SBMLDocument_checkConsistency(sbmlDocument);
+  }
+  /**
+   *  if errors occur report these 
+   *  promt user as to whether to import the model    
+   */
+
+  if (errors != 0 && validateFlag > 0)
+  {
+    pacErrors = (char *) mxCalloc(errors * 100, sizeof(char));
+    pacError  = (char *) mxCalloc(100, sizeof(char));
+    
+    mxPrompt[0]= mxCreateString(pacPrompt);
+    mxPrompt[1]= mxCreateString("s");
+
+    sprintf(pacErrors, "\n%s","*********************\nThis model contains errors\n");
+    for (i = 0; i < SBMLDocument_getNumErrors(sbmlDocument); i++)
+    {
+      sprintf(pacError, "%u: (%u) %s\n", XMLError_getLine(SBMLDocument_getError(sbmlDocument, i)),
+      XMLError_getErrorId(SBMLDocument_getError(sbmlDocument, i)), 
+      XMLError_getMessage(SBMLDocument_getError(sbmlDocument, i)));
+      pacErrors = safe_strcat(pacErrors, pacError);
+    }
+    mxErrors[0] = mxCreateString(pacErrors);
+
+    mexCallMATLAB(0, NULL, 1, mxErrors, "disp");
+    mexCallMATLAB(1, mxReply, 2, mxPrompt, "input");
+
+    nBufferLen = (mxGetM(mxReply[0])*mxGetN(mxReply[0])+1);
+    pacReply = (char *) mxCalloc(nBufferLen, sizeof(char));
+    mxGetString(mxReply[0], pacReply, nBufferLen);
+
+  }
+  else
+  {
+    pacReply = (char *)mxCalloc(3,sizeof(char));
+    pacReply = "y";
+  }
+  if (strcmp_insensitive(pacReply, "y") == 0) 
+  {
   sbmlModel = SBMLDocument_getModel(sbmlDocument);
 
   pacName        = Model_getId(sbmlModel);
@@ -366,6 +462,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     plhs[0] = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
   }
 
+  GetNamespaces    (sbmlDocument);
   
   GetCompartment   (sbmlModel, unSBMLLevel, unSBMLVersion);
   GetParameter     (sbmlModel, unSBMLLevel, unSBMLVersion);
@@ -453,10 +550,56 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     mxSetField(plhs[0], 0, "event", mxEventReturn);
     mxSetField(plhs[0], 0, "time_symbol", mxCreateString(pacCSymbolTime));
   }
-
+  mxSetField( plhs[0], 0, "namespaces"      , mxNSReturn  );
+  
+  }
 }
 
+void
+GetNamespaces(SBMLDocument_t * document)
+{
+  XMLNamespaces_t * NS = SBMLDocument_getNamespaces(document);
+  int n = XMLNamespaces_getLength(NS);
+  int dims[2] = {1, n};
 
+  /* fields within a namespace structure */
+  const int nNoFields = 2;
+  const char *field_names[] = {	
+    "prefix", 
+    "uri"
+  };
+      
+
+  const char * pacPrefix = NULL;
+  const char * pacURI = NULL;
+  
+  int i;
+  
+  mxNSReturn = mxCreateStructArray(2, dims, nNoFields, field_names);
+  
+  for (i = 0; i < n; i++)
+  {
+    pacPrefix = XMLNamespaces_getPrefix(NS, i);
+    pacURI    = XMLNamespaces_getURI(NS, i);
+   
+    /**
+     * check for NULL strings - Matlab doesnt like creating 
+     * a string that is NULL
+     */
+    if (pacPrefix == NULL) {
+      pacPrefix = "";
+    }
+    if (pacURI == NULL) {
+      pacURI = "";
+    }
+
+    mxSetField(mxNSReturn, i, "prefix", mxCreateString(pacPrefix)); 
+    mxSetField(mxNSReturn, i, "uri",    mxCreateString(pacURI)); 
+  }
+  
+  
+  
+}
 /**
  * NAME:    TypecodeToChar
  *
