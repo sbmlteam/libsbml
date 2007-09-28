@@ -80,7 +80,7 @@ copy C:\libsbml_3\src\bindings\python\accept.py accept.py
 cd ..
 
 cd python25
-copy C:\libsbml_3\src\bindings\Python25\libs\_libsbml.dll _libsbml.pyd
+copy C:\libsbml_3\src\bindings\Python25\libs\_libsbml.pyd _libsbml.pyd
 copy C:\libsbml_3\src\bindings\Python25\libs\_libsbml.lib _libsbml.lib
 copy C:\libsbml_3\src\bindings\python\libsbml.py libsbml.py
 copy C:\libsbml_3\src\bindings\python\setup.py setup.py
