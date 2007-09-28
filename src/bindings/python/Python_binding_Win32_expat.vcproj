@@ -328,6 +328,9 @@
 				RelativePath="..\..\validator\constraints\LocalParameterMathCheck.cpp">
 			</File>
 			<File
+				RelativePath="..\..\validator\constraints\LocalParameterShadowsIdInModel.cpp">
+			</File>
+			<File
 				RelativePath="..\..\validator\constraints\LogicalArgsMathCheck.cpp">
 			</File>
 			<File
@@ -350,6 +353,12 @@
 			</File>
 			<File
 				RelativePath="..\..\annotation\ModelHistory.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\ModelingPracticeConstraints.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\ModelingPracticeValidator.cpp">
 			</File>
 			<File
 				RelativePath="..\..\validator\constraints\NumberArgsMathCheck.cpp">
