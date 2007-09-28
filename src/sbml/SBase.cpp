@@ -568,6 +568,7 @@ SBase::setAnnotation (const std::string& annotation)
 
   XMLNode* annt_xmln;
 
+  // you might not have a document !!
   if (getSBMLDocument())
   {
     XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
