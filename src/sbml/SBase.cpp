@@ -1300,8 +1300,8 @@ SBase::read (XMLInputStream& stream)
                    || readAnnotation(stream)
                    || readNotes(stream) ))
       {
-	logUnknownElement(next.getName(), getLevel(), getVersion());
-	stream.skipPastEnd( stream.next() );
+        logUnknownElement(next.getName(), getLevel(), getVersion());
+        stream.skipPastEnd( stream.next() );
       }
     }
     else

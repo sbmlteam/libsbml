@@ -126,7 +126,7 @@ Pass: (1801) An Event trigger must return a boolean value
       <event id="e11">
         <trigger>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply> <true/> </apply>
+            <true/>
           </math>
         </trigger>
         <listOfEventAssignments>
@@ -137,7 +137,7 @@ Pass: (1801) An Event trigger must return a boolean value
       <event id="e12">
         <trigger>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply> <false/> </apply>
+            <false/>
           </math>
         </trigger>
         <listOfEventAssignments>

@@ -130,9 +130,7 @@ Pass: (1801) An Event trigger must return a boolean value
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <lambda>
             <bvar><ci> x </ci></bvar>
-              <apply>
                 <true/>
-              </apply>
           </lambda>
         </math>
       </functionDefinition>
@@ -140,9 +138,7 @@ Pass: (1801) An Event trigger must return a boolean value
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <lambda>
             <bvar><ci> x </ci></bvar>
-              <apply>
                 <false/>
-              </apply>
           </lambda>
         </math>
       </functionDefinition>

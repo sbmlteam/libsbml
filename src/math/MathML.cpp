@@ -515,10 +515,24 @@ readMathML (ASTNode& node, XMLInputStream& stream)
       if (elem.isStart() && elem.isEnd()) return;
 
       readMathML(node, stream);
+
       if (node.isName()) node.setType(AST_FUNCTION);
-      if (node.isNumber()) 
+
+      /* there are several <apply> <...> constructs that are invalid
+       * these need to caught here as they will mess up validation later
+       * These are
+       * <apply> <cn>
+       * <apply> <true> OR <false>
+       * <apply> <pi> OR <exponentiale>
+       * <apply
+       */
+      if ((node.isNumber())   
+        || (node.getType() == AST_CONSTANT_TRUE)
+        || (node.getType() == AST_CONSTANT_FALSE)
+        || (node.getType() == AST_CONSTANT_PI)
+        || (node.getType() == AST_CONSTANT_E)
+        ) 
       {
-        /* <apply> <cn/> is not valid mathML */
         static_cast <SBMLErrorLog*> (stream.getErrorLog())
                                         ->logError(SBMLError::BadMathML);
         return;
@@ -551,8 +565,6 @@ readMathML (ASTNode& node, XMLInputStream& stream)
 
   else if (name == "bvar")
   {
-    /** read in attributes */
-    node.setDefinitionURL(elem.getAttributes());
     readMathML(node, stream);
   }
 
