@@ -161,13 +161,13 @@ AC_LANG(C)
 
 AC_CHECK_LIB(m, isnan)
 
-dnl Make sure to test xerces *last*, because xerces is the default and the
+dnl Make sure to test libxml *last*, because libxml is the default and the
 dnl config macro needs to know whether any other XML libraries have been
 dnl chosen instead of it.
 
 CONFIG_LIB_EXPAT(1.95.8)
-CONFIG_LIB_LIBXML(2.6.16)
 CONFIG_LIB_XERCES
+CONFIG_LIB_LIBXML(2.6.16)
 CONFIG_LIB_LIBCHECK(0.9.2)
 
 

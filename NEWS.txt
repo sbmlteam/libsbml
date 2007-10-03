@@ -2,6 +2,11 @@
 
  === Version 3.0.1 (in progress) ===
 
+* Changes:
+
+  - The default XML parser is now libxml2, not Xerces, following the
+    results of a survey of user preferences conducted in September '07.
+
 * Bug fixes and enhancements:
   
   - It appears there is a difference in the way gcc and MSVC deal with

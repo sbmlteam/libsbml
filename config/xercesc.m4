@@ -31,11 +31,7 @@ AC_DEFUN([CONFIG_LIB_XERCES],
     AC_HELP_STRING([--with-xerces=PREFIX],
                    [Use the Xerces XML Library [[default=yes]]]),
     [with_xerces="$withval"],
-    [with_xerces=yes])
-
-  if test $with_expat != no -o $with_libxml != no; then
-    with_xerces=no
-  fi
+    [with_xerces=no])
 
   if test $with_xerces != no; then
 

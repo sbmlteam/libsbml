@@ -28,7 +28,11 @@ AC_DEFUN([CONFIG_LIB_LIBXML],
   AC_ARG_WITH([libxml],
     AC_HELP_STRING([--with-libxml=PREFIX],
                    [Use the libxml2 XML library [[default=no]]]),
-            [with_libxml="$withval"], [with_libxml=no])
+            [with_libxml="$withval"], [with_libxml=yes])
+
+  if test $with_expat != no -o $with_xerces != no; then
+    with_libxml=no
+  fi
 
   if test $with_libxml != no; then
 
