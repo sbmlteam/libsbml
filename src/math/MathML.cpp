@@ -526,15 +526,35 @@ readMathML (ASTNode& node, XMLInputStream& stream)
        * <apply> <pi> OR <exponentiale>
        * <apply
        */
-      if ((node.isNumber())   
-        || (node.getType() == AST_CONSTANT_TRUE)
+      if (node.isNumber())   
+      {
+        std::string message = "A number is not an operator and cannot be used ";
+        message += "directly following an <apply> tag.";
+
+        // the mathML reader doesnt know what level and version it is reading!
+        // FIX ME
+        static_cast <SBMLErrorLog*> (stream.getErrorLog())
+                                        ->logError(SBMLError::BadMathML, 2,
+                                        1, message);
+        return;
+
+      }
+      else if ((node.getType() == AST_CONSTANT_TRUE)
         || (node.getType() == AST_CONSTANT_FALSE)
         || (node.getType() == AST_CONSTANT_PI)
         || (node.getType() == AST_CONSTANT_E)
         ) 
       {
+        std::string message = "<";
+        message += node.getName();
+        message += "> is not an operator and cannot be used directly following an";
+        message += " <apply> tag.";
+
+        // the mathML reader doesnt know what level and version it is reading!
+        // FIX ME
         static_cast <SBMLErrorLog*> (stream.getErrorLog())
-                                        ->logError(SBMLError::BadMathML);
+                                        ->logError(SBMLError::BadMathML, 2,
+                                        1, message);
         return;
 
       }

@@ -3005,7 +3005,7 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Error,   
     SBMLError::Error,   
     SBMLError::Error,   
-    "Invalid MathML"   
+    "Invalid MathML. The body of an <apply> tag must begin with an operator."   
   }
 
 };
