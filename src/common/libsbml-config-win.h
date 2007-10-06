@@ -89,4 +89,4 @@
 #define PACKAGE_NAME "libSBML"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "3.0.0"
+#define PACKAGE_VERSION "3.0.1"
