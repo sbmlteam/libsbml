@@ -8,6 +8,10 @@
     results of a survey of user preferences conducted in September '07.
 
 * Bug fixes and enhancements:
+
+  - SBML_formulaToString was incorrectly limiting the length of the buffer
+    used to write a number and thus truncating the exponent on numbers
+    with 15 digits. This is now fixed.
   
   - It appears there is a difference in the way gcc and MSVC deal with
     the clean-up of strings following calls to the c_str() function. In
