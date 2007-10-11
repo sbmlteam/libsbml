@@ -122,7 +122,7 @@ StringBuffer_appendNumber (StringBuffer_t *sb, const char *format, ...)
 #  define vsnprintf _vsnprintf
 #endif
 
-  const int size = 16;
+  const int size = 22;
   int       len;
   va_list   ap;
 
