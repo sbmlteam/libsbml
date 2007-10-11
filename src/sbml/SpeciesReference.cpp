@@ -504,8 +504,17 @@ SpeciesReference::setAnnotation (const std::string& annotation)
     return;
   }
 
-  XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
-  XMLNode* annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns);
+  XMLNode* annt_xmln;
+  if (getSBMLDocument())
+  {
+    XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+    annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns);
+  }
+  else
+  {
+    annt_xmln = XMLNode::convertStringToXMLNode(annotation);
+  }
+
   if(annt_xmln)
   {
     setAnnotation(annt_xmln);
@@ -566,8 +575,17 @@ SpeciesReference::appendAnnotation (const XMLNode* annotation)
 void
 SpeciesReference::appendAnnotation (const std::string& annotation)
 {
-  XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
-  XMLNode* annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns);
+  XMLNode* annt_xmln;
+  if (getSBMLDocument())
+  {
+    XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+    annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns);
+  }
+  else
+  {
+    annt_xmln = XMLNode::convertStringToXMLNode(annotation);
+  }
+
   if(annt_xmln)
   {
     appendAnnotation(annt_xmln);
