@@ -1,19 +1,19 @@
-; Version No is currently 3.0.0
+; Version No is currently 3.0.1
 ; Check before use
 
 
 [Setup]
 AppName=libSBML
-AppVerName=libSBML 3.0.0
+AppVerName=libSBML 3.0.1
 AppPublisher=SBML Team
 AppPublisherURL=http://sbml.org
 AppSupportURL=http://sbml.org
 AppUpdatesURL=http://sbml.org
-DefaultDirName={pf}\SBML\libSBML-3.0.0-xerces
+DefaultDirName={pf}\SBML\libSBML-3.0.1-xerces
 DefaultGroupName=libSBML
 DisableProgramGroupPage=yes
 OutputDir=..\..\..\libsbml_3\win32\installer\Output
-OutputBaseFilename=libSBML-3.0.0-win-xerces
+OutputBaseFilename=libSBML-3.0.1-win-xerces
 WizardSmallImageFile=libsbml-installer-mini-logo.bmp
 WizardImageFile=libsbml-installer-graphic-v3.bmp
 UsePreviousAppDir=no
@@ -28,12 +28,12 @@ Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\*; DestDir: {app}; Flags: 
 Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\java\sbmlj.lib; DestDir: {sys}; Check: GetJava
 Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\java\sbmlj.dll; DestDir: {sys}; Check: GetJava
 Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\matlab\*; DestDir: {code:GetMatlabDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetMatlab
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python23\_libsbml.lib; DestDir: {sys}; Check: GetPython23
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python23\_libsbml.dll; DestDir: {sys}; Check: GetPython23
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python24\_libsbml.lib; DestDir: {sys}; Check: GetPython24
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python24\_libsbml.dll; DestDir: {sys}; Check: GetPython24
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python25\_libsbml.lib; DestDir: {sys}; Check: GetPython25
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python25\_libsbml.dll; DestDir: {sys}; Check: GetPython25
+Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python23\libsbml.py; DestDir: {code:GetPython23Dir}; Check: GetPython23
+Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python23\_libsbml.dll; DestDir: {code:GetPython23Dir}; Check: GetPython23
+Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python24\libsbml.py; DestDir: {code:GetPython24Dir}; Check: GetPython24
+Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python24\_libsbml.dll; DestDir: {code:GetPython24Dir}; Check: GetPython24
+Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python25\libsbml.py; DestDir: {code:GetPython25Dir}; Check: GetPython25
+Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python25\_libsbml.pyd; DestDir: {code:GetPython25Dir}; Check: GetPython25
 Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\xerces-c_2D.lib; DestDir: {sys}; Check: GetLibrary
 Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\libsbml.dll; DestDir: {sys}; Check: GetLibrary
 Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\libsbml.lib; DestDir: {sys}; Check: GetLibrary
@@ -48,7 +48,7 @@ Root: HKCU; Subkey: Software\SBML; Flags: uninsdeletekeyifempty
 Root: HKCU; Subkey: Software\SBML\libSBML; Flags: uninsdeletekey
 Root: HKLM; Subkey: Software\SBML; Flags: uninsdeletekeyifempty
 Root: HKLM; Subkey: Software\SBML\libSBML; Flags: uninsdeletekey
-Root: HKLM; Subkey: Software\SBML\libSBML; ValueType: string; ValueName: Version; ValueData: 3.0.0
+Root: HKLM; Subkey: Software\SBML\libSBML; ValueType: string; ValueName: Version; ValueData: 3.0.1
 Root: HKLM; Subkey: Software\SBML\libSBML; ValueType: string; ValueName: InstallPath; ValueData: {app}
 
 [Code]
@@ -110,6 +110,51 @@ begin
   Result := Root;
 end;
 
+{function to return python 2.5 dir directory}
+function GetPython25Dir(S : String): String;
+var
+  Root:String;
+  Key: String;
+
+begin
+  Key := '';
+  Key := Key + 'Software\Python\PythonCore\2.5\InstallPath\';
+  RegQueryStringValue(HKLM, Key, '', Root);
+
+  Root:= Root + 'Lib\site-packages\';
+  Result := Root;
+end;
+
+{function to return python 2.4 dir directory}
+function GetPython24Dir(S : String): String;
+var
+  Root:String;
+  Key: String;
+
+begin
+  Key := '';
+  Key := Key + 'Software\Python\PythonCore\2.4\InstallPath\';
+  RegQueryStringValue(HKLM, Key, '', Root);
+
+  Root:= Root + 'Lib\site-packages\';
+  Result := Root;
+end;
+
+{function to return python 2.3 dir directory}
+function GetPython23Dir(S : String): String;
+var
+  Root:String;
+  Key: String;
+
+begin
+  Key := '';
+  Key := Key + 'Software\Python\PythonCore\2.3\InstallPath\';
+  RegQueryStringValue(HKLM, Key, '', Root);
+
+  Root:= Root + 'Lib\site-packages\';
+  Result := Root;
+end;
+
 {function to check whether a preinstalled version number is later than the
   current installation
   returns 1 is the version installed is later than this version
@@ -161,8 +206,8 @@ begin
 
   Note: it includes a version number
 **********************************************************************************************************}
-  MsgBox('This setup installs the Windows version of libSBML 3.0.0 built using the Xerces XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);
- { MsgBox('This setup installs the Windows release of libSBML 3.0.0 built using the Expat XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);  }
+  MsgBox('This setup installs the Windows version of libSBML 3.0.1 built using the Xerces XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);
+ { MsgBox('This setup installs the Windows release of libSBML 3.0.1 built using the Expat XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);  }
 end;
 
 
@@ -178,7 +223,7 @@ procedure InitializeWizard;
 begin
   {get data from system}
   PreviousInstalledVersion := GetVersion();
-  ThisVersion := '3.0.0';
+  ThisVersion := '3.0.1';
   MatlabRoot := GetMatlabRoot('');
 
   if (PreviousInstalledVersion = '') then begin
@@ -226,7 +271,7 @@ begin
     False, False);
   InstallOptionsPage.Add('Copy libraries to systems directories');
   InstallOptionsPage.Add('Copy Java binding libraries to systems directory');
-  InstallOptionsPage.Add('Copy Python binding libraries to systems directory');
+  InstallOptionsPage.Add('Copy Python binding libraries to site-packages directory');
   if (MatlabPresent) then begin
     InstallOptionsPage.Add('Install MATLAB binding');
   end;
@@ -437,18 +482,18 @@ begin
     if (InstallOptionsPage.Values[2] = True) then begin
         if (PythonPage.SelectedValueIndex = 0) then begin
           S := S + NewLine;
-          S := S + 'Writing libSBML Python 2.3 library files (_libsbml.*) to system directory' + NewLine;
-          S := S + '      ' + GetSystemDir();
+          S := S + 'Writing libSBML Python 2.3 files to site-packages directory' + NewLine;
+          S := S + '      ' + GetPython23Dir('');
           S := S + NewLine;
         end else if (PythonPage.SelectedValueIndex = 1) then begin
           S := S + NewLine;
-          S := S + 'Writing libSBML Python 2.4 library files (_libsbml.*) to system directory' + NewLine;
-          S := S + '      ' + GetSystemDir();
+          S := S + 'Writing libSBML Python 2.4 files to site-packages directory' + NewLine;
+          S := S + '      ' + GetPython24Dir('');
           S := S + NewLine;
         end else begin
           S := S + NewLine;
-          S := S + 'Writing libSBML Python 2.5 library files (_libsbml.*) to system directory' + NewLine;
-          S := S + '      ' + GetSystemDir();
+          S := S + 'Writing libSBML Python 2.5 files to site-packages directory' + NewLine;
+          S := S + '      ' + GetPython25Dir('');
           S := S + NewLine;
         end;
     end else begin
