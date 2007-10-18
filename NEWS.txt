@@ -1,6 +1,6 @@
            libsbml NEWS -- History of user-visible changes
 
- === Version 3.0.1 (in progress) ===
+ === Version 3.0.1 ===
 
 * Changes:
 
@@ -8,6 +8,14 @@
     results of a survey of user preferences conducted in September '07.
 
 * Bug fixes and enhancements:
+
+  - Fixed a memory leak in XercesParser.cpp, reported (with the fix)
+    by Sebastian Bauer.
+
+  - There is a new file, common/lisbml-version.h, that provides
+    constants called LIBSBML_VERSION, LIBSBML_VERSION_STRING, and
+    LIBSBML_DOTTED_VERSION, so that applications can more easily find
+    out the version of a particular installation of libSBML.
 
   - SBML_formulaToString was incorrectly limiting the length of the buffer
     used to write a number and thus truncating the exponent on numbers
