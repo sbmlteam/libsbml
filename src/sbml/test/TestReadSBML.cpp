@@ -2328,7 +2328,7 @@ START_TEST (test_ReadSBML_line_col_numbers)
 #endif
 #ifdef USE_XERCES
   fail_unless ( SBase_getLine  (sb) ==  3 );
-  fail_unless ( SBase_getColumn(sb) == 27 );
+  fail_unless ( SBase_getColumn(sb) == 42 );
 #endif
 
 
