@@ -317,6 +317,7 @@ XercesParser::~XercesParser ()
 {
   delete mReader;
   delete mSource;
+  XMLPlatformUtils::Terminate();
 }
 
 
