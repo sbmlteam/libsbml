@@ -81,12 +81,14 @@ distfiles =                        \
   LibSBML.pod                      \
   LibSBML.txt                      \
   LibSBML_wrap.cxx                 \
+  list_of_fix.i                    \
   local.cpp                        \
   local.i                          \
   Makefile.in                      \
   Makefile.PL.in                   \
   MANIFEST                         \
   README.txt                       \
+  patchLibSBML.pl                  \
   t/01__LoadModule.t               \
   t/02__CreateDocument.t           \
   t/02__ReadFromFile.t             \
