@@ -303,15 +303,10 @@ LibXMLHandler::getInternalHandler ()
 unsigned int
 LibXMLHandler::getColumn () const
 {
-  unsigned int column = 0;
-
-
-  if (mLocator && mLocator->getColumnNumber(mContext) > 0)
-  {
-    column = static_cast<unsigned int>( mLocator->getColumnNumber(mContext) );
-  }
-
-  return column;
+  if (mContext)
+    return static_cast<unsigned int>( xmlSAX2GetColumnNumber(mContext) );
+  else
+    return 0;
 }
 
 
@@ -321,15 +316,10 @@ LibXMLHandler::getColumn () const
 unsigned int
 LibXMLHandler::getLine () const
 {
-  unsigned int line = 0;
-
-
-  if (mLocator && mLocator->getLineNumber(mContext) > 0)
-  {
-    line = static_cast<unsigned int>( mLocator->getLineNumber(mContext) );
-  }
-
-  return line;
+  if (mContext)
+    return static_cast<unsigned int>( xmlSAX2GetLineNumber(mContext) );
+  else
+    return 0;
 }
 
 /** @endcond doxygen-libsbml-internal */
