@@ -27,10 +27,8 @@ dnl
 dnl Bug reports are sent to sbml-team@cds.caltech.edu
 dnl ---------------------------------------------------------------------------
 
-if test -f "VERSION.txt"; then
-   m4_define(LIBSBML_VERSION, 
-       m4_esyscmd(cat VERSION.txt  | sed 's/\-.*$//' | tr -d '\n\r'))
-fi
+m4_define(LIBSBML_VERSION, 
+  m4_esyscmd(cat VERSION.txt  | sed 's/\-.*$//' | tr -d '\n\r'))
 
 AC_INIT([libSBML], LIBSBML_VERSION, [sbml-team@caltech.edu], [libsbml])
 AC_CONFIG_AUX_DIR(config)
@@ -43,6 +41,10 @@ AC_CONFIG_SRCDIR(src/Makefile.in)
 
 AC_CONFIG_HEADERS(src/common/libsbml-config-unix.h)
 AC_CONFIG_HEADERS(src/common/libsbml-package.h)
+
+LIBSBML_VERSION_NUMERIC=m4_esyscmd(cat VERSION.txt |\
+  awk -F'.' '{ printf("%d%02d%02d\n", $1, $2, $3) }')
+AC_SUBST(LIBSBML_VERSION_NUMERIC)
 
 
 dnl ---------------------------------------------------------------------------
@@ -228,6 +230,7 @@ AC_CONFIG_FILES([./Makefile])
 AC_CONFIG_FILES([src/Makefile])
 
 AC_CONFIG_FILES([src/common/Makefile])
+AC_CONFIG_FILES([src/common/libsbml-version.h])
 
 AC_CONFIG_FILES([src/bindings/Makefile])
 
