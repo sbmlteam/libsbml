@@ -25,6 +25,7 @@
 #ifndef LIBSBML_VERSION_H
 #define LIBSBML_VERSION_H 1
 
+
 /**
  * LIBSBML_DOTTED_VERSION:
  *
@@ -38,7 +39,7 @@
  * The version as an integer: version 1.2.3 becomes 10203.  Since the major
  * number comes first, the overall number will always increase when a new
  * libSBML is released, making it easy to use less-than and greater-than
- * comparisons when testing versions.
+ * comparisons when testing versions numbers.
  */
 #define LIBSBML_VERSION		30001
 
