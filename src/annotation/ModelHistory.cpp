@@ -536,12 +536,14 @@ ModelCreator::ModelCreator(const XMLNode creator)
   }
 }
 
-  /**
-   * destructor
-   */
+
+/**
+ * destructor
+ */
 ModelCreator::~ModelCreator()
 {
 }
+
 
 /**
 * Copy constructor.
@@ -553,6 +555,7 @@ ModelCreator::ModelCreator(const ModelCreator& orig):
  , mOrganization ( orig.mOrganization )
 {
 }
+
 
 /**
   * Assignment operator
@@ -566,6 +569,7 @@ ModelCreator& ModelCreator::operator=(const ModelCreator& orig)
   return *this;
 }
 
+
 /**
   * @return a (deep) copy of this ModelCreator.
   */
@@ -573,6 +577,7 @@ ModelCreator* ModelCreator::clone () const
 {
   return new ModelCreator(*this);
 }
+
 
 bool 
 ModelCreator::isSetFamilyName()
@@ -587,11 +592,13 @@ ModelCreator::isSetGivenName()
   return (mGivenName.empty() == false);
 }
 
+
 bool 
 ModelCreator::isSetEmail()
 {
   return (mEmail.empty() == false);
 }
+
 
 bool 
 ModelCreator::isSetOrganization()
@@ -599,12 +606,14 @@ ModelCreator::isSetOrganization()
   return (mOrganization.empty() == false);
 }
 
+
+/** @cond doxygen-libsbml-internal */
 bool 
 ModelCreator::isSetOrganisation()
 {
   return isSetOrganization();
 }
-
+/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -636,17 +645,22 @@ ModelCreator::setEmail(std::string email)
   mEmail = email;
 }
 
+
 void 
 ModelCreator::setOrganization(std::string organization)
 {
   mOrganization = organization;
 }
 
+
+/** @cond doxygen-libsbml-internal */
 void 
 ModelCreator::setOrganisation(std::string organization)
 {
   setOrganization(organization);
 }
+/** @endcond doxygen-libsbml-internal */
+
 
 void 
 ModelCreator::unsetFamilyName()
@@ -654,11 +668,13 @@ ModelCreator::unsetFamilyName()
   mFamilyName.erase();
 }
 
+
 void 
 ModelCreator::unsetGivenName()
 {
   mGivenName.erase();
 }
+
 
 void 
 ModelCreator::unsetEmail()
@@ -666,20 +682,21 @@ ModelCreator::unsetEmail()
   mEmail.erase();
 }
 
+
+/** @cond doxygen-libsbml-internal */
 void 
 ModelCreator::unsetOrganization()
 {
   mOrganization.erase();
 }
+/** @endcond doxygen-libsbml-internal */
+
 
 void 
 ModelCreator::unsetOrganisation()
 {
   unsetOrganization();
 }
-
-
-
 
 
 /**
@@ -701,6 +718,7 @@ ModelHistory::~ModelHistory()
   if (mCreatedDate) delete mCreatedDate;
   if (mModifiedDate) delete mModifiedDate;
 }
+
 
 /**
 * Copy constructor.
@@ -730,6 +748,7 @@ ModelHistory::ModelHistory(const ModelHistory& orig)
   }
 }
 
+
 /**
   * Assignment operator
   */
@@ -746,6 +765,7 @@ ModelHistory::operator=(const ModelHistory& orig)
   return *this;
 }
 
+
 /**
   * @return a (deep) copy of this ModelHistory.
   */
@@ -754,6 +774,8 @@ ModelHistory::clone() const
 {
   return new ModelHistory(*this);
 }
+
+
 /**
  * adds a creator to the model history
  */
@@ -762,6 +784,7 @@ ModelHistory::addCreator(ModelCreator * creator)
 {
   mCreators->add((void *)(creator->clone()));
 }
+
 
 /**
   * sets the created date
@@ -772,6 +795,7 @@ ModelHistory::setCreatedDate(Date* date)
   mCreatedDate = date->clone();
 }
 
+
 /**
   * sets teh modiefied date
   */
@@ -780,6 +804,7 @@ ModelHistory::setModifiedDate(Date* date)
 {
   mModifiedDate = date->clone();
 }
+
 
 /**
  * return the List of creators
@@ -810,6 +835,7 @@ ModelHistory::getModifiedDate()
   return mModifiedDate;
 }
 
+
 /**
   * @return number in List of Creator
   */
@@ -819,6 +845,7 @@ ModelHistory::getNumCreators()
   return mCreators->getSize();
 }
 
+
 /**
   * @return nth Creator
   */
@@ -827,6 +854,8 @@ ModelHistory::getCreator(unsigned int n)
 {
   return (ModelCreator *) (mCreators->get(n));
 }
+
+
 /**
   * @return true if the created Date has been set, false
   * otherwise.
@@ -837,6 +866,7 @@ ModelHistory::isSetCreatedDate()
   return mCreatedDate != 0;
 }
 
+
 /**
   * @return true if the modified Date has been set, false
   * otherwise.
@@ -846,7 +876,6 @@ ModelHistory::isSetModifiedDate()
 {
   return mModifiedDate != 0;
 }
-
 
 
 /**
@@ -877,6 +906,7 @@ Date_createFromValues(unsigned int year, unsigned int month,
     second, sign, hoursOffset, minutesOffset);
 }
 
+
 /**
  * Creates a date from a string.
  *
@@ -894,6 +924,7 @@ Date_createFromString (const char * date)
 {
   return new(nothrow) Date(date);
 }
+
 
 /**
  * Destroys this Date.
@@ -938,7 +969,6 @@ Date_getDateAsString(Date_t * date)
 }
 
 
-
 /**
  * Returns the year from this Date.
  *
@@ -952,6 +982,7 @@ Date_getYear(Date_t * date)
 {
   return date->getYear();
 }
+
 
 /**
  * Returns the month from this Date.
@@ -1027,6 +1058,7 @@ Date_getSecond(Date_t * date)
   return date->getSecond(); 
 } 
 
+
 /**
  * Returns the sign of the offset from this Date.
  *
@@ -1040,6 +1072,7 @@ Date_getSignOffset(Date_t * date)
 { 
   return date->getSignOffset(); 
 } 
+
 
 /**
  * Returns the hours of the offset from this Date.
@@ -1055,6 +1088,7 @@ Date_getHoursOffset(Date_t * date)
   return date->getHoursOffset(); 
 } 
 
+
 /**
  * Returns the minutes of the offset from this Date.
  *
@@ -1069,6 +1103,7 @@ Date_getMinutesOffset(Date_t * date)
   return date->getMinutesOffset(); 
 } 
 
+
 /**
  * Sets the value of the year checking appropriateness.
  *  
@@ -1081,6 +1116,7 @@ Date_setYear(Date_t * date, unsigned int value)
 { 
   date->setYear(value); 
 }
+
 
 /**
  * Sets the value of the month checking appropriateness.
@@ -1095,6 +1131,7 @@ Date_setMonth(Date_t * date, unsigned int value)
   date->setMonth(value); 
 }
 
+
 /**
  * Sets the value of the day checking appropriateness.
  *  
@@ -1107,6 +1144,7 @@ Date_setDay(Date_t * date, unsigned int value)
 { 
   date->setDay(value); 
 }
+
 
 /**
  * Sets the value of the hour checking appropriateness.
@@ -1121,6 +1159,7 @@ Date_setHour(Date_t * date, unsigned int value)
   date->setHour(value); 
 }
 
+
 /**
  * Sets the value of the minute checking appropriateness.
  *  
@@ -1134,6 +1173,7 @@ Date_setMinute(Date_t * date, unsigned int value)
   date->setMinute(value); 
 }
 
+
 /**
  * Sets the value of the second checking appropriateness.
  *  
@@ -1146,6 +1186,7 @@ Date_setSecond(Date_t * date, unsigned int value)
 { 
   date->setSecond(value); 
 }
+
 
 /**
  * Sets the value of the offset sign checking appropriateness.
@@ -1161,6 +1202,7 @@ Date_setSignOffset(Date_t * date, unsigned int value)
   date->setSignOffset(value); 
 }
 
+
 /**
  * Sets the value of the offset hour checking appropriateness.
  *  
@@ -1174,6 +1216,7 @@ Date_setHoursOffset(Date_t * date, unsigned int value)
 { 
   date->setHoursOffset(value); 
 }
+
 
 /**
  * Sets the value of the offset minutes checking appropriateness.
@@ -1215,6 +1258,7 @@ ModelCreator_createFromNode(const XMLNode_t * node)
   return new(nothrow) ModelCreator(*node);
 }
 
+
 /**
  * Destroys this ModelCreator.
  *
@@ -1226,6 +1270,7 @@ ModelCreator_free(ModelCreator_t * mc)
 {
   delete static_cast<ModelCreator*>(mc);
 }
+
 
 /**
  * Creates a deep copy of the given ModelCreator_t structure
@@ -1299,6 +1344,7 @@ ModelCreator_getOrganisation(ModelCreator_t *mc)
 }
 /** @endcond doxygen-libsbml-internal */
 
+
 /**
  * Returns the organization from the ModelCreator.
  * 
@@ -1312,6 +1358,7 @@ ModelCreator_getOrganization(ModelCreator_t *mc)
 {
   return ModelCreator_getOrganisation(mc);
 }
+
 
 /**
  * Predicate indicating whether this
@@ -1329,6 +1376,7 @@ ModelCreator_isSetFamilyName(ModelCreator_t *mc)
   return static_cast<int>(mc->isSetFamilyName());
 }
 
+
 /**
  * Predicate indicating whether this
  * ModelCreator's givenName has been set.
@@ -1344,6 +1392,7 @@ ModelCreator_isSetGivenName(ModelCreator_t *mc)
 {
   return static_cast<int>(mc->isSetGivenName());
 }
+
 
 /**
  * Predicate indicating whether this
@@ -1361,6 +1410,7 @@ ModelCreator_isSetEmail(ModelCreator_t *mc)
   return static_cast<int>(mc->isSetEmail());
 }
 
+
 /** @cond doxygen-libsbml-internal */
 LIBSBML_EXTERN
 int 
@@ -1369,6 +1419,7 @@ ModelCreator_isSetOrganisation(ModelCreator_t *mc)
   return static_cast<int>(mc->isSetOrganisation());
 }
 /** @endcond doxygen-libsbml-internal */
+
 
 /**
  * Predicate indicating whether this
@@ -1385,6 +1436,7 @@ ModelCreator_isSetOrganization(ModelCreator_t *mc)
 {
   return ModelCreator_isSetOrganisation(mc);
 }
+
 
 /**
  * Sets the family name
@@ -1440,6 +1492,7 @@ ModelCreator_setOrganisation(ModelCreator_t *mc, char * name)
 }
 /** @endcond doxygen-libsbml-internal */
 
+
 /**
  * Sets the organization
  *  
@@ -1453,6 +1506,7 @@ ModelCreator_setOrganization(ModelCreator_t *mc, char * org)
   ModelCreator_setOrganisation(mc, org);
 }
 
+
 /**
  * Unsets the familyName of this ModelCreator.
  *
@@ -1464,6 +1518,7 @@ ModelCreator_unsetFamilyName(ModelCreator_t *mc)
 {
   mc->unsetFamilyName();
 }
+
 
 /**
  * Unsets the givenName of this ModelCreator.
@@ -1477,6 +1532,7 @@ ModelCreator_unsetGivenName(ModelCreator_t *mc)
   mc->unsetGivenName();
 }
 
+
 /**
  * Unsets the email of this ModelCreator.
  *
@@ -1489,6 +1545,7 @@ ModelCreator_unsetEmail(ModelCreator_t *mc)
   mc->unsetEmail();
 }
 
+
 /** @cond doxygen-libsbml-internal */
 LIBSBML_EXTERN
 void 
@@ -1497,6 +1554,7 @@ ModelCreator_unsetOrganisation(ModelCreator_t *mc)
   mc->unsetOrganisation();
 }
 /** @endcond doxygen-libsbml-internal */
+
 
 /**
  * Unsets the organization of this ModelCreator.
@@ -1510,6 +1568,7 @@ ModelCreator_unsetOrganization(ModelCreator_t *mc)
   ModelCreator_unsetOrganisation(mc);
 }
 
+
 /**
  * Creates a new ModelHistory_t structure and returns a pointer to it.
  *
@@ -1521,6 +1580,7 @@ ModelHistory_create ()
 {
   return new(nothrow) ModelHistory();
 }
+
 
 /**
  * Destroys this ModelHistory.
@@ -1595,6 +1655,7 @@ int ModelHistory_isSetCreatedDate(ModelHistory_t * mh)
   return static_cast<int> (mh->isSetCreatedDate());
 }
 
+
 /**
  * Predicate indicating whether this
  * ModelHistory's modifiedDate has been set.
@@ -1656,6 +1717,7 @@ ModelHistory_addCreator(ModelHistory_t * mh,
   mh->addCreator(mc);
 }
 
+
 /**
  * Get the List of ModelCreator objects in this 
  * ModelHistory.
@@ -1676,7 +1738,7 @@ List_t * ModelHistory_getListCreators(ModelHistory_t * mh)
  * Get the nth ModelCreator_t structure in this ModelHistory_t.
  * 
  * @param mh the ModelHistory_t structure
- * @param n, an unsigned int indicating which ModelCreator
+ * @param n an unsigned int indicating which ModelCreator
  *
  * @return the nth ModelCreator of this ModelHistory.
  */
