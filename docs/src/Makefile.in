@@ -74,10 +74,11 @@ endif
 # We don't want to remove the formatted docs during a regular make clean,
 # only a distclean.
 
-extra_distclean =              \
-        $(docs)                \
-        doxygen-config-c.txt   \
-        doxygen-config-cpp.txt \
+extra_distclean =               \
+        $(docs)                 \
+        doxygen-config-c.txt    \
+        doxygen-config-cpp.txt  \
+        doxygen-config-perl.txt \
         doxygen-config-python.txt
 
 # The `make dist' rules for this directory are more complicated than usual.
@@ -88,6 +89,7 @@ distfiles =                                    \
         doxygen-config-c.txt.in                \
         doxygen-config-common.txt              \
         doxygen-config-cpp.txt.in              \
+        doxygen-config-perl.txt.in             \
         doxygen-config-python.txt.in           \
         doxygen-footer.html                    \
         doxygen-tabs.css                       \
@@ -190,16 +192,17 @@ endif
 # -----------------------------------------------------------------------------
 
 #
-# Rules for remaking the C++, C and Python manuals.
+# Rules for remaking the C++, C, Python and Perl manuals.
 #
 # These require configuring libSBML with --with-doxygen *and* a
 # sufficiently recent version of doxygen.  The version check is done by
 # configure.
 #
 
-doxygen-cpp-conf = doxygen-config-cpp.txt.in doxygen-config-common.txt
-doxygen-c-conf   = doxygen-config-c.txt.in doxygen-config-common.txt
-doxygen-py-conf  = doxygen-config-python.txt.in doxygen-config-common.txt
+doxygen-cpp-conf  = doxygen-config-cpp.txt.in doxygen-config-common.txt
+doxygen-c-conf    = doxygen-config-c.txt.in doxygen-config-common.txt
+doxygen-py-conf   = doxygen-config-python.txt.in doxygen-config-common.txt
+doxygen-perl-conf = doxygen-config-perl.txt.in doxygen-config-common.txt
 
 doxygen-config-cpp.txt:  $(doxygen-cpp-conf) $(TOP_SRCDIR)/VERSION.txt
 	cd $(TOP_BUILDDIR) && \
@@ -212,6 +215,10 @@ doxygen-config-c.txt:  $(doxygen-c-conf) $(TOP_SRCDIR)/VERSION.txt
 doxygen-config-python.txt:  $(doxygen-py-conf) $(TOP_SRCDIR)/VERSION.txt
 	cd $(TOP_BUILDDIR) && \
 	  $(SHELL) ./config.status $(thisdir)/doxygen-config-python.txt
+
+doxygen-config-perl.txt:  $(doxygen-perl-conf) $(TOP_SRCDIR)/VERSION.txt
+	cd $(TOP_BUILDDIR) && \
+	  $(SHELL) ./config.status $(thisdir)/doxygen-config-perl.txt
 
 core-sources = \
   $(wildcard ../../src/*/*.[cpp,h]) \
@@ -249,6 +256,14 @@ python-sources = ../../src/bindings/python/libsbml.py
 python-manual $(python-manual): doxygen-config-python.txt $(python-sources)
 	$(call run_doxygen,doxygen-config-python.txt,$(python-manual))
 endif
+
+ifdef USE_PERL
+perl-sources = ../../src/bindings/perl/libsbml.pm
+
+perl-manual $(perl-manual): doxygen-config-perl.txt $(perl-sources)
+	$(call run_doxygen,doxygen-config-perl.txt,$(perl-manual))
+endif
+
 
 else
 # Complain that doxygen isn't configured suitably.
