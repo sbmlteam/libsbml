@@ -45,47 +45,47 @@ thisdir   = src/sbml/test
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-test_sources =				\
-  TestReadSBML.cpp			\
-  TestWriteSBML.cpp			\
-  TestRunner.c				\
-  TestCompartment.c			\
-  TestCompartmentType.c		\
-  TestConstraint.c			\
-  TestEvent.c				\
-  TestEventAssignment.c		\
-  TestFunctionDefinition.c	\
-  TestInitialAssignment.c	\
-  TestKineticLaw.c			\
-  TestListOf.c				\
-  TestParameter.c			\
-  TestReaction.c			\
-  TestRule.c				\
-  TestSpecies.c				\
-  TestSpeciesReference.c	\
-  TestSpeciesType.c			\
-  TestUnit.c                \
-  TestUnitDefinition.c      \
-  TestUnitKind.c            \
-  TestAssignmentRule.c		\
-  TestCopyAndClone.cpp		\
-  TestAlgebraicRule.c       \
-  TestRateRule.c             \
-  TestDelay.c				\
-  TestTrigger.c				\
-  TestModel.c				\
-  TestSBase.cpp				\
-  TestStoichiometryMath.c	\
+test_sources =                   \
+  TestReadSBML.cpp               \
+  TestWriteSBML.cpp              \
+  TestRunner.c                   \
+  TestCompartment.c              \
+  TestCompartmentType.c          \
+  TestConstraint.c               \
+  TestEvent.c                    \
+  TestEventAssignment.c          \
+  TestFunctionDefinition.c       \
+  TestInitialAssignment.c        \
+  TestKineticLaw.c               \
+  TestListOf.c                   \
+  TestParameter.c                \
+  TestReaction.c                 \
+  TestRule.c                     \
+  TestSpecies.c                  \
+  TestSpeciesReference.c         \
+  TestSpeciesType.c              \
+  TestUnit.c                     \
+  TestUnitDefinition.c           \
+  TestUnitKind.c                 \
+  TestAssignmentRule.c           \
+  TestCopyAndClone.cpp           \
+  TestAlgebraicRule.c            \
+  TestRateRule.c                 \
+  TestDelay.c                    \
+  TestTrigger.c                  \
+  TestModel.c                    \
+  TestSBase.cpp                  \
+  TestStoichiometryMath.c        \
   TestModifierSpeciesReference.c \
-  TestCompartmentVolumeRule.c  \
-  TestParameterRule.c       \
+  TestCompartmentVolumeRule.c    \
+  TestParameterRule.c            \
   TestSpeciesConcentrationRule.c \
-  TestSBMLConvert.c         \
-  TestSBMLDocument.c		\
-  TestReadFromFile1.c		\
-  TestReadFromFile2.c		\
-  TestReadFromFile3.c		\
-  TestReadFromFile4.c		\
+  TestSBMLConvert.c              \
+  TestSBMLDocument.c             \
+  TestReadFromFile1.c            \
+  TestReadFromFile2.c            \
+  TestReadFromFile3.c            \
+  TestReadFromFile4.c            \
   TestReadFromFile5.cpp
 
 
