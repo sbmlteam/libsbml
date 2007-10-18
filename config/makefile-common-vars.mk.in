@@ -186,6 +186,9 @@ RANLIB            = @RANLIB@
 SHAREDLIBEXT      = @SHAREDLIBEXT@
 SHELL             = @SHELL@
 
+LIBSBML_VERSION   = @LIBSBML_VERSION@
+LIBSBML_VERSION_NUMERIC = @LIBSBML_VERSION_NUMERIC@
+
 
 # -----------------------------------------------------------------------------
 # End.
