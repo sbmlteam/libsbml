@@ -106,19 +106,19 @@ ifdef USE_LIBCHECK
 endif
 
 ifdef USE_EXPAT
-  extra_CPPFLAGS += $(EXPAT_CPPFLAGS)
+  extra_CPPFLAGS += $(EXPAT_CPPFLAGS) -DUSE_EXPAT
   extra_LDFLAGS  += $(EXPAT_LDFLAGS)
   extra_LIBS     += $(EXPAT_LIBS)
 endif
 
 ifdef USE_XERCES
-  extra_CPPFLAGS += $(XERCES_CPPFLAGS)
+  extra_CPPFLAGS += $(XERCES_CPPFLAGS) -DUSE_XERCES
   extra_LDFLAGS  += $(XERCES_LDFLAGS)
   extra_LIBS     += $(XERCES_LIBS)
 endif
 
 ifdef USE_LIBXML
-  extra_CPPFLAGS += $(LIBXML_CPPFLAGS)
+  extra_CPPFLAGS += $(LIBXML_CPPFLAGS) -DUSE_LIBXML
   extra_LDFLAGS  += $(LIBXML_LDFLAGS)
   extra_LIBS     += $(LIBXML_LIBS)
 endif
