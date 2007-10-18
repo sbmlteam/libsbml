@@ -50,6 +50,7 @@ headers =               \
   libsbml-config.h      \
   libsbml-config-unix.h \
   libsbml-config-win.h  \
+  libsbml-version.h     \
   sbmlfwd.h
 
 
@@ -59,11 +60,19 @@ header_inst_prefix = common
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles =   \
-  $(headers)  \
-  Makefile.in \
+distfiles =                \
+  Makefile.in              \
+  common.h                 \
+  extern.h                 \
+  libsbml-config.h         \
+  libsbml-config-unix.h    \
   libsbml-config-unix.h.in \
+  libsbml-config-win.h     \
+  libsbml-package.h        \
   libsbml-package.h.in     \
+  libsbml-version.h        \
+  libsbml-version.h.in     \
+  sbmlfwd.h
 
 
 # -----------------------------------------------------------------------------
