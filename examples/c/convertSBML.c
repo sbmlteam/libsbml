@@ -82,6 +82,7 @@ main (int argc, char *argv[])
       printf("was provided:\n");
       SBMLDocument_printErrors(d, stdout);
       writeSBML(d, argv[2]);
+    }
     else
     { 	    
       printf("Conversion completed.\n");
