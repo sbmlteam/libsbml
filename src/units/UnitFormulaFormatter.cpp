@@ -405,10 +405,15 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
        */
       if (inKL == 1)
       {
-        newExp = (int) ((model->getReaction(ReactNo)->
-          getKineticLaw()->getParameter(child->getName()))->getValue());
+        if (model->getReaction(ReactNo)->
+          getKineticLaw()->getParameter(child->getName()))
+        {
+          newExp = (int) ((model->getReaction(ReactNo)->
+            getKineticLaw()->getParameter(child->getName()))->getValue());
+        }
       }
-      else
+      
+      if (newExp == 0) // not local parameter
       {
         if (model->getParameter(child->getName()))
         {

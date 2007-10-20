@@ -419,6 +419,10 @@ printUnits(const UnitDefinition * ud)
 	  }	  
   }
 
+  if (ud->getNumUnits() == 0)
+  {
+    unitDef = "indeterminable";
+  }
   return unitDef;
 }
 
