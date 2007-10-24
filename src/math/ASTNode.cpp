@@ -233,6 +233,8 @@ ASTNode::~ASTNode ()
   while (size--)  mSemanticsAnnotations->remove(0) ;
   delete mSemanticsAnnotations;
 
+  delete mDefinitionURL;
+  
   freeName();
 }
 
