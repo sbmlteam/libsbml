@@ -560,9 +560,9 @@ typedef enum { System, XML, SBML, Internal } XMLError_Category;
  *---------------------------------------------------------------------------*/
 
 
-//#ifndef __cplusplus
-//typedef struct XMLError_t;
-//#endif
+/* #ifndef __cplusplus */
+/* typedef struct XMLError_t; */
+/* #endif */
 
 LIBLAX_EXTERN
 XMLError_t*
@@ -572,11 +572,11 @@ LIBLAX_EXTERN
 XMLError_t*
 XMLError_createWithIdAndMessage (unsigned int errorId, const char * message);
 
-//LIBLAX_EXTERN
-//XMLError_t*
-//XMLError_createWithAll (unsigned int id, const char * message, XMLError_Severity severity,
-//                        const char * category, unsigned int line, unsigned int column);
-//
+/* LIBLAX_EXTERN */
+/* XMLError_t* */
+/* XMLError_createWithAll (unsigned int id, const char * message, XMLError_Severity severity, */
+/*                         const char * category, unsigned int line, unsigned int column); */
+
 LIBLAX_EXTERN
 void
 XMLError_free(XMLError_t* error);
