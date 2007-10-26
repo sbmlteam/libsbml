@@ -28,6 +28,7 @@
 #include <sbml/common/sbmlfwd.h>
 
 #include <sbml/SBMLDocument.h>
+#include <sbml/xml/XMLError.h>
 
 #include <sbml/SBase.h>
 #include <sbml/ListOf.h>
