@@ -33,13 +33,13 @@
 /**
  * Reports a message to stderr if n is out of range in Stack_peekAt.
  */
-#define REPORT_STACK_RANGE_ERROR(function, n, size)\
-\ fprintf( stderr,
-\          "Stack.c: %s(Stack_t *s, n = %d): Warning: n must be >= 0 "
-\          "and < Stack_size() (%d).  Returning NULL.",
-\          function,
-\          n,
-\          size );
+#define REPORT_STACK_RANGE_ERROR(function, n, size) \
+fprintf( stderr, \
+         "Stack.c: %s(Stack_t *s, n = %d): Warning: n must be >= 0 " \
+         "and < Stack_size() (%d).  Returning NULL.", \
+         function, \
+         n, \
+         siz );
 
 #else
 
