@@ -428,7 +428,7 @@ XMLNode Dimensions::toXML() const
       node.addChild(*this->mAnnotation);
       end=false;
   }
-  if(end=true)
+  if(end==true)
   {
     node.setEnd();
   }
