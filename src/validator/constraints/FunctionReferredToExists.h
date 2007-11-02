@@ -58,6 +58,16 @@ protected:
   virtual void check_ (const Model& m, const Model& object);
 
   /**
+   * Checks that <ci> element after an apply is already listed as a FunctionDefinition.
+   */
+  void checkCiElements(const FunctionDefinition * fd);
+
+  /**
+   * Checks that <ci> element after an apply is already listed as a FunctionDefinition.
+   */
+  void checkCiIsFunction(const FunctionDefinition * fd, const ASTNode* node);
+
+  /**
    * Logs a message about an undefined <ci> element in the given
    * FunctionDefinition.
    */

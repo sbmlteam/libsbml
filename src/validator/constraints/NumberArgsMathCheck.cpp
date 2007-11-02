@@ -120,21 +120,17 @@ NumberArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase
   case AST_FUNCTION_TANH:
   case AST_LOGICAL_NOT:
 
-      if (node.getNumChildren() != 1)
-      {
-        logMathConflict(node, sb);
-      }
+    checkUnary(m, node, sb);
       break;
 
     case AST_DIVIDE:
     case AST_POWER:
     case AST_RELATIONAL_NEQ:
+    case AST_FUNCTION_DELAY:
     case AST_FUNCTION_POWER:
     case AST_FUNCTION_LOG:       // a log ASTNode has a child for base
-      if (node.getNumChildren() != 2)
-      {
-        logMathConflict(node, sb);
-      }
+
+    checkBinary(m, node, sb);
       break;
 
     case AST_TIMES:
@@ -148,18 +144,14 @@ NumberArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase
     case AST_RELATIONAL_LEQ:
     case AST_RELATIONAL_LT:
     case AST_FUNCTION_PIECEWISE:
-      if (node.getNumChildren() < 2)
-      {
-        logMathConflict(node, sb);
-      }
+
+     checkNary(m, node, sb);
       break;
 
     case AST_FUNCTION_ROOT:
     case AST_MINUS:
-      if (node.getNumChildren() < 1 || node.getNumChildren() > 2)
-      {
-        logMathConflict(node, sb);
-      }
+      
+      checkSpecialCases(m, node, sb);
       break;
 
     case AST_FUNCTION:
@@ -170,13 +162,13 @@ NumberArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase
         const ASTNode * fdMath = m.getFunctionDefinition(node.getName())->getMath();
         if (fdMath != NULL)
         {
-	  /* We have a definition for this function.  Does the defined number
-	     of arguments equal the number used here? */
+        /* We have a definition for this function.  Does the defined number
+	          of arguments equal the number used here? */
 
           if (node.getNumChildren() + 1 != fdMath->getNumChildren())
-	  {
+	        {
             logMathConflict(node, sb);
-	  }
+	        }
         }
 
       }
@@ -190,6 +182,72 @@ NumberArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase
   }
 
 }
+
+/**
+  * Checks that the function has only one argument
+  */
+void NumberArgsMathCheck::checkUnary(const Model& m, 
+                                     const ASTNode& node, const SBase & sb)
+{
+  if (node.getNumChildren() != 1)
+  {
+    logMathConflict(node, sb);
+  }
+  
+  checkMath(m, *node.getLeftChild(), sb);
+}
+
+/**
+  * Checks that the function has exactly two arguments
+  */
+void NumberArgsMathCheck::checkBinary(const Model& m, 
+                                      const ASTNode& node, const SBase & sb)
+{
+  if (node.getNumChildren() != 2)
+  {
+    logMathConflict(node, sb);
+  }
+
+  for (unsigned int n = 0; n < node.getNumChildren(); n++)
+  {
+    checkMath(m, *node.getChild(n), sb);
+  }
+}
+
+/**
+  * Checks that the function at least two arguments
+  */
+void NumberArgsMathCheck::checkNary(const Model& m, 
+                                    const ASTNode& node, const SBase & sb)
+{
+  if (node.getNumChildren() < 2)
+  {
+    logMathConflict(node, sb);
+  }
+
+  for (unsigned int n = 0; n < node.getNumChildren(); n++)
+  {
+    checkMath(m, *node.getChild(n), sb);
+  }
+}
+
+/**
+  * Checks that the functions have either one or two arguments
+  */
+void NumberArgsMathCheck::checkSpecialCases(const Model& m, 
+                                            const ASTNode& node, const SBase & sb)
+{
+  if (node.getNumChildren() < 1 || node.getNumChildren() > 2)
+  {
+    logMathConflict(node, sb);
+  }
+
+  for (unsigned int n = 0; n < node.getNumChildren(); n++)
+  {
+    checkMath(m, *node.getChild(n), sb);
+  }
+}
+
 
   
 /**

@@ -67,18 +67,58 @@ FunctionReferredToExists::check_ (const Model& m, const Model& object)
 
   for (n = 0; n < m.getNumFunctionDefinitions(); ++n)
   {
-    const ASTNode* node = m.getFunctionDefinition(n)->getBody();
+    //const ASTNode* node = m.getFunctionDefinition(n)->getBody();
 
-    if (node != NULL && node->getType() == AST_FUNCTION)
-    {
-      if (!mFunctions.contains(node->getName()))
-      {
-        logUndefined(*m.getFunctionDefinition(n), node->getName());
-      }
-    }
+    //if (node != NULL && node->getType() == AST_FUNCTION)
+    //{
+    //  if (!mFunctions.contains(node->getName()))
+    //  {
+    //    logUndefined(*m.getFunctionDefinition(n), node->getName());
+    //  }
+    //}
     mFunctions.append(m.getFunctionDefinition(n)->getId());
 
+    checkCiElements(m.getFunctionDefinition(n));
   }  
+}
+
+/**
+  * Checks that <ci> element after an apply is already listed as a FunctionDefinition.
+  */
+void FunctionReferredToExists::checkCiElements(const FunctionDefinition * fd)
+{
+  const ASTNode* node = fd->getBody();
+
+  checkCiIsFunction(fd, node);
+
+  //if (node != NULL && node->getType() == AST_FUNCTION)
+  //{
+  //  if (!mFunctions.contains(node->getName()))
+  //  {
+  //    logUndefined(*fd, node->getName());
+  //  }
+  //}
+
+}
+
+/**
+  * Checks that <ci> element after an apply is already listed as a FunctionDefinition.
+  */
+void FunctionReferredToExists::checkCiIsFunction(const FunctionDefinition * fd,
+                                                 const ASTNode * node)
+{
+  if (node != NULL && node->getType() == AST_FUNCTION)
+  {
+    if (!mFunctions.contains(node->getName()))
+    {
+      logUndefined(*fd, node->getName());
+    }
+  }
+
+  for (unsigned int i = 0; i < node->getNumChildren(); i++)
+  {
+    checkCiIsFunction(fd, node->getChild(i));
+  }
 }
 
 /**
@@ -97,7 +137,8 @@ FunctionReferredToExists::logUndefined ( const FunctionDefinition& fd,
   //  "other words, forward references to user-defined functions are not "
   //  "permitted. (References: L2V2 Section 4.3.2.)";
 
-  msg = varname;
+  msg = "'";
+  msg += varname;
   msg += "' is not listed as the id of an existing FunctionDefinition.";
 
   

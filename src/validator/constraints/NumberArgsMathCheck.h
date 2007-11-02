@@ -65,7 +65,27 @@ protected:
    * If an inconsistency is found, an error message is logged.
    */
   virtual void checkMath (const Model& m, const ASTNode& node, const SBase & sb);
-  
+ 
+  /**
+   * Checks that the function has only one argument
+   */
+  void checkUnary(const Model& m, const ASTNode& node, const SBase & sb);
+
+  /**
+   * Checks that the function has exactly two arguments
+   */
+  void checkBinary(const Model& m, const ASTNode& node, const SBase & sb);
+
+  /**
+   * Checks that the function at least two arguments
+   */
+  void checkNary(const Model& m, const ASTNode& node, const SBase & sb);
+
+  /**
+   * Checks that the functions have either one or two arguments
+   */
+  void checkSpecialCases(const Model& m, const ASTNode& node, const SBase & sb);
+
   /**
    * @return the preamble to use when logging constraint violations.  The
    * preamble will be prepended to each log message.  If not overriden,
