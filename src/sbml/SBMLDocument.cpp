@@ -584,11 +584,13 @@ SBMLDocument::checkConsistency ()
     if (nerrors) 
     {
       mErrorLog.add( math_validator.getFailures() );
-      /* only want to bail if errors not warnings */
-      if (mErrorLog.getNumFailsWithSeverity(SBMLError::Error) > 0)
-        return total_errors;
+      /* at this point bail if any problems
+       * unit checks may crash if there have been math errors/warnings
+       */
+      return total_errors;
     }
   }
+
 
   if (units)
   {
@@ -598,9 +600,10 @@ SBMLDocument::checkConsistency ()
     if (nerrors) 
     {
       mErrorLog.add( unit_validator.getFailures() );
-      /* only want to bail if errors not warnings */
-      if (mErrorLog.getNumFailsWithSeverity(SBMLError::Error) > 0)
-        return total_errors;
+      /* at this point bail if any problems
+       * overdetermined check may crash if there have been unit errors/warnings
+       */
+      return total_errors;
     }
   }
 
