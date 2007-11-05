@@ -116,5 +116,8 @@ Model::convertToL2 ()
 
       getReaction(n)->createModifier()->setSpecies(id);
     }
+
+    delete names;
   }
+
 }
