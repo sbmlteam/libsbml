@@ -162,8 +162,8 @@ protected:
 
 };
 
-void
-ReplaceArgument(ASTNode * math, const ASTNode * bvar, ASTNode * arg);
+//void
+//ReplaceArgument(ASTNode * math, const ASTNode * bvar, ASTNode * arg);
 
 
 #endif  /* __cplusplus */

@@ -1462,7 +1462,46 @@ ASTNode::setDefinitionURL(XMLAttributes url)
 {
   mDefinitionURL = static_cast<XMLAttributes *>(url.clone());
 }
+
 /** @endcond doxygen-libsbml-internal */
+
+
+LIBSBML_EXTERN
+void
+ASTNode::ReplaceArgument(const std::string bvar, ASTNode * arg)
+{
+
+  for (unsigned int i = 0; i < getNumChildren(); i++)
+  {
+    if (getChild(i)->isName())
+    {
+      if (getChild(i)->getName() == bvar)
+      {
+        if (arg->isName())
+        {
+          getChild(i)->setName(arg->getName());
+        }
+        else if (arg->isReal())
+        {
+          getChild(i)->setValue(arg->getReal());
+        }
+        else if (arg->isInteger())
+        {
+          getChild(i)->setValue(arg->getInteger());
+        }
+        else if (arg->isConstant())
+        {
+          getChild(i)->setType(arg->getType());
+        }
+      }
+    }
+    else
+    {
+      getChild(i)->ReplaceArgument(bvar, arg);
+    }
+  }
+}
+
 
 
 /**
@@ -2188,4 +2227,23 @@ void
 ASTNode_swapChildren (ASTNode_t *node, ASTNode_t *that)
 {
   static_cast<ASTNode*>(node)->swapChildren( static_cast<ASTNode*>(that) );
+}
+
+/**
+  * replaces occurences of a name within the given ASTNode_t structure
+  * with the name or value represented by the second argument ASTNode_t
+  * e.g. if the formula in this ASTNode is x + y; bvar is x and arg is an 
+  * ASTNode representing the real value 3 ReplaceArgument substitutes 3 for
+  * x within this ASTNode
+  *
+  * @param node the ASTNode_t structure to replace argument
+  * @param bvar a string representing the variable name to be substituted
+  * @param arg an ASTNode representing the name/value to substitute
+  */
+LIBSBML_EXTERN
+void
+ASTNode_replaceArgument(ASTNode_t* node, const char * bvar, ASTNode_t* arg)
+{
+  static_cast<ASTNode*>(node)->ReplaceArgument(bvar, 
+                                                  static_cast<ASTNode*>(arg));
 }

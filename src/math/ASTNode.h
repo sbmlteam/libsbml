@@ -727,6 +727,19 @@ public:
   LIBSBML_EXTERN
   XMLAttributes* getDefinitionURL() const;
 
+  /**
+   * replaces occurences of a name within this ASTNode with the name or value
+   * represented by the second argument ASTNode
+   * e.g. if the formula in this ASTNode is x + y; bvar is x and arg is an 
+   * ASTNode representing the real value 3 ReplaceArgument substitutes 3 for
+   * x within this ASTNode
+   *
+   * @param bvar a string representing the variable name to be substituted
+   * @param arg an ASTNode representing the name/value to substitute
+   */
+
+  LIBSBML_EXTERN
+    void ReplaceArgument(const std::string bvar, ASTNode * arg);
 
 
 protected:
@@ -740,6 +753,7 @@ protected:
   bool canonicalizeFunctionL1 ();
   bool canonicalizeLogical    ();
   bool canonicalizeRelational ();
+
 
 
   ASTNodeType_t mType;
@@ -1289,6 +1303,9 @@ LIBSBML_EXTERN
 void
 ASTNode_swapChildren (ASTNode_t *node, ASTNode_t *that);
 
+LIBSBML_EXTERN
+void
+ASTNode_replaceArgument(ASTNode_t* node, const char * bvar, ASTNode_t* arg);
 
 END_C_DECLS
 

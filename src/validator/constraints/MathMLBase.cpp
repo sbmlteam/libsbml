@@ -199,41 +199,41 @@ MathMLBase::checkChildren (const Model& m,
   }
 }
 
-void
-ReplaceArgument(ASTNode * math, const ASTNode * bvar, ASTNode * arg)
-{
-
-  for (unsigned int i = 0; i < math->getNumChildren(); i++)
-  {
-    if (math->getChild(i)->isName())
-    {
-      if (!strcmp(math->getChild(i)->getName(), bvar->getName()))
-      {
-        if (arg->isName())
-        {
-          math->getChild(i)->setName(arg->getName());
-        }
-        else if (arg->isReal())
-        {
-          math->getChild(i)->setValue(arg->getReal());
-        }
-        else if (arg->isInteger())
-        {
-          math->getChild(i)->setValue(arg->getInteger());
-        }
-        else if (arg->isConstant())
-        {
-          math->getChild(i)->setType(arg->getType());
-        }
-      }
-    }
-    else
-    {
-      ReplaceArgument(math->getChild(i), bvar, arg);
-    }
-  }
-}
-
+//void
+//ReplaceArgument(ASTNode * math, const ASTNode * bvar, ASTNode * arg)
+//{
+//
+//  for (unsigned int i = 0; i < math->getNumChildren(); i++)
+//  {
+//    if (math->getChild(i)->isName())
+//    {
+//      if (!strcmp(math->getChild(i)->getName(), bvar->getName()))
+//      {
+//        if (arg->isName())
+//        {
+//          math->getChild(i)->setName(arg->getName());
+//        }
+//        else if (arg->isReal())
+//        {
+//          math->getChild(i)->setValue(arg->getReal());
+//        }
+//        else if (arg->isInteger())
+//        {
+//          math->getChild(i)->setValue(arg->getInteger());
+//        }
+//        else if (arg->isConstant())
+//        {
+//          math->getChild(i)->setType(arg->getType());
+//        }
+//      }
+//    }
+//    else
+//    {
+//      ReplaceArgument(math->getChild(i), bvar, arg);
+//    }
+//  }
+//}
+//
 /**
   * Checks the MathML of a function definition 
   * as applied to the arguments supplied to it
@@ -265,7 +265,7 @@ MathMLBase::checkFunction (const Model& m,
 
     for (i = 0, nodeCount = 0; i < noBvars; i++, nodeCount++)
     {
-      ReplaceArgument(fdMath, fd->getArgument(i), 
+      fdMath->ReplaceArgument(fd->getArgument(i)->getName(), 
                                           node.getChild(nodeCount));
     }
     /* check the math of the new function */

@@ -227,59 +227,77 @@ UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node)
   UnitDefinition * ud;
   unsigned int i, nodeCount;
   Unit * unit;
-  const ASTNode * fdMath;
+  ASTNode * fdMath;
   ASTNode *newMath;
-  bool needDelete = false;
+  //bool needDelete = false;
+  unsigned int noBvars;
 
   if(node->getType() == AST_FUNCTION)
   {
-    if (model->getFunctionDefinition(node->getName()))
+    const FunctionDefinition *fd = model->getFunctionDefinition(node->getName());
+    if (fd)
     {
-      /**
-      * find corresponding func def which will have
-      * the formula as the rightChild of ASTNode
-      */
-      fdMath = model->getFunctionDefinition(node->getName())->getMath()
-                        ->getRightChild();
-      /* if function has no variables then this will be null */
-      if (fdMath == NULL)
+      noBvars = fd->getNumArguments();
+      if (noBvars == 0)
       {
-        newMath = model->getFunctionDefinition(node->getName())->getMath()
-                          ->getLeftChild();
+        fdMath = fd->getMath()->getLeftChild()->deepCopy();
       }
       else
       {
-        /**
-        * create a new ASTNode of this type but with the children
-        * from the original function
-        */
-
-        /* need to catch case where a functionDefinition merely returns the argument */
-        if (fdMath->getType() == AST_NAME)
-        {
-          newMath = node->getLeftChild();
-        }
-        else
-        {
-          newMath = new ASTNode(fdMath->getType());
-          needDelete = true;
-          nodeCount = 0;
-          for (i = 0; i < fdMath->getNumChildren(); i++)
-          {
-            if (fdMath->getChild(i)->isName())
-            {
-              newMath->addChild(node->getChild(nodeCount)->deepCopy());
-              nodeCount++;
-            }
-            else
-            {
-              newMath->addChild(fdMath->getChild(i)->deepCopy());
-            }
-          }
-        }
+        fdMath = fd->getMath()->getRightChild()->deepCopy();
       }
-      ud = getUnitDefinition(newMath);
-      if(needDelete) delete newMath;
+
+      for (i = 0, nodeCount = 0; i < noBvars; i++, nodeCount++)
+      {
+        fdMath->ReplaceArgument(fd->getArgument(i)->getName(), 
+                                            node->getChild(nodeCount));
+      }
+      ///**
+      //* find corresponding func def which will have
+      //* the formula as the rightChild of ASTNode
+      //*/
+      //fdMath = model->getFunctionDefinition(node->getName())->getMath()
+      //                  ->getRightChild();
+      ///* if function has no variables then this will be null */
+      //if (fdMath == NULL)
+      //{
+      //  newMath = model->getFunctionDefinition(node->getName())->getMath()
+      //                    ->getLeftChild();
+      //}
+      //else
+      //{
+      //  /**
+      //  * create a new ASTNode of this type but with the children
+      //  * from the original function
+      //  */
+
+      //  /* need to catch case where a functionDefinition merely returns the argument */
+      //  if (fdMath->getType() == AST_NAME)
+      //  {
+      //    newMath = node->getLeftChild();
+      //  }
+      //  else
+      //  {
+      //    newMath = new ASTNode(fdMath->getType());
+      //    needDelete = true;
+      //    newMath->ReplaceArgument(
+      //    nodeCount = 0;
+      //    for (i = 0; i < fdMath->getNumChildren(); i++)
+      //    {
+      //      if (fdMath->getChild(i)->isName())
+      //      {
+      //        newMath->addChild(node->getChild(nodeCount)->deepCopy());
+      //        nodeCount++;
+      //      }
+      //      else
+      //      {
+      //        newMath->addChild(fdMath->getChild(i)->deepCopy());
+      //      }
+      //    }
+      //  }
+      //}
+      ud = getUnitDefinition(fdMath);
+      delete fdMath;
     }
     else
     {

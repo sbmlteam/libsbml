@@ -1644,6 +1644,35 @@ START_TEST (test_ASTNode_getListOfNodes)
 END_TEST
 
 
+START_TEST (test_ASTNode_replaceArgument)
+{
+  ASTNode_t *node = ASTNode_create();
+  ASTNode_t *c1 = ASTNode_create();
+  ASTNode_t *c2 = ASTNode_create();
+  ASTNode_t *arg = ASTNode_create();
+  const char* bvar = "foo";
+
+  ASTNode_setType(node, AST_PLUS);
+  ASTNode_setName(c1, "foo");
+  ASTNode_setName(c2, "foo2");
+  ASTNode_addChild(node, c1);
+  ASTNode_addChild(node, c2);
+
+  fail_unless( !strcmp(ASTNode_getName(ASTNode_getChild(node, 0)), "foo")); 
+
+
+  ASTNode_setName(arg, "repl");
+
+  ASTNode_replaceArgument(node, bvar, arg);
+
+  fail_unless( !strcmp(ASTNode_getName(ASTNode_getChild(node, 0)), "repl")); 
+
+  ASTNode_free(node);
+  ASTNode_free(arg);
+}
+END_TEST
+
+
 Suite *
 create_suite_ASTNode (void) 
 { 
@@ -1679,6 +1708,7 @@ create_suite_ASTNode (void)
   tcase_add_test( tcase, test_ASTNode_one_child               );
   tcase_add_test( tcase, test_ASTNode_children                );
   tcase_add_test( tcase, test_ASTNode_getListOfNodes          );
+  tcase_add_test( tcase, test_ASTNode_replaceArgument         );
 
   suite_add_tcase(suite, tcase);
 
