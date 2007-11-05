@@ -460,9 +460,7 @@ void
 PowerUnitsCheck::logNonDimensionlessPowerConflict (const ASTNode & node, 
                                              const SBase & sb)
 {
-  msg == getPreamble();
-
-  msg += "The formula '"; 
+  msg = "The formula '"; 
   msg += SBML_formulaToString(&node);
   msg += "' in the ";
   msg += getFieldname();
@@ -480,9 +478,7 @@ void
 PowerUnitsCheck::logNonIntegerPowerConflict (const ASTNode & node, 
                                              const SBase & sb)
 {
-  msg == getPreamble();
-
-  msg += "The formula '"; 
+  msg = "The formula '"; 
   msg += SBML_formulaToString(&node);
   msg += "' in the ";
   msg += getFieldname();
@@ -499,9 +495,8 @@ void
 PowerUnitsCheck::logRationalPowerConflict (const ASTNode & node, 
                                              const SBase & sb)
 {
-  msg == getPreamble();
 
-  msg += "The formula '"; 
+  msg = "The formula '"; 
   msg += SBML_formulaToString(&node);
   msg += "' in the ";
   msg += getFieldname();

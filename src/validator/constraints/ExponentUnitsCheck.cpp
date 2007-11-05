@@ -273,9 +273,7 @@ void
 ExponentUnitsCheck::logRationalPowerConflict (const ASTNode & node, 
                                              const SBase & sb)
 {
-  msg == getPreamble();
-
-  msg += "The formula '"; 
+  msg = "The formula '"; 
   msg += SBML_formulaToString(&node);
   msg += "' in the ";
   msg += getFieldname();
@@ -292,9 +290,7 @@ void
 ExponentUnitsCheck::logNonIntegerPowerConflict (const ASTNode & node, 
                                              const SBase & sb)
 {
-  msg == getPreamble();
-
-  msg += "The formula '"; 
+  msg = "The formula '"; 
   msg += SBML_formulaToString(&node);
   msg += "' in the ";
   msg += getFieldname();
