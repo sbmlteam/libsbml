@@ -355,24 +355,56 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
 
   if (mNamespaces == 0) mNamespaces = new XMLNamespaces;
 
+  /**
+   * check for the case where the sbml namespace has been expicitly declared
+   * as well as being the default
+   */
+  bool sbmlDecl = false;
+  for (int index = 0; index < mNamespaces->getLength(); index++)
+  {
+    if (!mNamespaces->getPrefix(index).empty() 
+      && mNamespaces->getPrefix(index)=="sbml")
+    {
+      sbmlDecl = true;
+      break;
+    }
+  }
+  if (sbmlDecl)
+  {
+    XMLNamespaces * copyNamespaces = mNamespaces->clone();
+    mNamespaces->clear();
+    for (int i = 0; i < copyNamespaces->getLength(); i++)
+    {
+      if ( i != index)
+        mNamespaces->add(copyNamespaces->getURI(i), copyNamespaces->getPrefix(i));
+    }
+    delete copyNamespaces;
+  }
 
   if (mLevel == 1)
   {
+    if (sbmlDecl)
+      mNamespaces->add("http://www.sbml.org/sbml/level1", "sbml");
     mNamespaces->add("http://www.sbml.org/sbml/level1");
   }
   else if (mLevel == 2 && mVersion == 1)
   {
+    if (sbmlDecl)
+      mNamespaces->add("http://www.sbml.org/sbml/level2", "sbml");
     mNamespaces->add("http://www.sbml.org/sbml/level2");
   }
   else if (mLevel == 2 && mVersion == 2)
   {
+    if (sbmlDecl)
+      mNamespaces->add("http://www.sbml.org/sbml/level2/version2", "sbml");
     mNamespaces->add("http://www.sbml.org/sbml/level2/version2");
   }
   else if (mLevel == 2 && mVersion == 3)
   {
+    if (sbmlDecl)
+      mNamespaces->add("http://www.sbml.org/sbml/level2/version3", "sbml");
     mNamespaces->add("http://www.sbml.org/sbml/level2/version3");
   }
-
 
   return conversionSuccess;
 }
