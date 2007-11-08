@@ -1,4 +1,30 @@
            libsbml NEWS -- History of user-visible changes
+           
+           
+ === Version 3.0.2 ===
+
+* Changes:
+
+  - 
+ 
+* Bug fixes and enhancements:
+
+  - The clone method on an SBMLDocument was cloning the model contained by the document
+    but failing to adjust the parent document pointer within the cloned model.
+    This is now fixed. Thanks to Rainer Machne for identifying that there was a problem. 
+
+  - Occasionally models delare the sbml namespace twice; once by default and then
+    again explicitly. If the model is converted between levels/versions of sbml
+    both these occurrences need to be updated. This is now implemented.
+
+  - Fixed bug where some consistency checks for math/units were not checking
+    all the children of the math element.
+
+  - Fixed memory leak in ASTNode reported and fixed by Rainer Machne.
+
+  - Fixed bug in UnitFormulaFormatter.cpp where the order in which parameters/
+    species/compartments were searched for an identifier was incorrect.
+    This was reported as a unit consistency problem by Damon Hachmeister. 
 
  === Version 3.0.1 ===
 
