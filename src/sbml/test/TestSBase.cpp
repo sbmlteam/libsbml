@@ -226,6 +226,112 @@ START_TEST(test_SBase_CVTerms)
 }
 END_TEST
 
+
+START_TEST (test_SBase_setNotesString)
+{
+  char * notes = "This is a test note";
+  char * taggednotes = "<notes>This is a test note</notes>";
+
+  SBase_setNotesString(S, notes);
+
+  fail_unless(SBase_isSetNotes(S) == 1);
+
+  if (strcmp(SBase_getNotesString(S), taggednotes))
+  {
+    fail("SBase_setNotesString(...) did not make a copy of node.");
+  }
+  XMLNode_t *t1 = SBase_getNotes(S);
+  fail_unless(XMLNode_getNumChildren(t1) == 1);
+
+  const XMLNode_t *t2 = XMLNode_getChild(t1,0);
+  fail_unless(!strcmp(XMLNode_getCharacters(XMLNode_getChild(t2,0)), "This is a test note"));
+
+
+  /* Reflexive case (pathological)  */
+  SBase_setNotesString(S, SBase_getNotesString(S));
+  t1 = SBase_getNotes(S);
+  fail_unless(XMLNode_getNumChildren(t1) == 1);
+  const char * chars = SBase_getNotesString(S);
+  fail_unless(!strcmp(chars, taggednotes));
+
+  SBase_setNotesString(S, "");
+  fail_unless(SBase_isSetNotes(S) == 0 );
+
+  if (SBase_getNotesString(S) != NULL)
+  {
+    fail("SBase_getNotesString(S, "") did not clear string.");
+  }
+
+  SBase_setNotesString(S, taggednotes);
+
+  fail_unless(SBase_isSetNotes(S) == 1);
+
+  if (strcmp(SBase_getNotesString(S), taggednotes))
+  {
+    fail("SBase_setNotesString(...) did not make a copy of node.");
+  }
+  t1 = SBase_getNotes(S);
+  fail_unless(XMLNode_getNumChildren(t1) == 1);
+
+  t2 = XMLNode_getChild(t1,0);
+  fail_unless(!strcmp(XMLNode_getCharacters(t2), "This is a test note"));
+
+}
+END_TEST
+
+
+START_TEST (test_SBase_setAnnotationString)
+{
+  char * annotation = "This is a test note";
+  char * taggedannotation = "<annotation>This is a test note</annotation>";
+
+  SBase_setAnnotationString(S, annotation);
+
+  fail_unless(SBase_isSetAnnotation(S) == 1);
+
+  if (strcmp(SBase_getAnnotationString(S), taggedannotation))
+  {
+    fail("SBase_setAnnotationString(...) did not make a copy of node.");
+  }
+  XMLNode_t *t1 = SBase_getAnnotation(S);
+  fail_unless(XMLNode_getNumChildren(t1) == 1);
+
+  const XMLNode_t *t2 = XMLNode_getChild(t1,0);
+  fail_unless(!strcmp(XMLNode_getCharacters(XMLNode_getChild(t2,0)), "This is a test note"));
+
+
+  /* Reflexive case (pathological)  */
+  SBase_setAnnotationString(S, SBase_getAnnotationString(S));
+  t1 = SBase_getAnnotation(S);
+  fail_unless(XMLNode_getNumChildren(t1) == 1);
+  const char * chars = SBase_getAnnotationString(S);
+  fail_unless(!strcmp(chars, taggedannotation));
+
+  SBase_setAnnotationString(S, "");
+  fail_unless(SBase_isSetAnnotation(S) == 0 );
+
+  if (SBase_getAnnotationString(S) != NULL)
+  {
+    fail("SBase_getAnnotationString(S, "") did not clear string.");
+  }
+
+  SBase_setAnnotationString(S, taggedannotation);
+
+  fail_unless(SBase_isSetAnnotation(S) == 1);
+
+  if (strcmp(SBase_getAnnotationString(S), taggedannotation))
+  {
+    fail("SBase_setAnnotationString(...) did not make a copy of node.");
+  }
+  t1 = SBase_getAnnotation(S);
+  fail_unless(XMLNode_getNumChildren(t1) == 1);
+
+  t2 = XMLNode_getChild(t1,0);
+  fail_unless(!strcmp(XMLNode_getCharacters(t2), "This is a test note"));
+}
+END_TEST
+
+
 Suite *
 create_suite_SBase (void)
 {
@@ -239,6 +345,8 @@ create_suite_SBase (void)
   tcase_add_test(tcase, test_SBase_setNotes      );
   tcase_add_test(tcase, test_SBase_setAnnotation );
   tcase_add_test(tcase, test_SBase_CVTerms );
+  tcase_add_test(tcase, test_SBase_setNotesString);
+  tcase_add_test(tcase, test_SBase_setAnnotationString);
 
   suite_add_tcase(suite, tcase);
 

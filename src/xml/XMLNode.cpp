@@ -267,7 +267,8 @@ XMLNode* XMLNode::convertStringToXMLNode(const std::string& xmlstr, const XMLNam
   }
 
 
-  /**this is fine is the first child is a parent element
+  /**
+   * this is fine if the first child is a parent element
    * it actually falls down if all your elements have equal footing
    * eg 
    *  <p>The following is MathML markup:</p>
@@ -275,7 +276,9 @@ XMLNode* XMLNode::convertStringToXMLNode(const std::string& xmlstr, const XMLNam
    */
 
   if (xmlnode_tmp->getChild(0).getName() == "html"
-    || xmlnode_tmp->getChild(0).getName() == "body")
+    || xmlnode_tmp->getChild(0).getName() == "body"
+    || xmlnode_tmp->getChild(0).getName() == "annotation"
+    || xmlnode_tmp->getChild(0).getName() == "notes")
   {
     xmlnode = new XMLNode(xmlnode_tmp->getChild(0));
     for(unsigned int i=1; i < xmlnode_tmp->getNumChildren(); i++)
