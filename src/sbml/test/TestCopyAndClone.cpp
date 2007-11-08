@@ -38,6 +38,7 @@
 #include <sbml/Model.h>
 #include <sbml/Parameter.h>
 #include <sbml/Reaction.h>
+#include <sbml/SBMLDocument.h>
 #include <sbml/Species.h>
 #include <sbml/SpeciesReference.h>
 #include <sbml/SpeciesType.h>
@@ -1323,6 +1324,75 @@ START_TEST ( test_UnitDefinition_clone )
 END_TEST
 
 
+START_TEST ( test_SBMLDocument_copyConstructor )
+{
+    SBMLDocument* o1=new SBMLDocument();
+    o1->setLevelAndVersion(2, 1);
+    
+    fail_unless(o1->getLevel() == 2);
+    fail_unless(o1->getVersion() == 1);
+
+    SBMLDocument* o2=new SBMLDocument(*o1);
+
+    fail_unless(o2->getLevel() == 2);
+    fail_unless(o2->getVersion() == 1);
+
+    delete o2;
+    delete o1;
+}
+END_TEST
+
+START_TEST ( test_SBMLDocument_assignmentOperator )
+{
+    SBMLDocument* o1=new SBMLDocument();
+    o1->setLevelAndVersion(2, 1);
+    
+    fail_unless(o1->getLevel() == 2);
+    fail_unless(o1->getVersion() == 1);
+    
+    SBMLDocument* o2 = new SBMLDocument();;
+    (*o2)=*o1;
+
+    fail_unless(o2->getLevel() == 2);
+    fail_unless(o2->getVersion() == 1);
+
+    delete o2;
+    delete o1;
+}
+END_TEST
+
+
+START_TEST ( test_SBMLDocument_clone )
+{
+    SBMLDocument* o1=new SBMLDocument();
+    o1->setLevelAndVersion(1, 1);
+    Model *m = new Model();
+    m->setId("foo");
+    o1->setModel(m);
+
+    
+    fail_unless(o1->getLevel() == 1);
+    fail_unless(o1->getVersion() == 1);
+    fail_unless(o1->getModel()->getId() == "foo");
+    fail_unless(o1->getModel()->getLevel() == 1);
+    fail_unless(o1->getModel()->getVersion() == 1);
+    fail_unless(o1->getModel()->getSBMLDocument() == o1);
+
+    SBMLDocument* o2=static_cast<SBMLDocument*>(o1->clone());
+    delete o1;
+   
+    fail_unless(o2->getLevel() == 1);
+    fail_unless(o2->getVersion() == 1);
+    fail_unless(o2->getModel()->getId() == "foo");
+    fail_unless(o2->getModel()->getLevel() == 1);
+    fail_unless(o2->getModel()->getVersion() == 1);
+
+    delete o2;
+    //delete o1;
+}
+END_TEST
+
+
 Suite *
 create_suite_CopyAndClone (void)
 {
@@ -1389,6 +1459,10 @@ create_suite_CopyAndClone (void)
   tcase_add_test( tcase, test_UnitDefinition_copyConstructor );
   tcase_add_test( tcase, test_UnitDefinition_assignmentOperator );
   tcase_add_test( tcase, test_UnitDefinition_clone );
+
+  tcase_add_test( tcase, test_SBMLDocument_copyConstructor );
+  tcase_add_test( tcase, test_SBMLDocument_assignmentOperator );
+  tcase_add_test( tcase, test_SBMLDocument_clone );
 
   suite_add_tcase(suite, tcase);
 
