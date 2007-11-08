@@ -201,7 +201,11 @@ SBMLDocument::SBMLDocument (const SBMLDocument& orig) :
 {
   mSBML = this;
 
-  if (orig.mModel) mModel = static_cast<Model*>( orig.mModel->clone() );
+  if (orig.mModel) 
+  {
+    mModel = static_cast<Model*>( orig.mModel->clone() );
+    mModel->setSBMLDocument(this);
+  }
 }
 
 
@@ -360,7 +364,8 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
    * as well as being the default
    */
   bool sbmlDecl = false;
-  for (int index = 0; index < mNamespaces->getLength(); index++)
+  int index;
+  for (index = 0; index < mNamespaces->getLength(); index++)
   {
     if (!mNamespaces->getPrefix(index).empty() 
       && mNamespaces->getPrefix(index)=="sbml")
