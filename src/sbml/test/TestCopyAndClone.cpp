@@ -1379,16 +1379,16 @@ START_TEST ( test_SBMLDocument_clone )
     fail_unless(o1->getModel()->getSBMLDocument() == o1);
 
     SBMLDocument* o2=static_cast<SBMLDocument*>(o1->clone());
-    delete o1;
    
     fail_unless(o2->getLevel() == 1);
     fail_unless(o2->getVersion() == 1);
     fail_unless(o2->getModel()->getId() == "foo");
     fail_unless(o2->getModel()->getLevel() == 1);
     fail_unless(o2->getModel()->getVersion() == 1);
+    fail_unless(o2->getModel()->getSBMLDocument() == o2);
 
     delete o2;
-    //delete o1;
+    delete o1;
 }
 END_TEST
 
