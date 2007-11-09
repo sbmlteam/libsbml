@@ -58,11 +58,18 @@ AC_DEFUN([CONFIG_PROG_MATLAB],
 
     case $host in
     *darwin*) 
-      MEXEXT="mexmac"
+      arch=`uname -m`;
+      if test "$arch" = "i386"; then
+        MEXEXT="mexmaci";
+      else
+        MEXEXT="mexmac";
+      fi
       ;;
+
     *cygwin*) 
       MEXEXT="dll"
       ;;
+
     *) 
       arch=`uname -m`;
       if test "$arch" = "x86_64"; then
@@ -71,6 +78,7 @@ AC_DEFUN([CONFIG_PROG_MATLAB],
         MEXEXT="mexglx";
       fi
       ;;
+
     esac
 
     AC_DEFINE([USE_MATLAB], 1, [Define to 1 to use Matlab])
