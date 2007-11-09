@@ -37,7 +37,7 @@ below.
 Windows
 -------
 
-A precompiled version of the Windows .dll file is available; you
+A precompiled version of the Windows .mexw32 file is available; you
 should not need to follow these instructions in most circumstances.
 
 Start a Windows command shell.
@@ -54,15 +54,11 @@ Execute "make.bat".  This will start MATLAB and run a script that
   copies the files to the matlabroot\bin\win32 directory as this must
   be on the PATH if MATLAB is installed,
 
-  3) prompts user to close MATLAB.
-
 The TranslateSBML executable is provided with the download and it is
 not necessary to build it in order to use it.  However the script
 BuildTranslate_Win32 can be used within MATLAB to build
 TranslateSBML.dll provided the C compiler that MATLAB uses is
 compatible.
-
-(Rest of Windows instructions incomplete.)
 
 
 Linux and MacOS X

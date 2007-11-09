@@ -1,4 +1,27 @@
 %
+% These are the functions to import an SBML model into a MATLAB structure.
+%
+% FUNCTIONS include:
+%
+% BuildTranslate_Win32 
+%
+% - builds the TranslateSBML executable in the Windows environment
+%
+% install_Win32
+%
+% - installs the appropriate libraries in the Windows environment
+%
+% TranslateSBML(varargin)
+%
+% - translates a sbml file into a matlab structure
+%    NOTE: this executable must be built in most environments
+%    (see README.txt)
+%
+%  CheckAndConvert.m
+%
+% - a script used by TranslateSBML to change some mathematical function names
+%   to those used by MATLAB
+
 %  Description : This is the binding to translate 
 %				 sbml models into a MATLAB structure 
 %  Author(s)   : SBML Team <sbml-team@caltech.edu>
@@ -50,13 +73,12 @@
 %
 %
 %
-% These are the functions to translate 
-% sbml models into a MATLAB structure.
+% These are the functions to translate sbml models into a MATLAB structure.
 %
 %
 % FUNCTIONS include:
 %  BuildTranslate_Win32 
-%		which builds the TranslateSBML executable
-%  TranslateSBML('filename') 
+%		which builds the TranslateSBML executable in the Windows environment
+%  TranslateSBML(varargin) 
 %		which translates a sbml file into a matlab structure
 %
