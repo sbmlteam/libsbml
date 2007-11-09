@@ -47,4 +47,4 @@ REM    mailto:sbml-team@caltech.edu
 REM
 REM Contributor(s):
 
-matlab -r install
+matlab -r install_Win32

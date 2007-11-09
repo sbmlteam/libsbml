@@ -54,14 +54,25 @@
 % path and save
 addpath(pwd);
 
-s = path2rc;
+% path2rc is deprecated by version 7.0.4 
+% replaced by savepath
+% but savepath doesnt exist in version 6.5.1 or lower
 
-if (s ~= 0)
+v = version;
+v_num = str2num(v(1));
+
+if (v_num < 7)
+    saved = path2rc;
+else
+    saved = savepath;
+end;
+
+if (saved ~= 0)
     error('Directory NOT added to the path');
 end;
 
 % try the executable
-% if it doesnt work teh library files are not on the system path and need
+% if it doesnt work the library files are not on the system path and need
 % to be placed there
 try
     M = TranslateSBML('test.xml');
