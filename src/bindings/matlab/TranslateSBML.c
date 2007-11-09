@@ -396,9 +396,11 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     sprintf(pacErrors, "\n%s","*********************\nThis model contains errors\n");
     for (i = 0; i < SBMLDocument_getNumErrors(sbmlDocument); i++)
     {
-      sprintf(pacError, "%u: (%u) %s\n", XMLError_getLine(SBMLDocument_getError(sbmlDocument, i)),
-      XMLError_getErrorId(SBMLDocument_getError(sbmlDocument, i)), 
-      XMLError_getMessage(SBMLDocument_getError(sbmlDocument, i)));
+      const XMLError_t *e =
+	(const XMLError_t *) SBMLDocument_getError(sbmlDocument, i);
+      sprintf(pacError, "%u: (%u) %s\n",
+	      XMLError_getLine(e), XMLError_getErrorId(e),
+	      XMLError_getMessage(e));
       pacErrors = safe_strcat(pacErrors, pacError);
     }
     mxErrors[0] = mxCreateString(pacErrors);
@@ -558,7 +560,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 void
 GetNamespaces(SBMLDocument_t * document)
 {
-  XMLNamespaces_t * NS = SBMLDocument_getNamespaces(document);
+  const XMLNamespaces_t * NS = SBMLDocument_getNamespaces(document);
   int n = XMLNamespaces_getLength(NS);
   int dims[2] = {1, n};
 
