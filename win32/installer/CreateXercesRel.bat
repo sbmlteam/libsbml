@@ -49,7 +49,7 @@ rem bindings/matlab directory
 cd matlab
 copy C:\libsbml_3\src\bindings\matlab\TranslateSBML.mexw32 TranslateSBML.mexw32
 copy C:\libsbml_3\src\bindings\matlab\CheckAndConvert.m  CheckAndConvert.m
-copy C:\libsbml_3\src\bindings\matlab\install.m install.m
+copy C:\libsbml_3\src\bindings\matlab\install_for_Win32installers.m install_Win32.m
 copy C:\libsbml_3\src\bindings\matlab\make.bat make.bat
 copy C:\libsbml_3\src\bindings\matlab\README.txt README.txt
 copy C:\libsbml_3\src\bindings\matlab\test.xml test.xml
