@@ -55,19 +55,18 @@ subdirs = test
 # they appear in `distfiles', they will not be copied in the distribution.
 
 distfiles = \
-        AUTHORS.txt            \
-        BuildTranslate_Win32.m \
-        CheckAndConvert.m      \
-        Contents.m             \
-        Makefile.in            \
-        README.txt             \
-        TranslateSBML.c        \
-        TranslateSBML.m        \
-        install_Win32.m        \
-        make.bat               \
-	      matlab-tags-regexp.txt \
-        mexopts-libsbml.sh     \
-        test.xml
+	AUTHORS.txt            \
+	BuildTranslate_Win32.m \
+	CheckAndConvert.m      \
+	Contents.m             \
+	Makefile.in            \
+	README.txt             \
+	TranslateSBML.c        \
+	TranslateSBML.m        \
+	install_Win32.m        \
+	make.bat               \
+	matlab-tags-regexp.txt \
+	test.xml
 
 # `extra_clean' and `extra_distclean' determine the files and directories
 # removed during "make clean" and "make distclean".
@@ -103,7 +102,7 @@ tags: etags ctags
 # Targets for checking/testing.
 # -----------------------------------------------------------------------------
 
-check: all
+check: all check-recursive
 
 
 # -----------------------------------------------------------------------------
