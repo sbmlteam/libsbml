@@ -293,7 +293,7 @@ ifneq "$(HOST_TYPE)" "darwin"
 endif
 
 install-pc: libsbml.pc
-	$(INSTALL_SH) libsbml.pc "$(DESTDIR)$(LIBDIR)/pkgconfig/libsbml.pc"
+	$(INSTALL_SH) libsbml.pc -m 0644 "$(DESTDIR)$(LIBDIR)/pkgconfig/libsbml.pc"
 
 uninstall: uninstall-recursive
 	@if test -d "$(DESTDIR)$(LIBDIR)"; then \
