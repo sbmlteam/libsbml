@@ -53,30 +53,30 @@ AC_DEFUN([CONFIG_PROG_MATLAB],
 
     dnl The mex extension really should be obtained using matlab's
     dnl "mexext", but it lives in the matlab directory and there's no way
-    dnl to know where that is.  Users may only give --with-matlab without
-    dnl specifying the matlab installation directory.
+    dnl to know a priori where that is.  After all, users may only have
+    dnl provided --with-matlab during configuration, without telling us the
+    dnl matlab installation directory.
 
     case $host in
-    *darwin*) 
-      arch=`uname -m`;
-      if test "$arch" = "i386"; then
-        MEXEXT="mexmaci";
-      else
-        MEXEXT="mexmac";
-      fi
+    *86-*-darwin*) 
+      MEXEXT="mexmaci"
+      ;;
+
+    *powerpc-*-darwin*) 
+      MEXEXT="mexmac"
       ;;
 
     *cygwin*) 
       MEXEXT="dll"
       ;;
 
-    *) 
-      arch=`uname -m`;
-      if test "$arch" = "x86_64"; then
-        MEXEXT="mexa64";
-      else 
-        MEXEXT="mexglx";
-      fi
+    *x86_64*)
+      MEXEXT="mexa64"
+      ;;
+
+    dnl Default is x86.
+    *)
+      MEXEXT="mexglx"
       ;;
 
     esac
