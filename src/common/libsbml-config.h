@@ -59,5 +59,7 @@
 #  include <sbml/common/libsbml-config-unix.h>
 #endif
 
+#include <sbml/common/libsbml-version.h>
+
 
 #endif  /* LIBSBML_CONFIG_H */
