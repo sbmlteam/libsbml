@@ -32,8 +32,11 @@
     was incorrect.  This was reported as a unit consistency problem by
     Damon Hachmeister.
 
-  - Fixed Makefiles in MATLAB bindings directory so that "make check"
-    actually does something.
+  - (Linux/UNIX) Fixed Makefiles in MATLAB bindings directory so that
+    "make check" actually does something (namely, run testBindings.m).
+
+  - (Linux/UNIX) The pkgconfig/libsbml.pc file no longer gets
+    installed with the execute bit set.
 
 
  === Version 3.0.1 ===
