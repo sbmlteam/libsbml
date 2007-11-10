@@ -228,7 +228,7 @@ UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node)
   unsigned int i, nodeCount;
   Unit * unit;
   ASTNode * fdMath;
-  ASTNode *newMath;
+  // ASTNode *newMath;
   //bool needDelete = false;
   unsigned int noBvars;
 
