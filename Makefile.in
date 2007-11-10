@@ -184,14 +184,14 @@ distfiles =                         \
 # makefile-common-actions.mk.
 
 extra_distclean = config.status config.cache config.log autom4te.cache \
-	src/common/config.h src/common/stamp-h1 libsbml.pc
+	src/common/config.h src/common/stamp-h1
 
 # It's safer to remove and recreate the copy of the include files after
 # a make clean.  Previously we did it in a make distclean only, but I've
 # run into situations where the copy didn't get updated.  This is a bit
 # of a sledgehammer, but it's not too bad.
 
-extra_clean = include
+extra_clean = include libsbml.pc
 
 
 # -----------------------------------------------------------------------------
