@@ -269,11 +269,14 @@ Python, Lisp, MATLAB, and/or Octave, you need to supply additional options
 to <code>configure</code>.  These options are <code>--with-java</code>,
 <code>--with-perl</code>, <code>--with-python</code>,
 <code>--with-lisp</code>, <code>--with-matlab</code>, and
-<code>--with-matlab</code>.  As with other configure options, these take an
-optional prefix argument; for example,
+<code>--with-octave</code>.  As with other configure options discussed
+above, all of these accept an optional prefix argument; for example, on a
+MacOS 10.4 Intel-based system with MATLAB version R2007b installed in its
+default location of <code>/Applications/MATLAB_R2007b</code>, the proper
+argument would be
 
 <div class="fragment"><pre class="fragment">
-  ./configure --with-java="DIR"
+  ./configure --with-matlab=/Applications/MATLAB_R2007b
 </pre></div>
 
 <p>
