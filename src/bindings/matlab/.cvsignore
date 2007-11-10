@@ -1,6 +1,7 @@
 .deps
 Makefile
 *.mexmac
+*.mexmaci
 *.mexglx
 *.mexsol
 *.mexrs6
