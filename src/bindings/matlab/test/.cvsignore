@@ -2,3 +2,4 @@ Makefile
 TAGS
 CTAGS
 .deps
+runTests.log
