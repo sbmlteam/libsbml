@@ -2172,13 +2172,11 @@ GetReactants ( Reaction_t   *pReaction,
       mxSetField(mxReactantReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
     }
     mxSetField(mxReactantReturn,i,"species",mxCreateString(pacSpecies));
-    if (unSBMLLevel == 2)
+    if (unSBMLLevel == 2 && unSBMLVersion == 2)
     {
       mxSetField(mxReactantReturn,i,"id",mxCreateString(pacId));
       mxSetField(mxReactantReturn,i,"name",mxCreateString(pacName));
-      if (unSBMLVersion == 2) {
-        mxSetField(mxReactantReturn,i,"sboTerm",CreateIntScalar(nSBO));
-      }
+      mxSetField(mxReactantReturn,i,"sboTerm",CreateIntScalar(nSBO));
     }
     if (unSBMLLevel == 1) {
       mxSetField(mxReactantReturn,i,"stoichiometry",CreateIntScalar(nStoichiometry)); 
@@ -2376,13 +2374,11 @@ const int nNoFields_l2v2 = 9;
       mxSetField(mxProductReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
     }
     mxSetField(mxProductReturn,i,"species",mxCreateString(pacSpecies)); 
-    if (unSBMLLevel == 2)
+    if (unSBMLLevel == 2 && unSBMLVersion == 2)
     {
       mxSetField(mxProductReturn,i,"id",mxCreateString(pacId));
       mxSetField(mxProductReturn,i,"name",mxCreateString(pacName));
-      if (unSBMLVersion == 2) {
-        mxSetField(mxProductReturn,i,"sboTerm",CreateIntScalar(nSBO));
-      }
+      mxSetField(mxProductReturn,i,"sboTerm",CreateIntScalar(nSBO));
    }
     if (unSBMLLevel == 1) {
       mxSetField(mxProductReturn,i,"stoichiometry",CreateIntScalar(nStoichiometry)); 
