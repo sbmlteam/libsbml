@@ -145,6 +145,21 @@ ifdef USE_LIBXML
   extra_LIBS     += $(LIBXML_LIBS)
 endif
 
+ifeq "$(HOST_TYPE)" "cygwin"
+
+# Under cygwin, at least in gcc 3.4.4, the standard gcc STL class files
+# generate compiler warnings about use of uninitialized variables.  To
+# avoid confusing libSBML users, ignore this particular warning.  This is
+# not very safe because it can mask a real problem in OUR code, but it's
+# not easy to figure out what else to do, and anyway, if there are problems
+# we will probably catch them when testing on other platforms.
+
+problemversions = $(shell expr match `gcc -dumpversion` "3.4.4")
+
+CXXFLAGS += $(shell if (($(problemversions))); then echo -Wno-uninitialized; fi)
+
+endif
+
 header_inst_prefix = xml
 
 subdirs = test
