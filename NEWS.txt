@@ -38,6 +38,14 @@
   - (Linux/UNIX) The pkgconfig/libsbml.pc file no longer gets
     installed with the execute bit set.
 
+  - The Makefiles in examples/c++ and examples/c used an incorrect
+    order of dependencies on libraries, causing cygwin builds to
+    fail.
+
+  - A libsbml.la file is now constructed and installed under cygwin.
+    The .la files appear to be used by the cygwin compilation
+    environment to determine library dependencies.
+
 
  === Version 3.0.1 ===
 
