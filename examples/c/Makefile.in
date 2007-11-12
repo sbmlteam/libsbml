@@ -108,7 +108,7 @@ validateSBML: validateSBML.c util.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 clean:
-	/bin/rm -f $(programs) *~
+	/bin/rm -f *~ $(programs) $(patsubst %,%.exe,$(programs))
 
 distclean: clean
 	/bin/rm Makefile
