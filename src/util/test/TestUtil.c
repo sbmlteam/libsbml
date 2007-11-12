@@ -95,10 +95,8 @@ END_TEST
 
 START_TEST (test_c_locale_strtod)
 {
-  const char *de = "2,72";
   const char *en = "2.72";
   char *endptr;
-
 
   setlocale(LC_ALL, "de_DE");
 
@@ -107,6 +105,8 @@ START_TEST (test_c_locale_strtod)
    * setlocale() implementation (see setlocale manpage).
    */
 #ifndef CYGWIN
+  const char *de = "2,72";
+
   endptr = NULL;
   fail_unless( strtod(de, &endptr) == 2.72 );
   fail_unless( (endptr - de)       == 4    );
