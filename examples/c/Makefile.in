@@ -57,27 +57,20 @@ INCLUDEDIR = ../../include
 CC         = @CC@
 CFLAGS     = @CFLAGS@ -Wall
 
-ifdef USE_EXPAT
-  CPPFLAGS += @EXPAT_CPPFLAGS@ 
-  LDFLAGS  += @EXPAT_LDFLAGS@
-  LIBS     += @EXPAT_LIBS@
-endif
+LIBS       = -lsbml
 
-ifdef USE_XERCES
-  CPPFLAGS += @XERCES_CPPFLAGS@
-  LDFLAGS  += @XERCES_LDFLAGS@
-  LIBS     += @XERCES_LIBS@
-endif
+# If you are presently reading Makefile and not Makefile.in, the following
+# lists may have empty values.  This is okay; it's merely a result of how
+# the values are obtained when Makefile is generated from Makefile.in
+# by the ../../configure program.
 
-ifdef USE_LIBXML
-  CPPFLAGS += @LIBXML_CPPFLAGS@
-  LDFLAGS  += @LIBXML_LDFLAGS@
-  LIBS     += @LIBXML_LIBS@
-endif
+CPPFLAGS  += @EXPAT_CPPFLAGS@ @XERCES_CPPFLAGS@ @LIBXML_CPPFLAGS@
+LDFLAGS   += @EXPAT_LDFLAGS@ @XERCES_LDFLAGS@ @LIBXML_LDFLAGS@
+LIBS      += @EXPAT_LIBS@ @XERCES_LIBS@ @LIBXML_LIBS@
 
-CPPFLAGS   += -I$(INCLUDEDIR)
-LDFLAGS    += -L$(SRCDIR)
-LIBS       += -lsbml -lstdc++ -lm
+CPPFLAGS  += -I$(INCLUDEDIR)
+LDFLAGS   += -L$(SRCDIR)
+LIBS      += -lstdc++ -lm
 
 # The rest of this Makefile remains static regardless of the values
 # assigned to the variables above.
