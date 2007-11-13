@@ -1102,8 +1102,20 @@ SBase::addCVTerm(CVTerm * term)
         {
           for (int r = 0; r < term->getResources()->getLength(); r++)
           {
-            static_cast <CVTerm *>(mCVTerms->get(n))->addResource(
-              term->getResources()->getValue(r));
+            /* dont add a duplicate term */
+            std::string resourceToAdd = term->getResources()->getValue(r);
+            unsigned int present = 0;
+            for (int i = 0; 
+              i < static_cast <CVTerm *>(mCVTerms->get(n))->getResources()->getLength() 
+              && present == 0; i++)
+            {
+              if (resourceToAdd == 
+                static_cast <CVTerm *>(mCVTerms->get(n))->getResources()->getValue(i))
+                present = 1;
+            }
+            if (!present)
+              static_cast <CVTerm *>(mCVTerms->get(n))->addResource(
+                term->getResources()->getValue(r));
           }
           added = 1;
         }
@@ -1119,8 +1131,20 @@ SBase::addCVTerm(CVTerm * term)
         {
           for (int r = 0; r < term->getResources()->getLength(); r++)
           {
-            static_cast <CVTerm *>(mCVTerms->get(n))->addResource(
-              term->getResources()->getValue(r));
+            /* dont add a duplicate term */
+            std::string resourceToAdd = term->getResources()->getValue(r);
+            unsigned int present = 0;
+            for (int i = 0; 
+              i < static_cast <CVTerm *>(mCVTerms->get(n))->getResources()->getLength() 
+              && present == 0; i++)
+            {
+              if (resourceToAdd == 
+                static_cast <CVTerm *>(mCVTerms->get(n))->getResources()->getValue(i))
+                present = 1;
+            }
+            if (!present)
+              static_cast <CVTerm *>(mCVTerms->get(n))->addResource(
+                term->getResources()->getValue(r));
           }
           added = 1;
         }
@@ -1187,6 +1211,98 @@ CVTerm*
 SBase::getCVTerm(unsigned int n)
 {
   return static_cast <CVTerm*> (mCVTerms->get(n));
+}
+
+
+/**
+ * Clears the list of CVTerms of this SBML
+ * object.
+ */
+void 
+SBase::unsetCVTerms()
+{
+  if (mCVTerms)
+  {  
+    unsigned int size = mCVTerms->getSize();
+    while (size--) delete static_cast<CVTerm*>( mCVTerms->remove(0) );
+    delete mCVTerms;
+  }
+  mCVTerms = 0;
+}
+
+
+/**
+  * Returns the BiologicalQualifier associated with this resource,
+  * an empty string if the resource does not exist.
+  *
+  * @param resource string representing the resource; e.g.,
+  * "http://www.geneontology.org/#GO:0005892"
+  *
+  * @return the BiolQualifierType_t associated with the resource
+  */
+BiolQualifierType_t 
+SBase::getResourceBiologicalQualifier(std::string resource)
+{
+  if (mCVTerms)
+  {
+    for (unsigned int n = 0; n < mCVTerms->getSize(); n++)
+    {
+      // does this term have a biological qualifier
+      if (static_cast <CVTerm *>(mCVTerms->get(n))->getQualifierType() 
+                                                              == BIOLOGICAL_QUALIFIER)
+      {
+        // check whether given resource is present
+        for (int r = 0; 
+          r < static_cast <CVTerm *>(mCVTerms->get(n))->getResources()->getLength(); r++)
+        {
+          if (resource == 
+            static_cast <CVTerm *>(mCVTerms->get(n))->getResources()->getValue(r))
+          {
+            return static_cast <CVTerm *>(mCVTerms->get(n))->getBiologicalQualifierType();
+          }
+        }
+      }
+    }
+  }
+
+  return BQB_UNKNOWN;
+}
+
+/**
+  * Returns the ModelQualifier associated with this resource,
+  * an empty string if the resource does not exist.
+  *
+  * @param resource string representing the resource; e.g.,
+  * "http://www.geneontology.org/#GO:0005892"
+  *
+  * @return the ModelQualifierType_t associated with the resource
+  */
+ModelQualifierType_t 
+SBase::getResourceModelQualifier(std::string resource)
+{
+  if (mCVTerms)
+  {
+    for (unsigned int n = 0; n < mCVTerms->getSize(); n++)
+    {
+      // does this term have a biological qualifier
+      if (static_cast <CVTerm *>(mCVTerms->get(n))->getQualifierType() 
+                                                              == MODEL_QUALIFIER)
+      {
+        // check whether given resource is present
+        for (int r = 0; 
+          r < static_cast <CVTerm *>(mCVTerms->get(n))->getResources()->getLength(); r++)
+        {
+          if (resource == 
+            static_cast <CVTerm *>(mCVTerms->get(n))->getResources()->getValue(r))
+          {
+            return static_cast <CVTerm *>(mCVTerms->get(n))->getModelQualifierType();
+          }
+        }
+      }
+    }
+  }
+
+  return BQM_UNKNOWN;
 }
 
 
@@ -3739,6 +3855,55 @@ CVTerm_t*
 SBase_getCVTerm(SBase_t *sb, unsigned int n)
 {
   return static_cast <CVTerm_t *> (sb->getCVTerm(n));
+}
+
+/**
+ * Clears the list of CVTerms of this SBML
+ * object.
+ *
+ * @param sb the object to clear CVTerms from
+ */
+LIBSBML_EXTERN
+void 
+SBase_unsetCVTerms(SBase_t *sb)
+{
+  sb->unsetCVTerms();
+}
+
+
+/**
+ * Returns the BiologicalQualifier associated with this resource,
+ * BQB_UNKNOWN if the resource does not exist.
+ *
+ * @param sb the object to query
+ * @param resource string representing the resource; e.g.,
+ * "http://www.geneontology.org/#GO:0005892"
+ *
+ * @return the BiolQualifierType_t associated with the resource
+ */
+LIBSBML_EXTERN
+BiolQualifierType_t 
+SBase_getResourceBiologicalQualifier(SBase_t *sb, const char * resource)
+{
+  return sb->getResourceBiologicalQualifier(resource);
+}
+
+
+/**
+ * Returns the ModelQualifier associated with this resource,
+ * BQM_UNKNOWN if the resource does not exist.
+ *
+ * @param sb the object to query
+ * @param resource string representing the resource; e.g.,
+ * "http://www.geneontology.org/#GO:0005892"
+ *
+ * @return the ModelQualifierType_t associated with the resource
+ */
+LIBSBML_EXTERN
+ModelQualifierType_t 
+SBase_getResourceModelQualifier(SBase_t *sb, const char * resource)
+{ 
+  return sb->getResourceModelQualifier(resource);
 }
 
 

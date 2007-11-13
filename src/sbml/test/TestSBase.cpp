@@ -207,26 +207,6 @@ START_TEST (test_SBase_setAnnotation)
 }
 END_TEST
 
-START_TEST(test_SBase_CVTerms)
-{
-  CVTerm_t * cv = CVTerm_createWithQualifierType(BIOLOGICAL_QUALIFIER);
-  
-  fail_unless(SBase_getNumCVTerms(S) == 0);
-  fail_unless(SBase_getCVTerms(S) == NULL);
-
-  SBase_addCVTerm(S, cv);
-  fail_unless(SBase_getNumCVTerms(S) == 1);
-  fail_unless(SBase_getCVTerms(S) != NULL);
-
-  fail_unless(SBase_getCVTerm(S, 0) != cv);
-
-  CVTerm_free(cv);
-
-
-}
-END_TEST
-
-
 START_TEST (test_SBase_setNotesString)
 {
   char * notes = "This is a test note";
@@ -332,6 +312,153 @@ START_TEST (test_SBase_setAnnotationString)
 END_TEST
 
 
+START_TEST(test_SBase_CVTerms)
+{
+  CVTerm_t * cv = CVTerm_createWithQualifierType(BIOLOGICAL_QUALIFIER);
+  
+  fail_unless(SBase_getNumCVTerms(S) == 0);
+  fail_unless(SBase_getCVTerms(S) == NULL);
+
+  SBase_addCVTerm(S, cv);
+  fail_unless(SBase_getNumCVTerms(S) == 1);
+  fail_unless(SBase_getCVTerms(S) != NULL);
+
+  fail_unless(SBase_getCVTerm(S, 0) != cv);
+
+  CVTerm_free(cv);
+
+
+}
+END_TEST
+
+
+START_TEST(test_SBase_addCVTerms)
+{
+  CVTerm_t * cv = CVTerm_createWithQualifierType(BIOLOGICAL_QUALIFIER);
+  CVTerm_setBiologicalQualifierType(cv, BQB_ENCODES);
+  CVTerm_addResource(cv, "foo");
+  
+  SBase_addCVTerm(S, cv);
+  
+  fail_unless(SBase_getNumCVTerms(S) == 1);
+  fail_unless(SBase_getCVTerms(S) != NULL);
+
+  XMLAttributes_t *res = CVTerm_getResources(SBase_getCVTerm(S, 0));
+  fail_unless(!strcmp(res->getValue(0).c_str(), "foo"));
+
+  CVTerm_t * cv1 = CVTerm_createWithQualifierType(BIOLOGICAL_QUALIFIER);
+  CVTerm_setBiologicalQualifierType(cv1, BQB_IS);
+  CVTerm_addResource(cv1, "bar");
+  
+  SBase_addCVTerm(S, cv1);
+  
+  fail_unless(SBase_getNumCVTerms(S) == 2);
+
+  /* same qualifier so should just add to resources of existing term */
+  CVTerm_t * cv2 = CVTerm_createWithQualifierType(BIOLOGICAL_QUALIFIER);
+  CVTerm_setBiologicalQualifierType(cv2, BQB_IS);
+  CVTerm_addResource(cv2, "bar1");
+  
+  SBase_addCVTerm(S, cv2);
+  
+  fail_unless(SBase_getNumCVTerms(S) == 2);
+  
+  res = CVTerm_getResources(SBase_getCVTerm(S, 1));
+
+  fail_unless(XMLAttributes_getLength(res) == 2);
+  fail_unless(!strcmp(res->getValue(0).c_str(), "bar"));
+  fail_unless(!strcmp(res->getValue(1).c_str(), "bar1"));
+
+
+  /* existing term shouldnt get added*/
+  CVTerm_t * cv4 = CVTerm_createWithQualifierType(BIOLOGICAL_QUALIFIER);
+  CVTerm_setBiologicalQualifierType(cv4, BQB_IS);
+  CVTerm_addResource(cv4, "bar1");
+  
+  SBase_addCVTerm(S, cv4);
+  
+  fail_unless(SBase_getNumCVTerms(S) == 2);
+  
+  res = CVTerm_getResources(SBase_getCVTerm(S, 1));
+
+  fail_unless(XMLAttributes_getLength(res) == 2);
+  fail_unless(!strcmp(res->getValue(0).c_str(), "bar"));
+  fail_unless(!strcmp(res->getValue(1).c_str(), "bar1"));
+  
+  CVTerm_free(cv);
+  CVTerm_free(cv2);
+  CVTerm_free(cv1);
+  CVTerm_free(cv4);
+
+
+}
+END_TEST
+
+
+START_TEST(test_SBase_unsetCVTerms)
+{
+  CVTerm_t * cv = CVTerm_createWithQualifierType(BIOLOGICAL_QUALIFIER);
+  CVTerm_setBiologicalQualifierType(cv, BQB_ENCODES);
+  CVTerm_addResource(cv, "foo");
+  
+  SBase_addCVTerm(S, cv);
+  CVTerm_t * cv1 = CVTerm_createWithQualifierType(BIOLOGICAL_QUALIFIER);
+  CVTerm_setBiologicalQualifierType(cv1, BQB_IS);
+  CVTerm_addResource(cv1, "bar");
+  
+  SBase_addCVTerm(S, cv1);
+  CVTerm_t * cv2 = CVTerm_createWithQualifierType(BIOLOGICAL_QUALIFIER);
+  CVTerm_setBiologicalQualifierType(cv2, BQB_IS);
+  CVTerm_addResource(cv2, "bar1");
+  
+  SBase_addCVTerm(S, cv2);
+  CVTerm_t * cv4 = CVTerm_createWithQualifierType(BIOLOGICAL_QUALIFIER);
+  CVTerm_setBiologicalQualifierType(cv4, BQB_IS);
+  CVTerm_addResource(cv4, "bar1");
+  
+  SBase_addCVTerm(S, cv4);
+  
+  fail_unless(SBase_getNumCVTerms(S) == 2);
+
+  SBase_unsetCVTerms(S);
+
+  fail_unless(SBase_getNumCVTerms(S) == 0);
+  fail_unless(SBase_getCVTerms(S) == NULL);
+  
+  CVTerm_free(cv);
+  CVTerm_free(cv2);
+  CVTerm_free(cv1);
+  CVTerm_free(cv4);
+}
+END_TEST
+
+
+START_TEST(test_SBase_getQualifiersFromResources)
+{
+  CVTerm_t * cv = CVTerm_createWithQualifierType(BIOLOGICAL_QUALIFIER);
+  CVTerm_setBiologicalQualifierType(cv, BQB_ENCODES);
+  CVTerm_addResource(cv, "foo");
+  
+  SBase_addCVTerm(S, cv);
+
+  fail_unless(SBase_getResourceBiologicalQualifier(S, "foo") == BQB_ENCODES);
+  
+  CVTerm_t * cv1 = CVTerm_createWithQualifierType(MODEL_QUALIFIER);
+  CVTerm_setModelQualifierType(cv1, BQM_IS);
+  CVTerm_addResource(cv1, "bar");
+  
+  SBase_addCVTerm(S, cv1);
+
+  fail_unless(SBase_getResourceModelQualifier(S, "bar") == BQM_IS);
+  
+  CVTerm_free(cv);
+  CVTerm_free(cv1);
+
+
+}
+END_TEST
+
+
 Suite *
 create_suite_SBase (void)
 {
@@ -344,9 +471,13 @@ create_suite_SBase (void)
   tcase_add_test(tcase, test_SBase_setMetaId     );
   tcase_add_test(tcase, test_SBase_setNotes      );
   tcase_add_test(tcase, test_SBase_setAnnotation );
-  tcase_add_test(tcase, test_SBase_CVTerms );
   tcase_add_test(tcase, test_SBase_setNotesString);
   tcase_add_test(tcase, test_SBase_setAnnotationString);
+
+  tcase_add_test(tcase, test_SBase_CVTerms );
+  tcase_add_test(tcase, test_SBase_addCVTerms );
+  tcase_add_test(tcase, test_SBase_unsetCVTerms );
+  tcase_add_test(tcase, test_SBase_getQualifiersFromResources );
 
   suite_add_tcase(suite, tcase);
 

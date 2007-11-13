@@ -8,8 +8,26 @@
   - libsbml-version.h is now included automatically, so that the
     libSBML version #define constants are accessible.  (See notes in
     3.0.1 below about the version constants.)
+    
+  - Included support for the biological-qualifiers recently added to the MIRIAM
+    standard http://www.ebi.ac.uk/compneur-srv/miriam-main/mdb?section=qualifiers
  
 * Bug fixes and enhancements:
+
+  - SBase now has an unsetCVTerms function which clears the CVTerm List
+    associated with the object.
+    
+  - The addCVTerm method on SBase now checks whether the resource string is already
+    present in the list of resources for the Qualifier of the given CVTerm and does
+    not add a duplicate if the resource is already present. NOTE: This only applies
+    to CVTerms with the same qualifier. It is still possible (although not advisable)
+    to add an identical resource with a different qualifier.
+    
+  - There are two additional functions on an SBase object: 
+    getResourceBiologicalQualifier  and  getResourceModelQualifier
+    These functions take a string representing the resource to be found and return the
+    qualifier that has been used to include this resource within the CVTerms on the
+    object concerned or an UNKNOWN qualifier, if the resource is not present.
 
   - The clone method on an SBMLDocument was cloning the model
     contained by the document but failing to adjust the parent

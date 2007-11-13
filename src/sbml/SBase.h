@@ -896,6 +896,36 @@ public:
 
 
   /**
+   * Clears the list of CVTerms of this SBML
+   * object.
+   */
+  void unsetCVTerms();
+
+
+  /**
+   * Returns the BiologicalQualifier associated with this resource,
+   * BQB_UNKNOWN if the resource does not exist.
+   *
+   * @param resource string representing the resource; e.g.,
+   * "http://www.geneontology.org/#GO:0005892"
+   *
+   * @return the BiolQualifierType_t associated with the resource
+   */
+  BiolQualifierType_t getResourceBiologicalQualifier(std::string resource);
+
+  /**
+   * Returns the ModelQualifier associated with this resource,
+   * BQM_UNKNOWN if the resource does not exist.
+   *
+   * @param resource string representing the resource; e.g.,
+   * "http://www.geneontology.org/#GO:0005892"
+   *
+   * @return the ModelQualifierType_t associated with the resource
+   */
+  ModelQualifierType_t getResourceModelQualifier(std::string resource);
+
+
+  /**
    * Returns the Model object in which the current object is located.
    * 
    * @return the parent Model of this SBML object.
@@ -1469,6 +1499,21 @@ SBase_getNumCVTerms(SBase_t *sb);
 LIBSBML_EXTERN
 CVTerm_t* 
 SBase_getCVTerm(SBase_t *sb, unsigned int n);
+
+
+LIBSBML_EXTERN
+void 
+SBase_unsetCVTerms(SBase_t *sb);
+
+
+LIBSBML_EXTERN
+BiolQualifierType_t 
+SBase_getResourceBiologicalQualifier(SBase_t *sb, const char * resource);
+
+
+LIBSBML_EXTERN
+ModelQualifierType_t 
+SBase_getResourceModelQualifier(SBase_t *sb, const char * resource);
 
 
 LIBSBML_EXTERN
