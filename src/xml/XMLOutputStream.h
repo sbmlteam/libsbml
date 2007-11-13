@@ -45,6 +45,18 @@ public:
 
   /**
    * Creates a new XMLOutputStream that wraps stream.
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
    */
   XMLOutputStream (  std::ostream&       stream
                    , const std::string&  encoding     = "UTF-8"
@@ -251,6 +263,18 @@ protected:
 
   /**
    * Outputs indentation whitespace.
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
    */
   void writeIndent (bool isEnd = false);
 
@@ -318,7 +342,9 @@ protected:
 
   /** @endcond doxygen-libsbml-internal */
 };
-  /** @cond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
 
 class LIBLAX_EXTERN XMLOutputStringStream : public XMLOutputStream
 {
@@ -326,10 +352,22 @@ public:
 
   /**
    * Creates a new XMLOutputStream that wraps stream.
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
    */
-  XMLOutputStringStream (  std::ostringstream&       stream
-                   , const std::string&  encoding     = "UTF-8"
-                   , bool                writeXMLDecl = true );
+  XMLOutputStringStream (  std::ostringstream& stream
+                         , const std::string&  encoding     = "UTF-8"
+                         , bool                writeXMLDecl = true );
   
   std::ostringstream& getString() { return mString; }
 
@@ -338,19 +376,34 @@ protected:
   std::ostringstream& mString;
 };
 
+
 class LIBLAX_EXTERN XMLOutputFileStream : public XMLOutputStream
 {
 public:
 
   /**
    * Creates a new XMLOutputStream that wraps stream.
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
    */
-  XMLOutputFileStream (  std::ofstream&       stream
-                   , const std::string&  encoding     = "UTF-8"
-                   , bool                writeXMLDecl = true );
+  XMLOutputFileStream (  std::ofstream&      stream
+                       , const std::string&  encoding     = "UTF-8"
+                       , bool                writeXMLDecl = true );
 
 };
-  /** @endcond doxygen-libsbml-internal */
+
+/** @endcond doxygen-libsbml-internal */
+
 
 #endif  /* __cplusplus */
 

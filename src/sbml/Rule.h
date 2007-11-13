@@ -791,7 +791,23 @@ public:
    * This is equivalent to the constructor that takes an ASTNode.  It is
    * provided for convenience.
    *
-   * @param formula the algebraic expression
+   * @param formula The algebraic expression to be placed in the rule
+   *
+   * There exists another form of this method that allows you to use an
+   * ASTNode as the the formula instead of the text string used by this
+   * variant.
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
    */
   AlgebraicRule (const std::string& formula = "");
 
@@ -801,6 +817,10 @@ public:
    *
    * @param math an ASTNode containing the mathematical formula expressing
    * the right-hand side of the algebraic equation
+   *
+   * There exists another form of this method that allows you to use a text
+   * string to express the formula instead of the ASTNode used by this
+   * variant.
    */
   AlgebraicRule (const ASTNode* math);
 
@@ -830,6 +850,28 @@ public:
   /**
    * Creates a new AssignmentRule and optionally sets its variable and
    * math.
+   *
+   * @param variable the identifier of the variable (a Compartment, Species
+   * or Parameter elsewhere in this Model object) that is being assigned
+   *
+   * @param formula the mathematical formula placed in the assignment rule,
+   * written as a text string.
+   *
+   * There exists another form of this method that allows you to use an
+   * ASTNode as the the formula instead of the text string used by this
+   * variant.
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
    */
   AssignmentRule (  const std::string& variable = ""
                   , const std::string& formula  = "" );
@@ -841,8 +883,12 @@ public:
    * @param variable the identifier of the variable (a Compartment, Species
    * or Parameter elsewhere in this Model object) that is being assigned
    *
-   * @param math math an ASTNode containing the mathematical formula
+   * @param math an ASTNode containing the mathematical formula
    * expressing the right-hand side of the assignment equation
+   *
+   * There exists another form of this method that allows you to use a text
+   * string to express the formula instead of the ASTNode used by this
+   * variant.
    */
   AssignmentRule (const std::string& variable, const ASTNode* math);
 
@@ -871,6 +917,28 @@ public:
 
   /**
    * Creates a new RateRule and optionally sets its variable and formula.
+   *
+   * @param variable the identifier of the variable (a Compartment, Species
+   * or Parameter elsewhere in this Model object) that is being assigned
+   *
+   * @param formula the mathematical formula placed in the assignment rule,
+   * written as a text string.
+   *
+   * There exists another form of this method that allows you to use an
+   * ASTNode as the the formula instead of the text string used by this
+   * variant.
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
    */
   RateRule (const std::string& variable = "", const std::string& formula = "");
 
@@ -882,8 +950,12 @@ public:
    * @param variable the identifier of the variable (a Compartment, Species
    * or Parameter elsewhere in this Model object)
    *
-   * @param math math an ASTNode containing the mathematical formula
+   * @param math an ASTNode containing the mathematical formula
    * expressing the right-hand side of the rate equation
+   *
+   * There exists another form of this method that allows you to use a text
+   * string to express the formula instead of the ASTNode used by this
+   * variant.
    */
   RateRule (const std::string& variable, const ASTNode* math);
 

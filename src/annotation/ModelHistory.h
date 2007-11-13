@@ -66,6 +66,18 @@ public:
    * (0/1 equivalent to +/-). 
    * @param hoursOffset an unsigned int representing the hoursOffset.
    * @param minutesOffset an unsigned int representing the minutesOffset.
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
    */
   Date(unsigned int year = 2007, unsigned int month = 1, 
     unsigned int day = 1, unsigned int hour = 0, 

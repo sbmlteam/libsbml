@@ -1024,6 +1024,18 @@ protected:
 
   /**
    * Only subclasses may create SBase objects.
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
    */
   SBase (const std::string& id = "", const std::string& name = "", int sboTerm = -1);
 
@@ -1086,6 +1098,18 @@ protected:
    * implementations.
    *
    * This is essentially a short form of getErrorLog()->logError(...)
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
    */
   void logError (  unsigned int       id
                  , const unsigned int level   = 2
@@ -1160,89 +1184,101 @@ protected:
 
 
   /**
-    * Checks the syntax of a metaid attribute.
-    * The syntax of a metaid is XML 1.0 type ID. The literal representation of 
-    * this type consists of strings of characters restricted to:
-    *
-    *  - NCNameChar ::= letter | digit | '.' | '-' | ' ' | ':' | CombiningChar | Extender
-    *  - ID ::= ( letter | ' ' | ':' ) NCNameChar*
-    *
-    * If the syntax of the metaid attribute of this object is incorrect, 
-    * an error is logged
-    */
+   * Checks the syntax of a metaid attribute.
+   * The syntax of a metaid is XML 1.0 type ID. The literal representation of 
+   * this type consists of strings of characters restricted to:
+   *
+   *  - NCNameChar ::= letter | digit | '.' | '-' | ' ' | ':' | CombiningChar | Extender
+   *  - ID ::= ( letter | ' ' | ':' ) NCNameChar*
+   *
+   * If the syntax of the metaid attribute of this object is incorrect, 
+   * an error is logged
+   */
   void checkMetaIdSyntax();
 
 
   /**
-    * Checks the syntax of the id attribute.
-    * The syntax of an id is of type SId which is defined as:
-    *
-    *  - letter ::= 'a'..'z','A'..'Z'
-    *  - digit  ::= '0'..'9'
-    *  - idChar ::= letter | digit | '_'
-    *  - SId    ::= ( letter | '_' ) idChar*
-    *
-    * If the syntax of the id attribute of this object is incorrect, 
-    * an error is logged
-    */
+   * Checks the syntax of the id attribute.
+   * The syntax of an id is of type SId which is defined as:
+   *
+   *  - letter ::= 'a'..'z','A'..'Z'
+   *  - digit  ::= '0'..'9'
+   *  - idChar ::= letter | digit | '_'
+   *  - SId    ::= ( letter | '_' ) idChar*
+   *
+   * If the syntax of the id attribute of this object is incorrect, 
+   * an error is logged
+   */
   void checkIdSyntax();
 
 
   /**
-    * Checks the syntax of the unit attribute.
-    * The syntax of an unit is of type UnitSId which is defined as:
-    *
-    *  - letter ::= 'a'..'z','A'..'Z'
-    *  - digit  ::= '0'..'9'
-    *  - idChar ::= letter | digit | '_'
-    *  - UnitSId    ::= ( letter | '_' ) idChar*
-    *
-    * If the syntax of the unit attribute of this object is incorrect, 
-    * an error is logged
+   * Checks the syntax of the unit attribute.
+   * The syntax of an unit is of type UnitSId which is defined as:
+   *
+   *  - letter ::= 'a'..'z','A'..'Z'
+   *  - digit  ::= '0'..'9'
+   *  - idChar ::= letter | digit | '_'
+   *  - UnitSId    ::= ( letter | '_' ) idChar*
+   *
+   * If the syntax of the unit attribute of this object is incorrect, 
+   * an error is logged
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
     */
   void checkUnitSyntax(unsigned int flag = 0);
 
 
   /**
-    * Checks the annotation does not declare an sbml namespace.
-    * If the annotation declares an sbml namespace an error is logged.
-    */
+   * Checks the annotation does not declare an sbml namespace.
+   * If the annotation declares an sbml namespace an error is logged.
+   */
   void checkAnnotation();
 
 
   /**
-  * Checks that the XHTML is valid.
-  * If the xhtml does not conform to the specification of valid xhtml within
-  * an sbml document, an error is logged.
-  */
+   * Checks that the XHTML is valid.
+   * If the xhtml does not conform to the specification of valid xhtml within
+   * an sbml document, an error is logged.
+   */
   void checkXHTML(const XMLNode *);
 
 
   /**
-    * Checks if a character is part of the Unicode Letter set.
-    * @return true if the character is a part of the set, false otherwise.
-    */
+   * Checks if a character is part of the Unicode Letter set.
+   * @return true if the character is a part of the set, false otherwise.
+   */
   bool isUnicodeLetter(std::string::iterator, unsigned int);
 
 
   /**
-    * Checks if a character is part of the Unicode Digit set.
-    * @return true if the character is a part of the set, false otherwise.
-    */
+   * Checks if a character is part of the Unicode Digit set.
+   * @return true if the character is a part of the set, false otherwise.
+   */
   bool isUnicodeDigit(std::string::iterator, unsigned int);
 
 
   /**
-    * Checks if a character is part of the Unicode CombiningChar set.
-    * @return true if the character is a part of the set, false otherwise.
-    */
+   * Checks if a character is part of the Unicode CombiningChar set.
+   * @return true if the character is a part of the set, false otherwise.
+   */
   bool isCombiningChar(std::string::iterator, unsigned int);
 
 
   /**
-    * Checks if a character is part of the Unicode Extender set.
-    * @return true if the character is a part of the set, false otherwise.
-    */
+   * Checks if a character is part of the Unicode Extender set.
+   * @return true if the character is a part of the set, false otherwise.
+   */
   bool isExtender(std::string::iterator, unsigned int);
 
   std::string mMetaId;
