@@ -95,6 +95,10 @@ CVTerm::CVTerm(const XMLNode node)
       setBiologicalQualifierType(BQB_IS_HOMOLOG_TO);
     else if (name == "isDescribedBy") 
       setBiologicalQualifierType(BQB_IS_DESCRIBED_BY);
+    else if (name == "isEncodedBy") 
+      setBiologicalQualifierType(BQB_IS_ENCODED_BY);
+    else if (name == "encodes") 
+      setBiologicalQualifierType(BQB_ENCODES);
 
 
   }

@@ -405,6 +405,12 @@ RDFAnnotationParser::createCVTerms(const SBase * object)
         case BQB_IS_DESCRIBED_BY:
           name = "isDescribedBy";
           break;
+        case BQB_IS_ENCODED_BY:
+          name = "isEncodedBy";
+          break;
+        case BQB_ENCODES:
+          name = "encodes";
+          break;
         case BQB_UNKNOWN:
           return NULL;
       	  break;

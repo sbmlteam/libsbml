@@ -78,6 +78,8 @@ typedef enum
   , BQB_HAS_VERSION
   , BQB_IS_HOMOLOG_TO
   , BQB_IS_DESCRIBED_BY
+  , BQB_IS_ENCODED_BY
+  , BQB_ENCODES
   , BQB_UNKNOWN
 } BiolQualifierType_t;
 
