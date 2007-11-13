@@ -683,20 +683,20 @@ ModelCreator::unsetEmail()
 }
 
 
-/** @cond doxygen-libsbml-internal */
 void 
 ModelCreator::unsetOrganization()
 {
   mOrganization.erase();
 }
-/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 void 
 ModelCreator::unsetOrganisation()
 {
   unsetOrganization();
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /**
