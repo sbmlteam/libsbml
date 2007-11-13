@@ -17,8 +17,8 @@ Pass: (3001) The units returned by the assignment rule that assigns value
     </listOfSpecies>
     <listOfParameters>
       <parameter id="p" value="1" units="litre" constant="false"/>
-      <parameter id="p1" value="1" units="ampere" constant="false"/>
-      <parameter id="p2" value="1" constant="false"/>
+      <parameter id="p1" value="1" units="mole" constant="false"/>
+      <parameter id="p2" value="1" units="dimensionless" constant="false"/>
     </listOfParameters>
     <listOfRules>
       <assignmentRule variable="s1">

@@ -22,13 +22,9 @@ Fail: (3001) The units returned by the assignment rule that assigns value
       <initialAssignment symbol="s1">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
-            <plus/>
-            <ci> p2 </ci>
-            <apply>
               <divide/>
               <ci> p1 </ci>
               <ci> p </ci>
-            </apply>
           </apply>
         </math>
       </initialAssignment>

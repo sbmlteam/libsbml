@@ -14,9 +14,10 @@ Pass: (3002) The units returned by the assignment rule that assigns value
         </listOfSpecies>
     <listOfParameters>
       <parameter name="p" value="1"/>
+      <parameter name="p2" value="1" units="dimensionless"/>
     </listOfParameters>
     <listOfRules>
-      <parameterRule name="p" formula="c*2"/>
+      <parameterRule name="p" formula="c*p2"/>
     </listOfRules>
         <listOfReactions>
         		<reaction name="r">

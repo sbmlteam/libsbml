@@ -11,6 +11,7 @@ Pass: (3002) The units returned by the assignment rule that assigns value
     </listOfCompartments>
     <listOfParameters>
       <parameter id="p" value="1" constant="false"/>
+      <parameter id="p2" value="1" units="dimensionless" constant="false"/>
     </listOfParameters>
     <listOfInitialAssignments>
       <initialAssignment symbol="p">
@@ -18,7 +19,7 @@ Pass: (3002) The units returned by the assignment rule that assigns value
           <apply>
             <times/>
             <ci> c </ci>
-            <cn> 2 </cn>
+            <ci> p2 </ci>
           </apply>
         </math>
       </initialAssignment>

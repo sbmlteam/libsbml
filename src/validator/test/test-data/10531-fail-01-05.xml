@@ -21,13 +21,9 @@ Fail: (3100) The units returned by the rate rule that assigns a rate
       <rateRule variable="c">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
-            <plus/>
-            <ci> p2 </ci>
-            <apply>
               <divide/>
               <ci> p </ci>
               <ci> p1 </ci>
-            </apply>
           </apply>
         </math>
       </rateRule>

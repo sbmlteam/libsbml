@@ -17,7 +17,7 @@ Fail: (3400) When a delay is specified within an event the units
 		<listOfParameters>
 			<parameter id="p" value="1" units="minutes" constant="false"/>
 			<parameter id="p1" value="1" units="minutes" constant="false"/>
-			<parameter id="p2" constant="false"/>
+			<parameter id="p2" units="dimensionless" constant="false"/>
 			<parameter id="p3" value="1" units="dimensionless"/>
 		</listOfParameters>
 		<listOfEvents>
@@ -42,7 +42,7 @@ Fail: (3400) When a delay is specified within an event the units
 				<listOfEventAssignments>
 					<eventAssignment variable="p2">
 						<math xmlns="http://www.w3.org/1998/Math/MathML">
-							<cn> 1 </cn>
+							<ci> p2 </ci>
 						</math>
 					</eventAssignment>
 				</listOfEventAssignments>

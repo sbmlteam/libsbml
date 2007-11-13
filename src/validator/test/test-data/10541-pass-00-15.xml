@@ -38,21 +38,16 @@ Pass: (3200) The units returned by the formula of a kinetic law
 						<apply>
 							<divide/>
 							<apply>
-							  <times/>
+							  <divide/>
 							  <ci> s1 </ci>
-							  <ci> k2 </ci>
-							</apply>
-							<apply>
-							  <plus/>
-							  <ci> s1 </ci>
-							  <ci> k3 </ci>
+							  <ci> k_1 </ci>
 							</apply>
 						</apply>
 					</math>
 					<listOfParameters>
 						<parameter id="k_1" value="1" units="time"/>
-						<parameter id="k2" value="1"/>
-						<parameter id="k3" value="1"/>
+						<parameter id="k2" value="1" />
+						<parameter id="k3" units="substance" value="1"/>
 					</listOfParameters>
 				</kineticLaw>
 			</reaction>

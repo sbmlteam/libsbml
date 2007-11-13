@@ -17,9 +17,10 @@ Pass: (3000) The units returned by the assignment rule that assigns value
     </listOfSpecies>
     <listOfParameters>
       <parameter name="p" value="1" units="litre"/>
+      <parameter name="p2" value="1" units="dimensionless"/>
     </listOfParameters>
     <listOfRules>
-      <compartmentVolumeRule compartment="c" formula="p*2"/>
+      <compartmentVolumeRule compartment="c" formula="p*p2"/>
     </listOfRules>
         <listOfReactions>
         		<reaction name="r">

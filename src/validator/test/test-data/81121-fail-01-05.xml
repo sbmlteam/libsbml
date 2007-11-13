@@ -11,7 +11,7 @@
       <specie name="S3" compartment="compartment" initialAmount="0"/>
     </listOfSpecies>
     <listOfParameters>
-      <parameter name="k" value="1"/>
+      <parameter name="k" value="1" units="dimensionless"/>
     </listOfParameters>
     <listOfReactions>
       <reaction name="R2" reversible="false">
@@ -23,7 +23,7 @@
         </listOfProducts>
         <kineticLaw formula="S1*S2">
           <listOfParameters>
-            <parameter name="S1" value="0.1"/>
+            <parameter name="S1" value="0.1" units="dimensionless"/>
           </listOfParameters>
         </kineticLaw>
       </reaction>

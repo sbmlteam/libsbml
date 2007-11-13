@@ -11,6 +11,7 @@ Pass: (3102) The units returned by the rate rule that assigns a rate
     </listOfCompartments>
     <listOfParameters>
       <parameter id="p" value="1" constant="false"/>
+      <parameter id="p2" value="1" units="dimensionless" constant="false"/>
     </listOfParameters>
     <listOfRules>
       <rateRule variable="p">
@@ -18,7 +19,7 @@ Pass: (3102) The units returned by the rate rule that assigns a rate
           <apply>
             <times/>
             <ci> c </ci>
-            <cn> 2 </cn>
+            <ci> p2 </ci>
           </apply>
         </math>
       </rateRule>

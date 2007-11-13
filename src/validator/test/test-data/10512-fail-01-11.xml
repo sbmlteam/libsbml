@@ -14,9 +14,9 @@ Fail: (3001) The units returned by the assignment rule that assigns value
       <species id="s1" compartment="c" initialConcentration="0"/>
     </listOfSpecies>
     <listOfParameters>
-      <parameter id="p" value="1" units="litre" constant="false"/>
-      <parameter id="p1" value="1" units="ampere" constant="false"/>
-      <parameter id="p2" value="1" constant="false"/>
+      <parameter id="p" value="1" units="dimensionless" constant="false"/>
+      <parameter id="p1" value="1" units="dimensionless" constant="false"/>
+      <parameter id="p2" value="1" units="dimensionless" constant="false"/>
     </listOfParameters>
     <listOfRules>
       <assignmentRule variable="s1">
@@ -24,12 +24,8 @@ Fail: (3001) The units returned by the assignment rule that assigns value
           <apply>
             <plus/>
             <ci> p2 </ci>
-            <apply>
-              <divide/>
               <ci> p1 </ci>
-              <ci> p </ci>
             </apply>
-          </apply>
         </math>
       </assignmentRule>
     </listOfRules>

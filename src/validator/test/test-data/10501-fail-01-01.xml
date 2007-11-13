@@ -21,7 +21,6 @@ Fail: (3300) Inconsistent math
             <plus/>
             <ci> p </ci>
             <ci> p1 </ci>
-            <cn> 0.5 </cn>
           </apply>
         </math>
       </algebraicRule>

@@ -13,7 +13,7 @@ Fail: (3000) The units returned by the assignment rule that assigns value
       <compartment id="c" constant="false"/>
     </listOfCompartments>
     <listOfParameters>
-      <parameter id="p" value="1" constant="false"/>
+      <parameter id="p" value="1" units="litre" constant="false"/>
       <parameter id="p1" value="1" units="dimensionless" constant="false"/>
     </listOfParameters>
     <listOfEvents>

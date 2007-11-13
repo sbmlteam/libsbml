@@ -23,7 +23,7 @@
             </apply>
           </math>
           <listOfParameters>
-            <parameter id="k" value="1"/>
+            <parameter id="k" value="1" units="dimensionless"/>
           </listOfParameters>
         </kineticLaw>
       </reaction>

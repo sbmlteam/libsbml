@@ -6,12 +6,13 @@
         </listOfCompartments>
         <listOfSpecies>
         		<specie name="s" compartment="c" initialAmount="0"/>
+        		<specie name="s1" compartment="c" initialAmount="0"/>
         </listOfSpecies>
         <listOfParameters>
           <parameter name="p" value="2"/>
         </listOfParameters>
         <listOfRules>
-			<parameterRule name="p" formula="p+s"/>
+			<parameterRule name="p" formula="s1+s"/>
         </listOfRules>
         <listOfReactions>
         		<reaction name="r">

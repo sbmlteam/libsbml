@@ -14,6 +14,7 @@ Pass: (3000) The units returned by the assignment rule that assigns value
     </listOfCompartments>
     <listOfParameters>
       <parameter id="p" value="1" units="area" constant="false"/>
+      <parameter id="p1" value="1" units="dimensionless" constant="false"/>
     </listOfParameters>
     <listOfRules>
       <assignmentRule variable="c">
@@ -21,7 +22,7 @@ Pass: (3000) The units returned by the assignment rule that assigns value
           <apply>
             <times/>
             <ci> p </ci>
-            <cn> 2 </cn>
+            <ci> p1 </ci>
           </apply>
         </math>
       </assignmentRule>

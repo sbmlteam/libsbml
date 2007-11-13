@@ -30,7 +30,7 @@ Pass: (3200) The units returned by the formula of a kinetic law
             </apply>
           </math>
           <listOfParameters>
-            <parameter id="k_1" value="1"/>
+            <parameter id="k_1" value="1" units="time"/>
           </listOfParameters>
         </kineticLaw>
       </reaction>

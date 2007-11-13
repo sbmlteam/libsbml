@@ -18,20 +18,16 @@ Fail: (3001) The units returned by the assignment rule that assigns value
     <listOfParameters>
       <parameter id="p" value="1" units="litre" constant="false"/>
       <parameter id="p1" value="1" units="ampere" constant="false"/>
-      <parameter id="p2" value="1" constant="false"/>
+      <parameter id="p2" value="1" units="dimensionless" constant="false"/>
     </listOfParameters>
     <listOfRules>
       <assignmentRule variable="s1">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
-            <plus/>
-            <ci> p2 </ci>
-            <apply>
               <divide/>
               <ci> p1 </ci>
               <ci> p </ci>
             </apply>
-          </apply>
         </math>
       </assignmentRule>
     </listOfRules>

@@ -14,7 +14,7 @@ Fail: (3000) The units returned by the assignment rule that assigns value
     </listOfCompartments>
     <listOfParameters>
       <parameter id="p" value="1" units="henry" constant="false"/>
-      <parameter id="p1" value="1" constant="false"/>
+      <parameter id="p1" value="1" units="henry" constant="false"/>
     </listOfParameters>
     <listOfInitialAssignments>
       <initialAssignment symbol="c">

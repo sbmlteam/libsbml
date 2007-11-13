@@ -11,10 +11,11 @@ Pass: (3000) The units returned by the assignment rule that assigns value
       <compartment name="c" units="litre"/>
     </listOfCompartments>
     <listOfParameters>
-      <parameter name="p" value="1"/>
+      <parameter name="p" units="litre" value="1"/>
+      <parameter name="p2" units="time" value="1"/>
     </listOfParameters>
     <listOfRules>
-      <compartmentVolumeRule type="rate" compartment="c" formula="p*2"/>
+      <compartmentVolumeRule type="rate" compartment="c" formula="p/p2"/>
     </listOfRules>
   </model>
 </sbml>

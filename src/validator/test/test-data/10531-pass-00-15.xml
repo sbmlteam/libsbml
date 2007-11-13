@@ -20,7 +20,7 @@ Pass: (3100) The units returned by the rate rule that assigns a rate
     <listOfParameters>
       <parameter id="p" value="1" units="metre" constant="false"/>
       <parameter id="p1" value="1" units="time" constant="false"/>
-      <parameter id="p2" value="1" constant="false"/>
+      <parameter id="p2" value="1" units="dimensionless" constant="false"/>
    </listOfParameters>
     <listOfRules>
       <rateRule variable="c">
