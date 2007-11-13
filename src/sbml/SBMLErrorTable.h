@@ -2508,6 +2508,23 @@ static const sbmlErrorTableEntry errorTable[] =
   },
 
 
+  // 80701
+  {
+    SBMLError::ParameterShouldHaveUnits,
+    SBMLError::SBMLModelingPractice,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    "As a principle of best modeling practice, the units of a <parameter> "
+    "should be declared rather than be left undefined.  Doing so "
+    "improves the ability to check unit consistency "
+    "and helps make it easier to detect potential errors "
+    "in models."
+  },
+
+
   // 81121
   {
     SBMLError::LocalParameterShadowsId,
@@ -2994,6 +3011,20 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Warning,
     SBMLError::Warning,
     ""
+  },
+
+  //99505
+  {
+    SBMLError::UndeclaredUnits,
+    SBMLError::SBMLConsistencyUnits,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    SBMLError::Warning,
+    "A parameter with undeclared units or a number has been used within a math "
+    "expression. In situations where not all units are declared unit consistency "
+    "checking cannot be completely accurate."
   },
 
   //99219

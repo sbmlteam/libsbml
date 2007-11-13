@@ -87,6 +87,125 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+/* check to report the use of parameters/numbers with undeclared units */
+START_CONSTRAINT (99505, AssignmentRule, ar)
+{
+  const string& variable = ar.getVariable();
+
+  pre ( ar.isSetMath() == 1 );
+
+  const FormulaUnitsData * formulaUnits = 
+                          m.getFormulaUnitsData(variable, SBML_ASSIGNMENT_RULE);
+
+  pre ( formulaUnits != 0 );
+
+  msg = "The units of the <assignmentRule> <math> expression '";
+  msg += SBML_formulaToString(ar.getMath());
+  msg += "' cannot be fully checked. Unit consistency reported as either no errors ";
+  msg += "or further unit errors related to this object may not be accurate.";
+
+  inv( formulaUnits->getContainsParametersWithUndeclaredUnits() == 0);
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (99505, RateRule, rr)
+{
+  const string& variable = rr.getVariable();
+
+  pre ( rr.isSetMath() == 1 );
+
+  const FormulaUnitsData * formulaUnits = 
+                          m.getFormulaUnitsData(variable, SBML_RATE_RULE);
+
+  pre ( formulaUnits != 0 );
+
+  msg = "The units of the <rateRule> <math> expression '";
+  msg += SBML_formulaToString(rr.getMath());
+  msg += "' cannot be fully checked. Unit consistency reported as either no errors ";
+  msg += "or further unit errors related to this object may not be accurate.";
+
+  inv( formulaUnits->getContainsParametersWithUndeclaredUnits() == 0);
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (99505, InitialAssignment, ia)
+{
+  const string& variable = ia.getSymbol();
+
+  pre ( ia.isSetMath() == 1 );
+
+  const FormulaUnitsData * formulaUnits = 
+                          m.getFormulaUnitsData(variable, SBML_INITIAL_ASSIGNMENT);
+
+  pre ( formulaUnits != 0 );
+
+  msg = "The units of the <initialAssignment> <math> expression '";
+  msg += SBML_formulaToString(ia.getMath());
+  msg += "' cannot be fully checked. Unit consistency reported as either no errors ";
+  msg += "or further unit errors related to this object may not be accurate.";
+
+  inv( formulaUnits->getContainsParametersWithUndeclaredUnits() == 0);
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (99505, KineticLaw, kl)
+{
+  pre ( kl.isSetMath() == 1 );
+
+  const FormulaUnitsData * formulaUnits = 
+                            m.getFormulaUnitsData(kl.getId(), SBML_KINETIC_LAW);
+  pre ( formulaUnits != 0 );
+
+  msg = "The units of the <kineticLaw> <math> expression '";
+  msg += SBML_formulaToString(kl.getMath());
+  msg += "' cannot be fully checked. Unit consistency reported as either no errors ";
+  msg += "or further unit errors related to this object may not be accurate.";
+
+  inv( formulaUnits->getContainsParametersWithUndeclaredUnits() == 0);
+}
+END_CONSTRAINT
+
+  
+START_CONSTRAINT (99505, Event, e)
+{
+  pre ( e.isSetDelay() == 1 );
+
+  const FormulaUnitsData * formulaUnits = 
+                                  m.getFormulaUnitsData(e.getId(), SBML_EVENT);
+
+  pre ( formulaUnits != 0 );
+
+  msg = "The units of the <event> <delay> expression '";
+  msg += SBML_formulaToString(e.getDelay()->getMath());
+  msg += "' cannot be fully checked. Unit consistency reported as either no errors ";
+  msg += "or further unit errors related to this object may not be accurate.";
+
+  inv( formulaUnits->getContainsParametersWithUndeclaredUnits() == 0);
+}
+END_CONSTRAINT
+
+  
+START_CONSTRAINT (99505, EventAssignment, ea)
+{
+  const string& variable = ea.getVariable();
+
+  pre ( ea.isSetMath() == 1 );
+
+  const FormulaUnitsData * formulaUnits = 
+                         m.getFormulaUnitsData(variable, SBML_EVENT_ASSIGNMENT);
+
+  pre ( formulaUnits != 0 );
+  
+  msg = "The units of the <eventAssignment> <math> expression '";
+  msg += SBML_formulaToString(ea.getMath());
+  msg += "' cannot be fully checked. Unit consistency reported as either no errors ";
+  msg += "or further unit errors related to this object may not be accurate.";
+
+  inv( formulaUnits->getContainsParametersWithUndeclaredUnits() == 0);
+}
+END_CONSTRAINT
 
 // General Unit validation
 
@@ -95,6 +214,8 @@ EXTERN_CONSTRAINT(10501, ArgumentsUnitsCheck)
 EXTERN_CONSTRAINT(99502, ArgumentsUnitsCheckWarnings)
 EXTERN_CONSTRAINT(99503, PowerUnitsCheck)
 EXTERN_CONSTRAINT(99504, ExponentUnitsCheck)
+
+// Specific unit checks 
 
 START_CONSTRAINT (10511, AssignmentRule, ar)
 {

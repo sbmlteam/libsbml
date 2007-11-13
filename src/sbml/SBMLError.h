@@ -252,6 +252,7 @@ public:
 
   // ModelingPractice contraints
   , CompartmentShouldHaveSize        = 80501
+  , ParameterShouldHaveUnits         = 80701
   , LocalParameterShadowsId          = 81121
     
   // Lower bound for additional error codes returned by libSBML but not
@@ -311,6 +312,7 @@ public:
   , InconsistentPowerUnitsWarnings   = 99503 /*!< SBML L2v3 validation rule #10501 */
   , InconsistentExponUnitsWarnings   = 99504 /*!< SBML L2v3 validation rule #10501 */
     /** @endcond doxygen-libsbml-internal */
+  , UndeclaredUnits                  = 99505 
   , BadMathML                        = 99219
 
     // Bounds

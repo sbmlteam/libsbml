@@ -52,7 +52,15 @@ START_CONSTRAINT (80501, Compartment, c)
 }
 END_CONSTRAINT
 
+// Parameters
 EXTERN_CONSTRAINT( 81121, LocalParameterShadowsIdInModel             )
+
+
+START_CONSTRAINT (80701, Parameter, p)
+{
+  inv(p.isSetUnits() == true);
+}
+END_CONSTRAINT
 
 
 
