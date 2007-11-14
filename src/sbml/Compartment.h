@@ -210,10 +210,18 @@
  * can add information about the lists themselves into each list
  * container's "annotation".
  *
- * @see ListOfFunctionDefinitions, ListOfUnitDefinitions,
- * ListOfCompartmentTypes, ListOfSpeciesTypes, ListOfCompartments,
- * ListOfSpecies, ListOfParameters, ListOfInitialAssignments, ListOfRules,
- * ListOfConstraints, ListOfReactions, and ListOfEvents.
+ * @see ListOfFunctionDefinitions
+ * @see ListOfUnitDefinitions
+ * @see ListOfCompartmentTypes
+ * @see ListOfSpeciesTypes
+ * @see ListOfCompartments
+ * @see ListOfSpecies
+ * @see ListOfParameters
+ * @see ListOfInitialAssignments
+ * @see ListOfRules
+ * @see ListOfConstraints
+ * @see ListOfReactions
+ * @see ListOfEvents
  */
 
 #ifndef Compartment_h
@@ -426,7 +434,8 @@ public:
    * @return @c true if the "size" attribute ("volume" in Level) of this
    * Compartment has been set, @c false otherwise.
    *
-   * @see isSetVolume(), setSize()
+   * @see isSetVolume()
+   * @see setSize(double value)
    */
   bool isSetSize () const;
 
@@ -443,7 +452,8 @@ public:
    * @return @c true if the "volume" attribute ("size" in L2) of this
    * Compartment has been set, @c false otherwise.
    *
-   * @see isSetSize(), setVolume()
+   * @see isSetSize()
+   * @see setVolume(double value)
    *
    * @note In SBML Level 1, a compartment's volume has a default value (@c
    * 1.0) and therefore this method will always return @c true.  In Level

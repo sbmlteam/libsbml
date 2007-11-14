@@ -73,7 +73,8 @@
  * constructed, but this will not be exposed to calling code.  ASTNode
  * trees returned by SBML_parseFormula() will not contain unknown nodes.
  *
- * @see ASTNode::getType(), ASTNode::canonicalize()
+ * @see ASTNode::getType()
+ * @see ASTNode::canonicalize()
  */
 typedef enum
 {
@@ -155,7 +156,8 @@ typedef enum
  * A pointer to a function that takes an ASTNode and returns @c true
  * (non-zero) or @c false (0).
  *
- * @see ASTNode_getListOfNodes(), ASTNode_fillListOfNodes()
+ * @see ASTNode_getListOfNodes()
+ * @see ASTNode_fillListOfNodes()
  */
 typedef int (*ASTNodePredicate) (const ASTNode_t *node);
 
@@ -231,7 +233,7 @@ public:
    * calling code should set the node type to something else as soon as
    * possible.
    *
-   * @see setType()
+   * @see setType(ASTNodeType_t type)
    *
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different
@@ -301,7 +303,8 @@ public:
    * The function names that result in structural changes are: @c log10,
    * @c sqr, and @c sqrt.
    *
-   * @see SBML Level 1 and Level 2 (all versions) specification documents.
+   * See the SBML Level 1 and Level 2 (all versions) specification documents for
+   * more information.
    */
   LIBSBML_EXTERN
   bool canonicalize ();

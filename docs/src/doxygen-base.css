@@ -461,3 +461,8 @@ PRE.signature {
   border: 0;
   vertical-align: baseline;
 }
+
+docnote { 
+  margin-left: 1cm;
+  margin-top: 0;
+}

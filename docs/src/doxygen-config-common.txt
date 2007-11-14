@@ -135,7 +135,12 @@ TAB_SIZE               = 4
 # will result in a user-defined paragraph with heading "Side Effects:". 
 # You can put \n's in the value part of an alias to insert newlines.
 
-ALIASES                =
+# 2007-11-13 <mhucka@caltech.edu> Watch out that Doxygen strips off any
+# class definitions on any <p>'s in the definition.  This makes it
+# impossible to control the formatting of the paragraph after the tag in
+# the doc, dammit.
+
+ALIASES                = docnote="<p><b>Documentation note:</b><br>"
 
 # Set the SUBGROUPING tag to YES (the default) to allow class member groups of 
 # the same type (for instance a group of public functions) to be put as a 

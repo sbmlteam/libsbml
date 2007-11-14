@@ -56,8 +56,10 @@
  * CompartmentType was introduced in SBML Level 2 Version 2.  It is not
  * available in earlier versions of Level 2 nor in any version of Level 1.
  *
- * @see Compartment, ListOfCompartmentTypes, SpeciesType,
- * ListOfSpeciesTypes.
+ * @see Compartment
+ * @see ListOfCompartmentTypes
+ * @see SpeciesType
+ * @see ListOfSpeciesTypes
  * 
  * 
  * @class ListOfCompartmentTypes.
@@ -85,10 +87,18 @@
  * can add information about the lists themselves into each list
  * container's "annotation".
  *
- * @see ListOfFunctionDefinitions, ListOfUnitDefinitions,
- * ListOfCompartmentTypes, ListOfSpeciesTypes, ListOfCompartments,
- * ListOfSpecies, ListOfParameters, ListOfInitialAssignments, ListOfRules,
- * ListOfConstraints, ListOfReactions, and ListOfEvents.
+ * @see ListOfFunctionDefinitions
+ * @see ListOfUnitDefinitions
+ * @see ListOfCompartmentTypes
+ * @see ListOfSpeciesTypes
+ * @see ListOfCompartments
+ * @see ListOfSpecies
+ * @see ListOfParameters
+ * @see ListOfInitialAssignments
+ * @see ListOfRules
+ * @see ListOfConstraints
+ * @see ListOfReactions
+ * @see ListOfEvents
  */
 
 #ifndef CompartmentType_h

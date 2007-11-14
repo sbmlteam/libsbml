@@ -86,7 +86,7 @@ public:
    * @param name the name of this program (where "this program" refers to
    * program in which libSBML is embedded, not libSBML itself!)
    * 
-   * @see setProgramVersion()
+   * @see setProgramVersion(const std::string& version)
    */
   void setProgramName (const std::string& name);
 
@@ -106,7 +106,7 @@ public:
    * @param version the version of this program (where "this program"
    * refers to program in which libSBML is embedded, not libSBML itself!)
    *
-   * @see setProgramName()
+   * @see setProgramName(const std::string& name)
    */
   void setProgramVersion (const std::string& version);
 

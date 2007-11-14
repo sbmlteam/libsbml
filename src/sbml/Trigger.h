@@ -46,7 +46,9 @@
  * an event can only be triggered immediately after initial simulation time
  * i.e., <em>t &gt; 0</em>.
  *
- * @see Event, Delay, EventAssignment.
+ * @see Event
+ * @see Delay
+ * @see EventAssignment
  */
 
 

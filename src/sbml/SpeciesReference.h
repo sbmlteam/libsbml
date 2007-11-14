@@ -455,8 +455,12 @@ public:
    * <li> denominator is set to @c 1
    * </ul>
    *
-   * @see getDenominator(), setDenominator(), getStoichiometry(),
-   * setStoichiometry(), getStoichiometryMath(), setStoichiometryMath().
+   * @see getDenominator()
+   * @see setDenominator()
+   * @see getStoichiometry()
+   * @see setStoichiometry()
+   * @see getStoichiometryMath()
+   * @see setStoichiometryMath()
    */
   void initDefaults ();
 
@@ -665,7 +669,7 @@ public:
    * @param annotation an XML structure that is to be used as the content
    * of the "annotation" subelement of this object
    *
-   * @see appendAnnotation().
+   * @see appendAnnotation()
    */
   virtual void setAnnotation (const XMLNode* annotation);
 
@@ -684,7 +688,7 @@ public:
    * @param annotation an XML string that is to be used as the content
    * of the "annotation" subelement of this object
    *
-   * @see appendAnnotation().
+   * @see appendAnnotation()
    */
   virtual void setAnnotation (const std::string& annotation);
 
@@ -700,7 +704,7 @@ public:
    * @param annotation an XML structure that is to be copied and appended
    * to the content of the "annotation" subelement of this object
    *
-   * @see setAnnotation().
+   * @see setAnnotation()
    */
   virtual void appendAnnotation (const XMLNode* annotation);
 
@@ -716,7 +720,7 @@ public:
    * @param annotation an XML string that is to be copied and appended
    * to the content of the "annotation" subelement of this object
    *
-   * @see setAnnotation().
+   * @see setAnnotation()
    */
   virtual void appendAnnotation (const std::string& annotation);
 

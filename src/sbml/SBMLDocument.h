@@ -384,10 +384,14 @@ public:
    *
    * @param n the integer index of the error sought.
    *
-   * @see getNumErrors(), setLevelAndVersion(), checkConsistency(),
-   * checkL1Compatibility(), checkL2v1Compatibility()
-   * checkL2v2Compatibility(), SBMLReader::readSBML(),
-   * SBMLReader::readSBMLFromString().
+   * @see getNumErrors()
+   * @see setLevelAndVersion()
+   * @see checkConsistency()
+   * @see checkL1Compatibility()
+   * @see checkL2v1Compatibility()
+   * @see checkL2v2Compatibility()
+   * @see SBMLReader::readSBML()
+   * @see SBMLReader::readSBMLFromString()
    */
   const SBMLError* getError (unsigned int n) const;
 
@@ -398,9 +402,13 @@ public:
    *
    * @return the number of errors or warnings encountered
    *
-   * @see setLevelAndVersion(), checkConsistency(), checkL1Compatibility(),
-   * checkL2v1Compatibility() checkL2v2Compatibility(),
-   * SBMLReader::readSBML(), SBMLReader::readSBMLFromString().
+   * @see setLevelAndVersion()
+   * @see checkConsistency()
+   * @see checkL1Compatibility()
+   * @see checkL2v1Compatibility()
+   * @see checkL2v2Compatibility()
+   * @see SBMLReader::readSBML()
+   * @see SBMLReader::readSBMLFromString()
    */
   unsigned int getNumErrors () const;
 
@@ -465,9 +473,13 @@ public:
    * 
    * @return the SBMLErrorLog used for this SBMLDocument
    *
-   * @see setLevelAndVersion(), checkConsistency(), checkL1Compatibility(),
-   * checkL2v1Compatibility() checkL2v2Compatibility(),
-   * SBMLReader::readSBML(), SBMLReader::readSBMLFromString().
+   * @see setLevelAndVersion()
+   * @see checkConsistency()
+   * @see checkL1Compatibility()
+   * @see checkL2v1Compatibility()
+   * @see checkL2v2Compatibility()
+   * @see SBMLReader::readSBML()
+   * @see SBMLReader::readSBMLFromString()
    */
   SBMLErrorLog* getErrorLog ();
 

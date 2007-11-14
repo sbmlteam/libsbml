@@ -73,10 +73,11 @@
  * for "constant" only indicates that a parameter @em can change value, not
  * that it @em must.
  *
- * @n As with all other major %SBML components, Parameter is derived from
+ * As with all other major %SBML components, Parameter is derived from
  * SBase, and the methods defined on SBase are available on Parameter.
  *
- * @see ListOfParameters, KineticLaw.
+ * @see ListOfParameters
+ * @see KineticLaw
  * 
  * @note The use of the term @em parameter in %SBML sometimes leads to
  * confusion among readers who have a particular notion of what something
@@ -125,10 +126,18 @@
  * can add information about the lists themselves into each list
  * container's "annotation".
  *
- * @see ListOfFunctionDefinitions, ListOfUnitDefinitions,
- * ListOfCompartmentTypes, ListOfSpeciesTypes, ListOfCompartments,
- * ListOfSpecies, ListOfParameters, ListOfInitialAssignments, ListOfRules,
- * ListOfConstraints, ListOfReactions, and ListOfEvents.
+ * @see ListOfFunctionDefinitions
+ * @see ListOfUnitDefinitions
+ * @see ListOfCompartmentTypes
+ * @see ListOfSpeciesTypes
+ * @see ListOfCompartments
+ * @see ListOfSpecies
+ * @see ListOfParameters
+ * @see ListOfInitialAssignments
+ * @see ListOfRules
+ * @see ListOfConstraints
+ * @see ListOfReactions
+ * @see ListOfEvents
  */
 
 #ifndef Parameter_h
@@ -276,7 +285,7 @@ public:
    * @return the value of the "value" attribute of this Parameter, as a
    * number of type @c double.
    *
-   * @see Parameter::isSetValue()
+   * @see isSetValue()
    *
    * @note <b>It is crucial</b> that callers not blindly call
    * Parameter::getValue() without first checking with
@@ -331,7 +340,7 @@ public:
    * @return @c true if the value of this Parameter has been set,
    * @c false otherwise.
    *
-   * @see Parameter::getValue()
+   * @see getValue()
    *
    * @note <b>It is crucial</b> that callers not blindly call
    * Parameter::getValue() without first checking with

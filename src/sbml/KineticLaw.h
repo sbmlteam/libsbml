@@ -268,7 +268,7 @@ public:
    * 
    * @return a string representing the formula of this Kineticlaw.
    *
-   * @see getMath().
+   * @see getMath()
    *
    * @note SBML Level 1 uses a text-string format for mathematical
    * formulas.  SBML Level 2 uses MathML, an XML format for representing
@@ -293,7 +293,7 @@ public:
    * 
    * @return the ASTNode representation of the mathematical formula.
    *
-   * @see getFormula().
+   * @see getFormula()
    */
   const ASTNode* getMath () const;
 

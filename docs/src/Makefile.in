@@ -309,6 +309,7 @@ java-manual $(java-manual): $(core-sources)
 	    -overview libsbml-java-overview.html \
 	    -d $(java-manual) \
 	    -tag note:a:"Note:" -tag warning:a:"Warning:" \
+	    -tag docnote:a:"Documentation note:" \
 	    -sourcepath $(java-dir) org.sbml.libsbml
 	cp -f graphics/sbml-logo-long-124x56.gif $(java-manual)
 	cp -f graphics/sbml-logo-long-124x56.gif $(java-manual)/org/sbml/libsbml/

@@ -469,7 +469,9 @@ public:
    *
    * @return the annotation of this SBML object.
    *
-   * @see ModelHistory, CVTerm, RDFAnnotation.
+   * @see ModelHistory
+   * @see CVTerm
+   * @see RDFAnnotation
    */
   XMLNode* getAnnotation ();
 
@@ -485,7 +487,9 @@ public:
    *
    * @return the annotation string of this SBML object.
    *
-   * @see ModelHistory, CVTerm, RDFAnnotation.
+   * @see ModelHistory
+   * @see CVTerm
+   * @see RDFAnnotation
    */
   std::string getAnnotationString ();
 
@@ -533,7 +537,7 @@ public:
    * 
    * @return the line number of this SBML object.
    *
-   * @see getColumn().
+   * @see getColumn()
    */
   unsigned int getLine () const;
 
@@ -544,7 +548,7 @@ public:
    * 
    * @return the column number of this SBML object.
    * 
-   * @see getLine().
+   * @see getLine()
    */
   unsigned int getColumn () const;
 
@@ -674,7 +678,7 @@ public:
    * @param annotation an XML structure that is to be used as the content
    * of the "annotation" subelement of this object
    *
-   * @see appendAnnotation().
+   * @see appendAnnotation()
    */
   virtual void setAnnotation (const XMLNode* annotation);
 
@@ -693,7 +697,7 @@ public:
    * @param annotation an XML string that is to be used as the content
    * of the "annotation" subelement of this object
    *
-   * @see appendAnnotation().
+   * @see appendAnnotation()
    */
   virtual void setAnnotation (const std::string& annotation);
 
@@ -709,7 +713,7 @@ public:
    * @param annotation an XML structure that is to be copied and appended
    * to the content of the "annotation" subelement of this object
    *
-   * @see setAnnotation().
+   * @see setAnnotation()
    */
   virtual void appendAnnotation (const XMLNode* annotation);
 
@@ -725,7 +729,7 @@ public:
    * @param annotation an XML string that is to be copied and appended
    * to the content of the "annotation" subelement of this object
    *
-   * @see setAnnotation().
+   * @see setAnnotation()
    */
   virtual void appendAnnotation (const std::string& annotation);
 

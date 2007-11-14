@@ -25,7 +25,8 @@
  * @brief LibSBML implementation of %SBML's StoichiometryMath construct for 
  * SpeciesReference.
  *
- * @see SpeciesReference, Reaction.
+ * @see SpeciesReference
+ * @see Reaction
  */
 
 

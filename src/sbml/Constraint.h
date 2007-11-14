@@ -127,10 +127,18 @@
  * can add information about the lists themselves into each list
  * container's "annotation".
  *
- * @see ListOfFunctionDefinitions, ListOfUnitDefinitions,
- * ListOfCompartmentTypes, ListOfSpeciesTypes, ListOfCompartments,
- * ListOfSpecies, ListOfParameters, ListOfInitialAssignments, ListOfRules,
- * ListOfConstraints, ListOfReactions, and ListOfEvents.
+ * @see ListOfFunctionDefinitions
+ * @see ListOfUnitDefinitions
+ * @see ListOfCompartmentTypes
+ * @see ListOfSpeciesTypes
+ * @see ListOfCompartments
+ * @see ListOfSpecies
+ * @see ListOfParameters
+ * @see ListOfInitialAssignments
+ * @see ListOfRules
+ * @see ListOfConstraints
+ * @see ListOfReactions
+ * @see ListOfEvents
  */
 
 #ifndef Constraint_h

@@ -57,7 +57,8 @@
  * and Unit_t data structures for more information about units in SBML
  * and the use of the UnitKind_t enumeraion.
  *
- * @see UnitDefinition_t, Unit_t
+ * @see UnitDefinition_t
+ * @see Unit_t
  */
 
 #ifndef UnitKind_h
