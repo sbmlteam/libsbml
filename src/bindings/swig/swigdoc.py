@@ -364,6 +364,12 @@ def sanitizeForHTML (docstring):
   return docstring
 
 
+def removeStar (match):
+  text = match.group()
+  text = text.replace('*', '')
+  return text
+
+
 def sanitizeForJava (docstring):
   """sanitizeForJava (docstring) -> docstring
 
@@ -373,18 +379,38 @@ def sanitizeForJava (docstring):
 
   docstring = sanitizeForHTML(docstring)
 
-  # The pound sign is used to separate members from classes:
-
-  docstring = docstring.replace(r'::', '.')
-
   # Try to rewrite some of the data type references to equivalent Java types.
 
   docstring = docstring.replace(r'const char *', 'string ')
+  docstring = docstring.replace(r'const char* ', 'string ')
+
+  # Inside of @see, change double colons to pound signs.
+
+  docstring = re.sub('(@see\s+\w+)::', r'\1#', docstring)
+
+  # The syntax for @see is slightly different: method names need to have a
+  # leading pound sign character.  This particular bit of code only handles
+  # a single @see foo(), which means the docs have to be written that way.
+  # Maybe someday in the future it should be expanded to handle
+  # @see foo(), bar(), etc., but I don't have time right now to do it.
+
+  docstring = re.sub('(@see\s+)([\w:.]+)\(', r'\1#\2(', docstring)
+
+  # Remove the '*' character that Javadoc doesn't want to see in @see's.
+  # (This doesn't make a difference; javadoc still can't match up the refs.)
+
+  #  p = re.compile('@see[\s\w.:,()#]+[*][\s\w.:,()*#]')
+  #  docstring = p.sub(removeStar, docstring)
 
   # The syntax for @link is vastly different.
   
   p = re.compile('@link([\s/*]+[\w\s,.:#()*]+[\s/*]+[\w():#]+[\s/*]+)@endlink', re.DOTALL)
   docstring = p.sub(r'{@link \1}', docstring)
+
+  # Outside of @see and other constructs, dot is used to reference members
+  # instead of C++'s double colon.
+
+  docstring = docstring.replace(r'::', '.')
 
   # Need to escape the quotation marks:
 
