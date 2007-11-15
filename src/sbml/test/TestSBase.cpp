@@ -385,6 +385,21 @@ START_TEST(test_SBase_addCVTerms)
   fail_unless(!strcmp(res->getValue(0).c_str(), "bar"));
   fail_unless(!strcmp(res->getValue(1).c_str(), "bar1"));
   
+  /* existing term with different qualifier shouldnt get added*/
+  CVTerm_t * cv5 = CVTerm_createWithQualifierType(BIOLOGICAL_QUALIFIER);
+  CVTerm_setBiologicalQualifierType(cv5, BQB_HAS_PART);
+  CVTerm_addResource(cv5, "bar1");
+  
+  SBase_addCVTerm(S, cv5);
+  
+  fail_unless(SBase_getNumCVTerms(S) == 2);
+  
+  res = CVTerm_getResources(SBase_getCVTerm(S, 1));
+
+  fail_unless(XMLAttributes_getLength(res) == 2);
+  fail_unless(!strcmp(res->getValue(0).c_str(), "bar"));
+  fail_unless(!strcmp(res->getValue(1).c_str(), "bar1"));
+ 
   CVTerm_free(cv);
   CVTerm_free(cv2);
   CVTerm_free(cv1);

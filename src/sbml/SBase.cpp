@@ -1083,6 +1083,11 @@ void
 SBase::addCVTerm(CVTerm * term)
 {
   unsigned int added = 0;
+  /* clone the term to be added so that I can adjust 
+   * which resources are actually added
+   */
+  CVTerm * copyTerm = term->clone();
+
   if (mCVTerms == NULL)
   {
     mCVTerms = new List();
@@ -1090,32 +1095,59 @@ SBase::addCVTerm(CVTerm * term)
   }
   else
   {
-    /* check whether there are any other qualifiers of the same sort already in the list */
-    QualifierType_t type = term->getQualifierType();
+    /* check whether the resources are already listed */
+    QualifierType_t type = copyTerm->getQualifierType();
+    unsigned int inList = 0;
     if (type == BIOLOGICAL_QUALIFIER)
     {
-      BiolQualifierType_t biol = term->getBiologicalQualifierType();
+      BiolQualifierType_t biolQual = BQB_UNKNOWN;
+      int length = copyTerm->getResources()->getLength();
+      for (int p = length-1; p > -1; p--)
+      {
+        biolQual = getResourceBiologicalQualifier(copyTerm->getResources()->getValue(p));
+        if (biolQual != BQB_UNKNOWN)
+        {
+          /* resource is already present 
+           * - dont want to add again; 
+           * so delete it from set to be added
+           */
+          copyTerm->removeResource(copyTerm->getResources()->getValue(p));
+        }
+      }
+    }
+    else if (type == MODEL_QUALIFIER)
+    {
+      ModelQualifierType_t modelQual = BQM_UNKNOWN;
+      int length = copyTerm->getResources()->getLength();
+      for (int p = length-1; p > -1; p--)
+      {
+        modelQual = getResourceModelQualifier(copyTerm->getResources()->getValue(p));
+        if (modelQual != BQM_UNKNOWN)
+        {
+          /* resource is already present 
+           * - dont want to add again; 
+           * so delete it from set to be added
+           */
+          copyTerm->removeResource(copyTerm->getResources()->getValue(p));
+        }
+      }
+    }
+
+    /* if the qualifier of the term being added is already present
+     * add to the list of resources for that qualifier
+     */
+    if (type == BIOLOGICAL_QUALIFIER)
+    {
+      BiolQualifierType_t biol = copyTerm->getBiologicalQualifierType();
       
       for (unsigned int n = 0; n < mCVTerms->getSize() && added == 0; n++)
       {
         if (biol == static_cast <CVTerm *>(mCVTerms->get(n))->getBiologicalQualifierType())
         {
-          for (int r = 0; r < term->getResources()->getLength(); r++)
+          for (int r = 0; r < copyTerm->getResources()->getLength(); r++)
           {
-            /* dont add a duplicate term */
-            std::string resourceToAdd = term->getResources()->getValue(r);
-            unsigned int present = 0;
-            for (int i = 0; 
-              i < static_cast <CVTerm *>(mCVTerms->get(n))->getResources()->getLength() 
-              && present == 0; i++)
-            {
-              if (resourceToAdd == 
-                static_cast <CVTerm *>(mCVTerms->get(n))->getResources()->getValue(i))
-                present = 1;
-            }
-            if (!present)
-              static_cast <CVTerm *>(mCVTerms->get(n))->addResource(
-                term->getResources()->getValue(r));
+            static_cast <CVTerm *>(mCVTerms->get(n))->addResource(
+                copyTerm->getResources()->getValue(r));
           }
           added = 1;
         }
@@ -1123,40 +1155,30 @@ SBase::addCVTerm(CVTerm * term)
     }
     else if (type == MODEL_QUALIFIER)
     {
-      ModelQualifierType_t model = term->getModelQualifierType();
+      ModelQualifierType_t model = copyTerm->getModelQualifierType();
       
       for (unsigned int n = 0; n < mCVTerms->getSize() && added == 0; n++)
       {
         if (model == static_cast <CVTerm *>(mCVTerms->get(n))->getModelQualifierType())
         {
-          for (int r = 0; r < term->getResources()->getLength(); r++)
+          for (int r = 0; r < copyTerm->getResources()->getLength(); r++)
           {
-            /* dont add a duplicate term */
-            std::string resourceToAdd = term->getResources()->getValue(r);
-            unsigned int present = 0;
-            for (int i = 0; 
-              i < static_cast <CVTerm *>(mCVTerms->get(n))->getResources()->getLength() 
-              && present == 0; i++)
-            {
-              if (resourceToAdd == 
-                static_cast <CVTerm *>(mCVTerms->get(n))->getResources()->getValue(i))
-                present = 1;
-            }
-            if (!present)
-              static_cast <CVTerm *>(mCVTerms->get(n))->addResource(
-                term->getResources()->getValue(r));
+            static_cast <CVTerm *>(mCVTerms->get(n))->addResource(
+                copyTerm->getResources()->getValue(r));
           }
           added = 1;
         }
       }
     }
-    if (added == 0)
+    if (added == 0 && copyTerm->getResources()->getLength() > 0)
     {
-      /* no matching terms already in list */
-      mCVTerms->add((void *) term->clone());
+      /* no matching copyTerms already in list */
+      mCVTerms->add((void *) copyTerm->clone());
     }
 
   }
+
+  delete copyTerm;
 }
 
 
