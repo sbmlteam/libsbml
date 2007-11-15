@@ -110,7 +110,7 @@ AC_DEFUN([CONFIG_PROG_SWIG],
 
     if test -n "$SWIG";
     then
-        SWIGLIB=`$SWIG -swiglib`
+        SWIGLIB=`"$SWIG" -swiglib`
 
         AC_SUBST(SWIG)
         AC_SUBST(SWIGLIB)
@@ -119,7 +119,7 @@ AC_DEFUN([CONFIG_PROG_SWIG],
         AC_MSG_CHECKING(swig version)
 
         changequote(<<, >>)
-        swig_version=`$SWIG -version 2>&1 | sed 's/.* \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p; d'`
+        swig_version=`"$SWIG" -version 2>&1 | sed 's/.* \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p; d'`
         swig_major_ver=`expr $swig_version : '\([0-9]*\)\.[0-9]*\.[0-9]*'`
         swig_minor_ver=`expr $swig_version : '[0-9]*\.\([0-9]*\)\.[0-9]*'`
         swig_micro_ver=`expr $swig_version : '[0-9]*\.[0-9]*\.\([0-9]*\)' '|' 0`

@@ -59,7 +59,7 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
     dnl check version if required
     m4_ifvaln([$1], [
         AC_MSG_CHECKING($PYTHON version >= $1)
-        if test `$PYTHON -c ["import sys; print sys.version[:3] >= \"$1\" and \"OK\" or \"OLD\""]` = "OK"
+        if test `"$PYTHON" -c ["import sys; print sys.version[:3] >= \"$1\" and \"OK\" or \"OLD\""]` = "OK"
         then
           AC_MSG_RESULT(ok)
         else
@@ -68,11 +68,11 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
       fi])
 
     AC_MSG_CHECKING(for Python prefix)
-    PYTHON_PREFIX=`($PYTHON -c "import sys; print sys.prefix") 2>/dev/null`
+    PYTHON_PREFIX=`("$PYTHON" -c "import sys; print sys.prefix") 2>/dev/null`
     AC_MSG_RESULT($PYTHON_PREFIX)
 
     changequote(<<, >>)
-    PYTHON_VERSION=`$PYTHON -c "import sys; print sys.version[:3]"`
+    PYTHON_VERSION=`"$PYTHON" -c "import sys; print sys.version[:3]"`
     changequote([, ])
 
     PYTHON_NAME="python${PYTHON_VERSION}"

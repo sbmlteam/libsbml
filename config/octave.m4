@@ -62,7 +62,7 @@ AC_DEFUN([CONFIG_PROG_OCTAVE],
     AC_MSG_CHECKING(octave version)
 
     changequote(<<, >>)
-    octave_version=`$OCTAVE --version 2>&1 | head -n 1 | sed 's/.* \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p; d'`
+    octave_version=`"$OCTAVE" --version 2>&1 | head -n 1 | sed 's/.* \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p; d'`
     octave_major_ver=`expr $octave_version : '\([0-9]*\)\.[0-9]*\.[0-9]*'`
     octave_minor_ver=`expr $octave_version : '[0-9]*\.\([0-9]*\)\.[0-9]*'`
     octave_micro_ver=`expr $octave_version : '[0-9]*\.[0-9]*\.\([0-9]*\)' '|' 0`
@@ -98,7 +98,7 @@ AC_DEFUN([CONFIG_PROG_OCTAVE],
     AC_MSG_CHECKING(mkoctfile version)
 
     changequote(<<, >>)
-    mkoctfile_version=`$MKOCTFILE --version 2>&1 | head -n 1 | sed 's/.* \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p; d'`
+    mkoctfile_version=`"$MKOCTFILE" --version 2>&1 | head -n 1 | sed 's/.* \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p; d'`
     mkoctfile_major_ver=`expr $mkoctfile_version : '\([0-9]*\)\.[0-9]*\.[0-9]*'`
     mkoctfile_minor_ver=`expr $mkoctfile_version : '[0-9]*\.\([0-9]*\)\.[0-9]*'`
     mkoctfile_micro_ver=`expr $mkoctfile_version : '[0-9]*\.[0-9]*\.\([0-9]*\)' '|' 0`
