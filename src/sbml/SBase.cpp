@@ -1621,7 +1621,13 @@ SBase::readNotes (XMLInputStream& stream)
 
     delete mNotes;
     mNotes = new XMLNode(stream);
-    checkXHTML(mNotes);
+    if (getSBMLDocument() != NULL)
+    {
+      if (getSBMLDocument()->getNumErrors() == 0)
+      {
+        checkXHTML(mNotes);
+      }
+    }
     return true;
   }
 

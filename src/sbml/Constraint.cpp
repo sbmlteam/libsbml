@@ -299,7 +299,13 @@ Constraint::readOtherXML (XMLInputStream& stream)
     delete mMessage;
 
     mMessage = new XMLNode(stream);
-    checkXHTML(mMessage);
+    if (getSBMLDocument() != NULL)
+    {
+      if (getSBMLDocument()->getNumErrors() == 0)
+      {
+        checkXHTML(mNotes);
+      }
+    }
     read     = true;
   }
 
