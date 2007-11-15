@@ -64,9 +64,8 @@ endif
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-extra_LDFLAGS = -L../..
-extra_CPPFLAGS = $(PYTHON_CPPFLAGS) -I../swig -I../..
-SWIGFLAGS += $(PYTHON_CPPFLAGS) -I../swig
+extra_CPPFLAGS += $(PYTHON_CPPFLAGS) -I../swig -I../../../include
+SWIGFLAGS      += $(PYTHON_CPPFLAGS) -I../swig
 
 ifdef USE_LAYOUT
   SWIGFLAGS += -DUSE_LAYOUT
@@ -79,8 +78,8 @@ ifeq "$(HOST_TYPE)" "darwin"
   extra_CPPFLAGS += -Wno-long-double
 endif
 
-extra_LDFLAGS  = $(PYTHON_LDFLAGS)
-extra_LIBS     = -L../.. -lsbml $(PYTHON_LIBS)
+extra_LDFLAGS  = $(PYTHON_LDFLAGS) -L../..
+extra_LIBS     = -lsbml $(PYTHON_LIBS)
 
 ifdef USE_EXPAT
   extra_CPPFLAGS += @EXPAT_CPPFLAGS@ 
@@ -213,7 +212,7 @@ ifdef USE_SWIG
 	$(SWIG) $(SWIGFLAGS) \
 	        $(sort $(default_includes) $(INCLUDES)) \
 		-c++ -python -o libsbml_wrap.cpp libsbml.i
-	perl -pi -e "s|import _libsbml|from __future__ import generators\nimport _libsbml|" \
+	sed -ic "s|import _libsbml|from __future__ import generators\nimport _libsbml|" \
 		libsbml.py
 else
 	echo "Reconfigure --with-swig in order to rebuild libsbml_wrap.cpp"
