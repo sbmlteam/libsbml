@@ -417,14 +417,14 @@ define uninstall_library
       rm $$target; \
     fi; \
   else \
-    if test -d $(2) && test -n "`find $(2) -empty -maxdepth 0`"; then \
+    if test -d $(2) && test -n "`find $(2) -maxdepth 0 -empty`"; then \
       echo rmdir $(2); \
       rmdir $(2); \
     fi; \
   fi; \
-  if test -n "`find $(DESTDIR)$(LIBDIR) -empty -maxdepth 0`"; then \
-    echo rmdir $(DESTDIR)$(LIBDIR); \
-    rmdir $(DESTDIR)$(LIBDIR); \
+  if test -n "`find $(DESTDIR)$(LIBDIR) -maxdepth 0 -empty`"; then \
+    echo rmdir "$(DESTDIR)$(LIBDIR)"; \
+    rmdir "$(DESTDIR)$(LIBDIR)"; \
   else \
     echo "Directory $(DESTDIR)$(LIBDIR) not empty; leaving it alone"; \
   fi;
@@ -467,7 +467,7 @@ define uninstall_includes
     fi; \
   fi; \
   if test -d $$targetdir; then \
-    if test -n "`find $$targetdir -empty -maxdepth 0`"; then \
+    if test -n "`find $$targetdir -maxdepth 0 -empty`"; then \
       echo rmdir $$targetdir; \
       rmdir $$targetdir; \
     fi; \

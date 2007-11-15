@@ -344,24 +344,24 @@ endif
 uninstall: uninstall-recursive uninstall-libsbml-pc uninstall-libsbml-la
 	@if test -d "$(DESTDIR)$(LIBDIR)"; then \
 	  if test -n "`find $(DESTDIR)$(LIBDIR) -maxdepth 0 -empty`"; then \
-	    echo rmdir $(DESTDIR)$(LIBDIR); \
-	    rmdir $(DESTDIR)$(LIBDIR); \
+	    echo rmdir "$(DESTDIR)$(LIBDIR)"; \
+	    rmdir "$(DESTDIR)$(LIBDIR)"; \
 	  else \
 	    echo "Directory $(DESTDIR)$(LIBDIR) not empty; leaving it alone"; \
 	  fi; \
 	fi; \
 	if test -d "$(DESTDIR)$(INCLUDEDIR)"; then \
 	  if test -n "`find $(DESTDIR)$(INCLUDEDIR) -maxdepth 0 -empty`"; then \
-	    echo rmdir $(DESTDIR)$(INCLUDEDIR); \
-	    rmdir $(DESTDIR)$(INCLUDEDIR); \
+	    echo rmdir "$(DESTDIR)$(INCLUDEDIR):; \
+	    rmdir "$(DESTDIR)$(INCLUDEDIR)"; \
 	  else \
 	    echo "Directory $(DESTDIR)$(INCLUDEDIR) not empty; leaving it alone"; \
 	  fi; \
 	fi; \
 	if test -d "$(DESTDIR)"; then \
 	  if test -n "`find $(DESTDIR) -maxdepth 0 -empty`"; then \
-	    echo rmdir $(DESTDIR); \
-	    rmdir $(DESTDIR); \
+	    echo rmdir "$(DESTDIR)"; \
+	    rmdir "$(DESTDIR)"; \
 	  else \
 	    echo "Directory $(DESTDIR) not empty; leaving it alone"; \
 	  fi; \
@@ -375,10 +375,10 @@ uninstall-libsbml-pc:
 	fi; \
 	if test -d "$(DESTDIR)$(LIBDIR)/pkgconfig"; then \
 	  if test -n "`find $(DESTDIR)$(LIBDIR) -maxdepth 0 -empty`"; then \
-	    echo rmdir $(DESTDIR)$(LIBDIR); \
-	    rmdir $(DESTDIR)$(LIBDIR); \
+	    echo rmdir "$(DESTDIR)$(LIBDIR)/pkgconfig"; \
+	    rmdir "$(DESTDIR)$(LIBDIR)/pkgconfig"; \
 	  else \
-	    echo "Directory $(DESTDIR)$(LIBDIR) not empty; leaving it alone"; \
+	    echo "Directory $(DESTDIR)$(LIBDIR)/pkgconfig not empty; leaving it alone"; \
 	  fi; \
 	fi;
 
