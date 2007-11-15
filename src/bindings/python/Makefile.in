@@ -272,18 +272,25 @@ tags: etags ctags
 # Installation.
 # -----------------------------------------------------------------------------
 
-# In order to avoid MACOSX_DEPLOYMENT_TARGET mismatch error on Mac OS X,
-# environment variable MACOSX_DEPLOYMENT_TARGET is set to '' at install-time.
-# Python distutils sets proper value to MACOSX_DEPLOYMENT_TARGET if the environment 
-# variable is set to ''.  
-install: setup.py create-build-dir
-ifeq "$(HOST_TYPE)" "darwin"
-	env MACOSX_DEPLOYMENT_TARGET='' $(PYTHON) setup.py install --skip-build --prefix=$(prefix)
-else
-	$(PYTHON) setup.py install --skip-build --prefix=$(prefix)
+# Take account of DESDIR if it was assigned when the make was invoked
+
+ifneq "$(DESTDIR)" ""
+  root = --root "$(DESTDIR)"
 endif
 
-installcheck:
+# In order to avoid MACOSX_DEPLOYMENT_TARGET mismatch error on Mac OS X,
+# environment variable MACOSX_DEPLOYMENT_TARGET is set to '' at
+# install-time.  Python distutils sets proper value to
+# MACOSX_DEPLOYMENT_TARGET if the environment variable is set to ''.
+
+install-cmd = setup.py install --skip-build --prefix=$(prefix) $(root)
+
+install: setup.py create-build-dir
+ifeq "$(HOST_TYPE)" "darwin"
+	env MACOSX_DEPLOYMENT_TARGET='' $(PYTHON) $(install-cmd)
+else
+	$(PYTHON) $(install-cmd)
+endif
 
 create-build-dir: $(libraries)
 	mkdir -p build build/libsbml
@@ -291,8 +298,10 @@ create-build-dir: $(libraries)
 	cp $(libraries)  build
 	cp libsbml.py    build/libsbml
 
+installcheck:
+
 uninstall: setup.py
-	$(PYTHON) setup.py uninstall --prefix=$(prefix)
+	$(PYTHON) setup.py uninstall --prefix=$(prefix) $(root)
 
 
 # -----------------------------------------------------------------------------
