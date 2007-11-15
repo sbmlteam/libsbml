@@ -51,11 +51,21 @@ TOP_BUILDDIR      := $(shell cd $(top_builddir); /bin/pwd)
 DISTDIR           = $(top_srcdir)/$(PACKAGE_TARNAME)-$(PACKAGE_VERSION)
 VPATH             = $(srcdir)
 
+# As of autoconf 2.60, @ datadir @ has been changed to @ datarootdir @.
+# Prior to 2.60, @ datarootdir @ won't get expanded.
+
+nodatarootdir     = $(findstring @,"@datarootdir@")
+
+ifeq "$(nodatarootdir)" "@"
+  DATADIR         = @datadir@
+else
+  DATADIR         = @datarootdir@
+endif
+
 BINDIR            = @bindir@
-DATADIR           = @datadir@
-DOCDIR            = $(DATADIR)/doc/$(PACKAGE_TARNAME)-$(PACKAGE_VERSION)
 INCLUDEDIR        = @includedir@
 LIBDIR            = @libdir@
+DOCDIR            = $(DATADIR)/doc/$(PACKAGE_TARNAME)-$(PACKAGE_VERSION)
 MANDIR            = @mandir@
 
 # Starting release 2.3, we put header files in ...include/sbml
