@@ -66,6 +66,15 @@
     The .la files appear to be used by the cygwin compilation
     environment to determine library dependencies.
 
+  - During installation, the Python bindings installation would ignore
+    the value of the variable DESTDIR if it was given in the
+    invocation of make install.  Fixed.
+
+  - Python build was not sufficiently isolated from the user's
+    installation directories and could have picked up
+    previously-installed older versions of libsbml on the system.
+    Fixed. 
+
 
  === Version 3.0.1 ===
 
