@@ -66,7 +66,7 @@ AC_DEFUN([CONFIG_PROG_DOXYGEN],
     then
       dnl Yes, apparently we care about the version.
 
-      doxygen_version=`$DOXYGEN --version`
+      doxygen_version=`"$DOXYGEN" --version`
 
       changequote(<<, >>)
 
