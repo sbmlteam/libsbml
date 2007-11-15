@@ -32,7 +32,7 @@ AC_DEFUN([CONFIG_PROG_DOXYGEN],
     [with_doxygen=$withval],
     [with_doxygen=no])
 
-  if test $with_doxygen != yes && test $with_doxygen != no;
+  if test "$with_doxygen" != "yes" && test "$with_doxygen" != "no";
   then
     dnl Remove needless trailing slashes because it can confuse tests later.
     with_doxygen=`echo $with_doxygen | sed -e 's,\(.*\)/$,\1,g'`
@@ -66,7 +66,7 @@ AC_DEFUN([CONFIG_PROG_DOXYGEN],
     then
       dnl Yes, apparently we care about the version.
 
-      doxygen_version=`"$DOXYGEN" --version`
+      doxygen_version=`"$DOXYGEN" --version | tr -d '\015'`
 
       changequote(<<, >>)
 
