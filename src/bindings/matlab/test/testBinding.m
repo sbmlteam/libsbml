@@ -12,6 +12,7 @@ Totalfail = Totalfail + testReadFromFile6;
 Totalfail = Totalfail + testReadFromFile7;
 Totalfail = Totalfail + testReadFromFile8;
 Totalfail = Totalfail + testReadFromFile9;
+Totalfail = Totalfail + testReadFromFile10;
 
 disp('Overall tests:');
 disp(sprintf('Number tests: %d', test));
