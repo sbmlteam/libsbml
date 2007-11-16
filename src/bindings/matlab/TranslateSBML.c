@@ -422,7 +422,18 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   {
   sbmlModel = SBMLDocument_getModel(sbmlDocument);
 
-  pacName        = Model_getId(sbmlModel);
+  unSBMLLevel   = SBMLDocument_getLevel(sbmlDocument);
+  unSBMLVersion = SBMLDocument_getVersion(sbmlDocument);
+    
+  if (unSBMLLevel == 1)
+  {
+    pacName        = Model_getId(sbmlModel);
+  }
+  else
+  {
+    pacName       = Model_getName(sbmlModel);
+  }
+
   pacTypecode    = TypecodeToChar(SBase_getTypeCode((SBase_t*) sbmlModel));
   pacNotes       = SBase_getNotesString((SBase_t*) sbmlModel);
   pacAnnotations = SBase_getAnnotationString((SBase_t*) sbmlModel);
@@ -444,9 +455,6 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     pacAnnotations = "";
   }
 
-  unSBMLLevel   = SBMLDocument_getLevel(sbmlDocument);
-  unSBMLVersion = SBMLDocument_getVersion(sbmlDocument);
-    
   if (unSBMLLevel == 1)
   {
     plhs[0] = mxCreateStructArray(2, dims, nNoFields_l1v1, field_names_l1v1);
@@ -901,7 +909,14 @@ GetSpecies ( Model_t      *pModel,
     pacNotes           = SBase_getNotesString((SBase_t*) pSpecies);
     pacAnnotations     = SBase_getAnnotationString((SBase_t*) pSpecies);
     
-    pacName            = Species_getId(pSpecies);
+    if (unSBMLLevel == 1)
+    {
+      pacName            = Species_getId(pSpecies);
+    }
+    else
+    {
+      pacName            = Species_getName(pSpecies);
+    }
     pacCompartment     = Species_getCompartment(pSpecies);
     dInitialAmount     = Species_getInitialAmount(pSpecies);
     nBoundaryCondition = Species_getBoundaryCondition(pSpecies);
@@ -1124,7 +1139,14 @@ GetUnitDefinition ( Model_t      *pModel,
     pacNotes        = SBase_getNotesString((SBase_t*) pUnitDefinition);
     pacAnnotations  = SBase_getAnnotationString((SBase_t*) pUnitDefinition);
     
-    pacName         = UnitDefinition_getId(pUnitDefinition);
+    if (unSBMLLevel == 1)
+    {
+      pacName            = UnitDefinition_getId(pUnitDefinition);
+    }
+    else
+    {
+      pacName            = UnitDefinition_getName(pUnitDefinition);
+    }
     GetUnit(pUnitDefinition, unSBMLLevel, unSBMLVersion);
     
 if (unSBMLLevel == 2) 
@@ -1310,7 +1332,14 @@ GetCompartment ( Model_t      *pModel,
     pacNotes        = SBase_getNotesString((SBase_t*) pCompartment);
     pacAnnotations  = SBase_getAnnotationString((SBase_t*) pCompartment);
     
-    pacName         = Compartment_getId(pCompartment);
+    if (unSBMLLevel == 1)
+    {
+      pacName            = Compartment_getId(pCompartment);
+    }
+    else
+    {
+      pacName            = Compartment_getName(pCompartment);
+    }
     pacUnits        = Compartment_getUnits(pCompartment);
     pacOutside      = Compartment_getOutside(pCompartment);
     unIsSetVolume   = Compartment_isSetVolume(pCompartment);
@@ -1532,7 +1561,14 @@ GetParameter ( Model_t      *pModel,
     pacNotes        = SBase_getNotesString((SBase_t*) pParameter);
     pacAnnotations  = SBase_getAnnotationString((SBase_t*) pParameter);
     
-    pacName         = Parameter_getId(pParameter);
+    if (unSBMLLevel == 1)
+    {
+      pacName            = Parameter_getId(pParameter);
+    }
+    else
+    {
+      pacName            = Parameter_getName(pParameter);
+    }
     dValue          = Parameter_getValue(pParameter);
     pacUnits        = Parameter_getUnits(pParameter);
     unIsSetValue    = Parameter_isSetValue(pParameter);
@@ -1734,7 +1770,14 @@ void GetReaction ( Model_t      *pModel,
     pacNotes        = SBase_getNotesString((SBase_t*) pReaction);
     pacAnnotations  = SBase_getAnnotationString((SBase_t*) pReaction);
     
-    pacName         = Reaction_getId(pReaction);
+    if (unSBMLLevel == 1)
+    {
+      pacName            = Reaction_getId(pReaction);
+    }
+    else
+    {
+      pacName            = Reaction_getName(pReaction);
+    }
     nReversible     = Reaction_getReversible(pReaction);
     nFast           = Reaction_getFast(pReaction);
     GetReactants(pReaction, unSBMLLevel, unSBMLVersion);
@@ -2172,6 +2215,11 @@ GetReactants ( Reaction_t   *pReaction,
       mxSetField(mxReactantReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
     }
     mxSetField(mxReactantReturn,i,"species",mxCreateString(pacSpecies));
+    if (unSBMLLevel == 2 && unSBMLVersion == 3)
+    {
+      mxSetField(mxReactantReturn,i,"id",mxCreateString(pacId));
+      mxSetField(mxReactantReturn,i,"name",mxCreateString(pacName));
+    }
     if (unSBMLLevel == 2 && unSBMLVersion == 2)
     {
       mxSetField(mxReactantReturn,i,"id",mxCreateString(pacId));
@@ -2374,6 +2422,11 @@ const int nNoFields_l2v2 = 9;
       mxSetField(mxProductReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
     }
     mxSetField(mxProductReturn,i,"species",mxCreateString(pacSpecies)); 
+    if (unSBMLLevel == 2 && unSBMLVersion == 3)
+    {
+      mxSetField(mxProductReturn,i,"id",mxCreateString(pacId));
+      mxSetField(mxProductReturn,i,"name",mxCreateString(pacName));
+   }
     if (unSBMLLevel == 2 && unSBMLVersion == 2)
     {
       mxSetField(mxProductReturn,i,"id",mxCreateString(pacId));
@@ -2742,7 +2795,14 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
     pacNotes        = SBase_getNotesString((SBase_t*) pParameter);
     pacAnnotations  = SBase_getAnnotationString((SBase_t*) pParameter);
     
-    pacName         = Parameter_getId(pParameter);
+    if (unSBMLLevel == 1)
+    {
+      pacName            = Parameter_getId(pParameter);
+    }
+    else
+    {
+      pacName            = Parameter_getName(pParameter);
+    }
     dValue          = Parameter_getValue(pParameter);
     pacUnits        = Parameter_getUnits(pParameter);
     unIsSetValue    = Parameter_isSetValue(pParameter);
@@ -3494,7 +3554,7 @@ GetFunctionDefinition ( Model_t      *pModel,
     pacNotes            = SBase_getNotesString((SBase_t *) pFuncDefinition);
     pacAnnotations      = SBase_getAnnotationString((SBase_t *) pFuncDefinition);
     
-    pacName             = FunctionDefinition_getId(pFuncDefinition);
+    pacName             = FunctionDefinition_getName(pFuncDefinition);
     pacId               = FunctionDefinition_getId(pFuncDefinition);
        
     switch (unSBMLVersion)
@@ -3680,7 +3740,7 @@ GetEvent (Model_t      *pModel,
     pacNotes        = SBase_getNotesString((SBase_t *) pEvent);
     pacAnnotations  = SBase_getAnnotationString((SBase_t *) pEvent);
    
-    pacName         = Event_getId(pEvent);
+    pacName         = Event_getName(pEvent);
     pacId = Event_getId(pEvent);
 
     switch (unSBMLVersion)
@@ -4127,7 +4187,7 @@ GetCompartmentType (Model_t      *pModel,
     pacNotes        = SBase_getNotesString((SBase_t *) pCompartmentType);
     pacAnnotations  = SBase_getAnnotationString((SBase_t *) pCompartmentType);
     
-    pacName         = CompartmentType_getId(pCompartmentType);
+    pacName         = CompartmentType_getName(pCompartmentType);
     pacId = CompartmentType_getId(pCompartmentType);
     switch (unSBMLVersion)
     {
@@ -4255,7 +4315,7 @@ GetSpeciesType (Model_t      *pModel,
     pacNotes        = SBase_getNotesString((SBase_t *) pSpeciesType);
     pacAnnotations  = SBase_getAnnotationString((SBase_t *) pSpeciesType);
     
-    pacName         = SpeciesType_getId(pSpeciesType);
+    pacName         = SpeciesType_getName(pSpeciesType);
     pacId = SpeciesType_getId(pSpeciesType);
     switch (unSBMLVersion)
     {
