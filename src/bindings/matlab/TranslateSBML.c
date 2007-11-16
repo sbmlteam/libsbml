@@ -2615,7 +2615,7 @@ GetKineticLaw ( Reaction_t   *pReaction,
     mxSetField(mxKineticLawReturn,0,"math",mxCreateString(pacMathFormula)); 
   }
   mxSetField(mxKineticLawReturn,0,"parameter",mxKineticLawParameterReturn); 
-  if (unSBMLLevel == 2 && unSBMLVersion == 1)
+  if (unSBMLLevel == 1 || unSBMLVersion == 1)
   {
     mxSetField(mxKineticLawReturn,0,"timeUnits",mxCreateString(pacTimeUnits)); 
     mxSetField(mxKineticLawReturn,0,"substanceUnits",mxCreateString(pacSubstanceUnits)); 
