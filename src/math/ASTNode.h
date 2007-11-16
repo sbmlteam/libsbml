@@ -743,14 +743,14 @@ public:
   XMLAttributes* getDefinitionURL() const;
 
   /**
-   * replaces occurences of a name within this ASTNode with the name or value
+   * replaces occurences of a name within this ASTNode with the name/value/formula
    * represented by the second argument ASTNode
    * e.g. if the formula in this ASTNode is x + y; bvar is x and arg is an 
    * ASTNode representing the real value 3 ReplaceArgument substitutes 3 for
    * x within this ASTNode
    *
    * @param bvar a string representing the variable name to be substituted
-   * @param arg an ASTNode representing the name/value to substitute
+   * @param arg an ASTNode representing the name/value/formula to substitute
    */
 
   LIBSBML_EXTERN

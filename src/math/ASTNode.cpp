@@ -1493,6 +1493,14 @@ ASTNode::ReplaceArgument(const std::string bvar, ASTNode * arg)
         {
           getChild(i)->setType(arg->getType());
         }
+        else
+        {
+          getChild(i)->setType(arg->getType());
+          for (unsigned int c = 0; c < arg->getNumChildren(); c++)
+          {
+            getChild(i)->addChild(arg->getChild(c)->deepCopy());
+          }
+        }
       }
     }
     else
@@ -2231,14 +2239,14 @@ ASTNode_swapChildren (ASTNode_t *node, ASTNode_t *that)
 
 /**
   * replaces occurences of a name within the given ASTNode_t structure
-  * with the name or value represented by the second argument ASTNode_t
+  * with the name/value/formula represented by the second argument ASTNode_t
   * e.g. if the formula in this ASTNode is x + y; bvar is x and arg is an 
   * ASTNode representing the real value 3 ReplaceArgument substitutes 3 for
   * x within this ASTNode
   *
   * @param node the ASTNode_t structure to replace argument
   * @param bvar a string representing the variable name to be substituted
-  * @param arg an ASTNode representing the name/value to substitute
+  * @param arg an ASTNode representing the name/value/formula to substitute
   */
 LIBSBML_EXTERN
 void
