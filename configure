@@ -4159,7 +4159,7 @@ fi
 
     if test -n "$SWIG";
     then
-        SWIGLIB=`$SWIG -swiglib`
+        SWIGLIB=`"$SWIG" -swiglib`
 
 
 
@@ -4169,7 +4169,7 @@ fi
 echo $ECHO_N "checking swig version... $ECHO_C" >&6; }
 
 
-        swig_version=`$SWIG -version 2>&1 | sed 's/.* \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p; d'`
+        swig_version=`"$SWIG" -version 2>&1 | sed 's/.* \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p; d'`
         swig_major_ver=`expr $swig_version : '\([0-9]*\)\.[0-9]*\.[0-9]*'`
         swig_minor_ver=`expr $swig_version : '[0-9]*\.\([0-9]*\)\.[0-9]*'`
         swig_micro_ver=`expr $swig_version : '[0-9]*\.[0-9]*\.\([0-9]*\)' '|' 0`
@@ -4336,12 +4336,12 @@ fi
 
     { echo "$as_me:$LINENO: checking for Python prefix" >&5
 echo $ECHO_N "checking for Python prefix... $ECHO_C" >&6; }
-    PYTHON_PREFIX=`($PYTHON -c "import sys; print sys.prefix") 2>/dev/null`
+    PYTHON_PREFIX=`("$PYTHON" -c "import sys; print sys.prefix") 2>/dev/null`
     { echo "$as_me:$LINENO: result: $PYTHON_PREFIX" >&5
 echo "${ECHO_T}$PYTHON_PREFIX" >&6; }
 
 
-    PYTHON_VERSION=`$PYTHON -c "import sys; print sys.version[:3]"`
+    PYTHON_VERSION=`"$PYTHON" -c "import sys; print sys.version[:3]"`
 
 
     PYTHON_NAME="python${PYTHON_VERSION}"
@@ -4543,9 +4543,9 @@ else
 fi
 
 
-  if test $with_java != no; then
+  if test "$with_java" != "no"; then
 
-    if test $with_java != yes;
+    if test "$with_java" != "yes";
     then
             with_java=`echo $with_java | sed -e 's,\(.*\)/$,\1,g'`
 
@@ -4797,12 +4797,12 @@ fi
     fi
 
 
-    if test -z $JAVA; then
+    if test -z "$JAVA"; then
       { { echo "$as_me:$LINENO: error: Could not find \`java' executable." >&5
 echo "$as_me: error: Could not find \`java' executable." >&2;}
    { (exit 1); exit 1; }; }
     fi
-    if test -z $JAVAC; then
+    if test -z "$JAVAC"; then
       { { echo "$as_me:$LINENO: error: Could not find \`javac' executable." >&5
 echo "$as_me: error: Could not find \`javac' executable." >&2;}
    { (exit 1); exit 1; }; }
@@ -4816,7 +4816,7 @@ echo $ECHO_N "checking $JAVA version >= 1.4.0... $ECHO_C" >&6; }
 	rx=`echo 1.4.0 | sed -e 's/\([0-9]\)\.\([0-9]\)\.\([0-9]\).*/\1/'`
 	ry=`echo 1.4.0 | sed -e 's/\([0-9]\)\.\([0-9]\)\.\([0-9]\).*/\2/'`
 	rz=`echo 1.4.0 | sed -e 's/\([0-9]\)\.\([0-9]\)\.\([0-9]\).*/\3/'`
-	version=`$JAVA -version 2>&1 | sed -e 's/\(.*\)$/\1/;q'`
+	version=`"$JAVA" -version 2>&1 | sed -e 's/\(.*\)$/\1/;q'`
 	jx=`echo $version | sed -e 's/java version \"\([0-9]\)\.\([0-9]\)\.\([0-9]\).*/\1/'`
 	jy=`echo $version | sed -e 's/java version \"\([0-9]\)\.\([0-9]\)\.\([0-9]\).*/\2/'`
 	jz=`echo $version | sed -e 's/java version \"\([0-9]\)\.\([0-9]\)\.\([0-9]\).*/\3/'`
@@ -4969,7 +4969,7 @@ echo "$as_me: error: Cannot find Java include files." >&2;}
 
     case $host in
     *darwin*)
-	JAVA_LDFLAGS="${JAVA_LDFLAGS} -bundle_loader ${JAVA}"
+	JAVA_LDFLAGS="${JAVA_LDFLAGS} -bundle_loader \"${JAVA}\""
 	;;
     *)
 	JAVA_LDFLAGS=
@@ -5448,7 +5448,7 @@ echo "$as_me: error: Could not find 'mkoctfile' executable for Octave." >&2;}
 echo $ECHO_N "checking octave version... $ECHO_C" >&6; }
 
 
-    octave_version=`$OCTAVE --version 2>&1 | head -n 1 | sed 's/.* \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p; d'`
+    octave_version=`"$OCTAVE" --version 2>&1 | head -n 1 | sed 's/.* \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p; d'`
     octave_major_ver=`expr $octave_version : '\([0-9]*\)\.[0-9]*\.[0-9]*'`
     octave_minor_ver=`expr $octave_version : '[0-9]*\.\([0-9]*\)\.[0-9]*'`
     octave_micro_ver=`expr $octave_version : '[0-9]*\.[0-9]*\.\([0-9]*\)' '|' 0`
@@ -5491,7 +5491,7 @@ echo "$as_me: error: installed version of octave is too old!" >&2;}
 echo $ECHO_N "checking mkoctfile version... $ECHO_C" >&6; }
 
 
-    mkoctfile_version=`$MKOCTFILE --version 2>&1 | head -n 1 | sed 's/.* \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p; d'`
+    mkoctfile_version=`"$MKOCTFILE" --version 2>&1 | head -n 1 | sed 's/.* \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p; d'`
     mkoctfile_major_ver=`expr $mkoctfile_version : '\([0-9]*\)\.[0-9]*\.[0-9]*'`
     mkoctfile_minor_ver=`expr $mkoctfile_version : '[0-9]*\.\([0-9]*\)\.[0-9]*'`
     mkoctfile_micro_ver=`expr $mkoctfile_version : '[0-9]*\.[0-9]*\.\([0-9]*\)' '|' 0`
@@ -6153,7 +6153,7 @@ fi
     if test -n "$DOXYGEN_REQUEST_VERSION";
     then
 
-      doxygen_version=`$DOXYGEN --version`
+      doxygen_version=`"$DOXYGEN" --version`
 
 
 
@@ -7959,14 +7959,14 @@ else
 fi
 
 
-  if test $with_expat != no -o $with_xerces != no; then
+  if test "$with_expat" != "no" -o "$with_xerces" != "no"; then
     with_libxml=no
   fi
 
-  if test $with_libxml != no; then
+  if test "$with_libxml" != "no"; then
 
-    if test $with_libxml != yes; then
-      xml_config_args="$xml_config_args --prefix=$with_libxml"
+    if test "$with_libxml" != "yes"; then
+      xml_config_args="$xml_config_args --prefix=\"$with_libxml\""
       if test -n "$XML2_CONFIG" ; then
 	        XML2_CONFIG=$with_libxml/bin/xml2-config
       else
@@ -8079,14 +8079,12 @@ echo $ECHO_N "checking for libxml2 - version >= $min_xml_version... $ECHO_C" >&6
     if test "$XML2_CONFIG" = "no" ; then
       no_xml=yes
     else
-      LIBXML_CPPFLAGS=`$XML2_CONFIG $xml_config_args --cflags`
-      LIBXML_LIBS=`$XML2_CONFIG $xml_config_args --libs`
-      xml_config_major_version=`$XML2_CONFIG $xml_config_args --version | \
-             sed 's/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\1/'`
-      xml_config_minor_version=`$XML2_CONFIG $xml_config_args --version | \
-             sed 's/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\2/'`
-      xml_config_micro_version=`$XML2_CONFIG $xml_config_args --version | \
-             sed 's/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\3/'`
+      LIBXML_CPPFLAGS=`"$XML2_CONFIG" $xml_config_args --cflags`
+      LIBXML_LIBS=`"$XML2_CONFIG" $xml_config_args --libs`
+      ver=`"$XML2_CONFIG" $xml_config_args --version`
+      xml_config_major_version=`echo $ver | sed 's/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\1/'`
+      xml_config_minor_version=`echo $ver | sed 's/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\2/'`
+      xml_config_micro_version=`echo $ver | sed 's/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\3/'`
 
       CPPFLAGS="$CPPFLAGS $LIBXML_CPPFLAGS"
       LIBS="$LIBXML_LIBS $LIBS"
