@@ -30,9 +30,9 @@ AC_DEFUN([CONFIG_PROG_JAVA],
     [with_java=$withval],
     [with_java=no])
 
-  if test $with_java != no; then
+  if test "$with_java" != "no"; then
 
-    if test $with_java != yes;
+    if test "$with_java" != "yes";
     then
       dnl Remove needless trailing slashes because it can confuse tests later.
       with_java=`echo $with_java | sed -e 's,\(.*\)/$,\1,g'`
@@ -54,10 +54,10 @@ AC_DEFUN([CONFIG_PROG_JAVA],
 
     dnl Sanity checks.
 
-    if test -z $JAVA; then
+    if test -z "$JAVA"; then
       AC_MSG_ERROR([Could not find `java' executable.])
     fi    
-    if test -z $JAVAC; then
+    if test -z "$JAVAC"; then
       AC_MSG_ERROR([Could not find `javac' executable.])
     fi    
 
@@ -107,7 +107,7 @@ AC_DEFUN([CONFIG_PROG_JAVA],
 
     case $host in
     *darwin*) 
-	JAVA_LDFLAGS="${JAVA_LDFLAGS} -bundle_loader ${JAVA}"
+	JAVA_LDFLAGS="${JAVA_LDFLAGS} -bundle_loader \"${JAVA}\""
 	;;
     *)
 	JAVA_LDFLAGS=

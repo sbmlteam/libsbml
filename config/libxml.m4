@@ -30,14 +30,14 @@ AC_DEFUN([CONFIG_LIB_LIBXML],
                    [Use the libxml2 XML library [[default=no]]]),
             [with_libxml="$withval"], [with_libxml=yes])
 
-  if test $with_expat != no -o $with_xerces != no; then
+  if test "$with_expat" != "no" -o "$with_xerces" != "no"; then
     with_libxml=no
   fi
 
-  if test $with_libxml != no; then
+  if test "$with_libxml" != "no"; then
 
-    if test $with_libxml != yes; then
-      xml_config_args="$xml_config_args --prefix=$with_libxml"
+    if test "$with_libxml" != "yes"; then
+      xml_config_args="$xml_config_args --prefix=\"$with_libxml\""
       if test -n "$XML2_CONFIG" ; then
 	dnl The XML2_CONFIG environment variable is set, so use that.
         XML2_CONFIG=$with_libxml/bin/xml2-config
