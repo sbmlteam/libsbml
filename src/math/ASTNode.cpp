@@ -166,15 +166,14 @@ ASTNode::ASTNode (ASTNodeType_t type)
 {
   unsetSemanticsFlag();
   mDefinitionURL = new XMLAttributes();
-  mInteger  = 0;
-  mExponent = 0;
-  mType     = AST_UNKNOWN;
+  mReal          = 0;
+  mExponent      = 0;
+  mType          = AST_UNKNOWN;
 
   setType(type);
 
-  mChildren = new List;
+  mChildren             = new List;
   mSemanticsAnnotations = new List;
-  
 }
 
 
@@ -187,11 +186,11 @@ ASTNode::ASTNode (Token_t* token)
 {
   unsetSemanticsFlag();
   mDefinitionURL = new XMLAttributes();
-  mInteger  = 0;
-  mExponent = 0;
-  mType     = AST_UNKNOWN;
+  mReal          = 0;
+  mExponent      = 0;
+  mType          = AST_UNKNOWN;
 
-  mChildren = new List;
+  mChildren             = new List;
   mSemanticsAnnotations = new List;
 
   if (token->type == TT_NAME)
@@ -1370,7 +1369,8 @@ ASTNode::setType (ASTNodeType_t type)
 
   if (isOperator() || isNumber())
   {
-    mInteger = 0;
+    mReal     = 0;
+    mExponent = 0;
   }
 
   /**
@@ -1387,8 +1387,8 @@ ASTNode::setType (ASTNodeType_t type)
 
   if ( ASTNodeType_isOperator(type) )
   {
-    mType  = type;
-    mChar  = (char) type;
+    mType = type;
+    mChar = (char) type;
   }
   else if ((type >= AST_INTEGER) && (type < AST_UNKNOWN))
   {
