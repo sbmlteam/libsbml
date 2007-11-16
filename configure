@@ -6046,7 +6046,7 @@ else
 fi
 
 
-  if test $with_doxygen != yes && test $with_doxygen != no;
+  if test "$with_doxygen" != "yes" && test "$with_doxygen" != "no";
   then
         with_doxygen=`echo $with_doxygen | sed -e 's,\(.*\)/$,\1,g'`
 
@@ -6153,7 +6153,7 @@ fi
     if test -n "$DOXYGEN_REQUEST_VERSION";
     then
 
-      doxygen_version=`"$DOXYGEN" --version`
+      doxygen_version=`"$DOXYGEN" --version | tr -d '\015'`
 
 
 
