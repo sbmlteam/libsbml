@@ -1097,7 +1097,6 @@ SBase::addCVTerm(CVTerm * term)
   {
     /* check whether the resources are already listed */
     QualifierType_t type = copyTerm->getQualifierType();
-    unsigned int inList = 0;
     if (type == BIOLOGICAL_QUALIFIER)
     {
       BiolQualifierType_t biolQual = BQB_UNKNOWN;
