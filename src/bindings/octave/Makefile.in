@@ -53,8 +53,6 @@ matlab_sources = \
   TranslateSBML.c                      \
   TranslateSBML.m                      \
   install_Win32.m                      \
-  install_for_Win32installers.m        \
-  install_for_Win32installers_xerces.m \
   make.bat                             \
   matlab-tags-regexp.txt               \
   test.xml
