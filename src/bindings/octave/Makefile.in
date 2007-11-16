@@ -46,15 +46,17 @@ thisdir = src/bindings/octave
 # to the Matlab files and then compile in the current directory.
 
 matlab_sources = \
-  BuildTranslate_Win32.c \
-  BuildTranslate_Win32.m \
-  CheckAndConvert.m      \
-  Contents.m             \
-  README.txt             \
-  TranslateSBML.c        \
-  TranslateSBML.m        \
-  install.m              \
-  make.bat               \
+  BuildTranslate_Win32.m               \
+  CheckAndConvert.m                    \
+  Contents.m                           \
+  README.txt                           \
+  TranslateSBML.c                      \
+  TranslateSBML.m                      \
+  install_Win32.m                      \
+  install_for_Win32installers.m        \
+  install_for_Win32installers_xerces.m \
+  make.bat                             \
+  matlab-tags-regexp.txt               \
   test.xml
 
 compiled_sources = TranslateSBML.c
