@@ -697,7 +697,9 @@ public:
   void setValue (double mantissa, long exponent);
 
   /**
-   * Sets the type of this ASTNode to the given ASTNodeType.
+   * Sets the type of this ASTNode to the given ASTNodeType_t.  A side-effect
+   * of doing this is that any numerical values previously stored in this node
+   * are reset to zero.
    */
   LIBSBML_EXTERN
   void setType (ASTNodeType_t type);
