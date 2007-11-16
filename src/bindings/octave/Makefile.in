@@ -91,7 +91,7 @@ all: Makefile link-sources
 link-sources:
 	files='$(matlab_sources)'; for file in $$files; do\
 	  if ! test -f $$file; then \
-	    ln -s ../matlab/$$file; \
+	    ln -f -s ../matlab/$$file $$file; \
 	  fi; \
 	done
 
