@@ -303,7 +303,7 @@ Constraint::readOtherXML (XMLInputStream& stream)
     {
       if (getSBMLDocument()->getNumErrors() == 0)
       {
-        checkXHTML(mNotes);
+        checkXHTML(mMessage);
       }
     }
     read     = true;
