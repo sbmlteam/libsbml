@@ -5,6 +5,11 @@
 
 * Changes:
 
+  - ASTNode has a function ReplaceArgument which takes a string 
+    representing a name within the ASTNode and an argument ASTNode 
+    respresenting a name/value/formula and replaces 
+    occurrences of the name string with the argument ASTNode.
+
   - libsbml-version.h is now included automatically, so that the
     libSBML version #define constants are accessible.  (See notes in
     3.0.1 below about the version constants.)
