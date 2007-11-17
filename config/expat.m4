@@ -75,6 +75,7 @@ AC_DEFUN([CONFIG_LIB_EXPAT],
     dnl AC_CHECK_LIB use particular library and include paths without
     dnl permanently resetting CPPFLAGS etc.
 
+    tmp_CFLAGS=$CFLAGS
     tmp_CPPFLAGS=$CPPFLAGS
     tmp_LDFLAGS=$LDFLAGS
     tmp_LIBS="$LIBS"
