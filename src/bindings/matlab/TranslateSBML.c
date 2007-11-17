@@ -117,13 +117,15 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   mxArray * mxFilename[2], * mxExt[1];
   int validateFlag = 0;
 
-//   unsigned int SBMLConsistency = 7; 
-//   unsigned int SBMLConsistencyIdentifier = 8; - Error in validating identifiers. 
-//   unsigned int SBMLConsistencyUnits = 9      - Error in validating units. 
-//   unsigned int SBMLConsistencyMathML = 10    - Error in validating MathML. 
-//   unsigned int SBMLConsistencySBO = 11       - Error in validation SBO. 
-//   unsigned int SBMLOverdetermined = 12       - Error in equations of model. 
-//   unsigned int SBMLModelingPractice = 14     - Error in model practice. 
+  /*
+  unsigned int SBMLConsistency = 7; 
+  unsigned int SBMLConsistencyIdentifier = 8; - Error in validating identifiers. 
+  unsigned int SBMLConsistencyUnits = 9      - Error in validating units. 
+  unsigned int SBMLConsistencyMathML = 10    - Error in validating MathML. 
+  unsigned int SBMLConsistencySBO = 11       - Error in validation SBO. 
+  unsigned int SBMLOverdetermined = 12       - Error in equations of model. 
+  unsigned int SBMLModelingPractice = 14     - Error in model practice. 
+  */
   
   int nNoFields_l1v1 = 13;
   int nNoFields_l2v1 = 17;
