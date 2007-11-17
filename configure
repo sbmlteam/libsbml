@@ -6794,6 +6794,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
                 fi
 
 
+    tmp_CFLAGS=$CFLAGS
     tmp_CPPFLAGS=$CPPFLAGS
     tmp_LDFLAGS=$LDFLAGS
     tmp_LIBS="$LIBS"
@@ -8872,10 +8873,6 @@ rm -f core conftest.err conftest.$ac_objext \
         LIBS="$tmp_LIBS"
 
       fi
-
-      tmp_CFLAGS=""
-      tmp_LDFLAGS=""
-      tmp_LIBS=""
 
       rm -f conf.check-test
       { { echo "$as_me:$LINENO: error: check not found" >&5
