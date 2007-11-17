@@ -185,10 +185,6 @@ int main ()
   
       fi
 
-      tmp_CFLAGS=""
-      tmp_LDFLAGS=""
-      tmp_LIBS=""
-
       rm -f conf.check-test
       ifelse([$3], , AC_MSG_ERROR([check not found]), [$3])
     fi
