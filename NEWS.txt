@@ -80,6 +80,14 @@
     previously-installed older versions of libsbml on the system.
     Fixed. 
 
+  - "make uninstall" should now properly remove everything installed
+    by a "make install".  One remaining issue is that "make uninstall"
+    can only know to remove those libSBML features configured in.  If
+    you do a make install, then run configure with different options,
+    and then try make uninstall, it will attempt to uninstall the
+    files implied by the most recent configure, not the files
+    installed by the original "make install".
+
 
  === Version 3.0.1 ===
 
