@@ -1,4 +1,4 @@
-function y = testReadFromFile3
+function y = testReadFromFile10
 
 filename = fullfile(pwd,'test-data', 'l2v1-all.xml');
 
