@@ -407,11 +407,17 @@ only two files: <code>libcheck.a</code> and <code>check.h</code>.  To
 download Check, visit <a
 href="http://check.sf.net/">http://check.sf.net/</a>.
 
-<p> (Note: Debian users can find Check as a standard add-on package
+<p> (Note #1: Debian users can find Check as a standard add-on package
 (<code>.deb</code>).  As of 11 Feb. 2007, MacOS&nbsp;X users
 <em>cannot</em> use <a href="http://finkproject.org">Fink</a>'s
 version of check because it is an old version, 0.8.x.  LibSBML needs
 version 0.9.x.)
+
+<p> (Note #2: If you are using g++ version 3.3, you will need to avoid
+using Check version 0.9.5, and instead use version 0.9.2.  The problem is
+an incompatibility between Check 0.9.5 and earlier versions of g++.  It
+appears that the compatibility problems in Check 0.9.5 disappear with
+versions of g++ after 3.3.)
 
 <p> To enable the unit testing facilities in libSBML, add the
 <code>--with-check</code> flag to the configure command:
