@@ -54,7 +54,8 @@ matlab_sources = \
   testReadFromFile5.m \
   testReadFromFile6.m \
   testReadFromFile7.m \
-  testReadFromFile8.m
+  testReadFromFile8.m \
+  testReadFromFile10.m
 
 local_sources = \
   testReadFromFile9.m
