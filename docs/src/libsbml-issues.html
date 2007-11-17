@@ -48,10 +48,10 @@ mathematical formulas have variants that accept ASTs instead.
 
 <h2>Differences in XML parser behavior</h2>
 
-The different parsers supported by libSBML (Xerces, Expat, libxml2) behave
-slightly differently when reading files, and the differences are difficult
-for libSBML to hide.  The following are the differences of which we are
-currently aware:
+<p> The different parsers supported by libSBML (Xerces, Expat, libxml2)
+behave slightly differently when reading files, and the differences are
+difficult for libSBML to hide.  The following are the differences of which
+we are currently aware:
 
 <ol>
 
@@ -82,3 +82,28 @@ is that Xerces on Windows does not translate some non-text UTF-8 characters
 the same way as on other platforms.</li>
 
 </ol>
+
+
+
+<h2>Possible unexpected <code>make uninstall</code> behavior</h2>
+
+<p> The libSBML <code>make uninstall</code> command on Linux, MacOS, Cygwin,
+and Solaris only knows about the features <em>most recently</em> configured
+into libSBML.  If you run <code>configure</code>, then <code>make
+install</code>, then run <code>configure</code> again with different
+options, and finally try <code>make uninstall</code>, the result will be to
+attemp removing the files implied by the most recent run of
+<code>configure</code>, <em>not</em> the files installed by the
+<em>original</em> <code>make install</code>.
+
+
+
+<h2>Warnings during creation of documentation</h2>
+
+<p> If you run the commands to generate the libSBML documentation, there
+will be warnings printed for all except the C++ documentation.  These
+warnings still exist as of version 3.0.2 of libSBML.  Most of the warnings
+are known incompatibilities that are next to impossible to resolve between
+the different tools used to generate different versions of the API
+documentation.  It is probably safe to ignore them.  Hopefully the warnings
+will be eliminated in a future version of libSBML.
