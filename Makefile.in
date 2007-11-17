@@ -352,7 +352,7 @@ uninstall: uninstall-recursive uninstall-libsbml-pc uninstall-libsbml-la
 	fi; \
 	if test -d "$(DESTDIR)$(INCLUDEDIR)"; then \
 	  if test -n "`find $(DESTDIR)$(INCLUDEDIR) -maxdepth 0 -empty`"; then \
-	    echo rmdir "$(DESTDIR)$(INCLUDEDIR):; \
+	    echo rmdir "$(DESTDIR)$(INCLUDEDIR)"; \
 	    rmdir "$(DESTDIR)$(INCLUDEDIR)"; \
 	  else \
 	    echo "Directory $(DESTDIR)$(INCLUDEDIR) not empty; leaving it alone"; \
