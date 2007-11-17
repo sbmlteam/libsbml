@@ -1,6 +1,6 @@
 function y = testReadFromFile6
 
-filename = fullfile(pwd,'test-data', 'cSymbolTime-reaction-l2.xml');
+filename = fullfile(pwd,'test-data', 'csymbolTime-reaction-l2.xml');
 
 m = TranslateSBML(filename);
 
