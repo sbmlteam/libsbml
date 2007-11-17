@@ -7,13 +7,13 @@
 </td><td style="font-size: small" width="90">
 <a href="#accessing-python">Python</a>
 </td><td style="font-size: small" width="90">
-<a href="#accessing-perl">Perl</a>
-</td><td style="font-size: small; padding-right: 15px" width="90">
-<a href="#accessing-lisp">Common Lisp</a>
-</td><td style="font-size: small" width="90">
 <a href="#accessing-matlab">MATLAB</a>
 </td><td style="font-size: small" width="90">
 <a href="#accessing-octave">Octave</a>
+</td><td style="font-size: small" width="90">
+<a href="#accessing-perl">Perl</a>
+</td><td style="font-size: small; padding-right: 15px" width="90">
+<a href="#accessing-lisp">Common Lisp</a>
 </td></tr>
 </table>
 </center>
@@ -72,10 +72,10 @@ is an example:
 g++ `pkg-config --cflags --libs libsbml` myprogram.cpp
 </pre></div>
 
-Note the use of the backward quote in the shell command above; it has
-the effect of running the command <code>pkg-config --cflags --libs
-libsbml</code> and substituting in place the flags returned by the
-command.
+<p> Note the use of the backward quote in the shell command above; it
+has the effect of running the command <code>pkg-config --cflags
+--libs libsbml</code> and substituting in place the flags returned by
+the command.
 
 
 <h2><a class="anchor" name="accessing-java">Java</a></h2>
@@ -88,9 +88,9 @@ libSBML</a>), Java applications separately need to have their class
 search paths include the libSBML <code>.jar</code> file.  The exact
 recipe depends on the operating system in use.
 
-<ul>
-<li style="margin-bottom: 1em"><em>On Linux, MacOS X and similar Unix-like systems</em>:
+<h3>On Linux, MacOS X and similar Unix-like systems</h3>
 
+<p>
 You must either (1) set your <code>CLASSPATH</code> environment
 variable to include the <code>.jar</code> file, or (2) the file must
 be listed in the <code>-classpath</code> option passed to the Java
@@ -103,10 +103,11 @@ variable would at minimum need to be set as follows:
 <div class="fragment"><pre class="fragment">
   CLASSPATH=.:/usr/local/lib/libsbmlj.jar
 </pre></div>
-</li>
 
-<li style="margin-bottom: 1em"><em>On Windows systems</em>:
 
+<h3>On Windows systems</h3>
+
+<p>
 The instructions are essentially the same as for the case of Linux and
 similar systems, but the name of the <code>.jar</code> file is different on
 Windows systems: it is called <code>sbmlj.jar</code>.  For example, if you
@@ -117,11 +118,10 @@ might set your environment variable as follows:
   CLASSPATH=.;C:\libsbml\sbmlj.jar
 </pre></div>
 
-Note: to set an environmental variable in Windows, use the
+<p> Note: to set an environmental variable in Windows, use the
 <em>System</em> option in the Control Panel.
 
-</li>
-</ul>
+
 
 <h2><a class="anchor" name="accessing-python">Python</a></h2>
 
@@ -148,6 +148,7 @@ for <i>csh</i>-based shells.  What is crucial in both cases is that the two
 directories listed on the path are the directories containing the files
 <code>_libsbml.so</code> and <code>libsbml.py</code>.
 
+<p>
 Once both the library path environment variable and <code>PYTHONPATH</code>
 have been set, you should be able to start the Python interpreter and type
 the following command to import the libSBML package for Python:
@@ -156,6 +157,7 @@ the following command to import the libSBML package for Python:
 from libsbml import *
 </pre></div>
 
+<p>
 If Python produces an import error or a failure in linking a new module, it
 almost certainly means that the environment variables have not been set
 correctly.  It may also mean that the read/write permissions of the
@@ -165,18 +167,76 @@ consult your systems administrator or (if you have administrator
 priviledges) reset the permissions yourself.
 
 
+<h2><a class="anchor" name="accessing-matlab">MATLAB</a></h2>
+
+<h3>On Linux, MacOS X and similar Unix-like systems</h3>
+
+<p> As with the other cases described above, the first configuration
+step necessary for users is to make sure that their
+<code>LD_LIBRARY_PATH</code> or <code>DYLD_LIBRARY_PATH</code>
+environment variable (see the <a
+href="libsbml-installation.html#accessing">relevant section in the
+installation instructions</a>) is set to the directory where the
+libSBML shared library object is installed.  When the MATLAB bindings
+are enabled in libSBML, this directory is also the same one where the
+additional files <code>TranslateSBML</code>.<em>extension</em> and
+<code>CheckAndConvert.m</code> will have been placed.  These files
+implement the MATLAB interface to libSBML.  The
+<code>LD_LIBRARY_PATH</code>/<code>DYLD_LIBRARY_PATH</code>
+environment variable must be set in the terminal shell from which
+MATLAB is started prior to starting MATLAB.  (Otherwise, MATLAB
+itself will not have "see" the value of the variable.)
+
+<p> An additional step is necessary in the MATLAB environment itself:
+adding the same directory to the list of directories that MATLAB
+searches to find functions.  If DIR is the directory where the
+libSBML shared library as well as
+<code>TranslateSBML</code>.<em>extension</em>, and
+<code>CheckAndConvert.m</code> have been installed, then the
+following MATLAB command must be executed:
+
+<div class="fragment"><pre class="fragment">
+addpath('<em>path</em>');
+</pre></div>
+
+<p> For example, suppose you are using an Intel-based MacOS X system
+and you have configured libSBML to install itself into
+<code>/usr/local</code>.  Then the files
+<code>TranslateSBML.mexmaci</code> and <code>CheckAndConvert.m</code>
+will have been installed as
+<code>/usr/local/lib/TranslateSBML.mexmaci</code> and
+<code>/usr/local/lib/CheckAndConvert.m</code>.  Your
+<code>DYLD_LIBRARY_PATH</code> environment variable will need to be
+set to <code>/usr/local/lib</code> and the following additional
+setting would have to be conveyed to MATLAB:
+
+<div class="fragment"><pre class="fragment">
+addpath('/usr/local/lib');
+</pre></div>
+
+<p> (To save the trouble of having to type the command above each
+time you start MATLAB, you may wish to put it in your
+<code>startup.m</code> MATLAB user initialization file.  Please refer
+to the MATLAB documentation for more information about
+<code>startup.m</code> and where it is located.)
+
+
+<h3>On Windows systems</h3>
+
+
+
+
+<h2><a class="anchor" name="accessing-octave">Octave</a></h2>
+
+(Documentation unfinished.)
+
+
 <h2><a class="anchor" name="accessing-perl">Perl</a></h2>
 
 (Documentation unfinished.)
+
 
 <h2><a class="anchor" name="accessing-lisp">Common Lisp</a></h2>
 
 (Documentation unfinished.)
 
-<h2><a class="anchor" name="accessing-matlab">MATLAB</a></h2>
-
-(Documentation unfinished.)
-
-<h2><a class="anchor" name="accessing-octave">Octave</a></h2>
-
-(Documentation unfinished.)
