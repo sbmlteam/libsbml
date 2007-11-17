@@ -146,6 +146,8 @@ distfiles =                                    \
         libsbml-python-mainpage.txt            \
         libsbml-python-reading-files.txt       \
         libsbml-reading-files.txt              \
+        libsbml-uninstallation.html            \
+        libsbml-uninstallation.txt             \
         pythondocfilter.py                     \
         templates/c++.txt                      \
         templates/c.txt                        \
@@ -299,6 +301,12 @@ define merge_html
   | sed -e 's/%%title%%/$(3)/g;s/%%version%%/@PACKAGE_VERSION@/g' > $(2)
 endef
 
+# There are certain things I can't figure out how to make compatible
+# between doxygen and javadoc.  Let's ignore the warnings to avoid
+# confusing users.
+
+ignorable-warnings = "warning - @param argument"
+
 java-manual $(java-manual): $(core-sources)
 	javadoc -use -public -version -author -sourcetab 4 \
 	    -header $(javadoc-header) \
@@ -310,7 +318,8 @@ java-manual $(java-manual): $(core-sources)
 	    -d $(java-manual) \
 	    -tag note:a:"Note:" -tag warning:a:"Warning:" \
 	    -tag docnote:a:"Documentation note:" \
-	    -sourcepath $(java-dir) org.sbml.libsbml
+	    -sourcepath $(java-dir) org.sbml.libsbml \
+        2>&1 | grep -v $(ignorable-warnings) 
 	cp -f graphics/sbml-logo-long-124x56.gif $(java-manual)
 	cp -f graphics/sbml-logo-long-124x56.gif $(java-manual)/org/sbml/libsbml/
 	cp -f graphics/*.jpg $(java-manual)/org/sbml/libsbml/
@@ -319,6 +328,7 @@ java-manual $(java-manual): $(core-sources)
 	$(call merge_html,libsbml-issues.html,$(java-manual)/libsbml-issues.html,Known Issues and Pitfalls)
 	$(call merge_html,libsbml-communications.html,$(java-manual)/libsbml-communications.html,Bug Reports and Other Communications)
 	$(call merge_html,libsbml-java-reading.html,$(java-manual)/libsbml-java-reading.html,Reading and Writing SBML Content)
+	$(call merge_html,libsbml-uninstallation.html,$(java-manual)/libsbml-uninstallation.html,Uninstallation)
 	$(call merge_html,../../LICENSE.html,$(java-manual)/libsbml-license.html,License)
 
 

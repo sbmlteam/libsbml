@@ -32,6 +32,7 @@ in the C++ API manual.
 - @subpage libsbml-issues
 
 @section main-other Other topics
+- @subpage libsbml-uninstallation
 - @subpage libsbml-coding for developers and contributors
 - @subpage license
 

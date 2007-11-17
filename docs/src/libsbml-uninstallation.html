@@ -1,0 +1,53 @@
+<center>
+<table border="0">
+
+<tr><td style="font-size: small;">
+<ul>
+<li style="font-size: small;"><a href="#uninstall-unix">Uninstalling
+libSBML on Linux, MacOS X, Cygwin, and Solaris</a></li> 
+
+<li style="font-size: small;"><a href="#uninstall-windows">Uninstalling
+libSBML on Windows</a></li>
+</ul>
+</td>
+</tr>
+</table>
+</center>
+
+
+
+<p> In order to uninstall libSBML from a computer system, please follow the
+instructions below depending on the kind of operating system involved.
+
+
+<h3><a class="anchor" name="uninstall-unix">Linux, MacOS&nbsp;X, and
+Solaris</a></h3>
+
+<p>
+The libSBML build system comes with a command for uninstalling libSBML
+suitable for removing the software on UNIX-based systems.  To invoke it, go
+to a terminal shell, move to the libSBML source directory (i.e., where you
+previously built libSBML), and execute the following command:
+
+<div class="fragment"><pre class="fragment">
+  make uninstall
+</pre></div>
+
+<p>
+This command will remove everything that was installed by the last
+<code>make install</code> command.
+
+<p> (Note that there is a potential problem if you have run
+<code>configure</code> with different options than were configured when you
+performed the last <code>make install</code>.  The libSBML uninstallation
+command will only know about what was <em>last</em> configured.  If you run
+<code>configure</code>, then <code>make install</code>, then run
+<code>configure</code> again with different options, and finally try
+<code>make uninstall</code>, it will only attempt to uninstall the files
+implied by the most recent run of <code>configure</code>, not the files
+installed by the original <code>make install</code>.)
+
+
+
+<h3><a class="anchor" name="uninstall-windows">Windows</a></h3>
+

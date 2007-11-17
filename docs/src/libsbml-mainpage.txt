@@ -25,6 +25,7 @@ http://sbml.org/software/libsbml/issue-tracker</a>.
 - @subpage libsbml-issues
 
 @section main-other Other topics
+- @subpage libsbml-uninstallation
 - @subpage libsbml-coding for developers and contributors
 - @subpage license
 

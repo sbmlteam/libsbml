@@ -342,15 +342,16 @@ WARN_LOGFILE           =
 
 INPUT =                      \
   libsbml-accessing.txt      \
-  libsbml-mainpage.txt       \
+  libsbml-coding.txt         \
+  libsbml-communications.txt \
   libsbml-features.txt       \
   libsbml-installation.txt   \
-  libsbml-communications.txt \
-  libsbml-coding.txt         \
-  libsbml-math.txt           \
   libsbml-issues.txt         \
-  libsbml-reading-files.txt  \
   libsbml-license.txt        \
+  libsbml-mainpage.txt       \
+  libsbml-math.txt           \
+  libsbml-reading-files.txt  \
+  libsbml-uninstallation.txt \
   ../../src/common           \
   ../../src/annotation       \
   ../../src/math             \
