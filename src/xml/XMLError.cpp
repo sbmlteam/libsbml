@@ -486,7 +486,7 @@ XMLError::getStandardMessage (const int code)
  * Outputs this XMLError to stream in the following format (and followed by
  * a newline):
  *
- *   line: (error id) message
+ *   line: (error_id [severity]) message
  */
 ostream& operator<< (ostream& s, const XMLError& error)
 {
