@@ -107,8 +107,8 @@ StringBuffer_appendChar (StringBuffer_t *sb, char c)
 
 /**
  * Appends a string representation of the given number to this StringBuffer
- * The function snprintf is used to do the conversion and currently n = 16;
- * i.e. the number will be truncated after 16 characters, regardless of the
+ * The function snprintf is used to do the conversion and currently n = 42;
+ * i.e. the number will be truncated after 42 characters, regardless of the
  * buffer size.
  *
  * The format argument should be a printf conversion specifier, e.g. "%d",
@@ -122,7 +122,7 @@ StringBuffer_appendNumber (StringBuffer_t *sb, const char *format, ...)
 #  define vsnprintf _vsnprintf
 #endif
 
-  const int size = 22;
+  const int size = 42;
   int       len;
   va_list   ap;
 

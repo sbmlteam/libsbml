@@ -164,7 +164,7 @@ START_TEST (test_StringBuffer_appendInt)
   StringBuffer_appendInt(SB, 1);
 
   fail_unless( StringBuffer_length(SB)   ==  1 );
-  fail_unless( StringBuffer_capacity(SB) == 40 );
+  fail_unless( StringBuffer_capacity(SB) == 80 );
 
   s = StringBuffer_toString(SB);
   fail_unless( !strcmp(s, "1") );
@@ -173,7 +173,7 @@ START_TEST (test_StringBuffer_appendInt)
   StringBuffer_appendInt(SB, 23);
 
   fail_unless( StringBuffer_length(SB)   ==  4 );
-  fail_unless( StringBuffer_capacity(SB) == 40 );
+  fail_unless( StringBuffer_capacity(SB) == 80 );
 
   t = StringBuffer_toString(SB);
 
@@ -193,7 +193,7 @@ START_TEST (test_StringBuffer_appendReal)
   StringBuffer_appendReal(SB, 1.2);
 
   fail_unless( StringBuffer_length(SB)   ==  3 );
-  fail_unless( StringBuffer_capacity(SB) == 40 );
+  fail_unless( StringBuffer_capacity(SB) == 80 );
 
   s = StringBuffer_toString(SB);
   fail_unless( !strcmp(s, "1.2") );
@@ -202,7 +202,7 @@ START_TEST (test_StringBuffer_appendReal)
   StringBuffer_appendReal(SB, 3);
 
   fail_unless( StringBuffer_length(SB)   ==  5 );
-  fail_unless( StringBuffer_capacity(SB) == 40 );
+  fail_unless( StringBuffer_capacity(SB) == 80 );
 
   t = StringBuffer_toString(SB);
   fail_unless( !strcmp(t, "1.2 3") );
@@ -223,7 +223,7 @@ START_TEST (test_StringBuffer_appendReal_locale)
   StringBuffer_appendReal(SB, 1.2);
 
   fail_unless( StringBuffer_length(SB)   ==  3 );
-  fail_unless( StringBuffer_capacity(SB) == 40 );
+  fail_unless( StringBuffer_capacity(SB) == 80 );
 
   s = StringBuffer_toString(SB);
   fail_unless( !strcmp(s, "1.2") );
@@ -232,7 +232,7 @@ START_TEST (test_StringBuffer_appendReal_locale)
   StringBuffer_appendReal(SB, 3);
 
   fail_unless( StringBuffer_length(SB)   ==  5 );
-  fail_unless( StringBuffer_capacity(SB) == 40 );
+  fail_unless( StringBuffer_capacity(SB) == 80 );
 
   t = StringBuffer_toString(SB);
   fail_unless( !strcmp(t, "1.2 3") );

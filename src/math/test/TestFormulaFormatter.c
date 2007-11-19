@@ -317,7 +317,7 @@ END_TEST
 
 START_TEST (test_FormulaFormatter_formatReal)
 {
-  StringBuffer_t *sb = StringBuffer_create(32);
+  StringBuffer_t *sb = StringBuffer_create(42);
   char           *s  = StringBuffer_getBuffer(sb);
   ASTNode_t      *n  = ASTNode_create();
 
