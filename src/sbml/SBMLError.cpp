@@ -23,6 +23,7 @@
 
 #include <string>
 #include <iostream>
+#include <iomanip>
 #include <sstream>
 
 #include <sbml/xml/XMLError.h>
@@ -195,4 +196,31 @@ SBMLError::SBMLError (  const unsigned int            errorId
   mMessage  = details;
   mSeverity = severity;
   mCategory = category;
+}
+
+
+/**
+ * Outputs this SBMLError to stream in the following format (and followed by
+ * a newline):
+ *
+ *   line: (error_id [severity]) message
+ */
+ostream& operator<< (ostream& s, const SBMLError& error)
+{
+  s << "line " << error.getLine() << ": ("
+    << setfill('0') << setw(5) << error.getErrorId()
+    << " [";
+
+  switch (error.getSeverity())
+  {
+  case SBMLError::Info:           s << "Advisory"; break;
+  case SBMLError::Warning:        s << "Warning";  break;
+  case SBMLError::Fatal:          s << "Fatal";    break;
+  case SBMLError::Error:          s << "Error";    break;
+  case SBMLError::SchemaError:    s << "Error";    break;
+  case SBMLError::GeneralWarning: s << "Warning";  break;
+  }
+
+  s << "]) " << error.getMessage() << endl;
+  return s;
 }
