@@ -2970,8 +2970,8 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::NotApplicable,
     SBMLError::NotApplicable,
     SBMLError::NotApplicable,
-    "In a Level 1 model only predefined functions are permitted "
-    "within the KineticLaw formula. (L1V2 Appendix C)"
+    "In a Level 1 model, only predefined functions are permitted "
+    "within the formula inside the KineticLaw. (L1V2 Appendix C) "
   },
 
   //99502
@@ -3022,9 +3022,9 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::Warning,
     SBMLError::Warning,
     SBMLError::Warning,
-    "A parameter with undeclared units or a number has been used within a math "
-    "expression. In situations where not all units are declared unit consistency "
-    "checking cannot be completely accurate."
+    "In situations when a mathematical expression contains literal numbers "
+    "or parameters whose units have not been declared, it is not possible "
+    "to verify accurately the consistency of the units in the expression. "
   },
 
   //99219
