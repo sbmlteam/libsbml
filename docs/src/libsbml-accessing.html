@@ -205,10 +205,10 @@ and you have configured libSBML to install itself into
 <code>TranslateSBML.mexmaci</code> and <code>CheckAndConvert.m</code>
 will have been installed as
 <code>/usr/local/lib/TranslateSBML.mexmaci</code> and
-<code>/usr/local/lib/CheckAndConvert.m</code>.  Your
-<code>DYLD_LIBRARY_PATH</code> environment variable will need to be
-set to <code>/usr/local/lib</code> and the following additional
-setting would have to be conveyed to MATLAB:
+<code>/usr/local/lib/CheckAndConvert.m</code>.  You will need to set
+your <code>DYLD_LIBRARY_PATH</code> environment variable to
+<code>/usr/local/lib</code>, and also execute the following command
+(or an equivalent) in MATLAB:
 
 <div class="fragment"><pre class="fragment">
 addpath('/usr/local/lib');
@@ -216,9 +216,9 @@ addpath('/usr/local/lib');
 
 <p> (To save the trouble of having to type the command above each
 time you start MATLAB, you may wish to put it in your
-<code>startup.m</code> MATLAB user initialization file.  Please refer
-to the MATLAB documentation for more information about
-<code>startup.m</code> and where it is located.)
+<code>startup.m</code> file (i.e., the file MATLAB uses for user
+initialization).  Please refer to the MATLAB documentation for more
+information about <code>startup.m</code> and where it is located.)
 
 
 <h3>On Windows systems</h3>
