@@ -647,7 +647,7 @@ $(TOP_SRCDIR)/configure: \
 	     $(TOP_SRCDIR)/configure.ac \
 	     $(TOP_SRCDIR)/VERSION.txt \
 	     $(ACLOCAL_M4)
-	cd $(TOP_SRCDIR) && $(AUTOCONF)
+	cd $(TOP_SRCDIR) && $(AUTOCONF) --force
 	cd $(TOP_SRCDIR) && $(SHELL) ./config.status --recheck
 
 $(ACLOCAL_M4): $(wildcard $(TOP_SRCDIR)/config/*.m4)
