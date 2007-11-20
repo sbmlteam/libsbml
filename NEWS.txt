@@ -5,23 +5,15 @@
 
 * Changes:
 
-  - ASTNode has a function ReplaceArgument which takes a string 
-    representing a name within the ASTNode and an argument ASTNode 
-    respresenting a name/value/formula and replaces 
+  - ASTNode has a new function ReplaceArgument().  It takes a string
+    representing a name within the ASTNode object and an argument
+    respresenting a name/value/formula ASTNode, and replaces
     occurrences of the name string with the argument ASTNode.
 
-  - libsbml-version.h is now included automatically, so that the
-    libSBML version #define constants are accessible.  (See notes in
-    3.0.1 below about the version constants.)
-    
-  - Included support for the biological-qualifiers recently added to 
-    the MIRIAM standard 
-    http://www.ebi.ac.uk/compneur-srv/miriam-main/mdb?section=qualifiers
- 
-  - SBase now has an unsetCVTerms function which clears the CVTerm 
+  - SBase now has an unsetCVTerms() function which clears the CVTerm()
     List associated with the object.
     
-  - The addCVTerm method on SBase now checks whether each resource 
+  - The addCVTerm() method on SBase now checks whether each resource 
     string is already present in the list of resources for any 
     Qualifier within the CVTerms of the object and does not add that 
     particular resource if it would either create a duplicate within 
@@ -29,23 +21,30 @@
     situation where the same resource was present with different 
     qualifiers. 
     
-  - There are two additional functions on an SBase object: 
-    getResourceBiologicalQualifier  and  getResourceModelQualifier
-    These functions take a string representing the resource to be 
-    found and return the qualifier that has been used to include 
-    this resource within the CVTerms on the object concerned or an 
-    UNKNOWN qualifier, if the resource is not present.
+  - LibSBML now includes support for the biological-qualifiers
+    recently added to the MIRIAM standard
+    http://www.ebi.ac.uk/compneur-srv/miriam-main/mdb?section=qualifiers
+    
+  - There are two additional functions on an SBase object:
+    getResourceBiologicalQualifier() and getResourceModelQualifier()
+    These functions take a string representing the resource to be
+    found, and return the qualifier that has been used to include this
+    resource within the CVTerms on the object concerned.  If the
+    resource is not present, an UNKNOWN qualifier is returned instead.
 
-  - The clone method on an SBMLDocument was cloning the model
-    contained by the document but failing to adjust the parent
-    document pointer within the cloned model.  This is now
-    fixed. Thanks to Rainer Machne for identifying that there was a
-    problem.
-
-  - Occasionally models delare the sbml namespace twice; once by
+  - Occasionally models delare the SBML XML namespace twice; once by
     default and then again explicitly. If the model is converted
-    between levels/versions of sbml both these occurrences need to be
-    updated. This is now implemented.
+    between levels/versions of SBML both these occurrences need to be
+    updated.  This is now implemented.
+
+  - libsbml-version.h is now included automatically, so that the
+    libSBML version #define constants are accessible.  (See notes in
+    3.0.1 below about the version constants.)
+
+  - Fixed bug that incorrectly caused the hasOnlySubstanceUnits
+    attribute on species to be set to true when a Level 1 model was
+    converted to Level 2.  This bug would have impacted the validation
+    of unit consistency in Level 1 models.
 
   - Fixed bug where some consistency checks for math/units were not
     checking all the children of the math element.
@@ -56,6 +55,12 @@
     parameters/ species/compartments were searched for an identifier
     was incorrect.  This was reported as a unit consistency problem by
     Damon Hachmeister.
+
+  - Fixed a bug involving cloning of objects.  The clone() method on
+    an SBMLDocument was cloning the model contained by the document
+    but failing to adjust the parent document pointer within the
+    cloned model.  Thanks to Rainer Machne for identifying that there
+    was a problem.
 
   - (Linux/UNIX) Fixed Makefiles in MATLAB bindings directory so that
     "make check" actually does something (namely, run testBindings.m).
