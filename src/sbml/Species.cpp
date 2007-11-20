@@ -728,11 +728,11 @@ Species::readAttributes (const XMLAttributes& attributes)
     //
     attributes.readInto("hasOnlySubstanceUnits", mHasOnlySubstanceUnits);
   }
-  else
-  {
-    // inlevel 1 the units of a species were considered to be substance units
-    mHasOnlySubstanceUnits = 1;
-  }
+  //else
+  //{
+  //  // inlevel 1 the units of a species were considered to be substance units
+  //  mHasOnlySubstanceUnits = 1;
+  //}
 
   //
   // boundaryCondition: boolean

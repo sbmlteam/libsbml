@@ -24,7 +24,7 @@ Pass: (3200) The units returned by the formula of a kinetic law
         <listOfProducts>
           <speciesReference species="s2"/>
         </listOfProducts>
-        <kineticLaw formula="s1/k_1">
+        <kineticLaw formula="c*s1/k_1">
           <listOfParameters>
             <parameter name="k_1" value="1" units="second"/>
           </listOfParameters>

@@ -346,21 +346,21 @@ START_CONSTRAINT (10512, AssignmentRule, ar)
     msg += ".";
   }
 
-  if (ar.getLevel() == 1)
-  {
-    /* need to adapt for the fact that in level 1 the assignment rule was
-     * for speciesConcetration although species only had substance units
-     */
+  //if (ar.getLevel() == 1)
+  //{
+  //  /* need to adapt for the fact that in level 1 the assignment rule was
+  //   * for speciesConcetration although species only had substance units
+  //   */
 
-    inv (areEquivalent(formulaUnits->getUnitDefinition(), 
-                        variableUnits->getL1SpeciesConcUnitDefinition()) == 1);
+  //  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+  //                      variableUnits->getL1SpeciesConcUnitDefinition()) == 1);
 
-  }
-  else
-  {
+  //}
+  //else
+  //{
     inv (areEquivalent(formulaUnits->getUnitDefinition(), 
                             variableUnits->getUnitDefinition()) == 1);
-  }
+  //}
 }
 END_CONSTRAINT
 
@@ -695,21 +695,21 @@ START_CONSTRAINT (10532, RateRule, rr)
     msg += ".";
   }
 
-  if (rr.getLevel() == 1)
-  {
-    /* need to adapt for the fact that in level 1 the assignment rule was
-     * for speciesConcetration although species only had substance units
-     */
+  //if (rr.getLevel() == 1)
+  //{
+  //  /* need to adapt for the fact that in level 1 the assignment rule was
+  //   * for speciesConcetration although species only had substance units
+  //   */
 
-    inv (areEquivalent(formulaUnits->getUnitDefinition(), 
-                variableUnits->getL1SpeciesConcPerTimeUnitDefinition()) == 1);
+  //  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+  //              variableUnits->getL1SpeciesConcPerTimeUnitDefinition()) == 1);
 
-  }
-  else
-  {
+  //}
+  //else
+  //{
     inv (areEquivalent(formulaUnits->getUnitDefinition(), 
                             variableUnits->getPerTimeUnitDefinition()) == 1);
-  }
+  //}
 }
 END_CONSTRAINT
 
