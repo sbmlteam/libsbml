@@ -2974,6 +2974,18 @@ static const sbmlErrorTableEntry errorTable[] =
     "within the formula inside the KineticLaw. (L1V2 Appendix C) "
   },
 
+  //99219
+  {   
+    SBMLError::BadMathML,   
+    SBMLError::SBMLConsistencyMathML,   
+    SBMLError::NotApplicable,   
+    SBMLError::NotApplicable,   
+    SBMLError::Error,   
+    SBMLError::Error,   
+    SBMLError::Error,   
+    "Invalid MathML. The body of an <apply> tag must begin with an operator."   
+  },
+
   //99502
   // This is an internal error that reverts to 10501
   {
@@ -3027,16 +3039,18 @@ static const sbmlErrorTableEntry errorTable[] =
     "to verify accurately the consistency of the units in the expression. "
   },
 
-  //99219
+  //99701
   {   
-    SBMLError::BadMathML,   
-    SBMLError::SBMLConsistencyMathML,   
+    SBMLError::UnrecognisedSBOTerm,   
+    SBMLError::SBMLConsistencySBO,   
     SBMLError::NotApplicable,   
     SBMLError::NotApplicable,   
-    SBMLError::Error,   
-    SBMLError::Error,   
-    SBMLError::Error,   
-    "Invalid MathML. The body of an <apply> tag must begin with an operator."   
+    SBMLError::NotApplicable,   
+    SBMLError::Warning,   
+    SBMLError::Warning,   
+    "The SBOTerm used is not recognised by libSBML and therefore the correct "
+    "parentage cannot be checked. However, since libSBML is referring to a "
+    "snapshot of the SBO tree the term may now exist."
   }
 
 };

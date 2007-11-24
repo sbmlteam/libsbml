@@ -90,6 +90,272 @@ using namespace std;
 
 // General SBO validation
 
+START_CONSTRAINT(99701, Model, m1)
+{
+  pre(m1.getLevel() == 2 && m1.getVersion() > 1);
+  pre(m1.isSetSBOTerm());
+
+  inv_or(SBO::isQuantitativeParameter  (m1.getSBOTerm()));
+  inv_or(SBO::isModellingFramework     (m1.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression (m1.getSBOTerm()));
+  inv_or(SBO::isEvent                  (m1.getSBOTerm()));
+  inv_or(SBO::isParticipant            (m1.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99701, FunctionDefinition, fd)
+{
+  pre(fd.getLevel() == 2 && fd.getVersion() > 1);
+  pre(fd.isSetSBOTerm());
+
+  inv_or(SBO::isQuantitativeParameter  (fd.getSBOTerm()));
+  inv_or(SBO::isModellingFramework     (fd.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression (fd.getSBOTerm()));
+  inv_or(SBO::isEvent                  (fd.getSBOTerm()));
+  inv_or(SBO::isParticipant            (fd.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99701, Parameter, p)
+{
+  pre(p.getLevel() == 2 && p.getVersion() > 1);
+  pre(p.isSetSBOTerm());
+
+  inv_or(SBO::isQuantitativeParameter  (p.getSBOTerm()));
+  inv_or(SBO::isModellingFramework     (p.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression (p.getSBOTerm()));
+  inv_or(SBO::isEvent                  (p.getSBOTerm()));
+  inv_or(SBO::isParticipant            (p.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99701, InitialAssignment, ia)
+{
+  pre(ia.getLevel() == 2 && ia.getVersion() > 1);
+  pre(ia.isSetSBOTerm());
+
+  inv_or(SBO::isQuantitativeParameter  (ia.getSBOTerm()));
+  inv_or(SBO::isModellingFramework     (ia.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression (ia.getSBOTerm()));
+  inv_or(SBO::isEvent                  (ia.getSBOTerm()));
+  inv_or(SBO::isParticipant            (ia.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99701, AssignmentRule, ar)
+{
+  pre(ar.getLevel() == 2 && ar.getVersion() > 1);
+  pre(ar.isSetSBOTerm());
+
+  inv_or(SBO::isQuantitativeParameter  (ar.getSBOTerm()));
+  inv_or(SBO::isModellingFramework     (ar.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression (ar.getSBOTerm()));
+  inv_or(SBO::isEvent                  (ar.getSBOTerm()));
+  inv_or(SBO::isParticipant            (ar.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99701, RateRule, rr)
+{
+  pre(rr.getLevel() == 2 && rr.getVersion() > 1);
+  pre(rr.isSetSBOTerm());
+
+  inv_or(SBO::isQuantitativeParameter  (rr.getSBOTerm()));
+  inv_or(SBO::isModellingFramework     (rr.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression (rr.getSBOTerm()));
+  inv_or(SBO::isEvent                  (rr.getSBOTerm()));
+  inv_or(SBO::isParticipant            (rr.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99701, AlgebraicRule, ar)
+{
+  pre(ar.getLevel() == 2 && ar.getVersion() > 1);
+  pre(ar.isSetSBOTerm());
+
+  inv_or(SBO::isQuantitativeParameter  (ar.getSBOTerm()));
+  inv_or(SBO::isModellingFramework     (ar.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression (ar.getSBOTerm()));
+  inv_or(SBO::isEvent                  (ar.getSBOTerm()));
+  inv_or(SBO::isParticipant            (ar.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99701, Constraint, c)
+{
+  pre(c.getLevel() == 2 && c.getVersion() > 1);
+  pre(c.isSetSBOTerm());
+
+  inv_or(SBO::isQuantitativeParameter  (c.getSBOTerm()));
+  inv_or(SBO::isModellingFramework     (c.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression (c.getSBOTerm()));
+  inv_or(SBO::isEvent                  (c.getSBOTerm()));
+  inv_or(SBO::isParticipant            (c.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99701, Reaction, r)
+{
+  pre(r.getLevel() == 2 && r.getVersion() > 1);
+  pre(r.isSetSBOTerm());
+
+  inv_or(SBO::isQuantitativeParameter  (r.getSBOTerm()));
+  inv_or(SBO::isModellingFramework     (r.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression (r.getSBOTerm()));
+  inv_or(SBO::isEvent                  (r.getSBOTerm()));
+  inv_or(SBO::isParticipant            (r.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99701, SpeciesReference, sr)
+{
+  pre(sr.getLevel() == 2 && sr.getVersion() > 1);
+  pre(sr.isSetSBOTerm());
+
+  inv_or(SBO::isQuantitativeParameter  (sr.getSBOTerm()));
+  inv_or(SBO::isModellingFramework     (sr.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression (sr.getSBOTerm()));
+  inv_or(SBO::isEvent                  (sr.getSBOTerm()));
+  inv_or(SBO::isParticipant            (sr.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99701, KineticLaw, kl)
+{
+  pre(kl.getLevel() == 2 && kl.getVersion() > 1);
+  pre(kl.isSetSBOTerm());
+
+  inv_or(SBO::isQuantitativeParameter  (kl.getSBOTerm()));
+  inv_or(SBO::isModellingFramework     (kl.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression (kl.getSBOTerm()));
+  inv_or(SBO::isEvent                  (kl.getSBOTerm()));
+  inv_or(SBO::isParticipant            (kl.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99701, Event, e)
+{
+  pre(e.getLevel() == 2 && e.getVersion() > 1);
+  pre(e.isSetSBOTerm());
+
+  inv_or(SBO::isQuantitativeParameter  (e.getSBOTerm()));
+  inv_or(SBO::isModellingFramework     (e.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression (e.getSBOTerm()));
+  inv_or(SBO::isEvent                  (e.getSBOTerm()));
+  inv_or(SBO::isParticipant            (e.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99701, EventAssignment, ea)
+{
+  pre(ea.getLevel() == 2 && ea.getVersion() > 1);
+  pre(ea.isSetSBOTerm());
+
+  inv_or(SBO::isQuantitativeParameter  (ea.getSBOTerm()));
+  inv_or(SBO::isModellingFramework     (ea.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression (ea.getSBOTerm()));
+  inv_or(SBO::isEvent                  (ea.getSBOTerm()));
+  inv_or(SBO::isParticipant            (ea.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99701, Compartment, c)
+{
+  pre(c.getLevel() == 2 && c.getVersion() > 2);
+  pre(c.isSetSBOTerm());
+
+  inv_or(SBO::isQuantitativeParameter  (c.getSBOTerm()));
+  inv_or(SBO::isModellingFramework     (c.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression (c.getSBOTerm()));
+  inv_or(SBO::isEvent                  (c.getSBOTerm()));
+  inv_or(SBO::isParticipant            (c.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99701, Species, s)
+{
+  pre(s.getLevel() == 2 && s.getVersion() > 2);
+  pre(s.isSetSBOTerm());
+
+  inv_or(SBO::isQuantitativeParameter  (s.getSBOTerm()));
+  inv_or(SBO::isModellingFramework     (s.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression (s.getSBOTerm()));
+  inv_or(SBO::isEvent                  (s.getSBOTerm()));
+  inv_or(SBO::isParticipant            (s.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99701, CompartmentType, ct)
+{
+  pre(ct.getLevel() == 2 && ct.getVersion() > 2);
+  pre(ct.isSetSBOTerm());
+
+  inv_or(SBO::isQuantitativeParameter  (ct.getSBOTerm()));
+  inv_or(SBO::isModellingFramework     (ct.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression (ct.getSBOTerm()));
+  inv_or(SBO::isEvent                  (ct.getSBOTerm()));
+  inv_or(SBO::isParticipant            (ct.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99701, SpeciesType, st)
+{
+  pre(st.getLevel() == 2 && st.getVersion() > 2);
+  pre(st.isSetSBOTerm());
+
+  inv_or(SBO::isQuantitativeParameter  (st.getSBOTerm()));
+  inv_or(SBO::isModellingFramework     (st.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression (st.getSBOTerm()));
+  inv_or(SBO::isEvent                  (st.getSBOTerm()));
+  inv_or(SBO::isParticipant            (st.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99701, Trigger, t)
+{
+  pre(t.getLevel() == 2 && t.getVersion() > 2);
+  pre(t.isSetSBOTerm());
+
+  inv_or(SBO::isQuantitativeParameter  (t.getSBOTerm()));
+  inv_or(SBO::isModellingFramework     (t.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression (t.getSBOTerm()));
+  inv_or(SBO::isEvent                  (t.getSBOTerm()));
+  inv_or(SBO::isParticipant            (t.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99701, Delay, d)
+{
+  pre(d.getLevel() == 2 && d.getVersion() > 2);
+  pre(d.isSetSBOTerm());
+
+  inv_or(SBO::isQuantitativeParameter  (d.getSBOTerm()));
+  inv_or(SBO::isModellingFramework     (d.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression (d.getSBOTerm()));
+  inv_or(SBO::isEvent                  (d.getSBOTerm()));
+  inv_or(SBO::isParticipant            (d.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
 START_CONSTRAINT(10701, Model, m1)
 {
   pre (m1.getLevel() == 2 && m1.getVersion() > 1);

@@ -260,6 +260,19 @@ runAdditionalMathTest (const TestFile& file)
 
 
 bool
+runAdditionalSBOTest (const TestFile& file)
+{
+  SBOConsistencyValidator validator;
+  TestValidator        tester(validator);
+
+
+  validator.init();
+
+  return tester.test(file);
+}
+
+
+bool
 runModelingPracticeTest (const TestFile& file)
 {
   ModelingPracticeValidator validator;
@@ -367,6 +380,9 @@ main (int argc, char* argv[])
 
   failed += runTests("Testing Additional Unit Constraints (99500 - 99599)",
 		     "test-data", 99500, 99599, runAdditionalUnitTest, library);
+
+  failed += runTests("Testing Additional SBO Constraints (99700 - 99799)",
+		     "test-data", 99700, 99799, runAdditionalSBOTest, library);
 
   failed += runTests("Testing Modeling Practice Constraints (80000 - 89999)",
 		     "test-data", 80000, 89999, runModelingPracticeTest, library);

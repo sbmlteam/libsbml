@@ -305,6 +305,8 @@ public:
   , TimeUnitsAllowedInKL             = 99128
   , FormulaInLevel1KL                = 99129
 
+  , BadMathML                        = 99219
+
   // These are internal errors that reverts to 10501
 
     /** @cond doxygen-libsbml-internal */
@@ -312,8 +314,9 @@ public:
   , InconsistentPowerUnitsWarnings   = 99503 /*!< SBML L2v3 validation rule #10501 */
   , InconsistentExponUnitsWarnings   = 99504 /*!< SBML L2v3 validation rule #10501 */
     /** @endcond doxygen-libsbml-internal */
+
   , UndeclaredUnits                  = 99505 
-  , BadMathML                        = 99219
+  , UnrecognisedSBOTerm              = 99701
 
     // Bounds
   , SBMLCodesUpperBound              = 99999 /*!< 99999, the upper bound of
