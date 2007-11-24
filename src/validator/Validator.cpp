@@ -686,6 +686,37 @@ Validator::logFailure (const SBMLError& msg)
   mFailures.push_back(msg);
 }
 
+/*
+ * Helper class used by 
+ * validate
+ */
+class MatchId
+{
+public:
+  MatchId(unsigned int id) : id(id) {};
+
+  bool operator() (XMLError e) const
+  {
+    return e.getErrorId() == id;
+  };
+
+private:
+  unsigned int id;
+};
+
+class DontMatchId
+{
+public:
+  DontMatchId(unsigned int id) : id(id) {};
+
+  bool operator() (XMLError e) const
+  {
+    return e.getErrorId() != id;
+  };
+
+private:
+  unsigned int id;
+};
 
 /**
  * Validates the given SBMLDocument.  Failures logged during
@@ -710,6 +741,21 @@ Validator::validate (const SBMLDocument& d)
     }
     ValidatingVisitor vv(*this, *m);
     d.accept(vv);
+  }
+
+  if (this->getCategory() == SBMLError::SBMLConsistencySBO && mFailures.size() > 1)
+  {
+    /* in SBO check if we have encountered an unrecognised term error
+     * dont want to report the others since they may not be accurate
+     */
+    bool unrecognisedTerm = false;
+    if (count_if(mFailures.begin(), mFailures.end(), MatchId(99701)))
+      unrecognisedTerm = true;
+
+    if (unrecognisedTerm)
+    {
+       mFailures.remove_if(DontMatchId(99701));
+    }
   }
 
   return mFailures.size();
@@ -738,3 +784,4 @@ Validator::validate (const std::string& filename)
 }
 
 // ----------------------------------------------------------------------
+
