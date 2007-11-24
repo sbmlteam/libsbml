@@ -388,12 +388,28 @@ SBO::isPhysicalParticipant  (unsigned int sboTerm)
 
 /**
   * functions for checking the SBO term is from correct part of SBO
+  * returns true if the term is-a Participant, false otherwise
+  */
+bool 
+SBO::isParticipant  (unsigned int sboTerm)
+{
+  if (sboTerm == 235)
+    return true;
+  else
+  {
+    return isChildOf(sboTerm, 235);
+  }
+}
+
+
+/**
+  * functions for checking the SBO term is from correct part of SBO
   * populates the parent-child map
   */
 void 
 SBO::populateSBOTree()
 {
-  // generated from SBO on October 5th 2007
+  // generated from SBO on November 24 2007
   mParent.insert( make_pair(  1,  64) );
   mParent.insert( make_pair(  3, 235) );
   mParent.insert( make_pair(  5,  64) );
@@ -609,7 +625,7 @@ SBO::populateSBOTree()
   mParent.insert( make_pair(182, 176) );
   mParent.insert( make_pair(183, 205) );
   mParent.insert( make_pair(184, 205) );
-  mParent.insert( make_pair(185, 176) );
+  mParent.insert( make_pair(185, 167) );
   mParent.insert( make_pair(186,  48) );
   mParent.insert( make_pair(187, 1000) );
   mParent.insert( make_pair(188, 256) );
@@ -727,7 +743,7 @@ SBO::populateSBOTree()
   mParent.insert( make_pair(297, 296) );
   mParent.insert( make_pair(298, 241) );
   mParent.insert( make_pair(299, 241) );
-  mParent.insert( make_pair(300, 196) );
+  mParent.insert( make_pair(300, 1000) );
   mParent.insert( make_pair(301,  35) );
   mParent.insert( make_pair(302,  36) );
   mParent.insert( make_pair(303, 308) );
@@ -759,6 +775,7 @@ SBO::populateSBOTree()
   mParent.insert( make_pair(327, 247) );
   mParent.insert( make_pair(328, 247) );
   mParent.insert( make_pair(329, 241) );
+  mParent.insert( make_pair(330, 211) );
 
 }
 

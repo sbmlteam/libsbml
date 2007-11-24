@@ -141,6 +141,12 @@ public:
     */
   static bool isPhysicalParticipant  (unsigned int term);
 
+  /**
+    * functions for checking the SBO term is from correct part of SBO
+    * returns true if the term is-a Participant, false otherwise
+    */
+  static bool isParticipant  (unsigned int term);
+
  protected:  /**
    * functions for checking the SBO term is from correct part of SBO
    * returns true if the term is-a parent, false otherwise
