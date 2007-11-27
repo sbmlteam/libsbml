@@ -4,6 +4,9 @@ LibSBML  -- interface to the libSBML library
 
 =head1 SYNOPSIS
 
+  # Change the following path to wherever your copy is installed.
+  use lib '/usr/local/lib/perl5/site_perl';
+
   use File::Spec;
   use LibSBML;
   use strict;
@@ -12,10 +15,10 @@ LibSBML  -- interface to the libSBML library
   my $rd       = new LibSBML::SBMLReader;
   my $document = $rd->readSBML($file);
   
-  # check for reading errors here
+  # Check for reading errors:
   my $errors   = $document->getNumErrors();
 
-  # print errors to stderr if any
+  # Print errors, if any, to stderr.
   if ($errors > 0) {
     $document->printErrors();
     die "Errors while reading $file";
@@ -28,7 +31,8 @@ LibSBML  -- interface to the libSBML library
 
 The LibSBML.pm package gives access to almost all functions in libSBML
 (http://sbml.org). The Perl wrapper is generated using SWIG
-http://www.swig.org/ with relatively little manual intervention.
+http://www.swig.org/ with relatively little manual intervention.  
+
 
 =head1 AUTHORS
 
