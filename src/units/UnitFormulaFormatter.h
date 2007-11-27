@@ -81,62 +81,72 @@ public:
    * documentation.
    */
   UnitDefinition * getUnitDefinition(const ASTNode * node, 
-    unsigned int KL = 0, int ReactNo = -1);
+    unsigned int inKL = 0, int reactNo = -1);
 
   /** 
    * returns the unitDefinition for the ASTNode from a function
    */
-  UnitDefinition * getUnitDefinitionFromFunction(const ASTNode *);
+  UnitDefinition * getUnitDefinitionFromFunction(const ASTNode *node, 
+    unsigned int inKL, int reactNo);
 
   /** 
    * returns the unitDefinition for the ASTNode from a times function
    */
-  UnitDefinition * getUnitDefinitionFromTimes(const ASTNode *);
-
+  UnitDefinition * getUnitDefinitionFromTimes(const ASTNode *node, 
+    unsigned int inKL, int reactNo);
+  
   /** 
    * returns the unitDefinition for the ASTNode from a divide function
    */
-  UnitDefinition * getUnitDefinitionFromDivide(const ASTNode *);
+  UnitDefinition * getUnitDefinitionFromDivide(const ASTNode *node, 
+    unsigned int inKL, int reactNo);
 
   /** 
    * returns the unitDefinition for the ASTNode from a power function
    */
-  UnitDefinition * getUnitDefinitionFromPower(const ASTNode *, 
-                                                      unsigned int, int);
+  UnitDefinition * getUnitDefinitionFromPower(const ASTNode *node, 
+    unsigned int inKL, int reactNo);
 
   /** 
    * returns the unitDefinition for the ASTNode from 
    * a piecewise function
    */
-  UnitDefinition * getUnitDefinitionFromPiecewise(const ASTNode *);
+  UnitDefinition * getUnitDefinitionFromPiecewise(const ASTNode *node, 
+    unsigned int inKL, int reactNo);
+
 
   /** 
    * returns the unitDefinition for the ASTNode from a root function
    */
-  UnitDefinition * getUnitDefinitionFromRoot(const ASTNode *);
+  UnitDefinition * getUnitDefinitionFromRoot(const ASTNode *node, 
+    unsigned int inKL, int reactNo);
 
   /** 
    * returns the unitDefinition for the ASTNode from 
    * a function returning dimensionless value
    */
-  UnitDefinition * getUnitDefinitionFromDimensionlessReturnFunction(const ASTNode *);
+  UnitDefinition * getUnitDefinitionFromDimensionlessReturnFunction(const ASTNode *node, 
+    unsigned int inKL, int reactNo);
 
   /** 
    * returns the unitDefinition for the ASTNode from 
    * a function returning value with same units as argument(s)
    */
-  UnitDefinition * getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode *);
+  UnitDefinition * getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode *node, 
+    unsigned int inKL, int reactNo);
 
   /** 
    * returns the unitDefinition for the ASTNode from 
    * a delay function
    */
-  UnitDefinition * getUnitDefinitionFromDelay(const ASTNode * node);
+  UnitDefinition * getUnitDefinitionFromDelay(const ASTNode * node, 
+    unsigned int inKL, int reactNo);
 
   /** 
    * returns the unitDefinition for the ASTNode from anything else
    */
-  UnitDefinition * getUnitDefinitionFromOther(const ASTNode *);
+  UnitDefinition * getUnitDefinitionFromOther(const ASTNode * node,
+    unsigned int inKL, int reactNo);
 
   /** 
     * returns the unitDefinition for the units of the compartment
@@ -162,7 +172,8 @@ public:
     * returns 1 if the math contains 
     * a parameter that has undeclared units 0 otherwise
     */
-  unsigned int hasUndeclaredUnits(const ASTNode *);
+  unsigned int hasUndeclaredUnits(const ASTNode *node, 
+    unsigned int inKL = 0, int reactNo = -1);
   
 
   /** 

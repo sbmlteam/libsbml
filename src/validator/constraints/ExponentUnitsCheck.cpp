@@ -82,7 +82,8 @@ ExponentUnitsCheck::getPreamble ()
   * If an inconsistent variable is found, an error message is logged.
   */
 void
-ExponentUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBase & sb)
+ExponentUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBase & sb,
+                                 unsigned int inKL, int reactNo)
 {
   ASTNodeType_t type = node.getType();
 
@@ -90,18 +91,18 @@ ExponentUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBase
   {
     case AST_FUNCTION_ROOT:
 
-      checkUnitsFromRoot(m, node, sb);
+      checkUnitsFromRoot(m, node, sb, inKL, reactNo);
       break;
 
 
     case AST_FUNCTION:
 
-      checkFunction(m, node, sb);
+      checkFunction(m, node, sb, inKL, reactNo);
       break;
 
     default:
 
-      checkChildren(m, node, sb);
+      checkChildren(m, node, sb, inKL, reactNo);
       break;
 
   }
@@ -125,7 +126,7 @@ ExponentUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBase
 void 
 ExponentUnitsCheck::checkUnitsFromRoot (const Model& m, 
                                         const ASTNode& node, 
-                                        const SBase & sb)
+                                        const SBase & sb, unsigned int inKL, int reactNo)
 {
   UnitDefinition *dim = new UnitDefinition();
   Unit *unit = new Unit("dimensionless");
@@ -138,9 +139,9 @@ ExponentUnitsCheck::checkUnitsFromRoot (const Model& m,
   UnitDefinition * unitsArg1;
   UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
 
-  unitsArg1 = unitFormat->getUnitDefinition(node.getLeftChild());
+  unitsArg1 = unitFormat->getUnitDefinition(node.getLeftChild(), inKL, reactNo);
   unsigned int undeclaredUnits = 
-    unitFormat->hasUndeclaredUnits(node.getLeftChild());
+    unitFormat->hasUndeclaredUnits(node.getLeftChild(), inKL, reactNo);
   ASTNode * child = node.getRightChild();
    
   // The first argument is dimensionless then it doesnt matter 

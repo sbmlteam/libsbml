@@ -85,7 +85,9 @@ ArgumentsUnitsCheckWarnings::getPreamble ()
   * If an inconsistent variable is found, an error message is logged.
   */
 void
-ArgumentsUnitsCheckWarnings::checkUnits (const Model& m, const ASTNode& node, const SBase & sb)
+ArgumentsUnitsCheckWarnings::checkUnits (const Model& m, const ASTNode& node, 
+                                         const SBase & sb,
+                                 unsigned int inKL, int reactNo)
 {
   ASTNodeType_t type = node.getType();
 
@@ -131,17 +133,17 @@ ArgumentsUnitsCheckWarnings::checkUnits (const Model& m, const ASTNode& node, co
 
     case AST_FUNCTION_FACTORIAL:
 
-      checkDimensionlessArgs(m, node, sb);
+      checkDimensionlessArgs(m, node, sb, inKL, reactNo);
       break;
 
     case AST_FUNCTION:
 
-      checkFunction(m, node, sb);
+      checkFunction(m, node, sb, inKL, reactNo);
       break;
 
     default:
 
-      checkChildren(m, node, sb);
+      checkChildren(m, node, sb, inKL, reactNo);
       break;
 
   }
@@ -158,7 +160,8 @@ ArgumentsUnitsCheckWarnings::checkUnits (const Model& m, const ASTNode& node, co
 void 
 ArgumentsUnitsCheckWarnings::checkDimensionlessArgs (const Model& m, 
                                            const ASTNode& node, 
-                                           const SBase & sb)
+                                           const SBase & sb, 
+                                           unsigned int inKL, int reactNo)
 {
   UnitDefinition * dim = new UnitDefinition();
   UnitDefinition * tempUD;
@@ -167,7 +170,7 @@ ArgumentsUnitsCheckWarnings::checkDimensionlessArgs (const Model& m,
   
   UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
 
-  tempUD = unitFormat->getUnitDefinition(node.getChild(0));
+  tempUD = unitFormat->getUnitDefinition(node.getChild(0), inKL, reactNo);
   
   if (tempUD->getNumUnits() != 0 && !areEquivalent(dim, tempUD)) 
   {

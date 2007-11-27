@@ -64,7 +64,8 @@ protected:
    *
    * If inconsistent units are found, an error message is logged.
    */
-  virtual void checkUnits (const Model& m, const ASTNode& node, const SBase & sb);
+  virtual void checkUnits (const Model& m, const ASTNode& node, const SBase & sb,
+    unsigned int inKL = 0, int reactNo = -1);
   
   /**
    * @return the preamble to use when logging constraint violations.  The
@@ -91,7 +92,7 @@ protected:
    * If inconsistent units are found, an error message is logged.
    */
   void checkDimensionlessArgs (const Model& m, const ASTNode& node, 
-                              const SBase & sb);
+                              const SBase & sb, unsigned int inKL, int reactNo);
 
   /**
   * Logs a message about a function that should have dmensionless

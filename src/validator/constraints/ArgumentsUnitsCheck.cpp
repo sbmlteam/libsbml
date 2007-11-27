@@ -85,7 +85,8 @@ ArgumentsUnitsCheck::getPreamble ()
   * If an inconsistent variable is found, an error message is logged.
   */
 void
-ArgumentsUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBase & sb)
+ArgumentsUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBase & sb,
+                                 unsigned int inKL, int reactNo)
 {
   ASTNodeType_t type = node.getType();
 
@@ -104,27 +105,27 @@ ArgumentsUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBas
     case AST_RELATIONAL_LT:
     case AST_RELATIONAL_NEQ:
   
-      checkSameUnitsAsArgs(m, node, sb);
+      checkSameUnitsAsArgs(m, node, sb, inKL, reactNo);
       break;
 
     case AST_FUNCTION_DELAY:
 
-      checkUnitsFromDelay(m, node, sb);
+      checkUnitsFromDelay(m, node, sb, inKL, reactNo);
       break;
 
     case AST_FUNCTION_PIECEWISE:
       
-      checkUnitsFromPiecewise(m, node, sb);
+      checkUnitsFromPiecewise(m, node, sb, inKL, reactNo);
       break;
 
     case AST_FUNCTION:
 
-      checkFunction(m, node, sb);
+      checkFunction(m, node, sb, inKL, reactNo);
       break;
 
     default:
 
-      checkChildren(m, node, sb);
+      checkChildren(m, node, sb, inKL, reactNo);
       break;
 
   }
@@ -139,7 +140,7 @@ ArgumentsUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBas
 void 
 ArgumentsUnitsCheck::checkUnitsFromDelay (const Model& m, 
                                         const ASTNode& node, 
-                                        const SBase & sb)
+                                        const SBase & sb, unsigned int inKL, int reactNo)
 {
   /* delay(x, t) 
    * no restrictions on units of x
@@ -152,9 +153,9 @@ ArgumentsUnitsCheck::checkUnitsFromDelay (const Model& m,
   
   UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
 
-  tempUD = unitFormat->getUnitDefinition(node.getRightChild());
+  tempUD = unitFormat->getUnitDefinition(node.getRightChild(), inKL, reactNo);
   
-  if (!unitFormat->hasUndeclaredUnits(node.getRightChild()))
+  if (!unitFormat->hasUndeclaredUnits(node.getRightChild(), inKL, reactNo))
   {
     if (!areEquivalent(time, tempUD)) 
     {
@@ -167,7 +168,7 @@ ArgumentsUnitsCheck::checkUnitsFromDelay (const Model& m,
   delete unit;
   delete unitFormat;
 
-  checkUnits(m, *node.getLeftChild(), sb);
+  checkUnits(m, *node.getLeftChild(), sb, inKL, reactNo);
 }
 /**
   * Checks that the units of the piecewise function are consistent
@@ -177,7 +178,7 @@ ArgumentsUnitsCheck::checkUnitsFromDelay (const Model& m,
 void 
 ArgumentsUnitsCheck::checkUnitsFromPiecewise (const Model& m, 
                                         const ASTNode& node, 
-                                        const SBase & sb)
+                                        const SBase & sb, unsigned int inKL, int reactNo)
 {
   /* piecewise(x, y, z)
    * x and z must have same units
@@ -191,8 +192,8 @@ ArgumentsUnitsCheck::checkUnitsFromPiecewise (const Model& m,
   
   UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
 
-  tempUD = unitFormat->getUnitDefinition(node.getRightChild());
-  tempUD1 = unitFormat->getUnitDefinition(node.getLeftChild());
+  tempUD = unitFormat->getUnitDefinition(node.getRightChild(), inKL, reactNo);
+  tempUD1 = unitFormat->getUnitDefinition(node.getLeftChild(), inKL, reactNo);
   
   if (!areEquivalent(tempUD, tempUD1)) 
   {
@@ -202,7 +203,7 @@ ArgumentsUnitsCheck::checkUnitsFromPiecewise (const Model& m,
   delete tempUD;
   delete tempUD1;
 
-  tempUD = unitFormat->getUnitDefinition(node.getChild(1));
+  tempUD = unitFormat->getUnitDefinition(node.getChild(1), inKL, reactNo);
 
   if (!areEquivalent(tempUD, dim)) 
   {
@@ -211,7 +212,7 @@ ArgumentsUnitsCheck::checkUnitsFromPiecewise (const Model& m,
  
   for(n = 0; n < node.getNumChildren(); n++)
   {
-    checkUnits(m, *node.getChild(n), sb);
+    checkUnits(m, *node.getChild(n), sb, inKL, reactNo);
   }
 
   delete tempUD;
@@ -229,7 +230,8 @@ ArgumentsUnitsCheck::checkUnitsFromPiecewise (const Model& m,
 void 
 ArgumentsUnitsCheck::checkSameUnitsAsArgs (const Model& m, 
                                               const ASTNode& node, 
-                                              const SBase & sb)
+                                              const SBase & sb, unsigned int inKL, 
+                                              int reactNo)
 {
   UnitDefinition * ud;
   UnitDefinition * tempUD;
@@ -237,15 +239,15 @@ ArgumentsUnitsCheck::checkSameUnitsAsArgs (const Model& m,
   unsigned int i = 0;
   UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
 
-  ud = unitFormat->getUnitDefinition(node.getChild(i));
+  ud = unitFormat->getUnitDefinition(node.getChild(i), inKL, reactNo);
 
   /* get the first child that is not a parameter with undeclared units */
-  while (unitFormat->hasUndeclaredUnits(node.getChild(i)) && 
+  while (unitFormat->hasUndeclaredUnits(node.getChild(i), inKL, reactNo) && 
     i < node.getNumChildren()-1)
   {
     delete ud; 
     i++;
-    ud = unitFormat->getUnitDefinition(node.getChild(i));
+    ud = unitFormat->getUnitDefinition(node.getChild(i), inKL, reactNo);
   }
 
 
@@ -254,9 +256,9 @@ ArgumentsUnitsCheck::checkSameUnitsAsArgs (const Model& m,
    * which is not tested */
   for (n = i+1; n < node.getNumChildren(); n++)
   {
-    tempUD = unitFormat->getUnitDefinition(node.getChild(n));
+    tempUD = unitFormat->getUnitDefinition(node.getChild(n), inKL, reactNo);
 
-    if (!unitFormat->hasUndeclaredUnits(node.getChild(n)))
+    if (!unitFormat->hasUndeclaredUnits(node.getChild(n), inKL, reactNo))
     {
       if (!areIdentical(ud, tempUD))
       {
@@ -268,7 +270,7 @@ ArgumentsUnitsCheck::checkSameUnitsAsArgs (const Model& m,
 
   for (n = 0; n < node.getNumChildren(); n++)
   {
-    checkUnits(m, *node.getChild(n), sb);
+    checkUnits(m, *node.getChild(n), sb, inKL, reactNo);
   }
 
   delete unitFormat;

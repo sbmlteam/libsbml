@@ -54,7 +54,7 @@ UnitFormulaFormatter::~UnitFormulaFormatter()
   */
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinition(const ASTNode * node, 
-                                        unsigned int KL, int No)
+                                        unsigned int inKL, int reactNo)
 {  
   UnitDefinition * ud = NULL;
 
@@ -122,7 +122,7 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
     case AST_RELATIONAL_LT:
     case AST_RELATIONAL_NEQ:
 
-      ud = getUnitDefinitionFromDimensionlessReturnFunction(node);
+      ud = getUnitDefinitionFromDimensionlessReturnFunction(node, inKL, reactNo);
       break;
 
   /* functions that return same units */
@@ -132,51 +132,51 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
     case AST_FUNCTION_CEILING:
     case AST_FUNCTION_FLOOR:
   
-      ud = getUnitDefinitionFromArgUnitsReturnFunction(node);
+      ud = getUnitDefinitionFromArgUnitsReturnFunction(node, inKL, reactNo);
       break;
 
   /* power functions */
     case AST_POWER:
     case AST_FUNCTION_POWER:
   
-      ud = getUnitDefinitionFromPower(node, KL, No);
+      ud = getUnitDefinitionFromPower(node, inKL, reactNo);
       break;
 
   /* times functions */
     case AST_TIMES:
   
-      ud = getUnitDefinitionFromTimes(node);
+      ud = getUnitDefinitionFromTimes(node, inKL, reactNo);
       break;
 
   /* divide functions */
     case AST_DIVIDE:
   
-      ud = getUnitDefinitionFromDivide(node);
+      ud = getUnitDefinitionFromDivide(node, inKL, reactNo);
       break;
 
   /* piecewise functions */
     case AST_FUNCTION_PIECEWISE:
   
-      ud = getUnitDefinitionFromPiecewise(node);
+      ud = getUnitDefinitionFromPiecewise(node, inKL, reactNo);
       break;
 
   /* root functions */
     case AST_FUNCTION_ROOT:
   
-      ud = getUnitDefinitionFromRoot(node);
+      ud = getUnitDefinitionFromRoot(node, inKL, reactNo);
       break;
 
   /* functions */
     case AST_LAMBDA:
     case AST_FUNCTION:
   
-      ud = getUnitDefinitionFromFunction(node);
+      ud = getUnitDefinitionFromFunction(node, inKL, reactNo);
       break;
     
   /* delay */
     case AST_FUNCTION_DELAY:
   
-      ud = getUnitDefinitionFromDelay(node);
+      ud = getUnitDefinitionFromDelay(node, inKL, reactNo);
       break;
 
 
@@ -198,7 +198,7 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
     /* name of another component in the model */
     case AST_NAME:
 
-      ud = getUnitDefinitionFromOther(node);
+      ud = getUnitDefinitionFromOther(node, inKL, reactNo);
       break;
 
     case AST_UNKNOWN:
@@ -222,7 +222,8 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
   * returns the unitDefinition for the ASTNode from a function
   */
 UnitDefinition * 
-UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node)
+UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node, 
+                                        unsigned int inKL, int reactNo)
 { 
   UnitDefinition * ud;
   unsigned int i, nodeCount;
@@ -296,7 +297,7 @@ UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node)
       //    }
       //  }
       //}
-      ud = getUnitDefinition(fdMath);
+      ud = getUnitDefinition(fdMath, inKL, reactNo);
       delete fdMath;
     }
     else
@@ -324,7 +325,8 @@ UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node)
   * returns the unitDefinition for the ASTNode from a times function
   */
 UnitDefinition * 
-UnitFormulaFormatter::getUnitDefinitionFromTimes(const ASTNode * node)
+UnitFormulaFormatter::getUnitDefinitionFromTimes(const ASTNode * node, 
+                                        unsigned int inKL, int reactNo)
 { 
   UnitDefinition * ud;
   UnitDefinition * tempUD;
@@ -333,12 +335,12 @@ UnitFormulaFormatter::getUnitDefinitionFromTimes(const ASTNode * node)
   unsigned int i;
   unsigned int currentIgnore = canIgnoreUndeclaredUnits;;
 
-  ud = getUnitDefinition(node->getChild(n));
+  ud = getUnitDefinition(node->getChild(n), inKL, reactNo);
   if (canIgnoreUndeclaredUnits == 0) currentIgnore = 0;
 
   for(n = 1; n < numChildren; n++)
   {
-    tempUD = getUnitDefinition(node->getChild(n));
+    tempUD = getUnitDefinition(node->getChild(n), inKL, reactNo);
     if (canIgnoreUndeclaredUnits == 0) currentIgnore = 0;
     for (i = 0; i < tempUD->getNumUnits(); i++)
     {
@@ -355,18 +357,19 @@ UnitFormulaFormatter::getUnitDefinitionFromTimes(const ASTNode * node)
   * returns the unitDefinition for the ASTNode from a divide function
   */
 UnitDefinition * 
-UnitFormulaFormatter::getUnitDefinitionFromDivide(const ASTNode * node)
+UnitFormulaFormatter::getUnitDefinitionFromDivide(const ASTNode * node, 
+                                        unsigned int inKL, int reactNo)
 { 
   UnitDefinition * ud;
   UnitDefinition * tempUD;
   unsigned int i;
   Unit * unit;
 
-  ud = getUnitDefinition(node->getLeftChild());
+  ud = getUnitDefinition(node->getLeftChild(), inKL, reactNo);
 
   if (node->getNumChildren() == 1)
     return ud;
-  tempUD = getUnitDefinition(node->getRightChild());
+  tempUD = getUnitDefinition(node->getRightChild(), inKL, reactNo);
   for (i = 0; i < tempUD->getNumUnits(); i++)
   {
     unit = tempUD->getUnit(i);
@@ -383,7 +386,7 @@ UnitFormulaFormatter::getUnitDefinitionFromDivide(const ASTNode * node)
   */
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
-                                                 unsigned int inKL, int ReactNo)
+                                                 unsigned int inKL, int reactNo)
 { 
   UnitDefinition * ud;
   /* this only works is the exponent is an integer - 
@@ -399,7 +402,7 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
   Unit * unit;
   ASTNode * child;
 
-  tempUD = getUnitDefinition(node->getLeftChild());
+  tempUD = getUnitDefinition(node->getLeftChild(), inKL, reactNo);
   ud = new UnitDefinition();
   
   if (node->getNumChildren() == 1)
@@ -423,10 +426,10 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
        */
       if (inKL == 1)
       {
-        if (model->getReaction(ReactNo)->
+        if (model->getReaction(reactNo)->
           getKineticLaw()->getParameter(child->getName()))
         {
-          newExp = (int) ((model->getReaction(ReactNo)->
+          newExp = (int) ((model->getReaction(reactNo)->
             getKineticLaw()->getParameter(child->getName()))->getValue());
         }
       }
@@ -467,11 +470,12 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
   * a piecewise function
   */
 UnitDefinition * 
-UnitFormulaFormatter::getUnitDefinitionFromPiecewise(const ASTNode * node)
+UnitFormulaFormatter::getUnitDefinitionFromPiecewise(const ASTNode * node, 
+                                        unsigned int inKL, int reactNo)
 { 
   UnitDefinition * ud;
   
-  ud = getUnitDefinition(node->getLeftChild());
+  ud = getUnitDefinition(node->getLeftChild(), inKL, reactNo);
 
   return ud;
 }
@@ -480,7 +484,8 @@ UnitFormulaFormatter::getUnitDefinitionFromPiecewise(const ASTNode * node)
   * returns the unitDefinition for the ASTNode from a root function
   */
 UnitDefinition * 
-UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node)
+UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node, 
+                                        unsigned int inKL, int reactNo)
 { 
   UnitDefinition * ud;
 /* this only works is the exponent is an integer - 
@@ -495,7 +500,7 @@ UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node)
   Unit * unit;
   ASTNode * child;
 
-  tempUD = getUnitDefinition(node->getRightChild());
+  tempUD = getUnitDefinition(node->getRightChild(), inKL, reactNo);
   ud = new UnitDefinition();
 
   if (node->getNumChildren() == 1)
@@ -527,11 +532,12 @@ UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node)
   * a delay function
   */
 UnitDefinition * 
-UnitFormulaFormatter::getUnitDefinitionFromDelay(const ASTNode * node)
+UnitFormulaFormatter::getUnitDefinitionFromDelay(const ASTNode * node, 
+                                        unsigned int inKL, int reactNo)
 { 
   UnitDefinition * ud;
   
-  ud = getUnitDefinition(node->getLeftChild());
+  ud = getUnitDefinition(node->getLeftChild(), inKL, reactNo);
 
   return ud;
 }
@@ -541,7 +547,8 @@ UnitFormulaFormatter::getUnitDefinitionFromDelay(const ASTNode * node)
   * a function returning dimensionless value
   */
 UnitDefinition * 
-UnitFormulaFormatter::getUnitDefinitionFromDimensionlessReturnFunction(const ASTNode *node)
+UnitFormulaFormatter::getUnitDefinitionFromDimensionlessReturnFunction(
+                                const ASTNode *node, unsigned int inKL, int reactNo)
 { 
   UnitDefinition * ud;
   Unit *unit;
@@ -561,7 +568,8 @@ UnitFormulaFormatter::getUnitDefinitionFromDimensionlessReturnFunction(const AST
   * a function returning value with same units as argument(s)
   */
 UnitDefinition * 
-UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode * node)
+UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode * node, 
+                                        unsigned int inKL, int reactNo)
 { 
   UnitDefinition * ud;
   unsigned int i = 0;
@@ -574,8 +582,8 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode 
   unsigned int currentUndeclared = undeclaredUnits;
 
   /* get first arg that is not a parameter with undeclared units */
-  ud = getUnitDefinition(node->getChild(i));
-  while (hasUndeclaredUnits(node->getChild(i)) && i < node->getNumChildren()-1)
+  ud = getUnitDefinition(node->getChild(i), inKL, reactNo);
+  while (hasUndeclaredUnits(node->getChild(i), inKL, reactNo) && i < node->getNumChildren()-1)
   {
     if (originalUndeclaredValue == 1)
       currentIgnore = 0;
@@ -586,7 +594,7 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode 
 
     i++;
     delete ud;
-    ud = getUnitDefinition(node->getChild(i));
+    ud = getUnitDefinition(node->getChild(i), inKL, reactNo);
   }
 
   /* loop thru remain children to determine undeclaredUnit status */
@@ -599,7 +607,7 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode 
   {
     for (n = i+1; n < node->getNumChildren(); n++)
     {
-      if (hasUndeclaredUnits(node->getChild(n)))
+      if (hasUndeclaredUnits(node->getChild(n), inKL, reactNo))
       {
         currentUndeclared = 1;
         currentIgnore = 1;
@@ -624,7 +632,8 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode 
   * returns the unitDefinition for the ASTNode from anything else
   */
 UnitDefinition * 
-UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node)
+UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
+    unsigned int inKL, int reactNo)
 { 
   UnitDefinition * ud = NULL;
   Unit * unit;
@@ -673,19 +682,17 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node)
     {
       found = 0;
       n = 0;
-      while (found == 0 && n < model->getNumReactions())
+      if (inKL)
       {
-        if (model->getReaction(n)->isSetKineticLaw())
+        if (model->getReaction(reactNo)->isSetKineticLaw())
         {
-          kl = model->getReaction(n)->getKineticLaw();
+          kl = model->getReaction(reactNo)->getKineticLaw();
           ud = getUnitDefinitionFromParameter(kl->getParameter(node->getName()));
           if (ud)
           {
             found = 1;
-            break;
           }
         }
-        n++;
       }
       if (found == 0)// && n < model->getNumCompartments())
       {
@@ -1341,7 +1348,8 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
   * a parameter that has undeclared units 0 otherwise
   */
 unsigned int 
-UnitFormulaFormatter::hasUndeclaredUnits(const ASTNode * node)
+UnitFormulaFormatter::hasUndeclaredUnits(const ASTNode * node,
+    unsigned int inKL, int reactNo)
 {
   undeclaredUnits = 0;
   /* temporary HACK while I figure this out */
@@ -1352,7 +1360,7 @@ UnitFormulaFormatter::hasUndeclaredUnits(const ASTNode * node)
      if it encounters a parameter with undeclared units
      it doesnt need to be assigned
      */
-  delete getUnitDefinition(node);
+  delete getUnitDefinition(node, inKL, reactNo);
   
   return undeclaredUnits;
 }

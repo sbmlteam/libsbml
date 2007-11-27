@@ -84,7 +84,8 @@ PowerUnitsCheck::getPreamble ()
   * If an inconsistent variable is found, an error message is logged.
   */
 void
-PowerUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBase & sb)
+PowerUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBase & sb,
+                                 unsigned int inKL, int reactNo)
 {
   ASTNodeType_t type = node.getType();
 
@@ -96,17 +97,17 @@ PowerUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBase & 
     case AST_POWER:
     case AST_FUNCTION_POWER:
 
-      checkUnitsFromPower(m, node, sb);
+      checkUnitsFromPower(m, node, sb, inKL, reactNo);
       break;
 
     case AST_FUNCTION:
 
-      checkFunction(m, node, sb);
+      checkFunction(m, node, sb, inKL, reactNo);
       break;
 
     default:
 
-      checkChildren(m, node, sb);
+      checkChildren(m, node, sb, inKL, reactNo);
       break;
 
   }
@@ -132,7 +133,7 @@ PowerUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBase & 
 void 
 PowerUnitsCheck::checkUnitsFromPower (const Model& m, 
                                         const ASTNode& node, 
-                                        const SBase & sb)
+                                        const SBase & sb, unsigned int inKL, int reactNo)
 {
   double value;
   UnitDefinition *dim = new UnitDefinition();
@@ -142,14 +143,14 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
   UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
 
   UnitDefinition *unitsArg1, *unitsArgPower;
-  unitsArg1 = unitFormat->getUnitDefinition(node.getLeftChild());
+  unitsArg1 = unitFormat->getUnitDefinition(node.getLeftChild(), inKL, reactNo);
   unsigned int undeclaredUnits = 
-    unitFormat->hasUndeclaredUnits(node.getLeftChild());
+    unitFormat->hasUndeclaredUnits(node.getLeftChild(), inKL, reactNo);
 
   ASTNode *child = node.getRightChild();
-  unitsArgPower = unitFormat->getUnitDefinition(child);
+  unitsArgPower = unitFormat->getUnitDefinition(child, inKL, reactNo);
   unsigned int undeclaredUnitsPower = 
-    unitFormat->hasUndeclaredUnits(child);
+    unitFormat->hasUndeclaredUnits(child, inKL, reactNo);
 
   // The second argument (b) should always have units of “dimensionless”.
   // or it has undeclared units that we assume are correct
@@ -357,7 +358,7 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
  //   logUnitConflict(node, sb);
  // }
 
-  checkUnits(m, *node.getLeftChild(), sb);
+  checkUnits(m, *node.getLeftChild(), sb, inKL, reactNo);
 
   delete unitFormat;
   delete unitsArg1;

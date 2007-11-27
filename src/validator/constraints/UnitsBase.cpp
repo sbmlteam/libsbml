@@ -114,7 +114,7 @@ UnitsBase::check_ (const Model& m, const Model& object)
       if (m.getReaction(n)->getKineticLaw()->isSetMath())
       {
         checkUnits(m, *m.getReaction(n)->getKineticLaw()->getMath(), 
-          *m.getReaction(n)->getKineticLaw());
+          *m.getReaction(n)->getKineticLaw(), 1, n);
       }
     }
     for (sr = 0; sr < m.getReaction(n)->getNumProducts(); sr++)
@@ -183,13 +183,13 @@ UnitsBase::check_ (const Model& m, const Model& object)
 void 
 UnitsBase::checkChildren (const Model& m, 
                                   const ASTNode& node, 
-                                  const SBase & sb)
+                                  const SBase & sb, unsigned int inKL, int reactNo)
 {
   unsigned int n;
 
   for(n = 0; n < node.getNumChildren(); n++)
   {
-    checkUnits(m, *node.getChild(n), sb);
+    checkUnits(m, *node.getChild(n), sb, inKL, reactNo);
   }
 }
 
@@ -203,7 +203,7 @@ UnitsBase::checkChildren (const Model& m,
 void 
 UnitsBase::checkFunction (const Model& m, 
                                   const ASTNode& node, 
-                                  const SBase & sb)
+                                  const SBase & sb, unsigned int inKL, int reactNo)
 {
   unsigned int i, nodeCount;
   unsigned int noBvars;
@@ -228,7 +228,7 @@ UnitsBase::checkFunction (const Model& m,
                                           node.getChild(nodeCount));
     }
     /* check the math of the new function */
-    checkUnits(m, *fdMath, sb);
+    checkUnits(m, *fdMath, sb, inKL, reactNo);
 
     delete fdMath;
   }
