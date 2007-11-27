@@ -37,7 +37,7 @@ AC_DEFUN([CONFIG_LIB_LIBXML],
   if test "$with_libxml" != "no"; then
 
     if test "$with_libxml" != "yes"; then
-      xml_config_args="$xml_config_args --prefix=\"$with_libxml\""
+      xml_config_args="$xml_config_args --prefix=$with_libxml"
       if test -n "$XML2_CONFIG" ; then
 	dnl The XML2_CONFIG environment variable is set, so use that.
         XML2_CONFIG=$with_libxml/bin/xml2-config
@@ -72,9 +72,9 @@ AC_DEFUN([CONFIG_LIB_LIBXML],
     if test "$XML2_CONFIG" = "no" ; then
       no_xml=yes
     else
-      LIBXML_CPPFLAGS=`"$XML2_CONFIG" $xml_config_args --cflags`
-      LIBXML_LIBS=`"$XML2_CONFIG" $xml_config_args --libs`
-      ver=`"$XML2_CONFIG" $xml_config_args --version`
+      LIBXML_CPPFLAGS=`$XML2_CONFIG $xml_config_args --cflags`
+      LIBXML_LIBS=`$XML2_CONFIG $xml_config_args --libs`
+      ver=`$XML2_CONFIG $xml_config_args --version`
       xml_config_major_version=`echo $ver | sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\1/'`
       xml_config_minor_version=`echo $ver | sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\2/'`
       xml_config_micro_version=`echo $ver | sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\3/'`
