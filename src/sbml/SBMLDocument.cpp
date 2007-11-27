@@ -637,14 +637,14 @@ SBMLDocument::checkConsistency ()
     if (nerrors) 
     {
       mErrorLog.add( unit_validator.getFailures() );
-      /* at this point bail if any problems
-       * overdetermined check may crash if there have been unit errors/warnings
-       */
-      return total_errors;
+      /* only want to bail if errors not warnings */
+      if (mErrorLog.getNumFailsWithSeverity(SBMLError::Error) > 0)
+        return total_errors;
     }
   }
 
-  if (over)
+  /* do not even try if there have been unit warnings */
+  if (over && nerrors == 0)
   {
     over_validator.init();
     nerrors = over_validator.validate(*this);
