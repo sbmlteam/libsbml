@@ -200,7 +200,7 @@ tags: etags ctags
 # -----------------------------------------------------------------------------
 
 install: Makefile.PL Makefile-perl
-	$(MAKE) -f Makefile-perl install
+	$(MAKE) -f Makefile-perl pure_install
 
 installcheck:
 
