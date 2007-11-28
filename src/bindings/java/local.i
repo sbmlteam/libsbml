@@ -105,39 +105,6 @@
 %javaconstvalue("'/'") AST_DIVIDE;
 %javaconstvalue("'^'") AST_POWER;
 
-/*
- * SWIG can't wrap a enum value such as 'XMLError::Info'.
- * The following java code is added to wrap 'enum SBMLSeverity' 
- * and 'enum SBMLCategory' in SBMLError class.
- */
-
-%ignore SBMLError::SBMLSeverity;
-%ignore SBMLError::SBMLCategory;
-%typemap("javacode") SBMLError
-%{
-  // SBMLSeverity
-  public final static int Info    = XMLError.Info;  
-  public final static int Warning = XMLError.Warning;  
-  public final static int Error   = XMLError.Error;  
-  public final static int Fatal   = XMLError.Fatal;  
-
-  // SBMLCategory
-  public final static int Internal                  = XMLError.Internal;  
-  public final static int System                    = XMLError.System;  
-  public final static int XML                       = XMLError.XML;  
-  public final static int SBML                      = 3;
-  public final static int SBMLL1Compatibility       = 4;
-  public final static int SBMLL2v1Compatibility     = 5;
-  public final static int SBMLL2v2Compatibility     = 6;
-  public final static int SBMLConsistency           = 7;
-  public final static int SBMLConsistencyIdentifier = 8;
-  public final static int SBMLConsistencyUnits      = 9;
-  public final static int SBMLConsistencyMathML     = 10;
-  public final static int SBMLConsistencySBO        = 11;
-  public final static int SBMLOverdetermined        = 12;
-  public final static int SBMLL2v3Compatibility     = 13;
-%}
-
 
 #ifndef USE_LAYOUT
 
