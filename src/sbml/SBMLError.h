@@ -33,20 +33,20 @@
  * Each SBMLError object instance has an identification number that
  * identifies the nature of the problem.  This number will be up to five
  * digits long, and will be listed in one of two enumerations,
- * XMLError::Code or SBMLError::SBMLCode.  The latter enumeration in
- * SBMLError contains all the SBML validation rule numbers listed in the
- * appendices of the SBML specification documents.
+ * XMLErrorCode_t or SBMLErrorCode_t.  The latter enumeration in SBMLError
+ * contains all the SBML validation rule numbers listed in the appendices
+ * of the SBML specification documents.
  *
  * SBMLError also records a @em category code, drawn from the enumeration
- * SBMLCategory.  Categories are used to partition errors into distinct
- * groups.  In particular, the SBML validation system in libSBML identifies
- * itself using different category codes, such as SBMLConsistencyIdentifier
- * for identifier consistency checking and SBMLConsistencyMathML for MathML
- * consistency checking.
+ * SBMLErrorCategory_t.  Categories are used to partition errors into
+ * distinct groups.  In particular, the SBML validation system in libSBML
+ * identifies itself using different category codes, such as
+ * CATEGORY_IDENTIFIER_CONSISTENCY for identifier consistency checking and
+ * CATEGORY_MATHML_CONSISTENCY for MathML consistency checking.
  *
  * In addition, SBMLError also has a @em severity code, drawn from the
- * enumeration SBMLSeverity.  Severity levels currently range from
- * informational (SBMLError::Info) to fatal errors (SBMLError::Fatal).
+ * enumeration SBMLErrorSeverity_t.  Severity levels currently range from
+ * informational (SEVERITY_INFO) to fatal errors (SEVERITY_FATAL).
  *
  * SBMLError also logs a text message suitable for displaying to humans and
  * describing the nature of the problem.

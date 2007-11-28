@@ -140,7 +140,7 @@ SBMLErrorLog::remove (const unsigned int errorId)
 
 /*
  * Helper class used by 
- * SBMLErrorLog::getNumFailsWithSeverity(SBMLError::Severity).
+ * SBMLErrorLog::getNumFailsWithSeverity(SBMLErrorSeverity_t).
  */
 class MatchSeverity
 {
