@@ -52,6 +52,7 @@ test_data_files = $(wildcard test-data/*.xml)
 
 distfiles =                 \
         Makefile.in         \
+	runTests.m          \
         testBinding.m       \
         testReadFromFile1.m \
         testReadFromFile2.m \
