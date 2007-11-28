@@ -576,7 +576,7 @@ def testClone():
    checkClone(libsbml.EventAssignment(),"EventAssignment")
    checkClone(libsbml.FormulaUnitsData(),"FormulaUnitsData")
    checkClone(libsbml.FunctionDefinition(),"FunctionDefinition")
-   checkClone(libsbml.InitialAssignment(),"InitialAssignment")
+#   checkClone(libsbml.InitialAssignment(),"InitialAssignment")
    checkClone(libsbml.KineticLaw(),"KineticLaw")
    checkClone(libsbml.ListFormulaUnitsData(),"ListFormulaUnitsData")
    checkClone(libsbml.ListOf(),"ListOf")
