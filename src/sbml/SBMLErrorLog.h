@@ -83,9 +83,9 @@ public:
 
   /**
    * Returns number of errors that are logged with the given severity, which
-   * should be a value taken from the enumeration SBMLErrorSeverity_t.
+   * should be a value taken from the enumeration #SBMLErrorSeverity_t.
    * 
-   * @param severity a value from SBMLErrorSeverity_t
+   * @param severity a value from #SBMLErrorSeverity_t
    */
   unsigned int getNumFailsWithSeverity(unsigned int severity);
 

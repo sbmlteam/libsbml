@@ -84,7 +84,7 @@
  * representation or their syntax.  The purpose of the change in the SBML
  * specification was simply to clean up an inconsistency about the contexts
  * in which these values were usable.  However, LibSBML <em>maintains
- * UnitKind</em> (in the form of the type definition UnitKind_t) to simply
+ * UnitKind</em> (in the form of the type definition #UnitKind_t) to simply
  * the treatment of different levels and versions of SBML.
  *
  *
@@ -127,7 +127,7 @@ public:
 
   /**
    * Creates a new Unit, optionally with specific values of @p kind (given
-   * a value from the UnitKind_t enumeration), @p exponent, @p scale and @p
+   * a value from the #UnitKind_t enumeration), @p exponent, @p scale and @p
    * multipler.
    *
    * If no arguments are passed to this constructor, the value of @p kind
@@ -146,7 +146,7 @@ public:
    * Readers are urged to read the description of the Unit class for more
    * information about the meaning of the arguments to this constructor.
    *
-   * @param kind a value from the UnitKind_t enumeration naming the base
+   * @param kind a value from the #UnitKind_t enumeration naming the base
    * unit serving as the basis of this particular unit definition
    * 
    * @param exponent an integer, the "exponent" attribute of the unit
@@ -196,7 +196,7 @@ public:
    * Readers are urged to read the description of the Unit class for more
    * information about the meaning of the arguments to this constructor.
    * 
-   * @param kind a string corresponding to a value from the UnitKind_t
+   * @param kind a string corresponding to a value from the #UnitKind_t
    * enumeration naming the base unit serving as the basis of this
    * particular unit definition
    * 
@@ -282,7 +282,7 @@ public:
    * Returns the "kind" of Unit this is.
    * 
    * @return the value of the "kind" attribute of this Unit as a value from
-   * the UnitKind_t enumeration
+   * the #UnitKind_t enumeration
    */
   UnitKind_t getKind () const;
 
@@ -648,7 +648,7 @@ public:
   /**
    * Sets the "kind" attribute value of this Unit.
    *
-   * @param kind a value from the UnitKind_t enumeration
+   * @param kind a value from the #UnitKind_t enumeration
    */
   void setKind (UnitKind_t kind);
 
@@ -699,7 +699,7 @@ public:
   /**
    * Returns the libSBML type code of this object instance.
    *
-   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN 
+   * @return the #SBMLTypeCode_t value of this SBML object or SBML_UNKNOWN 
    * (default).
    *
    * @see getElementName()
@@ -826,21 +826,23 @@ public:
    */
   virtual SBase* clone () const;
 
+
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @return the SBMLTypeCode_t of this object or SBML_UNKNOWN (default).
+   * @return the #SBMLTypeCode_t value of this object or SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */
   virtual SBMLTypeCode_t getTypeCode () const { return SBML_LIST_OF; };
 
+
   /**
    * Returns the libSBML type code for the objects contained in this ListOf
    * (i.e., Unit objects, if the list is non-empty).
    * 
-   * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
-   * SBML_UNKNOWN (default).
+   * @return the #SBMLTypeCode_t value of SBML objects contained in this
+   * ListOf or SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */

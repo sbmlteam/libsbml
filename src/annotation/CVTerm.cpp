@@ -319,12 +319,12 @@ CVTerm::removeResource(std::string resource)
 
 
 /**
- * Creates a new CVTerm_t with the given @p QualifierType and returns a 
- * pointer to it.
+ * Creates a new CVTerm_t with the given #QualifierType_t value @p type and
+ * returns a pointer to it.
  *
  * The possible QualifierTypes are MODEL_QUALIFIER and BIOLOGICAL_QUALIFIER.  
  *
- * @param type a QualifierType_t
+ * @param type a #QualifierType_t
  *
  * @return a pointer to the newly created CVTerm_t structure.
  */
@@ -345,7 +345,7 @@ CVTerm_createWithQualifierType(QualifierType_t type)
  * when writing a model it parses the CVTerms into the appropriate annotation
  * structure.  This function creates a %CVTerm from the %XMLNode supplied.
  *
- * @param node an %XMLNode_t representing a %CVTerm_t.
+ * @param node an XMLNode_t representing a CVTerm_t.
  *
  * @return a pointer to the newly created CVTerm_t structure.
  *
@@ -387,11 +387,12 @@ CVTerm_clone (const CVTerm_t* c)
 
 
 /**
- * Takes a CVTerm_t structure and returns the QualifierType.
+ * Takes a CVTerm_t structure and returns its #QualifierType_t type.
  *
- * @param term the CVTerm_t structure whose QualifierType is sought
+ * @param term the CVTerm_t structure whose #QualifierType_t value is sought
  *
- * @return the QualifierType_t of this CVTerm_t or UNKNOWN_QUALIFIER (default).
+ * @return the #QualifierType_t value of this CVTerm_t or UNKNOWN_QUALIFIER
+ * (default).
  */
 LIBSBML_EXTERN
 QualifierType_t 
@@ -401,11 +402,12 @@ CVTerm_getQualifierType(CVTerm_t * term)
 }
 
 /**
- * Takes a CVTerm_t structure and returns the ModelQualifierType.
+ * Takes a CVTerm_t structure and returns the #ModelQualifierType_t type.
  *
- * @param term the CVTerm_t structure whose ModelQualifierType is sought.
+ * @param term the CVTerm_t structure whose #ModelQualifierType_t is sought.
  *
- * @return the ModelQualifierType_t of this CVTerm_t or BQM_UNKNOWN (default).
+ * @return the #ModelQualifierType_t value of this CVTerm_t or BQM_UNKNOWN
+ * (default).
  */
 LIBSBML_EXTERN
 ModelQualifierType_t 
@@ -415,11 +417,13 @@ CVTerm_getModelQualifierType(CVTerm_t * term)
 }
 
 /**
- * Takes a CVTerm_t structure and returns the BiolQualifierType.
+ * Takes a CVTerm_t structure and returns the #BiolQualifierType_t.
  *
- * @param term the CVTerm_t structure whose BiolQualifierType is sought.
+ * @param term the CVTerm_t structure whose #BiolQualifierType_t value is
+ * sought.
  *
- * @return the BiolQualifierType_t of this CVTerm_t or BQB_UNKNOWN (default).
+ * @return the #BiolQualifierType_t value of this CVTerm_t or BQB_UNKNOWN
+ * (default).
  */
 LIBSBML_EXTERN
 BiolQualifierType_t 

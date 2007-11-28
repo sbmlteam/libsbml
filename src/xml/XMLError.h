@@ -40,20 +40,22 @@
  *
  * Each XMLError object instance has an identification number that
  * identifies the nature of the problem.  This number will be up to five
- * digits long.  Applications can use the error identifiers as a means of
- * recognizing the error encountered and changing their behavior if desired.
+ * digits long and drawn from the enumeration #XMLErrorCode_t.
+ * Applications can use the error identifiers as a means of recognizing the
+ * error encountered and changing their behavior if desired.
  *
  * XMLError also logs a text message describing the nature of the error.
  * The text message is suitable for displaying to humans.
  *
  * Each XMLError object also contains a @em category code, drawn from the
- * enumeration XMLErrorCategory_t.  Categories are used to provide more
+ * enumeration #XMLErrorCategory_t.  Categories are used to provide more
  * information about the nature of a given error, such as whether it is a
  * system problem or a problem with the XML content.
  *
  * Each XMLError object also has a @em severity code, drawn from the
- * enumeration XMLErrorSeverity_t.  Severity levels currently range from
- * informational (SEVERITY_INFO) to fatal errors (SEVERITY_FATAL).
+ * enumeration #XMLErrorSeverity_t.  Severity levels currently
+ * range from informational (SEVERITY_INFO) to fatal errors
+ * (SEVERITY_FATAL).
  *
  * Finally, XMLError objects record the line and column near where the
  * problem occurred in the XML content.  We say "near", because many
@@ -282,14 +284,14 @@ public:
    *
    * XMLError objects have identification numbers to indicate the nature of
    * the exception.  These numbers are drawn from the enumeration
-   * XMLErrorCode_t.  The argument @p errorId to this constructor @em can be
+   * #XMLErrorCode_t.  The argument @p errorId to this constructor @em can be
    * (but does not have to be) a value from this enumeration.  If it is a
-   * value from XMLErrorCode_t, the XMLError class assumes the error is
+   * value from #XMLErrorCode_t, the XMLError class assumes the error is
    * a low-level system or XML layer error and prepends a predefined error
    * message to any string passed in @p details.  In addition, all
-   * XMLErrorCode_t errors have associated severity and category codes, and
+   * #XMLErrorCode_t errors have associated severity and category codes, and
    * these fields are filled-in as well from the enumerations
-   * XMLErrorSeverity_t and XMLErrorCategory_t, respectively.
+   * #XMLErrorSeverity_t and #XMLErrorCategory_t, respectively.
    *
    * If the error identifier @p errorId is a number greater than 9999, the
    * XMLError class assumes the error was generated from another part of
@@ -301,14 +303,14 @@ public:
    * maximum use of the XMLError facilities.
    *
    * As mentioned above, there are two other enumerations,
-   * XMLErrorSeverity_t and XMLErrorCategory_t, used for indicating the
+   * #XMLErrorSeverity_t and #XMLErrorCategory_t, used for indicating the
    * severity and category of error for the predefined XMLError codes.  The
    * values passed in @p severity and @p category override the defaults
    * assigned based on the error code.  If the error identifier is a code
-   * number from XMLErrorCode_t, callers do not need to fill in @p severity
+   * number from #XMLErrorCode_t, callers do not need to fill in @p severity
    * and @p category.  Conversely, if @p errorId is not a value from
-   * XMLErrorCode_t, callers can use other values (not just those from
-   * XMLErrorSeverity_t and XMLErrorCategory_t, but their own special
+   * #XMLErrorCode_t, callers can use other values (not just those from
+   * #XMLErrorSeverity_t and #XMLErrorCategory_t, but their own special
    * values) for @p severity and @p category.
    *
    * @param errorId an unsigned int, the identification number of the error.
@@ -395,7 +397,7 @@ public:
    * XMLError defines an enumeration of severity codes for the XML layer.
    * Applications that build on XMLError by subclassing it may add their
    * own severity codes with numbers higher than those in the
-   * XMLErrorSeverity_t enumeration.
+   * #XMLErrorSeverity_t enumeration.
    *
    * @return the severity of this XMLError.
    */
@@ -408,7 +410,7 @@ public:
    * XMLError defines an enumeration of category codes for the XML layer.
    * Applications that build on XMLError by subclassing it may add their
    * own categories with numbers higher than those in the
-   * XMLErrorCategory_t enumeration.
+   * #XMLErrorCategory_t enumeration.
    *
    * Categories can be used to partition errors into distinct groups.
    * Among other things, this can be used to prevent id conflicts by
@@ -425,7 +427,7 @@ public:
    *
    * This is equivalent to obtaining the severity code from an
    * XMLError object (via getSeverity()) and then comparing it to
-   * the value SEVERITY_INFO from the enumeration XMLErrorSeverity_t.
+   * the value SEVERITY_INFO from the enumeration #XMLErrorSeverity_t.
    *
    * @return @c true if this XMLError is for informational purposes only,
    * @c false otherwise.
@@ -439,7 +441,7 @@ public:
    *
    * This is equivalent to obtaining the severity code from an
    * XMLError object (via getSeverity()) and then comparing it to
-   * the value SEVERITY_WARNING from the enumeration XMLErrorSeverity_t.
+   * the value SEVERITY_WARNING from the enumeration #XMLErrorSeverity_t.
    *
    * @return @c true if this error is a warning, @c false otherwise.
    */
@@ -452,7 +454,7 @@ public:
    *
    * This is equivalent to obtaining the severity code from an
    * XMLError object (via getSeverity()) and then comparing it to
-   * the value SEVERITY_ERROR from the enumeration XMLErrorSeverity_t.
+   * the value SEVERITY_ERROR from the enumeration #XMLErrorSeverity_t.
    *
    * @return @c true if this error is an error, @c false otherwise.
    */
@@ -474,7 +476,7 @@ public:
    *
    * This is equivalent to obtaining the category identifier from an
    * XMLError object (via getCategory()) and then comparing it to
-   * the value CATEGORY_INTERNAL from the enumeration XMLErrorCategory_t.
+   * the value CATEGORY_INTERNAL from the enumeration #XMLErrorCategory_t.
    *
    * @return @c true or @c false
    */
@@ -487,7 +489,7 @@ public:
    *
    * This is equivalent to obtaining the category identifier from an
    * XMLError object (via getCategory()) and then comparing it to
-   * the value CATEGORY_SYSTEM from the enumeration XMLErrorCategory_t.
+   * the value CATEGORY_SYSTEM from the enumeration #XMLErrorCategory_t.
    *
    * @return @c true or @c false
    */
@@ -501,7 +503,7 @@ public:
    *
    * This is equivalent to obtaining the category identifier from an
    * XMLError object (via getCategory()) and then comparing it to
-   * the value CATEGORY_XML from the enumeration XMLErrorCategory_t.
+   * the value CATEGORY_XML from the enumeration #XMLErrorCategory_t.
    *
    * @return @c true or @c false
    */

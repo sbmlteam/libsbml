@@ -33,19 +33,19 @@
  * Each SBMLError object instance has an identification number that
  * identifies the nature of the problem.  This number will be up to five
  * digits long, and will be listed in one of two enumerations,
- * XMLErrorCode_t or SBMLErrorCode_t.  The latter enumeration in SBMLError
- * contains all the SBML validation rule numbers listed in the appendices
- * of the SBML specification documents.
+ * #XMLErrorCode_t or #SBMLErrorCode_t.  The latter enumeration in
+ * SBMLError contains all the SBML validation rule numbers listed in the
+ * appendices of the SBML specification documents.
  *
  * SBMLError also records a @em category code, drawn from the enumeration
- * SBMLErrorCategory_t.  Categories are used to partition errors into
+ * #SBMLErrorCategory_t.  Categories are used to partition errors into
  * distinct groups.  In particular, the SBML validation system in libSBML
  * identifies itself using different category codes, such as
  * CATEGORY_IDENTIFIER_CONSISTENCY for identifier consistency checking and
  * CATEGORY_MATHML_CONSISTENCY for MathML consistency checking.
  *
  * In addition, SBMLError also has a @em severity code, drawn from the
- * enumeration SBMLErrorSeverity_t.  Severity levels currently range from
+ * enumeration #SBMLErrorSeverity_t.  Severity levels currently range from
  * informational (SEVERITY_INFO) to fatal errors (SEVERITY_FATAL).
  *
  * SBMLError also logs a text message suitable for displaying to humans and
@@ -332,7 +332,7 @@ typedef enum
  * check whether the error represents a low-level XML problem or an
  * SBML problem.
  *
- * @see XMLErrorCategory_t
+ * @see #XMLErrorCategory_t
  */
 typedef enum 
 {
@@ -382,7 +382,7 @@ typedef enum
  *
  * These are distinct from XMLError's severity codes.  
  *
- * @see XMLErrorSeverity_t
+ * @see #XMLErrorSeverity_t
  */
 typedef enum
 {
@@ -417,7 +417,6 @@ typedef enum
 END_C_DECLS
 
 
-
 #ifdef __cplusplus
 
 class LIBSBML_EXTERN SBMLError : public XMLError
@@ -430,14 +429,14 @@ public:
    *
    * SBMLError objects have identification numbers to indicate the nature
    * of the exception.  These numbers are drawn from the enumeration
-   * SBMLErrorCode_t.  The argument @p errorId to this constructor @em can
+   * #SBMLErrorCode_t.  The argument @p errorId to this constructor @em can
    * be (but does not have to be) a value from this enumeration.  If it is
-   * a value from SBMLErrorCode_t, the SBMLError class assumes it the error
+   * a value from #SBMLErrorCode_t, the SBMLError class assumes it the error
    * is an SBML error and prepends a predefined error message to any string
-   * passed in @p details.  In addition, all SBMLErrorCode_t errors have
+   * passed in @p details.  In addition, all #SBMLErrorCode_t errors have
    * associated severity and category codes, and these fields are filled-in
-   * as well from the enumerations SBMLErrorSeverity_t and
-   * SBMLErrorCategory_t, respectively
+   * as well from the enumerations #SBMLErrorSeverity_t and
+   * #SBMLErrorCategory_t, respectively
    *
    * If the error identifier @p errorId is a number greater than 99999, the
    * SBMLError class assumes the error was generated from another part of
@@ -449,14 +448,14 @@ public:
    * make maximum use of the SBMLError facilities.
    *
    * As mentioned above, there are two other enumerations,
-   * SBMLErrorSeverity_t and SBMLErrorCategory_t, used for indicating the
-   * severity and category of error for the predefined SBMLErrorCode_t
+   * #SBMLErrorSeverity_t and #SBMLErrorCategory_t, used for indicating the
+   * severity and category of error for the predefined #SBMLErrorCode_t
    * codes.  The values passed in @p severity and @p category override the
    * defaults assigned based on the error code.  If the error identifier is
-   * a code number from SBMLErrorCode_t, callers do not need to fill in @p
+   * a code number from #SBMLErrorCode_t, callers do not need to fill in @p
    * severity and @p category.  Conversely, if @p errorId is not a value
-   * from SBMLErrorCode_t, callers can use other values (not just those
-   * from SBMLErrorSeverity_t and SBMLErrorCategory_t, but their own
+   * from #SBMLErrorCode_t, callers can use other values (not just those
+   * from #SBMLErrorSeverity_t and #SBMLErrorCategory_t, but their own
    * special values) for @p severity and @p category.
    *
    * @param errorId an unsigned int, the identification number of the error.

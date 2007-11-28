@@ -139,14 +139,14 @@ public:
 
 
   /**
-   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+   * @return the #SBMLTypeCode_t value of this SBML object or SBML_UNKNOWN
    * (default).
    */
   virtual SBMLTypeCode_t getTypeCode () const;
 
   /**
-   * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
-   * SBML_UNKNOWN (default).
+   * @return the #SBMLTypeCode_t value of SBML objects contained in this
+   * ListOf or SBML_UNKNOWN (default).
    */
   virtual SBMLTypeCode_t getItemTypeCode () const;
 

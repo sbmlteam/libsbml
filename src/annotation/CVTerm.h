@@ -100,13 +100,16 @@ class LIBSBML_EXTERN CVTerm
 public:
 
   /**
-   * Creates a new CVTerm, optionally with the given @p QualifierType.
+   * Creates a new CVTerm, optionally with the given #QualifierType_t value
+   * @p type.
    *
-   * The possible QualifierTypes are MODEL_QUALIFIER and BIOLOGICAL_QUALIFIER.  
-   * If the QualifierType is not set it will default to UNKNOWN_QUALIFIER.  The
-   * QualifierType can be set using the setQualifierType() method.
+   * The possible qualifier types are MODEL_QUALIFIER and
+   * BIOLOGICAL_QUALIFIER.  If the given #QualifierType_t value is not
+   * given, this method defaults to using UNKNOWN_QUALIFIER.  The
+   * #QualifierType_t type value can be set using the setQualifierType()
+   * method.
    *
-   * @param type a QualifierType_t
+   * @param type a #QualifierType_t value
    *
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different
@@ -170,7 +173,8 @@ public:
   /**
    * Returns the Qualifier Type code for this %CVTerm.
    * 
-   * @return the QualifierType_t of this object or UNKNOWN_QUALIFIER (default).
+   * @return the #QualifierType_t value of this object or UNKNOWN_QUALIFIER
+   * (default).
    */
   QualifierType_t getQualifierType();
 
@@ -178,7 +182,8 @@ public:
   /**
    * Returns the Model QualifierType code for this %CVTerm.
    * 
-   * @return the ModelQualifierType_t of this object or BQM_UNKNOWN (default).
+   * @return the #ModelQualifierType_t value of this object or BQM_UNKNOWN
+   * (default).
    */
   ModelQualifierType_t getModelQualifierType();
 
@@ -186,7 +191,8 @@ public:
   /**
    * Returns the Biological QualifierType code for this %CVTerm.
    * 
-   * @return the BiolQualifierType_t of this object or BQB_UNKNOWN (default).
+   * @return the #BiolQualifierType_t value of this object or BQB_UNKNOWN
+   * (default).
    */
   BiolQualifierType_t getBiologicalQualifierType();
 
@@ -208,31 +214,32 @@ public:
 
   
   /**
-   * Sets the "QualifierType_t" of this %CVTerm.
+   * Sets the #QualifierType_t value of this %CVTerm.
    *
-   * @param type the QualifierType_t 
+   * @param type the #QualifierType_t type value 
    */
   void setQualifierType(QualifierType_t type);
 
 
   /**
-   * Sets the "ModelQualifierType_t" of this %CVTerm.
+   * Sets the #ModelQualifierType_t value of this %CVTerm.
    *
-   * @param type the ModelQualifierType_t
+   * @param type the #ModelQualifierType_t value
    *
-   * @note if the QualifierType for this object is not MODEL_QUALIFIER
-   * then the ModelQualifierType will default to BQM_UNKNOWN.
+   * @note If the Qualifier Type of this object is not MODEL_QUALIFIER,
+   * then the ModelQualifierType_t will default to BQM_UNKNOWN.
    */
   void setModelQualifierType(ModelQualifierType_t type);
 
 
   /**
-   * Sets the "BiolQualifierType_t" of this %CVTerm.
+   * Sets the #BiolQualifierType_t of this %CVTerm.
    *
-   * @param type the BiolQualifierType_t
+   * @param type the #BiolQualifierType_t value
    *
-   * @note if the QualifierType for this object is not BIOLOGICAL_QUALIFIER
-   * then the BiolQualifierType_t will default to BQB_UNKNOWN.
+   * @note if the Qualifier Type of this object is not
+   * BIOLOGICAL_QUALIFIER, then the #BiolQualifierType_t value will default
+   * to BQB_UNKNOWN.
    */
   void setBiologicalQualifierType(BiolQualifierType_t type);
 
@@ -264,7 +271,6 @@ protected:
   QualifierType_t       mQualifier;
   ModelQualifierType_t  mModelQualifier;
   BiolQualifierType_t   mBiolQualifier;
-
 };
 
 

@@ -30,7 +30,7 @@
  * Version 3, there existed a data type in the SBML specifications called
  * @c UnitKind, enumerating the possible SBML base units; although SBML
  * Level 2 Version 3 removed this type from the specification, libSBML
- * maintains the corresponding enumeration type UnitKind_t as a convenience
+ * maintains the corresponding enumeration type #UnitKind_t as a convenience
  * and a way to provide backward compatibility to previous SBML
  * Level/Version specifications.  (The removal in SBML Level 2 Version 3 of
  * the enumeration @c UnitKind was also accompanied by the redefinition of
@@ -40,7 +40,7 @@
  * of the change in the SBML specification was simply to clean up an
  * inconsistency about the contexts in which these values were usable.)
  *
- * The UnitKind_t enumeration in libSBML has a small number of differences
+ * The #UnitKind_t enumeration in libSBML has a small number of differences
  * compared to the SBML specifications:
  * <ul>
  * <li> The alternate spelling @c "meter" is included in addition to the
@@ -55,7 +55,7 @@
  * 
  * Readers are directed to the descriptions of the UnitDefinition_t
  * and Unit_t data structures for more information about units in SBML
- * and the use of the UnitKind_t enumeraion.
+ * and the use of the #UnitKind_t enumeraion.
  *
  * @see UnitDefinition_t
  * @see Unit_t

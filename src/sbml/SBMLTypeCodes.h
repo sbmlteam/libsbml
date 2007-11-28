@@ -108,7 +108,7 @@ typedef enum
 
 
 /**
- * @return a human readable name for the given SBMLTypeCode_t.  The caller
+ * @return a human readable name for the given #SBMLTypeCode_t.  The caller
  * does not own the returned string and is therefore not allowed to modify
  * it.
  */

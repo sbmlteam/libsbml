@@ -913,7 +913,7 @@ public:
    * @param resource string representing the resource; e.g.,
    * "http://www.geneontology.org/#GO:0005892"
    *
-   * @return the BiolQualifierType_t associated with the resource
+   * @return the #BiolQualifierType_t value associated with the resource
    */
   BiolQualifierType_t getResourceBiologicalQualifier(std::string resource);
 
@@ -924,7 +924,7 @@ public:
    * @param resource string representing the resource; e.g.,
    * "http://www.geneontology.org/#GO:0005892"
    *
-   * @return the ModelQualifierType_t associated with the resource
+   * @return the #ModelQualifierType_t value associated with the resource
    */
   ModelQualifierType_t getResourceModelQualifier(std::string resource);
 
@@ -966,7 +966,7 @@ public:
    * primarily for the LibSBML C interface where class and subclass
    * information is not readily available.
    *
-   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+   * @return the #SBMLTypeCode_t value of this SBML object or SBML_UNKNOWN
    * (default).
    *
    * @see getElementName()

@@ -297,7 +297,7 @@ public:
    * argument (a boolean) indicates whether to turn on (value of @c true)
    * or off (value of @c false) that particula category of checks.  The
    * possible categories are represented as values of the enumeration
-   * SBMLErrorCategory_t.  The following are the possible choices in
+   * #SBMLErrorCategory_t.  The following are the possible choices in
    * libSBML version 3.0.2:
    *
    * @li CATEGORY_GENERAL_CONSISTENCY:    General overall SBML consistency.
@@ -322,7 +322,7 @@ public:
    * SBMLDocument object @em unless setConsistencyChecks() is called to
    * indicate that only a subset should be applied.
    * 
-   * @param category a value drawn from SBMLErrorCategory_t indicating the
+   * @param category a value drawn from #SBMLErrorCategory_t indicating the
    * consistency checking/validation to be turned on or off
    *
    * @param apply a boolean indicating whether the checks indicated by @p
@@ -487,7 +487,8 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @return the SBMLTypeCode_t of this object or SBML_UNKNOWN (default).
+   * @return the #SBMLTypeCode_t value of this object or SBML_UNKNOWN
+   * (default).
    *
    * @see getElementName()
    */

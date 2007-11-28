@@ -742,7 +742,8 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @return the SBMLTypeCode_t of this object or SBML_UNKNOWN (default).
+   * @return the #SBMLTypeCode_t value of this object or SBML_UNKNOWN
+   * (default).
    *
    * @see getElementName()
    */
@@ -826,7 +827,8 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @return the SBMLTypeCode_t of this object or SBML_UNKNOWN (default).
+   * @return the #SBMLTypeCode_t value of this object or SBML_UNKNOWN
+   * (default).
    *
    * @see getElementName()
    */
@@ -837,8 +839,8 @@ public:
    * Returns the libSBML type code for the objects contained in this ListOf
    * (i.e., Reaction objects, if the list is non-empty).
    * 
-   * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
-   * SBML_UNKNOWN (default).
+   * @return the #SBMLTypeCode_t value of SBML objects contained in this
+   * ListOf or SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */

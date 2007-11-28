@@ -1329,7 +1329,8 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @return the SBMLTypeCode_t of this object or SBML_UNKNOWN (default).
+   * @return the #SBMLTypeCode_t value of this object or SBML_UNKNOWN
+   * (default).
    *
    * @see getElementName()
    */
