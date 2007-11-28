@@ -109,11 +109,21 @@ check: all check-recursive
 # Installation.
 # -----------------------------------------------------------------------------
 
-install: all install-libraries
+install: all install-libraries install-checkandconvert
 
 installdirs: all
 
-uninstall: uninstall-libraries
+uninstall: uninstall-libraries uninstall-checkandconvert
+
+install-checkandconvert:
+	$(INSTALL_SH) -m 644 CheckAndConvert.m "$(DESTDIR)$(LIBDIR)"
+
+uninstall-checkandconvert:
+	@target="$(DESTDIR)$(LIBDIR)/CheckAndConvert.m"; \
+	if test -f $$target ; then \
+	  echo rm $$target; \
+	  rm $$target; \
+	fi;
 
 
 # -----------------------------------------------------------------------------
