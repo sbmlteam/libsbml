@@ -59,62 +59,62 @@ using namespace xercesc;
  * and /src/xerces-c-src_2_7_0/src/xercesc/NLS/EN_US/XMLErrList_EN_US.Xml
  */ 
 static struct xercesError {
-  const int                 xercesCode;
-  const enum XMLError::Code ourCode;
+  const int            xercesCode;
+  const XMLErrorCode_t ourCode;
 } xercesErrorTable[] = {
-  { XMLErrs::AttrAlreadyUsedInSTag, 	   XMLError::DuplicateAttribute},
-  { XMLErrs::BadDigitForRadix, 		   XMLError::BadNumber},
-  { XMLErrs::BadStandalone, 		   XMLError::BadXMLDecl},
-  { XMLErrs::BadXMLEncoding, 		   XMLError::BadXMLDecl},
-  { XMLErrs::BadXMLVersion, 		   XMLError::BadXMLDecl},
-  { XMLErrs::ColonNotLegalWithNS, 	   XMLError::BadColon},
-  { XMLErrs::DeclStringRep, 		   XMLError::BadXMLDecl},
-  { XMLErrs::EmptyMainEntity, 		   XMLError::EmptyXML},
-  { XMLErrs::EncodingRequired, 		   XMLError::MissingXMLEncoding},
-  { XMLErrs::EntityNotFound, 		   XMLError::UndefinedEntity},
-  { XMLErrs::ExpectedAttrValue, 	   XMLError::NotWellFormed},
-  { XMLErrs::ExpectedComment, 		   XMLError::NotWellFormed},
-  { XMLErrs::ExpectedCommentOrPI, 	   XMLError::BadXMLComment},
-  { XMLErrs::ExpectedDeclString, 	   XMLError::BadXMLDecl},
-  { XMLErrs::ExpectedEndOfTagX, 	   XMLError::TagMismatch},
-  { XMLErrs::ExpectedEqSign, 		   XMLError::NotWellFormed},
-  { XMLErrs::ExpectedQuotedString, 	   XMLError::ExpectedQuotedString},
-  { XMLErrs::ExpectedWhitespace, 	   XMLError::NotWellFormed},
-  { XMLErrs::IllegalSequenceInComment, 	   XMLError::BadXMLComment},
-  { XMLErrs::InvalidCharacter, 		   XMLError::InvalidChar},
-  { XMLErrs::InvalidCharacterInAttrValue,  XMLError::InvalidChar},
-  { XMLErrs::InvalidDocumentStructure, 	   XMLError::BadDocumentStructure},
-  { XMLErrs::MoreEndThanStartTags, 	   XMLError::TagMismatch},
-  { XMLErrs::NoEmptyStrNamespace, 	   XMLError::BadPrefix},
-  { XMLErrs::NoPIStartsWithXML, 	   XMLError::BadXMLDeclLocation},
-  { XMLErrs::NoUseOfxmlnsAsPrefix, 	   XMLError::BadPrefix},
-  { XMLErrs::NotValidAfterContent, 	   XMLError::InvalidAfterContent},
-  { XMLErrs::PINameExpected, 		   XMLError::BadProcessingInstruction},
-  { XMLErrs::PartialTagMarkupError, 	   XMLError::TagMismatch},
-  { XMLErrs::PrefixXMLNotMatchXMLURI, 	   XMLError::BadPrefixValue},
-  { XMLErrs::StandaloneNotLegal, 	   XMLError::BadXMLDecl},
-  { XMLErrs::UnexpectedEOF, 		   XMLError::UnexpectedEOF},
-  { XMLErrs::UnknownPrefix, 		   XMLError::BadPrefix},
-  { XMLErrs::UnsupportedXMLVersion, 	   XMLError::BadXMLDecl},
-  { XMLErrs::UnterminatedComment, 	   XMLError::BadXMLComment},
-  { XMLErrs::UnterminatedEndTag, 	   XMLError::NotWellFormed},
-  { XMLErrs::UnterminatedPI, 		   XMLError::NotWellFormed},
-  { XMLErrs::UnterminatedStartTag, 	   XMLError::NotWellFormed},
-  { XMLErrs::UnterminatedXMLDecl, 	   XMLError::BadXMLDecl},
-  { XMLErrs::XMLDeclMustBeFirst, 	   XMLError::BadXMLDeclLocation},
-  { XMLErrs::XMLDeclMustBeLowerCase, 	   XMLError::BadXMLDecl},
-  { XMLErrs::XMLException_Fatal,           XMLError::UnrecognizedParserCode},
-  { XMLErrs::XMLVersionRequired, 	   XMLError::BadXMLDecl},
-  { XMLErrs::ExpectedCommentOrCDATA, XMLError::NotWellFormed},
-  { XMLErrs::ExpectedAttrName, XMLError::NotWellFormed},
+  { XMLErrs::AttrAlreadyUsedInSTag,        DuplicateXMLAttribute},
+  { XMLErrs::BadDigitForRadix,             XMLBadNumber},
+  { XMLErrs::BadStandalone,                BadXMLDecl},
+  { XMLErrs::BadXMLEncoding,               BadXMLDecl},
+  { XMLErrs::BadXMLVersion,                BadXMLDecl},
+  { XMLErrs::ColonNotLegalWithNS,          XMLBadColon},
+  { XMLErrs::DeclStringRep,                BadXMLDecl},
+  { XMLErrs::EmptyMainEntity,              XMLContentEmpty},
+  { XMLErrs::EncodingRequired,             MissingXMLEncoding},
+  { XMLErrs::EntityNotFound,               UndefinedXMLEntity},
+  { XMLErrs::ExpectedAttrValue,            BadlyFormedXML},
+  { XMLErrs::ExpectedComment,              BadlyFormedXML},
+  { XMLErrs::ExpectedCommentOrPI,          BadXMLComment},
+  { XMLErrs::ExpectedDeclString,           BadXMLDecl},
+  { XMLErrs::ExpectedEndOfTagX,            XMLTagMismatch},
+  { XMLErrs::ExpectedEqSign,               BadlyFormedXML},
+  { XMLErrs::ExpectedQuotedString,         XMLExpectedQuotedString},
+  { XMLErrs::ExpectedWhitespace,           BadlyFormedXML},
+  { XMLErrs::IllegalSequenceInComment,     BadXMLComment},
+  { XMLErrs::InvalidCharacter,             InvalidCharInXML},
+  { XMLErrs::InvalidCharacterInAttrValue,  InvalidCharInXML},
+  { XMLErrs::InvalidDocumentStructure,     BadXMLDocumentStructure},
+  { XMLErrs::MoreEndThanStartTags,         XMLTagMismatch},
+  { XMLErrs::NoEmptyStrNamespace,          BadXMLPrefix},
+  { XMLErrs::NoPIStartsWithXML,            BadXMLDeclLocation},
+  { XMLErrs::NoUseOfxmlnsAsPrefix,         BadXMLPrefix},
+  { XMLErrs::NotValidAfterContent,         InvalidAfterXMLContent},
+  { XMLErrs::PINameExpected,               BadProcessingInstruction},
+  { XMLErrs::PartialTagMarkupError,        XMLTagMismatch},
+  { XMLErrs::PrefixXMLNotMatchXMLURI,      BadXMLPrefixValue},
+  { XMLErrs::StandaloneNotLegal,           BadXMLDecl},
+  { XMLErrs::UnexpectedEOF,                XMLUnexpectedEOF},
+  { XMLErrs::UnknownPrefix,                BadXMLPrefix},
+  { XMLErrs::UnsupportedXMLVersion,        BadXMLDecl},
+  { XMLErrs::UnterminatedComment,          BadXMLComment},
+  { XMLErrs::UnterminatedEndTag,           BadlyFormedXML},
+  { XMLErrs::UnterminatedPI,               BadlyFormedXML},
+  { XMLErrs::UnterminatedStartTag,         BadlyFormedXML},
+  { XMLErrs::UnterminatedXMLDecl,          BadXMLDecl},
+  { XMLErrs::XMLDeclMustBeFirst,           BadXMLDeclLocation},
+  { XMLErrs::XMLDeclMustBeLowerCase,       BadXMLDecl},
+  { XMLErrs::XMLException_Fatal,           UnrecognizedXMLParserCode},
+  { XMLErrs::XMLVersionRequired,           BadXMLDecl},
+  { XMLErrs::ExpectedCommentOrCDATA,       BadlyFormedXML},
+  { XMLErrs::ExpectedAttrName,             BadlyFormedXML},
 
   // The next one should always be last.  It's used only as a marker.
-  { XMLErrs::F_HighBounds,                 XMLError::UnknownError},
+  { XMLErrs::F_HighBounds,                 XMLUnknownError},
 };
 
 
 
-const enum XMLError::Code
+const XMLErrorCode_t
 translateError(const int xercesCode)
 {
   unsigned int tableSize = sizeof(xercesErrorTable)/sizeof(xercesErrorTable[0]);
@@ -136,13 +136,13 @@ translateError(const int xercesCode)
     // incomplete or because this version of Xerces is somehow different
     // from what we tested.  Bad news either way.
 
-    return XMLError::UnrecognizedParserCode;
+    return UnrecognizedXMLParserCode;
   }
 
   // The given code is outside the range of numbers in which known Xerces
   // codes lie.  Really bad news, and means something is wrong with our code.
 
-  return XMLError::UnknownError;
+  return XMLUnknownError;
 }
 
 
@@ -154,10 +154,10 @@ translateError(const int xercesCode)
  * @see translateError().
  */
 void
-XercesParser::reportError (const XMLError::Code code,
-			   const string& extraMsg,
-			   const unsigned int line,
-			   const unsigned int column)
+XercesParser::reportError (const XMLErrorCode_t code,
+			   const string&        extraMsg,
+			   const unsigned int   line,
+			   const unsigned int   column)
 {
   if (mErrorLog)
     mErrorLog->add(XMLError( code, extraMsg, line, column) );
@@ -339,7 +339,7 @@ XercesParser::createSource (const char* content, bool isFile)
     }
     catch (const XMLException& )
     {
-      reportError(XMLError::FileUnreadable, content, 0, 0);
+      reportError(XMLFileUnreadable, content, 0, 0);
     }
     XMLString::release(&filename);
   }
@@ -360,7 +360,7 @@ XercesParser::createSource (const char* content, bool isFile)
     {
     }
 
-    if ( source == 0 ) reportError(XMLError::OutOfMemory, "", 0, 0);
+    if ( source == 0 ) reportError(XMLOutOfMemory, "", 0, 0);
   }
 
   return source;
@@ -516,18 +516,18 @@ XercesParser::parseNext ()
     // XMLException doesn't have a lastXercesError or getColumnNumber().
 
     char* msg = XMLString::transcode(e.getMessage());
-    reportError(XMLError::UnknownError, msg, e.getSrcLine(), 1);
+    reportError(XMLUnknownError, msg, e.getSrcLine(), 1);
     result = false;
   }
   catch (...)
   {
-    reportError(XMLError::UnknownError, "thrown by Xerces", 0, 0);
+    reportError(XMLUnknownError, "thrown by Xerces", 0, 0);
     result = false;
   }
 
   if (! static_cast <XercesReader *> (mReader) ->hasXMLDeclaration())
   {
-    reportError(XMLError::MissingXMLDecl, "", 1, 1);
+    reportError(MissingXMLDecl, "", 1, 1);
     return false;
   }
 

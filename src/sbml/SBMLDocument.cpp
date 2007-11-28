@@ -89,7 +89,7 @@ SBMLDocument::conversion_errors(unsigned int errors)
    */
   if (errors > 0)
   {
-    if (mErrorLog.getNumFailsWithSeverity(SBMLError::Error) > 0)
+    if (mErrorLog.getNumFailsWithSeverity(SEVERITY_ERROR) > 0)
       return true;
     else
       return false;
@@ -285,7 +285,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
       {
         if (version == 1)
         {
-          mErrorLog.add(SBMLError::CannotConvertToL1V1);
+          mErrorLog.add(CannotConvertToL1V1);
         }
         if (!conversion_errors(checkL1Compatibility()))
         {
@@ -381,7 +381,8 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
     for (int i = 0; i < copyNamespaces->getLength(); i++)
     {
       if ( i != index)
-        mNamespaces->add(copyNamespaces->getURI(i), copyNamespaces->getPrefix(i));
+        mNamespaces->add(copyNamespaces->getURI(i),
+                         copyNamespaces->getPrefix(i));
     }
     delete copyNamespaces;
   }
@@ -414,6 +415,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
   return conversionSuccess;
 }
 
+
 /**
  * Sets the Model for this SBMLDocument to a copy of the given Model.
  */
@@ -445,13 +447,14 @@ SBMLDocument::createModel (const std::string& sid)
   return mModel;
 }
 
+
 void 
-SBMLDocument::setConsistencyChecks(SBMLError::SBMLCategory validator, 
+SBMLDocument::setConsistencyChecks(SBMLErrorCategory_t category,
                                    bool apply)
 {
-  switch (validator)
+  switch (category)
   {
-  case SBMLError::SBMLConsistencyIdentifier:
+  case CATEGORY_IDENTIFIER_CONSISTENCY:
     if (apply)
     {
       mApplicableValidators |= IdCheckON;
@@ -463,7 +466,7 @@ SBMLDocument::setConsistencyChecks(SBMLError::SBMLCategory validator,
 
     break;
 
-  case SBMLError::SBMLConsistency:
+  case CATEGORY_GENERAL_CONSISTENCY:
     if (apply)
     {
       mApplicableValidators |= SBMLCheckON;
@@ -475,7 +478,7 @@ SBMLDocument::setConsistencyChecks(SBMLError::SBMLCategory validator,
 
     break;
   
-  case SBMLError::SBMLConsistencySBO:
+  case CATEGORY_SBO_CONSISTENCY:
     if (apply)
     {
       mApplicableValidators |= SBOCheckON;
@@ -487,7 +490,7 @@ SBMLDocument::setConsistencyChecks(SBMLError::SBMLCategory validator,
 
     break;
   
-  case SBMLError::SBMLConsistencyMathML:
+  case CATEGORY_MATHML_CONSISTENCY:
     if (apply)
     {
       mApplicableValidators |= MathCheckON;
@@ -499,7 +502,7 @@ SBMLDocument::setConsistencyChecks(SBMLError::SBMLCategory validator,
 
     break;
   
-  case SBMLError::SBMLConsistencyUnits:
+  case CATEGORY_UNITS_CONSISTENCY:
     if (apply)
     {
       mApplicableValidators |= UnitsCheckON;
@@ -511,7 +514,7 @@ SBMLDocument::setConsistencyChecks(SBMLError::SBMLCategory validator,
 
     break;
   
-  case SBMLError::SBMLOverdetermined:
+  case CATEGORY_OVERDETERMINED_MODEL:
     if (apply)
     {
       mApplicableValidators |= OverdeterCheckON;
@@ -522,7 +525,8 @@ SBMLDocument::setConsistencyChecks(SBMLError::SBMLCategory validator,
     }
 
     break;
-  case SBMLError::SBMLModelingPractice:
+
+  case CATEGORY_MODELING_PRACTICE:
     if (apply)
     {
       mApplicableValidators |= PracticeCheckON;
@@ -533,8 +537,9 @@ SBMLDocument::setConsistencyChecks(SBMLError::SBMLCategory validator,
     }
 
     break;
+
   default:
-      mApplicableValidators = AllChecksON;
+    // If it's a category for which we don't have validators, ignore it.
     break;
   }
 
@@ -594,7 +599,7 @@ SBMLDocument::checkConsistency ()
     {
       mErrorLog.add( validator.getFailures() );
       /* only want to bail if errors not warnings */
-      if (mErrorLog.getNumFailsWithSeverity(SBMLError::Error) > 0)
+      if (mErrorLog.getNumFailsWithSeverity(SEVERITY_ERROR) > 0)
         return total_errors;
     }
   }
@@ -608,7 +613,7 @@ SBMLDocument::checkConsistency ()
     {
       mErrorLog.add( sbo_validator.getFailures() );
       /* only want to bail if errors not warnings */
-      if (mErrorLog.getNumFailsWithSeverity(SBMLError::Error) > 0)
+      if (mErrorLog.getNumFailsWithSeverity(SEVERITY_ERROR) > 0)
         return total_errors;
     }
   }
@@ -638,7 +643,7 @@ SBMLDocument::checkConsistency ()
     {
       mErrorLog.add( unit_validator.getFailures() );
       /* only want to bail if errors not warnings */
-      if (mErrorLog.getNumFailsWithSeverity(SBMLError::Error) > 0)
+      if (mErrorLog.getNumFailsWithSeverity(SEVERITY_ERROR) > 0)
         return total_errors;
     }
   }
@@ -653,7 +658,7 @@ SBMLDocument::checkConsistency ()
     {
       mErrorLog.add( over_validator.getFailures() );
       /* only want to bail if errors not warnings */
-      if (mErrorLog.getNumFailsWithSeverity(SBMLError::Error) > 0)
+      if (mErrorLog.getNumFailsWithSeverity(SEVERITY_ERROR) > 0)
         return total_errors;
     }
   }
@@ -946,7 +951,7 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
   unsigned int match = 0;
   if (mNamespaces == NULL)
   {
-    logError(SBMLError::InvalidNamespaceOnSBML);
+    logError(InvalidNamespaceOnSBML);
   }
   else 
   {
@@ -957,11 +962,11 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
         match = 1;
         if (mLevel != 1)
         {
-          logError(SBMLError::MissingOrInconsistentLevel);
+          logError(MissingOrInconsistentLevel);
         }
         if (mVersion != 1 && mVersion != 2)
         {
-          logError(SBMLError::MissingOrInconsistentVersion);
+          logError(MissingOrInconsistentVersion);
         }
        break;
       }
@@ -970,11 +975,11 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
         match = 1;
         if (mLevel != 2)
         {
-          logError(SBMLError::MissingOrInconsistentLevel);
+          logError(MissingOrInconsistentLevel);
         }
         if (mVersion != 1)
         {
-          logError(SBMLError::MissingOrInconsistentVersion);
+          logError(MissingOrInconsistentVersion);
         }
         break;
       }
@@ -983,11 +988,11 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
         match = 1;
         if (mLevel != 2)
         {
-          logError(SBMLError::MissingOrInconsistentLevel);
+          logError(MissingOrInconsistentLevel);
         }
         if (mVersion != 2)
         {
-          logError(SBMLError::MissingOrInconsistentVersion);
+          logError(MissingOrInconsistentVersion);
         }
         break;
       }
@@ -996,18 +1001,18 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
         match = 1;
         if (mLevel != 2)
         {
-          logError(SBMLError::MissingOrInconsistentLevel);
+          logError(MissingOrInconsistentLevel);
         }
         if (mVersion != 3)
         {
-          logError(SBMLError::MissingOrInconsistentVersion);
+          logError(MissingOrInconsistentVersion);
         }
         break;
       }
     }
     if (match == 0)
     {
-      logError(SBMLError::InvalidNamespaceOnSBML);
+      logError(InvalidNamespaceOnSBML);
     }
 
   }
@@ -1277,32 +1282,62 @@ SBMLDocument_createModel (SBMLDocument_t *d)
 }
 
 /**
-  * Allows particular validators to be turned on or off prior to
-  * calling checkConsistency. By default all validators are applied.
-  *
-  * @param d the SBMLDocument_t structure
-  * @param validator an integer representing the SBMLCategory of 
-  * the validator to turn on/off
-  * 
-  * Categories are:
-  * @li SBMLConsistency = 7           - Error in validating SBML consistency.
-  * @li SBMLConsistencyIdentifier = 8 - Error in validating identifiers. 
-  * @li SBMLConsistencyUnits = 9      - Error in validating units. 
-  * @li SBMLConsistencyMathML = 10    - Error in validating MathML. 
-  * @li SBMLConsistencySBO = 11       - Error in validation SBO. 
-  * @li SBMLOverdetermined = 12       - Error in equations of model. 
-  * @li SBMLModelingPractice = 14     - Error in model practice. 
-  *
-  * @param apply boolean indicating whether the validator 
-  * should be applied or not.
-  */
+ * Allows particular validators to be turned on or off prior to
+ * calling checkConsistency. 
+ *
+ * The second argument (@p category) to this method indicates which
+ * category of consistency/error checks are being turned on or off, and
+ * the second argument (a boolean) indicates whether to turn on (value of
+ * @c true) or off (value of @c false) that particula category of checks.
+ * The possible categories are represented as values of the enumeration
+ * SBMLErrorCategory_t.  The following are the possible choices in libSBML
+ * version 3.0.2:
+ *
+ * @li CATEGORY_GENERAL_CONSISTENCY:    General overall SBML consistency.
+ * 
+ * @li CATEGORY_IDENTIFIER_CONSISTENCY: Consistency of identifiers.  An
+ * example of inconsistency would be using a species identifier in a
+ * reaction rate formula without first having declared the species.
+ * 
+ * @li CATEGORY_UNITS_CONSISTENCY:      Consistency of units of measure.
+ * 
+ * @li CATEGORY_MATHML_CONSISTENCY:     Consistency of MathML constructs.
+ * 
+ * @li CATEGORY_SBO_CONSISTENCY:        Consistency of SBO identifiers.
+ * 
+ * @li CATEGORY_OVERDETERMINED_MODEL:   Checking whether the system of
+ * equations implied by a model is mathematically overdetermined.
+ * 
+ * @li CATEGORY_MODELING_PRACTICE:      General good practice in
+ * model construction.
+ * 
+ * By default, all validation checks are applied to the model in an
+ * SBMLDocument object @em unless setConsistencyChecks() is called to
+ * indicate that only a subset should be applied.
+ *
+ * @param d the SBMLDocument_t structure
+ *
+ * @param category a value drawn from SBMLErrorCategory_t indicating the
+ * consistency checking/validation to be turned on or off
+ *
+ * @param apply a boolean indicating whether the checks indicated by @p
+ * category should be applied or not. 
+ * 
+ * @note The default (i.e., performing all checks) applies to each new
+ * SBMLDocument object created.  This means that each time a model is
+ * read using SBMLReader::readSBML(), SBMLReader::readSBMLFromString, or
+ * the global functions readSBML() and readSBMLFromString(), a new
+ * SBMLDocument is created and for that document
+ *
+ * @see SBMLDocument_checkConsistency()
+ */
 LIBSBML_EXTERN
 void
 SBMLDocument_setConsistencyChecks(SBMLDocument_t * d, 
-                                     int validator,
-                                     int apply)
+                                  SBMLErrorCategory_t category,
+                                  int apply)
 {
-  d->setConsistencyChecks(SBMLError::SBMLCategory(validator), apply);
+  d->setConsistencyChecks(SBMLErrorCategory_t(category), apply);
 }
 
 
@@ -1310,8 +1345,11 @@ SBMLDocument_setConsistencyChecks(SBMLDocument_t * d,
  * Performs a set of consistency and validation checks on the given SBML
  * document.
  *
- * Callers should query the results of the consistency check by calling
- * getError().
+ * If this method returns a nonzero value (meaning, one or more
+ * consistency checks have failed for SBML document), the failures may be
+ * due to warnings @em or errors.  Callers should inspect the severity
+ * flag in the individual SBMLError objects returned by getError() to
+ * determine the nature of the failures.
  *
  * @param d the SBMLDocument_t structure
  *

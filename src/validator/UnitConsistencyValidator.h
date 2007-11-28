@@ -38,7 +38,7 @@ class UnitConsistencyValidator: public Validator
 public:
 
   UnitConsistencyValidator () :
-    Validator( SBMLError::SBMLConsistencyUnits ) { }
+    Validator( CATEGORY_UNITS_CONSISTENCY ) { }
 
   virtual ~UnitConsistencyValidator () { }
 

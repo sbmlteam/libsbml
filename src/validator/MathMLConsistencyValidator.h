@@ -38,7 +38,7 @@ class MathMLConsistencyValidator: public Validator
 public:
 
   MathMLConsistencyValidator () :
-    Validator( SBMLError::SBMLConsistencyMathML ) { }
+    Validator( CATEGORY_MATHML_CONSISTENCY ) { }
 
   virtual ~MathMLConsistencyValidator () { }
 

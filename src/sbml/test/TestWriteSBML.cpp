@@ -120,7 +120,7 @@ START_TEST (test_WriteSBML_error)
 
   fail_unless( ! w->writeSBML(d, "/tmp/impossible/path/should/fail") );
   fail_unless( d->getNumErrors() == 1 );
-  fail_unless( d->getError(0)->getErrorId() == XMLError::FileUnwritable );
+  fail_unless( d->getError(0)->getErrorId() == XMLFileUnwritable );
 
   delete d;
   delete w;

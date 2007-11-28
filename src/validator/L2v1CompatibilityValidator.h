@@ -38,7 +38,7 @@ class L2v1CompatibilityValidator: public Validator
 public:
 
   L2v1CompatibilityValidator () :
-    Validator( SBMLError::SBMLL2v1Compatibility ) { }
+    Validator( CATEGORY_SBML_L2V1_COMPAT ) { }
 
   virtual ~L2v1CompatibilityValidator () { }
 

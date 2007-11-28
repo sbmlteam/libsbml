@@ -204,7 +204,7 @@ ExpatHandler::startNamespace (const XML_Char* prefix, const XML_Char* uri)
   if (streq(prefix, "xml")
       && !streq(uri, "http://www.w3.org/XML/1998/namespace"))
   {
-    mHandlerError = new XMLError(XMLError::BadPrefixValue,
+    mHandlerError = new XMLError(BadXMLPrefixValue,
                                  "The prefix 'xml' is reserved in XML",
                                  getLine(), getColumn());
   }

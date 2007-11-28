@@ -378,7 +378,7 @@ UnitDefinition::createObject (XMLInputStream& stream)
   {
     if (mUnits.size() != 0)
     {
-      logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
+      logError(NotSchemaConformant, getLevel(), getVersion(),
 	       "Only one <listOfUnits> elements is permitted in a "
 	       "given <unitDefinition>.");
     }

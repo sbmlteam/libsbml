@@ -38,7 +38,7 @@ class ModelingPracticeValidator: public Validator
 public:
 
   ModelingPracticeValidator () :
-    Validator( SBMLError::SBMLConsistencyIdentifier ) { }
+    Validator( CATEGORY_IDENTIFIER_CONSISTENCY ) { }
 
   virtual ~ModelingPracticeValidator () { }
 

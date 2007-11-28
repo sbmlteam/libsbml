@@ -271,7 +271,7 @@ FunctionDefinition::readOtherXML (XMLInputStream& stream)
     // if this is level 1 there shouldnt be any math!!!
     if (getLevel() == 1) 
     {
-      logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
+      logError(NotSchemaConformant, getLevel(), getVersion(),
 	       "SBML Level 1 does not support MathML.");
       delete mMath;
       return false;
@@ -313,7 +313,7 @@ FunctionDefinition::readOtherXML (XMLInputStream& stream)
     }
     if (match == 0)
     {
-      logError(SBMLError::InvalidMathElement);
+      logError(InvalidMathElement);
     }
 
     delete mMath;

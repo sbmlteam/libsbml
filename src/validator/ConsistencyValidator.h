@@ -38,7 +38,7 @@ class ConsistencyValidator: public Validator
 {
 public:
 
-  ConsistencyValidator () : Validator( SBMLError::SBMLConsistency ) { }
+  ConsistencyValidator () : Validator( CATEGORY_GENERAL_CONSISTENCY ) { }
 
   virtual ~ConsistencyValidator () { }
 

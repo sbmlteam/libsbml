@@ -702,7 +702,7 @@ Reaction::createObject (XMLInputStream& stream)
   {
     if (mReactants.size() != 0)
     {
-      logError(SBMLError::NotSchemaConformant);
+      logError(NotSchemaConformant);
     }
     object = &mReactants;
   }
@@ -710,7 +710,7 @@ Reaction::createObject (XMLInputStream& stream)
   {
     if (mProducts.size() != 0)
     {
-      logError(SBMLError::NotSchemaConformant);
+      logError(NotSchemaConformant);
     }
     object = &mProducts;
   }
@@ -723,7 +723,7 @@ Reaction::createObject (XMLInputStream& stream)
 
     if (mModifiers.size() != 0)
     {
-      logError(SBMLError::NotSchemaConformant);
+      logError(NotSchemaConformant);
     }
     object = &mModifiers;
   }
@@ -731,7 +731,7 @@ Reaction::createObject (XMLInputStream& stream)
   {
     if (mKineticLaw)
     {
-      logError(SBMLError::NotSchemaConformant);
+      logError(NotSchemaConformant);
     }
     delete mKineticLaw;
 

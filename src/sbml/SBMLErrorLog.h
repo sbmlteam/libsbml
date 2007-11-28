@@ -34,19 +34,20 @@
  * SBMLErrorLog is derived from XMLErrorLog, an object class that serves
  * exactly the same purpose but for the XML parsing layer.  XMLErrorLog
  * provides crucial methods such as getNumErrors() for determining how many
- * SBMLError or XMLError objects are in the log.
+ * SBMLError or XMLError objects are in the log.  SBMLErrorLog inherits
+ * these methods.
  *
  * The general approach to working with SBMLErrorLog in user programs
  * involves first obtaining a pointer to a log from a libSBML object such
  * as SBMLDocument.  Callers should then use getNumErrors() to inquire how
- * many error objects there are in the list.  (The answer may be 0.)  If
- * there is at least one SBMLError object in the SBMLErrorLog instance,
- * callers can then iterate over the list using getError() and use methods
- * on SBMLError to find out the error code and associated information such
- * as the error message and line number.
+ * many objects there are in the list.  (The answer may be 0.)  If there is
+ * at least one SBMLError object in the SBMLErrorLog instance, callers can
+ * then iterate over the list using getError() and use methods on SBMLError
+ * to find out the error code and associated information such as the error
+ * severity, the message, and the line number in the input.
  *
  * If a user program wants to simply display the errors to humans, an
- * easier way is to use SBMLDocument::printErrors().
+ * easier and more direct way is to use SBMLDocument::printErrors().
  */
 
 #ifndef SBMLErrorLog_h
@@ -55,10 +56,11 @@
 
 #include <sbml/common/extern.h>
 #include <sbml/xml/XMLError.h>
-#include <sbml/xml/XMLError.h>
 #include <sbml/xml/XMLErrorLog.h>
 #include <sbml/SBMLError.h>
 
+
+#ifdef __cplusplus
 
 class LIBSBML_EXTERN SBMLErrorLog : public XMLErrorLog
 {
@@ -80,11 +82,12 @@ public:
 
 
   /**
-   * Returns number of errors that are logged with the given severity.
+   * Returns number of errors that are logged with the given severity, which
+   * should be a value taken from the enumeration SBMLErrorSeverity_t.
    * 
-   * @param severity The Severity value of the fails to count.
+   * @param severity a value from SBMLErrorSeverity_t
    */
-  unsigned int getNumFailsWithSeverity(SBMLError::SBMLSeverity severity);
+  unsigned int getNumFailsWithSeverity(unsigned int severity);
 
 
   /** @cond doxygen-libsbml-internal */
@@ -124,14 +127,14 @@ public:
    */
   void logError
   (
-      const unsigned int errorId         = 0
-    , const unsigned int level           = 2
-    , const unsigned int version         = 3
-    , const std::string& details         = ""
-    , const unsigned int line            = 0
-    , const unsigned int column          = 0
-    , const SBMLError::SBMLSeverity severity = SBMLError::Error
-    , const SBMLError::SBMLCategory category = SBMLError::SBML
+      const unsigned int errorId  = 0
+    , const unsigned int level    = 2
+    , const unsigned int version  = 3
+    , const std::string& details  = ""
+    , const unsigned int line     = 0
+    , const unsigned int column   = 0
+    , const unsigned int severity = SEVERITY_ERROR
+    , const unsigned int category = CATEGORY_SBML
   );
 
 
@@ -163,5 +166,6 @@ public:
   /** @endcond doxygen-libsbml-internal */
 };
 
+#endif  /* __cplusplus */
 
 #endif  /* SBMLErrorLog_h */

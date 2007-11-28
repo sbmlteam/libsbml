@@ -629,7 +629,7 @@ XMLAttributes::attributeTypeError (  const std::string& name
       break;
   }
 
-  log->add( XMLError(XMLError::AttributeTypeMismatch, message.str()) );
+  log->add( XMLError(XMLAttributeTypeMismatch, message.str()) );
 }
 
 
@@ -651,7 +651,7 @@ XMLAttributes::attributeRequiredError (const std::string&  name,
   if ( !mElementName.empty() ) message << mElementName << ' ';
   message << "attribute '" << name << "' is required.";
 
-  log->add( XMLError(XMLError::MissingRequiredAttribute, message.str()) );
+  log->add( XMLError(MissingXMLRequiredAttribute, message.str()) );
 }
 
 /** @endcond doxygen-libsbml-internal */
@@ -734,7 +734,9 @@ XMLAttributes_clone (const XMLAttributes_t* att)
  **/
 LIBLAX_EXTERN
 void
-XMLAttributes_add (XMLAttributes_t *xa, const char *name, const char *value)
+XMLAttributes_add (XMLAttributes_t *xa,
+                   const char *name,
+                   const char *value)
 {
   xa->add(name, value);
 }
@@ -753,7 +755,11 @@ XMLAttributes_add (XMLAttributes_t *xa, const char *name, const char *value)
  **/
 LIBLAX_EXTERN
 void
-XMLAttributes_addWithNamespace (XMLAttributes_t *xa, const char *name, const char *value, const char* uri, const char* prefix)
+XMLAttributes_addWithNamespace (XMLAttributes_t *xa,
+                                const char *name,
+                                const char *value,
+                                const char* uri,
+                                const char* prefix)
 {
   xa->add(name, value, uri, prefix);
 }

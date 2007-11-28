@@ -56,7 +56,8 @@
  * validation rules on the SBML content.  These methods assess whether the
  * SBML is legal according to basic rules listed in the SBML Level 2
  * Version 2 and Version 3 specification documents.  The primary interface
- * is SBMLDocument::checkConsistency().  Additional useful methods are
+ * is SBMLDocument::checkConsistency() and
+ * SBMLDocument::setConsistencyChecks().  Additional useful methods are
  * SBMLDocument::checkL1Compatibility(),
  * SBMLDocument::checkL2v1Compatibility(),
  * SBMLDocument::checkL2v2Compatibility(), and
@@ -73,6 +74,9 @@
 
 #include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
+#include <sbml/SBMLError.h>
+#include <sbml/SBMLErrorLog.h>
+#include <sbml/SBase.h>
 
 
 #ifdef __cplusplus
@@ -80,16 +84,14 @@
 
 #include <iosfwd>
 
-#include <sbml/SBMLError.h>
-#include <sbml/SBMLErrorLog.h>
-#include <sbml/SBase.h>
-
-
 class Model;
 class SBMLVisitor;
 class XMLError;
 
+
+/** @cond doxygen-libsbml-internal */
 /* Constants for setting/unsetting particular consistency checks */
+
 #define IdCheckON         0x01;
 #define IdCheckOFF        0xfe;
 #define SBMLCheckON       0x02;
@@ -105,6 +107,9 @@ class XMLError;
 #define PracticeCheckON   0x40;
 #define PracticeCheckOFF  0xbf;
 #define AllChecksON       0x7f;
+
+/** @endcond doxygen-libsbml-internal */
+
 
 class LIBSBML_EXTERN SBMLDocument: public SBase
 {
@@ -284,37 +289,68 @@ public:
 
 
   /**
-   * Allows particular consistency-checking validators to be turned on or
-   * off prior to calling checkConsistency().
+   * Controls the consistency checks that are performed when
+   * SBMLDocument::checkConsistency() is called.
    *
-   * By default, all validation checks are applied to a model unless this
-   * function is called to indicate only a subset should be applied.  The
-   * first argument allows the caller to set the particular validations
-   * that should be applied.  The possible categories are the following:
-   * @li SBMLError::SBMLConsistency:            Error in validating SBML consistency.
-   * @li SBMLError::SBMLConsistencyIdentifier:  Error in validating identifiers. 
-   * @li SBMLError::SBMLConsistencyUnits:       Error in validating units. 
-   * @li SBMLError::SBMLConsistencyMathML:      Error in validating MathML. 
-   * @li SBMLError::SBMLConsistencySBO:         Error in validation SBO. 
-   * @li SBMLError::SBMLOverdetermined:         Error in equations of model. 
-   * @li SBMLError::SBMLModelingPractice:       Error in modeling practice. 
+   * The first argument to this method indicates which category of
+   * consistency/error checks are being turned on or off, and the second
+   * argument (a boolean) indicates whether to turn on (value of @c true)
+   * or off (value of @c false) that particula category of checks.  The
+   * possible categories are represented as values of the enumeration
+   * SBMLErrorCategory_t.  The following are the possible choices in
+   * libSBML version 3.0.2:
    *
-   * @param validator the SBMLCategory of the validator to turn on/off
+   * @li CATEGORY_GENERAL_CONSISTENCY:    General overall SBML consistency.
+   * 
+   * @li CATEGORY_IDENTIFIER_CONSISTENCY: Consistency of identifiers.  An
+   * example of inconsistency would be using a species identifier in a
+   * reaction rate formula without first having declared the species.
+   * 
+   * @li CATEGORY_UNITS_CONSISTENCY:      Consistency of units of measure.
+   * 
+   * @li CATEGORY_MATHML_CONSISTENCY:     Consistency of MathML constructs.
+   * 
+   * @li CATEGORY_SBO_CONSISTENCY:        Consistency of SBO identifiers.
+   * 
+   * @li CATEGORY_OVERDETERMINED_MODEL:   Checking whether the system of
+   * equations implied by a model is mathematically overdetermined.
+   * 
+   * @li CATEGORY_MODELING_PRACTICE:      General good practice in
+   * model construction.
+   * 
+   * By default, all validation checks are applied to the model in an
+   * SBMLDocument object @em unless setConsistencyChecks() is called to
+   * indicate that only a subset should be applied.
+   * 
+   * @param category a value drawn from SBMLErrorCategory_t indicating the
+   * consistency checking/validation to be turned on or off
    *
-   * @param apply boolean indicating whether the validator 
-   * should be applied or not.
+   * @param apply a boolean indicating whether the checks indicated by @p
+   * category should be applied or not.
+   * 
+   * @note The default (i.e., performing all checks) applies to each new
+   * SBMLDocument object created.  This means that each time a model is
+   * read using SBMLReader::readSBML(), SBMLReader::readSBMLFromString, or
+   * the global functions readSBML() and readSBMLFromString(), a new
+   * SBMLDocument is created and for that document
+   *
+   * @see checkConsistency()
    */
-  void setConsistencyChecks(SBMLError::SBMLCategory validator, bool apply);
+  void setConsistencyChecks(SBMLErrorCategory_t category, bool apply);
 
 
   /**
-   * Performs a set of consistency and validation checks on this SBML
-   * document.
+   * Performs consistency checking and validation on this SBML document.
    *
-   * Callers should query the results of the consistency check by calling
-   * getError().
+   * If this method returns a nonzero value (meaning, one or more
+   * consistency checks have failed for SBML document), the failures may be
+   * due to warnings @em or errors.  Callers should inspect the severity
+   * flag in the individual SBMLError objects returned by getError() to
+   * determine the nature of the failures.
    *
    * @return the number of failed checks (errors) encountered.
+   *
+   * @see setConsistencyChecks()
    */
   unsigned int checkConsistency ();
 

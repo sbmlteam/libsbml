@@ -37,188 +37,188 @@ using namespace std;
 static const xmlErrorTableEntry errorTable[] =
 {
   // 0
-  { XMLError::UnknownError, XMLError::Internal, XMLError::Fatal,
+  { XMLUnknownError, CATEGORY_INTERNAL, SEVERITY_FATAL,
     "Unrecognized error encountered internally." },
 
 
   // System diagnostics:
 
   // 0001
-  { XMLError::OutOfMemory, XMLError::System, XMLError::Fatal,
+  { XMLOutOfMemory, CATEGORY_SYSTEM, SEVERITY_FATAL,
     "Out of memory." },
 
   // 0002
-  { XMLError::FileUnreadable, XMLError::System, XMLError::Error,
+  { XMLFileUnreadable, CATEGORY_SYSTEM, SEVERITY_ERROR,
     "File unreadable." },
 
   // 0003
-  { XMLError::FileUnwritable, XMLError::System, XMLError::Error,
+  { XMLFileUnwritable, CATEGORY_SYSTEM, SEVERITY_ERROR,
     "File unwritable." },
 
   // 0004
-  { XMLError::FileOperationError, XMLError::System, XMLError::Error,
+  { XMLFileOperationError, CATEGORY_SYSTEM, SEVERITY_ERROR,
     "Error encountered while attempting file operation." },
 
   // 0005
-  { XMLError::NetworkAccessError, XMLError::System, XMLError::Error,
+  { XMLNetworkAccessError, CATEGORY_SYSTEM, SEVERITY_ERROR,
     "Network access error." },
 
 
   // Internal diagnostics:
 
   // 0101
-  { XMLError::InternalParserError, XMLError::Internal, XMLError::Fatal,
+  { InternalXMLParserError, CATEGORY_INTERNAL, SEVERITY_FATAL,
     "Internal XML parser state error." },
 
   // 0102
-  { XMLError::UnrecognizedParserCode, XMLError::Internal, XMLError::Fatal,
+  { UnrecognizedXMLParserCode, CATEGORY_INTERNAL, SEVERITY_FATAL,
     "XML parser returned an unrecognized error code." },
 
   // 0102
-  { XMLError::TranscoderError, XMLError::Internal, XMLError::Fatal,
+  { XMLTranscoderError, CATEGORY_INTERNAL, SEVERITY_FATAL,
     "Character transcoder error." },
 
 
   // Diagnostics about XML content:
 
   // 1001
-  { XMLError::MissingXMLDecl, XMLError::XML, XMLError::Error,
+  { MissingXMLDecl, CATEGORY_XML, SEVERITY_ERROR,
     "Missing XML declaration at beginning of XML input." },
 
   // 1002
-  { XMLError::MissingXMLEncoding, XMLError::XML, XMLError::Error,
+  { MissingXMLEncoding, CATEGORY_XML, SEVERITY_ERROR,
     "Missing encoding attribute in XML declaration." },
 
   // 1003
-  { XMLError::BadXMLDecl, XMLError::XML, XMLError::Error,
+  { BadXMLDecl, CATEGORY_XML, SEVERITY_ERROR,
     "Invalid or unrecognized XML declaration or XML encoding." },
 
   // 1004
-  { XMLError::BadDOCTYPE, XMLError::XML, XMLError::Error,
+  { BadXMLDOCTYPE, CATEGORY_XML, SEVERITY_ERROR,
     "Invalid, malformed or unrecognized XML DOCTYPE declaration." },
 
   // 1005
-  { XMLError::InvalidChar, XMLError::XML, XMLError::Error,
+  { InvalidCharInXML, CATEGORY_XML, SEVERITY_ERROR,
     "Invalid character in XML content." },
 
   // 1006
-  { XMLError::NotWellFormed, XMLError::XML, XMLError::Error,
-    "Badly formed XML." },
+  { BadlyFormedXML, CATEGORY_XML, SEVERITY_ERROR,
+    "XML is not well-formed." },
 
   // 1007
-  { XMLError::UnclosedToken, XMLError::XML, XMLError::Error,
+  { UnclosedXMLToken, CATEGORY_XML, SEVERITY_ERROR,
     "Unclosed token." },
 
   // 1008
-  { XMLError::InvalidConstruct, XMLError::XML, XMLError::Error,
+  { InvalidXMLConstruct, CATEGORY_XML, SEVERITY_ERROR,
     "XML construct is invalid or not permitted." },
 
   // 1009
-  { XMLError::TagMismatch, XMLError::XML, XMLError::Error,
+  { XMLTagMismatch, CATEGORY_XML, SEVERITY_ERROR,
     "Element tag mismatch or missing tag." },
 
   // 1010
-  { XMLError::DuplicateAttribute, XMLError::XML, XMLError::Error,
+  { DuplicateXMLAttribute, CATEGORY_XML, SEVERITY_ERROR,
     "Duplicate attribute." },
 
   // 1011
-  { XMLError::UndefinedEntity, XMLError::XML, XMLError::Error,
+  { UndefinedXMLEntity, CATEGORY_XML, SEVERITY_ERROR,
     "Undefined XML entity." },
 
   // 1012
-  { XMLError::BadProcessingInstruction, XMLError::XML, XMLError::Error,
+  { BadProcessingInstruction, CATEGORY_XML, SEVERITY_ERROR,
     "Invalid, malformed or unrecognized XML processing instruction." },
 
   // 1013
-  { XMLError::BadPrefix, XMLError::XML, XMLError::Error,
+  { BadXMLPrefix, CATEGORY_XML, SEVERITY_ERROR,
     "Invalid or undefined XML Namespace prefix." },
 
   // 1014
-  { XMLError::BadPrefixValue, XMLError::XML, XMLError::Error,
+  { BadXMLPrefixValue, CATEGORY_XML, SEVERITY_ERROR,
     "Invalid XML Namespace prefix value." },
 
   // 1015
-  { XMLError::MissingRequiredAttribute, XMLError::XML, XMLError::Error,
+  { MissingXMLRequiredAttribute, CATEGORY_XML, SEVERITY_ERROR,
     "Missing required attribute." },
 
   // 1016
-  { XMLError::AttributeTypeMismatch, XMLError::XML, XMLError::Error,
+  { XMLAttributeTypeMismatch, CATEGORY_XML, SEVERITY_ERROR,
     "Data type mismatch for attribute value." },
 
   // 1017
-  { XMLError::BadUTF8Content, XMLError::XML, XMLError::Error,
+  { XMLBadUTF8Content, CATEGORY_XML, SEVERITY_ERROR,
     "Invalid UTF8 content." },
 
   // 1018
-  { XMLError::MissingAttributeValue, XMLError::XML, XMLError::Error,
+  { MissingXMLAttributeValue, CATEGORY_XML, SEVERITY_ERROR,
     "Missing or improperly formed attribute value." },
 
   // 1019
-  { XMLError::BadAttributeValue, XMLError::XML, XMLError::Error,
+  { BadXMLAttributeValue, CATEGORY_XML, SEVERITY_ERROR,
     "Invalid or unrecognizable attribute value." },
 
   // 1020
-  { XMLError::BadAttribute, XMLError::XML, XMLError::Error,
+  { BadXMLAttribute, CATEGORY_XML, SEVERITY_ERROR,
     "Invalid, unrecognized or malformed attribute." },
 
   // 1021
-  { XMLError::UnrecognizedElement, XMLError::XML, XMLError::Error,
+  { UnrecognizedXMLElement, CATEGORY_XML, SEVERITY_ERROR,
     "Element either not recognized or not permitted." },
 
   // 1022
-  { XMLError::BadXMLComment, XMLError::XML, XMLError::Error,
+  { BadXMLComment, CATEGORY_XML, SEVERITY_ERROR,
     "Badly formed XML comment." },
 
   // 1023
-  { XMLError::BadXMLDeclLocation, XMLError::XML, XMLError::Error,
+  { BadXMLDeclLocation, CATEGORY_XML, SEVERITY_ERROR,
     "XML declaration not permitted in this location." },
 
   // 1024
-  { XMLError::UnexpectedEOF, XMLError::XML, XMLError::Error,
+  { XMLUnexpectedEOF, CATEGORY_XML, SEVERITY_ERROR,
     "Reached end of input unexpectedly." },
 
   // 1025
-  { XMLError::BadXMLIDValue, XMLError::XML, XMLError::Error,
+  { BadXMLIDValue, CATEGORY_XML, SEVERITY_ERROR,
     "Value is invalid for XML ID, or has already been used." },
 
   // 1026
-  { XMLError::BadXMLIDRef, XMLError::XML, XMLError::Error,
+  { BadXMLIDRef, CATEGORY_XML, SEVERITY_ERROR,
     "XML ID value was never declared." },
 
   // 1027
-  { XMLError::UninterpretableContent, XMLError::XML, XMLError::Error,
+  { UninterpretableXMLContent, CATEGORY_XML, SEVERITY_ERROR,
     "Unable to interpret content." },
 
   // 1028
-  { XMLError::BadDocumentStructure, XMLError::XML, XMLError::Error,
+  { BadXMLDocumentStructure, CATEGORY_XML, SEVERITY_ERROR,
     "Bad XML document structure." },
 
   // 1029
-  { XMLError::InvalidAfterContent, XMLError::XML, XMLError::Error,
+  { InvalidAfterXMLContent, CATEGORY_XML, SEVERITY_ERROR,
     "Encountered invalid content after expected content." },
 
   // 1031
-  { XMLError::ExpectedQuotedString, XMLError::XML, XMLError::Error,
+  { XMLExpectedQuotedString, CATEGORY_XML, SEVERITY_ERROR,
     "Expected to find a quoted string." },
 
   // 1032
-  { XMLError::EmptyValueNotPermitted, XMLError::XML, XMLError::Error,
+  { XMLEmptyValueNotPermitted, CATEGORY_XML, SEVERITY_ERROR,
     "An empty value is not permitted in this context." },
 
   // 1033
-  { XMLError::BadNumber, XMLError::XML, XMLError::Error,
+  { XMLBadNumber, CATEGORY_XML, SEVERITY_ERROR,
     "Invalid or unrecognized number." },
 
   // 1034
-  { XMLError::BadColon, XMLError::XML, XMLError::Error,
+  { XMLBadColon, CATEGORY_XML, SEVERITY_ERROR,
     "Colon characters are invalid in this context." },
 
   // 1035
-  { XMLError::MissingElements, XMLError::XML, XMLError::Error,
+  { MissingXMLElements, CATEGORY_XML, SEVERITY_ERROR,
     "One or more expected elements are missing." },
 
   // 1036
-  { XMLError::EmptyXML, XMLError::XML, XMLError::Error,
+  { XMLContentEmpty, CATEGORY_XML, SEVERITY_ERROR,
     "Main XML content is empty." },
 
 };
@@ -243,7 +243,7 @@ XMLError::XMLError (  const int errorId
   // it is, fill in the fields of the error object with the appropriate
   // content.  If it's not in the table, take the content as-is.
 
-  if ( errorId >= 0 && errorId < XMLError::ErrorCodesUpperBound )
+  if ( errorId >= 0 && errorId < XMLErrorCodesUpperBound )
   {
     unsigned int tableSize = sizeof(errorTable)/sizeof(errorTable[0]);    
 
@@ -365,7 +365,7 @@ XMLError::getCategory () const
 bool
 XMLError::isInfo () const
 {
-  return (mSeverity == Info);
+  return (mSeverity == SEVERITY_INFO);
 }
 
 
@@ -375,7 +375,7 @@ XMLError::isInfo () const
 bool
 XMLError::isWarning () const
 {
-  return (mSeverity == Warning);
+  return (mSeverity == SEVERITY_WARNING);
 }
 
 
@@ -385,7 +385,7 @@ XMLError::isWarning () const
 bool
 XMLError::isError () const
 {
-  return (mSeverity == Error);
+  return (mSeverity == SEVERITY_ERROR);
 }
 
 
@@ -395,7 +395,7 @@ XMLError::isError () const
 bool
 XMLError::isFatal () const
 {
-  return (mSeverity == Fatal);
+  return (mSeverity == SEVERITY_FATAL);
 }
 
 
@@ -408,7 +408,7 @@ XMLError::isFatal () const
 bool
 XMLError::isSystem () const
 {
-  return (mCategory == System);
+  return (mCategory == CATEGORY_SYSTEM);
 }
 
 
@@ -422,7 +422,7 @@ XMLError::isSystem () const
 bool
 XMLError::isXML () const
 {
-  return (mCategory == XML);
+  return (mCategory == CATEGORY_XML);
 }
 
 
@@ -435,7 +435,7 @@ XMLError::isXML () const
 bool
 XMLError::isInternal () const
 {
-  return (mCategory == Internal);
+  return (mCategory == CATEGORY_INTERNAL);
 }
 
 
@@ -469,7 +469,7 @@ XMLError::getStandardMessage (const int code)
 {
   string msg;
 
-  if ( code >= 0 && code < XMLError::ErrorCodesUpperBound )
+  if ( code >= 0 && code < XMLErrorCodesUpperBound )
   {
     unsigned int tableSize = sizeof(errorTable)/sizeof(errorTable[0]);    
 
@@ -496,10 +496,10 @@ ostream& operator<< (ostream& s, const XMLError& error)
 
   switch (error.getSeverity())
   {
-  case XMLError::Info:      s << "Advisory"; break;
-  case XMLError::Warning:   s << "Warning";  break;
-  case XMLError::Fatal:     s << "Fatal";    break;
-  case XMLError::Error:     s << "Error";    break;
+  case SEVERITY_INFO:      s << "Advisory"; break;
+  case SEVERITY_WARNING:   s << "Warning";  break;
+  case SEVERITY_FATAL:     s << "Fatal";    break;
+  case SEVERITY_ERROR:     s << "Error";    break;
   }
 
   s << "]) " << error.mMessage << endl;
@@ -539,21 +539,19 @@ XMLError_createWithIdAndMessage (unsigned int errorId, const char * message)
   return new(nothrow) XMLError(errorId, message);
 }
 
-/**
+/*
  * Creates a new XMLError to report that something occurred at the given
  * line and column.  Each XMLError also has an identification number, a
  * category, and a severity level associated with it.
  *
  * @param errorId an unsigned int, the identification number of the error.
  * @param message a string, the error message.
- * @param severity XMLError_Severity, severity of the error.
+ * @param severity XMLErrorSeverity_t, severity of the error.
  * @param category a string, the category to which the error belongs.
  * @param line an unsigned int, the line number at which the error occurs.
  * @param column an unsigned int, the column number at which the error occurs.
  *
  */
-
-
 //LIBLAX_EXTERN
 //XMLError_t*
 //XMLError_createWithAll (unsigned int errorId, const char * message, XMLError_Severity severity,
@@ -655,14 +653,8 @@ XMLError_getColumn (const XMLError_t *error)
 
 
 /**
- * Return the severity of this XMLError.  XMLErrors severity levels
- * correspond to those defined in the XML specification (with the addition
- * of Info for informational messages).
- *
- * @li  0 - Info
- * @li  1 - Warning
- * @li  2 - Error
- * @li  3 - Fatal
+ * Return the severity of this XMLError.  The possible values (for the XML
+ * layer) are those from the enumeration XMLErrorSeverity_t.
  *
  * @param error the XMLError_t from which to return the severity.
  *
@@ -677,11 +669,8 @@ XMLError_getSeverity (const XMLError_t *error)
 
 
 /**
- * Return the category of this XMLError.  A category is a string, similiar
- * in spirit to an XML namespace, which can be used to partition errors
- * into distinct groups.  Among other things, this can be used to prevent
- * id conflicts by uniquely identifying an XMLError by both id and
- * category.
+ * Return the category of this XMLError.  The possible values (for the XML
+ * layers) are those from the enumeration XMLErrorCategory_t.
  *
  * @param error the XMLError_t from which to return the category.
  *
@@ -742,7 +731,6 @@ XMLError_isError (const XMLError_t *error)
 {
   return static_cast<int>( error->isError() );
 }
-
 
 
 /**

@@ -331,7 +331,7 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
     else 
     {
       static_cast <SBMLErrorLog*>
-	(stream.getErrorLog())->logError(SBMLError::BadCsymbolDefinitionURLValue);
+	(stream.getErrorLog())->logError(BadCsymbolDefinitionURLValue);
     }
   }
 
@@ -399,7 +399,7 @@ setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
   else
   {
     static_cast <SBMLErrorLog*>
-      (stream.getErrorLog())->logError(SBMLError::DisallowedMathTypeAttributeValue);
+      (stream.getErrorLog())->logError(DisallowedMathTypeAttributeValue);
   }
 }
 
@@ -474,7 +474,7 @@ readMathML (ASTNode& node, XMLInputStream& stream)
   if (!found)
   {
     static_cast <SBMLErrorLog*>
-      (stream.getErrorLog())->logError(SBMLError::DisallowedMathMLSymbol);
+      (stream.getErrorLog())->logError(DisallowedMathMLSymbol);
   }
 
   string encoding;
@@ -488,13 +488,13 @@ readMathML (ASTNode& node, XMLInputStream& stream)
   if ( !type.empty() && name != "cn")
   {
     static_cast <SBMLErrorLog*>
-      (stream.getErrorLog())->logError(SBMLError::DisallowedMathTypeAttributeUse);
+      (stream.getErrorLog())->logError(DisallowedMathTypeAttributeUse);
   }
 
   if ( !encoding.empty() && name != "csymbol")
   {
     static_cast <SBMLErrorLog*>
-      (stream.getErrorLog())->logError(SBMLError::DisallowedMathMLEncodingUse);
+      (stream.getErrorLog())->logError(DisallowedMathMLEncodingUse);
   }
 
   // allow definition url on csymbol/semantics and bvar
@@ -502,7 +502,7 @@ readMathML (ASTNode& node, XMLInputStream& stream)
                      && name != "semantics"))
   {
     static_cast <SBMLErrorLog*>
-      (stream.getErrorLog())->logError(SBMLError::DisallowedDefinitionURLUse);
+      (stream.getErrorLog())->logError(DisallowedDefinitionURLUse);
   }
 
 
@@ -533,9 +533,9 @@ readMathML (ASTNode& node, XMLInputStream& stream)
 
         // the mathML reader doesnt know what level and version it is reading!
         // FIX ME
-        static_cast <SBMLErrorLog*> (stream.getErrorLog())
-                                        ->logError(SBMLError::BadMathML, 2,
-                                        1, message);
+        static_cast <SBMLErrorLog*> (stream.getErrorLog())->logError(BadMathML,
+                                                                     2, 1,
+                                                                     message);
         return;
 
       }
@@ -552,9 +552,9 @@ readMathML (ASTNode& node, XMLInputStream& stream)
 
         // the mathML reader doesnt know what level and version it is reading!
         // FIX ME
-        static_cast <SBMLErrorLog*> (stream.getErrorLog())
-                                        ->logError(SBMLError::BadMathML, 2,
-                                        1, message);
+        static_cast <SBMLErrorLog*> (stream.getErrorLog())->logError(BadMathML,
+                                                                     2, 1,
+                                                                     message);
         return;
 
       }

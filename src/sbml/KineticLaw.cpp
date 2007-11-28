@@ -485,7 +485,7 @@ KineticLaw::createObject (XMLInputStream& stream)
   {
     if (mParameters.size() != 0)
     {
-      logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
+      logError(NotSchemaConformant, getLevel(), getVersion(),
 	       "Only one <listOfParameters> elements is permitted "
 	       "in a given <kineticLaw> element.");
     }
@@ -515,13 +515,13 @@ KineticLaw::readOtherXML (XMLInputStream& stream)
     // if this is level 1 there shouldnt be any math!!!
     if (getLevel() == 1) 
     {
-      logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
+      logError(NotSchemaConformant, getLevel(), getVersion(),
 	       "SBML Level 1 does not support MathML.");
       delete mMath;
       return false;
     }
 
-    if (getNumParameters() > 0) logError(SBMLError::IncorrectOrderInKineticLaw);
+    if (getNumParameters() > 0) logError(IncorrectOrderInKineticLaw);
 
     /* check for MathML namespace 
      * this may be explicitly declared here
@@ -559,7 +559,7 @@ KineticLaw::readOtherXML (XMLInputStream& stream)
     }
     if (match == 0)
     {
-      logError(SBMLError::InvalidMathElement);
+      logError(InvalidMathElement);
     }
     delete mMath;
     mMath = readMathML(stream);

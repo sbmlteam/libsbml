@@ -102,7 +102,7 @@ SBMLWriter::writeSBML (const SBMLDocument* d, const std::string& filename)
   if (stream.fail() || stream.bad())
   {
     SBMLErrorLog *log = (const_cast<SBMLDocument *>(d))->getErrorLog();
-    log->logError(XMLError::FileUnwritable);
+    log->logError(XMLFileUnwritable);
     return false;
   }
   
@@ -133,7 +133,7 @@ SBMLWriter::writeSBML (const SBMLDocument* d, std::ostream& stream)
   catch (ios_base::failure&)
   {
     SBMLErrorLog *log = (const_cast<SBMLDocument *>(d))->getErrorLog();
-    log->logError(XMLError::FileOperationError);
+    log->logError(XMLFileOperationError);
   }
 
   return result;

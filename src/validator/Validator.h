@@ -43,7 +43,7 @@ class Validator
 {
 public:
 
-  Validator ( SBMLError::SBMLCategory category = SBMLError::SBML );
+  Validator ( SBMLErrorCategory_t category = CATEGORY_SBML );
 
   virtual ~Validator ();
 
@@ -82,7 +82,7 @@ public:
    *   http://sbml.org/validator/consistency/units
    *   http://sbml.org/validator/compatibility/L1
    */
-  const SBMLError::SBMLCategory getCategory () const;
+  const unsigned int getCategory () const;
 
 
   /**
@@ -119,9 +119,9 @@ protected:
   /** @cond doxygen-libsbml-internal */
 
 
-  ValidatorConstraints*   mConstraints;
-  std::list<SBMLError>    mFailures;
-  SBMLError::SBMLCategory mCategory;
+  ValidatorConstraints* mConstraints;
+  std::list<SBMLError>  mFailures;
+  unsigned int          mCategory;
 
 
   friend class ValidatingVisitor;

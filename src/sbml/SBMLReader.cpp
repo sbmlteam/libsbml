@@ -107,24 +107,24 @@ isCriticalError(const unsigned int errorId)
 {
   switch (errorId)
   {
-  case XMLError::InternalParserError:
-  case XMLError::UnrecognizedParserCode:
-  case XMLError::TranscoderError:
-  case XMLError::NotWellFormed:
-  case XMLError::InvalidConstruct:
-  case XMLError::UnclosedToken:
-  case XMLError::TagMismatch:
-  case XMLError::BadPrefix:
-  case XMLError::MissingAttributeValue:
-  case XMLError::BadXMLComment:
-  case XMLError::UnexpectedEOF:
-  case XMLError::UninterpretableContent:
-  case XMLError::BadDocumentStructure:
-  case XMLError::InvalidAfterContent:
-  case XMLError::ExpectedQuotedString:
-  case XMLError::EmptyValueNotPermitted:
-  case XMLError::MissingElements:
-  case XMLError::BadXMLDeclLocation:
+  case InternalXMLParserError:
+  case UnrecognizedXMLParserCode:
+  case XMLTranscoderError:
+  case BadlyFormedXML:
+  case InvalidXMLConstruct:
+  case UnclosedXMLToken:
+  case XMLTagMismatch:
+  case BadXMLPrefix:
+  case MissingXMLAttributeValue:
+  case BadXMLComment:
+  case XMLUnexpectedEOF:
+  case UninterpretableXMLContent:
+  case BadXMLDocumentStructure:
+  case InvalidAfterXMLContent:
+  case XMLExpectedQuotedString:
+  case XMLEmptyValueNotPermitted:
+  case MissingXMLElements:
+  case BadXMLDeclLocation:
     return true;
 
   default:
@@ -145,7 +145,7 @@ SBMLReader::readInternal (const char* content, bool isFile)
 
   if (isFile && content && (util_file_exists(content) == false))
   {
-    d->getErrorLog()->logError(XMLError::FileUnreadable);
+    d->getErrorLog()->logError(XMLFileUnreadable);
   }
   else
   {
@@ -188,25 +188,25 @@ SBMLReader::readInternal (const char* content, bool isFile)
 
       if (stream.getEncoding() == "")
       {
-        d->getErrorLog()->logError(XMLError::MissingXMLEncoding);
+        d->getErrorLog()->logError(MissingXMLEncoding);
       }
       else if (strcmp_insensitive(stream.getEncoding().c_str(), "UTF-8") != 0)
       {
-        d->getErrorLog()->logError(SBMLError::NotUTF8);
+        d->getErrorLog()->logError(NotUTF8);
       }
 
       if (stream.getVersion() == "")
       {
-        d->getErrorLog()->logError(XMLError::BadXMLDecl);
+        d->getErrorLog()->logError(BadXMLDecl);
       }
       else if (strcmp_insensitive(stream.getVersion().c_str(), "1.0") != 0)
       {
-        d->getErrorLog()->logError(XMLError::BadXMLDecl);
+        d->getErrorLog()->logError(BadXMLDecl);
       }
 
       if (d->getModel() == 0)
       {
-        d->getErrorLog()->logError(SBMLError::MissingModel);
+        d->getErrorLog()->logError(MissingModel);
       }
       else if (d->getLevel() == 1)
       {
@@ -214,7 +214,7 @@ SBMLReader::readInternal (const char* content, bool isFile)
 
         if (d->getModel()->getNumCompartments() == 0)
         {
-          d->getErrorLog()->logError(SBMLError::NotSchemaConformant,
+          d->getErrorLog()->logError(NotSchemaConformant,
 				     d->getLevel(), d->getVersion(), 
             "An SBML Level 1 model must contain at least one <compartment>.");
         }
@@ -223,13 +223,13 @@ SBMLReader::readInternal (const char* content, bool isFile)
         {
           if (d->getModel()->getNumSpecies() == 0)
           {
-            d->getErrorLog()->logError(SBMLError::NotSchemaConformant,
+            d->getErrorLog()->logError(NotSchemaConformant,
 				       d->getLevel(), d->getVersion(), 
             "An SBML Level 1 Version 1 model must contain at least one <species>.");
           }
           if (d->getModel()->getNumReactions() == 0)
           {
-            d->getErrorLog()->logError(SBMLError::NotSchemaConformant,
+            d->getErrorLog()->logError(NotSchemaConformant,
 				       d->getLevel(), d->getVersion(), 
             "An SBML Level 1 Version 1 model must contain at least one <reaction>.");
           }

@@ -41,15 +41,23 @@
     libSBML version #define constants are accessible.  (See notes in
     3.0.1 below about the version constants.)
 
+  - Fixed problem wherein the enumerations for error codes, severity
+    codes and error categories were in fact not visible outside of
+    C++.  The problem stemmed from the fact the enum definitions were
+    placed inside C++ classes.  Unfortunately, this required changing
+    the symbols.  We renamed many of them to try to make them less
+    likely to conflict with symbols in user code.
+
   - Fixed bug that incorrectly caused the hasOnlySubstanceUnits
     attribute on species to be set to true when a Level 1 model was
     converted to Level 2.  This bug would have impacted the validation
-    of unit consistency in Level 1 models.
+    of unit consistency in Level 1 models, causing models to fail
+    validation when in fact they were correct.
 
   - Fixed bug where some consistency checks for math/units were not
     checking all the children of the math element.
 
-  - Fixed memory leak in ASTNode reported and fixed by Rainer Machne.
+  - Fixed memory leak in ASTNode (reported and fixed by Rainer Machne).
 
   - Fixed bug in UnitFormulaFormatter.cpp where the order in which
     parameters/ species/compartments were searched for an identifier
@@ -72,8 +80,8 @@
     order of dependencies on libraries, causing cygwin builds to
     fail.
 
-  - A libsbml.la file is now constructed and installed under cygwin.
-    The .la files appear to be used by the cygwin compilation
+  - (Cygwin) A libsbml.la file is now constructed and installed under
+    cygwin.  The .la files appear to be used by the Cygwin compilation
     environment to determine library dependencies.
 
   - During installation, the Python bindings installation would ignore
@@ -82,16 +90,16 @@
 
   - Python build was not sufficiently isolated from the user's
     installation directories and could have picked up
-    previously-installed older versions of libsbml on the system.
-    Fixed. 
+    previously-installed older versions of libsbml on the system at
+    build time and test time.  Fixed. 
 
   - "make uninstall" should now properly remove everything installed
     by a "make install".  One remaining issue is that "make uninstall"
-    can only know to remove those libSBML features configured in.  If
-    you do a make install, then run configure with different options,
-    and then try make uninstall, it will attempt to uninstall the
-    files implied by the most recent configure, not the files
-    installed by the original "make install".
+    can only know to remove those libSBML features currently
+    configured in.  If you do a "make install", then run configure
+    with different options, and then try "make uninstall", it will
+    attempt to uninstall the files implied by the most recent run of
+    configure, not the files installed by the original "make install".
 
 
  === Version 3.0.1 ===

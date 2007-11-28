@@ -147,7 +147,7 @@ private:
    * other variants of this method near where this one appears in the
    * documentation.
    */
-  void reportError (  const XMLError::Code code
+  void reportError (  const XMLErrorCode_t code
 		    , const std::string& extraMsg     = ""
 		    , const unsigned int lineNumber   = 0
 		    , const unsigned int columnNumber = 0 );

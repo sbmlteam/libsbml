@@ -69,22 +69,20 @@
 #include <sbml/xml/XMLError.h>
 
 
-class LIBSBML_EXTERN SBMLError : public XMLError
-{
-public:
+BEGIN_C_DECLS
 
-  /**
-   * Codes for all SBML-level errors and warnings.
-   *
-   * These are distinguished from the XML layer (LIBLAX) error codes by
-   * being numbered > 10000, while the XML layer's codes are < 9999.
-   * Calling programs may wish to check whether a given SBMLError object's
-   * error identifier is actually from SBMLCode or XMLError::Code.  This
-   * distinction corresponds to whether a given error represents a
-   * low-level XML problem or an SBML problem.
-   */
-  enum SBMLCode
-  {
+/**
+ * Codes for all SBML-level errors and warnings.
+ *
+ * These are distinguished from the XML layer (LIBLAX) error codes by
+ * being numbered > 10000, while the XML layer's codes are < 9999.
+ * Calling programs may wish to check whether a given SBMLError object's
+ * error identifier is actually from SBMLCode or XMLError::Code.  This
+ * distinction corresponds to whether a given error represents a
+ * low-level XML problem or an SBML problem.
+ */
+typedef enum
+{
     UnknownError                     =     0 /*!< 0 */
   , NotUTF8                          = 10101 /*!< SBML L2v3 validation rule #10101 */
   , UnrecognizedElement              = 10102 /*!< SBML L2v3 validation rule #10102 */
@@ -256,7 +254,7 @@ public:
   , LocalParameterShadowsId          = 81121
     
   // Lower bound for additional error codes returned by libSBML but not
-   // defined in SBML specifications.
+  // defined in SBML specifications.
 
   , LibSBMLAdditionalCodesLowerBound = 90000
 
@@ -309,107 +307,122 @@ public:
 
   // These are internal errors that reverts to 10501
 
-    /** @cond doxygen-libsbml-internal */
+  /** @cond doxygen-libsbml-internal */
   , InconsistentArgUnitsWarnings     = 99502 /*!< SBML L2v3 validation rule #10501 */
   , InconsistentPowerUnitsWarnings   = 99503 /*!< SBML L2v3 validation rule #10501 */
   , InconsistentExponUnitsWarnings   = 99504 /*!< SBML L2v3 validation rule #10501 */
-    /** @endcond doxygen-libsbml-internal */
+  /** @endcond doxygen-libsbml-internal */
 
   , UndeclaredUnits                  = 99505 
   , UnrecognisedSBOTerm              = 99701
 
-    // Bounds
+  // Bounds
   , SBMLCodesUpperBound              = 99999 /*!< 99999, the upper bound of
-					      * all libSBML codes.
-					      * Application-specific codes
-					      * should begin at 100000. */
-  };
+                                              * all libSBML codes.
+                                              * Application-specific codes
+                                              * should begin at 100000. */
+} SBMLErrorCode_t;
 
 
-  /**
-   * Category codes for SBMLError diagnostics.
-   *
-   * Note that these are distinct from XMLError's category codes.  User
-   * programs receiving an SBMLError object can use this distinction to
-   * check whether the error represents a low-level XML problem or an
-   * SBML problem.
-   *
-   * @see SBMLError
-   */
-  enum SBMLCategory
-  {
-    Internal                  = XMLError::Internal
-  , System                    = XMLError::System
-  , XML                       = XMLError::XML
-  , SBML                      = 3  /*!< General SBML error. */
-  , SBMLL1Compatibility       = 4  /*!< Error in converting to SBML Level 1. */
-  , SBMLL2v1Compatibility     = 5  /*!< Error in converting to SBML L1V1. */
-  , SBMLL2v2Compatibility     = 6  /*!< Error in converting to SBML L1V2. */
-  , SBMLConsistency           = 7  /*!< Error in validating SBML consistency.*/
-  , SBMLConsistencyIdentifier = 8  /*!< Error in validating identifiers. */
-  , SBMLConsistencyUnits      = 9  /*!< Error in validating units. */
-  , SBMLConsistencyMathML     = 10 /*!< Error in validating MathML. */
-  , SBMLConsistencySBO        = 11 /*!< Error in validation SBO. */
-  , SBMLOverdetermined        = 12 /*!< Error in equations of model. */
-  , SBMLL2v3Compatibility     = 13 /*!< Error in converting to SBML L2V3. */
-  , SBMLModelingPractice      = 14
-  };
+/**
+ * Category codes for SBMLError diagnostics.
+ *
+ * Note that these are distinct from XMLError's category codes.  User
+ * programs receiving an SBMLError object can use this distinction to
+ * check whether the error represents a low-level XML problem or an
+ * SBML problem.
+ *
+ * @see XMLErrorCategory_t
+ */
+typedef enum 
+{
+    CATEGORY_SBML = (CATEGORY_XML + 1)
+    /*!< General SBML error. */
+
+  , CATEGORY_SBML_L1_COMPAT
+    /*!< Error in converting to SBML Level 1. */
+
+  , CATEGORY_SBML_L2V1_COMPAT
+    /*!< Error in converting to SBML Level 1 Version 1. */
+
+  , CATEGORY_SBML_L2V2_COMPAT
+    /*!< Error in converting to SBML Level 1 Version 2. */
+
+  , CATEGORY_GENERAL_CONSISTENCY
+    /*!< Error in validating the consistency of the SBML model. */
+
+  , CATEGORY_IDENTIFIER_CONSISTENCY
+    /*!< Error in validating the symbol identifiers in the model. */
+
+  , CATEGORY_UNITS_CONSISTENCY
+    /*!< Error in validating units. */
+
+  , CATEGORY_MATHML_CONSISTENCY
+    /*!< Error in validating MathML. */
+
+  , CATEGORY_SBO_CONSISTENCY
+    /*!< Error in validation SBO. */
+
+  , CATEGORY_OVERDETERMINED_MODEL
+    /*!< Error in the system of equations in the model: the system is
+     * overdetermined, therefore violating a tenet of proper SBML. */
+
+  , CATEGORY_SBML_L2V3_COMPAT
+    /*!< Error in converting to SBML Level 2 Version 3. */
+
+  , CATEGORY_MODELING_PRACTICE
+    /*!< Warning about recommended good practices involving SBML and
+     * computational modeling. */
+
+} SBMLErrorCategory_t;
 
 
-  /**
-   * Severity codes for SBMLError diagnostics.
-   *
-   * @see SBMLError
-   */
-  enum SBMLSeverity
-  {
-    Info    = XMLError::Info    /*!< The error is actually informational
-                                 * and not necessarily a serious problem. */
-
-  , Warning = XMLError::Warning /*!< The error object represents a 
-                                 * problem that is not serious enough to
-                                 * necessarily stop the parser, but
-                                 * applications should take note of the
-                                 * problem and evaluate what its
-                                 * implications may be. */
-
-  , Error   = XMLError::Error   /*!< The error object represents a serious
-                                 * problem.  The application may continue
-                                 * running but it is unlikely to be able to
-                                 * continue processing the same XML file or
-                                 * data stream. */
-
-  , Fatal   = XMLError::Fatal   /*!< A unrecoverable error occurred, such as
-                                 * an out-of-memory condition, and the
-                                 * software should terminate
-                                 * immediately. */
-
+/**
+ * Severity codes for SBMLError diagnostics.
+ *
+ * These are distinct from XMLError's severity codes.  
+ *
+ * @see XMLErrorSeverity_t
+ */
+typedef enum
+{
   /** @cond doxygen-libsbml-internal **/
 
   /* The following are used internally in SBMLErrorTable, but publicly,
-   * we only report one of the 4 categories above.  Translation of the
-   * codes is done in SBMLError.cpp.
+   * we only report one of the 4 XMLError_Severity values.  Translation
+   * of the codes is done in SBMLError.cpp.
    */
 
-  , SchemaError                 /*!< The XML content does not conform to
-                                 * the relevant version of the SBML XML 
-                                 * Schema.  The content is not valid SBML. */
+    SEVERITY_SCHEMA_ERROR    = (SEVERITY_FATAL + 1)
+    /*!< The XML content does not conform to
+     * the relevant version of the SBML XML 
+     * Schema.  The content is not valid SBML. */
 
-  , GeneralWarning              /*!< The XML content is invalid for some
-                                 * levels/versions of SBML, and while it
-                                 * may be valid in others, it is something
-                                 * that is best avoided anyway.  LibSBML
-                                 * will issue warnings in those cases it
-                                 * can recognize. */
+  , SEVERITY_GENERAL_WARNING
+    /*!< The XML content is invalid for some
+     * levels/versions of SBML, and while it
+     * may be valid in others, it is something
+     * that is best avoided anyway.  LibSBML
+     * will issue warnings in those cases it
+     * can recognize. */
 
-  , NotApplicable               /*!< This error code is only a placeholder
-				 * for errors that have relevance to some
-				 * versions of SBML but not others. */
+  , SEVERITY_NOT_APPLICABLE
+    /*!< This error code is only a placeholder
+     * for errors that have relevance to some
+     * versions of SBML but not others. */
 
   /** @endcond doxygen-libsbml-internal **/
+} SBMLErrorSeverity_t;
 
-  };
+END_C_DECLS
 
+
+
+#ifdef __cplusplus
+
+class LIBSBML_EXTERN SBMLError : public XMLError
+{
+public:
 
   /**
    * Creates a new SBMLError to report that something occurred during SBML
@@ -417,14 +430,14 @@ public:
    *
    * SBMLError objects have identification numbers to indicate the nature
    * of the exception.  These numbers are drawn from the enumeration
-   * SBMLError::Code.  The argument @p errorId to this constructor @em can
+   * SBMLErrorCode_t.  The argument @p errorId to this constructor @em can
    * be (but does not have to be) a value from this enumeration.  If it is
-   * a value from SBMLError::Code, the SBMLError class assumes it the error
+   * a value from SBMLErrorCode_t, the SBMLError class assumes it the error
    * is an SBML error and prepends a predefined error message to any string
-   * passed in @p details.  In addition, all SBMLError::Code errors have
+   * passed in @p details.  In addition, all SBMLErrorCode_t errors have
    * associated severity and category codes, and these fields are filled-in
-   * as well from the enumerations SBMLError::Severity and
-   * SBMLError::Category, respectively
+   * as well from the enumerations SBMLErrorSeverity_t and
+   * SBMLErrorCategory_t, respectively
    *
    * If the error identifier @p errorId is a number greater than 99999, the
    * SBMLError class assumes the error was generated from another part of
@@ -436,14 +449,14 @@ public:
    * make maximum use of the SBMLError facilities.
    *
    * As mentioned above, there are two other enumerations,
-   * SBMLError::Severity and SBMLError::Category, used for indicating the
-   * severity and category of error for the predefined SBMLError codes.
-   * The values passed in @p severity and @p category override the defaults
-   * assigned based on the error code.  If the error identifier is a code
-   * number from SBMLError::Code, callers do not need to fill in @p
+   * SBMLErrorSeverity_t and SBMLErrorCategory_t, used for indicating the
+   * severity and category of error for the predefined SBMLErrorCode_t
+   * codes.  The values passed in @p severity and @p category override the
+   * defaults assigned based on the error code.  If the error identifier is
+   * a code number from SBMLErrorCode_t, callers do not need to fill in @p
    * severity and @p category.  Conversely, if @p errorId is not a value
-   * from SBMLError::Code, callers can use other values (not just those
-   * from SBMLError::Severity and SBMLError::Category, but their own
+   * from SBMLErrorCode_t, callers can use other values (not just those
+   * from SBMLErrorSeverity_t and SBMLErrorCategory_t, but their own
    * special values) for @p severity and @p category.
    *
    * @param errorId an unsigned int, the identification number of the error.
@@ -469,17 +482,19 @@ public:
    */
   SBMLError
   (
-     const unsigned int errorId       = 0
-   , const unsigned int level         = 2
-   , const unsigned int version       = 3
-   , const std::string& details       = ""
-   , const unsigned int line          = 0
-   , const unsigned int column        = 0
-   , const SBMLSeverity severity      = Error
-   , const SBMLCategory category      = SBML
+     const unsigned int errorId  = 0
+   , const unsigned int level    = 2
+   , const unsigned int version  = 3
+   , const std::string& details  = ""
+   , const unsigned int line     = 0
+   , const unsigned int column   = 0
+   , const unsigned int severity = SEVERITY_ERROR
+   , const unsigned int category = CATEGORY_SBML
   );
 
 };
+
+#endif  /* __cplusplus */
 
 
 #endif /* SBMLError_h */

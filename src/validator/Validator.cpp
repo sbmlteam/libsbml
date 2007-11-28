@@ -614,7 +614,7 @@ protected:
 // ----------------------------------------------------------------------
 
 
-Validator::Validator (const SBMLError::SBMLCategory category)
+Validator::Validator (const SBMLErrorCategory_t category)
 {
   mCategory = category;
   mConstraints = new ValidatorConstraints();
@@ -660,7 +660,7 @@ Validator::clearFailures ()
  *   http://sbml.org/validator/consistency/units
  *   http://sbml.org/validator/compatibility/L1
  */
-const SBMLError::SBMLCategory
+const unsigned int
 Validator::getCategory () const
 {
   return mCategory;
@@ -731,7 +731,7 @@ Validator::validate (const SBMLDocument& d)
 
   if (m != NULL)
   {
-    if (this->getCategory() == SBMLError::SBMLConsistencyUnits)
+    if (this->getCategory() == CATEGORY_UNITS_CONSISTENCY)
     {
       /* create list of formula units for validation */
       if (!m->isWrittenFormulaUnitsData())
@@ -743,7 +743,8 @@ Validator::validate (const SBMLDocument& d)
     d.accept(vv);
   }
 
-  if (this->getCategory() == SBMLError::SBMLConsistencySBO && mFailures.size() > 1)
+  if (this->getCategory() == CATEGORY_SBO_CONSISTENCY
+      && mFailures.size() > 1)
   {
     /* in SBO check if we have encountered an unrecognised term error
      * dont want to report the others since they may not be accurate

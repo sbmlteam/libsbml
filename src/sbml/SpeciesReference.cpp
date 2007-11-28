@@ -743,7 +743,7 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
      */
     if (mAnnotation)
     {
-      logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
+      logError(NotSchemaConformant, getLevel(), getVersion(),
 	       "Only one <annotation> element is permitted inside a "
 	       "particular containing element.");
     }
@@ -1023,7 +1023,7 @@ ModifierSpeciesReference::readOtherXML (XMLInputStream& stream)
      */
     if (mAnnotation)
     {
-      logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
+      logError(NotSchemaConformant, getLevel(), getVersion(),
 	       "Only one <annotation> element is permitted inside a "
 	       "particular containing element.");
     }
@@ -1203,7 +1203,7 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
        * which is confusion if user has merely reversed modifierSpeciesReference
        * and speciesReference */
       object = new SpeciesReference();
-      logError(SBMLError::InvalidReactantsProductsList);
+      logError(InvalidReactantsProductsList);
     }
   }
   else if (mType == Modifier)
@@ -1215,7 +1215,7 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
     else
     {
       object = new ModifierSpeciesReference();
-      logError(SBMLError::InvalidModifiersList);
+      logError(InvalidModifiersList);
     }
   }
 

@@ -423,7 +423,7 @@ Event::createObject (XMLInputStream& stream)
   {
     if (mEventAssignments.size() != 0)
     {
-      logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
+      logError(NotSchemaConformant, getLevel(), getVersion(),
 	       "Only one <listOfEventAssignments> elements is permitted "
 	       "in a single <event> element.");
     }
@@ -440,7 +440,7 @@ Event::createObject (XMLInputStream& stream)
   {
     if (mDelay)
     {
-      logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
+      logError(NotSchemaConformant, getLevel(), getVersion(),
 	       "Only one <delay> element is permitted in a single "
 	       "<event> element.");
     }

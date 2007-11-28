@@ -38,7 +38,8 @@ class OverdeterminedValidator: public Validator
 {
 public:
 
-  OverdeterminedValidator () : Validator( SBMLError::SBMLOverdetermined ) { }
+  OverdeterminedValidator () :
+    Validator( CATEGORY_OVERDETERMINED_MODEL ) { }
 
   virtual ~OverdeterminedValidator () { }
 

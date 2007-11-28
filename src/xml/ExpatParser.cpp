@@ -48,49 +48,49 @@ static const int BUFFER_SIZE = 8192;
  * create.  The indexes into this table are the Expat codes, and the
  * values are our own error codes.
  */
-static enum XMLError::Code expatErrorTable[] = {
-  XMLError::UnknownError,             // XML_ERROR_NONE
-  XMLError::OutOfMemory,              // XML_ERROR_NO_MEMORY
-  XMLError::NotWellFormed,            // XML_ERROR_SYNTAX
-  XMLError::NotWellFormed,            // XML_ERROR_NO_ELEMENTS
-  XMLError::NotWellFormed,            // XML_ERROR_INVALID_TOKEN
-  XMLError::UnclosedToken,            // XML_ERROR_UNCLOSED_TOKEN
-  XMLError::InvalidChar,              // XML_ERROR_PARTIAL_CHAR
-  XMLError::TagMismatch,              // XML_ERROR_TAG_MISMATCH
-  XMLError::DuplicateAttribute,       // XML_ERROR_DUPLICATE_ATTRIBUTE
-  XMLError::BadDOCTYPE,               // XML_ERROR_JUNK_AFTER_DOC_ELEMENT
-  XMLError::UnknownError,             // XML_ERROR_PARAM_ENTITY_REF
-  XMLError::UndefinedEntity,          // XML_ERROR_UNDEFINED_ENTITY
-  XMLError::UndefinedEntity,          // XML_ERROR_RECURSIVE_ENTITY_REF
-  XMLError::UndefinedEntity,          // XML_ERROR_ASYNC_ENTITY
-  XMLError::InvalidChar,              // XML_ERROR_BAD_CHAR_REF
-  XMLError::InvalidChar,              // XML_ERROR_BINARY_ENTITY_REF
-  XMLError::UndefinedEntity,          // XML_ERROR_ATTRIBUTE_EXTERNAL_ENTITY_REF
-  XMLError::BadXMLDeclLocation,       // XML_ERROR_MISPLACED_XML_PI
-  XMLError::BadXMLDecl,               // XML_ERROR_UNKNOWN_ENCODING
-  XMLError::BadXMLDecl,               // XML_ERROR_INCORRECT_ENCODING
-  XMLError::NotWellFormed,            // XML_ERROR_UNCLOSED_CDATA_SECTION
-  XMLError::InvalidConstruct,         // XML_ERROR_EXTERNAL_ENTITY_HANDLING
-  XMLError::BadXMLDecl,               // XML_ERROR_NOT_STANDALONE
-  XMLError::UnknownError,             // XML_ERROR_UNEXPECTED_STATE
-  XMLError::UnknownError,             // XML_ERROR_ENTITY_DECLARED_IN_PE
-  XMLError::InvalidConstruct,         // XML_ERROR_FEATURE_REQUIRES_XML_DTD
-  XMLError::InvalidConstruct,         // XML_ERROR_CANT_CHANGE_FEATURE_ONCE_PARSING
-  XMLError::BadPrefix,                // XML_ERROR_UNBOUND_PREFIX
-  XMLError::BadPrefix,                // XML_ERROR_UNDECLARING_PREFIX
-  XMLError::NotWellFormed,            // XML_ERROR_INCOMPLETE_PE
-  XMLError::BadXMLDecl,               // XML_ERROR_XML_DECL
-  XMLError::UnknownError,             // XML_ERROR_TEXT_DECL
-  XMLError::UnknownError,             // XML_ERROR_PUBLICID
-  XMLError::UnknownError,             // XML_ERROR_SUSPENDED
-  XMLError::UnknownError,             // XML_ERROR_NOT_SUSPENDED
-  XMLError::UnknownError,             // XML_ERROR_ABORTED
-  XMLError::UnknownError,             // XML_ERROR_FINISHED
-  XMLError::UnknownError              // XML_ERROR_SUSPEND_PE
+static XMLErrorCode_t expatErrorTable[] = {
+  XMLUnknownError,          // ERROR_NONE
+  XMLOutOfMemory,           // ERROR_NO_MEMORY
+  BadlyFormedXML,           // ERROR_SYNTAX
+  BadlyFormedXML,           // ERROR_NO_ELEMENTS
+  BadlyFormedXML,           // ERROR_INVALID_TOKEN
+  UnclosedXMLToken,         // ERROR_UNCLOSED_TOKEN
+  InvalidCharInXML,         // ERROR_PARTIAL_CHAR
+  XMLTagMismatch,           // ERROR_TAG_MISMATCH
+  DuplicateXMLAttribute,    // ERROR_DUPLICATE_ATTRIBUTE
+  BadXMLDOCTYPE,            // ERROR_JUNK_AFTER_DOC_ELEMENT
+  XMLUnknownError,          // ERROR_PARAM_ENTITY_REF
+  UndefinedXMLEntity,       // ERROR_UNDEFINED_ENTITY
+  UndefinedXMLEntity,       // ERROR_RECURSIVE_ENTITY_REF
+  UndefinedXMLEntity,       // ERROR_ASYNC_ENTITY
+  InvalidCharInXML,         // ERROR_BAD_CHAR_REF
+  InvalidCharInXML,         // ERROR_BINARY_ENTITY_REF
+  UndefinedXMLEntity,       // ERROR_ATTRIBUTE_EXTERNAL_ENTITY_REF
+  BadXMLDeclLocation,       // ERROR_MISPLACED_PI
+  BadXMLDecl,               // ERROR_UNKNOWN_ENCODING
+  BadXMLDecl,               // ERROR_INCORRECT_ENCODING
+  BadlyFormedXML,           // ERROR_UNCLOSED_CDATA_SECTION
+  InvalidXMLConstruct,      // ERROR_EXTERNAL_ENTITY_HANDLING
+  BadXMLDecl,               // ERROR_NOT_STANDALONE
+  XMLUnknownError,          // ERROR_UNEXPECTED_STATE
+  XMLUnknownError,          // ERROR_ENTITY_DECLARED_IN_PE
+  InvalidXMLConstruct,      // ERROR_FEATURE_REQUIRES_DTD
+  InvalidXMLConstruct,      // ERROR_CANT_CHANGE_FEATURE_ONCE_PARSING
+  BadXMLPrefix,             // ERROR_UNBOUND_PREFIX
+  BadXMLPrefix,             // ERROR_UNDECLARING_PREFIX
+  BadlyFormedXML,           // ERROR_INCOMPLETE_PE
+  BadXMLDecl,               // ERROR_DECL
+  XMLUnknownError,          // ERROR_TEXT_DECL
+  XMLUnknownError,          // ERROR_PUBLICID
+  XMLUnknownError,          // ERROR_SUSPENDED
+  XMLUnknownError,          // ERROR_NOT_SUSPENDED
+  XMLUnknownError,          // ERROR_ABORTED
+  XMLUnknownError,          // ERROR_FINISHED
+  XMLUnknownError           // ERROR_SUSPEND_PE
 };
 
 
-const enum XMLError::Code
+const XMLErrorCode_t
 translateError(const int expatCode)
 {
   int numTableEntries = sizeof(expatErrorTable)/sizeof(expatErrorTable[0]);
@@ -98,22 +98,22 @@ translateError(const int expatCode)
   if (expatCode > 0 && expatCode < numTableEntries)
     return expatErrorTable[expatCode];
   else
-    return XMLError::UnknownError;
+    return XMLUnknownError;
 }
 
 
 /*
- * Note that the given error code is an XMLError code, not a code
- * number returned by the underlying parser.  Codes returned by the
- * parser must be translated first.
+ * Note that the given error code is a XMLErrorCode_t value, not a code
+ * number returned by the underlying parser.  Codes returned by the parser
+ * must be translated first.
  *
  * @see translateError().
  */
 void
-ExpatParser::reportError (const XMLError::Code code,
-			  const string& extraMsg,
-			  const unsigned int line,
-			  const unsigned int column)
+ExpatParser::reportError (const XMLErrorCode_t code,
+			  const string&        extraMsg,
+			  const unsigned int   line,
+			  const unsigned int   column)
 {
   if (mErrorLog)
     mErrorLog->add(XMLError( code, extraMsg, line, column) );
@@ -197,8 +197,8 @@ ExpatParser::getLine () const
 /**
  * Parses XML content in one fell swoop.
  *
- * If \p isFile whoa is true (default), \p content is treated as a filename from
- * which to read the XML content.  Otherwise, \p content is treated as a
+ * If @p isFile whoa is true (default), @p content is treated as a filename from
+ * which to read the XML content.  Otherwise, @p content is treated as a
  * null-terminated buffer containing XML data and is read directly.
  *
  * @return true if the parse was successful, false otherwise.
@@ -247,7 +247,7 @@ ExpatParser::parseFirst (const char* content, bool isFile)
 
     if (mSource->error())
     {
-      reportError(XMLError::FileUnreadable, content, 0, 0);
+      reportError(XMLFileUnreadable, content, 0, 0);
       return false;
     }
   }
@@ -257,7 +257,7 @@ ExpatParser::parseFirst (const char* content, bool isFile)
 
     if (mSource == 0)
     {
-      reportError(XMLError::OutOfMemory, "", 0, 0);
+      reportError(XMLOutOfMemory, "", 0, 0);
       return false;
     }
   }
@@ -294,11 +294,11 @@ ExpatParser::parseNext ()
     {
     case XML_ERROR_SUSPENDED:
     case XML_ERROR_FINISHED:
-      reportError(XMLError::InternalParserError);
+      reportError(InternalXMLParserError);
       break;
 
     default:
-      reportError(XMLError::OutOfMemory);
+      reportError(XMLOutOfMemory);
       break;
     }
 
@@ -327,7 +327,7 @@ ExpatParser::parseNext ()
   // Expat does not report a missing xml declaration
   if (!mHandler.hasXMLDeclaration())
   {
-    reportError(XMLError::MissingXMLDecl, "", 1, 1);
+    reportError(MissingXMLDecl, "", 1, 1);
     return false;
   }
 

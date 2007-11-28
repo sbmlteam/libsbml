@@ -92,7 +92,7 @@ SBO::readTerm (const XMLAttributes& attributes, SBMLErrorLog* log)
   }
   else if (!checkTerm(attributes.getValue(index)))
   {
-    log->logError(SBMLError::InvalidSBOTermSyntax);
+    log->logError(InvalidSBOTermSyntax);
     return -1;
   }
   else

@@ -190,7 +190,7 @@ sub test_WriteSBML_error {
  my $w = new LibSBML::SBMLWriter();
  ok( ! $w->writeSBML($d, "/tmp/impossible/path/should/fail") );
  ok( $d->getNumErrors() == 1 );
- ok( $d->getError(0)->getErrorId() == $LibSBML::XMLError::FileUnwritable );
+ ok( $d->getError(0)->getErrorId() == $LibSBML::XMLFileUnwritable );
 }
 
 #---

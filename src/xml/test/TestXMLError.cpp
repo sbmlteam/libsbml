@@ -43,34 +43,36 @@ START_TEST (test_XMLError_create)
   fail_unless( error != 0 );
   delete error;
 
-  error = new XMLError(XMLError::DuplicateAttribute);
-  fail_unless( error->getErrorId() == XMLError::DuplicateAttribute );
-  fail_unless( error->getSeverity() == XMLError::Error );
-  fail_unless( error->getCategory() == XMLError::XML );
-  fail_unless( error->getMessage() == "Duplicate attribute." );
+  error = new XMLError(DuplicateXMLAttribute);
+  fail_unless( error->getErrorId()  == DuplicateXMLAttribute );
+  fail_unless( error->getSeverity() == SEVERITY_ERROR );
+  fail_unless( error->getCategory() == CATEGORY_XML );
+  fail_unless( error->getMessage()  == "Duplicate attribute." );
   delete error;
 
   error = new XMLError(12345, "My message");
-  fail_unless( error->getErrorId() == 12345 );
-  fail_unless( error->getMessage() == "My message" );
-  fail_unless( error->getSeverity() == XMLError::Fatal );
-  fail_unless( error->getCategory() == XMLError::Internal );
+  fail_unless( error->getErrorId()  == 12345 );
+  fail_unless( error->getMessage()  == "My message" );
+  fail_unless( error->getSeverity() == SEVERITY_FATAL );
+  fail_unless( error->getCategory() == CATEGORY_INTERNAL );
   delete error;
 
-  error = new XMLError(12345, "My message", 0, 0, XMLError::Info, XMLError::System);
-  fail_unless( error->getErrorId() == 12345 );
-  fail_unless( error->getMessage() == "My message" );
-  fail_unless( error->getSeverity() == XMLError::Info );
-  fail_unless( error->getCategory() == XMLError::System );
+  error = new XMLError(12345, "My message", 0, 0,
+                       SEVERITY_INFO, CATEGORY_SYSTEM);
+  fail_unless( error->getErrorId()  == 12345 );
+  fail_unless( error->getMessage()  == "My message" );
+  fail_unless( error->getSeverity() == SEVERITY_INFO );
+  fail_unless( error->getCategory() == CATEGORY_SYSTEM );
   fail_unless( error->isInfo() );
   fail_unless( error->isSystem() );
   delete error;
 
-  error = new XMLError(10000, "Another message", 0, 0, XMLError::Fatal, XMLError::XML);
-  fail_unless( error->getErrorId() == 10000 );
-  fail_unless( error->getMessage() == "Another message" );
-  fail_unless( error->getSeverity() == XMLError::Fatal );
-  fail_unless( error->getCategory() == XMLError::XML );
+  error = new XMLError(10000, "Another message", 0, 0,
+                       SEVERITY_FATAL, CATEGORY_XML);
+  fail_unless( error->getErrorId()  == 10000 );
+  fail_unless( error->getMessage()  == "Another message" );
+  fail_unless( error->getSeverity() == SEVERITY_FATAL );
+  fail_unless( error->getCategory() == CATEGORY_XML );
   fail_unless( error->isFatal() );
   fail_unless( error->isXML() );
   delete error;

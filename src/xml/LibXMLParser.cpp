@@ -54,105 +54,105 @@ static const int BUFFER_SIZE = 8192;
  * http://stuff.mit.edu/afs/sipb/project/php/share/gtk-doc/html/libxml2/libxml2-parser.html
  */ 
 static struct libxmlErrors {
-  const int           libxmlCode;
-  enum XMLError::Code ourCode;
+  const int      libxmlCode;
+  XMLErrorCode_t ourCode;
 } libxmlErrorTable[] = {
-  { XML_ERR_INTERNAL_ERROR, 	       XMLError::NotWellFormed},
-  { XML_ERR_NO_MEMORY,		       XMLError::OutOfMemory},
-  { XML_ERR_DOCUMENT_START,	       XMLError::NotWellFormed},
-  { XML_ERR_DOCUMENT_EMPTY,	       XMLError::EmptyXML},
-  { XML_ERR_DOCUMENT_END,	       XMLError::NotWellFormed},
-  { XML_ERR_INVALID_HEX_CHARREF,       XMLError::InvalidConstruct},
-  { XML_ERR_INVALID_DEC_CHARREF,       XMLError::InvalidConstruct},
-  { XML_ERR_INVALID_CHARREF,	       XMLError::InvalidConstruct},
-  { XML_ERR_INVALID_CHAR,	       XMLError::InvalidChar},
-  { XML_ERR_CHARREF_AT_EOF,	       XMLError::NotWellFormed},
-  { XML_ERR_CHARREF_IN_PROLOG,	       XMLError::NotWellFormed},
-  { XML_ERR_CHARREF_IN_EPILOG,	       XMLError::NotWellFormed},
-  { XML_ERR_CHARREF_IN_DTD,	       XMLError::NotWellFormed},
-  { XML_ERR_UNDECLARED_ENTITY,         XMLError::UndefinedEntity},
-  { XML_WAR_UNDECLARED_ENTITY,         XMLError::UndefinedEntity},
-  { XML_ERR_UNKNOWN_ENCODING,	       XMLError::BadXMLDecl},
-  { XML_ERR_UNSUPPORTED_ENCODING,      XMLError::BadXMLDecl},
-  { XML_ERR_STRING_NOT_STARTED,        XMLError::NotWellFormed},
-  { XML_ERR_STRING_NOT_CLOSED,	       XMLError::NotWellFormed},
-  { XML_ERR_NS_DECL_ERROR,	       XMLError::NotWellFormed},
-  { XML_ERR_LT_IN_ATTRIBUTE,	       XMLError::BadAttribute},
-  { XML_ERR_ATTRIBUTE_NOT_STARTED,     XMLError::InternalParserError},
-  { XML_ERR_ATTRIBUTE_NOT_FINISHED,    XMLError::NotWellFormed},
-  { XML_ERR_ATTRIBUTE_WITHOUT_VALUE,   XMLError::MissingAttributeValue},
-  { XML_ERR_ATTRIBUTE_REDEFINED,       XMLError::DuplicateAttribute},
-  { XML_ERR_LITERAL_NOT_STARTED,       XMLError::InternalParserError},
-  { XML_ERR_LITERAL_NOT_FINISHED,      XMLError::InternalParserError},
-  { XML_ERR_COMMENT_NOT_FINISHED,      XMLError::BadXMLComment},
-  { XML_ERR_PI_NOT_STARTED,	       XMLError::BadProcessingInstruction},
-  { XML_ERR_PI_NOT_FINISHED,	       XMLError::BadProcessingInstruction},
-  { XML_ERR_ATTLIST_NOT_STARTED,       XMLError::NotWellFormed},
-  { XML_ERR_ATTLIST_NOT_FINISHED,      XMLError::NotWellFormed},
-  { XML_ERR_MIXED_NOT_STARTED,	       XMLError::NotWellFormed},
-  { XML_ERR_MIXED_NOT_FINISHED,	       XMLError::NotWellFormed},
-  { XML_ERR_ELEMCONTENT_NOT_STARTED,   XMLError::NotWellFormed},
-  { XML_ERR_ELEMCONTENT_NOT_FINISHED,  XMLError::NotWellFormed},
-  { XML_ERR_XMLDECL_NOT_STARTED,       XMLError::BadXMLDecl},
-  { XML_ERR_XMLDECL_NOT_FINISHED,      XMLError::BadXMLDecl},
-  { XML_ERR_CONDSEC_NOT_STARTED,       XMLError::NotWellFormed},
-  { XML_ERR_CONDSEC_NOT_FINISHED,      XMLError::NotWellFormed},
-  { XML_ERR_EXT_SUBSET_NOT_FINISHED,   XMLError::NotWellFormed},
-  { XML_ERR_DOCTYPE_NOT_FINISHED,      XMLError::BadDOCTYPE},
-  { XML_ERR_MISPLACED_CDATA_END,       XMLError::NotWellFormed},
-  { XML_ERR_CDATA_NOT_FINISHED,	       XMLError::NotWellFormed},
-  { XML_ERR_RESERVED_XML_NAME,	       XMLError::BadXMLDeclLocation},
-  { XML_ERR_SPACE_REQUIRED,	       XMLError::NotWellFormed},
-  { XML_ERR_SEPARATOR_REQUIRED,	       XMLError::NotWellFormed},
-  { XML_ERR_NMTOKEN_REQUIRED,	       XMLError::NotWellFormed},
-  { XML_ERR_NAME_REQUIRED,	       XMLError::NotWellFormed},
-  { XML_ERR_PCDATA_REQUIRED,	       XMLError::NotWellFormed},
-  { XML_ERR_URI_REQUIRED,	       XMLError::NotWellFormed},
-  { XML_ERR_PUBID_REQUIRED,	       XMLError::NotWellFormed},
-  { XML_ERR_LT_REQUIRED,	       XMLError::NotWellFormed},
-  { XML_ERR_GT_REQUIRED,	       XMLError::NotWellFormed},
-  { XML_ERR_LTSLASH_REQUIRED,	       XMLError::NotWellFormed},
-  { XML_ERR_EQUAL_REQUIRED,	       XMLError::NotWellFormed},
-  { XML_ERR_TAG_NAME_MISMATCH,	       XMLError::TagMismatch},
-  { XML_ERR_TAG_NOT_FINISHED,	       XMLError::NotWellFormed},
-  { XML_ERR_STANDALONE_VALUE,	       XMLError::NotWellFormed},
-  { XML_ERR_ENCODING_NAME,	       XMLError::BadXMLDecl},
-  { XML_ERR_HYPHEN_IN_COMMENT,	       XMLError::BadXMLComment},
-  { XML_ERR_INVALID_ENCODING,	       XMLError::BadXMLDecl},
-  { XML_ERR_CONDSEC_INVALID,	       XMLError::NotWellFormed},
-  { XML_ERR_VALUE_REQUIRED,	       XMLError::NotWellFormed},
-  { XML_ERR_NOT_WELL_BALANCED,	       XMLError::NotWellFormed},
-  { XML_ERR_EXTRA_CONTENT,	       XMLError::NotWellFormed},
-  { XML_ERR_INVALID_URI,	       XMLError::NotWellFormed},
-  { XML_ERR_URI_FRAGMENT,	       XMLError::NotWellFormed},
-  { XML_WAR_CATALOG_PI,		       XMLError::NotWellFormed},
-  { XML_ERR_NO_DTD,		       XMLError::NotWellFormed},
-  { XML_ERR_CONDSEC_INVALID_KEYWORD,   XMLError::NotWellFormed},
-  { XML_ERR_VERSION_MISSING,	       XMLError::BadXMLDecl},
-  { XML_WAR_UNKNOWN_VERSION,	       XMLError::BadXMLDecl},
-  { XML_WAR_LANG_VALUE,		       XMLError::NotWellFormed},
-  { XML_WAR_NS_URI,		       XMLError::BadPrefix},
-  { XML_WAR_NS_URI_RELATIVE,	       XMLError::BadPrefix},
-  { XML_ERR_MISSING_ENCODING,	       XMLError::MissingXMLEncoding},
+  { XML_ERR_INTERNAL_ERROR, 	       BadlyFormedXML},
+  { XML_ERR_NO_MEMORY,		       XMLOutOfMemory},
+  { XML_ERR_DOCUMENT_START,	       BadlyFormedXML},
+  { XML_ERR_DOCUMENT_EMPTY,	       XMLContentEmpty},
+  { XML_ERR_DOCUMENT_END,	       BadlyFormedXML},
+  { XML_ERR_INVALID_HEX_CHARREF,       InvalidXMLConstruct},
+  { XML_ERR_INVALID_DEC_CHARREF,       InvalidXMLConstruct},
+  { XML_ERR_INVALID_CHARREF,	       InvalidXMLConstruct},
+  { XML_ERR_INVALID_CHAR,	       InvalidCharInXML},
+  { XML_ERR_CHARREF_AT_EOF,	       BadlyFormedXML},
+  { XML_ERR_CHARREF_IN_PROLOG,	       BadlyFormedXML},
+  { XML_ERR_CHARREF_IN_EPILOG,	       BadlyFormedXML},
+  { XML_ERR_CHARREF_IN_DTD,	       BadlyFormedXML},
+  { XML_ERR_UNDECLARED_ENTITY,         UndefinedXMLEntity},
+  { XML_WAR_UNDECLARED_ENTITY,         UndefinedXMLEntity},
+  { XML_ERR_UNKNOWN_ENCODING,	       BadXMLDecl},
+  { XML_ERR_UNSUPPORTED_ENCODING,      BadXMLDecl},
+  { XML_ERR_STRING_NOT_STARTED,        BadlyFormedXML},
+  { XML_ERR_STRING_NOT_CLOSED,	       BadlyFormedXML},
+  { XML_ERR_NS_DECL_ERROR,	       BadlyFormedXML},
+  { XML_ERR_LT_IN_ATTRIBUTE,	       BadXMLAttribute},
+  { XML_ERR_ATTRIBUTE_NOT_STARTED,     InternalXMLParserError},
+  { XML_ERR_ATTRIBUTE_NOT_FINISHED,    BadlyFormedXML},
+  { XML_ERR_ATTRIBUTE_WITHOUT_VALUE,   MissingXMLAttributeValue},
+  { XML_ERR_ATTRIBUTE_REDEFINED,       DuplicateXMLAttribute},
+  { XML_ERR_LITERAL_NOT_STARTED,       InternalXMLParserError},
+  { XML_ERR_LITERAL_NOT_FINISHED,      InternalXMLParserError},
+  { XML_ERR_COMMENT_NOT_FINISHED,      BadXMLComment},
+  { XML_ERR_PI_NOT_STARTED,	       BadProcessingInstruction},
+  { XML_ERR_PI_NOT_FINISHED,	       BadProcessingInstruction},
+  { XML_ERR_ATTLIST_NOT_STARTED,       BadlyFormedXML},
+  { XML_ERR_ATTLIST_NOT_FINISHED,      BadlyFormedXML},
+  { XML_ERR_MIXED_NOT_STARTED,	       BadlyFormedXML},
+  { XML_ERR_MIXED_NOT_FINISHED,	       BadlyFormedXML},
+  { XML_ERR_ELEMCONTENT_NOT_STARTED,   BadlyFormedXML},
+  { XML_ERR_ELEMCONTENT_NOT_FINISHED,  BadlyFormedXML},
+  { XML_ERR_XMLDECL_NOT_STARTED,       BadXMLDecl},
+  { XML_ERR_XMLDECL_NOT_FINISHED,      BadXMLDecl},
+  { XML_ERR_CONDSEC_NOT_STARTED,       BadlyFormedXML},
+  { XML_ERR_CONDSEC_NOT_FINISHED,      BadlyFormedXML},
+  { XML_ERR_EXT_SUBSET_NOT_FINISHED,   BadlyFormedXML},
+  { XML_ERR_DOCTYPE_NOT_FINISHED,      BadXMLDOCTYPE},
+  { XML_ERR_MISPLACED_CDATA_END,       BadlyFormedXML},
+  { XML_ERR_CDATA_NOT_FINISHED,	       BadlyFormedXML},
+  { XML_ERR_RESERVED_XML_NAME,	       BadXMLDeclLocation},
+  { XML_ERR_SPACE_REQUIRED,	       BadlyFormedXML},
+  { XML_ERR_SEPARATOR_REQUIRED,	       BadlyFormedXML},
+  { XML_ERR_NMTOKEN_REQUIRED,	       BadlyFormedXML},
+  { XML_ERR_NAME_REQUIRED,	       BadlyFormedXML},
+  { XML_ERR_PCDATA_REQUIRED,	       BadlyFormedXML},
+  { XML_ERR_URI_REQUIRED,	       BadlyFormedXML},
+  { XML_ERR_PUBID_REQUIRED,	       BadlyFormedXML},
+  { XML_ERR_LT_REQUIRED,	       BadlyFormedXML},
+  { XML_ERR_GT_REQUIRED,	       BadlyFormedXML},
+  { XML_ERR_LTSLASH_REQUIRED,	       BadlyFormedXML},
+  { XML_ERR_EQUAL_REQUIRED,	       BadlyFormedXML},
+  { XML_ERR_TAG_NAME_MISMATCH,	       XMLTagMismatch},
+  { XML_ERR_TAG_NOT_FINISHED,	       BadlyFormedXML},
+  { XML_ERR_STANDALONE_VALUE,	       BadlyFormedXML},
+  { XML_ERR_ENCODING_NAME,	       BadXMLDecl},
+  { XML_ERR_HYPHEN_IN_COMMENT,	       BadXMLComment},
+  { XML_ERR_INVALID_ENCODING,	       BadXMLDecl},
+  { XML_ERR_CONDSEC_INVALID,	       BadlyFormedXML},
+  { XML_ERR_VALUE_REQUIRED,	       BadlyFormedXML},
+  { XML_ERR_NOT_WELL_BALANCED,	       BadlyFormedXML},
+  { XML_ERR_EXTRA_CONTENT,	       BadlyFormedXML},
+  { XML_ERR_INVALID_URI,	       BadlyFormedXML},
+  { XML_ERR_URI_FRAGMENT,	       BadlyFormedXML},
+  { XML_WAR_CATALOG_PI,		       BadlyFormedXML},
+  { XML_ERR_NO_DTD,		       BadlyFormedXML},
+  { XML_ERR_CONDSEC_INVALID_KEYWORD,   BadlyFormedXML},
+  { XML_ERR_VERSION_MISSING,	       BadXMLDecl},
+  { XML_WAR_UNKNOWN_VERSION,	       BadXMLDecl},
+  { XML_WAR_LANG_VALUE,		       BadlyFormedXML},
+  { XML_WAR_NS_URI,		       BadXMLPrefix},
+  { XML_WAR_NS_URI_RELATIVE,	       BadXMLPrefix},
+  { XML_ERR_MISSING_ENCODING,	       MissingXMLEncoding},
 #if LIBXML_VERSION >= 20627
-  { XML_WAR_SPACE_VALUE,	       XMLError::NotWellFormed},
-  { XML_ERR_NOT_STANDALONE,	       XMLError::NotWellFormed},
-  { XML_ERR_NOTATION_PROCESSING,       XMLError::NotWellFormed},
-  { XML_WAR_NS_COLUMN,		       XMLError::NotWellFormed},
+  { XML_WAR_SPACE_VALUE,	       BadlyFormedXML},
+  { XML_ERR_NOT_STANDALONE,	       BadlyFormedXML},
+  { XML_ERR_NOTATION_PROCESSING,       BadlyFormedXML},
+  { XML_WAR_NS_COLUMN,		       BadlyFormedXML},
 #endif
-  { XML_NS_ERR_XML_NAMESPACE,	       XMLError::BadPrefixValue},
-  { XML_NS_ERR_UNDEFINED_NAMESPACE,    XMLError::BadPrefix},
-  { XML_NS_ERR_QNAME,		       XMLError::BadPrefix},
-  { XML_NS_ERR_ATTRIBUTE_REDEFINED,    XMLError::NotWellFormed},
+  { XML_NS_ERR_XML_NAMESPACE,	       BadXMLPrefixValue},
+  { XML_NS_ERR_UNDEFINED_NAMESPACE,    BadXMLPrefix},
+  { XML_NS_ERR_QNAME,		       BadXMLPrefix},
+  { XML_NS_ERR_ATTRIBUTE_REDEFINED,    BadlyFormedXML},
 #if LIBXML_VERSION >= 20627
-  { XML_NS_ERR_EMPTY,		       XMLError::NotWellFormed},
+  { XML_NS_ERR_EMPTY,		       BadlyFormedXML},
 #endif
   // The next one should always be last.  It's used only as a marker.
-  { 205,			       XMLError::UnknownError},
+  { 205,			       XMLUnknownError},
 };
 
 
-const enum XMLError::Code
+const XMLErrorCode_t
 translateError(const int libxmlCode)
 {
   unsigned int tableSize = sizeof(libxmlErrorTable)/sizeof(libxmlErrorTable[0]);
@@ -168,10 +168,10 @@ translateError(const int libxmlCode)
       if (libxmlErrorTable[i].libxmlCode == libxmlCode)
 	return libxmlErrorTable[i].ourCode;
 
-    return XMLError::UnrecognizedParserCode;
+    return UnrecognizedXMLParserCode;
   }
 
-  return XMLError::UnknownError;
+  return XMLUnknownError;
 }
 
 
@@ -183,10 +183,10 @@ translateError(const int libxmlCode)
  * @see translateError().
  */
 void
-LibXMLParser::reportError (const XMLError::Code code,
-			   const string& extraMsg,
-			   const unsigned int line,
-			   const unsigned int column)
+LibXMLParser::reportError (const XMLErrorCode_t code,
+			   const string&        extraMsg,
+			   const unsigned int   line,
+			   const unsigned int   column)
 {
   if (mErrorLog)
     mErrorLog->add(XMLError( code, extraMsg, line, column) );
@@ -324,7 +324,7 @@ LibXMLParser::parseFirst (const char* content, bool isFile)
 
     if ( mSource->error() )
     {
-      reportError(XMLError::FileUnreadable, content, 0, 0);
+      reportError(XMLFileUnreadable, content, 0, 0);
       return false;
     }
   }
@@ -335,7 +335,7 @@ LibXMLParser::parseFirst (const char* content, bool isFile)
 
   if ( mSource == 0 )
   {
-    reportError(XMLError::OutOfMemory, "", 0, 0);
+    reportError(XMLOutOfMemory, "", 0, 0);
     return false;
   }
 
@@ -364,7 +364,7 @@ LibXMLParser::parseNext ()
 
   if ( mSource->error() )
   {
-    reportError(XMLError::InternalParserError,
+    reportError(InternalXMLParserError,
 		"error: Could not read from source buffer.");
     return false;
   }

@@ -63,14 +63,14 @@ SBMLErrorLog::~SBMLErrorLog ()
  * for a list of system and XML-level error codes.
  */
 void
-SBMLErrorLog::logError ( const unsigned int  errorId 
+SBMLErrorLog::logError ( const unsigned int errorId 
                        , const unsigned int level
                        , const unsigned int version
-                       , const std::string&  details
-                       , const unsigned int  line
-                       , const unsigned int  column
-                       , SBMLError::SBMLSeverity severity
-                       , SBMLError::SBMLCategory category )
+                       , const std::string& details
+                       , const unsigned int line
+                       , const unsigned int column
+                       , const unsigned int severity
+                       , const unsigned int category )
 {
   add( SBMLError( errorId, level, version, details, line, column, 
                   severity, category ));
@@ -145,7 +145,7 @@ SBMLErrorLog::remove (const unsigned int errorId)
 class MatchSeverity
 {
 public:
-  MatchSeverity(const SBMLError::SBMLSeverity s) : severity(s) {};
+  MatchSeverity(const unsigned int s) : severity(s) {};
 
   bool operator() (XMLError e) const
   {
@@ -165,7 +165,7 @@ private:
   * Returns number of errors that are logged with severity Error
   */
 unsigned int
-SBMLErrorLog::getNumFailsWithSeverity(SBMLError::SBMLSeverity severity)
+SBMLErrorLog::getNumFailsWithSeverity(unsigned int severity)
 {
   return count_if(mErrors.begin(), mErrors.end(),
                   MatchSeverity(severity));
