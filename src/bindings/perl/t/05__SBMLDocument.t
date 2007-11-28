@@ -52,14 +52,14 @@ $file = File::Spec->catfile($testDataDir,'l1v1-branch.xml');
 $d = $rd->readSBML($file);
 ok($d->getNumErrors(), 0, $d->printErrors());
 ok($d->getNumErrors(), 0);
-ok($d->checkConsistency(), 0);
+ok($d->checkConsistency(), 6);
 ok($d->getLevel(), 1);
 ok($d->getVersion(), 1);
 # proper sbm file l1v1 from string
 $str  = slurp_file($file);
 $d = $rd->readSBMLFromString($str) if defined($str);
 skip(!defined($str), $d->getNumErrors(), 0);
-skip(!defined($str), $d->checkConsistency(), 0);
+skip(!defined($str), $d->checkConsistency(), 6);
 skip(!defined($str), $d->getLevel(), 1);
 skip(!defined($str), $d->getVersion(), 1);
 
@@ -67,14 +67,14 @@ skip(!defined($str), $d->getVersion(), 1);
 $file = File::Spec->catfile($testDataDir,'l1v2-branch.xml');
 $d = $rd->readSBML($file);
 ok($d->getNumErrors(), 0);
-ok($d->checkConsistency(), 0);
+ok($d->checkConsistency(), 6);
 ok($d->getLevel(), 1);
 ok($d->getVersion(), 2);
 # proper sbm file l1v2 from string
 $str  = slurp_file($file);
 $d = $rd->readSBMLFromString($str) if defined($str);
 skip(!defined($str), $d->getNumErrors(), 0);
-skip(!defined($str), $d->checkConsistency(), 0);
+skip(!defined($str), $d->checkConsistency(), 6);
 skip(!defined($str), $d->getLevel(), 1);
 skip(!defined($str), $d->getVersion(), 2);
 
@@ -82,14 +82,14 @@ skip(!defined($str), $d->getVersion(), 2);
 $file = File::Spec->catfile($testDataDir,'l2v1-branch.xml');
 $d = $rd->readSBML($file);
 ok($d->getNumErrors(), 0);
-ok($d->checkConsistency(), 0);
+ok($d->checkConsistency(), 6);
 ok($d->getLevel(), 2);
 ok($d->getVersion(), 1);
 # proper sbm file l2v1 from string
 $str  = slurp_file($file);
 $d = $rd->readSBMLFromString($str) if defined($str);
 skip(!defined($str), $d->getNumErrors(), 0);
-skip(!defined($str), $d->checkConsistency(), 0);
+skip(!defined($str), $d->checkConsistency(), 6);
 skip(!defined($str), $d->getLevel(), 2);
 skip(!defined($str), $d->getVersion(), 1);
 

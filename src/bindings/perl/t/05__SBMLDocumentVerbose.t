@@ -52,50 +52,62 @@ $file = File::Spec->catfile($testDataDir,'l1v1-branch.xml');
 $d = $rd->readSBML($file);
 ok($d->getNumErrors(), 0);
 beMoreSpecific($d, 'readSBML()', $file);
+$d->setConsistencyChecks($LibSBML::CATEGORY_UNITS_CONSISTENCY, 0);
+$d->setConsistencyChecks($LibSBML::CATEGORY_MODELING_PRACTICE, 0);
 ok($d->checkConsistency(), 0);
 beMoreSpecific($d, 'checkConsistency()', $file);
 ok($d->getLevel(), 1);
 ok($d->getVersion(), 1);
-# proper sbm file l1v1 from string
+# proper sbml file l1v1 from string
 $str  = slurp_file($file);
 $d = $rd->readSBMLFromString($str) if defined($str);
 skip(!defined($str), $d->getNumErrors(), 0);
 beMoreSpecific($d, 'readSBMLFromString()', $file);
+$d->setConsistencyChecks($LibSBML::CATEGORY_UNITS_CONSISTENCY, 0);
+$d->setConsistencyChecks($LibSBML::CATEGORY_MODELING_PRACTICE, 0);
 skip(!defined($str), $d->checkConsistency(), 0);
 beMoreSpecific($d, 'checkConsistency()', $file);
 skip(!defined($str), $d->getLevel(), 1);
 skip(!defined($str), $d->getVersion(), 1);
 
-# proper sbm file l1v2 from file
+# proper sbml file l1v2 from file
 $file = File::Spec->catfile($testDataDir,'l1v2-branch.xml');
 $d = $rd->readSBML($file);
 ok($d->getNumErrors(), 0);
 beMoreSpecific($d, 'readSBML()', $file);
+$d->setConsistencyChecks($LibSBML::CATEGORY_UNITS_CONSISTENCY, 0);
+$d->setConsistencyChecks($LibSBML::CATEGORY_MODELING_PRACTICE, 0);
 ok($d->checkConsistency(), 0);
 beMoreSpecific($d, 'checkConsistency()', $file);
 ok($d->getLevel(), 1);
 ok($d->getVersion(), 2);
-# proper sbm file l1v2 from string
+# proper sbml file l1v2 from string
 $str  = slurp_file($file);
 $d = $rd->readSBMLFromString($str) if defined($str);
 skip(!defined($str), $d->getNumErrors(), 0);
 beMoreSpecific($d, 'readSBMLFromString()', $file);
+$d->setConsistencyChecks($LibSBML::CATEGORY_UNITS_CONSISTENCY, 0);
+$d->setConsistencyChecks($LibSBML::CATEGORY_MODELING_PRACTICE, 0);
 skip(!defined($str), $d->checkConsistency(), 0);
 beMoreSpecific($d, 'checkConsistency()', $file);
 skip(!defined($str), $d->getLevel(), 1);
 skip(!defined($str), $d->getVersion(), 2);
 
-# proper sbm file l2v1 from file
+# proper sbml file l2v1 from file
 $file = File::Spec->catfile($testDataDir,'l2v1-branch.xml');
 $d = $rd->readSBML($file);
 ok($d->getNumErrors(), 0);
+$d->setConsistencyChecks($LibSBML::CATEGORY_UNITS_CONSISTENCY, 0);
+$d->setConsistencyChecks($LibSBML::CATEGORY_MODELING_PRACTICE, 0);
 ok($d->checkConsistency(), 0);
 ok($d->getLevel(), 2);
 ok($d->getVersion(), 1);
-# proper sbm file l2v1 from string
+# proper sbml file l2v1 from string
 $str  = slurp_file($file);
 $d = $rd->readSBMLFromString($str) if defined($str);
 skip(!defined($str), $d->getNumErrors(), 0);
+$d->setConsistencyChecks($LibSBML::CATEGORY_UNITS_CONSISTENCY, 0);
+$d->setConsistencyChecks($LibSBML::CATEGORY_MODELING_PRACTICE, 0);
 skip(!defined($str), $d->checkConsistency(), 0);
 skip(!defined($str), $d->getLevel(), 2);
 skip(!defined($str), $d->getVersion(), 1);
@@ -120,6 +132,6 @@ sub beMoreSpecific {
   print STDERR "\n=== LibSBML Messages ===\n";
   print STDERR "File:    $file\n" if defined $file;
   print STDERR "Methode: $methode\n" if defined $methode;
-  $d->LibSBML::printErrors();
+  $d->printErrors($LibSBML::CERR);
   print STDERR "========================\n\n"
 }

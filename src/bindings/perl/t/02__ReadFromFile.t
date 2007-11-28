@@ -29,10 +29,13 @@ foreach (@files) {
 		 $rd->readSBMLFromString(slurp_file($file))) {
 
 #
+    # Ignore unit issues.
+    $d->setConsistencyChecks(9, 0);
+
     ok($d->getLevel(), $level);
     ok($d->getVersion(), $version);
     ok($d->getNumErrors(), 0);
-    ok($d->checkConsistency(), 0);
+    ok($d->checkConsistency(), 3);
 
 #
     my $m = $d->getModel();
