@@ -8,3 +8,5 @@ TranslateSBML.*
 install.m              
 make.bat               
 test.xml
+TAGS
+CTAGS
