@@ -90,7 +90,7 @@ BEGIN_C_DECLS
 typedef enum {
     XMLUnknownError           =    0 /*!< Unknown error encountered. */
 
-  // System diagnostics: numbers below 100 ------------------------------------
+  /* System diagnostics: numbers below 100 -------------------------------- */
 
   , XMLOutOfMemory            =    1 /*!< LibSBML unexpected encountered an out
                                       *   of memory condition from the operating
@@ -106,7 +106,7 @@ typedef enum {
   , XMLNetworkAccessError     =    5 /*!< Error encountered while attempting
                                       *   a network access. */
 
-  // Internal diagnostics: numbers about 100 and below 1000 -------------------
+  /* Internal diagnostics: numbers about 100 and below 1000 --------------- */
 
   , InternalXMLParserError    =  101 /*!< Internal error in XML parser. */
 
@@ -117,7 +117,7 @@ typedef enum {
   , XMLTranscoderError        =  103 /*!< The character transcoder reported
                                       *   an error. */
 
-  // Content errors: numbers about 1000 and below 9999 ------------------------
+  /* Content errors: numbers about 1000 and below 9999 -------------------- */
 
   , MissingXMLDecl            = 1001 /*!< Missing XML declaration at beginning
                                       *   of XML input. */
@@ -207,7 +207,8 @@ typedef enum {
 
   , XMLContentEmpty           = 1035 /*!< Main XML content is empty. */
 
-  // Bounds
+  /* Bounds */
+
   , XMLErrorCodesUpperBound   = 9999
 
 } XMLErrorCode_t;

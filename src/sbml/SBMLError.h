@@ -248,19 +248,21 @@ typedef enum
 
   , GeneralWarningNotSpecified       = 29999
 
-  // ModelingPractice contraints
+  /* ModelingPractice contraints */
+
   , CompartmentShouldHaveSize        = 80501
   , ParameterShouldHaveUnits         = 80701
   , LocalParameterShadowsId          = 81121
     
-  // Lower bound for additional error codes returned by libSBML but not
-  // defined in SBML specifications.
+  /* Lower bound for additional error codes returned by libSBML but not
+   * defined in SBML specifications. */
 
   , LibSBMLAdditionalCodesLowerBound = 90000
 
   , CannotConvertToL1V1              = 90001
 
-  //L1Compatability
+  /* L1Compatability */
+
   , NoEventsInL1                     = 91001
   , NoFunctionDefinitionsInL1        = 91002
   , NoConstraintsInL1                = 91003
@@ -275,7 +277,8 @@ typedef enum
   , NoSpeciesSpatialSizeUnitsInL1    = 91012
   , NoSBOTermsInL1                   = 91013
 
-  //L2v1 compatability
+  /* L2v1 compatability */
+
   , NoConstraintsInL2v1              = 92001
   , NoInitialAssignmentsInL2v1       = 92002
   , NoSpeciesTypeInL2v1              = 92003
@@ -283,21 +286,23 @@ typedef enum
   , NoSBOTermsInL2v1                 = 92005
   , NoIdOnSpeciesReferenceInL2v1     = 92006
 
-  //l2v2 compatability
+  /* L2v2 compatability */
+
   , SBOTermNotUniversalInL2v2        = 93001
   , NoUnitOffsetInL2v2               = 93002
   , NoKineticLawTimeUnitsInL2v2      = 93003
   , NoKineticLawSubstanceUnitsInL2v2 = 93004
 
-  //l2v3 compatability 
+  /* L2v3 compatability  */
+
   , NoUnitOffsetInL2v3               = 94001
   , NoKineticLawTimeUnitsInL2v3      = 94002
   , NoKineticLawSubstanceUnitsInL2v3 = 94003
   , NoSpeciesSpatialSizeUnitsInL2v3  = 94004
   , NoEventTimeUnitsInL2v3           = 94005
 
-  // These are errors checked by libSBML that were never
-  // published in a spec
+  /* These are errors checked by libSBML that were never
+   * published in a spec. */
 
   , SubsUnitsAllowedInKL             = 99127
   , TimeUnitsAllowedInKL             = 99128
@@ -305,7 +310,7 @@ typedef enum
 
   , BadMathML                        = 99219
 
-  // These are internal errors that reverts to 10501
+  /* These are internal errors that reverts to 10501. */
 
   /** @cond doxygen-libsbml-internal */
   , InconsistentArgUnitsWarnings     = 99502 /*!< SBML L2v3 validation rule #10501 */
@@ -316,7 +321,8 @@ typedef enum
   , UndeclaredUnits                  = 99505 
   , UnrecognisedSBOTerm              = 99701
 
-  // Bounds
+  /* Bounds */
+
   , SBMLCodesUpperBound              = 99999 /*!< 99999, the upper bound of
                                               * all libSBML codes.
                                               * Application-specific codes
