@@ -1,6 +1,13 @@
            libsbml NEWS -- History of user-visible changes
            
-           
+ === Next release (in development) ===
+
+* Changes:
+
+  - The documentation and README file incorrectly said Xerces is the
+    default parser library used.  In fact, it is libxml2 now.
+
+
  === Version 3.0.2 ===
 
 * Changes:
