@@ -57,38 +57,39 @@ for Windows</li>
 
 <h2><a class="anchor" name="quick">Quick start instructions</a></h2>
 
-<p> If you are using the Xerces XML library, beware there is a known
-bug in Xerces 2.6.0 that cannot be worked around at this time and
-causes errors in software using it.  Xerces versions 2.2 &#150; 2.5 and
-2.7.0 are known to work properly.  We recommend <a
-href="http://xml.apache.org/xerces-c/">Xerces 2.7</a>.
+<p> As of libSBML version 3.0.1, the default XML parser library used by
+libSBML is <a href="http://xmlsoft.org">libxml2</a>.  If you are using the
+Xerces XML library, beware there is a known bug in Xerces 2.6.0 that cannot
+be worked around at this time and causes errors in software using it.
+Xerces versions 2.2 &#150; 2.5 and 2.7.0 are known to work properly.
 
 
 <h3><a class="anchor" name="quick-unix">Linux, MacOS&nbsp;X, and Solaris</a></h3>
 
 <p> At a shell (terminal) command prompt, unzip the distribution, cd
-into the directory thereby created (e.g., <code>libsbml-3.0.1</code>),
+into the directory thereby created (e.g., <code>libsbml-3.0.2</code>),
 and first type:
 
 <div class="fragment"><pre class="fragment">
   ./configure
 </pre></div>
 
-<p> It will by default attempt to use the Xerces-C++ XML library; if you do
-not have the Xerces library on your system, the configure step will fail.
-In that case, you can try using the <a
+<p> It will by default attempt to use the libxml2 XML library; if you do
+not have libxml2 version 2.6.16 or later on your system, the configure step
+will fail.  In that case, you can try using the <a
 href="http://expat.sourceforge.net/">Expat</a> or <a
-href="http://xmlsoft.org/">libxml2</a> libraries instead.  For Expat, use
+href="http://http://xerces.apache.org/xerces-c/">Xerces</a> libraries
+instead.  For Expat, use
 
 <div class="fragment"><pre class="fragment">
   ./configure --with-expat
 </pre></div>
 
 <p>
-and for libxml2, use
+and for Xerces, use
 
 <div class="fragment"><pre class="fragment">
-  ./configure --with-libxml
+  ./configure --with-xerces
 </pre></div>
 
 <p> By default, libSBML only builds the C and C++ API library.  If you want
@@ -175,17 +176,17 @@ version of the VC++ runtime, respectively.
 
 <h2><a class="anchor" name="detailed">Detailed instructions for configuring and installing LibSBML</a></h2>
 
-<p> LibSBML requires a separate XML library for low-level XML
-tokenizing and Unicode support.  As of libSBML 3.0, it supports the
-Xerces-C++, Expat, and libXML XML libraries on Linux, Windows,
-MacOS&nbsp;X and Solaris.  Many Linux systems provide one or more of
-these libraries either as part of their standard distribution or as an
-optional RPM, Debian, Mandrake or other package.  For more
+<p> LibSBML requires a separate XML library for low-level XML tokenizing
+and Unicode support.  As of libSBML 3.0, it supports the Xerces-C++, Expat,
+and libXML XML libraries on Linux, Windows, MacOS&nbsp;X and Solaris.  Many
+Linux and other UNIX-like systems provide one or more of these libraries
+either as part of their standard distribution or as an optional RPM,
+Debian, Mandrake or other package.  (Libxml2 appears to be the most
+commonly available library on Linux and MacOSX systems.)  For more
 information, see <a
-href="http://xml.apache.org/xerces-c/">http://xml.apache.org/xerces-c/</a>
+href="http://xerces.apache.org/xerces-c/">http://xml.apache.org/xerces-c/</a>
 for Xerces, <a href="http://expat.sf.net">http://expat.sf.net</a> for
-Expat, and <a href="http://xmlsoft.org">http://xmlsoft.org</a> for
-libxml2.
+Expat, and <a href="http://xmlsoft.org">http://xmlsoft.org</a> for libxml2.
 
 
 <h3><a class="anchor" name="basic-config">Configuring for Linux, MacOS&nbsp;X, and Solaris</a></h3>
@@ -200,25 +201,27 @@ shell window to configure libSBML for your system:
   ./configure
 </pre></div>
 
-<p> To specify Expat or libxml2 explicitly rather than the libSBML
-default of Xerces, use a command such as the following instead:
+<p> To specify <a href="http://expat.sf.net">Expat</a> or <a
+href="http://xerces.apache.org/xerces-c/">Xerces</a> explicitly rather than
+the default <a href="http://xmlsoft.org">libxml2</a>, use a command such as
+the following instead:
 
 <div class="fragment"><pre class="fragment">
   ./configure --with-expat
 </pre></div>
 or 
 <div class="fragment"><pre class="fragment">
-  ./configure --with-libxml
+  ./configure --with-xerces
 </pre></div>
 
-<p> If your Expat, Xerces or libxml2 is installed in a non-standard
-location on your computer system (e.g., a private home directory),
-<code>configure</code> may not be able to find it by itself.  In this
-case, <code>configure</code> needs to be told explicitly where to find
-the libraries.  Use the following forms:
+<p> If your copy of libxml2, Expat, or Xerces is installed in a
+non-standard location on your computer system (e.g., a private home
+directory), <code>configure</code> may not be able to find it by itself.
+In this case, <code>configure</code> needs to be told explicitly where to
+find the libraries.  Use the following forms:
 
 <div class="fragment"><pre class="fragment">
-  ./configure --with-expat="DIR"
+  ./configure --with-libxml="DIR"
 </pre></div>
 or
 <div class="fragment"><pre class="fragment">
@@ -226,7 +229,7 @@ or
 </pre></div>
 or
 <div class="fragment"><pre class="fragment">
-  ./configure --with-libxml="DIR"
+  ./configure --with-expat="DIR"
 </pre></div>
 
 <p> where DIR is the parent directory of where the
@@ -238,7 +241,7 @@ default software tree, you would configure libSBML using the following
 command:
 
 <div class="fragment"><pre class="fragment">
-  ./configure --with-xerces="/sw"
+  ./configure --with-expat="/sw"
 </pre></div>
 
 <p> During the installation phase (i.e., when running <code>make
@@ -544,11 +547,11 @@ installed.  The source distribution is a <code>.zip</code> file
 containing the libSBML code that must be extracted in a directory on
 your system, compiled and installed.
 
-<p> As mentioned above, libSBML requires that the Xerces-C, Expat or
-libxml XML parsing libraries be available on your computer prior to
-attempting to compile libSBML.  The DLL for Xerces, Expat or libxml
-must be placed in the <code>win32/bin</code> subdirectory of the
-libSBML directory.
+<p> As mentioned above, libSBML requires that the libxml2, Xerces-C, or
+Expat XML parsing libraries be available on your computer prior to
+attempting to compile libSBML.  The DLL file for libxml2, Xerces, or Expat
+must be placed in the <code>win32/bin</code> subdirectory of the libSBML
+directory.
 
 To build libsbml on Windows:
 <ol>
