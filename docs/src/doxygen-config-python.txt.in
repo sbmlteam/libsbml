@@ -70,14 +70,15 @@ BRIEF_MEMBER_DESC      = NO
 
 INPUT = \
   libsbml-accessing.txt            \
-  libsbml-python-mainpage.txt      \
-  libsbml-python-reading-files.txt \
+  libsbml-coding.txt               \
+  libsbml-communications.txt       \
   libsbml-features.txt             \
   libsbml-installation.txt         \
-  libsbml-communications.txt       \
-  libsbml-coding.txt               \
   libsbml-issues.txt               \
   libsbml-license.txt              \
+  libsbml-python-mainpage.txt      \
+  libsbml-python-reading-files.txt \
+  libsbml-uninstallation.txt       \
   ../../src/bindings/python/libsbml.py
 
 # The INPUT_FILTER tag can be used to specify a program that doxygen should 
