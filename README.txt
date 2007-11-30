@@ -38,10 +38,11 @@
 1. QUICK START
 --------------
 
-If you are using the Xerces XML library, beware there is a bug in
-Xerces 2.6.0 that cannot be worked around at this time and causes
-errors in software using it.  Xerces versions 2.2 - 2.5 and 2.7.0
-are known to work properly.  We recommend Xerces 2.7.
+As of libSBML version 3.0.1, the default XML parser library used by
+libSBML is libxml2.  If you are using the Xerces XML library, beware
+there is a bug in Xerces 2.6.0 that cannot be worked around at this
+time and causes errors in software using it.  Xerces versions 2.2 -
+2.5 and 2.7.0 are known to work properly.
 
 1.1 Linux, MacOS X and Solaris
 ------------------------------
@@ -51,15 +52,15 @@ libsbml-2.4/), and first type:
 
   ./configure
 
-If you do not have the Xerces-C++ XML library on your system, the
-configure step will fail.  In that case, you can try using the Expat
-or libxml2 libraries instead.  For Expat,  use
+If you do not have the libxml2 XML library version 2.6.16 or later on
+your system, the configure step will fail.  In that case, you can try
+using the Expat or Xerces libraries instead.  For Expat, use
 
   ./configure --with-expat
 
-and for libxml2, use
+and for Xerces, use
 
-  ./configure --with-libxml
+  ./configure --with-xerces
 
 By default, libSBML only builds the C and C++ API library.  If you
 want to configure libSBML to build the Java, Python, Perl, Lisp,
@@ -151,9 +152,8 @@ Feature Highlights:
   Expat, Apache Xerces-C++, and Libxml2.  LibSBML provides identical
   functionality and checking of XML syntax is now available no matter
   which one is used.  SBML Documents are parsed and manipulated in the
-  Unicode codepage for efficiency (this is Xerces-C++ native format);
-  however, strings are transcoded to the local code page for SBML
-  structures.
+  Unicode codepage for efficiency; however, strings are transcoded to
+  the local code page for SBML structures.
 
 * Small memory footprint and fast runtime.  The parser is event-based
   (SAX2) and loads SBML data into C++ structures that mirror the SBML
