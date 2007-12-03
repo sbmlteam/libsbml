@@ -755,7 +755,7 @@ Validator::validate (const SBMLDocument& d)
 
     if (unrecognisedTerm)
     {
-       mFailures.remove_if(DontMatchId(99701));
+      remove_if(mFailures.begin(), mFailures.end(), DontMatchId(99701));
     }
   }
 
