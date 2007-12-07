@@ -76,6 +76,8 @@ AssignmentCycles::check_ (const Model& m, const Model& object)
   { 
     if (m.getInitialAssignment(n)->isSetMath())
     {
+      mCheckedList.clear();
+      mCheckedList.append(m.getInitialAssignment(n)->getId());
       checkInitialAssignment(m, *m.getInitialAssignment(n));
     }
   }
@@ -85,6 +87,8 @@ AssignmentCycles::check_ (const Model& m, const Model& object)
     if (m.getReaction(n)->isSetKineticLaw()){
       if (m.getReaction(n)->getKineticLaw()->isSetMath())
       {
+        mCheckedList.clear();
+        mCheckedList.append(m.getReaction(n)->getId());
         checkReaction(m, *m.getReaction(n));
       }
     }
@@ -94,6 +98,8 @@ AssignmentCycles::check_ (const Model& m, const Model& object)
   { 
     if (m.getRule(n)->isAssignment() && m.getRule(n)->isSetMath())
     {
+      mCheckedList.clear();
+      mCheckedList.append(m.getRule(n)->getId());
       checkRule(m, *m.getRule(n));
     }
   }
