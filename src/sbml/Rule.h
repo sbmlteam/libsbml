@@ -839,6 +839,13 @@ public:
    */
   virtual ~AlgebraicRule ();
 
+  /**
+   * Creates and returns a deep copy of this Rule.
+   * 
+   * @return a (deep) copy of this Rule.
+   */
+  virtual SBase* clone () const;
+
 
   /**
    * Accepts the given SBMLVisitor for this instance of AlgebraicRule.
@@ -907,6 +914,13 @@ public:
    */
   virtual ~AssignmentRule ();
 
+  /**
+   * Creates and returns a deep copy of this Rule.
+   * 
+   * @return a (deep) copy of this Rule.
+   */
+  virtual SBase* clone () const;
+
 
   /**
    * Accepts the given SBMLVisitor for this instance of AssignmentRule.
@@ -973,6 +987,13 @@ public:
    * Destroys this RateRule.
    */
   virtual ~RateRule ();
+
+  /**
+   * Creates and returns a deep copy of this Rule.
+   * 
+   * @return a (deep) copy of this Rule.
+   */
+  virtual SBase* clone () const;
 
 
   /**

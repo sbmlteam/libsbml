@@ -806,6 +806,15 @@ AlgebraicRule::~AlgebraicRule ()
 {
 }
 
+/**
+ * @return a (deep) copy of this Rule.
+ */
+SBase*
+AlgebraicRule::clone () const
+{
+  return new AlgebraicRule(*this);
+}
+
 
 /**
  * Accepts the given SBMLVisitor.
@@ -850,6 +859,15 @@ AssignmentRule::~AssignmentRule ()
 {
 }
 
+/**
+ * @return a (deep) copy of this Rule.
+ */
+SBase*
+AssignmentRule::clone () const
+{
+  return new AssignmentRule(*this);
+}
+
 
 /**
  * Accepts the given SBMLVisitor.
@@ -890,6 +908,15 @@ RateRule::RateRule (const std::string& variable, const ASTNode* math) :
  */
 RateRule::~RateRule ()
 {
+}
+
+/**
+ * @return a (deep) copy of this Rule.
+ */
+SBase*
+RateRule::clone () const
+{
+  return new RateRule(*this);
 }
 
 
