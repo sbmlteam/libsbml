@@ -2121,7 +2121,7 @@ SBase::checkUnitSyntax(unsigned int flag)
 
   while (okay && n < size)
   {
-    units = units[n];
+    c = units[n];
     okay = (isalnum(c) || c == '_');
     n++;
   }
