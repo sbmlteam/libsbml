@@ -86,7 +86,8 @@ test_sources =                   \
   TestReadFromFile2.c            \
   TestReadFromFile3.c            \
   TestReadFromFile4.c            \
-  TestReadFromFile5.cpp
+  TestReadFromFile5.cpp          \
+  TestConsistencyChecks.cpp
 
 
 extra_CPPFLAGS = -I.. -I../..

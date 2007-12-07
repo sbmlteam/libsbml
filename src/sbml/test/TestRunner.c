@@ -118,6 +118,8 @@ Suite *create_suite_TestReadFromFile3 (void);
 Suite *create_suite_TestReadFromFile4 (void);
 Suite *create_suite_TestReadFromFile5 (void);
 
+Suite *create_suite_TestConsistencyChecks (void);
+
 END_C_DECLS
 
 
@@ -203,6 +205,7 @@ main (int argc, char* argv[])
   srunner_add_suite( runner, create_suite_TestReadFromFile3() );
   srunner_add_suite( runner, create_suite_TestReadFromFile4() );
   srunner_add_suite( runner, create_suite_TestReadFromFile5() );
+  srunner_add_suite( runner, create_suite_TestConsistencyChecks() );
 
 
   setTestDataDirectory();
