@@ -755,7 +755,11 @@ Validator::validate (const SBMLDocument& d)
 
     if (unrecognisedTerm)
     {
-      remove_if(mFailures.begin(), mFailures.end(), DontMatchId(99701));
+      std::list<SBMLError>::iterator it;
+      it = remove_if(mFailures.begin(), mFailures.end(),DontMatchId(99701));
+      mFailures.erase(it, mFailures.end());      
+      
+      //remove_if(mFailures.begin(), mFailures.end(), DontMatchId(99701));
     }
   }
 
