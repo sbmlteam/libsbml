@@ -4,6 +4,18 @@
 
 * Changes:
 
+  - Added a clearLog function to XMLErrorLog. This empties the existing
+    XMLErrorLog but does not destroy it. This facilitates the repeated
+    use of checkConsistency with different validators enabled.
+
+  - Fixed a bug in the code to check for cycles in assignments between
+    rules, initial assignments and reactions. This was both failing to
+    report all cycles where they were present and in the case of very
+    complex models it was reporting cycles where there were none.
+
+  - Fixed a bug in the checkUnitSyntax function reported by Florian
+    Kamm.
+
   - The documentation and README file incorrectly said Xerces is the
     default parser library used.  In fact, it is libxml2 now.
 
