@@ -57,6 +57,22 @@ START_TEST (test_XMLErrorLog_add)
 END_TEST
 
 
+START_TEST (test_XMLErrorLog_clear)
+{
+  XMLErrorLog_t *log = XMLErrorLog_create();
+  XMLError_t* error = XMLError_create();
+
+  XMLErrorLog_add( log, error );
+
+  XMLErrorLog_clearLog(log);
+
+  fail_unless( log != NULL );
+  fail_unless( XMLErrorLog_getNumErrors(log) == 0 );
+
+  XMLErrorLog_free(log);
+}
+END_TEST
+
 
 Suite *
 create_suite_XMLErrorLog (void)
@@ -65,7 +81,9 @@ create_suite_XMLErrorLog (void)
   TCase *tcase = tcase_create("XMLErrorLog");
 
   tcase_add_test( tcase, test_XMLErrorLog_create  );
-  tcase_add_test( tcase, test_XMLErrorLog_add  );
+  tcase_add_test( tcase, test_XMLErrorLog_add     );
+  tcase_add_test( tcase, test_XMLErrorLog_clear   );
+  
   suite_add_tcase(suite, tcase);
 
   return suite;

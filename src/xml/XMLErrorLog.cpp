@@ -136,6 +136,15 @@ XMLErrorLog::getNumErrors () const
 }
 
 
+/**
+ * Removes all errors from this log.
+ */
+void 
+XMLErrorLog::clearLog()
+{
+  mErrors.clear();
+}
+
 /** @cond doxygen-libsbml-internal */
 /**
  * Sets the XMLParser for this XMLErrorLog.
@@ -223,6 +232,18 @@ unsigned int
 XMLErrorLog_getNumErrors (const XMLErrorLog_t *log)
 {
   return log->getNumErrors();
+}
+
+/**
+ * Removes all errors from this log.
+ *
+ * @param log XMLErrorLog_t, the error log to be cleared.
+ */
+LIBLAX_EXTERN
+void
+XMLErrorLog_clearLog (XMLErrorLog_t *log)
+{
+  log->clearLog();
 }
 
 

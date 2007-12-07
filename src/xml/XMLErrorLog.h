@@ -86,6 +86,10 @@ public:
    */
   const XMLError* getError (unsigned int n) const;
 
+  /**
+   * Removes all errors from this log.
+   */
+  void clearLog();
 
   /** @cond doxygen-libsbml-internal */
 
@@ -179,6 +183,10 @@ LIBLAX_EXTERN
 unsigned int
 XMLErrorLog_getNumErrors (const XMLErrorLog_t *log);
 
+
+LIBLAX_EXTERN
+void
+XMLErrorLog_clearLog (XMLErrorLog_t *log);
 
 
 END_C_DECLS
