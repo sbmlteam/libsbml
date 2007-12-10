@@ -88,11 +88,14 @@ void copySBaseAttributes(const SBase& source,SBase& target)
         delete object;
       }
       // add the cloned CVTerms from source
-      unsigned int i=0,iMax=source.getCVTerms()->getSize();
-      while(i<iMax)
+      if(source.getCVTerms()!=NULL)
       {
-        target.addCVTerm(static_cast<CVTerm*>(static_cast<CVTerm*>(source.getCVTerms()->get(i))->clone()));
-        ++i;
+          unsigned int i=0,iMax=source.getCVTerms()->getSize();
+          while(i<iMax)
+          {
+              target.addCVTerm(static_cast<CVTerm*>(static_cast<CVTerm*>(source.getCVTerms()->get(i))->clone()));
+              ++i;
+          }
       }
     }
 }
