@@ -72,6 +72,8 @@
 #ifndef XMLError_h
 #define XMLError_h
 
+#include <stdio.h>
+
 
 #include <sbml/xml/XMLExtern.h>
 #include <sbml/common/sbmlfwd.h>
