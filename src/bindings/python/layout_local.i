@@ -47,7 +47,7 @@
  */
 %typemap(out) LineSegment*
 {
-  $result = SWIG_NewPointerObj($1, GetDowncastSwigType($1), 0);
+  $result = SWIG_NewPointerObj($1, GetDowncastSwigType($1), $owner | %newpointer_flags);
 }
 
 /**
@@ -55,7 +55,7 @@
  */
 %typemap(out) GraphicalObject*
 {
-  $result = SWIG_NewPointerObj($1, GetDowncastSwigType($1), 0);
+  $result = SWIG_NewPointerObj($1, GetDowncastSwigType($1), $owner | %newpointer_flags);
 }
 
 

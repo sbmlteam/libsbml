@@ -506,11 +506,26 @@ def testListOfAsIterator():
 
    reactions = []
    for reaction in listOf:
-      reactions.append(reactions)
+      reactions.append(reaction)
 
    assert len(reactions) == 4
 
+   assert reactions[0].getId() == "R1"
+   assert reactions[1].getId() == "R2"
+   assert reactions[2].getId() == "R3"
+   assert reactions[3].getId() == "R4"
+   assert reactions[0].getName() == "reac1"
+   assert reactions[1].getName() == "reac2"
+   assert reactions[2].getName() == "reac3"
+   assert reactions[3].getName() == "reac4"
+   assert reactions[0].getKineticLaw().getFormula() == "1 + 2"
+   assert reactions[1].getKineticLaw().getFormula() == "2 + 3"
+   assert reactions[2].getKineticLaw().getFormula() == "3 + 4"
+   assert reactions[3].getKineticLaw().getFormula() == "4 + 5"
    assert listOf[-1].getId() == "R4"
+   assert listOf[-2].getId() == "R3"
+   assert listOf[-3].getId() == "R2"
+   assert listOf[-4].getId() == "R1"
 
    try:
       print listOf[4]
@@ -576,7 +591,7 @@ def testClone():
    checkClone(libsbml.EventAssignment(),"EventAssignment")
    checkClone(libsbml.FormulaUnitsData(),"FormulaUnitsData")
    checkClone(libsbml.FunctionDefinition(),"FunctionDefinition")
-#   checkClone(libsbml.InitialAssignment(),"InitialAssignment")
+   checkClone(libsbml.InitialAssignment(),"InitialAssignment")
    checkClone(libsbml.KineticLaw(),"KineticLaw")
    checkClone(libsbml.ListFormulaUnitsData(),"ListFormulaUnitsData")
    checkClone(libsbml.ListOf(),"ListOf")
@@ -586,13 +601,7 @@ def testClone():
    checkClone(libsbml.ListOfEventAssignments(),"ListOfEventAssignments")
    checkClone(libsbml.ListOfEvents(),"ListOfEvents")
    checkClone(libsbml.ListOfFunctionDefinitions(),"ListOfFunctionDefinitions")
-
-   # FIXME: The following is currently failing because the thisown
-   # attribute is not 0.  Most everything else seems to be working, so
-   # we're leaving this out for now until we can look at it more closely.
-   #
-   # checkClone(libsbml.ListOfInitialAssignments(),"ListOfInitialAssignments")
-
+   checkClone(libsbml.ListOfInitialAssignments(),"ListOfInitialAssignments")
    checkClone(libsbml.ListOfParameters(),"ListOfParameters")
    checkClone(libsbml.ListOfReactions(),"ListOfReactions")
    checkClone(libsbml.ListOfRules(),"ListOfRules")
@@ -604,15 +613,9 @@ def testClone():
    checkClone(libsbml.ModifierSpeciesReference(),"ModifierSpeciesReference")
    checkClone(libsbml.Model(),"Model")
    checkClone(libsbml.Parameter(),"Parameter")
-
-   # FIXME: The following are currently failing because the thisown
-   # attribute is not 0.  Most everything else seems to be working, so
-   # we're leaving this out for now until we can look at it more closely.
-   #
-   # checkClone(libsbml.AlgebraicRule(),"AlgebraicRule")
-   # checkClone(libsbml.AssignmentRule(),"AssignmentRule")
-   # checkClone(libsbml.RateRule(),"RateRule")
-
+   checkClone(libsbml.AlgebraicRule(),"AlgebraicRule")
+   checkClone(libsbml.AssignmentRule(),"AssignmentRule")
+   checkClone(libsbml.RateRule(),"RateRule")
    checkClone(libsbml.Reaction(),"Reaction")
    checkClone(libsbml.SBMLDocument(),"SBMLDocument")
    checkClone(libsbml.Species(),"Species")

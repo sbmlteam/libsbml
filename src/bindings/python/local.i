@@ -110,7 +110,7 @@
  */
 %typemap(out) SBase*
 {
-  $result = SWIG_NewPointerObj($1, GetDowncastSwigType($1), 0);
+  $result = SWIG_NewPointerObj($1, GetDowncastSwigType($1), $owner | %newpointer_flags);
 }
 
 /**
@@ -118,7 +118,7 @@
  */
 %typemap(out) Rule*
 {
-  $result = SWIG_NewPointerObj($1, GetDowncastSwigType($1), 0);
+  $result = SWIG_NewPointerObj($1, GetDowncastSwigType($1), $owner | %newpointer_flags);
 }
 
 
@@ -196,56 +196,10 @@ TAKEOVER_OWNERSHIP(FormulaUnitsData::setUnitDefinition(UnitDefinition*),1)
 TAKEOVER_OWNERSHIP(FormulaUnitsData::setPerTimeUnitDefinition(UnitDefinition *),1)
 TAKEOVER_OWNERSHIP(FormulaUnitsData::setEventTimeUnitDefinition(UnitDefinition *),1)
 
-/**
- * The features directives below override the default SWIG generated
- * python code for methods which return new SBase* object.  
- * The idea is to tell SWIG to give the ownership of new SBase* object
- * to caller.
- * Generally, %newobject directive is used for such ownership management.
- * Regarding to SBase*, however, the above "%typemap(out) SBase*" directive 
- * overrides the native SWIG_NewPointerObj() function (used in libsbml_wrap.cpp)
- * and reset ownership flag (SWIG_POINTER_OWN is set by %newobject) to 0. 
- */
-// ----------------------------------------------------------------------
-// ListOf
-// ----------------------------------------------------------------------
-
-%feature("shadow")
-ListOf::remove(unsigned int)
-%{
-  def remove(*args):
-    result = _libsbml.ListOf_remove(*args)
-    if result is not None: result.thisown = 1
-    return result
-%}
-
-
-%feature("shadow")
-ListOf::remove(const std::string&)
-%{
-  def remove(*args):
-    result = _libsbml.ListOf_remove(*args)
-    if result is not None: result.thisown = 1
-    return result
-%}
-
-// ----------------------------------------------------------------------
-// SBase* *::clone()
-// ----------------------------------------------------------------------
-
-%feature("shadow")
-SBase::clone() const
-%{
-      def clone(*args):
-        result = _libsbml.SBase_clone(*args)
-        if result is not None: result.thisown = 1
-        return result
-%}
 
 // ----------------------------------------------------------------------
 // SBMLReader
 // ----------------------------------------------------------------------
-
 
 %pythoncode
 %{
