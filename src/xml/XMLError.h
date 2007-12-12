@@ -54,8 +54,8 @@
  *
  * Each XMLError object also has a @em severity code, drawn from the
  * enumeration #XMLErrorSeverity_t.  Severity levels currently
- * range from informational (SEVERITY_INFO) to fatal errors
- * (SEVERITY_FATAL).
+ * range from informational (LIBSBML_SEV_INFO) to fatal errors
+ * (LIBSBML_SEV_FATAL).
  *
  * Finally, XMLError objects record the line and column near where the
  * problem occurred in the XML content.  We say "near", because many
@@ -221,18 +221,18 @@ typedef enum {
  */
 typedef enum
 {
-    CATEGORY_INTERNAL = 0 /*!< A problem involving the libSBML software itself
+    LIBSBML_CAT_INTERNAL = 0 /*!< A problem involving the libSBML software itself
                            * or the underlying XML parser.  This almost 
                            * certainly indicates a software defect (i.e., bug)
                            * in libSBML.  Please report instances of this to
                            * the libSBML developers. */
 
-  , CATEGORY_SYSTEM       /*!< A problem reported by the operating system, such
+  , LIBSBML_CAT_SYSTEM       /*!< A problem reported by the operating system, such
                            * as an inability to read or write a file.  This
                            * indicates something that is not a program error
                            * but is outside of the control of libSBML. */
 
-  , CATEGORY_XML          /*!< A problem in the XML content itself.  This
+  , LIBSBML_CAT_XML          /*!< A problem in the XML content itself.  This
                            * usually arises from malformed XML or the use of
                            * constructs not permitted in SBML. */
 } XMLErrorCategory_t;
@@ -247,20 +247,20 @@ typedef enum
  */
 typedef enum 
 {
-    SEVERITY_INFO    = 0 /*!< The error is actually informational and
+    LIBSBML_SEV_INFO    = 0 /*!< The error is actually informational and
                           * not necessarily a serious problem. */
 
-  , SEVERITY_WARNING     /*!< The error object represents a problem that is not
+  , LIBSBML_SEV_WARNING     /*!< The error object represents a problem that is not
                           * serious enough to necessarily stop the problem, but
                           * applications should take note of the problem and
                           * evaluate what its implications may be. */
 
-  , SEVERITY_ERROR       /*!< The error object represents a serious error.  The
+  , LIBSBML_SEV_ERROR       /*!< The error object represents a serious error.  The
                           * application may continue running but it is unlikely
                           * to be able to continue processing the same XML file
                           * or data stream. */
 
-  , SEVERITY_FATAL       /*!< A serious error occurred, such as an
+  , LIBSBML_SEV_FATAL       /*!< A serious error occurred, such as an
                           * out-of-memory condition, and the software should
                           * terminate immediately. */
 } XMLErrorSeverity_t;
@@ -351,8 +351,8 @@ public:
     , const std::string& details  = ""
     , const unsigned int line     = 0
     , const unsigned int column   = 0
-    , const unsigned int severity = SEVERITY_FATAL
-    , const unsigned int category = CATEGORY_INTERNAL
+    , const unsigned int severity = LIBSBML_SEV_FATAL
+    , const unsigned int category = LIBSBML_CAT_INTERNAL
   );
 
 
@@ -430,7 +430,7 @@ public:
    *
    * This is equivalent to obtaining the severity code from an
    * XMLError object (via getSeverity()) and then comparing it to
-   * the value SEVERITY_INFO from the enumeration #XMLErrorSeverity_t.
+   * the value LIBSBML_SEV_INFO from the enumeration #XMLErrorSeverity_t.
    *
    * @return @c true if this XMLError is for informational purposes only,
    * @c false otherwise.
@@ -444,7 +444,7 @@ public:
    *
    * This is equivalent to obtaining the severity code from an
    * XMLError object (via getSeverity()) and then comparing it to
-   * the value SEVERITY_WARNING from the enumeration #XMLErrorSeverity_t.
+   * the value LIBSBML_SEV_WARNING from the enumeration #XMLErrorSeverity_t.
    *
    * @return @c true if this error is a warning, @c false otherwise.
    */
@@ -457,7 +457,7 @@ public:
    *
    * This is equivalent to obtaining the severity code from an
    * XMLError object (via getSeverity()) and then comparing it to
-   * the value SEVERITY_ERROR from the enumeration #XMLErrorSeverity_t.
+   * the value LIBSBML_SEV_ERROR from the enumeration #XMLErrorSeverity_t.
    *
    * @return @c true if this error is an error, @c false otherwise.
    */
@@ -479,7 +479,7 @@ public:
    *
    * This is equivalent to obtaining the category identifier from an
    * XMLError object (via getCategory()) and then comparing it to
-   * the value CATEGORY_INTERNAL from the enumeration #XMLErrorCategory_t.
+   * the value LIBSBML_CAT_INTERNAL from the enumeration #XMLErrorCategory_t.
    *
    * @return @c true or @c false
    */
@@ -492,7 +492,7 @@ public:
    *
    * This is equivalent to obtaining the category identifier from an
    * XMLError object (via getCategory()) and then comparing it to
-   * the value CATEGORY_SYSTEM from the enumeration #XMLErrorCategory_t.
+   * the value LIBSBML_CAT_SYSTEM from the enumeration #XMLErrorCategory_t.
    *
    * @return @c true or @c false
    */
@@ -506,7 +506,7 @@ public:
    *
    * This is equivalent to obtaining the category identifier from an
    * XMLError object (via getCategory()) and then comparing it to
-   * the value CATEGORY_XML from the enumeration #XMLErrorCategory_t.
+   * the value LIBSBML_CAT_XML from the enumeration #XMLErrorCategory_t.
    *
    * @return @c true or @c false
    */

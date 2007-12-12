@@ -88,28 +88,28 @@ START_TEST (test_consistency_checks)
   fail_unless(d->getError(0)->getErrorId() == 10301);
 
   d->getErrorLog()->clearLog();
-  d->setConsistencyChecks(CATEGORY_IDENTIFIER_CONSISTENCY, false);
+  d->setConsistencyChecks(LIBSBML_CAT_IDENTIFIER_CONSISTENCY, false);
   errors = d->checkConsistency();
 
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 20612);
 
   d->getErrorLog()->clearLog();
-  d->setConsistencyChecks(CATEGORY_GENERAL_CONSISTENCY, false);
+  d->setConsistencyChecks(LIBSBML_CAT_GENERAL_CONSISTENCY, false);
   errors = d->checkConsistency();
 
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 10701);
 
   d->getErrorLog()->clearLog();
-  d->setConsistencyChecks(CATEGORY_SBO_CONSISTENCY, false);
+  d->setConsistencyChecks(LIBSBML_CAT_SBO_CONSISTENCY, false);
   errors = d->checkConsistency();
 
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 10214);
 
   d->getErrorLog()->clearLog();
-  d->setConsistencyChecks(CATEGORY_MATHML_CONSISTENCY, false);
+  d->setConsistencyChecks(LIBSBML_CAT_MATHML_CONSISTENCY, false);
   errors = d->checkConsistency();
 
   fail_unless(errors == 2);
@@ -117,7 +117,7 @@ START_TEST (test_consistency_checks)
   fail_unless(d->getError(1)->getErrorId() == 99505);
 
   d->getErrorLog()->clearLog();
-  d->setConsistencyChecks(CATEGORY_UNITS_CONSISTENCY, false);
+  d->setConsistencyChecks(LIBSBML_CAT_UNITS_CONSISTENCY, false);
   errors = d->checkConsistency();
 
   fail_unless(errors == 1);

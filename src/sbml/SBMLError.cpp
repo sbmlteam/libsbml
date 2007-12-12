@@ -145,7 +145,7 @@ SBMLError::SBMLError (  const unsigned int errorId
     ostringstream newMsg;
     mSeverity = getSeverityForEntry(index, level, version);
 
-    if (mSeverity == SEVERITY_SCHEMA_ERROR)
+    if (mSeverity == LIBSBML_SEV_SCHEMA_ERROR)
     {
       // Prior to L2v3, many possible errors were not listed separately as
       // validation rules because they were assumed to be caught by a
@@ -159,10 +159,10 @@ SBMLError::SBMLError (  const unsigned int errorId
       // add some elaboration to the error text message.
 
       mErrorId  = NotSchemaConformant;
-      mSeverity = SEVERITY_ERROR;
+      mSeverity = LIBSBML_SEV_ERROR;
       newMsg << errorTable[3].message << " "; // FIXME
     }
-    else if (mSeverity == SEVERITY_GENERAL_WARNING)
+    else if (mSeverity == LIBSBML_SEV_GENERAL_WARNING)
     {
       // General warnings are our internal code for non-XML-schema issues
       // that were not defined as errors in prior levels/versions, but then
@@ -170,7 +170,7 @@ SBMLError::SBMLError (  const unsigned int errorId
       // we use the GeneralWarning code for those cases in SBMLErrorTable.h
       // and then here we translate them into regular warnings.
 
-      mSeverity = SEVERITY_WARNING;
+      mSeverity = LIBSBML_SEV_WARNING;
       newMsg << "[Although SBML Level " << level
              << " Version " << version << " does not explicitly define the "
              << "following as an error, more recent Levels and/or Versions "
@@ -213,12 +213,12 @@ ostream& operator<< (ostream& s, const SBMLError& error)
 
   switch (error.getSeverity())
   {
-  case SEVERITY_INFO:            s << "Advisory"; break;
-  case SEVERITY_WARNING:         s << "Warning";  break;
-  case SEVERITY_FATAL:           s << "Fatal";    break;
-  case SEVERITY_ERROR:           s << "Error";    break;
-  case SEVERITY_SCHEMA_ERROR:    s << "Error";    break;
-  case SEVERITY_GENERAL_WARNING: s << "Warning";  break;
+  case LIBSBML_SEV_INFO:            s << "Advisory"; break;
+  case LIBSBML_SEV_WARNING:         s << "Warning";  break;
+  case LIBSBML_SEV_FATAL:           s << "Fatal";    break;
+  case LIBSBML_SEV_ERROR:           s << "Error";    break;
+  case LIBSBML_SEV_SCHEMA_ERROR:    s << "Error";    break;
+  case LIBSBML_SEV_GENERAL_WARNING: s << "Warning";  break;
   }
 
   s << "]) " << error.getMessage() << endl;

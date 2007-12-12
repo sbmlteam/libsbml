@@ -300,22 +300,22 @@ public:
    * #SBMLErrorCategory_t.  The following are the possible choices in
    * libSBML version 3.0.2:
    *
-   * @li CATEGORY_GENERAL_CONSISTENCY:    General overall SBML consistency.
+   * @li LIBSBML_CAT_GENERAL_CONSISTENCY:    General overall SBML consistency.
    * 
-   * @li CATEGORY_IDENTIFIER_CONSISTENCY: Consistency of identifiers.  An
+   * @li LIBSBML_CAT_IDENTIFIER_CONSISTENCY: Consistency of identifiers.  An
    * example of inconsistency would be using a species identifier in a
    * reaction rate formula without first having declared the species.
    * 
-   * @li CATEGORY_UNITS_CONSISTENCY:      Consistency of units of measure.
+   * @li LIBSBML_CAT_UNITS_CONSISTENCY:      Consistency of units of measure.
    * 
-   * @li CATEGORY_MATHML_CONSISTENCY:     Consistency of MathML constructs.
+   * @li LIBSBML_CAT_MATHML_CONSISTENCY:     Consistency of MathML constructs.
    * 
-   * @li CATEGORY_SBO_CONSISTENCY:        Consistency of SBO identifiers.
+   * @li LIBSBML_CAT_SBO_CONSISTENCY:        Consistency of SBO identifiers.
    * 
-   * @li CATEGORY_OVERDETERMINED_MODEL:   Checking whether the system of
+   * @li LIBSBML_CAT_OVERDETERMINED_MODEL:   Checking whether the system of
    * equations implied by a model is mathematically overdetermined.
    * 
-   * @li CATEGORY_MODELING_PRACTICE:      General good practice in
+   * @li LIBSBML_CAT_MODELING_PRACTICE:      General good practice in
    * model construction.
    * 
    * By default, all validation checks are applied to the model in an

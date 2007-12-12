@@ -54,7 +54,7 @@ main (int argc, char* argv[])
     for (unsigned int i = 0; i < errors; i++)
     {
       unsigned int severity = document->getError(i)->getSeverity();
-      if (severity == SEVERITY_ERROR || severity == SEVERITY_FATAL)
+      if (severity == LIBSBML_SEV_ERROR || severity == LIBSBML_SEV_FATAL)
       {
         seriousErrors = true;
         break;

@@ -38,7 +38,7 @@ class ConsistencyValidator: public Validator
 {
 public:
 
-  ConsistencyValidator () : Validator( CATEGORY_GENERAL_CONSISTENCY ) { }
+  ConsistencyValidator () : Validator( LIBSBML_CAT_GENERAL_CONSISTENCY ) { }
 
   virtual ~ConsistencyValidator () { }
 

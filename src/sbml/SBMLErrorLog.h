@@ -133,8 +133,8 @@ public:
     , const std::string& details  = ""
     , const unsigned int line     = 0
     , const unsigned int column   = 0
-    , const unsigned int severity = SEVERITY_ERROR
-    , const unsigned int category = CATEGORY_SBML
+    , const unsigned int severity = LIBSBML_SEV_ERROR
+    , const unsigned int category = LIBSBML_CAT_SBML
   );
 
 

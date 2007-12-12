@@ -37,188 +37,188 @@ using namespace std;
 static const xmlErrorTableEntry errorTable[] =
 {
   // 0
-  { XMLUnknownError, CATEGORY_INTERNAL, SEVERITY_FATAL,
+  { XMLUnknownError, LIBSBML_CAT_INTERNAL, LIBSBML_SEV_FATAL,
     "Unrecognized error encountered internally." },
 
 
   // System diagnostics:
 
   // 0001
-  { XMLOutOfMemory, CATEGORY_SYSTEM, SEVERITY_FATAL,
+  { XMLOutOfMemory, LIBSBML_CAT_SYSTEM, LIBSBML_SEV_FATAL,
     "Out of memory." },
 
   // 0002
-  { XMLFileUnreadable, CATEGORY_SYSTEM, SEVERITY_ERROR,
+  { XMLFileUnreadable, LIBSBML_CAT_SYSTEM, LIBSBML_SEV_ERROR,
     "File unreadable." },
 
   // 0003
-  { XMLFileUnwritable, CATEGORY_SYSTEM, SEVERITY_ERROR,
+  { XMLFileUnwritable, LIBSBML_CAT_SYSTEM, LIBSBML_SEV_ERROR,
     "File unwritable." },
 
   // 0004
-  { XMLFileOperationError, CATEGORY_SYSTEM, SEVERITY_ERROR,
+  { XMLFileOperationError, LIBSBML_CAT_SYSTEM, LIBSBML_SEV_ERROR,
     "Error encountered while attempting file operation." },
 
   // 0005
-  { XMLNetworkAccessError, CATEGORY_SYSTEM, SEVERITY_ERROR,
+  { XMLNetworkAccessError, LIBSBML_CAT_SYSTEM, LIBSBML_SEV_ERROR,
     "Network access error." },
 
 
   // Internal diagnostics:
 
   // 0101
-  { InternalXMLParserError, CATEGORY_INTERNAL, SEVERITY_FATAL,
+  { InternalXMLParserError, LIBSBML_CAT_INTERNAL, LIBSBML_SEV_FATAL,
     "Internal XML parser state error." },
 
   // 0102
-  { UnrecognizedXMLParserCode, CATEGORY_INTERNAL, SEVERITY_FATAL,
+  { UnrecognizedXMLParserCode, LIBSBML_CAT_INTERNAL, LIBSBML_SEV_FATAL,
     "XML parser returned an unrecognized error code." },
 
   // 0102
-  { XMLTranscoderError, CATEGORY_INTERNAL, SEVERITY_FATAL,
+  { XMLTranscoderError, LIBSBML_CAT_INTERNAL, LIBSBML_SEV_FATAL,
     "Character transcoder error." },
 
 
   // Diagnostics about XML content:
 
   // 1001
-  { MissingXMLDecl, CATEGORY_XML, SEVERITY_ERROR,
+  { MissingXMLDecl, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Missing XML declaration at beginning of XML input." },
 
   // 1002
-  { MissingXMLEncoding, CATEGORY_XML, SEVERITY_ERROR,
+  { MissingXMLEncoding, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Missing encoding attribute in XML declaration." },
 
   // 1003
-  { BadXMLDecl, CATEGORY_XML, SEVERITY_ERROR,
+  { BadXMLDecl, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Invalid or unrecognized XML declaration or XML encoding." },
 
   // 1004
-  { BadXMLDOCTYPE, CATEGORY_XML, SEVERITY_ERROR,
+  { BadXMLDOCTYPE, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Invalid, malformed or unrecognized XML DOCTYPE declaration." },
 
   // 1005
-  { InvalidCharInXML, CATEGORY_XML, SEVERITY_ERROR,
+  { InvalidCharInXML, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Invalid character in XML content." },
 
   // 1006
-  { BadlyFormedXML, CATEGORY_XML, SEVERITY_ERROR,
+  { BadlyFormedXML, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "XML is not well-formed." },
 
   // 1007
-  { UnclosedXMLToken, CATEGORY_XML, SEVERITY_ERROR,
+  { UnclosedXMLToken, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Unclosed token." },
 
   // 1008
-  { InvalidXMLConstruct, CATEGORY_XML, SEVERITY_ERROR,
+  { InvalidXMLConstruct, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "XML construct is invalid or not permitted." },
 
   // 1009
-  { XMLTagMismatch, CATEGORY_XML, SEVERITY_ERROR,
+  { XMLTagMismatch, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Element tag mismatch or missing tag." },
 
   // 1010
-  { DuplicateXMLAttribute, CATEGORY_XML, SEVERITY_ERROR,
+  { DuplicateXMLAttribute, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Duplicate attribute." },
 
   // 1011
-  { UndefinedXMLEntity, CATEGORY_XML, SEVERITY_ERROR,
+  { UndefinedXMLEntity, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Undefined XML entity." },
 
   // 1012
-  { BadProcessingInstruction, CATEGORY_XML, SEVERITY_ERROR,
+  { BadProcessingInstruction, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Invalid, malformed or unrecognized XML processing instruction." },
 
   // 1013
-  { BadXMLPrefix, CATEGORY_XML, SEVERITY_ERROR,
+  { BadXMLPrefix, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Invalid or undefined XML Namespace prefix." },
 
   // 1014
-  { BadXMLPrefixValue, CATEGORY_XML, SEVERITY_ERROR,
+  { BadXMLPrefixValue, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Invalid XML Namespace prefix value." },
 
   // 1015
-  { MissingXMLRequiredAttribute, CATEGORY_XML, SEVERITY_ERROR,
+  { MissingXMLRequiredAttribute, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Missing required attribute." },
 
   // 1016
-  { XMLAttributeTypeMismatch, CATEGORY_XML, SEVERITY_ERROR,
+  { XMLAttributeTypeMismatch, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Data type mismatch for attribute value." },
 
   // 1017
-  { XMLBadUTF8Content, CATEGORY_XML, SEVERITY_ERROR,
+  { XMLBadUTF8Content, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Invalid UTF8 content." },
 
   // 1018
-  { MissingXMLAttributeValue, CATEGORY_XML, SEVERITY_ERROR,
+  { MissingXMLAttributeValue, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Missing or improperly formed attribute value." },
 
   // 1019
-  { BadXMLAttributeValue, CATEGORY_XML, SEVERITY_ERROR,
+  { BadXMLAttributeValue, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Invalid or unrecognizable attribute value." },
 
   // 1020
-  { BadXMLAttribute, CATEGORY_XML, SEVERITY_ERROR,
+  { BadXMLAttribute, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Invalid, unrecognized or malformed attribute." },
 
   // 1021
-  { UnrecognizedXMLElement, CATEGORY_XML, SEVERITY_ERROR,
+  { UnrecognizedXMLElement, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Element either not recognized or not permitted." },
 
   // 1022
-  { BadXMLComment, CATEGORY_XML, SEVERITY_ERROR,
+  { BadXMLComment, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Badly formed XML comment." },
 
   // 1023
-  { BadXMLDeclLocation, CATEGORY_XML, SEVERITY_ERROR,
+  { BadXMLDeclLocation, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "XML declaration not permitted in this location." },
 
   // 1024
-  { XMLUnexpectedEOF, CATEGORY_XML, SEVERITY_ERROR,
+  { XMLUnexpectedEOF, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Reached end of input unexpectedly." },
 
   // 1025
-  { BadXMLIDValue, CATEGORY_XML, SEVERITY_ERROR,
+  { BadXMLIDValue, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Value is invalid for XML ID, or has already been used." },
 
   // 1026
-  { BadXMLIDRef, CATEGORY_XML, SEVERITY_ERROR,
+  { BadXMLIDRef, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "XML ID value was never declared." },
 
   // 1027
-  { UninterpretableXMLContent, CATEGORY_XML, SEVERITY_ERROR,
+  { UninterpretableXMLContent, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Unable to interpret content." },
 
   // 1028
-  { BadXMLDocumentStructure, CATEGORY_XML, SEVERITY_ERROR,
+  { BadXMLDocumentStructure, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Bad XML document structure." },
 
   // 1029
-  { InvalidAfterXMLContent, CATEGORY_XML, SEVERITY_ERROR,
+  { InvalidAfterXMLContent, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Encountered invalid content after expected content." },
 
   // 1031
-  { XMLExpectedQuotedString, CATEGORY_XML, SEVERITY_ERROR,
+  { XMLExpectedQuotedString, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Expected to find a quoted string." },
 
   // 1032
-  { XMLEmptyValueNotPermitted, CATEGORY_XML, SEVERITY_ERROR,
+  { XMLEmptyValueNotPermitted, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "An empty value is not permitted in this context." },
 
   // 1033
-  { XMLBadNumber, CATEGORY_XML, SEVERITY_ERROR,
+  { XMLBadNumber, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Invalid or unrecognized number." },
 
   // 1034
-  { XMLBadColon, CATEGORY_XML, SEVERITY_ERROR,
+  { XMLBadColon, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Colon characters are invalid in this context." },
 
   // 1035
-  { MissingXMLElements, CATEGORY_XML, SEVERITY_ERROR,
+  { MissingXMLElements, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "One or more expected elements are missing." },
 
   // 1036
-  { XMLContentEmpty, CATEGORY_XML, SEVERITY_ERROR,
+  { XMLContentEmpty, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
     "Main XML content is empty." },
 
 };
@@ -365,7 +365,7 @@ XMLError::getCategory () const
 bool
 XMLError::isInfo () const
 {
-  return (mSeverity == SEVERITY_INFO);
+  return (mSeverity == LIBSBML_SEV_INFO);
 }
 
 
@@ -375,7 +375,7 @@ XMLError::isInfo () const
 bool
 XMLError::isWarning () const
 {
-  return (mSeverity == SEVERITY_WARNING);
+  return (mSeverity == LIBSBML_SEV_WARNING);
 }
 
 
@@ -385,7 +385,7 @@ XMLError::isWarning () const
 bool
 XMLError::isError () const
 {
-  return (mSeverity == SEVERITY_ERROR);
+  return (mSeverity == LIBSBML_SEV_ERROR);
 }
 
 
@@ -395,7 +395,7 @@ XMLError::isError () const
 bool
 XMLError::isFatal () const
 {
-  return (mSeverity == SEVERITY_FATAL);
+  return (mSeverity == LIBSBML_SEV_FATAL);
 }
 
 
@@ -408,7 +408,7 @@ XMLError::isFatal () const
 bool
 XMLError::isSystem () const
 {
-  return (mCategory == CATEGORY_SYSTEM);
+  return (mCategory == LIBSBML_CAT_SYSTEM);
 }
 
 
@@ -422,7 +422,7 @@ XMLError::isSystem () const
 bool
 XMLError::isXML () const
 {
-  return (mCategory == CATEGORY_XML);
+  return (mCategory == LIBSBML_CAT_XML);
 }
 
 
@@ -435,7 +435,7 @@ XMLError::isXML () const
 bool
 XMLError::isInternal () const
 {
-  return (mCategory == CATEGORY_INTERNAL);
+  return (mCategory == LIBSBML_CAT_INTERNAL);
 }
 
 
@@ -496,10 +496,10 @@ ostream& operator<< (ostream& s, const XMLError& error)
 
   switch (error.getSeverity())
   {
-  case SEVERITY_INFO:      s << "Advisory"; break;
-  case SEVERITY_WARNING:   s << "Warning";  break;
-  case SEVERITY_FATAL:     s << "Fatal";    break;
-  case SEVERITY_ERROR:     s << "Error";    break;
+  case LIBSBML_SEV_INFO:      s << "Advisory"; break;
+  case LIBSBML_SEV_WARNING:   s << "Warning";  break;
+  case LIBSBML_SEV_FATAL:     s << "Fatal";    break;
+  case LIBSBML_SEV_ERROR:     s << "Error";    break;
   }
 
   s << "]) " << error.mMessage << endl;

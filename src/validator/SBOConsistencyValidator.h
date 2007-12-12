@@ -38,7 +38,7 @@ class SBOConsistencyValidator: public Validator
 public:
 
   SBOConsistencyValidator () :
-    Validator( CATEGORY_SBO_CONSISTENCY ) { }
+    Validator( LIBSBML_CAT_SBO_CONSISTENCY ) { }
 
   virtual ~SBOConsistencyValidator () { }
 

@@ -38,7 +38,7 @@ class UnitConsistencyValidator: public Validator
 public:
 
   UnitConsistencyValidator () :
-    Validator( CATEGORY_UNITS_CONSISTENCY ) { }
+    Validator( LIBSBML_CAT_UNITS_CONSISTENCY ) { }
 
   virtual ~UnitConsistencyValidator () { }
 

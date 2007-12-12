@@ -731,7 +731,7 @@ Validator::validate (const SBMLDocument& d)
 
   if (m != NULL)
   {
-    if (this->getCategory() == CATEGORY_UNITS_CONSISTENCY)
+    if (this->getCategory() == LIBSBML_CAT_UNITS_CONSISTENCY)
     {
       /* create list of formula units for validation */
       if (!m->isWrittenFormulaUnitsData())
@@ -743,7 +743,7 @@ Validator::validate (const SBMLDocument& d)
     d.accept(vv);
   }
 
-  if (this->getCategory() == CATEGORY_SBO_CONSISTENCY
+  if (this->getCategory() == LIBSBML_CAT_SBO_CONSISTENCY
       && mFailures.size() > 1)
   {
     /* in SBO check if we have encountered an unrecognised term error

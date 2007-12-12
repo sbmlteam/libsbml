@@ -38,7 +38,7 @@ class IdentifierConsistencyValidator: public Validator
 public:
 
   IdentifierConsistencyValidator () :
-    Validator( CATEGORY_IDENTIFIER_CONSISTENCY ) { }
+    Validator( LIBSBML_CAT_IDENTIFIER_CONSISTENCY ) { }
 
   virtual ~IdentifierConsistencyValidator () { }
 

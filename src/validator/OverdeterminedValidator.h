@@ -39,7 +39,7 @@ class OverdeterminedValidator: public Validator
 public:
 
   OverdeterminedValidator () :
-    Validator( CATEGORY_OVERDETERMINED_MODEL ) { }
+    Validator( LIBSBML_CAT_OVERDETERMINED_MODEL ) { }
 
   virtual ~OverdeterminedValidator () { }
 

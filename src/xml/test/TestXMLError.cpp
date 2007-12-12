@@ -45,34 +45,34 @@ START_TEST (test_XMLError_create)
 
   error = new XMLError(DuplicateXMLAttribute);
   fail_unless( error->getErrorId()  == DuplicateXMLAttribute );
-  fail_unless( error->getSeverity() == SEVERITY_ERROR );
-  fail_unless( error->getCategory() == CATEGORY_XML );
+  fail_unless( error->getSeverity() == LIBSBML_SEV_ERROR );
+  fail_unless( error->getCategory() == LIBSBML_CAT_XML );
   fail_unless( error->getMessage()  == "Duplicate attribute." );
   delete error;
 
   error = new XMLError(12345, "My message");
   fail_unless( error->getErrorId()  == 12345 );
   fail_unless( error->getMessage()  == "My message" );
-  fail_unless( error->getSeverity() == SEVERITY_FATAL );
-  fail_unless( error->getCategory() == CATEGORY_INTERNAL );
+  fail_unless( error->getSeverity() == LIBSBML_SEV_FATAL );
+  fail_unless( error->getCategory() == LIBSBML_CAT_INTERNAL );
   delete error;
 
   error = new XMLError(12345, "My message", 0, 0,
-                       SEVERITY_INFO, CATEGORY_SYSTEM);
+                       LIBSBML_SEV_INFO, LIBSBML_CAT_SYSTEM);
   fail_unless( error->getErrorId()  == 12345 );
   fail_unless( error->getMessage()  == "My message" );
-  fail_unless( error->getSeverity() == SEVERITY_INFO );
-  fail_unless( error->getCategory() == CATEGORY_SYSTEM );
+  fail_unless( error->getSeverity() == LIBSBML_SEV_INFO );
+  fail_unless( error->getCategory() == LIBSBML_CAT_SYSTEM );
   fail_unless( error->isInfo() );
   fail_unless( error->isSystem() );
   delete error;
 
   error = new XMLError(10000, "Another message", 0, 0,
-                       SEVERITY_FATAL, CATEGORY_XML);
+                       LIBSBML_SEV_FATAL, LIBSBML_CAT_XML);
   fail_unless( error->getErrorId()  == 10000 );
   fail_unless( error->getMessage()  == "Another message" );
-  fail_unless( error->getSeverity() == SEVERITY_FATAL );
-  fail_unless( error->getCategory() == CATEGORY_XML );
+  fail_unless( error->getSeverity() == LIBSBML_SEV_FATAL );
+  fail_unless( error->getCategory() == LIBSBML_CAT_XML );
   fail_unless( error->isFatal() );
   fail_unless( error->isXML() );
   delete error;

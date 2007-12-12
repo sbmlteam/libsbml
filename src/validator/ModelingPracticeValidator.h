@@ -38,7 +38,7 @@ class ModelingPracticeValidator: public Validator
 public:
 
   ModelingPracticeValidator () :
-    Validator( CATEGORY_IDENTIFIER_CONSISTENCY ) { }
+    Validator( LIBSBML_CAT_IDENTIFIER_CONSISTENCY ) { }
 
   virtual ~ModelingPracticeValidator () { }
 

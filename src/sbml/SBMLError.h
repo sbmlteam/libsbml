@@ -41,12 +41,12 @@
  * #SBMLErrorCategory_t.  Categories are used to partition errors into
  * distinct groups.  In particular, the SBML validation system in libSBML
  * identifies itself using different category codes, such as
- * CATEGORY_IDENTIFIER_CONSISTENCY for identifier consistency checking and
- * CATEGORY_MATHML_CONSISTENCY for MathML consistency checking.
+ * LIBSBML_CAT_IDENTIFIER_CONSISTENCY for identifier consistency checking and
+ * LIBSBML_CAT_MATHML_CONSISTENCY for MathML consistency checking.
  *
  * In addition, SBMLError also has a @em severity code, drawn from the
  * enumeration #SBMLErrorSeverity_t.  Severity levels currently range from
- * informational (SEVERITY_INFO) to fatal errors (SEVERITY_FATAL).
+ * informational (LIBSBML_SEV_INFO) to fatal errors (LIBSBML_SEV_FATAL).
  *
  * SBMLError also logs a text message suitable for displaying to humans and
  * describing the nature of the problem.
@@ -342,41 +342,41 @@ typedef enum
  */
 typedef enum 
 {
-    CATEGORY_SBML = (CATEGORY_XML + 1)
+    LIBSBML_CAT_SBML = (LIBSBML_CAT_XML + 1)
     /*!< General SBML error. */
 
-  , CATEGORY_SBML_L1_COMPAT
+  , LIBSBML_CAT_SBML_L1_COMPAT
     /*!< Error in converting to SBML Level 1. */
 
-  , CATEGORY_SBML_L2V1_COMPAT
+  , LIBSBML_CAT_SBML_L2V1_COMPAT
     /*!< Error in converting to SBML Level 1 Version 1. */
 
-  , CATEGORY_SBML_L2V2_COMPAT
+  , LIBSBML_CAT_SBML_L2V2_COMPAT
     /*!< Error in converting to SBML Level 1 Version 2. */
 
-  , CATEGORY_GENERAL_CONSISTENCY
+  , LIBSBML_CAT_GENERAL_CONSISTENCY
     /*!< Error in validating the consistency of the SBML model. */
 
-  , CATEGORY_IDENTIFIER_CONSISTENCY
+  , LIBSBML_CAT_IDENTIFIER_CONSISTENCY
     /*!< Error in validating the symbol identifiers in the model. */
 
-  , CATEGORY_UNITS_CONSISTENCY
+  , LIBSBML_CAT_UNITS_CONSISTENCY
     /*!< Error in validating units. */
 
-  , CATEGORY_MATHML_CONSISTENCY
+  , LIBSBML_CAT_MATHML_CONSISTENCY
     /*!< Error in validating MathML. */
 
-  , CATEGORY_SBO_CONSISTENCY
+  , LIBSBML_CAT_SBO_CONSISTENCY
     /*!< Error in validation SBO. */
 
-  , CATEGORY_OVERDETERMINED_MODEL
+  , LIBSBML_CAT_OVERDETERMINED_MODEL
     /*!< Error in the system of equations in the model: the system is
      * overdetermined, therefore violating a tenet of proper SBML. */
 
-  , CATEGORY_SBML_L2V3_COMPAT
+  , LIBSBML_CAT_SBML_L2V3_COMPAT
     /*!< Error in converting to SBML Level 2 Version 3. */
 
-  , CATEGORY_MODELING_PRACTICE
+  , LIBSBML_CAT_MODELING_PRACTICE
     /*!< Warning about recommended good practices involving SBML and
      * computational modeling. */
 
@@ -399,12 +399,12 @@ typedef enum
    * of the codes is done in SBMLError.cpp.
    */
 
-    SEVERITY_SCHEMA_ERROR    = (SEVERITY_FATAL + 1)
+    LIBSBML_SEV_SCHEMA_ERROR    = (LIBSBML_SEV_FATAL + 1)
     /*!< The XML content does not conform to
      * the relevant version of the SBML XML 
      * Schema.  The content is not valid SBML. */
 
-  , SEVERITY_GENERAL_WARNING
+  , LIBSBML_SEV_GENERAL_WARNING
     /*!< The XML content is invalid for some
      * levels/versions of SBML, and while it
      * may be valid in others, it is something
@@ -412,7 +412,7 @@ typedef enum
      * will issue warnings in those cases it
      * can recognize. */
 
-  , SEVERITY_NOT_APPLICABLE
+  , LIBSBML_SEV_NOT_APPLICABLE
     /*!< This error code is only a placeholder
      * for errors that have relevance to some
      * versions of SBML but not others. */
@@ -493,8 +493,8 @@ public:
    , const std::string& details  = ""
    , const unsigned int line     = 0
    , const unsigned int column   = 0
-   , const unsigned int severity = SEVERITY_ERROR
-   , const unsigned int category = CATEGORY_SBML
+   , const unsigned int severity = LIBSBML_SEV_ERROR
+   , const unsigned int category = LIBSBML_CAT_SBML
   );
 
 };

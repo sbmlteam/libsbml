@@ -88,7 +88,7 @@ VConstraint::logFailure (const SBase& object, const std::string& message)
   mValidator.logFailure
     ( SBMLError( mId, object.getLevel(), object.getVersion(),
                  message, object.getLine(), object.getColumn(),
-                 SEVERITY_ERROR, CATEGORY_SBML ));
+                 LIBSBML_SEV_ERROR, LIBSBML_CAT_SBML ));
 
 }
 /** @endcond doxygen-libsbml-internal */

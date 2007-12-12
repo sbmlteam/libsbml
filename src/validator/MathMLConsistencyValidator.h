@@ -38,7 +38,7 @@ class MathMLConsistencyValidator: public Validator
 public:
 
   MathMLConsistencyValidator () :
-    Validator( CATEGORY_MATHML_CONSISTENCY ) { }
+    Validator( LIBSBML_CAT_MATHML_CONSISTENCY ) { }
 
   virtual ~MathMLConsistencyValidator () { }
 

@@ -43,7 +43,7 @@ class Validator
 {
 public:
 
-  Validator ( SBMLErrorCategory_t category = CATEGORY_SBML );
+  Validator ( SBMLErrorCategory_t category = LIBSBML_CAT_SBML );
 
   virtual ~Validator ();
 
