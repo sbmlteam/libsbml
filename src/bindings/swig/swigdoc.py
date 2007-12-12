@@ -96,6 +96,8 @@ class CHeader:
         # There may be more class docs in the same comment.
         if stripped.startswith('* @class'):
           classname = stripped[8:].strip()
+          if classname.endswith('.'):
+            classname = classname[:-1]          
         else:
           inClassDocs = False
 
