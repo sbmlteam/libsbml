@@ -22,6 +22,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="../../include"
 				PreprocessorDefinitions="USE_EXPAT;WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBSBML_EXPORTS;LIBLAX_EXPORTS;USE_LAYOUT"
 				ExceptionHandling="TRUE"
 				BasicRuntimeChecks="3"
@@ -90,6 +91,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="0"
+				AdditionalIncludeDirectories="../../include"
 				PreprocessorDefinitions="USE_EXPAT;WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBSBML_EXPORTS;_MSC_EXTENSIONS;LIBLAX_EXPORTS;USE_LAYOUT"
 				StringPooling="FALSE"
 				ExceptionHandling="TRUE"

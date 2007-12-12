@@ -22,6 +22,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="../../include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				StringPooling="FALSE"
 				ExceptionHandling="TRUE"
@@ -87,6 +88,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="0"
+				AdditionalIncludeDirectories="../../include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				StringPooling="FALSE"
 				ExceptionHandling="TRUE"
@@ -146,10 +148,10 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
-				RelativePath="..\..\examples\c++\util.c">
+				RelativePath="..\..\examples\c++\echoSBML.cpp">
 			</File>
 			<File
-				RelativePath="..\..\examples\c++\echoSBML.cpp">
+				RelativePath="..\..\examples\c++\util.c">
 			</File>
 		</Filter>
 		<Filter
