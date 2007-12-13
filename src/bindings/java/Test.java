@@ -106,8 +106,8 @@ public class Test
       if (n > 0)
       {
         SBMLErrorLog log = d.getErrorLog();
-        Assert(log.getNumFailsWithSeverity(libsbml.SEVERITY_ERROR) == 0);
-        if (log.getNumFailsWithSeverity(libsbml.SEVERITY_ERROR) > 0) 
+        Assert(log.getNumFailsWithSeverity(libsbml.LIBSBML_SEV_ERROR) == 0);
+        if (log.getNumFailsWithSeverity(libsbml.LIBSBML_SEV_ERROR) > 0) 
         {
           System.out.println(listValidSBML[i] + " is judged as invalid");
           d.printErrors(libsbml.cerr);
