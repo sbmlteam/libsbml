@@ -212,7 +212,7 @@ ifdef USE_SWIG
 	$(SWIG) $(SWIGFLAGS) \
 	        $(sort $(default_includes) $(INCLUDES)) \
 		-c++ -python -o libsbml_wrap.cpp libsbml.i
-	sed -ic "s|import _libsbml|from __future__ import generators\nimport _libsbml|" \
+	sed -ic "h; s|import _libsbml|from __future__ import generators|p; g" \
 		libsbml.py
 else
 	echo "Reconfigure --with-swig in order to rebuild libsbml_wrap.cpp"
