@@ -63,7 +63,24 @@ WriteMakefile(
 package MY;
 sub postamble {
 	return <<'MAKE_FRAG';
-LibSBML_wrap.cxx: local.i
+
+extra_sources  = \
+  LibSBML.i \
+  local.cpp \
+  local.i
+
+swig_sources =      \
+  $(extra_sources)  \
+  ../swig/libsbml.h \
+  ../swig/libsbml.i
+
+main_sources = \
+  $(shell grep '%include sbml' ../swig/libsbml.i | cut -f2 -d' ' \
+    | cut -f2- -d'/' | sed -e '/\//s/^/..\/..\//;/\//!s/^/..\/..\/sbml\//')
+
+LibSBML.pm: LibSBML_wrap.cxx
+
+LibSBML_wrap.cxx: LibSBML.pod $(swig_sources)
 ifndef USE_SWIG
 	$(NOECHO) $(ECHO) "Reconfigure --with-swig in order to rebuild LibSBML_wrap.cxx"
 	exit 1
@@ -71,7 +88,8 @@ else
 	@SWIG@ @SWIGFLAGS@ -c++ -perl5 -proxy -I../../../include LibSBML.i
 endif
 
-LibSBML.pm: LibSBML_wrap.cxx
+LibSBML.pod: $(main_sources) ../swig/libsbml.i ../swig/swigdoc.py
+	../swig/swigdoc.py perl -I../../../include ../swig/libsbml.i LibSBML.pod
 
 MYPACKLIST = $(DESTINSTALLSITEARCH)/auto/$(FULLEXT)/.packlist
 MYPERLLOCAL = $(INSTALLARCHLIB)/perllocal.pod
