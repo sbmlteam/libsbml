@@ -45,7 +45,7 @@
 %typemap(out) SBase*, Rule*
 {
   ST(argvi) = sv_newmortal();
-  SWIG_MakePtr(ST(argvi++), (void*)$1, GetDowncastSwigType($1), SWIG_SHADOW|0);
+  SWIG_MakePtr(ST(argvi++), (void*)$1, GetDowncastSwigType($1), $owner | %newpointer_flags);
 }
 
 /**
@@ -136,54 +136,6 @@
   sub setEventTimeUnitDefinition {
     $_[1]->DISOWN() if defined $_[1];
     return LibSBMLc::FormulaUnitsData_setEventTimeUnitDefinition(@_);
-  }
-%}
-
-/**
- * The features directives below override the default SWIG generated
- * perl code for methods which return new SBase* object.
- * The idea is to tell SWIG to give the ownership of new SBase* object
- * to caller.
- * Generally, %newobject directive is used for such ownership management.
- * Regarding to SBase*, however, the above "%typemap(out) SBase*" directive
- * overrides the native SWIG_NewPointerObj() function (used in LibSBML_wrap.cxx)
- * and reset ownership flag (SWIG_OWNER is set by %newobject) to 0.
- */
-
-// ----------------------------------------------------------------------
-// ListOf
-// ----------------------------------------------------------------------
-
-%feature("shadow") ListOf::remove(unsigned int)
-%{
-  sub remove {
-    my $result = LibSBMLc::ListOf_remove(@_);
-    $result->ACQUIRE() if (defined $result);
-    return $result;
-  }
-%}
-
-%feature("shadow") ListOf::remove(const std::string&)
-%{
-  sub remove {
-    my $result = LibSBMLc::ListOf_remove(@_);
-    $result->ACQUIRE() if (defined $result);
-    return $result;
-  }
-%}
-
-
-// ----------------------------------------------------------------------
-// SBase* *::clone()
-// ----------------------------------------------------------------------
-
-%feature("shadow")
-SBase::clone() const
-%{
-  sub clone {
-    my $result = LibSBMLc::SBase_clone(@_);
-    $result->ACQUIRE() if (defined $result);
-    return $result;
   }
 %}
 
