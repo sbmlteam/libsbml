@@ -164,7 +164,7 @@ swig_sources =      \
 
 main_sources = \
   $(shell grep '%include sbml' ../swig/libsbml.i | cut -f2 -d' ' \
-    | cut -f2- -d'/' | sed -se '/\//s/^/..\/..\//;/\//!s/^/..\/..\/sbml\//')
+    | cut -f2- -d'/' | sed -e '/\//s/^/..\/..\//;/\//!s/^/..\/..\/sbml\//')
 
 # MacOS X is different.  We need to compile the .jnilib files using -bundle.
 
