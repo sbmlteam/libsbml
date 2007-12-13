@@ -59,18 +59,23 @@
 START_TEST (test_c_locale_snprintf)
 {
   char s[32];
+  char* lc;
 
 
-  setlocale(LC_ALL, "de_DE");
+  lc = setlocale(LC_ALL, "de_DE");
 
   /**
-   * These tests will fail under Cygwin because of a minimal
-   * setlocale() implementation (see setlocale manpage).
+   * These tests will fail under some platforms because of a minimal 
+   * setlocale() implementation (e.g. Cygwin (see setlocale manpage)) 
+   * or limited number of default locales (e.g. Ubuntu based).
+   * Thus these tests will be skipped when setlocale() returns
+   * NULL.
    */
-#ifndef CYGWIN
-  fail_unless( snprintf(s, sizeof(s), "%3.2f", 3.14) == 4 );
-  fail_unless( !strcmp(s, "3,14")                         );
-#endif
+  if ( lc != NULL )
+  {
+    fail_unless( snprintf(s, sizeof(s), "%3.2f", 3.14) == 4 );
+    fail_unless( !strcmp(s, "3,14")                         );
+  }
 
   fail_unless( c_locale_snprintf(s, sizeof(s), "%3.2f", 3.14) == 4 );
   fail_unless( !strcmp(s, "3.14")                                  );
@@ -96,22 +101,27 @@ END_TEST
 START_TEST (test_c_locale_strtod)
 {
   const char *en = "2.72";
+  char* lc;
   char *endptr;
 
-  setlocale(LC_ALL, "de_DE");
+  lc = setlocale(LC_ALL, "de_DE");
 
   /**
-   * These tests will fail under Cygwin because of a minimal
-   * setlocale() implementation (see setlocale manpage).
+   * These tests will fail under some platforms because of a minimal 
+   * setlocale() implementation (e.g. Cygwin (see setlocale manpage)) 
+   * or limited number of default locales (e.g. Ubuntu based).
+   * Thus these tests will be skipped when setlocale() returns
+   * NULL.
    */
-#ifndef CYGWIN
-  const char *de = "2,72";
+  if ( lc != NULL )
+  {
+    const char *de = "2,72";
 
-  endptr = NULL;
-  fail_unless( strtod(de, &endptr) == 2.72 );
-  fail_unless( (endptr - de)       == 4    );
-  fail_unless( errno != ERANGE             );
-#endif
+    endptr = NULL;
+    fail_unless( strtod(de, &endptr) == 2.72 );
+    fail_unless( (endptr - de)       == 4    );
+    fail_unless( errno != ERANGE             );
+  }
 
   endptr = NULL;
   fail_unless( c_locale_strtod(en, &endptr) == 2.72 );
