@@ -815,6 +815,8 @@ convertUnitToSI(const Unit * unit)
       break;
   }
 
+  delete newUnit;
+
   return ud;
 }
 
