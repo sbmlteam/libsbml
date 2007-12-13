@@ -140,9 +140,11 @@ PieceBooleanMathCheck::getMessage (const ASTNode& node, const SBase& object)
 
   //msg << getPreamble();
 
-  msg << "The formula '" << SBML_formulaToString(&node);
+  char * formula = SBML_formulaToString(&node);
+  msg << "The formula '" << formula;
   msg << "' in the " << getFieldname() << " element of the " << getTypename(object);
   msg << " uses an piecewise function that does not return a boolean.";
+  safe_free(formula);
 
   return msg.str();
 }

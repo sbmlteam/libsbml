@@ -34,6 +34,7 @@
 #include <sbml/units/FormulaUnitsData.h>
 
 #include <sbml/util/List.h>
+#include <sbml/util/memory.h>
 
 #include "CompartmentOutsideCycles.h"
 #include "FunctionDefinitionVars.h"
@@ -99,11 +100,13 @@ START_CONSTRAINT (99505, AssignmentRule, ar)
 
   pre ( formulaUnits != 0 );
 
+  char * formula = SBML_formulaToString(ar.getMath());
   msg = "The units of the <assignmentRule> <math> expression '";
-  msg += SBML_formulaToString(ar.getMath());
+  msg += formula;
   msg += "' cannot be fully checked. Unit consistency reported as either no errors ";
   msg += "or further unit errors related to this object may not be accurate.";
-
+  safe_free(formula);
+  
   inv( formulaUnits->getContainsParametersWithUndeclaredUnits() == 0);
 }
 END_CONSTRAINT
@@ -119,10 +122,12 @@ START_CONSTRAINT (99505, RateRule, rr)
 
   pre ( formulaUnits != 0 );
 
+  char * formula = SBML_formulaToString(rr.getMath());
   msg = "The units of the <rateRule> <math> expression '";
-  msg += SBML_formulaToString(rr.getMath());
+  msg += formula;
   msg += "' cannot be fully checked. Unit consistency reported as either no errors ";
   msg += "or further unit errors related to this object may not be accurate.";
+  safe_free(formula);
 
   inv( formulaUnits->getContainsParametersWithUndeclaredUnits() == 0);
 }
@@ -140,10 +145,12 @@ START_CONSTRAINT (99505, InitialAssignment, ia)
 
   pre ( formulaUnits != 0 );
 
+  char * formula = SBML_formulaToString(ia.getMath());
   msg = "The units of the <initialAssignment> <math> expression '";
-  msg += SBML_formulaToString(ia.getMath());
+  msg += formula;
   msg += "' cannot be fully checked. Unit consistency reported as either no errors ";
   msg += "or further unit errors related to this object may not be accurate.";
+  safe_free(formula);
 
   inv( formulaUnits->getContainsParametersWithUndeclaredUnits() == 0);
 }
@@ -158,10 +165,12 @@ START_CONSTRAINT (99505, KineticLaw, kl)
                             m.getFormulaUnitsData(kl.getId(), SBML_KINETIC_LAW);
   pre ( formulaUnits != 0 );
 
+  char * formula = SBML_formulaToString(kl.getMath());
   msg = "The units of the <kineticLaw> <math> expression '";
-  msg += SBML_formulaToString(kl.getMath());
+  msg += formula;
   msg += "' cannot be fully checked. Unit consistency reported as either no errors ";
   msg += "or further unit errors related to this object may not be accurate.";
+  safe_free(formula);
 
   inv( formulaUnits->getContainsParametersWithUndeclaredUnits() == 0);
 }
@@ -177,10 +186,12 @@ START_CONSTRAINT (99505, Event, e)
 
   pre ( formulaUnits != 0 );
 
+  char * formula = SBML_formulaToString(e.getDelay()->getMath());
   msg = "The units of the <event> <delay> expression '";
-  msg += SBML_formulaToString(e.getDelay()->getMath());
+  msg += formula;
   msg += "' cannot be fully checked. Unit consistency reported as either no errors ";
   msg += "or further unit errors related to this object may not be accurate.";
+  safe_free(formula);
 
   inv( formulaUnits->getContainsParametersWithUndeclaredUnits() == 0);
 }
@@ -198,10 +209,12 @@ START_CONSTRAINT (99505, EventAssignment, ea)
 
   pre ( formulaUnits != 0 );
   
+  char * formula = SBML_formulaToString(ea.getMath());
   msg = "The units of the <eventAssignment> <math> expression '";
-  msg += SBML_formulaToString(ea.getMath());
+  msg += formula;
   msg += "' cannot be fully checked. Unit consistency reported as either no errors ";
   msg += "or further unit errors related to this object may not be accurate.";
+  safe_free(formula);
 
   inv( formulaUnits->getContainsParametersWithUndeclaredUnits() == 0);
 }

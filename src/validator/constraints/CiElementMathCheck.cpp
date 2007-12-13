@@ -169,10 +169,11 @@ CiElementMathCheck::getMessage (const ASTNode& node, const SBase& object)
   ostringstream msg;
 
   //msg << getPreamble();
-
-  msg << "\nThe formula '" << SBML_formulaToString(&node);
+  char * formula = SBML_formulaToString(&node);
+  msg << "\nThe formula '" << formula;
   msg << "' in the " << getFieldname() << " element of the " << getTypename(object);
   msg << " uses '" << node.getName() << "' that is not the id of a species/compartment/parameter/reaction.";
+  safe_free(formula);
 
   return msg.str();
 }

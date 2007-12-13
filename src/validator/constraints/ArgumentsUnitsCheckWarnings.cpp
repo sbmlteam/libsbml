@@ -199,10 +199,12 @@ ArgumentsUnitsCheckWarnings::getMessage (const ASTNode& node, const SBase& objec
 
   //msg << getPreamble();
 
-  msg << "The formula '" << SBML_formulaToString(&node);
+  char * formula = SBML_formulaToString(&node);
+  msg << "The formula '" << formula;
   msg << "' in the " << getFieldname() << " element of the " << getTypename(object);
   msg << " produces an exponent that is not an integer and thus may produce ";
   msg << "invalid units.";
+  safe_free(formula);
 
   return msg.str();
 }
@@ -215,13 +217,15 @@ void
 ArgumentsUnitsCheckWarnings::logInconsistentDimensionless (const ASTNode & node, 
                                                  const SBase & sb)
 {
+  char * formula = SBML_formulaToString(&node);
   msg = "The formula ";
-  msg += SBML_formulaToString(&node);
+  msg += formula;
   msg += "' in the math element of the ";
   msg += getTypename(sb);
   msg += " uses a function ";
   msg += " which can only act on dimensionless variables.";
-  
+  safe_free(formula);
+
   logFailure(sb, msg);
 
 }

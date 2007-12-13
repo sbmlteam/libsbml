@@ -381,10 +381,12 @@ PowerUnitsCheck::getMessage (const ASTNode& node, const SBase& object)
 
   //msg << getPreamble();
 
-  msg << "The formula '" << SBML_formulaToString(&node);
+  char * formula = SBML_formulaToString(&node);
+  msg << "The formula '" << formula;
   msg << "' in the " << getFieldname() << " element of the " << getTypename(object);
   msg << " contains a power that is not an integer and thus may produce ";
   msg << "invalid units.";
+  safe_free(formula);
 
   return msg.str();
 }
@@ -461,15 +463,17 @@ void
 PowerUnitsCheck::logNonDimensionlessPowerConflict (const ASTNode & node, 
                                              const SBase & sb)
 {
+  char * formula = SBML_formulaToString(&node);
   msg = "The formula '"; 
-  msg += SBML_formulaToString(&node);
+  msg += formula;
   msg += "' in the ";
   msg += getFieldname();
   msg += " element of the " ;
   msg += getTypename(sb);
   msg += " contains a power that is not dimensionless and thus may produce ";
   msg += "invalid units.";
-  
+  safe_free(formula);
+
   logFailure(sb, msg);
 
 }
@@ -479,15 +483,17 @@ void
 PowerUnitsCheck::logNonIntegerPowerConflict (const ASTNode & node, 
                                              const SBase & sb)
 {
+  char * formula = SBML_formulaToString(&node);
   msg = "The formula '"; 
-  msg += SBML_formulaToString(&node);
+  msg += formula;
   msg += "' in the ";
   msg += getFieldname();
   msg += " element of the " ;
   msg += getTypename(sb);
   msg += " contains a power that is not an integer and thus may produce ";
   msg += "invalid units.";
-  
+  safe_free(formula);
+
   logFailure(sb, msg);
 
 }
@@ -496,15 +502,16 @@ void
 PowerUnitsCheck::logRationalPowerConflict (const ASTNode & node, 
                                              const SBase & sb)
 {
-
+  char * formula = SBML_formulaToString(&node);
   msg = "The formula '"; 
-  msg += SBML_formulaToString(&node);
+  msg += formula;
   msg += "' in the ";
   msg += getFieldname();
   msg += " element of the " ;
   msg += getTypename(sb);
   msg += " contains a rational power that is inconsistent and thus may produce ";
   msg += "invalid units.";
+  safe_free(formula);
   
   logFailure(sb, msg);
 

@@ -33,6 +33,7 @@
 #include <math.h>
 
 #include <sbml/validator/VConstraint.h>
+#include <sbml/util/memory.h>
 #include "IdList.h"
 
 

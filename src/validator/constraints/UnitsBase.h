@@ -34,6 +34,8 @@
 
 #include <sbml/validator/VConstraint.h>
 
+#include <sbml/util/memory.h>
+
 
 class ASTNode;
 

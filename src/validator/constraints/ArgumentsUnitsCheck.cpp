@@ -292,11 +292,12 @@ ArgumentsUnitsCheck::getMessage (const ASTNode& node, const SBase& object)
   ostringstream msg;
 
   //msg << getPreamble();
-
-  msg << "The formula '" << SBML_formulaToString(&node);
+  char * formula = SBML_formulaToString(&node);
+  msg << "The formula '" << formula;
   msg << "' in the " << getFieldname() << " element of the " << getTypename(object);
   msg << " produces an exponent that is not an integer and thus may produce ";
   msg << "invalid units.";
+  safe_free(formula);
 
   return msg.str();
 }
@@ -308,13 +309,14 @@ void
 ArgumentsUnitsCheck::logInconsistentSameUnits (const ASTNode & node, 
                                              const SBase & sb)
 {
-
+  char * formula = SBML_formulaToString(&node);
   msg = "The formula '" ;
-  msg += SBML_formulaToString(&node);
+  msg += formula;
   msg += "' in the math element of the ";
   msg += getTypename(sb);
   msg += " can only act on variables with the same units.";
-  
+  safe_free(formula);
+
   logFailure(sb, msg);
 
 }
@@ -326,13 +328,15 @@ void
 ArgumentsUnitsCheck::logInconsistentDelay (const ASTNode & node, 
                                           const SBase & sb)
 {
+  char * formula = SBML_formulaToString(&node);
   msg = "The formula ";
-  msg += SBML_formulaToString(&node);
+  msg += formula;
   msg += "' in the math element of the ";
   msg += getTypename(sb);
   msg += " uses a delay function";
   msg += " with a delta t value that does not have units of time.";
-  
+  safe_free(formula);
+
   logFailure(sb, msg);
 
 }
@@ -344,13 +348,15 @@ void
 ArgumentsUnitsCheck::logInconsistentPiecewise (const ASTNode & node, 
                                           const SBase & sb)
 {
+  char * formula = SBML_formulaToString(&node);
   msg = "The formula ";
-  msg += SBML_formulaToString(&node);
+  msg += formula;
   msg += "' in the math element of the ";
   msg += getTypename(sb);
   msg += " uses a piecewise function";
   msg += " where different branches return different units.";
-  
+  safe_free(formula);
+
   logFailure(sb, msg);
 
 }
@@ -363,13 +369,15 @@ void
 ArgumentsUnitsCheck::logInconsistentPiecewiseCondition (const ASTNode & node, 
                                           const SBase & sb)
 {
+  char * formula = SBML_formulaToString(&node);
   msg = "The formula '";
-  msg += SBML_formulaToString(&node);
+  msg += formula;
   msg += "' in the math element of the ";
   msg += getTypename(sb);
   msg += " uses a piecewise function";
   msg += " where the conditional statement is not dimensionless.";
-  
+  safe_free(formula);
+
   logFailure(sb, msg);
 
 }
