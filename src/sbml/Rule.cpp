@@ -497,6 +497,7 @@ Rule::getElementName () const
 void
 Rule::writeElements (XMLOutputStream& stream) const
 {
+  SBase::writeElements(stream);
   if ( getLevel() == 2 && isSetMath() ) writeMathML(getMath(), stream);
 }
 /** @endcond doxygen-libsbml-internal */
