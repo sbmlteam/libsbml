@@ -4,6 +4,19 @@
 
 * Changes:
 
+  - Fixed a bug that meant Annotations and Notes were not being written
+    out when they occurred on a Rule. Thanks to David Adler and Damon 
+    Hachmeister for pointing this out.
+
+  - The enumerations for the XMLError severity and category codes have
+    changed again. Unfortunately out last attempt clashed with a microsoft
+    windows file. Severity codes are now prefixed with LIBSBML_SEV_ and 
+    category codes with LIBSBML_CAT_. Hopefully these are truly unique. 
+
+  - LibSBML will now build on Ubuntu. 
+  
+  - The incorrect dependencies in the Perl makefiles have been corrected.
+
   - Added a clearLog function to XMLErrorLog. This empties the existing
     XMLErrorLog but does not destroy it. This facilitates the repeated
     use of checkConsistency with different validators enabled.
