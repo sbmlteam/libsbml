@@ -401,12 +401,18 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
   unsigned int newExp = 0;
   Unit * unit;
   ASTNode * child;
+  unsigned int found = 0;
 
   tempUD = getUnitDefinition(node->getLeftChild(), inKL, reactNo);
   ud = new UnitDefinition();
   
   if (node->getNumChildren() == 1)
     return ud;
+
+  /** 
+    * if the value set is not an integer need to flag as not to check units
+    */
+  double value = 0.0;
 
   child = node->getRightChild();
   for (i = 0; i < tempUD->getNumUnits(); i++)
@@ -429,33 +435,47 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
         if (model->getReaction(reactNo)->
           getKineticLaw()->getParameter(child->getName()))
         {
-          newExp = (int) ((model->getReaction(reactNo)->
-            getKineticLaw()->getParameter(child->getName()))->getValue());
+          value = (model->getReaction(reactNo)->
+            getKineticLaw()->getParameter(child->getName()))->getValue();
+          found = 1;
+          //if (floor(value) != value)
+          //  undeclaredUnits = 1;
+          //newExp = (int) (value);
         }
       }
       
-      if (newExp == 0) // not local parameter
+      if (found == 0) // not local parameter
       {
         if (model->getParameter(child->getName()))
         {
-          newExp = (int) (model->getParameter(child->getName())->getValue());
+          value = model->getParameter(child->getName())->getValue();
         }
         else if (model->getCompartment(child->getName()))
         {
-          newExp = (int) (model->getCompartment(child->getName())->getSize());
+          value = model->getCompartment(child->getName())->getSize();
         }
         else if (model->getSpecies(child->getName()))
         {
-          newExp = (int) (model->getSpecies(child->getName())->getInitialConcentration());
+          value = model->getSpecies(child->getName())->getInitialConcentration();
         }
 
       }
+      
+      if (floor(value) != value)
+        undeclaredUnits = 1;
+      
+      newExp = (int) (value);
 
       unit->setExponent(newExp * unit->getExponent());
     }
     else if (child->isReal())
     {
-      unit->setExponent((int)(child->getReal())* unit->getExponent());
+      value = child->getReal();
+      if (floor(value) != value)
+        undeclaredUnits = 1;
+      newExp = (int) (value);
+      
+      unit->setExponent(newExp * unit->getExponent());
     }
     ud->addUnit(unit);
   }
