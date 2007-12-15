@@ -189,13 +189,14 @@ TAKEOVER_OWNERSHIP(ASTNode::addChild(ASTNode*),1)
 TAKEOVER_OWNERSHIP(ASTNode::prependChild(ASTNode*),1)
 
 // ----------------------------------------------------------------------
-// RDFAnnotationParser
+// FomulaUnitsData
 // ----------------------------------------------------------------------
 
 TAKEOVER_OWNERSHIP(FormulaUnitsData::setUnitDefinition(UnitDefinition*),1)
 TAKEOVER_OWNERSHIP(FormulaUnitsData::setPerTimeUnitDefinition(UnitDefinition *),1)
 TAKEOVER_OWNERSHIP(FormulaUnitsData::setEventTimeUnitDefinition(UnitDefinition *),1)
-
+TAKEOVER_OWNERSHIP(FormulaUnitsData::setL1SpeciesConcPerTimeUnitDefinition(UnitDefinition *),1)
+TAKEOVER_OWNERSHIP(FormulaUnitsData::setL1SpeciesConcUnitDefinition(UnitDefinition *),1)
 
 // ----------------------------------------------------------------------
 // SBMLReader

@@ -112,7 +112,7 @@
 %}
 
 // ----------------------------------------------------------------------
-// RDFAnnotationParser
+// FormulaUnitsData
 // ----------------------------------------------------------------------
 
 %feature("shadow") FormulaUnitsData::setUnitDefinition(UnitDefinition*)
@@ -139,6 +139,21 @@
   }
 %}
 
+%feature("shadow") FormulaUnitsData::setL1SpeciesConcPerTimeUnitDefinition(UnitDefinition*)
+%{
+  sub setL1SpeciesConcPerTimeUnitDefinition {
+    $_[1]->DISOWN() if defined $_[1];
+    return LibSBMLc::FormulaUnitsData_setL1SpeciesConcPerTimeUnitDefinition(@_);
+  }
+%}
+
+%feature("shadow") FormulaUnitsData::setL1SpeciesConcUnitDefinition(UnitDefinition*)
+%{
+  sub setL1SpeciesConcUnitDefinition {
+    $_[1]->DISOWN() if defined $_[1];
+    return LibSBMLc::FormulaUnitsData_setL1SpeciesConcUnitDefinition(@_);
+  }
+%}
 
 /**
  * Wraps standard output streams
