@@ -709,7 +709,7 @@ CTAGS: $(files-to-tag)
 # Common special targets.
 # -----------------------------------------------------------------------------
 
-.PHONY: $(recursive_targets) CTAGS GTAGS all all-am check check-am \
+.PHONY: $(recursive_targets) CTAGS GTAGS docs all all-am check check-am \
 	include clean clean-generic clean-libtool ctags \
 	dist dist-all dist-gzip distcheck distclean \
 	distclean-generic distclean-libtool distclean-tags distcleancheck \
