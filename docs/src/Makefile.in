@@ -166,17 +166,6 @@ distfiles =                                    \
 
 all docs: Makefile $(docs)
 
-dvi: 
-
-pdf: 
-
-ps: 
-
-html: $(docs)
-
-info:
-	@echo "We're sorry, but the info format is not supported."
-
 
 # -----------------------------------------------------------------------------
 # Checking.
