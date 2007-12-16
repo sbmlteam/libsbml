@@ -9,31 +9,33 @@
     Hachmeister for pointing this out.
 
   - The enumerations for the XMLError severity and category codes have
-    changed again. Unfortunately out last attempt clashed with a microsoft
-    windows file. Severity codes are now prefixed with LIBSBML_SEV_ and 
-    category codes with LIBSBML_CAT_. Hopefully these are truly unique. 
+    changed again, because unfortunately our last attempt clashed with
+    a Microsoft Windows system include file.  The libSBML severity
+    codes are now prefixed with LIBSBML_SEV_ and the category codes
+    with LIBSBML_CAT_.  Hopefully these are truly unique.
 
-  - LibSBML will now build on Ubuntu. 
+  - LibSBML will now build on Ubuntu Linux. 
   
-  - The incorrect dependencies in the Perl makefiles have been corrected.
+  - The incorrect dependencies in the Perl makefiles have been corrected. 
 
-  - Added a clearLog function to XMLErrorLog. This empties the existing
-    XMLErrorLog but does not destroy it. This facilitates the repeated
-    use of checkConsistency with different validators enabled.
+  - Added a clearLog() function to XMLErrorLog.  This empties the
+    existing XMLErrorLog but does not destroy it.  This facilitates
+    the repeated use of checkConsistency() with different validators
+    enabled.
 
   - Fixed a bug in the code to check for cycles in assignments between
     rules, initial assignments and reactions. This was both failing to
     report all cycles where they were present and in the case of very
     complex models it was reporting cycles where there were none.
 
-  - Fixed a bug in the checkUnitSyntax function reported by Florian
+  - Fixed a bug in the checkUnitSyntax() function reported by Florian
     Kamm.
 
   - The documentation and README file incorrectly said Xerces is the
     default parser library used.  In fact, it is libxml2 now.
 
 
- === Version 3.0.2 ===
+ === Version 3.0.2 (released 2007-11-28) ===
 
 * Changes:
 
@@ -134,7 +136,7 @@
     configure, not the files installed by the original "make install".
 
 
- === Version 3.0.1 ===
+ === Version 3.0.1 (released 2007-10-19) ===
 
 * Changes:
 
@@ -208,7 +210,7 @@
     as was mistakenly the case previously.
 
  
- === Version 3.0.0 Final ===
+ === Version 3.0.0 (released 2007-08-29) ===
 
 * New features relative to 3.0.0 prerelease:
 
