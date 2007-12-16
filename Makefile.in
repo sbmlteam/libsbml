@@ -208,7 +208,12 @@ endif
 
 all: configure Makefile include all-recursive libsbml.pc libsbml.la
 
-docs: docs-recursive
+docs:;
+ifneq "$(MAKEFLAGS)" ""
+	$(MAKE) -w -C docs -$(MAKEFLAGS) $(MAKECMDGOALS)
+else
+	$(MAKE) -w -C docs $(MAKECMDGOALS)
+endif
 
 include: include-recursive
 
