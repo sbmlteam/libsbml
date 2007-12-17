@@ -204,6 +204,11 @@ public:
 
   /**
    * Returns the Model object stored in this SBMLDocument.
+   *
+   * It is important to note that this method does not <em>create</em> a
+   * Model object.  The model in the SBMLDocument must have been created at
+   * some prior time using, for example, createModel() or setModel().  This
+   * method returns NULL if a model does not yet exist.
    * 
    * @return the Model contained in this SBMLDocument.
    */
