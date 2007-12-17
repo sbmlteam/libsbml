@@ -445,7 +445,7 @@ END_TEST
 
 START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_function)
 {
-  UnitDefinition * ud = new UnitDefinition();
+  UnitDefinition * ud;
  
   /* function applied to numbers only */
   ud = uff->getUnitDefinition(m->getRule(0)->getMath());
@@ -456,6 +456,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_function)
 
 
   /* function applied to components */
+  uff->resetFlags();
   ud = uff->getUnitDefinition(m->getRule(1)->getMath());
 
   fail_unless(ud->getNumUnits() == 1);
@@ -469,6 +470,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_function)
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
 
   /* function with two arguments but only one bvar */
+  uff->resetFlags();
   ud = uff->getUnitDefinition(m->getRule(2)->getMath());
 
   fail_unless(ud->getNumUnits() == 1);
@@ -482,6 +484,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_function)
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
 
   /* function with two arguments but only one bvar */
+  uff->resetFlags();
   ud = uff->getUnitDefinition(m->getRule(3)->getMath());
 
   fail_unless(ud->getNumUnits() == 1);
@@ -494,19 +497,6 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_function)
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
 
-  /* function with two arguments but no bvar 
-  ud = uff->getUnitDefinition(m->getRule(4)->getMath());
-
-  fail_unless(ud->getNumUnits() == 1);
-
-  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
-
-  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
-  fail_unless(ud->getUnit(0)->getScale() == 0);
-  fail_unless(ud->getUnit(0)->getExponent() == -1);
-  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
-  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
-*/
   delete ud;
 
 }
