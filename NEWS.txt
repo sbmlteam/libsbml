@@ -1,6 +1,6 @@
            libsbml NEWS -- History of user-visible changes
            
- === Next release (in development) ===
+ === Version 3.0.3 (in development) ===
 
 * Changes:
 
