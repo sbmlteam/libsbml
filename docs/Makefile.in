@@ -50,7 +50,7 @@ thisdir = docs
 
 subdirs = src
 
-distfiles = $(wildcard formatted/*-api) Makefile.in
+distfiles = $(wildcard formatted/*-api) Makefile.in README-for-Windows.txt
 
 
 # -----------------------------------------------------------------------------
