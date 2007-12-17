@@ -199,6 +199,13 @@ private:
   unsigned int mInKineticlaw;
   int mReactionNo;
 
+  /* a depth of recursive call of getUnitDefinition()*/
+  int depthRecursiveCall;
+
+  map<const ASTNode*, UnitDefinition*> unitDefinitionMap;
+  map<const ASTNode*, unsigned int>    undeclaredUnitsMap;
+  map<const ASTNode*, unsigned int>    canIgnoreUndeclaredUnitsMap;  
+
 };
 
 

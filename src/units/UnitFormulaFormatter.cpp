@@ -37,6 +37,7 @@ UnitFormulaFormatter::UnitFormulaFormatter(const Model *m)
   canIgnoreUndeclaredUnits = 2;
   mInKineticlaw = 0;
   mReactionNo = -1;
+  depthRecursiveCall = 0;
 }
 
 /**
@@ -56,10 +57,26 @@ UnitDefinition *
 UnitFormulaFormatter::getUnitDefinition(const ASTNode * node, 
                                         unsigned int inKL, int reactNo)
 {  
+  /** 
+    * returns a copy of existing UnitDefinition* object (if any) that 
+    * corresponds to a given ASTNode*. 
+    * (This is for avoiding redundant recursive calls.)
+    */
+
+  map<const ASTNode*, UnitDefinition*>::iterator it = unitDefinitionMap.find(node);
+  if(it != unitDefinitionMap.end()) {
+    return static_cast<UnitDefinition*>(it->second->clone());
+  }
+
+    
   UnitDefinition * ud = NULL;
 
   if (node == NULL)
+  {
     return ud;
+  }
+
+  ++depthRecursiveCall;
 
 
   ASTNodeType_t type = node->getType();
@@ -214,6 +231,37 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
   }
 
   simplifyUnitDefinition(ud);
+
+  --depthRecursiveCall;
+
+  if ( depthRecursiveCall != 0 )
+  {
+    if (unitDefinitionMap.end() == unitDefinitionMap.find(node))
+    {
+      /* adds a pair of ASTNode* (node) and UnitDefinition* (ud) to the UnitDefinitionMap */
+      unitDefinitionMap.insert(pair<const ASTNode*, 
+        UnitDefinition*>(node,static_cast<UnitDefinition*>(ud->clone())));
+      undeclaredUnitsMap.insert(pair<const ASTNode*, 
+        unsigned int>(node,undeclaredUnits));
+      canIgnoreUndeclaredUnitsMap.insert(pair<const ASTNode*, 
+        unsigned int>(node,canIgnoreUndeclaredUnits));
+    }
+  }
+  else
+  {
+    /** 
+      * Clears two map objects because all recursive call has finished.
+      */ 
+    map<const ASTNode*, UnitDefinition*>::iterator it = unitDefinitionMap.begin();
+    while( it != unitDefinitionMap.end() )
+    {
+      delete it->second;
+      ++it;
+    }
+    unitDefinitionMap.clear();
+    undeclaredUnitsMap.clear();
+    canIgnoreUndeclaredUnitsMap.clear();
+  }
 
   return ud;
 }
@@ -1371,6 +1419,20 @@ unsigned int
 UnitFormulaFormatter::hasUndeclaredUnits(const ASTNode * node,
     unsigned int inKL, int reactNo)
 {
+  /**
+    * returns an existing undeclaredUnits (if any) that corresponds to 
+    * a given ASTNode object.
+    * (This is for avoiding redundant recursive calls)
+    */
+  map<const ASTNode*, unsigned int>::iterator it  = undeclaredUnitsMap.find(node);
+  map<const ASTNode*, unsigned int>::iterator it2 = canIgnoreUndeclaredUnitsMap.find(node);
+  if( (it != undeclaredUnitsMap.end()) && (it2 != canIgnoreUndeclaredUnitsMap.end())) {
+    //canIgnoreUndeclaredUnits = 2;
+    canIgnoreUndeclaredUnits = it2->second;
+    undeclaredUnits = it->second;
+    return undeclaredUnits;
+  }
+
   undeclaredUnits = 0;
   /* temporary HACK while I figure this out */
   canIgnoreUndeclaredUnits = 2;
@@ -1381,7 +1443,15 @@ UnitFormulaFormatter::hasUndeclaredUnits(const ASTNode * node,
      it doesnt need to be assigned
      */
   delete getUnitDefinition(node, inKL, reactNo);
-  
+
+  /** 
+    * adds a pair of ASTNode* (node) and unsigned int (undeclaredUnits)  
+    * to the UndeclaredUnitsMap.
+    */
+  if(depthRecursiveCall != 0) {
+    undeclaredUnitsMap.insert(pair<const ASTNode*, unsigned int>(node,undeclaredUnits));
+    canIgnoreUndeclaredUnitsMap.insert(pair<const ASTNode*, unsigned int>(node,canIgnoreUndeclaredUnits));
+  }
   return undeclaredUnits;
 }
 /** 
