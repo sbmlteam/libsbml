@@ -452,6 +452,14 @@ def sanitizeForPython (docstring):
   docstring = docstring.replace('"', "'")
   docstring = docstring.replace(r"'", r"\'")
 
+  # Friggin' doxygen escapes HTML character codes, so the hack we have to
+  # do for Javadoc turns out doesn't work for the Python documentation.
+  # Kluge around it.
+
+  docstring = re.sub(r'\\f\$\\geq\\f\$', '>=', docstring)
+  docstring = re.sub(r'\\f\$\\leq\\f\$', '<=', docstring)
+  docstring = re.sub(r'\\f\$\\times\\f\$', '*', docstring)
+
   # SWIG does some bizarre truncation of leading characters that
   # happens to hit us because of how we have to format verbatim's.
   # This tries to kluge around it:  
