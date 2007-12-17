@@ -466,3 +466,8 @@ docnote {
   margin-left: 1cm;
   margin-top: 0;
 }
+
+dd table tr {
+  font-size: 14px;
+  height: 20px;
+}
