@@ -242,11 +242,11 @@ AC_DEFUN([AC_JAVA_INCLUDE_DIRS],[
 	;;
   esac
   if test -e "$_jinc/jni.h"; then
-    JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I$_jinc"
+    JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$_jinc\""
   else
     _jtopdir=`echo "$_jtopdir" | sed -e 's:/[[^/]]*$::'`
     if test -e "$_jtopdir/include/jni.h"; then
-      JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I$_jtopdir/include"
+      JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$_jtopdir/include\""
     else
       AC_MSG_ERROR([Cannot find Java include files.])
     fi
@@ -265,7 +265,7 @@ AC_DEFUN([AC_JAVA_INCLUDE_DIRS],[
   dnl Add any subdirectories that are present.
   for jsubdir in $_java_inc_subdirs; do
     if test -d "$_jtopdir/include/$jsubdir"; then
-      JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I$_jtopdir/include/$jsubdir"
+      JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$_jtopdir/include/$jsubdir\""
     fi
   done
 ])
