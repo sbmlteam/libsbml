@@ -182,14 +182,14 @@ endif
 
 $(jarfile): $(outpath)/libsbml.class
 	$(CD) $(outdir) && \
-	   $(JAR) -cvf ../$(jarfile) $(pkg_path)/*.class
+	   "$(JAR)" -cvf ../$(jarfile) $(pkg_path)/*.class
 	$(MAKE) -$(MAKEFLAGS) $(jnifile)
 
 $(outpath)/libsbml.class: libsbml_wrap.cpp
 ifeq "$(java_files)" ""
 	$(MAKE) -$(MAKEFLAGS) recreate_java_files
 endif
-	$(JAVAC) -d $(outdir) $(outpath)/*.java
+	"$(JAVAC)" -d $(outdir) $(outpath)/*.java
 
 # libsbml_wrap.cpp is a stand-in for the .java files.  Its creation results
 # in the creation of the .java files too -- both are made by running swig.
@@ -254,7 +254,7 @@ else
 endif
 
 $(check_classes): Makefile $(libraries) $(check_sources)
-	$(JAVAC) -g -classpath "$(classpath)" $(check_sources)
+	"$(JAVAC)" -g -classpath "$(classpath)" $(check_sources)
 
 ifdef USE_LIBCHECK
   check: $(check_classes)
@@ -262,7 +262,7 @@ ifdef USE_LIBCHECK
 	@echo
 	@echo Running Tests in $(thisdir)
 	@echo -----------------------------------------------------------------
-	$(call libsbmlrun,$(JAVA) -classpath "$(classpath)" Test)
+	$(call libsbmlrun,"$(JAVA)" -classpath "$(classpath)" Test)
 	@echo -----------------------------------------------------------------
 	@echo
 else
