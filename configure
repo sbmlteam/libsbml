@@ -4938,11 +4938,11 @@ echo "$as_me: error: See http://developer.apple.com/java/faq." >&2;}
 	;;
   esac
   if test -e "$_jinc/jni.h"; then
-    JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I$_jinc"
+    JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$_jinc\""
   else
     _jtopdir=`echo "$_jtopdir" | sed -e 's:/[^/]*$::'`
     if test -e "$_jtopdir/include/jni.h"; then
-      JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I$_jtopdir/include"
+      JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$_jtopdir/include\""
     else
       { { echo "$as_me:$LINENO: error: Cannot find Java include files." >&5
 echo "$as_me: error: Cannot find Java include files." >&2;}
@@ -4961,7 +4961,7 @@ echo "$as_me: error: Cannot find Java include files." >&2;}
 
     for jsubdir in $_java_inc_subdirs; do
     if test -d "$_jtopdir/include/$jsubdir"; then
-      JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I$_jtopdir/include/$jsubdir"
+      JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$_jtopdir/include/$jsubdir\""
     fi
   done
 
