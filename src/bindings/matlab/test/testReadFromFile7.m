@@ -53,7 +53,7 @@ Totalfail = Totalfail + fail_unless(m.sboTerm == 4);
 %   // </listOfSpecies>
 %   //
 
-  Totalfail = Totalfail + fail_unless( length(m.species) == 1);
+  Totalfail = Totalfail + fail_unless( length(m.species) == 2);
 
   Totalfail = Totalfail + fail_unless( strcmp( m.species(1).id, 'X0'             ));
   Totalfail = Totalfail + fail_unless( strcmp( m.species(1).compartment, 'cell' ));
@@ -114,7 +114,7 @@ Totalfail = Totalfail + fail_unless(m.sboTerm == 4);
 % </listOfReactions>
 
   Totalfail = Totalfail + fail_unless( strcmp(m.reaction(1).id, 'in'));
-  Totalfail = Totalfail + fail_unless( m.reaction(1).sboTerm == 5);
+  Totalfail = Totalfail + fail_unless( m.reaction(1).sboTerm == 231);
   Totalfail = Totalfail + fail_unless( m.reaction(1).reversible == 1);
 
   Totalfail = Totalfail + fail_unless( length(m.reaction(1).reactant) == 1);

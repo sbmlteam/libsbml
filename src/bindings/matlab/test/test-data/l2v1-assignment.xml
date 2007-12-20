@@ -66,13 +66,13 @@
                 </listOfReactants>
                 <listOfProducts>
                     <speciesReference species="X1"/>
-                </listOfProducts>
+               </listOfProducts>
                 <kineticLaw>
                     <math xmlns="http://www.w3.org/1998/Math/MathML">
                         <apply>
                             <times/>
                             <ci> k2 </ci>
-                            <ci> S2 </ci>
+                            <ci> X1 </ci>
                         </apply>
                     </math>
                     <listOfParameters>

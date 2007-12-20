@@ -35,9 +35,9 @@ Totalfail = Totalfail + fail_unless( strcmp(m.metaid, '_001'));
 %             <species id="X0" name="s1" compartment="cell" initialConcentration="1"/>
 %         </listOfSpecies>
 
-  Totalfail = Totalfail + fail_unless( length(m.species) == 1);
+  Totalfail = Totalfail + fail_unless( length(m.species) == 3);
 
-  Totalfail = Totalfail + fail_unless( strcmp( m.species(1).name, 's1'             ));
+  Totalfail = Totalfail + fail_unless( strcmp( m.species(1).name, 'x0'             ));
   Totalfail = Totalfail + fail_unless( strcmp( m.species(1).id, 'X0'             ));
   Totalfail = Totalfail + fail_unless( strcmp( m.species(1).compartment, 'cell' ));
   Totalfail = Totalfail + fail_unless( m.species(1).initialConcentration == 1);
@@ -80,7 +80,7 @@ Totalfail = Totalfail + fail_unless( strcmp(m.metaid, '_001'));
 
   Totalfail = Totalfail + fail_unless( length(m.event.eventAssignment) == 1);
 
-  Totalfail = Totalfail + fail_unless( strcmp( m.event(1).eventAssignment.variable, 'p2'             ));
+  Totalfail = Totalfail + fail_unless( strcmp( m.event(1).eventAssignment.variable, 'T'             ));
   Totalfail = Totalfail + fail_unless( strcmp( m.event(1).eventAssignment.math, '0'             ));
   Totalfail = Totalfail + fail_unless( strcmp(m.event(1).eventAssignment.metaid, '_008'));
 

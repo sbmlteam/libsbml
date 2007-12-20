@@ -3,7 +3,7 @@
       xmlns:math="http://www.w3.org/1998/Math/MathML">
     <model sboTerm="SBO:0000004">
         <listOfCompartmentTypes>
-            <compartmentType id="mitochondria" sboTerm="SBO:0000008"/>
+            <compartmentType id="mitochondria" sboTerm="SBO:0000236"/>
         </listOfCompartmentTypes>
         <listOfSpeciesTypes>
             <speciesType id="Glucose"/> 
@@ -14,9 +14,10 @@
         </listOfCompartments>
         <listOfSpecies>
             <species id="X0" compartment="cell" speciesType="Glucose"/>
+            <species id="y" compartment="cell"/>
         </listOfSpecies>
         <listOfInitialAssignments>
-            <initialAssignment symbol="X0" sboTerm="SBO:0000002">
+            <initialAssignment symbol="X0" sboTerm="SBO:0000064">
                 <math xmlns="http://www.w3.org/1998/Math/MathML">
                     <apply>
                         <times/>
@@ -43,7 +44,7 @@
             </constraint>
         </listOfConstraints>        
         <listOfReactions>
-            <reaction id="in" sboTerm="SBO:0000005">
+            <reaction id="in" sboTerm="SBO:0000231">
                 <listOfReactants>
                     <speciesReference species="X0" id="me" name="sarah"/>
                 </listOfReactants>

@@ -14,6 +14,7 @@
         </listOfCompartments>
         <listOfSpecies>
             <species id="X0" compartment="cell" speciesType="Glucose"/>
+            <species id="y" compartment="cell"/>
         </listOfSpecies>
         <listOfInitialAssignments>
             <initialAssignment symbol="X0">
@@ -43,7 +44,7 @@
             </constraint>
         </listOfConstraints>        
         <listOfReactions>
-            <reaction id="in" sboTerm="SBO:0000005">
+            <reaction id="in" sboTerm="SBO:0000231">
                 <listOfReactants>
                     <speciesReference species="X0" id="me" name="sarah"/>
                 </listOfReactants>

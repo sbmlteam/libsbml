@@ -27,11 +27,15 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
+              <divide/>
+              <apply>
               <times/>
+              <ci> S1 </ci>
+              <ci> c </ci>
+              </apply>
               <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time">
                 my_time
               </csymbol>
-              <ci> S1 </ci>
             </apply>
           </math>
         </kineticLaw>

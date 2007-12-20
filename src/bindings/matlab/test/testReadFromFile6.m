@@ -80,7 +80,7 @@ Totalfail = Totalfail + fail_unless(m.SBML_version == 1);
   Totalfail = Totalfail + fail_unless( m.reaction(1).product.stoichiometry == 1);
   Totalfail = Totalfail + fail_unless( m.reaction(1).product.denominator == 1);
 
-  Totalfail = Totalfail + fail_unless( strcmp(m.reaction(1).kineticLaw.formula, 'my_time*S1'));
+  Totalfail = Totalfail + fail_unless( strcmp(m.reaction(1).kineticLaw.formula, 'S1*c/my_time'));
 
 % model contains the csymbol time
 

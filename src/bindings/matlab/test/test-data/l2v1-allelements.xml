@@ -19,8 +19,14 @@
             <compartment metaid="_003" id="cell"/>
         </listOfCompartments>
         <listOfSpecies>
-            <species id="X0" metaid="_004" name="s1" compartment="cell" initialConcentration="1"/>
+            <species id="X0" metaid="_004" name="x0" compartment="cell" initialConcentration="1"/>
+            <species id="S1" name="s1" compartment="cell" initialConcentration="1"/>
+            <species id="T" name="t" compartment="cell" initialConcentration="1"/>
         </listOfSpecies>
+        <listOfParameters>
+          <parameter id="Keq"/>
+          <parameter id="p"/>
+        </listOfParameters>
         <listOfRules>
             <assignmentRule metaid="_005" variable="S1">
                 <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -75,7 +81,7 @@
 					</math>
 				</delay>
 				<listOfEventAssignments>
-					<eventAssignment metaid="_008" variable="p2">
+					<eventAssignment metaid="_008" variable="T">
 						<math xmlns="http://www.w3.org/1998/Math/MathML">
 							<cn> 0 </cn>
 						</math>

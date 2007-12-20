@@ -191,7 +191,7 @@ Totalfail = Totalfail + fail_unless(m.SBML_version == 1);
   Totalfail = Totalfail + fail_unless( m.reaction(2).product.stoichiometry == 1);
   Totalfail = Totalfail + fail_unless( m.reaction(2).product.denominator == 1);
 
-  Totalfail = Totalfail + fail_unless( strcmp(m.reaction(2).kineticLaw.formula, 'k2*S2'));
+  Totalfail = Totalfail + fail_unless( strcmp(m.reaction(2).kineticLaw.formula, 'k2*X1'));
   Totalfail = Totalfail + fail_unless(length(m.reaction(2).kineticLaw.parameter) == 1);
 
   Totalfail = Totalfail + fail_unless( strcmp(m.reaction(2).kineticLaw.parameter.id, 'k2'));

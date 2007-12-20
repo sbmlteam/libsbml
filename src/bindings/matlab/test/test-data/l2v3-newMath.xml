@@ -8,6 +8,10 @@
         <listOfSpecies>
             <species id="X0" name="s1" compartment="cell" initialConcentration="1"/>
         </listOfSpecies>
+        <listOfParameters>
+          <parameter id="p2" units="dimensionless" constant="false"/>
+          <parameter id="p" units="second" constant="false"/>
+        </listOfParameters>
         <listOfReactions>
             <reaction id="in">
                 <listOfReactants>

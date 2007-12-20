@@ -4,7 +4,7 @@ filename = fullfile(pwd,'test-data', 'l1v1-rules.xml');
 
 m = TranslateSBML(filename);
 
-test = 73;
+test = 77;
 Totalfail = 0;
 
 Totalfail = Totalfail + fail_unless(m.SBML_level == 1);
@@ -59,7 +59,7 @@ Totalfail = Totalfail + fail_unless(m.SBML_version == 1);
 %    *   <parameter name="k4" value="4.5"/>
 %    * </listOfParameters>
 %    */
-  Totalfail = Totalfail + fail_unless( length(m.parameter) == 4);
+  Totalfail = Totalfail + fail_unless( length(m.parameter) == 6);
 
   Totalfail = Totalfail + fail_unless( strcmp( m.parameter(1).name, 'k1'             ));
   Totalfail = Totalfail + fail_unless( m.parameter(1).value == 1.2);
@@ -72,6 +72,12 @@ Totalfail = Totalfail + fail_unless(m.SBML_version == 1);
 
   Totalfail = Totalfail + fail_unless( strcmp( m.parameter(4).name, 'k4'             ));
   Totalfail = Totalfail + fail_unless( m.parameter(4).value == 4.5);
+
+  Totalfail = Totalfail + fail_unless( strcmp( m.parameter(5).name, 'k'             ));
+  Totalfail = Totalfail + fail_unless( m.parameter(5).value == 1);
+
+  Totalfail = Totalfail + fail_unless( strcmp( m.parameter(6).name, 't'             ));
+  Totalfail = Totalfail + fail_unless( m.parameter(6).value == 1);
 
 %  /**
 %    * <listOfRules>
