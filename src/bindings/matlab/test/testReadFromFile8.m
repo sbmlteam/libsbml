@@ -1,6 +1,6 @@
 function y = testReadFromFile8
 
-filename = fullfile(pwd,'test-data', 'l2v3-all.xml');
+filename = fullfile(pwd,'test-data', 'l2v3-newelements.xml');
 
 m = TranslateSBML(filename);
 

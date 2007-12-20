@@ -1,6 +1,6 @@
 function y = testReadFromFile10
 
-filename = fullfile(pwd,'test-data', 'l2v1-all.xml');
+filename = fullfile(pwd,'test-data', 'l2v1-allelements.xml');
 
 m = TranslateSBML(filename);
 
