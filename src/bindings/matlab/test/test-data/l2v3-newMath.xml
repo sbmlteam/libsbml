@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version3" level="2" version="3"
+      xmlns:math="http://www.w3.org/1998/Math/MathML">
+    <model>
+        <listOfCompartments>
+            <compartment id="cell"/>
+        </listOfCompartments>
+        <listOfSpecies>
+            <species id="X0" name="s1" compartment="cell" initialConcentration="1"/>
+        </listOfSpecies>
+        <listOfReactions>
+            <reaction id="in">
+                <listOfReactants>
+                    <speciesReference species="X0">
+                      <stoichiometryMath>
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                          <ci> cell </ci>
+                        </math>
+                      </stoichiometryMath> 
+                    </speciesReference>
+                </listOfReactants>
+            </reaction>
+        </listOfReactions>
+		<listOfEvents>
+			<event id="e">
+				<trigger>
+					<math xmlns="http://www.w3.org/1998/Math/MathML">
+						<apply>
+							<neq/>
+							<cn> 0 </cn>
+							<cn> 1 </cn>
+						</apply>
+					</math>
+				</trigger>
+				<delay>
+					<math xmlns="http://www.w3.org/1998/Math/MathML">
+						<ci> p </ci>
+					</math>
+				</delay>
+				<listOfEventAssignments>
+					<eventAssignment variable="p2">
+						<math xmlns="http://www.w3.org/1998/Math/MathML">
+							<cn> 0 </cn>
+						</math>
+					</eventAssignment>
+				</listOfEventAssignments>
+			</event>
+		</listOfEvents>
+    </model>
+</sbml>

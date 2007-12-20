@@ -59,9 +59,15 @@ void GetModifier   (Reaction_t *, unsigned int, unsigned int);
 
 void GetKineticLawParameters (KineticLaw_t *, unsigned int, unsigned int);
 
+void GetStoichiometryMath (SpeciesReference_t *, unsigned int, unsigned int);
+
+void GetDelay           (Event_t *, unsigned int, unsigned int);
+void GetTrigger         (Event_t *, unsigned int, unsigned int);
 void GetEventAssignment (Event_t *, unsigned int, unsigned int);
 
 void GetNamespaces   (SBMLDocument_t *);
+
+
 
 mxArray * CreateIntScalar (int);
 char    * TypecodeToChar  (SBMLTypeCode_t);
@@ -88,7 +94,10 @@ static mxArray * mxCompartmentTypeReturn     = NULL;
 static mxArray * mxSpeciesTypeReturn         = NULL;
 static mxArray * mxInitialAssignReturn       = NULL;
 static mxArray * mxConstraintReturn          = NULL;
-static mxArray * mxNSReturn          = NULL;
+static mxArray * mxNSReturn                  = NULL;
+static mxArray * mxTriggerReturn             = NULL;
+static mxArray * mxDelayReturn               = NULL;
+static mxArray * mxStoichiometryMathReturn   = NULL;
 
 char *    pacCSymbolTime              = NULL;
 
@@ -116,21 +125,11 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   FILE *fp;
   mxArray * mxFilename[2], * mxExt[1];
   int validateFlag = 0;
-
-  /*
-  unsigned int SBMLConsistency = 7; 
-  unsigned int SBMLConsistencyIdentifier = 8; - Error in validating identifiers. 
-  unsigned int SBMLConsistencyUnits = 9      - Error in validating units. 
-  unsigned int SBMLConsistencyMathML = 10    - Error in validating MathML. 
-  unsigned int SBMLConsistencySBO = 11       - Error in validation SBO. 
-  unsigned int SBMLOverdetermined = 12       - Error in equations of model. 
-  unsigned int SBMLModelingPractice = 14     - Error in model practice. 
-  */
-  
+ 
   int nNoFields_l1v1 = 13;
-  int nNoFields_l2v1 = 17;
-  int nNoFields_l2v2 = 22;
-  int nNoFields_l2v3 = 22;
+  int nNoFields_l2v1 = 18;
+  int nNoFields_l2v2 = 23;
+  int nNoFields_l2v3 = 23;
 
   const char *field_names_l1v1[] =
   {
@@ -152,6 +151,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   const char *field_names_l2v1[] =
   {
     "typecode",
+    "metaid",
     "notes",
     "annotation",
     "SBML_level",
@@ -173,6 +173,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   const char *field_names_l2v2[] =
   {
     "typecode",
+    "metaid",
     "notes",
     "annotation",
     "SBML_level",
@@ -199,6 +200,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   const char *field_names_l2v3[] =
   {
     "typecode",
+    "metaid",
     "notes",
     "annotation",
     "SBML_level",
@@ -228,6 +230,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   Model_t *sbmlModel;
   const char * pacName = NULL;
   const char * pacId = NULL;
+  const char * pacMetaid = NULL;
   const char * pacNotes = NULL;
   const char * pacAnnotations = NULL;
   const char * pacTypecode = NULL;
@@ -395,14 +398,15 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     mxPrompt[0]= mxCreateString(pacPrompt);
     mxPrompt[1]= mxCreateString("s");
 
-    sprintf(pacErrors, "\n%s","*********************\nThis model contains errors\n");
+    sprintf(pacErrors, "\n************************************\n%s",
+                                               "This model contains errors\n");
     for (i = 0; i < SBMLDocument_getNumErrors(sbmlDocument); i++)
     {
       const XMLError_t *e =
-	(const XMLError_t *) SBMLDocument_getError(sbmlDocument, i);
+	    (const XMLError_t *) SBMLDocument_getError(sbmlDocument, i);
       sprintf(pacError, "%u: (%u) %s\n",
-	      XMLError_getLine(e), XMLError_getErrorId(e),
-	      XMLError_getMessage(e));
+	    XMLError_getLine(e), XMLError_getErrorId(e),
+	    XMLError_getMessage(e));
       pacErrors = safe_strcat(pacErrors, pacError);
     }
     mxErrors[0] = mxCreateString(pacErrors);
@@ -485,10 +489,15 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   
   if (unSBMLLevel == 2)
   {
+    pacMetaid = SBase_getMetaId(sbmlModel);
     pacId = Model_getId(sbmlModel);
     GetFunctionDefinition(sbmlModel, unSBMLLevel, unSBMLVersion);
     GetEvent(sbmlModel, unSBMLLevel, unSBMLVersion);
 
+    if (pacMetaid == NULL)
+    {
+      pacMetaid = "";
+    }
     if (pacId == NULL){
       pacId = "";
     }
@@ -510,6 +519,10 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
 
   mxSetField( plhs[0], 0, "typecode", mxCreateString(pacTypecode) ); 
+  if (unSBMLLevel == 2)
+  {
+    mxSetField(plhs[0], 0, "metaid", mxCreateString(pacMetaid));
+  }
   mxSetField( plhs[0], 0, "name"    , mxCreateString(pacName)     );
 
   if (unSBMLLevel == 2)
@@ -720,6 +733,18 @@ TypecodeToChar (SBMLTypeCode_t typecode)
       pacTypecode = "SBML_SPECIES_TYPE";
       break;
 
+    case SBML_TRIGGER:
+      pacTypecode = "SBML_TRIGGER";
+      break;
+
+    case SBML_DELAY:
+      pacTypecode = "SBML_DELAY";
+      break;
+
+    case SBML_STOICHIOMETRY_MATH:
+      pacTypecode = "SBML_STOICHIOMETRY_MATH";
+      break;
+
     default:
       pacTypecode = "ERROR";
       break;
@@ -789,9 +814,10 @@ GetSpecies ( Model_t      *pModel,
 		"isSetInitialAmount", 
 		"isSetCharge"};
   
-  const int nNoFields_l2 = 17;
+  const int nNoFields_l2 = 18;
   const char *field_names_l2[] = {	
     "typecode",		
+    "metaid",
 		"notes", 
 		"annotation",
 		"name", 
@@ -809,9 +835,10 @@ GetSpecies ( Model_t      *pModel,
 		"isSetInitialConcentration", 
 		"isSetCharge"};
 
-   const int nNoFields_l2v2 = 18;
+   const int nNoFields_l2v2 = 19;
    const char *field_names_l2v2[] = {	
     "typecode",		
+    "metaid",
 		"notes", 
 		"annotation",
 		"name", 
@@ -830,9 +857,10 @@ GetSpecies ( Model_t      *pModel,
 		"isSetInitialConcentration", 
 		"isSetCharge"};
     
-   const int nNoFields_l2v3 = 18;
+   const int nNoFields_l2v3 = 19;
    const char *field_names_l2v3[] = {	
     "typecode",		
+    "metaid",
 		"notes", 
 		"annotation",
     "sboTerm",
@@ -857,6 +885,7 @@ GetSpecies ( Model_t      *pModel,
   const char * pacAnnotations = NULL;
   const char * pacName;
   const char * pacId = NULL;
+  const char * pacMetaid = NULL;
   const char * pacCompartment;
   const char * pacUnits = NULL;
   const char * pacSpatialSizeUnits = NULL;
@@ -933,6 +962,7 @@ GetSpecies ( Model_t      *pModel,
     else if (unSBMLLevel == 2) 
     {
       pacId                 = Species_getId(pSpecies);
+      pacMetaid = SBase_getMetaId(pSpecies);
       dInitialConcentration = Species_getInitialConcentration(pSpecies);
       pacUnits              = Species_getSubstanceUnits(pSpecies);
       nHasOnlySubsUnits     = Species_getHasOnlySubstanceUnits(pSpecies);
@@ -998,6 +1028,10 @@ GetSpecies ( Model_t      *pModel,
     if (pacNotes == NULL) {
       pacNotes = "";
     }
+    if (pacMetaid == NULL)
+    {
+      pacMetaid = "";
+    }
     if (pacAnnotations == NULL) {
       pacAnnotations = "";
     }
@@ -1006,7 +1040,11 @@ GetSpecies ( Model_t      *pModel,
     }
 
     /* put into structure */
-    mxSetField(mxSpeciesReturn,i,"typecode",mxCreateString(pacTypecode)); 
+    mxSetField(mxSpeciesReturn,i,"typecode",mxCreateString(pacTypecode));
+    if (unSBMLLevel == 2)
+    {
+      mxSetField(mxSpeciesReturn, i, "metaid", mxCreateString(pacMetaid));
+    }
     mxSetField(mxSpeciesReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxSpeciesReturn, i, "annotation",mxCreateString(pacAnnotations));
     if (unSBMLLevel == 2 && unSBMLVersion == 3) 
@@ -1081,18 +1119,20 @@ GetUnitDefinition ( Model_t      *pModel,
 		"name", 
 		"unit"};
   
-  const int nNoFields_l2 = 6;
+  const int nNoFields_l2 = 7;
   const char * field_names_l2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
 		"name", 
 		"id", 
 		"unit"};
   
-  const int nNoFields_l2v3 = 7;
+  const int nNoFields_l2v3 = 8;
   const char * field_names_l2v3[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
     "sboTerm",
@@ -1106,6 +1146,7 @@ GetUnitDefinition ( Model_t      *pModel,
   const char * pacAnnotations = NULL;
   const char * pacName;
   const char * pacId = NULL;
+  const char * pacMetaid = NULL;
 
   int nSBO = -1;
 
@@ -1154,6 +1195,7 @@ GetUnitDefinition ( Model_t      *pModel,
 if (unSBMLLevel == 2) 
     {
       pacId = UnitDefinition_getId(pUnitDefinition);
+      pacMetaid = SBase_getMetaId(pUnitDefinition);
       
       if (unSBMLVersion == 3) 
       {
@@ -1174,6 +1216,10 @@ if (unSBMLLevel == 2)
     if (pacNotes == NULL) {
       pacNotes = "";
     }
+    if (pacMetaid == NULL)
+    {
+      pacMetaid = "";
+    }    
     if (pacAnnotations == NULL) {
       pacAnnotations = "";
     }
@@ -1183,6 +1229,10 @@ if (unSBMLLevel == 2)
 
     /* put into structure */
     mxSetField(mxUnitDefReturn,i,"typecode",mxCreateString(pacTypecode)); 
+    if (unSBMLLevel == 2)
+    {
+      mxSetField(mxUnitDefReturn, i, "metaid", mxCreateString(pacMetaid));
+    }
     mxSetField(mxUnitDefReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxUnitDefReturn, i, "annotation",mxCreateString(pacAnnotations));
     if (unSBMLLevel == 2 && unSBMLVersion == 3) 
@@ -1233,9 +1283,10 @@ GetCompartment ( Model_t      *pModel,
 		"units", 
 		"outside", 
 		"isSetVolume"};
-  const int nNoFields_l2 = 12;
+  const int nNoFields_l2 = 13;
   const char *field_names_l2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
 		"name", 
@@ -1247,9 +1298,10 @@ GetCompartment ( Model_t      *pModel,
 		"constant", 
 		"isSetSize", 
 		"isSetVolume"};
-  const int nNoFields_l2v2 = 13;
+  const int nNoFields_l2v2 = 14;
   const char *field_names_l2v2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
 		"name", 
@@ -1262,9 +1314,10 @@ GetCompartment ( Model_t      *pModel,
 		"constant", 
 		"isSetSize", 
 		"isSetVolume"};
-  const int nNoFields_l2v3 = 14;
+  const int nNoFields_l2v3 = 15;
   const char *field_names_l2v3[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
     "sboTerm",
@@ -1285,6 +1338,7 @@ GetCompartment ( Model_t      *pModel,
   const char * pacAnnotations = NULL;
   const char * pacName;
   const char * pacId = NULL;
+  const char * pacMetaid = NULL;
   const char * pacUnits;
   const char * pacOutside;
   const char * pacCompartmentType = NULL;
@@ -1352,6 +1406,7 @@ GetCompartment ( Model_t      *pModel,
     }
     else if (unSBMLLevel == 2) 
     {
+      pacMetaid = SBase_getMetaId(pCompartment);
       pacId               = Compartment_getId(pCompartment);
       unSpatialDimensions = Compartment_getSpatialDimensions(pCompartment);
       dSize               = Compartment_getSize(pCompartment);
@@ -1405,6 +1460,10 @@ GetCompartment ( Model_t      *pModel,
     if (pacNotes == NULL) {
       pacNotes = "";
     }
+    if (pacMetaid == NULL)
+    {
+      pacMetaid = "";
+    }    
     if (pacAnnotations == NULL) {
       pacAnnotations = "";
     }
@@ -1414,6 +1473,10 @@ GetCompartment ( Model_t      *pModel,
 
     /* put into structure */
     mxSetField(mxCompartReturn,i,"typecode",mxCreateString(pacTypecode)); 
+    if (unSBMLLevel == 2)
+    {
+      mxSetField(mxCompartReturn, i, "metaid", mxCreateString(pacMetaid));
+    }
     mxSetField(mxCompartReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxCompartReturn, i, "annotation",mxCreateString(pacAnnotations));
     if (unSBMLLevel == 2 && unSBMLVersion == 3) 
@@ -1478,9 +1541,10 @@ GetParameter ( Model_t      *pModel,
 		"value",
 		"units",
 		"isSetValue"};
-  const int nNoFields_l2 = 9;
+  const int nNoFields_l2 = 10;
   const char *field_names_l2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
 		"name", 
@@ -1489,9 +1553,10 @@ GetParameter ( Model_t      *pModel,
 		"units", 
 		"constant", 
 		"isSetValue"};
-   const int nNoFields_l2v2 = 10;
+   const int nNoFields_l2v2 = 11;
   const char *field_names_l2v2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
 		"name", 
@@ -1501,9 +1566,10 @@ GetParameter ( Model_t      *pModel,
 		"constant",
     "sboTerm",
 		"isSetValue"};
-   const int nNoFields_l2v3 = 10;
+   const int nNoFields_l2v3 = 11;
   const char *field_names_l2v3[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
     "sboTerm",
@@ -1519,6 +1585,7 @@ GetParameter ( Model_t      *pModel,
   const char * pacAnnotations = NULL;
   const char * pacName;
   const char * pacId = NULL;
+  const char * pacMetaid = NULL;
   const char * pacUnits;
   int nSBO = -1;
 
@@ -1577,6 +1644,7 @@ GetParameter ( Model_t      *pModel,
    
     if (unSBMLLevel == 2) 
     {
+      pacMetaid = SBase_getMetaId(pParameter);
       pacId     = Parameter_getId(pParameter);
       nConstant = Parameter_getConstant(pParameter);
 
@@ -1621,12 +1689,20 @@ GetParameter ( Model_t      *pModel,
     if (pacNotes == NULL) {
       pacNotes = "";
     }
+    if (pacMetaid == NULL)
+    {
+      pacMetaid = "";
+    }    
     if (pacAnnotations == NULL) {
       pacAnnotations = "";
     }
 
     /* put into structure */
     mxSetField(mxParameterReturn,i,"typecode",mxCreateString(pacTypecode)); 
+    if (unSBMLLevel == 2)
+    {
+      mxSetField(mxParameterReturn, i, "metaid", mxCreateString(pacMetaid));
+    }
     mxSetField(mxParameterReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxParameterReturn, i, "annotation",mxCreateString(pacAnnotations));
     if (unSBMLLevel == 2 && unSBMLVersion == 3) 
@@ -1682,9 +1758,10 @@ void GetReaction ( Model_t      *pModel,
 		"kineticLaw",
 		"reversible", 
 		"fast"};
-  const int nNoFields_l2 = 12;
+  const int nNoFields_l2 = 13;
   const char *field_names_l2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
 		"name", 
@@ -1696,9 +1773,10 @@ void GetReaction ( Model_t      *pModel,
 		"reversible", 
 		"fast", 
 		"isSetFast"};
-  const int nNoFields_l2v2 = 13;
+  const int nNoFields_l2v2 = 14;
   const char *field_names_l2v2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
 		"name", 
@@ -1711,9 +1789,10 @@ void GetReaction ( Model_t      *pModel,
 		"fast",
     "sboTerm",
 		"isSetFast"};
-  const int nNoFields_l2v3 = 13;
+  const int nNoFields_l2v3 = 14;
   const char *field_names_l2v3[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
     "sboTerm",
@@ -1728,6 +1807,7 @@ void GetReaction ( Model_t      *pModel,
 		"isSetFast"};
 
   const char * pacTypecode;
+  const char * pacMetaid = NULL;
   const char * pacNotes = NULL;
   const char * pacAnnotations = NULL;
   const char * pacName;
@@ -1792,6 +1872,7 @@ void GetReaction ( Model_t      *pModel,
     
     if (unSBMLLevel == 2) 
     {
+      pacMetaid = SBase_getMetaId(pReaction);
       pacId       = Reaction_getId(pReaction);
       unIsSetFast = Reaction_isSetFast(pReaction);
       GetModifier(pReaction, unSBMLLevel, unSBMLVersion);   
@@ -1833,6 +1914,10 @@ void GetReaction ( Model_t      *pModel,
     if (pacId == NULL) {
       pacId = "";
     }
+    if (pacMetaid == NULL)
+    {
+      pacMetaid = "";
+    }
     if (pacNotes == NULL) {
       pacNotes = "";
     }
@@ -1842,6 +1927,10 @@ void GetReaction ( Model_t      *pModel,
 
     /* put into structure */
     mxSetField(mxReactionReturn,i,"typecode",mxCreateString(pacTypecode)); 
+    if (unSBMLLevel == 2)
+    {
+      mxSetField(mxReactionReturn, i, "metaid", mxCreateString(pacMetaid));
+    }
     mxSetField(mxReactionReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxReactionReturn, i, "annotation",mxCreateString(pacAnnotations));
     if (unSBMLLevel == 2 && unSBMLVersion == 3) 
@@ -1904,9 +1993,10 @@ GetUnit ( UnitDefinition_t *pUnitDefinition,
 		"kind", 
 		"exponent",
 		"scale"};
-  const int nNoFields_l2 = 8;
+  const int nNoFields_l2 = 9;
   const char *field_names_l2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
 		"kind", 
@@ -1914,18 +2004,20 @@ GetUnit ( UnitDefinition_t *pUnitDefinition,
 		"scale", 
 		"multiplier", 
 		"offset"};
-  const int nNoFields_l2v2 = 7;
+  const int nNoFields_l2v2 = 8;
   const char *field_names_l2v2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
 		"kind", 
 		"exponent", 
 		"scale", 
 		"multiplier"};
-  const int nNoFields_l2v3 = 8;
+  const int nNoFields_l2v3 = 9;
   const char *field_names_l2v3[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
     "sboTerm",
@@ -1935,6 +2027,7 @@ GetUnit ( UnitDefinition_t *pUnitDefinition,
 		"multiplier"};
   /* determine the values */
   const char * pacTypecode;
+  const char * pacMetaid = NULL;
   const char * pacNotes = NULL;
   const char * pacAnnotations = NULL;
   const char * pacUnitKind;
@@ -1983,6 +2076,7 @@ GetUnit ( UnitDefinition_t *pUnitDefinition,
     nScale          = Unit_getScale(pUnit);
     if (unSBMLLevel == 2) 
     {
+      pacMetaid = SBase_getMetaId(pUnit);
       dMultiplier = Unit_getMultiplier(pUnit);
       switch (unSBMLVersion)
       {
@@ -2012,12 +2106,20 @@ GetUnit ( UnitDefinition_t *pUnitDefinition,
     if (pacNotes == NULL) {
       pacNotes = "";
     }
+    if (pacMetaid == NULL)
+    {
+      pacMetaid = "";
+    }    
     if (pacAnnotations == NULL) {
       pacAnnotations = "";
     }
 
     /* put into structure */
     mxSetField(mxUnitReturn,i,"typecode",mxCreateString(pacTypecode)); 
+    if (unSBMLLevel == 2)
+    {
+      mxSetField(mxUnitReturn, i, "metaid", mxCreateString(pacMetaid));
+    }
     mxSetField(mxUnitReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxUnitReturn, i, "annotation",mxCreateString(pacAnnotations));
     if (unSBMLLevel == 2 && unSBMLVersion == 3) 
@@ -2066,18 +2168,20 @@ GetReactants ( Reaction_t   *pReaction,
 		"species", 
 		"stoichiometry",
 		"denominator"};
-  const int nNoFields_l2 = 7;
+  const int nNoFields_l2 = 8;
   const char *field_names_l2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
 		"species", 
 		"stoichiometry",
 		"denominator", 
 		"stoichiometryMath"};
-  const int nNoFields_l2v2 = 9;
+  const int nNoFields_l2v2 = 10;
   const char *field_names_l2v2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
 		"species", 
@@ -2086,9 +2190,10 @@ GetReactants ( Reaction_t   *pReaction,
     "sboTerm",
 		"stoichiometry",
 		"stoichiometryMath"};
-  const int nNoFields_l2v3 = 9;
+  const int nNoFields_l2v3 = 10;
   const char *field_names_l2v3[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
     "sboTerm",
@@ -2099,6 +2204,7 @@ GetReactants ( Reaction_t   *pReaction,
 		"stoichiometryMath"};
   /* determine the values */
   const char * pacTypecode;
+  const char * pacMetaid = NULL;
   const char * pacNotes = NULL;
   const char * pacAnnotations = NULL;
   const char * pacSpecies;
@@ -2154,18 +2260,23 @@ GetReactants ( Reaction_t   *pReaction,
     }
     else if (unSBMLLevel == 2) 
     {
-      dStoichiometry = SpeciesReference_getStoichiometry(pReactant);
-      if (SpeciesReference_isSetStoichiometryMath(pReactant) == 1) 
-      {
-        pacStoichMath = SBML_formulaToString(StoichiometryMath_getMath(SpeciesReference_getStoichiometryMath(pReactant)));
-      }
-
+      pacMetaid = SBase_getMetaId(pReactant);
       switch (unSBMLVersion)
       {
       case 1:
         nDenominator = SpeciesReference_getDenominator(pReactant);
+        dStoichiometry = SpeciesReference_getStoichiometry(pReactant);
+        if (SpeciesReference_isSetStoichiometryMath(pReactant) == 1) 
+        {
+          pacStoichMath = SBML_formulaToString(StoichiometryMath_getMath(SpeciesReference_getStoichiometryMath(pReactant)));
+        }
         break;
       case 2:
+        dStoichiometry = SpeciesReference_getStoichiometry(pReactant);
+        if (SpeciesReference_isSetStoichiometryMath(pReactant) == 1) 
+        {
+          pacStoichMath = SBML_formulaToString(StoichiometryMath_getMath(SpeciesReference_getStoichiometryMath(pReactant)));
+        }
         pacId       = SpeciesReference_getId(pReactant);
         pacName     = SpeciesReference_getName(pReactant);
         if (SBase_isSetSBOTerm((SBase_t*) pReactant)) {
@@ -2173,6 +2284,11 @@ GetReactants ( Reaction_t   *pReaction,
         }
         break;
       case 3:
+        dStoichiometry = SpeciesReference_getStoichiometry(pReactant);
+        if (SpeciesReference_isSetStoichiometryMath(pReactant) == 1) 
+        {
+          GetStoichiometryMath(pReactant, unSBMLLevel, unSBMLVersion);
+        }
         pacId       = SpeciesReference_getId(pReactant);
         pacName     = SpeciesReference_getName(pReactant);
         if (SBase_isSetSBOTerm((SBase_t*) pReactant)) {
@@ -2198,6 +2314,10 @@ GetReactants ( Reaction_t   *pReaction,
     if (pacNotes == NULL) {
       pacNotes = "";
     }
+    if (pacMetaid == NULL)
+    {
+      pacMetaid = "";
+    }    
     if (pacAnnotations == NULL) {
       pacAnnotations = "";
     }
@@ -2210,6 +2330,10 @@ GetReactants ( Reaction_t   *pReaction,
 
     /* put into structure */
     mxSetField(mxReactantReturn,i,"typecode",mxCreateString(pacTypecode)); 
+    if (unSBMLLevel == 2)
+    {
+      mxSetField(mxReactantReturn, i, "metaid", mxCreateString(pacMetaid));
+    }
     mxSetField(mxReactantReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxReactantReturn, i, "annotation",mxCreateString(pacAnnotations));
     if (unSBMLLevel == 2 && unSBMLVersion == 3) 
@@ -2237,8 +2361,17 @@ GetReactants ( Reaction_t   *pReaction,
       if (unSBMLVersion == 1) {
        mxSetField(mxReactantReturn,i,"denominator",CreateIntScalar(nDenominator));
       }
-      mxSetField(mxReactantReturn,i,"stoichiometryMath",mxCreateString(pacStoichMath)); 
+      if(unSBMLVersion < 3)
+      {
+        mxSetField(mxReactantReturn,i,"stoichiometryMath",mxCreateString(pacStoichMath));
+      }
+      else
+      {
+        mxSetField(mxReactantReturn,i,"stoichiometryMath",mxStoichiometryMathReturn);
+      }
     }
+    
+    mxStoichiometryMathReturn = NULL;
   }
 }
 
@@ -2273,18 +2406,20 @@ GetProducts ( Reaction_t   *pReaction,
 		"species", 
 		"stoichiometry",
 		"denominator"};
-  const int nNoFields_l2 = 7;
+  const int nNoFields_l2 = 8;
   const char *field_names_l2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
 		"species", 
 		"stoichiometry",
 		"denominator", 
 		"stoichiometryMath"};
-const int nNoFields_l2v2 = 9;
+const int nNoFields_l2v2 = 10;
   const char *field_names_l2v2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
 		"species", 
@@ -2293,9 +2428,10 @@ const int nNoFields_l2v2 = 9;
     "sboTerm",
 		"stoichiometry",
 		"stoichiometryMath"};
-  const int nNoFields_l2v3 = 9;
+  const int nNoFields_l2v3 = 10;
   const char *field_names_l2v3[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
     "sboTerm",
@@ -2306,6 +2442,7 @@ const int nNoFields_l2v2 = 9;
 		"stoichiometryMath"};
    /* determine the values */
   const char * pacTypecode;
+  const char * pacMetaid = NULL;
   const char * pacNotes = NULL;
   const char * pacAnnotations = NULL;
   const char * pacSpecies;
@@ -2361,18 +2498,23 @@ const int nNoFields_l2v2 = 9;
     }
     else if (unSBMLLevel == 2) 
     {
-      dStoichiometry = SpeciesReference_getStoichiometry(pProduct);
-      if (SpeciesReference_isSetStoichiometryMath(pProduct) == 1) 
-      {
-        pacStoichMath = SBML_formulaToString(StoichiometryMath_getMath(SpeciesReference_getStoichiometryMath(pProduct)));
-      }
-
+      pacMetaid = SBase_getMetaId(pProduct);
       switch (unSBMLVersion)
       {
       case 1:
+        dStoichiometry = SpeciesReference_getStoichiometry(pProduct);
+        if (SpeciesReference_isSetStoichiometryMath(pProduct) == 1) 
+        {
+          pacStoichMath = SBML_formulaToString(StoichiometryMath_getMath(SpeciesReference_getStoichiometryMath(pProduct)));
+        }
         nDenominator = SpeciesReference_getDenominator(pProduct);
         break;
       case 2:
+        dStoichiometry = SpeciesReference_getStoichiometry(pProduct);
+        if (SpeciesReference_isSetStoichiometryMath(pProduct) == 1) 
+        {
+          pacStoichMath = SBML_formulaToString(StoichiometryMath_getMath(SpeciesReference_getStoichiometryMath(pProduct)));
+        }
         pacId       = SpeciesReference_getId(pProduct);
         pacName     = SpeciesReference_getName(pProduct);
         if (SBase_isSetSBOTerm((SBase_t*) pProduct)) {
@@ -2380,6 +2522,11 @@ const int nNoFields_l2v2 = 9;
         }
         break;
       case 3:
+        dStoichiometry = SpeciesReference_getStoichiometry(pProduct);
+        if (SpeciesReference_isSetStoichiometryMath(pProduct) == 1) 
+        {
+          GetStoichiometryMath(pProduct, unSBMLLevel, unSBMLVersion);
+        }
         pacId       = SpeciesReference_getId(pProduct);
         pacName     = SpeciesReference_getName(pProduct);
         if (SBase_isSetSBOTerm((SBase_t*) pProduct)) {
@@ -2405,6 +2552,10 @@ const int nNoFields_l2v2 = 9;
     if (pacNotes == NULL) {
       pacNotes = "";
     }
+    if (pacMetaid == NULL)
+    {
+      pacMetaid = "";
+    }    
     if (pacAnnotations == NULL) {
       pacAnnotations = "";
     }
@@ -2417,6 +2568,10 @@ const int nNoFields_l2v2 = 9;
 
     /* put into structure */
     mxSetField(mxProductReturn,i,"typecode",mxCreateString(pacTypecode)); 
+    if (unSBMLLevel == 2)
+    {
+      mxSetField(mxProductReturn, i, "metaid", mxCreateString(pacMetaid));
+    }
     mxSetField(mxProductReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxProductReturn, i, "annotation",mxCreateString(pacAnnotations));
     if (unSBMLLevel == 2 && unSBMLVersion == 3) 
@@ -2444,12 +2599,149 @@ const int nNoFields_l2v2 = 9;
       if (unSBMLVersion == 1) {
         mxSetField(mxProductReturn,i,"denominator",CreateIntScalar(nDenominator));
       }
-      mxSetField(mxProductReturn,i,"stoichiometryMath",mxCreateString(pacStoichMath)); 
+      if(unSBMLVersion < 3)
+      {
+        mxSetField(mxProductReturn,i,"stoichiometryMath",mxCreateString(pacStoichMath));
+      }
+      else
+      {
+        mxSetField(mxProductReturn,i,"stoichiometryMath",mxStoichiometryMathReturn);
+      }
     }
+    
+    mxStoichiometryMathReturn = NULL;
   }
 }
 
 
+/**
+ * NAME:    GetStoichiometryMath
+ *
+ * PARAMETERS:  Pointer to a speciesReference
+ *              unSBMLLevel
+ *              unSBMLVersion - included for possible expansion needs
+ *
+ * RETURNS:    void
+ *
+ * FUNCTION:  creates the trigger mxArray structure
+ *            populates the structure with trigger
+ *            in the event
+ */
+void
+GetStoichiometryMath ( SpeciesReference_t      *pSpeciesReference,
+                     unsigned int unSBMLLevel,
+                     unsigned int unSBMLVersion )
+{
+  int dims[2] = {1, 1};
+
+  const int nNoFields_l2v3 = 6;
+  const char *field_names_l2v3[] = {	
+    "typecode", 
+    "metaid",
+		"notes", 
+		"annotation",
+    "sboTerm",
+		"math"};
+  /* determine the values */
+  const char * pacTypecode;
+  const char * pacMetaid = NULL;
+  const char * pacNotes = NULL;
+  const char * pacAnnotations = NULL;
+  const char * pacFormula = NULL;
+  int nSBO = -1;
+
+  StoichiometryMath_t * pStoichiometryMath;
+  int i;
+  
+  /* variables for mathML - matlab hack */
+  int nStatus, nBuflen;
+  mxArray * mxInput[1], * mxOutput[1];
+   
+
+  /* create the structure array */
+  if (unSBMLLevel == 1) 
+  {
+    mxStoichiometryMathReturn = NULL;
+  }
+  else if (unSBMLLevel == 2) 
+  {
+    if (unSBMLVersion == 3)
+    {
+      mxStoichiometryMathReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
+    }
+    else  
+    {
+      mxStoichiometryMathReturn = NULL;
+    }
+  }
+
+  pStoichiometryMath = SpeciesReference_getStoichiometryMath(pSpeciesReference);
+
+  /* determine the values */
+  pacTypecode       = TypecodeToChar(SBase_getTypeCode((SBase_t *) pStoichiometryMath));
+
+  pacNotes          = SBase_getNotesString((SBase_t *) pStoichiometryMath);
+  pacAnnotations    = SBase_getAnnotationString((SBase_t *) pStoichiometryMath);
+  pacMetaid = SBase_getMetaId(pStoichiometryMath);
+
+  if (SBase_isSetSBOTerm((SBase_t*) pStoichiometryMath))
+  {
+    nSBO = SBase_getSBOTerm((SBase_t*) pStoichiometryMath);
+  }
+    
+  if (StoichiometryMath_isSetMath(pStoichiometryMath)) {
+    LookForCSymbolTime(StoichiometryMath_getMath(pStoichiometryMath));
+    pacFormula = SBML_formulaToString(StoichiometryMath_getMath(pStoichiometryMath));
+
+     /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
+
+    mxInput[0] = mxCreateString(pacFormula);
+    nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
+
+    if (nStatus != 0)
+    {
+        mexErrMsgTxt("Failed to convert formula");
+    }
+
+    /* get the formula returned */
+    nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
+    pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
+    nStatus = mxGetString(mxOutput[0], (char *) pacFormula, nBuflen);
+
+    if (nStatus != 0)
+    {
+        mexErrMsgTxt("Cannot copy formula");
+    }
+
+    /* END OF HACK */
+  }
+  /**
+   * check for NULL strings - Matlab doesnt like creating 
+   * a string that is NULL
+   */
+  if (pacNotes == NULL) {
+    pacNotes = "";
+  }
+    if (pacMetaid == NULL)
+    {
+      pacMetaid = "";
+    }
+  if (pacAnnotations == NULL) {
+    pacAnnotations = "";
+  }
+  if (pacFormula == NULL) {
+    pacFormula = "";
+  }
+
+  /* put into structure */
+  mxSetField(mxStoichiometryMathReturn, 0, "typecode",   mxCreateString(pacTypecode)); 
+  mxSetField(mxStoichiometryMathReturn, 0, "metaid", mxCreateString(pacMetaid));
+  mxSetField(mxStoichiometryMathReturn, 0, "notes",      mxCreateString(pacNotes));
+  mxSetField(mxStoichiometryMathReturn, 0, "annotation", mxCreateString(pacAnnotations));
+  mxSetField(mxStoichiometryMathReturn, 0, "sboTerm",    CreateIntScalar(nSBO)); 
+  mxSetField(mxStoichiometryMathReturn, 0, "math",       mxCreateString(pacFormula)); 
+
+}
 /**
  * NAME:    GetKineticLaw
  *
@@ -2480,9 +2772,10 @@ GetKineticLaw ( Reaction_t   *pReaction,
 		"parameter",
 		"timeUnits", 
 		"substanceUnits"};
-  const int nNoFields_l2 = 8;
+  const int nNoFields_l2 = 9;
   const char *field_names_l2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
 		"formula", 
@@ -2490,18 +2783,20 @@ GetKineticLaw ( Reaction_t   *pReaction,
 		"parameter",
 		"timeUnits", 
 		"substanceUnits"};
-  const int nNoFields_l2v2 = 7;
+  const int nNoFields_l2v2 = 8;
   const char *field_names_l2v2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
 		"formula", 
 		"math", 
 		"parameter",
     "sboTerm"};
-  const int nNoFields_l2v3 = 7;
+  const int nNoFields_l2v3 = 8;
   const char *field_names_l2v3[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
     "sboTerm",
@@ -2510,6 +2805,7 @@ GetKineticLaw ( Reaction_t   *pReaction,
 		"parameter"};
   /* determine the values */
   const char * pacTypecode = NULL;
+  const char * pacMetaid = NULL;
   const char * pacNotes = NULL;
   const char * pacAnnotations = NULL;
   const char * pacFormula = NULL;
@@ -2570,6 +2866,7 @@ GetKineticLaw ( Reaction_t   *pReaction,
     }
     else if (unSBMLLevel == 2)
     {
+      pacMetaid = SBase_getMetaId(pKineticLaw);
      /* if level two set the math formula */
      if (KineticLaw_isSetMath(pKineticLaw)) 
       {
@@ -2653,12 +2950,20 @@ GetKineticLaw ( Reaction_t   *pReaction,
   if (pacNotes == NULL) {
     pacNotes = "";
   }
+    if (pacMetaid == NULL)
+    {
+      pacMetaid = "";
+    }
   if (pacAnnotations == NULL) {
     pacAnnotations = "";
   }
 
   /* put into structure */
   mxSetField(mxKineticLawReturn,0,"typecode",mxCreateString(pacTypecode)); 
+    if (unSBMLLevel == 2)
+    {
+      mxSetField(mxKineticLawReturn, 0, "metaid", mxCreateString(pacMetaid));
+    }
   mxSetField(mxKineticLawReturn, 0, "notes",mxCreateString(pacNotes));
   mxSetField(mxKineticLawReturn, 0, "annotation",mxCreateString(pacAnnotations));
   if (unSBMLLevel == 2 && unSBMLVersion == 3) 
@@ -2712,9 +3017,10 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
 		"value",
 		"units", 
 		"isSetValue"};
-  const int nNoFields_l2 = 9;
+  const int nNoFields_l2 = 10;
   const char *field_names_l2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
 		"name", 
@@ -2723,9 +3029,10 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
 		"units", 
 		"constant", 
 		"isSetValue"};
-    const int nNoFields_l2v2 = 10;
+    const int nNoFields_l2v2 = 11;
   const char *field_names_l2v2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
 		"name", 
@@ -2735,9 +3042,10 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
 		"constant",
     "sboTerm",
 		"isSetValue"};
-    const int nNoFields_l2v3 = 10;
+    const int nNoFields_l2v3 = 11;
   const char *field_names_l2v3[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
     "sboTerm",
@@ -2749,6 +3057,7 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
 		"isSetValue"};
  
   const char * pacTypecode;
+  const char * pacMetaid = NULL;
   const char * pacNotes = NULL;
   const char * pacAnnotations = NULL;
   const char * pacName;
@@ -2811,6 +3120,7 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
     
     if (unSBMLLevel == 2) 
     {
+      pacMetaid = SBase_getMetaId(pParameter);
       pacId     = Parameter_getId(pParameter);
       nConstant = Parameter_getConstant(pParameter);
       switch (unSBMLVersion)
@@ -2855,12 +3165,20 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
     if (pacNotes == NULL) {
       pacNotes = "";
     }
+    if (pacMetaid == NULL)
+    {
+      pacMetaid = "";
+    }
     if (pacAnnotations == NULL) {
       pacAnnotations = "";
     }
 
     /* put into structure */
     mxSetField(mxKineticLawParameterReturn,i,"typecode",mxCreateString(pacTypecode)); 
+    if (unSBMLLevel == 2)
+    {
+      mxSetField(mxKineticLawParameterReturn, i, "metaid", mxCreateString(pacMetaid));
+    }
     mxSetField(mxKineticLawParameterReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxKineticLawParameterReturn, i, "annotation",mxCreateString(pacAnnotations));
     if (unSBMLLevel == 2 && unSBMLVersion == 3) 
@@ -2906,24 +3224,27 @@ GetModifier ( Reaction_t   *pReaction,
   int dims[2] = {1, n};
 
   /* fields within a species structure */
-  const int nNoFields_l2 = 4;
+  const int nNoFields_l2 = 5;
   const char *field_names_l2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
 		"species"};
-  const int nNoFields_l2v2 = 7;
+  const int nNoFields_l2v2 = 8;
   const char *field_names_l2v2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
 		"species",
     "id",
     "name",
     "sboTerm"};
-  const int nNoFields_l2v3 = 7;
+  const int nNoFields_l2v3 = 8;
   const char *field_names_l2v3[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
     "sboTerm",
@@ -2932,6 +3253,7 @@ GetModifier ( Reaction_t   *pReaction,
     "name"};
   /* determine the values */
   const char * pacTypecode;
+  const char * pacMetaid = NULL;
   const char * pacNotes = NULL;
   const char * pacAnnotations = NULL;
   const char * pacSpecies;
@@ -2972,6 +3294,7 @@ GetModifier ( Reaction_t   *pReaction,
     
     pacNotes        = SBase_getNotesString((SBase_t*) pModifier);
     pacAnnotations  = SBase_getAnnotationString((SBase_t*) pModifier);
+    pacMetaid = SBase_getMetaId(pModifier);
     
     pacSpecies      = SpeciesReference_getSpecies(pModifier);
     switch (unSBMLVersion)
@@ -3009,6 +3332,10 @@ GetModifier ( Reaction_t   *pReaction,
     if (pacNotes == NULL) {
       pacNotes = "";
     }
+    if (pacMetaid == NULL)
+    {
+      pacMetaid = "";
+    }
     if (pacAnnotations == NULL) {
       pacAnnotations = "";
     }
@@ -3021,6 +3348,10 @@ GetModifier ( Reaction_t   *pReaction,
 
     /* put into structure */
     mxSetField(mxModifierReturn,i,"typecode",mxCreateString(pacTypecode)); 
+    if (unSBMLLevel == 2)
+    {
+      mxSetField(mxModifierReturn, i, "metaid", mxCreateString(pacMetaid));
+    }
     mxSetField(mxModifierReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxModifierReturn, i, "annotation",mxCreateString(pacAnnotations));
     if (unSBMLLevel == 2 && unSBMLVersion == 3) 
@@ -3075,9 +3406,10 @@ GetRule ( Model_t      *pModel,
     "name", 
     "units"};
  
-  const int nNoFields_l2 = 9;
+  const int nNoFields_l2 = 10;
   const char *field_names_l2[] = {	
     "typecode", 
+    "metaid",
     "notes", 
     "annotation",
     "formula", 
@@ -3086,9 +3418,10 @@ GetRule ( Model_t      *pModel,
     "compartment",
     "name", 
     "units"};
-  const int nNoFields_l2v2 = 10;
+  const int nNoFields_l2v2 = 11;
   const char *field_names_l2v2[] = {	
     "typecode", 
+    "metaid",
     "notes", 
     "annotation",
     "sboTerm",
@@ -3098,9 +3431,10 @@ GetRule ( Model_t      *pModel,
     "compartment",
     "name", 
     "units"};
-  const int nNoFields_l2v3 = 10;
+  const int nNoFields_l2v3 = 11;
   const char *field_names_l2v3[] = {	
     "typecode", 
+    "metaid",
     "notes", 
     "annotation",
     "sboTerm",
@@ -3113,6 +3447,7 @@ GetRule ( Model_t      *pModel,
   
   /* determine the values */
   const char * pacTypecode;
+  const char * pacMetaid = NULL;
   const char * pacNotes = NULL;
   const char * pacAnnotations = NULL;
   const char * pacType = NULL;
@@ -3175,6 +3510,7 @@ GetRule ( Model_t      *pModel,
     }
     else if (unSBMLLevel == 2) 
     {
+      pacMetaid = SBase_getMetaId(pRule);
       if (Rule_isSetFormula(pRule) == 1){
         LookForCSymbolTime(Rule_getMath(pRule));
         pacFormula = SBML_formulaToString(Rule_getMath(pRule));
@@ -3424,6 +3760,10 @@ GetRule ( Model_t      *pModel,
     if (pacNotes == NULL) {
       pacNotes = "";
     }
+    if (pacMetaid == NULL)
+    {
+      pacMetaid = "";
+    }
     if (pacAnnotations == NULL) {
       pacAnnotations = "";
     }
@@ -3436,6 +3776,10 @@ GetRule ( Model_t      *pModel,
 
     /* put into structure */
     mxSetField(mxListRuleReturn,i,"typecode",mxCreateString(pacTypecode)); 
+    if (unSBMLLevel == 2)
+    {
+      mxSetField(mxListRuleReturn, i, "metaid", mxCreateString(pacMetaid));
+    }
     mxSetField(mxListRuleReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxListRuleReturn, i, "annotation",mxCreateString(pacAnnotations));
     if (unSBMLLevel == 1){
@@ -3477,27 +3821,30 @@ GetFunctionDefinition ( Model_t      *pModel,
   int dims[2] = {1, n};
 
   /* fields within a species structure */
-  const int nNoFields_l2 = 6;
+  const int nNoFields_l2 = 7;
   const char * field_names_l2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
 		"name", 
 		"id", 
 		"math"};
   /* fields within a species structure */
-  const int nNoFields_l2v2 = 7;
+  const int nNoFields_l2v2 = 8;
   const char * field_names_l2v2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
     "sboTerm",
 		"name", 
 		"id", 
 		"math"};
-  const int nNoFields_l2v3 = 7;
+  const int nNoFields_l2v3 = 8;
   const char * field_names_l2v3[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
     "sboTerm",
@@ -3507,6 +3854,7 @@ GetFunctionDefinition ( Model_t      *pModel,
   
   /* determine the values */
   const char * pacTypecode;
+  const char * pacMetaid = NULL;
   const char * pacNotes = NULL;
   const char * pacAnnotations = NULL;
   const char * pacName;
@@ -3555,6 +3903,7 @@ GetFunctionDefinition ( Model_t      *pModel,
     
     pacNotes            = SBase_getNotesString((SBase_t *) pFuncDefinition);
     pacAnnotations      = SBase_getAnnotationString((SBase_t *) pFuncDefinition);
+    pacMetaid = SBase_getMetaId(pFuncDefinition);
     
     pacName             = FunctionDefinition_getName(pFuncDefinition);
     pacId               = FunctionDefinition_getId(pFuncDefinition);
@@ -3614,6 +3963,10 @@ GetFunctionDefinition ( Model_t      *pModel,
     if (pacNotes == NULL) {
       pacNotes = "";
     }
+    if (pacMetaid == NULL)
+    {
+      pacMetaid = "";
+    }
     if (pacAnnotations == NULL) {
       pacAnnotations = "";
     }
@@ -3626,6 +3979,7 @@ GetFunctionDefinition ( Model_t      *pModel,
 
     /* put into structure */
     mxSetField(mxFunctionDefReturn,i,"typecode",mxCreateString(pacTypecode)); 
+    mxSetField(mxFunctionDefReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxFunctionDefReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxFunctionDefReturn, i, "annotation",mxCreateString(pacAnnotations));
     if (unSBMLLevel == 2 && unSBMLVersion != 1) 
@@ -3660,9 +4014,10 @@ GetEvent (Model_t      *pModel,
   int dims[2] = {1, n};
 
   /* fields within a event structure */
-  const int nNoFields_l2 = 9;
+  const int nNoFields_l2 = 10;
   const char * field_names_l2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
 		"name", 
@@ -3671,9 +4026,10 @@ GetEvent (Model_t      *pModel,
 		"delay", 
 		"timeUnits", 
 		"eventAssignment"};
-  const int nNoFields_l2v2 = 10;
+  const int nNoFields_l2v2 = 11;
   const char * field_names_l2v2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
 		"name", 
@@ -3683,9 +4039,10 @@ GetEvent (Model_t      *pModel,
 		"timeUnits",
     "sboTerm",
 		"eventAssignment"};
-  const int nNoFields_l2v3 = 9;
+  const int nNoFields_l2v3 = 10;
   const char * field_names_l2v3[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
     "sboTerm",
@@ -3697,6 +4054,7 @@ GetEvent (Model_t      *pModel,
   
   /* determine the values */
   const char * pacTypecode;
+  const char * pacMetaid = NULL;
   const char * pacNotes = NULL;
   const char * pacAnnotations = NULL;
   const char * pacName;
@@ -3738,6 +4096,7 @@ GetEvent (Model_t      *pModel,
 
     /* determine the values */
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t *) pEvent));
+    pacMetaid = SBase_getMetaId(pEvent);
     
     pacNotes        = SBase_getNotesString((SBase_t *) pEvent);
     pacAnnotations  = SBase_getAnnotationString((SBase_t *) pEvent);
@@ -3768,62 +4127,75 @@ GetEvent (Model_t      *pModel,
     }
     GetEventAssignment(pEvent, unSBMLLevel, unSBMLVersion);
     
-    if (Event_isSetTrigger(pEvent)) 
+    if (unSBMLVersion < 3)
     {
-      LookForCSymbolTime(Trigger_getMath(Event_getTrigger(pEvent)));
-      pacTrigger = SBML_formulaToString(Trigger_getMath(Event_getTrigger(pEvent)));
-    }
-    
-    if (Event_isSetDelay(pEvent)) 
-    {
-      LookForCSymbolTime(Delay_getMath(Event_getDelay(pEvent)));
-      pacDelay      = SBML_formulaToString(Delay_getMath(Event_getDelay(pEvent)));
-    }
+      if (Event_isSetTrigger(pEvent)) 
+      {
+        LookForCSymbolTime(Trigger_getMath(Event_getTrigger(pEvent)));
+        pacTrigger = SBML_formulaToString(Trigger_getMath(Event_getTrigger(pEvent)));
+      }
+
+      if (Event_isSetDelay(pEvent)) 
+      {
+        LookForCSymbolTime(Delay_getMath(Event_getDelay(pEvent)));
+        pacDelay      = SBML_formulaToString(Delay_getMath(Event_getDelay(pEvent)));
+      }
+        /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
+
+      mxInput[0] = mxCreateString(pacTrigger);
+      nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
+
+      if (nStatus != 0)
+      {
+          mexErrMsgTxt("Failed to convert formula");
+      }
+
+      /* get the formula returned */
+      nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
+      pacTrigger = (char *) mxCalloc(nBuflen, sizeof(char));
+      nStatus = mxGetString(mxOutput[0], (char *) pacTrigger, nBuflen);
+
+      if (nStatus != 0)
+      {
+          mexErrMsgTxt("Cannot copy formula");
+      }
+
+      /* END OF HACK */
+
+
       /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
-  
-  mxInput[0] = mxCreateString(pacTrigger);
-  nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
-  
-  if (nStatus != 0)
-  {
-      mexErrMsgTxt("Failed to convert formula");
-  }
-  
-  /* get the formula returned */
-  nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-  pacTrigger = (char *) mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxOutput[0], (char *) pacTrigger, nBuflen);
-  
-  if (nStatus != 0)
-  {
-      mexErrMsgTxt("Cannot copy formula");
-  }
 
-  /* END OF HACK */
+      mxInput[0] = mxCreateString(pacDelay);
+      nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
 
+      if (nStatus != 0)
+      {
+          mexErrMsgTxt("Failed to convert formula");
+      }
 
-  /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
-  
-  mxInput[0] = mxCreateString(pacDelay);
-  nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
-  
-  if (nStatus != 0)
-  {
-      mexErrMsgTxt("Failed to convert formula");
-  }
-  
-  /* get the formula returned */
-  nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-  pacDelay = (char *) mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxOutput[0], (char *) pacDelay, nBuflen);
-  
-  if (nStatus != 0)
-  {
-      mexErrMsgTxt("Cannot copy formula");
-  }
+      /* get the formula returned */
+      nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
+      pacDelay = (char *) mxCalloc(nBuflen, sizeof(char));
+      nStatus = mxGetString(mxOutput[0], (char *) pacDelay, nBuflen);
 
-  /* END OF HACK */
+      if (nStatus != 0)
+      {
+          mexErrMsgTxt("Cannot copy formula");
+      }
 
+      /* END OF HACK */
+    }
+    else
+    {
+      if (Event_isSetTrigger(pEvent)) 
+      {
+        GetTrigger(pEvent, unSBMLLevel, unSBMLVersion);
+      }
+      if (Event_isSetDelay(pEvent)) 
+      {
+        GetDelay(pEvent, unSBMLLevel, unSBMLVersion);
+      }
+    }
     /**        
      * check for NULL strings - Matlab doesnt like creating 
      * a string that is NULL
@@ -3833,6 +4205,10 @@ GetEvent (Model_t      *pModel,
     }
     if (pacNotes == NULL) {
       pacNotes = "";
+    }
+    if (pacMetaid == NULL)
+    {
+      pacMetaid = "";
     }
     if (pacAnnotations == NULL) {
       pacAnnotations = "";
@@ -3852,6 +4228,7 @@ GetEvent (Model_t      *pModel,
 
     /* put into structure */
     mxSetField(mxEventReturn,i,"typecode",mxCreateString(pacTypecode)); 
+    mxSetField(mxEventReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxEventReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxEventReturn, i, "annotation",mxCreateString(pacAnnotations));
     if (unSBMLLevel == 2 && unSBMLVersion == 3) 
@@ -3860,8 +4237,16 @@ GetEvent (Model_t      *pModel,
     }
     mxSetField(mxEventReturn,i,"name",mxCreateString(pacName)); 
     mxSetField(mxEventReturn,i,"id",mxCreateString(pacId)); 
-    mxSetField(mxEventReturn,i,"trigger",mxCreateString(pacTrigger)); 
-    mxSetField(mxEventReturn,i,"delay",mxCreateString(pacDelay)); 
+    if (unSBMLVersion < 3)
+    {
+      mxSetField(mxEventReturn,i,"trigger",mxCreateString(pacTrigger)); 
+      mxSetField(mxEventReturn,i,"delay",mxCreateString(pacDelay)); 
+    }
+    else
+    {
+      mxSetField(mxEventReturn,i,"trigger",mxTriggerReturn); 
+      mxSetField(mxEventReturn,i,"delay",mxDelayReturn); 
+    }
     if (unSBMLVersion != 3)
     {
       mxSetField(mxEventReturn,i,"timeUnits",mxCreateString(pacTimeUnits));
@@ -3873,6 +4258,8 @@ GetEvent (Model_t      *pModel,
     mxSetField(mxEventReturn,i,"eventAssignment",mxEventAssignReturn); 
 
     mxEventAssignReturn = NULL;
+    mxTriggerReturn = NULL;
+    mxDelayReturn = NULL;
   }
 }
 
@@ -3898,24 +4285,27 @@ GetEventAssignment ( Event_t      *pEvent,
   int n = Event_getNumEventAssignments(pEvent);
   int dims[2] = {1, n};
 
-  const int nNoFields_l2 = 5;
+  const int nNoFields_l2 = 6;
   const char *field_names_l2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
 		"variable", 
 		"math"};
-  const int nNoFields_l2v2 = 6;
+  const int nNoFields_l2v2 = 7;
   const char *field_names_l2v2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
 		"variable",
     "sboTerm",
 		"math"};
-  const int nNoFields_l2v3 = 6;
+  const int nNoFields_l2v3 = 7;
   const char *field_names_l2v3[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
     "sboTerm",
@@ -3923,6 +4313,7 @@ GetEventAssignment ( Event_t      *pEvent,
 		"math"};
   /* determine the values */
   const char * pacTypecode;
+  const char * pacMetaid = NULL;
   const char * pacNotes = NULL;
   const char * pacAnnotations = NULL;
   const char * pacVariable;
@@ -3967,6 +4358,7 @@ GetEventAssignment ( Event_t      *pEvent,
     
     pacNotes          = SBase_getNotesString((SBase_t *) pEventAssignment);
     pacAnnotations    = SBase_getAnnotationString((SBase_t *) pEventAssignment);
+    pacMetaid = SBase_getMetaId(pEventAssignment);
     
     pacVariable       = EventAssignment_getVariable(pEventAssignment);
     switch (unSBMLVersion)
@@ -4025,6 +4417,11 @@ GetEventAssignment ( Event_t      *pEvent,
     if (pacNotes == NULL) {
       pacNotes = "";
     }
+      if (pacMetaid == NULL)
+    {
+      pacMetaid = "";
+    }
+
     if (pacAnnotations == NULL) {
       pacAnnotations = "";
     }
@@ -4034,6 +4431,7 @@ GetEventAssignment ( Event_t      *pEvent,
 
     /* put into structure */
     mxSetField(mxEventAssignReturn,i,"typecode",mxCreateString(pacTypecode)); 
+    mxSetField(mxEventAssignReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxEventAssignReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxEventAssignReturn, i, "annotation",mxCreateString(pacAnnotations));
     if (unSBMLLevel == 2 && unSBMLVersion == 3) 
@@ -4050,6 +4448,265 @@ GetEventAssignment ( Event_t      *pEvent,
   }
 
 }
+/**
+ * NAME:    GetTrigger
+ *
+ * PARAMETERS:  Pointer to a event
+ *              unSBMLLevel
+ *              unSBMLVersion - included for possible expansion needs
+ *
+ * RETURNS:    void
+ *
+ * FUNCTION:  creates the trigger mxArray structure
+ *            populates the structure with trigger
+ *            in the event
+ */
+void
+GetTrigger ( Event_t      *pEvent,
+                     unsigned int unSBMLLevel,
+                     unsigned int unSBMLVersion )
+{
+  int dims[2] = {1, 1};
+
+  const int nNoFields_l2v3 = 6;
+  const char *field_names_l2v3[] = {	
+    "typecode", 
+    "metaid",
+		"notes", 
+		"annotation",
+    "sboTerm",
+		"math"};
+  /* determine the values */
+  const char * pacTypecode;
+  const char * pacMetaid = NULL;
+  const char * pacNotes = NULL;
+  const char * pacAnnotations = NULL;
+  const char * pacFormula = NULL;
+  int nSBO = -1;
+
+  Trigger_t * pTrigger;
+  int i;
+  
+  /* variables for mathML - matlab hack */
+  int nStatus, nBuflen;
+  mxArray * mxInput[1], * mxOutput[1];
+   
+
+  /* create the structure array */
+  if (unSBMLLevel == 1) 
+  {
+    mxTriggerReturn = NULL;
+  }
+  else if (unSBMLLevel == 2) 
+  {
+    if (unSBMLVersion == 3)
+    {
+      mxTriggerReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
+    }
+    else  
+    {
+      mxTriggerReturn = NULL;
+    }
+  }
+
+  pTrigger = Event_getTrigger(pEvent);
+
+  /* determine the values */
+  pacTypecode       = TypecodeToChar(SBase_getTypeCode((SBase_t *) pTrigger));
+
+  pacNotes          = SBase_getNotesString((SBase_t *) pTrigger);
+  pacAnnotations    = SBase_getAnnotationString((SBase_t *) pTrigger);
+    pacMetaid = SBase_getMetaId(pTrigger);
+
+  if (SBase_isSetSBOTerm((SBase_t*) pTrigger))
+  {
+    nSBO = SBase_getSBOTerm((SBase_t*) pTrigger);
+  }
+    
+  if (Trigger_isSetMath(pTrigger)) {
+    LookForCSymbolTime(Trigger_getMath(pTrigger));
+    pacFormula = SBML_formulaToString(Trigger_getMath(pTrigger));
+
+     /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
+
+    mxInput[0] = mxCreateString(pacFormula);
+    nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
+
+    if (nStatus != 0)
+    {
+        mexErrMsgTxt("Failed to convert formula");
+    }
+
+    /* get the formula returned */
+    nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
+    pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
+    nStatus = mxGetString(mxOutput[0], (char *) pacFormula, nBuflen);
+
+    if (nStatus != 0)
+    {
+        mexErrMsgTxt("Cannot copy formula");
+    }
+
+    /* END OF HACK */
+  }
+  /**
+   * check for NULL strings - Matlab doesnt like creating 
+   * a string that is NULL
+   */
+  if (pacNotes == NULL) {
+    pacNotes = "";
+  }
+    if (pacMetaid == NULL)
+    {
+      pacMetaid = "";
+    }
+  if (pacAnnotations == NULL) {
+    pacAnnotations = "";
+  }
+  if (pacFormula == NULL) {
+    pacFormula = "";
+  }
+
+  /* put into structure */
+  mxSetField(mxTriggerReturn, 0, "typecode",   mxCreateString(pacTypecode)); 
+  mxSetField(mxTriggerReturn, 0, "metaid", mxCreateString(pacMetaid));
+  mxSetField(mxTriggerReturn, 0, "notes",      mxCreateString(pacNotes));
+  mxSetField(mxTriggerReturn, 0, "annotation", mxCreateString(pacAnnotations));
+  mxSetField(mxTriggerReturn, 0, "sboTerm",    CreateIntScalar(nSBO)); 
+  mxSetField(mxTriggerReturn, 0, "math",       mxCreateString(pacFormula)); 
+
+}
+
+
+/**
+ * NAME:    GetDelay
+ *
+ * PARAMETERS:  Pointer to a event
+ *              unSBMLLevel
+ *              unSBMLVersion - included for possible expansion needs
+ *
+ * RETURNS:    void
+ *
+ * FUNCTION:  creates the trigger mxArray structure
+ *            populates the structure with trigger
+ *            in the event
+ */
+void
+GetDelay ( Event_t      *pEvent,
+                     unsigned int unSBMLLevel,
+                     unsigned int unSBMLVersion )
+{
+  int dims[2] = {1, 1};
+
+  const int nNoFields_l2v3 = 6;
+  const char *field_names_l2v3[] = {	
+    "typecode", 
+    "metaid",
+		"notes", 
+		"annotation",
+    "sboTerm",
+		"math"};
+  /* determine the values */
+  const char * pacTypecode;
+  const char * pacMetaid = NULL;
+  const char * pacNotes = NULL;
+  const char * pacAnnotations = NULL;
+  const char * pacFormula = NULL;
+  int nSBO = -1;
+
+  Delay_t * pDelay;
+  int i;
+  
+  /* variables for mathML - matlab hack */
+  int nStatus, nBuflen;
+  mxArray * mxInput[1], * mxOutput[1];
+   
+
+  /* create the structure array */
+  if (unSBMLLevel == 1) 
+  {
+    mxDelayReturn = NULL;
+  }
+  else if (unSBMLLevel == 2) 
+  {
+    if (unSBMLVersion == 3)
+    {
+      mxDelayReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
+    }
+    else  
+    {
+      mxDelayReturn = NULL;
+    }
+  }
+
+  pDelay = Event_getDelay(pEvent);
+
+  /* determine the values */
+  pacTypecode       = TypecodeToChar(SBase_getTypeCode((SBase_t *) pDelay));
+
+  pacNotes          = SBase_getNotesString((SBase_t *) pDelay);
+  pacAnnotations    = SBase_getAnnotationString((SBase_t *) pDelay);
+    pacMetaid = SBase_getMetaId(pDelay);
+
+  if (SBase_isSetSBOTerm((SBase_t*) pDelay))
+  {
+    nSBO = SBase_getSBOTerm((SBase_t*) pDelay);
+  }
+    
+  if (Delay_isSetMath(pDelay)) {
+    LookForCSymbolTime(Delay_getMath(pDelay));
+    pacFormula = SBML_formulaToString(Delay_getMath(pDelay));
+
+     /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
+
+    mxInput[0] = mxCreateString(pacFormula);
+    nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
+
+    if (nStatus != 0)
+    {
+        mexErrMsgTxt("Failed to convert formula");
+    }
+
+    /* get the formula returned */
+    nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
+    pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
+    nStatus = mxGetString(mxOutput[0], (char *) pacFormula, nBuflen);
+
+    if (nStatus != 0)
+    {
+        mexErrMsgTxt("Cannot copy formula");
+    }
+
+    /* END OF HACK */
+  }
+  /**
+   * check for NULL strings - Matlab doesnt like creating 
+   * a string that is NULL
+   */
+  if (pacNotes == NULL) {
+    pacNotes = "";
+  }
+    if (pacMetaid == NULL)
+    {
+      pacMetaid = "";
+    }
+  if (pacAnnotations == NULL) {
+    pacAnnotations = "";
+  }
+  if (pacFormula == NULL) {
+    pacFormula = "";
+  }
+
+  /* put into structure */
+  mxSetField(mxDelayReturn, 0, "typecode",   mxCreateString(pacTypecode)); 
+  mxSetField(mxDelayReturn, 0, "metaid", mxCreateString(pacMetaid));
+  mxSetField(mxDelayReturn, 0, "notes",      mxCreateString(pacNotes));
+  mxSetField(mxDelayReturn, 0, "annotation", mxCreateString(pacAnnotations));
+  mxSetField(mxDelayReturn, 0, "sboTerm",    CreateIntScalar(nSBO)); 
+  mxSetField(mxDelayReturn, 0, "math",       mxCreateString(pacFormula)); 
+
+}
+
 
 void
 LookForCSymbolTime(const ASTNode_t * astMath)
@@ -4131,16 +4788,18 @@ GetCompartmentType (Model_t      *pModel,
   int dims[2] = {1, n};
 
   /* fields within a compartmentType structure */
-  const int nNoFields_l2v2 = 5;
+  const int nNoFields_l2v2 = 6;
   const char * field_names_l2v2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
 		"name", 
 		"id"};
-  const int nNoFields_l2v3 = 6;
+  const int nNoFields_l2v3 = 7;
   const char * field_names_l2v3[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
     "sboTerm",
@@ -4149,6 +4808,7 @@ GetCompartmentType (Model_t      *pModel,
   
   /* determine the values */
   const char * pacTypecode = NULL;
+  const char * pacMetaid = NULL;
   const char * pacNotes = NULL;
   const char * pacAnnotations = NULL;
   const char * pacName = NULL;
@@ -4188,6 +4848,7 @@ GetCompartmentType (Model_t      *pModel,
     
     pacNotes        = SBase_getNotesString((SBase_t *) pCompartmentType);
     pacAnnotations  = SBase_getAnnotationString((SBase_t *) pCompartmentType);
+    pacMetaid = SBase_getMetaId(pCompartmentType);
     
     pacName         = CompartmentType_getName(pCompartmentType);
     pacId = CompartmentType_getId(pCompartmentType);
@@ -4217,6 +4878,10 @@ GetCompartmentType (Model_t      *pModel,
     if (pacNotes == NULL) {
       pacNotes = "";
     }
+    if (pacMetaid == NULL)
+    {
+      pacMetaid = "";
+    }
     if (pacAnnotations == NULL) {
       pacAnnotations = "";
     }
@@ -4226,6 +4891,7 @@ GetCompartmentType (Model_t      *pModel,
 
     /* put into structure */
     mxSetField(mxCompartmentTypeReturn,i,"typecode",mxCreateString(pacTypecode)); 
+    mxSetField(mxCompartmentTypeReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxCompartmentTypeReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxCompartmentTypeReturn, i, "annotation",mxCreateString(pacAnnotations));
     if (unSBMLLevel == 2 && unSBMLVersion == 3) 
@@ -4258,16 +4924,18 @@ GetSpeciesType (Model_t      *pModel,
   int dims[2] = {1, n};
 
   /* fields within a SpeciesType structure */
-  const int nNoFields_l2v2 = 5;
+  const int nNoFields_l2v2 = 6;
   const char * field_names_l2v2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
 		"name", 
 		"id"};
-  const int nNoFields_l2v3 = 6;
+  const int nNoFields_l2v3 = 7;
   const char * field_names_l2v3[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
     "sboTerm",
@@ -4276,6 +4944,7 @@ GetSpeciesType (Model_t      *pModel,
   
   /* determine the values */
   const char * pacTypecode = NULL;
+  const char * pacMetaid = NULL;
   const char * pacNotes = NULL;
   const char * pacAnnotations = NULL;
   const char * pacName = NULL;
@@ -4316,6 +4985,7 @@ GetSpeciesType (Model_t      *pModel,
     
     pacNotes        = SBase_getNotesString((SBase_t *) pSpeciesType);
     pacAnnotations  = SBase_getAnnotationString((SBase_t *) pSpeciesType);
+    pacMetaid = SBase_getMetaId(pSpeciesType);
     
     pacName         = SpeciesType_getName(pSpeciesType);
     pacId = SpeciesType_getId(pSpeciesType);
@@ -4345,6 +5015,10 @@ GetSpeciesType (Model_t      *pModel,
     if (pacNotes == NULL) {
       pacNotes = "";
     }
+    if (pacMetaid == NULL)
+    {
+      pacMetaid = "";
+    }
     if (pacAnnotations == NULL) {
       pacAnnotations = "";
     }
@@ -4354,6 +5028,7 @@ GetSpeciesType (Model_t      *pModel,
 
     /* put into structure */
     mxSetField(mxSpeciesTypeReturn,i,"typecode",mxCreateString(pacTypecode)); 
+    mxSetField(mxSpeciesTypeReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxSpeciesTypeReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxSpeciesTypeReturn, i, "annotation",mxCreateString(pacAnnotations));
     if (unSBMLLevel == 2 && unSBMLVersion == 3) 
@@ -4386,17 +5061,19 @@ GetInitialAssignment (Model_t      *pModel,
   int dims[2] = {1, n};
 
   /* fields within a InitialAssignment structure */
-  const int nNoFields_l2v2 = 6;
+  const int nNoFields_l2v2 = 7;
   const char * field_names_l2v2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
 		"symbol",
     "sboTerm",
 		"math"};
-  const int nNoFields_l2v3 = 6;
+  const int nNoFields_l2v3 = 7;
   const char * field_names_l2v3[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
     "sboTerm",
@@ -4405,6 +5082,7 @@ GetInitialAssignment (Model_t      *pModel,
   
   /* determine the values */
   const char * pacTypecode = NULL;
+  const char * pacMetaid = NULL;
   const char * pacNotes = NULL;
   const char * pacAnnotations = NULL;
   const char * pacSymbol = NULL;
@@ -4446,6 +5124,7 @@ GetInitialAssignment (Model_t      *pModel,
     
     pacNotes        = SBase_getNotesString((SBase_t *) pInitialAssignment);
     pacAnnotations  = SBase_getAnnotationString((SBase_t *) pInitialAssignment);
+    pacMetaid = SBase_getMetaId(pInitialAssignment);
   
     pacSymbol       = InitialAssignment_getSymbol(pInitialAssignment);
     if (SBase_isSetSBOTerm((SBase_t*) pInitialAssignment)){
@@ -4488,6 +5167,10 @@ GetInitialAssignment (Model_t      *pModel,
     if (pacNotes == NULL) {
       pacNotes = "";
     }
+    if (pacMetaid == NULL)
+    {
+      pacMetaid = "";
+    }
     if (pacAnnotations == NULL) {
       pacAnnotations = "";
     }
@@ -4500,6 +5183,7 @@ GetInitialAssignment (Model_t      *pModel,
 
     /* put into structure */
     mxSetField(mxInitialAssignReturn, i, "typecode",   mxCreateString(pacTypecode)); 
+    mxSetField(mxInitialAssignReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxInitialAssignReturn, i, "notes",      mxCreateString(pacNotes));
     mxSetField(mxInitialAssignReturn, i, "annotation", mxCreateString(pacAnnotations));
     if (unSBMLLevel == 2 && unSBMLVersion == 3) 
@@ -4536,18 +5220,20 @@ GetConstraint (Model_t      *pModel,
   int dims[2] = {1, n};
 
   /* fields within a Constraint structure */
-  const int nNoFields_l2v2 = 6;
+  const int nNoFields_l2v2 = 7;
   const char * field_names_l2v2[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
     "sboTerm",
 		"math",
     "message"};
   
-  const int nNoFields_l2v3 = 6;
+  const int nNoFields_l2v3 = 7;
   const char * field_names_l2v3[] = {	
     "typecode", 
+    "metaid",
 		"notes", 
 		"annotation",
     "sboTerm",
@@ -4556,6 +5242,7 @@ GetConstraint (Model_t      *pModel,
   
   /* determine the values */
   const char * pacTypecode = NULL;
+  const char * pacMetaid = NULL;
   const char * pacNotes = NULL;
   const char * pacAnnotations = NULL;
   const char * pacMessage = NULL;
@@ -4597,6 +5284,7 @@ GetConstraint (Model_t      *pModel,
   
     pacNotes        = SBase_getNotesString((SBase_t *) pConstraint);
     pacAnnotations  = SBase_getAnnotationString((SBase_t *) pConstraint);
+    pacMetaid = SBase_getMetaId(pConstraint);
 
     if (Constraint_isSetMessage(pConstraint)) {
       /* need to think about this one 
@@ -4644,6 +5332,10 @@ GetConstraint (Model_t      *pModel,
     if (pacNotes == NULL) {
       pacNotes = "";
     }
+    if (pacMetaid == NULL)
+    {
+      pacMetaid = "";
+    }
     if (pacAnnotations == NULL) {
       pacAnnotations = "";
     }
@@ -4656,6 +5348,7 @@ GetConstraint (Model_t      *pModel,
 
     /* put into structure */
     mxSetField(mxConstraintReturn,i,"typecode",mxCreateString(pacTypecode)); 
+    mxSetField(mxConstraintReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxConstraintReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxConstraintReturn, i, "annotation",mxCreateString(pacAnnotations));
     mxSetField(mxConstraintReturn,i,"sboTerm",CreateIntScalar(nSBO)); 

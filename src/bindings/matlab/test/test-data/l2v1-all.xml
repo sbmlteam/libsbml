@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1"
       xmlns:math="http://www.w3.org/1998/Math/MathML">
-    <model>
+    <model metaid="_001">
        <listOfFunctionDefinitions>
-         <functionDefinition id="f" name="fred">
+         <functionDefinition metaid="_002" id="f" name="fred">
          <math xmlns="http://www.w3.org/1998/Math/MathML">
           <lambda>
             <bvar> <ci> x </ci> </bvar>
@@ -16,13 +16,13 @@
         </functionDefinition>
        </listOfFunctionDefinitions>
         <listOfCompartments>
-            <compartment id="cell"/>
+            <compartment metaid="_003" id="cell"/>
         </listOfCompartments>
         <listOfSpecies>
-            <species id="X0" name="s1" compartment="cell" initialConcentration="1"/>
+            <species id="X0" metaid="_004" name="s1" compartment="cell" initialConcentration="1"/>
         </listOfSpecies>
         <listOfRules>
-            <assignmentRule variable="S1">
+            <assignmentRule metaid="_005" variable="S1">
                 <math xmlns="http://www.w3.org/1998/Math/MathML">
                     <apply>
                         <divide/>
@@ -37,7 +37,7 @@
             </assignmentRule>
         </listOfRules>
         <listOfReactions>
-            <reaction id="in">
+            <reaction metaid="_006" id="in">
                 <listOfReactants>
                     <speciesReference species="X0"/>
                 </listOfReactants>
@@ -59,7 +59,7 @@
             </reaction>
         </listOfReactions>
 		<listOfEvents>
-			<event id="e" timeUnits="second">
+			<event id="e" metaid="_007" timeUnits="second">
 				<trigger>
 					<math xmlns="http://www.w3.org/1998/Math/MathML">
 						<apply>
@@ -75,7 +75,7 @@
 					</math>
 				</delay>
 				<listOfEventAssignments>
-					<eventAssignment variable="p2">
+					<eventAssignment metaid="_008" variable="p2">
 						<math xmlns="http://www.w3.org/1998/Math/MathML">
 							<cn> 0 </cn>
 						</math>
