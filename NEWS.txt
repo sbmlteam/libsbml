@@ -1,5 +1,14 @@
            libsbml NEWS -- History of user-visible changes
            
+ === (next release ===
+
+* Changes:
+
+  - examples/java/printMath.java had a bug in which the wrong loop
+    variable was being referenced, causing crashes in SBML files
+    containing FunctionDefinition objects.  Thanks to Hongseok Yun for
+    contributing the report and a fix.
+
  === Version 3.0.3 (released 2007-12-17) ===
 
 * Changes:
