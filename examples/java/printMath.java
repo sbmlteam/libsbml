@@ -85,7 +85,7 @@ public class printMath
       {
         print(" " + math.getLeftChild().getName());
                 
-        for (int i = 1; n < math.getNumChildren() - 1; ++n)
+        for (int i = 1; i < math.getNumChildren() - 1; ++i)
         {
           print(",  " + math.getChild(i).getName());
         }
