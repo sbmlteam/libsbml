@@ -514,6 +514,11 @@ readMathML (ASTNode& node, XMLInputStream& stream)
       /* catch case where user has used <apply/> */
       if (elem.isStart() && elem.isEnd()) return;
 
+      /* catch case where user has applied a function that
+       * has no arguments 
+       */
+      if (elem.isEnd()) return;
+
       readMathML(node, stream);
 
       if (node.isName()) node.setType(AST_FUNCTION);
@@ -574,10 +579,16 @@ readMathML (ASTNode& node, XMLInputStream& stream)
       if (type == AST_PLUS || type == AST_TIMES) reduceBinary(node);
       if (type == AST_CONSTANT_TRUE || type == AST_CONSTANT_FALSE) break;
 
+      /* it is possible to have a function that has no children
+       * ie a lambda with no bvars
+       * dont want to add the child since this makes it look like
+       * it has a bvar
+       */
       ASTNode* child = new ASTNode();
-      node.addChild(child);
       readMathML(*child, stream);
       stream.skipText();
+      if (stream.peek().getName() == "math") break;
+      node.addChild(child);
 
       if (stream.peek().getName() == "piece" && stream.isGood()) stream.next();
     }

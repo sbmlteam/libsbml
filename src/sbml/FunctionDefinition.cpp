@@ -202,7 +202,13 @@ FunctionDefinition::getArgument (const std::string& name) const
 const ASTNode*
 FunctionDefinition::getBody () const
 {
-  return mMath->getRightChild();
+  unsigned int nc = mMath->getNumChildren();
+  if (nc > 1)
+    return mMath->getRightChild();
+  else if (nc == 1)
+    return mMath->getChild(0);
+  else
+    return NULL;
 }
 
 
@@ -213,7 +219,13 @@ FunctionDefinition::getBody () const
 ASTNode*
 FunctionDefinition::getBody ()
 {
-  return mMath->getRightChild();
+  unsigned int nc = mMath->getNumChildren();
+  if (nc > 1)
+    return mMath->getRightChild();
+  else if (nc == 1)
+    return mMath->getChild(0);
+  else
+    return NULL;
 }
 
 
