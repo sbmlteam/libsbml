@@ -4,6 +4,24 @@
 
 * Changes:
 
+  - libSBML-3.0.0 correctly derived the StoichiometryMath, 
+    Trigger and Delay components from SBase. The MATLAB binding 
+    now creates a structure for each of these components to
+    reflect this. 
+
+  - The MATLAB binding was failing to copy the metaid field. 
+    This is now corrected.
+
+  - It is permissible in MathML to use a lambda function with
+    no bvar elements. However, libSBML was not handling such a
+    situation correctly. Thanks to Stefan Hoops for identifying
+    this.
+
+  - caught bug whereby the ASTNode created to substitute values
+    for the FunctionDefinition was failing to copy the name of
+    any FunctionDefinitions used by the calling FunctionDefinition.
+    This was causing the validation process to crash.
+
   - examples/java/printMath.java had a bug in which the wrong loop
     variable was being referenced, causing crashes in SBML files
     containing FunctionDefinition objects.  Thanks to Hongseok Yun for
