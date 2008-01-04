@@ -329,6 +329,11 @@ MathMLBase::returnsNumeric(const Model & m, const ASTNode* node)
     {
       numeric = true;
     }
+    /* or possible a functionDefinition with no bvars */
+    else if (type == AST_FUNCTION)
+    {
+      numeric = checkNumericFunction(m, node);
+    }
     else
     {
       numeric = false;
@@ -415,6 +420,9 @@ MathMLBase::checkNumericFunction (const Model& m, const ASTNode* node)
         * from the original function
         */
       newMath = new ASTNode(fdMath->getType());
+      /* if the fd refers to another function need to copy the name */
+      if (fdMath->getType() == AST_FUNCTION)
+        newMath->setName(fdMath->getName());
       needDelete = true;
       nodeCount = 0;
       for (i = 0; i < fdMath->getNumChildren(); i++)
