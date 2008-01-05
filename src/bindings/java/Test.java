@@ -91,6 +91,7 @@ public class Test
     }
     else{
       System.out.println("NG " + NumNG + " PASS " + NumPass);
+      System.exit(1);
     }
   }
 
@@ -265,7 +266,6 @@ public class Test
     checkCloneObject( new ListOfSpeciesTypes()       );
     checkCloneObject( new ListOfUnits()              );
     checkCloneObject( new ListOfUnitDefinitions()    );
-    checkCloneObject( new ListFormulaUnitsData()     );
     checkCloneObject( new StoichiometryMath()        );
   }
 
@@ -322,7 +322,6 @@ public class Test
     lo.append( new ListOfSpeciesTypes()       );
     lo.append( new ListOfUnits()              );
     lo.append( new ListOfUnitDefinitions()    );
-    lo.append( new ListFormulaUnitsData()     );
     lo.append( new StoichiometryMath()        );
 
     /**
@@ -370,8 +369,7 @@ public class Test
     Assert( lo.get(i++) instanceof ListOfSpeciesTypes       );
     Assert( lo.get(i++) instanceof ListOfUnits              );
     Assert( lo.get(i++) instanceof ListOfUnitDefinitions    );
-    Assert( lo.get(i++) instanceof ListFormulaUnitsData     );
-    Assert( lo.get(i++) instanceof StoichiometryMath        );
+    Assert( lo.get(i++) instanceof StoichiometryMath        );    
   }
 
 
@@ -411,7 +409,7 @@ public class Test
     if (d == null)
     {
       System.err.println("readSBML('l1v1-branch.xml') returned null.");
-      System.exit(0);
+      System.exit(1);
     }
 
 
@@ -648,7 +646,7 @@ public class Test
     if (d == null)
     {
       System.err.println("readSBML('l2v1-branch.xml') returned null.");
-      System.exit(0);
+      System.exit(1);
     }
 
 
