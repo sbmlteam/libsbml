@@ -245,9 +245,6 @@
       case libsbmlConstants.SBML_FORMULA_UNITS_DATA:
         return new FormulaUnitsData(cPtr, owner);
 
-      case libsbmlConstants.SBML_LIST_FORMULA_UNITS_DATA:
-        return new ListFormulaUnitsData(cPtr, owner);
-
       case libsbmlConstants.SBML_ALGEBRAIC_RULE:
         return new AlgebraicRule(cPtr, owner);
 
@@ -428,9 +425,6 @@
 
       case libsbmlConstants.SBML_FORMULA_UNITS_DATA:
         return new FormulaUnitsData(cPtr, owner);
-
-      case libsbmlConstants.SBML_LIST_FORMULA_UNITS_DATA:
-        return new ListFormulaUnitsData(cPtr, owner);
 
       case libsbmlConstants.SBML_ALGEBRAIC_RULE:
         return new AlgebraicRule(cPtr, owner);
