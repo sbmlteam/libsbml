@@ -733,9 +733,9 @@ START_TEST ( test_Model_copyConstructor )
     Model* o2=new Model(*o1);
 
     fail_unless(o2->getId() == "c");
-    fail_unless(o1->getNumParameters() == 1);
-    fail_unless(o1->getNumFormulaUnitsData() == 1);
-    fail_unless(o1->getParameter(0)->getId() == "alex");
+    fail_unless(o2->getNumParameters() == 1);
+    fail_unless(o2->getNumFormulaUnitsData() == 1);
+    fail_unless(o2->getParameter(0)->getId() == "alex");
 
     delete o2;
     delete o1;
@@ -764,9 +764,9 @@ START_TEST ( test_Model_assignmentOperator )
     (*o2) = *o1;
 
     fail_unless(o2->getId() == "c");
-    fail_unless(o1->getNumParameters() == 1);
-    fail_unless(o1->getNumFormulaUnitsData() == 1);
-    fail_unless(o1->getParameter(0)->getId() == "alex");
+    fail_unless(o2->getNumParameters() == 1);
+    fail_unless(o2->getNumFormulaUnitsData() == 1);
+    fail_unless(o2->getParameter(0)->getId() == "alex");
 
     delete o2;
     delete o1;
@@ -795,9 +795,9 @@ START_TEST ( test_Model_clone )
     Model* o2=static_cast<Model*>(o1->clone());
 
     fail_unless(o2->getId() == "c");
-    fail_unless(o1->getNumParameters() == 1);
-    fail_unless(o1->getNumFormulaUnitsData() == 1);
-    fail_unless(o1->getParameter(0)->getId() == "alex");
+    fail_unless(o2->getNumParameters() == 1);
+    fail_unless(o2->getNumFormulaUnitsData() == 1);
+    fail_unless(o2->getParameter(0)->getId() == "alex");
 
     delete o2;
     delete o1;
