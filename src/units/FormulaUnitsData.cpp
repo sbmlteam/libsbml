@@ -38,7 +38,7 @@ using namespace std;
   * set of math encountered in the model
   */
 void
-Model::createListFormulaUnitsData()
+Model::populateListFormulaUnitsData()
 {
   unsigned int n, j;
   UnitFormulaFormatter *unitFormatter = new UnitFormulaFormatter(this);
@@ -437,9 +437,17 @@ Model::createListFormulaUnitsData()
  * Adds a copy of the given FormulaUnitsData to this Model.
  */
 void
-Model::addFormulaUnitsData (const FormulaUnitsData* e)
+Model::addFormulaUnitsData (const FormulaUnitsData* fud)
 {
-  mFormulaUnitsData.append(e);
+  if (mFormulaUnitsData == NULL)
+  {
+    mFormulaUnitsData = new List();
+    mFormulaUnitsData->add((void *) fud->clone());
+  }
+  else
+  {
+    mFormulaUnitsData->add((void *)fud->clone());
+  }
 }
 
 /**
@@ -449,26 +457,14 @@ FormulaUnitsData*
 Model::createFormulaUnitsData ()
 {
   FormulaUnitsData* fud = new FormulaUnitsData;
-  mFormulaUnitsData.appendAndOwn(fud);
+  if (mFormulaUnitsData == NULL)
+  {
+    mFormulaUnitsData = new List();
+  }
+  mFormulaUnitsData->add(fud);
 
   return fud;
 }
-
-const ListFormulaUnitsData*
-Model::getListFormulaUnitsData() const
-{
-  return &mFormulaUnitsData;
-}
-
-
-ListFormulaUnitsData*
-Model::getListFormulaUnitsData()
-{
-  return &mFormulaUnitsData;
-}
-
-
-
 
 /**
  * @return the nth FormulaUnitsData of this Model.
@@ -476,7 +472,7 @@ Model::getListFormulaUnitsData()
 const FormulaUnitsData*
 Model::getFormulaUnitsData (unsigned int n) const
 {
-  return static_cast<const FormulaUnitsData*>( mFormulaUnitsData.get(n) );
+  return static_cast<const FormulaUnitsData*>( mFormulaUnitsData->get(n) );
 }
 
 
@@ -486,7 +482,7 @@ Model::getFormulaUnitsData (unsigned int n) const
 FormulaUnitsData*
 Model::getFormulaUnitsData (unsigned int n)
 {
-  return static_cast<FormulaUnitsData*>( mFormulaUnitsData.get(n) );
+  return static_cast<FormulaUnitsData*>( mFormulaUnitsData->get(n) );
 }
 
 
@@ -502,12 +498,12 @@ Model::getFormulaUnitsData (const std::string& sid, SBMLTypeCode_t typecode) con
 
   for (unsigned int n = 0; n < getNumFormulaUnitsData(); n++)
   {
-    fud = static_cast <const FormulaUnitsData*> (mFormulaUnitsData.get(n)); 
+    fud = static_cast <const FormulaUnitsData*> (mFormulaUnitsData->get(n)); 
     if (!strcmp(fud->getId().c_str(), sid.c_str()))
     {
       if (fud->getTypecode() == typecode)
       {
-        return static_cast<const FormulaUnitsData*>( mFormulaUnitsData.get(n) );
+        return fud;
       }
     }
   }
@@ -526,12 +522,12 @@ Model::getFormulaUnitsData (const std::string& sid, SBMLTypeCode_t typecode)
 
   for (unsigned int n = 0; n < getNumFormulaUnitsData(); n++)
   {
-    fud = static_cast <FormulaUnitsData*> (mFormulaUnitsData.get(n));
+    fud = static_cast <FormulaUnitsData*> (mFormulaUnitsData->get(n));
     if (!strcmp(fud->getId().c_str(), sid.c_str()))
     {
       if (fud->getTypecode() == typecode)
       {
-        return static_cast<FormulaUnitsData*>( mFormulaUnitsData.get(n) );
+        return fud;
       }
     }
   }
@@ -545,20 +541,44 @@ Model::getFormulaUnitsData (const std::string& sid, SBMLTypeCode_t typecode)
 unsigned int
 Model::getNumFormulaUnitsData () const
 {
-  return mFormulaUnitsData.size();
+  return mFormulaUnitsData->getSize();
 }
+
+/**
+  * Get the list of FormulaUnitsData object in this Model.
+  * 
+  * @return the list of FormulaUnitsData for this Model.
+  */
+List* 
+Model::getListFormulaUnitsData ()
+{
+  return mFormulaUnitsData;
+}
+
+
+/**
+  * Get the list of FormulaUnitsData object in this Model.
+  * 
+  * @return the list of FormulaUnitsData for this Model.
+  */
+const List* 
+Model::getListFormulaUnitsData () const
+{
+  return mFormulaUnitsData;
+}
+
 
 
 /**
  * returns true if the list has been populated, false otherwise
  */
 bool
-Model::isWrittenFormulaUnitsData()
+Model::isPopulatedListFormulaUnitsData()
 {
-  if (mFormulaUnitsData.size() == 0)
-    return false;
-  else
+  if (mFormulaUnitsData)
     return true;
+  else
+    return false;
 }
 
 
@@ -666,27 +686,6 @@ FormulaUnitsData::clone() const
 {
   return new FormulaUnitsData(*this);
 }
-/**
- * @return a (deep) copy of this ListOfCompartments.
- */
-SBase*
-ListFormulaUnitsData::clone () const
-{
-  return new ListFormulaUnitsData(*this);
-}
-
-/**
- * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
- * (default).
- *
- * @see getElementName()
- */
-SBMLTypeCode_t
-ListFormulaUnitsData::getTypeCode () const
-{
-  return SBML_LIST_FORMULA_UNITS_DATA;
-}
-
 
 
 /** @endcond doxygen-libsbml-internal */

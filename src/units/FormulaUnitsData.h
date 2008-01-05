@@ -242,28 +242,6 @@ protected:
 
 };
 
-class LIBSBML_EXTERN ListFormulaUnitsData : public ListOf
-{
-public:
-
-  /**
-   * @return a (deep) copy of this ListOfCompartments.
-   */
-  virtual SBase* clone () const;
-
-  /**
-   * Returns the libSBML type code for this %SBML object.
-   * 
-   * @return the SBMLTypeCode_t of this object or SBML_UNKNOWN (default).
-   *
-   * @see getElementName()
-   */
-  virtual SBMLTypeCode_t getTypeCode () const;
-
-
-
-};
-
 
 #endif /* __cplusplus */
 

@@ -1417,72 +1417,134 @@ public:
   /** @cond doxygen-libsbml-internal */
 
   /**
-   * Populates the ListFormulaDataUnits with the units of each 
-   * set of math encountered in the model
+   * Populates the list of FormulaDataUnits with the units derived 
+   * for the model. The list contains elements of class
+   * FormulaUnitsData. 
+   *
+   * The first element of the list refers to the default units
+   * of 'substance per time' derived from the model and has the
+   * id 'subs_per_time'. This facilitates the comparison of units
+   * derived from mathematical formula with the expected units.
+   * 
+   * The next elements of the list record the units of the 
+   * compartments and species established from either explicitly
+   * declared or default units.
+   *
+   * The next elements record the units of any parameters.
+   *
+   * Subsequent elements of the list record the units derived for
+   * each mathematical expression encountered within the model.
+   *
+   * @note This function is utilised by the Unit Consistency Validator.
+   * The List is populated prior to running the validation and thus
+   * the consistency of units can be checked by accessing the members
+   * of the list and comparing the appropriate data.
    */
-  void createListFormulaUnitsData();
+  void populateListFormulaUnitsData();
 
 
   /**
-   * Adds a copy of the given FormulaUnitsData to this Model.
+   * Adds a copy of the given FormulaUnitsData object to this Model.
+   *
+   * @param fud the FormulaUnitsData to add
    */
-  void addFormulaUnitsData (const FormulaUnitsData* e);
+  void addFormulaUnitsData (const FormulaUnitsData* fud);
 
 
   /**
    * Creates a new FormulaUnitsData inside this Model and returns it.
+   *
+   * @return the FormulaUnitsData object created
    */
   FormulaUnitsData* createFormulaUnitsData ();
 
 
   /**
-   * @return the list of FormulaUnitsData for this Model.
-   */
-  const ListFormulaUnitsData* getListFormulaUnitsData () const;
-
-
-  /**
-   * @return the list of FormulaUnitsData for this Model.
-   */
-  ListFormulaUnitsData* getListFormulaUnitsData ();
-
-
-  /**
+   * Get the nth FormulaUnitsData object in this Model.
+   * 
    * @return the nth FormulaUnitsData of this Model.
    */
   const FormulaUnitsData* getFormulaUnitsData (unsigned int n) const;
 
 
   /**
+   * Get the nth FormulaUnitsData object in this Model.
+   * 
    * @return the nth FormulaUnitsData of this Model.
    */
   FormulaUnitsData* getFormulaUnitsData (unsigned int n);
 
 
   /**
-   * @return the FormulaUnitsData in this Model with the given id and typecode
-   * or NULL if no such FormulaUnitsData exists.
+   * Get a FormulaUnitsData object based on its identifier and typecode.
+   * 
+   * @return the FormulaUnitsData in this Model with the identifier @p sid 
+   * and the SBMLTypeCode_t @p typecode or NULL
+   * if no such FormulaUnitsData exists.
+   *
+   * @note The SBMLTypecode_t parameter is necessary as the identifiers
+   * of the FormulaUnitsData need not be unique. For example if a Species
+   * with id 's' is assigned by an AssignmentRule there will be two 
+   * elements of the FormulaUnitsData List with the id 's'; one with
+   * typecode 'SBML_SPECIES' referring to the units related to the species, 
+   * the other with typecode 'SBML_ASSIGNMENT_RULE' referring to the units
+   * derived from the math element of the AssignmentRule.
    */
-  const FormulaUnitsData* getFormulaUnitsData (const std::string& sid, SBMLTypeCode_t) const;
+  const FormulaUnitsData* 
+  getFormulaUnitsData (const std::string& sid, SBMLTypeCode_t typecode) const;
 
 
   /**
-   * @return the FormulaUnitsData in this Model with the given id and typecode
-   * or NULL if no such FormulaUnitsData exists.
+   * Get a FormulaUnitsData object based on its identifier and typecode.
+   * 
+   * @return the FormulaUnitsData in this Model with the identifier @p sid 
+   * and the SBMLTypeCode_t @p typecode or NULL
+   * if no such FormulaUnitsData exists.
+   *
+   * @note The SBMLTypecode_t parameter is necessary as the identifiers
+   * of the FormulaUnitsData need not be unique. For example if a Species
+   * with id 's' is assigned by an AssignmentRule there will be two 
+   * elements of the FormulaUnitsData List with the id 's'; one with
+   * typecode 'SBML_SPECIES' referring to the units related to the species, 
+   * the other with typecode 'SBML_ASSIGNMENT_RULE' referring to the units
+   * derived from the math element of the AssignmentRule.
    */
-  FormulaUnitsData* getFormulaUnitsData (const std::string& sid, SBMLTypeCode_t);
+  FormulaUnitsData* 
+  getFormulaUnitsData(const std::string& sid, SBMLTypeCode_t);
 
 
   /**
+   * Get the number of FormulaUnitsData objects in this Model.
+   * 
    * @return the number of FormulaUnitsData in this Model.
    */
   unsigned int getNumFormulaUnitsData () const;
 
 
   /**
-  * returns true if the list has been populated, false otherwise
-  */
-  bool isWrittenFormulaUnitsData();
+   * Get the list of FormulaUnitsData object in this Model.
+   * 
+   * @return the list of FormulaUnitsData for this Model.
+   */
+  List* getListFormulaUnitsData ();
+
+
+  /**
+   * Get the list of FormulaUnitsData object in this Model.
+   * 
+   * @return the list of FormulaUnitsData for this Model.
+   */
+  const List* getListFormulaUnitsData () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether 
+   * the list of FormulaUnitsData has been populated.
+   * 
+   * @return @c true if the list of FormulaUnitsData has been populated, 
+   * @c false otherwise.
+   */
+  bool isPopulatedListFormulaUnitsData();
 
   /** @endcond doxygen-libsbml-internal */
 
@@ -1548,7 +1610,7 @@ protected:
   ListOfReactions            mReactions;
   ListOfEvents               mEvents;
 
-  ListFormulaUnitsData      mFormulaUnitsData;
+  List *      mFormulaUnitsData;
 
 
 #ifdef USE_LAYOUT

@@ -52,8 +52,8 @@ using namespace std;
 Model::Model (const std::string& id, const std::string& name) :
    SBase   ( id, name, -1 )
  , mHistory (0)
+ , mFormulaUnitsData (0)
 {
-    //mFormulaUnitsData = new ListFormulaUnitsData;
 }
 
 
@@ -63,12 +63,13 @@ Model::Model (const std::string& id, const std::string& name) :
 Model::~Model ()
 {
   delete mHistory;
-  //int size = getNumFormulaUnitsData();
-
-
-  //while (size--) delete static_cast<FormulaUnitsData*>( mFormulaUnitsData->remove(0) );
-  //delete static_cast<ListFormulaUnitsData *> (mFormulaUnitsData);
-
+  if (mFormulaUnitsData)
+  {  
+    unsigned int size = mFormulaUnitsData->getSize();
+    while (size--) 
+      delete static_cast<FormulaUnitsData*>( mFormulaUnitsData->remove(0) );
+    delete mFormulaUnitsData;
+  }
 }
 
 
@@ -89,7 +90,6 @@ Model::Model(const Model& orig) :
      , mConstraints         (orig.mConstraints)
      , mReactions           (orig.mReactions)
      , mEvents              (orig.mEvents)
-     , mFormulaUnitsData    (orig.mFormulaUnitsData)
 #ifdef USE_LAYOUT
      , mLayouts             (orig.mLayouts)
 #endif
@@ -101,6 +101,22 @@ Model::Model(const Model& orig) :
   else
   {
     this->mHistory = 0;
+  }
+
+  if(orig.mFormulaUnitsData)
+  {
+    this->mFormulaUnitsData  = new List();
+    unsigned int i,iMax = orig.mFormulaUnitsData->getSize();
+    for(i = 0; i < iMax; ++i)
+    {
+      this->mFormulaUnitsData
+        ->add(static_cast<FormulaUnitsData*>
+                                 (orig.mFormulaUnitsData->get(i))->clone());
+    }
+  }
+  else
+  {
+    this->mFormulaUnitsData = 0;
   }
 }
 
@@ -126,9 +142,6 @@ Model& Model::operator=(const Model& rhs)
 #ifdef USE_LAYOUT
   mLayouts              = rhs.mLayouts;
 #endif
-  //  /* TO DO NEED TO DEAL WITH CLONING THIS */
-  //mFormulaUnitsData = new ListFormulaUnitsData();
-  mFormulaUnitsData     = rhs.mFormulaUnitsData;
   if (rhs.mHistory)
   {
     this->mHistory = rhs.mHistory->clone();
@@ -136,6 +149,21 @@ Model& Model::operator=(const Model& rhs)
   else
   {
     this->mHistory = 0;
+  }
+  if(rhs.mFormulaUnitsData)
+  {
+    this->mFormulaUnitsData  = new List();
+    unsigned int i,iMax = rhs.mFormulaUnitsData->getSize();
+    for(i = 0; i < iMax; ++i)
+    {
+      this->mFormulaUnitsData
+        ->add(static_cast<FormulaUnitsData*>
+                                 (rhs.mFormulaUnitsData->get(i))->clone());
+    }
+  }
+  else
+  {
+    this->mFormulaUnitsData = 0;
   }
 
   return *this;

@@ -60,7 +60,7 @@ FormulaUnitsData_setup (void)
   d = readSBML(filename);
   m = d->getModel();
 
-  m->createListFormulaUnitsData();
+  m->populateListFormulaUnitsData();
 
 }
 

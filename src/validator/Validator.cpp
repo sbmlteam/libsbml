@@ -734,9 +734,9 @@ Validator::validate (const SBMLDocument& d)
     if (this->getCategory() == LIBSBML_CAT_UNITS_CONSISTENCY)
     {
       /* create list of formula units for validation */
-      if (!m->isWrittenFormulaUnitsData())
+      if (!m->isPopulatedListFormulaUnitsData())
       {
-        m->createListFormulaUnitsData();
+        m->populateListFormulaUnitsData();
       }
     }
     ValidatingVisitor vv(*this, *m);
