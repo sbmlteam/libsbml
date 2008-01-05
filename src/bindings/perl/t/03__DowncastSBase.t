@@ -7,7 +7,7 @@
 
 use Test;
 
-BEGIN { plan tests => 408 };
+BEGIN { plan tests => 399 };
 
 use LibSBML;
 use strict;
@@ -57,7 +57,6 @@ my @SBaseClassList = (
   "ListOfSpeciesTypes",
   "ListOfUnits",
   "ListOfUnitDefinitions",
-  "ListFormulaUnitsData",
   "StoichiometryMath",
 );
 

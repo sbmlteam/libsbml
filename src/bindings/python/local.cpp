@@ -195,9 +195,6 @@ GetDowncastSwigType (SBase* sb)
     case SBML_FORMULA_UNITS_DATA:
       return SWIGTYPE_p_FormulaUnitsData;
 
-    case SBML_LIST_FORMULA_UNITS_DATA:
-      return SWIGTYPE_p_ListFormulaUnitsData;
-
     case SBML_STOICHIOMETRY_MATH:
      return SWIGTYPE_p_StoichiometryMath;
       
