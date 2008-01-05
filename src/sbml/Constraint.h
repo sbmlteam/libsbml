@@ -212,7 +212,7 @@ public:
    *
    * @return the result of calling <code>v.visit()</code>, which indicates
    * whether the Visitor would like to visit the next Constraint in the
-   * list of units within which this Constraint is embedded (i.e., in
+   * list of constraints within which this Constraint is embedded (i.e., in
    * the ListOfConstraints located in the enclosing Model instance).
    */
   virtual bool accept (SBMLVisitor& v) const;
