@@ -53,38 +53,55 @@ class LIBSBML_EXTERN FormulaUnitsData : public SBase
 {
 public:
    
-  /** 
-   * constructor
+  /**
+   * Creates a new FormulaUnitsData.
    */
   FormulaUnitsData();
 
-  FormulaUnitsData(const FormulaUnitsData&);
+  /**
+   * Copy constructor; creates a copy of this FormulaUnitsData.
+   */
+  FormulaUnitsData(const FormulaUnitsData& orig);
 
-  /** 
-   * destructor
+  /**
+   * Destroys this FormulaUnitsData.
    */
   virtual ~FormulaUnitsData();
  
+  /** @cond doxygen-libsbml-internal */
   /**
-   * Accepts the given SBMLVisitor.
+   * Accepts the given SBMLVisitor for this instance of Constraint.
+   *
+   * @param v the SBMLVisitor instance to be used.
    *
    * @return the result of calling <code>v.visit()</code>, which indicates
-   * whether or not the Visitor would like to visit the Model's next
-   * Compartment (if available).
+   * whether the Visitor would like to visit the next FormulaUnitsData in the
+   * list of FormulaUnitsData within which this FormulaUnitsData is embedded 
    */
   virtual bool accept (SBMLVisitor& v) const;
+  /** @endcond doxygen-libsbml-internal */
 
   /**
-   * @return a (deep) copy of this Compartment.
+   * Creates and returns a deep copy of this FormulaUnitsData.
+   * 
+   * @return a (deep) copy of this FormulaUnitsData.
    */
   virtual SBase* clone () const;
+  
+  
+  /**
+   * Get the unitReferenceId of this FormulaUnitsData.
+   * 
+   * @return the value of the unitReferenceId 
+   * Compartment as a string.
+   */
   /**
    * returns the id associated with the units data
    * if this is a species/compartment/parameter it will be the id 
    * if it is aa assignment/rate rule it will be the variable
    */
-  const string& getId() { return mId; };
-  const string& getId() const { return mId; };
+  const string& getUnitReferenceId() { return mUnitReferenceId; };
+  const string& getUnitReferenceId() const { return mUnitReferenceId; };
   /**
    * returns the SBMLTypeCode of the component used
    * to create the FormulaUnitsData object
@@ -140,7 +157,7 @@ public:
    * sets the id of the FormulaUnitsData
    *
    */
-  void setId(const std::string& id) { mId = id; };
+  void setUnitReferenceId(const std::string& unitReferenceId) { mUnitReferenceId = unitReferenceId; };
     
   /**
    * sets the SBMLTypeCode of the FormulaUnitsData object
@@ -227,7 +244,7 @@ public:
 
 protected:
 
-    std::string mId;
+    std::string mUnitReferenceId;
 
     unsigned int mContainsParametersWithUndeclaredUnits;
     unsigned int mCanIgnoreUndeclaredUnits;

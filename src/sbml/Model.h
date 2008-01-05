@@ -1423,7 +1423,7 @@ public:
    *
    * The first element of the list refers to the default units
    * of 'substance per time' derived from the model and has the
-   * id 'subs_per_time'. This facilitates the comparison of units
+   * unitReferenceId 'subs_per_time'. This facilitates the comparison of units
    * derived from mathematical formula with the expected units.
    * 
    * The next elements of the list record the units of the 
@@ -1476,16 +1476,17 @@ public:
 
 
   /**
-   * Get a FormulaUnitsData object based on its identifier and typecode.
+   * Get a FormulaUnitsData object based on its unitReferenceId and typecode.
    * 
-   * @return the FormulaUnitsData in this Model with the identifier @p sid 
+   * @return the FormulaUnitsData in this Model with the unitReferenceId @p sid 
    * and the SBMLTypeCode_t @p typecode or NULL
    * if no such FormulaUnitsData exists.
    *
-   * @note The SBMLTypecode_t parameter is necessary as the identifiers
+   * @note The SBMLTypecode_t parameter is necessary as the unitReferenceId
    * of the FormulaUnitsData need not be unique. For example if a Species
    * with id 's' is assigned by an AssignmentRule there will be two 
-   * elements of the FormulaUnitsData List with the id 's'; one with
+   * elements of the FormulaUnitsData List with the unitReferenceId 's'; 
+   * one with
    * typecode 'SBML_SPECIES' referring to the units related to the species, 
    * the other with typecode 'SBML_ASSIGNMENT_RULE' referring to the units
    * derived from the math element of the AssignmentRule.
@@ -1495,16 +1496,17 @@ public:
 
 
   /**
-   * Get a FormulaUnitsData object based on its identifier and typecode.
+   * Get a FormulaUnitsData object based on its unitReferenceId and typecode.
    * 
-   * @return the FormulaUnitsData in this Model with the identifier @p sid 
+   * @return the FormulaUnitsData in this Model with the unitReferenceId @p sid 
    * and the SBMLTypeCode_t @p typecode or NULL
    * if no such FormulaUnitsData exists.
    *
-   * @note The SBMLTypecode_t parameter is necessary as the identifiers
+   * @note The SBMLTypecode_t parameter is necessary as the unitReferenceId
    * of the FormulaUnitsData need not be unique. For example if a Species
    * with id 's' is assigned by an AssignmentRule there will be two 
-   * elements of the FormulaUnitsData List with the id 's'; one with
+   * elements of the FormulaUnitsData List with the unitReferenceId 's'; 
+   * one with
    * typecode 'SBML_SPECIES' referring to the units related to the species, 
    * the other with typecode 'SBML_ASSIGNMENT_RULE' referring to the units
    * derived from the math element of the AssignmentRule.

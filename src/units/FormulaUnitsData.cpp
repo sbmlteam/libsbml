@@ -64,7 +64,7 @@ Model::populateListFormulaUnitsData()
    * this is necessary for validation
    */
   //fud = new FormulaUnitsData();
-  //fud->setId("per_time");
+  //fud->setUnitReferenceId("per_time");
   //fud->setTypecode(SBML_UNKNOWN);
   //u = new Unit("second", -1);
   //ud->addUnit(u);
@@ -72,7 +72,7 @@ Model::populateListFormulaUnitsData()
   //addFormulaUnitsData(fud);
 
   //fud = new FormulaUnitsData();
-  //fud->setId("substance");
+  //fud->setUnitReferenceId("substance");
   //fud->setTypecode(SBML_UNKNOWN);
   //ud = new UnitDefinition();
   //u = new Unit("mole", 1);
@@ -81,7 +81,7 @@ Model::populateListFormulaUnitsData()
   //addFormulaUnitsData(fud);
 
   fud = createFormulaUnitsData();
-  fud->setId("subs_per_time");
+  fud->setUnitReferenceId("subs_per_time");
   fud->setTypecode(SBML_UNKNOWN);
   // unless substance has been overridden
   if (getUnitDefinition("substance"))
@@ -124,7 +124,7 @@ Model::populateListFormulaUnitsData()
   {
     c = getCompartment(n);
     fud = createFormulaUnitsData();
-    fud->setId(c->getId());
+    fud->setUnitReferenceId(c->getId());
     fud->setTypecode(SBML_COMPARTMENT);
     ud = unitFormatter->getUnitDefinitionFromCompartment(c);
     fud->setUnitDefinition(ud);
@@ -147,7 +147,7 @@ Model::populateListFormulaUnitsData()
   {
     s = getSpecies(n);
     fud = createFormulaUnitsData();
-    fud->setId(s->getId());
+    fud->setUnitReferenceId(s->getId());
     fud->setTypecode(SBML_SPECIES);
     /* if the species has not been given a compartment
      * this will blow up although it is caught by another rule
@@ -207,7 +207,7 @@ Model::populateListFormulaUnitsData()
   {
     p = getParameter(n);
     fud = createFormulaUnitsData();
-    fud->setId(p->getId());
+    fud->setUnitReferenceId(p->getId());
     fud->setTypecode(SBML_PARAMETER);
     unitFormatter->resetFlags();
     ud = unitFormatter->getUnitDefinitionFromParameter(p);
@@ -236,7 +236,7 @@ Model::populateListFormulaUnitsData()
   {
     ia = getInitialAssignment(n);
     fud = createFormulaUnitsData();
-    fud->setId(ia->getSymbol());
+    fud->setUnitReferenceId(ia->getSymbol());
     fud->setTypecode(SBML_INITIAL_ASSIGNMENT);
     unitFormatter->resetFlags();
     if (ia->isSetMath())
@@ -263,12 +263,12 @@ Model::populateListFormulaUnitsData()
     if (typecode == SBML_ALGEBRAIC_RULE)
     {
       sprintf(newId, "alg_rule_%u", countAlg);
-      fud->setId(newId);
+      fud->setUnitReferenceId(newId);
       countAlg++;
     }
     else
     {
-      fud->setId(r->getVariable());
+      fud->setUnitReferenceId(r->getVariable());
     }
     fud->setTypecode(typecode);
     unitFormatter->resetFlags();
@@ -300,7 +300,7 @@ Model::populateListFormulaUnitsData()
     if (react->isSetKineticLaw())
     {
       fud = createFormulaUnitsData();
-      fud->setId(react->getId());
+      fud->setUnitReferenceId(react->getId());
 
       /* set the id of the kinetic law 
        * normally a kinetic law doesnt have an id
@@ -336,7 +336,7 @@ Model::populateListFormulaUnitsData()
       if (sr->isSetStoichiometryMath())
       {
         fud = createFormulaUnitsData();
-        fud->setId(sr->getSpecies());
+        fud->setUnitReferenceId(sr->getSpecies());
         fud->setTypecode(SBML_SPECIES_REFERENCE);
         unitFormatter->resetFlags();
         ud = unitFormatter->getUnitDefinition(sr->getStoichiometryMath()->getMath());
@@ -354,7 +354,7 @@ Model::populateListFormulaUnitsData()
       if (sr->isSetStoichiometryMath())
       {
         fud = createFormulaUnitsData();
-        fud->setId(sr->getId());
+        fud->setUnitReferenceId(sr->getId());
         fud->setTypecode(SBML_SPECIES_REFERENCE);
         unitFormatter->resetFlags();
         ud = unitFormatter->getUnitDefinition(sr->getStoichiometryMath()->getMath());
@@ -384,12 +384,12 @@ Model::populateListFormulaUnitsData()
 
       if (e->isSetId())
       {
-        fud->setId(e->getId());
+        fud->setUnitReferenceId(e->getId());
       }
       else
       {
         sprintf(newId, "event_%u", countEvents);
-        fud->setId(newId);
+        fud->setUnitReferenceId(newId);
         e->setId(newId);
       }
       countEvents++;
@@ -417,7 +417,7 @@ Model::populateListFormulaUnitsData()
       if (ea->isSetMath())    
       {
         fud = createFormulaUnitsData();
-        fud->setId(ea->getVariable());
+        fud->setUnitReferenceId(ea->getVariable());
         fud->setTypecode(SBML_EVENT_ASSIGNMENT);
         unitFormatter->resetFlags();
         ud = unitFormatter->getUnitDefinition(ea->getMath());
@@ -499,7 +499,7 @@ Model::getFormulaUnitsData (const std::string& sid, SBMLTypeCode_t typecode) con
   for (unsigned int n = 0; n < getNumFormulaUnitsData(); n++)
   {
     fud = static_cast <const FormulaUnitsData*> (mFormulaUnitsData->get(n)); 
-    if (!strcmp(fud->getId().c_str(), sid.c_str()))
+    if (!strcmp(fud->getUnitReferenceId().c_str(), sid.c_str()))
     {
       if (fud->getTypecode() == typecode)
       {
@@ -523,7 +523,7 @@ Model::getFormulaUnitsData (const std::string& sid, SBMLTypeCode_t typecode)
   for (unsigned int n = 0; n < getNumFormulaUnitsData(); n++)
   {
     fud = static_cast <FormulaUnitsData*> (mFormulaUnitsData->get(n));
-    if (!strcmp(fud->getId().c_str(), sid.c_str()))
+    if (!strcmp(fud->getUnitReferenceId().c_str(), sid.c_str()))
     {
       if (fud->getTypecode() == typecode)
       {
@@ -581,7 +581,9 @@ Model::isPopulatedListFormulaUnitsData()
     return false;
 }
 
-
+/***********************************************************
+* FormulaUnitsData class
+*/
 FormulaUnitsData::FormulaUnitsData()
 {
   mContainsParametersWithUndeclaredUnits = 0;
@@ -593,51 +595,51 @@ FormulaUnitsData::FormulaUnitsData()
   mL1SpeciesConcPerTimeUnitDefinition = new UnitDefinition();
 }
 
-FormulaUnitsData::FormulaUnitsData(const FormulaUnitsData& rhs)
+FormulaUnitsData::FormulaUnitsData(const FormulaUnitsData& orig)
 {
   mContainsParametersWithUndeclaredUnits = 
-                                     rhs.mContainsParametersWithUndeclaredUnits;
-  mCanIgnoreUndeclaredUnits = rhs.mCanIgnoreUndeclaredUnits;
-  if (rhs.mUnitDefinition) 
+                                     orig.mContainsParametersWithUndeclaredUnits;
+  mCanIgnoreUndeclaredUnits = orig.mCanIgnoreUndeclaredUnits;
+  if (orig.mUnitDefinition) 
   {
     mUnitDefinition = static_cast <UnitDefinition*> 
-                                                 (rhs.mUnitDefinition->clone());
+                                                 (orig.mUnitDefinition->clone());
   }
   else
   {
     mUnitDefinition = NULL;
   }
-  if (rhs.mPerTimeUnitDefinition)
+  if (orig.mPerTimeUnitDefinition)
   {
     mPerTimeUnitDefinition = static_cast <UnitDefinition*> 
-                                          (rhs.mPerTimeUnitDefinition->clone());
+                                          (orig.mPerTimeUnitDefinition->clone());
   }
   else
   {
     mPerTimeUnitDefinition = NULL;
   }
-  if (rhs.mEventTimeUnitDefinition)
+  if (orig.mEventTimeUnitDefinition)
   {
     mEventTimeUnitDefinition = static_cast <UnitDefinition*> 
-                                        (rhs.mEventTimeUnitDefinition->clone());
+                                        (orig.mEventTimeUnitDefinition->clone());
   }
   else
   {
     mEventTimeUnitDefinition = NULL;
   }
-  if (rhs.mL1SpeciesConcUnitDefinition)
+  if (orig.mL1SpeciesConcUnitDefinition)
   {
     mL1SpeciesConcUnitDefinition = static_cast <UnitDefinition*> 
-                                        (rhs.mL1SpeciesConcUnitDefinition->clone());
+                                        (orig.mL1SpeciesConcUnitDefinition->clone());
   }
   else
   {
     mL1SpeciesConcUnitDefinition = NULL;
   }
-  if (rhs.mL1SpeciesConcPerTimeUnitDefinition)
+  if (orig.mL1SpeciesConcPerTimeUnitDefinition)
   {
     mL1SpeciesConcPerTimeUnitDefinition = static_cast <UnitDefinition*> 
-                                        (rhs.mL1SpeciesConcPerTimeUnitDefinition->clone());
+                                        (orig.mL1SpeciesConcPerTimeUnitDefinition->clone());
   }
   else
   {
@@ -674,11 +676,13 @@ FormulaUnitsData::getElementName() const
   return name;
 }
 
+/** @cond doxygen-libsbml-internal */
 bool 
 FormulaUnitsData::accept (SBMLVisitor& v) const
 {
   return true;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 SBase*
