@@ -1414,7 +1414,6 @@ public:
    *
    **************************************************************/
 
-  /** @cond doxygen-libsbml-internal */
 
   /**
    * Populates the list of FormulaDataUnits with the units derived 
@@ -1548,7 +1547,6 @@ public:
    */
   bool isPopulatedListFormulaUnitsData();
 
-  /** @endcond doxygen-libsbml-internal */
 
 
 protected:

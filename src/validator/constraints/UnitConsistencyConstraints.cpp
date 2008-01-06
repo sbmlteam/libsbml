@@ -107,7 +107,7 @@ START_CONSTRAINT (99505, AssignmentRule, ar)
   msg += "or further unit errors related to this object may not be accurate.";
   safe_free(formula);
   
-  inv( formulaUnits->getContainsParametersWithUndeclaredUnits() == 0);
+  inv( !formulaUnits->getContainsUndeclaredUnits());
 }
 END_CONSTRAINT
 
@@ -129,7 +129,7 @@ START_CONSTRAINT (99505, RateRule, rr)
   msg += "or further unit errors related to this object may not be accurate.";
   safe_free(formula);
 
-  inv( formulaUnits->getContainsParametersWithUndeclaredUnits() == 0);
+  inv( !formulaUnits->getContainsUndeclaredUnits());
 }
 END_CONSTRAINT
 
@@ -152,7 +152,7 @@ START_CONSTRAINT (99505, InitialAssignment, ia)
   msg += "or further unit errors related to this object may not be accurate.";
   safe_free(formula);
 
-  inv( formulaUnits->getContainsParametersWithUndeclaredUnits() == 0);
+  inv( !formulaUnits->getContainsUndeclaredUnits());
 }
 END_CONSTRAINT
 
@@ -172,7 +172,7 @@ START_CONSTRAINT (99505, KineticLaw, kl)
   msg += "or further unit errors related to this object may not be accurate.";
   safe_free(formula);
 
-  inv( formulaUnits->getContainsParametersWithUndeclaredUnits() == 0);
+  inv( !formulaUnits->getContainsUndeclaredUnits());
 }
 END_CONSTRAINT
 
@@ -193,7 +193,7 @@ START_CONSTRAINT (99505, Event, e)
   msg += "or further unit errors related to this object may not be accurate.";
   safe_free(formula);
 
-  inv( formulaUnits->getContainsParametersWithUndeclaredUnits() == 0);
+  inv( !formulaUnits->getContainsUndeclaredUnits());
 }
 END_CONSTRAINT
 
@@ -216,7 +216,7 @@ START_CONSTRAINT (99505, EventAssignment, ea)
   msg += "or further unit errors related to this object may not be accurate.";
   safe_free(formula);
 
-  inv( formulaUnits->getContainsParametersWithUndeclaredUnits() == 0);
+  inv( !formulaUnits->getContainsUndeclaredUnits());
 }
 END_CONSTRAINT
 
@@ -269,9 +269,9 @@ START_CONSTRAINT (10511, AssignmentRule, ar)
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
-  pre ( formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
-	|| (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1
-	    && formulaUnits->getCanIgnoreUndeclaredUnits() == 1) );
+  pre ( !formulaUnits->getContainsUndeclaredUnits()
+	|| (formulaUnits->getContainsUndeclaredUnits()
+	    && formulaUnits->getCanIgnoreUndeclaredUnits()) );
 
   if (ar.getLevel() == 1)
   {
@@ -335,9 +335,9 @@ START_CONSTRAINT (10512, AssignmentRule, ar)
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
-  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
-    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
-        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
+  pre (!formulaUnits->getContainsUndeclaredUnits()
+    || (formulaUnits->getContainsUndeclaredUnits() &&
+        formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   if (ar.getLevel() == 1)
   {
@@ -414,9 +414,9 @@ START_CONSTRAINT (10513, AssignmentRule, ar)
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
-  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
-    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
-        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
+  pre (!formulaUnits->getContainsUndeclaredUnits()
+    || (formulaUnits->getContainsUndeclaredUnits() &&
+        formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   if (ar.getLevel() == 1)
   {
@@ -469,9 +469,9 @@ START_CONSTRAINT (10521, InitialAssignment, ia)
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
-  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
-    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
-        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
+  pre (!formulaUnits->getContainsUndeclaredUnits()
+    || (formulaUnits->getContainsUndeclaredUnits() &&
+        formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   msg =  "Expected units are ";
   msg += printUnits(variableUnits->getUnitDefinition());
@@ -510,9 +510,9 @@ START_CONSTRAINT (10522, InitialAssignment, ia)
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
-  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
-    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
-        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
+  pre (!formulaUnits->getContainsUndeclaredUnits()
+    || (formulaUnits->getContainsUndeclaredUnits() &&
+        formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   msg =  "Expected units are ";
   msg += printUnits(variableUnits->getUnitDefinition());
@@ -552,9 +552,9 @@ START_CONSTRAINT (10523, InitialAssignment, ia)
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
-  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
-    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
-        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
+  pre (!formulaUnits->getContainsUndeclaredUnits()
+    || (formulaUnits->getContainsUndeclaredUnits() &&
+        formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   msg =  "Expected units are ";
   msg += printUnits(variableUnits->getUnitDefinition());
@@ -610,9 +610,9 @@ START_CONSTRAINT (10531, RateRule, rr)
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
-  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
-    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
-        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
+  pre (!formulaUnits->getContainsUndeclaredUnits()
+    || (formulaUnits->getContainsUndeclaredUnits() &&
+        formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   if (rr.getLevel() == 1)
   {
@@ -682,9 +682,9 @@ START_CONSTRAINT (10532, RateRule, rr)
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
-  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
-    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
-        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
+  pre (!formulaUnits->getContainsUndeclaredUnits()
+    || (formulaUnits->getContainsUndeclaredUnits() &&
+        formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   if (rr.getLevel() == 1)
   {
@@ -766,9 +766,9 @@ START_CONSTRAINT (10533, RateRule, rr)
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
-  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
-    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
-        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
+  pre (!formulaUnits->getContainsUndeclaredUnits()
+    || (formulaUnits->getContainsUndeclaredUnits() &&
+        formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   if (rr.getLevel() == 1)
   {
@@ -817,9 +817,9 @@ START_CONSTRAINT (10541, KineticLaw, kl)
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
-  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
-    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
-        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
+  pre (!formulaUnits->getContainsUndeclaredUnits()
+    || (formulaUnits->getContainsUndeclaredUnits() &&
+        formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   msg =  "Expected units are ";
   msg += printUnits(variableUnits->getUnitDefinition());
@@ -851,9 +851,9 @@ START_CONSTRAINT (10551, Event, e)
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
-  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
-    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
-        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
+  pre (!formulaUnits->getContainsUndeclaredUnits()
+    || (formulaUnits->getContainsUndeclaredUnits() &&
+        formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   msg =  "Expected units are ";
   msg += printUnits(formulaUnits->getEventTimeUnitDefinition());
@@ -893,9 +893,9 @@ START_CONSTRAINT (10561, EventAssignment, ea)
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
-  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
-    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
-        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
+  pre (!formulaUnits->getContainsUndeclaredUnits()
+    || (formulaUnits->getContainsUndeclaredUnits() &&
+        formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   msg =  "Expected units are ";
   msg += printUnits(variableUnits->getUnitDefinition());
@@ -935,9 +935,9 @@ START_CONSTRAINT (10562, EventAssignment, ea)
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
-  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
-    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
-        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
+  pre (!formulaUnits->getContainsUndeclaredUnits()
+    || (formulaUnits->getContainsUndeclaredUnits() &&
+        formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   msg =  "Expected units are ";
   msg += printUnits(variableUnits->getUnitDefinition());
@@ -978,9 +978,9 @@ START_CONSTRAINT (10563, EventAssignment, ea)
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
-  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
-    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
-        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
+  pre (!formulaUnits->getContainsUndeclaredUnits()
+    || (formulaUnits->getContainsUndeclaredUnits() &&
+        formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   msg =  "Expected units are ";
   msg += printUnits(variableUnits->getUnitDefinition());

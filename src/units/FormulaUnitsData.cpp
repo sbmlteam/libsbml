@@ -1,5 +1,4 @@
 /**
- * @cond doxygen-libsbml-internal
  *
  * @file    FormulaUnitsData.cpp
  * @brief   Class for storing information relating to units of a formula
@@ -33,577 +32,27 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
-  * Populates the ListFormulaDataUnits with the units of each 
-  * set of math encountered in the model
-  */
-void
-Model::populateListFormulaUnitsData()
-{
-  unsigned int n, j;
-  UnitFormulaFormatter *unitFormatter = new UnitFormulaFormatter(this);
-  SBMLTypeCode_t typecode;
-  char newId[12];
-  unsigned int countAlg = 0, countEvents = 0;
-  Compartment * c;
-  Species * s;
-  Parameter * p;
-  Rule * r;
-  InitialAssignment * ia;
-  Event * e;
-  EventAssignment * ea;
-  Reaction * react;
-  SpeciesReference * sr;
-
-  FormulaUnitsData *fud;
-  UnitDefinition *ud = new UnitDefinition();
-  Unit *u;
-
-  /*
-   * put in a default unit for substance and time
-   * this is necessary for validation
-   */
-  //fud = new FormulaUnitsData();
-  //fud->setUnitReferenceId("per_time");
-  //fud->setTypecode(SBML_UNKNOWN);
-  //u = new Unit("second", -1);
-  //ud->addUnit(u);
-  //fud->setUnitDefinition(ud);
-  //addFormulaUnitsData(fud);
-
-  //fud = new FormulaUnitsData();
-  //fud->setUnitReferenceId("substance");
-  //fud->setTypecode(SBML_UNKNOWN);
-  //ud = new UnitDefinition();
-  //u = new Unit("mole", 1);
-  //ud->addUnit(u);
-  //fud->setUnitDefinition(ud);
-  //addFormulaUnitsData(fud);
-
-  fud = createFormulaUnitsData();
-  fud->setUnitReferenceId("subs_per_time");
-  fud->setTypecode(SBML_UNKNOWN);
-  // unless substance has been overridden
-  if (getUnitDefinition("substance"))
-  {
-    for (n = 0; n < getUnitDefinition("substance")->getNumUnits(); n++)
-    {
-      ud->addUnit(getUnitDefinition("substance")->getUnit(n));
-    }
-  }
-  else
-  {
-    u = new Unit("mole", 1);
-    ud->addUnit(u);
-    delete u;
-  }
-
-  if (getUnitDefinition("time"))
-  {
-    for (n = 0; n < getUnitDefinition("time")->getNumUnits(); n++)
-    {
-      u = (Unit *) (getUnitDefinition("time")->getUnit(n))->clone();
-      u->setExponent(u->getExponent() * -1);
-      ud->addUnit(u);
-      delete u;
-    }
-  }
-  else
-  {
-    u = new Unit("second", -1);
-    ud->addUnit(u);
-    delete u;
-  }
-  fud->setUnitDefinition(ud);
-//  addFormulaUnitsData(fud);
-
-  /* get unit data from each compartment 
-   * this is necessary for validation
-   */
-  for (n = 0; n < getNumCompartments(); n++)
-  {
-    c = getCompartment(n);
-    fud = createFormulaUnitsData();
-    fud->setUnitReferenceId(c->getId());
-    fud->setTypecode(SBML_COMPARTMENT);
-    ud = unitFormatter->getUnitDefinitionFromCompartment(c);
-    fud->setUnitDefinition(ud);
-
-    ud = new UnitDefinition();
-    for (j = 0; j < fud->getUnitDefinition()->getNumUnits(); j++)
-      ud->addUnit(fud->getUnitDefinition()->getUnit(j));
-    u = new Unit("second", -1);
-    ud->addUnit(u);
-    delete u;
-    fud->setPerTimeUnitDefinition(ud);
-
-//    addFormulaUnitsData(fud);
-  }
-
-  /* get unit data from each species 
-   * this is necessary for validation
-   */
-  for (n=0; n < getNumSpecies(); n++)
-  {
-    s = getSpecies(n);
-    fud = createFormulaUnitsData();
-    fud->setUnitReferenceId(s->getId());
-    fud->setTypecode(SBML_SPECIES);
-    /* if the species has not been given a compartment
-     * this will blow up although it is caught by another rule
-     */
-    if (getCompartment(s->getCompartment()) == NULL)
-      ud = NULL;
-    else
-      ud = unitFormatter->getUnitDefinitionFromSpecies(s);
-    fud->setUnitDefinition(ud);
-    
-    if (ud != NULL)
-    {
-      ud = new UnitDefinition();
-      for (j = 0; j < fud->getUnitDefinition()->getNumUnits(); j++)
-        ud->addUnit(fud->getUnitDefinition()->getUnit(j));
-      u = new Unit("second", -1);
-      ud->addUnit(u);
-      delete u;
-      fud->setPerTimeUnitDefinition(ud);
-    }
-
-    if (ud != NULL && getLevel() == 1)
-    {
-      ud = new UnitDefinition();
-      for (j = 0; j < fud->getUnitDefinition()->getNumUnits(); j++)
-        ud->addUnit(fud->getUnitDefinition()->getUnit(j));
-      UnitDefinition *compUD = unitFormatter->getUnitDefinitionFromCompartment
-        (getCompartment(s->getCompartment()));
-
-      for (j = 0; j < compUD->getNumUnits(); j++)
-      {
-        Unit * u = new Unit(*compUD->getUnit(j));
-        u->setExponent(u->getExponent() * -1);
-        ud->addUnit(u);
-        delete u;
-      }
-      fud->setL1SpeciesConcUnitDefinition(ud);
-
-      if (ud != NULL)
-      {
-        ud = new UnitDefinition();
-        for (j = 0; j < fud->getL1SpeciesConcUnitDefinition()->getNumUnits(); j++)
-          ud->addUnit(fud->getL1SpeciesConcUnitDefinition()->getUnit(j));
-        u = new Unit("second", -1);
-        ud->addUnit(u);
-        delete u;
-        fud->setL1SpeciesConcPerTimeUnitDefinition(ud);
-      }
-    }
-    // addFormulaUnitsData(fud);
-  }
-
-  /* get unit data from each parameter 
-   * could be left out for now but will be necessary for manipulation of units
-   */
-  for (n=0; n < getNumParameters(); n++)
-  {
-    p = getParameter(n);
-    fud = createFormulaUnitsData();
-    fud->setUnitReferenceId(p->getId());
-    fud->setTypecode(SBML_PARAMETER);
-    unitFormatter->resetFlags();
-    ud = unitFormatter->getUnitDefinitionFromParameter(p);
-    fud->setUnitDefinition(ud);
-    fud->setContainsParametersWithUndeclaredUnits(unitFormatter->getUndeclaredUnits());
-    fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
-
-    if (ud != NULL)
-    {
-      ud = new UnitDefinition();
-      for (j = 0; j < fud->getUnitDefinition()->getNumUnits(); j++)
-        ud->addUnit(fud->getUnitDefinition()->getUnit(j));
-      u = new Unit("second", -1);
-      ud->addUnit(u);
-      simplifyUnitDefinition(ud);
-      delete u;
-    }
-    fud->setPerTimeUnitDefinition(ud);
-
-    // addFormulaUnitsData(fud);
-  }
-
-   /* get units returned by the formula given for each initial assignment
-   */
-  for (n=0; n < getNumInitialAssignments(); n++)
-  {
-    ia = getInitialAssignment(n);
-    fud = createFormulaUnitsData();
-    fud->setUnitReferenceId(ia->getSymbol());
-    fud->setTypecode(SBML_INITIAL_ASSIGNMENT);
-    unitFormatter->resetFlags();
-    if (ia->isSetMath())
-    {
-      ud = unitFormatter->getUnitDefinition(ia->getMath());
-      fud->setUnitDefinition(ud);
-      fud->setContainsParametersWithUndeclaredUnits(unitFormatter->getUndeclaredUnits());
-      fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
-    }
-    else
-    {
-      ud = NULL;
-      fud->setUnitDefinition(ud);
-    }
-    // addFormulaUnitsData(fud);
-  }
- /* get units returned by the formula given for each rule
-   */
-  for (n=0; n < getNumRules(); n++)
-  {
-    r = getRule(n);
-    fud = createFormulaUnitsData();
-    typecode = r->getTypeCode();
-    if (typecode == SBML_ALGEBRAIC_RULE)
-    {
-      sprintf(newId, "alg_rule_%u", countAlg);
-      fud->setUnitReferenceId(newId);
-      countAlg++;
-    }
-    else
-    {
-      fud->setUnitReferenceId(r->getVariable());
-    }
-    fud->setTypecode(typecode);
-    unitFormatter->resetFlags();
-    if (r->isSetMath())
-    {
-      ud = unitFormatter->getUnitDefinition(r->getMath());
-      fud->setUnitDefinition(ud);
-      fud->setContainsParametersWithUndeclaredUnits(unitFormatter->getUndeclaredUnits());
-      fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
-    }
-    else
-    {
-      ud = NULL;
-      fud->setUnitDefinition(ud);
-    }
-    // addFormulaUnitsData(fud);
-  }
-
-
-  /**
-   * math may occur in reactions in kineticLaw or as stoichiometryMath 
-   * on reactants or products
-   */
-  for (n=0; n < getNumReactions(); n++)
-  {
-    react = getReaction(n);
-
-    /* get units returned by kineticLaw formula */
-    if (react->isSetKineticLaw())
-    {
-      fud = createFormulaUnitsData();
-      fud->setUnitReferenceId(react->getId());
-
-      /* set the id of the kinetic law 
-       * normally a kinetic law doesnt have an id
-       * but since it is an sbase calss it can
-       * so we set it to be the reaction id so 
-       * that searching the listFormulaUnitsData can find it
-       */
-      react->getKineticLaw()->setId(react->getId());
-
-      fud->setTypecode(SBML_KINETIC_LAW);
-      unitFormatter->resetFlags();
-      if(react->getKineticLaw()->isSetMath())
-      {
-        ud = unitFormatter->getUnitDefinition(react->getKineticLaw()->getMath(), 
-                                                                          1, n);
-        fud->setUnitDefinition(ud);
-        fud->setContainsParametersWithUndeclaredUnits(unitFormatter->getUndeclaredUnits());
-        fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
-      }
-      else
-      {
-        ud = NULL;
-        fud->setUnitDefinition(ud);
-      }
-      // addFormulaUnitsData(fud);
-    }
-
-    /* get units returned by any stoichiometryMath set */
-    for (j = 0; j < react->getNumReactants(); j++)
-    {
-      sr = react->getReactant(j);
-
-      if (sr->isSetStoichiometryMath())
-      {
-        fud = createFormulaUnitsData();
-        fud->setUnitReferenceId(sr->getSpecies());
-        fud->setTypecode(SBML_SPECIES_REFERENCE);
-        unitFormatter->resetFlags();
-        ud = unitFormatter->getUnitDefinition(sr->getStoichiometryMath()->getMath());
-        fud->setUnitDefinition(ud);
-        fud->setContainsParametersWithUndeclaredUnits(unitFormatter->getUndeclaredUnits());
-        fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
-        // addFormulaUnitsData(fud);
-      }
-    }
-
-    for (j = 0; j < react->getNumProducts(); j++)
-    {
-      sr = react->getProduct(j);
-
-      if (sr->isSetStoichiometryMath())
-      {
-        fud = createFormulaUnitsData();
-        fud->setUnitReferenceId(sr->getId());
-        fud->setTypecode(SBML_SPECIES_REFERENCE);
-        unitFormatter->resetFlags();
-        ud = unitFormatter->getUnitDefinition(sr->getStoichiometryMath()->getMath());
-        fud->setUnitDefinition(ud);
-        fud->setContainsParametersWithUndeclaredUnits(unitFormatter->getUndeclaredUnits());
-        fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
-        // addFormulaUnitsData(fud);
-      }
-    }
-  }
-
-  /**
-   * math may occur in events as the trigger, the delay or in the eventAssignment
-   */
-  for (n=0; n < getNumEvents(); n++)
-  {
-    e = getEvent(n);
-
-    /* dont need units returned by trigger formula - 
-     * should be boolean
-     */
-    
-    /* get units returned by dely */
-    if (e->isSetDelay())
-    {
-      fud = createFormulaUnitsData();
-
-      if (e->isSetId())
-      {
-        fud->setUnitReferenceId(e->getId());
-      }
-      else
-      {
-        sprintf(newId, "event_%u", countEvents);
-        fud->setUnitReferenceId(newId);
-        e->setId(newId);
-      }
-      countEvents++;
-
-      fud->setTypecode(SBML_EVENT);
-      unitFormatter->resetFlags();
-      ud = unitFormatter->getUnitDefinition(e->getDelay()->getMath());
-      fud->setUnitDefinition(ud);
-      fud->setContainsParametersWithUndeclaredUnits(unitFormatter->getUndeclaredUnits());
-      fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
-      
-      /* get event time definition */
-      unitFormatter->resetFlags();
-      ud = unitFormatter->getUnitDefinitionFromEventTime(e);
-      fud->setEventTimeUnitDefinition(ud);
-
-      // addFormulaUnitsData(fud);
-    }
-
-    /* get units returned by any event assignments */
-    for (j = 0; j < e->getNumEventAssignments(); j++)
-    {
-      ea = e->getEventAssignment(j);
-
-      if (ea->isSetMath())    
-      {
-        fud = createFormulaUnitsData();
-        fud->setUnitReferenceId(ea->getVariable());
-        fud->setTypecode(SBML_EVENT_ASSIGNMENT);
-        unitFormatter->resetFlags();
-        ud = unitFormatter->getUnitDefinition(ea->getMath());
-        fud->setUnitDefinition(ud);
-        fud->setContainsParametersWithUndeclaredUnits(unitFormatter->getUndeclaredUnits());
-        fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
-        // addFormulaUnitsData(fud);
-      }
-    }
-  }
-
-  delete unitFormatter;
-
-}
-
-/**
- * Adds a copy of the given FormulaUnitsData to this Model.
- */
-void
-Model::addFormulaUnitsData (const FormulaUnitsData* fud)
-{
-  if (mFormulaUnitsData == NULL)
-  {
-    mFormulaUnitsData = new List();
-    mFormulaUnitsData->add((void *) fud->clone());
-  }
-  else
-  {
-    mFormulaUnitsData->add((void *)fud->clone());
-  }
-}
-
-/**
-  * Creates a new FormulaUnitsData inside this Model and returns it.
-  */
-FormulaUnitsData*
-Model::createFormulaUnitsData ()
-{
-  FormulaUnitsData* fud = new FormulaUnitsData;
-  if (mFormulaUnitsData == NULL)
-  {
-    mFormulaUnitsData = new List();
-  }
-  mFormulaUnitsData->add(fud);
-
-  return fud;
-}
-
-/**
- * @return the nth FormulaUnitsData of this Model.
- */
-const FormulaUnitsData*
-Model::getFormulaUnitsData (unsigned int n) const
-{
-  return static_cast<const FormulaUnitsData*>( mFormulaUnitsData->get(n) );
-}
-
-
-/**
- * @return the nth FormulaUnitsData of this Model.
- */
-FormulaUnitsData*
-Model::getFormulaUnitsData (unsigned int n)
-{
-  return static_cast<FormulaUnitsData*>( mFormulaUnitsData->get(n) );
-}
-
-
-
-/**
- * @return the FormulaUnitsData in this Model with the given id or NULL if no such
- * FormulaUnitsData exists.
- */
-const FormulaUnitsData*
-Model::getFormulaUnitsData (const std::string& sid, SBMLTypeCode_t typecode) const
-{
-  const FormulaUnitsData * fud;
-
-  for (unsigned int n = 0; n < getNumFormulaUnitsData(); n++)
-  {
-    fud = static_cast <const FormulaUnitsData*> (mFormulaUnitsData->get(n)); 
-    if (!strcmp(fud->getUnitReferenceId().c_str(), sid.c_str()))
-    {
-      if (fud->getTypecode() == typecode)
-      {
-        return fud;
-      }
-    }
-  }
-  return NULL;
-}
-
-
-/**
- * @return the FormulaUnitsData in this Model with the given id  and typecode 
- * or NULL if no such FormulaUnitsData exists.
- */
-FormulaUnitsData*
-Model::getFormulaUnitsData (const std::string& sid, SBMLTypeCode_t typecode)
-{
-  FormulaUnitsData * fud;
-
-  for (unsigned int n = 0; n < getNumFormulaUnitsData(); n++)
-  {
-    fud = static_cast <FormulaUnitsData*> (mFormulaUnitsData->get(n));
-    if (!strcmp(fud->getUnitReferenceId().c_str(), sid.c_str()))
-    {
-      if (fud->getTypecode() == typecode)
-      {
-        return fud;
-      }
-    }
-  }
-  return NULL;
-}
-
-
-/**
- * @return the number of FormulaUnitsDatas in this Model.
- */
-unsigned int
-Model::getNumFormulaUnitsData () const
-{
-  return mFormulaUnitsData->getSize();
-}
-
-/**
-  * Get the list of FormulaUnitsData object in this Model.
-  * 
-  * @return the list of FormulaUnitsData for this Model.
-  */
-List* 
-Model::getListFormulaUnitsData ()
-{
-  return mFormulaUnitsData;
-}
-
-
-/**
-  * Get the list of FormulaUnitsData object in this Model.
-  * 
-  * @return the list of FormulaUnitsData for this Model.
-  */
-const List* 
-Model::getListFormulaUnitsData () const
-{
-  return mFormulaUnitsData;
-}
-
-
-
-/**
- * returns true if the list has been populated, false otherwise
- */
-bool
-Model::isPopulatedListFormulaUnitsData()
-{
-  if (mFormulaUnitsData)
-    return true;
-  else
-    return false;
-}
-
 /***********************************************************
 * FormulaUnitsData class
 */
 FormulaUnitsData::FormulaUnitsData()
 {
-  mContainsParametersWithUndeclaredUnits = 0;
-  mCanIgnoreUndeclaredUnits = 1;
+  mContainsUndeclaredUnits = false;
+  mCanIgnoreUndeclaredUnits = true;
   mUnitDefinition = new UnitDefinition();
   mPerTimeUnitDefinition = new UnitDefinition();
   mEventTimeUnitDefinition = new UnitDefinition();
-  mL1SpeciesConcUnitDefinition = new UnitDefinition();
-  mL1SpeciesConcPerTimeUnitDefinition = new UnitDefinition();
 }
 
 FormulaUnitsData::FormulaUnitsData(const FormulaUnitsData& orig)
 {
-  mContainsParametersWithUndeclaredUnits = 
-                                     orig.mContainsParametersWithUndeclaredUnits;
+  mContainsUndeclaredUnits = 
+                          orig.mContainsUndeclaredUnits;
   mCanIgnoreUndeclaredUnits = orig.mCanIgnoreUndeclaredUnits;
   if (orig.mUnitDefinition) 
   {
     mUnitDefinition = static_cast <UnitDefinition*> 
-                                                 (orig.mUnitDefinition->clone());
+                                      (orig.mUnitDefinition->clone());
   }
   else
   {
@@ -612,7 +61,7 @@ FormulaUnitsData::FormulaUnitsData(const FormulaUnitsData& orig)
   if (orig.mPerTimeUnitDefinition)
   {
     mPerTimeUnitDefinition = static_cast <UnitDefinition*> 
-                                          (orig.mPerTimeUnitDefinition->clone());
+                                (orig.mPerTimeUnitDefinition->clone());
   }
   else
   {
@@ -621,29 +70,11 @@ FormulaUnitsData::FormulaUnitsData(const FormulaUnitsData& orig)
   if (orig.mEventTimeUnitDefinition)
   {
     mEventTimeUnitDefinition = static_cast <UnitDefinition*> 
-                                        (orig.mEventTimeUnitDefinition->clone());
+                               (orig.mEventTimeUnitDefinition->clone());
   }
   else
   {
     mEventTimeUnitDefinition = NULL;
-  }
-  if (orig.mL1SpeciesConcUnitDefinition)
-  {
-    mL1SpeciesConcUnitDefinition = static_cast <UnitDefinition*> 
-                                        (orig.mL1SpeciesConcUnitDefinition->clone());
-  }
-  else
-  {
-    mL1SpeciesConcUnitDefinition = NULL;
-  }
-  if (orig.mL1SpeciesConcPerTimeUnitDefinition)
-  {
-    mL1SpeciesConcPerTimeUnitDefinition = static_cast <UnitDefinition*> 
-                                        (orig.mL1SpeciesConcPerTimeUnitDefinition->clone());
-  }
-  else
-  {
-    mL1SpeciesConcPerTimeUnitDefinition = NULL;
   }
 }
 
@@ -652,16 +83,290 @@ FormulaUnitsData::~FormulaUnitsData()
   if (mUnitDefinition)              delete mUnitDefinition;
   if (mPerTimeUnitDefinition)       delete mPerTimeUnitDefinition;
   if (mEventTimeUnitDefinition)     delete mEventTimeUnitDefinition;
-  if (mL1SpeciesConcUnitDefinition) delete mL1SpeciesConcUnitDefinition;
-  if (mL1SpeciesConcPerTimeUnitDefinition) delete mL1SpeciesConcPerTimeUnitDefinition;
+}
+
+SBase*
+FormulaUnitsData::clone() const
+{
+  return new FormulaUnitsData(*this);
+}
+
+
+/**
+ * Get the unitReferenceId of this FormulaUnitsData.
+ * 
+ * @return the value of the unitReferenceId of this 
+ * FormulaUnitsData as a string.
+ */
+const string& 
+FormulaUnitsData::getUnitReferenceId() 
+{ 
+  return mUnitReferenceId; 
 }
 
 /**
- * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
- * (default).
- *
- * @see getElementName()
+ * Get the unitReferenceId of this FormulaUnitsData.
+ * 
+ * @return the value of the unitReferenceId of this 
+ * FormulaUnitsData as a string.
  */
+const string& 
+FormulaUnitsData::getUnitReferenceId() const 
+{ 
+  return mUnitReferenceId; 
+}
+
+
+SBMLTypeCode_t 
+FormulaUnitsData::getComponentTypecode() 
+{ 
+  return mTypeOfElement; 
+}
+
+const SBMLTypeCode_t 
+FormulaUnitsData::getComponentTypecode() const 
+{ 
+  return mTypeOfElement; 
+}
+
+/**
+  * Predicate returning @c true or @c false depending on whether this
+  * FormulaUnitsData includes parameters/numbers with undeclared units.
+  * 
+  * @return @c true if the FormulaUnitsData includes parameters/numbers 
+  * with undeclared units, @c false otherwise.
+  */
+bool 
+FormulaUnitsData::getContainsUndeclaredUnits() 
+{ 
+  return mContainsUndeclaredUnits; 
+}
+
+/**
+  * Predicate returning @c true or @c false depending on whether this
+  * FormulaUnitsData includes parameters/numbers with undeclared units.
+  * 
+  * @return @c true if the FormulaUnitsData includes parameters/numbers 
+  * with undeclared units, @c false otherwise.
+  */
+const bool 
+FormulaUnitsData::getContainsUndeclaredUnits() const
+{ 
+  return mContainsUndeclaredUnits; 
+}
+
+/**
+  * @return @c true if the parameters/numbers 
+  * with undeclared units can be ignored, @c false otherwise.
+  */
+bool 
+FormulaUnitsData::getCanIgnoreUndeclaredUnits() 
+{ 
+  return mCanIgnoreUndeclaredUnits; 
+}
+
+/**
+  * @return @c true if the parameters/numbers 
+  * with undeclared units can be ignored, @c false otherwise.
+  */
+const bool 
+FormulaUnitsData::getCanIgnoreUndeclaredUnits() const 
+{ 
+  return mCanIgnoreUndeclaredUnits; 
+}
+
+/**
+  * Get the unit definition for this FormulaUnitsData.
+  * 
+  * @return the UnitDefinition object of this FormulaUnitsData.
+  *
+  * @note the UnitDefinition object is constructed to represent
+  * the units associated with the component used to populate 
+  * this FormulaUnitsData object.
+  */
+UnitDefinition * 
+FormulaUnitsData::getUnitDefinition() 
+{ 
+  return mUnitDefinition; 
+}
+
+/**
+  * Get the unit definition for this FormulaUnitsData.
+  * 
+  * @return the UnitDefinition object of this FormulaUnitsData.
+  *
+  * @note the UnitDefinition object is constructed to represent
+  * the units associated with the component used to populate 
+  * this FormulaUnitsData object.
+  */
+const UnitDefinition * 
+FormulaUnitsData::getUnitDefinition() const 
+{ 
+  return mUnitDefinition; 
+}
+
+/**
+  * Get the 'perTime' unit definition for this FormulaUnitsData.
+  * 
+  * @return the 'perTime' UnitDefinition object of this FormulaUnitsData.
+  *
+  * @note the perTime UnitDefinition object is constructed to represent
+  * the units associated with the component used to populate 
+  * this FormulaUnitsData object divided by the time units for the model.
+  */
+UnitDefinition * 
+FormulaUnitsData::getPerTimeUnitDefinition() 
+{ 
+  return mPerTimeUnitDefinition; 
+}
+
+/**
+  * Get the 'perTime' unit definition for this FormulaUnitsData.
+  * 
+  * @return the 'perTime' UnitDefinition object of this FormulaUnitsData.
+  *
+  * @note the perTime UnitDefinition object is constructed to represent
+  * the units associated with the component used to populate 
+  * this FormulaUnitsData object divided by the time units for the model.
+  */
+const UnitDefinition * 
+FormulaUnitsData::getPerTimeUnitDefinition() const 
+{ 
+  return mPerTimeUnitDefinition; 
+}
+
+/**
+  * Get the 'EventTime' unit definition for this FormulaUnitsData.
+  * 
+  * @return the 'EventTime' UnitDefinition object of this FormulaUnitsData.
+  *
+  * @note the EventTime UnitDefinition object is constructed to represent
+  * the time units associated with the Event used to populate 
+  * this FormulaUnitsData object.
+  */
+UnitDefinition * 
+FormulaUnitsData::getEventTimeUnitDefinition() 
+{ 
+  return mEventTimeUnitDefinition; 
+}
+
+/**
+  * Get the 'EventTime' unit definition for this FormulaUnitsData.
+  * 
+  * @return the 'EventTime' UnitDefinition object of this FormulaUnitsData.
+  *
+  * @note the EventTime UnitDefinition object is constructed to represent
+  * the time units associated with the Event used to populate 
+  * this FormulaUnitsData object.
+  */
+const UnitDefinition * 
+FormulaUnitsData::getEventTimeUnitDefinition() const 
+{ 
+  return mEventTimeUnitDefinition; 
+}
+
+/**
+  * Sets the unitReferenceId attribute of this FormulaUnitsData.
+  *
+  * @param unitReferenceId the identifier of the object defined
+  * elsewhere in this Model for which this FormulaUnitsData contains
+  * unit information.
+  */
+void 
+FormulaUnitsData::setUnitReferenceId(const std::string& unitReferenceId) 
+{ 
+  mUnitReferenceId = unitReferenceId; 
+}
+
+/**
+  * Sets the SBMLTypecode of this FormulaUnitsData.
+  * 
+  * @param typecode the SBMLTypeCode_t of the object defined
+  * elsewhere in this Model for which this FormulaUnitsData contains
+  * unit information.
+  */
+void 
+FormulaUnitsData::setComponentTypecode(SBMLTypeCode_t typecode) 
+{ 
+  mTypeOfElement = typecode; 
+}
+
+
+/**
+  * Sets the value of the "containsUndeclaredUnits" flag for this 
+  * FormulaUnitsData.
+  * 
+  * @parameter flag boolean value indicating whether the FormulaUnitsData 
+  * includes parameters/numbers with undeclared units.
+  */
+void 
+FormulaUnitsData::setContainsParametersWithUndeclaredUnits(bool flag)
+{ 
+  mContainsUndeclaredUnits = flag; 
+}
+
+/**
+  * Sets the value of the "canIgnoreUndeclaredUnits" flag for this 
+  * FormulaUnitsData.
+  * 
+  * @parameter flag boolean value indicating whether parameters/numbers 
+  * with undeclared units can be ignored.
+  */
+void 
+FormulaUnitsData::setCanIgnoreUndeclaredUnits(bool flag)
+{ 
+  mCanIgnoreUndeclaredUnits = flag; 
+}
+
+/**
+  * Set the unit definition for this FormulaUnitsData.
+  * 
+  * @parameter ud the UnitDefinition object constructed to represent
+  * the units associated with the component used to populate 
+  * this FormulaUnitsData object.
+  */
+void 
+FormulaUnitsData::setUnitDefinition(UnitDefinition * ud) 
+{ 
+  if(ud == mUnitDefinition) return;
+  
+  delete mUnitDefinition; 
+  mUnitDefinition = ud; 
+}
+
+/**
+  * Set the 'perTime' unit definition for this FormulaUnitsData.
+  * 
+  * @parameter ud the UnitDefinition object constructed to represent
+  * the units associated with the component used to populate 
+  * this FormulaUnitsData object divided by the time units for the model.
+  */
+void 
+FormulaUnitsData::setPerTimeUnitDefinition(UnitDefinition * ud) 
+{ 
+  if(ud == mPerTimeUnitDefinition) return;
+  
+  delete mPerTimeUnitDefinition;
+  mPerTimeUnitDefinition = ud; 
+}
+
+/**
+  * Set the 'EventTime' unit definition for this FormulaUnitsData.
+  * 
+  * @parameter ud the UnitDefinition object constructed to represent
+  * the time units associated with the Event used to populate 
+  * this FormulaUnitsData object.
+  */
+void 
+FormulaUnitsData::setEventTimeUnitDefinition(UnitDefinition * ud) 
+{ 
+  if(ud == mEventTimeUnitDefinition) return;
+  
+  delete mEventTimeUnitDefinition;
+  mEventTimeUnitDefinition = ud; 
+}
+
+/** @cond doxygen-libsbml-internal */
 SBMLTypeCode_t
 FormulaUnitsData::getTypeCode () const
 {
@@ -676,7 +381,7 @@ FormulaUnitsData::getElementName() const
   return name;
 }
 
-/** @cond doxygen-libsbml-internal */
+
 bool 
 FormulaUnitsData::accept (SBMLVisitor& v) const
 {
@@ -685,11 +390,3 @@ FormulaUnitsData::accept (SBMLVisitor& v) const
 /** @endcond doxygen-libsbml-internal */
 
 
-SBase*
-FormulaUnitsData::clone() const
-{
-  return new FormulaUnitsData(*this);
-}
-
-
-/** @endcond doxygen-libsbml-internal */

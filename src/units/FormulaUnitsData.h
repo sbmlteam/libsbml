@@ -1,5 +1,4 @@
 /**
- * @cond doxygen-libsbml-internal
  *
  * @file    FormulaUnitsData.h
  * @brief   Class for storing information relating to units of a formula
@@ -21,7 +20,38 @@
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution and
  * also available online as http://sbml.org/software/libsbml/license.html
- *----------------------------------------------------------------------- -->*/
+ *----------------------------------------------------------------------- -->
+ * @class FormulaUnitsData
+ * @brief Object for recording the units associated with objects
+ * and math expressions.
+ * 
+ * A FormulaUnitsData object records information about the units of the
+ * SBML object associated with it.
+ *
+ * A FormulaUnitsData object has several elements:
+ *
+ * unitReferenceId - a string; which is the identifier from the object used 
+ * to create the FormulaUnitsData, or a constructed identifer in the case 
+ * where the originating object has no identifier e.g. a KineticLaw.
+ *
+ * mTypeOfElement - an SBMLTypeCode_t; the typecode of the object used to
+ * create the FormulaUnitsData.
+ *
+ * mUnitDefinition - a UnitDefinition object; which is constructed to 
+ * represent the units of the originating object.
+ *
+ * mPerTimeUnitDefinition - a UnitDefinition object; which is constructed
+ * to represent the units of the originating object divided by the
+ * appropriate time units.
+ *
+ * mEventTimeUnitDefinition - a UnitDefinition object; which is constructed
+ * to represent the time units for the originating Event.
+ *
+ * @note Since the unitReferenceIds across the list of FormulaUnitsData 
+ * objects defining the units of an entire model need not be unique, 
+ * the SBMLTypeCode_t is necessary to retrieve specific FormulaUnitsData
+ * objects from the list.
+ */
 
 #ifndef FormulaUnitsData_h
 #define FormulaUnitsData_h
@@ -92,140 +122,227 @@ public:
   /**
    * Get the unitReferenceId of this FormulaUnitsData.
    * 
-   * @return the value of the unitReferenceId 
-   * Compartment as a string.
+   * @return the value of the unitReferenceId of this 
+   * FormulaUnitsData as a string.
    */
+  const string& getUnitReferenceId();
+
   /**
-   * returns the id associated with the units data
-   * if this is a species/compartment/parameter it will be the id 
-   * if it is aa assignment/rate rule it will be the variable
+   * Get the unitReferenceId of this FormulaUnitsData.
+   * 
+   * @return the value of the unitReferenceId of this 
+   * FormulaUnitsData as a string.
    */
-  const string& getUnitReferenceId() { return mUnitReferenceId; };
-  const string& getUnitReferenceId() const { return mUnitReferenceId; };
+  const string& getUnitReferenceId() const;
+ 
   /**
-   * returns the SBMLTypeCode of the component used
-   * to create the FormulaUnitsData object
+   * Get the SBMLTypecode of this FormulaUnitsData.
+   * This will be the typecode of the SBML component used to populate
+   * this FormulaUnitsData eg SBML_SPECIES or SBML_ASSIGNMENT_RULE.
+   * 
+   * @return the value of the SBMLTypeCode_t of this 
+   * FormulaUnitsData.
    */
-  SBMLTypeCode_t getTypecode() { return mTypeOfElement; };
-  const SBMLTypeCode_t getTypecode() const { return mTypeOfElement; };
+  SBMLTypeCode_t getComponentTypecode();
 
   /**
-   * returns the ContainsParametersWithUndeclaredUnits flag
+   * Get the SBMLTypecode of this FormulaUnitsData.
+   * This will be the typecode of the SBML component used to populate
+   * this FormulaUnitsData eg SBML_SPECIES or SBML_ASSIGNMENT_RULE.
+   * 
+   * @return the value of the SBMLTypeCode_t of this 
+   * FormulaUnitsData.
    */
-  unsigned int getContainsParametersWithUndeclaredUnits() 
-                                { return mContainsParametersWithUndeclaredUnits; };
-  const unsigned int getContainsParametersWithUndeclaredUnits() const
-                                { return mContainsParametersWithUndeclaredUnits; };
+  const SBMLTypeCode_t getComponentTypecode() const;
 
   /**
-   * returns the CanIgnoreUndeclaredUnits flag
+   * Get the value of the "containsUndeclaredUnits" flag for this 
+   * FormulaUnitsData.
+   * 
+   * @return @c true if the FormulaUnitsData includes parameters/numbers 
+   * with undeclared units, @c false otherwise.
    */
-  unsigned int getCanIgnoreUndeclaredUnits() { return mCanIgnoreUndeclaredUnits; };
-  const unsigned int getCanIgnoreUndeclaredUnits() const { return mCanIgnoreUndeclaredUnits; };
+  bool getContainsUndeclaredUnits(); 
+
 
   /**
-  * returns the UnitDefinition relating to the FormulaUnitsData object
-  */
-  UnitDefinition * getUnitDefinition() { return mUnitDefinition; };
-  const UnitDefinition * getUnitDefinition() const { return mUnitDefinition; };
+   * Get the value of the "containsUndeclaredUnits" flag for this 
+   * FormulaUnitsData.
+   * 
+   * @return @c true if the FormulaUnitsData includes parameters/numbers 
+   * with undeclared units, @c false otherwise.
+   */
+  const bool getContainsUndeclaredUnits() const;
+
 
   /**
-  * returns the PerTimeUnitDefinition relating to the FormulaUnitsData object
-  */
-  UnitDefinition * getPerTimeUnitDefinition() { return mPerTimeUnitDefinition; };
-  const UnitDefinition * getPerTimeUnitDefinition() const { return mPerTimeUnitDefinition; };
-
-  /**
-  * returns the EventTimeUnitDefinition relating to the FormulaUnitsData object
-  */
-  UnitDefinition * getEventTimeUnitDefinition() { return mEventTimeUnitDefinition; };
-  const UnitDefinition * getEventTimeUnitDefinition() const { return mEventTimeUnitDefinition; };
-
-  /**
-  * returns the L1SpeciesConcUnitDefinition relating to the FormulaUnitsData object
-  */
-  UnitDefinition * getL1SpeciesConcUnitDefinition() { return mL1SpeciesConcUnitDefinition; };
-  const UnitDefinition * getL1SpeciesConcUnitDefinition() const { return mL1SpeciesConcUnitDefinition; };
-
-  /**
-  * returns the L1SpeciesConcPerTimeUnitDefinition relating to the FormulaUnitsData object
-  */
-  UnitDefinition * getL1SpeciesConcPerTimeUnitDefinition() { return mL1SpeciesConcPerTimeUnitDefinition; };
-  const UnitDefinition * getL1SpeciesConcPerTimeUnitDefinition() const { return mL1SpeciesConcPerTimeUnitDefinition; };
-
-  /**
-   * sets the id of the FormulaUnitsData
+   * Get the value of the "canIgnoreUndeclaredUnits" flag for this 
+   * FormulaUnitsData.
    *
+   * On occasion it is possible to "ignore" undeclared units when
+   * determining the overall units of an expression.
+   * For example, if p has known units and k does not then the units 
+   * resulting from the expression 'p + k' must have the units of p and
+   * thus it is possible to "ignore" the fact that the units of k are
+   * unknown. However, it is not possible to "ignore" the unknown units
+   * in the expression 'p * k' as the units of k will impact on the
+   * units resulting from the expression.
+   * 
+   * @return @c true if the parameters/numbers 
+   * with undeclared units can be ignored, @c false otherwise.
    */
-  void setUnitReferenceId(const std::string& unitReferenceId) { mUnitReferenceId = unitReferenceId; };
+  bool getCanIgnoreUndeclaredUnits();
+
+  /**
+   * Get the value of the "canIgnoreUndeclaredUnits" flag for this 
+   * FormulaUnitsData.
+   *
+   * On occasion it is possible to "ignore" undeclared units when
+   * determining the overall units of an expression.
+   * For example, if p has known units and k does not then the units 
+   * resulting from the expression 'p + k' must have the units of p and
+   * thus it is possible to "ignore" the fact that the units of k are
+   * unknown. However, it is not possible to "ignore" the unknown units
+   * in the expression 'p * k' as the units of k will impact on the
+   * units resulting from the expression.
+   * 
+   * @return @c true if the parameters/numbers 
+   * with undeclared units can be ignored, @c false otherwise.
+   */
+  const bool getCanIgnoreUndeclaredUnits() const;
+
+  /**
+   * Get the unit definition for this FormulaUnitsData.
+   * 
+   * @return the UnitDefinition object of this FormulaUnitsData.
+   *
+   * @note the UnitDefinition object is constructed to represent
+   * the units associated with the component used to populate 
+   * this FormulaUnitsData object.
+   */
+  UnitDefinition * getUnitDefinition();
+
+  /**
+   * Get the unit definition for this FormulaUnitsData.
+   * 
+   * @return the UnitDefinition object of this FormulaUnitsData.
+   *
+   * @note the UnitDefinition object is constructed to represent
+   * the units associated with the component used to populate 
+   * this FormulaUnitsData object.
+   */
+  const UnitDefinition * getUnitDefinition() const;
+
+  /**
+   * Get the 'perTime' unit definition for this FormulaUnitsData.
+   * 
+   * @return the 'perTime' UnitDefinition object of this FormulaUnitsData.
+   *
+   * @note the perTime UnitDefinition object is constructed to represent
+   * the units associated with the component used to populate 
+   * this FormulaUnitsData object divided by the time units for the model.
+   */
+  UnitDefinition * getPerTimeUnitDefinition();
+  
+  /**
+   * Get the 'perTime' unit definition for this FormulaUnitsData.
+   * 
+   * @return the 'perTime' UnitDefinition object of this FormulaUnitsData.
+   *
+   * @note the perTime UnitDefinition object is constructed to represent
+   * the units associated with the component used to populate 
+   * this FormulaUnitsData object divided by the time units for the model.
+   */
+  const UnitDefinition * getPerTimeUnitDefinition() const;
+
+  /**
+   * Get the 'EventTime' unit definition for this FormulaUnitsData.
+   * 
+   * @return the 'EventTime' UnitDefinition object of this FormulaUnitsData.
+   *
+   * @note the EventTime UnitDefinition object is constructed to represent
+   * the time units associated with the Event used to populate 
+   * this FormulaUnitsData object.
+   */
+  UnitDefinition * getEventTimeUnitDefinition();
+
+  /**
+   * Get the 'EventTime' unit definition for this FormulaUnitsData.
+   * 
+   * @return the 'EventTime' UnitDefinition object of this FormulaUnitsData.
+   *
+   * @note the EventTime UnitDefinition object is constructed to represent
+   * the time units associated with the Event used to populate 
+   * this FormulaUnitsData object.
+   */
+  const UnitDefinition * getEventTimeUnitDefinition() const;
+
+  /**
+   * Sets the unitReferenceId attribute of this FormulaUnitsData.
+   *
+   * @param unitReferenceId the identifier of the object defined
+   * elsewhere in this Model for which this FormulaUnitsData contains
+   * unit information.
+   */
+  void setUnitReferenceId(const std::string& unitReferenceId);
     
   /**
-   * sets the SBMLTypeCode of the FormulaUnitsData object
+   * Sets the SBMLTypecode of this FormulaUnitsData.
+   * 
+   * @param typecode the SBMLTypeCode_t of the object defined
+   * elsewhere in this Model for which this FormulaUnitsData contains
+   * unit information.
    */
-  void setTypecode(SBMLTypeCode_t typecode) { mTypeOfElement = typecode; };
+  void setComponentTypecode(SBMLTypeCode_t typecode);
 
   /**
-  * sets the ContainsParametersWithUndeclaredUnits flag
-  */
-  void setContainsParametersWithUndeclaredUnits(unsigned int flag)
-                                  { mContainsParametersWithUndeclaredUnits = flag; };
+   * Sets the value of the "containsUndeclaredUnits" flag for this 
+   * FormulaUnitsData.
+   * 
+   * @param flag boolean value indicating whether the FormulaUnitsData 
+   * includes parameters/numbers with undeclared units.
+   */
+  void setContainsParametersWithUndeclaredUnits(bool flag);
 
   /**
-  * sets the CanIgnoreUndeclaredUnits flag
-  */
-  void setCanIgnoreUndeclaredUnits(unsigned int flag)
-                                                { mCanIgnoreUndeclaredUnits = flag; };
+   * Sets the value of the "canIgnoreUndeclaredUnits" flag for this 
+   * FormulaUnitsData.
+   * 
+   * @param flag boolean value indicating whether parameters/numbers 
+   * with undeclared units can be ignored.
+   */
+  void setCanIgnoreUndeclaredUnits(bool flag);
 
   /**
-  * sets the UnitDefinition relating to the FormulaUnitsData object
-  */
-  void setUnitDefinition(UnitDefinition * ud) 
-  { 
-    if(ud == mUnitDefinition) return;
-    delete mUnitDefinition; 
-    mUnitDefinition = ud; 
-  };
+   * Set the unit definition for this FormulaUnitsData.
+   * 
+   * @param ud the UnitDefinition object constructed to represent
+   * the units associated with the component used to populate 
+   * this FormulaUnitsData object.
+   */
+  void setUnitDefinition(UnitDefinition * ud);
 
   /**
-  * sets the PerTimeUnitDefinition relating to the FormulaUnitsData object
-  */
-  void setPerTimeUnitDefinition(UnitDefinition * ud) 
-  { 
-    if(ud == mPerTimeUnitDefinition) return;
-    delete mPerTimeUnitDefinition;
-    mPerTimeUnitDefinition = ud; 
-  };
+   * Set the 'perTime' unit definition for this FormulaUnitsData.
+   * 
+   * @param ud the UnitDefinition object constructed to represent
+   * the units associated with the component used to populate 
+   * this FormulaUnitsData object divided by the time units for the model.
+   */
+  void setPerTimeUnitDefinition(UnitDefinition * ud);
 
   /**
-  * sets the EventTimeUnitDefinition relating to the FormulaUnitsData object
-  */
-  void setEventTimeUnitDefinition(UnitDefinition * ud) 
-  { 
-    if(ud == mEventTimeUnitDefinition) return;
-    delete mEventTimeUnitDefinition;
-    mEventTimeUnitDefinition = ud; 
-  };
+   * Set the 'EventTime' unit definition for this FormulaUnitsData.
+   * 
+   * @param ud the UnitDefinition object constructed to represent
+   * the time units associated with the Event used to populate 
+   * this FormulaUnitsData object.
+   */
+  void setEventTimeUnitDefinition(UnitDefinition * ud);
 
-  /**
-  * sets the EventTimeUnitDefinition relating to the FormulaUnitsData object
-  */
-  void setL1SpeciesConcUnitDefinition(UnitDefinition * ud) 
-  { 
-    if(ud == mL1SpeciesConcUnitDefinition) return;
-    delete mL1SpeciesConcUnitDefinition;
-    mL1SpeciesConcUnitDefinition = ud; 
-  };
 
-  /**
-  * sets the EventTimeUnitDefinition relating to the FormulaUnitsData object
-  */
-  void setL1SpeciesConcPerTimeUnitDefinition(UnitDefinition * ud) 
-  { 
-    if(ud == mL1SpeciesConcPerTimeUnitDefinition) return;
-    delete mL1SpeciesConcPerTimeUnitDefinition;
-    mL1SpeciesConcPerTimeUnitDefinition = ud; 
-  };
 
+/** @cond doxygen-libsbml-internal */
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
@@ -241,21 +358,20 @@ public:
    
    */
   virtual const std::string& getElementName () const;
+/** @endcond doxygen-libsbml-internal */
 
 protected:
 
     std::string mUnitReferenceId;
 
-    unsigned int mContainsParametersWithUndeclaredUnits;
-    unsigned int mCanIgnoreUndeclaredUnits;
+    bool mContainsUndeclaredUnits;
+    bool mCanIgnoreUndeclaredUnits;
 
     SBMLTypeCode_t mTypeOfElement;
 
     UnitDefinition * mUnitDefinition;
     UnitDefinition * mPerTimeUnitDefinition;
     UnitDefinition * mEventTimeUnitDefinition;
-    UnitDefinition * mL1SpeciesConcUnitDefinition;
-    UnitDefinition * mL1SpeciesConcPerTimeUnitDefinition;
 
 };
 
@@ -268,4 +384,3 @@ protected:
 #endif
 
 
-/** @endcond doxygen-libsbml-internal */
