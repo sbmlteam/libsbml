@@ -376,11 +376,87 @@ protected:
 };
 
 
-#endif /* __cplusplus */
+#endif  /* __cplusplus */
 
 
+#ifndef SWIG
+
+BEGIN_C_DECLS
+
+/*-----------------------------------------------------------------------------
+ * See the .cpp file for the documentation of the following functions.
+ *---------------------------------------------------------------------------*/
+
+LIBSBML_EXTERN
+FormulaUnitsData_t* 
+FormulaUnitsData_create();
+
+LIBSBML_EXTERN
+const char* 
+FormulaUnitsData_getUnitReferenceId(FormulaUnitsData_t* fud);
+
+LIBSBML_EXTERN
+SBMLTypeCode_t 
+FormulaUnitsData_getComponentTypecode(FormulaUnitsData_t* fud);
+
+LIBSBML_EXTERN
+int 
+FormulaUnitsData_getContainsUndeclaredUnits(FormulaUnitsData_t* fud);
+
+LIBSBML_EXTERN
+int 
+FormulaUnitsData_getCanIgnoreUndeclaredUnits(FormulaUnitsData_t* fud);
+
+LIBSBML_EXTERN
+UnitDefinition_t * 
+FormulaUnitsData_getUnitDefinition(FormulaUnitsData_t* fud);
+
+LIBSBML_EXTERN
+UnitDefinition_t * 
+FormulaUnitsData_getPerTimeUnitDefinition(FormulaUnitsData_t* fud);
+
+LIBSBML_EXTERN
+UnitDefinition_t * 
+FormulaUnitsData_getEventTimeUnitDefinition(FormulaUnitsData_t* fud);
+
+LIBSBML_EXTERN
+void 
+FormulaUnitsData_setUnitReferenceId(FormulaUnitsData_t* fud, const char* id);
+
+LIBSBML_EXTERN
+void 
+FormulaUnitsData_setComponentTypecode(FormulaUnitsData_t* fud, 
+                                      SBMLTypeCode_t typecode);
+
+LIBSBML_EXTERN
+void 
+FormulaUnitsData_setContainsUndeclaredUnits(FormulaUnitsData_t* fud, 
+                                            int flag);
+
+LIBSBML_EXTERN
+void 
+FormulaUnitsData_setCanIgnoreUndeclaredUnits(FormulaUnitsData_t* fud, 
+                                             int flag);
+
+LIBSBML_EXTERN
+void 
+FormulaUnitsData_setUnitDefinition(FormulaUnitsData_t* fud,
+                                   UnitDefinition_t* ud);
+
+LIBSBML_EXTERN
+void 
+FormulaUnitsData_setPerTimeUnitDefinition(FormulaUnitsData_t* fud,
+                                   UnitDefinition_t* ud);
+
+LIBSBML_EXTERN
+void 
+FormulaUnitsData_setEventTimeUnitDefinition(FormulaUnitsData_t* fud,
+                                   UnitDefinition_t* ud);
+
+END_C_DECLS
 
 
+#endif  /* !SWIG   */
 #endif
 
 

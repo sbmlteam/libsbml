@@ -32,9 +32,6 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/***********************************************************
-* FormulaUnitsData class
-*/
 FormulaUnitsData::FormulaUnitsData()
 {
   mContainsUndeclaredUnits = false;
@@ -389,4 +386,121 @@ FormulaUnitsData::accept (SBMLVisitor& v) const
 }
 /** @endcond doxygen-libsbml-internal */
 
+/** @cond doxygen-c-only */
 
+
+LIBSBML_EXTERN
+FormulaUnitsData_t* 
+FormulaUnitsData_create()
+{
+  return new(nothrow) FormulaUnitsData;
+}
+
+
+LIBSBML_EXTERN
+const char* 
+FormulaUnitsData_getUnitReferenceId(FormulaUnitsData_t* fud)
+{
+  return fud->getUnitReferenceId().c_str();
+}
+
+LIBSBML_EXTERN
+SBMLTypeCode_t 
+FormulaUnitsData_getComponentTypecode(FormulaUnitsData_t* fud)
+{
+  return fud->getComponentTypecode();
+}
+
+LIBSBML_EXTERN
+int 
+FormulaUnitsData_getContainsUndeclaredUnits(FormulaUnitsData_t* fud)
+{
+  return static_cast <int> (fud->getContainsUndeclaredUnits());
+}
+
+LIBSBML_EXTERN
+int 
+FormulaUnitsData_getCanIgnoreUndeclaredUnits(FormulaUnitsData_t* fud)
+{
+  return static_cast <int> (fud->getCanIgnoreUndeclaredUnits());
+}
+
+LIBSBML_EXTERN
+UnitDefinition_t * 
+FormulaUnitsData_getUnitDefinition(FormulaUnitsData_t* fud)
+{
+  return fud->getUnitDefinition();
+}
+
+LIBSBML_EXTERN
+UnitDefinition_t * 
+FormulaUnitsData_getPerTimeUnitDefinition(FormulaUnitsData_t* fud)
+{
+  return fud->getPerTimeUnitDefinition();
+}
+
+LIBSBML_EXTERN
+UnitDefinition_t * 
+FormulaUnitsData_getEventTimeUnitDefinition(FormulaUnitsData_t* fud)
+{
+  return fud->getEventTimeUnitDefinition();
+}
+
+
+LIBSBML_EXTERN
+void 
+FormulaUnitsData_setUnitReferenceId(FormulaUnitsData_t* fud, const char* id)
+{
+  fud->setUnitReferenceId(id);
+}
+
+LIBSBML_EXTERN
+void 
+FormulaUnitsData_setComponentTypecode(FormulaUnitsData_t* fud, 
+                                      SBMLTypeCode_t typecode)
+{
+  fud->setComponentTypecode(typecode);
+}
+
+LIBSBML_EXTERN
+void 
+FormulaUnitsData_setContainsUndeclaredUnits(FormulaUnitsData_t* fud, 
+                                            int flag)
+{
+  fud->setContainsParametersWithUndeclaredUnits(flag);
+}
+
+LIBSBML_EXTERN
+void 
+FormulaUnitsData_setCanIgnoreUndeclaredUnits(FormulaUnitsData_t* fud, 
+                                             int flag)
+{
+  fud->setCanIgnoreUndeclaredUnits(flag);
+}
+
+LIBSBML_EXTERN
+void 
+FormulaUnitsData_setUnitDefinition(FormulaUnitsData_t* fud,
+                                   UnitDefinition_t* ud)
+{
+  fud->setUnitDefinition(ud);
+}
+
+LIBSBML_EXTERN
+void 
+FormulaUnitsData_setPerTimeUnitDefinition(FormulaUnitsData_t* fud,
+                                   UnitDefinition_t* ud)
+{
+  fud->setPerTimeUnitDefinition(ud);
+}
+
+
+LIBSBML_EXTERN
+void 
+FormulaUnitsData_setEventTimeUnitDefinition(FormulaUnitsData_t* fud,
+                                   UnitDefinition_t* ud)
+{
+  fud->setEventTimeUnitDefinition(ud);
+}
+
+/** @endcond doxygen-c-only */

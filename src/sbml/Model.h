@@ -1407,13 +1407,6 @@ public:
 
 #endif  /* USE_LAYOUT */  
 
-  /**************************************************************
-   *
-   *  FUNCTIONS on ListFormulaDataUnits are all defined in
-   *  file units/FormulaUnitsData.cpp
-   *
-   **************************************************************/
-
 
   /**
    * Populates the list of FormulaDataUnits with the units derived 
@@ -2142,6 +2135,47 @@ Model_createLayout (Model_t *m);
 
 
 #endif /* USE_LAYOUT */
+
+LIBSBML_EXTERN
+void 
+Model_populateListFormulaUnitsData(Model_t *m);
+
+
+LIBSBML_EXTERN
+void 
+Model_addFormulaUnitsData (Model_t *m, FormulaUnitsData_t* fud);
+
+
+LIBSBML_EXTERN
+FormulaUnitsData_t* 
+Model_createFormulaUnitsData (Model_t *m);
+
+
+LIBSBML_EXTERN
+FormulaUnitsData_t* 
+Model_getFormulaUnitsData (Model_t *m, unsigned int n);
+
+
+LIBSBML_EXTERN
+FormulaUnitsData_t* 
+Model_getFormulaUnitsDataById(Model_t *m, const char* sid, SBMLTypeCode_t);
+
+
+LIBSBML_EXTERN
+unsigned int 
+Model_getNumFormulaUnitsData (Model_t *m);
+
+
+LIBSBML_EXTERN
+List_t* 
+Model_getListFormulaUnitsData (Model_t *m);
+
+
+LIBSBML_EXTERN
+int 
+Model_isPopulatedListFormulaUnitsData(Model_t *m);
+
+
 
 
 END_C_DECLS
