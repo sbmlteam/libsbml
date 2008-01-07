@@ -1,6 +1,4 @@
 /**
- * @cond doxygen-libsbml-internal
- *
  * @file    UnitFormulaFormatter.h
  * @brief   Formats an AST formula tree as a unit definition
  * @author  Sarah Keating
@@ -76,7 +74,10 @@ public:
    *
    * @param node the ASTNode for which the unitDefinition is to be 
    * constructed.
-   * *param inKL
+   * @param inKL boolean indicating whether the ASTNode represents the
+   * math element of a KineticLaw (default = false).
+   * @param reactNo integer indicating which Reaction within the Model
+   * contains the KineticLaw under consideration (default = -1).
    *
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different
@@ -93,6 +94,7 @@ public:
   UnitDefinition * getUnitDefinition(const ASTNode * node, 
     bool inKL = false, int reactNo = -1);
 
+ /* @cond doxygen-libsbml-internal */
   /** 
    * returns the unitDefinition for the ASTNode from a function
    */
@@ -157,36 +159,78 @@ public:
    */
   UnitDefinition * getUnitDefinitionFromOther(const ASTNode * node,
     bool inKL, int reactNo);
+/** @endcond doxygen-libsbml-internal */
 
-  /** 
-    * returns the unitDefinition for the units of the compartment
-    */
-  UnitDefinition * getUnitDefinitionFromCompartment(const Compartment *);
+  /**
+   * Visits the Compartment and returns the unitDefinition constructed
+   * from the units of this Compartment.
+   *
+   * @param compartment the Compartment object for which the unitDefinition
+   * is to be constructed.
+   *
+   * @return the unitDefinition constructed to represent the units 
+   * of the Compartment.
+   */
+  UnitDefinition * getUnitDefinitionFromCompartment
+                                            (const Compartment * compartment);
 
- /** 
-  * returns the unitDefinition for the units of the species
-  */
-  UnitDefinition * getUnitDefinitionFromSpecies(const Species *);
+  /**
+   * Visits the Species and returns the unitDefinition constructed
+   * from the units of this Species.
+   *
+   * @param species the Species object for which the unitDefinition
+   * is to be constructed.
+   *
+   * @return the unitDefinition constructed to represent the units 
+   * of the Species.
+   */
+  UnitDefinition * getUnitDefinitionFromSpecies(const Species * species);
 
-  /** 
-    * returns the unitDefinition for the units of the parameter
-    */
-  UnitDefinition * getUnitDefinitionFromParameter(const Parameter *);
+  /**
+   * Visits the Parameter and returns the unitDefinition constructed
+   * from the units of this Parameter.
+   *
+   * @param parameter the Parameter object for which the unitDefinition
+   * is to be constructed.
+   *
+   * @return the unitDefinition constructed to represent the units 
+   * of the Parameter.
+   */
+  UnitDefinition * getUnitDefinitionFromParameter(const Parameter * parameter);
 
-  /** 
-    * returns the unitDefinition for the time units of the event
-    */
+  /**
+   * Visits the Event and returns the unitDefinition constructed
+   * from the time units of this Event.
+   *
+   * @param event the Event object for which the unitDefinition
+   * is to be constructed.
+   *
+   * @return the unitDefinition constructed to represent the time units 
+   * of the Event.
+   */
   UnitDefinition * getUnitDefinitionFromEventTime(const Event * event);
 
   /** 
     * returns canIgnoreUndeclaredUnits value
     */
-  unsigned int getCanIgnoreUndeclaredUnits();
+  bool getCanIgnoreUndeclaredUnits();
 
   /**
-   * returns the undeclaredUnits flag
+   * Get the current value of the "containsUndeclaredUnits" flag for this 
+   * UnitFormulaFormatter.
+   * 
+   * @return @c true if the math last processed by the UnitFormulaFormatter
+   * includes parameters/numbers 
+   * with undeclared units, @c false otherwise.
+   *
+   * @note Each time the getUnitDefinition function is called by the
+   * UnitFormulaFormatter the value of the "containsUndeclaredUnits"
+   * flag  and the "canIgnoreUndeclaredUnits" may change. These flags
+   * are specific to the ASTNode for which units are being derived.
+   *
+   * @see resetFlags()
    */
-  unsigned int getUndeclaredUnits();
+  bool getContainsUndeclaredUnits();
 
   /** 
    * resets the undeclaredUnits and canIgnoreUndeclaredUnits flags
@@ -196,16 +240,14 @@ public:
 
 private:
   const Model * model;
-  unsigned int undeclaredUnits;
-  unsigned int canIgnoreUndeclaredUnits;
-  unsigned int mInKineticlaw;
-  int mReactionNo;
+  bool mContainsUndeclaredUnits;
+  unsigned int mCanIgnoreUndeclaredUnits;
 
   /* a depth of recursive call of getUnitDefinition()*/
   int depthRecursiveCall;
 
   map<const ASTNode*, UnitDefinition*> unitDefinitionMap;
-  map<const ASTNode*, unsigned int>    undeclaredUnitsMap;
+  map<const ASTNode*, bool>    undeclaredUnitsMap;
   map<const ASTNode*, unsigned int>    canIgnoreUndeclaredUnitsMap;  
 
 };
@@ -215,4 +257,3 @@ private:
 #endif  /* UnitFormulaFormatter_h */
 
 
-/** @endcond doxygen-libsbml-internal */

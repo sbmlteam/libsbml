@@ -145,13 +145,13 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
   UnitDefinition *unitsArg1, *unitsArgPower;
   unitsArg1 = unitFormat->getUnitDefinition(node.getLeftChild(), inKL, reactNo);
   unsigned int undeclaredUnits = 
-    unitFormat->getUndeclaredUnits();
+    unitFormat->getContainsUndeclaredUnits();
 
   ASTNode *child = node.getRightChild();
   unitFormat->resetFlags();
   unitsArgPower = unitFormat->getUnitDefinition(child, inKL, reactNo);
   unsigned int undeclaredUnitsPower = 
-    unitFormat->getUndeclaredUnits();
+    unitFormat->getContainsUndeclaredUnits();
 
   // The second argument (b) should always have units of “dimensionless”.
   // or it has undeclared units that we assume are correct

@@ -2425,7 +2425,8 @@ Model::populateListFormulaUnitsData()
     unitFormatter->resetFlags();
     ud = unitFormatter->getUnitDefinitionFromParameter(p);
     fud->setUnitDefinition(ud);
-    fud->setContainsParametersWithUndeclaredUnits(unitFormatter->getUndeclaredUnits());
+    fud->setContainsParametersWithUndeclaredUnits
+                                (unitFormatter->getContainsUndeclaredUnits());
     fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
 
     if (ud != NULL)
@@ -2454,7 +2455,8 @@ Model::populateListFormulaUnitsData()
     {
       ud = unitFormatter->getUnitDefinition(ia->getMath());
       fud->setUnitDefinition(ud);
-      fud->setContainsParametersWithUndeclaredUnits(unitFormatter->getUndeclaredUnits());
+      fud->setContainsParametersWithUndeclaredUnits
+                                (unitFormatter->getContainsUndeclaredUnits());
       fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
     }
     else
@@ -2485,7 +2487,8 @@ Model::populateListFormulaUnitsData()
     {
       ud = unitFormatter->getUnitDefinition(r->getMath());
       fud->setUnitDefinition(ud);
-      fud->setContainsParametersWithUndeclaredUnits(unitFormatter->getUndeclaredUnits());
+      fud->setContainsParametersWithUndeclaredUnits
+                                (unitFormatter->getContainsUndeclaredUnits());
       fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
     }
     else
@@ -2525,7 +2528,8 @@ Model::populateListFormulaUnitsData()
         ud = unitFormatter->getUnitDefinition(react->getKineticLaw()->getMath(), 
                                                                           1, n);
         fud->setUnitDefinition(ud);
-        fud->setContainsParametersWithUndeclaredUnits(unitFormatter->getUndeclaredUnits());
+        fud->setContainsParametersWithUndeclaredUnits
+                                 (unitFormatter->getContainsUndeclaredUnits());
         fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
       }
       else
@@ -2548,7 +2552,8 @@ Model::populateListFormulaUnitsData()
         unitFormatter->resetFlags();
         ud = unitFormatter->getUnitDefinition(sr->getStoichiometryMath()->getMath());
         fud->setUnitDefinition(ud);
-        fud->setContainsParametersWithUndeclaredUnits(unitFormatter->getUndeclaredUnits());
+        fud->setContainsParametersWithUndeclaredUnits
+                                (unitFormatter->getContainsUndeclaredUnits());
         fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
       }
     }
@@ -2565,7 +2570,8 @@ Model::populateListFormulaUnitsData()
         unitFormatter->resetFlags();
         ud = unitFormatter->getUnitDefinition(sr->getStoichiometryMath()->getMath());
         fud->setUnitDefinition(ud);
-        fud->setContainsParametersWithUndeclaredUnits(unitFormatter->getUndeclaredUnits());
+        fud->setContainsParametersWithUndeclaredUnits
+                                (unitFormatter->getContainsUndeclaredUnits());
         fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
       }
     }
@@ -2603,7 +2609,8 @@ Model::populateListFormulaUnitsData()
       unitFormatter->resetFlags();
       ud = unitFormatter->getUnitDefinition(e->getDelay()->getMath());
       fud->setUnitDefinition(ud);
-      fud->setContainsParametersWithUndeclaredUnits(unitFormatter->getUndeclaredUnits());
+      fud->setContainsParametersWithUndeclaredUnits
+                                (unitFormatter->getContainsUndeclaredUnits());
       fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
       
       /* get event time definition */
@@ -2625,7 +2632,8 @@ Model::populateListFormulaUnitsData()
         unitFormatter->resetFlags();
         ud = unitFormatter->getUnitDefinition(ea->getMath());
         fud->setUnitDefinition(ud);
-        fud->setContainsParametersWithUndeclaredUnits(unitFormatter->getUndeclaredUnits());
+        fud->setContainsParametersWithUndeclaredUnits
+                                 (unitFormatter->getContainsUndeclaredUnits());
         fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
       }
     }

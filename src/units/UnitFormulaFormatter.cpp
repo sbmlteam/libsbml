@@ -1,6 +1,4 @@
 /**
- * @cond doxygen-libsbml-internal
- *
  * @file    UnitFormulaFormatter.cpp
  * @brief   Formats an AST formula tree as a unit definition
  * @author  Sarah Keating
@@ -32,11 +30,8 @@
 UnitFormulaFormatter::UnitFormulaFormatter(const Model *m)
 {
   model = (Model *) (m->clone());
-  undeclaredUnits = 0;
-  /* temporary HACK while I figure this out */
-  canIgnoreUndeclaredUnits = 2;
-  mInKineticlaw = 0;
-  mReactionNo = -1;
+  mContainsUndeclaredUnits = false;
+  mCanIgnoreUndeclaredUnits = 2;
   depthRecursiveCall = 0;
 }
 
@@ -242,9 +237,9 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
       unitDefinitionMap.insert(pair<const ASTNode*, 
         UnitDefinition*>(node,static_cast<UnitDefinition*>(ud->clone())));
       undeclaredUnitsMap.insert(pair<const ASTNode*, 
-        unsigned int>(node,undeclaredUnits));
+        bool>(node,mContainsUndeclaredUnits));
       canIgnoreUndeclaredUnitsMap.insert(pair<const ASTNode*, 
-        unsigned int>(node,canIgnoreUndeclaredUnits));
+        unsigned int>(node,mCanIgnoreUndeclaredUnits));
     }
   }
   else
@@ -381,15 +376,15 @@ UnitFormulaFormatter::getUnitDefinitionFromTimes(const ASTNode * node,
   int numChildren = node->getNumChildren();
   int n = 0;
   unsigned int i;
-  unsigned int currentIgnore = canIgnoreUndeclaredUnits;;
+  unsigned int currentIgnore = mCanIgnoreUndeclaredUnits;;
 
   ud = getUnitDefinition(node->getChild(n), inKL, reactNo);
-  if (canIgnoreUndeclaredUnits == 0) currentIgnore = 0;
+  if (mCanIgnoreUndeclaredUnits == 0) currentIgnore = 0;
 
   for(n = 1; n < numChildren; n++)
   {
     tempUD = getUnitDefinition(node->getChild(n), inKL, reactNo);
-    if (canIgnoreUndeclaredUnits == 0) currentIgnore = 0;
+    if (mCanIgnoreUndeclaredUnits == 0) currentIgnore = 0;
     for (i = 0; i < tempUD->getNumUnits(); i++)
     {
       ud->addUnit(tempUD->getUnit(i));
@@ -397,7 +392,7 @@ UnitFormulaFormatter::getUnitDefinitionFromTimes(const ASTNode * node,
     delete tempUD;
   }
 
-  canIgnoreUndeclaredUnits = currentIgnore;
+  mCanIgnoreUndeclaredUnits = currentIgnore;
   return ud;
 }
 
@@ -486,9 +481,6 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
           value = (model->getReaction(reactNo)->
             getKineticLaw()->getParameter(child->getName()))->getValue();
           found = 1;
-          //if (floor(value) != value)
-          //  undeclaredUnits = 1;
-          //newExp = (int) (value);
         }
       }
       
@@ -510,7 +502,7 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
       }
       
       if (floor(value) != value)
-        undeclaredUnits = 1;
+        mContainsUndeclaredUnits = true;
       
       newExp = (int) (value);
 
@@ -520,7 +512,7 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
     {
       value = child->getReal();
       if (floor(value) != value)
-        undeclaredUnits = 1;
+        mContainsUndeclaredUnits = true;
       newExp = (int) (value);
       
       unit->setExponent(newExp * unit->getExponent());
@@ -645,14 +637,14 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode 
   unsigned int n = 0;
  
   /* save any existing value of undeclaredUnits/canIgnoreUndeclaredUnits */
-  unsigned int originalIgnore = canIgnoreUndeclaredUnits;
-  unsigned int originalUndeclaredValue = undeclaredUnits;
-  unsigned int currentIgnore = canIgnoreUndeclaredUnits;
-  unsigned int currentUndeclared = undeclaredUnits;
+  unsigned int originalIgnore = mCanIgnoreUndeclaredUnits;
+  bool originalUndeclaredValue = mContainsUndeclaredUnits;
+  unsigned int currentIgnore = mCanIgnoreUndeclaredUnits;
+  bool currentUndeclared = mContainsUndeclaredUnits;
 
   /* get first arg that is not a parameter with undeclared units */
   ud = getUnitDefinition(node->getChild(i), inKL, reactNo);
-  while (getUndeclaredUnits()==1 && i < node->getNumChildren()-1)
+  while (getContainsUndeclaredUnits() && i < node->getNumChildren()-1)
   {
     if (originalUndeclaredValue == 1)
       currentIgnore = 0;
@@ -668,7 +660,7 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode 
   }
 
   /* loop thru remain children to determine undeclaredUnit status */
-  if (undeclaredUnits == 1 && i == node->getNumChildren()-1)
+  if (mContainsUndeclaredUnits && i == node->getNumChildren()-1)
   {
     /* all children are parameters with undeclared units */
     currentIgnore = 0;
@@ -679,7 +671,7 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode 
     {
       resetFlags();
       tempUd = getUnitDefinition(node->getChild(n), inKL, reactNo);
-      if (getUndeclaredUnits())
+      if (getContainsUndeclaredUnits())
       {
         currentUndeclared = 1;
         currentIgnore = 1;
@@ -689,11 +681,11 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode 
   }
 
   /* restore original value of undeclaredUnits */
-  undeclaredUnits = currentUndeclared;
+  mContainsUndeclaredUnits = currentUndeclared;
   /* temporary HACK while I figure this out */
   if (originalIgnore == 2)
   {
-    canIgnoreUndeclaredUnits = currentIgnore;
+    mCanIgnoreUndeclaredUnits = currentIgnore;
   }
   
 
@@ -723,14 +715,8 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
   if ((node->isNumber()) || (node->getType() == AST_CONSTANT_E))
   {
     ud   = new UnitDefinition();
-    undeclaredUnits = 1;
-    /* temporary HACK while I figure this out */
-    canIgnoreUndeclaredUnits = 0;
-    //unit = new Unit("dimensionless");
-    //ud   = new UnitDefinition();
-    //
-    //ud->addUnit(unit);
-    //delete unit;
+    mContainsUndeclaredUnits = true;
+    mCanIgnoreUndeclaredUnits = 0;
   }
   else if (node->getType() == AST_CONSTANT_PI)
   {
@@ -812,7 +798,8 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
   * returns the unitDefinition for the units of the compartment
   */
 UnitDefinition * 
-UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compartment)
+UnitFormulaFormatter::getUnitDefinitionFromCompartment
+                                             (const Compartment * compartment)
 {
   if (!compartment)
   {
@@ -1226,9 +1213,8 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter
   if (!strcmp(units, ""))
   {
     ud   = new UnitDefinition();
-    undeclaredUnits = 1;
-    /* temporary HACK while I figure this out */
-    canIgnoreUndeclaredUnits = 0;
+    mContainsUndeclaredUnits = true;
+    mCanIgnoreUndeclaredUnits = 0;
   }
   else
   {
@@ -1419,24 +1405,24 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
 /** 
   * returns canIgnoreUndeclaredUnits value
   */
-unsigned int 
+bool 
 UnitFormulaFormatter::getCanIgnoreUndeclaredUnits()
 {
-  /* temporary HACK while I figure this out */
-  if (canIgnoreUndeclaredUnits == 2)
-    return 0;
+  if (mCanIgnoreUndeclaredUnits == 2
+    || mCanIgnoreUndeclaredUnits == 0)
+    return false;
   else
-    return canIgnoreUndeclaredUnits;
+    return true;
 }
 
 
 /** 
   * returns undeclaredUnits value
   */
-unsigned int 
-UnitFormulaFormatter::getUndeclaredUnits()
+bool 
+UnitFormulaFormatter::getContainsUndeclaredUnits()
 {
-  return undeclaredUnits;
+  return mContainsUndeclaredUnits;
 }
 
 /** 
@@ -1446,11 +1432,6 @@ UnitFormulaFormatter::getUndeclaredUnits()
 void 
 UnitFormulaFormatter::resetFlags()
 {
-  undeclaredUnits = 0;
-  /* temporary HACK while I figure this out */
-  canIgnoreUndeclaredUnits = 2;
+  mContainsUndeclaredUnits = false;
+  mCanIgnoreUndeclaredUnits = 2;
 }
-
-
-
-/** @endcond doxygen-libsbml-internal */
