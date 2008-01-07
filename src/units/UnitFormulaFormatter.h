@@ -169,14 +169,6 @@ public:
   UnitDefinition * getUnitDefinitionFromEventTime(const Event * event);
 
   /** 
-    * returns 1 if the math contains 
-    * a parameter that has undeclared units 0 otherwise
-    */
-  unsigned int hasUndeclaredUnits(const ASTNode *node, 
-    unsigned int inKL = 0, int reactNo = -1);
-  
-
-  /** 
     * returns canIgnoreUndeclaredUnits value
     */
   unsigned int getCanIgnoreUndeclaredUnits();
