@@ -183,7 +183,7 @@ UnitsBase::check_ (const Model& m, const Model& object)
 void 
 UnitsBase::checkChildren (const Model& m, 
                                   const ASTNode& node, 
-                                  const SBase & sb, unsigned int inKL, int reactNo)
+                                  const SBase & sb, bool inKL, int reactNo)
 {
   unsigned int n;
 
@@ -203,7 +203,7 @@ UnitsBase::checkChildren (const Model& m,
 void 
 UnitsBase::checkFunction (const Model& m, 
                                   const ASTNode& node, 
-                                  const SBase & sb, unsigned int inKL, int reactNo)
+                                  const SBase & sb, bool inKL, int reactNo)
 {
   unsigned int i, nodeCount;
   unsigned int noBvars;

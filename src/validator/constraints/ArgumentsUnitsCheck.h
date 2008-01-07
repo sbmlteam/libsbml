@@ -65,7 +65,7 @@ protected:
    * If inconsistent units are found, an error message is logged.
    */
   virtual void checkUnits (const Model& m, const ASTNode& node, const SBase & sb,
-    unsigned int inKL = 0, int reactNo = -1);
+    bool inKL = false, int reactNo = -1);
   
   /**
    * @return the preamble to use when logging constraint violations.  The
@@ -91,7 +91,7 @@ protected:
     * If inconsistent units are found, an error message is logged.
     */
   void checkUnitsFromDelay (const Model& m, const ASTNode& node, 
-                            const SBase & sb, unsigned int inKL, int reactNo);
+                            const SBase & sb, bool inKL, int reactNo);
 
   /**
     * Checks that the units of the piecewise function are consistent
@@ -99,7 +99,7 @@ protected:
     * If inconsistent units are found, an error message is logged.
     */
   void checkUnitsFromPiecewise (const Model& m, const ASTNode& node, 
-                                const SBase & sb, unsigned int inKL, int reactNo);
+                                const SBase & sb, bool inKL, int reactNo);
 
   /**
    * Checks that the units of the function are consistent
@@ -108,7 +108,7 @@ protected:
    * If inconsistent units are found, an error message is logged.
    */
   void checkSameUnitsAsArgs (const Model& m, const ASTNode& node, 
-                              const SBase & sb, unsigned int inKL, int reactNo);
+                              const SBase & sb, bool inKL, int reactNo);
 
   /**
   * Logs a message about a function that should return same units

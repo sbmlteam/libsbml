@@ -55,7 +55,7 @@ UnitFormulaFormatter::~UnitFormulaFormatter()
   */
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinition(const ASTNode * node, 
-                                        unsigned int inKL, int reactNo)
+                                        bool inKL, int reactNo)
 {  
   /** 
     * returns a copy of existing UnitDefinition* object (if any) that 
@@ -271,7 +271,7 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
   */
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node, 
-                                        unsigned int inKL, int reactNo)
+                                        bool inKL, int reactNo)
 { 
   UnitDefinition * ud;
   unsigned int i, nodeCount;
@@ -374,7 +374,7 @@ UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node,
   */
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromTimes(const ASTNode * node, 
-                                        unsigned int inKL, int reactNo)
+                                        bool inKL, int reactNo)
 { 
   UnitDefinition * ud;
   UnitDefinition * tempUD;
@@ -406,7 +406,7 @@ UnitFormulaFormatter::getUnitDefinitionFromTimes(const ASTNode * node,
   */
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromDivide(const ASTNode * node, 
-                                        unsigned int inKL, int reactNo)
+                                        bool inKL, int reactNo)
 { 
   UnitDefinition * ud;
   UnitDefinition * tempUD;
@@ -434,7 +434,7 @@ UnitFormulaFormatter::getUnitDefinitionFromDivide(const ASTNode * node,
   */
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
-                                                 unsigned int inKL, int reactNo)
+                                                 bool inKL, int reactNo)
 { 
   UnitDefinition * ud;
   /* this only works is the exponent is an integer - 
@@ -539,7 +539,7 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
   */
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromPiecewise(const ASTNode * node, 
-                                        unsigned int inKL, int reactNo)
+                                        bool inKL, int reactNo)
 { 
   UnitDefinition * ud;
   
@@ -553,7 +553,7 @@ UnitFormulaFormatter::getUnitDefinitionFromPiecewise(const ASTNode * node,
   */
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node, 
-                                        unsigned int inKL, int reactNo)
+                                        bool inKL, int reactNo)
 { 
   UnitDefinition * ud;
 /* this only works is the exponent is an integer - 
@@ -601,7 +601,7 @@ UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node,
   */
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromDelay(const ASTNode * node, 
-                                        unsigned int inKL, int reactNo)
+                                        bool inKL, int reactNo)
 { 
   UnitDefinition * ud;
   
@@ -616,7 +616,7 @@ UnitFormulaFormatter::getUnitDefinitionFromDelay(const ASTNode * node,
   */
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromDimensionlessReturnFunction(
-                                const ASTNode *node, unsigned int inKL, int reactNo)
+                                const ASTNode *node, bool inKL, int reactNo)
 { 
   UnitDefinition * ud;
   Unit *unit;
@@ -637,7 +637,7 @@ UnitFormulaFormatter::getUnitDefinitionFromDimensionlessReturnFunction(
   */
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode * node, 
-                                        unsigned int inKL, int reactNo)
+                                        bool inKL, int reactNo)
 { 
   UnitDefinition * ud;
   UnitDefinition * tempUd;
@@ -706,7 +706,7 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode 
   */
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
-    unsigned int inKL, int reactNo)
+    bool inKL, int reactNo)
 { 
   UnitDefinition * ud = NULL;
   Unit * unit;

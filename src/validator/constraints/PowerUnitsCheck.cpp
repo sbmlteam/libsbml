@@ -85,7 +85,7 @@ PowerUnitsCheck::getPreamble ()
   */
 void
 PowerUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBase & sb,
-                                 unsigned int inKL, int reactNo)
+                                 bool inKL, int reactNo)
 {
   ASTNodeType_t type = node.getType();
 
@@ -133,7 +133,7 @@ PowerUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBase & 
 void 
 PowerUnitsCheck::checkUnitsFromPower (const Model& m, 
                                         const ASTNode& node, 
-                                        const SBase & sb, unsigned int inKL, int reactNo)
+                                        const SBase & sb, bool inKL, int reactNo)
 {
   double value;
   UnitDefinition *dim = new UnitDefinition();

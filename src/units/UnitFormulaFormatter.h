@@ -50,15 +50,21 @@
 class   LIBSBML_EXTERN UnitFormulaFormatter
 {
 public:
-  /** 
-   * constructor
+
+  /**
+   * Creates a new UnitFormulaFormatter.
+   *
+   * @param m pointer to the Model object for which the units
+   * are to be derived.
+   *
+   * @note The UnitFormulaFormatter creates a deep copy of the 
+   * Model object.
    */
+  UnitFormulaFormatter(const Model * m);
 
-  UnitFormulaFormatter(const Model *);
 
-
-  /** 
-   * destructor
+  /**
+   * Destroys this UnitFormulaFormatter.
    */
   ~UnitFormulaFormatter();
 
@@ -66,7 +72,11 @@ public:
   /**
    * Visits the ASTNode and returns the unitDefinition of the formula.
    * This function is really a dispatcher to the other
-   * getUnitdefinition() methods.
+   * getUnitDefinition() methods.
+   *
+   * @param node the ASTNode for which the unitDefinition is to be 
+   * constructed.
+   * *param inKL
    *
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different
@@ -81,72 +91,72 @@ public:
    * documentation.
    */
   UnitDefinition * getUnitDefinition(const ASTNode * node, 
-    unsigned int inKL = 0, int reactNo = -1);
+    bool inKL = false, int reactNo = -1);
 
   /** 
    * returns the unitDefinition for the ASTNode from a function
    */
   UnitDefinition * getUnitDefinitionFromFunction(const ASTNode *node, 
-    unsigned int inKL, int reactNo);
+    bool inKL, int reactNo);
 
   /** 
    * returns the unitDefinition for the ASTNode from a times function
    */
   UnitDefinition * getUnitDefinitionFromTimes(const ASTNode *node, 
-    unsigned int inKL, int reactNo);
+    bool inKL, int reactNo);
   
   /** 
    * returns the unitDefinition for the ASTNode from a divide function
    */
   UnitDefinition * getUnitDefinitionFromDivide(const ASTNode *node, 
-    unsigned int inKL, int reactNo);
+    bool inKL, int reactNo);
 
   /** 
    * returns the unitDefinition for the ASTNode from a power function
    */
   UnitDefinition * getUnitDefinitionFromPower(const ASTNode *node, 
-    unsigned int inKL, int reactNo);
+    bool inKL, int reactNo);
 
   /** 
    * returns the unitDefinition for the ASTNode from 
    * a piecewise function
    */
   UnitDefinition * getUnitDefinitionFromPiecewise(const ASTNode *node, 
-    unsigned int inKL, int reactNo);
+    bool inKL, int reactNo);
 
 
   /** 
    * returns the unitDefinition for the ASTNode from a root function
    */
   UnitDefinition * getUnitDefinitionFromRoot(const ASTNode *node, 
-    unsigned int inKL, int reactNo);
+    bool inKL, int reactNo);
 
   /** 
    * returns the unitDefinition for the ASTNode from 
    * a function returning dimensionless value
    */
   UnitDefinition * getUnitDefinitionFromDimensionlessReturnFunction(const ASTNode *node, 
-    unsigned int inKL, int reactNo);
+    bool inKL, int reactNo);
 
   /** 
    * returns the unitDefinition for the ASTNode from 
    * a function returning value with same units as argument(s)
    */
   UnitDefinition * getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode *node, 
-    unsigned int inKL, int reactNo);
+    bool inKL, int reactNo);
 
   /** 
    * returns the unitDefinition for the ASTNode from 
    * a delay function
    */
   UnitDefinition * getUnitDefinitionFromDelay(const ASTNode * node, 
-    unsigned int inKL, int reactNo);
+    bool inKL, int reactNo);
 
   /** 
    * returns the unitDefinition for the ASTNode from anything else
    */
   UnitDefinition * getUnitDefinitionFromOther(const ASTNode * node,
-    unsigned int inKL, int reactNo);
+    bool inKL, int reactNo);
 
   /** 
     * returns the unitDefinition for the units of the compartment

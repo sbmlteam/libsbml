@@ -70,7 +70,7 @@ protected:
    * If inconsistent units are found, an error message is logged.
    */
   virtual void checkUnits (const Model& m, const ASTNode& node, const SBase & sb,
-    unsigned int inKL = 0, int reactNo = -1) = 0;
+    bool inKL = false, int reactNo = -1) = 0;
  
   /**
    * Checks that the units of the ASTnode 
@@ -79,7 +79,7 @@ protected:
    * If inconsistent units are found, an error message is logged.
    */
   void checkChildren (const Model& m, const ASTNode& node, const SBase & sb, 
-                             unsigned int inKL, int reactNo);
+                             bool inKL, int reactNo);
  
   /**
    * Checks that the units of function definition 
@@ -89,7 +89,7 @@ protected:
    * If inconsistent units are found, an error message is logged.
    */
   void checkFunction (const Model& m, const ASTNode& node, 
-    const SBase & sb, unsigned int inKL, int reactNo);
+    const SBase & sb, bool inKL, int reactNo);
   /**
    * @return the fieldname to use logging constraint violations.  If not
    * overridden, "id" is returned.

@@ -87,7 +87,7 @@ ArgumentsUnitsCheckWarnings::getPreamble ()
 void
 ArgumentsUnitsCheckWarnings::checkUnits (const Model& m, const ASTNode& node, 
                                          const SBase & sb,
-                                 unsigned int inKL, int reactNo)
+                                 bool inKL, int reactNo)
 {
   ASTNodeType_t type = node.getType();
 
@@ -161,7 +161,7 @@ void
 ArgumentsUnitsCheckWarnings::checkDimensionlessArgs (const Model& m, 
                                            const ASTNode& node, 
                                            const SBase & sb, 
-                                           unsigned int inKL, int reactNo)
+                                           bool inKL, int reactNo)
 {
   UnitDefinition * dim = new UnitDefinition();
   UnitDefinition * tempUD;

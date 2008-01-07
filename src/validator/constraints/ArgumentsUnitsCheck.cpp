@@ -86,7 +86,7 @@ ArgumentsUnitsCheck::getPreamble ()
   */
 void
 ArgumentsUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBase & sb,
-                                 unsigned int inKL, int reactNo)
+                                 bool inKL, int reactNo)
 {
   ASTNodeType_t type = node.getType();
 
@@ -140,7 +140,7 @@ ArgumentsUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBas
 void 
 ArgumentsUnitsCheck::checkUnitsFromDelay (const Model& m, 
                                         const ASTNode& node, 
-                                        const SBase & sb, unsigned int inKL, int reactNo)
+                                        const SBase & sb, bool inKL, int reactNo)
 {
   /* delay(x, t) 
    * no restrictions on units of x
@@ -178,7 +178,7 @@ ArgumentsUnitsCheck::checkUnitsFromDelay (const Model& m,
 void 
 ArgumentsUnitsCheck::checkUnitsFromPiecewise (const Model& m, 
                                         const ASTNode& node, 
-                                        const SBase & sb, unsigned int inKL, int reactNo)
+                                        const SBase & sb, bool inKL, int reactNo)
 {
   /* piecewise(x, y, z)
    * x and z must have same units
@@ -230,7 +230,7 @@ ArgumentsUnitsCheck::checkUnitsFromPiecewise (const Model& m,
 void 
 ArgumentsUnitsCheck::checkSameUnitsAsArgs (const Model& m, 
                                               const ASTNode& node, 
-                                              const SBase & sb, unsigned int inKL, 
+                                              const SBase & sb, bool inKL, 
                                               int reactNo)
 {
   UnitDefinition * ud;

@@ -83,7 +83,7 @@ ExponentUnitsCheck::getPreamble ()
   */
 void
 ExponentUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBase & sb,
-                                 unsigned int inKL, int reactNo)
+                                 bool inKL, int reactNo)
 {
   ASTNodeType_t type = node.getType();
 
@@ -126,7 +126,7 @@ ExponentUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBase
 void 
 ExponentUnitsCheck::checkUnitsFromRoot (const Model& m, 
                                         const ASTNode& node, 
-                                        const SBase & sb, unsigned int inKL, int reactNo)
+                                        const SBase & sb, bool inKL, int reactNo)
 {
   UnitDefinition *dim = new UnitDefinition();
   Unit *unit = new Unit("dimensionless");
