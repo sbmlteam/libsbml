@@ -352,11 +352,19 @@ END_TEST
 
 START_TEST (test_UnitFormulaFormatter_getUnitDefinition_hasUndeclaredUnits)
 {
-  fail_unless(uff->hasUndeclaredUnits(m->getRule(9)->getMath()) == 1);
+  uff->resetFlags();
+  uff->getUnitDefinition(m->getRule(9)->getMath());
+  fail_unless(uff->getUndeclaredUnits() == 1);
   fail_unless(uff->getCanIgnoreUndeclaredUnits() == 0);
-  fail_unless(uff->hasUndeclaredUnits(m->getRule(11)->getMath()) == 1);
+
+  uff->resetFlags();
+  uff->getUnitDefinition(m->getRule(11)->getMath());
+  fail_unless(uff->getUndeclaredUnits() == 1);
   fail_unless(uff->getCanIgnoreUndeclaredUnits() == 0);
-  fail_unless(uff->hasUndeclaredUnits(m->getRule(12)->getMath()) == 1);
+
+  uff->resetFlags();
+  uff->getUnitDefinition(m->getRule(12)->getMath());
+  fail_unless(uff->getUndeclaredUnits() == 1);
   fail_unless(uff->getCanIgnoreUndeclaredUnits() == 1);
 
 }

@@ -155,7 +155,7 @@ ArgumentsUnitsCheck::checkUnitsFromDelay (const Model& m,
 
   tempUD = unitFormat->getUnitDefinition(node.getRightChild(), inKL, reactNo);
   
-  if (!unitFormat->hasUndeclaredUnits(node.getRightChild(), inKL, reactNo))
+  if (!unitFormat->getUndeclaredUnits())
   {
     if (!areEquivalent(time, tempUD)) 
     {
@@ -242,11 +242,12 @@ ArgumentsUnitsCheck::checkSameUnitsAsArgs (const Model& m,
   ud = unitFormat->getUnitDefinition(node.getChild(i), inKL, reactNo);
 
   /* get the first child that is not a parameter with undeclared units */
-  while (unitFormat->hasUndeclaredUnits(node.getChild(i), inKL, reactNo) && 
+  while (unitFormat->getUndeclaredUnits() && 
     i < node.getNumChildren()-1)
   {
     delete ud; 
     i++;
+    unitFormat->resetFlags();
     ud = unitFormat->getUnitDefinition(node.getChild(i), inKL, reactNo);
   }
 
@@ -256,9 +257,10 @@ ArgumentsUnitsCheck::checkSameUnitsAsArgs (const Model& m,
    * which is not tested */
   for (n = i+1; n < node.getNumChildren(); n++)
   {
+    unitFormat->resetFlags();
     tempUD = unitFormat->getUnitDefinition(node.getChild(n), inKL, reactNo);
 
-    if (!unitFormat->hasUndeclaredUnits(node.getChild(n), inKL, reactNo))
+    if (!unitFormat->getUndeclaredUnits())
     {
       if (!areIdentical(ud, tempUD))
       {

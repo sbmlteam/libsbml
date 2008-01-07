@@ -640,6 +640,7 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode 
                                         unsigned int inKL, int reactNo)
 { 
   UnitDefinition * ud;
+  UnitDefinition * tempUd;
   unsigned int i = 0;
   unsigned int n = 0;
  
@@ -651,7 +652,7 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode 
 
   /* get first arg that is not a parameter with undeclared units */
   ud = getUnitDefinition(node->getChild(i), inKL, reactNo);
-  while (hasUndeclaredUnits(node->getChild(i), inKL, reactNo) && i < node->getNumChildren()-1)
+  while (getUndeclaredUnits()==1 && i < node->getNumChildren()-1)
   {
     if (originalUndeclaredValue == 1)
       currentIgnore = 0;
@@ -662,6 +663,7 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode 
 
     i++;
     delete ud;
+    resetFlags();
     ud = getUnitDefinition(node->getChild(i), inKL, reactNo);
   }
 
@@ -675,11 +677,14 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode 
   {
     for (n = i+1; n < node->getNumChildren(); n++)
     {
-      if (hasUndeclaredUnits(node->getChild(n), inKL, reactNo))
+      resetFlags();
+      tempUd = getUnitDefinition(node->getChild(n), inKL, reactNo);
+      if (getUndeclaredUnits())
       {
         currentUndeclared = 1;
         currentIgnore = 1;
       }
+      delete tempUd;
     }
   }
 
@@ -1411,49 +1416,6 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
   return ud;
 }
 
-/** 
-  * returns 1 if the math contains 
-  * a parameter that has undeclared units 0 otherwise
-  */
-unsigned int 
-UnitFormulaFormatter::hasUndeclaredUnits(const ASTNode * node,
-    unsigned int inKL, int reactNo)
-{
-  /**
-    * returns an existing undeclaredUnits (if any) that corresponds to 
-    * a given ASTNode object.
-    * (This is for avoiding redundant recursive calls)
-    */
-  map<const ASTNode*, unsigned int>::iterator it  = undeclaredUnitsMap.find(node);
-  map<const ASTNode*, unsigned int>::iterator it2 = canIgnoreUndeclaredUnitsMap.find(node);
-  if( (it != undeclaredUnitsMap.end()) && (it2 != canIgnoreUndeclaredUnitsMap.end())) {
-    //canIgnoreUndeclaredUnits = 2;
-    canIgnoreUndeclaredUnits = it2->second;
-    undeclaredUnits = it->second;
-    return undeclaredUnits;
-  }
-
-  undeclaredUnits = 0;
-  /* temporary HACK while I figure this out */
-  canIgnoreUndeclaredUnits = 2;
-
-  /* This was assigned but never used -- why?  2007-02-12 <mhucka@caltech.edu> */
-  /* This function will change the undeclaredUnits flag
-     if it encounters a parameter with undeclared units
-     it doesnt need to be assigned
-     */
-  delete getUnitDefinition(node, inKL, reactNo);
-
-  /** 
-    * adds a pair of ASTNode* (node) and unsigned int (undeclaredUnits)  
-    * to the UndeclaredUnitsMap.
-    */
-  if(depthRecursiveCall != 0) {
-    undeclaredUnitsMap.insert(pair<const ASTNode*, unsigned int>(node,undeclaredUnits));
-    canIgnoreUndeclaredUnitsMap.insert(pair<const ASTNode*, unsigned int>(node,canIgnoreUndeclaredUnits));
-  }
-  return undeclaredUnits;
-}
 /** 
   * returns canIgnoreUndeclaredUnits value
   */

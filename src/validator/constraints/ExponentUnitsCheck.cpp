@@ -141,7 +141,7 @@ ExponentUnitsCheck::checkUnitsFromRoot (const Model& m,
 
   unitsArg1 = unitFormat->getUnitDefinition(node.getLeftChild(), inKL, reactNo);
   unsigned int undeclaredUnits = 
-    unitFormat->hasUndeclaredUnits(node.getLeftChild(), inKL, reactNo);
+    unitFormat->getUndeclaredUnits();
   ASTNode * child = node.getRightChild();
    
   // The first argument is dimensionless then it doesnt matter 
