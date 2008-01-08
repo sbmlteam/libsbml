@@ -2427,7 +2427,8 @@ Model::populateListFormulaUnitsData()
     fud->setUnitDefinition(ud);
     fud->setContainsParametersWithUndeclaredUnits
                                 (unitFormatter->getContainsUndeclaredUnits());
-    fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
+    fud->setCanIgnoreUndeclaredUnits
+                                  (unitFormatter->canIgnoreUndeclaredUnits());
 
     if (ud != NULL)
     {
@@ -2457,7 +2458,8 @@ Model::populateListFormulaUnitsData()
       fud->setUnitDefinition(ud);
       fud->setContainsParametersWithUndeclaredUnits
                                 (unitFormatter->getContainsUndeclaredUnits());
-      fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
+      fud->setCanIgnoreUndeclaredUnits
+                                  (unitFormatter->canIgnoreUndeclaredUnits());
     }
     else
     {
@@ -2489,7 +2491,8 @@ Model::populateListFormulaUnitsData()
       fud->setUnitDefinition(ud);
       fud->setContainsParametersWithUndeclaredUnits
                                 (unitFormatter->getContainsUndeclaredUnits());
-      fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
+      fud->setCanIgnoreUndeclaredUnits
+                                  (unitFormatter->canIgnoreUndeclaredUnits());
     }
     else
     {
@@ -2525,12 +2528,13 @@ Model::populateListFormulaUnitsData()
       unitFormatter->resetFlags();
       if(react->getKineticLaw()->isSetMath())
       {
-        ud = unitFormatter->getUnitDefinition(react->getKineticLaw()->getMath(), 
-                                                                          1, n);
+        ud = unitFormatter->getUnitDefinition
+                                  (react->getKineticLaw()->getMath(), true, n);
         fud->setUnitDefinition(ud);
         fud->setContainsParametersWithUndeclaredUnits
                                  (unitFormatter->getContainsUndeclaredUnits());
-        fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
+        fud->setCanIgnoreUndeclaredUnits
+                                   (unitFormatter->canIgnoreUndeclaredUnits());
       }
       else
       {
@@ -2550,11 +2554,13 @@ Model::populateListFormulaUnitsData()
         fud->setUnitReferenceId(sr->getSpecies());
         fud->setComponentTypecode(SBML_SPECIES_REFERENCE);
         unitFormatter->resetFlags();
-        ud = unitFormatter->getUnitDefinition(sr->getStoichiometryMath()->getMath());
+        ud = unitFormatter->getUnitDefinition
+                                      (sr->getStoichiometryMath()->getMath());
         fud->setUnitDefinition(ud);
         fud->setContainsParametersWithUndeclaredUnits
                                 (unitFormatter->getContainsUndeclaredUnits());
-        fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
+        fud->setCanIgnoreUndeclaredUnits
+                                  (unitFormatter->canIgnoreUndeclaredUnits());
       }
     }
 
@@ -2568,17 +2574,20 @@ Model::populateListFormulaUnitsData()
         fud->setUnitReferenceId(sr->getId());
         fud->setComponentTypecode(SBML_SPECIES_REFERENCE);
         unitFormatter->resetFlags();
-        ud = unitFormatter->getUnitDefinition(sr->getStoichiometryMath()->getMath());
+        ud = unitFormatter->getUnitDefinition
+                                      (sr->getStoichiometryMath()->getMath());
         fud->setUnitDefinition(ud);
         fud->setContainsParametersWithUndeclaredUnits
                                 (unitFormatter->getContainsUndeclaredUnits());
-        fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
+        fud->setCanIgnoreUndeclaredUnits
+                                  (unitFormatter->canIgnoreUndeclaredUnits());
       }
     }
   }
 
   /**
-   * math may occur in events as the trigger, the delay or in the eventAssignment
+   * math may occur in events as the trigger, the delay or 
+   * in the eventAssignment
    */
   for (n=0; n < getNumEvents(); n++)
   {
@@ -2611,7 +2620,8 @@ Model::populateListFormulaUnitsData()
       fud->setUnitDefinition(ud);
       fud->setContainsParametersWithUndeclaredUnits
                                 (unitFormatter->getContainsUndeclaredUnits());
-      fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
+      fud->setCanIgnoreUndeclaredUnits
+                                  (unitFormatter->canIgnoreUndeclaredUnits());
       
       /* get event time definition */
       unitFormatter->resetFlags();
@@ -2634,7 +2644,8 @@ Model::populateListFormulaUnitsData()
         fud->setUnitDefinition(ud);
         fud->setContainsParametersWithUndeclaredUnits
                                  (unitFormatter->getContainsUndeclaredUnits());
-        fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
+        fud->setCanIgnoreUndeclaredUnits
+                                   (unitFormatter->canIgnoreUndeclaredUnits());
       }
     }
   }
@@ -2696,11 +2707,13 @@ Model::getFormulaUnitsData (unsigned int n)
 
 
 /**
- * @return the FormulaUnitsData in this Model with the given id or NULL if no such
+ * @return the FormulaUnitsData in this Model with the given id 
+ * or NULL if no such
  * FormulaUnitsData exists.
  */
 const FormulaUnitsData*
-Model::getFormulaUnitsData (const std::string& sid, SBMLTypeCode_t typecode) const
+Model::getFormulaUnitsData (const std::string& sid, 
+                            SBMLTypeCode_t typecode) const
 {
   const FormulaUnitsData * fud;
 
@@ -4542,7 +4555,8 @@ Model_getFormulaUnitsData (Model_t *m, unsigned int n)
   */
 LIBSBML_EXTERN
 FormulaUnitsData_t* 
-Model_getFormulaUnitsDataById(Model_t *m, const char* sid, SBMLTypeCode_t typecode)
+Model_getFormulaUnitsDataById(Model_t *m, const char* sid, 
+                                          SBMLTypeCode_t typecode)
 {
   return m->getFormulaUnitsData(sid, typecode);
 }

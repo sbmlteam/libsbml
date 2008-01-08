@@ -58,7 +58,8 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
     * (This is for avoiding redundant recursive calls.)
     */
 
-  map<const ASTNode*, UnitDefinition*>::iterator it = unitDefinitionMap.find(node);
+  map<const ASTNode*, UnitDefinition*>::iterator it = 
+                                                unitDefinitionMap.find(node);
   if(it != unitDefinitionMap.end()) {
     return static_cast<UnitDefinition*>(it->second->clone());
   }
@@ -134,7 +135,8 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
     case AST_RELATIONAL_LT:
     case AST_RELATIONAL_NEQ:
 
-      ud = getUnitDefinitionFromDimensionlessReturnFunction(node, inKL, reactNo);
+      ud = getUnitDefinitionFromDimensionlessReturnFunction
+                                                        (node, inKL, reactNo);
       break;
 
   /* functions that return same units */
@@ -233,13 +235,14 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
   {
     if (unitDefinitionMap.end() == unitDefinitionMap.find(node))
     {
-      /* adds a pair of ASTNode* (node) and UnitDefinition* (ud) to the UnitDefinitionMap */
+      /* adds a pair of ASTNode* (node) and 
+         UnitDefinition* (ud) to the UnitDefinitionMap */
       unitDefinitionMap.insert(pair<const ASTNode*, 
         UnitDefinition*>(node,static_cast<UnitDefinition*>(ud->clone())));
       undeclaredUnitsMap.insert(pair<const ASTNode*, 
-        bool>(node,mContainsUndeclaredUnits));
+                                    bool>(node,mContainsUndeclaredUnits));
       canIgnoreUndeclaredUnitsMap.insert(pair<const ASTNode*, 
-        unsigned int>(node,mCanIgnoreUndeclaredUnits));
+                           unsigned int>(node,mCanIgnoreUndeclaredUnits));
     }
   }
   else
@@ -247,7 +250,8 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
     /** 
       * Clears two map objects because all recursive call has finished.
       */ 
-    map<const ASTNode*, UnitDefinition*>::iterator it = unitDefinitionMap.begin();
+    map<const ASTNode*, UnitDefinition*>::iterator it = 
+                                                unitDefinitionMap.begin();
     while( it != unitDefinitionMap.end() )
     {
       delete it->second;
@@ -278,7 +282,8 @@ UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node,
 
   if(node->getType() == AST_FUNCTION)
   {
-    const FunctionDefinition *fd = model->getFunctionDefinition(node->getName());
+    const FunctionDefinition *fd = 
+                               model->getFunctionDefinition(node->getName());
     if (fd)
     {
       noBvars = fd->getNumArguments();
@@ -296,50 +301,6 @@ UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node,
         fdMath->ReplaceArgument(fd->getArgument(i)->getName(), 
                                             node->getChild(nodeCount));
       }
-      ///**
-      //* find corresponding func def which will have
-      //* the formula as the rightChild of ASTNode
-      //*/
-      //fdMath = model->getFunctionDefinition(node->getName())->getMath()
-      //                  ->getRightChild();
-      ///* if function has no variables then this will be null */
-      //if (fdMath == NULL)
-      //{
-      //  newMath = model->getFunctionDefinition(node->getName())->getMath()
-      //                    ->getLeftChild();
-      //}
-      //else
-      //{
-      //  /**
-      //  * create a new ASTNode of this type but with the children
-      //  * from the original function
-      //  */
-
-      //  /* need to catch case where a functionDefinition merely returns the argument */
-      //  if (fdMath->getType() == AST_NAME)
-      //  {
-      //    newMath = node->getLeftChild();
-      //  }
-      //  else
-      //  {
-      //    newMath = new ASTNode(fdMath->getType());
-      //    needDelete = true;
-      //    newMath->ReplaceArgument(
-      //    nodeCount = 0;
-      //    for (i = 0; i < fdMath->getNumChildren(); i++)
-      //    {
-      //      if (fdMath->getChild(i)->isName())
-      //      {
-      //        newMath->addChild(node->getChild(nodeCount)->deepCopy());
-      //        nodeCount++;
-      //      }
-      //      else
-      //      {
-      //        newMath->addChild(fdMath->getChild(i)->deepCopy());
-      //      }
-      //    }
-      //  }
-      //}
       ud = getUnitDefinition(fdMath, inKL, reactNo);
       delete fdMath;
     }
@@ -496,7 +457,8 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
         }
         else if (model->getSpecies(child->getName()))
         {
-          value = model->getSpecies(child->getName())->getInitialConcentration();
+          value = model->getSpecies(child->getName())
+                                                 ->getInitialConcentration();
         }
 
       }
@@ -628,7 +590,8 @@ UnitFormulaFormatter::getUnitDefinitionFromDimensionlessReturnFunction(
   * a function returning value with same units as argument(s)
   */
 UnitDefinition * 
-UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode * node, 
+UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction
+                                       (const ASTNode * node, 
                                         bool inKL, int reactNo)
 { 
   UnitDefinition * ud;
@@ -746,7 +709,8 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
         if (model->getReaction(reactNo)->isSetKineticLaw())
         {
           kl = model->getReaction(reactNo)->getKineticLaw();
-          ud = getUnitDefinitionFromParameter(kl->getParameter(node->getName()));
+          ud = getUnitDefinitionFromParameter(
+                                           kl->getParameter(node->getName()));
           if (ud)
           {
             found = 1;
@@ -755,7 +719,8 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
       }
       if (found == 0)// && n < model->getNumCompartments())
       {
-        ud = getUnitDefinitionFromCompartment(model->getCompartment(node->getName()));
+        ud = getUnitDefinitionFromCompartment(
+                                      model->getCompartment(node->getName()));
         if (ud)
         {
           found = 1;
@@ -764,7 +729,8 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
 
       if (found == 0)//&& n < model->getNumSpecies())
       {
-        ud = getUnitDefinitionFromSpecies(model->getSpecies(node->getName()));
+        ud = getUnitDefinitionFromSpecies(
+                                          model->getSpecies(node->getName()));
         if (ud)
         {
           found = 1;
@@ -773,7 +739,8 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
 
       if (found == 0 )//&& n < model->getNumParameters())
       {
-        ud = getUnitDefinitionFromParameter(model->getParameter(node->getName()));
+        ud = getUnitDefinitionFromParameter(
+                                       model->getParameter(node->getName()));
         if (ud)
         {
           found = 1;
@@ -906,7 +873,8 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment
     /* units can be a predefined unit kind
     * a unit definition id or a builtin unit
     */
-    if (UnitKind_isValidUnitKindString(units, compartment->getLevel(), compartment->getVersion()))
+    if (UnitKind_isValidUnitKindString(units, 
+                          compartment->getLevel(), compartment->getVersion()))
     {
       unit = new Unit(units);
       ud   = new UnitDefinition();
@@ -925,11 +893,16 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment
           
           for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
           {
-            unit = new Unit(model->getUnitDefinition(n)->getUnit(p)->getKind());
-            unit->setMultiplier(model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
-            unit->setScale(model->getUnitDefinition(n)->getUnit(p)->getScale());
-            unit->setExponent(model->getUnitDefinition(n)->getUnit(p)->getExponent());
-            unit->setOffset(model->getUnitDefinition(n)->getUnit(p)->getOffset());
+            unit = new Unit(
+                         model->getUnitDefinition(n)->getUnit(p)->getKind());
+            unit->setMultiplier(
+                   model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
+            unit->setScale(
+                        model->getUnitDefinition(n)->getUnit(p)->getScale());
+            unit->setExponent(
+                     model->getUnitDefinition(n)->getUnit(p)->getExponent());
+            unit->setOffset(
+                       model->getUnitDefinition(n)->getUnit(p)->getOffset());
 
             ud->addUnit(unit);
 
@@ -1034,7 +1007,8 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
     /* units can be a predefined unit kind
     * a unit definition id or a builtin unit
     */
-    if (UnitKind_isValidUnitKindString(units, species->getLevel(), species->getVersion()))
+    if (UnitKind_isValidUnitKindString(units, 
+                                 species->getLevel(), species->getVersion()))
     {
       unit = new Unit(units);
       subsUD   = new UnitDefinition();
@@ -1053,11 +1027,16 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
           
           for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
           {
-            unit = new Unit(model->getUnitDefinition(n)->getUnit(p)->getKind());
-            unit->setMultiplier(model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
-            unit->setScale(model->getUnitDefinition(n)->getUnit(p)->getScale());
-            unit->setExponent(model->getUnitDefinition(n)->getUnit(p)->getExponent());
-            unit->setOffset(model->getUnitDefinition(n)->getUnit(p)->getOffset());
+            unit = new Unit(
+                         model->getUnitDefinition(n)->getUnit(p)->getKind());
+            unit->setMultiplier(
+                   model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
+            unit->setScale(
+                        model->getUnitDefinition(n)->getUnit(p)->getScale());
+            unit->setExponent(
+                     model->getUnitDefinition(n)->getUnit(p)->getExponent());
+            unit->setOffset(
+                       model->getUnitDefinition(n)->getUnit(p)->getOffset());
 
             subsUD->addUnit(unit);
 
@@ -1128,11 +1107,16 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
           
           for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
           {
-            unit = new Unit(model->getUnitDefinition(n)->getUnit(p)->getKind());
-            unit->setMultiplier(model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
-            unit->setScale(model->getUnitDefinition(n)->getUnit(p)->getScale());
-            unit->setExponent(model->getUnitDefinition(n)->getUnit(p)->getExponent());
-            unit->setOffset(model->getUnitDefinition(n)->getUnit(p)->getOffset());
+            unit = new Unit(
+                          model->getUnitDefinition(n)->getUnit(p)->getKind());
+            unit->setMultiplier(
+                    model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
+            unit->setScale(
+                         model->getUnitDefinition(n)->getUnit(p)->getScale());
+            unit->setExponent(
+                      model->getUnitDefinition(n)->getUnit(p)->getExponent());
+            unit->setOffset(
+                        model->getUnitDefinition(n)->getUnit(p)->getOffset());
 
             sizeUD->addUnit(unit);
 
@@ -1196,7 +1180,8 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
   * returns the unitDefinition for the units of the parameter
   */
 UnitDefinition * 
-UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter)
+UnitFormulaFormatter::getUnitDefinitionFromParameter
+                                                (const Parameter * parameter)
 {
   if (!parameter)
   {
@@ -1222,7 +1207,8 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter
     * a unit definition id or a builtin unit
     */
 
-    if (UnitKind_isValidUnitKindString(units, parameter->getLevel(), parameter->getVersion()))
+    if (UnitKind_isValidUnitKindString(units, 
+                              parameter->getLevel(), parameter->getVersion()))
     {
       unit = new Unit(units);
       ud   = new UnitDefinition();
@@ -1241,11 +1227,16 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter
           
           for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
           {
-            unit = new Unit(model->getUnitDefinition(n)->getUnit(p)->getKind());
-            unit->setMultiplier(model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
-            unit->setScale(model->getUnitDefinition(n)->getUnit(p)->getScale());
-            unit->setExponent(model->getUnitDefinition(n)->getUnit(p)->getExponent());
-            unit->setOffset(model->getUnitDefinition(n)->getUnit(p)->getOffset());
+            unit = new Unit(
+                         model->getUnitDefinition(n)->getUnit(p)->getKind());
+            unit->setMultiplier(
+                   model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
+            unit->setScale(
+                        model->getUnitDefinition(n)->getUnit(p)->getScale());
+            unit->setExponent(
+                     model->getUnitDefinition(n)->getUnit(p)->getExponent());
+            unit->setOffset(
+                       model->getUnitDefinition(n)->getUnit(p)->getOffset());
 
             ud->addUnit(unit);
 
@@ -1342,7 +1333,8 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
     * a unit definition id or a builtin unit
     */
 
-    if (UnitKind_isValidUnitKindString(units, event->getLevel(), event->getVersion()))
+    if (UnitKind_isValidUnitKindString(units, 
+                                     event->getLevel(), event->getVersion()))
     {
       unit = new Unit(units);
       ud   = new UnitDefinition();
@@ -1361,11 +1353,16 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
           
           for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
           {
-            unit = new Unit(model->getUnitDefinition(n)->getUnit(p)->getKind());
-            unit->setMultiplier(model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
-            unit->setScale(model->getUnitDefinition(n)->getUnit(p)->getScale());
-            unit->setExponent(model->getUnitDefinition(n)->getUnit(p)->getExponent());
-            unit->setOffset(model->getUnitDefinition(n)->getUnit(p)->getOffset());
+            unit = new Unit(
+                         model->getUnitDefinition(n)->getUnit(p)->getKind());
+            unit->setMultiplier(
+                   model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
+            unit->setScale(
+                        model->getUnitDefinition(n)->getUnit(p)->getScale());
+            unit->setExponent(
+                     model->getUnitDefinition(n)->getUnit(p)->getExponent());
+            unit->setOffset(
+                       model->getUnitDefinition(n)->getUnit(p)->getOffset());
 
             ud->addUnit(unit);
 
@@ -1406,7 +1403,7 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
   * returns canIgnoreUndeclaredUnits value
   */
 bool 
-UnitFormulaFormatter::getCanIgnoreUndeclaredUnits()
+UnitFormulaFormatter::canIgnoreUndeclaredUnits()
 {
   if (mCanIgnoreUndeclaredUnits == 2
     || mCanIgnoreUndeclaredUnits == 0)
@@ -1434,4 +1431,77 @@ UnitFormulaFormatter::resetFlags()
 {
   mContainsUndeclaredUnits = false;
   mCanIgnoreUndeclaredUnits = 2;
+}
+
+LIBSBML_EXTERN
+UnitFormulaFormatter_t* 
+UnitFormulaFormatter_create(Model_t * model)
+{
+  return new(nothrow) UnitFormulaFormatter(model);
+}
+
+LIBSBML_EXTERN
+UnitDefinition_t * 
+UnitFormulaFormatter_getUnitDefinition(UnitFormulaFormatter_t * uff,
+                                       const ASTNode_t * node, 
+                                       unsigned int inKL, int reactNo)
+{
+  return uff->getUnitDefinition(node, inKL, reactNo);
+}
+
+LIBSBML_EXTERN
+UnitDefinition_t * 
+UnitFormulaFormatter_getUnitDefinitionFromCompartment
+                                         (UnitFormulaFormatter_t * uff,
+                                          const Compartment_t * compartment)
+{
+  return uff->getUnitDefinitionFromCompartment(compartment);
+}
+
+LIBSBML_EXTERN
+UnitDefinition_t * 
+UnitFormulaFormatter_getUnitDefinitionFromSpecies
+                                         (UnitFormulaFormatter_t * uff,
+                                          const Species_t * species)
+{
+  return uff->getUnitDefinitionFromSpecies(species);
+}
+
+LIBSBML_EXTERN
+UnitDefinition_t * 
+UnitFormulaFormatter_getUnitDefinitionFromParameter
+                                         (UnitFormulaFormatter_t * uff,
+                                          const Parameter * parameter)
+{
+  return uff->getUnitDefinitionFromParameter(parameter);
+}
+
+LIBSBML_EXTERN
+UnitDefinition_t * 
+UnitFormulaFormatter_getUnitDefinitionFromEventTime
+                                         (UnitFormulaFormatter_t * uff,
+                                          const Event * event)
+{
+  return uff->getUnitDefinitionFromEventTime(event);
+}
+
+LIBSBML_EXTERN
+int 
+UnitFormulaFormatter_canIgnoreUndeclaredUnits(UnitFormulaFormatter_t * uff)
+{
+  return static_cast <int> (uff->canIgnoreUndeclaredUnits());
+}
+
+LIBSBML_EXTERN
+int
+UnitFormulaFormatter_getContainsUndeclaredUnits(UnitFormulaFormatter_t * uff)
+{
+  return static_cast <int> (uff->getContainsUndeclaredUnits());
+}
+
+LIBSBML_EXTERN
+void 
+UnitFormulaFormatter_resetFlags(UnitFormulaFormatter_t * uff)
+{
+  uff->resetFlags();
 }

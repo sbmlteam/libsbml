@@ -94,7 +94,103 @@ public:
   UnitDefinition * getUnitDefinition(const ASTNode * node, 
     bool inKL = false, int reactNo = -1);
 
- /* @cond doxygen-libsbml-internal */
+
+  /**
+   * Visits the Compartment and returns the unitDefinition constructed
+   * from the units of this Compartment.
+   *
+   * @param compartment the Compartment object for which the unitDefinition
+   * is to be constructed.
+   *
+   * @return the unitDefinition constructed to represent the units 
+   * of the Compartment.
+   */
+  UnitDefinition * getUnitDefinitionFromCompartment
+                                            (const Compartment * compartment);
+
+  /**
+   * Visits the Species and returns the unitDefinition constructed
+   * from the units of this Species.
+   *
+   * @param species the Species object for which the unitDefinition
+   * is to be constructed.
+   *
+   * @return the unitDefinition constructed to represent the units 
+   * of the Species.
+   */
+  UnitDefinition * getUnitDefinitionFromSpecies(const Species * species);
+
+  /**
+   * Visits the Parameter and returns the unitDefinition constructed
+   * from the units of this Parameter.
+   *
+   * @param parameter the Parameter object for which the unitDefinition
+   * is to be constructed.
+   *
+   * @return the unitDefinition constructed to represent the units 
+   * of the Parameter.
+   */
+  UnitDefinition * getUnitDefinitionFromParameter(const Parameter * parameter);
+
+  /**
+   * Visits the Event and returns the unitDefinition constructed
+   * from the time units of this Event.
+   *
+   * @param event the Event object for which the unitDefinition
+   * is to be constructed.
+   *
+   * @return the unitDefinition constructed to represent the time units 
+   * of the Event.
+   */
+  UnitDefinition * getUnitDefinitionFromEventTime(const Event * event);
+
+  /**
+   * Predicate returning @c true or @c false depending on whether 
+   * undeclared units can be ignored.
+   * 
+   * @return @c true if the math last processed by the UnitFormulaFormatter
+   * includes parameters/numbers 
+   * with undeclared units which will not impact the overall units
+   * of the expression, @c false otherwise.
+   *
+   * @note Each time the getUnitDefinition function is called by the
+   * UnitFormulaFormatter the value of the "containsUndeclaredUnits"
+   * flag  and the "canIgnoreUndeclaredUnits" may change. These flags
+   * are specific to the ASTNode for which units are being derived.
+   *
+   * @see resetFlags()
+   */
+  bool canIgnoreUndeclaredUnits();
+
+  /**
+   * Get the current value of the "containsUndeclaredUnits" flag for this 
+   * UnitFormulaFormatter.
+   * 
+   * @return @c true if the math last processed by the UnitFormulaFormatter
+   * includes parameters/numbers 
+   * with undeclared units, @c false otherwise.
+   *
+   * @note Each time the getUnitDefinition function is called by the
+   * UnitFormulaFormatter the value of the "containsUndeclaredUnits"
+   * flag  and the "canIgnoreUndeclaredUnits" may change. These flags
+   * are specific to the ASTNode for which units are being derived.
+   *
+   * @see resetFlags()
+   */
+  bool getContainsUndeclaredUnits();
+
+  /** 
+   * Resets the "containsUndeclaredUnits" and "canIgnoreUndeclaredUnits" flags
+   * to their initial values.
+   *
+   * @note Each time the getUnitDefinition function is called by the
+   * UnitFormulaFormatter the value of the "containsUndeclaredUnits"
+   * flag  and the "canIgnoreUndeclaredUnits" may change. These flags
+   * are specific to the ASTNode for which units are being derived.
+   */
+  void resetFlags();
+ 
+  /* @cond doxygen-libsbml-internal */
   /** 
    * returns the unitDefinition for the ASTNode from a function
    */
@@ -161,83 +257,6 @@ public:
     bool inKL, int reactNo);
 /** @endcond doxygen-libsbml-internal */
 
-  /**
-   * Visits the Compartment and returns the unitDefinition constructed
-   * from the units of this Compartment.
-   *
-   * @param compartment the Compartment object for which the unitDefinition
-   * is to be constructed.
-   *
-   * @return the unitDefinition constructed to represent the units 
-   * of the Compartment.
-   */
-  UnitDefinition * getUnitDefinitionFromCompartment
-                                            (const Compartment * compartment);
-
-  /**
-   * Visits the Species and returns the unitDefinition constructed
-   * from the units of this Species.
-   *
-   * @param species the Species object for which the unitDefinition
-   * is to be constructed.
-   *
-   * @return the unitDefinition constructed to represent the units 
-   * of the Species.
-   */
-  UnitDefinition * getUnitDefinitionFromSpecies(const Species * species);
-
-  /**
-   * Visits the Parameter and returns the unitDefinition constructed
-   * from the units of this Parameter.
-   *
-   * @param parameter the Parameter object for which the unitDefinition
-   * is to be constructed.
-   *
-   * @return the unitDefinition constructed to represent the units 
-   * of the Parameter.
-   */
-  UnitDefinition * getUnitDefinitionFromParameter(const Parameter * parameter);
-
-  /**
-   * Visits the Event and returns the unitDefinition constructed
-   * from the time units of this Event.
-   *
-   * @param event the Event object for which the unitDefinition
-   * is to be constructed.
-   *
-   * @return the unitDefinition constructed to represent the time units 
-   * of the Event.
-   */
-  UnitDefinition * getUnitDefinitionFromEventTime(const Event * event);
-
-  /** 
-    * returns canIgnoreUndeclaredUnits value
-    */
-  bool getCanIgnoreUndeclaredUnits();
-
-  /**
-   * Get the current value of the "containsUndeclaredUnits" flag for this 
-   * UnitFormulaFormatter.
-   * 
-   * @return @c true if the math last processed by the UnitFormulaFormatter
-   * includes parameters/numbers 
-   * with undeclared units, @c false otherwise.
-   *
-   * @note Each time the getUnitDefinition function is called by the
-   * UnitFormulaFormatter the value of the "containsUndeclaredUnits"
-   * flag  and the "canIgnoreUndeclaredUnits" may change. These flags
-   * are specific to the ASTNode for which units are being derived.
-   *
-   * @see resetFlags()
-   */
-  bool getContainsUndeclaredUnits();
-
-  /** 
-   * resets the undeclaredUnits and canIgnoreUndeclaredUnits flags
-   * since these will different for each math formula
-   */
-  void resetFlags();
-
 private:
   const Model * model;
   bool mContainsUndeclaredUnits;
@@ -254,6 +273,62 @@ private:
 
 
 #endif  /* !cplusplus */
+#ifndef SWIG
+
+BEGIN_C_DECLS
+
+/*-----------------------------------------------------------------------------
+ * See the .cpp file for the documentation of the following functions.
+ *---------------------------------------------------------------------------*/
+
+LIBSBML_EXTERN
+UnitFormulaFormatter_t* 
+UnitFormulaFormatter_create(Model_t * model);
+
+LIBSBML_EXTERN
+UnitDefinition_t * 
+UnitFormulaFormatter_getUnitDefinition(UnitFormulaFormatter_t * uff,
+                                       const ASTNode_t * node, 
+                                       unsigned int inKL, int reactNo);
+
+LIBSBML_EXTERN
+UnitDefinition_t * 
+UnitFormulaFormatter_getUnitDefinitionFromCompartment
+                                         (UnitFormulaFormatter_t * uff,
+                                          const Compartment_t * compartment);
+LIBSBML_EXTERN
+UnitDefinition_t * 
+UnitFormulaFormatter_getUnitDefinitionFromSpecies
+                                         (UnitFormulaFormatter_t * uff,
+                                          const Species_t * species);
+
+LIBSBML_EXTERN
+UnitDefinition_t * 
+UnitFormulaFormatter_getUnitDefinitionFromParameter
+                                         (UnitFormulaFormatter_t * uff,
+                                          const Parameter * parameter);
+
+LIBSBML_EXTERN
+UnitDefinition_t * 
+UnitFormulaFormatter_getUnitDefinitionFromEventTime
+                                         (UnitFormulaFormatter_t * uff,
+                                          const Event * event);
+LIBSBML_EXTERN
+int 
+UnitFormulaFormatter_canIgnoreUndeclaredUnits(UnitFormulaFormatter_t * uff);
+
+LIBSBML_EXTERN
+int
+UnitFormulaFormatter_getContainsUndeclaredUnits(UnitFormulaFormatter_t * uff);
+
+LIBSBML_EXTERN
+void 
+UnitFormulaFormatter_resetFlags(UnitFormulaFormatter_t * uff);
+
+END_C_DECLS
+
+
+#endif  /* !SWIG   */
 #endif  /* UnitFormulaFormatter_h */
 
 

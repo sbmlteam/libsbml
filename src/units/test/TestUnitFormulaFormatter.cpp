@@ -355,17 +355,17 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_hasUndeclaredUnits)
   uff->resetFlags();
   uff->getUnitDefinition(m->getRule(9)->getMath());
   fail_unless(uff->getContainsUndeclaredUnits() == 1);
-  fail_unless(uff->getCanIgnoreUndeclaredUnits() == 0);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == 0);
 
   uff->resetFlags();
   uff->getUnitDefinition(m->getRule(11)->getMath());
   fail_unless(uff->getContainsUndeclaredUnits() == 1);
-  fail_unless(uff->getCanIgnoreUndeclaredUnits() == 0);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == 0);
 
   uff->resetFlags();
   uff->getUnitDefinition(m->getRule(12)->getMath());
   fail_unless(uff->getContainsUndeclaredUnits() == 1);
-  fail_unless(uff->getCanIgnoreUndeclaredUnits() == 1);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == 1);
 
 }
 END_TEST
