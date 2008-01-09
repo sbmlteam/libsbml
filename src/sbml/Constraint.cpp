@@ -390,6 +390,8 @@ void
 Constraint::writeElements (XMLOutputStream& stream) const
 {
   if (mMath) writeMathML(mMath, stream);
+
+  if (mMessage) stream << *mMessage;
 }
 /** @endcond doxygen-libsbml-internal */
 
