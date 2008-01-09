@@ -267,6 +267,9 @@ END_TEST
 START_TEST (test_UnitDefinition_isVariantOfArea)
 {
   
+  Unit_t *dim   = Unit_create();
+  Unit_setKind( dim  , UnitKind_forName("dimensionless")   );
+  
   Unit_t *u = UnitDefinition_createUnit(UD);
   fail_unless( !UnitDefinition_isVariantOfArea(UD) );
   
@@ -286,12 +289,20 @@ START_TEST (test_UnitDefinition_isVariantOfArea)
 
   Unit_setExponent(u, 3);
   fail_unless( !UnitDefinition_isVariantOfArea(UD) );
+
+  Unit_setExponent(u, 2);
+  UnitDefinition_addUnit( UD, dim   );
+  fail_unless(  UnitDefinition_isVariantOfArea(UD) );
+
 }
 END_TEST
 
 
 START_TEST (test_UnitDefinition_isVariantOfLength)
 {
+  Unit_t *dim   = Unit_create();
+  Unit_setKind( dim  , UnitKind_forName("dimensionless")   );
+  
   Unit_t *u = UnitDefinition_createUnit(UD);
   fail_unless( !UnitDefinition_isVariantOfLength(UD) );
   
@@ -312,12 +323,20 @@ START_TEST (test_UnitDefinition_isVariantOfLength)
 
   Unit_setExponent(u, 2);
   fail_unless( !UnitDefinition_isVariantOfLength(UD) );
+
+  Unit_setExponent(u, 1);
+  UnitDefinition_addUnit( UD, dim   );
+  fail_unless(  UnitDefinition_isVariantOfLength(UD) );
+
 }
 END_TEST
 
 
 START_TEST (test_UnitDefinition_isVariantOfSubstance_1)
 {
+  Unit_t *dim   = Unit_create();
+  Unit_setKind( dim  , UnitKind_forName("dimensionless")   );
+
   Unit_t *u = UnitDefinition_createUnit(UD);
 
   fail_unless( !UnitDefinition_isVariantOfSubstance(UD) );
@@ -338,12 +357,20 @@ START_TEST (test_UnitDefinition_isVariantOfSubstance_1)
 
   Unit_setExponent(u, -3);
   fail_unless( !UnitDefinition_isVariantOfSubstance(UD) );
+
+  Unit_setExponent(u, 1);
+  UnitDefinition_addUnit( UD, dim   );
+  fail_unless(  UnitDefinition_isVariantOfSubstance(UD) );
+
 }
 END_TEST
 
 
 START_TEST (test_UnitDefinition_isVariantOfSubstance_2)
 {
+  Unit_t *dim   = Unit_create();
+  Unit_setKind( dim  , UnitKind_forName("dimensionless")   );
+  
   Unit_t *u = UnitDefinition_createUnit(UD);
 
   fail_unless( !UnitDefinition_isVariantOfSubstance(UD) );
@@ -363,12 +390,20 @@ START_TEST (test_UnitDefinition_isVariantOfSubstance_2)
 
   Unit_setExponent(u, -2);
   fail_unless( !UnitDefinition_isVariantOfSubstance(UD) );
+
+  Unit_setExponent(u, 1);
+  UnitDefinition_addUnit( UD, dim   );
+  fail_unless(  UnitDefinition_isVariantOfSubstance(UD) );
+
 }
 END_TEST
 
 
 START_TEST (test_UnitDefinition_isVariantOfTime)
 {
+  Unit_t *dim   = Unit_create();
+  Unit_setKind( dim  , UnitKind_forName("dimensionless")   );
+  
   Unit_t *u = UnitDefinition_createUnit(UD);
 
   fail_unless( !UnitDefinition_isVariantOfTime(UD) );
@@ -388,12 +423,20 @@ START_TEST (test_UnitDefinition_isVariantOfTime)
 
   Unit_setExponent(u, 2);
   fail_unless( !UnitDefinition_isVariantOfTime(UD) );
+
+  Unit_setExponent(u, 1);
+  UnitDefinition_addUnit( UD, dim   );
+  fail_unless(  UnitDefinition_isVariantOfTime(UD) );
+
 }
 END_TEST
 
 
 START_TEST (test_UnitDefinition_isVariantOfVolume_1)
 {
+  Unit_t *dim   = Unit_create();
+  Unit_setKind( dim  , UnitKind_forName("dimensionless")   );
+  
   Unit_t *u = UnitDefinition_createUnit(UD);
 
   fail_unless( !UnitDefinition_isVariantOfVolume(UD) );
@@ -413,12 +456,20 @@ START_TEST (test_UnitDefinition_isVariantOfVolume_1)
 
   Unit_setExponent(u, -1);
   fail_unless( !UnitDefinition_isVariantOfVolume(UD) );
+
+  Unit_setExponent(u, 1);
+  UnitDefinition_addUnit( UD, dim   );
+  fail_unless(  UnitDefinition_isVariantOfVolume(UD) );
+
 }
 END_TEST
 
 
 START_TEST (test_UnitDefinition_isVariantOfVolume_2)
 {
+  Unit_t *dim   = Unit_create();
+  Unit_setKind( dim  , UnitKind_forName("dimensionless")   );
+  
   Unit_t *u = UnitDefinition_createUnit(UD);
 
 
@@ -439,6 +490,11 @@ START_TEST (test_UnitDefinition_isVariantOfVolume_2)
 
   Unit_setExponent(u, 2);
   fail_unless( !UnitDefinition_isVariantOfVolume(UD) );
+
+  Unit_setExponent(u, 3);
+  UnitDefinition_addUnit( UD, dim   );
+  fail_unless(  UnitDefinition_isVariantOfVolume(UD) );
+
 }
 END_TEST
 

@@ -27,6 +27,8 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
+#include <sbml/units/Utils_UnitDefinition.h>
+
 #include <sbml/SBO.h>
 #include <sbml/SBMLVisitor.h>
 #include <sbml/SBMLError.h>
@@ -117,13 +119,16 @@ UnitDefinition::isVariantOfArea () const
 {
   bool result = false;
 
+  UnitDefinition *ud = static_cast<UnitDefinition*>(this->clone());
+  simplifyUnitDefinition(ud);
 
-  if (getNumUnits() == 1)
+  if (ud->getNumUnits() == 1)
   {
-    const Unit* u = getUnit(0);
+    const Unit* u = ud->getUnit(0);
     result        = u->isMetre() && u->getExponent() == 2;
   }
 
+  delete ud;
   return result;
 }
 
@@ -138,13 +143,16 @@ UnitDefinition::isVariantOfLength () const
 {
   bool result = false;
 
+  UnitDefinition *ud = static_cast<UnitDefinition*>(this->clone());
+  simplifyUnitDefinition(ud);
 
-  if (getNumUnits() == 1)
+  if (ud->getNumUnits() == 1)
   {
-    const Unit* u = getUnit(0);
+    const Unit* u = ud->getUnit(0);
     result        = u->isMetre() && u->getExponent() == 1;
   }
 
+  delete ud;
   return result;
 }
 
@@ -159,13 +167,29 @@ UnitDefinition::isVariantOfSubstance () const
 {
   bool result = false;
 
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
 
-  if (getNumUnits() == 1)
+  UnitDefinition *ud = static_cast<UnitDefinition*>(this->clone());
+  simplifyUnitDefinition(ud);
+
+  if (ud->getNumUnits() == 1)
   {
-    const Unit* u = getUnit(0);
-    result        = (u->isMole() || u->isItem()) && u->getExponent() == 1;
+    const Unit* u = ud->getUnit(0);
+    if (level == 2 && version > 1)
+    {
+      result = ((  u->isMole() || u->isItem() 
+                || u->isGram() || u->isKilogram())
+                && u->getExponent() == 1);
+    }
+    else
+    {
+      result        = (u->isMole() || u->isItem()) 
+                    && u->getExponent() == 1;
+    }
   }
 
+  delete ud;
   return result;
 }
 
@@ -180,13 +204,16 @@ UnitDefinition::isVariantOfTime () const
 {
   bool result = false;
 
+  UnitDefinition *ud = static_cast<UnitDefinition*>(this->clone());
+  simplifyUnitDefinition(ud);
 
-  if (getNumUnits() == 1)
+  if (ud->getNumUnits() == 1)
   {
-    const Unit* u = getUnit(0);
+    const Unit* u = ud->getUnit(0);
     result        = u->isSecond() && u->getExponent() == 1;
   }
 
+  delete ud;
   return result;
 }
 
@@ -201,14 +228,17 @@ UnitDefinition::isVariantOfVolume () const
 {
   bool result = false;
 
+  UnitDefinition *ud = static_cast<UnitDefinition*>(this->clone());
+  simplifyUnitDefinition(ud);
 
-  if (getNumUnits() == 1)
+  if (ud->getNumUnits() == 1)
   {
-    const Unit* u = getUnit(0);
+    const Unit* u = ud->getUnit(0);
     result        = (u->isLitre() && u->getExponent() == 1) ||
                     (u->isMetre() && u->getExponent() == 3);
   }
 
+  delete ud;
   return result;
 }
 

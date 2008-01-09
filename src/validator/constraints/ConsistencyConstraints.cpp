@@ -319,22 +319,16 @@ START_CONSTRAINT (20402, UnitDefinition, ud)
   }
 
 
-  inv( ud.getNumUnits() == 1                              );
-  inv( ud.getUnit(0)->getExponent() == 1                  );
-
-    /* dimensionless/gram/kilogram are allowable in L2V2 and L2V3*/
+    /* dimensionless allowable in L2V2 and L2V3*/
   if (  ud.getLevel() == 2 
     &&  (ud.getVersion() == 2 || ud.getVersion() == 3))
   {
-    inv_or ( ud.getUnit(0)->isMole());
-    inv_or ( ud.getUnit(0)->isItem() );
-    inv_or ( ud.getUnit(0)->isGram() );
-    inv_or ( ud.getUnit(0)->isKilogram() );
-    inv_or ( ud.getUnit(0)->isDimensionless());
+    inv_or (ud.isVariantOfSubstance());
+    inv_or (ud.getNumUnits() == 1 && ud.getUnit(0)->isDimensionless());
   }
   else
   {
-    inv( ud.getUnit(0)->isMole() || ud.getUnit(0)->isItem() );
+    inv( ud.isVariantOfSubstance() );
   }
 
 }
@@ -377,19 +371,16 @@ START_CONSTRAINT (20403, UnitDefinition, ud)
   }
 
 
-  inv( ud.getNumUnits() == 1             );
-
   /* dimensionless is allowable in L2V2 */
   if (  ud.getLevel() == 2 
-    &&  (ud.getVersion() == 2 || ud.getVersion() == 3)
-    &&  !ud.getUnit(0)->isMetre())
+    &&  (ud.getVersion() == 2 || ud.getVersion() == 3))
   {
-    inv(ud.getUnit(0)->isDimensionless());
+    inv_or(ud.getNumUnits() == 1 && ud.getUnit(0)->isDimensionless());
+    inv_or(ud.isVariantOfLength());
   }
   else
   {
-    inv( ud.getUnit(0)->isMetre()          );
-    inv( ud.getUnit(0)->getExponent() == 1 );
+    inv( ud.isVariantOfLength());
   }
 }
 END_CONSTRAINT
@@ -430,19 +421,17 @@ START_CONSTRAINT (20404, UnitDefinition, ud)
     }
   }
 
-  inv( ud.getNumUnits() == 1             );
 
   /* dimensionless is allowable in L2V2 */
   if (  ud.getLevel() == 2 
-    &&  (ud.getVersion() == 2 || ud.getVersion() == 3)
-    &&  !ud.getUnit(0)->isMetre())
+    &&  (ud.getVersion() == 2 || ud.getVersion() == 3))
   {
-    inv(ud.getUnit(0)->isDimensionless());
+    inv_or(ud.getNumUnits() == 1  && ud.getUnit(0)->isDimensionless());
+    inv_or(ud.isVariantOfArea());
   }
   else
   {
-    inv( ud.getUnit(0)->isMetre()          );
-    inv( ud.getUnit(0)->getExponent() == 2 );
+    inv( ud.isVariantOfArea()         );
   }
 }
 END_CONSTRAINT
@@ -472,19 +461,17 @@ START_CONSTRAINT (20405, UnitDefinition, ud)
   }
 
 
-  inv( ud.getNumUnits() == 1             );
 
   /* dimensionless is allowable in L2V2 */
   if (  ud.getLevel() == 2 
-    &&  (ud.getVersion() == 2 || ud.getVersion() == 3)
-    &&  !ud.getUnit(0)->isSecond())
+    &&  (ud.getVersion() == 2 || ud.getVersion() == 3))
   {
-    inv(ud.getUnit(0)->isDimensionless());
+    inv_or(ud.getNumUnits() == 1 && ud.getUnit(0)->isDimensionless());
+    inv_or(ud.isVariantOfTime());
   }
   else
   {
-    inv( ud.getUnit(0)->isSecond()         );
-    inv( ud.getUnit(0)->getExponent() == 1 );
+    inv( ud.isVariantOfTime()        );
   }
 }
 END_CONSTRAINT
@@ -526,9 +513,12 @@ START_CONSTRAINT (20406, UnitDefinition, ud)
       "value is 'litre'. ";
   }
 
-  inv( ud.getNumUnits() == 1 );
-  
+ /* Hack whilst we sort out whether there should be three rules for volume 
+  * redefinition or just one
+  */
   /* dimensionless is allowable in L2V2 */
+  if (ud.getNumUnits() == 1)
+  {
   if (  ud.getLevel() == 2 )
   {
     if (ud.getVersion() == 2 || ud.getVersion() == 3)
@@ -545,6 +535,26 @@ START_CONSTRAINT (20406, UnitDefinition, ud)
   else
   {
     inv (ud.getUnit(0)->isLitre());
+  }
+  }
+  else
+  {
+  if (  ud.getLevel() == 2 )
+  {
+    if (ud.getVersion() == 2 || ud.getVersion() == 3)
+    {
+      inv_or( ud.getNumUnits() == 1 && ud.getUnit(0)->isDimensionless() );
+      inv_or( ud.isVariantOfVolume());
+    }
+    else
+    {
+      inv(ud.isVariantOfVolume());
+    }
+  }
+  else
+  {
+    inv (ud.getNumUnits() == 1 && ud.getUnit(0)->isLitre());
+  }
   }
 }
 END_CONSTRAINT

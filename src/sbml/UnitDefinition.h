@@ -381,7 +381,8 @@ public:
    * variant of the built-in unit @c "substance".
    *
    * @return @c true if this UnitDefinition is a variant of the built-in
-   * unit substance, meaning moles or items with only abritrary variations
+   * unit substance, meaning moles or items (and grams or kilograms from
+   * SBML level 2 version 2 onwards) with only abritrary variations
    * in scale or multiplier values; @c false otherwise.
    */
   bool isVariantOfSubstance () const;
