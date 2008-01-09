@@ -4,6 +4,27 @@
 
 * Changes:
 
+  - Corrected the fact that a UnitDefinition redefining a builtin
+    unit can have more than one unit provided the UnitDefinition
+    *simplifies* to only one unit. This would allow the use of
+    dimensionless as a unit within the redefinition. Prior to
+    this point libSBML would have rejected a redefinition with
+    more than one unit without considering the possibility that
+    dimensionless was being used.
+
+  - Fixed a couple of bugs where attributes were not being
+    written out.
+
+  - The code used to perform unit analysis has been exposed
+    and documented.
+
+  - Unit validation within libSBML creates a list of a class
+    FormulaUnitsData. This was implmented as a instance of the
+    ListOf class. However, since the FormulaUnitsData class is
+    not an SBML construct this was an inaccurate derivation. 
+    This has now been corrected and the list of FormulaUnitsData
+    within the Model object is now an instance of the List class.
+
   - libSBML-3.0.0 correctly derived the StoichiometryMath, 
     Trigger and Delay components from SBase. The MATLAB binding 
     now creates a structure for each of these components to
