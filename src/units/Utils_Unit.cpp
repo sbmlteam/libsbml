@@ -1,8 +1,6 @@
 /**
- * @cond doxygen-libsbml-internal
- *
  * @file    Utils_Unit.cpp
- * @brief   Functions acting on a unit
+ * @brief   Utility functions acting on a Unit object
  * @author  Sarah Keating
  *
  * $Id$
@@ -27,10 +25,15 @@
 
 
 /** 
-  * alters the multiplier so that scale = 0
-  * eg 1 mm can be expressed as multipier = 1 scale = -3
-  * or as multiplier = 0.001 scale = 0
-  */
+ * Manipulates the attributes of the Unit to express the unit with the 
+ * value of the scale attribute reduced to zero.
+ *
+ * For example, 1 mm can be expressed as a Unit with kind="metre"
+ * multipier="1" scale="-3" exponent="1". It can also be expressed as
+ * a Unit with kind="metre" multiplier="0.001" scale="0" exponent="1".
+ *
+ * @param unit the Unit object to manipulate.
+ */
 LIBSBML_EXTERN
 void 
 removeScale(Unit * unit)
@@ -43,9 +46,18 @@ removeScale(Unit * unit)
 
 
 /** 
-  * multiplies the first unit by the second
-  * this function applies both units are of the same kind
-  */
+ * Merges two Unit objects with the same kind attribute into
+ * a single Unit.
+ * 
+ * For example 
+ * <unit kind="metre" exponent="2"/>
+ * <unit kind="metre" exponent="1"/>
+ * merge to become
+ * <unit kind="metre" exponent="3"/>
+ *
+ * @param unit1 the first Unit object into which the second is merged
+ * @param unit2 the Unit object to merge with the first
+ */
 LIBSBML_EXTERN
 void
 mergeUnits(Unit * unit1, Unit * unit2)
@@ -54,7 +66,8 @@ mergeUnits(Unit * unit1, Unit * unit2)
   double newMultiplier;
 
   /* only applies if units have same kind */
-  if (strcmp(UnitKind_toString(unit1->getKind()), UnitKind_toString(unit2->getKind())))
+  if (strcmp(UnitKind_toString(unit1->getKind()), 
+             UnitKind_toString(unit2->getKind())))
     return;
 
   /* not yet implemented if offsets != 0 */
@@ -73,7 +86,8 @@ mergeUnits(Unit * unit1, Unit * unit2)
   else
   {
     newMultiplier = pow(pow(unit1->getMultiplier(), unit1->getExponent())*
-      pow(unit2->getMultiplier(), unit2->getExponent()), 1/(double)(newExponent));
+      pow(unit2->getMultiplier(), unit2->getExponent()), 
+                                                  1/(double)(newExponent));
   }
     
   unit1->setScale(0);
@@ -82,14 +96,20 @@ mergeUnits(Unit * unit1, Unit * unit2)
 }
 
 /**
- * returns a unitdefinition which is the argument converted to SI units
+ * Returns a UnitDefinition object which contains the argument Unit
+ * converted to the appropriate SI unit.
+ *
+ * @param unit the Unit object to convert to SI
+ *
+ * @return a UnitDefinition object containing the SI unit.
  */
 LIBSBML_EXTERN
 UnitDefinition * 
 convertUnitToSI(Unit * unit)
 {
   UnitKind_t uKind = unit->getKind();
-  Unit * newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+  Unit * newUnit = new Unit(uKind, unit->getExponent(), 
+                                     unit->getScale(), unit->getMultiplier());
   UnitDefinition * ud = new UnitDefinition();
 
   removeScale(newUnit);
@@ -451,14 +471,20 @@ convertUnitToSI(Unit * unit)
 }
 
 /**
- * returns a unitdefinition which is the argument converted to SI units
+ * Returns a UnitDefinition object which contains the argument unit
+ * converted to the appropriate SI unit.
+ *
+ * @param unit the Unit object to convert to SI
+ *
+ * @return a UnitDefinition object containing the SI unit.
  */
 LIBSBML_EXTERN
 UnitDefinition * 
 convertUnitToSI(const Unit * unit)
 {
   UnitKind_t uKind = unit->getKind();
-  Unit * newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+  Unit * newUnit = new Unit(uKind, unit->getExponent(), 
+                                    unit->getScale(), unit->getMultiplier());
   UnitDefinition * ud = new UnitDefinition();
 
   removeScale(newUnit);
@@ -821,22 +847,36 @@ convertUnitToSI(const Unit * unit)
 }
 
 /** 
-  * returns true if units are identical
-  */
+ * Predicate returning @c true or @c false depending on whether 
+ * Unit objects are identical (matching in all attributes).
+ *
+ * @param unit1 the first Unit object to compare
+ * @param unit2 the second Unit object to compare
+ *
+ * @return @c true if all the attributes of unit1 are identical
+ * to the attributes of unit2, @c false otherwise.
+ *
+ * @note For the purposes of comparison two units can be "identical",
+ * i.e. all attributes are an exact match, or "equivalent" i.e. 
+ * matching kind and exponent.
+ *
+ * @see areEquivalent();
+ */
 LIBSBML_EXTERN
-int 
+bool 
 areIdentical(Unit * unit1, Unit * unit2)
 {
-  int identical = 0;
+  bool identical = false;
 
-  if (!strcmp(UnitKind_toString(unit1->getKind()), UnitKind_toString(unit2->getKind())))
+  if (!strcmp(UnitKind_toString(unit1->getKind()), 
+              UnitKind_toString(unit2->getKind())))
   {
     if ((unit1->getMultiplier() == unit2->getMultiplier())
       && (unit1->getScale()     == unit2->getScale())
       && (unit1->getOffset()    == unit2->getOffset())
       && (unit1->getExponent()  == unit2->getExponent()))
     {
-      identical = 1;
+      identical = true;
     }
   }
 
@@ -845,39 +885,79 @@ areIdentical(Unit * unit1, Unit * unit2)
 
 
 /** 
-  * returns true if units are equivalent
-  * units are equivalent if they have same 
-  * kind and same exponent (and same offset)
-  */
+ * Predicate returning @c true or @c false depending on whether 
+ * Unit objects are equivalent (matching kind and exponent).
+ *
+ * @param unit1 the first Unit object to compare
+ * @param unit2 the second Unit object to compare
+ *
+ * @return @c true if the kind and exponent attributes of unit1 are identical
+ * to the kind and exponent attributes of unit2, @c false otherwise.
+ *
+ * @note For the purposes of comparison two units can be "identical",
+ * i.e. all attributes are an exact match, or "equivalent" i.e. 
+ * matching kind and exponent.
+ *
+ * @see areIdentical();
+ */
 LIBSBML_EXTERN
-int 
+bool 
 areEquivalent(Unit * unit1, Unit * unit2)
 {
-  int equivalent = 0;
+  bool equivalent = false;
 
-  if (!strcmp(UnitKind_toString(unit1->getKind()), UnitKind_toString(unit2->getKind())))
+  if (!strcmp(UnitKind_toString(unit1->getKind()), 
+              UnitKind_toString(unit2->getKind())))
   {
     if ( (unit1->getOffset()    == unit2->getOffset())
       && (unit1->getExponent()  == unit2->getExponent()))
     {
-      equivalent = 1;
+      equivalent = true;
     }
   }
 
   return equivalent;
 }
 
+/** @cond doxygen-c-only */
 
-/** 
-  * alters the multiplier so that scale = 0
-  * eg 1 mm can be expressed as multipier = 1 scale = -3
-  * or as multiplier = 0.001 scale = 0
-  */
 LIBSBML_EXTERN
-void Unit_removeScale(Unit_t * unit)
+void 
+Unit_removeScale(Unit_t * unit)
 {
   removeScale(static_cast<Unit*>(unit));
 }
 
 
-/** @endcond doxygen-libsbml-internal */
+LIBSBML_EXTERN
+void 
+Unit_mergeUnits(Unit_t * unit1, Unit_t * unit2)
+{
+  mergeUnits(static_cast<Unit*>(unit1), static_cast<Unit*>(unit2));
+}
+
+LIBSBML_EXTERN
+UnitDefinition_t * 
+Unit_convertUnitToSI(Unit_t * unit)
+{
+  return convertUnitToSI(static_cast<Unit*>(unit));
+}
+
+LIBSBML_EXTERN
+int 
+Unit_areIdentical(Unit_t * unit1, Unit_t * unit2)
+{
+  return static_cast<int>(areIdentical(static_cast<Unit*>(unit1),
+                                       static_cast<Unit*>(unit2)));
+}
+
+LIBSBML_EXTERN
+int 
+Unit_areEquivalent(Unit_t * unit1, Unit_t * unit2)
+{
+  return static_cast<int>(areEquivalent(static_cast<Unit*>(unit1),
+                                       static_cast<Unit*>(unit2)));
+}
+
+
+/** @endcond doxygen-c-only */

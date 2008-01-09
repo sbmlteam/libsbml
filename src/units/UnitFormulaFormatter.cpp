@@ -1433,6 +1433,9 @@ UnitFormulaFormatter::resetFlags()
   mCanIgnoreUndeclaredUnits = 2;
 }
 
+
+/** @cond doxygen-c-only */
+
 LIBSBML_EXTERN
 UnitFormulaFormatter_t* 
 UnitFormulaFormatter_create(Model_t * model)
@@ -1505,3 +1508,5 @@ UnitFormulaFormatter_resetFlags(UnitFormulaFormatter_t * uff)
 {
   uff->resetFlags();
 }
+
+/** @endcond doxygen-c-only */

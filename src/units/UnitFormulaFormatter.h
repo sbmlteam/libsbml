@@ -19,7 +19,18 @@
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution and
  * also available online as http://sbml.org/software/libsbml/license.html
- *----------------------------------------------------------------------- -->*/
+ *----------------------------------------------------------------------- -->
+ * @class UnitFormulaFormatter
+ * @brief Object for deriving the units associated with objects
+ * and math expressions.
+ * 
+ * A UnitFormulaFormatter object is created using a Model object
+ * and uses the information from that Model to derive the units
+ * of either an ASTNode respresenting a math expression or
+ * an appropriate SBML object. The derived units are formulated into 
+ * a UnitDefinition object.
+ */
+
 
 #ifndef UnitFormulaFormatter_h
 #define UnitFormulaFormatter_h
@@ -147,6 +158,15 @@ public:
   /**
    * Predicate returning @c true or @c false depending on whether 
    * undeclared units can be ignored.
+   * 
+   * On occasion it is possible to "ignore" undeclared units when
+   * determining the overall units of an expression.
+   * For example, if p has known units and k does not then the units 
+   * resulting from the expression 'p + k' must have the units of p and
+   * thus it is possible to "ignore" the fact that the units of k are
+   * unknown. However, it is not possible to "ignore" the unknown units
+   * in the expression 'p * k' as the units of k will impact on the
+   * units resulting from the expression.
    * 
    * @return @c true if the math last processed by the UnitFormulaFormatter
    * includes parameters/numbers 

@@ -1,8 +1,6 @@
 /**
- * @cond doxygen-libsbml-internal
- *
  * @file    Utils_Unit.h
- * @brief   Functions acting on a unit definition
+ * @brief   Utility functions acting on a Unit object
  * @author  Sarah Keating
  *
  * $Id$
@@ -39,58 +37,120 @@
 #ifdef __cplusplus
 
 /** 
- * alters the multiplier so that scale = 0
- * eg 1 mm can be expressed as multipier = 1 scale = -3 exponent = 1
- * or as multiplier = 0.001 scale = 0
+ * Manipulates the attributes of the Unit to express the unit with the 
+ * value of the scale attribute reduced to zero.
+ *
+ * For example, 1 mm can be expressed as a Unit with kind="metre"
+ * multipier="1" scale="-3" exponent="1". It can also be expressed as
+ * a Unit with kind="metre" multiplier="0.001" scale="0" exponent="1".
+ *
+ * @param unit the Unit object to manipulate.
  */
 LIBSBML_EXTERN
-void removeScale(Unit *);
+void removeScale(Unit * unit);
 
 /** 
- * multiplies the first unit by the second
- * this function applies both units are of the same kind
+ * Merges two Unit objects with the same kind attribute into
+ * a single Unit.
+ * 
+ * For example 
+ * <unit kind="metre" exponent="2"/>
+ * <unit kind="metre" exponent="1"/>
+ * merge to become
+ * <unit kind="metre" exponent="3"/>
+ *
+ * @param unit1 the first Unit object into which the second is merged
+ * @param unit2 the Unit object to merge with the first
  */
 LIBSBML_EXTERN
 void mergeUnits(Unit * unit1, Unit * unit2);
 
 /**
- * returns a unitdefinition which is the 
- * argument converted to SI units
+ * Returns a UnitDefinition object which contains the argument Unit
+ * converted to the appropriate SI unit.
+ *
+ * @param unit the Unit object to convert to SI
+ *
+ * @return a UnitDefinition object containing the SI unit.
  */
 LIBSBML_EXTERN
-UnitDefinition * convertUnitToSI(Unit *);
+UnitDefinition * convertUnitToSI(Unit * unit);
+
+/**
+ * Returns a UnitDefinition object which contains the argument unit
+ * converted to the appropriate SI unit.
+ *
+ * @param unit the Unit object to convert to SI
+ *
+ * @return a UnitDefinition object containing the SI unit.
+ */
 LIBSBML_EXTERN
-UnitDefinition * convertUnitToSI(const Unit *);
+UnitDefinition * convertUnitToSI(const Unit * unit);
 
 /** 
- * returns true if units are identical
+ * Predicate returning @c true or @c false depending on whether 
+ * Unit objects are identical (matching in all attributes).
+ *
+ * @param unit1 the first Unit object to compare
+ * @param unit2 the second Unit object to compare
+ *
+ * @return @c true if all the attributes of unit1 are identical
+ * to the attributes of unit2, @c false otherwise.
+ *
+ * @note For the purposes of comparison two units can be "identical",
+ * i.e. all attributes are an exact match, or "equivalent" i.e. 
+ * matching kind and exponent.
+ *
+ * @see areEquivalent();
  */
 LIBSBML_EXTERN
-int areIdentical(Unit *, Unit *);
+bool areIdentical(Unit * unit1, Unit * unit2);
 
 /** 
- * returns true if units are equivalent
+ * Predicate returning @c true or @c false depending on whether 
+ * Unit objects are equivalent (matching kind and exponent).
+ *
+ * @param unit1 the first Unit object to compare
+ * @param unit2 the second Unit object to compare
+ *
+ * @return @c true if the kind and exponent attributes of unit1 are identical
+ * to the kind and exponent attributes of unit2, @c false otherwise.
+ *
+ * @note For the purposes of comparison two units can be "identical",
+ * i.e. all attributes are an exact match, or "equivalent" i.e. 
+ * matching kind and exponent.
+ *
+ * @see areIdentical();
  */
 LIBSBML_EXTERN
-int areEquivalent(Unit *, Unit *);
+bool areEquivalent(Unit * unit1, Unit * unit2);
 
 #endif /* __cplusplus */
+#ifndef SWIG
 
 BEGIN_C_DECLS
 
-/** 
- * alters the multiplier so that scale = 0
- * eg 1 mm can be expressed as multipier = 1 scale = -3 exponent = 1
- * or as multiplier = 0.001 scale = 0
- */  
-LIBSBML_EXTERN
-void Unit_removeScale(Unit_t *);
+/*-----------------------------------------------------------------------------
+ * See the .cpp file for the documentation of the following functions.
+ *---------------------------------------------------------------------------*/
 
+LIBSBML_EXTERN
+void Unit_removeScale(Unit_t * unit);
+
+LIBSBML_EXTERN
+void Unit_mergeUnits(Unit_t * unit1, Unit_t * unit2);
+
+LIBSBML_EXTERN
+UnitDefinition_t * Unit_convertUnitToSI(Unit_t * unit);
+
+LIBSBML_EXTERN
+int Unit_areIdentical(Unit_t * unit1, Unit_t * unit2);
+
+LIBSBML_EXTERN
+int Unit_areEquivalent(Unit_t * unit1, Unit_t * unit2);
 
 END_C_DECLS
 
-
-
+#endif  /* !SWIG   */
 #endif  /* Utils_Unit_h */
 
-/** @endcond doxygen-libsbml-internal */

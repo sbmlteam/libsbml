@@ -1,8 +1,6 @@
 /**
- * @cond doxygen-libsbml-internal
- *
  * @file    Utils_UnitDefinition.cpp
- * @brief   Functions acting on a unit definition
+ * @brief   Utility functions acting on a UnitDefinition object
  * @author  Sarah Keating
  *
  * $Id$
@@ -27,7 +25,25 @@
 
 
 /** 
- * simplifies the unitDefinition
+ * Simplifies the UnitDefinition so that any Unit occurring
+ * within the listOfUnits occurs only once.
+ *
+ * For example,
+ * @n <unitDefinition>
+ * @n  <listOfUnits>
+ * @n    <unit kind="metre" exponent="1"/>
+ * @n    <unit kind="metre" exponent="2"/>
+ * @n  </listOfUnits>
+ * @n <unitDefinition>
+ *
+ * simplified would return
+ * @n <unitDefinition>
+ * @n   <listOfUnits>
+ * @n     <unit kind="metre" exponent="3"/>
+ * @n   </listOfUnits>
+ * @n <unitDefinition>
+ *
+ * @param ud the UnitDefinition object to be simplified.
  */
 LIBSBML_EXTERN
 void
@@ -75,7 +91,8 @@ simplifyUnitDefinition(UnitDefinition * ud)
         /* find next occurence and merge */
         for (i = n + 1; i < units->size(); i++)
         {
-          if (!strcmp(UnitKind_toString(((Unit *) units->get(i))->getKind()), unitKind))
+          if (!strcmp(UnitKind_toString(((Unit *) units->get(i))->getKind()), 
+                                                                   unitKind))
           {
             mergeUnits(unit, (Unit *) units->get(i));
             units->remove(i);
@@ -98,66 +115,19 @@ simplifyUnitDefinition(UnitDefinition * ud)
   }
 }
 
-/**
- * returns a unitDefinition which is the argument converted to SI units
- */
-LIBSBML_EXTERN
-UnitDefinition * 
-convertToSI(UnitDefinition * ud)
-{
-  unsigned int n, p;
-  UnitDefinition * newUd = new UnitDefinition();
-  UnitDefinition * tempUd;
 
-  newUd->setId(ud->getId());
-  newUd->setName(ud->getName());
-
-  for (n = 0; n < ud->getNumUnits(); n++)
-  {
-    tempUd = convertUnitToSI(ud->getUnit(n));
-    for (p = 0; p < tempUd->getNumUnits(); p++)
-    {
-      newUd->addUnit(tempUd->getUnit(p));
-    }
-    delete tempUd;
-  }
-
-  simplifyUnitDefinition(newUd);
-  return newUd;
-}
-
-LIBSBML_EXTERN
-UnitDefinition * 
-convertToSI(const UnitDefinition * ud)
-{
-  unsigned int n, p;
-  UnitDefinition * newUd = new UnitDefinition();
-  UnitDefinition * tempUd;
-
-  newUd->setId(ud->getId());
-  newUd->setName(ud->getName());
-
-  for (n = 0; n < ud->getNumUnits(); n++)
-  {
-    tempUd = convertUnitToSI(ud->getUnit(n));
-    for (p = 0; p < tempUd->getNumUnits(); p++)
-    {
-      newUd->addUnit(tempUd->getUnit(p));
-    }
-    delete tempUd;
-  }
-
-  simplifyUnitDefinition(newUd);
-  return newUd;
-}
-
-/** 
-  * returns the unitDefinition with unit kinds in alphabetical order
-  */
+/** @cond doxygen-libsbml-internal */
 int compareKinds(const void * u1, const void * u2)
 {
   return (*(int*)u1 - *(int*)u2);
 }
+/** @endcond doxygen-libsbml-internal */
+
+/** 
+ * Orders the listOfUnits within the UnitDefinition alphabetically.
+ *
+ * @param ud the UnitDefinition object to be ordered.
+ */
 LIBSBML_EXTERN
 void 
 orderUnitDefinition(UnitDefinition *ud)
@@ -206,14 +176,94 @@ orderUnitDefinition(UnitDefinition *ud)
 }
 
 
-/** 
-  * returns true if unit definitions are identical
-  */
+/**
+ * Returns a UnitDefinition object which is the argument UnitDefinition
+ * converted to the SI units.
+ *
+ * @param ud the UnitDefinition object to convert to SI
+ *
+ * @return a UnitDefinition object converted to SI units.
+ */
 LIBSBML_EXTERN
-int 
+UnitDefinition * 
+convertToSI(UnitDefinition * ud)
+{
+  unsigned int n, p;
+  UnitDefinition * newUd = new UnitDefinition();
+  UnitDefinition * tempUd;
+
+  newUd->setId(ud->getId());
+  newUd->setName(ud->getName());
+
+  for (n = 0; n < ud->getNumUnits(); n++)
+  {
+    tempUd = convertUnitToSI(ud->getUnit(n));
+    for (p = 0; p < tempUd->getNumUnits(); p++)
+    {
+      newUd->addUnit(tempUd->getUnit(p));
+    }
+    delete tempUd;
+  }
+
+  simplifyUnitDefinition(newUd);
+  return newUd;
+}
+
+/**
+ * Returns a UnitDefinition object which is the argument UnitDefinition
+ * converted to the SI units.
+ *
+ * @param ud the UnitDefinition object to convert to SI
+ *
+ * @return a UnitDefinition object converted to SI units.
+ */
+LIBSBML_EXTERN
+UnitDefinition * 
+convertToSI(const UnitDefinition * ud)
+{
+  unsigned int n, p;
+  UnitDefinition * newUd = new UnitDefinition();
+  UnitDefinition * tempUd;
+
+  newUd->setId(ud->getId());
+  newUd->setName(ud->getName());
+
+  for (n = 0; n < ud->getNumUnits(); n++)
+  {
+    tempUd = convertUnitToSI(ud->getUnit(n));
+    for (p = 0; p < tempUd->getNumUnits(); p++)
+    {
+      newUd->addUnit(tempUd->getUnit(p));
+    }
+    delete tempUd;
+  }
+
+  simplifyUnitDefinition(newUd);
+  return newUd;
+}
+
+
+/** 
+ * Predicate returning @c true or @c false depending on whether 
+ * UnitDefinition objects are identical (all units are identical).
+ *
+ * @param ud1 the first UnitDefinition object to compare
+ * @param ud2 the second UnitDefinition object to compare
+ *
+ * @return @c true if all the units of ud1 are identical
+ * to the units of ud2, @c false otherwise.
+ *
+ * @note For the purposes of comparison two units can be "identical",
+ * i.e. all attributes are an exact match, or "equivalent" i.e. 
+ * matching kind and exponent.
+ *
+ * @see areEquivalent();
+ */
+LIBSBML_EXTERN
+bool 
 areIdentical(UnitDefinition * ud1, UnitDefinition * ud2)
 {
-  int identical = 0;
+  bool identical = false;
   unsigned int n;
 
   if (ud1->getNumUnits() == ud2->getNumUnits())
@@ -235,7 +285,7 @@ areIdentical(UnitDefinition * ud1, UnitDefinition * ud2)
     }
     if (n == ud1->getNumUnits())
     {
-      identical = 1;
+      identical = true;
     }
   }
 
@@ -244,16 +294,31 @@ areIdentical(UnitDefinition * ud1, UnitDefinition * ud2)
 
 
 /** 
-  * returns true if unit definitions are identical
-  */
+ * Predicate returning @c true or @c false depending on whether 
+ * UnitDefinition objects are identical (all units are identical).
+ *
+ * @param ud1 the first UnitDefinition object to compare
+ * @param ud2 the second UnitDefinition object to compare
+ *
+ * @return @c true if all the units of ud1 are identical
+ * to the units of ud2, @c false otherwise.
+ *
+ * @note For the purposes of comparison two units can be "identical",
+ * i.e. all attributes are an exact match, or "equivalent" i.e. 
+ * matching kind and exponent.
+ *
+ * @see areEquivalent();
+ */
 LIBSBML_EXTERN
-int 
+bool 
 areIdentical(const UnitDefinition * ud1, const UnitDefinition * ud2)
 {
-  int identical = 0;
+  bool identical = false;
   unsigned int n;
 
-  /* need to order the unitDefinitions so make copies */
+  /* need to order the unitDefinitions so must make copies
+   * since the arguments are const
+   */
   UnitDefinition * ud1Temp = new UnitDefinition();//(UnitDefinition*) ud1->clone();
   UnitDefinition * ud2Temp = new UnitDefinition();//(UnitDefinition*) ud2->clone();
 
@@ -282,7 +347,7 @@ areIdentical(const UnitDefinition * ud1, const UnitDefinition * ud2)
     }
     if (n == ud1->getNumUnits())
     {
-      identical = 1;
+      identical = true;
     }
   }
 
@@ -294,98 +359,128 @@ areIdentical(const UnitDefinition * ud1, const UnitDefinition * ud2)
 
 
 /** 
-  * returns true if unit definitions are equivalent
-  * i.e. having been converted to SI kinds/offsets are identical
-  */
-LIBSBML_EXTERN
-int 
-areEquivalent(const UnitDefinition * ud1, const UnitDefinition * ud2)
-{
-  int equivalent = 0;
-  unsigned int n;
-
-  UnitDefinition * ud1Temp = convertToSI(ud1);
-  UnitDefinition * ud2Temp = convertToSI(ud2);
-
-  if (ud1Temp->getNumUnits() == ud2Temp->getNumUnits())
-  {
-    orderUnitDefinition(ud1Temp);
-    orderUnitDefinition(ud2Temp);
-    
-    n = 0;
-    while (n < ud1Temp->getNumUnits())
-    {
-      if (!areEquivalent(ud1Temp->getUnit(n), ud2Temp->getUnit(n)))
-      {
-        break;
-      }
-      else
-      {
-        n++;
-      }
-    }
-    if (n == ud1Temp->getNumUnits())
-    {
-      equivalent = 1;
-    }
-  }
-
-  delete ud1Temp;
-  delete ud2Temp;
-
-  return equivalent;
-}
-
-/** 
-  * returns true if unit definitions are equivalent
-  * i.e. having been converted to SI kinds/offsets are identical
-  */
-LIBSBML_EXTERN
-int 
-areEquivalent(const UnitDefinition * ud1, UnitDefinition * ud2)
-{
-  int equivalent = 0;
-  unsigned int n;
-
-  UnitDefinition * ud1Temp = convertToSI(ud1);
-  UnitDefinition * ud2Temp = convertToSI(ud2);
-
-  if (ud1Temp->getNumUnits() == ud2Temp->getNumUnits())
-  {
-    orderUnitDefinition(ud1Temp);
-    orderUnitDefinition(ud2Temp);
-    
-    n = 0;
-    while (n < ud1Temp->getNumUnits())
-    {
-      if (!areEquivalent(ud1Temp->getUnit(n), ud2Temp->getUnit(n)))
-      {
-        break;
-      }
-      else
-      {
-        n++;
-      }
-    }
-    if (n == ud1Temp->getNumUnits())
-    {
-      equivalent = 1;
-    }
-  }
-
-  delete ud1Temp;
-  delete ud2Temp;
-
-  return equivalent;
-}
-
-
-
-/** 
- * combines the unitDefinitions 
+ * Predicate returning @c true or @c false depending on whether 
+ * UnitDefinition objects are equivalent (all units are equivalent).
+ *
+ * @param ud1 the first UnitDefinition object to compare
+ * @param ud2 the second UnitDefinition object to compare
+ *
+ * @return @c true if all the units of ud1 are equivalent
+ * to the units of ud2, @c false otherwise.
+ *
+ * @note For the purposes of comparison two units can be "identical",
+ * i.e. all attributes are an exact match, or "equivalent" i.e. 
+ * matching kind and exponent.
+ *
+ * @see areIdentical();
  */
 LIBSBML_EXTERN
-void combine(UnitDefinition *ud1, UnitDefinition *ud2)
+bool 
+areEquivalent(const UnitDefinition * ud1, const UnitDefinition * ud2)
+{
+  bool equivalent = false;
+  unsigned int n;
+
+  UnitDefinition * ud1Temp = convertToSI(ud1);
+  UnitDefinition * ud2Temp = convertToSI(ud2);
+
+  if (ud1Temp->getNumUnits() == ud2Temp->getNumUnits())
+  {
+    orderUnitDefinition(ud1Temp);
+    orderUnitDefinition(ud2Temp);
+    
+    n = 0;
+    while (n < ud1Temp->getNumUnits())
+    {
+      if (!areEquivalent(ud1Temp->getUnit(n), ud2Temp->getUnit(n)))
+      {
+        break;
+      }
+      else
+      {
+        n++;
+      }
+    }
+    if (n == ud1Temp->getNumUnits())
+    {
+      equivalent = true;
+    }
+  }
+
+  delete ud1Temp;
+  delete ud2Temp;
+
+  return equivalent;
+}
+
+/** 
+ * Predicate returning @c true or @c false depending on whether 
+ * UnitDefinition objects are equivalent (all units are equivalent).
+ *
+ * @param ud1 the first UnitDefinition object to compare
+ * @param ud2 the second UnitDefinition object to compare
+ *
+ * @return @c true if all the units of ud1 are equivalent
+ * to the units of ud2, @c false otherwise.
+ *
+ * @note For the purposes of comparison two units can be "identical",
+ * i.e. all attributes are an exact match, or "equivalent" i.e. 
+ * matching kind and exponent.
+ *
+ * @see areIdentical();
+ */
+LIBSBML_EXTERN
+bool 
+areEquivalent(const UnitDefinition * ud1, UnitDefinition * ud2)
+{
+  bool equivalent = false;
+  unsigned int n;
+
+  UnitDefinition * ud1Temp = convertToSI(ud1);
+  UnitDefinition * ud2Temp = convertToSI(ud2);
+
+  if (ud1Temp->getNumUnits() == ud2Temp->getNumUnits())
+  {
+    orderUnitDefinition(ud1Temp);
+    orderUnitDefinition(ud2Temp);
+    
+    n = 0;
+    while (n < ud1Temp->getNumUnits())
+    {
+      if (!areEquivalent(ud1Temp->getUnit(n), ud2Temp->getUnit(n)))
+      {
+        break;
+      }
+      else
+      {
+        n++;
+      }
+    }
+    if (n == ud1Temp->getNumUnits())
+    {
+      equivalent = true;
+    }
+  }
+
+  delete ud1Temp;
+  delete ud2Temp;
+
+  return equivalent;
+}
+
+
+
+/** 
+ * Combines two UnitDefinition objects into a single UnitDefinition object
+ * which expresses the units of the two objects multiplied.
+ *
+ * @param ud1 the first UnitDefinition object into which the second is
+ * combined
+ * @param ud2 the second UnitDefinition object
+ */
+LIBSBML_EXTERN
+void 
+combine(UnitDefinition *ud1, UnitDefinition *ud2)
 {
   for (unsigned int n = 0; n < ud2->getNumUnits(); n++)
   {
@@ -395,6 +490,22 @@ void combine(UnitDefinition *ud1, UnitDefinition *ud2)
   simplifyUnitDefinition(ud1);
 }
 
+/** 
+ * Returns a string that expresses the units symbolised by the UnitDefinition.
+ *
+ * For example printUnits applied to
+ * @n <unitDefinition>
+ * @n  <listOfUnits>
+ * @n    <unit kind="metre" exponent="1"/>
+ * @n    <unit kind="second" exponent="-2"/>
+ * @n  </listOfUnits>
+ * @n <unitDefinition>
+ * @n returns the string 'metre (exponent = 1) second (exponent = -2)'
+ *
+ * @param ud the UnitDefinition object
+ *
+ * @return a string expressing the units
+ */
 LIBSBML_EXTERN
 std::string
 printUnits(const UnitDefinition * ud)
@@ -426,4 +537,59 @@ printUnits(const UnitDefinition * ud)
   return unitDef;
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @cond doxygen-c-only */
+
+LIBSBML_EXTERN
+void 
+UnitDefinition_simplifyUnitDefinition(UnitDefinition_t * ud)
+{
+  simplifyUnitDefinition(static_cast<UnitDefinition*>(ud));
+}
+
+LIBSBML_EXTERN
+void 
+UnitDefinition_orderUnitDefinition(UnitDefinition_t * ud)
+{
+  orderUnitDefinition(static_cast<UnitDefinition*>(ud));
+}
+
+LIBSBML_EXTERN
+UnitDefinition_t * 
+UnitDefinition_convertToSI(UnitDefinition_t * ud)
+{
+  return convertToSI(static_cast<UnitDefinition*>(ud));
+}
+
+LIBSBML_EXTERN
+int 
+UnitDefinition_areIdentical(UnitDefinition_t * ud1, UnitDefinition_t * ud2)
+{
+  return static_cast<int>(areIdentical(static_cast<UnitDefinition*>(ud1),
+                                       static_cast<UnitDefinition*>(ud2)));
+}
+
+LIBSBML_EXTERN
+int 
+UnitDefinition_areEquivalent(UnitDefinition_t *ud1 , UnitDefinition_t * ud2)
+{
+  return static_cast<int>(areEquivalent(static_cast<UnitDefinition*>(ud1),
+                                       static_cast<UnitDefinition*>(ud2)));
+}
+
+LIBSBML_EXTERN
+void 
+UnitDefinition_combine(UnitDefinition_t * ud1, UnitDefinition_t * ud2)
+{
+  combine(static_cast<UnitDefinition*>(ud1),
+                                       static_cast<UnitDefinition*>(ud2));
+}
+
+
+LIBSBML_EXTERN
+const char *
+UnitDefinition_printUnits(UnitDefinition_t * ud)
+{
+  return printUnits(static_cast<UnitDefinition*>(ud)).c_str();
+}
+
+/** @endcond doxygen-c-only */
