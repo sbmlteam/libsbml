@@ -220,11 +220,11 @@ javadoc.i: $(main_sources) $(swig_sources) ../swig/swigdoc.py
 ifdef USE_LAYOUT
 recreate_java_files:;
 	@if test -z "`grep getListOfLayouts libsbml_wrap.cpp`"; then \
-	  @echo \
-	  @echo "The existing libsbml_wrap.cpp file lacks the layout code."; \
-	  @echo "Reconfigure --with-swig --enable-layout to correct this."; \
-	  @echo \
-	  @exit 1; \
+	  echo ;\
+	  echo "The existing libsbml_wrap.cpp file lacks the layout code."; \
+	  echo "Reconfigure --with-swig --enable-layout to correct this."; \
+	  echo ;\
+	  exit 1; \
 	else \
 	  $(MAKE) -$(MAKEFLAGS) $(outpath); \
 	fi
