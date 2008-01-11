@@ -91,6 +91,12 @@ catch
     end;
 end;
 
+try
+  M = TranslateSBML('test.xml');
+catch
+  disp('Installation failed.');
+end;
+
 %prompt user for close
 cAnswer = input('Do you want to close MATLAB (y/n)?', 's');
 if (cAnswer == 'y')

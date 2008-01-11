@@ -95,3 +95,17 @@ catch
         copyfile(lib{i}, Path_to_libs);
     end;
 end;
+
+try
+  M = TranslateSBML('test.xml');
+  disp('Installation successful');
+catch
+  disp('Installation failed.');
+end;
+
+
+%prompt user for close
+cAnswer = input('Do you want to close MATLAB (y/n)?', 's');
+if (cAnswer == 'y')
+    exit;
+end;

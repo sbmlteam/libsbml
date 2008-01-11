@@ -88,8 +88,24 @@ catch
     % determine the location of the library files
     lib{1} = '..\..\win32\bin\libsbml.lib';
     lib{2} = '..\..\win32\bin\libsbml.dll';
+    lib{3} = '..\..\win32\bin\libexpat.lib';
+    lib{4} = '..\..\win32\bin\libexpat.dll';
 
-    for i = 1:2
+    for i = 1:4
         copyfile(lib{i}, Path_to_libs);
     end;
+end;
+
+try
+  M = TranslateSBML('test.xml');
+  disp('Installation successful');
+catch
+  disp('Installation failed.');
+end;
+
+
+%prompt user for close
+cAnswer = input('Do you want to close MATLAB (y/n)?', 's');
+if (cAnswer == 'y')
+    exit;
 end;
