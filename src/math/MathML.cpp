@@ -1215,8 +1215,26 @@ ASTNode_t *
 readMathMLFromString (const char *xml)
 {
   if (xml == 0) return 0;
+  const char* dummy_xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+  const char* xmlstr_c;
+  
+  if (!strncmp(xml, dummy_xml, 14))
+  {
+    xmlstr_c = xml;
+  }
+  else
+  {
+    std::ostringstream oss;
+    const char* dummy_xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 
-  XMLInputStream stream(xml, false);
+    oss << dummy_xml;
+    oss << xml;
+
+
+    xmlstr_c = safe_strdup(oss.str().c_str());
+  }
+
+  XMLInputStream stream(xmlstr_c, false);
   SBMLErrorLog   log;
 
   stream.setErrorLog(&log);
