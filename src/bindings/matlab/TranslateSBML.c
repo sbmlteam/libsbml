@@ -5287,9 +5287,7 @@ GetConstraint (Model_t      *pModel,
     pacMetaid = SBase_getMetaId(pConstraint);
 
     if (Constraint_isSetMessage(pConstraint)) {
-      /* need to think about this one 
-      pacMessage = Constraint_getMessage(pConstraint);
-      */
+      pacMessage = XMLNode_convertXMLNodeToString(Constraint_getMessage(pConstraint));
     }
 
     if (SBase_isSetSBOTerm((SBase_t*) pConstraint)) {

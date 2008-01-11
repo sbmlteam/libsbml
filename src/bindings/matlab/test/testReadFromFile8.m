@@ -4,7 +4,7 @@ filename = fullfile(pwd,'test-data', 'l2v3-newelements.xml');
 
 m = TranslateSBML(filename);
 
-test = 36;
+test = 37;
 Totalfail = 0;
 
 Totalfail = Totalfail + fail_unless(m.SBML_level == 2);
@@ -98,8 +98,13 @@ Totalfail = Totalfail + fail_unless(m.sboTerm == 4);
   Totalfail = Totalfail + fail_unless( length(m.constraint) == 1);
 
   Totalfail = Totalfail + fail_unless( strcmp( m.constraint(1).math, 'lt(1,cell)' ));
-% not yet!!
-% Totalfail = Totalfail + fail_unless( strcmp( m.constraint(1).message, 'Species S1 is out of range' ));
+  message = sprintf('%s\n%s\n%s\n%s\n%s', ...
+'<message>', ...
+'  <p xmlns="http://www.w3.org/1999/xhtml">', ...
+'                    Species S1 is out of range ', ... 
+'                    </p>', ...
+'</message>');
+  Totalfail = Totalfail + fail_unless( strcmp( m.constraint(1).message, message ));
         
 %   //
 %   // <listOfReactions> ... </listOfReactions>
