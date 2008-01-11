@@ -30,23 +30,10 @@
  * Convert an SBase object to a string.
  */
 
-%{
-#include <sbml/util/memory.h>
-%}
-
 %extend SBase
 {
    char* __str__(void){
      return self->toSBML();
-   }
-
-   bool __eq__(SBase* obj){
-     char* s1 = self->toSBML();
-     char* s2 = obj->toSBML();
-     bool result = !strncmp(s1,s2,strlen(s1));
-     safe_free(s1); 
-     safe_free(s2); 
-     return result;
    }
 }
 

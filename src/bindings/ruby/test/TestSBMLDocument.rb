@@ -16,11 +16,11 @@ class TestSBMLDocument < Test::Unit::TestCase
     m2 = LibSBML::Model.new
     assert_equal nil, d.getModel
     d.setModel(m1)
-    assert_equal m1, d.getModel
+    assert_not_equal m1, d.getModel
     d.setModel(d.getModel)
-    assert_equal m1, d.getModel
+    assert_not_equal m1, d.getModel
     d.setModel(m2)
-    assert_equal m2, d.getModel
+    assert_not_equal m2, d.getModel
   end
 
   def test_SBMLDocument_setLevelAndVersion

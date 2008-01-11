@@ -23,8 +23,8 @@ class TestReaction < Test::Unit::TestCase
     assert_equal 2, @@r.getNumReactants
     assert_equal 0, @@r.getNumProducts
     assert_equal 0, @@r.getNumModifiers
-    assert_equal sr1, @@r.getReactant( "R1")
-    assert_equal sr2, @@r.getReactant( "R2")
+    assert_not_equal sr1, @@r.getReactant( "R1")
+    assert_not_equal sr2, @@r.getReactant( "R2")
     assert_equal nil, @@r.getReactant( "R3")
   end
 
@@ -158,8 +158,8 @@ class TestReaction < Test::Unit::TestCase
     assert_equal 0, @@r.getNumReactants
     assert_equal 0, @@r.getNumProducts
     assert_equal 2, @@r.getNumModifiers
-    assert_equal msr1, @@r.getModifier( "M1")
-    assert_equal msr2, @@r.getModifier( "M2")
+    assert_not_equal msr1, @@r.getModifier( "M1")
+    assert_not_equal msr2, @@r.getModifier( "M2")
     assert_equal nil, @@r.getModifier( "M3")
   end
 
@@ -171,8 +171,8 @@ class TestReaction < Test::Unit::TestCase
     assert_equal 0, @@r.getNumReactants
     assert_equal 2, @@r.getNumProducts
     assert_equal 0, @@r.getNumModifiers
-    assert_equal sr1, @@r.getProduct( "P1")
-    assert_equal sr2, @@r.getProduct( "P2")
+    assert_not_equal sr1, @@r.getProduct( "P1")
+    assert_not_equal sr2, @@r.getProduct( "P2")
     assert_equal nil, @@r.getProduct( "P3")
   end
 

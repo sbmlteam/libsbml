@@ -33,8 +33,8 @@ class TestModel < Test::Unit::TestCase
     @@m.addParameter(p1)
     @@m.addParameter(p2)
     assert_equal 2, @@m.getNumParameters
-    assert_equal p1, @@m.getParameter( "Km1" )
-    assert_equal p2, @@m.getParameter( "Km2" )
+    assert_not_equal p1, @@m.getParameter( "Km1" )
+    assert_not_equal p2, @@m.getParameter( "Km2" )
     assert_equal nil, @@m.getParameter( "Km3" )
   end
 
@@ -232,8 +232,8 @@ class TestModel < Test::Unit::TestCase
     @@m.addFunctionDefinition(fd1)
     @@m.addFunctionDefinition(fd2)
     assert_equal 2, @@m.getNumFunctionDefinitions
-    assert_equal fd1, @@m.getFunctionDefinition(0)
-    assert_equal fd2, @@m.getFunctionDefinition(1)
+    assert_not_equal fd1, @@m.getFunctionDefinition(0)
+    assert_not_equal fd2, @@m.getFunctionDefinition(1)
     assert_equal nil, @@m.getFunctionDefinition(2)
     assert_equal nil, @@m.getFunctionDefinition(-2)
   end
@@ -246,8 +246,8 @@ class TestModel < Test::Unit::TestCase
     @@m.addSpecies(s1)
     @@m.addSpecies(s2)
     assert_equal 2, @@m.getNumSpecies
-    assert_equal s1, @@m.getSpecies( "Glucose"    )
-    assert_equal s2, @@m.getSpecies( "Glucose_6_P")
+    assert_not_equal s1, @@m.getSpecies( "Glucose"    )
+    assert_not_equal s2, @@m.getSpecies( "Glucose_6_P")
     assert_equal nil, @@m.getSpecies( "Glucose2"   )
   end
 
@@ -259,8 +259,8 @@ class TestModel < Test::Unit::TestCase
     @@m.addFunctionDefinition(fd1)
     @@m.addFunctionDefinition(fd2)
     assert_equal 2, @@m.getNumFunctionDefinitions
-    assert_equal fd1, @@m.getFunctionDefinition( "sin" )
-    assert_equal fd2, @@m.getFunctionDefinition( "cos" )
+    assert_not_equal fd1, @@m.getFunctionDefinition( "sin" )
+    assert_not_equal fd2, @@m.getFunctionDefinition( "cos" )
     assert_equal nil, @@m.getFunctionDefinition( "tan" )
   end
 
@@ -292,9 +292,9 @@ class TestModel < Test::Unit::TestCase
     r1.setKineticLaw(kl)
     @@m.addReaction(r1)
     kl1 = @@m.getReaction(0).getKineticLaw
-    assert_equal k3, kl1.getParameter( "k1" )
+    assert_not_equal k3, kl1.getParameter( "k1" )
     assert_not_equal k1, kl1.getParameter( "k1" )
-    assert_equal k4, kl1.getParameter( "k2" )
+    assert_not_equal k4, kl1.getParameter( "k2" )
     assert_equal nil, kl1.getParameter( "k3" )
   end
 
@@ -488,8 +488,8 @@ class TestModel < Test::Unit::TestCase
     @@m.addUnitDefinition(ud1)
     @@m.addUnitDefinition(ud2)
     assert_equal 2, @@m.getNumUnitDefinitions
-    assert_equal ud1, @@m.getUnitDefinition( "mmls"       )
-    assert_equal ud2, @@m.getUnitDefinition( "volume"     )
+    assert_not_equal ud1, @@m.getUnitDefinition( "mmls"       )
+    assert_not_equal ud2, @@m.getUnitDefinition( "volume"     )
     assert_equal nil, @@m.getUnitDefinition( "rototillers")
   end
 
@@ -499,8 +499,8 @@ class TestModel < Test::Unit::TestCase
     @@m.addUnitDefinition(ud1)
     @@m.addUnitDefinition(ud2)
     assert_equal 2, @@m.getNumUnitDefinitions
-    assert_equal ud1, @@m.getUnitDefinition(0)
-    assert_equal ud2, @@m.getUnitDefinition(1)
+    assert_not_equal ud1, @@m.getUnitDefinition(0)
+    assert_not_equal ud2, @@m.getUnitDefinition(1)
     assert_equal nil, @@m.getUnitDefinition(2)
     assert_equal nil, @@m.getUnitDefinition(-2)
   end
@@ -539,8 +539,8 @@ class TestModel < Test::Unit::TestCase
     @@m.addEvent(e1)
     @@m.addEvent(e2)
     assert_equal 2, @@m.getNumEvents
-    assert_equal e1, @@m.getEvent( "e1" )
-    assert_equal e2, @@m.getEvent( "e2" )
+    assert_not_equal e1, @@m.getEvent( "e1" )
+    assert_not_equal e2, @@m.getEvent( "e2" )
     assert_equal nil, @@m.getEvent( "e3" )
   end
 
@@ -576,8 +576,8 @@ class TestModel < Test::Unit::TestCase
     @@m.addReaction(r1)
     @@m.addReaction(r2)
     assert_equal 2, @@m.getNumReactions
-    assert_equal r1, @@m.getReaction( "reaction_1" )
-    assert_equal r2, @@m.getReaction( "reaction_2" )
+    assert_not_equal r1, @@m.getReaction( "reaction_1" )
+    assert_not_equal r2, @@m.getReaction( "reaction_2" )
     assert_equal nil, @@m.getReaction( "reaction_3" )
   end
 
@@ -598,8 +598,8 @@ class TestModel < Test::Unit::TestCase
     @@m.addEvent(e1)
     @@m.addEvent(e2)
     assert_equal 2, @@m.getNumEvents
-    assert_equal e1, @@m.getEvent(0)
-    assert_equal e2, @@m.getEvent(1)
+    assert_not_equal e1, @@m.getEvent(0)
+    assert_not_equal e2, @@m.getEvent(1)
     assert_equal nil, @@m.getEvent(2)
     assert_equal nil, @@m.getEvent(-2)
   end
@@ -612,8 +612,8 @@ class TestModel < Test::Unit::TestCase
     @@m.addCompartment(c1)
     @@m.addCompartment(c2)
     assert_equal 2, @@m.getNumCompartments
-    assert_equal c1, @@m.getCompartment( "A" )
-    assert_equal c2, @@m.getCompartment( "B" )
+    assert_not_equal c1, @@m.getCompartment( "A" )
+    assert_not_equal c2, @@m.getCompartment( "B" )
     assert_equal nil, @@m.getCompartment( "C" )
   end
 

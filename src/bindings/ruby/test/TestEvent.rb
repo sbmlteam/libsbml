@@ -42,7 +42,7 @@ class TestEvent < Test::Unit::TestCase
     e.setName( "Set k2 to zero when P1 <= t")
     e.addEventAssignment(ea)
     assert_equal 1, e.getNumEventAssignments
-    assert_equal ea, e.getEventAssignment(0)
+    assert_not_equal ea, e.getEventAssignment(0)
   end
 
   def test_Event_setTrigger
@@ -52,7 +52,7 @@ class TestEvent < Test::Unit::TestCase
     assert_not_equal nil, @@e.getTrigger
     assert_equal true, @@e.isSetTrigger
     @@e.setTrigger(@@e.getTrigger)
-    assert_equal trigger, @@e.getTrigger
+    assert_not_equal trigger, @@e.getTrigger
     @@e.setTrigger(nil)
     assert_equal false, @@e.isSetTrigger
   end
@@ -82,7 +82,7 @@ class TestEvent < Test::Unit::TestCase
     assert_not_equal nil, @@e.getDelay
     assert_equal true, @@e.isSetDelay
     @@e.setDelay(@@e.getDelay)
-    assert_equal delay, @@e.getDelay
+    assert_not_equal delay, @@e.getDelay
     @@e.setDelay(nil)
     assert_equal false, @@e.isSetDelay
   end

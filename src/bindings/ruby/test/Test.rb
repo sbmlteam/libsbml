@@ -54,8 +54,8 @@ class TestSBML < Test::Unit::TestCase
     lo.append(c1)
     c1c = lo[0]
 
-    assert_equal     c1, c1c
-    assert_not_same  c1, c1c
+    assert_not_equal c1, c1c
+    assert_equal     c1.toSBML, c1c.toSBML
 
     c2 = LibSBML::Compartment.new
     c2.setId("c2")
@@ -303,8 +303,7 @@ class TestSBML < Test::Unit::TestCase
     assert_equal 1, reaction.getNumReactants()
     assert_equal "R1", reaction.getReactant(0).getSpecies()
     assert_equal "R1", reaction.getReactant("R1").getSpecies()
-    assert_equal sr1, reaction.getReactant("R1")
-    assert_not_same sr1, reaction.getReactant("R1")
+    assert_not_equal sr1, reaction.getReactant("R1")
 
     # Reaction_addProduct/getProduct
 
@@ -314,8 +313,7 @@ class TestSBML < Test::Unit::TestCase
     assert_equal 1, reaction.getNumProducts()
     assert_equal "P1", reaction.getProduct(0).getSpecies()
     assert_equal "P1", reaction.getProduct("P1").getSpecies()
-    assert_equal sr2, reaction.getProduct("P1")
-    assert_not_same sr2, reaction.getProduct("P1")
+    assert_not_equal sr2, reaction.getProduct("P1")
 
     # Reaction_addModifier/getModifier
 
@@ -325,16 +323,14 @@ class TestSBML < Test::Unit::TestCase
     assert_equal 1, reaction.getNumModifiers()
     assert_equal "M1", reaction.getModifier(0).getSpecies()
     assert_equal "M1", reaction.getModifier("M1").getSpecies()
-    assert_equal msr1, reaction.getModifier("M1")
-    assert_not_same msr1, reaction.getModifier("M1")
+    assert_not_equal msr1, reaction.getModifier("M1")
 
    # Reaction_KineticLaw
 
     kineticLaw = LibSBML::KineticLaw.new("1 + 1")
     reaction.setKineticLaw(kineticLaw)
     assert_equal '1 + 1',  reaction.getKineticLaw().getFormula()
-    assert_equal kineticLaw, reaction.getKineticLaw()
-    assert_not_same kineticLaw, reaction.getKineticLaw()
+    assert_not_equal kineticLaw, reaction.getKineticLaw()
 
   end
 
@@ -359,15 +355,13 @@ class TestSBML < Test::Unit::TestCase
     lo.append(c1)
 
     assert_equal 1, lo.size
-    assert_equal    c1, lo[0]
-    assert_not_same c1, lo[0]
+    assert_not_equal c1, lo[0]
 
     c2 = LibSBML::Compartment.new("c2")
     lo.append(c2)
 
     assert_equal 2, lo.size
-    assert_equal    c2, lo[1]
-    assert_not_same c2, lo[1]
+    assert_not_equal    c2, lo[1]
     assert_not_equal lo[0], lo[1]
 
     # ListOf_remove
@@ -375,14 +369,12 @@ class TestSBML < Test::Unit::TestCase
     c1Clone = lo.remove(0)
     assert_equal 1, lo.size
     assert_nil lo[1]
-    assert_equal    c1, c1Clone
-    assert_not_same c1, c1Clone
+    assert_not_equal    c1, c1Clone
 
     c2Clone = lo.remove(0)
     assert_equal 0, lo.size
     assert_nil lo[0]
-    assert_equal    c2, c2Clone
-    assert_not_same c2, c2Clone
+    assert_not_equal    c2, c2Clone
 
   end
 
@@ -472,7 +464,7 @@ class TestSBML < Test::Unit::TestCase
     model.addFunctionDefinition(fd2)
     assert_equal 2, model.getNumFunctionDefinitions()
     assert_equal fd1, model.getFunctionDefinition(0)
-    assert_equal fd2, model.getFunctionDefinition("fd2")
+    assert_not_equal fd2, model.getFunctionDefinition("fd2")
     
     # Model_UnitDefinition
 
@@ -481,7 +473,7 @@ class TestSBML < Test::Unit::TestCase
     model.addUnitDefinition(ud2)
     assert_equal 2, model.getNumUnitDefinitions()
     assert_equal ud1, model.getUnitDefinition(0)
-    assert_equal ud2, model.getUnitDefinition("ud2")
+    assert_not_equal ud2, model.getUnitDefinition("ud2")
 
     # Model_Unit
 
@@ -498,7 +490,7 @@ class TestSBML < Test::Unit::TestCase
     model.addCompartment(c2)
     assert_equal 2, model.getNumCompartments()
     assert_equal c1, model.getCompartment(0)
-    assert_equal c2, model.getCompartment("c2")
+    assert_not_equal c2, model.getCompartment("c2")
 
     # Model_CompartmentType
 
@@ -507,7 +499,7 @@ class TestSBML < Test::Unit::TestCase
     model.addCompartmentType(ct2)
     assert_equal 2, model.getNumCompartmentTypes()
     assert_equal ct1, model.getCompartmentType(0)
-    assert_equal ct2, model.getCompartmentType("ct2")
+    assert_not_equal ct2, model.getCompartmentType("ct2")
 
     # Model_SpeciesType
 
@@ -516,7 +508,7 @@ class TestSBML < Test::Unit::TestCase
     model.addSpeciesType(st2)
     assert_equal 2, model.getNumSpeciesTypes()
     assert_equal st1, model.getSpeciesType(0)
-    assert_equal st2, model.getSpeciesType("st2")
+    assert_not_equal st2, model.getSpeciesType("st2")
 
     # Model_InitialAssignment
 
@@ -525,7 +517,7 @@ class TestSBML < Test::Unit::TestCase
     model.addInitialAssignment(ia2)
     assert_equal 2, model.getNumInitialAssignments()
     assert_equal ia1, model.getInitialAssignment(0)
-    assert_equal ia2, model.getInitialAssignment("ia2")
+    assert_not_equal ia2, model.getInitialAssignment("ia2")
 
     # Model_Constraint
 
@@ -534,7 +526,7 @@ class TestSBML < Test::Unit::TestCase
     model.addConstraint(cst2)
     assert_equal 2, model.getNumConstraints()
     assert_equal cst1, model.getConstraint(0)
-    assert_equal cst2, model.getConstraint(1)
+    assert_not_equal cst2, model.getConstraint(1)
 
     # Model_Species
 
@@ -544,7 +536,7 @@ class TestSBML < Test::Unit::TestCase
     model.addSpecies(s2)
     assert_equal 2, model.getNumSpecies()
     assert_equal s1, model.getSpecies(0)
-    assert_equal s2, model.getSpecies("s2")
+    assert_not_equal s2, model.getSpecies("s2")
 
     # Model_Parameter
 
@@ -553,7 +545,7 @@ class TestSBML < Test::Unit::TestCase
     model.addParameter(p2)
     assert_equal 2, model.getNumParameters()
     assert_equal p1, model.getParameter(0)
-    assert_equal p2, model.getParameter("p2")
+    assert_not_equal p2, model.getParameter("p2")
 
     # Model_AssignmentRule
 
@@ -562,7 +554,7 @@ class TestSBML < Test::Unit::TestCase
     model.addRule(asr2)
     assert_equal 2, model.getNumRules()
     assert_equal asr1, model.getRule(0)
-    assert_equal asr2, model.getRule("x")
+    assert_not_equal asr2, model.getRule("x")
 
     # Model_RateRule
 
@@ -571,7 +563,7 @@ class TestSBML < Test::Unit::TestCase
     model.addRule(rr2)
     assert_equal 4, model.getNumRules()
     assert_equal rr1, model.getRule(2)
-    assert_equal rr2, model.getRule("y")
+    assert_not_equal rr2, model.getRule("y")
 
     # Model_AlgebraicRule
 
@@ -580,7 +572,7 @@ class TestSBML < Test::Unit::TestCase
     model.addRule(alr2)
     assert_equal 6, model.getNumRules()
     assert_equal alr1, model.getRule(4)
-    assert_equal alr2, model.getRule(5)
+    assert_not_equal alr2, model.getRule(5)
 
     # Model_Reaction
 
@@ -589,7 +581,7 @@ class TestSBML < Test::Unit::TestCase
     model.addReaction(r2)
     assert_equal 2, model.getNumReactions()
     assert_equal r1, model.getReaction(0)
-    assert_equal r2, model.getReaction("r2")
+    assert_not_equal r2, model.getReaction("r2")
 
     # Model_Reactant
 
@@ -636,7 +628,7 @@ class TestSBML < Test::Unit::TestCase
     model.addEvent(e2)
     assert_equal 2, model.getNumEvents()
     assert_equal e1, model.getEvent(0)
-    assert_equal e2, model.getEvent("e2")
+    assert_not_equal e2, model.getEvent("e2")
 
     # Model_EventAssignment
 
@@ -653,8 +645,8 @@ class TestSBML < Test::Unit::TestCase
      obj = eval("LibSBML::"+name).new
      cobj= obj.clone()
      assert_instance_of eval("LibSBML::"+name), cobj
-     assert_equal    obj, cobj
-     assert_not_same obj, cobj
+     assert_not_equal  obj, cobj
+     assert_equal obj.toSBML, cobj.toSBML
   end
 
 end
