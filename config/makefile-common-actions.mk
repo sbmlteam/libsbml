@@ -40,7 +40,7 @@
 # -----------------------------------------------------------------------------
 
 .SUFFIXES:
-.SUFFIXES: .a .so .dylib .jnilib .c .h .cpp .hpp .o .obj .Po .py .pyc .pyo .i
+.SUFFIXES: .a .so .dylib .jnilib .c .h .cpp .hpp .o .obj .Po .py .pyc .pyo .i .bundle
 
 # The following define default values of variables like `cxxcompile'.  An
 # enclosing makefile can define other values, in which case those
@@ -208,6 +208,13 @@ else
 	then mv "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.$(DEPEXT)"; \
 	else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; \
 	fi
+
+endif
+
+ifeq "$(HOST_TYPE)" "darwin"
+
+%.bundle ../%.bundle: $(objfiles)
+	$(call link_shared_lib,$@)
 
 endif
 

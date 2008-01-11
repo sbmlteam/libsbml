@@ -106,6 +106,12 @@ PERL_CPPFLAGS     = @PERL_CPPFLAGS@
 PERL_LDFLAGS      = @PERL_LDFLAGS@
 PERL_LIBS         = @PERL_LIBS@
 
+USE_RUBY          = @USE_RUBY@
+RUBY              = @RUBY@
+RUBY_CPPFLAGS     = @RUBY_CPPFLAGS@
+RUBY_LDFLAGS      = @RUBY_LDFLAGS@
+RUBY_LIBS         = @RUBY_LIBS@
+
 USE_JAVA          = @USE_JAVA@
 JAVA              = @JAVA@
 JAVAC             = @JAVAC@

@@ -148,6 +148,7 @@ CONFIG_PROG_JAVA(1.4.0)
 CONFIG_PROG_MATLAB
 CONFIG_PROG_OCTAVE(2.9.7,2.9.7)
 CONFIG_PROG_LISP
+CONFIG_PROG_RUBY
 
 CONFIG_PROG_DOXYGEN(1.4.5)
 
@@ -247,6 +248,8 @@ AC_CONFIG_FILES([src/bindings/octave/Makefile])
 AC_CONFIG_FILES([src/bindings/octave/test/Makefile])
 
 AC_CONFIG_FILES([src/bindings/java/Makefile])
+
+AC_CONFIG_FILES([src/bindings/ruby/Makefile])
 
 # 2007-06-05 Temporarily disabling Lisp bindings
 # AC_CONFIG_FILES([src/bindings/lisp/Makefile])
@@ -377,6 +380,7 @@ print_flag "Octave"   	$with_octave	$OCTAVE
 print_flag "Lisp"   	$with_lisp	$lisp
 print_flag "Asdf"   	$EXT_ASDF	$ASDF
 print_flag "UFFI"   	$EXT_UFFI	$UFFI
+print_flag "Ruby"       $with_ruby      $RUBY
 
 if test "$enable_layout" != "no" ; then
   echo "  use Layout Extension        = yes  (experimental)"
