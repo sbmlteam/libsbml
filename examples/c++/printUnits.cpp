@@ -50,12 +50,12 @@ main (int argc, char *argv[])
     return 1;
   }
 
-  model->createListFormulaUnitsData();
+  model->populateListFormulaUnitsData();
 
   cout << "Total number of formula units: "
-       << model->getNumFormulaUnitsData() << endl << endl;
+       << model->getListFormulaUnitsData()->getSize() << endl << endl;
 
-  for (unsigned int n = 0; n < model->getNumFormulaUnitsData(); n++)
+  for (unsigned int n = 0; n < model->getListFormulaUnitsData()->getSize(); n++)
   {
     FormulaUnitsData* fud = model->getFormulaUnitsData(n);
     unsigned int numUnits = fud->getUnitDefinition()->getNumUnits();
@@ -63,11 +63,11 @@ main (int argc, char *argv[])
     cout << "Formula units case #" << (n+1) << " --" << endl;
 
     cout << "  class of model entity: "
-	 << SBMLTypeCode_toString(fud->getTypecode())<< endl;
+	 << SBMLTypeCode_toString(fud->getComponentTypecode())<< endl;
 
-    cout << "  id of entity in model: " << fud->getId() << endl;
+    cout << "  id of entity in model: " << fud->getUnitReferenceId() << endl;
 
-    if (fud->getContainsParametersWithUndeclaredUnits())
+    if (fud->getContainsUndeclaredUnits())
     {
       cout << " undeclared parameters?: yes" << endl;
       cout << "  (can they be ignored?: "
