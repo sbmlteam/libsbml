@@ -542,7 +542,7 @@ LIBLAX_EXTERN
 const char *
 XMLNode_convertXMLNodeToString(const XMLNode_t *node)
 {
-  return (XMLNode::convertXMLNodeToString(node)).c_str();
+  return safe_strdup((XMLNode::convertXMLNodeToString(node)).c_str());
 }
 
 
