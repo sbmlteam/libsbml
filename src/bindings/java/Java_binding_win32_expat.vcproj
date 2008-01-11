@@ -23,7 +23,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(JAVA_INCLUDE),$(JAVA_INCLUDE)\win32"
+				AdditionalIncludeDirectories="../swig;../../../include;&quot;$(JAVA_INCLUDE)&quot;;&quot;$(JAVA_INCLUDE)\win32&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBSBML_EXPORTS;LIBLAX_EXPORTS;USE_EXPAT;USE_LAYOUT"
 				ExceptionHandling="TRUE"
 				BasicRuntimeChecks="3"
@@ -94,7 +94,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="$(JAVA_INCLUDE),$(JAVA_INCLUDE)\win32"
+				AdditionalIncludeDirectories="../swig;../../../include;&quot;$(JAVA_INCLUDE)&quot;;&quot;$(JAVA_INCLUDE)\win32&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBSBML_EXPORTS;USE_EXPAT;LIBLAX_EXPORTS;USE_LAYOUT"
 				StringPooling="FALSE"
 				ExceptionHandling="TRUE"

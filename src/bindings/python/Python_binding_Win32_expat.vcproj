@@ -88,7 +88,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="$(PYTHON_INCLUDE)"
+				AdditionalIncludeDirectories="../swig;../../../include;&quot;$(PYTHON_INCLUDE)&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBSBML_EXPORTS;USE_EXPAT;LIBLAX_EXPORTS;USE_LAYOUT"
 				StringPooling="FALSE"
 				ExceptionHandling="TRUE"
