@@ -62,6 +62,9 @@ ifneq "$(MAKECMDGOALS)" "dist"
   ifdef USE_PERL
     subdirs += perl
   endif
+  ifdef USE_RUBY
+    subdirs += ruby
+  endif
 else
   # If `make dist' was given, include all subdirectories.
   # subdirs = java lisp matlab python perl
