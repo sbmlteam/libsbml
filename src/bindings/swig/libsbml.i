@@ -85,7 +85,6 @@
 /**
  * Ignore methods which receive or return List*.
  */
-%ignore ModelHistory::getCreator;
 %ignore ModelHistory::getListCreators;
 %ignore SBase::getCVTerms;
 %ignore RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation, List * CVTerms);
