@@ -24,23 +24,23 @@ SolidCompression=yes
 Name: english; MessagesFile: compiler:Default.isl
 
 [Files]
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\java\sbmlj.lib; DestDir: {sys}; Check: GetJava
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\java\sbmlj.dll; DestDir: {sys}; Check: GetJava
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\matlab\*; DestDir: {code:GetMatlabDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetMatlab
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python23\libsbml.py; DestDir: {code:GetPython23Dir}; Check: GetPython23
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python23\_libsbml.dll; DestDir: {code:GetPython23Dir}; Check: GetPython23
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python24\libsbml.py; DestDir: {code:GetPython24Dir}; Check: GetPython24
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python24\_libsbml.dll; DestDir: {code:GetPython24Dir}; Check: GetPython24
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python25\libsbml.py; DestDir: {code:GetPython25Dir}; Check: GetPython25
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python25\_libsbml.pyd; DestDir: {code:GetPython25Dir}; Check: GetPython25
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\xerces-c_2D.lib; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\libsbml.dll; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\libsbml.lib; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\libsbmlD.dll; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\libsbmlD.lib; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\xerces-c_2.lib; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\xerces-c_2_7.dll; DestDir: {sys}; Check: GetLibrary
+;Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
+;Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\java\sbmlj.lib; DestDir: {sys}; Check: GetJava
+;Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\java\sbmlj.dll; DestDir: {sys}; Check: GetJava
+;Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\matlab\*; DestDir: {code:GetMatlabDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetMatlab
+;Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python23\libsbml.py; DestDir: {code:GetPython23Dir}; Check: GetPython23
+;Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python23\_libsbml.dll; DestDir: {code:GetPython23Dir}; Check: GetPython23
+;Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python24\libsbml.py; DestDir: {code:GetPython24Dir}; Check: GetPython24
+;Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python24\_libsbml.dll; DestDir: {code:GetPython24Dir}; Check: GetPython24
+;Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python25\libsbml.py; DestDir: {code:GetPython25Dir}; Check: GetPython25
+;Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python25\_libsbml.pyd; DestDir: {code:GetPython25Dir}; Check: GetPython25
+;Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\xerces-c_2D.lib; DestDir: {sys}; Check: GetLibrary
+;Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\libsbml.dll; DestDir: {sys}; Check: GetLibrary
+;Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\libsbml.lib; DestDir: {sys}; Check: GetLibrary
+;Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\libsbmlD.dll; DestDir: {sys}; Check: GetLibrary
+;Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\libsbmlD.lib; DestDir: {sys}; Check: GetLibrary
+;Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\xerces-c_2.lib; DestDir: {sys}; Check: GetLibrary
+;Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\xerces-c_2_7.dll; DestDir: {sys}; Check: GetLibrary
 Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\xerces-c_2_7D.dll; DestDir: {sys}; Check: GetLibrary
 
 [Registry]
@@ -61,6 +61,7 @@ var
   AboutButton, CancelButton: TButton;
 
   MatlabPresent: Boolean;
+  MatlabVersion: String;
   MatlabRoot: String;
 
   PreviousInstalledVersion, ThisVersion: String;
@@ -105,6 +106,7 @@ begin
     Key := Key + Names[Number-1];
     RegQueryStringValue(HKLM, Key, 'MATLABROOT', Root);
     MatlabPresent := True;
+    MatlabVersion := Names[Number-1];
   end;
 
   Result := Root;
@@ -173,7 +175,11 @@ begin
   end else begin
     First := StrToInt(StrGet(VersionNo, 1));
     Second := StrToInt(StrGet(VersionNo, 3));
-    Third := StrToInt(StrGet(VersionNo, 5));
+    if (Length(VersionNo) > 3) then begin
+      Third := StrToInt(StrGet(VersionNo, 5));
+    end else begin
+      Third := 0  ;
+    end;
   end;
   CurrentFirst := StrToInt(StrGet(CurrentVers, 1));
   CurrentSecond := StrToInt(StrGet(CurrentVers, 3));
@@ -435,6 +441,15 @@ begin
         MsgBox('A later version of libSBML has already been installed on the system', mbInformation, mb_Ok);
       end else begin
         MsgBox('An earlier version of libSBML has already been installed on the system. Files may be overwritten.', mbInformation, mb_Ok);
+      end;
+    end;
+    Result := True;
+  end else if CurPageID = MatlabPage.ID then begin
+    Later := LaterVersion(MatlabVersion, '7.5.0');
+    if (Later > -1) then begin
+      if MsgBox('The Xerces version of the libSBML MATLAB binding conflicts with MATLAB Version 2007b and will not work. Install anyway?', mbConfirmation, MB_YESNO or MB_DEFBUTTON2) = IDNO then
+        begin
+          InstallOptionsPage.Values[3] := False;
       end;
     end;
     Result := True;
