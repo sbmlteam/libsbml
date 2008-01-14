@@ -398,49 +398,71 @@ bool
 MathMLBase::checkNumericFunction (const Model& m, const ASTNode* node)
 {
   unsigned int i, nodeCount;
-  const ASTNode * fdMath;
+  //const ASTNode * fdMath;
   ASTNode *newMath;
   bool needDelete = false;
+  unsigned int noBvars;
 
-  /* check this function definition exists */
-  if (m.getFunctionDefinition(node->getName()))
+  ASTNode * fdMath;
+  const FunctionDefinition *fd = m.getFunctionDefinition(node->getName());
+
+  if (fd)
   {
-    /* formula will be the right child of the functiondefinition math */
-    fdMath = m.getFunctionDefinition(node->getName())->getMath()->getRightChild();
-    
-    /* if function has no variables then this will be null */
-    if (fdMath == NULL)
+    noBvars = fd->getNumArguments();
+    if (noBvars == 0)
     {
-      newMath = m.getFunctionDefinition(node->getName())->getMath()->getLeftChild();
+      fdMath = fd->getMath()->getLeftChild()->deepCopy();
     }
     else
     {
-      /**
-        * create a new ASTNode of this type but with the children
-        * from the original function
-        */
-      newMath = new ASTNode(fdMath->getType());
-      /* if the fd refers to another function need to copy the name */
-      if (fdMath->getType() == AST_FUNCTION)
-        newMath->setName(fdMath->getName());
-      needDelete = true;
-      nodeCount = 0;
-      for (i = 0; i < fdMath->getNumChildren(); i++)
-      {
-        if (fdMath->getChild(i)->isName())
-        {
-          newMath->addChild(node->getChild(nodeCount)->deepCopy());
-          nodeCount++;
-        }
-        else
-        {
-          newMath->addChild(fdMath->getChild(i)->deepCopy());
-        }
-      }
+      fdMath = fd->getMath()->getRightChild()->deepCopy();
+    }
+
+    for (i = 0, nodeCount = 0; i < noBvars; i++, nodeCount++)
+    {
+      fdMath->ReplaceArgument(fd->getArgument(i)->getName(), 
+                                          node->getChild(nodeCount));
+    //}
+  ///* check this function definition exists */
+  //if (m.getFunctionDefinition(node->getName()))
+  //{
+  //  /* formula will be the right child of the functiondefinition math */
+  //  fdMath = m.getFunctionDefinition(node->getName())->getMath()->getRightChild();
+  //  
+  //  /* if function has no variables then this will be null */
+  //  if (fdMath == NULL)
+  //  {
+  //    newMath = m.getFunctionDefinition(node->getName())->getMath()->getLeftChild();
+  //  }
+  //  else
+  //  {
+  //    /**
+  //      * create a new ASTNode of this type but with the children
+  //      * from the original function
+  //      */
+  //    newMath = new ASTNode(fdMath->getType());
+  //    /* if the fd refers to another function need to copy the name */
+  //    if (fdMath->getType() == AST_FUNCTION)
+  //      newMath->setName(fdMath->getName());
+  //    needDelete = true;
+  //    nodeCount = 0;
+  //    for (i = 0; i < fdMath->getNumChildren(); i++)
+  //    {
+  //      if (fdMath->getChild(i)->isName())
+  //      {
+  //        newMath->addChild(node->getChild(nodeCount)->deepCopy());
+  //        nodeCount++;
+  //      }
+  //      else
+  //      {
+  //        newMath->addChild(fdMath->getChild(i)->deepCopy());
+  //      }
+  //    }
     }
     
-    bool isNumeric = returnsNumeric(m, newMath);
-    if(needDelete) delete newMath;
+    bool isNumeric = returnsNumeric(m, fdMath);
+    //bool isNumeric = returnsNumeric(m, newMath);
+    //if(needDelete) delete newMath;
    
     return isNumeric;
   }

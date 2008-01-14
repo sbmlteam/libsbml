@@ -1470,6 +1470,8 @@ LIBSBML_EXTERN
 void
 ASTNode::ReplaceArgument(const std::string bvar, ASTNode * arg)
 {
+  if (arg == NULL)
+    return;
 
   for (unsigned int i = 0; i < getNumChildren(); i++)
   {
