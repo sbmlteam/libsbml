@@ -53,9 +53,9 @@ main (int argc, char *argv[])
   model->populateListFormulaUnitsData();
 
   cout << "Total number of formula units: "
-       << model->getListFormulaUnitsData()->getSize() << endl << endl;
+       << model->getNumFormulaUnitsData() << endl << endl;
 
-  for (unsigned int n = 0; n < model->getListFormulaUnitsData()->getSize(); n++)
+  for (unsigned int n = 0; n < model->getNumFormulaUnitsData(); n++)
   {
     FormulaUnitsData* fud = model->getFormulaUnitsData(n);
     unsigned int numUnits = fud->getUnitDefinition()->getNumUnits();
