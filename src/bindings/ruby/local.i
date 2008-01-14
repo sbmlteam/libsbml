@@ -26,6 +26,9 @@
 
 %trackobjects;
 
+%include "std_iostream.i"
+%include "std_sstream.i"
+
 /**
  * Convert an SBase object to a string.
  */
