@@ -1045,6 +1045,10 @@ void
 Layout_setId (Layout_t *l, const char *sid);
 
 
+LIBSBML_EXTERN
+void
+Layout_setDimensions (Layout_t *l, const Dimensions_t *dimensions);
+
 /**
  * Adds a new compartment glyph to the list of compartment glyphs.
  */

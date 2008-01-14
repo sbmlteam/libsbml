@@ -2201,6 +2201,17 @@ Layout_setId (Layout_t *l, const char *id)
 
 
 /**
+ * Sets the dimensions of the layout.
+ */
+LIBSBML_EXTERN
+void
+Layout_setDimensions (Layout_t *l, const Dimensions_t *dimensions)
+{
+    static_cast<Layout*>(l)->setDimensions( dimensions );
+}
+
+
+/**
  * Adds a new compartment glyph to the list of compartment glyphs.
  */
 LIBSBML_EXTERN
