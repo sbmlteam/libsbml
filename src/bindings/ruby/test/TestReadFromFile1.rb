@@ -1,6 +1,29 @@
 #
-# This file was converted from libsbml/src/sbml/test/TestReadFromFile1.c
-# with the help of test_c2ruby.pl (manual handling required).
+# @file    TestReadFromFile1.rb
+# @brief   Reads tests/l1v1-branch.xml into memory and tests it.
+# @author  Akiya Jouraku (Ruby conversion)
+# @author  Ben Bornstein 
+#
+# $Id$
+# $Source$
+#
+# This test file was converted from src/sbml/test/TestReadFromFile1.c
+# wiht the help of conversion sciprt (ctest_converter.pl).
+#
+#<!---------------------------------------------------------------------------
+# This file is part of libSBML.  Please visit http://sbml.org for more
+# information about SBML, and the latest version of libSBML.
+#
+# Copyright 2005-2008 California Institute of Technology.
+# Copyright 2002-2005 California Institute of Technology and
+#                     Japan Science and Technology Corporation.
+# 
+# This library is free software; you can redistribute it and/or modify it
+# under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation.  A copy of the license agreement is provided
+# in the file named "LICENSE.txt" included with this software distribution
+# and also available online as http://sbml.org/software/libsbml/license.html
+#--------------------------------------------------------------------------->*/
 #
 require 'test/unit'
 require 'libSBML'
@@ -10,99 +33,101 @@ class TestReadFromFile1 < Test::Unit::TestCase
   def test_read_l1v1_branch
     filename = "../../sbml/test/test-data/l1v1-branch.xml"
     d = LibSBML::readSBML(filename)
-      assert_equal 1, d.getLevel
-      assert_equal 1, d.getVersion
-      m = d.getModel
-      assert_equal  "Branch",m.getName
-      assert_equal 1, m.getNumCompartments
-      c = m.getCompartment(0)
-      assert_equal  "compartmentOne",c.getName
-      assert_equal 1, c.getVolume
-      assert_equal 4, m.getNumSpecies
-      s = m.getSpecies(0)
-      assert_equal  "S1"             ,s.getName
-      assert_equal  "compartmentOne" ,s.getCompartment
-      assert_equal 0, s.getInitialAmount
-      assert_equal false, s.getBoundaryCondition
-      s = m.getSpecies(1)
-      assert_equal  "X0"             ,s.getName
-      assert_equal  "compartmentOne" ,s.getCompartment
-      assert_equal 0, s.getInitialAmount
-      assert_equal true, s.getBoundaryCondition
-      s = m.getSpecies(2)
-      assert_equal  "X1"             ,s.getName
-      assert_equal  "compartmentOne" ,s.getCompartment
-      assert_equal 0, s.getInitialAmount
-      assert_equal true, s.getBoundaryCondition
-      s = m.getSpecies(3)
-      assert_equal  "X2"             ,s.getName
-      assert_equal  "compartmentOne" ,s.getCompartment
-      assert_equal 0, s.getInitialAmount
-      assert_equal true, s.getBoundaryCondition
-      assert_equal 3, m.getNumReactions
-      r = m.getReaction(0)
-      assert_equal  "reaction_1",r.getName
-      assert_equal false, r.getReversible
-      assert_equal false, r.getFast
-      r = m.getReaction(1)
-      assert_equal  "reaction_2",r.getName
-      assert_equal false, r.getReversible
-      assert_equal false, r.getFast
-      r = m.getReaction(2)
-      assert_equal  "reaction_3",r.getName
-      assert_equal false, r.getReversible
-      assert_equal false, r.getFast
-      r = m.getReaction(0)
-      assert_equal 1, r.getNumReactants
-      assert_equal 1, r.getNumProducts
-      sr = r.getReactant(0)
-      assert_equal  "X0",sr.getSpecies
-      assert_equal 1, sr.getStoichiometry
-      assert_equal 1, sr.getDenominator
-      sr = r.getProduct(0)
-      assert_equal  "S1",sr.getSpecies
-      assert_equal 1, sr.getStoichiometry
-      assert_equal 1, sr.getDenominator
-      kl = r.getKineticLaw
-      assert_equal  "k1 * X0",kl.getFormula
-      assert_equal 1, kl.getNumParameters
-      p = kl.getParameter(0)
-      assert_equal  "k1",p.getName
-      assert_equal 0, p.getValue
-      r = m.getReaction(1)
-      assert_equal 1, r.getNumReactants
-      assert_equal 1, r.getNumProducts
-      sr = r.getReactant(0)
-      assert_equal  "S1",sr.getSpecies
-      assert_equal 1, sr.getStoichiometry
-      assert_equal 1, sr.getDenominator
-      sr = r.getProduct(0)
-      assert_equal  "X1",sr.getSpecies
-      assert_equal 1, sr.getStoichiometry
-      assert_equal 1, sr.getDenominator
-      kl = r.getKineticLaw
-      assert_equal  "k2 * S1",kl.getFormula
-      assert_equal 1, kl.getNumParameters
-      p = kl.getParameter(0)
-      assert_equal  "k2",p.getName
-      assert_equal 0, p.getValue
-      r = m.getReaction(2)
-      assert_equal 1, r.getNumReactants
-      assert_equal 1, r.getNumProducts
-      sr = r.getReactant(0)
-      assert_equal  "S1",sr.getSpecies
-      assert_equal 1, sr.getStoichiometry
-      assert_equal 1, sr.getDenominator
-      sr = r.getProduct(0)
-      assert_equal  "X2",sr.getSpecies
-      assert_equal 1, sr.getStoichiometry
-      assert_equal 1, sr.getDenominator
-      kl = r.getKineticLaw
-      assert_equal  "k3 * S1",kl.getFormula
-      assert_equal 1, kl.getNumParameters
-      p = kl.getParameter(0)
-      assert_equal  "k3",p.getName
-      assert_equal 0, p.getValue
+    if (d == nil)
+    end
+    assert( d.getLevel == 1 )
+    assert( d.getVersion == 1 )
+    m = d.getModel
+    assert ((  "Branch" == m.getName ))
+    assert( m.getNumCompartments == 1 )
+    c = m.getCompartment(0)
+    assert ((  "compartmentOne" == c.getName ))
+    assert( c.getVolume == 1 )
+    assert( m.getNumSpecies == 4 )
+    s = m.getSpecies(0)
+    assert ((  "S1"              == s.getName ))
+    assert ((  "compartmentOne"  == s.getCompartment ))
+    assert( s.getInitialAmount == 0 )
+    assert( s.getBoundaryCondition == false )
+    s = m.getSpecies(1)
+    assert ((  "X0"              == s.getName ))
+    assert ((  "compartmentOne"  == s.getCompartment ))
+    assert( s.getInitialAmount == 0 )
+    assert( s.getBoundaryCondition == true )
+    s = m.getSpecies(2)
+    assert ((  "X1"              == s.getName ))
+    assert ((  "compartmentOne"  == s.getCompartment ))
+    assert( s.getInitialAmount == 0 )
+    assert( s.getBoundaryCondition == true )
+    s = m.getSpecies(3)
+    assert ((  "X2"              == s.getName ))
+    assert ((  "compartmentOne"  == s.getCompartment ))
+    assert( s.getInitialAmount == 0 )
+    assert( s.getBoundaryCondition == true )
+    assert( m.getNumReactions == 3 )
+    r = m.getReaction(0)
+    assert ((  "reaction_1" == r.getName ))
+    assert( r.getReversible == false )
+    assert( r.getFast == false )
+    r = m.getReaction(1)
+    assert ((  "reaction_2" == r.getName ))
+    assert( r.getReversible == false )
+    assert( r.getFast == false )
+    r = m.getReaction(2)
+    assert ((  "reaction_3" == r.getName ))
+    assert( r.getReversible == false )
+    assert( r.getFast == false )
+    r = m.getReaction(0)
+    assert( r.getNumReactants == 1 )
+    assert( r.getNumProducts == 1 )
+    sr = r.getReactant(0)
+    assert ((  "X0" == sr.getSpecies ))
+    assert( sr.getStoichiometry == 1 )
+    assert( sr.getDenominator == 1 )
+    sr = r.getProduct(0)
+    assert ((  "S1" == sr.getSpecies ))
+    assert( sr.getStoichiometry == 1 )
+    assert( sr.getDenominator == 1 )
+    kl = r.getKineticLaw
+    assert ((  "k1 * X0" == kl.getFormula ))
+    assert( kl.getNumParameters == 1 )
+    p = kl.getParameter(0)
+    assert ((  "k1" == p.getName ))
+    assert( p.getValue == 0 )
+    r = m.getReaction(1)
+    assert( r.getNumReactants == 1 )
+    assert( r.getNumProducts == 1 )
+    sr = r.getReactant(0)
+    assert ((  "S1" == sr.getSpecies ))
+    assert( sr.getStoichiometry == 1 )
+    assert( sr.getDenominator == 1 )
+    sr = r.getProduct(0)
+    assert ((  "X1" == sr.getSpecies ))
+    assert( sr.getStoichiometry == 1 )
+    assert( sr.getDenominator == 1 )
+    kl = r.getKineticLaw
+    assert ((  "k2 * S1" == kl.getFormula ))
+    assert( kl.getNumParameters == 1 )
+    p = kl.getParameter(0)
+    assert ((  "k2" == p.getName ))
+    assert( p.getValue == 0 )
+    r = m.getReaction(2)
+    assert( r.getNumReactants == 1 )
+    assert( r.getNumProducts == 1 )
+    sr = r.getReactant(0)
+    assert ((  "S1" == sr.getSpecies ))
+    assert( sr.getStoichiometry == 1 )
+    assert( sr.getDenominator == 1 )
+    sr = r.getProduct(0)
+    assert ((  "X2" == sr.getSpecies ))
+    assert( sr.getStoichiometry == 1 )
+    assert( sr.getDenominator == 1 )
+    kl = r.getKineticLaw
+    assert ((  "k3 * S1" == kl.getFormula ))
+    assert( kl.getNumParameters == 1 )
+    p = kl.getParameter(0)
+    assert ((  "k3" == p.getName ))
+    assert( p.getValue == 0 )
   end
 
 end

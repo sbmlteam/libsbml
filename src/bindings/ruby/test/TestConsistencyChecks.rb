@@ -1,6 +1,29 @@
 #
-# This file was converted from libsbml/src/sbml/test/TestConsistencyChecks.cpp
-# with the help of test_c2ruby.pl (manual handling required).
+# @file    TestConsistencyChecks.rb
+# @brief   Reads test-data/inconsistent.xml into memory and tests it.
+# @author  Akiya Jouraku (Ruby conversion)
+# @author  Sarah Keating 
+#
+# $Id$
+# $Source$
+#
+# This test file was converted from src/sbml/test/TestConsistencyChecks.cpp
+# wiht the help of conversion sciprt (ctest_converter.pl).
+#
+#<!---------------------------------------------------------------------------
+# This file is part of libSBML.  Please visit http://sbml.org for more
+# information about SBML, and the latest version of libSBML.
+#
+# Copyright 2005-2008 California Institute of Technology.
+# Copyright 2002-2005 California Institute of Technology and
+#                     Japan Science and Technology Corporation.
+# 
+# This library is free software; you can redistribute it and/or modify it
+# under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation.  A copy of the license agreement is provided
+# in the file named "LICENSE.txt" included with this software distribution
+# and also available online as http://sbml.org/software/libsbml/license.html
+#--------------------------------------------------------------------------->*/
 #
 require 'test/unit'
 require 'libSBML'
@@ -8,38 +31,40 @@ require 'libSBML'
 class TestConsistencyChecks < Test::Unit::TestCase
 
   def test_consistency_checks
-    filename  = "../../sbml/test/test-data/inconsistent.xml"
     reader = LibSBML::SBMLReader.new()
+    filename = "../../sbml/test/test-data/inconsistent.xml"
     d = reader.readSBML(filename)
+    if (d == nil)
+    end
     errors = d.checkConsistency()
-    assert_equal 1, errors
-    assert_equal 10301, d.getError(0).getErrorId()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 10301 )
     d.getErrorLog().clearLog()
     d.setConsistencyChecks(LibSBML::LIBSBML_CAT_IDENTIFIER_CONSISTENCY,false)
     errors = d.checkConsistency()
-    assert_equal 1, errors
-    assert_equal 20612, d.getError(0).getErrorId()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 20612 )
     d.getErrorLog().clearLog()
     d.setConsistencyChecks(LibSBML::LIBSBML_CAT_GENERAL_CONSISTENCY,false)
     errors = d.checkConsistency()
-    assert_equal 1, errors
-    assert_equal 10701, d.getError(0).getErrorId()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 10701 )
     d.getErrorLog().clearLog()
     d.setConsistencyChecks(LibSBML::LIBSBML_CAT_SBO_CONSISTENCY,false)
     errors = d.checkConsistency()
-    assert_equal 1, errors
-    assert_equal 10214, d.getError(0).getErrorId()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 10214 )
     d.getErrorLog().clearLog()
     d.setConsistencyChecks(LibSBML::LIBSBML_CAT_MATHML_CONSISTENCY,false)
     errors = d.checkConsistency()
-    assert_equal 2, errors
-    assert_equal 10523, d.getError(0).getErrorId()
-    assert_equal 99505, d.getError(1).getErrorId()
+    assert( errors == 2 )
+    assert( d.getError(0).getErrorId() == 10523 )
+    assert( d.getError(1).getErrorId() == 99505 )
     d.getErrorLog().clearLog()
     d.setConsistencyChecks(LibSBML::LIBSBML_CAT_UNITS_CONSISTENCY,false)
     errors = d.checkConsistency()
-    assert_equal 1, errors
-    assert_equal 80701, d.getError(0).getErrorId()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 80701 )
   end
 
 end

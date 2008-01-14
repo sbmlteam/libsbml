@@ -1,90 +1,103 @@
 #
-# This file was converted from libsbml/src/sbml/test/TestReaction.c
-# with the help of test_c2ruby.pl (manual handling required).
+# @file    TestReaction.rb
+# @brief   SBML Reaction unit tests
+# @author  Akiya Jouraku (Ruby conversion)
+# @author  Ben Bornstein 
+#
+# $Id$
+# $Source$
+#
+# This test file was converted from src/sbml/test/TestReaction.c
+# wiht the help of conversion sciprt (ctest_converter.pl).
+#
+#<!---------------------------------------------------------------------------
+# This file is part of libSBML.  Please visit http://sbml.org for more
+# information about SBML, and the latest version of libSBML.
+#
+# Copyright 2005-2008 California Institute of Technology.
+# Copyright 2002-2005 California Institute of Technology and
+#                     Japan Science and Technology Corporation.
+# 
+# This library is free software; you can redistribute it and/or modify it
+# under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation.  A copy of the license agreement is provided
+# in the file named "LICENSE.txt" included with this software distribution
+# and also available online as http://sbml.org/software/libsbml/license.html
+#--------------------------------------------------------------------------->*/
 #
 require 'test/unit'
 require 'libSBML'
 
 class TestReaction < Test::Unit::TestCase
 
-  def test_Reaction_addReactant
-    sr = LibSBML::SpeciesReference.new
-    @@r.addReactant(sr)
-    assert_equal 1, @@r.getNumReactants
-    assert_equal 0, @@r.getNumProducts
-    assert_equal 0, @@r.getNumModifiers
+  def setup
+    @@r = LibSBML::Reaction.new
+    if (@@r == nil)
+    end
   end
 
-  def test_Reaction_getReactantById
-    sr1 = LibSBML::SpeciesReference.new("R1",1,1)
-    sr2 = LibSBML::SpeciesReference.new("R2",1,1)
-    @@r.addReactant(sr1)
-    @@r.addReactant(sr2)
-    assert_equal 2, @@r.getNumReactants
-    assert_equal 0, @@r.getNumProducts
-    assert_equal 0, @@r.getNumModifiers
-    assert_not_equal sr1, @@r.getReactant( "R1")
-    assert_not_equal sr2, @@r.getReactant( "R2")
-    assert_equal nil, @@r.getReactant( "R3")
-  end
-
-  def test_Reaction_createWith
-    kl = LibSBML::KineticLaw.new
-    r = LibSBML::Reaction.new("r1", "",kl,0)
-    r.setFast(1);
-    assert_equal LibSBML::SBML_REACTION, r.getTypeCode
-    assert_equal "", r.getMetaId
-    assert_equal nil, r.getNotes
-    assert_equal nil, r.getAnnotation
-    assert_equal "", r.getName
-    assert_equal  "r1",r.getId
-    assert_equal false, r.getReversible
-    assert_equal true, r.getFast
-    assert_equal true, r.isSetId
-    assert_equal false, r.isSetName
-    assert_equal true, r.isSetKineticLaw
-    assert_equal 0, r.getNumReactants
-    assert_equal 0, r.getNumProducts
-    assert_equal 0, r.getNumModifiers
-  end
-
-  def test_Reaction_free_NULL
+  def test_Reaction_addModifier
+    @@r.addModifier(LibSBML::ModifierSpeciesReference.new())
+    assert( @@r.getNumReactants == 0 )
+    assert( @@r.getNumProducts == 0 )
+    assert( @@r.getNumModifiers == 1 )
   end
 
   def test_Reaction_addProduct
     sr = LibSBML::SpeciesReference.new
     @@r.addProduct(sr)
-    assert_equal 0, @@r.getNumReactants
-    assert_equal 1, @@r.getNumProducts
-    assert_equal 0, @@r.getNumModifiers
+    assert( @@r.getNumReactants == 0 )
+    assert( @@r.getNumProducts == 1 )
+    assert( @@r.getNumModifiers == 0 )
   end
 
-  def test_Reaction_addModifier
-    @@r.addModifier(LibSBML::ModifierSpeciesReference.new())
-    assert_equal 0, @@r.getNumReactants
-    assert_equal 0, @@r.getNumProducts
-    assert_equal 1, @@r.getNumModifiers
+  def test_Reaction_addReactant
+    sr = LibSBML::SpeciesReference.new
+    @@r.addReactant(sr)
+    assert( @@r.getNumReactants == 1 )
+    assert( @@r.getNumProducts == 0 )
+    assert( @@r.getNumModifiers == 0 )
   end
 
-  def test_Reaction_getReactant
-    sr1 = LibSBML::SpeciesReference.new
-    sr2 = LibSBML::SpeciesReference.new
-    sr1.setSpecies( "R1")
-    sr2.setSpecies( "R2")
-    @@r.addReactant(sr1)
-    @@r.addReactant(sr2)
-    assert_equal 2, @@r.getNumReactants
-    assert_equal 0, @@r.getNumProducts
-    assert_equal 0, @@r.getNumModifiers
-    sr1 = @@r.getReactant(0)
-    sr2 = @@r.getReactant(1)
-    assert_equal  "R1",sr1.getSpecies
-    assert_equal  "R2",sr2.getSpecies
+  def test_Reaction_create
+    assert( @@r.getTypeCode == LibSBML::SBML_REACTION )
+    assert( @@r.getMetaId == "" )
+    assert( @@r.getNotes == nil )
+    assert( @@r.getAnnotation == nil )
+    assert( @@r.getId == "" )
+    assert( @@r.getName == "" )
+    assert( @@r.getKineticLaw == nil )
+    assert( @@r.getReversible != false )
+    assert( @@r.getFast == false )
+    assert_equal false, @@r.isSetId
+    assert_equal false, @@r.isSetName
+    assert_equal false, @@r.isSetKineticLaw
+    assert( @@r.getNumReactants == 0 )
+    assert( @@r.getNumProducts == 0 )
+    assert( @@r.getNumModifiers == 0 )
   end
 
-  def setup
-    @@r = LibSBML::Reaction.new
-      
+  def test_Reaction_createWith
+    kl = LibSBML::KineticLaw.new
+    r = LibSBML::Reaction.new("r1", "",kl,0)
+    r.setFast(1)
+    assert( r.getTypeCode == LibSBML::SBML_REACTION )
+    assert( r.getMetaId == "" )
+    assert( r.getNotes == nil )
+    assert( r.getAnnotation == nil )
+    assert( r.getName == "" )
+    assert ((  "r1" == r.getId ))
+    assert( r.getReversible == false )
+    assert( r.getFast == true )
+    assert_equal true, r.isSetId
+    assert_equal false, r.isSetName
+    assert_equal true, r.isSetKineticLaw
+    assert( r.getNumReactants == 0 )
+    assert( r.getNumProducts == 0 )
+    assert( r.getNumModifiers == 0 )
+  end
+
+  def test_Reaction_free_NULL
   end
 
   def test_Reaction_getModifier
@@ -94,58 +107,13 @@ class TestReaction < Test::Unit::TestCase
     msr2.setSpecies( "M2")
     @@r.addModifier(msr1)
     @@r.addModifier(msr2)
-    assert_equal 0, @@r.getNumReactants
-    assert_equal 0, @@r.getNumProducts
-    assert_equal 2, @@r.getNumModifiers
+    assert( @@r.getNumReactants == 0 )
+    assert( @@r.getNumProducts == 0 )
+    assert( @@r.getNumModifiers == 2 )
     msr1 = @@r.getModifier(0)
     msr2 = @@r.getModifier(1)
-    assert_equal  "M1",msr1.getSpecies
-    assert_equal  "M2",msr2.getSpecies
-  end
-
-  def test_Reaction_getProduct
-    sr1 = LibSBML::SpeciesReference.new
-    sr2 = LibSBML::SpeciesReference.new
-    sr1.setSpecies( "P1")
-    sr2.setSpecies( "P2")
-    @@r.addProduct(sr1)
-    @@r.addProduct(sr2)
-    assert_equal 0, @@r.getNumReactants
-    assert_equal 2, @@r.getNumProducts
-    assert_equal 0, @@r.getNumModifiers
-    sr1 = @@r.getProduct(0)
-    sr2 = @@r.getProduct(1)
-    assert_equal  "P1",sr1.getSpecies
-    assert_equal  "P2",sr2.getSpecies
-  end
-
-  def test_Reaction_create
-    assert_equal LibSBML::SBML_REACTION, @@r.getTypeCode
-    assert_equal "", @@r.getMetaId
-    assert_equal nil, @@r.getNotes
-    assert_equal nil, @@r.getAnnotation
-    assert_equal "", @@r.getId
-    assert_equal "", @@r.getName
-    assert_equal nil, @@r.getKineticLaw
-    assert_not_equal false, @@r.getReversible
-    assert_equal false, @@r.getFast
-    assert_equal false, @@r.isSetId
-    assert_equal false, @@r.isSetName
-    assert_equal false, @@r.isSetKineticLaw
-    assert_equal 0, @@r.getNumReactants
-    assert_equal 0, @@r.getNumProducts
-    assert_equal 0, @@r.getNumModifiers
-  end
-
-  def test_Reaction_setName
-    name = "MapK Cascade"
-    @@r.setName(name)
-    assert_equal name,@@r.getName
-    assert_equal true, @@r.isSetName
-      @@r.setName(@@r.getName)
-      assert_equal name,@@r.getName
-      @@r.setName("")
-      assert_equal false, @@r.isSetName
+    assert ((  "M1" == msr1.getSpecies ))
+    assert ((  "M2" == msr2.getSpecies ))
   end
 
   def test_Reaction_getModifierById
@@ -155,12 +123,28 @@ class TestReaction < Test::Unit::TestCase
     msr2.setSpecies( "M2")
     @@r.addModifier(msr1)
     @@r.addModifier(msr2)
-    assert_equal 0, @@r.getNumReactants
-    assert_equal 0, @@r.getNumProducts
-    assert_equal 2, @@r.getNumModifiers
-    assert_not_equal msr1, @@r.getModifier( "M1")
-    assert_not_equal msr2, @@r.getModifier( "M2")
-    assert_equal nil, @@r.getModifier( "M3")
+    assert( @@r.getNumReactants == 0 )
+    assert( @@r.getNumProducts == 0 )
+    assert( @@r.getNumModifiers == 2 )
+    assert( @@r.getModifier( "M1") != msr1 )
+    assert( @@r.getModifier( "M2") != msr2 )
+    assert( @@r.getModifier( "M3") == nil )
+  end
+
+  def test_Reaction_getProduct
+    sr1 = LibSBML::SpeciesReference.new
+    sr2 = LibSBML::SpeciesReference.new
+    sr1.setSpecies( "P1")
+    sr2.setSpecies( "P2")
+    @@r.addProduct(sr1)
+    @@r.addProduct(sr2)
+    assert( @@r.getNumReactants == 0 )
+    assert( @@r.getNumProducts == 2 )
+    assert( @@r.getNumModifiers == 0 )
+    sr1 = @@r.getProduct(0)
+    sr2 = @@r.getProduct(1)
+    assert ((  "P1" == sr1.getSpecies ))
+    assert ((  "P2" == sr2.getSpecies ))
   end
 
   def test_Reaction_getProductById
@@ -168,23 +152,71 @@ class TestReaction < Test::Unit::TestCase
     sr2 = LibSBML::SpeciesReference.new("P2",1,1)
     @@r.addProduct(sr1)
     @@r.addProduct(sr2)
-    assert_equal 0, @@r.getNumReactants
-    assert_equal 2, @@r.getNumProducts
-    assert_equal 0, @@r.getNumModifiers
-    assert_not_equal sr1, @@r.getProduct( "P1")
-    assert_not_equal sr2, @@r.getProduct( "P2")
-    assert_equal nil, @@r.getProduct( "P3")
+    assert( @@r.getNumReactants == 0 )
+    assert( @@r.getNumProducts == 2 )
+    assert( @@r.getNumModifiers == 0 )
+    assert( @@r.getProduct( "P1") != sr1 )
+    assert( @@r.getProduct( "P2") != sr2 )
+    assert( @@r.getProduct( "P3") == nil )
+  end
+
+  def test_Reaction_getReactant
+    sr1 = LibSBML::SpeciesReference.new
+    sr2 = LibSBML::SpeciesReference.new
+    sr1.setSpecies( "R1")
+    sr2.setSpecies( "R2")
+    @@r.addReactant(sr1)
+    @@r.addReactant(sr2)
+    assert( @@r.getNumReactants == 2 )
+    assert( @@r.getNumProducts == 0 )
+    assert( @@r.getNumModifiers == 0 )
+    sr1 = @@r.getReactant(0)
+    sr2 = @@r.getReactant(1)
+    assert ((  "R1" == sr1.getSpecies ))
+    assert ((  "R2" == sr2.getSpecies ))
+  end
+
+  def test_Reaction_getReactantById
+    sr1 = LibSBML::SpeciesReference.new("R1",1,1)
+    sr2 = LibSBML::SpeciesReference.new("R2",1,1)
+    @@r.addReactant(sr1)
+    @@r.addReactant(sr2)
+    assert( @@r.getNumReactants == 2 )
+    assert( @@r.getNumProducts == 0 )
+    assert( @@r.getNumModifiers == 0 )
+    assert( @@r.getReactant( "R1") != sr1 )
+    assert( @@r.getReactant( "R2") != sr2 )
+    assert( @@r.getReactant( "R3") == nil )
   end
 
   def test_Reaction_setId
     id = "J1"
     @@r.setId(id)
-    assert_equal id,@@r.getId
+    assert (( id == @@r.getId ))
     assert_equal true, @@r.isSetId
-      @@r.setId(@@r.getId)
-      assert_equal id,@@r.getId
-      @@r.setId("")
-      assert_equal false, @@r.isSetId
+    if (@@r.getId == id)
+    end
+    @@r.setId(@@r.getId)
+    assert (( id == @@r.getId ))
+    @@r.setId("")
+    assert_equal false, @@r.isSetId
+    if (@@r.getId != nil)
+    end
+  end
+
+  def test_Reaction_setName
+    name = "MapK Cascade"
+    @@r.setName(name)
+    assert (( name == @@r.getName ))
+    assert_equal true, @@r.isSetName
+    if (@@r.getName == name)
+    end
+    @@r.setName(@@r.getName)
+    assert (( name == @@r.getName ))
+    @@r.setName("")
+    assert_equal false, @@r.isSetName
+    if (@@r.getName != nil)
+    end
   end
 
 end

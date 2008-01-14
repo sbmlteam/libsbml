@@ -1,11 +1,69 @@
 #
-# This file was converted from libsbml/src/sbml/test/TestUnit.c
-# with the help of test_c2ruby.pl (manual handling required).
+# @file    TestUnit.rb
+# @brief   Unit unit tests
+# @author  Akiya Jouraku (Ruby conversion)
+# @author  Ben Bornstein 
+#
+# $Id$
+# $Source$
+#
+# This test file was converted from src/sbml/test/TestUnit.c
+# wiht the help of conversion sciprt (ctest_converter.pl).
+#
+#<!---------------------------------------------------------------------------
+# This file is part of libSBML.  Please visit http://sbml.org for more
+# information about SBML, and the latest version of libSBML.
+#
+# Copyright 2005-2008 California Institute of Technology.
+# Copyright 2002-2005 California Institute of Technology and
+#                     Japan Science and Technology Corporation.
+# 
+# This library is free software; you can redistribute it and/or modify it
+# under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation.  A copy of the license agreement is provided
+# in the file named "LICENSE.txt" included with this software distribution
+# and also available online as http://sbml.org/software/libsbml/license.html
+#--------------------------------------------------------------------------->*/
 #
 require 'test/unit'
 require 'libSBML'
 
 class TestUnit < Test::Unit::TestCase
+
+  def setup
+    @@u = LibSBML::Unit.new
+    if (@@u == nil)
+    end
+  end
+
+  def test_Unit_create
+    assert( @@u.getTypeCode == LibSBML::SBML_UNIT )
+    assert( @@u.getMetaId == "" )
+    assert( @@u.getNotes == nil )
+    assert( @@u.getAnnotation == nil )
+    assert( @@u.getKind == LibSBML::UNIT_KIND_INVALID )
+    assert( @@u.getExponent == 1 )
+    assert( @@u.getScale == 0 )
+    assert( @@u.getMultiplier == 1.0 )
+    assert_equal false, @@u.isSetKind
+  end
+
+  def test_Unit_createWith
+    u = LibSBML::Unit.new(LibSBML::UNIT_KIND_SECOND,-2,1)
+    assert( u.getTypeCode == LibSBML::SBML_UNIT )
+    assert( u.getMetaId == "" )
+    assert( u.getNotes == nil )
+    assert( u.getAnnotation == nil )
+    assert( u.getKind == LibSBML::UNIT_KIND_SECOND )
+    assert( u.getExponent == -2 )
+    assert( u.getScale == 1 )
+    assert( u.getMultiplier == 1.0 )
+    assert( u.getOffset == 0.0 )
+    assert_equal true, u.isSetKind
+  end
+
+  def test_Unit_free_NULL
+  end
 
   def test_Unit_isBuiltIn
     assert_equal true, LibSBML::Unit.isBuiltIn( "substance",1)
@@ -26,38 +84,6 @@ class TestUnit < Test::Unit::TestCase
     assert_equal false, LibSBML::Unit.isBuiltIn( ""       ,2)
     assert_equal false, LibSBML::Unit.isBuiltIn( "volt"   ,2)
     assert_equal false, LibSBML::Unit.isBuiltIn( "foobar" ,2)
-  end
-
-  def test_Unit_free_NULL
-  end
-
-  def test_Unit_create
-    assert_equal LibSBML::SBML_UNIT, @@u.getTypeCode
-    assert_equal "", @@u.getMetaId
-    assert_equal nil, @@u.getNotes
-    assert_equal nil, @@u.getAnnotation
-    assert_equal LibSBML::UNIT_KIND_INVALID, @@u.getKind
-    assert_equal 1, @@u.getExponent
-    assert_equal 0, @@u.getScale
-    assert_equal 1.0, @@u.getMultiplier
-    assert_equal false, @@u.isSetKind
-  end
-
-  def test_Unit_set_get
-    u = LibSBML::Unit.new
-    assert_equal LibSBML::UNIT_KIND_INVALID, u.getKind
-    assert_equal 1, u.getExponent
-    assert_equal 0, u.getScale
-    assert_equal 1.0, u.getMultiplier
-    assert_equal false, u.isSetKind
-    u.setKind(LibSBML::UNIT_KIND_WATT)
-    assert_equal LibSBML::UNIT_KIND_WATT, u.getKind
-    u.setExponent(3)
-    assert_equal 3, u.getExponent
-    u.setScale(4)
-    assert_equal 4, u.getScale
-    u.setMultiplier(3.2)
-    assert_equal 3.2, u.getMultiplier
   end
 
   def test_Unit_isXXX
@@ -130,23 +156,21 @@ class TestUnit < Test::Unit::TestCase
     assert_equal true, @@u.isWeber
   end
 
-  def test_Unit_createWith
-    u = LibSBML::Unit.new(LibSBML::UNIT_KIND_SECOND,-2,1)
-    assert_equal LibSBML::SBML_UNIT, u.getTypeCode
-    assert_equal "", u.getMetaId
-    assert_equal nil, u.getNotes
-    assert_equal nil, u.getAnnotation
-    assert_equal LibSBML::UNIT_KIND_SECOND, u.getKind
-    assert_equal -2, u.getExponent
-    assert_equal 1, u.getScale
-    assert_equal 1.0, u.getMultiplier
-    assert_equal 0.0, u.getOffset
-    assert_equal true, u.isSetKind
-  end
-
-  def setup
-    @@u = LibSBML::Unit.new
-      
+  def test_Unit_set_get
+    u = LibSBML::Unit.new
+    assert( u.getKind == LibSBML::UNIT_KIND_INVALID )
+    assert( u.getExponent == 1 )
+    assert( u.getScale == 0 )
+    assert( u.getMultiplier == 1.0 )
+    assert_equal false, u.isSetKind
+    u.setKind(LibSBML::UNIT_KIND_WATT)
+    assert( u.getKind == LibSBML::UNIT_KIND_WATT )
+    u.setExponent(3)
+    assert( u.getExponent == 3 )
+    u.setScale(4)
+    assert( u.getScale == 4 )
+    u.setMultiplier(3.2)
+    assert( u.getMultiplier == 3.2 )
   end
 
 end

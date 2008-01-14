@@ -1,6 +1,29 @@
 #
-# This file was converted from libsbml/src/sbml/test/TestReadFromFile5.cpp
-# with the help of test_c2ruby.pl (manual handling required).
+# @file    TestReadFromFile5.rb
+# @brief   Reads test-data/l2v1-assignment.xml into memory and tests it.
+# @author  Akiya Jouraku (Ruby conversion)
+# @author  Ben Bornstein 
+#
+# $Id$
+# $Source$
+#
+# This test file was converted from src/sbml/test/TestReadFromFile5.cpp
+# wiht the help of conversion sciprt (ctest_converter.pl).
+#
+#<!---------------------------------------------------------------------------
+# This file is part of libSBML.  Please visit http://sbml.org for more
+# information about SBML, and the latest version of libSBML.
+#
+# Copyright 2005-2008 California Institute of Technology.
+# Copyright 2002-2005 California Institute of Technology and
+#                     Japan Science and Technology Corporation.
+# 
+# This library is free software; you can redistribute it and/or modify it
+# under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation.  A copy of the license agreement is provided
+# in the file named "LICENSE.txt" included with this software distribution
+# and also available online as http://sbml.org/software/libsbml/license.html
+#--------------------------------------------------------------------------->*/
 #
 require 'test/unit'
 require 'libSBML'
@@ -8,96 +31,98 @@ require 'libSBML'
 class TestReadFromFile5 < Test::Unit::TestCase
 
   def test_read_l2v1_assignment
+    reader = LibSBML::SBMLReader.new()
     filename = "../../sbml/test/test-data/l2v1-assignment.xml"
-    reader = LibSBML::SBMLReader.new
     d = reader.readSBML(filename)
-    assert_equal 2, d.getLevel()
-    assert_equal 1, d.getVersion()
+    if (d == nil)
+    end
+    assert( d.getLevel() == 2 )
+    assert( d.getVersion() == 1 )
     m = d.getModel()
-    assert_not_equal nil, m
-    assert_equal 1, m.getNumCompartments()
+    assert( m != nil )
+    assert( m.getNumCompartments() == 1 )
     c = m.getCompartment(0)
-    assert_not_equal nil, c
-    assert_equal "cell", c.getId()
-    assert_equal 5, m.getNumSpecies()
+    assert( c != nil )
+    assert( c.getId() == "cell" )
+    assert( m.getNumSpecies() == 5 )
     s = m.getSpecies(0)
-    assert_not_equal nil, s
-    assert_equal "X0", s.getId()
-    assert_equal "cell", s.getCompartment()
-    assert_equal 1.0, s.getInitialConcentration()
+    assert( s != nil )
+    assert( s.getId() == "X0" )
+    assert( s.getCompartment() == "cell" )
+    assert( s.getInitialConcentration() == 1.0 )
     s = m.getSpecies(1)
-    assert_not_equal nil, s
-    assert_equal "X1", s.getId()
-    assert_equal "cell", s.getCompartment()
-    assert_equal 0.0, s.getInitialConcentration()
+    assert( s != nil )
+    assert( s.getId() == "X1" )
+    assert( s.getCompartment() == "cell" )
+    assert( s.getInitialConcentration() == 0.0 )
     s = m.getSpecies(2)
-    assert_not_equal nil, s
-    assert_equal "T", s.getId()
-    assert_equal "cell", s.getCompartment()
-    assert_equal 0.0, s.getInitialConcentration()
+    assert( s != nil )
+    assert( s.getId() == "T" )
+    assert( s.getCompartment() == "cell" )
+    assert( s.getInitialConcentration() == 0.0 )
     s = m.getSpecies(3)
-    assert_not_equal nil, s
-    assert_equal "S1", s.getId()
-    assert_equal "cell", s.getCompartment()
-    assert_equal 0.0, s.getInitialConcentration()
+    assert( s != nil )
+    assert( s.getId() == "S1" )
+    assert( s.getCompartment() == "cell" )
+    assert( s.getInitialConcentration() == 0.0 )
     s = m.getSpecies(4)
-    assert_not_equal nil, s
-    assert_equal "S2", s.getId()
-    assert_equal "cell", s.getCompartment()
-    assert_equal 0.0, s.getInitialConcentration()
-    assert_equal 1, m.getNumParameters()
+    assert( s != nil )
+    assert( s.getId() == "S2" )
+    assert( s.getCompartment() == "cell" )
+    assert( s.getInitialConcentration() == 0.0 )
+    assert( m.getNumParameters() == 1 )
     p = m.getParameter(0)
-    assert_not_equal nil, p
-    assert_equal "Keq", p.getId()
-    assert_equal 2.5, p.getValue()
-    assert_equal 2, m.getNumRules()
-    ar =  m.getRule(0)
-    assert_not_equal nil, ar
-    assert_equal "S1", ar.getVariable()
-    assert_equal "T / (1 + Keq)", ar.getFormula()
-    ar =  m.getRule(1) 
-    assert_not_equal nil, ar
-    assert_equal "S2", ar.getVariable()
-    assert_equal "Keq * S1", ar.getFormula()
-    assert_equal 2, m.getNumReactions()
+    assert( p != nil )
+    assert( p.getId() == "Keq" )
+    assert( p.getValue() == 2.5 )
+    assert( m.getNumRules() == 2 )
+    ar = m.getRule(0)
+    assert( ar != nil )
+    assert( ar.getVariable() == "S1" )
+    assert( ar.getFormula() == "T / (1 + Keq)" )
+    ar = m.getRule(1)
+    assert( ar != nil )
+    assert( ar.getVariable() == "S2" )
+    assert( ar.getFormula() == "Keq * S1" )
+    assert( m.getNumReactions() == 2 )
     r = m.getReaction(0)
-    assert_not_equal nil, r
-    assert_equal "in", r.getId()
-    assert_equal 1, r.getNumReactants()
-    assert_equal 1, r.getNumProducts()
+    assert( r != nil )
+    assert( r.getId() == "in" )
+    assert( r.getNumReactants() == 1 )
+    assert( r.getNumProducts() == 1 )
     sr = r.getReactant(0)
-    assert_not_equal nil, sr
-    assert_equal "X0", sr.getSpecies()
+    assert( sr != nil )
+    assert( sr.getSpecies() == "X0" )
     sr = r.getProduct(0)
-    assert_not_equal nil, sr
-    assert_equal "T", sr.getSpecies()
+    assert( sr != nil )
+    assert( sr.getSpecies() == "T" )
     kl = r.getKineticLaw()
-    assert_not_equal nil, kl
-    assert_equal "k1 * X0", kl.getFormula()
-    assert_equal 1, kl.getNumParameters()
+    assert( kl != nil )
+    assert( kl.getFormula() == "k1 * X0" )
+    assert( kl.getNumParameters() == 1 )
     p = kl.getParameter(0)
-    assert_not_equal nil, p
-    assert_equal "k1", p.getId()
-    assert_equal 0.1, p.getValue()
+    assert( p != nil )
+    assert( p.getId() == "k1" )
+    assert( p.getValue() == 0.1 )
     r = m.getReaction(1)
-    assert_not_equal nil, r
-    assert_equal "out", r.getId()
-    assert_equal 1, r.getNumReactants()
-    assert_equal 1, r.getNumProducts()
+    assert( r != nil )
+    assert( r.getId() == "out" )
+    assert( r.getNumReactants() == 1 )
+    assert( r.getNumProducts() == 1 )
     sr = r.getReactant(0)
-    assert_not_equal nil, sr
-    assert_equal "T", sr.getSpecies()
+    assert( sr != nil )
+    assert( sr.getSpecies() == "T" )
     sr = r.getProduct(0)
-    assert_not_equal nil, sr
-    assert_equal "X1", sr.getSpecies()
+    assert( sr != nil )
+    assert( sr.getSpecies() == "X1" )
     kl = r.getKineticLaw()
-    assert_not_equal nil, kl
-    assert_equal "k2 * T", kl.getFormula()
-    assert_equal 1, kl.getNumParameters()
+    assert( kl != nil )
+    assert( kl.getFormula() == "k2 * T" )
+    assert( kl.getNumParameters() == 1 )
     p = kl.getParameter(0)
-    assert_not_equal nil, p
-    assert_equal "k2", p.getId()
-    assert_equal 0.15, p.getValue()
+    assert( p != nil )
+    assert( p.getId() == "k2" )
+    assert( p.getValue() == 0.15 )
   end
 
 end
