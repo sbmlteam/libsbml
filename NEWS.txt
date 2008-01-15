@@ -4,6 +4,23 @@
 
 * Changes:
 
+  - Fixed a bug that caused a crash if a FunctionDefinition was
+    applied to an incorrect number of arguments.
+
+  - The function Layout_setDimensions has been added to the C API.
+
+  - The readMathMLFromString function was failing if the string
+    did not begin with an xml declaration. The code now adds a
+    declaration if necessary to prevent this happening.
+
+  - LibSBML now includes a binding for Ruby 
+    (http://www.ruby-lang.org/en/). This was initially contributed
+    by Alex Gutteridge and worked into the build system with
+    numerous tests by Akiya.
+
+  - The MATLAB binding was failing to store the message field on a 
+    Constraint. This is now corrected.
+
   - Corrected the fact that a UnitDefinition redefining a builtin
     unit can have more than one unit provided the UnitDefinition
     *simplifies* to only one unit. This would allow the use of
