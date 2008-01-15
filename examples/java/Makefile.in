@@ -26,8 +26,11 @@ JFLAGS    = -classpath $(CLASSPATH)
 # assigned to the variables above.
 
 classes   = convertSBML.class printMath.class printSBML.class readSBML.class \
-            translateMath.class validateSBML.class evaluateMath.class
-
+            translateMath.class validateSBML.class evaluateMath.class \
+            echoSBML.class addCVTerms.class addModelHistory.class \
+            printUnits.class printAnnotation.class printNotes.class \
+            appendAnnotation.class unsetAnnotation.class unsetNotes.class 
+            
 all: $(classes)
 
 # The following is the generic rule for making a .class file from one of
