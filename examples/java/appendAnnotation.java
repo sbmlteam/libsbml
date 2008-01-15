@@ -10,26 +10,9 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  */
-/* Copyright 2003 California Institute of Technology and Japan Science and
- * Technology Corporation.
- * 
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
- * 
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- */
 
 
-import static org.sbml.libsbml.libsbmlConstants.BIOLOGICAL_QUALIFIER;
-import static org.sbml.libsbml.libsbmlConstants.BQB_IS;
-import static org.sbml.libsbml.libsbmlConstants.BQB_IS_VERSION_OF;
-
+import org.sbml.libsbml.libsbmlConstants;
 import org.sbml.libsbml.CVTerm;
 import org.sbml.libsbml.Date;
 import org.sbml.libsbml.ModelCreator;
@@ -149,18 +132,18 @@ public class appendAnnotation
 	       * The above code can be replaced by the following code.
 	       *
           CVTerm cv = new CVTerm();
-          cv.setQualifierType(BIOLOGICAL_QUALIFIER);
-          cv.setBiologicalQualifierType(BQB_IS_VERSION_OF);
+          cv.setQualifierType(libsbmlConstants.BIOLOGICAL_QUALIFIER);
+          cv.setBiologicalQualifierType(libsbmlConstants.BQB_IS_VERSION_OF);
           cv.addResource("http://www.geneontology.org/#GO:0005892");
 
           CVTerm cv2 = new CVTerm();
-          cv2.setQualifierType(BIOLOGICAL_QUALIFIER);
-          cv2.setBiologicalQualifierType(BQB_IS);
+          cv2.setQualifierType(libsbmlConstants.BIOLOGICAL_QUALIFIER);
+          cv2.setBiologicalQualifierType(libsbmlConstants.BQB_IS);
           cv2.addResource("http://www.geneontology.org/#GO:0005895");
 
           CVTerm cv1 = new CVTerm();
-          cv1.setQualifierType(BIOLOGICAL_QUALIFIER);
-          cv1.setBiologicalQualifierType(BQB_IS_VERSION_OF);
+          cv1.setQualifierType(libsbmlConstants.BIOLOGICAL_QUALIFIER);
+          cv1.setBiologicalQualifierType(libsbmlConstants.BQB_IS_VERSION_OF);
           cv1.addResource("http://www.ebi.ac.uk/interpro/#IPR002394");
 
           s.addCVTerm(cv);

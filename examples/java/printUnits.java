@@ -13,9 +13,7 @@
  */
 
 
-import static org.sbml.libsbml.libsbml.SBMLTypeCode_toString;
-import static org.sbml.libsbml.libsbml.UnitKind_toString;
-
+import org.sbml.libsbml.libsbml;
 import org.sbml.libsbml.FormulaUnitsData;
 import org.sbml.libsbml.Model;
 import org.sbml.libsbml.ModelCreator;
@@ -67,7 +65,7 @@ public class printUnits
 
       println("Formula units case #" + (n+1) + " --");
       println("  class of model entity: " + 
-              SBMLTypeCode_toString(fud.getComponentTypecode()));
+              libsbml.SBMLTypeCode_toString(fud.getComponentTypecode()));
 
       println("  id of entity in model: " + fud.getUnitReferenceId());
 
@@ -89,7 +87,7 @@ public class printUnits
         {
           int kind = fud.getUnitDefinition().getUnit(p).getKind();
           int exp = fud.getUnitDefinition().getUnit(p).getExponent();
-          print(UnitKind_toString(kind) + " (exponent = " + exp + ")");
+          print(libsbml.UnitKind_toString(kind) + " (exponent = " + exp + ")");
           if (p + 1 < numUnits)
           {
             print(", ");

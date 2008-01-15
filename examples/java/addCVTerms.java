@@ -12,10 +12,7 @@
  */
 
 
-import static org.sbml.libsbml.libsbmlConstants.BIOLOGICAL_QUALIFIER;
-import static org.sbml.libsbml.libsbmlConstants.BQB_IS;
-import static org.sbml.libsbml.libsbmlConstants.BQB_IS_VERSION_OF;
-
+import org.sbml.libsbml.libsbmlConstants;
 import org.sbml.libsbml.CVTerm;
 import org.sbml.libsbml.SBMLWriter;
 import org.sbml.libsbml.Species;
@@ -61,18 +58,18 @@ public class addCVTerms
 	    Species s = d.getModel().getSpecies(0);
 
         CVTerm cv = new CVTerm();
-        cv.setQualifierType(BIOLOGICAL_QUALIFIER);
-        cv.setBiologicalQualifierType(BQB_IS_VERSION_OF);
+        cv.setQualifierType(libsbmlConstants.BIOLOGICAL_QUALIFIER);
+        cv.setBiologicalQualifierType(libsbmlConstants.BQB_IS_VERSION_OF);
         cv.addResource("http://www.geneontology.org/#GO:0005892");
 
         CVTerm cv2 = new CVTerm();
-        cv2.setQualifierType(BIOLOGICAL_QUALIFIER);
-        cv2.setBiologicalQualifierType(BQB_IS);
+        cv2.setQualifierType(libsbmlConstants.BIOLOGICAL_QUALIFIER);
+        cv2.setBiologicalQualifierType(libsbmlConstants.BQB_IS);
         cv2.addResource("http://www.geneontology.org/#GO:0005895");
 
         CVTerm cv1 = new CVTerm();
-        cv1.setQualifierType(BIOLOGICAL_QUALIFIER);
-        cv1.setBiologicalQualifierType(BQB_IS_VERSION_OF);
+        cv1.setQualifierType(libsbmlConstants.BIOLOGICAL_QUALIFIER);
+        cv1.setBiologicalQualifierType(libsbmlConstants.BQB_IS_VERSION_OF);
         cv1.addResource("http://www.ebi.ac.uk/interpro/#IPR002394");
 
         s.addCVTerm(cv);
