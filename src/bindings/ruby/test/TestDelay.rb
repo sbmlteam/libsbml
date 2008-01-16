@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestDelay.c
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -36,6 +36,10 @@ class TestDelay < Test::Unit::TestCase
     end
   end
 
+  def teardown
+    @@d = nil
+  end
+
   def test_Delay_create
     assert( @@d.getTypeCode == LibSBML::SBML_DELAY )
     assert( @@d.getMetaId == "" )
@@ -58,9 +62,11 @@ class TestDelay < Test::Unit::TestCase
     assert ((  "x^3" == formula ))
     assert( fd.getMath != math )
     assert_equal true, fd.isSetMath
+    fd = nil
   end
 
   def test_Delay_free_NULL
+    
   end
 
   def test_Delay_setMath

@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestWriteSBML.cpp
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -29,6 +29,92 @@ require 'test/unit'
 require 'libSBML'
 
 class TestWriteSBML < Test::Unit::TestCase
+
+def LV_L1v1
+  return "level=\"1\" version=\"1\">\n"
+end
+
+def LV_L1v2
+  return "level=\"1\" version=\"2\">\n"
+end
+
+def LV_L2v1
+  return "level=\"2\" version=\"1\">\n"
+end
+
+def LV_L2v2
+  return "level=\"2\" version=\"2\">\n"
+end
+
+def NS_L1
+  return "xmlns=\"http://www.sbml.org/sbml/level1\" "
+end
+
+def NS_L2v1
+  return "xmlns=\"http://www.sbml.org/sbml/level2\" "
+end
+
+def NS_L2v2
+  return "xmlns=\"http://www.sbml.org/sbml/level2/version2\" "
+end
+
+def SBML_END
+  return "</sbml>\n"
+end
+
+def SBML_START
+  return "<sbml "
+end
+
+def XML_START
+  return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+end
+
+def wrapSBML_L1v1(s)
+  r = XML_START()
+  r += SBML_START()
+  r += NS_L1()
+  r += LV_L1v1()
+  r += s
+  r += SBML_END()
+  return r
+end
+
+def wrapSBML_L1v2(s)
+  r = XML_START()
+  r += SBML_START()
+  r += NS_L1()
+  r += LV_L1v2()
+  r += s
+  r += SBML_END()
+  return r
+end
+
+def wrapSBML_L2v1(s)
+  r = XML_START()
+  r += SBML_START()
+  r += NS_L2v1()
+  r += LV_L2v1()
+  r += s
+  r += SBML_END()
+  return r
+end
+
+def wrapSBML_L2v2(s)
+  r = XML_START()
+  r += SBML_START()
+  r += NS_L2v2()
+  r += LV_L2v2()
+  r += s
+  r += SBML_END()
+  return r
+end
+
+def wrapXML(s)
+  r = XML_START()
+  r += s
+  return r
+end
 
   def util_NaN
     z = 0.0
@@ -56,97 +142,18 @@ class TestWriteSBML < Test::Unit::TestCase
     end
   end
 
-  def LV_L1v1
-    return "level=\"1\" version=\"1\">\n"
-  end
-
-  def LV_L1v2
-    return "level=\"1\" version=\"2\">\n"
-  end
-
-  def LV_L2v1
-    return "level=\"2\" version=\"1\">\n"
-  end
-
-  def LV_L2v2
-    return "level=\"2\" version=\"2\">\n"
-  end
-
-  def NS_L1
-    return "xmlns=\"http://www.sbml.org/sbml/level1\" "
-  end
-
-  def NS_L2v1
-    return "xmlns=\"http://www.sbml.org/sbml/level2\" "
-  end
-
-  def NS_L2v2
-    return "xmlns=\"http://www.sbml.org/sbml/level2/version2\" "
-  end
-
-  def SBML_END
-    return "</sbml>\n"
-  end
-
-  def SBML_START
-    return "<sbml "
-  end
-
-  def XML_START
-    return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-  end
-
-  def wrapSBML_L1v1(s)
-    r = XML_START()
-    r += SBML_START()
-    r += NS_L1()
-    r += LV_L1v1()
-    r += s
-    r += SBML_END()
-    return r
-  end
-
-  def wrapSBML_L1v2(s)
-    r = XML_START()
-    r += SBML_START()
-    r += NS_L1()
-    r += LV_L1v2()
-    r += s
-    r += SBML_END()
-    return r
-  end
-
-  def wrapSBML_L2v1(s)
-    r = XML_START()
-    r += SBML_START()
-    r += NS_L2v1()
-    r += LV_L2v1()
-    r += s
-    r += SBML_END()
-    return r
-  end
-
-  def wrapSBML_L2v2(s)
-    r = XML_START()
-    r += SBML_START()
-    r += NS_L2v2()
-    r += LV_L2v2()
-    r += s
-    r += SBML_END()
-    return r
-  end
-
-  def wrapXML(s)
-    r = XML_START()
-    r += s
-    return r
-  end
-
   def setup
     @@d = LibSBML::SBMLDocument.new()
     @@s = 0
     @@oss = LibSBML::Ostringstream.new()
     @@xos = LibSBML::XMLOutputStream.new(@@oss)
+  end
+
+  def teardown
+    @@d = nil
+    @@s = nil
+    @@oss = nil
+    @@xos = nil
   end
 
   def test_WriteSBML_AlgebraicRule
@@ -1025,6 +1032,8 @@ class TestWriteSBML < Test::Unit::TestCase
     assert_equal false, w.writeSBML(d, "/tmp/impossible/path/should/fail")
     assert( d.getNumErrors() == 1 )
     assert( d.getError(0).getErrorId() == LibSBML::XMLFileUnwritable )
+    d = nil
+    w = nil
   end
 
   def test_WriteSBML_locale

@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestKineticLaw.c
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -36,10 +36,15 @@ class TestKineticLaw < Test::Unit::TestCase
     end
   end
 
+  def teardown
+    @@kl = nil
+  end
+
   def test_KineticLaw_addParameter
     p = LibSBML::Parameter.new
     @@kl.addParameter(p)
     assert( @@kl.getNumParameters == 1 )
+    p = nil
   end
 
   def test_KineticLaw_create
@@ -73,6 +78,7 @@ class TestKineticLaw < Test::Unit::TestCase
     assert_equal true, kl.isSetMath
     assert_equal true, kl.isSetFormula
     assert( kl.getNumParameters == 0 )
+    kl = nil
   end
 
   def test_KineticLaw_createWithMath
@@ -93,9 +99,11 @@ class TestKineticLaw < Test::Unit::TestCase
     assert_equal false, kl.isSetTimeUnits
     assert_equal false, kl.isSetSubstanceUnits
     assert( kl.getNumParameters == 0 )
+    kl = nil
   end
 
   def test_KineticLaw_free_NULL
+    
   end
 
   def test_KineticLaw_getParameter
@@ -107,6 +115,8 @@ class TestKineticLaw < Test::Unit::TestCase
     k2.setValue(2.72)
     @@kl.addParameter(k1)
     @@kl.addParameter(k2)
+    k1 = nil
+    k2 = nil
     assert( @@kl.getNumParameters == 2 )
     k1 = @@kl.getParameter(0)
     k2 = @@kl.getParameter(1)
@@ -125,6 +135,8 @@ class TestKineticLaw < Test::Unit::TestCase
     k2.setValue(2.72)
     @@kl.addParameter(k1)
     @@kl.addParameter(k2)
+    k1 = nil
+    k2 = nil
     assert( @@kl.getNumParameters == 2 )
     k1 = @@kl.getParameter( "k1")
     k2 = @@kl.getParameter( "k2")
@@ -157,6 +169,7 @@ class TestKineticLaw < Test::Unit::TestCase
     assert_equal true, @@kl.isSetMath
     assert_equal true, @@kl.isSetFormula
     assert ((  "k1 * X0" == @@kl.getFormula ))
+    math = nil
   end
 
   def test_KineticLaw_setMath
@@ -180,6 +193,7 @@ class TestKineticLaw < Test::Unit::TestCase
     assert_equal false, @@kl.isSetMath
     if (@@kl.getMath != nil)
     end
+    math = nil
   end
 
   def test_KineticLaw_setMathFromFormula

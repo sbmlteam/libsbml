@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestUnit.c
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -36,6 +36,10 @@ class TestUnit < Test::Unit::TestCase
     end
   end
 
+  def teardown
+    @@u = nil
+  end
+
   def test_Unit_create
     assert( @@u.getTypeCode == LibSBML::SBML_UNIT )
     assert( @@u.getMetaId == "" )
@@ -60,9 +64,11 @@ class TestUnit < Test::Unit::TestCase
     assert( u.getMultiplier == 1.0 )
     assert( u.getOffset == 0.0 )
     assert_equal true, u.isSetKind
+    u = nil
   end
 
   def test_Unit_free_NULL
+    
   end
 
   def test_Unit_isBuiltIn
@@ -171,6 +177,7 @@ class TestUnit < Test::Unit::TestCase
     assert( u.getScale == 4 )
     u.setMultiplier(3.2)
     assert( u.getMultiplier == 3.2 )
+    u = nil
   end
 
 end

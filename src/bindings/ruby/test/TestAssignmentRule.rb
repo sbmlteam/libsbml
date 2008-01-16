@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestAssignmentRule.c
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -36,6 +36,10 @@ class TestAssignmentRule < Test::Unit::TestCase
     end
   end
 
+  def teardown
+    @@ar = nil
+  end
+
   def test_AssignmentRule_L2_create
     assert( @@ar.getTypeCode == LibSBML::SBML_ASSIGNMENT_RULE )
     assert( @@ar.getMetaId == "" )
@@ -58,6 +62,7 @@ class TestAssignmentRule < Test::Unit::TestCase
     assert( formula != nil )
     assert ((  "1 + 1" == formula ))
     assert (( formula == ar.getFormula ))
+    ar = nil
   end
 
   def test_AssignmentRule_createWithMath
@@ -68,9 +73,11 @@ class TestAssignmentRule < Test::Unit::TestCase
     assert ((  "s" == ar.getVariable ))
     assert ((  "1 + 1" == ar.getFormula ))
     assert( ar.getMath != math )
+    ar = nil
   end
 
   def test_AssignmentRule_free_NULL
+    
   end
 
   def test_AssignmentRule_setVariable

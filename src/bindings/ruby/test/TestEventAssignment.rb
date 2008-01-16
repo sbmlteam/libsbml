@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestEventAssignment.c
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -36,6 +36,10 @@ class TestEventAssignment < Test::Unit::TestCase
     end
   end
 
+  def teardown
+    @@ea = nil
+  end
+
   def test_EventAssignment_create
     assert( @@ea.getTypeCode == LibSBML::SBML_EVENT_ASSIGNMENT )
     assert( @@ea.getMetaId == "" )
@@ -56,9 +60,12 @@ class TestEventAssignment < Test::Unit::TestCase
     assert_equal true, ea.isSetMath
     assert ((  "k" == ea.getVariable ))
     assert_equal true, ea.isSetVariable
+    math = nil
+    ea = nil
   end
 
   def test_EventAssignment_free_NULL
+    
   end
 
   def test_EventAssignment_setMath
@@ -82,6 +89,7 @@ class TestEventAssignment < Test::Unit::TestCase
     assert_equal false, @@ea.isSetMath
     if (@@ea.getMath != nil)
     end
+    math = nil
   end
 
   def test_EventAssignment_setVariable

@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestEvent.c
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -34,6 +34,10 @@ class TestEvent < Test::Unit::TestCase
     @@e = LibSBML::Event.new
     if (@@e == nil)
     end
+  end
+
+  def teardown
+    @@e = nil
   end
 
   def test_Event_create
@@ -62,9 +66,11 @@ class TestEvent < Test::Unit::TestCase
     assert_equal false, e.isSetTrigger
     assert ((  "e1" == e.getId ))
     assert_equal true, e.isSetId
+    e = nil
   end
 
   def test_Event_free_NULL
+    
   end
 
   def test_Event_full
@@ -78,6 +84,8 @@ class TestEvent < Test::Unit::TestCase
     e.addEventAssignment(ea)
     assert( e.getNumEventAssignments == 1 )
     assert( e.getEventAssignment(0) != ea )
+    math = nil
+    e = nil
   end
 
   def test_Event_setDelay

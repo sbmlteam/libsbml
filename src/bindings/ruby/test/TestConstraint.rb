@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestConstraint.c
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -36,6 +36,10 @@ class TestConstraint < Test::Unit::TestCase
     end
   end
 
+  def teardown
+    @@c = nil
+  end
+
   def test_Constraint_create
     assert( @@c.getTypeCode == LibSBML::SBML_CONSTRAINT )
     assert( @@c.getMetaId == "" )
@@ -53,9 +57,11 @@ class TestConstraint < Test::Unit::TestCase
     assert( c.getMath != math )
     assert_equal false, c.isSetMessage
     assert_equal true, c.isSetMath
+    c = nil
   end
 
   def test_Constraint_free_NULL
+    
   end
 
   def test_Constraint_setMath
@@ -69,6 +75,7 @@ class TestConstraint < Test::Unit::TestCase
     assert_equal false, @@c.isSetMath
     if (@@c.getMath != nil)
     end
+    math = nil
   end
 
   def test_Constraint_setMessage
@@ -82,6 +89,7 @@ class TestConstraint < Test::Unit::TestCase
     assert_equal false, @@c.isSetMessage
     if (@@c.getMessage != nil)
     end
+    node = nil
   end
 
 end

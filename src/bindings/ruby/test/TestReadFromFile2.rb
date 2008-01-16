@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestReadFromFile2.c
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -99,6 +99,7 @@ class TestReadFromFile2 < Test::Unit::TestCase
     sr.setSpecies( "x1")
     kl = m.createKineticLaw
     kl.setFormula( "(vm * s1)/(km + s1)")
+    d = nil
   end
 
   def test_read_l1v1_units
@@ -218,6 +219,7 @@ class TestReadFromFile2 < Test::Unit::TestCase
     assert( sr.getDenominator == 1 )
     kl = r.getKineticLaw
     assert ((  "cell * (vm * s1)/(km + s1)" == kl.getFormula ))
+    d = nil
   end
 
 end

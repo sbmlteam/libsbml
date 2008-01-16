@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestReadFromFile1.c
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -128,6 +128,7 @@ class TestReadFromFile1 < Test::Unit::TestCase
     p = kl.getParameter(0)
     assert ((  "k3" == p.getName ))
     assert( p.getValue == 0 )
+    d = nil
   end
 
 end

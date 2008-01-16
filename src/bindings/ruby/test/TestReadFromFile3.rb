@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestReadFromFile3.c
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -134,6 +134,7 @@ class TestReadFromFile3 < Test::Unit::TestCase
     assert( sr.getDenominator == 1 )
     kl = r.getKineticLaw
     assert ((  "k4 * s2" == kl.getFormula ))
+    d = nil
   end
 
 end

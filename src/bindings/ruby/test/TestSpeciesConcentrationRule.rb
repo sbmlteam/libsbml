@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestSpeciesConcentrationRule.c
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -37,6 +37,10 @@ class TestSpeciesConcentrationRule < Test::Unit::TestCase
     end
   end
 
+  def teardown
+    @@scr = nil
+  end
+
   def test_SpeciesConcentrationRule_create
     assert( @@scr.getTypeCode == LibSBML::SBML_ASSIGNMENT_RULE )
     assert( @@scr.getL1TypeCode == LibSBML::SBML_SPECIES_CONCENTRATION_RULE )
@@ -59,9 +63,11 @@ class TestSpeciesConcentrationRule < Test::Unit::TestCase
     assert ((  "c" == scr.getVariable ))
     assert( scr.getType == LibSBML::RULE_TYPE_RATE )
     assert_equal true, scr.isSetVariable
+    scr = nil
   end
 
   def test_SpeciesConcentrationRule_free_NULL
+    
   end
 
   def test_SpeciesConcentrationRule_setSpecies

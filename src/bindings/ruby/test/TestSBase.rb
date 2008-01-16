@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestSBase.cpp
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -36,12 +36,17 @@ class TestSBase < Test::Unit::TestCase
     end
   end
 
+  def teardown
+    @@s = nil
+  end
+
   def test_SBase_CVTerms
     cv = LibSBML::CVTerm.new(LibSBML::BIOLOGICAL_QUALIFIER)
     assert( @@s.getNumCVTerms == 0 )
     @@s.addCVTerm(cv)
     assert( @@s.getNumCVTerms == 1 )
     assert( @@s.getCVTerm(0) != cv )
+    cv = nil
   end
 
   def test_SBase_addCVTerms
@@ -84,6 +89,10 @@ class TestSBase < Test::Unit::TestCase
     assert( res.getLength == 2 )
     assert ((  "bar" == res.getValue(0) ))
     assert ((  "bar1" == res.getValue(1) ))
+    cv = nil
+    cv2 = nil
+    cv1 = nil
+    cv4 = nil
   end
 
   def test_SBase_getQualifiersFromResources
@@ -97,6 +106,8 @@ class TestSBase < Test::Unit::TestCase
     cv1.addResource( "bar")
     @@s.addCVTerm(cv1)
     assert( @@s.getResourceModelQualifier( "bar") == LibSBML::BQM_IS )
+    cv = nil
+    cv1 = nil
   end
 
   def test_SBase_setAnnotation
@@ -187,6 +198,7 @@ class TestSBase < Test::Unit::TestCase
     end
     @@s.setNotes(node)
     assert( @@s.isSetNotes == true )
+    node = nil
   end
 
   def test_SBase_setNotesString
@@ -239,6 +251,10 @@ class TestSBase < Test::Unit::TestCase
     assert( @@s.getNumCVTerms == 2 )
     @@s.unsetCVTerms
     assert( @@s.getNumCVTerms == 0 )
+    cv = nil
+    cv2 = nil
+    cv1 = nil
+    cv4 = nil
   end
 
 end

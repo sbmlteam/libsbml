@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestCopyAndClone.cpp
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -37,6 +37,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = LibSBML::CompartmentType.new()
     o2 = o1
     assert( o2.getId() == "c" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_CompartmentType_clone
@@ -45,6 +47,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = o1.clone()
     assert( o2.getId() == "c" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_CompartmentType_copyConstructor
@@ -53,6 +57,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = LibSBML::CompartmentType.new(o1)
     assert( o2.getId() == "c" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Compartment_assignmentOperator
@@ -65,6 +71,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = o1
     assert( o2.getId() == "c" )
     assert( o2.getOutside() == "c2" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Compartment_clone
@@ -76,6 +84,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = o1.clone()
     assert( o2.getId() == "c" )
     assert( o2.getOutside() == "c2" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Compartment_copyConstructor
@@ -87,6 +97,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = LibSBML::Compartment.new(o1)
     assert( o2.getId() == "c" )
     assert( o2.getOutside() == "c2" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Constraint_assignmentOperator
@@ -97,6 +109,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     message = LibSBML::XMLNode.new()
     o1.setMath(math)
     o1.setMessage(message)
+    math = nil
+    message = nil
     assert( o1.getMath() != nil )
     assert( o1.getMessage() != nil )
     o2 = LibSBML::Constraint.new()
@@ -104,6 +118,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o2.getMetaId() == "c" )
     assert( o1.getMath() != nil )
     assert( o1.getMessage() != nil )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Constraint_clone
@@ -114,12 +130,16 @@ class TestCopyAndClone < Test::Unit::TestCase
     message = LibSBML::XMLNode.new()
     o1.setMath(math)
     o1.setMessage(message)
+    math = nil
+    message = nil
     assert( o1.getMath() != nil )
     assert( o1.getMessage() != nil )
     o2 = o1.clone()
     assert( o2.getMetaId() == "c" )
     assert( o1.getMath() != nil )
     assert( o1.getMessage() != nil )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Constraint_copyConstructor
@@ -130,40 +150,53 @@ class TestCopyAndClone < Test::Unit::TestCase
     message = LibSBML::XMLNode.new()
     o1.setMath(math)
     o1.setMessage(message)
+    math = nil
+    message = nil
     assert( o1.getMath() != nil )
     assert( o1.getMessage() != nil )
     o2 = LibSBML::Constraint.new(o1)
     assert( o2.getMetaId() == "c" )
     assert( o1.getMath() != nil )
     assert( o1.getMessage() != nil )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Delay_assignmentOperator
     o1 = LibSBML::Delay.new()
     node = LibSBML::ASTNode.new(LibSBML::AST_CONSTANT_PI)
     o1.setMath(node)
+    node = nil
     assert( o1.getMath() != nil )
     o2 = LibSBML::Delay.new()
     o2 = o1
     assert( o1.getMath() != nil )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Delay_clone
     o1 = LibSBML::Delay.new()
     node = LibSBML::ASTNode.new(LibSBML::AST_CONSTANT_PI)
     o1.setMath(node)
+    node = nil
     assert( o1.getMath() != nil )
     o2 = o1.clone()
     assert( o1.getMath() != nil )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Delay_copyConstructor
     o1 = LibSBML::Delay.new()
     node = LibSBML::ASTNode.new(LibSBML::AST_CONSTANT_PI)
     o1.setMath(node)
+    node = nil
     assert( o1.getMath() != nil )
     o2 = LibSBML::Delay.new(o1)
     assert( o2.getMath() != nil )
+    o2 = nil
+    o1 = nil
   end
 
   def test_EventAssignment_assignmentOperator
@@ -172,11 +205,14 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getVariable() == "c2" )
     node = LibSBML::ASTNode.new(LibSBML::AST_CONSTANT_PI)
     o1.setMath(node)
+    node = nil
     assert( o1.getMath() != nil )
     o2 = LibSBML::EventAssignment.new()
     o2 = o1
     assert( o2.getVariable() == "c2" )
     assert( o2.getMath() != nil )
+    o2 = nil
+    o1 = nil
   end
 
   def test_EventAssignment_clone
@@ -185,10 +221,13 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getVariable() == "c2" )
     node = LibSBML::ASTNode.new(LibSBML::AST_CONSTANT_PI)
     o1.setMath(node)
+    node = nil
     assert( o1.getMath() != nil )
     o2 = o1.clone()
     assert( o2.getVariable() == "c2" )
     assert( o2.getMath() != nil )
+    o2 = nil
+    o1 = nil
   end
 
   def test_EventAssignment_copyConstructor
@@ -197,10 +236,13 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getVariable() == "c2" )
     node = LibSBML::ASTNode.new(LibSBML::AST_CONSTANT_PI)
     o1.setMath(node)
+    node = nil
     assert( o1.getMath() != nil )
     o2 = LibSBML::EventAssignment.new(o1)
     assert( o2.getVariable() == "c2" )
     assert( o2.getMath() != nil )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Event_assignmentOperator
@@ -210,6 +252,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = LibSBML::Event.new()
     o2 = o1
     assert( o2.getId() == "c" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Event_clone
@@ -218,6 +262,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = o1.clone()
     assert( o2.getId() == "c" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Event_copyConstructor
@@ -226,6 +272,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = LibSBML::Event.new(o1)
     assert( o2.getId() == "c" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_FunctionDefinition_assignmentOperator
@@ -234,11 +282,14 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     node = LibSBML::ASTNode.new(LibSBML::AST_CONSTANT_PI)
     o1.setMath(node)
+    node = nil
     assert( o1.getMath() != nil )
     o2 = LibSBML::FunctionDefinition.new()
     o2 = o1
     assert( o2.getId() == "c" )
     assert( o2.getMath() != nil )
+    o2 = nil
+    o1 = nil
   end
 
   def test_FunctionDefinition_clone
@@ -247,10 +298,13 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     node = LibSBML::ASTNode.new(LibSBML::AST_CONSTANT_PI)
     o1.setMath(node)
+    node = nil
     assert( o1.getMath() != nil )
     o2 = o1.clone()
     assert( o2.getId() == "c" )
     assert( o2.getMath() != nil )
+    o2 = nil
+    o1 = nil
   end
 
   def test_FunctionDefinition_copyConstructor
@@ -259,10 +313,13 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     node = LibSBML::ASTNode.new(LibSBML::AST_CONSTANT_PI)
     o1.setMath(node)
+    node = nil
     assert( o1.getMath() != nil )
     o2 = LibSBML::FunctionDefinition.new(o1)
     assert( o2.getId() == "c" )
     assert( o2.getMath() != nil )
+    o2 = nil
+    o1 = nil
   end
 
   def test_InitialAssignment_assignmentOperator
@@ -272,6 +329,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = LibSBML::InitialAssignment.new()
     o2 = o1
     assert( o2.getId() == "c" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_InitialAssignment_clone
@@ -280,6 +339,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = o1.clone()
     assert( o2.getId() == "c" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_InitialAssignment_copyConstructor
@@ -288,6 +349,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = LibSBML::InitialAssignment.new(o1)
     assert( o2.getId() == "c" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_KineticLaw_assignmentOperator
@@ -295,6 +358,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o1.setId("c")
     p = LibSBML::Parameter.new("jake")
     o1.addParameter(p)
+    p = nil
     assert( o1.getNumParameters() == 1 )
     assert( o1.getParameter(0).getId() == "jake" )
     assert( o1.getId() == "c" )
@@ -303,6 +367,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o2.getNumParameters() == 1 )
     assert( o2.getParameter(0).getId() == "jake" )
     assert( o2.getId() == "c" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_KineticLaw_clone
@@ -310,6 +376,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o1.setId("c")
     p = LibSBML::Parameter.new("jake")
     o1.addParameter(p)
+    p = nil
     assert( o1.getNumParameters() == 1 )
     assert( o1.getParameter(0).getId() == "jake" )
     assert( o1.getId() == "c" )
@@ -317,6 +384,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o2.getNumParameters() == 1 )
     assert( o2.getParameter(0).getId() == "jake" )
     assert( o2.getId() == "c" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_KineticLaw_copyConstructor
@@ -324,6 +393,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o1.setId("c")
     p = LibSBML::Parameter.new("jake")
     o1.addParameter(p)
+    p = nil
     assert( o1.getNumParameters() == 1 )
     assert( o1.getParameter(0).getId() == "jake" )
     assert( o1.getId() == "c" )
@@ -331,6 +401,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o2.getNumParameters() == 1 )
     assert( o2.getParameter(0).getId() == "jake" )
     assert( o2.getId() == "c" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_ListOf_assignmentOperator
@@ -339,11 +411,14 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     s = LibSBML::Species.new("species_1")
     o1.append(s)
+    s = nil
     o2 = LibSBML::ListOf.new()
     o2 = o1
     assert( o2.size() == 1 )
     assert( o2.getId() == "c" )
     assert( o2.get(0).getId() == "species_1" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_ListOf_clone
@@ -352,10 +427,13 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     s = LibSBML::Species.new("species_1")
     o1.append(s)
+    s = nil
     o2 = o1.clone()
     assert( o2.size() == 1 )
     assert( o2.getId() == "c" )
     assert( o2.get(0).getId() == "species_1" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_ListOf_copyConstructor
@@ -364,10 +442,13 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     s = LibSBML::Species.new("species_1")
     o1.append(s)
+    s = nil
     o2 = LibSBML::ListOf.new(o1)
     assert( o2.size() == 1 )
     assert( o2.getId() == "c" )
     assert( o2.get(0).getId() == "species_1" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Model_assignmentOperator
@@ -375,8 +456,10 @@ class TestCopyAndClone < Test::Unit::TestCase
     o1.setId("c")
     p = LibSBML::Parameter.new("alex")
     o1.addParameter(p)
+    p = nil
     fud = LibSBML::FormulaUnitsData.new()
     o1.addFormulaUnitsData(fud)
+    fud = nil
     assert( o1.getId() == "c" )
     assert( o1.getNumParameters() == 1 )
     assert( o1.getNumFormulaUnitsData() == 1 )
@@ -387,6 +470,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o2.getNumParameters() == 1 )
     assert( o2.getNumFormulaUnitsData() == 1 )
     assert( o2.getParameter(0).getId() == "alex" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Model_clone
@@ -394,8 +479,10 @@ class TestCopyAndClone < Test::Unit::TestCase
     o1.setId("c")
     p = LibSBML::Parameter.new("alex")
     o1.addParameter(p)
+    p = nil
     fud = LibSBML::FormulaUnitsData.new()
     o1.addFormulaUnitsData(fud)
+    fud = nil
     assert( o1.getId() == "c" )
     assert( o1.getNumParameters() == 1 )
     assert( o1.getNumFormulaUnitsData() == 1 )
@@ -405,6 +492,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o2.getNumParameters() == 1 )
     assert( o2.getNumFormulaUnitsData() == 1 )
     assert( o2.getParameter(0).getId() == "alex" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Model_copyConstructor
@@ -412,8 +501,10 @@ class TestCopyAndClone < Test::Unit::TestCase
     o1.setId("c")
     p = LibSBML::Parameter.new("alex")
     o1.addParameter(p)
+    p = nil
     fud = LibSBML::FormulaUnitsData.new()
     o1.addFormulaUnitsData(fud)
+    fud = nil
     assert( o1.getId() == "c" )
     assert( o1.getNumParameters() == 1 )
     assert( o1.getNumFormulaUnitsData() == 1 )
@@ -423,6 +514,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o2.getNumParameters() == 1 )
     assert( o2.getNumFormulaUnitsData() == 1 )
     assert( o2.getParameter(0).getId() == "alex" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Parameter_assignmentOperator
@@ -432,6 +525,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = LibSBML::Parameter.new()
     o2 = o1
     assert( o2.getId() == "c" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Parameter_clone
@@ -440,6 +535,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = o1.clone()
     assert( o2.getId() == "c" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Parameter_copyConstructor
@@ -448,6 +545,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = LibSBML::Parameter.new(o1)
     assert( o2.getId() == "c" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Reaction_assignmentOperator
@@ -456,6 +555,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     kl = LibSBML::KineticLaw.new()
     o1.setKineticLaw(kl)
+    kl = nil
     assert( o1.isSetKineticLaw() == true )
     assert( o1.getKineticLaw() != nil )
     o2 = LibSBML::Reaction.new()
@@ -463,6 +563,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o2.getId() == "c" )
     assert( o2.isSetKineticLaw() == true )
     assert( o2.getKineticLaw() != nil )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Reaction_clone
@@ -471,12 +573,15 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     kl = LibSBML::KineticLaw.new()
     o1.setKineticLaw(kl)
+    kl = nil
     assert( o1.isSetKineticLaw() == true )
     assert( o1.getKineticLaw() != nil )
     o2 = o1.clone()
     assert( o2.getId() == "c" )
     assert( o2.isSetKineticLaw() == true )
     assert( o2.getKineticLaw() != nil )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Reaction_copyConstructor
@@ -485,12 +590,15 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     kl = LibSBML::KineticLaw.new()
     o1.setKineticLaw(kl)
+    kl = nil
     assert( o1.isSetKineticLaw() == true )
     assert( o1.getKineticLaw() != nil )
     o2 = LibSBML::Reaction.new(o1)
     assert( o2.getId() == "c" )
     assert( o2.isSetKineticLaw() == true )
     assert( o2.getKineticLaw() != nil )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Rule_assignmentOperator
@@ -498,11 +606,14 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "a" )
     node = LibSBML::ASTNode.new(LibSBML::AST_CONSTANT_PI)
     o1.setMath(node)
+    node = nil
     assert( o1.isSetMath() == true )
     o2 = LibSBML::RateRule.new()
     o2 = o1
     assert( o2.getId() == "a" )
     assert( o2.isSetMath() == true )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Rule_clone
@@ -510,10 +621,13 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "a" )
     node = LibSBML::ASTNode.new(LibSBML::AST_CONSTANT_PI)
     o1.setMath(node)
+    node = nil
     assert( o1.isSetMath() == true )
     o2 = o1.clone()
     assert( o2.getId() == "a" )
     assert( o2.isSetMath() == true )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Rule_copyConstructor
@@ -521,10 +635,13 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "a" )
     node = LibSBML::ASTNode.new(LibSBML::AST_CONSTANT_PI)
     o1.setMath(node)
+    node = nil
     assert( o1.isSetMath() == true )
     o2 = LibSBML::Rule.new(o1)
     assert( o2.getId() == "a" )
     assert( o2.isSetMath() == true )
+    o2 = nil
+    o1 = nil
   end
 
   def test_SBMLDocument_assignmentOperator
@@ -536,6 +653,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = o1
     assert( o2.getLevel() == 2 )
     assert( o2.getVersion() == 1 )
+    o2 = nil
+    o1 = nil
   end
 
   def test_SBMLDocument_clone
@@ -557,6 +676,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o2.getModel().getLevel() == 1 )
     assert( o2.getModel().getVersion() == 1 )
     assert( o2.getModel().getSBMLDocument() == o2 )
+    o2 = nil
+    o1 = nil
   end
 
   def test_SBMLDocument_copyConstructor
@@ -567,6 +688,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = LibSBML::SBMLDocument.new(o1)
     assert( o2.getLevel() == 2 )
     assert( o2.getVersion() == 1 )
+    o2 = nil
+    o1 = nil
   end
 
   def test_SpeciesReference_assignmentOperator
@@ -576,6 +699,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = LibSBML::SpeciesReference.new()
     o2 = o1
     assert( o2.getId() == "c" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_SpeciesReference_clone
@@ -584,6 +709,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = o1.clone()
     assert( o2.getId() == "c" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_SpeciesReference_copyConstructor
@@ -592,6 +719,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = LibSBML::SpeciesReference.new(o1)
     assert( o2.getId() == "c" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_SpeciesType_assignmentOperator
@@ -601,6 +730,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = LibSBML::SpeciesType.new()
     o2 = o1
     assert( o2.getId() == "c" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_SpeciesType_clone
@@ -609,6 +740,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = o1.clone()
     assert( o2.getId() == "c" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_SpeciesType_copyConstructor
@@ -617,6 +750,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = LibSBML::SpeciesType.new(o1)
     assert( o2.getId() == "c" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Species_assignmentOperator
@@ -629,6 +764,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = o1
     assert( o2.getId() == "c" )
     assert( o2.getSpeciesType() == "c1" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Species_clone
@@ -640,6 +777,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = o1.clone()
     assert( o2.getId() == "c" )
     assert( o2.getSpeciesType() == "c1" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Species_copyConstructor
@@ -651,34 +790,45 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = LibSBML::Species.new(o1)
     assert( o2.getId() == "c" )
     assert( o2.getSpeciesType() == "c1" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Trigger_assignmentOperator
     o1 = LibSBML::Trigger.new()
     node = LibSBML::ASTNode.new(LibSBML::AST_CONSTANT_PI)
     o1.setMath(node)
+    node = nil
     assert( o1.getMath() != nil )
     o2 = LibSBML::Trigger.new()
     o2 = o1
     assert( o1.getMath() != nil )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Trigger_clone
     o1 = LibSBML::Trigger.new()
     node = LibSBML::ASTNode.new(LibSBML::AST_CONSTANT_PI)
     o1.setMath(node)
+    node = nil
     assert( o1.getMath() != nil )
     o2 = o1.clone()
     assert( o1.getMath() != nil )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Trigger_copyConstructor
     o1 = LibSBML::Trigger.new()
     node = LibSBML::ASTNode.new(LibSBML::AST_CONSTANT_PI)
     o1.setMath(node)
+    node = nil
     assert( o1.getMath() != nil )
     o2 = LibSBML::Trigger.new(o1)
     assert( o2.getMath() != nil )
+    o2 = nil
+    o1 = nil
   end
 
   def test_UnitDefinition_assignmentOperator
@@ -688,6 +838,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = LibSBML::UnitDefinition.new()
     o2 = o1
     assert( o2.getId() == "c" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_UnitDefinition_clone
@@ -696,6 +848,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = o1.clone()
     assert( o2.getId() == "c" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_UnitDefinition_copyConstructor
@@ -704,6 +858,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = LibSBML::UnitDefinition.new(o1)
     assert( o2.getId() == "c" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Unit_assignmentOperator
@@ -713,6 +869,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = LibSBML::Unit.new()
     o2 = o1
     assert( o2.getId() == "c" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Unit_clone
@@ -721,6 +879,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = o1.clone()
     assert( o2.getId() == "c" )
+    o2 = nil
+    o1 = nil
   end
 
   def test_Unit_copyConstructor
@@ -729,6 +889,8 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = LibSBML::Unit.new(o1)
     assert( o2.getId() == "c" )
+    o2 = nil
+    o1 = nil
   end
 
 end

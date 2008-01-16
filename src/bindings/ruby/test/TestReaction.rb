@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestReaction.c
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -36,6 +36,10 @@ class TestReaction < Test::Unit::TestCase
     end
   end
 
+  def teardown
+    @@r = nil
+  end
+
   def test_Reaction_addModifier
     @@r.addModifier(LibSBML::ModifierSpeciesReference.new())
     assert( @@r.getNumReactants == 0 )
@@ -49,6 +53,7 @@ class TestReaction < Test::Unit::TestCase
     assert( @@r.getNumReactants == 0 )
     assert( @@r.getNumProducts == 1 )
     assert( @@r.getNumModifiers == 0 )
+    sr = nil
   end
 
   def test_Reaction_addReactant
@@ -57,6 +62,7 @@ class TestReaction < Test::Unit::TestCase
     assert( @@r.getNumReactants == 1 )
     assert( @@r.getNumProducts == 0 )
     assert( @@r.getNumModifiers == 0 )
+    sr = nil
   end
 
   def test_Reaction_create
@@ -95,9 +101,12 @@ class TestReaction < Test::Unit::TestCase
     assert( r.getNumReactants == 0 )
     assert( r.getNumProducts == 0 )
     assert( r.getNumModifiers == 0 )
+    kl = nil
+    r = nil
   end
 
   def test_Reaction_free_NULL
+    
   end
 
   def test_Reaction_getModifier
@@ -107,6 +116,8 @@ class TestReaction < Test::Unit::TestCase
     msr2.setSpecies( "M2")
     @@r.addModifier(msr1)
     @@r.addModifier(msr2)
+    msr1 = nil
+    msr2 = nil
     assert( @@r.getNumReactants == 0 )
     assert( @@r.getNumProducts == 0 )
     assert( @@r.getNumModifiers == 2 )
@@ -129,6 +140,8 @@ class TestReaction < Test::Unit::TestCase
     assert( @@r.getModifier( "M1") != msr1 )
     assert( @@r.getModifier( "M2") != msr2 )
     assert( @@r.getModifier( "M3") == nil )
+    msr1 = nil
+    msr2 = nil
   end
 
   def test_Reaction_getProduct
@@ -138,6 +151,8 @@ class TestReaction < Test::Unit::TestCase
     sr2.setSpecies( "P2")
     @@r.addProduct(sr1)
     @@r.addProduct(sr2)
+    sr1 = nil
+    sr2 = nil
     assert( @@r.getNumReactants == 0 )
     assert( @@r.getNumProducts == 2 )
     assert( @@r.getNumModifiers == 0 )
@@ -158,6 +173,8 @@ class TestReaction < Test::Unit::TestCase
     assert( @@r.getProduct( "P1") != sr1 )
     assert( @@r.getProduct( "P2") != sr2 )
     assert( @@r.getProduct( "P3") == nil )
+    sr1 = nil
+    sr2 = nil
   end
 
   def test_Reaction_getReactant
@@ -167,6 +184,8 @@ class TestReaction < Test::Unit::TestCase
     sr2.setSpecies( "R2")
     @@r.addReactant(sr1)
     @@r.addReactant(sr2)
+    sr1 = nil
+    sr2 = nil
     assert( @@r.getNumReactants == 2 )
     assert( @@r.getNumProducts == 0 )
     assert( @@r.getNumModifiers == 0 )
@@ -187,6 +206,8 @@ class TestReaction < Test::Unit::TestCase
     assert( @@r.getReactant( "R1") != sr1 )
     assert( @@r.getReactant( "R2") != sr2 )
     assert( @@r.getReactant( "R3") == nil )
+    sr1 = nil
+    sr2 = nil
   end
 
   def test_Reaction_setId

@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestInitialAssignment.c
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -36,6 +36,10 @@ class TestInitialAssignment < Test::Unit::TestCase
     end
   end
 
+  def teardown
+    @@ia = nil
+  end
+
   def test_InitialAssignment_create
     assert( @@ia.getTypeCode == LibSBML::SBML_INITIAL_ASSIGNMENT )
     assert( @@ia.getMetaId == "" )
@@ -54,9 +58,11 @@ class TestInitialAssignment < Test::Unit::TestCase
     assert_equal false, ia.isSetMath
     assert ((  "k" == ia.getSymbol ))
     assert_equal true, ia.isSetSymbol
+    ia = nil
   end
 
   def test_InitialAssignment_free_NULL
+    
   end
 
   def test_InitialAssignment_setMath
@@ -80,6 +86,7 @@ class TestInitialAssignment < Test::Unit::TestCase
     assert_equal false, @@ia.isSetMath
     if (@@ia.getMath != nil)
     end
+    math = nil
   end
 
   def test_InitialAssignment_setSymbol

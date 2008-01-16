@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestConsistencyChecks.cpp
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -65,6 +65,7 @@ class TestConsistencyChecks < Test::Unit::TestCase
     errors = d.checkConsistency()
     assert( errors == 1 )
     assert( d.getError(0).getErrorId() == 80701 )
+    d = nil
   end
 
 end

@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestParameter.c
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -34,6 +34,10 @@ class TestParameter < Test::Unit::TestCase
     @@p = LibSBML::Parameter.new
     if (@@p == nil)
     end
+  end
+
+  def teardown
+    @@p = nil
   end
 
   def test_Parameter_create
@@ -66,9 +70,11 @@ class TestParameter < Test::Unit::TestCase
     assert_equal false, p.isSetName
     assert_equal true, p.isSetValue
     assert_equal true, p.isSetUnits
+    p = nil
   end
 
   def test_Parameter_free_NULL
+    
   end
 
   def test_Parameter_setId

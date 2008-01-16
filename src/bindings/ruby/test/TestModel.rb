@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestModel.c
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -34,6 +34,10 @@ class TestModel < Test::Unit::TestCase
     @@m = LibSBML::Model.new
     if (@@m == nil)
     end
+  end
+
+  def teardown
+    @@m = nil
   end
 
   def test_KineticLaw_getParameterById
@@ -393,9 +397,11 @@ class TestModel < Test::Unit::TestCase
     assert( m.getNumCompartmentTypes == 0 )
     assert( m.getNumSpeciesTypes == 0 )
     assert( m.getNumInitialAssignments == 0 )
+    m = nil
   end
 
   def test_Model_free_NULL
+    
   end
 
   def test_Model_getCompartment
@@ -655,6 +661,8 @@ class TestModel < Test::Unit::TestCase
     assert ((  "UH" == newMC.getOrganisation ))
     @@m.unsetModelHistory
     assert( @@m.isSetModelHistory == false )
+    history = nil
+    mc = nil
   end
 
 end

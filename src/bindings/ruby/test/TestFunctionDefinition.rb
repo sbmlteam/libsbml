@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestFunctionDefinition.c
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -34,6 +34,10 @@ class TestFunctionDefinition < Test::Unit::TestCase
     @@fd = LibSBML::FunctionDefinition.new
     if (@@fd == nil)
     end
+  end
+
+  def teardown
+    @@fd = nil
   end
 
   def test_FunctionDefinition_create
@@ -63,9 +67,12 @@ class TestFunctionDefinition < Test::Unit::TestCase
     assert_equal true, fd.isSetMath
     assert ((  "pow3" == fd.getId ))
     assert_equal true, fd.isSetId
+    math = nil
+    fd = nil
   end
 
   def test_FunctionDefinition_free_NULL
+    
   end
 
   def test_FunctionDefinition_getArguments
@@ -93,6 +100,7 @@ class TestFunctionDefinition < Test::Unit::TestCase
     assert_equal true, math.isName
     assert ((  "x" == math.getName ))
     assert( math.getNumChildren == 0 )
+    math1 = nil
   end
 
   def test_FunctionDefinition_setId

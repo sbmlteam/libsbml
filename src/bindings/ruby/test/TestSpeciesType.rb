@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestSpeciesType.c
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -36,6 +36,10 @@ class TestSpeciesType < Test::Unit::TestCase
     end
   end
 
+  def teardown
+    @@ct = nil
+  end
+
   def test_SpeciesType_create
     assert( @@ct.getTypeCode == LibSBML::SBML_SPECIES_TYPE )
     assert( @@ct.getMetaId == "" )
@@ -57,9 +61,11 @@ class TestSpeciesType < Test::Unit::TestCase
     assert ((  "A"      == c.getId ))
     assert_equal true, c.isSetId
     assert_equal false, c.isSetName
+    c = nil
   end
 
   def test_SpeciesType_free_NULL
+    
   end
 
   def test_SpeciesType_setId

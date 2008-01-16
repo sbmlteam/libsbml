@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestReadSBML.cpp
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -30,6 +30,80 @@ require 'libSBML'
 
 class TestReadSBML < Test::Unit::TestCase
 
+def SBML_FOOTER
+  return "</model> </sbml>"
+end
+
+def SBML_HEADER_L1v1
+  return "<sbml level='1' version='1'> <model name='m'>\n"
+end
+
+def SBML_HEADER_L1v2
+  return "<sbml level='1' version='2'> <model name='m'>\n"
+end
+
+def SBML_HEADER_L2v1
+  return "<sbml level='2' version='1'> <model name='m'>\n"
+end
+
+def SBML_HEADER_L2v2
+  return "<sbml level='2' version='2'> <model name='m'>\n"
+end
+
+def SBML_HEADER_L2v3
+  return "<sbml level='2' version='3'> <model name='m'>\n"
+end
+
+def XML_HEADER
+  return "<?xml version='1.0' encoding='UTF-8'?>\n"
+end
+
+def wrapSBML_L1v1(s)
+  r = XML_HEADER()
+  r += SBML_HEADER_L1v1()
+  r += s
+  r += SBML_FOOTER()
+  return r
+end
+
+def wrapSBML_L1v2(s)
+  r = XML_HEADER()
+  r += SBML_HEADER_L1v2()
+  r += s
+  r += SBML_FOOTER()
+  return r
+end
+
+def wrapSBML_L2v1(s)
+  r = XML_HEADER()
+  r += SBML_HEADER_L2v1()
+  r += s
+  r += SBML_FOOTER()
+  return r
+end
+
+def wrapSBML_L2v2(s)
+  r = XML_HEADER()
+  r += SBML_HEADER_L2v2()
+  r += s
+  r += SBML_FOOTER()
+  return r
+end
+
+def wrapSBML_L2v3(s)
+  r = XML_HEADER()
+  r += SBML_HEADER_L2v3()
+  r += s
+  r += SBML_FOOTER()
+  return r
+end
+
+def wrapXML(s)
+  r = XML_HEADER()
+  r += s
+  return r
+end
+
   @@USE_LIBXML = 0
   @@USE_EXPAT  = 0
   @@USE_XERCES = 0
@@ -44,81 +118,11 @@ class TestReadSBML < Test::Unit::TestCase
     end
   end
 
-  def SBML_FOOTER
-    return "</model> </sbml>"
-  end
-
-  def SBML_HEADER_L1v1
-    return "<sbml level='1' version='1'> <model name='m'>\n"
-  end
-
-  def SBML_HEADER_L1v2
-    return "<sbml level='1' version='2'> <model name='m'>\n"
-  end
-
-  def SBML_HEADER_L2v1
-    return "<sbml level='2' version='1'> <model name='m'>\n"
-  end
-
-  def SBML_HEADER_L2v2
-    return "<sbml level='2' version='2'> <model name='m'>\n"
-  end
-
-  def SBML_HEADER_L2v3
-    return "<sbml level='2' version='3'> <model name='m'>\n"
-  end
-
-  def XML_HEADER
-    return "<?xml version='1.0' encoding='UTF-8'?>\n"
-  end
-
-  def wrapSBML_L1v1(s)
-    r = XML_HEADER()
-    r += SBML_HEADER_L1v1()
-    r += s
-    r += SBML_FOOTER()
-    return r
-  end
-
-  def wrapSBML_L1v2(s)
-    r = XML_HEADER()
-    r += SBML_HEADER_L1v2()
-    r += s
-    r += SBML_FOOTER()
-    return r
-  end
-
-  def wrapSBML_L2v1(s)
-    r = XML_HEADER()
-    r += SBML_HEADER_L2v1()
-    r += s
-    r += SBML_FOOTER()
-    return r
-  end
-
-  def wrapSBML_L2v2(s)
-    r = XML_HEADER()
-    r += SBML_HEADER_L2v2()
-    r += s
-    r += SBML_FOOTER()
-    return r
-  end
-
-  def wrapSBML_L2v3(s)
-    r = XML_HEADER()
-    r += SBML_HEADER_L2v3()
-    r += s
-    r += SBML_FOOTER()
-    return r
-  end
-
-  def wrapXML(s)
-    r = XML_HEADER()
-    r += s
-    return r
-  end
-
   def setup
+    @@d = nil
+  end
+
+  def teardown
     @@d = nil
   end
 
@@ -1071,7 +1075,7 @@ class TestReadSBML < Test::Unit::TestCase
     "<sbml xmlns='http://www.sbml.org/sbml/level2' level='2' version='1'>\n" + 
     "  <model id='testModel' name='testModel'>\n" + 
     "    <listOfReactions> <reaction/> </listOfReactions>\n" + 
-    "  </model>\n"  
+    "  </model>\n" + 
     "</sbml>\n"
     @@d = LibSBML::readSBMLFromString(s)
     @@m = @@d.getModel

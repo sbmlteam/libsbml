@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestStoichiometryMath.c
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -36,6 +36,10 @@ class TestStoichiometryMath < Test::Unit::TestCase
     end
   end
 
+  def teardown
+    @@d = nil
+  end
+
   def test_StoichiometryMath_create
     assert( @@d.getTypeCode == LibSBML::SBML_STOICHIOMETRY_MATH )
     assert( @@d.getMetaId == "" )
@@ -58,9 +62,11 @@ class TestStoichiometryMath < Test::Unit::TestCase
     assert ((  "x^3" == formula ))
     assert( fd.getMath != math )
     assert_equal true, fd.isSetMath
+    fd = nil
   end
 
   def test_StoichiometryMath_free_NULL
+    
   end
 
   def test_StoichiometryMath_setMath

@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestAlgebraicRule.c
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -36,6 +36,10 @@ class TestAlgebraicRule < Test::Unit::TestCase
     end
   end
 
+  def teardown
+    @@ar = nil
+  end
+
   def test_AlgebraicRule_create
     assert( @@ar.getTypeCode == LibSBML::SBML_ALGEBRAIC_RULE )
     assert( @@ar.getMetaId == "" )
@@ -55,6 +59,7 @@ class TestAlgebraicRule < Test::Unit::TestCase
     assert( formula != nil )
     assert ((  "1 + 1" == formula ))
     assert (( formula == ar.getFormula ))
+    ar = nil
   end
 
   def test_AlgebraicRule_createWithMath
@@ -64,9 +69,11 @@ class TestAlgebraicRule < Test::Unit::TestCase
     assert( ar.getMetaId == "" )
     assert ((  "1 + 1" == ar.getFormula ))
     assert( ar.getMath != math )
+    ar = nil
   end
 
   def test_AlgebraicRule_free_NULL
+    
   end
 
 end

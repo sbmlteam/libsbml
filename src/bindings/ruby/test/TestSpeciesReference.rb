@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestSpeciesReference.c
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -36,6 +36,10 @@ class TestSpeciesReference < Test::Unit::TestCase
     end
   end
 
+  def teardown
+    @@sr = nil
+  end
+
   def test_SpeciesReference_create
     assert( @@sr.getTypeCode == LibSBML::SBML_SPECIES_REFERENCE )
     assert( @@sr.getMetaId == "" )
@@ -56,6 +60,7 @@ class TestSpeciesReference < Test::Unit::TestCase
     assert( sr.getNotes == nil )
     assert( sr.getAnnotation == nil )
     assert_equal true, sr.isModifier
+    sr = nil
   end
 
   def test_SpeciesReference_createWith
@@ -68,9 +73,11 @@ class TestSpeciesReference < Test::Unit::TestCase
     assert( sr.getStoichiometry == 4 )
     assert( sr.getDenominator == 2 )
     assert_equal true, sr.isSetSpecies
+    sr = nil
   end
 
   def test_SpeciesReference_free_NULL
+    
   end
 
   def test_SpeciesReference_setId

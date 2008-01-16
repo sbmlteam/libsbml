@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestSBMLDocument.c
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -38,6 +38,7 @@ class TestSBMLDocument < Test::Unit::TestCase
     assert( d.getLevel == 2 )
     assert( d.getVersion == 3 )
     assert( d.getNumErrors == 0 )
+    d = nil
   end
 
   def test_SBMLDocument_createWith
@@ -48,9 +49,11 @@ class TestSBMLDocument < Test::Unit::TestCase
     assert( d.getLevel == 1 )
     assert( d.getVersion == 2 )
     assert( d.getNumErrors == 0 )
+    d = nil
   end
 
   def test_SBMLDocument_free_NULL
+    
   end
 
   def test_SBMLDocument_setLevelAndVersion
@@ -62,6 +65,7 @@ class TestSBMLDocument < Test::Unit::TestCase
     assert( d.setLevelAndVersion(2,1) == true )
     assert( d.setLevelAndVersion(1,2) == true )
     assert( d.setLevelAndVersion(1,1) == false )
+    d = nil
   end
 
   def test_SBMLDocument_setLevelAndVersion_Error
@@ -79,6 +83,7 @@ class TestSBMLDocument < Test::Unit::TestCase
     assert( d.setLevelAndVersion(2,3) == false )
     assert( d.setLevelAndVersion(1,2) == false )
     assert( d.setLevelAndVersion(1,1) == false )
+    d = nil
   end
 
   def test_SBMLDocument_setLevelAndVersion_Warning
@@ -91,6 +96,7 @@ class TestSBMLDocument < Test::Unit::TestCase
     assert( d.setLevelAndVersion(2,1) == true )
     assert( d.setLevelAndVersion(1,2) == true )
     assert( d.setLevelAndVersion(1,1) == false )
+    d = nil
   end
 
   def test_SBMLDocument_setModel
@@ -104,6 +110,7 @@ class TestSBMLDocument < Test::Unit::TestCase
     assert( d.getModel != m1 )
     d.setModel(m2)
     assert( d.getModel != m2 )
+    d = nil
   end
 
 end

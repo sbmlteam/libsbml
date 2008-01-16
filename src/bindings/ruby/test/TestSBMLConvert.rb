@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestSBMLConvert.c
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -53,6 +53,7 @@ class TestSBMLConvert < Test::Unit::TestCase
     ssr2 = m.getReaction(0).getModifier(1)
     assert ((  "S3" == ssr1.getSpecies ))
     assert ((  "S4" == ssr2.getSpecies ))
+    d = nil
   end
 
   def test_SBMLConvert_convertToL1_SBMLDocument
@@ -60,6 +61,7 @@ class TestSBMLConvert < Test::Unit::TestCase
     d.setLevelAndVersion(1,2)
     assert( d.getLevel == 1 )
     assert( d.getVersion == 2 )
+    d = nil
   end
 
   def test_SBMLConvert_convertToL1_Species_Amount
@@ -75,6 +77,7 @@ class TestSBMLConvert < Test::Unit::TestCase
     m.addSpecies(s)
     d.setLevelAndVersion(1,2)
     assert( s.getInitialAmount == 2.34 )
+    d = nil
   end
 
   def test_SBMLConvert_convertToL1_Species_Concentration
@@ -99,6 +102,7 @@ class TestSBMLConvert < Test::Unit::TestCase
     assert( m.getCompartment( "C").getSize == 1.2 )
     assert( s1.getInitialConcentration == 2.34 )
     assert( s1.isSetInitialConcentration == true )
+    d = nil
   end
 
   def test_SBMLConvert_convertToL2_SBMLDocument
@@ -112,6 +116,7 @@ class TestSBMLConvert < Test::Unit::TestCase
     d.setLevelAndVersion(2,3)
     assert( d.getLevel == 2 )
     assert( d.getVersion == 3 )
+    d = nil
   end
 
 end

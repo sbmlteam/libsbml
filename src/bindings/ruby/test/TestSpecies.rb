@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestSpecies.c
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -34,6 +34,10 @@ class TestSpecies < Test::Unit::TestCase
     @@s = LibSBML::Species.new
     if (@@s == nil)
     end
+  end
+
+  def teardown
+    @@s = nil
   end
 
   def test_Species_create
@@ -83,9 +87,11 @@ class TestSpecies < Test::Unit::TestCase
     assert_equal false, s.isSetInitialAmount
     assert_equal false, s.isSetInitialConcentration
     assert_equal false, s.isSetCharge
+    s = nil
   end
 
   def test_Species_free_NULL
+    
   end
 
   def test_Species_setCompartment

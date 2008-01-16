@@ -8,7 +8,7 @@
 # $Source$
 #
 # This test file was converted from src/sbml/test/TestCompartment.c
-# wiht the help of conversion sciprt (ctest_converter.pl).
+# with the help of conversion sciprt (ctest_converter.pl).
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -34,6 +34,10 @@ class TestCompartment < Test::Unit::TestCase
     @@c = LibSBML::Compartment.new
     if (@@c == nil)
     end
+  end
+
+  def teardown
+    @@c = nil
   end
 
   def test_Compartment_create
@@ -68,9 +72,11 @@ class TestCompartment < Test::Unit::TestCase
     assert( c.getConstant == true )
     assert_equal true, c.isSetId
     assert_equal false, c.isSetName
+    c = nil
   end
 
   def test_Compartment_free_NULL
+    
   end
 
   def test_Compartment_getSpatialDimensions
@@ -107,6 +113,7 @@ class TestCompartment < Test::Unit::TestCase
     assert_equal false, c.isSetVolume
     assert_equal false, c.isSetUnits
     assert_equal false, c.isSetOutside
+    c = nil
   end
 
   def test_Compartment_setId
