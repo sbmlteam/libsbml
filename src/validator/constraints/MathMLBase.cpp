@@ -399,7 +399,6 @@ MathMLBase::checkNumericFunction (const Model& m, const ASTNode* node)
 {
   unsigned int i, nodeCount;
   //const ASTNode * fdMath;
-  ASTNode *newMath;
   bool needDelete = false;
   unsigned int noBvars;
 
