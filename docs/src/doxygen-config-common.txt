@@ -357,6 +357,7 @@ INPUT =                      \
   ../../src/math             \
   ../../src/sbml             \
   ../../src/util             \
+  ../../src/units            \
   ../../src/validator        \
   ../../src/xml
 
@@ -365,7 +366,6 @@ INPUT =                      \
 # subdirectory from a directory tree whose root is specified with the INPUT tag.
 
 EXCLUDE =                            \
-  ../../src/units                    \
   ../../src/util/memory.c            \
   ../../src/util/memory.h            \
   ../../src/util/Stack.c             \
