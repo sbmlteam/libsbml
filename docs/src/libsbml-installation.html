@@ -20,7 +20,7 @@ LibSBML</a>
 for Linux, MacOS X, and Solaris</a></li> 
 
 <li style="font-size: small;"><a href="#other-lang">Configuring libSBML
-interfaces to Java, Lisp, Perl, Python, MATLAB and Octave</a></li> 
+interfaces to Java, Lisp, Perl, Python, MATLAB, Octave and Ruby</a></li> 
 
 <li style="font-size: small;"><a href="#compiling">Compiling and installing
 LibSBML</a></li> 
@@ -92,13 +92,13 @@ and for Xerces, use
   ./configure --with-xerces
 </pre></div>
 
-<p> By default, libSBML only builds the C and C++ API library.  If you want
-to configure libSBML to build the Java, Python, Perl, Lisp, MATLAB, and/or
-Octave API libraries as well, add the flags <code>--with-java</code>,
-<code>--with-python</code>, <code>--with-perl</code>,
-<code>--with-lisp</code>, <code>--with-matlab</code>, and/or
-<code>--with-octave</code> to the configure command.  You can combine
-options.
+<p> By default, libSBML only builds the C and C++ API.  If you want to
+configure libSBML to build the Java, Lisp, Python, Perl, MATLAB, Octave,
+and/or Ruby APIs as well, add the flags <code>--with-java</code>,
+<code>--with-lisp</code>, <code>--with-python</code>,
+<code>--with-perl</code>, <code>--with-matlab</code>,
+<code>--with-octave</code>, and/or <code>--with-ruby</code> (respectively)
+to the configure command.  You can combine options.
 
 <p> Depending on your system, you may need to tell the configure
 program where to find some of these extra components by adding a
@@ -264,19 +264,20 @@ options.
 
 
 <h3><a class="anchor" name="other-lang">Configuring interfaces to Java,
-Lisp, Perl, Python, MATLAB, and Octave</a></h3>
+Lisp, Perl, Python, MATLAB, Octave, and Ruby</a></h3>
 
 <p> LibSBML's core is written in C and C++, but libSBML comes with APIs for
 other languages as well.  To enable the library extensions for Java,
-Python, Lisp, MATLAB, and/or Octave, you need to supply additional options
-to <code>configure</code>.  These options are <code>--with-java</code>,
+Python, Lisp, MATLAB, Octave, and/or Ruby, you need to supply additional
+options to <code>configure</code>.  These options are
+<code>--with-java</code>, <code>--with-lisp</code>,
 <code>--with-perl</code>, <code>--with-python</code>,
-<code>--with-lisp</code>, <code>--with-matlab</code>, and
-<code>--with-octave</code>.  As with other configure options discussed
-above, all of these accept an optional prefix argument; for example, on a
-MacOS 10.4 Intel-based system with MATLAB version R2007b installed in its
-default location of <code>/Applications/MATLAB_R2007b</code>, the proper
-argument would be
+<code>--with-matlab</code>, <code>--with-octave</code>, and
+<code>--with-ruby</code>, respectively.  As with other configure options
+discussed above, all of these accept an optional prefix argument; for
+example, on a MacOS 10.4 Intel-based system with MATLAB version R2007b
+installed in its default location of
+<code>/Applications/MATLAB_R2007b</code>, the proper argument would be
 
 <div class="fragment"><pre class="fragment">
   ./configure --with-matlab=/Applications/MATLAB_R2007b
@@ -379,9 +380,9 @@ described below.
 <h4><a class="anchor" name="swig">Configuring SWIG</a></h4>
 
 <p> <strong>Important</strong>: At this time, libSBML is known to work
-<em>only</em> with the latest stable version of SWIG (1.3.31); earlier
-versions are known <em>not</em> to work.  You <em>must</em> use version
-1.3.31.
+<em>only</em> with the latest stable version of SWIG (1.3.33); earlier
+versions are known <em>not</em> to work.  You <em>must</em> use at least
+version 1.3.33.
 
 <p> SWIG is the <em>Simplified Wrapper and Interface Generator</em>
 and in libSBML it is used to create the bindings for Java, Python, and
