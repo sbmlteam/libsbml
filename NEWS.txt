@@ -1,51 +1,57 @@
            libsbml NEWS -- History of user-visible changes
            
- === (next release ===
+ === Version 3.1 ===
 
-* Changes:
+* Dependency changes:
 
-  - Fixed a bug that caused a crash if a FunctionDefinition was
-    applied to an incorrect number of arguments.
+  - LibSBML now requires SWIG version 1.3.33.  This was needed for
+    supporing the Ruby bindings.
 
-  - The function Layout_setDimensions has been added to the C API.
+* New features:
 
-  - The readMathMLFromString function was failing if the string
-    did not begin with an xml declaration. The code now adds a
-    declaration if necessary to prevent this happening.
-
-  - LibSBML now includes a binding for Ruby 
-    (http://www.ruby-lang.org/en/). This was initially contributed
-    by Alex Gutteridge and worked into the build system with
-    numerous tests by Akiya.
-
-  - The MATLAB binding was failing to store the message field on a 
-    Constraint. This is now corrected.
-
-  - Corrected the fact that a UnitDefinition redefining a builtin
-    unit can have more than one unit provided the UnitDefinition
-    *simplifies* to only one unit. This would allow the use of
-    dimensionless as a unit within the redefinition. Prior to
-    this point libSBML would have rejected a redefinition with
-    more than one unit without considering the possibility that
-    dimensionless was being used.
-
-  - Fixed a couple of bugs where attributes were not being
-    written out.
+  - LibSBML now provides a binding for the language Ruby
+    (http://www.ruby-lang.org).  This was initially contributed by
+    Alex Gutteridge and further developed and integrated (with test
+    code) by Akiya Jouraku.
 
   - The code used to perform unit analysis has been exposed
     and documented.
 
+  - The function Layout_setDimensions has been added to the C API.
+
+* Bug fixes:
+
+  - Fixed a bug that caused a crash if a FunctionDefinition was
+    applied to an incorrect number of arguments.
+
+  - The readMathMLFromString function was failing if the string
+    did not begin with an XML declaration.  The code now adds a
+    declaration if necessary to prevent this from happening.
+
+  - The MATLAB binding was failing to store the message field on a 
+    Constraint.  This is now corrected.
+
+  - Corrected the fact that a UnitDefinition redefining a builtin
+    unit can have more than one unit provided the UnitDefinition
+    *simplifies* to only one unit. This would allow the use of
+    dimensionless as a unit within the redefinition. Prior to this
+    point libSBML would have rejected a redefinition with more than
+    one unit without considering the possibility that dimensionless
+    was being used.
+
+  - Fixed a couple of bugs where attributes were not being
+    written out.
+
   - Unit validation within libSBML creates a list of a class
-    FormulaUnitsData. This was implmented as a instance of the
-    ListOf class. However, since the FormulaUnitsData class is
-    not an SBML construct this was an inaccurate derivation. 
-    This has now been corrected and the list of FormulaUnitsData
-    within the Model object is now an instance of the List class.
+    FormulaUnitsData.  This was implemented as a instance of the
+    ListOf class.  However, since the FormulaUnitsData class is not an
+    SBML construct this was an inaccurate derivation.  This has now
+    been corrected and the list of FormulaUnitsData within the Model
+    object is now an instance of the List class.
 
   - libSBML-3.0.0 correctly derived the StoichiometryMath, 
-    Trigger and Delay components from SBase. The MATLAB binding 
-    now creates a structure for each of these components to
-    reflect this. 
+    Trigger and Delay components from SBase, but the MATLAB language
+    binding did not reflect this.  It now does.
 
   - The MATLAB binding was failing to copy the metaid field. 
     This is now corrected.
@@ -55,7 +61,7 @@
     situation correctly. Thanks to Stefan Hoops for identifying
     this.
 
-  - caught bug whereby the ASTNode created to substitute values
+  - Caught bug whereby the ASTNode created to substitute values
     for the FunctionDefinition was failing to copy the name of
     any FunctionDefinitions used by the calling FunctionDefinition.
     This was causing the validation process to crash.
@@ -64,6 +70,7 @@
     variable was being referenced, causing crashes in SBML files
     containing FunctionDefinition objects.  Thanks to Hongseok Yun for
     contributing the report and a fix.
+
 
  === Version 3.0.3 (released 2007-12-17) ===
 
