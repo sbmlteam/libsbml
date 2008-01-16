@@ -122,7 +122,7 @@ distfiles =                                     \
             Makefile.in                         \
             Python_binding_Win32_expat.vcproj   \
             Python_binding_Win32.vcproj         \
-            accept.py                           \
+            test.py                             \
             createInclude.bat                   \
             layout_local.i                      \
             libsbml.i                           \
@@ -131,7 +131,11 @@ distfiles =                                     \
             local.cpp                           \
             local.i                             \
             setup.cfg                           \
-            setup.py.in
+            setup.py.in                         \
+            $(python_test_files)
+
+python_test_path = test
+python_test_files = $(wildcard $(python_test_path)/Test*.py)
 
 extra_clean     = build
 extra_distclean = libsbml.pyc setup.py
@@ -238,8 +242,9 @@ ifdef USE_LIBCHECK
 	@echo
 	@echo Running Tests in $(thisdir)
 	@echo -----------------------------------------------------------------
-	$(call libsbmlrun,$(PYTHON) accept.py)
+	$(call libsbmlrun, env PYTHONPATH=.:test $(PYTHON) ./test.py)
 	@echo -----------------------------------------------------------------
+	@echo All tests passed
 	@echo
 else
   check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
