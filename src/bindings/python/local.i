@@ -128,7 +128,7 @@
  * Add an equality operator to SBase.  All subclasses of SBase
  * will inherit this method.
  *
- * The %feature("shadow") rewrites __cmp__ such that two objects of
+ * The %extend rewrites __cmp__ such that two objects of
  * disimilar type can be compared without throwing a TypeError.  For
  * example: the following will return false and not throw an exception:
  *
@@ -136,27 +136,39 @@
  *   n = 5
  *   c == n
  *
- * The %extend forces the generation of a Python shadow class method
- * named __cmp__.  For some strange reason, this is order dependent.
- * The directive %feature must occur before %extend.  If not, the
- * %feature directive seems to be ignored.  If anything, it seems like
- * it should be the reverse.
- *
- * For more information, see testEquality() in accept.py.
+ * For more information, see testEquality() in test/TestPython.py
  */
-%feature("shadow") SBase::__cmp__
-{
-  def __cmp__(self, rhs):
-    if hasattr(self, 'this') and hasattr(rhs, 'this'):
-      if self.this == rhs.this: return 0
-    return 1
-}
 
-%extend SBase
+%define SWIGPYTHON__CMP__(CLASS)
+%extend CLASS
 {
-  bool __cmp__(const SBase& rhs) { return self != &rhs; }
+  %pythoncode
+  {
+    def __cmp__(self, rhs):
+      if hasattr(self, 'this') and hasattr(rhs, 'this'):
+        if self.this == rhs.this: return 0
+      return 1
+  }
 }
+%enddef
 
+SWIGPYTHON__CMP__(SBase)
+SWIGPYTHON__CMP__(SBMLWriter)
+SWIGPYTHON__CMP__(SBMLReader)
+SWIGPYTHON__CMP__(ASTNode)
+SWIGPYTHON__CMP__(CVTerm)
+SWIGPYTHON__CMP__(Date)
+SWIGPYTHON__CMP__(ModelHistory)
+SWIGPYTHON__CMP__(ModelCreator)
+SWIGPYTHON__CMP__(XMLNamespaces)
+SWIGPYTHON__CMP__(XMLAttributes)
+SWIGPYTHON__CMP__(XMLToken)
+SWIGPYTHON__CMP__(XMLTriple)
+SWIGPYTHON__CMP__(XMLError)
+SWIGPYTHON__CMP__(XMLErrorLog)
+SWIGPYTHON__CMP__(XMLHandler)
+SWIGPYTHON__CMP__(XMLOutputStream)
+SWIGPYTHON__CMP__(XMLInputStream)
 
 /**
  * The features directives below override the default SWIG generated
