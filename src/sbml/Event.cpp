@@ -141,10 +141,30 @@ Event::getTrigger () const
 
 
 /**
+ * @return the trigger of this Event.
+ */
+Trigger*
+Event::getTrigger ()
+{
+  return mTrigger;
+}
+
+
+/**
  * @return the delay of this Event.
  */
 const Delay*
 Event::getDelay () const
+{
+  return mDelay;
+}
+
+
+/**
+ * @return the delay of this Event.
+ */
+Delay*
+Event::getDelay ()
 {
   return mDelay;
 }
@@ -767,8 +787,8 @@ Event_getName (const Event_t *e)
  * @return the Trigger_t of this Event.
  */
 LIBSBML_EXTERN
-const Trigger_t *
-Event_getTrigger (const Event_t *e)
+Trigger_t *
+Event_getTrigger (Event_t *e)
 {
   return e->getTrigger();
 }
@@ -782,8 +802,8 @@ Event_getTrigger (const Event_t *e)
  * @return the Delay_t of this Event.
  */
 LIBSBML_EXTERN
-const Delay_t *
-Event_getDelay (const Event_t *e)
+Delay_t *
+Event_getDelay (Event_t *e)
 {
   return e->getDelay();
 }

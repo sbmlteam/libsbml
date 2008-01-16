@@ -388,6 +388,16 @@ SpeciesReference::getStoichiometryMath () const
 
 
 /**
+ * @return the stoichiometryMath of this SpeciesReference.
+ */
+StoichiometryMath*
+SpeciesReference::getStoichiometryMath ()
+{
+  return mStoichiometryMath;
+}
+
+
+/**
  * @return the denominator of this SpeciesReference.
  */
 int
@@ -1453,11 +1463,11 @@ SpeciesReference_getStoichiometry (const SpeciesReference_t *sr)
  * @return the stoichiometryMath of this SpeciesReference.
  */
 LIBSBML_EXTERN
-const StoichiometryMath_t *
-SpeciesReference_getStoichiometryMath (const SpeciesReference_t *sr)
+StoichiometryMath_t *
+SpeciesReference_getStoichiometryMath (SpeciesReference_t *sr)
 {
   if (sr->isModifier()) return NULL;
-  return static_cast<const SpeciesReference*>(sr)->getStoichiometryMath();
+  return static_cast<SpeciesReference*>(sr)->getStoichiometryMath();
 }
 
 

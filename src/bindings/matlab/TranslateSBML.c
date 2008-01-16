@@ -311,7 +311,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
          */
         if (nrhs == 2)
         {
-          validateFlag = mxGetScalar(prhs[1]);   
+          validateFlag = (int) mxGetScalar(prhs[1]);   
         }
             
    }
@@ -489,7 +489,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   
   if (unSBMLLevel == 2)
   {
-    pacMetaid = SBase_getMetaId(sbmlModel);
+    pacMetaid = SBase_getMetaId((SBase_t*)sbmlModel);
     pacId = Model_getId(sbmlModel);
     GetFunctionDefinition(sbmlModel, unSBMLLevel, unSBMLVersion);
     GetEvent(sbmlModel, unSBMLLevel, unSBMLVersion);
@@ -962,7 +962,7 @@ GetSpecies ( Model_t      *pModel,
     else if (unSBMLLevel == 2) 
     {
       pacId                 = Species_getId(pSpecies);
-      pacMetaid = SBase_getMetaId(pSpecies);
+      pacMetaid = SBase_getMetaId((SBase_t*)pSpecies);
       dInitialConcentration = Species_getInitialConcentration(pSpecies);
       pacUnits              = Species_getSubstanceUnits(pSpecies);
       nHasOnlySubsUnits     = Species_getHasOnlySubstanceUnits(pSpecies);
@@ -1195,7 +1195,7 @@ GetUnitDefinition ( Model_t      *pModel,
 if (unSBMLLevel == 2) 
     {
       pacId = UnitDefinition_getId(pUnitDefinition);
-      pacMetaid = SBase_getMetaId(pUnitDefinition);
+      pacMetaid = SBase_getMetaId((SBase_t*)pUnitDefinition);
       
       if (unSBMLVersion == 3) 
       {
@@ -1406,7 +1406,7 @@ GetCompartment ( Model_t      *pModel,
     }
     else if (unSBMLLevel == 2) 
     {
-      pacMetaid = SBase_getMetaId(pCompartment);
+      pacMetaid = SBase_getMetaId((SBase_t*)pCompartment);
       pacId               = Compartment_getId(pCompartment);
       unSpatialDimensions = Compartment_getSpatialDimensions(pCompartment);
       dSize               = Compartment_getSize(pCompartment);
@@ -1644,7 +1644,7 @@ GetParameter ( Model_t      *pModel,
    
     if (unSBMLLevel == 2) 
     {
-      pacMetaid = SBase_getMetaId(pParameter);
+      pacMetaid = SBase_getMetaId((SBase_t*)pParameter);
       pacId     = Parameter_getId(pParameter);
       nConstant = Parameter_getConstant(pParameter);
 
@@ -1872,7 +1872,7 @@ void GetReaction ( Model_t      *pModel,
     
     if (unSBMLLevel == 2) 
     {
-      pacMetaid = SBase_getMetaId(pReaction);
+      pacMetaid = SBase_getMetaId((SBase_t*)pReaction);
       pacId       = Reaction_getId(pReaction);
       unIsSetFast = Reaction_isSetFast(pReaction);
       GetModifier(pReaction, unSBMLLevel, unSBMLVersion);   
@@ -2076,7 +2076,7 @@ GetUnit ( UnitDefinition_t *pUnitDefinition,
     nScale          = Unit_getScale(pUnit);
     if (unSBMLLevel == 2) 
     {
-      pacMetaid = SBase_getMetaId(pUnit);
+      pacMetaid = SBase_getMetaId((SBase_t*)pUnit);
       dMultiplier = Unit_getMultiplier(pUnit);
       switch (unSBMLVersion)
       {
@@ -2260,7 +2260,7 @@ GetReactants ( Reaction_t   *pReaction,
     }
     else if (unSBMLLevel == 2) 
     {
-      pacMetaid = SBase_getMetaId(pReactant);
+      pacMetaid = SBase_getMetaId((SBase_t*)pReactant);
       switch (unSBMLVersion)
       {
       case 1:
@@ -2498,7 +2498,7 @@ const int nNoFields_l2v2 = 10;
     }
     else if (unSBMLLevel == 2) 
     {
-      pacMetaid = SBase_getMetaId(pProduct);
+      pacMetaid = SBase_getMetaId((SBase_t*)pProduct);
       switch (unSBMLVersion)
       {
       case 1:
@@ -2651,7 +2651,6 @@ GetStoichiometryMath ( SpeciesReference_t      *pSpeciesReference,
   int nSBO = -1;
 
   StoichiometryMath_t * pStoichiometryMath;
-  int i;
   
   /* variables for mathML - matlab hack */
   int nStatus, nBuflen;
@@ -2682,7 +2681,7 @@ GetStoichiometryMath ( SpeciesReference_t      *pSpeciesReference,
 
   pacNotes          = SBase_getNotesString((SBase_t *) pStoichiometryMath);
   pacAnnotations    = SBase_getAnnotationString((SBase_t *) pStoichiometryMath);
-  pacMetaid = SBase_getMetaId(pStoichiometryMath);
+  pacMetaid = SBase_getMetaId((SBase_t*)pStoichiometryMath);
 
   if (SBase_isSetSBOTerm((SBase_t*) pStoichiometryMath))
   {
@@ -2866,7 +2865,7 @@ GetKineticLaw ( Reaction_t   *pReaction,
     }
     else if (unSBMLLevel == 2)
     {
-      pacMetaid = SBase_getMetaId(pKineticLaw);
+      pacMetaid = SBase_getMetaId((SBase_t*)pKineticLaw);
      /* if level two set the math formula */
      if (KineticLaw_isSetMath(pKineticLaw)) 
       {
@@ -3120,7 +3119,7 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
     
     if (unSBMLLevel == 2) 
     {
-      pacMetaid = SBase_getMetaId(pParameter);
+      pacMetaid = SBase_getMetaId((SBase_t*)pParameter);
       pacId     = Parameter_getId(pParameter);
       nConstant = Parameter_getConstant(pParameter);
       switch (unSBMLVersion)
@@ -3294,7 +3293,7 @@ GetModifier ( Reaction_t   *pReaction,
     
     pacNotes        = SBase_getNotesString((SBase_t*) pModifier);
     pacAnnotations  = SBase_getAnnotationString((SBase_t*) pModifier);
-    pacMetaid = SBase_getMetaId(pModifier);
+    pacMetaid = SBase_getMetaId((SBase_t*)pModifier);
     
     pacSpecies      = SpeciesReference_getSpecies(pModifier);
     switch (unSBMLVersion)
@@ -3510,7 +3509,7 @@ GetRule ( Model_t      *pModel,
     }
     else if (unSBMLLevel == 2) 
     {
-      pacMetaid = SBase_getMetaId(pRule);
+      pacMetaid = SBase_getMetaId((SBase_t*)pRule);
       if (Rule_isSetFormula(pRule) == 1){
         LookForCSymbolTime(Rule_getMath(pRule));
         pacFormula = SBML_formulaToString(Rule_getMath(pRule));
@@ -3903,7 +3902,7 @@ GetFunctionDefinition ( Model_t      *pModel,
     
     pacNotes            = SBase_getNotesString((SBase_t *) pFuncDefinition);
     pacAnnotations      = SBase_getAnnotationString((SBase_t *) pFuncDefinition);
-    pacMetaid = SBase_getMetaId(pFuncDefinition);
+    pacMetaid = SBase_getMetaId((SBase_t*)pFuncDefinition);
     
     pacName             = FunctionDefinition_getName(pFuncDefinition);
     pacId               = FunctionDefinition_getId(pFuncDefinition);
@@ -4096,7 +4095,7 @@ GetEvent (Model_t      *pModel,
 
     /* determine the values */
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t *) pEvent));
-    pacMetaid = SBase_getMetaId(pEvent);
+    pacMetaid = SBase_getMetaId((SBase_t*)pEvent);
     
     pacNotes        = SBase_getNotesString((SBase_t *) pEvent);
     pacAnnotations  = SBase_getAnnotationString((SBase_t *) pEvent);
@@ -4358,7 +4357,7 @@ GetEventAssignment ( Event_t      *pEvent,
     
     pacNotes          = SBase_getNotesString((SBase_t *) pEventAssignment);
     pacAnnotations    = SBase_getAnnotationString((SBase_t *) pEventAssignment);
-    pacMetaid = SBase_getMetaId(pEventAssignment);
+    pacMetaid = SBase_getMetaId((SBase_t*)pEventAssignment);
     
     pacVariable       = EventAssignment_getVariable(pEventAssignment);
     switch (unSBMLVersion)
@@ -4485,7 +4484,6 @@ GetTrigger ( Event_t      *pEvent,
   int nSBO = -1;
 
   Trigger_t * pTrigger;
-  int i;
   
   /* variables for mathML - matlab hack */
   int nStatus, nBuflen;
@@ -4516,7 +4514,7 @@ GetTrigger ( Event_t      *pEvent,
 
   pacNotes          = SBase_getNotesString((SBase_t *) pTrigger);
   pacAnnotations    = SBase_getAnnotationString((SBase_t *) pTrigger);
-    pacMetaid = SBase_getMetaId(pTrigger);
+    pacMetaid = SBase_getMetaId((SBase_t*)pTrigger);
 
   if (SBase_isSetSBOTerm((SBase_t*) pTrigger))
   {
@@ -4615,7 +4613,6 @@ GetDelay ( Event_t      *pEvent,
   int nSBO = -1;
 
   Delay_t * pDelay;
-  int i;
   
   /* variables for mathML - matlab hack */
   int nStatus, nBuflen;
@@ -4646,7 +4643,7 @@ GetDelay ( Event_t      *pEvent,
 
   pacNotes          = SBase_getNotesString((SBase_t *) pDelay);
   pacAnnotations    = SBase_getAnnotationString((SBase_t *) pDelay);
-    pacMetaid = SBase_getMetaId(pDelay);
+    pacMetaid = SBase_getMetaId((SBase_t*)pDelay);
 
   if (SBase_isSetSBOTerm((SBase_t*) pDelay))
   {
@@ -4848,7 +4845,7 @@ GetCompartmentType (Model_t      *pModel,
     
     pacNotes        = SBase_getNotesString((SBase_t *) pCompartmentType);
     pacAnnotations  = SBase_getAnnotationString((SBase_t *) pCompartmentType);
-    pacMetaid = SBase_getMetaId(pCompartmentType);
+    pacMetaid = SBase_getMetaId((SBase_t*)pCompartmentType);
     
     pacName         = CompartmentType_getName(pCompartmentType);
     pacId = CompartmentType_getId(pCompartmentType);
@@ -4985,7 +4982,7 @@ GetSpeciesType (Model_t      *pModel,
     
     pacNotes        = SBase_getNotesString((SBase_t *) pSpeciesType);
     pacAnnotations  = SBase_getAnnotationString((SBase_t *) pSpeciesType);
-    pacMetaid = SBase_getMetaId(pSpeciesType);
+    pacMetaid = SBase_getMetaId((SBase_t*)pSpeciesType);
     
     pacName         = SpeciesType_getName(pSpeciesType);
     pacId = SpeciesType_getId(pSpeciesType);
@@ -5124,7 +5121,7 @@ GetInitialAssignment (Model_t      *pModel,
     
     pacNotes        = SBase_getNotesString((SBase_t *) pInitialAssignment);
     pacAnnotations  = SBase_getAnnotationString((SBase_t *) pInitialAssignment);
-    pacMetaid = SBase_getMetaId(pInitialAssignment);
+    pacMetaid = SBase_getMetaId((SBase_t*)pInitialAssignment);
   
     pacSymbol       = InitialAssignment_getSymbol(pInitialAssignment);
     if (SBase_isSetSBOTerm((SBase_t*) pInitialAssignment)){
@@ -5284,7 +5281,7 @@ GetConstraint (Model_t      *pModel,
   
     pacNotes        = SBase_getNotesString((SBase_t *) pConstraint);
     pacAnnotations  = SBase_getAnnotationString((SBase_t *) pConstraint);
-    pacMetaid = SBase_getMetaId(pConstraint);
+    pacMetaid = SBase_getMetaId((SBase_t*)pConstraint);
 
     if (Constraint_isSetMessage(pConstraint)) {
       pacMessage = XMLNode_convertXMLNodeToString(Constraint_getMessage(pConstraint));

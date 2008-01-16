@@ -3946,7 +3946,7 @@ SBase_getResourceModelQualifier(SBase_t *sb, const char * resource)
  */
 LIBSBML_EXTERN
 const char *
-SBase_getMetaId (const SBase_t *sb)
+SBase_getMetaId (SBase_t *sb)
 {
   return sb->isSetMetaId() ? sb->getMetaId().c_str() : NULL;
 }

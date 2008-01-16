@@ -523,6 +523,34 @@ public:
 
 
   /**
+   * Get the content of the "stoichiometryMath" subelement as an ASTNode
+   * tree.
+   *
+   * In SBML Level 2, Product and reactant stoichiometries can be specified
+   * using <em>either</em> "stoichiometry" or "stoichiometryMath" in a
+   * SpeciesReference object.  The former is to be used when a
+   * stoichiometry is simply a scalar number, while the latter is for
+   * occasions when it needs to be a rational number or it needs to
+   * reference other mathematical expressions.  The "stoichiometry"
+   * attribute is of type double and should contain values greater than
+   * zero (0).  The "stoichiometryMath" element is implemented as an
+   * element containing a MathML expression.  These two are mutually
+   * exclusive; only one of "stoichiometry" or "stoichiometryMath" should
+   * be defined in a given SpeciesReference instance.  When neither the
+   * attribute nor the element is present, the value of "stoichiometry" in
+   * the SpeciesReference instance defaults to @c 1.  For maximum
+   * interoperability between different software tools, the "stoichiometry"
+   * attribute should be used in preference to "stoichiometryMath" when a
+   * species' stoichiometry is a simple scalar number (integer or
+   * decimal).
+   * 
+   * @return the content of the "stoichiometryMath" subelement of this
+   * SpeciesReference.
+   */
+  StoichiometryMath* getStoichiometryMath ();
+
+
+  /**
    * Get the value of the "denominator" attribute, for the case of a
    * rational-numbered stoichiometry or a model in SBML Level 1.
    *
@@ -1086,8 +1114,8 @@ SpeciesReference_getStoichiometry (const SpeciesReference_t *sr);
 
 
 LIBSBML_EXTERN
-const StoichiometryMath_t *
-SpeciesReference_getStoichiometryMath (const SpeciesReference_t *sr);
+StoichiometryMath_t *
+SpeciesReference_getStoichiometryMath (SpeciesReference_t *sr);
 
 
 LIBSBML_EXTERN

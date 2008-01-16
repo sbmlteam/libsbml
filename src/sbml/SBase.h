@@ -1348,7 +1348,7 @@ BEGIN_C_DECLS
 
 LIBSBML_EXTERN
 const char *
-SBase_getMetaId (const SBase_t *sb);
+SBase_getMetaId (SBase_t *sb);
 
 
 LIBSBML_EXTERN

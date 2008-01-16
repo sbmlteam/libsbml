@@ -202,6 +202,21 @@ public:
 
 
   /**
+   * Get the trigger definition of this Event.
+   * 
+   * @return the Trigger object of this Event.
+   *
+   * @note The value returned by this method changed in libSBML 3.0 to
+   * be aligned with the definitions of Event, Trigger and Delay in SBML
+   * Level 2 Version 3.  Previous versions of this method return an ASTNode
+   * tree for the mathematical expression of the trigger; the libSBML 3.0
+   * version follows the definition of Event and Trigger in SBML Level 2
+   * Version 3 and returns a separate Trigger object.
+   */
+  Trigger* getTrigger ();
+
+
+  /**
    * Get the delay definition of this Event.
    * 
    * @return the delay of this Event if one is defined, or @c NULL if none
@@ -215,6 +230,22 @@ public:
    * Version 3 and returns a separate Delay object.
    */
   const Delay* getDelay () const;
+
+
+  /**
+   * Get the delay definition of this Event.
+   * 
+   * @return the delay of this Event if one is defined, or @c NULL if none
+   * is defined.
+   *
+   * @note The value returned by this method changed in libSBML 3.0 to
+   * be aligned with the definitions of Event, Trigger and Delay in SBML
+   * Level 2 Version 3.  Previous versions of this method return an ASTNode
+   * tree for the mathematical expression of the delay; the libSBML 3.0
+   * version follows the definition of Event and Delay in SBML Level 2
+   * Version 3 and returns a separate Delay object.
+   */
+  Delay* getDelay ();
 
 
   /**
@@ -607,13 +638,13 @@ Event_getName (const Event_t *e);
 
 
 LIBSBML_EXTERN
-const Trigger_t *
-Event_getTrigger (const Event_t *e);
+Trigger_t *
+Event_getTrigger (Event_t *e);
 
 
 LIBSBML_EXTERN
-const Delay_t *
-Event_getDelay (const Event_t *e);
+Delay_t *
+Event_getDelay (Event_t *e);
 
 
 LIBSBML_EXTERN
