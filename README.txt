@@ -5,7 +5,7 @@
                        with contributions from
          Mike Hucka, Akiya Jouraku, Ben Kovitz, Stefan Hoops, 
      Ralph Gauges, Martin Ginkel, Christoph Flamm, Rainer Machne,
-	 Bill Denney, and many others in the SBML community.
+	    Bill Denney, Alex Gutteridge, and many others.
 
          For more information about SBML or libSBML, contact:
 
@@ -64,10 +64,10 @@ and for Xerces, use
 
 By default, libSBML only builds the C and C++ API library.  If you
 want to configure libSBML to build the Java, Python, Perl, Lisp,
-MATLAB and/or Octave API libraries as well, add the flags --with-java,
---with-python, --with-perl, --with-lisp, --with-matlab, and/or
---with-octave to the configure command.  You can combine options as
-you need.
+MATLAB, Ruby and/or Octave API libraries as well, add the flags
+--with-java, --with-python, --with-perl, --with-lisp, --with-matlab,
+--with-ruby, and/or --with-octave to the configure command.  You can
+combine options as you need.
 
 Depending on your system, you may need to tell the configure program
 where to find some of these extra components by adding a directory
@@ -135,8 +135,8 @@ SBML Level 2.
 
 The library is written in ISO standard C and C++ and currently
 provides an API for the languages C, C++, Java, Lisp, Perl, Python,
-MATLAB and Octave.  LibSBML is known to run on Linux, Windows, and
-MacOS X, but is portable and support for other platforms should be
+Ruby, MATLAB and Octave.  LibSBML is known to run on Linux, Windows,
+and MacOS X, but is portable and support for other platforms should be
 straightforward to implement.
 
 LibSBML is entirely open-source and all specifications and source code
@@ -193,11 +193,11 @@ Feature Highlights:
   format of providing getters and setters for each variable stored
   within the class.
       
-* Interfaces for C, C++, Java, Python, Perl Lisp, MATLAB and Octave.
-  C and C++ interfaces are implemented natively; the Java, Perl, and
-  Python interfaces are implemented using SWIG, the Simplified Wrapper
-  Interface Generator; and the rest are implemented using custom
-  hand-written interface code.
+* Interfaces for C, C++, Java, Lisp, Python, Perl, MATLAB, Ruby and
+  Octave.  C and C++ interfaces are implemented natively; the Java,
+  Perl, Python, and Ruby interfaces are implemented using SWIG, the
+  Simplified Wrapper Interface Generator; and the rest are implemented
+  using custom hand-written interface code.
 
 * Well tested: version 3.0.0 has over 1280 unit tests and 5800
   individual assertions.  The entire library was written using the
