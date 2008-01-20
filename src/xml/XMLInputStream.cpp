@@ -61,6 +61,17 @@ XMLInputStream::XMLInputStream (  const char*   content
  */
 XMLInputStream::~XMLInputStream ()
 {
+  if ( mParser )
+  {
+     /**
+      *  set NULL to 'XMLErrorLog::mParser' (corresponding XMLErrorLog* 
+      *  object was passed to the above constructer as 'errorLog') because 
+      *  the corresponding 'mParser' is deleted here and can't be accessed 
+      *  anymore.    
+	   */
+    XMLErrorLog* errorLog = mParser->getErrorLog();
+    if ( errorLog ) errorLog->setParser(NULL);
+  }
   delete mParser;
 }
 
