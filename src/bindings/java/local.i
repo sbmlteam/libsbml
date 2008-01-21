@@ -607,6 +607,75 @@ SWIGJAVA_ATTRIBS(TYPENAME, protected, public)
 SWIGJAVA_ATTRIBS(TYPENAME, public, public)
 %enddef
 
+/**
+ *
+ * Overrides the 'equals' method for SBase subclasses and other classes
+ * in libsbml.
+ *
+ * By default, 'equals' method ( and '==' operator) for each wrapped class
+ * object returns 'true' if the given two objects refer to the same 
+ * *Java proxy object* (not the underlying C++ object). 
+ * For example, the following code returns 'true'.
+ *
+ *   Model m = new Model();
+ *   m.createReaction();
+ *   Reaction r1  = m.getReaction(0);
+ *   Reaction r2 = r1;
+ *   return r1.equals(r2);  <---- this returns 'true'
+ *
+ * On the other hand, the following code returns 'false' in spite of
+ * the same underlying C++ objects.
+ *
+ *   Model m = new Model();
+ *   m.createReaction();
+ *   Reaction r1 = m.getReaction(0);
+ *   Reaction r2 = m.getReaction(0);
+ *   return r1.equals(r2);  <---- this returns 'false'
+ *
+ * The following override changes the behaviour of 'equals' method such that
+ * returns 'true' if the given two objects refer to the same underlying C++ 
+ * object (i.e. 'true' is returned in the both above examples).
+ *
+ * (Unfortunately, '==' operator can't be overidden in Java.
+ *  Thus, the underlying C++ objects can't be compared by the '==' operator.)
+ * 
+ */
+
+%define SWIGJAVA_EQUALS(CLASS)
+%typemap("javacode") CLASS
+%{
+  public boolean equals(Object sb)
+  {
+    if ( this == sb ) 
+    {
+      return true;
+    }
+    return swigCPtr == getCPtr((CLASS)(sb));
+  }
+
+  public int hashCode()
+  {
+    return (int)(swigCPtr^(swigCPtr>>>32));
+  }
+%}
+%enddef
+
+SWIGJAVA_EQUALS(SBase)
+SWIGJAVA_EQUALS(SBMLWriter)
+SWIGJAVA_EQUALS(ASTNode)
+SWIGJAVA_EQUALS(CVTerm)
+SWIGJAVA_EQUALS(Date)
+SWIGJAVA_EQUALS(ModelHistory)
+SWIGJAVA_EQUALS(ModelCreator)
+SWIGJAVA_EQUALS(XMLNamespaces)
+SWIGJAVA_EQUALS(XMLAttributes)
+SWIGJAVA_EQUALS(XMLToken)
+SWIGJAVA_EQUALS(XMLTriple)
+SWIGJAVA_EQUALS(XMLError)
+SWIGJAVA_EQUALS(XMLErrorLog)
+SWIGJAVA_EQUALS(XMLHandler)
+SWIGJAVA_EQUALS(XMLOutputStream)
+SWIGJAVA_EQUALS(XMLInputStream)
 
 /**
  * Part of libSBML methods takeover ownership of passed-in objects, so we need
@@ -659,6 +728,20 @@ import java.io.File;
 
 %typemap("javacode") SBMLReader
 %{
+  public boolean equals(Object sb)
+  {
+    if ( this == sb )
+    {
+      return true;
+    }
+    return swigCPtr == getCPtr((SBMLReader)(sb));
+  }
+
+  public int hashCode()
+  {
+    return (int)(swigCPtr^(swigCPtr>>>32));
+  }
+
   public SBMLDocument readSBML (String filename)
   {
     File   file    = new java.io.File(filename);
