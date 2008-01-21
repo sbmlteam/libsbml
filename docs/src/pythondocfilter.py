@@ -77,8 +77,17 @@ def reformatDocString (match):
 
 
 def filterDocStrings (contents):
+  # Make the docstrings more readable.
   p = re.compile('\"\"\"(.+?)\"\"\"', re.DOTALL | re.MULTILINE)
   contents = p.sub(reformatDocString, contents)
+
+  # Additional manipulations.
+
+  # "Double" is called "float" in python.  There's no "double" in Python,
+  # so there's no risk of damaging code here, but we have to be careful
+  # about different contexts in which the word "double" might be used.
+  contents = contents.replace(' double', " float")
+  contents = contents.replace('(double', " (float")
 
   return contents
 
