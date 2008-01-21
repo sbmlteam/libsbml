@@ -40,7 +40,10 @@ extra_sources     = \
                      local.cpp \
                      local.i
 
-check_sources     = Test.java
+test_dir          = test
+test_source_path  = test/org/sbml/libsbml/test
+
+check_sources     = AutoTestRunner.java $(wildcard $(test_source_path)/Test*.java)
 
 java_package      = org.sbml.$(PACKAGE)
 jarfile           = libsbmlj.jar
@@ -126,7 +129,7 @@ distfiles   = $(sources) $(extra_sources) $(check_sources) \
 # removed during "make clean" and "make distclean".
 
 extra_clean = $(class_files) $(check_sources:.java=.class) test_copy1.xml \
-  test_write.xml
+  test_write.xml TestFilenameFilter.class
 
 extra_distclean = java-files
 
@@ -248,9 +251,9 @@ clean-swigfiles:
 check_classes = $(check_sources:.java=.class)
 
 ifeq "$(HOST_TYPE)" "cygwin"
-  classpath = $(shell cygpath -wp $(jarfile):$(TOP_BUILDDIR)/src:.)
+  classpath = $(shell cygpath -wp $(jarfile):$(TOP_BUILDDIR)/src:$(test_dir):.)
 else
-  classpath = $(jarfile):$(TOP_BUILDDIR)/src:.
+  classpath = $(jarfile):$(TOP_BUILDDIR)/src:$(test_dir):.
 endif
 
 $(check_classes): Makefile $(libraries) $(check_sources)
@@ -262,7 +265,7 @@ ifdef USE_LIBCHECK
 	@echo
 	@echo Running Tests in $(thisdir)
 	@echo -----------------------------------------------------------------
-	$(call libsbmlrun,"$(JAVA)" -classpath "$(classpath)" Test)
+	$(call libsbmlrun,"$(JAVA)" -classpath "$(classpath)" AutoTestRunner)
 	@echo -----------------------------------------------------------------
 	@echo
 else
