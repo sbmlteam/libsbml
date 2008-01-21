@@ -265,6 +265,8 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
   return ud;
 }
 
+
+/* @cond doxygen-libsbml-internal */
 /** 
   * returns the unitDefinition for the ASTNode from a function
   */
@@ -324,7 +326,10 @@ UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node,
   
   return ud;
 }
+/* @endcond doxygen-libsbml-internal */
 
+
+/* @cond doxygen-libsbml-internal */
 /** 
   * returns the unitDefinition for the ASTNode from a times function
   */
@@ -356,7 +361,10 @@ UnitFormulaFormatter::getUnitDefinitionFromTimes(const ASTNode * node,
   mCanIgnoreUndeclaredUnits = currentIgnore;
   return ud;
 }
+/* @endcond doxygen-libsbml-internal */
 
+
+/* @cond doxygen-libsbml-internal */
 /** 
   * returns the unitDefinition for the ASTNode from a divide function
   */
@@ -384,7 +392,10 @@ UnitFormulaFormatter::getUnitDefinitionFromDivide(const ASTNode * node,
 
   return ud;
 }
+/* @endcond doxygen-libsbml-internal */
 
+
+/* @cond doxygen-libsbml-internal */
 /** 
   * returns the unitDefinition for the ASTNode from a power function
   */
@@ -486,7 +497,10 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
 
   return ud;
 }
+/* @endcond doxygen-libsbml-internal */
 
+
+/* @cond doxygen-libsbml-internal */
 /** 
   * returns the unitDefinition for the ASTNode from 
   * a piecewise function
@@ -501,7 +515,10 @@ UnitFormulaFormatter::getUnitDefinitionFromPiecewise(const ASTNode * node,
 
   return ud;
 }
+/* @endcond doxygen-libsbml-internal */
 
+
+/* @cond doxygen-libsbml-internal */
 /** 
   * returns the unitDefinition for the ASTNode from a root function
   */
@@ -548,7 +565,10 @@ UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node,
 
   return ud;
 }
+/* @endcond doxygen-libsbml-internal */
 
+
+/* @cond doxygen-libsbml-internal */
 /** 
   * returns the unitDefinition for the ASTNode from 
   * a delay function
@@ -563,7 +583,10 @@ UnitFormulaFormatter::getUnitDefinitionFromDelay(const ASTNode * node,
 
   return ud;
 }
+/* @endcond doxygen-libsbml-internal */
 
+
+/* @cond doxygen-libsbml-internal */
 /** 
   * returns the unitDefinition for the ASTNode from 
   * a function returning dimensionless value
@@ -584,7 +607,10 @@ UnitFormulaFormatter::getUnitDefinitionFromDimensionlessReturnFunction(
 
   return ud;
 }
+/* @endcond doxygen-libsbml-internal */
 
+
+/* @cond doxygen-libsbml-internal */
 /** 
   * returns the unitDefinition for the ASTNode from 
   * a function returning value with same units as argument(s)
@@ -655,7 +681,10 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction
 
   return ud;
 }
+/* @endcond doxygen-libsbml-internal */
 
+
+/* @cond doxygen-libsbml-internal */
 /** 
   * returns the unitDefinition for the ASTNode from anything else
   */
@@ -760,6 +789,8 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
   }
   return ud;
 }
+/* @endcond doxygen-libsbml-internal */
+
 
 /** 
   * returns the unitDefinition for the units of the compartment

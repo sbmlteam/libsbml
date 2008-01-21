@@ -37,6 +37,9 @@
 
 #ifdef __cplusplus
 
+
+/** @cond doxygen-libsbml-internal */
+
 /** 
  * Simplifies the UnitDefinition so that any Unit occurring
  * within the listOfUnits occurs only once.

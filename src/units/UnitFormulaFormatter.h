@@ -85,8 +85,10 @@ public:
    *
    * @param node the ASTNode for which the unitDefinition is to be 
    * constructed.
+   *
    * @param inKL boolean indicating whether the ASTNode represents the
    * math element of a KineticLaw (default = false).
+   *
    * @param reactNo integer indicating which Reaction within the Model
    * contains the KineticLaw under consideration (default = -1).
    *
