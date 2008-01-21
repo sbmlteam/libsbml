@@ -154,7 +154,7 @@ public:
    * 
    * @param scale an integer, the "scale" attribute of the unit definition
    * 
-   * @param multiplier a double, the "multiplier" attriute of the unit
+   * @param multiplier a double, the "multiplier" attribute of the unit
    * definition 
    *
    * @docnote The native C++ implementation of this method defines a
@@ -205,7 +205,7 @@ public:
    * 
    * @param scale an integer, the "scale" attribute of the unit definition
    * 
-   * @param multiplier a double, the "multiplier" attriute of the unit
+   * @param multiplier a double, the "multiplier" attribute of the unit
    * definition 
    *
    * @docnote The native C++ implementation of this method defines a
