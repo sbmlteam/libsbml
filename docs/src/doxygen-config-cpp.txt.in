@@ -59,3 +59,8 @@ PREDEFINED             = __cplusplus  \
 # documentation sections, marked by \if sectionname ... \endif.
 
 ENABLED_SECTIONS       = doxygen-c++-only
+
+# Use this opportunity to generate man pages too.
+# Note: The output has a lot of errors.  Can't enable just yet.
+# GENERATE_MAN           = YES
+
