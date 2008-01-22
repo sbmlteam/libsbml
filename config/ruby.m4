@@ -59,19 +59,24 @@ AC_DEFUN([CONFIG_PROG_RUBY],
     dnl check version if required
     m4_ifvaln([$1], [
         AC_MSG_CHECKING($RUBY version >= $1)
-        if test `$RUBY -rrbconfig -e ["include Config; puts \"#{CONFIG['MAJOR']}.#{CONFIG['MINOR']}.#{CONFIG['TEENY']}\" >= \"$1\" ? \"OK\" : \"OLD\""]` = "OK"
+        if test `$RUBY -rrbconfig -e ["puts RUBY_VERSION >= \"$1\" ? \"OK\" : \"OLD\""]` = "OK"
         then
           AC_MSG_RESULT(ok)
         else
           AC_MSG_RESULT(no)
         fi
-      fi])
+    ])
 
     AC_MSG_CHECKING(for ruby prefix)
     RUBY_PREFIX=`$RUBY -rrbconfig -e ["include Config; puts CONFIG['prefix']"]`
     AC_MSG_RESULT($RUBY_PREFIX)
 
-    RUBY_ARCHDIR=`$RUBY -rrbconfig -e ["include Config; puts CONFIG['archdir']"]`
+    if test `$RUBY -rrbconfig -e ["puts RUBY_VERSION >= \"1.9.0\" ? \"OK\" : \"OLD\""]` = "OK"; 
+    then
+      RUBY_ARCHDIR=`$RUBY -rrbconfig -e ["include Config; print \"#{CONFIG['rubyhdrdir']} -I#{CONFIG['rubyhdrdir']}/#{CONFIG['arch']}\" "]`
+    else
+      RUBY_ARCHDIR=`$RUBY -rrbconfig -e ["include Config; puts CONFIG['archdir']"]`
+    fi    
     RUBY_LIBDIR=`$RUBY -rrbconfig -e ["include Config; puts CONFIG['libdir']"]` 
     RUBY_NAME=`$RUBY -rrbconfig -e ["include Config; puts CONFIG['RUBY_SO_NAME']"]`
 
