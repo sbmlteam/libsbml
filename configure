@@ -6154,7 +6154,12 @@ echo $ECHO_N "checking for ruby prefix... $ECHO_C" >&6; }
     { echo "$as_me:$LINENO: result: $RUBY_PREFIX" >&5
 echo "${ECHO_T}$RUBY_PREFIX" >&6; }
 
-    RUBY_ARCHDIR=`$RUBY -rrbconfig -e "include Config; puts CONFIG['archdir']"`
+    if test `$RUBY -rrbconfig -e "puts RUBY_VERSION >= \"1.9.0\" ? \"OK\" : \"OLD\""` = "OK";
+    then
+      RUBY_ARCHDIR=`$RUBY -rrbconfig -e "include Config; print \"#{CONFIG['rubyhdrdir']} -I#{CONFIG['rubyhdrdir']}/#{CONFIG['arch']}\" "`
+    else
+      RUBY_ARCHDIR=`$RUBY -rrbconfig -e "include Config; puts CONFIG['archdir']"`
+    fi
     RUBY_LIBDIR=`$RUBY -rrbconfig -e "include Config; puts CONFIG['libdir']"`
     RUBY_NAME=`$RUBY -rrbconfig -e "include Config; puts CONFIG['RUBY_SO_NAME']"`
 
