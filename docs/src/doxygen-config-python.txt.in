@@ -77,6 +77,7 @@ INPUT = \
   libsbml-issues.txt               \
   libsbml-license.txt              \
   libsbml-python-mainpage.txt      \
+  libsbml-python-math.txt          \
   libsbml-python-reading-files.txt \
   libsbml-uninstallation.txt       \
   ../../src/bindings/python/libsbml.py
@@ -94,3 +95,7 @@ INPUT_FILTER           = ./pythondocfilter.py
 # So don't bother telling us.
 
 WARN_IF_DOC_ERROR      = NO
+
+# According to the Doxygen 1.5.4 docs, you're supposed to set this for Python.
+
+OPTIMIZE_OUTPUT_JAVA    = YES
