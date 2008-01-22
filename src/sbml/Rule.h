@@ -591,6 +591,41 @@ public:
    */
   void unsetUnits ();
 
+  /**
+   * Calculates and returns a UnitDefinition that expresses the units
+   * returned by the math expression of this Rule.
+   *
+   * @return a UnitDefinition that expresses the units of the math 
+   * expression of this Rule.
+   *
+   * @note The units are calculated by applying the mathematics 
+   * from the expression to the units of the <ci> elements used 
+   * within the expression. Where there are parameters/numbers
+   * with undeclared units the UnitDefinition returned by this
+   * function may not accurately represent the units of the expression.
+   * 
+   * @see containsUndeclaredUnits()
+   */
+  UnitDefinition * getCalculatedUnitDefinition();
+
+  /**
+   * Predicate returning @c true or @c false depending on whether 
+   * the math expression of this Rule contains
+   * parameters/numbers with undeclared units.
+   * 
+   * @return @c true if the math expression of this Rule
+   * includes parameters/numbers 
+   * with undeclared units, @c false otherwise.
+   *
+   * @note a return value of @c true indicates that the UnitDefinition
+   * returned by the getCalculatedUnitDefinition function may not 
+   * accurately represent the units of the expression.
+   *
+   * @see getCalculatedUnitDefinition()
+   */
+  bool containsUndeclaredUnits();
+
+
 
   /**
    * (SBML Level 1) Get the type of rule this is.
@@ -1272,6 +1307,16 @@ Rule_getL1TypeCode (const Rule_t *r);
 LIBSBML_EXTERN
 void
 Rule_setL1TypeCode (Rule_t *r, SBMLTypeCode_t L1Type);
+
+
+LIBSBML_EXTERN
+UnitDefinition_t * 
+Rule_getCalculatedUnitDefinition(Rule_t *ia);
+
+
+LIBSBML_EXTERN
+int 
+Rule_containsUndeclaredUnits(Rule_t *ia);
 
 END_C_DECLS
 

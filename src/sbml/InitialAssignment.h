@@ -328,7 +328,6 @@ public:
    */
   void setSymbol (const std::string& sid);
 
-
   /**
    * Sets the "math" subelement of this InitialAssignment.
    *
@@ -338,6 +337,41 @@ public:
    * be used as the formula for this InitialAssignment.
    */
   void setMath (const ASTNode* math);
+
+
+  /**
+   * Calculates and returns a UnitDefinition that expresses the units
+   * returned by the math expression of this InitialAssignment.
+   *
+   * @return a UnitDefinition that expresses the units of the math 
+   * expression of this InitialAssignment.
+   *
+   * @note The units are calculated by applying the mathematics 
+   * from the expression to the units of the <ci> elements used 
+   * within the expression. Where there are parameters/numbers
+   * with undeclared units the UnitDefinition returned by this
+   * function may not accurately represent the units of the expression.
+   * 
+   * @see containsUndeclaredUnits()
+   */
+  UnitDefinition * getCalculatedUnitDefinition();
+
+  /**
+   * Predicate returning @c true or @c false depending on whether 
+   * the math expression of this InitialAssignment contains
+   * parameters/numbers with undeclared units.
+   * 
+   * @return @c true if the math expression of this InitialAssignment
+   * includes parameters/numbers 
+   * with undeclared units, @c false otherwise.
+   *
+   * @note a return value of @c true indicates that the UnitDefinition
+   * returned by the getCalculatedUnitDefinition function may not 
+   * accurately represent the units of the expression.
+   *
+   * @see getCalculatedUnitDefinition()
+   */
+  bool containsUndeclaredUnits();
 
 
   /**
@@ -548,6 +582,15 @@ LIBSBML_EXTERN
 void
 InitialAssignment_setMath (InitialAssignment_t *ia, const ASTNode_t *math);
 
+
+LIBSBML_EXTERN
+UnitDefinition_t * 
+InitialAssignment_getCalculatedUnitDefinition(InitialAssignment_t *ia);
+
+
+LIBSBML_EXTERN
+int 
+InitialAssignment_containsUndeclaredUnits(InitialAssignment_t *ia);
 
 END_C_DECLS
 

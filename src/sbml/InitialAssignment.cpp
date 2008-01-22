@@ -176,6 +176,42 @@ InitialAssignment::setMath (const ASTNode* math)
 
 
 /*
+  * Calculates and returns a UnitDefinition that expresses the units
+  * returned by the math expression of this InitialAssignment.
+  */
+UnitDefinition * 
+InitialAssignment::getCalculatedUnitDefinition()
+{
+  if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
+  {
+    getSBMLDocument()->getModel()->populateListFormulaUnitsData();
+  }
+
+  return getSBMLDocument()->getModel()
+    ->getFormulaUnitsData(getId(), getTypeCode())
+    ->getUnitDefinition();
+}
+
+/*
+ * Predicate returning @c true or @c false depending on whether 
+ * the math expression of this InitialAssignment contains
+ * parameters/numbers with undeclared units that cannot be ignored.
+ */
+bool 
+InitialAssignment::containsUndeclaredUnits()
+{
+  if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
+  {
+    getSBMLDocument()->getModel()->populateListFormulaUnitsData();
+  }
+
+  return (getSBMLDocument()->getModel()
+    ->getFormulaUnitsData(getId(), getTypeCode())
+    ->getContainsUndeclaredUnits());
+}
+
+
+/*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -594,6 +630,50 @@ InitialAssignment_setMath (InitialAssignment_t *ia, const ASTNode_t *math)
   ia->setMath(math);
 }
 
+/**
+  * Calculates and returns a UnitDefinition_t that expresses the units
+  * returned by the math expression of this InitialAssignment_t.
+  *
+  * @return a UnitDefinition_t that expresses the units of the math 
+  * expression of this InitialAssignment_t.
+  *
+  * @note The units are calculated by applying the mathematics 
+  * from the expression to the units of the <ci> elements used 
+  * within the expression. Where there are parameters/numbers
+  * with undeclared units the UnitDefinition_t returned by this
+  * function may not accurately represent the units of the expression.
+  * 
+  * @see InitialAssignment_containsUndeclaredUnits()
+  */
+LIBSBML_EXTERN
+UnitDefinition_t * 
+InitialAssignment_getCalculatedUnitDefinition(InitialAssignment_t *ia)
+{
+  return ia->getCalculatedUnitDefinition();
+}
+
+
+/**
+  * Predicate returning @c true or @c false depending on whether 
+  * the math expression of this InitialAssignment_t contains
+  * parameters/numbers with undeclared units.
+  * 
+  * @return @c true if the math expression of this InitialAssignment_t
+  * includes parameters/numbers 
+  * with undeclared units, @c false otherwise.
+  *
+  * @note a return value of @c true indicates that the UnitDefinition_t
+  * returned by the getCalculatedUnitDefinition function may not 
+  * accurately represent the units of the expression.
+  *
+  * @see InitialAssignment_getCalculatedUnitDefinition()
+  */
+LIBSBML_EXTERN
+int 
+InitialAssignment_containsUndeclaredUnits(InitialAssignment_t *ia)
+{
+  return static_cast<int>(ia->containsUndeclaredUnits());
+}
 
 
 /** @endcond doxygen-c-only */

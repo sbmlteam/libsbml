@@ -295,6 +295,41 @@ public:
 
 
   /**
+   * Calculates and returns a UnitDefinition that expresses the units
+   * returned by the math expression of this EventAssignment.
+   *
+   * @return a UnitDefinition that expresses the units of the math 
+   * expression of this EventAssignment.
+   *
+   * @note The units are calculated by applying the mathematics 
+   * from the expression to the units of the <ci> elements used 
+   * within the expression. Where there are parameters/numbers
+   * with undeclared units the UnitDefinition returned by this
+   * function may not accurately represent the units of the expression.
+   * 
+   * @see containsUndeclaredUnits()
+   */
+  UnitDefinition * getCalculatedUnitDefinition();
+
+  /**
+   * Predicate returning @c true or @c false depending on whether 
+   * the math expression of this EventAssignment contains
+   * parameters/numbers with undeclared units.
+   * 
+   * @return @c true if the math expression of this EventAssignment
+   * includes parameters/numbers 
+   * with undeclared units, @c false otherwise.
+   *
+   * @note a return value of @c true indicates that the UnitDefinition
+   * returned by the getCalculatedUnitDefinition function may not 
+   * accurately represent the units of the expression.
+   *
+   * @see getCalculatedUnitDefinition()
+   */
+  bool containsUndeclaredUnits();
+
+
+  /**
    * Returns the libSBML type code of this object instance.
    *
    * @return the #SBMLTypeCode_t value of this SBML object or SBML_UNKNOWN
@@ -494,6 +529,15 @@ LIBSBML_EXTERN
 void
 EventAssignment_setMath (EventAssignment_t *ea, const ASTNode_t *math);
 
+
+LIBSBML_EXTERN
+UnitDefinition_t * 
+EventAssignment_getCalculatedUnitDefinition(EventAssignment_t *ea);
+
+
+LIBSBML_EXTERN
+int 
+EventAssignment_containsUndeclaredUnits(EventAssignment_t *ea);
 
 END_C_DECLS
 

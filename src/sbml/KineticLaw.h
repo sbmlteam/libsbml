@@ -558,6 +558,41 @@ public:
    */
   unsigned int getNumParameters () const;
 
+  /**
+   * Calculates and returns a UnitDefinition that expresses the units
+   * returned by the math expression of this KineticLaw.
+   *
+   * @return a UnitDefinition that expresses the units of the math 
+   * expression of this KineticLaw.
+   *
+   * @note The units are calculated by applying the mathematics 
+   * from the expression to the units of the <ci> elements used 
+   * within the expression. Where there are parameters/numbers
+   * with undeclared units the UnitDefinition returned by this
+   * function may not accurately represent the units of the expression.
+   * 
+   * @see containsUndeclaredUnits()
+   */
+  UnitDefinition * getCalculatedUnitDefinition();
+
+  /**
+   * Predicate returning @c true or @c false depending on whether 
+   * the math expression of this KineticLaw contains
+   * parameters/numbers with undeclared units.
+   * 
+   * @return @c true if the math expression of this KineticLaw
+   * includes parameters/numbers 
+   * with undeclared units, @c false otherwise.
+   *
+   * @note a return value of @c true indicates that the UnitDefinition
+   * returned by the getCalculatedUnitDefinition function may not 
+   * accurately represent the units of the expression.
+   *
+   * @see getCalculatedUnitDefinition()
+   */
+  bool containsUndeclaredUnits();
+
+
 
   /**
    * Sets the parent SBMLDocument of this SBML object.
@@ -786,6 +821,16 @@ KineticLaw_getParameterById (KineticLaw_t *kl, const char *sid);
 LIBSBML_EXTERN
 unsigned int
 KineticLaw_getNumParameters (const KineticLaw_t *kl);
+
+
+LIBSBML_EXTERN
+UnitDefinition_t * 
+KineticLaw_getCalculatedUnitDefinition(KineticLaw_t *kl);
+
+
+LIBSBML_EXTERN
+int 
+KineticLaw_containsUndeclaredUnits(KineticLaw_t *kl);
 
 END_C_DECLS
 

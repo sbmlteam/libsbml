@@ -145,6 +145,42 @@ Delay::setMath (const ASTNode* math)
 
 
 /*
+  * Calculates and returns a UnitDefinition that expresses the units
+  * returned by the math expression of this InitialAssignment.
+  */
+UnitDefinition * 
+Delay::getCalculatedUnitDefinition()
+{
+  if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
+  {
+    getSBMLDocument()->getModel()->populateListFormulaUnitsData();
+  }
+
+  return getSBMLDocument()->getModel()
+    ->getFormulaUnitsData(getId(), SBML_EVENT)
+    ->getUnitDefinition();
+}
+
+/*
+ * Predicate returning @c true or @c false depending on whether 
+ * the math expression of this InitialAssignment contains
+ * parameters/numbers with undeclared units that cannot be ignored.
+ */
+bool 
+Delay::containsUndeclaredUnits()
+{
+  if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
+  {
+    getSBMLDocument()->getModel()->populateListFormulaUnitsData();
+  }
+
+  return (getSBMLDocument()->getModel()
+    ->getFormulaUnitsData(getId(), SBML_EVENT)
+    ->getContainsUndeclaredUnits());
+}
+
+
+/*
  * Sets the parent SBMLDocument of this SBML object.
  */
 void
@@ -458,6 +494,51 @@ void
 Delay_setMath (Delay_t *t, const ASTNode_t *math)
 {
   t->setMath(math);
+}
+
+/**
+  * Calculates and returns a UnitDefinition_t that expresses the units
+  * returned by the math expression of this Delay_t.
+  *
+  * @return a UnitDefinition_t that expresses the units of the math 
+  * expression of this Delay_t.
+  *
+  * @note The units are calculated by applying the mathematics 
+  * from the expression to the units of the <ci> elements used 
+  * within the expression. Where there are parameters/numbers
+  * with undeclared units the UnitDefinition_t returned by this
+  * function may not accurately represent the units of the expression.
+  * 
+  * @see Delay_containsUndeclaredUnits()
+  */
+LIBSBML_EXTERN
+UnitDefinition_t * 
+Delay_getCalculatedUnitDefinition(Delay_t *d)
+{
+  return d->getCalculatedUnitDefinition();
+}
+
+
+/**
+  * Predicate returning @c true or @c false depending on whether 
+  * the math expression of this Delay_t contains
+  * parameters/numbers with undeclared units.
+  * 
+  * @return @c true if the math expression of this Delay_t
+  * includes parameters/numbers 
+  * with undeclared units, @c false otherwise.
+  *
+  * @note a return value of @c true indicates that the UnitDefinition_t
+  * returned by the getCalculatedUnitDefinition function may not 
+  * accurately represent the units of the expression.
+  *
+  * @see Delay_getCalculatedUnitDefinition()
+  */
+LIBSBML_EXTERN
+int 
+Delay_containsUndeclaredUnits(Delay_t *d)
+{
+  return static_cast<int>(d->containsUndeclaredUnits());
 }
 
 

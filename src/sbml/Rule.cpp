@@ -304,6 +304,43 @@ Rule::unsetUnits ()
 
 
 /*
+  * Calculates and returns a UnitDefinition that expresses the units
+  * returned by the math expression of this Rule.
+  */
+UnitDefinition * 
+Rule::getCalculatedUnitDefinition()
+{
+  if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
+  {
+    getSBMLDocument()->getModel()->populateListFormulaUnitsData();
+  }
+
+  return getSBMLDocument()->getModel()
+    ->getFormulaUnitsData(getId(), getTypeCode())
+    ->getUnitDefinition();
+}
+
+/*
+ * Predicate returning @c true or @c false depending on whether 
+ * the math expression of this Rule contains
+ * parameters/numbers with undeclared units that cannot be ignored.
+ */
+bool 
+Rule::containsUndeclaredUnits()
+{
+  if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
+  {
+    getSBMLDocument()->getModel()->populateListFormulaUnitsData();
+  }
+
+  return (getSBMLDocument()->getModel()
+    ->getFormulaUnitsData(getId(), getTypeCode())
+    ->getContainsUndeclaredUnits());
+}
+
+
+/*
+/*
  * @return the type of this Rule, either RULE_TYPE_RATE or
  * RULE_TYPE_SCALAR.
  */
@@ -759,7 +796,8 @@ Rule::writeAttributes (XMLOutputStream& stream) const
     //
     // variable: SId  { use="required" }  (L2v1, L2v2)
     //
-    stream.writeAttribute("variable", mId);
+    if(!isAlgebraic())
+      stream.writeAttribute("variable", mId);
 
     //
     // sboTerm: SBOTerm { use="optional" }  (L2v2)
@@ -1559,7 +1597,50 @@ Rule_setL1TypeCode (Rule_t *r, SBMLTypeCode_t L1Type)
   r->setL1TypeCode(L1Type);
 }
 
+/**
+  * Calculates and returns a UnitDefinition_t that expresses the units
+  * returned by the math expression of this Rule_t.
+  *
+  * @return a UnitDefinition_t that expresses the units of the math 
+  * expression of this Rule_t.
+  *
+  * @note The units are calculated by applying the mathematics 
+  * from the expression to the units of the <ci> elements used 
+  * within the expression. Where there are parameters/numbers
+  * with undeclared units the UnitDefinition_t returned by this
+  * function may not accurately represent the units of the expression.
+  * 
+  * @see Rule_containsUndeclaredUnits()
+  */
+LIBSBML_EXTERN
+UnitDefinition_t * 
+Rule_getCalculatedUnitDefinition(Rule_t *r)
+{
+  return r->getCalculatedUnitDefinition();
+}
+
+
+/**
+  * Predicate returning @c true or @c false depending on whether 
+  * the math expression of this Rule_t contains
+  * parameters/numbers with undeclared units.
+  * 
+  * @return @c true if the math expression of this Rule_t
+  * includes parameters/numbers 
+  * with undeclared units, @c false otherwise.
+  *
+  * @note a return value of @c true indicates that the UnitDefinition_t
+  * returned by the getCalculatedUnitDefinition function may not 
+  * accurately represent the units of the expression.
+  *
+  * @see Rule_getCalculatedUnitDefinition()
+  */
+LIBSBML_EXTERN
+int 
+Rule_containsUndeclaredUnits(Rule_t *r)
+{
+  return static_cast<int>(r->containsUndeclaredUnits());
+}
 
 
 /** @endcond doxygen-c-only */
-

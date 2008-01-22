@@ -464,6 +464,42 @@ SpeciesReference::unsetStoichiometryMath ()
 }
 
 
+/*
+  * Calculates and returns a UnitDefinition that expresses the units
+  * returned by the math expression of this SpeciesReference.
+  */
+UnitDefinition * 
+SpeciesReference::getCalculatedUnitDefinition()
+{
+  if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
+  {
+    getSBMLDocument()->getModel()->populateListFormulaUnitsData();
+  }
+
+  return getSBMLDocument()->getModel()
+    ->getFormulaUnitsData(getSpecies(), getTypeCode())
+    ->getUnitDefinition();
+}
+
+/*
+ * Predicate returning @c true or @c false depending on whether 
+ * the math expression of this SpeciesReference contains
+ * parameters/numbers with undeclared units that cannot be ignored.
+ */
+bool 
+SpeciesReference::containsUndeclaredUnits()
+{
+  if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
+  {
+    getSBMLDocument()->getModel()->populateListFormulaUnitsData();
+  }
+
+  return (getSBMLDocument()->getModel()
+    ->getFormulaUnitsData(getSpecies(), getTypeCode())
+    ->getContainsUndeclaredUnits());
+}
+
+
 
 /*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
@@ -1740,6 +1776,51 @@ SpeciesReference_unsetName (SpeciesReference_t *sr)
   sr->unsetName();
 }
 
+/**
+  * Calculates and returns a UnitDefinition_t that expresses the units
+  * returned by the math expression of this SpeciesReference_t.
+  *
+  * @return a UnitDefinition_t that expresses the units of the math 
+  * expression of this SpeciesReference_t.
+  *
+  * @note The units are calculated by applying the mathematics 
+  * from the expression to the units of the <ci> elements used 
+  * within the expression. Where there are parameters/numbers
+  * with undeclared units the UnitDefinition_t returned by this
+  * function may not accurately represent the units of the expression.
+  * 
+  * @see SpeciesReference_containsUndeclaredUnits()
+  */
+LIBSBML_EXTERN
+UnitDefinition_t * 
+SpeciesReference_getCalculatedUnitDefinition(SpeciesReference_t *sr)
+{
+  return static_cast<SpeciesReference*>(sr)->getCalculatedUnitDefinition();
+}
+
+
+/**
+  * Predicate returning @c true or @c false depending on whether 
+  * the math expression of this SpeciesReference_t contains
+  * parameters/numbers with undeclared units.
+  * 
+  * @return @c true if the math expression of this SpeciesReference_t
+  * includes parameters/numbers 
+  * with undeclared units, @c false otherwise.
+  *
+  * @note a return value of @c true indicates that the UnitDefinition_t
+  * returned by the getCalculatedUnitDefinition function may not 
+  * accurately represent the units of the expression.
+  *
+  * @see SpeciesReference_getCalculatedUnitDefinition()
+  */
+LIBSBML_EXTERN
+int 
+SpeciesReference_containsUndeclaredUnits(SpeciesReference_t *sr)
+{
+  return static_cast<int>(static_cast<SpeciesReference*>(sr)
+                                         ->containsUndeclaredUnits());
+}
 
 
 /** @endcond doxygen-c-only */
