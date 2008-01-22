@@ -212,7 +212,7 @@ else
 endif
 
 javadoc.i: $(main_sources) $(swig_sources) ../swig/swigdoc.py
-	../swig/swigdoc.py java -I../../../include ../swig/libsbml.i javadoc.i
+	../swig/swigdoc.py java -I../.. ../swig/libsbml.i javadoc.i
 
 # If USE_SWIG is *not* in effect, things get tricky.  If the last run was
 # made with --enable-layout and this one isn't, or vice-versa, the swig

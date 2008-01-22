@@ -89,7 +89,7 @@ else
 endif
 
 LibSBML.pod: $(main_sources) ../swig/libsbml.i ../swig/swigdoc.py
-	../swig/swigdoc.py perl -I../../../include ../swig/libsbml.i LibSBML.pod
+	../swig/swigdoc.py perl -I../.. ../swig/libsbml.i LibSBML.pod
 
 MYPACKLIST = $(DESTINSTALLSITEARCH)/auto/$(FULLEXT)/.packlist
 MYPERLLOCAL = $(INSTALLARCHLIB)/perllocal.pod

@@ -212,7 +212,7 @@ endif # USE_SWIG
 
 swigfiles:
 ifdef USE_SWIG
-	../swig/swigdoc.py python -I../../../include ../swig/libsbml.i pydoc.i
+	../swig/swigdoc.py python -I../.. ../swig/libsbml.i pydoc.i
 	$(SWIG) $(SWIGFLAGS) \
 	        $(sort $(default_includes) $(INCLUDES)) \
 		-c++ -python -o libsbml_wrap.cpp libsbml.i

@@ -223,6 +223,15 @@ class CClassDoc:
     self.name      = name
 
 
+def fixUpIncludePath(line):
+  # All our paths start with 'sbml/...'.  Look to see if there's any other
+  # slash, as an indication the path is 'sbml/xml/foo.h' and not 'sbml/foo.h'.
+
+  if string.find(line[5:], '/') > 0:
+    return line[5:]
+  else:
+    return line
+
 
 def getHeadersFromSWIG (filename):
   """getHeadersFromSWIG (filename) -> (filename1, filename2, .., filenameN)
@@ -237,9 +246,20 @@ def getHeadersFromSWIG (filename):
   lines  = filter(lambda line: line.strip().endswith('.h')        , lines)
   lines  = map(lambda line: line.replace('%include', '').strip(), lines)
 
+  # We have a weird source setup.  The following accounts for it so that we
+  # use the source tree directly rather than the "include" copy as was
+  # previously done.  The latter may fall out of date while working on the
+  # documentation and then lead to hard-to-track down inconsistencies
+  # between the docs and the source tree.  (I've wasted hours trying to
+  # figure out why doxygen wasn't picking up a recent change on separate
+  # occasions, only to realize I forgot to run 'make' or 'make include' in
+  # the source tree after a change.)
+
+  lines  = map(fixUpIncludePath, lines)
+
   stream.close()
 
-  return lines;
+  return lines
 
 
 
