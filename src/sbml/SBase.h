@@ -509,6 +509,13 @@ public:
    */
   const SBMLDocument* getSBMLDocument () const;
 
+  /**
+   * Returns the parent SBMLDocument object.
+   * 
+   * @return the parent SBMLDocument object of this SBML object.
+   */
+  SBMLDocument* getSBMLDocument ();
+
 
   /**
    * Returns the integer portion of the value of the "sboTerm" attribute of

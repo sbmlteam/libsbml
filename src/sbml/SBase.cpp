@@ -376,6 +376,14 @@ SBase::getSBMLDocument () const
   return mSBML;
 }
 
+/*
+ * @return the parent SBMLDocument of this SBML object.
+ */
+SBMLDocument*
+SBase::getSBMLDocument ()
+{
+  return mSBML;
+}
 
 /*
  * @return the sboTerm as an integer.  If not set,
