@@ -583,6 +583,17 @@ HTML_STYLESHEET        = doxygen-base.css
 
 HTML_ALIGN_MEMBERS     = YES
 
+# If the HTML_DYNAMIC_SECTIONS tag is set to YES then the generated HTML
+# documentation will contain sections that can be hidden and shown after
+# the page has loaded. For this to work a browser that supports JavaScript
+# and DHTML is required (for instance Mozilla 1.0+, Firefox Netscape 6.0+,
+# Internet explorer 5.0+, Konqueror, or Safari)
+
+# 2008-01-22 <mhucka@caltech.edu> Tried it, but I think the result is
+# that the availability of diagrams is too easy to miss.
+
+HTML_DYNAMIC_SECTIONS  = NO
+
 # If the GENERATE_HTMLHELP tag is set to YES, additional index files 
 # will be generated that can be used as input for tools like the 
 # Microsoft HTML help workshop to generate a compressed HTML help file (.chm) 
