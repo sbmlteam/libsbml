@@ -78,6 +78,7 @@ START_TEST (test_read_l2v1_assignment)
   Reaction*         r;
   SpeciesReference* sr;
   KineticLaw*       kl;
+  UnitDefinition*   ud;
 
   std::string filename(TestDataDirectory);
   filename += "l2v1-assignment.xml";
@@ -117,6 +118,12 @@ START_TEST (test_read_l2v1_assignment)
   fail_unless( c          != NULL  , NULL );
   fail_unless( c->getId() == "cell", NULL );
 
+  /**
+   * tests for the unit API functions
+   */
+  ud = c->getConstructedUnitDefinition();
+  fail_unless (ud->getNumUnits() == 1, NULL);
+  fail_unless( ud->getUnit(0)->getKind() == UNIT_KIND_LITRE, NULL );
 
   //
   // <listOfSpecies>
@@ -173,6 +180,12 @@ START_TEST (test_read_l2v1_assignment)
   fail_unless( p->getId()    == "Keq", NULL );
   fail_unless( p->getValue() == 2.5  , NULL );
 
+  /**
+   * tests for the unit API functions
+   */
+  ud = p->getConstructedUnitDefinition();
+  fail_unless (ud->getNumUnits() == 0, NULL);
+
   //
   // <listOfRules> ... </listOfRules>
   //
@@ -197,6 +210,18 @@ START_TEST (test_read_l2v1_assignment)
   fail_unless( ar != NULL, NULL );
   fail_unless( ar->getVariable() == "S1"           , NULL );
   fail_unless( ar->getFormula()  == "T / (1 + Keq)", NULL );
+
+  /**
+   * tests for the unit API functions
+   */
+  ud = ar->getCalculatedUnitDefinition();
+  fail_unless (ud->getNumUnits() == 2, NULL);
+  fail_unless( ud->getUnit(0)->getKind() == UNIT_KIND_MOLE, NULL );
+  fail_unless( ud->getUnit(0)->getExponent() ==  1, NULL );
+  fail_unless( ud->getUnit(1)->getKind() == UNIT_KIND_LITRE, NULL );
+  fail_unless( ud->getUnit(1)->getExponent() ==  -1, NULL );
+
+  fail_unless( ar->containsUndeclaredUnits() == 1, NULL);
 
   //
   // <assignmentRule variable="S2">

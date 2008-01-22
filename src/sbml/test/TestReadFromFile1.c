@@ -70,6 +70,8 @@ START_TEST (test_read_l1v1_branch)
   Species_t          *s;
   SpeciesReference_t *sr;
 
+  UnitDefinition_t   *ud;
+
   char *filename = safe_strcat(TestDataDirectory, "l1v1-branch.xml");
 
 
@@ -109,6 +111,13 @@ START_TEST (test_read_l1v1_branch)
   fail_unless( !strcmp(Compartment_getName(c), "compartmentOne"), NULL );
   fail_unless( Compartment_getVolume(c) == 1, NULL );
 
+  /**
+   * tests for the unit API functions
+   */
+  ud = Compartment_getConstructedUnitDefinition(c);
+  fail_unless (UnitDefinition_getNumUnits(ud) == 1, NULL);
+  fail_unless( Unit_getKind (UnitDefinition_getUnit(ud, 0)) == UNIT_KIND_LITRE, NULL );
+
 
   /**
    * <listOfSpecies>
@@ -129,6 +138,17 @@ START_TEST (test_read_l1v1_branch)
   fail_unless( !strcmp( Species_getCompartment(s), "compartmentOne" ), NULL );
   fail_unless( Species_getInitialAmount    (s) == 0, NULL );
   fail_unless( Species_getBoundaryCondition(s) == 0, NULL );
+
+  /**
+   * tests for the unit API functions
+   */
+  ud = Species_getConstructedUnitDefinition(s);
+  fail_unless (UnitDefinition_getNumUnits(ud) == 2, NULL);
+  fail_unless( Unit_getKind (UnitDefinition_getUnit(ud, 0)) == UNIT_KIND_MOLE, NULL );
+  fail_unless( Unit_getExponent(UnitDefinition_getUnit(ud, 0)) ==  1, NULL );
+  fail_unless( Unit_getKind (UnitDefinition_getUnit(ud, 1)) == UNIT_KIND_LITRE, NULL );
+  fail_unless( Unit_getExponent(UnitDefinition_getUnit(ud, 1)) ==  -1, NULL );
+
 
   s = Model_getSpecies(m, 1);
   fail_unless( !strcmp( Species_getName       (s), "X0"             ), NULL );
@@ -162,6 +182,19 @@ START_TEST (test_read_l1v1_branch)
   fail_unless( !strcmp(Reaction_getName(r), "reaction_1"), NULL );
   fail_unless( Reaction_getReversible(r) == 0, NULL );
   fail_unless( Reaction_getFast      (r) == 0, NULL );
+
+  /**
+   * tests for the unit API functions
+   */
+  ud = KineticLaw_getCalculatedUnitDefinition(Reaction_getKineticLaw(r));
+  fail_unless (UnitDefinition_getNumUnits(ud) == 2, NULL);
+  fail_unless( Unit_getKind (UnitDefinition_getUnit(ud, 0)) == UNIT_KIND_MOLE, NULL );
+  fail_unless( Unit_getExponent(UnitDefinition_getUnit(ud, 0)) ==  1, NULL );
+  fail_unless( Unit_getKind (UnitDefinition_getUnit(ud, 1)) == UNIT_KIND_LITRE, NULL );
+  fail_unless( Unit_getExponent(UnitDefinition_getUnit(ud, 1)) ==  -1, NULL );
+
+  fail_unless( KineticLaw_containsUndeclaredUnits(Reaction_getKineticLaw(r)) == 1, NULL);
+
 
   r = Model_getReaction(m, 1);
   fail_unless( !strcmp(Reaction_getName(r), "reaction_2"), NULL );

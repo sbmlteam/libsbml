@@ -71,6 +71,7 @@ START_TEST (test_read_l1v1_rules)
   Species_t                  *s;
   Rule_t                     *scr;
   SpeciesReference_t         *sr;
+  UnitDefinition_t           *ud;
 
   char *filename = safe_strcat(TestDataDirectory, "l1v1-rules.xml");
 
@@ -199,9 +200,29 @@ START_TEST (test_read_l1v1_rules)
   fail_unless( !strcmp(Rule_getVariable(pr), "t"), NULL );
   fail_unless( !strcmp(Rule_getFormula( pr), "s1 + s2"), NULL );
 
+  /**
+   * tests for the unit API functions
+   */
+  ud = Rule_getCalculatedUnitDefinition(pr);
+  fail_unless (UnitDefinition_getNumUnits(ud) == 2, NULL);
+  fail_unless( Unit_getKind (UnitDefinition_getUnit(ud, 0)) == UNIT_KIND_MOLE, NULL );
+  fail_unless( Unit_getExponent(UnitDefinition_getUnit(ud, 0)) ==  1, NULL );
+  fail_unless( Unit_getKind (UnitDefinition_getUnit(ud, 1)) == UNIT_KIND_LITRE, NULL );
+  fail_unless( Unit_getExponent(UnitDefinition_getUnit(ud, 1)) ==  -1, NULL );
+
+  fail_unless( Rule_containsUndeclaredUnits(pr) == 0, NULL);
+
   pr = Model_getRule(m, 1);
   fail_unless( !strcmp(Rule_getVariable(pr), "k"), NULL );
   fail_unless( !strcmp(Rule_getFormula( pr), "k3/k2"), NULL );
+
+  /**
+   * tests for the unit API functions
+   */
+  ud = Rule_getCalculatedUnitDefinition(pr);
+  fail_unless (UnitDefinition_getNumUnits(ud) == 0, NULL);
+
+  fail_unless( Rule_containsUndeclaredUnits(pr) == 1, NULL);
 
   scr = Model_getRule(m, 2);
   fail_unless( !strcmp(Rule_getVariable(scr), "x2"), NULL );

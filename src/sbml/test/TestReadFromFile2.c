@@ -179,6 +179,18 @@ START_TEST (test_read_l1v1_units)
   fail_unless( Species_getInitialAmount    (s) == 1, NULL );
   fail_unless( Species_getBoundaryCondition(s) == 0, NULL );
   
+  /**
+   * tests for the unit API functions
+   */
+  ud = Species_getConstructedUnitDefinition(s);
+  fail_unless (UnitDefinition_getNumUnits(ud) == 2, NULL);
+  fail_unless( Unit_getKind (UnitDefinition_getUnit(ud, 0)) == UNIT_KIND_MOLE, NULL );
+  fail_unless( Unit_getExponent(UnitDefinition_getUnit(ud, 0)) ==  1, NULL );
+  fail_unless( Unit_getScale(UnitDefinition_getUnit(ud, 0)) ==  -3, NULL );
+  fail_unless( Unit_getKind (UnitDefinition_getUnit(ud, 1)) == UNIT_KIND_LITRE, NULL );
+  fail_unless( Unit_getExponent(UnitDefinition_getUnit(ud, 1)) ==  -1, NULL );
+
+
   s = Model_getSpecies(m, 1);
   fail_unless( !strcmp( Species_getName(s)       , "x1"   ), NULL );
   fail_unless( !strcmp( Species_getCompartment(s), "cell" ), NULL );
@@ -211,9 +223,28 @@ START_TEST (test_read_l1v1_units)
   fail_unless( !strcmp( Parameter_getUnits(p), "mls" ), NULL );
   fail_unless( Parameter_getValue(p) == 2, NULL );
 
+  /**
+   * tests for the unit API functions
+   */
+  ud = Parameter_getConstructedUnitDefinition(p);
+  fail_unless (UnitDefinition_getNumUnits(ud) == 3, NULL);
+  fail_unless( Unit_getKind (UnitDefinition_getUnit(ud, 0)) == UNIT_KIND_MOLE, NULL );
+  fail_unless( Unit_getExponent(UnitDefinition_getUnit(ud, 0)) ==  1, NULL );
+  fail_unless( Unit_getScale(UnitDefinition_getUnit(ud, 0)) ==  -3, NULL );
+  fail_unless( Unit_getKind (UnitDefinition_getUnit(ud, 1)) == UNIT_KIND_LITER, NULL );
+  fail_unless( Unit_getExponent(UnitDefinition_getUnit(ud, 1)) ==  -1, NULL );
+  fail_unless( Unit_getKind (UnitDefinition_getUnit(ud, 2)) == UNIT_KIND_SECOND, NULL );
+  fail_unless( Unit_getExponent(UnitDefinition_getUnit(ud, 2)) ==  -1, NULL );
+
   p = Model_getParameter(m, 1);
   fail_unless( !strcmp( Parameter_getName(p), "km"  ), NULL );
   fail_unless( Parameter_getValue(p) == 2, NULL );
+
+  /**
+   * tests for the unit API functions
+   */
+  ud = Parameter_getConstructedUnitDefinition(p);
+  fail_unless (UnitDefinition_getNumUnits(ud) == 0, NULL);
 
   /**
    * <listOfReactions>
