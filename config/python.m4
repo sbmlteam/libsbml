@@ -65,7 +65,7 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
         else
           AC_MSG_RESULT(no)
         fi
-      fi])
+    ])
 
     AC_MSG_CHECKING(for Python prefix)
     PYTHON_PREFIX=`("$PYTHON" -c "import sys; print sys.prefix") 2>/dev/null`
