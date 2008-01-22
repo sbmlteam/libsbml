@@ -258,6 +258,24 @@ Parameter::unsetUnits ()
 
 
 /*
+  * Constructs and returns a UnitDefinition that expresses the units of this 
+  * Parameter.
+  */
+UnitDefinition *
+Parameter::getConstructedUnitDefinition()
+{
+  if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
+  {
+    getSBMLDocument()->getModel()->populateListFormulaUnitsData();
+  }
+
+  return getSBMLDocument()->getModel()
+    ->getFormulaUnitsData(getId(), getTypeCode())
+    ->getUnitDefinition();
+}
+
+
+/*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -892,6 +910,27 @@ void
 Parameter_unsetUnits (Parameter_t *p)
 {
   p->unsetUnits();
+}
+
+
+/**
+ * Constructs and returns a UnitDefinition_t structure that expresses 
+ * the units of this Parameter_t structure.
+ *
+ * @param p the Parameter_t structure whose units are to be returned.
+ *
+ * @return a UnitDefinition_t structure that expresses the units 
+ * of this Parameter_t strucuture.
+ *
+ * @note This function returns the units of the Parameter_t expressed 
+ * as a UnitDefinition_t. The units may be those explicitly declared. 
+ * In the case where no units have been declared, NULL is returned.
+ */
+LIBSBML_EXTERN
+UnitDefinition_t * 
+Parameter_getConstructedUnitDefinition(Parameter_t *p)
+{
+  return p->getConstructedUnitDefinition();
 }
 
 

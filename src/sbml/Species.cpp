@@ -567,6 +567,22 @@ Species::unsetCharge ()
   mIsSetCharge = false;
 }
 
+/*
+  * Constructs and returns a UnitDefinition that expresses the units of this 
+  * Species.
+  */
+UnitDefinition *
+Species::getConstructedUnitDefinition()
+{
+  if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
+  {
+    getSBMLDocument()->getModel()->populateListFormulaUnitsData();
+  }
+
+  return getSBMLDocument()->getModel()
+    ->getFormulaUnitsData(getId(), getTypeCode())
+    ->getUnitDefinition();
+}
 
 /*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
@@ -1886,6 +1902,27 @@ Species_unsetCharge (Species_t *s)
   s->unsetCharge();
 }
 
+
+/**
+ * Constructs and returns a UnitDefinition_t structure that expresses 
+ * the units of this Species_t structure.
+ *
+ * @param s the Species_t structure whose units are to be returned.
+ *
+ * @return a UnitDefinition_t structure that expresses the units 
+ * of this Species_t strucuture.
+ *
+ * @note This function returns the units of the Species_t expressed 
+ * as a UnitDefinition_t. The units may be those explicitly declared 
+ * or those derived from the default units of the Model_t containing
+ * this Species_t and it's Compartment_t.
+ */
+LIBSBML_EXTERN
+UnitDefinition_t * 
+Species_getConstructedUnitDefinition(Species_t *s)
+{
+  return s->getConstructedUnitDefinition();
+}
 
 
 /** @endcond doxygen-c-only */

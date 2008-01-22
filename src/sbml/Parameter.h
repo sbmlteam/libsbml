@@ -408,6 +408,19 @@ public:
 
 
   /**
+   * Constructs and returns a UnitDefinition that expresses the units of this 
+   * Parameter.
+   *
+   * @return a UnitDefinition that expresses the units of this 
+   * Parameter.
+   *
+   * @note This function returns the units of the Species expressed 
+   * as a UnitDefinition. The units may be those explicitly declared.
+   * In the case where no units have been declared, NULL is returned.
+   */
+  UnitDefinition * getConstructedUnitDefinition();
+
+  /**
    * Returns the libSBML type code for this %SBML object.
    * 
    * @return the #SBMLTypeCode_t value of this object or SBML_UNKNOWN
@@ -661,6 +674,10 @@ LIBSBML_EXTERN
 void
 Parameter_unsetUnits (Parameter_t *p);
 
+
+LIBSBML_EXTERN
+UnitDefinition_t * 
+Parameter_getConstructedUnitDefinition(Parameter_t *p);
 
 END_C_DECLS
 

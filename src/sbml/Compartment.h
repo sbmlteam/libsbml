@@ -593,6 +593,19 @@ public:
    */
   void unsetOutside ();
 
+  /**
+   * Constructs and returns a UnitDefinition that expresses the units of this 
+   * Compartment.
+   *
+   * @return a UnitDefinition that expresses the units of this 
+   * Compartment.
+   *
+   * @note This function returns the units of the Compartment expressed 
+   * as a UnitDefinition. The units may be those explicitly declared 
+   * or those derived from the default units of the Model containing
+   * this Compartment.
+   */
+  UnitDefinition * getConstructedUnitDefinition();
 
   /**
    * Returns the libSBML type code for this %SBML object.
@@ -915,6 +928,10 @@ LIBSBML_EXTERN
 void
 Compartment_unsetOutside (Compartment_t *c);
 
+
+LIBSBML_EXTERN
+UnitDefinition_t * 
+Compartment_getConstructedUnitDefinition(Compartment_t *c);
 
 END_C_DECLS
 

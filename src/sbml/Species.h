@@ -753,6 +753,19 @@ public:
    */
   void unsetCharge ();
 
+  /**
+   * Constructs and returns a UnitDefinition that expresses the units of this 
+   * Species.
+   *
+   * @return a UnitDefinition that expresses the units of this 
+   * Species.
+   *
+   * @note This function returns the units of the Species expressed 
+   * as a UnitDefinition. The units may be those explicitly declared 
+   * or those derived from the default units of the Model containing
+   * this Species and it's Compartment.
+   */
+  UnitDefinition * getConstructedUnitDefinition();
 
   /**
    * Returns the libSBML type code for this %SBML object.
@@ -1150,6 +1163,9 @@ LIBSBML_EXTERN
 void
 Species_unsetCharge (Species_t *s);
 
+LIBSBML_EXTERN
+UnitDefinition_t * 
+Species_getConstructedUnitDefinition(Species_t *s);
 
 END_C_DECLS
 

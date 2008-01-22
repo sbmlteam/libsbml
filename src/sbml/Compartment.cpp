@@ -403,6 +403,23 @@ Compartment::unsetOutside ()
   mOutside.erase();
 }
 
+/*
+  * Constructs and returns a UnitDefinition that expresses the units of this 
+  * Compartment.
+  */
+UnitDefinition *
+Compartment::getConstructedUnitDefinition()
+{
+  if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
+  {
+    getSBMLDocument()->getModel()->populateListFormulaUnitsData();
+  }
+
+  return getSBMLDocument()->getModel()
+    ->getFormulaUnitsData(getId(), getTypeCode())
+    ->getUnitDefinition();
+}
+
 
 /*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
@@ -1362,5 +1379,25 @@ Compartment_unsetOutside (Compartment_t *c)
 }
 
 
+/**
+ * Constructs and returns a UnitDefinition_t strucutre that expresses 
+ * the units of this Compartment_t structure.
+ *
+ * @param c the Compartment_t structure whose units are to be returned.
+ *
+ * @return a UnitDefinition_t structure that expresses the units 
+ * of this Compartment_t strucuture.
+ *
+ * @note This function returns the units of the Compartment_t expressed 
+ * as a UnitDefinition_t. The units may be those explicitly declared 
+ * or those derived from the default units of the Model_t containing
+ * this Compartment_t.
+ */
+LIBSBML_EXTERN
+UnitDefinition_t * 
+Compartment_getConstructedUnitDefinition(Compartment_t *c)
+{
+  return c->getConstructedUnitDefinition();
+}
 
 /** @endcond doxygen-c-only */
