@@ -218,10 +218,14 @@ core-sources = \
 
 ifneq "$(USE_DOXYGEN)" ""
 
+doxygen-minor-version = $(shell $(DOXYGEN) --version | cut -f2 -d'.')
+
 # Helper function for running doxygen and doing some kludgy hacking of the
 # output.  This will surely break in other versions of doxygen, but the
-# necessity comes from the fact that doxygen 1.4.5 does not provide any
-# control over the appearance of the left-hand side tree listing.
+# necessity comes from the fact that doxygen before 1.5.x did not provide
+# any control over the appearance of the left-hand side tree listing.
+# Doxygen 1.5.x does, but now it does other silly things that we want to
+# correct.
 
 define run_doxygen
   mkdir -p $(2)
@@ -229,10 +233,14 @@ define run_doxygen
   cp -rf doxygen-tabs.css $(2)/tabs.css
   cp graphics/sbml-logo-long-124x56.gif $(2)
   cp graphics/right-arrow.gif $(2)
-  head -n 9 $(2)/tree.html > tmp.html
-  cat doxygen-tree.css >> tmp.html
-  tail -n +15 $(2)/tree.html >> tmp.html
-  mv -f tmp.html $(2)/tree.html
+  if test $(doxygen-minor-version) -lt 5; then \
+    head -n 9 $(2)/tree.html > tmp.html;\
+    cat doxygen-tree.css >> tmp.html;\
+    tail -n +15 $(2)/tree.html >> tmp.html;\
+    mv -f tmp.html $(2)/tree.html;\
+  else \
+    sed -is 's/libSBML Python Public API //' $(2)/tree.html;\
+  fi
 endef
 
 cpp-manual $(cpp-manual): doxygen-config-cpp.txt $(core-sources)

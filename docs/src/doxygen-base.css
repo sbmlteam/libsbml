@@ -186,10 +186,52 @@ DIV.ah {
   margin-top: 3px
 }
 
-TD.md {
+/* Here's what a member function block looks like in 1.5.4:
+
+<hr><h2>Member Function Documentation</h2> 
+<a class="anchor" name="0f38e685208fe8c5ef69e01222af2c2f"></a><!-- doxytag: member="libsbml::Parameter::__init__" ref="0f38e685208fe8c5ef69e01222af2c2f" args="" --> 
+<div class="memitem"> 
+<div class="memproto"> 
+      <table class="memname"> 
+        <tr> 
+          <td class="memname">def libsbml.Parameter.__init__           </td> 
+          <td>(</td> 
+          <td class="paramtype">&nbsp;</td> 
+          <td class="paramname"> <em>self</em>, </td> 
+        </tr> 
+        <tr> 
+          <td class="paramkey"></td> 
+          <td></td> 
+          <td class="paramtype">&nbsp;</td> 
+          <td class="paramname"> <em>args</em></td><td>&nbsp;</td> 
+        </tr> 
+        <tr> 
+          <td></td> 
+          <td>)</td> 
+          <td></td><td></td><td width="100%"></td> 
+        </tr> 
+      </table> 
+</div> 
+<div class="memdoc"> 
+ 
+*/
+
+
+TABLE.memname { 
+  background-color: #e5e9e7;
+  width: 90%;
+}
+
+TABLE.memname TR {
+  white-space: nowrap;
+}
+
+
+TD.md, TD.memname, TD.paramtype {
   background-color: #e5e9e7;
   font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
   font-size: 14px;
+  white-space: nowrap;
 }
 
 TD.mdname1 {
@@ -199,14 +241,13 @@ TD.mdname1 {
   color: #602020;
 }
 
-TD.mdname {
+TD.mdname, TD.paramname {
   background-color: #e5e9e7;
   font-weight: bold;
   font-size: 14px;
   color: #602020;
-  width: 90%;
+  white-space: nowrap;
 }
-
 
 DIV.groupHeader {
   margin-left: 16px;
@@ -271,7 +312,7 @@ SPAN.preprocessor  { color: #806020 }
 SPAN.stringliteral { color: #002080 }
 SPAN.charliteral   { color: #008080 }
 
-.mdTable {
+.mdTable, TABLE.memname {
   border-top: 2px solid #666666;
   border-left: 1px solid #cccccc;
   border-right: 1px solid #cccccc;
@@ -471,3 +512,9 @@ dd table tr {
   font-size: 14px;
   height: 20px;
 }
+
+.directory { font-size: 10px; font-weight: bold; }
+.directory h3 { margin: 0px; margin-top: 0.8em; font-size: 12px; }
+.directory p { margin: 0px; white-space: nowrap; ; font-size: 12px; }
+.directory div { display: none; margin: 0px; }
+.directory img { vertical-align: middle; }
