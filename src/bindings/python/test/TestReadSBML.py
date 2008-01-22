@@ -1084,12 +1084,12 @@ class TestReadSBML(unittest.TestCase):
   def test_ReadSBML_line_col_numbers(self):
     setXMLParser()
 
-    s = """<?xml version='1.0' encoding='UTF-8'?>
-           <sbml xmlns='http://www.sbml.org/sbml/level2' level='2' version='1'>
-             <model id='testModel' name='testModel'>
-               <listOfReactions> <reaction/> </listOfReactions>
-             </model>
-           </sbml>"""
+    s = "<?xml version='1.0' encoding='UTF-8'?>\n" + \
+        "<sbml xmlns='http://www.sbml.org/sbml/level2' level='2' version='1'>\n" + \
+        "  <model id='testModel' name='testModel'>\n" + \
+        "    <listOfReactions> <reaction/> </listOfReactions>\n" + \
+        "  </model>\n" + \
+        "</sbml>\n"
     self.D = libsbml.readSBMLFromString(s)
     self.M = self.D.getModel()
     self.assert_( self.M != None )
