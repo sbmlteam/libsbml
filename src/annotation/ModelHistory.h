@@ -32,6 +32,27 @@
  * Biotechnology, vol. 23, no. 12, Dec. 2005).  LibSBML provides the
  * ModelHistory class as a convenience high-level interface for working
  * with model history data.
+ *
+ * <!-- leave this next break as-is to work around some doxygen bug -->
+ */ 
+/**
+ * @class Date
+ * @brief Representation of dates, for use with ModelHistory and other
+ * annotation utility classes.
+ *
+ * A Date object stores a reasonably complete date representation,
+ * consisting of the following fields:
+ * <ul>
+ * <li> @em year: an unsigned int representing the year.
+ * <li> @em month: an unsigned int representing the month.
+ * <li> @em day: an unsigned int representing the day.
+ * <li> @em hour: an unsigned int representing the hour.
+ * <li> @em minute: an unsigned int representing the minute.
+ * <li> @em second: an unsigned int representing the second.
+ * <li> @em sign: an unsigned int representing the sign of the offset (0/1 equivalent to +/-). 
+ * <li> @em hours offset: an unsigned int representing the hoursOffset.
+ * <li> @em minute offset: an unsigned int representing the minutesOffset.
+ * </ul>
  */
 
 #ifndef ModelHistory_h
