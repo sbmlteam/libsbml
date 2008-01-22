@@ -50,54 +50,111 @@ main (int argc, char *argv[])
     return 1;
   }
 
-  model->populateListFormulaUnitsData();
-
-  cout << "Total number of formula units: "
-       << model->getNumFormulaUnitsData() << endl << endl;
-
-  for (unsigned int n = 0; n < model->getNumFormulaUnitsData(); n++)
+  unsigned int i;
+  for (i = 0; i < model->getNumSpecies(); i++)
   {
-    FormulaUnitsData* fud = model->getFormulaUnitsData(n);
-    unsigned int numUnits = fud->getUnitDefinition()->getNumUnits();
+    Species* s = model->getSpecies(i);
+    cout << "Species " << i << ": "
+      << printUnits(s->getConstructedUnitDefinition()) << endl;
+  }
 
-    cout << "Formula units case #" << (n+1) << " --" << endl;
+  for (i = 0; i < model->getNumCompartments(); i++)
+  {
+    Compartment *c = model->getCompartment(i);
+    cout << "Compartment " << i << ": "
+      << printUnits(c->getConstructedUnitDefinition()) 
+      << endl;
+  }
 
-    cout << "  class of model entity: "
-	 << SBMLTypeCode_toString(fud->getComponentTypecode())<< endl;
+  for (i = 0; i < model->getNumParameters(); i++)
+  {
+    Parameter *p = model->getParameter(i);
+    cout << "Parameter " << i << ": "
+      << printUnits(p->getConstructedUnitDefinition()) 
+      << endl;
+  }
 
-    cout << "  id of entity in model: " << fud->getUnitReferenceId() << endl;
 
-    if (fud->getContainsUndeclaredUnits())
+  for (i = 0; i < model->getNumInitialAssignments(); i++)
+  {
+    InitialAssignment *ia = model->getInitialAssignment(i);
+    cout << "InitialAssignment " << i << ": " 
+      << printUnits(ia->getCalculatedUnitDefinition()) << endl;
+    cout << "        undeclared units: ";
+    cout << (ia->containsUndeclaredUnits() ? "yes\n" : "no\n");
+  }
+
+  for (i = 0; i < model->getNumEvents(); i++)
+  {
+    Event *e = model->getEvent(i);
+    cout << "Event " << i << ": " << endl;
+
+    if (e->isSetDelay())
     {
-      cout << " undeclared parameters?: yes" << endl;
-      cout << "  (can they be ignored?: "
-	   << (fud->getCanIgnoreUndeclaredUnits() ? "yes)" : "no)") << endl;
+      cout << "Delay: " 
+        << printUnits(e->getDelay()->getCalculatedUnitDefinition()) << endl;
+      cout << "        undeclared units: ";
+      cout << (e->getDelay()->containsUndeclaredUnits() ? "yes\n" : "no\n");
     }
-    else
+      
+    for (int j = 0; j < e->getNumEventAssignments(); j++)
     {
-      cout << " undeclared parameters?: no" << endl;
+      EventAssignment *ea = e->getEventAssignment(j);
+      cout << "EventAssignment " << j << ": " 
+        << printUnits(ea->getCalculatedUnitDefinition()) << endl;
+      cout << "        undeclared units: ";
+      cout << (ea->containsUndeclaredUnits() ? "yes\n" : "no\n");
+    }
+  }
+
+  for (i = 0; i < model->getNumReactions(); i++)
+  {
+    Reaction *r = model->getReaction(i);
+      
+    cout << "Reaction " << i << ": " << endl;
+
+    if (r->isSetKineticLaw())
+    {
+      cout << "Kinetic Law: " 
+        << printUnits(r->getKineticLaw()->getCalculatedUnitDefinition()) << endl;
+      cout << "        undeclared units: ";
+      cout << (r->getKineticLaw()->containsUndeclaredUnits() ? "yes\n" : "no\n");
     }
 
-    if (numUnits > 0)
+    for (int j = 0; j < r->getNumReactants(); j++)
     {
-      cout << "    units in definition: ";
+      SpeciesReference *sr = r->getReactant(j);
 
-      for (unsigned int p = 0; p < numUnits; p++)
+      if (sr->isSetStoichiometryMath())
       {
-	UnitKind_t kind = fud->getUnitDefinition()->getUnit(p)->getKind();
-	int exp = fud->getUnitDefinition()->getUnit(p)->getExponent();
-
-        cout << UnitKind_toString(kind) << " (exponent = " << exp << ")";
-
-	if (p + 1 < numUnits)
-	{
-	  cout << ", ";
-	}	  
-
+        cout << "Reactant stoichiometryMath" << j << ": " 
+          << printUnits(sr->getCalculatedUnitDefinition()) << endl;
+        cout << "        undeclared units: ";
+        cout << (sr->containsUndeclaredUnits() ? "yes\n" : "no\n");
       }
     }
-    
-    cout << endl << endl;
+
+    for (j = 0; j < r->getNumProducts(); j++)
+    {
+      SpeciesReference *sr = r->getProduct(j);
+
+      if (sr->isSetStoichiometryMath())
+      {
+        cout << "Product stoichiometryMath" << j << ": " 
+          << printUnits(sr->getCalculatedUnitDefinition()) << endl;
+        cout << "        undeclared units: ";
+        cout << (sr->containsUndeclaredUnits() ? "yes\n" : "no\n");
+      }
+    }
+  }
+
+  for (i = 0; i < model->getNumRules(); i++)
+  {
+    Rule *r = model->getRule(i);
+    cout << "Rule " << i << ": " 
+      << printUnits(r->getCalculatedUnitDefinition()) << endl;
+    cout << "        undeclared units: ";
+    cout << (r->containsUndeclaredUnits() ? "yes\n" : "no\n");
   }
 
   delete document;
