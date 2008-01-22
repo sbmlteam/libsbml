@@ -339,7 +339,7 @@ Rule::containsUndeclaredUnits()
 }
 
 
-/*
+
 /*
  * @return the type of this Rule, either RULE_TYPE_RATE or
  * RULE_TYPE_SCALAR.
