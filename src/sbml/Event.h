@@ -516,9 +516,9 @@ protected:
   Trigger*                mTrigger;
   Delay*                  mDelay;
   std::string             mTimeUnits;
+  bool mInternalIdOnly;
   ListOfEventAssignments  mEventAssignments;
   
-  bool mInternalIdOnly;
 
   /** @endcond doxygen-libsbml-internal */
 };
