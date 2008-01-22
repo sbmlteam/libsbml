@@ -53,6 +53,7 @@ Event::Event (const std::string& id, const std::string& name) :
  , mTrigger ( 0          )
  , mDelay   ( 0          )
 {
+  mInternalIdOnly = false;
 }
 
 
@@ -74,6 +75,7 @@ Event::Event (const Event& orig) :
  , mTrigger         ( 0                      )
  , mDelay           ( 0                      )
  , mTimeUnits       ( orig.mTimeUnits        )
+ , mInternalIdOnly  ( orig.mInternalIdOnly   )
  , mEventAssignments( orig.mEventAssignments )
 {
   if (orig.mTrigger) mTrigger = new Trigger(*orig.getTrigger());
@@ -89,6 +91,7 @@ Event& Event::operator=(const Event& rhs)
   this->SBase::operator =(rhs);
  
   mTimeUnits        = rhs.mTimeUnits        ;
+  mInternalIdOnly   = rhs.mInternalIdOnly   ;
   mEventAssignments = rhs.mEventAssignments ;
 
   if (rhs.mTrigger) mTrigger = new Trigger(*rhs.getTrigger());
@@ -431,6 +434,16 @@ Event::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
+
+/*
+ * sets the mInternalIdOnly flag
+ */
+void 
+Event::setInternalIdOnly()
+{
+  mInternalIdOnly = true;
+}
+
 /*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
@@ -567,7 +580,8 @@ Event::writeAttributes (XMLOutputStream& stream) const
   //
   // id: SId  { use="optional" }  (L2v1, L2v2)
   //
-  stream.writeAttribute("id", mId);
+  if (!mInternalIdOnly)
+    stream.writeAttribute("id", mId);
 
   //
   // name: string  { use="optional" }  (L2v1, L2v2)

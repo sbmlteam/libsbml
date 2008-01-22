@@ -479,6 +479,11 @@ public:
    */
   virtual void writeElements (XMLOutputStream& stream) const;
 
+  /**
+   * sets the mInternalIdOnly flag
+   */
+  void setInternalIdOnly();
+
   /** @endcond doxygen-libsbml-internal */
 
 
@@ -512,6 +517,8 @@ protected:
   Delay*                  mDelay;
   std::string             mTimeUnits;
   ListOfEventAssignments  mEventAssignments;
+  
+  bool mInternalIdOnly;
 
   /** @endcond doxygen-libsbml-internal */
 };
