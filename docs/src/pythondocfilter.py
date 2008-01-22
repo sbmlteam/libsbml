@@ -89,6 +89,10 @@ def filterDocStrings (contents):
   contents = contents.replace(' double', " float")
   contents = contents.replace('(double', " (float")
 
+  # We alter the names of some functions.
+  contents = contents.replace('SBML_parseFormula', "parseFormula")
+  contents = contents.replace('SBML_formulaToString', "formulaToString")
+
   return contents
 
 
@@ -108,6 +112,7 @@ def filterContents(contents):
   # properly.  Clearly it's a bug in Doxygen.
   contents = re.sub('def __init__\(([^)]+)\): \n',
                     r'def __init__(\1):\n', contents)
+
   return contents
 
 
@@ -119,6 +124,7 @@ def filterForDoxygen (contents):
   """
   contents = filterContents(contents)
   contents = filterDocStrings(contents)
+
   return contents
 
 
