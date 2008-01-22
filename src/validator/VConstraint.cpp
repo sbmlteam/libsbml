@@ -44,7 +44,7 @@ VConstraint::~VConstraint ()
 }
 
 
-/**
+/*
  * @return the id of this Constraint.
  */
 unsigned int
@@ -54,7 +54,7 @@ VConstraint::getId () const
 }
 
 
-/**
+/*
  * @return the severity for violating this Constraint.
  */
 unsigned int
@@ -65,7 +65,7 @@ VConstraint::getSeverity () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Logs a constraint failure to the validator for the given SBML object.
  */
 void
@@ -77,7 +77,7 @@ VConstraint::logFailure (const SBase& object)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Logs a constraint failure to the validator for the given SBML object.
  * The parameter message is used instead of the constraint's member
  * variable msg.

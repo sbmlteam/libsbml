@@ -43,7 +43,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * Creates a new UnitDefinition, optionally with its id and name
  * attributes set.
  */
@@ -53,7 +53,7 @@ UnitDefinition::UnitDefinition (const std::string& sid, const std::string& name)
 }
 
 
-/**
+/*
  * Destroys this UnitDefinition.
  */
 UnitDefinition::~UnitDefinition ()
@@ -61,7 +61,7 @@ UnitDefinition::~UnitDefinition ()
 }
 
 
-/**
+/*
  * Copy constructor. Creates a copy of this UnitDefinition.
  */
 UnitDefinition::UnitDefinition(const UnitDefinition& orig) :
@@ -71,7 +71,7 @@ UnitDefinition::UnitDefinition(const UnitDefinition& orig) :
 }
 
 
-/**
+/*
  * Assignment operator.
  */
 UnitDefinition& UnitDefinition::operator=(const UnitDefinition& rhs)
@@ -82,7 +82,7 @@ UnitDefinition& UnitDefinition::operator=(const UnitDefinition& rhs)
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates
@@ -99,7 +99,7 @@ UnitDefinition::accept (SBMLVisitor& v) const
 }
 
 
-/**
+/*
  * @return a (deep) copy of this UnitDefinition.
  */
 SBase*
@@ -109,7 +109,7 @@ UnitDefinition::clone () const
 }
 
 
-/**
+/*
  * @return true if this UnitDefinition is a variant of the builtin type
  * area. i.e. square metres with only abritrary variations in scale,
  * or multiplier values, false otherwise.
@@ -133,7 +133,7 @@ UnitDefinition::isVariantOfArea () const
 }
 
 
-/**
+/*
  * @return true if this UnitDefinition is a variant of the builtin type
  * length. i.e. metres with only abritrary variations in scale,
  * or multiplier values, false otherwise.
@@ -157,7 +157,7 @@ UnitDefinition::isVariantOfLength () const
 }
 
 
-/**
+/*
  * @return true if this UnitDefinition is a variant of the builtin type
  * substance. i.e. moles or items with only abritrary variations in
  * scale or multiplier values, false otherwise.
@@ -194,7 +194,7 @@ UnitDefinition::isVariantOfSubstance () const
 }
 
 
-/**
+/*
  * @return true if this UnitDefinition is a variant of the builtin type
  * time. i.e. seconds with only abritrary variations in scale,
  * or multiplier values, false otherwise.
@@ -218,7 +218,7 @@ UnitDefinition::isVariantOfTime () const
 }
 
 
-/**
+/*
  * @return true if this UnitDefinition is a variant of the builtin type
  * volume. i.e. litre or cubic metre with only abritrary variations in
  * scale or multiplier values, false otherwise.
@@ -243,7 +243,7 @@ UnitDefinition::isVariantOfVolume () const
 }
 
 
-/**
+/*
  * @return true if this UnitDefinition is a variant of dimensionless.
  * i.e. dimensionless with only abritrary variations in scale,
  * or multiplier values, false otherwise.
@@ -264,7 +264,7 @@ UnitDefinition::isVariantOfDimensionless () const
 }
 
 
-/**
+/*
  * @return true if this UnitDefinition is a variant of mass. ie gram or
  * kilogram with only abritrary variations in scale or multiplier
  * values, false otherwise.
@@ -285,7 +285,7 @@ UnitDefinition::isVariantOfMass () const
 }
 
 
-/**
+/*
  * Adds a copy of the given Unit to this UnitDefinition.
  */
 void
@@ -295,7 +295,7 @@ UnitDefinition::addUnit (const Unit* u)
 }
 
 
-/**
+/*
  * Creates a new Unit, adds it to this UnitDefinition's list of units and
  * returns it.
  */
@@ -309,7 +309,7 @@ UnitDefinition::createUnit ()
 }
 
 
-/**
+/*
  * @return the list of Units for this UnitDefinition.
  */
 const ListOfUnits*
@@ -319,7 +319,7 @@ UnitDefinition::getListOfUnits () const
 }
 
 
-/**
+/*
  * @return the list of Units for this UnitDefinition.
  */
 ListOfUnits*
@@ -329,7 +329,7 @@ UnitDefinition::getListOfUnits ()
 }
 
 
-/**
+/*
  * @return the nth Unit of this UnitDefinition
  */
 const Unit*
@@ -339,7 +339,7 @@ UnitDefinition::getUnit (unsigned int n) const
 }
 
 
-/**
+/*
  * @return the nth Unit of this UnitDefinition
  */
 Unit*
@@ -349,7 +349,7 @@ UnitDefinition::getUnit (unsigned int n)
 }
 
 
-/**
+/*
  * @return the number of Units in this UnitDefinition.
  */
 unsigned int
@@ -359,7 +359,7 @@ UnitDefinition::getNumUnits () const
 }
 
 
-/**
+/*
  * Sets the parent SBMLDocument of this SBML object.
  */
 void
@@ -370,7 +370,7 @@ UnitDefinition::setSBMLDocument (SBMLDocument* d)
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -383,7 +383,7 @@ UnitDefinition::getTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "unitDefinition".
  */
 const string&
@@ -396,7 +396,7 @@ UnitDefinition::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
  */
@@ -421,7 +421,7 @@ UnitDefinition::createObject (XMLInputStream& stream)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -482,7 +482,7 @@ UnitDefinition::readAttributes (const XMLAttributes& attributes)
 
  
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
  * of this method as well.
@@ -517,7 +517,7 @@ UnitDefinition::writeAttributes (XMLOutputStream& stream) const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
  * implementation of this method as well.
@@ -531,7 +531,7 @@ UnitDefinition::writeElements (XMLOutputStream& stream) const
 /** @endcond doxygen-libsbml-internal */
 
 
-/**
+/*
  * @return a (deep) copy of this ListOfUnitDefinitions.
  */
 SBase*
@@ -541,7 +541,7 @@ ListOfUnitDefinitions::clone () const
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
  * SBML_UNKNOWN (default).
  */
@@ -552,7 +552,7 @@ ListOfUnitDefinitions::getItemTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "listOfUnitDefinitions".
  */
 const string&
@@ -564,7 +564,7 @@ ListOfUnitDefinitions::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
  */
@@ -577,7 +577,7 @@ ListOfUnitDefinitions::getElementPosition () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
  */

@@ -794,7 +794,7 @@ class LIBSBML_EXTERN AlgebraicRule : public Rule
 public:
 
   /**
-   * Creates a new Compartment, optionally with the given mathematical
+   * Creates a new AlgebraicRule, optionally with the given mathematical
    * formula expressed in text-string form.
    *
    * This is equivalent to the constructor that takes an ASTNode.  It is

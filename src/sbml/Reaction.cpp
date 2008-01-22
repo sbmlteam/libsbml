@@ -75,7 +75,7 @@ GetSpeciesRef (const ListOf& items, const std::string& species)
 
 
 
-/**
+/*
  * Creates a new Reaction, optionally with its id, KineticLaw, and
  * reversible attributes set.
  */
@@ -95,7 +95,7 @@ Reaction::Reaction (const std::string& id, const std::string& name,
 }
 
 
-/**
+/*
  * Destroys this Reaction.
  */
 Reaction::~Reaction ()
@@ -104,7 +104,7 @@ Reaction::~Reaction ()
 }
 
 
-/**
+/*
  * Copy constructor. Creates a copy of this Reaction.
  */
 Reaction::Reaction (const Reaction& orig) :
@@ -124,7 +124,7 @@ Reaction::Reaction (const Reaction& orig) :
 }
 
 
-/**
+/*
  * Assignment operator.
  */
 Reaction& Reaction::operator=(const Reaction& rhs)
@@ -144,7 +144,7 @@ Reaction& Reaction::operator=(const Reaction& rhs)
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates
@@ -168,7 +168,7 @@ Reaction::accept (SBMLVisitor& v) const
 }
 
 
-/**
+/*
  * @return a (deep) copy of this Reaction.
  */
 SBase*
@@ -178,7 +178,7 @@ Reaction::clone () const
 }
 
 
-/**
+/*
  * Initializes the fields of this Reaction to their defaults:
  *
  *   - reversible = true
@@ -205,7 +205,7 @@ Reaction::initDefaults ()
 }
 
 
-/**
+/*
  * @return the KineticLaw of this Reaction.
  */
 const KineticLaw*
@@ -215,7 +215,7 @@ Reaction::getKineticLaw () const
 }
 
 
-/**
+/*
  * @return the KineticLaw of this Reaction.
  */
 KineticLaw*
@@ -225,7 +225,7 @@ Reaction::getKineticLaw ()
 }
 
 
-/**
+/*
  * @return the reversible status of this Reaction.
  */
 bool
@@ -235,7 +235,7 @@ Reaction::getReversible () const
 }
 
 
-/**
+/*
  * @return the fast status of this Reaction.
  */
 bool
@@ -245,7 +245,7 @@ Reaction::getFast () const
 }
 
 
-/**
+/*
  * @return true if the KineticLaw of this Reaction has been set, false
  * otherwise.
  */
@@ -256,7 +256,7 @@ Reaction::isSetKineticLaw () const
 }
 
 
-/**
+/*
  * @return true if the fast status of this Reaction has been set, false
  * otherwise.
  *
@@ -271,7 +271,7 @@ Reaction::isSetFast () const
 }
 
 
-/**
+/*
  * Sets the KineticLaw of this Reaction to a copy of the given KineticLaw.
  */
 void
@@ -286,7 +286,7 @@ Reaction::setKineticLaw (const KineticLaw* kl)
 }
 
 
-/**
+/*
  * Sets the reversible status of this Reaction to value.
  */
 void
@@ -296,7 +296,7 @@ Reaction::setReversible (bool value)
 }
 
 
-/**
+/*
  * Sets the fast status of this Reaction to value.
  */
 void
@@ -307,7 +307,7 @@ Reaction::setFast (bool value)
 }
 
 
-/**
+/*
  * Unsets the KineticLaw of this Reaction.
  */
 void
@@ -318,7 +318,7 @@ Reaction::unsetKineticLaw ()
 }
 
 
-/**
+/*
  * Unsets the fast status of this Reaction.
  *
  * In L1, fast is optional with a default of false, which means it is
@@ -332,7 +332,7 @@ Reaction::unsetFast ()
 }
 
 
-/**
+/*
  * Adds a copy of the given reactant (SpeciesReference) to this Reaction.
  */
 void
@@ -342,7 +342,7 @@ Reaction::addReactant (const SpeciesReference* sr)
 }
 
 
-/**
+/*
  * Adds a copy of the given product (SpeciesReference) to this Reaction.
  */
 void
@@ -352,7 +352,7 @@ Reaction::addProduct (const SpeciesReference* sr)
 }
 
 
-/**
+/*
  * Adds a copy of the given modifier (ModifierSpeciesReference) to this
  * Reaction.
  */
@@ -363,7 +363,7 @@ Reaction::addModifier (const ModifierSpeciesReference* msr)
 }
 
 
-/**
+/*
  * Creates a new SpeciesReference, adds it to this Reaction's list of
  * reactants and returns it.
  */
@@ -377,7 +377,7 @@ Reaction::createReactant ()
 }
 
 
-/**
+/*
  * Creates a new SpeciesReference, adds it to this Reaction's list of
  * products and returns it.
  */
@@ -391,7 +391,7 @@ Reaction::createProduct ()
 }
 
 
-/**
+/*
  * Creates a new ModifierSpeciesReference, adds it to this Reaction's
  * list of modifiers and returns it.
  */
@@ -405,7 +405,7 @@ Reaction::createModifier ()
 }
 
 
-/**
+/*
  * Creates a new KineticLaw for this Reaction and returns it.  If this
  * Reaction had a previous KineticLaw, it will be destroyed.
  */
@@ -421,7 +421,7 @@ Reaction::createKineticLaw ()
 }
 
 
-/**
+/*
  * @return the list of Reactants for this Reaction.
  */
 const ListOfSpeciesReferences*
@@ -431,7 +431,7 @@ Reaction::getListOfReactants () const
 }
 
 
-/**
+/*
  * @return the list of Reactants for this Reaction.
  */
 ListOfSpeciesReferences*
@@ -441,7 +441,7 @@ Reaction::getListOfReactants ()
 }
 
 
-/**
+/*
  * @return the list of Products for this Reaction.
  */
 const ListOfSpeciesReferences*
@@ -451,7 +451,7 @@ Reaction::getListOfProducts () const
 }
 
 
-/**
+/*
  * @return the list of Products for this Reaction.
  */
 ListOfSpeciesReferences*
@@ -461,7 +461,7 @@ Reaction::getListOfProducts ()
 }
 
 
-/**
+/*
  * @return the list of Modifiers for this Reaction.
  */
 const ListOfSpeciesReferences*
@@ -471,7 +471,7 @@ Reaction::getListOfModifiers () const
 }
 
 
-/**
+/*
  * @return the list of Modifiers for this Reaction.
  */
 ListOfSpeciesReferences*
@@ -481,7 +481,7 @@ Reaction::getListOfModifiers ()
 }
 
 
-/**
+/*
  * @return the nth reactant (SpeciesReference) of this Reaction.
  */
 const SpeciesReference*
@@ -491,7 +491,7 @@ Reaction::getReactant (unsigned int n) const
 }
 
 
-/**
+/*
  * @return the nth reactant (SpeciesReference) of this Reaction.
  */
 SpeciesReference*
@@ -501,7 +501,7 @@ Reaction::getReactant (unsigned int n)
 }
 
 
-/**
+/*
  * @return the reactant (SpeciesReference) in this Reaction with the given
  * species or NULL if no such reactant exists.
  */
@@ -513,7 +513,7 @@ Reaction::getReactant (const std::string& species) const
 }
 
 
-/**
+/*
  * @return the reactant (SpeciesReference) in this Reaction with the given
  * species or NULL if no such reactant exists.
  */
@@ -524,7 +524,7 @@ Reaction::getReactant (const std::string& species)
 }
 
 
-/**
+/*
  * @return the nth product (SpeciesReference) of this Reaction.
  */
 const SpeciesReference*
@@ -534,7 +534,7 @@ Reaction::getProduct (unsigned int n) const
 }
 
 
-/**
+/*
  * @return the nth product (SpeciesReference) of this Reaction.
  */
 SpeciesReference*
@@ -544,7 +544,7 @@ Reaction::getProduct (unsigned int n)
 }
 
 
-/**
+/*
  * @return the product (SpeciesReference) in this Reaction with the given
  * species or NULL if no such product exists.
  */
@@ -556,7 +556,7 @@ Reaction::getProduct (const std::string& species) const
 }
 
 
-/**
+/*
  * @return the product (SpeciesReference) in this Reaction with the given
  * species or NULL if no such product exists.
  */
@@ -567,7 +567,7 @@ Reaction::getProduct (const std::string& species)
 }
 
 
-/**
+/*
  * @return the nth modifier (ModifierSpeciesReference) of this Reaction.
  */
 const ModifierSpeciesReference*
@@ -577,7 +577,7 @@ Reaction::getModifier (unsigned int n) const
 }
 
 
-/**
+/*
  * @return the nth modifier (ModifierSpeciesReference) of this Reaction.
  */
 ModifierSpeciesReference*
@@ -587,7 +587,7 @@ Reaction::getModifier (unsigned int n)
 }
 
 
-/**
+/*
  * @return the modifier (ModifierSpeciesReference) in this Reaction with
  * the given species or NULL if no such modifier exists.
  */
@@ -601,7 +601,7 @@ Reaction::getModifier (const std::string& species) const
 }
 
 
-/**
+/*
  * @return the modifier (ModifierSpeciesReference) in this Reaction with
  * the given species or NULL if no such modifier exists.
  */
@@ -615,7 +615,7 @@ Reaction::getModifier (const std::string& species)
 }
 
 
-/**
+/*
  * @return the number of reactants (SpeciesReferences) in this Reaction.
  */
 unsigned int
@@ -625,7 +625,7 @@ Reaction::getNumReactants () const
 }
 
 
-/**
+/*
  * @return the number of products (SpeciesReferences) in this Reaction.
  */
 unsigned int
@@ -635,7 +635,7 @@ Reaction::getNumProducts () const
 }
 
 
-/**
+/*
  * @return the number of modifiers (ModifierSpeciesReferences) in this
  * Reaction.
  */
@@ -646,7 +646,7 @@ Reaction::getNumModifiers () const
 }
 
 
-/**
+/*
  * Sets the parent SBMLDocument of this SBML object.
  */
 void
@@ -662,7 +662,7 @@ Reaction::setSBMLDocument (SBMLDocument* d)
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -675,7 +675,7 @@ Reaction::getTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "reaction".
  */
 const string&
@@ -687,7 +687,7 @@ Reaction::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
  */
@@ -745,7 +745,7 @@ Reaction::createObject (XMLInputStream& stream)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -822,7 +822,7 @@ Reaction::readAttributes (const XMLAttributes& attributes)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
  * of this method as well.
@@ -872,7 +872,7 @@ Reaction::writeAttributes (XMLOutputStream& stream) const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
  * implementation of this method as well.
@@ -894,7 +894,7 @@ Reaction::writeElements (XMLOutputStream& stream) const
 /** @endcond doxygen-libsbml-internal */
 
 
-/**
+/*
  * @return a (deep) copy of this ListOfReactions.
  */
 SBase*
@@ -904,7 +904,7 @@ ListOfReactions::clone () const
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
  * SBML_UNKNOWN (default).
  */
@@ -915,7 +915,7 @@ ListOfReactions::getItemTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "listOfReactions".
  */
 const string&
@@ -927,7 +927,7 @@ ListOfReactions::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
  */
@@ -940,7 +940,7 @@ ListOfReactions::getElementPosition () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
  */

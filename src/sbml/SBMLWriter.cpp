@@ -40,7 +40,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * Creates a new SBMLWriter.
  */
 SBMLWriter::SBMLWriter ()
@@ -48,7 +48,7 @@ SBMLWriter::SBMLWriter ()
 }
 
 
-/**
+/*
  * Destroys this SBMLWriter.
  */
 SBMLWriter::~SBMLWriter ()
@@ -56,7 +56,7 @@ SBMLWriter::~SBMLWriter ()
 }
 
 
-/**
+/*
  * Sets the name of this program. i.\ e.\ the one about to write out the
  * SBMLDocument.  If the program name and version are set
  * (setProgramVersion()), the following XML comment, intended for human
@@ -72,7 +72,7 @@ SBMLWriter::setProgramName (const std::string& name)
 }
 
 
-/**
+/*
  * Sets the version of this program. i.\ e.\ the one about to write out the
  * SBMLDocument.  If the program version and name are set
  * (setProgramName()), the following XML comment, intended for human
@@ -88,7 +88,7 @@ SBMLWriter::setProgramVersion (const std::string& version)
 }
 
 
-/**
+/*
  * Writes the given SBML document to filename.
  *
  * @return true on success and false if the filename could not be opened
@@ -110,7 +110,7 @@ SBMLWriter::writeSBML (const SBMLDocument* d, const std::string& filename)
 }
 
 
-/**
+/*
  * Writes the given SBML document to the output stream.
  *
  * @return true on success and false if one of the underlying parser
@@ -140,7 +140,7 @@ SBMLWriter::writeSBML (const SBMLDocument* d, std::ostream& stream)
 }
 
 
-/**
+/*
  * Writes the given SBML document to an in-memory string and returns a
  * pointer to it.  The string is owned by the caller and should be freed
  * (with free()) when no longer needed.

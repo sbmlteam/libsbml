@@ -43,7 +43,7 @@ using namespace std;
 /** @endcond doxygen-ignore */
 
 
-/**
+/*
  * takes an annotation that has been read into the model
  * identifies the RDF elements
  * and creates a List of CVTerms from the annotation
@@ -143,7 +143,7 @@ RDFAnnotationParser::deleteRDFAnnotation(const XMLNode * annotation)
   return newAnnotation;
 }
 
-/**
+/*
  * takes an annotation that has been read into the model
  * identifies the RDF elements
  * and creates a Model History from the annotation
@@ -287,7 +287,7 @@ RDFAnnotationParser::createRDFDescription(const SBase *object)
 }
 
 
-/**
+/*
  * takes a List of CVTerms
  * and creates the RDF annotation
  */
@@ -451,7 +451,7 @@ RDFAnnotationParser::createCVTerms(const SBase * object)
 }
 
 
-/**
+/*
  * takes a Model creator information
  * and creates the RDF annotation
  */

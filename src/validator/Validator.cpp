@@ -168,7 +168,7 @@ struct ValidatorConstraints
   void add (VConstraint* c);
 };
 
-/**
+/*
  * Deletes constraints (TConstraint(T>*) which are stored in lists 
  * (ConstraintSet<T>) of this struct. 
  * Since the same pointer values could be stored in different lists 
@@ -189,7 +189,7 @@ ValidatorConstraints::~ValidatorConstraints ()
 }
 
 
-/**
+/*
  * Adds the given Contraint to the appropriate ConstraintSet.
  */
 void
@@ -381,7 +381,7 @@ ValidatorConstraints::add (VConstraint* c)
 // ----------------------------------------------------------------------
 
 
-/**
+/*
  * An SBMLVisitor visits each object in an SBML object tree, calling the
  * appropriate visit() method for the object visited.
  *
@@ -627,7 +627,7 @@ Validator::~Validator ()
 }
 
 
-/**
+/*
  * Adds the given Contraint to this validator.
  */
 void
@@ -637,7 +637,7 @@ Validator::addConstraint (VConstraint* c)
 }
 
 
-/**
+/*
  * Clears the Validator's list of failures.
  *
  * If you are validating multiple SBML documents with the same Validator,
@@ -651,7 +651,7 @@ Validator::clearFailures ()
 }
 
 
-/**
+/*
  * @return the category covered by this Validator.  A category is a
  * string, similiar in spirit to an XML namespace, which partitions error
  * failures to prevent id conflicts.  Example categories include:
@@ -667,7 +667,7 @@ Validator::getCategory () const
 }
 
 
-/**
+/*
  * @return a list of failures logged during validation.
  */
 const std::list<SBMLError>&
@@ -677,7 +677,7 @@ Validator::getFailures () const
 }
 
 
-/**
+/*
  * Adds the given failure to this list of Validators failures.
  */
 void
@@ -718,7 +718,7 @@ private:
   unsigned int id;
 };
 
-/**
+/*
  * Validates the given SBMLDocument.  Failures logged during
  * validation may be retrieved via <code>getFailures()</code>.
  *
@@ -767,7 +767,7 @@ Validator::validate (const SBMLDocument& d)
 }
 
 
-/**
+/*
  * Validates the given SBMLDocument.  Failures logged during
  * validation may be retrieved via <code>getFailures()</code>.
  *

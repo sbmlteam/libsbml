@@ -40,7 +40,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * Creates a new SpeciesType, optionally with its id and name
  * attributes set.
  */
@@ -50,7 +50,7 @@ SpeciesType::SpeciesType (const std::string& id, const std::string& name) :
 }
 
 
-/**
+/*
  * Destroys this SpeciesType.
  */
 SpeciesType::~SpeciesType ()
@@ -58,7 +58,7 @@ SpeciesType::~SpeciesType ()
 }
 
 
-/**
+/*
  * Copy constructor. Creates a copy of this SpeciesType.
  */
 SpeciesType::SpeciesType(const SpeciesType& orig) :
@@ -67,7 +67,7 @@ SpeciesType::SpeciesType(const SpeciesType& orig) :
 }
 
 
-/**
+/*
  * Assignment operator
  */
 SpeciesType& SpeciesType::operator=(const SpeciesType& rhs)
@@ -77,7 +77,7 @@ SpeciesType& SpeciesType::operator=(const SpeciesType& rhs)
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates
@@ -91,7 +91,7 @@ SpeciesType::accept (SBMLVisitor& v) const
 }
 
 
-/**
+/*
  * @return a (deep) copy of this SpeciesType.
  */
 SBase*
@@ -101,7 +101,7 @@ SpeciesType::clone () const
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -114,7 +114,7 @@ SpeciesType::getTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "speciesType".
  */
 const string&
@@ -126,7 +126,7 @@ SpeciesType::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -185,7 +185,7 @@ SpeciesType::readAttributes (const XMLAttributes& attributes)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
  * of this method as well.
@@ -217,7 +217,7 @@ SpeciesType::writeAttributes (XMLOutputStream& stream) const
 /** @endcond doxygen-libsbml-internal */
 
 
-/**
+/*
  * @return a (deep) copy of this ListOfSpeciesTypes.
  */
 SBase*
@@ -227,7 +227,7 @@ ListOfSpeciesTypes::clone () const
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
  * SBML_UNKNOWN (default).
  */
@@ -238,7 +238,7 @@ ListOfSpeciesTypes::getItemTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "listOfSpeciesTypes".
  */
 const string&
@@ -250,7 +250,7 @@ ListOfSpeciesTypes::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
  */
@@ -263,7 +263,7 @@ ListOfSpeciesTypes::getElementPosition () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
  */

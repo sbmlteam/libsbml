@@ -46,7 +46,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * Creates a new Trigger, optionally with its formula set.
  */
 Trigger::Trigger (   const ASTNode* math ) :
@@ -57,7 +57,7 @@ Trigger::Trigger (   const ASTNode* math ) :
 }
 
 
-/**
+/*
  * Destroys this Trigger.
  */
 Trigger::~Trigger ()
@@ -66,7 +66,7 @@ Trigger::~Trigger ()
 }
 
 
-/**
+/*
  * Copy constructor. Creates a copy of this Trigger.
  */
 Trigger::Trigger (const Trigger& orig) :
@@ -77,7 +77,7 @@ Trigger::Trigger (const Trigger& orig) :
 }
 
 
-/**
+/*
  * Assignment operator.
  */
 Trigger& Trigger::operator=(const Trigger& rhs)
@@ -88,7 +88,7 @@ Trigger& Trigger::operator=(const Trigger& rhs)
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  */
 bool
@@ -98,7 +98,7 @@ Trigger::accept (SBMLVisitor& v) const
 }
 
 
-/**
+/*
  * @return a (deep) copy of this Trigger.
  */
 SBase*
@@ -108,7 +108,7 @@ Trigger::clone () const
 }
 
 
-/**
+/*
  * @return the math of this Trigger.
  */
 const ASTNode*
@@ -118,7 +118,7 @@ Trigger::getMath () const
 }
 
 
-/**
+/*
  * @return true if the math (or equivalently the formula) of this
  * Trigger has been set, false otherwise.
  */
@@ -130,7 +130,7 @@ Trigger::isSetMath () const
 
 
 
-/**
+/*
  * Sets the math of this Trigger to a copy of the given ASTNode.
  */
 void
@@ -145,7 +145,7 @@ Trigger::setMath (const ASTNode* math)
 }
 
 
-/**
+/*
  * Sets the parent SBMLDocument of this SBML object.
  */
 void
@@ -155,7 +155,7 @@ Trigger::setSBMLDocument (SBMLDocument* d)
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -168,7 +168,7 @@ Trigger::getTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "trigger".
  */
 const string&
@@ -180,7 +180,7 @@ Trigger::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
  */
@@ -193,7 +193,7 @@ Trigger::getElementPosition () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
@@ -265,7 +265,7 @@ Trigger::readOtherXML (XMLInputStream& stream)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -308,7 +308,7 @@ Trigger::readAttributes (const XMLAttributes& attributes)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
  * of this method as well.
@@ -331,7 +331,7 @@ Trigger::writeAttributes (XMLOutputStream& stream) const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
  * implementation of this method as well.

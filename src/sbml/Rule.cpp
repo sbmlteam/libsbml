@@ -49,7 +49,7 @@ using namespace std;
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Only subclasses may create Rules.
  */
 Rule::Rule (SBMLTypeCode_t type, const std::string& variable, const std::string& formula)
@@ -65,7 +65,7 @@ Rule::Rule (SBMLTypeCode_t type, const std::string& variable, const std::string&
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Only subclasses may create Rules.
  */
 Rule::Rule (SBMLTypeCode_t type, const std::string& variable, const ASTNode* math)
@@ -80,7 +80,7 @@ Rule::Rule (SBMLTypeCode_t type, const std::string& variable, const ASTNode* mat
 /** @endcond doxygen-libsbml-internal */
 
 
-/**
+/*
  * Destroys this Rule.
  */
 Rule::~Rule ()
@@ -89,7 +89,7 @@ Rule::~Rule ()
 }
 
 
-/**
+/*
  * Copy constructor. Creates a copy of this Rule.
  */
 Rule::Rule (const Rule& orig) :
@@ -104,7 +104,7 @@ Rule::Rule (const Rule& orig) :
 }
 
 
-/**
+/*
  * Assignment operator.
  */
 Rule& Rule::operator=(const Rule& rhs)
@@ -119,7 +119,7 @@ Rule& Rule::operator=(const Rule& rhs)
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates
@@ -133,7 +133,7 @@ Rule::accept (SBMLVisitor& v) const
 }
 
 
-/**
+/*
  * @return a (deep) copy of this Rule.
  */
 SBase*
@@ -143,7 +143,7 @@ Rule::clone () const
 }
 
 
-/**
+/*
  * @return the formula for this Rule.
  */
 const string&
@@ -161,7 +161,7 @@ Rule::getFormula () const
 }
 
 
-/**
+/*
  * @return the math for this Rule.
  */
 const ASTNode*
@@ -176,7 +176,7 @@ Rule::getMath () const
 }
 
 
-/**
+/*
  * @return the variable for this Rule.
  */
 const string&
@@ -186,7 +186,7 @@ Rule::getVariable () const
 }
 
 
-/**
+/*
  * @return the units for this Rule (L1 ParameterRules only).
  */
 const string&
@@ -196,7 +196,7 @@ Rule::getUnits () const
 }
 
 
-/**
+/*
  * @return true if the formula (or equivalently the math) for this Rule has
  * been set, false otherwise.
  */
@@ -207,7 +207,7 @@ Rule::isSetFormula () const
 }
 
 
-/**
+/*
  * @return true if the math (or equivalently the formula) for this Rule has
  * been set, false otherwise.
  */
@@ -218,7 +218,7 @@ Rule::isSetMath () const
 }
 
 
-/**
+/*
  * @return true if the variable of this Rule has been set, false
  * otherwise.
  */
@@ -229,7 +229,7 @@ Rule::isSetVariable () const
 }
 
 
-/**
+/*
  * @return true if the units for this Rule has been set, false otherwise
  * (L1 ParameterRules only).
  */
@@ -240,7 +240,7 @@ Rule::isSetUnits () const
 }
 
 
-/**
+/*
  * Sets the formula of this Rule to a copy of string.
  */
 void
@@ -256,7 +256,7 @@ Rule::setFormula (const std::string& formula)
 }
 
 
-/**
+/*
  * Sets the math of this Rule to a copy of the given ASTNode.
  */
 void
@@ -272,7 +272,7 @@ Rule::setMath (const ASTNode* math)
 }
 
 
-/**
+/*
  * Sets the variable of this Rule to a copy of sid.
  */
 void
@@ -282,7 +282,7 @@ Rule::setVariable (const std::string& sid)
 }
 
 
-/**
+/*
  * Sets the units for this Rule to a copy of sname (L1 ParameterRules
  * only).
  */
@@ -293,7 +293,7 @@ Rule::setUnits (const std::string& sname)
 }
 
 
-/**
+/*
  * Unsets the units for this Rule (L1 ParameterRules only).
  */
 void
@@ -303,7 +303,7 @@ Rule::unsetUnits ()
 }
 
 
-/**
+/*
  * @return the type of this Rule, either RULE_TYPE_RATE or
  * RULE_TYPE_SCALAR.
  */
@@ -316,7 +316,7 @@ Rule::getType () const
 }
 
 
-/**
+/*
  * @return true if this Rule is an AlgebraicRule, false otherwise.
  */
 bool
@@ -326,7 +326,7 @@ Rule::isAlgebraic () const
 }
 
 
-/**
+/*
  * @return true if this Rule is an AssignmentRule, false otherwise.
  */
 bool
@@ -336,7 +336,7 @@ Rule::isAssignment () const
 }
 
 
-/**
+/*
  * @return true if this Rule is a CompartmentVolumeRule, false otherwise.
  */
 bool
@@ -354,7 +354,7 @@ Rule::isCompartmentVolume () const
 }
 
 
-/**
+/*
  * @return true if this Rule is a ParameterRule, false otherwise.
  */
 bool
@@ -372,7 +372,7 @@ Rule::isParameter () const
 }
 
 
-/**
+/*
  * @return true if this Rule is a RateRule (L2) or has type="rate" (L1),
  * false otherwise.
  */
@@ -383,7 +383,7 @@ Rule::isRate () const
 }
 
 
-/**
+/*
  * @return true if this Rule is an AssignmentRule (L2) has type="scalar"
  * (L1), false otherwise.
  */
@@ -394,7 +394,7 @@ Rule::isScalar () const
 }
 
 
-/**
+/*
  * @return true if this Rule is a SpeciesConcentrationRule, false
  * otherwise.
  */
@@ -413,7 +413,7 @@ Rule::isSpeciesConcentration () const
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -426,7 +426,7 @@ Rule::getTypeCode () const
 }
 
 
-/**
+/*
  * @return the SBML Level 1 typecode for this Rule or SBML_UNKNOWN
  * (default).
  */
@@ -437,7 +437,7 @@ Rule::getL1TypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element eg "algebraicRule".
  
  */
@@ -489,7 +489,7 @@ Rule::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
  * implementation of this method as well.
@@ -504,7 +504,7 @@ Rule::writeElements (XMLOutputStream& stream) const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
@@ -578,7 +578,7 @@ Rule::readOtherXML (XMLInputStream& stream)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -693,7 +693,7 @@ Rule::readAttributes (const XMLAttributes& attributes)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
  * of this method as well.
@@ -771,7 +771,7 @@ Rule::writeAttributes (XMLOutputStream& stream) const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Sets the SBML Level 1 typecode for this Rule.
  */
 void
@@ -783,7 +783,7 @@ Rule::setL1TypeCode (SBMLTypeCode_t type)
 
 
 
-/**
+/*
  * Creates a new AlgebraicRule and optionally sets its formula.
  */
 AlgebraicRule::AlgebraicRule (const std::string& formula) :
@@ -791,7 +791,7 @@ AlgebraicRule::AlgebraicRule (const std::string& formula) :
 {
 }
 
-/**
+/*
  * Creates a new AlgebraicRule and optionally sets its math.
  */
 AlgebraicRule::AlgebraicRule (const ASTNode* math) :
@@ -800,14 +800,14 @@ AlgebraicRule::AlgebraicRule (const ASTNode* math) :
 }
 
 
-/**
+/*
  * Destroys this AlgebraicRule.
  */
 AlgebraicRule::~AlgebraicRule ()
 {
 }
 
-/**
+/*
  * @return a (deep) copy of this Rule.
  */
 SBase*
@@ -817,7 +817,7 @@ AlgebraicRule::clone () const
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates
@@ -833,7 +833,7 @@ AlgebraicRule::accept (SBMLVisitor& v) const
 
 
 
-/**
+/*
  * Creates a new AssignmentRule and optionally sets its variable and
  * formula.
  */
@@ -843,7 +843,7 @@ AssignmentRule::AssignmentRule (const std::string& variable, const std::string& 
 }
 
 
-/**
+/*
  * Creates a new AssignmentRule and optionally sets its variable and
  * math.
  */
@@ -853,14 +853,14 @@ AssignmentRule::AssignmentRule (const std::string& variable, const ASTNode* math
 }
 
 
-/**
+/*
  * Destroys this AssignmentRule.
  */
 AssignmentRule::~AssignmentRule ()
 {
 }
 
-/**
+/*
  * @return a (deep) copy of this Rule.
  */
 SBase*
@@ -870,7 +870,7 @@ AssignmentRule::clone () const
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates
@@ -886,7 +886,7 @@ AssignmentRule::accept (SBMLVisitor& v) const
 
 
 
-/**
+/*
  * Creates a new RateRule and optionally sets its variable and formula.
  */
 RateRule::RateRule (const std::string& variable, const std::string& formula) :
@@ -895,7 +895,7 @@ RateRule::RateRule (const std::string& variable, const std::string& formula) :
 }
 
 
-/**
+/*
  * Creates a new RateRule and optionally sets its variable and math.
  */
 RateRule::RateRule (const std::string& variable, const ASTNode* math) :
@@ -904,14 +904,14 @@ RateRule::RateRule (const std::string& variable, const ASTNode* math) :
 }
 
 
-/**
+/*
  * Destroys this RateRule.
  */
 RateRule::~RateRule ()
 {
 }
 
-/**
+/*
  * @return a (deep) copy of this Rule.
  */
 SBase*
@@ -921,7 +921,7 @@ RateRule::clone () const
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates
@@ -937,7 +937,7 @@ RateRule::accept (SBMLVisitor& v) const
 
 
 
-/**
+/*
  * @return a (deep) copy of this ListOfRules.
  */
 SBase*
@@ -947,7 +947,7 @@ ListOfRules::clone () const
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
  * SBML_UNKNOWN (default).
  */
@@ -958,7 +958,7 @@ ListOfRules::getItemTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "listOfRules".
  */
 const string&
@@ -970,7 +970,7 @@ ListOfRules::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
  */
@@ -983,7 +983,7 @@ ListOfRules::getElementPosition () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
  */

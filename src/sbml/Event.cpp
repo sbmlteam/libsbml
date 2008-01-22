@@ -45,7 +45,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * Creates a new Event, optionally with its id and name attributes set. 
  */
 Event::Event (const std::string& id, const std::string& name) :
@@ -56,7 +56,7 @@ Event::Event (const std::string& id, const std::string& name) :
 }
 
 
-/**
+/*
  * Destroys this Event.
  */
 Event::~Event ()
@@ -66,7 +66,7 @@ Event::~Event ()
 }
 
 
-/**
+/*
  * Copy constructor. Creates a copy of this Event.
  */
 Event::Event (const Event& orig) :
@@ -81,7 +81,7 @@ Event::Event (const Event& orig) :
 }
  
 
-/**
+/*
  * Assignment operator
  */
 Event& Event::operator=(const Event& rhs)
@@ -98,7 +98,7 @@ Event& Event::operator=(const Event& rhs)
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates
@@ -120,7 +120,7 @@ Event::accept (SBMLVisitor& v) const
 }
 
 
-/**
+/*
  * @return a (deep) copy of this Event.
  */
 SBase*
@@ -130,7 +130,7 @@ Event::clone () const
 }
 
 
-/**
+/*
  * @return the trigger of this Event.
  */
 const Trigger*
@@ -140,7 +140,7 @@ Event::getTrigger () const
 }
 
 
-/**
+/*
  * @return the trigger of this Event.
  */
 Trigger*
@@ -150,7 +150,7 @@ Event::getTrigger ()
 }
 
 
-/**
+/*
  * @return the delay of this Event.
  */
 const Delay*
@@ -160,7 +160,7 @@ Event::getDelay () const
 }
 
 
-/**
+/*
  * @return the delay of this Event.
  */
 Delay*
@@ -170,7 +170,7 @@ Event::getDelay ()
 }
 
 
-/**
+/*
  * @return the timeUnits of this Event
  *
  * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
@@ -186,7 +186,7 @@ Event::getTimeUnits () const
 }
 
 
-/**
+/*
  * @return true if the trigger of this Event has been set, false otherwise.
  */
 bool
@@ -196,7 +196,7 @@ Event::isSetTrigger () const
 }
 
 
-/**
+/*
  * @return true if the delay of this Event has been set, false otherwise.
  */
 bool
@@ -206,7 +206,7 @@ Event::isSetDelay () const
 }
 
 
-/**
+/*
  * @return true if the timeUnits of this Event has been set, false
  * otherwise.
  *
@@ -223,7 +223,7 @@ Event::isSetTimeUnits () const
 }
 
 
-/**
+/*
  * Sets the trigger of this Event to a copy of the given Trigger.
  */
 void
@@ -238,7 +238,7 @@ Event::setTrigger (const Trigger* trigger)
 }
 
 
-/**
+/*
  * Sets the delay of this Event to a copy of the given Delay.
  */
 void
@@ -253,7 +253,7 @@ Event::setDelay (const Delay* delay)
 }
 
 
-/**
+/*
  * Sets the timeUnits of this Event to a copy of sid.
  *
  * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
@@ -269,7 +269,7 @@ Event::setTimeUnits (const std::string& sid)
 }
 
 
-/**
+/*
  * Unsets the delay of this Event.
  */
 void
@@ -280,7 +280,7 @@ Event::unsetDelay ()
 }
 
 
-/**
+/*
  * Unsets the timeUnits of this Event.
  *
  * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
@@ -296,7 +296,7 @@ Event::unsetTimeUnits ()
 }
 
 
-/**
+/*
  * Appends a copy of the given EventAssignment to this Event.
  */
 void
@@ -306,7 +306,7 @@ Event::addEventAssignment (const EventAssignment* ea)
 }
 
 
-/**
+/*
  * Creates a new EventAssignment, adds it to this Event's list of event
  * assignments and returns it.
  */
@@ -320,7 +320,7 @@ Event::createEventAssignment ()
 }
 
 
-/**
+/*
  * @return the list of EventAssignments for this Event.
  */
 const ListOfEventAssignments*
@@ -330,7 +330,7 @@ Event::getListOfEventAssignments () const
 }
 
 
-/**
+/*
  * @return the list of EventAssignments for this Event.
  */
 ListOfEventAssignments*
@@ -340,7 +340,7 @@ Event::getListOfEventAssignments ()
 }
 
 
-/**
+/*
  * @return the nth EventAssignment of this Event.
  */
 const EventAssignment*
@@ -350,7 +350,7 @@ Event::getEventAssignment (unsigned int n) const
 }
 
 
-/**
+/*
  * @return the nth EventAssignment of this Event.
  */
 EventAssignment*
@@ -360,7 +360,7 @@ Event::getEventAssignment (unsigned int n)
 }
 
 
-/**
+/*
  * @return the EventAssignment for the given variable, or NULL if no such
  * EventAssignment exits.
  */
@@ -372,7 +372,7 @@ Event::getEventAssignment (const std::string& variable) const
 }
 
 
-/**
+/*
  * @return the EventAssignment for the given variable, or NULL if no such
  * EventAssignment exits.
  */
@@ -383,7 +383,7 @@ Event::getEventAssignment (const std::string& variable)
 }
 
 
-/**
+/*
  * @return the number of EventAssignments in this Event.
  */
 unsigned int
@@ -393,7 +393,7 @@ Event::getNumEventAssignments () const
 }
 
 
-/**
+/*
  * Sets the parent SBMLDocument of this SBML object.
  */
 void
@@ -406,7 +406,7 @@ Event::setSBMLDocument (SBMLDocument* d)
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -419,7 +419,7 @@ Event::getTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "event".
  */
 const string&
@@ -431,7 +431,7 @@ Event::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
  */
@@ -478,7 +478,7 @@ Event::createObject (XMLInputStream& stream)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -551,7 +551,7 @@ Event::readAttributes (const XMLAttributes& attributes)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
  * of this method as well.
@@ -594,7 +594,7 @@ Event::writeAttributes (XMLOutputStream& stream) const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
  * implementation of this method as well.
@@ -619,7 +619,7 @@ Event::writeElements (XMLOutputStream& stream) const
 /** @endcond doxygen-libsbml-internal */
 
 
-/**
+/*
  * @return a (deep) copy of this ListOfEvents.
  */
 SBase*
@@ -629,7 +629,7 @@ ListOfEvents::clone () const
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
  * SBML_UNKNOWN (default).
  */
@@ -640,7 +640,7 @@ ListOfEvents::getItemTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "listOfEvents".
  */
 const string&
@@ -652,7 +652,7 @@ ListOfEvents::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
  */
@@ -665,7 +665,7 @@ ListOfEvents::getElementPosition () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
  */

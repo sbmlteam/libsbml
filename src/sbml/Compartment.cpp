@@ -41,7 +41,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * Creates a new Compartment, optionally with its id attribute set.
  */
 Compartment::Compartment (const std::string& id, const std::string& name) :
@@ -54,7 +54,7 @@ Compartment::Compartment (const std::string& id, const std::string& name) :
 }
 
 
-/**
+/*
  * Destroys this Compartment.
  */
 Compartment::~Compartment ()
@@ -62,7 +62,7 @@ Compartment::~Compartment ()
 }
 
 
-/**
+/*
  * Copy constructor. Creates a copy of this compartment.
  */
 Compartment::Compartment(const Compartment& orig) :
@@ -78,7 +78,7 @@ Compartment::Compartment(const Compartment& orig) :
 }
 
 
-/**
+/*
  * Assignment operator
  */
 Compartment& Compartment::operator=(const Compartment& rhs)
@@ -96,7 +96,7 @@ Compartment& Compartment::operator=(const Compartment& rhs)
 
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates
@@ -110,7 +110,7 @@ Compartment::accept (SBMLVisitor& v) const
 }
 
 
-/**
+/*
  * @return a (deep) copy of this Compartment.
  */
 SBase*
@@ -120,7 +120,7 @@ Compartment::clone () const
 }
 
 
-/**
+/*
  * Initializes the fields of this Compartment to their defaults:
  *
  *   - volume            = 1.0          (L1 only)
@@ -139,7 +139,7 @@ Compartment::initDefaults ()
 }
 
 
-/**
+/*
  * @return the compartmentType of this Compartment.
  */
 const string&
@@ -149,7 +149,7 @@ Compartment::getCompartmentType () const
 }
 
 
-/**
+/*
  * @return the spatialDimensions of this Compartment.
  */
 unsigned int
@@ -159,7 +159,7 @@ Compartment::getSpatialDimensions () const
 }
 
 
-/**
+/*
  * @return the size (volume in L1) of this Compartment.
  */
 double
@@ -169,7 +169,7 @@ Compartment::getSize () const
 }
 
 
-/**
+/*
  * @return the volume (size in L2) of this Compartment.
  */
 double
@@ -179,7 +179,7 @@ Compartment::getVolume () const
 }
 
 
-/**
+/*
  * @return the units of this Compartment.
  */
 const string&
@@ -189,7 +189,7 @@ Compartment::getUnits () const
 }
 
 
-/**
+/*
  * @return the outside of this Compartment.
  */
 const string&
@@ -199,7 +199,7 @@ Compartment::getOutside () const
 }
 
 
-/**
+/*
  * @return true if this Compartment is constant, false otherwise.
  */
 bool
@@ -209,7 +209,7 @@ Compartment::getConstant () const
 }
 
 
-/**
+/*
  * @return true if the compartmentType of this Compartment has been set,
  * false otherwise. 
  */
@@ -220,7 +220,7 @@ Compartment::isSetCompartmentType () const
 }
 
 
-/**
+/*
  * @return true if the size (volume in L1) of this Compartment has been
  * set, false otherwise.
  */
@@ -231,7 +231,7 @@ Compartment::isSetSize () const
 }
 
 
-/**
+/*
  * @return true if the volume (size in L2) of this Compartment has been
  * set, false otherwise.
  *
@@ -246,7 +246,7 @@ Compartment::isSetVolume () const
 }
 
 
-/**
+/*
  * @return true if the units of this Compartment has been set, false
  * otherwise.
  */
@@ -257,7 +257,7 @@ Compartment::isSetUnits () const
 }
 
 
-/**
+/*
  * @return true if the outside of this Compartment has been set, false
  * otherwise.
  */
@@ -268,7 +268,7 @@ Compartment::isSetOutside () const
 }
 
 
-/**
+/*
  * Sets the compartmentType field of this Compartment to a copy of sid.
  */
 void
@@ -278,7 +278,7 @@ Compartment::setCompartmentType (const std::string& sid)
 }
 
 
-/**
+/*
  * Sets the spatialDimensions of this Compartment to value.
  *
  * If value is not one of [0, 1, 2, 3] the function will have no effect
@@ -291,7 +291,7 @@ Compartment::setSpatialDimensions (unsigned int value)
 }
 
 
-/**
+/*
  * Sets the size (volume in L1) of this Compartment to value.
  */
 void
@@ -302,7 +302,7 @@ Compartment::setSize (double value)
 }
 
 
-/**
+/*
  * Sets the volume (size in L2) of this Compartment to value.
  */
 void
@@ -312,7 +312,7 @@ Compartment::setVolume (double value)
 }
 
 
-/**
+/*
  * Sets the units of this Compartment to a copy of sid.
  */
 void
@@ -322,7 +322,7 @@ Compartment::setUnits (const std::string& sid)
 }
 
 
-/**
+/*
  * Sets the outside of this Compartment to a copy of sid.
  */
 void
@@ -332,7 +332,7 @@ Compartment::setOutside (const std::string& sid)
 }
 
 
-/**
+/*
  * Sets the constant field of this Compartment to value.
  */
 void
@@ -342,7 +342,7 @@ Compartment::setConstant (bool value)
 }
 
 
-/**
+/*
  * Unsets the compartmentType of this Compartment.
  */
 void
@@ -352,7 +352,7 @@ Compartment::unsetCompartmentType ()
 }
 
 
-/**
+/*
  * Unsets the size (volume in L1) of this Compartment.
  */
 void
@@ -363,7 +363,7 @@ Compartment::unsetSize ()
 }
 
 
-/**
+/*
  * Unsets the volume (size in L2) of this Compartment.
  *
  * In SBML L1, a Compartment volume has a default value (1.0) and therefore
@@ -384,7 +384,7 @@ Compartment::unsetVolume ()
 }
 
 
-/**
+/*
  * Unsets the units of this Compartment.
  */
 void
@@ -394,7 +394,7 @@ Compartment::unsetUnits ()
 }
 
 
-/**
+/*
  * Unsets the outside of this Compartment.
  */
 void
@@ -404,7 +404,7 @@ Compartment::unsetOutside ()
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -417,7 +417,7 @@ Compartment::getTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "compartment".
  */
 const string&
@@ -429,7 +429,7 @@ Compartment::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -550,7 +550,7 @@ Compartment::readAttributes (const XMLAttributes& attributes)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
  * of this method as well.
@@ -633,7 +633,7 @@ Compartment::writeAttributes (XMLOutputStream& stream) const
 /** @endcond doxygen-libsbml-internal */
 
 
-/**
+/*
  * @return a (deep) copy of this ListOfCompartments.
  */
 SBase*
@@ -643,7 +643,7 @@ ListOfCompartments::clone () const
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
  * SBML_UNKNOWN (default).
  */
@@ -654,7 +654,7 @@ ListOfCompartments::getItemTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "listOfCompartments".
  */
 const string&
@@ -666,7 +666,7 @@ ListOfCompartments::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
  */
@@ -679,7 +679,7 @@ ListOfCompartments::getElementPosition () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
  */

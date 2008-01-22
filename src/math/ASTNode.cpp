@@ -155,7 +155,7 @@ static const char *AST_RELATIONAL_STRINGS[] =
 };
 
 
-/**
+/*
  * Creates a new ASTNode.
  *
  * By default, node will have a type of AST_UNKNOWN and should be set to
@@ -177,7 +177,7 @@ ASTNode::ASTNode (ASTNodeType_t type)
 }
 
 
-/**
+/*
  * Creates a new ASTNode from the given Token.
  *
  * The ASTNode will contain the same data as the Token.
@@ -216,7 +216,7 @@ ASTNode::ASTNode (Token_t* token)
 }
 
 
-/**
+/*
  * Destroys this ASTNode including any child nodes.
  */
 LIBSBML_EXTERN
@@ -238,7 +238,7 @@ ASTNode::~ASTNode ()
 }
 
 
-/**
+/*
  * Frees the name of this ASTNode and sets it to NULL.
  * 
  * This operation is only applicable to ASTNodes corresponding to
@@ -259,7 +259,7 @@ ASTNode::freeName ()
 }
 
 
-/**
+/*
  * Attempts to convert this ASTNode to a canonical form and returns true if
  * the conversion succeeded, false otherwise.
  *
@@ -317,7 +317,7 @@ ASTNode::canonicalize ()
 }
 
 
-/**
+/*
  * Internal helper function for canonicalize().
  */
 bool
@@ -343,7 +343,7 @@ ASTNode::canonicalizeConstant ()
 }
 
 
-/**
+/*
  * Internal helper function for canonicalize().
  */
 bool
@@ -391,7 +391,7 @@ ASTNode::canonicalizeFunction ()
 }
 
 
-/**
+/*
  * Internal helper function for canonicalize().
  */
 bool
@@ -485,7 +485,7 @@ ASTNode::canonicalizeFunctionL1 ()
 }
 
 
-/**
+/*
  * Internal helper function for canonicalize().
  */
 bool
@@ -511,7 +511,7 @@ ASTNode::canonicalizeLogical ()
 }
 
 
-/**
+/*
  * Internal helper function for canonicalize().
  */
 bool
@@ -537,7 +537,7 @@ ASTNode::canonicalizeRelational ()
 }
 
 
-/**
+/*
  * Adds the given node as a child of this ASTNode.  Child nodes are added
  * in-order from "left-to-right".
  */
@@ -548,7 +548,7 @@ ASTNode::addChild (ASTNode* child)
   mChildren->add(child);
 }
 
-/**
+/*
  * Adds the given node as a child of this ASTNode.  This method adds child
  * nodes from "right-to-left".
  */
@@ -560,7 +560,7 @@ ASTNode::prependChild (ASTNode* child)
 }
 
 
-/**
+/*
  * @return a copy of this ASTNode and all its children.  The caller owns
  * the returned ASTNode and is reponsible for deleting it.
  */
@@ -592,7 +592,7 @@ ASTNode::deepCopy () const
 }
 
 
-/**
+/*
  * @return the nth child of this ASTNode or NULL if this node has no nth
  * child (n > getNumChildren() - 1).
  */
@@ -604,7 +604,7 @@ ASTNode::getChild (unsigned int n) const
 }
 
 
-/**
+/*
  * @return the left child of this ASTNode.  This is equivalent to
  * getChild(0);
  */
@@ -616,7 +616,7 @@ ASTNode::getLeftChild () const
 }
 
 
-/**
+/*
  * @return the right child of this ASTNode or NULL if this node has no
  * right child.  If getNumChildren() > 1, then this is equivalent to:
  *
@@ -633,7 +633,7 @@ ASTNode::getRightChild () const
 }
 
 
-/**
+/*
  * @return the number of children of this ASTNode or 0 is this node has no
  * children.
  */
@@ -645,7 +645,7 @@ ASTNode::getNumChildren () const
 }
 
 
-/**
+/*
  * Adds the given xmlnode as an annotation of this ASTNode.  
  */
 LIBSBML_EXTERN
@@ -656,7 +656,7 @@ ASTNode::addSemanticsAnnotation (XMLNode* annotation)
 }
 
 
-/**
+/*
  * @return the number of annotations of this ASTNode.  
  */
 LIBSBML_EXTERN
@@ -667,7 +667,7 @@ ASTNode::getNumSemanticsAnnotations () const
 }
 
 
-/**
+/*
  * @return the nth annotation of this ASTNode or NULL if this node has no nth
  * annotation.
  */
@@ -678,7 +678,7 @@ ASTNode::getSemanticsAnnotation (unsigned int n) const
   return static_cast<XMLNode*>( mSemanticsAnnotations->get(n) );
 }
 
-/**
+/*
  * Performs a depth-first search (DFS) of the tree rooted at node and
  * returns the List of nodes where predicate(node) returns true.
  *
@@ -706,7 +706,7 @@ ASTNode::getListOfNodes (ASTNodePredicate predicate) const
 }
 
 
-/**
+/*
  * This method is identical in functionality to getListOfNodes(), except
  * the List is passed-in by the caller.
  */
@@ -733,7 +733,7 @@ ASTNode::fillListOfNodes (ASTNodePredicate predicate, List* lst) const
 }
 
 
-/**
+/*
  * @return the value of this ASTNode as a single character.  This function
  * should be called only when getType() is one of AST_PLUS, AST_MINUS,
  * AST_TIMES, AST_DIVIDE or AST_POWER.
@@ -746,7 +746,7 @@ ASTNode::getCharacter () const
 }
 
 
-/**
+/*
  * @return the value of this ASTNode as a (long) integer.  This function
  * should be called only when getType() == AST_INTEGER.
  */
@@ -758,7 +758,7 @@ ASTNode::getInteger () const
 }
 
 
-/**
+/*
  * @return the value of this ASTNode as a string.  This function may be
  * called on nodes that are not operators (isOperator() == false)
  * or numbers (isNumber() == false).
@@ -803,7 +803,7 @@ ASTNode::getName () const
 }
 
 
-/**
+/*
  * @return the value of the numerator of this ASTNode.  This function
  * should be called only when getType() == AST_RATIONAL.
  */
@@ -815,7 +815,7 @@ ASTNode::getNumerator () const
 }
 
 
-/**
+/*
  * @return the value of the denominator of this ASTNode.  This function
  * should be called only when getType() == AST_RATIONAL.
  */
@@ -827,7 +827,7 @@ ASTNode::getDenominator () const
 }
 
 
-/**
+/*
  * @return the value of this ASTNode as a real (double).  This function
  * should be called only when isReal() == true.
  *
@@ -855,7 +855,7 @@ ASTNode::getReal () const
 }
 
 
-/**
+/*
  * @return the value of the mantissa of this ASTNode.  This function should
  * be called only when getType() is AST_REAL_E or AST_REAL.  If AST_REAL,
  * this method is identical to getReal().
@@ -868,7 +868,7 @@ ASTNode::getMantissa () const
 }
 
 
-/**
+/*
  * @return the value of the exponent of this ASTNode.  This function should
  * be called only when getType() is AST_REAL_E or AST_REAL.
  */
@@ -880,7 +880,7 @@ ASTNode::getExponent () const
 }
 
 
-/**
+/*
  * @return the precedence of this ASTNode (as defined in the SBML L1
  * specification).
  */
@@ -923,7 +923,7 @@ ASTNode::getPrecedence () const
 }
 
 
-/**
+/*
  * @return the type of this ASTNode.
  */
 LIBSBML_EXTERN
@@ -934,7 +934,7 @@ ASTNode::getType () const
 }
 
 
-/**
+/*
  * @return true if this ASTNode is a boolean (a logical operator, a
  * relational operator, or the constants true or false), false otherwise.
  */
@@ -950,7 +950,7 @@ ASTNode::isBoolean () const
 }
 
 
-/**
+/*
  * @return true if this ASTNode is a MathML constant (true,
  * false, pi, exponentiale), false otherwise.
  */
@@ -962,7 +962,7 @@ ASTNode::isConstant () const
 }
 
 
-/**
+/*
  * @return true if this ASTNode is a function in SBML L1, L2 (MathML)
  * (everything from abs() to tanh()) or user-defined, false otherwise.
  */
@@ -974,7 +974,7 @@ ASTNode::isFunction () const
 }
 
 
-/**
+/*
  * @return true if this ASTNode is the special IEEE 754 value infinity,
  * false otherwise.
  */
@@ -986,7 +986,7 @@ ASTNode::isInfinity () const
 }
 
 
-/**
+/*
  * @return true if this ASTNode is of type AST_INTEGER, false otherwise.
  */
 LIBSBML_EXTERN
@@ -997,7 +997,7 @@ ASTNode::isInteger () const
 }
 
 
-/**
+/*
  * @return true if this ASTNode is of type AST_LAMBDA, false otherwise.
  */
 LIBSBML_EXTERN
@@ -1007,7 +1007,7 @@ ASTNode::isLambda () const
   return ASTNodeType_isLambda(mType);
 }
 
-/**
+/*
  * @return true if the given ASTNode represents a log10() function, false
  * otherwise.
  *
@@ -1039,7 +1039,7 @@ ASTNode::isLog10 () const
 }
 
 
-/**
+/*
  * @return true if this ASTNode is a MathML logical operator (and, or, not,
  * xor), false otherwise.
  */
@@ -1051,7 +1051,7 @@ ASTNode::isLogical () const
 }
 
 
-/**
+/*
  * @return true if this ASTNode is a user-defined variable name in SBML L1,
  * L2 (MathML) or the special symbols delay or time, false otherwise.
  */
@@ -1063,7 +1063,7 @@ ASTNode::isName () const
 }
 
 
-/**
+/*
  * @return true if this ASTNode is the special IEEE 754 value not a
  * number, false otherwise.
  */
@@ -1081,7 +1081,7 @@ ASTNode::isNaN () const
 }
 
 
-/**
+/*
  * @return true if this ASTNode is the special IEEE 754 value negative
  * infinity, false otherwise.
  */
@@ -1093,7 +1093,7 @@ ASTNode::isNegInfinity () const
 }
 
 
-/**
+/*
  * @return true if this ASTNode is a number, false otherwise.
  *
  * This is functionally equivalent to:
@@ -1108,7 +1108,7 @@ ASTNode::isNumber () const
 }
 
 
-/**
+/*
  * @return true if this ASTNode is an operator, false otherwise.  Operators
  * are: +, -, *, / and \^ (power).
  */
@@ -1120,7 +1120,7 @@ ASTNode::isOperator () const
 }
 
 
-/**
+/*
  * @return true if this ASTNode is a piecewise function, false otherwise.
  */
 LIBSBML_EXTERN
@@ -1131,7 +1131,7 @@ ASTNode::isPiecewise () const
 }
 
 
-/**
+/*
  * @return true if this ASTNode is of type AST_RATIONAL, false otherwise.
  */
 LIBSBML_EXTERN
@@ -1142,7 +1142,7 @@ ASTNode::isRational () const
 }
 
 
-/**
+/*
  * @return true if the value of this ASTNode can represented as a real
  * number, false otherwise.
  *
@@ -1157,7 +1157,7 @@ ASTNode::isReal () const
 }
 
 
-/**
+/*
  * @return true if this ASTNode is a MathML relational operator (==, >=, >,
  * <=, < !=), false otherwise.
  */
@@ -1169,7 +1169,7 @@ ASTNode::isRelational () const
 }
 
 
-/**
+/*
  * @return true if the given ASTNode represents a sqrt() function, false
  * otherwise.
  *
@@ -1201,7 +1201,7 @@ ASTNode::isSqrt () const
 }
 
 
-/**
+/*
  * @return true if this ASTNode is a unary minus, false otherwise.
  *
  * For numbers, unary minus nodes can be "collapsed" by negating the
@@ -1231,7 +1231,7 @@ ASTNode::isUMinus () const
 }
 
 
-/**
+/*
  * @return true if this ASTNode is of type AST_UNKNOWN, false otherwise.
  */
 LIBSBML_EXTERN
@@ -1242,7 +1242,7 @@ ASTNode::isUnknown () const
 }
 
 
-/**
+/*
  * Sets the value of this ASTNode to the given character.  If character is
  * one of '+', '-', '*', '/' or '\^', the node type will be set
  * accordingly.  For all other characters, the node type will be set to
@@ -1257,7 +1257,7 @@ ASTNode::setCharacter (char value)
 }
 
 
-/**
+/*
  * Sets the value of this ASTNode to the given name.
  *
  * The node type will be set (to AST_NAME) ONLY IF the ASTNode was
@@ -1282,7 +1282,7 @@ ASTNode::setName (const char *name)
 }
 
 
-/**
+/*
  * Sets the value of this ASTNode to the given integer and sets the node
  * type to AST_INTEGER.
  */
@@ -1295,7 +1295,7 @@ ASTNode::setValue (int value)
 }
 
 
-/**
+/*
  * Sets the value of this ASTNode to the given (long) integer and sets the
  * node type to AST_INTEGER.
  */
@@ -1308,7 +1308,7 @@ ASTNode::setValue (long value)
 }
 
 
-/**
+/*
  * Sets the value of this ASTNode to the given rational in two parts:
  * the numerator and denominator.  The node type is set to AST_RATIONAL.
  */
@@ -1323,7 +1323,7 @@ ASTNode::setValue (long numerator, long denominator)
 }
 
 
-/**
+/*
  * Sets the value of this ASTNode to the given real (double) and sets the
  * node type to AST_REAL.
  *
@@ -1342,7 +1342,7 @@ ASTNode::setValue (double value)
 }
 
 
-/**
+/*
  * Sets the value of this ASTNode to the given real (double) in two parts:
  * the mantissa and the exponent.  The node type is set to AST_REAL_E.
  */
@@ -1357,7 +1357,7 @@ ASTNode::setValue (double mantissa, long exponent)
 }
 
 
-/**
+/*
  * Sets the type of this ASTNode to the given ASTNodeType.
  */
 LIBSBML_EXTERN
@@ -1401,7 +1401,7 @@ ASTNode::setType (ASTNodeType_t type)
 }
 
 
-/**
+/*
  * Swap the children of this ASTNode with the children of that ASTNode.
  */
 LIBSBML_EXTERN

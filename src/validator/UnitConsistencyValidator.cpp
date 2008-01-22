@@ -35,7 +35,7 @@
 #include "constraints/UnitConsistencyConstraints.cpp"
 
 
-/**
+/*
  * Initializes this Validator with a set of Constraints.
  */
 void

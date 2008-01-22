@@ -37,7 +37,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * Creates a new empty list of XML namespace declarations.
  */
 XMLNamespaces::XMLNamespaces ()
@@ -45,7 +45,7 @@ XMLNamespaces::XMLNamespaces ()
 }
 
 
-/**
+/*
  * Destroys this list of XML namespace declarations.
  */
 XMLNamespaces::~XMLNamespaces ()
@@ -53,7 +53,7 @@ XMLNamespaces::~XMLNamespaces ()
 }
 
 
-/**
+/*
  * Copy constructor; creates a copy of this XMLNamespaces set.
  */
 XMLNamespaces::XMLNamespaces(const XMLNamespaces& orig)
@@ -62,7 +62,7 @@ XMLNamespaces::XMLNamespaces(const XMLNamespaces& orig)
 }
 
 
-/**
+/*
  * Assignment operator for XMLNamespaces.
  */
 XMLNamespaces& 
@@ -72,7 +72,7 @@ XMLNamespaces::operator=(const XMLNamespaces& orig)
   return *this;
 }
 
-/**
+/*
  * Creates and returns a deep copy of this XMLNamespaces set.
  * 
  * @return a (deep) copy of this XMLNamespaces set.
@@ -84,7 +84,7 @@ XMLNamespaces::clone () const
 }
 
 
-/**
+/*
  * Appends an XML namespace prefix/URI pair to this list of namespace
  * declarations.
  */
@@ -96,7 +96,7 @@ XMLNamespaces::add (const std::string& uri, const std::string& prefix)
 }
 
 
-/**
+/*
  * Clears (deletes) all XML namespace declarations.
  */
 void
@@ -106,7 +106,7 @@ XMLNamespaces::clear ()
 }
 
 
-/**
+/*
  * Lookup the index of an XML namespace declaration by URI.
  *
  * @return the index of the given declaration, or -1 if not present.
@@ -123,7 +123,7 @@ XMLNamespaces::getIndex (const std::string uri) const
 }
 
 
-/**
+/*
  * @return the number of attributes in this list.
  */
 int
@@ -133,7 +133,7 @@ XMLNamespaces::getLength () const
 }
 
 
-/**
+/*
  * @return the prefix of an XML namespace declaration in this list (by
  * position).  If index is out of range, an empty string will be
  * returned.
@@ -145,7 +145,7 @@ XMLNamespaces::getPrefix (int index) const
 }
 
 
-/**
+/*
  * @return the prefix of an XML namespace declaration given its URI.  If
  * URI does not exist, an empty string will be returned.
  */
@@ -156,7 +156,7 @@ XMLNamespaces::getPrefix (const std::string& uri) const
 }
 
 
-/**
+/*
  * @return the URI of an XML namespace declaration in this list (by
  * position).  If index is out of range, an empty string will be
  * returned.
@@ -168,7 +168,7 @@ XMLNamespaces::getURI (int index) const
 }
 
 
-/**
+/*
  * @return the URI of an XML namespace declaration given its prefix.  If
  * no prefix is given and a default namespace exists it will be returned.
  * If prefix does not exist, an empty string will be returned.
@@ -185,7 +185,7 @@ XMLNamespaces::getURI (const std::string& prefix) const
 }
 
 
-/**
+/*
  * @return true if this XMLNamespaces set is empty, false otherwise.
  */
 bool
@@ -196,7 +196,7 @@ XMLNamespaces::isEmpty () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Removes the default XML namespace.
  */
 void
@@ -218,7 +218,7 @@ XMLNamespaces::removeDefault ()
 #ifndef SWIG
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Writes the XML namespace declarations to stream.
  */
 void
@@ -241,7 +241,7 @@ XMLNamespaces::write (XMLOutputStream& stream) const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Inserts this XML namespace declarations into stream.
  */
 LIBLAX_EXTERN

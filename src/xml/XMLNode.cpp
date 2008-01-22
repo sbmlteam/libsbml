@@ -55,7 +55,7 @@ trim (const string& s)
 }
 
 
-/**
+/*
  * Creates a new empty XMLNode with no children.
  */
 XMLNode::XMLNode ()
@@ -63,7 +63,7 @@ XMLNode::XMLNode ()
 }
 
 
-/**
+/*
  * Destroys this XMLNode.
  */
 XMLNode::~XMLNode ()
@@ -71,7 +71,7 @@ XMLNode::~XMLNode ()
 }
 
 
-/**
+/*
  * Creates a new XMLNode by copying token.
  */
 XMLNode::XMLNode (const XMLToken& token) : XMLToken(token)
@@ -80,7 +80,7 @@ XMLNode::XMLNode (const XMLToken& token) : XMLToken(token)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Creates a new XMLNode by reading XMLTokens from stream.  The stream must
  * be positioned on a start element (stream.peek().isStart() == true) and
  * will be read until the matching end element is found.
@@ -118,7 +118,7 @@ XMLNode::XMLNode (XMLInputStream& stream) : XMLToken( stream.next() )
 /** @endcond doxygen-libsbml-internal */
 
 
-/**
+/*
  * Copy constructor; creates a copy of this XMLNode.
  */
 XMLNode::XMLNode(const XMLNode& orig):
@@ -139,7 +139,7 @@ XMLNode::operator=(const XMLNode& orig)
   return *this;
 }
 
-/**
+/*
  * Creates and returns a deep copy of this XMLNode.
  * 
  * @return a (deep) copy of this XMLNode.
@@ -151,7 +151,7 @@ XMLNode::clone () const
 }
 
 
-/**
+/*
  * Adds a copy of child node to this XMLNode.
  */
 void
@@ -161,7 +161,7 @@ XMLNode::addChild (const XMLNode& node)
 }
 
 
-/**
+/*
  * Returns the nth child of this XMLNode.
  */
 const XMLNode&
@@ -178,7 +178,7 @@ XMLNode::getChild (unsigned int n) const
 }
 
 
-/**
+/*
  * @return the number of children for this XMLNode.
  */
 unsigned int
@@ -189,7 +189,7 @@ XMLNode::getNumChildren () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Writes this XMLNode and its children to stream.
  */
 void
@@ -214,7 +214,7 @@ XMLNode::write (XMLOutputStream& stream) const
 /** @endcond doxygen-libsbml-internal */
 
 
-/**
+/*
  * Returns a string which is converted from a given XMLNode.
  */
 std::string XMLNode::convertXMLNodeToString(const XMLNode* xnode)
@@ -229,7 +229,7 @@ std::string XMLNode::convertXMLNodeToString(const XMLNode* xnode)
 }
 
 
-/**
+/*
  * Returns a XMLNode which is converted from a given string.
  */
 XMLNode* XMLNode::convertStringToXMLNode(const std::string& xmlstr, const XMLNamespaces* xmlns)
@@ -303,7 +303,7 @@ XMLNode* XMLNode::convertStringToXMLNode(const std::string& xmlstr, const XMLNam
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Inserts this XMLNode and its children into stream.
  */
 LIBLAX_EXTERN

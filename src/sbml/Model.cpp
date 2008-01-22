@@ -46,7 +46,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * Creates a new Model, optionally with its id and name attributes set.
  */
 Model::Model (const std::string& id, const std::string& name) :
@@ -57,7 +57,7 @@ Model::Model (const std::string& id, const std::string& name) :
 }
 
 
-/**
+/*
  * Destroys this Model.
  */
 Model::~Model ()
@@ -73,7 +73,7 @@ Model::~Model ()
 }
 
 
-/**
+/*
  * Copy constructor.
  */
 Model::Model(const Model& orig) :
@@ -121,7 +121,7 @@ Model::Model(const Model& orig) :
 }
 
 
-/**
+/*
  * Assignment operator
  */
 Model& Model::operator=(const Model& rhs)
@@ -170,7 +170,7 @@ Model& Model::operator=(const Model& rhs)
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  */
 bool
@@ -197,7 +197,7 @@ Model::accept (SBMLVisitor& v) const
 }
 
 
-/**
+/*
  * @return a (deep) copy of this Model.
  */
 SBase*
@@ -242,7 +242,7 @@ Model::unsetModelHistory()
 }
 
 
-/**
+/*
  * Adds a copy of the given FunctionDefinition to this Model.
  */
 void
@@ -252,7 +252,7 @@ Model::addFunctionDefinition (const FunctionDefinition* fd)
 }
 
 
-/**
+/*
  * Adds a copy of the given UnitDefinition to this Model.
  */
 void
@@ -262,7 +262,7 @@ Model::addUnitDefinition (const UnitDefinition* ud)
 }
 
 
-/**
+/*
  * Adds a copy of the given CompartmentType to this Model.
  */
 void
@@ -272,7 +272,7 @@ Model::addCompartmentType (const CompartmentType* ct)
 }
 
 
-/**
+/*
  * Adds a copy of the given SpeciesType to this Model.
  */
 void
@@ -282,7 +282,7 @@ Model::addSpeciesType (const SpeciesType* st)
 }
 
 
-/**
+/*
  * Adds a copy of the given Compartment to this Model.
  */
 void
@@ -292,7 +292,7 @@ Model::addCompartment (const Compartment* c)
 }
 
 
-/**
+/*
  * Adds a copy of the given Species to this Model.
  */
 void
@@ -302,7 +302,7 @@ Model::addSpecies (const Species* s)
 }
 
 
-/**
+/*
  * Adds a copy of the given Parameter to this Model.
  */
 void
@@ -312,7 +312,7 @@ Model::addParameter (const Parameter* p)
 }
 
 
-/**
+/*
  * Adds a copy of the given InitialAssignment to this Model.
  */
 void
@@ -322,7 +322,7 @@ Model::addInitialAssignment (const InitialAssignment* ia)
 }
 
 
-/**
+/*
  * Adds a copy of the given Rule to this Model.
  */
 void
@@ -332,7 +332,7 @@ Model::addRule (const Rule* r)
 }
 
 
-/**
+/*
  * Adds a copy of the given Constraint to this Model.
  */
 void
@@ -342,7 +342,7 @@ Model::addConstraint (const Constraint* c)
 }
 
 
-/**
+/*
  * Adds a copy of the given Reaction to this Model.
  */
 void
@@ -352,7 +352,7 @@ Model::addReaction (const Reaction* r)
 }
 
 
-/**
+/*
  * Adds a copy of the given Event to this Model.
  */
 void
@@ -362,7 +362,7 @@ Model::addEvent (const Event* e)
 }
 
 
-/**
+/*
  * Creates a new FunctionDefinition inside this Model and returns it.
  */
 FunctionDefinition*
@@ -375,7 +375,7 @@ Model::createFunctionDefinition ()
 }
 
 
-/**
+/*
  * Creates a new UnitDefinition inside this Model and returns it.
  */
 UnitDefinition*
@@ -388,7 +388,7 @@ Model::createUnitDefinition ()
 }
 
 
-/**
+/*
  * Creates a new Unit inside this Model and returns a pointer to it.  The
  * Unit is added to the last UnitDefinition created.
  *
@@ -403,7 +403,7 @@ Model::createUnit ()
 }
 
 
-/**
+/*
  * Creates a new CompartmentType inside this Model and returns it.
  */
 CompartmentType*
@@ -416,7 +416,7 @@ Model::createCompartmentType ()
 }
 
 
-/**
+/*
  * Creates a new SpeciesType inside this Model and returns it.
  */
 SpeciesType*
@@ -429,7 +429,7 @@ Model::createSpeciesType ()
 }
 
 
-/**
+/*
  * Creates a new Compartment inside this Model and returns it.
  */
 Compartment*
@@ -442,7 +442,7 @@ Model::createCompartment ()
 }
 
 
-/**
+/*
  * Creates a new Species inside this Model and returns it.
  */
 Species*
@@ -455,7 +455,7 @@ Model::createSpecies ()
 }
 
 
-/**
+/*
  * Creates a new Parameter inside this Model and returns.
  */
 Parameter*
@@ -468,7 +468,7 @@ Model::createParameter ()
 }
 
 
-/**
+/*
  * Creates a new InitialAssignment inside this Model and returns it.
  */
 InitialAssignment*
@@ -481,7 +481,7 @@ Model::createInitialAssignment ()
 }
 
 
-/**
+/*
  * Creates a new AlgebraicRule inside this Model and returns it.
  */
 AlgebraicRule*
@@ -494,7 +494,7 @@ Model::createAlgebraicRule ()
 }
 
 
-/**
+/*
  * Creates a new AssignmentRule inside this Model and returns it.
  */
 AssignmentRule*
@@ -507,7 +507,7 @@ Model::createAssignmentRule ()
 }
 
 
-/**
+/*
  * Creates a new RateRule inside this Model and returns it.
  */
 RateRule*
@@ -520,7 +520,7 @@ Model::createRateRule ()
 }
 
 
-/**
+/*
  * Creates a new Constraint inside this Model and returns it.
  */
 Constraint*
@@ -533,7 +533,7 @@ Model::createConstraint ()
 }
 
 
-/**
+/*
  * Creates a new Reaction inside this Model and returns it.
  */
 Reaction*
@@ -546,7 +546,7 @@ Model::createReaction ()
 }
 
 
-/**
+/*
  * Creates a new Reactant (ie SpeciesReference) inside this Model and
  * returns a pointer to it.  The SpeciesReference is added to the reactants
  * of the last Reaction created.
@@ -562,7 +562,7 @@ Model::createReactant ()
 }
 
 
-/**
+/*
  * Creates a new Product (ie SpeciesReference) inside this Model and
  * returns a pointer to it.  The SpeciesReference is added to the products
  * of the last Reaction created.
@@ -578,7 +578,7 @@ Model::createProduct ()
 }
 
 
-/**
+/*
  * Creates a new Modifer (ie ModifierSpeciesReference) inside this Model
  * and returns a pointer to it.  The ModifierSpeciesReference is added to
  * the modifiers of the last Reaction created.
@@ -594,7 +594,7 @@ Model::createModifier ()
 }
 
 
-/**
+/*
  * Creates a new KineticLaw inside this Model and returns a pointer to it.
  * The KineticLaw is associated with the last Reaction created.
  *
@@ -610,7 +610,7 @@ Model::createKineticLaw ()
 }
 
 
-/**
+/*
  * Creates a new Parameter (of a KineticLaw) inside this Model and returns
  * a pointer to it.  The Parameter is associated with the KineticLaw of the
  * last Reaction created.
@@ -633,7 +633,7 @@ Model::createKineticLawParameter ()
 }
 
 
-/**
+/*
  * Creates a new Event inside this Model and returns it.
  */
 Event*
@@ -646,7 +646,7 @@ Model::createEvent ()
 }
 
 
-/**
+/*
  * Creates a new EventAssignment inside this Model and returns a pointer to
  * it.  The EventAssignment is added to the the last Event created.
  *
@@ -661,7 +661,7 @@ Model::createEventAssignment ()
 }
 
 
-/**
+/*
  * Sets the annotation of this SBML object to a copy of annotation.
  */
 void
@@ -695,7 +695,7 @@ Model::setAnnotation (const XMLNode* annotation)
 }
 
 
-/**
+/*
  * Sets the annotation (by string) of this SBML object to a copy of annotation.
  */
 void
@@ -726,7 +726,7 @@ Model::setAnnotation (const std::string& annotation)
 }
 
 
-/**
+/*
  * Appends annotation to the existing annotations.
  * This allows other annotations to be preserved whilst
  * adding additional information.
@@ -775,7 +775,7 @@ Model::appendAnnotation (const XMLNode* annotation)
 }
 
 
-/**
+/*
  * Appends annotation (by string) to the existing annotations.
  * This allows other annotations to be preserved whilst
  * adding additional information.
@@ -803,7 +803,7 @@ Model::appendAnnotation (const std::string& annotation)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Synchronizes the annotation of this SBML object.
  */
 void
@@ -876,7 +876,7 @@ Model::syncAnnotation ()
 /** @endcond doxygen-libsbml-internal */
 
 
-/**
+/*
  * @return the list of FunctionDefinitions for this Model.
  */
 const ListOfFunctionDefinitions*
@@ -886,7 +886,7 @@ Model::getListOfFunctionDefinitions () const
 }
 
 
-/**
+/*
  * @return the list of FunctionDefinitions for this Model.
  */
 ListOfFunctionDefinitions*
@@ -896,7 +896,7 @@ Model::getListOfFunctionDefinitions ()
 }
 
 
-/**
+/*
  * @return the list of UnitDefinitions for this Model.
  */
 const ListOfUnitDefinitions*
@@ -906,7 +906,7 @@ Model::getListOfUnitDefinitions () const
 }
 
 
-/**
+/*
  * @return the list of UnitDefinitions for this Model.
  */
 ListOfUnitDefinitions*
@@ -916,7 +916,7 @@ Model::getListOfUnitDefinitions ()
 }
 
 
-/**
+/*
  * @return the list of CompartmentTypes for this Model.
  */
 const ListOfCompartmentTypes*
@@ -926,7 +926,7 @@ Model::getListOfCompartmentTypes () const
 }
 
 
-/**
+/*
  * @return the list of CompartmentTypes for this Model.
  */
 ListOfCompartmentTypes*
@@ -936,7 +936,7 @@ Model::getListOfCompartmentTypes ()
 }
 
 
-/**
+/*
  * @return the list of SpeciesTypes for this Model.
  */
 const ListOfSpeciesTypes*
@@ -946,7 +946,7 @@ Model::getListOfSpeciesTypes () const
 }
 
  
-/**
+/*
  * @return the list of SpeciesTypes for this Model.
  */
 ListOfSpeciesTypes*
@@ -956,7 +956,7 @@ Model::getListOfSpeciesTypes ()
 }
 
 
-/**
+/*
  * @return the list of Compartments for this Model.
  */
 const ListOfCompartments*
@@ -966,7 +966,7 @@ Model::getListOfCompartments () const
 }
 
 
-/**
+/*
  * @return the list of Compartments for this Model.
  */
 ListOfCompartments*
@@ -976,7 +976,7 @@ Model::getListOfCompartments ()
 }
 
 
-/**
+/*
  * @return the list of Species for this Model.
  */
 const ListOfSpecies*
@@ -986,7 +986,7 @@ Model::getListOfSpecies () const
 }
 
 
-/**
+/*
  * @return the list of Species for this Model.
  */
 ListOfSpecies*
@@ -996,7 +996,7 @@ Model::getListOfSpecies ()
 }
 
 
-/**
+/*
  * @return the list of Parameters for this Model.
  */
 const ListOfParameters*
@@ -1006,7 +1006,7 @@ Model::getListOfParameters () const
 }
 
 
-/**
+/*
  * @return the list of Parameters for this Model.
  */
 ListOfParameters*
@@ -1016,7 +1016,7 @@ Model::getListOfParameters ()
 }
 
 
-/**
+/*
  * @return the list of InitialAssignments for this Model.
  */
 const ListOfInitialAssignments*
@@ -1026,7 +1026,7 @@ Model::getListOfInitialAssignments () const
 }
 
 
-/**
+/*
  * @return the list of InitialAssignment for this Model.
  */
 ListOfInitialAssignments*
@@ -1036,7 +1036,7 @@ Model::getListOfInitialAssignments ()
 }
 
 
-/**
+/*
  * @return the list of Rules for this Model.
  */
 const ListOfRules*
@@ -1046,7 +1046,7 @@ Model::getListOfRules () const
 }
 
 
-/**
+/*
  * @return the list of Rules for this Model.
  */
 ListOfRules*
@@ -1056,7 +1056,7 @@ Model::getListOfRules ()
 }
 
 
-/**
+/*
  * @return the list of Constraints for this Model.
  */
 const ListOfConstraints*
@@ -1066,7 +1066,7 @@ Model::getListOfConstraints () const
 }
 
  
-/**
+/*
  * @return the list of Constraints for this Model.
  */
 ListOfConstraints*
@@ -1076,7 +1076,7 @@ Model::getListOfConstraints ()
 }
 
 
-/**
+/*
  * @return the list of Reactions for this Model.
  */
 const ListOfReactions*
@@ -1086,7 +1086,7 @@ Model::getListOfReactions () const
 }
 
 
-/**
+/*
  * @return the list of Reactions for this Model.
  */
 ListOfReactions*
@@ -1096,7 +1096,7 @@ Model::getListOfReactions ()
 }
 
 
-/**
+/*
  * @return the list of Events for this Model.
  */
 const ListOfEvents*
@@ -1106,7 +1106,7 @@ Model::getListOfEvents () const
 }
 
 
-/**
+/*
  * @return the list of Events for this Model.
  */
 ListOfEvents*
@@ -1116,7 +1116,7 @@ Model::getListOfEvents ()
 }
 
 
-/**
+/*
  * @return the nth FunctionDefinition of this Model.
  */
 const FunctionDefinition*
@@ -1126,7 +1126,7 @@ Model::getFunctionDefinition (unsigned int n) const
 }
 
 
-/**
+/*
  * @return the nth FunctionDefinition of this Model.
  */
 FunctionDefinition*
@@ -1136,7 +1136,7 @@ Model::getFunctionDefinition (unsigned int n)
 }
 
 
-/**
+/*
  * @return the FunctionDefinition in this Model with the given id or NULL
  * if no such FunctionDefinition exists.
  */
@@ -1147,7 +1147,7 @@ Model::getFunctionDefinition (const std::string& sid) const
 }
 
 
-/**
+/*
  * @return the FunctionDefinition in this Model with the given id or NULL
  * if no such FunctionDefinition exists.
  */
@@ -1158,7 +1158,7 @@ Model::getFunctionDefinition (const std::string& sid)
 }
 
 
-/**
+/*
  * @return the nth UnitDefinition of this Model.
  */
 const UnitDefinition*
@@ -1168,7 +1168,7 @@ Model::getUnitDefinition (unsigned int n) const
 }
 
 
-/**
+/*
  * @return the nth UnitDefinition of this Model.
  */
 UnitDefinition*
@@ -1178,7 +1178,7 @@ Model::getUnitDefinition (unsigned int n)
 }
 
 
-/**
+/*
  * @return the UnitDefinition in this Model with the given id or NULL if no
  * such UnitDefinition exists.
  */
@@ -1189,7 +1189,7 @@ Model::getUnitDefinition (const std::string& sid) const
 }
 
 
-/**
+/*
  * @return the UnitDefinition in this Model with the given id or NULL if no
  * such UnitDefinition exists.
  */
@@ -1200,7 +1200,7 @@ Model::getUnitDefinition (const std::string& sid)
 }
 
 
-/**
+/*
  * @return the nth CompartmentType of this Model.
  */
 const CompartmentType*
@@ -1210,7 +1210,7 @@ Model::getCompartmentType (unsigned int n) const
 }
 
 
-/**
+/*
  * @return the nth CompartmentType of this Model.
  */
 CompartmentType*
@@ -1220,7 +1220,7 @@ Model::getCompartmentType (unsigned int n)
 }
 
 
-/**
+/*
  * @return the CompartmentType in this Model with the given id or NULL if
  * no such CompartmentType exists.
  */
@@ -1231,7 +1231,7 @@ Model::getCompartmentType (const std::string& sid) const
 }
 
 
-/**
+/*
  * @return the CompartmentType in this Model with the given id or NULL if
  * no such CompartmentType exists.
  */
@@ -1242,7 +1242,7 @@ Model::getCompartmentType (const std::string& sid)
 }
 
 
-/**
+/*
  * @return the nth SpeciesType of this Model.
  */
 const SpeciesType*
@@ -1252,7 +1252,7 @@ Model::getSpeciesType (unsigned int n) const
 }
 
 
-/**
+/*
  * @return the nth SpeciesType of this Model.
  */
 SpeciesType*
@@ -1262,7 +1262,7 @@ Model::getSpeciesType (unsigned int n)
 }
 
 
-/**
+/*
  * @return the SpeciesType in this Model with the given id or NULL if
  * no such SpeciesType exists.
  */
@@ -1273,7 +1273,7 @@ Model::getSpeciesType (const std::string& sid) const
 }
 
 
-/**
+/*
  * @return the SpeciesType in this Model with the given id or NULL if
  * no such SpeciesType exists.
  */
@@ -1284,7 +1284,7 @@ Model::getSpeciesType (const std::string& sid)
 }
 
 
-/**
+/*
  * @return the nth Compartment of this Model.
  */
 const Compartment*
@@ -1294,7 +1294,7 @@ Model::getCompartment (unsigned int n) const
 }
 
 
-/**
+/*
  * @return the nth Compartment of this Model.
  */
 Compartment*
@@ -1304,7 +1304,7 @@ Model::getCompartment (unsigned int n)
 }
 
 
-/**
+/*
  * @return the Compartment in this Model with the given id or NULL if no
  * such Compartment exists.
  */
@@ -1315,7 +1315,7 @@ Model::getCompartment (const std::string& sid) const
 }
 
 
-/**
+/*
  * @return the Compartment in this Model with the given id or NULL if no
  * such Compartment exists.
  */
@@ -1326,7 +1326,7 @@ Model::getCompartment (const std::string& sid)
 }
 
 
-/**
+/*
  * @return the nth Species of this Model.
  */
 const Species*
@@ -1336,7 +1336,7 @@ Model::getSpecies (unsigned int n) const
 }
 
 
-/**
+/*
  * @return the nth Species of this Model.
  */
 Species*
@@ -1346,7 +1346,7 @@ Model::getSpecies (unsigned int n)
 }
 
 
-/**
+/*
  * @return the Species in this Model with the given id or NULL if no such
  * Species exists.
  */
@@ -1357,7 +1357,7 @@ Model::getSpecies (const std::string& sid) const
 }
 
 
-/**
+/*
  * @return the Species in this Model with the given id or NULL if no such
  * Species exists.
  */
@@ -1368,7 +1368,7 @@ Model::getSpecies (const std::string& sid)
 }
 
 
-/**
+/*
  * @return the nth Parameter of this Model.
  */
 const Parameter*
@@ -1378,7 +1378,7 @@ Model::getParameter (unsigned int n) const
 }
 
 
-/**
+/*
  * @return the nth Parameter of this Model.
  */
 Parameter*
@@ -1388,7 +1388,7 @@ Model::getParameter (unsigned int n)
 }
 
 
-/**
+/*
  * @return the Parameter in this Model with the given id or NULL if no such
  * Parameter exists.
  */
@@ -1399,7 +1399,7 @@ Model::getParameter (const std::string& sid) const
 }
 
 
-/**
+/*
  * @return the Parameter in this Model with the given id or NULL if no such
  * Parameter exists.
  */
@@ -1410,7 +1410,7 @@ Model::getParameter (const std::string& sid)
 }
 
 
-/**
+/*
  * @return the nth InitialAssignment of this Model.
  */
 const InitialAssignment*
@@ -1420,7 +1420,7 @@ Model::getInitialAssignment (unsigned int n) const
 }
 
 
-/**
+/*
  * @return the nth InitialAssignment of this Model.
  */
 InitialAssignment*
@@ -1430,7 +1430,7 @@ Model::getInitialAssignment (unsigned int n)
 }
 
 
-/**
+/*
  * @return the InitialAssignment in this Model with the given symbol or
  * NULL if no such InitialAssignment exists.
  */
@@ -1444,7 +1444,7 @@ Model::getInitialAssignment (const std::string& symbol) const
 }
 
  
-/**
+/*
  * @return the InitialAssignment in this Model with the given symbol or
  * NULL if no such InitialAssignment exists.
  */
@@ -1455,7 +1455,7 @@ Model::getInitialAssignment (const std::string& symbol)
 }
 
 
-/**
+/*
  * @return the nth Rule of this Model.
  */
 const Rule*
@@ -1465,7 +1465,7 @@ Model::getRule (unsigned int n) const
 }
 
 
-/**
+/*
  * @return the nth Rule of this Model.
  */
 Rule*
@@ -1475,7 +1475,7 @@ Model::getRule (unsigned int n)
 }
 
 
-/**
+/*
  * @return the Rule in this Model with the given variable or NULL if no
  * such Rule exists.
  */
@@ -1486,7 +1486,7 @@ Model::getRule (const std::string& variable) const
 }
 
  
-/**
+/*
  * @return the Rule in this Model with the given symbol or NULL if no
  * such Rule exists.
  */
@@ -1497,7 +1497,7 @@ Model::getRule (const std::string& variable)
 }
 
 
-/**
+/*
  * @return the nth Constraint of this Model.
  */
 const Constraint*
@@ -1507,7 +1507,7 @@ Model::getConstraint (unsigned int n) const
 }
 
 
-/**
+/*
  * @return the nth Constraint of this Model.
  */
 Constraint*
@@ -1517,7 +1517,7 @@ Model::getConstraint (unsigned int n)
 }
 
 
-/**
+/*
  * @return the nth Reaction of this Model.
  */
 const Reaction*
@@ -1527,7 +1527,7 @@ Model::getReaction (unsigned int n) const
 }
 
 
-/**
+/*
  * @return the nth Reaction of this Model.
  */
 Reaction*
@@ -1537,7 +1537,7 @@ Model::getReaction (unsigned int n)
 }
 
 
-/**
+/*
  * @return the Reaction in this Model with the given id or NULL if no such
  * Reaction exists.
  */
@@ -1548,7 +1548,7 @@ Model::getReaction (const std::string& sid) const
 }
 
 
-/**
+/*
  * @return the Reaction in this Model with the given id or NULL if no such
  * Reaction exists.
  */
@@ -1559,7 +1559,7 @@ Model::getReaction (const std::string& sid)
 }
 
 
-/**
+/*
  * @return the nth Event of this Model.
  */
 const Event*
@@ -1569,7 +1569,7 @@ Model::getEvent (unsigned int n) const
 }
 
 
-/**
+/*
  * @return the nth Event of this Model.
  */
 Event*
@@ -1579,7 +1579,7 @@ Model::getEvent (unsigned int n)
 }
 
 
-/**
+/*
  * @return the Event in this Model with the given id or NULL if no such
  * Event exists.
  */
@@ -1590,7 +1590,7 @@ Model::getEvent (const std::string& sid) const
 }
 
 
-/**
+/*
  * @return the Event in this Model with the given id or NULL if no such
  * Event exists.
  */
@@ -1601,7 +1601,7 @@ Model::getEvent (const std::string& sid)
 }
 
 
-/**
+/*
  * @return the number of FunctionDefinitions in this Model.
  */
 unsigned int
@@ -1611,7 +1611,7 @@ Model::getNumFunctionDefinitions () const
 }
 
 
-/**
+/*
  * @return the number of UnitDefinitions in this Model.
  */
 unsigned int
@@ -1621,7 +1621,7 @@ Model::getNumUnitDefinitions () const
 }
 
 
-/**
+/*
  * @return the number of CompartmentTypes in this Model.
  */
 unsigned int
@@ -1631,7 +1631,7 @@ Model::getNumCompartmentTypes () const
 }
 
 
-/**
+/*
  * @return the number of SpeciesTypes in this Model.
  */
 unsigned int
@@ -1641,7 +1641,7 @@ Model::getNumSpeciesTypes () const
 }
 
 
-/**
+/*
  * @return the number of Compartments in this Model.
  */
 unsigned int
@@ -1651,7 +1651,7 @@ Model::getNumCompartments () const
 }
 
 
-/**
+/*
  * @return the number of Species in this Model.
  */
 unsigned int
@@ -1661,7 +1661,7 @@ Model::getNumSpecies () const
 }
 
 
-/**
+/*
  * @return the number of Species in this Model with boundaryCondition set
  * to true.
  */
@@ -1679,7 +1679,7 @@ Model::getNumSpeciesWithBoundaryCondition () const
 }
 
 
-/**
+/*
  * @return the number of Parameters in this Model.  Parameters defined in
  * KineticLaws are not included.
  */
@@ -1690,7 +1690,7 @@ Model::getNumParameters () const
 }
 
 
-/**
+/*
  * @return the number of InitialAssignments in this Model.
  */
 unsigned int
@@ -1700,7 +1700,7 @@ Model::getNumInitialAssignments () const
 }
 
 
-/**
+/*
  * @return the number of Rules in this Model.
  */
 unsigned int
@@ -1710,7 +1710,7 @@ Model::getNumRules () const
 }
 
 
-/**
+/*
  * @return the number of Constraints in this Model.
  */
 unsigned int
@@ -1720,7 +1720,7 @@ Model::getNumConstraints () const
 }
 
 
-/**
+/*
  * @return the number of Reactions in this Model.
  */
 unsigned int
@@ -1730,7 +1730,7 @@ Model::getNumReactions () const
 }
 
 
-/**
+/*
  * @return the number of Events in this Model.
  */
 unsigned int
@@ -1740,7 +1740,7 @@ Model::getNumEvents () const
 }
 
 
-/**
+/*
  * @return true if the given ASTNode is a boolean.  Often times, this
  * question can be answered with the ASTNode's own isBoolean() method,
  * but if the AST is an expression that calls a function defined in the
@@ -1789,7 +1789,7 @@ Model::isBoolean (const ASTNode* node) const
 }
 
 
-/**
+/*
  * Sets the parent SBMLDocument of this SBML object.
  */
 void
@@ -1812,7 +1812,7 @@ Model::setSBMLDocument (SBMLDocument* d)
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -1825,7 +1825,7 @@ Model::getTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "model".
  
  */
@@ -1838,7 +1838,7 @@ Model::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
@@ -1896,7 +1896,7 @@ Model::readOtherXML (XMLInputStream& stream)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
  */
@@ -2063,7 +2063,7 @@ Model::createObject (XMLInputStream& stream)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -2126,7 +2126,7 @@ Model::readAttributes (const XMLAttributes& attributes)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
  * of this method as well.
@@ -2161,7 +2161,7 @@ Model::writeAttributes (XMLOutputStream& stream) const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
  * implementation of this method as well.
@@ -2217,7 +2217,7 @@ Model::writeElements (XMLOutputStream& stream) const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
  */
@@ -2233,7 +2233,7 @@ Model::getElementPosition () const
 #ifdef USE_LAYOUT
 
 
-/**
+/*
  * Returns the ListOf Layouts for this Model.
  */
 const ListOfLayouts*
@@ -2243,7 +2243,7 @@ Model::getListOfLayouts () const
 }
 
 
-/**
+/*
  * Returns the ListOf Layouts for this Model.
  */
 ListOfLayouts*
@@ -2253,7 +2253,7 @@ Model::getListOfLayouts ()
 }
 
 
-/**
+/*
  * Returns the layout object that belongs to the given index. If the index
  * is invalid, NULL is returned.
  */
@@ -2264,7 +2264,7 @@ Model::getLayout (unsigned int index) const
 }
 
 
-/**
+/*
  * Returns the layout object that belongs to the given index. If the index
  * is invalid, NULL is returned.
  */
@@ -2275,7 +2275,7 @@ Model::getLayout (unsigned int index)
 }
 
 
-/**
+/*
  * Adds a copy of the layout object to the list of layouts.
  */ 
 void
@@ -2285,7 +2285,7 @@ Model::addLayout (const Layout* layout)
 }
 
 
-/**
+/*
  * Creates a new layout object and adds it to the list of layout objects.
  * A reference to the newly created object is returned.
  */
@@ -2652,7 +2652,7 @@ Model::populateListFormulaUnitsData()
   delete unitFormatter;
 }
 
-/**
+/*
  * Adds a copy of the given FormulaUnitsData to this Model.
  */
 void
@@ -2685,7 +2685,7 @@ Model::createFormulaUnitsData ()
   return fud;
 }
 
-/**
+/*
  * @return the nth FormulaUnitsData of this Model.
  */
 const FormulaUnitsData*
@@ -2695,7 +2695,7 @@ Model::getFormulaUnitsData (unsigned int n) const
 }
 
 
-/**
+/*
  * @return the nth FormulaUnitsData of this Model.
  */
 FormulaUnitsData*
@@ -2706,7 +2706,7 @@ Model::getFormulaUnitsData (unsigned int n)
 
 
 
-/**
+/*
  * @return the FormulaUnitsData in this Model with the given id 
  * or NULL if no such
  * FormulaUnitsData exists.
@@ -2732,7 +2732,7 @@ Model::getFormulaUnitsData (const std::string& sid,
 }
 
 
-/**
+/*
  * @return the FormulaUnitsData in this Model with the given id  and typecode 
  * or NULL if no such FormulaUnitsData exists.
  */
@@ -2756,7 +2756,7 @@ Model::getFormulaUnitsData (const std::string& sid, SBMLTypeCode_t typecode)
 }
 
 
-/**
+/*
  * @return the number of FormulaUnitsDatas in this Model.
  */
 unsigned int
@@ -2790,7 +2790,7 @@ Model::getListFormulaUnitsData () const
 
 
 
-/**
+/*
  * returns true if the list has been populated, false otherwise
  */
 bool

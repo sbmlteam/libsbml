@@ -33,7 +33,7 @@
 #include "constraints/L2v2CompatibilityConstraints.cpp"
 
 
-/**
+/*
  * Initializes this Validator with a set of Constraints.
  */
 void

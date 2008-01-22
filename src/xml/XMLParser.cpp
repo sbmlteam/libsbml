@@ -46,7 +46,7 @@ using namespace std;
 
 
 
-/**
+/*
  * Creates a new XMLParser.  The parser will notify the given XMLHandler
  * of parse events and errors.
  */
@@ -55,7 +55,7 @@ XMLParser::XMLParser () : mErrorLog(0)
 }
 
 
-/**
+/*
  * Destroys this XMLParser.
  */
 XMLParser::~XMLParser ()
@@ -63,7 +63,7 @@ XMLParser::~XMLParser ()
 }
 
 
-/**
+/*
  * Creates a new XMLParser.  The parser will notify the given XMLHandler
  * of parse events and errors.
  *
@@ -94,7 +94,7 @@ XMLParser::create (XMLHandler& handler, const string library)
 }
 
 
-/**
+/*
  * @return an XMLErrorLog which can be used to log XML parse errors and
  * other validation errors (and messages).
  */
@@ -105,7 +105,7 @@ XMLParser::getErrorLog ()
 }
 
 
-/**
+/*
  * Sets the XMLErrorLog this parser will use to log errors.
  */
 void

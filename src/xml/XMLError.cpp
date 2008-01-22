@@ -284,7 +284,7 @@ XMLError::XMLError (  const int errorId
 }
 
 
-/**
+/*
  * Destroys this XMLError.
  */
 XMLError::~XMLError ()
@@ -292,7 +292,7 @@ XMLError::~XMLError ()
 }
 
 
-/**
+/*
  * @return the id of this XMLError.
  */
 const unsigned int
@@ -302,7 +302,7 @@ XMLError::getErrorId () const
 }
 
 
-/**
+/*
  * @return the message text of this XMLError.
  */
 const string&
@@ -312,7 +312,7 @@ XMLError::getMessage () const
 }
 
 
-/**
+/*
  * @return the line number where this XMLError ocurred.
  */
 unsigned int
@@ -322,7 +322,7 @@ XMLError::getLine () const
 }
 
 
-/**
+/*
  * @return the column number where this XMLError occurred.
  */
 unsigned int
@@ -332,7 +332,7 @@ XMLError::getColumn () const
 }
 
 
-/**
+/*
  * @return the severity of this XMLError.  XMLError severity levels
  * correspond to those defined in the XML specification (with the addition
  * of Info for informational messages).
@@ -344,7 +344,7 @@ XMLError::getSeverity () const
 }
 
 
-/**
+/*
  * @return the category of this XMLError.  A category is a string, similiar
  * in spirit to an XML namespace, which can be used to partition errors
  * into distinct groups.  Among other things, this can be used to prevent
@@ -358,7 +358,7 @@ XMLError::getCategory () const
 }
 
 
-/**
+/*
  * @return true if this XMLError is for informational purposes only,
  * false otherwise.
  */
@@ -369,7 +369,7 @@ XMLError::isInfo () const
 }
 
 
-/**
+/*
  * @return true if this XMLError is a warning, false otherwise.
  */
 bool
@@ -379,7 +379,7 @@ XMLError::isWarning () const
 }
 
 
-/**
+/*
  * @return true if this XMLError is an error, false otherwise.
  */
 bool
@@ -389,7 +389,7 @@ XMLError::isError () const
 }
 
 
-/**
+/*
  * @return true if this XMLError is a fatal error, false otherwise.
  */
 bool
@@ -399,7 +399,7 @@ XMLError::isFatal () const
 }
 
 
-/**
+/*
  * Predicate returning @c true or @c false depending on whether 
  * this XMLError resulted from the operating system.
  *
@@ -412,7 +412,7 @@ XMLError::isSystem () const
 }
 
 
-/**
+/*
  * Predicate returning @c true or @c false depending on whether this
  * XMLError resulted from a problem at the raw XML level (e.g., an XML
  * syntax error).
@@ -426,7 +426,7 @@ XMLError::isXML () const
 }
 
 
-/**
+/*
  * Predicate returning @c true or @c false depending on whether this
  * XMLError resulted from an internal program error.
  *
@@ -439,7 +439,7 @@ XMLError::isInternal () const
 }
 
 
-/**
+/*
  * Sets the line number where this XMLError occurred.
  */
 void
@@ -449,7 +449,7 @@ XMLError::setLine (unsigned int line)
 }
 
 
-/**
+/*
  * Sets the column number where this XMLError occurred.
  */
 void
@@ -459,7 +459,7 @@ XMLError::setColumn (unsigned int column)
 }
 
 
-/**
+/*
  * Given an XMLError::Code, return a copy of the error text.
  * 
  * @return the message text 

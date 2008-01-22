@@ -40,7 +40,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * @return true if sboTerm is in the correct format (a zero-padded, seven
  * digit string preceded by SBO:), false otherwise.
  */
@@ -65,7 +65,7 @@ SBO::checkTerm (const std::string& sboTerm)
 }
 
 
-/**
+/*
  * @return true if sboTerm is in the range [0 -- 9999999], false
  * otherwise.
  */
@@ -76,7 +76,7 @@ SBO::checkTerm (int sboTerm)
 }
 
 
-/**
+/*
  * Reads (and checks) sboTerm from the given XMLAttributes set.
  *
  * @return the sboTerm as an integer or -1 if the sboTerm was not in the
@@ -102,7 +102,7 @@ SBO::readTerm (const XMLAttributes& attributes, SBMLErrorLog* log)
 }
 
 
-/**
+/*
  * Writes sboTerm as an XMLAttribute to the given XMLOutputStream.
  */
 void
@@ -112,7 +112,7 @@ SBO::writeTerm (XMLOutputStream& stream, int sboTerm)
 }
 
 
-/**
+/*
  * @return the given string sboTerm as an integer.  If the sboTerm is not
  * in the correct format (a zero-padded, seven digit string), -1 is
  * returned.
@@ -137,7 +137,7 @@ SBO::stringToInt (const std::string& sboTerm)
 }
 
 
-/**
+/*
  * @return the given integer sboTerm as a zero-padded seven digit string.
  * If the sboTerm is not in the correct range ([0 -- 9999999]), an empty
  * string is returned.

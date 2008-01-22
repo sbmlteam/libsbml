@@ -24,7 +24,7 @@
 #include <sbml/units/UnitFormulaFormatter.h>
 
 
-/**
+/*
  *  constructs a UnitFormulaFormatter
  */
 UnitFormulaFormatter::UnitFormulaFormatter(const Model *m)
@@ -35,7 +35,7 @@ UnitFormulaFormatter::UnitFormulaFormatter(const Model *m)
   depthRecursiveCall = 0;
 }
 
-/**
+/*
  *  destructor
  */
 UnitFormulaFormatter::~UnitFormulaFormatter()
@@ -43,7 +43,7 @@ UnitFormulaFormatter::~UnitFormulaFormatter()
   delete model;
 }
 
-/**
+/*
   * visits the ASTNode and returns the unitDefinition of the formula
   * this function is really a dispatcher to the other
   * UnitFormulaFormatter::getUnitdefinition functions

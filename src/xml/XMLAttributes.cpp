@@ -56,7 +56,7 @@ trim (const string& s)
 }
 
 
-/**
+/*
  * Creates a new empty XMLAttributes set.
  */
 XMLAttributes::XMLAttributes () : mLog( 0 )
@@ -64,14 +64,14 @@ XMLAttributes::XMLAttributes () : mLog( 0 )
 }
 
 
-/**
+/*
  * Destroys this XMLAttributes set.
  */
 XMLAttributes::~XMLAttributes ()
 {
 }
 
-/**
+/*
  * Copy constructor; creates a copy of this XMLAttributes set.
  */
 XMLAttributes::XMLAttributes(const XMLAttributes& orig)
@@ -83,7 +83,7 @@ XMLAttributes::XMLAttributes(const XMLAttributes& orig)
 }
 
 
-/**
+/*
  * Assignment operator for XMLAttributes.
  */
 XMLAttributes& 
@@ -96,7 +96,7 @@ XMLAttributes::operator=(const XMLAttributes& orig)
   return *this;
 }
 
-/**
+/*
  * Creates and returns a deep copy of this XMLAttributes set.
  * 
  * @return a (deep) copy of this XMLAttributes set.
@@ -109,7 +109,7 @@ XMLAttributes::clone () const
 
 
 
-/**
+/*
  * Adds a name/value pair to this XMLAttributes set.  If name with the same
  * namespace URI already exists in this attribute set, its value will be
  * replaced.
@@ -139,7 +139,7 @@ XMLAttributes::add (const std::string& name,
 }
 
 
-/**
+/*
  * Adds a name/value pair to this XMLAttributes set.  This
  * is really the add function but an attribute with same name wont 
  * be overwritten - this is for annotations
@@ -152,7 +152,7 @@ XMLAttributes::addResource (const std::string& name, const std::string& value)
 }
 
 
-/**
+/*
  * Removes a name/value pair from this XMLAttributes set.  
  * This is for annotations
  */
@@ -175,7 +175,7 @@ XMLAttributes::removeResource (int n)
 }
 
 
-/**
+/*
  * Lookup the index of an attribute by name.
  *
  * @return the index of the given attribute, or -1 if not present.
@@ -192,7 +192,7 @@ XMLAttributes::getIndex (const std::string& name) const
 }
 
 
-/**
+/*
  * @return the number of attributes in this list.
  */
 int
@@ -202,7 +202,7 @@ XMLAttributes::getLength () const
 }
 
 
-/**
+/*
  * @return the name of an attribute in this list (by position).  If index
  * is out of range, an empty string will be returned.  Use getIndex() > 0
  * to test for attribute existence.
@@ -214,7 +214,7 @@ XMLAttributes::getName (int index) const
 }
 
 
-/**
+/*
  * @return the namespace prefix of an attribute in this list (by
  * position).  If index is out of range, an empty string will be
  * returned.  Use getIndex() > 0 to test for attribute existence.
@@ -226,7 +226,7 @@ XMLAttributes::getPrefix (int index) const
 }
 
 
-/**
+/*
  * @return the namespace URI of an attribute in this list (by position).
  * If index is out of range, an empty string will be returned.  Use
  * getIndex() > 0 to test for attribute existence.
@@ -238,7 +238,7 @@ XMLAttributes::getURI (int index) const
 }
 
 
-/**
+/*
  * @return the value of an attribute in the list (by position).  If index
  * is out of range, an empty string will be returned.  Use getIndex() > 0
  * to test for attribute existence.
@@ -250,7 +250,7 @@ XMLAttributes::getValue (int index) const
 }
 
 
-/**
+/*
  * Lookup an attribute's value by name.
  *
  * @return The attribute value as a string.  If an attribute with the
@@ -264,7 +264,7 @@ XMLAttributes::getValue (const std::string name) const
 }
 
 
-/**
+/*
  * @return true if this XMLAttributes set is empty, false otherwise.
  */
 bool
@@ -274,7 +274,7 @@ XMLAttributes::isEmpty () const
 }
 
 
-/**
+/*
  * Reads the value for the attribute name into value.  If name was not
  * found or value could not be interpreted as a boolean, value is not modified.
  *
@@ -329,7 +329,7 @@ XMLAttributes::readInto (  const std::string&   name
 }
 
 
-/**
+/*
  * Reads the value for the attribute name into value.  If name was not
  * found or value could not be interpreted as a double, value is not
  * modified.
@@ -411,7 +411,7 @@ XMLAttributes::readInto (  const std::string&   name
 }
 
 
-/**
+/*
  * Reads the value for the attribute name into value.  If name was not
  * found or value could not be interpreted as an long, value is not modified.
  *
@@ -468,7 +468,7 @@ XMLAttributes::readInto (  const std::string&   name
 }
 
 
-/**
+/*
  * Reads the value for the attribute name into value.  If name was not
  * found or value could not be interpreted as an int, value is not modified.
  *
@@ -496,7 +496,7 @@ XMLAttributes::readInto (  const std::string&  name
 }
 
 
-/**
+/*
  * Reads the value for the attribute name into value.  If name was not
  * found or value could be interpreted as an unsigned int, value is not
  * modified.
@@ -527,7 +527,7 @@ XMLAttributes::readInto (  const std::string&  name
 }
 
 
-/**
+/*
  * Reads the value for the attribute name into value.  If name was not
  * found, value is not modified.
  *
@@ -561,7 +561,7 @@ XMLAttributes::readInto (  const std::string& name
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Writes this XMLAttributes set to stream.
  */
 void
@@ -584,7 +584,7 @@ XMLAttributes::write (XMLOutputStream& stream) const
 
 /** @cond doxygen-libsbml-internal */
 
-/**
+/*
  * Logs an attribute format error.
  *
  * @param  name  Name of the attribute
@@ -633,7 +633,7 @@ XMLAttributes::attributeTypeError (  const std::string& name
 }
 
 
-/**
+/*
  * Logs an error indicating a required attribute was missing.
  *
  * @param  name  Name of the attribute
@@ -657,7 +657,7 @@ XMLAttributes::attributeRequiredError (const std::string&  name,
 /** @endcond doxygen-libsbml-internal */
 
 
-/**
+/*
  * Sets the XMLErrorLog this parser will use to log errors.
  */
 void
@@ -668,7 +668,7 @@ XMLAttributes::setErrorLog (XMLErrorLog* log)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Inserts this XMLAttributes set into stream.
  */
 LIBLAX_EXTERN
@@ -685,8 +685,8 @@ operator<< (XMLOutputStream& stream, const XMLAttributes& attributes)
 
 
 /**
-  * Creates a new empty XMLAttributes_t set.
-  */
+ * Creates a new empty XMLAttributes_t set.
+ */
 LIBLAX_EXTERN
 XMLAttributes_t *
 XMLAttributes_create (void)

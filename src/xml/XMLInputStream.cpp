@@ -36,7 +36,7 @@ using namespace std;
 class XMLParser;
 
 
-/**
+/*
  * Creates a new XMLInputStream.
  */
 XMLInputStream::XMLInputStream (  const char*   content
@@ -56,7 +56,7 @@ XMLInputStream::XMLInputStream (  const char*   content
 }
 
 
-/**
+/*
  * Destroys this XMLInputStream.
  */
 XMLInputStream::~XMLInputStream ()
@@ -76,7 +76,7 @@ XMLInputStream::~XMLInputStream ()
 }
 
 
-/**
+/*
  * @return the encoding of the XML stream.
  */
 const string&
@@ -86,7 +86,7 @@ XMLInputStream::getEncoding ()
 }
 
 
-/**
+/*
  * @return the version of the XML stream.
  */
 const string&
@@ -96,7 +96,7 @@ XMLInputStream::getVersion ()
 }
 
 
-/**
+/*
  * @return an XMLErrorLog which can be used to log XML parse errors and
  * other validation errors (and messages).
  */
@@ -107,7 +107,7 @@ XMLInputStream::getErrorLog ()
 }
 
 
-/**
+/*
  * @return true if end of file (stream) has been reached, false otherwise.
  */
 bool
@@ -117,7 +117,7 @@ XMLInputStream::isEOF () const
 }
 
 
-/**
+/*
  * @return true if a fatal error occurred while reading from this stream.
  */
 bool
@@ -127,7 +127,7 @@ XMLInputStream::isError () const
 }
 
 
-/**
+/*
  * @return true if the stream is in a good state (i.e. isEOF() and
  * isError() are both false), false otherwise.
  */
@@ -138,7 +138,7 @@ XMLInputStream::isGood () const
 }
 
 
-/**
+/*
  * Consumes the next XMLToken and return it.
  *
  * @return the next XMLToken or EOF (XMLToken.isEOF() == true).
@@ -151,7 +151,7 @@ XMLInputStream::next ()
 }
 
 
-/**
+/*
  * Returns the next XMLToken without consuming it.  A subsequent call to
  * either peek() or next() will return the same token.
  *
@@ -166,7 +166,7 @@ XMLInputStream::peek ()
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Runs mParser until mTokenizer is ready to deliver at least one XMLToken
  * or a fatal error occurs.
  */
@@ -190,7 +190,7 @@ XMLInputStream::queueToken ()
 /** @endcond doxygen-libsbml-internal */
 
 
-/**
+/*
  * Sets the XMLErrorLog this stream will use to log errors.
  */
 void
@@ -200,7 +200,7 @@ XMLInputStream::setErrorLog (XMLErrorLog* log)
 }
 
 
-/**
+/*
  * Consume zero or more XMLTokens up to and including the corresponding
  * end XML element or EOF.
  */
@@ -214,7 +214,7 @@ XMLInputStream::skipPastEnd (const XMLToken& element)
 }
 
 
-/**
+/*
  * Consume zero or more XMLTokens up to but not including the next XML
  * element or EOF.
  */
@@ -225,7 +225,7 @@ XMLInputStream::skipText ()
 }
 
 
-/**
+/*
  * Prints a string representation of the underlying token stream, for
  * debugging purposes.
  */

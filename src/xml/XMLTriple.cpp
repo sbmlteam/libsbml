@@ -30,7 +30,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * Creates a new empty XMLTriple.
  */
 XMLTriple::XMLTriple ()
@@ -38,7 +38,7 @@ XMLTriple::XMLTriple ()
 }
 
 
-/**
+/*
  * Creates a new XMLTriple.
  */
 XMLTriple::XMLTriple (  const std::string&  name
@@ -51,7 +51,7 @@ XMLTriple::XMLTriple (  const std::string&  name
 }
 
 
-/**
+/*
  * Creates a new XMLTriple by splitting triplet on sepchar.  Triplet
  * may be in one of the following formats:
  *
@@ -89,7 +89,7 @@ XMLTriple::XMLTriple (const std::string& triplet, const char sepchar)
 }
 
 
-/**
+/*
  * Copy constructor; creates a copy of this XMLTriple set.
  */
 XMLTriple::XMLTriple(const XMLTriple& orig)
@@ -99,7 +99,7 @@ XMLTriple::XMLTriple(const XMLTriple& orig)
   mPrefix = orig.mPrefix;
 }
 
-/**
+/*
  * Assignment operator for XMLTriple.
  */
 XMLTriple& 
@@ -112,7 +112,7 @@ XMLTriple::operator=(const XMLTriple& orig)
   return *this;
 }
 
-/**
+/*
  * Creates and returns a deep copy of this XMLTriple set.
  * 
  * @return a (deep) copy of this XMLTriple set.
@@ -123,7 +123,7 @@ XMLTriple::clone () const
   return new XMLTriple(*this);
 }
 
-/**
+/*
  * @return true if this XMLTriple set is empty, false otherwise.
  */
 bool

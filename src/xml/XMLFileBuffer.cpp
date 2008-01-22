@@ -34,7 +34,7 @@ using namespace std;
 
 /** @cond doxygen-libsbml-internal */
 
-/**
+/*
  * Creates a XMLBuffer based on the given file.  The file will be opened
  * for reading.
  */
@@ -45,7 +45,7 @@ XMLFileBuffer::XMLFileBuffer (const string& filename) :
 }
 
 
-/**
+/*
  * Destroys this XMLFileBuffer and closes the underlying file.
  */
 XMLFileBuffer::~XMLFileBuffer ()
@@ -55,7 +55,7 @@ XMLFileBuffer::~XMLFileBuffer ()
 }
 
 
-/**
+/*
  * Copies at most nbytes from this XMLFileBuffer to the memory pointed to
  * by destination.
  *
@@ -75,7 +75,7 @@ XMLFileBuffer::copyTo (void* destination, unsigned int bytes)
 }
 
 
-/**
+/*
  * @return true if there was an error reading from the underlying buffer,
  * false otherwise.
  */

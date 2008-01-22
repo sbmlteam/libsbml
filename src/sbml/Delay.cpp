@@ -46,7 +46,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * Creates a new Delay, optionally with the given "math".
  */
 Delay::Delay (   const ASTNode* math ) :
@@ -57,7 +57,7 @@ Delay::Delay (   const ASTNode* math ) :
 }
 
 
-/**
+/*
  * Destroys this Delay.
  */
 Delay::~Delay ()
@@ -66,7 +66,7 @@ Delay::~Delay ()
 }
 
 
-/**
+/*
  * Copy constructor. Creates a copy of this Delay.
  */
 Delay::Delay (const Delay& orig) :
@@ -77,7 +77,7 @@ Delay::Delay (const Delay& orig) :
 }
 
 
-/**
+/*
  * Assignment operator
  */
 Delay& Delay::operator=(const Delay& rhs)
@@ -88,7 +88,7 @@ Delay& Delay::operator=(const Delay& rhs)
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  */
 bool
@@ -98,7 +98,7 @@ Delay::accept (SBMLVisitor& v) const
 }
 
 
-/**
+/*
  * @return a (deep) copy of this Delay.
  */
 SBase*
@@ -109,7 +109,7 @@ Delay::clone () const
 
 
 
-/**
+/*
  * @return the math of this Delay.
  */
 const ASTNode*
@@ -119,7 +119,7 @@ Delay::getMath () const
 }
 
 
-/**
+/*
  * @return true if the math (or equivalently the formula) of this
  * Delay has been set, false otherwise.
  */
@@ -130,7 +130,7 @@ Delay::isSetMath () const
 }
 
 
-/**
+/*
  * Sets the math of this Delay to a copy of the given ASTNode.
  */
 void
@@ -144,7 +144,7 @@ Delay::setMath (const ASTNode* math)
 }
 
 
-/**
+/*
  * Sets the parent SBMLDocument of this SBML object.
  */
 void
@@ -154,7 +154,7 @@ Delay::setSBMLDocument (SBMLDocument* d)
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -167,7 +167,7 @@ Delay::getTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "delay".
  */
 const string&
@@ -179,7 +179,7 @@ Delay::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
  */
@@ -192,7 +192,7 @@ Delay::getElementPosition () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
@@ -264,7 +264,7 @@ Delay::readOtherXML (XMLInputStream& stream)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -309,7 +309,7 @@ Delay::readAttributes (const XMLAttributes& attributes)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
  * of this method as well.
@@ -332,7 +332,7 @@ Delay::writeAttributes (XMLOutputStream& stream) const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
  * implementation of this method as well.

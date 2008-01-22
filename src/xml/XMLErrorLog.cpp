@@ -36,7 +36,7 @@ using namespace std;
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Creates a new empty XMLErrorLog.
  */
 XMLErrorLog::XMLErrorLog ():mParser(NULL)
@@ -46,7 +46,7 @@ XMLErrorLog::XMLErrorLog ():mParser(NULL)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Destroys this XMLErrorLog.
  */
 XMLErrorLog::~XMLErrorLog ()
@@ -56,7 +56,7 @@ XMLErrorLog::~XMLErrorLog ()
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Logs the given XMLError.
  */
 void
@@ -101,7 +101,7 @@ XMLErrorLog::add (const XMLError& error)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Logs (copies) the XMLErrors in the given XMLError list to this
  * XMLErrorLog.
  */
@@ -116,7 +116,7 @@ XMLErrorLog::add (const std::list<XMLError>& errors)
 /** @endcond doxygen-libsbml-internal */
 
 
-/**
+/*
  * @return the nth XMLError in this log.
  */
 const XMLError*
@@ -126,7 +126,7 @@ XMLErrorLog::getError (unsigned int n) const
 }
 
 
-/**
+/*
  * @return the number of errors that have been logged.
  */
 unsigned int
@@ -136,7 +136,7 @@ XMLErrorLog::getNumErrors () const
 }
 
 
-/**
+/*
  * Removes all errors from this log.
  */
 void 
@@ -146,7 +146,7 @@ XMLErrorLog::clearLog()
 }
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Sets the XMLParser for this XMLErrorLog.
  *
  * The XMLParser will be used to obtain the current line and column

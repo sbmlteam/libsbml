@@ -43,7 +43,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * Creates a new Constraint
  * set.
  */
@@ -56,7 +56,7 @@ Constraint::Constraint (const ASTNode* math) :
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 Constraint::~Constraint ()
@@ -64,7 +64,7 @@ Constraint::~Constraint ()
 }
 
 
-/**
+/*
  * Copy constructor. Creates a copy of this Constraint.
  */
 Constraint::Constraint (const Constraint& orig) :
@@ -77,7 +77,7 @@ Constraint::Constraint (const Constraint& orig) :
 }
 
 
-/**
+/*
  * Assignment operator
  */
 Constraint& Constraint::operator=(const Constraint& rhs)
@@ -91,7 +91,7 @@ Constraint& Constraint::operator=(const Constraint& rhs)
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates
@@ -105,7 +105,7 @@ Constraint::accept (SBMLVisitor& v) const
 }
 
 
-/**
+/*
  * @return a (deep) copy of this Constraint.
  */
 SBase*
@@ -115,7 +115,7 @@ Constraint::clone () const
 }
 
 
-/**
+/*
  * @return the message for this Constraint.
  */
 const XMLNode*
@@ -125,7 +125,7 @@ Constraint::getMessage () const
 }
 
 
-/**
+/*
  * @return the math for this Constraint.
  */
 const ASTNode*
@@ -135,7 +135,7 @@ Constraint::getMath () const
 }
 
 
-/**
+/*
  * @return true if the message of this Constraint has been set,
  * false otherwise.
  */
@@ -146,7 +146,7 @@ Constraint::isSetMessage () const
 }
 
 
-/**
+/*
  * @return true if the math for this Constraint has been set,
  * false otherwise.
  */
@@ -157,7 +157,7 @@ Constraint::isSetMath () const
 }
 
 
-/**
+/*
  * Sets the message of this Constraint to a copy of xhtml.
  */
 void
@@ -172,7 +172,7 @@ Constraint::setMessage (const XMLNode* xhtml)
 }
 
 
-/**
+/*
  * Sets the math of this Constraint to a copy of the given
  * ASTNode.
  */
@@ -187,7 +187,7 @@ Constraint::setMath (const ASTNode* math)
 }
 
 
-/**
+/*
  * Unsets the message of this Constraint.
  */
 void 
@@ -198,7 +198,7 @@ Constraint::unsetMessage ()
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -211,7 +211,7 @@ Constraint::getTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "constraint".
  */
 const string&
@@ -223,7 +223,7 @@ Constraint::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
@@ -315,7 +315,7 @@ Constraint::readOtherXML (XMLInputStream& stream)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -358,7 +358,7 @@ Constraint::readAttributes (const XMLAttributes& attributes)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
  * of this method as well.
@@ -381,7 +381,7 @@ Constraint::writeAttributes (XMLOutputStream& stream) const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
  * implementation of this method as well.
@@ -396,7 +396,7 @@ Constraint::writeElements (XMLOutputStream& stream) const
 /** @endcond doxygen-libsbml-internal */
 
 
-/**
+/*
  * @return a (deep) copy of this ListOfConstraints.
  */
 SBase*
@@ -406,7 +406,7 @@ ListOfConstraints::clone () const
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
  * SBML_UNKNOWN (default).
  */
@@ -417,7 +417,7 @@ ListOfConstraints::getItemTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "listOfConstraints".
  */
 const string&
@@ -429,7 +429,7 @@ ListOfConstraints::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
  */
@@ -442,7 +442,7 @@ ListOfConstraints::getElementPosition () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
  */

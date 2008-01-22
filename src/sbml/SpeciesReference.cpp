@@ -50,7 +50,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * Creates a new SimpleSpeciesReference, optionally with its species
  * attribute set.
  */
@@ -61,7 +61,7 @@ SimpleSpeciesReference::SimpleSpeciesReference (const std::string& species) :
 }
 
 
-/**
+/*
  * Destroys this SimpleSpeciesReference.
  */
 SimpleSpeciesReference::~SimpleSpeciesReference ()
@@ -69,7 +69,7 @@ SimpleSpeciesReference::~SimpleSpeciesReference ()
 }
 
 
-/**
+/*
  * Copy constructor. Creates a copy of this SimpleSpeciesReference.
  */
 SimpleSpeciesReference::SimpleSpeciesReference(const SimpleSpeciesReference& orig) :
@@ -79,7 +79,7 @@ SimpleSpeciesReference::SimpleSpeciesReference(const SimpleSpeciesReference& ori
 }
 
 
-/**
+/*
  * Assignment operator.
  */
 SimpleSpeciesReference& SimpleSpeciesReference::operator=(const SimpleSpeciesReference& rhs)
@@ -90,7 +90,7 @@ SimpleSpeciesReference& SimpleSpeciesReference::operator=(const SimpleSpeciesRef
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates
@@ -104,7 +104,7 @@ SimpleSpeciesReference::accept (SBMLVisitor& v) const
 }
 
 
-/**
+/*
  * @return the species for this SimpleSpeciesReference.
  */
 const string&
@@ -114,7 +114,7 @@ SimpleSpeciesReference::getSpecies () const
 }
 
 
-/**
+/*
  * @return true if the species for this SimpleSpeciesReference has been
  * set, false otherwise.
  */
@@ -125,7 +125,7 @@ SimpleSpeciesReference::isSetSpecies () const
 }
 
 
-/**
+/*
  * Sets the species of this SimpleSpeciesReference to a copy of sid.
  */
 void
@@ -135,7 +135,7 @@ SimpleSpeciesReference::setSpecies (const std::string& sid)
 }
 
 
-/**
+/*
  * @return true if this SpeciesReference is a ModiferSpeciesReference,
  * false otherwise.
  */
@@ -147,7 +147,7 @@ SimpleSpeciesReference::isModifier () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -225,7 +225,7 @@ SimpleSpeciesReference::readAttributes (const XMLAttributes& attributes)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
  * of this method as well.
@@ -268,7 +268,7 @@ SimpleSpeciesReference::writeAttributes (XMLOutputStream& stream) const
 
 
 
-/**
+/*
  * Creates a new SpeciesReference, optionally with its species,
  * stoichiometry, and denominator attributes set.
  */
@@ -283,7 +283,7 @@ SpeciesReference::SpeciesReference (  const std::string& species
 }
 
 
-/**
+/*
  * Destroys this SpeciesReference.
  */
 SpeciesReference::~SpeciesReference ()
@@ -292,7 +292,7 @@ SpeciesReference::~SpeciesReference ()
 }
 
 
-/**
+/*
  * Copy constructor. Creates a copy of this SpeciesReference.
  */
 SpeciesReference::SpeciesReference (const SpeciesReference& orig) :
@@ -308,7 +308,7 @@ SpeciesReference::SpeciesReference (const SpeciesReference& orig) :
 }
 
 
-/**
+/*
  * Assignment operator
  */
 SpeciesReference& SpeciesReference::operator=(const SpeciesReference& rhs)
@@ -325,7 +325,7 @@ SpeciesReference& SpeciesReference::operator=(const SpeciesReference& rhs)
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates
@@ -343,7 +343,7 @@ SpeciesReference::accept (SBMLVisitor& v) const
 }
 
 
-/**
+/*
  * @return a (deep) copy of this SpeciesReference.
  */
 SBase*
@@ -353,7 +353,7 @@ SpeciesReference::clone () const
 }
 
 
-/**
+/*
  * Initializes the fields of this SpeciesReference to their defaults:
  *
  *   - stoichiometry = 1
@@ -367,7 +367,7 @@ SpeciesReference::initDefaults ()
 }
 
 
-/**
+/*
  * @return the stoichiometry of this SpeciesReference.
  */
 double
@@ -377,7 +377,7 @@ SpeciesReference::getStoichiometry () const
 }
 
 
-/**
+/*
  * @return the stoichiometryMath of this SpeciesReference.
  */
 const StoichiometryMath*
@@ -387,7 +387,7 @@ SpeciesReference::getStoichiometryMath () const
 }
 
 
-/**
+/*
  * @return the stoichiometryMath of this SpeciesReference.
  */
 StoichiometryMath*
@@ -397,7 +397,7 @@ SpeciesReference::getStoichiometryMath ()
 }
 
 
-/**
+/*
  * @return the denominator of this SpeciesReference.
  */
 int
@@ -407,7 +407,7 @@ SpeciesReference::getDenominator () const
 }
 
 
-/**
+/*
  * @return true if the stoichiometryMath of this SpeciesReference has been
  * set, false otherwise.
  */
@@ -418,7 +418,7 @@ SpeciesReference::isSetStoichiometryMath () const
 }
 
 
-/**
+/*
  * Sets the stoichiometry of this SpeciesReference to value.
  */
 void
@@ -428,7 +428,7 @@ SpeciesReference::setStoichiometry (double value)
 }
 
 
-/**
+/*
  * Sets the stoichiometryMath of this SpeciesReference to a copy of the
  * given ASTNode.
  */
@@ -443,7 +443,7 @@ SpeciesReference::setStoichiometryMath (const StoichiometryMath* math)
 }
 
 
-/**
+/*
  * Sets the denominator of this SpeciesReference to value.
  */
 void
@@ -453,7 +453,7 @@ SpeciesReference::setDenominator (int value)
 }
 
 
-/**
+/*
  * Unsets the "stoichiometryMath" subelement of this SpeciesReference.
  */
 void 
@@ -465,7 +465,7 @@ SpeciesReference::unsetStoichiometryMath ()
 
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -478,7 +478,7 @@ SpeciesReference::getTypeCode () const
 }
 
 
-/**
+/*
  * Sets the annotation of this SBML object to a copy of annotation.
  */
 void
@@ -502,7 +502,7 @@ SpeciesReference::setAnnotation (const XMLNode* annotation)
 }
 
 
-/**
+/*
  * Sets the annotation (by string) of this SBML object to a copy of annotation.
  */
 void
@@ -533,7 +533,7 @@ SpeciesReference::setAnnotation (const std::string& annotation)
 }
 
 
-/**
+/*
  * Appends annotation to the existing annotations.
  * This allows other annotations to be preserved whilst
  * adding additional information.
@@ -577,7 +577,7 @@ SpeciesReference::appendAnnotation (const XMLNode* annotation)
   delete new_annotation;
 }
 
-/**
+/*
  * Appends annotation (by string) to the existing annotations.
  * This allows other annotations to be preserved whilst
  * adding additional information.
@@ -604,7 +604,7 @@ SpeciesReference::appendAnnotation (const std::string& annotation)
 }
 
 
-/**
+/*
  * @return the name of this element ie "speciesReference".
  
  */
@@ -635,7 +635,7 @@ SpeciesReference::sortMath()
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
  */
@@ -664,7 +664,7 @@ SpeciesReference::createObject (XMLInputStream& stream)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
@@ -794,7 +794,7 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -819,7 +819,7 @@ SpeciesReference::readAttributes (const XMLAttributes& attributes)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
  * of this method as well.
@@ -857,7 +857,7 @@ SpeciesReference::writeAttributes (XMLOutputStream& stream) const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
  * implementation of this method as well.
@@ -895,7 +895,7 @@ SpeciesReference::writeElements (XMLOutputStream& stream) const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Synchronizes the annotation of this SBML object.
  */
 void
@@ -942,7 +942,7 @@ SpeciesReference::syncAnnotation ()
 /** @endcond doxygen-libsbml-internal */
 
 
-/**
+/*
  * Creates a new ModifierSpeciesReference, optionally with its species
  * attribute set.
  */
@@ -952,7 +952,7 @@ ModifierSpeciesReference::ModifierSpeciesReference (const std::string& species) 
 }
 
 
-/**
+/*
  * Destroys this ModifierSpeciesReference.
  */
 ModifierSpeciesReference::~ModifierSpeciesReference ()
@@ -960,7 +960,7 @@ ModifierSpeciesReference::~ModifierSpeciesReference ()
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates
@@ -974,7 +974,7 @@ ModifierSpeciesReference::accept (SBMLVisitor& v) const
 }
 
 
-/**
+/*
  * @return a (deep) copy of this ModifierSpeciesReference.
  */
 SBase*
@@ -984,7 +984,7 @@ ModifierSpeciesReference::clone () const
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -997,7 +997,7 @@ ModifierSpeciesReference::getTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "modifierSpeciesReference".
  
  */
@@ -1011,7 +1011,7 @@ ModifierSpeciesReference::getElementName () const
 
 #ifdef USE_LAYOUT
 
-/**
+/*
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
@@ -1065,7 +1065,7 @@ ModifierSpeciesReference::readOtherXML (XMLInputStream& stream)
   return read;
 }
 
-/**
+/*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
  * implementation of this method as well.
@@ -1096,7 +1096,7 @@ ModifierSpeciesReference::writeElements (XMLOutputStream& stream) const
 #endif // USE_LAYOUT
 
 
-/**
+/*
  * Creates a new ListOfSpeciesReferences.
  */
 ListOfSpeciesReferences::ListOfSpeciesReferences () : mType(Unknown)
@@ -1104,7 +1104,7 @@ ListOfSpeciesReferences::ListOfSpeciesReferences () : mType(Unknown)
 }
 
 
-/**
+/*
  * @return a (deep) copy of this ListOfUnits.
  */
 SBase*
@@ -1114,7 +1114,7 @@ ListOfSpeciesReferences::clone () const
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
  * SBML_UNKNOWN (default).
  */
@@ -1136,7 +1136,7 @@ ListOfSpeciesReferences::getItemTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "listOfReactants" or "listOfProducts" etc.
  */
 const string&
@@ -1155,7 +1155,7 @@ ListOfSpeciesReferences::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
  */
@@ -1178,7 +1178,7 @@ ListOfSpeciesReferences::getElementPosition () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Sets type of this ListOfSpeciesReferences.
  */
 void
@@ -1190,7 +1190,7 @@ ListOfSpeciesReferences::setType (SpeciesType type)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
  */

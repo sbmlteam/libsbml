@@ -40,7 +40,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * Creates a new CompartmentType, optionally with its id and name
  * attributes set.
  */
@@ -50,7 +50,7 @@ CompartmentType::CompartmentType (const std::string& id, const std::string& name
 }
 
 
-/**
+/*
  * Destroys this CompartmentType.
  */
 CompartmentType::~CompartmentType ()
@@ -58,7 +58,7 @@ CompartmentType::~CompartmentType ()
 }
 
 
-/**
+/*
  * Copy constructor. Creates a copy of this CompartmentType.
  */
 CompartmentType::CompartmentType(const CompartmentType& orig) :
@@ -67,7 +67,7 @@ CompartmentType::CompartmentType(const CompartmentType& orig) :
 }
 
 
-/**
+/*
  * Assignment operator
  */
 CompartmentType& CompartmentType::operator=(const CompartmentType& rhs)
@@ -77,7 +77,7 @@ CompartmentType& CompartmentType::operator=(const CompartmentType& rhs)
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates
@@ -91,7 +91,7 @@ CompartmentType::accept (SBMLVisitor& v) const
 }
 
 
-/**
+/*
  * @return a (deep) copy of this CompartmentType.
  */
 SBase*
@@ -101,7 +101,7 @@ CompartmentType::clone () const
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -114,7 +114,7 @@ CompartmentType::getTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "compartmentType".
  */
 const string&
@@ -126,7 +126,7 @@ CompartmentType::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -185,7 +185,7 @@ CompartmentType::readAttributes (const XMLAttributes& attributes)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
  * of this method as well.
@@ -217,7 +217,7 @@ CompartmentType::writeAttributes (XMLOutputStream& stream) const
 
 
 
-/**
+/*
  * @return a (deep) copy of this ListOfCompartmentTypes.
  */
 SBase*
@@ -227,7 +227,7 @@ ListOfCompartmentTypes::clone () const
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
  * SBML_UNKNOWN (default).
  */
@@ -238,7 +238,7 @@ ListOfCompartmentTypes::getItemTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "listOfCompartmentTypes".
  */
 const string&
@@ -250,7 +250,7 @@ ListOfCompartmentTypes::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
  */
@@ -263,7 +263,7 @@ ListOfCompartmentTypes::getElementPosition () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
  */

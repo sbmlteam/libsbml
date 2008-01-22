@@ -44,7 +44,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * Creates a new EventAssignment with its variable and math attributes
  * set.
  */
@@ -57,7 +57,7 @@ EventAssignment::EventAssignment (const std::string& variable, const ASTNode* ma
 }
 
 
-/**
+/*
  * Destroys this EventAssignment.
  */
 EventAssignment::~EventAssignment ()
@@ -66,7 +66,7 @@ EventAssignment::~EventAssignment ()
 }
 
 
-/**
+/*
  * Copy constructor. Creates a copy of this EventAssignment.
  */
 EventAssignment::EventAssignment (const EventAssignment& orig) :
@@ -77,7 +77,7 @@ EventAssignment::EventAssignment (const EventAssignment& orig) :
 }
 
 
-/**
+/*
  * Assignment operator
  */
 EventAssignment& EventAssignment::operator=(const EventAssignment& rhs)
@@ -88,7 +88,7 @@ EventAssignment& EventAssignment::operator=(const EventAssignment& rhs)
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates
@@ -102,7 +102,7 @@ EventAssignment::accept (SBMLVisitor& v) const
 }
 
 
-/**
+/*
  * @return a (deep) copy of this EventAssignment.
  */
 SBase*
@@ -112,7 +112,7 @@ EventAssignment::clone () const
 }
 
 
-/**
+/*
  * @return the variable of this EventAssignment.
  */
 const string&
@@ -122,7 +122,7 @@ EventAssignment::getVariable () const
 }
 
 
-/**
+/*
  * @return the math of this EventAssignment.
  */
 const ASTNode*
@@ -132,7 +132,7 @@ EventAssignment::getMath () const
 }
 
 
-/**
+/*
  * @return true if the variable of this EventAssignment has been set, false
  * otherwise.
  */
@@ -143,7 +143,7 @@ EventAssignment::isSetVariable () const
 }
 
 
-/**
+/*
  * @return true if the math of this EventAssignment has been set, false
  * otherwise.
  */
@@ -154,7 +154,7 @@ EventAssignment::isSetMath () const
 }
 
 
-/**
+/*
  * Sets the variable of this EventAssignment to a copy of sid.
  */
 void
@@ -164,7 +164,7 @@ EventAssignment::setVariable (const std::string& sid)
 }
 
 
-/**
+/*
  * Sets the math of this EventAssignment to a copy of the given ASTNode.
  */
 void
@@ -178,7 +178,7 @@ EventAssignment::setMath (const ASTNode* math)
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -191,7 +191,7 @@ EventAssignment::getTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "eventAssignment".
  */
 const string&
@@ -203,7 +203,7 @@ EventAssignment::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
  * implementation of this method as well.
@@ -217,7 +217,7 @@ EventAssignment::writeElements (XMLOutputStream& stream) const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
@@ -290,7 +290,7 @@ EventAssignment::readOtherXML (XMLInputStream& stream)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -345,7 +345,7 @@ EventAssignment::readAttributes (const XMLAttributes& attributes)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
  * of this method as well.
@@ -373,7 +373,7 @@ EventAssignment::writeAttributes (XMLOutputStream& stream) const
 /** @endcond doxygen-libsbml-internal */
 
 
-/**
+/*
  * @return a (deep) copy of this ListOfEventAssignments.
  */
 SBase*
@@ -383,7 +383,7 @@ ListOfEventAssignments::clone () const
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
  * SBML_UNKNOWN (default).
  */
@@ -394,7 +394,7 @@ ListOfEventAssignments::getItemTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "listOfEventAssignments".
  */
 const string&
@@ -406,7 +406,7 @@ ListOfEventAssignments::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the ordinal position of the element with respect to its
  * siblings or -1 (default) to indicate the position is not significant.
  */
@@ -419,7 +419,7 @@ ListOfEventAssignments::getElementPosition () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
  */

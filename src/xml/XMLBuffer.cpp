@@ -26,7 +26,7 @@
 
 /** @cond doxygen-libsbml-internal */
 
-/**
+/*
  * Creates a new XMLBuffer.
  */
 XMLBuffer::XMLBuffer ()
@@ -34,7 +34,7 @@ XMLBuffer::XMLBuffer ()
 }
 
 
-/**
+/*
  * Destroys this XMLBuffer.
  */
 XMLBuffer::~XMLBuffer ()

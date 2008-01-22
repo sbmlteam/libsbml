@@ -39,7 +39,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * Creates a new Unit, optionally with its kind, exponent, scale,
  * and multiplier attributes set.
  */
@@ -57,7 +57,7 @@ Unit::Unit (   UnitKind_t  kind
 }
 
 
-/**
+/*
  * Creates a new Unit, optionally with its kind (via string), exponent,
  * scale and multiplier attributes set.
  */
@@ -75,7 +75,7 @@ Unit::Unit (   const std::string&  kind
 }
 
 
-/**
+/*
  * Destroys the given Unit.
  */
 Unit::~Unit ()
@@ -83,7 +83,7 @@ Unit::~Unit ()
 }
 
 
-/**
+/*
  * Copy constructor. Creates a copy of this Unit.
  */
 Unit::Unit(const Unit& orig) :
@@ -97,7 +97,7 @@ Unit::Unit(const Unit& orig) :
 }
 
 
-/**
+/*
  * Assignment operator.
  */
 Unit& Unit::operator=(const Unit& rhs)
@@ -112,7 +112,7 @@ Unit& Unit::operator=(const Unit& rhs)
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates
@@ -126,7 +126,7 @@ Unit::accept (SBMLVisitor& v) const
 }
 
 
-/**
+/*
  * @return a (deep) copy of this Unit.
  */
 SBase*
@@ -136,7 +136,7 @@ Unit::clone () const
 }
 
 
-/**
+/*
  * Initializes the fields of this Unit to their defaults:
  *
  *   - exponent   = 1
@@ -153,7 +153,7 @@ Unit::initDefaults ()
 }
 
 
-/**
+/*
  * @return the kind of this Unit.
  */
 UnitKind_t
@@ -163,7 +163,7 @@ Unit::getKind () const
 }
 
 
-/**
+/*
  * @return the exponent of this Unit.
  */
 int
@@ -173,7 +173,7 @@ Unit::getExponent () const
 }
 
 
-/**
+/*
  * @return the scale of this Unit.
  */
 int
@@ -183,7 +183,7 @@ Unit::getScale () const
 }
 
 
-/**
+/*
  * @return the multiplier of this Unit.
  */
 double
@@ -193,7 +193,7 @@ Unit::getMultiplier () const
 }
 
 
-/**
+/*
  * @return the offset of this Unit.
  */
 double
@@ -203,7 +203,7 @@ Unit::getOffset () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'ampere', false otherwise.
  */
 bool
@@ -213,7 +213,7 @@ Unit::isAmpere () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'becquerel', false otherwise.
  */
 bool
@@ -223,7 +223,7 @@ Unit::isBecquerel () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'candela', false otherwise.
  */
 bool
@@ -233,7 +233,7 @@ Unit::isCandela () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'Celsius', false otherwise.
  */
 bool
@@ -243,7 +243,7 @@ Unit::isCelsius () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'coulomb', false otherwise.
  */
 bool
@@ -253,7 +253,7 @@ Unit::isCoulomb () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'dimensionless', false
  * otherwise.
  */
@@ -264,7 +264,7 @@ Unit::isDimensionless () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'farad', false otherwise.
  */
 bool
@@ -274,7 +274,7 @@ Unit::isFarad () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'gram', false otherwise.
  */
 bool
@@ -284,7 +284,7 @@ Unit::isGram () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'gray', false otherwise.
  */
 bool
@@ -294,7 +294,7 @@ Unit::isGray () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'henry', false otherwise.
  */
 bool
@@ -304,7 +304,7 @@ Unit::isHenry () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'hertz', false otherwise.
  */
 bool
@@ -314,7 +314,7 @@ Unit::isHertz () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'item', false otherwise.
  */
 bool
@@ -324,7 +324,7 @@ Unit::isItem () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'joule', false otherwise.
  */
 bool
@@ -334,7 +334,7 @@ Unit::isJoule () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'katal', false otherwise.
  */
 bool
@@ -344,7 +344,7 @@ Unit::isKatal () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'kelvin', false otherwise.
  */
 bool
@@ -354,7 +354,7 @@ Unit::isKelvin () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'kilogram', false otherwise.
  */
 bool
@@ -364,7 +364,7 @@ Unit::isKilogram () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'litre' or 'liter', false
  * otherwise.
  */
@@ -382,7 +382,7 @@ Unit::isLitre () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'lumen', false otherwise.
  */
 bool
@@ -392,7 +392,7 @@ Unit::isLumen () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'lux', false otherwise.
  */
 bool
@@ -402,7 +402,7 @@ Unit::isLux () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'metre' or 'meter', false
  * otherwise.
  */
@@ -420,7 +420,7 @@ Unit::isMetre () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'mole', false otherwise.
  */
 bool
@@ -430,7 +430,7 @@ Unit::isMole () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'newton', false otherwise.
  */
 bool
@@ -440,7 +440,7 @@ Unit::isNewton () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'ohm', false otherwise.
  */
 bool
@@ -450,7 +450,7 @@ Unit::isOhm () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'pascal', false otherwise.
  */
 bool
@@ -460,7 +460,7 @@ Unit::isPascal () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'radian', false otherwise.
  */
 bool
@@ -470,7 +470,7 @@ Unit::isRadian () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'second', false otherwise.
  */
 bool
@@ -480,7 +480,7 @@ Unit::isSecond () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'siemens', false otherwise.
  */
 bool
@@ -490,7 +490,7 @@ Unit::isSiemens () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'sievert', false otherwise.
  */
 bool
@@ -500,7 +500,7 @@ Unit::isSievert () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'steradian', false otherwise.
  */
 bool
@@ -510,7 +510,7 @@ Unit::isSteradian () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'tesla', false otherwise.
  */
 bool
@@ -520,7 +520,7 @@ Unit::isTesla () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'volt', false otherwise.
  */
 bool
@@ -530,7 +530,7 @@ Unit::isVolt () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'watt', false otherwise.
  */
 bool
@@ -540,7 +540,7 @@ Unit::isWatt () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit is 'weber', false otherwise.
  */
 bool
@@ -550,7 +550,7 @@ Unit::isWeber () const
 }
 
 
-/**
+/*
  * @return true if the kind of this Unit has been set, false otherwise.
  */
 bool
@@ -560,7 +560,7 @@ Unit::isSetKind () const
 }
 
 
-/**
+/*
  * Sets the kind of this Unit to the given UnitKind.
  */
 void
@@ -570,7 +570,7 @@ Unit::setKind (UnitKind_t kind)
 }
 
 
-/**
+/*
  * Sets the exponent of this Unit to the given value.
  */
 void
@@ -580,7 +580,7 @@ Unit::setExponent (int value)
 }
 
 
-/**
+/*
  * Sets the scale of this Unit to the given value.
  */
 void
@@ -590,7 +590,7 @@ Unit::setScale (int value)
 }
 
 
-/**
+/*
  * Sets the multiplier of this Unit to the given value.
  */
 void
@@ -600,7 +600,7 @@ Unit::setMultiplier (double value)
 }
 
 
-/**
+/*
  * Sets the offset of this Unit to the given value.
  */
 void
@@ -610,7 +610,7 @@ Unit::setOffset (double value)
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -623,7 +623,7 @@ Unit::getTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "unit".
  */
 const string&
@@ -634,7 +634,7 @@ Unit::getElementName () const
 }
 
 
-/**
+/*
  * @return true if name is one of the five SBML builtin Unit names
  * ('substance', 'volume', 'area', 'length' or 'time'), false otherwise.
  */
@@ -679,7 +679,7 @@ Unit::isUnitKind(const std::string &name, unsigned int level,
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return true if name is a valid UnitKind.
  */
 bool
@@ -691,7 +691,7 @@ Unit::isL1UnitKind (const std::string& name)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return true if name is a valid UnitKind.
  */
 bool
@@ -706,7 +706,7 @@ Unit::isL2V1UnitKind (const std::string& name)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return true if name is a valid UnitKind.
  */
 bool
@@ -721,7 +721,7 @@ Unit::isL2UnitKind (const std::string& name)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -816,7 +816,7 @@ Unit::readAttributes (const XMLAttributes& attributes)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
  * of this method as well.
@@ -873,7 +873,7 @@ Unit::writeAttributes (XMLOutputStream& stream) const
 /** @endcond doxygen-libsbml-internal */
 
 
-/**
+/*
  * @return a (deep) copy of this ListOfUnits.
  */
 SBase*
@@ -883,7 +883,7 @@ ListOfUnits::clone () const
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
  * SBML_UNKNOWN (default).
  */
@@ -894,7 +894,7 @@ ListOfUnits::getItemTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "listOfUnits".
  */
 const string&
@@ -906,7 +906,7 @@ ListOfUnits::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the ordinal position of the element with respect to its
  * siblings or -1 (default) to indicate the position is not significant.
  */
@@ -919,7 +919,7 @@ ListOfUnits::getElementPosition () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
  */

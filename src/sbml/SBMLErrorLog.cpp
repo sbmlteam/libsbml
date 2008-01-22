@@ -42,7 +42,7 @@ using namespace std;
 /** Most of the methods are internal.  A few visible ones are at the end. */
 
 
-/**
+/*
  * Creates a new empty SBMLErrorLog.
  */
 SBMLErrorLog::SBMLErrorLog ()
@@ -50,7 +50,7 @@ SBMLErrorLog::SBMLErrorLog ()
 }
 
 
-/**
+/*
  * Destroys this SBMLErrorLog.
  */
 SBMLErrorLog::~SBMLErrorLog ()
@@ -77,7 +77,7 @@ SBMLErrorLog::logError ( const unsigned int errorId
 }
 
 
-/**
+/*
  * Adds the given SBMLError to the log.
  *
  * @param error SBMLError, the error to be logged.
@@ -89,7 +89,7 @@ SBMLErrorLog::add (const SBMLError& error)
 }
 
 
-/**
+/*
  * Logs (copies) the SBMLErrors in the given SBMLError list to this
  * SBMLErrorLog.
  *
@@ -124,7 +124,7 @@ private:
 };
 
 
-/**
+/*
  * Removes the error(s) having errorId from the SBMLError list.
  *
  * @param errorId the error identifier of the error to be removed.
@@ -172,7 +172,7 @@ SBMLErrorLog::getNumFailsWithSeverity(unsigned int severity)
 }
 
 
-/**
+/*
  * Returns the nth SBMLError in this log.
  *
  * @param n unsigned int number of the error to retrieve.

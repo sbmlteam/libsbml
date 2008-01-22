@@ -33,7 +33,7 @@ using namespace std;
 
 /** @cond doxygen-libsbml-internal */
 
-/**
+/*
  * Creates a new XMLHandler.
  */
 XMLHandler::XMLHandler ()
@@ -41,7 +41,7 @@ XMLHandler::XMLHandler ()
 }
 
 
-/**
+/*
  * Destroys this XMLHandler.
  */
 XMLHandler::~XMLHandler ()
@@ -49,7 +49,7 @@ XMLHandler::~XMLHandler ()
 }
 
 
-/**
+/*
  * Receive notification of the beginning of the document.
  *
  * By default, do nothing. Application writers may override this method
@@ -61,7 +61,7 @@ XMLHandler::startDocument ()
 }
 
 
-/**
+/*
  * Receive notification of the XML declaration,
  * i.e.  <?xml version="1.0" encoding="UTF-8"?>
  *
@@ -74,7 +74,7 @@ XMLHandler::XML (const string& version, const string& encoding)
 }
 
 
-/**
+/*
  * Receive notification of the start of an element.
  *
  * By default, do nothing. Application writers may override this method
@@ -86,7 +86,7 @@ XMLHandler::startElement (const XMLToken& element)
 }
 
 
-/**
+/*
  * Receive notification of the end of the document.
  *
  * By default, do nothing. Application writers may override this method
@@ -98,7 +98,7 @@ XMLHandler::endDocument ()
 }
 
 
-/**
+/*
  * Receive notification of the end of an element.
  *
  * By default, do nothing. Application writers may override this method
@@ -110,7 +110,7 @@ XMLHandler::endElement (const XMLToken& element)
 }
 
 
-/**
+/*
  * Receive notification of character data inside an element.
  *
  * By default, do nothing. Application writers may override this method

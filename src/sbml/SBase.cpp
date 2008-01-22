@@ -122,7 +122,7 @@ static const char * XHTML_ELEMENTS[] =
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Only subclasses may create SBase objects.
  */
 SBase::SBase (const std::string& id, const std::string& name, int sbo) :
@@ -142,7 +142,7 @@ SBase::SBase (const std::string& id, const std::string& name, int sbo) :
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Creates a new SBase object with the given sboTerm.
  * Only subclasses may create SBase objects.
  */
@@ -163,7 +163,7 @@ SBase::SBase (int sbo) :
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Copy constructor. Creates a copy of this SBase object.
  */
 SBase::SBase(const SBase& orig)
@@ -210,7 +210,7 @@ SBase::SBase(const SBase& orig)
 /** @endcond doxygen-libsbml-internal */
 
 
-/**
+/*
  * Destroy this SBase object.
  */
 SBase::~SBase ()
@@ -226,7 +226,7 @@ SBase::~SBase ()
   }
 }
 
-/**
+/*
  * Assignment operator
  */
 SBase& SBase::operator=(const SBase& orig)
@@ -275,7 +275,7 @@ SBase& SBase::operator=(const SBase& orig)
 }
 
 
-/**
+/*
  * @return the metaid of this SBML object.
  */
 const string&
@@ -285,7 +285,7 @@ SBase::getMetaId () const
 }
 
 
-/**
+/*
  * @return the metaid of this SBML object.
  */
 string&
@@ -295,7 +295,7 @@ SBase::getMetaId ()
 }
 
 
-/**
+/*
  * @return the id of this SBML object.
  */
 const string&
@@ -305,7 +305,7 @@ SBase::getId () const
 }
 
 
-/**
+/*
  * @return the name of this SBML object.
  */
 const string&
@@ -315,7 +315,7 @@ SBase::getName () const
 }
 
 
-/**
+/*
  * @return the notes of this SBML object.
  */
 XMLNode*
@@ -325,7 +325,7 @@ SBase::getNotes()
 }
 
 
-/**
+/*
  * @return the notes of this SBML object by string.
  */
 std::string
@@ -335,7 +335,7 @@ SBase::getNotesString()
 }
 
 
-/**
+/*
  * @return the annotation of this SBML object.
  */
 XMLNode* 
@@ -347,7 +347,7 @@ SBase::getAnnotation ()
 }
 
 
-/**
+/*
  * @return the annotation of this SBML object by string.
  */
 std::string
@@ -367,7 +367,7 @@ SBase::getNamespaces() const
 }
 
 
-/**
+/*
  * @return the parent SBMLDocument of this SBML object.
  */
 const SBMLDocument*
@@ -377,7 +377,7 @@ SBase::getSBMLDocument () const
 }
 
 
-/**
+/*
  * @return the sboTerm as an integer.  If not set,
  * sboTerm will be -1. 
  */
@@ -388,7 +388,7 @@ SBase::getSBOTerm () const
 }
 
 
-/**
+/*
  * @return the line number of this SBML object.
  */
 unsigned int
@@ -398,7 +398,7 @@ SBase::getLine () const
 }
 
 
-/**
+/*
  * @return the column number of this SBML object.
  */
 unsigned int
@@ -408,7 +408,7 @@ SBase::getColumn () const
 }
 
 
-/**
+/*
  * @return true if the metaid of this SBML object has been set, false
  * otherwise.
  */
@@ -419,7 +419,7 @@ SBase::isSetMetaId () const
 }
 
 
-/**
+/*
  * @return true if the id of this SBML object has been set, false
  * otherwise.
  */
@@ -430,7 +430,7 @@ SBase::isSetId () const
 }
 
 
-/**
+/*
  * @return true if the name of this SBML object has been set, false
  * otherwise.
  */
@@ -442,7 +442,7 @@ SBase::isSetName () const
 }
 
 
-/**
+/*
  * @return true if the notes of this SBML object has been set, false
  * otherwise.
  */
@@ -453,7 +453,7 @@ SBase::isSetNotes () const
 }
 
 
-/**
+/*
  * @return true if the annotation of this SBML object has been set,
  * false otherwise.
  */
@@ -465,7 +465,7 @@ SBase::isSetAnnotation () const
 }
 
 
-/**
+/*
  * @return true if the sboTerm has been set, false
  * otherwise.
  */
@@ -476,7 +476,7 @@ SBase::isSetSBOTerm () const
 }
 
 
-/**
+/*
  * Sets the metaid field of the given SBML object to a copy of metaid.
  */
 void
@@ -486,7 +486,7 @@ SBase::setMetaId (const std::string& metaid)
 }
 
 
-/**
+/*
  * Sets the id of this SBML object to a copy of sid.
  */
 void
@@ -496,7 +496,7 @@ SBase::setId (const std::string& sid)
 }
 
 
-/**
+/*
  * Sets the name of this SBML object to a copy of name.
  */
 void
@@ -506,7 +506,7 @@ SBase::setName (const std::string& name)
   else mName = name;
 }
 
-/**
+/*
  * Sets the annotation of this SBML object to a copy of annotation.
  */
 void 
@@ -554,7 +554,7 @@ SBase::setAnnotation (const XMLNode* annotation)
   }
 }
 
-/**
+/*
  * Sets the annotation (by string) of this SBML object to a copy of annotation.
  */
 void
@@ -586,7 +586,7 @@ SBase::setAnnotation (const std::string& annotation)
 }
 
 
-/**
+/*
  * Appends annotation to the existing annotations.
  * This allows other annotations to be preserved whilst
  * adding additional information.
@@ -641,7 +641,7 @@ SBase::appendAnnotation (const XMLNode* annotation)
   delete new_annotation;
 }
 
-/**
+/*
  * Appends annotation (by string) to the existing annotations.
  * This allows other annotations to be preserved whilst
  * adding additional information.
@@ -669,7 +669,7 @@ SBase::appendAnnotation (const std::string& annotation)
 
 
 
-/**
+/*
  * Sets the notes of this SBML object to a copy of notes.
  */
 void 
@@ -701,7 +701,7 @@ SBase::setNotes(const XMLNode* notes)
   }
 }
 
-/**
+/*
  * Sets the notes (by std::string) of this SBML object to a copy of notes.
  */
 void
@@ -722,7 +722,7 @@ SBase::setNotes(const std::string& notes)
 }
 
 
-/**
+/*
  * Appends notes to the existing notes.
  * This allows other notes to be preserved whilst
  * adding additional information.
@@ -977,7 +977,7 @@ SBase::appendNotes(const XMLNode* notes)
 
 }
 
-/**
+/*
  * Appends notes (by string) to the existing notes.
  * This allows other notes to be preserved whilst
  * adding additional information.
@@ -994,7 +994,7 @@ SBase::appendNotes(const std::string& notes)
 }
 
 
-/**
+/*
  * Sets the parent SBMLDocument of this SBML object.
  */
 void
@@ -1004,7 +1004,7 @@ SBase::setSBMLDocument (SBMLDocument* d)
 }
 
 
-/**
+/*
  * Sets the sboTerm field to value.
  */
 void
@@ -1014,7 +1014,7 @@ SBase::setSBOTerm (int value)
 }
 
 
-/**
+/*
  * Unsets the metaid of this SBML object.
  */
 void
@@ -1024,7 +1024,7 @@ SBase::unsetMetaId ()
 }
 
 
-/**
+/*
  * Unsets the id of this SBML object.
  */
 void
@@ -1034,7 +1034,7 @@ SBase::unsetId ()
 }
 
 
-/**
+/*
  * Unsets the name of this SBML object.
  */
 void
@@ -1045,7 +1045,7 @@ SBase::unsetName ()
 }
 
 
-/**
+/*
  * Unsets the notes of this SBML object.
  */
 void
@@ -1055,7 +1055,7 @@ SBase::unsetNotes ()
   mNotes = 0;
 }
 
-/**
+/*
  * Unsets the annotation of this SBML object.
  */
 void
@@ -1066,7 +1066,7 @@ SBase::unsetAnnotation ()
 }
 
 
-/**
+/*
  * Unsets the sboTerm of this SBML object.
  */
 void
@@ -1076,7 +1076,7 @@ SBase::unsetSBOTerm ()
 }
 
 
-/**
+/*
  * Adds a copy of the given CVTerm to this SBML object.
  */
 void
@@ -1181,7 +1181,7 @@ SBase::addCVTerm(CVTerm * term)
 }
 
 
-/**
+/*
  * @return the list of CVTerms for this SBML object.
  */
 List*
@@ -1191,7 +1191,7 @@ SBase::getCVTerms()
 }
 
 
-/**
+/*
  * @return the list of CVTerms for this SBML object.
  */
 List*
@@ -1200,7 +1200,7 @@ SBase::getCVTerms() const
   return mCVTerms;
 }
 
-/**
+/*
  * Returns the number of CVTerm objects in the annotations of this SBML
  * object.
  * 
@@ -1220,7 +1220,7 @@ SBase::getNumCVTerms()
 }
 
 
-/**
+/*
  * Returns the nth CVTerm in the list of CVTerms of this SBML
  * object.
  * 
@@ -1235,7 +1235,7 @@ SBase::getCVTerm(unsigned int n)
 }
 
 
-/**
+/*
  * Clears the list of CVTerms of this SBML
  * object.
  */
@@ -1327,7 +1327,7 @@ SBase::getResourceModelQualifier(std::string resource)
 }
 
 
-/**
+/*
  * @return the parent Model of this SBML object.
  */
 const Model*
@@ -1337,7 +1337,7 @@ SBase::getModel () const
 }
 
 
-/**
+/*
  * @return the SBML level of this SBML object.
  */
 unsigned int
@@ -1347,7 +1347,7 @@ SBase::getLevel () const
 }
 
 
-/**
+/*
  * @return the SBML version of this SBML object.
  */
 unsigned int
@@ -1376,7 +1376,7 @@ SBase::getTypeCode () const
 }
 
 
-/**
+/*
  * @return the partial SBML that describes this SBML object.
  */
 char*
@@ -1392,7 +1392,7 @@ SBase::toSBML ()
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Reads (initializes) this SBML object by reading from XMLInputStream.
  */
 void
@@ -1460,7 +1460,7 @@ SBase::read (XMLInputStream& stream)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Writes (serializes) this SBML object by writing it to XMLOutputStream.
  */
 void
@@ -1477,7 +1477,7 @@ SBase::write (XMLOutputStream& stream) const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
  * implementation of this method as well.
@@ -1498,7 +1498,7 @@ SBase::writeElements (XMLOutputStream& stream) const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to create, store, and then
  * return an SBML object corresponding to the next XMLToken in the
  * XMLInputStream.
@@ -1515,7 +1515,7 @@ SBase::createObject (XMLInputStream&)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
@@ -1530,7 +1530,7 @@ SBase::readOtherXML (XMLInputStream&)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return true if read an <annotation> element from the stream
  */
 bool
@@ -1583,7 +1583,7 @@ SBase::readAnnotation (XMLInputStream& stream)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return true if read a <notes> element from the stream
  */
 bool
@@ -1636,7 +1636,7 @@ SBase::readNotes (XMLInputStream& stream)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
  */
@@ -1649,7 +1649,7 @@ SBase::getElementPosition () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the SBMLErrorLog used to log errors during while reading and
  * validating SBML.
  */
@@ -1662,7 +1662,7 @@ SBase::getErrorLog ()
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Helper to log a common type of error.
  */
 void
@@ -1684,7 +1684,7 @@ SBase::logUnknownAttribute( string attribute,
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Helper to log a common type of error.
  */
 void
@@ -1704,7 +1704,7 @@ SBase::logUnknownElement( string element,
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Convenience method for easily logging problems from within method
  * implementations.
  *
@@ -1723,7 +1723,7 @@ SBase::logError (  unsigned int       id
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -1746,7 +1746,7 @@ SBase::readAttributes (const XMLAttributes& attributes)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
  * of this method as well.
@@ -1765,7 +1765,7 @@ SBase::writeAttributes (XMLOutputStream& stream) const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Synchronizes the annotation of this SBML object. 
  */
 void
@@ -1809,7 +1809,7 @@ SBase::syncAnnotation ()
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Checks that SBML element has been read in the proper order.  If object
  * is not in the expected position, an error is logged.
  */
@@ -2175,7 +2175,7 @@ SBase::checkAnnotation()
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Checks that the XHTML is valid.
  * If the xhtml does not conform to the specification of valid xhtml within
  * an sbml document, an error is logged.
@@ -3802,7 +3802,7 @@ SBase::isExtender(std::string::iterator it, unsigned int numBytes)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Stores the location (line and column) and any XML namespaces (for
  * roundtripping) declared on this SBML (XML) element.
  */

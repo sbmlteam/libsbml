@@ -89,7 +89,7 @@ FormulaUnitsData::clone() const
 }
 
 
-/**
+/*
  * Get the unitReferenceId of this FormulaUnitsData.
  * 
  * @return the value of the unitReferenceId of this 
@@ -101,7 +101,7 @@ FormulaUnitsData::getUnitReferenceId()
   return mUnitReferenceId; 
 }
 
-/**
+/*
  * Get the unitReferenceId of this FormulaUnitsData.
  * 
  * @return the value of the unitReferenceId of this 

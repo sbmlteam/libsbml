@@ -38,7 +38,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * Creates a new XMLOutputStream that wraps stream.
  */
 XMLOutputStream::XMLOutputStream (  std::ostream&       stream
@@ -57,7 +57,7 @@ XMLOutputStream::XMLOutputStream (  std::ostream&       stream
 }
 
 
-/**
+/*
  * Writes the given XML end element name to this XMLOutputStream.
  */
 void
@@ -87,7 +87,7 @@ XMLOutputStream::endElement (const std::string& name)
 }
 
 
-/**
+/*
  * Writes the given XML end element 'prefix:name' to this
  * XMLOutputStream.
  */
@@ -118,7 +118,7 @@ XMLOutputStream::endElement (const XMLTriple& triple)
 }
 
 
-/**
+/*
  * Turns automatic indentation on or off for this XMLOutputStream.
  */
 void
@@ -128,7 +128,7 @@ XMLOutputStream::setAutoIndent (bool indent)
 }
 
 
-/**
+/*
  * Writes the given XML start element name to this XMLOutputStream.
  */
 void
@@ -149,7 +149,7 @@ XMLOutputStream::startElement (const std::string& name)
 }
 
 
-/**
+/*
  * Writes the given XML start element 'prefix:name' to this
  * XMLOutputStream.
  */
@@ -171,7 +171,7 @@ XMLOutputStream::startElement (const XMLTriple& triple)
 }
 
 
-/**
+/*
  * Writes the given XML start and end element name to this XMLOutputStream.
  */
 void
@@ -193,7 +193,7 @@ XMLOutputStream::startEndElement (const std::string& name)
 }
 
 
-/**
+/*
  * Writes the given XML start and end element 'prefix:name' to this
  * XMLOutputStream.
  */
@@ -216,7 +216,7 @@ XMLOutputStream::startEndElement (const XMLTriple& triple)
 }
 
 
-/**
+/*
  * Writes the given attribute, name="value" to this XMLOutputStream.
  */
 void
@@ -231,7 +231,7 @@ XMLOutputStream::writeAttribute (const std::string& name, const std::string& val
 }
 
 
-/**
+/*
  * Writes the given attribute, prefix:name="value" to this
  * XMLOutputStream.
  */
@@ -245,7 +245,7 @@ XMLOutputStream::writeAttribute (const XMLTriple& triple, const std::string& val
 }
 
 
-/**
+/*
  * Writes the given attribute, name="true" or name="false" to this
  * XMLOutputStream.
  */
@@ -259,7 +259,7 @@ XMLOutputStream::writeAttribute (const std::string& name, const bool& value)
 }
 
 
-/**
+/*
  * Writes the given attribute, prefix:name="true" or prefix:name="false" to
  * this XMLOutputStream.
  */
@@ -273,7 +273,7 @@ XMLOutputStream::writeAttribute (const XMLTriple& triple, const bool& value)
 }
 
 
-/**
+/*
  * Writes the given attribute, name="value" to this XMLOutputStream.
  */
 void
@@ -286,7 +286,7 @@ XMLOutputStream::writeAttribute (const std::string& name, const double& value)
 }
 
 
-/**
+/*
  * Writes the given attribute, prefix:name="value" to this XMLOutputStream.
  */
 void
@@ -299,7 +299,7 @@ XMLOutputStream::writeAttribute (const XMLTriple& triple, const double& value)
 }
 
 
-/**
+/*
  * Writes the given attribute, name="value" to this XMLOutputStream.
  */
 void
@@ -312,7 +312,7 @@ XMLOutputStream::writeAttribute (const std::string& name, const long& value)
 }
 
 
-/**
+/*
  * Writes the given attribute, prefix:name="value" to this XMLOutputStream.
  */
 void
@@ -325,7 +325,7 @@ XMLOutputStream::writeAttribute (const XMLTriple& triple, const long& value)
 }
 
 
-/**
+/*
  * Writes the given attribute, name="value" to this XMLOutputStream.
  */
 void
@@ -338,7 +338,7 @@ XMLOutputStream::writeAttribute (const std::string& name, const int& value)
 }
 
 
-/**
+/*
  * Writes the given attribute, prefix:name="value" to this
  * XMLOutputStream.
  */
@@ -352,7 +352,7 @@ XMLOutputStream::writeAttribute (const XMLTriple& triple, const int& value)
 }
 
 
-/**
+/*
  * Writes the given attribute, name="value" to this XMLOutputStream.
  */
 void
@@ -365,7 +365,7 @@ XMLOutputStream::writeAttribute (const std::string& name, const unsigned int& va
 }
 
 
-/**
+/*
  * Writes the given attribute, prefix:name="value" to this
  * XMLOutputStream.
  */
@@ -380,7 +380,7 @@ XMLOutputStream::writeAttribute (  const XMLTriple&     triple
 }
 
 
-/**
+/*
  * Decreases the indentation level for this XMLOutputStream.
  */
 void
@@ -390,7 +390,7 @@ XMLOutputStream::downIndent ()
 }
 
 
-/**
+/*
  * Increases the indentation level for this XMLOutputStream.
  */
 void
@@ -401,7 +401,7 @@ XMLOutputStream::upIndent ()
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Outputs indentation whitespace.
  */
 void
@@ -417,7 +417,7 @@ XMLOutputStream::writeIndent (bool isEnd)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Outputs the given characters to the underlying stream.
  */
 void
@@ -432,7 +432,7 @@ XMLOutputStream::writeChars (const std::string& chars)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Outputs name.
  */
 void
@@ -444,7 +444,7 @@ XMLOutputStream::writeName (const std::string& name)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Outputs prefix:name.
  */
 void
@@ -462,7 +462,7 @@ XMLOutputStream::writeName (const XMLTriple& triple)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Outputs value in quotes.
  */
 void
@@ -476,7 +476,7 @@ XMLOutputStream::writeValue (const std::string& value)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Outputs "true" or "false" in quotes.
  */
 void
@@ -488,7 +488,7 @@ XMLOutputStream::writeValue (const bool& value)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Outputs the double value in quotes, or "INF", "-INF", or "NaN".
  */
 void
@@ -520,7 +520,7 @@ XMLOutputStream::writeValue (const double& value)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Outputs the long value in quotes.
  */
 void
@@ -532,7 +532,7 @@ XMLOutputStream::writeValue (const long& value)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Outputs the int value in quotes.
  */
 void
@@ -544,7 +544,7 @@ XMLOutputStream::writeValue (const int& value)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Outputs the int value in quotes.
  */
 void
@@ -555,7 +555,7 @@ XMLOutputStream::writeValue (const unsigned int& value)
 /** @endcond doxygen-libsbml-internal */
 
 
-/**
+/*
  * Writes the XML declaration:
  * <?xml version="1.0" encoding="..."?>
  */
@@ -571,7 +571,7 @@ XMLOutputStream::writeXMLDecl ()
 }
 
 
-/**
+/*
  * Outputs the given characters to the underlying stream.
  */
 XMLOutputStream&
@@ -590,7 +590,7 @@ XMLOutputStream::operator<< (const std::string& chars)
 }
 
 
-/**
+/*
  * Outputs the given double to the underlying stream.
  */
 XMLOutputStream&
@@ -608,7 +608,7 @@ XMLOutputStream::operator<< (const double& value)
 }
 
 
-/**
+/*
  * Outputs the given long to the underlying stream.
  */
 XMLOutputStream&

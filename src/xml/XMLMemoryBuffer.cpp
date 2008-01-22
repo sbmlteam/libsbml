@@ -27,7 +27,7 @@
 
 /** @cond doxygen-libsbml-internal */
 
-/**
+/*
  * Creates a XMLBuffer based on the given sequence of bytes in buffer.
  * This class does not take ownership of or copy buffer, it merely
  * references it.
@@ -40,7 +40,7 @@ XMLMemoryBuffer::XMLMemoryBuffer (const char* buffer, unsigned int length) :
 }
 
 
-/**
+/*
  * Destroys this XMLMemoryBuffer.
  */
 XMLMemoryBuffer::~XMLMemoryBuffer ()
@@ -48,7 +48,7 @@ XMLMemoryBuffer::~XMLMemoryBuffer ()
 }
 
 
-/**
+/*
  * Copies at most nbytes from this XMLMemoryBuffer to the memory pointed
  * to by destination.
  *
@@ -67,7 +67,7 @@ XMLMemoryBuffer::copyTo (void* destination, unsigned int bytes)
 }
 
 
-/**
+/*
  * @return true if there was an error reading from the underlying buffer
  * (i.e. it's null), false otherwise.
  */

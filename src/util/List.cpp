@@ -24,7 +24,7 @@
 #include <sbml/util/List.h>
 
 
-/**
+/*
  * Creates a new List.
  */
 List::List ():
@@ -35,7 +35,7 @@ List::List ():
 }
 
 
-/**
+/*
  * Destroys the given List.
  *
  * This function does not delete List items.  It destroys only the List and
@@ -64,7 +64,7 @@ List::~List ()
 }
 
 
-/**
+/*
  * Adds item to the end of this List.
  */
 void
@@ -88,7 +88,7 @@ List::add (void *item)
 }
 
 
-/**
+/*
  * @return the number of items in this List for which predicate(item)
  * returns true.
  *
@@ -120,7 +120,7 @@ List::countIf (ListItemPredicate predicate) const
 }
 
 
-/**
+/*
  * @return the first occurrence of item1 in this List or NULL if item was
  * not found.  ListItemComparator is a pointer to a function used to find
  * item.  The typedef for ListItemComparator is:
@@ -155,7 +155,7 @@ List::find (const void *item1, ListItemComparator comparator) const
 }
 
 
-/**
+/*
  * @return a new List containing (pointers to) all items in this List for
  * which predicate(item) was true.
  *
@@ -185,7 +185,7 @@ List::findIf (ListItemPredicate predicate) const
 }
 
 
-/**
+/*
  * Returns the nth item in this List.  If n > List.size() returns 0.
  */
 void *
@@ -220,7 +220,7 @@ List::get (unsigned int n) const
 }
 
 
-/**
+/*
  * Adds item to the beginning of this List.
  */
 void
@@ -244,7 +244,7 @@ List::prepend (void *item)
 }
 
 
-/**
+/*
  * Removes the nth item from this List and returns a pointer to it.  If n >
  * List.size() returns 0.
  */
@@ -313,7 +313,7 @@ List::remove (unsigned int n)
 }
 
 
-/**
+/*
  * Returns the number of elements in this List.
  */
 unsigned int

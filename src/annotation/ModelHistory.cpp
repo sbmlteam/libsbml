@@ -55,7 +55,7 @@ Date::Date(unsigned int year, unsigned int month,
 }
 
 
-/**
+/*
  * creates a date from a string
  */
 Date::Date (std::string date) 
@@ -113,7 +113,7 @@ Date* Date::clone () const
   return new Date(*this);
 }
 
-/**
+/*
  * sets the value of the year checking appropriateness
  */
 void 
@@ -127,7 +127,7 @@ Date::setYear    (unsigned int year)
   parseDateNumbersToString();
 }
 
-/**
+/*
  * sets the value of the year checking appropriateness
  */
 void 
@@ -141,7 +141,7 @@ Date::setMonth   (unsigned int month)
   parseDateNumbersToString();
 }
 
-/**
+/*
  * sets the value of the year checking appropriateness
  */
 void 
@@ -195,7 +195,7 @@ Date::setDay     (unsigned int day)
   parseDateNumbersToString();
 } 
 
-/**
+/*
  * sets the value of the year checking appropriateness
  */
 void 
@@ -209,7 +209,7 @@ Date::setHour    (unsigned int hour)
   parseDateNumbersToString();
 }
 
-/**
+/*
  * sets the value of the year checking appropriateness
  */
 void 
@@ -223,7 +223,7 @@ Date::setMinute  (unsigned int minute)
   parseDateNumbersToString();
 }
 
-/**
+/*
  * sets the value of the year checking appropriateness
  */
 void 
@@ -237,7 +237,7 @@ Date::setSecond  (unsigned int second)
   parseDateNumbersToString();
 }
 
-/**
+/*
  * sets the value of the year checking appropriateness
  */
 void 
@@ -252,7 +252,7 @@ Date::setSignOffset    (unsigned int sign)
 }
 
 
-/**
+/*
  * sets the value of the year checking appropriateness
  */
 void 
@@ -266,7 +266,7 @@ Date::setHoursOffset    (unsigned int hour)
   parseDateNumbersToString();
 }
 
-/**
+/*
  * sets the value of the year checking appropriateness
  */
 void 
@@ -280,7 +280,7 @@ Date::setMinutesOffset  (unsigned int minute)
   parseDateNumbersToString();
 }
 
-/**
+/*
  * sets the value of the date string checking appropriateness
  */
 void 
@@ -336,7 +336,7 @@ Date::setDateAsString (std::string date)
 
 
 
-/**
+/*
  * returns the date in numbers as a W3CDTF string
  */
 void
@@ -490,14 +490,14 @@ Date::parseDateStringToNumbers()
 }
 
 
-/**
+/*
  * Creates a new ModelCreator.
  */
 ModelCreator::ModelCreator ()
 {
 }
 
-/**
+/*
  * create a new ModelCreator from an XMLNode
  */
 ModelCreator::ModelCreator(const XMLNode creator)
@@ -537,7 +537,7 @@ ModelCreator::ModelCreator(const XMLNode creator)
 }
 
 
-/**
+/*
  * destructor
  */
 ModelCreator::~ModelCreator()
@@ -616,7 +616,7 @@ ModelCreator::isSetOrganisation()
 /** @endcond doxygen-libsbml-internal */
 
 
-/**
+/*
  * sets the family name
  */
 void 
@@ -626,7 +626,7 @@ ModelCreator::setFamilyName(std::string name)
 }
 
 
-/**
+/*
  * sets the given name
  */
 void 
@@ -636,7 +636,7 @@ ModelCreator::setGivenName(std::string name)
 }
 
 
-/**
+/*
  * sets the email
  */
 void 
@@ -699,7 +699,7 @@ ModelCreator::unsetOrganisation()
 /** @endcond doxygen-libsbml-internal */
 
 
-/**
+/*
  * Creates a new ModelHistory.
  */
 ModelHistory::ModelHistory ()
@@ -709,7 +709,7 @@ ModelHistory::ModelHistory ()
   mCreators = new List();
 }
 
-/**
+/*
  * destructor
  */
 ModelHistory::~ModelHistory()
@@ -776,7 +776,7 @@ ModelHistory::clone() const
 }
 
 
-/**
+/*
  * adds a creator to the model history
  */
 void 
@@ -806,7 +806,7 @@ ModelHistory::setModifiedDate(Date* date)
 }
 
 
-/**
+/*
  * return the List of creators
  */
 List *
@@ -816,7 +816,7 @@ ModelHistory::getListCreators()
 }
 
 
-/**
+/*
  * return created date
  */
 Date *
@@ -826,7 +826,7 @@ ModelHistory::getCreatedDate()
 }
 
 
-/**
+/*
  * return modified date
  */
 Date *

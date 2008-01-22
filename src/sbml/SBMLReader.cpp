@@ -39,7 +39,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * Creates a new SBMLReader and returns it. 
  */
 SBMLReader::SBMLReader ()
@@ -47,7 +47,7 @@ SBMLReader::SBMLReader ()
 }
 
 
-/**
+/*
  * Destorys this SBMLReader.
  */
 SBMLReader::~SBMLReader ()
@@ -55,7 +55,7 @@ SBMLReader::~SBMLReader ()
 }
 
 
-/**
+/*
  * Reads an SBML document from the given file.  If filename does not exist
  * or is not an SBML file, an error will be logged.  Errors can be
  * identified by their unique ids, e.g.:
@@ -79,7 +79,7 @@ SBMLReader::readSBML (const std::string& filename)
 }
 
 
-/**
+/*
  * Reads an SBML document from the given XML string.
  *
  * If the string does not begin with XML declaration:
@@ -135,7 +135,7 @@ isCriticalError(const unsigned int errorId)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Used by readSBML() and readSBMLFromString().
  */
 SBMLDocument*

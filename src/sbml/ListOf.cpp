@@ -34,7 +34,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * Creates a new ListOf items.
  */
 ListOf::ListOf ()
@@ -51,7 +51,7 @@ struct Delete : public unary_function<SBase*, void>
 };
 
 
-/**
+/*
  * Destroys the given ListOf and its constituent items.
  */
 ListOf::~ListOf ()
@@ -69,7 +69,7 @@ struct Clone : public unary_function<SBase*, SBase*>
 };
 
 
-/**
+/*
  * Copy constructor. Creates a copy of this ListOf items.
  */
 ListOf::ListOf (const ListOf& orig) : SBase(orig)
@@ -79,7 +79,7 @@ ListOf::ListOf (const ListOf& orig) : SBase(orig)
 }
 
 
-/**
+/*
  * Assignment operator
  */
 ListOf& ListOf::operator=(const ListOf& rhs)
@@ -90,7 +90,7 @@ ListOf& ListOf::operator=(const ListOf& rhs)
   return *this;
 }
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  */
 bool
@@ -104,7 +104,7 @@ ListOf::accept (SBMLVisitor& v) const
 }
 
 
-/**
+/*
  * @return a (deep) copy of this ListOf items.
  */
 SBase*
@@ -114,7 +114,7 @@ ListOf::clone () const
 }
 
 
-/**
+/*
  * Adds item to the end of this ListOf items.  This ListOf items assumes
  * ownership of item and will delete it.
  */
@@ -125,7 +125,7 @@ ListOf::append (const SBase* item)
 }
 
 
-/**
+/*
  * Adds item to the end of this ListOf items.  This ListOf items assumes
  * ownership of item and will delete it.
  */
@@ -137,7 +137,7 @@ ListOf::appendAndOwn (SBase* item)
 }
 
 
-/**
+/*
  * @return the nth item in this ListOf items.
  */
 const SBase*
@@ -147,7 +147,7 @@ ListOf::get (unsigned int n) const
 }
 
 
-/**
+/*
  * @return the nth item in this ListOf items.
  */
 SBase*
@@ -169,7 +169,7 @@ struct IdEq : public unary_function<SBase*, bool>
 };
 
 
-/**
+/*
  * @return item in this ListOf items with the given id or NULL if no such
  * item exists.
  */
@@ -183,7 +183,7 @@ ListOf::get (const std::string& sid) const
 }
 
 
-/**
+/*
  * @return item in this ListOf items with the given id or NULL if no such
  * item exists.
  */
@@ -194,7 +194,7 @@ ListOf::get (const std::string& sid)
 }
 
 
-/**
+/*
  * Removes the nth item from this ListOf items and returns a pointer to
  * it.  The caller owns the returned item and is responsible for deleting
  * it.
@@ -208,7 +208,7 @@ ListOf::remove (unsigned int n)
 }
 
 
-/**
+/*
  * Removes item in this ListOf items with the given id or NULL if no such
  * item exists.  The caller owns the returned item and is repsonsible for
  * deleting it.
@@ -231,7 +231,7 @@ ListOf::remove (const std::string& sid)
 }
 
 
-/**
+/*
  * @return the number of items in this ListOf items.
  */
 unsigned int
@@ -253,7 +253,7 @@ struct SetSBMLDocument : public unary_function<SBase*, void>
 };
 
 
-/**
+/*
  * Sets the parent SBMLDocument of this SBML object.
  */
 void
@@ -264,7 +264,7 @@ ListOf::setSBMLDocument (SBMLDocument* d)
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  */
@@ -275,7 +275,7 @@ ListOf::getTypeCode () const
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
  * SBML_UNKNOWN (default).
  */
@@ -286,7 +286,7 @@ ListOf::getItemTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "listOf".
  
  */
@@ -311,7 +311,7 @@ struct Write : public unary_function<SBase*, void>
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
  * implementation of this method as well.

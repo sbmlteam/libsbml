@@ -19,7 +19,62 @@
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution and
  * also available online as http://sbml.org/software/libsbml/license.html
- *----------------------------------------------------------------------- -->*/
+ *------------------------------------------------------------------------- -->
+ *
+ * @class ASTNode
+ * @brief A node in the Abstract Syntax Tree (AST) representation of a
+ * mathematical expression.
+ *
+ * Abstract Syntax Trees (ASTs) are a simple kind of data structure used in
+ * libSBML for storing mathematical expressions.  The ASTNode is the
+ * cornerstone of libSBML's AST representation.  ASTNodes represent the
+ * most basic, indivisible part of a mathematical formula and come in many
+ * types.  For instance, there are node types to represent numbers (with
+ * subtypes to distinguish integer, real, and rational numbers), names
+ * (e.g., constants or variables), simple mathematical operators, logical
+ * or relational operators and functions. LibSBML ASTs provide a canonical,
+ * in-memory representation for all mathematical formulas regardless of
+ * their original format (which might be MathML or might be text strings).
+ *
+ * An AST @em node in libSBML is a recursive structure containing a pointer
+ * to the node's value (which might be, for example, a number or a symbol)
+ * and a list of children nodes.  Each ASTNode node may have none, one,
+ * two, or more child depending on its type.  The following diagram
+ * illustrates an example of how the mathematical expression "1 + 2" is
+ * represented as an AST with one @em plus node having two @em integer
+ * children nodes for the numbers 1 and 2.  The figure also shows the
+ * corresponding MathML representation:
+ *
+ * @image html astnode-illustration.jpg "Example AST representation of a mathematical representation."
+ * @image latex astnode-illustration.jpg "Example AST representation of a mathematical representation."
+ *
+ * The following are noteworthy about the AST representation in libSBML:
+ * <ul>
+ * <li> A numerical value represented in MathML as a real number with an
+ * exponent is preserved as such in the AST node representation, even if
+ * the number could be stored in a @c double data type.  This is done
+ * so that when an SBML model is read in and then written out again, the
+ * amount of change introduced by libSBML to the SBML during the round-trip
+ * activity is minimized.
+ *  
+ * <li> Rational numbers are represented in an AST node using separate
+ * numerator and denominator values.  These can be retrieved using the
+ * methods getNumerator() and getDenominator()
+ * 
+ * <li> The children of an ASTNode are other ASTNode objects.  The list of
+ * children is empty for nodes that are leaf elements, such as numbers.
+ * For nodes that are actually roots of expression subtrees, the list of
+ * children points to the parsed objects that make up the rest of the
+ * expression.
+ * </ul>
+ * 
+ * Finally, for many applications, the details of ASTs are irrelevant
+ * because the applications can use the text-string based translation
+ * functions such as SBML_formulaToString() and readMathMLFromString().  If
+ * you find the complexity of using the AST representation of expressions
+ * too high for your purposes, perhaps the string-based functions will be
+ * more suitable.
+ */
 
 #ifndef ASTNode_h
 #define ASTNode_h
@@ -167,61 +222,6 @@ typedef int (*ASTNodePredicate) (const ASTNode_t *node);
 
 class List;
 
-
-/**
- * A node in the Abstract Syntax Tree (AST) representation of a
- * mathematical expression.
- *
- * Abstract Syntax Trees (ASTs) are a simple kind of data structure used in
- * libSBML for storing mathematical expressions.  The ASTNode is the
- * cornerstone of libSBML's AST representation.  ASTNodes represent the
- * most basic, indivisible part of a mathematical formula and come in many
- * types.  For instance, there are node types to represent numbers (with
- * subtypes to distinguish integer, real, and rational numbers), names
- * (e.g., constants or variables), simple mathematical operators, logical
- * or relational operators and functions. LibSBML ASTs provide a canonical,
- * in-memory representation for all mathematical formulas regardless of
- * their original format (which might be MathML or might be text strings).
- *
- * An AST @em node in libSBML is a recursive structure containing a pointer
- * to the node's value (which might be, for example, a number or a symbol)
- * and a list of children nodes.  Each ASTNode node may have none, one,
- * two, or more child depending on its type.  The following diagram
- * illustrates an example of how the mathematical expression "1 + 2" is
- * represented as an AST with one @em plus node having two @em integer
- * children nodes for the numbers 1 and 2.  The figure also shows the
- * corresponding MathML representation:
- *
- * @image html astnode-illustration.jpg "Example AST representation of a mathematical representation."
- * @image latex astnode-illustration.jpg "Example AST representation of a mathematical representation."
- *
- * The following are noteworthy about the AST representation in libSBML:
- * <ul>
- * <li> A numerical value represented in MathML as a real number with an
- * exponent is preserved as such in the AST node representation, even if
- * the number could be stored in a @c double data type.  This is done
- * so that when an %SBML model is read in and then written out again, the
- * amount of change introduced by libSBML to the SBML during the round-trip
- * activity is minimized.
- *  
- * <li> Rational numbers are represented in an AST node using separate
- * numerator and denominator values.  These can be retrieved using the
- * methods getNumerator() and getDenominator()
- * 
- * <li> The children of an ASTNode are other ASTNode objects.  The list of
- * children is empty for nodes that are leaf elements, such as numbers.
- * For nodes that are actually roots of expression subtrees, the list of
- * children points to the parsed objects that make up the rest of the
- * expression.
- * </ul>
- * 
- * Finally, for many applications, the details of ASTs are irrelevant
- * because the applications can use the text-string based translation
- * functions such as SBML_formulaToString() and readMathMLFromString().  If
- * you find the complexity of using the AST representation of expressions
- * too high for your purposes, perhaps the string-based functions will be
- * more suitable.
- */
 class ASTNode
 {
 public:
@@ -807,9 +807,7 @@ protected:
 
 #ifndef SWIG
 
-/** @cond doxygen-ignored */
 BEGIN_C_DECLS
-/** @endcond doxygen-ignored */
 
 
 /**

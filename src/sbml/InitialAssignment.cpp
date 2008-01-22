@@ -43,7 +43,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * Creates a new InitialAssignment, optionally with its symbol attribute
  * set.
  */
@@ -54,7 +54,7 @@ InitialAssignment::InitialAssignment (const std::string& symbol) :
 }
 
 
-/**
+/*
  * Destroys this InitialAssignment.
  */
 InitialAssignment::~InitialAssignment ()
@@ -62,7 +62,7 @@ InitialAssignment::~InitialAssignment ()
 }
 
 
-/**
+/*
  * Copy constructor. Creates a copy of this InitialAssignment.
  */
 InitialAssignment::InitialAssignment (const InitialAssignment& orig) :
@@ -73,7 +73,7 @@ InitialAssignment::InitialAssignment (const InitialAssignment& orig) :
 }
 
 
-/**
+/*
  * Assignment operator
  */
 InitialAssignment& InitialAssignment::operator=(const InitialAssignment& rhs)
@@ -84,7 +84,7 @@ InitialAssignment& InitialAssignment::operator=(const InitialAssignment& rhs)
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates
@@ -98,7 +98,7 @@ InitialAssignment::accept (SBMLVisitor& v) const
 }
 
 
-/**
+/*
  * @return a (deep) copy of this InitialAssignment.
  */
 SBase*
@@ -108,7 +108,7 @@ InitialAssignment::clone () const
 }
 
 
-/**
+/*
  * @return the symbol for this InitialAssignment.
  */
 const string&
@@ -118,7 +118,7 @@ InitialAssignment::getSymbol () const
 }
 
 
-/**
+/*
  * @return the math for this InitialAssignment.
  */
 const ASTNode*
@@ -128,7 +128,7 @@ InitialAssignment::getMath () const
 }
 
 
-/**
+/*
  * @return true if the symbol of this InitialAssignment has been set,
  * false otherwise.
  */
@@ -139,7 +139,7 @@ InitialAssignment::isSetSymbol () const
 }
 
 
-/**
+/*
  * @return true if the math for this InitialAssignment has been set,
  * false otherwise.
  */
@@ -150,7 +150,7 @@ InitialAssignment::isSetMath () const
 }
 
 
-/**
+/*
  * Sets the symbol of this InitialAssignment to a copy of sid.
  */
 void
@@ -160,7 +160,7 @@ InitialAssignment::setSymbol (const std::string& sid)
 }
 
 
-/**
+/*
  * Sets the math of this InitialAssignment to a copy of the given
  * ASTNode.
  */
@@ -175,7 +175,7 @@ InitialAssignment::setMath (const ASTNode* math)
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -188,7 +188,7 @@ InitialAssignment::getTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "initialAssignment".
  */
 const string&
@@ -200,7 +200,7 @@ InitialAssignment::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
  * implementation of this method as well.
@@ -214,7 +214,7 @@ InitialAssignment::writeElements (XMLOutputStream& stream) const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
@@ -287,7 +287,7 @@ InitialAssignment::readOtherXML (XMLInputStream& stream)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -338,7 +338,7 @@ InitialAssignment::readAttributes (const XMLAttributes& attributes)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
  * of this method as well.
@@ -365,7 +365,7 @@ InitialAssignment::writeAttributes (XMLOutputStream& stream) const
 /** @endcond doxygen-libsbml-internal */
 
 
-/**
+/*
  * @return a (deep) copy of this ListOfInitialAssignments.
  */
 SBase*
@@ -375,7 +375,7 @@ ListOfInitialAssignments::clone () const
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
  * SBML_UNKNOWN (default).
  */
@@ -386,7 +386,7 @@ ListOfInitialAssignments::getItemTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "listOfInitialAssignments".
  */
 const string&
@@ -398,7 +398,7 @@ ListOfInitialAssignments::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
  */
@@ -411,7 +411,7 @@ ListOfInitialAssignments::getElementPosition () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
  */

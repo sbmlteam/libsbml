@@ -41,7 +41,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * Creates a new Species, optionally with its id and name attributes set.
  */
 Species::Species (const std::string& id, const std::string& name) :
@@ -59,7 +59,7 @@ Species::Species (const std::string& id, const std::string& name) :
 }
 
 
-/**
+/*
  * Destroys this Species.
  */
 Species::~Species ()
@@ -67,7 +67,7 @@ Species::~Species ()
 }
 
 
-/**
+/*
  * Copy constructor. Creates a copy of this Species.
  */
 Species::Species(const Species& orig) :
@@ -93,7 +93,7 @@ Species::Species(const Species& orig) :
 }
 
 
-/**
+/*
  * Assignment operator.
  */
 Species& Species::operator=(const Species& orig)
@@ -120,7 +120,7 @@ Species& Species::operator=(const Species& orig)
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates
@@ -134,7 +134,7 @@ Species::accept (SBMLVisitor& v) const
 }
 
 
-/**
+/*
  * @return a (deep) copy of this Species.
  */
 SBase*
@@ -144,7 +144,7 @@ Species::clone () const
 }
 
 
-/**
+/*
  * Initializes the fields of this Species to their defaults:
  *
  *   - boundaryCondition     = false
@@ -160,7 +160,7 @@ Species::initDefaults ()
 }
 
 
-/**
+/*
  * @return the speciesType of this Species.
  */
 const string&
@@ -170,7 +170,7 @@ Species::getSpeciesType () const
 }
 
 
-/**
+/*
  * @return the compartment of this Species.
  */
 const string&
@@ -180,7 +180,7 @@ Species::getCompartment () const
 }
 
 
-/**
+/*
  * @return the initialAmount of this Species.
  */
 double
@@ -203,7 +203,7 @@ Species::getInitialAmount () const
 }
 
 
-/**
+/*
  * @return the initialConcentration of this Species.
  */
 double
@@ -213,7 +213,7 @@ Species::getInitialConcentration () const
 }
 
 
-/**
+/*
  * @return the substanceUnits of this Species.
  */
 const string&
@@ -223,7 +223,7 @@ Species::getSubstanceUnits () const
 }
 
 
-/**
+/*
  * @return the spatialSizeUnits of this Species.
  */
 const string&
@@ -233,7 +233,7 @@ Species::getSpatialSizeUnits () const
 }
 
 
-/**
+/*
  * @return the units of this Species (L1 only).
  */
 const string&
@@ -243,7 +243,7 @@ Species::getUnits () const
 }
 
 
-/**
+/*
  * @return true if this Species hasOnlySubstanceUnits, false otherwise.
  */
 bool
@@ -253,7 +253,7 @@ Species::getHasOnlySubstanceUnits () const
 }
 
 
-/**
+/*
  * @return true if this Species has boundaryCondition
  * true, false otherwise.
  */
@@ -264,7 +264,7 @@ Species::getBoundaryCondition () const
 }
 
 
-/**
+/*
  * @return the charge of this Species.
  */
 int
@@ -274,7 +274,7 @@ Species::getCharge () const
 }
 
 
-/**
+/*
  * @return true if this Species is constant, false otherwise.
  */
 bool
@@ -284,7 +284,7 @@ Species::getConstant () const
 }
 
 
-/**
+/*
  * @return true if the speciesType of this Species has been set, false
  * otherwise.
  */
@@ -295,7 +295,7 @@ Species::isSetSpeciesType () const
 }
 
 
-/**
+/*
  * @return true if the compartment of this Species has been set, false
  * otherwise.
  */
@@ -306,7 +306,7 @@ Species::isSetCompartment () const
 }
 
 
-/**
+/*
  * @return true if the initialAmount of this Species has been set, false
  * otherwise.
  *
@@ -321,7 +321,7 @@ Species::isSetInitialAmount () const
 }
 
 
-/**
+/*
  * @return true if the initialConcentration of this Species has been set,
  * false otherwise.
  */
@@ -332,7 +332,7 @@ Species::isSetInitialConcentration () const
 }
 
 
-/**
+/*
  * @return true if the substanceUnits of this Species has been set, false
  * otherwise.
  */
@@ -343,7 +343,7 @@ Species::isSetSubstanceUnits () const
 }
 
 
-/**
+/*
  * @return true if the spatialSizeUnits of this Species has been set, false
  * otherwise.
  */
@@ -354,7 +354,7 @@ Species::isSetSpatialSizeUnits () const
 }
 
 
-/**
+/*
  * @return true if the units of this Species has been set, false otherwise
  * (L1 only).
  */
@@ -365,7 +365,7 @@ Species::isSetUnits () const
 }
 
 
-/**
+/*
  * @return true if the charge of this Species has been set, false
  * otherwise.
  */
@@ -376,7 +376,7 @@ Species::isSetCharge () const
 }
 
 
-/**
+/*
  * Sets the speciesType field of this Species to a copy of sid.
  */
 void
@@ -386,7 +386,7 @@ Species::setSpeciesType (const std::string& sid)
 }
 
 
-/**
+/*
  * Sets the compartment of this Species to a copy of sid.
  */
 void
@@ -396,7 +396,7 @@ Species::setCompartment (const std::string& sid)
 }
 
 
-/**
+/*
  * Sets the initialAmount of this Species to value and marks the field as
  * set.  This method also unsets the initialConcentration field.
  */
@@ -410,7 +410,7 @@ Species::setInitialAmount (double value)
 }
 
 
-/**
+/*
  * Sets the initialConcentration of this Species to value and marks the
  * field as set.  This method also unsets the initialAmount field.
  */
@@ -424,7 +424,7 @@ Species::setInitialConcentration (double value)
 }
 
 
-/**
+/*
  * Sets the substanceUnits of this Species to a copy of sid.
  */
 void
@@ -434,7 +434,7 @@ Species::setSubstanceUnits (const std::string& sid)
 }
 
 
-/**
+/*
  * Sets the spatialSizeUnits of this Species to a copy of sid.
  */
 void
@@ -444,7 +444,7 @@ Species::setSpatialSizeUnits (const std::string& sid)
 }
 
 
-/**
+/*
  * Sets the units of this Species to a copy of sname (L1 only).
  */
 void
@@ -454,7 +454,7 @@ Species::setUnits (const std::string& sname)
 }
 
 
-/**
+/*
  * Sets the hasOnlySubstanceUnits field of this Species to value.
  */
 void
@@ -464,7 +464,7 @@ Species::setHasOnlySubstanceUnits (bool value)
 }
 
 
-/**
+/*
  * Sets the boundaryCondition of this Species to value.
  */
 void
@@ -474,7 +474,7 @@ Species::setBoundaryCondition (bool value)
 }
 
 
-/**
+/*
  * Sets the charge of this Species to value and marks the field as set.
  */
 void
@@ -485,7 +485,7 @@ Species::setCharge (int value)
 }
 
 
-/**
+/*
  * Sets the constant field of this Species to value.
  */
 void
@@ -495,7 +495,7 @@ Species::setConstant (bool value)
 }
 
 
-/**
+/*
  * Unsets the speciesType of this Species.
  */
 void
@@ -505,7 +505,7 @@ Species::unsetSpeciesType ()
 }
 
 
-/**
+/*
  * Unsets the initialAmount of this Species.
  */
 void
@@ -516,7 +516,7 @@ Species::unsetInitialAmount ()
 }
 
 
-/**
+/*
  * Unsets the initialConcentration of this Species.
  */
 void
@@ -527,7 +527,7 @@ Species::unsetInitialConcentration ()
 }
 
 
-/**
+/*
  * Unsets the substanceUnits of this Species.
  */
 void
@@ -537,7 +537,7 @@ Species::unsetSubstanceUnits ()
 }
 
 
-/**
+/*
  * Unsets the spatialSizeUnits of this Species.
  */
 void
@@ -547,7 +547,7 @@ Species::unsetSpatialSizeUnits ()
 }
 
 
-/**
+/*
  * Unsets the units of this Species (L1 only).
  */
 void
@@ -557,7 +557,7 @@ Species::unsetUnits ()
 }
 
 
-/**
+/*
  * Unsets the charge of this Species.
  */
 void
@@ -568,7 +568,7 @@ Species::unsetCharge ()
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -581,7 +581,7 @@ Species::getTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "specie" (L1) or "species" (L2).
  */
 const string&
@@ -595,7 +595,7 @@ Species::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -764,7 +764,7 @@ Species::readAttributes (const XMLAttributes& attributes)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
  * of this method as well.
@@ -916,7 +916,7 @@ Species::writeAttributes (XMLOutputStream& stream) const
 
 
 
-/**
+/*
  * @return a (deep) copy of this ListOfSpecies.
  */
 SBase*
@@ -926,7 +926,7 @@ ListOfSpecies::clone () const
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
  * SBML_UNKNOWN (default).
  */
@@ -937,7 +937,7 @@ ListOfSpecies::getItemTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "listOfSpecies".
  */
 const string&
@@ -949,7 +949,7 @@ ListOfSpecies::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
  */
@@ -962,7 +962,7 @@ ListOfSpecies::getElementPosition () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
  */

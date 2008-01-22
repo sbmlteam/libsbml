@@ -46,7 +46,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * Creates a new StoichiometryMath, optionally with its math set.
  */
 StoichiometryMath::StoichiometryMath (   const ASTNode* math ) :
@@ -57,7 +57,7 @@ StoichiometryMath::StoichiometryMath (   const ASTNode* math ) :
 }
 
 
-/**
+/*
  * Destroys this StoichiometryMath.
  */
 StoichiometryMath::~StoichiometryMath ()
@@ -66,7 +66,7 @@ StoichiometryMath::~StoichiometryMath ()
 }
 
 
-/**
+/*
  * Copy constructor. Creates a copy of this StoichiometryMath.
  */
 StoichiometryMath::StoichiometryMath (const StoichiometryMath& rhs) :
@@ -77,7 +77,7 @@ StoichiometryMath::StoichiometryMath (const StoichiometryMath& rhs) :
 }
 
 
-/**
+/*
  * Assignment operator.
  */
 StoichiometryMath& StoichiometryMath::operator=(const StoichiometryMath& rhs)
@@ -88,7 +88,7 @@ StoichiometryMath& StoichiometryMath::operator=(const StoichiometryMath& rhs)
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  */
 bool
@@ -98,7 +98,7 @@ StoichiometryMath::accept (SBMLVisitor& v) const
 }
 
 
-/**
+/*
  * @return a (deep) copy of this StoichiometryMath.
  */
 SBase*
@@ -108,7 +108,7 @@ StoichiometryMath::clone () const
 }
 
 
-/**
+/*
  * @return the math of this StoichiometryMath.
  */
 const ASTNode*
@@ -118,7 +118,7 @@ StoichiometryMath::getMath () const
 }
 
 
-/**
+/*
  * @return true if the math (or equivalently the formula) of this
  * StoichiometryMath has been set, false otherwise.
  */
@@ -130,7 +130,7 @@ StoichiometryMath::isSetMath () const
 
 
 
-/**
+/*
  * Sets the math of this StoichiometryMath to a copy of the given ASTNode.
  */
 void
@@ -145,7 +145,7 @@ StoichiometryMath::setMath (const ASTNode* math)
 }
 
 
-/**
+/*
  * Sets the parent SBMLDocument of this SBML object.
  */
 void
@@ -155,7 +155,7 @@ StoichiometryMath::setSBMLDocument (SBMLDocument* d)
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -168,7 +168,7 @@ StoichiometryMath::getTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "stoichiometryMath".
  */
 const string&
@@ -180,7 +180,7 @@ StoichiometryMath::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
  */
@@ -193,7 +193,7 @@ StoichiometryMath::getElementPosition () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
@@ -265,7 +265,7 @@ StoichiometryMath::readOtherXML (XMLInputStream& stream)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -307,7 +307,7 @@ StoichiometryMath::readAttributes (const XMLAttributes& attributes)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
  * of this method as well.
@@ -329,7 +329,7 @@ StoichiometryMath::writeAttributes (XMLOutputStream& stream) const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
  * implementation of this method as well.

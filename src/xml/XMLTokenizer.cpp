@@ -35,7 +35,7 @@ using namespace std;
 
 /** @cond doxygen-libsbml-internal */
 
-/**
+/*
  * Creates a new XMLTokenizer.
  */
 XMLTokenizer::XMLTokenizer () :
@@ -46,7 +46,7 @@ XMLTokenizer::XMLTokenizer () :
 }
 
 
-/**
+/*
  * Destroys this XMLTokenizer.
  */
 XMLTokenizer::~XMLTokenizer ()
@@ -54,7 +54,7 @@ XMLTokenizer::~XMLTokenizer ()
 }
 
 
-/**
+/*
  * @return the encoding of the underlying XML document.
  */
 const string&
@@ -64,7 +64,7 @@ XMLTokenizer::getEncoding ()
 }
 
 
-/**
+/*
  * @return the version of the underlying XML document.
  */
 const string&
@@ -74,7 +74,7 @@ XMLTokenizer::getVersion ()
 }
 
 
-/**
+/*
  * @return true if this XMLTokenizer has at least one XMLToken ready to
  * deliver, false otherwise.
  *
@@ -89,7 +89,7 @@ XMLTokenizer::hasNext () const
 }
 
 
-/**
+/*
  * @return true if the end of the XML file (document) has been reached
  * and there are no more tokens to consume, false otherwise.
  */
@@ -100,7 +100,7 @@ XMLTokenizer::isEOF () const
 }
 
 
-/**
+/*
  * Consume the next XMLToken and return it.
  *
  * @return the next XMLToken.
@@ -115,7 +115,7 @@ XMLTokenizer::next ()
 }
 
 
-/**
+/*
  * Returns the next XMLToken without consuming it.  A subsequent call to
  * either peek() or next() will return the same token.
  *
@@ -128,7 +128,7 @@ XMLTokenizer::peek ()
 }
 
 
-/**
+/*
  * Prints a string representation of the underlying token stream, for
  * debugging purposes.
  */
@@ -146,7 +146,7 @@ XMLTokenizer::toString ()
 }
 
 
-/**
+/*
  * Receive notification of the XML declaration, i.e.
  * <?xml version="1.0" encoding="UTF-8"?>
  */
@@ -158,7 +158,7 @@ XMLTokenizer::XML (const string& version, const string& encoding)
 }
 
 
-/**
+/*
  * Receive notification of the start of an element.
  */
 void
@@ -180,7 +180,7 @@ XMLTokenizer::startElement (const XMLToken& element)
 }
 
 
-/**
+/*
  * Receive notification of the end of the document.
  */
 void
@@ -190,7 +190,7 @@ XMLTokenizer::endDocument ()
 }
 
 
-/**
+/*
  * Receive notification of the end of an element.
  */
 void
@@ -215,7 +215,7 @@ XMLTokenizer::endElement (const XMLToken& element)
 }
 
 
-/**
+/*
  * Receive notification of character data inside an element.
  */
 void

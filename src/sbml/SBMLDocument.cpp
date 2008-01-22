@@ -120,7 +120,7 @@ SBMLDocument::conversion_errors(unsigned int errors)
 /** @endcond doxygen-libsbml-internal */
 
 
-/**
+/*
  * Get the most recent Level of SBML supported by this release of
  * libSBML.
  *
@@ -137,7 +137,7 @@ SBMLDocument::getDefaultLevel ()
 }
 
 
-/**
+/*
  * Get the most recent Version with the most recent Level of SBML supported
  * by this release of libSBML.
  *
@@ -154,7 +154,7 @@ SBMLDocument::getDefaultVersion ()
 }
 
 
-/**
+/*
  * Creates a new SBMLDocument.  If not specified, the SBML level and
  * version attributes default to the most recent SBML specification (at the
  * time this libSBML was released).
@@ -180,7 +180,7 @@ SBMLDocument::SBMLDocument (unsigned int level, unsigned int version) :
 }
 
 
-/**
+/*
  * Destroys this SBMLDocument.
  */
 SBMLDocument::~SBMLDocument ()
@@ -189,7 +189,7 @@ SBMLDocument::~SBMLDocument ()
 }
 
 
-/**
+/*
  * Creates a copy of this SBMLDocument.
  */
 SBMLDocument::SBMLDocument (const SBMLDocument& orig) :
@@ -209,7 +209,7 @@ SBMLDocument::SBMLDocument (const SBMLDocument& orig) :
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  */
 bool
@@ -223,7 +223,7 @@ SBMLDocument::accept (SBMLVisitor& v) const
 }
 
 
-/**
+/*
  * @return a (deep) copy of this SBMLDocument.
  */
 SBase*
@@ -233,7 +233,7 @@ SBMLDocument::clone () const
 }
 
 
-/**
+/*
  * @return the Model contained in this SBMLDocument.
  */
 const Model*
@@ -243,7 +243,7 @@ SBMLDocument::getModel () const
 }
 
 
-/**
+/*
  * @return the Model contained in this SBMLDocument.
  */
 Model*
@@ -253,7 +253,7 @@ SBMLDocument::getModel ()
 }
 
 
-/**
+/*
  * Sets the level and version of this SBMLDocument.  Valid
  * combinations are currently:
  *
@@ -416,7 +416,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
 }
 
 
-/**
+/*
  * Sets the Model for this SBMLDocument to a copy of the given Model.
  */
 void
@@ -432,7 +432,7 @@ SBMLDocument::setModel (const Model* m)
 }
 
 
-/**
+/*
  * Creates a new Model (optionally with its id attribute set) inside this
  * SBMLDocument and returns it.
  */
@@ -546,7 +546,7 @@ SBMLDocument::setConsistencyChecks(SBMLErrorCategory_t category,
 }
 
 
-/**
+/*
  * Performs a set of semantic consistency checks on the document.  Query
  * the results by calling getNumErrors() and getError().
  *
@@ -679,7 +679,7 @@ SBMLDocument::checkConsistency ()
 }
 
 
-/**
+/*
  * Performs a set of semantic consistency checks on the document to establish
  * whether it is compatible with L1 and can be converted.  Query
  * the results by calling getNumErrors() and getError().
@@ -701,7 +701,7 @@ SBMLDocument::checkL1Compatibility ()
 }
 
 
-/**
+/*
  * Performs a set of semantic consistency checks on the document to establish
  * whether it is compatible with L2v1 and can be converted.  Query
  * the results by calling getNumErrors() and getError().
@@ -723,7 +723,7 @@ SBMLDocument::checkL2v1Compatibility ()
 }
 
 
-/**
+/*
  * Performs a set of semantic consistency checks on the document to establish
  * whether it is compatible with L2v2 and can be converted.  Query
  * the results by calling getNumErrors() and getError().
@@ -745,7 +745,7 @@ SBMLDocument::checkL2v2Compatibility ()
 }
 
 
-/**
+/*
  * Performs a set of semantic consistency checks on the document to establish
  * whether it is compatible with L2v3 and can be converted.  Query
  * the results by calling getNumErrors() and getError().
@@ -767,7 +767,7 @@ SBMLDocument::checkL2v3Compatibility ()
 }
 
 
-/**
+/*
  * @return the nth error encountered during the parse of this
  * SBMLDocument or NULL if n > getNumErrors() - 1.
  */
@@ -778,7 +778,7 @@ SBMLDocument::getError (unsigned int n) const
 }
 
 
-/**
+/*
  * @return the number of errors encountered during the parse of this
  * SBMLDocument.
  */
@@ -789,7 +789,7 @@ SBMLDocument::getNumErrors () const
 }
 
 
-/**
+/*
  * Prints all errors encountered during the parse of this SBMLDocument to
  * the given stream.  If no errors have occurred, i.e.  getNumErrors() ==
  * 0, no output will be sent to stream. The format of the output is:
@@ -812,7 +812,7 @@ SBMLDocument::printErrors (std::ostream& stream) const
 }
 
 
-/**
+/*
  * Sets the parent SBMLDocument of this SBML object.
  */
 void
@@ -822,7 +822,7 @@ SBMLDocument::setSBMLDocument (SBMLDocument* d)
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -835,7 +835,7 @@ SBMLDocument::getTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "sbml".
  */
 const string&
@@ -847,7 +847,7 @@ SBMLDocument::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
  */
@@ -860,7 +860,7 @@ SBMLDocument::getElementPosition () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
  */
@@ -894,7 +894,7 @@ SBMLDocument::getNamespaces() const
 }
 
 
-/**
+/*
  * @return the SBMLErrorLog used to log errors during while reading and
  * validating SBML.
  */
@@ -906,7 +906,7 @@ SBMLDocument::getErrorLog ()
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -1021,7 +1021,7 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
  * of this method as well.
@@ -1071,7 +1071,7 @@ SBMLDocument::writeAttributes (XMLOutputStream& stream) const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
  * implementation of this method as well.

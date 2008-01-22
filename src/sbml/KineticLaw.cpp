@@ -46,7 +46,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * Creates a new KineticLaw, optionally with its formula, timeUnits and/or
  * substanceUnits set.
  */
@@ -62,7 +62,7 @@ KineticLaw::KineticLaw (   const std::string& formula
 }
 
 
-/**
+/*
  * Creates a new KineticLaw, optionally with its math, timeUnits and/or
  * substanceUnits set.
  */
@@ -78,7 +78,7 @@ KineticLaw::KineticLaw (   const ASTNode* math
 }
 
 
-/**
+/*
  * Destroys this KineticLaw.
  */
 KineticLaw::~KineticLaw ()
@@ -87,7 +87,7 @@ KineticLaw::~KineticLaw ()
 }
 
 
-/**
+/*
  * Copy constructor. Creates a copy of this KineticLaw.
  */
 KineticLaw::KineticLaw (const KineticLaw& orig) :
@@ -102,7 +102,7 @@ KineticLaw::KineticLaw (const KineticLaw& orig) :
 }
 
 
-/**
+/*
  * Assignment operator
  */
 KineticLaw& KineticLaw::operator=(const KineticLaw& rhs)
@@ -117,7 +117,7 @@ KineticLaw& KineticLaw::operator=(const KineticLaw& rhs)
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  */
 bool
@@ -131,7 +131,7 @@ KineticLaw::accept (SBMLVisitor& v) const
 }
 
 
-/**
+/*
  * @return a (deep) copy of this KineticLaw.
  */
 SBase*
@@ -141,7 +141,7 @@ KineticLaw::clone () const
 }
 
 
-/**
+/*
  * @return the formula of this KineticLaw.
  */
 const string&
@@ -159,7 +159,7 @@ KineticLaw::getFormula () const
 }
 
 
-/**
+/*
  * @return the math of this KineticLaw.
  */
 const ASTNode*
@@ -174,7 +174,7 @@ KineticLaw::getMath () const
 }
 
 
-/**
+/*
  * @return the timeUnits of this KineticLaw.
  */
 const string&
@@ -184,7 +184,7 @@ KineticLaw::getTimeUnits () const
 }
 
 
-/**
+/*
  * @return the substanceUnits of this KineticLaw.
  */
 const string&
@@ -194,7 +194,7 @@ KineticLaw::getSubstanceUnits () const
 }
 
 
-/**
+/*
  * @return true if the formula (or equivalently the math) of this
  * KineticLaw has been set, false otherwise.
  */
@@ -205,7 +205,7 @@ KineticLaw::isSetFormula () const
 }
 
 
-/**
+/*
  * @return true if the math (or equivalently the formula) of this
  * KineticLaw has been set, false otherwise.
  */
@@ -216,7 +216,7 @@ KineticLaw::isSetMath () const
 }
 
 
-/**
+/*
  * @return true if the timeUnits of this KineticLaw has been set, false
  * otherwise.
  */
@@ -227,7 +227,7 @@ KineticLaw::isSetTimeUnits () const
 }
 
 
-/**
+/*
  * @return true if the substanceUnits of this KineticLaw has been set,
  * false otherwise.
  */
@@ -238,7 +238,7 @@ KineticLaw::isSetSubstanceUnits () const
 }
 
 
-/**
+/*
  * Sets the formula of this KineticLaw to a copy of formula.
  */
 void
@@ -254,7 +254,7 @@ KineticLaw::setFormula (const std::string& formula)
 }
 
 
-/**
+/*
  * Sets the math of this KineticLaw to a copy of the given ASTNode.
  */
 void
@@ -270,7 +270,7 @@ KineticLaw::setMath (const ASTNode* math)
 }
 
 
-/**
+/*
  * Sets the timeUnits of this KineticLaw to a copy of sid.
  */
 void
@@ -280,7 +280,7 @@ KineticLaw::setTimeUnits (const std::string& sid)
 }
 
 
-/**
+/*
  * Sets the substanceUnits of this KineticLaw to a copy of sid.
  */
 void
@@ -290,7 +290,7 @@ KineticLaw::setSubstanceUnits (const std::string& sid)
 }
 
 
-/**
+/*
  * Unsets the timeUnits of this KineticLaw.
  */
 void
@@ -300,7 +300,7 @@ KineticLaw::unsetTimeUnits ()
 }
 
 
-/**
+/*
  * Unsets the substanceUnits of this KineticLaw.
  */
 void
@@ -310,7 +310,7 @@ KineticLaw::unsetSubstanceUnits ()
 }
 
 
-/**
+/*
  * Adds a copy of the given Parameter to this KineticLaw.
  */
 void
@@ -320,7 +320,7 @@ KineticLaw::addParameter (const Parameter* p)
 }
 
 
-/**
+/*
  * Creates a new Parameter, adds it to this KineticLaw's list of
  * parameters and returns it.
  */
@@ -334,7 +334,7 @@ KineticLaw::createParameter ()
 }
 
 
-/**
+/*
  * @return the list of Parameters for this KineticLaw.
  */
 const ListOfParameters*
@@ -344,7 +344,7 @@ KineticLaw::getListOfParameters () const
 }
 
 
-/**
+/*
  * @return the list of Parameters for this KineticLaw.
  */
 ListOfParameters*
@@ -354,7 +354,7 @@ KineticLaw::getListOfParameters ()
 }
 
 
-/**
+/*
  * @return the nth Parameter of this KineticLaw.
  */
 const Parameter*
@@ -364,7 +364,7 @@ KineticLaw::getParameter (unsigned int n) const
 }
 
 
-/**
+/*
  * @return the nth Parameter of this KineticLaw.
  */
 Parameter*
@@ -374,7 +374,7 @@ KineticLaw::getParameter (unsigned int n)
 }
 
 
-/**
+/*
  * @return the Parameter in this kineticLaw with the given id or NULL if
  * no such Parameter exists.
  */
@@ -385,7 +385,7 @@ KineticLaw::getParameter (const std::string& sid) const
 }
 
 
-/**
+/*
  * @return the Parameter in this kineticLaw with the given id or NULL if
  * no such Parameter exists.
  */
@@ -396,7 +396,7 @@ KineticLaw::getParameter (const std::string& sid)
 }
 
 
-/**
+/*
  * @return the number of Parameters in this KineticLaw.
  */
 unsigned int
@@ -406,7 +406,7 @@ KineticLaw::getNumParameters () const
 }
 
 
-/**
+/*
  * Sets the parent SBMLDocument of this SBML object.
  */
 void
@@ -417,7 +417,7 @@ KineticLaw::setSBMLDocument (SBMLDocument* d)
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -430,7 +430,7 @@ KineticLaw::getTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "kineticLaw".
  */
 const string&
@@ -442,7 +442,7 @@ KineticLaw::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
  */
@@ -455,7 +455,7 @@ KineticLaw::getElementPosition () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
  * implementation of this method as well.
@@ -472,7 +472,7 @@ KineticLaw::writeElements (XMLOutputStream& stream) const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
  */
@@ -498,7 +498,7 @@ KineticLaw::createObject (XMLInputStream& stream)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
@@ -572,7 +572,7 @@ KineticLaw::readOtherXML (XMLInputStream& stream)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -649,7 +649,7 @@ KineticLaw::readAttributes (const XMLAttributes& attributes)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
  * of this method as well.

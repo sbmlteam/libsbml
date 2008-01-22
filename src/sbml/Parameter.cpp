@@ -43,7 +43,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * Creates a new Parameter, optionally with its id and name attributes
  * set.
  */
@@ -56,7 +56,7 @@ Parameter::Parameter (const std::string& id, const std::string& name) :
 }
 
 
-/**
+/*
  * Creates a new Parameter, with its id and value attributes set and
  * optionally its units and constant attributes.
  */
@@ -74,7 +74,7 @@ Parameter::Parameter (   const std::string&  id
 }
 
 
-/**
+/*
  * Destroys this Parameter.
  */
 Parameter::~Parameter ()
@@ -82,7 +82,7 @@ Parameter::~Parameter ()
 }
 
 
-/**
+/*
  * Copy constructor. Creates a copy of this Parameter.
  */
 Parameter::Parameter(const Parameter& orig) :
@@ -95,7 +95,7 @@ Parameter::Parameter(const Parameter& orig) :
 }
 
 
-/**
+/*
  * Assignment operator.
  */
 Parameter& Parameter::operator=(const Parameter& rhs)
@@ -109,7 +109,7 @@ Parameter& Parameter::operator=(const Parameter& rhs)
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates
@@ -123,7 +123,7 @@ Parameter::accept (SBMLVisitor& v) const
 }
 
 
-/**
+/*
  * @return a (deep) copy of this Parameter.
  */
 SBase*
@@ -133,7 +133,7 @@ Parameter::clone () const
 }
 
 
-/**
+/*
  * Initializes the fields of this Parameter to their defaults:
  *
  *   - constant = true  (L2 only)
@@ -145,7 +145,7 @@ Parameter::initDefaults ()
 }
 
 
-/**
+/*
  * @return the value of this Parameter.
  */
 double
@@ -155,7 +155,7 @@ Parameter::getValue () const
 }
 
 
-/**
+/*
  * @return the units of this Parameter.
  */
 const string&
@@ -165,7 +165,7 @@ Parameter::getUnits () const
 }
 
 
-/**
+/*
  * @return true if this Parameter is constant, false otherwise.
  */
 bool
@@ -175,7 +175,7 @@ Parameter::getConstant () const
 }
 
 
-/**
+/*
  * @return true if the value of this Parameter has been set, false
  * otherwise.
  *
@@ -190,7 +190,7 @@ Parameter::isSetValue () const
 }
 
 
-/**
+/*
  * @return true if the units of this Parameter has been set, false
  * otherwise.
  */
@@ -201,7 +201,7 @@ Parameter::isSetUnits () const
 }
 
 
-/**
+/*
  * Sets the value of this Parameter to value and marks the field as set.
  */
 void
@@ -212,7 +212,7 @@ Parameter::setValue (double value)
 }
 
 
-/**
+/*
  * Sets the units of this Parameter to a copy of sid.
  */
 void
@@ -222,7 +222,7 @@ Parameter::setUnits (const std::string& units)
 }
 
 
-/**
+/*
  * Sets the constant field of this Parameter to value.
  */
 void
@@ -232,7 +232,7 @@ Parameter::setConstant (bool flag)
 }
 
 
-/**
+/*
  * Unsets the value of this Parameter.
  *
  * In SBML L1v1, a Parameter value is required and therefore <b>should
@@ -247,7 +247,7 @@ Parameter::unsetValue ()
 }
 
 
-/**
+/*
  * Unsets the units of this Parameter.
  */
 void
@@ -257,7 +257,7 @@ Parameter::unsetUnits ()
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -270,7 +270,7 @@ Parameter::getTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "parameter".
  */
 const string&
@@ -282,7 +282,7 @@ Parameter::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -375,7 +375,7 @@ Parameter::readAttributes (const XMLAttributes& attributes)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
  * of this method as well.
@@ -434,7 +434,7 @@ Parameter::writeAttributes (XMLOutputStream& stream) const
 /** @endcond doxygen-libsbml-internal */
 
 
-/**
+/*
  * @return a (deep) copy of this ListOfParameters.
  */
 SBase*
@@ -444,7 +444,7 @@ ListOfParameters::clone () const
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
  * SBML_UNKNOWN (default).
  */
@@ -455,7 +455,7 @@ ListOfParameters::getItemTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "listOfParameters".
  */
 const string&
@@ -467,7 +467,7 @@ ListOfParameters::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
  */
@@ -480,7 +480,7 @@ ListOfParameters::getElementPosition () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
  *

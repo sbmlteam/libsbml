@@ -46,7 +46,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * Creates a new FunctionDefinition, optionally with its id and math (via
  * an infix formula string) attributes set.
  */
@@ -58,7 +58,7 @@ FunctionDefinition::FunctionDefinition (  const std::string& id
 }
 
 
-/**
+/*
  * Creates a new FunctionDefinition, optionally with its id and math
  * attributes set.
  */
@@ -71,7 +71,7 @@ FunctionDefinition::FunctionDefinition (  const std::string&  id
 }
 
 
-/**
+/*
  * Destroys this FunctionDefinition.
  */
 FunctionDefinition::~FunctionDefinition ()
@@ -80,7 +80,7 @@ FunctionDefinition::~FunctionDefinition ()
 }
 
 
-/**
+/*
  * Copy constructor. Creates a copy of this FunctionDefinition.
  */
 FunctionDefinition::FunctionDefinition (const FunctionDefinition& orig) :
@@ -91,7 +91,7 @@ FunctionDefinition::FunctionDefinition (const FunctionDefinition& orig) :
 }
 
 
-/**
+/*
  * Assignment operator
  */
 FunctionDefinition& FunctionDefinition::operator=(const FunctionDefinition& rhs)
@@ -102,7 +102,7 @@ FunctionDefinition& FunctionDefinition::operator=(const FunctionDefinition& rhs)
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates
@@ -116,7 +116,7 @@ FunctionDefinition::accept (SBMLVisitor& v) const
 }
 
 
-/**
+/*
  * @return a (deep) copy of this FunctionDefinition.
  */
 SBase*
@@ -126,7 +126,7 @@ FunctionDefinition::clone () const
 }
 
 
-/**
+/*
  * @return the math of this FunctionDefinition.
  */
 const ASTNode*
@@ -136,7 +136,7 @@ FunctionDefinition::getMath () const
 }
 
 
-/**
+/*
  * @return true if the math of this FunctionDefinition has been set, false
  * otherwise.
  */
@@ -146,7 +146,7 @@ FunctionDefinition::isSetMath () const
   return (mMath != 0);
 }
 
-/**
+/*
  * Sets the math of this FunctionDefinition to the given ASTNode.
  */
 void
@@ -158,7 +158,7 @@ FunctionDefinition::setMath (const ASTNode* math)
   mMath = (math != 0) ? math->deepCopy() : 0;
 }
 
-/**
+/*
  * @return the nth argument (bound variable) passed to this
  * FunctionDefinition.
  */
@@ -169,7 +169,7 @@ FunctionDefinition::getArgument (unsigned int n) const
 }
 
 
-/**
+/*
  * @return the argument (bound variable) in this FunctionDefinition with
  * the given name or NULL if no such argument exists.
  */
@@ -195,7 +195,7 @@ FunctionDefinition::getArgument (const std::string& name) const
 }
 
 
-/**
+/*
  * @return the body of this FunctionDefinition, or NULL if no body is
  * defined.
  */
@@ -212,7 +212,7 @@ FunctionDefinition::getBody () const
 }
 
 
-/**
+/*
  * @return the body of this FunctionDefinition, or NULL if no body is
  * defined.
  */
@@ -229,7 +229,7 @@ FunctionDefinition::getBody ()
 }
 
 
-/**
+/*
  * @return the number of arguments (bound variables) that must be passed
  * to this FunctionDefinition.
  */
@@ -241,7 +241,7 @@ FunctionDefinition::getNumArguments () const
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -254,7 +254,7 @@ FunctionDefinition::getTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "functionDefinition".
  */
 const string&
@@ -266,7 +266,7 @@ FunctionDefinition::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
@@ -339,7 +339,7 @@ FunctionDefinition::readOtherXML (XMLInputStream& stream)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -400,7 +400,7 @@ FunctionDefinition::readAttributes (const XMLAttributes& attributes)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
  * of this method as well.
@@ -434,7 +434,7 @@ FunctionDefinition::writeAttributes (XMLOutputStream& stream) const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
  * implementation of this method as well.
@@ -447,7 +447,7 @@ FunctionDefinition::writeElements (XMLOutputStream& stream) const
 /** @endcond doxygen-libsbml-internal */
 
 
-/**
+/*
  * @return a (deep) copy of this ListOfFunctionDefinitions.
  */
 SBase*
@@ -457,7 +457,7 @@ ListOfFunctionDefinitions::clone () const
 }
 
 
-/**
+/*
  * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
  * SBML_UNKNOWN (default).
  */
@@ -468,7 +468,7 @@ ListOfFunctionDefinitions::getItemTypeCode () const
 }
 
 
-/**
+/*
  * @return the name of this element ie "listOfFunctionDefinitions".
  */
 const string&
@@ -480,7 +480,7 @@ ListOfFunctionDefinitions::getElementName () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
  */
@@ -493,7 +493,7 @@ ListOfFunctionDefinitions::getElementPosition () const
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
  */

@@ -44,7 +44,7 @@ using namespace std;
 /** @endcond doxygen-ignore */
 
 
-/**
+/*
  * create a new CVTerm
  */
 CVTerm::CVTerm(QualifierType_t type)
@@ -60,7 +60,7 @@ CVTerm::CVTerm(QualifierType_t type)
 }
 
 
-/**
+/*
  * create a new CVTerm from an XMLNode
  * this assumes that the XMLNode has a prefix 
  * that represents a CV term
@@ -124,7 +124,7 @@ CVTerm::CVTerm(const XMLNode node)
 }
 
 
-/**
+/*
  * destructor
  */
 CVTerm::~CVTerm()
@@ -132,7 +132,7 @@ CVTerm::~CVTerm()
   delete mResources;
 }
 
-/**
+/*
  * Copy constructor; creates a copy of a CVTerm.
  * 
  * @param orig the CVTerm instance to copy.
@@ -149,7 +149,7 @@ CVTerm::CVTerm(const CVTerm& orig):
   mResources=new XMLAttributes(*orig.mResources);
 }
 
-/**
+/*
  * Assignment operator for CVTerm.
  */
 CVTerm& 
@@ -178,7 +178,7 @@ CVTerm* CVTerm::clone() const
 }
 
 
-/**
+/*
  * set the qualifier type
  */
 void 
@@ -188,7 +188,7 @@ CVTerm::setQualifierType(QualifierType_t type)
 }
 
 
-/**
+/*
  * set the model qualifier type
  * this should be consistent with the mQualifier == MODEL_QUALIFIER
  */
@@ -206,7 +206,7 @@ CVTerm::setModelQualifierType(ModelQualifierType_t type)
 }
 
 
-/**
+/*
  * set the biological qualifier type
  * this should be consistent with the mQualifier == BIOLOGICAL_QUALIFIER
  */
@@ -223,7 +223,7 @@ CVTerm::setBiologicalQualifierType(BiolQualifierType_t type)
   }
 }
 
-/**
+/*
  * gets the Qualifier type
  */
 QualifierType_t 
@@ -233,7 +233,7 @@ CVTerm::getQualifierType()
 }
 
 
-/**
+/*
  * gets the Model Qualifier type
  */
 ModelQualifierType_t 
@@ -243,7 +243,7 @@ CVTerm::getModelQualifierType()
 }
 
 
-/**
+/*
  * gets the biological Qualifier type
  */
 BiolQualifierType_t 
@@ -253,7 +253,7 @@ CVTerm::getBiologicalQualifierType()
 }
 
 
-/**
+/*
  * gets the resources
  */
 XMLAttributes * 
@@ -262,7 +262,7 @@ CVTerm::getResources()
   return mResources;
 }
 
-/**
+/*
  * gets the resources
  */
 const XMLAttributes * 

@@ -199,7 +199,7 @@ SBMLError::SBMLError (  const unsigned int errorId
 }
 
 
-/**
+/*
  * Outputs this SBMLError to stream in the following format (and followed by
  * a newline):
  *

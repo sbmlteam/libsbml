@@ -35,7 +35,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * Creates a new empty XMLToken.
  */
 XMLToken::XMLToken () :
@@ -48,7 +48,7 @@ XMLToken::XMLToken () :
 }
 
 
-/**
+/*
  * Creates a start element XMLToken with the given set of attributes and
  * namespace declarations.
  */
@@ -69,7 +69,7 @@ XMLToken::XMLToken (  const XMLTriple&      triple
 }
 
 
-/**
+/*
  * Creates a start element XMLToken with the given set of attributes.
  */
 XMLToken::XMLToken (  const XMLTriple&      triple
@@ -87,7 +87,7 @@ XMLToken::XMLToken (  const XMLTriple&      triple
 }
 
 
-/**
+/*
  * Creates an end element XMLToken.
  */
 XMLToken::XMLToken (  const XMLTriple&    triple
@@ -104,7 +104,7 @@ XMLToken::XMLToken (  const XMLTriple&    triple
 }
 
 
-/**
+/*
  * Creates a text XMLToken.
  */
 XMLToken::XMLToken (  const std::string&  chars
@@ -120,7 +120,7 @@ XMLToken::XMLToken (  const std::string&  chars
 }
 
 
-/**
+/*
  * Destroys this XMLToken.
  */
 XMLToken::~XMLToken ()
@@ -128,7 +128,7 @@ XMLToken::~XMLToken ()
 }
 
 
-/**
+/*
  * Copy constructor; creates a copy of this XMLToken.
  */
 XMLToken::XMLToken(const XMLToken& orig)
@@ -159,7 +159,7 @@ XMLToken::XMLToken(const XMLToken& orig)
 }
 
 
-/**
+/*
  * Assignment operator for XMLToken.
  */
 XMLToken& 
@@ -192,7 +192,7 @@ XMLToken::operator=(const XMLToken& orig)
   return *this;
 }
 
-/**
+/*
  * Creates and returns a deep copy of this XMLToken.
  * 
  * @return a (deep) copy of this XMLToken set.
@@ -204,7 +204,7 @@ XMLToken::clone () const
 }
 
 
-/**
+/*
  * Appends characters to this XML text content.
  */
 void
@@ -214,7 +214,7 @@ XMLToken::append (const std::string& chars)
 }
 
 
-/**
+/*
  * @return the XMLAttributes of this XML element.
  */
 const XMLAttributes&
@@ -224,7 +224,7 @@ XMLToken::getAttributes () const
 }
 
 
-/**
+/*
  * @return the characters of this XML text.
  */
 const string&
@@ -234,7 +234,7 @@ XMLToken::getCharacters () const
 } 
 
 
-/**
+/*
  * @return the column at which this XMLToken occurred.
  */
 unsigned int
@@ -244,7 +244,7 @@ XMLToken::getColumn () const
 }
 
 
-/**
+/*
  * @return the line at which this XMLToken occurred.
  */
 unsigned int
@@ -254,7 +254,7 @@ XMLToken::getLine () const
 }
 
 
-/**
+/*
  * @return the XML namespace declarations for this XML element.
  */
 const XMLNamespaces&
@@ -264,7 +264,7 @@ XMLToken::getNamespaces () const
 }
 
 
-/**
+/*
  * @return the (unqualified) name of this XML element.
  */
 const string&
@@ -274,7 +274,7 @@ XMLToken::getName () const
 }
 
 
-/**
+/*
  * @return the namespace prefix of this XML element.  If no prefix
  * exists, an empty string will be return.
  */
@@ -285,7 +285,7 @@ XMLToken::getPrefix () const
 }
 
 
-/**
+/*
  * @return the namespace URI of this XML element.
  */
 const string&
@@ -295,7 +295,7 @@ XMLToken::getURI () const
 }
 
 
-/**
+/*
  * @return true if this XMLToken is an XML element.
  */
 bool
@@ -305,7 +305,7 @@ XMLToken::isElement () const
 }
 
  
-/**
+/*
  * @return true if this XMLToken is an XML end element, false
  * otherwise.
  */
@@ -316,7 +316,7 @@ XMLToken::isEnd () const
 }
 
 
-/**
+/*
  * @return true if this XMLToken is an XML end element for the given XML
  * start element, false otherwise.
  */
@@ -331,7 +331,7 @@ XMLToken::isEndFor (const XMLToken& element) const
 }
 
 
-/**
+/*
  * @return true if this XMLToken is an end of file (input) marker, false
  * otherwise.
  */
@@ -342,7 +342,7 @@ XMLToken::isEOF () const
 }
 
 
-/**
+/*
  * @return true if this XMLToken is an XML start element, false
  * otherwise.
  */
@@ -353,7 +353,7 @@ XMLToken::isStart () const
 }
 
 
-/**
+/*
  * @return true if this XMLToken is text, false otherwise.
  */
 bool
@@ -363,7 +363,7 @@ XMLToken::isText () const
 }
 
 
-/**
+/*
  * Declares this XML start element is also an end element.
  */
 void
@@ -373,7 +373,7 @@ XMLToken::setEnd ()
 }
 
 
-/**
+/*
  * Declares this XML start/end element is no longer an end element.
  */
 void
@@ -383,7 +383,7 @@ XMLToken::unsetEnd ()
 }
 
 
-/**
+/*
  * Declares this XMLToken is an end-of-file (input) marker.
  */
 void
@@ -396,7 +396,7 @@ XMLToken::setEOF ()
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Writes this XMLToken to stream.
  */
 void
@@ -417,7 +417,7 @@ XMLToken::write (XMLOutputStream& stream) const
 /** @endcond doxygen-libsbml-internal */
 
 
-/**
+/*
  * Prints a string representation of the underlying token stream, for
  * debugging purposes.
  */
@@ -446,7 +446,7 @@ XMLToken::toString ()
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
  * Inserts this XMLToken into stream.
  */
 LIBLAX_EXTERN

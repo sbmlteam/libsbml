@@ -33,7 +33,7 @@
 static const char* ASSIGNED_COMPARTMENT = "AssignedName";
 
 
-/**
+/*
  * Converts the model to a from SBML L2 to L1.  Most of the necessary
  * changes occur during the various writeAttributes() methods, however
  * there are some difference between L1 and L2 that require the underlying
@@ -59,7 +59,7 @@ Model::convertToL1 ()
 }
 
 
-/**
+/*
  * Converts the model to a from SBML L1 to L2.  Most of the necessary
  * changes occur during the various writeAttributes() methods, however
  * there are some difference between L1 and L2 that require the underlying
