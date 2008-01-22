@@ -240,6 +240,9 @@ define run_doxygen
     mv -f tmp.html $(2)/tree.html;\
   else \
     sed -is 's/libSBML Python Public API //' $(2)/tree.html;\
+    sed -is 's/libSBML C++ Public API //' $(2)/tree.html;\
+    sed -is 's/libSBML C Public API //' $(2)/tree.html;\
+    sed -is 's/libSBML Perl Public API //' $(2)/tree.html;\
   fi
 endef
 
