@@ -1,4 +1,6 @@
-/**
+/** 
+ *@cond doxygen-libsbml-internal 
+ **
  *
  * @file    FormulaUnitsData.cpp
  * @brief   Class for storing information relating to units of a formula
@@ -386,8 +388,7 @@ FormulaUnitsData::accept (SBMLVisitor& v) const
 }
 /** @endcond doxygen-libsbml-internal */
 
-/** @cond doxygen-c-only */
-
+/* NOT YET NECESSARY
 
 LIBSBML_EXTERN
 FormulaUnitsData_t* 
@@ -503,4 +504,5 @@ FormulaUnitsData_setEventTimeUnitDefinition(FormulaUnitsData_t* fud,
   fud->setEventTimeUnitDefinition(ud);
 }
 
-/** @endcond doxygen-c-only */
+*/
+/** @endcond doxygen-libsbml-internal */

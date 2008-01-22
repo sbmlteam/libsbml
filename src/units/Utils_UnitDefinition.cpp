@@ -511,28 +511,30 @@ std::string
 printUnits(const UnitDefinition * ud)
 {
   std::string unitDef;
-  for (unsigned int p = 0; p < ud->getNumUnits(); p++)
-  {
-	  UnitKind_t kind = ud->getUnit(p)->getKind();
-	  int exp = ud->getUnit(p)->getExponent();
-
-    char unit[40];
-    sprintf(unit, "%s (exponent = %i)", UnitKind_toString(kind), exp);
-    unitDef += unit;
-    //msg +=  UnitKind_toString(kind);
-    //msg += " (exponent = ";
-    //msg += exp;
-    //msg +=  ")";
-
-	  if (p + 1 < ud->getNumUnits())
-	  {
-	    unitDef += ", ";
-	  }	  
-  }
-
-  if (ud->getNumUnits() == 0)
+  if (!ud || ud->getNumUnits() == 0)
   {
     unitDef = "indeterminable";
+  }
+  else
+  {
+    for (unsigned int p = 0; p < ud->getNumUnits(); p++)
+    {
+	    UnitKind_t kind = ud->getUnit(p)->getKind();
+	    int exp = ud->getUnit(p)->getExponent();
+
+      char unit[40];
+      sprintf(unit, "%s (exponent = %i)", UnitKind_toString(kind), exp);
+      unitDef += unit;
+      //msg +=  UnitKind_toString(kind);
+      //msg += " (exponent = ";
+      //msg += exp;
+      //msg +=  ")";
+
+	    if (p + 1 < ud->getNumUnits())
+	    {
+	      unitDef += ", ";
+	    }	  
+    }
   }
   return unitDef;
 }

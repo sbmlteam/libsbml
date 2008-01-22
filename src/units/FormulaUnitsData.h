@@ -1,4 +1,6 @@
-/**
+/** 
+ *@cond doxygen-libsbml-internal 
+ **
  *
  * @file    FormulaUnitsData.h
  * @brief   Class for storing information relating to units of a formula
@@ -379,14 +381,14 @@ protected:
 
 #endif  /* __cplusplus */
 
-
+/* NOT YET NECESSARY 
 #ifndef SWIG
 
 BEGIN_C_DECLS
 
-/*-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
  * See the .cpp file for the documentation of the following functions.
- *---------------------------------------------------------------------------*/
+ *---------------------------------------------------------------------------
 
 LIBSBML_EXTERN
 FormulaUnitsData_t* 
@@ -457,7 +459,8 @@ FormulaUnitsData_setEventTimeUnitDefinition(FormulaUnitsData_t* fud,
 END_C_DECLS
 
 
-#endif  /* !SWIG   */
+#endif   !SWIG   */
 #endif
 
+/** @endcond doxygen-libsbml-internal */
 

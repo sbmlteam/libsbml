@@ -1,4 +1,6 @@
-/**
+/** 
+ *@cond doxygen-libsbml-internal 
+ **
  * @file    Utils_Unit.h
  * @brief   Utility functions acting on a Unit object
  * @author  Sarah Keating
@@ -126,13 +128,14 @@ LIBSBML_EXTERN
 bool areEquivalent(Unit * unit1, Unit * unit2);
 
 #endif /* __cplusplus */
+/* NOT YET NECESSARY
 #ifndef SWIG
 
 BEGIN_C_DECLS
 
-/*-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
  * See the .cpp file for the documentation of the following functions.
- *---------------------------------------------------------------------------*/
+ *---------------------------------------------------------------------------
 
 LIBSBML_EXTERN
 void Unit_removeScale(Unit_t * unit);
@@ -151,6 +154,8 @@ int Unit_areEquivalent(Unit_t * unit1, Unit_t * unit2);
 
 END_C_DECLS
 
-#endif  /* !SWIG   */
+#endif   !SWIG   */
 #endif  /* Utils_Unit_h */
+
+/** @endcond doxygen-libsbml-internal */
 

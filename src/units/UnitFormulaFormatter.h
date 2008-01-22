@@ -1,4 +1,6 @@
-/**
+/** 
+ *@cond doxygen-libsbml-internal 
+ **
  * @file    UnitFormulaFormatter.h
  * @brief   Formats an AST formula tree as a unit definition
  * @author  Sarah Keating
@@ -295,13 +297,15 @@ private:
 
 
 #endif  /* !cplusplus */
+
+/* NOT YET NECESSARY
 #ifndef SWIG
 
 BEGIN_C_DECLS
 
-/*-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
  * See the .cpp file for the documentation of the following functions.
- *---------------------------------------------------------------------------*/
+ *---------------------------------------------------------------------------
 
 LIBSBML_EXTERN
 UnitFormulaFormatter_t* 
@@ -350,7 +354,9 @@ UnitFormulaFormatter_resetFlags(UnitFormulaFormatter_t * uff);
 END_C_DECLS
 
 
-#endif  /* !SWIG   */
+#endif   !SWIG   */
+
 #endif  /* UnitFormulaFormatter_h */
 
+/** @endcond doxygen-libsbml-internal */
 

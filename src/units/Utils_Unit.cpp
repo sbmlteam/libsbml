@@ -1,4 +1,6 @@
-/**
+/** 
+ *@cond doxygen-libsbml-internal 
+ **
  * @file    Utils_Unit.cpp
  * @brief   Utility functions acting on a Unit object
  * @author  Sarah Keating
@@ -918,8 +920,7 @@ areEquivalent(Unit * unit1, Unit * unit2)
 
   return equivalent;
 }
-
-/** @cond doxygen-c-only */
+/* NOT YET NECESSARY
 
 LIBSBML_EXTERN
 void 
@@ -958,6 +959,7 @@ Unit_areEquivalent(Unit_t * unit1, Unit_t * unit2)
   return static_cast<int>(areEquivalent(static_cast<Unit*>(unit1),
                                        static_cast<Unit*>(unit2)));
 }
+*/
 
+/** @endcond doxygen-libsbml-internal */
 
-/** @endcond doxygen-c-only */

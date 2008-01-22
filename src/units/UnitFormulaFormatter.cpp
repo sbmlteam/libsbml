@@ -1,4 +1,6 @@
-/**
+/** 
+ *@cond doxygen-libsbml-internal 
+ **
  * @file    UnitFormulaFormatter.cpp
  * @brief   Formats an AST formula tree as a unit definition
  * @author  Sarah Keating
@@ -1465,8 +1467,7 @@ UnitFormulaFormatter::resetFlags()
 }
 
 
-/** @cond doxygen-c-only */
-
+/* NOT YET NECESSARY 
 LIBSBML_EXTERN
 UnitFormulaFormatter_t* 
 UnitFormulaFormatter_create(Model_t * model)
@@ -1540,4 +1541,5 @@ UnitFormulaFormatter_resetFlags(UnitFormulaFormatter_t * uff)
   uff->resetFlags();
 }
 
-/** @endcond doxygen-c-only */
+*/
+/** @endcond doxygen-libsbml-internal */
