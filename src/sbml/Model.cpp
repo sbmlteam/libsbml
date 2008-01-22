@@ -2477,6 +2477,7 @@ Model::populateListFormulaUnitsData()
     {
       sprintf(newId, "alg_rule_%u", countAlg);
       fud->setUnitReferenceId(newId);
+      r->setId(newId);
       countAlg++;
     }
     else
@@ -2600,17 +2601,21 @@ Model::populateListFormulaUnitsData()
     /* get units returned by dely */
     if (e->isSetDelay())
     {
+      Delay * d = e->getDelay();
       fud = createFormulaUnitsData();
 
       if (e->isSetId())
       {
         fud->setUnitReferenceId(e->getId());
+        d->setId(e->getId());
       }
       else
       {
         sprintf(newId, "event_%u", countEvents);
         fud->setUnitReferenceId(newId);
         e->setId(newId);
+        e->setInternalIdOnly();
+        d->setId(newId);
       }
       countEvents++;
 
@@ -4456,8 +4461,8 @@ Model_createLayout (Model_t *m)
 
 #endif  /* USE_LAYOUT */
 
+/* NOT YET USED but leave in case of future need 
 
-/**
   * Populates the list of FormulaDataUnits with the units derived 
   * for the model. The list contains elements of class
   * FormulaUnitsData. 
@@ -4482,7 +4487,6 @@ Model_createLayout (Model_t *m)
   * The List is populated prior to running the validation and thus
   * the consistency of units can be checked by accessing the members
   * of the list and comparing the appropriate data.
-  */
 LIBSBML_EXTERN
 void 
 Model_populateListFormulaUnitsData(Model_t *m)
@@ -4491,12 +4495,12 @@ Model_populateListFormulaUnitsData(Model_t *m)
 }
 
 
-/**
+
   * Adds a copy of the given FormulaUnitsData object to this Model.
   *
   * @param m the Model_t structure
   * @param fud the FormulaUnitsData_t structure to add
-  */
+
 LIBSBML_EXTERN
 void 
 Model_addFormulaUnitsData (Model_t *m, FormulaUnitsData_t* fud)
@@ -4505,13 +4509,13 @@ Model_addFormulaUnitsData (Model_t *m, FormulaUnitsData_t* fud)
 }
 
 
-/**
+
  * Creates a new FormulaUnitsData inside this Model and returns it.
  *
  * @param m the Model_t structure
  *
  * @return the FormulaUnitsData_t structure created
- */
+
 LIBSBML_EXTERN
 FormulaUnitsData_t* 
 Model_createFormulaUnitsData (Model_t *m)
@@ -4520,13 +4524,12 @@ Model_createFormulaUnitsData (Model_t *m)
 }
 
 
-/**
  * Get the nth FormulaUnitsData object in this Model.
  *
  * @param m the Model_t structure
  * 
  * @return the nth FormulaUnitsData of this Model.
- */
+
 LIBSBML_EXTERN
 FormulaUnitsData_t* 
 Model_getFormulaUnitsData (Model_t *m, unsigned int n)
@@ -4535,7 +4538,7 @@ Model_getFormulaUnitsData (Model_t *m, unsigned int n)
 }
 
 
-/**
+
   * Get a FormulaUnitsData object based on its unitReferenceId and typecode.
   *
   * @param m the Model_t structure
@@ -4552,7 +4555,7 @@ Model_getFormulaUnitsData (Model_t *m, unsigned int n)
   * typecode 'SBML_SPECIES' referring to the units related to the species, 
   * the other with typecode 'SBML_ASSIGNMENT_RULE' referring to the units
   * derived from the math element of the AssignmentRule.
-  */
+
 LIBSBML_EXTERN
 FormulaUnitsData_t* 
 Model_getFormulaUnitsDataById(Model_t *m, const char* sid, 
@@ -4561,13 +4564,13 @@ Model_getFormulaUnitsDataById(Model_t *m, const char* sid,
   return m->getFormulaUnitsData(sid, typecode);
 }
 
-/**
+
   * Get the number of FormulaUnitsData objects in this Model.
   * 
   * @param m the Model_t structure
   * 
   * @return the number of FormulaUnitsData in this Model.
-  */
+
 LIBSBML_EXTERN
 unsigned int 
 Model_getNumFormulaUnitsData (Model_t *m)
@@ -4576,13 +4579,13 @@ Model_getNumFormulaUnitsData (Model_t *m)
 }
 
 
-/**
+
   * Get the list of FormulaUnitsData object in this Model.
   * 
   * @param m the Model_t structure
   * 
  * @return the list of FormulaUnitsData for this Model.
-  */
+
 LIBSBML_EXTERN
 List_t* 
 Model_getListFormulaUnitsData (Model_t *m)
@@ -4590,7 +4593,7 @@ Model_getListFormulaUnitsData (Model_t *m)
   return m->getListFormulaUnitsData();
 }
 
-/**
+
   * Predicate returning @c true or @c false depending on whether 
   * the list of FormulaUnitsData has been populated.
   *
@@ -4598,7 +4601,7 @@ Model_getListFormulaUnitsData (Model_t *m)
   * 
   * @return @c true if the list of FormulaUnitsData has been populated, 
   * @c false otherwise.
-  */
+
 LIBSBML_EXTERN
 int 
 Model_isPopulatedListFormulaUnitsData(Model_t *m)
@@ -4606,7 +4609,7 @@ Model_isPopulatedListFormulaUnitsData(Model_t *m)
   return static_cast<int>( m->isPopulatedListFormulaUnitsData());
 }
 
-
+*/
 
 
 /** @endcond doxygen-c-only */
