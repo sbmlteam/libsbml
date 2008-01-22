@@ -97,7 +97,7 @@ Documentation for libSBML is available as a separate download from the
 same locations as the libSBML distribution (namely, the SBML project
 SourceForge and the http://sbml.org/software/libsbml web page).  You
 may also regenerate the documentation from the source code
-distribution if you have Doxygen version 1.4.5 installed and have
+distribution if you have Doxygen version 1.5.4 installed and have
 configured libSBML with the --with-doxygen flag.  Then you can execute
 the following to generate and install the libSBML documentation files:
 
