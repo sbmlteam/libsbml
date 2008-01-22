@@ -29,5 +29,6 @@ CTAGS
 doxygen-config-c.txt
 doxygen-config-cpp.txt
 doxygen-config-python.txt
+doxygen-config-perl.txt
 libsbml-c-api
 libsbml-cpp-api
