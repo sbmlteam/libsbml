@@ -323,13 +323,14 @@ java-manual $(java-manual): $(core-sources)
 	cp -f graphics/sbml-logo-long-124x56.gif $(java-manual)
 	cp -f graphics/sbml-logo-long-124x56.gif $(java-manual)/org/sbml/libsbml/
 	cp -f graphics/*.jpg $(java-manual)/org/sbml/libsbml/
-	$(call merge_html,libsbml-installation.html,$(java-manual)/libsbml-installation.html,Installation)
-	$(call merge_html,libsbml-features.html,$(java-manual)/libsbml-features.html,Java API Features)
-	$(call merge_html,libsbml-issues.html,$(java-manual)/libsbml-issues.html,Known Issues and Pitfalls)
-	$(call merge_html,libsbml-communications.html,$(java-manual)/libsbml-communications.html,Bug Reports and Other Communications)
-	$(call merge_html,libsbml-java-reading.html,$(java-manual)/libsbml-java-reading.html,Reading and Writing SBML Content)
-	$(call merge_html,libsbml-uninstallation.html,$(java-manual)/libsbml-uninstallation.html,Uninstallation)
-	$(call merge_html,../../LICENSE.html,$(java-manual)/libsbml-license.html,License)
+	$(call merge_html,libsbml-installation.html,$(java-manual)/libsbml-installation.html,installation)
+	$(call merge_html,libsbml-accessing.html,$(java-manual)/libsbml-accessing.html,accessibility to your software)
+	$(call merge_html,libsbml-features.html,$(java-manual)/libsbml-features.html,features)
+	$(call merge_html,libsbml-communications.html,$(java-manual)/libsbml-communications.html,bug reports and other communications)
+	$(call merge_html,libsbml-java-reading.html,$(java-manual)/libsbml-java-reading.html,for reading and writing SBML content)
+	$(call merge_html,libsbml-issues.html,$(java-manual)/libsbml-issues.html,known issues and pitfalls)
+	$(call merge_html,libsbml-uninstallation.html,$(java-manual)/libsbml-uninstallation.html,uninstallation)
+	$(call merge_html,../../LICENSE.html,$(java-manual)/libsbml-license.html,license)
 
 
 # -----------------------------------------------------------------------------
