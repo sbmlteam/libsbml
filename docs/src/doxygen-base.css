@@ -518,3 +518,11 @@ dd table tr {
 .directory p { margin: 0px; white-space: nowrap; ; font-size: 12px; }
 .directory div { display: none; margin: 0px; }
 .directory img { vertical-align: middle; }
+
+.normal-font {
+  font-size: 14px;
+}
+
+.small-font {
+  font-size: 12px;
+}
