@@ -26,13 +26,13 @@
  * @brief Representation of errors, warnings and other diagnostics
  *
  * LibSBML can be configured to use any of a number of XML parsers; at the
- * time of this writing, libSBML supports Xerces 2.4&ndash;2.7, Expat
- * 1.95.x, and libxml2 2.6.16 or higher.  These parsers each report
- * different status codes for the various exceptions that can occur during
- * XML processing.  The XMLError object class abstracts away from the
- * particular diagnostics reported by the different parsers and presents a
- * single uniform interface and set of status codes, along with operations
- * for manipulating the error objects.
+ * time of this writing, libSBML supports Xerces versions 2.4 through 2.7,
+ * Expat version 1.95.x, and libxml2 version 2.6.16 and higher.  These
+ * parsers each report different status codes for the various exceptions
+ * that can occur during XML processing.  The XMLError object class
+ * abstracts away from the particular diagnostics reported by the different
+ * parsers and presents a single uniform interface and set of status codes,
+ * along with operations for manipulating the error objects.
  *
  * When the libSBML XML parser layer encounters an error in the XML content
  * being processed, or when there is something else wrong (such as an
@@ -40,22 +40,26 @@
  *
  * Each XMLError object instance has an identification number that
  * identifies the nature of the problem.  This number will be up to five
- * digits long and drawn from the enumeration #XMLErrorCode_t.
- * Applications can use the error identifiers as a means of recognizing the
- * error encountered and changing their behavior if desired.
+ * digits long and drawn from the enumeration <a class="el"
+ * href="#XMLErrorCode_t">XMLErrorCode_t</a>.  Applications can use the
+ * error identifiers as a means of recognizing the error encountered and
+ * changing their behavior if desired.
  *
  * XMLError also logs a text message describing the nature of the error.
  * The text message is suitable for displaying to humans.
  *
  * Each XMLError object also contains a @em category code, drawn from the
- * enumeration #XMLErrorCategory_t.  Categories are used to provide more
- * information about the nature of a given error, such as whether it is a
- * system problem or a problem with the XML content.
+ * enumeration
+ * <a class="el" href="#XMLErrorCategory_t">XMLErrorCategory_t</a>.
+ * Categories are used to provide more information about the nature of a
+ * given error, such as whether it is a system problem or a problem with
+ * the XML content.
  *
  * Each XMLError object also has a @em severity code, drawn from the
- * enumeration #XMLErrorSeverity_t.  Severity levels currently
- * range from informational (LIBSBML_SEV_INFO) to fatal errors
- * (LIBSBML_SEV_FATAL).
+ * enumeration
+ * <a class="el" href="#XMLErrorSeverity_t">XMLErrorSeverity_t</a>.
+ * Severity levels currently range from informational (@c LIBSBML_SEV_INFO)
+ * to fatal errors (@c LIBSBML_SEV_FATAL).
  *
  * Finally, XMLError objects record the line and column near where the
  * problem occurred in the XML content.  We say "near", because many
@@ -66,6 +70,144 @@
  * a closing tag on another line).  When communicating problems to humans,
  * it is generally best to provide all three pieces of information
  * (message, line, column), to help them determine the actual error.
+ *
+ * 
+ * <h3><a class="anchor" name="XMLErrorCode_t">XMLErrorCode_t</a></h3>
+ *
+ * This is an enumeration of all the error and warning codes returned by
+ * the XML layer in libSBML.  Each code is an integer with a 4-digit value
+ * less than 10000.  The following table lists each possible value and a
+ * brief description of its meaning.
+ * 
+ * <center>
+ * <table width="90%" cellspacing="1" cellpadding="1" border="0" class="normal-font">
+ *  <tr style="background: lightgray" class="normal-font">
+ *      <td><strong>Enumerator</strong></td>
+ *      <td><strong>Meaning</strong></td>
+ *  </tr>
+ * <tr><td><em>XMLUnknownError</em></td><td>Unknown error encountered.</td></tr>
+ * <tr><td><em>XMLOutOfMemory</em></td><td>LibSBML unexpected encountered an out
+ *   of memory condition from the operating system.</td></tr>
+ * <tr><td><em>XMLFileUnreadable</em></td><td>Could not open or read the file.</td></tr>
+ * <tr><td><em>XMLFileUnwritable</em></td><td>Could not write to the file.</td></tr>
+ * <tr><td><em>XMLFileOperationError</em></td><td>Error encountered while attempting
+ *   a file operation.</td></tr>
+ * <tr><td><em>XMLNetworkAccessError</em></td><td>Error encountered while attempting
+ *   a network access.</td></tr>
+ * <tr><td><em>InternalXMLParserError</em></td><td>Internal error in XML parser.</td></tr>
+ * <tr><td><em>UnrecognizedXMLParserCode</em></td><td>The XML parser returned an error
+ *   code that is not recognized by
+ *   libSBML.</td></tr>
+ * <tr><td><em>XMLTranscoderError</em></td><td>The character transcoder reported
+ *   an error.</td></tr>
+ * <tr><td><em>MissingXMLDecl</em></td><td>Missing XML declaration at beginning
+ *   of XML input.</td></tr>
+ * <tr><td><em>MissingXMLEncoding</em></td><td>Missing encoding attribute in
+ *   XML declaration.</td></tr>
+ * <tr><td><em>BadXMLDecl</em></td><td>Invalid or unrecognized XML
+ *   declaration or XML encoding.</td></tr>
+ * <tr><td><em>BadXMLDOCTYPE</em></td><td>Invalid, malformed or unrecognized
+ *   XML DOCTYPE declaration.</td></tr>
+ * <tr><td><em>InvalidCharInXML</em></td><td>Invalid character in XML content.</td></tr>
+ * <tr><td><em>BadlyFormedXML</em></td><td>XML is not well-formed.</td></tr>
+ * <tr><td><em>UnclosedXMLToken</em></td><td>Unclosed token.</td></tr>
+ * <tr><td><em>InvalidXMLConstruct</em></td><td>XML construct is invalid or
+ *   not permitted.</td></tr>
+ * <tr><td><em>XMLTagMismatch</em></td><td>Element tag mismatch or missing tag.</td></tr>
+ * <tr><td><em>DuplicateXMLAttribute</em></td><td>Duplicate attribute.</td></tr>
+ * <tr><td><em>UndefinedXMLEntity</em></td><td>Undefined XML entity.</td></tr>
+ * <tr><td><em>BadProcessingInstruction</em></td><td>Invalid, malformed or unrecognized
+ *   XML processing instruction.</td></tr>
+ * <tr><td><em>BadXMLPrefix</em></td><td>Invalid or undefined XML
+ *   Namespace prefix.</td></tr>
+ * <tr><td><em>BadXMLPrefixValue</em></td><td>Invalid XML Namespace prefix value.</td></tr>
+ * <tr><td><em>MissingXMLRequiredAttribute</em></td><td>Required attribute is missing.</td></tr>
+ * <tr><td><em>XMLAttributeTypeMismatch</em></td><td>Data type mismatch for attribute
+ *   value.</td></tr>
+ * <tr><td><em>XMLBadUTF8Content</em></td><td>Invalid UTF8 content.</td></tr>
+ * <tr><td><em>MissingXMLAttributeValue</em></td><td>Missing or improperly formed
+ *   attribute value.</td></tr>
+ * <tr><td><em>BadXMLAttributeValue</em></td><td>Invalid or unrecognizable attribute
+ *   value.</td></tr>
+ * <tr><td><em>BadXMLAttribute</em></td><td>Invalid, unrecognized or malformed
+ *   attribute.</td></tr>
+ * <tr><td><em>UnrecognizedXMLElement</em></td><td>Element either not recognized or
+ *   not permitted.</td></tr>
+ * <tr><td><em>BadXMLComment</em></td><td>Badly formed XML comment.</td></tr>
+ * <tr><td><em>BadXMLDeclLocation</em></td><td>XML declaration not permitted in
+ *   this location.</td></tr>
+ * <tr><td><em>XMLUnexpectedEOF</em></td><td>Reached end of input unexpectedly.</td></tr>
+ * <tr><td><em>BadXMLIDValue</em></td><td>Value is invalid for XML ID, or has
+ *   already been used.</td></tr>
+ * <tr><td><em>BadXMLIDRef</em></td><td>XML ID value was never declared.</td></tr>
+ * <tr><td><em>UninterpretableXMLContent</em></td><td>Unable to interpret content.</td></tr>
+ * <tr><td><em>BadXMLDocumentStructure</em></td><td>Bad XML document structure.</td></tr>
+ * <tr><td><em>InvalidAfterXMLContent</em></td><td>Encountered invalid content after
+ *   expected content.</td></tr>
+ * <tr><td><em>XMLExpectedQuotedString</em></td><td>Expected to find a quoted string.</td></tr>
+ * <tr><td><em>XMLEmptyValueNotPermitted</em></td><td>An empty value is not permitted in
+ *   this context.</td></tr>
+ * <tr><td><em>XMLBadNumber</em></td><td>Invalid or unrecognized number.</td></tr>
+ * <tr><td><em>XMLBadColon</em></td><td>Colon characters are invalid in
+ *   this context.</td></tr>
+ * <tr><td><em>MissingXMLElements</em></td><td>One or more expected elements
+ *   are missing.</td></tr>
+ * <tr><td><em>XMLContentEmpty</em></td><td>Main XML content is empty.</td></tr>
+ * </table>
+ * </center>
+ *
+ *
+ * <h3><a class="anchor" name="XMLErrorCategory_t">XMLErrorCategory_t</a></h3>
+ *
+ * This is an enumeration of category codes for XML errors.  The following
+ * table lists each possible value and a brief description of its meaning.
+ *
+ * <center>
+ * <table width="90%" cellspacing="1" cellpadding="1" border="0" class="normal-font">
+ *  <tr style="background: lightgray" class="normal-font">
+ *      <td><strong>Enumerator</strong></td>
+ *      <td><strong>Meaning</strong></td>
+ *  </tr>
+ * <tr><td><em>LIBSBML_CAT_INTERNAL</em></td><td>A problem involving the libSBML
+ * software itself or the underlying XML parser.  This almost certainly
+ * indicates a software defect (i.e., bug) in libSBML.  Please report
+ * instances of this to the libSBML developers.</td></tr>
+ * <tr><td><em>LIBSBML_CAT_SYSTEM</em></td><td>A problem reported by the operating
+ * system, such as an inability to read or write a file.  This indicates
+ * something that is not a program error but is outside of the control of
+ * libSBML.</td></tr>
+ * <tr><td><em>LIBSBML_CAT_XML</em></td><td>A problem in the XML content itself.  This
+ * usually arises from malformed XML or the use of
+ * constructs not permitted in SBML.</td></tr>
+ * </table>
+ * </center>
+ *
+ *
+ * <h3><a class="anchor" name="XMLErrorSeverity_t">XMLErrorSeverity_t</a></h3>
+ *
+ * This is an enumeration of severity codes for XML errors.  The following
+ * table lists each possible value and a brief description of its meaning.
+ *
+ * <center>
+ * <table width="90%" cellspacing="1" cellpadding="1" border="0" class="normal-font">
+ *  <tr style="background: lightgray" class="normal-font">
+ *      <td><strong>Enumerator</strong></td>
+ *      <td><strong>Meaning</strong></td>
+ *  </tr>
+ * <tr><td><em>LIBSBML_SEV_INFO</em></td><td>The error is actually informational and
+ * not necessarily a serious problem.</td></tr>
+ * <tr><td><em>LIBSBML_SEV_WARNING</em></td><td>The error object represents a problem
+ * that is not serious enough to necessarily stop the problem, but
+ * applications should take note of the problem and evaluate what its
+ * implications may be.</td></tr>
+ * <tr><td><em>LIBSBML_SEV_ERROR</em></td><td>The error object represents a serious
+ * error.  The application may continue running but it is unlikely to be
+ * able to continue processing the same XML file or data stream.</td></tr>
+ * <tr><td><em>LIBSBML_SEV_FATAL</em></td><td>A serious error occurred, such as an
+ * out-of-memory condition, and the software should terminate
+ * immediately.</td></tr>
+ * </table>
+ * </center>
  */
 
 
@@ -286,15 +428,18 @@ public:
    * processing.
    *
    * XMLError objects have identification numbers to indicate the nature of
-   * the exception.  These numbers are drawn from the enumeration
-   * #XMLErrorCode_t.  The argument @p errorId to this constructor @em can be
-   * (but does not have to be) a value from this enumeration.  If it is a
-   * value from #XMLErrorCode_t, the XMLError class assumes the error is
-   * a low-level system or XML layer error and prepends a predefined error
-   * message to any string passed in @p details.  In addition, all
-   * #XMLErrorCode_t errors have associated severity and category codes, and
-   * these fields are filled-in as well from the enumerations
-   * #XMLErrorSeverity_t and #XMLErrorCategory_t, respectively.
+   * the exception.  These numbers are drawn from the enumeration <a
+   * class="el" href="#XMLErrorCode_t">XMLErrorCode_t</a>.  The argument @p
+   * errorId to this constructor @em can be (but does not have to be) a
+   * value from this enumeration.  If it is a value from <a class="el"
+   * href="#XMLErrorCode_t">XMLErrorCode_t</a>, the XMLError class assumes
+   * the error is a low-level system or XML layer error and prepends a
+   * predefined error message to any string passed in @p details.  In
+   * addition, all <a class="el" href="#XMLErrorCode_t">XMLErrorCode_t</a>
+   * errors have associated severity and category codes, and these fields
+   * are filled-in as well from the enumerations <a class="el"
+   * href="#XMLErrorSeverity_t">XMLErrorSeverity_t</a> and <a class="el"
+   * href="#XMLErrorCategory_t">XMLErrorCategory_t</a>, respectively.
    *
    * If the error identifier @p errorId is a number greater than 9999, the
    * XMLError class assumes the error was generated from another part of
@@ -305,16 +450,20 @@ public:
    * values if generating errors with codes greater than 9999 to make
    * maximum use of the XMLError facilities.
    *
-   * As mentioned above, there are two other enumerations,
-   * #XMLErrorSeverity_t and #XMLErrorCategory_t, used for indicating the
-   * severity and category of error for the predefined XMLError codes.  The
-   * values passed in @p severity and @p category override the defaults
+   * As mentioned above, there are two other enumerations, <a class="el"
+   * href="#XMLErrorSeverity_t">XMLErrorSeverity_t</a> and <a class="el"
+   * href="#XMLErrorCategory_t">XMLErrorCategory_t</a>, used for indicating
+   * the severity and category of error for the predefined XMLError codes.
+   * The values passed in @p severity and @p category override the defaults
    * assigned based on the error code.  If the error identifier is a code
-   * number from #XMLErrorCode_t, callers do not need to fill in @p severity
-   * and @p category.  Conversely, if @p errorId is not a value from
-   * #XMLErrorCode_t, callers can use other values (not just those from
-   * #XMLErrorSeverity_t and #XMLErrorCategory_t, but their own special
-   * values) for @p severity and @p category.
+   * number from <a class="el" href="#XMLErrorCode_t">XMLErrorCode_t</a>,
+   * callers do not need to fill in @p severity and @p category.
+   * Conversely, if @p errorId is not a value from <a class="el"
+   * href="#XMLErrorCode_t">XMLErrorCode_t</a>, callers can use other
+   * values (not just those from <a class="el"
+   * href="#XMLErrorSeverity_t">XMLErrorSeverity_t</a> and <a class="el"
+   * href="#XMLErrorCategory_t">XMLErrorCategory_t</a>, but their own
+   * special values) for @p severity and @p category.
    *
    * @param errorId an unsigned int, the identification number of the error.
    * 
