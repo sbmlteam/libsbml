@@ -3,7 +3,7 @@
 This section describes libSBML's facilities for working with SBML
 representations of mathematical expressions.
 
-@section math-overview Basic Concepts
+@section math-overview Basic concepts
 
 LibSBML uses <a
 href="http://en.wikipedia.org/wiki/Abstract_syntax_tree">Abstract Syntax
@@ -53,7 +53,7 @@ written in C.  Readers may occasionally wonder why some aspects are more
 C-like than following a C++ style, and that's the reason.
 
 
-@section math-convert Converting between ASTs and Text Strings
+@section math-convert Converting between ASTs and text strings
 
 SBML Level 2 represents mathematical expressions using MathML, but most
 applications do not use MathML directly.  Instead, applications generally
@@ -107,14 +107,14 @@ main (int argc, char *argv[])
 
 The text-string form of mathematical formulas produced by
 SBML_formulaToString() and read by SBML_parseFormula() are simple
-C-inspired infix notation taken from SBML Level 1.  It is summarized in the
-next section below.  A formula in this text-string form therefore can be
-handed to a program that understands SBML Level~1 mathematical expressions,
-or used as part of a translation system.  The libSBML distribution comes
-with an example program in the @c "examples" subdirectory called @c
-translateMath that implements an interactive command-line demonstration of
-translating infix formulas into MathML and vice-versa.  In summary, the
-functions available are the following:
+C-inspired infix notation taken from SBML Level&nbsp;1.  It is summarized
+in the next section below.  A formula in this text-string form therefore
+can be handed to a program that understands SBML Level&nbsp;1 mathematical
+expressions, or used as part of a translation system.  The libSBML
+distribution comes with an example program in the @c "examples"
+subdirectory called @c translateMath that implements an interactive
+command-line demonstration of translating infix formulas into MathML and
+vice-versa.  In summary, the functions available are the following:
 
 @li <code>char* SBML_formulaToString(const ASTNode* tree)</code> reads an
 AST, converts it to a text string in SBML Level 1 formula syntax, and
@@ -126,14 +126,14 @@ text-string containing a mathematical expression in SBML Level 1 syntax and
 returns an AST corresponding to the expression.
 
 
-@section math-diffs The String Formula Syntax and Differences with MathML
+@section math-diffs The string formula syntax and differences with MathML
 
 The text-string formula syntax is an infix notation essentially derived
 from the syntax of the C programming language and was originally used in
-SBML Level~1.  The formula strings may contain operators, function calls,
-symbols, and white space characters.  The allowable white space characters
-are tab and space.  The following are illustrative examples of formulas
-expressed in the syntax:
+SBML Level&nbsp;1.  The formula strings may contain operators, function
+calls, symbols, and white space characters.  The allowable white space
+characters are tab and space.  The following are illustrative examples of
+formulas expressed in the syntax:
 
 @verbatim
 0.10 * k4^2
@@ -169,7 +169,7 @@ parenthesis, followed by a sequence of zero or more arguments separated by
 commas (with each comma optionally preceded and/or followed by zero or more
 white space characters), followed by a closing parenthesis.  There is an
 almost one-to-one mapping between the list of predefined functions
-available, and those defined in MathML.  All of the MathML funcctions are
+available, and those defined in MathML.  All of the MathML functions are
 recognized; this set is larger than the functions defined in SBML Level 1.
 In the subset of functions that overlap between MathML and SBML Level 1,
 there exist a few differences.  The following table summarizes the
@@ -201,7 +201,7 @@ Every ASTNode in a libSBML AST has an associated type, a value taken from
 the enumeration ASTNodeType_t.  The list of possible types is quite long,
 because it covers all the mathematical functions that are permitted in
 SBML.  The values are shown in the following table; their names hopefully
-evoke the the construct that they represent:
+evoke the construct that they represent:
 
 <center>
 <table cellspacing="1" border="0">
@@ -231,7 +231,7 @@ evoke the the construct that they represent:
 </table>
 </center>
 
-There area a number of methods for interrogating the type of an ASTNode and
+There are a number of methods for interrogating the type of an ASTNode and
 for testing whether a node belongs to a general category of constructs.
 The methods are the following:
 

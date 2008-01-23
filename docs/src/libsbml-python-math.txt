@@ -105,7 +105,7 @@ The text-string form of mathematical formulas produced by
 libsbml.formulaToString() and read by libsbml.parseFormula() are simple
 C-inspired infix notation taken from SBML Level&nbsp;1.  It is summarized
 in the next section below.  A formula in this text-string form therefore
-can be handed to a program that understands SBML Level~1 mathematical
+can be handed to a program that understands SBML Level&nbsp;1 mathematical
 expressions, or used as part of a translation system.  In summary, the
 functions available are the following:
 
@@ -127,10 +127,10 @@ expression.
 
 The text-string formula syntax is an infix notation essentially derived
 from the syntax of the C programming language and was originally used in
-SBML Level~1.  The formula strings may contain operators, function calls,
-symbols, and white space characters.  The allowable white space characters
-are tab and space.  The following are illustrative examples of formulas
-expressed in the syntax:
+SBML Level&nbsp;1.  The formula strings may contain operators, function
+calls, symbols, and white space characters.  The allowable white space
+characters are tab and space.  The following are illustrative examples of
+formulas expressed in the syntax:
 
 @verbatim
 0.10 * k4^2
@@ -195,10 +195,11 @@ equivalents in SBML Level 2:
 @section math-ast Methods for working with libSBML's Abstract Syntax Trees
 
 Every ASTNode in a libSBML AST has an associated type, a value taken from
-the enumeration ASTNodeType_t.  The list of possible types is quite long,
+the enumeration <a class="el" href="classlibsbml_1_1_a_s_t_node.html#ASTNode_t">
+ASTNodeType_t</a>.  The list of possible types is quite long,
 because it covers all the mathematical functions that are permitted in
 SBML.  The values are shown in the following table; their names hopefully
-evoke the the construct that they represent:
+evoke the construct that they represent:
 <center>
 <table cellspacing="3" border="0">
  <tr><td><code></code></td><td><code></code></td><td><code></code></td></tr>
@@ -227,77 +228,77 @@ evoke the the construct that they represent:
 </table>
 </center>
 
-There area a number of methods for interrogating the type of an ASTNode and
+There are a number of methods for interrogating the type of an ASTNode and
 for testing whether a node belongs to a general category of constructs.
 The methods are the following:
 
-@li <code>ASTNodeType_t ASTNode::getType() const</code> returns the type of
+@li <code>ASTNodeType_t ASTNode.getType()</code> returns the type of
 this AST node.
 
-@li <code>bool ASTNode::isConstant() const</code> returns @c true if this
+@li <code>bool ASTNode.isConstant()</code> returns @c true if this
 AST node is a MathML constant (@c true, @c false, @c pi, @c exponentiale),
 @c false otherwise.
 
-@li <code>bool ASTNode::isBoolean() const</code> returns @c true if this
+@li <code>bool ASTNode.isBoolean()</code> returns @c true if this
 AST node returns a boolean value (by being either a logical operator, a
 relational operator, or the constant @c true or @c false).
 
-@li <code>bool ASTNode::isFunction() const</code> returns @c true if this
+@li <code>bool ASTNode.isFunction()</code> returns @c true if this
 AST node is a function (i.e., a MathML defined function such as @c exp or
 else a function defined by a FunctionDefinition in the Model).
 
-@li <code>bool ASTNode::isInfinity() const</code> returns @c true if this
+@li <code>bool ASTNode.isInfinity()</code> returns @c true if this
 AST node is the special IEEE 754 value infinity.
 
-@li <code>bool ASTNode::isInteger() const</code> returns @c true if this
+@li <code>bool ASTNode.isInteger()</code> returns @c true if this
 AST node is holding an integer value.
 
-@li <code>bool ASTNode::isNumber() const</code>  returns @c true if this
+@li <code>bool ASTNode.isNumber()</code>  returns @c true if this
 AST node is holding any number.
 
-@li <code>bool ASTNode::isLambda() const</code>  returns @c true if this
+@li <code>bool ASTNode.isLambda()</code>  returns @c true if this
 AST node is a MathML @c lambda construct.
 
-@li <code>bool ASTNode::isLog10() const</code>  returns @c true if this
+@li <code>bool ASTNode.isLog10()</code>  returns @c true if this
 AST node represents the @c log10 function, specifically, that its type is
 AST_FUNCTION_LOG and it has two children, the first of which is an integer
 equal to 10.
 
-@li <code>bool ASTNode::isLogical() const</code>  returns @c true if this
+@li <code>bool ASTNode.isLogical()</code>  returns @c true if this
 AST node is a logical operator (@c and, @c or, @c not, @c xor).
 
-@li <code>bool ASTNode::isName() const</code>  returns @c true if this
+@li <code>bool ASTNode.isName()</code>  returns @c true if this
 AST node is a user-defined name or (in SBML Level 2) one of the two special
 @c csymbol constructs "delay" or "time".
 
-@li <code>bool ASTNode::isNaN() const</code>  returns @c true if this
+@li <code>bool ASTNode.isNaN()</code>  returns @c true if this
 AST node has the special IEEE 754 value "not a number" (NaN).
 
-@li <code>bool ASTNode::isNegInfinity() const</code>  returns @c true if this
+@li <code>bool ASTNode.isNegInfinity()</code>  returns @c true if this
 AST node has the special IEEE 754 value of negative infinity.
 
-@li <code>bool ASTNode::isOperator() const</code>  returns @c true if this
+@li <code>bool ASTNode.isOperator()</code>  returns @c true if this
 AST node is an operator (e.g., @c +, @c -, etc.)
 
-@li <code>bool ASTNode::isPiecewise() const</code>  returns @c true if this
+@li <code>bool ASTNode.isPiecewise()</code>  returns @c true if this
 AST node is the MathML @c piecewise function.
 
-@li <code>bool ASTNode::isRational() const</code>  returns @c true if this
+@li <code>bool ASTNode.isRational()</code>  returns @c true if this
 AST node is a rational number having a numerator and a denominator.
 
-@li <code>bool ASTNode::isReal() const</code>  returns @c true if this
+@li <code>bool ASTNode.isReal()</code>  returns @c true if this
 AST node is a real number (specifically, AST_REAL_E or AST_RATIONAL).
 
-@li <code>bool ASTNode::isRelational() const</code>  returns @c true if this
+@li <code>bool ASTNode.isRelational()</code>  returns @c true if this
 AST node is a relational operator.
 
-@li <code>bool ASTNode::isSqrt() const</code>  returns @c true if this
+@li <code>bool ASTNode.isSqrt()</code>  returns @c true if this
 AST node is the square-root operator
 
-@li <code>bool ASTNode::isUMinus() const</code>  returns @c true if this
+@li <code>bool ASTNode.isUMinus()</code>  returns @c true if this
 AST node is a unary minus.
 
-@li <code>bool ASTNode::isUnknown() const</code>  returns @c true if this
+@li <code>bool ASTNode.isUnknown()</code>  returns @c true if this
 AST node's type is unknown.
 
 
@@ -305,113 +306,113 @@ Programs manipulating AST node structures should check the type of a given
 node before calling methods that return a value from the node.  The
 following meethods are available for returning values from nodes:
 
-@li <code>long ASTNode_getInteger(const ASTNode *node)</code> 
+@li <code>long ASTNode.getInteger()</code> 
 
-@li <code>char ASTNode_getCharacter(const ASTNode *node)</code> 
+@li <code>char ASTNode.getCharacter()</code> 
 
-@li <code>const char* ASTNode_getName(const ASTNode *node)</code> 
+@li <code>string ASTNode.getName()</code> 
 
-@li <code>long ASTNode_getNumerator(const ASTNode *node)</code> 
+@li <code>long ASTNode.getNumerator()</code> 
 
-@li <code>long ASTNode_getDenominator(const ASTNode *node)</code> 
+@li <code>long ASTNode.getDenominator()</code> 
 
-@li <code>float ASTNode_getReal(const ASTNode *node)</code> 
+@li <code>float ASTNode.getReal()</code> 
 
-@li <code>float ASTNode_getMantissa(const ASTNode *node)</code> 
+@li <code>float ASTNode.getMantissa()</code> 
 
-@li <code>long ASTNode_getExponent(const ASTNode *node)</code> 
+@li <code>long ASTNode.getExponent()</code> 
 
 Finally (and rather predictably), libSBML provides methods for setting the
 values of AST nodes.
 
-@li <code>void ASTNode::setCharacter(char value)</code> sets the value of
+@li <code>ASTNode.setCharacter(char)</code> sets the value of
 this ASTNode to the given character.  If character is one of @c +, @c -, @c
 *, @c / or @c ^, the node type will be to the appropriate operator type.
 For all other characters, the node type will be set to AST_UNKNOWN.
 
-@li <code>void ASTNode::setName(const char *name)</code> sets the value of
+@li <code>ASTNode.setName(string)</code> sets the value of
 this AST node to the given name.  The node type will be set (to AST_NAME)
 <em>only if</em> the AST node was previously an operator
 (<code>isOperator(node) != 0</code>) or number (<code>isNumber(node) !=
 0</code>).  This allows names to be set for AST_FUNCTIONs and the like.
 
-@li <code>void ASTNode::setValue(int value)</code> sets the value of the
+@li <code>ASTNode.setValue(int)</code> sets the value of the
 node to the given integer.  Equivalent to the next method.
 
-@li <code>void ASTNode::setValue(long value)</code> sets the value of the
+@li <code>ASTNode.setValue(long)</code> sets the value of the
 node to the given integer.
 
-@li <code>void ASTNode::setValue(long numerator, long denominator)</code>
+@li <code>ASTNode.setValue(long, long)</code>
 sets the value of this ASTNode to the given rational in two parts: the
 numerator and denominator.  The node type is set to AST_RATIONAL.
 
-@li <code>void ASTNode::setValue(float value)</code> sets the value of
+@li <code>ASTNode.setValue(float)</code> sets the value of
 this ASTNode to the given real (float) and sets the node type to AST_REAL.
 
-@li <code>void ASTNode::setValue(float mantissa, long exponent)</code>
+@li <code>ASTNode.setValue(float, long)</code>
 sets the value of this ASTNode to the given real (float) in two parts: the
 mantissa and the exponent.  The node type is set to AST_REAL_E.
 
 
 The following are some miscellaneous methods for manipulating ASTs:
 
-@li <code>ASTNode* ASTNode::ASTNode(ASTNodeType_t type)</code> creates a new
+@li <code>ASTNode ASTNode.ASTNode(ASTNodeType_t)</code> creates a new
 ASTNode object and returns a pointer to it.  The returned node will have
 the given type, or a type of AST_UNKNOWN if no type is explicitly given.
 
-@li <code>unsigned int ASTNode::getNumChildren()</code> returns the number
+@li <code>unsigned int ASTNode.getNumChildren()</code> returns the number
 of children of this AST node or 0 is this node has no children.
 
-@li <code>void ASTNode::addChild(ASTNode* child)</code> adds the given node
+@li <code>ASTNode.addChild(ASTNode)</code> adds the given node
 as a child of this AST node.  Child nodes are added in left-to-right order.
 
-@li <code>void ASTNode::prependChild(ASTNode* child)</code> adds the given
+@li <code>ASTNode.prependChild(ASTNode)</code> adds the given
 node as a child of this AST node.  This method adds child nodes in
 right-to-left order.
 
-@li <code>ASTNode* ASTNode::getChild (unsigned int n)</code> returns the nth
+@li <code>ASTNode ASTNode.getChild (unsigned int)</code> returns the nth
 child of this AST node or NULL if this node has no nth child (<code>n &gt;
-(ASTNode::getNumChildren() - 1)</code>).
+(ASTNode.getNumChildren() - 1)</code>).
 
-@li <code>ASTNode* ASTNode::getLeftChild()</code> returns the left child of
-this AST node.  This is equivalent to <code>ASTNode::getChild(0)</code>;
+@li <code>ASTNode ASTNode.getLeftChild()</code> returns the left child of
+this AST node.  This is equivalent to <code>ASTNode.getChild(0)</code>;
 
-@li <code>ASTNode*  ASTNode::getRightChild()</code>
+@li <code>ASTNode  ASTNode.getRightChild()</code>
 returns the right child of this AST node or NULL if this node has no right
 child.
 
-@li <code>void ASTNode::swapChildren(ASTNode *that)</code> swaps the
+@li <code>ASTNode.swapChildren(ASTNode)</code> swaps the
 children of this ASTNode with the children of @c that ASTNode.
 
-@li <code>void ASTNode::setType(ASTNodeType_t type)</code>
+@li <code>ASTNode.setType(ASTNodeType_t)</code>
 sets the type of this ASTNode to the given ASTNodeType_t enumeration value.
 
 
 
 @section math-reading Reading and Writing Mathematical Expressions into ASTs
 
-As mentioned above, applications often can avoid working with raw MathML by
+As mentioned above, applications often can aworking with raw MathML by
 using either libSBML's text-string interface or the AST API.  However, when
 needed, reading MathML content directly and creating ASTs is easily done in
 libSBML using two methods designed for this purpose:
 
-@li <code>ASTNode* readMathML(XMLInputStream& stream)</code> reads raw
+@li <code>ASTNode readMathML(XMLInputStream)</code> reads raw
 MathML content from the given stream and constructs an AST from it, then
 returns the root ASTNode of the resulting expression tree.
 
-@li <code>ASTNode* readMathMLFromString(const char* xml)</code> reads raw
+@li <code>ASTNode readMathMLFromString(string)</code> reads raw
 MathML from a text string, constructs an AST from it, then returns the root
 ASTNode of the resulting expression tree.
 
 Similarly, writing out Abstract Syntax Tree structures is easily done using
 the following methods:
 
-@li <code>void writeMathML(const ASTNode* node, XMLOutputStream& stream)</code>
-writes an AST to the given output stream.
+@li <code>writeMathML(ASTNode, XMLOutputStream)</code> writes an AST to the
+given output stream.
 
-@li <code>char* writeMathMLToString(const ASTNode* node)</code> writes an
-AST to a string.  The caller owns the character string returned and should free
-it after it is no longer needed.
+@li <code>string writeMathMLToString(ASTNode)</code> writes an AST to a
+string.  The caller owns the character string returned and should free it
+after it is no longer needed.
 
 
 
