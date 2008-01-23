@@ -252,8 +252,8 @@ SBMLReader::readSBML(const std::string&)
 
       if d.getNumErrors() > 0:
         pm = d.getError(0)
-        if pm.getErrorId() == libsbml.SBML_READ_ERROR_FILE_NOT_FOUND: ..
-        if pm.getErrorId() == libsbml.SBML_READ_ERROR_NOT_SBML: ...
+        if pm.getErrorId() == libsbml.XMLFileUnreadable
+        if pm.getErrorId() == libsbml.XMLTagMismatch: 
     """
     args_copy    = list(args)
     args_copy[1] = conditional_abspath(args[1])
@@ -285,8 +285,9 @@ def readSBML(*args):
 
     if d.getNumErrors() > 0:
       pm = d.getError(0)
-      if pm.getErrorId() == libsbml.SBML_READ_ERROR_FILE_NOT_FOUND: ...
-      if pm.getErrorId() == libsbml.SBML_READ_ERROR_NOT_SBML: ...
+      if pm.getErrorId() == libsbml.XMLFileUnreadable
+      if pm.getErrorId() == libsbml.XMLTagMismatch: 
+
   """
   reader = SBMLReader()
   return reader.readSBML(args[0])
