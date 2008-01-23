@@ -39,7 +39,7 @@
  * An AST @em node in libSBML is a recursive structure containing a pointer
  * to the node's value (which might be, for example, a number or a symbol)
  * and a list of children nodes.  Each ASTNode node may have none, one,
- * two, or more child depending on its type.  The following diagram
+ * two, or more child depending on its type. The following diagram
  * illustrates an example of how the mathematical expression "1 + 2" is
  * represented as an AST with one @em plus node having two @em integer
  * children nodes for the numbers 1 and 2.  The figure also shows the
@@ -48,7 +48,8 @@
  * @image html astnode-illustration.jpg "Example AST representation of a mathematical representation."
  * @image latex astnode-illustration.jpg "Example AST representation of a mathematical representation."
  *
- * The following are noteworthy about the AST representation in libSBML:
+ * The following are other noteworthy points about the AST representation
+ * in libSBML:
  * <ul>
  * <li> A numerical value represented in MathML as a real number with an
  * exponent is preserved as such in the AST node representation, even if
@@ -67,13 +68,157 @@
  * children points to the parsed objects that make up the rest of the
  * expression.
  * </ul>
+ *
+ *
+ * <h3><a class="anchor" name="ASTNodeType_t">ASTNodeType_t</a></h3>
+ *
+ * Every ASTNode has an associated type to indicate, for example, whether
+ * it holds a number or stands for an arithmetic operator.  The type is
+ * recorded as a value drawn from the enumeration <a class="el"
+ * href="#ASTNodeType_t">ASTNodeType_t</a>.  The list of possible types is
+ * quite long, because it covers all the mathematical functions that are
+ * permitted in SBML.  The values are shown in the following table; their
+ * names hopefully evoke the construct that they represent:
+ *
+ * <center>
+ * <table width="80%" cellspacing="1" cellspacing="1" border="0" class="normal-font">
+ *  <tr><td><code></code></td><td><code></code></td><td><code></code></td></tr>
+ *  <tr><td><code>AST_UNKNOWN</code></td><td><code>AST_FUNCTION_ARCCOTH</code></td><td><code>AST_FUNCTION_POWER</code></td></tr>
+ *  <tr><td><code>AST_PLUS</code></td><td><code>AST_FUNCTION_ARCCSC</code></td><td><code>AST_FUNCTION_ROOT</code></td></tr>
+ *  <tr><td><code>AST_MINUS</code></td><td><code>AST_FUNCTION_ARCCSCH</code></td><td><code>AST_FUNCTION_SEC</code></td></tr>
+ *  <tr><td><code>AST_TIMES</code></td><td><code>AST_FUNCTION_ARCSEC</code></td><td><code>AST_FUNCTION_SECH</code></td></tr>
+ *  <tr><td><code>AST_DIVIDE</code></td><td><code>AST_FUNCTION_ARCSECH</code></td><td><code>AST_FUNCTION_SIN</code></td></tr>
+ *  <tr><td><code>AST_POWER</code></td><td><code>AST_FUNCTION_ARCSIN</code></td><td><code>AST_FUNCTION_SINH</code></td></tr>
+ *  <tr><td><code>AST_INTEGER</code></td><td><code>AST_FUNCTION_ARCSINH</code></td><td><code>AST_FUNCTION_TAN</code></td></tr>
+ *  <tr><td><code>AST_REAL</code></td><td><code>AST_FUNCTION_ARCTAN</code></td><td><code>AST_FUNCTION_TANH</code></td></tr>
+ *  <tr><td><code>AST_REAL_E</code></td><td><code>AST_FUNCTION_ARCTANH</code></td><td><code>AST_LOGICAL_AND</code></td></tr>
+ *  <tr><td><code>AST_RATIONAL</code></td><td><code>AST_FUNCTION_CEILING</code></td><td><code>AST_LOGICAL_NOT</code></td></tr>
+ *  <tr><td><code>AST_NAME</code></td><td><code>AST_FUNCTION_COS</code></td><td><code>AST_LOGICAL_OR</code></td></tr>
+ *  <tr><td><code>AST_NAME_TIME</code></td><td><code>AST_FUNCTION_COSH</code></td><td><code>AST_LOGICAL_XOR</code></td></tr>
+ *  <tr><td><code>AST_CONSTANT_E</code></td><td><code>AST_FUNCTION_COT</code></td><td><code>AST_RELATIONAL_EQ</code></td></tr>
+ *  <tr><td><code>AST_CONSTANT_FALSE</code></td><td><code>AST_FUNCTION_COTH</code></td><td><code>AST_RELATIONAL_GEQ</code></td></tr>
+ *  <tr><td><code>AST_CONSTANT_PI</code></td><td><code>AST_FUNCTION_CSC</code></td><td><code>AST_RELATIONAL_GT</code></td></tr>
+ *  <tr><td><code>AST_CONSTANT_TRUE</code></td><td><code>AST_FUNCTION_CSCH</code></td><td><code>AST_RELATIONAL_LEQ</code></td></tr>
+ *  <tr><td><code>AST_LAMBDA</code></td><td><code>AST_FUNCTION_EXP</code></td><td><code>AST_RELATIONAL_LT</code></td></tr>
+ *  <tr><td><code>AST_FUNCTION</code></td><td><code>AST_FUNCTION_FACTORIAL</code></td><td><code>AST_RELATIONAL_NEQ</code></td></tr>
+ *  <tr><td><code>AST_FUNCTION_ABS</code></td><td><code>AST_FUNCTION_FLOOR</code></td><td><code></code></td></tr>
+ *  <tr><td><code>AST_FUNCTION_ARCCOS</code></td><td><code>AST_FUNCTION_LN</code></td></tr>
+ *  <tr><td><code>AST_FUNCTION_ARCCOSH</code></td><td><code>AST_FUNCTION_LOG</code></td></tr>
+ *  <tr><td><code>AST_FUNCTION_ARCCOT</code></td><td><code>AST_FUNCTION_PIECEWISE</code></td></tr>
+ * </table>
+ * </center>
+ *
+ * The types have the following meanings:
+ * <ul>
+ * <li> If the node is basic mathematical operator (e.g., @c "+"), then the
+ * node's type will be @c AST_PLUS, @c AST_MINUS, @c AST_TIMES, @c AST_DIVIDE,
+ * or @c AST_POWER, as appropriate.
+ *
+ * <li> If the node is a predefined function or operator from %SBML Level 1
+ * (in the string-based formula syntax used in Level 1) or %SBML Level 2
+ * (in the subset of MathML used in SBML Level 2), then the node's type
+ * will be either <code>AST_FUNCTION_</code><em>x</em>,
+ * <code>AST_LOGICAL_</code><em>x</em>, or
+ * <code>AST_RELATIONAL_</code><em>x</em>, as appropriate.  (Examples: @c
+ * AST_FUNCTION_LOG, @c AST_RELATIONAL_LEQ.)
+ *
+ * <li> If the node refers to a user-defined function, the node's type will
+ * be @c AST_NAME (because it holds the name of the function).
+ *
+ * <li> If the node is a lambda expression, its type will be @c AST_LAMBDA.
  * 
- * Finally, for many applications, the details of ASTs are irrelevant
- * because the applications can use the text-string based translation
- * functions such as SBML_formulaToString() and readMathMLFromString().  If
- * you find the complexity of using the AST representation of expressions
- * too high for your purposes, perhaps the string-based functions will be
- * more suitable.
+ * <li> If the node is a predefined constant (@c "ExponentialE", @c "Pi", 
+ * @c "True" or @c "False"), then the node's type will be @c AST_CONSTANT_E,
+ * @c AST_CONSTANT_PI, @c AST_CONSTANT_TRUE, or @c AST_CONSTANT_FALSE.
+ * 
+ * <li> (Level 2 only) If the node is the special MathML csymbol @c time,
+ * the value of the node will be @c AST_NAME_TIME.  (Note, however, that the
+ * MathML csymbol @c delay is translated into a node of type
+ * @c AST_FUNCTION_DELAY.  The difference is due to the fact that @c time is a
+ * single variable, whereas @c delay is actually a function taking
+ * arguments.)
+ *
+ * <li> If the node contains a numerical value, its type will be
+ * @c AST_INTEGER, @c AST_REAL, @c AST_REAL_E, or @c AST_RATIONAL,
+ * as appropriate.
+ * </ul>
+ *
+ * 
+ * <h3><a class="anchor" name="math-convert">Converting between ASTs and text strings</a></h3>
+ * 
+ * The text-string form of mathematical formulas produced by
+ * SBML_formulaToString() and read by SBML_parseFormula() are simple
+ * C-inspired infix notation taken from SBML Level&nbsp;1.  A formula in
+ * this text-string form can be handed to a program that understands SBML
+ * Level&nbsp;1 mathematical expressions, or used as part of a translation
+ * system.  The libSBML distribution comes with an example program in the
+ * @c "examples" subdirectory called @c translateMath that implements an
+ * interactive command-line demonstration of translating infix formulas
+ * into MathML and vice-versa.
+ *
+ * The formula strings may contain operators, function calls, symbols, and
+ * white space characters.  The allowable white space characters are tab
+ * and space.  The following are illustrative examples of formulas
+ * expressed in the syntax:
+ * 
+ * @verbatim
+0.10 * k4^2
+@endverbatim
+ * @verbatim
+(vm * s1)/(km + s1)
+@endverbatim
+ * 
+ * The following table shows the precedence rules in this syntax.  In the
+ * Class column, @em operand implies the construct is an operand, @em prefix
+ * implies the operation is applied to the following arguments, @em unary
+ * implies there is one argument, and @em binary implies there are two
+ * arguments.  The values in the Precedence column show how the order of
+ * different types of operation are determined.  For example, the expression
+ * <em>a * b + c</em> is evaluated as <em>(a * b) + c</em> because the @c *
+ * operator has higher precedence.  The Associates column shows how the order
+ * of similar precedence operations is determined; for example, <em>a - b +
+ * c</em> is evaluated as <em>(a - b) + c</em> because the @c + and @c -
+ * operators are left-associative.  The precedence and associativity rules are
+ * taken from the C programming language, except for the symbol @c ^, which is
+ * used in C for a different purpose.  (Exponentiation can be invoked using
+ * either @c ^ or the function @c power.)
+ * 
+ * @image html string-syntax.jpg "Table of precedence rules."
+ * @image latex string-syntax.jpg "Table of precedence rules."
+ * 
+ * A program parsing a formula in an SBML model should assume that names
+ * appearing in the formula are the identifiers of Species, Parameter,
+ * Compartment, FunctionDefinition, or Reaction objects defined in a model.
+ * When a function call is involved, the syntax consists of a function
+ * identifier, followed by optional white space, followed by an opening
+ * parenthesis, followed by a sequence of zero or more arguments separated by
+ * commas (with each comma optionally preceded and/or followed by zero or more
+ * white space characters), followed by a closing parenthesis.  There is an
+ * almost one-to-one mapping between the list of predefined functions
+ * available, and those defined in MathML.  All of the MathML functions are
+ * recognized; this set is larger than the functions defined in SBML Level 1.
+ * In the subset of functions that overlap between MathML and SBML Level 1,
+ * there exist a few differences.  The following table summarizes the
+ * differences between the predefined functions in SBML Level 1 and the MathML
+ * equivalents in SBML Level 2:
+ * 
+ * <center>
+ * <table cellspacing="1" border="0">
+ *  <tr style="background: lightgray; font-size: 14px;">
+ *      <td>Text string formula functions</td>
+ *      <td>MathML equivalents in SBML Level 2</td>
+ *  </tr>
+ *  <tr><td><code>acos</code></td><td><code>arccos</code></td></tr>
+ *  <tr><td><code>asin</code></td><td><code>arcsin</code></td></tr>
+ *  <tr><td><code>atan</code></td><td><code>arctan</code></td></tr>
+ *  <tr><td><code>ceil</code></td><td><code>ceiling</code></td></tr>
+ *  <tr><td><code>log</code></td><td><code>ln</code></td></tr>
+ *  <tr><td><code>log10(x)</code></td><td><code>log(10, x)</code></td></tr>
+ *  <tr><td><code>pow(x, y)</code></td><td><code>power(x, y)</code></td></tr>
+ *  <tr><td><code>sqr(x)</code></td><td><code>power(x, 2)</code></td></tr>
+ *  <tr><td><code>sqrt(x)</code></td><td><code>root(2, x)</code></td></tr>
+ * </table>
+ * </center>
  */
 
 #ifndef ASTNode_h
@@ -93,35 +238,36 @@
  * Each ASTNode has a type whose value is one of the elements of this
  * enumeration.  The types have the following meanings:
  * <ul>
- * <li> If the node is basic mathematical operator (e.g., "+"), then the
- * node's type will be AST_PLUS, AST_MINUS, AST_TIMES, AST_DIVIDE, or
- * AST_POWER, as appropriate.
+ * <li> If the node is basic mathematical operator (e.g., @c "+"), then the
+ * node's type will be @c AST_PLUS, @c AST_MINUS, @c AST_TIMES, @c AST_DIVIDE,
+ * or @c AST_POWER, as appropriate.
  *
  * <li> If the node is a predefined function or operator from %SBML Level 1
  * (in the string-based formula syntax used in Level 1) or %SBML Level 2
  * (in the subset of MathML used in SBML Level 2), then the node's type
- * will be either AST_FUNCTION_<em>x</em>, AST_LOGICAL_<em>x</em>, or
- * AST_RELATIONAL_<em>x</em>, as appropriate.  (Examples:
- * AST_FUNCTION_LOG, AST_RELATIONAL_LEQ.)
+ * will be either @c AST_FUNCTION_<em>x</em>, @c AST_LOGICAL_<em>x</em>, or
+ * @c AST_RELATIONAL_<em>x</em>, as appropriate.  (Examples:
+ * @c AST_FUNCTION_LOG, @c AST_RELATIONAL_LEQ.)
  *
  * <li> If the node refers to a user-defined function, the node's type will
- * be AST_NAME (because it holds the name of the function).
+ * be @c AST_NAME (because it holds the name of the function).
  *
- * <li> If the node is a lambda expression, its type will be AST_LAMBDA.
+ * <li> If the node is a lambda expression, its type will be @c AST_LAMBDA.
  * 
- * <li> If the node is a predefined constant ("ExponentialE", "Pi", "True"
- * or "False"), then the node's type will be AST_CONSTANT_E,
- * AST_CONSTANT_PI, AST_CONSTANT_TRUE, or AST_CONSTANT_FALSE.
+ * <li> If the node is a predefined constant (@c "ExponentialE", @c "Pi", 
+ * @c "True" or @c "False"), then the node's type will be @c AST_CONSTANT_E,
+ * @c AST_CONSTANT_PI, @c AST_CONSTANT_TRUE, or @c AST_CONSTANT_FALSE.
  * 
  * <li> (Level 2 only) If the node is the special MathML csymbol @c time,
- * the value of the node will be AST_NAME_TIME.  (Note, however, that the
+ * the value of the node will be @c AST_NAME_TIME.  (Note, however, that the
  * MathML csymbol @c delay is translated into a node of type
- * AST_FUNCTION_DELAY.  The difference is due to the fact that @c time is a
+ * @c AST_FUNCTION_DELAY.  The difference is due to the fact that @c time is a
  * single variable, whereas @c delay is actually a function taking
  * arguments.)
  *
  * <li> If the node contains a numerical value, its type will be
- * AST_INTEGER, AST_REAL, AST_REAL_E, or AST_RATIONAL, as appropriate.
+ * @c AST_INTEGER, @c AST_REAL, @c AST_REAL_E, or @c AST_RATIONAL,
+ * as appropriate.
  * </ul>
  * 
  * @note Nodes of type AST_UNKNOWN are used internally as the AST is being
@@ -250,12 +396,15 @@ public:
   LIBSBML_EXTERN
   ASTNode (ASTNodeType_t type = AST_UNKNOWN);
 
+
   /**
-   * Creates a new ASTNode from the given Token.
+   * Creates a new ASTNode from the given Token.  The resulting ASTNode
+   * will contain the same data as the Token.
    *
-   * The ASTNode will contain the same data as the Token.
+   * @param token the Token to add.
    */
   ASTNode (Token_t *token);
+
 
   /**
    * Destroys this ASTNode, including any child nodes.
@@ -268,135 +417,180 @@ public:
    * Frees the name of this ASTNode and sets it to NULL.
    * 
    * This operation is only applicable to ASTNodes corresponding to
-   * operators, numbers, or AST_UNKNOWN.  This method will have no
+   * operators, numbers, or @c AST_UNKNOWN.  This method will have no
    * effect on other types of nodes.
    */
   void
   freeName ();
 
+
   /**
-   * Converts this ASTNode to a canonical form and returns true if
-   * successful, false otherwise.
+   * Converts this ASTNode to a canonical form and returns true (non-zero)
+   * if successful, false (zero) otherwise.
    *
    * The rules determining the canonical form conversion are as follows:
    * <ul>
-   * <li> If the node type is AST_NAME and the node name matches
-   *   "ExponentialE", "Pi", "True" or "False" the node type is converted
-   *   to the corresponding AST_CONSTANT_<em>x</em> type.
+
+   * <li> If the node type is @c AST_NAME and the node name matches @c
+   * "ExponentialE", @c "Pi", @c "True" or @c "False" the node type is
+   * converted to the corresponding @c AST_CONSTANT_<em>x</em> type.
    *
-   * <li> If the node type is an AST_FUNCTION and the node name matches an
-   *   %SBML Level 1 or L2 (MathML) function name, logical operator name, or
-   *   relational operator name, the node is converted to the correspnding
-   *   AST_FUNCTION_<em>x</em> or AST_LOGICAL_<em>x</em> type.
+   * <li> If the node type is an @c AST_FUNCTION and the node name matches
+   * an SBML Level&nbsp;1 or Level&nbsp;2 (MathML) function name, logical
+   * operator name, or relational operator name, the node is converted to
+   * the correspnding @c AST_FUNCTION_<em>x</em> or @c
+   * AST_LOGICAL_<em>x</em> type.
+   *
    * </ul>
    *
-   * %SBML Level 1 function names are searched first; thus, for example,
-   * canonicalizing @c log will result in a node type of AST_FUNCTION_LN.
-   * (See the %SBML Level 1 Specification, Appendix C.)
+   * SBML Level&nbsp;1 function names are searched first; thus, for
+   * example, canonicalizing @c log will result in a node type of @c
+   * AST_FUNCTION_LN.  (See the SBML Level&nbsp;1 Specification, Appendix
+   * C.)
    *
    * Sometimes canonicalization of a node results in a structural converion
    * of the node as a result of adding a child.  For example, a node with
-   * the %SBML Level 1 function name @c sqr and a single child node (the
-   * argument) will be transformed to a node of type AST_FUNCTION_POWER
-   * with two children.  The first child will remain unchanged, but the
-   * second child will be an ASTNode of type AST_INTEGER and a value of 2.
-   * The function names that result in structural changes are: @c log10,
-   * @c sqr, and @c sqrt.
+   * the SBML Level&nbsp;1 function name @c sqr and a single child node
+   * (the argument) will be transformed to a node of type @c
+   * AST_FUNCTION_POWER with two children.  The first child will remain
+   * unchanged, but the second child will be an ASTNode of type @c
+   * AST_INTEGER and a value of 2.  The function names that result in
+   * structural changes are: @c log10, @c sqr, and @c sqrt.
    *
-   * See the SBML Level 1 and Level 2 (all versions) specification documents for
-   * more information.
+   * See the SBML Level&nbsp;1 and Level&nbsp;2 (all versions)
+   * specification documents for more information.
    */
   LIBSBML_EXTERN
   bool canonicalize ();
 
+
   /**
    * Adds the given node as a child of this ASTNode.  Child nodes are added
-   * in-order from "left-to-right".
+   * in-order from left to right.
+   *
+   * @param child the ASTNode instance to add
    */
   LIBSBML_EXTERN
   void addChild (ASTNode* child);
 
+
   /**
    * Adds the given node as a child of this ASTNode.  This method adds
-   * child nodes from "right-to-left".
+   * child nodes from right to left.
+   *
+   * @param child the ASTNode instance to add
    */
   LIBSBML_EXTERN
   void prependChild (ASTNode* child);
 
+
   /**
+   * Creates a recursive copy of this node and all its children.
+   * 
    * @return a copy of this ASTNode and all its children.  The caller owns
    * the returned ASTNode and is reponsible for deleting it.
    */
   LIBSBML_EXTERN
   ASTNode* deepCopy () const;
 
+
   /**
+   * Get a child of this node according to an index number.
+   *
+   * @param n the index of the child to get
+   * 
    * @return the nth child of this ASTNode or NULL if this node has no nth
-   * child (n > ASTNode_getNumChildren() - 1).
+   * child (<code>n &gt; ASTNode_getNumChildren() - 1</code>).
    */
   LIBSBML_EXTERN
   ASTNode* getChild (unsigned int n) const;
 
-  /**
-   * @return the left child of this ASTNode.  This is equivalent to
-   * getChild(0);
-   */
-  LIBSBML_EXTERN
-  ASTNode* 
-    getLeftChild () const;
 
   /**
-   * @return the right child of this ASTNode or NULL if this node has no
-   * right child.  If getNumChildren() > 1, then this is equivalent to:
+   * Get the left child of this node.
+   * 
+   * @return the left child of this ASTNode.  This is equivalent to
+   * <code>getChild(0)</code>;
+   */
+  LIBSBML_EXTERN
+  ASTNode* getLeftChild () const;
+
+
+  /**
+   * Get the right child of this node.
    *
-   *   getChild( getNumChildren() - 1);
+   * @return the right child of this ASTNode, or NULL if this node has no
+   * right child.  If <code>getNumChildren() &gt; 1</code>, then this is
+   * equivalent to:
+   * @code
+   * getChild( getNumChildren() - 1 );
+   * @endcode
    */
   LIBSBML_EXTERN
   ASTNode* getRightChild () const;
 
+
   /**
-   * @return the number of children of this ASTNode or 0 is this node has
+   * Get the number of children that this node has.
+   * 
+   * @return the number of children of this ASTNode, or 0 is this node has
    * no children.
    */
   LIBSBML_EXTERN
   unsigned int getNumChildren () const;
 
+
   /**
-   * Adds the given xmlnode as an annotation of this ASTNode.  
+   * Adds the given XMLNode as a semantic annotation of this ASTNode.
+   *
+   * @param annotation the annotation to add.
    */
   LIBSBML_EXTERN
   void addSemanticsAnnotation (XMLNode* annotation);
 
+
   /**
+   * Get the number of semantic annotation elements inside this node.
+   * 
    * @return the number of annotations of this ASTNode.  
    */
   LIBSBML_EXTERN
   unsigned int getNumSemanticsAnnotations () const;
 
+
   /**
-   * @return the nth annotation of this ASTNode or NULL if this node has no nth
-   * annotation (n > ASTNode_getNumChildren() - 1).
+   * Get the nth semantic annotation of this node.
+   * 
+   * @return the nth annotation of this ASTNode, or NULL if this node has no nth
+   * annotation (<code>n &gt; ASTNode_getNumChildren() - 1</code>).
    */
   LIBSBML_EXTERN
   XMLNode* getSemanticsAnnotation (unsigned int n) const;
 
+
   /**
-   * Performs a depth-first search (DFS) of the tree rooted at node and
-   * returns the List of nodes where predicate(node) returns true.
+   * Performs a depth-first search of the tree rooted at node and returns
+   * the List of nodes where <code>predicate(node)</code> returns true
+   * (non-zero).
    *
    * The typedef for ASTNodePredicate is:
-   *
-   *   int (*ASTNodePredicate) (const ASTNode_t *node);
-   *
+   * @code
+   * int (*ASTNodePredicate) (const ASTNode_t *node);
+   * @endcode
    * where a return value of non-zero represents true and zero represents
    * false.
    *
-   * The List returned is owned by the caller and should be deleted.  The
-   * ASTNodes in the list, however, are not owned by the caller (as they
-   * still belong to the tree itself) and therefore should not be deleted.
+   * @param predicate the predicate to use
+   *
+   * @return the list of nodes for which the predicate returned true
+   * (non-zero).  The List returned is owned by the caller and should be
+   * deleted after the caller is done using it.  The ASTNodes in the list;
+   * however, are not owned by the caller (as they still belong to the tree
+   * itself) and therefore should not be deleted.
    */
   LIBSBML_EXTERN
   List* getListOfNodes (ASTNodePredicate predicate) const;
+
 
   /**
    * This method is identical in functionality to getListOfNodes(), except
@@ -405,310 +599,453 @@ public:
   LIBSBML_EXTERN
   void fillListOfNodes (ASTNodePredicate predicate, List* lst) const;
 
+
   /**
-   * @return the value of this ASTNode as a single character.  This
-   * function should be called only when getType() is one of AST_PLUS,
-   * AST_MINUS, AST_TIMES, AST_DIVIDE or AST_POWER.
+   * Get the value of this node as a single character.  This
+   * function should be called only when getType() is one of @c AST_PLUS,
+   * @c AST_MINUS, @c AST_TIMES, @c AST_DIVIDE or @c AST_POWER.
+   * 
+   * @return the value of this ASTNode as a single character
    */
   LIBSBML_EXTERN
   char getCharacter () const;
 
+
   /**
-   * @return the value of this ASTNode as a (long) integer.  This function
-   * should be called only when getType() == AST_INTEGER.
+   * Get the value of this node as an integer. This function
+   * should be called only when <code>getType() == AST_INTEGER</code>.
+   * 
+   * @return the value of this ASTNode as a (<code>long</code>) integer. 
    */
   LIBSBML_EXTERN
   long getInteger () const;
 
+
   /**
-   * @return the value of this ASTNode as a string.  This function may be
-   * called on nodes that are not operators (isOperator() == false) or
-   * numbers (isNumber() == false).
+   * Get the value of this node as a string.  This function may be called
+   * on nodes that are not operators (<code>isOperator() == false</code>)
+   * or numbers (<code>isNumber() == false</code>).
+   * 
+   * @return the value of this ASTNode as a string.
    */
   LIBSBML_EXTERN
   const char* getName () const;
 
+
   /**
-   * @return the value of the numerator of this ASTNode.  This function
-   * should be called only when getType() == AST_RATIONAL.
+   * Get the value of the numerator of this node.  This function
+   * should be called only when <code>getType() == AST_RATIONAL</code>.
+   * 
+   * @return the value of the numerator of this ASTNode.  
    */
   LIBSBML_EXTERN
   long getNumerator () const;
 
+
   /**
-   * @return the value of the denominator of this ASTNode.  This function
-   * should be called only when getType() == AST_RATIONAL.
+   * Get the value of the denominator of this node.  This function
+   * should be called only when <code>getType() == AST_RATIONAL</code>.
+   * 
+   * @return the value of the denominator of this ASTNode.
    */
   LIBSBML_EXTERN
   long getDenominator () const;
 
+
   /**
-   * @return the value of this ASTNode as a real (double).  This function
-   * should be called only when isReal() == true.
+   * Get the real-numbered value of this node.  This function
+   * should be called only when <code>isReal() == true</code>.
    *
-   * This function performs the necessary arithmetic if the node type is
-   * AST_REAL_E (mantissa * $10^exponent$) or AST_RATIONAL (numerator /
-   * denominator).
+   * This function performs the necessary arithmetic if the node type is @c
+   * AST_REAL_E (<em>mantissa * 10<sup> exponent</sup></em>) or @c
+   * AST_RATIONAL (<em>numerator / denominator</em>).
+   * 
+   * @return the value of this ASTNode as a real (double).
    */
   LIBSBML_EXTERN
   double getReal () const;
 
+
   /**
-   * @return the value of the mantissa of this ASTNode.  This function
-   * should be called only when getType() is AST_REAL_E or AST_REAL.  If
-   * AST_REAL, this method is identical to getReal().
+   * Get the mantissa value of this node.  This function should be called
+   * only when getType() returns AST_REAL_E or AST_REAL.  If getType()
+   * returns AST_REAL, this method is identical to getReal().
+   * 
+   * @return the value of the mantissa of this ASTNode. 
    */
   LIBSBML_EXTERN
   double getMantissa () const;
 
+
   /**
-   * @return the value of the exponent of this ASTNode.  This function
-   * should be called only when getType() is AST_REAL_E or AST_REAL.
+   * Get the exponent value of this ASTNode.  This function should be
+   * called only when getType() returns AST_REAL_E or AST_REAL.
+   * 
+   * @return the value of the exponent of this ASTNode.
    */
   LIBSBML_EXTERN
   long getExponent () const;
 
+
   /**
-   * @return the precedence of this ASTNode (as defined in the SBML L1
-   * specification).
+   * Get the precedence of this node in the infix math syntax of SBML
+   * Level&nbsp;1.  For more information about the infix syntax, see the
+   * discussion about <a href="#math-convert">text string formulas</a> at
+   * the top of the documentation for ASTNode.
+   * 
+   * @return an integer indicating the precedence of this ASTNode
    */
   LIBSBML_EXTERN
   int getPrecedence () const;
 
+
   /**
+   * Get the type of this ASTNode.  The value returned is one of the
+   * enumeration values such as @c AST_LAMBDA, @c AST_PLUS, etc.
+   * 
    * @return the type of this ASTNode.
    */
   LIBSBML_EXTERN
   ASTNodeType_t getType () const;
 
+
   /**
-   * @return true if this ASTNode is a boolean (a logical operator, a
-   * relational operator, or the constants true or false), false otherwise.
+   * Predicate returning true (non-zero) if this node has a boolean type (a
+   * logical operator, a relational operator, or the constants @c true or
+   * @c false).
+   *
+   * @return true if this ASTNode is a boolean, false otherwise.
    */
   LIBSBML_EXTERN
   bool isBoolean () const;
 
+
   /**
-   * @return true if this ASTNode is a MathML constant (true, false, pi,
-   * exponentiale), false otherwise.
+   * Predicate returning true (non-zero) if this node represents a MathML
+   * constant (e.g., @c true, @c Pi).
+   * 
+   * @return true if this ASTNode is a MathML constant, false otherwise.
    */
   LIBSBML_EXTERN
   bool isConstant () const;
 
+
   /**
-   * @return true if this ASTNode is a function in SBML L1, L2 (MathML)
-   * (everything from abs() to tanh()) or user-defined, false otherwise.
+   * Predicate returning true (non-zero) if this node represents a MathML
+   * function (e.g., <code>abs()</code>), or an SBML Level&nbsp;1
+   * function, or a user-defined function.
+   * 
+   * @return true if this ASTNode is a function, false otherwise.
    */
   LIBSBML_EXTERN
   bool isFunction () const;
 
+
   /**
+   * Predicate returning true (non-zero) if this node represents
+   * the special IEEE 754 value infinity, false (zero) otherwise.
+   *
    * @return true if this ASTNode is the special IEEE 754 value infinity,
    * false otherwise.
    */
   LIBSBML_EXTERN
   bool isInfinity () const;
 
+
   /**
+   * Predicate returning true (non-zero) if this node contains an integer
+   * value, false (zero) otherwise.
+   *
    * @return true if this ASTNode is of type AST_INTEGER, false otherwise.
    */
   LIBSBML_EXTERN
   bool isInteger () const;
 
+
   /**
+   * Predicate returning true (non-zero) if this node is a MathML
+   * <code>&lt;lambda&gt;</code>, false (zero) otherwise.
+   * 
    * @return true if this ASTNode is of type AST_LAMBDA, false otherwise.
    */
   LIBSBML_EXTERN
   bool isLambda () const;
 
+
   /**
+   * Predicate returning true (non-zero) if this node represents a @c
+   * log10() function, false (zero) otherwise.  More precisely, this
+   * predicate returns true if the node type is @c AST_FUNCTION_LOG with
+   * two children, the first of which is an @c AST_INTEGER equal to 10.
+   * 
    * @return true if the given ASTNode represents a log10() function, false
    * otherwise.
-   *
-   * More precisley, the node type is AST_FUNCTION_LOG with two children
-   * the first of which is an AST_INTEGER equal to 10.
    */
   LIBSBML_EXTERN
   bool isLog10 () const;
 
+
   /**
-   * @return true if this ASTNode is a MathML logical operator (and, or,
-   * not, xor), false otherwise.
+   * Predicate returning true (non-zero) if this node is a MathML logical
+   * operator (i.e., @c and, @c or, @c not, @c xor).
+   * 
+   * @return true if this ASTNode is a MathML logical operator
    */
   LIBSBML_EXTERN
   bool isLogical () const;
 
+
   /**
+   * Predicate returning true (non-zero) if this node is a user-defined
+   * variable name in SBML L1, L2 (MathML), or the special symbols @c delay
+   * or @c time.  The predicate returns false (zero) otherwise.
+   * 
    * @return true if this ASTNode is a user-defined variable name in SBML
-   * L1, L2 (MathML) or the special symbols delay or time, false otherwise.
+   * L1, L2 (MathML) or the special symbols delay or time.
    */
   LIBSBML_EXTERN
   bool isName () const;
 
+
   /**
-   * @return true if this ASTNode is the special IEEE 754 value not a
-   * number, false otherwise.
+   * Predicate returning true (non-zero) if this node represents the
+   * special IEEE 754 value "not a number" (NaN), false (zero) otherwise.
+   * 
+   * @return true if this ASTNode is the special IEEE 754 NaN
    */
   LIBSBML_EXTERN
   bool isNaN () const;
 
+
   /**
+   * Predicate returning true (non-zero) if this node represents the
+   * special IEEE 754 value "negative infinity", false (zero) otherwise.
+   * 
    * @return true if this ASTNode is the special IEEE 754 value negative
    * infinity, false otherwise.
    */
   LIBSBML_EXTERN
   bool isNegInfinity () const;
 
+
   /**
+   * Predicate returning true (non-zero) if this node contains a number,
+   * false (zero) otherwise.  This is functionally equivalent to the
+   * following code:
+   * @code
+   *   isInteger() || isReal()
+   * @endcode
+   * 
    * @return true if this ASTNode is a number, false otherwise.
-   *
-   * This is functionally equivalent to:
-   *
-   *   isInteger() || isReal().
    */
   LIBSBML_EXTERN
   bool isNumber () const;
 
+
   /**
-   * @return true if this ASTNode is an operator, false otherwise.
-   * Operators are: +, -, *, / and \^ (power).
+   * Predicate returning true (non-zero) if this node is a mathematical
+ * operator, meaning, <code>+</code>, <code>-</code>, <code>*</code>,
+ * <code>/</code> or <code>^</code> (power).
+   * 
+   * @return true if this ASTNode is an operator.
    */
   LIBSBML_EXTERN
   bool isOperator () const;
 
+
   /**
-   * @return true if this ASTNode is a piecewise function, false otherwise.
+   * Predicate returning true (non-zero) if this node is the MathML
+   * <code>&lt;piecewise&gt;</code> construct, false (zero) otherwise.
+   * 
+   * @return true if this ASTNode is a MathML @c piecewise function
    */
   LIBSBML_EXTERN
   bool isPiecewise () const;
 
+
   /**
-   * @return true if this ASTNode is of type AST_RATIONAL, false otherwise.
+   * Predicate returning true (non-zero) if this node represents a rational
+   * number, false (zero) otherwise.
+   * 
+   * @return true if this ASTNode is of type @c AST_RATIONAL.
    */
   LIBSBML_EXTERN
   bool isRational () const;
 
+
   /**
+   * Predicate returning true (non-zero) if this node can represent a real
+   * number, false (zero) otherwise.  More precisely, this node must be of
+   * one of the following types: @c AST_REAL, @c AST_REAL_E or @c
+   * AST_RATIONAL.
+   * 
    * @return true if the value of this ASTNode can represented as a real
    * number, false otherwise.
-   *
-   * To be a represented as a real number, this node must be of one of the
-   * following types: AST_REAL, AST_REAL_E or AST_RATIONAL.
    */
   LIBSBML_EXTERN
   bool isReal () const;
 
+
   /**
-   * @return true if this ASTNode is a MathML relational operator (==, >=,
-   * >, <=, < !=), false otherwise.
+   * Predicate returning true (non-zero) if this node is a MathML
+   * relational operator, meaning <code>==</code>, <code>&gt;=</code>, 
+   * <code>&gt;</code>, <code>&lt;</code>, and <code>!=</code>.
+   * 
+   * @return true if this ASTNode is a MathML relational operator, false
+   * otherwise
    */
   LIBSBML_EXTERN
   bool isRelational () const;
 
+
   /**
+   * Predicate returning true (non-zero) if this node represents a square
+   * root function, false (zero) otherwise.  More precisely, the node type
+   * must be @c AST_FUNCTION_ROOT with two children, the first of which is
+   * an @c AST_INTEGER node having value equal to 2.
+   * 
    * @return true if the given ASTNode represents a sqrt() function, false
    * otherwise.
-   *
-   * More precisley, the node type is AST_FUNCTION_ROOT with two children
-   * the first of which is an AST_INTEGER equal to 2.
    */
   LIBSBML_EXTERN
   bool isSqrt () const;
 
+
   /**
-   * @return true if this ASTNode is a unary minus, false otherwise.
-   *
+   * Predicate returning true (non-zero) if this node is a unary minus
+   * operator, false (zero) otherwise.  A node is defined as a unary minus
+   * node if it is of type @c AST_MINUS and has exactly one child.
+   * 
    * For numbers, unary minus nodes can be "collapsed" by negating the
    * number.  In fact, SBML_parseFormula() does this during its parse.
-   * However, unary minus nodes for symbols (AST_NAMES) cannot be
+   * However, unary minus nodes for symbols (@c AST_NAMES) cannot be
    * "collapsed", so this predicate function is necessary.
-   *
-   * A node is defined as a unary minus node if it is of type AST_MINUS and
-   * has exactly one child.
+   * 
+   * @return true if this ASTNode is a unary minus, false otherwise.
    */
   LIBSBML_EXTERN
   bool isUMinus () const;
 
+
   /**
+   * Predicate returning true (non-zero) if this node has an unknown type.
+   * Unknown node types are represented by @c AST_UNKNOWN.
+   * 
    * @return true if this ASTNode is of type AST_UNKNOWN, false otherwise.
    */
   LIBSBML_EXTERN
   bool isUnknown () const;
 
+
   /**
    * Sets the value of this ASTNode to the given character.  If character
-   * is one of '+', '-', '*', '/' or '\^', the node type will be set
+   * is one of @c +, @c -, @c *, @c / or @c ^, the node type will be set
    * accordingly.  For all other characters, the node type will be set to
-   * AST_UNKNOWN.
+   * @c AST_UNKNOWN.
+   *
+   * @param value the character value to which the node's value should be
+   * set.
    */
   LIBSBML_EXTERN
   void setCharacter (char value);
 
+
   /**
    * Sets the value of this ASTNode to the given name.
    *
-   * The node type will be set (to AST_NAME) ONLY IF the ASTNode was
-   * previously an operator (isOperator(node) == true) or number
-   * (isNumber(node) == true).  This allows names to be set for
-   * AST_FUNCTIONs and the like.
+   * The node type will be set (to @c AST_NAME) <em>only if</em> the
+   * ASTNode was previously an operator (<code>isOperator(node) ==
+   * true</code>) or number (<code>isNumber(node) == true</code>).  This
+   * allows names to be set for @c AST_FUNCTIONs and the like.
+   *
+   * @param name the string containing the name to which this node's value
+   * should be set
    */
   LIBSBML_EXTERN
   void setName (const char *name);
 
+
   /**
    * Sets the value of this ASTNode to the given integer and sets the node
-   * type to AST_INTEGER.
+   * type to @c AST_INTEGER.
+   *
+   * @param value the integer to which this node's value should be set
    */
   LIBSBML_EXTERN
   void
   setValue (int value);
 
+
   /**
-   * Sets the value of this ASTNode to the given (long) integer and sets
-   * the node type to AST_INTEGER.
+   * Sets the value of this ASTNode to the given (@c long) integer and sets
+   * the node type to @c AST_INTEGER.
+   *
+   * @param value the integer to which this node's value should be set
    */
   LIBSBML_EXTERN
   void setValue (long value);
 
+
   /**
    * Sets the value of this ASTNode to the given rational in two parts: the
-   * numerator and denominator.  The node type is set to AST_RATIONAL.
+   * numerator and denominator.  The node type is set to @c AST_RATIONAL.
+   *
+   * @param numerator the numerator value of the rational
+   * @param denominator the denominator value of the rational
    */
   LIBSBML_EXTERN
   void setValue (long numerator, long denominator);
 
+
   /**
-   * Sets the value of this ASTNode to the given real (double) and sets the
-   * node type to AST_REAL.
+   * Sets the value of this ASTNode to the given real (@c double) and sets
+   * the node type to @c AST_REAL.
    *
    * This is functionally equivalent to:
+   * @code
+   * setValue(value, 0);
+   * @endcode
    *
-   *   setValue(value, 0);
+   * @param value the @c double format number to which this node's value
+   * should be set
    */
   LIBSBML_EXTERN
   void setValue (double value);
 
+
   /**
-   * Sets the value of this ASTNode to the given real (double) in two
+   * Sets the value of this ASTNode to the given real (@c double) in two
    * parts: the mantissa and the exponent.  The node type is set to
-   * AST_REAL_E.
+   * @c AST_REAL_E.
+   *
+   * @param mantissa the mantissa of this node's real-numbered value
+   * @param exponent the exponent of this node's real-numbered value
    */
   LIBSBML_EXTERN
   void setValue (double mantissa, long exponent);
 
+
   /**
-   * Sets the type of this ASTNode to the given ASTNodeType_t.  A side-effect
-   * of doing this is that any numerical values previously stored in this node
-   * are reset to zero.
+   * Sets the type of this ASTNode to the given <a class="el"
+   * href="#ASTNodeType_t">ASTNodeType_t</a>.  A side-effect of doing this
+   * is that any numerical values previously stored in this node are reset
+   * to zero.
+   *
+   * @param the type to which this node should be set
    */
   LIBSBML_EXTERN
   void setType (ASTNodeType_t type);
 
+
   /**
    * Swap the children of this ASTNode with the children of that ASTNode.
+   *
+   * @param that the other node whose children should be used to replace
+   * <em>this</em> node's children
    */
   LIBSBML_EXTERN
   void swapChildren (ASTNode *that);
+
 
   /** @cond doxygen-libsbml-internal */
 
@@ -738,14 +1075,16 @@ public:
 
   /** @endcond doxygen-libsbml-internal */
 
+
   /**
-   * gets the definitionURL attributes
+   * Gets the MathML @c definitionURL attribute value.
    */
   LIBSBML_EXTERN
   XMLAttributes* getDefinitionURL() const;
 
+
   /**
-   * replaces occurences of a name within this ASTNode with the name/value/formula
+   * Replaces occurences of a name within this ASTNode with the name/value/formula
    * represented by the second argument ASTNode
    * e.g. if the formula in this ASTNode is x + y; bvar is x and arg is an 
    * ASTNode representing the real value 3 ReplaceArgument substitutes 3 for
@@ -756,10 +1095,11 @@ public:
    */
 
   LIBSBML_EXTERN
-    void ReplaceArgument(const std::string bvar, ASTNode * arg);
+  void ReplaceArgument(const std::string bvar, ASTNode * arg);
 
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Internal helper function for canonicalize().
@@ -770,7 +1110,6 @@ protected:
   bool canonicalizeFunctionL1 ();
   bool canonicalizeLogical    ();
   bool canonicalizeRelational ();
-
 
 
   ASTNodeType_t mType;
@@ -799,6 +1138,8 @@ protected:
 
   friend class MathMLFormatter;
   friend class MathMLHandler;
+
+  /** @endcond doxygen-libsbml-internal */
 };
 
 
