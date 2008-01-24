@@ -245,7 +245,7 @@ public class TestReadFromFile2 {
     assertTrue(s.getCompartment().equals( "cell" ));
     assertTrue( s.getInitialAmount() == 1 );
     assertTrue( s.getBoundaryCondition() == false );
-    ud = s.getConstructedUnitDefinition();
+    ud = s.getDerivedUnitDefinition();
     assertTrue( ud.getNumUnits() == 2 );
     assertTrue( ud.getUnit(0).getKind() == libsbml.UNIT_KIND_MOLE );
     assertTrue( ud.getUnit(0).getExponent() == 1 );
@@ -272,7 +272,7 @@ public class TestReadFromFile2 {
     assertTrue(p.getName().equals( "vm"  ));
     assertTrue(p.getUnits().equals( "mls" ));
     assertTrue( p.getValue() == 2 );
-    ud = p.getConstructedUnitDefinition();
+    ud = p.getDerivedUnitDefinition();
     assertTrue( ud.getNumUnits() == 3 );
     assertTrue( ud.getUnit(0).getKind() == libsbml.UNIT_KIND_MOLE );
     assertTrue( ud.getUnit(0).getExponent() == 1 );
@@ -284,7 +284,7 @@ public class TestReadFromFile2 {
     p = m.getParameter(1);
     assertTrue(p.getName().equals( "km"  ));
     assertTrue( p.getValue() == 2 );
-    ud = p.getConstructedUnitDefinition();
+    ud = p.getDerivedUnitDefinition();
     assertTrue( ud.getNumUnits() == 0 );
     assertTrue( m.getNumReactions() == 3 );
     r = m.getReaction(0);
