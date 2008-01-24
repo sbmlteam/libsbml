@@ -120,17 +120,26 @@ void
 PiecewiseValueMathCheck::checkPiecewiseArgs (const Model& m, const ASTNode& node, 
                                                   const SBase & sb)
 {
-  /* arguments must return consistent types */
-  if (returnsNumeric(m, node.getLeftChild()) && 
-     !returnsNumeric(m, node.getRightChild()))
+  unsigned int numChildren = node.getNumChildren();
+
+  /* if there are an even number of children there is no otherwise*/
+  if ((numChildren % 2) != 0)
   {
-    logMathConflict(node, sb);
+    /* arguments must return consistent types */
+    for (unsigned int n = 0; n < numChildren-1; n += 2)
+    {
+      if (returnsNumeric(m, node.getChild(n)) && 
+        !returnsNumeric(m, node.getRightChild()))
+      {
+        logMathConflict(node, sb);
+      }
+      else if (node.getChild(n)->isBoolean() && 
+              !node.getRightChild()->isBoolean())
+      {
+        logMathConflict(node, sb);
+      }  
+    }
   }
-  else if (node.getLeftChild()->isBoolean() && 
-          !node.getRightChild()->isBoolean())
-  {
-    logMathConflict(node, sb);
-  }    
 }
 
 

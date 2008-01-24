@@ -117,9 +117,17 @@ void
 PieceBooleanMathCheck::checkPiece (const Model& m, const ASTNode& node, 
                                         const SBase & sb)
 {
-  if (!node.getChild(1)->isBoolean())
+  unsigned int numChildren = node.getNumChildren();
+  unsigned int numPieces = numChildren;
+
+  if ((numChildren % 2) != 0) numPieces--;
+
+  for (unsigned int n = 1; n < numPieces; n += 2)
   {
-    logMathConflict(node, sb);
+    if (!node.getChild(n)->isBoolean())
+    {
+      logMathConflict(node, sb);
+    }
   }
     
 }

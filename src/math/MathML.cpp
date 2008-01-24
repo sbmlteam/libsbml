@@ -570,27 +570,41 @@ readMathML (ASTNode& node, XMLInputStream& stream)
     }
     else
     {
+      /* catch case where there is no otherwise
+       */
+      if (elem.isEnd()) 
+      {
+        //node = NULL;
+        return;
+      }
       node.setType(AST_FUNCTION_PIECEWISE);
     }
 
     while (stream.isGood() && stream.peek().isEndFor(elem) == false)
     {
+      /* it is possible to have a piecewise with no otherwise
+       */
+      stream.skipText();
+      if (stream.peek().getName() == "piecewise") continue;
+
       ASTNodeType_t type = node.getType();
       if (type == AST_PLUS || type == AST_TIMES) reduceBinary(node);
       if (type == AST_CONSTANT_TRUE || type == AST_CONSTANT_FALSE) break;
 
+      ASTNode* child = new ASTNode();
+      readMathML(*child, stream);
+
+      stream.skipText();
       /* it is possible to have a function that has no children
        * ie a lambda with no bvars
        * dont want to add the child since this makes it look like
        * it has a bvar
        */
-      ASTNode* child = new ASTNode();
-      readMathML(*child, stream);
-      stream.skipText();
       if (stream.peek().getName() == "math") break;
       node.addChild(child);
 
-      if (stream.peek().getName() == "piece" && stream.isGood()) stream.next();
+      if (stream.peek().getName() == "piece" && stream.isGood()) 
+        stream.next();
     }
   }
 
