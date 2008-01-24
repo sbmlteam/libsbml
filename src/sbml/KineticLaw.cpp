@@ -410,7 +410,7 @@ KineticLaw::getNumParameters () const
   * returned by the math expression of this KineticLaw.
   */
 UnitDefinition * 
-KineticLaw::getCalculatedUnitDefinition()
+KineticLaw::getDerivedUnitDefinition()
 {
   if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
   {
@@ -1297,9 +1297,9 @@ KineticLaw_getNumParameters (const KineticLaw_t *kl)
   */
 LIBSBML_EXTERN
 UnitDefinition_t * 
-KineticLaw_getCalculatedUnitDefinition(KineticLaw_t *kl)
+KineticLaw_getDerivedUnitDefinition(KineticLaw_t *kl)
 {
-  return kl->getCalculatedUnitDefinition();
+  return kl->getDerivedUnitDefinition();
 }
 
 
@@ -1313,10 +1313,10 @@ KineticLaw_getCalculatedUnitDefinition(KineticLaw_t *kl)
   * with undeclared units, @c false otherwise.
   *
   * @note a return value of @c true indicates that the UnitDefinition_t
-  * returned by the getCalculatedUnitDefinition function may not 
+  * returned by the getDerivedUnitDefinition function may not 
   * accurately represent the units of the expression.
   *
-  * @see KineticLaw_getCalculatedUnitDefinition()
+  * @see KineticLaw_getDerivedUnitDefinition()
   */
 LIBSBML_EXTERN
 int 

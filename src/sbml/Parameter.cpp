@@ -262,7 +262,7 @@ Parameter::unsetUnits ()
   * Parameter.
   */
 UnitDefinition *
-Parameter::getConstructedUnitDefinition()
+Parameter::getDerivedUnitDefinition()
 {
   if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
   {
@@ -928,9 +928,9 @@ Parameter_unsetUnits (Parameter_t *p)
  */
 LIBSBML_EXTERN
 UnitDefinition_t * 
-Parameter_getConstructedUnitDefinition(Parameter_t *p)
+Parameter_getDerivedUnitDefinition(Parameter_t *p)
 {
-  return p->getConstructedUnitDefinition();
+  return p->getDerivedUnitDefinition();
 }
 
 

@@ -765,7 +765,7 @@ public:
    * or those derived from the default units of the Model containing
    * this Species and it's Compartment.
    */
-  UnitDefinition * getConstructedUnitDefinition();
+  UnitDefinition * getDerivedUnitDefinition();
 
   /**
    * Returns the libSBML type code for this %SBML object.
@@ -1165,7 +1165,7 @@ Species_unsetCharge (Species_t *s);
 
 LIBSBML_EXTERN
 UnitDefinition_t * 
-Species_getConstructedUnitDefinition(Species_t *s);
+Species_getDerivedUnitDefinition(Species_t *s);
 
 END_C_DECLS
 

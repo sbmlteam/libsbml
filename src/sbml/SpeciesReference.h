@@ -698,7 +698,7 @@ public:
    * 
    * @see containsUndeclaredUnits()
    */
-  UnitDefinition * getCalculatedUnitDefinition();
+  UnitDefinition * getDerivedUnitDefinition();
 
   /**
    * Predicate returning @c true or @c false depending on whether 
@@ -710,10 +710,10 @@ public:
    * with undeclared units, @c false otherwise.
    *
    * @note a return value of @c true indicates that the UnitDefinition
-   * returned by the getCalculatedUnitDefinition function may not 
+   * returned by the getDerivedUnitDefinition function may not 
    * accurately represent the units of the expression.
    *
-   * @see getCalculatedUnitDefinition()
+   * @see getDerivedUnitDefinition()
    */
   bool containsUndeclaredUnits();
 
@@ -1221,7 +1221,7 @@ SpeciesReference_unsetName (SpeciesReference_t *sr);
 
 LIBSBML_EXTERN
 UnitDefinition_t * 
-SpeciesReference_getCalculatedUnitDefinition(SpeciesReference_t *sr);
+SpeciesReference_getDerivedUnitDefinition(SpeciesReference_t *sr);
 
 
 LIBSBML_EXTERN

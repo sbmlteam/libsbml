@@ -418,7 +418,7 @@ public:
    * as a UnitDefinition. The units may be those explicitly declared.
    * In the case where no units have been declared, NULL is returned.
    */
-  UnitDefinition * getConstructedUnitDefinition();
+  UnitDefinition * getDerivedUnitDefinition();
 
   /**
    * Returns the libSBML type code for this %SBML object.
@@ -677,7 +677,7 @@ Parameter_unsetUnits (Parameter_t *p);
 
 LIBSBML_EXTERN
 UnitDefinition_t * 
-Parameter_getConstructedUnitDefinition(Parameter_t *p);
+Parameter_getDerivedUnitDefinition(Parameter_t *p);
 
 END_C_DECLS
 

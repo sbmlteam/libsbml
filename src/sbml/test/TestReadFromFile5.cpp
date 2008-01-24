@@ -121,7 +121,7 @@ START_TEST (test_read_l2v1_assignment)
   /**
    * tests for the unit API functions
    */
-  ud = c->getConstructedUnitDefinition();
+  ud = c->getDerivedUnitDefinition();
   fail_unless (ud->getNumUnits() == 1, NULL);
   fail_unless( ud->getUnit(0)->getKind() == UNIT_KIND_LITRE, NULL );
 
@@ -183,7 +183,7 @@ START_TEST (test_read_l2v1_assignment)
   /**
    * tests for the unit API functions
    */
-  ud = p->getConstructedUnitDefinition();
+  ud = p->getDerivedUnitDefinition();
   fail_unless (ud->getNumUnits() == 0, NULL);
 
   //
@@ -214,7 +214,7 @@ START_TEST (test_read_l2v1_assignment)
   /**
    * tests for the unit API functions
    */
-  ud = ar->getCalculatedUnitDefinition();
+  ud = ar->getDerivedUnitDefinition();
   fail_unless (ud->getNumUnits() == 2, NULL);
   fail_unless( ud->getUnit(0)->getKind() == UNIT_KIND_MOLE, NULL );
   fail_unless( ud->getUnit(0)->getExponent() ==  1, NULL );

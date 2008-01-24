@@ -408,7 +408,7 @@ Compartment::unsetOutside ()
   * Compartment.
   */
 UnitDefinition *
-Compartment::getConstructedUnitDefinition()
+Compartment::getDerivedUnitDefinition()
 {
   if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
   {
@@ -1395,9 +1395,9 @@ Compartment_unsetOutside (Compartment_t *c)
  */
 LIBSBML_EXTERN
 UnitDefinition_t * 
-Compartment_getConstructedUnitDefinition(Compartment_t *c)
+Compartment_getDerivedUnitDefinition(Compartment_t *c)
 {
-  return c->getConstructedUnitDefinition();
+  return c->getDerivedUnitDefinition();
 }
 
 /** @endcond doxygen-c-only */

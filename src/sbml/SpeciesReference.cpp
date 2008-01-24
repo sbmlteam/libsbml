@@ -469,7 +469,7 @@ SpeciesReference::unsetStoichiometryMath ()
   * returned by the math expression of this SpeciesReference.
   */
 UnitDefinition * 
-SpeciesReference::getCalculatedUnitDefinition()
+SpeciesReference::getDerivedUnitDefinition()
 {
   if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
   {
@@ -1793,9 +1793,9 @@ SpeciesReference_unsetName (SpeciesReference_t *sr)
   */
 LIBSBML_EXTERN
 UnitDefinition_t * 
-SpeciesReference_getCalculatedUnitDefinition(SpeciesReference_t *sr)
+SpeciesReference_getDerivedUnitDefinition(SpeciesReference_t *sr)
 {
-  return static_cast<SpeciesReference*>(sr)->getCalculatedUnitDefinition();
+  return static_cast<SpeciesReference*>(sr)->getDerivedUnitDefinition();
 }
 
 
@@ -1809,10 +1809,10 @@ SpeciesReference_getCalculatedUnitDefinition(SpeciesReference_t *sr)
   * with undeclared units, @c false otherwise.
   *
   * @note a return value of @c true indicates that the UnitDefinition_t
-  * returned by the getCalculatedUnitDefinition function may not 
+  * returned by the getDerivedUnitDefinition function may not 
   * accurately represent the units of the expression.
   *
-  * @see SpeciesReference_getCalculatedUnitDefinition()
+  * @see SpeciesReference_getDerivedUnitDefinition()
   */
 LIBSBML_EXTERN
 int 

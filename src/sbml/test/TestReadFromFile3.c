@@ -203,7 +203,7 @@ START_TEST (test_read_l1v1_rules)
   /**
    * tests for the unit API functions
    */
-  ud = Rule_getCalculatedUnitDefinition(pr);
+  ud = Rule_getDerivedUnitDefinition(pr);
   fail_unless (UnitDefinition_getNumUnits(ud) == 2, NULL);
   fail_unless( Unit_getKind (UnitDefinition_getUnit(ud, 0)) == UNIT_KIND_MOLE, NULL );
   fail_unless( Unit_getExponent(UnitDefinition_getUnit(ud, 0)) ==  1, NULL );
@@ -219,7 +219,7 @@ START_TEST (test_read_l1v1_rules)
   /**
    * tests for the unit API functions
    */
-  ud = Rule_getCalculatedUnitDefinition(pr);
+  ud = Rule_getDerivedUnitDefinition(pr);
   fail_unless (UnitDefinition_getNumUnits(ud) == 0, NULL);
 
   fail_unless( Rule_containsUndeclaredUnits(pr) == 1, NULL);

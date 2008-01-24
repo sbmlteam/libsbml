@@ -354,7 +354,7 @@ public:
    * 
    * @see containsUndeclaredUnits()
    */
-  UnitDefinition * getCalculatedUnitDefinition();
+  UnitDefinition * getDerivedUnitDefinition();
 
   /**
    * Predicate returning @c true or @c false depending on whether 
@@ -366,10 +366,10 @@ public:
    * with undeclared units, @c false otherwise.
    *
    * @note a return value of @c true indicates that the UnitDefinition
-   * returned by the getCalculatedUnitDefinition function may not 
+   * returned by the getDerivedUnitDefinition function may not 
    * accurately represent the units of the expression.
    *
-   * @see getCalculatedUnitDefinition()
+   * @see getDerivedUnitDefinition()
    */
   bool containsUndeclaredUnits();
 
@@ -585,7 +585,7 @@ InitialAssignment_setMath (InitialAssignment_t *ia, const ASTNode_t *math);
 
 LIBSBML_EXTERN
 UnitDefinition_t * 
-InitialAssignment_getCalculatedUnitDefinition(InitialAssignment_t *ia);
+InitialAssignment_getDerivedUnitDefinition(InitialAssignment_t *ia);
 
 
 LIBSBML_EXTERN

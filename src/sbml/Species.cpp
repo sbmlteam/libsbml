@@ -572,7 +572,7 @@ Species::unsetCharge ()
   * Species.
   */
 UnitDefinition *
-Species::getConstructedUnitDefinition()
+Species::getDerivedUnitDefinition()
 {
   if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
   {
@@ -1919,9 +1919,9 @@ Species_unsetCharge (Species_t *s)
  */
 LIBSBML_EXTERN
 UnitDefinition_t * 
-Species_getConstructedUnitDefinition(Species_t *s)
+Species_getDerivedUnitDefinition(Species_t *s)
 {
-  return s->getConstructedUnitDefinition();
+  return s->getDerivedUnitDefinition();
 }
 
 

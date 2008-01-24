@@ -308,7 +308,7 @@ Rule::unsetUnits ()
   * returned by the math expression of this Rule.
   */
 UnitDefinition * 
-Rule::getCalculatedUnitDefinition()
+Rule::getDerivedUnitDefinition()
 {
   if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
   {
@@ -1614,9 +1614,9 @@ Rule_setL1TypeCode (Rule_t *r, SBMLTypeCode_t L1Type)
   */
 LIBSBML_EXTERN
 UnitDefinition_t * 
-Rule_getCalculatedUnitDefinition(Rule_t *r)
+Rule_getDerivedUnitDefinition(Rule_t *r)
 {
-  return r->getCalculatedUnitDefinition();
+  return r->getDerivedUnitDefinition();
 }
 
 
@@ -1630,10 +1630,10 @@ Rule_getCalculatedUnitDefinition(Rule_t *r)
   * with undeclared units, @c false otherwise.
   *
   * @note a return value of @c true indicates that the UnitDefinition_t
-  * returned by the getCalculatedUnitDefinition function may not 
+  * returned by the getDerivedUnitDefinition function may not 
   * accurately represent the units of the expression.
   *
-  * @see Rule_getCalculatedUnitDefinition()
+  * @see Rule_getDerivedUnitDefinition()
   */
 LIBSBML_EXTERN
 int 

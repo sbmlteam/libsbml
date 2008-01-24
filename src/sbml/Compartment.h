@@ -605,7 +605,7 @@ public:
    * or those derived from the default units of the Model containing
    * this Compartment.
    */
-  UnitDefinition * getConstructedUnitDefinition();
+  UnitDefinition * getDerivedUnitDefinition();
 
   /**
    * Returns the libSBML type code for this %SBML object.
@@ -931,7 +931,7 @@ Compartment_unsetOutside (Compartment_t *c);
 
 LIBSBML_EXTERN
 UnitDefinition_t * 
-Compartment_getConstructedUnitDefinition(Compartment_t *c);
+Compartment_getDerivedUnitDefinition(Compartment_t *c);
 
 END_C_DECLS
 

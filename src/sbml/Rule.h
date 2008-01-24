@@ -606,7 +606,7 @@ public:
    * 
    * @see containsUndeclaredUnits()
    */
-  UnitDefinition * getCalculatedUnitDefinition();
+  UnitDefinition * getDerivedUnitDefinition();
 
   /**
    * Predicate returning @c true or @c false depending on whether 
@@ -618,10 +618,10 @@ public:
    * with undeclared units, @c false otherwise.
    *
    * @note a return value of @c true indicates that the UnitDefinition
-   * returned by the getCalculatedUnitDefinition function may not 
+   * returned by the getDerivedUnitDefinition function may not 
    * accurately represent the units of the expression.
    *
-   * @see getCalculatedUnitDefinition()
+   * @see getDerivedUnitDefinition()
    */
   bool containsUndeclaredUnits();
 
@@ -1311,7 +1311,7 @@ Rule_setL1TypeCode (Rule_t *r, SBMLTypeCode_t L1Type);
 
 LIBSBML_EXTERN
 UnitDefinition_t * 
-Rule_getCalculatedUnitDefinition(Rule_t *ia);
+Rule_getDerivedUnitDefinition(Rule_t *ia);
 
 
 LIBSBML_EXTERN

@@ -149,7 +149,7 @@ Delay::setMath (const ASTNode* math)
   * returned by the math expression of this InitialAssignment.
   */
 UnitDefinition * 
-Delay::getCalculatedUnitDefinition()
+Delay::getDerivedUnitDefinition()
 {
   if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
   {
@@ -513,9 +513,9 @@ Delay_setMath (Delay_t *t, const ASTNode_t *math)
   */
 LIBSBML_EXTERN
 UnitDefinition_t * 
-Delay_getCalculatedUnitDefinition(Delay_t *d)
+Delay_getDerivedUnitDefinition(Delay_t *d)
 {
-  return d->getCalculatedUnitDefinition();
+  return d->getDerivedUnitDefinition();
 }
 
 
@@ -529,10 +529,10 @@ Delay_getCalculatedUnitDefinition(Delay_t *d)
   * with undeclared units, @c false otherwise.
   *
   * @note a return value of @c true indicates that the UnitDefinition_t
-  * returned by the getCalculatedUnitDefinition function may not 
+  * returned by the getDerivedUnitDefinition function may not 
   * accurately represent the units of the expression.
   *
-  * @see Delay_getCalculatedUnitDefinition()
+  * @see Delay_getDerivedUnitDefinition()
   */
 LIBSBML_EXTERN
 int 

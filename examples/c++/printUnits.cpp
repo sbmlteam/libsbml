@@ -55,14 +55,14 @@ main (int argc, char *argv[])
   {
     Species* s = model->getSpecies(i);
     cout << "Species " << i << ": "
-      << printUnits(s->getConstructedUnitDefinition()) << endl;
+      << printUnits(s->getDerivedUnitDefinition()) << endl;
   }
 
   for (i = 0; i < model->getNumCompartments(); i++)
   {
     Compartment *c = model->getCompartment(i);
     cout << "Compartment " << i << ": "
-      << printUnits(c->getConstructedUnitDefinition()) 
+      << printUnits(c->getDerivedUnitDefinition()) 
       << endl;
   }
 
@@ -70,7 +70,7 @@ main (int argc, char *argv[])
   {
     Parameter *p = model->getParameter(i);
     cout << "Parameter " << i << ": "
-      << printUnits(p->getConstructedUnitDefinition()) 
+      << printUnits(p->getDerivedUnitDefinition()) 
       << endl;
   }
 
@@ -79,7 +79,7 @@ main (int argc, char *argv[])
   {
     InitialAssignment *ia = model->getInitialAssignment(i);
     cout << "InitialAssignment " << i << ": " 
-      << printUnits(ia->getCalculatedUnitDefinition()) << endl;
+      << printUnits(ia->getDerivedUnitDefinition()) << endl;
     cout << "        undeclared units: ";
     cout << (ia->containsUndeclaredUnits() ? "yes\n" : "no\n");
   }
@@ -92,7 +92,7 @@ main (int argc, char *argv[])
     if (e->isSetDelay())
     {
       cout << "Delay: " 
-        << printUnits(e->getDelay()->getCalculatedUnitDefinition()) << endl;
+        << printUnits(e->getDelay()->getDerivedUnitDefinition()) << endl;
       cout << "        undeclared units: ";
       cout << (e->getDelay()->containsUndeclaredUnits() ? "yes\n" : "no\n");
     }
@@ -101,7 +101,7 @@ main (int argc, char *argv[])
     {
       EventAssignment *ea = e->getEventAssignment(j);
       cout << "EventAssignment " << j << ": " 
-        << printUnits(ea->getCalculatedUnitDefinition()) << endl;
+        << printUnits(ea->getDerivedUnitDefinition()) << endl;
       cout << "        undeclared units: ";
       cout << (ea->containsUndeclaredUnits() ? "yes\n" : "no\n");
     }
@@ -116,7 +116,7 @@ main (int argc, char *argv[])
     if (r->isSetKineticLaw())
     {
       cout << "Kinetic Law: " 
-        << printUnits(r->getKineticLaw()->getCalculatedUnitDefinition()) << endl;
+        << printUnits(r->getKineticLaw()->getDerivedUnitDefinition()) << endl;
       cout << "        undeclared units: ";
       cout << (r->getKineticLaw()->containsUndeclaredUnits() ? "yes\n" : "no\n");
     }
@@ -128,7 +128,7 @@ main (int argc, char *argv[])
       if (sr->isSetStoichiometryMath())
       {
         cout << "Reactant stoichiometryMath" << j << ": " 
-          << printUnits(sr->getCalculatedUnitDefinition()) << endl;
+          << printUnits(sr->getDerivedUnitDefinition()) << endl;
         cout << "        undeclared units: ";
         cout << (sr->containsUndeclaredUnits() ? "yes\n" : "no\n");
       }
@@ -141,7 +141,7 @@ main (int argc, char *argv[])
       if (sr->isSetStoichiometryMath())
       {
         cout << "Product stoichiometryMath" << j << ": " 
-          << printUnits(sr->getCalculatedUnitDefinition()) << endl;
+          << printUnits(sr->getDerivedUnitDefinition()) << endl;
         cout << "        undeclared units: ";
         cout << (sr->containsUndeclaredUnits() ? "yes\n" : "no\n");
       }
@@ -152,7 +152,7 @@ main (int argc, char *argv[])
   {
     Rule *r = model->getRule(i);
     cout << "Rule " << i << ": " 
-      << printUnits(r->getCalculatedUnitDefinition()) << endl;
+      << printUnits(r->getDerivedUnitDefinition()) << endl;
     cout << "        undeclared units: ";
     cout << (r->containsUndeclaredUnits() ? "yes\n" : "no\n");
   }

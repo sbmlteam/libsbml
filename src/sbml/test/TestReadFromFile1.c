@@ -114,7 +114,7 @@ START_TEST (test_read_l1v1_branch)
   /**
    * tests for the unit API functions
    */
-  ud = Compartment_getConstructedUnitDefinition(c);
+  ud = Compartment_getDerivedUnitDefinition(c);
   fail_unless (UnitDefinition_getNumUnits(ud) == 1, NULL);
   fail_unless( Unit_getKind (UnitDefinition_getUnit(ud, 0)) == UNIT_KIND_LITRE, NULL );
 
@@ -142,7 +142,7 @@ START_TEST (test_read_l1v1_branch)
   /**
    * tests for the unit API functions
    */
-  ud = Species_getConstructedUnitDefinition(s);
+  ud = Species_getDerivedUnitDefinition(s);
   fail_unless (UnitDefinition_getNumUnits(ud) == 2, NULL);
   fail_unless( Unit_getKind (UnitDefinition_getUnit(ud, 0)) == UNIT_KIND_MOLE, NULL );
   fail_unless( Unit_getExponent(UnitDefinition_getUnit(ud, 0)) ==  1, NULL );
@@ -186,7 +186,7 @@ START_TEST (test_read_l1v1_branch)
   /**
    * tests for the unit API functions
    */
-  ud = KineticLaw_getCalculatedUnitDefinition(Reaction_getKineticLaw(r));
+  ud = KineticLaw_getDerivedUnitDefinition(Reaction_getKineticLaw(r));
   fail_unless (UnitDefinition_getNumUnits(ud) == 2, NULL);
   fail_unless( Unit_getKind (UnitDefinition_getUnit(ud, 0)) == UNIT_KIND_MOLE, NULL );
   fail_unless( Unit_getExponent(UnitDefinition_getUnit(ud, 0)) ==  1, NULL );

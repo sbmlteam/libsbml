@@ -183,7 +183,7 @@ EventAssignment::setMath (const ASTNode* math)
   * returned by the math expression of this EventAssignment.
   */
 UnitDefinition * 
-EventAssignment::getCalculatedUnitDefinition()
+EventAssignment::getDerivedUnitDefinition()
 {
   if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
   {
@@ -665,9 +665,9 @@ EventAssignment_setMath (EventAssignment_t *ea, const ASTNode_t *math)
   */
 LIBSBML_EXTERN
 UnitDefinition_t * 
-EventAssignment_getCalculatedUnitDefinition(EventAssignment_t *ea)
+EventAssignment_getDerivedUnitDefinition(EventAssignment_t *ea)
 {
-  return ea->getCalculatedUnitDefinition();
+  return ea->getDerivedUnitDefinition();
 }
 
 
@@ -681,10 +681,10 @@ EventAssignment_getCalculatedUnitDefinition(EventAssignment_t *ea)
   * with undeclared units, @c false otherwise.
   *
   * @note a return value of @c true indicates that the UnitDefinition_t
-  * returned by the getCalculatedUnitDefinition function may not 
+  * returned by the getDerivedUnitDefinition function may not 
   * accurately represent the units of the expression.
   *
-  * @see EventAssignment_getCalculatedUnitDefinition()
+  * @see EventAssignment_getDerivedUnitDefinition()
   */
 LIBSBML_EXTERN
 int 

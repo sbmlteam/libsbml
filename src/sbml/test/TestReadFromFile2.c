@@ -182,7 +182,7 @@ START_TEST (test_read_l1v1_units)
   /**
    * tests for the unit API functions
    */
-  ud = Species_getConstructedUnitDefinition(s);
+  ud = Species_getDerivedUnitDefinition(s);
   fail_unless (UnitDefinition_getNumUnits(ud) == 2, NULL);
   fail_unless( Unit_getKind (UnitDefinition_getUnit(ud, 0)) == UNIT_KIND_MOLE, NULL );
   fail_unless( Unit_getExponent(UnitDefinition_getUnit(ud, 0)) ==  1, NULL );
@@ -226,7 +226,7 @@ START_TEST (test_read_l1v1_units)
   /**
    * tests for the unit API functions
    */
-  ud = Parameter_getConstructedUnitDefinition(p);
+  ud = Parameter_getDerivedUnitDefinition(p);
   fail_unless (UnitDefinition_getNumUnits(ud) == 3, NULL);
   fail_unless( Unit_getKind (UnitDefinition_getUnit(ud, 0)) == UNIT_KIND_MOLE, NULL );
   fail_unless( Unit_getExponent(UnitDefinition_getUnit(ud, 0)) ==  1, NULL );
@@ -243,7 +243,7 @@ START_TEST (test_read_l1v1_units)
   /**
    * tests for the unit API functions
    */
-  ud = Parameter_getConstructedUnitDefinition(p);
+  ud = Parameter_getDerivedUnitDefinition(p);
   fail_unless (UnitDefinition_getNumUnits(ud) == 0, NULL);
 
   /**
