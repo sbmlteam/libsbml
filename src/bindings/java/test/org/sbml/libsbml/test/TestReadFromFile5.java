@@ -135,7 +135,7 @@ public class TestReadFromFile5 {
     c = m.getCompartment(0);
     assertTrue( c != null );
     assertTrue( c.getId().equals("cell") == true );
-    ud = c.getConstructedUnitDefinition();
+    ud = c.getDerivedUnitDefinition();
     assertTrue( ud.getNumUnits() == 1 );
     assertTrue( ud.getUnit(0).getKind() == libsbml.UNIT_KIND_LITRE );
     assertTrue( m.getNumSpecies() == 5 );
@@ -169,14 +169,14 @@ public class TestReadFromFile5 {
     assertTrue( p != null );
     assertTrue( p.getId().equals("Keq") == true );
     assertTrue( p.getValue() == 2.5 );
-    ud = p.getConstructedUnitDefinition();
+    ud = p.getDerivedUnitDefinition();
     assertTrue( ud.getNumUnits() == 0 );
     assertTrue( m.getNumRules() == 2 );
     ar = ((AssignmentRule)  m.getRule(0) );
     assertTrue( ar != null );
     assertTrue( ar.getVariable().equals("S1") == true );
     assertTrue( ar.getFormula().equals("T / (1 + Keq)") == true );
-    ud = ar.getCalculatedUnitDefinition();
+    ud = ar.getDerivedUnitDefinition();
     assertTrue( ud.getNumUnits() == 2 );
     assertTrue( ud.getUnit(0).getKind() == libsbml.UNIT_KIND_MOLE );
     assertTrue( ud.getUnit(0).getExponent() == 1 );

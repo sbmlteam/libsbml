@@ -132,7 +132,7 @@ public class TestReadFromFile1 {
     c = m.getCompartment(0);
     assertTrue(c.getName().equals( "compartmentOne"));
     assertTrue( c.getVolume() == 1 );
-    ud = c.getConstructedUnitDefinition();
+    ud = c.getDerivedUnitDefinition();
     assertTrue( ud.getNumUnits() == 1 );
     assertTrue( ud.getUnit(0).getKind() == libsbml.UNIT_KIND_LITRE );
     assertTrue( m.getNumSpecies() == 4 );
@@ -141,7 +141,7 @@ public class TestReadFromFile1 {
     assertTrue(s.getCompartment().equals( "compartmentOne" ));
     assertTrue( s.getInitialAmount() == 0 );
     assertTrue( s.getBoundaryCondition() == false );
-    ud = s.getConstructedUnitDefinition();
+    ud = s.getDerivedUnitDefinition();
     assertTrue( ud.getNumUnits() == 2 );
     assertTrue( ud.getUnit(0).getKind() == libsbml.UNIT_KIND_MOLE );
     assertTrue( ud.getUnit(0).getExponent() == 1 );
@@ -167,7 +167,7 @@ public class TestReadFromFile1 {
     assertTrue(r.getName().equals( "reaction_1"));
     assertTrue( r.getReversible() == false );
     assertTrue( r.getFast() == false );
-    ud = r.getKineticLaw().getCalculatedUnitDefinition();
+    ud = r.getKineticLaw().getDerivedUnitDefinition();
     assertTrue( ud.getNumUnits() == 2 );
     assertTrue( ud.getUnit(0).getKind() == libsbml.UNIT_KIND_MOLE );
     assertTrue( ud.getUnit(0).getExponent() == 1 );

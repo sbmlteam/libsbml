@@ -181,7 +181,7 @@ public class TestReadFromFile3 {
     pr = m.getRule(0);
     assertTrue(pr.getVariable().equals( "t"));
     assertTrue(pr.getFormula().equals( "s1 + s2"));
-    ud = pr.getCalculatedUnitDefinition();
+    ud = pr.getDerivedUnitDefinition();
     assertTrue( ud.getNumUnits() == 2 );
     assertTrue( ud.getUnit(0).getKind() == libsbml.UNIT_KIND_MOLE );
     assertTrue( ud.getUnit(0).getExponent() == 1 );
@@ -191,7 +191,7 @@ public class TestReadFromFile3 {
     pr = m.getRule(1);
     assertTrue(pr.getVariable().equals( "k"));
     assertTrue(pr.getFormula().equals( "k3/k2"));
-    ud = pr.getCalculatedUnitDefinition();
+    ud = pr.getDerivedUnitDefinition();
     assertTrue( ud.getNumUnits() == 0 );
     assertTrue( pr.containsUndeclaredUnits() == true );
     scr = m.getRule(2);
