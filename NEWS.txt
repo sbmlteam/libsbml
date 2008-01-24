@@ -25,6 +25,10 @@
 
 * Bug fixes:
 
+  - Fixed a bug that meant that a model was not correctly read
+    if a piecewise function had been used with no 'otherwise'
+    element. Thanks to Chris Meyers for reporting this. 
+
   - Fixed a bug that caused a crash if a FunctionDefinition was
     applied to an incorrect number of arguments.
 
