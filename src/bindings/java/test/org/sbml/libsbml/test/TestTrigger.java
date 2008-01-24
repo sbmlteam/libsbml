@@ -188,11 +188,18 @@ public class TestTrigger {
   static
   {
     String varname;
+    String shlibname;
 
     if (System.getProperty("mrj.version") != null)
+    {
       varname = "DYLD_LIBRARY_PATH";    // We're on a Mac.
+      shlibname = "libsbmlj.jnilib and/or libsbml.dylib";
+    }
     else
+    {
       varname = "LD_LIBRARY_PATH";      // We're not on a Mac.
+      shlibname = "libsbmlj.so and/or libsbml.so";
+    }
 
     try
     {
@@ -202,24 +209,27 @@ public class TestTrigger {
     }
     catch (SecurityException e)
     {
+      e.printStackTrace();
       System.err.println("Could not load the libSBML library files due to a"+
                          " security exception.\n");
+      System.exit(1);
     }
     catch (UnsatisfiedLinkError e)
     {
-      System.err.println("Error: could not link with the libSBML library."+
-                         "  It is likely\nyour " + varname +
-                         " environment variable does not include\nthe"+
-                         " directory containing the libsbml.dylib library"+
-                         " file.\n");
+      e.printStackTrace();
+      System.err.println("Error: could not link with the libSBML library files."+
+                         " It is likely\nyour " + varname +
+                         " environment variable does not include the directories\n"+
+                         "containing the " + shlibname + " library files.\n");
       System.exit(1);
     }
     catch (ClassNotFoundException e)
     {
+      e.printStackTrace();
       System.err.println("Error: unable to load the file libsbmlj.jar."+
-                         "  It is likely\nyour " + varname +
-                         " environment variable does not include\nthe "+
-                         " directory containing the libsbmlj.jar file.\n");
+                         " It is likely\nyour -classpath option and CLASSPATH" +
+                         " environment variable\n"+
+                         "do not include the path to libsbmlj.jar.\n");
       System.exit(1);
     }
   }

@@ -120,6 +120,7 @@ public class TestReadFromFile3 {
     Species s;
     Rule scr;
     SpeciesReference sr;
+    UnitDefinition ud;
     String filename = "../../sbml/test/test-data/l1v1-rules.xml";
     d = libsbml.readSBML(filename);
     if (d == null);
@@ -180,9 +181,19 @@ public class TestReadFromFile3 {
     pr = m.getRule(0);
     assertTrue(pr.getVariable().equals( "t"));
     assertTrue(pr.getFormula().equals( "s1 + s2"));
+    ud = pr.getCalculatedUnitDefinition();
+    assertTrue( ud.getNumUnits() == 2 );
+    assertTrue( ud.getUnit(0).getKind() == libsbml.UNIT_KIND_MOLE );
+    assertTrue( ud.getUnit(0).getExponent() == 1 );
+    assertTrue( ud.getUnit(1).getKind() == libsbml.UNIT_KIND_LITRE );
+    assertTrue( ud.getUnit(1).getExponent() == -1 );
+    assertTrue( pr.containsUndeclaredUnits() == false );
     pr = m.getRule(1);
     assertTrue(pr.getVariable().equals( "k"));
     assertTrue(pr.getFormula().equals( "k3/k2"));
+    ud = pr.getCalculatedUnitDefinition();
+    assertTrue( ud.getNumUnits() == 0 );
+    assertTrue( pr.containsUndeclaredUnits() == true );
     scr = m.getRule(2);
     assertTrue(scr.getVariable().equals( "x2"));
     assertTrue(scr.getFormula().equals( "k * (s1+s2)/(1 + k)"));
@@ -234,11 +245,18 @@ public class TestReadFromFile3 {
   static
   {
     String varname;
+    String shlibname;
 
     if (System.getProperty("mrj.version") != null)
+    {
       varname = "DYLD_LIBRARY_PATH";    // We're on a Mac.
+      shlibname = "libsbmlj.jnilib and/or libsbml.dylib";
+    }
     else
+    {
       varname = "LD_LIBRARY_PATH";      // We're not on a Mac.
+      shlibname = "libsbmlj.so and/or libsbml.so";
+    }
 
     try
     {
@@ -248,24 +266,27 @@ public class TestReadFromFile3 {
     }
     catch (SecurityException e)
     {
+      e.printStackTrace();
       System.err.println("Could not load the libSBML library files due to a"+
                          " security exception.\n");
+      System.exit(1);
     }
     catch (UnsatisfiedLinkError e)
     {
-      System.err.println("Error: could not link with the libSBML library."+
-                         "  It is likely\nyour " + varname +
-                         " environment variable does not include\nthe"+
-                         " directory containing the libsbml.dylib library"+
-                         " file.\n");
+      e.printStackTrace();
+      System.err.println("Error: could not link with the libSBML library files."+
+                         " It is likely\nyour " + varname +
+                         " environment variable does not include the directories\n"+
+                         "containing the " + shlibname + " library files.\n");
       System.exit(1);
     }
     catch (ClassNotFoundException e)
     {
+      e.printStackTrace();
       System.err.println("Error: unable to load the file libsbmlj.jar."+
-                         "  It is likely\nyour " + varname +
-                         " environment variable does not include\nthe "+
-                         " directory containing the libsbmlj.jar file.\n");
+                         " It is likely\nyour -classpath option and CLASSPATH" +
+                         " environment variable\n"+
+                         "do not include the path to libsbmlj.jar.\n");
       System.exit(1);
     }
   }

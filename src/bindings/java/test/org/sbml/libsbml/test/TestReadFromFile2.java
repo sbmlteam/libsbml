@@ -245,6 +245,13 @@ public class TestReadFromFile2 {
     assertTrue(s.getCompartment().equals( "cell" ));
     assertTrue( s.getInitialAmount() == 1 );
     assertTrue( s.getBoundaryCondition() == false );
+    ud = s.getConstructedUnitDefinition();
+    assertTrue( ud.getNumUnits() == 2 );
+    assertTrue( ud.getUnit(0).getKind() == libsbml.UNIT_KIND_MOLE );
+    assertTrue( ud.getUnit(0).getExponent() == 1 );
+    assertTrue( ud.getUnit(0).getScale() == -3 );
+    assertTrue( ud.getUnit(1).getKind() == libsbml.UNIT_KIND_LITRE );
+    assertTrue( ud.getUnit(1).getExponent() == -1 );
     s = m.getSpecies(1);
     assertTrue(s.getName().equals( "x1"   ));
     assertTrue(s.getCompartment().equals( "cell" ));
@@ -265,9 +272,20 @@ public class TestReadFromFile2 {
     assertTrue(p.getName().equals( "vm"  ));
     assertTrue(p.getUnits().equals( "mls" ));
     assertTrue( p.getValue() == 2 );
+    ud = p.getConstructedUnitDefinition();
+    assertTrue( ud.getNumUnits() == 3 );
+    assertTrue( ud.getUnit(0).getKind() == libsbml.UNIT_KIND_MOLE );
+    assertTrue( ud.getUnit(0).getExponent() == 1 );
+    assertTrue( ud.getUnit(0).getScale() == -3 );
+    assertTrue( ud.getUnit(1).getKind() == libsbml.UNIT_KIND_LITER );
+    assertTrue( ud.getUnit(1).getExponent() == -1 );
+    assertTrue( ud.getUnit(2).getKind() == libsbml.UNIT_KIND_SECOND );
+    assertTrue( ud.getUnit(2).getExponent() == -1 );
     p = m.getParameter(1);
     assertTrue(p.getName().equals( "km"  ));
     assertTrue( p.getValue() == 2 );
+    ud = p.getConstructedUnitDefinition();
+    assertTrue( ud.getNumUnits() == 0 );
     assertTrue( m.getNumReactions() == 3 );
     r = m.getReaction(0);
     assertTrue(r.getName().equals( "v1"));
@@ -330,11 +348,18 @@ public class TestReadFromFile2 {
   static
   {
     String varname;
+    String shlibname;
 
     if (System.getProperty("mrj.version") != null)
+    {
       varname = "DYLD_LIBRARY_PATH";    // We're on a Mac.
+      shlibname = "libsbmlj.jnilib and/or libsbml.dylib";
+    }
     else
+    {
       varname = "LD_LIBRARY_PATH";      // We're not on a Mac.
+      shlibname = "libsbmlj.so and/or libsbml.so";
+    }
 
     try
     {
@@ -344,24 +369,27 @@ public class TestReadFromFile2 {
     }
     catch (SecurityException e)
     {
+      e.printStackTrace();
       System.err.println("Could not load the libSBML library files due to a"+
                          " security exception.\n");
+      System.exit(1);
     }
     catch (UnsatisfiedLinkError e)
     {
-      System.err.println("Error: could not link with the libSBML library."+
-                         "  It is likely\nyour " + varname +
-                         " environment variable does not include\nthe"+
-                         " directory containing the libsbml.dylib library"+
-                         " file.\n");
+      e.printStackTrace();
+      System.err.println("Error: could not link with the libSBML library files."+
+                         " It is likely\nyour " + varname +
+                         " environment variable does not include the directories\n"+
+                         "containing the " + shlibname + " library files.\n");
       System.exit(1);
     }
     catch (ClassNotFoundException e)
     {
+      e.printStackTrace();
       System.err.println("Error: unable to load the file libsbmlj.jar."+
-                         "  It is likely\nyour " + varname +
-                         " environment variable does not include\nthe "+
-                         " directory containing the libsbmlj.jar file.\n");
+                         " It is likely\nyour -classpath option and CLASSPATH" +
+                         " environment variable\n"+
+                         "do not include the path to libsbmlj.jar.\n");
       System.exit(1);
     }
   }

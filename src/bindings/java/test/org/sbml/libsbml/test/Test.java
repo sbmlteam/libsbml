@@ -1091,47 +1091,56 @@ public class Test
     }
   }
 
-   /**
-    * Loads the SWIG-generated libSBML Java module when this class is
-    * loaded, or reports a sensible diagnostic message about why it failed.
-    */
+  /**
+   * Loads the SWIG-generated libSBML Java module when this class is
+   * loaded, or reports a sensible diagnostic message about why it failed.
+   */
   static
-   {
-      String varname;
+  {
+    String varname;
+    String shlibname;
 
-      if (System.getProperty("mrj.version") != null)
-	 varname = "DYLD_LIBRARY_PATH";    // We're on a Mac.
-      else
-	 varname = "LD_LIBRARY_PATH";      // We're not on a Mac.
+    if (System.getProperty("mrj.version") != null)
+    {
+      varname = "DYLD_LIBRARY_PATH";    // We're on a Mac.
+      shlibname = "libsbmlj.jnilib and/or libsbml.dylib";
+    }
+    else
+    {
+      varname = "LD_LIBRARY_PATH";      // We're not on a Mac.
+      shlibname = "libsbmlj.so and/or libsbml.so";
+    }
 
     try
-       {
-	  System.loadLibrary("sbmlj");
-	  // For extra safety, check that the jar file is in the classpath.
-	  Class.forName("org.sbml.libsbml.libsbml");
-       }
+    {
+      System.loadLibrary("sbmlj");
+      // For extra safety, check that the jar file is in the classpath.
+      Class.forName("org.sbml.libsbml.libsbml");
+    }
     catch (SecurityException e)
-       {
-	  System.err.println("Could not load the libSBML library files due to a"+
-			     " security exception.\n");
-       }
+    {
+      e.printStackTrace();
+      System.err.println("Could not load the libSBML library files due to a"+
+                         " security exception.\n");
+      System.exit(1);
+    }
     catch (UnsatisfiedLinkError e)
-       {
-	  System.err.println("Error: could not link with the libSBML library."+
-                         "  It is likely\nyour " + varname +
-                         " environment variable does not include\nthe"+
-                         " directory containing the libsbml.dylib library"+
-			     " file.\n");
-	  System.exit(1);
-       }
+    {
+      e.printStackTrace();
+      System.err.println("Error: could not link with the libSBML library files."+
+                         " It is likely\nyour " + varname +
+                         " environment variable does not include the directories\n"+
+                         "containing the " + shlibname + " library files.\n");
+      System.exit(1);
+    }
     catch (ClassNotFoundException e)
-       {
-	  System.err.println("Error: unable to load the file libsbmlj.jar."+
-                         "  It is likely\nyour " + varname +
-                         " environment variable does not include\nthe "+
-			     " directory containing the libsbmlj.jar file.\n");
-	  System.exit(1);
-       }
-   }
-
+    {
+      e.printStackTrace();
+      System.err.println("Error: unable to load the file libsbmlj.jar."+
+                         " It is likely\nyour -classpath option and CLASSPATH" +
+                         " environment variable\n"+
+                         "do not include the path to libsbmlj.jar.\n");
+      System.exit(1);
+    }
+  }
 }
