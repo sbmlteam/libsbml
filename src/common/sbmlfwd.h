@@ -300,19 +300,6 @@ typedef CLASS_OR_STRUCT ModelCreator              ModelCreator_t;
  */
 typedef CLASS_OR_STRUCT ModelHistory              ModelHistory_t;
 
-/**
- * @var typedef class FormulaUnitsData FormulaUnitsData_t
- * @copydoc FormulaUnitsData
- */
-typedef CLASS_OR_STRUCT FormulaUnitsData           FormulaUnitsData_t;
-
-/**
- * @var typedef class UnitFormulaFormatter UnitFormulaFormatter_t
- * @copydoc UnitFormulaFormatter
- */
-typedef CLASS_OR_STRUCT UnitFormulaFormatter        UnitFormulaFormatter_t;
-
-
 
 #undef CLASS_OR_STRUCT
 
