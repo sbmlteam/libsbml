@@ -1,6 +1,6 @@
            libsbml NEWS -- History of user-visible changes
            
- === Version 3.1.0 ===
+ === Version 3.1.0 (released 2008-01-25 ===
 
 * Dependency changes:
 
