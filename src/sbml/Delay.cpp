@@ -158,7 +158,7 @@ Delay::getDerivedUnitDefinition()
 
   return getSBMLDocument()->getModel()
     ->getFormulaUnitsData(getId(), SBML_EVENT)
-    ->getUnitDefinition();
+    ->getUnitDefinitionFromEventTime();
 }
 
 /*
