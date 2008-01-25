@@ -204,7 +204,7 @@ SBML.  The values are shown in the following table; their names hopefully
 evoke the construct that they represent:
 
 <center>
-<table cellspacing="1" border="0">
+<table width="80%" cellspacing="1" cellspacing="1" border="0">
  <tr><td><code></code></td><td><code></code></td><td><code></code></td></tr>
  <tr><td><code>AST_UNKNOWN</code></td><td><code>AST_FUNCTION_ARCCOTH</code></td><td><code>AST_FUNCTION_POWER</code></td></tr>
  <tr><td><code>AST_PLUS</code></td><td><code>AST_FUNCTION_ARCCSC</code></td><td><code>AST_FUNCTION_ROOT</code></td></tr>
