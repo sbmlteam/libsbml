@@ -2301,6 +2301,7 @@ Model::createLayout ()
 
 #endif  /* USE_LAYOUT */
 
+/** @cond doxygen-libsbml-internal */
 /**
   * Populates the ListFormulaDataUnits with the units of each 
   * set of math encountered in the model
@@ -2656,7 +2657,10 @@ Model::populateListFormulaUnitsData()
   }
   delete unitFormatter;
 }
+/** @endcond doxygen-libsbml-internal */
 
+
+/** @cond doxygen-libsbml-internal */
 /*
  * Adds a copy of the given FormulaUnitsData to this Model.
  */
@@ -2673,7 +2677,10 @@ Model::addFormulaUnitsData (const FormulaUnitsData* fud)
     mFormulaUnitsData->add((void *)fud->clone());
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
+
+/** @cond doxygen-libsbml-internal */
 /**
   * Creates a new FormulaUnitsData inside this Model and returns it.
   */
@@ -2689,7 +2696,10 @@ Model::createFormulaUnitsData ()
 
   return fud;
 }
+/** @endcond doxygen-libsbml-internal */
 
+
+/** @cond doxygen-libsbml-internal */
 /*
  * @return the nth FormulaUnitsData of this Model.
  */
@@ -2698,8 +2708,10 @@ Model::getFormulaUnitsData (unsigned int n) const
 {
   return static_cast<const FormulaUnitsData*>( mFormulaUnitsData->get(n) );
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /*
  * @return the nth FormulaUnitsData of this Model.
  */
@@ -2708,9 +2720,10 @@ Model::getFormulaUnitsData (unsigned int n)
 {
   return static_cast<FormulaUnitsData*>( mFormulaUnitsData->get(n) );
 }
+/** @endcond doxygen-libsbml-internal */
 
 
-
+/** @cond doxygen-libsbml-internal */
 /*
  * @return the FormulaUnitsData in this Model with the given id 
  * or NULL if no such
@@ -2735,8 +2748,10 @@ Model::getFormulaUnitsData (const std::string& sid,
   }
   return NULL;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /*
  * @return the FormulaUnitsData in this Model with the given id  and typecode 
  * or NULL if no such FormulaUnitsData exists.
@@ -2759,8 +2774,10 @@ Model::getFormulaUnitsData (const std::string& sid, SBMLTypeCode_t typecode)
   }
   return NULL;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /*
  * @return the number of FormulaUnitsDatas in this Model.
  */
@@ -2769,7 +2786,10 @@ Model::getNumFormulaUnitsData () const
 {
   return mFormulaUnitsData->getSize();
 }
+/** @endcond doxygen-libsbml-internal */
 
+
+/** @cond doxygen-libsbml-internal */
 /**
   * Get the list of FormulaUnitsData object in this Model.
   * 
@@ -2780,8 +2800,10 @@ Model::getListFormulaUnitsData ()
 {
   return mFormulaUnitsData;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
   * Get the list of FormulaUnitsData object in this Model.
   * 
@@ -2792,9 +2814,10 @@ Model::getListFormulaUnitsData () const
 {
   return mFormulaUnitsData;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
-
+/** @cond doxygen-libsbml-internal */
 /*
  * returns true if the list has been populated, false otherwise
  */
@@ -2806,7 +2829,7 @@ Model::isPopulatedListFormulaUnitsData()
   else
     return false;
 }
-
+/** @endcond doxygen-libsbml-internal */
 
 
 

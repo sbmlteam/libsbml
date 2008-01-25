@@ -167,21 +167,21 @@
  * @verbatim
 (vm * s1)/(km + s1)
 @endverbatim
- * 
  * The following table shows the precedence rules in this syntax.  In the
- * Class column, @em operand implies the construct is an operand, @em prefix
- * implies the operation is applied to the following arguments, @em unary
- * implies there is one argument, and @em binary implies there are two
- * arguments.  The values in the Precedence column show how the order of
- * different types of operation are determined.  For example, the expression
- * <em>a * b + c</em> is evaluated as <em>(a * b) + c</em> because the @c *
- * operator has higher precedence.  The Associates column shows how the order
- * of similar precedence operations is determined; for example, <em>a - b +
- * c</em> is evaluated as <em>(a - b) + c</em> because the @c + and @c -
- * operators are left-associative.  The precedence and associativity rules are
- * taken from the C programming language, except for the symbol @c ^, which is
- * used in C for a different purpose.  (Exponentiation can be invoked using
- * either @c ^ or the function @c power.)
+ * Class column, @em operand implies the construct is an operand, @em
+ * prefix implies the operation is applied to the following arguments, @em
+ * unary implies there is one argument, and @em binary implies there are
+ * two arguments.  The values in the Precedence column show how the order
+ * of different types of operation are determined.  For example, the
+ * expression <em>a * b + c</em> is evaluated as <em>(a * b) + c</em>
+ * because the <code>*</code> operator has higher precedence.  The
+ * Associates column shows how the order of similar precedence operations
+ * is determined; for example, <em>a - b + c</em> is evaluated as <em>(a -
+ * b) + c</em> because the <code>+</code> and <code>-</code> operators are
+ * left-associative.  The precedence and associativity rules are taken from
+ * the C programming language, except for the symbol <code>^</code>, which
+ * is used in C for a different purpose.  (Exponentiation can be invoked
+ * using either <code>^</code> or the function @c power.)
  * 
  * @image html string-syntax.jpg "Table of precedence rules."
  * @image latex string-syntax.jpg "Table of precedence rules."
@@ -191,16 +191,17 @@
  * Compartment, FunctionDefinition, or Reaction objects defined in a model.
  * When a function call is involved, the syntax consists of a function
  * identifier, followed by optional white space, followed by an opening
- * parenthesis, followed by a sequence of zero or more arguments separated by
- * commas (with each comma optionally preceded and/or followed by zero or more
- * white space characters), followed by a closing parenthesis.  There is an
- * almost one-to-one mapping between the list of predefined functions
- * available, and those defined in MathML.  All of the MathML functions are
- * recognized; this set is larger than the functions defined in SBML Level 1.
- * In the subset of functions that overlap between MathML and SBML Level 1,
- * there exist a few differences.  The following table summarizes the
- * differences between the predefined functions in SBML Level 1 and the MathML
- * equivalents in SBML Level 2:
+ * parenthesis, followed by a sequence of zero or more arguments separated
+ * by commas (with each comma optionally preceded and/or followed by zero
+ * or more white space characters), followed by a closing parenthesis.
+ * There is an almost one-to-one mapping between the list of predefined
+ * functions available, and those defined in MathML.  All of the MathML
+ * functions are recognized; this set is larger than the functions defined
+ * in SBML Level&nbsp;1.  In the subset of functions that overlap between
+ * MathML and SBML Level&nbsp;1, there exist a few differences.  The
+ * following table summarizes the differences between the predefined
+ * functions in SBML Level&nbsp;1 and the MathML equivalents in SBML
+ * Level&nbsp;2:
  * 
  * <center>
  * <table cellspacing="1" border="0">
@@ -270,10 +271,6 @@
  * as appropriate.
  * </ul>
  * 
- * @note Nodes of type AST_UNKNOWN are used internally as the AST is being
- * constructed, but this will not be exposed to calling code.  ASTNode
- * trees returned by SBML_parseFormula() will not contain unknown nodes.
- *
  * @see ASTNode::getType()
  * @see ASTNode::canonicalize()
  */
@@ -452,9 +449,9 @@ public:
    * of the node as a result of adding a child.  For example, a node with
    * the SBML Level&nbsp;1 function name @c sqr and a single child node
    * (the argument) will be transformed to a node of type @c
-   * AST_FUNCTION_POWER with two children.  The first child will remain
+   * @c AST_FUNCTION_POWER with two children.  The first child will remain
    * unchanged, but the second child will be an ASTNode of type @c
-   * AST_INTEGER and a value of 2.  The function names that result in
+   * @c AST_INTEGER and a value of 2.  The function names that result in
    * structural changes are: @c log10, @c sqr, and @c sqrt.
    *
    * See the SBML Level&nbsp;1 and Level&nbsp;2 (all versions)
@@ -929,9 +926,16 @@ public:
 
   /**
    * Predicate returning true (non-zero) if this node has an unknown type.
-   * Unknown node types are represented by @c AST_UNKNOWN.
    * 
-   * @return true if this ASTNode is of type AST_UNKNOWN, false otherwise.
+   * "Unknown" nodes have the type @c AST_UNKNOWN.  Nodes with unknown
+   * types will not appear in an ASTNode tree returned by libSBML based
+   * upon valid SBML input; the only situation in which a node with type @c
+   * AST_UNKNOWN may appear is immediately after having create a new,
+   * untyped node using the ASTNode constructor.  Callers creating nodes
+   * should endeavor to set the type to a valid node type as soon as
+   * possible after creating new nodes.
+   * 
+   * @return true if this ASTNode is of type @c AST_UNKNOWN, false otherwise.
    */
   LIBSBML_EXTERN
   bool isUnknown () const;
@@ -1031,7 +1035,7 @@ public:
    * is that any numerical values previously stored in this node are reset
    * to zero.
    *
-   * @param the type to which this node should be set
+   * @param type the type to which this node should be set
    */
   LIBSBML_EXTERN
   void setType (ASTNodeType_t type);
@@ -1153,7 +1157,7 @@ BEGIN_C_DECLS
 
 /**
  * Creates a new ASTNode and returns a pointer to it.  The returned node
- * will have a type of AST_UNKNOWN and should be set to something else as
+ * will have a type of @c AST_UNKNOWN and should be set to something else as
  * soon as possible.
  */
 LIBSBML_EXTERN
@@ -1185,7 +1189,7 @@ ASTNode_free (ASTNode_t *node);
  * Frees the name of this ASTNode and sets it to NULL.
  * 
  * This operation is only applicable to ASTNodes corresponding to
- * operators, numbers, or AST_UNKNOWN.  This method will have no
+ * operators, numbers, or @c AST_UNKNOWN.  This method will have no
  * effect on other types of nodes.
  */
 void
@@ -1579,7 +1583,7 @@ int
 ASTNode_isUMinus (const ASTNode_t *node);
 
 /**
- * @return true (non-zero) if this ASTNode is of type AST_UNKNOWN, false
+ * @return true (non-zero) if this ASTNode is of type @c AST_UNKNOWN, false
  * (0) otherwise.
  */
 LIBSBML_EXTERN
@@ -1590,7 +1594,7 @@ ASTNode_isUnknown (const ASTNode_t *node);
 /**
  * Sets the value of this ASTNode to the given character.  If character is
  * one of '+', '-', '*', '/' or '\^', the node type will be set accordingly.
- * For all other characters, the node type will be set to AST_UNKNOWN.
+ * For all other characters, the node type will be set to @c AST_UNKNOWN.
  */
 LIBSBML_EXTERN
 void
@@ -1599,10 +1603,10 @@ ASTNode_setCharacter (ASTNode_t *node, char value);
 /**
  * Sets the value of this ASTNode to the given name.
  *
- * The node type will be set (to AST_NAME) ONLY IF the ASTNode was
+ * The node type will be set (to @c AST_NAME) ONLY IF the ASTNode was
  * previously an operator (ASTNode_isOperator(node) != 0) or number
  * (ASTNode_isNumber(node) != 0).  This allows names to be set for
- * AST_FUNCTIONs and the like.
+ * @c AST_FUNCTIONs and the like.
  */
 LIBSBML_EXTERN
 void
@@ -1610,7 +1614,7 @@ ASTNode_setName (ASTNode_t *node, const char *name);
 
 /**
  * Sets the value of this ASTNode to the given (long) integer and sets the
- * node type to AST_INTEGER.
+ * node type to @c AST_INTEGER.
  */
 LIBSBML_EXTERN
 void
@@ -1618,7 +1622,7 @@ ASTNode_setInteger (ASTNode_t *node, long value);
 
 /**
  * Sets the value of this ASTNode to the given rational in two parts:
- * the numerator and denominator.  The node type is set to AST_RATIONAL.
+ * the numerator and denominator.  The node type is set to @c AST_RATIONAL.
  */
 LIBSBML_EXTERN
 void
@@ -1626,11 +1630,12 @@ ASTNode_setRational (ASTNode_t *node, long numerator, long denominator);
 
 /**
  * Sets the value of this ASTNode to the given real (double) and sets the
- * node type to AST_REAL.
+ * node type to @c AST_REAL.
  *
  * This is functionally equivalent to:
- *
+ * @code
  *   ASTNode_setRealWithExponent(node, value, 0);
+ * @endcode
  */
 LIBSBML_EXTERN
 void
@@ -1638,14 +1643,14 @@ ASTNode_setReal (ASTNode_t *node, double value);
 
 /**
  * Sets the value of this ASTNode to the given real (double) in two parts:
- * the mantissa and the exponent.  The node type is set to AST_REAL_E.
+ * the mantissa and the exponent.  The node type is set to @c AST_REAL_E.
  */
 LIBSBML_EXTERN
 void
 ASTNode_setRealWithExponent (ASTNode_t *node, double mantissa, long exponent);
 
 /**
- * Sets the type of this ASTNode to the given ASTNodeType.
+ * Sets the type of this ASTNode to the given ASTNodeType_t value.
  */
 LIBSBML_EXTERN
 void

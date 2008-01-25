@@ -29,19 +29,22 @@
  * within the listOfUnits occurs only once.
  *
  * For example,
- * @n <unitDefinition>
- * @n  <listOfUnits>
- * @n    <unit kind="metre" exponent="1"/>
- * @n    <unit kind="metre" exponent="2"/>
- * @n  </listOfUnits>
- * @n <unitDefinition>
- *
- * simplified would return
- * @n <unitDefinition>
- * @n   <listOfUnits>
- * @n     <unit kind="metre" exponent="3"/>
- * @n   </listOfUnits>
- * @n <unitDefinition>
+ * @code
+ * <unitDefinition>
+ *  <listOfUnits>
+ *    <unit kind="metre" exponent="1"/>
+ *    <unit kind="metre" exponent="2"/>
+ *  </listOfUnits>
+ * <unitDefinition>
+ * @endcode
+ * simplified would return the following:
+ * @code
+ * <unitDefinition>
+ *   <listOfUnits>
+ *     <unit kind="metre" exponent="3"/>
+ *   </listOfUnits>
+ * <unitDefinition>
+ * @endcode
  *
  * @param ud the UnitDefinition object to be simplified.
  */
@@ -492,15 +495,16 @@ combine(UnitDefinition *ud1, UnitDefinition *ud2)
 
 /** 
  * Returns a string that expresses the units symbolised by the UnitDefinition.
- *
  * For example printUnits applied to
- * @n <unitDefinition>
- * @n  <listOfUnits>
- * @n    <unit kind="metre" exponent="1"/>
- * @n    <unit kind="second" exponent="-2"/>
- * @n  </listOfUnits>
- * @n <unitDefinition>
- * @n returns the string 'metre (exponent = 1) second (exponent = -2)'
+ * @code
+ * <unitDefinition>
+ *  <listOfUnits>
+ *    <unit kind="metre" exponent="1"/>
+ *    <unit kind="second" exponent="-2"/>
+ *  </listOfUnits>
+ * <unitDefinition>
+ * @endcode
+ * returns the string 'metre (exponent = 1) second (exponent = -2)'
  *
  * @param ud the UnitDefinition object
  *

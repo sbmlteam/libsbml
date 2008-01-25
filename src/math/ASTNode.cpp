@@ -316,7 +316,7 @@ ASTNode::canonicalize ()
   return found;
 }
 
-
+/** @cond doxygen-libsbml-internal */
 /*
  * Internal helper function for canonicalize().
  */
@@ -341,8 +341,10 @@ ASTNode::canonicalizeConstant ()
 
   return found;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /*
  * Internal helper function for canonicalize().
  */
@@ -389,8 +391,10 @@ ASTNode::canonicalizeFunction ()
 
   return found;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /*
  * Internal helper function for canonicalize().
  */
@@ -483,8 +487,10 @@ ASTNode::canonicalizeFunctionL1 ()
    */
   return (mType != AST_FUNCTION);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /*
  * Internal helper function for canonicalize().
  */
@@ -509,8 +515,10 @@ ASTNode::canonicalizeLogical ()
 
   return found;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /*
  * Internal helper function for canonicalize().
  */
@@ -535,6 +543,7 @@ ASTNode::canonicalizeRelational ()
 
   return found;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /*
