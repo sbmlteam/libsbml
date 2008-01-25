@@ -24,7 +24,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 require 'test/unit'
 require 'libSBML'
 
@@ -32,7 +31,8 @@ class TestReadFromFile5 < Test::Unit::TestCase
 
   def test_read_l2v1_assignment
     reader = LibSBML::SBMLReader.new()
-    filename = "../../sbml/test/test-data/l2v1-assignment.xml"
+    filename = "../../sbml/test/test-data/" 
+    filename += "l2v1-assignment.xml"
     d = reader.readSBML(filename)
     if (d == nil)
     end
@@ -44,6 +44,9 @@ class TestReadFromFile5 < Test::Unit::TestCase
     c = m.getCompartment(0)
     assert( c != nil )
     assert( c.getId() == "cell" )
+    ud = c.getDerivedUnitDefinition()
+    assert( ud.getNumUnits() == 1 )
+    assert( ud.getUnit(0).getKind() == LibSBML::UNIT_KIND_LITRE )
     assert( m.getNumSpecies() == 5 )
     s = m.getSpecies(0)
     assert( s != nil )
@@ -75,11 +78,20 @@ class TestReadFromFile5 < Test::Unit::TestCase
     assert( p != nil )
     assert( p.getId() == "Keq" )
     assert( p.getValue() == 2.5 )
+    ud = p.getDerivedUnitDefinition()
+    assert( ud.getNumUnits() == 0 )
     assert( m.getNumRules() == 2 )
     ar = m.getRule(0)
     assert( ar != nil )
     assert( ar.getVariable() == "S1" )
     assert( ar.getFormula() == "T / (1 + Keq)" )
+    ud = ar.getDerivedUnitDefinition()
+    assert( ud.getNumUnits() == 2 )
+    assert( ud.getUnit(0).getKind() == LibSBML::UNIT_KIND_MOLE )
+    assert( ud.getUnit(0).getExponent() == 1 )
+    assert( ud.getUnit(1).getKind() == LibSBML::UNIT_KIND_LITRE )
+    assert( ud.getUnit(1).getExponent() == -1 )
+    assert( ar.containsUndeclaredUnits() == true )
     ar = m.getRule(1)
     assert( ar != nil )
     assert( ar.getVariable() == "S2" )

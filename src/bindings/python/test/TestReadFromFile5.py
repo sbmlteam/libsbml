@@ -24,7 +24,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 import sys
 import unittest
 import libsbml
@@ -34,7 +33,8 @@ class TestReadFromFile5(unittest.TestCase):
 
   def test_read_l2v1_assignment(self):
     reader = libsbml.SBMLReader()
-    filename = "../../sbml/test/test-data/l2v1-assignment.xml"
+    filename = "../../sbml/test/test-data/" 
+    filename += "l2v1-assignment.xml"
     d = reader.readSBML(filename)
     if (d == None):
       pass    
@@ -46,6 +46,9 @@ class TestReadFromFile5(unittest.TestCase):
     c = m.getCompartment(0)
     self.assert_( c != None )
     self.assert_( c.getId() == "cell" )
+    ud = c.getDerivedUnitDefinition()
+    self.assert_( ud.getNumUnits() == 1 )
+    self.assert_( ud.getUnit(0).getKind() == libsbml.UNIT_KIND_LITRE )
     self.assert_( m.getNumSpecies() == 5 )
     s = m.getSpecies(0)
     self.assert_( s != None )
@@ -77,11 +80,20 @@ class TestReadFromFile5(unittest.TestCase):
     self.assert_( p != None )
     self.assert_( p.getId() == "Keq" )
     self.assert_( p.getValue() == 2.5 )
+    ud = p.getDerivedUnitDefinition()
+    self.assert_( ud.getNumUnits() == 0 )
     self.assert_( m.getNumRules() == 2 )
     ar = m.getRule(0)
     self.assert_( ar != None )
     self.assert_( ar.getVariable() == "S1" )
     self.assert_( ar.getFormula() == "T / (1 + Keq)" )
+    ud = ar.getDerivedUnitDefinition()
+    self.assert_( ud.getNumUnits() == 2 )
+    self.assert_( ud.getUnit(0).getKind() == libsbml.UNIT_KIND_MOLE )
+    self.assert_( ud.getUnit(0).getExponent() == 1 )
+    self.assert_( ud.getUnit(1).getKind() == libsbml.UNIT_KIND_LITRE )
+    self.assert_( ud.getUnit(1).getExponent() == -1 )
+    self.assert_( ar.containsUndeclaredUnits() == 1 )
     ar = m.getRule(1)
     self.assert_( ar != None )
     self.assert_( ar.getVariable() == "S2" )

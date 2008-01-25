@@ -24,7 +24,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 import sys
 import unittest
 import libsbml
@@ -45,12 +44,21 @@ class TestReadFromFile1(unittest.TestCase):
     c = m.getCompartment(0)
     self.assert_((  "compartmentOne" == c.getName() ))
     self.assert_( c.getVolume() == 1 )
+    ud = c.getDerivedUnitDefinition()
+    self.assert_( ud.getNumUnits() == 1 )
+    self.assert_( ud.getUnit(0).getKind() == libsbml.UNIT_KIND_LITRE )
     self.assert_( m.getNumSpecies() == 4 )
     s = m.getSpecies(0)
     self.assert_((  "S1"              == s.getName() ))
     self.assert_((  "compartmentOne"  == s.getCompartment() ))
     self.assert_( s.getInitialAmount() == 0 )
     self.assert_( s.getBoundaryCondition() == False )
+    ud = s.getDerivedUnitDefinition()
+    self.assert_( ud.getNumUnits() == 2 )
+    self.assert_( ud.getUnit(0).getKind() == libsbml.UNIT_KIND_MOLE )
+    self.assert_( ud.getUnit(0).getExponent() == 1 )
+    self.assert_( ud.getUnit(1).getKind() == libsbml.UNIT_KIND_LITRE )
+    self.assert_( ud.getUnit(1).getExponent() == -1 )
     s = m.getSpecies(1)
     self.assert_((  "X0"              == s.getName() ))
     self.assert_((  "compartmentOne"  == s.getCompartment() ))
@@ -71,6 +79,13 @@ class TestReadFromFile1(unittest.TestCase):
     self.assert_((  "reaction_1" == r.getName() ))
     self.assert_( r.getReversible() == False )
     self.assert_( r.getFast() == False )
+    ud = r.getKineticLaw().getDerivedUnitDefinition()
+    self.assert_( ud.getNumUnits() == 2 )
+    self.assert_( ud.getUnit(0).getKind() == libsbml.UNIT_KIND_MOLE )
+    self.assert_( ud.getUnit(0).getExponent() == 1 )
+    self.assert_( ud.getUnit(1).getKind() == libsbml.UNIT_KIND_LITRE )
+    self.assert_( ud.getUnit(1).getExponent() == -1 )
+    self.assert_( r.getKineticLaw().containsUndeclaredUnits() == 1 )
     r = m.getReaction(1)
     self.assert_((  "reaction_2" == r.getName() ))
     self.assert_( r.getReversible() == False )

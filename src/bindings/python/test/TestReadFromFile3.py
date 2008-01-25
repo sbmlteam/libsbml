@@ -24,7 +24,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 import sys
 import unittest
 import libsbml
@@ -92,9 +91,19 @@ class TestReadFromFile3(unittest.TestCase):
     pr = m.getRule(0)
     self.assert_((  "t" == pr.getVariable() ))
     self.assert_((  "s1 + s2" == pr.getFormula() ))
+    ud = pr.getDerivedUnitDefinition()
+    self.assert_( ud.getNumUnits() == 2 )
+    self.assert_( ud.getUnit(0).getKind() == libsbml.UNIT_KIND_MOLE )
+    self.assert_( ud.getUnit(0).getExponent() == 1 )
+    self.assert_( ud.getUnit(1).getKind() == libsbml.UNIT_KIND_LITRE )
+    self.assert_( ud.getUnit(1).getExponent() == -1 )
+    self.assert_( pr.containsUndeclaredUnits() == 0 )
     pr = m.getRule(1)
     self.assert_((  "k" == pr.getVariable() ))
     self.assert_((  "k3/k2" == pr.getFormula() ))
+    ud = pr.getDerivedUnitDefinition()
+    self.assert_( ud.getNumUnits() == 0 )
+    self.assert_( pr.containsUndeclaredUnits() == 1 )
     scr = m.getRule(2)
     self.assert_((  "x2" == scr.getVariable() ))
     self.assert_((  "k * (s1+s2)/(1 + k)" == scr.getFormula() ))

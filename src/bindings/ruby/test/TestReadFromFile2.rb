@@ -24,7 +24,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 require 'test/unit'
 require 'libSBML'
 
@@ -144,6 +143,13 @@ class TestReadFromFile2 < Test::Unit::TestCase
     assert ((  "cell"  == s.getCompartment ))
     assert( s.getInitialAmount == 1 )
     assert( s.getBoundaryCondition == false )
+    ud = s.getDerivedUnitDefinition
+    assert( ud.getNumUnits == 2 )
+    assert( ud.getUnit(0).getKind == LibSBML::UNIT_KIND_MOLE )
+    assert( ud.getUnit(0).getExponent == 1 )
+    assert( ud.getUnit(0).getScale == -3 )
+    assert( ud.getUnit(1).getKind == LibSBML::UNIT_KIND_LITRE )
+    assert( ud.getUnit(1).getExponent == -1 )
     s = m.getSpecies(1)
     assert ((  "x1"    == s.getName ))
     assert ((  "cell"  == s.getCompartment ))
@@ -164,9 +170,20 @@ class TestReadFromFile2 < Test::Unit::TestCase
     assert ((  "vm"   == p.getName ))
     assert ((  "mls"  == p.getUnits ))
     assert( p.getValue == 2 )
+    ud = p.getDerivedUnitDefinition
+    assert( ud.getNumUnits == 3 )
+    assert( ud.getUnit(0).getKind == LibSBML::UNIT_KIND_MOLE )
+    assert( ud.getUnit(0).getExponent == 1 )
+    assert( ud.getUnit(0).getScale == -3 )
+    assert( ud.getUnit(1).getKind == LibSBML::UNIT_KIND_LITER )
+    assert( ud.getUnit(1).getExponent == -1 )
+    assert( ud.getUnit(2).getKind == LibSBML::UNIT_KIND_SECOND )
+    assert( ud.getUnit(2).getExponent == -1 )
     p = m.getParameter(1)
     assert ((  "km"   == p.getName ))
     assert( p.getValue == 2 )
+    ud = p.getDerivedUnitDefinition
+    assert( ud.getNumUnits == 0 )
     assert( m.getNumReactions == 3 )
     r = m.getReaction(0)
     assert ((  "v1" == r.getName ))

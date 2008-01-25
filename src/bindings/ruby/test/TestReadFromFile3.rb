@@ -24,7 +24,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 require 'test/unit'
 require 'libSBML'
 
@@ -90,9 +89,19 @@ class TestReadFromFile3 < Test::Unit::TestCase
     pr = m.getRule(0)
     assert ((  "t" == pr.getVariable ))
     assert ((  "s1 + s2" == pr.getFormula ))
+    ud = pr.getDerivedUnitDefinition
+    assert( ud.getNumUnits == 2 )
+    assert( ud.getUnit(0).getKind == LibSBML::UNIT_KIND_MOLE )
+    assert( ud.getUnit(0).getExponent == 1 )
+    assert( ud.getUnit(1).getKind == LibSBML::UNIT_KIND_LITRE )
+    assert( ud.getUnit(1).getExponent == -1 )
+    assert( pr.containsUndeclaredUnits == false )
     pr = m.getRule(1)
     assert ((  "k" == pr.getVariable ))
     assert ((  "k3/k2" == pr.getFormula ))
+    ud = pr.getDerivedUnitDefinition
+    assert( ud.getNumUnits == 0 )
+    assert( pr.containsUndeclaredUnits == true )
     scr = m.getRule(2)
     assert ((  "x2" == scr.getVariable ))
     assert ((  "k * (s1+s2)/(1 + k)" == scr.getFormula ))

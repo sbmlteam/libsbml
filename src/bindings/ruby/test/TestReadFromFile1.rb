@@ -24,7 +24,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 require 'test/unit'
 require 'libSBML'
 
@@ -43,12 +42,21 @@ class TestReadFromFile1 < Test::Unit::TestCase
     c = m.getCompartment(0)
     assert ((  "compartmentOne" == c.getName ))
     assert( c.getVolume == 1 )
+    ud = c.getDerivedUnitDefinition
+    assert( ud.getNumUnits == 1 )
+    assert( ud.getUnit(0).getKind == LibSBML::UNIT_KIND_LITRE )
     assert( m.getNumSpecies == 4 )
     s = m.getSpecies(0)
     assert ((  "S1"              == s.getName ))
     assert ((  "compartmentOne"  == s.getCompartment ))
     assert( s.getInitialAmount == 0 )
     assert( s.getBoundaryCondition == false )
+    ud = s.getDerivedUnitDefinition
+    assert( ud.getNumUnits == 2 )
+    assert( ud.getUnit(0).getKind == LibSBML::UNIT_KIND_MOLE )
+    assert( ud.getUnit(0).getExponent == 1 )
+    assert( ud.getUnit(1).getKind == LibSBML::UNIT_KIND_LITRE )
+    assert( ud.getUnit(1).getExponent == -1 )
     s = m.getSpecies(1)
     assert ((  "X0"              == s.getName ))
     assert ((  "compartmentOne"  == s.getCompartment ))
@@ -69,6 +77,13 @@ class TestReadFromFile1 < Test::Unit::TestCase
     assert ((  "reaction_1" == r.getName ))
     assert( r.getReversible == false )
     assert( r.getFast == false )
+    ud = r.getKineticLaw.getDerivedUnitDefinition
+    assert( ud.getNumUnits == 2 )
+    assert( ud.getUnit(0).getKind == LibSBML::UNIT_KIND_MOLE )
+    assert( ud.getUnit(0).getExponent == 1 )
+    assert( ud.getUnit(1).getKind == LibSBML::UNIT_KIND_LITRE )
+    assert( ud.getUnit(1).getExponent == -1 )
+    assert( r.getKineticLaw.containsUndeclaredUnits == true )
     r = m.getReaction(1)
     assert ((  "reaction_2" == r.getName ))
     assert( r.getReversible == false )

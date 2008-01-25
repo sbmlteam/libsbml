@@ -24,7 +24,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 import sys
 import unittest
 import libsbml
@@ -146,6 +145,13 @@ class TestReadFromFile2(unittest.TestCase):
     self.assert_((  "cell"  == s.getCompartment() ))
     self.assert_( s.getInitialAmount() == 1 )
     self.assert_( s.getBoundaryCondition() == False )
+    ud = s.getDerivedUnitDefinition()
+    self.assert_( ud.getNumUnits() == 2 )
+    self.assert_( ud.getUnit(0).getKind() == libsbml.UNIT_KIND_MOLE )
+    self.assert_( ud.getUnit(0).getExponent() == 1 )
+    self.assert_( ud.getUnit(0).getScale() == -3 )
+    self.assert_( ud.getUnit(1).getKind() == libsbml.UNIT_KIND_LITRE )
+    self.assert_( ud.getUnit(1).getExponent() == -1 )
     s = m.getSpecies(1)
     self.assert_((  "x1"    == s.getName() ))
     self.assert_((  "cell"  == s.getCompartment() ))
@@ -166,9 +172,20 @@ class TestReadFromFile2(unittest.TestCase):
     self.assert_((  "vm"   == p.getName() ))
     self.assert_((  "mls"  == p.getUnits() ))
     self.assert_( p.getValue() == 2 )
+    ud = p.getDerivedUnitDefinition()
+    self.assert_( ud.getNumUnits() == 3 )
+    self.assert_( ud.getUnit(0).getKind() == libsbml.UNIT_KIND_MOLE )
+    self.assert_( ud.getUnit(0).getExponent() == 1 )
+    self.assert_( ud.getUnit(0).getScale() == -3 )
+    self.assert_( ud.getUnit(1).getKind() == libsbml.UNIT_KIND_LITER )
+    self.assert_( ud.getUnit(1).getExponent() == -1 )
+    self.assert_( ud.getUnit(2).getKind() == libsbml.UNIT_KIND_SECOND )
+    self.assert_( ud.getUnit(2).getExponent() == -1 )
     p = m.getParameter(1)
     self.assert_((  "km"   == p.getName() ))
     self.assert_( p.getValue() == 2 )
+    ud = p.getDerivedUnitDefinition()
+    self.assert_( ud.getNumUnits() == 0 )
     self.assert_( m.getNumReactions() == 3 )
     r = m.getReaction(0)
     self.assert_((  "v1" == r.getName() ))
