@@ -50,7 +50,7 @@ main (int argc, char *argv[])
     return 1;
   }
 
-  unsigned int i;
+  unsigned int i,j;
   for (i = 0; i < model->getNumSpecies(); i++)
   {
     Species* s = model->getSpecies(i);
@@ -97,7 +97,7 @@ main (int argc, char *argv[])
       cout << (e->getDelay()->containsUndeclaredUnits() ? "yes\n" : "no\n");
     }
       
-    for (int j = 0; j < e->getNumEventAssignments(); j++)
+    for (j = 0; j < e->getNumEventAssignments(); j++)
     {
       EventAssignment *ea = e->getEventAssignment(j);
       cout << "EventAssignment " << j << ": " 
@@ -121,7 +121,7 @@ main (int argc, char *argv[])
       cout << (r->getKineticLaw()->containsUndeclaredUnits() ? "yes\n" : "no\n");
     }
 
-    for (int j = 0; j < r->getNumReactants(); j++)
+    for (j = 0; j < r->getNumReactants(); j++)
     {
       SpeciesReference *sr = r->getReactant(j);
 
