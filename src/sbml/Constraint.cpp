@@ -389,6 +389,8 @@ Constraint::writeAttributes (XMLOutputStream& stream) const
 void
 Constraint::writeElements (XMLOutputStream& stream) const
 {
+  SBase::writeElements(stream);
+
   if (mMath) writeMathML(mMath, stream);
 
   if (mMessage) stream << *mMessage;

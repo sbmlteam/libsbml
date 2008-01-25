@@ -248,6 +248,8 @@ InitialAssignment::getElementName () const
 void
 InitialAssignment::writeElements (XMLOutputStream& stream) const
 {
+  SBase::writeElements(stream);
+
   if (mMath) writeMathML(mMath, stream);
 }
 /** @endcond doxygen-libsbml-internal */
