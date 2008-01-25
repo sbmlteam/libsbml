@@ -21,7 +21,17 @@ import org.sbml.libsbml.ModelHistory;
 import org.sbml.libsbml.SBMLWriter;
 import org.sbml.libsbml.SBMLDocument;
 import org.sbml.libsbml.SBMLReader;
- 
+import org.sbml.libsbml.Species; 
+import org.sbml.libsbml.Compartment; 
+import org.sbml.libsbml.Parameter; 
+import org.sbml.libsbml.InitialAssignment; 
+import org.sbml.libsbml.Rule; 
+import org.sbml.libsbml.Reaction; 
+import org.sbml.libsbml.KineticLaw; 
+import org.sbml.libsbml.SpeciesReference; 
+import org.sbml.libsbml.Event;
+import org.sbml.libsbml.EventAssignment; 
+import org.sbml.libsbml.UnitDefinition;
 
 public class printUnits
 {
@@ -54,48 +64,212 @@ public class printUnits
       System.exit(1);
     }
 
-    model.populateListFormulaUnitsData();
-    println("Total number of formula units: " + 
-            model.getNumFormulaUnitsData() + "\n");
 
-    for (int n = 0; n < model.getNumFormulaUnitsData(); n++)
+    for (int n = 0; n < model.getNumCompartments(); n++)
     {
-      FormulaUnitsData fud = model.getFormulaUnitsData(n);
-      long numUnits = fud.getUnitDefinition().getNumUnits();
+      Compartment c = model.getCompartment(n);
 
-      println("Formula units case #" + (n+1) + " --");
-      println("  class of model entity: " + 
-              libsbml.SBMLTypeCode_toString(fud.getComponentTypecode()));
+      println("Compartment #" + (n+1) + " --");
+      println("  id in model: " + c.getId());
 
-      println("  id of entity in model: " + fud.getUnitReferenceId());
+      printUD(c.getDerivedUnitDefinition());
+    }
+    
+    for (int n = 0; n < model.getNumSpecies(); n++)
+    {
+      Species s = model.getSpecies(n);
 
-      if (fud.getContainsUndeclaredUnits())
+      println("Species #" + (n+1) + " --");
+      println("  id in model: " + s.getId());
+
+      printUD(s.getDerivedUnitDefinition());
+    }
+
+    for (int n = 0; n < model.getNumParameters(); n++)
+    {
+      Parameter p = model.getParameter(n);
+
+      println("Parameter #" + (n+1) + " --");
+      println("  id in model: " + p.getId());
+
+      printUD(p.getDerivedUnitDefinition());
+    }
+
+    for (int n = 0; n < model.getNumInitialAssignments(); n++)
+    {
+      InitialAssignment ia = model.getInitialAssignment(n);
+
+      println("InitialAssignment #" + (n+1) + " --");
+      println("  id in model: " + ia.getId());
+
+      printUD(ia.getDerivedUnitDefinition());
+
+      if (ia.containsUndeclaredUnits())
       {
         println(" undeclared parameters?: yes");
-        println("  (can they be ignored?: " +
-                 (fud.getCanIgnoreUndeclaredUnits() ? "yes)" : "no)"));
       }
       else
       {
         println(" undeclared parameters?: no");
       }
 
-      if (numUnits > 0)
+      print("\n");
+    }
+    
+    for (int n = 0; n < model.getNumRules(); n++)
+    {
+      Rule r = model.getRule(n);
+
+      println("Rule #" + (n+1) + " --");
+      println("  id in model: " + r.getId());
+
+      printUD(r.getDerivedUnitDefinition());
+
+      if (r.containsUndeclaredUnits())
       {
-        print("    units in definition: ");
-        for (int p = 0; p < numUnits; p++)
+        println(" undeclared parameters?: yes");
+      }
+      else
+      {
+        println(" undeclared parameters?: no");
+      }
+
+      print("\n");
+    }
+
+    for (int n = 0; n < model.getNumEvents(); n++)
+    {
+      Event e = model.getEvent(n);
+
+      println("Event #" + (n+1) + " --");
+      println("  id in model: " + e.getId());
+      
+      if (e.isSetDelay())
+      {
+        println("Delay:");
+
+        printUD(e.getDelay().getDerivedUnitDefinition());
+
+        if (e.getDelay().containsUndeclaredUnits())
         {
-          int kind = fud.getUnitDefinition().getUnit(p).getKind();
-          int exp = fud.getUnitDefinition().getUnit(p).getExponent();
-          print(libsbml.UnitKind_toString(kind) + " (exponent = " + exp + ")");
-          if (p + 1 < numUnits)
+          println(" undeclared parameters?: yes");
+        }
+        else
+        {
+          println(" undeclared parameters?: no");
+        }
+
+        print("\n");
+
+        for (int nn = 0; nn < e.getNumEventAssignments(); nn++)
+        {
+          EventAssignment ea = e.getEventAssignment(nn);
+
+          println("EventAssignment #" + (n+1) + " --");
+          println("  id in model: " + ea.getId());
+
+          printUD(ea.getDerivedUnitDefinition());
+
+          if (ea.containsUndeclaredUnits())
           {
-            print(", ");
+            println(" undeclared parameters?: yes");
           }
+          else
+          {
+            println(" undeclared parameters?: no");
+          }
+
+          print("\n");
+
         }
       }
-      print("\n\n");
     }
+
+    for (int n = 0; n < model.getNumReactions(); n++)
+    {
+      Reaction rn = model.getReaction(n);
+
+      println("Reaction #" + (n+1) + " --");
+      println("  id in model: " + rn.getId());
+
+      if (rn.isSetKineticLaw())
+      {
+        printUD(rn.getKineticLaw().getDerivedUnitDefinition());
+
+        if (rn.getKineticLaw().containsUndeclaredUnits())
+        {
+          println(" undeclared parameters?: yes");
+        }
+        else
+        {
+          println(" undeclared parameters?: no");
+        }
+      }
+      print("\n");
+      for (int nn = 0; nn < rn.getNumReactants(); nn++)
+      {
+        SpeciesReference sr = rn.getReactant(nn);
+
+        if (sr.isSetStoichiometryMath())
+        {
+          println("Reactant #" + (n+1) + " --");
+          println("  id in model: " + sr.getSpecies());
+
+          printUD(sr.getDerivedUnitDefinition());
+
+          if (sr.containsUndeclaredUnits())
+          {
+            println(" undeclared parameters?: yes");
+          }
+          else
+          {
+            println(" undeclared parameters?: no");
+          }
+       
+          print("\n");
+        }
+      }
+      for (int nn = 0; nn < rn.getNumProducts(); nn++)
+      {
+        SpeciesReference sr = rn.getProduct(nn);
+
+        if (sr.isSetStoichiometryMath())
+        {
+          println("Product #" + (n+1) + " --");
+          println("  id in model: " + sr.getSpecies());
+
+          printUD(sr.getDerivedUnitDefinition());
+
+          if (sr.containsUndeclaredUnits())
+          {
+            println(" undeclared parameters?: yes");
+          }
+          else
+          {
+            println(" undeclared parameters?: no");
+          }
+       
+          print("\n");
+        }
+      }
+    }
+
+  }
+
+  static void printUD (UnitDefinition ud)
+  {
+    for (int p = 0; p < ud.getNumUnits(); p++)
+    {
+      int kind = ud.getUnit(p).getKind();
+      int exp = ud.getUnit(p).getExponent();
+      print(libsbml.UnitKind_toString(kind) + "(exponent = " +  exp + ")");
+
+      if ( p + 1 < ud.getNumUnits())
+      {
+        print(", ");
+      }
+    }
+    print("\n\n");
   }
 
   static void print (String msg)
