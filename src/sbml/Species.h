@@ -753,19 +753,35 @@ public:
    */
   void unsetCharge ();
 
+
   /**
    * Constructs and returns a UnitDefinition that expresses the units of this 
    * Species.
    *
+   * Species in SBML have an attribute ("substanceUnits") for declaring the
+   * units of measurement intended for the species' amount or concentration
+   * (depending on which one applies).  In the absence of a value given for
+   * "substanceUnits", the units are taken from the model's definition of
+   * @c "substance" or @c "substance"/<em>(size of the compartment)</em> in
+   * which the species is located, or finally, if these are not redefined
+   * by the Model, the relevant SBML default units for those quantities.
+   * Following that procedure, the method getDerivedUnitDefinition()
+   * returns a UnitDefinition based on the interpreted units of this
+   * species's amount or concentration.
+   *
+   * In SBML Level 2 specifications prior to Version&nbsp;3, Species
+   * includes an additional attribute named "spatialSizeUnits", which
+   * allows explicitly setting the units of size for initial concentration.
+   * The getDerivedUnitDefinition() takes this into account for models
+   * expressed in SBML Level&nbsp;2 Versions&nbsp;1 and&nbsp;2.
+   *
    * @return a UnitDefinition that expresses the units of this 
    * Species.
    *
-   * @note This function returns the units of the Species expressed 
-   * as a UnitDefinition. The units may be those explicitly declared 
-   * or those derived from the default units of the Model containing
-   * this Species and it's Compartment.
+   * @see getSubstanceUnits()
    */
   UnitDefinition * getDerivedUnitDefinition();
+
 
   /**
    * Returns the libSBML type code for this %SBML object.

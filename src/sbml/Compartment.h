@@ -593,19 +593,29 @@ public:
    */
   void unsetOutside ();
 
+
   /**
-   * Constructs and returns a UnitDefinition that expresses the units of this 
-   * Compartment.
+   * Constructs and returns a UnitDefinition that expresses the units of
+   * this Compartment.
+   *
+   * Compartments in SBML have an attribute ("units") for declaring the
+   * units of measurement intended for the value of the compartment's size.
+   * In the absence of a value given for this attribute, the units are
+   * taken from the model's definition of @c "volume", @c "area", @c
+   * "length" units, depending on the value given to this Compartment's
+   * "size" attribute, or (if the Model does not redefine them) the
+   * corresponding SBML default units for those quantities.  Following that
+   * procedure, the method getDerivedUnitDefinition() returns a
+   * UnitDefinition based on the interpreted units of this compartment's
+   * size.
    *
    * @return a UnitDefinition that expresses the units of this 
    * Compartment.
    *
-   * @note This function returns the units of the Compartment expressed 
-   * as a UnitDefinition. The units may be those explicitly declared 
-   * or those derived from the default units of the Model containing
-   * this Compartment.
+   * @see getUnits()
    */
   UnitDefinition * getDerivedUnitDefinition();
+
 
   /**
    * Returns the libSBML type code for this %SBML object.

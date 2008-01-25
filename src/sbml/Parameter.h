@@ -411,14 +411,18 @@ public:
    * Constructs and returns a UnitDefinition that expresses the units of this 
    * Parameter.
    *
+   * Parameters in SBML have an attribute ("units") for declaring the units
+   * of measurement intended for the parameter's value.  No defaults are
+   * defined by SBML in the absence of a definition for "units".  The
+   * getDerivedUnitDefinition() method returns a UnitDefinition object
+   * corresponding to the "units" value, or it returns NULL if no units are
+   * declared.
+   *
    * @return a UnitDefinition that expresses the units of this 
    * Parameter.
-   *
-   * @note This function returns the units of the Parameter expressed 
-   * as a UnitDefinition. The units may be those explicitly declared.
-   * In the case where no units have been declared, NULL is returned.
    */
   UnitDefinition * getDerivedUnitDefinition();
+
 
   /**
    * Returns the libSBML type code for this %SBML object.

@@ -328,6 +328,7 @@ public:
    */
   void setSymbol (const std::string& sid);
 
+
   /**
    * Sets the "math" subelement of this InitialAssignment.
    *
@@ -341,20 +342,34 @@ public:
 
   /**
    * Calculates and returns a UnitDefinition that expresses the units
-   * returned by the math expression of this InitialAssignment.
+   * of measurement assumed for the "math" expression of this
+   * InitialAssignment.
    *
+   * The units are calculated based on the mathematical expression in the
+   * InitialAssignment and the model quantities referenced by
+   * <code>&lt;ci&gt;</code> elements used within that expression.  The
+   * getDerivedUnitDefinition() method returns the calculated units.
+   * 
+   * @warning Note that it is possible the "math" expression in the
+   * InitialAssignment contains pure numbers or parameters with undeclared
+   * units.  In those cases, it is not possible to calculate the units of
+   * the overall expression without making assumptions.  LibSBML does not
+   * make assumptions about the units, and getDerivedUnitDefinition() only
+   * returns the units as far as it is able to determine them.  For
+   * example, in an expression <em>X + Y</em>, if <em>X</em> has
+   * unambiguously-defined units and <em>Y</em> does not, it will return
+   * the units of <em>X</em>.  <strong>It is important that callers also
+   * invoke the method</strong> containsUndeclaredUnits() <strong>to
+   * determine whether this situation holds</strong>.  Callers may wish to
+   * take suitable actions in those scenarios.
+   * 
    * @return a UnitDefinition that expresses the units of the math 
    * expression of this InitialAssignment.
-   *
-   * @note The units are calculated by applying the mathematics 
-   * from the expression to the units of the <ci> elements used 
-   * within the expression. Where there are parameters/numbers
-   * with undeclared units the UnitDefinition returned by this
-   * function may not accurately represent the units of the expression.
    * 
    * @see containsUndeclaredUnits()
    */
   UnitDefinition * getDerivedUnitDefinition();
+
 
   /**
    * Predicate returning @c true or @c false depending on whether 
@@ -365,9 +380,9 @@ public:
    * includes parameters/numbers 
    * with undeclared units, @c false otherwise.
    *
-   * @note a return value of @c true indicates that the UnitDefinition
-   * returned by the getDerivedUnitDefinition function may not 
-   * accurately represent the units of the expression.
+   * @note A return value of @c true indicates that the UnitDefinition
+   * returned by getDerivedUnitDefinition() may not accurately represent
+   * the units of the expression.
    *
    * @see getDerivedUnitDefinition()
    */
@@ -451,6 +466,7 @@ public:
    * @return a (deep) copy of this ListOfInitialAssignments.
    */
   virtual SBase* clone () const;
+
 
   /**
    * Returns the libSBML type code for this %SBML object.

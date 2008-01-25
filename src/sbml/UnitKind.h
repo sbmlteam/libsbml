@@ -72,7 +72,6 @@ BEGIN_C_DECLS
 
 /**
  * @var typedef enum UnitKind_t
- * @copydoc UnitKind_t
  */
 typedef enum
 {
