@@ -185,6 +185,8 @@ EventAssignment::setMath (const ASTNode* math)
 UnitDefinition * 
 EventAssignment::getDerivedUnitDefinition()
 {
+  if (!isSetMath())
+    return NULL;
   if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
   {
     getSBMLDocument()->getModel()->populateListFormulaUnitsData();
@@ -203,6 +205,8 @@ EventAssignment::getDerivedUnitDefinition()
 bool 
 EventAssignment::containsUndeclaredUnits()
 {
+  if (!isSetMath())
+    return false;
   if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
   {
     getSBMLDocument()->getModel()->populateListFormulaUnitsData();

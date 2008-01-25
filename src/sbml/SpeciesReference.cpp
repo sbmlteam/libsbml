@@ -471,6 +471,8 @@ SpeciesReference::unsetStoichiometryMath ()
 UnitDefinition * 
 SpeciesReference::getDerivedUnitDefinition()
 {
+  if (!isSetStoichiometryMath())
+    return NULL;
   if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
   {
     getSBMLDocument()->getModel()->populateListFormulaUnitsData();
@@ -489,6 +491,8 @@ SpeciesReference::getDerivedUnitDefinition()
 bool 
 SpeciesReference::containsUndeclaredUnits()
 {
+  if (!isSetStoichiometryMath())
+    return false;
   if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
   {
     getSBMLDocument()->getModel()->populateListFormulaUnitsData();

@@ -412,6 +412,8 @@ KineticLaw::getNumParameters () const
 UnitDefinition * 
 KineticLaw::getDerivedUnitDefinition()
 {
+  if (!isSetMath())
+    return NULL;
   if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
   {
     getSBMLDocument()->getModel()->populateListFormulaUnitsData();
@@ -430,6 +432,8 @@ KineticLaw::getDerivedUnitDefinition()
 bool 
 KineticLaw::containsUndeclaredUnits()
 {
+  if (!isSetMath())
+    return false;
   if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
   {
     getSBMLDocument()->getModel()->populateListFormulaUnitsData();

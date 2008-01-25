@@ -151,6 +151,8 @@ Delay::setMath (const ASTNode* math)
 UnitDefinition * 
 Delay::getDerivedUnitDefinition()
 {
+  if (!isSetMath())
+    return NULL;
   if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
   {
     getSBMLDocument()->getModel()->populateListFormulaUnitsData();
@@ -169,6 +171,8 @@ Delay::getDerivedUnitDefinition()
 bool 
 Delay::containsUndeclaredUnits()
 {
+  if (!isSetMath())
+    return false;
   if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
   {
     getSBMLDocument()->getModel()->populateListFormulaUnitsData();

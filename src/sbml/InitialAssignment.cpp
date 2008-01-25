@@ -182,6 +182,8 @@ InitialAssignment::setMath (const ASTNode* math)
 UnitDefinition * 
 InitialAssignment::getDerivedUnitDefinition()
 {
+  if (!isSetMath())
+    return NULL;
   if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
   {
     getSBMLDocument()->getModel()->populateListFormulaUnitsData();
@@ -200,6 +202,8 @@ InitialAssignment::getDerivedUnitDefinition()
 bool 
 InitialAssignment::containsUndeclaredUnits()
 {
+  if (!isSetMath())
+    return false;
   if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
   {
     getSBMLDocument()->getModel()->populateListFormulaUnitsData();

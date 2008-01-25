@@ -310,6 +310,8 @@ Rule::unsetUnits ()
 UnitDefinition * 
 Rule::getDerivedUnitDefinition()
 {
+  if (!isSetMath())
+    return NULL;
   if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
   {
     getSBMLDocument()->getModel()->populateListFormulaUnitsData();
@@ -328,6 +330,8 @@ Rule::getDerivedUnitDefinition()
 bool 
 Rule::containsUndeclaredUnits()
 {
+  if (!isSetMath())
+    return false;
   if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
   {
     getSBMLDocument()->getModel()->populateListFormulaUnitsData();
