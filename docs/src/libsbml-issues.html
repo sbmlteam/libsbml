@@ -42,12 +42,25 @@ we are currently aware:
 
 <ol>
 
+<li style="margin-bottom: 1em">Libxml2 version 2.6.16 on MacOS&nbsp;X,
+which is the <strong>default version of libxml installed on Macs</strong>
+in /usr/lib up through at least 10.4.11, fails to report uses of undefined
+namespaces in an XML document.  This means that a construct such as
+<code>n:attribute</code>, where <code>n</code> is a namespace prefix that
+is not defined, will be silently ignored.  As a result, libSBML cannot
+catch and report this error when libSBML has been configured with this
+version of libxml2.  We know of no workaround at this time except to
+compile your own copy of libxml2 or use another parser library.
+(Incredibly enough, libxml 2.6.16 built from original sources on a Mac
+<em>does</em> report the error.  The only explanation is that that Apple is
+shipping a modified version of libxml 2.6.16.)
+
 <li style="margin-bottom: 1em">Expat and libxml2 tend to quit earlier than
 Xerces when they encounter an XML error in an input stream, whereas Xerces
 tends to process the input further and report an error as being on the
 element in which the XML error occurs.  The result is that the first error
-reported by libSBML is sometimes different, depending on which of the
-underlying XML parsers is being used.  In our tests this affects almost
+reported by libSBML is sometimes different depending on which of the
+underlying XML parsers is being used.  In our tests, this affects almost
 exclusively low-level XML syntax errors (such as start/end tag mismatches,
 unterminated strings) and not SBML errors per se, although a basic XML
 error can of course mask other, more substantive errors.  The exceptional
@@ -66,10 +79,23 @@ the Xerces transcoding functions in the Xerces 2.7 file
 <code>CP_ACP</code> (meaning the Windows ANSI code page) rather than
 <code>CP_UTF8</code>.  Why this is the case is a mystery to us.  The effect
 is that Xerces on Windows does not translate some non-text UTF-8 characters
-the same way as on other platforms.</li>
+the same way as on other platforms. </li>
 
 </ol>
 
+
+<h2>Potential for language bindings to link old versions of libSBML by accident</h2>
+
+At application run-time, the language bindings for Java, Python, Perl and
+others must be able to dynamically link the core libSBML library file
+(i.e., <code>libsbml.so</code>, <code>libsbml.dylib</code> or
+<code>libsbml.dll</code>, depending on your operating system).  If a user's
+environment includes an old version of this library file, and it is picked
+up at run-time instead of the correct library version, linking may fail
+with mysterious errors about undefined symbols.  Users and developers are
+cautioned to make sure that their installations have matched versions of
+libSBML components and are free of older versions that may be picked up
+inadvertently.
 
 
 <h2>Possible unexpected <code>make uninstall</code> behavior</h2>
