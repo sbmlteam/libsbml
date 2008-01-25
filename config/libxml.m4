@@ -233,6 +233,21 @@ main()
     AC_SUBST(LIBXML_LDFLAGS)
     AC_SUBST(LIBXML_LIBS)
     rm -f conf.xmltest
+
+    dnl One more wrinkle: libxml 2.6.16 as shipped by Apple is broken, in
+    dnl that it doesn't report XML_NS_ERR_UNDEFINED_NAMESPACE when the
+    dnl condition arises.  Let's note the situation and conditionalize the
+    dnl code where necessary.
+
+    if test $HOST_TYPE == "darwin" \
+	 -a $XML2_CONFIG == "/usr/bin/xml2-config" \
+	 -a `$XML2_CONFIG --libtool-libs` == "/usr/lib/libxml2.la" \
+	 -a $xml_config_major_version -eq 2 \
+	 -a $xml_config_minor_version -eq 6 \
+	 -a $xml_config_micro_version -eq 16; then
+      AC_SUBST(BUGGY_APPLE_LIBXML, 1)
+    fi
+
   fi
 
 ])
