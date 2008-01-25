@@ -701,7 +701,7 @@ writeCN (const ASTNode& node, XMLOutputStream& stream)
   {
     stream.startEndElement("notanumber");
   }
-  else if ( node.isInfinity() )
+  else if ( !(node.getType() == AST_REAL_E) && node.isInfinity() )
   {
     stream.startEndElement("infinity");
   }
