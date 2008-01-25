@@ -1,6 +1,6 @@
            libsbml NEWS -- History of user-visible changes
            
- === Version 3.1 ===
+ === Version 3.1.0 ===
 
 * Dependency changes:
 
@@ -18,8 +18,10 @@
     Alex Gutteridge and further developed and integrated (with test
     code) by Akiya Jouraku.
 
-  - The code used to perform unit analysis has been exposed
-    and documented.
+  - LibSBML now provides methods on most SBML components to return a
+    UnitDefinition object representing its interpretation of the units
+    for that component's quantity.  Two new methods are involved:
+    getDerivedUnitDefinition() and containsUndeclaredUnits().
 
   - The function Layout_setDimensions has been added to the C API.
 
@@ -37,7 +39,7 @@
     declaration if necessary to prevent this from happening.
 
   - The MATLAB binding was failing to store the message field on a 
-    Constraint.  This is now corrected.
+    Constraint.  It does now.
 
   - Corrected the fact that a UnitDefinition redefining a builtin
     unit can have more than one unit provided the UnitDefinition
@@ -79,10 +81,11 @@
     containing FunctionDefinition objects.  Thanks to Hongseok Yun for
     contributing the report and a fix.
 
-  - The auto-generated documentation for the Python API was lousy and
-    sometimes outright wrong, for example in showing incorrect scoping
-    syntax.  This was a result of defects in Doxygen versions prior to
-    1.5.x, and fixed by requiring Doxygen version 1.5.4.
+  - The auto-generated documentation for the Python API was previously
+    lousy and sometimes outright wrong, for example in showing
+    incorrect scoping syntax.  This was due to defects in Doxygen
+    versions prior to 1.5.x, and now fixed by requiring Doxygen
+    version 1.5.4.
 
   - Added more missing sections in the Java and Python API documentation.
 
