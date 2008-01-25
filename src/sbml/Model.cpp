@@ -2554,7 +2554,8 @@ Model::populateListFormulaUnitsData()
       {
         fud = createFormulaUnitsData();
         fud->setUnitReferenceId(sr->getSpecies());
-        fud->setComponentTypecode(SBML_SPECIES_REFERENCE);
+        sr->getStoichiometryMath()->setId(sr->getSpecies());
+        fud->setComponentTypecode(SBML_STOICHIOMETRY_MATH);
         unitFormatter->resetFlags();
         ud = unitFormatter->getUnitDefinition
                                       (sr->getStoichiometryMath()->getMath());
@@ -2573,8 +2574,8 @@ Model::populateListFormulaUnitsData()
       if (sr->isSetStoichiometryMath())
       {
         fud = createFormulaUnitsData();
-        fud->setUnitReferenceId(sr->getId());
-        fud->setComponentTypecode(SBML_SPECIES_REFERENCE);
+        sr->getStoichiometryMath()->setId(sr->getSpecies());
+        fud->setComponentTypecode(SBML_STOICHIOMETRY_MATH);
         unitFormatter->resetFlags();
         ud = unitFormatter->getUnitDefinition
                                       (sr->getStoichiometryMath()->getMath());

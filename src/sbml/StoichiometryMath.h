@@ -140,6 +140,53 @@ public:
 
 
   /**
+   * Calculates and returns a UnitDefinition that expresses the units
+   * returned by the math expression in this StoichiometryMath.
+   *
+   * The units are calculated based on the mathematical expression in the
+   * StoichiometryMath and the model quantities referenced by
+   * <code>&lt;ci&gt;</code> elements used within that expression.  The
+   * getDerivedUnitDefinition() method returns the calculated units.
+   * 
+   * @warning Note that it is possible the "math" expression in the
+   * StoichiometryMath contains pure numbers or parameters with undeclared
+   * units.  In those cases, it is not possible to calculate the units of
+   * the overall expression without making assumptions.  LibSBML does not
+   * make assumptions about the units, and getDerivedUnitDefinition() only
+   * returns the units as far as it is able to determine them.  For
+   * example, in an expression <em>X + Y</em>, if <em>X</em> has
+   * unambiguously-defined units and <em>Y</em> does not, it will return
+   * the units of <em>X</em>.  <strong>It is important that callers also
+   * invoke the method</strong> containsUndeclaredUnits() <strong>to
+   * determine whether this situation holds</strong>.  Callers may wish to
+   * take suitable actions in those scenarios.
+   * 
+   * @return a UnitDefinition that expresses the units of the math 
+   *
+   * @see containsUndeclaredUnits()
+   */
+  UnitDefinition * getDerivedUnitDefinition();
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether 
+   * the math expression of this StoichiometryMath contains
+   * parameters/numbers with undeclared units.
+   * 
+   * @return @c true if the math expression of this StoichiometryMath
+   * includes parameters/numbers 
+   * with undeclared units, @c false otherwise.
+   *
+   * @note A return value of @c true indicates that the UnitDefinition
+   * returned by getDerivedUnitDefinition() may not accurately represent
+   * the units of the expression.
+   *
+   * @see getDerivedUnitDefinition()
+   */
+  bool containsUndeclaredUnits();
+
+
+  /**
    * Sets the parent SBMLDocument of this SBML object.
    *
    * @param d the SBMLDocument to use.
@@ -273,6 +320,15 @@ LIBSBML_EXTERN
 void
 StoichiometryMath_setMath (StoichiometryMath_t *t, const ASTNode_t *math);
 
+
+LIBSBML_EXTERN
+UnitDefinition_t * 
+StoichiometryMath_getDerivedUnitDefinition(StoichiometryMath_t *math);
+
+
+LIBSBML_EXTERN
+int 
+StoichiometryMath_containsUndeclaredUnits(StoichiometryMath_t *math);
 
 END_C_DECLS
 

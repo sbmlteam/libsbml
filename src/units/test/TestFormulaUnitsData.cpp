@@ -491,7 +491,7 @@ START_TEST (test_FormulaUnitsData_getreaction)
   fud = m->getFormulaUnitsData(13);
 
   fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "x"), NULL);
-  fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode()), "SpeciesReference"), NULL);
+  fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode()), "StoichiometryMath"), NULL);
   fail_unless(fud->getContainsUndeclaredUnits() == 1);
   fail_unless(fud->getCanIgnoreUndeclaredUnits() == 0);
 
@@ -576,10 +576,10 @@ START_TEST (test_FormulaUnitsData_getById)
   fail_unless(fud->getUnitDefinition()->getUnit(2)->getOffset() == 0.0);
   fail_unless(fud->getUnitDefinition()->getUnit(2)->getKind() == UNIT_KIND_SECOND);
 
-  fud = m->getFormulaUnitsData("x", SBML_SPECIES_REFERENCE);
+  fud = m->getFormulaUnitsData("x", SBML_STOICHIOMETRY_MATH);
 
   fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "x"), NULL);
-  fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode()), "SpeciesReference"), NULL);
+  fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode()), "StoichiometryMath"), NULL);
   fail_unless(fud->getContainsUndeclaredUnits() == 1);
   fail_unless(fud->getCanIgnoreUndeclaredUnits() == 0);
 

@@ -128,9 +128,9 @@ main (int argc, char *argv[])
       if (sr->isSetStoichiometryMath())
       {
         cout << "Reactant stoichiometryMath" << j << ": " 
-          << printUnits(sr->getDerivedUnitDefinition()) << endl;
+          << printUnits(sr->getStoichiometryMath()->getDerivedUnitDefinition()) << endl;
         cout << "        undeclared units: ";
-        cout << (sr->containsUndeclaredUnits() ? "yes\n" : "no\n");
+        cout << (sr->getStoichiometryMath()->containsUndeclaredUnits() ? "yes\n" : "no\n");
       }
     }
 
@@ -141,9 +141,9 @@ main (int argc, char *argv[])
       if (sr->isSetStoichiometryMath())
       {
         cout << "Product stoichiometryMath" << j << ": " 
-          << printUnits(sr->getDerivedUnitDefinition()) << endl;
+          << printUnits(sr->getStoichiometryMath()->getDerivedUnitDefinition()) << endl;
         cout << "        undeclared units: ";
-        cout << (sr->containsUndeclaredUnits() ? "yes\n" : "no\n");
+        cout << (sr->getStoichiometryMath()->containsUndeclaredUnits() ? "yes\n" : "no\n");
       }
     }
   }

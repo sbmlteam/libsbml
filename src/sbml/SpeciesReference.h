@@ -684,54 +684,6 @@ public:
 
 
   /**
-   * Calculates and returns a UnitDefinition that expresses the units
-   * returned by the math expression in the StoichiometryMath portion of
-   * this SpeciesReference.
-   *
-   * The units are calculated based on the mathematical expression in the
-   * StoichiometryMath and the model quantities referenced by
-   * <code>&lt;ci&gt;</code> elements used within that expression.  The
-   * getDerivedUnitDefinition() method returns the calculated units.
-   * 
-   * @warning Note that it is possible the "math" expression in the
-   * StoichiometryMath contains pure numbers or parameters with undeclared
-   * units.  In those cases, it is not possible to calculate the units of
-   * the overall expression without making assumptions.  LibSBML does not
-   * make assumptions about the units, and getDerivedUnitDefinition() only
-   * returns the units as far as it is able to determine them.  For
-   * example, in an expression <em>X + Y</em>, if <em>X</em> has
-   * unambiguously-defined units and <em>Y</em> does not, it will return
-   * the units of <em>X</em>.  <strong>It is important that callers also
-   * invoke the method</strong> containsUndeclaredUnits() <strong>to
-   * determine whether this situation holds</strong>.  Callers may wish to
-   * take suitable actions in those scenarios.
-   * 
-   * @return a UnitDefinition that expresses the units of the math 
-   *
-   * @see containsUndeclaredUnits()
-   */
-  UnitDefinition * getDerivedUnitDefinition();
-
-
-  /**
-   * Predicate returning @c true or @c false depending on whether 
-   * the math expression of this SpeciesReference contains
-   * parameters/numbers with undeclared units.
-   * 
-   * @return @c true if the math expression of this SpeciesReference
-   * includes parameters/numbers 
-   * with undeclared units, @c false otherwise.
-   *
-   * @note A return value of @c true indicates that the UnitDefinition
-   * returned by getDerivedUnitDefinition() may not accurately represent
-   * the units of the expression.
-   *
-   * @see getDerivedUnitDefinition()
-   */
-  bool containsUndeclaredUnits();
-
-
-  /**
    * Sets the value of the "annotation" subelement of this SBML object to a
    * copy of @p annotation.
    *
@@ -1231,15 +1183,6 @@ LIBSBML_EXTERN
 void
 SpeciesReference_unsetName (SpeciesReference_t *sr);
 
-
-LIBSBML_EXTERN
-UnitDefinition_t * 
-SpeciesReference_getDerivedUnitDefinition(SpeciesReference_t *sr);
-
-
-LIBSBML_EXTERN
-int 
-SpeciesReference_containsUndeclaredUnits(SpeciesReference_t *sr);
 
 END_C_DECLS
 

@@ -215,9 +215,9 @@ public class printUnits
           println("Reactant #" + (n+1) + " --");
           println("  id in model: " + sr.getSpecies());
 
-          printUD(sr.getDerivedUnitDefinition());
+          printUD(sr.getStoichiometryMath().getDerivedUnitDefinition());
 
-          if (sr.containsUndeclaredUnits())
+          if (sr.getStoichiometryMath().containsUndeclaredUnits())
           {
             println(" undeclared parameters?: yes");
           }
@@ -238,9 +238,9 @@ public class printUnits
           println("Product #" + (n+1) + " --");
           println("  id in model: " + sr.getSpecies());
 
-          printUD(sr.getDerivedUnitDefinition());
+          printUD(sr.getStoichiometryMath().getDerivedUnitDefinition());
 
-          if (sr.containsUndeclaredUnits())
+          if (sr.getStoichiometryMath().containsUndeclaredUnits())
           {
             println(" undeclared parameters?: yes");
           }
