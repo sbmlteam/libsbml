@@ -414,7 +414,7 @@ public:
    * @return a UnitDefinition that expresses the units of this 
    * Parameter.
    *
-   * @note This function returns the units of the Species expressed 
+   * @note This function returns the units of the Parameter expressed 
    * as a UnitDefinition. The units may be those explicitly declared.
    * In the case where no units have been declared, NULL is returned.
    */
