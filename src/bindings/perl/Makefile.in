@@ -111,7 +111,9 @@ distfiles =                        \
   t/05__ParameterRule.t            \
   t/05__Parameter.t                \
   t/05__RateRule.t                 \
-  t/05__SBMLDocument.t
+  t/05__SBMLDocument.t             \
+  t/06__TestReadSBML.t             \
+  t/06__TestWriteSBML.t
 
 
 extra_distclean = Makefile-perl Makefile-perl.old
