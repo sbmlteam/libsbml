@@ -122,7 +122,7 @@ ruby_test_path  = test
 ruby_test_files = test.rb $(wildcard $(ruby_test_path)/Test*.rb)
 ruby_swig_sources = libsbml.i local.i layout_local.i local.cpp
 
-distfiles = Makefile.in libsbml_wrap.cpp $(ruby_swig_files) $(ruby_test_files)
+distfiles = Makefile.in libsbml_wrap.cpp README.txt $(ruby_swig_sources) $(ruby_test_files)
 
 extra_clean     = build
 
