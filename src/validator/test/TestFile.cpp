@@ -198,8 +198,10 @@ TestFile::getFilesIn ( const string& directory,
         if (id == 10309) continue;
 
         // libxml bug for 2.6.16 on a Mac
+#ifdef BUGGY_APPLE_LIBXML
         if (id == 1013 && num < 6) continue;
         if (id == 1014 && num == 1) continue;
+#endif
       }
 
       if ((begin == 0 && end == 0) || (id >= begin && id <= end))
