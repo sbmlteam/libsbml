@@ -189,11 +189,17 @@ TestFile::getFilesIn ( const string& directory,
     {
       TestFile     file(directory, filename);
       unsigned int id = file.getConstraintId();
+      unsigned int num = file.getSequenceId();
+
       // leave out the following tests dependent on parser
       if (library == 0)
       {
        // xerces bug in reading multibyte chars
         if (id == 10309) continue;
+
+        // libxml bug for 2.6.16 on a Mac
+        if (id == 1013 && num < 6) continue;
+        if (id == 1014 && num == 1) continue;
       }
 
       if ((begin == 0 && end == 0) || (id >= begin && id <= end))
