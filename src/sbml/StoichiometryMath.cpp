@@ -473,49 +473,66 @@ StoichiometryMath_setMath (StoichiometryMath_t *stoichMath, const ASTNode_t *mat
 {
   stoichMath->setMath(math);
 }
+
+
 /**
-  * Calculates and returns a UnitDefinition_t that expresses the units
-  * returned by the math expression of this StoichiometryMath_t.
-  *
-  * @return a UnitDefinition_t that expresses the units of the math 
-  * expression of this StoichiometryMath_t.
-  *
-  * @note The units are calculated by applying the mathematics 
-  * from the expression to the units of the <ci> elements used 
-  * within the expression. Where there are parameters/numbers
-  * with undeclared units the UnitDefinition_t returned by this
-  * function may not accurately represent the units of the expression.
-  * 
-  * @see StoichiometryMath_containsUndeclaredUnits()
-  */
+ * Calculates and returns a UnitDefinition that expresses the units
+ * returned by the math expression in this StoichiometryMath.
+ *
+ * The units are calculated based on the mathematical expression in the
+ * StoichiometryMath and the model quantities referenced by
+ * <code>&lt;ci&gt;</code> elements used within that expression.  The
+ * getDerivedUnitDefinition() method returns the calculated units.
+ * 
+ * @warning Note that it is possible the "math" expression in the
+ * StoichiometryMath contains pure numbers or parameters with undeclared
+ * units.  In those cases, it is not possible to calculate the units of
+ * the overall expression without making assumptions.  LibSBML does not
+ * make assumptions about the units, and getDerivedUnitDefinition() only
+ * returns the units as far as it is able to determine them.  For
+ * example, in an expression <em>X + Y</em>, if <em>X</em> has
+ * unambiguously-defined units and <em>Y</em> does not, it will return
+ * the units of <em>X</em>.  <strong>It is important that callers also
+ * invoke the method</strong> containsUndeclaredUnits() <strong>to
+ * determine whether this situation holds</strong>.  Callers may wish to
+ * take suitable actions in those scenarios.
+ *
+ * @param stoichMath the StoichiometryMath structure to check
+ *
+ * @return A UnitDefinition that expresses the units of the math 
+ *
+ * @see containsUndeclaredUnits()
+ */
 LIBSBML_EXTERN
 UnitDefinition_t * 
-StoichiometryMath_getDerivedUnitDefinition(StoichiometryMath_t *math)
+StoichiometryMath_getDerivedUnitDefinition(StoichiometryMath_t *stoichMath)
 {
-  return static_cast<StoichiometryMath*>(math)->getDerivedUnitDefinition();
+  return static_cast<StoichiometryMath*>(stoichMath)->getDerivedUnitDefinition();
 }
 
 
 /**
-  * Predicate returning @c true or @c false depending on whether 
-  * the math expression of this StoichiometryMath_t contains
-  * parameters/numbers with undeclared units.
-  * 
-  * @return @c true if the math expression of this StoichiometryMath_t
-  * includes parameters/numbers 
-  * with undeclared units, @c false otherwise.
-  *
-  * @note a return value of @c true indicates that the UnitDefinition_t
-  * returned by the getDerivedUnitDefinition function may not 
-  * accurately represent the units of the expression.
-  *
-  * @see StoichiometryMath_getDerivedUnitDefinition()
-  */
+ * Predicate returning @c true or @c false depending on whether 
+ * the math expression of this StoichiometryMath contains
+ * parameters/numbers with undeclared units.
+ *
+ * @param stoichMath the StoichiometryMath structure to check
+ * 
+ * @return @c true if the math expression of this StoichiometryMath
+ * includes parameters/numbers 
+ * with undeclared units, @c false otherwise.
+ *
+ * @note A return value of @c true indicates that the UnitDefinition
+ * returned by getDerivedUnitDefinition() may not accurately represent
+ * the units of the expression.
+ *
+ * @see StoichiometryMath_getDerivedUnitDefinition()
+ */
 LIBSBML_EXTERN
 int 
-StoichiometryMath_containsUndeclaredUnits(StoichiometryMath_t *math)
+StoichiometryMath_containsUndeclaredUnits(StoichiometryMath_t *stoichMath)
 {
-  return static_cast<int>(static_cast<StoichiometryMath*>(math)
+  return static_cast<int>(static_cast<StoichiometryMath*>(stoichMath)
                                          ->containsUndeclaredUnits());
 }
 
