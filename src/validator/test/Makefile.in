@@ -113,6 +113,9 @@ ifdef USE_LIBXML
   extra_CPPFLAGS += $(LIBXML_CPPFLAGS)
   extra_LDFLAGS  += $(LIBXML_LDFLAGS)
   extra_LIBS     += $(LIBXML_LIBS)
+ifdef BUGGY_APPLE_LIBXML
+  extra_CPPFLAGS += -DBUGGY_APPLE_LIBXML=$(BUGGY_APPLE_LIBXML)
+endif
 endif
 
 # `distfiles' determines the files and directories included in a distribution.
