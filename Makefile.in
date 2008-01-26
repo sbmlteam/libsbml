@@ -73,6 +73,7 @@ examples =                                                       \
   examples/c++/printSBML.cpp                                     \
   examples/c++/readSBML.cpp                                      \
   examples/c++/translateMath.cpp                                 \
+  examples/c++/printUnits.cpp                                    \
   examples/c++/util.c                                            \
   examples/c++/util.h                                            \
   examples/c++/validateSBML.cpp                                  \
@@ -85,6 +86,15 @@ examples =                                                       \
   examples/java/readSBML.java                                    \
   examples/java/translateMath.java                               \
   examples/java/validateSBML.java                                \
+  examples/java/addCVTerms.java                                  \
+  examples/java/addModelHistory.java                             \
+  examples/java/appendAnnotation.java                            \
+  examples/java/echoSBML.java                                    \
+  examples/java/printAnnotation.java                             \
+  examples/java/printUnits.java                                  \
+  examples/java/printNotes.java                                  \
+  examples/java/unsetAnnotation.java                             \
+  examples/java/unsetNotes.java                                  \
   examples/layout/Makefile.in                                    \
   examples/layout/example1.cpp                                   \
   examples/layout/example2.cpp                                   \
@@ -101,6 +111,10 @@ examples =                                                       \
   examples/perl/readSBML.pl                                      \
   examples/perl/translateMath.pl                                 \
   examples/perl/validateSBML.pl                                  \
+  examples/ruby/convertSBML.rb                                   \
+  examples/ruby/echoSBML.rb                                      \
+  examples/ruby/printMath.rb                                     \
+  examples/ruby/validateSBML.rb                                  \
   examples/sample-models/README.txt                              \
   examples/sample-models/from-spec/level-2/README.txt            \
   examples/sample-models/from-spec/level-2/algebraicrules.xml    \
