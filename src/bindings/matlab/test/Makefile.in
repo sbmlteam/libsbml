@@ -64,6 +64,7 @@ distfiles =                 \
         testReadFromFile8.m \
         testReadFromFile9.m \
         testReadFromFile10.m \
+        testReadFromFile11.m \
         $(test_data_files)
 
 # `extra_clean' and `extra_distclean' determine the files and directories
