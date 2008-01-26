@@ -265,12 +265,15 @@ public:
   void removeResource(std::string resource);
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   XMLAttributes * mResources;
 
   QualifierType_t       mQualifier;
   ModelQualifierType_t  mModelQualifier;
   BiolQualifierType_t   mBiolQualifier;
+
+  /** @endcond doxygen-libsbml-internal */
 };
 
 
