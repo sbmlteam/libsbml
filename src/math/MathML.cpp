@@ -585,7 +585,8 @@ readMathML (ASTNode& node, XMLInputStream& stream)
       /* it is possible to have a piecewise with no otherwise
        */
       stream.skipText();
-      if (stream.peek().getName() == "piecewise") continue;
+      if (elem.getName() == "piecewise" 
+        && stream.peek().getName() == "piecewise") continue;
 
       ASTNodeType_t type = node.getType();
       if (type == AST_PLUS || type == AST_TIMES) reduceBinary(node);
