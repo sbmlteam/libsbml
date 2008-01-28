@@ -274,7 +274,14 @@ FormulaFormatter_formatReal (StringBuffer_t *sb, const ASTNode_t *node)
   }
   else
   {
-    StringBuffer_appendReal(sb, value);
+    if (ASTNode_getType(node) == AST_REAL_E)
+    {
+      StringBuffer_appendExp(sb, value);
+    }
+    else
+    {
+      StringBuffer_appendReal(sb, value);
+    }
   }
 }
 

@@ -115,6 +115,9 @@ LIBSBML_EXTERN
 void
 StringBuffer_appendReal (StringBuffer_t *sb, double r);
 
+LIBSBML_EXTERN
+void
+StringBuffer_appendExp (StringBuffer_t *sb, double r);
 /**
  * Doubles the capacity of this StringBuffer (if nescessary) until it can
  * hold at least n additional characters.

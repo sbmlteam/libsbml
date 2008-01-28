@@ -171,6 +171,22 @@ StringBuffer_appendReal (StringBuffer_t *sb, double r)
 
 
 /**
+ * Appends a string representation of the given exp to this
+ * StringBuffer.
+ *
+ * This function is equivalent to:
+ *
+ *   StringBuffer_appendNumber(sb, LIBSBML_FLOAT_FORMAT, r);
+ */
+LIBSBML_EXTERN
+void
+StringBuffer_appendExp (StringBuffer_t *sb, double r)
+{
+  StringBuffer_appendNumber(sb, "%e", r);
+}
+
+
+/**
  * Doubles the capacity of this StringBuffer (if nescessary) until it can
  * hold at least n additional characters.
  *
