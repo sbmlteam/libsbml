@@ -1,5 +1,17 @@
            libsbml NEWS -- History of user-visible changes
-           
+    
+    
+ === (next release) ===
+
+* Bug fixes:
+
+  - Fixed a bug that meant that caused a crash when checking
+    the consistency of variables used in a StoichiometryMath
+    element. Added validation files that would have caught this.
+    Thanks to Chris Meyers for reporting this. 
+
+ 
+        
  === Version 3.1.0 (released 2008-01-25) ===
 
 * Dependency changes:
