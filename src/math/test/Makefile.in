@@ -52,6 +52,8 @@ test_sources =           \
   TestFormulaTokenizer.c \
   TestReadMathML.cpp     \
   TestWriteMathML.cpp    \
+  TestReadFromFile1.cpp  \
+  TestReadFromFile2.cpp  \
   TestRunner.c
 
 extra_CPPFLAGS = -I.. -I../..
@@ -92,7 +94,8 @@ endif
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles = $(test_sources) Makefile.in
+test_data_files = $(wildcard test-data/*.xml)
+distfiles = $(test_sources) $(test_data_files) Makefile.in
 
 
 # -----------------------------------------------------------------------------
@@ -118,16 +121,14 @@ all: Makefile
 
 tmp           = $(test_sources:.cpp=.$(OBJEXT)) $(test_sources:.c=.$(OBJEXT))
 localobjfiles = $(filter %.$(OBJEXT),$(tmp))
+otherdirs     = .. ../../util ../../xml ../../sbml ../../annotation \
+	 ../../validator ../../validator/constraints ../../units
 
-otherdirs     = ..  ../../util ../../xml
+ifdef USE_LAYOUT
+  otherdirs +=	../../sbml/layout
+endif
 otherobjfiles = $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
 
-# We don't need (and don't want) all of ../../sbml/*, but we do need
-# SBMLErrorLog:
-
-otherobjfiles += ../../sbml/SBMLErrorLog.$(OBJEXT) ../../sbml/SBMLError.$(OBJEXT)
-
-# Put all the files together:
 
 test_objfiles = $(localobjfiles) $(otherobjfiles)
 

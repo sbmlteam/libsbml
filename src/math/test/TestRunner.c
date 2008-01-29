@@ -44,7 +44,45 @@ Suite *create_suite_FormulaTokenizer (void);
 Suite *create_suite_ReadMathML       (void);
 Suite *create_suite_WriteMathML      (void);
 
+Suite *create_suite_TestReadFromFile1      (void);
+Suite *create_suite_TestReadFromFile2      (void);
 END_C_DECLS
+
+
+/**
+ * Global.
+ *
+ * Declared extern in TestReadFromFileN suites.
+ */
+char *TestDataDirectory;
+
+
+/**
+ * Sets TestDataDirectory for the the TestReadFromFileN suites.
+ *
+ * For Automake's distcheck target to work properly, TestDataDirectory must
+ * begin with the value of the environment variable SRCDIR.
+ */
+void
+setTestDataDirectory (void)
+{
+  char *srcdir = getenv("srcdir");
+  int  length  = (srcdir == NULL) ? 0 : strlen(srcdir);
+
+
+  /**
+   * strlen("/test-data/") = 11 + 1 (for NULL) = 12
+   */
+  TestDataDirectory = (char *) safe_calloc( length + 12, sizeof(char) );
+
+  if (srcdir != NULL)
+  {
+    strcpy(TestDataDirectory, srcdir);
+    strcat(TestDataDirectory, "/");
+  }
+
+  strcat(TestDataDirectory, "test-data/");
+}
 
 
 int
@@ -60,6 +98,11 @@ main (void)
   srunner_add_suite( runner, create_suite_FormulaTokenizer () );
   srunner_add_suite( runner, create_suite_ReadMathML       () );
   srunner_add_suite( runner, create_suite_WriteMathML      () );
+
+  srunner_add_suite( runner, create_suite_TestReadFromFile1() );
+  srunner_add_suite( runner, create_suite_TestReadFromFile2() );
+  setTestDataDirectory();
+
 
   /* srunner_set_fork_status(runner, CK_NOFORK); */
 
