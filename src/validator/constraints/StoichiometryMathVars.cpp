@@ -86,7 +86,7 @@ StoichiometryMathVars::check_ (const Model& m, const Reaction& r)
         ->getListOfNodes( ASTNode_isName );
       for (ns = 0; ns < variables->getSize(); ns++)
       {
-        ASTNode* node = static_cast<ASTNode*>( variables->get(n) );
+        ASTNode* node = static_cast<ASTNode*>( variables->get(ns) );
         string   name = node->getName() ? node->getName() : "";
        
         if (m.getSpecies(name) && !mSpecies.contains(name))
