@@ -87,7 +87,7 @@ START_TEST (test_read_MathML_2)
   fail_unless (fd_math->getNumChildren() == 1, NULL);
   fail_unless (!strcmp(SBML_formulaToString(fd_math), "lambda()"), NULL);
 
-  ASTNode *child = fd_math->getRightChild();
+  ASTNode *child = fd_math->getChild(0);
   fail_unless (child->getType() == AST_UNKNOWN, NULL);
   fail_unless (child->getNumChildren() == 0, NULL);
   fail_unless (!strcmp(SBML_formulaToString(child), ""), NULL);
@@ -111,7 +111,7 @@ START_TEST (test_read_MathML_2)
   //    </lambda>
   //  </math>
   //</functionDefinition>
-  fd = m->getFunctionDefinition(1);
+  /*  fd = m->getFunctionDefinition(1);
   const ASTNode *fd1_math = fd->getMath();
 
   fail_unless (fd1_math->getType() == AST_LAMBDA, NULL);
@@ -135,7 +135,8 @@ START_TEST (test_read_MathML_2)
   fail_unless (c2->getNumChildren() == 2, NULL);
   fail_unless (!strcmp(SBML_formulaToString(c2), "leq(x, 4)"), NULL);
 
-
+*/
+  
   ////<initialAssignment symbol="p1">
   //  //<math xmlns="http://www.w3.org/1998/Math/MathML">
   //  //    <piecewise>
