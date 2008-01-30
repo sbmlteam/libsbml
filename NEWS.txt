@@ -5,11 +5,26 @@
 
 * Bug fixes:
 
-  - Fixed a bug that meant that caused a crash when checking
+  - Tracker issue #1881852.
+    Fixed a bug that meant that caused a crash when checking
     the consistency of variables used in a StoichiometryMath
     element. Added validation files that would have caught this.
-    Thanks to Chris Meyers for reporting this. 
+    Thanks to Chris Meyers for reporting this.
 
+  - Tracker issue #1880570.
+    The previous fix for a piecewise without an otherwise statement
+    did not propagate for the use of piecewise within a lambda
+    function. This is now fixed and multiple tests included to catch
+    this and similar potential failures.
+
+* New features:
+
+  - Tracker issue #1880892.
+    A number entered as an exponent was being written out as an 
+    integer without exponent where the integral value was small
+    enough. For example 1e3 was written as 1000. This has been
+    changed so that a value entered as an exponent will be written 
+    out as an exponent. 
  
         
  === Version 3.1.0 (released 2008-01-25) ===
