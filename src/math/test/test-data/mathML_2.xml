@@ -61,31 +61,22 @@
     <listOfRules>
       <algebraicRule>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
           <true/>
+          </apply>
         </math>
       </algebraicRule>
       <assignmentRule variable="p2">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <infinity/>
+          <apply>
+            <log/>
+            <logbase>
+              <cn> 3 </cn>
+            </logbase>
+            <ci> x </ci>
+          </apply>
         </math>
       </assignmentRule>
     </listOfRules>
-    <listOfReactions>
-      <reaction id="r">
-        <listOfReactants>
-          <speciesReference species="s"/>
-        </listOfReactants>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <cn> 4.5 </cn>
-            </apply>
-          </math>
-          <listOfParameters>
-            <parameter id="k" value="9" units="litre"/>
-          </listOfParameters>
-        </kineticLaw>
-      </reaction>
-    </listOfReactions>
   </model>
 </sbml>

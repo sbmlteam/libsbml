@@ -50,7 +50,6 @@ START_TEST (test_read_MathML_2)
   FunctionDefinition* fd;
   InitialAssignment* ia;
   Rule*              r;
-  KineticLaw*        kl;
 
 
   std::string filename(TestDataDirectory);
@@ -71,7 +70,6 @@ START_TEST (test_read_MathML_2)
   fail_unless( m->getNumFunctionDefinitions() == 2, NULL);
   fail_unless( m->getNumInitialAssignments() == 1, NULL);
   fail_unless( m->getNumRules() == 2, NULL );
-  fail_unless( m->getNumReactions() == 1, NULL );
 
   //<functionDefinition id="fd">
   //  <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -111,7 +109,7 @@ START_TEST (test_read_MathML_2)
   //    </lambda>
   //  </math>
   //</functionDefinition>
-  /*  fd = m->getFunctionDefinition(1);
+  fd = m->getFunctionDefinition(1);
   const ASTNode *fd1_math = fd->getMath();
 
   fail_unless (fd1_math->getType() == AST_LAMBDA, NULL);
@@ -123,81 +121,105 @@ START_TEST (test_read_MathML_2)
   fail_unless (child1->getType() == AST_FUNCTION_PIECEWISE, NULL);
   fail_unless (child1->getNumChildren() == 2, NULL);
   fail_unless (!strcmp(SBML_formulaToString(child1), 
-                                    "piecewise(p, leq(x, 4)))"), NULL);
+                                    "piecewise(p, leq(x, 4))"), NULL);
 
   ASTNode *c1 = child1->getChild(0);
   fail_unless (c1->getType() == AST_NAME, NULL);
   fail_unless (c1->getNumChildren() == 0, NULL);
   fail_unless (!strcmp(SBML_formulaToString(c1), "p"), NULL);
 
-  ASTNode *c2 = child1->getChild(0);
+  ASTNode *c2 = child1->getChild(1);
   fail_unless (c2->getType() == AST_RELATIONAL_LEQ, NULL);
   fail_unless (c2->getNumChildren() == 2, NULL);
   fail_unless (!strcmp(SBML_formulaToString(c2), "leq(x, 4)"), NULL);
 
-*/
+
   
-  ////<initialAssignment symbol="p1">
-  //  //<math xmlns="http://www.w3.org/1998/Math/MathML">
-  //  //    <piecewise>
-  //  //      <piece>
-  //  //          <apply><minus/><ci> x </ci></apply>
-  //  //          <apply><lt/><ci> x </ci> <cn> 0 </cn></apply>
-  //  //      </piece>
-  //  //      <piece>
-  //  //          <cn> 0 </cn>
-  //  //          <apply><eq/><ci> x </ci> <cn> 0 </cn></apply>
-  //  //      </piece>
-  //  //    </piecewise>
-  //  //</math>
-  ////</initialAssignment>
-  //ia = m->getInitialAssignment(0);
-  //const ASTNode *ia_math = ia->getMath();
+  //<initialAssignment symbol="p1">
+    //<math xmlns="http://www.w3.org/1998/Math/MathML">
+    //    <piecewise>
+    //      <piece>
+    //          <apply><minus/><ci> x </ci></apply>
+    //          <apply><lt/><ci> x </ci> <cn> 0 </cn></apply>
+    //      </piece>
+    //      <piece>
+    //          <cn> 0 </cn>
+    //          <apply><eq/><ci> x </ci> <cn> 0 </cn></apply>
+    //      </piece>
+    //    </piecewise>
+    //</math>
+  //</initialAssignment>
+  ia = m->getInitialAssignment(0);
+  const ASTNode *ia_math = ia->getMath();
 
-  //fail_unless (ia_math->getType() == AST_PIECEWISE, NULL);
-  //fail_unless (ia_math->getNumChildren() == 0, NULL);
-  //fail_unless (!strcmp(SBML_formulaToString(ia_math), ""), NULL);
+  fail_unless (ia_math->getType() == AST_FUNCTION_PIECEWISE, NULL);
+  fail_unless (ia_math->getNumChildren() == 4, NULL);
+  fail_unless (!strcmp(SBML_formulaToString(ia_math), 
+                    "piecewise(-x, lt(x, 0), 0, eq(x, 0))"), NULL);
 
-  ////<algebraicRule>
-  ////  <math xmlns="http://www.w3.org/1998/Math/MathML">
-  ////    <true/>
-  ////  </math>
-  ////</algebraicRule>
-  //r = m->getRule(0);
-  //const ASTNode *r_math = r->getMath();
+  child1 = ia_math->getChild(0);
+  ASTNode *child2 = ia_math->getChild(1);
+  ASTNode *child3 = ia_math->getChild(2);
+  ASTNode *child4 = ia_math->getChild(3);
 
-  //fail_unless (r_math->getType() == AST_CONSTANT_TRUE, NULL);
-  //fail_unless (r_math->getNumChildren() == 0, NULL);
-  //fail_unless (!strcmp(SBML_formulaToString(r_math), "true"), NULL);
+  fail_unless (child1->getType() == AST_MINUS, NULL);
+  fail_unless (child1->getNumChildren() == 1, NULL);
+  fail_unless (!strcmp(SBML_formulaToString(child1), "-x"), NULL);
 
-  ////<assignmentRule variable="p2">
-  ////  <math xmlns="http://www.w3.org/1998/Math/MathML">
-  ////      <infinity/>
-  ////  </math>
-  ////</assignmentRule>
-  //r = m->getRule(1);
-  //const ASTNode *r1_math = r->getMath();
+  fail_unless (child2->getType() == AST_RELATIONAL_LT, NULL);
+  fail_unless (child2->getNumChildren() == 2, NULL);
+  fail_unless (!strcmp(SBML_formulaToString(child2), "lt(x, 0)"), NULL);
 
-  //fail_unless (r1_math->getType() == AST_REAL, NULL);
-  //fail_unless (r1_math->getNumChildren() == 0, NULL);
-  //fail_unless (!strcmp(SBML_formulaToString(r1_math), "INF"), NULL);
+  fail_unless (child3->getType() == AST_REAL, NULL);
+  fail_unless (child3->getNumChildren() == 0, NULL);
+  fail_unless (!strcmp(SBML_formulaToString(child3), "0"), NULL);
 
-  ////<kineticLaw>
-  ////  <math xmlns="http://www.w3.org/1998/Math/MathML">
-  ////    <apply>
-  ////      <cn> 4.5 </cn>
-  ////    </apply>
-  ////  </math>
-  ////  <listOfParameters>
-  ////    <parameter id="k" value="9" units="litre"/>
-  ////  </listOfParameters>
-  ////</kineticLaw>
-  //kl = m->getReaction(0)->getKineticLaw();
-  //const ASTNode *kl_math = kl->getMath();
+  fail_unless (child4->getType() == AST_RELATIONAL_EQ, NULL);
+  fail_unless (child4->getNumChildren() == 2, NULL);
+  fail_unless (!strcmp(SBML_formulaToString(child4), "eq(x, 0)"), NULL);
 
-  //fail_unless (kl_math->getType() == AST_REAL, NULL);
-  //fail_unless (kl_math->getNumChildren() == 0, NULL);
-  //fail_unless (!strcmp(SBML_formulaToString(kl_math), "4.5"), NULL);
+  //<algebraicRule>
+  //  <math xmlns="http://www.w3.org/1998/Math/MathML">
+      //<apply>
+      //<true/>
+      //</apply>
+  //  </math>
+  //</algebraicRule>
+  r = m->getRule(0);
+  const ASTNode *r_math = r->getMath();
+
+  fail_unless (r_math->getType() == AST_CONSTANT_TRUE, NULL);
+  fail_unless (r_math->getNumChildren() == 0, NULL);
+  fail_unless (!strcmp(SBML_formulaToString(r_math), "true"), NULL);
+
+  //<assignmentRule variable="p2">
+  //  <math xmlns="http://www.w3.org/1998/Math/MathML">
+      //<apply>
+      //  <log/>
+      //  <logbase>
+      //    <cn> 3 </cn>
+      //  </logbase>
+      //  <ci> x </ci>
+      //</apply>
+  //  </math>
+  //</assignmentRule>
+  r = m->getRule(1);
+  const ASTNode *r1_math = r->getMath();
+
+  fail_unless (r1_math->getType() == AST_FUNCTION_LOG, NULL);
+  fail_unless (r1_math->getNumChildren() == 2, NULL);
+  fail_unless (!strcmp(SBML_formulaToString(r1_math), "log(3, x)"), NULL);
+
+  child1 = r1_math->getChild(0);
+  child2 = r1_math->getChild(1);
+
+  fail_unless (child1->getType() == AST_REAL, NULL);
+  fail_unless (child1->getNumChildren() == 0, NULL);
+  fail_unless (!strcmp(SBML_formulaToString(child1), "3"), NULL);
+
+  fail_unless (child2->getType() == AST_NAME, NULL);
+  fail_unless (child2->getNumChildren() == 0, NULL);
+  fail_unless (!strcmp(SBML_formulaToString(child2), "x"), NULL);
 
 
   delete d;
