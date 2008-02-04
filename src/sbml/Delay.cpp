@@ -158,9 +158,17 @@ Delay::getDerivedUnitDefinition()
     getSBMLDocument()->getModel()->populateListFormulaUnitsData();
   }
 
-  return getSBMLDocument()->getModel()
-    ->getFormulaUnitsData(getId(), SBML_EVENT)
-    ->getEventTimeUnitDefinition();
+  if (getSBMLDocument()->getModel()
+    ->getFormulaUnitsData(getId(), SBML_EVENT))
+  {
+    return getSBMLDocument()->getModel()
+      ->getFormulaUnitsData(getId(), SBML_EVENT)
+      ->getEventTimeUnitDefinition();
+  }
+  else
+  {
+    return NULL;
+  }
 }
 
 /*
@@ -178,9 +186,17 @@ Delay::containsUndeclaredUnits()
     getSBMLDocument()->getModel()->populateListFormulaUnitsData();
   }
 
-  return (getSBMLDocument()->getModel()
-    ->getFormulaUnitsData(getId(), SBML_EVENT)
-    ->getContainsUndeclaredUnits());
+  if (getSBMLDocument()->getModel()
+    ->getFormulaUnitsData(getId(), SBML_EVENT))
+  {
+    return getSBMLDocument()->getModel()
+      ->getFormulaUnitsData(getId(), SBML_EVENT)
+      ->getContainsUndeclaredUnits();
+  }
+  else
+  {
+    return false;
+  }
 }
 
 

@@ -369,6 +369,11 @@ FunctionDefinition*
 Model::createFunctionDefinition ()
 {
   FunctionDefinition* fd = new FunctionDefinition;
+  
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mFunctionDefinitions.size() == 0)
+    mFunctionDefinitions.setSBMLDocument(this->getSBMLDocument());
+  
   mFunctionDefinitions.appendAndOwn(fd);
 
   return fd;
@@ -382,6 +387,11 @@ UnitDefinition*
 Model::createUnitDefinition ()
 {
   UnitDefinition* ud = new UnitDefinition;
+  
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mUnitDefinitions.size() == 0)
+    mUnitDefinitions.setSBMLDocument(this->getSBMLDocument());
+  
   mUnitDefinitions.appendAndOwn(ud);
 
   return ud;
@@ -410,6 +420,11 @@ CompartmentType*
 Model::createCompartmentType ()
 {
   CompartmentType* ct = new CompartmentType;
+  
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mCompartmentTypes.size() == 0)
+    mCompartmentTypes.setSBMLDocument(this->getSBMLDocument());
+  
   mCompartmentTypes.appendAndOwn(ct);
 
   return ct;
@@ -423,6 +438,11 @@ SpeciesType*
 Model::createSpeciesType ()
 {
   SpeciesType* st = new SpeciesType;
+  
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mSpeciesTypes.size() == 0)
+    mSpeciesTypes.setSBMLDocument(this->getSBMLDocument());
+  
   mSpeciesTypes.appendAndOwn(st);
 
   return st;
@@ -436,6 +456,11 @@ Compartment*
 Model::createCompartment ()
 {
   Compartment* c = new Compartment;
+  
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mCompartments.size() == 0)
+    mCompartments.setSBMLDocument(this->getSBMLDocument());
+  
   mCompartments.appendAndOwn(c);
 
   return c;
@@ -449,6 +474,11 @@ Species*
 Model::createSpecies ()
 {
   Species* s = new Species;
+  
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mSpecies.size() == 0)
+    mSpecies.setSBMLDocument(this->getSBMLDocument());
+  
   mSpecies.appendAndOwn(s);
 
   return s;
@@ -462,6 +492,11 @@ Parameter*
 Model::createParameter ()
 {
   Parameter* p = new Parameter;
+  
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mParameters.size() == 0)
+    mParameters.setSBMLDocument(this->getSBMLDocument());
+  
   mParameters.appendAndOwn(p);
 
   return p;
@@ -475,6 +510,11 @@ InitialAssignment*
 Model::createInitialAssignment ()
 {
   InitialAssignment* ia = new InitialAssignment;
+  
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mInitialAssignments.size() == 0)
+    mInitialAssignments.setSBMLDocument(this->getSBMLDocument());
+  
   mInitialAssignments.appendAndOwn(ia);
 
   return ia;
@@ -488,6 +528,11 @@ AlgebraicRule*
 Model::createAlgebraicRule ()
 {
   AlgebraicRule* ar = new AlgebraicRule;
+  
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mRules.size() == 0)
+    mRules.setSBMLDocument(this->getSBMLDocument());
+  
   mRules.appendAndOwn(ar);
 
   return ar;
@@ -501,6 +546,11 @@ AssignmentRule*
 Model::createAssignmentRule ()
 {
   AssignmentRule* ar = new AssignmentRule;
+  
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mRules.size() == 0)
+    mRules.setSBMLDocument(this->getSBMLDocument());
+  
   mRules.appendAndOwn(ar);
 
   return ar;
@@ -514,6 +564,11 @@ RateRule*
 Model::createRateRule ()
 {
   RateRule* rr = new RateRule();
+  
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mRules.size() == 0)
+    mRules.setSBMLDocument(this->getSBMLDocument());
+  
   mRules.appendAndOwn(rr);
 
   return rr;
@@ -527,6 +582,11 @@ Constraint*
 Model::createConstraint ()
 {
   Constraint* c = new Constraint;
+  
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mConstraints.size() == 0)
+    mConstraints.setSBMLDocument(this->getSBMLDocument());
+  
   mConstraints.appendAndOwn(c);
 
   return c;
@@ -540,6 +600,11 @@ Reaction*
 Model::createReaction ()
 {
   Reaction* r = new Reaction;
+  
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mReactions.size() == 0)
+    mReactions.setSBMLDocument(this->getSBMLDocument());
+  
   mReactions.appendAndOwn(r);
 
   return r;
@@ -640,6 +705,11 @@ Event*
 Model::createEvent ()
 {
   Event* e = new Event;
+  
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mEvents.size() == 0)
+    mEvents.setSBMLDocument(this->getSBMLDocument());
+  
   mEvents.appendAndOwn(e);
 
   return e;
@@ -2293,6 +2363,11 @@ Layout*
 Model::createLayout ()
 {
   Layout* l = new Layout();
+  
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mLayouts.size() == 0)
+    mLayouts.setSBMLDocument(this->getSBMLDocument());
+  
   mLayouts.appendAndOwn(l);
 
   return l;
@@ -2309,6 +2384,16 @@ Model::createLayout ()
 void
 Model::populateListFormulaUnitsData()
 {
+  /* remove list if it already exists */
+  if (mFormulaUnitsData)
+  {  
+    unsigned int size = mFormulaUnitsData->getSize();
+    while (size--) 
+      delete static_cast<FormulaUnitsData*>( mFormulaUnitsData->remove(0) );
+    delete mFormulaUnitsData;
+    mFormulaUnitsData = 0;
+  }
+
   unsigned int n, j;
   char newId[12];
   unsigned int countAlg = 0, countEvents = 0;
@@ -4485,8 +4570,7 @@ Model_createLayout (Model_t *m)
 
 #endif  /* USE_LAYOUT */
 
-/* NOT YET USED but leave in case of future need 
-
+ /*
   * Populates the list of FormulaDataUnits with the units derived 
   * for the model. The list contains elements of class
   * FormulaUnitsData. 
@@ -4511,6 +4595,7 @@ Model_createLayout (Model_t *m)
   * The List is populated prior to running the validation and thus
   * the consistency of units can be checked by accessing the members
   * of the list and comparing the appropriate data.
+  */
 LIBSBML_EXTERN
 void 
 Model_populateListFormulaUnitsData(Model_t *m)
@@ -4519,6 +4604,7 @@ Model_populateListFormulaUnitsData(Model_t *m)
 }
 
 
+/* NOT YET USED but leave in case of future need 
 
   * Adds a copy of the given FormulaUnitsData object to this Model.
   *

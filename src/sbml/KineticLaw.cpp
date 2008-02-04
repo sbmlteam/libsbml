@@ -328,6 +328,11 @@ Parameter*
 KineticLaw::createParameter ()
 {
   Parameter* p = new Parameter();
+  
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mParameters.size() == 0)
+    mParameters.setSBMLDocument(this->getSBMLDocument());
+  
   mParameters.appendAndOwn(p);
 
   return p;
@@ -419,9 +424,17 @@ KineticLaw::getDerivedUnitDefinition()
     getSBMLDocument()->getModel()->populateListFormulaUnitsData();
   }
 
-  return getSBMLDocument()->getModel()
-    ->getFormulaUnitsData(getId(), getTypeCode())
-    ->getUnitDefinition();
+  if (getSBMLDocument()->getModel()
+    ->getFormulaUnitsData(getId(), getTypeCode()))
+  {
+    return getSBMLDocument()->getModel()
+      ->getFormulaUnitsData(getId(), getTypeCode())
+      ->getUnitDefinition();
+  }
+  else
+  {
+    return NULL;
+  }
 }
 
 /*
@@ -439,9 +452,17 @@ KineticLaw::containsUndeclaredUnits()
     getSBMLDocument()->getModel()->populateListFormulaUnitsData();
   }
 
-  return (getSBMLDocument()->getModel()
-    ->getFormulaUnitsData(getId(), getTypeCode())
-    ->getContainsUndeclaredUnits());
+  if (getSBMLDocument()->getModel()
+    ->getFormulaUnitsData(getId(), getTypeCode()))
+  {
+    return getSBMLDocument()->getModel()
+      ->getFormulaUnitsData(getId(), getTypeCode())
+      ->getContainsUndeclaredUnits();
+  }
+  else
+  {
+    return false;
+  }
 }
 
 

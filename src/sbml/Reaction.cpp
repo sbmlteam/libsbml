@@ -371,6 +371,11 @@ SpeciesReference*
 Reaction::createReactant ()
 {
   SpeciesReference* species = new SpeciesReference;
+  
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mReactants.size() == 0)
+    mReactants.setSBMLDocument(this->getSBMLDocument());
+  
   mReactants.appendAndOwn(species);
 
   return species;
@@ -385,6 +390,11 @@ SpeciesReference*
 Reaction::createProduct ()
 {
   SpeciesReference* species = new SpeciesReference;
+  
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mProducts.size() == 0)
+    mProducts.setSBMLDocument(this->getSBMLDocument());
+  
   mProducts.appendAndOwn(species);
 
   return species;
@@ -399,6 +409,11 @@ ModifierSpeciesReference*
 Reaction::createModifier ()
 {
   ModifierSpeciesReference* species = new ModifierSpeciesReference;
+  
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mModifiers.size() == 0)
+    mModifiers.setSBMLDocument(this->getSBMLDocument());
+  
   mModifiers.appendAndOwn(species);
 
   return species;

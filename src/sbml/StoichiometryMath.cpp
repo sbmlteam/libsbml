@@ -342,9 +342,17 @@ StoichiometryMath::getDerivedUnitDefinition()
     getSBMLDocument()->getModel()->populateListFormulaUnitsData();
   }
 
-  return getSBMLDocument()->getModel()
-    ->getFormulaUnitsData(getId(), getTypeCode())
-    ->getUnitDefinition();
+  if (getSBMLDocument()->getModel()
+    ->getFormulaUnitsData(getId(), getTypeCode()))
+  {
+    return getSBMLDocument()->getModel()
+      ->getFormulaUnitsData(getId(), getTypeCode())
+      ->getUnitDefinition();
+  }
+  else
+  {
+    return NULL;
+  }
 }
 
 /*
@@ -362,9 +370,17 @@ StoichiometryMath::containsUndeclaredUnits()
     getSBMLDocument()->getModel()->populateListFormulaUnitsData();
   }
 
-  return (getSBMLDocument()->getModel()
-    ->getFormulaUnitsData(getId(), getTypeCode())
-    ->getContainsUndeclaredUnits());
+  if (getSBMLDocument()->getModel()
+    ->getFormulaUnitsData(getId(), getTypeCode()))
+  {
+    return getSBMLDocument()->getModel()
+      ->getFormulaUnitsData(getId(), getTypeCode())
+      ->getContainsUndeclaredUnits();
+  }
+  else
+  {
+    return false;
+  }
 }
 
 

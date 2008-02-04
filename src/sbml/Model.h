@@ -2111,6 +2111,9 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumEvents (const Model_t *m);
 
+LIBSBML_EXTERN
+void 
+Model_populateListFormulaUnitsData(Model_t *m);
 
 
 #ifdef USE_LAYOUT

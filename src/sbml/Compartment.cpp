@@ -415,9 +415,17 @@ Compartment::getDerivedUnitDefinition()
     getSBMLDocument()->getModel()->populateListFormulaUnitsData();
   }
 
-  return getSBMLDocument()->getModel()
-    ->getFormulaUnitsData(getId(), getTypeCode())
-    ->getUnitDefinition();
+  if (getSBMLDocument()->getModel()
+    ->getFormulaUnitsData(getId(), getTypeCode()))
+  {
+    return getSBMLDocument()->getModel()
+      ->getFormulaUnitsData(getId(), getTypeCode())
+      ->getUnitDefinition();
+  }
+  else
+  {
+    return NULL;
+  }
 }
 
 

@@ -317,6 +317,11 @@ EventAssignment*
 Event::createEventAssignment ()
 {
   EventAssignment* ea = new EventAssignment;
+  
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mEventAssignments.size() == 0)
+    mEventAssignments.setSBMLDocument(this->getSBMLDocument());
+  
   mEventAssignments.appendAndOwn(ea);
 
   return ea;
