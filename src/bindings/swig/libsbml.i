@@ -144,6 +144,8 @@
 %newobject RDFAnnotationParser::createRDFDescription;
 %newobject RDFAnnotationParser::createCVTerms;
 %newobject XMLNode::convertStringToXMLNode;
+%newobject convertUnitToSI;
+%newobject convertToSI;
 
 /**
  * In the wrapped languages, these methods will appear as:
@@ -215,6 +217,8 @@
 %include sbml/SBMLError.h
 
 %include sbml/units/FormulaUnitsData.h
+%include sbml/units/Utils_Unit.h
+%include sbml/units/Utils_UnitDefinition.h
 
 %include sbml/annotation/CVTerm.h
 %include sbml/annotation/ModelHistory.h
