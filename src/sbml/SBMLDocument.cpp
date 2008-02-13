@@ -667,10 +667,30 @@ SBMLDocument::checkConsistency ()
   {
     practice_validator.init();
     nerrors = practice_validator.validate(*this);
-    total_errors += nerrors;
     if (nerrors) 
     {
-      mErrorLog.add( practice_validator.getFailures() );
+      unsigned int errorsAdded = 0;
+      const std::list<SBMLError> practiceErrors = practice_validator.getFailures();
+      list<SBMLError>::const_iterator end = practiceErrors.end();
+      list<SBMLError>::const_iterator iter;
+      for (iter = practiceErrors.begin(); iter != end; ++iter)
+      {
+        if (SBMLError(*iter).getErrorId() != 80701)
+        {
+          mErrorLog.add( SBMLError(*iter) );
+          errorsAdded++;
+        }
+        else
+        {
+          if (units) 
+          {
+            mErrorLog.add( SBMLError(*iter) );
+            errorsAdded++;
+          }
+        }
+      }
+      total_errors += errorsAdded;
+
     }
   }
 

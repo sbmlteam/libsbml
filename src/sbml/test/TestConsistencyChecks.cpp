@@ -120,8 +120,8 @@ START_TEST (test_consistency_checks)
   d->setConsistencyChecks(LIBSBML_CAT_UNITS_CONSISTENCY, false);
   errors = d->checkConsistency();
 
-  fail_unless(errors == 1);
-  fail_unless(d->getError(0)->getErrorId() == 80701);
+  fail_unless(errors == 0);
+ /* fail_unless(d->getError(0)->getErrorId() == 80701);*/
 
   delete d;
 }
