@@ -2191,150 +2191,146 @@ SBase::checkAnnotation()
 void
 SBase::checkXHTML(const XMLNode * xhtml)
 {
-  /* only apply to L2v2 and L2v3 */
-  if (getLevel() == 2 && getVersion() > 1)
+  const string&  name = xhtml->getName();
+  unsigned int i, errorNS, errorXML, errorDOC, errorELEM;
+  int n;
+
+  if (name == "notes")
   {
-    const string&  name = xhtml->getName();
-    unsigned int i, errorNS, errorXML, errorDOC, errorELEM;
-    int n;
+    errorNS   = NotesNotInXHTMLNamespace;
+    errorXML  = NotesContainsXMLDecl;
+    errorDOC  = NotesContainsDOCTYPE;
+    errorELEM = InvalidNotesContent;
+  }
+  else if (name == "message")
+  {
+    errorNS   = ConstraintNotInXHTMLNamespace;
+    errorXML  = ConstraintContainsXMLDecl;
+    errorDOC  = ConstraintContainsDOCTYPE;
+    errorELEM = InvalidConstraintContent;
+  }
+  else                                  // We shouldn't ever get to this point.
+  {
+    logError(UnknownError);
+    return;
+  }
 
-    if (name == "notes")
+  /*
+  * errors relating to a misplaced XML or DOCTYPE declaration 
+  * will also cause a parser error.
+  * since parsing will terminate at this error, then if it has occurred
+  * it will be in the XML currently being checked and so a more
+  * informative message can be added
+  */
+  for (i = 0; i < getErrorLog()->getNumErrors(); i++)
+  {
+    if (getErrorLog()->getError(i)->getErrorId() == BadXMLDeclLocation)
     {
-      errorNS   = NotesNotInXHTMLNamespace;
-      errorXML  = NotesContainsXMLDecl;
-      errorDOC  = NotesContainsDOCTYPE;
-      errorELEM = InvalidNotesContent;
+      logError(errorXML);
     }
-    else if (name == "message")
+    if (getErrorLog()->getError(i)->getErrorId() == BadlyFormedXML)
     {
-      errorNS   = ConstraintNotInXHTMLNamespace;
-      errorXML  = ConstraintContainsXMLDecl;
-      errorDOC  = ConstraintContainsDOCTYPE;
-      errorELEM = InvalidConstraintContent;
+      logError(errorDOC);
     }
-    else                                  // We shouldn't ever get to this point.
-    {
-      logError(UnknownError);
-      return;
-    }
+  }
 
-    /*
-    * errors relating to a misplaced XML or DOCTYPE declaration 
-    * will also cause a parser error.
-    * since parsing will terminate at this error, then if it has occurred
-    * it will be in the XML currently being checked and so a more
-    * informative message can be added
-    */
-    for (i = 0; i < getErrorLog()->getNumErrors(); i++)
+  /*
+  * namespace declaration is variable
+  * if a whole html tag has been used
+  * or a whole body tag then namespace can be implicitly declared
+  *
+  * HOWEVER if more than one permitted elements have been used 
+  * each MUST explicitly declare the namespace
+  */
+  bool implicitNSdecl = false;
+  if( mSBML->getNamespaces() != NULL)
+  /* check for implicit declaration */
+  {
+    for (n = 0; n < mSBML->getNamespaces()->getLength(); n++)
     {
-      if (getErrorLog()->getError(i)->getErrorId() == BadXMLDeclLocation)
+      if (!strcmp(mSBML->getNamespaces()->getURI(n).c_str(), 
+                                        "http://www.w3.org/1999/xhtml"))
       {
-        logError(errorXML);
-      }
-      if (getErrorLog()->getError(i)->getErrorId() == BadlyFormedXML)
-      {
-        logError(errorDOC);
-      }
-    }
-
-    /*
-    * namespace declaration is variable
-    * if a whole html tag has been used
-    * or a whole body tag then namespace can be implicitly declared
-    *
-    * HOWEVER if more than one permitted elements have been used 
-    * each MUST explicitly declare the namespace
-    */
-    bool implicitNSdecl = false;
-    if( mSBML->getNamespaces() != NULL)
-    /* check for implicit declaration */
-    {
-      for (n = 0; n < mSBML->getNamespaces()->getLength(); n++)
-      {
-        if (!strcmp(mSBML->getNamespaces()->getURI(n).c_str(), 
-                                          "http://www.w3.org/1999/xhtml"))
-        {
-          implicitNSdecl = true;
-          break;
-        }
+        implicitNSdecl = true;
+        break;
       }
     }
+  }
 
-    unsigned int children = xhtml->getNumChildren();
-    static const int size = sizeof(XHTML_ELEMENTS) / sizeof(XHTML_ELEMENTS[0]);
+  unsigned int children = xhtml->getNumChildren();
+  static const int size = sizeof(XHTML_ELEMENTS) / sizeof(XHTML_ELEMENTS[0]);
 
-    int index;
-    bool found;
-    bool match;
-    if (children > 1)
+  int index;
+  bool found;
+  bool match;
+  if (children > 1)
+  {
+    /* each element must declare namespace */
+    for (i=0; i < children; i++)
     {
-      /* each element must declare namespace */
-      for (i=0; i < children; i++)
-      {
-        const char * top = xhtml->getChild(i).getName().c_str();
+      const char * top = xhtml->getChild(i).getName().c_str();
 
-        index = util_bsearchStringsI(XHTML_ELEMENTS, top, 0, size - 1);
-        found = (index < size);
-
-        if (!found)
-        {
-          logError(errorELEM);
-        }
-        else
-        {
-          const XMLToken elem = xhtml->getChild(i);
-          match = false;
-          for (n = 0; n < elem.getNamespaces().getLength(); n++)
-          {
-            if (!strcmp(elem.getNamespaces().getURI(n).c_str(), 
-                                                "http://www.w3.org/1999/xhtml"))
-            {
-              match = true;
-              break;
-            }
-          }
-          if (!match)
-          {
-            logError(errorELEM);
-          }
-        }
-      }
-
-    }
-    else
-    {
-      /* only one element which can be html or body with either implicit/explicit
-      * namespace declaration
-      * OR could be one of the listed elements.
-      */
-
-      const XMLToken top_elem = xhtml->getChild(0);
-      const string& top_name = top_elem.getName();
-      const char* top_name_c = top_name.c_str();
-      index = util_bsearchStringsI(XHTML_ELEMENTS, top_name_c, 0, size - 1);
+      index = util_bsearchStringsI(XHTML_ELEMENTS, top, 0, size - 1);
       found = (index < size);
-    
 
-      if (top_name != "html" && top_name != "body" && !found)
+      if (!found)
       {
         logError(errorELEM);
       }
       else
       {
+        const XMLToken elem = xhtml->getChild(i);
         match = false;
-        for (n = 0; n < top_elem.getNamespaces().getLength(); n++)
+        for (n = 0; n < elem.getNamespaces().getLength(); n++)
         {
-          if (!strcmp(top_elem.getNamespaces().getURI(n).c_str(), 
-                                                "http://www.w3.org/1999/xhtml"))
+          if (!strcmp(elem.getNamespaces().getURI(n).c_str(), 
+                                              "http://www.w3.org/1999/xhtml"))
           {
             match = true;
             break;
           }
         }
-        if (!implicitNSdecl && !match)
+        if (!match)
         {
-          logError(errorNS);
+          logError(errorELEM);
         }
+      }
+    }
+
+  }
+  else
+  {
+    /* only one element which can be html or body with either implicit/explicit
+    * namespace declaration
+    * OR could be one of the listed elements.
+    */
+
+    const XMLToken top_elem = xhtml->getChild(0);
+    const string& top_name = top_elem.getName();
+    const char* top_name_c = top_name.c_str();
+    index = util_bsearchStringsI(XHTML_ELEMENTS, top_name_c, 0, size - 1);
+    found = (index < size);
+  
+
+    if (top_name != "html" && top_name != "body" && !found)
+    {
+      logError(errorELEM);
+    }
+    else
+    {
+      match = false;
+      for (n = 0; n < top_elem.getNamespaces().getLength(); n++)
+      {
+        if (!strcmp(top_elem.getNamespaces().getURI(n).c_str(), 
+                                              "http://www.w3.org/1999/xhtml"))
+        {
+          match = true;
+          break;
+        }
+      }
+      if (!implicitNSdecl && !match)
+      {
+        logError(errorNS);
       }
     }
   }

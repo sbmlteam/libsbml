@@ -85,7 +85,8 @@ SBMLErrorLog::logError ( const unsigned int errorId
 void
 SBMLErrorLog::add (const SBMLError& error)
 {
-  XMLErrorLog::add(dynamic_cast<const XMLError&>(error));
+  if (error.getSeverity() != LIBSBML_SEV_NOT_APPLICABLE)
+    XMLErrorLog::add(dynamic_cast<const XMLError&>(error));
 }
 
 
