@@ -37,27 +37,30 @@
  *
  * 1. wraps std::cout
  *
- *    xos = libsbml.XMLOutputStream(libsbml.cout);
+ *    xos = libsbml.XMLOutputStream(libsbml.cout)
  *
  * 2. wraps std::cerr
  *
- *    d = libsbml.readSBML("foo.xml");
- *    if ( d.getNumErrors() > 0) {
- *       d.printErrors(libsbml.cerr);
- *    }
+ *    d = libsbml.readSBML("foo.xml")
+ *    if d.getNumErrors() > 0 :
+ *       d.printErrors(libsbml.cerr)
+ *    
  *
  * 3. wraps std::ostringstream
  *
- *    oss = libsbml.ostringstream();
- *    xos = libsbml.XMLOutputStream(oss);
+ *    oss = libsbml.ostringstream()
+ *    xos = libsbml.XMLOutputStream(oss)
  *    ...
- *    libsbml.endl(oss);
- *    s = oss.str();
+ *    libsbml.endl(oss)
+ *    s = oss.str()
  * 
  */
 %include <std_alloc.i>
 %include <std_basic_string.i>
 %include <std_string.i>
+
+#pragma SWIG nowarn=509
+%warnfilter(401) basic_ios<char>;
 
 namespace std
 {
