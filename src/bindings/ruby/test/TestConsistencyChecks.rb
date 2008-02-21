@@ -63,8 +63,7 @@ class TestConsistencyChecks < Test::Unit::TestCase
     d.getErrorLog().clearLog()
     d.setConsistencyChecks(LibSBML::LIBSBML_CAT_UNITS_CONSISTENCY,false)
     errors = d.checkConsistency()
-    assert( errors == 1 )
-    assert( d.getError(0).getErrorId() == 80701 )
+    assert( errors == 0 )
     d = nil
   end
 

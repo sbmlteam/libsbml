@@ -65,8 +65,7 @@ class TestConsistencyChecks(unittest.TestCase):
     d.getErrorLog().clearLog()
     d.setConsistencyChecks(libsbml.LIBSBML_CAT_UNITS_CONSISTENCY,False)
     errors = d.checkConsistency()
-    self.assert_( errors == 1 )
-    self.assert_( d.getError(0).getErrorId() == 80701 )
+    self.assert_( errors == 0 )
     d = None
     pass  
 
