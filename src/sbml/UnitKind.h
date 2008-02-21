@@ -24,39 +24,8 @@
  * @var typedef enum UnitKind_t
  * @brief Enumeration of predefined SBML base units
  *
- * SBML defines a set of base units which serves as the starting point for
- * new unit definitions.  This set of base units consists of the SI units
- * and a small number of additional convenience units.  Until SBML Level 2
- * Version 3, there existed a data type in the SBML specifications called
- * @c UnitKind, enumerating the possible SBML base units; although SBML
- * Level 2 Version 3 removed this type from the specification, libSBML
- * maintains the corresponding enumeration type #UnitKind_t as a convenience
- * and a way to provide backward compatibility to previous SBML
- * Level/Version specifications.  (The removal in SBML Level 2 Version 3 of
- * the enumeration @c UnitKind was also accompanied by the redefinition of
- * @c UnitSId to include the previous @c UnitKind values as reserved
- * symbols in the @c UnitSId space.  This change has no net effect on
- * permissible models, their representation or their syntax.  The purpose
- * of the change in the SBML specification was simply to clean up an
- * inconsistency about the contexts in which these values were usable.)
- *
- * The #UnitKind_t enumeration in libSBML has a small number of differences
- * compared to the SBML specifications:
- * <ul>
- * <li> The alternate spelling @c "meter" is included in addition to the
- * official SI spelling @c "metre".
- *
- * <li> The alternate spelling @c "liter" is included in addition to the
- * official SI spelling @c "litre".
- *
- * <li> The unit @c "Celsius" is included because of its presence in
- * specifications of SBML prior to SBML Level 2 Version 3.
- * </ul>
+ * Please refer to the class documentation for Unit.
  * 
- * Readers are directed to the descriptions of the UnitDefinition_t
- * and Unit_t data structures for more information about units in SBML
- * and the use of the #UnitKind_t enumeraion.
- *
  * @see UnitDefinition_t
  * @see Unit_t
  */
