@@ -26,8 +26,115 @@
 
 %trackobjects;
 
-%include "std_iostream.i"
-%include "std_sstream.i"
+#pragma SWIG nowarn=509
+%warnfilter(365) operator+=;
+%warnfilter(401) basic_ios<char>;    
+%warnfilter(801) basic_string<char>; 
+
+/**
+ *  Wraps std::cout, std::cerr, std::clog, std::ostream, and std::ostringstream, 
+ *
+ * (sample code) -----------------------------------------------------
+ *
+ * 1. wraps std::cout
+ *
+ *    xos = LibSBML::XMLOutputStream.new(LibSBML::cout)
+ *
+ * 2. wraps std::cerr
+ *
+ *    d = LibSBML::readSBML("foo.xml")
+ *    if ( d.getNumErrors > 0 ) 
+ *       d.printErrors(LibSBML::cerr)
+ *    end
+ *
+ * 3. wraps std::ostringstream
+ *
+ *    oss = LibSBML::Ostringstream.new()
+ *    xos = LibSBML::XMLOutputStream.new(oss)
+ *    ...
+ *    LibSBML::endl(oss)
+ *    s = oss.str();
+ * 
+ */
+
+%include <std_alloc.i>
+%include <std_basic_string.i>
+%include <std_string.i>
+
+namespace std
+{
+  // Template class basic ios
+  template<typename _CharT, typename _Traits = char_traits<_CharT> >
+  class basic_ios : public ios_base {};
+
+  // Template class basic_ostream
+  template<typename _CharT, typename _Traits = char_traits<_CharT> >
+  class basic_ostream : virtual public basic_ios<_CharT, _Traits> 
+  {
+    public:
+      explicit
+      basic_ostream(std::basic_streambuf<_CharT, _Traits>* __sb);
+      virtual 
+      ~basic_ostream();
+  };
+
+  // Template class basic_ostringstream
+  template<typename _CharT, typename _Traits = char_traits<_CharT>,
+           typename _Alloc = allocator<_CharT> >
+  class basic_ostringstream : public basic_ostream<_CharT, _Traits>
+  {
+    public:
+      explicit
+      basic_ostringstream(std::ios_base::openmode __mode = std::ios_base::out);
+      ~basic_ostringstream();
+
+      basic_string<_CharT, _Traits, _Alloc> 
+      str() const;
+
+      void
+      str(const basic_string<_CharT, _Traits, _Alloc>& __s);
+  };
+
+  template<typename _CharT, typename _Traits = char_traits<_CharT> >
+  basic_ostream<_CharT, _Traits>& 
+  endl(basic_ostream<_CharT, _Traits>&);
+
+  template<typename _CharT, typename _Traits = char_traits<_CharT> >
+  basic_ostream<_CharT, _Traits>& 
+  flush(basic_ostream<_CharT, _Traits>&);
+}
+
+namespace std
+{
+  /**
+   *  std::ostream and std::ostringstream 
+   *  (std::ios is not wrapped)
+   */
+  typedef basic_ios<char>           ios;
+  typedef basic_ostream<char>       ostream ;
+  typedef basic_ostringstream<char> ostringstream ;
+
+  %template()              basic_ios<char>;
+  %template(Ostream)       basic_ostream<char>;
+  %template(Ostringstream) basic_ostringstream<char>;
+
+  /**
+   *  output manipulators
+   */
+  %template(endl)  endl<char, char_traits<char> >;
+  %template(flush) flush<char, char_traits<char> >;
+
+  /**
+   *  std::cout, std::cerr, and std::clog.
+   */
+  %immutable;
+  extern std::ostream cout;
+  extern std::ostream cerr;
+  extern std::ostream clog;
+  %mutable;
+}
+
+
 
 /**
  * Convert an SBase object to a string.
