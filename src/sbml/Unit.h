@@ -36,9 +36,9 @@
  * inside UnitDefinition instances.
  *
  * A Unit structure has four attributes named "kind", "exponent", "scale"
- * and "multiplier.  It represents a (possibly transformed) reference to a
+ * and "multiplier".  It represents a (possibly transformed) reference to a
  * base unit.  The attribute "kind" on Unit indicates the chosen base unit.
- * Its value in SBML Level 2 Version 3 must be one of the following
+ * Its value in SBML Level&nbsp;2 Version&nbsp;3 must be one of the following
  * predefined strings:
  *
  * <table align="center" style="font-family: Courier, fixed; font-weight: bold; font-size: 12px;" cellspacing="7" border="0">
@@ -50,6 +50,7 @@
  * <tr><td>farad</td><td>joule</td><td>lux</td><td>radian</td><td>volt</td></tr>
  * </table>
  *
+ * (See also the definition of <a class="el" href="#UnitKind_t">UnitKind_t</a> below.)
  * The optional attribute named "exponent" on Unit represents an exponent
  * on the unit.  Its default value is @c 1 (one).  A Unit structure also
  * has an optional attribute called "scale"; its value must be an integer
@@ -65,28 +66,110 @@
  * of a @c metre.  The "multiplier" attribute has a default value of @c 1
  * (one).
  * 
- * @warning In %SBML Level 2 Version 1, Unit had an additional field called
- * "offset".  This attribute has been removed entirely in Level 2 Versions
- * 2 and 3.  As a necessary consequence, the predefined unit @c Celsius is
- * also not defined in Level 2 Versions 2 and 3.  Modelers and software
- * need to account for units with offsets explicitly.  The %SBML
- * specification document offers a number of suggestions for how to achieve
- * this.  The current version of LibSBML retains methods related to the
- * "offset" attribute and the predefined unit @c Celsius for compatibility
- * with earlier versions of SBML Level 2, but their use is strongly
- * discouraged because the constructs cannot appear directly in SBML Level
- * 2 Version 3.
+ * @warning In %SBML Level&nbsp;2 Version&nbsp;1, Unit had an additional
+ * field called "offset".  This attribute has been removed entirely in
+ * Level&nbsp;2 Versions&nbsp;2 and&nbsp;3.  As a necessary consequence,
+ * the predefined unit @c Celsius is also not defined in Level&nbsp;2
+ * Versions&nbsp;2 and&nbsp;3.  Modelers and software tools need to account
+ * for units with offsets explicitly.  The %SBML specification document
+ * offers a number of suggestions for how to achieve this.  The current
+ * version of LibSBML retains methods related to the "offset" attribute and
+ * the predefined unit @c Celsius for compatibility with earlier versions
+ * of SBML Level&nbsp;2, but their use is strongly discouraged because the
+ * constructs cannot appear directly in SBML Level&nbsp;2 Version&nbsp;3.
  * 
- * @note Another change in SBML Level 2 Version 3 is the removal of the
- * enumeration @c UnitKind and the redefinition of @c UnitSId to include
- * the previous @c UnitKind values as reserved symbols in the @c UnitSId
- * space.  This change has no net effect on permissible models, their
- * representation or their syntax.  The purpose of the change in the SBML
- * specification was simply to clean up an inconsistency about the contexts
- * in which these values were usable.  However, LibSBML <em>maintains
- * UnitKind</em> (in the form of the type definition #UnitKind_t) to simply
- * the treatment of different levels and versions of SBML.
+ * @note Another change in SBML Level&nbsp;2 Version&nbsp;3 is the removal
+ * of the enumeration @c UnitKind and the redefinition of @c UnitSId to
+ * include the previous @c UnitKind values as reserved symbols in the @c
+ * UnitSId space.  This change has no net effect on permissible models,
+ * their representation or their syntax.  The purpose of the change in the
+ * SBML specification was simply to clean up an inconsistency about the
+ * contexts in which these values were usable.  However, LibSBML
+ * <em>maintains UnitKind</em> (in the form of the type definition <a
+ * class="el" href="#UnitKind_t">UnitKind_t</a>) to simply the treatment of
+ * different levels and versions of SBML.
  *
+ * <h3><a class="anchor" name="UnitKind_t">UnitKind_t</a></h3>
+ *
+ * SBML defines a set of base units which serves as the starting point for
+ * new unit definitions.  This set of base units consists of the SI units
+ * and a small number of additional convenience units.  Until SBML Level&nbsp;2
+ * Version&nbsp;3, there existed a data type in the SBML specifications called
+ * @c UnitKind, enumerating the possible SBML base units.  Although SBML
+ * Level&nbsp;2 Version&nbsp;3 removed this type from the language specification,
+ * libSBML maintains the corresponding enumeration type UnitKind_t as a
+ * convenience and a way to provide backward compatibility to previous SBML
+ * Level/Version specifications.  (The removal in SBML Level&nbsp;2 Version&nbsp;3 of
+ * the enumeration @c UnitKind was also accompanied by the redefinition of
+ * @c UnitSId to include the previous @c UnitKind values as reserved
+ * symbols in the @c UnitSId space.  This change has no net effect on
+ * permissible models, their representation or their syntax.  The purpose
+ * of the change in the SBML specification was simply to clean up an
+ * inconsistency about the contexts in which these values were usable.)
+ *
+ * The UnitKind_t enumeration in libSBML has a small number of differences
+ * compared to the SBML specifications:
+ * <ul>
+ * <li> The alternate spelling @c "meter" is included in addition to the
+ * official SI spelling @c "metre".
+ *
+ * <li> The alternate spelling @c "liter" is included in addition to the
+ * official SI spelling @c "litre".
+ *
+ * <li> The unit @c "Celsius" is included because of its presence in
+ * specifications of SBML prior to SBML Level&nbsp;2 Version&nbsp;3.
+ * </ul>
+ *
+ * <center>
+ * <table width="90%" cellspacing="1" cellpadding="1" border="0" class="normal-font">
+ *  <tr style="background: lightgray" class="normal-font">
+ *      <td width="40%"><strong>Enumerator</strong></td>
+ *      <td><strong>Meaning</strong></td>
+ *  </tr>
+ * <tr><td><em>UNIT_KIND_AMPERE</em></td><td>The ampere unit</td></tr>
+ * <tr><td><em>UNIT_KIND_BECQUEREL</em></td><td>The becquerel unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_CANDELA</em></td><td>The candela unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_CELSIUS</em></td><td>The Celsius unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_COULOMB</em></td><td>The coulomb unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_DIMENSIONLESS</em></td><td>A pseudo-unit
+ * indicating a dimensionless quantity.  (This is in fact defined in the
+ * SBML specification.)</td></tr>
+ * <tr><td><em>UNIT_KIND_FARAD</em></td><td>The farad unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_GRAM</em></td><td>The gram unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_GRAY</em></td><td>The gray unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_HENRY</em></td><td>The henry unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_HERTZ</em></td><td>The hertz unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_ITEM</em></td><td>A pseudo-unit representing a
+ * single "thing". (This is in fact defined in the
+ * SBML specification.)</td></tr>
+ * <tr><td><em>UNIT_KIND_JOULE</em></td><td>The joule unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_KATAL</em></td><td>The katal unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_KELVIN</em></td><td>The kelvin unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_KILOGRAM</em></td><td>The kilogram unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_LITER</em></td><td>Alternate spelling of litre.</td></tr>
+ * <tr><td><em>UNIT_KIND_LITRE</em></td><td>The litre unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_LUMEN</em></td><td>The lumen unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_LUX</em></td><td>The lux unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_METER</em></td><td>Alternate spelling of metre.</td></tr>
+ * <tr><td><em>UNIT_KIND_METRE</em></td><td>The metre unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_MOLE</em></td><td>The mole unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_NEWTON</em></td><td>The newton unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_OHM</em></td><td>The ohm unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_PASCAL</em></td><td>The pascal unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_RADIAN</em></td><td>The radian unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_SECOND</em></td><td>The second unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_SIEMENS</em></td><td>The siemens unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_SIEVERT</em></td><td>The sievert unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_STERADIAN</em></td><td>The steradian unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_TESLA</em></td><td>The tesla unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_VOLT</em></td><td>The volt unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_WATT</em></td><td>The watt unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_WEBER</em></td><td>The weber unit.</td></tr>
+ * <tr><td><em>UNIT_KIND_INVALID</em></td><td></td>Marker used by libSBML
+ * to indicate an invalid or unset unit.</tr>
+ * </table>
+ * </center>
+ * 
  *
  * @class ListOfUnits
  * @brief Container class for lists of Unit objects in a UnitDefinition.
@@ -127,11 +210,11 @@ public:
 
   /**
    * Creates a new Unit, optionally with specific values of @p kind (given
-   * a value from the #UnitKind_t enumeration), @p exponent, @p scale and @p
-   * multipler.
+   * a value from the <a class="el" href="#UnitKind_t">UnitKind_t</a>
+   * enumeration), @p exponent, @p scale and @p multipler.
    *
    * If no arguments are passed to this constructor, the value of @p kind
-   * defaults to UNIT_KIND_INVALID.  Callers must reset the value to
+   * defaults to @c UNIT_KIND_INVALID.  Callers must reset the value to
    * something appropriate using the Unit::setKind() method.  The use of
    * arguments to this constructor is functionally equivalent to the
    * following:
@@ -146,8 +229,9 @@ public:
    * Readers are urged to read the description of the Unit class for more
    * information about the meaning of the arguments to this constructor.
    *
-   * @param kind a value from the #UnitKind_t enumeration naming the base
-   * unit serving as the basis of this particular unit definition
+   * @param kind a value from the <a class="el"
+   * href="#UnitKind_t">UnitKind_t</a> enumeration naming the base unit
+   * serving as the basis of this particular unit definition
    * 
    * @param exponent an integer, the "exponent" attribute of the unit
    * definition 
@@ -180,7 +264,7 @@ public:
    * as a string), @p exponent, @p scale and @p multipler.
    *
    * If no arguments are passed to this constructor, the value of @p kind
-   * defaults to UNIT_KIND_INVALID.  Callers must reset the value to
+   * defaults to @c UNIT_KIND_INVALID.  Callers must reset the value to
    * something appropriate using the Unit::setKind() method.  The use of
    * arguments to this constructor is functionally equivalent to the
    * following: 
@@ -196,9 +280,9 @@ public:
    * Readers are urged to read the description of the Unit class for more
    * information about the meaning of the arguments to this constructor.
    * 
-   * @param kind a string corresponding to a value from the #UnitKind_t
-   * enumeration naming the base unit serving as the basis of this
-   * particular unit definition
+   * @param kind a string corresponding to a value from the <a class="el"
+   * href="#UnitKind_t">UnitKind_t</a> enumeration naming the base unit
+   * serving as the basis of this particular unit definition
    * 
    * @param exponent an integer, the "exponent" attribute of the unit
    * definition 
@@ -282,7 +366,7 @@ public:
    * Returns the "kind" of Unit this is.
    * 
    * @return the value of the "kind" attribute of this Unit as a value from
-   * the #UnitKind_t enumeration
+   * the <a class="el" href="#UnitKind_t">UnitKind_t</a> enumeration
    */
   UnitKind_t getKind () const;
 
@@ -314,14 +398,15 @@ public:
   /**
    * Returns the value of the "offset" attribute of this Unit.
    *
-   * @warning The "offset" attribute is only available in SBML Level 2
-   * Version 1.  This attribute is not present in SBML Level 2 Version 2 or
-   * above.  When producing SBML models using these later specifications,
-   * Modelers and software need to account for units with offsets
-   * explicitly.  The %SBML specification document offers a number of
-   * suggestions for how to achieve this.  LibSBML methods such as this one
-   * related to "offset" are retained for compatibility with earlier
-   * versions of SBML Level 2, but their use is strongly discouraged.
+   * @warning The "offset" attribute is only available in SBML Level&nbsp;2
+   * Version&nbsp;1.  This attribute is not present in SBML Level&nbsp;2
+   * Version&nbsp;2 or above.  When producing SBML models using these later
+   * specifications, modelers and software tools need to account for units
+   * with offsets explicitly.  The %SBML specification document offers a
+   * number of suggestions for how to achieve this.  LibSBML methods such
+   * as this one related to "offset" are retained for compatibility with
+   * earlier versions of SBML Level&nbsp;2, but their use is strongly
+   * discouraged.
    * 
    * @return the "offset" value of this Unit, as a double
    */
@@ -362,11 +447,11 @@ public:
    * otherwise. 
    *
    * @warning The predefined unit @c Celsius was removed from the list of
-   * predefined units in SBML Level 2 Version 3 at the same time that the
-   * "offset" attribute was removed from Unit definitions.  LibSBML methods
-   * such as this one related to @c Celsius are retained for compatibility
-   * with earlier versions of SBML Level 2, but their use is strongly
-   * discouraged.
+   * predefined units in SBML Level&nbsp;2 Version&nbsp;3 at the same time
+   * that the "offset" attribute was removed from Unit definitions.
+   * LibSBML methods such as this one related to @c Celsius are retained
+   * for compatibility with earlier versions of SBML Level&nbsp;2, but
+   * their use is strongly discouraged.
    */
   bool isCelsius () const;
 
@@ -648,7 +733,8 @@ public:
   /**
    * Sets the "kind" attribute value of this Unit.
    *
-   * @param kind a value from the #UnitKind_t enumeration
+   * @param kind a value from the <a class="el"
+   * href="#UnitKind_t">UnitKind_t</a> enumeration
    */
   void setKind (UnitKind_t kind);
 
@@ -684,14 +770,15 @@ public:
    * @param value the float-point value to which the attribute "offset"
    * should set
    *
-   * @warning The "offset" attribute is only available in SBML Level 2
-   * Version 1.  This attribute is not present in SBML Level 2 Version 2 or
-   * above.  When producing SBML models using these later specifications,
-   * Modelers and software need to account for units with offsets
-   * explicitly.  The %SBML specification document offers a number of
-   * suggestions for how to achieve this.  LibSBML methods such as this one
-   * related to "offset" are retained for compatibility with earlier
-   * versions of SBML Level 2, but their use is strongly discouraged.
+   * @warning The "offset" attribute is only available in SBML Level&nbsp;2
+   * Version&nbsp;1.  This attribute is not present in SBML Level&nbsp;2
+   * Version&nbsp;2 or above.  When producing SBML models using these later
+   * specifications, modelers and software tools need to account for units
+   * with offsets explicitly.  The %SBML specification document offers a
+   * number of suggestions for how to achieve this.  LibSBML methods such
+   * as this one related to "offset" are retained for compatibility with
+   * earlier versions of SBML Level&nbsp;2, but their use is strongly
+   * discouraged.
    */
   void setOffset (double value);
 
@@ -699,8 +786,8 @@ public:
   /**
    * Returns the libSBML type code of this object instance.
    *
-   * @return the #SBMLTypeCode_t value of this SBML object or SBML_UNKNOWN 
-   * (default).
+   * @return the #SBMLTypeCode_t value of this SBML object or @c
+   * SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */
@@ -747,7 +834,7 @@ public:
    * @return @c true if name is a valid UnitKind, @c false otherwise
    *
    * @note the enumeration of allowed units changes between Levels 1 and 2 and
-   * again between Level 2 Versions 1 and 2.
+   * again between Level&nbsp;2 Versions 1 and 2.
    */
   static bool isUnitKind (const std::string& name, unsigned int level,
                                                     unsigned int version);
@@ -776,7 +863,7 @@ protected:
 
   /**
    * Predicate to test whether a given string is the name of a valid
-   * base unit in SBML Level 1(such as @c "gram" or @c "mole")
+   * base unit in SBML Level 1 (such as @c "gram" or @c "mole")
    *
    * @param name a string to be tested
    * 
@@ -786,8 +873,9 @@ protected:
 
 
   /**
-   * Predicate to test whether a given string is the name of a valid
-   * base unit in SBML Level 2 Version 1(such as @c "gram" or @c "mole")
+   * Predicate to test whether a given string is the name of a valid base
+   * unit in SBML Level&nbsp;2 Version&nbsp;1 (such as @c "gram" or @c
+   * "mole")
    *
    * @param name a string to be tested
    * 
@@ -796,8 +884,9 @@ protected:
   static bool isL2V1UnitKind (const std::string& name);
 
   /**
-   * Predicate to test whether a given string is the name of a valid
-   * base unit in SBML Level 2 Version 2 or 3 (such as @c "gram" or @c "mole")
+   * Predicate to test whether a given string is the name of a valid base
+   * unit in SBML Level&nbsp;2 Version&nbsp;2 or 3 (such as @c "gram" or @c
+   * "mole")
    *
    * @param name a string to be tested
    * 
@@ -830,7 +919,8 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @return the #SBMLTypeCode_t value of this object or SBML_UNKNOWN (default).
+   * @return the #SBMLTypeCode_t value of this object or @c SBML_UNKNOWN
+   * (default).
    *
    * @see getElementName()
    */
@@ -842,7 +932,7 @@ public:
    * (i.e., Unit objects, if the list is non-empty).
    * 
    * @return the #SBMLTypeCode_t value of SBML objects contained in this
-   * ListOf or SBML_UNKNOWN (default).
+   * ListOf or @c SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */
