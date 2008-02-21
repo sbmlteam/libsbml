@@ -46,8 +46,8 @@
  * to find out the error code and associated information such as the error
  * severity, the message, and the line number in the input.
  *
- * If a user program wants to simply display the errors to humans, an
- * easier and more direct way is to use SBMLDocument::printErrors().
+ * If you wish to simply print the error strings for a human to read, an
+ * easier and more direct way might be to use SBMLDocument::printErrors().
  */
 
 #ifndef SBMLErrorLog_h
