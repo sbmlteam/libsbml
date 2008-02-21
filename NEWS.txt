@@ -1,12 +1,33 @@
            libsbml NEWS -- History of user-visible changes
     
     
- === (next release) ===
+ === Version 3.1.0 (released 2008-02-22) ===
 
 * Bug fixes:
 
+  - There were cases where warnings/errors that were not applicable
+    to the particular level and version of SBML were being reported.
+    This has now been corrected.
+
+  - The ModelingPractice validator now only reports warnings related
+    to units if the UnitConsistency validator is enabled.
+
+  - The utility functions for unitDefinitions and units in files 
+    Utils_UnitDefinition.cpp/.h and Utils_Units.cpp/.h were missing 
+    from the language bindings. They are now included.
+
+  - Tracker issue #1892238.
+    Fixed a bug that meant the name of a nested functionDefinition
+    was being lost during the unit checking process.
+    
+  - Tracker issue #1883605.
+    It seems that when a new object was created within a model where
+    this new object was the first of its type, e.g., the first element 
+    of a ListOfRules, the parent document for the object was not set.
+    This has now been corrected.
+
   - Tracker issue #1881852.
-    Fixed a bug that meant that caused a crash when checking
+    Fixed a bug that caused a crash when checking
     the consistency of variables used in a StoichiometryMath
     element. Added validation files that would have caught this.
     Thanks to Chris Meyers for reporting this.
@@ -16,8 +37,6 @@
     did not propagate for the use of piecewise within a lambda
     function. This is now fixed and multiple tests included to catch
     this and similar potential failures.
-
-* New features:
 
   - Tracker issue #1880892.
     A number entered as an exponent was being written out as an 
