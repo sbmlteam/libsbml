@@ -635,7 +635,7 @@ Unit::getElementName () const
 
 
 /*
- * @return true if name is one of the five SBML builtin Unit names
+ * @return true if name is one of the five SBML built-in Unit names
  * ('substance', 'volume', 'area', 'length' or 'time'), false otherwise.
  */
 bool
@@ -1828,7 +1828,7 @@ Unit_setOffset (Unit_t *u, double value)
  * @param name a string to be tested against the built-in unit names
 
  * @return nonzero (for true) if @p name is one of the five SBML
- * builtin Unit names (@c "substance", @c "volume, @c "area", @c "length"
+ * built-in Unit names (@c "substance", @c "volume, @c "area", @c "length"
  * or @c "time"), zero (0) otherwise
  *
  * @note: @c "length" and @c "area" were added in Level 2 Version 1

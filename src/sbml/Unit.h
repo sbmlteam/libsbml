@@ -813,7 +813,7 @@ public:
    * made (necessary because there are a few small differences between
    * SBML Level&nbsp;1 and Level&nbsp;2)
    * 
-   * @return @c true if @p name is one of the five SBML builtin Unit names
+   * @return @c true if @p name is one of the five SBML built-in Unit names
    * (@c "substance", @c "volume", @c "area", @c "length" or @c "time"), @c
    * false otherwise
    *

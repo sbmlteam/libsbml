@@ -110,7 +110,7 @@ UnitDefinition::clone () const
 
 
 /*
- * @return true if this UnitDefinition is a variant of the builtin type
+ * @return true if this UnitDefinition is a variant of the built-in type
  * area. i.e. square metres with only abritrary variations in scale,
  * or multiplier values, false otherwise.
  */
@@ -134,7 +134,7 @@ UnitDefinition::isVariantOfArea () const
 
 
 /*
- * @return true if this UnitDefinition is a variant of the builtin type
+ * @return true if this UnitDefinition is a variant of the built-in type
  * length. i.e. metres with only abritrary variations in scale,
  * or multiplier values, false otherwise.
  */
@@ -158,7 +158,7 @@ UnitDefinition::isVariantOfLength () const
 
 
 /*
- * @return true if this UnitDefinition is a variant of the builtin type
+ * @return true if this UnitDefinition is a variant of the built-in type
  * substance. i.e. moles or items with only abritrary variations in
  * scale or multiplier values, false otherwise.
  */
@@ -195,7 +195,7 @@ UnitDefinition::isVariantOfSubstance () const
 
 
 /*
- * @return true if this UnitDefinition is a variant of the builtin type
+ * @return true if this UnitDefinition is a variant of the built-in type
  * time. i.e. seconds with only abritrary variations in scale,
  * or multiplier values, false otherwise.
  */
@@ -219,7 +219,7 @@ UnitDefinition::isVariantOfTime () const
 
 
 /*
- * @return true if this UnitDefinition is a variant of the builtin type
+ * @return true if this UnitDefinition is a variant of the built-in type
  * volume. i.e. litre or cubic metre with only abritrary variations in
  * scale or multiplier values, false otherwise.
  */
