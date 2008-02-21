@@ -1507,6 +1507,7 @@ ASTNode::ReplaceArgument(const std::string bvar, ASTNode * arg)
         else
         {
           getChild(i)->setType(arg->getType());
+          getChild(i)->setName(arg->getName());
           for (unsigned int c = 0; c < arg->getNumChildren(); c++)
           {
             getChild(i)->addChild(arg->getChild(c)->deepCopy());
