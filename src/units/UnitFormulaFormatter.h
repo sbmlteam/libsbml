@@ -37,6 +37,7 @@
 #ifndef UnitFormulaFormatter_h
 #define UnitFormulaFormatter_h
 
+#include <math.h>
 
 #include <sbml/common/extern.h>
 #include <sbml/util/StringBuffer.h>

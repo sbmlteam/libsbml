@@ -188,6 +188,7 @@
 #ifndef Unit_h
 #define Unit_h
 
+#include <math.h>
 
 #include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
