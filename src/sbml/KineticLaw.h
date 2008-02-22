@@ -75,8 +75,8 @@
  * reactions between multiple volumes using
  * <em>concentration</em>/<em>time</em> (which is to say,
  * <em>substance</em>/<em>volume</em>/<em>time</em>) quickly leads to
- * difficulties, as explained in the SBML Level 2 Version 2 and 3
- * specifications.
+ * difficulties, as explained in the SBML Level&nbsp;2 Version&nbsp;2
+ * and&nbsp;3 specifications.
  *
  * The need to support multicompartment models requires that the reaction
  * rates in SBML to be expressed in terms of
@@ -90,14 +90,14 @@
  * Please consult the SBML specification document for more information
  * about the definition reaction rates in SBML.
  *
- * @note Before SBML Level 2 Version 2, the SBML specification included two
- * additional attributes on KineticLaw called "substanceUnits" and
- * "timeUnits".  They were removed beginning with SBML Level 2 Version 2
- * because further research determined they introduced many problems.  The
- * most significant problem was that their use could easily lead to the
- * creation of valid models whose reactions nevertheless could not be
- * integrated into a system of equations without outside knowledge for
- * converting the quantities used.  Examination of real-life models
+ * @note Before SBML Level&nbsp;2 Version&nbsp;2, the SBML specification
+ * included two additional attributes on KineticLaw called "substanceUnits"
+ * and "timeUnits".  They were removed beginning with SBML Level&nbsp;2
+ * Version&nbsp;2 because further research determined they introduced many
+ * problems.  The most significant problem was that their use could easily
+ * lead to the creation of valid models whose reactions nevertheless could
+ * not be integrated into a system of equations without outside knowledge
+ * for converting the quantities used.  Examination of real-life models
  * revealed that a common reason for using "substanceUnits" on KineticLaw
  * was to set the units of all reactions to the same set of substance
  * units, something that is better achieved by using UnitDefinition to
@@ -151,20 +151,20 @@ public:
    *
    * @param substanceUnits the identifier of the substance units
    *
-   * @note SBML Level 1 uses a text-string format for mathematical
-   * formulas.  SBML Level 2 uses MathML, an XML format for representing
+   * @note SBML Level&nbsp;1 uses a text-string format for mathematical
+   * formulas.  SBML Level&nbsp;2 uses MathML, an XML format for representing
    * mathematical expressions.  LibSBML provides an Abstract Syntax Tree
    * API for working with mathematical expressions; this API is more
    * powerful than working with formulas directly in text form, and ASTs
    * can be translated into either MathML or the text-string syntax.  The
    * libSBML methods that accept text-string formulas directly (such as
-   * this constructor) are provided for SBML Level 1 compatibility, but
+   * this constructor) are provided for SBML Level&nbsp;1 compatibility, but
    * developers are encouraged to use the AST mechanisms.  See the other
    * KineticLaw constructor for a version that takes an ASTNode.
    *
-   * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
-   * attributes were removed.  For compatibility with new versions of SBML,
-   * users are cautioned to avoid these attributes.
+   * @warning In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
+   * "substanceUnits" attributes were removed.  For compatibility with new
+   * versions of SBML, users are cautioned to avoid these attributes.
    *
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different
@@ -201,9 +201,9 @@ public:
    *
    * @param substanceUnits the identifier of the substance units
    *
-   * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
-   * attributes were removed.  For compatibility with new versions of SBML,
-   * users are cautioned to avoid these attributes.
+   * @warning In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
+   * "substanceUnits" attributes were removed.  For compatibility with new
+   * versions of SBML, users are cautioned to avoid these attributes.
    *
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different
@@ -270,15 +270,15 @@ public:
    *
    * @see getMath()
    *
-   * @note SBML Level 1 uses a text-string format for mathematical
-   * formulas.  SBML Level 2 uses MathML, an XML format for representing
-   * mathematical expressions.  LibSBML provides an Abstract Syntax Tree
-   * API for working with mathematical expressions; this API is more
-   * powerful than working with formulas directly in text form, and ASTs
-   * can be translated into either MathML or the text-string syntax.  The
-   * libSBML methods that accept text-string formulas directly (such as
-   * this constructor) are provided for SBML Level 1 compatibility, but
-   * developers are encouraged to use the AST mechanisms.
+   * @note SBML Level&nbsp;1 uses a text-string format for mathematical
+   * formulas.  SBML Level&nbsp;2 uses MathML, an XML format for
+   * representing mathematical expressions.  LibSBML provides an Abstract
+   * Syntax Tree API for working with mathematical expressions; this API is
+   * more powerful than working with formulas directly in text form, and
+   * ASTs can be translated into either MathML or the text-string syntax.
+   * The libSBML methods that accept text-string formulas directly (such as
+   * this constructor) are provided for SBML Level&nbsp;1 compatibility,
+   * but developers are encouraged to use the AST mechanisms.
    */
   const std::string& getFormula () const;
 
@@ -304,9 +304,9 @@ public:
    *
    * @return the "timeUnits" attribute value
    *
-   * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
-   * attributes were removed.  For compatibility with new versions of SBML,
-   * users are cautioned to avoid these attributes.
+   * @warning In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
+   * "substanceUnits" attributes were removed.  For compatibility with new
+   * versions of SBML, users are cautioned to avoid these attributes.
    */
   const std::string& getTimeUnits () const;
 
@@ -317,9 +317,9 @@ public:
    *
    * @return the "substanceUnits" attribute value
    *
-   * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
-   * attributes were removed.  For compatibility with new versions of SBML,
-   * users are cautioned to avoid these attributes.
+   * @warning In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
+   * "substanceUnits" attributes were removed.  For compatibility with new
+   * versions of SBML, users are cautioned to avoid these attributes.
    */
   const std::string& getSubstanceUnits () const;
 
@@ -335,15 +335,15 @@ public:
    * @return @c true if the formula (meaning the @c math subelement) of
    * this Kineticlaw has been set, @c false otherwise.
    *
-   * @note SBML Level 1 uses a text-string format for mathematical
-   * formulas.  SBML Level 2 uses MathML, an XML format for representing
-   * mathematical expressions.  LibSBML provides an Abstract Syntax Tree
-   * API for working with mathematical expressions; this API is more
-   * powerful than working with formulas directly in text form, and ASTs
-   * can be translated into either MathML or the text-string syntax.  The
-   * libSBML methods that accept text-string formulas directly (such as
-   * this constructor) are provided for SBML Level 1 compatibility, but
-   * developers are encouraged to use the AST mechanisms.
+   * @note SBML Level&nbsp;1 uses a text-string format for mathematical
+   * formulas.  SBML Level&nbsp;2 uses MathML, an XML format for
+   * representing mathematical expressions.  LibSBML provides an Abstract
+   * Syntax Tree API for working with mathematical expressions; this API is
+   * more powerful than working with formulas directly in text form, and
+   * ASTs can be translated into either MathML or the text-string syntax.
+   * The libSBML methods that accept text-string formulas directly (such as
+   * this constructor) are provided for SBML Level&nbsp;1 compatibility,
+   * but developers are encouraged to use the AST mechanisms.
    */  
   bool isSetFormula () const;
 
@@ -368,9 +368,9 @@ public:
    * @return @c true if the "timeUnits" attribute of this KineticLaw object
    * has been set, @c false otherwise.
    *
-   * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
-   * attributes were removed.  For compatibility with new versions of SBML,
-   * users are cautioned to avoid these attributes.
+   * @warning In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
+   * "substanceUnits" attributes were removed.  For compatibility with new
+   * versions of SBML, users are cautioned to avoid these attributes.
    */
   bool isSetTimeUnits () const;
 
@@ -379,12 +379,12 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * SpeciesReference's "substanceUnits" attribute has been set
    *
-   * @return @c true if the "substanceUnits" attribute of this KineticLaw object
-   * has been set, @c false otherwise.
+   * @return @c true if the "substanceUnits" attribute of this KineticLaw
+   * object has been set, @c false otherwise.
    *
-   * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
-   * attributes were removed.  For compatibility with new versions of SBML,
-   * users are cautioned to avoid these attributes.
+   * @warning In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
+   * "substanceUnits" attributes were removed.  For compatibility with new
+   * versions of SBML, users are cautioned to avoid these attributes.
    */
   bool isSetSubstanceUnits () const;
 
@@ -399,14 +399,14 @@ public:
    * @param formula the mathematical expression to use, represented in
    * text-string form.
    *
-   * @note SBML Level 1 uses a text-string format for mathematical
-   * formulas.  SBML Level 2 uses MathML, an XML format for representing
+   * @note SBML Level&nbsp;1 uses a text-string format for mathematical
+   * formulas.  SBML Level&nbsp;2 uses MathML, an XML format for representing
    * mathematical expressions.  LibSBML provides an Abstract Syntax Tree
    * API for working with mathematical expressions; this API is more
    * powerful than working with formulas directly in text form, and ASTs
    * can be translated into either MathML or the text-string syntax.  The
    * libSBML methods that accept text-string formulas directly (such as
-   * this constructor) are provided for SBML Level 1 compatibility, but
+   * this constructor) are provided for SBML Level&nbsp;1 compatibility, but
    * developers are encouraged to use the AST mechanisms.
    */
   void setFormula (const std::string& formula);
@@ -432,9 +432,9 @@ public:
    *
    * @param sid the identifier of the units to use.
    *
-   * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
-   * attributes were removed.  For compatibility with new versions of SBML,
-   * users are cautioned to avoid these attributes.
+   * @warning In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
+   * "substanceUnits" attributes were removed.  For compatibility with new
+   * versions of SBML, users are cautioned to avoid these attributes.
    */
   void setTimeUnits (const std::string& sid);
 
@@ -446,9 +446,9 @@ public:
    *
    * @param sid the identifier of the units to use.
    *
-   * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
-   * attributes were removed.  For compatibility with new versions of SBML,
-   * users are cautioned to avoid these attributes.
+   * @warning In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
+   * "substanceUnits" attributes were removed.  For compatibility with new
+   * versions of SBML, users are cautioned to avoid these attributes.
    */
   void setSubstanceUnits (const std::string& sid);
 
@@ -456,9 +456,9 @@ public:
   /**
    * Unsets the "timeUnits" attribugte of this KineticLaw object.
    *
-   * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
-   * attributes were removed.  For compatibility with new versions of SBML,
-   * users are cautioned to avoid these attributes.
+   * @warning In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
+   * "substanceUnits" attributes were removed.  For compatibility with new
+   * versions of SBML, users are cautioned to avoid these attributes.
    */
   void unsetTimeUnits ();
 
@@ -466,9 +466,9 @@ public:
   /**
    * Unsets the "substanceUnits" attribute of this KineticLaw object.
    *
-   * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
-   * attributes were removed.  For compatibility with new versions of SBML,
-   * users are cautioned to avoid these attributes.
+   * @warning In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
+   * "substanceUnits" attributes were removed.  For compatibility with new
+   * versions of SBML, users are cautioned to avoid these attributes.
    */
   void unsetSubstanceUnits ();
 
@@ -535,7 +535,7 @@ public:
    * @param sid the identifier of the Parameter being sought.
    * 
    * @return the Parameter object in this KineticLaw instace having the
-   * given "id", or NULL if no such Parameter exists.
+   * given "id", or @c NULL if no such Parameter exists.
    */
   const Parameter* getParameter (const std::string& sid) const;
 
@@ -546,7 +546,7 @@ public:
    * @param sid the identifier of the Parameter being sought.
    * 
    * @return the Parameter object in this KineticLaw instace having the
-   * given "id", or NULL if no such Parameter exists.
+   * given "id", or @c NULL if no such Parameter exists.
    */
   Parameter* getParameter (const std::string& sid);
 
@@ -619,7 +619,7 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @return the #SBMLTypeCode_t value of this object or SBML_UNKNOWN
+   * @return the #SBMLTypeCode_t value of this object or @c SBML_UNKNOWN
    * (default).
    *
    * @see getElementName()
@@ -660,7 +660,7 @@ protected:
 
   /**
    * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * XMLInputStream or @c NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
 
