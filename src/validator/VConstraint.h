@@ -48,12 +48,30 @@ public:
 
 
   /**
+   * Get the constraint identifier of this constraint.
+   *
+   * Note that constraint identifiers are unrelated to SBML identifiers put
+   * on SBML components.  Constraint identifiers are a superset of the
+   * validation rule numbers. (These "validation rules" are defined in the
+   * SBML specifications beginning with SBML Level&nbsp;2 Version&nbsp;2.)
+   * The set of possible constraint identifiers includes all SBML
+   * validation rule numbers, and in addition, there exist extra
+   * constraints defined by libSBML itself.
+   * 
    * @return the id of this Constraint.
    */
   unsigned int getId () const;
 
+
   /**
+   * Get the severity of this constraint.
+   *
+   * Severity codes are defined by the enumeration SBMLErrorSeverity_t.
+   * See the documentation included in SBMLError for more information.
+   * 
    * @return the severity for violating this Constraint.
+   *
+   * @see SBMLErrorSeverity_t
    */
   unsigned int getSeverity () const;
 
