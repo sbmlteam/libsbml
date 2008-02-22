@@ -38,7 +38,7 @@
  * definition can refer to it.  A parameter can also have an optional
  * "name" attribute of type @c string.  Identifiers and names must be used
  * according to the guidelines described in the %SBML specification (e.g.,
- * Section 3.3 in the Level 2 Version 3 specification).
+ * Section 3.3 in the Level&nbsp;2 Version&nbsp;3 specification).
  * 
  * The optional attribute "value" determines the value (of type @c double)
  * assigned to the identifier.  A missing value for "value" implies that
@@ -111,7 +111,7 @@
  * ListOf___ classes do not add any attributes of their own.
  *
  * The relationship between the lists and the rest of an %SBML model is
- * illustrated by the following (for %SBML Level 2 Version 3):
+ * illustrated by the following (for %SBML Level&nbsp;2 Version&nbsp;3):
  *
  * @image html listof-illustration.jpg "ListOf___ elements in an SBML Model"
  * @image latex listof-illustration.jpg "ListOf___ elements in an SBML Model"
@@ -172,7 +172,7 @@ public:
    * @param name a string, the optional name to assign to this Parameter
    *
    * @note It is worth emphasizing that although the identifier is optional
-   * for this constructor, in SBML Level 2 and beyond, the "id"
+   * for this constructor, in SBML Level&nbsp;2 and beyond, the "id"
    * (identifier) attribute of a Parameter is required to have a value.
    * Thus, callers are cautioned to assign a value after calling this
    * constructor if no identifier is provided as an argument.
@@ -273,7 +273,7 @@ public:
    *
    * The exact actions of this are as follows:
    * <ul>
-   * <li> (%SBML Level 2 only) set the "constant" attribute to @c true.
+   * <li> (%SBML Level&nbsp;2 only) set the "constant" attribute to @c true.
    * </ul>
    */
   void initDefaults ();
@@ -308,7 +308,7 @@ public:
   /**
    * Gets the value of the "constant" attribute of this Parameter instance.
    *
-   * Note that in SBML Level 2 and beyond, the default value of Parameter's
+   * Note that in SBML Level&nbsp;2 and beyond, the default value of Parameter's
    * "constant" attribute is @c true.  Since a boolean value can only be
    * true or value, there is no isSetConstant() method as is available for
    * the other attributes on Parameter.
@@ -323,19 +323,19 @@ public:
    * Predicate returning @c true or @c false depending on whether the
    * "value" attribute of this Parameter has been set.
    *
-   * In %SBML definitions after %SBML Level 1 Version 1, parameter values
-   * are optional and have no defaults.  If a model read from a file does
-   * not contain a setting for the "value" attribute of a parameter, its
-   * value is considered unset; it does not default to any particular
-   * value.  Similarly, when a Parameter object is created in libSBML, it
-   * has no value until given a value.  The Parameter::isSetValue() method
-   * allows calling applications to determine whether a given parameter's
-   * value has ever been set.
+   * In %SBML definitions after %SBML Level&nbsp;1 Version&nbsp;1,
+   * parameter values are optional and have no defaults.  If a model read
+   * from a file does not contain a setting for the "value" attribute of a
+   * parameter, its value is considered unset; it does not default to any
+   * particular value.  Similarly, when a Parameter object is created in
+   * libSBML, it has no value until given a value.  The
+   * Parameter::isSetValue() method allows calling applications to
+   * determine whether a given parameter's value has ever been set.
    *
-   * In SBML Level 1 Version 1, parameters are required to have values and
-   * therefore, the value of a Parameter <b>should always be set</b>.  In
-   * Level 1 Version 2 and beyond, the value is optional and as such, the
-   * "value" attribute may or may not be set.
+   * In SBML Level&nbsp;1 Version&nbsp;1, parameters are required to have
+   * values and therefore, the value of a Parameter <b>should always be
+   * set</b>.  In Level&nbsp;1 Version&nbsp;2 and beyond, the value is
+   * optional and as such, the "value" attribute may or may not be set.
    *
    * @return @c true if the value of this Parameter has been set,
    * @c false otherwise.
@@ -374,8 +374,8 @@ public:
    * Sets the "units" attribute of this Parameter to a copy of the given
    * units identifier @p units.
    *
-   * @param units a string, the identifier of the units to assign to this Parameter
-   * instance
+   * @param units a string, the identifier of the units to assign to this
+   * Parameter instance
    */
   void setUnits (const std::string& units);
 
@@ -393,10 +393,10 @@ public:
   /**
    * Unsets the "value" attribute of this Parameter instance.
    *
-   * In %SBML Level 1 Version 1, parameters are required to have values and
-   * therefore, the value of a Parameter <b>should always be set</b>.  In
-   * %SBML Level 1 Version 2 and beyond, the value is optional and as such,
-   * the "value" attribute may or may not be set.
+   * In %SBML Level&nbsp;1 Version&nbsp;1, parameters are required to have
+   * values and therefore, the value of a Parameter <b>should always be
+   * set</b>.  In %SBML Level&nbsp;1 Version&nbsp;2 and beyond, the value
+   * is optional and as such, the "value" attribute may or may not be set.
    */
   void unsetValue ();
 
@@ -408,15 +408,24 @@ public:
 
 
   /**
-   * Constructs and returns a UnitDefinition that expresses the units of this 
-   * Parameter.
+   * Constructs and returns a UnitDefinition that corresponds to the units
+   * of this Parameter's value.
    *
    * Parameters in SBML have an attribute ("units") for declaring the units
-   * of measurement intended for the parameter's value.  No defaults are
-   * defined by SBML in the absence of a definition for "units".  The
+   * of measurement intended for the parameter's value.  <b>No defaults are
+   * defined</b> by SBML in the absence of a definition for "units".  The
    * getDerivedUnitDefinition() method returns a UnitDefinition object
-   * corresponding to the "units" value, or it returns NULL if no units are
-   * declared.
+   * based on the units declared for this Parameter using its "units"
+   * attribute, or it returns NULL if no units have been declared.
+   *
+   * Note that unit declarations for Parameter are in terms of the @em
+   * identifier of a unit, but this method returns a UnitDefinition object,
+   * not a unit identifier.  It does this by constructing an appropriate
+   * UnitDefinition even when the value of the "units" attribute is one of
+   * the built-in SBML units @c "substance", @c "volume", @c "area", @c
+   * "length" or @c "time".  Callers may find this particularly useful
+   * when used in conjunction with the helper methods on UnitDefinition
+   * for comparing different UnitDefinition objects.
    *
    * @return a UnitDefinition that expresses the units of this 
    * Parameter.
@@ -427,7 +436,7 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @return the #SBMLTypeCode_t value of this object or SBML_UNKNOWN
+   * @return the #SBMLTypeCode_t value of this object or @c SBML_UNKNOWN
    * (default).
    *
    * @see getElementName()
@@ -487,7 +496,7 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @return the #SBMLTypeCode_t value of this object or SBML_UNKNOWN
+   * @return the #SBMLTypeCode_t value of this object or @c SBML_UNKNOWN
    * (default).
    *
    * @see getElementName()
@@ -500,7 +509,7 @@ public:
    * (i.e., Parameter objects, if the list is non-empty).
    * 
    * @return the #SBMLTypeCode_t value of SBML objects contained in this
-   * ListOf or SBML_UNKNOWN (default).
+   * ListOf or @c SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */
@@ -525,8 +534,9 @@ public:
    *
    * The ordering of elements in the XML form of %SBML is generally fixed
    * for most components in %SBML.  So, for example, the ListOfParameters
-   * in a model is (in %SBML Level 2 Version 3) the seventh ListOf___.
-   * (However, it differs for different Levels and Versions of SBML.)
+   * in a model is (in %SBML Level&nbsp;2 Version&nbsp;3) the seventh
+   * ListOf___.  (However, it differs for different Levels and Versions of
+   * SBML.)
    *
    * @return the ordinal position of the element with respect to its
    * siblings, or @c -1 (default) to indicate the position is not significant.
