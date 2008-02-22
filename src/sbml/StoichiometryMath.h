@@ -25,6 +25,100 @@
  * @brief LibSBML implementation of %SBML's StoichiometryMath construct for 
  * SpeciesReference.
  *
+ * In SBML Level 2, product and reactant stoichiometries can be specified
+ * using @em either the "stoichiometry" attribute or a "stoichiometryMath"
+ * element in a SpeciesReference object.  The "stoichiometry" attribute is
+ * of type @c double and should contain values greater than zero (0).  The
+ * "stoichiometryMath" element is implemented as an element containing a
+ * MathML expression.  These two are mutually exclusive; only one of
+ * "stoichiometry" or "stoichiometryMath" should be defined in a given
+ * SpeciesReference instance.  When neither the attribute nor the element
+ * is present, the value of "stoichiometry" in the enclosing
+ * SpeciesReference instance defaults to @c 1.
+ * 
+ * For maximum interoperability, SpeciesReference's "stoichiometry"
+ * attribute should be used in preference to "stoichiometryMath" when a
+ * species' stoichiometry is a simple scalar number (integer or decimal).
+ * When the stoichiometry is a rational number, or when it is a more
+ * complicated formula, "stoichiometryMath" must be used.  The MathML
+ * expression in "stoichiometryMath" may also refer to identifiers of
+ * entities in a model (except reaction identifiers).  However, the only
+ * species identifiers that can be used in "stoichiometryMath" are those
+ * referenced in the enclosing Reaction's list of reactants, products and
+ * modifiers.
+ * 
+ * The "stoichiometry" attribute and the "stoichiometryMath" element, when
+ * either is used, is each interpreted as a factor applied to the reaction
+ * rate to produce the rate of change of the species identified by the
+ * "species" attribute in the enclosing SpeciesReference.  This is the
+ * normal interpretation of a stoichiometry, but in SBML, one additional
+ * consideration has to be taken into account.  The reaction rate, which is
+ * the result of the KineticLaw's "math" element, is always in the model's
+ * @em substance per @em time units.  However, the rate of change of the
+ * species will involve the species' @em substance units (i.e., the units
+ * identified by the Species object's "substanceUnits" attribute), and
+ * these units may be different from the model's default @em substance
+ * units.  If the units @em are different, the stoichiometry must
+ * incorporate a conversion factor for converting the model's @em substance
+ * units to the species' @em substance units.  The conversion factor is
+ * assumed to be included in the scalar value of the "stoichiometry"
+ * attribute if "stoichiometry" is used.  If instead "stoichiometryMath" is
+ * used, then the product of the model's "substance" units times the
+ * "stoichiometryMath" units must match the @em substance units of the
+ * species.  Note that in either case, if the species' units and the
+ * model's default @em substance units are the same, the stoichiometry ends
+ * up being a dimensionless number and equivalent to the standard chemical
+ * stoichiometry found in textbooks.  Examples and more explanations of
+ * this are given in the SBML specification.
+ * 
+ * The following is a simple example of a species reference for species @c
+ * "X0", with stoichiometry @c 2, in a list of reactants within a reaction
+ * having the identifier @c "J1":
+ * @code
+ * <model>
+ *     ...
+ *     <listOfReactions>
+ *         <reaction id="J1">
+ *             <listOfReactants>
+ *                 <speciesReference species="X0" stoichiometry="2">
+ *             </listOfReactants>
+ *             ...
+ *         </reaction>
+ *         ...
+ *     </listOfReactions>
+ *     ...
+ * </model>
+ * @endcode
+ * 
+ * The following is a more complex example of a species reference for
+ * species @c "X0", with a stoichiometry formula consisting of
+ * a rational number:
+ * @code
+ * <model>
+ *     ...
+ *     <listOfReactions>
+ *         <reaction id="J1">
+ *             <listOfReactants>
+ *                 <speciesReference species="X0">
+ *                     <stoichiometryMath>
+ *                         <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+ *                             <cn type="rational"> 3 <sep/> 2 </cn>
+ *                         </math>
+ *                     </stoichiometryMath>
+ *                 </speciesReference>
+ *             </listOfReactants>
+ *             ...
+ *         </reaction>
+ *         ...
+ *     </listOfReactions>
+ *     ...
+ * </model>
+ * @endcode
+ *
+ * Additional discussions of stoichiometries and implications for species
+ * and reactions are included in the documentation of SpeciesReference
+ * class.
+ *
  * @see SpeciesReference
  * @see Reaction
  */
@@ -197,8 +291,8 @@ public:
   /**
    * Returns the libSBML type code of this object instance.
    *
-   * @return the #SBMLTypeCode_t value of this SBML object or SBML_UNKNOWN
-   * (default).
+   * @return the #SBMLTypeCode_t value of this SBML object or @c
+   * SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */
@@ -220,7 +314,7 @@ public:
    * Returns the position of this element.
    * 
    * @return the ordinal position of the element with respect to its
-   * siblings or -1 (default) to indicate the position is not significant.
+   * siblings or @c -1 (default) to indicate the position is not significant.
    */
   virtual int getElementPosition () const;
 
