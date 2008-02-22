@@ -72,13 +72,14 @@
  * </model>
  * @endcode
  * 
- * The <tt>&lt;cn&gt; 1 &lt;/cn&gt;</tt> within the mathematical formula of the
- * @c delay above has <em>no units declared</em>.  To make the expression
- * have the needed units of time, we must use one of the techniques
- * discussed in the SBML Level 2 Version 3 specification, namely, either
- * defining a parameter for the number and using it in place of the number,
- * or else multiplying the number with a parameter having the proper units.
- * Here we employ the second approach as an illustration:
+ * The <tt>&lt;cn&gt; 1 &lt;/cn&gt;</tt> within the mathematical formula of
+ * the @c delay above has <em>no units declared</em>.  To make the
+ * expression have the needed units of time, we must use one of the
+ * techniques discussed in the SBML Level&nbsp;2 Version&nbsp;3
+ * specification, namely, either defining a parameter for the number and
+ * using it in place of the number, or else multiplying the number with a
+ * parameter having the proper units.  Here we employ the second approach
+ * as an illustration:
  * @code
  * <model>
  *     ...
@@ -280,7 +281,7 @@ public:
   /**
    * Returns the libSBML type code of this object instance.
    *
-   * @return the #SBMLTypeCode_t value of this SBML object or SBML_UNKNOWN
+   * @return the #SBMLTypeCode_t value of this SBML object or @c SBML_UNKNOWN
    * (default).
    *
    * @see getElementName()
@@ -331,7 +332,7 @@ protected:
 
   /**
    * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * XMLInputStream or @c NULL if the token was not recognized.
    */
 //  virtual SBase* createObject (XMLInputStream& stream);
 

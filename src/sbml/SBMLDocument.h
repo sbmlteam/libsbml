@@ -33,12 +33,12 @@
  * SBMLDocument::getNumErrors()), access the Model object, and perform
  * other actions such as consistency-checking and model translation.
  * SBMLDocument corresponds roughly to the class <i>Sbml</i> defined in the
- * SBML Level 2 specification, but it does not have a direct correspondence
- * in SBML Level 1.  (But, it is created by libSBML no matter whether the
- * model is Level 1 or Level 2.)
+ * SBML Level&nbsp;2 specification, but it does not have a direct correspondence
+ * in SBML Level&nbsp;1.  (But, it is created by libSBML no matter whether the
+ * model is Level&nbsp;1 or Level&nbsp;2.)
  *
  * SBMLDocument is derived from SBase, so that it contains the usual SBase
- * attributes (in SBML Level 2 Version 3) of "metaid" and "sboTerm", as
+ * attributes (in SBML Level&nbsp;2 Version&nbsp;3) of "metaid" and "sboTerm", as
  * well as the subelements "notes" and "annotation".  It also contains the
  * attributes "level" and "version" indicating the Level and Version of the
  * SBML read.  These can be accessed using the SBase methods for that
@@ -47,24 +47,24 @@
  * Upon reading a model, SBMLDocument logs any problems encountered while
  * reading the model from the file or data stream.  Whether the problems
  * are warnings or errors, they are reported through a single common
- * interface involving the object class XMLError.  The methods
+ * interface involving the object class SBMLError.  The methods
  * SBMLDocument::getNumErrors(), SBMLDocument::getError() and
  * SBMLDocument::printErrors() allow callers to interact with the warnings
  * or errors found.
  *
  * SBMLDocument also includes methods for running consistency-checking and
  * validation rules on the SBML content.  These methods assess whether the
- * SBML is legal according to basic rules listed in the SBML Level 2
- * Version 2 and Version 3 specification documents.  The primary interface
- * is SBMLDocument::checkConsistency() and
+ * SBML is legal according to basic rules listed in the SBML Level&nbsp;2
+ * Version&nbsp;2 and Version&nbsp;3 specification documents.  The primary
+ * interface is SBMLDocument::checkConsistency() and
  * SBMLDocument::setConsistencyChecks().  Additional useful methods are
  * SBMLDocument::checkL1Compatibility(),
  * SBMLDocument::checkL2v1Compatibility(),
  * SBMLDocument::checkL2v2Compatibility(), and
  * SBMLDocument::checkL2v3Compatibility(), which allow callers to check the
  * downward compatibility of a model with other Levels/Versions of SBML.
- * At the time of this writing, the most recent release of SBML is Level 2
- * Version 3.
+ * At the time of this writing, the most recent release of SBML is
+ * Level&nbsp;2 Version&nbsp;3.
  */
 
 
@@ -90,7 +90,7 @@ class XMLError;
 
 
 /** @cond doxygen-libsbml-internal */
-/* Constants for setting/unsetting particular consistency checks */
+/* Internal constants for setting/unsetting particular consistency checks. */
 
 #define IdCheckON         0x01;
 #define IdCheckOFF        0xfe;
@@ -141,18 +141,20 @@ public:
    *
    * If <em>both</em> the SBML Level and Version attributes are not
    * specified, the SBML document is treated as having the latest Level and
-   * Version (Level 2 Version 3 as of the libSBML 3.0.0 release);
-   * <em>however</em>, it is otherwise left blank.  In particular, the
-   * blank SBMLDocument object has no associated XML attributes yet such as
-   * an XML Namespace declaration.  The latter is not added until the model
-   * is written out, <em>or</em> the method setLevelAndVersion() is called.
-   * This may be important to keep in mind if an application needs to add
-   * additional XML namespace declarations on the <code>&lt;sbml&gt;</code>
-   * element.  Application writers should either provide values for @p
-   * level and @p version on the call to this constructor, or else call
-   * setLevelAndVersion() shortly after creating the SBMLDocument object.
+   * Version (Level&nbsp;2 Version&nbsp;3 as of the libSBML&nbsp;3.1
+   * release); <em>however</em>, it is otherwise left blank.  In
+   * particular, the blank SBMLDocument object has no associated XML
+   * attributes yet such as an XML Namespace declaration.  The latter is
+   * not added until the model is written out, <em>or</em> the method
+   * setLevelAndVersion() is called.  This may be important to keep in mind
+   * if an application needs to add additional XML namespace declarations
+   * on the <code>&lt;sbml&gt;</code> element.  Application writers should
+   * either provide values for @p level and @p version on the call to this
+   * constructor, or else call setLevelAndVersion() shortly after creating
+   * the SBMLDocument object.
    *
    * @param level an integer for the SBML Level
+   *
    * @param version an integer for the Version within the SBML Level
    *
    * @see setLevelAndVersion()
@@ -229,10 +231,10 @@ public:
    *
    * This method is used to convert models between Levels and Versions of
    * SBML.  Generally, models can be converted upward without difficulty
-   * (e.g., from SBML Level 1 to Level 2, or from an earlier version of
-   * Level 2 to the latest version of Level 2).  Sometimes models can be
-   * translated downward as well, if they do not use constructs specific to
-   * more advanced Levels of SBML.
+   * (e.g., from SBML Level&nbsp;1 to Level&nbsp;2, or from an earlier
+   * version of Level&nbsp;2 to the latest version of Level&nbsp;2).
+   * Sometimes models can be translated downward as well, if they do not
+   * use constructs specific to more advanced Levels of SBML.
    *
    * Callers can also check compatibility directly using the methods
    * checkL1Compatibility(), checkL2v1Compatibility(), and 
@@ -241,11 +243,11 @@ public:
    * The valid combinations as of this release of libSBML are the
    * following: 
    * <ul>
-   * <li> Level 1 Version 1
-   * <li> Level 1 Version 2
-   * <li> Level 2 Version 1
-   * <li> Level 2 Version 2
-   * <li> Level 2 Version 3
+   * <li> Level&nbsp;1 Version&nbsp;1
+   * <li> Level&nbsp;1 Version&nbsp;2
+   * <li> Level&nbsp;2 Version&nbsp;1
+   * <li> Level&nbsp;2 Version&nbsp;2
+   * <li> Level&nbsp;2 Version&nbsp;3
    * </ul>
    * 
    * @param level the desired SBML Level
@@ -256,10 +258,10 @@ public:
    * conversion.  If the conversion fails, it will be logged in the error
    * list associated with this SBMLDocument.  Callers should consult
    * getNumErrors() to find out if the conversion succeeded without
-   * problems.  For conversions from Level 2 to Level 1, callers can also
-   * check the Level of the model after calling this method to find out
-   * whether it is Level 1.  (If the conversion to Level 1 failed, the
-   * Level of this model will be left unchanged.)
+   * problems.  For conversions from Level&nbsp;2 to Level&nbsp;1, callers
+   * can also check the Level of the model after calling this method to
+   * find out whether it is Level&nbsp;1.  (If the conversion to
+   * Level&nbsp;1 failed, the Level of this model will be left unchanged.)
    */
   bool setLevelAndVersion (unsigned int level, unsigned int version);
 
@@ -300,27 +302,27 @@ public:
    * The first argument to this method indicates which category of
    * consistency/error checks are being turned on or off, and the second
    * argument (a boolean) indicates whether to turn on (value of @c true)
-   * or off (value of @c false) that particula category of checks.  The
+   * or off (value of @c false) that particular category of checks.  The
    * possible categories are represented as values of the enumeration
    * #SBMLErrorCategory_t.  The following are the possible choices in
-   * libSBML version 3.0.2:
+   * libSBML version&nbsp;3.1.x:
    *
-   * @li LIBSBML_CAT_GENERAL_CONSISTENCY:    General overall SBML consistency.
+   * @li @c LIBSBML_CAT_GENERAL_CONSISTENCY:    General overall SBML consistency.
    * 
-   * @li LIBSBML_CAT_IDENTIFIER_CONSISTENCY: Consistency of identifiers.  An
+   * @li @c LIBSBML_CAT_IDENTIFIER_CONSISTENCY: Consistency of identifiers.  An
    * example of inconsistency would be using a species identifier in a
    * reaction rate formula without first having declared the species.
    * 
-   * @li LIBSBML_CAT_UNITS_CONSISTENCY:      Consistency of units of measure.
+   * @li @c LIBSBML_CAT_UNITS_CONSISTENCY:      Consistency of units of measure.
    * 
-   * @li LIBSBML_CAT_MATHML_CONSISTENCY:     Consistency of MathML constructs.
+   * @li @c LIBSBML_CAT_MATHML_CONSISTENCY:     Consistency of MathML constructs.
    * 
-   * @li LIBSBML_CAT_SBO_CONSISTENCY:        Consistency of SBO identifiers.
+   * @li @c LIBSBML_CAT_SBO_CONSISTENCY:        Consistency of SBO identifiers.
    * 
-   * @li LIBSBML_CAT_OVERDETERMINED_MODEL:   Checking whether the system of
+   * @li @c LIBSBML_CAT_OVERDETERMINED_MODEL:   Checking whether the system of
    * equations implied by a model is mathematically overdetermined.
    * 
-   * @li LIBSBML_CAT_MODELING_PRACTICE:      General good practice in
+   * @li @c LIBSBML_CAT_MODELING_PRACTICE:      General good practice in
    * model construction.
    * 
    * By default, all validation checks are applied to the model in an
@@ -362,8 +364,8 @@ public:
 
   /**
    * Performs a set of consistency checks on the document to establish
-   * whether it is compatible with SBML Level 1 and can be converted to
-   * Level 1.
+   * whether it is compatible with SBML Level&nbsp;1 and can be converted
+   * to Level&nbsp;1.
    *
    * Callers should query the results of the consistency check by calling
    * getError().
@@ -375,8 +377,8 @@ public:
 
   /**
    * Performs a set of consistency checks on the document to establish
-   * whether it is compatible with SBML Level 2 Version 1 and can be
-   * converted to Level 2 Version 1.
+   * whether it is compatible with SBML Level&nbsp;2 Version&nbsp;1 and can
+   * be converted to Level&nbsp;2 Version&nbsp;1.
    *
    * Callers should query the results of the consistency check by calling
    * getError().
@@ -388,8 +390,8 @@ public:
 
   /**
    * Performs a set of consistency checks on the document to establish
-   * whether it is compatible with SBML Level 2 Version 2 and can be
-   * converted to Level 2 Version 2.
+   * whether it is compatible with SBML Level&nbsp;2 Version&nbsp;2 and can
+   * be converted to Level&nbsp;2 Version&nbsp;2.
    *
    * Callers should query the results of the consistency check by calling
    * getError().
@@ -401,8 +403,8 @@ public:
 
   /**
    * Performs a set of consistency checks on the document to establish
-   * whether it is compatible with SBML Level 2 Version 3 and can be
-   * converted to Level 2 Version 3.
+   * whether it is compatible with SBML Level&nbsp;2 Version&nbsp;3 and can
+   * be converted to Level&nbsp;2 Version&nbsp;3.
    *
    * Callers should query the results of the consistency check by calling
    * getError().
@@ -420,8 +422,8 @@ public:
    * the severity of the problem.  The severity levels range from
    * informationl messages to fatal errors.
    *
-   * @return the error or warning indexed by integer @p n, or return NULL
-   * if n > (getNumErrors() - 1).
+   * @return the error or warning indexed by integer @p n, or return @c
+   * NULL if <code>n &gt; (getNumErrors() - 1)</code>.
    *
    * @param n the integer index of the error sought.
    *
@@ -459,8 +461,8 @@ public:
    * encountered during parsing, consistency checking, or attempted
    * translation of this model.
    *
-   * If no errors have occurred, i.e., getNumErrors() == 0, no output will
-   * be sent to the stream. 
+   * If no errors have occurred, i.e., <code>getNumErrors() == 0</code>, no
+   * output will be sent to the stream.
    *
    * The format of the output is:
    *
@@ -492,7 +494,7 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @return the #SBMLTypeCode_t value of this object or SBML_UNKNOWN
+   * @return the #SBMLTypeCode_t value of this object or @c SBML_UNKNOWN
    * (default).
    *
    * @see getElementName()
