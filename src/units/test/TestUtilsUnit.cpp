@@ -55,8 +55,6 @@
 #include <sbml/UnitDefinition.h>
 #include <sbml/math/ASTNode.h>
 
-#include <sbml/units/Utils_Unit.h>
-
 #include <check.h>
 
 BEGIN_C_DECLS
@@ -65,7 +63,7 @@ START_TEST(test_unit_remove_scale)
 {
     Unit * u = new Unit(UNIT_KIND_LITRE, 1, -3);
     
-    removeScale(u);
+    Unit::removeScale(u);
 
     fail_unless(u->getMultiplier() == 0.001);
     fail_unless(u->getScale() == 0);
@@ -82,7 +80,7 @@ START_TEST(test_unit_merge_units)
     Unit * u = new Unit(UNIT_KIND_LITRE, 1, -3, 2);
     Unit * u1 = new Unit(UNIT_KIND_LITRE, 2, 0, 2); 
     
-    mergeUnits(u, u1);
+    Unit::mergeUnits(u, u1);
 
     fail_unless(u->getMultiplier() == 0.2);
     fail_unless(u->getScale() == 0);
@@ -108,7 +106,7 @@ START_TEST(test_unit_convert_SI)
     /* Ampere */
     Unit * u = new Unit(UNIT_KIND_AMPERE, 1, -3, 2);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 1);
 
@@ -126,7 +124,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 1);
 
@@ -143,7 +141,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 1);
 
@@ -160,7 +158,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 1);
 
@@ -179,7 +177,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 2);
 
@@ -202,7 +200,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 1);
 
@@ -220,7 +218,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 4);
 
@@ -256,7 +254,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 1);
 
@@ -274,7 +272,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 2);
 
@@ -298,7 +296,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 4);
 
@@ -334,7 +332,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 1);
 
@@ -351,7 +349,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 1);
 
@@ -369,7 +367,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 3);
 
@@ -399,7 +397,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 2);
 
@@ -422,7 +420,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 1);
 
@@ -439,7 +437,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 1);
 
@@ -457,7 +455,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 1);
 
@@ -475,7 +473,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 1);
 
@@ -493,7 +491,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 1);
 
@@ -511,7 +509,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 2);
 
@@ -534,7 +532,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 1);
 
@@ -551,7 +549,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 1);
 
@@ -568,7 +566,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 1);
 
@@ -586,7 +584,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 3);
 
@@ -616,7 +614,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 4);
 
@@ -652,7 +650,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 3);
 
@@ -681,7 +679,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 1);
 
@@ -698,7 +696,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 1);
 
@@ -716,7 +714,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 4);
 
@@ -752,7 +750,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 2);
 
@@ -775,7 +773,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 1);
 
@@ -793,7 +791,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 3);
 
@@ -823,7 +821,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 4);
 
@@ -859,7 +857,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 3);
 
@@ -889,7 +887,7 @@ START_TEST(test_unit_convert_SI)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    ud = convertUnitToSI(u);
+    ud = Unit::convertUnitToSI(u);
 
     fail_unless(ud->getNumUnits() == 4);
 
@@ -930,7 +928,7 @@ START_TEST(test_unit_areIdentical)
     Unit * u = new Unit(UNIT_KIND_LITRE, 1, -3);
     Unit * u1 = new Unit(UNIT_KIND_LITRE, 1, -3);
     
-    int identical = areIdentical(u, u1);
+    int identical = Unit::areIdentical(u, u1);
 
     fail_unless(identical == 1);
     
@@ -940,7 +938,7 @@ START_TEST(test_unit_areIdentical)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    identical = areIdentical(u, u1);
+    identical = Unit::areIdentical(u, u1);
     
     fail_unless(identical == 0);
 
@@ -954,7 +952,7 @@ START_TEST(test_unit_areEquivalent)
     Unit * u = new Unit(UNIT_KIND_LITRE, 1, 0);
     Unit * u1 = new Unit(UNIT_KIND_LITRE, 1, -3);
     
-    int equivalent = areEquivalent(u, u1);
+    int equivalent = Unit::areEquivalent(u, u1);
 
     fail_unless(equivalent == 1);
 
@@ -964,7 +962,7 @@ START_TEST(test_unit_areEquivalent)
     u->setExponent(1);
     u->setOffset(0.0);
     
-    equivalent = areEquivalent(u, u1);
+    equivalent = Unit::areEquivalent(u, u1);
     
     fail_unless(equivalent == 0);
 

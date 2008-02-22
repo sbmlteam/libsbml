@@ -279,21 +279,21 @@ START_CONSTRAINT (10511, AssignmentRule, ar)
       "In a level 1 model this implies that in a <compartmentVolumeRule>, "
       "the units of the rule's right-hand side must be consistent with the "
       "units of that <compartment>'s volume. Expected units are ";
-    msg += printUnits(variableUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
     msg += " but the units returned by the <compartmentVolumeRule>'s formula are ";
-    msg += printUnits(formulaUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
   else
   {
     msg =  " Expected units are ";
-    msg += printUnits(variableUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
     msg += " but the units returned by the <assignmentRule>'s <math> expression are ";
-    msg += printUnits(formulaUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
 
-  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+  inv (UnitDefinition::areEquivalent(formulaUnits->getUnitDefinition(), 
                           variableUnits->getUnitDefinition()) == 1);
 
 }
@@ -345,17 +345,17 @@ START_CONSTRAINT (10512, AssignmentRule, ar)
       "In a level 1 model this implies that in a <speciesConcentrationRule>, "
       "the units of the rule's right-hand side must be consistent with the "
       "units of that <species> quantity. Expected units are ";
-    msg += printUnits(variableUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
     msg += " but the units returned by the <speciesConcentrationRule>'s formula are ";
-    msg += printUnits(formulaUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
   else
   {
     msg =  " Expected units are ";
-    msg += printUnits(variableUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
     msg += " but the units returned by the <assignmentRule>'s <math> expression are ";
-    msg += printUnits(formulaUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
 
@@ -371,7 +371,7 @@ START_CONSTRAINT (10512, AssignmentRule, ar)
   //}
   //else
   //{
-    inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+    inv (UnitDefinition::areEquivalent(formulaUnits->getUnitDefinition(), 
                             variableUnits->getUnitDefinition()) == 1);
   //}
 }
@@ -424,21 +424,21 @@ START_CONSTRAINT (10513, AssignmentRule, ar)
       "In a level 1 model this implies that in a <parameterRule>, "
       "the units of the rule's right-hand side must be consistent with the "
       "units declared for that <parameter>. Expected units are ";
-    msg += printUnits(variableUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
     msg += " but the units returned by the <parameterRule>'s formula are ";
-    msg += printUnits(formulaUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
   else
   {
     msg =  " Expected units are ";
-    msg += printUnits(variableUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
     msg += " but the units returned by the <assignmentRule>'s <math> expression are ";
-    msg += printUnits(formulaUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
 
-  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+  inv (UnitDefinition::areEquivalent(formulaUnits->getUnitDefinition(), 
                           variableUnits->getUnitDefinition()) == 1);
 }
 END_CONSTRAINT
@@ -474,12 +474,12 @@ START_CONSTRAINT (10521, InitialAssignment, ia)
         formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   msg =  "Expected units are ";
-  msg += printUnits(variableUnits->getUnitDefinition());
+  msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
   msg += " but the units returned by the <initialAssignment>'s <math> expression are ";
-  msg += printUnits(formulaUnits->getUnitDefinition());
+  msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
-  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+  inv (UnitDefinition::areEquivalent(formulaUnits->getUnitDefinition(), 
                           variableUnits->getUnitDefinition()) == 1);
 }
 END_CONSTRAINT
@@ -515,12 +515,12 @@ START_CONSTRAINT (10522, InitialAssignment, ia)
         formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   msg =  "Expected units are ";
-  msg += printUnits(variableUnits->getUnitDefinition());
+  msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
   msg += " but the units returned by the <initialAssignment>'s <math> expression are ";
-  msg += printUnits(formulaUnits->getUnitDefinition());
+  msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
-  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+  inv (UnitDefinition::areEquivalent(formulaUnits->getUnitDefinition(), 
                           variableUnits->getUnitDefinition()) == 1);
 }
 END_CONSTRAINT
@@ -557,12 +557,12 @@ START_CONSTRAINT (10523, InitialAssignment, ia)
         formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   msg =  "Expected units are ";
-  msg += printUnits(variableUnits->getUnitDefinition());
+  msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
   msg += " but the units returned by the <initialAssignment>'s <math> expression are ";
-  msg += printUnits(formulaUnits->getUnitDefinition());
+  msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
-  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+  inv (UnitDefinition::areEquivalent(formulaUnits->getUnitDefinition(), 
                           variableUnits->getUnitDefinition()) == 1);
 }
 END_CONSTRAINT
@@ -624,21 +624,21 @@ START_CONSTRAINT (10531, RateRule, rr)
     "<compartment> definition, or (in the absence of explicit units declared "
     "for the compartment volume) the default units for that compartment, and "
     "_time_ refers to the units of time for the model. Expected units are ";    
-    msg += printUnits(variableUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
     msg += " but the units returned by the <compartmentVolumeRule>'s formula are ";
-    msg += printUnits(formulaUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
   else
   {
     msg =  " Expected units are ";
-    msg += printUnits(variableUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
     msg += " but the units returned by the <rateRule>'s <math> expression are ";
-    msg += printUnits(formulaUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
 
-  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+  inv (UnitDefinition::areEquivalent(formulaUnits->getUnitDefinition(), 
                                variableUnits->getPerTimeUnitDefinition()) == 1);
 
 }
@@ -694,17 +694,17 @@ START_CONSTRAINT (10532, RateRule, rr)
     "the units of the rule's right-hand side must be of the form _x per "
     "time_, where _x_ is the units of that species' quantity, and _time_ "
     "refers to the units of time for the model. Expected units are ";    
-    msg += printUnits(variableUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
     msg += " but the units returned by the <speciesConcentrationRule>'s formula are ";
-    msg += printUnits(formulaUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
   else
   {
     msg =  " Expected units are ";
-    msg += printUnits(variableUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
     msg += " but the units returned by the <rateRule>'s <math> expression are ";
-    msg += printUnits(formulaUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
 
@@ -720,7 +720,7 @@ START_CONSTRAINT (10532, RateRule, rr)
   //}
   //else
   //{
-    inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+    inv (UnitDefinition::areEquivalent(formulaUnits->getUnitDefinition(), 
                             variableUnits->getPerTimeUnitDefinition()) == 1);
   //}
 }
@@ -778,21 +778,21 @@ START_CONSTRAINT (10533, RateRule, rr)
     "the units of the rule's right-hand side must be of the form _x per "
     "time_, where _x_ is the 'units' in that <parameter> definition, and "
     "_time_ refers to the units of time for the model. Expected units are ";    
-    msg += printUnits(variableUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
     msg += " but the units returned by the <parameterRule>'s formula are ";
-    msg += printUnits(formulaUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
   else
   {
     msg =  " Expected units are ";
-    msg += printUnits(variableUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
     msg += " but the units returned by the <rateRule>'s <math> expression are ";
-    msg += printUnits(formulaUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
 
-  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+  inv (UnitDefinition::areEquivalent(formulaUnits->getUnitDefinition(), 
                               variableUnits->getPerTimeUnitDefinition()) == 1);
 }
 END_CONSTRAINT
@@ -822,13 +822,13 @@ START_CONSTRAINT (10541, KineticLaw, kl)
         formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   msg =  "Expected units are ";
-  msg += printUnits(variableUnits->getUnitDefinition());
+  msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
   msg += " but the units returned by the <kineticLaw>'s <math> expression are ";
-  msg += printUnits(formulaUnits->getUnitDefinition());
+  msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
 
-  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+  inv (UnitDefinition::areEquivalent(formulaUnits->getUnitDefinition(), 
                                       variableUnits->getUnitDefinition()) == 1);
 }
 END_CONSTRAINT
@@ -856,12 +856,12 @@ START_CONSTRAINT (10551, Event, e)
         formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   msg =  "Expected units are ";
-  msg += printUnits(formulaUnits->getEventTimeUnitDefinition());
+  msg += UnitDefinition::printUnits(formulaUnits->getEventTimeUnitDefinition());
   msg += " but the units returned by the <event>'s <delay> are ";
-  msg += printUnits(formulaUnits->getUnitDefinition());
+  msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
-  inv (areIdentical(formulaUnits->getUnitDefinition(), 
+  inv (UnitDefinition::areIdentical(formulaUnits->getUnitDefinition(), 
                               formulaUnits->getEventTimeUnitDefinition()) == 1);
 
 }
@@ -898,12 +898,12 @@ START_CONSTRAINT (10561, EventAssignment, ea)
         formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   msg =  "Expected units are ";
-  msg += printUnits(variableUnits->getUnitDefinition());
+  msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
   msg += " but the units returned by the <eventAssignment>'s <math> expression are ";
-  msg += printUnits(formulaUnits->getUnitDefinition());
+  msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
-  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+  inv (UnitDefinition::areEquivalent(formulaUnits->getUnitDefinition(), 
                           variableUnits->getUnitDefinition()) == 1);
 
 }
@@ -940,12 +940,12 @@ START_CONSTRAINT (10562, EventAssignment, ea)
         formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   msg =  "Expected units are ";
-  msg += printUnits(variableUnits->getUnitDefinition());
+  msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
   msg += " but the units returned by the <eventAssignment>'s <math> expression are ";
-  msg += printUnits(formulaUnits->getUnitDefinition());
+  msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
-  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+  inv (UnitDefinition::areEquivalent(formulaUnits->getUnitDefinition(), 
                           variableUnits->getUnitDefinition()) == 1);
 }
 END_CONSTRAINT
@@ -983,12 +983,12 @@ START_CONSTRAINT (10563, EventAssignment, ea)
         formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   msg =  "Expected units are ";
-  msg += printUnits(variableUnits->getUnitDefinition());
+  msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
   msg += " but the units returned by the <eventAssignment>'s <math> expression are ";
-  msg += printUnits(formulaUnits->getUnitDefinition());
+  msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
-  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+  inv (UnitDefinition::areEquivalent(formulaUnits->getUnitDefinition(), 
                           variableUnits->getUnitDefinition()) == 1);
 }
 END_CONSTRAINT

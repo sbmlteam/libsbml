@@ -229,7 +229,7 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
     ud = new UnitDefinition();
   }
 
-  simplifyUnitDefinition(ud);
+  UnitDefinition::simplifyUnitDefinition(ud);
 
   --depthRecursiveCall;
 

@@ -157,7 +157,7 @@ ArgumentsUnitsCheck::checkUnitsFromDelay (const Model& m,
   
   if (!unitFormat->getContainsUndeclaredUnits())
   {
-    if (!areEquivalent(time, tempUD)) 
+    if (!UnitDefinition::areEquivalent(time, tempUD)) 
     {
       logInconsistentDelay(node, sb);
     }
@@ -195,7 +195,7 @@ ArgumentsUnitsCheck::checkUnitsFromPiecewise (const Model& m,
   tempUD = unitFormat->getUnitDefinition(node.getRightChild(), inKL, reactNo);
   tempUD1 = unitFormat->getUnitDefinition(node.getLeftChild(), inKL, reactNo);
   
-  if (!areEquivalent(tempUD, tempUD1)) 
+  if (!UnitDefinition::areEquivalent(tempUD, tempUD1)) 
   {
     logInconsistentPiecewise(node, sb);
   }
@@ -205,7 +205,7 @@ ArgumentsUnitsCheck::checkUnitsFromPiecewise (const Model& m,
 
   tempUD = unitFormat->getUnitDefinition(node.getChild(1), inKL, reactNo);
 
-  if (!areEquivalent(tempUD, dim)) 
+  if (!UnitDefinition::areEquivalent(tempUD, dim)) 
   {
     logInconsistentPiecewiseCondition(node, sb);
   }
@@ -262,7 +262,7 @@ ArgumentsUnitsCheck::checkSameUnitsAsArgs (const Model& m,
 
     if (!unitFormat->getContainsUndeclaredUnits())
     {
-      if (!areIdentical(ud, tempUD))
+      if (!UnitDefinition::areIdentical(ud, tempUD))
       {
         logInconsistentSameUnits(node, sb);
       }

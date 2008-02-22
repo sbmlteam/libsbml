@@ -56,8 +56,6 @@ header_inst_prefix = units
 
 sources =                    \
   UnitFormulaFormatter.cpp   \
-  Utils_Unit.cpp             \
-  Utils_UnitDefinition.cpp   \
   FormulaUnitsData.cpp       \
   UnitKindList.cpp
 

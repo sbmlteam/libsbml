@@ -54,8 +54,6 @@
 
 #include <sbml/math/ASTNode.h>
 
-#include <sbml/units/Utils_UnitDefinition.h>
-
 #ifdef __cplusplus
 
 class   LIBSBML_EXTERN UnitFormulaFormatter

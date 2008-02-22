@@ -842,7 +842,92 @@ public:
                                                     unsigned int version);
 
 
+  /** @cond doxygen-libsbml-internal */
 
+  /** 
+  * Predicate returning @c true or @c false depending on whether 
+  * Unit objects are identical (matching in all attributes).
+  *
+  * @param unit1 the first Unit object to compare
+  * @param unit2 the second Unit object to compare
+  *
+  * @return @c true if all the attributes of unit1 are identical
+  * to the attributes of unit2, @c false otherwise.
+  *
+  * @note For the purposes of comparison two units can be "identical",
+  * i.e. all attributes are an exact match, or "equivalent" i.e. 
+  * matching kind and exponent.
+  *
+  * @see areEquivalent();
+  */
+  static bool areIdentical(Unit * unit1, Unit * unit2);
+
+  /** 
+  * Predicate returning @c true or @c false depending on whether 
+  * Unit objects are equivalent (matching kind and exponent).
+  *
+  * @param unit1 the first Unit object to compare
+  * @param unit2 the second Unit object to compare
+  *
+  * @return @c true if the kind and exponent attributes of unit1 are identical
+  * to the kind and exponent attributes of unit2, @c false otherwise.
+  *
+  * @note For the purposes of comparison two units can be "identical",
+  * i.e. all attributes are an exact match, or "equivalent" i.e. 
+  * matching kind and exponent.
+  *
+  * @see areIdentical();
+  */
+  static bool areEquivalent(Unit * unit1, Unit * unit2);
+
+  /** 
+  * Manipulates the attributes of the Unit to express the unit with the 
+  * value of the scale attribute reduced to zero.
+  *
+  * For example, 1 mm can be expressed as a Unit with kind="metre"
+  * multipier="1" scale="-3" exponent="1". It can also be expressed as
+  * a Unit with kind="metre" multiplier="0.001" scale="0" exponent="1".
+  *
+  * @param unit the Unit object to manipulate.
+  */
+  static void removeScale(Unit * unit);
+
+  /** 
+  * Merges two Unit objects with the same kind attribute into
+  * a single Unit.
+  * 
+  * For example 
+  * <unit kind="metre" exponent="2"/>
+  * <unit kind="metre" exponent="1"/>
+  * merge to become
+  * <unit kind="metre" exponent="3"/>
+  *
+  * @param unit1 the first Unit object into which the second is merged
+  * @param unit2 the Unit object to merge with the first
+  */
+  static void mergeUnits(Unit * unit1, Unit * unit2);
+
+  /**
+  * Returns a UnitDefinition object which contains the argument Unit
+  * converted to the appropriate SI unit.
+  *
+  * @param unit the Unit object to convert to SI
+  *
+  * @return a UnitDefinition object containing the SI unit.
+  */
+  static UnitDefinition * convertUnitToSI(Unit * unit);
+
+  /**
+  * Returns a UnitDefinition object which contains the argument unit
+  * converted to the appropriate SI unit.
+  *
+  * @param unit the Unit object to convert to SI
+  *
+  * @return a UnitDefinition object containing the SI unit.
+  */
+  static UnitDefinition * convertUnitToSI(const Unit * unit);
+
+  /** @endcond doxygen-libsbml-internal */
 
 
 protected:

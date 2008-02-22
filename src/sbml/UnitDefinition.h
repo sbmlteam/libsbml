@@ -530,6 +530,156 @@ public:
   virtual const std::string& getElementName () const;
 
 
+  /** 
+  * Simplifies the UnitDefinition so that any Unit occurring
+  * within the listOfUnits occurs only once.
+  *
+  * For example,
+  * @n <unitDefinition>
+  * @n  <listOfUnits>
+  * @n    <unit kind="metre" exponent="1"/>
+  * @n    <unit kind="metre" exponent="2"/>
+  * @n  </listOfUnits>
+  * @n <unitDefinition>
+  *
+  * simplified would return
+  * @n <unitDefinition>
+  * @n   <listOfUnits>
+  * @n     <unit kind="metre" exponent="3"/>
+  * @n   </listOfUnits>
+  * @n <unitDefinition>
+  *
+  * @param ud the UnitDefinition object to be simplified.
+  */
+  static void simplifyUnitDefinition(UnitDefinition * ud);
+
+  /** 
+  * Orders the listOfUnits within the UnitDefinition alphabetically.
+  *
+  * @param ud the UnitDefinition object to be ordered.
+  */
+  static void orderUnitDefinition(UnitDefinition * ud);
+  
+  /**
+  * Returns a UnitDefinition object which is the argument UnitDefinition
+  * converted to the SI units.
+  *
+  * @param ud the UnitDefinition object to convert to SI
+  *
+  * @return a UnitDefinition object converted to SI units.
+  */
+  static UnitDefinition * convertToSI(UnitDefinition * ud);
+
+  /**
+  * Returns a UnitDefinition object which is the argument UnitDefinition
+  * converted to the SI units.
+  *
+  * @param ud the UnitDefinition object to convert to SI
+  *
+  * @return a UnitDefinition object converted to SI units.
+  */
+  static UnitDefinition * convertToSI(const UnitDefinition *);
+
+  /** 
+  * Predicate returning @c true or @c false depending on whether 
+  * UnitDefinition objects are identical (all units are identical).
+  *
+  * @param ud1 the first UnitDefinition object to compare
+  * @param ud2 the second UnitDefinition object to compare
+  *
+  * @return @c true if all the units of ud1 are identical
+  * to the units of ud2, @c false otherwise.
+  *
+  * @note For the purposes of comparison two units can be "identical",
+  * i.e. all attributes are an exact match, or "equivalent" i.e. 
+  * matching kind and exponent.
+  *
+  * @see areEquivalent();
+  */
+  static bool areIdentical(UnitDefinition * ud1, UnitDefinition * ud2);
+
+  /** 
+  * Predicate returning @c true or @c false depending on whether 
+  * UnitDefinition objects are identical (all units are identical).
+  *
+  * @param ud1 the first UnitDefinition object to compare
+  * @param ud2 the second UnitDefinition object to compare
+  *
+  * @return @c true if all the units of ud1 are identical
+  * to the units of ud2, @c false otherwise.
+  *
+  * @note For the purposes of comparison two units can be "identical",
+  * i.e. all attributes are an exact match, or "equivalent" i.e. 
+  * matching kind and exponent.
+  *
+  * @see areEquivalent();
+  */
+  static bool areIdentical(const UnitDefinition * ud1, const UnitDefinition * ud2);
+
+  /** 
+  * Predicate returning @c true or @c false depending on whether 
+  * UnitDefinition objects are equivalent (all units are equivalent).
+  *
+  * @param ud1 the first UnitDefinition object to compare
+  * @param ud2 the second UnitDefinition object to compare
+  *
+  * @return @c true if all the units of ud1 are equivalent
+  * to the units of ud2, @c false otherwise.
+  *
+  * @note For the purposes of comparison two units can be "identical",
+  * i.e. all attributes are an exact match, or "equivalent" i.e. 
+  * matching kind and exponent.
+  *
+  * @see areIdentical();
+  */
+  static bool areEquivalent(const UnitDefinition *ud1 , const UnitDefinition * ud2);
+
+  /** 
+  * Predicate returning @c true or @c false depending on whether 
+  * UnitDefinition objects are equivalent (all units are equivalent).
+  *
+  * @param ud1 the first UnitDefinition object to compare
+  * @param ud2 the second UnitDefinition object to compare
+  *
+  * @return @c true if all the units of ud1 are equivalent
+  * to the units of ud2, @c false otherwise.
+  *
+  * @note For the purposes of comparison two units can be "identical",
+  * i.e. all attributes are an exact match, or "equivalent" i.e. 
+  * matching kind and exponent.
+  *
+  * @see areIdentical();
+  */
+  static bool areEquivalent(const UnitDefinition * ud1, UnitDefinition * ud2);
+
+  /** 
+  * Combines two UnitDefinition objects into a single UnitDefinition object
+  * which expresses the units of the two objects multiplied.
+  *
+  * @param ud1 the first UnitDefinition object into which the second is
+  * combined
+  * @param ud2 the second UnitDefinition object
+  */
+  static void combine(UnitDefinition * ud1, UnitDefinition * ud2);
+
+  /** 
+  * Returns a string that expresses the units symbolised by the UnitDefinition.
+  *
+  * For example printUnits applied to
+  * @n <unitDefinition>
+  * @n  <listOfUnits>
+  * @n    <unit kind="metre" exponent="1"/>
+  * @n    <unit kind="second" exponent="-2"/>
+  * @n  </listOfUnits>
+  * @n <unitDefinition>
+  * @n returns the string 'metre (exponent = 1) second (exponent = -2)'
+  *
+  * @param ud the UnitDefinition object
+  *
+  * @return a string expressing the units
+  */
+  static std::string printUnits(const UnitDefinition * ud);
+
   /** @cond doxygen-libsbml-internal */
 
   /**
@@ -776,6 +926,35 @@ UnitDefinition_getUnit (UnitDefinition_t *ud, unsigned int n);
 LIBSBML_EXTERN
 unsigned int
 UnitDefinition_getNumUnits (const UnitDefinition_t *ud);
+
+
+LIBSBML_EXTERN
+void 
+UnitDefinition_simplifyUnitDefinition(UnitDefinition_t * ud);
+
+LIBSBML_EXTERN
+void 
+UnitDefinition_orderUnitDefinition(UnitDefinition_t * ud);
+
+LIBSBML_EXTERN
+UnitDefinition_t * 
+UnitDefinition_convertToSI(UnitDefinition_t * ud);
+
+LIBSBML_EXTERN
+int 
+UnitDefinition_areIdentical(UnitDefinition_t * ud1, UnitDefinition_t * ud2);
+
+LIBSBML_EXTERN
+int 
+UnitDefinition_areEquivalent(UnitDefinition_t *ud1 , UnitDefinition_t * ud2);
+
+LIBSBML_EXTERN
+void 
+UnitDefinition_combine(UnitDefinition_t * ud1, UnitDefinition_t * ud2);
+
+LIBSBML_EXTERN
+const char *
+UnitDefinition_printUnits(UnitDefinition_t * ud);
 
 
 END_C_DECLS

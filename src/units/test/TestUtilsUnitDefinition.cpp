@@ -55,8 +55,6 @@
 #include <sbml/UnitDefinition.h>
 #include <sbml/math/ASTNode.h>
 
-#include <sbml/units/Utils_UnitDefinition.h>
-
 #include <check.h>
 
 BEGIN_C_DECLS
@@ -73,7 +71,7 @@ START_TEST(test_unitdefinition_simplify)
   /* case with only one unit */
   ud->addUnit(u);
 
-  simplifyUnitDefinition(ud);
+  UnitDefinition::simplifyUnitDefinition(ud);
 
   fail_unless(ud->getNumUnits() == 1);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
@@ -81,7 +79,7 @@ START_TEST(test_unitdefinition_simplify)
   /* case with one unit plus a dimensionless unit */
   ud->addUnit(u1);
 
-  simplifyUnitDefinition(ud);
+  UnitDefinition::simplifyUnitDefinition(ud);
   
   fail_unless(ud->getNumUnits() == 1);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
@@ -89,7 +87,7 @@ START_TEST(test_unitdefinition_simplify)
   /* case with two units of same kind */
   ud->addUnit(u2);
 
-  simplifyUnitDefinition(ud);
+  UnitDefinition::simplifyUnitDefinition(ud);
   
   fail_unless(ud->getNumUnits() == 1);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
@@ -98,7 +96,7 @@ START_TEST(test_unitdefinition_simplify)
   /* case with two units of same kind that cancel*/
   ud->addUnit(u3);
 
-  simplifyUnitDefinition(ud);
+  UnitDefinition::simplifyUnitDefinition(ud);
   
   fail_unless(ud->getNumUnits() == 0);
 
@@ -122,7 +120,7 @@ START_TEST(test_unitdefinition_order)
   ud->addUnit(u1);
   ud->addUnit(u2);
 
-  orderUnitDefinition(ud);
+  UnitDefinition::orderUnitDefinition(ud);
 
   fail_unless(ud->getNumUnits() == 3);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
@@ -149,7 +147,7 @@ START_TEST(test_unitdefinition_convert_SI)
   ud->addUnit(u);
   ud->addUnit(u1);
 
-  ud1 = convertToSI(ud);
+  ud1 = UnitDefinition::convertToSI(ud);
 
   fail_unless(ud1->getNumUnits() == 1);
   fail_unless(ud1->getUnit(0)->getKind() == UNIT_KIND_METRE);
@@ -176,13 +174,13 @@ START_TEST(test_unitdefinition_areIdentical)
   ud1->addUnit(u);
   ud1->addUnit(u1);
 
-  int identical = areIdentical(ud, ud1);
+  int identical = UnitDefinition::areIdentical(ud, ud1);
 
   fail_unless(identical == 1);
 
   ud->addUnit(u2);
 
-  identical = areIdentical(ud, ud1);
+  identical = UnitDefinition::areIdentical(ud, ud1);
  
   fail_unless(identical == 0);
 
@@ -211,13 +209,13 @@ START_TEST(test_unitdefinition_areEquivalent)
 
   ud1->addUnit(u2);
 
-  int equivalent = areEquivalent(ud, ud1);
+  int equivalent = UnitDefinition::areEquivalent(ud, ud1);
 
   fail_unless(equivalent == 1);
 
   ud->addUnit(u2);
 
-  equivalent = areEquivalent(ud, ud1);
+  equivalent = UnitDefinition::areEquivalent(ud, ud1);
  
   fail_unless(equivalent == 0);
 
@@ -241,7 +239,7 @@ START_TEST(test_unitdefinition_combine)
   ud->addUnit(u);
   ud1->addUnit(u1);
   
-  combine(ud, ud1);
+  UnitDefinition::combine(ud, ud1);
 
   fail_unless(ud->getNumUnits() == 2);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
@@ -250,7 +248,7 @@ START_TEST(test_unitdefinition_combine)
   /* case with two units of same kind */
   ud1->addUnit(u2);
 
-  combine(ud, ud1);
+  UnitDefinition::combine(ud, ud1);
 
   fail_unless(ud->getNumUnits() == 3);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);

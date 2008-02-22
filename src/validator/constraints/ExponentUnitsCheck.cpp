@@ -147,7 +147,7 @@ ExponentUnitsCheck::checkUnitsFromRoot (const Model& m,
   // The first argument is dimensionless then it doesnt matter 
   // what the root is
 
-  if (undeclaredUnits == 0 && !areEquivalent(dim, unitsArg1))
+  if (undeclaredUnits == 0 && !UnitDefinition::areEquivalent(dim, unitsArg1))
   {
     // if not argument needs to be an integer or a rational 
     unsigned int isInteger = 0;

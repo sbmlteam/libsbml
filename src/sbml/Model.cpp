@@ -2523,7 +2523,7 @@ Model::populateListFormulaUnitsData()
         ud->addUnit(fud->getUnitDefinition()->getUnit(j));
       u = new Unit("second", -1);
       ud->addUnit(u);
-      simplifyUnitDefinition(ud);
+      UnitDefinition::simplifyUnitDefinition(ud);
       delete u;
     }
     fud->setPerTimeUnitDefinition(ud);
