@@ -479,7 +479,7 @@ int compareKinds(const void * u1, const void * u2)
 }
 /** @endcond doxygen-libsbml-internal */
 
-/** 
+/* 
  * Orders the listOfUnits within the UnitDefinition alphabetically.
  *
  * @param ud the UnitDefinition object to be ordered.
@@ -531,7 +531,7 @@ UnitDefinition::orderUnitDefinition(UnitDefinition *ud)
 }
 
 
-/**
+/*
  * Returns a UnitDefinition object which is the argument UnitDefinition
  * converted to the SI units.
  *
@@ -564,7 +564,7 @@ UnitDefinition::convertToSI(UnitDefinition * ud)
 }
 
 
-/**
+/*
  * Returns a UnitDefinition object which is the argument UnitDefinition
  * converted to the SI units.
  *
@@ -596,7 +596,7 @@ UnitDefinition::convertToSI(const UnitDefinition * ud)
   return newUd;
 }
 
-/** 
+/* 
  * Predicate returning @c true or @c false depending on whether 
  * UnitDefinition objects are identical (all units are identical).
  *
@@ -646,7 +646,7 @@ UnitDefinition::areIdentical(UnitDefinition * ud1, UnitDefinition * ud2)
 }
 
 
-/** 
+/* 
  * Predicate returning @c true or @c false depending on whether 
  * UnitDefinition objects are identical (all units are identical).
  *
@@ -710,7 +710,7 @@ UnitDefinition::areIdentical(const UnitDefinition * ud1, const UnitDefinition * 
 }
 
 
-/** 
+/* 
  * Predicate returning @c true or @c false depending on whether 
  * UnitDefinition objects are equivalent (all units are equivalent).
  *
@@ -764,7 +764,7 @@ UnitDefinition::areEquivalent(const UnitDefinition * ud1, const UnitDefinition *
   return equivalent;
 }
 
-/** 
+/* 
  * Predicate returning @c true or @c false depending on whether 
  * UnitDefinition objects are equivalent (all units are equivalent).
  *
@@ -819,7 +819,7 @@ UnitDefinition::areEquivalent(const UnitDefinition * ud1, UnitDefinition * ud2)
 }
 
 
-/** 
+/* 
  * Combines two UnitDefinition objects into a single UnitDefinition object
  * which expresses the units of the two objects multiplied.
  *
@@ -838,7 +838,7 @@ UnitDefinition::combine(UnitDefinition *ud1, UnitDefinition *ud2)
   UnitDefinition::simplifyUnitDefinition(ud1);
 }
 
-/** 
+/* 
  * Returns a string that expresses the units symbolised by the UnitDefinition.
  * For example printUnits applied to
  * @code
@@ -887,7 +887,7 @@ UnitDefinition::printUnits(const UnitDefinition * ud)
   return unitDef;
 }
 
-/** @cond doxygen-libsbml-internal */
+/* @cond doxygen-libsbml-internal */
 /*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
