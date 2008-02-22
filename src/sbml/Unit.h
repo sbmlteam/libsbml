@@ -920,8 +920,8 @@ public:
   * <unit kind="metre" exponent="3"/>
   * @endcode
   *
-  * @param unit1 the first Unit object into which the second is merged
-  * @param unit2 the Unit object to merge with the first
+  * @param unit1 the first Unit object
+  * @param unit2 the second Unit object to merge with the first
   */
   static void merge(Unit * unit1, Unit * unit2);
 

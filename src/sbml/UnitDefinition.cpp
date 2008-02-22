@@ -691,15 +691,18 @@ UnitDefinition::areEquivalent(const UnitDefinition * ud1, const UnitDefinition *
  * combined
  * @param ud2 the second UnitDefinition object
  */
-void 
+UnitDefinition *
 UnitDefinition::combine(UnitDefinition *ud1, UnitDefinition *ud2)
 {
+  UnitDefinition * ud = new UnitDefinition(*ud1);
   for (unsigned int n = 0; n < ud2->getNumUnits(); n++)
   {
-    ud1->addUnit(ud2->getUnit(n));
+    ud->addUnit(ud2->getUnit(n));
   }
 
-  UnitDefinition::simplify(ud1);
+  UnitDefinition::simplify(ud);
+
+  return ud;
 }
 
 /* 
@@ -1414,10 +1417,10 @@ UnitDefinition_areEquivalent(UnitDefinition_t *ud1 , UnitDefinition_t * ud2)
 }
 
 LIBSBML_EXTERN
-void 
+UnitDefinition_t *  
 UnitDefinition_combine(UnitDefinition_t * ud1, UnitDefinition_t * ud2)
 {
-  UnitDefinition::combine(static_cast<UnitDefinition*>(ud1),
+  return UnitDefinition::combine(static_cast<UnitDefinition*>(ud1),
                                        static_cast<UnitDefinition*>(ud2));
 }
 

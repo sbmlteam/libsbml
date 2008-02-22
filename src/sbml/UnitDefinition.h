@@ -628,14 +628,13 @@ public:
    * object which expresses the product of the units of the two
    * UnitDefinition's.
    *
-   * The first argument is substituted in place with the new combined
-   * definition.
-   *
-   * @param ud1 the first UnitDefinition object into which the second is
-   * combined
+   * @param ud1 the first UnitDefinition object 
    * @param ud2 the second UnitDefinition object
+   *
+   * @return a UnitDefinition which represents the product of the 
+   * units of the two argument UnitDefinitions.
    */
-  static void combine(UnitDefinition * ud1, UnitDefinition * ud2);
+  static UnitDefinition* combine(UnitDefinition * ud1, UnitDefinition * ud2);
 
 
   /** 
@@ -932,7 +931,7 @@ int
 UnitDefinition_areEquivalent(UnitDefinition_t *ud1 , UnitDefinition_t * ud2);
 
 LIBSBML_EXTERN
-void 
+UnitDefinition_t * 
 UnitDefinition_combine(UnitDefinition_t * ud1, UnitDefinition_t * ud2);
 
 LIBSBML_EXTERN

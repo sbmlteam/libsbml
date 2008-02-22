@@ -231,6 +231,7 @@ START_TEST(test_unitdefinition_combine)
 {
   UnitDefinition* ud = new UnitDefinition();
   UnitDefinition* ud1 = new UnitDefinition();
+  UnitDefinition* udTemp;
 
   Unit* u  = new Unit(UNIT_KIND_METRE);
   Unit* u1 = new Unit(UNIT_KIND_MOLE);
@@ -239,23 +240,23 @@ START_TEST(test_unitdefinition_combine)
   ud->addUnit(u);
   ud1->addUnit(u1);
   
-  UnitDefinition::combine(ud, ud1);
+  udTemp = UnitDefinition::combine(ud, ud1);
 
-  fail_unless(ud->getNumUnits() == 2);
-  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
-  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_MOLE);
+  fail_unless(udTemp->getNumUnits() == 2);
+  fail_unless(udTemp->getUnit(0)->getKind() == UNIT_KIND_METRE);
+  fail_unless(udTemp->getUnit(1)->getKind() == UNIT_KIND_MOLE);
 
   /* case with two units of same kind */
   ud1->addUnit(u2);
 
-  UnitDefinition::combine(ud, ud1);
+  udTemp = UnitDefinition::combine(ud, ud1);
 
-  fail_unless(ud->getNumUnits() == 3);
-  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
-  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_MOLE);
-  fail_unless(ud->getUnit(1)->getExponent() == 2);
-  fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_SECOND);
-  fail_unless(ud->getUnit(2)->getExponent() == 2);
+  fail_unless(udTemp->getNumUnits() == 3);
+  fail_unless(udTemp->getUnit(0)->getKind() == UNIT_KIND_METRE);
+  fail_unless(udTemp->getUnit(1)->getKind() == UNIT_KIND_MOLE);
+  fail_unless(udTemp->getUnit(1)->getExponent() == 2);
+  fail_unless(udTemp->getUnit(2)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(udTemp->getUnit(2)->getExponent() == 2);
 
 
   delete u;

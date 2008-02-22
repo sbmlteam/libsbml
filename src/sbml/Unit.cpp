@@ -771,8 +771,8 @@ Unit::removeScale(Unit * unit)
  * merge to become
  * <unit kind="metre" exponent="3"/>
  *
- * @param unit1 the first Unit object into which the second is merged
- * @param unit2 the Unit object to merge with the first
+ * @param unit1 the first Unit object 
+ * @param unit2 the second Unit object to merge with the first
  */
 void
 Unit::merge(Unit * unit1, Unit * unit2)
@@ -2342,35 +2342,38 @@ LIBSBML_EXTERN
 int 
 Unit_areIdentical(Unit_t * unit1, Unit_t * unit2)
 {
-  return static_cast<int>(Unit::areIdentical(unit1, unit2));
+  return static_cast<int>(Unit::areIdentical(
+    static_cast<Unit*>(unit1), static_cast<Unit*>(unit2)));
 }
 
 LIBSBML_EXTERN
 int
 Unit_areEquivalent(Unit_t * unit1, Unit_t * unit2)
 {
-  return static_cast<int>(Unit::areEquivalent(unit1, unit2));
+  return static_cast<int>(Unit::areEquivalent(
+    static_cast<Unit*>(unit1), static_cast<Unit*>(unit2)));
 }
 
 LIBSBML_EXTERN
 void 
 Unit_removeScale(Unit_t * unit)
 {
-  Unit::removeScale(unit);
+  Unit::removeScale(static_cast<Unit*>(unit));
 }
 
 LIBSBML_EXTERN
 void 
 Unit_merge(Unit_t * unit1, Unit_t * unit2)
 {
-  Unit::merge(unit1, unit2);
+  Unit::merge(static_cast<Unit*>(unit1), static_cast<Unit*>(unit2));
 }
 
 LIBSBML_EXTERN
 UnitDefinition_t * 
 Unit_convertToSI(Unit_t * unit)
 {
-  return static_cast<UnitDefinition_t*>(Unit::convertToSI(unit));
+  return static_cast<UnitDefinition_t*>(Unit::convertToSI(
+    static_cast<Unit*>(unit)));
 }
 
 /** @endcond doxygen-c-only */
