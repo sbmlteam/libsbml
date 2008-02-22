@@ -74,18 +74,19 @@ public:
 
 
   /**
-   * @return the category covered by this Validator.  A category is a
-   * string, similiar in spirit to an XML namespace, which partitions error
-   * failures to prevent id conflicts.  Example categories include:
+   * Get the category of validation rules covered by this validator.
    *
-   *   http://sbml.org/validator/consistency
-   *   http://sbml.org/validator/consistency/units
-   *   http://sbml.org/validator/compatibility/L1
+   * The category values are drawn from the enumeration
+   * #SBMLErrorCategory_t.  See the documentation for the class SBMLError
+   * for more information.
    */
   const unsigned int getCategory () const;
 
 
   /**
+   * Get the list of SBMLError objects (if any) logged as a result
+   * of running the validator.
+   * 
    * @return a list of failures logged during validation.
    */
   const std::list<SBMLError>& getFailures () const;
@@ -99,7 +100,7 @@ public:
 
   /**
    * Validates the given SBMLDocument.  Failures logged during
-   * validation may be retrieved via <code>getFailures()</code>.
+   * validation may be retrieved via getFailures().
    *
    * @return the number of validation errors that occurred.
    */
@@ -108,7 +109,7 @@ public:
 
   /**
    * Validates the given SBMLDocument.  Failures logged during
-   * validation may be retrieved via <code>getFailures()</code>.
+   * validation may be retrieved via getFailures().
    *
    * @return the number of validation errors that occurred.
    */
