@@ -249,7 +249,7 @@ START_TEST(test_unitdefinition_combine)
   /* case with two units of same kind */
   ud1->addUnit(u2);
 
-  udTemp = UnitDefinition::combine(ud, ud1);
+  udTemp = UnitDefinition::combine(udTemp, ud1);
 
   fail_unless(udTemp->getNumUnits() == 3);
   fail_unless(udTemp->getUnit(0)->getKind() == UNIT_KIND_METRE);
