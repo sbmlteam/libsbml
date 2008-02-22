@@ -357,9 +357,9 @@ SBase::getAnnotationString ()
 }
 
 
-/**
-  * @return the Namespaces associated with this SBML object
-  */
+/*
+ * @return the Namespaces associated with this SBML object
+ */
 XMLNamespaces*
 SBase::getNamespaces() const
 {
@@ -1260,15 +1260,15 @@ SBase::unsetCVTerms()
 }
 
 
-/**
-  * Returns the BiologicalQualifier associated with this resource,
-  * an empty string if the resource does not exist.
-  *
-  * @param resource string representing the resource; e.g.,
-  * "http://www.geneontology.org/#GO:0005892"
-  *
-  * @return the BiolQualifierType_t associated with the resource
-  */
+/*
+ * Returns the BiologicalQualifier associated with this resource,
+ * an empty string if the resource does not exist.
+ *
+ * @param resource string representing the resource; e.g.,
+ * "http://www.geneontology.org/#GO:0005892"
+ *
+ * @return the BiolQualifierType_t associated with the resource
+ */
 BiolQualifierType_t 
 SBase::getResourceBiologicalQualifier(std::string resource)
 {
@@ -1297,15 +1297,15 @@ SBase::getResourceBiologicalQualifier(std::string resource)
   return BQB_UNKNOWN;
 }
 
-/**
-  * Returns the ModelQualifier associated with this resource,
-  * an empty string if the resource does not exist.
-  *
-  * @param resource string representing the resource; e.g.,
-  * "http://www.geneontology.org/#GO:0005892"
-  *
-  * @return the ModelQualifierType_t associated with the resource
-  */
+/*
+ * Returns the ModelQualifier associated with this resource,
+ * an empty string if the resource does not exist.
+ *
+ * @param resource string representing the resource; e.g.,
+ * "http://www.geneontology.org/#GO:0005892"
+ *
+ * @return the ModelQualifierType_t associated with the resource
+ */
 ModelQualifierType_t 
 SBase::getResourceModelQualifier(std::string resource)
 {
@@ -1365,18 +1365,18 @@ SBase::getVersion () const
 }
 
 
-/**
-  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
-  * (default).
-  *
-  * This method MAY return the typecode of this SBML object or it MAY
-  * return SBML_UNKNOWN.  That is, subclasses of SBase are not required to
-  * implement this method to return a typecode.  This method is meant
-  * primarily for the LibSBML C interface where class and subclass
-  * information is not readily available.
-  *
-  * @see getElementName()
-  */
+/*
+ * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+ * (default).
+ *
+ * This method MAY return the typecode of this SBML object or it MAY
+ * return SBML_UNKNOWN.  That is, subclasses of SBase are not required to
+ * implement this method to return a typecode.  This method is meant
+ * primarily for the LibSBML C interface where class and subclass
+ * information is not readily available.
+ *
+ * @see getElementName()
+ */
 SBMLTypeCode_t
 SBase::getTypeCode () const
 {
