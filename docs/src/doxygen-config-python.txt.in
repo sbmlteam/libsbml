@@ -58,7 +58,7 @@ PREDEFINED             = __cplusplus  \
 # The ENABLED_SECTIONS tag can be used to enable conditional 
 # documentation sections, marked by \if sectionname ... \endif.
 
-ENABLED_SECTIONS       = doxygen-c++-only doxygen-python-only
+ENABLED_SECTIONS       = doxygen-python-only
 
 # Because of how we construct the Python documentation, we don't want
 # the first sentence to be assumed to be the brief description.

@@ -359,7 +359,6 @@ INPUT =                      \
   ../../src/math             \
   ../../src/sbml             \
   ../../src/util             \
-  ../../src/units            \
   ../../src/validator        \
   ../../src/xml
 

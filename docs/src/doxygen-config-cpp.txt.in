@@ -58,7 +58,7 @@ PREDEFINED             = __cplusplus  \
 # The ENABLED_SECTIONS tag can be used to enable conditional 
 # documentation sections, marked by \if sectionname ... \endif.
 
-ENABLED_SECTIONS       = doxygen-c++-only
+ENABLED_SECTIONS       = cpp
 
 # Use this opportunity to generate man pages too.
 # Note: The output has a lot of errors.  Can't enable just yet.

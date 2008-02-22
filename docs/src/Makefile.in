@@ -308,7 +308,7 @@ endef
 ignorable-warnings = "warning - @param argument"
 
 java-manual $(java-manual): $(core-sources)
-	javadoc -use -public -version -author -sourcetab 4 \
+	javadoc -use -public -version -author -sourcetab 4 -keywords \
 	    -header $(javadoc-header) \
 	    -bottom $(javadoc-footer) \
 	    -windowtitle $(javadoc-windowtitle) \
@@ -316,7 +316,8 @@ java-manual $(java-manual): $(core-sources)
 	    -stylesheetfile doxygen-base.css \
 	    -overview libsbml-java-overview.html \
 	    -d $(java-manual) \
-	    -tag note:a:"Note:" -tag warning:a:"Warning:" \
+	    -tag note:a:"Note:" \
+	    -tag warning:a:"Warning:" \
 	    -tag docnote:a:"Documentation note:" \
 	    -sourcepath $(java-dir) org.sbml.libsbml \
         2>&1 | grep -v $(ignorable-warnings) 
