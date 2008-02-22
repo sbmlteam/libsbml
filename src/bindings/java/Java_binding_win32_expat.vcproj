@@ -542,12 +542,6 @@
 				RelativePath="..\..\util\util.c">
 			</File>
 			<File
-				RelativePath="..\..\units\Utils_Unit.cpp">
-			</File>
-			<File
-				RelativePath="..\..\units\Utils_UnitDefinition.cpp">
-			</File>
-			<File
 				RelativePath="..\..\validator\Validator.cpp">
 			</File>
 			<File

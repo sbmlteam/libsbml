@@ -528,12 +528,6 @@
 				RelativePath="..\..\src\util\util.c">
 			</File>
 			<File
-				RelativePath="..\..\src\units\Utils_Unit.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\units\Utils_UnitDefinition.cpp">
-			</File>
-			<File
 				RelativePath="..\..\src\validator\Validator.cpp">
 			</File>
 			<File
@@ -956,12 +950,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\util\util.h">
-			</File>
-			<File
-				RelativePath="..\..\src\units\Utils_Unit.h">
-			</File>
-			<File
-				RelativePath="..\..\src\units\Utils_UnitDefinition.h">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\Validator.h">
