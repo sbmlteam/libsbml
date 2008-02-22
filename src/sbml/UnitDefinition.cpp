@@ -540,39 +540,6 @@ UnitDefinition::reorder(UnitDefinition *ud)
  * @return a UnitDefinition object converted to SI units.
  */
 UnitDefinition * 
-UnitDefinition::convertToSI(UnitDefinition * ud)
-{
-  unsigned int n, p;
-  UnitDefinition * newUd = new UnitDefinition();
-  UnitDefinition * tempUd;
-
-  newUd->setId(ud->getId());
-  newUd->setName(ud->getName());
-
-  for (n = 0; n < ud->getNumUnits(); n++)
-  {
-    tempUd = Unit::convertToSI(ud->getUnit(n));
-    for (p = 0; p < tempUd->getNumUnits(); p++)
-    {
-      newUd->addUnit(tempUd->getUnit(p));
-    }
-    delete tempUd;
-  }
-
-  UnitDefinition::simplify(newUd);
-  return newUd;
-}
-
-
-/*
- * Returns a UnitDefinition object which is the argument UnitDefinition
- * converted to the SI units.
- *
- * @param ud the UnitDefinition object to convert to SI
- *
- * @return a UnitDefinition object converted to SI units.
- */
-UnitDefinition * 
 UnitDefinition::convertToSI(const UnitDefinition * ud)
 {
   unsigned int n, p;
@@ -594,55 +561,6 @@ UnitDefinition::convertToSI(const UnitDefinition * ud)
 
   UnitDefinition::simplify(newUd);
   return newUd;
-}
-
-/* 
- * Predicate returning @c true or @c false depending on whether 
- * UnitDefinition objects are identical (all units are identical).
- *
- * @param ud1 the first UnitDefinition object to compare
- * @param ud2 the second UnitDefinition object to compare
- *
- * @return @c true if all the units of ud1 are identical
- * to the units of ud2, @c false otherwise.
- *
- * @note For the purposes of comparison two units can be "identical",
- * i.e. all attributes are an exact match, or "equivalent" i.e. 
- * matching kind and exponent.
- *
- * @see areEquivalent();
- */
-LIBSBML_EXTERN
-bool 
-UnitDefinition::areIdentical(UnitDefinition * ud1, UnitDefinition * ud2)
-{
-  bool identical = false;
-  unsigned int n;
-
-  if (ud1->getNumUnits() == ud2->getNumUnits())
-  {
-    UnitDefinition::reorder(ud1);
-    UnitDefinition::reorder(ud2);
-    
-    n = 0;
-    while (n < ud1->getNumUnits())
-    {
-      if (!Unit::areIdentical(ud1->getUnit(n), ud2->getUnit(n)))
-      {
-        break;
-      }
-      else
-      {
-        n++;
-      }
-    }
-    if (n == ud1->getNumUnits())
-    {
-      identical = true;
-    }
-  }
-
-  return identical;
 }
 
 
@@ -728,60 +646,6 @@ UnitDefinition::areIdentical(const UnitDefinition * ud1, const UnitDefinition * 
  */
 bool 
 UnitDefinition::areEquivalent(const UnitDefinition * ud1, const UnitDefinition * ud2)
-{
-  bool equivalent = false;
-  unsigned int n;
-
-  UnitDefinition * ud1Temp = UnitDefinition::convertToSI(ud1);
-  UnitDefinition * ud2Temp = UnitDefinition::convertToSI(ud2);
-
-  if (ud1Temp->getNumUnits() == ud2Temp->getNumUnits())
-  {
-    UnitDefinition::reorder(ud1Temp);
-    UnitDefinition::reorder(ud2Temp);
-    
-    n = 0;
-    while (n < ud1Temp->getNumUnits())
-    {
-      if (!Unit::areEquivalent(ud1Temp->getUnit(n), ud2Temp->getUnit(n)))
-      {
-        break;
-      }
-      else
-      {
-        n++;
-      }
-    }
-    if (n == ud1Temp->getNumUnits())
-    {
-      equivalent = true;
-    }
-  }
-
-  delete ud1Temp;
-  delete ud2Temp;
-
-  return equivalent;
-}
-
-/* 
- * Predicate returning @c true or @c false depending on whether 
- * UnitDefinition objects are equivalent (all units are equivalent).
- *
- * @param ud1 the first UnitDefinition object to compare
- * @param ud2 the second UnitDefinition object to compare
- *
- * @return @c true if all the units of ud1 are equivalent
- * to the units of ud2, @c false otherwise.
- *
- * @note For the purposes of comparison two units can be "identical",
- * i.e. all attributes are an exact match, or "equivalent" i.e. 
- * matching kind and exponent.
- *
- * @see areIdentical();
- */
-bool 
-UnitDefinition::areEquivalent(const UnitDefinition * ud1, UnitDefinition * ud2)
 {
   bool equivalent = false;
   unsigned int n;

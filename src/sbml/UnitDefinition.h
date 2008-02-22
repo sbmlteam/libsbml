@@ -576,40 +576,7 @@ public:
    * @return a new UnitDefinition object representing the results of the
    * conversion.
    */
-  static UnitDefinition * convertToSI(UnitDefinition * ud);
-
-
-  /**
-   * Convert a given UnitDefinition into a new UnitDefinition object
-   * that uses SI units.
-   * 
-   * @param ud the UnitDefinition object to convert to SI
-   *
-   * @return a new UnitDefinition object representing the results of the
-   * conversion.
-   */
   static UnitDefinition * convertToSI(const UnitDefinition *);
-
-
-  /** 
-   * Predicate returning @c true or @c false depending on whether two
-   * UnitDefinition objects are identical.
-   *
-   * For the purposes of performing this comparison, two UnitDefinition
-   * objects are considered identical when they contain identical list of
-   * Unit objects.  Unit objects are in turn considered identical if they
-   * satisfy the predicate Unit::areIdentical(Unit * unit1, Unit * unit2).
-   *
-   * @param ud1 the first UnitDefinition object to compare
-   * @param ud2 the second UnitDefinition object to compare
-   *
-   * @return @c true if all the Unit objects in ud1 are identical to the
-   * Unit objects of ud2, @c false otherwise.
-   *
-   * @see areEquivalent()
-   * @see Unit::areIdentical(Unit * unit1, Unit * unit2)
-   */
-  static bool areIdentical(UnitDefinition * ud1, UnitDefinition * ud2);
 
 
   /** 
@@ -654,29 +621,6 @@ public:
    * @see Unit::areEquivalent(Unit * unit1, Unit * unit2)
    */
   static bool areEquivalent(const UnitDefinition *ud1 , const UnitDefinition * ud2);
-
-
-  /** 
-   * Predicate returning @c true or @c false depending on whether two
-   * UnitDefinition objects are equivalent.
-   *
-   * For the purposes of performing this comparison, two UnitDefinition
-   * objects are considered equivalent when they contain @em equivalent
-   * list of Unit objects.  Unit objects are in turn considered equivalent
-   * if they satisfy the predicate Unit::areEquivalent(Unit * unit1, Unit *
-   * unit2).
-   *
-   * @param ud1 the first UnitDefinition object to compare
-   * 
-   * @param ud2 the second UnitDefinition object to compare
-   *
-   * @return @c true if all the Unit objects in ud1 are equivalent
-   * to the Unit objects in ud2, @c false otherwise.
-   *
-   * @see areIdentical()
-   * @see Unit::areEquivalent(Unit * unit1, Unit * unit2)
-   */
-  static bool areEquivalent(const UnitDefinition * ud1, UnitDefinition * ud2);
 
 
   /** 

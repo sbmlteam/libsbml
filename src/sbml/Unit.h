@@ -929,17 +929,6 @@ public:
 
 
   /**
-  * Returns a UnitDefinition object which contains the argument Unit
-  * converted to the appropriate SI unit.
-  *
-  * @param unit the Unit object to convert to SI
-  *
-  * @return a UnitDefinition object containing the SI unit.
-  */
-  static UnitDefinition * convertToSI(Unit * unit);
-
-
-  /**
   * Returns a UnitDefinition object which contains the argument unit
   * converted to the appropriate SI unit.
   *
