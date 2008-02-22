@@ -813,41 +813,56 @@ public:
    * @param name a string to be tested against the built-in unit names
    *
    * @param level the Level of SBML for which the determination should be
-   * made (necessary because there are a few small differences between
-   * SBML Level&nbsp;1 and Level&nbsp;2)
+   * made.  This is necessary because there are a few small differences
+   * in this regard between SBML Level&nbsp;1 and Level&nbsp;2.
    * 
-   * @return @c true if @p name is one of the five SBML built-in Unit names
-   * (@c "substance", @c "volume", @c "area", @c "length" or @c "time"), @c
-   * false otherwise
+   * @return @c true if @p name is one of the five SBML built-in units (@c
+   * "substance", @c "volume", @c "area", @c "length" or @c "time"), @c
+   * false otherwise.
    *
-   * @note @c "length" and @c "area" were added in Level&nbsp;2 Version&nbsp;1
+   * @note The built-in units @c "length" and @c "area" were added in
+   * Level&nbsp;2 Version&nbsp;1
    */
   static bool isBuiltIn (const std::string& name, unsigned int level);
 
 
-
   /**
    * Predicate to test whether a given string is the name of a valid
-   * base unit in SBML (such as @c "gram" or @c "mole")
+   * base unit in SBML (such as @c "gram" or @c "mole").
+   *
+   * This method exists because prior to SBML Level&nbsp;2 Version&nbsp;3,
+   * an enumeration called UnitKind was defined by SBML.  This enumeration
+   * was removed in SBML Level&nbsp;2 Version&nbsp;3 and its values were
+   * folded into the space of values of a type called UnitSId.  This method
+   * therefore has less significance in SBML Level&nbsp;2 Version&nbsp;3,
+   * but remains for backward compatibility.
    *
    * @param name a string to be tested
-   * @param level an unsigned int representing the level of SBML
-   * @param version an unsigned int representing the version of SBML
+   * 
+   * @param level an unsigned int representing the SBML specification
+   * Level 
+   * 
+   * @param version an unsigned int representing the SBML specification
+   * Version
    * 
    * @return @c true if name is a valid UnitKind, @c false otherwise
    *
-   * @note the enumeration of allowed units changes between Levels 1 and 2 and
-   * again between Level&nbsp;2 Versions 1 and 2.
+   * @note The allowed unit names differ between SBML Levels&nbsp;1
+   * and&nbsp;2 and again slightly between Level&nbsp;2 Versions&nbsp;1
+   * and&nbsp;2.
    */
-  static bool isUnitKind (const std::string& name, unsigned int level,
-                                                    unsigned int version);
+  static bool isUnitKind (const std::string& name,
+                          unsigned int level, unsigned int version);
 
 
   /** @cond doxygen-libsbml-internal */
 
   /** 
-  * Predicate returning @c true or @c false depending on whether 
-  * Unit objects are identical (matching in all attributes).
+  * Predicate returning @c true or @c false depending on whether two
+  * Unit objects are identical.
+  *
+  * Two Unit objects are considered to be @em identical if they match
+  * in all attributes.
   *
   * @param unit1 the first Unit object to compare
   * @param unit2 the second Unit object to compare
@@ -855,58 +870,63 @@ public:
   * @return @c true if all the attributes of unit1 are identical
   * to the attributes of unit2, @c false otherwise.
   *
-  * @note For the purposes of comparison two units can be "identical",
-  * i.e. all attributes are an exact match, or "equivalent" i.e. 
-  * matching kind and exponent.
-  *
-  * @see areEquivalent();
+  * @see areEquivalent()
   */
   static bool areIdentical(Unit * unit1, Unit * unit2);
 
+
   /** 
   * Predicate returning @c true or @c false depending on whether 
-  * Unit objects are equivalent (matching kind and exponent).
+  * Unit objects are equivalent.
+  *
+  * Two Unit objects are considered to be @em equivalent if their
+  * "kind" and "exponent" attributes are equal.
   *
   * @param unit1 the first Unit object to compare
   * @param unit2 the second Unit object to compare
   *
-  * @return @c true if the kind and exponent attributes of unit1 are identical
-  * to the kind and exponent attributes of unit2, @c false otherwise.
-  *
-  * @note For the purposes of comparison two units can be "identical",
-  * i.e. all attributes are an exact match, or "equivalent" i.e. 
-  * matching kind and exponent.
-  *
-  * @see areIdentical();
+  * @return @c true if the "kind" and "exponent" attributes of unit1 are
+  * identical to the kind and exponent attributes of unit2, @c false
+  * otherwise.
+  * 
+  * @see areIdentical()
   */
   static bool areEquivalent(Unit * unit1, Unit * unit2);
+
 
   /** 
   * Manipulates the attributes of the Unit to express the unit with the 
   * value of the scale attribute reduced to zero.
   *
-  * For example, 1 mm can be expressed as a Unit with kind="metre"
-  * multipier="1" scale="-3" exponent="1". It can also be expressed as
-  * a Unit with kind="metre" multiplier="0.001" scale="0" exponent="1".
+  * For example, 1 mm can be expressed as a Unit with kind=@c "metre"
+  * multipier=@c "1" scale=@c "-3" exponent=@c "1". It can also be
+  * expressed as a Unit with kind=@c "metre" multiplier=@c "0.001" scale=@c
+  * "0" exponent=@c "1".
   *
   * @param unit the Unit object to manipulate.
   */
   static void removeScale(Unit * unit);
 
+
   /** 
   * Merges two Unit objects with the same kind attribute into
   * a single Unit.
   * 
-  * For example 
+  * For example, the following,
+  * @code
   * <unit kind="metre" exponent="2"/>
   * <unit kind="metre" exponent="1"/>
-  * merge to become
+  * @endcode
+  * would be merged to become
+  * @code
   * <unit kind="metre" exponent="3"/>
+  * @endcode
   *
   * @param unit1 the first Unit object into which the second is merged
   * @param unit2 the Unit object to merge with the first
   */
   static void mergeUnits(Unit * unit1, Unit * unit2);
+
 
   /**
   * Returns a UnitDefinition object which contains the argument Unit
@@ -917,6 +937,7 @@ public:
   * @return a UnitDefinition object containing the SI unit.
   */
   static UnitDefinition * convertUnitToSI(Unit * unit);
+
 
   /**
   * Returns a UnitDefinition object which contains the argument unit
