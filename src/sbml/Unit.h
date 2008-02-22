@@ -170,7 +170,9 @@
  * </table>
  * </center>
  * 
- *
+ * <!-- leave this next break as-is to work around some doxygen bug -->
+ */ 
+/**
  * @class ListOfUnits
  * @brief Container class for lists of Unit objects in a UnitDefinition.
  * 
