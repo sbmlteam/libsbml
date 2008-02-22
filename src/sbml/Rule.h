@@ -30,15 +30,16 @@
  * of those variables.  They enable encoding relationships that cannot be
  * expressed using Reaction nor InitialAssignment objects alone.
  *
- * The libSBML implementation of rules mirrors the SBML Level 2 Version 3
- * definition, with Rule being the parent class of three subclasses as
- * explained below.  The Rule class itself cannot be instantiated by user
- * programs and has no constructor; only the subclasses AssignmentRule,
- * AlgebraicRule and RateRule can be instantiated directly.
+ * The libSBML implementation of rules mirrors the SBML Level&nbsp;2
+ * Version&nbsp;3 definition, with Rule being the parent class of three
+ * subclasses as explained below.  The Rule class itself cannot be
+ * instantiated by user programs and has no constructor; only the
+ * subclasses AssignmentRule, AlgebraicRule and RateRule can be
+ * instantiated directly.
  *
  * @section rules-general General summary of SBML rules
  * 
- * In SBML Level 2, rules are separated into three subclasses for the
+ * In SBML Level&nbsp;2, rules are separated into three subclasses for the
  * benefit of model analysis software.  The three subclasses are based on
  * the following three different possible functional forms (where @em x is
  * a variable, @em f is some arbitrary function returning a numerical
@@ -138,8 +139,8 @@
  * that does not contain AlgebraicRule structures cannot be overdetermined.
  *
  * LibSBML 3.0 implements the static analysis procedure described in
- * Appendix D of the SBML Level 2 Version 3 specification for assessing
- * whether a model is overdetermined.
+ * Appendix D of the SBML Level&nbsp;2 Version&nbsp;3 specification for
+ * assessing whether a model is overdetermined.
  *
  * (In summary, assessing whether a given continuous, deterministic,
  * mathematical model is overdetermined does not require dynamic analysis;
@@ -159,6 +160,26 @@
  * matchings will have this property; i.e., it is only necessary to find
  * one maximal matching.)
  *
+ * <h3><a class="anchor" name="RuleType_t">RuleType_t</a></h3>
+ *
+ * SBML Level 1 uses a different scheme than SBML Level&nbsp;2 for
+ * distinguishing rules; specifically, it uses an attribute whose value is
+ * drawn from an enumeration.  LibSBML supports this using methods that
+ * work with the RuleType_t enumeration.
+ * 
+ * <center>
+ * <table width="90%" cellspacing="1" cellpadding="1" border="0" class="normal-font">
+ *  <tr style="background: lightgray" class="normal-font">
+ *      <td><strong>Enumerator</strong></td>
+ *      <td><strong>Meaning</strong></td>
+ *  </tr>
+ * <tr><td><em>RULE_TYPE_RATE</em></td><td>Indicates the rule is a "rate" rule.</td>
+ * <tr><td><em>RULE_TYPE_SCALAR</em></td><td>Indicates the rule is a "scalar" rule.</td>
+ * <tr><td><em>RULE_TYPE_UNKNOWN</em></td><td>Indicates the rule type is unknown or not
+ * yet set.</td>
+ * </table>
+ * </center>
+ *
  *
  * <!-- leave this next break as-is to work around some doxygen bug -->
  */ 
@@ -176,7 +197,7 @@
  * times, <em>t</em> \f$\geq\f$ <em>0</em>.  For purposes of evaluating
  * expressions that involve the delay "csymbol" (see the SBML
  * specification), algebraic rules are considered to apply also at
- * <em>t</em> \f$\leq\f$ <em>0</em>.  The SBML Level 2 Version 3
+ * <em>t</em> \f$\leq\f$ <em>0</em>.  The SBML Level&nbsp;2 Version&nbsp;3
  * specification provides additional information about the semantics of
  * assignments, rules, and entity values for simulation time <em>t</em>
  * \f$\leq\f$ <em>0</em>.
@@ -185,9 +206,9 @@
  * introduces the possibility that a model is mathematically overdetermined
  * by the overall system of equations constructed from its rules and
  * reactions.  An SBML model must not be overdetermined; see the
- * description of Rule and also the SBML Level 2 Version 3 specification.
- * An SBML model that does not contain AlgebraicRule structures cannot be
- * overdetermined.
+ * description of Rule and also the SBML Level&nbsp;2 Version&nbsp;3
+ * specification.  An SBML model that does not contain AlgebraicRule
+ * structures cannot be overdetermined.
  *
  * Assessing whether a given continuous, deterministic, mathematical model
  * is overdetermined does not require dynamic analysis; it can be done by
@@ -205,8 +226,9 @@
  * contain disconnected vertexes representing equations.  (If one maximal
  * matching has this property, then all the maximal matchings will have
  * this property; i.e., it is only necessary to find one maximal matching.)
- * Appendix D of the SBML Level 2 Version 3 specification describes a
- * method of applying this procedure to specific SBML data objects.
+ * Appendix D of the SBML Level&nbsp;2 Version&nbsp;3 specification
+ * describes a method of applying this procedure to specific SBML data
+ * objects.
  *
  * 
  * <!-- leave this next break as-is to work around some doxygen bug -->
@@ -253,11 +275,11 @@
  * In the context of a simulation, assignment rules are in effect at all
  * times, <em>t</em> \f$\geq\f$ <em>0</em>.  For purposes of evaluating
  * expressions that involve the <em>delay</em> "csymbol" (see the SBML
- * Level 2 specification), assignment rules are considered to apply also at
- * <em>t</em> \f$\leq\f$ <em>0</em>.  The SBML Level 2 Version 3
- * specification provides additional information about the semantics of
- * assignments, rules, and entity values for simulation time <em>t</em>
- * \f$\leq\f$ <em>0</em>.
+ * Level&nbsp;2 specification), assignment rules are considered to apply
+ * also at <em>t</em> \f$\leq\f$ <em>0</em>.  The SBML Level&nbsp;2
+ * Version&nbsp;3 specification provides additional information about the
+ * semantics of assignments, rules, and entity values for simulation time
+ * <em>t</em> \f$\leq\f$ <em>0</em>.
  *
  * A model must not contain more than one AssignmentRule or RateRule
  * object having the same value of "variable"; in other words, in the set
@@ -332,7 +354,7 @@
  * </ul>
  * 
  * In the context of a simulation, rate rules are in effect for simulation
- * time <em>t</em> &lt; <em>0</em>.  The SBML Level 2 Version 3
+ * time <em>t</em> &lt; <em>0</em>.  The SBML Level&nbsp;2 Version&nbsp;3
  * specification provides additional information about the semantics of
  * assignments, rules, and entity values for simulation time <em>t</em>
  * \f$\leq\f$ <em>0</em>.
@@ -359,7 +381,7 @@
  * ListOf___ classes do not add any attributes of their own.
  *
  * The relationship between the lists and the rest of an %SBML model is
- * illustrated by the following (for %SBML Level 2 Version 3):
+ * illustrated by the following (for %SBML Level&nbsp;2 Version&nbsp;3):
  *
  * @image html listof-illustration.jpg "ListOf___ elements in an SBML Model"
  * @image latex listof-illustration.jpg "ListOf___ elements in an SBML Model"
@@ -493,7 +515,7 @@ public:
 
 
   /**
-   * (SBML Level 1 ParameterRule only) Returns the units for the
+   * (SBML Level&nbsp;1 ParameterRule only) Returns the units for the
    * mathematical formula of this Rule.
    * 
    * @return the identifier of the units for the expression of this Rule
@@ -506,7 +528,7 @@ public:
    * Rule's mathematical expression has been set.
    * 
    * Equivalent to isSetMath().  This version is present for easier
-   * compatibility with SBML Level 1, in which mathematical formulas were
+   * compatibility with SBML Level&nbsp;1, in which mathematical formulas were
    * written in text-string form.
    * 
    * @return @c true if the mathematical formula for this Rule has been
@@ -538,7 +560,7 @@ public:
 
 
   /**
-   * (SBML Level 1 ParameterRule only) Predicate returning @c true or @c
+   * (SBML Level&nbsp;1 ParameterRule only) Predicate returning @c true or @c
    * false depending on whether this Rule's "units" attribute has been set.
    *
    * @return @c true if the units for this Rule has been set, @c false
@@ -552,7 +574,7 @@ public:
    * text-string form.
    *
    * This is equivalent to setMath().  The provision of using text-string
-   * formulas is retained for easier SBML Level 1 compatibility.  The
+   * formulas is retained for easier SBML Level&nbsp;1 compatibility.  The
    * formula is converted to an ASTNode internally.
    *
    * @param formula a mathematical formula in text-string form.
@@ -579,7 +601,7 @@ public:
 
 
   /**
-   * (SBML Level 1 ParameterRule only) Sets the units for this Rule.
+   * (SBML Level&nbsp;1 ParameterRule only) Sets the units for this Rule.
    *
    * @param sname the identifier of the units
    */
@@ -587,7 +609,7 @@ public:
 
 
   /**
-   * (SBML Level 1 ParameterRule only) Unsets the "units" for this Rule.
+   * (SBML Level&nbsp;1 ParameterRule only) Unsets the "units" for this Rule.
    */
   void unsetUnits ();
 
@@ -641,10 +663,11 @@ public:
 
 
   /**
-   * (SBML Level 1) Get the type of rule this is.
+   * (SBML Level&nbsp;1) Get the type of rule this is.
    * 
-   * @return the #RuleType_t type of this Rule, either RULE_TYPE_RATE or
-   * RULE_TYPE_SCALAR.
+   * @return the rule type (a value drawn from the enumeration <a
+   * class="el" href="#RuleType_t">RuleType_t</a>) of this Rule.  The value
+   * will be either @c RULE_TYPE_RATE or @c RULE_TYPE_SCALAR.
    */
   RuleType_t getType () const;
 
@@ -668,7 +691,7 @@ public:
 
 
   /**
-   * (SBML Level 1 only) Predicate returning @c true or @c false depending
+   * (SBML Level&nbsp;1 only) Predicate returning @c true or @c false depending
    * on whether this Rule is an CompartmentVolumeRule.
    *
    * @return @c true if this Rule is a CompartmentVolumeRule, @c false
@@ -678,7 +701,7 @@ public:
 
 
   /**
-   * (SBML Level 1 only) Predicate returning @c true or @c false depending
+   * (SBML Level&nbsp;1 only) Predicate returning @c true or @c false depending
    * on whether this Rule is an ParameterRule.
    *
    * @return @c true if this Rule is a ParameterRule, @c false
@@ -689,28 +712,28 @@ public:
 
   /**
    * Predicate returning @c true or @c false depending on whether this Rule
-   * is a RateRule (SBML Level 2) or has a "type" attribute value of @c
-   * "rate" (SBML Level 1).
+   * is a RateRule (SBML Level&nbsp;2) or has a "type" attribute value of @c
+   * "rate" (SBML Level&nbsp;1).
    *
-   * @return @c true if this Rule is a RateRule (Level 2) or has
-   * type "rate" (Level 1), @c false otherwise.
+   * @return @c true if this Rule is a RateRule (Level&nbsp;2) or has
+   * type "rate" (Level&nbsp;1), @c false otherwise.
    */
   bool isRate () const;
 
 
   /**
    * Predicate returning @c true or @c false depending on whether this Rule
-   * is an AssignmentRule (SBML Level 2) or has a "type" attribute value of
-   * @c "scalar" (SBML Level 1).
+   * is an AssignmentRule (SBML Level&nbsp;2) or has a "type" attribute value of
+   * @c "scalar" (SBML Level&nbsp;1).
    *
-   * @return @c true if this Rule is an AssignmentRule (Level 2) or has
-   * type "scalar" (Level 1), @c false otherwise.
+   * @return @c true if this Rule is an AssignmentRule (Level&nbsp;2) or has
+   * type "scalar" (Level&nbsp;1), @c false otherwise.
    */
   bool isScalar () const;
 
 
   /**
-   * (SBML Level 1 only) Predicate returning @c true or @c false depending
+   * (SBML Level&nbsp;1 only) Predicate returning @c true or @c false depending
    * on whether this Rule is an SpeciesConcentrationRule.
    *
    * @return @c true if this Rule is a SpeciesConcentrationRule, @c false
@@ -722,7 +745,7 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @return the #SBMLTypeCode_t value of this object or SBML_UNKNOWN
+   * @return the #SBMLTypeCode_t value of this object or @c SBML_UNKNOWN
    * (default).
    *
    * @see getElementName()
@@ -731,9 +754,9 @@ public:
 
 
   /**
-   * Returns  the SBML Level 1 type code for this Rule, or SBML_UNNOWN.
+   * Returns  the SBML Level&nbsp;1 type code for this Rule, or @c SBML_UNNOWN.
    * 
-   * @return the SBML Level 1 typecode for this Rule or SBML_UNKNOWN
+   * @return the SBML Level&nbsp;1 typecode for this Rule or @c SBML_UNKNOWN
    * (default).
    */
   SBMLTypeCode_t getL1TypeCode () const;
@@ -746,13 +769,13 @@ public:
    *
    * The rules as of libSBML 3.0.0 are the following:
    * <ul>
-   * <li> (Level 2) RateRule: returns @c "rateRule"
-   * <li> (Level 2) AssignmentRule: returns @c "assignmentRule" 
-   * <li> (Level 2) AlgebraicRule: returns @c "algebraicRule"
-   * <li> (Level 1 Version 1) SpecieConcentrationRule: returns @c "specieConcentrationRule"
-   * <li> (Level 1 Version 2) SpeciesConcentrationRule: returns @c "speciesConcentrationRule"
-   * <li> (Level 1) CompartmentVolumeRule: returns @c "compartmentVolumeRule"
-   * <li> (Level 1) ParameterRule: returns @c "parameterRule"
+   * <li> (Level&nbsp;2) RateRule: returns @c "rateRule"
+   * <li> (Level&nbsp;2) AssignmentRule: returns @c "assignmentRule" 
+   * <li> (Level&nbsp;2) AlgebraicRule: returns @c "algebraicRule"
+   * <li> (Level&nbsp;1 Version&nbsp;1) SpecieConcentrationRule: returns @c "specieConcentrationRule"
+   * <li> (Level&nbsp;1 Version&nbsp;2) SpeciesConcentrationRule: returns @c "speciesConcentrationRule"
+   * <li> (Level&nbsp;1) CompartmentVolumeRule: returns @c "compartmentVolumeRule"
+   * <li> (Level&nbsp;1) ParameterRule: returns @c "parameterRule"
    * <li> Unknown rule type: returns @c "unknownRule"
    * </ul>
    * 
@@ -771,7 +794,7 @@ public:
   virtual void writeElements (XMLOutputStream& stream) const;
 
   /**
-   * Sets the SBML Level 1 typecode for this Rule.
+   * Sets the SBML Level&nbsp;1 typecode for this Rule.
    */
   void setL1TypeCode (SBMLTypeCode_t type);
   /** @endcond doxygen-libsbml-internal */
@@ -1070,7 +1093,7 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @return the #SBMLTypeCode_t value of this object or SBML_UNKNOWN
+   * @return the #SBMLTypeCode_t value of this object or @c SBML_UNKNOWN
    * (default).
    *
    * @see getElementName()
@@ -1083,7 +1106,7 @@ public:
    * (i.e., Rule objects, if the list is non-empty).
    * 
    * @return the #SBMLTypeCode_t value of SBML objects contained in this
-   * ListOf or SBML_UNKNOWN (default).
+   * ListOf or @c SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */
