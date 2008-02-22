@@ -27,8 +27,6 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
-#include <sbml/units/Utils_UnitDefinition.h>
-
 #include <sbml/SBO.h>
 #include <sbml/SBMLVisitor.h>
 #include <sbml/SBMLError.h>
