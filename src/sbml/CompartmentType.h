@@ -47,7 +47,7 @@
  * 
  * As with other major structures in %SBML, CompartmentType has a mandatory
  * attribute, "id", used to give the compartment type an identifier.  The
- * identifier must be a text string conforming to the identifer syntax
+ * identifier must be a text %string conforming to the identifer syntax
  * permitted in %SBML.  CompartmentType also has an optional "name"
  * attribute, of type @c string.  The "id" and "name" must be used
  * according to the guidelines described in the %SBML specification (e.g.,
@@ -134,8 +134,8 @@ public:
    * creation of the object, and instead can be set using the setId()
    * method on the SBase parent class.
    *
-   * @param id a string, the identifier of this CompartmentType instance
-   * @param name a string, the optional name of this CompartmentType instance
+   * @param id a %string, the identifier of this CompartmentType instance
+   * @param name a %string, the optional name of this CompartmentType instance
    *
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different

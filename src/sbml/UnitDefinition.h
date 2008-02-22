@@ -54,9 +54,9 @@
  *
  * @section unitdef-summary Summary of the UnitDefinition construct
  *
- * UnitDefinition in SBML Level 2 Version 3 has two attributes and one
- * subelement.  The two attributes are "id" and "name", and the subelement
- * is ListOfUnits.
+ * UnitDefinition in SBML Level&nbsp;2 Version&nbsp;3 has two attributes
+ * and one subelement.  The two attributes are "id" and "name", and the
+ * subelement is ListOfUnits.
  *
  * The required attribute "id" and optional attribute "name" are both
  * strings.  The "id" attribute is used to give the defined unit a unique
@@ -122,14 +122,15 @@
  * implementation of unit support for the most common cases in systems
  * biology.
  *
- * As of %SBML Level 2 Version 2, Unit no longer has the attribute called
- * "offset" introduced in SBML Level 2 Version 1.  It turned out that the
- * general case involving units with offsets was incorrectly defined, and
- * few (if any) developers even attempted to support offset-based units in
- * their software.  In the development of Level 2 Version 2, a consensus
- * among %SBML developers emerged that a fully generalized unit scheme is
- * @em so confusing and complicated that it actually @em impedes
- * interoperability.  SBML Level 2 Version 2 and Version 3 acknowledge this
+ * As of %SBML Level&nbsp;2 Version&nbsp;2, Unit no longer has the
+ * attribute called "offset" introduced in SBML Level&nbsp;2
+ * Version&nbsp;1.  It turned out that the general case involving units
+ * with offsets was incorrectly defined, and few (if any) developers even
+ * attempted to support offset-based units in their software.  In the
+ * development of Level&nbsp;2 Version&nbsp;2, a consensus among %SBML
+ * developers emerged that a fully generalized unit scheme is @em so
+ * confusing and complicated that it actually @em impedes interoperability.
+ * SBML Level&nbsp;2 Version&nbsp;2 and Version&nbsp;3 acknowledge this
  * reality by reducing and simplifying the unit system, specifically by
  * removing the "offset" attribute on Unit and @c Celsius as a pre-defined
  * unit.
@@ -205,7 +206,7 @@
  * ListOf___ classes do not add any attributes of their own.
  *
  * The relationship between the lists and the rest of an %SBML model is
- * illustrated by the following (for %SBML Level 2 Version 3):
+ * illustrated by the following (for %SBML Level&nbsp;2 Version&nbsp;3):
  *
  * @image html listof-illustration.jpg "ListOf___ elements in an SBML Model"
  * @image latex listof-illustration.jpg "ListOf___ elements in an SBML Model"
@@ -449,9 +450,9 @@ public:
    * @note It is worth emphasizing that the attribute "kind" value of a
    * Unit is a required attribute for a valid Unit definition.  The
    * createUnit() method does not assign a valid kind to the constructed
-   * unit (instead, it sets the "kind" to UNIT_KIND_INVALID).  Callers are
-   * cautioned to set the newly-constructed Unit's kind using Unit::setKind()
-   * soon after calling this method.
+   * unit (instead, it sets the "kind" to @c UNIT_KIND_INVALID).  Callers
+   * are cautioned to set the newly-constructed Unit's kind using
+   * Unit::setKind() soon after calling this method.
    */
   Unit* createUnit ();
 
@@ -513,7 +514,7 @@ public:
   /**
    * Returns the libSBML type code for this object instance.
    * 
-   * @return the #SBMLTypeCode_t value of this object or SBML_UNKNOWN
+   * @return the #SBMLTypeCode_t value of this object or @c SBML_UNKNOWN
    * (default).
    *
    * @see getElementName()
@@ -531,154 +532,190 @@ public:
 
 
   /** 
-  * Simplifies the UnitDefinition so that any Unit occurring
-  * within the listOfUnits occurs only once.
+  * Simplifies the UnitDefinition so that any Unit objects occurring within
+  * the @c listOfUnits occurs only once.
   *
-  * For example,
-  * @n <unitDefinition>
-  * @n  <listOfUnits>
-  * @n    <unit kind="metre" exponent="1"/>
-  * @n    <unit kind="metre" exponent="2"/>
-  * @n  </listOfUnits>
-  * @n <unitDefinition>
-  *
-  * simplified would return
-  * @n <unitDefinition>
-  * @n   <listOfUnits>
-  * @n     <unit kind="metre" exponent="3"/>
-  * @n   </listOfUnits>
-  * @n <unitDefinition>
+  * For example, the following definition,
+  * @code
+  * <unitDefinition>
+  *  <listOfUnits>
+  *    <unit kind="metre" exponent="1"/>
+  *    <unit kind="metre" exponent="2"/>
+  *  </listOfUnits>
+  * <unitDefinition>
+  * @endcode
+  * will be simplified to 
+  * @code
+  * <unitDefinition>
+  *   <listOfUnits>
+  *     <unit kind="metre" exponent="3"/>
+  *   </listOfUnits>
+  * <unitDefinition>
+  * @endcode
   *
   * @param ud the UnitDefinition object to be simplified.
   */
   static void simplifyUnitDefinition(UnitDefinition * ud);
 
+
   /** 
-  * Orders the listOfUnits within the UnitDefinition alphabetically.
-  *
-  * @param ud the UnitDefinition object to be ordered.
-  */
+   * Orders alphabetically the Unit objects within the listOfUnits of a
+   * UnitDefinition.
+   *
+   * @param ud the UnitDefinition object whose units are to be reordered.
+   */
   static void orderUnitDefinition(UnitDefinition * ud);
+
   
   /**
-  * Returns a UnitDefinition object which is the argument UnitDefinition
-  * converted to the SI units.
-  *
-  * @param ud the UnitDefinition object to convert to SI
-  *
-  * @return a UnitDefinition object converted to SI units.
-  */
+   * Convert a given UnitDefinition into a new UnitDefinition object
+   * that uses SI units.
+   * 
+   * @param ud the UnitDefinition object to convert to SI
+   *
+   * @return a new UnitDefinition object representing the results of the
+   * conversion.
+   */
   static UnitDefinition * convertToSI(UnitDefinition * ud);
 
+
   /**
-  * Returns a UnitDefinition object which is the argument UnitDefinition
-  * converted to the SI units.
-  *
-  * @param ud the UnitDefinition object to convert to SI
-  *
-  * @return a UnitDefinition object converted to SI units.
-  */
+   * Convert a given UnitDefinition into a new UnitDefinition object
+   * that uses SI units.
+   * 
+   * @param ud the UnitDefinition object to convert to SI
+   *
+   * @return a new UnitDefinition object representing the results of the
+   * conversion.
+   */
   static UnitDefinition * convertToSI(const UnitDefinition *);
 
+
   /** 
-  * Predicate returning @c true or @c false depending on whether 
-  * UnitDefinition objects are identical (all units are identical).
-  *
-  * @param ud1 the first UnitDefinition object to compare
-  * @param ud2 the second UnitDefinition object to compare
-  *
-  * @return @c true if all the units of ud1 are identical
-  * to the units of ud2, @c false otherwise.
-  *
-  * @note For the purposes of comparison two units can be "identical",
-  * i.e. all attributes are an exact match, or "equivalent" i.e. 
-  * matching kind and exponent.
-  *
-  * @see areEquivalent();
-  */
+   * Predicate returning @c true or @c false depending on whether two
+   * UnitDefinition objects are identical.
+   *
+   * For the purposes of performing this comparison, two UnitDefinition
+   * objects are considered identical when they contain identical list of
+   * Unit objects.  Unit objects are in turn considered identical if they
+   * satisfy the predicate Unit::areIdentical(Unit * unit1, Unit * unit2).
+   *
+   * @param ud1 the first UnitDefinition object to compare
+   * @param ud2 the second UnitDefinition object to compare
+   *
+   * @return @c true if all the Unit objects in ud1 are identical to the
+   * Unit objects of ud2, @c false otherwise.
+   *
+   * @see areEquivalent()
+   * @see Unit::areIdentical(Unit * unit1, Unit * unit2)
+   */
   static bool areIdentical(UnitDefinition * ud1, UnitDefinition * ud2);
 
+
   /** 
-  * Predicate returning @c true or @c false depending on whether 
-  * UnitDefinition objects are identical (all units are identical).
-  *
-  * @param ud1 the first UnitDefinition object to compare
-  * @param ud2 the second UnitDefinition object to compare
-  *
-  * @return @c true if all the units of ud1 are identical
-  * to the units of ud2, @c false otherwise.
-  *
-  * @note For the purposes of comparison two units can be "identical",
-  * i.e. all attributes are an exact match, or "equivalent" i.e. 
-  * matching kind and exponent.
-  *
-  * @see areEquivalent();
-  */
+   * Predicate returning @c true or @c false depending on whether two
+   * UnitDefinition objects are identical.
+   *
+   * For the purposes of performing this comparison, two UnitDefinition
+   * objects are considered identical when they contain identical list of
+   * Unit objects.  Unit objects are in turn considered identical if they
+   * satisfy the predicate Unit::areIdentical(Unit * unit1, Unit * unit2).
+   *
+   * @param ud1 the first UnitDefinition object to compare
+   * @param ud2 the second UnitDefinition object to compare
+   *
+   * @return @c true if all the Unit objects in ud1 are identical to the
+   * Unit objects of ud2, @c false otherwise.
+   *
+   * @see areEquivalent()
+   * @see Unit::areIdentical(Unit * unit1, Unit * unit2)
+   */
   static bool areIdentical(const UnitDefinition * ud1, const UnitDefinition * ud2);
 
+
   /** 
-  * Predicate returning @c true or @c false depending on whether 
-  * UnitDefinition objects are equivalent (all units are equivalent).
-  *
-  * @param ud1 the first UnitDefinition object to compare
-  * @param ud2 the second UnitDefinition object to compare
-  *
-  * @return @c true if all the units of ud1 are equivalent
-  * to the units of ud2, @c false otherwise.
-  *
-  * @note For the purposes of comparison two units can be "identical",
-  * i.e. all attributes are an exact match, or "equivalent" i.e. 
-  * matching kind and exponent.
-  *
-  * @see areIdentical();
-  */
+   * Predicate returning @c true or @c false depending on whether two
+   * UnitDefinition objects are equivalent.
+   *
+   * For the purposes of performing this comparison, two UnitDefinition
+   * objects are considered equivalent when they contain @em equivalent
+   * list of Unit objects.  Unit objects are in turn considered equivalent
+   * if they satisfy the predicate Unit::areEquivalent(Unit * unit1, Unit *
+   * unit2).
+   *
+   * @param ud1 the first UnitDefinition object to compare
+   * 
+   * @param ud2 the second UnitDefinition object to compare
+   *
+   * @return @c true if all the Unit objects in ud1 are equivalent
+   * to the Unit objects in ud2, @c false otherwise.
+   *
+   * @see areIdentical()
+   * @see Unit::areEquivalent(Unit * unit1, Unit * unit2)
+   */
   static bool areEquivalent(const UnitDefinition *ud1 , const UnitDefinition * ud2);
 
+
   /** 
-  * Predicate returning @c true or @c false depending on whether 
-  * UnitDefinition objects are equivalent (all units are equivalent).
-  *
-  * @param ud1 the first UnitDefinition object to compare
-  * @param ud2 the second UnitDefinition object to compare
-  *
-  * @return @c true if all the units of ud1 are equivalent
-  * to the units of ud2, @c false otherwise.
-  *
-  * @note For the purposes of comparison two units can be "identical",
-  * i.e. all attributes are an exact match, or "equivalent" i.e. 
-  * matching kind and exponent.
-  *
-  * @see areIdentical();
-  */
+   * Predicate returning @c true or @c false depending on whether two
+   * UnitDefinition objects are equivalent.
+   *
+   * For the purposes of performing this comparison, two UnitDefinition
+   * objects are considered equivalent when they contain @em equivalent
+   * list of Unit objects.  Unit objects are in turn considered equivalent
+   * if they satisfy the predicate Unit::areEquivalent(Unit * unit1, Unit *
+   * unit2).
+   *
+   * @param ud1 the first UnitDefinition object to compare
+   * 
+   * @param ud2 the second UnitDefinition object to compare
+   *
+   * @return @c true if all the Unit objects in ud1 are equivalent
+   * to the Unit objects in ud2, @c false otherwise.
+   *
+   * @see areIdentical()
+   * @see Unit::areEquivalent(Unit * unit1, Unit * unit2)
+   */
   static bool areEquivalent(const UnitDefinition * ud1, UnitDefinition * ud2);
 
-  /** 
-  * Combines two UnitDefinition objects into a single UnitDefinition object
-  * which expresses the units of the two objects multiplied.
-  *
-  * @param ud1 the first UnitDefinition object into which the second is
-  * combined
-  * @param ud2 the second UnitDefinition object
-  */
-  static void combine(UnitDefinition * ud1, UnitDefinition * ud2);
 
   /** 
-  * Returns a string that expresses the units symbolised by the UnitDefinition.
-  *
-  * For example printUnits applied to
-  * @n <unitDefinition>
-  * @n  <listOfUnits>
-  * @n    <unit kind="metre" exponent="1"/>
-  * @n    <unit kind="second" exponent="-2"/>
-  * @n  </listOfUnits>
-  * @n <unitDefinition>
-  * @n returns the string 'metre (exponent = 1) second (exponent = -2)'
-  *
-  * @param ud the UnitDefinition object
-  *
-  * @return a string expressing the units
-  */
+   * Combines two UnitDefinition objects into a single UnitDefinition
+   * object which expresses the product of the units of the two
+   * UnitDefinition's.
+   *
+   * The first argument is substituted in place with the new combined
+   * definition.
+   *
+   * @param ud1 the first UnitDefinition object into which the second is
+   * combined
+   * @param ud2 the second UnitDefinition object
+   */
+  static void combine(UnitDefinition * ud1, UnitDefinition * ud2);
+
+
+  /** 
+   * Returns a string that expresses in a compact way the unit definition
+   * represented by this UnitDefinition object.
+   *
+   * For example printUnits applied to
+   * @code
+   * <unitDefinition>
+   *  <listOfUnits>
+   *    <unit kind="metre" exponent="1"/>
+   *    <unit kind="second" exponent="-2"/>
+   *  </listOfUnits>
+   * <unitDefinition>
+   * @endcode
+   * will return the string <code>"metre (exponent = 1) second (exponent =
+   * -2)"</code>.
+   *
+   * @param ud the UnitDefinition object
+   *
+   * @return a string expressing the units
+   */
   static std::string printUnits(const UnitDefinition * ud);
+
 
   /** @cond doxygen-libsbml-internal */
 
@@ -739,7 +776,7 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @return the #SBMLTypeCode_t value of this object or SBML_UNKNOWN
+   * @return the #SBMLTypeCode_t value of this object or @c SBML_UNKNOWN
    * (default).
    *
    * @see getElementName()
@@ -751,7 +788,7 @@ public:
    * (i.e., UnitDefinition objects, if the list is non-empty).
    * 
    * @return the #SBMLTypeCode_t value of SBML objects contained in this
-   * ListOf or SBML_UNKNOWN (default).
+   * ListOf or @c SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */
@@ -761,7 +798,8 @@ public:
   /**
    * Returns the XML element name of this object.
    *
-   * For ListOfUnitDefinitions, the XML element name is @c "listOfUnitDefinitions".
+   * For ListOfUnitDefinitions, the XML element name is @c
+   * "listOfUnitDefinitions".
    * 
    * @return the name of this element, i.e., @c "listOfUnitDefinitions".
    */
@@ -775,9 +813,10 @@ public:
    * (which in this case is the Model object).
    *
    * The ordering of elements in the XML form of %SBML is generally fixed
-   * for most components in %SBML.  So, for example, the ListOfUnitDefinitions
-   * in a model is (in %SBML Level 2 Version 3) the second ListOf___.
-   * (However, it differs for different Levels and Versions of SBML.)
+   * for most components in %SBML.  So, for example, the
+   * ListOfUnitDefinitions in a model is (in %SBML Level&nbsp;2
+   * Version&nbsp;3) the second ListOf___.  (However, it differs for
+   * different Levels and Versions of SBML.)
    *
    * @return the ordinal position of the element with respect to its
    * siblings, or @c -1 (default) to indicate the position is not significant.

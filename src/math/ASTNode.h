@@ -372,7 +372,7 @@ public:
   /**
    * Creates and returns a new ASTNode.
    *
-   * By default, the returned node will have a type of AST_UNKNOWN.  The
+   * By default, the returned node will have a type of @c AST_UNKNOWN.  The
    * calling code should set the node type to something else as soon as
    * possible.
    *
@@ -665,8 +665,8 @@ public:
 
   /**
    * Get the mantissa value of this node.  This function should be called
-   * only when getType() returns AST_REAL_E or AST_REAL.  If getType()
-   * returns AST_REAL, this method is identical to getReal().
+   * only when getType() returns @c AST_REAL_E or @c AST_REAL.  If
+   * getType() returns @c AST_REAL, this method is identical to getReal().
    * 
    * @return the value of the mantissa of this ASTNode. 
    */
@@ -676,7 +676,7 @@ public:
 
   /**
    * Get the exponent value of this ASTNode.  This function should be
-   * called only when getType() returns AST_REAL_E or AST_REAL.
+   * called only when getType() returns @c AST_REAL_E or @c AST_REAL.
    * 
    * @return the value of the exponent of this ASTNode.
    */
@@ -1202,24 +1202,24 @@ ASTNode_freeName (ASTNode_t *node);
  *
  * The rules determining the canonical form conversion are as follows:
  *
- *   1. If the node type is AST_NAME and the node name matches
+ *   1. If the node type is @c AST_NAME and the node name matches
  *   "ExponentialE", "Pi", "True" or "False" the node type is converted to
- *   the corresponding AST_CONSTANT type.
+ *   the corresponding @c AST_CONSTANT type.
  *
  *   2. If the node type is an AST_FUNCTION and the node name matches an L1
  *   or L2 (MathML) function name, logical operator name, or relational
- *   operator name, the node is converted to the correspnding AST_FUNCTION,
- *   AST_LOGICAL or AST_CONSTANT type.
+ *   operator name, the node is converted to the corresponding @c AST_FUNCTION,
+ *   @c AST_LOGICAL or @c AST_CONSTANT type.
  *
  * L1 function names are searched first, so canonicalizing "log" will
- * result in a node type of AST_FUNCTION_LN (see L1 Specification,
+ * result in a node type of @c AST_FUNCTION_LN (see L1 Specification,
  * Appendix C).
  *
  * Some canonicalizations result in a structural converion of the nodes (by
  * adding a child).  For example, a node with L1 function name "sqr" and a
  * single child node (the argument) will be transformed to a node of type
- * AST_FUNCTION_POWER with two children.  The first child will remain
- * unchanged, but the second child will be an ASTNode of type AST_INTEGER
+ * @c AST_FUNCTION_POWER with two children.  The first child will remain
+ * unchanged, but the second child will be an ASTNode of type @c AST_INTEGER
  * and a value of 2.  The function names that result in structural changes
  * are: log10, sqr and sqrt.
  */
@@ -1322,8 +1322,8 @@ ASTNode_fillListOfNodes ( const ASTNode_t  *node,
 
 /**
  * @return the value of this ASTNode as a single character.  This function
- * should be called only when ASTNode_getType() is one of AST_PLUS,
- * AST_MINUS, AST_TIMES, AST_DIVIDE or AST_POWER.
+ * should be called only when ASTNode_getType() is one of @c AST_PLUS,
+ * @c AST_MINUS, @c AST_TIMES, @c AST_DIVIDE or @c AST_POWER.
  */
 LIBSBML_EXTERN
 char
@@ -1331,7 +1331,7 @@ ASTNode_getCharacter (const ASTNode_t *node);
 
 /**
  * @return the value of this ASTNode as a (long) integer.  This function
- * should be called only when ASTNode_getType() == AST_INTEGER.
+ * should be called only when <code>ASTNode_getType() == AST_INTEGER</code>.
  */
 LIBSBML_EXTERN
 long
@@ -1339,8 +1339,8 @@ ASTNode_getInteger (const ASTNode_t *node);
 
 /**
  * @return the value of this ASTNode as a string.  This function may be
- * called on nodes that are not operators (ASTNode_isOperator(node) == 0)
- * or numbers (ASTNode_isNumber(node) == 0).
+ * called on nodes that are not operators (<code>ASTNode_isOperator(node)
+ * == 0</code>) or numbers (<code>ASTNode_isNumber(node) == 0</code>).
  */
 LIBSBML_EXTERN
 const char *
@@ -1356,7 +1356,8 @@ ASTNode_getNumerator (const ASTNode_t *node);
 
 /**
  * @return the value of the denominator of this ASTNode.  This function
- * should be called only when ASTNode_getType() == AST_RATIONAL.
+ * should be called only when <code>ASTNode_getType() ==
+ * AST_RATIONAL</code>.
  */
 LIBSBML_EXTERN
 long
@@ -1366,9 +1367,9 @@ ASTNode_getDenominator (const ASTNode_t *node);
  * @return the value of this ASTNode as a real (double).  This function
  * should be called only when ASTNode_isReal(node) != 0.
  *
- * This function performs the necessary arithmetic if the node type is
- * AST_REAL_E (mantissa * $10^exponent$) or AST_RATIONAL
- * (numerator / denominator).
+ * This function performs the necessary arithmetic if the node type is @c
+ * AST_REAL_E (<em>mantissa * 10<sup>exponent</sup></em>) or @c
+ * AST_RATIONAL (<em>numerator / denominator</em>).
  */
 LIBSBML_EXTERN
 double
@@ -1376,8 +1377,8 @@ ASTNode_getReal (const ASTNode_t *node);
 
 /**
  * @return the value of the mantissa of this ASTNode.  This function should
- * be called only when ASTNode_getType() is AST_REAL_E or AST_REAL.  If
- * AST_REAL, this method is identical to ASTNode_getReal().
+ * be called only when ASTNode_getType() is @c AST_REAL_E or @c AST_REAL.
+ * If @c AST_REAL, this method is identical to ASTNode_getReal().
  */
 LIBSBML_EXTERN
 double
@@ -1385,7 +1386,7 @@ ASTNode_getMantissa (const ASTNode_t *node);
 
 /**
  * @return the value of the exponent of this ASTNode.  This function should
- * be called only when ASTNode_getType() is AST_REAL_E or AST_REAL.
+ * be called only when ASTNode_getType() is @c AST_REAL_E or @c AST_REAL.
  */
 LIBSBML_EXTERN
 long
@@ -1425,8 +1426,8 @@ ASTNode_isConstant (const ASTNode_t *node);
 
 /**
  * @return true (non-zero) if this ASTNode is a function in SBML L1, L2
- * (MathML) (everything from abs() to tanh()) or user-defined, false (0)
- * otherwise.
+ * (MathML) (everything from @c abs() to @c tanh()) or user-defined, false
+ * (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1441,7 +1442,7 @@ int
 ASTNode_isInfinity (const ASTNode_t *node);
 
 /**
- * @return true (non-zero) if this ASTNode is of type AST_INTEGER, false
+ * @return true (non-zero) if this ASTNode is of type @c AST_INTEGER, false
  * (0) otherwise.
  */
 LIBSBML_EXTERN
@@ -1449,7 +1450,7 @@ int
 ASTNode_isInteger (const ASTNode_t *node);
 
 /**
- * @return true (non-zero) if this ASTNode is of type AST_LAMBDA, false
+ * @return true (non-zero) if this ASTNode is of type @c AST_LAMBDA, false
  * (0) otherwise.
  */
 LIBSBML_EXTERN
@@ -1460,8 +1461,8 @@ ASTNode_isLambda (const ASTNode_t *node);
  * @return true (non-zero) if the given ASTNode represents a log10()
  * function, false (0) otherwise.
  *
- * More precisley, the node type is AST_FUNCTION_LOG with two children the
- * first of which is an AST_INTEGER equal to 10.
+ * More precisley, the node type is @c AST_FUNCTION_LOG with two children
+ * the first of which is an @c AST_INTEGER equal to 10.
  */
 LIBSBML_EXTERN
 int
@@ -1505,8 +1506,9 @@ ASTNode_isNegInfinity (const ASTNode_t *node);
  * otherwise.
  *
  * This is functionally equivalent to:
- *
+ * @code
  *   ASTNode_isInteger(node) || ASTNode_isReal(node).
+ * @endcode
  */
 LIBSBML_EXTERN
 int
@@ -1529,8 +1531,8 @@ int
 ASTNode_isPiecewise (const ASTNode_t *node);
 
 /**
- * @return true (non-zero) if this ASTNode is of type AST_RATIONAL, false
- * (0) otherwise.
+ * @return true (non-zero) if this ASTNode is of type @c AST_RATIONAL,
+ * false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1541,7 +1543,7 @@ ASTNode_isRational (const ASTNode_t *node);
  * a real number, false (0) otherwise.
  *
  * To be a represented as a real number, this node must be of one of the
- * following types: AST_REAL, AST_REAL_E or AST_RATIONAL.
+ * following types: @c AST_REAL, @c AST_REAL_E or @c AST_RATIONAL.
  */
 LIBSBML_EXTERN
 int
@@ -1559,8 +1561,8 @@ ASTNode_isRelational (const ASTNode_t *node);
  * @return true (non-zero) if the given ASTNode represents a sqrt()
  * function, false (0) otherwise.
  *
- * More precisley, the node type is AST_FUNCTION_ROOT with two children the
- * first of which is an AST_INTEGER equal to 2.
+ * More precisley, the node type is @c AST_FUNCTION_ROOT with two children
+ * the first of which is an @c AST_INTEGER equal to 2.
  */
 LIBSBML_EXTERN
 int
@@ -1572,11 +1574,11 @@ ASTNode_isSqrt (const ASTNode_t *node);
  *
  * For numbers, unary minus nodes can be "collapsed" by negating the
  * number.  In fact, SBML_parseFormula() does this during its parse.
- * However, unary minus nodes for symbols (AST_NAMES) cannot be
+ * However, unary minus nodes for symbols (@c AST_NAMES) cannot be
  * "collapsed", so this predicate function is necessary.
  *
- * A node is defined as a unary minus node if it is of type AST_MINUS and
- * has exactly one child.
+ * A node is defined as a unary minus node if it is of type @c AST_MINUS
+ * and has exactly one child.
  */
 LIBSBML_EXTERN
 int

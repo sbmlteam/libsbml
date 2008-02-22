@@ -595,8 +595,8 @@ public:
 
 
   /**
-   * Constructs and returns a UnitDefinition that expresses the units of
-   * this Compartment.
+   * Constructs and returns a UnitDefinition that corresponds to the units
+   * of this Compartment's designated size.
    *
    * Compartments in SBML have an attribute ("units") for declaring the
    * units of measurement intended for the value of the compartment's size.
@@ -609,6 +609,17 @@ public:
    * UnitDefinition based on the interpreted units of this compartment's
    * size.
    *
+   * Note that method will always return a value, never NULL, because SBML
+   * defines default units for compartment sizes.  It is thus not possible
+   * for the units to be undefined (which is unlike the case of Parameter).
+   *
+   * Note also that unit declarations for Compartment are in terms of the
+   * @em identifier of a unit, but this method returns a UnitDefinition
+   * object, not a unit identifier.  It does this by constructing an
+   * appropriate UnitDefinition.  Callers may find this particularly useful
+   * when used in conjunction with the helper methods on UnitDefinition for
+   * comparing different UnitDefinition objects.
+   * 
    * @return a UnitDefinition that expresses the units of this 
    * Compartment.
    *

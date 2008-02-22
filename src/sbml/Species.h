@@ -41,7 +41,7 @@
  * syntax permitted in %SBML.  Species also has an optional "name"
  * attribute, of type @c string.  The "id" and "name" must be used
  * according to the guidelines described in the %SBML specification (e.g.,
- * Section 3.3 in the Level 2 Version 3 specification).
+ * Section 3.3 in the Level&nbsp;2 Version&nbsp;3 specification).
  *
  * The required attribute "compartment" is used to identify the compartment
  * in which the species is located.  The attribute's value must be the
@@ -206,13 +206,12 @@
  * appear as a reactant or product, or as the target of any
  * AssignmentRule, RateRule or EventAssignment structure in the model.
  *
- * 
- * @warning In versions of SBML Level~2 before Version 3, the class Species
- * included an attribute called "spatialSizeUnits", which allowed
+ * @warning In versions of SBML Level~2 before Version&nbsp;3, the class
+ * Species included an attribute called "spatialSizeUnits", which allowed
  * explicitly setting the units of size for initial concentration.  LibSBML
- * retains this attribute for compatibility with older definitions of Level
- * 2, but its use is strongly discouraged because it is incompatible with
- * Level 2 Version 3.
+ * retains this attribute for compatibility with older definitions of
+ * Level&nbsp;2, but its use is strongly discouraged because it is
+ * incompatible with Level&nbsp;2 Version&nbsp;3.
  *
  * <!-- leave this next break as-is to work around some doxygen bug -->
  */ 
@@ -227,7 +226,7 @@
  * ListOf___ classes do not add any attributes of their own.
  *
  * The relationship between the lists and the rest of an %SBML model is
- * illustrated by the following (for %SBML Level 2 Version 3):
+ * illustrated by the following (for %SBML Level&nbsp;2 Version&nbsp;3):
  *
  * @image html listof-illustration.jpg "ListOf___ elements in an SBML Model"
  * @image latex listof-illustration.jpg "ListOf___ elements in an SBML Model"
@@ -289,7 +288,7 @@ public:
    * @param name a string, the optional name to assign to this Species
    *
    * @note It is worth emphasizing that although the identifier is optional
-   * for this constructor, in SBML Level 2 and beyond, the "id"
+   * for this constructor, in SBML Level&nbsp;2 and beyond, the "id"
    * (identifier) attribute of a Species is required to have a value.
    * Thus, callers are cautioned to assign a value after calling this
    * constructor if no identifier is provided as an argument.
@@ -350,8 +349,8 @@ public:
    * in the specification of the relevant Level/Version of SBML.
    * <ul>
    * <li> sets "boundaryCondition" to @c 1 (true)
-   * <li> (Level 2 only) sets "constant" to @c 0 (false)
-   * <li> (Level 2 only) sets "hasOnlySubstanceUnits" to @c 0 (false)
+   * <li> (Level&nbsp;2 only) sets "constant" to @c 0 (false)
+   * <li> (Level&nbsp;2 only) sets "hasOnlySubstanceUnits" to @c 0 (false)
    * </ul>
    */
   void initDefaults ();
@@ -406,19 +405,19 @@ public:
    * 
    * @return the spatialSizeUnits of this Species.
    * 
-   * @warning In versions of SBML Level~2 before Version 3, the class
+   * @warning In versions of SBML Level~2 before Version&nbsp;3, the class
    * Species included an attribute called "spatialSizeUnits", which allowed
    * explicitly setting the units of size for initial concentration.  This
-   * attribute was removed in SBML Level 2 Version 3.  LibSBML retains this
-   * attribute for compatibility with older definitions of Level 2, but its
-   * use is strongly discouraged because it is incompatible with Level 2
-   * Version 3.
+   * attribute was removed in SBML Level&nbsp;2 Version&nbsp;3.  LibSBML
+   * retains this attribute for compatibility with older definitions of
+   * Level&nbsp;2, but its use is strongly discouraged because it is
+   * incompatible with Level&nbsp;2 Version&nbsp;3.
    */
   const std::string& getSpatialSizeUnits () const;
 
 
   /**
-   * (SBML Level 1 only) Get the value of the "units" attribute.
+   * (SBML Level&nbsp;1 only) Get the value of the "units" attribute.
    * 
    * @return the units of this Species (L1 only).
    */
@@ -448,16 +447,17 @@ public:
    * 
    * @return the charge of this Species.
    *
-   * @note Beginning in SBML Level 2 Version 2, the "charge" attribute on
-   * Species is deprecated and its use strongly discouraged.  Its presence
-   * is considered a misfeature in earlier definitions of SBML because its
-   * implications for the mathematics of a model were never defined, and in
-   * any case, no known modeling system ever used it.  Instead, models take
-   * account of charge values directly in their definitions of species by
-   * (for example) having separate species identities for the charged and
-   * uncharged versions of the same species.  This allows the condition to
-   * affect model mathematics directly.  LibSBML retains this method for
-   * easier compatibility with SBML Level 1.
+   * @note Beginning in SBML Level&nbsp;2 Version&nbsp;2, the "charge"
+   * attribute on Species is deprecated and its use strongly discouraged.
+   * Its presence is considered a misfeature in earlier definitions of SBML
+   * because its implications for the mathematics of a model were never
+   * defined, and in any case, no known modeling system ever used it.
+   * Instead, models take account of charge values directly in their
+   * definitions of species by (for example) having separate species
+   * identities for the charged and uncharged versions of the same species.
+   * This allows the condition to affect model mathematics directly.
+   * LibSBML retains this method for easier compatibility with SBML
+   * Level&nbsp;1.
    */
   int getCharge () const;
 
@@ -498,10 +498,10 @@ public:
    * @return @c true if the "initialAmount" attribute of this Species has
    * been set, @c false otherwise.
    *
-   * @note In SBML Level 1, Species' "initialAmount" is required and
-   * therefore <em>should always be set</em>.  (However, in Level 1, the
+   * @note In SBML Level&nbsp;1, Species' "initialAmount" is required and
+   * therefore <em>should always be set</em>.  (However, in Level&nbsp;1, the
    * attribute has no default value either, so this method will not return
-   * @c true until a value has been assigned.)  In SBML Level 2,
+   * @c true until a value has been assigned.)  In SBML Level&nbsp;2,
    * "initialAmount" is optional and as such may or may not be set.
    */
   bool isSetInitialAmount () const;
@@ -534,19 +534,19 @@ public:
    * @return @c true if the "spatialSizeUnits" attribute of this Species has
    * been set, @c false otherwise.
    * 
-   * @warning In versions of SBML Level~2 before Version 3, the class
+   * @warning In versions of SBML Level~2 before Version&nbsp;3, the class
    * Species included an attribute called "spatialSizeUnits", which allowed
    * explicitly setting the units of size for initial concentration.  This
-   * attribute was removed in SBML Level 2 Version 3.  LibSBML retains this
-   * attribute for compatibility with older definitions of Level 2, but its
-   * use is strongly discouraged because it is incompatible with Level 2
-   * Version 3.
+   * attribute was removed in SBML Level&nbsp;2 Version&nbsp;3.  LibSBML
+   * retains this attribute for compatibility with older definitions of
+   * Level&nbsp;2, but its use is strongly discouraged because it is
+   * incompatible with Level&nbsp;2 Version&nbsp;3.
    */
   bool isSetSpatialSizeUnits () const;
 
 
   /**
-   * (SBML Level 1 only) Predicate returning @c true or @c false depending
+   * (SBML Level&nbsp;1 only) Predicate returning @c true or @c false depending
    * on whether this Species's "units" attribute has been set.
    * 
    * @return @c true if the "units" attribute of this Species has
@@ -562,16 +562,17 @@ public:
    * @return @c true if the "charge" attribute of this Species has
    * been set, @c false otherwise.
    *
-   * @note Beginning in SBML Level 2 Version 2, the "charge" attribute on
-   * Species in SBML is deprecated and its use strongly discouraged.  Its
-   * presence is considered a misfeature in earlier definitions of SBML
-   * because its implications for the mathematics of a model were never
-   * defined, and in any case, no known modeling system ever used it.
-   * Instead, models take account of charge values directly in their
-   * definitions of species by (for example) having separate species
-   * identities for the charged and uncharged versions of the same species.
-   * This allows the condition to affect model mathematics directly.
-   * LibSBML retains this method for easier compatibility with SBML Level 1.
+   * @note Beginning in SBML Level&nbsp;2 Version&nbsp;2, the "charge"
+   * attribute on Species in SBML is deprecated and its use strongly
+   * discouraged.  Its presence is considered a misfeature in earlier
+   * definitions of SBML because its implications for the mathematics of a
+   * model were never defined, and in any case, no known modeling system
+   * ever used it.  Instead, models take account of charge values directly
+   * in their definitions of species by (for example) having separate
+   * species identities for the charged and uncharged versions of the same
+   * species.  This allows the condition to affect model mathematics
+   * directly.  LibSBML retains this method for easier compatibility with
+   * SBML Level&nbsp;1.
    */
   bool isSetCharge () const;
 
@@ -631,19 +632,19 @@ public:
    *
    * @param sid the identifier of the unit to use.
    * 
-   * @warning In versions of SBML Level~2 before Version 3, the class
+   * @warning In versions of SBML Level~2 before Version&nbsp;3, the class
    * Species included an attribute called "spatialSizeUnits", which allowed
    * explicitly setting the units of size for initial concentration.  This
-   * attribute was removed in SBML Level 2 Version 3.  LibSBML retains this
-   * attribute for compatibility with older definitions of Level 2, but its
-   * use is strongly discouraged because it is incompatible with Level 2
-   * Version 3.
+   * attribute was removed in SBML Level&nbsp;2 Version&nbsp;3.  LibSBML
+   * retains this attribute for compatibility with older definitions of
+   * Level&nbsp;2, but its use is strongly discouraged because it is
+   * incompatible with Level&nbsp;2 Version&nbsp;3.
    */
   void setSpatialSizeUnits (const std::string& sid);
 
 
   /**
-   * (SBML Level 1 only) Sets the units of this Species.
+   * (SBML Level&nbsp;1 only) Sets the units of this Species.
    *
    * @param sname the identifier of the unit to use.
    */
@@ -671,16 +672,17 @@ public:
    *
    * @param value an integer to which to set the "charge" to.
    *
-   * @note Beginning in SBML Level 2 Version 2, the "charge" attribute on
-   * Species in SBML is deprecated and its use strongly discouraged.  Its
-   * presence is considered a misfeature in earlier definitions of SBML
-   * because its implications for the mathematics of a model were never
-   * defined, and in any case, no known modeling system ever used it.
-   * Instead, models take account of charge values directly in their
-   * definitions of species by (for example) having separate species
-   * identities for the charged and uncharged versions of the same species.
-   * This allows the condition to affect model mathematics directly.
-   * LibSBML retains this method for easier compatibility with SBML Level 1.
+   * @note Beginning in SBML Level&nbsp;2 Version&nbsp;2, the "charge"
+   * attribute on Species in SBML is deprecated and its use strongly
+   * discouraged.  Its presence is considered a misfeature in earlier
+   * definitions of SBML because its implications for the mathematics of a
+   * model were never defined, and in any case, no known modeling system
+   * ever used it.  Instead, models take account of charge values directly
+   * in their definitions of species by (for example) having separate
+   * species identities for the charged and uncharged versions of the same
+   * species.  This allows the condition to affect model mathematics
+   * directly.  LibSBML retains this method for easier compatibility with
+   * SBML Level&nbsp;1.
    */
   void setCharge (int value);
 
@@ -720,19 +722,19 @@ public:
   /**
    * Unsets the "spatialSizeUnits" attribute value of this Species.
    * 
-   * @warning In versions of SBML Level~2 before Version 3, the class
+   * @warning In versions of SBML Level~2 before Version&nbsp;3, the class
    * Species included an attribute called "spatialSizeUnits", which allowed
    * explicitly setting the units of size for initial concentration.  This
-   * attribute was removed in SBML Level 2 Version 3.  LibSBML retains this
-   * attribute for compatibility with older definitions of Level 2, but its
-   * use is strongly discouraged because it is incompatible with Level 2
-   * Version 3.
+   * attribute was removed in SBML Level&nbsp;2 Version&nbsp;3.  LibSBML
+   * retains this attribute for compatibility with older definitions of
+   * Level&nbsp;2, but its use is strongly discouraged because it is
+   * incompatible with Level&nbsp;2 Version&nbsp;3.
    */
   void unsetSpatialSizeUnits ();
 
 
   /**
-   * (SBML Level 1 only) Unsets the "units" attribute value of this Species.
+   * (SBML Level&nbsp;1 only) Unsets the "units" attribute value of this Species.
    */
   void unsetUnits ();
 
@@ -740,36 +742,49 @@ public:
   /**
    * Unsets the "charge" attribute value of this Species.
    *
-   * @note Beginning in SBML Level 2 Version 2, the "charge" attribute on
-   * Species in SBML is deprecated and its use strongly discouraged.  Its
-   * presence is considered a misfeature in earlier definitions of SBML
-   * because its implications for the mathematics of a model were never
-   * defined, and in any case, no known modeling system ever used it.
-   * Instead, models take account of charge values directly in their
-   * definitions of species by (for example) having separate species
-   * identities for the charged and uncharged versions of the same species.
-   * This allows the condition to affect model mathematics directly.
-   * LibSBML retains this method for easier compatibility with SBML Level 1.
+   * @note Beginning in SBML Level&nbsp;2 Version&nbsp;2, the "charge"
+   * attribute on Species in SBML is deprecated and its use strongly
+   * discouraged.  Its presence is considered a misfeature in earlier
+   * definitions of SBML because its implications for the mathematics of a
+   * model were never defined, and in any case, no known modeling system
+   * ever used it.  Instead, models take account of charge values directly
+   * in their definitions of species by (for example) having separate
+   * species identities for the charged and uncharged versions of the same
+   * species.  This allows the condition to affect model mathematics
+   * directly.  LibSBML retains this method for easier compatibility with
+   * SBML Level&nbsp;1.
    */
   void unsetCharge ();
 
 
   /**
-   * Constructs and returns a UnitDefinition that expresses the units of this 
-   * Species.
+   * Constructs and returns a UnitDefinition that corresponds to the units
+   * of this Species' amount or concentration.
    *
    * Species in SBML have an attribute ("substanceUnits") for declaring the
    * units of measurement intended for the species' amount or concentration
    * (depending on which one applies).  In the absence of a value given for
-   * "substanceUnits", the units are taken from the model's definition of
-   * @c "substance" or @c "substance"/<em>(size of the compartment)</em> in
-   * which the species is located, or finally, if these are not redefined
-   * by the Model, the relevant SBML default units for those quantities.
-   * Following that procedure, the method getDerivedUnitDefinition()
-   * returns a UnitDefinition based on the interpreted units of this
-   * species's amount or concentration.
+   * "substanceUnits", the units are taken from the enclosing Model's
+   * definition of @c "substance" or @c "substance"/<em>(size of the
+   * compartment)</em> in which the species is located, or finally, if
+   * these are not redefined by the Model, the relevant SBML default units
+   * for those quantities.  Following that procedure, the method
+   * getDerivedUnitDefinition() returns a UnitDefinition based on the
+   * interpreted units of this species's amount or concentration.
    *
-   * In SBML Level 2 specifications prior to Version&nbsp;3, Species
+   * Note that method will always return a value, never NULL, because SBML
+   * defines default units for species' initial amounts and concentrations.
+   * It is thus not possible for the units to be undefined (which is unlike
+   * the case of Parameter).
+   *
+   * Note also that unit declarations for Species are in terms of the @em
+   * identifier of a unit, but this method returns a UnitDefinition object,
+   * not a unit identifier.  It does this by constructing an appropriate
+   * UnitDefinition.  Callers may find this particularly useful when used
+   * in conjunction with the helper methods on UnitDefinition for comparing
+   * different UnitDefinition objects.
+   * 
+   * In SBML Level&nbsp;2 specifications prior to Version&nbsp;3, Species
    * includes an additional attribute named "spatialSizeUnits", which
    * allows explicitly setting the units of size for initial concentration.
    * The getDerivedUnitDefinition() takes this into account for models
@@ -897,9 +912,10 @@ public:
    * (which in this case is the Model object).
    *
    * The ordering of elements in the XML form of %SBML is generally fixed
-   * for most components in %SBML.  So, for example, the ListOfSpeciess
-   * in a model is (in %SBML Level 2 Version 3) the second ListOf___.
-   * (However, it differs for different Levels and Versions of SBML.)
+   * for most components in %SBML.  So, for example, the ListOfSpeciess in
+   * a model is (in %SBML Level&nbsp;2 Version&nbsp;3) the second
+   * ListOf___.  (However, it differs for different Levels and Versions of
+   * SBML.)
    *
    * @return the ordinal position of the element with respect to its
    * siblings, or @c -1 (default) to indicate the position is not significant.
