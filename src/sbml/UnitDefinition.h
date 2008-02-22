@@ -555,7 +555,7 @@ public:
   *
   * @param ud the UnitDefinition object to be simplified.
   */
-  static void simplifyUnitDefinition(UnitDefinition * ud);
+  static void simplify(UnitDefinition * ud);
 
 
   /** 
@@ -564,7 +564,7 @@ public:
    *
    * @param ud the UnitDefinition object whose units are to be reordered.
    */
-  static void orderUnitDefinition(UnitDefinition * ud);
+  static void reorder(UnitDefinition * ud);
 
   
   /**
@@ -969,11 +969,11 @@ UnitDefinition_getNumUnits (const UnitDefinition_t *ud);
 
 LIBSBML_EXTERN
 void 
-UnitDefinition_simplifyUnitDefinition(UnitDefinition_t * ud);
+UnitDefinition_simplify(UnitDefinition_t * ud);
 
 LIBSBML_EXTERN
 void 
-UnitDefinition_orderUnitDefinition(UnitDefinition_t * ud);
+UnitDefinition_reorder(UnitDefinition_t * ud);
 
 LIBSBML_EXTERN
 UnitDefinition_t * 

@@ -120,7 +120,7 @@ UnitDefinition::isVariantOfArea () const
   bool result = false;
 
   UnitDefinition *ud = static_cast<UnitDefinition*>(this->clone());
-  UnitDefinition::simplifyUnitDefinition(ud);
+  UnitDefinition::simplify(ud);
 
   if (ud->getNumUnits() == 1)
   {
@@ -144,7 +144,7 @@ UnitDefinition::isVariantOfLength () const
   bool result = false;
 
   UnitDefinition *ud = static_cast<UnitDefinition*>(this->clone());
-  UnitDefinition::simplifyUnitDefinition(ud);
+  UnitDefinition::simplify(ud);
 
   if (ud->getNumUnits() == 1)
   {
@@ -171,7 +171,7 @@ UnitDefinition::isVariantOfSubstance () const
   unsigned int version = getVersion();
 
   UnitDefinition *ud = static_cast<UnitDefinition*>(this->clone());
-  UnitDefinition::simplifyUnitDefinition(ud);
+  UnitDefinition::simplify(ud);
 
   if (ud->getNumUnits() == 1)
   {
@@ -205,7 +205,7 @@ UnitDefinition::isVariantOfTime () const
   bool result = false;
 
   UnitDefinition *ud = static_cast<UnitDefinition*>(this->clone());
-  UnitDefinition::simplifyUnitDefinition(ud);
+  UnitDefinition::simplify(ud);
 
   if (ud->getNumUnits() == 1)
   {
@@ -229,7 +229,7 @@ UnitDefinition::isVariantOfVolume () const
   bool result = false;
 
   UnitDefinition *ud = static_cast<UnitDefinition*>(this->clone());
-  UnitDefinition::simplifyUnitDefinition(ud);
+  UnitDefinition::simplify(ud);
 
   if (ud->getNumUnits() == 1)
   {
@@ -404,7 +404,7 @@ UnitDefinition::getElementName () const
  */
 
 void
-UnitDefinition::simplifyUnitDefinition(UnitDefinition * ud)
+UnitDefinition::simplify(UnitDefinition * ud)
 {
   unsigned int n, i;
   ListOfUnits *  units = ud->getListOfUnits();
@@ -451,7 +451,7 @@ UnitDefinition::simplifyUnitDefinition(UnitDefinition * ud)
           if (!strcmp(UnitKind_toString(((Unit *) units->get(i))->getKind()), 
                                                                    unitKind))
           {
-            Unit::mergeUnits(unit, (Unit *) units->get(i));
+            Unit::merge(unit, (Unit *) units->get(i));
             units->remove(i);
             kindsList.removeUnitKind(unitKind);
           }
@@ -485,7 +485,7 @@ int compareKinds(const void * u1, const void * u2)
  * @param ud the UnitDefinition object to be ordered.
  */
 void 
-UnitDefinition::orderUnitDefinition(UnitDefinition *ud)
+UnitDefinition::reorder(UnitDefinition *ud)
 {
   unsigned int n, p;
   ListOfUnits * units = ud->getListOfUnits();
@@ -551,7 +551,7 @@ UnitDefinition::convertToSI(UnitDefinition * ud)
 
   for (n = 0; n < ud->getNumUnits(); n++)
   {
-    tempUd = Unit::convertUnitToSI(ud->getUnit(n));
+    tempUd = Unit::convertToSI(ud->getUnit(n));
     for (p = 0; p < tempUd->getNumUnits(); p++)
     {
       newUd->addUnit(tempUd->getUnit(p));
@@ -559,7 +559,7 @@ UnitDefinition::convertToSI(UnitDefinition * ud)
     delete tempUd;
   }
 
-  UnitDefinition::simplifyUnitDefinition(newUd);
+  UnitDefinition::simplify(newUd);
   return newUd;
 }
 
@@ -584,7 +584,7 @@ UnitDefinition::convertToSI(const UnitDefinition * ud)
 
   for (n = 0; n < ud->getNumUnits(); n++)
   {
-    tempUd = Unit::convertUnitToSI(ud->getUnit(n));
+    tempUd = Unit::convertToSI(ud->getUnit(n));
     for (p = 0; p < tempUd->getNumUnits(); p++)
     {
       newUd->addUnit(tempUd->getUnit(p));
@@ -592,7 +592,7 @@ UnitDefinition::convertToSI(const UnitDefinition * ud)
     delete tempUd;
   }
 
-  UnitDefinition::simplifyUnitDefinition(newUd);
+  UnitDefinition::simplify(newUd);
   return newUd;
 }
 
@@ -621,8 +621,8 @@ UnitDefinition::areIdentical(UnitDefinition * ud1, UnitDefinition * ud2)
 
   if (ud1->getNumUnits() == ud2->getNumUnits())
   {
-    UnitDefinition::orderUnitDefinition(ud1);
-    UnitDefinition::orderUnitDefinition(ud2);
+    UnitDefinition::reorder(ud1);
+    UnitDefinition::reorder(ud2);
     
     n = 0;
     while (n < ud1->getNumUnits())
@@ -682,8 +682,8 @@ UnitDefinition::areIdentical(const UnitDefinition * ud1, const UnitDefinition * 
 
   if (ud1->getNumUnits() == ud2->getNumUnits())
   {
-    UnitDefinition::orderUnitDefinition(ud1Temp);
-    UnitDefinition::orderUnitDefinition(ud2Temp);
+    UnitDefinition::reorder(ud1Temp);
+    UnitDefinition::reorder(ud2Temp);
     
     n = 0;
     while (n < ud1->getNumUnits())
@@ -737,8 +737,8 @@ UnitDefinition::areEquivalent(const UnitDefinition * ud1, const UnitDefinition *
 
   if (ud1Temp->getNumUnits() == ud2Temp->getNumUnits())
   {
-    UnitDefinition::orderUnitDefinition(ud1Temp);
-    UnitDefinition::orderUnitDefinition(ud2Temp);
+    UnitDefinition::reorder(ud1Temp);
+    UnitDefinition::reorder(ud2Temp);
     
     n = 0;
     while (n < ud1Temp->getNumUnits())
@@ -791,8 +791,8 @@ UnitDefinition::areEquivalent(const UnitDefinition * ud1, UnitDefinition * ud2)
 
   if (ud1Temp->getNumUnits() == ud2Temp->getNumUnits())
   {
-    UnitDefinition::orderUnitDefinition(ud1Temp);
-    UnitDefinition::orderUnitDefinition(ud2Temp);
+    UnitDefinition::reorder(ud1Temp);
+    UnitDefinition::reorder(ud2Temp);
     
     n = 0;
     while (n < ud1Temp->getNumUnits())
@@ -835,7 +835,7 @@ UnitDefinition::combine(UnitDefinition *ud1, UnitDefinition *ud2)
     ud1->addUnit(ud2->getUnit(n));
   }
 
-  UnitDefinition::simplifyUnitDefinition(ud1);
+  UnitDefinition::simplify(ud1);
 }
 
 /* 
@@ -1514,16 +1514,16 @@ UnitDefinition_getNumUnits (const UnitDefinition_t *ud)
 
 LIBSBML_EXTERN
 void 
-UnitDefinition_simplifyUnitDefinition(UnitDefinition_t * ud)
+UnitDefinition_simplify(UnitDefinition_t * ud)
 {
-  UnitDefinition::simplifyUnitDefinition(static_cast<UnitDefinition*>(ud));
+  UnitDefinition::simplify(static_cast<UnitDefinition*>(ud));
 }
 
 LIBSBML_EXTERN
 void 
-UnitDefinition_orderUnitDefinition(UnitDefinition_t * ud)
+UnitDefinition_reorder(UnitDefinition_t * ud)
 {
-  UnitDefinition::orderUnitDefinition(static_cast<UnitDefinition*>(ud));
+  UnitDefinition::reorder(static_cast<UnitDefinition*>(ud));
 }
 
 LIBSBML_EXTERN

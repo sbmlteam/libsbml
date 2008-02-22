@@ -775,7 +775,7 @@ Unit::removeScale(Unit * unit)
  * @param unit2 the Unit object to merge with the first
  */
 void
-Unit::mergeUnits(Unit * unit1, Unit * unit2)
+Unit::merge(Unit * unit1, Unit * unit2)
 {
   int newExponent;
   double newMultiplier;
@@ -819,7 +819,7 @@ Unit::mergeUnits(Unit * unit1, Unit * unit2)
  * @return a UnitDefinition object containing the SI unit.
  */
 UnitDefinition * 
-Unit::convertUnitToSI(Unit * unit)
+Unit::convertToSI(Unit * unit)
 {
   UnitKind_t uKind = unit->getKind();
   Unit * newUnit = new Unit(uKind, unit->getExponent(), 
@@ -1193,7 +1193,7 @@ Unit::convertUnitToSI(Unit * unit)
  * @return a UnitDefinition object containing the SI unit.
  */
 UnitDefinition * 
-Unit::convertUnitToSI(const Unit * unit)
+Unit::convertToSI(const Unit * unit)
 {
   UnitKind_t uKind = unit->getKind();
   Unit * newUnit = new Unit(uKind, unit->getExponent(), 

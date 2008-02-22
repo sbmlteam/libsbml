@@ -925,7 +925,7 @@ public:
   * @param unit1 the first Unit object into which the second is merged
   * @param unit2 the Unit object to merge with the first
   */
-  static void mergeUnits(Unit * unit1, Unit * unit2);
+  static void merge(Unit * unit1, Unit * unit2);
 
 
   /**
@@ -936,7 +936,7 @@ public:
   *
   * @return a UnitDefinition object containing the SI unit.
   */
-  static UnitDefinition * convertUnitToSI(Unit * unit);
+  static UnitDefinition * convertToSI(Unit * unit);
 
 
   /**
@@ -947,7 +947,7 @@ public:
   *
   * @return a UnitDefinition object containing the SI unit.
   */
-  static UnitDefinition * convertUnitToSI(const Unit * unit);
+  static UnitDefinition * convertToSI(const Unit * unit);
 
   /** @endcond doxygen-libsbml-internal */
 

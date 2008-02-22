@@ -71,7 +71,7 @@ START_TEST(test_unitdefinition_simplify)
   /* case with only one unit */
   ud->addUnit(u);
 
-  UnitDefinition::simplifyUnitDefinition(ud);
+  UnitDefinition::simplify(ud);
 
   fail_unless(ud->getNumUnits() == 1);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
@@ -79,7 +79,7 @@ START_TEST(test_unitdefinition_simplify)
   /* case with one unit plus a dimensionless unit */
   ud->addUnit(u1);
 
-  UnitDefinition::simplifyUnitDefinition(ud);
+  UnitDefinition::simplify(ud);
   
   fail_unless(ud->getNumUnits() == 1);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
@@ -87,7 +87,7 @@ START_TEST(test_unitdefinition_simplify)
   /* case with two units of same kind */
   ud->addUnit(u2);
 
-  UnitDefinition::simplifyUnitDefinition(ud);
+  UnitDefinition::simplify(ud);
   
   fail_unless(ud->getNumUnits() == 1);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
@@ -96,7 +96,7 @@ START_TEST(test_unitdefinition_simplify)
   /* case with two units of same kind that cancel*/
   ud->addUnit(u3);
 
-  UnitDefinition::simplifyUnitDefinition(ud);
+  UnitDefinition::simplify(ud);
   
   fail_unless(ud->getNumUnits() == 0);
 
@@ -120,7 +120,7 @@ START_TEST(test_unitdefinition_order)
   ud->addUnit(u1);
   ud->addUnit(u2);
 
-  UnitDefinition::orderUnitDefinition(ud);
+  UnitDefinition::reorder(ud);
 
   fail_unless(ud->getNumUnits() == 3);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
