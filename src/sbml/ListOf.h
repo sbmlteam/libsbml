@@ -46,87 +46,163 @@ class LIBSBML_EXTERN ListOf : public SBase
 public:
 
   /**
-   * Creates a new ListOf items.
+   * Creates a new ListOf.
    */
   ListOf ();
 
+
   /**
-   * Destroys the given ListOf and its constituent items.
+   * Destroys the given ListOf and the items inside it.
    */
   virtual ~ListOf ();
 
 
   /**
-   * Copy constructor. Creates a copy of this ListOf items.
+   * Copy constructor.  Creates a copy of this ListOf.
    */
   ListOf (const ListOf& orig);
 
-   /**
-   * Assignment operator
+
+  /**
+   * Assignment operator for ListOf.
    */
   ListOf& operator=(const ListOf& rhs);
 
- /**
+
+  /**
    * Accepts the given SBMLVisitor.
+   *
+   * @param v the SBMLVisitor instance to be used.
+   * 
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether the Visitor would like to visit the next item in the
+   * list.
    */
   virtual bool accept (SBMLVisitor& v) const;
 
+
   /**
-   * @return a (deep) copy of this ListOf items.
+   * Creates and returns a deep copy of this ListOf.
+   * 
+   * @return a (deep) copy of this ListOf.
    */
   virtual SBase* clone () const;
 
 
   /**
-   * Adds item to the end of this ListOf items.  This ListOf items assumes
-   * ownership of item and will delete it.
+   * Adds item to the end of this ListOf.
+   *
+   * This variant of the method makes a clone of the @p item handed to it.
+   * This means that when the ListOf is destroyed, the original items will
+   * not be destroyed.
+   *
+   * @param item the item to be added to the list.
+   *
+   * @see appendAndOwn
    */
   void append (const SBase* item);
 
+
   /**
-   * Adds item to the end of this ListOf items.  This ListOf items assumes
-   * ownership of item and will delete it.
+   * Adds item to the end of this ListOf.
+   *
+   * This variant of the method does not clone the @p item handed to it;
+   * instead, it assumes ownership of it.  This means that when the ListOf
+   * is destroyed, the item will be destroyed along with it.
+   *
+   * @param item the item to be added to the list.
+   *
+   * @see append
    */
   void appendAndOwn (SBase* item);
 
 
   /**
+   * Get an item from the list.
+   *
+   * @param n the index number of the item to get.
+   * 
    * @return the nth item in this ListOf items.
+   *
+   * @see size()
    */
   const SBase* get (unsigned int n) const;
 
+
   /**
+   * Get an item from the list.
+   *
+   * @param n the index number of the item to get.
+   * 
    * @return the nth item in this ListOf items.
+   *
+   * @see size()
    */
   SBase* get (unsigned int n);
 
+
   /**
+   * Get an item from the list based on its identifier.
+   *
+   * @param a string representing the the identifier of the item to get.
+   * 
    * @return item in this ListOf items with the given id or NULL if no such
    * item exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
    */
   const SBase* get (const std::string& sid) const;
 
+
   /**
+   * Get an item from the list based on its identifier.
+   *
+   * @param a string representing the the identifier of the item to get.
+   * 
    * @return item in this ListOf items with the given id or NULL if no such
    * item exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
    */
   SBase* get (const std::string& sid);
 
+
   /**
    * Removes the nth item from this ListOf items and returns a pointer to
-   * it.  The caller owns the returned item and is responsible for deleting
    * it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   *
+   * @param n the index of the item to remove
+   *
+   * @see size()
+   * @see remove(const std::string& sid);
    */
   SBase* remove (unsigned int n);
 
+
   /**
-   * Removes item in this ListOf items with the given id or NULL if no such
-   * item exists.  The caller owns the returned item and is repsonsible for
-   * deleting it.
+   * Removes item in this ListOf items with the given identifier.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   * If none of the items in this list have the identifier @p sid, then @c
+   * NULL is returned.
+   *
+   * @param sid the identifier of the item to remove
+   *
+   * @return the item removed.  As mentioned above, the caller owns the
+   * returned item.
+   *
+   * @see remove(unsigned int n)
    */
   SBase* remove (const std::string& sid);
 
+
   /**
+   * Get the size of this ListOf.
+   * 
    * @return the number of items in this ListOf items.
    */
   unsigned int size () const;
@@ -134,39 +210,51 @@ public:
 
   /**
    * Sets the parent SBMLDocument of this SBML object.
+   *
+   * @param d the SBMLDocument that should become the parent of this
+   * ListOf.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
 
 
   /**
-   * @return the #SBMLTypeCode_t value of this SBML object or SBML_UNKNOWN
+   * Returns the libSBML type code for this object, namely, @c
+   * SBML_LIST_OF.
+   * 
+   * @return the #SBMLTypeCode_t value of this object or @c SBML_UNKNOWN
    * (default).
+   *
+   * @see getElementName()
    */
   virtual SBMLTypeCode_t getTypeCode () const;
 
+
   /**
+   * Get the type code of the objects contained in this ListOf.
+   * 
    * @return the #SBMLTypeCode_t value of SBML objects contained in this
-   * ListOf or SBML_UNKNOWN (default).
+   * ListOf or @c SBML_UNKNOWN (default).
    */
   virtual SBMLTypeCode_t getItemTypeCode () const;
 
+
   /**
-   * @return the name of this element ie "listOf".
-   
+   * Returns the XML element name of this object, which for ListOf, is
+   * always @c "listOf".
+   * 
+   * @return the XML name of this element.
    */
   virtual const std::string& getElementName () const;
 
-  /** @cond doxygen-libsbml-internal */
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-
   /** @endcond doxygen-libsbml-internal */
-
 
 protected:
 
