@@ -855,8 +855,6 @@ public:
                           unsigned int level, unsigned int version);
 
 
-  /** @cond doxygen-libsbml-internal */
-
   /** 
   * Predicate returning @c true or @c false depending on whether two
   * Unit objects are identical.
@@ -937,8 +935,6 @@ public:
   * @return a UnitDefinition object containing the SI unit.
   */
   static UnitDefinition * convertToSI(const Unit * unit);
-
-  /** @endcond doxygen-libsbml-internal */
 
 
 protected:
@@ -1343,6 +1339,25 @@ LIBSBML_EXTERN
 int
 Unit_isBuiltIn (const char *name, unsigned int level);
 
+LIBSBML_EXTERN
+int 
+Unit_areIdentical(Unit_t * unit1, Unit_t * unit2);
+
+LIBSBML_EXTERN
+int
+Unit_areEquivalent(Unit_t * unit1, Unit_t * unit2);
+
+LIBSBML_EXTERN
+void 
+Unit_removeScale(Unit_t * unit);
+
+LIBSBML_EXTERN
+void 
+Unit_merge(Unit_t * unit1, Unit_t * unit2);
+
+LIBSBML_EXTERN
+UnitDefinition_t * 
+Unit_convertToSI(Unit_t * unit);
 
 END_C_DECLS
 
