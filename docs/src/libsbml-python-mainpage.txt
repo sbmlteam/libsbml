@@ -38,6 +38,7 @@ in the C++ API manual.
 - @subpage libsbml-uninstallation
 - @subpage libsbml-coding for developers and contributors
 - @subpage license
+- @subpage changes
 
 @htmlinclude FUNDING.txt
 

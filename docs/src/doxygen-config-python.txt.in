@@ -76,6 +76,7 @@ INPUT = \
   libsbml-installation.txt         \
   libsbml-issues.txt               \
   libsbml-license.txt              \
+  libsbml-news.txt                 \
   libsbml-python-mainpage.txt      \
   libsbml-python-math.txt          \
   libsbml-python-reading-files.txt \

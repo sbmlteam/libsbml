@@ -352,6 +352,7 @@ INPUT =                      \
   libsbml-license.txt        \
   libsbml-mainpage.txt       \
   libsbml-math.txt           \
+  libsbml-news.txt           \
   libsbml-reading-files.txt  \
   libsbml-uninstallation.txt \
   ../../src/common           \

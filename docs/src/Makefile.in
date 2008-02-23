@@ -140,9 +140,12 @@ distfiles =                                    \
         libsbml-java-overview.html             \
         libsbml-java-reading.html              \
         libsbml-java-top.html                  \
+        libsbml-java-verb-top.html             \
+        libsbml-java-verb-bottom.html          \
         libsbml-license.txt                    \
         libsbml-mainpage.txt                   \
         libsbml-math.txt                       \
+        libsbml-news.txt                       \
         libsbml-python-mainpage.txt            \
         libsbml-python-reading-files.txt       \
         libsbml-reading-files.txt              \
@@ -301,6 +304,12 @@ define merge_html
   | sed -e 's/%%title%%/$(3)/g;s/%%version%%/@PACKAGE_VERSION@/g' > $(2)
 endef
 
+define merge_html_verb
+  cat libsbml-java-top.html libsbml-java-verb-top.html $(1) \
+  libsbml-java-verb-bottom.html libsbml-java-bottom.html libsbml-java-footer.html \
+  | sed -e 's/%%title%%/$(3)/g;s/%%version%%/@PACKAGE_VERSION@/g' > $(2)
+endef
+
 # There are certain things I can't figure out how to make compatible
 # between doxygen and javadoc.  Let's ignore the warnings to avoid
 # confusing users.
@@ -332,6 +341,7 @@ java-manual $(java-manual): $(core-sources)
 	$(call merge_html,libsbml-issues.html,$(java-manual)/libsbml-issues.html,known issues and pitfalls)
 	$(call merge_html,libsbml-uninstallation.html,$(java-manual)/libsbml-uninstallation.html,uninstallation)
 	$(call merge_html,../../LICENSE.html,$(java-manual)/libsbml-license.html,license)
+	$(call merge_html_verb,../../NEWS.txt,$(java-manual)/libsbml-news.html,news)
 
 
 # -----------------------------------------------------------------------------
