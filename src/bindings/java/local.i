@@ -696,13 +696,6 @@ SWIGJAVA_EQUALS(XMLInputStream)
 %typemap(javain) const ASTNode* child "ASTNode.getCPtr($javainput)";
 
 /**
- * takeover ownership
- */
-%typemap(javain) UnitDefinition*       ud "UnitDefinition.getCPtrAndDisown($javainput)";
-%typemap(javain) const UnitDefinition* ud "UnitDefinition.getCPtr($javainput)";
-
-
-/**
  * Some combinations of platforms and underlying XML parsers *require*
  * an absolute path to a filename while others do not.  It's best to
  * hide this from the end-user by making SBMLReader.readSBML() and
