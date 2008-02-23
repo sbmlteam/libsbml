@@ -307,27 +307,50 @@ public:
    * #SBMLErrorCategory_t.  The following are the possible choices in
    * libSBML version&nbsp;3.1.x:
    *
-   * @li @c LIBSBML_CAT_GENERAL_CONSISTENCY:    General overall SBML consistency.
+   * @li @c LIBSBML_CAT_GENERAL_CONSISTENCY: Correctness and consistency of
+   * specific SBML language constructs.  Performing this set of checks is
+   * highly recommended.  With respect to the SBML specification, these
+   * concern failures in applying the validation rules numbered 2xxxx in
+   * the Level&nbsp;2 Versions&nbsp;2 and&nbsp;3 specifications.
    * 
-   * @li @c LIBSBML_CAT_IDENTIFIER_CONSISTENCY: Consistency of identifiers.  An
-   * example of inconsistency would be using a species identifier in a
-   * reaction rate formula without first having declared the species.
+   * @li @c LIBSBML_CAT_IDENTIFIER_CONSISTENCY: Correctness and consistency
+   * of identifiers used for model entities.  An example of inconsistency
+   * would be using a species identifier in a reaction rate formula without
+   * first having declared the species.  With respect to the SBML
+   * specification, these concern failures in applying the validation rules
+   * numbered 103xx in the Level&nbsp;2 Versions&nbsp;2 and&nbsp;3
+   * specifications.
    * 
-   * @li @c LIBSBML_CAT_UNITS_CONSISTENCY:      Consistency of units of measure.
+   * @li @c LIBSBML_CAT_UNITS_CONSISTENCY: Consistency of measurement units
+   * associated with quantities in a model.  With respect to the SBML
+   * specification, these concern failures in applying the validation rules
+   * numbered 105xx in the Level&nbsp;2 Versions&nbsp;2 and&nbsp;3
+   * specifications.
    * 
-   * @li @c LIBSBML_CAT_MATHML_CONSISTENCY:     Consistency of MathML constructs.
+   * @li @c LIBSBML_CAT_MATHML_CONSISTENCY: Syntax of MathML constructs.
+   * With respect to the SBML specification, these concern failures in
+   * applying the validation rules numbered 102xx in the Level&nbsp;2
+   * Versions&nbsp;2 and&nbsp;3 specifications.
    * 
-   * @li @c LIBSBML_CAT_SBO_CONSISTENCY:        Consistency of SBO identifiers.
+   * @li @c LIBSBML_CAT_SBO_CONSISTENCY: Consistency and validity of SBO
+   * identifiers (if any) used in the model.  With respect to the SBML
+   * specification, these concern failures in applying the validation rules
+   * numbered 107xx in the Level&nbsp;2 Versions&nbsp;2 and&nbsp;3
+   * specifications.
    * 
-   * @li @c LIBSBML_CAT_OVERDETERMINED_MODEL:   Checking whether the system of
-   * equations implied by a model is mathematically overdetermined.
+   * @li @c LIBSBML_CAT_OVERDETERMINED_MODEL: Static analysis of
+   * whether the system of equations implied by a model is mathematically
+   * overdetermined.  With respect to the SBML specification, this is
+   * validation rule #10601 in the SBML Level&nbsp;2 Versions&nbsp;2
+   * and&nbsp;3 specifications.
    * 
-   * @li @c LIBSBML_CAT_MODELING_PRACTICE:      General good practice in
-   * model construction.
+   * @li @c LIBSBML_CAT_MODELING_PRACTICE: Additional checks for
+   * recommended good modeling practice. (These are tests performed by
+   * libSBML and do not have equivalent SBML validation rules.)
    * 
-   * By default, all validation checks are applied to the model in an
-   * SBMLDocument object @em unless setConsistencyChecks() is called to
-   * indicate that only a subset should be applied.
+   * <strong>By default, all validation checks are applied</strong> to the
+   * model in an SBMLDocument object @em unless setConsistencyChecks() is
+   * called to indicate that only a subset should be applied.
    * 
    * @param category a value drawn from #SBMLErrorCategory_t indicating the
    * consistency checking/validation to be turned on or off

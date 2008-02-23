@@ -859,8 +859,9 @@ public:
   * Predicate returning @c true or @c false depending on whether two
   * Unit objects are identical.
   *
-  * Two Unit objects are considered to be @em identical if they match
-  * in all attributes.
+  * Two Unit objects are considered to be @em identical if they match in
+  * all attributes.  (Contrast this to the method areEquivalent(), which
+  * compares units only with respect to certain attributes.)
   *
   * @param unit1 the first Unit object to compare
   * @param unit2 the second Unit object to compare
@@ -877,8 +878,10 @@ public:
   * Predicate returning @c true or @c false depending on whether 
   * Unit objects are equivalent.
   *
-  * Two Unit objects are considered to be @em equivalent if their
-  * "kind" and "exponent" attributes are equal.
+  * Two Unit objects are considered to be @em equivalent if their "kind"
+  * and "exponent" attributes are equal.  (Contrast this to the method
+  * areIdentical(), which compares Unit objects with respect to all
+  * attributes, not just the kind and exponent.)
   *
   * @param unit1 the first Unit object to compare
   * @param unit2 the second Unit object to compare
@@ -896,8 +899,8 @@ public:
   * Manipulates the attributes of the Unit to express the unit with the 
   * value of the scale attribute reduced to zero.
   *
-  * For example, 1 mm can be expressed as a Unit with kind=@c "metre"
-  * multipier=@c "1" scale=@c "-3" exponent=@c "1". It can also be
+  * For example, 1 millimetre can be expressed as a Unit with kind=@c
+  * "metre" multipier=@c "1" scale=@c "-3" exponent=@c "1". It can also be
   * expressed as a Unit with kind=@c "metre" multiplier=@c "0.001" scale=@c
   * "0" exponent=@c "1".
   *
@@ -907,8 +910,8 @@ public:
 
 
   /** 
-  * Merges two Unit objects with the same kind attribute into
-  * a single Unit.
+  * Merges two Unit objects with the same "kind" attribute value into a
+  * single Unit.
   * 
   * For example, the following,
   * @code
@@ -920,14 +923,16 @@ public:
   * <unit kind="metre" exponent="3"/>
   * @endcode
   *
-  * @param unit1 the first Unit object
+  * @param unit1 the first Unit object; the result of the operation is
+  * left as a new version of this unit, modified in-place.
+  * 
   * @param unit2 the second Unit object to merge with the first
   */
   static void merge(Unit * unit1, Unit * unit2);
 
 
   /**
-  * Returns a UnitDefinition object which contains the argument unit
+  * Returns a UnitDefinition object which contains the argument Unit
   * converted to the appropriate SI unit.
   *
   * @param unit the Unit object to convert to SI

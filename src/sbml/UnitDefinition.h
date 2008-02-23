@@ -584,9 +584,11 @@ public:
    * UnitDefinition objects are identical.
    *
    * For the purposes of performing this comparison, two UnitDefinition
-   * objects are considered identical when they contain identical list of
-   * Unit objects.  Unit objects are in turn considered identical if they
-   * satisfy the predicate Unit::areIdentical(Unit * unit1, Unit * unit2).
+   * objects are considered identical when they contain identical lists of
+   * Unit objects.  Pairs of Unit objects in the lists are in turn
+   * considered identical if they satisfy the predicate
+   * Unit::areIdentical(Unit * unit1, Unit * unit2).  The predicate
+   * compares every attribute of the Unit objects.
    *
    * @param ud1 the first UnitDefinition object to compare
    * @param ud2 the second UnitDefinition object to compare
@@ -608,7 +610,7 @@ public:
    * objects are considered equivalent when they contain @em equivalent
    * list of Unit objects.  Unit objects are in turn considered equivalent
    * if they satisfy the predicate Unit::areEquivalent(Unit * unit1, Unit *
-   * unit2).
+   * unit2).  The predicate tests a subset of the objects's attributes.
    *
    * @param ud1 the first UnitDefinition object to compare
    * 
@@ -655,7 +657,7 @@ public:
    *
    * @param ud the UnitDefinition object
    *
-   * @return a string expressing the units
+   * @return a string expressing the unit definition
    */
   static std::string printUnits(const UnitDefinition * ud);
 
