@@ -155,8 +155,9 @@
 %newobject RDFAnnotationParser::createRDFDescription;
 %newobject RDFAnnotationParser::createCVTerms;
 %newobject XMLNode::convertStringToXMLNode;
-%newobject convertUnitToSI;
-%newobject convertToSI;
+%newobject Unit::convertToSI;
+%newobject UnitDefinition::convertToSI;
+%newobject UnitDefinition::combine;
 
 /**
  * In the wrapped languages, these methods will appear as:
