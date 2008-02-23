@@ -14,7 +14,6 @@
 
 
 import org.sbml.libsbml.libsbml;
-import org.sbml.libsbml.FormulaUnitsData;
 import org.sbml.libsbml.Model;
 import org.sbml.libsbml.ModelCreator;
 import org.sbml.libsbml.ModelHistory;
