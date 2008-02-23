@@ -55,6 +55,16 @@
  *    s = oss.str()
  * 
  */
+
+// ignores C++ specific methods in std::string.
+%ignore std::basic_string<char>::begin;
+%ignore std::basic_string<char>::end;
+%ignore std::basic_string<char>::rbegin;
+%ignore std::basic_string<char>::rend;
+%ignore std::basic_string<char>::get_allocator;
+%ignore std::basic_string<char>::capacity;
+%ignore std::basic_string<char>::reserve;
+
 %include <std_alloc.i>
 %include <std_basic_string.i>
 %include <std_string.i>
