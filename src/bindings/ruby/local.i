@@ -211,16 +211,6 @@ namespace std
 %apply SWIGTYPE *DISOWN {ASTNode* child};
 %apply SWIGTYPE * {const ASTNode* child};
 
-/**
- * - void FormulaUnitsData::setUnitDefinition(UnitDefinition * ud)
- * - void FormulaUnitsData::setPerTimeUnitDefinition(UnitDefinition * ud)
- * - void FormulaUnitsData::setEventTimeUnitDefinition(UnitDefinition * ud)
- * - void FormulaUnitsData::setL1SpeciesConcPerTimeUnitDefinition(UnitDefinition * ud)
- * - void FormulaUnitsData::setL1SpeciesConcUnitDefinition(UnitDefinition * ud)
- */
-%apply SWIGTYPE *DISOWN {UnitDefinition* ud};
-%apply SWIGTYPE * {const UnitDefinition* ud};
-
 // ----------------------------------------------------------------------
 // Layout Extension
 // ----------------------------------------------------------------------

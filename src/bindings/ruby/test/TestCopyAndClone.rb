@@ -457,18 +457,13 @@ class TestCopyAndClone < Test::Unit::TestCase
     p = LibSBML::Parameter.new("alex")
     o1.addParameter(p)
     p = nil
-    fud = LibSBML::FormulaUnitsData.new()
-    o1.addFormulaUnitsData(fud)
-    fud = nil
     assert( o1.getId() == "c" )
     assert( o1.getNumParameters() == 1 )
-    assert( o1.getNumFormulaUnitsData() == 1 )
     assert( o1.getParameter(0).getId() == "alex" )
     o2 = LibSBML::Model.new()
     o2 = o1
     assert( o2.getId() == "c" )
     assert( o2.getNumParameters() == 1 )
-    assert( o2.getNumFormulaUnitsData() == 1 )
     assert( o2.getParameter(0).getId() == "alex" )
     o2 = nil
     o1 = nil
@@ -480,17 +475,12 @@ class TestCopyAndClone < Test::Unit::TestCase
     p = LibSBML::Parameter.new("alex")
     o1.addParameter(p)
     p = nil
-    fud = LibSBML::FormulaUnitsData.new()
-    o1.addFormulaUnitsData(fud)
-    fud = nil
     assert( o1.getId() == "c" )
     assert( o1.getNumParameters() == 1 )
-    assert( o1.getNumFormulaUnitsData() == 1 )
     assert( o1.getParameter(0).getId() == "alex" )
     o2 = o1.clone()
     assert( o2.getId() == "c" )
     assert( o2.getNumParameters() == 1 )
-    assert( o2.getNumFormulaUnitsData() == 1 )
     assert( o2.getParameter(0).getId() == "alex" )
     o2 = nil
     o1 = nil
@@ -502,17 +492,12 @@ class TestCopyAndClone < Test::Unit::TestCase
     p = LibSBML::Parameter.new("alex")
     o1.addParameter(p)
     p = nil
-    fud = LibSBML::FormulaUnitsData.new()
-    o1.addFormulaUnitsData(fud)
-    fud = nil
     assert( o1.getId() == "c" )
     assert( o1.getNumParameters() == 1 )
-    assert( o1.getNumFormulaUnitsData() == 1 )
     assert( o1.getParameter(0).getId() == "alex" )
     o2 = LibSBML::Model.new(o1)
     assert( o2.getId() == "c" )
     assert( o2.getNumParameters() == 1 )
-    assert( o2.getNumFormulaUnitsData() == 1 )
     assert( o2.getParameter(0).getId() == "alex" )
     o2 = nil
     o1 = nil

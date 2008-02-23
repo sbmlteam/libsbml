@@ -38,7 +38,6 @@ class TestSBML < Test::Unit::TestCase
     "Delay",
     "Event",
     "EventAssignment",
-    "FormulaUnitsData",
     "FunctionDefinition",
     "InitialAssignment",
     "KineticLaw",
