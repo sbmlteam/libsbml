@@ -1,7 +1,7 @@
            libsbml NEWS -- History of user-visible changes
     
     
- === Version 3.1.0 (released 2008-02-22) ===
+ === Version 3.1.1 (released 2008-02-23) ===
 
 * Bug fixes:
 
@@ -44,7 +44,22 @@
     enough. For example 1e3 was written as 1000. This has been
     changed so that a value entered as an exponent will be written 
     out as an exponent. 
+
+  - The FormulaUnitsData class was previously exposed accidentally in
+    the documentation.  It's now (more) private.
  
+  - We made additional fixes to the C++, Python and Java API
+    documentation.  Among them: including documenting of more
+    constants that are defined as enumerations (and weren't easy to
+    find previously in the language binding docs), not exposing
+    internal methods, plus fixes to the formatting of some method
+    signatures in the Python docs, and more.
+
+  - The text of a few XML error messages are slightly changed in an
+    effort to aid readability.  No numbers were harmed in the process.
+
+  - This NEWS.txt file is now accessible from the API documents.
+
         
  === Version 3.1.0 (released 2008-01-25) ===
 
