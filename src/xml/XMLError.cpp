@@ -139,11 +139,11 @@ static const xmlErrorTableEntry errorTable[] =
 
   // 1015
   { MissingXMLRequiredAttribute, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
-    "Missing required attribute." },
+    "Missing a required attribute." },
 
   // 1016
   { XMLAttributeTypeMismatch, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
-    "Data type mismatch for attribute value." },
+    "Data type mismatch for the value of an attribute." },
 
   // 1017
   { XMLBadUTF8Content, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
