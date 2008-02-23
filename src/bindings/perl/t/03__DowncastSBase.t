@@ -7,7 +7,7 @@
 
 use Test;
 
-BEGIN { plan tests => 399 };
+BEGIN { plan tests => 390 };
 
 use LibSBML;
 use strict;
@@ -38,7 +38,6 @@ my @SBaseClassList = (
   "EventAssignment",
   "Unit",
   "UnitDefinition",
-  "FormulaUnitsData",
   "Trigger",
   "Delay",
   "ListOf",

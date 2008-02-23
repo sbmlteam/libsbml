@@ -115,6 +115,17 @@
 %ignore SBase::getMetaId();
 
 /**
+ * Ignore internal FormulaUnitsData methods on Model
+ */
+%ignore Model::addFormulaUnitsData;
+%ignore Model::createFormulaUnitsData;
+%ignore Model::getFormulaUnitsData;
+%ignore Model::getListFormulaUnitsData;
+%ignore Model::getNumFormulaUnitsData;
+%ignore Model::isPopulatedListFormulaUnitsData;
+%ignore Model::populateListFormulaUnitsData;
+
+/**
  * The following methods will create new objects.  To prevent memory
  * leaks we must inform SWIG of this.
  */
@@ -215,8 +226,6 @@
 
 %include sbml/SBMLErrorLog.h
 %include sbml/SBMLError.h
-
-%include sbml/units/FormulaUnitsData.h
 
 %include sbml/annotation/CVTerm.h
 %include sbml/annotation/ModelHistory.h

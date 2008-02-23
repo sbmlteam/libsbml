@@ -290,7 +290,6 @@ METHOD_NAME
 %}
 %enddef
 
-
 // ----------------------------------------------------------------------
 // ListOf
 // ----------------------------------------------------------------------
@@ -303,16 +302,6 @@ TAKEOVER_OWNERSHIP(ListOf::appendAndOwn(SBase*),1)
 
 TAKEOVER_OWNERSHIP(ASTNode::addChild(ASTNode*),1)
 TAKEOVER_OWNERSHIP(ASTNode::prependChild(ASTNode*),1)
-
-// ----------------------------------------------------------------------
-// FomulaUnitsData
-// ----------------------------------------------------------------------
-
-TAKEOVER_OWNERSHIP(FormulaUnitsData::setUnitDefinition(UnitDefinition*),1)
-TAKEOVER_OWNERSHIP(FormulaUnitsData::setPerTimeUnitDefinition(UnitDefinition *),1)
-TAKEOVER_OWNERSHIP(FormulaUnitsData::setEventTimeUnitDefinition(UnitDefinition *),1)
-TAKEOVER_OWNERSHIP(FormulaUnitsData::setL1SpeciesConcPerTimeUnitDefinition(UnitDefinition *),1)
-TAKEOVER_OWNERSHIP(FormulaUnitsData::setL1SpeciesConcUnitDefinition(UnitDefinition *),1)
 
 // ----------------------------------------------------------------------
 // SBMLReader

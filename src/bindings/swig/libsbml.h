@@ -75,8 +75,6 @@
 #include <sbml/xml/XMLHandler.h>
 #include <sbml/xml/XMLTokenizer.h>
 
-#include <sbml/units/FormulaUnitsData.h>
-
 #include <sbml/annotation/CVTerm.h>
 #include <sbml/annotation/ModelHistory.h>
 #include <sbml/annotation/RDFAnnotation.h>

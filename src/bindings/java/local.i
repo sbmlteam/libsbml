@@ -242,9 +242,6 @@
       case libsbmlConstants.SBML_UNIT:
         return new Unit(cPtr, owner);
 
-      case libsbmlConstants.SBML_FORMULA_UNITS_DATA:
-        return new FormulaUnitsData(cPtr, owner);
-
       case libsbmlConstants.SBML_ALGEBRAIC_RULE:
         return new AlgebraicRule(cPtr, owner);
 
@@ -422,9 +419,6 @@
 
       case libsbmlConstants.SBML_UNIT:
         return new Unit(cPtr, owner);
-
-      case libsbmlConstants.SBML_FORMULA_UNITS_DATA:
-        return new FormulaUnitsData(cPtr, owner);
 
       case libsbmlConstants.SBML_ALGEBRAIC_RULE:
         return new AlgebraicRule(cPtr, owner);
@@ -703,10 +697,6 @@ SWIGJAVA_EQUALS(XMLInputStream)
 
 /**
  * takeover ownership
- *
- * - void FormulaUnitsData::setUnitDefinition(UnitDefinition * ud)
- * - void FormulaUnitsData::setPerTimeUnitDefinition(UnitDefinition * ud)
- * - void FormulaUnitsData::setEventTimeUnitDefinition(UnitDefinition * ud)
  */
 %typemap(javain) UnitDefinition*       ud "UnitDefinition.getCPtrAndDisown($javainput)";
 %typemap(javain) const UnitDefinition* ud "UnitDefinition.getCPtr($javainput)";

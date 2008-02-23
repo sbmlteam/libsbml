@@ -537,7 +537,6 @@ class TestPython(unittest.TestCase):
      self.checkClone(libsbml.Delay(),"Delay")
      self.checkClone(libsbml.Event(),"Event")
      self.checkClone(libsbml.EventAssignment(),"EventAssignment")
-     self.checkClone(libsbml.FormulaUnitsData(),"FormulaUnitsData")
      self.checkClone(libsbml.FunctionDefinition(),"FunctionDefinition")
      self.checkClone(libsbml.InitialAssignment(),"InitialAssignment")
      self.checkClone(libsbml.KineticLaw(),"KineticLaw")

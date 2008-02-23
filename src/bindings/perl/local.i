@@ -111,35 +111,6 @@
   }
 %}
 
-// ----------------------------------------------------------------------
-// FormulaUnitsData
-// ----------------------------------------------------------------------
-
-%feature("shadow") FormulaUnitsData::setUnitDefinition(UnitDefinition*)
-%{
-  sub setUnitDefinition {
-    $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::FormulaUnitsData_setUnitDefinition(@_);
-  }
-%}
-
-%feature("shadow") FormulaUnitsData::setPerTimeUnitDefinition(UnitDefinition*)
-%{
-  sub setPerTimeUnitDefinition {
-    $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::FormulaUnitsData_setPerTimeUnitDefinition(@_);
-  }
-%}
-
-%feature("shadow") FormulaUnitsData::setEventTimeUnitDefinition(UnitDefinition*)
-%{
-  sub setEventTimeUnitDefinition {
-    $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::FormulaUnitsData_setEventTimeUnitDefinition(@_);
-  }
-%}
-
-
 /**
  * Wraps standard output streams
  */

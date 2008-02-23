@@ -184,7 +184,6 @@ public class Test
     checkCloneObject( new EventAssignment()          );
     checkCloneObject( new Unit()                     );
     checkCloneObject( new UnitDefinition()           );
-    checkCloneObject( new FormulaUnitsData()         );
     checkCloneObject( new Trigger()                  );
     checkCloneObject( new Delay()                    );
     checkCloneObject( new ListOf()                   );
@@ -237,7 +236,6 @@ public class Test
     lo.append( new EventAssignment()          );
     lo.append( new Unit()                     );
     lo.append( new UnitDefinition()           );
-    lo.append( new FormulaUnitsData()         );
     lo.append( new Trigger()                  );
     lo.append( new Delay()                    );
     lo.append( new ListOf()                   );
@@ -284,7 +282,6 @@ public class Test
     assertTrue( lo.get(i++) instanceof EventAssignment          );
     assertTrue( lo.get(i++) instanceof Unit                     );
     assertTrue( lo.get(i++) instanceof UnitDefinition           );
-    assertTrue( lo.get(i++) instanceof FormulaUnitsData         );
     assertTrue( lo.get(i++) instanceof Trigger                  );
     assertTrue( lo.get(i++) instanceof Delay                    );
     assertTrue( lo.get(i++) instanceof ListOf                   );

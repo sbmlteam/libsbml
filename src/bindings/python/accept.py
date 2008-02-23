@@ -563,7 +563,6 @@ def testClone():
    checkClone(libsbml.Delay(),"Delay")
    checkClone(libsbml.Event(),"Event")
    checkClone(libsbml.EventAssignment(),"EventAssignment")
-   checkClone(libsbml.FormulaUnitsData(),"FormulaUnitsData")
    checkClone(libsbml.FunctionDefinition(),"FunctionDefinition")
    checkClone(libsbml.InitialAssignment(),"InitialAssignment")
    checkClone(libsbml.KineticLaw(),"KineticLaw")

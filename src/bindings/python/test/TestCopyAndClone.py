@@ -459,18 +459,13 @@ class TestCopyAndClone(unittest.TestCase):
     p = libsbml.Parameter("alex")
     o1.addParameter(p)
     p = None
-    fud = libsbml.FormulaUnitsData()
-    o1.addFormulaUnitsData(fud)
-    fud = None
     self.assert_( o1.getId() == "c" )
     self.assert_( o1.getNumParameters() == 1 )
-    self.assert_( o1.getNumFormulaUnitsData() == 1 )
     self.assert_( o1.getParameter(0).getId() == "alex" )
     o2 = libsbml.Model()
     o2 = o1
     self.assert_( o2.getId() == "c" )
     self.assert_( o2.getNumParameters() == 1 )
-    self.assert_( o2.getNumFormulaUnitsData() == 1 )
     self.assert_( o2.getParameter(0).getId() == "alex" )
     o2 = None
     o1 = None
@@ -482,17 +477,12 @@ class TestCopyAndClone(unittest.TestCase):
     p = libsbml.Parameter("alex")
     o1.addParameter(p)
     p = None
-    fud = libsbml.FormulaUnitsData()
-    o1.addFormulaUnitsData(fud)
-    fud = None
     self.assert_( o1.getId() == "c" )
     self.assert_( o1.getNumParameters() == 1 )
-    self.assert_( o1.getNumFormulaUnitsData() == 1 )
     self.assert_( o1.getParameter(0).getId() == "alex" )
     o2 = o1.clone()
     self.assert_( o2.getId() == "c" )
     self.assert_( o2.getNumParameters() == 1 )
-    self.assert_( o2.getNumFormulaUnitsData() == 1 )
     self.assert_( o2.getParameter(0).getId() == "alex" )
     o2 = None
     o1 = None
@@ -504,17 +494,12 @@ class TestCopyAndClone(unittest.TestCase):
     p = libsbml.Parameter("alex")
     o1.addParameter(p)
     p = None
-    fud = libsbml.FormulaUnitsData()
-    o1.addFormulaUnitsData(fud)
-    fud = None
     self.assert_( o1.getId() == "c" )
     self.assert_( o1.getNumParameters() == 1 )
-    self.assert_( o1.getNumFormulaUnitsData() == 1 )
     self.assert_( o1.getParameter(0).getId() == "alex" )
     o2 = libsbml.Model(o1)
     self.assert_( o2.getId() == "c" )
     self.assert_( o2.getNumParameters() == 1 )
-    self.assert_( o2.getNumFormulaUnitsData() == 1 )
     self.assert_( o2.getParameter(0).getId() == "alex" )
     o2 = None
     o1 = None
