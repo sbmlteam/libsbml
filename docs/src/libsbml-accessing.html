@@ -81,12 +81,13 @@ the command.
 <h2><a class="anchor" name="accessing-java">Java</a></h2>
 
 <p> In addition to the instructions for configuring the
-<code>LD_LIBRARY_PATH</code> or <code>DYLD_LIBRARY_PATH</code>
-variables (see the <a
-href="libsbml-installation.html#accessing">section about accessing
-libSBML</a>), Java applications separately need to have their class
-search paths include the libSBML <code>.jar</code> file.  The exact
-recipe depends on the operating system in use.
+<code>LD_LIBRARY_PATH</code> or <code>DYLD_LIBRARY_PATH</code> variables
+(see the <a href="libsbml-installation.html#accessing">section about
+accessing libSBML</a>), Java applications separately need to have their
+class search paths include the libSBML <code>.jar</code> file.  This is
+often most easily done by setting the <code>CLASSPATH</code> environment
+variable, but other methods are possible.  The exact recipe also depends on
+the operating system in use, as described in the following subsections.
 
 <h3>On Linux, MacOS X and similar Unix-like systems</h3>
 
