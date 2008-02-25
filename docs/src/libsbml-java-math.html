@@ -1,0 +1,645 @@
+<center style="margin-bottom: 2em">
+<table border="0">
+<tr>
+<td style="font-size: small;">
+<a href="#math-overview">Basic Concepts</a>
+</td></tr><tr><td style="font-size: small;">
+<a href="#math-convert">Converting between ASTs and Text Strings</a>
+</td></tr><tr><td style="font-size: small;">
+<a href="#math-diffs">The String Formula Syntax and Differences with MathML</a>
+</td></tr><tr><td style="font-size: small;">
+<a href="#math-ast">Methods for working with libSBML's Abstract Syntax Trees</a>
+</td></tr><tr><td style="font-size: small;">
+<a href="#math-reading">Reading and Writing MathML from/to ASTs</a>
+</td></tr><tr><td style="font-size: small;">
+</tr>
+</table>
+</center>
+
+
+This section describes libSBML's facilities for working with SBML
+representations of mathematical expressions.  Unless otherwise noted, all
+classes are in the Java package <code><a
+href="org/sbml/libsbml/package-summary.html">org.sbml.libsbml</a></code>.
+
+<h2><a class="anchor" name="math-overview">Basic Concepts</a></h2>
+
+<p> LibSBML uses <a
+href="http://en.wikipedia.org/wiki/Abstract_syntax_tree">Abstract Syntax
+Trees</a> (ASTs) to provide a canonical, in-memory representation for all
+mathematical formulas regardless of their original format (i.e., C-like
+infix strings or <a href="http://www.w3.org/Math/">MathML</a>).  In
+libSBML, an AST is a collection of one or more objects of class <code><a
+href="org/sbml/libsbml/ASTNode.html">ASTNode</a></code>.  An AST
+<em>node</em> in libSBML is a recursive structure containing a pointer to
+the node's value (which might be, for example, a number or a symbol) and a
+list of children nodes.  Each <code><a
+href="org/sbml/libsbml/ASTNode.html">ASTNode</a></code> node may have none,
+one, two, or more child depending on its type.  The following diagram
+illustrates an example of how the mathematical expression "1 + 2" is
+represented as an AST with one <em>plus</em> node having two <em>
+integer</em> children nodes for the numbers 1 and 2.  The figure also shows
+the corresponding <a href="http://www.w3.org/Math/">MathML&nbsp;2.0</a>
+representation:
+</p>
+
+<center>
+<a class="anchor" name="example-program">
+<table border="0" cellspacing="5">
+<caption align="bottom">Example AST representation of a mathematical expression.</caption>
+<tr><td><img src="org/sbml/libsbml/astnode-illustration.jpg" 
+alt="Example AST representation of a mathematical expression."></tr><td>
+</table>
+</a>
+</center>
+
+<p>
+The following are noteworthy about the AST representation in libSBML:
+</p>
+
+<ul>
+
+<li style="margin-bottom: 1em"> A numerical value represented in <a
+href="http://www.w3.org/Math/">MathML&nbsp;2.0</a> as a real number with an
+exponent is preserved as such in the AST node representation, even if the
+number could be stored in a Java <code>double</code> data type.  This is
+done so that when an SBML model is read in and then written out again, the
+amount of change introduced by libSBML to the SBML during the round-trip
+activity is minimized.
+ 
+<li style="margin-bottom: 1em"> Rational numbers are represented in an AST
+node using separate numerator and denominator values.  These can be
+retrieved using the <code><a
+href="org/sbml/libsbml/ASTNode.html#getNumerator()">getNumerator()</a></code>
+and <code><a
+href="org/sbml/libsbml/ASTNode.html#getDenominator()">getDenominator()</a></code>
+methods provided by the <code><a
+href="org/sbml/libsbml/ASTNode.html">ASTNode</a></code>
+class.
+
+<li style="margin-bottom: 1em"> The children of an <code><a
+href="org/sbml/libsbml/ASTNode.html">ASTNode</a></code>
+object are other <code><a
+href="org/sbml/libsbml/ASTNode.html">ASTNode</a></code>
+objects.  The list of children is empty for nodes that are leaf elements,
+such as numbers.  For nodes that are actually roots of expression subtrees,
+the list of children points to the parsed objects that make up the rest of
+the expression.
+
+</ul>
+
+<p> For many applications, the details of ASTs are irrelevant because the
+applications can use libSBML's text-string based translation functions such
+as <code><a
+href="org/sbml/libsbml/libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString</a>(<a
+href="org/sbml/libsbml/ASTNode.html">ASTNode</a>)</code> and <code><a
+href="org/sbml/libsbml/libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula</a>(java.lang.String)</code>.
+If you find the complexity of using the AST representation of expressions
+too high for your purposes, perhaps the string-based functions will be more
+suitable.
+</p>
+
+<p>
+Finally, it is worth noting that the AST and MathML handling code in
+libSBML remains written in C, not C++, as all of libSBML was originally
+written in C.  Readers may occasionally wonder why some aspects are more
+C-like than following a C++ style, and that's the reason.
+</p>
+
+
+<h2><a class="anchor" name="math-convert">Converting between ASTs and Text Strings</a></h2>
+
+<p> SBML Level&nbsp;2 represents mathematical expressions using <a
+href="http://www.w3.org/Math/">MathML&nbsp;2.0</a> (more specifically, a
+subset of the <em>content</em> portion of MathML&nbsp;2.0), but most
+software applications using libSBML do not use MathML directly.  Instead,
+applications generally either interact with mathematics in text-string
+form, or else they use the API for working with Abstract Syntax Trees
+(described below).  LibSBML provides support for both approaches.  The
+libSBML formula parser has been carefully engineered so that
+transformations from MathML to infix string notation <em>and back</em> is
+possible with a minimum of disruption to the structure of the mathematical
+expression.
+</p>
+
+<p>
+The example below shows a simple program that, when run, takes a MathML
+string compiled into the program, converts it to an AST, converts
+<em>that</em> to an infix representation of the formula, compares it to the
+expected form of that formula, and finally translates that formula back to
+MathML and displays it.  The output displayed on the terminal should have
+the same structure as the MathML it started with.  The program is a simple
+example of using the various MathML and AST reading and writing methods,
+and shows that libSBML preserves the ordering and structure of the
+mathematical expressions.
+</p>
+
+<div class="fragment"><pre class="fragment">
+import org.sbml.libsbml.ASTNode;
+import org.sbml.libsbml.libsbml;
+
+public class example
+{
+  public static void main (String[] args)
+  {        
+      String expected = "1 + f(x)";
+      String input_mathml = "&lt;?xml version='1.0' encoding='UTF-8'?&gt;" 
+          + "&lt;math xmlns='http://www.w3.org/1998/Math/MathML'&gt;"
+          + "  &lt;apply&gt; &lt;plus/&gt; &lt;cn&gt; 1 &lt;/cn&gt;"
+          + "                  &lt;apply&gt; &lt;ci&gt; f &lt;/ci&gt; &lt;ci&gt; x &lt;/ci&gt; &lt;/apply&gt;"
+          + "  &lt;/apply&gt;"
+          + "&lt;/math&gt;";
+
+      ASTNode ast_result   = libsbml.readMathMLFromString(input_mathml);
+      String ast_as_string = libsbml.formulaToString(ast_result);
+
+      if (ast_as_string.equals(expected))
+      {
+          System.out.println("Got expected result.");
+      }
+      else
+      {
+          System.out.println("Mismatch after readMathMLFromString().");
+          System.exit(1);
+      }
+
+      ASTNode new_mathml = libsbml.parseFormula(ast_as_string);
+      String new_string  = libsbml.writeMathMLToString(new_mathml);
+
+      System.out.println("Result of writing AST to string:");
+      System.out.print(new_string);
+      System.out.println();
+  }
+
+  static 
+  {
+    try 
+    {
+      System.loadLibrary("sbmlj");
+    }
+    catch (Exception e)
+    {
+      System.err.println("Could not load libSBML library:" + e.getMessage());
+    }
+  }
+}
+</pre></div>
+
+<p> The text-string form of mathematical formulas produced by <code><a
+href="org/sbml/libsbml/libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString</a>(ASTNode)</code>
+and read by <code><a
+href="org/sbml/libsbml/libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula</a>(java.lang.String)</code>
+are simple C-inspired infix notation taken from SBML Level&nbsp;1.  It is
+summarized in the next section below.  A formula in this text-string form
+therefore can be handed to a program that understands SBML Level&nbsp;1
+mathematical expressions, or used as part of a translation system.  In
+summary, the functions available are the following:
+</p>
+
+<ul>
+
+<li style="margin-bottom: 1em"> <code>static java.lang.String <a
+href="org/sbml/libsbml/libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString</a>(<a
+href="org/sbml/libsbml/ASTNode.html">ASTNode</a>)</code>
+reads an AST, converts it to a text string in SBML
+Level&nbsp;1 formula syntax, and returns it.  The caller owns the character
+string returned and should free it after it is no longer needed.
+
+<li style="margin-bottom: 1em"> <code>static <a href="org/sbml/libsbml/ASTNode.html">ASTNode</a>
+<a href="org/sbml/libsbml/libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula</a>(java.lang.String)
+</code> reads a text-string containing a mathematical
+expression in SBML Level&nbsp;1 syntax, and returns an AST corresponding to
+the expression.
+
+</ul>
+
+<h2><a class="anchor" name="math-diffs">The String Formula Syntax and Differences with MathML</a></h2>
+
+<p>
+The text-string formula syntax is an infix notation essentially derived
+from the syntax of the C programming language and was originally used in
+SBML Level&nbsp;1.  The formula strings may contain operators, function
+calls, symbols, and white space characters.  The allowable white space
+characters are tab and space.  The following are illustrative examples of
+formulas expressed in the syntax:
+</p>
+
+<div class="fragment"><pre class="fragment">
+0.10 * k4^2
+</pre></div>
+<div class="fragment"><pre class="fragment">
+(vm * s1)/(km + s1)
+</pre></div>
+
+<p>
+The following table shows the precedence rules in this syntax.  In the
+Class column, <em>operand</em> implies the construct is an operand,
+<em>prefix</em> implies the operation is applied to the following
+arguments, <em>unary</em> implies there is one argument, and
+<em>binary</em> implies there are two arguments.  The values in the
+Precedence column show how the order of different types of operation are
+determined.  For example, the expression <em>a * b + c</em> is evaluated as
+<em>(a * b) + c</em> because the <code>*</code> operator has higher
+precedence.  The Associates column shows how the order of similar
+precedence operations is determined; for example, <em>a - b + c</em> is
+evaluated as <em>(a - b) + c</em> because the <code>+</code> and
+<code>-</code> operators are left-associative.  The precedence and
+associativity rules are taken from the C programming language, except for
+the symbol <code>^</code>, which is used in C for a different purpose.
+(Exponentiation can be invoked using either <code>^</code> or the function
+<code>power</code>.)
+</p>
+
+<center>
+<table border="0" cellspacing="5">
+<caption align="bottom">Table of precedence rules.</caption>
+<tr><td><img src="org/sbml/libsbml/string-syntax.jpg" 
+alt="Table of precedence rules."></tr><td>
+</table>
+</center>
+
+<p>
+A program parsing a formula in an SBML model should assume that names
+appearing in the formula are the identifiers of Species, Parameter,
+Compartment, FunctionDefinition, or Reaction objects defined in a model.
+When a function call is involved, the syntax consists of a function
+identifier, followed by optional white space, followed by an opening
+parenthesis, followed by a sequence of zero or more arguments separated by
+commas (with each comma optionally preceded and/or followed by zero or more
+white space characters), followed by a closing parenthesis.  There is an
+almost one-to-one mapping between the list of predefined functions
+available, and those defined in MathML.  All of the MathML funcctions are
+recognized; this set is larger than the functions defined in SBML Level&nbsp;1.
+In the subset of functions that overlap between MathML and SBML Level&nbsp;1,
+there exist a few differences.  The following table summarizes the
+differences between the predefined functions in SBML Level&nbsp;1 and the MathML
+equivalents in SBML Level&nbsp;2:
+</p>
+
+<center>
+<table cellspacing="1" border="0">
+ <tr style="background: lightgray; font-size: 14px;">
+     <td>Text string formula functions</td>
+     <td>MathML equivalents in SBML Level&nbsp;2</td>
+ </tr>
+ <tr><td><code>acos</code></td><td><code>arccos</code></td></tr>
+ <tr><td><code>asin</code></td><td><code>arcsin</code></td></tr>
+ <tr><td><code>atan</code></td><td><code>arctan</code></td></tr>
+ <tr><td><code>ceil</code></td><td><code>ceiling</code></td></tr>
+ <tr><td><code>log</code></td><td><code>ln</code></td></tr>
+ <tr><td><code>log10(x)</code></td><td><code>log(10, x)</code></td></tr>
+ <tr><td><code>pow(x, y)</code></td><td><code>power(x, y)</code></td></tr>
+ <tr><td><code>sqr(x)</code></td><td><code>power(x, 2)</code></td></tr>
+ <tr><td><code>sqrt(x)</code></td><td><code>root(2, x)</code></td></tr>
+</table>
+</center>
+
+
+<h2><a class="anchor" name="math-ast">Methods for working with libSBML's Abstract Syntax Trees</a></h2>
+
+<p> Every ASTNode in a libSBML AST has an associated type, a value taken
+from a set of constants having names beginning with <code>AST_</code> and
+defined in <code><a
+href="org/sbml/libsbml/libsbmlConstants.html">org.sbml.libsbml.libsbmlConstants</a></code>.
+The list of possible AST types in libSBML is quite long, because it covers
+all the mathematical functions that are permitted in SBML.  The values are
+shown in the following table; their names hopefully evoke the construct
+that they represent:
+</p>
+
+<center>
+<table width="80%" cellspacing="1" cellspacing="1" border="0">
+ <tr><td><code></code></td><td><code></code></td><td><code></code></td></tr>
+ <tr><td><code>AST_UNKNOWN</code></td><td><code>AST_FUNCTION_ARCCOTH</code></td><td><code>AST_FUNCTION_POWER</code></td></tr>
+ <tr><td><code>AST_PLUS</code></td><td><code>AST_FUNCTION_ARCCSC</code></td><td><code>AST_FUNCTION_ROOT</code></td></tr>
+ <tr><td><code>AST_MINUS</code></td><td><code>AST_FUNCTION_ARCCSCH</code></td><td><code>AST_FUNCTION_SEC</code></td></tr>
+ <tr><td><code>AST_TIMES</code></td><td><code>AST_FUNCTION_ARCSEC</code></td><td><code>AST_FUNCTION_SECH</code></td></tr>
+ <tr><td><code>AST_DIVIDE</code></td><td><code>AST_FUNCTION_ARCSECH</code></td><td><code>AST_FUNCTION_SIN</code></td></tr>
+ <tr><td><code>AST_POWER</code></td><td><code>AST_FUNCTION_ARCSIN</code></td><td><code>AST_FUNCTION_SINH</code></td></tr>
+ <tr><td><code>AST_INTEGER</code></td><td><code>AST_FUNCTION_ARCSINH</code></td><td><code>AST_FUNCTION_TAN</code></td></tr>
+ <tr><td><code>AST_REAL</code></td><td><code>AST_FUNCTION_ARCTAN</code></td><td><code>AST_FUNCTION_TANH</code></td></tr>
+ <tr><td><code>AST_REAL_E</code></td><td><code>AST_FUNCTION_ARCTANH</code></td><td><code>AST_LOGICAL_AND</code></td></tr>
+ <tr><td><code>AST_RATIONAL</code></td><td><code>AST_FUNCTION_CEILING</code></td><td><code>AST_LOGICAL_NOT</code></td></tr>
+ <tr><td><code>AST_NAME</code></td><td><code>AST_FUNCTION_COS</code></td><td><code>AST_LOGICAL_OR</code></td></tr>
+ <tr><td><code>AST_NAME_TIME</code></td><td><code>AST_FUNCTION_COSH</code></td><td><code>AST_LOGICAL_XOR</code></td></tr>
+ <tr><td><code>AST_CONSTANT_E</code></td><td><code>AST_FUNCTION_COT</code></td><td><code>AST_RELATIONAL_EQ</code></td></tr>
+ <tr><td><code>AST_CONSTANT_FALSE</code></td><td><code>AST_FUNCTION_COTH</code></td><td><code>AST_RELATIONAL_GEQ</code></td></tr>
+ <tr><td><code>AST_CONSTANT_PI</code></td><td><code>AST_FUNCTION_CSC</code></td><td><code>AST_RELATIONAL_GT</code></td></tr>
+ <tr><td><code>AST_CONSTANT_TRUE</code></td><td><code>AST_FUNCTION_CSCH</code></td><td><code>AST_RELATIONAL_LEQ</code></td></tr>
+ <tr><td><code>AST_LAMBDA</code></td><td><code>AST_FUNCTION_EXP</code></td><td><code>AST_RELATIONAL_LT</code></td></tr>
+ <tr><td><code>AST_FUNCTION</code></td><td><code>AST_FUNCTION_FACTORIAL</code></td><td><code>AST_RELATIONAL_NEQ</code></td></tr>
+ <tr><td><code>AST_FUNCTION_ABS</code></td><td><code>AST_FUNCTION_FLOOR</code></td><td><code></code></td></tr>
+ <tr><td><code>AST_FUNCTION_ARCCOS</code></td><td><code>AST_FUNCTION_LN</code></td></tr>
+ <tr><td><code>AST_FUNCTION_ARCCOSH</code></td><td><code>AST_FUNCTION_LOG</code></td></tr>
+ <tr><td><code>AST_FUNCTION_ARCCOT</code></td><td><code>AST_FUNCTION_PIECEWISE</code></td></tr>
+</table>
+</center>
+
+<p> There are a number of methods for interrogating the type of an <code><a
+href="org/sbml/libsbml/ASTNode.html">ASTNode</a></code> and for testing
+whether a node belongs to a general category of constructs.  The methods
+defined by the <code><a
+href="org/sbml/libsbml/ASTNode.html">ASTNode</a></code> class are the
+following:
+</p>
+
+<ul>
+
+<li style="margin-bottom: 1em"> <code>int <a
+href="org/sbml/libsbml/ASTNode.html#getType()">getType()</a></code> returns the type of
+this AST node.
+
+<li style="margin-bottom: 1em"> <code>boolean <a
+href="org/sbml/libsbml/ASTNode.html#isConstant()">isConstant()</a></code>
+returns <code>true</code> if this AST node is a MathML constant
+(<code>true</code>, <code>false</code>, <code>pi</code>,
+<code>exponentiale</code>), <code>false</code> otherwise.
+
+<li style="margin-bottom: 1em"> <code>boolean <a
+href="org/sbml/libsbml/ASTNode.html#isBoolean()">isBoolean()</a></code>
+returns <code>true</code> if this AST node returns a boolean value (by
+being either a logical operator, a relational operator, or the constant
+<code> true</code> or <code>false</code>).
+
+<li style="margin-bottom: 1em"> <code>boolean <a
+href="org/sbml/libsbml/ASTNode.html#isFunction()">isFunction()</a></code>
+returns <code>true</code> if this AST node is a function (i.e., a MathML
+defined function such as <code>exp</code> or else a function defined by a
+FunctionDefinition in the Model).
+
+<li style="margin-bottom: 1em"> <code>boolean <a
+href="org/sbml/libsbml/ASTNode.html#isInfinity()">isInfinity()</a></code>
+returns <code>true</code> if this AST node is the special IEEE 754 value
+infinity.
+
+<li style="margin-bottom: 1em"> <code>boolean <a
+href="org/sbml/libsbml/ASTNode.html#isInteger()">isInteger()</a></code>
+returns <code>true</code> if this AST node is holding an integer value.
+
+<li style="margin-bottom: 1em"> <code>boolean <a
+href="org/sbml/libsbml/ASTNode.html#isNumber()">isNumber()</a></code>
+returns <code>true</code> if this AST node is holding any number.
+
+<li style="margin-bottom: 1em"> <code>boolean <a
+href="org/sbml/libsbml/ASTNode.html#isLambda()">isLambda()</a></code>
+returns <code>true</code> if this AST node is a MathML <code>lambda</code>
+construct.
+
+<li style="margin-bottom: 1em"> <code>boolean <a
+href="org/sbml/libsbml/ASTNode.html#isLog10()">isLog10()</a></code> returns
+<code>true</code> if this AST node represents the <code>log10</code>
+function, specifically, that its type code is <code><a
+href="org/sbml/libsbml/libsbmlConstants.html#AST_FUNCTION_LOG">AST_FUNCTION_LOG</a></code>
+and it has two children, the first of which is an integer equal to 10.
+
+<li style="margin-bottom: 1em"> <code>boolean <a
+href="org/sbml/libsbml/ASTNode.html#isLogical()">isLogical()</a></code>
+returns <code>true</code> if this AST node is a logical operator
+(<code>and</code>, <code>or</code>, <code>not</code>, <code>xor</code>).
+
+<li style="margin-bottom: 1em"> <code>boolean <a
+href="org/sbml/libsbml/ASTNode.html#isName()">isName()</a></code> returns
+<code>true</code> if this AST node is a user-defined name or (in SBML Level
+2) one of the two special <code>csymbol</code> constructs "delay" or
+"time".
+
+<li style="margin-bottom: 1em"> <code>boolean <a
+href="org/sbml/libsbml/ASTNode.html#isNaN()">isNaN()</a></code> returns
+<code>true</code> if this AST node has the special IEEE 754 value "not a
+number" (NaN).
+
+<li style="margin-bottom: 1em"> <code>boolean <a
+href="org/sbml/libsbml/ASTNode.html#isNegInfinity()">isNegInfinity()</a></code>
+returns <code>true</code> if this AST node has the special IEEE 754 value
+of negative infinity.
+
+<li style="margin-bottom: 1em"> <code>boolean <a
+href="org/sbml/libsbml/ASTNode.html#isOperator()">isOperator()</a></code>
+returns <code>true</code> if this AST node is an operator (e.g.,
+<code>+</code>, <code>-</code>, etc.)
+
+<li style="margin-bottom: 1em"> <code>boolean <a
+href="org/sbml/libsbml/ASTNode.html#isPiecewise()">isPiecewise()</a></code>
+returns <code>true</code> if this AST node is the MathML
+<code>piecewise</code> function.
+
+<li style="margin-bottom: 1em"> <code>boolean <a
+href="org/sbml/libsbml/ASTNode.html#isRational()">isRational()</a></code>
+returns <code>true</code> if this AST node is a rational number having a
+numerator and a denominator.
+
+<li style="margin-bottom: 1em"> <code>boolean <a
+href="org/sbml/libsbml/ASTNode.html#isReal()">isReal()</a></code> returns
+<code>true</code> if this AST node is a real number (specifically, <code><a
+href="org/sbml/libsbml/libsbmlConstants.html#AST_REAL_E">AST_REAL_E</a></code>
+or <code><a
+href="org/sbml/libsbml/libsbmlConstants.html#AST_RATIONAL">AST_RATIONAL</a></code>).
+
+<li style="margin-bottom: 1em"> <code>boolean <a
+href="org/sbml/libsbml/ASTNode.html#isRelational()">isRelational()</a></code>
+returns <code>true</code> if this AST node is a relational operator.
+
+<li style="margin-bottom: 1em"> <code>boolean <a
+href="org/sbml/libsbml/ASTNode.html#isSqrt()">isSqrt()</a></code> returns
+<code>true</code> if this AST node is the square-root operator
+
+<li style="margin-bottom: 1em"> <code>boolean <a
+href="org/sbml/libsbml/ASTNode.html#isUMinus()">isUMinus()</a></code>
+returns <code>true</code> if this AST node is a unary minus.
+
+<li style="margin-bottom: 1em"> <code>boolean <a
+href="org/sbml/libsbml/ASTNode.html#isUnknown()">isUnknown()</a></code>
+returns <code>true</code> if this AST node's type code is <code><a
+href="org/sbml/libsbml/libsbmlConstants.html#AST_UNKNOWN">AST_UNKNOWN</a></code>.
+
+</ul>
+
+<p>
+Programs manipulating AST node structures should check the type of a given
+node before calling methods that return a value from the node.  The
+following meethods are available for returning values from nodes:
+</p>
+
+<ul>
+
+<li style="margin-bottom: 1em"> <code>int <a
+href="org/sbml/libsbml/ASTNode.html#getInteger()">getInteger()</a></code>
+
+<li style="margin-bottom: 1em"> <code>char <a
+href="org/sbml/libsbml/ASTNode.html#getCharacter()">getCharacter()</a></code>
+
+<li style="margin-bottom: 1em"> <code>java.lang.String <a
+href="org/sbml/libsbml/ASTNode.html#getName()">getName()</a></code>
+
+<li style="margin-bottom: 1em"> <code>int <a
+href="org/sbml/libsbml/ASTNode.html#getNumerator()">getNumerator()</a></code>
+
+<li style="margin-bottom: 1em"> <code>int <a
+href="org/sbml/libsbml/ASTNode.html#getDenominator()">getDenominator()</a></code>
+
+<li style="margin-bottom: 1em"> <code>double <a
+href="org/sbml/libsbml/ASTNode.html#getReal()">getReal()</a></code>
+
+<li style="margin-bottom: 1em"> <code>double <a
+href="org/sbml/libsbml/ASTNode.html#getMantissa()">getMantissa()</a></code>
+
+<li style="margin-bottom: 1em"> <code>int <a
+href="org/sbml/libsbml/ASTNode.html#getExponent()">getExponent()</a></code>
+
+</ul>
+
+<p>
+Finally (and rather predictably), libSBML provides methods for setting the
+values of AST nodes.
+</p>
+
+<ul>
+
+<li style="margin-bottom: 1em"> <code>void <a
+href="org/sbml/libsbml/ASTNode.html#setCharacter(char)">setCharacter</a>(char
+value)</code> sets the value of this AST node to the given character.  If
+character is one of <code>+</code>, <code>-</code>, <code>void *</code>,
+<code>/</code> or <code>^</code>, the node type will be to the appropriate
+operator type.  For all other characters, the node type will be set to the
+type code <code><a
+href="org/sbml/libsbml/libsbmlConstants.html#AST_UNKNOWN">AST_UNKNOWN</a></code>.
+
+<li style="margin-bottom: 1em"> <code>void <a
+href="org/sbml/libsbml/ASTNode.html#setName(java.lang.String)">setName</a>(java.lang.String)</code>
+sets the value of this AST node to the given name.  The node type will be
+set (to <code><a
+href="org/sbml/libsbml/libsbmlConstants.html#AST_NAME">AST_NAME</a></code>)
+<em>only if</em> the AST node was previously an operator
+(<code>isOperator(node) != 0</code>) or number (<code>isNumber(node) !=
+0</code>).  This allows names to be set for <code><a
+href="org/sbml/libsbml/libsbmlConstants.html#AST_FUNCTION">AST_FUNCTION</a></code>
+nodes and the like.
+
+<li style="margin-bottom: 1em"> <code>void <a
+href="org/sbml/libsbml/ASTNode.html#setValue(int)">setValue</a>(int
+value)</code> sets the value of the node to the given integer,
+<code>value</code>.
+
+<li style="margin-bottom: 1em"> <code>void <a
+href="org/sbml/libsbml/ASTNode.html#setValue(int, int)">setValue</a>(int
+numerator, int denominator)</code> sets the value of this AST node to the
+given rational in two parts: the <code>numerator</code> and
+<code>denominator</code>.  The node type code is set to <code><a
+href="org/sbml/libsbml/libsbmlConstants.html#AST_RATIONAL">AST_RATIONAL</a></code>.
+
+<li style="margin-bottom: 1em"> <code>void <a
+href="org/sbml/libsbml/ASTNode.html#setValue(double)">setValue</a>(double
+value)</code> sets the value of this AST node to the given
+<code>double</code> <code>value</code> and sets the node type code to <code><a
+href="org/sbml/libsbml/libsbmlConstants.html#AST_REAL">AST_REAL</a></code>.
+
+<li style="margin-bottom: 1em"> <code>void <a
+href="org/sbml/libsbml/ASTNode.html#setValue(double,
+int)">setValue</a>(double mantissa, int exponent)</code> sets the value of
+this AST node to the given real number in two parts: the
+<code>mantissa</code> and the <code>exponent</code>.  The node type code is
+set to <code><a
+href="org/sbml/libsbml/libsbmlConstants.html#AST_REAL_E">AST_REAL_E</a></code>.
+
+</ul>
+
+<p>
+The following are some miscellaneous methods for manipulating ASTs:
+</p>
+
+<ul>
+
+<li style="margin-bottom: 1em"> <code><a
+href="org/sbml/libsbml/ASTNode.html">ASTNode</a> <a
+href="org/sbml/libsbml/ASTNode.html#ASTNode(int)">ASTNode</a>(int
+type)</code> creates a new AST node object and returns a pointer to it.
+The returned node will have the given <code>type</code> code.  The type
+value must be chosen from among the constants beginning with the characters
+<code>AST_</code> defined in <code><a
+href="org/sbml/libsbml/libsbmlConstants.html">org.sbml.libsbml.libsbmlConstants</a></code>.
+
+<li style="margin-bottom: 1em"> <code><a
+href="org/sbml/libsbml/ASTNode.html">ASTNode</a> <a
+href="org/sbml/libsbml/ASTNode.html#ASTNode()">ASTNode</a>()</code> creates
+a new AST node object and returns a pointer to it.  The returned node will
+have the type <code><a
+href="org/sbml/libsbml/libsbmlConstants.html#AST_UNKNOWN">AST_UNKNOWN</a></code>.
+Its type should be set by the caller as soon as possible using
+
+<li style="margin-bottom: 1em"> <code>long <a
+href="org/sbml/libsbml/ASTNode.html#getNumChildren()">getNumChildren()</a></code>
+returns the number of children of this AST node or 0 is this node has no
+children.
+
+<li style="margin-bottom: 1em"> <code><a
+href="org/sbml/libsbml/ASTNode.html#addChild(ASTNode)">addChild</a>(ASTNode)</code>
+adds the given node as a child of this AST node.  Child nodes are added in
+left-to-right order.
+
+<li style="margin-bottom: 1em"> <code><a
+href="org/sbml/libsbml/ASTNode.html#prependChild(ASTNode)">prependChild()</a></code>
+adds the given node as a child of this AST node.  This method adds child
+nodes in right-to-left order.
+
+<li style="margin-bottom: 1em"> <code><a
+href="org/sbml/libsbml/ASTNode.html">ASTNode</a> <a
+href="org/sbml/libsbml/ASTNode.html#getChild(long)">getChild</a>(long
+n)</code> returns the <code>n</code>th child of this AST node or
+<code>NULL</code> if this node has no <code>n</code>th child (<code>n &gt;
+(ASTNode.getNumChildren() - 1)</code>).
+
+<li style="margin-bottom: 1em"> <code><a
+href="org/sbml/libsbml/ASTNode.html">ASTNode</a> <a
+href="org/sbml/libsbml/ASTNode.html#getLeftChild()">getLeftChild()</a></code>
+returns the left child of this AST node.  This is equivalent to
+<code>ASTNode.getChild(0)</code>.
+
+<li style="margin-bottom: 1em"> <code><a
+href="org/sbml/libsbml/ASTNode.html">ASTNode</a> <a
+href="org/sbml/libsbml/ASTNode.html#getRightChild()">getRightChild()</a></code>
+returns the right child of this AST node or <code>NULL</code> if this node
+has no right child.
+
+<li style="margin-bottom: 1em"> <code><a
+href="org/sbml/libsbml/ASTNode.html#swapChildren(ASTNode)">swapChildren</a>(<a
+href="org/sbml/libsbml/ASTNode.html">ASTNode</a> that)</code> swaps the
+children of this AST node with the children of <code>that</code> AST node.
+
+<li style="margin-bottom: 1em"> <code><a
+href="org/sbml/libsbml/ASTNode.html#setType(int)">setType</a>(int
+type)</code> sets the type of this AST node to the given <code>type</code>
+code.  The value must be chosen from among the constants beginning with the
+characters <code>AST_</code> defined in <code><a
+href="org/sbml/libsbml/libsbmlConstants.html">org.sbml.libsbml.libsbmlConstants</a></code>.
+
+</ul>
+
+
+<h2><a class="anchor" name="math-reading">Reading and Writing MathML from/to ASTs</a></h2>
+
+<p> As mentioned above, applications often can avoid working with raw
+MathML by using either libSBML's text-string interface or the AST API.
+However, when needed, reading MathML content directly and creating ASTs, as
+well as the converse task of writing MathML, is easily done using two
+methods designed for this purpose:
+</p>
+
+<ul>
+
+<li style="margin-bottom: 1em"> <code><a
+href="org/sbml/libsbml/ASTNode.html">ASTNode</a> <a
+href="org/sbml/libsbml/libsbml.html#readMathMLFromString()">readMathMLFromString</a>(java.lang.String)</code>
+reads raw MathML from a text string, constructs an AST from it, then
+returns the root AST node of the resulting expression tree.
+
+<li style="margin-bottom: 1em"> <code>java.lang.String <a
+href="org/sbml/libsbml/libsbml.html#writeMathMLToString(org.sbml.libsbml.ASTNode)">writeMathMLToString</a>(<a
+href="org/sbml/libsbml/ASTNode.html">ASTNode</a>)</code> writes an AST to a
+string.  The caller owns the character string returned and should free it
+after it is no longer needed.
+
+</ul>
+
+<p> The <a href="#example-program">example program</a> given above
+demonstrated the use of these methods.
+

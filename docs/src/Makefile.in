@@ -137,6 +137,7 @@ distfiles =                                    \
         libsbml-issues.txt                     \
         libsbml-java-bottom.html               \
         libsbml-java-footer.html               \
+        libsbml-java-math.html                 \
         libsbml-java-overview.html             \
         libsbml-java-reading.html              \
         libsbml-java-top.html                  \
@@ -337,7 +338,8 @@ java-manual $(java-manual): $(core-sources)
 	$(call merge_html,libsbml-accessing.html,$(java-manual)/libsbml-accessing.html,accessibility to your software)
 	$(call merge_html,libsbml-features.html,$(java-manual)/libsbml-features.html,features)
 	$(call merge_html,libsbml-communications.html,$(java-manual)/libsbml-communications.html,bug reports and other communications)
-	$(call merge_html,libsbml-java-reading.html,$(java-manual)/libsbml-java-reading.html,for reading and writing SBML content)
+	$(call merge_html,libsbml-java-reading.html,$(java-manual)/libsbml-java-reading.html,basic facilities for reading and writing SBML content)
+	$(call merge_html,libsbml-java-math.html,$(java-manual)/libsbml-java-math.html,facilities for manipulating mathematical expressions)
 	$(call merge_html,libsbml-issues.html,$(java-manual)/libsbml-issues.html,known issues and pitfalls)
 	$(call merge_html,libsbml-uninstallation.html,$(java-manual)/libsbml-uninstallation.html,uninstallation)
 	$(call merge_html,../../LICENSE.html,$(java-manual)/libsbml-license.html,license)
