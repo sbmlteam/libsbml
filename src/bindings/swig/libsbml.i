@@ -137,6 +137,12 @@
 %ignore Model::populateListFormulaUnitsData;
 
 /**
+ * Ignore internal implementation classes
+ */
+%ignore XMLOutputStringStream;
+%ignore XMLOutputFileStream;
+
+/**
  * The following methods will create new objects.  To prevent memory
  * leaks we must inform SWIG of this.
  */
