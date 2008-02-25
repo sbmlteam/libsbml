@@ -136,6 +136,7 @@ distfiles =                                    \
         libsbml-issues.html                    \
         libsbml-issues.txt                     \
         libsbml-java-bottom.html               \
+        libsbml-java-fake-overview.html        \
         libsbml-java-footer.html               \
         libsbml-java-math.html                 \
         libsbml-java-overview.html             \
@@ -323,6 +324,7 @@ java-manual $(java-manual): $(core-sources)
 	    -bottom $(javadoc-footer) \
 	    -windowtitle $(javadoc-windowtitle) \
 	    -doctitle $(javadoc-doctitle) \
+	    -overview libsbml-java-fake-overview.html \
 	    -stylesheetfile doxygen-base.css \
 	    -d $(java-manual) \
 	    -tag note:a:"Note:" \
