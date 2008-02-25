@@ -9,27 +9,29 @@ LibSBML uses <a
 href="http://en.wikipedia.org/wiki/Abstract_syntax_tree">Abstract Syntax
 Trees</a> (ASTs) to provide a canonical, in-memory representation for all
 mathematical formulas regardless of their original format (i.e., C-like
-infix strings or MathML).  In libSBML, an AST is a collection of one or
-more objects of type ASTNode_t.  An AST @em node in libSBML is a recursive
-structure containing a pointer to the node's value (which might be, for
-example, a number or a symbol) and a list of children nodes.  Each ASTNode_t
-node may have none, one, two, or more child depending on its type.  The
-following diagram illustrates an example of how the mathematical expression
-"1 + 2" is represented as an AST with one @em plus node having two @em
-integer children nodes for the numbers 1 and 2.  The figure also shows the
-corresponding MathML representation:
+infix strings or <a href="http://www.w3.org/Math/">MathML</a>).  In
+libSBML, an AST is a collection of one or more objects of type ASTNode_t.
+An AST @em node in libSBML is a recursive structure containing a pointer to
+the node's value (which might be, for example, a number or a symbol) and a
+list of children nodes.  Each ASTNode_t node may have none, one, two, or
+more child depending on its type.  The following diagram illustrates an
+example of how the mathematical expression "1 + 2" is represented as an AST
+with one @em plus node having two @em integer children nodes for the
+numbers 1 and 2.  The figure also shows the corresponding <a
+href="http://www.w3.org/Math/">MathML&nbsp;2.0</a> representation:
 
-@image html astnode-illustration.jpg "Example AST representation of a mathematical representation."
-@image latex astnode-illustration.jpg "Example AST representation of a mathematical representation."
+@image html astnode-illustration.jpg "Example AST representation of a mathematical expression."
+@image latex astnode-illustration.jpg "Example AST representation of a mathematical expression."
 
 The following are noteworthy about the AST representation in libSBML:
 
-@li A numerical value represented in MathML as a real number with an
-exponent is preserved as such in the AST node representation, even if
-the number could be stored in a @c float data type.  This is done
-so that when an %SBML model is read in and then written out again, the
-amount of change introduced by libSBML to the SBML during the round-trip
-activity is minimized.
+@li A numerical value represented in <a
+href="http://www.w3.org/Math/">MathML&nbsp;2.0</a> as a real number with an
+exponent is preserved as such in the AST node representation, even if the
+number could be stored in a @c float data type.  This is done so that when
+an SBML model is read in and then written out again, the amount of change
+introduced by libSBML to the SBML during the round-trip activity is
+minimized.
  
 @li Rational numbers are represented in an AST node using separate
 numerator and denominator values.  These can be retrieved using the
@@ -55,14 +57,17 @@ C-like than following a C++ style, and that's the reason.
 
 @section math-convert Converting between ASTs and Text Strings
 
-SBML Level 2 represents mathematical expressions using MathML, but most
-applications do not use MathML directly.  Instead, applications generally
-either interact with mathematics in text-string form, or else they use the
-API for working with Abstract Syntax Trees (described below).  LibSBML
-provides support for both approaches.  The libSBML formula parser has been
-carefully engineered so that transformations from MathML to infix string
-notation <em>and back</em> is possible with a minimum of disruption to the
-structure of the mathematical expression.
+SBML Level 2 represents mathematical expressions using <a
+href="http://www.w3.org/Math/">MathML&nbsp;2.0</a> (more specifically, a
+subset of the <em>content</em> portion of MathML&nbsp;2.0), but most
+software applications using libSBML do not use MathML directly.  Instead,
+applications generally either interact with mathematics in text-string
+form, or else they use the API for working with Abstract Syntax Trees
+(described below).  LibSBML provides support for both approaches.  The
+libSBML formula parser has been carefully engineered so that
+transformations from MathML to infix string notation <em>and back</em> is
+possible with a minimum of disruption to the structure of the mathematical
+expression.
 
 The example below shows a simple program that, when run, takes a MathML
 string compiled into the program, converts it to an AST, converts
@@ -389,33 +394,21 @@ sets the type of this ASTNode to the given ASTNodeType_t enumeration value.
 
 
 
-@section math-reading Reading and Writing Mathematical Expressions into ASTs
+@section math-reading Reading and Writing MathML from/to ASTs
 
-As mentioned above, applications often can aworking with raw MathML by
+As mentioned above, applications often can avoid working with raw MathML by
 using either libSBML's text-string interface or the AST API.  However, when
-needed, reading MathML content directly and creating ASTs is easily done in
-libSBML using two methods designed for this purpose:
-
-@li <code>ASTNode readMathML(XMLInputStream)</code> reads raw
-MathML content from the given stream and constructs an AST from it, then
-returns the root ASTNode of the resulting expression tree.
+needed, reading MathML content directly and creating ASTs, as well as the
+converse task of writing MathML, is easily done using two methods designed
+for this purpose:
 
 @li <code>ASTNode readMathMLFromString(string)</code> reads raw
 MathML from a text string, constructs an AST from it, then returns the root
 ASTNode of the resulting expression tree.
 
-Similarly, writing out Abstract Syntax Tree structures is easily done using
-the following methods:
-
-@li <code>writeMathML(ASTNode, XMLOutputStream)</code> writes an AST to the
-given output stream.
-
 @li <code>string writeMathMLToString(ASTNode)</code> writes an AST to a
 string.  The caller owns the character string returned and should free it
 after it is no longer needed.
-
-
-
 
 
 
