@@ -52,12 +52,23 @@
  */
 %ignore *::accept;
 
+/**
+ * Ignore internal implementation methods in ASTNode.h
+ */
 %ignore ASTNode(Token_t*);
 %ignore ASTNode::getListOfNodes;
 %ignore ASTNode::fillListOfNodes;
 %ignore ASTNode::freeName;
+%ignore ASTNode::setSemanticsFlag;
+%ignore ASTNode::unsetSemanticsFlag;
+%ignore ASTNode::getSemanticsFlag;
+%ignore ASTNode::setDefinitionURL;
+
+/**
+ * SWIG makes no distinction between int and long arguments.
+ * (SWIG 1.3 Manual, Section 6.15.2)
+ */
 %ignore ASTNode::setValue(int);
-%ignore ASTNode::swapChildren(ASTNode*);
 
 /**
  * Ignore operator= and operator<< on all SBML objects.
