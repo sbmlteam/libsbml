@@ -8,7 +8,7 @@
 </td></tr><tr><td style="font-size: small;">
 <a href="#reading">Reading SBML</a>
 </td></tr><tr><td style="font-size: small;">
-<a href="#"sbmldocument>The SBMLDocument container</a>
+<a href="#sbmldocument">The SBMLDocument container</a>
 </td></tr><tr><td style="font-size: small;">
 <a href="#writing">Writing SBML</a>
 </td></tr><tr><td style="font-size: small;">
@@ -160,6 +160,7 @@ successful.
 </li>
 </ul>
 
+<p>
 The model may be either in SBML Level&nbsp;1 or SBML Level&nbsp;2
 format.  LibSBML implements an unified object model for SBML that
 encompasses both Level&nbsp;1 and Level&nbsp;2, so applications
@@ -168,6 +169,7 @@ these definitions of SBML when reading and writing models.  (However,
 applications still need to be concerned about the SBML
 <em>constructs</em> used and how they are interpreted, since there are
 substantial differences between SBML Level&nbsp;1 and Level&nbsp;2!)
+</p>
 
 
 <h2><a class="anchor" name="sbmldocument">The SBMLDocument container</a></h2>
@@ -181,6 +183,7 @@ specification, but it does not have a direct correspondence in SBML
 Level&nbsp;1.  (But, it is created by libSBML no matter whether the
 model is Level&nbsp;1 or Level&nbsp;2.)
 
+<p>
 <a href="org/sbml/libsbml/SBMLDocument.html">SBMLDocument</a> is
 derived from class <a href="org/sbml/libsbml/SBase.html">SBase</a>, so
 that it contains the usual <a
@@ -192,6 +195,7 @@ document read.  The class <a
 href="org/sbml/libsbml/SBase.html">SBase</a> (and thus its subclasses
 such as <a href="org/sbml/libsbml/SBMLDocument.html">SBMLDocument</a>)
 provides methods for querying this information:
+</p>
 
 <ul>
 
@@ -205,7 +209,6 @@ Version within the Level of the model.
 
 </li>
 </ul>
-
 
 Of course, the whole point of reading an SBML file or data stream is to get
 at the SBML model it contains.  The following method allows access to the
@@ -262,7 +265,7 @@ error output stream.
 </li>
 </ul>
 
-
+<p>
 Finally, another set of <a
 href="org/sbml/libsbml/SBMLDocument.html">SBMLDocument</a> methods worth
 mentioning in the context of reading SBML are those for running
