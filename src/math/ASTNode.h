@@ -45,8 +45,8 @@
  * children nodes for the numbers 1 and 2.  The figure also shows the
  * corresponding MathML representation:
  *
- * @image html astnode-illustration.jpg "Example AST representation of a mathematical representation."
- * @image latex astnode-illustration.jpg "Example AST representation of a mathematical representation."
+ * @image html astnode-illustration.jpg "Example AST representation of a mathematical expression."
+ * @image latex astnode-illustration.jpg "Example AST representation of a mathematical expression."
  *
  * The following are other noteworthy points about the AST representation
  * in libSBML:
