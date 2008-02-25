@@ -1,19 +1,19 @@
-; Version No is currently 3.1.0
+; Version No is currently 3.1.1
 ; Check before use
 
 
 [Setup]
 AppName=libSBML
-AppVerName=libSBML 3.1.0
+AppVerName=libSBML 3.1.1
 AppPublisher=SBML Team
 AppPublisherURL=http://sbml.org
 AppSupportURL=http://sbml.org
 AppUpdatesURL=http://sbml.org
-DefaultDirName={pf}\SBML\libSBML-3.1.0-xerces
+DefaultDirName={pf}\SBML\libSBML-3.1.1-xerces
 DefaultGroupName=libSBML
 DisableProgramGroupPage=yes
 OutputDir=..\..\..\libsbml_3\win32\installer\Output
-OutputBaseFilename=libSBML-3.1.0-win-xerces
+OutputBaseFilename=libSBML-3.1.1-win-xerces
 WizardSmallImageFile=libsbml-installer-mini-logo.bmp
 WizardImageFile=libsbml-installer-graphic-v3.bmp
 UsePreviousAppDir=no
@@ -48,7 +48,7 @@ Root: HKCU; Subkey: Software\SBML; Flags: uninsdeletekeyifempty
 Root: HKCU; Subkey: Software\SBML\libSBML; Flags: uninsdeletekey
 Root: HKLM; Subkey: Software\SBML; Flags: uninsdeletekeyifempty
 Root: HKLM; Subkey: Software\SBML\libSBML; Flags: uninsdeletekey
-Root: HKLM; Subkey: Software\SBML\libSBML; ValueType: string; ValueName: Version; ValueData: 3.1.0
+Root: HKLM; Subkey: Software\SBML\libSBML; ValueType: string; ValueName: Version; ValueData: 3.1.1
 Root: HKLM; Subkey: Software\SBML\libSBML; ValueType: string; ValueName: InstallPath; ValueData: {app}
 
 [Code]
@@ -212,7 +212,7 @@ begin
 
   Note: it includes a version number
 **********************************************************************************************************}
-  MsgBox('This setup installs the Windows version of libSBML 3.1.0 built using the Xerces XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);
+  MsgBox('This setup installs the Windows version of libSBML 3.1.1 built using the Xerces XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);
  { MsgBox('This setup installs the Windows release of libSBML 3.0.2 built using the Expat XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);  }
 end;
 
@@ -229,7 +229,7 @@ procedure InitializeWizard;
 begin
   {get data from system}
   PreviousInstalledVersion := GetVersion();
-  ThisVersion := '3.1.0';
+  ThisVersion := '3.1.1';
   MatlabRoot := GetMatlabRoot('');
 
   if (PreviousInstalledVersion = '') then begin
