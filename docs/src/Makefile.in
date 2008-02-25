@@ -85,6 +85,8 @@ extra_distclean =               \
 # There are additional separate rules below.
 
 distfiles =                                    \
+        ExcludeDoclet.class                    \
+        ExcludeDoclet.java                     \
         doxygen-base.css                       \
         doxygen-config-c.txt.in                \
         doxygen-config-common.txt              \
@@ -123,6 +125,7 @@ distfiles =                                    \
         graphics/unitdefinition.eps            \
         graphics/unitdefinition.pdf            \
         graphics/unitdefinition.vtt            \
+        java-skip.txt                          \
         libsbml-accessing.html                 \
         libsbml-accessing.txt                  \
         libsbml-authors.html                   \
@@ -158,7 +161,7 @@ distfiles =                                    \
         templates/c.txt                        \
         templates/m4.txt                       \
         templates/makefile.txt                 \
-	templates/python.txt
+        templates/python.txt
 
 
 # -----------------------------------------------------------------------------
@@ -312,6 +315,10 @@ define merge_html_verb
   | sed -e 's/%%title%%/$(3)/g;s/%%version%%/@PACKAGE_VERSION@/g' > $(2)
 endef
 
+# FIXME this isn't portable, but I don't have time to solve it right now.
+
+javadoc-jar = /System/Library/Frameworks/JavaVM.framework/Classes/classes.jar
+
 # There are certain things I can't figure out how to make compatible
 # between doxygen and javadoc.  Let's ignore the warnings to avoid
 # confusing users.
@@ -319,7 +326,8 @@ endef
 ignorable-warnings = "warning - @param argument"
 
 java-manual $(java-manual): $(core-sources)
-	javadoc -use -public -version -author -sourcetab 4 -keywords \
+	$(JAVA) -cp $(javadoc-jar):. ExcludeDoclet -excludefile java-skip.txt \
+            -use -public -version -author -sourcetab 4 -keywords \
 	    -header $(javadoc-header) \
 	    -bottom $(javadoc-footer) \
 	    -windowtitle $(javadoc-windowtitle) \
