@@ -324,7 +324,6 @@ java-manual $(java-manual): $(core-sources)
 	    -windowtitle $(javadoc-windowtitle) \
 	    -doctitle $(javadoc-doctitle) \
 	    -stylesheetfile doxygen-base.css \
-	    -overview libsbml-java-overview.html \
 	    -d $(java-manual) \
 	    -tag note:a:"Note:" \
 	    -tag warning:a:"Warning:" \
@@ -334,6 +333,7 @@ java-manual $(java-manual): $(core-sources)
 	cp -f graphics/sbml-logo-long-124x56.gif $(java-manual)
 	cp -f graphics/sbml-logo-long-124x56.gif $(java-manual)/org/sbml/libsbml/
 	cp -f graphics/*.jpg $(java-manual)/org/sbml/libsbml/
+	$(call merge_html,libsbml-java-overview.html,$(java-manual)/overview-summary.html,Java @PACKAGE_VERSION@ API)
 	$(call merge_html,libsbml-installation.html,$(java-manual)/libsbml-installation.html,installation)
 	$(call merge_html,libsbml-accessing.html,$(java-manual)/libsbml-accessing.html,accessibility to your software)
 	$(call merge_html,libsbml-features.html,$(java-manual)/libsbml-features.html,features)
