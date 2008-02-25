@@ -1042,7 +1042,8 @@ public:
 
 
   /**
-   * Swap the children of this ASTNode with the children of that ASTNode.
+   * Swap the children of this ASTNode with the children of @p that
+     ASTNode.
    *
    * @param that the other node whose children should be used to replace
    * <em>this</em> node's children
