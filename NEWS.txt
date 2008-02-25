@@ -47,6 +47,10 @@
 
   - The FormulaUnitsData class was previously exposed accidentally in
     the documentation.  It's now (more) private.
+
+  - The text of a few XML error messages have been changed slightly in
+    an effort to aid readability.  No numbers were harmed in the
+    process.
  
   - We made additional fixes to the C++, Python and Java API
     documentation.  Among them: including documenting of more
@@ -55,12 +59,14 @@
     internal methods, plus fixes to the formatting of some method
     signatures in the Python docs, and more.
 
-  - The text of a few XML error messages are slightly changed in an
-    effort to aid readability.  No numbers were harmed in the process.
+  - The Java API docs now have a section about ASTNode similar to the
+    same section available in the other API manuals.
+
+  - ASTNode.swapChildren() was not accessible, but should have been.
 
   - This NEWS.txt file is now accessible from the API documents.
 
-        
+
  === Version 3.1.0 (released 2008-01-25) ===
 
 * Dependency changes:
