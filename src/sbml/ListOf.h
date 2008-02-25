@@ -178,7 +178,6 @@ public:
    * @param n the index of the item to remove
    *
    * @see size()
-   * @see remove(const std::string& sid);
    */
   SBase* remove (unsigned int n);
 
@@ -194,8 +193,6 @@ public:
    *
    * @return the item removed.  As mentioned above, the caller owns the
    * returned item.
-   *
-   * @see remove(unsigned int n)
    */
   SBase* remove (const std::string& sid);
 

@@ -376,7 +376,7 @@ public:
    * calling code should set the node type to something else as soon as
    * possible.
    *
-   * @see setType(ASTNodeType_t type)
+   * @see setType
    *
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different
