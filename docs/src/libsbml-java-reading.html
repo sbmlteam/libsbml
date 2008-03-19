@@ -108,9 +108,9 @@ href="libsbml-installation.html"></em>LibSBML Installation</em></a> section
 of this manual.  To summarize: you must make sure that your
 <code>CLASSPATH</code> environment variable includes the file
 <code>libsbmlj.jar</code>, and that your dynamic library search path
-variable includes the directory in which the <code>libsbml.so</code>,
-<code>libsbml.dll</code>, or <code>libsbml.dylib</code> file (depending on
-the operating system) is located.
+variable includes the directory in which the <code>libsbmlj.so and libsbml.so</code> (Linux),
+<code>sbmlj.dll and libsbml.dll</code> (Windows), or <code>libsbmlj.jnilib and libsbml.dylib</code> 
+(MacOSX) files are located.
 </p>
 
 <p>
@@ -120,7 +120,9 @@ and you were using the typical <em>sh</em> or <em>bash</em> shell in your
 terminal, you would need to execute
 
 <div class="fragment"><pre class="fragment">
-  export DYLD_LIBRARY_PATH="/usr/local/lib:$DYLD_LIBRARY_PATH"
+  export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
+  
+  (On MacOS X, the corresponding environment variable is named DYLD_LIBRARY_PATH) 
 </pre></div>
 
 or put the above in your shell's initialization file (<code>.bashrc</code>
