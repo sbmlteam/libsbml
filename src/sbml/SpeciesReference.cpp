@@ -424,7 +424,9 @@ SpeciesReference::isSetStoichiometryMath () const
 void
 SpeciesReference::setStoichiometry (double value)
 {
-  mStoichiometry = value;
+   unsetStoichiometryMath();
+
+   mStoichiometry = value;
 }
 
 
@@ -435,6 +437,7 @@ SpeciesReference::setStoichiometry (double value)
 void
 SpeciesReference::setStoichiometryMath (const StoichiometryMath* math)
 {
+  mStoichiometry = 1;
   if (mStoichiometryMath == math) return;
 
 
