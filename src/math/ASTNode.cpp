@@ -30,6 +30,7 @@
 
 #include <sbml/math/ASTNode.h>
 #include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLNode.h>
 
 /** @cond doxygen-ignored */
 
@@ -596,6 +597,14 @@ ASTNode::deepCopy () const
   {
     copy->addChild( getChild(c)->deepCopy() );
   }
+
+  for (c = 0; c < getNumSemanticsAnnotations(); ++c)
+  {
+    copy->addSemanticsAnnotation( getSemanticsAnnotation(c)->clone() );
+  }
+
+  copy->mDefinitionURL = mDefinitionURL->clone();
+  copy->hasSemantics = hasSemantics;
 
   return copy;
 }
