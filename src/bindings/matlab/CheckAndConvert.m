@@ -91,11 +91,18 @@ for i = 1:length(Index)
     % create a subformula root(n,x)
     SubFunction = '';
     j = 1;
-    while(~strcmp(Formula(Index(i)+j-1), ')'))
+    nFunctions=0;   %number of functions in expression
+    closedFunctions=0; %number of closed functions
+    while(nFunctions==0 || nFunctions~=closedFunctions)
         SubFormula(j) = Formula(Index(i)+j-1);
+        if(strcmp(SubFormula(j),')'))
+            closedFunctions=closedFunctions+1;
+        end;
+        if(strcmp(SubFormula(j),'('))
+            nFunctions=nFunctions+1;
+        end;  
         j = j+1;
     end;
-    SubFormula = strcat(SubFormula, ')');
     
     j = 6;
      n = '';
@@ -105,14 +112,11 @@ for i = 1:length(Index)
     end;
     
     j = j+1;
-    x = '';
-    while(~strcmp(SubFormula(j), ')'))
-        x = strcat(x, SubFormula(j));
-        j = j+1;
-    end;
+    x = SubFormula(j:length(SubFormula)-1);
+
     
     ReplaceFormula = regexprep(SubFormula, n, x, 'once');
-    ReplaceFormula = regexprep(ReplaceFormula, x, n, 2);
+    ReplaceFormula = regexprep(ReplaceFormula,regexptranslate('escape',x),n,2);
     ReplaceFormula = regexprep(ReplaceFormula, 'root', 'nthroot', 'once');
     
     Formula = strrep(Formula, SubFormula, ReplaceFormula);
