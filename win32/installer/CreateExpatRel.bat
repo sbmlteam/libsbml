@@ -10,6 +10,7 @@ copy C:\libsbml_3\NEWS.txt NEWS.txt
 copy C:\libsbml_3\README.txt README.txt
 copy C:\libsbml_3\VERSION.txt VERSION.txt
 copy C:\libsbml_3\COPYING.html COPYING.html
+copy C:\libsbml_3\win32\installer\Uninstall_libSBML.bat Uninstall_libSBML.bat
 
 rem make new directories
 
