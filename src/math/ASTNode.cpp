@@ -598,7 +598,7 @@ ASTNode::deepCopy () const
     copy->addChild( getChild(c)->deepCopy() );
   }
 
-  for (c = 0; c < getNumSemanticsAnnotations(); ++c)
+  for (unsigned int c = 0; c < getNumSemanticsAnnotations(); ++c)
   {
     copy->addSemanticsAnnotation( getSemanticsAnnotation(c)->clone() );
   }
