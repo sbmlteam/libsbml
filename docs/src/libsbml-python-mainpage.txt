@@ -15,12 +15,11 @@ href="http://sbml.org/software/libsbml/issue-tracker">
 http://sbml.org/software/libsbml/issue-tracker</a>.
 
 <div style="color: #880000; border: 1px dotted gray; padding: 3px">
-<em>Note
-to readers</em>: This manual is generated automatically from the C++ source
-code of libSBML, and owing to imperfections in the conversion software, it
-is not as complete as the C++ API manual.  If you encounter undocumented
-members (such as constants), you may wish to check the corresponding text
-in the C++ API manual.
+<em>Note to readers</em>: Most of this manual is generated automatically
+from the C++ source code of libSBML, and owing to imperfections in the
+conversion software, it is not as complete as the C++ API manual.  If you
+encounter undocumented members (such as constants), you may wish to check
+the corresponding text in the C++ API manual.
 </div>
 
 @section main-general General information
