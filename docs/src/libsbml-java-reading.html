@@ -35,7 +35,7 @@ start this discussion:
 import org.sbml.libsbml.SBMLReader;
 import org.sbml.libsbml.SBMLDocument;
 
-public class readSBML
+public class ReadSBML
 {
   public static void main (String[] args)
   {
@@ -114,25 +114,31 @@ variable includes the directory in which the <code>libsbmlj.so and libsbml.so</c
 </p>
 
 <p>
-As an example, if you were running under Linux and you configured libSBML
+As an example, if you are running under Linux and you configured libSBML
 with a prefix of <code>/usr/local</code> and did a normal "make install",
-and you were using the typical <em>sh</em> or <em>bash</em> shell in your
+and you are using the typical <em>sh</em> or <em>bash</em> shell in your
 terminal, you would need to execute
 
 <div class="fragment"><pre class="fragment">
   export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
-  
-  (On MacOS X, the corresponding environment variable is named DYLD_LIBRARY_PATH) 
 </pre></div>
 
 or put the above in your shell's initialization file (<code>.bashrc</code>
 or <code>.profile</code> in your home directory) and cause the shell to
 re-read the initialization file.  In addition, prior to running Java
 programs, you would need to either (1) set your <code>CLASSPATH</code>
-environment variable to include the <code>libsbml.jar</code> file, or (2)
+environment variable to include the <code>libsbmlj.jar</code> file, or (2)
 include the file in the <code>-classpath</code> option passed to the Java
 interpreter when it is started.
 </p>
+
+<p>
+If you are running under MacOS instead of Linux, your 
+<em>sh</em> or <em>bash</em> shell settings instead need to be
+
+<div class="fragment"><pre class="fragment">
+  export DYLD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
+</pre></div>
 
 
 <h2><a class="anchor" name="reading">Reading SBML</a></h2>
