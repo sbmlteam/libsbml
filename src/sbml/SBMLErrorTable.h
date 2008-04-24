@@ -2985,6 +2985,54 @@ static const sbmlErrorTableEntry errorTable[] =
     "Invalid MathML. The body of an <apply> tag must begin with an operator."   
   },
 
+  //99220
+  {   
+    FailedMathMLReadOfDouble,   
+    LIBSBML_CAT_MATHML_CONSISTENCY,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    "Failed to read a valid double value from MathML."   
+  },
+
+  //99221
+  {   
+    FailedMathMLReadOfInteger,   
+    LIBSBML_CAT_MATHML_CONSISTENCY,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    "Failed to read a valid integer value from MathML."   
+  },
+
+  //99222
+  {   
+    FailedMathMLReadOfExponential,   
+    LIBSBML_CAT_MATHML_CONSISTENCY,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    "Failed to read a valid exponential value from MathML."   
+  },
+
+  //99223
+  {   
+    FailedMathMLReadOfRational,   
+    LIBSBML_CAT_MATHML_CONSISTENCY,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    "Failed to read a valid rational value from MathML."   
+  },
+
   //99502
   // This is an internal error that reverts to 10501
   {

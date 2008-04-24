@@ -352,46 +352,86 @@ setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 
   if (type == "real")
   {
-    double value;
-    istringstream( stream.next().getCharacters() ) >> value;
+    double value = 0;
+    istringstream isreal;
+    isreal.str( stream.next().getCharacters() );
+    isreal >> value;
 
     node.setValue(value);
+
+    if (isreal.fail() || node.isInfinity())
+    {
+      static_cast <SBMLErrorLog*>
+        (stream.getErrorLog())->logError(FailedMathMLReadOfDouble);
+    }
+
   }
 
   else if (type == "integer")
   {
-    long value;
-    istringstream( stream.next().getCharacters() ) >> value;
+    long value = 0;
+    istringstream isint;
+    isint.str( stream.next().getCharacters() );
+    isint >> value;
+
+    if (isint.fail())
+    {
+      static_cast <SBMLErrorLog*>
+        (stream.getErrorLog())->logError(FailedMathMLReadOfInteger);
+    }
 
     node.setValue(value);
   }
 
   else if (type == "e-notation")
   {
-    double mantissa;
-    long   exponent;
-    istringstream( stream.next().getCharacters() ) >> mantissa;
+    double mantissa = 0;
+    long   exponent = 0;
+    istringstream ismantissa;
+    istringstream isexponent;
+    ismantissa.str( stream.next().getCharacters() );
+    ismantissa >> mantissa;
 
     if (stream.peek().getName() == "sep")
     {
       stream.next();
-      istringstream( stream.next().getCharacters() ) >> exponent;
+      isexponent.str( stream.next().getCharacters() );
+      isexponent >> exponent;
     }
 
     node.setValue(mantissa, exponent);
+
+    if (ismantissa.fail() 
+      || isexponent.fail()
+      || node.isInfinity())
+    {
+      static_cast <SBMLErrorLog*>
+        (stream.getErrorLog())->logError(FailedMathMLReadOfExponential);
+    }
+    
   }
 
   else if (type == "rational")
   {
-    long numerator;
-    long denominator;
+    long numerator = 0;
+    long denominator = 1;
 
-    istringstream( stream.next().getCharacters() ) >> numerator;
+    istringstream isnumerator;
+    istringstream isdenominator;
+    isnumerator.str( stream.next().getCharacters() );
+    isnumerator >> numerator;
 
     if (stream.peek().getName() == "sep")
     {
       stream.next();
-      istringstream( stream.next().getCharacters() ) >> denominator;
+      isdenominator.str( stream.next().getCharacters() );
+      isdenominator >> denominator;
+    }
+
+    if (isnumerator.fail() || isdenominator.fail())
+    {
+      static_cast <SBMLErrorLog*>
+        (stream.getErrorLog())->logError(FailedMathMLReadOfRational);
     }
 
     node.setValue(numerator, denominator);

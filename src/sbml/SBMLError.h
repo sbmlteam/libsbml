@@ -658,6 +658,10 @@ typedef enum
   , FormulaInLevel1KL                = 99129
 
   , BadMathML                        = 99219
+  , FailedMathMLReadOfDouble         = 99220
+  , FailedMathMLReadOfInteger        = 99221
+  , FailedMathMLReadOfExponential    = 99222
+  , FailedMathMLReadOfRational       = 99223
 
   /* These are internal errors that reverts to 10501. */
 
