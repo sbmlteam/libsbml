@@ -1321,31 +1321,67 @@ START_TEST (test_ASTNode_setCharacter)
    * Ensure "foo" is cleared in subsequent sets.
    */
   ASTNode_setName(node, "foo");
-  fail_unless( ASTNode_getType(node) == AST_NAME );
+  fail_unless( ASTNode_getType(node)      == AST_NAME );
+  fail_unless( ASTNode_getCharacter(node) == 0        );
+  fail_unless( !strcmp(ASTNode_getName(node), "foo")  );
+  fail_unless( ASTNode_getInteger(node)   == 0        );
+  fail_unless( ASTNode_getReal(node)      == 0        );
+  fail_unless( ASTNode_getExponent(node)  == 0        );
+  fail_unless( ASTNode_getDenominator(node) == 1      );
 
   ASTNode_setCharacter(node, '+');
   fail_unless( ASTNode_getType     (node) == AST_PLUS );
   fail_unless( ASTNode_getCharacter(node) == '+'      );
+  fail_unless( ASTNode_getName(node)      == NULL     );
+  fail_unless( ASTNode_getInteger(node)   == 0        );
+  fail_unless( ASTNode_getReal(node)      == 0        );
+  fail_unless( ASTNode_getExponent(node)  == 0        );
+  fail_unless( ASTNode_getDenominator(node) == 1      );
 
   ASTNode_setCharacter(node, '-');
   fail_unless( ASTNode_getType     (node) == AST_MINUS );
   fail_unless( ASTNode_getCharacter(node) == '-'       );
+  fail_unless( ASTNode_getName(node)      == NULL     );
+  fail_unless( ASTNode_getInteger(node)   == 0        );
+  fail_unless( ASTNode_getReal(node)      == 0        );
+  fail_unless( ASTNode_getExponent(node)  == 0        );
+  fail_unless( ASTNode_getDenominator(node) == 1      );
 
   ASTNode_setCharacter(node, '*');
   fail_unless( ASTNode_getType     (node) == AST_TIMES );
   fail_unless( ASTNode_getCharacter(node) == '*'       );
+  fail_unless( ASTNode_getName(node)      == NULL     );
+  fail_unless( ASTNode_getInteger(node)   == 0        );
+  fail_unless( ASTNode_getReal(node)      == 0        );
+  fail_unless( ASTNode_getExponent(node)  == 0        );
+  fail_unless( ASTNode_getDenominator(node) == 1      );
 
   ASTNode_setCharacter(node, '/');
   fail_unless( ASTNode_getType     (node) == AST_DIVIDE );
   fail_unless( ASTNode_getCharacter(node) == '/'        );
+  fail_unless( ASTNode_getName(node)      == NULL     );
+  fail_unless( ASTNode_getInteger(node)   == 0        );
+  fail_unless( ASTNode_getReal(node)      == 0        );
+  fail_unless( ASTNode_getExponent(node)  == 0        );
+  fail_unless( ASTNode_getDenominator(node) == 1      );
 
   ASTNode_setCharacter(node, '^');
   fail_unless( ASTNode_getType     (node) == AST_POWER );
   fail_unless( ASTNode_getCharacter(node) == '^'       );
+  fail_unless( ASTNode_getName(node)      == NULL     );
+  fail_unless( ASTNode_getInteger(node)   == 0        );
+  fail_unless( ASTNode_getReal(node)      == 0        );
+  fail_unless( ASTNode_getExponent(node)  == 0        );
+  fail_unless( ASTNode_getDenominator(node) == 1      );
 
   ASTNode_setCharacter(node, '$');
   fail_unless( ASTNode_getType     (node) == AST_UNKNOWN );
   fail_unless( ASTNode_getCharacter(node) == '$'         );
+  fail_unless( ASTNode_getName(node)      == NULL     );
+  fail_unless( ASTNode_getInteger(node)   == 0        );
+  fail_unless( ASTNode_getReal(node)      == 0        );
+  fail_unless( ASTNode_getExponent(node)  == 0        );
+  fail_unless( ASTNode_getDenominator(node) == 1      );
 
   ASTNode_free(node);
 }
@@ -1364,6 +1400,11 @@ START_TEST (test_ASTNode_setName)
 
   fail_unless( ASTNode_getType(node) == AST_NAME );
   fail_unless( !strcmp(ASTNode_getName(node), name) );
+  fail_unless( ASTNode_getCharacter(node) == 0        );
+  fail_unless( ASTNode_getInteger(node)   == 0        );
+  fail_unless( ASTNode_getReal(node)      == 0        );
+  fail_unless( ASTNode_getExponent(node)  == 0        );
+  fail_unless( ASTNode_getDenominator(node) == 1      );
 
   if (ASTNode_getName(node) == name)
   {
@@ -1377,6 +1418,25 @@ START_TEST (test_ASTNode_setName)
   {
     fail("ASTNode_setName(node, NULL) did not clear string.");
   }
+
+  ASTNode_setType(node, AST_FUNCTION_COS);
+  fail_unless( ASTNode_getType(node) == AST_FUNCTION_COS );
+  fail_unless( !strcmp(ASTNode_getName(node), "cos") );
+  fail_unless( ASTNode_getCharacter(node) == 0        );
+  fail_unless( ASTNode_getInteger(node)   == 0        );
+  fail_unless( ASTNode_getReal(node)      == 0        );
+  fail_unless( ASTNode_getExponent(node)  == 0        );
+  fail_unless( ASTNode_getDenominator(node) == 1      );
+
+  ASTNode_setType(node, AST_PLUS);
+  ASTNode_setName(node, name);
+  fail_unless( ASTNode_getType(node) == AST_NAME );
+  fail_unless( !strcmp(ASTNode_getName(node), name) );
+  fail_unless( ASTNode_getCharacter(node) == '+'        );
+  fail_unless( ASTNode_getInteger(node)   == 0        );
+  fail_unless( ASTNode_getReal(node)      == 0        );
+  fail_unless( ASTNode_getExponent(node)  == 0        );
+  fail_unless( ASTNode_getDenominator(node) == 1      );
 
   ASTNode_free(node);
 }
@@ -1416,10 +1476,30 @@ START_TEST (test_ASTNode_setInteger)
    */
   ASTNode_setName(node, "foo");
   fail_unless( ASTNode_getType(node) == AST_NAME );
+  fail_unless( !strcmp(ASTNode_getName(node), "foo") );
+  fail_unless( ASTNode_getCharacter(node) == 0        );
+  fail_unless( ASTNode_getInteger(node)   == 0        );
+  fail_unless( ASTNode_getReal(node)      == 0        );
+  fail_unless( ASTNode_getExponent(node)  == 0        );
+  fail_unless( ASTNode_getDenominator(node) == 1      );
+
+  ASTNode_setReal(node, 3.2);
+  fail_unless( ASTNode_getType   (node) == AST_REAL );
+  fail_unless( ASTNode_getInteger(node) == 0         );
+  fail_unless( ASTNode_getName(node)== NULL );
+  fail_unless( ASTNode_getCharacter(node) == 0        );
+  fail_unless( ASTNode_getReal(node)      == 3.2        );
+  fail_unless( ASTNode_getExponent(node)  == 0        );
+  fail_unless( ASTNode_getDenominator(node) == 1      );
 
   ASTNode_setInteger(node, 321);
   fail_unless( ASTNode_getType   (node) == AST_INTEGER );
   fail_unless( ASTNode_getInteger(node) == 321         );
+  fail_unless( ASTNode_getName(node)== NULL );
+  fail_unless( ASTNode_getCharacter(node) == 0        );
+  fail_unless( ASTNode_getReal(node)      == 0        );
+  fail_unless( ASTNode_getExponent(node)  == 0        );
+  fail_unless( ASTNode_getDenominator(node) == 1      );
 
   ASTNode_free(node);
 }
@@ -1439,7 +1519,33 @@ START_TEST (test_ASTNode_setReal)
 
   ASTNode_setReal(node, 32.1);
   fail_unless( ASTNode_getType(node) == AST_REAL );
-  fail_unless( ASTNode_getReal(node) == 32.1     );
+  fail_unless( ASTNode_getInteger(node) == 0         );
+  fail_unless( ASTNode_getName(node)== NULL );
+  fail_unless( ASTNode_getCharacter(node) == 0        );
+  fail_unless( ASTNode_getReal(node)      == 32.1        );
+  fail_unless( ASTNode_getExponent(node)  == 0        );
+  fail_unless( ASTNode_getDenominator(node) == 1      );
+  fail_unless( ASTNode_getMantissa(node) == 32.1     );
+
+  ASTNode_setRational(node, 45, 90);
+  fail_unless( ASTNode_getType(node) == AST_RATIONAL );
+  fail_unless( ASTNode_getInteger(node) == 45         );
+  fail_unless( ASTNode_getName(node)== NULL );
+  fail_unless( ASTNode_getCharacter(node) == 0        );
+  fail_unless( ASTNode_getReal(node)      == 0.5        );
+  fail_unless( ASTNode_getExponent(node)  == 0        );
+  fail_unless( ASTNode_getDenominator(node) == 90      );
+  fail_unless( ASTNode_getMantissa(node) == 0     );
+
+  ASTNode_setRealWithExponent(node, 32, 4);
+  fail_unless( ASTNode_getType(node) == AST_REAL_E );
+  fail_unless( ASTNode_getInteger(node) == 0         );
+  fail_unless( ASTNode_getName(node)== NULL );
+  fail_unless( ASTNode_getCharacter(node) == 0        );
+  fail_unless( ASTNode_getReal(node)      == 320000        );
+  fail_unless( ASTNode_getExponent(node)  == 4        );
+  fail_unless( ASTNode_getDenominator(node) == 1      );
+  fail_unless( ASTNode_getMantissa(node) == 32     );
 
   ASTNode_free(node);
 }

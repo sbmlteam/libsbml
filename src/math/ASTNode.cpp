@@ -170,6 +170,10 @@ ASTNode::ASTNode (ASTNodeType_t type)
   mReal          = 0;
   mExponent      = 0;
   mType          = AST_UNKNOWN;
+  mChar          = 0;
+  mName          = NULL;
+  mInteger       = 0;
+  mDenominator   = 1;
 
   setType(type);
 
@@ -190,6 +194,10 @@ ASTNode::ASTNode (Token_t* token)
   mReal          = 0;
   mExponent      = 0;
   mType          = AST_UNKNOWN;
+  mChar          = 0;
+  mName          = NULL;
+  mInteger       = 0;
+  mDenominator   = 1;
 
   mChildren             = new List;
   mSemanticsAnnotations = new List;
@@ -249,13 +257,10 @@ ASTNode::~ASTNode ()
 void
 ASTNode::freeName ()
 {
-  if ( !(isOperator() || isNumber() || isUnknown()) )
+  if (mName != NULL)
   {
-    if (mName != NULL)
-    {
-      safe_free(mName);
-      mName = NULL;
-    }
+    safe_free(mName);
+    mName = NULL;
   }
 }
 
@@ -581,16 +586,16 @@ ASTNode::deepCopy () const
   ASTNode* copy = new ASTNode;
 
 
-  copy->mType     = mType;
-  copy->mExponent = mExponent;
+  copy->mType        = mType;
+  copy->mExponent    = mExponent;
+  copy->mChar        = mChar;
+  copy->mInteger     = mInteger;
+  copy->mReal        = mReal;
+  copy->mDenominator = mDenominator;
 
-  if ( !(isOperator() || isNumber() || isUnknown()) && mName)
+  if (mName)
   {
     copy->mName = safe_strdup(mName);
-  }
-  else
-  {
-    copy->mReal = mReal;
   }
 
   for (unsigned int c = 0; c < getNumChildren(); ++c)
@@ -1389,6 +1394,8 @@ ASTNode::setType (ASTNodeType_t type)
   {
     mReal     = 0;
     mExponent = 0;
+    mDenominator = 1;
+    mInteger = 0;
   }
 
   /**
@@ -1411,10 +1418,12 @@ ASTNode::setType (ASTNodeType_t type)
   else if ((type >= AST_INTEGER) && (type < AST_UNKNOWN))
   {
     mType = type;
+    mChar = 0;
   }
   else
   {
     mType = AST_UNKNOWN;
+    mChar = 0;
   }
 }
 

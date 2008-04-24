@@ -1119,19 +1119,12 @@ protected:
 
   ASTNodeType_t mType;
 
-  union
-  {
-    char   mChar;
-    char*  mName;
-    long   mInteger;
-    double mReal;
-  };    
-
-  union
-  {
-    long mDenominator;
-    long mExponent;
-  };
+  char   mChar;
+  char*  mName;
+  long   mInteger;
+  double mReal;
+  long mDenominator;
+  long mExponent;
 
   XMLAttributes* mDefinitionURL;
   bool hasSemantics;
