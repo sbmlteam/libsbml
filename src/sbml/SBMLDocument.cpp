@@ -648,8 +648,9 @@ SBMLDocument::checkConsistency ()
     }
   }
 
-  /* do not even try if there have been unit warnings */
-  if (over && nerrors == 0)
+  /* do not even try if there have been unit warnings 
+   * changed this as would have bailed */
+  if (over)
   {
     over_validator.init();
     nerrors = over_validator.validate(*this);
