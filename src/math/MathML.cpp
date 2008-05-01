@@ -359,7 +359,10 @@ setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 
     node.setValue(value);
 
-    if (isreal.fail() || node.isInfinity())
+    if (isreal.fail() 
+      || node.isInfinity()
+      || node.isNegInfinity()
+      )
     {
       static_cast <SBMLErrorLog*>
         (stream.getErrorLog())->logError(FailedMathMLReadOfDouble);
@@ -403,7 +406,8 @@ setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 
     if (ismantissa.fail() 
       || isexponent.fail()
-      || node.isInfinity())
+      || node.isInfinity()
+      || node.isNegInfinity())
     {
       static_cast <SBMLErrorLog*>
         (stream.getErrorLog())->logError(FailedMathMLReadOfExponential);
