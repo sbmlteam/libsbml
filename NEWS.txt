@@ -1,5 +1,39 @@
            libsbml NEWS -- History of user-visible changes
+ 
+ === 
+
+* New features:
+
+  - Tracker issue #1883067.
+    The setStoichiometry and setStoichiometryMath functions 
+    have had code added so that each unsets the other; since
+    stoichiometry and stoichiometryMath are mutually exclusive.
+
+  - Tracker issue #1942338.
+    The member variables of an ASTNode were stored as a union of data. 
+    This caused problems with the get functions. These unions have been
+    removed and the data is now stored separately. 
+
+  - Tracker issue #1928168.
+    LibSBML was not checking the values imported as numbers from within
+    MathML statements in a model. Thus, if the string being converted was
+    either not converted or incorrectly imported, the error was not detected.
+    There are now checks on all these imports. 
     
+
+* Bug fixes:
+
+  - Tracker issue #1943865.
+    The member variables of an ASTNode; definitionURL and 
+    semanticsAnnotation; were missing from the deepCopy function.
+    These have now been added.
+ 
+  - Tracker issue #1942898.
+    The MATLAB binding failed to correctly import a root function.
+    Thanks to Arne B. Gjuvsland for reporting the problem and 
+    supplying the fix.
+    
+      
     
  === Version 3.1.1 (released 2008-02-25) ===
 
