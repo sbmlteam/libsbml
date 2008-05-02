@@ -392,8 +392,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
   if (errors != 0 && validateFlag > 0)
   {
-    pacErrors = (char *) mxCalloc(errors * 100, sizeof(char));
-    pacError  = (char *) mxCalloc(100, sizeof(char));
+    pacErrors = (char *) mxCalloc(errors * 1000, sizeof(char));
+    pacError  = (char *) mxCalloc(1000, sizeof(char));
     
     mxPrompt[0]= mxCreateString(pacPrompt);
     mxPrompt[1]= mxCreateString("s");
