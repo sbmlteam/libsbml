@@ -133,8 +133,6 @@
 %ignore Model::getFormulaUnitsData;
 %ignore Model::getListFormulaUnitsData;
 %ignore Model::getNumFormulaUnitsData;
-%ignore Model::isPopulatedListFormulaUnitsData;
-%ignore Model::populateListFormulaUnitsData;
 
 /**
  * Ignore internal implementation classes
