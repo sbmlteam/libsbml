@@ -695,6 +695,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
     bool inKL, int reactNo)
 { 
   UnitDefinition * ud = NULL;
+  const UnitDefinition * tempUd;
   Unit * unit;
 
   unsigned int n, found;
@@ -724,11 +725,26 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
   {
     if (node->getType() == AST_NAME_TIME)
     {
-      unit = new Unit("second");
-      ud   = new UnitDefinition();
-      
-      ud->addUnit(unit);
-      delete unit;
+      tempUd = model->getUnitDefinition("time");
+
+      if (tempUd == NULL) 
+      {
+        unit = new Unit("second");
+        ud   = new UnitDefinition();
+        
+        ud->addUnit(unit);
+
+        delete unit;
+      }
+      else
+      {
+        ud   = new UnitDefinition();
+
+        for (n = 0; n < tempUd->getNumUnits(); n++)
+        {
+          ud->addUnit(tempUd->getUnit(n));
+        }
+      }
     }
     /* must be the name of a compartment, species or parameter */
     else
@@ -1359,6 +1375,16 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
 
       delete unit;
     }
+    else
+    {
+      ud   = new UnitDefinition();
+
+      for (n = 0; n < tempUd->getNumUnits(); n++)
+      {
+        ud->addUnit(tempUd->getUnit(n));
+      }
+    }
+
   }
   else
   {
