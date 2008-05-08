@@ -1407,7 +1407,6 @@ public:
 
 #endif  /* USE_LAYOUT */  
 
-  /** @cond doxygen-libsbml-internal */
 
   /**
    * Populates the list of FormulaDataUnits with the units derived 
@@ -1435,6 +1434,16 @@ public:
    */
   void populateListFormulaUnitsData();
 
+  /**
+   * Predicate returning @c true or @c false depending on whether 
+   * the list of FormulaUnitsData has been populated.
+   * 
+   * @return @c true if the list of FormulaUnitsData has been populated, 
+   * @c false otherwise.
+   */
+  bool isPopulatedListFormulaUnitsData();
+
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Adds a copy of the given FormulaUnitsData object to this Model.
@@ -1531,15 +1540,6 @@ public:
    */
   const List* getListFormulaUnitsData () const;
 
-
-  /**
-   * Predicate returning @c true or @c false depending on whether 
-   * the list of FormulaUnitsData has been populated.
-   * 
-   * @return @c true if the list of FormulaUnitsData has been populated, 
-   * @c false otherwise.
-   */
-  bool isPopulatedListFormulaUnitsData();
 
   /** @endcond doxygen-libsbml-internal */
 
@@ -2141,11 +2141,15 @@ Model_createLayout (Model_t *m);
 
 #endif /* USE_LAYOUT */
 
-/* not yet exposed but leave in case we need them
 LIBSBML_EXTERN
 void 
 Model_populateListFormulaUnitsData(Model_t *m);
 
+LIBSBML_EXTERN
+int 
+Model_isPopulatedListFormulaUnitsData(Model_t *m);
+
+/* not yet exposed but leave in case we need them
 
 LIBSBML_EXTERN
 void 
@@ -2177,9 +2181,6 @@ List_t*
 Model_getListFormulaUnitsData (Model_t *m);
 
 
-LIBSBML_EXTERN
-int 
-Model_isPopulatedListFormulaUnitsData(Model_t *m);
 
 */
 

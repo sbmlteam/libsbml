@@ -4604,6 +4604,22 @@ Model_populateListFormulaUnitsData(Model_t *m)
 }
 
 
+ /*
+  * Predicate returning @c true or @c false depending on whether 
+  * the list of FormulaUnitsData has been populated.
+  *
+  * @param m the Model_t structure
+  * 
+  * @return @c true if the list of FormulaUnitsData has been populated, 
+  * @c false otherwise.
+  */
+LIBSBML_EXTERN
+int 
+Model_isPopulatedListFormulaUnitsData(Model_t *m)
+{
+  return static_cast<int>( m->isPopulatedListFormulaUnitsData());
+}
+
 /* NOT YET USED but leave in case of future need 
 
   * Adds a copy of the given FormulaUnitsData object to this Model.
@@ -4703,21 +4719,6 @@ Model_getListFormulaUnitsData (Model_t *m)
   return m->getListFormulaUnitsData();
 }
 
-
-  * Predicate returning @c true or @c false depending on whether 
-  * the list of FormulaUnitsData has been populated.
-  *
-  * @param m the Model_t structure
-  * 
-  * @return @c true if the list of FormulaUnitsData has been populated, 
-  * @c false otherwise.
-
-LIBSBML_EXTERN
-int 
-Model_isPopulatedListFormulaUnitsData(Model_t *m)
-{
-  return static_cast<int>( m->isPopulatedListFormulaUnitsData());
-}
 
 */
 
