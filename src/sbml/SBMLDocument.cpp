@@ -941,6 +941,7 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
   expectedAttributes.push_back("level");
   expectedAttributes.push_back("version");
   expectedAttributes.push_back("metaid");
+  expectedAttributes.push_back("schemaLocation");
 
   // check that all attributes are expected
   for (int i = 0; i < attributes.getLength(); i++)
