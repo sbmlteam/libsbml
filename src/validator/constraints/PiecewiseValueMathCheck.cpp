@@ -121,24 +121,21 @@ PiecewiseValueMathCheck::checkPiecewiseArgs (const Model& m, const ASTNode& node
                                                   const SBase & sb)
 {
   unsigned int numChildren = node.getNumChildren();
+  unsigned int numPieces = numChildren;
 
-  /* if there are an even number of children there is no otherwise*/
-  if ((numChildren % 2) != 0)
+  /* arguments must return consistent types */
+  for (unsigned int n = 0; n < numChildren; n += 2)
   {
-    /* arguments must return consistent types */
-    for (unsigned int n = 0; n < numChildren-1; n += 2)
+    if (returnsNumeric(m, node.getChild(n)) && 
+      !returnsNumeric(m, node.getLeftChild()))
     {
-      if (returnsNumeric(m, node.getChild(n)) && 
-        !returnsNumeric(m, node.getRightChild()))
-      {
-        logMathConflict(node, sb);
-      }
-      else if (node.getChild(n)->isBoolean() && 
-              !node.getRightChild()->isBoolean())
-      {
-        logMathConflict(node, sb);
-      }  
+      logMathConflict(node, sb);
     }
+    else if (node.getChild(n)->isBoolean() && 
+            !node.getLeftChild()->isBoolean())
+    {
+      logMathConflict(node, sb);
+    }  
   }
 }
 
@@ -159,14 +156,12 @@ PiecewiseValueMathCheck::getMessage (const ASTNode& node, const SBase& object)
   //msg << getPreamble();
 
   char * left = SBML_formulaToString(node.getLeftChild());
-  char * right = SBML_formulaToString(node.getRightChild());
   msg << "\nThe piecewise formula ";
   msg << "in the " << getFieldname() << " element of the " << getTypename(object);
-  msg << " returns arguments '" << left;
-  msg << "' and '" << right;
-  msg << "' which have different value types.";
+  msg << " returns arguments" ;
+  msg << " which have different value types from the first element '";
+  msg << left << "'."; 
   safe_free(left);
-  safe_free(right);
 
   return msg.str();
 }

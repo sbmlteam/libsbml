@@ -180,9 +180,9 @@ ArgumentsUnitsCheck::checkUnitsFromPiecewise (const Model& m,
                                         const ASTNode& node, 
                                         const SBase & sb, bool inKL, int reactNo)
 {
-  /* piecewise(x, y, z)
-   * x and z must have same units
-   * y must be dimensionless
+  /* piecewise(a0, a1, a2, a3, ...)
+   * a0 and a2, a(n_even) must have same units
+   * a1, a3, a(n_odd) must be dimensionless
    */
   unsigned int n;
   UnitDefinition * dim = new UnitDefinition();
@@ -192,22 +192,29 @@ ArgumentsUnitsCheck::checkUnitsFromPiecewise (const Model& m,
   
   UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
 
-  tempUD = unitFormat->getUnitDefinition(node.getRightChild(), inKL, reactNo);
-  tempUD1 = unitFormat->getUnitDefinition(node.getLeftChild(), inKL, reactNo);
-  
-  if (!UnitDefinition::areEquivalent(tempUD, tempUD1)) 
+  tempUD = unitFormat->getUnitDefinition(node.getChild(0), inKL, reactNo);
+
+  for(n = 2; n < node.getNumChildren(); n+=2)
   {
-    logInconsistentPiecewise(node, sb);
+    tempUD1 = unitFormat->getUnitDefinition(node.getChild(n), inKL, reactNo);
+  
+    if (!UnitDefinition::areEquivalent(tempUD, tempUD1)) 
+    {
+      logInconsistentPiecewise(node, sb);
+    }
   }
 
   delete tempUD;
   delete tempUD1;
 
-  tempUD = unitFormat->getUnitDefinition(node.getChild(1), inKL, reactNo);
-
-  if (!UnitDefinition::areEquivalent(tempUD, dim)) 
+  for(n = 1; n < node.getNumChildren(); n+=2)
   {
-    logInconsistentPiecewiseCondition(node, sb);
+    tempUD = unitFormat->getUnitDefinition(node.getChild(n), inKL, reactNo);
+
+    if (!UnitDefinition::areEquivalent(tempUD, dim)) 
+    {
+      logInconsistentPiecewiseCondition(node, sb);
+    }
   }
  
   for(n = 0; n < node.getNumChildren(); n++)
