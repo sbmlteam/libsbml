@@ -110,7 +110,8 @@ static struct xercesError {
   { XMLErrs::XMLVersionRequired,           BadXMLDecl},
   { XMLErrs::ExpectedCommentOrCDATA,       BadlyFormedXML},
   { XMLErrs::ExpectedAttrName,             BadlyFormedXML},
-  { XMLErrs::DuplicateDocTypeDecl,         BadXMLDOCTYPE},
+/* FIX-ME commented out as it doesnt exist in xerces-2.7
+  { XMLErrs::DuplicateDocTypeDecl,         BadXMLDOCTYPE}, */
   { XMLErrs::BadSchemaLocation,            BadXMLAttributeValue},
 
   // The next one should always be last.  It's used only as a marker.
