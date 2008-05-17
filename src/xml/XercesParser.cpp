@@ -203,7 +203,7 @@ public:
     *
     * @see Parser#setLocale
     */
-    OurSAXParseException
+  OurSAXParseException
     (
      const int               theErrorCode
      , const XMLCh* const    theMessage
@@ -216,13 +216,50 @@ public:
       
   {
     lastXercesError = theErrorCode;
+
+    switch (theErrorCode) {
+
+    case XMLErrs::NotationAlreadyExists:
+    case XMLErrs::AttListAlreadyExists:
+      line   = 1;
+      column = 1;
+      break;
+
+    default:
+      line   = theLineNumber;
+      column = theColumnNumber;
+
+    }
   };
+
+  
+  /**
+   * In some circumstances, attempting to get a line number is a bad idea
+   * because Xerces returns junk.  On some architectures (e.g., 32-bit
+   * Linux Fedora Core), attempting to get a line number causes a seg
+   * fault.
+   */
+  XMLSSize_t getColumnNumber() const {
+    return column;
+  }
+
+  XMLSSize_t getLineNumber() const {
+    return line;
+  }
+
 
   /**
    * Last error code returned by the Xerces parser when it threw a
    * `SAXParseException'.
    */
-  int lastXercesError;
+  int        lastXercesError;
+  
+  /**
+   * Last error's line and column numbers.  This is only needed because
+   * sometimes we have to clean up the values returned by Xerces.
+   */
+  XMLSSize_t line;
+  XMLSSize_t column;
 };
 
 
