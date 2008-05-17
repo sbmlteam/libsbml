@@ -63,6 +63,8 @@ static struct xercesError {
   const XMLErrorCode_t ourCode;
 } xercesErrorTable[] = {
   { XMLErrs::AttrAlreadyUsedInSTag,        DuplicateXMLAttribute},
+  { XMLErrs::NotationAlreadyExists,        BadlyFormedXML},
+  { XMLErrs::AttListAlreadyExists,         BadlyFormedXML},
   { XMLErrs::BadDigitForRadix,             XMLBadNumber},
   { XMLErrs::BadStandalone,                BadXMLDecl},
   { XMLErrs::BadXMLEncoding,               BadXMLDecl},
@@ -88,6 +90,7 @@ static struct xercesError {
   { XMLErrs::NoEmptyStrNamespace,          BadXMLPrefix},
   { XMLErrs::NoPIStartsWithXML,            BadXMLDeclLocation},
   { XMLErrs::NoUseOfxmlnsAsPrefix,         BadXMLPrefix},
+  { XMLErrs::NoUseOfxmlnsURI,              BadXMLPrefixValue},
   { XMLErrs::NotValidAfterContent,         InvalidAfterXMLContent},
   { XMLErrs::PINameExpected,               BadProcessingInstruction},
   { XMLErrs::PartialTagMarkupError,        XMLTagMismatch},
@@ -107,6 +110,8 @@ static struct xercesError {
   { XMLErrs::XMLVersionRequired,           BadXMLDecl},
   { XMLErrs::ExpectedCommentOrCDATA,       BadlyFormedXML},
   { XMLErrs::ExpectedAttrName,             BadlyFormedXML},
+  { XMLErrs::DuplicateDocTypeDecl,         BadXMLDOCTYPE},
+  { XMLErrs::BadSchemaLocation,            BadXMLAttributeValue},
 
   // The next one should always be last.  It's used only as a marker.
   { XMLErrs::F_HighBounds,                 XMLUnknownError},
@@ -265,8 +270,8 @@ public:
 		     )
   {
     OurSAXParseException toThrow =
-      OurSAXParseException(errCode, errorText, publicId, systemId, 
-			   lineNum, colNum);
+      OurSAXParseException(errCode, errorText, publicId, systemId,
+                           lineNum, colNum);
     throw toThrow;
   }
 
