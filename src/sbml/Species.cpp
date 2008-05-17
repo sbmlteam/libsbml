@@ -925,7 +925,7 @@ Species::writeAttributes (XMLOutputStream& stream) const
   //
   // constant: boolean  { use="optional" default="false" }  (L2v1, L2v2)
   //
-  if (mConstant)
+  if (level == 2 && mConstant != true)
   {
     stream.writeAttribute("constant", mConstant);
   }
