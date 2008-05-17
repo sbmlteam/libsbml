@@ -103,7 +103,7 @@ static const xmlErrorTableEntry errorTable[] =
 
   // 1006
   { BadlyFormedXML, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
-    "XML is not well-formed." },
+    "XML content is not well-formed." },
 
   // 1007
   { UnclosedXMLToken, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
