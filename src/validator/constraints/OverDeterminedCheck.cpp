@@ -52,6 +52,15 @@ OverDeterminedCheck::OverDeterminedCheck ( unsigned int id,
  */
 OverDeterminedCheck::~OverDeterminedCheck ()
 {
+  mEquations.clear(); // list of equation vertexes
+  mVariables.clear(); // list of variable vertexes
+  mGraph.clear();
+
+  /* these are to enable the bipartite matching without passing variables */
+  mMatching.clear();
+  mVarNeighInPrev.clear();
+  mEqnNeighInPrev.clear();
+
 }
 
 
@@ -598,6 +607,9 @@ OverDeterminedCheck::Recurse(std::string v)
       {
         pu = mEqnNeighInPrev[L.at(n)];
         mEqnNeighInPrev.erase(L.at(n));
+
+        if (pu.size() == 0)
+          break;
 
         if (pu.size() == 1 && !strcmp(pu.at(0).c_str(), "unmatched"))
         {
