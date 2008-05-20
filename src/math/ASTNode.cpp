@@ -1499,7 +1499,39 @@ ASTNode::ReplaceArgument(const std::string bvar, ASTNode * arg)
 {
   if (arg == NULL)
     return;
+  else if (getNumChildren() == 0)
+  {
+    if (this->isName() && this->getName() == bvar)
+    {
+      if (arg->isName())
+      {
+        this->setName(arg->getName());
+      }
+      else if (arg->isReal())
+      {
+        this->setValue(arg->getReal());
+      }
+      else if (arg->isInteger())
+      {
+        this->setValue(arg->getInteger());
+      }
+      else if (arg->isConstant())
+      {
+        this->setType(arg->getType());
+      }
+      else
+      {
+        this->setType(arg->getType());
+        this->setName(arg->getName());
+        for (unsigned int c = 0; c < arg->getNumChildren(); c++)
+        {
+          this->addChild(arg->getChild(c)->deepCopy());
+        }
+      }
 
+}
+
+  }
   for (unsigned int i = 0; i < getNumChildren(); i++)
   {
     if (getChild(i)->isName())
