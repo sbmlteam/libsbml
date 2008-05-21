@@ -4,6 +4,14 @@
 
 * New features:
 
+  - In order to check unit consistency of a model the ListFormulaUnitsData 
+    must be populated with data from the entire model being checked.  
+    The functions populateListFormulaUnitsData and  
+    isPopulatedListFormulaUnitsData have been exposed within the API. These 
+    functions allow a user to run unit consistency checks multiple times
+    whilst adding/editing objects within the model on which unit checking 
+    is required.
+
   - Tracker issue #1883067.
     The setStoichiometry and setStoichiometryMath functions 
     have had code added so that each unsets the other; since
@@ -22,6 +30,24 @@
     
 
 * Bug fixes:
+
+  - Tracker issue #1961979.
+  - Tracker issue #1958998.
+    There was a memory leak in the code to check for an overdetermined
+    model.  Chris Myers used it enough to actually hit the problem.  There 
+    was also a small bug in the code that got fixed at the same time.
+
+  - Tracker issue #1966122.
+    A segmentation fault was occuring when using libSBML + Xerces to read a 
+    file with a malformed schemaLocation attributed placed on the <sbml> 
+    element.  This problem was first reported by Gwenael Kervizic to 
+    Nicolas Le Novere.  Xerces was returning an error code that libSBML did 
+    not recognize, and the failure to catch the code properly eventually 
+    lead to a seg fault with some operation systems.  This has now been fixed.
+
+  - Tracker issue #1965485.
+    There was bug in the checking of units from a functionDefinition.
+    Thanks to Chris Myers for reporting this.
 
   - Tracker issue #1943865.
     The member variables of an ASTNode; definitionURL and 
