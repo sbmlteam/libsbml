@@ -223,8 +223,8 @@ public:
 
     case XMLErrs::NotationAlreadyExists:
     case XMLErrs::AttListAlreadyExists:
-      line   = 1;
-      column = 1;
+      line   = LIBSBML_UNKNOWN_LINE;
+      column = LIBSBML_UNKNOWN_COLUMN;
       break;
 
     default:
