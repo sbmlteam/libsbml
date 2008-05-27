@@ -2,34 +2,30 @@
                             l i b S B M L
 
                    Ben Bornstein and Sarah Keating
-                       with contributions from
-         Mike Hucka, Akiya Jouraku, Ben Kovitz, Stefan Hoops, 
-     Ralph Gauges, Martin Ginkel, Christoph Flamm, Rainer Machne,
-	    Bill Denney, Alex Gutteridge, and many others.
+           with contributions from (in alphabetical order)
+      Bill Denney, Christoph Flamm, Akira Funahashi, Mike Hucka,
+     Ralph Gauges, Martin Ginkel, Alex Gutteridge, Stefan Hoops,
+     Akiya Jouraku, Ben Kovitz, Rainer Machne, Nicolas Rodriguez,
+                           and many others.
 
-         For more information about SBML or libSBML, contact:
-
-                            The SBML Team
-                         http://www.sbml.org/
-                     mailto:sbml-team@caltech.edu
-
-
-       Please join the libsbml-discuss mailing list by visiting
-            http://www.sbml.org/forums/index.php?t=pre_reg
+        More information about libSBML is available online at
+                   http://sbml.org/Software/libSBML
 
        Please report problems with libSBML using the tracker at
-            http://sbml.org/software/libsbml/issue-tracker
+	    http://sbml.org/software/libsbml/issue-tracker
+
+    Online forums for discussing libSBML and SBML are available at
+                        http://sbml.org/Forums
 
    ,----------------------------------------------------------------.
   | Table of contents                                               |
   | 1. Quick start                                                  |
   | 2. Introduction                                                 |
   | 3. Detailed instructions for configuring and installing LibSBML |
-  | 4. The libsbml-discuss mailing list                             |
-  | 5. The sbml-cvs-libsbml mailing list                            |
-  | 6. Reporting bugs and other problems                            |
-  | 7. Licensing and distribution                                   |
-  | 8. Acknowledgments                                              |
+  | 4. Reporting bugs and other problems                            |
+  | 5. Mailing lists                                                |
+  | 6. Licensing and distribution                                   |
+  | 7. Acknowledgments                                              |
    `----------------------------------------------------------------'
     Date of last update to this file: $Date$
 
@@ -235,42 +231,8 @@ subdirectory.  (To do that, however, you will need certain additional
 software tools such as Doxygen and a full latex distribution.)
 
 
------------------------------------
-4. THE libsbml-discuss MAILING LIST
------------------------------------
-
-Please join the libsbml-discuss mailing list by visiting the URL
-
-  http://www.sbml.org/forums/index.php?t=pre_reg
-
-Being a member of libsbml-discuss will enable you to keep in touch
-with the latest developments in LibSBML as well as to ask questions
-and share your experiences with fellow developers and users of
-libSBML.  The mailing list is vigilantly moderated by humans to remove
-spam and off-topic postings.
-
-A web-based interface is available at http://sbml.org/forums/ for
-those who prefer to interact with the list via a web interface.
-
-The libsbml-discuss archives are available at http://sbml.org/forums/.
-
-
 ------------------------------------
-5. THE sbml-cvs-libsbml MAILING LIST
-------------------------------------
-
-If you are obtaining your libSBML files from CVS, you may wish to
-subscribe to the mailing list sbml-cvs-libsbml, to be apprised of
-changes to the CVS repository as soon as they are committed.  You can
-join the list by visiting the following URL:
-
-  https://lists.sourceforge.net/lists/listinfo/sbml-cvs-libsbml
-
-Thank you for your interest in SBML and libSBML.
-
-
-------------------------------------
-6. REPORTING BUGS AND OTHER PROBLEMS
+4. REPORTING BUGS AND OTHER PROBLEMS
 ------------------------------------
 
 We invite you to report bugs and other problems using the issue
@@ -279,14 +241,55 @@ there directly:
 
   http://sbml.org/software/libsbml/issue-tracker
 
-You can also report problems on libsbml-discuss@caltech.edu.  This may
-even have advantages, such as that other people may also have
-experienced the issue and offer a workaround more quickly than the
-libSBML developers can respond.
+You can also ask questions on the 'sbml-interoperability' mailing
+list, either over email or using the web forum interface (see
+http://sbml.org/Forums/).  This may even have advantages, such as that
+other people may also have experienced the issue and offer a
+workaround more quickly than the libSBML developers can respond.
+
+
+----------------
+5. MAILING LISTS
+----------------
+
+There are two kinds of mailing lists available: normal discussion
+lists for humans, and a CVS change notification list.
+
+Discussion lists
+----------------
+
+All discussion lists, their web interfaces and their RSS feeds are at
+
+		       http://sbml.org/Forums/
+
+If you use SBML, you are strongly encouraged to sign up for the SBML
+announcements mailing list.  It is a low-volume, broadcast-only list.
+
+If you use libSBML, you are also encouraged to subscribe to or monitor
+via RSS the 'sbml-interoperability' list, where people discuss the
+development, use, and interoperability of software that supports SBML,
+including libSBML.
+
+If you are interested in helping to modify libSBML, or just want to
+know about deeper issues and technical topics, you are welcome to
+subscribe to the 'libsbml-development' mailing list.  Being a member
+of libsbml-development will enable you to keep in touch with the
+latest developments in libSBML as well as to ask questions and share
+your experiences with fellow developers and users of libSBML.
+
+CVS notification
+----------------
+
+If you are obtaining your libSBML files from CVS, you may wish to
+subscribe to the mailing list sbml-cvs-libsbml, to be apprised of
+changes to the CVS repository as soon as they are committed.  You can
+join the list by visiting the following URL:
+
+  https://lists.sourceforge.net/lists/listinfo/sbml-cvs-libsbml
 
 
 -----------------------------
-7. LICENSING AND DISTRIBUTION
+6. LICENSING AND DISTRIBUTION
 -----------------------------
 
 Copyright 2005-2007 California Institute of Technology.
@@ -323,7 +326,7 @@ Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
 
 
 ------------------
-8. ACKNOWLEDGMENTS
+7. ACKNOWLEDGMENTS
 ------------------
 
 This and other projects of the SBML Team have been supported by the
