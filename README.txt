@@ -34,12 +34,6 @@
 1. QUICK START
 --------------
 
-As of libSBML version 3.0.1, the default XML parser library used by
-libSBML is libxml2.  If you are using the Xerces XML library, beware
-there is a bug in Xerces 2.6.0 that cannot be worked around at this
-time and causes errors in software using it.  Xerces versions 2.2 -
-2.5 and 2.7.0 are known to work properly.
-
 1.1 Linux, MacOS X and Solaris
 ------------------------------
 
@@ -48,15 +42,21 @@ libsbml-2.4/), and first type:
 
   ./configure
 
-If you do not have the libxml2 XML library version 2.6.16 or later on
-your system, the configure step will fail.  In that case, you can try
-using the Expat or Xerces libraries instead.  For Expat, use
+LibSBML will try to find and use libxml2 as its XML parser library.
+If you do not have libxml2 version 2.6.16 or later on your system, the
+configure step will fail.  In that case, you can try using the Expat
+or Xerces libraries instead.  For Expat, use
 
   ./configure --with-expat
 
 and for Xerces, use
 
   ./configure --with-xerces
+
+IMPORTANT: If you are using the Xerces XML library, beware there is a
+bug in Xerces 2.6.0 that cannot be worked around at this time and
+causes errors in software using it.  Xerces versions 2.2 -
+2.5 and 2.7.0 are known to work properly.
 
 By default, libSBML only builds the C and C++ API library.  If you
 want to configure libSBML to build the Java, Python, Perl, Lisp,
