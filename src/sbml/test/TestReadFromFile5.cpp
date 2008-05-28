@@ -302,7 +302,10 @@ START_TEST (test_read_l2v1_assignment)
   fail_unless( p->getId()    == "k1", NULL );
   fail_unless( p->getValue() == 0.1 , NULL );
 
-  kl = static_cast <KineticLaw*> (p->getParentSBMLObject()->getParentSBMLObject());
+  // the parent of Parameter is ListOfParameters
+  // whose parent is the KineticLaw
+  kl = static_cast <KineticLaw*> (p->getParentSBMLObject()
+    ->getParentSBMLObject());
   fail_unless( kl                     != NULL     , NULL );
   fail_unless( kl->getFormula()       == "k1 * X0", NULL );
   fail_unless( kl->getNumParameters() == 1        , NULL );
