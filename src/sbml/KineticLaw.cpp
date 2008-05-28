@@ -212,7 +212,22 @@ KineticLaw::isSetFormula () const
 bool
 KineticLaw::isSetMath () const
 {
-  return isSetFormula();
+  /* if the formula has been set but it is not a correct formula
+   * it cannot be correctly transferred to an ASTNode so in fact
+   * getMath will return NULL
+   *
+   * this function needs to test for this
+   */
+  bool formula = isSetFormula();
+  
+  if (formula)
+  {
+    const ASTNode *temp = getMath();
+    if (temp == NULL)
+      formula = false;
+  }
+    
+  return formula;
 }
 
 

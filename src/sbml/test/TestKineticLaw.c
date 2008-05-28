@@ -213,6 +213,20 @@ START_TEST (test_KineticLaw_setFormula)
 END_TEST
 
 
+START_TEST (test_KineticLaw_setBadFormula)
+{
+  char *formula = "k1 X0";
+
+
+  KineticLaw_setFormula(KL, formula);
+
+  fail_unless( KineticLaw_isSetFormula(KL)   );
+  fail_unless( !KineticLaw_isSetMath(KL)   );
+
+}
+END_TEST
+
+
 /**
  * setFormulaFromMath() is no longer necessary.  LibSBML now keeps formula
  * strings and math ASTs synchronized automatically.  This (now modified)
@@ -394,6 +408,7 @@ create_suite_KineticLaw (void)
   tcase_add_test( tcase, test_KineticLaw_createWithMath         );
   tcase_add_test( tcase, test_KineticLaw_free_NULL          );
   tcase_add_test( tcase, test_KineticLaw_setFormula         );
+  tcase_add_test( tcase, test_KineticLaw_setBadFormula         );
   tcase_add_test( tcase, test_KineticLaw_setFormulaFromMath );
   tcase_add_test( tcase, test_KineticLaw_setMath            );
   tcase_add_test( tcase, test_KineticLaw_setMathFromFormula );
