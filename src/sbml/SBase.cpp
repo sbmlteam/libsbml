@@ -384,6 +384,11 @@ SBase::getSBMLDocument ()
 {
   return mSBML;
 }
+SBase*
+SBase::getParentSBMLObject ()
+{
+  return mParentSBMLObject;
+}
 
 /*
  * @return the sboTerm as an integer.  If not set,
@@ -1011,7 +1016,6 @@ SBase::setSBMLDocument (SBMLDocument* d)
   mSBML = d;
 }
 
-
 /*
  * Sets the sboTerm field to value.
  */
@@ -1439,6 +1443,7 @@ SBase::read (XMLInputStream& stream)
         position = object->getElementPosition();
 
         object->mSBML = mSBML;
+        object->mParentSBMLObject = static_cast <SBase*>(this);
         object->read(stream);
 
         if ( !stream.isGood() ) break;
@@ -4005,6 +4010,22 @@ const SBMLDocument_t *
 SBase_getSBMLDocument (SBase_t *sb)
 {
   return sb->getSBMLDocument();
+}
+
+
+/**
+ * Returns the parent SBase_t structure of the given SBase_t
+ * structure.
+ *
+ * @param sb the SBase_t structure
+ * 
+ * @return the parent SBase  of this SBML object.
+ */
+LIBSBML_EXTERN
+const SBase_t *
+SBase_getParentSBMLObject (SBase_t *sb)
+{
+  return sb->getParentSBMLObject();
 }
 
 

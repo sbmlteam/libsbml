@@ -79,6 +79,7 @@ START_TEST (test_read_l2v1_assignment)
   SpeciesReference* sr;
   KineticLaw*       kl;
   UnitDefinition*   ud;
+  Reaction*         r1;
 
   std::string filename(TestDataDirectory);
   filename += "l2v1-assignment.xml";
@@ -288,10 +289,23 @@ START_TEST (test_read_l2v1_assignment)
   fail_unless( kl->getFormula()       == "k1 * X0", NULL );
   fail_unless( kl->getNumParameters() == 1        , NULL );
 
+  r1 = static_cast <Reaction *> (kl->getParentSBMLObject());
+  fail_unless( r1          != NULL, NULL );
+  fail_unless( r1->getId() == "in", NULL );
+
+  fail_unless( r1->getNumReactants() == 1, NULL );
+  fail_unless( r1->getNumProducts () == 1, NULL );
+
+
   p = kl->getParameter(0);
   fail_unless( p             != NULL, NULL );
   fail_unless( p->getId()    == "k1", NULL );
   fail_unless( p->getValue() == 0.1 , NULL );
+
+  kl = static_cast <KineticLaw*> (p->getParentSBMLObject()->getParentSBMLObject());
+  fail_unless( kl                     != NULL     , NULL );
+  fail_unless( kl->getFormula()       == "k1 * X0", NULL );
+  fail_unless( kl->getNumParameters() == 1        , NULL );
 
   //
   // <reaction id="out">

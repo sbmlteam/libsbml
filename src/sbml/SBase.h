@@ -518,6 +518,14 @@ public:
 
 
   /**
+   * Returns the parent SBML object.
+   * 
+   * @return the parent SBML object of this SBML object.
+   */
+  SBase* getParentSBMLObject();
+
+
+  /**
    * Returns the integer portion of the value of the "sboTerm" attribute of
    * this object.
    *
@@ -1308,6 +1316,8 @@ protected:
   unsigned int mLine;
   unsigned int mColumn;
 
+  /* store the parent SBML object */
+  SBase* mParentSBMLObject;
 
   /* storing annotations */
   List * mCVTerms;
@@ -1371,6 +1381,11 @@ SBase_getName (const SBase_t *sb);
 LIBSBML_EXTERN
 const SBMLDocument_t *
 SBase_getSBMLDocument (SBase_t *sb);
+
+
+LIBSBML_EXTERN
+const SBase_t *
+SBase_getParentSBMLObject (SBase_t *sb);
 
 
 LIBSBML_EXTERN
