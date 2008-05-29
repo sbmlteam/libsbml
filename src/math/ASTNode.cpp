@@ -1572,6 +1572,30 @@ ASTNode::ReplaceArgument(const std::string bvar, ASTNode * arg)
   }
 }
 
+LIBSBML_EXTERN
+void
+ASTNode::ReduceToBinary()
+{
+  unsigned int numChildren = getNumChildren();
+  /* number of children should be greater than 2 */
+  if (numChildren < 3)
+    return;
+
+  ASTNode* op = new ASTNode( getType() );
+  ASTNode* op2 = new ASTNode( getType() );
+
+  // add the first two children to the first node
+  op->addChild(getChild(0));
+  op->addChild(getChild(1));
+
+  op2->addChild(op);
+  for (unsigned int n = 2; n < numChildren; n++)
+    op2->addChild(getChild(n));
+
+  swapChildren(op2);
+
+  ReduceToBinary();
+}
 
 
 /**
@@ -2316,4 +2340,18 @@ ASTNode_replaceArgument(ASTNode_t* node, const char * bvar, ASTNode_t* arg)
 {
   static_cast<ASTNode*>(node)->ReplaceArgument(bvar, 
                                                   static_cast<ASTNode*>(arg));
+}
+
+/**
+  * Reduces the given ASTNode_t structure to a binary tree
+  * e.g. if the formula in this ASTNode is and(x, y, z) then the 
+  * formula of the reduced node would be and(and(x, y), z)
+  *
+  * @param node the ASTNode_t structure to reduce
+  */
+LIBSBML_EXTERN
+void
+ASTNode_reduceToBinary(ASTNode_t* node)
+{
+  static_cast<ASTNode*>(node)->ReduceToBinary();
 }

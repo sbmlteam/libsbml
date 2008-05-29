@@ -1102,6 +1102,13 @@ public:
   LIBSBML_EXTERN
   void ReplaceArgument(const std::string bvar, ASTNode * arg);
 
+/**
+  * Reduces this ASTNode to a binary tree
+  * e.g. if the formula in this ASTNode is and(x, y, z) then the 
+  * formula of the reduced node would be and(and(x, y), z)
+  */
+  LIBSBML_EXTERN
+  void ReduceToBinary();
 
 protected:
   /** @cond doxygen-libsbml-internal */
@@ -1663,6 +1670,10 @@ ASTNode_swapChildren (ASTNode_t *node, ASTNode_t *that);
 LIBSBML_EXTERN
 void
 ASTNode_replaceArgument(ASTNode_t* node, const char * bvar, ASTNode_t* arg);
+
+LIBSBML_EXTERN
+void
+ASTNode_reduceToBinary(ASTNode_t* node);
 
 END_C_DECLS
 
