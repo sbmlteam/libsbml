@@ -186,7 +186,8 @@ ArgumentsUnitsCheck::checkUnitsFromPiecewise (const Model& m,
    */
   unsigned int n;
   UnitDefinition * dim = new UnitDefinition();
-  UnitDefinition * tempUD, * tempUD1;
+  UnitDefinition * tempUD;
+  UnitDefinition * tempUD1 = NULL;
   Unit * unit = new Unit("dimensionless");
   dim->addUnit(unit);
   

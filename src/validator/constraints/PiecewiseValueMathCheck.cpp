@@ -121,7 +121,6 @@ PiecewiseValueMathCheck::checkPiecewiseArgs (const Model& m, const ASTNode& node
                                                   const SBase & sb)
 {
   unsigned int numChildren = node.getNumChildren();
-  unsigned int numPieces = numChildren;
 
   /* arguments must return consistent types */
   for (unsigned int n = 0; n < numChildren; n += 2)

@@ -135,8 +135,8 @@ SBase::SBase (const std::string& id, const std::string& name, int sbo) :
  , mSBOTerm   ( sbo )
  , mLine      ( 0 )
  , mColumn    ( 0 )
- , mCVTerms   ( 0 )
  , mParentSBMLObject (0)
+ , mCVTerms   ( 0 )
 {
 }
 /** @endcond doxygen-libsbml-internal */
@@ -157,8 +157,8 @@ SBase::SBase (int sbo) :
  , mSBOTerm   ( sbo )
  , mLine      ( 0 )
  , mColumn    ( 0 )
+ , mParentSBMLObject (0)
  , mCVTerms   ( 0 )
- , mParentSBMLObject ( 0 )
 {
 }
 /** @endcond doxygen-libsbml-internal */
