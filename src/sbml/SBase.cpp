@@ -136,6 +136,7 @@ SBase::SBase (const std::string& id, const std::string& name, int sbo) :
  , mLine      ( 0 )
  , mColumn    ( 0 )
  , mCVTerms   ( 0 )
+ , mParentSBMLObject (0)
 {
 }
 /** @endcond doxygen-libsbml-internal */
@@ -157,6 +158,7 @@ SBase::SBase (int sbo) :
  , mLine      ( 0 )
  , mColumn    ( 0 )
  , mCVTerms   ( 0 )
+ , mParentSBMLObject ( 0 )
 {
 }
 /** @endcond doxygen-libsbml-internal */
@@ -186,6 +188,7 @@ SBase::SBase(const SBase& orig)
     this->mSBOTerm    = orig.mSBOTerm;
     this->mLine       = orig.mLine;
     this->mColumn     = orig.mColumn;
+    this->mParentSBMLObject = orig.mParentSBMLObject;
 
     if(orig.mNamespaces)
       this->mNamespaces = new XMLNamespaces(*const_cast<SBase&>(orig).mNamespaces);
@@ -249,6 +252,7 @@ SBase& SBase::operator=(const SBase& orig)
     this->mSBOTerm    = orig.mSBOTerm;
     this->mLine       = orig.mLine;
     this->mColumn     = orig.mColumn;
+    this->mParentSBMLObject = orig.mParentSBMLObject;
 
     if(orig.mNamespaces)
       this->mNamespaces = new XMLNamespaces(*const_cast<SBase&>(orig).mNamespaces);

@@ -72,6 +72,8 @@ START_TEST ( test_Compartment_copyConstructor )
     fail_unless(o2->getId() == "c");
     fail_unless(o2->getOutside() == "c2");
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -91,6 +93,8 @@ START_TEST ( test_Compartment_assignmentOperator )
 
     fail_unless(o2->getId() == "c");
     fail_unless(o2->getOutside() == "c2");
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
     delete o2;
     delete o1;
@@ -112,6 +116,8 @@ START_TEST ( test_Compartment_clone )
     fail_unless(o2->getId() == "c");
     fail_unless(o2->getOutside() == "c2");
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -128,6 +134,8 @@ START_TEST ( test_CompartmentType_copyConstructor )
     CompartmentType* o2=new CompartmentType(*o1);
 
     fail_unless(o2->getId() == "c");
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
     delete o2;
     delete o1;
@@ -146,6 +154,8 @@ START_TEST ( test_CompartmentType_assignmentOperator )
 
     fail_unless(o2->getId() == "c");
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -162,6 +172,8 @@ START_TEST ( test_CompartmentType_clone )
     CompartmentType* o2=static_cast<CompartmentType*>(o1->clone());
    
     fail_unless(o2->getId() == "c");
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
     delete o2;
     delete o1;
@@ -194,6 +206,8 @@ START_TEST ( test_Constraint_copyConstructor )
     fail_unless(o1->getMath() != NULL);
     fail_unless(o1->getMessage() != NULL);
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -224,6 +238,8 @@ START_TEST ( test_Constraint_assignmentOperator )
     fail_unless(o2->getMetaId() == "c");
     fail_unless(o1->getMath() != NULL);
     fail_unless(o1->getMessage() != NULL);
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
     delete o2;
     delete o1;
@@ -256,6 +272,8 @@ START_TEST ( test_Constraint_clone )
     fail_unless(o1->getMath() != NULL);
     fail_unless(o1->getMessage() != NULL);
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -274,6 +292,8 @@ START_TEST ( test_Delay_copyConstructor )
     Delay* o2=new Delay(*o1);
 
     fail_unless(o2->getMath() != NULL);
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
     delete o2;
     delete o1;
@@ -294,6 +314,8 @@ START_TEST ( test_Delay_assignmentOperator )
 
     fail_unless(o1->getMath() != NULL);
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -313,6 +335,8 @@ START_TEST ( test_Delay_clone )
 
     fail_unless(o1->getMath() != NULL);
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -329,6 +353,8 @@ START_TEST ( test_Event_copyConstructor )
     Event* o2=new Event(*o1);
 
     fail_unless(o2->getId() == "c");
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
     delete o2;
     delete o1;
@@ -347,6 +373,8 @@ START_TEST ( test_Event_assignmentOperator )
 
     fail_unless(o2->getId() == "c");
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -363,6 +391,8 @@ START_TEST ( test_Event_clone )
     Event* o2=static_cast<Event*>(o1->clone());
    
     fail_unless(o2->getId() == "c");
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
     delete o2;
     delete o1;
@@ -388,6 +418,8 @@ START_TEST ( test_EventAssignment_copyConstructor )
     fail_unless(o2->getVariable() == "c2");
     fail_unless(o2->getMath() != NULL);
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -411,6 +443,8 @@ START_TEST ( test_EventAssignment_assignmentOperator )
 
     fail_unless(o2->getVariable() == "c2");
     fail_unless(o2->getMath() != NULL);
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
     delete o2;
     delete o1;
@@ -436,6 +470,8 @@ START_TEST ( test_EventAssignment_clone )
     fail_unless(o2->getVariable() == "c2");
     fail_unless(o2->getMath() != NULL);
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -459,6 +495,8 @@ START_TEST ( test_FunctionDefinition_copyConstructor )
 
     fail_unless(o2->getId() == "c");
     fail_unless(o2->getMath() != NULL);
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
     delete o2;
     delete o1;
@@ -484,6 +522,8 @@ START_TEST ( test_FunctionDefinition_assignmentOperator )
     fail_unless(o2->getId() == "c");
     fail_unless(o2->getMath() != NULL);
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -508,6 +548,8 @@ START_TEST ( test_FunctionDefinition_clone )
     fail_unless(o2->getId() == "c");
     fail_unless(o2->getMath() != NULL);
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -524,6 +566,8 @@ START_TEST ( test_InitialAssignment_copyConstructor )
     InitialAssignment* o2=new InitialAssignment(*o1);
 
     fail_unless(o2->getId() == "c");
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
     delete o2;
     delete o1;
@@ -542,6 +586,8 @@ START_TEST ( test_InitialAssignment_assignmentOperator )
 
     fail_unless(o2->getId() == "c");
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -558,6 +604,8 @@ START_TEST ( test_InitialAssignment_clone )
     InitialAssignment* o2=static_cast<InitialAssignment*>(o1->clone());
    
     fail_unless(o2->getId() == "c");
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
     delete o2;
     delete o1;
@@ -584,6 +632,8 @@ START_TEST ( test_KineticLaw_copyConstructor )
     fail_unless(o2->getParameter(0)->getId() == "jake");
     fail_unless(o2->getId() == "c");
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -608,6 +658,8 @@ START_TEST ( test_KineticLaw_assignmentOperator )
     fail_unless(o2->getNumParameters() == 1);
     fail_unless(o2->getParameter(0)->getId() == "jake");
     fail_unless(o2->getId() == "c");
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
     delete o2;
     delete o1;
@@ -634,6 +686,8 @@ START_TEST ( test_KineticLaw_clone )
     fail_unless(o2->getParameter(0)->getId() == "jake");
     fail_unless(o2->getId() == "c");
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -657,6 +711,8 @@ START_TEST ( test_ListOf_copyConstructor )
     fail_unless(o2->getId() == "c");
     fail_unless(static_cast<Species *> (o2->get(0))->getId()
       == "species_1");
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -682,6 +738,8 @@ START_TEST ( test_ListOf_assignmentOperator )
     fail_unless(static_cast<Species *> (o2->get(0))->getId()
       == "species_1");
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -706,6 +764,8 @@ START_TEST ( test_ListOf_clone )
     fail_unless(o2->getId() == "c");
     fail_unless(static_cast<Species *> (o2->get(0))->getId()
       == "species_1");
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
     delete o2;
     delete o1;
@@ -736,6 +796,8 @@ START_TEST ( test_Model_copyConstructor )
     fail_unless(o2->getNumParameters() == 1);
     fail_unless(o2->getNumFormulaUnitsData() == 1);
     fail_unless(o2->getParameter(0)->getId() == "alex");
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
     delete o2;
     delete o1;
@@ -768,6 +830,8 @@ START_TEST ( test_Model_assignmentOperator )
     fail_unless(o2->getNumFormulaUnitsData() == 1);
     fail_unless(o2->getParameter(0)->getId() == "alex");
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -799,6 +863,8 @@ START_TEST ( test_Model_clone )
     fail_unless(o2->getNumFormulaUnitsData() == 1);
     fail_unless(o2->getParameter(0)->getId() == "alex");
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -815,6 +881,8 @@ START_TEST ( test_Parameter_copyConstructor )
     Parameter* o2=new Parameter(*o1);
 
     fail_unless(o2->getId() == "c");
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
     delete o2;
     delete o1;
@@ -833,6 +901,8 @@ START_TEST ( test_Parameter_assignmentOperator )
 
     fail_unless(o2->getId() == "c");
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -849,6 +919,8 @@ START_TEST ( test_Parameter_clone )
     Parameter* o2=static_cast<Parameter*>(o1->clone());
    
     fail_unless(o2->getId() == "c");
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
     delete o2;
     delete o1;
@@ -876,6 +948,8 @@ START_TEST ( test_Reaction_copyConstructor )
     fail_unless(o2->isSetKineticLaw() == 1);
     fail_unless(o2->getKineticLaw() != NULL);
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -901,6 +975,8 @@ START_TEST ( test_Reaction_assignmentOperator )
     fail_unless(o2->getId() == "c");
     fail_unless(o2->isSetKineticLaw() == 1);
     fail_unless(o2->getKineticLaw() != NULL);
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
     delete o2;
     delete o1;
@@ -928,6 +1004,8 @@ START_TEST ( test_Reaction_clone )
     fail_unless(o2->isSetKineticLaw() == 1);
     fail_unless(o2->getKineticLaw() != NULL);
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -951,6 +1029,8 @@ START_TEST ( test_Rule_copyConstructor )
     fail_unless(o2->getId() == "a");
     fail_unless(o2->isSetMath() == 1);
     
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -974,6 +1054,8 @@ START_TEST ( test_Rule_assignmentOperator )
     fail_unless(o2->getId() == "a");
     fail_unless(o2->isSetMath() == 1);
     
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -997,6 +1079,8 @@ START_TEST ( test_Rule_clone )
     fail_unless(o2->getId() == "a");
     fail_unless(o2->isSetMath() == 1);
     
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -1016,6 +1100,8 @@ START_TEST ( test_Species_copyConstructor )
 
     fail_unless(o2->getId() == "c");
     fail_unless(o2->getSpeciesType() == "c1");
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
     delete o2;
     delete o1;
@@ -1037,6 +1123,8 @@ START_TEST ( test_Species_assignmentOperator )
     fail_unless(o2->getId() == "c");
     fail_unless(o2->getSpeciesType() == "c1");
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -1057,6 +1145,8 @@ START_TEST ( test_Species_clone )
     fail_unless(o2->getId() == "c");
     fail_unless(o2->getSpeciesType() == "c1");
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -1073,6 +1163,8 @@ START_TEST ( test_SpeciesReference_copyConstructor )
     SpeciesReference* o2=new SpeciesReference(*o1);
 
     fail_unless(o2->getId() == "c");
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
     delete o2;
     delete o1;
@@ -1091,6 +1183,8 @@ START_TEST ( test_SpeciesReference_assignmentOperator )
 
     fail_unless(o2->getId() == "c");
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -1107,6 +1201,8 @@ START_TEST ( test_SpeciesReference_clone )
     SpeciesReference* o2=static_cast<SpeciesReference*>(o1->clone());
    
     fail_unless(o2->getId() == "c");
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
     delete o2;
     delete o1;
@@ -1125,6 +1221,8 @@ START_TEST ( test_SpeciesType_copyConstructor )
 
     fail_unless(o2->getId() == "c");
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -1142,6 +1240,8 @@ START_TEST ( test_SpeciesType_assignmentOperator )
 
     fail_unless(o2->getId() == "c");
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -1158,6 +1258,8 @@ START_TEST ( test_SpeciesType_clone )
     SpeciesType* o2=static_cast<SpeciesType*>(o1->clone());
    
     fail_unless(o2->getId() == "c");
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
     delete o2;
     delete o1;
@@ -1178,6 +1280,8 @@ START_TEST ( test_Trigger_copyConstructor )
 
     fail_unless(o2->getMath() != NULL);
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -1196,6 +1300,8 @@ START_TEST ( test_Trigger_assignmentOperator )
     (*o2)=*o1;
 
     fail_unless(o1->getMath() != NULL);
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
     delete o2;
     delete o1;
@@ -1216,6 +1322,8 @@ START_TEST ( test_Trigger_clone )
 
     fail_unless(o1->getMath() != NULL);
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -1232,6 +1340,8 @@ START_TEST ( test_Unit_copyConstructor )
     Unit* o2=new Unit(*o1);
 
     fail_unless(o2->getId() == "c");
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
     delete o2;
     delete o1;
@@ -1250,6 +1360,8 @@ START_TEST ( test_Unit_assignmentOperator )
 
     fail_unless(o2->getId() == "c");
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -1266,6 +1378,8 @@ START_TEST ( test_Unit_clone )
     Unit* o2=static_cast<Unit*>(o1->clone());
    
     fail_unless(o2->getId() == "c");
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
     delete o2;
     delete o1;
@@ -1284,6 +1398,8 @@ START_TEST ( test_UnitDefinition_copyConstructor )
 
     fail_unless(o2->getId() == "c");
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -1301,6 +1417,8 @@ START_TEST ( test_UnitDefinition_assignmentOperator )
 
     fail_unless(o2->getId() == "c");
 
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
     delete o2;
     delete o1;
 }
@@ -1317,6 +1435,8 @@ START_TEST ( test_UnitDefinition_clone )
     UnitDefinition* o2=static_cast<UnitDefinition*>(o1->clone());
    
     fail_unless(o2->getId() == "c");
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
     delete o2;
     delete o1;
