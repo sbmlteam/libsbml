@@ -717,7 +717,7 @@ END_TEST
 START_TEST ( test_Species_parent_create )
 {
   Model *m = new Model();
-  Species *s = m->createSpecies(s);
+  Species *s = m->createSpecies();
 
   ListOf *lo = m->getListOfSpecies();
 
