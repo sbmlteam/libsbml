@@ -291,6 +291,13 @@ UnitDefinition::isVariantOfMass () const
 void
 UnitDefinition::addUnit (const Unit* u)
 {
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mUnits.size() == 0)
+  {
+    mUnits.setSBMLDocument(this->getSBMLDocument());
+    mUnits.setParentSBMLObject(this);
+  }
+  
   mUnits.append(u);
 }
 
@@ -372,6 +379,18 @@ UnitDefinition::setSBMLDocument (SBMLDocument* d)
 {
   mSBML = d;
   mUnits.setSBMLDocument(d);
+}
+
+
+/**
+  * Sets the parent SBML object of this SBML object.
+  *
+  * @param sb the SBML object to use
+  */
+void 
+UnitDefinition::setParentSBMLObject (SBase* sb)
+{
+  mParentSBMLObject = sb;
 }
 
 

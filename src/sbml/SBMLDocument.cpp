@@ -429,6 +429,7 @@ SBMLDocument::setModel (const Model* m)
   mModel = (m != 0) ? new Model(*m) : 0;
 
   if (mModel) mModel->setSBMLDocument(this);
+  if (mModel) mModel->setParentSBMLObject(this);
 }
 
 

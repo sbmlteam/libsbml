@@ -443,6 +443,9 @@ SpeciesReference::setStoichiometryMath (const StoichiometryMath* math)
 
   delete mStoichiometryMath;
   mStoichiometryMath = (math != 0) ? static_cast<StoichiometryMath*>(math->clone()) : 0;
+
+  if (mStoichiometryMath) mStoichiometryMath->setSBMLDocument(mSBML);
+  if (mStoichiometryMath) mStoichiometryMath->setParentSBMLObject(this);
 }
 
 

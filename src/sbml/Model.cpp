@@ -248,6 +248,13 @@ Model::unsetModelHistory()
 void
 Model::addFunctionDefinition (const FunctionDefinition* fd)
 {
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mFunctionDefinitions.size() == 0)
+  {
+    mFunctionDefinitions.setSBMLDocument(this->getSBMLDocument());
+    mFunctionDefinitions.setParentSBMLObject(this);
+  }
+
   mFunctionDefinitions.append(fd);
 }
 
@@ -258,6 +265,13 @@ Model::addFunctionDefinition (const FunctionDefinition* fd)
 void
 Model::addUnitDefinition (const UnitDefinition* ud)
 {
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mUnitDefinitions.size() == 0)
+  {
+    mUnitDefinitions.setSBMLDocument(this->getSBMLDocument());
+    mUnitDefinitions.setParentSBMLObject(this);
+  }
+
   mUnitDefinitions.append(ud);
 }
 
@@ -268,6 +282,13 @@ Model::addUnitDefinition (const UnitDefinition* ud)
 void
 Model::addCompartmentType (const CompartmentType* ct)
 {
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mCompartmentTypes.size() == 0)
+  {
+    mCompartmentTypes.setSBMLDocument(this->getSBMLDocument());
+    mCompartmentTypes.setParentSBMLObject(this);
+  }
+
   mCompartmentTypes.append(ct);
 }
 
@@ -278,6 +299,13 @@ Model::addCompartmentType (const CompartmentType* ct)
 void
 Model::addSpeciesType (const SpeciesType* st)
 {
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mSpeciesTypes.size() == 0)
+  {
+    mSpeciesTypes.setSBMLDocument(this->getSBMLDocument());
+    mSpeciesTypes.setParentSBMLObject(this);
+  }
+
   mSpeciesTypes.append(st);
 }
 
@@ -288,6 +316,13 @@ Model::addSpeciesType (const SpeciesType* st)
 void
 Model::addCompartment (const Compartment* c)
 {
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mCompartments.size() == 0)
+  {
+    mCompartments.setSBMLDocument(this->getSBMLDocument());
+    mCompartments.setParentSBMLObject(this);
+  }
+
   mCompartments.append(c);
 }
 
@@ -298,6 +333,13 @@ Model::addCompartment (const Compartment* c)
 void
 Model::addSpecies (const Species* s)
 {
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mSpecies.size() == 0)
+  {
+    mSpecies.setSBMLDocument(this->getSBMLDocument());
+    mSpecies.setParentSBMLObject(this);
+  }
+
   mSpecies.append(s);
 }
 
@@ -308,6 +350,13 @@ Model::addSpecies (const Species* s)
 void
 Model::addParameter (const Parameter* p)
 {
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mParameters.size() == 0)
+  {
+    mParameters.setSBMLDocument(this->getSBMLDocument());
+    mParameters.setParentSBMLObject(this);
+  }
+
   mParameters.append(p);
 }
 
@@ -318,6 +367,13 @@ Model::addParameter (const Parameter* p)
 void
 Model::addInitialAssignment (const InitialAssignment* ia)
 {
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mInitialAssignments.size() == 0)
+  {
+    mInitialAssignments.setSBMLDocument(this->getSBMLDocument());
+    mInitialAssignments.setParentSBMLObject(this);
+  }
+
   mInitialAssignments.append(ia);
 }
 
@@ -328,6 +384,13 @@ Model::addInitialAssignment (const InitialAssignment* ia)
 void
 Model::addRule (const Rule* r)
 {
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mRules.size() == 0)
+  {
+    mRules.setSBMLDocument(this->getSBMLDocument());
+    mRules.setParentSBMLObject(this);
+  }
+
   mRules.append(r);
 }
 
@@ -338,6 +401,13 @@ Model::addRule (const Rule* r)
 void
 Model::addConstraint (const Constraint* c)
 {
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mConstraints.size() == 0)
+  {
+    mConstraints.setSBMLDocument(this->getSBMLDocument());
+    mConstraints.setParentSBMLObject(this);
+  }
+
   mConstraints.append(c);
 }
 
@@ -348,6 +418,13 @@ Model::addConstraint (const Constraint* c)
 void
 Model::addReaction (const Reaction* r)
 {
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mReactions.size() == 0)
+  {
+    mReactions.setSBMLDocument(this->getSBMLDocument());
+    mReactions.setParentSBMLObject(this);
+  }
+
   mReactions.append(r);
 }
 
@@ -358,6 +435,13 @@ Model::addReaction (const Reaction* r)
 void
 Model::addEvent (const Event* e)
 {
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mEvents.size() == 0)
+  {
+    mEvents.setSBMLDocument(this->getSBMLDocument());
+    mEvents.setParentSBMLObject(this);
+  }
+
   mEvents.append(e);
 }
 
@@ -1879,6 +1963,18 @@ Model::setSBMLDocument (SBMLDocument* d)
   mConstraints        .setSBMLDocument(d);
   mReactions          .setSBMLDocument(d);
   mEvents             .setSBMLDocument(d);
+}
+
+
+/**
+  * Sets the parent SBML object of this SBML object.
+  *
+  * @param sb the SBML object to use
+  */
+void 
+Model::setParentSBMLObject (SBase* sb)
+{
+  mParentSBMLObject = sb;
 }
 
 

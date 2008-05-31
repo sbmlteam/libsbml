@@ -215,6 +215,14 @@ public:
 
 
   /**
+   * Sets the parent SBML object of this SBML object.
+   *
+   * @param sb the SBML object to use
+   */
+  virtual void setParentSBMLObject (SBase* sb);
+
+
+  /**
    * Returns the libSBML type code for this object, namely, @c
    * SBML_LIST_OF.
    * 

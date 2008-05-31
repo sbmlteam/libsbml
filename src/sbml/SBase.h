@@ -814,6 +814,14 @@ public:
 
 
   /**
+   * Sets the parent SBML object of this SBML object.
+   *
+   * @param sb the SBML object to use
+   */
+  virtual void setParentSBMLObject (SBase* sb);
+
+
+  /**
    * Sets the value of the "sboTerm" attribute.
    *
    * In SBML Level 2 Versions 2 and 3, the data type of the SBML "sboTerm"

@@ -134,6 +134,7 @@ ListOf::appendAndOwn (SBase* item)
 {
   mItems.push_back( item );
   item->setSBMLDocument(mSBML);
+  item->setParentSBMLObject(this);
 }
 
 
@@ -253,6 +254,18 @@ struct SetSBMLDocument : public unary_function<SBase*, void>
 };
 
 
+/**
+ * Used by ListOf::setParentSBMLObject().
+ */
+struct SetParentSBMLObject : public unary_function<SBase*, void>
+{
+  SBase* sb;
+
+  SetParentSBMLObject (SBase *sb) : sb(sb) { }
+  void operator() (SBase* sbase) { sbase->setParentSBMLObject(sb); }
+};
+
+
 /*
  * Sets the parent SBMLDocument of this SBML object.
  */
@@ -261,6 +274,17 @@ ListOf::setSBMLDocument (SBMLDocument* d)
 {
   mSBML = d;
   for_each( mItems.begin(), mItems.end(), SetSBMLDocument(d) );
+}
+
+
+/*
+ * Sets the parent SBML object of this SBML object.
+ */
+void
+ListOf::setParentSBMLObject (SBase* sb)
+{
+  mParentSBMLObject = sb;
+  for_each( mItems.begin(), mItems.end(), SetParentSBMLObject(sb) );
 }
 
 

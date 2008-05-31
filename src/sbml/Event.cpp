@@ -238,6 +238,7 @@ Event::setTrigger (const Trigger* trigger)
   mTrigger = (trigger != 0) ? static_cast<Trigger*>( trigger->clone() ) : 0;
 
   if (mTrigger) mTrigger->setSBMLDocument(mSBML);
+  if (mTrigger) mTrigger->setParentSBMLObject(this);
 }
 
 
@@ -253,6 +254,7 @@ Event::setDelay (const Delay* delay)
   mDelay = (delay != 0) ? static_cast<Delay*>( delay->clone() ) : 0;
 
   if (mDelay) mDelay->setSBMLDocument(mSBML);
+  if (mDelay) mDelay->setParentSBMLObject(this);
 }
 
 
@@ -305,6 +307,13 @@ Event::unsetTimeUnits ()
 void
 Event::addEventAssignment (const EventAssignment* ea)
 {
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mEventAssignments.size() == 0)
+  {
+    mEventAssignments.setSBMLDocument(this->getSBMLDocument());
+    mEventAssignments.setParentSBMLObject(this);
+  }
+
   mEventAssignments.append(ea);
 }
 
@@ -411,6 +420,18 @@ Event::setSBMLDocument (SBMLDocument* d)
   mEventAssignments.setSBMLDocument(d);
   if (mTrigger) mTrigger->setSBMLDocument(d);
   if (mDelay) mDelay->setSBMLDocument(d);
+}
+
+
+/**
+  * Sets the parent SBML object of this SBML object.
+  *
+  * @param sb the SBML object to use
+  */
+void 
+Event::setParentSBMLObject (SBase* sb)
+{
+  mParentSBMLObject = sb;
 }
 
 

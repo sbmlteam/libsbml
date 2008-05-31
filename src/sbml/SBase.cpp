@@ -1020,6 +1020,19 @@ SBase::setSBMLDocument (SBMLDocument* d)
   mSBML = d;
 }
 
+
+/**
+  * Sets the parent SBML object of this SBML object.
+  *
+  * @param sb the SBML object to use
+  */
+void 
+SBase::setParentSBMLObject (SBase* sb)
+{
+  mParentSBMLObject = sb;
+}
+
+
 /*
  * Sets the sboTerm field to value.
  */

@@ -283,6 +283,7 @@ Reaction::setKineticLaw (const KineticLaw* kl)
   mKineticLaw = (kl != 0) ? static_cast<KineticLaw*>( kl->clone() ) : 0;
 
   if (mKineticLaw) mKineticLaw->setSBMLDocument(mSBML);
+  if (mKineticLaw) mKineticLaw->setParentSBMLObject(this);
 }
 
 
@@ -338,6 +339,13 @@ Reaction::unsetFast ()
 void
 Reaction::addReactant (const SpeciesReference* sr)
 {
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mReactants.size() == 0)
+  {
+    mReactants.setSBMLDocument(this->getSBMLDocument());
+    mReactants.setParentSBMLObject(this);
+  }
+
   mReactants.append(sr);
 }
 
@@ -348,6 +356,13 @@ Reaction::addReactant (const SpeciesReference* sr)
 void
 Reaction::addProduct (const SpeciesReference* sr)
 {
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mProducts.size() == 0)
+  {
+    mProducts.setSBMLDocument(this->getSBMLDocument());
+    mProducts.setParentSBMLObject(this);
+  }
+
   mProducts.append(sr);
 }
 
@@ -359,6 +374,13 @@ Reaction::addProduct (const SpeciesReference* sr)
 void
 Reaction::addModifier (const ModifierSpeciesReference* msr)
 {
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mModifiers.size() == 0)
+  {
+    mModifiers.setSBMLDocument(this->getSBMLDocument());
+    mModifiers.setParentSBMLObject(this);
+  }
+
   mModifiers.append(msr);
 }
 
@@ -431,6 +453,7 @@ Reaction::createKineticLaw ()
   mKineticLaw = new KineticLaw;
 
   mKineticLaw->setSBMLDocument(mSBML);
+  mKineticLaw->setParentSBMLObject(this);
 
   return mKineticLaw;
 }
@@ -674,6 +697,18 @@ Reaction::setSBMLDocument (SBMLDocument* d)
   mModifiers.setSBMLDocument(d);
 
   if (mKineticLaw) mKineticLaw->setSBMLDocument(d);
+}
+
+
+/**
+  * Sets the parent SBML object of this SBML object.
+  *
+  * @param sb the SBML object to use
+  */
+void 
+Reaction::setParentSBMLObject (SBase* sb)
+{
+  mParentSBMLObject = sb;
 }
 
 

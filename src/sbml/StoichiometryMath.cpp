@@ -155,6 +155,18 @@ StoichiometryMath::setSBMLDocument (SBMLDocument* d)
 }
 
 
+/**
+  * Sets the parent SBML object of this SBML object.
+  *
+  * @param sb the SBML object to use
+  */
+void 
+StoichiometryMath::setParentSBMLObject (SBase* sb)
+{
+  mParentSBMLObject = sb;
+}
+
+
 /*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
