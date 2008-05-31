@@ -329,7 +329,10 @@ Event::createEventAssignment ()
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mEventAssignments.size() == 0)
+  {
     mEventAssignments.setSBMLDocument(this->getSBMLDocument());
+    mEventAssignments.setParentSBMLObject(this);
+  }
   
   mEventAssignments.appendAndOwn(ea);
 

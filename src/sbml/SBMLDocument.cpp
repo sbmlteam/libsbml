@@ -444,6 +444,7 @@ SBMLDocument::createModel (const std::string& sid)
   mModel = new Model(sid);
 
   mModel->setSBMLDocument(this);
+  mModel->setParentSBMLObject(this);
 
   return mModel;
 }

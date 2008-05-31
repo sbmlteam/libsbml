@@ -456,7 +456,10 @@ Model::createFunctionDefinition ()
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mFunctionDefinitions.size() == 0)
+  {
     mFunctionDefinitions.setSBMLDocument(this->getSBMLDocument());
+    mFunctionDefinitions.setParentSBMLObject(this);
+  }
   
   mFunctionDefinitions.appendAndOwn(fd);
 
@@ -474,7 +477,10 @@ Model::createUnitDefinition ()
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mUnitDefinitions.size() == 0)
+  {
     mUnitDefinitions.setSBMLDocument(this->getSBMLDocument());
+    mUnitDefinitions.setParentSBMLObject(this);
+  }
   
   mUnitDefinitions.appendAndOwn(ud);
 
@@ -507,7 +513,10 @@ Model::createCompartmentType ()
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mCompartmentTypes.size() == 0)
+  {
     mCompartmentTypes.setSBMLDocument(this->getSBMLDocument());
+    mCompartmentTypes.setParentSBMLObject(this);
+  }
   
   mCompartmentTypes.appendAndOwn(ct);
 
@@ -525,8 +534,11 @@ Model::createSpeciesType ()
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mSpeciesTypes.size() == 0)
+  {
     mSpeciesTypes.setSBMLDocument(this->getSBMLDocument());
-  
+    mSpeciesTypes.setParentSBMLObject(this);
+  }
+
   mSpeciesTypes.appendAndOwn(st);
 
   return st;
@@ -543,7 +555,10 @@ Model::createCompartment ()
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mCompartments.size() == 0)
+  {
     mCompartments.setSBMLDocument(this->getSBMLDocument());
+    mCompartments.setParentSBMLObject(this);
+  }
   
   mCompartments.appendAndOwn(c);
 
@@ -561,7 +576,10 @@ Model::createSpecies ()
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mSpecies.size() == 0)
+  {
     mSpecies.setSBMLDocument(this->getSBMLDocument());
+    mSpecies.setParentSBMLObject(this);
+  }
   
   mSpecies.appendAndOwn(s);
 
@@ -579,7 +597,10 @@ Model::createParameter ()
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mParameters.size() == 0)
+  {
     mParameters.setSBMLDocument(this->getSBMLDocument());
+    mParameters.setParentSBMLObject(this);
+  }
   
   mParameters.appendAndOwn(p);
 
@@ -597,7 +618,10 @@ Model::createInitialAssignment ()
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mInitialAssignments.size() == 0)
+  {
     mInitialAssignments.setSBMLDocument(this->getSBMLDocument());
+    mInitialAssignments.setParentSBMLObject(this);
+  }
   
   mInitialAssignments.appendAndOwn(ia);
 
@@ -615,7 +639,10 @@ Model::createAlgebraicRule ()
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mRules.size() == 0)
+  {
     mRules.setSBMLDocument(this->getSBMLDocument());
+    mRules.setParentSBMLObject(this);
+  }
   
   mRules.appendAndOwn(ar);
 
@@ -633,7 +660,10 @@ Model::createAssignmentRule ()
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mRules.size() == 0)
+  {
     mRules.setSBMLDocument(this->getSBMLDocument());
+    mRules.setParentSBMLObject(this);
+  }
   
   mRules.appendAndOwn(ar);
 
@@ -651,7 +681,10 @@ Model::createRateRule ()
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mRules.size() == 0)
+  {
     mRules.setSBMLDocument(this->getSBMLDocument());
+    mRules.setParentSBMLObject(this);
+  }
   
   mRules.appendAndOwn(rr);
 
@@ -669,7 +702,10 @@ Model::createConstraint ()
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mConstraints.size() == 0)
+  {
     mConstraints.setSBMLDocument(this->getSBMLDocument());
+    mConstraints.setParentSBMLObject(this);
+  }
   
   mConstraints.appendAndOwn(c);
 
@@ -687,7 +723,10 @@ Model::createReaction ()
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mReactions.size() == 0)
+  {
     mReactions.setSBMLDocument(this->getSBMLDocument());
+    mReactions.setParentSBMLObject(this);
+  }
   
   mReactions.appendAndOwn(r);
 
@@ -792,7 +831,10 @@ Model::createEvent ()
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mEvents.size() == 0)
+  {
     mEvents.setSBMLDocument(this->getSBMLDocument());
+    mEvents.setParentSBMLObject(this);
+  }
   
   mEvents.appendAndOwn(e);
 

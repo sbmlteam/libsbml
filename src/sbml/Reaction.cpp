@@ -396,8 +396,11 @@ Reaction::createReactant ()
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mReactants.size() == 0)
+  {
     mReactants.setSBMLDocument(this->getSBMLDocument());
-  
+    mReactants.setParentSBMLObject(this);
+  }
+
   mReactants.appendAndOwn(species);
 
   return species;
@@ -415,7 +418,10 @@ Reaction::createProduct ()
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mProducts.size() == 0)
+  {
     mProducts.setSBMLDocument(this->getSBMLDocument());
+    mProducts.setParentSBMLObject(this);
+  }
   
   mProducts.appendAndOwn(species);
 
@@ -434,7 +440,10 @@ Reaction::createModifier ()
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mModifiers.size() == 0)
+  {
     mModifiers.setSBMLDocument(this->getSBMLDocument());
+    mModifiers.setParentSBMLObject(this);
+  }
   
   mModifiers.appendAndOwn(species);
 

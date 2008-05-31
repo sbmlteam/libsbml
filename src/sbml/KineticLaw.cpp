@@ -353,7 +353,10 @@ KineticLaw::createParameter ()
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mParameters.size() == 0)
+  {
     mParameters.setSBMLDocument(this->getSBMLDocument());
+    mParameters.setParentSBMLObject(this);
+  }
   
   mParameters.appendAndOwn(p);
 

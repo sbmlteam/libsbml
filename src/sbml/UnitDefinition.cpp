@@ -313,7 +313,10 @@ UnitDefinition::createUnit ()
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mUnits.size() == 0)
+  {
     mUnits.setSBMLDocument(this->getSBMLDocument());
+    mUnits.setParentSBMLObject(this);
+  }
   
   mUnits.appendAndOwn(u);
 
