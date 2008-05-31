@@ -331,6 +331,13 @@ KineticLaw::unsetSubstanceUnits ()
 void
 KineticLaw::addParameter (const Parameter* p)
 {
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mParameters.size() == 0)
+  {
+    mParameters.setSBMLDocument(this->getSBMLDocument());
+    mParameters.setParentSBMLObject(this);
+  }
+  
   mParameters.append(p);
 }
 
