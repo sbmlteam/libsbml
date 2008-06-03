@@ -128,7 +128,11 @@ START_TEST ( test_Delay_ancestor_add )
 
   delete d;
 
-  fail_unless(e == e->getDelay()->getParentSBMLObject());
+  Delay *obj = e->getDelay();
+
+  fail_unless(obj->getAncestorOfType(SBML_EVENT)    == e);
+  fail_unless(obj->getAncestorOfType(SBML_MODEL)    == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
 
   delete e;
 }
@@ -165,9 +169,13 @@ START_TEST ( test_EventAssignment_ancestor_add )
   delete ea;
 
   ListOf *lo = e->getListOfEventAssignments();
+  EventAssignment *obj = e->getEventAssignment(0);
 
-  fail_unless(lo == e->getEventAssignment(0)->getParentSBMLObject());
-  fail_unless(e == lo->getParentSBMLObject());
+  fail_unless(obj->getAncestorOfType(SBML_EVENT)    == e);
+  fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
 }
 END_TEST
 
@@ -219,8 +227,11 @@ START_TEST ( test_KineticLaw_ancestor_add )
   Reaction * r = new Reaction();
 
   r->setKineticLaw(kl);
+  KineticLaw *obj = r->getKineticLaw();
 
-  fail_unless(r == r->getKineticLaw()->getParentSBMLObject());
+  fail_unless(obj->getAncestorOfType(SBML_REACTION) == r);
+  fail_unless(obj->getAncestorOfType(SBML_MODEL)    == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
 
   delete r;
 }
@@ -235,13 +246,13 @@ START_TEST ( test_KineticLaw_Parameter_ancestor_add )
   kl->addParameter(p);
   delete p;
 
-  fail_unless(kl->getNumParameters() == 1);
-  fail_unless(kl->getParameter(0)->getId() == "jake");
-
   ListOfParameters *lop = kl->getListOfParameters();
+  Parameter *obj = kl->getParameter(0);
 
-  fail_unless(kl == lop->getParentSBMLObject());
-  fail_unless(lop == kl->getParameter(0)->getParentSBMLObject());
+  fail_unless(obj->getAncestorOfType(SBML_KINETIC_LAW)    == kl);
+  fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lop);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
 
   delete kl;
 }
@@ -255,7 +266,7 @@ START_TEST ( test_Model_ancestor_add )
 
   d->setModel(m);
 
-  fail_unless(d == d->getModel()->getParentSBMLObject());
+  fail_unless(d == d->getModel()->getAncestorOfType());
 
   delete d;
 }
@@ -355,9 +366,12 @@ START_TEST ( test_SpeciesReference_Product_ancestor_add )
   delete sr;
 
   ListOf *lo = r->getListOfProducts();
+  SpeciesReference *obj = r->getProduct(0);
 
-  fail_unless(lo == r->getProduct(0)->getParentSBMLObject());
-  fail_unless(r == lo->getParentSBMLObject());
+  fail_unless(obj->getAncestorOfType(SBML_REACTION) == r);
+  fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
 }
 END_TEST
 
@@ -372,9 +386,12 @@ START_TEST ( test_SpeciesReference_Reactant_ancestor_add )
   delete sr;
 
   ListOf *lo = r->getListOfReactants();
+  SpeciesReference *obj = r->getReactant(0);
 
-  fail_unless(lo == r->getReactant(0)->getParentSBMLObject());
-  fail_unless(r == lo->getParentSBMLObject());
+  fail_unless(obj->getAncestorOfType(SBML_REACTION) == r);
+  fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
 }
 END_TEST
 
@@ -389,9 +406,12 @@ START_TEST ( test_SpeciesReference_Modifier_ancestor_add )
   delete sr;
 
   ListOf *lo = r->getListOfModifiers();
+  SpeciesReference *obj = r->getModifier(0);
 
-  fail_unless(lo == r->getModifier(0)->getParentSBMLObject());
-  fail_unless(r == lo->getParentSBMLObject());
+  fail_unless(obj->getAncestorOfType(SBML_REACTION) == r);
+  fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
 }
 END_TEST
 
@@ -425,7 +445,11 @@ START_TEST ( test_StoichiometryMath_ancestor_add )
 
   delete m;
 
-  fail_unless(sr == sr->getStoichiometryMath()->getParentSBMLObject());
+  StoichiometryMath *obj = e->getStoichiometryMath();
+
+  fail_unless(obj->getAncestorOfType(SBML_SPECIES_REFERENCE)    == sr);
+  fail_unless(obj->getAncestorOfType(SBML_MODEL)    == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
 
   delete sr;
 }
@@ -441,7 +465,11 @@ START_TEST ( test_Trigger_ancestor_add )
 
   delete d;
 
-  fail_unless(e == e->getTrigger()->getParentSBMLObject());
+  Trigger *obj = e->getTrigger();
+
+  fail_unless(obj->getAncestorOfType(SBML_EVENT)    == e);
+  fail_unless(obj->getAncestorOfType(SBML_MODEL)    == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
 
   delete e;
 }
@@ -459,9 +487,12 @@ START_TEST ( test_Unit_ancestor_add )
   fail_unless(ud->getNumUnits() == 1);
 
   ListOf *lo = ud->getListOfUnits();
+  Unit *obj = e->getUnit(0);
 
-  fail_unless(lo == ud->getUnit(0)->getParentSBMLObject());
-  fail_unless(ud == lo->getParentSBMLObject());
+  fail_unless(obj->getAncestorOfType(SBML_UNIT_DEFINITION) == ud);
+  fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
 
   delete ud;
 }
@@ -584,9 +615,17 @@ START_TEST ( test_EventAssignment_ancestor_create )
 
   ListOf *lo = e->getListOfEventAssignments();
 
-  fail_unless(lo == e->getEventAssignment(0)->getParentSBMLObject());
-  fail_unless(lo == ea->getParentSBMLObject());
-  fail_unless(e == lo->getParentSBMLObject());
+  fail_unless(ea->getAncestorOfType(SBML_EVENT)    == e);
+  fail_unless(ea->getAncestorOfType(SBML_LIST_OF)  == lo);
+  fail_unless(ea->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(ea->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  EventAssignment *obj = e->getEventAssignment(0);
+
+  fail_unless(obj->getAncestorOfType(SBML_EVENT)    == e);
+  fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
 }
 END_TEST
 
@@ -600,9 +639,19 @@ START_TEST ( test_EventAssignment_ancestor_create_model )
 
   ListOf *lo = e->getListOfEventAssignments();
 
-  fail_unless(lo == e->getEventAssignment(0)->getParentSBMLObject());
-  fail_unless(lo == ea->getParentSBMLObject());
-  fail_unless(e == lo->getParentSBMLObject());
+  fail_unless(ea->getAncestorOfType(SBML_EVENT)    == e);
+  fail_unless(ea->getAncestorOfType(SBML_LIST_OF)  == lo);
+  fail_unless(ea->getAncestorOfType(SBML_MODEL)    == m);
+  fail_unless(ea->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(ea->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  EventAssignment *obj = e->getEventAssignment(0);
+
+  fail_unless(obj->getAncestorOfType(SBML_EVENT)    == e);
+  fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
+  fail_unless(obj->getAncestorOfType(SBML_MODEL)    == m);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
 }
 END_TEST
 
@@ -656,7 +705,17 @@ START_TEST ( test_KineticLaw_ancestor_create )
   Reaction * r = new Reaction();
   KineticLaw* kl = r->createKineticLaw();
 
-  fail_unless(r == kl->getParentSBMLObject());
+  fail_unless(kl->getAncestorOfType(SBML_REACTION) == r);
+  fail_unless(kl->getAncestorOfType(SBML_DELAY)    == NULL);
+  fail_unless(kl->getAncestorOfType(SBML_MODEL)    == NULL);
+  fail_unless(kl->getAncestorOfType(SBML_DOCUMENT) == NULL);
+
+  KineticLaw *obj = r->getKineticLaw();
+
+  fail_unless(obj->getAncestorOfType(SBML_REACTION) == r);
+  fail_unless(obj->getAncestorOfType(SBML_MODEL)    == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_DELAY)    == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
 
   delete r;
 }
@@ -669,8 +728,18 @@ START_TEST ( test_KineticLaw_ancestor_create_model )
   Reaction * r = m->createReaction();
   KineticLaw* kl = r->createKineticLaw();
 
-  fail_unless(r == kl->getParentSBMLObject());
-  fail_unless(r == r->getKineticLaw()->getParentSBMLObject());
+  fail_unless(kl->getAncestorOfType(SBML_REACTION) == r);
+  fail_unless(kl->getAncestorOfType(SBML_MODEL)    == m);
+  fail_unless(kl->getAncestorOfType(SBML_DELAY)    == NULL);
+  fail_unless(kl->getAncestorOfType(SBML_DOCUMENT) == NULL);
+
+  KineticLaw *obj = r->getKineticLaw();
+
+  fail_unless(obj->getAncestorOfType(SBML_REACTION) == r);
+  fail_unless(obj->getAncestorOfType(SBML_MODEL)    == m);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_DELAY)    == NULL);
+
 
   delete r;
 }
@@ -686,9 +755,17 @@ START_TEST ( test_KineticLaw_Parameter_ancestor_create )
 
   ListOfParameters *lop = kl->getListOfParameters();
 
-  fail_unless(kl == lop->getParentSBMLObject());
-  fail_unless(lop == p->getParentSBMLObject());
-  fail_unless(lop == kl->getParameter(0)->getParentSBMLObject());
+  fail_unless(p->getAncestorOfType(SBML_KINETIC_LAW)    == kl);
+  fail_unless(p->getAncestorOfType(SBML_LIST_OF)  == lop);
+  fail_unless(p->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(p->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  Parameter *obj = kl->getParameter(0);
+
+  fail_unless(obj->getAncestorOfType(SBML_KINETIC_LAW)    == kl);
+  fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
 
   delete kl;
 }
@@ -706,10 +783,21 @@ START_TEST ( test_KineticLaw_Parameter_ancestor_create_model )
 
   ListOfParameters *lop = kl->getListOfParameters();
 
-  fail_unless(r == kl->getParentSBMLObject());
-  fail_unless(kl == lop->getParentSBMLObject());
-  fail_unless(lop == p->getParentSBMLObject());
-  fail_unless(lop == kl->getParameter(0)->getParentSBMLObject());
+  fail_unless(p->getAncestorOfType(SBML_KINETIC_LAW)    == kl);
+  fail_unless(p->getAncestorOfType(SBML_LIST_OF)  == lop);
+  fail_unless(p->getAncestorOfType(SBML_REACTION) == r);
+  fail_unless(p->getAncestorOfType(SBML_MODEL)    == m);
+  fail_unless(p->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(p->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  Parameter *obj = kl->getParameter(0);
+
+  fail_unless(obj->getAncestorOfType(SBML_KINETIC_LAW)    == kl);
+  fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lop);
+  fail_unless(obj->getAncestorOfType(SBML_REACTION) == r);
+  fail_unless(obj->getAncestorOfType(SBML_MODEL)    == m);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
 
   delete kl;
 }
@@ -721,7 +809,11 @@ START_TEST ( test_Model_ancestor_create )
   SBMLDocument *d = new SBMLDocument();
   Model *m = d->createModel();
 
-  fail_unless(d == m->getParentSBMLObject());
+  fail_unless(m->getAncestorOfType(SBML_DOCUMENT) == d);
+
+  Model *obj = d->getModel();
+ 
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == d);
 
   delete d;
 }
@@ -867,9 +959,18 @@ START_TEST ( test_SpeciesReference_Product_ancestor_create )
 
   ListOf *lo = r->getListOfProducts();
 
-  fail_unless(lo == r->getProduct(0)->getParentSBMLObject());
-  fail_unless(lo == sr->getParentSBMLObject());
-  fail_unless(r == lo->getParentSBMLObject());
+  fail_unless(sr->getAncestorOfType(SBML_REACTION) == r);
+  fail_unless(sr->getAncestorOfType(SBML_LIST_OF)  == lo);
+  fail_unless(sr->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(sr->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  SpeciesReference *obj = r->getProduct(0);
+
+  fail_unless(obj->getAncestorOfType(SBML_REACTION) == r);
+  fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
 }
 END_TEST
 
@@ -882,9 +983,19 @@ START_TEST ( test_SpeciesReference_Product_ancestor_create_model )
 
   ListOf *lo = r->getListOfProducts();
 
-  fail_unless(lo == r->getProduct(0)->getParentSBMLObject());
-  fail_unless(lo == sr->getParentSBMLObject());
-  fail_unless(r == lo->getParentSBMLObject());
+  fail_unless(sr->getAncestorOfType(SBML_REACTION) == r);
+  fail_unless(sr->getAncestorOfType(SBML_LIST_OF)  == lo);
+  fail_unless(sr->getAncestorOfType(SBML_MODEL) == m);
+  fail_unless(sr->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(sr->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  SpeciesReference *obj = r->getProduct(0);
+
+  fail_unless(obj->getAncestorOfType(SBML_REACTION) == r);
+  fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
+  fail_unless(obj->getAncestorOfType(SBML_MODEL) == m);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
 }
 END_TEST
 
@@ -896,9 +1007,17 @@ START_TEST ( test_SpeciesReference_Reactant_ancestor_create )
 
   ListOf *lo = r->getListOfReactants();
 
-  fail_unless(lo == r->getReactant(0)->getParentSBMLObject());
-  fail_unless(lo == sr->getParentSBMLObject());
-  fail_unless(r == lo->getParentSBMLObject());
+  fail_unless(sr->getAncestorOfType(SBML_REACTION) == r);
+  fail_unless(sr->getAncestorOfType(SBML_LIST_OF)  == lo);
+  fail_unless(sr->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(sr->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  SpeciesReference *obj = r->getReactant(0);
+
+  fail_unless(obj->getAncestorOfType(SBML_REACTION) == r);
+  fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
 }
 END_TEST
 
@@ -911,9 +1030,19 @@ START_TEST ( test_SpeciesReference_Reactant_ancestor_create_model )
 
   ListOf *lo = r->getListOfReactants();
 
-  fail_unless(lo == r->getReactant(0)->getParentSBMLObject());
-  fail_unless(lo == sr->getParentSBMLObject());
-  fail_unless(r == lo->getParentSBMLObject());
+  fail_unless(sr->getAncestorOfType(SBML_REACTION) == r);
+  fail_unless(sr->getAncestorOfType(SBML_LIST_OF)  == lo);
+  fail_unless(sr->getAncestorOfType(SBML_MODEL) == m);
+  fail_unless(sr->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(sr->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  SpeciesReference *obj = r->getReactant(0);
+
+  fail_unless(obj->getAncestorOfType(SBML_REACTION) == r);
+  fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
+  fail_unless(obj->getAncestorOfType(SBML_MODEL) == m);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
 }
 END_TEST
 
@@ -925,9 +1054,17 @@ START_TEST ( test_SpeciesReference_Modifier_ancestor_create )
 
   ListOf *lo = r->getListOfModifiers();
 
-  fail_unless(lo == sr->getParentSBMLObject());
-  fail_unless(lo == r->getModifier(0)->getParentSBMLObject());
-  fail_unless(r == lo->getParentSBMLObject());
+  fail_unless(sr->getAncestorOfType(SBML_REACTION) == r);
+  fail_unless(sr->getAncestorOfType(SBML_LIST_OF)  == lo);
+  fail_unless(sr->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(sr->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  SpeciesReference *obj = r->getModifier(0);
+
+  fail_unless(obj->getAncestorOfType(SBML_REACTION) == r);
+  fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
 }
 END_TEST
 
@@ -940,9 +1077,19 @@ START_TEST ( test_SpeciesReference_Modifier_ancestor_create_model )
 
   ListOf *lo = r->getListOfModifiers();
 
-  fail_unless(lo == sr->getParentSBMLObject());
-  fail_unless(lo == r->getModifier(0)->getParentSBMLObject());
-  fail_unless(r == lo->getParentSBMLObject());
+  fail_unless(sr->getAncestorOfType(SBML_REACTION) == r);
+  fail_unless(sr->getAncestorOfType(SBML_LIST_OF)  == lo);
+  fail_unless(sr->getAncestorOfType(SBML_MODEL) == m);
+  fail_unless(sr->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(sr->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  SpeciesReference *obj = r->getModifier(0);
+
+  fail_unless(obj->getAncestorOfType(SBML_REACTION) == r);
+  fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
+  fail_unless(obj->getAncestorOfType(SBML_MODEL) == m);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
 }
 END_TEST
 
@@ -978,9 +1125,17 @@ START_TEST ( test_Unit_ancestor_create )
 
   ListOf *lo = ud->getListOfUnits();
 
-  fail_unless(lo == ud->getUnit(0)->getParentSBMLObject());
-  fail_unless(lo == u->getParentSBMLObject());
-  fail_unless(ud == lo->getParentSBMLObject());
+  fail_unless(u->getAncestorOfType(SBML_UNIT_DEFINITION) == ud);
+  fail_unless(u->getAncestorOfType(SBML_LIST_OF)  == lo);
+  fail_unless(u->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(u->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  Unit *obj = e->getUnit(0);
+
+  fail_unless(obj->getAncestorOfType(SBML_UNIT_DEFINITION) == ud);
+  fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
 
   delete ud;
 }
@@ -997,9 +1152,19 @@ START_TEST ( test_Unit_ancestor_create_model )
 
   ListOf *lo = ud->getListOfUnits();
 
-  fail_unless(lo == ud->getUnit(0)->getParentSBMLObject());
-  fail_unless(lo == u->getParentSBMLObject());
-  fail_unless(ud == lo->getParentSBMLObject());
+  fail_unless(u->getAncestorOfType(SBML_UNIT_DEFINITION) == ud);
+  fail_unless(u->getAncestorOfType(SBML_LIST_OF)  == lo);
+  fail_unless(u->getAncestorOfType(SBML_MODEL) == m);
+  fail_unless(u->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(u->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  Unit *obj = e->getUnit(0);
+
+  fail_unless(obj->getAncestorOfType(SBML_UNIT_DEFINITION) == ud);
+  fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_MODEL) == m);
+  fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
 
   delete ud;
 }
@@ -1037,54 +1202,54 @@ create_suite_AncestorObject (void)
   tcase_add_test( tcase, test_Compartment_ancestor_add );
   tcase_add_test( tcase, test_CompartmentType_ancestor_add );
   tcase_add_test( tcase, test_Constraint_ancestor_add );
-  //tcase_add_test( tcase, test_Delay_ancestor_add );
+  tcase_add_test( tcase, test_Delay_ancestor_add );
   tcase_add_test( tcase, test_Event_ancestor_add );
-  //tcase_add_test( tcase, test_EventAssignment_ancestor_add );
+  tcase_add_test( tcase, test_EventAssignment_ancestor_add );
   tcase_add_test( tcase, test_FunctionDefinition_ancestor_add );
   tcase_add_test( tcase, test_InitialAssignment_ancestor_add );
-  //tcase_add_test( tcase, test_KineticLaw_ancestor_add );
-  //tcase_add_test( tcase, test_KineticLaw_Parameter_ancestor_add );
-  //tcase_add_test( tcase, test_Model_ancestor_add );
+  tcase_add_test( tcase, test_KineticLaw_ancestor_add );
+  tcase_add_test( tcase, test_KineticLaw_Parameter_ancestor_add );
+  tcase_add_test( tcase, test_Model_ancestor_add );
   tcase_add_test( tcase, test_Parameter_ancestor_add );
   tcase_add_test( tcase, test_Reaction_ancestor_add );
   tcase_add_test( tcase, test_Rule_ancestor_add );
   tcase_add_test( tcase, test_Species_ancestor_add );
-  //tcase_add_test( tcase, test_SpeciesReference_Product_ancestor_add );
-  //tcase_add_test( tcase, test_SpeciesReference_Reactant_ancestor_add );
-  //tcase_add_test( tcase, test_SpeciesReference_Modifier_ancestor_add );
+  tcase_add_test( tcase, test_SpeciesReference_Product_ancestor_add );
+  tcase_add_test( tcase, test_SpeciesReference_Reactant_ancestor_add );
+  tcase_add_test( tcase, test_SpeciesReference_Modifier_ancestor_add );
   tcase_add_test( tcase, test_SpeciesType_ancestor_add );
-  //tcase_add_test( tcase, test_StoichiometryMath_ancestor_add );
-  //tcase_add_test( tcase, test_Trigger_ancestor_add );
-  //tcase_add_test( tcase, test_Unit_ancestor_add );
+  tcase_add_test( tcase, test_StoichiometryMath_ancestor_add );
+  tcase_add_test( tcase, test_Trigger_ancestor_add );
+  tcase_add_test( tcase, test_Unit_ancestor_add );
   tcase_add_test( tcase, test_UnitDefinition_ancestor_add );
   tcase_add_test( tcase, test_Compartment_ancestor_create );
   tcase_add_test( tcase, test_CompartmentType_ancestor_create );
   tcase_add_test( tcase, test_Constraint_ancestor_create );
   tcase_add_test( tcase, test_Event_ancestor_create );
-  //tcase_add_test( tcase, test_EventAssignment_ancestor_create );
-  //tcase_add_test( tcase, test_EventAssignment_ancestor_create_model );
+  tcase_add_test( tcase, test_EventAssignment_ancestor_create );
+  tcase_add_test( tcase, test_EventAssignment_ancestor_create_model );
   tcase_add_test( tcase, test_FunctionDefinition_ancestor_create );
   tcase_add_test( tcase, test_InitialAssignment_ancestor_create );
-  //tcase_add_test( tcase, test_KineticLaw_ancestor_create );
-  //tcase_add_test( tcase, test_KineticLaw_ancestor_create_model );
-  //tcase_add_test( tcase, test_KineticLaw_Parameter_ancestor_create );
-  //tcase_add_test( tcase, test_KineticLaw_Parameter_ancestor_create_model );
-  //tcase_add_test( tcase, test_Model_ancestor_create );
+  tcase_add_test( tcase, test_KineticLaw_ancestor_create );
+  tcase_add_test( tcase, test_KineticLaw_ancestor_create_model );
+  tcase_add_test( tcase, test_KineticLaw_Parameter_ancestor_create );
+  tcase_add_test( tcase, test_KineticLaw_Parameter_ancestor_create_model );
+  tcase_add_test( tcase, test_Model_ancestor_create );
   tcase_add_test( tcase, test_Parameter_ancestor_create );
   tcase_add_test( tcase, test_Reaction_ancestor_create );
   tcase_add_test( tcase, test_AlgebraicRule_ancestor_create );
   tcase_add_test( tcase, test_AssignmentRule_ancestor_create );
   tcase_add_test( tcase, test_RateRule_ancestor_create );
   tcase_add_test( tcase, test_Species_ancestor_create );
-  //tcase_add_test( tcase, test_SpeciesReference_Product_ancestor_create );
-  //tcase_add_test( tcase, test_SpeciesReference_Product_ancestor_create_model );
-  //tcase_add_test( tcase, test_SpeciesReference_Reactant_ancestor_create );
-  //tcase_add_test( tcase, test_SpeciesReference_Reactant_ancestor_create_model );
-  //tcase_add_test( tcase, test_SpeciesReference_Modifier_ancestor_create );
-  //tcase_add_test( tcase, test_SpeciesReference_Modifier_ancestor_create_model );
+  tcase_add_test( tcase, test_SpeciesReference_Product_ancestor_create );
+  tcase_add_test( tcase, test_SpeciesReference_Product_ancestor_create_model );
+  tcase_add_test( tcase, test_SpeciesReference_Reactant_ancestor_create );
+  tcase_add_test( tcase, test_SpeciesReference_Reactant_ancestor_create_model );
+  tcase_add_test( tcase, test_SpeciesReference_Modifier_ancestor_create );
+  tcase_add_test( tcase, test_SpeciesReference_Modifier_ancestor_create_model );
   tcase_add_test( tcase, test_SpeciesType_ancestor_create );
-  //tcase_add_test( tcase, test_Unit_ancestor_create );
-  //tcase_add_test( tcase, test_Unit_ancestor_create_model );
+  tcase_add_test( tcase, test_Unit_ancestor_create );
+  tcase_add_test( tcase, test_Unit_ancestor_create_model );
   tcase_add_test( tcase, test_UnitDefinition_ancestor_create );
 
   suite_add_tcase(suite, tcase);
