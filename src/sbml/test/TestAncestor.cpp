@@ -266,7 +266,7 @@ START_TEST ( test_Model_ancestor_add )
 
   d->setModel(m);
 
-  fail_unless(d == d->getModel()->getAncestorOfType());
+  fail_unless(d == d->getModel()->getAncestorOfType(SBML_DOCUMENT));
 
   delete d;
 }
@@ -406,7 +406,7 @@ START_TEST ( test_SpeciesReference_Modifier_ancestor_add )
   delete sr;
 
   ListOf *lo = r->getListOfModifiers();
-  SpeciesReference *obj = r->getModifier(0);
+  ModifierSpeciesReference *obj = r->getModifier(0);
 
   fail_unless(obj->getAncestorOfType(SBML_REACTION) == r);
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
@@ -445,7 +445,7 @@ START_TEST ( test_StoichiometryMath_ancestor_add )
 
   delete m;
 
-  StoichiometryMath *obj = e->getStoichiometryMath();
+  StoichiometryMath *obj = sr->getStoichiometryMath();
 
   fail_unless(obj->getAncestorOfType(SBML_SPECIES_REFERENCE)    == sr);
   fail_unless(obj->getAncestorOfType(SBML_MODEL)    == NULL);
@@ -487,7 +487,7 @@ START_TEST ( test_Unit_ancestor_add )
   fail_unless(ud->getNumUnits() == 1);
 
   ListOf *lo = ud->getListOfUnits();
-  Unit *obj = e->getUnit(0);
+  Unit *obj = ud->getUnit(0);
 
   fail_unless(obj->getAncestorOfType(SBML_UNIT_DEFINITION) == ud);
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
@@ -1059,7 +1059,7 @@ START_TEST ( test_SpeciesReference_Modifier_ancestor_create )
   fail_unless(sr->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(sr->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
 
-  SpeciesReference *obj = r->getModifier(0);
+  ModifierSpeciesReference *obj = r->getModifier(0);
 
   fail_unless(obj->getAncestorOfType(SBML_REACTION) == r);
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
@@ -1083,7 +1083,7 @@ START_TEST ( test_SpeciesReference_Modifier_ancestor_create_model )
   fail_unless(sr->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(sr->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
 
-  SpeciesReference *obj = r->getModifier(0);
+  ModifierSpeciesReference *obj = r->getModifier(0);
 
   fail_unless(obj->getAncestorOfType(SBML_REACTION) == r);
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
@@ -1130,7 +1130,7 @@ START_TEST ( test_Unit_ancestor_create )
   fail_unless(u->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(u->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
 
-  Unit *obj = e->getUnit(0);
+  Unit *obj = ud->getUnit(0);
 
   fail_unless(obj->getAncestorOfType(SBML_UNIT_DEFINITION) == ud);
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
