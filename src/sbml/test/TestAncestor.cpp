@@ -763,7 +763,7 @@ START_TEST ( test_KineticLaw_Parameter_ancestor_create )
   Parameter *obj = kl->getParameter(0);
 
   fail_unless(obj->getAncestorOfType(SBML_KINETIC_LAW)    == kl);
-  fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
+  fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lop);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
 
@@ -1158,7 +1158,7 @@ START_TEST ( test_Unit_ancestor_create_model )
   fail_unless(u->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(u->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
 
-  Unit *obj = e->getUnit(0);
+  Unit *obj = ud->getUnit(0);
 
   fail_unless(obj->getAncestorOfType(SBML_UNIT_DEFINITION) == ud);
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
