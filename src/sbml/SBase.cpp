@@ -1032,6 +1032,31 @@ SBase::setParentSBMLObject (SBase* sb)
   mParentSBMLObject = sb;
 }
 
+SBase* 
+SBase::getAncestorOfType(SBMLTypeCode_t type)
+{
+  if (type == SBML_DOCUMENT)
+    return getSBMLDocument();
+
+  SBase *child = this;
+  SBase *parent = getParentSBMLObject();
+
+  while (parent != NULL && parent->getTypeCode() != SBML_DOCUMENT)
+  {
+    if (parent->getTypeCode() == type)
+      return parent;
+    else
+    {
+      child = parent;
+      parent = child->getParentSBMLObject();
+    }
+  }
+
+  // if we get here we havent found an ancestor of this type
+  return NULL;
+
+}
+
 
 /*
  * Sets the sboTerm field to value.
@@ -4043,6 +4068,31 @@ const SBase_t *
 SBase_getParentSBMLObject (SBase_t *sb)
 {
   return sb->getParentSBMLObject();
+}
+
+
+/**
+ * Returns the ancestor SBase_t structure of the given SBase_t
+ * structure that corresponds to the given type.
+ *
+ * This function allows any object to determine its exact 
+ * location/function within a model. For example a 
+ * StoichiometryMath object has ancestors of type SpeciesReference,
+ * ListOf(Products/Reactants), Reaction, ListOfReactions and Model; 
+ * any of which can be accessed via this function.
+ *
+ * @param sb the SBase_t structure
+ * @param type the SBMLTypeCode_t of the structure to be returned
+ * 
+ * @return the ancestor SBase_t structure of this SBML object with
+ * the corresponding SBMLTypeCode_t, NULL if there is no ancestor of
+ * this type.
+ */
+LIBSBML_EXTERN
+const SBase_t *
+SBase_getAncestorOfType (SBase_t *sb, SBMLTypeCode_t type)
+{
+  return sb->getAncestorOfType(type);
 }
 
 

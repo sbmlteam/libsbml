@@ -88,6 +88,7 @@ test_sources =                   \
   TestReadFromFile4.c            \
   TestReadFromFile5.cpp          \
   TestSBMLParentObject.cpp       \
+  TestAncestor.cpp               \
   TestConsistencyChecks.cpp
 
 

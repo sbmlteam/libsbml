@@ -120,6 +120,7 @@ Suite *create_suite_TestReadFromFile5 (void);
 
 Suite *create_suite_TestConsistencyChecks (void);
 Suite *create_suite_ParentObject (void);
+Suite *create_suite_AncestorObject (void);
 
 END_C_DECLS
 
@@ -208,6 +209,7 @@ main (int argc, char* argv[])
   srunner_add_suite( runner, create_suite_TestReadFromFile5() );
   srunner_add_suite( runner, create_suite_TestConsistencyChecks() );
   srunner_add_suite( runner, create_suite_ParentObject() );
+  srunner_add_suite( runner, create_suite_AncestorObject() );
 
 
   setTestDataDirectory();

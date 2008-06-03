@@ -526,6 +526,24 @@ public:
 
 
   /**
+   * Returns the ancestor SBML object that corresponds to the 
+   * given SBMLTypeCode_t.
+   *
+   * This function allows any object to determine its exact 
+   * location/function within a model. For example a 
+   * StoichiometryMath object has ancestors of type SpeciesReference,
+   * ListOf(Products/Reactants), Reaction, ListOfReactions and Model; 
+   * any of which can be accessed via this function.
+   *
+   * @param type the SBMLTypeCode_t of the ancestor to be returned.
+   * 
+   * @return the ancestor SBML object of this SBML object, that 
+   * corresponds to the given SBMLTypeCode_t, NULL if none exists.
+   */
+  SBase* getAncestorOfType(SBMLTypeCode_t type);
+
+
+  /**
    * Returns the integer portion of the value of the "sboTerm" attribute of
    * this object.
    *
@@ -1395,6 +1413,10 @@ LIBSBML_EXTERN
 const SBase_t *
 SBase_getParentSBMLObject (SBase_t *sb);
 
+
+LIBSBML_EXTERN
+const SBase_t *
+SBase_getAncestorOfType (SBase_t *sb, SBMLTypeCode_t type);
 
 LIBSBML_EXTERN
 int
