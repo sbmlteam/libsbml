@@ -4,6 +4,37 @@
 
 * New features:
 
+  - The SBase class has a new member "SBase * mParentSBMLObject" which
+    points to the direct SBML parent of the object. For example:
+      StoichiometryMath->SpeciesReference->ListOf->Reaction->ListOf
+      ->Model->SBMLDocument
+    There are two new functions 'getParentSBMLObject()'; which returns the 
+    direct parent of the object; and 'getAncestorOfType(SBMLTypeCode_t)';
+    which returns the ancestor of the given typecode or NULL if none exists.
+
+  - Tracker issue #1966696.
+    It was requested by Michael Lawrence that the logical functions and,
+    or, xor reduce their correpsonding ASTNodes to a binary tree in the
+    same way that the plus and times functions do. However, to do this
+    automatically would change the way the node was output as a string
+    i.e. 'and(x, y, z)' would be output as 'and(and(x, y), z)'. In order
+    to avoid potential problems to other users a function ReduceToBinary
+    has been added to the ASTNode class. This function has the effect of
+    reducing an expression to a binary tree representation; but it's use
+    is at the discretion of the user.
+
+  - Tracker issue #1966122.
+    A segmentation fault was occuring when using libSBML + Xerces to read a 
+    file with a malformed schemaLocation attribute placed on the <sbml> 
+    element.  This problem turned out to be caused by more than one issue
+    (see bug fixes below).   One issue was that libsbml's Xerces parser 
+    code called getLine()/getColumn() in a situation where it doesn't report 
+    a valid number.  On some systems, the end result was a seg fault, 
+    whereas on others the numbers returned are merely crazy.  This problem
+    has been addressed and it is now possible to catch the case where the 
+    line and column numbers returned by libSBML are inaccurate.
+    NOTE: This only applies to libSBML with the Xerces XML Parser.
+
   - In order to check unit consistency of a model the ListFormulaUnitsData 
     must be populated with data from the entire model being checked.  
     The functions populateListFormulaUnitsData and  
@@ -31,6 +62,17 @@
 
 * Bug fixes:
 
+  - Tracker issue #1965490.
+    When the math of an ASTNode is set using a string formula then both
+    the isSetFormula and isSetMath functions return true. However, in the
+    case where the string is not an accurate representation of a formula
+    the ASTNode created from the string is NULL. Thus using the isSetMath
+    function to determine whether a math element can be accessed 
+    was causing problems. The isSetMath function now checks that an ASTNode
+    can be created from a formula and returns false if it cannot. NOTE: This
+    situation only arises for the math elements of Rules and KineticLaws as 
+    these are the only SBML components with formula that exist in Level 1.   
+
   - Tracker issue #1961979.
   - Tracker issue #1958998.
     There was a memory leak in the code to check for an overdetermined
@@ -39,7 +81,7 @@
 
   - Tracker issue #1966122.
     A segmentation fault was occuring when using libSBML + Xerces to read a 
-    file with a malformed schemaLocation attributed placed on the <sbml> 
+    file with a malformed schemaLocation attribute placed on the <sbml> 
     element.  This problem was first reported by Gwenael Kervizic to 
     Nicolas Le Novere.  Xerces was returning an error code that libSBML did 
     not recognize, and the failure to catch the code properly eventually 
