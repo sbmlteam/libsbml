@@ -11,7 +11,7 @@ Fail: (3000) The units returned by the assignment rule that assigns value
       <compartment id="c" units="litre" constant="false"/>
     </listOfCompartments>
     <listOfSpecies>
-      <species id="s1" compartment="c" initialConcentration="0" substanceUnits = "mole" spatialSizeUnits="litre"/>
+      <species id="s1" compartment="c" initialConcentration="0" substanceUnits = "mole"/>
     </listOfSpecies>
     <listOfParameters>
       <parameter id="p" value="1" units="litre" constant="false"/>
