@@ -2534,6 +2534,8 @@ Model::populateListFormulaUnitsData()
 
   unsigned int n, j;
   char newId[12];
+  std::string eaId;
+  std::string newID;
   unsigned int countAlg = 0, countEvents = 0;
   
   Compartment * c;
@@ -2700,8 +2702,9 @@ Model::populateListFormulaUnitsData()
     if (r->getTypeCode() == SBML_ALGEBRAIC_RULE)
     {
       sprintf(newId, "alg_rule_%u", countAlg);
-      fud->setUnitReferenceId(newId);
-      r->setId(newId);
+      newID.assign(newId);
+      fud->setUnitReferenceId(newID);
+      r->setId(newID);
       countAlg++;
     }
     else
@@ -2819,6 +2822,22 @@ Model::populateListFormulaUnitsData()
   {
     e = getEvent(n);
 
+    if (e->isSetId())
+    {
+      newID = e->getId();//sprintf(newId, "%s", e->getId());
+    }
+    else
+    {
+      sprintf(newId, "event_%u", countEvents);
+      newID.assign(newId);
+    }
+    countEvents++;
+    if (!e->isSetId())
+    {
+      e->setId(newID);
+      e->setInternalIdOnly();
+    }
+
     /* dont need units returned by trigger formula - 
      * should be boolean
      */
@@ -2828,21 +2847,9 @@ Model::populateListFormulaUnitsData()
     {
       Delay * d = e->getDelay();
       fud = createFormulaUnitsData();
-
-      if (e->isSetId())
-      {
-        fud->setUnitReferenceId(e->getId());
-        d->setId(e->getId());
-      }
-      else
-      {
-        sprintf(newId, "event_%u", countEvents);
-        fud->setUnitReferenceId(newId);
-        e->setId(newId);
-        e->setInternalIdOnly();
-        d->setId(newId);
-      }
-      countEvents++;
+        
+      fud->setUnitReferenceId(newID);
+      d->setId(newID);
 
       fud->setComponentTypecode(SBML_EVENT);
       unitFormatter->resetFlags();
@@ -2864,10 +2871,11 @@ Model::populateListFormulaUnitsData()
     {
       ea = e->getEventAssignment(j);
 
+      eaId = ea->getVariable() + newID;
       if (ea->isSetMath())    
       {
         fud = createFormulaUnitsData();
-        fud->setUnitReferenceId(ea->getVariable());
+        fud->setUnitReferenceId(eaId);
         fud->setComponentTypecode(SBML_EVENT_ASSIGNMENT);
         unitFormatter->resetFlags();
         ud = unitFormatter->getUnitDefinition(ea->getMath());

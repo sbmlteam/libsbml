@@ -519,7 +519,7 @@ START_TEST (test_FormulaUnitsData_getevent)
 
   fud = m->getFormulaUnitsData(15);
 
-  fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "cell"), NULL);
+  fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "celle1"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode()), "EventAssignment"), NULL);
   fail_unless(fud->getContainsUndeclaredUnits() == 1);
   fail_unless(fud->getCanIgnoreUndeclaredUnits() == 0);

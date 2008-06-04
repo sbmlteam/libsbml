@@ -200,7 +200,9 @@ END_CONSTRAINT
   
 START_CONSTRAINT (99505, EventAssignment, ea)
 {
-  const string& variable = ea.getVariable();
+  EventAssignment *pEa = const_cast<EventAssignment *> (&ea);
+  std::string eId = pEa->getAncestorOfType(SBML_EVENT)->getId();
+  const string& variable = ea.getVariable() + eId;
 
   pre ( ea.isSetMath() == 1 );
 
@@ -876,7 +878,8 @@ START_CONSTRAINT (10561, EventAssignment, ea)
   //  "with the units of that compartment's size. (References: L2V2 Section "
   //  "4.14.2; L2V3 Section 4.14.4.)";
 
-
+  EventAssignment *pEa = const_cast<EventAssignment *> (&ea);
+  std::string eId = pEa->getAncestorOfType(SBML_EVENT)->getId();
   const string& variable = ea.getVariable();
   const Compartment* c = m.getCompartment(variable);
 
@@ -886,7 +889,7 @@ START_CONSTRAINT (10561, EventAssignment, ea)
   const FormulaUnitsData * variableUnits = 
                               m.getFormulaUnitsData(variable, SBML_COMPARTMENT);
   const FormulaUnitsData * formulaUnits = 
-                         m.getFormulaUnitsData(variable, SBML_EVENT_ASSIGNMENT);
+                         m.getFormulaUnitsData(variable+eId, SBML_EVENT_ASSIGNMENT);
 
   pre ( formulaUnits != 0 );
   pre ( variableUnits != 0); 
@@ -918,7 +921,8 @@ START_CONSTRAINT (10562, EventAssignment, ea)
   //  "with the units of the species' quantity. (References: L2V2 Section "
   //  "4.14.2; L2V3 Section 4.14.4.)";
    
-
+  EventAssignment *pEa = const_cast<EventAssignment *> (&ea);
+  std::string eId = pEa->getAncestorOfType(SBML_EVENT)->getId();
   const string& variable = ea.getVariable();
   const Species * s = m.getSpecies(variable);
 
@@ -928,7 +932,7 @@ START_CONSTRAINT (10562, EventAssignment, ea)
   const FormulaUnitsData * variableUnits = 
                                   m.getFormulaUnitsData(variable, SBML_SPECIES);
   const FormulaUnitsData * formulaUnits = 
-                         m.getFormulaUnitsData(variable, SBML_EVENT_ASSIGNMENT);
+                         m.getFormulaUnitsData(variable+eId, SBML_EVENT_ASSIGNMENT);
 
   pre ( formulaUnits != 0 );
   pre ( variableUnits != 0); 
@@ -959,7 +963,8 @@ START_CONSTRAINT (10563, EventAssignment, ea)
   //  "with the units declared for that parameter. (References: L2V2 Section "
   //  "4.14.2; L2V3 Section 4.14.4)";
    
-
+  EventAssignment *pEa = const_cast<EventAssignment *> (&ea);
+  std::string eId = pEa->getAncestorOfType(SBML_EVENT)->getId();
   const string& variable = ea.getVariable();
   const Parameter* p = m.getParameter(variable);
 
@@ -971,7 +976,7 @@ START_CONSTRAINT (10563, EventAssignment, ea)
   const FormulaUnitsData * variableUnits = 
                               m.getFormulaUnitsData(variable, SBML_PARAMETER);
   const FormulaUnitsData * formulaUnits = 
-                       m.getFormulaUnitsData(variable, SBML_EVENT_ASSIGNMENT);
+                       m.getFormulaUnitsData(variable+eId, SBML_EVENT_ASSIGNMENT);
 
   pre ( formulaUnits != 0 );
   pre ( variableUnits != 0); 
