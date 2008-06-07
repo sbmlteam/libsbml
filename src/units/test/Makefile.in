@@ -78,6 +78,7 @@ test_sources =                  \
   TestUnitFormulaFormatter.cpp  \
   TestUnitFormulaFormatter1.cpp \
   TestFormulaUnitsData.cpp      \
+  TestDerivedUnitDefinitions.cpp      \
   TestRunner.c
 
 extra_CPPFLAGS = -I.. -I../..
