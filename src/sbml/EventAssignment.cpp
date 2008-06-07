@@ -175,6 +175,7 @@ EventAssignment::setMath (const ASTNode* math)
 
   delete mMath;
   mMath = (math != 0) ? math->deepCopy() : 0;
+//  mMath->setParentSBMLObject(this);
 }
 
 
@@ -192,11 +193,12 @@ EventAssignment::getDerivedUnitDefinition()
     getSBMLDocument()->getModel()->populateListFormulaUnitsData();
   }
 
+  std::string id = getId() + getAncestorOfType(SBML_EVENT)->getId();
   if (getSBMLDocument()->getModel()
-    ->getFormulaUnitsData(getId(), getTypeCode()))
+    ->getFormulaUnitsData(id, getTypeCode()))
   {
     return getSBMLDocument()->getModel()
-      ->getFormulaUnitsData(getId(), getTypeCode())
+      ->getFormulaUnitsData(id, getTypeCode())
       ->getUnitDefinition();
   }
   else
@@ -220,11 +222,12 @@ EventAssignment::containsUndeclaredUnits()
     getSBMLDocument()->getModel()->populateListFormulaUnitsData();
   }
 
+  std::string id = getId() + getAncestorOfType(SBML_EVENT)->getId();
   if (getSBMLDocument()->getModel()
-    ->getFormulaUnitsData(getId(), getTypeCode()))
+    ->getFormulaUnitsData(id, getTypeCode()))
   {
     return getSBMLDocument()->getModel()
-      ->getFormulaUnitsData(getId(), getTypeCode())
+      ->getFormulaUnitsData(id, getTypeCode())
       ->getContainsUndeclaredUnits();
   }
   else
@@ -339,6 +342,7 @@ EventAssignment::readOtherXML (XMLInputStream& stream)
 
     delete mMath;
     mMath = readMathML(stream);
+//    mMath->setParentSBMLObject(this);
     read  = true;
   }
 
