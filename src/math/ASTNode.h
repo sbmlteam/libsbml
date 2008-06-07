@@ -1102,6 +1102,24 @@ public:
   LIBSBML_EXTERN
   void ReplaceArgument(const std::string bvar, ASTNode * arg);
 
+
+  /**
+   * Sets the parent SBML object.
+   * 
+   * @param sb the parent SBML object of this ASTNode.
+   */
+  LIBSBML_EXTERN
+  void setParentSBMLObject(SBase * sb);
+
+
+  /**
+   * Returns the parent SBML object.
+   * 
+   * @return the parent SBML object of this ASTNode.
+   */
+  LIBSBML_EXTERN
+  SBase * getParentSBMLObject() const;
+
 /**
   * Reduces this ASTNode to a binary tree
   * e.g. if the formula in this ASTNode is and(x, y, z) then the 
@@ -1139,6 +1157,8 @@ protected:
   List *mChildren;
 
   List *mSemanticsAnnotations;
+
+  SBase *mParentSBMLObject;
 
 
   friend class MathMLFormatter;
@@ -1674,6 +1694,15 @@ ASTNode_replaceArgument(ASTNode_t* node, const char * bvar, ASTNode_t* arg);
 LIBSBML_EXTERN
 void
 ASTNode_reduceToBinary(ASTNode_t* node);
+
+LIBSBML_EXTERN
+void 
+ASTNode_setParentSBMLObject(ASTNode_t* node, SBase_t * sb);
+
+
+LIBSBML_EXTERN
+SBase_t * 
+ASTNode_getParentSBMLObject(ASTNode_t* node);
 
 END_C_DECLS
 

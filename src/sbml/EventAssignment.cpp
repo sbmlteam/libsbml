@@ -175,7 +175,7 @@ EventAssignment::setMath (const ASTNode* math)
 
   delete mMath;
   mMath = (math != 0) ? math->deepCopy() : 0;
-//  mMath->setParentSBMLObject(this);
+  if (mMath) mMath->setParentSBMLObject(this);
 }
 
 
@@ -342,7 +342,7 @@ EventAssignment::readOtherXML (XMLInputStream& stream)
 
     delete mMath;
     mMath = readMathML(stream);
-//    mMath->setParentSBMLObject(this);
+    if (mMath) mMath->setParentSBMLObject(this);
     read  = true;
   }
 

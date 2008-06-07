@@ -56,11 +56,13 @@
 
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/FormulaParser.h>
+#include <sbml/EventAssignment.h>
 
 
 START_TEST (test_ASTNode_create)
 {
   ASTNode_t *n = ASTNode_create();
+  EventAssignment_t *ea = EventAssignment_create(); 
 
 
   fail_unless( ASTNode_getType(n) == AST_UNKNOWN );
@@ -71,6 +73,16 @@ START_TEST (test_ASTNode_create)
   fail_unless( ASTNode_getExponent (n) == 0    );
 
   fail_unless( ASTNode_getNumChildren(n) == 0 );
+
+  fail_unless( ASTNode_getParentSBMLObject(n) == NULL );
+
+  ASTNode_setParentSBMLObject(n, (SBase_t*)(ea));
+  fail_unless( (EventAssignment_t*)(ASTNode_getParentSBMLObject(n)) == ea );
+  
+  ASTNode_setParentSBMLObject(n, NULL);
+  fail_unless( ASTNode_getParentSBMLObject(n) == NULL );
+
+  EventAssignment_free(ea);
 
   ASTNode_free(n);
 }
@@ -91,6 +103,7 @@ START_TEST (test_ASTNode_createFromToken)
 
   Token_t   *t;
   ASTNode_t *n;
+  EventAssignment_t *ea = EventAssignment_create(); 
 
 
   /** "foo" **/
@@ -100,6 +113,16 @@ START_TEST (test_ASTNode_createFromToken)
   fail_unless( ASTNode_getType(n) == AST_NAME     );
   fail_unless( !strcmp(ASTNode_getName(n), "foo") );
   fail_unless( ASTNode_getNumChildren(n) == 0     );
+
+  fail_unless( ASTNode_getParentSBMLObject(n) == NULL );
+
+  ASTNode_setParentSBMLObject(n, (SBase_t*)(ea));
+  fail_unless( (EventAssignment_t*)(ASTNode_getParentSBMLObject(n)) == ea );
+  
+  ASTNode_setParentSBMLObject(n, NULL);
+  fail_unless( ASTNode_getParentSBMLObject(n) == NULL );
+
+  EventAssignment_free(ea);
 
   Token_free(t);
   ASTNode_free(n);

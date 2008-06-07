@@ -89,6 +89,7 @@ START_TEST (test_read_MathML_1)
   fail_unless (fd_math->getType() == AST_LAMBDA, NULL);
   fail_unless (fd_math->getNumChildren() == 2, NULL);
   fail_unless (!strcmp(SBML_formulaToString(fd_math), "lambda(x, )"), NULL);
+  fail_unless (fd_math->getParentSBMLObject() == fd, NULL);
 
   ASTNode *child = fd_math->getRightChild();
   fail_unless (child->getType() == AST_UNKNOWN, NULL);
@@ -111,6 +112,7 @@ START_TEST (test_read_MathML_1)
   fail_unless (fd1_math->getType() == AST_LAMBDA, NULL);
   fail_unless (fd1_math->getNumChildren() == 2, NULL);
   fail_unless (!strcmp(SBML_formulaToString(fd1_math), "lambda(x, true)"), NULL);
+  fail_unless (fd1_math->getParentSBMLObject() == fd, NULL);
 
   ASTNode *child1 = fd1_math->getRightChild();
   fail_unless (child1->getType() == AST_CONSTANT_TRUE, NULL);
@@ -128,6 +130,7 @@ START_TEST (test_read_MathML_1)
   fail_unless (ia_math->getType() == AST_UNKNOWN, NULL);
   fail_unless (ia_math->getNumChildren() == 0, NULL);
   fail_unless (!strcmp(SBML_formulaToString(ia_math), ""), NULL);
+  fail_unless (ia_math->getParentSBMLObject() == ia, NULL);
 
   //<algebraicRule>
   //  <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -140,6 +143,7 @@ START_TEST (test_read_MathML_1)
   fail_unless (r_math->getType() == AST_CONSTANT_TRUE, NULL);
   fail_unless (r_math->getNumChildren() == 0, NULL);
   fail_unless (!strcmp(SBML_formulaToString(r_math), "true"), NULL);
+  fail_unless (r_math->getParentSBMLObject() == r, NULL);
 
   //<assignmentRule variable="p2">
   //  <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -152,6 +156,7 @@ START_TEST (test_read_MathML_1)
   fail_unless (r1_math->getType() == AST_REAL, NULL);
   fail_unless (r1_math->getNumChildren() == 0, NULL);
   fail_unless (!strcmp(SBML_formulaToString(r1_math), "INF"), NULL);
+  fail_unless (r1_math->getParentSBMLObject() == r, NULL);
 
   //<kineticLaw>
   //  <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -169,6 +174,7 @@ START_TEST (test_read_MathML_1)
   fail_unless (kl_math->getType() == AST_REAL, NULL);
   fail_unless (kl_math->getNumChildren() == 0, NULL);
   fail_unless (!strcmp(SBML_formulaToString(kl_math), "4.5"), NULL);
+  fail_unless (kl_math->getParentSBMLObject() == kl, NULL);
 
 
   delete d;

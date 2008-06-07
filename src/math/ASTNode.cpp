@@ -174,6 +174,7 @@ ASTNode::ASTNode (ASTNodeType_t type)
   mName          = NULL;
   mInteger       = 0;
   mDenominator   = 1;
+  mParentSBMLObject = NULL;
 
   setType(type);
 
@@ -198,6 +199,7 @@ ASTNode::ASTNode (Token_t* token)
   mName          = NULL;
   mInteger       = 0;
   mDenominator   = 1;
+  mParentSBMLObject = NULL;
 
   mChildren             = new List;
   mSemanticsAnnotations = new List;
@@ -592,6 +594,7 @@ ASTNode::deepCopy () const
   copy->mInteger     = mInteger;
   copy->mReal        = mReal;
   copy->mDenominator = mDenominator;
+  copy->mParentSBMLObject = mParentSBMLObject;
 
   if (mName)
   {
@@ -1597,6 +1600,20 @@ ASTNode::ReduceToBinary()
   ReduceToBinary();
 }
 
+LIBSBML_EXTERN
+void 
+ASTNode::setParentSBMLObject(SBase * sb)
+{
+  mParentSBMLObject = sb;
+}
+
+LIBSBML_EXTERN
+SBase * 
+ASTNode::getParentSBMLObject() const
+{
+  return mParentSBMLObject;
+}
+
 
 /**
   * gets the definitionURL attributes
@@ -2354,4 +2371,32 @@ void
 ASTNode_reduceToBinary(ASTNode_t* node)
 {
   static_cast<ASTNode*>(node)->ReduceToBinary();
+}
+
+/**
+  * Sets the parent SBML structure of the given ASTNode_t structure.
+  * 
+  * @param node the ASTNode_t
+  * @param sb the parent SBase_t structute of the ASTNode_t
+  */
+LIBSBML_EXTERN
+void 
+ASTNode_setParentSBMLObject(ASTNode_t* node, SBase_t * sb)
+{
+  node->setParentSBMLObject(sb);
+}
+
+
+/**
+  * Returns the parent SBML structure of the given ASTNode_t structure.
+  *
+  * @param node the ASTNode_t of which to return the parent.
+  * 
+  * @return the parent SBML SBase_t structure of this ASTNode_t.
+  */
+LIBSBML_EXTERN
+SBase_t * 
+ASTNode_getParentSBMLObject(ASTNode_t* node)
+{
+  return node->getParentSBMLObject();
 }
