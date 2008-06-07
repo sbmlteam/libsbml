@@ -107,6 +107,7 @@ void FunctionReferredToExists::checkCiElements(const FunctionDefinition * fd)
 void FunctionReferredToExists::checkCiIsFunction(const FunctionDefinition * fd,
                                                  const ASTNode * node)
 {
+  if (!node) return;
   if (node != NULL && node->getType() == AST_FUNCTION)
   {
     if (!mFunctions.contains(node->getName()))
