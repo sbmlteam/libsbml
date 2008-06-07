@@ -428,6 +428,8 @@ UnitDefinition::getElementName () const
 void
 UnitDefinition::simplify(UnitDefinition * ud)
 {
+  if (ud == NULL) return;
+
   unsigned int n, i;
   ListOfUnits *  units = ud->getListOfUnits();
   Unit * unit;
@@ -509,6 +511,8 @@ int compareKinds(const void * u1, const void * u2)
 void 
 UnitDefinition::reorder(UnitDefinition *ud)
 {
+  if (ud == NULL) return;
+
   unsigned int n, p;
   ListOfUnits * units = ud->getListOfUnits();
   Unit * unit;
@@ -564,6 +568,8 @@ UnitDefinition::reorder(UnitDefinition *ud)
 UnitDefinition * 
 UnitDefinition::convertToSI(const UnitDefinition * ud)
 {
+  if (ud == NULL) return NULL;
+
   unsigned int n, p;
   UnitDefinition * newUd = new UnitDefinition();
   UnitDefinition * tempUd;
@@ -606,6 +612,24 @@ bool
 UnitDefinition::areIdentical(const UnitDefinition * ud1, const UnitDefinition * ud2)
 {
   bool identical = false;
+
+  bool A = (ud1 == NULL);
+  bool B = (ud2 == NULL);
+
+  /* if one or other is NULL no need to check
+   */
+  if ((A || B) && !(A && B))
+  {
+    return identical;
+  }
+
+  /* if both NULL no need to check */
+  if (A && B)
+  {
+    identical = true;
+    return identical;
+  }
+
   unsigned int n;
 
   /* need to order the unitDefinitions so must make copies
@@ -670,6 +694,24 @@ bool
 UnitDefinition::areEquivalent(const UnitDefinition * ud1, const UnitDefinition * ud2)
 {
   bool equivalent = false;
+
+  bool A = (ud1 == NULL);
+  bool B = (ud2 == NULL);
+
+  /* if one or other is NULL no need to check
+   */
+  if ((A || B) && !(A && B))
+  {
+    return equivalent;
+  }
+
+  /* if both NULL no need to check */
+  if (A && B)
+  {
+    equivalent = true;
+    return equivalent;
+  }
+
   unsigned int n;
 
   UnitDefinition * ud1Temp = UnitDefinition::convertToSI(ud1);
@@ -716,14 +758,32 @@ UnitDefinition::areEquivalent(const UnitDefinition * ud1, const UnitDefinition *
 UnitDefinition *
 UnitDefinition::combine(UnitDefinition *ud1, UnitDefinition *ud2)
 {
-  UnitDefinition * ud = new UnitDefinition(*ud1);
-  for (unsigned int n = 0; n < ud2->getNumUnits(); n++)
+  bool A = (ud1 == NULL);
+  bool B = (ud2 == NULL);
+
+  UnitDefinition * ud;
+  if (A && B)
   {
-    ud->addUnit(ud2->getUnit(n));
+    ud = NULL;
   }
+  else if (A && !B)
+  {
+    ud = new UnitDefinition(*ud2);
+  }
+  else if (B && !A)
+  {
+    ud = new UnitDefinition(*ud1);
+  }
+  else
+  {
+    ud = new UnitDefinition(*ud1);
+    for (unsigned int n = 0; n < ud2->getNumUnits(); n++)
+    {
+      ud->addUnit(ud2->getUnit(n));
+    }
 
-  UnitDefinition::simplify(ud);
-
+    UnitDefinition::simplify(ud);
+  }
   return ud;
 }
 

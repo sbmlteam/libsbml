@@ -100,6 +100,13 @@ START_TEST(test_unitdefinition_simplify)
   
   fail_unless(ud->getNumUnits() == 0);
 
+  /* NULL case*/
+  ud = NULL;
+
+  UnitDefinition::simplify(ud);
+  
+  fail_unless(ud == NULL);
+
   delete u;
   delete u1;
   delete u2;
@@ -127,6 +134,13 @@ START_TEST(test_unitdefinition_order)
   fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_HERTZ);
   fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_METRE);
 
+  /* NULL case*/
+  ud = NULL;
+
+  UnitDefinition::reorder(ud);
+  
+  fail_unless(ud == NULL);
+
   delete u;
   delete u1;
   delete u2;
@@ -151,6 +165,13 @@ START_TEST(test_unitdefinition_convert_SI)
 
   fail_unless(ud1->getNumUnits() == 1);
   fail_unless(ud1->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  /* NULL case*/
+  ud = NULL;
+
+  ud1 = UnitDefinition::convertToSI(ud);
+  
+  fail_unless(ud1 == NULL);
 
   delete u;
   delete u1;
@@ -183,6 +204,23 @@ START_TEST(test_unitdefinition_areIdentical)
   identical = UnitDefinition::areIdentical(ud, ud1);
  
   fail_unless(identical == 0);
+
+  /* NULL case*/
+  ud = NULL;
+
+  identical = UnitDefinition::areIdentical(ud, ud1);;
+  
+  fail_unless(identical == 0);
+ 
+  identical = UnitDefinition::areIdentical(ud1, ud);;
+  
+  fail_unless(identical == 0);
+  
+  ud1 = NULL;
+
+  identical = UnitDefinition::areIdentical(ud, ud1);;
+  
+  fail_unless(identical == 1);
 
   delete u;
   delete u1;
@@ -218,6 +256,23 @@ START_TEST(test_unitdefinition_areEquivalent)
   equivalent = UnitDefinition::areEquivalent(ud, ud1);
  
   fail_unless(equivalent == 0);
+
+  /* NULL case*/
+  ud = NULL;
+
+  equivalent = UnitDefinition::areEquivalent(ud, ud1);
+  
+  fail_unless(equivalent == 0);
+ 
+  equivalent = UnitDefinition::areEquivalent(ud1, ud);
+  
+  fail_unless(equivalent == 0);
+ 
+  ud1 = NULL;
+
+  equivalent = UnitDefinition::areEquivalent(ud, ud1);
+  
+  fail_unless(equivalent == 1);
 
   delete u;
   delete u1;
@@ -258,6 +313,28 @@ START_TEST(test_unitdefinition_combine)
   fail_unless(udTemp->getUnit(2)->getKind() == UNIT_KIND_SECOND);
   fail_unless(udTemp->getUnit(2)->getExponent() == 2);
 
+  /* NULL case*/
+  ud = NULL;
+  
+  udTemp = UnitDefinition::combine(ud, ud1);
+
+  fail_unless(udTemp->getNumUnits() == 2);
+  fail_unless(udTemp->getUnit(0)->getKind() == UNIT_KIND_MOLE);
+  fail_unless(udTemp->getUnit(1)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(udTemp->getUnit(1)->getExponent() == 2);
+
+  udTemp = UnitDefinition::combine(ud1, ud);
+
+  fail_unless(udTemp->getNumUnits() == 2);
+  fail_unless(udTemp->getUnit(0)->getKind() == UNIT_KIND_MOLE);
+  fail_unless(udTemp->getUnit(1)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(udTemp->getUnit(1)->getExponent() == 2);
+
+  ud1 = NULL;
+
+  udTemp = UnitDefinition::combine(ud1, ud);
+
+  fail_unless(udTemp == NULL);
 
   delete u;
   delete ud1;
