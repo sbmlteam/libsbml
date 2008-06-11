@@ -65,6 +65,7 @@ static struct xercesError {
   { XMLErrs::AttrAlreadyUsedInSTag,        DuplicateXMLAttribute},
   { XMLErrs::NotationAlreadyExists,        BadlyFormedXML},
   { XMLErrs::AttListAlreadyExists,         BadlyFormedXML},
+  { XMLErrs::XMLException_Warning,         BadlyFormedXML},
   { XMLErrs::BadDigitForRadix,             XMLBadNumber},
   { XMLErrs::BadStandalone,                BadXMLDecl},
   { XMLErrs::BadXMLEncoding,               BadXMLDecl},
@@ -223,6 +224,7 @@ public:
 
     case XMLErrs::NotationAlreadyExists:
     case XMLErrs::AttListAlreadyExists:
+    case XMLErrs::XMLException_Warning:
       line   = LIBSBML_UNKNOWN_LINE;
       column = LIBSBML_UNKNOWN_COLUMN;
       break;
