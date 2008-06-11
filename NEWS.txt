@@ -101,7 +101,41 @@
     Thanks to Arne B. Gjuvsland for reporting the problem and 
     supplying the fix.
     
+  - Tracker issue #1966122.
+    Xerces would return an unexpected error code when an SBML document
+    contained a 'schemaLocation' attribute on <sbml>, and in addition,
+    libSBML would also attempt to get the line number from Xerces and
+    this attempt resulted in a segmentation fault on some
+    architectures.  This problem was first discovered inadvertently by
+    Gwenael Kervizic while using the Online SBML Validator.  The fix
+    involved changing not only the error trapping for Xerces but also
+    the line/column number reporting behavior of XMLError and the
+    introduction of two new constants, LIBSBML_UNKNOWN_LINE and
+    LIBSBML_UNKNOWN_COLUMN.
+
       
+* Changes
+
+  - The text of the error message for error code 1006 has been changed
+    to "XML content is not well-formed." for greater clarity.
+
+  - In some circumstances, the line & column numbers reported by the
+    underlying XML parser are meaningless.  This typically happened
+    when a severe error occurred while reading the SBML document.
+    However, it is not always obvious whether XMLError's getLine() and
+    getColumn() methods can be called to obtain usable line/column
+    numbers following a severe error.  To provide an indication that
+    the line/column numbers reported by XMLError are actually
+    meaningless numbers, the behavior of XMLError's getLine() and
+    getColumn() methods have been changed.  They will now return the
+    values LIBSBML_UNKNOWN_LINE and LIBSBML_UNKNOWN_COLUMN in those
+    circumstances.  Although the values returned are potentially valid
+    line/column numbers for a file, the real-life probability that
+    this would happen (and lead to confusion) is believed to be too
+    small to worry about.  (The numbers are equal to the C/C++
+    constant ULONG_MAX.)
+
+
     
  === Version 3.1.1 (released 2008-02-25) ===
 
