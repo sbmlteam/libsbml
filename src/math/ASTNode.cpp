@@ -188,6 +188,7 @@ ASTNode::ASTNode (ASTNodeType_t type)
  *
  * The ASTNode will contain the same data as the Token.
  */
+LIBSBML_EXTERN
 ASTNode::ASTNode (Token_t* token)
 {
   unsetSemanticsFlag();
@@ -611,6 +612,7 @@ ASTNode::deepCopy () const
     copy->addSemanticsAnnotation( getSemanticsAnnotation(c)->clone() );
   }
 
+  delete copy->mDefinitionURL;
   copy->mDefinitionURL = mDefinitionURL->clone();
   copy->hasSemantics = hasSemantics;
 
@@ -1645,6 +1647,7 @@ ASTNode_create (void)
 /**
  * Creates a new ASTNode and sets its type to the given ASTNodeType.
  */
+LIBSBML_EXTERN
 ASTNode_t *
 ASTNode_createWithType (ASTNodeType_t type)
 {
@@ -1656,6 +1659,7 @@ ASTNode_createWithType (ASTNodeType_t type)
  * Creates a new ASTNode from the given Token and returns a pointer to it.
  * The returned ASTNode will contain the same data as the Token.
  */
+LIBSBML_EXTERN
 ASTNode_t *
 ASTNode_createFromToken (Token_t *token)
 {
@@ -1678,6 +1682,7 @@ ASTNode_free (ASTNode_t *node)
  * Frees the name of this ASTNode and sets it to NULL, if appropriate,
  * i.e. the node is not an operator, number or AST_UNKNOWN.
  */
+LIBSBML_EXTERN
 void
 ASTNode_freeName (ASTNode_t *node)
 {
