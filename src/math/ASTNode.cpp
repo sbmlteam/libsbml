@@ -227,6 +227,41 @@ ASTNode::ASTNode (Token_t* token)
   }
 }
 
+/**
+ * 
+ * Copy constructor; Creates a deep copy of the given ASTNode
+ *
+ */
+LIBSBML_EXTERN
+ASTNode::ASTNode (const ASTNode& orig) :
+  mType                 ( orig.mType )
+ ,mChar                 ( orig.mChar )
+ ,mName                 ( NULL )
+ ,mInteger              ( orig.mInteger )
+ ,mReal                 ( orig.mReal )
+ ,mDenominator          ( orig.mDenominator )
+ ,mExponent             ( orig.mExponent )
+ ,mDefinitionURL        ( orig.mDefinitionURL->clone() )	
+ ,hasSemantics          ( orig.hasSemantics )
+ ,mChildren             ( new List() )
+ ,mSemanticsAnnotations ( new List() )
+ ,mParentSBMLObject     ( orig.mParentSBMLObject )
+{
+  if (orig.mName)
+  {
+    mName = safe_strdup(orig.mName);
+  }
+
+  for (unsigned int c = 0; c < orig.getNumChildren(); ++c)
+  {
+    addChild( orig.getChild(c)->deepCopy() );
+  }
+
+  for (unsigned int c = 0; c < orig.getNumSemanticsAnnotations(); ++c)
+  {
+    addSemanticsAnnotation( orig.getSemanticsAnnotation(c)->clone() );
+  }
+}
 
 /*
  * Destroys this ASTNode including any child nodes.
@@ -586,37 +621,7 @@ LIBSBML_EXTERN
 ASTNode*
 ASTNode::deepCopy () const
 {
-  ASTNode* copy = new ASTNode;
-
-
-  copy->mType        = mType;
-  copy->mExponent    = mExponent;
-  copy->mChar        = mChar;
-  copy->mInteger     = mInteger;
-  copy->mReal        = mReal;
-  copy->mDenominator = mDenominator;
-  copy->mParentSBMLObject = mParentSBMLObject;
-
-  if (mName)
-  {
-    copy->mName = safe_strdup(mName);
-  }
-
-  for (unsigned int c = 0; c < getNumChildren(); ++c)
-  {
-    copy->addChild( getChild(c)->deepCopy() );
-  }
-
-  for (unsigned int c = 0; c < getNumSemanticsAnnotations(); ++c)
-  {
-    copy->addSemanticsAnnotation( getSemanticsAnnotation(c)->clone() );
-  }
-
-  delete copy->mDefinitionURL;
-  copy->mDefinitionURL = mDefinitionURL->clone();
-  copy->hasSemantics = hasSemantics;
-
-  return copy;
+  return new ASTNode(*this);
 }
 
 
