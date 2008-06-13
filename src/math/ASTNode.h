@@ -400,6 +400,7 @@ public:
    *
    * @param token the Token to add.
    */
+  LIBSBML_EXTERN
   ASTNode (Token_t *token);
 
 
@@ -417,6 +418,7 @@ public:
    * operators, numbers, or @c AST_UNKNOWN.  This method will have no
    * effect on other types of nodes.
    */
+  LIBSBML_EXTERN
   void
   freeName ();
 
@@ -1188,6 +1190,7 @@ ASTNode_create (void);
 /**
  * Creates a new ASTNode and sets its type to the given ASTNodeType.
  */
+LIBSBML_EXTERN
 ASTNode_t *
 ASTNode_createWithType (ASTNodeType_t type);
 
@@ -1195,6 +1198,7 @@ ASTNode_createWithType (ASTNodeType_t type);
  * Creates a new ASTNode from the given Token and returns a pointer to it.
  * The returned ASTNode will contain the same data as the Token.
  */
+LIBSBML_EXTERN
 ASTNode_t *
 ASTNode_createFromToken (Token_t *token);
 
@@ -1213,6 +1217,7 @@ ASTNode_free (ASTNode_t *node);
  * operators, numbers, or @c AST_UNKNOWN.  This method will have no
  * effect on other types of nodes.
  */
+LIBSBML_EXTERN
 void
 ASTNode_freeName (ASTNode_t *node);
 
