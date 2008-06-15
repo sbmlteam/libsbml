@@ -359,6 +359,7 @@ INPUT =                      \
   ../../src/annotation       \
   ../../src/math             \
   ../../src/sbml             \
+  ../../src/sbml/layout      \
   ../../src/util             \
   ../../src/validator        \
   ../../src/xml
