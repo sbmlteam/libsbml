@@ -368,7 +368,7 @@ echo "  LDFLAGS for XML               = $xml_ldflags"
 echo "  LIBS for XML                  = $xml_libs"
 echo ""
 echo "Other ${PACKAGE_NAME} configuration settings:"
-echo "  install dir (\$prefix)         = $prefix"
+echo "  Installation \$prefix          = $prefix"
 
 print_flag "libcheck"  	$with_libcheck	$with_check
 print_flag "SWIG"   	$with_swig	$SWIG
@@ -383,7 +383,7 @@ print_flag "UFFI"   	$EXT_UFFI	$UFFI
 print_flag "Ruby"       $with_ruby      $RUBY
 
 if test "$enable_layout" != "no" ; then
-  echo "  use Layout Extension        = yes  (experimental)"
+  echo "  Using proposed layout exten.  = yes"
 fi
 
 echo ""
