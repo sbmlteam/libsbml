@@ -113,6 +113,11 @@
     introduction of two new constants, LIBSBML_UNKNOWN_LINE and
     LIBSBML_UNKNOWN_COLUMN.
 
+  - The code for generating documentation using Doxygen failed to
+    include the code directory for the candidate layout extension; as
+    a result, the docs would never include the layout extension code.
+    Now fixed.  If libsbml is configured with --enable-layout and a
+    "make docs" is run, the layout code is included in the docs.
       
 * Changes
 
