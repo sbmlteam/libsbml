@@ -51,7 +51,7 @@
 #ifdef __cplusplus
 
 #include <vector>
-
+#include <cstdlib>
 
 /** @cond doxygen-libsbml-internal */
 class XMLInputStream;

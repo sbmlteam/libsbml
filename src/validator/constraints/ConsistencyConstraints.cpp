@@ -25,6 +25,7 @@
 #ifndef AddingConstraintsToValidator
 
 //#include <string>
+#include <cstring>
 
 #include <sbml/SBMLTypes.h>
 #include <sbml/SBMLTypeCodes.h>

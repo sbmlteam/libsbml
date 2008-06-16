@@ -23,6 +23,7 @@
 
 
 #include <iostream>
+#include <cstring>
 #include <check.h>
 
 #include <sbml/util/util.h>

@@ -21,6 +21,7 @@
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
  */
 
+#include <cstring>
 
 #include <sbml/Model.h>
 #include <sbml/Rule.h>

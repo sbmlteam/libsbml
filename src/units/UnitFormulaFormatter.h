@@ -57,6 +57,8 @@
 
 #ifdef __cplusplus
 
+#include <cstring>
+
 class   LIBSBML_EXTERN UnitFormulaFormatter
 {
 public:

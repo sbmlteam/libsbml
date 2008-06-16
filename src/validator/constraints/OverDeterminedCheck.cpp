@@ -29,6 +29,7 @@
 #include "OverDeterminedCheck.h"
 
 #include <iostream>
+#include <cstring>
 
 /** @cond doxygen-ignored */
 

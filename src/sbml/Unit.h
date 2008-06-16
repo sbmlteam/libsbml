@@ -199,6 +199,7 @@
 
 
 #include <string>
+#include <cstring>
 
 #include <sbml/SBase.h>
 #include <sbml/ListOf.h>

@@ -23,6 +23,7 @@
 
 #include <limits>
 #include <iostream>
+#include <cstring>
 
 #include <check.h>
 
