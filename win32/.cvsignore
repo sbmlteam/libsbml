@@ -1,9 +1,0 @@
-Makefile
-.deps
-*.plg
-*.ncb
-*.opt
-*.plg
-*.suo
-TAGS
-CTAGS
