@@ -1,8 +1,0 @@
-Makefile
-.deps
-*.so
-*.dylib
-*.dll
-libsbml_wrap.cpp
-TAGS
-CTAGS
