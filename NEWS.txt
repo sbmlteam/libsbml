@@ -142,7 +142,7 @@
 
   - We changed the revision control system for all SBML project files,
     including libSBML, from using CVS to SVN.  CVS access is no longer
-    possible.  Please see the following page for information about SVN
+    available.  Please see the following page for information about SVN
     access on SourceForge: https://sourceforge.net/svn/?group_id=71971
 
     
