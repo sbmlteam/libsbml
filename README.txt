@@ -253,7 +253,7 @@ workaround more quickly than the libSBML developers can respond.
 ----------------
 
 There are two kinds of mailing lists available: normal discussion
-lists for humans, and a CVS change notification list.
+lists for humans, and a SVN change notification list.
 
 Discussion lists
 ----------------
@@ -277,15 +277,15 @@ of libsbml-development will enable you to keep in touch with the
 latest developments in libSBML as well as to ask questions and share
 your experiences with fellow developers and users of libSBML.
 
-CVS notification
+SVN notification
 ----------------
 
-If you are obtaining your libSBML files from CVS, you may wish to
-subscribe to the mailing list sbml-cvs-libsbml, to be apprised of
-changes to the CVS repository as soon as they are committed.  You can
-join the list by visiting the following URL:
+If you are obtaining your libSBML files from SVN, you may wish to
+subscribe to the mailing list sbml-svn, to be apprised of changes to
+the SVN repository as soon as they are committed.  You can join the
+list by visiting the following URL:
 
-  https://lists.sourceforge.net/lists/listinfo/sbml-cvs-libsbml
+  https://lists.sourceforge.net/lists/listinfo/sbml-svn
 
 
 -----------------------------
