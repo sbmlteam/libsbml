@@ -71,7 +71,7 @@ which use the code given in the ..\libsbml\examples\c++ directory
 File author: S. Keating
 Last Modified: $Date$
 Last Modified By: $Author$
-$Source$
+$HeadURL$
 -------------------------------------------
 
 # The following is for [X]Emacs users.  Please leave in place.

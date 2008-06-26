@@ -6,7 +6,7 @@
  * \author Michael Hucka
  *
  * $Id$
- * $Source$
+ * $HeadURL$
  */
 /* Copyright 2006-2007 California Institute of Technology.
  * Copyright 2005      California Institute of Technology and

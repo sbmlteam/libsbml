@@ -5,7 +5,7 @@
 \author  Martin Ginkel <mginkel@mpi-mageburg.mpg.de>
 
 $Id$
-$Source$
+$HeadURL$
 
 Copyright 2004 Max-Planck-Institute Magdeburg
 

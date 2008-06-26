@@ -3,7 +3,7 @@
 # Organization: CDS, California Institute of Technology
 # Created     : 2000-09-27 16:57 PDT
 # Revision    : $Id$
-# $Source$
+# $HeadURL$
 #
 # Based on cekarticle.perl which I wrote and which was in turn originally
 # based on article.perl by Ross Moore <ross@mpce.mq.edu.au> 09-14-97

@@ -6,7 +6,7 @@
  * @author  Akiya Jouraku
  *
  * $Id$
- * $Source$
+ * $HeadURL$
  */
 
 /*

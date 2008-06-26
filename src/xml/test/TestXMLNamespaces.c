@@ -4,7 +4,7 @@
  * \author  Michael Hucka <mhucka@caltech.edu>
  *
  * $Id$
- * $Source$
+ * $HeadURL$
  */
 /* Copyright 2007 California Institute of Technology.
  *

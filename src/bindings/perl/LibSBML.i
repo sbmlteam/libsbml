@@ -4,7 +4,7 @@
  * \author  TBI {xtof,raim}@tbi.univie.ac.at
  *
  * $Id$
- * $Source$
+ * $HeadURL$
  */
 /* Copyright 2004 TBI
  *

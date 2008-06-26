@@ -107,7 +107,7 @@ distribution.
 File author: B. Bornstein, S. Keating, M. Hucka
 Last Modified: $Date$
 Last Modified By: $Author$
-$Source$
+$HeadURL$
 -----------------------------------------------------------------------------
 
 # The following is for [X]Emacs users.  Please leave in place.

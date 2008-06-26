@@ -4,7 +4,7 @@ dnl Description : Autoconf macro to check for existence of Xerces-C library
 dnl Author(s)   : Ben Bornstein, Mike Hucka
 dnl Created     : 2003-02-14
 dnl Revision    : $Id$
-dnl Source      : $Source$
+dnl $HeadURL$
 dnl
 dnl <!-------------------------------------------------------------------------
 dnl This file is part of libSBML.  Please visit http://sbml.org for more

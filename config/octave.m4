@@ -4,7 +4,7 @@ dnl Description : Autoconf macro for Octave configuration
 dnl Author(s)   : Mike Hucka
 dnl Created     : 2007-08-26
 dnl Revision    : $Id$
-dnl Source      : $Source$
+dnl $HeadURL$
 dnl
 dnl <!-------------------------------------------------------------------------
 dnl This file is part of libSBML.  Please visit http://sbml.org for more

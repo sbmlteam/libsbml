@@ -4,7 +4,7 @@
  * \author  Ben Bornstein and Ben Kovitz
  *
  * $Id$
- * $Source$
+ * $HeadURL$
  */
 /* Copyright 2004 California Institute of Technology and Japan Science and
  * Technology Corporation.

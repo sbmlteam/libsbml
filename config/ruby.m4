@@ -5,7 +5,7 @@ dnl Author(s)   : SBML Team <sbml-team@caltech.edu>
 dnl Organization: California Institute of Technology
 dnl Created     : 2007-12-17
 dnl Revision    : $Id$
-dnl Source      : $Source$
+dnl $HeadURL$
 dnl
 dnl Portions of this code originally came from the aclocal 1.7
 dnl distribution.  The main macro was named AM_PATH_PYTHON, but I (Mike

@@ -2,7 +2,7 @@ dnl Filename    : libxml.m4
 dnl Description : Autoconf macro to check for existence of libxml library
 dnl Created     : 2007-02-22
 dnl Revision    : $Id$
-dnl Source      : $Source$
+dnl $HeadURL$
 
 dnl Portions of this file were taken from the file "libxml.m4" provided
 dnl with the libxml2 version 2.6.27 distribution.  Here are the headers

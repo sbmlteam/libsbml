@@ -6,7 +6,7 @@
  * @author  Ben Bornstein 
  *
  * $Id$
- * $Source$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestReadFromFile5.cpp
  * with the help of conversion sciprt (ctest_converter.pl).

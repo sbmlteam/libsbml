@@ -4,7 +4,7 @@
   Author(s)   : Michael Hucka <mhucka@caltech.edu>
   Created     : 2005-09-22
   Revision    : $Id$
-  Source      : $Source$
+  $HeadURL$
 
   Lines beginning with spaces and empty lines in this file are comments.
 

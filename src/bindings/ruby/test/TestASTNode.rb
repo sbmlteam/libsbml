@@ -5,7 +5,7 @@
 # @author  Ben Bornstein 
 #
 # $Id$
-# $Source$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestASTNode.c
 # wiht the help of conversion sciprt (ctest_converter.pl).

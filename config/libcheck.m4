@@ -4,7 +4,7 @@ dnl @brief   Autoconf macro to check for existence of Check library
 dnl @author  Mike hucka
 dnl
 dnl $Id$
-dnl $Source$
+dnl $HeadURL$
 dnl 
 dnl Portions of this file originally came from the check 0.9.5
 dnl distribution.  I (Mike Hucka) made some modifications because we

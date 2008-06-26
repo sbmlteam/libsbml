@@ -4,7 +4,7 @@
  * @author  Michael Hucka
  *
  * $Id$
- * $Source$
+ * $HeadURL$
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -41,14 +41,14 @@
  * libSBML is released, making it easy to use less-than and greater-than
  * comparisons when testing versions numbers.
  */
-#define LIBSBML_VERSION		31100
+#define LIBSBML_VERSION		30101
 
 /**
  * LIBSBML_VERSION_STRING:
  *
  * The numeric version as a string: version 1.2.3 becomes "10203".
  */
-#define LIBSBML_VERSION_STRING	"31100"
+#define LIBSBML_VERSION_STRING	"30101"
 
 
 #endif  /* LIBSBML_VERSION_H */

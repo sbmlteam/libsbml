@@ -4,7 +4,7 @@
  * @author  Ben Bornstein
  *
  * $Id$
- * $Source$
+ * $HeadURL$
  *
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.

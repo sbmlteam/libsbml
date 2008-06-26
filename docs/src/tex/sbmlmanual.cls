@@ -4,7 +4,7 @@
 %% Organization: CDS, California Institute of Technology
 %% Created     : 2004-04-15
 %% Revision    : $Id$
-%% $Source$
+%% $HeadURL$
 %%
 %% Copyright 2004 California Institute of Technology
 %% 

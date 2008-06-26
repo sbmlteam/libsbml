@@ -4,7 +4,7 @@
 # Original author(s): Michael Hucka <mhucka@caltech.edu>
 # Organization      : California Institute of Technology
 # $Id$
-# $Source$
+# $HeadURL$
 # -----------------------------------------------------------------------------
 
 # Include libSBML's common Doxygen settings:

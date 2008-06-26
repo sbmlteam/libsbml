@@ -6,7 +6,7 @@
  * @author  Sarah Keating 
  *
  * $Id$
- * $Source$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestConsistencyChecks.cpp
  * with the help of conversion sciprt (ctest_converter.pl).

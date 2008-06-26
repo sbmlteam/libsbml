@@ -4,7 +4,7 @@
  * @author  Jamie Ho, Sun Microsystems, Inc.
  *
  * $Id$
- * $Source$
+ * $HeadURL$
  *
  *<!-- ------------------------------------------------------------------------
  *  @(#)ExcludeDoclet.java	1.1 04/08/31

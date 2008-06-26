@@ -6,7 +6,7 @@ dnl @author  Ben Bornstein
 dnl @author  Mike hucka
 dnl
 dnl $Id$
-dnl $Source$
+dnl $HeadURL$
 dnl 
 dnl ---------------------------------------------------------------------------
 dnl This file is part of libSBML.  Please visit http://sbml.org for more

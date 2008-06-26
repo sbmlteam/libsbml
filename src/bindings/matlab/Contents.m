@@ -28,7 +28,7 @@
 %  Organization: University of Hertfordshire STRC
 %  Created     : 2003-09-15
 %  Revision    : $Id$
-%  Source      : $Source$
+%  $HeadURL$
 %
 %  Copyright 2003 California Institute of Technology, the Japan Science
 %  and Technology Corporation, and the University of Hertfordshire

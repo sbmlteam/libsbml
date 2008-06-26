@@ -5,7 +5,7 @@
 # @author  Sarah Keating 
 #
 # $Id$
-# $Source$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestStoichiometryMath.c
 # with the help of conversion sciprt (ctest_converter.pl).

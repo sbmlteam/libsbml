@@ -2,7 +2,7 @@
 %% Original author(s): Michael Hucka <mhucka@caltech.edu>
 %% Organization      : California Institute of Technology
 %% $Id$
-%% $Source$
+%% $HeadURL$
 
 addpath('..')
 addpath('../../..')

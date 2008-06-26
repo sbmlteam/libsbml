@@ -5,7 +5,7 @@ dnl Author(s)   : Martin Ginkel <martin.ginkel@epost.de>
 dnl Organization: Max-Planck-Institute Magdeburg
 dnl Created     : 2004-08-26 
 dnl Revision    : $Id$
-dnl Source      : $Source$
+dnl $HeadURL$
 dnl
 dnl Copyright 2004 Max-Planck-Institute Magdeburg
 dnl

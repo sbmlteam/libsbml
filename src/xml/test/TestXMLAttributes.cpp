@@ -4,7 +4,7 @@
  * \author  Ben Bornstein
  *
  * $Id$
- * $Source$
+ * $HeadURL$
  */
 
 #include <limits>

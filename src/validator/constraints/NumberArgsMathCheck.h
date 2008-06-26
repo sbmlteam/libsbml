@@ -4,7 +4,7 @@
  * @author  Sarah Keating
  *
  * $Id$
- * $Source$
+ * $HeadURL$
  */
 /* Copyright 2005 California Institute of Technology and Japan Science and
  * Technology Corporation.

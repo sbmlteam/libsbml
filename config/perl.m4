@@ -5,7 +5,7 @@ dnl Author(s)   : Mike Hucka
 dnl Organization: SBML Team
 dnl Created     : 2005-05-01
 dnl Revision    : $Id$
-dnl Source      : $Source$
+dnl $HeadURL$
 dnl
 dnl <!-------------------------------------------------------------------------
 dnl This file is part of libSBML.  Please visit http://sbml.org for more

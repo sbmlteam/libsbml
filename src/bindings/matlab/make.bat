@@ -5,7 +5,7 @@ REM Author(s)   : Sarah Keating
 REM Organization: University of Hertfordshire STRC
 REM Created     : 2003-10-24
 REM Revision    : $Id$
-REM Source      : $Source$
+REM $HeadURL$
 REM
 REM Copyright 2003 California Institute of Technology and
 REM Japan Science and Technology Corporation.

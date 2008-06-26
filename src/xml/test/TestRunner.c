@@ -4,7 +4,7 @@
  * \author  Ben Bornstein and Michael Hucka
  *
  * $Id$
- * $Source$
+ * $HeadURL$
  */
 
 #include <string.h>

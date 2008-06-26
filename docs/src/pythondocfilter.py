@@ -5,7 +5,7 @@
 # @author  Michael Hucka
 #
 # $Id$
-# $Source$
+# $HeadURL$
 #
 # Usage: pythondocfilter.py libsbml.py > output.py
 #

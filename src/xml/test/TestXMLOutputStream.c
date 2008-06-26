@@ -4,7 +4,7 @@
  * \author  Sarah Keating
  *
  * $Id$
- * $Source$
+ * $HeadURL$
  */
 /* Copyright 2007 California Institute of Technology.
  *

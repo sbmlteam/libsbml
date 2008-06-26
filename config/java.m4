@@ -5,7 +5,7 @@ dnl Author(s)   : SBML Team <sbml-team@caltech.edu>
 dnl Organization: California Institute of Technology
 dnl Created     : 2004-07-07
 dnl Revision    : $Id$
-dnl Source      : $Source$
+dnl $HeadURL$
 dnl
 dnl <!-------------------------------------------------------------------------
 dnl This file is part of libSBML.  Please visit http://sbml.org for more

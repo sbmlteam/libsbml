@@ -4,7 +4,7 @@
  * @author  Ben Bornstein and Sarah Keating
  *
  * $Id$
- * $Source$
+ * $HeadURL$
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more

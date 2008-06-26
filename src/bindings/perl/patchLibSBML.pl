@@ -7,7 +7,7 @@
 # \author  TBI {xtof,raim}@tbi.univie.ac.at
 #
 # $Id$
-# $Source$
+# $HeadURL$
 
 #
 #

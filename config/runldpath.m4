@@ -4,7 +4,7 @@ dnl Description : Autoconf macro to set special variable RUN_LDPATH
 dnl Author(s)   : Mike Hucka
 dnl Created     : 2005-04-30
 dnl Revision    : $Id$
-dnl Source      : $Source$
+dnl $HeadURL$
 dnl
 dnl <!-------------------------------------------------------------------------
 dnl This file is part of libSBML.  Please visit http://sbml.org for more

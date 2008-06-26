@@ -3,7 +3,7 @@ dnl Description : Autoconf macro to check for existence of Doxygen
 dnl Author(s)   : Mike Hucka <mhucka@caltech.edu>
 dnl Created     : 2007-04-16
 dnl Revision    : $Id$
-dnl Source      : $Source$
+dnl $HeadURL$
 dnl
 dnl ---------------------------------------------------------------------------
 dnl This file is part of libSBML.  Please visit http://sbml.org for more

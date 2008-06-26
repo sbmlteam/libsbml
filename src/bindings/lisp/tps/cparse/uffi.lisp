@@ -2,7 +2,7 @@
 Description : partial translation from C-Headers to UFFI 
 Author(s)   : Martin Ginkel <mginkel@mpi-mageburg.mpg.de>
 Revision    : $Id$
-Source      : $Source$
+$HeadURL$
 
 Copyright 2004 Max-Planck-Institute Magdeburg
 

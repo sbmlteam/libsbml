@@ -4,7 +4,7 @@
  * \author  Ralph Gauges
  *
  * $Id$
- * $Source$
+ * $HeadURL$
  */
 /* Copyright 2004 European Media Laboratories Research gGmbH
  *

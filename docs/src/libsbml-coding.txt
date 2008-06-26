@@ -270,7 +270,7 @@ file for libSBML (and in fact, it's the same for .cpp files, too):
  * @author  [author's name]
  *
  * $Id$
- * $Source$
+ * $HeadURL$
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -288,7 +288,7 @@ file for libSBML (and in fact, it's the same for .cpp files, too):
  *----------------------------------------------------------------------- -->*/
 @endverbatim
 Of course, you should substitute appropriate content where the text is
-bracked by @c [ and @c ].  The @c $Id$ and @c $Source$ keywords will
+bracked by @c [ and @c ].  The @c $Id$ and @c $HeadURL$ keywords will
 automatically be substituted by CVS or SVN upon the first check-in.  The
 following is an complete example taken from an actual libSBML file at the
 time of this writing:

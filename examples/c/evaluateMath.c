@@ -6,7 +6,7 @@
  * @author  Michael Hucka
  *
  * $Id$
- * $Source$
+ * $HeadURL$
  */
 /* Copyright 2003 Rainer Machne
  *

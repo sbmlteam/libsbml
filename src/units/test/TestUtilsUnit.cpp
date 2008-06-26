@@ -4,7 +4,7 @@
  * \author  Sarah Keating and Ralph Gauges
  *
  * $Id$
- * $Source$
+ * $HeadURL$
  */
 /* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.

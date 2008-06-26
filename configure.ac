@@ -4,7 +4,7 @@ dnl Description : Run this file through autoconf to produce `configure'
 dnl Author(s)   : SBML Team <sbml-team@caltech.edu>
 dnl Created     : 2003-02-13
 dnl Revision    : $Id$
-dnl Source      : $Source$
+dnl $HeadURL$
 dnl
 dnl <!-------------------------------------------------------------------------
 dnl This file is part of libSBML.  Please visit http://sbml.org for more
