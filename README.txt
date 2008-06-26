@@ -348,7 +348,7 @@ Systems Biology Institute (Japan); and Keio University (Japan).
 File author: M. Hucka, B. Bornstein, S. Keating
 Last Modified: $Date$
 Last Modified By: $Author$
-$Source$
+$HeadURL$
 -----------------------------------------------
 
 # The following is for [X]Emacs users.  Please leave in place.
