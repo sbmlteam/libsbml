@@ -1,5 +1,6 @@
 autom4te.cache
 Makefile
+Makefile.PL
 config.log
 config.status
 .deps
