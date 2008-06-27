@@ -41,7 +41,7 @@ def suite():
   return suite
 
 if __name__ == "__main__":
-  if unittest.TextTestRunner(verbosity=2).run(suite()).wasSuccessful() :
+  if unittest.TextTestRunner(verbosity=1).run(suite()).wasSuccessful() :
     sys.exit(0)
   else:
     sys.exit(1)
