@@ -101,6 +101,10 @@ endif
 
 distfiles = $(test_sources) $(test_headers) Makefile.in
 
+# Extra things to remove.
+
+extra_clean = out.xml
+
 
 # -----------------------------------------------------------------------------
 # Primary build actions
