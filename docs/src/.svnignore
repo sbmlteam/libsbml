@@ -8,7 +8,7 @@ TAGS
 CTAGS
 libsbml.pc
 *.o
-docs/src/doxygen-config-python.txt
-docs/src/doxygen-config-c.txt
-docs/src/doxygen-config-cpp.txt
-docs/src/doxygen-config-perl.txt
+doxygen-config-python.txt
+doxygen-config-c.txt
+doxygen-config-cpp.txt
+doxygen-config-perl.txt
