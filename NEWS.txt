@@ -144,6 +144,8 @@
     including libSBML, from using CVS to SVN.  CVS access is no longer
     available.  Please see the following page for information about SVN
     access on SourceForge: https://sourceforge.net/svn/?group_id=71971
+    We also have an information page about the SBML SVN repository at
+    http://sbml.org/SBML_Projects/SVN_Repository_Access    
 
     
  === Version 3.1.1 (released 2008-02-25) ===
