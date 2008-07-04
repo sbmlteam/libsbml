@@ -12,6 +12,10 @@
     direct parent of the object; and 'getAncestorOfType(SBMLTypeCode_t)';
     which returns the ancestor of the given typecode or NULL if none exists.
 
+  - The ASTNode class has a new member "SBase * mParentSBMLObject" which 
+    points to the direct SBML parent of the ASTNode object and a
+    corresponding getParentSBMLObject() function that returns it.
+    
   - Tracker issue #1966696.
     It was requested by Michael Lawrence that the logical functions and,
     or, xor reduce their correpsonding ASTNodes to a binary tree in the
