@@ -66,6 +66,16 @@
 
 * Bug fixes:
 
+  - Eric Fernandez reported that the latest gcc version (gcc-4.3.1) 
+    caused compilation errors in the current libsbml.  These have been
+    caught and corrected.
+
+  - Tracker issue #1967472
+    Different events can assign values to the same variable.  This 
+    was not being correctly handled by the unit validation code - again
+    thanks to Chris Myers for spotting this! This has been corrected and 
+    additional test cases have been added.
+
   - Tracker issue #1965490.
     When the math of an ASTNode is set using a string formula then both
     the isSetFormula and isSetMath functions return true. However, in the
