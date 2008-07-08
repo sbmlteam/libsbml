@@ -1180,6 +1180,15 @@ protected:
 
  
   /**
+   * Helper to log a common type of error.
+   */
+  void logEmptyString( std::string attribute,
+			    const unsigned int level,
+			    const unsigned int version,
+          std::string element);
+
+
+  /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
    * parents implementation of this method as well.

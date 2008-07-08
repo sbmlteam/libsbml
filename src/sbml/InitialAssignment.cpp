@@ -385,7 +385,11 @@ InitialAssignment::readAttributes (const XMLAttributes& attributes)
   //
   // symbol: SId  { use="required" }  (L2v2)
   //
-  attributes.readInto("symbol", mId, getErrorLog(), true);
+  bool assigned = attributes.readInto("symbol", mId, getErrorLog(), true);
+  if (assigned && mId.size() == 0)
+  {
+    logEmptyString("symbol", level, version, "<initialAssignment>");
+  }
   SBase::checkIdSyntax();
 
   //

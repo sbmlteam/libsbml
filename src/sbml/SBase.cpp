@@ -1760,6 +1760,28 @@ SBase::logUnknownElement( string element,
 
 /** @cond doxygen-libsbml-internal */
 /*
+ * Helper to log a common type of error.
+ */
+void
+SBase::logEmptyString( string attribute,
+                       const unsigned int level,
+                       const unsigned int version,
+                       string element )
+                       
+{
+  ostringstream msg;
+
+  msg << "Attribute '" << attribute << "' on an "
+    << element << " must not be an empty string.";
+      
+  getErrorLog()->logError(NotSchemaConformant,
+			  level, version, msg.str());
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
  * Convenience method for easily logging problems from within method
  * implementations.
  *
@@ -2083,24 +2105,7 @@ SBase::checkIdSyntax()
 
   if (size == 0)
   {
-    // Identifiers are not required on the following objects, so it's ok
- //   // if they're zero-length.
-
- //   if (getTypeCode() == SBML_MODEL
-        //|| getTypeCode() == SBML_ALGEBRAIC_RULE
-        //|| getTypeCode() == SBML_EVENT
-        //|| getTypeCode() == SBML_MODIFIER_SPECIES_REFERENCE
-        //|| getTypeCode() == SBML_SPECIES_REFERENCE)
- //   {
-      return;
- //   }
- //   else
- //   {
- //     // This is a schema validation error: no id on an object that needs it.
- //     logError(NotSchemaConformant, getLevel(), getVersion(),
-        //       "Missing 'id' on an element that requires an identifier");
- //     return;
- //   }
+    return;
   }
 
   unsigned int n = 0;

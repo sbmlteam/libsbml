@@ -200,7 +200,11 @@ SimpleSpeciesReference::readAttributes (const XMLAttributes& attributes)
     //
     // id: SId  { use="optional" }  (L2v2)
     //
-    attributes.readInto("id" , mId, getErrorLog());
+    bool assigned = attributes.readInto("id", mId, getErrorLog());
+    if (assigned && mId.size() == 0)
+    {
+      logEmptyString("id", level, version, "<speciesReference>");
+    }
     SBase::checkIdSyntax();
 
     //

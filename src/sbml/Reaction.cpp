@@ -851,7 +851,11 @@ Reaction::readAttributes (const XMLAttributes& attributes)
   //   id: SId    { use="required" }  (L2v1, L2v2)
   //
   const string id = (level == 1) ? "name" : "id";
-  attributes.readInto(id, mId, getErrorLog(), true);
+  bool assigned = attributes.readInto(id, mId, getErrorLog(), true);
+  if (assigned && mId.size() == 0)
+  {
+    logEmptyString(id, level, version, "<rule>");
+  }
   SBase::checkIdSyntax();
 
   //

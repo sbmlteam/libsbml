@@ -719,7 +719,11 @@ Rule::readAttributes (const XMLAttributes& attributes)
       // species: SName   { use="required" }  (L1v2)
       //
       const string s = (level == 1 && version == 1) ? "specie" : "species";
-      attributes.readInto(s, mId, getErrorLog(), true);
+      bool assigned = attributes.readInto(s, mId, getErrorLog(), true);
+      if (assigned && mId.size() == 0)
+      {
+        logEmptyString(s, level, version, "<rule>");
+      }
       SBase::checkIdSyntax();
     }
     else if ( isCompartmentVolume() )
@@ -727,7 +731,11 @@ Rule::readAttributes (const XMLAttributes& attributes)
       //
       // compartment: SName  { use="required" }  (L1v1, L1v2)
       //
-      attributes.readInto("compartment", mId, getErrorLog(), true);
+      bool assigned = attributes.readInto("compartment", mId, getErrorLog(), true);
+      if (assigned && mId.size() == 0)
+      {
+        logEmptyString("compartment", level, version, "<rule>");
+      }
       SBase::checkIdSyntax();
     }
     else if ( isParameter() )
@@ -735,7 +743,11 @@ Rule::readAttributes (const XMLAttributes& attributes)
       //
       // name: SName  { use="required" } (L1v1, L1v2)
       //
-      attributes.readInto("name", mId, getErrorLog(), true);
+      bool assigned = attributes.readInto("name", mId, getErrorLog(), true);
+      if (assigned && mId.size() == 0)
+      {
+        logEmptyString("name", level, version, "<rule>");
+      }
       SBase::checkIdSyntax();
 
       //
@@ -752,7 +764,11 @@ Rule::readAttributes (const XMLAttributes& attributes)
       //
       // variable: SId  { use="required" }  (L2v1, L2v2)
       //
-      attributes.readInto("variable", mId, getErrorLog(), true);
+      bool assigned = attributes.readInto("variable", mId, getErrorLog(), true);
+      if (assigned && mId.size() == 0)
+      {
+        logEmptyString("variable", level, version, "<rule>");
+      }
       SBase::checkIdSyntax();
     }
 

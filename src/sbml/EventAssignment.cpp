@@ -393,7 +393,11 @@ EventAssignment::readAttributes (const XMLAttributes& attributes)
   //
   // variable: SId  { use="required" }  (L2v1, L2v2)
   //
-  attributes.readInto("variable", mId, getErrorLog(), true);
+  bool assigned = attributes.readInto("variable", mId, getErrorLog(), true);
+  if (assigned && mId.size() == 0)
+  {
+    logEmptyString("variable", level, version, "<eventAssignment>");
+  }
   SBase::checkIdSyntax();
 
 

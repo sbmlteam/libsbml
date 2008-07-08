@@ -567,7 +567,11 @@ Event::readAttributes (const XMLAttributes& attributes)
   //
   // id: SId  { use="optional" }  (L2v1, L2v2)
   //
-  attributes.readInto("id", mId, getErrorLog(), false);
+  bool assigned = attributes.readInto("id", mId, getErrorLog(), false);
+  if (assigned && mId.size() == 0)
+  {
+    logEmptyString("id", level, version, "<event>");
+  }
   SBase::checkIdSyntax();
 
   //
