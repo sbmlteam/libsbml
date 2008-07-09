@@ -61,6 +61,8 @@ Constraint::Constraint (const ASTNode* math) :
  */
 Constraint::~Constraint ()
 {
+  if(mMath)    delete mMath;
+  if(mMessage) delete mMessage;
 }
 
 

@@ -276,7 +276,7 @@ ASTNode::~ASTNode ()
   delete mChildren;
 
   size = mSemanticsAnnotations->getSize();
-  while (size--)  mSemanticsAnnotations->remove(0) ;
+  while (size--)  delete static_cast<XMLNode*>(mSemanticsAnnotations->remove(0) );
   delete mSemanticsAnnotations;
 
   delete mDefinitionURL;

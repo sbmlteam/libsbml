@@ -173,7 +173,6 @@ CVTerm::operator=(const CVTerm& rhs)
 CVTerm* CVTerm::clone() const
 {
     CVTerm* term=new CVTerm(*this);
-    term->mResources=new XMLAttributes(*this->mResources);
     return term;
 }
 

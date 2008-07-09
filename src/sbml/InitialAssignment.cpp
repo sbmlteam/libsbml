@@ -59,6 +59,7 @@ InitialAssignment::InitialAssignment (const std::string& symbol) :
  */
 InitialAssignment::~InitialAssignment ()
 {
+  if(mMath) delete mMath;
 }
 
 

@@ -453,7 +453,7 @@ UnitDefinition::simplify(UnitDefinition * ud)
         unit = (Unit *) units->get(n);
         if (!strcmp(UnitKind_toString(unit->getKind()), "dimensionless"))
         {
-          units->remove(n);
+          delete units->remove(n);
           kindsList.removeUnitKind("dimensionless");
         }
       }
@@ -476,7 +476,7 @@ UnitDefinition::simplify(UnitDefinition * ud)
                                                                    unitKind))
           {
             Unit::merge(unit, (Unit *) units->get(i));
-            units->remove(i);
+            delete units->remove(i);
             kindsList.removeUnitKind(unitKind);
           }
         }
@@ -491,7 +491,7 @@ UnitDefinition::simplify(UnitDefinition * ud)
     unit = (Unit *) units->get(n-1);
     if (unit->getExponent() == 0)
     {
-      units->remove(n-1);
+      delete units->remove(n-1);
     }
   }
 }
@@ -549,7 +549,7 @@ UnitDefinition::reorder(UnitDefinition *ud)
   /* remove originals */
   for (n = 0; n < numUnits; n++)
   {
-    units->remove(0);
+    delete units->remove(0);
   }
 
   delete [] indexArray;

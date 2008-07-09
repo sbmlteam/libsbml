@@ -203,10 +203,10 @@ ArgumentsUnitsCheck::checkUnitsFromPiecewise (const Model& m,
     {
       logInconsistentPiecewise(node, sb);
     }
+    delete tempUD1;
   }
 
   delete tempUD;
-  delete tempUD1;
 
   for(n = 1; n < node.getNumChildren(); n+=2)
   {
@@ -216,17 +216,17 @@ ArgumentsUnitsCheck::checkUnitsFromPiecewise (const Model& m,
     {
       logInconsistentPiecewiseCondition(node, sb);
     }
+    delete tempUD;
   }
  
+  delete dim;
+  delete unit;
+  delete unitFormat;
+
   for(n = 0; n < node.getNumChildren(); n++)
   {
     checkUnits(m, *node.getChild(n), sb, inKL, reactNo);
   }
-
-  delete tempUD;
-  delete dim;
-  delete unit;
-  delete unitFormat;
 
 }
 /**
@@ -278,13 +278,13 @@ ArgumentsUnitsCheck::checkSameUnitsAsArgs (const Model& m,
     delete tempUD;
   }
 
+  delete unitFormat;
+  delete ud;
+
   for (n = 0; n < node.getNumChildren(); n++)
   {
     checkUnits(m, *node.getChild(n), sb, inKL, reactNo);
   }
-
-  delete unitFormat;
-  delete ud;
 }
 
 
