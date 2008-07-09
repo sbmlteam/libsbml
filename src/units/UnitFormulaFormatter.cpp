@@ -30,8 +30,8 @@
  *  constructs a UnitFormulaFormatter
  */
 UnitFormulaFormatter::UnitFormulaFormatter(const Model *m)
+ : model(m)
 {
-  model = (Model *) (m->clone());
   mContainsUndeclaredUnits = false;
   mCanIgnoreUndeclaredUnits = 2;
   depthRecursiveCall = 0;
@@ -42,7 +42,6 @@ UnitFormulaFormatter::UnitFormulaFormatter(const Model *m)
  */
 UnitFormulaFormatter::~UnitFormulaFormatter()
 {
-  delete model;
 }
 
 /*
