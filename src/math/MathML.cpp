@@ -506,6 +506,13 @@ static void
 readMathML (ASTNode& node, XMLInputStream& stream)
 {
   stream.skipText();
+
+  // catch case where user has an empty math tags ( <math ...></math> )
+  if( stream.peek().getName() == "math" && stream.peek().isEnd() )
+  {
+    stream.skipPastEnd(stream.peek());
+    return;
+  }
  
   const XMLToken elem = stream.next ();
   const string&  name = elem.getName();
