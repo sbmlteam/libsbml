@@ -286,10 +286,8 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
         if (version == 1)
         {
           mErrorLog.add(CannotConvertToL1V1);
-          return conversionSuccess;
         }
-
-        if (!conversion_errors(checkL1Compatibility()))
+        else if (!conversion_errors(checkL1Compatibility()))
         {
           mModel->convertToL1();
           conversionSuccess = true;
@@ -317,6 +315,12 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
           conversionSuccess = true;
         }
       }
+
+      if (!conversionSuccess)
+      {
+        return conversionSuccess;
+      }
+
     }
   }
 
