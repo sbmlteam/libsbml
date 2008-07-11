@@ -323,6 +323,10 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
 
     }
   }
+  else
+  {
+    conversionSuccess = true;
+  }
 
   /* commented out addition of note on conversion - it seemed like a good idea
    * at the time but needs to located differently :-)
