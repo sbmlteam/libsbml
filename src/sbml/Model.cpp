@@ -1005,8 +1005,6 @@ Model::appendAnnotation (const std::string& annotation)
 void
 Model::syncAnnotation ()
 {
-  SBase::syncAnnotation();
-
   XMLNode * history = RDFAnnotationParser::parseModelHistory(this);
 
   if(mAnnotation)
@@ -1037,6 +1035,14 @@ Model::syncAnnotation ()
       mAnnotation->addChild(history->getChild(0));
     }
   }
+  else
+  {
+    // Annotations for CVTerm are added by the above RDFAnnotationParser::parseModelHistory(this)
+    // if and only if mHistory is not NULL.
+    // Thus, annotations for CVTerm (if any) needs to be added here if history (mHistory) is NULL.
+    SBase::syncAnnotation();
+  }
+
 
 #ifdef USE_LAYOUT
   if(mAnnotation)
