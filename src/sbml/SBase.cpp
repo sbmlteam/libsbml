@@ -406,6 +406,20 @@ SBase::getSBOTerm () const
 
 
 /*
+ * @return the sboTerm as a string.  If not set,
+ * return NULL. 
+ */
+std::string
+SBase::getSBOTermID () const
+{
+  if (mSBOTerm == -1)
+    return NULL;
+  else
+    return SBO::intToString(mSBOTerm);
+}
+
+
+/*
  * @return the line number of this SBML object.
  */
 unsigned int

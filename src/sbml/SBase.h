@@ -565,6 +565,29 @@ public:
 
 
   /**
+   * Returns the string representation of the "sboTerm" attribute of
+   * this object.
+   *
+   * In SBML Level 2 Versions 2 and 3, the data type of the attribute is a
+   * string of the form SBO:NNNNNNN, where NNNNNNN is a seven digit integer
+   * number; libSBML simplifies the representation by only storing the
+   * NNNNNNN integer portion.  Thus, in libSBML, the "sboTerm" attribute on
+   * SBase has data type @c int, and SBO identifiers are stored simply as
+   * integers.  This function recreates the string representation from the
+   * stored value.  SBO terms are a type of optional annotation, and each
+   * different class of SBML object derived from SBase imposes its own
+   * requirements about the values permitted for "sboTerm".  Please consult
+   * the SBML Level 2 Version 3 specification for more information about
+   * the use of SBO and the "sboTerm" attribute.
+   *
+   * @return the value of the "sboTerm" attribute as a string of the form
+   * SBO:NNNNNNN, or  NULL
+   * if the value is not set.
+   */
+  std::string getSBOTermID () const;
+
+
+  /**
    * Returns the line number on which this object first appears in the XML
    * representation of the SBML document.
    * 

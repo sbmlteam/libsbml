@@ -147,7 +147,14 @@ public:
     */
   static bool isParticipant  (unsigned int term);
 
- protected:  /**
+  /**
+   * @return the given integer sboTerm as a zero-padded seven digit string.
+   * If the sboTerm is not in the correct range ([0 -- 9999999]), an empty
+   * string is returned.
+   */
+  static std::string intToString (int sboTerm);
+
+protected:  /**
    * functions for checking the SBO term is from correct part of SBO
    * returns true if the term is-a parent, false otherwise
    */
@@ -177,12 +184,6 @@ public:
    */
   static int stringToInt (const std::string& sboTerm);
 
-  /**
-   * @return the given integer sboTerm as a zero-padded seven digit string.
-   * If the sboTerm is not in the correct range ([0 -- 9999999]), an empty
-   * string is returned.
-   */
-  static std::string intToString (int sboTerm);
   
 
 
