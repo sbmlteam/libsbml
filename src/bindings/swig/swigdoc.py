@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 #
 # @file   swigdoc.py
 # @brief  Creates documentation for Java, Python, and Perl.
