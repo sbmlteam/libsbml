@@ -159,6 +159,14 @@ public:
 
 
   /**
+   * Returns the prefixed name from this XMLTriple.
+   *
+   * @return prefixed name from this XMLTriple.
+   */
+  const std::string getPrefixedName () const;
+
+
+  /**
    * Predicate returning @c true or @c false depending on whether 
    * this XMLTriple is empty.
    * 
@@ -176,9 +184,34 @@ private:
   /** @endcond doxygen-libsbml-internal */
 };
 
+
+/**
+ * Comparison (equal-to) operator for XMLTriple.
+ *  
+ * @param lhs XMLTriple object to be compared with rhs.
+ * @param rhs XMLTriple object to be compared with lhs.
+ *
+ * return @c non-zero (true) if the combination of name, URI, and
+ * prefix of lhs is equal to that of rhs @c zero (false) otherwise.
+ */
+bool operator==(const XMLTriple& lhs, const XMLTriple& rhs);
+
+
+/**
+ *  Comparison (not equal-to) operator for XMLTriple.
+ *
+ * @param lhs XMLTriple object to be compared with rhs.
+ * @param rhs XMLTriple object to be compared with lhs.
+ *
+ * return @c non-zero (true) if the combination of name, URI, and
+ * prefix of lhs is not equal to that of rhs @c zero (false) otherwise.
+ */
+bool operator!=(const XMLTriple& lhs, const XMLTriple& rhs);
+
 #endif  /* __cplusplus */
 
 #ifndef SWIG
+
 
 BEGIN_C_DECLS
 
@@ -221,9 +254,25 @@ LIBLAX_EXTERN
 const char *
 XMLTriple_getURI (const XMLTriple_t *triple);
 
+
+LIBLAX_EXTERN
+const char *
+XMLTriple_getPrefixedName (const XMLTriple_t *triple);
+
+
 LIBLAX_EXTERN
 int
 XMLTriple_isEmpty(const XMLTriple_t *triple);
+
+
+LIBLAX_EXTERN
+int
+XMLTriple_equalTo(const XMLTriple_t *lhs, const XMLTriple_t* rhs);
+
+
+LIBLAX_EXTERN
+int
+XMLTriple_notEqualTo(const XMLTriple_t *lhs, const XMLTriple_t* rhs);
 
 
 

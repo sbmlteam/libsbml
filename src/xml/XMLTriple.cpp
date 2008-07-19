@@ -22,6 +22,7 @@
  *----------------------------------------------------------------------- -->*/
 
 #include <sbml/xml/XMLTriple.h>
+#include <sbml/util/util.h>
 
 /** @cond doxygen-ignored */
 
@@ -123,6 +124,17 @@ XMLTriple::clone () const
   return new XMLTriple(*this);
 }
 
+
+/**
+ * @return prefixed name from this XMLTriple.
+ */
+const std::string 
+XMLTriple::getPrefixedName () const
+{
+  return mPrefix + ((mPrefix != "") ? ":" : "") + mName;
+}
+
+
 /*
  * @return true if this XMLTriple set is empty, false otherwise.
  */
@@ -134,6 +146,33 @@ XMLTriple::isEmpty () const
         && getPrefix().size() == 0);
 }
 
+
+/*
+ * Comparison (equal-to) operator for XMLTriple.
+ *
+ * @return @c non-zero (true) if the combination of name, URI, and 
+ * prefix of lhs is equal to that of rhs @c zero (false) otherwise.
+ */
+bool operator==(const XMLTriple& lhs, const XMLTriple& rhs)
+{
+  if (lhs.getName()   != rhs.getName()  ) return false;
+  if (lhs.getURI()    != rhs.getURI()   ) return false;
+  if (lhs.getPrefix() != rhs.getPrefix()) return false;
+
+  return true;
+}
+
+
+/*
+ * Comparison (not equal-to) operator for XMLTriple.
+ *
+ * @return @c non-zero (true) if the combination of name, URI, and 
+ * prefix of lhs is not equal to that of rhs @c zero (false) otherwise.
+ */
+bool operator!=(const XMLTriple& lhs, const XMLTriple& rhs)
+{
+  return !(lhs == rhs);
+}
 
 /** @cond doxygen-c-only */
 
@@ -242,6 +281,21 @@ XMLTriple_getURI (const XMLTriple_t *triple)
 
 
 /**
+ * Returns the prefixed name from this XMLTriple_t structure.
+ *
+ * @param triple XMLTriple_t structure to be queried.
+ *
+ * @return prefixed name from this XMLTriple_t structure.
+ */
+LIBLAX_EXTERN
+const char *
+XMLTriple_getPrefixedName (const XMLTriple_t *triple)
+{
+  return triple->getPrefixedName().empty() ? NULL : safe_strdup(triple->getPrefixedName().c_str());
+}
+
+
+/**
  * Predicate returning @c true or @c false depending on whether 
  * this XMLTriple is empty.
  * 
@@ -255,6 +309,45 @@ XMLTriple_isEmpty (const XMLTriple_t *triple)
 {
   return static_cast<int> (triple->isEmpty());
 }
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLTriple is equal to the given XMLTriple.
+ * 
+ * @param lhs XMLTriple_t structure to be required.
+ * @param rhs XMLTriple_t structure to be compared with this XMLTriple.
+ *
+ * @return @c non-zero (true) if the combination of name, URI, and prefix of this
+ * XMLTriple is equal to that of the given XMLTriple, 
+ * @c zero (false) otherwise.
+ */
+LIBLAX_EXTERN
+int
+XMLTriple_equalTo(const XMLTriple_t *lhs, const XMLTriple_t* rhs)
+{
+  return (*lhs == *rhs);
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLTriple is not equal to the given XMLTriple.
+ * 
+ * @param lhs XMLTriple_t structure to be required.
+ * @param rhs XMLTriple_t structure to be compared with this XMLTriple.
+ *
+ * @return @c non-zero (true) if the combination of name, URI, and prefix of this
+ * XMLTriple is not equal to that of the given XMLTriple, 
+ * @c zero (false) otherwise.
+ */
+LIBLAX_EXTERN
+int
+XMLTriple_notEqualTo(const XMLTriple_t *lhs, const XMLTriple_t* rhs)
+{
+  return (*lhs != *rhs);
+}
+
 
 
 /** @endcond doxygen-c-only */
