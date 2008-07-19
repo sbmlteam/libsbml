@@ -116,6 +116,12 @@ case $host_os in
     SHAREDLIBEXT="a"
     ;;
 
+  *freebsd*)
+    CPPFLAGS="-DFREEBSD $CPPFLAGS"
+    HOST_TYPE="freebsd"
+    SHAREDLIBEXT="so"
+    ;;
+
 esac
 
 AC_SUBST(HOST_TYPE)
