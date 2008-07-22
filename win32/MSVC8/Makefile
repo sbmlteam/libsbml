@@ -1,12 +1,12 @@
-## @configure_input@
+## win32/MSVC8/Makefile.  Generated from Makefile.in by configure.
 ##
 ## Filename    : Makefile.in
 ## Description : Makefile for win32 subdirectory
 ## Author(s)   : SBML Team <sbml-team@caltech.edu>
 ## Organization: Caltech, USA, and University of Hertfordshire, UK
 ## Created     : 2004-07-13
-## Revision    : $Id$
-## $HeadURL$
+## Revision    : $Id: Makefile.in 7249 2008-06-26 22:48:40Z mhucka $
+## $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/trunk/libsbml/win32/MSVC7/Makefile.in $
 ##
 ## Copyright 2004 California Institute of Technology and
 ## Japan Science and Technology Corporation.
@@ -54,25 +54,36 @@
 # configure script at the top level of the src tree.  It will recreate
 # "Makefile".
 
-include @top_srcdir@/config/makefile-common-vars.mk
+include ../../config/makefile-common-vars.mk
 
 # `srcdir' points to the current directory, but should be set by configure.
 # `subdir' must be set manually to the relative dir under `srcdir'.  Don't 
 # set `subdir' to an absolute path, or some `make' actions will fail.
 
-srcdir  = @srcdir@
-thisdir = win32
-
-subdirs = MSVC7 MSVC8
+srcdir  = .
+thisdir = win32/MSVC8
 
 # This makefile only serves a role for `make dist'.
 
 distfiles = \
-        createInclude.bat               \
-        createIncludeFromMSVC.bat       \
-        README.txt             \
-  Makefile.in  
-
+  addCVTerms.vcproj	     \
+  addModelHistory.vcproj \
+  convertSBML.vcproj     \
+  drawMath.vcproj        \
+  echoSBML.vcproj        \
+  libsbml.vcproj         \
+  libsbml_expat.vcproj   \
+  libsbml_xml.vcproj     \
+  printMath.vcproj       \
+  printSBML.vcproj       \
+  printUnits.vcproj      \
+  readSBML.vcproj        \
+  translateMath.vcproj   \
+  validateSBML.vcproj    \
+  libsbml.sln            \
+  libsbml_expat.sln      \
+  libsbml_xml.sln        \
+  Makefile.in
 
 
 # -----------------------------------------------------------------------------
@@ -93,12 +104,18 @@ check:
 
 
 # -----------------------------------------------------------------------------
-# Tags.
+# Formatting documentation.
 # -----------------------------------------------------------------------------
 
-# Nothing to be done for tags right now.
+dvi:
 
-tags:
+pdf:
+
+ps:
+
+info:
+
+html:
 
 
 # -----------------------------------------------------------------------------
@@ -110,27 +127,25 @@ tags:
 
 install:
 
-install-docs:
+uninstall:
 
 installcheck:
-
-uninstall:
 
 
 # -----------------------------------------------------------------------------
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-dist: all dist-normal dist-recursive
+dist: dist-normal
 
-distcheck: all distcheck-normal distcheck-recursive
+distcheck: distcheck-normal
 
 
 # -----------------------------------------------------------------------------
 # Miscellaneous
 # -----------------------------------------------------------------------------
 
-include @top_srcdir@/config/makefile-common-actions.mk
+include ../../config/makefile-common-actions.mk
 
 
 # -----------------------------------------------------------------------------
