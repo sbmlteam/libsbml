@@ -1,18 +1,18 @@
 ## @configure_input@
 ##
 ## Filename    : Makefile.in
-## Description : Makefile template for libsbml main sources
+## Description : Makefile template for libsbml src/compress
 ## Author(s)   : SBML Team <sbml-team@caltech.edu>
 ## Organization: California Institute of Technology
-## Created     : 2004-06-11
-## Revision    : $Id$
-## Source      : $HeadURL:$
+## Created     : 2008-07-02
+## Revision    : $Id: Makefile.in,v 1.10 2007/12/16 22:50:27 mhucka Exp $
+## $HeadURL: $
 ##
 ##<!---------------------------------------------------------------------------
 ## This file is part of libSBML.  Please visit http://sbml.org for more
 ## information about SBML, and the latest version of libSBML.
 ##
-## Copyright 2005-2007 California Institute of Technology.
+## Copyright 2005-2008 California Institute of Technology.
 ## Copyright 2002-2005 California Institute of Technology and
 ##                     Japan Science and Technology Corporation.
 ## 
@@ -23,7 +23,7 @@
 ## and also available online as http://sbml.org/software/libsbml/license.html
 ##----------------------------------------------------------------------- -->*/
 
-
+
 # -----------------------------------------------------------------------------
 # Configuration variables
 # -----------------------------------------------------------------------------
@@ -38,88 +38,114 @@ include @top_srcdir@/config/makefile-common-vars.mk
 # `subdir' must be set manually to the relative dir under `srcdir'.  Don't 
 # set `subdir' to an absolute path, or some `make' actions will fail.
 
-srcdir  = @srcdir@
-thisdir = src
+srcdir    = @srcdir@
+thisdir   = src/compress
 
-# Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
+# Variables `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-# Warning: the "sbml" subdir is special because it ends up linking all of
-# libsbml.  Anything that goes into libsbml needs to appear on the
-# `subdirs' list before "sbml".  However, the "bindings" directory needs to
-# be very last because it depends on the libsbml library being linked.  So
-# the last two items on this list should always be "sbml" and "bindings",
-# in that order.  Finally, anything added here ahead of "sbml" needs to be
-# also added to the variable "otherdirs" in sbml/Makefile.in, again because
-# that one links all the objects together into libsbml.  (This is confusing
-# and fragile, and should be improved some day.)
+#common_sources = CompressIO.cpp
+#
+#common_headers = CompressIO.h
 
-subdirs = common util compress xml math validator units annotation sbml bindings
+common_sources = \
+          CompressCommon.cpp \
+          InputDecompressor.cpp \
+          OutputCompressor.cpp 
 
-ifdef USE_EXPAT
-  extra_CPPFLAGS  += $(EXPAT_CPPFLAGS)
-  extra_LDFLAGS   += $(EXPAT_LDFLAGS)
-  extra_LIBS      += $(EXPAT_LIBS)
-else
-  extra_CPPFLAGS  += $(XERCES_CPPFLAGS)
-  extra_LDFLAGS   += $(XERCES_LDFLAGS)
-  extra_LIBS      += $(XERCES_LIBS)
+common_headers = \
+          CompressCommon.h \
+          InputDecompressor.h \
+          OutputCompressor.h 
+
+zlib_sources = \
+          zip.c \
+          unzip.c \
+          ioapi.c \
+          iowin32.c \
+          zfstream.cpp \
+          zipfstream.cpp \
+
+zlib_headers = \
+          crypt.h \
+          zip.h \
+          unzip.h \
+          ioapi.h \
+          iowin32.h \
+          zfstream.h \
+          zipfstream.h 
+
+bzip2_sources  = bzfstream.cpp
+
+bzip2_headers = bzfstream.h
+
+sources = $(common_sources)
+headers = $(common_headers)
+
+ifdef USE_ZLIB
+ sources += $(zlib_sources)
+ headers += $(zlib_headers)
+
+ extra_CPPFLAGS += -DUSE_ZLIB
 endif
+
+ifdef USE_BZ2
+ sources += $(bzip2_sources)
+ headers += $(bzip2_headers)
+
+ extra_CPPFLAGS += -DUSE_BZ2
+endif
+
+header_inst_prefix = compress
+
+#subdirs = test
 
 # `distfiles' determines the files and directories included in a distribution.
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles = Makefile.in
+distfiles = $(common_sources) $(common_headers) $(zlib_sources) $(zlib_headers) \
+            $(bzip2_sources) $(bzip2_headers) Makefile.in 00README.txt
 
-
+
 # -----------------------------------------------------------------------------
 # Primary build actions
 # -----------------------------------------------------------------------------
 
-# The default action is to remake everything.  Those rules which are not
-# defined below are defined in makefile-common-actions.mk.  Targets of the
-# form 'foo-recursive' are interpreted by the common makefile rules as meaning
-# "go into every subdir and do 'make foo' in each".
+# The default action is to remake everything.
 
-all: Makefile all-recursive
+all: Makefile default
 
-include: include-recursive
 
-docs:
-
-
 # -----------------------------------------------------------------------------
 # Checking.
 # -----------------------------------------------------------------------------
 
-check: check-prereq check-recursive
+check: check-recursive
 
-check-prereq: ;
-	$(MAKE) all
 
-
 # -----------------------------------------------------------------------------
 # Tags.
 # -----------------------------------------------------------------------------
 
 tags: etags ctags
 
-
+
 # -----------------------------------------------------------------------------
-# Installation.
+# Installation
 # -----------------------------------------------------------------------------
 
-install: all install-recursive install-libraries
+# This library doesn't actually get installed.  The main libsbml library
+# (in ../src) slurps in the contents when it's built.
 
-install-docs:
+install: all install-headers
 
-installcheck: all installcheck-libraries
+installcheck: all installcheck-headers
 
-uninstall: uninstall-recursive
+uninstall: uninstall-recursive uninstall-headers
 
-
+
 # -----------------------------------------------------------------------------
 # Cleaning.
 # -----------------------------------------------------------------------------
@@ -132,23 +158,23 @@ mostlyclean: mostlyclean-normal mostlyclean-recursive
 
 maintainer-clean: maintainer-clean-normal maintainer-clean-recursive
 
-
+
 # -----------------------------------------------------------------------------
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-dist: dist-recursive dist-normal
+dist: all dist-normal dist-recursive
 
-distcheck: distcheck-recursive distcheck-normal
+distcheck: all distcheck-normal distcheck-recursive
 
-
+
 # -----------------------------------------------------------------------------
-# Common default rules.
+# Miscellaneous
 # -----------------------------------------------------------------------------
 
 include @top_srcdir@/config/makefile-common-actions.mk
 
-
+
 # -----------------------------------------------------------------------------
 # End.
 # -----------------------------------------------------------------------------

@@ -23,7 +23,7 @@
 ## and also available online as http://sbml.org/software/libsbml/license.html
 ##----------------------------------------------------------------------- -->*/
 
-
+
 # -----------------------------------------------------------------------------
 # Configuration variables
 # -----------------------------------------------------------------------------
@@ -192,6 +192,8 @@ distfiles =                         \
   config/runldpath.m4               \
   config/swig.m4                    \
   config/xercesc.m4                 \
+  config/zlib.m4                    \
+  config/bzip2.m4                   \
   configure                         \
   configure.ac                      \
   $(examples)                              
@@ -214,7 +216,7 @@ ifeq "$(HOST_TYPE)" "cygwin"
   extra_clean += libsbml.la
 endif
 
-
+
 # -----------------------------------------------------------------------------
 # Primary build actions.
 # -----------------------------------------------------------------------------
@@ -234,26 +236,38 @@ endif
 
 include: include-recursive
 
-
+
 # -----------------------------------------------------------------------------
 # Checking.
 # -----------------------------------------------------------------------------
 
 check: all check-recursive
 
-
+
 # -----------------------------------------------------------------------------
 # Tags.
 # -----------------------------------------------------------------------------
 
 tags: etags-recursive ctags-recursive
 
-
+
 # -----------------------------------------------------------------------------
 # libsbml.pc.
 # -----------------------------------------------------------------------------
 
 base-libs = -lsbml -lstdc++ -lm
+
+COMPRESS_CPFLAGS = ${ZLIB_CPPFLAGS} ${BZ2_CPPFLAGS} 
+COMPRESS_LDFLAGS = ${ZLIB_LDFLAGS} ${BZ2_LDFLAGS}
+COMPRESS_LIBS = ${ZLIB_LIBS} ${BZ2_LIBS}
+
+XML_CPFLAGS = ${XERCES_CPPFLAGS} ${EXPAT_CPPFLAGS} ${LIBXML_CPPFLAGS}
+XML_LDFLAGS = ${XERCES_LDFLAGS} ${EXPAT_LDFLAGS} ${LIBXML_LDFLAGS}
+XML_LIBS = ${XERCES_LIBS} ${EXPAT_LIBS} ${LIBXML_LIBS}
+
+DEPENDENCY_CPPFLAGS = ${XML_CPPFLAGS} ${COMPRESS_CPPFLAGS}
+DEPENDENCY_LIBFLAGS = ${XML_LDFLAGS} ${COMPRESS_LDFLAGS} ${XML_LIBS} ${COMPRESS_LIBS}
+
 
 libsbml.pc: Makefile
 	@rm -f libsbml.pc
@@ -268,21 +282,21 @@ libsbml.pc: Makefile
 	@echo "includedir=@includedir@"               >> libsbml.pc
 	@echo ""                                      >> libsbml.pc
 ifdef USE_XERCES
-	@echo "Libs: -L\$${libdir} ${XERCES_LDFLAGS} ${XERCES_LIBS} ${base-libs}" >> libsbml.pc
-	@echo "Cflags: -I\$${includedir} ${XERCES_CPPFLAGS}" >> libsbml.pc
-	@echo "Conflicts: xerces-c = 2.6.0"           >> libsbml.pc
+	@echo "Libs: -L\$${libdir} ${DEPENDENCY_LIBFLAGS} ${base-libs}" >> libsbml.pc
+	@echo "Cflags: -I\$${includedir} ${DEPENDENCY_CPPFLAGS}" >> libsbml.pc
+	@echo "Conflicts: xerces-c = 2.6.0" >> libsbml.pc
 endif
 ifdef USE_EXPAT
-	@echo "Libs: -L\$${libdir} ${EXPAT_LDFLAGS} ${EXPAT_LIBS} ${base-libs}" >> libsbml.pc
-	@echo "Cflags: -I\$${includedir} ${EXPAT_CPPFLAGS}"  >> libsbml.pc
+	@echo "Libs: -L\$${libdir} ${DEPENDENCY_LIBFLAGS} ${base-libs}" >> libsbml.pc
+	@echo "Cflags: -I\$${includedir} ${DEPENDENCY_CPPFLAGS}"  >> libsbml.pc
 endif
 ifdef USE_LIBXML
-	@echo "Libs: -L\$${libdir} ${base-libs}"      >> libsbml.pc
-	@echo "Cflags: -I\$${includedir}"             >> libsbml.pc
-	@echo "Requires: libxml-2.0 >= 2.6.22"        >> libsbml.pc
+	@echo "Libs: -L\$${libdir} ${DEPENDENCY_LIBFLAGS} ${base-libs}" >> libsbml.pc
+	@echo "Cflags: -I\$${includedir} ${DEPENDENCY_CPPFLAGS}"        >> libsbml.pc
+	@echo "Requires: libxml-2.0 >= 2.6.22" >> libsbml.pc
 endif
 
-
+
 # -----------------------------------------------------------------------------
 # libsbml.la.
 # -----------------------------------------------------------------------------
@@ -308,17 +322,17 @@ ifeq "$(HOST_TYPE)" "cygwin"
 	@echo "installed=yes"                           >> libsbml.la
 	@echo "shouldnotlink=no"                        >> libsbml.la
   ifdef USE_XERCES
-	@echo "dependency_libs='${XERCES_LDFLAGS} ${XERCES_LIBS}'" >> libsbml.la
+	@echo "dependency_libs='${DEPENDENCY_LIBFLAGS}'" >> libsbml.la
   endif
   ifdef USE_EXPAT
-	@echo "dependency_libs='${EXPAT_LDFLAGS} ${EXPAT_LIBS}'"   >> libsbml.la
+	@echo "dependency_libs='${DEPENDENCY_LIBFLAGS}'" >> libsbml.la
   endif
   ifdef USE_LIBXML
-	@echo "dependency_libs='${LIBXML_LDFLAGS} ${LIBXML_LIBS}'" >> libsbml.la
+	@echo "dependency_libs='${DEPENDENCY_LIBFLAGS}'" >> libsbml.la
   endif
 endif
 
-
+
 # -----------------------------------------------------------------------------
 # Installation.
 # -----------------------------------------------------------------------------
@@ -398,7 +412,7 @@ ifeq "$(HOST_TYPE)" "cygwin"
 	fi;
 endif
 
-
+
 # -----------------------------------------------------------------------------
 # Cleaning.
 # -----------------------------------------------------------------------------
@@ -411,7 +425,7 @@ mostlyclean: mostlyclean-normal mostlyclean-recursive
 
 maintainer-clean: maintainer-clean-normal maintainer-clean-recursive
 
-
+
 # -----------------------------------------------------------------------------
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
@@ -572,7 +586,7 @@ dist-all: $(distfiles)
 
 include @top_srcdir@/config/makefile-common-actions.mk
 
-
+
 # -----------------------------------------------------------------------------
 # End.
 # -----------------------------------------------------------------------------

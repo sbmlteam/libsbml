@@ -5,7 +5,7 @@
  * @author  Michael Hucka
  *
  * $Id$
- * $HeadURL$
+ * $HeadURL:$
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -24,6 +24,7 @@
 
 #include <cstring>
 #include <iostream>
+#include <sstream>
 
 #include <xercesc/framework/LocalFileInputSource.hpp>
 #include <xercesc/framework/MemBufInputSource.hpp>
@@ -36,6 +37,9 @@
 
 #include <sbml/xml/XercesTranscode.h>
 #include <sbml/xml/XercesParser.h>
+
+#include <sbml/compress/CompressCommon.h>
+#include <sbml/compress/InputDecompressor.h>
 
 
 /** @cond doxygen-ignored */
@@ -377,17 +381,92 @@ XercesParser::createSource (const char* content, bool isFile)
 
   if ( isFile )
   {
-    XMLCh* filename = XMLString::transcode(content);
+    std::string filename(content); 
 
-    try
+    if (  
+          ( string::npos != filename.find(".gz",  filename.length() - 3) ) ||
+          ( string::npos != filename.find(".zip", filename.length() - 4) ) ||
+          ( string::npos != filename.find(".bz2", filename.length() - 4) ) 
+       )
     {
-      source = new LocalFileInputSource(filename);
+      char* xmlstring = NULL;
+      try
+      {
+         // open a gzip file
+         if ( string::npos != filename.find(".gz", filename.length() - 3) )
+         {
+           xmlstring = InputDecompressor::getStringFromGzip(filename);
+         }
+         // open a bz2 file
+         else if ( string::npos != filename.find(".bz2", filename.length() - 4) )
+         {
+           xmlstring = InputDecompressor::getStringFromBzip2(filename);
+         }
+         // open a zip file
+         else if ( string::npos != filename.find(".zip", filename.length() - 4) )
+         {
+           xmlstring = InputDecompressor::getStringFromZip(filename);
+         }
+      }
+      catch(const char* error)
+      {
+        reportError(XMLFileUnreadable, error, 0, 0);
+        return source;
+      }
+      catch ( ZlibNotLinked& zlib)
+      {
+        // libSBML is not linked with zlib.
+        std::ostringstream oss;
+        oss << "Tried to read " << content << ". Reading a gzip/zip file is not enabled because "
+            << "underlying libSBML is not linked with zlib."; 
+        reportError(XMLFileUnreadable, oss.str(), 0, 0);
+        return source;
+      }
+      catch ( Bzip2NotLinked& bz2)
+      {
+        // libSBML is not linked with bzip2.
+        std::ostringstream oss;
+        oss << "Tried to read " << content << ". Reading a bzip2 file is not enabled because "
+            << "underlying libSBML is not linked with bzip2."; 
+        reportError(XMLFileUnreadable, oss.str(), 0, 0);
+        return source;
+      }
+ 
+      if ( xmlstring == NULL || strlen(xmlstring) == 0)
+      {
+         reportError(XMLOutOfMemory, "The given compressed file can't be read into a string", 0, 0);
+         return source;
+      }
+
+      unsigned int   size   = strlen(xmlstring);
+      const XMLByte* bytes  = reinterpret_cast<const XMLByte*>(xmlstring);
+
+      try
+      {
+        source = new MemBufInputSource(bytes, size, "FromString", true); 
+      }
+      catch (...)
+      {
+      }
+
+      if ( source == 0 ) reportError(XMLOutOfMemory, content, 0, 0);
+
     }
-    catch (const XMLException& )
+    else
     {
-      reportError(XMLFileUnreadable, content, 0, 0);
+      XMLCh* filename = XMLString::transcode(content);
+
+      try
+      {
+        source = new LocalFileInputSource(filename);
+      }
+      catch (const XMLException& )
+      {
+        reportError(XMLFileUnreadable, content, 0, 0);
+      }
+
+      XMLString::release(&filename);
     }
-    XMLString::release(&filename);
   }
   else
   {

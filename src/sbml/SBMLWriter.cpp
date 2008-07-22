@@ -4,7 +4,7 @@
  * @author  Ben Bornstein
  *
  * $Id$
- * $HeadURL$
+ * $HeadURL:$
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -32,6 +32,9 @@
 #include <sbml/SBMLError.h>
 #include <sbml/SBMLDocument.h>
 #include <sbml/SBMLWriter.h>
+
+#include <sbml/compress/CompressCommon.h>
+#include <sbml/compress/OutputCompressor.h>
 
 /** @cond doxygen-ignored */
 
@@ -91,26 +94,107 @@ SBMLWriter::setProgramVersion (const std::string& version)
 /*
  * Writes the given SBML document to filename.
  *
+ * If the filename ends with @em .gz, the file will be compressed by @em gzip.
+ * Similary, if the filename ends with @em .zip or @em .bz2, the file will be
+ * compressed by @em zip or @em bzip2, respectively. Otherwise, the fill will be
+ * uncompressed.
+ * If the filename ends with @em .zip, a filename that will be added to the
+ * zip archive file will end with @em .xml or @em .sbml. For example, the filename
+ * in the zip archive will be @em test.xml if the given filename is @em test.xml.zip
+ * or @em test.zip. Also, the filename in the archive will be @em test.sbml if the
+ * given filename is @em test.sbml.zip.
+ *
+ * @note To create a gzip/zip file, underlying libSBML needs to be linked with zlib at 
+ * compile time. Also, underlying libSBML needs to be linked with bzip2 to create a 
+ * bzip2 file.
+ * File unwritable error will be logged and @c false will be returned if a compressed 
+ * file name is given and underlying libSBML is not linked with the corresponding 
+ * required library.
+ * SBMLWriter::hasZlib() and SBMLWriter::hasBzip2() can be used to check whether
+ * underlying libSBML is linked with the library.
+ *
  * @return true on success and false if the filename could not be opened
  * for writing.
  */
 bool
 SBMLWriter::writeSBML (const SBMLDocument* d, const std::string& filename)
 {
-  ofstream stream( filename.c_str() );
+  std::ostream* stream = NULL;
+
+  try
+  {
+    // open an uncompressed XML file.
+    if ( string::npos != filename.find(".xml", filename.length() - 4) )
+    {
+      stream = new(std::nothrow) std::ofstream(filename.c_str());
+    }
+    // open a gzip file
+    else if ( string::npos != filename.find(".gz", filename.length() - 3) )
+    {
+     stream = OutputCompressor::openGzipOStream(filename);
+    }
+    // open a bz2 file
+    else if ( string::npos != filename.find(".bz2", filename.length() - 4) )
+    {
+      stream = OutputCompressor::openBzip2OStream(filename);
+    }
+    // open a zip file
+    else if ( string::npos != filename.find(".zip", filename.length() - 4) )
+    {
+      std::string filenameinzip = filename.substr(0, filename.length() - 4);
   
-  if (stream.fail() || stream.bad())
+      if ( ( string::npos == filenameinzip.find(".xml",  filenameinzip.length() - 4) ) &&
+           ( string::npos == filenameinzip.find(".sbml", filenameinzip.length() - 5) )
+         )
+      {
+        filenameinzip += ".xml";
+      }
+  
+      stream = OutputCompressor::openZipOStream(filename, filenameinzip);
+    }
+    else
+    {
+      stream = new(std::nothrow) std::ofstream(filename.c_str());
+    }
+  }
+  catch ( ZlibNotLinked& zlib)
+  {
+    // libSBML is not linked with zlib.
+    XMLErrorLog *log = (const_cast<SBMLDocument *>(d))->getErrorLog();
+    std::ostringstream oss;
+    oss << "Tried to write " << filename << ". Writing a gzip/zip file is not enabled because "
+        << "underlying libSBML is not linked with zlib."; 
+    log->add(XMLError( XMLFileUnwritable, oss.str(), 0, 0) );
+    return false;
+  } 
+  catch ( Bzip2NotLinked& bz2)
+  {
+    // libSBML is not linked with bzip2.
+    XMLErrorLog *log = (const_cast<SBMLDocument *>(d))->getErrorLog();
+    std::ostringstream oss;
+    oss << "Tried to write " << filename << ". Writing a bzip2 file is not enabled because "
+        << "underlying libSBML is not linked with bzip2."; 
+    log->add(XMLError( XMLFileUnwritable, oss.str(), 0, 0) );
+    return false;
+  } 
+
+
+  if ( stream == NULL || stream->fail() || stream->bad())
   {
     SBMLErrorLog *log = (const_cast<SBMLDocument *>(d))->getErrorLog();
     log->logError(XMLFileUnwritable);
     return false;
   }
-  
-  return writeSBML(d, stream);
+
+   bool result = writeSBML(d, *stream);
+   delete stream;
+
+   return result;
+
 }
 
 
-/*
+/**
  * Writes the given SBML document to the output stream.
  *
  * @return true on success and false if one of the underlying parser
@@ -158,6 +242,31 @@ SBMLWriter::writeToString (const SBMLDocument* d)
   return safe_strdup( stream.str().c_str() );
 }
 
+
+/**
+ * Predicate returning @c true or @c false depending on whether
+ * underlying libSBML is linked with zlib.
+ *
+ * @return @c true if libSBML is linked with zlib, @c false otherwise.
+ */
+bool 
+SBMLWriter::hasZlib() 
+{
+  return ::hasZlib();
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether
+ * underlying libSBML is linked with bzip2.
+ *
+ * @return @c true if libSBML is linked with bzip2, @c false otherwise.
+ */
+bool 
+SBMLWriter::hasBzip2() 
+{
+  return ::hasBzip2();
+}
 
 
 
@@ -220,6 +329,23 @@ SBMLWriter_setProgramVersion (SBMLWriter_t *sw, const char *version)
 /**
  * Writes the given SBML document to filename.
  *
+ * If the filename ends with @em .gz, the file will be compressed by @em gzip.
+ * Similary, if the filename ends with @em .zip or @em .bz2, the file will be
+ * compressed by @em zip or @em bzip2, respectively. Otherwise, the fill will be
+ * uncompressed.
+ * If the filename ends with @em .zip, a filename that will be added to the
+ * zip archive file will end with @em .xml or @em .sbml. For example, the filename
+ * in the zip archive will be @em test.xml if the given filename is @em test.xml.zip
+ * or @em test.zip. Also, the filename in the archive will be @em test.sbml if the
+ * given filename is @em test.sbml.zip.
+ *
+ * @note To create a gzip/zip file, libSBML needs to be linked with zlib at 
+ * compile time. Also, libSBML needs to be linked with bzip2 to create a bzip2 file.
+ * File unwritable error will be logged and @c zero will be returned if a compressed 
+ * file name is given and libSBML is not linked with the required library.
+ * SBMLWriter_hasZlib() and SBMLWriter_hasBzip2() can be used to check whether
+ * libSBML was linked with the library at compile time.
+ *
  * @return non-zero on success and zero if the filename could not be opened
  * for writing.
  */
@@ -246,6 +372,34 @@ char *
 SBMLWriter_writeSBMLToString (SBMLWriter_t *sw, const SBMLDocument_t *d)
 {
   return sw->writeToString(d);
+}
+
+
+/**
+ * Predicate returning @c non-zero or @c zero depending on whether
+ * libSBML is linked with zlib at compile time.
+ *
+ * @return @c non-zero if zlib is linked, @c zero otherwise.
+ */
+LIBSBML_EXTERN
+int
+SBMLWriter_hasZlib ()
+{
+  return static_cast<int>( SBMLWriter::hasZlib() );
+}
+
+
+/**
+ * Predicate returning @c non-zero or @c zero depending on whether
+ * libSBML is linked with bzip2 at compile time.
+ *
+ * @return @c non-zero if bzip2 is linked, @c zero otherwise.
+ */
+LIBSBML_EXTERN
+int
+SBMLWriter_hasBzip2 ()
+{
+   return static_cast<int>( SBMLWriter::hasBzip2() );
 }
 
 

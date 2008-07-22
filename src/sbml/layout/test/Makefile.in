@@ -161,7 +161,8 @@ tmp           = $(test_sources:.cpp=.$(OBJEXT)) $(test_sources:.c=.$(OBJEXT))
 localobjfiles = $(filter %.$(OBJEXT),$(tmp))
 
 otherdirs     = .. ../..  ../../../util ../../../xml ../../../math ../../../validator \
-                ../../../validator/constraints ../../../annotation ../../../units
+                ../../../validator/constraints ../../../annotation ../../../units \
+                ../../../compress
 
 
 

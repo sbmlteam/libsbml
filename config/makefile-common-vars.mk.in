@@ -23,7 +23,7 @@
 ## and also available online as http://sbml.org/software/libsbml/license.html
 ##----------------------------------------------------------------------- -->*/
 
-
+
 # -----------------------------------------------------------------------------
 # Commmon variables.
 # -----------------------------------------------------------------------------
@@ -163,6 +163,16 @@ AUTOCONF          = @AUTOCONF@
 USE_DOXYGEN       = @USE_DOXYGEN@
 DOXYGEN           = @DOXYGEN@
 
+USE_ZLIB          = @USE_ZLIB@
+ZLIB_CPPFLAGS     = @ZLIB_CPPFLAGS@
+ZLIB_LDFLAGS      = @ZLIB_LDFLAGS@
+ZLIB_LIBS         = @ZLIB_LIBS@
+
+USE_BZ2           = @USE_BZ2@
+BZ2_CPPFLAGS      = @BZ2_CPPFLAGS@
+BZ2_LDFLAGS       = @BZ2_LDFLAGS@
+BZ2_LIBS          = @BZ2_LIBS@
+
 AR                = @AR@
 AWK               = awk
 BUILD             = @build@
@@ -172,7 +182,7 @@ CC                = @CC@
 CD                = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd
 CFLAGS            = -Wall @CFLAGS@
 CPP               = @CPP@
-CPPFLAGS          = @CPPFLAGS@
+CPPFLAGS          = @CPPFLAGS@ @ZLIB_CPPFLAGS@ @BZ2_CPPFLAGS@
 CTAGS             = ctags
 CTAGSFLAGS        = --ignore-indentation --members --globals --typedefs-and-c++ --no-warn -o CTAGS
 CXX               = @CXX@
@@ -189,8 +199,8 @@ HOST_TYPE         = @HOST_TYPE@
 HOST_CPU          = @host_cpu@
 INSTALL           = @INSTALL@
 INSTALL_SH        = $(top_srcdir)/config/install-sh -c
-LDFLAGS           = @LDFLAGS@
-LIBS              = @LIBS@
+LDFLAGS           = @LDFLAGS@ @ZLIB_LDFLAGS@ @BZ2_LDFLAGS@
+LIBS              = @LIBS@  @ZLIB_LIBS@ @BZ2_LIBS@
 MKINSTALLDIRS     = $(SHELL) $(top_srcdir)/config/mkinstalldirs
 OBJEXT            = @OBJEXT@
 PACKAGE           = @PACKAGE_TARNAME@
@@ -206,7 +216,7 @@ SHELL             = @SHELL@
 LIBSBML_VERSION   = @PACKAGE_VERSION@
 LIBSBML_VERSION_NUMERIC = @LIBSBML_VERSION_NUMERIC@
 
-
+
 # -----------------------------------------------------------------------------
 # End.
 # -----------------------------------------------------------------------------

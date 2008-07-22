@@ -749,6 +749,14 @@ USE_LIBCHECK
 LIBCHECK_CPPFLAGS
 LIBCHECK_LDFLAGS
 LIBCHECK_LIBS
+USE_ZLIB
+ZLIB_CPPFLAGS
+ZLIB_LDFLAGS
+ZLIB_LIBS
+USE_BZ2
+BZ2_CPPFLAGS
+BZ2_LDFLAGS
+BZ2_LIBS
 LIBSBML_OPTIONS
 LIBOBJS
 LTLIBOBJS'
@@ -1367,6 +1375,12 @@ Optional Packages:
   --with-xerces=PREFIX    Use the Xerces XML Library [default=yes]
   --with-libxml=PREFIX    Use the libxml2 XML library [default=no]
   --with-check=PREFIX     Use the libcheck unit testing library [default=no]
+  --with-zlib=PREFIX      Use zlib for read/write a gzipped/zipped SBML
+                          [default=yes]
+  --without-zlib-version-check
+                          Disable zlib version check
+  --with-bzip2=PREFIX     Use bzip2 for read/write a bzipped SBML
+                          [default=yes]
 
 Some influential environment variables:
   CXX         C++ compiler command
@@ -5679,7 +5693,7 @@ if test "${ac_cv_FUNC_LISPEXIT+set}" = set; then
 else
   ac_cv_FUNC_LISPEXIT=no-exit
     for ex in "sb-ext:quit :unix-status" "lisp:exit" "excl:exit" "sys:exit" "ext:quit" "unix:unix-exit" "no-exit" ; do
-      echo "configure:5682 trying $ex ..." >&5
+      echo "configure:5696 trying $ex ..." >&5
       echo "(ignore-errors ($ex 127))"|$LISP 2>&5 1>&5
       if test "$?" = "127" ; then
         ac_cv_FUNC_LISPEXIT=$ex
@@ -9100,6 +9114,900 @@ _ACEOF
 
 
 
+# Check whether --with-zlib was given.
+if test "${with_zlib+set}" = set; then
+  withval=$with_zlib; with_zlib="$withval"
+else
+  with_zlib=yes
+
+fi
+
+
+  { echo "$as_me:$LINENO: checking for zlib library" >&5
+echo $ECHO_N "checking for zlib library... $ECHO_C" >&6; }
+  if test "x$withval" != "xno" ; then
+    { echo "$as_me:$LINENO: result: yes" >&5
+echo "${ECHO_T}yes" >&6; }
+    if test "x$withval" != "xyes"; then
+      if test -d "$withval/lib"; then
+        ZLIB_LDFLAGS="-L${withval}/lib"
+      else
+        ZLIB_LDFLAGS="-L${withval}"
+      fi
+    fi
+
+    if test -d "$withval/include"; then
+      ZLIB_CPPFLAGS="-I${withval}/include"
+    fi
+
+    ZLIB_LIBS="-lz"
+
+    saved_CPPFLAGS=$CPPFLAGS
+    saved_LDFLAGS=$LDFLAGS
+    saved_LIBS=$LIBS
+
+
+{ echo "$as_me:$LINENO: checking for deflate in -lz" >&5
+echo $ECHO_N "checking for deflate in -lz... $ECHO_C" >&6; }
+if test "${ac_cv_lib_z_deflate+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lz  $LIBS"
+cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char deflate ();
+int
+main ()
+{
+return deflate ();
+  ;
+  return 0;
+}
+_ACEOF
+rm -f conftest.$ac_objext conftest$ac_exeext
+if { (ac_try="$ac_link"
+case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_link") 2>conftest.er1
+  ac_status=$?
+  grep -v '^ *+' conftest.er1 >conftest.err
+  rm -f conftest.er1
+  cat conftest.err >&5
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } &&
+	 { ac_try='test -z "$ac_c_werror_flag" || test ! -s conftest.err'
+  { (case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_try") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; } &&
+	 { ac_try='test -s conftest$ac_exeext'
+  { (case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_try") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; }; then
+  ac_cv_lib_z_deflate=yes
+else
+  echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+	ac_cv_lib_z_deflate=no
+fi
+
+rm -f core conftest.err conftest.$ac_objext \
+      conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ echo "$as_me:$LINENO: result: $ac_cv_lib_z_deflate" >&5
+echo "${ECHO_T}$ac_cv_lib_z_deflate" >&6; }
+if test $ac_cv_lib_z_deflate = yes; then
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_LIBZ 1
+_ACEOF
+
+  LIBS="-lz $LIBS"
+
+else
+
+  		  		LDFLAGS="-L/usr/lib -L/usr/local/lib ${LDFLAGS} ${ZLIB_LDFLAGS}"
+  		CPPFLAGS="-I/usr/include -I/usr/local/include ${CPPFLAGS} ${ZLIB_CPPFLAGS}"
+                  LIBS="${LIBS} ${ZLIB_LIBS}"
+  		cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char deflate ();
+int
+main ()
+{
+return deflate ();
+  ;
+  return 0;
+}
+_ACEOF
+rm -f conftest.$ac_objext conftest$ac_exeext
+if { (ac_try="$ac_link"
+case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_link") 2>conftest.er1
+  ac_status=$?
+  grep -v '^ *+' conftest.er1 >conftest.err
+  rm -f conftest.er1
+  cat conftest.err >&5
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } &&
+	 { ac_try='test -z "$ac_c_werror_flag" || test ! -s conftest.err'
+  { (case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_try") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; } &&
+	 { ac_try='test -s conftest$ac_exeext'
+  { (case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_try") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; }; then
+  cat >>confdefs.h <<\_ACEOF
+#define HAVE_LIBZ 1
+_ACEOF
+
+else
+  echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+
+  				{ { echo "$as_me:$LINENO: error: *** zlib missing - please install first or check config.log ***" >&5
+echo "$as_me: error: *** zlib missing - please install first or check config.log ***" >&2;}
+   { (exit 1); exit 1; }; }
+
+
+fi
+
+rm -f core conftest.err conftest.$ac_objext \
+      conftest$ac_exeext conftest.$ac_ext
+
+
+fi
+
+
+    if test "${ac_cv_header_zlib_h+set}" = set; then
+  { echo "$as_me:$LINENO: checking for zlib.h" >&5
+echo $ECHO_N "checking for zlib.h... $ECHO_C" >&6; }
+if test "${ac_cv_header_zlib_h+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+fi
+{ echo "$as_me:$LINENO: result: $ac_cv_header_zlib_h" >&5
+echo "${ECHO_T}$ac_cv_header_zlib_h" >&6; }
+else
+  # Is the header compilable?
+{ echo "$as_me:$LINENO: checking zlib.h usability" >&5
+echo $ECHO_N "checking zlib.h usability... $ECHO_C" >&6; }
+cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+$ac_includes_default
+#include <zlib.h>
+_ACEOF
+rm -f conftest.$ac_objext
+if { (ac_try="$ac_compile"
+case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_compile") 2>conftest.er1
+  ac_status=$?
+  grep -v '^ *+' conftest.er1 >conftest.err
+  rm -f conftest.er1
+  cat conftest.err >&5
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } &&
+	 { ac_try='test -z "$ac_c_werror_flag" || test ! -s conftest.err'
+  { (case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_try") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; } &&
+	 { ac_try='test -s conftest.$ac_objext'
+  { (case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_try") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; }; then
+  ac_header_compiler=yes
+else
+  echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+	ac_header_compiler=no
+fi
+
+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+{ echo "$as_me:$LINENO: result: $ac_header_compiler" >&5
+echo "${ECHO_T}$ac_header_compiler" >&6; }
+
+# Is the header present?
+{ echo "$as_me:$LINENO: checking zlib.h presence" >&5
+echo $ECHO_N "checking zlib.h presence... $ECHO_C" >&6; }
+cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+#include <zlib.h>
+_ACEOF
+if { (ac_try="$ac_cpp conftest.$ac_ext"
+case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_cpp conftest.$ac_ext") 2>conftest.er1
+  ac_status=$?
+  grep -v '^ *+' conftest.er1 >conftest.err
+  rm -f conftest.er1
+  cat conftest.err >&5
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } >/dev/null; then
+  if test -s conftest.err; then
+    ac_cpp_err=$ac_c_preproc_warn_flag
+    ac_cpp_err=$ac_cpp_err$ac_c_werror_flag
+  else
+    ac_cpp_err=
+  fi
+else
+  ac_cpp_err=yes
+fi
+if test -z "$ac_cpp_err"; then
+  ac_header_preproc=yes
+else
+  echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+  ac_header_preproc=no
+fi
+
+rm -f conftest.err conftest.$ac_ext
+{ echo "$as_me:$LINENO: result: $ac_header_preproc" >&5
+echo "${ECHO_T}$ac_header_preproc" >&6; }
+
+# So?  What about this header?
+case $ac_header_compiler:$ac_header_preproc:$ac_c_preproc_warn_flag in
+  yes:no: )
+    { echo "$as_me:$LINENO: WARNING: zlib.h: accepted by the compiler, rejected by the preprocessor!" >&5
+echo "$as_me: WARNING: zlib.h: accepted by the compiler, rejected by the preprocessor!" >&2;}
+    { echo "$as_me:$LINENO: WARNING: zlib.h: proceeding with the compiler's result" >&5
+echo "$as_me: WARNING: zlib.h: proceeding with the compiler's result" >&2;}
+    ac_header_preproc=yes
+    ;;
+  no:yes:* )
+    { echo "$as_me:$LINENO: WARNING: zlib.h: present but cannot be compiled" >&5
+echo "$as_me: WARNING: zlib.h: present but cannot be compiled" >&2;}
+    { echo "$as_me:$LINENO: WARNING: zlib.h:     check for missing prerequisite headers?" >&5
+echo "$as_me: WARNING: zlib.h:     check for missing prerequisite headers?" >&2;}
+    { echo "$as_me:$LINENO: WARNING: zlib.h: see the Autoconf documentation" >&5
+echo "$as_me: WARNING: zlib.h: see the Autoconf documentation" >&2;}
+    { echo "$as_me:$LINENO: WARNING: zlib.h:     section \"Present But Cannot Be Compiled\"" >&5
+echo "$as_me: WARNING: zlib.h:     section \"Present But Cannot Be Compiled\"" >&2;}
+    { echo "$as_me:$LINENO: WARNING: zlib.h: proceeding with the preprocessor's result" >&5
+echo "$as_me: WARNING: zlib.h: proceeding with the preprocessor's result" >&2;}
+    { echo "$as_me:$LINENO: WARNING: zlib.h: in the future, the compiler will take precedence" >&5
+echo "$as_me: WARNING: zlib.h: in the future, the compiler will take precedence" >&2;}
+    ( cat <<\_ASBOX
+## ------------------------------------ ##
+## Report this to sbml-team@caltech.edu ##
+## ------------------------------------ ##
+_ASBOX
+     ) | sed "s/^/$as_me: WARNING:     /" >&2
+    ;;
+esac
+{ echo "$as_me:$LINENO: checking for zlib.h" >&5
+echo $ECHO_N "checking for zlib.h... $ECHO_C" >&6; }
+if test "${ac_cv_header_zlib_h+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+else
+  ac_cv_header_zlib_h=$ac_header_preproc
+fi
+{ echo "$as_me:$LINENO: result: $ac_cv_header_zlib_h" >&5
+echo "${ECHO_T}$ac_cv_header_zlib_h" >&6; }
+
+fi
+if test $ac_cv_header_zlib_h = yes; then
+  :
+else
+  { { echo "$as_me:$LINENO: error: *** zlib.h missing - please install first or check config.log ***
+                     " >&5
+echo "$as_me: error: *** zlib.h missing - please install first or check config.log ***
+                     " >&2;}
+   { (exit 1); exit 1; }; }
+
+fi
+
+
+
+
+# Check whether --with-zlib-version-check was given.
+if test "${with_zlib_version_check+set}" = set; then
+  withval=$with_zlib_version_check;   if test "x$withval" = "xno" ; then
+  		zlib_check_nonfatal=1
+  	     fi
+
+
+fi
+
+
+    { echo "$as_me:$LINENO: checking for possibly buggy zlib" >&5
+echo $ECHO_N "checking for possibly buggy zlib... $ECHO_C" >&6; }
+    if test "$cross_compiling" = yes; then
+  	{ echo "$as_me:$LINENO: WARNING: cross compiling: not checking zlib version" >&5
+echo "$as_me: WARNING: cross compiling: not checking zlib version" >&2;}
+
+else
+  cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+
+      #include <stdio.h>
+      #include <stdlib.h>
+      #include <zlib.h>
+      int main()
+      {
+
+      int a=0, b=0, c=0, d=0, n, v;
+  	n = sscanf(ZLIB_VERSION, "%d.%d.%d.%d", &a, &b, &c, &d);
+  	if (n != 3 && n != 4)
+  		exit(1);
+  	v = a*1000000 + b*10000 + c*100 + d;
+  	fprintf(stderr, "found zlib version %s (%d)\n", ZLIB_VERSION, v);
+
+  	/* 1.1.4 is OK */
+  	if (a == 1 && b == 1 && c >= 4)
+  		exit(0);
+
+  	/* 1.2.3 and up are OK */
+  	if (v >= 1020300)
+  		exit(0);
+
+  	exit(2);
+      }
+
+_ACEOF
+rm -f conftest$ac_exeext
+if { (ac_try="$ac_link"
+case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_link") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } && { ac_try='./conftest$ac_exeext'
+  { (case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_try") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; }; then
+  { echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6; }
+else
+  echo "$as_me: program exited with status $ac_status" >&5
+echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+( exit $ac_status )
+ { echo "$as_me:$LINENO: result: yes" >&5
+echo "${ECHO_T}yes" >&6; }
+        if test -z "$zlib_check_nonfatal" ; then
+	{ { echo "$as_me:$LINENO: error: *** zlib too old - check config.log ***
+Your reported zlib version has known security problems.  It's possible your
+vendor has fixed these problems without changing the version number.  If you
+are sure this is the case, you can disable the check by running
+\"./configure --without-zlib-version-check\".
+If you are in doubt, upgrade zlib to version 1.2.3 or greater.
+See http://www.gzip.org/zlib/ for details." >&5
+echo "$as_me: error: *** zlib too old - check config.log ***
+Your reported zlib version has known security problems.  It's possible your
+vendor has fixed these problems without changing the version number.  If you
+are sure this is the case, you can disable the check by running
+\"./configure --without-zlib-version-check\".
+If you are in doubt, upgrade zlib to version 1.2.3 or greater.
+See http://www.gzip.org/zlib/ for details." >&2;}
+   { (exit 1); exit 1; }; }
+         else
+           { echo "$as_me:$LINENO: WARNING: zlib version may have security problems" >&5
+echo "$as_me: WARNING: zlib version may have security problems" >&2;}
+         fi
+
+fi
+rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext conftest.$ac_objext conftest.$ac_ext
+fi
+
+
+
+
+    CPPFLAGS=$saved_CPPFLAGS
+    LDFLAGS=$saved_LDFLAGS
+    LIBS=$saved_LIBS
+
+
+cat >>confdefs.h <<\_ACEOF
+#define USE_ZLIB 1
+_ACEOF
+
+    USE_ZLIB=1
+
+
+
+
+
+
+    LIBSBML_OPTIONS="$LIBSBML_OPTIONS USE_ZLIB"
+  else
+    { echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6; }
+  fi
+
+
+
+
+# Check whether --with-bzip2 was given.
+if test "${with_bzip2+set}" = set; then
+  withval=$with_bzip2; with_bzip2="$withval"
+else
+  with_bzip2=yes
+
+fi
+
+
+  { echo "$as_me:$LINENO: checking for bzip2 library" >&5
+echo $ECHO_N "checking for bzip2 library... $ECHO_C" >&6; }
+  if test "x$withval" != "xno" ; then
+    { echo "$as_me:$LINENO: result: yes" >&5
+echo "${ECHO_T}yes" >&6; }
+    if test "x$withval" != "xyes"; then
+      if test -d "$withval/lib"; then
+        BZ2_LDFLAGS="-L${withval}/lib"
+      else
+        BZ2_LDFLAGS="-L${withval}"
+      fi
+    fi
+
+    if test -d "$withval/include"; then
+      BZ2_CPPFLAGS="-I${withval}/include"
+    fi
+
+    BZ2_LIBS="-lbz2"
+
+    saved_CPPFLAGS=$CPPFLAGS
+    saved_LDFLAGS=$LDFLAGS
+    saved_LIBS=$LIBS
+
+
+{ echo "$as_me:$LINENO: checking for BZ2_bzopen in -lbz2" >&5
+echo $ECHO_N "checking for BZ2_bzopen in -lbz2... $ECHO_C" >&6; }
+if test "${ac_cv_lib_bz2_BZ2_bzopen+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lbz2  $LIBS"
+cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char BZ2_bzopen ();
+int
+main ()
+{
+return BZ2_bzopen ();
+  ;
+  return 0;
+}
+_ACEOF
+rm -f conftest.$ac_objext conftest$ac_exeext
+if { (ac_try="$ac_link"
+case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_link") 2>conftest.er1
+  ac_status=$?
+  grep -v '^ *+' conftest.er1 >conftest.err
+  rm -f conftest.er1
+  cat conftest.err >&5
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } &&
+	 { ac_try='test -z "$ac_c_werror_flag" || test ! -s conftest.err'
+  { (case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_try") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; } &&
+	 { ac_try='test -s conftest$ac_exeext'
+  { (case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_try") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; }; then
+  ac_cv_lib_bz2_BZ2_bzopen=yes
+else
+  echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+	ac_cv_lib_bz2_BZ2_bzopen=no
+fi
+
+rm -f core conftest.err conftest.$ac_objext \
+      conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ echo "$as_me:$LINENO: result: $ac_cv_lib_bz2_BZ2_bzopen" >&5
+echo "${ECHO_T}$ac_cv_lib_bz2_BZ2_bzopen" >&6; }
+if test $ac_cv_lib_bz2_BZ2_bzopen = yes; then
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_LIBBZ2 1
+_ACEOF
+
+  LIBS="-lbz2 $LIBS"
+
+else
+
+  		  		LDFLAGS="-L/usr/lib -L/usr/local/lib ${LDFLAGS} ${BZ2_LDFLAGS}"
+  		CPPFLAGS="-I/usr/include -I/usr/local/include ${CPPFLAGS} ${BZ2_CPPFLAGS}"
+                  LIBS="${LIBS} ${BZ2_LIBS}"
+  		cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char BZ2_bzopen ();
+int
+main ()
+{
+return BZ2_bzopen ();
+  ;
+  return 0;
+}
+_ACEOF
+rm -f conftest.$ac_objext conftest$ac_exeext
+if { (ac_try="$ac_link"
+case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_link") 2>conftest.er1
+  ac_status=$?
+  grep -v '^ *+' conftest.er1 >conftest.err
+  rm -f conftest.er1
+  cat conftest.err >&5
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } &&
+	 { ac_try='test -z "$ac_c_werror_flag" || test ! -s conftest.err'
+  { (case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_try") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; } &&
+	 { ac_try='test -s conftest$ac_exeext'
+  { (case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_try") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; }; then
+  cat >>confdefs.h <<\_ACEOF
+#define HAVE_BZ2 1
+_ACEOF
+
+else
+  echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+
+  				{ { echo "$as_me:$LINENO: error: *** bzip2 missing - please install first or check config.log ***" >&5
+echo "$as_me: error: *** bzip2 missing - please install first or check config.log ***" >&2;}
+   { (exit 1); exit 1; }; }
+
+
+fi
+
+rm -f core conftest.err conftest.$ac_objext \
+      conftest$ac_exeext conftest.$ac_ext
+
+
+fi
+
+
+    if test "${ac_cv_header_bzlib_h+set}" = set; then
+  { echo "$as_me:$LINENO: checking for bzlib.h" >&5
+echo $ECHO_N "checking for bzlib.h... $ECHO_C" >&6; }
+if test "${ac_cv_header_bzlib_h+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+fi
+{ echo "$as_me:$LINENO: result: $ac_cv_header_bzlib_h" >&5
+echo "${ECHO_T}$ac_cv_header_bzlib_h" >&6; }
+else
+  # Is the header compilable?
+{ echo "$as_me:$LINENO: checking bzlib.h usability" >&5
+echo $ECHO_N "checking bzlib.h usability... $ECHO_C" >&6; }
+cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+$ac_includes_default
+#include <bzlib.h>
+_ACEOF
+rm -f conftest.$ac_objext
+if { (ac_try="$ac_compile"
+case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_compile") 2>conftest.er1
+  ac_status=$?
+  grep -v '^ *+' conftest.er1 >conftest.err
+  rm -f conftest.er1
+  cat conftest.err >&5
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } &&
+	 { ac_try='test -z "$ac_c_werror_flag" || test ! -s conftest.err'
+  { (case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_try") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; } &&
+	 { ac_try='test -s conftest.$ac_objext'
+  { (case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_try") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; }; then
+  ac_header_compiler=yes
+else
+  echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+	ac_header_compiler=no
+fi
+
+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+{ echo "$as_me:$LINENO: result: $ac_header_compiler" >&5
+echo "${ECHO_T}$ac_header_compiler" >&6; }
+
+# Is the header present?
+{ echo "$as_me:$LINENO: checking bzlib.h presence" >&5
+echo $ECHO_N "checking bzlib.h presence... $ECHO_C" >&6; }
+cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+#include <bzlib.h>
+_ACEOF
+if { (ac_try="$ac_cpp conftest.$ac_ext"
+case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_cpp conftest.$ac_ext") 2>conftest.er1
+  ac_status=$?
+  grep -v '^ *+' conftest.er1 >conftest.err
+  rm -f conftest.er1
+  cat conftest.err >&5
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } >/dev/null; then
+  if test -s conftest.err; then
+    ac_cpp_err=$ac_c_preproc_warn_flag
+    ac_cpp_err=$ac_cpp_err$ac_c_werror_flag
+  else
+    ac_cpp_err=
+  fi
+else
+  ac_cpp_err=yes
+fi
+if test -z "$ac_cpp_err"; then
+  ac_header_preproc=yes
+else
+  echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+  ac_header_preproc=no
+fi
+
+rm -f conftest.err conftest.$ac_ext
+{ echo "$as_me:$LINENO: result: $ac_header_preproc" >&5
+echo "${ECHO_T}$ac_header_preproc" >&6; }
+
+# So?  What about this header?
+case $ac_header_compiler:$ac_header_preproc:$ac_c_preproc_warn_flag in
+  yes:no: )
+    { echo "$as_me:$LINENO: WARNING: bzlib.h: accepted by the compiler, rejected by the preprocessor!" >&5
+echo "$as_me: WARNING: bzlib.h: accepted by the compiler, rejected by the preprocessor!" >&2;}
+    { echo "$as_me:$LINENO: WARNING: bzlib.h: proceeding with the compiler's result" >&5
+echo "$as_me: WARNING: bzlib.h: proceeding with the compiler's result" >&2;}
+    ac_header_preproc=yes
+    ;;
+  no:yes:* )
+    { echo "$as_me:$LINENO: WARNING: bzlib.h: present but cannot be compiled" >&5
+echo "$as_me: WARNING: bzlib.h: present but cannot be compiled" >&2;}
+    { echo "$as_me:$LINENO: WARNING: bzlib.h:     check for missing prerequisite headers?" >&5
+echo "$as_me: WARNING: bzlib.h:     check for missing prerequisite headers?" >&2;}
+    { echo "$as_me:$LINENO: WARNING: bzlib.h: see the Autoconf documentation" >&5
+echo "$as_me: WARNING: bzlib.h: see the Autoconf documentation" >&2;}
+    { echo "$as_me:$LINENO: WARNING: bzlib.h:     section \"Present But Cannot Be Compiled\"" >&5
+echo "$as_me: WARNING: bzlib.h:     section \"Present But Cannot Be Compiled\"" >&2;}
+    { echo "$as_me:$LINENO: WARNING: bzlib.h: proceeding with the preprocessor's result" >&5
+echo "$as_me: WARNING: bzlib.h: proceeding with the preprocessor's result" >&2;}
+    { echo "$as_me:$LINENO: WARNING: bzlib.h: in the future, the compiler will take precedence" >&5
+echo "$as_me: WARNING: bzlib.h: in the future, the compiler will take precedence" >&2;}
+    ( cat <<\_ASBOX
+## ------------------------------------ ##
+## Report this to sbml-team@caltech.edu ##
+## ------------------------------------ ##
+_ASBOX
+     ) | sed "s/^/$as_me: WARNING:     /" >&2
+    ;;
+esac
+{ echo "$as_me:$LINENO: checking for bzlib.h" >&5
+echo $ECHO_N "checking for bzlib.h... $ECHO_C" >&6; }
+if test "${ac_cv_header_bzlib_h+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+else
+  ac_cv_header_bzlib_h=$ac_header_preproc
+fi
+{ echo "$as_me:$LINENO: result: $ac_cv_header_bzlib_h" >&5
+echo "${ECHO_T}$ac_cv_header_bzlib_h" >&6; }
+
+fi
+if test $ac_cv_header_bzlib_h = yes; then
+  :
+else
+  { { echo "$as_me:$LINENO: error: *** bzlib.h missing - please install first or check config.log ***
+                     " >&5
+echo "$as_me: error: *** bzlib.h missing - please install first or check config.log ***
+                     " >&2;}
+   { (exit 1); exit 1; }; }
+
+fi
+
+
+
+    CPPFLAGS=$saved_CPPFLAGS
+    LDFLAGS=$saved_LDFLAGS
+    LIBS=$saved_LIBS
+
+
+cat >>confdefs.h <<\_ACEOF
+#define USE_BZ2 1
+_ACEOF
+
+    USE_BZ2=1
+
+
+
+
+
+
+    LIBSBML_OPTIONS="$LIBSBML_OPTIONS USE_BZ2"
+  else
+    { echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6; }
+  fi
+
+
+
+
 { echo "$as_me:$LINENO: checking for ANSI C header files" >&5
 echo $ECHO_N "checking for ANSI C header files... $ECHO_C" >&6; }
 if test "${ac_cv_header_stdc+set}" = set; then
@@ -10408,6 +11316,9 @@ ac_config_files="$ac_config_files src/xml/Makefile"
 ac_config_files="$ac_config_files src/xml/test/Makefile"
 
 
+ac_config_files="$ac_config_files src/compress/Makefile"
+
+
 ac_config_files="$ac_config_files docs/Makefile"
 
 ac_config_files="$ac_config_files docs/src/doxygen-config-c.txt"
@@ -11013,6 +11924,7 @@ do
     "src/validator/test/Makefile") CONFIG_FILES="$CONFIG_FILES src/validator/test/Makefile" ;;
     "src/xml/Makefile") CONFIG_FILES="$CONFIG_FILES src/xml/Makefile" ;;
     "src/xml/test/Makefile") CONFIG_FILES="$CONFIG_FILES src/xml/test/Makefile" ;;
+    "src/compress/Makefile") CONFIG_FILES="$CONFIG_FILES src/compress/Makefile" ;;
     "docs/Makefile") CONFIG_FILES="$CONFIG_FILES docs/Makefile" ;;
     "docs/src/doxygen-config-c.txt") CONFIG_FILES="$CONFIG_FILES docs/src/doxygen-config-c.txt" ;;
     "docs/src/doxygen-config-cpp.txt") CONFIG_FILES="$CONFIG_FILES docs/src/doxygen-config-cpp.txt" ;;
@@ -11275,12 +12187,20 @@ USE_LIBCHECK!$USE_LIBCHECK$ac_delim
 LIBCHECK_CPPFLAGS!$LIBCHECK_CPPFLAGS$ac_delim
 LIBCHECK_LDFLAGS!$LIBCHECK_LDFLAGS$ac_delim
 LIBCHECK_LIBS!$LIBCHECK_LIBS$ac_delim
+USE_ZLIB!$USE_ZLIB$ac_delim
+ZLIB_CPPFLAGS!$ZLIB_CPPFLAGS$ac_delim
+ZLIB_LDFLAGS!$ZLIB_LDFLAGS$ac_delim
+ZLIB_LIBS!$ZLIB_LIBS$ac_delim
+USE_BZ2!$USE_BZ2$ac_delim
+BZ2_CPPFLAGS!$BZ2_CPPFLAGS$ac_delim
+BZ2_LDFLAGS!$BZ2_LDFLAGS$ac_delim
+BZ2_LIBS!$BZ2_LIBS$ac_delim
 LIBSBML_OPTIONS!$LIBSBML_OPTIONS$ac_delim
 LIBOBJS!$LIBOBJS$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
 
-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 54; then
+  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 62; then
     break
   elif $ac_last_try; then
     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5
@@ -11757,9 +12677,9 @@ echo "  CC                            = $CC"
 echo "  CXX                           = $CXX"
 echo "  CFLAGS                        = $CFLAGS"
 echo "  CXXFLAGS                      = $CXXFLAGS"
-echo "  CPPFLAGS                      = $CPPFLAGS"
-echo "  LDFLAGS                       = $LDFLAGS"
-echo "  LIBS                          = $LIBS"
+echo "  CPPFLAGS                      = $CPPFLAGS $ZLIB_CPPFLAGS $BZ2_CPPFLAGS"
+echo "  LDFLAGS                       = $LDFLAGS $ZLIB_LDFLAGS $BZ2_LDFLAGS"
+echo "  LIBS                          = $LIBS $ZLIB_LIBS $BZ2_LIBS"
 echo ""
 echo "XML parser library configuration:"
 echo "  XML library                   = $xml_library"
@@ -11781,6 +12701,8 @@ print_flag "Lisp"   	$with_lisp	$lisp
 print_flag "Asdf"   	$EXT_ASDF	$ASDF
 print_flag "UFFI"   	$EXT_UFFI	$UFFI
 print_flag "Ruby"       $with_ruby      $RUBY
+print_flag "zlib"       $with_zlib      $with_zlib
+print_flag "bzip2"      $with_bzip2     $with_bzip2
 
 if test "$enable_layout" != "no" ; then
   echo "  Using proposed layout exten.  = yes"

@@ -178,6 +178,8 @@ CONFIG_LIB_EXPAT(1.95.8)
 CONFIG_LIB_XERCES
 CONFIG_LIB_LIBXML(2.6.16)
 CONFIG_LIB_LIBCHECK(0.9.2)
+CONFIG_LIB_ZLIB
+CONFIG_LIB_BZ2
 
 
 dnl ---------------------------------------------------------------------------
@@ -290,6 +292,8 @@ AC_CONFIG_FILES([src/validator/test/Makefile])
 AC_CONFIG_FILES([src/xml/Makefile])
 AC_CONFIG_FILES([src/xml/test/Makefile])
 
+AC_CONFIG_FILES([src/compress/Makefile])
+
 AC_CONFIG_FILES([docs/Makefile])
 AC_CONFIG_FILES([docs/src/doxygen-config-c.txt])
 AC_CONFIG_FILES([docs/src/doxygen-config-cpp.txt])
@@ -363,9 +367,9 @@ echo "  CC                            = $CC"
 echo "  CXX                           = $CXX"
 echo "  CFLAGS                        = $CFLAGS"
 echo "  CXXFLAGS                      = $CXXFLAGS"
-echo "  CPPFLAGS                      = $CPPFLAGS"
-echo "  LDFLAGS                       = $LDFLAGS"
-echo "  LIBS                          = $LIBS"
+echo "  CPPFLAGS                      = $CPPFLAGS $ZLIB_CPPFLAGS $BZ2_CPPFLAGS"
+echo "  LDFLAGS                       = $LDFLAGS $ZLIB_LDFLAGS $BZ2_LDFLAGS"
+echo "  LIBS                          = $LIBS $ZLIB_LIBS $BZ2_LIBS"
 echo ""
 echo "XML parser library configuration:"
 echo "  XML library                   = $xml_library"
@@ -387,6 +391,8 @@ print_flag "Lisp"   	$with_lisp	$lisp
 print_flag "Asdf"   	$EXT_ASDF	$ASDF
 print_flag "UFFI"   	$EXT_UFFI	$UFFI
 print_flag "Ruby"       $with_ruby      $RUBY
+print_flag "zlib"       $with_zlib      $with_zlib
+print_flag "bzip2"      $with_bzip2     $with_bzip2
 
 if test "$enable_layout" != "no" ; then
   echo "  Using proposed layout exten.  = yes"

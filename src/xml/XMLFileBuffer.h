@@ -2,9 +2,11 @@
  * @file    XMLFileBuffer.h
  * @brief   XMLFileBuffer implements the XMLBuffer interface for files
  * @author  Ben Bornstein
+ * @author  Akiya Jouraku (replaced cstdio based code with std::istream based code
+ * to support compressed files)
  *
  * $Id$
- * $HeadURL$
+ * $HeadURL:$
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -28,6 +30,7 @@
 
 #include <string>
 #include <cstdio>
+#include <istream>
 
 #include <sbml/xml/XMLBuffer.h>
 
@@ -41,6 +44,11 @@ public:
   /**
    * Creates a XMLBuffer based on the given file.  The file will be opened
    * for reading.
+   *
+   * @note ZlibNotLinked will be thrown if .gz or .zip file is given and 
+   * zlib is not linked with libSBML at compile time. Similarly, Bzip2NotLinked
+   * will be thrown if .bz2 file is given and bzip2 is not linked with libSBML 
+   * at compile time.
    */
   XMLFileBuffer (const std::string& filename);
 
@@ -73,9 +81,8 @@ private:
   XMLFileBuffer (const XMLFileBuffer&);
   XMLFileBuffer& operator= (const XMLFileBuffer&);
 
-
-  std::string  mFilename;
-  FILE*        mStream;
+  std::string   mFilename;
+  std::istream* mStream;
 };
 
 /** @endcond doxygen-libsbml-internal */

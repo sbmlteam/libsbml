@@ -118,7 +118,14 @@ public:
    * }
    * @endcode
    *
-   * @param filename the name or full pathname of the file to be read
+   * If the filename ends with @em .gz, the file will be read as a @em gzip file.
+   * Similary, if the filename ends with @em .zip or @em .bz2, the file will be
+   * read as a @em zip or @em bzip2 file, respectively. Otherwise, the fill will be
+   * read as an uncompressed file.
+   * If the filename ends with @em .zip, only the first file in the archive will
+   * be read if the zip archive contains two or more files.
+   *
+   * @param filename the name or full pathname of the file to be read.
    *
    * @return a pointer to the SBMLDocument created from the SBML content.
    *
@@ -138,6 +145,13 @@ public:
    * libxml2) is being used by libSBML.  The XML parsers themselves behave
    * differently in their error reporting, and sometimes libSBML has to
    * resort to the lowest common denominator.
+   * To read a gzip/zip file, underlying libSBML needs to be linked with zlib
+   * at compile time. Also, underlying libSBML needs to be linked with bzip2 
+   * to read a bzip2 file. File unreadable error will be logged if a compressed 
+   * file name is given and underlying libSBML is not linked with the 
+   * corresponding required library.
+   * SBMLReader::hasZlib() and SBMLReader::hasBzip2() can be used to check 
+   * whether libSBML is linked with each library.
    */
   SBMLDocument* readSBML (const std::string& filename);
 
@@ -163,6 +177,24 @@ public:
    * @see readSBML
    */
   SBMLDocument* readSBMLFromString (const std::string& xml);
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether
+   * libSBML is linked with zlib at compile time.
+   *
+   * @return @c true if zlib is linked, @c false otherwise.
+   */
+  static bool hasZlib();
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether
+   * libSBML is linked with bzip2 at compile time.
+   *
+   * @return @c true if bzip2 is linked, @c false otherwise.
+   */
+  static bool hasBzip2();
 
 
 protected:
@@ -236,6 +268,21 @@ SBMLReader_free (SBMLReader_t *sr);
  *   }\n
  * </code>
  *
+ * If the filename ends with @em .gz, the file will be read as a @em gzip file.
+ * Similary, if the filename ends with @em .zip or @em .bz2, the file will be
+ * read as a @em zip or @em bzip2 file, respectively. Otherwise, the fill will be
+ * read as an uncompressed file.
+ * If the filename ends with @em .zip, only the first file in the archive will
+ * be read if the zip archive contains two or more files.
+ *
+ * To read a gzip/zip file, underlying libSBML needs to be linked with zlib
+ * at compile time. Also, underlying libSBML needs to be linked with bzip2 
+ * to read a bzip2 file. File unreadable error will be logged if a compressed 
+ * file name is given and underlying libSBML is not linked with the corresponding 
+ * required library.
+ * SBMLReader_hasZlib() and SBMLReader_hasBzip2() can be used to check 
+ * whether libSBML is linked with each library.
+ *
  * @return a pointer to the SBMLDocument read.
  */
 LIBSBML_EXTERN
@@ -261,6 +308,27 @@ LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLReader_readSBMLFromString (SBMLReader_t *sr, const char *xml);
 
+
+/**
+ * Predicate returning @c non-zero or @c zero depending on whether
+ * underlying libSBML is linked with..
+ *
+ * @return @c non-zero if libSBML is linked with zlib, @c zero otherwise.
+ */
+LIBSBML_EXTERN
+int
+SBMLReader_hasZlib ();
+
+
+/**
+ * Predicate returning @c non-zero or @c zero depending on whether
+ * libSBML is linked with bzip2.
+ *
+ * @return @c non-zero if libSBML is linked with bzip2, @c zero otherwise.
+ */
+LIBSBML_EXTERN
+int
+SBMLReader_hasBzip2 ();
 
 #endif  /* !SWIG */
 

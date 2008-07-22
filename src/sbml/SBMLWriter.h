@@ -4,7 +4,7 @@
  * @author  Ben Bornstein
  *
  * $Id$
- * $HeadURL$
+ * $HeadURL:$
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -114,10 +114,29 @@ public:
   /**
    * Writes the given SBML document to filename.
    *
+   * If the filename ends with @em .gz, the file will be compressed by @em gzip.
+   * Similary, if the filename ends with @em .zip or @em .bz2, the file will be
+   * compressed by @em zip or @em bzip2, respectively. Otherwise, the fill will be
+   * uncompressed.
+   * If the filename ends with @em .zip, a filename that will be added to the
+   * zip archive file will end with @em .xml or @em .sbml. For example, the filename
+   * in the zip archive will be @em test.xml if the given filename is @em test.xml.zip
+   * or @em test.zip. Also, the filename in the archive will be @em test.sbml if the
+   * given filename is @em test.sbml.zip.
+   *
+   * @note To create a gzip/zip file, underlying libSBML needs to be linked with zlib at 
+   * compile time. Also, underlying libSBML needs to be linked with bzip2 to create a 
+   * bzip2 file.
+   * File unwritable error will be logged and @c false will be returned if a compressed 
+   * file name is given and underlying libSBML is not linked with the corresponding 
+   * required library.
+   * SBMLWriter::hasZlib() and SBMLWriter::hasBzip2() can be used to check whether
+   * underlying libSBML is linked with the library.
+   *
    * @param d the SBML document to be written
    *
    * @param filename the name or full pathname of the file where the SBML
-   * is to be written.
+   * is to be written. 
    *
    * @return @c true on success and @c false if the filename could not be
    * opened for writing.
@@ -153,10 +172,28 @@ public:
   char* writeToString (const SBMLDocument* d);
 
 
+  /**
+   * Predicate returning @c true or @c false depending on whether
+   * underlying libSBML is linked with zlib.
+   *
+   * @return @c true if libSBML is linked with zlib, @c false otherwise.
+   */
+  static bool hasZlib();
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether
+   * underlying libSBML is linked with bzip2.
+   *
+   * @return @c true if libSBML is linked with bzip2, @c false otherwise.
+   */
+  static bool hasBzip2();
+
  protected:
 
   std::string mProgramName;
   std::string mProgramVersion;
+
 };
 
 
@@ -213,6 +250,23 @@ SBMLWriter_setProgramVersion (SBMLWriter_t *sw, const char *version);
 /**
  * Writes the given SBML document to filename.
  *
+ * If the filename ends with @em .gz, the file will be compressed by @em gzip.
+ * Similary, if the filename ends with @em .zip or @em .bz2, the file will be
+ * compressed by @em zip or @em bzip2, respectively. Otherwise, the fill will be
+ * uncompressed.
+ * If the filename ends with @em .zip, a filename that will be added to the
+ * zip archive file will end with @em .xml or @em .sbml. For example, the filename
+ * in the zip archive will be @em test.xml if the given filename is @em test.xml.zip
+ * or @em test.zip. Also, the filename in the archive will be @em test.sbml if the
+ * given filename is @em test.sbml.zip.
+ *
+ * @note To create a gzip/zip file, libSBML needs to be linked with zlib at 
+ * compile time. Also, libSBML needs to be linked with bzip2 to create a bzip2 file.
+ * File unwritable error will be logged and @c zero will be returned if a compressed 
+ * file name is given and libSBML is not linked with the required library.
+ * SBMLWriter_hasZlib() and SBMLWriter_hasBzip2() can be used to check whether
+ * libSBML was linked with the library at compile time.
+ *
  * @return non-zero on success and zero if the filename could not be opened
  * for writing.
  */
@@ -235,6 +289,27 @@ char *
 SBMLWriter_writeSBMLToString (SBMLWriter_t *sw, const SBMLDocument_t *d);
 
 
+/**
+ * Predicate returning @c non-zero or @c zero depending on whether
+ * libSBML is linked with zlib at compile time.
+ *
+ * @return @c non-zero if zlib is linked, @c zero otherwise.
+ */
+LIBSBML_EXTERN
+int
+SBMLWriter_hasZlib ();
+
+
+/**
+ * Predicate returning @c non-zero or @c zero depending on whether
+ * libSBML is linked with bzip2 at compile time.
+ *
+ * @return @c non-zero if bzip2 is linked, @c zero otherwise.
+ */
+LIBSBML_EXTERN
+int
+SBMLWriter_hasBzip2 ();
+
 #endif  /* !SWIG */
 
 
@@ -250,6 +325,7 @@ SBMLWriter_writeSBMLToString (SBMLWriter_t *sw, const SBMLDocument_t *d);
 LIBSBML_EXTERN
 int
 writeSBML (const SBMLDocument_t *d, const char *filename);
+
 
 /**
  * Writes the given SBML document to an in-memory string and returns a

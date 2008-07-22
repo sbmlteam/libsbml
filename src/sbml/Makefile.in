@@ -139,6 +139,16 @@ ifdef USE_LIBXML
   extra_LIBS     += $(LIBXML_LIBS)
 endif
 
+
+ifdef USE_ZLIB
+ extra_CPPFLAGS += -DUSE_ZLIB
+endif
+
+ifdef USE_BZ2
+ extra_CPPFLAGS += -DUSE_BZ2
+endif
+
+
 ifneq "$(MAKECMDGOALS)" "dist"
   ifdef USE_LAYOUT
     subdirs = layout
@@ -159,7 +169,7 @@ endif
 
 objects   = $(call make_objects_list,$(sources))
 otherdirs = ../common ../util ../xml ../math ../validator \
-            ../validator/constraints ../units ../annotation
+            ../validator/constraints ../units ../annotation ../compress
 
 ifdef USE_LAYOUT
   otherdirs += ./layout

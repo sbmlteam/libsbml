@@ -126,6 +126,7 @@ ifdef USE_LIBXML
   extra_LIBS     += $(LIBXML_LIBS)
 endif
 
+
 # `distfiles' determines the files and directories included in a distribution.
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
@@ -162,7 +163,8 @@ tmp           = $(test_sources:.cpp=.$(OBJEXT)) $(test_sources:.c=.$(OBJEXT))
 localobjfiles = $(filter %.$(OBJEXT),$(tmp))
 
 otherdirs     = ..  ../../util ../../xml ../../math ../../units \
-                ../../validator ../../validator/constraints ../../annotation
+                ../../validator ../../validator/constraints ../../annotation \
+                ../../compress
 
 ifdef USE_LAYOUT
   otherdirs += ../layout

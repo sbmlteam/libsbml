@@ -2,9 +2,11 @@
  * @file    XMLFileBuffer.cpp
  * @brief   XMLFileBuffer implements the XMLBuffer interface
  * @author  Ben Bornstein
+ * @author  Akiya Jouraku (replaced cstdio based code with std::istream based code
+ * to support compressed files)
  *
  * $Id$
- * $HeadURL$
+ * $HeadURL:$
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -22,8 +24,12 @@
  *----------------------------------------------------------------------- -->*/
 
 #include <cstdio>
-#include <sbml/xml/XMLFileBuffer.h>
+#include<iostream>
+#include<fstream>
 
+#include <sbml/xml/XMLFileBuffer.h>
+#include <sbml/compress/CompressCommon.h>
+#include <sbml/compress/InputDecompressor.h>
 
 /** @cond doxygen-ignored */
 
@@ -40,8 +46,54 @@ using namespace std;
  */
 XMLFileBuffer::XMLFileBuffer (const string& filename) :
    mFilename( filename )
- , mStream  ( fopen(mFilename.c_str(), "r") )
 {
+  mStream = NULL;
+
+  try
+  {
+    // open an uncompressed XML file
+    if ( string::npos != filename.find(".xml", filename.length() -  4) )
+    {
+      mStream = new(std::nothrow) std::ifstream(filename.c_str());
+    }
+    // open a gzip file
+    else if ( string::npos != filename.find(".gz", filename.length() -  3) )
+    {
+      mStream = InputDecompressor::openGzipIStream(filename);
+    }
+    // open a bz2 file
+    else if ( string::npos != filename.find(".bz2", filename.length() - 4) )
+    {
+      mStream = InputDecompressor::openBzip2IStream(filename);
+    }
+    // open a zip file
+    else if ( string::npos != filename.find(".zip", filename.length() - 4) )
+    {
+      mStream = InputDecompressor::openZipIStream(filename);
+    }
+    else
+    {
+      // open an uncompressed file
+      mStream = new(std::nothrow) std::ifstream(filename.c_str());
+    }
+  }
+  catch ( ZlibNotLinked& zlib)
+  {
+    // liBSBML is not linked with zlib.
+    throw;
+  }
+  catch ( Bzip2NotLinked& bz2)
+  {
+    // liBSBML is not linked with bzip2.
+    throw;
+  }
+
+  if(mStream != NULL)
+  {
+    // invoke peek() to set a badbit when the given compressed file is unreadable
+    mStream->peek();
+  }
+
 }
 
 
@@ -50,8 +102,7 @@ XMLFileBuffer::XMLFileBuffer (const string& filename) :
  */
 XMLFileBuffer::~XMLFileBuffer ()
 {
-  if (mStream) fclose(mStream);
-  mStream = 0;
+  if(mStream) delete mStream;
 }
 
 
@@ -62,11 +113,12 @@ XMLFileBuffer::~XMLFileBuffer ()
  * @return the number of bytes actually copied (may be 0).
  */
 unsigned int
-XMLFileBuffer::copyTo (void* destination, unsigned int bytes)
+XMLFileBuffer::copyTo (void* destination, unsigned int bytes) 
 {
   if (mStream)
   {
-    return fread(destination, 1, bytes, mStream);
+    mStream->read( static_cast<char*>(destination), bytes);
+    return mStream->gcount();
   }
   else
   {
@@ -82,7 +134,7 @@ XMLFileBuffer::copyTo (void* destination, unsigned int bytes)
 bool
 XMLFileBuffer::error ()
 {
-  if (mStream) return ferror(mStream);
+  if (mStream) return (!mStream->eof() && mStream->fail());
   else return true;
 }
 

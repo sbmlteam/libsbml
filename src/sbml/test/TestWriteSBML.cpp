@@ -4,7 +4,7 @@
  * \author  Ben Bornstein
  *
  * $Id$
- * $HeadURL$
+ * $HeadURL:$
  */
 /* Copyright 2002 California Institute of Technology and Japan Science and
  * Technology Corporation.
@@ -1727,6 +1727,143 @@ START_TEST (test_WriteSBML_locale)
 END_TEST
 
 
+START_TEST (test_WriteSBML_gzip)
+{
+  const unsigned int filenum = 12;
+  const char* file[filenum] = {
+                        "../../../examples/sample-models/from-spec/level-2/algebraicrules.xml",
+                        "../../../examples/sample-models/from-spec/level-2/assignmentrules.xml",
+                        "../../../examples/sample-models/from-spec/level-2/boundarycondition.xml",
+                        "../../../examples/sample-models/from-spec/level-2/delay.xml",
+                        "../../../examples/sample-models/from-spec/level-2/dimerization.xml",
+                        "../../../examples/sample-models/from-spec/level-2/enzymekinetics.xml",
+                        "../../../examples/sample-models/from-spec/level-2/events.xml",
+                        "../../../examples/sample-models/from-spec/level-2/functiondef.xml",
+                        "../../../examples/sample-models/from-spec/level-2/multicomp.xml",
+                        "../../../examples/sample-models/from-spec/level-2/overdetermined.xml",
+                        "../../../examples/sample-models/from-spec/level-2/twodimensional.xml",
+                        "../../../examples/sample-models/from-spec/level-2/units.xml"
+                        };
+  char* gzfile = "test.xml.gz";
+
+  for(unsigned int i=0; i < filenum; i++)
+  {
+    SBMLDocument* d = readSBML(file[i]);
+    fail_unless( d != NULL);
+
+    if ( ! SBMLWriter::hasZlib() )
+    {
+      fail_unless( writeSBML(d, gzfile) == false);
+      delete d;
+      continue;
+    }
+
+    bool result = writeSBML(d, gzfile);
+    fail_unless( result );
+
+    SBMLDocument* dg = readSBML(gzfile);
+    fail_unless( dg != NULL);
+
+    fail_unless( strcmp(d->toSBML(), dg->toSBML()) == 0 );
+
+    delete d;
+    delete dg;
+  }
+
+}
+END_TEST
+
+START_TEST (test_WriteSBML_bzip2)
+{
+  const unsigned int filenum = 12;
+  const char* file[filenum] = {
+                        "../../../examples/sample-models/from-spec/level-2/algebraicrules.xml",
+                        "../../../examples/sample-models/from-spec/level-2/assignmentrules.xml",
+                        "../../../examples/sample-models/from-spec/level-2/boundarycondition.xml",
+                        "../../../examples/sample-models/from-spec/level-2/delay.xml",
+                        "../../../examples/sample-models/from-spec/level-2/dimerization.xml",
+                        "../../../examples/sample-models/from-spec/level-2/enzymekinetics.xml",
+                        "../../../examples/sample-models/from-spec/level-2/events.xml",
+                        "../../../examples/sample-models/from-spec/level-2/functiondef.xml",
+                        "../../../examples/sample-models/from-spec/level-2/multicomp.xml",
+                        "../../../examples/sample-models/from-spec/level-2/overdetermined.xml",
+                        "../../../examples/sample-models/from-spec/level-2/twodimensional.xml",
+                        "../../../examples/sample-models/from-spec/level-2/units.xml"
+                        };
+
+  char* bz2file = "test.xml.bz2";
+
+  for(unsigned int i=0; i < filenum; i++)
+  {
+    SBMLDocument* d = readSBML(file[i]);
+    fail_unless( d != NULL);
+
+    if ( ! SBMLWriter::hasBzip2() )
+    {
+      fail_unless( writeSBML(d, bz2file) == false );
+      delete d;
+      continue;
+    }
+
+    bool result = writeSBML(d, bz2file);
+    fail_unless( result );
+
+    SBMLDocument* dg = readSBML(bz2file);
+    fail_unless( dg != NULL);
+
+    fail_unless( strcmp(d->toSBML(), dg->toSBML()) == 0 );
+
+    delete d;
+    delete dg;
+  }
+}
+END_TEST
+
+START_TEST (test_WriteSBML_zip)
+{
+  const unsigned int filenum = 12;
+  const char* file[filenum] = {
+                        "../../../examples/sample-models/from-spec/level-2/algebraicrules.xml",
+                        "../../../examples/sample-models/from-spec/level-2/assignmentrules.xml",
+                        "../../../examples/sample-models/from-spec/level-2/boundarycondition.xml",
+                        "../../../examples/sample-models/from-spec/level-2/delay.xml",
+                        "../../../examples/sample-models/from-spec/level-2/dimerization.xml",
+                        "../../../examples/sample-models/from-spec/level-2/enzymekinetics.xml",
+                        "../../../examples/sample-models/from-spec/level-2/events.xml",
+                        "../../../examples/sample-models/from-spec/level-2/functiondef.xml",
+                        "../../../examples/sample-models/from-spec/level-2/multicomp.xml",
+                        "../../../examples/sample-models/from-spec/level-2/overdetermined.xml",
+                        "../../../examples/sample-models/from-spec/level-2/twodimensional.xml",
+                        "../../../examples/sample-models/from-spec/level-2/units.xml"
+                        };
+
+  char* zipfile = "test.xml.zip";
+
+  for(unsigned int i=0; i < filenum; i++)
+  {
+    SBMLDocument* d = readSBML(file[i]);
+    fail_unless( d != NULL);
+
+    if ( ! SBMLWriter::hasZlib() )
+    {
+      fail_unless( writeSBML(d, zipfile) == false );
+      delete d;
+      continue;
+    }
+
+    bool result = writeSBML (d, zipfile);
+    fail_unless( result );
+
+    SBMLDocument* dg = readSBML(zipfile);
+    fail_unless( dg != NULL);
+
+    fail_unless( strcmp(d->toSBML(), dg->toSBML()) == 0 );
+
+    delete d;
+    delete dg;
+  }
+}
+END_TEST
 
 Suite *
 create_suite_WriteSBML ()
@@ -1845,6 +1982,11 @@ create_suite_WriteSBML ()
   tcase_add_test( tcase, test_WriteSBML_INF     );
   tcase_add_test( tcase, test_WriteSBML_NegINF  );
   tcase_add_test( tcase, test_WriteSBML_locale  );
+
+  // Compressed SBML
+  tcase_add_test( tcase, test_WriteSBML_gzip  );
+  tcase_add_test( tcase, test_WriteSBML_bzip2  );
+  tcase_add_test( tcase, test_WriteSBML_zip  );
 
   suite_add_tcase(suite, tcase);
 

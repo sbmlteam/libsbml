@@ -4,6 +4,21 @@
 
 * New features:
 
+  - Added new features for reading/writing a compressed SBML file.
+    Now, readSBML/writeSBML functions can read/write the following
+    compressed files: gzip, zip, and bzip2.
+    If the given filename ends with one of extensions for the above 
+    compressed file (.gz, .zip, or .bz2), readSBML/writeSBML will 
+    read/write the file as the corresponding compressed file, or an 
+    uncompressed file will be read/written as before.
+    For exmaple, a gzip file ("test.xml.gz") will be read and then a zip 
+    file ("test.xml.zip") will be created by the following sample code:
+      SBMLDocument* d = readSBML("test.xml.gz");
+      writeSBML(d, "test.xml.zip");
+    zlib (for gzip/zip) and bzip2 (for bzip2) are required respectively.
+    These features are enabled by default and can be disabled by 
+    --with-zlib=no and --with-bzip2=no configure options.
+
   - The SBase class has a new member "SBase * mParentSBMLObject" which
     points to the direct SBML parent of the object. For example:
       StoichiometryMath->SpeciesReference->ListOf->Reaction->ListOf
@@ -65,6 +80,27 @@
     
 
 * Bug fixes:
+ 
+  - Annotations for CVTerms in a Model object were wrongly deleted when a
+    ModelHistory object in the Model object was not explicitly initialized.
+    Due to this bug, the corresponding annotation XML node or string
+    were remvoed in the functions that return or print the annotation 
+    XML node or sring (e.g. getAnnotation(), getAnnotationString(), 
+    writeSBML() and writeSBMLToString() )
+
+  - Tracker issue #2013528
+    In SBMLDocument::setLevelAndVersion() function, a check code for 
+    the result of compatibility check was missing. Due to this bug, the
+    conversion could be wrongly peformed even if the check result was error.
+    Thanks to Robert Platt for reporting this.
+
+  - Parts of reaction elements could be ignored when reading an SBML
+    L2V1 file with an empty math element. For exmaple, when reading an 
+    SBML L2V1 file which contains three reactions ("r1", "r2", and "r3") 
+    and a kineticlaw in the reaction "r1" contains an empty math element
+    which consist of a start and end 'math' tag pair (<math ...></math>),
+    the reaction "r2" and "r3" (i.e. all reactions after the reaction "r1")
+    are ignored and only "r1" is stored in an listOfReactions object.
 
   - Eric Fernandez reported that the latest gcc version (gcc-4.3.1) 
     caused compilation errors in the current libsbml.  These have been

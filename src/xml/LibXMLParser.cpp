@@ -22,6 +22,7 @@
  *----------------------------------------------------------------------- -->*/
 
 #include <iostream>
+#include <sstream>
 
 #include <libxml/xmlerror.h>
 
@@ -30,6 +31,8 @@
 
 #include <sbml/xml/LibXMLHandler.h>
 #include <sbml/xml/LibXMLParser.h>
+
+#include <sbml/compress/CompressCommon.h>
 
 
 /** @cond doxygen-ignored */
@@ -320,7 +323,29 @@ LibXMLParser::parseFirst (const char* content, bool isFile)
 
   if ( isFile )
   {
-    mSource = new XMLFileBuffer(content);
+    try
+    {
+      mSource = new XMLFileBuffer(content);
+    }
+    catch ( ZlibNotLinked& zlib)
+    {
+      // libSBML is not linked with zlib.
+      std::ostringstream oss;
+      oss << "Tried to read " << content << ". Reading a gzip/zip file is not enabled because "
+          << "underlying libSBML is not linked with zlib."; 
+      reportError(XMLFileUnreadable, oss.str(), 0, 0);
+      return false;
+    } 
+    catch ( Bzip2NotLinked& bz2)
+    {
+      // libSBML is not linked with bzip2.
+      std::ostringstream oss;
+      oss << "Tried to read " << content << ". Reading a bzip2 file is not enabled because "
+          << "underlying libSBML is not linked with bzip2."; 
+      reportError(XMLFileUnreadable, oss.str(), 0, 0);
+      return false;
+    } 
+
 
     if ( mSource->error() )
     {
