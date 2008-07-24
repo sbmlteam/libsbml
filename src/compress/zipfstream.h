@@ -167,7 +167,7 @@ protected:
    *  character at a time.
   */
   virtual int_type
-  overflow(int_type c = traits_type::eof());
+  overflow(int_type c = std::streambuf::traits_type::eof());
 
   /**
    *  @brief  Installs external stream buffer.
