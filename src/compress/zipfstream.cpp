@@ -64,7 +64,7 @@
 #include <cstring>          // for strcpy, strcat, strlen (mode strings)
 #include <cstdio>           // for BUFSIZ
 
-#ifdef WIN32
+#if defined(WIN32) and !defined(CYGWIN) 
 #define USEWIN32IOAPI
 # include "iowin32.h"
 # include <direct.h>
@@ -610,7 +610,7 @@ int  unzipread (unzFile file, voidp buf, unsigned len)
 }
 
 
-#ifdef WIN32
+#if defined(WIN32) && !defined(CYGWIN)
 uLong filetime(const char* f, tm_zip* tmzip, uLong *dt)
 {
   int ret = 0;
