@@ -23,7 +23,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="../../include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBSBML_EXPORTS;LIBLAX_EXPORTS;USE_LIBXML;USE_LAYOUT"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBSBML_EXPORTS;LIBLAX_EXPORTS;USE_LIBXML;USE_LAYOUT;USE_ZLIB;USE_BZ2"
 				ExceptionHandling="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -40,7 +40,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="../bin/libxml2.lib ../bin/iconv.lib ../bin/zlib.lib odbc32.lib odbccp32.lib"
+				AdditionalDependencies="libxml2.lib iconv.lib zlib.lib bzip2.lib odbc32.lib odbccp32.lib"
 				OutputFile="../bin/libsbmlD.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
@@ -92,7 +92,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="0"
 				AdditionalIncludeDirectories="../../include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBSBML_EXPORTS;USE_LIBXML;LIBLAX_EXPORTS;USE_LAYOUT"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBSBML_EXPORTS;USE_LIBXML;LIBLAX_EXPORTS;USE_LAYOUT;USE_ZLIB;USE_BZ2"
 				StringPooling="FALSE"
 				ExceptionHandling="TRUE"
 				BasicRuntimeChecks="0"
@@ -111,7 +111,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="../bin/libxml2.lib ../bin/iconv.lib ../bin/zlib.lib odbc32.lib odbccp32.lib"
+				AdditionalDependencies="libxml2.lib iconv.lib zlib.lib odbc32.lib odbccp32.lib bzip2.lib"
 				OutputFile="../bin/libsbml.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
@@ -171,6 +171,9 @@
 				RelativePath="..\..\src\sbml\layout\BoundingBox.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\compress\bzfstream.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\constraints\CiElementMathCheck.cpp">
 			</File>
 			<File
@@ -184,6 +187,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\CompartmentType.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\compress\CompressCommon.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\ConsistencyConstraints.cpp">
@@ -262,6 +268,15 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\InitialAssignment.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\compress\InputDecompressor.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\compress\ioapi.c">
+			</File>
+			<File
+				RelativePath="..\..\src\compress\iowin32.c">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\KineticLaw.cpp">
@@ -370,6 +385,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\NumericReturnMathCheck.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\compress\OutputCompressor.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\OverDeterminedCheck.cpp">
@@ -537,6 +555,9 @@
 				RelativePath="..\..\src\validator\constraints\UnitsBase.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\compress\unzip.c">
+			</File>
+			<File
 				RelativePath="..\..\src\util\util.c">
 			</File>
 			<File
@@ -590,6 +611,15 @@
 			<File
 				RelativePath="..\..\src\xml\XMLTriple.cpp">
 			</File>
+			<File
+				RelativePath="..\..\src\compress\zfstream.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\compress\zip.c">
+			</File>
+			<File
+				RelativePath="..\..\src\compress\zipfstream.cpp">
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -605,6 +635,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\layout\BoundingBox.h">
+			</File>
+			<File
+				RelativePath="..\..\src\compress\bzfstream.h">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\CiElementMathCheck.h">
@@ -625,10 +658,16 @@
 				RelativePath="..\..\src\sbml\CompartmentType.h">
 			</File>
 			<File
+				RelativePath="..\..\src\compress\CompressCommon.h">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\ConsistencyValidator.h">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Constraint.h">
+			</File>
+			<File
+				RelativePath="..\..\src\compress\crypt.h">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\layout\CubicBezier.h">
@@ -698,6 +737,15 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\InitialAssignment.h">
+			</File>
+			<File
+				RelativePath="..\..\src\compress\InputDecompressor.h">
+			</File>
+			<File
+				RelativePath="..\..\src\compress\ioapi.h">
+			</File>
+			<File
+				RelativePath="..\..\src\compress\iowin32.h">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\KineticLaw.h">
@@ -800,6 +848,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\NumericReturnMathCheck.h">
+			</File>
+			<File
+				RelativePath="..\..\src\compress\OutputCompressor.h">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\OverDeterminedCheck.h">
@@ -964,6 +1015,9 @@
 				RelativePath="..\..\src\validator\constraints\UnitsBase.h">
 			</File>
 			<File
+				RelativePath="..\..\src\compress\unzip.h">
+			</File>
+			<File
 				RelativePath="..\..\src\util\util.h">
 			</File>
 			<File
@@ -1019,6 +1073,15 @@
 			</File>
 			<File
 				RelativePath="..\..\src\xml\XMLTriple.h">
+			</File>
+			<File
+				RelativePath="..\..\src\compress\zfstream.h">
+			</File>
+			<File
+				RelativePath="..\..\src\compress\zip.h">
+			</File>
+			<File
+				RelativePath="..\..\src\compress\zipfstream.h">
 			</File>
 		</Filter>
 		<Filter
