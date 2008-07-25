@@ -2336,7 +2336,7 @@ Model::readAttributes (const XMLAttributes& attributes)
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (level == 2 && (version == 2 || version == 3)) 
+  if (level == 2 && version > 1) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 
 }
@@ -2372,7 +2372,7 @@ Model::writeAttributes (XMLOutputStream& stream) const
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (level == 2 && (version == 2 || version == 3)) 
+  if (level == 2 && version > 1) 
     SBO::writeTerm(stream, mSBOTerm);
 }
 /** @endcond doxygen-libsbml-internal */
@@ -2402,7 +2402,7 @@ Model::writeElements (XMLOutputStream& stream) const
 
   if ( getNumUnitDefinitions() > 0 ) mUnitDefinitions.write(stream);
 
-  if (level == 2 && (version == 2 || version == 3))
+  if (level == 2 && version > 1)
   {
     if ( getNumCompartmentTypes() > 0 ) mCompartmentTypes.write(stream);
     if ( getNumSpeciesTypes    () > 0 ) mSpeciesTypes    .write(stream);
@@ -2412,14 +2412,14 @@ Model::writeElements (XMLOutputStream& stream) const
   if ( getNumSpecies     () > 0 ) mSpecies     .write(stream);
   if ( getNumParameters  () > 0 ) mParameters  .write(stream);
 
-  if (level == 2 && (version == 2 || version == 3))
+  if (level == 2 && version > 1)
   {
     if ( getNumInitialAssignments() > 0 ) mInitialAssignments.write(stream);
   }
 
   if ( getNumRules() > 0 ) mRules.write(stream);
 
-  if (level == 2 && (version == 2 || version == 3))
+  if (level == 2 && version > 1)
   {
     if ( getNumConstraints() > 0 ) mConstraints.write(stream);
   }

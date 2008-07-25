@@ -883,7 +883,7 @@ UnitDefinition::readAttributes (const XMLAttributes& attributes)
   {
     expectedAttributes.push_back("metaid");
     expectedAttributes.push_back("id");
-    if (version == 3)
+    if (version > 2)
     {
       expectedAttributes.push_back("sboTerm");
     }
@@ -920,7 +920,7 @@ UnitDefinition::readAttributes (const XMLAttributes& attributes)
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (level == 2 && version == 3) 
+  if (level == 2 && version > 2) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
 /** @endcond doxygen-libsbml-internal */
@@ -955,7 +955,7 @@ UnitDefinition::writeAttributes (XMLOutputStream& stream) const
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v3)
   //
-  if (level == 2 && version == 3) 
+  if (level == 2 && version > 2) 
     SBO::writeTerm(stream, mSBOTerm);
 }
 /** @endcond doxygen-libsbml-internal */

@@ -195,7 +195,7 @@ SimpleSpeciesReference::readAttributes (const XMLAttributes& attributes)
   }
 
 
-  if (level == 2 && (version == 2 || version == 3))
+  if (level == 2 && version > 1)
   {
     //
     // id: SId  { use="optional" }  (L2v2)
@@ -243,7 +243,7 @@ SimpleSpeciesReference::writeAttributes (XMLOutputStream& stream) const
   const unsigned int version = getVersion();
 
 
-  if (level == 2 && (version == 2 || version == 3))
+  if (level == 2 && version > 1)
   {
     //
     // id: SId  { use="optional" }  (L2v2)

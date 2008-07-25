@@ -396,7 +396,7 @@ InitialAssignment::readAttributes (const XMLAttributes& attributes)
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (level == 2 && (version == 2 || version == 3)) 
+  if (level == 2 && version > 1) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
 /** @endcond doxygen-libsbml-internal */
@@ -424,7 +424,7 @@ InitialAssignment::writeAttributes (XMLOutputStream& stream) const
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (level == 2 && (version == 2 || version == 3)) 
+  if (level == 2 && version > 1) 
     SBO::writeTerm(stream, mSBOTerm);
 }
 /** @endcond doxygen-libsbml-internal */

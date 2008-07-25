@@ -294,7 +294,7 @@ StoichiometryMath::readAttributes (const XMLAttributes& attributes)
   std::vector<std::string> expectedAttributes;
   expectedAttributes.clear();
   expectedAttributes.push_back("metaid");
-  if (level == 2 && version == 3)
+  if (level == 2 && version > 2)
   {
     expectedAttributes.push_back("sboTerm");
   }
@@ -314,7 +314,7 @@ StoichiometryMath::readAttributes (const XMLAttributes& attributes)
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (level == 2 && version == 3) 
+  if (level == 2 && version > 2) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
 /** @endcond doxygen-libsbml-internal */
@@ -336,7 +336,7 @@ StoichiometryMath::writeAttributes (XMLOutputStream& stream) const
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v3)
   //
-  if (level == 2 && version == 3) 
+  if (level == 2 && version > 2) 
     SBO::writeTerm(stream, mSBOTerm);
 }
 /** @endcond doxygen-libsbml-internal */

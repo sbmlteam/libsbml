@@ -656,12 +656,12 @@ Species::readAttributes (const XMLAttributes& attributes)
       expectedAttributes.push_back("speciesType");
     }
 
-    if (version != 3)
+    if (version < 3)
     {
       expectedAttributes.push_back("spatialSizeUnits");
     }
 
-    if (version == 3)
+    if (version > 2)
     {
       expectedAttributes.push_back("sboTerm");
     }
@@ -700,7 +700,7 @@ Species::readAttributes (const XMLAttributes& attributes)
   //
   // speciesType: SId  { use="optional" }  (L2v2)
   //
-  if (level == 2 && (version == 2 || version == 3))
+  if (level == 2 && version > 1)
   {
     attributes.readInto("speciesType", mSpeciesType);
   }
@@ -785,7 +785,7 @@ Species::readAttributes (const XMLAttributes& attributes)
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (level == 2 && version == 3) 
+  if (level == 2 && version > 2) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
 /** @endcond doxygen-libsbml-internal */
@@ -820,7 +820,7 @@ Species::writeAttributes (XMLOutputStream& stream) const
   //
   // speciesType: SId  { use="optional" }  (L2v2)
   //
-  if (level == 2 && (version == 2 || version == 3))
+  if (level == 2 && version > 1)
   {
     stream.writeAttribute("speciesType", mSpeciesType);
   }
@@ -890,7 +890,7 @@ Species::writeAttributes (XMLOutputStream& stream) const
 
   if (level == 2)
   {
-    if (version != 3)
+    if (version < 3)
     {
       //
       // spatialSizeUnits: SId  { use="optional" }  (L2v1, L2v2)
@@ -937,7 +937,7 @@ Species::writeAttributes (XMLOutputStream& stream) const
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v3)
   //
-  if (level == 2 && version == 3) 
+  if (level == 2 && version > 2) 
     SBO::writeTerm(stream, mSBOTerm);
 }
 /** @endcond doxygen-libsbml-internal */

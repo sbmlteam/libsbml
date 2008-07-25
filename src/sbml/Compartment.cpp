@@ -490,7 +490,7 @@ Compartment::readAttributes (const XMLAttributes& attributes)
       expectedAttributes.push_back("compartmentType");
     }
 
-    if (version == 3)
+    if (version > 2)
     {
       expectedAttributes.push_back("sboTerm");
     }
@@ -529,7 +529,7 @@ Compartment::readAttributes (const XMLAttributes& attributes)
   //
   // compartmentType: SId  { use="optional" }  (L2v2)
   //
-  if (level == 2 && (version == 2 || version == 3))
+  if (level == 2 && version > 1)
   {
     attributes.readInto("compartmentType", mCompartmentType, 
                                                       getErrorLog(), false);
@@ -572,7 +572,7 @@ Compartment::readAttributes (const XMLAttributes& attributes)
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (level == 2 && version == 3) 
+  if (level == 2 && version > 2) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
 /** @endcond doxygen-libsbml-internal */
@@ -608,7 +608,7 @@ Compartment::writeAttributes (XMLOutputStream& stream) const
   //
   // compartmentType: SId  { use="optional" }  (L2v2)
   //
-  if (level == 2 && (version == 2 || version == 3))
+  if (level == 2 && version > 1)
   {
     stream.writeAttribute("compartmentType", mCompartmentType);
   }
@@ -656,7 +656,7 @@ Compartment::writeAttributes (XMLOutputStream& stream) const
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v3)
   //
-  if (level == 2 && version == 3) 
+  if (level == 2 && version > 2) 
     SBO::writeTerm(stream, mSBOTerm);
 }
 /** @endcond doxygen-libsbml-internal */

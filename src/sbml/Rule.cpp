@@ -775,7 +775,7 @@ Rule::readAttributes (const XMLAttributes& attributes)
     //
     // sboTerm: SBOTerm { use="optional" }  (L2v2)
     //
-    if ((version == 2 || version == 3)) 
+    if (version > 1) 
       mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
   }
 }
@@ -855,7 +855,7 @@ Rule::writeAttributes (XMLOutputStream& stream) const
     //
     // sboTerm: SBOTerm { use="optional" }  (L2v2)
     //
-//    if ((version == 2 || version == 3)) SBO::writeTerm(stream, mSBOTerm);
+//    if (version > 1) SBO::writeTerm(stream, mSBOTerm);
   }
 }
 /** @endcond doxygen-libsbml-internal */

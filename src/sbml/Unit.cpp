@@ -1248,7 +1248,7 @@ Unit::readAttributes (const XMLAttributes& attributes)
       expectedAttributes.push_back("offset");
     }
 
-    if (version == 3)
+    if (version > 2)
     {
       expectedAttributes.push_back("sboTerm");
     }
@@ -1300,14 +1300,14 @@ Unit::readAttributes (const XMLAttributes& attributes)
     //
     // sboTerm: SBOTerm { use="optional" }  (L2v2)
     //
-    if (version == 3) 
+    if (version > 2) 
         mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
   }
 
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (this->getLevel() == 2 && this->getVersion() == 3) 
+  if (this->getLevel() == 2 && this->getVersion() > 2) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
 /** @endcond doxygen-libsbml-internal */
@@ -1358,14 +1358,14 @@ Unit::writeAttributes (XMLOutputStream& stream) const
     //
     // sboTerm: SBOTerm { use="optional" }  (L2v3)
     //
-    if (version == 3) 
+    if (version > 2) 
         SBO::writeTerm(stream, mSBOTerm);
   }
 
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v3)
   //
-  if (this->getLevel() == 2 && this->getVersion() == 3) 
+  if (this->getLevel() == 2 && this->getVersion() > 2) 
     SBO::writeTerm(stream, mSBOTerm);
 }
 /** @endcond doxygen-libsbml-internal */
