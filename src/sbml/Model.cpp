@@ -1033,6 +1033,7 @@ Model::syncAnnotation ()
         mAnnotation->unsetEnd();
       }
       mAnnotation->addChild(history->getChild(0));
+      delete history;
     }
   }
   else

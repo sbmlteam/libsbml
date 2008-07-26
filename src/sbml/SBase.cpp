@@ -1893,6 +1893,7 @@ SBase::syncAnnotation ()
         mAnnotation->unsetEnd();
       }
       mAnnotation->addChild(cvTerms->getChild(0));
+      delete cvTerms;
     }
   }
 }
