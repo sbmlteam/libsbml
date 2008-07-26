@@ -306,8 +306,12 @@ RDFAnnotationParser::parseCVTerms(const SBase * object)
   XMLNode * RDF = createRDFAnnotation();
   RDF->addChild(*CVTerms);
 
+  delete CVTerms;
+
   XMLNode *ann = createAnnotation();
   ann->addChild(*RDF);
+
+  delete RDF;
 
   return ann;
 }
@@ -324,27 +328,18 @@ RDFAnnotationParser::createCVTerms(const SBase * object)
   XMLTriple bag_triple = XMLTriple("Bag", 
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rdf");
-  XMLTriple *type_triple;
   
   /* attributes */
   XMLAttributes blank_att = XMLAttributes();
  
   /* tokens */
   XMLToken bag_token = XMLToken(bag_triple, blank_att);
-  XMLToken li_token;
-  XMLToken * type_token;
-
-  /* nodes */
-  XMLNode  li;
-  XMLNode  * type;
-  XMLNode  * bag;    
 
   std::string prefix;
   std::string name;
   std::string uri;
 
   XMLAttributes *resources;
-  XMLAttributes *att;
 
   XMLNode *description = createRDFDescription(object);
 
@@ -421,29 +416,29 @@ RDFAnnotationParser::createCVTerms(const SBase * object)
         continue;
       }
       
-      type_triple = new XMLTriple(name, uri, prefix);
-      type_token = new XMLToken (*(type_triple), blank_att);
-      type = new XMLNode(*(type_token));
-      bag = new XMLNode(bag_token);
 
       resources = static_cast <CVTerm *> (object->getCVTerms()->get(n))
                                                         ->getResources();
+      XMLNode   bag(bag_token);
 
       for (int r = 0; r < resources->getLength(); r++)
       {
-        att = new XMLAttributes();
-        att->add(resources->getName(r), resources->getValue(r)); 
+        XMLAttributes att;
+        att.add(resources->getName(r), resources->getValue(r)); 
         
-        li_token = XMLToken(li_triple, *(att));
+        XMLToken li_token(li_triple, att);
         li_token.setEnd();
+        XMLNode li(li_token);
 
-        li = XMLNode(li_token);
-
-        bag->addChild(li);
+        bag.addChild(li);
       }
 
-      type->addChild(*(bag));
-      description->addChild(*(type));
+      XMLTriple type_triple(name, uri, prefix);
+      XMLToken  type_token(type_triple, blank_att);
+      XMLNode   type(type_token);
+
+      type.addChild(bag);
+      description->addChild(type);
     }
 
   }
@@ -533,81 +528,112 @@ RDFAnnotationParser::parseModelHistory(const Model *model)
   XMLToken empty_token    = XMLToken("");
 
   /* nodes */
-  XMLNode * bag;//     = XMLNode(bag_token);
-  XMLNode * li;//      = XMLNode(li_token);
-  XMLNode * N = 0;//       = XMLNode(N_token);
-  XMLNode * Family;//  = XMLNode(Family_token);
-  XMLNode * Given;//   = XMLNode(Given_token);
-  XMLNode * Email = 0;//   = XMLNode(Email_token);
-  XMLNode * Org = 0 ;//    = XMLNode(Org_token);
-  XMLNode * Orgname;// = XMLNode(Orgname_token);
+  XMLNode bag     = XMLNode(bag_token);
   XMLNode created = XMLNode(created_token);
   XMLNode modified= XMLNode(modified_token);
   XMLNode W3CDTF1 = XMLNode(W3CDTF1_token);
   XMLNode W3CDTF2 = XMLNode(W3CDTF2_token);
-  XMLNode * empty;
-  
+  //
+  // The following XMLNode objects are used only
+  // in the for loop below (for each ModelCreator object
+  // in ModelHistory object) and reset in each step.
+  // Thus, they are defined only in the block in which 
+  // they are used to avoid a memory leak.
+  //  
+  //  XMLNode * N
+  //  XMLNode * Email
+  //  XMLNode * Org
+  //  XMLNode Family;
+  //  XMLNode Given
+  //  XMLNode Orgname
+  //  XMLNode li
+  //
+
   /* now add the data from the ModelHistory */
-  ModelCreator *c;
-  XMLNode * creator;// = new XMLNode(creator_token);
-  bag = new XMLNode(bag_token);
+
   for (unsigned int n = 0; n < history->getNumCreators(); n++)
   {
-    empty = new XMLNode(empty_token);
-    c = (ModelCreator * )(history->getCreator(n));
+    XMLNode * N     = 0;
+    XMLNode * Email = 0;
+    XMLNode * Org   = 0;
+
+    ModelCreator* c = history->getCreator(n);
     if (c->isSetFamilyName())
     {
-      empty = new XMLNode(empty_token);
-      empty->append(c->getFamilyName());
-      Family = new XMLNode(Family_token);
-      Family->addChild(*(empty));
+      XMLNode empty(empty_token);
+      empty.append(c->getFamilyName());
+
+      XMLNode Family(Family_token);
+      Family.addChild(empty);
+
       N = new XMLNode(N_token);
-      N->addChild(*(Family));
+      N->addChild(Family);
     }
+
     if (c->isSetGivenName())
     {
-      empty = new XMLNode(empty_token);
-      empty->append(c->getGivenName());
-      Given = new XMLNode(Given_token);
-      Given->addChild(*(empty));
+      XMLNode empty(empty_token);
+      empty.append(c->getGivenName());
+
+      XMLNode Given(Given_token);
+      Given.addChild(empty);
+
       if (!N)
       {
         N = new XMLNode(N_token);
       }
-      N->addChild(*(Given));
+      N->addChild(Given);
     }
+
     if (c->isSetEmail())
     {
-      empty = new XMLNode(empty_token);
-      empty->append(c->getEmail());
+      XMLNode empty(empty_token);
+      empty.append(c->getEmail());
+
       Email = new XMLNode(Email_token);
-      Email->addChild(*(empty));
+      Email->addChild(empty);
     }
+
     if (c->isSetOrganisation())
     {
-      empty = new XMLNode(empty_token);
-      empty->append(c->getOrganisation());
-      Orgname = new XMLNode(Orgname_token);
+      XMLNode empty(empty_token);
+      empty.append(c->getOrganisation());
+      XMLNode Orgname(Orgname_token);
+      Orgname.addChild(empty);
+
       Org = new XMLNode(Org_token);
-      Orgname->addChild(*(empty));
-      Org->addChild(*(Orgname));
+      Org->addChild(Orgname);
     }
-    li = new XMLNode(li_token);
-    if (N) li->addChild(*N);
-    if (Email) li->addChild(*Email);
-    if (Org) li->addChild(*Org);
-    bag->addChild(*li);
+
+    XMLNode li(li_token);
+    if (N)
+    {
+      li.addChild(*N);
+      delete N;
+    }
+    if (Email)
+    {
+      li.addChild(*Email);
+      delete Email;
+    }
+    if (Org)
+    {
+      li.addChild(*Org);
+      delete Org;
+    }
+    bag.addChild(li);
   }
-  creator = new XMLNode(creator_token);
-  creator->addChild(*bag);
-  description->addChild(*creator);
+
+  XMLNode creator(creator_token);
+  creator.addChild(bag);
+  description->addChild(creator);
   
   /* created date */
   if (history->isSetCreatedDate())
   {
-    empty = new XMLNode(empty_token);
-    empty->append(history->getCreatedDate()->getDateAsString());
-    W3CDTF1.addChild(*(empty));
+    XMLNode empty(empty_token);
+    empty.append(history->getCreatedDate()->getDateAsString());
+    W3CDTF1.addChild(empty);
     created.addChild(W3CDTF1);
     description->addChild(created);
   }
@@ -615,9 +641,9 @@ RDFAnnotationParser::parseModelHistory(const Model *model)
   /* modified date */
   if (history->isSetModifiedDate())
   {
-    empty = new XMLNode(empty_token);
-    empty->append(history->getModifiedDate()->getDateAsString());
-    W3CDTF2.addChild(*(empty));
+    XMLNode empty(empty_token);
+    empty.append(history->getModifiedDate()->getDateAsString());
+    W3CDTF2.addChild(empty);
     modified.addChild(W3CDTF2);
     description->addChild(modified);
   }
@@ -631,15 +657,16 @@ RDFAnnotationParser::parseModelHistory(const Model *model)
     {
       description->addChild(CVTerms->getChild(i));
     }
+    delete CVTerms;
   }
-
 
   XMLNode * RDF = createRDFAnnotation();
   RDF->addChild(*description);
+  delete description;
 
   XMLNode *ann = createAnnotation();
   ann->addChild(*RDF);
-
+  delete RDF;
 
   return ann;
 }
