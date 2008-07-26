@@ -714,7 +714,12 @@ ModelHistory::ModelHistory ()
  */
 ModelHistory::~ModelHistory()
 {
-  if (mCreators) delete mCreators;
+  if (mCreators)
+  {
+    unsigned int size = mCreators->getSize();
+    while (size--) delete static_cast<ModelCreator*>( mCreators->remove(0) );
+    delete mCreators;
+  }
   if (mCreatedDate) delete mCreatedDate;
   if (mModifiedDate) delete mModifiedDate;
 }

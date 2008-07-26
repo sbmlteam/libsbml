@@ -249,8 +249,6 @@ START_TEST (test_ModelHistory_addCreator)
   fail_unless(!strcmp(ModelCreator_getEmail(newMC), "sbml-team@caltech.edu"));
   fail_unless(!strcmp(ModelCreator_getOrganisation(newMC), "UH"));
 
-  ModelCreator_free(newMC);
-
   ModelHistory_free(history);
 }
 END_TEST
