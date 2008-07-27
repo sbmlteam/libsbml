@@ -1,0 +1,387 @@
+## @configure_input@
+##
+## @file    Makefile.in
+## @brief   Makefile template for libSBML CSharp bindings
+##          This file is based on Makefile.in for SWIG Java bindings 
+##          written by Michael Hucka and Ben Kovitz 
+## @author  Akiya Jouraku
+##
+## $Id:$
+## $HeadURL:$
+##
+## This file is part of libSBML.  Please visit http://sbml.org for more
+## information about SBML, and the latest version of libSBML.
+##
+
+
+# -----------------------------------------------------------------------------
+# Configuration variables
+# -----------------------------------------------------------------------------
+# Some of the following are substituted automatically by `configure'.  If
+# you are looking at "Makefile", do not edit these values; instead, run the
+# configure script at the top level of the src tree.  It will recreate
+# "Makefile".
+
+include @top_srcdir@/config/makefile-common-vars.mk
+
+# `srcdir' points to the current directory, but should be set by configure.
+# `subdir' must be set manually to the relative dir under srcdir.  Don't 
+# set `subdir' to an absolute path, or some make actions will fail.
+
+srcdir            = @srcdir@
+thisdir           = src/bindings/csharp
+
+# -----------------------------------------------------------------------------
+# To avoid Windows specific encoding problem in SWIG/C#, additional directives 
+# are used in SWIG interface file (local.i) only for Windows.
+# Thus, generated wrapper files (libsbml_wrap*.cpp and *.cs files) are different 
+# between Windows and non-Windows platforms as follows:
+#
+# (Windows)
+#   1) libsbml_wrap-win.cpp
+#   2) csharp-files-win/*.cs
+#   -----------------------------------------------------------------------
+#    These files can be built by using one of Visual Studio solution files 
+#    (CSharp_binding_win32-*.sln) in this directory.
+#   -----------------------------------------------------------------------
+#
+# (Other platforms)
+#   1) libsbml_wrap.cpp
+#   2) csharp-files/*.cs
+#   ------------------------------------------------------------------------
+#    These files can be built by running make with this Makefile.
+#    Currently, Mono is required to build C# DLL (by gmcs or mcs) and run an 
+#    executable file (by mono).
+#
+#    (*NOTICE*) 
+#      Currently (2008-07-25), runtime implementation of Portable.NET (ilrun) 
+#      doesn't seem to work for libSBML C# binding. 
+#      Although C# DLL can be built by cscc, a segmentation fault happens 
+#      when an executable file is launched by ilrun. 
+#  --------------------------------------------------------------------------
+#
+# -----------------------------------------------------------------------------
+sources           = \
+                     libsbml_wrap.cpp 
+
+extra_sources     = \
+                     libsbml.i \
+                     local.cpp \
+                     local.i
+
+test_dir          = test
+test_source_path  = $(test_dir)
+
+check_runner_source = TestRW.cs
+# Test*.cs are not implemented yet
+check_sources       = $(wildcard $(test_source_path)/Test*.cs)
+check_sources       += $(check_runner_source)
+
+csproxy_lib       = libsbmlcsP.dll
+dllimport_name    = libsbmlcs
+dllimport_lib     = $(dllimport_name).$(CSHARP_EXT)
+
+# There are two libraries to build: the shared native library file used for
+# Platform Invocation Service, and the CSharp proxy class DLL file.
+
+libraries         = $(csproxy_lib) $(dllimport_lib)
+
+# Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
+# `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
+# rules in `makefile-common-actions.mk' included at the end.
+
+extra_CPPFLAGS    = $(CSHARP_CPPFLAGS) -I../swig
+SWIGFLAGS        += $(CSHARP_SWIGFLAGS) -I../swig 
+SWIGFLAGS_WIN     = -DSWIGWIN -DSWIG_CSHARP_NO_WSTRING_HELPER
+
+extra_LDFLAGS     = $(CSHARP_LDFLAGS) -L../..
+
+extra_LIBS        = -lsbml 
+
+ifdef USE_EXPAT
+  extra_CPPFLAGS += @EXPAT_CPPFLAGS@
+  extra_LDFLAGS  += @EXPAT_LDFLAGS@
+  extra_LIBS     += @EXPAT_LIBS@
+endif
+
+ifdef USE_XERCES
+  extra_CPPFLAGS += @XERCES_CPPFLAGS@
+  extra_LDFLAGS  += @XERCES_LDFLAGS@
+  extra_LIBS     += @XERCES_LIBS@
+endif
+
+ifdef USE_LIBXML
+  extra_CPPFLAGS += @LIBXML_CPPFLAGS@
+  extra_LDFLAGS  += @LIBXML_LDFLAGS@
+  extra_LIBS     += @LIBXML_LIBS@
+endif
+
+ifdef USE_LAYOUT
+  SWIGFLAGS      += -DUSE_LAYOUT
+  extra_CPPFLAGS += -DUSE_LAYOUT
+endif # USE_LAYOUT  
+
+# -fno-strict-aliasing option is added to CXXFLAGS when using GCC.
+# As written in the SWIG Manual (section 20.2.4), SWIG generated code could cause
+# crash problems when compiled by GCC with -fstrict-aliasing option (automatically 
+# enabled when using -O2 or higher optimization in GCC 3 or later) and the option 
+# should be disabled by adding -fno-strict-aliasing option.
+#
+# Currently, we know that Java binding library causes crash when it is compiled by
+# GCC 4 with -O2 or higher optimization, and the problem can be avoided by adding
+# -fno-strict-aliasing option.
+
+ifeq (GCC,$(findstring GCC,$(shell $(CXX) --version)))
+      CXXFLAGS += -fno-strict-aliasing
+endif
+
+# For Linux/Unix LD_LIBRARY_PATH *may* need to contain one or more library
+# paths to libsbml.so, libxerces-c.so and/or libexpat.so and/or the
+# libsbml.so _libsbml.so generated by this Makfile.  (For BSD/MacOS X
+# replace LD_LIBRARY_PATH with DYLD_LIBRARY_PATH.)
+
+# The next set of variable definitions are special to this file and not
+# hooks into `makefile-common-actions.mk'.  The values depend in part on
+# CSharp conventions and the output of SWIG.
+#
+outpath        = csharp-files
+outpath_win    = csharp-files-win
+csharp_files     = $(wildcard $(outpath)/*.cs)
+csharp_files_win = $(wildcard $(outpath_win)/*.cs)
+csharp_files_win += libsbml_wrap-win.cpp
+
+# `distfiles' determines the files and directories included in a
+# distribution.  The strategy here is that we include the output of SWIG
+# (libsbml_wrap.cpp, libsbml_wrap-win.cpp and the csharp files) but not the 
+# compiled files.
+
+distfiles   = $(sources) $(extra_sources) $(check_sources) \
+  Makefile.in $(csharp_files) $(csharp_files_win) \
+  CSharp_binding_win32-xerces.sln  CSharp_binding_win32-xerces.vcproj \
+  CSharp_binding_win32-expat.sln CSharp_binding_win32-expat.vcproj \
+  CSharp_binding_win32-libxml.sln CSharp_binding_win32-libxml.vcproj \
+  CSharp_binding_TestRW.csproj CSharp_binding_cspDLL.csproj \
+  createInclude.bat Properties/AssemblyInfo.cs
+
+tmpfiles = $(wildcard test*.xml*)
+
+# `extra_clean' and `extra_distclean' determine the files and directories
+# removed during "make clean" and "make distclean".
+
+extra_clean = $(csproxy_lib) $(dllimport_lib) $(check_runner_exe) $(tmpfiles)
+
+extra_distclean = $outpath
+
+
+# -----------------------------------------------------------------------------
+# Primary build actions
+# -----------------------------------------------------------------------------
+
+# This whole setup is more or less custom and mostly doesn't use the common
+# build directives of `makefile-common-actions.mk'.
+
+.SUFFIXES:
+.SUFFIXES: .i .cpp .h .cs .dll .o .obj .so .dylib
+
+# The default action is to remake everything.
+
+ifdef USE_CSHARP
+all: Makefile $(libraries)
+else
+all:
+	@echo
+	@echo "Reconfigure libSBML using --with-csharp to enable CSharp support."; 
+	@echo "(--with-cli-interpreter=path" and/or --with-csharp-compiler=path may be required.)";
+	@echo
+	@exit 1
+endif
+
+# The rest here is for developers and maintainers.  Recipients of the
+# library distributions shouldn't have to run SWIG because we provide the
+# wrapper file ready-made.
+
+swig_sources =      \
+  $(extra_sources)  \
+  ../swig/libsbml.h \
+  ../swig/libsbml.i
+
+main_sources = \
+  $(shell grep '%include sbml' ../swig/libsbml.i | cut -f2 -d' ' \
+    | cut -f2- -d'/' | sed -e '/\//s/^/..\/..\//;/\//!s/^/..\/..\/sbml\//')
+
+# MacOS X is different.  We need to compile the native library file using -bundle.
+
+ifeq "$(HOST_TYPE)" "darwin"
+  platform_link_flags = -bundle
+endif
+
+# The dependencies that follow are an awful tangle.  I wish I could find a
+# way to simplify this.  The critical point is that we don't want to put a
+# list naming all the .cs files explicitly in this Makefile, because any
+# change to the output of SWIG could cause a change in the .cs files it
+# produces and render obsolete any list contained here.  So we have to try
+# to wildcard the files, but that in itself is impossible until they're
+# generated by running SWIG.  Ugh.
+#
+
+# 
+# command line options for Mono
+#
+ifeq (Mono,$(findstring Mono,$(shell $(CSHARP_COMPILER) --version 2>&1)))
+  CSC_OPT_SHARED = -target:library
+  CSC_OPT_EXE    = -target:exe
+  CSC_OPT_OUTPUT = -out:
+  CSC_OPT_REF    = -r:
+endif
+
+# 
+# command line options for Portable.NET
+#
+#  (*NOTICE*) 
+#    Currently (2008-07-25), runtime implementation of Portable.NET (ilrun) 
+#    doesn't seem to work for libSBML C# binding. 
+#    Although C# DLL can be built by cscc, a segmentation fault happens 
+#    when an executable file is launched by ilrun. 
+#
+ifeq (cscc,$(findstring cscc,$(shell $(CSHARP_COMPILER) --version 2>&1)))
+  CSC_OPT_SHARED = -shared
+  CSC_OPT_EXE    =
+  CSC_OPT_OUTPUT = -o 
+  CSC_OPT_REF    = -l
+endif
+
+$(csproxy_lib): $(outpath)/libsbml.cs $(dllimport_lib)
+	$(MAKE) -$(MAKEFLAGS) $(dllimport_lib)
+	"$(CSHARP_COMPILER)" $(CSC_OPT_SHARED) $(CSC_OPT_OUTPUT)$(csproxy_lib) $(outpath)/*.cs
+
+$(outpath)/libsbml.cs: libsbml_wrap.cpp 
+ifeq "$(csharp_files)" ""
+	$(MAKE) -$(MAKEFLAGS) recreate_csharp_files
+endif
+
+# libsbml_wrap.cpp (for non-Windows) and libsbml_wrap-win.cpp (for Windows)
+# stand-in for the .cs files.  Their creation results in the creation of the .cs 
+# files too -- both are made by running swig.
+
+libsbml_wrap.cpp $(outpath): $(swig_sources) $(main_sources)
+ifdef USE_SWIG
+	test -d $(outpath) || mkdir -p $(outpath)
+	$(SWIG) $(SWIGFLAGS) $(sort $(default_includes) $(INCLUDES)) \
+		-c++ -csharp -namespace libsbml -dllimport $(dllimport_name) \
+	        -outdir $(outpath) -o libsbml_wrap.cpp libsbml.i
+	test -d $(outpath_win) || mkdir -p $(outpath_win)
+	$(SWIG) $(SWIGFLAGS) $(SWIGFLAGS_WIN) $(sort $(default_includes) $(INCLUDES)) \
+		-c++ -csharp -namespace libsbml -dllimport $(dllimport_name) \
+	        -outdir $(outpath_win) -o libsbml_wrap-win.cpp libsbml.i
+else
+	@echo
+	@echo "Reconfigure --with-swig in order to rebuild libsbml_wrap.cpp"
+	@echo "and the files in the csharp-files directory."
+	@echo
+	@exit 1
+endif
+
+# If USE_SWIG is *not* in effect, things get tricky.  If the last run was
+# made with --enable-layout and this one isn't, or vice-versa, the swig
+# wrap files will be wrong for this run.  However, you can't tell just by
+# looking at file mod times, so you can't use normal make dependencies.  So
+# we do this grungy trick of looking at the file to see what's inside.
+
+ifdef USE_LAYOUT
+recreate_csharp_files:;
+	@if test -z "`grep getListOfLayouts libsbml_wrap.cpp`"; then \
+	  echo ;\
+	  echo "The existing libsbml_wrap.cpp file lacks the layout code."; \
+	  echo "Reconfigure --with-swig --enable-layout to correct this."; \
+	  echo ;\
+	  exit 1; \
+	else \
+	  $(MAKE) -$(MAKEFLAGS) $(outpath); \
+	fi
+
+else # not USE_LAYOUT
+recreate_csharp_files:;
+	@if test -n "`grep getListOfLayouts libsbml_wrap.cpp`"; then \
+	  $(MAKE) -$(MAKEFLAGS) clean-swigfiles; \
+	fi
+	$(MAKE) -$(MAKEFLAGS) $(outpath)
+endif # USE_LAYOUT
+
+clean-swigfiles:
+	rm -rf $(outdir)
+
+
+# -----------------------------------------------------------------------------
+# Checking.
+# -----------------------------------------------------------------------------
+
+check_runner_exe = $(check_runner_source:.cs=.exe)
+
+$(check_runner_exe): Makefile $(libraries) $(check_runner_source) 
+	"$(CSHARP_COMPILER)" $(CSC_OPT_EXE) $(CSC_OPT_OUTPUT)$(check_runner_exe) \
+	$(CSC_OPT_REF)$(csproxy_lib) $(check_runner_source)
+
+testsbml_dir   = ../../../examples/sample-models/from-spec/level-2
+testsbml_files = $(wildcard $(testsbml_dir)/*.xml)
+
+ifdef USE_LIBCHECK
+  check: $(check_runner_exe)
+	@echo
+	@echo
+	@echo Running Tests in $(thisdir)
+	@echo -----------------------------------------------------------------
+	$(call libsbmlrun,"$(CSHARP_CILINTERPRETER)" $(check_runner_exe) $(testsbml_files))
+	@echo -----------------------------------------------------------------
+	@echo
+else
+  check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
+endif
+
+
+# -----------------------------------------------------------------------------
+# Tags.
+# -----------------------------------------------------------------------------
+
+tags: etags ctags
+
+
+# -----------------------------------------------------------------------------
+# Installation.
+# -----------------------------------------------------------------------------
+
+install: $(libraries)
+	@list='$(libraries)'; for lib in $$list; do \
+	  echo "$(INSTALL) $$lib $(DESTDIR)$(LIBDIR)"; \
+	  $(INSTALL) $$lib $(DESTDIR)$(LIBDIR); \
+	done;
+
+uninstall:
+	@list='$(libraries)'; for lib in $$list; do \
+	  if test -f "$(DESTDIR)$(LIBDIR)/$$lib"; then \
+	    echo rm "$(DESTDIR)$(LIBDIR)/$$lib"; \
+	    rm $(DESTDIR)$(LIBDIR)/$$lib; \
+          fi; \
+	done;
+
+installcheck:
+
+
+# -----------------------------------------------------------------------------
+# Creating distribution (for libSBML maintainers only)
+# -----------------------------------------------------------------------------
+
+dist: libsbml_wrap.cpp $(outdir) dist-normal
+
+distcheck: distcheck-normal
+
+
+# -----------------------------------------------------------------------------
+# Miscellaneous
+# -----------------------------------------------------------------------------
+
+include @top_srcdir@/config/makefile-common-actions.mk
+
+
+# -----------------------------------------------------------------------------
+# End.
+# -----------------------------------------------------------------------------

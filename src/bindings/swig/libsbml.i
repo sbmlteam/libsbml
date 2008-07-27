@@ -75,6 +75,8 @@
  */
 %ignore *::operator=;
 %ignore *::operator<<;
+%ignore operator==;
+%ignore operator!=;
 
 /**
  * Ignore certain internal implementation methods on all objects.

@@ -4,7 +4,7 @@ dnl Description : Run this file through autoconf to produce `configure'
 dnl Author(s)   : SBML Team <sbml-team@caltech.edu>
 dnl Created     : 2003-02-13
 dnl Revision    : $Id$
-dnl $HeadURL$
+dnl $HeadURL:$
 dnl
 dnl <!-------------------------------------------------------------------------
 dnl This file is part of libSBML.  Please visit http://sbml.org for more
@@ -155,6 +155,7 @@ CONFIG_PROG_MATLAB
 CONFIG_PROG_OCTAVE(2.9.7,2.9.7)
 CONFIG_PROG_LISP
 CONFIG_PROG_RUBY
+CONFIG_PROG_CSHARP
 
 CONFIG_PROG_DOXYGEN(1.5.4)
 
@@ -258,6 +259,8 @@ AC_CONFIG_FILES([src/bindings/octave/test/Makefile])
 AC_CONFIG_FILES([src/bindings/java/Makefile])
 
 AC_CONFIG_FILES([src/bindings/ruby/Makefile])
+
+AC_CONFIG_FILES([src/bindings/csharp/Makefile])
 
 # 2007-06-05 Temporarily disabling Lisp bindings
 # AC_CONFIG_FILES([src/bindings/lisp/Makefile])
@@ -392,6 +395,7 @@ print_flag "Lisp"   	$with_lisp	$lisp
 print_flag "Asdf"   	$EXT_ASDF	$ASDF
 print_flag "UFFI"   	$EXT_UFFI	$UFFI
 print_flag "Ruby"       $with_ruby      $RUBY
+print_flag "CSharp"     $with_csharp    $CSHARP_CILINTERPRETER
 print_flag "zlib"       $with_zlib      $with_zlib
 print_flag "bzip2"      $with_bzip2     $with_bzip2
 
@@ -408,6 +412,9 @@ else
 fi
 if test -n "$with_java" -a "$with_java" != "no"; then
   echo "  value of \$CLASSPATH for Java  = $CLASSPATH"  
+fi
+if test -n "$with_csharp" -a "$with_csharp" != "no"; then
+  echo "  Using CSharp compiler = $CSHARP_COMPILER"
 fi
 
 dnl Temporarily unavailable anyway, so skip this for now:

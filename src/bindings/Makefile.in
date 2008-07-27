@@ -22,7 +22,7 @@
 ## and also available online as http://sbml.org/software/libsbml/license.html
 ##----------------------------------------------------------------------- -->*/
 
-
+
 # -----------------------------------------------------------------------------
 # Configuration variables
 # -----------------------------------------------------------------------------
@@ -65,11 +65,14 @@ ifneq "$(MAKECMDGOALS)" "dist"
   ifdef USE_RUBY
     subdirs += ruby
   endif
+  ifdef USE_CSHARP
+    subdirs += csharp
+  endif
 else
   # If `make dist' was given, include all subdirectories.
   # subdirs = java lisp matlab python perl ruby
   # 2007-06-05 Lisp isn't currently working; disabling distribution for now.
-  subdirs = java matlab octave python perl ruby
+  subdirs = java matlab octave python perl ruby csharp
 endif
 
 swig_extras =    \
@@ -85,7 +88,7 @@ swig_extras =    \
 
 distfiles = Makefile.in $(swig_extras)
 
-
+
 # -----------------------------------------------------------------------------
 # Primary build actions
 # -----------------------------------------------------------------------------
@@ -96,21 +99,21 @@ distfiles = Makefile.in $(swig_extras)
 
 all: Makefile all-recursive 
 
-
+
 # -----------------------------------------------------------------------------
 # Checking.
 # -----------------------------------------------------------------------------
 
 check: all check-recursive
 
-
+
 # -----------------------------------------------------------------------------
 # Tags.
 # -----------------------------------------------------------------------------
 
 tags: tags-recursive
 
-
+
 # -----------------------------------------------------------------------------
 # Checking.
 # -----------------------------------------------------------------------------
@@ -121,7 +124,7 @@ installdirs: all installdirs-recursive
 
 uninstall: uninstall-recursive 
 
-
+
 # -----------------------------------------------------------------------------
 # Installation.
 # -----------------------------------------------------------------------------
@@ -132,7 +135,7 @@ uninstall: uninstall-recursive
 
 installdirs: installdirs-recursive
 
-
+
 # -----------------------------------------------------------------------------
 # Cleaning.
 # -----------------------------------------------------------------------------
@@ -145,7 +148,7 @@ mostlyclean: mostlyclean-recursive
 
 maintainer-clean: maintainer-clean-recursive
 
-
+
 # -----------------------------------------------------------------------------
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
@@ -154,14 +157,14 @@ dist: dist-normal dist-recursive
 
 distcheck: distcheck-recursive distcheck-normal
 
-
+
 # -----------------------------------------------------------------------------
 # Common default rules.
 # -----------------------------------------------------------------------------
 
 include @top_srcdir@/config/makefile-common-actions.mk
 
-
+
 # -----------------------------------------------------------------------------
 # End.
 # -----------------------------------------------------------------------------

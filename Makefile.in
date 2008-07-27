@@ -189,6 +189,7 @@ distfiles =                         \
   config/perl.m4                    \
   config/python.m4                  \
   config/ruby.m4                    \
+  config/csharp.m4                  \
   config/runldpath.m4               \
   config/swig.m4                    \
   config/xercesc.m4                 \
