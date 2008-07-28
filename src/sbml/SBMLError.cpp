@@ -72,8 +72,11 @@ getSeverityForEntry(unsigned int index,
       return errorTable[index].l2v2_severity;
 
     case 3:
-    default:
       return errorTable[index].l2v3_severity;
+
+    case 4:
+    default:
+      return errorTable[index].l2v4_severity;
     }
   }
 }
