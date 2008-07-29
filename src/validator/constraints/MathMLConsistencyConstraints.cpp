@@ -38,6 +38,7 @@
 #include "NumericReturnMathCheck.h"
 #include "LocalParameterMathCheck.h"
 #include "NumberArgsMathCheck.h"
+#include "FunctionNoArgsMathCheck.h"
 
 
 #endif
@@ -79,5 +80,6 @@ EXTERN_CONSTRAINT( 10215, CiElementMathCheck     )
 EXTERN_CONSTRAINT( 10216, LocalParameterMathCheck)
 EXTERN_CONSTRAINT( 10217, NumericReturnMathCheck )
 EXTERN_CONSTRAINT( 10218, NumberArgsMathCheck )
+EXTERN_CONSTRAINT( 10219, FunctionNoArgsMathCheck )
 
 

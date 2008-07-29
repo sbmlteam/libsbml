@@ -80,9 +80,10 @@ sources =                                     \
   CompartmentOutsideCycles.cpp                \
   ConsistencyConstraints.cpp                  \
   EqualityArgsMathCheck.cpp                   \
-  ExponentUnitsCheck.cpp					  \
+  ExponentUnitsCheck.cpp		          			  \
   FunctionApplyMathCheck.cpp                  \
   FunctionDefinitionVars.cpp                  \
+  FunctionNoArgsMathCheck.cpp                 \
   FunctionReferredToExists.cpp                \
   IdBase.cpp                                  \
   IdentifierConsistencyConstraints.cpp        \
@@ -145,6 +146,7 @@ other_headers = \
   ExponentUnitsCheck.h                     \
   FunctionApplyMathCheck.h                 \
   FunctionDefinitionVars.h                 \
+  FunctionNoArgsMathCheck.h                \
   FunctionReferredToExists.h               \
   KineticLawVars.h                         \
   LambdaMathCheck.h                        \

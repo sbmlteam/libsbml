@@ -154,23 +154,29 @@ NumberArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase
       checkSpecialCases(m, node, sb);
       break;
 
+      
     case AST_FUNCTION:
+      /* the case for a functionDefinition has its own rule
+         from l2v4*/
 
-      if (m.getFunctionDefinition(node.getName()))
+      if (!(m.getLevel() == 2 && m.getVersion() == 4))
       {
-        /* functiondefinition math */
-        const ASTNode * fdMath = m.getFunctionDefinition(node.getName())->getMath();
-        if (fdMath != NULL)
+        if (m.getFunctionDefinition(node.getName()))
         {
-        /* We have a definition for this function.  Does the defined number
-	          of arguments equal the number used here? */
+          /* functiondefinition math */
+          const ASTNode * fdMath = m.getFunctionDefinition(node.getName())->getMath();
+          if (fdMath != NULL)
+          {
+          /* We have a definition for this function.  Does the defined number
+	            of arguments equal the number used here? */
 
-          if (node.getNumChildren() + 1 != fdMath->getNumChildren())
-	        {
-            logMathConflict(node, sb);
-	        }
+            if (node.getNumChildren() + 1 != fdMath->getNumChildren())
+	          {
+              logMathConflict(node, sb);
+	          }
+          }
+
         }
-
       }
       break;
 
