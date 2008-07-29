@@ -115,6 +115,7 @@
  * <tr><td><em>KineticLawParametersAreLocalOnly</em></td><td>SBML L2v3 validation rule #10216</td>
  * <tr><td><em>MathResultMustBeNumeric</em></td><td>SBML L2v3 validation rule #10217</td>
  * <tr><td><em>OpsNeedCorrectNumberOfArgs</em></td><td>SBML L2v3 validation rule #10218</td>
+ * <tr><td><em>InvalidNoArgsPassedToFunctionDef</em></td><td>SBML L2v4 validation rule #10219</td>
  * <tr><td><em>DuplicateComponentId</em></td><td>SBML L2v3 validation rule #10301</td>
  * <tr><td><em>DuplicateUnitDefinitionId</em></td><td>SBML L2v3 validation rule #10302</td>
  * <tr><td><em>DuplicateLocalParameterId</em></td><td>SBML L2v3 validation rule #10303</td>
@@ -454,6 +455,7 @@ typedef enum
   , KineticLawParametersAreLocalOnly = 10216 /*!< SBML L2v3 validation rule #10216 */
   , MathResultMustBeNumeric          = 10217 /*!< SBML L2v3 validation rule #10217 */
   , OpsNeedCorrectNumberOfArgs       = 10218 /*!< SBML L2v3 validation rule #10218 */
+  , InvalidNoArgsPassedToFunctionDef = 10219 /*!< SBML L2v4 validation rule #10219 */
   , DuplicateComponentId             = 10301 /*!< SBML L2v3 validation rule #10301 */
   , DuplicateUnitDefinitionId        = 10302 /*!< SBML L2v3 validation rule #10302 */
   , DuplicateLocalParameterId        = 10303 /*!< SBML L2v3 validation rule #10303 */

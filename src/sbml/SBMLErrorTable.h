@@ -419,6 +419,23 @@ static const sbmlErrorTableEntry errorTable[] =
     "SBML 3.5.1; L2V3 Section 3.4.1.)"
   },
 
+  //10219
+  {
+    InvalidNoArgsPassedToFunctionDef,
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "The number of arguments used in a call to a function defined by a "
+    "<functionDefinition> must equal the number of arguments accepted by "
+    "that function, or in other words, the number of <bvar> elements "
+    "inside the <lambda> element of the function definition.  "
+    "(References: L2V4 Section 4.3.4.)"
+  },
+
   //10301
   {
     DuplicateComponentId,
