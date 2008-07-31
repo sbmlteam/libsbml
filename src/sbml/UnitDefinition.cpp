@@ -494,6 +494,13 @@ UnitDefinition::simplify(UnitDefinition * ud)
       delete units->remove(n-1);
     }
   }
+
+  /* if all units have been cancelled need to add dimensionless */
+  if (units->size() == 0)
+  {
+    unit = new Unit("dimensionless");
+    ud->addUnit(unit);
+  }
 }
 
 /** @cond doxygen-libsbml-internal */
