@@ -56,6 +56,11 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
       AC_PATH_PROG([PYTHON], [python])
     fi
 
+    if test -z $PYTHON || ! test -f $PYTHON;
+    then
+      AC_MSG_ERROR([*** python missing - please install first or check config.log ***])
+    fi
+
     dnl check version if required
     m4_ifvaln([$1], [
         AC_MSG_CHECKING($PYTHON version >= $1)
@@ -64,6 +69,7 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
           AC_MSG_RESULT(ok)
         else
           AC_MSG_RESULT(no)
+          AC_MSG_ERROR([*** python version $1 or later is required ***])
         fi
     ])
 
@@ -76,6 +82,15 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
     changequote([, ])
 
     PYTHON_NAME="python${PYTHON_VERSION}"
+
+    PYTHON_H="${PYTHON_PREFIX}/include/${PYTHON_NAME}/Python.h"
+    AC_MSG_CHECKING(for Python.h)
+    if test -z $PYTHON_H || ! test -f $PYTHON_H;
+    then
+      AC_MSG_RESULT(no)
+      AC_MSG_ERROR([*** $PYTHON_H missing - please install first or check config.log ***])
+    fi
+    AC_MSG_RESULT(yes)
 
     dnl Figure out the last bits for linking.
     dnl This comes in part from SWIG 1.3.31's configure.ac file.

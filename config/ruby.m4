@@ -41,11 +41,11 @@ AC_DEFUN([CONFIG_PROG_RUBY],
 	      [with_ruby=$withval],
 	      [with_ruby=no])
 
-  if test $with_ruby != no; then
+  if test "x$with_ruby" != xno; then
 
     dnl Find a ruby executable.
 
-    if test $with_ruby != yes;
+    if test "x$with_ruby" != xyes;
     then
       dnl Remove needless trailing slashes because it can confuse tests later.
       with_ruby=`echo $with_ruby | sed -e 's,\(.*\)/$,\1,g'`
@@ -56,6 +56,11 @@ AC_DEFUN([CONFIG_PROG_RUBY],
       AC_PATH_PROG([RUBY], [ruby])
     fi
 
+    if test -z $RUBY || ! test -f $RUBY; 
+    then
+      AC_MSG_ERROR([*** ruby missing - please install first or check config.log ***])
+    fi  
+
     dnl check version if required
     m4_ifvaln([$1], [
         AC_MSG_CHECKING($RUBY version >= $1)
@@ -64,6 +69,7 @@ AC_DEFUN([CONFIG_PROG_RUBY],
           AC_MSG_RESULT(ok)
         else
           AC_MSG_RESULT(no)
+          AC_MSG_ERROR([*** ruby version $1 or later is required ***])
         fi
     ])
 
@@ -77,6 +83,18 @@ AC_DEFUN([CONFIG_PROG_RUBY],
     else
       RUBY_ARCHDIR=`$RUBY -rrbconfig -e ["include Config; puts CONFIG['archdir']"]`
     fi    
+
+    RUBY_H="${RUBY_ARCHDIR}/ruby.h"
+    AC_MSG_CHECKING(for ruby.h)
+    if test -z $RUBY_H || ! test -f $RUBY_H; 
+    then
+      AC_MSG_RESULT(no)
+
+      AC_MSG_ERROR([*** $RUBY_H missing - please install first or check config.log ***])
+    fi
+    AC_MSG_RESULT(yes)
+
+
     RUBY_LIBDIR=`$RUBY -rrbconfig -e ["include Config; puts CONFIG['libdir']"]` 
     RUBY_NAME=`$RUBY -rrbconfig -e ["include Config; puts CONFIG['RUBY_SO_NAME']"]`
 
