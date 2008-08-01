@@ -24,6 +24,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <cstring>
 
 #include <sbml/xml/XMLFileBuffer.h>
 #include <sbml/xml/XMLMemoryBuffer.h>

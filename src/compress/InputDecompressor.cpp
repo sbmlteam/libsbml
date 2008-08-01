@@ -30,6 +30,7 @@
 #include <iostream>
 #include <new>
 #include <algorithm>
+#include <cstring>
 
 #include <sbml/compress/InputDecompressor.h>
 
