@@ -199,9 +199,12 @@ ArgumentsUnitsCheck::checkUnitsFromPiecewise (const Model& m,
   {
     tempUD1 = unitFormat->getUnitDefinition(node.getChild(n), inKL, reactNo);
   
-    if (!UnitDefinition::areEquivalent(tempUD, tempUD1)) 
+    if (!unitFormat->getContainsUndeclaredUnits())
     {
-      logInconsistentPiecewise(node, sb);
+      if (!UnitDefinition::areEquivalent(tempUD, tempUD1)) 
+      {
+        logInconsistentPiecewise(node, sb);
+      }
     }
     delete tempUD1;
   }

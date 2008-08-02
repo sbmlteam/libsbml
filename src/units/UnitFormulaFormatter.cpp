@@ -511,8 +511,24 @@ UnitFormulaFormatter::getUnitDefinitionFromPiecewise(const ASTNode * node,
                                         bool inKL, int reactNo)
 { 
   UnitDefinition * ud;
-  
+  unsigned int n = 0;
+  UnitDefinition *tempUD1 = NULL;
+  /* this is fine if all other return branches have units
+   * but if there are undeclared units these get ignored
+   */
   ud = getUnitDefinition(node->getLeftChild(), inKL, reactNo);
+  
+ /* piecewise(a0, a1, a2, a3, ...)
+   * a0 and a2, a(n_even) must have same units
+   * a1, a3, a(n_odd) must be dimensionless
+   */
+  while (!mContainsUndeclaredUnits && n < node->getNumChildren())
+  {
+    n+=2;
+    tempUD1 = getUnitDefinition(node->getChild(n), inKL, reactNo);
+  }
+
+  if (tempUD1) delete tempUD1;
 
   return ud;
 }

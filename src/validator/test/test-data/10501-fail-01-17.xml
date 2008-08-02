@@ -12,6 +12,7 @@ Fail: (3300) Inconsistent math
 			<parameter id="p" value="1" constant="false"/>
 			<parameter id="p1" units="metre" value="1" constant="false"/>
 			<parameter id="p2" units="litre" value="4"/>
+			<parameter id="six" units="dimensionless" value="6"/>
 		</listOfParameters>
 		<listOfRules>
 			<algebraicRule>
@@ -21,7 +22,7 @@ Fail: (3300) Inconsistent math
 							<apply>
 								<times/>
 								<ci> c </ci>
-								<cn> 6 </cn>
+								<ci> six </ci>
 							</apply>
 							<apply>
 								<gt/>
