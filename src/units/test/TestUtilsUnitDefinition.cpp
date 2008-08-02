@@ -98,7 +98,8 @@ START_TEST(test_unitdefinition_simplify)
 
   UnitDefinition::simplify(ud);
   
-  fail_unless(ud->getNumUnits() == 0);
+  fail_unless(ud->getNumUnits() == 1);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
 
   /* NULL case*/
   ud = NULL;

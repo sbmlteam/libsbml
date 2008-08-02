@@ -435,6 +435,7 @@ UnitDefinition::simplify(UnitDefinition * ud)
   Unit * unit;
   UnitKindList kindsList;
   const char * unitKind;
+  int cancelFlag = 0;
 
   for (n = 0; n < ud->getNumUnits(); n++)
   {
@@ -492,11 +493,12 @@ UnitDefinition::simplify(UnitDefinition * ud)
     if (unit->getExponent() == 0)
     {
       delete units->remove(n-1);
+      cancelFlag = 1;
     }
   }
 
   /* if all units have been cancelled need to add dimensionless */
-  if (units->size() == 0)
+  if (units->size() == 0 && cancelFlag == 1)
   {
     unit = new Unit("dimensionless");
     ud->addUnit(unit);
