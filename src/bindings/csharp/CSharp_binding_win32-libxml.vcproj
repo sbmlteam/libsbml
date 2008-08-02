@@ -376,6 +376,10 @@
 				RelativePath="..\..\validator\constraints\FunctionDefinitionVars.cpp"
 				>
 			</File>
+                        <File
+                                RelativePath="..\..\validator\constraints\FunctionNoArgsMathCheck.cpp"
+                                >
+                        </File>
 			<File
 				RelativePath="..\..\validator\constraints\FunctionReferredToExists.cpp"
 				>

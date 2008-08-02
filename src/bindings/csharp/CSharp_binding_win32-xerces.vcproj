@@ -78,10 +78,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib ../../../win32/bin/xerces-c_2D.lib ../../../win32/bin/zlib.lib ../../../win32/bin/bzip2.lib"
+				AdditionalDependencies="odbc32.lib odbccp32.lib xerces-c_2D.lib zlib.lib bzip2.lib"
 				OutputFile="./libsbmlcsD.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
+                                AdditionalLibraryDirectories="../../../win32/bin/"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\libsbmlcsD.pdb"
 				ImportLibrary=".\libsbmlcsD.lib"
@@ -178,10 +179,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib ../../../win32/bin/xerces-c_2.lib ../../../win32/bin/zlib.lib ../../../win32/bin/bzip2.lib"
+				AdditionalDependencies="odbc32.lib odbccp32.lib xerces-c_2.lib zlib.lib bzip2.lib"
 				OutputFile="./libsbmlcs.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
+                                AdditionalLibraryDirectories="../../../win32/bin/"
 				ProgramDatabaseFile="./libsbmlcs.pdb"
 				ImportLibrary=".\libsbmlcs.lib"
 				TargetMachine="1"
@@ -374,6 +376,10 @@
 				RelativePath="..\..\validator\constraints\FunctionDefinitionVars.cpp"
 				>
 			</File>
+                        <File
+                                RelativePath="..\..\validator\constraints\FunctionNoArgsMathCheck.cpp"
+                                >
+                        </File>
 			<File
 				RelativePath="..\..\validator\constraints\FunctionReferredToExists.cpp"
 				>
