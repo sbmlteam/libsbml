@@ -371,7 +371,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\validator\constraints\FunctionNoArgsMathCheck.cpp">
+				RelativePath="..\..\src\validator\constraints\FunctionNoArgsMathCheck.cpp"
 				>
 			</File>
 			<File
@@ -971,7 +971,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\validator\constraints\FunctionNoArgsMathCheck.h">
+				RelativePath="..\..\src\validator\constraints\FunctionNoArgsMathCheck.h"
 				>
 			</File>
 			<File
