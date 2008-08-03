@@ -240,6 +240,10 @@ endif
 
 ifdef USE_CSHARP
 all: Makefile check_swigfile_consistency
+	$(MAKE) -$(MAKEFLAGS) $(csproxy_lib)
+ifdef USE_SWIG
+	$(MAKE) -$(MAKEFLAGS) $(outpath_win)/libsbml.cs
+endif # USE_SWIG
 else
 all:
 	@echo
@@ -279,7 +283,6 @@ ifeq (yes, $(findstring yes,$(shell test -f libsbml_wrap.cpp && echo yes)))
 else
 	$(MAKE) -$(MAKEFLAGS) recreate_csharp_files
 endif   # ifeq (yes...
-	$(MAKE) -$(MAKEFLAGS) $(csproxy_lib)
 
 
 $(csproxy_lib): $(outpath)/libsbml.cs $(dllimport_lib)
@@ -291,17 +294,34 @@ $(outpath)/libsbml.cs: libsbml_wrap.cpp
 		$(MAKE) -$(MAKEFLAGS) recreate_csharp_files; \
 	fi
 
+$(outpath_win)/libsbml.cs: libsbml_wrap-win.cpp 
+	@if ! test -f "$(outpath_win)/libsbml.cs"; then \
+		$(MAKE) -$(MAKEFLAGS) recreate_csharp_files; \
+	fi
+
 
 # libsbml_wrap.cpp (for non-Windows) and libsbml_wrap-win.cpp (for Windows)
 # stand-in for the .cs files.  Their creation results in the creation of the .cs 
 # files too -- both are made by running swig.
 
-libsbml_wrap.cpp $(outpath): $(swig_sources) $(main_sources)
+# for non-Windows
+libsbml_wrap.cpp $(outpath) : $(swig_sources) $(main_sources)
 ifdef USE_SWIG
 	test -d $(outpath) || mkdir -p $(outpath)
 	$(SWIG) $(SWIGFLAGS) $(sort $(default_includes) $(INCLUDES)) \
 		-c++ -csharp -namespace libsbml -dllimport $(dllimport_name) \
 	        -outdir $(outpath) -o libsbml_wrap.cpp libsbml.i
+else
+	@echo
+	@echo "Reconfigure --with-swig in order to rebuild libsbml_wrap.cpp"
+	@echo "and the files in the csharp-files directory."
+	@echo
+	@exit 1
+endif
+
+# for Windows
+libsbml_wrap-win.cpp $(outpath_win) : $(swig_sources) $(main_sources)
+ifdef USE_SWIG
 	test -d $(outpath_win) || mkdir -p $(outpath_win)
 	$(SWIG) $(SWIGFLAGS) $(SWIGFLAGS_WIN) $(sort $(default_includes) $(INCLUDES)) \
 		-c++ -csharp -namespace libsbml -dllimport $(dllimport_name) \
@@ -359,7 +379,7 @@ clean-swigfiles: clean
 
 check_runner_exe = $(check_runner_source:.cs=.exe)
 
-$(check_runner_exe): Makefile check_swigfile_consistency $(check_runner_source) 
+$(check_runner_exe): Makefile check_swigfile_consistency $(csproxy_lib) $(check_runner_source) 
 	"$(CSHARP_COMPILER)" $(CSC_OPT_EXE) $(CSC_OPT_OUTPUT)$(check_runner_exe) \
 	$(CSC_OPT_REF)$(csproxy_lib) $(check_runner_source)
 
@@ -391,7 +411,7 @@ tags: etags ctags
 # Installation.
 # -----------------------------------------------------------------------------
 
-install: $(libraries)
+install: check_swigfile_consistency $(libraries)
 	@list='$(libraries)'; for lib in $$list; do \
 	  echo "$(INSTALL) $$lib $(DESTDIR)$(LIBDIR)"; \
 	  $(INSTALL) $$lib $(DESTDIR)$(LIBDIR); \
@@ -412,7 +432,9 @@ installcheck:
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-dist: libsbml_wrap.cpp $(outdir) dist-normal
+dist: check_swigfile_consistency libsbml_wrap.cpp libsbml_wrap-win.cpp $(outpath) $(outpath_win)
+	$(MAKE) -$(MAKEFLAGS) dist-normal
+	
 
 distcheck: distcheck-normal
 
