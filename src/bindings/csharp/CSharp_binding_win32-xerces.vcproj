@@ -789,6 +789,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\xml\XercesTranscode.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\xml\XMLAttributes.cpp"
 				>
 			</File>

@@ -86,7 +86,8 @@ xerces_sources =       \
   XercesAttributes.cpp \
   XercesHandler.cpp    \
   XercesNamespaces.cpp \
-  XercesParser.cpp
+  XercesParser.cpp \
+  XercesTranscode.cpp
 
 expat_headers =        \
   ExpatAttributes.h    \

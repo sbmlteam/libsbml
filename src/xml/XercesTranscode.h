@@ -33,7 +33,7 @@
 /** @cond doxygen-libsbml-internal */
 
 /**
- * Transcodes a Xerces-C++ XMLCh* string to the local code page.  This
+ * Transcodes a Xerces-C++ XMLCh* string to the UTF8 string.  This
  * class offers implicit conversion to a C++ string and destroys the
  * transcoded buffer when the XercesTranscode object goes out of scope.
  */
@@ -42,9 +42,9 @@ class XercesTranscode
 public:
 
   XercesTranscode (const XMLCh* s) :
-    mBuffer( xercesc::XMLString::transcode(s) ) { }
+    mBuffer( transcodeToUTF8(s) ) { }
 
-  ~XercesTranscode     () { xercesc::XMLString::release(&mBuffer); }
+  ~XercesTranscode     () { delete [] mBuffer; }
   operator std::string () { return std::string(mBuffer); }
 
 
@@ -55,6 +55,11 @@ private:
   XercesTranscode  ();
   XercesTranscode  (const XercesTranscode&);
   XercesTranscode& operator= (const XercesTranscode&);
+
+ /**
+  * convert the given internal XMLCh* string to the UTF-8 char* string.
+  */
+  char* transcodeToUTF8(const XMLCh* src_str);
 
 };
 
