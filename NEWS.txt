@@ -4,6 +4,9 @@
 
 * New features:
 
+  - C sharp bindings are now available.  Thanks to Frank Bergmann
+    for the work in creating and testing these.
+
   - Added new features for reading/writing a compressed SBML file.
     Now, readSBML/writeSBML functions can read/write the following
     compressed files: gzip, zip, and bzip2.
@@ -11,13 +14,28 @@
     compressed file (.gz, .zip, or .bz2), readSBML/writeSBML will 
     read/write the file as the corresponding compressed file, or an 
     uncompressed file will be read/written as before.
-    For exmaple, a gzip file ("test.xml.gz") will be read and then a zip 
+    For example, a gzip file ("test.xml.gz") will be read and then a zip 
     file ("test.xml.zip") will be created by the following sample code:
       SBMLDocument* d = readSBML("test.xml.gz");
       writeSBML(d, "test.xml.zip");
     zlib (for gzip/zip) and bzip2 (for bzip2) are required respectively.
     These features are enabled by default and can be disabled by 
     --with-zlib=no and --with-bzip2=no configure options.
+
+  - There are additional functions for the XMLTriple class/structure:
+    getPrefixedName(); operator== and operator!=. 
+
+  - The code for checking units created a clone of the model to perform
+    certain checks.  This was extremely memory intensive with larger
+    models and no longer necessary.  Thus it does no longer happen and
+    unit validation times for large models has been reduced.
+    
+  - Chen Li brought up the fact that the function getSBOTerm() returns an
+    integer rather than the correctly formed string of the form "SBO:XXXXXXX".
+    This is due to the fact that libSBML stores SBO terms as integers.  Since
+    to changing the return type of the function may impact on other people we
+    have included a function getSBOTermID() that returns the correctly
+    formatted SBO term.
 
   - The SBase class has a new member "SBase * mParentSBMLObject" which
     points to the direct SBML parent of the object. For example:
@@ -80,6 +98,28 @@
     
 
 * Bug fixes:
+
+  - The long outstanding bug involving Windows, Xerces and multibyte chars has
+    been sorted.  Akiya's great detective work uncovered the fact that the 
+    Xerces transcode function converts characters to the default encoding for 
+    the current platform; which is not always UTF-8.  The code for use with
+    Xerces now encodes specifically to UTF-8 regardless of platform.    
+
+  - Lukas Endler reported that when a division operation cancelled the units
+    of an expression the resulting units were being reported as "indeterminate".
+    This has been fixed and where units are cancelled by division the resulting
+    unit is now dimensionless.
+    
+  - The unit checking on a piecewise function was failing to examine all children
+    for literal numbers/parameters with undeclared units.  This is now fixed.  
+    Thanks to Lukas Endler for catching it.
+    
+ 
+  - A number of memory leaks have been fixed.
+ 
+  - The code for checking that an id had correct syntax was failing to
+    catch the case where the id had been entered as an empty string. This is
+    now fixed and id="" will be reported as an error.
  
   - Annotations for CVTerms in a Model object were wrongly deleted when a
     ModelHistory object in the Model object was not explicitly initialized.
@@ -95,7 +135,7 @@
     Thanks to Robert Platt for reporting this.
 
   - Parts of reaction elements could be ignored when reading an SBML
-    L2V1 file with an empty math element. For exmaple, when reading an 
+    L2V1 file with an empty math element. For example, when reading an 
     SBML L2V1 file which contains three reactions ("r1", "r2", and "r3") 
     and a kineticlaw in the reaction "r1" contains an empty math element
     which consist of a start and end 'math' tag pair (<math ...></math>),
