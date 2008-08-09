@@ -36,6 +36,8 @@
 #include <sbml/Model.h>
 #include <sbml/Constraint.h>
 
+#include <sbml/util/util.h>
+
 /** @cond doxygen-ignored */
 
 using namespace std;
@@ -124,6 +126,16 @@ const XMLNode*
 Constraint::getMessage () const
 {
   return mMessage;
+}
+
+
+/*
+ * @return the message for this Constraint.
+ */
+std::string
+Constraint::getMessageString () const
+{
+  return mMessage->toXMLString();
 }
 
 
@@ -541,6 +553,24 @@ const XMLNode_t *
 Constraint_getMessage (const Constraint_t *c)
 {
   return c->getMessage();
+}
+
+
+/**
+ * Get the message string, if any, associated with this Constraint
+ *
+ * @param c the Constraint_t structure 
+ * 
+ * @return the message for this Constraint, as a string (char*).
+ * NULL is returned if the message is not set.
+ *
+ * @notice returned char* should be freed with safe_free() by the caller.
+ */
+LIBSBML_EXTERN
+char*
+Constraint_getMessageString (const Constraint_t *c)
+{
+  return c->isSetMessage() ? safe_strdup(c->getMessageString().c_str()) : NULL;
 }
 
 

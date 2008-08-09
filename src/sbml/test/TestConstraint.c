@@ -159,6 +159,9 @@ START_TEST (test_Constraint_setMessage)
 
   fail_unless( Constraint_getMessage(C) != node );
 
+  fail_unless( Constraint_getMessageString(C) != NULL );
+  fail_unless( strcmp(Constraint_getMessageString(C),"") == 0);
+
   Constraint_unsetMessage(C);
   fail_unless( !Constraint_isSetMessage(C) );
 

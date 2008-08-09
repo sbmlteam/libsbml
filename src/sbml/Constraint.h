@@ -235,6 +235,14 @@ public:
 
 
   /**
+   * Get the message string, if any, associated with this Constraint
+   * 
+   * @return the message for this Constraint, as a string.
+   */
+  std::string getMessageString () const;
+
+
+  /**
    * Get the mathematical expression of this Constraint
    * 
    * @return the math for this Constraint, as an ASTNode.
@@ -466,6 +474,11 @@ Constraint_clone (const Constraint_t *c);
 LIBSBML_EXTERN
 const XMLNode_t *
 Constraint_getMessage (const Constraint_t *c);
+
+
+LIBSBML_EXTERN
+char*
+Constraint_getMessageString (const Constraint_t *c);
 
 
 LIBSBML_EXTERN
