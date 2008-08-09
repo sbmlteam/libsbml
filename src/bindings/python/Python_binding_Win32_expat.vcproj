@@ -22,7 +22,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(PYTHON_INCLUDE)"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBSBML_EXPORTS;LIBLAX_EXPORTS;USE_EXPAT;USE_LAYOUT"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBSBML_EXPORTS;LIBLAX_EXPORTS;USE_EXPAT;USE_LAYOUT;USE_ZLIB;USE_BZ2"
 				ExceptionHandling="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -40,7 +40,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib ../../../win32/bin/libexpat.lib &quot;$(PYTHON_LIB)&quot;"
+				AdditionalDependencies="odbc32.lib odbccp32.lib ../../../win32/bin/libexpat.lib zlib.lib bzip2.lib &quot;$(PYTHON_LIB)&quot;"
 				OutputFile="_libsbmlD.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -89,7 +89,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="../swig;../../../include;&quot;$(PYTHON_INCLUDE)&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBSBML_EXPORTS;USE_EXPAT;LIBLAX_EXPORTS;USE_LAYOUT"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBSBML_EXPORTS;USE_EXPAT;LIBLAX_EXPORTS;USE_LAYOUT;USE_ZLIB;USE_BZ2"
 				StringPooling="FALSE"
 				ExceptionHandling="TRUE"
 				RuntimeLibrary="2"
@@ -108,7 +108,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:init_libsbml"
-				AdditionalDependencies="odbc32.lib odbccp32.lib ../../../win32/bin/libexpat.lib &quot;$(PYTHON_LIB)&quot;"
+				AdditionalDependencies="odbc32.lib odbccp32.lib ../../../win32/bin/libexpat.lib zlib.lib bzip2.lib &quot;$(PYTHON_LIB)&quot;"
 				OutputFile=".\libs/_libsbml.dll"
 				LinkIncremental="0"
 				SuppressStartupBanner="TRUE"
@@ -169,6 +169,9 @@
 				RelativePath="..\..\sbml\layout\BoundingBox.cpp">
 			</File>
 			<File
+				RelativePath="..\..\compress\bzfstream.cpp">
+			</File>
+			<File
 				RelativePath="..\..\validator\constraints\CiElementMathCheck.cpp">
 			</File>
 			<File
@@ -182,6 +185,9 @@
 			</File>
 			<File
 				RelativePath="..\..\sbml\CompartmentType.cpp">
+			</File>
+			<File
+				RelativePath="..\..\compress\CompressCommon.cpp">
 			</File>
 			<File
 				RelativePath="..\..\validator\constraints\ConsistencyConstraints.cpp">
@@ -250,6 +256,9 @@
 				RelativePath="..\..\validator\constraints\FunctionDefinitionVars.cpp">
 			</File>
 			<File
+				RelativePath="..\..\validator\constraints\FunctionNoArgsMathCheck.cpp">
+			</File>
+			<File
 				RelativePath="..\..\validator\constraints\FunctionReferredToExists.cpp">
 			</File>
 			<File
@@ -269,6 +278,15 @@
 			</File>
 			<File
 				RelativePath="..\..\sbml\InitialAssignment.cpp">
+			</File>
+			<File
+				RelativePath="..\..\compress\InputDecompressor.cpp">
+			</File>
+			<File
+				RelativePath="..\..\compress\ioapi.c">
+			</File>
+			<File
+				RelativePath="..\..\compress\iowin32.c">
 			</File>
 			<File
 				RelativePath="..\..\sbml\KineticLaw.cpp">
@@ -368,6 +386,9 @@
 			</File>
 			<File
 				RelativePath="..\..\validator\constraints\NumericReturnMathCheck.cpp">
+			</File>
+			<File
+				RelativePath="..\..\compress\OutputCompressor.cpp">
 			</File>
 			<File
 				RelativePath="..\..\validator\constraints\OverDeterminedCheck.cpp">
@@ -535,6 +556,9 @@
 				RelativePath="..\..\validator\constraints\UnitsBase.cpp">
 			</File>
 			<File
+				RelativePath="..\..\compress\unzip.c">
+			</File>
+			<File
 				RelativePath="..\..\util\util.c">
 			</File>
 			<File
@@ -587,6 +611,15 @@
 			</File>
 			<File
 				RelativePath="..\..\xml\XMLTriple.cpp">
+			</File>
+			<File
+				RelativePath="..\..\compress\zfstream.cpp">
+			</File>
+			<File
+				RelativePath="..\..\compress\zip.c">
+			</File>
+			<File
+				RelativePath="..\..\compress\zipfstream.cpp">
 			</File>
 		</Filter>
 		<Filter

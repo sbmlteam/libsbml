@@ -7,6 +7,7 @@ mkdir sbml
 cd sbml
 mkdir annotation
 mkdir common
+mkdir compress
 mkdir layout
 mkdir math
 mkdir units
@@ -22,6 +23,8 @@ cd ..\math
 echo a | xcopy *.h ..\..\include\sbml\math
 cd ..\common
 echo a | xcopy *.h ..\..\include\sbml\common
+cd ..\compress
+echo a | xcopy *.h ..\..\include\sbml\compress
 cd ..\units
 echo a | xcopy *.h ..\..\include\sbml\units
 cd ..\util
