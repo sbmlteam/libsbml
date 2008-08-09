@@ -76,6 +76,108 @@ public:
    */
   XMLNode (const XMLToken& token);
 
+  /**
+   * Creates a new start element XMLNode with the given set of attributes and
+   * namespace declarations.
+   *
+   * @param triple XMLTriple.
+   * @param attributes XMLAttributes, the attributes to set.
+   * @param namespaces XMLNamespaces, the namespaces to set.
+   * @param line an unsigned int, the line number (default = 0).
+   * @param column an unsigned int, the column number (default = 0).
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
+   */
+  XMLNode (  const XMLTriple&     triple
+           , const XMLAttributes& attributes
+           , const XMLNamespaces& namespaces
+           , const unsigned int   line   = 0
+           , const unsigned int   column = 0 );
+
+
+  /**
+   * Creates a start element XMLNode with the given set of attributes.
+   *
+   * @param triple XMLTriple.
+   * @param attributes XMLAttributes, the attributes to set.
+   * @param line an unsigned int, the line number (default = 0).
+   * @param column an unsigned int, the column number (default = 0).
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
+  */
+  XMLNode (  const XMLTriple&      triple
+           , const XMLAttributes&  attributes
+           , const unsigned int    line   = 0
+           , const unsigned int    column = 0 );
+
+
+  /**
+   * Creates an end element XMLNode.
+   *
+   * @param triple XMLTriple.
+   * @param line an unsigned int, the line number (default = 0).
+   * @param column an unsigned int, the column number (default = 0).
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
+   */
+  XMLNode (  const XMLTriple&    triple
+           , const unsigned int  line   = 0
+           , const unsigned int  column = 0 );
+
+
+  /**
+   * Creates a text XMLNode.
+   *
+   * @param chars a string, the text to be added to the XMLToken
+   * @param line an unsigned int, the line number (default = 0).
+   * @param column an unsigned int, the column number (default = 0).
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
+   */
+  XMLNode (  const std::string&  chars
+           , const unsigned int  line   = 0
+           , const unsigned int  column = 0 );
+
 
   /** @cond doxygen-libsbml-internal */
   /**
@@ -154,6 +256,14 @@ public:
    */
   void write (XMLOutputStream& stream) const;
   /** @endcond doxygen-libsbml-internal */
+
+
+  /**
+   * Returns a string which is converted from this XMLNode. 
+   *
+   * @return a string which is converted from this XMLNode.
+   */
+  std::string toXMLString() const;
 
 
   /**
@@ -250,6 +360,29 @@ XMLNode_createFromToken (const XMLToken_t *token);
 
 
 LIBLAX_EXTERN
+XMLNode_t *
+XMLNode_createStartElement  (const XMLTriple_t *triple,
+			     const XMLAttributes_t *attr);
+
+
+LIBLAX_EXTERN
+XMLNode_t *
+XMLNode_createStartElementNS (const XMLTriple_t *triple,
+			      const XMLAttributes_t *attr,
+			      const XMLNamespaces_t *ns);
+
+
+LIBLAX_EXTERN
+XMLNode_t *
+XMLNode_createEndElement (const XMLTriple_t *triple);
+
+
+LIBLAX_EXTERN
+XMLNode_t *
+XMLNode_createTextNode (const char *text);
+
+
+LIBLAX_EXTERN
 void
 XMLNode_free (XMLNode_t *node);
 
@@ -295,6 +428,51 @@ XMLNode_getURI (const XMLNode_t *node);
 
 
 LIBLAX_EXTERN
+int
+XMLNode_isElement (const XMLNode_t *node);
+
+
+LIBLAX_EXTERN
+int
+XMLNode_isEnd (const XMLNode_t *node); 
+
+
+LIBLAX_EXTERN
+int
+XMLNode_isEndFor (const XMLNode_t *node, const XMLNode_t *element);
+
+
+LIBLAX_EXTERN
+int
+XMLNode_isEOF (const XMLNode_t *node);
+
+
+LIBLAX_EXTERN
+int
+XMLNode_isStart (const XMLNode_t *node);
+
+
+LIBLAX_EXTERN
+int
+XMLNode_isText (const XMLNode_t *node);
+
+
+LIBLAX_EXTERN
+void
+XMLNode_setEnd (XMLNode_t *node);
+
+
+LIBLAX_EXTERN
+void
+XMLNode_setEOF (XMLNode_t *node);
+
+
+LIBLAX_EXTERN
+void
+XMLNode_unsetEnd (XMLNode_t *node);
+
+
+LIBLAX_EXTERN
 const XMLNode_t *
 XMLNode_getChild (const XMLNode_t *node, const int n);
 
@@ -302,6 +480,11 @@ XMLNode_getChild (const XMLNode_t *node, const int n);
 LIBLAX_EXTERN
 unsigned int
 XMLNode_getNumChildren (const XMLNode_t *node);
+
+
+LIBLAX_EXTERN
+char *
+XMLNode_toXMLString(const XMLNode_t *node);
 
 
 LIBLAX_EXTERN

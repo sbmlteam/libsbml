@@ -79,6 +79,54 @@ XMLNode::XMLNode (const XMLToken& token) : XMLToken(token)
 }
 
 
+/**
+ * Creates a new start element XMLNode with the given set of attributes and
+ * namespace declarations.
+ */
+XMLNode::XMLNode (  const XMLTriple&     triple
+                  , const XMLAttributes& attributes
+                  , const XMLNamespaces& namespaces
+		  , const unsigned int   line
+                  , const unsigned int   column) 
+                  : XMLToken(triple, attributes, namespaces, line, column)
+{
+}
+
+
+/**
+ * Creates a start element XMLNode with the given set of attributes.
+ */
+XMLNode::XMLNode (  const XMLTriple&      triple
+                  , const XMLAttributes&  attributes
+                  , const unsigned int    line
+                  , const unsigned int    column )
+                  : XMLToken(triple, attributes, line, column)
+{
+}  
+
+
+/**
+ * Creates an end element XMLNode with the given set of attributes.
+ */
+XMLNode::XMLNode (  const XMLTriple&   triple
+                  , const unsigned int line
+                  , const unsigned int column )
+                  : XMLToken(triple, line, column)
+{
+}
+
+
+/**
+ * Creates a text XMLNode.
+ */
+XMLNode::XMLNode (  const std::string& chars
+                  , const unsigned int line
+                  , const unsigned int column )
+                  : XMLToken(chars, line, column)
+{
+}
+
+
 /** @cond doxygen-libsbml-internal */
 /*
  * Creates a new XMLNode by reading XMLTokens from stream.  The stream must
@@ -215,6 +263,19 @@ XMLNode::write (XMLOutputStream& stream) const
 
 
 /*
+ * Returns a string which is converted from this XMLNode.
+ */
+std::string XMLNode::toXMLString() const
+{
+  std::ostringstream oss;
+  XMLOutputStream xos(oss,"UTF-8",false);
+  write(xos);
+
+  return oss.str();
+}
+
+
+/*
  * Returns a string which is converted from a given XMLNode.
  */
 std::string XMLNode::convertXMLNodeToString(const XMLNode* xnode)
@@ -346,6 +407,70 @@ XMLNode_createFromToken (const XMLToken_t *token)
 {
   return new(nothrow) XMLNode(*token);
 }
+
+
+/**
+ * Creates a new start element XMLNode_t structure with XMLTriple_t, 
+ * XMLAttributes_t and XMLNamespaces_t structures set and returns a 
+ * pointer to it.
+ *
+ * @param triple XMLTriple_t structure to be set.
+ * @param attr XMLAttributes_t structure to be set.
+ * @param ns XMLNamespaces_t structure to be set.
+ *
+ * @return pointer to new XMLNode_t structure.
+ */
+LIBLAX_EXTERN
+XMLNode_t *
+XMLNode_createStartElementNS (const XMLTriple_t     *triple,
+			      const XMLAttributes_t *attr,
+			      const XMLNamespaces_t *ns)
+{
+  return new(nothrow) XMLNode(*triple, *attr, *ns);
+}
+
+
+/**
+ * Creates a new start element XMLNode_t structure with XMLTriple_t 
+ * and XMLAttributes_t structures set and returns a pointer to it.
+ *
+ * @param triple XMLTriple_t structure to be set.
+ * @param attr XMLAttributes_t structure to be set.
+ *
+ * @return pointer to new XMLNode_t structure.
+ */
+LIBLAX_EXTERN
+XMLNode_t *
+XMLNode_createStartElement  (const XMLTriple_t *triple,
+			     const XMLAttributes_t *attr)
+{
+  return new(nothrow) XMLNode(*triple, *attr);
+}
+
+
+/**
+ * Creates a new end element XMLNode_t structure with XMLTriple_t 
+ * structure set and returns a pointer to it.
+ *
+ * @param triple XMLTriple_t structure to be set.
+ *
+ * @return pointer to new XMLNode_t structure.
+ */
+LIBLAX_EXTERN
+XMLNode_t *
+XMLNode_createEndElement (const XMLTriple_t *triple)
+{
+  return new(nothrow) XMLNode(*triple);
+}
+
+
+LIBLAX_EXTERN
+XMLNode_t *
+XMLNode_createTextNode (const char *text)
+{
+  return (text != NULL) ? new(nothrow) XMLNode(text) : new(nothrow) XMLNode;
+}
+
 
 #if 0
 
@@ -531,12 +656,32 @@ XMLNode_getNumChildren (const XMLNode_t *node)
   return node->getNumChildren();
 }
 
+
 /**
  * Returns a string which is converted from a given XMLNode. 
  *
  * @param node XMLNode_t to be converted to a string.
  *
- * @return a string which is converted from a given XMLNode.
+ * @return a string (char*) which is converted from a given XMLNode.
+ *
+ * @notice returned char* should be freed with safe_free() by the caller.
+ */
+LIBLAX_EXTERN
+char *
+XMLNode_toXMLString(const XMLNode_t *node)
+{
+  return safe_strdup(node->toXMLString().c_str());
+}
+
+
+/**
+ * Returns a string which is converted from a given XMLNode. 
+ *
+ * @param node XMLNode_t to be converted to a string.
+ *
+ * @return a string (char*) which is converted from a given XMLNode.
+ *
+ * @notice returned char* should be freed with safe_free() by the caller.
  */
 LIBLAX_EXTERN
 const char *
@@ -565,6 +710,146 @@ XMLNode_convertStringToXMLNode(const char * xml, const XMLNamespaces_t* xmlns)
   return XMLNode::convertStringToXMLNode(xml, xmlns);
 }
 
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLNode_t structure is an XML element.
+ * 
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return @c non-zero (true) if this XMLNode_t structure is an XML element, @c zero (false) otherwise.
+ */
+LIBLAX_EXTERN
+int
+XMLNode_isElement (const XMLNode_t *node)
+{
+  return static_cast<int>( node->isElement() );
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLNode_t structure is an XML end element.
+ * 
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return @c non-zero (true) if this XMLNode_t structure is an XML end element, @c zero (false) otherwise.
+ */
+LIBLAX_EXTERN
+int
+XMLNode_isEnd (const XMLNode_t *node) 
+{
+  return static_cast<int>( node->isEnd() );
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLNode_t structure is an XML end element for the given start element.
+ * 
+ * @param node XMLNode_t structure to be queried.
+ * @param element XMLNode_t structure, element for which query is made.
+ *
+ * @return @c non-zero (true) if this XMLNode_t structure is an XML end element for the given
+ * XMLNode_t structure start element, @c zero (false) otherwise.
+ */
+LIBLAX_EXTERN
+int
+XMLNode_isEndFor (const XMLNode_t *node, const XMLNode_t *element)
+{
+  return static_cast<int>( node->isEndFor(*element) );
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLNode_t structure is an end of file marker.
+ * 
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return @c non-zero (true) if this XMLNode_t structure is an end of file (input) marker, @c zero (false)
+ * otherwise.
+ */
+LIBLAX_EXTERN
+int
+XMLNode_isEOF (const XMLNode_t *node)
+{
+  return static_cast<int>( node->isEOF() );
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLNode_t structure is an XML start element.
+ * 
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return @c true if this XMLNode_t structure is an XML start element, @c false otherwise.
+ */
+LIBLAX_EXTERN
+int
+XMLNode_isStart (const XMLNode_t *node)
+{
+  return static_cast<int>( node->isStart() );
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLNode_t structure is an XML text element.
+ * 
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return @c non-zero (true) if this XMLNode_t structure is an XML text element, @c zero (false) otherwise.
+ */
+LIBLAX_EXTERN
+int
+XMLNode_isText (const XMLNode_t *node)
+{
+  return static_cast<int>( node->isText() );
+}
+
+
+/**
+ * Declares this XML start element is also an end element.
+ *
+ * @param node XMLNode_t structure to be set.
+ *
+ */
+LIBLAX_EXTERN
+void
+XMLNode_setEnd (XMLNode_t *node)
+{
+  node->setEnd();
+}
+
+
+/**
+ * Declares this XMLNode_t structure is an end-of-file (input) marker.
+ *
+ * @param node XMLNode_t structure to be set.
+ *
+ */
+LIBLAX_EXTERN
+void
+XMLNode_setEOF (XMLNode_t *node)
+{
+  node->setEOF();
+}
+
+
+/*
+ * Declares this XML start/end element is no longer an end element.
+ *
+ * @param node XMLNode_t structure to be set.
+ *
+ */
+LIBLAX_EXTERN
+void
+XMLNode_unsetEnd (XMLNode_t *node)
+{
+  node->unsetEnd();
+}
 
 
 /** @endcond doxygen-c-only */

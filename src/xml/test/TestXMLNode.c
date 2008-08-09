@@ -85,6 +85,117 @@ START_TEST (test_XMLNode_createFromToken)
 }
 END_TEST
 
+
+START_TEST (test_XMLNode_createElement)
+{
+  XMLTriple_t     *triple;
+  XMLAttributes_t *attr;
+  XMLNamespaces_t *ns;
+  XMLNode_t *snode, *enode, *tnode;
+
+  const XMLAttributes_t* cattr;
+  const char* name   = "test";
+  const char* uri    = "http://test.org/";
+  const char* prefix = "p";
+  const char* text   = "text node";
+
+  /* start element with namespace */
+
+  triple = XMLTriple_createWith(name, uri, prefix);
+  ns     = XMLNamespaces_create();
+  attr   = XMLAttributes_create();
+  XMLNamespaces_add(ns, uri, prefix);
+  XMLAttributes_addWithNamespace(attr,"id", "value", uri, prefix);
+  snode = XMLNode_createStartElementNS(triple, attr, ns);
+
+  fail_unless(snode != NULL);
+  fail_unless(XMLNode_getNumChildren(snode) == 0);
+  fail_unless(strcmp(XMLNode_getName  (snode), name  ) == 0);
+  fail_unless(strcmp(XMLNode_getPrefix(snode), prefix) == 0);
+  fail_unless(strcmp(XMLNode_getURI   (snode), uri   ) == 0);
+  fail_unless(XMLNode_isElement(snode) == 1);
+  fail_unless(XMLNode_isStart  (snode) == 1);
+  fail_unless(XMLNode_isEnd    (snode) == 0);
+  fail_unless(XMLNode_isText   (snode) == 0);
+
+  XMLNode_setEnd(snode);
+  fail_unless ( XMLNode_isEnd(snode) == 1);
+  XMLNode_unsetEnd(snode);
+  fail_unless ( XMLNode_isEnd(snode) == 0);
+
+  cattr = XMLNode_getAttributes(snode);
+  fail_unless(cattr != NULL);
+  fail_unless(strcmp(XMLAttributes_getName  (cattr, 0), "id"   ) == 0);
+  fail_unless(strcmp(XMLAttributes_getValue (cattr, 0), "value") == 0);
+  fail_unless(strcmp(XMLAttributes_getPrefix(cattr, 0),  prefix) == 0);
+  fail_unless(strcmp(XMLAttributes_getURI   (cattr, 0),  uri   ) == 0);
+
+  XMLTriple_free(triple);
+  XMLAttributes_free(attr);
+  XMLNamespaces_free(ns);
+  XMLNode_free(snode);
+
+  /* start element */
+
+  attr   = XMLAttributes_create();
+  XMLAttributes_add(attr,"id", "value");
+  triple = XMLTriple_createWith(name, "", "");
+  snode  = XMLNode_createStartElement(triple, attr);
+
+  fail_unless(snode != NULL);
+  fail_unless(XMLNode_getNumChildren(snode) == 0);
+  fail_unless(strcmp(XMLNode_getName  (snode), "test") == 0);
+  fail_unless(XMLNode_getPrefix(snode) == NULL );
+  fail_unless(XMLNode_getURI   (snode) == NULL );
+  fail_unless(XMLNode_isElement(snode) == 1);
+  fail_unless(XMLNode_isStart  (snode) == 1);
+  fail_unless(XMLNode_isEnd    (snode) == 0);
+  fail_unless(XMLNode_isText   (snode) == 0);
+
+  cattr = XMLNode_getAttributes(snode);
+  fail_unless(cattr != NULL);
+  fail_unless(strcmp(XMLAttributes_getName  (cattr, 0), "id"   ) == 0);
+  fail_unless(strcmp(XMLAttributes_getValue (cattr, 0), "value") == 0);
+  fail_unless(XMLAttributes_getPrefix(cattr, 0) == NULL);
+  fail_unless(XMLAttributes_getURI   (cattr, 0) == NULL);
+
+  /* end element */
+
+  enode = XMLNode_createEndElement(triple);
+  fail_unless(enode != NULL);
+  fail_unless(XMLNode_getNumChildren(enode) == 0);
+  fail_unless(strcmp(XMLNode_getName(enode), "test") == 0);
+  fail_unless(XMLNode_getPrefix(enode) == NULL );
+  fail_unless(XMLNode_getURI   (enode) == NULL );
+  fail_unless(XMLNode_isElement(enode) == 1);
+  fail_unless(XMLNode_isStart  (enode) == 0);
+  fail_unless(XMLNode_isEnd    (enode) == 1);
+  fail_unless(XMLNode_isText   (enode) == 0);
+
+  /* text node */
+
+  tnode = XMLNode_createTextNode(text);
+  fail_unless(tnode != NULL);
+  fail_unless(strcmp(XMLNode_getCharacters(tnode), text) == 0);
+  fail_unless(XMLNode_getNumChildren(tnode) == 0);
+  fail_unless(XMLNode_getName  (tnode) == NULL);
+  fail_unless(XMLNode_getPrefix(tnode) == NULL );
+  fail_unless(XMLNode_getURI   (tnode) == NULL );
+  fail_unless(XMLNode_isElement(tnode) == 0);
+  fail_unless(XMLNode_isStart  (tnode) == 0);
+  fail_unless(XMLNode_isEnd    (tnode) == 0);
+  fail_unless(XMLNode_isText   (tnode) == 1);
+
+  XMLTriple_free(triple);
+  XMLAttributes_free(attr);
+  XMLNode_free(snode);
+  XMLNode_free(enode);
+  XMLNode_free(tnode);
+
+}
+END_TEST
+
+
 START_TEST (test_XMLNode_getters)
 {
   XMLToken_t *token;
@@ -134,10 +245,43 @@ START_TEST (test_XMLNode_getters)
   XMLToken_free(token);
   XMLNode_free(node);
 
+}
+END_TEST
 
+
+START_TEST (test_XMLNode_convert)
+{
+  const char* xmlstr = "<annotation>\n"
+                       "  <test xmlns=\"http://test.org/\" id=\"test\">test</test>\n"
+                       "</annotation>";
+  XMLNode_t       *node;
+  const XMLNode_t *child, *gchild;
+  const XMLAttributes_t *attr;
+  const XMLNamespaces_t *ns;
+
+  node   = XMLNode_convertStringToXMLNode(xmlstr, NULL);
+  child  = XMLNode_getChild(node,0);
+  gchild = XMLNode_getChild(child,0);
+  attr   = XMLNode_getAttributes(child);
+  ns     = XMLNode_getNamespaces(child);
+
+  fail_unless(strcmp(XMLNode_getName(node), "annotation") == 0);
+  fail_unless(strcmp(XMLNode_getName(child),"test" ) == 0);
+  fail_unless(strcmp(XMLNode_getCharacters(gchild),"test" ) == 0);
+  fail_unless(strcmp(XMLAttributes_getName (attr,0), "id"   ) == 0);
+  fail_unless(strcmp(XMLAttributes_getValue(attr,0), "test" ) == 0);
+  fail_unless(strcmp(XMLNamespaces_getURI(ns,0), "http://test.org/" ) == 0 );
+  fail_unless(XMLNamespaces_getPrefix(ns,0) == NULL );
+
+  char* toxmlstring = XMLNode_toXMLString(node);
+  fail_unless( strcmp(toxmlstring, xmlstr) == 0);
+
+  XMLNode_free(node);
+  safe_free(toxmlstring);
 
 }
 END_TEST
+
 
 Suite *
 create_suite_XMLNode (void)
@@ -147,7 +291,9 @@ create_suite_XMLNode (void)
 
   tcase_add_test( tcase, test_XMLNode_create  );
   tcase_add_test( tcase, test_XMLNode_createFromToken  );
+  tcase_add_test( tcase, test_XMLNode_createElement  );
   tcase_add_test( tcase, test_XMLNode_getters  );
+  tcase_add_test( tcase, test_XMLNode_convert  );
   suite_add_tcase(suite, tcase);
 
   return suite;
