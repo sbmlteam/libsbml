@@ -1,19 +1,19 @@
-; Version No is currently 3.1.1
+; Version No is currently 3.2.0
 ; Check before use
 
 
 [Setup]
 AppName=libSBML
-AppVerName=libSBML 3.1.1
+AppVerName=libSBML 3.2.0
 AppPublisher=SBML Team
 AppPublisherURL=http://sbml.org
 AppSupportURL=http://sbml.org
 AppUpdatesURL=http://sbml.org
-DefaultDirName={pf}\SBML\libSBML-3.1.1-xerces
+DefaultDirName={pf}\SBML\libSBML-3.2.0-xerces
 DefaultGroupName=libSBML
 DisableProgramGroupPage=yes
 OutputDir=..\..\..\libsbml_3\win32\installer\Output
-OutputBaseFilename=libSBML-3.1.1-win-xerces
+OutputBaseFilename=libSBML-3.2.0-win-xerces
 WizardSmallImageFile=libsbml-installer-mini-logo.bmp
 WizardImageFile=libsbml-installer-graphic-v3.bmp
 UsePreviousAppDir=no
@@ -24,31 +24,36 @@ SolidCompression=yes
 Name: english; MessagesFile: compiler:Default.isl
 
 [Files]
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\java\sbmlj.lib; DestDir: {sys}; Check: GetJava
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\java\sbmlj.dll; DestDir: {sys}; Check: GetJava
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\matlab\*; DestDir: {code:GetMatlabDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetMatlab
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python23\libsbml.py; DestDir: {code:GetPython23Dir}; Check: GetPython23
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python23\_libsbml.dll; DestDir: {code:GetPython23Dir}; Check: GetPython23
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python24\libsbml.py; DestDir: {code:GetPython24Dir}; Check: GetPython24
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python24\_libsbml.dll; DestDir: {code:GetPython24Dir}; Check: GetPython24
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python25\libsbml.py; DestDir: {code:GetPython25Dir}; Check: GetPython25
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\bindings\python\python25\_libsbml.pyd; DestDir: {code:GetPython25Dir}; Check: GetPython25
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\xerces-c_2D.lib; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\libsbml.dll; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\libsbml.lib; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\libsbmlD.dll; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\libsbmlD.lib; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\xerces-c_2.lib; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\xerces-c_2_7.dll; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml_3\win32\installer\libsbml_3_xerces\win32\bin\xerces-c_2_7D.dll; DestDir: {sys}; Check: GetLibrary
+Source: C:\libsbml\win32\installer\libsbml_3_xerces\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: C:\libsbml\win32\installer\libsbml_3_xerces\bindings\java\*; DestDir: {code:GetJavaDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetJava
+Source: C:\libsbml\win32\installer\libsbml_3_xerces\bindings\matlab\*; DestDir: {code:GetMatlabDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetMatlab
+Source: C:\libsbml\win32\installer\libsbml_3_xerces\bindings\csharp\*; DestDir: {code:GetCSharpDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetCSharp
+Source: C:\libsbml\win32\installer\libsbml_3_xerces\bindings\python\python23\libsbml.py; DestDir: {code:GetPython23Dir}; Check: GetPython23
+Source: C:\libsbml\win32\installer\libsbml_3_xerces\bindings\python\python23\_libsbml.dll; DestDir: {code:GetPython23Dir}; Check: GetPython23
+Source: C:\libsbml\win32\installer\libsbml_3_xerces\bindings\python\python24\libsbml.py; DestDir: {code:GetPython24Dir}; Check: GetPython24
+Source: C:\libsbml\win32\installer\libsbml_3_xerces\bindings\python\python24\_libsbml.dll; DestDir: {code:GetPython24Dir}; Check: GetPython24
+Source: C:\libsbml\win32\installer\libsbml_3_xerces\bindings\python\python25\libsbml.py; DestDir: {code:GetPython25Dir}; Check: GetPython25
+Source: C:\libsbml\win32\installer\libsbml_3_xerces\bindings\python\python25\_libsbml.pyd; DestDir: {code:GetPython25Dir}; Check: GetPython25
+Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\bin\libsbml.dll; DestDir: {sys}; Check: GetLibrary
+Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\lib\libsbml.lib; DestDir: {sys}; Check: GetLibrary
+Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\bin\libsbmlD.dll; DestDir: {sys}; Check: GetLibrary
+Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\lib\libsbmlD.lib; DestDir: {sys}; Check: GetLibrary
+Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\lib\xerces-c_2D.lib; DestDir: {sys}; Check: GetLibrary
+Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\lib\xerces-c_2.lib; DestDir: {sys}; Check: GetLibrary
+Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\bin\xerces-c_2_7.dll; DestDir: {sys}; Check: GetLibrary
+Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\bin\xerces-c_2_7D.dll; DestDir: {sys}; Check: GetLibrary
+Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\lib\bzip2.lib; DestDir: {sys}; Check: GetLibrary
+Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\bin\bzip2.dll; DestDir: {sys}; Check: GetLibrary
+Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\lib\zdll.lib; DestDir: {sys}; Check: GetLibrary
+Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\lib\zlib.lib; DestDir: {sys}; Check: GetLibrary
+Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\bin\zlib1.dll; DestDir: {sys}; Check: GetLibrary
 
 [Registry]
 Root: HKCU; Subkey: Software\SBML; Flags: uninsdeletekeyifempty
 Root: HKCU; Subkey: Software\SBML\libSBML; Flags: uninsdeletekey
 Root: HKLM; Subkey: Software\SBML; Flags: uninsdeletekeyifempty
 Root: HKLM; Subkey: Software\SBML\libSBML; Flags: uninsdeletekey
-Root: HKLM; Subkey: Software\SBML\libSBML; ValueType: string; ValueName: Version; ValueData: 3.1.1
+Root: HKLM; Subkey: Software\SBML\libSBML; ValueType: string; ValueName: Version; ValueData: 3.2.0
 Root: HKLM; Subkey: Software\SBML\libSBML; ValueType: string; ValueName: InstallPath; ValueData: {app}
 
 [Code]
@@ -57,12 +62,16 @@ var
   InstallOptionsPage: TInputOptionWizardPage;
   PythonPage: TInputOptionWizardPage;
   MatlabPage: TInputDirWizardPage;
+  CSharpPage: TInputDirWizardPage;
+  JavaPage: TInputDirWizardPage;
   URLLabel: TNewStaticText;
   AboutButton, CancelButton: TButton;
 
   MatlabPresent: Boolean;
   MatlabVersion: String;
   MatlabRoot: String;
+  CSharpRoot: String;
+  JavaRoot: String;
 
   PreviousInstalledVersion, ThisVersion: String;
 
@@ -142,6 +151,15 @@ begin
   Result := Root;
 end;
 
+function GetJavaDir(Param: String): String;
+begin
+  if (InstallTypePage.SelectedValueIndex = 0) then
+    Result := GetSystemDir()
+  else
+  { Return the selected DataDir }
+    Result := JavaPage.Values[0];
+end;
+
 {function to return python 2.3 dir directory}
 function GetPython23Dir(S : String): String;
 var
@@ -212,7 +230,7 @@ begin
 
   Note: it includes a version number
 **********************************************************************************************************}
-  MsgBox('This setup installs the Windows version of libSBML 3.1.1 built using the Xerces XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);
+  MsgBox('This setup installs the Windows version of libSBML 3.2.0 built using the Xerces 7.0 XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);
  { MsgBox('This setup installs the Windows release of libSBML 3.0.2 built using the Expat XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);  }
 end;
 
@@ -229,7 +247,7 @@ procedure InitializeWizard;
 begin
   {get data from system}
   PreviousInstalledVersion := GetVersion();
-  ThisVersion := '3.1.1';
+  ThisVersion := '3.2.0';
   MatlabRoot := GetMatlabRoot('');
 
   if (PreviousInstalledVersion = '') then begin
@@ -266,18 +284,19 @@ begin
 
   {install type : whether typical or custom install }
   InstallTypePage := CreateInputOptionPage(wpSelectDir,
-    'Select installation', '', '', True, False);
+    'Select installation', '', '', False, True);
   InstallTypePage.Add('Typical');
   InstallTypePage.Add('Custom');
 
   { install options : custom install possible settings }
   InstallOptionsPage := CreateInputOptionPage(InstallTypePage.ID,
     'Customise installation', '',
-    'Select the following options',
+    'Select the bindings to install',
     False, False);
   InstallOptionsPage.Add('Copy libraries to systems directories');
-  InstallOptionsPage.Add('Copy Java binding libraries to systems directory');
+  InstallOptionsPage.Add('Install Java binding');
   InstallOptionsPage.Add('Copy Python binding libraries to site-packages directory');
+  InstallOptionsPage.Add('Install C# binding');
   if (MatlabPresent) then begin
     InstallOptionsPage.Add('Install MATLAB binding');
   end;
@@ -297,6 +316,20 @@ begin
     False, '');
   MatlabPage.Add('');
 
+  { csharp page : location to install csharp binding }
+  CSharpPage := CreateInputDirPage(InstallOptionsPage.ID,
+    'C Sharp binding', '',
+    'Select the folder in which Setup should install C# binding files, then click Next.',
+    False, '');
+  CSharpPage.Add('');
+
+  { java page : location to install java binding }
+  JavaPage := CreateInputDirPage(InstallOptionsPage.ID,
+    'Java binding', '',
+    'Select the folder in which Setup should install Java binding files, then click Next.',
+    False, '');
+  JavaPage.Add('');
+
   { Set default values, using settings that were stored last time if possible }
 
   {install type page}
@@ -304,7 +337,7 @@ begin
     'typical': InstallTypePage.SelectedValueIndex := 0;
     'custom': InstallTypePage.SelectedValueIndex := 1;
   else
-    InstallTypePage.SelectedValueIndex := 0;
+    InstallTypePage.SelectedValueIndex := 1;
   end;
 
   {install options page}
@@ -328,12 +361,18 @@ begin
 
   if (MatlabPresent) then begin
     if GetPreviousData('Matlab', '') = '0' then begin
-      InstallOptionsPage.Values[3] := False;
+      InstallOptionsPage.Values[4] := False;
     end else begin
-      InstallOptionsPage.Values[3] := True;
+      InstallOptionsPage.Values[4] := True;
     end;
   end;
 
+  if GetPreviousData('CSharp', '') = '0' then begin
+    InstallOptionsPage.Values[3] := False;
+  end else begin
+    InstallOptionsPage.Values[3] := True;
+  end;
+  
   {python page}
   case GetPreviousData('PythonVers', '') of
     'Python 2.3': PythonPage.SelectedValueIndex := 0;
@@ -345,6 +384,12 @@ begin
 
   {matlab page}
   MatlabPage.Values[0] := GetPreviousData('MatlabDir', MatlabRoot);
+
+  {csharp page}
+  CSharpPage.Values[0] := GetPreviousData('CSharpDir', CSharpRoot);
+  
+  {java page}
+  JavaPage.Values[0] := GetPreviousData('JavaDir', JavaRoot);
 
 end;
 
@@ -361,10 +406,12 @@ begin
     0: InstallMode := 'typical';
     1: InstallMode := 'custom';
   end;
+  {taking out the install type page}
+  InstallMode := 'custom';
   SetPreviousData(PreviousDataKey, 'InstallMode', InstallMode);
 
   {install options page }
-  SetArrayLength(InstallOptions, 4);
+  SetArrayLength(InstallOptions, 5);
 
   if InstallOptionsPage.Values[0] then begin
     InstallOptions[0] := '1';
@@ -384,19 +431,26 @@ begin
     InstallOptions[2] := '0';
   end;
 
+  if InstallOptionsPage.Values[3] then begin
+    InstallOptions[3] := '1';
+  end else begin
+    InstallOptions[3] := '0';
+  end;
+
   if (MatlabPresent) then begin
-    if InstallOptionsPage.Values[3] then begin
-      InstallOptions[3] := '1';
+    if InstallOptionsPage.Values[4] then begin
+      InstallOptions[4] := '1';
     end else begin
-      InstallOptions[3] := '0';
+      InstallOptions[4] := '0';
     end;
   end;
 
   SetPreviousData(PreviousDataKey, 'Libraries', InstallOptions[0]);
   SetPreviousData(PreviousDataKey, 'Java',      InstallOptions[1]);
   SetPreviousData(PreviousDataKey, 'Python',    InstallOptions[2]);
+  SetPreviousData(PreviousDataKey, 'CSharp',    InstallOptions[3]);
   if (MatlabPresent) then begin
-    SetPreviousData(PreviousDataKey, 'Matlab',    InstallOptions[3]);
+    SetPreviousData(PreviousDataKey, 'Matlab',    InstallOptions[4]);
   end;
 
   {python page}
@@ -409,18 +463,33 @@ begin
 
   {matlab page}
   SetPreviousData(PreviousDataKey, 'MatlabDir', MatlabPage.Values[0]);
+
+  {csharp page}
+  SetPreviousData(PreviousDataKey, 'CSharpDir', CSharpPage.Values[0]);
+
+  {java page}
+  SetPreviousData(PreviousDataKey, 'JavaDir', JavaPage.Values[0]);
+
 end;
 
 function ShouldSkipPage(PageID: Integer): Boolean;
 begin
   { Skip pages that shouldn't be shown }
-  if (PageID = InstallOptionsPage.ID) and (InstallTypePage.SelectedValueIndex = 0) then
+  if (PageID = InstallTypePage.ID) then
+    Result := True
+  else if (PageID = JavaPage.ID) and (InstallOptionsPage.Values[1] = False) then
+    Result := True
+  else if (PageID = JavaPage.ID) and (InstallTypePage.SelectedValueIndex = 0) then
     Result := True
   else if (PageID = PythonPage.ID) and (InstallOptionsPage.Values[2] = False) then
     Result := True
+  else if (PageID = CSharpPage.ID) and (InstallOptionsPage.Values[3] = False) then
+    Result := True
+  else if (PageID = CSharpPage.ID) and (InstallTypePage.SelectedValueIndex = 0) then
+    Result := True
   else if (PageID = MatlabPage.ID) and (MatlabPresent = False) then
     Result := True
-  else if (PageID = MatlabPage.ID) and (InstallOptionsPage.Values[3] = False) then
+  else if (PageID = MatlabPage.ID) and (InstallOptionsPage.Values[4] = False) then
     Result := True
   else
     Result := False;
@@ -444,12 +513,17 @@ begin
       end;
     end;
     Result := True;
+  end else if CurPageID = InstallTypePage.ID then begin
+    if (InstallTypePage.SelectedValueIndex = 0) then begin
+      MsgBox('A typical installation will write several library files (libsbml, zlib, bzip2 plus xml parser libraries) to your systems directory.', mbInformation, mb_Ok);
+    end;
+    Result := True;
   end else if CurPageID = MatlabPage.ID then begin
     Later := LaterVersion(MatlabVersion, '7.5.0');
     if (Later > -1) then begin
       if MsgBox('The Xerces version of the libSBML MATLAB binding conflicts with MATLAB Version 2007b and will not work. Install anyway?', mbConfirmation, MB_YESNO or MB_DEFBUTTON2) = IDNO then
         begin
-          InstallOptionsPage.Values[3] := False;
+          InstallOptionsPage.Values[4] := False;
       end;
     end;
     Result := True;
@@ -470,7 +544,7 @@ begin
 
   if (InstallTypePage.SelectedValueIndex = 1) then begin
   {custom installation}
-    S := S + 'Custom installation' + NewLine;
+    S := S + 'The following binding installation options have been selected' + NewLine;
 
     if (InstallOptionsPage.Values[0] = True) then begin
         S := S + NewLine;
@@ -485,12 +559,12 @@ begin
 
     if (InstallOptionsPage.Values[1] = True) then begin
         S := S + NewLine;
-        S := S + 'Writing libSBML Java library files (sbmlj.*) to system directory' + NewLine;
-        S := S + '      ' + GetSystemDir();
+        S := S + 'Writing libSBML Java library files (sbmlj.*) to ' + NewLine;
+        S := S + '      ' + JavaPage.Values[0];
         S := S + NewLine;
     end else begin
         S := S + NewLine;
-        S := S + 'Not writing libSBML Java library files to system directory' + NewLine;
+        S := S + 'Not installing libSBML Java library files' + NewLine;
         S := S + NewLine;
     end;
 
@@ -513,12 +587,23 @@ begin
         end;
     end else begin
         S := S + NewLine;
-        S := S + 'Not writing libSBML Python library files to system directory' + NewLine;
+        S := S + 'Not writing libSBML Python library files to site-packages directory' + NewLine;
+        S := S + NewLine;
+    end;
+
+    if (InstallOptionsPage.Values[3] = True) then begin
+        S := S + NewLine;
+        S := S + 'Writing libSBML C# library files (libsbmlcs.*) to ' + NewLine;
+        S := S + '      ' + CSharpPage.Values[0];
+        S := S + NewLine;
+    end else begin
+        S := S + NewLine;
+        S := S + 'Not installing libSBML C# library files' + NewLine;
         S := S + NewLine;
     end;
 
     if (MatlabPresent) then begin
-      if(InstallOptionsPage.Values[3] = True) then begin
+      if(InstallOptionsPage.Values[4] = True) then begin
         S := S + NewLine;
         S := S + 'Installing matlab binding files to ' + NewLine;
         S := S + '      ' + MatlabPage.Values[0];
@@ -529,6 +614,9 @@ begin
         S := S + NewLine;
       end;
     end;
+    
+    S := S + NewLine;
+    S := S + 'NOTE: files not installed elsewhere will be available in the main destination location' + NewLine;
 
   end else begin
 
@@ -540,27 +628,35 @@ begin
     S := S + NewLine + NewLine;
 
     S := S + 'Writing libSBML Java library files (sbmlj.*) to system directory' + NewLine;
-    S := S + '      ' + GetSystemDir();
+    S := S + '      ' + GetJavaDir('');
     S := S + NewLine + NewLine;
 
     if (PythonPage.SelectedValueIndex = 0) then begin
-      S := S + 'Writing libSBML Python 2.3 library files (_libsbml.*) to system directory' + NewLine;
-      S := S + '      ' + GetSystemDir();
+      S := S + 'Writing libSBML Python 2.3 library files (_libsbml.*) to site-packages directory' + NewLine;
+      S := S + '      ' + GetPython23Dir('');
       S := S + NewLine + NewLine;
     end else if (PythonPage.SelectedValueIndex = 1) then begin
-      S := S + 'Writing libSBML Python 2.4 library files (_libsbml.*) to system directory' + NewLine;
-      S := S + '      ' + GetSystemDir();
+      S := S + 'Writing libSBML Python 2.4 library files (_libsbml.*) to site-packages directory' + NewLine;
+      S := S + '      ' + GetPython24Dir('');
       S := S + NewLine + NewLine;
     end else begin
-      S := S + 'Writing libSBML Python 2.5 library files (_libsbml.*) to system directory' + NewLine;
-      S := S + '      ' + GetSystemDir();
+      S := S + 'Writing libSBML Python 2.5 library files (_libsbml.*) to site-packages directory' + NewLine;
+      S := S + '      ' + GetPython25Dir('');
       S := S + NewLine + NewLine;
     end;
 
+    { TO DO need to say where CSharp files will go}
     if (MatlabPresent) then begin
-      S := S + 'Installing matlab binding files to ' + NewLine;
-      S := S + '      ' + MatlabPage.Values[0];
-      S := S + NewLine + NewLine;
+       if(InstallOptionsPage.Values[4] = True) then begin
+        S := S + NewLine;
+        S := S + 'Installing matlab binding files to ' + NewLine;
+        S := S + '      ' + MatlabPage.Values[0];
+        S := S + NewLine;
+      end else begin
+        S := S + NewLine;
+        S := S + 'Not installing matlab binding files' + NewLine;
+        S := S + NewLine;
+      end;
     end;
 
   end;
@@ -612,7 +708,7 @@ end;
 function GetMatlab() : Boolean;
 begin
   if (MatlabPresent) then begin
-    if (InstallOptionsPage.Values[3] = True) then
+    if (InstallOptionsPage.Values[4] = True) then
       Result := True
     else
       Result := False;
@@ -625,4 +721,18 @@ function GetMatlabDir(Param: String): String;
 begin
   { Return the selected DataDir }
   Result := MatlabPage.Values[0];
+end;
+
+function GetCSharp() : Boolean;
+begin
+  if (InstallOptionsPage.Values[3] = True) then
+    Result := True
+  else
+    Result := False;
+end;
+
+function GetCSharpDir(Param: String): String;
+begin
+  { Return the selected DataDir }
+  Result := CSharpPage.Values[0];
 end;
