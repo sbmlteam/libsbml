@@ -87,12 +87,47 @@ XMLNamespaces::clone () const
 /*
  * Appends an XML namespace prefix/URI pair to this list of namespace
  * declarations.
+ * If there is an XML namespace with the given prefix in this list,
+ * then the existing XML namespace will be overwritten by the new one.
  */
 void
 XMLNamespaces::add (const std::string& uri, const std::string& prefix)
 {
-  if ( prefix.empty() ) removeDefault();
+  //
+  // avoids duplicate prefix
+  //
+  if ( prefix.empty()    ) removeDefault();
+  if ( hasPrefix(prefix) ) remove(prefix);
+
   mNamespaces.push_back( make_pair(prefix, uri) );
+}
+
+
+/*
+ * @param index an integer, position of the removed namespace.
+ */
+void XMLNamespaces::remove (int index)
+{
+  if (index < 0 || index >= getLength()) return;
+
+  vector<PrefixURIPair>::iterator it = mNamespaces.begin() + index;
+  mNamespaces.erase(it);
+
+  return;
+}
+
+
+
+/*
+ * @param prefix a string, prefix of the required namespace.
+ */
+void XMLNamespaces::remove (const std::string& prefix)
+{
+  int index = getIndexByPrefix(prefix);
+  if(index == -1) return;
+
+  vector<PrefixURIPair>::iterator it = mNamespaces.begin() + index;
+  mNamespaces.erase(it);
 }
 
 
@@ -124,6 +159,23 @@ XMLNamespaces::getIndex (const std::string uri) const
 
 
 /*
+ * Lookup the index of an XML namespace declaration by Prefix.
+ *
+ * @return the index of the given declaration, or -1 if not present.
+ */
+int
+XMLNamespaces::getIndexByPrefix (const std::string prefix) const
+{
+  for (int index = 0; index < getLength(); ++index)
+  {
+     if (getPrefix(index) == prefix) return index;
+  }
+  
+  return -1;
+}
+
+
+/*
  * @return the number of attributes in this list.
  */
 int
@@ -138,7 +190,7 @@ XMLNamespaces::getLength () const
  * position).  If index is out of range, an empty string will be
  * returned.
  */
-string
+std::string
 XMLNamespaces::getPrefix (int index) const
 {
   return (index < 0 || index >= getLength()) ? "" : mNamespaces[index].first;
@@ -149,7 +201,7 @@ XMLNamespaces::getPrefix (int index) const
  * @return the prefix of an XML namespace declaration given its URI.  If
  * URI does not exist, an empty string will be returned.
  */
-string
+std::string
 XMLNamespaces::getPrefix (const std::string& uri) const
 {
   return getPrefix( getIndex(uri) );
@@ -173,7 +225,7 @@ XMLNamespaces::getURI (int index) const
  * no prefix is given and a default namespace exists it will be returned.
  * If prefix does not exist, an empty string will be returned.
  */
-string
+std::string
 XMLNamespaces::getURI (const std::string& prefix) const
 {
   for (int index = 0; index < getLength(); ++index)
@@ -192,6 +244,42 @@ bool
 XMLNamespaces::isEmpty () const
 {
   return (getLength() == 0);
+}
+
+
+ /*
+  * @return @c true if an XML Namespace with the given URI is contained in this 
+  * XMLNamespaces list,  @c false otherwise.
+  */
+bool XMLNamespaces::hasURI(const std::string& uri) const
+{
+  return ( getIndex(uri) != -1 );
+}
+
+
+/*
+ * @return @c true if an XML Namespace with the given URI is contained in this 
+ * XMLNamespaces list, @c false otherwise.
+ */
+bool XMLNamespaces::hasPrefix(const std::string& prefix) const
+{
+  return ( getIndexByPrefix(prefix) != -1 );
+}
+
+
+/*
+ * @return @c true if an XML Namespace with the given uri/prefix pair is 
+ * contained in this XMLNamespaces list,  @c false otherwise.
+ */
+bool XMLNamespaces::hasNS(const std::string& uri, const std::string& prefix) const
+{
+  for (int i= 0; i < getLength(); ++i)
+  {
+     if ( (getURI(i) == uri) && (getPrefix(i) == prefix) ) 
+       return true;
+  }
+
+  return false;
 }
 
 
@@ -315,6 +403,31 @@ XMLNamespaces_add (XMLNamespaces_t *ns,
 
 
 /**
+ * Removes an XML Namespace stored in the given position of this list.
+ *
+ * @param index an integer, position of the removed namespace.
+ */
+LIBLAX_EXTERN
+void XMLNamespaces_remove (XMLNamespaces_t *ns, int index)
+{
+  ns->remove(index);
+}
+
+
+/**
+ * Removes an XML Namespace with the given Prefix.
+ *
+ * @param prefix a string, prefix of the required namespace.
+ */
+LIBLAX_EXTERN
+void XMLNamespaces_removeByPrefix (XMLNamespaces_t *ns, const char* prefix)
+{
+  ns->remove(prefix);
+}
+
+
+
+/**
  * Clears this XMLNamespaces_t structure.
  *
  * @param ns XMLNamespaces structure.
@@ -339,6 +452,20 @@ int
 XMLNamespaces_getIndex (const XMLNamespaces_t *ns, const char *uri)
 {
   return ns->getIndex(uri);
+}
+
+
+/**
+ * Look up the index of an XML namespace declaration by Prefix.
+ *
+ * @param prefix a string, prefix of the required namespace.
+ *
+ * @return the index of the given declaration, or -1 if not present.
+ */
+LIBLAX_EXTERN
+int XMLNamespaces_getIndexByPrefix (const XMLNamespaces_t *ns, const char* prefix)
+{
+  return ns->getIndexByPrefix(prefix);
 }
 
 
@@ -426,14 +553,64 @@ XMLNamespaces_getURIByPrefix (const XMLNamespaces_t *ns, const char *prefix)
     return safe_strdup(ns->getURI(prefix).c_str());
 }
 
+
 /**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLNamespaces list is empty.
  * 
- **/
+ * @return @c true if this XMLNamespaces list is empty, @c false otherwise.
+ */
 LIBLAX_EXTERN
 int
 XMLNamespaces_isEmpty (const XMLNamespaces_t *ns)
 {
   return ns->isEmpty();
 }
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * an XML Namespace with the given URI is contained in this XMLNamespaces list.
+ * 
+ * @return @c true if an XML Namespace with the given URI is contained in this 
+ * XMLNamespaces list,  @c false otherwise.
+ */
+LIBLAX_EXTERN
+int 
+XMLNamespaces_hasURI(const XMLNamespaces_t *ns, const char* uri)
+{
+  return ns->hasURI(uri);
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * an XML Namespace the given Prefix is contained in this XMLNamespaces list.
+ * 
+ * @return @c true if an XML Namespace with the given URI is contained in this 
+ * XMLNamespaces list, @c false otherwise.
+ */
+LIBLAX_EXTERN
+int 
+XMLNamespaces_hasPrefix(const XMLNamespaces_t *ns, const char* prefix)
+{
+  return ns->hasPrefix(prefix);
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether
+ * an XML Namespace with the given URI is contained in this XMLNamespaces list.
+ *
+ * @return @c true if an XML Namespace with the given uri/prefix pair is contained
+ * in this XMLNamespaces list,  @c false otherwise.
+ */
+LIBLAX_EXTERN
+int 
+XMLNamespaces_hasNS(const XMLNamespaces_t *ns, const char* uri, const char* prefix)
+{
+  return ns->hasNS(uri, prefix);
+}
+
 
 /** @endcond doxygen-c-only */

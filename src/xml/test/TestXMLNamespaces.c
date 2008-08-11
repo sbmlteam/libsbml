@@ -67,6 +67,15 @@ START_TEST (test_XMLNamespaces_add)
   fail_unless( XMLNamespaces_getLength(NS) == 2 );
   fail_unless( XMLNamespaces_isEmpty(NS) == 0 );
 
+  XMLNamespaces_add(NS, "http://test1.org/", "test1a");
+  fail_unless( XMLNamespaces_getLength(NS) == 3 );
+  fail_unless( XMLNamespaces_isEmpty(NS) == 0 );
+
+  XMLNamespaces_add(NS, "http://test1.org/", "test1a");
+  fail_unless( XMLNamespaces_getLength(NS) == 3 );
+  fail_unless( XMLNamespaces_isEmpty(NS) == 0 );
+
+
   fail_if( XMLNamespaces_getIndex(NS, "http://test1.org/") == -1);
 }
 END_TEST
@@ -76,13 +85,13 @@ START_TEST (test_XMLNamespaces_get)
 {
   XMLNamespaces_add(NS, "http://test1.org/", "test1");    /* index 0 */
   XMLNamespaces_add(NS, "http://test2.org/", "test2");    /* index 1 */
-  XMLNamespaces_add(NS, "http://test3.org/", "test3");    /* index 1 */
-  XMLNamespaces_add(NS, "http://test4.org/", "test4");    /* index 1 */
-  XMLNamespaces_add(NS, "http://test5.org/", "test5");    /* index 1 */
-  XMLNamespaces_add(NS, "http://test6.org/", "test6");    /* index 1 */
-  XMLNamespaces_add(NS, "http://test7.org/", "test7");    /* index 1 */
-  XMLNamespaces_add(NS, "http://test8.org/", "test8");    /* index 1 */
-  XMLNamespaces_add(NS, "http://test9.org/", "test9");    /* index 1 */
+  XMLNamespaces_add(NS, "http://test3.org/", "test3");    /* index 2 */
+  XMLNamespaces_add(NS, "http://test4.org/", "test4");    /* index 3 */
+  XMLNamespaces_add(NS, "http://test5.org/", "test5");    /* index 4 */
+  XMLNamespaces_add(NS, "http://test6.org/", "test6");    /* index 5 */
+  XMLNamespaces_add(NS, "http://test7.org/", "test7");    /* index 6 */
+  XMLNamespaces_add(NS, "http://test8.org/", "test8");    /* index 7 */
+  XMLNamespaces_add(NS, "http://test9.org/", "test9");    /* index 8 */
 
   fail_unless( XMLNamespaces_getLength(NS) == 9 );
 
@@ -93,6 +102,135 @@ START_TEST (test_XMLNamespaces_get)
   fail_unless( strcmp(XMLNamespaces_getURI(NS, 1), "http://test2.org/") == 0 );
   fail_unless( strcmp(XMLNamespaces_getURIByPrefix(NS, "test2"),
 		      "http://test2.org/") == 0 );
+
+  fail_unless( XMLNamespaces_getIndex(NS, "http://test1.org/") ==  0 );
+  fail_unless( XMLNamespaces_getIndex(NS, "http://test2.org/") ==  1 );
+  fail_unless( XMLNamespaces_getIndex(NS, "http://test5.org/") ==  4 );
+  fail_unless( XMLNamespaces_getIndex(NS, "http://test9.org/") ==  8 );
+  fail_unless( XMLNamespaces_getIndex(NS, "http://testX.org/") == -1 );
+
+  fail_unless( XMLNamespaces_hasURI(NS, "http://test1.org/") !=  0 );
+  fail_unless( XMLNamespaces_hasURI(NS, "http://test2.org/") !=  0 );
+  fail_unless( XMLNamespaces_hasURI(NS, "http://test5.org/") !=  0 );
+  fail_unless( XMLNamespaces_hasURI(NS, "http://test9.org/") !=  0 );
+  fail_unless( XMLNamespaces_hasURI(NS, "http://testX.org/") ==  0 );
+
+  fail_unless( XMLNamespaces_getIndexByPrefix(NS, "test1") ==  0 );
+  fail_unless( XMLNamespaces_getIndexByPrefix(NS, "test5") ==  4 );
+  fail_unless( XMLNamespaces_getIndexByPrefix(NS, "test9") ==  8 );
+  fail_unless( XMLNamespaces_getIndexByPrefix(NS, "testX") == -1 );
+
+  fail_unless( XMLNamespaces_hasPrefix(NS, "test1") !=  0 );
+  fail_unless( XMLNamespaces_hasPrefix(NS, "test5") !=  0 );
+  fail_unless( XMLNamespaces_hasPrefix(NS, "test9") !=  0 );
+  fail_unless( XMLNamespaces_hasPrefix(NS, "testX") ==  0 );
+
+  fail_unless( XMLNamespaces_hasNS(NS, "http://test1.org/", "test1") !=  0 );
+  fail_unless( XMLNamespaces_hasNS(NS, "http://test5.org/", "test5") !=  0 );
+  fail_unless( XMLNamespaces_hasNS(NS, "http://test9.org/", "test9") !=  0 );
+  fail_unless( XMLNamespaces_hasNS(NS, "http://testX.org/", "testX") ==  0 );
+}
+END_TEST
+
+
+START_TEST (test_XMLNamespaces_remove)
+{
+  XMLNamespaces_add(NS, "http://test1.org/", "test1"); 
+  XMLNamespaces_add(NS, "http://test2.org/", "test2");
+  XMLNamespaces_add(NS, "http://test3.org/", "test3"); 
+  XMLNamespaces_add(NS, "http://test4.org/", "test4");
+  XMLNamespaces_add(NS, "http://test5.org/", "test5");
+
+  fail_unless( XMLNamespaces_getLength(NS) == 5 );
+  XMLNamespaces_remove(NS, 4);
+  fail_unless( XMLNamespaces_getLength(NS) == 4 );
+  XMLNamespaces_remove(NS, 3);
+  fail_unless( XMLNamespaces_getLength(NS) == 3 );
+  XMLNamespaces_remove(NS, 2);
+  fail_unless( XMLNamespaces_getLength(NS) == 2 );
+  XMLNamespaces_remove(NS, 1);
+  fail_unless( XMLNamespaces_getLength(NS) == 1 );
+  XMLNamespaces_remove(NS, 0);
+  fail_unless( XMLNamespaces_getLength(NS) == 0 );
+
+  XMLNamespaces_add(NS, "http://test1.org/", "test1");
+  XMLNamespaces_add(NS, "http://test2.org/", "test2");
+  XMLNamespaces_add(NS, "http://test3.org/", "test3");
+  XMLNamespaces_add(NS, "http://test4.org/", "test4");
+  XMLNamespaces_add(NS, "http://test5.org/", "test5");
+
+  fail_unless( XMLNamespaces_getLength(NS) == 5 );
+  XMLNamespaces_remove(NS, 0);
+  fail_unless( XMLNamespaces_getLength(NS) == 4 );
+  XMLNamespaces_remove(NS, 0);
+  fail_unless( XMLNamespaces_getLength(NS) == 3 );
+  XMLNamespaces_remove(NS, 0);
+  fail_unless( XMLNamespaces_getLength(NS) == 2 );
+  XMLNamespaces_remove(NS, 0);
+  fail_unless( XMLNamespaces_getLength(NS) == 1 );
+  XMLNamespaces_remove(NS, 0);
+  fail_unless( XMLNamespaces_getLength(NS) == 0 );
+
+}
+END_TEST
+
+
+START_TEST (test_XMLNamespaces_remove_by_prefix)
+{
+  XMLNamespaces_add(NS, "http://test1.org/", "test1"); 
+  XMLNamespaces_add(NS, "http://test2.org/", "test2");
+  XMLNamespaces_add(NS, "http://test3.org/", "test3"); 
+  XMLNamespaces_add(NS, "http://test4.org/", "test4");
+  XMLNamespaces_add(NS, "http://test5.org/", "test5");
+
+  fail_unless( XMLNamespaces_getLength(NS) == 5 );
+  XMLNamespaces_removeByPrefix(NS, "test1");
+  fail_unless( XMLNamespaces_getLength(NS) == 4 );
+  XMLNamespaces_removeByPrefix(NS, "test2");
+  fail_unless( XMLNamespaces_getLength(NS) == 3 );
+  XMLNamespaces_removeByPrefix(NS, "test3");
+  fail_unless( XMLNamespaces_getLength(NS) == 2 );
+  XMLNamespaces_removeByPrefix(NS, "test4");
+  fail_unless( XMLNamespaces_getLength(NS) == 1 );
+  XMLNamespaces_removeByPrefix(NS, "test5");
+  fail_unless( XMLNamespaces_getLength(NS) == 0 );
+
+  XMLNamespaces_add(NS, "http://test1.org/", "test1");
+  XMLNamespaces_add(NS, "http://test2.org/", "test2");
+  XMLNamespaces_add(NS, "http://test3.org/", "test3");
+  XMLNamespaces_add(NS, "http://test4.org/", "test4");
+  XMLNamespaces_add(NS, "http://test5.org/", "test5");
+
+  fail_unless( XMLNamespaces_getLength(NS) == 5 );
+  XMLNamespaces_removeByPrefix(NS, "test5");
+  fail_unless( XMLNamespaces_getLength(NS) == 4 );
+  XMLNamespaces_removeByPrefix(NS, "test4");
+  fail_unless( XMLNamespaces_getLength(NS) == 3 );
+  XMLNamespaces_removeByPrefix(NS, "test3");
+  fail_unless( XMLNamespaces_getLength(NS) == 2 );
+  XMLNamespaces_removeByPrefix(NS, "test2");
+  fail_unless( XMLNamespaces_getLength(NS) == 1 );
+  XMLNamespaces_removeByPrefix(NS, "test1");
+  fail_unless( XMLNamespaces_getLength(NS) == 0 );
+
+  XMLNamespaces_add(NS, "http://test1.org/", "test1"); 
+  XMLNamespaces_add(NS, "http://test2.org/", "test2"); 
+  XMLNamespaces_add(NS, "http://test3.org/", "test3");
+  XMLNamespaces_add(NS, "http://test4.org/", "test4");
+  XMLNamespaces_add(NS, "http://test5.org/", "test5");
+
+  fail_unless( XMLNamespaces_getLength(NS) == 5 );
+  XMLNamespaces_removeByPrefix(NS, "test3");
+  fail_unless( XMLNamespaces_getLength(NS) == 4 );
+  XMLNamespaces_removeByPrefix(NS, "test1");
+  fail_unless( XMLNamespaces_getLength(NS) == 3 );
+  XMLNamespaces_removeByPrefix(NS, "test4");
+  fail_unless( XMLNamespaces_getLength(NS) == 2 );
+  XMLNamespaces_removeByPrefix(NS, "test5");
+  fail_unless( XMLNamespaces_getLength(NS) == 1 );
+  XMLNamespaces_removeByPrefix(NS, "test2");
+  fail_unless( XMLNamespaces_getLength(NS) == 0 );
+
 }
 END_TEST
 
@@ -107,9 +245,11 @@ create_suite_XMLNamespaces (void)
                              XMLNamespacesTest_setup,
                              XMLNamespacesTest_teardown );
 
-  tcase_add_test( tcase, test_XMLNamespaces_baseline  );
-  tcase_add_test( tcase, test_XMLNamespaces_add       );
-  tcase_add_test( tcase, test_XMLNamespaces_get       );
+  tcase_add_test( tcase, test_XMLNamespaces_baseline         );
+  tcase_add_test( tcase, test_XMLNamespaces_add              );
+  tcase_add_test( tcase, test_XMLNamespaces_get              );
+  tcase_add_test( tcase, test_XMLNamespaces_remove           );
+  tcase_add_test( tcase, test_XMLNamespaces_remove_by_prefix );
   suite_add_tcase(suite, tcase);
 
   return suite;

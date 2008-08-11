@@ -90,6 +90,8 @@ public:
   /**
    * Appends an XML namespace prefix and URI pair to this list of namespace
    * declarations.
+   * If there is an XML namespace with the given prefix in this list, 
+   * then the existing XML namespace will be overwritten by the new one.
    *
    * @param uri a string, the uri for the namespace
    * @param prefix a string, the prefix for the namespace
@@ -110,6 +112,22 @@ public:
 
 
   /**
+   * Removes an XML Namespace stored in the given position of this list.
+   *
+   * @param index an integer, position of the removed namespace.
+   */
+  void remove (int index);
+
+
+  /**
+   * Removes an XML Namespace with the given prefix.
+   *
+   * @param prefix a string, prefix of the required namespace.
+   */
+  void remove (const std::string& prefix);
+
+
+  /**
    * Clears (deletes) all XML namespace declarations in this XMLNamespaces
    * object.
    */
@@ -124,6 +142,16 @@ public:
    * @return the index of the given declaration, or -1 if not present.
    */
   int getIndex (const std::string uri) const;
+
+
+  /**
+   * Look up the index of an XML namespace declaration by prefix.
+   *
+   * @param prefix a string, prefix of the required namespace.
+   *
+   * @return the index of the given declaration, or -1 if not present.
+   */
+  int getIndexByPrefix (const std::string prefix) const;
 
 
   /**
@@ -215,6 +243,44 @@ public:
   bool isEmpty () const;
 
 
+  /**
+   * Predicate returning @c true or @c false depending on whether 
+   * an XML Namespace with the given URI is contained in this XMLNamespaces list.
+   * 
+   * @param uri a string, the uri for the namespace
+   *
+   * @return @c true if an XML Namespace with the given URI is contained in this 
+   * XMLNamespaces list,  @c false otherwise.
+   */
+  bool hasURI(const std::string& uri) const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether 
+   * an XML Namespace with the given prefix is contained in this XMLNamespaces list.
+   *
+   * @param prefix a string, the prefix for the namespace
+   * 
+   * @return @c true if an XML Namespace with the given URI is contained in this 
+   * XMLNamespaces list, @c false otherwise.
+   */
+  bool hasPrefix(const std::string& prefix) const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether 
+   * an XML Namespace with the given uri/prefix pair is contained in this 
+   * XMLNamespaces list.
+   *
+   * @param uri a string, the uri for the namespace
+   * @param prefix a string, the prefix for the namespace
+   * 
+   * @return @c true if an XML Namespace with the given uri/prefix pair is contained 
+   * in this XMLNamespaces list,  @c false otherwise.
+   */
+  bool hasNS(const std::string& uri, const std::string& prefix) const;
+
+
 #ifndef SWIG
 
   /** @cond doxygen-libsbml-internal */
@@ -296,6 +362,14 @@ XMLNamespaces_add (XMLNamespaces_t *ns,
 
 
 LIBLAX_EXTERN
+void XMLNamespaces_remove (XMLNamespaces_t *ns, int index);
+
+
+LIBLAX_EXTERN
+void XMLNamespaces_removeByPrefix (XMLNamespaces_t *ns, const char* prefix);
+
+
+LIBLAX_EXTERN
 void
 XMLNamespaces_clear (XMLNamespaces_t *ns);
 
@@ -303,6 +377,10 @@ XMLNamespaces_clear (XMLNamespaces_t *ns);
 LIBLAX_EXTERN
 int
 XMLNamespaces_getIndex (const XMLNamespaces_t *ns, const char *uri);
+
+
+LIBLAX_EXTERN
+int XMLNamespaces_getIndexByPrefix (const XMLNamespaces_t *ns, const char* prefix);
 
 
 LIBLAX_EXTERN
@@ -333,6 +411,21 @@ XMLNamespaces_getURIByPrefix (const XMLNamespaces_t *ns, const char *prefix);
 LIBLAX_EXTERN
 int
 XMLNamespaces_isEmpty (const XMLNamespaces_t *ns);
+
+
+LIBLAX_EXTERN
+int 
+XMLNamespaces_hasURI(const XMLNamespaces_t *ns, const char* uri);
+
+
+LIBLAX_EXTERN
+int 
+XMLNamespaces_hasPrefix(const XMLNamespaces_t *ns, const char* prefix);
+
+
+LIBLAX_EXTERN
+int 
+XMLNamespaces_hasNS(const XMLNamespaces_t *ns, const char* uri, const char* prefix);
 
 
 
