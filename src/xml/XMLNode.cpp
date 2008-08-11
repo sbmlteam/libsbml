@@ -210,17 +210,50 @@ XMLNode::addChild (const XMLNode& node)
 
 
 /*
+ * Inserts a copy of child node as the nth child of this XMLNode.
+ */
+XMLNode&
+XMLNode::insertChild (unsigned int n, const XMLNode& node)
+{
+  unsigned int size = mChildren.size();
+
+  if ( (n >= size) || (size == 0) )
+  {
+    mChildren.push_back(node);
+    return mChildren.back();
+  }
+
+  return *(mChildren.insert(mChildren.begin() + n, node));
+}
+
+
+/*
+ * Returns the nth child of this XMLNode.
+ */
+XMLNode&
+XMLNode::getChild (unsigned int n)
+{
+   return const_cast<XMLNode&>( 
+            static_cast<const XMLNode&>(*this).getChild(n)
+          );
+}
+
+
+/*
  * Returns the nth child of this XMLNode.
  */
 const XMLNode&
 XMLNode::getChild (unsigned int n) const
 {
-  if (n < getNumChildren())
+  unsigned int size = getNumChildren();
+  if ( (n < size) && (size > 0) )
   {
     return mChildren[n];
   }
   else
   {
+    // this should not happen, or memory leak occurs...
+    // (I think some exception should be thrown here.)
     return *(new XMLNode());
   }
 }
@@ -535,6 +568,41 @@ XMLNode_addChild (XMLNode_t *node, const XMLNode_t *child)
   node->addChild(*child);
 }
 
+
+/**
+ * Inserts a copy of child node to this XMLNode_t structure.
+ *
+ * @param node XMLNode_t structure to which child is to be added.
+ * @pram n the index at which the given node is inserted
+ * @param child XMLNode_t structure to be inserted as nth child.
+ *
+ * @return the newly inserted child in this XMLNode. 
+ * NULL will be returned if the given child is NULL. 
+ */
+LIBLAX_EXTERN
+XMLNode_t*
+XMLNode_insertChild (XMLNode_t *node, unsigned int n, const XMLNode_t *child)
+{
+  if (!child)
+  {
+    return NULL;
+  }
+
+  return &(node->insertChild(n, *child));
+}
+
+
+/**
+ * Removes all children from this node.
+ */
+LIBLAX_EXTERN
+void
+XMLNode_removeChildren (XMLNode_t *node)
+{
+  node->removeChildren();
+}
+
+
 /**
  * Returns the attributes of this element.
  *
@@ -631,12 +699,29 @@ XMLNode_getURI (const XMLNode_t *node)
  * Returns the nth child of this XMLNode_t structure.
  *
  * @param node XMLNode_t structure to be queried.
+ * @param n the index of the node to return
  *
  * @return the nth child of this XMLNode_t structure.
  */
 LIBLAX_EXTERN
 const XMLNode_t *
 XMLNode_getChild (const XMLNode_t *node, const int n)
+{
+  return &(node->getChild(n));
+}
+
+
+/**
+ * Returns the (non-const) nth child of this XMLNode_t structure.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param n the index of the node to return
+ *
+ * @return the non-const nth child of this XMLNode_t structure.
+ */
+LIBLAX_EXTERN
+XMLNode_t *
+XMLNode_getChildNC (XMLNode_t *node, const unsigned int n)
 {
   return &(node->getChild(n));
 }
@@ -664,7 +749,7 @@ XMLNode_getNumChildren (const XMLNode_t *node)
  *
  * @return a string (char*) which is converted from a given XMLNode.
  *
- * @notice returned char* should be freed with safe_free() by the caller.
+ * @note returned char* should be freed with safe_free() by the caller.
  */
 LIBLAX_EXTERN
 char *
@@ -681,7 +766,7 @@ XMLNode_toXMLString(const XMLNode_t *node)
  *
  * @return a string (char*) which is converted from a given XMLNode.
  *
- * @notice returned char* should be freed with safe_free() by the caller.
+ * @note returned char* should be freed with safe_free() by the caller.
  */
 LIBLAX_EXTERN
 const char *

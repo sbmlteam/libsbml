@@ -225,8 +225,34 @@ public:
    * Adds a copy of child node to this XMLNode.
    *
    * @param node XMLNode to be added as child.
+   *
+   * @note The given node is added at the end of the children list.
    */
   void addChild (const XMLNode& node);
+
+
+  /**
+   * Inserts a copy of the given node as the nth child of this XMLNode.
+   *
+   * @param n the index at which the given node is inserted
+   * @param node XMLNode to be inserted as child.
+   *
+   * @return the reference to the newly inserted child in this XMLNode.
+   *
+   * @note The given node is added at the end of the list of the 
+   * children if the given index is out of range.
+   */
+  XMLNode& insertChild (unsigned int n, const XMLNode& node);
+
+
+  /**
+   * Returns the nth child of this XMLNode.
+   *
+   * @param n the index of the node to return
+   * 
+   * @return the nth child of this XMLNode.
+   */
+  XMLNode& getChild (unsigned int n);
 
 
   /**
@@ -304,9 +330,10 @@ public:
   static XMLNode* convertStringToXMLNode(const std::string& xmlstr,
                                          const XMLNamespaces* xmlns = NULL);
 
-  /** @cond doxygen-libsbml-internal */
+  /**
+   * Removes all children from this node.
+   */
   void removeChildren() { mChildren.clear(); }
-  /** @endcond doxygen-libsbml-internal */
 
 
 #ifndef SWIG
@@ -398,6 +425,15 @@ XMLNode_addChild (XMLNode_t *node, const XMLNode_t *child);
 
 
 LIBLAX_EXTERN
+XMLNode_t*
+XMLNode_insertChild (XMLNode_t *node, unsigned int n, const XMLNode_t *child);
+
+
+LIBLAX_EXTERN
+void
+XMLNode_removeChildren (XMLNode_t *node);
+
+LIBLAX_EXTERN
 const XMLAttributes_t *
 XMLNode_getAttributes (const XMLNode_t *node);
 
@@ -475,6 +511,11 @@ XMLNode_unsetEnd (XMLNode_t *node);
 LIBLAX_EXTERN
 const XMLNode_t *
 XMLNode_getChild (const XMLNode_t *node, const int n);
+
+
+LIBLAX_EXTERN
+XMLNode_t *
+XMLNode_getChildNC (XMLNode_t *node, const unsigned int n);
 
 
 LIBLAX_EXTERN
