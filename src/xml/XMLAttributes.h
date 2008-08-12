@@ -84,15 +84,16 @@ public:
 
 
   /**
-   * Adds a name/value pair to this XMLAttributes set optionally with a
-   * prefix and URI defining a namespace.
+   * Adds an attribute (a name/value pair) to this XMLAttributes set optionally 
+   * with a prefix and URI defining a namespace.
    *
-   * @param name a string, the name of the attribute.
+   * @param name a string, the local name of the attribute.
    * @param value a string, the value of the attribute.
    * @param namespaceURI a string, the namespace URI of the attribute.
    * @param prefix a string, the prefix of the namespace
    *
-   * @note if name already exists in this attribute set, its value will be replaced.
+   * @note if local name with the same namespace URI already exists in this 
+   * attribute set, its value and prefix will be replaced.
    *
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different
@@ -113,34 +114,116 @@ public:
 
 
   /**
-  * Adds a name/value pair to this XMLAttributes set.  
-  *
-  * This method is similar to the add method but an attribute with same name wont 
-  * be overwritten. This facilitates the addition of multiple resource attributes 
-  * to a annotations.
+   * Adds an attribute with the given XMLTriple/value pair to this XMLAttributes set.
+   *
+   * @note if local name with the same namespace URI already exists in this attribute set, 
+   * its value and prefix will be replaced.
+   *
+   * @param triple an XMLTriple, the XML triple of the attribute.
+   * @param value a string, the value of the attribute.
+   */
+   void add ( const XMLTriple& triple, const std::string& value);
+
+
+  /** @cond doxygen-libsbml-internal */
+
+  /**
+   * Adds an name/value pair to this XMLAttributes set.  
+   *
+   * This method is similar to the add method but an attribute with same name wont 
+   * be overwritten. This facilitates the addition of multiple resource attributes 
+   * in CVTerm class.
    *
    * @param name a string, the name of the attribute.
    * @param value a string, the value of the attribute.
-  */
+   *
+   * @note This function is only internally used to store multiple rdf:resource 
+   * attributes in CVTerm class, and thus should not be used for other purposes.
+   */
   void addResource (const std::string& name, const std::string& value);
-  
- /**
-  * Removes a name/value pair from this XMLAttributes set.  
-  *
-  * @param n an integer the index of the resource to be deleted
-  */
-  void removeResource (int n);
 
+  /** @endcond doxygen-libsbml-internal */
 
 
   /**
-   * Return the index of an attribute by name.
+   * Removes an attribute with the given index from this XMLAttributes set.  
    *
-   * @param name a string, the name of the attribute for which the index is required.
+   * @param n an integer the index of the resource to be deleted
+   */
+  void removeResource (int n);
+
+
+  /**
+   * Removes an attribute with the given index from this XMLAttributes set.  
+   * (This function is an alias of removeResource(int) ).
    *
-   * @return the index of the given attribute, or -1 if not present.
+   * @param n an integer the index of the resource to be deleted
+   */
+  void remove (int n);
+
+
+  /**
+   * Removes an attribute with the given local name and namespace URI from 
+   * this XMLAttributes set.  
+   *
+   * @param name   a string, the local name of the attribute.
+   * @param uri    a string, the namespace URI of the attribute.
+   */
+  void remove (const std::string& name, const std::string& uri = "");
+
+
+  /**
+   * Removes an attribute with the given XMLTriple from this XMLAttributes set.  
+   *
+   * @param triple an XMLTriple, the XML triple of the attribute.
+   */
+  void remove (const XMLTriple& triple); 
+
+
+  /**
+   * Clears (deletes) all attributes in this XMLAttributes object.
+   */
+  void clear();
+
+
+  /**
+   * Return the index of an attribute with the given name.
+   *
+   * @note A namespace bound to the name is not checked by this function.
+   * Thus, if there are multiple attributes with the given local name and
+   * different namespaces, the smallest index among those attributes will be returned.
+   * getIndex(name,uri) or getIndex(triple) should be used to get an index of
+   * an attribute with the given local name and namespace.
+   *
+   * @param name a string, the local name of the attribute for which the 
+   * index is required.
+   *
+   * @return the index of an attribute with the given local name, or -1 if not present.
    */
   int getIndex (const std::string& name) const;
+
+
+  /**
+   * Return the index of an attribute with the given local name and namespace URI.
+   *
+   * @param name a string, the local name of the attribute.
+   * @param uri  a string, the namespace URI of the attribute.
+   *
+   * @return the index of an attribute with the given local name and namespace URI, 
+   * or -1 if not present.
+   */
+  int getIndex (const std::string& name, const std::string& uri) const;
+
+
+  /**
+   * Return the index of an attribute with the given XMLTriple.
+   *
+   * @param triple an XMLTriple, the XML triple of the attribute for which 
+   *        the index is required.
+   *
+   * @return the index of an attribute with the given XMLTriple, or -1 if not present.
+   */
+  int getIndex (const XMLTriple& triple) const;
 
 
   /**
@@ -152,16 +235,16 @@ public:
 
 
   /**
-   * Return the name of an attribute in this XMLAttributes set (by position).
+   * Return the local name of an attribute in this XMLAttributes set (by position).
    *
-   * @param index an integer, the position of the attribute whose name is 
+   * @param index an integer, the position of the attribute whose local name is 
    * required.
    *
-   * @return the name of an attribute in this list (by position).  
+   * @return the local name of an attribute in this list (by position).  
    *
    * @note If index
-   * is out of range, an empty string will be returned.  Use getIndex() > 0
-   * to test for attribute existence.
+   * is out of range, an empty string will be returned.  Use hasAttribute(index) 
+   * to test for the attribute existence.
    */
   std::string getName (int index) const;
 
@@ -176,9 +259,24 @@ public:
    * position).  
    *
    * @note If index is out of range, an empty string will be
-   * returned.  Use getIndex() > 0 to test for attribute existence.
+   * returned. Use hasAttribute(index) to test for the attribute existence.
    */
   std::string getPrefix (int index) const;
+
+
+  /**
+   * Return the prefixed name of an attribute in this XMLAttributes set (by position).
+   *
+   * @param index an integer, the position of the attribute whose prefixed 
+   * name is required.
+   *
+   * @return the prefixed name of an attribute in this list (by
+   * position).  
+   *
+   * @note If index is out of range, an empty string will be
+   * returned.  Use hasAttribute(index) to test for attribute existence.
+   */
+  std::string getPrefixedName (int index) const;
 
 
   /**
@@ -190,7 +288,7 @@ public:
    * @return the namespace URI of an attribute in this list (by position).
    *
    * @note If index is out of range, an empty string will be returned.  Use
-   * getIndex() > 0 to test for attribute existence.
+   * hasAttribute(index) to test for attribute existence.
    */
   std::string getURI (int index) const;
 
@@ -204,7 +302,7 @@ public:
    * @return the value of an attribute in the list (by position).  
    *
    * @note If index
-   * is out of range, an empty string will be returned.  Use getIndex() > 0
+   * is out of range, an empty string will be returned.  Use hasAttribute(index)
    * to test for attribute existence.
    */
   std::string getValue (int index) const;
@@ -213,15 +311,90 @@ public:
   /**
    * Return an attribute's value by name.
    *
-   * @param name a string, the name of the attribute whose value is required.
+   * @param name a string, the local name of the attribute whose value is required.
+   *
+   * @return The attribute value as a string.  
+   *
+   * @note If an attribute with the 
+   * given local name does not exist, an empty string will be returned.  
+   * Use hasAttribute(name) to test for attribute existence.
+   * A namespace bound to the local name is not checked by this function.
+   * Thus, if there are multiple attributes with the given local name and 
+   * different namespaces, the value of an attribute with the smallest index 
+   * among those attributes will be returned.
+   * getValue(name,uri) or getValue(triple) should be used to get a value of
+   * an attribute with the given local name and namespace.
+   */
+  std::string getValue (const std::string name) const;
+
+
+  /**
+   * Return a value of an attribute with the given local name and namespace URI.
+   *
+   * @param name a string, the local name of the attribute whose value is required.
+   * @param uri  a string, the namespace URI of the attribute.
+   *
+   * @return The attribute value as a string.  
+   *
+   * @note If an attribute with the 
+   * given local name and namespace URI does not exist, an empty string will be 
+   * returned.  
+   * Use hasAttribute(name, uri) to test for attribute existence.
+   */
+  std::string getValue (const std::string name, const std::string uri) const;
+
+  /**
+   * Return a value of an attribute with the given XMLTriple.
+   *
+   * @param triple an XMLTriple, the XML triple of the attribute whose 
+   *        value is required.
    *
    * @return The attribute value as a string.  
    *
    * @note If an attribute with the
-   * given name does not exist, an empty string will be returned.  Use
-   * getIndex() > 0 to test for attribute existence.
+   * given XMLTriple does not exist, an empty string will be returned.  
+   * Use hasAttribute(triple) to test for attribute existence.
    */
-  std::string getValue (const std::string name) const;
+  std::string getValue (const XMLTriple& triple) const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether
+   * an attribute with the given index exists in this XMLAttributes.
+   *
+   * @param index an integer, the position of the attribute.
+   *
+   * @return @c true if an attribute with the given index exists in this
+   * XMLAttributes, @c false otherwise.
+   */
+  bool hasAttribute (int index) const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether
+   * an attribute with the given local name and namespace URI exists in this 
+   * XMLAttributes.
+   *
+   * @param name a string, the local name of the attribute.
+   * @param uri  a string, the namespace URI of the attribute.
+   *
+   * @return @c true if an attribute with the given local name and namespace 
+   * URI exists in this XMLAttributes, @c false otherwise.
+   */
+  bool hasAttribute (const std::string name, const std::string uri="") const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether
+   * an attribute with the given XML triple exists in this XMLAttributes.
+   *
+   * @param triple an XMLTriple, the XML triple of the attribute 
+   *
+   * @return @c true if an attribute with the given XML triple exists in this
+   * XMLAttributes, @c false otherwise.
+   *
+   */
+  bool hasAttribute (const XMLTriple& triple) const;
 
 
   /**
@@ -234,9 +407,9 @@ public:
 
 
   /**
-   * Reads the value for the attribute name into value.  If name was not
-   * found or value could be interpreted as a boolean, value is not
-   * modified.
+   * Reads the value for the attribute name into value.  If the given local
+   * name was not found or value could be interpreted as a boolean, value 
+   * is not modified.
    *
    * According to the W3C XML Schema, valid boolean values are: "true",
    * "false", "1", and "0" (case-insensitive).  For more information, see:
@@ -246,12 +419,16 @@ public:
    * required is true, missing attributes are also logged.
    *
    *
-   * @param name a string, the name of the attribute.
+   * @param name a string, the local name of the attribute.
    * @param value a boolean, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is required.
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
+   *
+   * @note A namespace bound to the given local name is not checked by this 
+   * function. readInto(const XMLTriple, bool&, ...) should be used to read 
+   * a value for an attribute name with a prefix and namespace.
    *
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different
@@ -272,9 +449,48 @@ public:
 
 
   /**
-   * Reads the value for the attribute name into value.  If name was not
-   * found or value could be interpreted as a double, value is not
-   * modified.
+   * Reads the value for the attribute with the given XMLTriple into value.  
+   * If the XMLTriple was not found or value could be interpreted as a boolean, 
+   * value is not modified.
+   *
+   * According to the W3C XML Schema, valid boolean values are: "true",
+   * "false", "1", and "0" (case-insensitive).  For more information, see:
+   * http://www.w3.org/TR/xmlschema-2/#boolean
+   *
+   * If an XMLErrorLog is passed in datatype format errors are logged.  If
+   * required is true, missing attributes are also logged.
+   *
+   *
+   * @param triple an XMLTriple, the XML triple of the attribute.
+   * @param value a boolean, the value of the attribute.
+   * @param log an XMLErrorLog, the error log.
+   * @param required a boolean, indicating whether the attribute is required.
+   *
+   * @returns @c true if the attribute was read into value, @c false otherwise.
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
+   */
+  bool readInto (  const XMLTriple& triple
+                 , bool&        value
+                 , XMLErrorLog* log      = 0
+                 , bool         required = false ) const;
+
+
+
+  /**
+   * Reads the value for the attribute name into value.  If the given local
+   * name was not found or value could be interpreted as a double, value is 
+   * not modified.
    *
    * According to the W3C XML Schema, valid doubles are the same as valid
    * doubles for C and the special values "INF", "-INF", and "NaN"
@@ -284,12 +500,16 @@ public:
    * If an XMLErrorLog is passed in datatype format errors are logged.  If
    * required is true, missing attributes are also logged.
    *
-   * @param name a string, the name of the attribute.
+   * @param name a string, the local name of the attribute.
    * @param value a double, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is required.
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
+   *
+   * @note A namespace bound to the given local name is not checked by this 
+   * function. readInto(const XMLTriple, double&, ...) should be used to read 
+   * a value for an attribute name with a prefix and namespace.
    *
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different
@@ -310,8 +530,47 @@ public:
 
 
   /**
-   * Reads the value for the attribute name into value.  If name was not
-   * found or value could be interpreted as an long, value is not modified.
+   * Reads the value for the attribute with the given XMLTriple into value.  
+   * If the triple was not found or value could be interpreted as a double, 
+   *value is not modified.
+   *
+   * According to the W3C XML Schema, valid doubles are the same as valid
+   * doubles for C and the special values "INF", "-INF", and "NaN"
+   * (case-sensitive).  For more information, see:
+   * http://www.w3.org/TR/xmlschema-2/#double
+   *
+   * If an XMLErrorLog is passed in datatype format errors are logged.  If
+   * required is true, missing attributes are also logged.
+   *
+   * @param triple an XMLTriple, the XML triple of the attribute.
+   * @param value a double, the value of the attribute.
+   * @param log an XMLErrorLog, the error log.
+   * @param required a boolean, indicating whether the attribute is required.
+   *
+   * @returns @c true if the attribute was read into value, @c false otherwise.
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
+   */
+  bool readInto (  const XMLTriple&  triple
+                 , double&           value
+                 , XMLErrorLog*      log      = 0
+                 , bool              required = false ) const;
+
+
+  /**
+   * Reads the value for the attribute name into value.  If the given local
+   * name was not found or value could be interpreted as an long, value is 
+   * not modified.
    *
    * According to the W3C XML Schema valid integers include zero, *all*
    * positive and *all* negative whole numbers.  For practical purposes, we
@@ -321,12 +580,16 @@ public:
    * If an XMLErrorLog is passed in datatype format errors are logged.  If
    * required is true, missing attributes are also logged.
    *
-   * @param name a string, the name of the attribute.
+   * @param name a string, the local name of the attribute.
    * @param value a long, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is required.
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
+   *
+   * @note A namespace bound to the given local name is not checked by this 
+   * function. readInto(const XMLTriple, long&, ...) should be used to read 
+   * a value for an attribute name with a prefix and namespace.
    *
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different
@@ -347,8 +610,47 @@ public:
 
 
   /**
-   * Reads the value for the attribute name into value.  If name was not
-   * found or value could be interpreted as an int, value is not modified.
+   * Reads the value for the attribute XMLTriple into value.  
+   * If the XMLTriple was not found or value could be interpreted as a long, 
+   * value is not modified.
+   *
+   * According to the W3C XML Schema valid integers include zero, *all*
+   * positive and *all* negative whole numbers.  For practical purposes, we
+   * limit values to what can be stored in a long.  For more information,
+   * see: http://www.w3.org/TR/xmlschema-2/#integer
+   *
+   * If an XMLErrorLog is passed in datatype format errors are logged.  If
+   * required is true, missing attributes are also logged.
+   *
+   * @param triple an XMLTriple, the XML triple of the attribute.
+   * @param value a long, the value of the attribute.
+   * @param log an XMLErrorLog, the error log.
+   * @param required a boolean, indicating whether the attribute is required.
+   *
+   * @returns @c true if the attribute was read into value, @c false otherwise.
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
+   */
+  bool readInto (  const XMLTriple& triple
+                 , long&            value
+                 , XMLErrorLog*     log      = 0
+                 , bool             required = false ) const;
+
+
+  /**
+   * Reads the value for the attribute name into value.  If the given local
+   * name was not found or value could be interpreted as an int, value is 
+   * not modified.
    *
    * According to the W3C XML Schema valid integers include zero, *all*
    * positive and *all* negative whole numbers.  For practical purposes, we
@@ -358,12 +660,16 @@ public:
    * If an XMLErrorLog is passed in datatype format errors are logged.  If
    * required is true, missing attributes are also logged.
    *
-   * @param name a string, the name of the attribute.
+   * @param name a string, the local name of the attribute.
    * @param value an integer, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is required.
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
+   *
+   * @note A namespace bound to the given local name is not checked by this 
+   * function. readInto(const XMLTriple, int&, ...) should be used to read 
+   * a value for an attribute name with a prefix and namespace.
    *
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different
@@ -384,9 +690,47 @@ public:
 
 
   /**
-   * Reads the value for the attribute name into value.  If name was not
-   * found or value could be interpreted as an unsigned int, value is not
-   * modified.
+   * Reads the value for the attribute with the given XMLTriple into value.  
+   * If the XMLTriple was not found or value could be interpreted as an int, 
+   * value is not modified.
+   *
+   * According to the W3C XML Schema valid integers include zero, *all*
+   * positive and *all* negative whole numbers.  For practical purposes, we
+   * limit values to what can be stored in a int.  For more information,
+   * see: http://www.w3.org/TR/xmlschema-2/#integer
+   *
+   * If an XMLErrorLog is passed in datatype format errors are logged.  If
+   * required is true, missing attributes are also logged.
+   *
+   * @param triple an XMLTriple, the XML triple of the attribute.
+   * @param value an integer, the value of the attribute.
+   * @param log an XMLErrorLog, the error log.
+   * @param required a boolean, indicating whether the attribute is required.
+   *
+   * @returns @c true if the attribute was read into value, @c false otherwise.
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
+   */
+  bool readInto (  const XMLTriple& triple
+                 , int&             value
+                 , XMLErrorLog*     log      = 0
+                 , bool             required = false ) const;
+
+
+  /**
+   * Reads the value for the attribute name into value.  If the given local
+   * name was not found or value could be interpreted as an unsigned int, 
+   * value is not modified.
    *
    * According to the W3C XML Schema valid integers include zero, *all*
    * positive and *all* negative whole numbers.  For practical purposes, we
@@ -396,12 +740,16 @@ public:
    * If an XMLErrorLog is passed in datatype format errors are logged.  If
    * required is true, missing attributes are also logged.
    *
-   * @param name a string, the name of the attribute.
+   * @param name a string, the local name of the attribute.
    * @param value an unsigned integer, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is required.
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
+   *
+   * @note A namespace bound to the given local name is not checked by this 
+   * function. readInto(const XMLTriple, unsigned int&, ...) should be used to 
+   * read a value for an attribute name with a prefix and namespace.
    *
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different
@@ -422,18 +770,60 @@ public:
 
 
   /**
-   * Reads the value for the attribute name into value.  If name was not
-   * found, value is not modified.
+   * Reads the value for the attribute with the given XMLTriple into value.  
+   * If the XMLTriple was not found or value could be interpreted as an unsigned int, 
+   * value is not modified.
+   *
+   * According to the W3C XML Schema valid integers include zero, *all*
+   * positive and *all* negative whole numbers.  For practical purposes, we
+   * limit values to what can be stored in a unsigned int.  For more
+   * information, see: http://www.w3.org/TR/xmlschema-2/#integer
+   *
+   * If an XMLErrorLog is passed in datatype format errors are logged.  If
+   * required is true, missing attributes are also logged.
+   *
+   * @param triple an XMLTriple, the XML triple of the attribute.
+   * @param value an unsigned integer, the value of the attribute.
+   * @param log an XMLErrorLog, the error log.
+   * @param required a boolean, indicating whether the attribute is required.
+   *
+   * @returns @c true if the attribute was read into value, @c false otherwise.
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
+   */
+  bool readInto (  const XMLTriple& triple
+                 , unsigned int&    value
+                 , XMLErrorLog*     log      = 0
+                 , bool             required = false ) const;
+
+
+  /**
+   * Reads the value for the attribute name into value.  If the given local
+   * name was not found, value is not modified.
    *
    * If an XMLErrorLog is passed in and required is true, missing
    * attributes are logged.
    *
-   * @param name a string, the name of the attribute.
+   * @param name a string, the local name of the attribute.
    * @param value a string, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is required.
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
+   *
+   * @note A namespace bound to the given local name is not checked by this 
+   * function. readInto(const XMLTriple, std::string&, ...) should be used 
+   * to read a value for an attribute name with a prefix and namespace.
    *
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different
@@ -453,7 +843,40 @@ public:
                  , bool                required = false ) const;
 
 
+  /**
+   * Reads the value for the attribute with the given XMLTriple into value.  
+   * If the XMLTriple was not found, value is not modified.
+   *
+   * If an XMLErrorLog is passed in and required is true, missing
+   * attributes are logged.
+   *
+   * @param triple an XMLTriple, the XML triple of the attribute.
+   * @param value a string, the value of the attribute.
+   * @param log an XMLErrorLog, the error log.
+   * @param required a boolean, indicating whether the attribute is required.
+   *
+   * @returns @c true if the attribute was read into value, @c false otherwise.
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
+   */
+  bool readInto (  const XMLTriple& triple
+                 , std::string&     value
+                 , XMLErrorLog*     log      = 0
+                 , bool              required = false ) const;
+
+
   /** @cond doxygen-libsbml-internal */
+
   /**
    * Writes this XMLAttributes set to stream.
    *
@@ -524,6 +947,176 @@ protected:
   void attributeRequiredError ( const std::string& name, XMLErrorLog* log ) const;
 
 
+  /**
+   * Reads the value for the attribute with the given index into value.  
+   * If the attribute was not found or value could be interpreted as a boolean, 
+   * value is not modified.
+   *
+   * According to the W3C XML Schema, valid boolean values are: "true",
+   * "false", "1", and "0" (case-insensitive).  For more information, see:
+   * http://www.w3.org/TR/xmlschema-2/#boolean
+   *
+   * If an XMLErrorLog is passed in datatype format errors are logged.  If
+   * required is true, missing attributes are also logged.
+   *
+   *
+   * @param index a int, the index of the attribute.
+   * @param name a string, the name of the attribute 
+   * (only used for an error message (if error detected))
+   * @param value a boolean, the value of the attribute.
+   * @param log an XMLErrorLog, the error log.
+   * @param required a boolean, indicating whether the attribute is required.
+   *
+   * @returns @c true if the attribute was read into value, @c false otherwise.
+   */
+  bool readInto (  int          index
+	         , const std::string&  name
+                 , bool&        value
+                 , XMLErrorLog* log      = 0
+                 , bool         required = false ) const;
+
+
+
+  /**
+   * Reads the value for the attribute with the given index into value.  
+   * If name was not found or value could be interpreted as a double, value 
+   * is not modified.
+   *
+   * According to the W3C XML Schema, valid doubles are the same as valid
+   * doubles for C and the special values "INF", "-INF", and "NaN"
+   * (case-sensitive).  For more information, see:
+   * http://www.w3.org/TR/xmlschema-2/#double
+   *
+   * If an XMLErrorLog is passed in datatype format errors are logged.  If
+   * required is true, missing attributes are also logged.
+   *
+   * @param index a int, the index of the attribute.
+   * @param name a string, the name of the attribute
+   * (only used for an error message (if error detected))
+   * @param value a double, the value of the attribute.
+   * @param log an XMLErrorLog, the error log.
+   * @param required a boolean, indicating whether the attribute is required.
+   *
+   * @returns @c true if the attribute was read into value, @c false otherwise.
+   */
+  bool readInto (  int          index
+	         , const std::string&  name
+                 , double&      value
+                 , XMLErrorLog* log      = 0
+                 , bool          required = false ) const;
+
+
+  /**
+   * Reads the value for the attribute with the given index into value.  
+   * If the attribute was not found or value could be interpreted as a long, 
+   * value is not modified.
+   *
+   * According to the W3C XML Schema valid integers include zero, *all*
+   * positive and *all* negative whole numbers.  For practical purposes, we
+   * limit values to what can be stored in a long.  For more information,
+   * see: http://www.w3.org/TR/xmlschema-2/#integer
+   *
+   * If an XMLErrorLog is passed in datatype format errors are logged.  If
+   * required is true, missing attributes are also logged.
+   *
+   * @param index a int, the index of the attribute.
+   * @param name a string, the name of the attribute
+   * (only used for an error message (if error detected))
+   * @param value a long, the value of the attribute.
+   * @param log an XMLErrorLog, the error log.
+   * @param required a boolean, indicating whether the attribute is required.
+   *
+   * @returns @c true if the attribute was read into value, @c false otherwise.
+   */
+  bool readInto (  int          index
+	         , const std::string&  name
+                 , long&         value
+                 , XMLErrorLog*  log      = 0
+                 , bool          required = false ) const;
+
+
+  /**
+   * Reads the value for the attribute with the given index into value.  
+   * If the attribute was not found or value could be interpreted as an integer, 
+   * value is not modified.
+   *
+   * According to the W3C XML Schema valid integers include zero, *all*
+   * positive and *all* negative whole numbers.  For practical purposes, we
+   * limit values to what can be stored in a int.  For more information,
+   * see: http://www.w3.org/TR/xmlschema-2/#integer
+   *
+   * If an XMLErrorLog is passed in datatype format errors are logged.  If
+   * required is true, missing attributes are also logged.
+   *
+   * @param index a int, the index of the attribute.
+   * @param name a string, the name of the attribute
+   * (only used for an error message (if error detected))
+   * @param value an integer, the value of the attribute.
+   * @param log an XMLErrorLog, the error log.
+   * @param required a boolean, indicating whether the attribute is required.
+   *
+   * @returns @c true if the attribute was read into value, @c false otherwise.
+   */
+  bool readInto (  int          index
+	         , const std::string&  name
+                 , int&         value
+                 , XMLErrorLog* log      = 0
+                 , bool          required = false ) const;
+
+
+  /**
+   * Reads the value for the attribute with the given index into value.  
+   * If the attribute was not found or value could be interpreted as an 
+   * unsigned int, value is not modified.
+   *
+   * According to the W3C XML Schema valid integers include zero, *all*
+   * positive and *all* negative whole numbers.  For practical purposes, we
+   * limit values to what can be stored in a unsigned int.  For more
+   * information, see: http://www.w3.org/TR/xmlschema-2/#integer
+   *
+   * If an XMLErrorLog is passed in datatype format errors are logged.  If
+   * required is true, missing attributes are also logged.
+   *
+   * @param index a int, the index of the attribute.
+   * @param name a string, the name of the attribute
+   * (only used for an error message (if error detected))
+   * @param value an unsigned integer, the value of the attribute.
+   * @param log an XMLErrorLog, the error log.
+   * @param required a boolean, indicating whether the attribute is required.
+   *
+   * @returns @c true if the attribute was read into value, @c false otherwise.
+   */
+  bool readInto (  int           index
+	         , const std::string&  name
+                 , unsigned int& value
+                 , XMLErrorLog*  log      = 0
+                 , bool          required = false ) const;
+
+
+  /**
+   * Reads the value for the attribute with the given index into value.  
+   * If the attribute was not found, value is not modified.
+   *
+   * If an XMLErrorLog is passed in and required is true, missing
+   * attributes are logged.
+   *
+   * @param index a int, the index of the attribute.
+   * @param name a string, the name of the attribute
+   * (only used for an error message (if error detected))
+   * @param value a string, the value of the attribute.
+   * @param log an XMLErrorLog, the error log.
+   * @param required a boolean, indicating whether the attribute is required.
+   *
+   * @returns @c true if the attribute was read into value, @c false otherwise.
+   */
+  bool readInto (  int          index
+	         , const std::string&  name
+                 , std::string& value
+                 , XMLErrorLog* log      = 0
+                 , bool         required = false ) const;
+
+
+
   std::vector<XMLTriple>    mNames;
   std::vector<std::string>  mValues;
 
@@ -573,12 +1166,18 @@ XMLAttributes_addWithNamespace (XMLAttributes_t *xa,
 				const char* uri,
 				const char* prefix);
 
-
+/*
 LIBLAX_EXTERN
 void
 XMLAttributes_addResource (XMLAttributes_t *xa, 
 			   const char *name, 
 			   const char *value);
+*/
+
+
+LIBLAX_EXTERN
+void
+XMLAttributes_addWithTriple (XMLAttributes_t *xa, const XMLTriple_t* triple, const char* value);
 
 
 LIBLAX_EXTERN
@@ -587,8 +1186,40 @@ XMLAttributes_removeResource (XMLAttributes_t *xa, int n);
 
 
 LIBLAX_EXTERN
+void
+XMLAttributes_remove (XMLAttributes_t *xa, int n);
+
+
+LIBLAX_EXTERN
+void
+XMLAttributes_removeByName (XMLAttributes_t *xa, const char* name);
+
+
+LIBLAX_EXTERN
+void XMLAttributes_removeByNS (XMLAttributes_t *xa, const char* name, const char* uri);
+
+
+LIBLAX_EXTERN
+void XMLAttributes_removeByTriple (XMLAttributes_t *xa, const XMLTriple_t* triple);
+
+
+LIBLAX_EXTERN
+void XMLAttributes_clear(XMLAttributes_t *xa);
+
+
+LIBLAX_EXTERN
 int
 XMLAttributes_getIndex (const XMLAttributes_t *xa, const char *name);
+
+
+LIBLAX_EXTERN
+int
+XMLAttributes_getIndexByNS (const XMLAttributes_t *xa, const char *name, const char *uri);
+
+
+LIBLAX_EXTERN
+int
+XMLAttributes_getIndexByTriple (const XMLAttributes_t *xa, const XMLTriple_t *triple);
 
 
 LIBLAX_EXTERN
@@ -622,6 +1253,35 @@ XMLAttributes_getValueByName (const XMLAttributes_t *xa, const char *name);
 
 
 LIBLAX_EXTERN
+const char *
+XMLAttributes_getValueByNS (const XMLAttributes_t *xa, const char* name, const char* uri);
+LIBLAX_EXTERN
+
+const char *
+XMLAttributes_getValueByTriple (const XMLAttributes_t *xa, const XMLTriple_t* triple);
+
+
+LIBLAX_EXTERN
+int 
+XMLAttributes_hasAttribute (const XMLAttributes_t *xa, int index);
+
+
+LIBLAX_EXTERN
+int 
+XMLAttributes_hasAttributeWithName (const XMLAttributes_t *xa, const char* name);
+
+
+LIBLAX_EXTERN
+int 
+XMLAttributes_hasAttributeWithNS (const XMLAttributes_t *xa, const char* name, const char* uri);
+
+
+LIBLAX_EXTERN
+int 
+XMLAttributes_hasAttributeWithTriple (const XMLAttributes_t *xa, const XMLTriple_t* triple);
+
+
+LIBLAX_EXTERN
 int
 XMLAttributes_isEmpty (const XMLAttributes_t *xa);
 
@@ -637,11 +1297,29 @@ XMLAttributes_readIntoBoolean (XMLAttributes_t *xa,
 
 LIBLAX_EXTERN
 int
+XMLAttributes_readIntoBooleanByTriple (XMLAttributes_t *xa,
+                               const XMLTriple_t* triple,
+                               int *value,
+                               XMLErrorLog_t *log,
+                               int required);
+
+
+LIBLAX_EXTERN
+int
 XMLAttributes_readIntoDouble (XMLAttributes_t *xa,
 			      const char *name,
 			      double *value,
 			      XMLErrorLog_t *log,
 			      int required);
+
+
+LIBLAX_EXTERN
+int
+XMLAttributes_readIntoDoubleByTriple (XMLAttributes_t *xa,
+                               const XMLTriple_t* triple,
+                               double *value,
+                               XMLErrorLog_t *log,
+                               int required);
 
 
 LIBLAX_EXTERN
@@ -655,11 +1333,29 @@ XMLAttributes_readIntoLong (XMLAttributes_t *xa,
 
 LIBLAX_EXTERN
 int
+XMLAttributes_readIntoLongByTriple (XMLAttributes_t *xa,
+                               const XMLTriple_t* triple,
+                               long *value,
+                               XMLErrorLog_t *log,
+                               int required);
+
+
+LIBLAX_EXTERN
+int
 XMLAttributes_readIntoInt (XMLAttributes_t *xa,
 			   const char *name,
 			   int *value,
 			   XMLErrorLog_t *log,
 			   int required);
+
+
+LIBLAX_EXTERN
+int
+XMLAttributes_readIntoIntByTriple (XMLAttributes_t *xa,
+                               const XMLTriple_t* triple,
+                               int *value,
+                               XMLErrorLog_t *log,
+                               int required);
 
 
 LIBLAX_EXTERN
@@ -673,12 +1369,29 @@ XMLAttributes_readIntoUnsignedInt (XMLAttributes_t *xa,
 
 LIBLAX_EXTERN
 int
+XMLAttributes_readIntoUnsignedIntByTriple (XMLAttributes_t *xa,
+                               const XMLTriple_t* triple,
+                               unsigned int *value,
+                               XMLErrorLog_t *log,
+                               int required);
+
+
+LIBLAX_EXTERN
+int
 XMLAttributes_readIntoString (XMLAttributes_t *xa,
 			      const char *name,
-			      char *value,
+			      char **value,
 			      XMLErrorLog_t *log,
 			      int required);
 
+
+LIBLAX_EXTERN
+int
+XMLAttributes_readIntoStringByTriple (XMLAttributes_t *xa,
+                               const XMLTriple_t* triple,
+                               char **value,
+                               XMLErrorLog_t *log,
+                               int required);
 
 END_C_DECLS
 
