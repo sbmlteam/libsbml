@@ -246,6 +246,26 @@ public:
 
 
   /**
+   * Removes the nth child of this XMLNode and returned the removed node.
+   * The caller owns the returned node and is responsible for deleting it.
+   *
+   * @param n the index of the node to be removed
+   *
+   * @return the removed child, or NULL if the given index is out of range. 
+   *
+   * @note This function invalidates all existing references to child nodes 
+   * after the position or first.
+   */
+  XMLNode* removeChild(unsigned int n);
+
+
+  /**
+   * Removes all children from this node.
+   */
+  void removeChildren() { mChildren.clear(); }
+
+
+  /**
    * Returns the nth child of this XMLNode.
    *
    * @param n the index of the node to return
@@ -329,11 +349,6 @@ public:
    */
   static XMLNode* convertStringToXMLNode(const std::string& xmlstr,
                                          const XMLNamespaces* xmlns = NULL);
-
-  /**
-   * Removes all children from this node.
-   */
-  void removeChildren() { mChildren.clear(); }
 
 
 #ifndef SWIG
@@ -427,6 +442,11 @@ XMLNode_addChild (XMLNode_t *node, const XMLNode_t *child);
 LIBLAX_EXTERN
 XMLNode_t*
 XMLNode_insertChild (XMLNode_t *node, unsigned int n, const XMLNode_t *child);
+
+
+LIBLAX_EXTERN
+XMLNode_t* 
+XMLNode_removeChild(XMLNode_t *node, unsigned int n);
 
 
 LIBLAX_EXTERN

@@ -227,6 +227,27 @@ XMLNode::insertChild (unsigned int n, const XMLNode& node)
 }
 
 
+/**
+ * Removes the nth child of this XMLNode and returned the removed node.
+ * The caller owns the returned node and is responsible for deleting it.
+ *
+ * @return the removed child, or NULL if the given index is out of range. 
+ */
+XMLNode* 
+XMLNode::removeChild(unsigned int n)
+{
+  XMLNode* rval = NULL;
+
+  if ( n < getNumChildren() )
+  {
+    rval = mChildren[n].clone();
+    mChildren.erase(mChildren.begin() + n);
+  }
+  
+  return rval;
+}
+
+
 /*
  * Returns the nth child of this XMLNode.
  */
@@ -589,6 +610,25 @@ XMLNode_insertChild (XMLNode_t *node, unsigned int n, const XMLNode_t *child)
   }
 
   return &(node->insertChild(n, *child));
+}
+
+
+/**
+ * Removes the nth child of this XMLNode and returned the removed node.
+ *
+ * @param node XMLNode_t structure to which child is to be removed.
+ * @param n the index of the node to be removed
+ *
+ * @return the removed child, or NULL if the given index is out of range. 
+ *
+ * @note This function invalidates all existing references to child nodes 
+ * after the position or first.
+ */
+LIBLAX_EXTERN
+XMLNode_t* 
+XMLNode_removeChild(XMLNode_t *node, unsigned int n)
+{
+  return node->removeChild(n);
 }
 
 

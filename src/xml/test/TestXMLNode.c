@@ -397,6 +397,194 @@ START_TEST (test_XMLNode_insert)
 END_TEST
 
 
+START_TEST (test_XMLNode_remove)
+{
+  /* setup */
+
+  XMLAttributes_t* attr = XMLAttributes_create();
+
+  XMLTriple_t *trp_p  = XMLTriple_createWith("parent","","");
+  XMLTriple_t *trp_c1 = XMLTriple_createWith("child1","","");
+  XMLTriple_t *trp_c2 = XMLTriple_createWith("child2","","");
+  XMLTriple_t *trp_c3 = XMLTriple_createWith("child3","","");
+  XMLTriple_t *trp_c4 = XMLTriple_createWith("child4","","");
+  XMLTriple_t *trp_c5 = XMLTriple_createWith("child5","","");
+
+  XMLNode_t *p  = XMLNode_createStartElement(trp_p,  attr);
+  XMLNode_t *c1 = XMLNode_createStartElement(trp_c1, attr);
+  XMLNode_t *c2 = XMLNode_createStartElement(trp_c2, attr);
+  XMLNode_t *c3 = XMLNode_createStartElement(trp_c3, attr);
+  XMLNode_t *c4 = XMLNode_createStartElement(trp_c4, attr);
+  XMLNode_t *c5 = XMLNode_createStartElement(trp_c5, attr);
+
+  /* test of remove */
+
+  XMLNode_t* r;
+
+  XMLNode_addChild(p, c1);
+  XMLNode_addChild(p, c2);
+  XMLNode_addChild(p, c3);
+  XMLNode_addChild(p, c4);
+  XMLNode_addChild(p, c5);
+
+  r = XMLNode_removeChild(p, 5);
+  fail_unless( r == NULL );
+
+  r = XMLNode_removeChild(p, 1);
+  fail_unless(XMLNode_getNumChildren(p) == 4);
+  fail_unless(strcmp(XMLNode_getName(r),"child2") == 0);
+  XMLNode_free(r);
+
+  r = XMLNode_removeChild(p, 3);
+  fail_unless(XMLNode_getNumChildren(p) == 3);
+  fail_unless(strcmp(XMLNode_getName(r),"child5") == 0);
+  XMLNode_free(r);
+
+  r = XMLNode_removeChild(p, 0);
+  fail_unless(XMLNode_getNumChildren(p) == 2);
+  fail_unless(strcmp(XMLNode_getName(r),"child1") == 0);
+  XMLNode_free(r);
+
+  r = XMLNode_removeChild(p, 1);
+  fail_unless(XMLNode_getNumChildren(p) == 1);
+  fail_unless(strcmp(XMLNode_getName(r),"child4") == 0);
+  XMLNode_free(r);
+
+  r = XMLNode_removeChild(p, 0);
+  fail_unless(XMLNode_getNumChildren(p) == 0);
+  fail_unless(strcmp(XMLNode_getName(r),"child3") == 0);
+  XMLNode_free(r);
+
+  /* test of sequential remove (in reverse order) */
+
+  XMLNode_addChild(p, c1);
+  XMLNode_addChild(p, c2);
+  XMLNode_addChild(p, c3);
+  XMLNode_addChild(p, c4);
+  XMLNode_addChild(p, c5);
+
+  r = XMLNode_removeChild(p, 4);
+  fail_unless(XMLNode_getNumChildren(p) == 4);
+  fail_unless(strcmp(XMLNode_getName(r),"child5") == 0);
+  XMLNode_free(r);
+
+  r = XMLNode_removeChild(p, 3);
+  fail_unless(XMLNode_getNumChildren(p) == 3);
+  fail_unless(strcmp(XMLNode_getName(r),"child4") == 0);
+  XMLNode_free(r);
+
+  r = XMLNode_removeChild(p, 2);
+  fail_unless(XMLNode_getNumChildren(p) == 2);
+  fail_unless(strcmp(XMLNode_getName(r),"child3") == 0);
+  XMLNode_free(r);
+
+  r = XMLNode_removeChild(p, 1);
+  fail_unless(XMLNode_getNumChildren(p) == 1);
+  fail_unless(strcmp(XMLNode_getName(r),"child2") == 0);
+  XMLNode_free(r);
+
+  r = XMLNode_removeChild(p, 0);
+  fail_unless(XMLNode_getNumChildren(p) == 0);
+  fail_unless(strcmp(XMLNode_getName(r),"child1") == 0);
+  XMLNode_free(r);
+
+  /* test of sequential remove*/
+
+  XMLNode_addChild(p, c1);
+  XMLNode_addChild(p, c2);
+  XMLNode_addChild(p, c3);
+  XMLNode_addChild(p, c4);
+  XMLNode_addChild(p, c5);
+
+
+  r = XMLNode_removeChild(p, 0);
+  fail_unless(XMLNode_getNumChildren(p) == 4);
+  fail_unless(strcmp(XMLNode_getName(r),"child1") == 0);
+  XMLNode_free(r);
+
+  r = XMLNode_removeChild(p, 0);
+  fail_unless(XMLNode_getNumChildren(p) == 3);
+  fail_unless(strcmp(XMLNode_getName(r),"child2") == 0);
+  XMLNode_free(r);
+
+  r = XMLNode_removeChild(p, 0);
+  fail_unless(XMLNode_getNumChildren(p) == 2);
+  fail_unless(strcmp(XMLNode_getName(r),"child3") == 0);
+  XMLNode_free(r);
+
+  r = XMLNode_removeChild(p, 0);
+  fail_unless(XMLNode_getNumChildren(p) == 1);
+  fail_unless(strcmp(XMLNode_getName(r),"child4") == 0);
+  XMLNode_free(r);
+
+  r = XMLNode_removeChild(p, 0);
+  fail_unless(XMLNode_getNumChildren(p) == 0);
+  fail_unless(strcmp(XMLNode_getName(r),"child5") == 0);
+  XMLNode_free(r);
+
+
+  /* test of sequential remove and insert */
+
+  XMLNode_addChild(p, c1);
+  XMLNode_addChild(p, c2);
+  XMLNode_addChild(p, c3);
+  XMLNode_addChild(p, c4);
+  XMLNode_addChild(p, c5);
+
+  r = XMLNode_removeChild(p, 0);
+  fail_unless(strcmp(XMLNode_getName(r),"child1") == 0);
+  XMLNode_insertChild(p, 0, r);
+  fail_unless(XMLNode_getNumChildren(p) == 5);
+  fail_unless(strcmp(XMLNode_getName(XMLNode_getChild(p,0)),"child1") == 0);
+  XMLNode_free(r);
+
+  r = XMLNode_removeChild(p, 1);
+  fail_unless(strcmp(XMLNode_getName(r),"child2") == 0);
+  XMLNode_insertChild(p, 1, r);
+  fail_unless(XMLNode_getNumChildren(p) == 5);
+  fail_unless(strcmp(XMLNode_getName(XMLNode_getChild(p,1)),"child2") == 0);
+  XMLNode_free(r);
+
+  r = XMLNode_removeChild(p, 2);
+  fail_unless(strcmp(XMLNode_getName(r),"child3") == 0);
+  XMLNode_insertChild(p, 2, r);
+  fail_unless(XMLNode_getNumChildren(p) == 5);
+  fail_unless(strcmp(XMLNode_getName(XMLNode_getChild(p,2)),"child3") == 0);
+  XMLNode_free(r);
+
+  r = XMLNode_removeChild(p, 3);
+  fail_unless(strcmp(XMLNode_getName(r),"child4") == 0);
+  XMLNode_insertChild(p, 3, r);
+  fail_unless(XMLNode_getNumChildren(p) == 5);
+  fail_unless(strcmp(XMLNode_getName(XMLNode_getChild(p,3)),"child4") == 0);
+  XMLNode_free(r);
+
+  r = XMLNode_removeChild(p, 4);
+  fail_unless(strcmp(XMLNode_getName(r),"child5") == 0);
+  XMLNode_insertChild(p, 4, r);
+  fail_unless(XMLNode_getNumChildren(p) == 5);
+  fail_unless(strcmp(XMLNode_getName(XMLNode_getChild(p,4)),"child5") == 0);
+  XMLNode_free(r);
+
+  /* teardown*/
+
+  XMLNode_free(p);
+  XMLNode_free(c1);
+  XMLNode_free(c2);
+  XMLNode_free(c3);
+  XMLNode_free(c4);
+  XMLNode_free(c5);
+  XMLAttributes_free(attr);
+  XMLTriple_free(trp_p);
+  XMLTriple_free(trp_c1);
+  XMLTriple_free(trp_c2);
+  XMLTriple_free(trp_c3);
+  XMLTriple_free(trp_c4);
+  XMLTriple_free(trp_c5);
+
+}
+END_TEST
+
 
 Suite *
 create_suite_XMLNode (void)
@@ -410,6 +598,7 @@ create_suite_XMLNode (void)
   tcase_add_test( tcase, test_XMLNode_getters  );
   tcase_add_test( tcase, test_XMLNode_convert  );
   tcase_add_test( tcase, test_XMLNode_insert  );
+  tcase_add_test( tcase, test_XMLNode_remove  );
   suite_add_tcase(suite, tcase);
 
   return suite;

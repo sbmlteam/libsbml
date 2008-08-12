@@ -171,6 +171,7 @@
 %newobject RDFAnnotationParser::createAnnotation;
 %newobject RDFAnnotationParser::createRDFDescription;
 %newobject RDFAnnotationParser::createCVTerms;
+%newobject XMLNode::removeChild;
 %newobject XMLNode::convertStringToXMLNode;
 %newobject Unit::convertToSI;
 %newobject UnitDefinition::convertToSI;
