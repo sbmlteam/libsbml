@@ -464,11 +464,6 @@ XMLNode_getCharacters (const XMLNode_t *node);
 
 
 LIBLAX_EXTERN
-const XMLNamespaces_t *
-XMLNode_getNamespaces (const XMLNode_t *node);
-
-
-LIBLAX_EXTERN
 const char *
 XMLNode_getName (const XMLNode_t *node);
 
@@ -481,6 +476,93 @@ XMLNode_getPrefix (const XMLNode_t *node);
 LIBLAX_EXTERN
 const char *
 XMLNode_getURI (const XMLNode_t *node);
+
+
+
+LIBLAX_EXTERN
+const XMLNamespaces_t *
+XMLNode_getNamespaces (const XMLNode_t *node);
+
+
+LIBLAX_EXTERN
+void 
+XMLNode_setNamespaces(XMLNode_t *node, const XMLNamespaces_t* namespaces);
+
+
+LIBLAX_EXTERN
+void 
+XMLNode_addNamespace (XMLNode_t *node, const char* uri, const char* prefix);
+
+
+LIBLAX_EXTERN
+void 
+XMLNode_removeNamespace (XMLNode_t *node, int index);
+
+
+LIBLAX_EXTERN
+void 
+XMLNode_removeNamespaceByPrefix (XMLNode_t *node, const char* prefix);
+
+
+LIBLAX_EXTERN
+void 
+XMLNode_clearNamespaces (XMLNode_t *node);
+
+
+LIBLAX_EXTERN
+int 
+XMLNode_getNamespaceIndex (const XMLNode_t *node, const char* uri);
+
+
+LIBLAX_EXTERN
+int 
+XMLNode_getNamespaceIndexByPrefix (const XMLNode_t *node, const char* prefix);
+
+
+LIBLAX_EXTERN
+int 
+XMLNode_getNamespacesLength (const XMLNode_t *node);
+
+
+LIBLAX_EXTERN
+char* 
+XMLNode_getNamespacePrefix (const XMLNode_t *node, int index);
+
+
+LIBLAX_EXTERN
+char* 
+XMLNode_getNamespacePrefixByURI (const XMLNode_t *node, const char* uri);
+
+
+LIBLAX_EXTERN
+char* 
+XMLNode_getNamespaceURI (const XMLNode_t *node, int index);
+
+
+LIBLAX_EXTERN
+char* 
+XMLNode_getNamespaceURIByPrefix (const XMLNode_t *node, const char* prefix);
+
+
+LIBLAX_EXTERN
+int
+XMLNode_isNamespacesEmpty (const XMLNode_t *node);
+
+
+LIBLAX_EXTERN
+int
+XMLNode_hasNamespaceURI(const XMLNode_t *node, const char* uri);
+
+
+LIBLAX_EXTERN
+int
+XMLNode_hasNamespacePrefix(const XMLNode_t *node, const char* prefix);
+
+
+LIBLAX_EXTERN
+int
+XMLNode_hasNamespaceNS(const XMLNode_t *node, const char* uri, const char* prefix);
+                        
 
 
 LIBLAX_EXTERN

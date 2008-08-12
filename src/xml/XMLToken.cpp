@@ -25,6 +25,7 @@
 
 /** @cond doxygen-libsbml-internal */
 #include <sbml/xml/XMLOutputStream.h>
+#include <sbml/util/util.h>
 /** @endcond doxygen-libsbml-internal */
 #include <sbml/xml/XMLToken.h>
 
@@ -254,6 +255,7 @@ XMLToken::getLine () const
 }
 
 
+
 /*
  * @return the XML namespace declarations for this XML element.
  */
@@ -262,6 +264,225 @@ XMLToken::getNamespaces () const
 {
   return mNamespaces;
 }
+
+
+/**
+ * Sets an XMLnamespaces to this XML element.
+ *
+ * @note This function replaces the existing XMLNamespaces with the new one.
+ */
+void 
+XMLToken::setNamespaces(const XMLNamespaces& namespaces)
+{
+  mNamespaces = namespaces;
+}
+
+
+/**
+ * Appends an XML namespace prefix and URI pair to this XMLToken.
+ * If there is an XML namespace with the given prefix in this XMLToken, 
+ * then the existing XML namespace will be overwritten by the new one.
+ */
+void 
+XMLToken::addNamespace (const std::string& uri, const std::string& prefix)
+{
+   mNamespaces.add(uri, prefix);
+}
+
+
+/**
+ * Removes an XML Namespace stored in the given position of the XMLNamespaces
+ * of this XMLToken.
+ *
+ * @param index an integer, position of the removed namespace.
+ */
+void 
+XMLToken::removeNamespace (int index)
+{
+  mNamespaces.remove(index);
+}
+
+
+/**
+ * Removes an XML Namespace with the given prefix.
+ *
+ * @param prefix a string, prefix of the required namespace.
+ */
+void 
+XMLToken::removeNamespace (const std::string& prefix)
+{
+  mNamespaces.remove(prefix);
+}
+
+
+/**
+ * Clears (deletes) all XML namespace declarations in the XMLNamespaces of
+ * this XMLToken.
+ */
+void 
+XMLToken::clearNamespaces ()
+{
+  mNamespaces.clear();
+}
+
+
+/**
+ * Look up the index of an XML namespace declaration by URI.
+ *
+ * @param uri a string, uri of the required namespace.
+ *
+ * @return the index of the given declaration, or -1 if not present.
+ */
+int 
+XMLToken::getNamespaceIndex (const std::string& uri) const
+{
+  return mNamespaces.getIndex(uri);
+}
+
+
+/**
+ * Look up the index of an XML namespace declaration by prefix.
+ *
+ * @param prefix a string, prefix of the required namespace.
+ *
+ * @return the index of the given declaration, or -1 if not present.
+ */
+int 
+XMLToken::getNamespaceIndexByPrefix (const std::string& prefix) const
+{
+  return mNamespaces.getIndexByPrefix(prefix);
+}
+
+
+/**
+ * Returns the number of XML namespaces stored in the XMLNamespaces 
+ * of this XMLToken.
+ *
+ * @return the number of namespaces in this list.
+ */
+int 
+XMLToken::getNamespacesLength () const
+{
+  return mNamespaces.getLength();
+}
+
+
+/**
+ * Look up the prefix of an XML namespace declaration by position.
+ *
+ * Callers should use getNamespacesLength() to find out how many 
+ * namespaces are stored in the XMLNamespaces.
+ * 
+ * @return the prefix of an XML namespace declaration in the XMLNamespaces 
+ * (by position).  
+ */
+std::string 
+XMLToken::getNamespacePrefix (int index) const
+{
+  return mNamespaces.getPrefix(index);
+}
+
+
+/**
+ * Look up the prefix of an XML namespace declaration by its URI.
+ *
+ * @return the prefix of an XML namespace declaration given its URI.  
+ */
+std::string 
+XMLToken::getNamespacePrefix (const std::string& uri) const
+{
+  return mNamespaces.getPrefix(uri);
+}
+
+
+/**
+ * Look up the URI of an XML namespace declaration by its position.
+ *
+ * @return the URI of an XML namespace declaration in the XMLNamespaces
+ * (by position).  
+ */
+std::string 
+XMLToken::getNamespaceURI (int index) const
+{
+  return mNamespaces.getURI(index);
+}
+
+
+/**
+ * Look up the URI of an XML namespace declaration by its prefix.
+ *
+ * @return the URI of an XML namespace declaration given its prefix.  
+ */
+std::string 
+XMLToken::getNamespaceURI (const std::string& prefix) const
+{
+  return mNamespaces.getURI(prefix);
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * the XMLNamespaces of this XMLToken is empty.
+ * 
+ * @return @c true if the XMLNamespaces of this XMLToken is empty, 
+ * @c false otherwise.
+ */
+bool 
+XMLToken::isNamespacesEmpty () const
+{
+  return mNamespaces.isEmpty();
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * an XML Namespace with the given URI is contained in the XMLNamespaces of
+ * this XMLToken.
+ *
+ * @return @c true if an XML Namespace with the given URI is contained in the
+ * XMLNamespaces of this XMLToken,  @c false otherwise.
+ */
+bool 
+XMLToken::hasNamespaceURI(const std::string& uri) const
+{
+  return mNamespaces.hasURI(uri);
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * an XML Namespace with the given prefix is contained in the XMLNamespaces of
+ * this XMLToken.
+ *
+ * @param prefix a string, the prefix for the namespace
+ * 
+ * @return @c true if an XML Namespace with the given URI is contained in the
+ * XMLNamespaces of this XMLToken, @c false otherwise.
+ */
+bool 
+XMLToken::hasNamespacePrefix(const std::string& prefix) const
+{
+  return mNamespaces.hasPrefix(prefix);
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * an XML Namespace with the given uri/prefix pair is contained in the 
+ * XMLNamespaces ofthis XMLToken.
+ *
+ * @param uri a string, the uri for the namespace
+ * @param prefix a string, the prefix for the namespace
+ * 
+ * @return @c true if an XML Namespace with the given uri/prefix pair is 
+ * contained in the XMLNamespaces of this XMLToken,  @c false otherwise.
+ */
+bool 
+XMLToken::hasNamespaceNS(const std::string& uri, const std::string& prefix) const
+{
+  return mNamespaces.hasNS(uri,prefix);
+}
+
 
 
 /*
@@ -648,6 +869,7 @@ XMLToken_getLine (const XMLToken_t *token)
 }    
 
 
+
 /**
  * Returns the XML namespace declarations for this XML element.
  *
@@ -661,6 +883,308 @@ XMLToken_getNamespaces (const XMLToken_t *token)
 {
   return &(token->getNamespaces());
 }
+
+
+/**
+ * Sets an XMLnamespaces to this XML element.
+ *
+ * @param token XMLToken_t structure to be queried.
+ * @param namespaces XMLNamespaces to be set to this XMLToken.
+ *
+ * @note This function replaces the existing XMLNamespaces with the new one.
+ */
+LIBLAX_EXTERN
+void 
+XMLToken_setNamespaces(XMLToken_t *token, const XMLNamespaces_t* namespaces)
+{
+  if(!namespaces)
+  {
+    return;
+  }
+
+  token->setNamespaces(*namespaces);
+}
+
+
+/**
+ * Appends an XML namespace prefix and URI pair to this XMLToken.
+ * If there is an XML namespace with the given prefix in this XMLToken, 
+ * then the existing XML namespace will be overwritten by the new one.
+ *
+ * @param token XMLToken_t structure to be queried.
+ * @param uri a string, the uri for the namespace
+ * @param prefix a string, the prefix for the namespace
+ */
+LIBLAX_EXTERN
+void 
+XMLToken_addNamespace (XMLToken_t *token, const char* uri, const char* prefix)
+{
+  token->addNamespace(uri, prefix);
+}
+
+
+/**
+ * Removes an XML Namespace stored in the given position of the XMLNamespaces
+ * of this XMLNode.
+ *
+ * @param token XMLToken_t structure to be queried.
+ * @param index an integer, position of the removed namespace.
+ */
+LIBLAX_EXTERN
+void 
+XMLToken_removeNamespace (XMLToken_t *token, int index)
+{
+  token->removeNamespace(index);
+}
+
+
+/**
+ * Removes an XML Namespace with the given prefix.
+ *
+ * @param token XMLToken_t structure to be queried.
+ * @param prefix a string, prefix of the required namespace.
+ */
+LIBLAX_EXTERN
+void 
+XMLToken_removeNamespaceByPrefix (XMLToken_t *token, const char* prefix)
+{
+  token->removeNamespace(prefix);
+}
+
+
+/**
+ * Clears (deletes) all XML namespace declarations in the XMLNamespaces 
+ * of this XMLNode.
+ *
+ * @param token XMLToken_t structure to be queried.
+ */
+LIBLAX_EXTERN
+void 
+XMLToken_clearNamespaces (XMLToken_t *token)
+{
+  token->clearNamespaces();
+}
+
+
+/**
+ * Look up the index of an XML namespace declaration by URI.
+ *
+ * @param token XMLToken_t structure to be queried.
+ * @param uri a string, uri of the required namespace.
+ *
+ * @return the index of the given declaration, or -1 if not present.
+ */
+LIBLAX_EXTERN
+int 
+XMLToken_getNamespaceIndex (const XMLToken_t *token, const char* uri)
+{
+  return token->getNamespaceIndex(uri);
+}
+
+
+/**
+ * Look up the index of an XML namespace declaration by prefix.
+ *
+ * @param token XMLToken_t structure to be queried.
+ * @param prefix a string, prefix of the required namespace.
+ *
+ * @return the index of the given declaration, or -1 if not present.
+ */
+LIBLAX_EXTERN
+int 
+XMLToken_getNamespaceIndexByPrefix (const XMLToken_t *token, const char* prefix)
+{
+  return token->getNamespaceIndexByPrefix(prefix);
+}
+
+
+/**
+ * Returns the number of XML namespaces stored in the XMLNamespaces 
+ * of this XMLNode.
+ *
+ * @param token XMLToken_t structure to be queried.
+ *
+ * @return the number of namespaces in this list.
+ */
+LIBLAX_EXTERN
+int 
+XMLToken_getNamespacesLength (const XMLToken_t *token)
+{
+  return token->getNamespacesLength();
+}
+
+
+/**
+ * Look up the prefix of an XML namespace declaration by position.
+ *
+ * Callers should use getNamespacesLength() to find out how many 
+ * namespaces are stored in the XMLNamespaces.
+ *
+ * @param token XMLToken_t structure to be queried.
+ * @param index an integer, position of the removed namespace.
+ * 
+ * @return the prefix of an XML namespace declaration in the XMLNamespaces 
+ * (by position).  
+ *
+ * @note returned char* should be freed with safe_free() by the caller.
+ */
+LIBLAX_EXTERN
+char* 
+XMLToken_getNamespacePrefix (const XMLToken_t *token, int index)
+{
+  const std::string str = token->getNamespacePrefix(index);
+
+  if (str.empty())
+    return NULL;
+  else
+    return safe_strdup(str.c_str());
+}
+
+
+/**
+ * Look up the prefix of an XML namespace declaration by its URI.
+ *
+ * @param token XMLToken_t structure to be queried.
+ * @param uri a string, uri of the required namespace.
+ *
+ * @return the prefix of an XML namespace declaration given its URI.  
+ *
+ * @note returned char* should be freed with safe_free() by the caller.
+ */
+LIBLAX_EXTERN
+char* 
+XMLToken_getNamespacePrefixByURI (const XMLToken_t *token, const char* uri)
+{
+  const std::string str = token->getNamespacePrefix(uri);
+
+  if (str.empty())
+    return NULL;
+  else
+    return safe_strdup(str.c_str());
+}
+
+
+/**
+ * Look up the URI of an XML namespace declaration by its position.
+ *
+ * @param token XMLToken_t structure to be queried.
+ * @param index an integer, position of the removed namespace.
+ *
+ * @return the URI of an XML namespace declaration in the XMLNamespaces
+ * (by position).  
+ *
+ * @note returned char* should be freed with safe_free() by the caller.
+ */
+LIBLAX_EXTERN
+char* 
+XMLToken_getNamespaceURI (const XMLToken_t *token, int index)
+{
+  const std::string str = token->getNamespaceURI(index);
+
+  if (str.empty())
+    return NULL;
+  else
+    return safe_strdup(str.c_str());
+}
+
+
+/**
+ * Look up the URI of an XML namespace declaration by its prefix.
+ *
+ * @param token XMLToken_t structure to be queried.
+ * @param prefix a string, prefix of the required namespace.
+ *
+ * @return the URI of an XML namespace declaration given its prefix.  
+ *
+ * @note returned char* should be freed with safe_free() by the caller.
+ */
+LIBLAX_EXTERN
+char* 
+XMLToken_getNamespaceURIByPrefix (const XMLToken_t *token, const char* prefix)
+{
+  const std::string str = token->getNamespaceURI(prefix);
+
+  if (str.empty())
+    return NULL;
+  else
+    return safe_strdup(str.c_str());
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * the XMLNamespaces of this XMLToken is empty.
+ * 
+ * @param token XMLToken_t structure to be queried.
+ *
+ * @return @c non-zero (true) if the XMLNamespaces of this XMLToken is empty, 
+ * @c zero (false) otherwise.
+ */
+LIBLAX_EXTERN
+int
+XMLToken_isNamespacesEmpty (const XMLToken_t *token)
+{
+  return token->isNamespacesEmpty();
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * an XML Namespace with the given URI is contained in the XMLNamespaces of
+ * this XMLToken.
+ * 
+ * @param token XMLToken_t structure to be queried.
+ * @param uri a string, the uri for the namespace
+ *
+ * @return @c no-zero (true) if an XML Namespace with the given URI is 
+ * contained in the XMLNamespaces of this XMLToken,  @c zero (false) otherwise.
+ */
+LIBLAX_EXTERN
+int
+XMLToken_hasNamespaceURI(const XMLToken_t *token, const char* uri)
+{
+  return token->hasNamespaceURI(uri);
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * an XML Namespace with the given prefix is contained in the XMLNamespaces of
+ * this XMLToken.
+ *
+ * @param token XMLToken_t structure to be queried.
+ * @param prefix a string, the prefix for the namespace
+ * 
+ * @return @c no-zero (true) if an XML Namespace with the given URI is 
+ * contained in the XMLNamespaces of this XMLToken, @c zero (false) otherwise.
+ */
+LIBLAX_EXTERN
+int
+XMLToken_hasNamespacePrefix(const XMLToken_t *token, const char* prefix)
+{
+  return token->hasNamespacePrefix(prefix);
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * an XML Namespace with the given uri/prefix pair is contained in the 
+ * XMLNamespaces ofthis XMLToken.
+ *
+ * @param token XMLToken_t structure to be queried.
+ * @param uri a string, the uri for the namespace
+ * @param prefix a string, the prefix for the namespace
+ * 
+ * @return @c non-zero (true) if an XML Namespace with the given uri/prefix pair is 
+ * contained in the XMLNamespaces of this XMLToken,  @c zero (false) otherwise.
+ */
+LIBLAX_EXTERN
+int
+XMLToken_hasNamespaceNS(const XMLToken_t *token, const char* uri, const char* prefix)
+{
+  return token->hasNamespaceNS(uri, prefix);
+}
+
 
 
 /**
@@ -837,5 +1361,18 @@ XMLToken_setEOF (XMLToken_t *token)
   token->setEOF();
 }
 
+
+/*
+ * Declares this XML start/end element is no longer an end element.
+ *
+ * @param token XMLToken_t structure to be set.
+ *
+ */
+LIBLAX_EXTERN
+void
+XMLToken_unsetEnd (XMLToken_t *token)
+{
+  token->unsetEnd();
+}
 
 /** @endcond doxygen-c-only */

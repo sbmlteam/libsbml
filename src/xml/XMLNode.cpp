@@ -673,21 +673,6 @@ XMLNode_getCharacters (const XMLNode_t *node)
 }
 
 /**
- * Returns the XML namespace declarations for this XML element.
- *
- * @param node XMLNode_t structure to be queried.
- *
- * @return the XML namespace declarations for this XML element.
- */
-LIBLAX_EXTERN
-const XMLNamespaces_t *
-XMLNode_getNamespaces (const XMLNode_t *node)
-{
-  return &(node->getNamespaces());
-}
-
-
-/**
  * Returns the (unqualified) name of this XML element.
  *
  * @param node XMLNode_t structure to be queried.
@@ -780,6 +765,324 @@ XMLNode_getNumChildren (const XMLNode_t *node)
 {
   return node->getNumChildren();
 }
+
+
+
+/**
+ * Returns the XML namespace declarations for this XML element.
+ *
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return the XML namespace declarations for this XML element.
+ */
+LIBLAX_EXTERN
+const XMLNamespaces_t *
+XMLNode_getNamespaces (const XMLNode_t *node)
+{
+  return &(node->getNamespaces());
+}
+
+
+/**
+ * Sets an XMLnamespaces to this XML element.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param namespaces XMLNamespaces to be set to this XMLNode.
+ *
+ * @note This function replaces the existing XMLNamespaces with the new one.
+ */
+LIBLAX_EXTERN
+void 
+XMLNode_setNamespaces(XMLNode_t *node, const XMLNamespaces_t* namespaces)
+{
+  if(!namespaces)
+  {
+    return;
+  }
+
+  node->setNamespaces(*namespaces);
+}
+
+
+/**
+ * Appends an XML namespace prefix and URI pair to this XMLNode.
+ * If there is an XML namespace with the given prefix in this XMLNode, 
+ * then the existing XML namespace will be overwritten by the new one.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param uri a string, the uri for the namespace
+ * @param prefix a string, the prefix for the namespace
+ */
+LIBLAX_EXTERN
+void 
+XMLNode_addNamespace (XMLNode_t *node, const char* uri, const char* prefix)
+{
+  node->addNamespace(uri, prefix);
+}
+
+
+/**
+ * Removes an XML Namespace stored in the given position of the XMLNamespaces
+ * of this XMLNode.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param index an integer, position of the removed namespace.
+ */
+LIBLAX_EXTERN
+void 
+XMLNode_removeNamespace (XMLNode_t *node, int index)
+{
+  node->removeNamespace(index);
+}
+
+
+/**
+ * Removes an XML Namespace with the given prefix.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param prefix a string, prefix of the required namespace.
+ */
+LIBLAX_EXTERN
+void 
+XMLNode_removeNamespaceByPrefix (XMLNode_t *node, const char* prefix)
+{
+  node->removeNamespace(prefix);
+}
+
+
+/**
+ * Clears (deletes) all XML namespace declarations in the XMLNamespaces 
+ * of this XMLNode.
+ *
+ * @param node XMLNode_t structure to be queried.
+ */
+LIBLAX_EXTERN
+void 
+XMLNode_clearNamespaces (XMLNode_t *node)
+{
+  node->clearNamespaces();
+}
+
+
+/**
+ * Look up the index of an XML namespace declaration by URI.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param uri a string, uri of the required namespace.
+ *
+ * @return the index of the given declaration, or -1 if not present.
+ */
+LIBLAX_EXTERN
+int 
+XMLNode_getNamespaceIndex (const XMLNode_t *node, const char* uri)
+{
+  return node->getNamespaceIndex(uri);
+}
+
+
+/**
+ * Look up the index of an XML namespace declaration by prefix.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param prefix a string, prefix of the required namespace.
+ *
+ * @return the index of the given declaration, or -1 if not present.
+ */
+LIBLAX_EXTERN
+int 
+XMLNode_getNamespaceIndexByPrefix (const XMLNode_t *node, const char* prefix)
+{
+  return node->getNamespaceIndexByPrefix(prefix);
+}
+
+
+/**
+ * Returns the number of XML namespaces stored in the XMLNamespaces 
+ * of this XMLNode.
+ *
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return the number of namespaces in this list.
+ */
+LIBLAX_EXTERN
+int 
+XMLNode_getNamespacesLength (const XMLNode_t *node)
+{
+  return node->getNamespacesLength();
+}
+
+
+/**
+ * Look up the prefix of an XML namespace declaration by position.
+ *
+ * Callers should use getNamespacesLength() to find out how many 
+ * namespaces are stored in the XMLNamespaces.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param index an integer, position of the removed namespace.
+ * 
+ * @return the prefix of an XML namespace declaration in the XMLNamespaces 
+ * (by position).  
+ *
+ * @note returned char* should be freed with safe_free() by the caller.
+ */
+LIBLAX_EXTERN
+char* 
+XMLNode_getNamespacePrefix (const XMLNode_t *node, int index)
+{
+  const std::string str = node->getNamespacePrefix(index);
+
+  if (str.empty())
+    return NULL;
+  else
+    return safe_strdup(str.c_str());
+}
+
+
+/**
+ * Look up the prefix of an XML namespace declaration by its URI.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param uri a string, uri of the required namespace.
+ *
+ * @return the prefix of an XML namespace declaration given its URI.  
+ *
+ * @note returned char* should be freed with safe_free() by the caller.
+ */
+LIBLAX_EXTERN
+char* 
+XMLNode_getNamespacePrefixByURI (const XMLNode_t *node, const char* uri)
+{
+  const std::string str = node->getNamespacePrefix(uri);
+
+  if (str.empty())
+    return NULL;
+  else
+    return safe_strdup(str.c_str());
+}
+
+
+/**
+ * Look up the URI of an XML namespace declaration by its position.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param index an integer, position of the removed namespace.
+ *
+ * @return the URI of an XML namespace declaration in the XMLNamespaces
+ * (by position).  
+ *
+ * @note returned char* should be freed with safe_free() by the caller.
+ */
+LIBLAX_EXTERN
+char* 
+XMLNode_getNamespaceURI (const XMLNode_t *node, int index)
+{
+  const std::string str = node->getNamespaceURI(index);
+
+  if (str.empty())
+    return NULL;
+  else
+    return safe_strdup(str.c_str());
+}
+
+
+/**
+ * Look up the URI of an XML namespace declaration by its prefix.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param prefix a string, prefix of the required namespace.
+ *
+ * @return the URI of an XML namespace declaration given its prefix.  
+ *
+ * @note returned char* should be freed with safe_free() by the caller.
+ */
+LIBLAX_EXTERN
+char* 
+XMLNode_getNamespaceURIByPrefix (const XMLNode_t *node, const char* prefix)
+{
+  const std::string str = node->getNamespaceURI(prefix);
+
+  if (str.empty())
+    return NULL;
+  else
+    return safe_strdup(str.c_str());
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * the XMLNamespaces of this XMLNode is empty.
+ * 
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return @c non-zero (true) if the XMLNamespaces of this XMLNode is empty, 
+ * @c zero (false) otherwise.
+ */
+LIBLAX_EXTERN
+int
+XMLNode_isNamespacesEmpty (const XMLNode_t *node)
+{
+  return node->isNamespacesEmpty();
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * an XML Namespace with the given URI is contained in the XMLNamespaces of
+ * this XMLNode.
+ * 
+ * @param node XMLNode_t structure to be queried.
+ * @param uri a string, the uri for the namespace
+ *
+ * @return @c no-zero (true) if an XML Namespace with the given URI is 
+ * contained in the XMLNamespaces of this XMLNode,  @c zero (false) otherwise.
+ */
+LIBLAX_EXTERN
+int
+XMLNode_hasNamespaceURI(const XMLNode_t *node, const char* uri)
+{
+  return node->hasNamespaceURI(uri);
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * an XML Namespace with the given prefix is contained in the XMLNamespaces of
+ * this XMLNode.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param prefix a string, the prefix for the namespace
+ * 
+ * @return @c no-zero (true) if an XML Namespace with the given URI is 
+ * contained in the XMLNamespaces of this XMLNode, @c zero (false) otherwise.
+ */
+LIBLAX_EXTERN
+int
+XMLNode_hasNamespacePrefix(const XMLNode_t *node, const char* prefix)
+{
+  return node->hasNamespacePrefix(prefix);
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * an XML Namespace with the given uri/prefix pair is contained in the 
+ * XMLNamespaces of this XMLNode.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param uri a string, the uri for the namespace
+ * @param prefix a string, the prefix for the namespace
+ * 
+ * @return @c non-zero (true) if an XML Namespace with the given uri/prefix pair is 
+ * contained in the XMLNamespaces of this XMLNode,  @c zero (false) otherwise.
+ */
+LIBLAX_EXTERN
+int
+XMLNode_hasNamespaceNS(const XMLNode_t *node, const char* uri, const char* prefix)
+{
+  return node->hasNamespaceNS(uri, prefix);
+}
+
 
 
 /**
