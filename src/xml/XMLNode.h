@@ -453,10 +453,6 @@ LIBLAX_EXTERN
 void
 XMLNode_removeChildren (XMLNode_t *node);
 
-LIBLAX_EXTERN
-const XMLAttributes_t *
-XMLNode_getAttributes (const XMLNode_t *node);
-
 
 LIBLAX_EXTERN
 const char *
@@ -469,6 +465,11 @@ XMLNode_getName (const XMLNode_t *node);
 
 
 LIBLAX_EXTERN
+void 
+XMLNode_setTriple(XMLNode_t *node, const XMLTriple_t *triple);
+
+
+LIBLAX_EXTERN
 const char *
 XMLNode_getPrefix (const XMLNode_t *node);
 
@@ -476,6 +477,139 @@ XMLNode_getPrefix (const XMLNode_t *node);
 LIBLAX_EXTERN
 const char *
 XMLNode_getURI (const XMLNode_t *node);
+
+
+
+LIBLAX_EXTERN
+const XMLAttributes_t *
+XMLNode_getAttributes (const XMLNode_t *node);
+
+
+LIBLAX_EXTERN
+void 
+XMLNode_setAttributes (XMLNode_t *node, const XMLAttributes_t* attributes);
+
+
+LIBLAX_EXTERN
+void 
+XMLNode_addAttr ( XMLNode_t *node,  const char* name, const char* value );
+		   
+
+LIBLAX_EXTERN
+void 
+XMLNode_addAttrWithNS ( XMLNode_t *node,  const char* name
+	                , const char* value
+    	                , const char* namespaceURI
+	                , const char* prefix      );
+
+
+LIBLAX_EXTERN
+void 
+XMLNode_addAttrWithTriple (XMLNode_t *node, const XMLTriple_t *triple, const char* value);
+
+
+LIBLAX_EXTERN
+void 
+XMLNode_removeAttr (XMLNode_t *node, int n);
+
+
+LIBLAX_EXTERN
+void 
+XMLNode_removeAttrByName (XMLNode_t *node, const char* name);
+
+
+LIBLAX_EXTERN
+void 
+XMLNode_removeAttrByNS (XMLNode_t *node, const char* name, const char* uri);
+
+
+LIBLAX_EXTERN
+void 
+XMLNode_removeAttrByTriple (XMLNode_t *node, const XMLTriple_t *triple);
+
+
+LIBLAX_EXTERN
+void 
+XMLNode_clearAttributes(XMLNode_t *node);
+
+
+LIBLAX_EXTERN
+int 
+XMLNode_getAttrIndex (const XMLNode_t *node, const char* name, const char* uri);
+
+
+LIBLAX_EXTERN
+int 
+XMLNode_getAttrIndexByTriple (const XMLNode_t *node, const XMLTriple_t *triple);
+
+
+LIBLAX_EXTERN
+int 
+XMLNode_getAttributesLength (const XMLNode_t *node);
+
+
+LIBLAX_EXTERN
+char* 
+XMLNode_getAttrName (const XMLNode_t *node, int index);
+
+
+LIBLAX_EXTERN
+char* 
+XMLNode_getAttrPrefix (const XMLNode_t *node, int index);
+
+
+LIBLAX_EXTERN
+char* 
+XMLNode_getAttrPrefixedName (const XMLNode_t *node, int index);
+
+
+LIBLAX_EXTERN
+char* 
+XMLNode_getAttrURI (const XMLNode_t *node, int index);
+
+
+LIBLAX_EXTERN
+char* 
+XMLNode_getAttrValue (const XMLNode_t *node, int index);
+
+
+LIBLAX_EXTERN
+char* 
+XMLNode_getAttrValueByName (const XMLNode_t *node, const char* name);
+
+
+LIBLAX_EXTERN
+char* 
+XMLNode_getAttrValueByNS (const XMLNode_t *node, const char* name, const char* uri);
+
+
+LIBLAX_EXTERN
+char* 
+XMLNode_getAttrValueByTriple (const XMLNode_t *node, const XMLTriple_t *triple);
+
+
+LIBLAX_EXTERN
+int
+XMLNode_hasAttr (const XMLNode_t *node, int index);
+
+
+LIBLAX_EXTERN
+int
+XMLNode_hasAttrWithName (const XMLNode_t *node, const char* name);
+
+LIBLAX_EXTERN
+int
+XMLNode_hasAttrWithNS (const XMLNode_t *node, const char* name, const char* uri);
+
+
+LIBLAX_EXTERN
+int
+XMLNode_hasAttrWithTriple (const XMLNode_t *node, const XMLTriple_t *triple);
+
+
+LIBLAX_EXTERN
+int
+XMLNode_isAttributesEmpty (const XMLNode_t *node);
 
 
 

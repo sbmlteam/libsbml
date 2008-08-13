@@ -189,14 +189,6 @@ public:
 
 
   /**
-   * Appends characters to this XML text content.
-   *
-   * @param chars string, characters to append
-   */
-  void append (const std::string& chars);
-
-
-  /**
    * Returns the attributes of this element.
    *
    * @return the XMLAttributes of this XML element.
@@ -205,29 +197,325 @@ public:
 
 
   /**
-   * Returns the text of this element.
+   * Sets an XMLAttributes to this XMLToken.
+   * Nothing will be done if this XMLToken is not a start element.
    *
-   * @return the characters of this XML text.
-   */
-  const std::string& getCharacters () const;
-
-  
-  /**
-   * Returns the column at which this XMLToken occurred in the input
-   * document or data stream.
+   * @param attributes XMLAttributes to be set to this XMLToken.
    *
-   * @return the column at which this XMLToken occurred.
+   * @note This function replaces the existing XMLAttributes with the new one.
    */
-  unsigned int getColumn () const;
+  void setAttributes(const XMLAttributes& attributes);
 
 
   /**
-   * Returns the line at which this XMLToken occurred in the input document
-   * or data stream.
+   * Adds an attribute to the attribute set in this XMLToken optionally 
+   * with a prefix and URI defining a namespace.
+   * Nothing will be done if this XMLToken is not a start element.
    *
-   * @return the line at which this XMLToken occurred.
+   * @param name a string, the local name of the attribute.
+   * @param value a string, the value of the attribute.
+   * @param namespaceURI a string, the namespace URI of the attribute.
+   * @param prefix a string, the prefix of the namespace
+   *
+   * @note if local name with the same namespace URI already exists in the
+   * attribute set, its value and prefix will be replaced.
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
    */
-  unsigned int getLine () const;
+  void addAttr (  const std::string& name
+	        , const std::string& value
+	        , const std::string& namespaceURI = ""
+	        , const std::string& prefix = "");
+
+  /**
+   * Adds an attribute with the given XMLTriple/value pair to the attribute set
+   * in this XMLToken.
+   * Nothing will be done if this XMLToken is not a start element.
+   *
+   * @note if local name with the same namespace URI already exists in the 
+   * attribute set, its value and prefix will be replaced.
+   *
+   * @param triple an XMLTriple, the XML triple of the attribute.
+   * @param value a string, the value of the attribute.
+   */
+   void addAttr ( const XMLTriple& triple, const std::string& value);
+
+
+  /**
+   * Removes an attribute with the given index from the attribute set in
+   * this XMLToken.
+   * Nothing will be done if this XMLToken is not a start element.
+   *
+   * @param n an integer the index of the resource to be deleted
+   */
+  void removeAttr (int n);
+
+
+  /**
+   * Removes an attribute with the given local name and namespace URI from 
+   * the attribute set in this XMLToken.
+   * Nothing will be done if this XMLToken is not a start element.
+   *
+   * @param name   a string, the local name of the attribute.
+   * @param uri    a string, the namespace URI of the attribute.
+   */
+  void removeAttr (const std::string& name, const std::string& uri = "");
+
+
+  /**
+   * Removes an attribute with the given XMLTriple from the attribute set 
+   * in this XMLToken.  
+   * Nothing will be done if this XMLToken is not a start element.
+   *
+   * @param triple an XMLTriple, the XML triple of the attribute.
+   */
+  void removeAttr (const XMLTriple& triple); 
+
+
+  /**
+   * Clears (deletes) all attributes in this XMLToken.
+   * Nothing will be done if this XMLToken is not a start element.
+   */
+  void clearAttributes();
+
+
+  /**
+   * Return the index of an attribute with the given local name and namespace URI.
+   *
+   * @param name a string, the local name of the attribute.
+   * @param uri  a string, the namespace URI of the attribute.
+   *
+   * @return the index of an attribute with the given local name and namespace URI, 
+   * or -1 if not present.
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
+   */
+  int getAttrIndex (const std::string& name, const std::string& uri="") const;
+
+
+  /**
+   * Return the index of an attribute with the given XMLTriple.
+   *
+   * @param triple an XMLTriple, the XML triple of the attribute for which 
+   *        the index is required.
+   *
+   * @return the index of an attribute with the given XMLTriple, or -1 if not present.
+   */
+  int getAttrIndex (const XMLTriple& triple) const;
+
+
+  /**
+   * Return the number of attributes in the attributes set.
+   *
+   * @return the number of attributes in the attributes set in this XMLToken.
+   */
+  int getAttributesLength () const;
+
+
+  /**
+   * Return the local name of an attribute in the attributes set in this 
+   * XMLToken (by position).
+   *
+   * @param index an integer, the position of the attribute whose local name 
+   * is required.
+   *
+   * @return the local name of an attribute in this list (by position).  
+   *
+   * @note If index
+   * is out of range, an empty string will be returned.  Use hasAttr(index) 
+   * to test for the attribute existence.
+   */
+  std::string getAttrName (int index) const;
+
+
+  /**
+   * Return the prefix of an attribute in the attribute set in this 
+   * XMLToken (by position).
+   *
+   * @param index an integer, the position of the attribute whose prefix is 
+   * required.
+   *
+   * @return the namespace prefix of an attribute in the attribute set
+   * (by position).  
+   *
+   * @note If index is out of range, an empty string will be
+   * returned. Use hasAttr(index) to test for the attribute existence.
+   */
+  std::string getAttrPrefix (int index) const;
+
+
+  /**
+   * Return the prefixed name of an attribute in the attribute set in this 
+   * XMLToken (by position).
+   *
+   * @param index an integer, the position of the attribute whose prefixed 
+   * name is required.
+   *
+   * @return the prefixed name of an attribute in the attribute set 
+   * (by position).  
+   *
+   * @note If index is out of range, an empty string will be
+   * returned.  Use hasAttr(index) to test for attribute existence.
+   */
+  std::string getAttrPrefixedName (int index) const;
+
+
+  /**
+   * Return the namespace URI of an attribute in the attribute set in this 
+   * XMLToken (by position).
+   *
+   * @param index an integer, the position of the attribute whose namespace 
+   * URI is required.
+   *
+   * @return the namespace URI of an attribute in the attribute set (by position).
+   *
+   * @note If index is out of range, an empty string will be returned.  Use
+   * hasAttr(index) to test for attribute existence.
+   */
+  std::string getAttrURI (int index) const;
+
+
+  /**
+   * Return the value of an attribute in the attribute set in this XMLToken  
+   * (by position).
+   *
+   * @param index an integer, the position of the attribute whose value is 
+   * required.
+   *
+   * @return the value of an attribute in the attribute set (by position).  
+   *
+   * @note If index
+   * is out of range, an empty string will be returned. Use hasAttr(index)
+   * to test for attribute existence.
+   */
+  std::string getAttrValue (int index) const;
+
+
+  /**
+   * Return a value of an attribute with the given local name and namespace URI.
+   *
+   * @param name a string, the local name of the attribute whose value is required.
+   * @param uri  a string, the namespace URI of the attribute.
+   *
+   * @return The attribute value as a string.  
+   *
+   * @note If an attribute with the 
+   * given local name and namespace URI does not exist, an empty string will be 
+   * returned.  
+   * Use hasAttr(name, uri) to test for attribute existence.
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
+   */
+  std::string getAttrValue (const std::string name, const std::string uri="") const;
+
+
+  /**
+   * Return a value of an attribute with the given XMLTriple.
+   *
+   * @param triple an XMLTriple, the XML triple of the attribute whose 
+   *        value is required.
+   *
+   * @return The attribute value as a string.  
+   *
+   * @note If an attribute with the
+   * given XMLTriple does not exist, an empty string will be returned.  
+   * Use hasAttr(triple) to test for attribute existence.
+   */
+  std::string getAttrValue (const XMLTriple& triple) const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether
+   * an attribute with the given index exists in the attribute set in this 
+   * XMLToken.
+   *
+   * @param index an integer, the position of the attribute.
+   *
+   * @return @c true if an attribute with the given index exists in the attribute 
+   * set in this XMLToken, @c false otherwise.
+   */
+  bool hasAttr (int index) const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether
+   * an attribute with the given local name and namespace URI exists 
+   * in the attribute set in this XMLToken.
+   *
+   * @param name a string, the local name of the attribute.
+   * @param uri  a string, the namespace URI of the attribute.
+   *
+   * @return @c true if an attribute with the given local name and namespace 
+   * URI exists in the attribute set in this XMLToken, @c false otherwise.
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
+   */
+  bool hasAttr (const std::string name, const std::string uri="") const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether
+   * an attribute with the given XML triple exists in the attribute set in 
+   * this XMLToken 
+   *
+   * @param triple an XMLTriple, the XML triple of the attribute 
+   *
+   * @return @c true if an attribute with the given XML triple exists
+   * in the attribute set in this XMLToken, @c false otherwise.
+   *
+   */
+  bool hasAttr (const XMLTriple& triple) const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether 
+   * the attribute set in this XMLToken set is empty.
+   * 
+   * @return @c true if the attribute set in this XMLToken is empty, 
+   * @c false otherwise.
+   */
+  bool isAttributesEmpty () const;
+
 
 
   /**
@@ -240,6 +528,7 @@ public:
 
   /**
    * Sets an XMLnamespaces to this XML element.
+   * Nothing will be done if this XMLToken is not a start element.
    *
    * @param namespaces XMLNamespaces to be set to this XMLToken.
    *
@@ -252,6 +541,8 @@ public:
    * Appends an XML namespace prefix and URI pair to this XMLToken.
    * If there is an XML namespace with the given prefix in this XMLToken, 
    * then the existing XML namespace will be overwritten by the new one.
+   *
+   * Nothing will be done if this XMLToken is not a start element.
    *
    * @param uri a string, the uri for the namespace
    * @param prefix a string, the prefix for the namespace
@@ -274,6 +565,7 @@ public:
   /**
    * Removes an XML Namespace stored in the given position of the XMLNamespaces
    * of this XMLToken.
+   * Nothing will be done if this XMLToken is not a start element.
    *
    * @param index an integer, position of the removed namespace.
    */
@@ -282,6 +574,7 @@ public:
 
   /**
    * Removes an XML Namespace with the given prefix.
+   * Nothing will be done if this XMLToken is not a start element.
    *
    * @param prefix a string, prefix of the required namespace.
    */
@@ -291,8 +584,10 @@ public:
   /**
    * Clears (deletes) all XML namespace declarations in the XMLNamespaces of
    * this XMLToken.
+   * Nothing will be done if this XMLToken is not a start element.
    */
   void clearNamespaces ();
+
 
   /**
    * Look up the index of an XML namespace declaration by URI.
@@ -444,6 +739,14 @@ public:
   bool hasNamespaceNS(const std::string& uri, const std::string& prefix) const;
 
 
+  /**
+   * Sets the XMLTripe (name, uri and prefix) of this XML element.
+   * Nothing will be done if this XML element is a text node.
+   *
+   * @param triple XMLTriple to be added to this XML element.
+   */
+  void setTriple(const XMLTriple& triple);
+
 
   /**
    * Returns the (unqualified) name of this XML element.
@@ -470,6 +773,40 @@ public:
    * @return the namespace URI of this XML element.
    */
   const std::string& getURI () const;
+
+
+  /**
+   * Returns the text of this element.
+   *
+   * @return the characters of this XML text.
+   */
+  const std::string& getCharacters () const;
+
+
+  /**
+   * Appends characters to this XML text content.
+   *
+   * @param chars string, characters to append
+   */
+  void append (const std::string& chars);
+
+  
+  /**
+   * Returns the column at which this XMLToken occurred in the input
+   * document or data stream.
+   *
+   * @return the column at which this XMLToken occurred.
+   */
+  unsigned int getColumn () const;
+
+
+  /**
+   * Returns the line at which this XMLToken occurred in the input document
+   * or data stream.
+   *
+   * @return the line at which this XMLToken occurred.
+   */
+  unsigned int getLine () const;
 
 
   /**
@@ -681,6 +1018,134 @@ XMLToken_getLine (const XMLToken_t *token);
 
 
 LIBLAX_EXTERN
+void 
+XMLToken_setAttributes (XMLToken_t *token, const XMLAttributes_t* attributes);
+
+
+LIBLAX_EXTERN
+void 
+XMLToken_addAttr ( XMLToken_t *token,  const char* name, const char* value );
+		   
+
+LIBLAX_EXTERN
+void 
+XMLToken_addAttrWithNS ( XMLToken_t *token,  const char* name
+	                , const char* value
+    	                , const char* namespaceURI
+	                , const char* prefix      );
+
+
+LIBLAX_EXTERN
+void 
+XMLToken_addAttrWithTriple (XMLToken_t *token, const XMLTriple_t *triple, const char* value);
+
+
+LIBLAX_EXTERN
+void 
+XMLToken_removeAttr (XMLToken_t *token, int n);
+
+
+LIBLAX_EXTERN
+void 
+XMLToken_removeAttrByName (XMLToken_t *token, const char* name);
+
+
+LIBLAX_EXTERN
+void 
+XMLToken_removeAttrByNS (XMLToken_t *token, const char* name, const char* uri);
+
+
+LIBLAX_EXTERN
+void 
+XMLToken_removeAttrByTriple (XMLToken_t *token, const XMLTriple_t *triple);
+
+
+LIBLAX_EXTERN
+void 
+XMLToken_clearAttributes(XMLToken_t *token);
+
+
+LIBLAX_EXTERN
+int 
+XMLToken_getAttrIndex (const XMLToken_t *token, const char* name, const char* uri);
+
+
+LIBLAX_EXTERN
+int 
+XMLToken_getAttrIndexByTriple (const XMLToken_t *token, const XMLTriple_t *triple);
+
+
+LIBLAX_EXTERN
+int 
+XMLToken_getAttributesLength (const XMLToken_t *token);
+
+
+LIBLAX_EXTERN
+char* 
+XMLToken_getAttrName (const XMLToken_t *token, int index);
+
+
+LIBLAX_EXTERN
+char* 
+XMLToken_getAttrPrefix (const XMLToken_t *token, int index);
+
+
+LIBLAX_EXTERN
+char* 
+XMLToken_getAttrPrefixedName (const XMLToken_t *token, int index);
+
+
+LIBLAX_EXTERN
+char* 
+XMLToken_getAttrURI (const XMLToken_t *token, int index);
+
+
+LIBLAX_EXTERN
+char* 
+XMLToken_getAttrValue (const XMLToken_t *token, int index);
+
+
+LIBLAX_EXTERN
+char* 
+XMLToken_getAttrValueByName (const XMLToken_t *token, const char* name);
+
+
+LIBLAX_EXTERN
+char* 
+XMLToken_getAttrValueByNS (const XMLToken_t *token, const char* name, const char* uri);
+
+
+LIBLAX_EXTERN
+char* 
+XMLToken_getAttrValueByTriple (const XMLToken_t *token, const XMLTriple_t *triple);
+
+
+LIBLAX_EXTERN
+int
+XMLToken_hasAttr (const XMLToken_t *token, int index);
+
+
+LIBLAX_EXTERN
+int
+XMLToken_hasAttrWithName (const XMLToken_t *token, const char* name);
+
+LIBLAX_EXTERN
+int
+XMLToken_hasAttrWithNS (const XMLToken_t *token, const char* name, const char* uri);
+
+
+LIBLAX_EXTERN
+int
+XMLToken_hasAttrWithTriple (const XMLToken_t *token, const XMLTriple_t *triple);
+
+
+LIBLAX_EXTERN
+int
+XMLToken_isAttributesEmpty (const XMLToken_t *token);
+
+
+
+LIBLAX_EXTERN
 const XMLNamespaces_t *
 XMLToken_getNamespaces (const XMLToken_t *token);
 
@@ -764,6 +1229,10 @@ LIBLAX_EXTERN
 int
 XMLToken_hasNamespaceNS(const XMLToken_t *token, const char* uri, const char* prefix);
                         
+
+LIBLAX_EXTERN
+void 
+XMLToken_setTriple(XMLToken_t *token, const XMLTriple_t *triple);
 
 
 LIBLAX_EXTERN

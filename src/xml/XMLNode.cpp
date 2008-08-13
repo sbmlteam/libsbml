@@ -644,21 +644,6 @@ XMLNode_removeChildren (XMLNode_t *node)
 
 
 /**
- * Returns the attributes of this element.
- *
- * @param node XMLNode_t structure to be queried.
- *
- * @return the XMLAttributes_t of this XML element.
- */
-LIBLAX_EXTERN
-const XMLAttributes_t *
-XMLNode_getAttributes (const XMLNode_t *node)
-{
-  return &(node->getAttributes());
-}
-
-
-/**
  * Returns the text of this element.
  *
  * @param node XMLNode_t structure to be queried.
@@ -671,6 +656,22 @@ XMLNode_getCharacters (const XMLNode_t *node)
 {
   return node->getCharacters().empty() ? NULL : node->getCharacters().c_str();
 }
+
+
+/**
+ * Sets the XMLTripe (name, uri and prefix) of this XML element.
+ * Nothing will be done if this XML element is a text node.
+ *
+ * @param node XMLNode_t structure to which the triple to be added.
+ * @param triple an XMLTriple, the XML triple to be set to this XML element.
+ */
+LIBLAX_EXTERN
+void 
+XMLNode_setTriple(XMLNode_t *node, const XMLTriple_t *triple)
+{
+  if(triple) node->setTriple(*triple);
+}
+
 
 /**
  * Returns the (unqualified) name of this XML element.
@@ -769,6 +770,554 @@ XMLNode_getNumChildren (const XMLNode_t *node)
 
 
 /**
+ * Returns the attributes of this element.
+ *
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return the XMLAttributes_t of this XML element.
+ */
+LIBLAX_EXTERN
+const XMLAttributes_t *
+XMLNode_getAttributes (const XMLNode_t *node)
+{
+  return &(node->getAttributes());
+}
+
+
+/**
+ * Sets an XMLAttributes to this XMLNode.
+ * Nothing will be done if this XMLNode is not a start element.
+ *
+ * @param node XMLNode_t structure to which attributes to be set.
+ * @param attributes XMLAttributes to be set to this XMLNode.
+ *
+ * @note This function replaces the existing XMLAttributes with the new one.
+ */
+LIBLAX_EXTERN
+void 
+XMLNode_setAttributes(XMLNode_t *node, const XMLAttributes_t* attributes)
+{
+  if(!attributes)
+  {
+    return;
+  }
+
+  node->setAttributes(*attributes);
+}
+
+
+/**
+ * Adds an attribute with the given local name to the attribute set in this XMLNode.
+ * (namespace URI and prefix are empty)
+ * Nothing will be done if this XMLNode is not a start element.
+ *
+ * @param node XMLNode_t structure to which an attribute to be added.
+ * @param name a string, the local name of the attribute.
+ * @param value a string, the value of the attribute.
+ *
+ * @note if the local name without namespace URI already exists in the
+ * attribute set, its value will be replaced.
+ *
+ */
+LIBLAX_EXTERN
+void 
+XMLNode_addAttr ( XMLNode_t *node,  const char* name, const char* value )
+{
+  node->addAttr(name, value, "", "");
+}
+
+
+/**
+ * Adds an attribute with a prefix and namespace URI to the attribute set 
+ * in this XMLNode optionally 
+ * Nothing will be done if this XMLNode is not a start element.
+ *
+ * @param node XMLNode_t structure to which an attribute to be added.
+ * @param name a string, the local name of the attribute.
+ * @param value a string, the value of the attribute.
+ * @param namespaceURI a string, the namespace URI of the attribute.
+ * @param prefix a string, the prefix of the namespace
+ *
+ * @note if local name with the same namespace URI already exists in the
+ * attribute set, its value and prefix will be replaced.
+ *
+ */
+LIBLAX_EXTERN
+void 
+XMLNode_addAttrWithNS ( XMLNode_t *node,  const char* name
+	                , const char* value
+    	                , const char* namespaceURI
+	                , const char* prefix      )
+{
+  node->addAttr(name, value, namespaceURI, prefix);
+}
+
+
+
+/**
+ * Adds an attribute with the given XMLTriple/value pair to the attribute set
+ * in this XMLNode.
+ * Nothing will be done if this XMLNode is not a start element.
+ *
+ * @note if local name with the same namespace URI already exists in the 
+ * attribute set, its value and prefix will be replaced.
+ *
+ * @param node XMLNode_t structure to which an attribute to be added.
+ * @param triple an XMLTriple, the XML triple of the attribute.
+ * @param value a string, the value of the attribute.
+ */
+LIBLAX_EXTERN
+void 
+XMLNode_addAttrWithTriple (XMLNode_t *node, const XMLTriple_t *triple, const char* value)
+{
+  node->addAttr(*triple, value);
+}
+
+
+/**
+ * Removes an attribute with the given index from the attribute set in
+ * this XMLNode.
+ * Nothing will be done if this XMLNode is not a start element.
+ *
+ * @param node XMLNode_t structure from which an attribute to be removed.
+ * @param n an integer the index of the resource to be deleted
+ */
+LIBLAX_EXTERN
+void 
+XMLNode_removeAttr (XMLNode_t *node, int n)
+{
+  node->removeAttr(n);
+}
+
+
+/**
+ * Removes an attribute with the given local name (without namespace URI) 
+ * from the attribute set in this XMLNode.
+ * Nothing will be done if this XMLNode is not a start element.
+ *
+ * @param node XMLNode_t structure from which an attribute to be removed.
+ * @param name   a string, the local name of the attribute.
+ * @param uri    a string, the namespace URI of the attribute.
+ */
+LIBLAX_EXTERN
+void 
+XMLNode_removeAttrByName (XMLNode_t *node, const char* name)
+{
+  node->removeAttr(name, "");
+}
+
+
+/**
+ * Removes an attribute with the given local name and namespace URI from 
+ * the attribute set in this XMLNode.
+ * Nothing will be done if this XMLNode is not a start element.
+ *
+ * @param node XMLNode_t structure from which an attribute to be removed.
+ * @param name   a string, the local name of the attribute.
+ * @param uri    a string, the namespace URI of the attribute.
+ */
+LIBLAX_EXTERN
+void 
+XMLNode_removeAttrByNS (XMLNode_t *node, const char* name, const char* uri)
+{
+  node->removeAttr(name, uri);
+}
+
+
+/**
+ * Removes an attribute with the given XMLTriple from the attribute set 
+ * in this XMLNode.  
+ * Nothing will be done if this XMLNode is not a start element.
+ *
+ * @param node XMLNode_t structure from which an attribute to be removed.
+ * @param triple an XMLTriple, the XML triple of the attribute.
+ */
+LIBLAX_EXTERN
+void 
+XMLNode_removeAttrByTriple (XMLNode_t *node, const XMLTriple_t *triple)
+{
+  node->removeAttr(*triple);
+}
+
+
+/**
+ * Clears (deletes) all attributes in this XMLNode.
+ * Nothing will be done if this XMLNode is not a start element.
+ *
+ * @param node XMLNode_t structure from which attributes to be cleared.
+ */
+LIBLAX_EXTERN
+void 
+XMLNode_clearAttributes(XMLNode_t *node)
+{
+  node->clearAttributes();
+}
+
+
+
+/**
+ * Return the index of an attribute with the given local name and namespace URI.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param name a string, the local name of the attribute.
+ * @param uri  a string, the namespace URI of the attribute.
+ *
+ * @return the index of an attribute with the given local name and namespace URI, 
+ * or -1 if not present.
+ *
+ */
+LIBLAX_EXTERN
+int 
+XMLNode_getAttrIndex (const XMLNode_t *node, const char* name, const char* uri)
+{
+  return node->getAttrIndex(name, uri);
+}
+
+
+/**
+ * Return the index of an attribute with the given XMLTriple.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param triple an XMLTriple, the XML triple of the attribute for which 
+ *        the index is required.
+ *
+ * @return the index of an attribute with the given XMLTriple, or -1 if not present.
+ */
+LIBLAX_EXTERN
+int 
+XMLNode_getAttrIndexByTriple (const XMLNode_t *node, const XMLTriple_t *triple)
+{
+  return node->getAttrIndex(*triple);
+}
+
+
+/**
+ * Return the number of attributes in the attributes set.
+ *
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return the number of attributes in the attributes set in this XMLNode.
+ */
+LIBLAX_EXTERN
+int 
+XMLNode_getAttributesLength (const XMLNode_t *node)
+{
+  return node->getAttributesLength();
+}
+
+
+/**
+ * Return the local name of an attribute in the attributes set in this 
+ * XMLNode (by position).
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param index an integer, the position of the attribute whose local name 
+ * is required.
+ *
+ * @return the local name of an attribute in this list (by position).  
+ *
+ * @note If index
+ * is out of range, an empty string will be returned.  Use XMLNode_hasAttr(...) 
+ * to test for the attribute existence.
+ */
+LIBLAX_EXTERN
+char* 
+XMLNode_getAttrName (const XMLNode_t *node, int index)
+{
+  const std::string str = node->getAttrName(index);
+
+  if (str.empty())
+    return NULL;
+  else
+    return safe_strdup(str.c_str());
+}
+
+
+/**
+ * Return the prefix of an attribute in the attribute set in this 
+ * XMLNode (by position).
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param index an integer, the position of the attribute whose prefix is 
+ * required.
+ *
+ * @return the namespace prefix of an attribute in the attribute set
+ * (by position).  
+ *
+ * @note If index is out of range, an empty string will be
+ * returned. Use XMLNode_hasAttr(...) to test for the attribute existence.
+ */
+LIBLAX_EXTERN
+char* 
+XMLNode_getAttrPrefix (const XMLNode_t *node, int index)
+{
+  const std::string str = node->getAttrPrefix(index);
+
+  if (str.empty())
+    return NULL;
+  else
+    return safe_strdup(str.c_str());
+}
+
+
+/**
+ * Return the prefixed name of an attribute in the attribute set in this 
+ * XMLNode (by position).
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param index an integer, the position of the attribute whose prefixed 
+ * name is required.
+ *
+ * @return the prefixed name of an attribute in the attribute set 
+ * (by position).  
+ *
+ * @note If index is out of range, an empty string will be
+ * returned.  Use XMLNode_hasAttr(...) to test for attribute existence.
+ */
+LIBLAX_EXTERN
+char* 
+XMLNode_getAttrPrefixedName (const XMLNode_t *node, int index)
+{
+  const std::string str = node->getAttrPrefixedName(index);
+
+  if (str.empty())
+    return NULL;
+  else
+    return safe_strdup(str.c_str());
+}
+
+
+/**
+ * Return the namespace URI of an attribute in the attribute set in this 
+ * XMLNode (by position).
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param index an integer, the position of the attribute whose namespace 
+ * URI is required.
+ *
+ * @return the namespace URI of an attribute in the attribute set (by position).
+ *
+ * @note If index is out of range, an empty string will be returned.  Use
+ * XMLNode_hasAttr(index) to test for attribute existence.
+ */
+LIBLAX_EXTERN
+char* 
+XMLNode_getAttrURI (const XMLNode_t *node, int index)
+{
+  const std::string str = node->getAttrURI(index);
+
+  if (str.empty())
+    return NULL;
+  else
+    return safe_strdup(str.c_str());
+}
+
+
+/**
+ * Return the value of an attribute in the attribute set in this XMLNode  
+ * (by position).
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param index an integer, the position of the attribute whose value is 
+ * required.
+ *
+ * @return the value of an attribute in the attribute set (by position).  
+ *
+ * @note If index
+ * is out of range, an empty string will be returned. Use XMLNode_hasAttr(...)
+ * to test for attribute existence.
+ */
+LIBLAX_EXTERN
+char* 
+XMLNode_getAttrValue (const XMLNode_t *node, int index)
+{
+  const std::string str = node->getAttrValue(index);
+
+  if (str.empty())
+    return NULL;
+  else
+    return safe_strdup(str.c_str());
+}
+
+
+
+/**
+ * Return a value of an attribute with the given local name (without namespace URI).
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param name a string, the local name of the attribute whose value is required.
+ *
+ * @return The attribute value as a string.  
+ *
+ * @note If an attribute with the given local name (without namespace URI) 
+ * does not exist, an empty string will be returned.  
+ * Use XMLNode_hasAttr(...) to test for attribute existence.
+ */
+LIBLAX_EXTERN
+char* 
+XMLNode_getAttrValueByName (const XMLNode_t *node, const char* name)
+{
+  const std::string str = node->getAttrValue(name, "");
+
+  if (str.empty())
+    return NULL;
+  else
+    return safe_strdup(str.c_str());
+}
+
+
+/**
+ * Return a value of an attribute with the given local name and namespace URI.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param name a string, the local name of the attribute whose value is required.
+ * @param uri  a string, the namespace URI of the attribute.
+ *
+ * @return The attribute value as a string.  
+ *
+ * @note If an attribute with the 
+ * given local name and namespace URI does not exist, an empty string will be 
+ * returned.  
+ * Use XMLNode_hasAttr(name, uri) to test for attribute existence.
+ */
+LIBLAX_EXTERN
+char* 
+XMLNode_getAttrValueByNS (const XMLNode_t *node, const char* name, const char* uri)
+{
+  const std::string str = node->getAttrValue(name, uri);
+
+  if (str.empty())
+    return NULL;
+  else
+    return safe_strdup(str.c_str());
+}
+
+
+/**
+ * Return a value of an attribute with the given XMLTriple.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param triple an XMLTriple, the XML triple of the attribute whose 
+ *        value is required.
+ *
+ * @return The attribute value as a string.  
+ *
+ * @note If an attribute with the
+ * given XMLTriple does not exist, an empty string will be returned.  
+ * Use XMLNode_hasAttr(...) to test for attribute existence.
+ */
+LIBLAX_EXTERN
+char* 
+XMLNode_getAttrValueByTriple (const XMLNode_t *node, const XMLTriple_t *triple)
+{
+  const std::string str = node->getAttrValue(*triple);
+
+  if (str.empty())
+    return NULL;
+  else
+    return safe_strdup(str.c_str());
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether
+ * an attribute with the given index exists in the attribute set in this 
+ * XMLNode.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param index an integer, the position of the attribute.
+ *
+ * @return @c non-zero (true) if an attribute with the given index exists in 
+ * the attribute set in this XMLNode, @c zero (false) otherwise.
+ */
+LIBLAX_EXTERN
+int
+XMLNode_hasAttr (const XMLNode_t *node, int index)
+{
+  return node->hasAttr(index);
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether
+ * an attribute with the given local name (without namespace URI) 
+ * exists in the attribute set in this XMLNode.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param name a string, the local name of the attribute.
+ *
+ * @return @c non-zero (true) if an attribute with the given local name 
+ * (without namespace URI) exists in the attribute set in this XMLNode, 
+ * @c zero (false) otherwise.
+ */
+LIBLAX_EXTERN
+int
+XMLNode_hasAttrWithName (const XMLNode_t *node, const char* name)
+{
+  return node->hasAttr(name, "");
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether
+ * an attribute with the given local name and namespace URI exists 
+ * in the attribute set in this XMLNode.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param name a string, the local name of the attribute.
+ * @param uri  a string, the namespace URI of the attribute.
+ *
+ * @return @c non-zero (true) if an attribute with the given local name 
+ * and namespace URI exists in the attribute set in this XMLNode, 
+ * @c zero (false) otherwise.
+ */
+LIBLAX_EXTERN
+int
+XMLNode_hasAttrWithNS (const XMLNode_t *node, const char* name, const char* uri)
+{
+  return node->hasAttr(name, uri);
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether
+ * an attribute with the given XML triple exists in the attribute set in 
+ * this XMLNode 
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param triple an XMLTriple, the XML triple of the attribute 
+ *
+ * @return @c non-zero (true) if an attribute with the given XML triple exists
+ * in the attribute set in this XMLNode, @c zero (false) otherwise.
+ *
+ */
+LIBLAX_EXTERN
+int
+XMLNode_hasAttrWithTriple (const XMLNode_t *node, const XMLTriple_t *triple)
+{
+  return node->hasAttr(*triple);
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * the attribute set in this XMLNode set is empty.
+ * 
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return @c non-zero (true) if the attribute set in this XMLNode is empty, 
+ * @c zero (false) otherwise.
+ */
+LIBLAX_EXTERN
+int
+XMLNode_isAttributesEmpty (const XMLNode_t *node)
+{
+  return node->isAttributesEmpty();
+}
+
+
+
+/**
  * Returns the XML namespace declarations for this XML element.
  *
  * @param node XMLNode_t structure to be queried.
@@ -785,6 +1334,7 @@ XMLNode_getNamespaces (const XMLNode_t *node)
 
 /**
  * Sets an XMLnamespaces to this XML element.
+ * Nothing will be done if this XMLNode is not a start element.
  *
  * @param node XMLNode_t structure to be queried.
  * @param namespaces XMLNamespaces to be set to this XMLNode.
@@ -808,6 +1358,7 @@ XMLNode_setNamespaces(XMLNode_t *node, const XMLNamespaces_t* namespaces)
  * Appends an XML namespace prefix and URI pair to this XMLNode.
  * If there is an XML namespace with the given prefix in this XMLNode, 
  * then the existing XML namespace will be overwritten by the new one.
+ * Nothing will be done if this XMLNode is not a start element.
  *
  * @param node XMLNode_t structure to be queried.
  * @param uri a string, the uri for the namespace
@@ -824,6 +1375,7 @@ XMLNode_addNamespace (XMLNode_t *node, const char* uri, const char* prefix)
 /**
  * Removes an XML Namespace stored in the given position of the XMLNamespaces
  * of this XMLNode.
+ * Nothing will be done if this XMLNode is not a start element.
  *
  * @param node XMLNode_t structure to be queried.
  * @param index an integer, position of the removed namespace.
@@ -838,6 +1390,7 @@ XMLNode_removeNamespace (XMLNode_t *node, int index)
 
 /**
  * Removes an XML Namespace with the given prefix.
+ * Nothing will be done if this XMLNode is not a start element.
  *
  * @param node XMLNode_t structure to be queried.
  * @param prefix a string, prefix of the required namespace.
@@ -853,6 +1406,7 @@ XMLNode_removeNamespaceByPrefix (XMLNode_t *node, const char* prefix)
 /**
  * Clears (deletes) all XML namespace declarations in the XMLNamespaces 
  * of this XMLNode.
+ * Nothing will be done if this XMLNode is not a start element.
  *
  * @param node XMLNode_t structure to be queried.
  */
