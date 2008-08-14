@@ -64,7 +64,7 @@
 #include <cstring>          // for strcpy, strcat, strlen (mode strings)
 #include <cstdio>           // for BUFSIZ
 
-#if defined(WIN32) and !defined(CYGWIN) 
+#if defined(WIN32) && !(defined(CYGWIN)) 
 #define USEWIN32IOAPI
 # include "iowin32.h"
 # include <direct.h>
