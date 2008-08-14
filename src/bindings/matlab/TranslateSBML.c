@@ -72,6 +72,7 @@ void GetNamespaces   (SBMLDocument_t *);
 mxArray * CreateIntScalar (int);
 char    * TypecodeToChar  (SBMLTypeCode_t);
 char    * RuleType_toString (RuleType_t);
+char    * ErrorSeverity_toString(unsigned int);
 
 void LookForCSymbolTime(const ASTNode_t *);
 
@@ -125,6 +126,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   FILE *fp;
   mxArray * mxFilename[2], * mxExt[1];
   int validateFlag = 0;
+  int listFlag = 0;
  
   int nNoFields_l1v1 = 13;
   int nNoFields_l2v1 = 18;
@@ -238,13 +240,17 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   unsigned int unSBMLLevel;
   unsigned int unSBMLVersion;
   unsigned int errors = 0;
+  unsigned int warnings = 0;
+  unsigned int fatals = 0;
   mxArray * mxErrors[1];
   char * pacErrors, * pacError;
   unsigned int i;
-  mxArray *mxPrompt[2], *mxReply[1];
+  mxArray *mxPrompt[2], *mxReply[1], *mxWarn[1];
   char *pacPromptValid = "Do you want to validate the model? Enter y/n ";
   char *pacPrompt = "Do you want to load the model anyway? Enter y/n ";
   char *pacReply;
+  char *pacWarn;
+  char *pacList = "Do you want to exclude the warnings from the list? Enter y/n ";
   
   pacCSymbolTime = NULL;
   
@@ -381,43 +387,128 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   /* check for errors in the sbml document */
   errors = SBMLDocument_getNumErrors(sbmlDocument);
 
-  if (~errors)
+  if (validateFlag > 0)
   {
     errors += SBMLDocument_checkConsistency(sbmlDocument);
   }
+  for (i = 0; i < errors; i++)
+  {
+    const XMLError_t *e =
+	    (const XMLError_t *) SBMLDocument_getError(sbmlDocument, i);
+    if (XMLError_getSeverity(e) < 2)
+    {
+      warnings = warnings + 1;
+    }
+  }
+  fatals = errors - warnings;
+  
   /**
    *  if errors occur report these 
    *  promt user as to whether to import the model    
    */
 
-  if (errors != 0 && validateFlag > 0)
+  if (errors != 0)
   {
     pacErrors = (char *) mxCalloc(errors * 1000, sizeof(char));
     pacError  = (char *) mxCalloc(1000, sizeof(char));
+
+    if (validateFlag == 1)
+    {
+      sprintf(pacErrors, "The model contains %u errors", fatals);
+      if (warnings > 0) 
+      {
+        sprintf(pacError, " and %u warnings.\n", warnings);
+      }
+      else
+      {
+        sprintf(pacError, ".\n");
+      }
+      pacErrors = safe_strcat(pacErrors, pacError);
+    }
+    else
+    {
+      if (errors == 1)
+      {
+        sprintf(pacErrors, "The model contains %u FATAL error.", errors);
+      }
+      else
+      {
+        sprintf(pacErrors, "The model contains %u FATAL errors.", errors);
+      }
+    }
+
+    if (warnings > 0)
+    {
+      mxPrompt[0]= mxCreateString(pacList);
+      mxPrompt[1]= mxCreateString("s");
+      mxErrors[0] = mxCreateString(pacErrors);
+
+      mexCallMATLAB(0, NULL, 1, mxErrors, "disp");
+      mexCallMATLAB(1, mxWarn, 2, mxPrompt, "input");
+
+      nBufferLen = (mxGetM(mxWarn[0])*mxGetN(mxWarn[0])+1);
+      pacWarn = (char *) mxCalloc(nBufferLen, sizeof(char));
+      mxGetString(mxWarn[0], pacWarn, nBufferLen);
+
+      if (strcmp_insensitive(pacWarn, "n") == 0) 
+      {
+        listFlag = 1;
+      }
+    }
+
+    else
+    {
+      mxErrors[0] = mxCreateString(pacErrors);
+      mexCallMATLAB(0, NULL, 1, mxErrors, "disp");
+    }
     
     mxPrompt[0]= mxCreateString(pacPrompt);
     mxPrompt[1]= mxCreateString("s");
 
-    sprintf(pacErrors, "\n************************************\n%s",
-                                               "This model contains errors\n");
+    sprintf(pacErrors, "\n************************************\nLine ErrorId Severity Message\n");
     for (i = 0; i < SBMLDocument_getNumErrors(sbmlDocument); i++)
     {
       const XMLError_t *e =
 	    (const XMLError_t *) SBMLDocument_getError(sbmlDocument, i);
-      sprintf(pacError, "%u: (%u) %s\n",
-	    XMLError_getLine(e), XMLError_getErrorId(e),
-	    XMLError_getMessage(e));
-      pacErrors = safe_strcat(pacErrors, pacError);
+      if (listFlag == 1)
+      {
+        sprintf(pacError, "%u: (%u)  %s %s\n",
+	        XMLError_getLine(e), XMLError_getErrorId(e),
+          ErrorSeverity_toString(XMLError_getSeverity(e)),
+	        XMLError_getMessage(e));
+        pacErrors = safe_strcat(pacErrors, pacError);
+      }
+      else if (XMLError_getSeverity(e) > 1)
+      {
+        sprintf(pacError, "%u: (%u)  %s %s\n",
+	        XMLError_getLine(e), XMLError_getErrorId(e),
+          ErrorSeverity_toString(XMLError_getSeverity(e)),
+	        XMLError_getMessage(e));
+        pacErrors = safe_strcat(pacErrors, pacError);
+      }
     }
-    mxErrors[0] = mxCreateString(pacErrors);
+    
+    if (fatals == 0 && listFlag == 0)
+    {
+      pacReply = (char *)mxCalloc(3,sizeof(char));
+      pacReply = "y";
+    }
+    else if (validateFlag == 0)
+    {
+      pacReply = (char *)mxCalloc(3,sizeof(char));
+      pacReply = "n";
+    }
+    else
+    {
+      mxErrors[0] = mxCreateString(pacErrors);
 
-    mexCallMATLAB(0, NULL, 1, mxErrors, "disp");
-    mexCallMATLAB(1, mxReply, 2, mxPrompt, "input");
+      mexCallMATLAB(0, NULL, 1, mxErrors, "disp");
+      mexCallMATLAB(1, mxReply, 2, mxPrompt, "input");
 
-    nBufferLen = (mxGetM(mxReply[0])*mxGetN(mxReply[0])+1);
-    pacReply = (char *) mxCalloc(nBufferLen, sizeof(char));
-    mxGetString(mxReply[0], pacReply, nBufferLen);
-
+      nBufferLen = (mxGetM(mxReply[0])*mxGetN(mxReply[0])+1);
+      pacReply = (char *) mxCalloc(nBufferLen, sizeof(char));
+      mxGetString(mxReply[0], pacReply, nBufferLen);
+    }
   }
   else
   {
@@ -579,6 +670,30 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   
   }
 }
+
+char *
+ErrorSeverity_toString(unsigned int severity)
+{
+  char * pacSeverity;
+  switch(severity)
+  {
+  case 0:
+    pacSeverity = "Info    ";
+    break;
+  case 1:
+    pacSeverity = "Warning ";
+    break;
+  case 2:
+    pacSeverity = "Error   ";
+    break;
+  case 3:
+  default:
+    pacSeverity = "Fatal   ";
+    break;
+  }
+  return pacSeverity;
+}
+
 
 void
 GetNamespaces(SBMLDocument_t * document)
