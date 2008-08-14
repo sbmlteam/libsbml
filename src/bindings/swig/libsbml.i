@@ -197,6 +197,8 @@
 %import  sbml/common/sbmlfwd.h
 %import  sbml/xml/XMLExtern.h
 
+%include sbml/common/libsbml-version.h
+
 %include sbml/SBMLReader.h
 %include sbml/SBMLWriter.h
 %include sbml/SBMLTypeCodes.h
