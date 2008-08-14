@@ -27,6 +27,7 @@ Name: english; MessagesFile: compiler:Default.isl
 Source: C:\libsbml\win32\installer\libsbml_3_xerces\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: C:\libsbml\win32\installer\libsbml_3_xerces\bindings\java\*; DestDir: {code:GetJavaDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetJava
 Source: C:\libsbml\win32\installer\libsbml_3_xerces\bindings\matlab\*; DestDir: {code:GetMatlabDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetMatlab
+Source: C:\libsbml\win32\installer\libsbml_3_xerces\bindings\octave\*; DestDir: {code:GetOctaveDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetOctave
 Source: C:\libsbml\win32\installer\libsbml_3_xerces\bindings\csharp\*; DestDir: {code:GetCSharpDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetCSharp
 Source: C:\libsbml\win32\installer\libsbml_3_xerces\bindings\python\python23\libsbml.py; DestDir: {code:GetPython23Dir}; Check: GetPython23
 Source: C:\libsbml\win32\installer\libsbml_3_xerces\bindings\python\python23\_libsbml.dll; DestDir: {code:GetPython23Dir}; Check: GetPython23
@@ -64,6 +65,7 @@ var
   MatlabPage: TInputDirWizardPage;
   CSharpPage: TInputDirWizardPage;
   JavaPage: TInputDirWizardPage;
+  OctavePage: TInputDirWizardPage;
   URLLabel: TNewStaticText;
   AboutButton, CancelButton: TButton;
 
@@ -72,6 +74,7 @@ var
   MatlabRoot: String;
   CSharpRoot: String;
   JavaRoot: String;
+  OctaveRoot: String;
 
   PreviousInstalledVersion, ThisVersion: String;
 
@@ -297,6 +300,7 @@ begin
   InstallOptionsPage.Add('Install Java binding');
   InstallOptionsPage.Add('Copy Python binding libraries to site-packages directory');
   InstallOptionsPage.Add('Install C# binding');
+  InstallOptionsPage.Add('Install Octave binding');
   if (MatlabPresent) then begin
     InstallOptionsPage.Add('Install MATLAB binding');
   end;
@@ -330,6 +334,13 @@ begin
     False, '');
   JavaPage.Add('');
 
+ { Octave page : location to install Octave binding }
+  OctavePage := CreateInputDirPage(InstallOptionsPage.ID,
+    'Octave binding', '',
+    'Select the folder in which Setup should install Octave binding files, then click Next.',
+    False, '');
+  OctavePage.Add('');
+
   { Set default values, using settings that were stored last time if possible }
 
   {install type page}
@@ -361,9 +372,9 @@ begin
 
   if (MatlabPresent) then begin
     if GetPreviousData('Matlab', '') = '0' then begin
-      InstallOptionsPage.Values[4] := False;
+      InstallOptionsPage.Values[5] := False;
     end else begin
-      InstallOptionsPage.Values[4] := True;
+      InstallOptionsPage.Values[5] := True;
     end;
   end;
 
@@ -373,6 +384,12 @@ begin
     InstallOptionsPage.Values[3] := True;
   end;
   
+  if GetPreviousData('Octave', '') = '0' then begin
+    InstallOptionsPage.Values[4] := False;
+  end else begin
+    InstallOptionsPage.Values[4] := True;
+  end;
+
   {python page}
   case GetPreviousData('PythonVers', '') of
     'Python 2.3': PythonPage.SelectedValueIndex := 0;
@@ -390,6 +407,9 @@ begin
   
   {java page}
   JavaPage.Values[0] := GetPreviousData('JavaDir', JavaRoot);
+
+  {octave page}
+  OctavePage.Values[0] := GetPreviousData('OctaveDir', OctaveRoot);
 
 end;
 
@@ -411,7 +431,7 @@ begin
   SetPreviousData(PreviousDataKey, 'InstallMode', InstallMode);
 
   {install options page }
-  SetArrayLength(InstallOptions, 5);
+  SetArrayLength(InstallOptions, 6);
 
   if InstallOptionsPage.Values[0] then begin
     InstallOptions[0] := '1';
@@ -437,11 +457,17 @@ begin
     InstallOptions[3] := '0';
   end;
 
+  if InstallOptionsPage.Values[4] then begin
+    InstallOptions[4] := '1';
+  end else begin
+    InstallOptions[4] := '0';
+  end;
+
   if (MatlabPresent) then begin
-    if InstallOptionsPage.Values[4] then begin
-      InstallOptions[4] := '1';
+    if InstallOptionsPage.Values[5] then begin
+      InstallOptions[5] := '1';
     end else begin
-      InstallOptions[4] := '0';
+      InstallOptions[5] := '0';
     end;
   end;
 
@@ -449,8 +475,9 @@ begin
   SetPreviousData(PreviousDataKey, 'Java',      InstallOptions[1]);
   SetPreviousData(PreviousDataKey, 'Python',    InstallOptions[2]);
   SetPreviousData(PreviousDataKey, 'CSharp',    InstallOptions[3]);
+  SetPreviousData(PreviousDataKey, 'Octave',    InstallOptions[4]);
   if (MatlabPresent) then begin
-    SetPreviousData(PreviousDataKey, 'Matlab',    InstallOptions[4]);
+    SetPreviousData(PreviousDataKey, 'Matlab',    InstallOptions[5]);
   end;
 
   {python page}
@@ -470,6 +497,9 @@ begin
   {java page}
   SetPreviousData(PreviousDataKey, 'JavaDir', JavaPage.Values[0]);
 
+  {java page}
+  SetPreviousData(PreviousDataKey, 'OctaveDir', OctavePage.Values[0]);
+
 end;
 
 function ShouldSkipPage(PageID: Integer): Boolean;
@@ -487,9 +517,11 @@ begin
     Result := True
   else if (PageID = CSharpPage.ID) and (InstallTypePage.SelectedValueIndex = 0) then
     Result := True
+  else if (PageID = OctavePage.ID) and (InstallOptionsPage.Values[4] = False) then
+    Result := True
   else if (PageID = MatlabPage.ID) and (MatlabPresent = False) then
     Result := True
-  else if (PageID = MatlabPage.ID) and (InstallOptionsPage.Values[4] = False) then
+  else if (PageID = MatlabPage.ID) and (InstallOptionsPage.Values[5] = False) then
     Result := True
   else
     Result := False;
@@ -602,8 +634,19 @@ begin
         S := S + NewLine;
     end;
 
+    if (InstallOptionsPage.Values[4] = True) then begin
+        S := S + NewLine;
+        S := S + 'Installing Octave files  to ' + NewLine;
+        S := S + '      ' + OctavePage.Values[0];
+        S := S + NewLine;
+    end else begin
+        S := S + NewLine;
+        S := S + 'Not installing octave binding' + NewLine;
+        S := S + NewLine;
+    end;
+
     if (MatlabPresent) then begin
-      if(InstallOptionsPage.Values[4] = True) then begin
+      if(InstallOptionsPage.Values[5] = True) then begin
         S := S + NewLine;
         S := S + 'Installing matlab binding files to ' + NewLine;
         S := S + '      ' + MatlabPage.Values[0];
@@ -708,7 +751,7 @@ end;
 function GetMatlab() : Boolean;
 begin
   if (MatlabPresent) then begin
-    if (InstallOptionsPage.Values[4] = True) then
+    if (InstallOptionsPage.Values[5] = True) then
       Result := True
     else
       Result := False;
@@ -735,4 +778,18 @@ function GetCSharpDir(Param: String): String;
 begin
   { Return the selected DataDir }
   Result := CSharpPage.Values[0];
+end;
+
+function GetOctave() : Boolean;
+begin
+  if (InstallOptionsPage.Values[4] = True) then
+    Result := True
+  else
+    Result := False;
+end;
+
+function GetOctaveDir(Param: String): String;
+begin
+  { Return the selected DataDir }
+  Result := OctavePage.Values[0];
 end;

@@ -27,6 +27,7 @@ mkdir java
 mkdir matlab
 mkdir python
 mkdir csharp
+mkdir octave
 
 rem bindings/java directory
 
@@ -50,10 +51,19 @@ rem bindings/matlab directory
 
 cd matlab
 copy ..\..\..\..\..\src\bindings\matlab\TranslateSBML.mexw32 TranslateSBML.mexw32
+copy ..\..\..\..\..\src\bindings\matlab\TranslateSBML.m TranslateSBML.m
+copy ..\..\..\..\..\src\bindings\matlab\Contents.m Contents.m
 copy ..\..\..\..\..\src\bindings\matlab\CheckAndConvert.m  CheckAndConvert.m
 copy ..\..\..\..\..\src\bindings\matlab\install_for_Win32installers_xerces.m install_Win32.m
 copy ..\..\..\..\..\src\bindings\matlab\make.bat make.bat
 copy ..\..\..\..\..\src\bindings\matlab\README.txt README.txt
+copy ..\..\..\..\..\src\bindings\matlab\test.xml test.xml
+cd ..
+
+rem bindings/octave directory
+cd octave
+copy ..\..\..\..\..\src\bindings\octave\TranslateSBML.mex TranslateSBML.mex
+copy ..\..\..\..\..\src\bindings\matlab\CheckAndConvert.m  CheckAndConvert.m
 copy ..\..\..\..\..\src\bindings\matlab\test.xml test.xml
 cd ..
 
