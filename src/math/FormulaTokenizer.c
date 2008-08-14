@@ -396,7 +396,7 @@ Token_getReal (const Token_t *t)
   
     if (type == TT_REAL_E)
     {
-      result *= pow(10,  result);
+      result *= pow(10,  t->exponent);
     }
   }
   else if (type == TT_INTEGER)
