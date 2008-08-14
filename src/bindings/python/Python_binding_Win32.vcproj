@@ -322,6 +322,9 @@
 				RelativePath="..\..\sbml\layout\LayoutUtilities.cpp">
 			</File>
 			<File
+				RelativePath="..\..\common\libsbml-version.cpp">
+			</File>
+			<File
 				RelativePath=".\libsbml_wrap.cpp">
 			</File>
 			<File

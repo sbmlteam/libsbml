@@ -478,6 +478,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\common\libsbml-version.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\libsbml_wrap-win.cpp"
 				>
 			</File>

@@ -472,6 +472,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\common\libsbml-version.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\sbml\layout\LineSegment.cpp"
 				>
 			</File>
