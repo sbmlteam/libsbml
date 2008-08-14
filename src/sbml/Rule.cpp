@@ -855,7 +855,7 @@ Rule::writeAttributes (XMLOutputStream& stream) const
     //
     // sboTerm: SBOTerm { use="optional" }  (L2v2)
     //
-//    if (version > 1) SBO::writeTerm(stream, mSBOTerm);
+    if (version > 1) SBO::writeTerm(stream, mSBOTerm);
   }
 }
 /** @endcond doxygen-libsbml-internal */
