@@ -1,16 +1,16 @@
 /**
- * @file    libsbml-version.h
+ * @file    libsbml-version.cpp
  * @brief   Define libSBML version numbers for access from client software.
- * @author  Michael Hucka
+ * @author  Akiya Jouraku
  *
- * $Id$
- * $HeadURL$
+ * $Id: $
+ * $HeadURL: $
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2007 California Institute of Technology.
+ * Copyright 2005-2008 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -22,37 +22,8 @@
  *------------------------------------------------------------------------- -->
  */
 
-#ifndef LIBSBML_VERSION_H
-#define LIBSBML_VERSION_H 
+#include "libsbml-version.h"
 
-#include <sbml/common/extern.h>
-
-/**
- * LIBSBML_DOTTED_VERSION:
- *
- * A version string of the form "1.2.3".
- */
-#define LIBSBML_DOTTED_VERSION	"@PACKAGE_VERSION@"
-
-/**
- * LIBSBML_VERSION:
- *
- * The version as an integer: version 1.2.3 becomes 10203.  Since the major
- * number comes first, the overall number will always increase when a new
- * libSBML is released, making it easy to use less-than and greater-than
- * comparisons when testing versions numbers.
- */
-#define LIBSBML_VERSION		@LIBSBML_VERSION_NUMERIC@
-
-/**
- * LIBSBML_VERSION_STRING:
- *
- * The numeric version as a string: version 1.2.3 becomes "10203".
- */
-#define LIBSBML_VERSION_STRING	"@LIBSBML_VERSION_NUMERIC@"
-
-
-BEGIN_C_DECLS
 
 /**
  * Returns the libSBML version as an integer: version 1.2.3 becomes 10203.
@@ -61,7 +32,10 @@ BEGIN_C_DECLS
  */
 LIBSBML_EXTERN
 int 
-getLibSBMLVersion () ;
+getLibSBMLVersion () 
+{ 
+  return LIBSBML_VERSION; 
+}
 
 
 /**
@@ -71,7 +45,10 @@ getLibSBMLVersion () ;
  */
 LIBSBML_EXTERN
 const char* 
-getLibSBMLDottedVersion ();
+getLibSBMLDottedVersion () 
+{ 
+  return LIBSBML_DOTTED_VERSION;
+}
 
 
 /**
@@ -81,8 +58,9 @@ getLibSBMLDottedVersion ();
  */
 LIBSBML_EXTERN
 const char* 
-getLibSBMLVersionString ();
+getLibSBMLVersionString () 
+{ 
+  return LIBSBML_VERSION_STRING;
+}
 
-END_C_DECLS
 
-#endif  /* LIBSBML_VERSION_H */

@@ -25,6 +25,7 @@
 #ifndef LIBSBML_VERSION_H
 #define LIBSBML_VERSION_H 
 
+#include <sbml/common/extern.h>
 
 /**
  * LIBSBML_DOTTED_VERSION:
@@ -50,5 +51,38 @@
  */
 #define LIBSBML_VERSION_STRING	"30200"
 
+
+BEGIN_C_DECLS
+
+/**
+ * Returns the libSBML version as an integer: version 1.2.3 becomes 10203.
+ *
+ * @return the libSBML version as an integer: version 1.2.3 becomes 10203.
+ */
+LIBSBML_EXTERN
+int 
+getLibSBMLVersion () ;
+
+
+/**
+ * Returns the libSBML version as a string of the form "1.2.3".
+ *
+ * @return the libSBML version as a string of the form "1.2.3".
+ */
+LIBSBML_EXTERN
+const char* 
+getLibSBMLDottedVersion ();
+
+
+/**
+ * Returns the libSBML version as a string: version 1.2.3 becomes "10203".
+ *
+ * @return the libSBML version as a string: version 1.2.3 becomes "10203".
+ */
+LIBSBML_EXTERN
+const char* 
+getLibSBMLVersionString ();
+
+END_C_DECLS
 
 #endif  /* LIBSBML_VERSION_H */
