@@ -23,7 +23,7 @@
  */
 
 #ifndef LIBSBML_VERSION_H
-#define LIBSBML_VERSION_H 1
+#define LIBSBML_VERSION_H 
 
 
 /**
