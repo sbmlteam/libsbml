@@ -1,9 +1,19 @@
            libsbml NEWS -- History of user-visible changes
  
- === 
+ === Version 3.2.0 (released 2008-08-18) ===
+
 
 * New features:
 
+  - Tracker issue #1912123.
+    There is a new API that allows the user to directly manipulate 
+    the XML classes.  The function style mimics the existing libSBML
+    format i.e. getters/setters allow attributes to be read
+    or written and hasXXX functions allow a user to determine whether 
+    an attribute has a value.  The XMLNode class has functions that
+    allow child elements to be added/removed and returned.  
+    See documentation for full details.
+    
   - C sharp bindings are now available.  Thanks to Frank Bergmann
     for the work in creating and testing these.
 
@@ -22,8 +32,14 @@
     These features are enabled by default and can be disabled by 
     --with-zlib=no and --with-bzip2=no configure options.
 
-  - There are additional functions for the XMLTriple class/structure:
-    getPrefixedName(); operator== and operator!=. 
+  - The constants defining the libSBML version have been added to the 
+    language bindings.  In addition, functions to directly access these 
+    values have been included.
+
+  - Tracker issue #2030837.
+    There is a new function getMessageString() on the Constraint 
+    class; which returns the <message> element as a string rather
+    than an XMLNode. 
 
   - The code for checking units created a clone of the model to perform
     certain checks.  This was extremely memory intensive with larger
@@ -99,7 +115,11 @@
 
 * Bug fixes:
 
-  - The long outstanding bug involving Windows, Xerces and multibyte chars has
+  - Tracker issue #2041898.
+    There was a bug in the FormulaTokenizer code.  This has been fixed.
+
+  - Tracker issue #1733299.
+    The long outstanding bug involving Windows, Xerces and multibyte chars has
     been sorted.  Akiya's great detective work uncovered the fact that the 
     Xerces transcode function converts characters to the default encoding for 
     the current platform; which is not always UTF-8.  The code for use with
@@ -114,7 +134,6 @@
     for literal numbers/parameters with undeclared units.  This is now fixed.  
     Thanks to Lukas Endler for catching it.
     
- 
   - A number of memory leaks have been fixed.
  
   - The code for checking that an id had correct syntax was failing to
