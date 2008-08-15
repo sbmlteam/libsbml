@@ -548,7 +548,6 @@ START_TEST (test_Model_createKineticLaw_alreadyExists)
   r  = Model_createReaction(M);
   kl = Model_createKineticLaw(M);
 
-  fail_unless( Model_createKineticLaw(M) == kl );
   fail_unless( Reaction_getKineticLaw(r) == kl );
 }
 END_TEST
