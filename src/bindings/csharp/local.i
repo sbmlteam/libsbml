@@ -487,6 +487,97 @@ SWIGCSHARP_ATTRIBS(TYPENAME, public, public)
 %enddef
 
 
+/**
+ *
+ * Overrides the 'operator==', 'operator!=', 'Equals' and 'GetHashCode' methods 
+ * for C# proxy classes of SBase subclasses and classes in libSBML.
+ *
+ * By default, 'operator==' ( and 'Equals' method) for each wrapped class
+ * object returns 'true' if the given two objects refer to the same 
+ * *C# proxy object* (not the underlying C++ object). 
+ * For example, the following code returns 'true'.
+ *
+ *   Model m = new Model();
+ *   m.createReaction();
+ *   Reaction r1  = m.getReaction(0);
+ *   Reaction r2 = r1;
+ *   return (r1 == r2);  <---- this returns 'true'
+ *
+ * On the other hand, the following code returns 'false' in spite of
+ * the same underlying C++ objects.
+ *
+ *   Model m = new Model();
+ *   m.createReaction();
+ *   Reaction r1 = m.getReaction(0);
+ *   Reaction r2 = m.getReaction(0);
+ *   return (r1 == r2);  <---- this returns 'false'
+ *
+ * The following override changes the behaviour of the default 'operator==' and
+ * 'Equals' method such that returns 'true' if the given two objects refer to 
+ * the same underlying C++  object (i.e. 'true' is returned in the both above
+ *  examples).
+ * 
+ */
+
+
+%define SWIGCS_EQUALS(CLASS)
+%typemap("cscode") CLASS
+%{
+  public static bool operator==(CLASS lhs, CLASS rhs)
+  {
+    if((Object)lhs == (Object)rhs)
+    {
+      return true;
+    }
+
+    if( ((Object)lhs == null) || ((Object)rhs == null) )
+    {
+      return false;
+    }
+
+    return (getCPtr(lhs).Handle.ToString() == getCPtr(rhs).Handle.ToString());
+  }
+
+  public static bool operator!=(CLASS lhs, CLASS rhs)
+  {
+    return !(lhs == rhs);
+  }
+
+  public override bool Equals(Object sb)
+  {
+    if ( ! (sb is CLASS) )
+    {
+      return false;
+    }
+
+    return this == (CLASS)sb;
+  }
+
+  public override int GetHashCode()
+  {
+    return swigCPtr.Handle.ToInt32();
+  }
+%}
+%enddef
+
+SWIGCS_EQUALS(SBase)
+SWIGCS_EQUALS(SBMLReader)
+SWIGCS_EQUALS(SBMLWriter)
+SWIGCS_EQUALS(ASTNode)
+SWIGCS_EQUALS(CVTerm)
+SWIGCS_EQUALS(Date)
+SWIGCS_EQUALS(ModelHistory)
+SWIGCS_EQUALS(ModelCreator)
+SWIGCS_EQUALS(XMLNamespaces)
+SWIGCS_EQUALS(XMLAttributes)
+SWIGCS_EQUALS(XMLToken)
+SWIGCS_EQUALS(XMLNode)
+SWIGCS_EQUALS(XMLError)
+SWIGCS_EQUALS(XMLErrorLog)
+SWIGCS_EQUALS(XMLHandler)
+SWIGCS_EQUALS(XMLOutputStream)
+SWIGCS_EQUALS(XMLInputStream)
+
 
 /**
  * Most libSBML methods takeover ownership of passed-in objects, so we need
