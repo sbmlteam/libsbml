@@ -655,6 +655,7 @@ SWIGJAVA_ATTRIBS(TYPENAME, public, public)
 %enddef
 
 SWIGJAVA_EQUALS(SBase)
+SWIGJAVA_EQUALS(SBMLReader)
 SWIGJAVA_EQUALS(SBMLWriter)
 SWIGJAVA_EQUALS(ASTNode)
 SWIGJAVA_EQUALS(CVTerm)
@@ -664,6 +665,7 @@ SWIGJAVA_EQUALS(ModelCreator)
 SWIGJAVA_EQUALS(XMLNamespaces)
 SWIGJAVA_EQUALS(XMLAttributes)
 SWIGJAVA_EQUALS(XMLToken)
+SWIGJAVA_EQUALS(XMLNode)
 SWIGJAVA_EQUALS(XMLTriple)
 SWIGJAVA_EQUALS(XMLError)
 SWIGJAVA_EQUALS(XMLErrorLog)
@@ -694,6 +696,86 @@ SWIGJAVA_EQUALS(XMLInputStream)
  */
 %typemap(javain) ASTNode*       child "ASTNode.getCPtrAndDisown($javainput)";
 %typemap(javain) const ASTNode* child "ASTNode.getCPtr($javainput)";
+
+
+
+/**
+ * On Windows, a string for filename should be encoded by ANSI CP 
+ * instead of UTF-8 because file I/O APIs internally used in libSBML 
+ * requires an ANSI CP encoded string for the given filename.
+ *  
+ *  1) SBMLReader::readSBML(const std::string& filename)
+ *  2) readSBML(const char* filename)
+ *  3) SBMLWriter::writeSBML(SBMLDocument*, const std::string& filename)
+ *  4) writeSBML(SBMLDocument*, const char* filename)
+ */
+
+//
+// UTF8 -> ANSI CP (for const std::string& filename)
+//
+%typemap("in") const std::string& filename (const char* arg_pstr, std::string arg_str) 
+%{
+  if(!$input) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return $null;
+  }
+  arg_pstr = (char const *)jenv->GetStringUTFChars($input, 0);
+  if (!arg_pstr) return $null;
+#ifdef WIN32
+    char*  mbstr = convertUTF8ToACP(arg_pstr);
+    if (!mbstr)
+    {
+      jenv->ReleaseStringUTFChars($input, arg_pstr);
+      return $null;
+    }
+
+    arg_str.assign(mbstr);
+    delete[] mbstr;
+#else
+  arg_str.assign(arg_pstr);
+#endif
+  $1 = &arg_str;
+  jenv->ReleaseStringUTFChars($input, arg_pstr);
+
+%}
+
+
+
+//
+// Unicode -> ANSI CP (for const char* filename)
+//
+%typemap("in")  const char* filename (const char* arg_pstr)
+%{
+  if ($input) {
+    arg_pstr = (char const *)jenv->GetStringUTFChars($input, 0);
+    if (!arg_pstr) return $null;
+  }
+  else
+  {
+    arg_pstr = 0;
+  }
+#ifdef WIN32
+  $1 = convertUTF8ToACP(arg_pstr);
+  if (!$1)
+  {
+    jenv->ReleaseStringUTFChars($input, (const char*)arg_pstr);
+    return $null;
+  }
+  jenv->ReleaseStringUTFChars($input, (const char*)arg_pstr);
+#else
+  $1 = (char*)arg_pstr;
+#endif
+%}
+
+%typemap("freearg")  const char* filename 
+%{
+#ifdef WIN32
+  delete[] $1;
+#else
+  if ($1) jenv->ReleaseStringUTFChars($input, (const char*)$1);
+#endif
+%}
+
 
 /**
  * Some combinations of platforms and underlying XML parsers *require*
