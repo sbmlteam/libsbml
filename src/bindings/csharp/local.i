@@ -191,8 +191,17 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 			case (int) libsbml.SBML_COMPARTMENT:
 				return new Compartment(cPtr, owner);
 				
+			case (int) libsbml.SBML_COMPARTMENT_TYPE:
+				return new CompartmentType(cPtr, owner);
+
+			case (int) libsbml.SBML_CONSTRAINT:
+				return new Constraint(cPtr, owner);
+
 			case (int) libsbml.SBML_DOCUMENT:
 				return new SBMLDocument(cPtr, owner);
+
+			case (int) libsbml.SBML_DELAY:
+				return new Delay(cPtr, owner);
 				
 			case (int) libsbml.SBML_EVENT:
 				return new Event(cPtr, owner);
@@ -203,11 +212,91 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 			case (int) libsbml.SBML_FUNCTION_DEFINITION:
 				return new FunctionDefinition(cPtr, owner);
 				
+			case (int) libsbml.SBML_INITIAL_ASSIGNMENT:
+				return new InitialAssignment(cPtr, owner);
+				
 			case (int) libsbml.SBML_KINETIC_LAW:
 				return new KineticLaw(cPtr, owner);
 				
 			case (int) libsbml.SBML_LIST_OF:
+			     string name = sb.getElementName();
+			     if(name == "listOf")
+		             {
 				return new ListOf(cPtr, owner);
+			     }
+			     else if(name == "listOfCompartments")
+			     {
+				return new ListOfCompartments(cPtr, owner);
+			     }
+			     else if(name == "listOfCompartmentTypes")
+			     {
+				return new ListOfCompartmentTypes(cPtr, owner);
+			     }
+			     else if(name == "listOfConstraints")
+			     {
+				return new ListOfConstraints(cPtr, owner);
+			     }
+			     else if(name == "listOfEvents")
+			     {
+			         return new ListOfEvents(cPtr, owner);
+                             }
+                             else if(name == "listOfEventAssignments")
+                             {
+				return new ListOfEventAssignments(cPtr, owner);
+        		     }
+		             else if(name == "listOfFunctionDefinitions")
+		             {
+     		               return new ListOfFunctionDefinitions(cPtr, owner);
+		             }
+		             else if(name == "listOfInitialAssignments")
+		             {
+		               return new ListOfInitialAssignments(cPtr, owner);
+		             }
+		             else if(name == "listOfParameters")
+		             {
+		               return new ListOfParameters(cPtr, owner);
+		             }
+			     else if(name == "listOfReactions")
+		             {
+		               return new ListOfReactions(cPtr, owner);
+		             }
+		             else if(name == "listOfRules")
+		             {
+		               return new ListOfRules(cPtr, owner);
+                             }
+		             else if(name == "listOfSpecies")
+		             {
+		               return new ListOfSpecies(cPtr, owner);
+                             }
+		             else if(name == "listOfUnknowns")
+		             {
+		               return new ListOfSpeciesReferences(cPtr, owner);
+                             }
+		             else if(name == "listOfReactants")
+		             {
+		               return new ListOfSpeciesReferences(cPtr, owner);
+                             }
+		             else if(name == "listOfProducts")
+		             {
+		               return new ListOfSpeciesReferences(cPtr, owner);
+                             }
+		             else if(name == "listOfModifiers")
+		             {
+		               return new ListOfSpeciesReferences(cPtr, owner);
+                             }
+		             else if(name == "listOfSpeciesTypes")
+		             {
+		               return new ListOfSpeciesTypes(cPtr, owner);
+                             }
+		             else if(name == "listOfUnits")
+		             {
+		               return new ListOfUnits(cPtr, owner);
+                             }
+		             else if(name == "listOfUnitDefinitions")
+		             {
+		               return new ListOfUnitDefinitions(cPtr, owner);
+                             }
+		             return new ListOf(cPtr, owner);
 				
 			case (int) libsbml.SBML_MODEL:
 				return new Model(cPtr, owner);
@@ -226,6 +315,12 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 				
 			case (int) libsbml.SBML_MODIFIER_SPECIES_REFERENCE:
 				return new ModifierSpeciesReference(cPtr, owner);
+
+			case (int) libsbml.SBML_SPECIES_TYPE:
+				return new SpeciesType(cPtr, owner);
+
+			case (int) libsbml.SBML_TRIGGER:
+				return new Trigger(cPtr, owner);
 				
 			case (int) libsbml.SBML_UNIT_DEFINITION:
 				return new UnitDefinition(cPtr, owner);
@@ -241,6 +336,9 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 				
 			case (int) libsbml.SBML_RATE_RULE:
 				return new RateRule(cPtr, owner);
+
+			case (int) libsbml.SBML_STOICHIOMETRY_MATH:
+				return new StoichiometryMath(cPtr, owner);
 				
 			default:
 				return new SBase(cPtr, owner);
@@ -266,9 +364,18 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 		{
 			case (int) libsbml.SBML_COMPARTMENT:
 				return new Compartment(cPtr, owner);
-				
+
+			case (int) libsbml.SBML_COMPARTMENT_TYPE:
+				return new CompartmentType(cPtr, owner);
+
+			case (int) libsbml.SBML_CONSTRAINT:
+				return new Constraint(cPtr, owner);
+
 			case (int) libsbml.SBML_DOCUMENT:
 				return new SBMLDocument(cPtr, owner);
+
+			case (int) libsbml.SBML_DELAY:
+				return new Delay(cPtr, owner);
 				
 			case (int) libsbml.SBML_EVENT:
 				return new Event(cPtr, owner);
@@ -278,12 +385,124 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 				
 			case (int) libsbml.SBML_FUNCTION_DEFINITION:
 				return new FunctionDefinition(cPtr, owner);
+
+			case (int) libsbml.SBML_INITIAL_ASSIGNMENT:
+				return new InitialAssignment(cPtr, owner);
 				
 			case (int) libsbml.SBML_KINETIC_LAW:
 				return new KineticLaw(cPtr, owner);
-				
+
 			case (int) libsbml.SBML_LIST_OF:
+			     string name = sb.getElementName();
+			     if(name == "listOf")
+		             {
 				return new ListOf(cPtr, owner);
+			     }
+			     else if(name == "listOfCompartments")
+			     {
+				return new ListOfCompartments(cPtr, owner);
+			     }
+			     else if(name == "listOfCompartmentTypes")
+			     {
+				return new ListOfCompartmentTypes(cPtr, owner);
+			     }
+			     else if(name == "listOfConstraints")
+			     {
+				return new ListOfConstraints(cPtr, owner);
+			     }
+			     else if(name == "listOfEvents")
+			     {
+			         return new ListOfEvents(cPtr, owner);
+                             }
+                             else if(name == "listOfEventAssignments")
+                             {
+				return new ListOfEventAssignments(cPtr, owner);
+        		     }
+		             else if(name == "listOfFunctionDefinitions")
+		             {
+     		               return new ListOfFunctionDefinitions(cPtr, owner);
+		             }
+		             else if(name == "listOfInitialAssignments")
+		             {
+		               return new ListOfInitialAssignments(cPtr, owner);
+		             }
+		             else if(name == "listOfParameters")
+		             {
+		               return new ListOfParameters(cPtr, owner);
+		             }
+			     else if(name == "listOfReactions")
+		             {
+		               return new ListOfReactions(cPtr, owner);
+		             }
+		             else if(name == "listOfRules")
+		             {
+		               return new ListOfRules(cPtr, owner);
+                             }
+		             else if(name == "listOfSpecies")
+		             {
+		               return new ListOfSpecies(cPtr, owner);
+                             }
+		             else if(name == "listOfUnknowns")
+		             {
+		               return new ListOfSpeciesReferences(cPtr, owner);
+                             }
+		             else if(name == "listOfReactants")
+		             {
+		               return new ListOfSpeciesReferences(cPtr, owner);
+                             }
+		             else if(name == "listOfProducts")
+		             {
+		               return new ListOfSpeciesReferences(cPtr, owner);
+                             }
+		             else if(name == "listOfModifiers")
+		             {
+		               return new ListOfSpeciesReferences(cPtr, owner);
+                             }
+		             else if(name == "listOfSpeciesTypes")
+		             {
+		               return new ListOfSpeciesTypes(cPtr, owner);
+                             }
+		             else if(name == "listOfUnits")
+		             {
+		               return new ListOfUnits(cPtr, owner);
+                             }
+		             else if(name == "listOfUnitDefinitions")
+		             {
+		               return new ListOfUnitDefinitions(cPtr, owner);
+                             }
+		             else if(name =="listOfCompartmentGlyphs")
+			     {
+		               return new ListOfCompartmentGlyphs(cPtr, owner);
+                             }
+		             else if(name =="listOfAdditionalGraphicalObjects")
+			     {
+		               return new ListOfGraphicalObjects(cPtr, owner);
+                             }
+		             else if(name =="listOfLayouts")
+                             {
+		               return new ListOfLayouts(cPtr, owner);
+                             }
+		             else if(name =="listOfCurveSegments")
+			     {
+		               return new ListOfLineSegments(cPtr, owner);
+                             }
+		             else if(name =="listOfSpeciesGlyphs")
+			     {
+		               return new ListOfSpeciesGlyphs(cPtr, owner);
+                             }
+		             else if(name =="listOfSpeciesReferenceGlyphs")
+			     {
+		               return new ListOfSpeciesReferenceGlyphs(cPtr, owner);
+                             }
+		             else if(name =="listOfReactionGlyphs")
+			     {
+		               return new ListOfReactionGlyphs(cPtr, owner);
+                             }
+		             else if(name =="listOfTextGlyphs")
+			     {
+		               return new ListOfTextGlyphs(cPtr, owner);
+                             }
+		             return new ListOf(cPtr, owner);
 				
 			case (int) libsbml.SBML_MODEL:
 				return new Model(cPtr, owner);
@@ -302,6 +521,12 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 				
 			case (int) libsbml.SBML_MODIFIER_SPECIES_REFERENCE:
 				return new ModifierSpeciesReference(cPtr, owner);
+
+			case (int) libsbml.SBML_SPECIES_TYPE:
+				return new SpeciesType(cPtr, owner);
+
+			case (int) libsbml.SBML_TRIGGER:
+				return new Trigger(cPtr, owner);
 				
 			case (int) libsbml.SBML_UNIT_DEFINITION:
 				return new UnitDefinition(cPtr, owner);
@@ -317,6 +542,9 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 				
 			case (int) libsbml.SBML_RATE_RULE:
 				return new RateRule(cPtr, owner);
+
+			case (int) libsbml.SBML_STOICHIOMETRY_MATH:
+				return new StoichiometryMath(cPtr, owner);
 
 			case (int) libsbml.SBML_LAYOUT_BOUNDINGBOX:
 				return new BoundingBox(cPtr, owner);
