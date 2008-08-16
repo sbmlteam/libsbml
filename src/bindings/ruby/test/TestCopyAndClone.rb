@@ -1,11 +1,12 @@
 #
 # @file    TestCopyAndClone.rb
 # @brief   Read SBML unit tests
+#
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Ben Bornstein 
 #
-# $Id$
-# $HeadURL$
+# $Id:$
+# $HeadURL:$
 #
 # This test file was converted from src/sbml/test/TestCopyAndClone.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -24,7 +25,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 require 'test/unit'
 require 'libSBML'
 
@@ -37,6 +37,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = LibSBML::CompartmentType.new()
     o2 = o1
     assert( o2.getId() == "c" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -47,6 +48,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = o1.clone()
     assert( o2.getId() == "c" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -57,6 +59,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = LibSBML::CompartmentType.new(o1)
     assert( o2.getId() == "c" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -71,6 +74,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = o1
     assert( o2.getId() == "c" )
     assert( o2.getOutside() == "c2" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -84,6 +88,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = o1.clone()
     assert( o2.getId() == "c" )
     assert( o2.getOutside() == "c2" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -97,6 +102,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = LibSBML::Compartment.new(o1)
     assert( o2.getId() == "c" )
     assert( o2.getOutside() == "c2" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -118,6 +124,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o2.getMetaId() == "c" )
     assert( o1.getMath() != nil )
     assert( o1.getMessage() != nil )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -138,6 +145,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o2.getMetaId() == "c" )
     assert( o1.getMath() != nil )
     assert( o1.getMessage() != nil )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -158,6 +166,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o2.getMetaId() == "c" )
     assert( o1.getMath() != nil )
     assert( o1.getMessage() != nil )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -171,6 +180,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = LibSBML::Delay.new()
     o2 = o1
     assert( o1.getMath() != nil )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -183,6 +193,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getMath() != nil )
     o2 = o1.clone()
     assert( o1.getMath() != nil )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -195,6 +206,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getMath() != nil )
     o2 = LibSBML::Delay.new(o1)
     assert( o2.getMath() != nil )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -211,6 +223,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = o1
     assert( o2.getVariable() == "c2" )
     assert( o2.getMath() != nil )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -226,6 +239,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = o1.clone()
     assert( o2.getVariable() == "c2" )
     assert( o2.getMath() != nil )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -241,6 +255,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = LibSBML::EventAssignment.new(o1)
     assert( o2.getVariable() == "c2" )
     assert( o2.getMath() != nil )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -252,6 +267,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = LibSBML::Event.new()
     o2 = o1
     assert( o2.getId() == "c" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -262,6 +278,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = o1.clone()
     assert( o2.getId() == "c" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -272,6 +289,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = LibSBML::Event.new(o1)
     assert( o2.getId() == "c" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -288,6 +306,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = o1
     assert( o2.getId() == "c" )
     assert( o2.getMath() != nil )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -303,6 +322,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = o1.clone()
     assert( o2.getId() == "c" )
     assert( o2.getMath() != nil )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -318,6 +338,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = LibSBML::FunctionDefinition.new(o1)
     assert( o2.getId() == "c" )
     assert( o2.getMath() != nil )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -329,6 +350,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = LibSBML::InitialAssignment.new()
     o2 = o1
     assert( o2.getId() == "c" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -339,6 +361,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = o1.clone()
     assert( o2.getId() == "c" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -349,6 +372,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = LibSBML::InitialAssignment.new(o1)
     assert( o2.getId() == "c" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -367,6 +391,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o2.getNumParameters() == 1 )
     assert( o2.getParameter(0).getId() == "jake" )
     assert( o2.getId() == "c" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -384,6 +409,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o2.getNumParameters() == 1 )
     assert( o2.getParameter(0).getId() == "jake" )
     assert( o2.getId() == "c" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -401,6 +427,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o2.getNumParameters() == 1 )
     assert( o2.getParameter(0).getId() == "jake" )
     assert( o2.getId() == "c" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -417,6 +444,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o2.size() == 1 )
     assert( o2.getId() == "c" )
     assert( o2.get(0).getId() == "species_1" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -432,6 +460,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o2.size() == 1 )
     assert( o2.getId() == "c" )
     assert( o2.get(0).getId() == "species_1" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -447,6 +476,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o2.size() == 1 )
     assert( o2.getId() == "c" )
     assert( o2.get(0).getId() == "species_1" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -465,6 +495,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o2.getId() == "c" )
     assert( o2.getNumParameters() == 1 )
     assert( o2.getParameter(0).getId() == "alex" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -482,6 +513,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o2.getId() == "c" )
     assert( o2.getNumParameters() == 1 )
     assert( o2.getParameter(0).getId() == "alex" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -499,6 +531,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o2.getId() == "c" )
     assert( o2.getNumParameters() == 1 )
     assert( o2.getParameter(0).getId() == "alex" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -510,6 +543,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = LibSBML::Parameter.new()
     o2 = o1
     assert( o2.getId() == "c" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -520,6 +554,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = o1.clone()
     assert( o2.getId() == "c" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -530,6 +565,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = LibSBML::Parameter.new(o1)
     assert( o2.getId() == "c" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -548,6 +584,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o2.getId() == "c" )
     assert( o2.isSetKineticLaw() == true )
     assert( o2.getKineticLaw() != nil )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -565,6 +602,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o2.getId() == "c" )
     assert( o2.isSetKineticLaw() == true )
     assert( o2.getKineticLaw() != nil )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -582,6 +620,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o2.getId() == "c" )
     assert( o2.isSetKineticLaw() == true )
     assert( o2.getKineticLaw() != nil )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -597,6 +636,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = o1
     assert( o2.getId() == "a" )
     assert( o2.isSetMath() == true )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -611,6 +651,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = o1.clone()
     assert( o2.getId() == "a" )
     assert( o2.isSetMath() == true )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -625,6 +666,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = LibSBML::Rule.new(o1)
     assert( o2.getId() == "a" )
     assert( o2.isSetMath() == true )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -684,6 +726,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = LibSBML::SpeciesReference.new()
     o2 = o1
     assert( o2.getId() == "c" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -694,6 +737,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = o1.clone()
     assert( o2.getId() == "c" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -704,6 +748,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = LibSBML::SpeciesReference.new(o1)
     assert( o2.getId() == "c" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -715,6 +760,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = LibSBML::SpeciesType.new()
     o2 = o1
     assert( o2.getId() == "c" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -725,6 +771,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = o1.clone()
     assert( o2.getId() == "c" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -735,6 +782,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = LibSBML::SpeciesType.new(o1)
     assert( o2.getId() == "c" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -749,6 +797,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = o1
     assert( o2.getId() == "c" )
     assert( o2.getSpeciesType() == "c1" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -762,6 +811,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = o1.clone()
     assert( o2.getId() == "c" )
     assert( o2.getSpeciesType() == "c1" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -775,6 +825,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = LibSBML::Species.new(o1)
     assert( o2.getId() == "c" )
     assert( o2.getSpeciesType() == "c1" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -788,6 +839,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = LibSBML::Trigger.new()
     o2 = o1
     assert( o1.getMath() != nil )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -800,6 +852,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getMath() != nil )
     o2 = o1.clone()
     assert( o1.getMath() != nil )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -812,6 +865,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getMath() != nil )
     o2 = LibSBML::Trigger.new(o1)
     assert( o2.getMath() != nil )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -823,6 +877,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = LibSBML::UnitDefinition.new()
     o2 = o1
     assert( o2.getId() == "c" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -833,6 +888,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = o1.clone()
     assert( o2.getId() == "c" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -843,6 +899,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = LibSBML::UnitDefinition.new(o1)
     assert( o2.getId() == "c" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -854,6 +911,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o2 = LibSBML::Unit.new()
     o2 = o1
     assert( o2.getId() == "c" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -864,6 +922,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = o1.clone()
     assert( o2.getId() == "c" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end
@@ -874,6 +933,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     assert( o1.getId() == "c" )
     o2 = LibSBML::Unit.new(o1)
     assert( o2.getId() == "c" )
+    assert( o2.getParentSBMLObject() == o1.getParentSBMLObject() )
     o2 = nil
     o1 = nil
   end

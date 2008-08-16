@@ -1,11 +1,12 @@
 #
 # @file    TestReadFromFile5.rb
 # @brief   Reads test-data/l2v1-assignment.xml into memory and tests it.
+#
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Ben Bornstein 
 #
-# $Id$
-# $HeadURL$
+# $Id:$
+# $HeadURL:$
 #
 # This test file was converted from src/sbml/test/TestReadFromFile5.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -112,10 +113,19 @@ class TestReadFromFile5 < Test::Unit::TestCase
     assert( kl != nil )
     assert( kl.getFormula() == "k1 * X0" )
     assert( kl.getNumParameters() == 1 )
+    r1 = kl.getParentSBMLObject()
+    assert( r1 != nil )
+    assert( r1.getId() == "in" )
+    assert( r1.getNumReactants() == 1 )
+    assert( r1.getNumProducts() == 1 )
     p = kl.getParameter(0)
     assert( p != nil )
     assert( p.getId() == "k1" )
     assert( p.getValue() == 0.1 )
+    kl = p.getParentSBMLObject().getParentSBMLObject()
+    assert( kl != nil )
+    assert( kl.getFormula() == "k1 * X0" )
+    assert( kl.getNumParameters() == 1 )
     r = m.getReaction(1)
     assert( r != nil )
     assert( r.getId() == "out" )

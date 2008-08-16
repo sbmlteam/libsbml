@@ -1,11 +1,12 @@
 #
 # @file    TestTrigger.rb
 # @brief   SBML Trigger unit tests
+#
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Sarah Keating 
 #
-# $Id$
-# $HeadURL$
+# $Id:$
+# $HeadURL:$
 #
 # This test file was converted from src/sbml/test/TestTrigger.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -24,7 +25,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 require 'test/unit'
 require 'libSBML'
 
@@ -66,7 +66,6 @@ class TestTrigger < Test::Unit::TestCase
   end
 
   def test_Trigger_free_NULL
-    
   end
 
   def test_Trigger_setMath

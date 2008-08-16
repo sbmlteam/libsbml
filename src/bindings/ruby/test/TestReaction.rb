@@ -1,11 +1,12 @@
 #
 # @file    TestReaction.rb
 # @brief   SBML Reaction unit tests
+#
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Ben Bornstein 
 #
-# $Id$
-# $HeadURL$
+# $Id:$
+# $HeadURL:$
 #
 # This test file was converted from src/sbml/test/TestReaction.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -24,7 +25,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 require 'test/unit'
 require 'libSBML'
 
@@ -85,8 +85,8 @@ class TestReaction < Test::Unit::TestCase
 
   def test_Reaction_createWith
     kl = LibSBML::KineticLaw.new
-    r = LibSBML::Reaction.new("r1", "",kl,0)
-    r.setFast(1)
+    r = LibSBML::Reaction.new("r1", "",kl,false)
+    r.setFast(true)
     assert( r.getTypeCode == LibSBML::SBML_REACTION )
     assert( r.getMetaId == "" )
     assert( r.getNotes == nil )
@@ -106,7 +106,6 @@ class TestReaction < Test::Unit::TestCase
   end
 
   def test_Reaction_free_NULL
-    
   end
 
   def test_Reaction_getModifier

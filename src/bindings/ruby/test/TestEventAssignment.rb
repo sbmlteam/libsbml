@@ -1,11 +1,12 @@
 #
 # @file    TestEventAssignment.rb
 # @brief   SBML EventAssignment unit tests
+#
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Ben Bornstein 
 #
-# $Id$
-# $HeadURL$
+# $Id:$
+# $HeadURL:$
 #
 # This test file was converted from src/sbml/test/TestEventAssignment.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -24,7 +25,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 require 'test/unit'
 require 'libSBML'
 
@@ -65,7 +65,6 @@ class TestEventAssignment < Test::Unit::TestCase
   end
 
   def test_EventAssignment_free_NULL
-    
   end
 
   def test_EventAssignment_setMath

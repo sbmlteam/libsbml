@@ -1,11 +1,12 @@
 #
 # @file    TestSBMLConvert.rb
 # @brief   SBMLConvert unit tests
+#
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Ben Bornstein 
 #
-# $Id$
-# $HeadURL$
+# $Id:$
+# $HeadURL:$
 #
 # This test file was converted from src/sbml/test/TestSBMLConvert.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -24,7 +25,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 require 'test/unit'
 require 'libSBML'
 
@@ -34,7 +34,7 @@ class TestSBMLConvert < Test::Unit::TestCase
     d = LibSBML::SBMLDocument.new(1,2)
     m = d.createModel
     kl = LibSBML::KineticLaw.new("k1*S1*S2*S3*S4*S5")
-    r = LibSBML::Reaction.new("R", "",kl,1)
+    r = LibSBML::Reaction.new("R", "",kl,false)
     m.addSpecies(LibSBML::Species.new("S1", ""))
     m.addSpecies(LibSBML::Species.new("S2", ""))
     m.addSpecies(LibSBML::Species.new("S3", ""))

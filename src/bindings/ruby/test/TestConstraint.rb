@@ -1,11 +1,12 @@
 #
 # @file    TestConstraint.rb
 # @brief   SBML Constraint unit tests
+#
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Sarah Keating 
 #
-# $Id$
-# $HeadURL$
+# $Id:$
+# $HeadURL:$
 #
 # This test file was converted from src/sbml/test/TestConstraint.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -24,7 +25,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 require 'test/unit'
 require 'libSBML'
 
@@ -61,7 +61,6 @@ class TestConstraint < Test::Unit::TestCase
   end
 
   def test_Constraint_free_NULL
-    
   end
 
   def test_Constraint_setMath
@@ -85,6 +84,8 @@ class TestConstraint < Test::Unit::TestCase
     assert( @@c.isSetMessage == true )
     @@c.setMessage(@@c.getMessage)
     assert( @@c.getMessage != node )
+    assert( @@c.getMessageString != nil )
+    assert( ( "" != @@c.getMessageString ) == false )
     @@c.unsetMessage
     assert_equal false, @@c.isSetMessage
     if (@@c.getMessage != nil)

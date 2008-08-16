@@ -1,11 +1,12 @@
 #
 # @file    TestReadFromFile3.rb
 # @brief   Reads tests/l1v1-rules.xml into memory and tests it.
+#
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Ben Bornstein 
 #
-# $Id$
-# $HeadURL$
+# $Id:$
+# $HeadURL:$
 #
 # This test file was converted from src/sbml/test/TestReadFromFile3.c
 # with the help of conversion sciprt (ctest_converter.pl).

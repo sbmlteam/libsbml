@@ -1,11 +1,12 @@
 #
 # @file    TestKineticLaw.rb
 # @brief   SBML KineticLaw unit tests
+#
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Ben Bornstein 
 #
-# $Id$
-# $HeadURL$
+# $Id:$
+# $HeadURL:$
 #
 # This test file was converted from src/sbml/test/TestKineticLaw.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -24,7 +25,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 require 'test/unit'
 require 'libSBML'
 
@@ -103,7 +103,6 @@ class TestKineticLaw < Test::Unit::TestCase
   end
 
   def test_KineticLaw_free_NULL
-    
   end
 
   def test_KineticLaw_getParameter
@@ -144,6 +143,13 @@ class TestKineticLaw < Test::Unit::TestCase
     assert ((  "k2" == k2.getId ))
     assert( k1.getValue == 3.14 )
     assert( k2.getValue == 2.72 )
+  end
+
+  def test_KineticLaw_setBadFormula
+    formula = "k1 X0"
+    @@kl.setFormula(formula)
+    assert_equal true, @@kl.isSetFormula
+    assert_equal false, @@kl.isSetMath
   end
 
   def test_KineticLaw_setFormula

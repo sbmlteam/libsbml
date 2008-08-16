@@ -1,11 +1,12 @@
 #
 # @file    TestParameter.rb
 # @brief   Parameter unit tests
+#
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Ben Bornstein 
 #
-# $Id$
-# $HeadURL$
+# $Id:$
+# $HeadURL:$
 #
 # This test file was converted from src/sbml/test/TestParameter.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -24,7 +25,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 require 'test/unit'
 require 'libSBML'
 
@@ -74,7 +74,6 @@ class TestParameter < Test::Unit::TestCase
   end
 
   def test_Parameter_free_NULL
-    
   end
 
   def test_Parameter_setId

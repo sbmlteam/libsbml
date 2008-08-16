@@ -1,11 +1,12 @@
 #
 # @file    TestReadSBML.rb
 # @brief   Read SBML unit tests
+#
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Ben Bornstein 
 #
-# $Id$
-# $HeadURL$
+# $Id:$
+# $HeadURL:$
 #
 # This test file was converted from src/sbml/test/TestReadSBML.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -24,85 +25,84 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 require 'test/unit'
 require 'libSBML'
 
 class TestReadSBML < Test::Unit::TestCase
 
-def SBML_FOOTER
-  return "</model> </sbml>"
-end
+  def SBML_FOOTER
+    return "</model> </sbml>"
+  end
 
-def SBML_HEADER_L1v1
-  return "<sbml level='1' version='1'> <model name='m'>\n"
-end
+  def SBML_HEADER_L1v1
+    return "<sbml level='1' version='1'> <model name='m'>\n"
+  end
 
-def SBML_HEADER_L1v2
-  return "<sbml level='1' version='2'> <model name='m'>\n"
-end
+  def SBML_HEADER_L1v2
+    return "<sbml level='1' version='2'> <model name='m'>\n"
+  end
 
-def SBML_HEADER_L2v1
-  return "<sbml level='2' version='1'> <model name='m'>\n"
-end
+  def SBML_HEADER_L2v1
+    return "<sbml level='2' version='1'> <model name='m'>\n"
+  end
 
-def SBML_HEADER_L2v2
-  return "<sbml level='2' version='2'> <model name='m'>\n"
-end
+  def SBML_HEADER_L2v2
+    return "<sbml level='2' version='2'> <model name='m'>\n"
+  end
 
-def SBML_HEADER_L2v3
-  return "<sbml level='2' version='3'> <model name='m'>\n"
-end
+  def SBML_HEADER_L2v3
+    return "<sbml level='2' version='3'> <model name='m'>\n"
+  end
 
-def XML_HEADER
-  return "<?xml version='1.0' encoding='UTF-8'?>\n"
-end
+  def XML_HEADER
+    return "<?xml version='1.0' encoding='UTF-8'?>\n"
+  end
 
-def wrapSBML_L1v1(s)
-  r = XML_HEADER()
-  r += SBML_HEADER_L1v1()
-  r += s
-  r += SBML_FOOTER()
-  return r
-end
+  def wrapSBML_L1v1(s)
+    r = XML_HEADER()
+    r += SBML_HEADER_L1v1()
+    r += s
+    r += SBML_FOOTER()
+    return r
+  end
 
-def wrapSBML_L1v2(s)
-  r = XML_HEADER()
-  r += SBML_HEADER_L1v2()
-  r += s
-  r += SBML_FOOTER()
-  return r
-end
+  def wrapSBML_L1v2(s)
+    r = XML_HEADER()
+    r += SBML_HEADER_L1v2()
+    r += s
+    r += SBML_FOOTER()
+    return r
+  end
 
-def wrapSBML_L2v1(s)
-  r = XML_HEADER()
-  r += SBML_HEADER_L2v1()
-  r += s
-  r += SBML_FOOTER()
-  return r
-end
+  def wrapSBML_L2v1(s)
+    r = XML_HEADER()
+    r += SBML_HEADER_L2v1()
+    r += s
+    r += SBML_FOOTER()
+    return r
+  end
 
-def wrapSBML_L2v2(s)
-  r = XML_HEADER()
-  r += SBML_HEADER_L2v2()
-  r += s
-  r += SBML_FOOTER()
-  return r
-end
+  def wrapSBML_L2v2(s)
+    r = XML_HEADER()
+    r += SBML_HEADER_L2v2()
+    r += s
+    r += SBML_FOOTER()
+    return r
+  end
 
-def wrapSBML_L2v3(s)
-  r = XML_HEADER()
-  r += SBML_HEADER_L2v3()
-  r += s
-  r += SBML_FOOTER()
-  return r
-end
+  def wrapSBML_L2v3(s)
+    r = XML_HEADER()
+    r += SBML_HEADER_L2v3()
+    r += s
+    r += SBML_FOOTER()
+    return r
+  end
 
-def wrapXML(s)
-  r = XML_HEADER()
-  r += s
-  return r
-end
+  def wrapXML(s)
+    r = XML_HEADER()
+    r += s
+    return r
+  end
 
   @@USE_LIBXML = 0
   @@USE_EXPAT  = 0

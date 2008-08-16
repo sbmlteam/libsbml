@@ -1,11 +1,12 @@
 #
 # @file    TestModel.rb
 # @brief   SBML Model unit tests
+#
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Ben Bornstein 
 #
-# $Id$
-# $HeadURL$
+# $Id:$
+# $HeadURL:$
 #
 # This test file was converted from src/sbml/test/TestModel.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -24,7 +25,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 require 'test/unit'
 require 'libSBML'
 
@@ -105,7 +105,6 @@ class TestModel < Test::Unit::TestCase
     assert( @@m.getEvent(0) != e1 )
     assert( @@m.getEvent(1) != e2 )
     assert( @@m.getEvent(2) == nil )
-    assert( @@m.getEvent(-2) == nil )
   end
 
   def test_Model_add_get_FunctionDefinitions
@@ -117,7 +116,6 @@ class TestModel < Test::Unit::TestCase
     assert( @@m.getFunctionDefinition(0) != fd1 )
     assert( @@m.getFunctionDefinition(1) != fd2 )
     assert( @@m.getFunctionDefinition(2) == nil )
-    assert( @@m.getFunctionDefinition(-2) == nil )
   end
 
   def test_Model_add_get_UnitDefinitions
@@ -129,7 +127,6 @@ class TestModel < Test::Unit::TestCase
     assert( @@m.getUnitDefinition(0) != ud1 )
     assert( @@m.getUnitDefinition(1) != ud2 )
     assert( @@m.getUnitDefinition(2) == nil )
-    assert( @@m.getUnitDefinition(-2) == nil )
   end
 
   def test_Model_create
@@ -261,7 +258,6 @@ class TestModel < Test::Unit::TestCase
   def test_Model_createKineticLaw_alreadyExists
     r = @@m.createReaction
     kl = @@m.createKineticLaw
-    assert( @@m.createKineticLaw == kl )
     assert( r.getKineticLaw == kl )
   end
 
@@ -401,7 +397,6 @@ class TestModel < Test::Unit::TestCase
   end
 
   def test_Model_free_NULL
-    
   end
 
   def test_Model_getCompartment
@@ -461,9 +456,9 @@ class TestModel < Test::Unit::TestCase
     s1 = LibSBML::Species.new("s1", "c")
     s2 = LibSBML::Species.new("s2", "c")
     s3 = LibSBML::Species.new("s3", "c")
-    s1.setBoundaryCondition(1)
-    s2.setBoundaryCondition(0)
-    s3.setBoundaryCondition(1)
+    s1.setBoundaryCondition(true)
+    s2.setBoundaryCondition(false)
+    s3.setBoundaryCondition(true)
     assert( @@m.getNumSpecies == 0 )
     assert( @@m.getNumSpeciesWithBoundaryCondition == 0 )
     @@m.addSpecies(s1)
