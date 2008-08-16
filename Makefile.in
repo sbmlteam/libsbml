@@ -115,6 +115,9 @@ examples =                                                       \
   examples/ruby/echoSBML.rb                                      \
   examples/ruby/printMath.rb                                     \
   examples/ruby/validateSBML.rb                                  \
+  examples/csharp/Makefile.in                                    \
+  examples/csharp/echoSBML.cs                                    \
+  examples/csharp/validateSBML.cs                                \
   examples/sample-models/README.txt                              \
   examples/sample-models/from-spec/level-2/README.txt            \
   examples/sample-models/from-spec/level-2/algebraicrules.xml    \

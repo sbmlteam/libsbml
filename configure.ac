@@ -311,6 +311,7 @@ AC_CONFIG_FILES([win32/MSVC8/Makefile])
 AC_CONFIG_FILES([examples/c/Makefile])
 AC_CONFIG_FILES([examples/c++/Makefile])
 AC_CONFIG_FILES([examples/java/Makefile])
+AC_CONFIG_FILES([examples/csharp/Makefile])
 
 if test "$enable_layout" != "no" ; then
   AC_CONFIG_FILES([examples/layout/Makefile])
