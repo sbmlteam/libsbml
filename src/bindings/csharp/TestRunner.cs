@@ -118,7 +118,7 @@ namespace LibSBMLCSTestRunner
             Console.WriteLine(String.Format("Encountered {0} compile errors (invalid tests)", nCompileErrors));
             Console.WriteLine(String.Format("Total Number of Test files {0}, Tests {1}, failures {2}", 
                                              testFiles.Length, nTestFunc, nFailureSum));
-            if (nFailureSum == 0)
+            if (nFailureSum == 0 && nCompileErrors == 0 )
             {
               Console.WriteLine("\nAll tests passed.");
               Environment.Exit(0); 
