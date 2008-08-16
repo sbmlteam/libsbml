@@ -2,11 +2,12 @@
  *
  * @file    TestReadFromFile2.java
  * @brief   Reads tests/l1v1-units.xml into memory and tests it.
+ *
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id$
- * $HeadURL$
+ * $Id:$
+ * $HeadURL:$
  *
  * This test file was converted from src/sbml/test/TestReadFromFile2.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -106,7 +107,6 @@ public class TestReadFromFile2 {
     }
     throw new AssertionError();
   }
-
 
   public void test_create_l1v1_units()
   {

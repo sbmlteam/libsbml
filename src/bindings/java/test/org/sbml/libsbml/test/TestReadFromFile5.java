@@ -2,11 +2,12 @@
  *
  * @file    TestReadFromFile5.java
  * @brief   Reads test-data/l2v1-assignment.xml into memory and tests it.
+ *
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id$
- * $HeadURL$
+ * $Id:$
+ * $HeadURL:$
  *
  * This test file was converted from src/sbml/test/TestReadFromFile5.cpp
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -107,7 +108,6 @@ public class TestReadFromFile5 {
     throw new AssertionError();
   }
 
-
   public void test_read_l2v1_assignment()
   {
     SBMLReader reader = new SBMLReader();
@@ -121,6 +121,7 @@ public class TestReadFromFile5 {
     SpeciesReference sr;
     KineticLaw kl;
     UnitDefinition ud;
+    Reaction r1;
     String filename = new String( "../../sbml/test/test-data/" );
     filename += "l2v1-assignment.xml";
     d = reader.readSBML(filename);
@@ -142,27 +143,27 @@ public class TestReadFromFile5 {
     s = m.getSpecies(0);
     assertTrue( s != null );
     assertTrue( s.getId().equals("X0") == true );
-    assertEquals(s.getCompartment(),"cell");
+    assertTrue( s.getCompartment().equals("cell") == true );
     assertTrue( s.getInitialConcentration() == 1.0 );
     s = m.getSpecies(1);
     assertTrue( s != null );
     assertTrue( s.getId().equals("X1") == true );
-    assertEquals(s.getCompartment(),"cell");
+    assertTrue( s.getCompartment().equals("cell") == true );
     assertTrue( s.getInitialConcentration() == 0.0 );
     s = m.getSpecies(2);
     assertTrue( s != null );
     assertTrue( s.getId().equals("T") == true );
-    assertEquals(s.getCompartment(),"cell");
+    assertTrue( s.getCompartment().equals("cell") == true );
     assertTrue( s.getInitialConcentration() == 0.0 );
     s = m.getSpecies(3);
     assertTrue( s != null );
     assertTrue( s.getId().equals("S1") == true );
-    assertEquals(s.getCompartment(),"cell");
+    assertTrue( s.getCompartment().equals("cell") == true );
     assertTrue( s.getInitialConcentration() == 0.0 );
     s = m.getSpecies(4);
     assertTrue( s != null );
     assertTrue( s.getId().equals("S2") == true );
-    assertEquals(s.getCompartment(),"cell");
+    assertTrue( s.getCompartment().equals("cell") == true );
     assertTrue( s.getInitialConcentration() == 0.0 );
     assertTrue( m.getNumParameters() == 1 );
     p = m.getParameter(0);
@@ -195,18 +196,27 @@ public class TestReadFromFile5 {
     assertTrue( r.getNumProducts() == 1 );
     sr = r.getReactant(0);
     assertTrue( sr != null );
-    assertEquals(sr.getSpecies(),"X0");
+    assertTrue( sr.getSpecies().equals("X0") == true );
     sr = r.getProduct(0);
     assertTrue( sr != null );
-    assertEquals(sr.getSpecies(),"T");
+    assertTrue( sr.getSpecies().equals("T") == true );
     kl = r.getKineticLaw();
     assertTrue( kl != null );
     assertTrue( kl.getFormula().equals("k1 * X0") == true );
     assertTrue( kl.getNumParameters() == 1 );
+    r1 = ((Reaction) kl.getParentSBMLObject());
+    assertTrue( r1 != null );
+    assertTrue( r1.getId().equals("in") == true );
+    assertTrue( r1.getNumReactants() == 1 );
+    assertTrue( r1.getNumProducts() == 1 );
     p = kl.getParameter(0);
     assertTrue( p != null );
     assertTrue( p.getId().equals("k1") == true );
     assertTrue( p.getValue() == 0.1 );
+    kl = ((KineticLaw) p.getParentSBMLObject().getParentSBMLObject());
+    assertTrue( kl != null );
+    assertTrue( kl.getFormula().equals("k1 * X0") == true );
+    assertTrue( kl.getNumParameters() == 1 );
     r = m.getReaction(1);
     assertTrue( r != null );
     assertTrue( r.getId().equals("out") == true );
@@ -214,10 +224,10 @@ public class TestReadFromFile5 {
     assertTrue( r.getNumProducts() == 1 );
     sr = r.getReactant(0);
     assertTrue( sr != null );
-    assertEquals(sr.getSpecies(),"T");
+    assertTrue( sr.getSpecies().equals("T") == true );
     sr = r.getProduct(0);
     assertTrue( sr != null );
-    assertEquals(sr.getSpecies(),"X1");
+    assertTrue( sr.getSpecies().equals("X1") == true );
     kl = r.getKineticLaw();
     assertTrue( kl != null );
     assertTrue( kl.getFormula().equals("k2 * T") == true );

@@ -2,11 +2,12 @@
  *
  * @file    TestConsistencyChecks.java
  * @brief   Reads test-data/inconsistent.xml into memory and tests it.
+ *
  * @author  Akiya Jouraku (Java conversion)
  * @author  Sarah Keating 
  *
- * $Id$
- * $HeadURL$
+ * $Id:$
+ * $HeadURL:$
  *
  * This test file was converted from src/sbml/test/TestConsistencyChecks.cpp
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -106,7 +107,6 @@ public class TestConsistencyChecks {
     }
     throw new AssertionError();
   }
-
 
   public void test_consistency_checks()
   {

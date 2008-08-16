@@ -2,11 +2,12 @@
  *
  * @file    TestSBMLConvert.java
  * @brief   SBMLConvert unit tests
+ *
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id$
- * $HeadURL$
+ * $Id:$
+ * $HeadURL:$
  *
  * This test file was converted from src/sbml/test/TestSBMLConvert.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -106,7 +107,6 @@ public class TestSBMLConvert {
     }
     throw new AssertionError();
   }
-
 
   public void test_SBMLConvert_addModifiersToReaction()
   {

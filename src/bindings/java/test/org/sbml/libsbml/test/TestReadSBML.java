@@ -2,11 +2,12 @@
  *
  * @file    TestReadSBML.java
  * @brief   Read SBML unit tests
+ *
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id$
- * $HeadURL$
+ * $Id:$
+ * $HeadURL:$
  *
  * This test file was converted from src/sbml/test/TestReadSBML.cpp
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -112,7 +113,6 @@ public class TestReadSBML {
     }
     throw new AssertionError();
   }
-
   private SBMLDocument D;
   private Model M;
 

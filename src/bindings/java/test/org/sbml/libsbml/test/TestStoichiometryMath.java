@@ -2,11 +2,12 @@
  *
  * @file    TestStoichiometryMath.java
  * @brief   SBML StoichiometryMath unit tests
+ *
  * @author  Akiya Jouraku (Java conversion)
  * @author  Sarah Keating 
  *
- * $Id$
- * $HeadURL$
+ * $Id:$
+ * $HeadURL:$
  *
  * This test file was converted from src/sbml/test/TestStoichiometryMath.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -106,7 +107,6 @@ public class TestStoichiometryMath {
     }
     throw new AssertionError();
   }
-
   private StoichiometryMath D;
 
   protected void setUp() throws Exception

@@ -2,11 +2,12 @@
  *
  * @file    TestUnit.java
  * @brief   Unit unit tests
+ *
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id$
- * $HeadURL$
+ * $Id:$
+ * $HeadURL:$
  *
  * This test file was converted from src/sbml/test/TestUnit.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -106,7 +107,6 @@ public class TestUnit {
     }
     throw new AssertionError();
   }
-
   private Unit U;
 
   protected void setUp() throws Exception

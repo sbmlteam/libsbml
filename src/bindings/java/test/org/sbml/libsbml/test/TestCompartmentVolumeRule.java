@@ -2,11 +2,12 @@
  *
  * @file    TestCompartmentVolumeRule.java
  * @brief   CompartmentVolumeRule unit tests
+ *
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id$
- * $HeadURL$
+ * $Id:$
+ * $HeadURL:$
  *
  * This test file was converted from src/sbml/test/TestCompartmentVolumeRule.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -106,7 +107,6 @@ public class TestCompartmentVolumeRule {
     }
     throw new AssertionError();
   }
-
   private Rule CVR;
 
   protected void setUp() throws Exception

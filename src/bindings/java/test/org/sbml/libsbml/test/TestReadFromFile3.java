@@ -2,11 +2,12 @@
  *
  * @file    TestReadFromFile3.java
  * @brief   Reads tests/l1v1-rules.xml into memory and tests it.
+ *
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id$
- * $HeadURL$
+ * $Id:$
+ * $HeadURL:$
  *
  * This test file was converted from src/sbml/test/TestReadFromFile3.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -106,7 +107,6 @@ public class TestReadFromFile3 {
     }
     throw new AssertionError();
   }
-
 
   public void test_read_l1v1_rules()
   {

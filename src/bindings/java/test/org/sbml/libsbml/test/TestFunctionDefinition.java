@@ -2,11 +2,12 @@
  *
  * @file    TestFunctionDefinition.java
  * @brief   SBML FunctionDefinition unit tests
+ *
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id$
- * $HeadURL$
+ * $Id:$
+ * $HeadURL:$
  *
  * This test file was converted from src/sbml/test/TestFunctionDefinition.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -106,7 +107,6 @@ public class TestFunctionDefinition {
     }
     throw new AssertionError();
   }
-
   private FunctionDefinition FD;
 
   protected void setUp() throws Exception

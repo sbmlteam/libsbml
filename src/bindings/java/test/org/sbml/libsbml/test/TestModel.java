@@ -2,11 +2,12 @@
  *
  * @file    TestModel.java
  * @brief   SBML Model unit tests
+ *
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id$
- * $HeadURL$
+ * $Id:$
+ * $HeadURL:$
  *
  * This test file was converted from src/sbml/test/TestModel.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -106,7 +107,6 @@ public class TestModel {
     }
     throw new AssertionError();
   }
-
   private Model M;
 
   protected void setUp() throws Exception
@@ -261,7 +261,7 @@ public class TestModel {
     Compartment c = M.createCompartment();
     assertTrue( c != null );
     assertTrue( M.getNumCompartments() == 1 );
-    assertEquals(M.getCompartment(0),c);
+    assertTrue( M.getCompartment(0).equals(c) == true );
   }
 
   public void test_Model_createCompartmentType()
@@ -476,7 +476,7 @@ public class TestModel {
     Species s = M.createSpecies();
     assertTrue( s != null );
     assertTrue( M.getNumSpecies() == 1 );
-    assertEquals(M.getSpecies(0),s);
+    assertTrue( M.getSpecies(0).equals(s) == true );
   }
 
   public void test_Model_createSpeciesType()
@@ -568,9 +568,9 @@ public class TestModel {
     M.addCompartment(c1);
     M.addCompartment(c2);
     assertTrue( M.getNumCompartments() == 2 );
-    assertNotEquals(M.getCompartment( "A" ),c1);
-    assertNotEquals(M.getCompartment( "B" ),c2);
-    assertEquals(M.getCompartment( "C" ),null);
+    assertTrue( M.getCompartment( "A" ).equals(c1) != true );
+    assertTrue( M.getCompartment( "B" ).equals(c2) != true );
+    assertTrue( M.getCompartment( "C" ) == null );
   }
 
   public void test_Model_getEventById()
@@ -729,9 +729,9 @@ public class TestModel {
     M.addSpecies(s1);
     M.addSpecies(s2);
     assertTrue( M.getNumSpecies() == 2 );
-    assertNotEquals(M.getSpecies( "Glucose"    ),s1);
-    assertNotEquals(M.getSpecies( "Glucose_6_P"),s2);
-    assertEquals(M.getSpecies( "Glucose2"   ),null);
+    assertTrue( M.getSpecies( "Glucose"    ).equals(s1) != true );
+    assertTrue( M.getSpecies( "Glucose_6_P").equals(s2) != true );
+    assertTrue( M.getSpecies( "Glucose2"   ) == null );
   }
 
   public void test_Model_getUnitDefinition()

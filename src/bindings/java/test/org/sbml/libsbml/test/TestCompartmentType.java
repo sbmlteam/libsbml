@@ -2,11 +2,12 @@
  *
  * @file    TestCompartmentType.java
  * @brief   CompartmentTypeType unit tests
+ *
  * @author  Akiya Jouraku (Java conversion)
  * @author  Sarah Keating 
  *
- * $Id$
- * $HeadURL$
+ * $Id:$
+ * $HeadURL:$
  *
  * This test file was converted from src/sbml/test/TestCompartmentType.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -106,7 +107,6 @@ public class TestCompartmentType {
     }
     throw new AssertionError();
   }
-
   private CompartmentType CT;
 
   protected void setUp() throws Exception

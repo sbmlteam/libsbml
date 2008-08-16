@@ -2,11 +2,12 @@
  *
  * @file    TestModifierSpeciesReference.java
  * @brief   ModifierSpeciesReference unit tests
+ *
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id$
- * $HeadURL$
+ * $Id:$
+ * $HeadURL:$
  *
  * This test file was converted from src/sbml/test/TestModifierSpeciesReference.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -106,7 +107,6 @@ public class TestModifierSpeciesReference {
     }
     throw new AssertionError();
   }
-
   private  SimpleSpeciesReference MSR;
 
   protected void setUp() throws Exception
@@ -128,7 +128,7 @@ public class TestModifierSpeciesReference {
     assertTrue( MSR.getMetaId().equals("") == true );
     assertTrue( MSR.getNotes() == null );
     assertTrue( MSR.getAnnotation() == null );
-    assertEquals(MSR.getSpecies(),"");
+    assertTrue( MSR.getSpecies().equals("") == true );
     assertEquals( false, MSR.isSetSpecies() );
     assertEquals( true, MSR.isModifier() );
   }

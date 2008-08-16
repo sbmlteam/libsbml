@@ -2,11 +2,12 @@
  *
  * @file    TestWriteSBML.java
  * @brief   Write SBML unit tests
+ *
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id$
- * $HeadURL$
+ * $Id:$
+ * $HeadURL:$
  *
  * This test file was converted from src/sbml/test/TestWriteSBML.cpp
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -106,7 +107,6 @@ public class TestWriteSBML {
     }
     throw new AssertionError();
   }
-
   private SBMLDocument D;
   private String S;
   private OStringStream OSS;
@@ -1196,6 +1196,43 @@ public class TestWriteSBML {
     assertEquals( true, equals(expected) );
   }
 
+  public void test_WriteSBML_bzip2()
+  {
+    int filenum = 12;
+    String file[] = {
+                        "../../../examples/sample-models/from-spec/level-2/algebraicrules.xml",
+                        "../../../examples/sample-models/from-spec/level-2/assignmentrules.xml",
+                        "../../../examples/sample-models/from-spec/level-2/boundarycondition.xml",
+                        "../../../examples/sample-models/from-spec/level-2/delay.xml",
+                        "../../../examples/sample-models/from-spec/level-2/dimerization.xml",
+                        "../../../examples/sample-models/from-spec/level-2/enzymekinetics.xml",
+                        "../../../examples/sample-models/from-spec/level-2/events.xml",
+                        "../../../examples/sample-models/from-spec/level-2/functiondef.xml",
+                        "../../../examples/sample-models/from-spec/level-2/multicomp.xml",
+                        "../../../examples/sample-models/from-spec/level-2/overdetermined.xml",
+                        "../../../examples/sample-models/from-spec/level-2/twodimensional.xml",
+                        "../../../examples/sample-models/from-spec/level-2/units.xml"
+    };
+    String bz2file = "test.xml.bz2";
+    for(int i = 0; i < filenum; i++)
+    {
+      SBMLDocument d = libsbml.readSBML(file[i]);
+      assertTrue( d != null );
+      if (! SBMLWriter.hasBzip2())
+      {
+        assertTrue( libsbml.writeSBML(d, bz2file) == 0 );
+        d = null;
+      }
+      boolean result = (libsbml.writeSBML(d, bz2file) != 0);
+      assertEquals( true, result );
+      SBMLDocument dg = libsbml.readSBML(bz2file);
+      assertTrue( dg != null );
+      assertTrue( !d.toSBML().equals(dg.toSBML()) == false );
+      d = null;
+      dg = null;
+    }
+  }
+
   public void test_WriteSBML_error()
   {
     SBMLDocument d = new SBMLDocument();
@@ -1207,12 +1244,86 @@ public class TestWriteSBML {
     w = null;
   }
 
+  public void test_WriteSBML_gzip()
+  {
+    int filenum = 12;
+    String file[] = {
+                        "../../../examples/sample-models/from-spec/level-2/algebraicrules.xml",
+                        "../../../examples/sample-models/from-spec/level-2/assignmentrules.xml",
+                        "../../../examples/sample-models/from-spec/level-2/boundarycondition.xml",
+                        "../../../examples/sample-models/from-spec/level-2/delay.xml",
+                        "../../../examples/sample-models/from-spec/level-2/dimerization.xml",
+                        "../../../examples/sample-models/from-spec/level-2/enzymekinetics.xml",
+                        "../../../examples/sample-models/from-spec/level-2/events.xml",
+                        "../../../examples/sample-models/from-spec/level-2/functiondef.xml",
+                        "../../../examples/sample-models/from-spec/level-2/multicomp.xml",
+                        "../../../examples/sample-models/from-spec/level-2/overdetermined.xml",
+                        "../../../examples/sample-models/from-spec/level-2/twodimensional.xml",
+                        "../../../examples/sample-models/from-spec/level-2/units.xml"
+    };
+    String gzfile = "test.xml.gz";
+    for(int i = 0; i < filenum; i++)
+    {
+      SBMLDocument d = libsbml.readSBML(file[i]);
+      assertTrue( d != null );
+      if (! SBMLWriter.hasZlib())
+      {
+        assertTrue( libsbml.writeSBML(d, gzfile) == 0 );
+        d = null;
+      }
+      boolean result = (libsbml.writeSBML(d, gzfile) != 0);
+      assertEquals( true, result );
+      SBMLDocument dg = libsbml.readSBML(gzfile);
+      assertTrue( dg != null );
+      assertTrue( !d.toSBML().equals(dg.toSBML()) == false );
+      d = null;
+      dg = null;
+    }
+  }
+
   public void test_WriteSBML_locale()
   {
     String expected = wrapXML("<parameter id=\"p\" value=\"3.31\"/>");
     Parameter p = new Parameter("p",3.31);
     p.write(XOS);
     assertEquals( true, equals(expected) );
+  }
+
+  public void test_WriteSBML_zip()
+  {
+    int filenum = 12;
+    String file[] = {
+                        "../../../examples/sample-models/from-spec/level-2/algebraicrules.xml",
+                        "../../../examples/sample-models/from-spec/level-2/assignmentrules.xml",
+                        "../../../examples/sample-models/from-spec/level-2/boundarycondition.xml",
+                        "../../../examples/sample-models/from-spec/level-2/delay.xml",
+                        "../../../examples/sample-models/from-spec/level-2/dimerization.xml",
+                        "../../../examples/sample-models/from-spec/level-2/enzymekinetics.xml",
+                        "../../../examples/sample-models/from-spec/level-2/events.xml",
+                        "../../../examples/sample-models/from-spec/level-2/functiondef.xml",
+                        "../../../examples/sample-models/from-spec/level-2/multicomp.xml",
+                        "../../../examples/sample-models/from-spec/level-2/overdetermined.xml",
+                        "../../../examples/sample-models/from-spec/level-2/twodimensional.xml",
+                        "../../../examples/sample-models/from-spec/level-2/units.xml"
+    };
+    String zipfile = "test.xml.zip";
+    for(int i = 0; i < filenum; i++)
+    {
+      SBMLDocument d = libsbml.readSBML(file[i]);
+      assertTrue( d != null );
+      if (! SBMLWriter.hasZlib())
+      {
+        assertTrue( libsbml.writeSBML(d, zipfile) == 0 );
+        d = null;
+      }
+      boolean result = (libsbml.writeSBML(d, zipfile) != 0);
+      assertEquals( true, result );
+      SBMLDocument dg = libsbml.readSBML(zipfile);
+      assertTrue( dg != null );
+      assertTrue( !d.toSBML().equals(dg.toSBML()) == false );
+      d = null;
+      dg = null;
+    }
   }
 
   /**

@@ -2,11 +2,12 @@
  *
  * @file    TestConstraint.java
  * @brief   SBML Constraint unit tests
+ *
  * @author  Akiya Jouraku (Java conversion)
  * @author  Sarah Keating 
  *
- * $Id$
- * $HeadURL$
+ * $Id:$
+ * $HeadURL:$
  *
  * This test file was converted from src/sbml/test/TestConstraint.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -106,7 +107,6 @@ public class TestConstraint {
     }
     throw new AssertionError();
   }
-
   private Constraint C;
 
   protected void setUp() throws Exception
@@ -172,6 +172,8 @@ public class TestConstraint {
     assertTrue( C.isSetMessage() == true );
     C.setMessage(C.getMessage());
     assertTrue( C.getMessage() != node );
+    assertTrue( C.getMessageString() != null );
+    assertTrue( !C.getMessageString().equals("") == false );
     C.unsetMessage();
     assertEquals( false, C.isSetMessage() );
     if (C.getMessage() != null);

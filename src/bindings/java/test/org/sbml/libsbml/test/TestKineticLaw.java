@@ -2,11 +2,12 @@
  *
  * @file    TestKineticLaw.java
  * @brief   SBML KineticLaw unit tests
+ *
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id$
- * $HeadURL$
+ * $Id:$
+ * $HeadURL:$
  *
  * This test file was converted from src/sbml/test/TestKineticLaw.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -106,7 +107,6 @@ public class TestKineticLaw {
     }
     throw new AssertionError();
   }
-
   private KineticLaw KL;
 
   protected void setUp() throws Exception
@@ -236,6 +236,14 @@ public class TestKineticLaw {
     assertTrue(k2.getId().equals( "k2"));
     assertTrue( k1.getValue() == 3.14 );
     assertTrue( k2.getValue() == 2.72 );
+  }
+
+  public void test_KineticLaw_setBadFormula()
+  {
+    String formula = "k1 X0";
+    KL.setFormula(formula);
+    assertEquals( true, KL.isSetFormula() );
+    assertEquals( false, KL.isSetMath() );
   }
 
   public void test_KineticLaw_setFormula()

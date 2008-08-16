@@ -2,11 +2,12 @@
  *
  * @file    TestSpeciesConcentrationRule.java
  * @brief   SpeciesConcentrationRule unit tests
+ *
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id$
- * $HeadURL$
+ * $Id:$
+ * $HeadURL:$
  *
  * This test file was converted from src/sbml/test/TestSpeciesConcentrationRule.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -106,7 +107,6 @@ public class TestSpeciesConcentrationRule {
     }
     throw new AssertionError();
   }
-
   private Rule SCR;
 
   protected void setUp() throws Exception

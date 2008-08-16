@@ -2,11 +2,12 @@
  *
  * @file    TestParameter.java
  * @brief   Parameter unit tests
+ *
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id$
- * $HeadURL$
+ * $Id:$
+ * $HeadURL:$
  *
  * This test file was converted from src/sbml/test/TestParameter.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -106,7 +107,6 @@ public class TestParameter {
     }
     throw new AssertionError();
   }
-
   private Parameter P;
 
   protected void setUp() throws Exception

@@ -2,11 +2,12 @@
  *
  * @file    TestReaction.java
  * @brief   SBML Reaction unit tests
+ *
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id$
- * $HeadURL$
+ * $Id:$
+ * $HeadURL:$
  *
  * This test file was converted from src/sbml/test/TestReaction.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -106,7 +107,6 @@ public class TestReaction {
     }
     throw new AssertionError();
   }
-
   private Reaction R;
 
   protected void setUp() throws Exception

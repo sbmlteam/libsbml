@@ -2,11 +2,12 @@
  *
  * @file    TestEventAssignment.java
  * @brief   SBML EventAssignment unit tests
+ *
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id$
- * $HeadURL$
+ * $Id:$
+ * $HeadURL:$
  *
  * This test file was converted from src/sbml/test/TestEventAssignment.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -106,7 +107,6 @@ public class TestEventAssignment {
     }
     throw new AssertionError();
   }
-
   private EventAssignment EA;
 
   protected void setUp() throws Exception

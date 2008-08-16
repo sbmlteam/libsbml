@@ -2,11 +2,12 @@
  *
  * @file    TestAssignmentRule.java
  * @brief   AssignmentRule unit tests
+ *
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id$
- * $HeadURL$
+ * $Id:$
+ * $HeadURL:$
  *
  * This test file was converted from src/sbml/test/TestAssignmentRule.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -106,7 +107,6 @@ public class TestAssignmentRule {
     }
     throw new AssertionError();
   }
-
   private Rule AR;
 
   protected void setUp() throws Exception

@@ -2,11 +2,12 @@
  *
  * @file    TestCopyAndClone.java
  * @brief   Read SBML unit tests
+ *
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id$
- * $HeadURL$
+ * $Id:$
+ * $HeadURL:$
  *
  * This test file was converted from src/sbml/test/TestCopyAndClone.cpp
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -107,7 +108,6 @@ public class TestCopyAndClone {
     throw new AssertionError();
   }
 
-
   public void test_CompartmentType_assignmentOperator()
   {
     CompartmentType o1 = new CompartmentType();
@@ -116,6 +116,7 @@ public class TestCopyAndClone {
     CompartmentType o2 = new CompartmentType();
     o2 = o1;
     assertTrue( o2.getId().equals("c") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -127,6 +128,7 @@ public class TestCopyAndClone {
     assertTrue( o1.getId().equals("c") == true );
     CompartmentType o2 = ((CompartmentType) o1.cloneObject());
     assertTrue( o2.getId().equals("c") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -138,6 +140,7 @@ public class TestCopyAndClone {
     assertTrue( o1.getId().equals("c") == true );
     CompartmentType o2 = new CompartmentType(o1);
     assertTrue( o2.getId().equals("c") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -153,6 +156,7 @@ public class TestCopyAndClone {
     o2 = o1;
     assertTrue( o2.getId().equals("c") == true );
     assertTrue( o2.getOutside().equals("c2") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -167,6 +171,7 @@ public class TestCopyAndClone {
     Compartment o2 = ((Compartment) o1.cloneObject());
     assertTrue( o2.getId().equals("c") == true );
     assertTrue( o2.getOutside().equals("c2") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -181,6 +186,7 @@ public class TestCopyAndClone {
     Compartment o2 = new Compartment(o1);
     assertTrue( o2.getId().equals("c") == true );
     assertTrue( o2.getOutside().equals("c2") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -203,6 +209,7 @@ public class TestCopyAndClone {
     assertTrue( o2.getMetaId().equals("c") == true );
     assertTrue( o1.getMath() != null );
     assertTrue( o1.getMessage() != null );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -224,6 +231,7 @@ public class TestCopyAndClone {
     assertTrue( o2.getMetaId().equals("c") == true );
     assertTrue( o1.getMath() != null );
     assertTrue( o1.getMessage() != null );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -245,6 +253,7 @@ public class TestCopyAndClone {
     assertTrue( o2.getMetaId().equals("c") == true );
     assertTrue( o1.getMath() != null );
     assertTrue( o1.getMessage() != null );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -259,6 +268,7 @@ public class TestCopyAndClone {
     Delay o2 = new Delay();
     o2 = o1;
     assertTrue( o1.getMath() != null );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -272,6 +282,7 @@ public class TestCopyAndClone {
     assertTrue( o1.getMath() != null );
     Delay o2 = ((Delay) o1.cloneObject());
     assertTrue( o1.getMath() != null );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -285,6 +296,7 @@ public class TestCopyAndClone {
     assertTrue( o1.getMath() != null );
     Delay o2 = new Delay(o1);
     assertTrue( o2.getMath() != null );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -302,6 +314,7 @@ public class TestCopyAndClone {
     o2 = o1;
     assertTrue( o2.getVariable().equals("c2") == true );
     assertTrue( o2.getMath() != null );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -318,6 +331,7 @@ public class TestCopyAndClone {
     EventAssignment o2 = ((EventAssignment) o1.cloneObject());
     assertTrue( o2.getVariable().equals("c2") == true );
     assertTrue( o2.getMath() != null );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -334,6 +348,7 @@ public class TestCopyAndClone {
     EventAssignment o2 = new EventAssignment(o1);
     assertTrue( o2.getVariable().equals("c2") == true );
     assertTrue( o2.getMath() != null );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -346,6 +361,7 @@ public class TestCopyAndClone {
     Event o2 = new Event();
     o2 = o1;
     assertTrue( o2.getId().equals("c") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -357,6 +373,7 @@ public class TestCopyAndClone {
     assertTrue( o1.getId().equals("c") == true );
     Event o2 = ((Event) o1.cloneObject());
     assertTrue( o2.getId().equals("c") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -368,6 +385,7 @@ public class TestCopyAndClone {
     assertTrue( o1.getId().equals("c") == true );
     Event o2 = new Event(o1);
     assertTrue( o2.getId().equals("c") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -385,6 +403,7 @@ public class TestCopyAndClone {
     o2 = o1;
     assertTrue( o2.getId().equals("c") == true );
     assertTrue( o2.getMath() != null );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -401,6 +420,7 @@ public class TestCopyAndClone {
     FunctionDefinition o2 = ((FunctionDefinition) o1.cloneObject());
     assertTrue( o2.getId().equals("c") == true );
     assertTrue( o2.getMath() != null );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -417,6 +437,7 @@ public class TestCopyAndClone {
     FunctionDefinition o2 = new FunctionDefinition(o1);
     assertTrue( o2.getId().equals("c") == true );
     assertTrue( o2.getMath() != null );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -429,6 +450,7 @@ public class TestCopyAndClone {
     InitialAssignment o2 = new InitialAssignment();
     o2 = o1;
     assertTrue( o2.getId().equals("c") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -440,6 +462,7 @@ public class TestCopyAndClone {
     assertTrue( o1.getId().equals("c") == true );
     InitialAssignment o2 = ((InitialAssignment) o1.cloneObject());
     assertTrue( o2.getId().equals("c") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -451,6 +474,7 @@ public class TestCopyAndClone {
     assertTrue( o1.getId().equals("c") == true );
     InitialAssignment o2 = new InitialAssignment(o1);
     assertTrue( o2.getId().equals("c") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -470,6 +494,7 @@ public class TestCopyAndClone {
     assertTrue( o2.getNumParameters() == 1 );
     assertTrue( o2.getParameter(0).getId().equals("jake") == true );
     assertTrue( o2.getId().equals("c") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -488,6 +513,7 @@ public class TestCopyAndClone {
     assertTrue( o2.getNumParameters() == 1 );
     assertTrue( o2.getParameter(0).getId().equals("jake") == true );
     assertTrue( o2.getId().equals("c") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -506,6 +532,7 @@ public class TestCopyAndClone {
     assertTrue( o2.getNumParameters() == 1 );
     assertTrue( o2.getParameter(0).getId().equals("jake") == true );
     assertTrue( o2.getId().equals("c") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -523,6 +550,7 @@ public class TestCopyAndClone {
     assertTrue( o2.size() == 1 );
     assertTrue( o2.getId().equals("c") == true );
     assertTrue( ((Species) o2.get(0)).getId().equals("species_1") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -539,6 +567,7 @@ public class TestCopyAndClone {
     assertTrue( o2.size() == 1 );
     assertTrue( o2.getId().equals("c") == true );
     assertTrue( ((Species) o2.get(0)).getId().equals("species_1") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -555,6 +584,7 @@ public class TestCopyAndClone {
     assertTrue( o2.size() == 1 );
     assertTrue( o2.getId().equals("c") == true );
     assertTrue( ((Species) o2.get(0)).getId().equals("species_1") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -574,6 +604,7 @@ public class TestCopyAndClone {
     assertTrue( o2.getId().equals("c") == true );
     assertTrue( o2.getNumParameters() == 1 );
     assertTrue( o2.getParameter(0).getId().equals("alex") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -592,6 +623,7 @@ public class TestCopyAndClone {
     assertTrue( o2.getId().equals("c") == true );
     assertTrue( o2.getNumParameters() == 1 );
     assertTrue( o2.getParameter(0).getId().equals("alex") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -610,6 +642,7 @@ public class TestCopyAndClone {
     assertTrue( o2.getId().equals("c") == true );
     assertTrue( o2.getNumParameters() == 1 );
     assertTrue( o2.getParameter(0).getId().equals("alex") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -622,6 +655,7 @@ public class TestCopyAndClone {
     Parameter o2 = new Parameter();
     o2 = o1;
     assertTrue( o2.getId().equals("c") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -633,6 +667,7 @@ public class TestCopyAndClone {
     assertTrue( o1.getId().equals("c") == true );
     Parameter o2 = ((Parameter) o1.cloneObject());
     assertTrue( o2.getId().equals("c") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -644,6 +679,7 @@ public class TestCopyAndClone {
     assertTrue( o1.getId().equals("c") == true );
     Parameter o2 = new Parameter(o1);
     assertTrue( o2.getId().equals("c") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -663,6 +699,7 @@ public class TestCopyAndClone {
     assertTrue( o2.getId().equals("c") == true );
     assertTrue( o2.isSetKineticLaw() == true );
     assertNotEquals(o2.getKineticLaw(),null);
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -681,6 +718,7 @@ public class TestCopyAndClone {
     assertTrue( o2.getId().equals("c") == true );
     assertTrue( o2.isSetKineticLaw() == true );
     assertNotEquals(o2.getKineticLaw(),null);
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -699,6 +737,7 @@ public class TestCopyAndClone {
     assertTrue( o2.getId().equals("c") == true );
     assertTrue( o2.isSetKineticLaw() == true );
     assertNotEquals(o2.getKineticLaw(),null);
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -715,6 +754,7 @@ public class TestCopyAndClone {
     o2 = o1;
     assertTrue( o2.getId().equals("a") == true );
     assertTrue( o2.isSetMath() == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -730,6 +770,7 @@ public class TestCopyAndClone {
     Rule o2 = ((Rule) o1.cloneObject());
     assertTrue( o2.getId().equals("a") == true );
     assertTrue( o2.isSetMath() == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -745,6 +786,7 @@ public class TestCopyAndClone {
     Rule o2 = new Rule(o1);
     assertTrue( o2.getId().equals("a") == true );
     assertTrue( o2.isSetMath() == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -808,6 +850,7 @@ public class TestCopyAndClone {
     SpeciesReference o2 = new SpeciesReference();
     o2 = o1;
     assertTrue( o2.getId().equals("c") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -819,6 +862,7 @@ public class TestCopyAndClone {
     assertTrue( o1.getId().equals("c") == true );
     SpeciesReference o2 = ((SpeciesReference) o1.cloneObject());
     assertTrue( o2.getId().equals("c") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -830,6 +874,7 @@ public class TestCopyAndClone {
     assertTrue( o1.getId().equals("c") == true );
     SpeciesReference o2 = new SpeciesReference(o1);
     assertTrue( o2.getId().equals("c") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -842,6 +887,7 @@ public class TestCopyAndClone {
     SpeciesType o2 = new SpeciesType();
     o2 = o1;
     assertTrue( o2.getId().equals("c") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -853,6 +899,7 @@ public class TestCopyAndClone {
     assertTrue( o1.getId().equals("c") == true );
     SpeciesType o2 = ((SpeciesType) o1.cloneObject());
     assertTrue( o2.getId().equals("c") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -864,6 +911,7 @@ public class TestCopyAndClone {
     assertTrue( o1.getId().equals("c") == true );
     SpeciesType o2 = new SpeciesType(o1);
     assertTrue( o2.getId().equals("c") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -879,6 +927,7 @@ public class TestCopyAndClone {
     o2 = o1;
     assertTrue( o2.getId().equals("c") == true );
     assertEquals(o2.getSpeciesType(),"c1");
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -893,6 +942,7 @@ public class TestCopyAndClone {
     Species o2 = ((Species) o1.cloneObject());
     assertTrue( o2.getId().equals("c") == true );
     assertEquals(o2.getSpeciesType(),"c1");
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -907,6 +957,7 @@ public class TestCopyAndClone {
     Species o2 = new Species(o1);
     assertTrue( o2.getId().equals("c") == true );
     assertEquals(o2.getSpeciesType(),"c1");
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -921,6 +972,7 @@ public class TestCopyAndClone {
     Trigger o2 = new Trigger();
     o2 = o1;
     assertTrue( o1.getMath() != null );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -934,6 +986,7 @@ public class TestCopyAndClone {
     assertTrue( o1.getMath() != null );
     Trigger o2 = ((Trigger) o1.cloneObject());
     assertTrue( o1.getMath() != null );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -947,6 +1000,7 @@ public class TestCopyAndClone {
     assertTrue( o1.getMath() != null );
     Trigger o2 = new Trigger(o1);
     assertTrue( o2.getMath() != null );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -959,6 +1013,7 @@ public class TestCopyAndClone {
     UnitDefinition o2 = new UnitDefinition();
     o2 = o1;
     assertTrue( o2.getId().equals("c") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -970,6 +1025,7 @@ public class TestCopyAndClone {
     assertTrue( o1.getId().equals("c") == true );
     UnitDefinition o2 = ((UnitDefinition) o1.cloneObject());
     assertTrue( o2.getId().equals("c") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -981,6 +1037,7 @@ public class TestCopyAndClone {
     assertTrue( o1.getId().equals("c") == true );
     UnitDefinition o2 = new UnitDefinition(o1);
     assertTrue( o2.getId().equals("c") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -993,6 +1050,7 @@ public class TestCopyAndClone {
     Unit o2 = new Unit();
     o2 = o1;
     assertTrue( o2.getId().equals("c") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -1004,6 +1062,7 @@ public class TestCopyAndClone {
     assertTrue( o1.getId().equals("c") == true );
     Unit o2 = ((Unit) o1.cloneObject());
     assertTrue( o2.getId().equals("c") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }
@@ -1015,6 +1074,7 @@ public class TestCopyAndClone {
     assertTrue( o1.getId().equals("c") == true );
     Unit o2 = new Unit(o1);
     assertTrue( o2.getId().equals("c") == true );
+    assertTrue( o2.getParentSBMLObject() == o1.getParentSBMLObject() );
     o2 = null;
     o1 = null;
   }

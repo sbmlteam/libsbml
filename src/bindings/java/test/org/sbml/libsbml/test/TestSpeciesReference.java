@@ -2,11 +2,12 @@
  *
  * @file    TestSpeciesReference.java
  * @brief   SpeciesReference unit tests
+ *
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id$
- * $HeadURL$
+ * $Id:$
+ * $HeadURL:$
  *
  * This test file was converted from src/sbml/test/TestSpeciesReference.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -106,7 +107,6 @@ public class TestSpeciesReference {
     }
     throw new AssertionError();
   }
-
   private SpeciesReference SR;
 
   protected void setUp() throws Exception
@@ -128,7 +128,7 @@ public class TestSpeciesReference {
     assertTrue( SR.getMetaId().equals("") == true );
     assertTrue( SR.getNotes() == null );
     assertTrue( SR.getAnnotation() == null );
-    assertEquals(SR.getSpecies(),"");
+    assertTrue( SR.getSpecies().equals("") == true );
     assertTrue( SR.getStoichiometry() == 1 );
     assertEquals(SR.getStoichiometryMath(),null);
     assertTrue( SR.getDenominator() == 1 );

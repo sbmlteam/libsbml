@@ -2,11 +2,12 @@
  *
  * @file    TestSpecies.java
  * @brief   Species unit tests
+ *
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id$
- * $HeadURL$
+ * $Id:$
+ * $HeadURL:$
  *
  * This test file was converted from src/sbml/test/TestSpecies.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -106,7 +107,6 @@ public class TestSpecies {
     }
     throw new AssertionError();
   }
-
   private Species S;
 
   protected void setUp() throws Exception
@@ -130,7 +130,7 @@ public class TestSpecies {
     assertTrue( S.getAnnotation() == null );
     assertTrue( S.getId().equals("") == true );
     assertTrue( S.getName().equals("") == true );
-    assertEquals(S.getCompartment(),"");
+    assertTrue( S.getCompartment().equals("") == true );
     assertTrue( S.getInitialAmount() == 0.0 );
     assertTrue( S.getInitialConcentration() == 0.0 );
     assertTrue( S.getSubstanceUnits().equals("") == true );
