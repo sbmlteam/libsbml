@@ -17,7 +17,7 @@
                 DelaySign = "false"
                 OutputType = "Exe"
                 PreBuildEvent = ""
-                PostBuildEvent = "set PATH=..\..\..\win32\bin;%PATH%&#xd;&#xa;.\TestRW.exe ..\..\..\examples\sample-models\from-spec\level-2"
+                PostBuildEvent = ""
                 RootNamespace = "TestRW"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = "TestLibSBMLCSharp.ReadAndWriteSBML"

@@ -72,10 +72,11 @@ extra_sources     = \
 test_dir          = test
 test_source_path  = $(test_dir)
 
-check_runner_source = TestRW.cs
+check_runner_source_cvt = TestRunner.cs Compiler.cs
+check_runner_source_man = TestRW.cs
 # Test*.cs are not implemented yet
 check_sources       = $(wildcard $(test_source_path)/Test*.cs)
-check_sources       += $(check_runner_source)
+check_sources       += $(check_runner_source_cvt) $(check_runner_source_man)
 
 csproxy_lib       = libsbmlcsP.dll
 dllimport_name    = libsbmlcs
@@ -155,13 +156,16 @@ vs2005_files = \
   CSharp_binding_win32-expat.sln CSharp_binding_win32-expat.vcproj \
   CSharp_binding_win32-libxml.sln CSharp_binding_win32-libxml.vcproj \
   CSharp_binding_TestRW.csproj CSharp_binding_cspDLL.csproj \
-  Properties/AssemblyInfo.cs
+  LibSBMLCSTestRunner-vs2005.csproj  LibSBMLCSTestRunner-vs2005.sln \
+  Properties/AssemblyInfo.cs Properties/AssemblyInfoTR.cs
 
 vs2003_files = \
   CSharp_binding_win32-xerces-vs2003.sln  CSharp_binding_win32-xerces-vs2003.vcproj \
   CSharp_binding_win32-expat-vs2003.sln CSharp_binding_win32-expat-vs2003.vcproj \
   CSharp_binding_win32-libxml-vs2003.sln CSharp_binding_win32-libxml-vs2003.vcproj \
   CSharp_binding_TestRW-vs2003.csproj CSharp_binding_cspDLL-vs2003.csproj 
+
+win_bat_files = createInclude.bat runTestRunner.bat runTestRW.bat
 
 # `distfiles' determines the files and directories included in a
 # distribution.  The strategy here is that we include the output of SWIG
@@ -170,7 +174,7 @@ vs2003_files = \
 
 distfiles   = $(sources) $(extra_sources) $(check_sources) \
   Makefile.in $(csharp_files) $(csharp_files_win) \
-  $(vs2003_files) $(vs2005_files) createInclude.bat 
+  $(vs2003_files) $(vs2005_files) $(win_bat_files)
 
 tmpfiles = $(wildcard test*.xml*)
 
@@ -377,22 +381,30 @@ clean-swigfiles: clean
 # Checking.
 # -----------------------------------------------------------------------------
 
-check_runner_exe = $(check_runner_source:.cs=.exe)
+check_runner_exe =  $(check_runner_exe_man) $(check_runner_exe_cvt) 
+check_runner_exe_man = TestRW.exe
+check_runner_exe_cvt = TestRunner.exe
 
-$(check_runner_exe): Makefile check_swigfile_consistency $(csproxy_lib) $(check_runner_source) 
-	"$(CSHARP_COMPILER)" $(CSC_OPT_EXE) $(CSC_OPT_OUTPUT)$(check_runner_exe) \
-	$(CSC_OPT_REF)$(csproxy_lib) $(check_runner_source)
+$(check_runner_exe_man): Makefile $(csproxy_lib) $(check_runner_source_man) 
+	"$(CSHARP_COMPILER)" $(CSC_OPT_EXE) $(CSC_OPT_OUTPUT)$(check_runner_exe_man) \
+	$(CSC_OPT_REF)$(csproxy_lib) $(check_runner_source_man)
 
-testsbml_dir   = ../../../examples/sample-models/from-spec/level-2
+$(check_runner_exe_cvt): Makefile $(csproxy_lib) $(check_runner_source_cvt) 
+	"$(CSHARP_COMPILER)" $(CSC_OPT_EXE) $(CSC_OPT_OUTPUT)$(check_runner_exe_cvt) \
+	$(CSC_OPT_REF)$(csproxy_lib) $(check_runner_source_cvt)
+
+testsbml_dir     = ../../../examples/sample-models/from-spec/level-2
+testdata_dir = ../../sbml/test/test-data
 testsbml_files = $(wildcard $(testsbml_dir)/*.xml)
 
 ifdef USE_LIBCHECK
-  check: $(check_runner_exe)
+  check: check_swigfile_consistency $(check_runner_exe_man) $(check_runner_exe_cvt)
 	@echo
 	@echo
 	@echo Running Tests in $(thisdir)
 	@echo -----------------------------------------------------------------
-	$(call libsbmlrun,"$(CSHARP_CILINTERPRETER)" $(check_runner_exe) $(testsbml_files))
+	$(call libsbmlrun,"$(CSHARP_CILINTERPRETER)" $(check_runner_exe_man) $(testsbml_files))
+	$(call libsbmlrun,"$(CSHARP_CILINTERPRETER)" $(check_runner_exe_cvt) ./test $(testdata_dir) ./libsbmlcsP.dll)
 	@echo -----------------------------------------------------------------
 	@echo
 else
