@@ -185,7 +185,8 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 	{
 		if (cPtr.Equals(IntPtr.Zero)) return null;
 		
-		switch( libsbmlPINVOKE.SBase_getTypeCode(new HandleRef(null, cPtr)) )
+		SBase sb = new SBase(cPtr, false);
+		switch( sb.getTypeCode() )
 		{
 			case (int) libsbml.SBML_COMPARTMENT:
 				return new Compartment(cPtr, owner);
@@ -260,7 +261,8 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 	{
 		if (cPtr.Equals(IntPtr.Zero)) return null;
 		
-                switch( libsbmlPINVOKE.SBase_getTypeCode(new HandleRef(null, cPtr)) )
+		SBase sb = new SBase(cPtr, false);
+		switch( sb.getTypeCode() )
 		{
 			case (int) libsbml.SBML_COMPARTMENT:
 				return new Compartment(cPtr, owner);
