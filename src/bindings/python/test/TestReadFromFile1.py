@@ -1,11 +1,12 @@
 #
 # @file    TestReadFromFile1.py
 # @brief   Reads tests/l1v1-branch.xml into memory and tests it.
+#
 # @author  Akiya Jouraku (Python conversion)
 # @author  Ben Bornstein 
 #
-# $Id$
-# $HeadURL$
+# $Id:$
+# $HeadURL:$
 #
 # This test file was converted from src/sbml/test/TestReadFromFile1.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -85,7 +86,7 @@ class TestReadFromFile1(unittest.TestCase):
     self.assert_( ud.getUnit(0).getExponent() == 1 )
     self.assert_( ud.getUnit(1).getKind() == libsbml.UNIT_KIND_LITRE )
     self.assert_( ud.getUnit(1).getExponent() == -1 )
-    self.assert_( r.getKineticLaw().containsUndeclaredUnits() == 1 )
+    self.assert_( r.getKineticLaw().containsUndeclaredUnits() == True )
     r = m.getReaction(1)
     self.assert_((  "reaction_2" == r.getName() ))
     self.assert_( r.getReversible() == False )

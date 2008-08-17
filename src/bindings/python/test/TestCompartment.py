@@ -1,11 +1,12 @@
 #
 # @file    TestCompartment.py
 # @brief   Compartment unit tests
+#
 # @author  Akiya Jouraku (Python conversion)
 # @author  Ben Bornstein 
 #
-# $Id$
-# $HeadURL$
+# $Id:$
+# $HeadURL:$
 #
 # This test file was converted from src/sbml/test/TestCompartment.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -24,7 +25,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 import sys
 import unittest
 import libsbml
@@ -79,7 +79,6 @@ class TestCompartment(unittest.TestCase):
     pass  
 
   def test_Compartment_free_NULL(self):
-    
     pass  
 
   def test_Compartment_getSpatialDimensions(self):
@@ -88,7 +87,7 @@ class TestCompartment(unittest.TestCase):
     pass  
 
   def test_Compartment_getsetConstant(self):
-    self.C.setConstant(1)
+    self.C.setConstant(True)
     self.assert_( self.C.getConstant() == True )
     pass  
 

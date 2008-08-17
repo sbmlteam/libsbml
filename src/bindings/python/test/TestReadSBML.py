@@ -1,11 +1,12 @@
 #
 # @file    TestReadSBML.py
 # @brief   Read SBML unit tests
+#
 # @author  Akiya Jouraku (Python conversion)
 # @author  Ben Bornstein 
 #
-# $Id$
-# $HeadURL$
+# $Id:$
+# $HeadURL:$
 #
 # This test file was converted from src/sbml/test/TestReadSBML.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -24,7 +25,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 import sys
 import unittest
 import libsbml
@@ -1084,12 +1084,7 @@ class TestReadSBML(unittest.TestCase):
   def test_ReadSBML_line_col_numbers(self):
     setXMLParser()
 
-    s = "<?xml version='1.0' encoding='UTF-8'?>\n" + \
-        "<sbml xmlns='http://www.sbml.org/sbml/level2' level='2' version='1'>\n" + \
-        "  <model id='testModel' name='testModel'>\n" + \
-        "    <listOfReactions> <reaction/> </listOfReactions>\n" + \
-        "  </model>\n" + \
-        "</sbml>\n"
+    s = "<?xml version='1.0' encoding='UTF-8'?>\n" + "<sbml xmlns='http://www.sbml.org/sbml/level2' level='2' version='1'>\n" + "  <model id='testModel' name='testModel'>\n" + "    <listOfReactions> <reaction/> </listOfReactions>\n" + "  </model>\n" + "</sbml>\n"
     self.D = libsbml.readSBMLFromString(s)
     self.M = self.D.getModel()
     self.assert_( self.M != None )

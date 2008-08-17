@@ -1,11 +1,12 @@
 #
 # @file    TestModel.py
 # @brief   SBML Model unit tests
+#
 # @author  Akiya Jouraku (Python conversion)
 # @author  Ben Bornstein 
 #
-# $Id$
-# $HeadURL$
+# $Id:$
+# $HeadURL:$
 #
 # This test file was converted from src/sbml/test/TestModel.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -24,7 +25,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 import sys
 import unittest
 import libsbml
@@ -403,7 +403,6 @@ class TestModel(unittest.TestCase):
     pass  
 
   def test_Model_free_NULL(self):
-    
     pass  
 
   def test_Model_getCompartment(self):
@@ -463,9 +462,9 @@ class TestModel(unittest.TestCase):
     s1 = libsbml.Species("s1", "c")
     s2 = libsbml.Species("s2", "c")
     s3 = libsbml.Species("s3", "c")
-    s1.setBoundaryCondition(1)
-    s2.setBoundaryCondition(0)
-    s3.setBoundaryCondition(1)
+    s1.setBoundaryCondition(True)
+    s2.setBoundaryCondition(False)
+    s3.setBoundaryCondition(True)
     self.assert_( self.M.getNumSpecies() == 0 )
     self.assert_( self.M.getNumSpeciesWithBoundaryCondition() == 0 )
     self.M.addSpecies(s1)

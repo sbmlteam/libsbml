@@ -1,11 +1,12 @@
 #
 # @file    TestConsistencyChecks.py
 # @brief   Reads test-data/inconsistent.xml into memory and tests it.
+#
 # @author  Akiya Jouraku (Python conversion)
 # @author  Sarah Keating 
 #
-# $Id$
-# $HeadURL$
+# $Id:$
+# $HeadURL:$
 #
 # This test file was converted from src/sbml/test/TestConsistencyChecks.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -24,7 +25,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 import sys
 import unittest
 import libsbml
@@ -34,7 +34,8 @@ class TestConsistencyChecks(unittest.TestCase):
 
   def test_consistency_checks(self):
     reader = libsbml.SBMLReader()
-    filename = "../../sbml/test/test-data/inconsistent.xml"
+    filename = "../../sbml/test/test-data/" 
+    filename += "inconsistent.xml"
     d = reader.readSBML(filename)
     if (d == None):
       pass    

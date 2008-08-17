@@ -1,11 +1,12 @@
 #
 # @file    TestReadFromFile3.py
 # @brief   Reads tests/l1v1-rules.xml into memory and tests it.
+#
 # @author  Akiya Jouraku (Python conversion)
 # @author  Ben Bornstein 
 #
-# $Id$
-# $HeadURL$
+# $Id:$
+# $HeadURL:$
 #
 # This test file was converted from src/sbml/test/TestReadFromFile3.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -97,13 +98,13 @@ class TestReadFromFile3(unittest.TestCase):
     self.assert_( ud.getUnit(0).getExponent() == 1 )
     self.assert_( ud.getUnit(1).getKind() == libsbml.UNIT_KIND_LITRE )
     self.assert_( ud.getUnit(1).getExponent() == -1 )
-    self.assert_( pr.containsUndeclaredUnits() == 0 )
+    self.assert_( pr.containsUndeclaredUnits() == False )
     pr = m.getRule(1)
     self.assert_((  "k" == pr.getVariable() ))
     self.assert_((  "k3/k2" == pr.getFormula() ))
     ud = pr.getDerivedUnitDefinition()
     self.assert_( ud.getNumUnits() == 0 )
-    self.assert_( pr.containsUndeclaredUnits() == 1 )
+    self.assert_( pr.containsUndeclaredUnits() == True )
     scr = m.getRule(2)
     self.assert_((  "x2" == scr.getVariable() ))
     self.assert_((  "k * (s1+s2)/(1 + k)" == scr.getFormula() ))

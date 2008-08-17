@@ -1,11 +1,12 @@
 #
 # @file    TestConstraint.py
 # @brief   SBML Constraint unit tests
+#
 # @author  Akiya Jouraku (Python conversion)
 # @author  Sarah Keating 
 #
-# $Id$
-# $HeadURL$
+# $Id:$
+# $HeadURL:$
 #
 # This test file was converted from src/sbml/test/TestConstraint.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -24,7 +25,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 import sys
 import unittest
 import libsbml
@@ -64,7 +64,6 @@ class TestConstraint(unittest.TestCase):
     pass  
 
   def test_Constraint_free_NULL(self):
-    
     pass  
 
   def test_Constraint_setMath(self):
@@ -88,6 +87,8 @@ class TestConstraint(unittest.TestCase):
     self.assert_( self.C.isSetMessage() == True )
     self.C.setMessage(self.C.getMessage())
     self.assert_( self.C.getMessage() != node )
+    self.assert_( self.C.getMessageString() != None )
+    self.assert_( ( "" != self.C.getMessageString() ) == False )
     self.C.unsetMessage()
     self.assertEqual( False, self.C.isSetMessage() )
     if (self.C.getMessage() != None):

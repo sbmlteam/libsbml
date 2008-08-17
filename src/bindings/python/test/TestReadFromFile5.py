@@ -1,11 +1,12 @@
 #
 # @file    TestReadFromFile5.py
 # @brief   Reads test-data/l2v1-assignment.xml into memory and tests it.
+#
 # @author  Akiya Jouraku (Python conversion)
 # @author  Ben Bornstein 
 #
-# $Id$
-# $HeadURL$
+# $Id:$
+# $HeadURL:$
 #
 # This test file was converted from src/sbml/test/TestReadFromFile5.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -93,7 +94,7 @@ class TestReadFromFile5(unittest.TestCase):
     self.assert_( ud.getUnit(0).getExponent() == 1 )
     self.assert_( ud.getUnit(1).getKind() == libsbml.UNIT_KIND_LITRE )
     self.assert_( ud.getUnit(1).getExponent() == -1 )
-    self.assert_( ar.containsUndeclaredUnits() == 1 )
+    self.assert_( ar.containsUndeclaredUnits() == True )
     ar = m.getRule(1)
     self.assert_( ar != None )
     self.assert_( ar.getVariable() == "S2" )
@@ -114,10 +115,19 @@ class TestReadFromFile5(unittest.TestCase):
     self.assert_( kl != None )
     self.assert_( kl.getFormula() == "k1 * X0" )
     self.assert_( kl.getNumParameters() == 1 )
+    r1 = kl.getParentSBMLObject()
+    self.assert_( r1 != None )
+    self.assert_( r1.getId() == "in" )
+    self.assert_( r1.getNumReactants() == 1 )
+    self.assert_( r1.getNumProducts() == 1 )
     p = kl.getParameter(0)
     self.assert_( p != None )
     self.assert_( p.getId() == "k1" )
     self.assert_( p.getValue() == 0.1 )
+    kl = p.getParentSBMLObject().getParentSBMLObject()
+    self.assert_( kl != None )
+    self.assert_( kl.getFormula() == "k1 * X0" )
+    self.assert_( kl.getNumParameters() == 1 )
     r = m.getReaction(1)
     self.assert_( r != None )
     self.assert_( r.getId() == "out" )

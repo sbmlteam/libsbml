@@ -1,11 +1,12 @@
 #
 # @file    TestWriteSBML.py
 # @brief   Write SBML unit tests
+#
 # @author  Akiya Jouraku (Python conversion)
 # @author  Ben Bornstein 
 #
-# $Id$
-# $HeadURL$
+# $Id:$
+# $HeadURL:$
 #
 # This test file was converted from src/sbml/test/TestWriteSBML.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -24,7 +25,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 import sys
 import unittest
 import libsbml
@@ -1030,6 +1030,38 @@ class TestWriteSBML(unittest.TestCase):
     self.assertEqual( True, self.equals(expected) )
     pass  
 
+  def test_WriteSBML_bzip2(self):
+    file = []
+    file.append("../../../examples/sample-models/from-spec/level-2/algebraicrules.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/assignmentrules.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/boundarycondition.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/delay.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/dimerization.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/enzymekinetics.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/events.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/functiondef.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/multicomp.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/overdetermined.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/twodimensional.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/units.xml")
+
+    bz2file = "test.xml.bz2"
+    for f in file:
+      d = libsbml.readSBML(f)
+      self.assert_( d != None )
+      if not libsbml.SBMLWriter.hasBzip2():
+        self.assert_( libsbml.writeSBML(d,bz2file) == 0 )
+        d = None
+        continue
+      result = libsbml.writeSBML(d,bz2file)
+      self.assertEqual( 1, result )
+      dg = libsbml.readSBML(bz2file)
+      self.assert_( dg != None )
+      self.assert_( ( dg.toSBML() != d.toSBML() ) == False )
+      d = None
+      dg = None
+    pass
+
   def test_WriteSBML_error(self):
     d = libsbml.SBMLDocument()
     w = libsbml.SBMLWriter()
@@ -1040,12 +1072,76 @@ class TestWriteSBML(unittest.TestCase):
     w = None
     pass  
 
+  def test_WriteSBML_gzip(self):
+    file = []
+    file.append("../../../examples/sample-models/from-spec/level-2/algebraicrules.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/assignmentrules.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/boundarycondition.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/delay.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/dimerization.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/enzymekinetics.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/events.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/functiondef.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/multicomp.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/overdetermined.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/twodimensional.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/units.xml")
+
+    gzfile = "test.xml.gz"
+    for f in file:
+      d = libsbml.readSBML(f)
+      self.assert_( d != None )
+      if not libsbml.SBMLWriter.hasZlib():
+        self.assert_( libsbml.writeSBML(d,gzfile) == 0 )
+        d = None
+        continue
+      result = libsbml.writeSBML(d,gzfile)
+      self.assertEqual( 1, result )
+      dg = libsbml.readSBML(gzfile)
+      self.assert_( dg != None )
+      self.assert_( ( dg.toSBML() != d.toSBML() ) == False )
+      d = None
+      dg = None
+    pass
+
   def test_WriteSBML_locale(self):
     expected = wrapXML("<parameter id=\"p\" value=\"3.31\"/>")
     p = libsbml.Parameter("p",3.31)
     p.write(self.XOS)
     self.assertEqual( True, self.equals(expected) )
     pass  
+
+  def test_WriteSBML_zip(self):
+    file = []
+    file.append("../../../examples/sample-models/from-spec/level-2/algebraicrules.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/assignmentrules.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/boundarycondition.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/delay.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/dimerization.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/enzymekinetics.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/events.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/functiondef.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/multicomp.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/overdetermined.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/twodimensional.xml")
+    file.append("../../../examples/sample-models/from-spec/level-2/units.xml")
+
+    zipfile = "test.xml.zip"
+    for f in file:
+      d = libsbml.readSBML(f)
+      self.assert_( d != None )
+      if not libsbml.SBMLWriter.hasZlib():
+        self.assert_( libsbml.writeSBML(d,zipfile) == 0 )
+        d = None
+        continue
+      result = libsbml.writeSBML(d,zipfile)
+      self.assertEqual( 1, result )
+      dg = libsbml.readSBML(zipfile)
+      self.assert_( dg != None )
+      self.assert_( ( dg.toSBML() != d.toSBML() ) == False )
+      d = None
+      dg = None
+    pass
 
 def suite():
   suite = unittest.TestSuite()

@@ -1,11 +1,12 @@
 #
 # @file    TestKineticLaw.py
 # @brief   SBML KineticLaw unit tests
+#
 # @author  Akiya Jouraku (Python conversion)
 # @author  Ben Bornstein 
 #
-# $Id$
-# $HeadURL$
+# $Id:$
+# $HeadURL:$
 #
 # This test file was converted from src/sbml/test/TestKineticLaw.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -24,7 +25,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 import sys
 import unittest
 import libsbml
@@ -106,7 +106,6 @@ class TestKineticLaw(unittest.TestCase):
     pass  
 
   def test_KineticLaw_free_NULL(self):
-    
     pass  
 
   def test_KineticLaw_getParameter(self):
@@ -147,6 +146,13 @@ class TestKineticLaw(unittest.TestCase):
     self.assert_((  "k2" == k2.getId() ))
     self.assert_( k1.getValue() == 3.14 )
     self.assert_( k2.getValue() == 2.72 )
+    pass  
+
+  def test_KineticLaw_setBadFormula(self):
+    formula = "k1 X0"
+    self.KL.setFormula(formula)
+    self.assertEqual( True, self.KL.isSetFormula() )
+    self.assertEqual( False, self.KL.isSetMath() )
     pass  
 
   def test_KineticLaw_setFormula(self):

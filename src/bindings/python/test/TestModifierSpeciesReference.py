@@ -1,11 +1,12 @@
 #
 # @file    TestModifierSpeciesReference.py
 # @brief   ModifierSpeciesReference unit tests
+#
 # @author  Akiya Jouraku (Python conversion)
 # @author  Ben Bornstein 
 #
-# $Id$
-# $HeadURL$
+# $Id:$
+# $HeadURL:$
 #
 # This test file was converted from src/sbml/test/TestModifierSpeciesReference.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -24,7 +25,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 import sys
 import unittest
 import libsbml
@@ -54,7 +54,6 @@ class TestModifierSpeciesReference(unittest.TestCase):
     pass  
 
   def test_ModifierSpeciesReference_free_NULL(self):
-    
     pass  
 
   def test_ModifierSpeciesReference_setSpecies(self):

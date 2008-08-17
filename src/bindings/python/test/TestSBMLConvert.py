@@ -1,11 +1,12 @@
 #
 # @file    TestSBMLConvert.py
 # @brief   SBMLConvert unit tests
+#
 # @author  Akiya Jouraku (Python conversion)
 # @author  Ben Bornstein 
 #
-# $Id$
-# $HeadURL$
+# $Id:$
+# $HeadURL:$
 #
 # This test file was converted from src/sbml/test/TestSBMLConvert.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -24,7 +25,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 import sys
 import unittest
 import libsbml
@@ -36,7 +36,7 @@ class TestSBMLConvert(unittest.TestCase):
     d = libsbml.SBMLDocument(1,2)
     m = d.createModel()
     kl = libsbml.KineticLaw("k1*S1*S2*S3*S4*S5")
-    r = libsbml.Reaction("R", "",kl,1)
+    r = libsbml.Reaction("R", "",kl,False)
     m.addSpecies(libsbml.Species("S1", ""))
     m.addSpecies(libsbml.Species("S2", ""))
     m.addSpecies(libsbml.Species("S3", ""))

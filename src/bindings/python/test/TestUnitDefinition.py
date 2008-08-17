@@ -1,11 +1,12 @@
 #
 # @file    TestUnitDefinition.py
 # @brief   SBML UnitDefinition unit tests
+#
 # @author  Akiya Jouraku (Python conversion)
 # @author  Ben Bornstein 
 #
-# $Id$
-# $HeadURL$
+# $Id:$
+# $HeadURL:$
 #
 # This test file was converted from src/sbml/test/TestUnitDefinition.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -24,7 +25,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 import sys
 import unittest
 import libsbml
@@ -89,7 +89,6 @@ class TestUnitDefinition(unittest.TestCase):
     pass  
 
   def test_UnitDefinition_free_NULL(self):
-    
     pass  
 
   def test_UnitDefinition_getUnit(self):

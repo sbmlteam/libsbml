@@ -1,11 +1,12 @@
 #
 # @file    TestReaction.py
 # @brief   SBML Reaction unit tests
+#
 # @author  Akiya Jouraku (Python conversion)
 # @author  Ben Bornstein 
 #
-# $Id$
-# $HeadURL$
+# $Id:$
+# $HeadURL:$
 #
 # This test file was converted from src/sbml/test/TestReaction.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -24,7 +25,6 @@
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
 #--------------------------------------------------------------------------->*/
-#
 import sys
 import unittest
 import libsbml
@@ -88,8 +88,8 @@ class TestReaction(unittest.TestCase):
 
   def test_Reaction_createWith(self):
     kl = libsbml.KineticLaw()
-    r = libsbml.Reaction("r1", "",kl,0)
-    r.setFast(1)
+    r = libsbml.Reaction("r1", "",kl,False)
+    r.setFast(True)
     self.assert_( r.getTypeCode() == libsbml.SBML_REACTION )
     self.assert_( r.getMetaId() == "" )
     self.assert_( r.getNotes() == None )
@@ -109,7 +109,6 @@ class TestReaction(unittest.TestCase):
     pass  
 
   def test_Reaction_free_NULL(self):
-    
     pass  
 
   def test_Reaction_getModifier(self):
