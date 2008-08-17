@@ -153,6 +153,7 @@ namespace LibSBMLCSExample
             if (severity == libsbml.LIBSBML_SEV_ERROR || severity == libsbml.LIBSBML_SEV_FATAL )
             {
               ++numCCErrors;
+              ++NumErrors;
             }
             else {
               ++numCCWarnings;

@@ -83,6 +83,7 @@ class validateSBML:
           severity = sbmlDoc.getError(i).getSeverity()
           if (severity == libsbml.LIBSBML_SEV_ERROR) or (severity == libsbml.LIBSBML_SEV_FATAL):
             numCCErr += 1
+            self.numerrors += 1;    
           else:
             numCCWarn += 1
 
