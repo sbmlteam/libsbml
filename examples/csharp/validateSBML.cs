@@ -30,12 +30,14 @@ namespace LibSBMLCSExample
       {
         string myname = Path.GetFileName(Environment.GetCommandLineArgs()[0]);
         Console.WriteLine("Usage: {0} [-u] inputFile1 [inputFile2 ...]", myname);
+        Console.WriteLine("  -u : skips unit consistency check");
         Environment.Exit(1);
       }
       else if ( args.Length == 1 && args[0] == "-u" )
       {
         string myname = Path.GetFileName(Environment.GetCommandLineArgs()[0]);
         Console.WriteLine("Usage: {0} [-u] inputFile1 [inputFile2 ...]", myname);
+        Console.WriteLine("  -u : skips unit consistency check");
         Environment.Exit(1);
       }
 
@@ -187,7 +189,7 @@ namespace LibSBMLCSExample
         }
         if ( errMsgCC != "")
         {
-          Console.WriteLine("*** consistency check***\n");
+          Console.WriteLine("*** consistency check ***\n");
           Console.WriteLine(errMsgCC);
         }
       }
