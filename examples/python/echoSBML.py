@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 ##
 ## @file    echoSBML.py
 ## @brief   Echos an SBML model.

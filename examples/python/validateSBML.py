@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 ##
 ## @file    validateSBML.py
 ## @brief   Validates one or more SBML files
@@ -127,7 +128,8 @@ class validateSBML:
 
 
 def main (args):
-  """usage: validateSBML.py inputfile1 [inputfile2 ...]
+  """usage: validateSBML.py [-u] inputfile1 [inputfile2 ...]
+  -u  skips unit consistency check
   """
   if len(args) < 2:
     print main.__doc__
