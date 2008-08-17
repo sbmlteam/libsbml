@@ -42,10 +42,34 @@ AC_DEFUN([CONFIG_LIB_XERCES],
 
     if test $with_xerces != yes; then
       xerces_root="$with_xerces"
-      CONFIG_ADD_LDPATH($xerces_root/lib)
+      xerces_lib_path=$xerces_root/lib
+      CONFIG_ADD_LDPATH($xerces_lib_path)
 
       XERCES_CPPFLAGS="-I$xerces_root/include"
-      XERCES_LDFLAGS="-L$xerces_root/lib"
+      XERCES_LDFLAGS="-L$xerces_lib_path"
+    else
+      dnl On the Macs, if the user has installed xerces via Fink and they
+      dnl used the default Fink install path of /sw, the following should
+      dnl catch it.  We do this so that Mac users are more likely to find
+      dnl success even if they only type --with-xerces.
+
+      dnl This is a case statement in case we need to do something similar
+      dnl for other host types in the future.
+
+      case $host in
+      *darwin*) 
+        if test -e "/sw"; then
+          xerces_root="/sw"
+          xerces_lib_path="/sw/lib"
+          CONFIG_ADD_LDPATH($xerces_lib_path)
+          XERCES_CPPFLAGS="-I$xerces_root/include"
+          XERCES_LDFLAGS="-L$xerces_lib_path"
+        fi
+	;;
+      esac    
+
+      dnl Note that CONFIG_ADD_LDPATH is deliberately not called in cases
+      dnl other than the two above.
     fi
 
     XERCES_LIBS="-lxerces-c"
@@ -62,6 +86,23 @@ AC_DEFUN([CONFIG_LIB_XERCES],
 
     AC_CHECK_HEADER([xercesc/util/XercesVersion.hpp],,
 	AC_MSG_ERROR([unable to find Xerces-C++ header files]))
+
+    # Set up LD_LIBRARY_PATH/DYLD_LIBRARY_PATH for compiling the
+    # test program below
+
+    tmp_library_path=""
+    case $host in
+    *darwin*) 
+      tmp_library_path="$DYLD_LIBRARY_PATH"
+      DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH;$xerces_lib_path"
+      export DYLD_LIBRARY_PATH
+      ;;
+    *)
+      tmp_library_path="$LD_LIBRARY_PATH"
+      LD_LIBRARY_PATH="$LD_LIBRARY_PATH;$xerces_lib_path"
+      export LD_LIBRARY_PATH
+      ;;
+    esac    
 
     AC_MSG_CHECKING([Xerces-C++ library version])
     AC_PREPROC_IFELSE(
@@ -93,6 +134,16 @@ exit(0);
     CPPFLAGS=$tmp_CPPFLAGS
     LDFLAGS=$tmp_LDFLAGS
     LIBS=$tmp_LIBS
+    case $host in
+    *darwin*) 
+      DYLD_LIBRARY_PATH=$tmp_library_path
+      export DYLD_LIBRARY_PATH
+      ;;
+    *)
+      LD_LIBRARY_PATH=$tmp_library_path
+      export LD_LIBRARY_PATH
+      ;;
+    esac    
 
     AC_LANG_POP
 

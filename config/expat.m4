@@ -43,10 +43,11 @@ AC_DEFUN([CONFIG_LIB_EXPAT],
 
     if test $with_expat != yes; then
       expat_root="$with_expat"
-      CONFIG_ADD_LDPATH($expat_root/lib)
+      expat_lib_path=$expat_root/lib
+      CONFIG_ADD_LDPATH($expat_lib_path)
 
       EXPAT_CPPFLAGS="-I$expat_root/include"
-      EXPAT_LDFLAGS="-L$expat_root/lib"
+      EXPAT_LDFLAGS="-L$expat_lib_path"
     else
       dnl On the Macs, if the user has installed expat via Fink and they
       dnl used the default Fink install path of /sw, the following should
@@ -60,9 +61,10 @@ AC_DEFUN([CONFIG_LIB_EXPAT],
       *darwin*) 
         if test -e "/sw"; then
           expat_root="/sw"
-          CONFIG_ADD_LDPATH($expat_root/lib)
+          expat_lib_path="/sw/lib"
+          CONFIG_ADD_LDPATH($expat_lib_path)
           EXPAT_CPPFLAGS="-I$expat_root/include"
-          EXPAT_LDFLAGS="-L$expat_root/lib"
+          EXPAT_LDFLAGS="-L$expat_lib_path"
         fi
 	;;
       esac    
@@ -99,6 +101,23 @@ AC_DEFUN([CONFIG_LIB_EXPAT],
 
     min_expat_version=ifelse([$1], ,1.95.8,$1)
     AC_MSG_CHECKING(for Expat version >= $min_expat_version)
+
+    # Set up LD_LIBRARY_PATH/DYLD_LIBRARY_PATH for compiling the
+    # test program below
+
+    tmp_library_path=""
+    case $host in
+    *darwin*) 
+      tmp_library_path="$DYLD_LIBRARY_PATH"
+      DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH;$expat_lib_path"
+      export DYLD_LIBRARY_PATH
+      ;;
+    *)
+      tmp_library_path="$LD_LIBRARY_PATH"
+      LD_LIBRARY_PATH="$LD_LIBRARY_PATH;$expat_lib_path"
+      export LD_LIBRARY_PATH
+      ;;
+    esac    
 
     dnl The next bit of code is based on libcheck.m4, which in turn
     dnl was stolen from someone else....
@@ -214,6 +233,16 @@ int main ()
     CPPFLAGS=$tmp_CPPFLAGS
     LDFLAGS=$tmp_LDFLAGS
     LIBS="$tmp_LIBS"
+    case $host in
+    *darwin*) 
+      DYLD_LIBRARY_PATH=$tmp_library_path
+      export DYLD_LIBRARY_PATH
+      ;;
+    *)
+      LD_LIBRARY_PATH=$tmp_library_path
+      export LD_LIBRARY_PATH
+      ;;
+    esac    
 
     AC_LANG_POP(C)
 

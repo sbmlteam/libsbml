@@ -54,6 +54,8 @@ AC_DEFUN([CONFIG_LIB_LIBXML],
       fi
     fi
 
+    libxml_lib_path=$with_libxml/lib
+
     ac_save_CPPFLAGS="$CPPFLAGS"
     ac_save_LIBS="$LIBS"
 
@@ -81,6 +83,23 @@ AC_DEFUN([CONFIG_LIB_LIBXML],
 
       CPPFLAGS="$CPPFLAGS $LIBXML_CPPFLAGS"
       LIBS="$LIBXML_LIBS $LIBS"
+
+      # Set up LD_LIBRARY_PATH/DYLD_LIBRARY_PATH for compiling the
+      # test program below
+
+      tmp_library_path=""
+      case $host in
+      *darwin*) 
+        tmp_library_path="$DYLD_LIBRARY_PATH"
+        DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH;$libxml_lib_path"
+        export DYLD_LIBRARY_PATH
+        ;;
+      *)
+        tmp_library_path="$LD_LIBRARY_PATH"
+        LD_LIBRARY_PATH="$LD_LIBRARY_PATH;$libxml_lib_path"
+        export LD_LIBRARY_PATH
+        ;;
+      esac    
 
       dnl Now check if the installed libxml is sufficiently new.
       dnl (Also sanity checks the results of xml2-config to some extent)
@@ -225,6 +244,16 @@ main()
 
     CPPFLAGS="$ac_save_CPPFLAGS"
     LIBS="$ac_save_LIBS"
+    case $host in
+    *darwin*) 
+      DYLD_LIBRARY_PATH=$tmp_library_path
+      export DYLD_LIBRARY_PATH
+      ;;
+    *)
+      LD_LIBRARY_PATH=$tmp_library_path
+      export LD_LIBRARY_PATH
+      ;;
+    esac    
 
     AC_DEFINE([USE_LIBXML], 1, [Define to 1 to use the libxml2 XML library])
     AC_SUBST(USE_LIBXML, 1)

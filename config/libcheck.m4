@@ -32,9 +32,10 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
 
     if test $with_libcheck != yes; then
       libcheck_root="$with_libcheck"
-      CONFIG_ADD_LDPATH($libcheck_root/lib)
+      libcheck_lib_path=$libcheck_root/lib
+      CONFIG_ADD_LDPATH($libcheck_lib_path)
       LIBCHECK_CPPFLAGS="-I$libcheck_root/include"
-      LIBCHECK_LDFLAGS="-L$libcheck_root/lib"
+      LIBCHECK_LDFLAGS="-L$libcheck_lib_path"
     else
       dnl On the Macs, if the user has installed libcheck via Fink and they
       dnl used the default Fink install path of /sw, the following should
@@ -48,9 +49,10 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
       *darwin*) 
         if test -e "/sw"; then
           libcheck_root="/sw"
-          CONFIG_ADD_LDPATH($libcheck_root/lib)
+          libcheck_lib_path="/sw/lib"
+          CONFIG_ADD_LDPATH($libcheck_lib_path)
           LIBCHECK_CPPFLAGS="-I$libcheck_root/include"
-          LIBCHECK_LDFLAGS="-L$libcheck_root/lib"
+          LIBCHECK_LDFLAGS="-L$libcheck_lib_path"
         fi
         ;;
       esac    
@@ -83,6 +85,23 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
     if test $libcheck_found = no; then
       AC_MSG_ERROR([Could not find the libcheck library.])
     fi
+
+    # Set up LD_LIBRARY_PATH/DYLD_LIBRARY_PATH for compiling the
+    # test program below
+
+    tmp_library_path=""
+    case $host in
+    *darwin*) 
+      tmp_library_path="$DYLD_LIBRARY_PATH"
+      DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH;$libcheck_lib_path"
+      export DYLD_LIBRARY_PATH
+      ;;
+    *)
+      tmp_library_path="$LD_LIBRARY_PATH"
+      LD_LIBRARY_PATH="$LD_LIBRARY_PATH;$libcheck_lib_path"
+      export LD_LIBRARY_PATH
+      ;;
+    esac    
 
     min_check_version=ifelse([$1], ,0.9.2,$1)
     AC_MSG_CHECKING(for Check version >= $min_check_version)
@@ -194,6 +213,16 @@ int main ()
     CFLAGS="$tmp_CFLAGS"
     LDFLAGS="$tmp_LDFLAGS"
     LIBS="$tmp_LIBS"
+    case $host in
+    *darwin*) 
+      DYLD_LIBRARY_PATH=$tmp_library_path
+      export DYLD_LIBRARY_PATH
+      ;;
+    *)
+      LD_LIBRARY_PATH=$tmp_library_path
+      export LD_LIBRARY_PATH
+      ;;
+    esac    
 
     AC_LANG_POP(C)
 
