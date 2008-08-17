@@ -8,3 +8,6 @@ TAGS
 CTAGS
 libsbml.pc
 *.o
+java-files
+*.jnilib
+*.jar
