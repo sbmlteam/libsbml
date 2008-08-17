@@ -82,62 +82,57 @@ namespace LibSBMLCSExample
       }
 
       SBMLDocument sbmlDoc;
-      long start, stop, rtime;
+      long start, stop;
+      double timeRead;
 
-      start   = System.DateTime.UtcNow.ToFileTimeUtc();
-      sbmlDoc = libsbml.readSBML(inputFile);
-      stop    = System.DateTime.UtcNow.ToFileTimeUtc();
-      rtime   = (stop - start)/1000;
+      start    = System.DateTime.UtcNow.ToFileTimeUtc();
+      sbmlDoc  = libsbml.readSBML(inputFile);
+      stop     = System.DateTime.UtcNow.ToFileTimeUtc();
+      timeRead = (double)(stop - start)/10000;
 
       long errors = sbmlDoc.getNumErrors();
       FileInfo fi = new FileInfo(inputFile);
 
-      Console.WriteLine("               filename: {0}", inputFile);
-      Console.WriteLine("       file size (byte): {0}", fi.Length);
-      Console.WriteLine("         read time (ms): {0}", rtime    );
+      bool   seriousErrors   = false;
+      long   numReadErrors   = 0;
+      long   numReadWarnings = 0;
+      string errMsgRead      = "";
 
-      bool seriousErrors = false;
-  
       if (errors > 0 )
       {
-        long numErrors   = 0;
-        long numWarnings = 0;
-
         for (int i = 0; i < errors; i++)
         {
           long severity = sbmlDoc.getError(i).getSeverity();
           if (severity == libsbml.LIBSBML_SEV_ERROR || severity == libsbml.LIBSBML_SEV_FATAL )
           {
             seriousErrors = true;
-            ++numErrors;
+            ++numReadErrors;
           }
           else {
-            ++numWarnings;
+            ++numReadWarnings;
           }
         }
 
-        if (numErrors > 0 )
-        {
-          Console.WriteLine("    validation error(s): {0}", numErrors);
-        }
-
-        if (numWarnings > 0 )
-        {
-          Console.WriteLine("  validation warning(s): {0}", numWarnings);
-        }
-
-        Console.WriteLine();
-        sbmlDoc.printErrors(libsbml.cout);
+        OStringStream oss = new OStringStream();
+        sbmlDoc.printErrors(oss);
+        errMsgRead = oss.str();     
       }
-
 
       // If serious errors are encountered while reading an SBML document, it
       // does not make sense to go on and do full consistency checking because
       // the model may be nonsense in the first place.
 
+
+      long   numCCErrors   = 0;
+      long   numCCWarnings = 0;
+      string errMsgCC      = "";
+      bool   skipCC        = false;
+      double timeCC        = 0.0;  
+
       if (seriousErrors)  
       {
-        Console.WriteLine("Further consistency checking and validation aborted.\n");
+        skipCC = true;
+        errMsgRead += "Further consistency checking and validation aborted.";
         ++NumErrors;
       }
       else
@@ -148,45 +143,54 @@ namespace LibSBMLCSExample
         start    = System.DateTime.UtcNow.ToFileTimeUtc();
         failures = sbmlDoc.checkConsistency();
         stop     = System.DateTime.UtcNow.ToFileTimeUtc();
-        rtime    = (stop - start)/1000;
+        timeCC    = (double)(stop - start)/10000;
   
-        Console.WriteLine("      c-check time (ms): {0}", rtime    );
-
         if (failures > 0)
         {
-          long numErrors   = 0;
-          long numWarnings = 0;
-
           for (int i = 0; i < failures; i++)
           {
             long severity = sbmlDoc.getError(i).getSeverity();
             if (severity == libsbml.LIBSBML_SEV_ERROR || severity == libsbml.LIBSBML_SEV_FATAL )
             {
-              ++numErrors;
+              ++numCCErrors;
             }
             else {
-              ++numWarnings;
+              ++numCCWarnings;
             }
           }
 
-          if (numErrors > 0 )
-          {
-            Console.WriteLine("   consistency error(s): {0}", numErrors);
-          }
-
-          if (numWarnings > 0 )
-          {
-            Console.WriteLine(" consistency warning(s): {0}", numWarnings);
-          }
-
-          Console.WriteLine();
-          sbmlDoc.printErrors(libsbml.cout);
-        }
-        else
-        {
-          Console.WriteLine("                 errors: 0");
+          OStringStream oss = new OStringStream();
+          sbmlDoc.printErrors(oss);
+          errMsgCC = oss.str();     
         }
       }
+
+      //
+      // print results
+      //
+
+      Console.WriteLine("               filename : {0}", inputFile);
+      Console.WriteLine("       file size (byte) : {0}", fi.Length);
+      Console.WriteLine("         read time (ms) : {0}", timeRead    );
+      Console.WriteLine("      c-check time (ms) : {0}", ( skipCC ? "skipped" : timeCC.ToString()       ));
+      Console.WriteLine("    validation error(s) : {0}", numReadErrors   + numCCErrors  );
+      Console.WriteLine("  (consistency error(s)): {0}", ( skipCC ? "skipped" : numCCErrors.ToString()   ));
+      Console.WriteLine("  validation warning(s) : {0}", numReadWarnings + numCCWarnings);
+      Console.WriteLine("(consistency warning(s)): {0}", ( skipCC ? "skipped" : numCCWarnings.ToString() ));
+      if ( errMsgRead != ""  || errMsgCC != "")
+      {
+        Console.WriteLine("\n===== validation error/warning messages =====\n"); 
+        if ( errMsgRead != "")
+        {
+          Console.WriteLine(errMsgRead);
+        }
+        if ( errMsgCC != "")
+        {
+          Console.WriteLine("*** consistency check***\n");
+          Console.WriteLine(errMsgCC);
+        }
+      }
+
     }
   
   }
