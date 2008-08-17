@@ -79,16 +79,20 @@ AC_DEFUN([CONFIG_LIB_BZ2],
                   LIBS="${LIBS} ${BZ2_LIBS}"
   		AC_TRY_LINK_FUNC(BZ2_bzopen, AC_DEFINE(HAVE_BZ2),
   			[
-  				AC_MSG_ERROR([*** bzip2 missing - please install first or check config.log ***])
+                          AC_MSG_ERROR([*** bzip2 missing - please install bzip2 first or check config.log.
+                  *** Please run the configure command with "--with-bzip2=no" option if you
+                  *** want to build libSBML without support for bzip2 compressed SBML file.])
   			]
   		)
   	]
      )
   
     AC_CHECK_HEADER([bzlib.h], ,
-                     AC_MSG_ERROR(
-                       [*** bzlib.h missing - please install first or check config.log ***]
-                     )
+  			[
+                          AC_MSG_ERROR([*** bzlib.h missing - please install bzip2 first or check config.log.
+                  *** Please run the configure command with "--with-bzip2=no" option if you
+                  *** want to build libSBML without support for bzip2 compressed SBML file.])
+  			]
     )
   
     CPPFLAGS=$saved_CPPFLAGS

@@ -79,16 +79,20 @@ AC_DEFUN([CONFIG_LIB_ZLIB],
                   LIBS="${LIBS} ${ZLIB_LIBS}"
   		AC_TRY_LINK_FUNC(deflate, AC_DEFINE(HAVE_LIBZ),
   			[
-  				AC_MSG_ERROR([*** zlib missing - please install first or check config.log ***])
+                          AC_MSG_ERROR([*** zlib missing - please install zlib first or check config.log.
+                  *** Please run the configure command with "--with-zlib=no" option if you 
+                  *** want to build libSBML without support for gzip/zip compressed SBML file.])
   			]
   		)
   	]
      )
   
     AC_CHECK_HEADER([zlib.h], ,
-                     AC_MSG_ERROR(
-                       [*** zlib.h missing - please install first or check config.log ***]
-                     )
+                    [
+                      AC_MSG_ERROR([*** zlib.h missing - please install zlib first or check config.log.
+                  *** Please run the configure command with "--with-zlib=no" option if you 
+                  *** want to build libSBML without support for gzip/zip compressed SBML file.])
+                    ]
     )
   
     AC_ARG_WITH(zlib-version-check,
