@@ -123,11 +123,11 @@ namespace LibSBMLCSExample
 
         if (numWarnings > 0 )
         {
-          Console.WriteLine("  validation warning(s): {0}", numErrors);
+          Console.WriteLine("  validation warning(s): {0}", numWarnings);
         }
 
         Console.WriteLine();
-        sbmlDoc.printErrors();
+        sbmlDoc.printErrors(libsbml.cout);
       }
 
 
@@ -180,7 +180,7 @@ namespace LibSBMLCSExample
           }
 
           Console.WriteLine();
-          sbmlDoc.printErrors();
+          sbmlDoc.printErrors(libsbml.cout);
         }
         else
         {
