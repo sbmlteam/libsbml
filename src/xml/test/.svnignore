@@ -8,3 +8,4 @@ TestRunner
 TAGS
 CTAGS
 *.o
+out.xml
