@@ -2,11 +2,11 @@
                             l i b S B M L
 
                    Ben Bornstein and Sarah Keating
-           with contributions from (in alphabetical order)
-      Bill Denney, Christoph Flamm, Akira Funahashi, Mike Hucka,
-     Ralph Gauges, Martin Ginkel, Alex Gutteridge, Stefan Hoops,
-     Akiya Jouraku, Ben Kovitz, Rainer Machne, Nicolas Rodriguez,
-                           and many others.
+           with contributions from (in alphabetical order):
+      Frank Bergmann, Bill Denney, Christoph Flamm, Akira Funahashi,
+	 Mike Hucka, Ralph Gauges, Martin Ginkel, Alex Gutteridge,
+	  Stefan Hoops, Akiya Jouraku, Ben Kovitz, Rainer Machne,
+		    Nicolas Rodriguez, and many others.
 
         More information about libSBML is available online at
                    http://sbml.org/Software/libSBML
@@ -190,11 +190,16 @@ Feature Highlights:
   format of providing getters and setters for each variable stored
   within the class.
       
-* Interfaces for C, C++, Java, Lisp, Python, Perl, MATLAB, Ruby and
-  Octave.  C and C++ interfaces are implemented natively; the Java,
-  Perl, Python, and Ruby interfaces are implemented using SWIG, the
-  Simplified Wrapper Interface Generator; and the rest are implemented
-  using custom hand-written interface code.
+* Interfaces for C, C++, C#, Java, Lisp, Python, Perl, MATLAB, Ruby
+  and Octave.  The C and C++ interfaces are implemented natively; the
+  Java, Perl, Python, and Ruby interfaces are implemented using SWIG,
+  the Simplified Wrapper Interface Generator; and the rest are
+  implemented using custom hand-written interface code.
+
+* Support for compressed SBML files.  If an SBML file name ends in
+  .gz, .zip or .bz2, libSBML will automatically uncompress the file
+  upon reading it.  Similarly, if the file to be written has one of
+  those extensions, libSBML will write it out in compressed form.
 
 * Well tested: version 3.0.0 has over 1280 unit tests and 5800
   individual assertions.  The entire library was written using the
