@@ -1134,15 +1134,9 @@ SWIGCS_EQUALS(XMLInputStream)
 
 %}
 
-%pragma(cs) modulecode =
+%pragma(csharp) modulecode =
 %{
-	public static const OStream cout;
-	public static const OStream cerr;
-	public static const OStream clog;
-	
-	static {
-		cout = new OStream(OStream.COUT); 
-		cerr = new OStream(OStream.CERR); 
-		clog = new OStream(OStream.CLOG); 
-	}
+  public static readonly OStream cout = new OStream(OStream.COUT); 
+  public static readonly OStream cerr = new OStream(OStream.CERR); 
+  public static readonly OStream clog = new OStream(OStream.CLOG); 
 %}
