@@ -111,6 +111,8 @@ examples =                                                       \
   examples/perl/readSBML.pl                                      \
   examples/perl/translateMath.pl                                 \
   examples/perl/validateSBML.pl                                  \
+  examples/python/echoSBML.py                                    \
+  examples/python/validateSBML.py                                \
   examples/ruby/convertSBML.rb                                   \
   examples/ruby/echoSBML.rb                                      \
   examples/ruby/printMath.rb                                     \
