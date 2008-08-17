@@ -78,6 +78,7 @@ namespace LibSBMLCSExample
       {
         Console.WriteLine("[Error] {0} : No such file.", inputFile);
         ++NumErrors;
+        return;
       }
 
       SBMLDocument sbmlDoc;
