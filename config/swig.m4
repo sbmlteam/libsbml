@@ -110,6 +110,10 @@ AC_DEFUN([CONFIG_PROG_SWIG],
 
     if test -n "$SWIG";
     then
+        if test $SWIG != "swig" && ! test -f $SWIG;
+        then
+          AC_MSG_ERROR([*** $SWIG missing - please install first or check config.log ***])
+        fi
         SWIGLIB=`"$SWIG" -swiglib`
 
         AC_SUBST(SWIG)
