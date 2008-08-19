@@ -47,6 +47,17 @@ AC_DEFUN([CONFIG_PROG_PERL],
       AC_PATH_PROG([PERL], [perl])
     fi
 
+    if test $PERL != "perl" && ! test -f $PERL;
+    then
+      AC_MSG_ERROR([*** $PERL missing - please install first or check config.log ***])
+    fi
+
+    CHECK_MK=`($PERL -mExtUtils::MakeMaker -e '{print "OK"}') 2>/dev/null`
+    if test x$CHECK_MK != xOK;
+    then
+      AC_MSG_ERROR([*** ExtUtils::MakeMaker module is missing - please install first or check config.log ***])
+    fi
+
     AC_DEFINE([USE_PERL], 1, [Define to 1 to use Perl])
     AC_SUBST(USE_PERL, 1)
 
