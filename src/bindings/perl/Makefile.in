@@ -114,8 +114,8 @@ distfiles =                        \
   t/05__SBMLDocument.t             \
   t/05__SBMLDocumentVerbose.t      \
   t/06__TestReadSBML.t             \
-  t/06__TestWriteSBML.t
-
+  t/06__TestWriteSBML.t            \
+  t/l1v1-branch.xml
 
 extra_distclean = Makefile-perl Makefile-perl.old
 
