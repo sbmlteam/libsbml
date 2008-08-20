@@ -112,6 +112,7 @@ distfiles =                        \
   t/05__Parameter.t                \
   t/05__RateRule.t                 \
   t/05__SBMLDocument.t             \
+  t/05__SBMLDocumentVerbose.t      \
   t/06__TestReadSBML.t             \
   t/06__TestWriteSBML.t
 
