@@ -3,10 +3,10 @@
 
                    Ben Bornstein and Sarah Keating
            with contributions from (in alphabetical order):
-      Frank Bergmann, Bill Denney, Christoph Flamm, Akira Funahashi,
-	 Mike Hucka, Ralph Gauges, Martin Ginkel, Alex Gutteridge,
-	  Stefan Hoops, Akiya Jouraku, Ben Kovitz, Rainer Machne,
-		    Nicolas Rodriguez, and many others.
+    Frank Bergmann, Bill Denney, Christoph Flamm, Akira Funahashi,
+      Mike Hucka, Ralph Gauges, Martin Ginkel, Alex Gutteridge,
+       Stefan Hoops, Akiya Jouraku, Ben Kovitz, Rainer Machne,
+                 Nicolas Rodriguez, and many others.
 
   Please see the file NEWS.txt for a log of recent changes in libSBML
 
@@ -14,10 +14,10 @@
                    http://sbml.org/Software/libSBML
 
        Please report problems with libSBML using the tracker at
-	    http://sbml.org/Software/libSBML/issue-tracker
+            http://sbml.org/Software/libSBML/issue-tracker
 
   Mailing lists and online web forums for discussing libSBML are at
-			http://sbml.org/Forums
+                        http://sbml.org/Forums
 
    ,----------------------------------------------------------------.
   | Table of contents                                               |
@@ -30,8 +30,8 @@
   | 6. Licensing and distribution                                   |
   | 7. Acknowledgments                                              |
    `----------------------------------------------------------------'
-		  Date of last update to this file:
-	$Date$
+                  Date of last update to this file:
+        $Date$
 
 
 -----------
@@ -284,7 +284,7 @@ Discussion lists
 
 All discussion lists, their web interfaces and their RSS feeds are at
 
-		       http://sbml.org/Forums/
+                       http://sbml.org/Forums/
 
 If you use SBML, you are strongly encouraged to sign up for the SBML
 announcements mailing list.  It is a low-volume, broadcast-only list.
