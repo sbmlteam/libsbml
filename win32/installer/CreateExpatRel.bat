@@ -39,8 +39,6 @@ cd classes
 copy ..\..\..\..\..\..\src\bindings\java\java-files\sbmlj.jar sbmlj.jar
 
 cd ..
-copy ..\..\..\..\..\src\bindings\java\README.txt README.txt
-copy ..\..\..\..\..\src\bindings\java\Test.java Test.java
 copy ..\..\..\..\..\src\bindings\java\libs\sbmlj.dll sbmlj.dll
 copy ..\..\..\..\..\src\bindings\java\libs\sbmljD.dll sbmljD.dll
 copy ..\..\..\..\..\src\bindings\java\libs\sbmlj.lib sbmlj.lib
@@ -67,6 +65,16 @@ copy ..\..\..\..\..\src\bindings\matlab\CheckAndConvert.m  CheckAndConvert.m
 copy ..\..\..\..\..\src\bindings\matlab\test.xml test.xml
 cd ..
 
+rem bindings/csharp directory
+cd csharp
+copy ..\..\..\..\..\src\bindings\csharp\libsbmlcs.dll libsbmlcs.dll
+copy ..\..\..\..\..\src\bindings\csharp\libsbmlcsD.dll libsbmlcsD.dll
+copy ..\..\..\..\..\src\bindings\csharp\libsbmlcs.lib libsbmlcs.lib
+copy ..\..\..\..\..\src\bindings\csharp\libsbmlcsD.lib libsbmlcsD.lib
+copy ..\..\..\..\..\src\bindings\csharp\obj\Release\libsbmlcsP.dll libsbmlcsP.dll
+cd ..
+
+
 rem bindings/python directory
 
 cd python
@@ -80,7 +88,6 @@ copy ..\..\..\..\..\..\src\bindings\python\libs\_libsbml.dll _libsbml.dll
 copy ..\..\..\..\..\..\src\bindings\python\libs\_libsbml.lib _libsbml.lib
 copy ..\..\..\..\..\..\src\bindings\python\libsbml.py libsbml.py
 copy ..\..\..\..\..\..\src\bindings\python\setup.py setup.py
-copy ..\..\..\..\..\..\src\bindings\python\accept.py accept.py
 cd ..
 
 cd python24
@@ -88,7 +95,6 @@ copy ..\..\..\..\..\..\src\bindings\Python24\libs\_libsbml.dll _libsbml.dll
 copy ..\..\..\..\..\..\src\bindings\Python24\libs\_libsbml.lib _libsbml.lib
 copy ..\..\..\..\..\..\src\bindings\python\libsbml.py libsbml.py
 copy ..\..\..\..\..\..\src\bindings\python\setup.py setup.py
-copy ..\..\..\..\..\..\src\bindings\python\accept.py accept.py
 cd ..
 
 cd python25
@@ -96,7 +102,6 @@ copy ..\..\..\..\..\..\src\bindings\Python25\libs\_libsbml.pyd _libsbml.pyd
 copy ..\..\..\..\..\..\src\bindings\Python25\libs\_libsbml.lib _libsbml.lib
 copy ..\..\..\..\..\..\src\bindings\python\libsbml.py libsbml.py
 copy ..\..\..\..\..\..\src\bindings\python\setup.py setup.py
-copy ..\..\..\..\..\..\src\bindings\python\accept.py accept.py
 cd ..
 cd ..
 cd ..
@@ -113,9 +118,11 @@ cd examples
 mkdir c
 mkdir c++
 mkdir java
+mkdir csharp
 mkdir perl
 mkdir sample-models
 mkdir layout
+mkdir python
 
 
 copy ..\..\..\..\examples\README.txt README.txt
@@ -193,6 +200,20 @@ copy ..\..\..\..\..\examples\layout\example1.java example1.java
 copy ..\..\..\..\..\examples\layout\example2.cpp example2.cpp
 copy ..\..\..\..\..\examples\layout\example3.cpp example3.cpp
 copy ..\..\..\..\..\examples\layout\layout2svg.xsl layout2svg.xsl
+cd ..
+
+rem examples/csharp directory
+
+cd csharp
+copy ..\..\..\..\..\examples\csharp\echoSBML.cs echoSBML.cs
+copy ..\..\..\..\..\examples\csharp\validateSBML.cs validateSBML.cs
+cd ..
+
+rem examples/python directory
+
+cd python
+copy ..\..\..\..\..\examples\python\echoSBML.py echoSBML.py
+copy ..\..\..\..\..\examples\python\validateSBML.py validateSBML.py
 cd ..
 
 rem examples/sample-models directory
