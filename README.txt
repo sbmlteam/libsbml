@@ -8,17 +8,20 @@
 	  Stefan Hoops, Akiya Jouraku, Ben Kovitz, Rainer Machne,
 		    Nicolas Rodriguez, and many others.
 
+  Please see the file NEWS.txt for a log of recent changes in libSBML
+
         More information about libSBML is available online at
                    http://sbml.org/Software/libSBML
 
        Please report problems with libSBML using the tracker at
 	    http://sbml.org/Software/libSBML/issue-tracker
 
-    Online forums for discussing libSBML and SBML are available at
-                        http://sbml.org/Forums
+  Mailing lists and online web forums for discussing libSBML are at
+			http://sbml.org/Forums
 
    ,----------------------------------------------------------------.
   | Table of contents                                               |
+  | 0. Foreword                                                     |
   | 1. Quick start                                                  |
   | 2. Introduction                                                 |
   | 3. Detailed instructions for configuring and installing LibSBML |
@@ -29,6 +32,19 @@
    `----------------------------------------------------------------'
 		  Date of last update to this file:
 	$Date$
+
+
+-----------
+0. FOREWORD
+----------
+
+Article citations are crucial to our academic careers.  If you use
+libSBML and you publish papers about your software, we ask that you
+please cite the libSBML paper:
+
+  Bornstein, B. J., Keating, S. M., Jouraku, A., and Hucka M. (2008)
+  LibSBML: An API Library for SBML. Bioinformatics, 24(6):880-881,
+  doi:10.1093/bioinformatics/btn051.
 
 
 --------------
