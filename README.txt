@@ -12,7 +12,7 @@
                    http://sbml.org/Software/libSBML
 
        Please report problems with libSBML using the tracker at
-	    http://sbml.org/software/libsbml/issue-tracker
+	    http://sbml.org/Software/libSBML/issue-tracker
 
     Online forums for discussing libSBML and SBML are available at
                         http://sbml.org/Forums
@@ -94,7 +94,7 @@ related matters.
 
 Documentation for libSBML is available as a separate download from the
 same locations as the libSBML distribution (namely, the SBML project
-SourceForge and the http://sbml.org/software/libsbml web page).  You
+SourceForge and the http://sbml.org/Software/libSBML web page).  You
 may also regenerate the documentation from the source code
 distribution if you have Doxygen version 1.5.4 installed and have
 configured libSBML with the --with-doxygen flag.  Then you can execute
@@ -227,7 +227,7 @@ Detailed instructions for building and configuring libSBML are now
 included as part of the full documentation available for libSBML.
 You may find the documentation online at 
 
-  http://sbml.org/software/libsbml
+  http://sbml.org/Software/libSBML
 
 You may also download a compressed archive of the formatted
 documentation from the same place you found this libSBML source
@@ -247,7 +247,7 @@ We invite you to report bugs and other problems using the issue
 tracker for libSBML on SourceForge.  The following URL will take you
 there directly:
 
-  http://sbml.org/software/libsbml/issue-tracker
+  http://sbml.org/Software/libSBML/issue-tracker
 
 You can also ask questions on the 'sbml-interoperability' mailing
 list, either over email or using the web forum interface (see
@@ -300,7 +300,7 @@ list by visiting the following URL:
 6. LICENSING AND DISTRIBUTION
 -----------------------------
 
-Copyright 2005-2007 California Institute of Technology.
+Copyright 2005-2008 California Institute of Technology.
 Copyright 2002-2005 California Institute of Technology and the
                     Japan Science and Technology Agency.
 
@@ -328,7 +328,7 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library in the file named "LICENSE.txt"
 included with the software distribution.  A copy is also available
 online at the Internet address
-http://sbml.org/software/libsbml/license.html for your convenience.
+http://sbml.org/Software/libSBML/license.html for your convenience.
 You may also write to obtain a copy from the Free Software Foundation,
 Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
 
