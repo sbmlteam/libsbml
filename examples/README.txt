@@ -5,17 +5,18 @@
 
 	     Ben Bornstein, Sarah Keating, Michael Hucka
 	   with contributions from (in alphabetical order)
-	    Christoph Flamm, Ralph Gauges, Akiya Jouraku,
-		 Rainer Machne, and Nicolas Rodriguez
+   Frank Bergmann, Christoph Flamm, Ralph Gauges, Alex Gutteridge,
+	 Akiya Jouraku, Rainer Machne, and Nicolas Rodriguez
+
+        More information about libSBML is available online at
+                   http://sbml.org/Software/libSBML
 
 			    The SBML Team
 			 http://www.sbml.org/
 		     mailto:sbml-team@caltech.edu
 
-       Please join the libsbml-discuss mailing list by visiting
-	    http://www.sbml.org/forums/index.php?t=pre_reg
-
-    Date of last update to this file: $Date$
+		  Date of last update to this file:
+	$Date$
 
 
 There are separate subdirectories for different programming languages:
