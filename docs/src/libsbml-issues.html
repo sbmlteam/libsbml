@@ -33,6 +33,27 @@ and instead use ASTs.  All libSBML methods that accept text-string
 mathematical formulas have variants that accept ASTs instead.
 
 
+<h2>Differences in mathematical formula syntax</h2>
+
+The functions <code>char* SBML_formulaToString(const ASTNode* tree)</code>
+and <code>ASTNode* SBML_parseFormula(const char* formula)</code> can be
+used to convert mathematical formulas to/from a text-string format.
+However, MathML (the XML encoding format used in SBML Level&nbsp;2 for
+mathematical formulas) does not have a defined standard text-string
+representation.  LibSBML arbitrarily uses the syntax defined by SBML
+Level&nbsp;1 (which used a text-string representation of formulas and not
+MathML).  For the most part, this syntax maps directly to MathML, but
+<em>there are differences</em> in a few of the symbols used to represent
+the common mathematical functions.  In particular, in the text-string
+syntax, <code>log(x)</code> represents the natural logarithm, whereas in
+MathML, the natural logarithm is <code>&lt;ln/&gt;</code>.  Application
+writers are urged to consult the documentation for
+<code>SBML_formulaToString()</code> and <code>SBML_parseFormula()</code>,
+and to be careful when translating between text forms and MathML forms
+(especially if their application provides a direct text-string input
+facility to users).
+
+
 <h2>Differences in XML parser behavior</h2>
 
 <p> The different parsers supported by libSBML (Xerces, Expat, libxml2)
@@ -82,6 +103,13 @@ is that Xerces on Windows does not translate some non-text UTF-8 characters
 the same way as on other platforms. </li>
 
 </ol>
+
+<h2>Conversion to/from SBML Level 1 Version 1 is not supported</h2>
+
+The method <code>SBMLDocument::setLevelAndVersion()</code> performs
+conversion between versions and levels of SBML (to the extent possible
+within technical and practical limits).  However, conversion to/from SBML
+Level&nbsp;1 Version&nbsp;1 is not supported.
 
 
 <h2>Potential for language bindings to link old versions of libSBML by accident</h2>
