@@ -407,7 +407,7 @@ public:
   /**
    * Copy constructor; Creates a deep copy of the given ASTNode.
    *
-   * @param node the ASTNode to be copied.
+   * @param orig the ASTNode to be copied.
    */
   LIBSBML_EXTERN
   ASTNode (const ASTNode& orig);
