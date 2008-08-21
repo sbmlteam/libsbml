@@ -291,9 +291,51 @@ static const StateActionPair_t Action[] =
 
 /**
  * Parses the given SBML formula and returns a representation of it as an
- * Abstract Syntax Tree (AST).  The root node of the AST is returned.
+ * Abstract Syntax Tree (AST).
  *
- * If the formula contains a grammatical error, NULL is returned.
+ * This returns the root node of the AST corresponding to the formula.  If
+ * the formula contains a syntax error, NULL is returned instead.
+ *
+ * Note that this facility is provided as a convenience by libSBML&mdash;the
+ * MathML standard does not actually define a "string-form" equivalent to
+ * MathML expression trees, so the choice of formula syntax is somewhat
+ * arbitrary.  The approach taken by libSBML is to use the syntax defined by
+ * SBML Level&nbsp;1 (which in fact used a text-string representation of
+ * formulas and not MathML).  This formula syntax is based mostly on C
+ * programming syntax, and may contain operators, function calls, symbols,
+ * and white space characters.  The following table provides the precedence
+ * rules for the different entities that may appear in formula strings.
+ *
+ * @image html math-formula-precedence.jpg "A table of the expression operators and their precedence in the text-string format for mathematical expressions used by SBML_parseFormula() and FormulaParser_getAction().  In the Class column, @em operand implies the construct is an operand, @em prefix implies the operation is applied to the following arguments, @em unary implies there is one argument, and @em binary implies there are two arguments.  The values in the Precedence column show how the order of different types of operation are determined.  For example, the expression a * b + c is evaluated as (a * b) + c because the @c * operator has higher precedence.  The Associates column shows how the order of similar precedence operations is determined; for example, a - b + c is evaluated as (a - b) + c because the @c + and @c - operators are left-associative."
+ * 
+ * The function call syntax consists of a function name, followed by optional
+ * white space, followed by an opening parenthesis token, followed by a
+ * sequence of zero or more arguments separated by commas (with each comma
+ * optionally preceded and/or followed by zero or more white space
+ * characters, followed by a closing parenthesis token.  The function name
+ * must be chosen from one of the pre-defined functions in SBML or a
+ * user-defined function in the model.  The following table lists the names
+ * of certain common mathematical functions; this table corresponds to
+ * Table&nbsp;6 in the SBML Level&nbsp;1 Version&nbsp;2 specification:
+ *
+ * @image html math-string-functions.jpg "Common mathematical functions recognized and used by SBML_parseFormula() and SBML_formulaToString()."
+ *
+ * @warning There are differences between the symbols used to represent the
+ * common mathematical functions and the corresponding MathML token names.
+ * This is a potential source of incompatibilities.  Note in particular that
+ * in this text-string syntax, <code>log(x)</code> represents the natural
+ * logarithm, whereas in MathML, the natural logarithm is
+ * <code>&lt;ln/&gt;</code>.  Application writers are urged to be careful
+ * when translating between text forms and MathML forms, especially if they
+ * provide a direct text-string input facility to users of their software
+ * systems.
+ * 
+ * @param formula the text-string formula expression to be parsed
+ *
+ * @return the root node of the AST, or NULL if an error occurred in
+ * parsing the formula
+ *
+ * @see SBML_formulaToString
  */
 LIBSBML_EXTERN
 ASTNode_t *
