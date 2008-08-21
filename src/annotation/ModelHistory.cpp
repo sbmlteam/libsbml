@@ -335,7 +335,7 @@ Date::setDateAsString (std::string date)
 
 
 
-
+/** @cond doxygen-libsbml-internal */
 /*
  * returns the date in numbers as a W3CDTF string
  */
@@ -401,7 +401,10 @@ Date::parseDateNumbersToString()
   }
 
 }
+/** @endcond doxygen-libsbml-internal */
 
+
+/** @cond doxygen-libsbml-internal */
 void
 Date::parseDateStringToNumbers()
 {
@@ -488,6 +491,7 @@ Date::parseDateStringToNumbers()
     }
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /*

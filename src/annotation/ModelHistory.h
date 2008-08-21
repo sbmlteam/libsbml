@@ -287,6 +287,7 @@ public:
   void setDateAsString (std::string date);
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Sets the value of the individual numbers from the date 
@@ -312,10 +313,11 @@ protected:
   unsigned int mHoursOffset;
   unsigned int mMinutesOffset;
 
-
   std::string mDate;
 
+  /** @endcond doxygen-libsbml-internal */
 };
+
 
 class LIBSBML_EXTERN ModelCreator
 {
@@ -480,12 +482,14 @@ public:
   /** @endcond doxygen-libsbml-internal */
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   std::string mFamilyName;
   std::string mGivenName;
   std::string mEmail;
   std::string mOrganization;
 
+  /** @endcond doxygen-libsbml-internal */
 };
 
 
@@ -605,6 +609,7 @@ public:
 
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   // can have more than one creator
 
@@ -613,8 +618,7 @@ protected:
   Date* mCreatedDate;
   Date* mModifiedDate;
 
-
-
+  /** @endcond doxygen-libsbml-internal */
 };
 
 
