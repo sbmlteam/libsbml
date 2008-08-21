@@ -38,7 +38,7 @@ to compile that example.
 
 To run the example programs, you must have libsbmlj.jar in your Java
 CLASSPATH *and* you must also have set up your object library search
-path to find the libSBML libray file.  The exact method to use depends
+path to find the libSBML library file.  The exact method to use depends
 on the particular operating system you are running, but all involve
 putting the pathname of the installation directory in a certain
 environment variable:
