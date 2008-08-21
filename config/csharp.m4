@@ -4,7 +4,7 @@ dnl Description : Autoconf macro for CSharp bindings
 dnl Author(s)   : SBML Team <sbml-team@caltech.edu>
 dnl Organization: California Institute of Technology
 dnl Created     : 2008-07-02
-dnl Revision    : $Id:$
+dnl Revision    : $I:$
 dnl $HeadURL$
 dnl
 dnl <!-------------------------------------------------------------------------

@@ -1,9 +1,10 @@
+dnl
 dnl Filename    : bzip2.m4
 dnl Description : Autoconf macro to check for existence of bzip2 library
 dnl Author(s)   : SBML Team <sbml-team@caltech.edu>
 dnl Organization: California Institute of Technology
 dnl Created     : 2008-07-04
-dnl Revision    : $Id:$
+dnl Revision    : $Id$
 dnl $HeadURL$
 dnl
 dnl <!-------------------------------------------------------------------------
