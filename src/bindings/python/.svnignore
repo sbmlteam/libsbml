@@ -9,3 +9,8 @@ CTAGS
 libsbml.pc
 *.o
 setup.py
+build
+_libsbml.so
+pydoc.i
+libsbml.py
+libsbml.pyc
