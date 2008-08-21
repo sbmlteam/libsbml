@@ -1,7 +1,7 @@
 /** @page changes Summary of changes between libSBML versions
 @n
 
-<!-- LICENSE.html is located in ../../.  The include search path for
+<!-- NEWS.txt is located in ../../.  The include search path for
      doxygen is set in doxygen-common-config.txt -->
 
 @verbinclude NEWS.txt
