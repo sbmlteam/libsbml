@@ -3,16 +3,10 @@
 @htmlinclude libsbml-authors.html
 
 <p>
-This manual describes the C/C++ application programming interface
-(API) of libSBML, an open-source (LGPL) library for writing and
-manipulating the Systems Biology Markup Language (SBML).  This
-version of the library supports all versions of SBML Level&nbsp;1 and
-Level&nbsp;2 (which includes Level&nbsp;2 Version&nbsp;3 at the time
-of this writing).  For more information about SBML, please see the
-references or visit http://www.sbml.org/ on the Internet.  Please
-report bugs and other issues with libSBML using the tracker at <a
-href="http://sbml.org/software/libsbml/issue-tracker">
-http://sbml.org/software/libsbml/issue-tracker</a>.
+This manual describes the C++ application programming interface (API) of
+libSBML, an open-source (LGPL) library for writing and manipulating the
+Systems Biology Markup Language (SBML).
+@htmlinclude libsbml-blurb.html
 
 @section main-general General information
 - @subpage libsbml-installation
@@ -30,6 +24,8 @@ http://sbml.org/software/libsbml/issue-tracker</a>.
 - @subpage libsbml-coding for developers and contributors
 - @subpage license
 - @subpage changes
+
+@htmlinclude libsbml-papers.html
 
 @htmlinclude FUNDING.txt
 
