@@ -81,8 +81,12 @@ main (int argc, char* argv[])
 
     if (failures > 0)
     {
-      cout << endl << "Encountered " << failures << " consistency failure"
-           << (failures == 1 ? "" : "s") << " in this file:" << endl;
+      cout << endl << "Encountered " << failures
+	   << " consistency failure"
+           << (failures == 1 ? "" : "s") 
+	   << " and/or warning"
+           << (failures == 1 ? "" : "s") 
+	   << " in this file:" << endl;
       document->printErrors(cerr);
     }
     else
