@@ -36,15 +36,14 @@
 
 -----------
 0. FOREWORD
-----------
+-----------
 
 Article citations are crucial to our academic careers.  If you use
 libSBML and you publish papers about your software, we ask that you
 please cite the libSBML paper:
 
   Bornstein, B. J., Keating, S. M., Jouraku, A., and Hucka M. (2008)
-  LibSBML: An API Library for SBML. Bioinformatics, 24(6):880-881,
-  doi:10.1093/bioinformatics/btn051.
+  LibSBML: An API Library for SBML. Bioinformatics, 24(6):880-881.
 
 
 --------------
@@ -266,10 +265,10 @@ there directly:
   http://sbml.org/Software/libSBML/issue-tracker
 
 You can also ask questions on the 'sbml-interoperability' mailing
-list, either over email or using the web forum interface (see
-http://sbml.org/Forums/).  This may even have advantages, such as that
-other people may also have experienced the issue and offer a
-workaround more quickly than the libSBML developers can respond.
+list, either over email or using the web forum interface (see below).
+This may even have advantages, such as that other people may also have
+experienced the issue and offer a workaround more quickly than the
+libSBML developers can respond.
 
 
 ----------------
@@ -286,10 +285,10 @@ All discussion lists, their web interfaces and their RSS feeds are at
 
                        http://sbml.org/Forums/
 
-If you use SBML, you are strongly encouraged to sign up for the SBML
+If you use SBML, we urge you to sign up for sbml-announce, the SBML
 announcements mailing list.  It is a low-volume, broadcast-only list.
 
-If you use libSBML, you are also encouraged to subscribe to or monitor
+If you use libSBML, we also encourage you to subscribe to or monitor
 via RSS the 'sbml-interoperability' list, where people discuss the
 development, use, and interoperability of software that supports SBML,
 including libSBML.
