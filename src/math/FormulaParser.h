@@ -35,7 +35,7 @@
 BEGIN_C_DECLS
 
 
-/**
+/*
  * Parses a text-string mathematical formula and returns a representation
  * as an Abstract Syntax Tree.
  *
