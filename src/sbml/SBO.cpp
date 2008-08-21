@@ -40,6 +40,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
+/** @cond doxygen-libsbml-internal */
 /*
  * @return true if sboTerm is in the correct format (a zero-padded, seven
  * digit string preceded by SBO:), false otherwise.
@@ -63,8 +64,10 @@ SBO::checkTerm (const std::string& sboTerm)
 
   return okay;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /*
  * @return true if sboTerm is in the range [0 -- 9999999], false
  * otherwise.
@@ -74,6 +77,7 @@ SBO::checkTerm (int sboTerm)
 {
   return (sboTerm >= 0 && sboTerm <= 9999999);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /*
@@ -112,6 +116,7 @@ SBO::writeTerm (XMLOutputStream& stream, int sboTerm)
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /*
  * @return the given string sboTerm as an integer.  If the sboTerm is not
  * in the correct format (a zero-padded, seven digit string), -1 is
@@ -135,6 +140,7 @@ SBO::stringToInt (const std::string& sboTerm)
 
   return result;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /*
@@ -169,6 +175,7 @@ struct GetParent : public unary_function<const pair<const int, int>, int>
 };
 
 
+/** @cond doxygen-libsbml-internal */
 /**
   * functions for checking the SBO term is from correct part of SBO
   * returns true if the term is-a parent, false otherwise
@@ -208,6 +215,7 @@ SBO::isChildOf(unsigned int term, unsigned int parent)
 
   return result;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -402,6 +410,7 @@ SBO::isParticipant  (unsigned int sboTerm)
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
   * functions for checking the SBO term is from correct part of SBO
   * populates the parent-child map
@@ -829,5 +838,4 @@ SBO::populateSBOTree()
   mParent.insert( make_pair(373,  27) );
 
 }
-
-
+/** @endcond doxygen-libsbml-internal */

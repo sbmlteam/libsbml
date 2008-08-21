@@ -154,7 +154,10 @@ public:
    */
   static std::string intToString (int sboTerm);
 
-protected:  /**
+protected:  
+  /** @cond doxygen-libsbml-internal */
+
+ /**
    * functions for checking the SBO term is from correct part of SBO
    * returns true if the term is-a parent, false otherwise
    */
@@ -184,10 +187,7 @@ protected:  /**
    */
   static int stringToInt (const std::string& sboTerm);
 
-  
-
-
-
+  /** @endcond doxygen-libsbml-internal */
 };
 
 
