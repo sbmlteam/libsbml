@@ -364,6 +364,7 @@ public:
 /** @endcond doxygen-libsbml-internal */
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
     std::string mUnitReferenceId;
 
@@ -376,6 +377,7 @@ protected:
     UnitDefinition * mPerTimeUnitDefinition;
     UnitDefinition * mEventTimeUnitDefinition;
 
+  /** @endcond doxygen-libsbml-internal */
 };
 
 
