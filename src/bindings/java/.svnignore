@@ -11,3 +11,5 @@ libsbml.pc
 java-files
 *.jnilib
 *.jar
+libsbml_wrap.cpp
+javadoc.i
