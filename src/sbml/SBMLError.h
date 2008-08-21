@@ -292,6 +292,10 @@
  * <tr><td><em>TimeUnitsAllowedInKL</em></td><td>Malformed model</td></tr>
  * <tr><td><em>FormulaInLevel1KL</em></td><td>Malformed model</td></tr>
  * <tr><td><em>BadMathML</em></td><td>Malformed model</td></tr>
+ * <tr><td><em>FailedMathMLReadOfDouble</em></td><td>Malformed MathML</td></tr>
+ * <tr><td><em>FailedMathMLReadOfInteger</em></td><td>Malformed MathML</td></tr>
+ * <tr><td><em>FailedMathMLReadOfExponential</em></td><td>Malformed MathML</td></tr>
+ * <tr><td><em>FailedMathMLReadOfRational</em></td><td>Malformed MathML</td></tr>
  * <tr><td><em>UndeclaredUnits</em></td><td>Malformed model</td></tr>
  * <tr><td><em>UnrecognisedSBOTerm</em></td><td>Malformed model</td></tr>
  * </table>
