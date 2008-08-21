@@ -152,6 +152,7 @@ XMLAttributes::add ( const XMLTriple& triple, const std::string& value)
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /*
  * Adds an attribute with the given name/value pair to this XMLAttributes set.  
  * This is really the add function but an attribute with same name wont 
@@ -163,6 +164,7 @@ XMLAttributes::addResource (const std::string& name, const std::string& value)
   mNames .push_back( XMLTriple(name, "", "") );
   mValues.push_back( value );
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /*
