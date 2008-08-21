@@ -257,7 +257,6 @@ SBMLDocument::getModel ()
  * Sets the level and version of this SBMLDocument.  Valid
  * combinations are currently:
  *
- * @li Level 1 Version 1
  * @li Level 1 Version 2
  * @li Level 2 Version 1
  * @li Level 2 Version 2
