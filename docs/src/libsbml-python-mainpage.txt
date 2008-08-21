@@ -5,22 +5,10 @@
 <p>
 This manual describes the Python application programming interface
 (API) of libSBML, an open-source (LGPL) library for writing and
-manipulating the Systems Biology Markup Language (SBML).  This version
-of the library supports all versions of SBML Level&nbsp;1 and
-Level&nbsp;2 (which includes Level&nbsp;2 Version&nbsp;3 at the time
-of this writing).  For more information about SBML, please see the
-references or visit http://www.sbml.org/ on the Internet.  Please
-report bugs and other issues with libSBML using the tracker at <a
-href="http://sbml.org/software/libsbml/issue-tracker">
-http://sbml.org/software/libsbml/issue-tracker</a>.
+manipulating the Systems Biology Markup Language (SBML).
+@htmlinclude libsbml-blurb.html
 
-<div style="color: #880000; border: 1px dotted gray; padding: 3px">
-<em>Note to readers</em>: Most of this manual is generated automatically
-from the C++ source code of libSBML, and owing to imperfections in the
-conversion software, it is not as complete as the C++ API manual.  If you
-encounter undocumented members (such as constants), you may wish to check
-the corresponding text in the C++ API manual.
-</div>
+@htmlinclude libsbml-conversion-warnings.html
 
 @section main-general General information
 - @subpage libsbml-installation
@@ -38,6 +26,8 @@ the corresponding text in the C++ API manual.
 - @subpage libsbml-coding for developers and contributors
 - @subpage license
 - @subpage changes
+
+@htmlinclude libsbml-papers.html
 
 @htmlinclude FUNDING.txt
 
