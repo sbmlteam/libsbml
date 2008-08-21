@@ -118,12 +118,15 @@ public:
    * }
    * @endcode
    *
-   * If the filename ends with @em .gz, the file will be read as a @em gzip file.
-   * Similary, if the filename ends with @em .zip or @em .bz2, the file will be
-   * read as a @em zip or @em bzip2 file, respectively. Otherwise, the fill will be
-   * read as an uncompressed file.
-   * If the filename ends with @em .zip, only the first file in the archive will
-   * be read if the zip archive contains two or more files.
+   * If the given filename ends with the suffix @c ".gz" (for example, @c
+   * "myfile.xml.gz"), the file is assumed to be compressed in @em gzip
+   * format and will be automatically decompressed upon reading.
+   * Similarly, if the given filename ends with @c ".zip" or @c ".bz2", the
+   * file is assumed to be compressed in @em zip or @em bzip2 format
+   * (respectively).  Files whose names lack these suffixes will be read
+   * uncompressed.  Note that if the file is in @em zip format but the
+   * archive contains more than one file, only the first file in the
+   * archive will be read and the rest ignored.
    *
    * @param filename the name or full pathname of the file to be read.
    *
@@ -145,13 +148,17 @@ public:
    * libxml2) is being used by libSBML.  The XML parsers themselves behave
    * differently in their error reporting, and sometimes libSBML has to
    * resort to the lowest common denominator.
-   * To read a gzip/zip file, underlying libSBML needs to be linked with zlib
-   * at compile time. Also, underlying libSBML needs to be linked with bzip2 
-   * to read a bzip2 file. File unreadable error will be logged if a compressed 
-   * file name is given and underlying libSBML is not linked with the 
-   * corresponding required library.
-   * SBMLReader::hasZlib() and SBMLReader::hasBzip2() can be used to check 
-   * whether libSBML is linked with each library.
+   *
+   * @note To read a gzip/zip file, libSBML needs to be configured and
+   * linked with the <a href="http://www.zlib.net/">zlib</a> library at
+   * compile time.  It also needs to be linked with the <a
+   * href="">bzip2</a> library to read files in @em bzip2 format.  (Both of
+   * these are the default configurations for libSBML.)  Errors about
+   * unreadable files will be logged if a compressed filename is given and
+   * libSBML was @em not linked with the corresponding required library.
+   *
+   * @note SBMLReader::hasZlib() and SBMLReader::hasBzip2() can be used to
+   * check whether libSBML has been linked with each library.
    */
   SBMLDocument* readSBML (const std::string& filename);
 
@@ -268,20 +275,41 @@ SBMLReader_free (SBMLReader_t *sr);
  *   }\n
  * </code>
  *
- * If the filename ends with @em .gz, the file will be read as a @em gzip file.
- * Similary, if the filename ends with @em .zip or @em .bz2, the file will be
- * read as a @em zip or @em bzip2 file, respectively. Otherwise, the fill will be
- * read as an uncompressed file.
- * If the filename ends with @em .zip, only the first file in the archive will
- * be read if the zip archive contains two or more files.
+ * If the given filename ends with the suffix @c ".gz" (for example, @c
+ * "myfile.xml.gz"), the file is assumed to be compressed in @em gzip
+ * format and will be automatically decompressed upon reading.
+ * Similarly, if the given filename ends with @c ".zip" or @c ".bz2", the
+ * file is assumed to be compressed in @em zip or @em bzip2 format
+ * (respectively).  Files whose names lack these suffixes will be read
+ * uncompressed.  Note that if the file is in @em zip format but the
+ * archive contains more than one file, only the first file in the
+ * archive will be read and the rest ignored.
  *
- * To read a gzip/zip file, underlying libSBML needs to be linked with zlib
- * at compile time. Also, underlying libSBML needs to be linked with bzip2 
- * to read a bzip2 file. File unreadable error will be logged if a compressed 
- * file name is given and underlying libSBML is not linked with the corresponding 
- * required library.
- * SBMLReader_hasZlib() and SBMLReader_hasBzip2() can be used to check 
- * whether libSBML is linked with each library.
+ * @note LibSBML versions 2.x and 3.x behave differently in error
+ * handling in several respects.  One difference is how early some errors
+ * are caught and whether libSBML continues processing a file in the face
+ * of some early errors.  In general, libSBML 3.x stops parsing SBML
+ * inputs sooner than libSBML 2.x in the face of XML errors because the
+ * errors may invalidate any further SBML content.  For example, a
+ * missing XML declaration at the beginning of the file was ignored by
+ * libSBML 2.x but in version 3.x, it will cause libSBML to stop parsing
+ * the rest of the input altogether.  While this behavior may seem more
+ * severe and intolerant, it was necessary in order to provide uniform
+ * behavior regardless of which underlying XML parser (Expat, Xerces,
+ * libxml2) is being used by libSBML.  The XML parsers themselves behave
+ * differently in their error reporting, and sometimes libSBML has to
+ * resort to the lowest common denominator.
+ *
+ * @note To read a gzip/zip file, libSBML needs to be configured and
+ * linked with the <a href="http://www.zlib.net/">zlib</a> library at
+ * compile time.  It also needs to be linked with the <a
+ * href="">bzip2</a> library to read files in @em bzip2 format.  (Both of
+ * these are the default configurations for libSBML.)  Errors about
+ * unreadable files will be logged if a compressed filename is given and
+ * libSBML was @em not linked with the corresponding required library.
+ *
+ * @note SBMLReader::hasZlib() and SBMLReader::hasBzip2() can be used to
+ * check whether libSBML has been linked with each library.
  *
  * @return a pointer to the SBMLDocument read.
  */
