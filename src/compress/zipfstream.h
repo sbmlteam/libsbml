@@ -3,8 +3,8 @@
  * @brief   C++ I/O streams interface to the zip/unzip functions in Minizip
  * @author  Akiya Jouraku
  *
- * $Id: $
- * $HeadURL: $
+ * $Id$
+ * $HeadURL$
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
