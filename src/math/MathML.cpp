@@ -1266,10 +1266,10 @@ writeMathML (const ASTNode* node, XMLOutputStream& stream)
  * Reads MathML from a text string containing XML and returns the
  * corresponding AST representation of the mathematical formula.
  *
- * Note that the content should be a complete self-contained MathML
- * formula, enclosed by
- * <code>&lt;math xmlns="http://www.w3.org/1998/Math/MathML"></code>
- * and <code>&lt;/math></code> tags.
+ * The content given as the string @p xml should be a complete,
+ * self-contained MathML formula, enclosed by <code>&lt;math
+ * xmlns="http://www.w3.org/1998/Math/MathML"></code> and
+ * <code>&lt;/math></code> tags.
  *
  * @param xml the MathML to be converted, stored in a character string.
  *
