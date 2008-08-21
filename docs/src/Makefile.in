@@ -105,6 +105,8 @@ distfiles =                                    \
         graphics/compartment-size.jpg          \
         graphics/listof-illustration.jpg       \
         graphics/right-arrow.gif               \
+        graphics/math-formula-precedence.jpg   \
+        graphics/math-string-functions.jpg     \
         graphics/sbase-species.eps             \
         graphics/sbase-species.pdf             \
         graphics/sbase-species.vthought        \
@@ -129,9 +131,13 @@ distfiles =                                    \
         libsbml-accessing.html                 \
         libsbml-accessing.txt                  \
         libsbml-authors.html                   \
+        libsbml-blurb.html                     \
+        libsbml-blurb.txt                      \
         libsbml-coding.txt                     \
         libsbml-communications.html            \
         libsbml-communications.txt             \
+        libsbml-conversion-warnings.txt        \
+        libsbml-conversion-warnings.html       \
         libsbml-features.html                  \
         libsbml-features.txt                   \
         libsbml-installation.html              \
@@ -151,6 +157,8 @@ distfiles =                                    \
         libsbml-mainpage.txt                   \
         libsbml-math.txt                       \
         libsbml-news.txt                       \
+        libsbml-papers.html                    \
+        libsbml-papers.txt                     \
         libsbml-python-mainpage.txt            \
         libsbml-python-reading-files.txt       \
         libsbml-reading-files.txt              \
@@ -297,6 +305,8 @@ endif
 # swig itself.
 # 
 
+ifdef USE_JAVA
+
 java-dir            = ../../src/bindings/java/java-files
 
 javadoc-doctitle    = "@PACKAGE_NAME@ @PACKAGE_VERSION@ Java API Reference"
@@ -319,13 +329,18 @@ endef
 
 javadoc-jar = /System/Library/Frameworks/JavaVM.framework/Classes/classes.jar
 
+# Compile the ExcludeDoclet class file if needed.
+
+ExcludeDoclet.class: ExcludeDoclet.java
+	$(JAVAC) -nowarn -cp $(javadoc-jar) $<
+
 # There are certain things I can't figure out how to make compatible
 # between doxygen and javadoc.  Let's ignore the warnings to avoid
 # confusing users.
 
 ignorable-warnings = "warning - @param argument"
 
-java-manual $(java-manual): $(core-sources)
+java-manual $(java-manual): $(core-sources) ExcludeDoclet.class
 	$(JAVA) -cp $(javadoc-jar):. ExcludeDoclet -excludefile java-skip.txt \
             -use -public -version -author -sourcetab 4 -keywords \
 	    -header $(javadoc-header) \
@@ -354,6 +369,8 @@ java-manual $(java-manual): $(core-sources)
 	$(call merge_html,libsbml-uninstallation.html,$(java-manual)/libsbml-uninstallation.html,uninstallation)
 	$(call merge_html,../../LICENSE.html,$(java-manual)/libsbml-license.html,license)
 	$(call merge_html_verb,../../NEWS.txt,$(java-manual)/libsbml-news.html,news)
+
+endif
 
 
 # -----------------------------------------------------------------------------
