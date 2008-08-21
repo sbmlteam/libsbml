@@ -34,12 +34,7 @@
 BEGIN_C_DECLS
 
 
-/**
- * Converts an AST to a string representation of a formula using a syntax
- * basically derived from SBML Level 1.
- *
- * @param tree the AST to be converted.
- * 
+/*
  * @return the formula from the given AST as an SBML Level 1 text-string
  * mathematical formula.  The caller owns the returned string and is
  * responsible for freeing it when it is no longer needed.
