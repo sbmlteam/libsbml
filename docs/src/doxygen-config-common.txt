@@ -345,6 +345,7 @@ WARN_LOGFILE           =
 INPUT =                      \
   libsbml-accessing.txt      \
   libsbml-coding.txt         \
+  libsbml-blurb.txt          \
   libsbml-communications.txt \
   libsbml-features.txt       \
   libsbml-installation.txt   \
@@ -353,16 +354,17 @@ INPUT =                      \
   libsbml-mainpage.txt       \
   libsbml-math.txt           \
   libsbml-news.txt           \
+  libsbml-papers.txt         \
   libsbml-reading-files.txt  \
   libsbml-uninstallation.txt \
   ../../src/common           \
   ../../src/annotation       \
   ../../src/math             \
   ../../src/sbml             \
-  ../../src/sbml/layout      \
   ../../src/util             \
   ../../src/validator        \
   ../../src/xml
+#  ../../src/sbml/layout      \
 
 # The EXCLUDE tag can be used to specify files and/or directories that should 
 # excluded from the INPUT source files. This way you can easily exclude a 
