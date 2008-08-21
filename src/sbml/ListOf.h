@@ -144,7 +144,7 @@ public:
   /**
    * Get an item from the list based on its identifier.
    *
-   * @param a string representing the the identifier of the item to get.
+   * @param sid a string representing the the identifier of the item to get.
    * 
    * @return item in this ListOf items with the given id or NULL if no such
    * item exists.
@@ -158,7 +158,7 @@ public:
   /**
    * Get an item from the list based on its identifier.
    *
-   * @param a string representing the the identifier of the item to get.
+   * @param sid a string representing the the identifier of the item to get.
    * 
    * @return item in this ListOf items with the given id or NULL if no such
    * item exists.
@@ -262,8 +262,11 @@ public:
   /** @endcond doxygen-libsbml-internal */
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   std::vector<SBase*> mItems;
+
+  /** @endcond doxygen-libsbml-internal */
 };
 
 
