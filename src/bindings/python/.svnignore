@@ -14,3 +14,4 @@ _libsbml.so
 pydoc.i
 libsbml.py
 libsbml.pyc
+libsbml_wrap.cpp
