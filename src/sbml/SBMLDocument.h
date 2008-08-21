@@ -243,7 +243,6 @@ public:
    * The valid combinations as of this release of libSBML are the
    * following: 
    * <ul>
-   * <li> Level&nbsp;1 Version&nbsp;1
    * <li> Level&nbsp;1 Version&nbsp;2
    * <li> Level&nbsp;2 Version&nbsp;1
    * <li> Level&nbsp;2 Version&nbsp;2
