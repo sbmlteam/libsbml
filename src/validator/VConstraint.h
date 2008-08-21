@@ -130,12 +130,14 @@ public:
 
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * The check method delegates to this virtual method.
    */
   virtual void check_ (const Model& m, const T& object) { };
 
+  /** @endcond doxygen-libsbml-internal */
 };
 
 /** @endcond doxygen-libsbml-internal */
