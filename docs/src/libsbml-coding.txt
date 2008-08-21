@@ -276,7 +276,7 @@ file for libSBML (and in fact, it's the same for .cpp files, too):
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2007 California Institute of Technology.
+ * Copyright 2005-2008 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -295,11 +295,11 @@ time of this writing:
 @verbatim
 /**
  * @file    Compartment.h
- * @brief   The libSBML class of object implementing %SBML's Compartment.
+ * @brief   The libSBML class of object implementing SBML's Compartment.
  * @author  Ben Bornstein
  *
- * $Id$
- * $Source: /cvsroot/sbml/libsbml/src/sbml/Compartment.h,v $
+ * $Id: libsbml-coding.txt 7249 2008-06-26 22:48:40Z bbornstei $
+ * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/trunk/libsbml/src/sbml/Compartment.h $
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -326,9 +326,9 @@ normal way that one would document the class is to put a comment block in
 front of the class declaration, as in the following fragment:
 @verbatim
 /**
- * The libSBML class implementing %SBML's CompartmentType construct.
+ * The libSBML class implementing SBML's CompartmentType construct.
  *
- * CompartmentTypes in %SBML are ...
+ * CompartmentTypes in SBML are ...
  */
 class LIBSBML_EXTERN CompartmentType : public SBase
 {
@@ -351,7 +351,7 @@ header):
  * @brief   Definitions of CompartmentType and ListOfCompartmentTypes.
  * @author  Ben Bornstein
  *
- * $Id$
+ * $Id: CompartmentType.h 7249 2008-06-26 22:48:40Z mhucka $
  * $Source: /cvsroot/sbml/libsbml/src/sbml/CompartmentType.h,v $
  *
  *<!---------------------------------------------------------------------------
@@ -370,18 +370,18 @@ header):
  *------------------------------------------------------------------------- -->
  * 
  * @class CompartmentType.
- * @brief LibSBML implementation of %SBML's %CompartmentType construct.
+ * @brief LibSBML implementation of SBML's %CompartmentType construct.
  *
- * A <em>compartment type</em> in %SBML is a grouping construct used to
+ * A <em>compartment type</em> in SBML is a grouping construct used to
  * establish a relationship between multiple Compartment objects.
  * ....
  *
  *
  * @class ListOfCompartmentTypes.
- * @brief LibSBML implementation of %SBML's ListOfCompartmentTypes construct.
+ * @brief LibSBML implementation of SBML's ListOfCompartmentTypes construct.
  * 
- * The various ListOf___ classes in %SBML are merely containers used for
- * organizing the main components of an %SBML model.  All are derived from
+ * The various ListOf___ classes in SBML are merely containers used for
+ * organizing the main components of an SBML model.  All are derived from
  *....
  */
 
@@ -402,7 +402,7 @@ command.  The following example illustrates this:
  * Creates a new CompartmentType, optionally with the given @p id and
  * @p name attribute values.
  *
- * In %SBML, identifiers are required for CompartmentType objects;
+ * In SBML, identifiers are required for CompartmentType objects;
  * however, the identifier does not have to be set at the time of
  * creation of the object, and instead can be set using the setId()
  * method on the SBase parent class.
@@ -427,7 +427,7 @@ public:
    * Creates a new CompartmentType, optionally with the given @p id and @p
    * name attribute values.
    *
-   * In %SBML, identifiers are required for CompartmentType objects;
+   * In SBML, identifiers are required for CompartmentType objects;
    * however, the identifier does not have to be set at the time of
    * creation of the object, and instead can be set using the setId()
    * method on the SBase parent class.
