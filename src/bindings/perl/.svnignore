@@ -9,3 +9,11 @@ TAGS
 CTAGS
 libsbml.pc
 *.o
+LibSBML.bs
+Makefile-perl.old
+LibSBML.pm
+LibSBML.pod
+pm_to_blib
+blib
+Makefile-perl
+LibSBML_wrap.cxx
