@@ -39,6 +39,9 @@ for configuring LibSBML</a></li>
 <li style="font-size: small;"><a href="#unit-testing">Configuring for unit
 testing</a></li> 
 
+<li style="font-size: small;"><a href="#compression">Disabling use of 
+compression libraries</a></li> 
+
 <li style="font-size: small;"><a href="#docs">Configuring for generating
 documentation</a></li> 
 
@@ -447,6 +450,24 @@ should pass with no failures or errors.  If for some reason this is
 not the case on your system, please submit a bug report using the
 mechanisms described in the section titled "Bug Reports, Mailing
 Lists, and Related Topics" elsewhere in this manual.
+
+
+<h4><a class="anchor" name="compression">Disabling use of compression
+libraries</a></h4>
+
+<p> LibSBML provides built-in support for reading and writing compressed
+SBML files.  This facility works transparently: if a given SBML filename
+ends with one of the suffixes recognized for a compressed file (namely,
+<code>.gz</code>, <code>.zip</code>, or <code>.bz2</code>), the libSBML
+<code>readSBML()</code> method will automatically decompress the file upon
+reading it and the <code>writeSBML()</code> method will compress the file
+upon writing it.  (Files whose names have no extensions are read and
+written in uncompressed form.)  The compression feature requires the <a
+href="http://www.zlib.net/">zlib</a> library (for <em>gzip</em> and
+<em>zip</em> format) and the <a href="">bzip2</a> library (for
+<em>bzip2</em> format).  These features are enabled by default, and can be
+disabled at libSBML configuration time using the using the options
+<code>--with-zlib=no</code> and <code>--with-bzip2=no</code>.
 
 
 <h4><a class="anchor" name="docs">Configuring for generating documentation</a></h4>
