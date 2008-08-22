@@ -482,7 +482,7 @@ XMLError::getStandardMessage (const int code)
 }
 
 
-/**
+/*
  * Outputs this XMLError to stream in the following format (and followed by
  * a newline):
  *

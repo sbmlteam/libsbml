@@ -125,7 +125,7 @@ XMLTriple::clone () const
 }
 
 
-/**
+/*
  * @return prefixed name from this XMLTriple.
  */
 const std::string 

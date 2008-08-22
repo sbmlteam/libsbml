@@ -40,7 +40,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * @return s with whitespace removed from the beginning and end.
  */
 static const string
@@ -79,7 +79,7 @@ XMLNode::XMLNode (const XMLToken& token) : XMLToken(token)
 }
 
 
-/**
+/*
  * Creates a new start element XMLNode with the given set of attributes and
  * namespace declarations.
  */
@@ -93,7 +93,7 @@ XMLNode::XMLNode (  const XMLTriple&     triple
 }
 
 
-/**
+/*
  * Creates a start element XMLNode with the given set of attributes.
  */
 XMLNode::XMLNode (  const XMLTriple&      triple
@@ -105,7 +105,7 @@ XMLNode::XMLNode (  const XMLTriple&      triple
 }  
 
 
-/**
+/*
  * Creates an end element XMLNode with the given set of attributes.
  */
 XMLNode::XMLNode (  const XMLTriple&   triple
@@ -116,7 +116,7 @@ XMLNode::XMLNode (  const XMLTriple&   triple
 }
 
 
-/**
+/*
  * Creates a text XMLNode.
  */
 XMLNode::XMLNode (  const std::string& chars
@@ -176,7 +176,7 @@ XMLNode::XMLNode(const XMLNode& orig):
 }
 
 
- /**
+ /*
   * Assignment operator for XMLNode.
   */
 XMLNode& 
@@ -227,7 +227,7 @@ XMLNode::insertChild (unsigned int n, const XMLNode& node)
 }
 
 
-/**
+/*
  * Removes the nth child of this XMLNode and returned the removed node.
  * The caller owns the returned node and is responsible for deleting it.
  *

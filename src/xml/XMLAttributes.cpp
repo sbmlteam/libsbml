@@ -41,7 +41,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
+/*
  * @return s with whitespace removed from the beginning and end.
  */
 static const std::string
@@ -216,7 +216,7 @@ XMLAttributes::remove (const XMLTriple& triple)
 }
 
 
-/**
+/*
  * Clears (deletes) all attributes in this XMLAttributes object.
  */
 void 
@@ -394,7 +394,7 @@ XMLAttributes::getValue (const XMLTriple& triple) const
 }
 
 
-/**
+/*
  * Predicate returning @c true or @c false depending on whether
  * an attribute with the given name exists in this XMLAttributes.
  */
@@ -405,7 +405,7 @@ XMLAttributes::hasAttribute (int index) const
 }
 
 
-/**
+/*
  * Predicate returning @c true or @c false depending on whether
  * an attribute with the given name and namespace URI exists in this XMLAttributes.
  *
@@ -423,7 +423,7 @@ XMLAttributes::hasAttribute (const std::string name, const std::string uri) cons
 }
 
 
-/**
+/*
  * Predicate returning @c true or @c false depending on whether
  * an attribute with the given XML triple exists in this XMLAttributes.
  *
@@ -554,7 +554,7 @@ XMLAttributes::readInto (  const XMLTriple& triple
 }
 
 
-/**
+/*
  * Reads the value for the attribute with the given index into value.  
  * If name was not found or value could be interpreted as a double, value 
  * is not modified.
@@ -637,7 +637,7 @@ XMLAttributes::readInto (  int          index
 }
 
 
-/**
+/*
  * Reads the value for the attribute with the given XMLTriple into value.  
  * If the triple was not found or value could be interpreted as a double, 
  *value is not modified.
@@ -688,7 +688,7 @@ XMLAttributes::readInto (  const std::string&   name
 }
 
 
-/**
+/*
  * Reads the value for the attribute with the given index into value.  
  * If the attribute was not found or value could be interpreted as a long, 
  * value is not modified.
@@ -747,7 +747,7 @@ XMLAttributes::readInto (  int          index
 }
 
 
-/**
+/*
  * Reads the value for the attribute XMLTriple into value.  
  * If the XMLTriple was not found or value could be interpreted as a long, 
  * value is not modified.
@@ -796,7 +796,7 @@ XMLAttributes::readInto (  const std::string& name
 }
 
 
-/**
+/*
  * Reads the value for the attribute with the given index into value.  
  * If the attribute was not found or value could be interpreted as an integer, 
  * value is not modified.
@@ -827,7 +827,7 @@ XMLAttributes::readInto (  int          index
 }
 
 
-/**
+/*
  * Reads the value for the attribute with the given XMLTriple into value.  
  * If the XMLTriple was not found or value could be interpreted as an int, 
  * value is not modified.
@@ -877,7 +877,7 @@ XMLAttributes::readInto (  const std::string&  name
 }
 
 
-/**
+/*
  * Reads the value for the attribute with the given index into value.  
  * If the attribute was not found or value could be interpreted as an 
  * unsigned int, value is not modified.
@@ -910,7 +910,7 @@ XMLAttributes::readInto (  int           index
 }
 
 
-/**
+/*
  * Reads the value for the attribute with the given XMLTriple into value.  
  * If the XMLTriple was not found or value could be interpreted as an unsigned int, 
  * value is not modified.
@@ -961,7 +961,7 @@ XMLAttributes::readInto (  const std::string&  name
 }
 
 
-/**
+/*
  * Reads the value for the attribute with the given index into value.  
  * If the attribute was not found, value is not modified.
  *
@@ -997,7 +997,7 @@ XMLAttributes::readInto (  int          index
 }
 
 
-/**
+/*
  * Reads the value for the attribute with the given XMLTriple into value.  
  * If the XMLTriple was not found, value is not modified.
  *

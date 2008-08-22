@@ -255,7 +255,7 @@ XMLToken::getAttributes () const
 }
 
 
-/**
+/*
  * Sets an XMLAttributes to this XMLToken.
  * Nothing will be done if this XMLToken is not a start element.
  *
@@ -273,7 +273,7 @@ XMLToken::setAttributes(const XMLAttributes& attributes)
 }
 
 
-/**
+/*
  * Adds an attribute to the attribute set in this XMLToken optionally 
  * with a prefix and URI defining a namespace.
  * Nothing will be done if this XMLToken is not a start element.
@@ -308,7 +308,7 @@ XMLToken::addAttr (  const std::string& name
 }
 
 
-/**
+/*
  * Adds an attribute with the given XMLTriple/value pair to the attribute set
  * in this XMLToken.
  * Nothing will be done if this XMLToken is not a start element.
@@ -326,7 +326,7 @@ XMLToken::addAttr ( const XMLTriple& triple, const std::string& value)
 }
 
 
-/**
+/*
  * Removes an attribute with the given index from the attribute set in
  * this XMLToken.
  * Nothing will be done if this XMLToken is not a start element.
@@ -340,7 +340,7 @@ XMLToken::removeAttr (int n)
 }
 
 
-/**
+/*
  * Removes an attribute with the given local name and namespace URI from 
  * the attribute set in this XMLToken.
  * Nothing will be done if this XMLToken is not a start element.
@@ -355,7 +355,7 @@ XMLToken::removeAttr (const std::string& name, const std::string& uri)
 }
 
 
-/**
+/*
  * Removes an attribute with the given XMLTriple from the attribute set 
  * in this XMLToken.  
  * Nothing will be done if this XMLToken is not a start element.
@@ -369,7 +369,7 @@ XMLToken::removeAttr (const XMLTriple& triple)
 }
 
 
-/**
+/*
  * Clears (deletes) all attributes in this XMLToken.
  * Nothing will be done if this XMLToken is not a start element.
  */
@@ -380,7 +380,7 @@ XMLToken::clearAttributes()
 }
 
 
-/**
+/*
  * Return the index of an attribute with the given local name and namespace URI.
  *
  * @param name a string, the local name of the attribute.
@@ -408,7 +408,7 @@ XMLToken::getAttrIndex (const std::string& name, const std::string& uri) const
 }
 
 
-/**
+/*
  * Return the index of an attribute with the given XMLTriple.
  *
  * @param triple an XMLTriple, the XML triple of the attribute for which 
@@ -423,7 +423,7 @@ XMLToken::getAttrIndex (const XMLTriple& triple) const
 }
 
 
-/**
+/*
  * Return the number of attributes in the attributes set.
  *
  * @return the number of attributes in the attributes set in this XMLToken.
@@ -435,7 +435,7 @@ XMLToken::getAttributesLength () const
 }
 
 
-/**
+/*
  * Return the local name of an attribute in the attributes set in this 
  * XMLToken (by position).
  *
@@ -455,7 +455,7 @@ XMLToken::getAttrName (int index) const
 }
 
 
-/**
+/*
  * Return the prefix of an attribute in the attribute set in this 
  * XMLToken (by position).
  *
@@ -475,7 +475,7 @@ XMLToken::getAttrPrefix (int index) const
 }
 
 
-/**
+/*
  * Return the prefixed name of an attribute in the attribute set in this 
  * XMLToken (by position).
  *
@@ -495,7 +495,7 @@ XMLToken::getAttrPrefixedName (int index) const
 }
 
 
-/**
+/*
  * Return the namespace URI of an attribute in the attribute set in this 
  * XMLToken (by position).
  *
@@ -514,7 +514,7 @@ XMLToken::getAttrURI (int index) const
 }
 
 
-/**
+/*
  * Return the value of an attribute in the attribute set in this XMLToken  
  * (by position).
  *
@@ -534,7 +534,7 @@ XMLToken::getAttrValue (int index) const
 }
 
 
-/**
+/*
  * Return a value of an attribute with the given local name and namespace URI.
  *
  * @param name a string, the local name of the attribute whose value is required.
@@ -566,7 +566,7 @@ XMLToken::getAttrValue (const std::string name, const std::string uri) const
 }
 
 
-/**
+/*
  * Return a value of an attribute with the given XMLTriple.
  *
  * @param triple an XMLTriple, the XML triple of the attribute whose 
@@ -585,7 +585,7 @@ XMLToken::getAttrValue (const XMLTriple& triple) const
 }
 
 
-/**
+/*
  * Predicate returning @c true or @c false depending on whether
  * an attribute with the given index exists in the attribute set in this 
  * XMLToken.
@@ -602,7 +602,7 @@ XMLToken::hasAttr (int index) const
 }
 
 
-/**
+/*
  * Predicate returning @c true or @c false depending on whether
  * an attribute with the given local name and namespace URI exists 
  * in the attribute set in this XMLToken.
@@ -632,7 +632,7 @@ XMLToken::hasAttr (const std::string name, const std::string uri) const
 }
 
 
-/**
+/*
  * Predicate returning @c true or @c false depending on whether
  * an attribute with the given XML triple exists in the attribute set in 
  * this XMLToken 
@@ -650,7 +650,7 @@ XMLToken::hasAttr (const XMLTriple& triple) const
 }
 
 
-/**
+/*
  * Predicate returning @c true or @c false depending on whether 
  * the attribute set in this XMLToken set is empty.
  * 
@@ -676,7 +676,7 @@ XMLToken::getNamespaces () const
 }
 
 
-/**
+/*
  * Sets an XMLnamespaces to this XML element.
  * Nothing will be done if this XMLToken is not a start element.
  *
@@ -692,7 +692,7 @@ XMLToken::setNamespaces(const XMLNamespaces& namespaces)
 }
 
 
-/**
+/*
  * Appends an XML namespace prefix and URI pair to this XMLToken.
  * If there is an XML namespace with the given prefix in this XMLToken, 
  * then the existing XML namespace will be overwritten by the new one.
@@ -706,7 +706,7 @@ XMLToken::addNamespace (const std::string& uri, const std::string& prefix)
 }
 
 
-/**
+/*
  * Removes an XML Namespace stored in the given position of the XMLNamespaces
  * of this XMLToken.
  * Nothing will be done if this XMLToken is not a start element.
@@ -720,7 +720,7 @@ XMLToken::removeNamespace (int index)
 }
 
 
-/**
+/*
  * Removes an XML Namespace with the given prefix.
  * Nothing will be done if this XMLToken is not a start element.
  *
@@ -733,7 +733,7 @@ XMLToken::removeNamespace (const std::string& prefix)
 }
 
 
-/**
+/*
  * Clears (deletes) all XML namespace declarations in the XMLNamespaces of
  * this XMLToken.
  * Nothing will be done if this XMLToken is not a start element.
@@ -745,7 +745,7 @@ XMLToken::clearNamespaces ()
 }
 
 
-/**
+/*
  * Look up the index of an XML namespace declaration by URI.
  *
  * @param uri a string, uri of the required namespace.
@@ -759,7 +759,7 @@ XMLToken::getNamespaceIndex (const std::string& uri) const
 }
 
 
-/**
+/*
  * Look up the index of an XML namespace declaration by prefix.
  *
  * @param prefix a string, prefix of the required namespace.
@@ -773,7 +773,7 @@ XMLToken::getNamespaceIndexByPrefix (const std::string& prefix) const
 }
 
 
-/**
+/*
  * Returns the number of XML namespaces stored in the XMLNamespaces 
  * of this XMLToken.
  *
@@ -786,7 +786,7 @@ XMLToken::getNamespacesLength () const
 }
 
 
-/**
+/*
  * Look up the prefix of an XML namespace declaration by position.
  *
  * Callers should use getNamespacesLength() to find out how many 
@@ -802,7 +802,7 @@ XMLToken::getNamespacePrefix (int index) const
 }
 
 
-/**
+/*
  * Look up the prefix of an XML namespace declaration by its URI.
  *
  * @return the prefix of an XML namespace declaration given its URI.  
@@ -814,7 +814,7 @@ XMLToken::getNamespacePrefix (const std::string& uri) const
 }
 
 
-/**
+/*
  * Look up the URI of an XML namespace declaration by its position.
  *
  * @return the URI of an XML namespace declaration in the XMLNamespaces
@@ -827,7 +827,7 @@ XMLToken::getNamespaceURI (int index) const
 }
 
 
-/**
+/*
  * Look up the URI of an XML namespace declaration by its prefix.
  *
  * @return the URI of an XML namespace declaration given its prefix.  
@@ -839,7 +839,7 @@ XMLToken::getNamespaceURI (const std::string& prefix) const
 }
 
 
-/**
+/*
  * Predicate returning @c true or @c false depending on whether 
  * the XMLNamespaces of this XMLToken is empty.
  * 
@@ -853,7 +853,7 @@ XMLToken::isNamespacesEmpty () const
 }
 
 
-/**
+/*
  * Predicate returning @c true or @c false depending on whether 
  * an XML Namespace with the given URI is contained in the XMLNamespaces of
  * this XMLToken.
@@ -868,7 +868,7 @@ XMLToken::hasNamespaceURI(const std::string& uri) const
 }
 
 
-/**
+/*
  * Predicate returning @c true or @c false depending on whether 
  * an XML Namespace with the given prefix is contained in the XMLNamespaces of
  * this XMLToken.
@@ -885,7 +885,7 @@ XMLToken::hasNamespacePrefix(const std::string& prefix) const
 }
 
 
-/**
+/*
  * Predicate returning @c true or @c false depending on whether 
  * an XML Namespace with the given uri/prefix pair is contained in the 
  * XMLNamespaces ofthis XMLToken.
@@ -903,7 +903,7 @@ XMLToken::hasNamespaceNS(const std::string& uri, const std::string& prefix) cons
 }
 
 
-/**
+/*
  * Sets the XMLTripe (name, uri and prefix) of this XML element.
  * Nothing will be done if this XML element is a text node.
  */
