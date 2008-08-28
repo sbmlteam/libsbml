@@ -263,7 +263,8 @@ MathMLBase::checkFunction (const Model& m,
       fdMath = fd->getMath()->getRightChild()->deepCopy();
     }
 
-    for (i = 0, nodeCount = 0; i < noBvars; i++, nodeCount++)
+    for (i = 0, nodeCount = 0; 
+      i < noBvars, nodeCount < node.getNumChildren(); i++, nodeCount++)
     {
       fdMath->ReplaceArgument(fd->getArgument(i)->getName(), 
                                           node.getChild(nodeCount));
@@ -417,7 +418,8 @@ MathMLBase::checkNumericFunction (const Model& m, const ASTNode* node)
       fdMath = fd->getMath()->getRightChild()->deepCopy();
     }
 
-    for (i = 0, nodeCount = 0; i < noBvars; i++, nodeCount++)
+    for (i = 0, nodeCount = 0; 
+      i < noBvars, nodeCount < node->getNumChildren(); i++, nodeCount++)
     {
       fdMath->ReplaceArgument(fd->getArgument(i)->getName(), 
                                           node->getChild(nodeCount));
