@@ -527,9 +527,10 @@ UnitFormulaFormatter::getUnitDefinitionFromPiecewise(const ASTNode * node,
   {
     n+=2;
     tempUD1 = getUnitDefinition(node->getChild(n), inKL, reactNo);
+  
+    if (tempUD1) delete tempUD1;
   }
 
-  if (tempUD1) delete tempUD1;
 
   return ud;
 }
