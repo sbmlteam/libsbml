@@ -3251,6 +3251,23 @@ static const sbmlErrorTableEntry errorTable[] =
     "Failed to read a valid rational value from MathML."   
   },
 
+  //99224
+  {   
+    BadMathMLNodeType,   
+    LIBSBML_CAT_MATHML_CONSISTENCY,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    "Invalid MathML. The body of a <math> tag or the body of "
+    "a <lambda> element must begin with one of "   
+    "the following: <cn>, <ci>, <csymbol>, <apply>, <piecewise>, "
+    "<true>, <false>, <notanumber>, <pi>, <infinity>, <exponentiale>, "
+    "<semantics>. (References: L2V3 Appendix B)"
+  },
+
   //99502
   // This is an internal error that reverts to 10501
   {

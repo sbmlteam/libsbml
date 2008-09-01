@@ -668,6 +668,8 @@ typedef enum
   , FailedMathMLReadOfInteger        = 99221
   , FailedMathMLReadOfExponential    = 99222
   , FailedMathMLReadOfRational       = 99223
+  , BadMathMLNodeType                = 99224   
+
 
   /* These are internal errors that reverts to 10501. */
 

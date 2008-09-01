@@ -498,6 +498,31 @@ setType (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 }
 
 
+/* in the MathML spec only certain tags can follow the <math> tag
+ * this function returns true if the name represents 
+ * these tags called Node within the mathML schema
+ */
+bool
+isMathMLNodeTag(const string& name)
+{
+  if ( name == "apply"
+    || name == "cn"
+    || name == "ci"
+    || name == "csymbol"
+    || name == "true"
+    || name == "false"
+    || name == "notanumber"
+    || name == "pi"
+    || name == "infinity"
+    || name == "exponentiale"
+    || name == "semantics"
+    || name == "piecewise")
+      return true;
+    else
+      return false;
+}
+
+
 /**
  * Essentially an s-expression parser.
  * Errors will be logged in the stream's SBMLErrorLog object.
@@ -647,6 +672,27 @@ readMathML (ASTNode& node, XMLInputStream& stream)
       readMathML(*child, stream);
 
       stream.skipText();
+       /* look to see whether a lambda is followed by an
+       * appropriate tag
+       */
+      if (elem.getName() == "lambda" 
+        && stream.peek().getName() != "lambda"
+        && stream.peek().getName() != "bvar")
+      {
+        if ( !isMathMLNodeTag(stream.peek().getName()))
+        {
+          std::string message = "<";
+          message += stream.peek().getName();
+          message += "> cannot be used directly following a";
+          message += " <bvar> element.";
+
+          // the mathML reader doesnt know what level and version it is reading!
+          // FIX ME
+          static_cast <SBMLErrorLog*> (stream.getErrorLog())
+            ->logError(BadMathMLNodeType, 2, 1, message);
+        }
+      }
+
       /* it is possible to have a function that has no children
        * ie a lambda with no bvars
        * dont want to add the child since this makes it look like
@@ -1218,7 +1264,41 @@ readMathML (XMLInputStream& stream)
   ASTNode*      node = new ASTNode;
   const string& name = stream.peek().getName();
 
-  if (name == "apply" || name == "math")
+  /* this code is slightly redundant as you will only
+   * get here if the name is "math"
+   * but does serve as a catch
+   */
+  if (name == "math")
+  {
+    const XMLToken elem = stream.next();
+      
+    if (elem.isStart() && elem.isEnd()) return node;
+
+    /* check that math tag is followed by an appropriate
+     * tag
+     */
+    stream.skipText();
+    const string& name1 = stream.peek().getName();
+    if ( isMathMLNodeTag(name1) || name1 == "lambda")
+    {
+      readMathML(*node, stream);
+    }
+    else
+    {
+        std::string message = "<";
+        message += name1;
+        message += "> cannot be used directly following a";
+        message += " <math> tag.";
+
+        // the mathML reader doesnt know what level and version it is reading!
+        // FIX ME
+        static_cast <SBMLErrorLog*> (stream.getErrorLog())
+          ->logError(BadMathMLNodeType, 2, 1, message);
+    }
+
+    stream.skipPastEnd(elem);
+  }
+  else if (name == "apply" )
   {
     const XMLToken elem = stream.next();
       
