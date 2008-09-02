@@ -2,11 +2,34 @@
  
  === Next version ===
 
+* New features:
+
+  - Tracker issue #2086644.
+    Validation was crashing when checking the math/units of an
+    expression using a functionDefinition that had not been properly
+    defined.  The code that caused the crash has been fixed and 
+    the MathML reader now checks that a <math> element or the body
+    of a <lambda> element use appropriate tags as detailed
+    in the schema for the subset of MathML supported.
+
 * Bug fixes:
 
   - Tracker issue #2082584.
     Fixed memory leak reported by Jonathan Cooper.
+    
+  - Tracker issue #2086644.
+    Validation was crashing when checking the math/units of an
+    expression using a functionDefinition that had not been properly
+    defined.  The code that caused the crash has been fixed.
 
+* Changes:
+
+  - Tracker issue #2082682.
+    The unit checking code was not dealing correctly with expressions
+    containing 'root' except in cases where exact integers were involved.
+    The code now reports situations where it is unable to check the 
+    unit consistency due to non integral exponents.  Thanks to Jonathan
+    Cooper for reporting this. 
 
  === Version 3.2.0 (released 2008-08-20) ===
 
