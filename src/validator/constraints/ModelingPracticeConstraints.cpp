@@ -43,7 +43,7 @@ using namespace std;
 
 START_CONSTRAINT (80501, Compartment, c)
 {
-  pre( c.getLevel() == 2);
+  pre( c.getLevel() > 1);
   pre( c.getSpatialDimensions() != 0 );
   
   //msg =

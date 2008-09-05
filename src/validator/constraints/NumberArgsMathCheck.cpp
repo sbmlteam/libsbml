@@ -159,7 +159,7 @@ NumberArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase
       /* the case for a functionDefinition has its own rule
          from l2v4*/
 
-      if (!(m.getLevel() == 2 && m.getVersion() == 4))
+      if (m.getLevel() < 3 && m.getVersion() < 4)
       {
         if (m.getFunctionDefinition(node.getName()))
         {

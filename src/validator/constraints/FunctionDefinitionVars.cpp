@@ -81,7 +81,11 @@ FunctionDefinitionVars::check_ (const Model& m, const FunctionDefinition& fd)
        */
       if (node->getType() == AST_NAME_TIME)
       {
-        if (fd.getVersion() == 3)  logUndefined(fd, name);
+        if (fd.getLevel() > 2
+          || (fd.getLevel() == 2 && fd.getVersion() > 2))
+        {
+          logUndefined(fd, name);
+        }
       }
       else
       {

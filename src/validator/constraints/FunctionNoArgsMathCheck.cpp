@@ -115,7 +115,7 @@ FunctionNoArgsMathCheck::checkNumArgs (const Model& m, const ASTNode& node,
                                                 const SBase & sb)
 {
   /* this rule was only introduced level 2 version 4 */
-  if (m.getLevel() == 2 && m.getVersion() == 4)
+  if (m.getLevel() > 2 || (m.getLevel() == 2 && m.getVersion() > 3))
   {
     if (m.getFunctionDefinition(node.getName()))
     {

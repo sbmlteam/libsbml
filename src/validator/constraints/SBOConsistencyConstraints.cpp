@@ -92,7 +92,11 @@ using namespace std;
 
 START_CONSTRAINT(99701, Model, m1)
 {
-  pre(m1.getLevel() == 2 && m1.getVersion() > 1);
+  pre(m1.getLevel() > 1);
+  if (m1.getLevel() == 2) 
+  {
+    pre( m1.getVersion() > 1);
+  }
   pre(m1.isSetSBOTerm());
 
   inv_or(SBO::isQuantitativeParameter  (m1.getSBOTerm()));
@@ -106,7 +110,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(99701, FunctionDefinition, fd)
 {
-  pre(fd.getLevel() == 2 && fd.getVersion() > 1);
+  pre(fd.getLevel() > 1);
+  if (fd.getLevel() == 2) 
+  {
+    pre( fd.getVersion() > 1);
+  }
   pre(fd.isSetSBOTerm());
 
   inv_or(SBO::isQuantitativeParameter  (fd.getSBOTerm()));
@@ -120,7 +128,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(99701, Parameter, p)
 {
-  pre(p.getLevel() == 2 && p.getVersion() > 1);
+  pre(p.getLevel() > 1);
+  if (p.getLevel() == 2) 
+  {
+    pre( p.getVersion() > 1);
+  }
   pre(p.isSetSBOTerm());
 
   inv_or(SBO::isQuantitativeParameter  (p.getSBOTerm()));
@@ -134,7 +146,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(99701, InitialAssignment, ia)
 {
-  pre(ia.getLevel() == 2 && ia.getVersion() > 1);
+  pre(ia.getLevel() > 1);
+  if (ia.getLevel() == 2) 
+  {
+    pre( ia.getVersion() > 1);
+  }
   pre(ia.isSetSBOTerm());
 
   inv_or(SBO::isQuantitativeParameter  (ia.getSBOTerm()));
@@ -148,7 +164,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(99701, AssignmentRule, ar)
 {
-  pre(ar.getLevel() == 2 && ar.getVersion() > 1);
+  pre(ar.getLevel() > 1);
+  if (ar.getLevel() == 2)
+  {
+    pre( ar.getVersion() > 1);
+  }
   pre(ar.isSetSBOTerm());
 
   inv_or(SBO::isQuantitativeParameter  (ar.getSBOTerm()));
@@ -162,7 +182,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(99701, RateRule, rr)
 {
-  pre(rr.getLevel() == 2 && rr.getVersion() > 1);
+  pre(rr.getLevel() > 1);
+  if (rr.getLevel() == 2)
+  {
+    pre( rr.getVersion() > 1);
+  }
   pre(rr.isSetSBOTerm());
 
   inv_or(SBO::isQuantitativeParameter  (rr.getSBOTerm()));
@@ -176,7 +200,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(99701, AlgebraicRule, ar)
 {
-  pre(ar.getLevel() == 2 && ar.getVersion() > 1);
+  pre(ar.getLevel() > 1);
+  if (ar.getLevel() == 2)
+  {
+    pre( ar.getVersion() > 1);
+  }
   pre(ar.isSetSBOTerm());
 
   inv_or(SBO::isQuantitativeParameter  (ar.getSBOTerm()));
@@ -190,7 +218,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(99701, Constraint, c)
 {
-  pre(c.getLevel() == 2 && c.getVersion() > 1);
+  pre(c.getLevel() > 1);
+  if (c.getLevel() == 2)
+  {
+    pre( c.getVersion() > 1);
+  }
   pre(c.isSetSBOTerm());
 
   inv_or(SBO::isQuantitativeParameter  (c.getSBOTerm()));
@@ -204,7 +236,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(99701, Reaction, r)
 {
-  pre(r.getLevel() == 2 && r.getVersion() > 1);
+  pre(r.getLevel() > 1);
+  if (r.getLevel() == 2)
+  {
+    pre( r.getVersion() > 1);
+  }
   pre(r.isSetSBOTerm());
 
   inv_or(SBO::isQuantitativeParameter  (r.getSBOTerm()));
@@ -218,7 +254,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(99701, SpeciesReference, sr)
 {
-  pre(sr.getLevel() == 2 && sr.getVersion() > 1);
+  pre(sr.getLevel() > 1);
+  if (sr.getLevel() == 2)
+  {
+    pre( sr.getVersion() > 1);
+  }
   pre(sr.isSetSBOTerm());
 
   inv_or(SBO::isQuantitativeParameter  (sr.getSBOTerm()));
@@ -232,7 +272,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(99701, KineticLaw, kl)
 {
-  pre(kl.getLevel() == 2 && kl.getVersion() > 1);
+  pre(kl.getLevel() > 1);
+  if (kl.getLevel() == 2)
+  {
+    pre( kl.getVersion() > 1);
+  }
   pre(kl.isSetSBOTerm());
 
   inv_or(SBO::isQuantitativeParameter  (kl.getSBOTerm()));
@@ -246,7 +290,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(99701, Event, e)
 {
-  pre(e.getLevel() == 2 && e.getVersion() > 1);
+  pre(e.getLevel() > 1);
+  if (e.getLevel() == 2)
+  {
+    pre( e.getVersion() > 1);
+  }
   pre(e.isSetSBOTerm());
 
   inv_or(SBO::isQuantitativeParameter  (e.getSBOTerm()));
@@ -260,7 +308,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(99701, EventAssignment, ea)
 {
-  pre(ea.getLevel() == 2 && ea.getVersion() > 1);
+  pre(ea.getLevel() > 1);
+  if (ea.getLevel() == 2)
+  {
+    pre( ea.getVersion() > 1);
+  }
   pre(ea.isSetSBOTerm());
 
   inv_or(SBO::isQuantitativeParameter  (ea.getSBOTerm()));
@@ -274,7 +326,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(99701, Compartment, c)
 {
-  pre(c.getLevel() == 2 && c.getVersion() > 2);
+  pre(c.getLevel() > 1);
+  if (c.getLevel() == 2)
+  {
+    pre( c.getVersion() > 2);
+  }
   pre(c.isSetSBOTerm());
 
   inv_or(SBO::isQuantitativeParameter  (c.getSBOTerm()));
@@ -288,7 +344,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(99701, Species, s)
 {
-  pre(s.getLevel() == 2 && s.getVersion() > 2);
+  pre(s.getLevel() > 1);
+  if (s.getLevel() == 2)
+  {
+    pre( s.getVersion() > 2);
+  }
   pre(s.isSetSBOTerm());
 
   inv_or(SBO::isQuantitativeParameter  (s.getSBOTerm()));
@@ -302,7 +362,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(99701, CompartmentType, ct)
 {
-  pre(ct.getLevel() == 2 && ct.getVersion() > 2);
+  pre(ct.getLevel() > 1);
+  if (ct.getLevel() == 2)
+  {
+    pre( ct.getVersion() > 2);
+  }
   pre(ct.isSetSBOTerm());
 
   inv_or(SBO::isQuantitativeParameter  (ct.getSBOTerm()));
@@ -316,7 +380,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(99701, SpeciesType, st)
 {
-  pre(st.getLevel() == 2 && st.getVersion() > 2);
+  pre(st.getLevel() > 1);
+  if (st.getLevel() == 2)
+  {
+    pre( st.getVersion() > 2);
+  }
   pre(st.isSetSBOTerm());
 
   inv_or(SBO::isQuantitativeParameter  (st.getSBOTerm()));
@@ -330,7 +398,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(99701, Trigger, t)
 {
-  pre(t.getLevel() == 2 && t.getVersion() > 2);
+  pre(t.getLevel() > 1);
+  if (t.getLevel() == 2)
+  {
+    pre( t.getVersion() > 2);
+  }
   pre(t.isSetSBOTerm());
 
   inv_or(SBO::isQuantitativeParameter  (t.getSBOTerm()));
@@ -344,7 +416,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(99701, Delay, d)
 {
-  pre(d.getLevel() == 2 && d.getVersion() > 2);
+  pre(d.getLevel() > 1);
+  if (d.getLevel() == 2)
+  {
+    pre( d.getVersion() > 2);
+  }
   pre(d.isSetSBOTerm());
 
   inv_or(SBO::isQuantitativeParameter  (d.getSBOTerm()));
@@ -358,7 +434,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(10701, Model, m1)
 {
-  pre (m1.getLevel() == 2 && m1.getVersion() > 1);
+  pre(m1.getLevel() > 1);
+  if (m1.getLevel() == 2)
+  {
+    pre( m1.getVersion() > 1);
+  }
   pre(m1.isSetSBOTerm());
 
   //msg = 
@@ -376,7 +456,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(10702, FunctionDefinition, fd)
 {
-  pre (fd.getLevel() == 2 && fd.getVersion() > 1);
+  pre(fd.getLevel() > 1);
+  if (fd.getLevel() == 2)
+  {
+    pre( fd.getVersion() > 1);
+  }
   pre(fd.isSetSBOTerm());
 
   //msg = 
@@ -393,7 +477,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(10703, Parameter, p)
 {
-  pre (p.getLevel() == 2 && p.getVersion() > 1);
+  pre(p.getLevel() > 1);
+  if (p.getLevel() == 2)
+  {
+    pre( p.getVersion() > 1);
+  }
   pre(p.isSetSBOTerm());
 
   //msg = 
@@ -410,7 +498,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(10704, InitialAssignment, ia)
 {
-  pre (ia.getLevel() == 2 && ia.getVersion() > 1);
+  pre(ia.getLevel() > 1);
+  if (ia.getLevel() == 2)
+  {
+    pre( ia.getVersion() > 1);
+  }
   pre(ia.isSetSBOTerm());
 
   //msg = 
@@ -427,7 +519,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(10705, AssignmentRule, r)
 {
-  pre (r.getLevel() == 2 && r.getVersion() > 1);
+  pre(r.getLevel() > 1);
+  if (r.getLevel() == 2)
+  {
+    pre( r.getVersion() > 1);
+  }
   pre(r.isSetSBOTerm());
 
   //msg = 
@@ -444,7 +540,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(10705, RateRule, r)
 {
-  pre (r.getLevel() == 2 && r.getVersion() > 1);
+  pre(r.getLevel() > 1);
+  if (r.getLevel() == 2)
+  {
+    pre( r.getVersion() > 1);
+  }
   pre(r.isSetSBOTerm());
 
   //msg = 
@@ -461,7 +561,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(10705, AlgebraicRule, r)
 {
-  pre (r.getLevel() == 2 && r.getVersion() > 1);
+  pre(r.getLevel() > 1);
+  if (r.getLevel() == 2)
+  {
+    pre( r.getVersion() > 1);
+  }
   pre(r.isSetSBOTerm());
 
   //msg = 
@@ -478,7 +582,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(10706, Constraint, c)
 {
-  pre (c.getLevel() == 2 && c.getVersion() > 1);
+  pre(c.getLevel() > 1);
+  if (c.getLevel() == 2)
+  {
+    pre( c.getVersion() > 1);
+  }
   pre(c.isSetSBOTerm());
 
   //msg = 
@@ -495,7 +603,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(10707, Reaction, r)
 {
-  pre (r.getLevel() == 2 && r.getVersion() > 1);
+  pre(r.getLevel() > 1);
+  if (r.getLevel() == 2)
+  {
+    pre( r.getVersion() > 1);
+  }
   pre(r.isSetSBOTerm());
 
   //msg = 
@@ -511,8 +623,12 @@ END_CONSTRAINT
 
 START_CONSTRAINT(10708, SpeciesReference, sr)
 {
-   pre (sr.getLevel() == 2 && sr.getVersion() > 1);
-   pre(sr.isSetSBOTerm());
+  pre(sr.getLevel() > 1);
+  if (sr.getLevel() == 2)
+  {
+    pre( sr.getVersion() > 1);
+  }
+  pre(sr.isSetSBOTerm());
 
    //msg = 
    //  "The value of the 'sboTerm' attribute on a <speciesReference> "
@@ -540,7 +656,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(10709, KineticLaw, kl)
 {
-  pre (kl.getLevel() == 2 && kl.getVersion() > 1);
+  pre(kl.getLevel() > 1);
+  if (kl.getLevel() == 2)
+  {
+    pre( kl.getVersion() > 1);
+  }
   pre(kl.isSetSBOTerm());
 
   //msg = 
@@ -556,7 +676,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(10710, Event, e)
 {
-  pre (e.getLevel() == 2 && e.getVersion() > 1);
+  pre(e.getLevel() > 1);
+  if (e.getLevel() == 2)
+  {
+    pre( e.getVersion() > 1);
+  }
   pre(e.isSetSBOTerm());
 
   //msg = 
@@ -572,7 +696,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(10711, EventAssignment, ea)
 {
-  pre (ea.getLevel() == 2 && ea.getVersion() > 1);
+  pre(ea.getLevel() > 1);
+  if (ea.getLevel() == 2)
+  {
+    pre( ea.getVersion() > 1);
+  }
   pre(ea.isSetSBOTerm());
 
   //msg = 
@@ -589,7 +717,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(10712, Compartment, c)
 {
-  pre (c.getLevel() == 2 && c.getVersion() == 3);
+  pre(c.getLevel() > 1);
+  if (c.getLevel() == 2)
+  {
+    pre( c.getVersion() > 2);
+  }
   pre(c.isSetSBOTerm());
 
   //msg = 
@@ -605,7 +737,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(10713, Species, s)
 {
-  pre (s.getLevel() == 2 && s.getVersion() == 3);
+  pre(s.getLevel() > 1);
+  if (s.getLevel() == 2)
+  {
+    pre( s.getVersion() > 2);
+  }
   pre(s.isSetSBOTerm());
 
   //msg = 
@@ -621,7 +757,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(10714, CompartmentType, c)
 {
-  pre (c.getLevel() == 2 && c.getVersion() == 3);
+  pre(c.getLevel() > 1);
+  if (c.getLevel() == 2)
+  {
+    pre( c.getVersion() > 2);
+  }
   pre(c.isSetSBOTerm());
 
   //msg = 
@@ -637,7 +777,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(10715, SpeciesType, s)
 {
-  pre (s.getLevel() == 2 && s.getVersion() == 3);
+  pre(s.getLevel() > 1);
+  if (s.getLevel() == 2)
+  {
+    pre( s.getVersion() > 2);
+  }
   pre(s.isSetSBOTerm());
 
   //msg = 
@@ -653,7 +797,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(10716, Trigger, t)
 {
-  pre (t.getLevel() == 2 && t.getVersion() == 3);
+  pre(t.getLevel() > 1);
+  if (t.getLevel() == 2)
+  {
+    pre( t.getVersion() > 2);
+  }
   pre(t.isSetSBOTerm());
 
   //msg = 
@@ -669,7 +817,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT(10717, Delay, d)
 {
-  pre (d.getLevel() == 2 && d.getVersion() == 3);
+  pre(d.getLevel() > 1);
+  if (d.getLevel() == 2)
+  {
+    pre( d.getVersion() > 2);
+  }
   pre(d.isSetSBOTerm());
 
   //msg = 

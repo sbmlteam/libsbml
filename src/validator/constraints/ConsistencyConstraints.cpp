@@ -120,7 +120,7 @@ START_CONSTRAINT (20204, Model, x)
   //  "4.8.3.)";
 
   // not valid in level 1
-  pre( m.getLevel() == 2);
+  pre( m.getLevel() > 1);
 
   pre( m.getNumSpecies()      > 0 );
   inv( m.getNumCompartments() > 0 );
@@ -132,24 +132,24 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20301, FunctionDefinition, fd)
 {
-  pre( fd.getLevel() == 2 );
+  pre( fd.getLevel() > 1 );
   pre( fd.isSetMath()     );
 
-  if (fd.getVersion() == 3)
+  if (fd.getLevel() == 2  && fd.getVersion() < 3)
+  {
+    msg =
+      "The top-level element within <math> in a <functionDefinition> must be "
+      "one and only one <lambda>.";
+  }
+  else
   {
     msg =
       "The top-level element within <math> in a <functionDefinition> must be "
       "one and only one <lambda> or a <semantics> element containing one "
       "and only one <lambda> element.";
   }
-  else
-  {
-    msg =
-      "The top-level element within <math> in a <functionDefinition> must be "
-      "one and only one <lambda>.";
-  }
 
-  if (fd.getVersion() != 3)
+  if (fd.getLevel() == 2 && fd.getVersion() < 3)
   {
     inv( !fd.getMath()->getSemanticsFlag() );
   }
@@ -171,7 +171,7 @@ START_CONSTRAINT (20303, FunctionDefinition, fd)
   //  "3.5.3 and 4.3.2; L2V3 Sections 3.4.3 and 4.3.2.)";
 
   //only applies to level 2
-  pre( fd.getLevel() == 2        );
+  pre( fd.getLevel() > 1        );
   pre( fd.isSetMath()            );
   pre( fd.getBody() != NULL      );
   pre( fd.getNumArguments() != 0 );
@@ -202,7 +202,7 @@ START_CONSTRAINT (20305, FunctionDefinition, fd)
   //  "Section 3.4.9.)";
 
   //only applies to level 2
-  pre( fd.getLevel() == 2        );
+  pre( fd.getLevel() > 1        );
   pre( fd.isSetMath()           );
   pre( fd.getBody() != NULL      );
 
@@ -260,7 +260,7 @@ START_CONSTRAINT (20401, UnitDefinition, ud)
   }
   else
   {
-    if (ud.getVersion() == 1)
+    if (ud.getLevel() == 2 && ud.getVersion() == 1)
     {
       msg =
         //"The value of the 'id' attribute in a <unitDefinition> must be of "
@@ -298,17 +298,7 @@ START_CONSTRAINT (20402, UnitDefinition, ud)
 {
   pre( ud.getId() == "substance" );
 
-  if (ud.getLevel() == 2 && (ud.getVersion() == 2 || ud.getVersion() == 3))
-  {
-    msg =
-      "Redefinitions of the built-in unit 'substance' must be based on the "
-      "units 'mole', 'item', 'gram', 'kilogram', or 'dimensionless'. More "
-      "formally, a <unitDefinition> for 'substance' must simplify to a single "
-      "<unit> whose 'kind' attribute has a value of 'mole', 'item', 'gram', "
-      "'kilogram', or 'dimensionless', and whose 'exponent' attribute has a "
-      "value of '1'.";
-  }
-  else
+  if (ud.getLevel() == 1  || (ud.getLevel() == 2 && ud.getVersion() == 1))
   {
     msg =
       "Redefinitions of the built-in unit 'substance' must be based on the "
@@ -318,18 +308,28 @@ START_CONSTRAINT (20402, UnitDefinition, ud)
       "'exponent' attribute has a value "
       "of '1'.";
   }
-
-
-    /* dimensionless allowable in L2V2 and L2V3*/
-  if (  ud.getLevel() == 2 
-    &&  (ud.getVersion() == 2 || ud.getVersion() == 3))
+  else
   {
-    inv_or (ud.isVariantOfSubstance());
-    inv_or (ud.getNumUnits() == 1 && ud.getUnit(0)->isDimensionless());
+    msg =
+      "Redefinitions of the built-in unit 'substance' must be based on the "
+      "units 'mole', 'item', 'gram', 'kilogram', or 'dimensionless'. More "
+      "formally, a <unitDefinition> for 'substance' must simplify to a single "
+      "<unit> whose 'kind' attribute has a value of 'mole', 'item', 'gram', "
+      "'kilogram', or 'dimensionless', and whose 'exponent' attribute has a "
+      "value of '1'.";
+  }
+
+
+    /* dimensionless allowable from L2V2*/
+  if ( ud.getLevel() == 1 
+    || ( ud.getLevel() == 2 && ud.getVersion() == 1))
+  {
+    inv( ud.isVariantOfSubstance() );
   }
   else
   {
-    inv( ud.isVariantOfSubstance() );
+    inv_or (ud.isVariantOfSubstance());
+    inv_or (ud.getNumUnits() == 1 && ud.getUnit(0)->isDimensionless());
   }
 
 }
@@ -349,7 +349,7 @@ START_CONSTRAINT (20403, UnitDefinition, ud)
   }
   else
   {
-    if (ud.getVersion() == 1)
+    if (ud.getLevel() == 2 && ud.getVersion() == 1)
     {
     msg =
       "Redefinitions of the built-in unit 'length' must be based on the unit "
@@ -372,16 +372,16 @@ START_CONSTRAINT (20403, UnitDefinition, ud)
   }
 
 
-  /* dimensionless is allowable in L2V2 */
-  if (  ud.getLevel() == 2 
-    &&  (ud.getVersion() == 2 || ud.getVersion() == 3))
+  /* dimensionless is allowable from L2V2 */
+  if ( ud.getLevel() == 1 
+    || ( ud.getLevel() == 2 && ud.getVersion() == 1))
   {
-    inv_or(ud.getNumUnits() == 1 && ud.getUnit(0)->isDimensionless());
-    inv_or(ud.isVariantOfLength());
+    inv( ud.isVariantOfLength());
   }
   else
   {
-    inv( ud.isVariantOfLength());
+    inv_or(ud.getNumUnits() == 1 && ud.getUnit(0)->isDimensionless());
+    inv_or(ud.isVariantOfLength());
   }
 }
 END_CONSTRAINT
@@ -400,7 +400,7 @@ START_CONSTRAINT (20404, UnitDefinition, ud)
   }
   else
   {
-    if (ud.getVersion() == 1)
+    if (ud.getLevel() == 2 && ud.getVersion() == 1)
     {
       msg =
         "Redefinitions of the built-in unit 'area' must be based on squared "
@@ -424,15 +424,15 @@ START_CONSTRAINT (20404, UnitDefinition, ud)
 
 
   /* dimensionless is allowable in L2V2 */
-  if (  ud.getLevel() == 2 
-    &&  (ud.getVersion() == 2 || ud.getVersion() == 3))
+  if ( ud.getLevel() == 1 
+    || ( ud.getLevel() == 2 && ud.getVersion() == 1))
   {
-    inv_or(ud.getNumUnits() == 1  && ud.getUnit(0)->isDimensionless());
-    inv_or(ud.isVariantOfArea());
+    inv( ud.isVariantOfArea()         );
   }
   else
   {
-    inv( ud.isVariantOfArea()         );
+    inv_or(ud.getNumUnits() == 1  && ud.getUnit(0)->isDimensionless());
+    inv_or(ud.isVariantOfArea());
   }
 }
 END_CONSTRAINT
@@ -442,7 +442,15 @@ START_CONSTRAINT (20405, UnitDefinition, ud)
 {
   pre( ud.getId() == "time" );
 
-  if (ud.getLevel() == 2 && (ud.getVersion() == 2 || ud.getVersion() == 3))
+  if (ud.getLevel() == 1  || (ud.getLevel() == 2 && ud.getVersion() == 1))
+  {
+    msg =
+      "Redefinitions of the built-in unit 'time' must be based on 'second'. "
+      "More formally, a <unitDefinition> for 'time' must simplify to a single "
+      "<unit> in which the 'kind' attribute has a value of 'second' and "
+      "the 'exponent' attribute has a value of '1'.";
+  }
+  else
   {
     msg =
       "Redefinitions of the built-in unit 'time' must be based on 'second'. "
@@ -452,27 +460,19 @@ START_CONSTRAINT (20405, UnitDefinition, ud)
       "attribute has a "
       "value of 'dimensionless' with any 'exponent' value.";
   }
-  else
-  {
-    msg =
-      "Redefinitions of the built-in unit 'time' must be based on 'second'. "
-      "More formally, a <unitDefinition> for 'time' must simplify to a single "
-      "<unit> in which the 'kind' attribute has a value of 'second' and "
-      "the 'exponent' attribute has a value of '1'.";
-  }
 
 
 
   /* dimensionless is allowable in L2V2 */
-  if (  ud.getLevel() == 2 
-    &&  (ud.getVersion() == 2 || ud.getVersion() == 3))
+  if ( ud.getLevel() == 1 
+    || ( ud.getLevel() == 2 && ud.getVersion() == 1))
   {
-    inv_or(ud.getNumUnits() == 1 && ud.getUnit(0)->isDimensionless());
-    inv_or(ud.isVariantOfTime());
+    inv( ud.isVariantOfTime()        );
   }
   else
   {
-    inv( ud.isVariantOfTime()        );
+    inv_or(ud.getNumUnits() == 1 && ud.getUnit(0)->isDimensionless());
+    inv_or(ud.isVariantOfTime());
   }
 }
 END_CONSTRAINT
@@ -482,19 +482,17 @@ START_CONSTRAINT (20406, UnitDefinition, ud)
 {
   pre( ud.getId() == "volume" );
 
-  if (ud.getLevel() == 2)
+  if (ud.getLevel() == 1)
   {
-    if (ud.getVersion() == 2 || ud.getVersion() == 3)
-    {
-      msg =
-        "Redefinitions of the built-in unit 'volume' must be based on 'litre', "
-        "'metre' or 'dimensionless'. More formally, a <unitDefinition> for "
-        "'volume' must simplify to a single <unit> in which the 'kind' "
-        "attribute "
-        "value is either 'litre', 'metre', or 'dimensionless'. Additional "
-        "constraints apply if the kind is 'litre' or 'metre'.";
-    }
-    else
+    msg =
+      "Redefinitions of the built-in unit 'volume' must be based on 'litre'. "
+      "More formally, a <unitDefinition> for "
+      "'volume' must simplify to a single <unit> in which the 'kind' attribute "
+      "value is 'litre'. ";
+  }
+  else
+  {
+    if (ud.getLevel() == 2 && ud.getVersion() == 1)
     {
       msg =
         "Redefinitions of the built-in unit 'volume' must be based on 'litre', "
@@ -504,14 +502,16 @@ START_CONSTRAINT (20406, UnitDefinition, ud)
         "value is either 'litre' or 'metre'. Additional "
         "constraints apply if the kind is 'litre' or 'metre'.";
     }
-  }
-  else
-  {
-    msg =
-      "Redefinitions of the built-in unit 'volume' must be based on 'litre'. "
-      "More formally, a <unitDefinition> for "
-      "'volume' must simplify to a single <unit> in which the 'kind' attribute "
-      "value is 'litre'. ";
+    else
+    {
+      msg =
+        "Redefinitions of the built-in unit 'volume' must be based on 'litre', "
+        "'metre' or 'dimensionless'. More formally, a <unitDefinition> for "
+        "'volume' must simplify to a single <unit> in which the 'kind' "
+        "attribute "
+        "value is either 'litre', 'metre', or 'dimensionless'. Additional "
+        "constraints apply if the kind is 'litre' or 'metre'.";
+    }
   }
 
  /* Hack whilst we sort out whether there should be three rules for volume 
@@ -520,42 +520,36 @@ START_CONSTRAINT (20406, UnitDefinition, ud)
   /* dimensionless is allowable in L2V2 */
   if (ud.getNumUnits() == 1)
   {
-  if (  ud.getLevel() == 2 )
-  {
-    if (ud.getVersion() == 2 || ud.getVersion() == 3)
+    if (  ud.getLevel() == 1 )
+    {
+      inv (ud.getUnit(0)->isLitre());
+    }
+    else if ( ud.getLevel() == 2 && ud.getVersion() == 1)
+    {
+      inv( ud.getUnit(0)->isLitre() || ud.getUnit(0)->isMetre() );
+    }
+    else
     {
       inv( ud.getUnit(0)->isLitre() 
         || ud.getUnit(0)->isMetre() 
         || ud.getUnit(0)->isDimensionless() );
     }
-    else
+  }
+  else
+  {
+    if (  ud.getLevel() == 1 )
     {
-      inv( ud.getUnit(0)->isLitre() || ud.getUnit(0)->isMetre() );
+      inv (ud.getNumUnits() == 1 && ud.getUnit(0)->isLitre());
     }
-  }
-  else
-  {
-    inv (ud.getUnit(0)->isLitre());
-  }
-  }
-  else
-  {
-  if (  ud.getLevel() == 2 )
-  {
-    if (ud.getVersion() == 2 || ud.getVersion() == 3)
+    else if (ud.getLevel() == 2 && ud.getVersion() == 1)
+    {
+      inv(ud.isVariantOfVolume());
+    }
+    else
     {
       inv_or( ud.getNumUnits() == 1 && ud.getUnit(0)->isDimensionless() );
       inv_or( ud.isVariantOfVolume());
     }
-    else
-    {
-      inv(ud.isVariantOfVolume());
-    }
-  }
-  else
-  {
-    inv (ud.getNumUnits() == 1 && ud.getUnit(0)->isLitre());
-  }
   }
 }
 END_CONSTRAINT
@@ -580,7 +574,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20408, UnitDefinition, ud)
 {
-  pre( ud.getLevel() == 2);
+  pre( ud.getLevel() > 1);
 
   pre( ud.getId()       == "volume" );
   pre( ud.getNumUnits() == 1        );
@@ -620,8 +614,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20411, UnitDefinition, ud)
 {
-  pre( ud.getLevel() == 2 && (ud.getVersion() == 2 || ud.getVersion() == 3) );
-
+  pre( ud.getLevel() > 1);
+  if ( ud.getLevel() == 2)
+  {
+    pre (ud.getVersion() > 1 );
+  }
   //msg =
   //  "The 'offset' attribute on <unit> previously available in SBML Level 2 "
   //  "Version 1, has been removed as of SBML Level 2 Version 2. (References: "
@@ -638,8 +635,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20412, Unit, u)
 {
-  pre( u.getLevel() == 2 && (u.getVersion() == 2 || u.getVersion() == 3) );
-
+  pre( u.getLevel() > 1);
+  if ( u.getLevel() == 2)
+  {
+    pre (u.getVersion() > 1 );
+  }
   //msg =
   //  "The predefined unit 'Celsius', previously available in SBML Level 1 and "
   //  "Level 2 Version 1, has been removed as of SBML Level 2 Version 2. "
@@ -652,8 +652,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20412, Parameter, p)
 {
-  pre( p.getLevel() == 2 && (p.getVersion() == 2 || p.getVersion() == 3) );
-
+  pre( p.getLevel() > 1);
+  if ( p.getLevel() == 2)
+  {
+    pre (p.getVersion() > 1 );
+  }
   //msg =
   //  "The predefined unit 'Celsius', previously available in SBML Level 1 and "
   //  "Level 2 Version 1, has been removed as of SBML Level 2 Version 2. "
@@ -668,7 +671,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20501, Compartment, c)
 {
-  pre( c.getLevel() == 2);
+  pre( c.getLevel() > 1);
   pre( c.getSpatialDimensions() == 0 );
   
   //msg =
@@ -683,7 +686,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20502, Compartment, c)
 {
-  pre( c.getLevel() == 2);
+  pre( c.getLevel() > 1);
   pre( c.getSpatialDimensions() == 0 );
 
   //msg =
@@ -700,7 +703,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20503, Compartment, c)
 {
-  pre( c.getLevel() == 2);
+  pre( c.getLevel() > 1);
   pre( c.getSpatialDimensions() == 0 );
 
   //msg =
@@ -734,8 +737,9 @@ EXTERN_CONSTRAINT(20505, CompartmentOutsideCycles)
 
 START_CONSTRAINT (20506, Compartment, c)
 {
-  pre (c.getLevel() == 2);
-  pre( c.isSetOutside() && c.getSpatialDimensions() == 0 );
+  pre (c.getLevel() > 1);
+  pre ( c.isSetOutside() && c.getSpatialDimensions() == 0 );
+  pre ( m.getCompartment( c.getOutside() ) != NULL );
 
   //msg =
   //  "The 'outside' attribute value of a <compartment> cannot be a compartment "
@@ -753,11 +757,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20507, Compartment, c)
 {
-  pre (c.getLevel() == 2);
+  pre (c.getLevel() > 1);
   pre( c.getSpatialDimensions() == 1 );
   pre( c.isSetUnits()                );
 
-  if (c.getVersion() == 1)
+  if (c.getLevel() == 2 && c.getVersion() == 1)
   {
     msg =
       "The value of the 'units' attribute on a <compartment> having "
@@ -778,7 +782,13 @@ START_CONSTRAINT (20507, Compartment, c)
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
   /* dimensionless is allowable in L2V2 */
-  if (c.getVersion() == 2 || c.getVersion() == 3)
+  if (c.getLevel() == 2 && c.getVersion() == 1)
+  {
+    inv_or( units == "length" );
+    inv_or( units == "metre"  );
+    inv_or( defn  != NULL && defn->isVariantOfLength() );
+  }
+  else
   {
     inv_or( units == "length" );
     inv_or( units == "metre"  );
@@ -786,23 +796,17 @@ START_CONSTRAINT (20507, Compartment, c)
     inv_or( defn  != NULL && defn->isVariantOfLength() );
     inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
   }
-  else
-  {
-    inv_or( units == "length" );
-    inv_or( units == "metre"  );
-    inv_or( defn  != NULL && defn->isVariantOfLength() );
-  }
 }
 END_CONSTRAINT
 
 
 START_CONSTRAINT (20508, Compartment, c)
 {
-  pre (c.getLevel() == 2);
+  pre (c.getLevel() > 1);
   pre( c.getSpatialDimensions() == 2 );
   pre( c.isSetUnits()                );
 
-  if (c.getVersion() == 1)
+  if (c.getLevel() == 2 && c.getVersion() == 1)
   {
     msg =
       "The value of the 'units' attribute on a <compartment> having "
@@ -823,17 +827,17 @@ START_CONSTRAINT (20508, Compartment, c)
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
   /* dimensionless is allowable in L2V2 */
-  if ( c.getVersion() == 2 || c.getVersion() == 3)
+  if (c.getLevel() == 2 && c.getVersion() == 1)
+  {
+    inv_or( units == "area" );
+    inv_or( defn  != NULL && defn->isVariantOfArea() );
+  }
+  else
   {
     inv_or( units == "area" );
     inv_or( units == "dimensionless"  );
     inv_or( defn  != NULL && defn->isVariantOfArea() );
     inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
-  }
-  else
-  {
-    inv_or( units == "area" );
-    inv_or( defn  != NULL && defn->isVariantOfArea() );
   }
 }
 END_CONSTRAINT
@@ -844,16 +848,8 @@ START_CONSTRAINT (20509, Compartment, c)
   pre( c.getSpatialDimensions() == 3 );
   pre( c.isSetUnits()                );
 
-  if (  c.getLevel() == 2 
-    &&  (c.getVersion() == 2 || c.getVersion() == 3))
-  {
-    msg =
-      "The value of the 'units' attribute on a <compartment> having "
-      "'spatialDimensions' of '3' must be either 'volume', 'litre', or the "
-      "identifier of a <unitDefinition> based on either 'litre', 'metre' (with "
-      "'exponent' equal to '3'), or 'dimensionless'.";
-  }
-  else
+  if (  c.getLevel() == 1 
+    || (c.getLevel() == 2 &&  c.getVersion() == 1))
   {
     msg =
       "The value of the 'units' attribute on a <compartment> having "
@@ -861,13 +857,28 @@ START_CONSTRAINT (20509, Compartment, c)
       "identifier of a <unitDefinition> based on either 'litre', 'metre' (with "
       "'exponent' equal to '3').";
   }
+  else
+  {
+    msg =
+      "The value of the 'units' attribute on a <compartment> having "
+      "'spatialDimensions' of '3' must be either 'volume', 'litre', or the "
+      "identifier of a <unitDefinition> based on either 'litre', 'metre' (with "
+      "'exponent' equal to '3'), or 'dimensionless'.";
+  }
 
   const string&         units = c.getUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
   /* dimensionless is allowable in L2V2 */
-  if (  c.getLevel() == 2 
-    &&  (c.getVersion() == 2 || c.getVersion() == 3))
+  if ( c.getLevel() == 1
+    || (c.getLevel() == 2 && c.getVersion() == 1))
+  {
+    inv_or( units == "volume" );
+    inv_or( units == "litre"  );
+    inv_or( units == "liter" && c.getLevel() == 1 );
+    inv_or( defn  != NULL && defn->isVariantOfVolume() );
+  }
+  else
   {
     inv_or( units == "volume" );
     inv_or( units == "litre"  );
@@ -875,20 +886,17 @@ START_CONSTRAINT (20509, Compartment, c)
     inv_or( defn  != NULL && defn->isVariantOfVolume() );
     inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
   }
-  else
-  {
-    inv_or( units == "volume" );
-    inv_or( units == "litre"  );
-    inv_or( units == "liter" && c.getLevel() == 1 );
-    inv_or( defn  != NULL && defn->isVariantOfVolume() );
-  }
 }
 END_CONSTRAINT
 
 
 START_CONSTRAINT (20510, Compartment, c)
 {
-  pre( c.getLevel() == 2 && (c.getVersion() == 2 || c.getVersion() == 3) );
+  pre( c.getLevel() > 1);
+  if (c.getLevel() == 2 )
+  {
+    pre( c.getVersion() > 1 );
+  }
   pre( c.isSetCompartmentType());
 
   msg =
@@ -921,7 +929,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20602, Species, s)
 {
-  pre ( s.getLevel() == 2 && s.getVersion() != 3);
+  pre ( s.getLevel() == 2 && s.getVersion() < 3);
   pre( s.getHasOnlySubstanceUnits() == true );
 
   //msg =
@@ -936,7 +944,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20603, Species, s)
 {
-  pre ( s.getLevel() == 2 && s.getVersion() != 3);
+  pre ( s.getLevel() == 2 && s.getVersion() < 3);
 
   const Compartment* c = m.getCompartment( s.getCompartment() );
   pre( c != NULL && c->getSpatialDimensions() == 0 );
@@ -953,7 +961,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20604, Species, s)
 {
-  pre ( s.getLevel() == 2);
+  pre ( s.getLevel() > 1);
 
   const Compartment* c = m.getCompartment( s.getCompartment() );
 
@@ -973,7 +981,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20605, Species, s)
 {
-  pre (s.getLevel() == 2 && s.getVersion() != 3);
+  pre ( s.getLevel() == 2 && s.getVersion() < 3);
 
   const Compartment* c = m.getCompartment( s.getCompartment() );
 
@@ -1013,7 +1021,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20606, Species, s)
 {
-  pre (s.getLevel() == 2 && s.getVersion() != 3);
+  pre ( s.getLevel() == 2 && s.getVersion() < 3);
   
   const Compartment* c = m.getCompartment( s.getCompartment() );
 
@@ -1051,7 +1059,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20607, Species, s)
 {
-  pre (s.getLevel() == 2 && s.getVersion() != 3);
+  pre ( s.getLevel() == 2 && s.getVersion() < 3);
 
   const Compartment* c = m.getCompartment( s.getCompartment() );
 
@@ -1103,7 +1111,7 @@ START_CONSTRAINT (20608, Species, s)
   }
   else
   {
-    if (s.getVersion() == 1)
+    if (s.getLevel() == 2 && s.getVersion() == 1)
     {
       msg =
         "The value of a <species>'s 'substanceUnits' attribute can only be one "
@@ -1128,7 +1136,15 @@ START_CONSTRAINT (20608, Species, s)
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
   /* dimensionless/gram/kilogram are allowable in L2V2 */
-  if (s.getLevel() == 2 &&  (s.getVersion() == 2 || s.getVersion() == 3))
+  if (s.getLevel() == 1 
+    || (s.getLevel() == 2 &&  s.getVersion() == 1))
+  {
+    inv_or( units == "substance" );
+    inv_or( units == "item"      );
+    inv_or( units == "mole"      );
+    inv_or( defn  != NULL && defn->isVariantOfSubstance() );
+  }
+  else
   {
     inv_or( units == "substance"      );
     inv_or( units == "item"           );
@@ -1140,20 +1156,13 @@ START_CONSTRAINT (20608, Species, s)
     inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
     inv_or( defn  != NULL && defn->isVariantOfMass()          );
   }
-  else
-  {
-    inv_or( units == "substance" );
-    inv_or( units == "item"      );
-    inv_or( units == "mole"      );
-    inv_or( defn  != NULL && defn->isVariantOfSubstance() );
-  }
 }
 END_CONSTRAINT
 
 
 START_CONSTRAINT (20609, Species, s)
 {
-  pre ( s.getLevel() == 2);
+  pre ( s.getLevel() > 1);
   pre(  s.isSetInitialAmount()        );
   
   //msg =
@@ -1171,7 +1180,7 @@ EXTERN_CONSTRAINT(20610, SpeciesReactionOrRule)
 // TO DO - get this to reference line no of species 
 START_CONSTRAINT (20611, SpeciesReference, sr)
 {
-  pre (sr.getLevel() == 2);
+  pre (sr.getLevel() > 1);
 
   /* doesnt apply if the SpeciesReference is a modifier */
   pre(!sr.isModifier());
@@ -1193,7 +1202,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20612, Species, s)
 {
-  pre( s.getLevel() == 2 && (s.getVersion() == 2 || s.getVersion() == 3) );
+  pre( s.getLevel() > 1);
+  if (s.getLevel() == 2) 
+  {
+    pre( s.getVersion() > 1 );
+  }
   pre( s.isSetSpeciesType() );
 
   msg =
@@ -1224,8 +1237,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20615, Species, s)
 {
-  pre(s.getLevel() == 2 && s.getVersion() == 3);
-
+  pre(s.getLevel() > 1);
+  if (s.getLevel() == 2)
+  {
+    pre(s.getVersion() > 2);
+  }
   //msg =
   //  "The 'spatialSizeUnits' attribute on <species>, previously available "
   //  "in SBML Level 2 versions prior to Version 3, has been removed as "
@@ -1292,7 +1308,7 @@ START_CONSTRAINT (20901, AssignmentRule, r)
   }
   pre( r.isSetVariable() );
 
-  if (r.getLevel() == 2)
+  if (r.getLevel() > 1)
   {
     //msg =
     //  "The value of an <assignmentRule>'s 'variable' must be the identifier of "
@@ -1344,7 +1360,7 @@ START_CONSTRAINT (20902, RateRule, r)
   }
   pre( r.isSetVariable() );
 
-  if (r.getLevel() == 2)
+  if (r.getLevel() > 1)
   {
     //msg =
     //  "The value of a <rateRule>'s 'variable' must be the identifier of an "
@@ -1390,7 +1406,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20903, AssignmentRule, r)
 {
-  pre( r.getLevel() == 2);
+  pre( r.getLevel() > 1);
   pre( r.isSetVariable() );
 
   //msg =
@@ -1417,7 +1433,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20904, RateRule, r)
 {
-  pre( r.getLevel() == 2);
+  pre( r.getLevel() > 1);
   pre( r.isSetVariable() );
 
   //msg =
@@ -1450,7 +1466,11 @@ EXTERN_CONSTRAINT(20906, AssignmentCycles)
 
 START_CONSTRAINT (21001, Constraint, c)
 {
-  pre ( c.getLevel() == 2 && c.getVersion() > 1);
+  pre ( c.getLevel() > 1);
+  if (c.getLevel() == 2)
+  {
+    pre( c.getVersion() > 1);
+  }
   pre( c.isSetMath() );
 
   //msg =
@@ -1508,7 +1528,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (21113, SpeciesReference, sr)
 {
-  pre (sr.getLevel() == 2);
+  pre (sr.getLevel() > 1);
 
   /* doesnt apply if the SpeciesReference is a modifier */
   pre(!sr.isModifier());
@@ -1536,7 +1556,7 @@ EXTERN_CONSTRAINT(21121, KineticLawVars)
 
 START_CONSTRAINT (21124, KineticLaw, kl)
 {
-  pre(kl.getLevel() == 2);
+  pre(kl.getLevel() > 1);
 
   pre(kl.getNumParameters() != 0);
 
@@ -1556,8 +1576,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT (21125, KineticLaw, kl)
 {
-  pre( kl.getLevel() == 2 && (kl.getVersion() == 2 || kl.getVersion() == 3) );
-
+  pre( kl.getLevel() > 1);
+  if (kl.getLevel() == 2)
+  {
+    pre( kl.getVersion() > 1 );
+  }
   //msg =
   //  "The 'substanceUnits' attribute on <kineticLaw>, previously available in "
   //  "SBML Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
@@ -1572,8 +1595,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT (21126, KineticLaw, kl)
 {
-  pre( kl.getLevel() == 2 && (kl.getVersion() == 2 || kl.getVersion() == 3) );
-
+  pre( kl.getLevel() > 1);
+  if (kl.getLevel() == 2)
+  {
+    pre( kl.getVersion() > 1 );
+  }
   //msg =
   //  "The 'timeUnits' attribute on <kineticLaw>, previously available in SBML "
   //  "Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
@@ -1588,7 +1614,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (99127, KineticLaw, kl)
 {
-  pre( kl.getLevel() == 1 || kl.getVersion() == 1);
+  pre( kl.getLevel() == 1 || (kl.getLevel() == 2 && kl.getVersion() == 1));
   pre( kl.isSetSubstanceUnits() );
   
   //msg =
@@ -1610,7 +1636,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (99128, KineticLaw, kl)
 {
-  pre( kl.getLevel() == 1 || kl.getVersion() == 1);
+  pre( kl.getLevel() == 1 || (kl.getLevel() == 2 && kl.getVersion() == 1));
   pre( kl.isSetTimeUnits() );
 
   //msg =
@@ -1731,7 +1757,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (21204, Event, e)
 {
-  pre (e.getVersion() != 3);
+  pre (e.getLevel() == 2 && e.getVersion() < 3);
   pre( e.isSetTimeUnits() );
 
   //msg =
@@ -1746,8 +1772,7 @@ START_CONSTRAINT (21204, Event, e)
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
   /* dimensionless is allowable in L2V2 */
-  if (  e.getLevel() == 2 
-    &&  (e.getVersion() == 2))
+  if (e.getVersion() == 2)
   {
     inv_or( units == "time" );
     inv_or( units == "second"  );
@@ -1772,8 +1797,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT (21206, Event, e)
 {
-  pre (e.getVersion() == 3);
-
+  pre (e.getLevel() > 1);
+  if (e.getLevel() == 2)
+  {
+    pre (e.getVersion() > 2);
+  }
   //msg =
   //  "The 'timeUnits' attribute on <event>, previously available in SBML "
   //  "Level 2 versions prior to Version 3, has been removed as of SBML "
