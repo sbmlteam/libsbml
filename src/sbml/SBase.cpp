@@ -132,6 +132,8 @@ SBase::SBase (const std::string& id, const std::string& name, int sbo) :
  , mAnnotation( 0 )
  , mNamespaces( 0 )
  , mSBML      ( 0 )
+ , mObjectLevel (0)
+ , mObjectVersion(0)
  , mSBOTerm   ( sbo )
  , mLine      ( 0 )
  , mColumn    ( 0 )
@@ -154,6 +156,8 @@ SBase::SBase (int sbo) :
  , mAnnotation( 0 )
  , mNamespaces( 0 )
  , mSBML      ( 0 )
+ , mObjectLevel (0)
+ , mObjectVersion(0)
  , mSBOTerm   ( sbo )
  , mLine      ( 0 )
  , mColumn    ( 0 )
@@ -184,6 +188,8 @@ SBase::SBase(const SBase& orig)
     else
       this->mAnnotation = 0;
     
+    this->mObjectLevel       = orig.mObjectLevel;
+    this->mObjectVersion       = orig.mObjectVersion;
     this->mSBML       = orig.mSBML;
     this->mSBOTerm    = orig.mSBOTerm;
     this->mLine       = orig.mLine;
@@ -248,6 +254,8 @@ SBase& SBase::operator=(const SBase& orig)
     else
       this->mAnnotation = 0;
     
+    this->mObjectLevel       = orig.mObjectLevel;
+    this->mObjectVersion       = orig.mObjectVersion;
     this->mSBML       = orig.mSBML;
     this->mSBOTerm    = orig.mSBOTerm;
     this->mLine       = orig.mLine;
@@ -1412,6 +1420,12 @@ unsigned int
 SBase::getLevel () const
 {
   return (mSBML) ? mSBML->mLevel : SBMLDocument::getDefaultLevel();
+  //if (mSBML)
+  //  return mSBML->mLevel;
+  //else if (mObjectLevel != 0)
+  //  return mObjectLevel;
+  //else
+  //  return SBMLDocument::getDefaultLevel();
 }
 
 
@@ -1422,6 +1436,12 @@ unsigned int
 SBase::getVersion () const
 {
   return (mSBML) ? mSBML->mVersion : SBMLDocument::getDefaultVersion();
+  //if (mSBML)
+  //  return mSBML->mVersion;
+  //else if (mObjectVersion != 0)
+  //  return mObjectVersion;
+  //else
+  //  return SBMLDocument::getDefaultVersion();
 }
 
 
@@ -1505,7 +1525,7 @@ SBase::read (XMLInputStream& stream)
         if ( !stream.isGood() ) break;
 
         if (object->getTypeCode() == SBML_SPECIES_REFERENCE 
-            && object->getLevel() == 2)
+            && object->getLevel() > 1)
         {
           static_cast <SpeciesReference *> (object)->sortMath();
         }
