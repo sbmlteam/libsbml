@@ -1369,6 +1369,9 @@ protected:
 
   SBMLDocument* mSBML;
 
+  int mObjectLevel;
+  int mObjectVersion;
+
   int mSBOTerm;
 
   unsigned int mLine;
