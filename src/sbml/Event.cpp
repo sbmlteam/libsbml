@@ -533,23 +533,25 @@ Event::readAttributes (const XMLAttributes& attributes)
   const unsigned int level = getLevel();
   const unsigned int version = getVersion();
 
+  if (level < 2)
+  {
+    logError(NotSchemaConformant, getLevel(), getVersion(),
+	      "Event is not a valid component for this level/version.");
+  }
   std::vector<std::string> expectedAttributes;
   expectedAttributes.clear();
-  if (level == 2)
+  expectedAttributes.push_back("metaid");
+  expectedAttributes.push_back("name");
+  expectedAttributes.push_back("id");
+
+  if (level == 2 && version < 3)
   {
-    expectedAttributes.push_back("metaid");
-    expectedAttributes.push_back("name");
-    expectedAttributes.push_back("id");
+    expectedAttributes.push_back("timeUnits");
+  }
 
-    if (version < 3)
-    {
-      expectedAttributes.push_back("timeUnits");
-    }
-
-    if (version != 1)
-    {
-      expectedAttributes.push_back("sboTerm");
-    }
+  if (!(level == 2 && version == 1))
+  {
+    expectedAttributes.push_back("sboTerm");
   }
 
   // check that all attributes are expected
@@ -565,7 +567,7 @@ Event::readAttributes (const XMLAttributes& attributes)
   }
 
   //
-  // id: SId  { use="optional" }  (L2v1, L2v2)
+  // id: SId  { use="optional" }  (L2v1 ->)
   //
   bool assigned = attributes.readInto("id", mId, getErrorLog(), false);
   if (assigned && mId.size() == 0)
@@ -575,7 +577,7 @@ Event::readAttributes (const XMLAttributes& attributes)
   SBase::checkIdSyntax();
 
   //
-  // name: string  { use="optional" }  (L2v1, L2v2)
+  // name: string  { use="optional" }  (L2v1 ->)
   //
   attributes.readInto("name", mName);
 
@@ -583,14 +585,16 @@ Event::readAttributes (const XMLAttributes& attributes)
   // timeUnits: SId  { use="optional" }  (L2v1, L2v2)
   // removed in l2v3
   //
-  attributes.readInto("timeUnits", mTimeUnits);
-  SBase::checkUnitSyntax();
-
+  if (level == 2 && version < 3)
+  {
+    attributes.readInto("timeUnits", mTimeUnits);
+    SBase::checkUnitSyntax();
+  }
 
   //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
   //
-  if (level == 2 && version > 1) 
+  if (!(level == 2 && version == 1)) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
 /** @endcond doxygen-libsbml-internal */
@@ -610,18 +614,23 @@ Event::writeAttributes (XMLOutputStream& stream) const
   const unsigned int level = getLevel();
   const unsigned int version = getVersion();
 
+  if (level < 2)
+  {
+    return;
+  }
+
   //
-  // id: SId  { use="optional" }  (L2v1, L2v2)
+  // id: SId  { use="optional" }  (L2v1 ->)
   //
   if (!mInternalIdOnly)
     stream.writeAttribute("id", mId);
 
   //
-  // name: string  { use="optional" }  (L2v1, L2v2)
+  // name: string  { use="optional" }  (L2v1->)
   //
   stream.writeAttribute("name", mName);
 
-  if (version < 3)
+  if (level == 2 && version < 3)
   {
     //
     // timeUnits: SId  { use="optional" }  (L2v1, L2v2)
@@ -632,9 +641,9 @@ Event::writeAttributes (XMLOutputStream& stream) const
 
 
   //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
   //
-  if (level == 2 && version > 1) 
+  if (!(level == 2 && version == 1)) 
     SBO::writeTerm(stream, mSBOTerm);
 }
 /** @endcond doxygen-libsbml-internal */

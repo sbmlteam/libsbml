@@ -139,6 +139,12 @@ CompartmentType::readAttributes (const XMLAttributes& attributes)
   const unsigned int level = getLevel();
   const unsigned int version = getVersion();
 
+  if (level < 2 || (level == 2 && version == 1))
+  {
+    logError(NotSchemaConformant, getLevel(), getVersion(),
+	      "CompartmentType is not a valid component for this level/version.");
+  }
+
   std::vector<std::string> expectedAttributes;
   expectedAttributes.clear();
 
@@ -201,6 +207,12 @@ CompartmentType::writeAttributes (XMLOutputStream& stream) const
 
   const unsigned int level = getLevel();
   const unsigned int version = getVersion();
+
+  /* invalid level/version */
+  if (level < 2 || (level == 2 && version == 1))
+  {
+    return;
+  }
 
   //
   // id: SId  { use="required" }  (L2v2 ->)

@@ -81,6 +81,12 @@ START_TEST (test_read_l2v3_all)
   KineticLaw*       kl;
   UnitDefinition*   ud;
   Reaction*         r1;
+  Constraint*       con;
+  Event*            e;
+  Delay*            delay;
+  Trigger*          t;
+  
+  const ASTNode*   ast;
 
   std::string filename(TestDataDirectory);
   filename += "l2v3-all.xml";
@@ -133,6 +139,76 @@ START_TEST (test_read_l2v3_all)
   fail_unless( ct->getSBOTerm() == 236, NULL );
   fail_unless( ct->getSBOTermID() == "SBO:0000236", NULL );
 
+  //<listOfConstraints>
+  //  <constraint>
+  //    <math xmlns="http://www.w3.org/1998/Math/MathML">
+  //      <apply>
+  //        <lt/>
+  //        <ci> x </ci>
+  //        <cn type="integer"> 3 </cn>
+  //      </apply>
+  //    </math>
+  //  </constraint>
+  //</listOfConstraints>
+  fail_unless( m->getNumConstraints() == 1, NULL );
+
+  con = m->getConstraint(0);
+  fail_unless( con         != NULL  , NULL );
+
+  ast = con->getMath();
+  fail_unless(!strcmp(SBML_formulaToString(ast), "lt(x, 3)"), NULL);           
+
+  //<event id="e1" sboTerm="SBO:0000231">
+  //  <trigger>
+  //    <math xmlns="http://www.w3.org/1998/Math/MathML">
+  //      <apply>
+  //        <lt/>
+  //        <ci> x </ci>
+  //        <cn type="integer"> 3 </cn>
+  //      </apply>
+  //    </math>
+  //  </trigger>
+  //  <delay sboTerm="SBO:0000064">
+  //    <math xmlns="http://www.w3.org/1998/Math/MathML">
+  //      <apply>
+  //        <plus/>
+  //        <ci> x </ci>
+  //        <cn type="integer"> 3 </cn>
+  //      </apply>
+  //    </math>
+  //  </delay>
+  //  <listOfEventAssignments>
+  //    <eventAssignment variable="a">
+  //      <math xmlns="http://www.w3.org/1998/Math/MathML">
+  //        <apply>
+  //          <times/>
+  //          <ci> x </ci>
+  //          <ci> p3 </ci>
+  //        </apply>
+  //      </math>
+  //    </eventAssignment>
+  //  </listOfEventAssignments>
+  //</event>
+  fail_unless( m->getNumEvents() == 1, NULL );
+
+  e = m->getEvent(0);
+  fail_unless(e != NULL, NULL);
+
+  fail_unless(e->getId() == "e1", NULL);
+
+  fail_unless(e->getSBOTerm() == 231, NULL);
+  fail_unless(e->getSBOTermID() == "SBO:0000231");
+
+  fail_unless(e->isSetDelay(), NULL);
+  
+  delay = e->getDelay();
+  fail_unless(delay != NULL, NULL);
+
+  fail_unless(delay->getSBOTerm() == 64, NULL);
+  fail_unless(delay->getSBOTermID() == "SBO:0000064");
+
+  ast = delay->getMath();
+  fail_unless(!strcmp(SBML_formulaToString(ast), "p + 3"), NULL);
 
 
   ///**

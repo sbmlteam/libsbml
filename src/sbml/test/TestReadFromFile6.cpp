@@ -81,6 +81,9 @@ START_TEST (test_read_l2v2_newComponents)
   KineticLaw*       kl;
   UnitDefinition*   ud;
   Reaction*         r1;
+  Constraint*       con;
+  
+  const ASTNode*   ast;
 
   std::string filename(TestDataDirectory);
   filename += "l2v2-newComponents.xml";
@@ -134,6 +137,28 @@ START_TEST (test_read_l2v2_newComponents)
   ct = m->getCompartmentType(0);
   fail_unless( ct         != NULL  , NULL );
   fail_unless( ct->getId() == "mitochondria", NULL );
+
+  //<listOfConstraints>
+  //  <constraint sboTerm="SBO:0000064">
+  //    <math xmlns="http://www.w3.org/1998/Math/MathML">
+  //      <apply>
+  //        <lt/>
+  //        <cn type="integer"> 1 </cn>
+  //        <ci> cell </ci>
+  //      </apply>
+  //    </math>
+  //  </constraint>
+  //</listOfConstraints>
+  fail_unless( m->getNumConstraints() == 1, NULL );
+
+  con = m->getConstraint(0);
+  fail_unless( con         != NULL  , NULL );
+  fail_unless(con->getSBOTerm() == 64, NULL);
+  fail_unless(con->getSBOTermID() == "SBO:0000064", NULL);
+
+  ast = con->getMath();
+  fail_unless(!strcmp(SBML_formulaToString(ast), "lt(1, cell)"), NULL);
+
 
   ///**
   // * tests for the unit API functions

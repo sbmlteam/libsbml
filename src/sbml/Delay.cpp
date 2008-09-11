@@ -347,14 +347,18 @@ Delay::readAttributes (const XMLAttributes& attributes)
   const unsigned int level = getLevel();
   const unsigned int version = getVersion();
 
+  if (level < 2)
+  {
+    logError(NotSchemaConformant, getLevel(), getVersion(),
+	      "Delay is not a valid component for this level/version.");
+  }
   std::vector<std::string> expectedAttributes;
   expectedAttributes.clear();
-  if (level == 2)
+
+  expectedAttributes.push_back("metaid");
+  if (!(level == 2 && version < 3))
   {
-    if (version > 1)
-      expectedAttributes.push_back("metaid");
-    if (version > 2)
-      expectedAttributes.push_back("sboTerm");
+    expectedAttributes.push_back("sboTerm");
   }
 
   // check that all attributes are expected
@@ -370,9 +374,9 @@ Delay::readAttributes (const XMLAttributes& attributes)
   }
 
   //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  // sboTerm: SBOTerm { use="optional" }  (L2v3 ->)
   //
-  if (level == 2 && version > 1) 
+  if (!(level == 2 && version < 3))
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
 /** @endcond doxygen-libsbml-internal */
@@ -392,10 +396,15 @@ Delay::writeAttributes (XMLOutputStream& stream) const
   const unsigned int level = getLevel();
   const unsigned int version = getVersion();
 
+  if (level < 2)
+  {
+    return;
+  }
+
   //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  // sboTerm: SBOTerm { use="optional" }  (L2v3 ->)
   //
-  if (level == 2 && version > 1) 
+  if (!(level == 2 && version < 3)) 
     SBO::writeTerm(stream, mSBOTerm);
 }
 /** @endcond doxygen-libsbml-internal */

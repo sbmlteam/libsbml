@@ -26,6 +26,7 @@
 #include <sstream>
 
 #include <sbml/xml/XMLOutputStream.h>
+#include <sbml/xml/XMLNode.h>
 #include <sbml/util/util.h>
 
 #include <sbml/SBMLTypes.h>
@@ -1577,6 +1578,21 @@ START_TEST (test_WriteSBML_Event)
 END_TEST
 
 
+START_TEST (test_WriteSBML_Event_WithSBO)
+{
+  const char* expected = wrapXML("<event id=\"e\" sboTerm=\"SBO:0000076\"/>");
+
+
+  Event e;
+  e.setId("e");
+  e.setSBOTerm(76);
+  
+  e.write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
+
 
 START_TEST (test_WriteSBML_Event_trigger)
 {
@@ -1624,6 +1640,32 @@ START_TEST (test_WriteSBML_Event_delay)
   Event e("e");
   ASTNode *node = SBML_parseFormula("5");
   Delay d(node);
+  e.setDelay(&d);
+
+  e.write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
+
+
+START_TEST (test_WriteSBML_Event_delayWithSBO)
+{
+  const char* expected = wrapXML
+  (
+    "<event id=\"e\">\n"
+    "  <delay sboTerm=\"SBO:0000064\">\n"
+    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+    "      <cn type=\"integer\"> 5 </cn>\n"
+    "    </math>\n"
+    "  </delay>\n"
+    "</event>"
+  );
+
+  Event e("e");
+  ASTNode *node = SBML_parseFormula("5");
+  Delay d(node);
+  d.setSBOTerm(64);
   e.setDelay(&d);
 
   e.write(*XOS);
@@ -1748,6 +1790,95 @@ START_TEST (test_WriteSBML_CompartmentType_withSBO)
 }
 END_TEST
 
+
+START_TEST (test_WriteSBML_Constraint)
+{
+  D->setLevelAndVersion(2, 2);
+
+  const char* expected = wrapXML("<constraint sboTerm=\"SBO:0000064\"/>");
+
+
+  Constraint ct;
+  ct.setSBOTerm(64);
+  ct.setSBMLDocument(D);
+  
+  ct.write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
+
+
+START_TEST (test_WriteSBML_Constraint_math)
+{
+  const char* expected = wrapXML
+  (
+    "<constraint>\n"
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+    "    <apply>\n"
+    "      <leq/>\n"
+    "      <ci> P1 </ci>\n"
+    "      <ci> t </ci>\n"
+    "    </apply>\n"
+    "  </math>\n"
+    "</constraint>"
+  );
+
+  Constraint c;
+  ASTNode *node = SBML_parseFormula("leq(P1,t)");
+  c.setMath(node);
+
+  c.write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
+
+
+START_TEST (test_WriteSBML_Constraint_full)
+{
+  const char* expected = wrapXML
+  (
+  "<constraint sboTerm=\"SBO:0000064\">\n"
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+    "    <apply>\n"
+    "      <leq/>\n"
+    "      <ci> P1 </ci>\n"
+    "      <ci> t </ci>\n"
+    "    </apply>\n"
+    "  </math>\n"
+    "  <message>\n"
+    "    <p xmlns=\"http://www.w3.org/1999/xhtml\"> Species P1 is out of range </p>\n"
+    "  </message>\n"
+    "</constraint>"
+  );
+
+  Constraint c;
+  ASTNode *node = SBML_parseFormula("leq(P1,t)");
+  c.setMath(node);
+  c.setSBOTerm(64);
+
+  const XMLNode *text = XMLNode::convertStringToXMLNode(" Species P1 is out of range ");
+  XMLTriple triple = XMLTriple("p", "http://www.w3.org/1999/xhtml", "");
+  XMLAttributes att = XMLAttributes();
+  att.add("xmlns", "http://www.w3.org/1999/xhtml");
+  
+  XMLNode *p = new XMLNode(triple, att);
+  p->addChild(*(text));
+  
+  XMLTriple triple1 = XMLTriple("message", "", "");
+  XMLAttributes att1 = XMLAttributes();
+  XMLNode *message = new XMLNode(triple1, att1);
+
+  message->addChild(*(p));
+
+  c.setMessage(message);
+
+  c.write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
 
 
 START_TEST (test_WriteSBML_NaN)
@@ -2057,14 +2188,21 @@ create_suite_WriteSBML ()
 
   // Event
   tcase_add_test( tcase, test_WriteSBML_Event         );
+  tcase_add_test( tcase, test_WriteSBML_Event_WithSBO         );
   tcase_add_test( tcase, test_WriteSBML_Event_trigger );
   tcase_add_test( tcase, test_WriteSBML_Event_delay   );
+  tcase_add_test( tcase, test_WriteSBML_Event_delayWithSBO   );
   tcase_add_test( tcase, test_WriteSBML_Event_both    );
   tcase_add_test( tcase, test_WriteSBML_Event_full    );
 
   //CompartmentType
   tcase_add_test( tcase, test_WriteSBML_CompartmentType    );
   tcase_add_test( tcase, test_WriteSBML_CompartmentType_withSBO    );
+
+  //Constraint
+  tcase_add_test( tcase, test_WriteSBML_Constraint    );
+  tcase_add_test( tcase, test_WriteSBML_Constraint_math    );
+  tcase_add_test( tcase, test_WriteSBML_Constraint_full    );
 
   // Miscellaneous
   tcase_add_test( tcase, test_WriteSBML_NaN     );

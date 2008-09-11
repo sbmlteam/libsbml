@@ -30,7 +30,7 @@
       </initialAssignment>
     </listOfInitialAssignments>
     <listOfConstraints>
-      <constraint>
+      <constraint sboTerm="SBO:0000064">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
             <lt/>

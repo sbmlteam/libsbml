@@ -31,7 +31,7 @@
       <speciesType id="gg"/>
     </listOfSpeciesTypes>
     <listOfCompartments>
-      <compartment id="a" size="2.3" compartmentType="hh" sboTerm="SBO:0000236"/>
+      <compartment id="a" size="2.3" compartmentType="hh" sboTerm="SBO:0000236" constant="false"/>
     </listOfCompartments>
     <listOfSpecies>
       <species id="s" compartment="a" initialAmount="0"/>
@@ -128,7 +128,7 @@
       </reaction>
     </listOfReactions>
     <listOfEvents>
-      <event>
+      <event id="e1" sboTerm="SBO:0000231">
         <trigger>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -138,6 +138,15 @@
             </apply>
           </math>
         </trigger>
+        <delay sboTerm="SBO:0000064">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <plus/>
+              <ci> p </ci>
+              <cn type="integer"> 3 </cn>
+            </apply>
+          </math>
+        </delay>
         <listOfEventAssignments>
           <eventAssignment variable="a">
             <math xmlns="http://www.w3.org/1998/Math/MathML">

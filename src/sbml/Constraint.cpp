@@ -344,13 +344,17 @@ Constraint::readAttributes (const XMLAttributes& attributes)
   const unsigned int level = getLevel();
   const unsigned int version = getVersion();
 
+  if (level < 2 || (level == 2 && version == 1))
+  {
+    logError(NotSchemaConformant, getLevel(), getVersion(),
+	      "Constraint is not a valid component for this level/version.");
+    return;
+  }
+
   std::vector<std::string> expectedAttributes;
   expectedAttributes.clear();
-  if (level == 2 && version > 1)
-  {
-    expectedAttributes.push_back("metaid");
-    expectedAttributes.push_back("sboTerm");
-  }
+  expectedAttributes.push_back("metaid");
+  expectedAttributes.push_back("sboTerm");
 
   // check that all attributes are expected
   for (int i = 0; i < attributes.getLength(); i++)
@@ -365,10 +369,9 @@ Constraint::readAttributes (const XMLAttributes& attributes)
   }
 
   //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  // sboTerm: SBOTerm { use="optional" }  (L2v2 -> )
   //
-  if (level == 2 && version > 1) 
-    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
+  mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -387,11 +390,16 @@ Constraint::writeAttributes (XMLOutputStream& stream) const
   const unsigned int level = getLevel();
   const unsigned int version = getVersion();
 
+  /* invalid level/version */
+  if (level < 2 || (level == 2 && version == 1))
+  {
+    return;
+  }
+
   //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
   //
-  if (level == 2 && version > 1) 
-    SBO::writeTerm(stream, mSBOTerm);
+  SBO::writeTerm(stream, mSBOTerm);
 }
 /** @endcond doxygen-libsbml-internal */
 
