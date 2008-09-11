@@ -4,7 +4,7 @@
  * \author  Ben Bornstein
  *
  * $Id$
- * $HeadURL:$
+ * $HeadURL$
  */
 /* Copyright 2002 California Institute of Technology and Japan Science and
  * Technology Corporation.
@@ -48,10 +48,12 @@ using namespace std;
 #define NS_L1       "xmlns=\"http://www.sbml.org/sbml/level1\" "
 #define NS_L2v1     "xmlns=\"http://www.sbml.org/sbml/level2\" "
 #define NS_L2v2     "xmlns=\"http://www.sbml.org/sbml/level2/version2\" "
+#define NS_L2v3     "xmlns=\"http://www.sbml.org/sbml/level2/version3\" "
 #define LV_L1v1     "level=\"1\" version=\"1\">\n"
 #define LV_L1v2     "level=\"1\" version=\"2\">\n"
 #define LV_L2v1     "level=\"2\" version=\"1\">\n"
 #define LV_L2v2     "level=\"2\" version=\"2\">\n"
+#define LV_L2v3     "level=\"2\" version=\"3\">\n"
 #define SBML_END    "</sbml>\n"
 
 #define wrapXML(s)        XML_START s
@@ -59,6 +61,7 @@ using namespace std;
 #define wrapSBML_L1v2(s)  XML_START SBML_START NS_L1   LV_L1v2 s SBML_END
 #define wrapSBML_L2v1(s)  XML_START SBML_START NS_L2v1 LV_L2v1 s SBML_END
 #define wrapSBML_L2v2(s)  XML_START SBML_START NS_L2v2 LV_L2v2 s SBML_END
+#define wrapSBML_L2v3(s)  XML_START SBML_START NS_L2v3 LV_L2v3 s SBML_END
 
 
 static SBMLDocument* D;
@@ -520,7 +523,7 @@ START_TEST (test_WriteSBML_Compartment_L2v1)
 
   const char* expected = wrapXML
   (
-    "<compartment id=\"M\" spatialDimensions=\"2\" size=\"2.5\"/>"
+    "<compartment id=\"M\" size=\"2.5\" spatialDimensions=\"2\"/>"
   );
 
 
@@ -579,6 +582,47 @@ START_TEST (test_WriteSBML_Compartment_L2v1_unsetSize)
 }
 END_TEST
 
+
+START_TEST (test_WriteSBML_Compartment_L2v2_compartmentType)
+{
+  D->setLevelAndVersion(2, 2);
+
+  const char* expected = wrapXML
+  (
+    "<compartment id=\"cell\" compartmentType=\"ct\"/>"
+  );
+
+  Compartment c("cell");
+
+  c.setCompartmentType("ct");
+
+  c.setSBMLDocument(D);
+  c.write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
+
+
+START_TEST (test_WriteSBML_Compartment_L2v3_SBO)
+{
+  D->setLevelAndVersion(2, 3);
+
+  const char* expected = wrapXML
+  (
+  "<compartment id=\"cell\" sboTerm=\"SBO:0000005\"/>"
+  );
+
+  Compartment c("cell");
+
+  c.setSBOTerm(5);
+
+  c.setSBMLDocument(D);
+  c.write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
 
 
 START_TEST (test_WriteSBML_Species)
@@ -1667,6 +1711,45 @@ START_TEST (test_WriteSBML_Event_full)
 END_TEST
 
 
+START_TEST (test_WriteSBML_CompartmentType)
+{
+  D->setLevelAndVersion(2, 2);
+
+  const char* expected = wrapXML("<compartmentType id=\"ct\"/>");
+
+
+  CompartmentType ct;
+  ct.setId("ct");
+  ct.setSBOTerm(4);
+  ct.setSBMLDocument(D);
+  
+  ct.write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
+
+
+START_TEST (test_WriteSBML_CompartmentType_withSBO)
+{
+  D->setLevelAndVersion(2, 3);
+
+  const char* expected = wrapXML("<compartmentType id=\"ct\" sboTerm=\"SBO:0000004\"/>");
+
+
+  CompartmentType ct;
+  ct.setId("ct");
+  ct.setSBOTerm(4);
+  ct.setSBMLDocument(D);
+  
+  ct.write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
+
+
+
 START_TEST (test_WriteSBML_NaN)
 {
   const char* expected = wrapXML("<parameter id=\"p\" value=\"NaN\"/>");
@@ -1911,6 +1994,8 @@ create_suite_WriteSBML ()
   tcase_add_test( tcase, test_WriteSBML_Compartment_L2v1           );
   tcase_add_test( tcase, test_WriteSBML_Compartment_L2v1_constant  );
   tcase_add_test( tcase, test_WriteSBML_Compartment_L2v1_unsetSize );
+  tcase_add_test( tcase, test_WriteSBML_Compartment_L2v2_compartmentType  );
+  tcase_add_test( tcase, test_WriteSBML_Compartment_L2v3_SBO  );
 
   // Species
   tcase_add_test( tcase, test_WriteSBML_Species                   );
@@ -1976,6 +2061,10 @@ create_suite_WriteSBML ()
   tcase_add_test( tcase, test_WriteSBML_Event_delay   );
   tcase_add_test( tcase, test_WriteSBML_Event_both    );
   tcase_add_test( tcase, test_WriteSBML_Event_full    );
+
+  //CompartmentType
+  tcase_add_test( tcase, test_WriteSBML_CompartmentType    );
+  tcase_add_test( tcase, test_WriteSBML_CompartmentType_withSBO    );
 
   // Miscellaneous
   tcase_add_test( tcase, test_WriteSBML_NaN     );

@@ -485,12 +485,12 @@ Compartment::readAttributes (const XMLAttributes& attributes)
     expectedAttributes.push_back("spatialDimensions");
     expectedAttributes.push_back("constant");
 
-    if (version != 1)
+    if (!(level == 2 && version == 1))
     {
       expectedAttributes.push_back("compartmentType");
     }
 
-    if (version > 2)
+    if (!(level == 2 && version < 3))
     {
       expectedAttributes.push_back("sboTerm");
     }
@@ -511,7 +511,7 @@ Compartment::readAttributes (const XMLAttributes& attributes)
 
   //
   // name: SName   { use="required" }  (L1v1, L1v2)
-  //   id: SId     { use="required" }  (L2v1, L2v2)
+  //   id: SId     { use="required" }  (L2v1 ->)
   //
   const string id = (level == 1) ? "name" : "id";
   bool assigned = attributes.readInto(id, mId, getErrorLog(), true);
@@ -522,58 +522,58 @@ Compartment::readAttributes (const XMLAttributes& attributes)
   SBase::checkIdSyntax();
 
   //
-  // name: string  { use="optional" }  (L2v1, L2v2)
-  //
-  if (level == 2) attributes.readInto("name", mName, getErrorLog(), false);
-
-  //
-  // compartmentType: SId  { use="optional" }  (L2v2)
-  //
-  if (level == 2 && version > 1)
-  {
-    attributes.readInto("compartmentType", mCompartmentType, 
-                                                      getErrorLog(), false);
-  }
-
-  //
-  // spatialDimensions { maxInclusive="3" minInclusive="0" use="optional"
-  //                     default="3" }  (L2v1, L2v2)
-  //
-  if (level == 2)
-  {
-    attributes.readInto("spatialDimensions", mSpatialDimensions, 
-                                                      getErrorLog(), false);
-  }
-
-  //
   // volume  { use="optional" default="1" }  (L1v1, L1v2)
-  // size    { use="optional" }              (L2v1, L2v2)
+  // size    { use="optional" }              (L2v1 ->)
   //
   const string size = (level == 1) ? "volume" : "size";
   mIsSetSize = attributes.readInto(size, mSize, getErrorLog(), false);
 
   //
-  // units  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
+  // units  { use="optional" }  (L1v1 ->)
   //
   attributes.readInto("units", mUnits, getErrorLog(), false);
   SBase::checkUnitSyntax();
 
   //
-  // outside  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
+  // outside  { use="optional" }  (L1v1 ->)
   //
   attributes.readInto("outside", mOutside, getErrorLog(), false);
 
-  //
-  // constant  { use="optional" default="true" }  (L2v1, L2v2)
-  //
-  if (level == 2) 
+  if (level > 1)
+  {
+    //
+    // name: string  { use="optional" }  (L2v1 ->)
+    //
+    attributes.readInto("name", mName, getErrorLog(), false);
+   
+    //
+    // spatialDimensions { maxInclusive="3" minInclusive="0" use="optional"
+    //                     default="3" }  (L2v1 ->)
+    //
+    attributes.readInto("spatialDimensions", mSpatialDimensions, 
+                                                      getErrorLog(), false);
+    //
+    // constant  { use="optional" default="true" }  (L2v1 ->)
+    //
     attributes.readInto("constant", mConstant, getErrorLog(), false);
 
-  //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
-  //
-  if (level == 2 && version > 2) 
-    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
+    //
+    // compartmentType: SId  { use="optional" }  (L2v2 -> )
+    //
+    if (!(level == 2 && version == 1))
+    {
+      attributes.readInto("compartmentType", mCompartmentType, 
+                                         getErrorLog(), false);
+    }
+
+    //
+    // sboTerm: SBOTerm { use="optional" }  (L2v3 ->)
+    //
+    if (!(level == 2 && version < 3)) 
+    {
+      mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
+    }
+  }
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -592,38 +592,12 @@ Compartment::writeAttributes (XMLOutputStream& stream) const
   const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
 
-
   //
   // name: SName   { use="required" }  (L1v1, L1v2)
   //   id: SId     { use="required" }  (L2v1, L2v2)
   //
   const string id = (level == 1) ? "name" : "id";
   stream.writeAttribute(id, mId);
-
-  //
-  // name: string  { use="optional" }  (L2v1, L2v2)
-  //
-  if (level == 2) stream.writeAttribute("name", mName);
-
-  //
-  // compartmentType: SId  { use="optional" }  (L2v2)
-  //
-  if (level == 2 && version > 1)
-  {
-    stream.writeAttribute("compartmentType", mCompartmentType);
-  }
-
-  //
-  // spatialDimensions { maxInclusive="3" minInclusive="0" use="optional"
-  //                     default="3" }  (L2v1, L2v2)
-  //
-  if (level == 2)
-  {
-    if (mSpatialDimensions >= 0 && mSpatialDimensions <= 2)
-    {
-      stream.writeAttribute("spatialDimensions", mSpatialDimensions);
-    }
-  }
 
   //
   // volume  { use="optional" default="1" }  (L1v1, L1v2)
@@ -645,19 +619,46 @@ Compartment::writeAttributes (XMLOutputStream& stream) const
   //
   stream.writeAttribute("outside", mOutside);
 
-  //
-  // constant  { use="optional" default="true" }  (L2v1, L2v2)
-  //
-  if (level == 2 && mConstant != true)
+  if (level > 1)
   {
-    stream.writeAttribute("constant", mConstant);
-  }
+    //
+    // name: string  { use="optional" }  (L2v1->)
+    //
+    stream.writeAttribute("name", mName);
 
-  //
-  // sboTerm: SBOTerm { use="optional" }  (L2v3)
-  //
-  if (level == 2 && version > 2) 
-    SBO::writeTerm(stream, mSBOTerm);
+    //
+    // spatialDimensions { maxInclusive="3" minInclusive="0" use="optional"
+    //                     default="3" }  (L2v1->)
+    //
+    if (mSpatialDimensions >= 0 && mSpatialDimensions <= 2)
+    {
+      stream.writeAttribute("spatialDimensions", mSpatialDimensions);
+    }
+
+    //
+    // constant  { use="optional" default="true" }  (L2v1->)
+    //
+    if (mConstant != true)
+    {
+      stream.writeAttribute("constant", mConstant);
+    }
+
+    //
+    // compartmentType: SId  { use="optional" }  (L2v2 -> )
+    //
+    if (!(level == 2 && version == 1))
+    {
+      stream.writeAttribute("compartmentType", mCompartmentType);
+    }
+
+    //
+    // sboTerm: SBOTerm { use="optional" }  (L2v3 ->)
+    //
+    if (!(level == 2 && version < 3)) 
+    {
+      SBO::writeTerm(stream, mSBOTerm);
+    }
+  }
 }
 /** @endcond doxygen-libsbml-internal */
 

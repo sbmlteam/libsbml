@@ -141,14 +141,12 @@ CompartmentType::readAttributes (const XMLAttributes& attributes)
 
   std::vector<std::string> expectedAttributes;
   expectedAttributes.clear();
-  if (level == 2 && version > 1)
-  {
-    expectedAttributes.push_back("name");
-    expectedAttributes.push_back("id");
-    expectedAttributes.push_back("metaid");
-  }
 
-  if (level == 2 && version > 2)
+  expectedAttributes.push_back("name");
+  expectedAttributes.push_back("id");
+  expectedAttributes.push_back("metaid");
+
+  if (!(level == 2 && version < 3))
   {
     expectedAttributes.push_back("sboTerm");
   }
@@ -166,7 +164,7 @@ CompartmentType::readAttributes (const XMLAttributes& attributes)
   }
 
   //
-  // id: SId  { use="required" }  (L2v2)
+  // id: SId  { use="required" }  (L2v2 ->)
   //
   bool assigned = attributes.readInto("id", mId, getErrorLog(), true);
   if (assigned && mId.size() == 0)
@@ -176,14 +174,16 @@ CompartmentType::readAttributes (const XMLAttributes& attributes)
   SBase::checkIdSyntax();
 
   //
-  // name: string  { use="optional" }  (L2v2)
+  // name: string  { use="optional" }  (L2v2 ->)
   //
   attributes.readInto("name", mName);
   //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  // sboTerm: SBOTerm { use="optional" }  (L2v3 ->)
   //
-  if (level == 2 && version > 2) 
+  if (!(level == 2 && version < 3))
+  {
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
+  }
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -203,19 +203,21 @@ CompartmentType::writeAttributes (XMLOutputStream& stream) const
   const unsigned int version = getVersion();
 
   //
-  // id: SId  { use="required" }  (L2v2)
+  // id: SId  { use="required" }  (L2v2 ->)
   //
   stream.writeAttribute("id", mId);
 
   //
-  // name: string  { use="optional" }  (L2v2)
+  // name: string  { use="optional" }  (L2v2 ->)
   //
   stream.writeAttribute("name", mName);
   //
-  // sboTerm: SBOTerm { use="optional" }  (L2v3)
+  // sboTerm: SBOTerm { use="optional" }  (L2v3 ->)
   //
-  if (level == 2 && version > 2) 
+  if (!(level == 2 && version < 3)) 
+  {
     SBO::writeTerm(stream, mSBOTerm);
+  }
 }
 /** @endcond doxygen-libsbml-internal */
 
