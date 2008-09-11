@@ -274,14 +274,7 @@ Compartment::isSetOutside () const
 void
 Compartment::setCompartmentType (const std::string& sid)
 {
-  /* do not set a compartmentType for a level 1 or L2V1 model */
-  if (getLevel() > 1)
-  {
-    if (!(getLevel() == 2 && getVersion() == 1))
-    {
-      mCompartmentType = sid;
-    }
-  }
+  mCompartmentType = sid;
 }
 
 
@@ -294,13 +287,7 @@ Compartment::setCompartmentType (const std::string& sid)
 void
 Compartment::setSpatialDimensions (unsigned int value)
 {
-  /* in level 1 model the spatialDimensions attribute does not
-   * exist and therefore the (internal) value must always be 3
-   */
-  if (getLevel() != 1)
-  {
-    if (value >= 0 && value <= 3) mSpatialDimensions = value;
-  }
+  if (value >= 0 && value <= 3) mSpatialDimensions = value;
 }
 
 
@@ -310,12 +297,8 @@ Compartment::setSpatialDimensions (unsigned int value)
 void
 Compartment::setSize (double value)
 {
-  /* spatialDimensions = 0 means cannot have size */
-  if (getSpatialDimensions() != 0)
-  {
-    mSize      = value;
-    mIsSetSize = true;
-  }
+  mSize      = value;
+  mIsSetSize = true;
 }
 
 
@@ -335,10 +318,7 @@ Compartment::setVolume (double value)
 void
 Compartment::setUnits (const std::string& sid)
 {
-  if (getSpatialDimensions() != 0)
-  {
-    mUnits = sid;
-  }
+  mUnits = sid;
 }
 
 
@@ -348,18 +328,7 @@ Compartment::setUnits (const std::string& sid)
 void
 Compartment::setOutside (const std::string& sid)
 {
-  /* id should be the id of another compartment
-   * cannot always check but can try
-   */
-  if (mSBML)
-  {
-    if (mSBML->getModel()->getCompartment(sid) != NULL)
-      mOutside = sid;
-  }
-  else
-  {
-    mOutside = sid;
-  }
+  mOutside = sid;
 }
 
 
@@ -369,13 +338,7 @@ Compartment::setOutside (const std::string& sid)
 void
 Compartment::setConstant (bool value)
 {
-  /* constant didnt exist in L1 and so
-   * should be assumed true always
-   */
-  if (getLevel() == 1)
-    mConstant = true;
-  else
-    mConstant = value;
+  mConstant = value;
 }
 
 
