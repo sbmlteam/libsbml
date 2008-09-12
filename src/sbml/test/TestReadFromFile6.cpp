@@ -82,6 +82,7 @@ START_TEST (test_read_l2v2_newComponents)
   UnitDefinition*   ud;
   Reaction*         r1;
   Constraint*       con;
+  InitialAssignment* ia;
   
   const ASTNode*   ast;
 
@@ -158,6 +159,80 @@ START_TEST (test_read_l2v2_newComponents)
 
   ast = con->getMath();
   fail_unless(!strcmp(SBML_formulaToString(ast), "lt(1, cell)"), NULL);
+
+  //<listOfInitialAssignments>
+  //  <initialAssignment symbol="X0" sboTerm="SBO:0000064">
+  //    <math xmlns="http://www.w3.org/1998/Math/MathML">
+  //      <apply>
+  //        <times/>
+  //        <ci> y </ci>
+  //        <ci> X1 </ci>
+  //      </apply>
+  //    </math>
+  //  </initialAssignment>
+  //</listOfInitialAssignments>
+  fail_unless( m->getNumInitialAssignments() == 1, NULL );
+
+  ia = m->getInitialAssignment(0);
+  fail_unless( ia         != NULL  , NULL );
+  fail_unless(ia->getSBOTerm() == 64, NULL);
+  fail_unless(ia->getSBOTermID() == "SBO:0000064", NULL);
+  fail_unless(ia->getSymbol() == "X0", NULL);
+
+  ast = ia->getMath();
+  fail_unless(!strcmp(SBML_formulaToString(ast), "y * X1"), NULL);
+
+  //<listOfReactions>
+  //  <reaction id="in" sboTerm="SBO:0000231">
+  //    <listOfReactants>
+  //      <speciesReference id="me" name="sarah" species="X0"/>
+  //    </listOfReactants>
+  //    <kineticLaw sboTerm="SBO:0000001">
+  //      <math xmlns="http://www.w3.org/1998/Math/MathML">
+  //        <apply>
+  //          <divide/>
+  //          <apply>
+  //            <times/>
+  //            <ci> v </ci>
+  //            <ci> X0 </ci>
+  //          </apply>
+  //          <ci> t </ci>
+  //        </apply>
+  //      </math>
+  //      <listOfParameters>
+  //        <parameter id="v" units="litre"/>
+  //        <parameter id="t" units="second"/>
+  //      </listOfParameters>
+  //    </kineticLaw>
+  //  </reaction>
+  //</listOfReactions>
+  fail_unless( m->getNumReactions() == 1, NULL );
+
+  r = m->getReaction(0);
+  fail_unless( r         != NULL  , NULL );
+  fail_unless(r->getSBOTerm() == 231, NULL);
+  fail_unless(r->getSBOTermID() == "SBO:0000231", NULL);
+
+  fail_unless(r->isSetKineticLaw(), NULL);
+
+  kl = r->getKineticLaw();
+  fail_unless( kl         != NULL  , NULL );
+  fail_unless(kl->getSBOTerm() == 1, NULL);
+  fail_unless(kl->getSBOTermID() == "SBO:0000001", NULL);
+
+  fail_unless(kl->isSetMath(), NULL);
+
+  ast = kl->getMath();
+  fail_unless(!strcmp(SBML_formulaToString(ast), "v * X0 / t"), NULL);
+
+  fail_unless(kl->getNumParameters() == 2, NULL);
+
+  p = kl->getParameter(0);
+  fail_unless( p         != NULL  , NULL );
+  fail_unless(p->getSBOTerm() == 2, NULL);
+  fail_unless(p->getSBOTermID() == "SBO:0000002", NULL);
+  fail_unless(p->getId() == "v", NULL);
+  fail_unless(p->getUnits() == "litre", NULL);
 
 
   ///**

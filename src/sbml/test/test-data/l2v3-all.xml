@@ -2,7 +2,7 @@
 <sbml xmlns="http://www.sbml.org/sbml/level2/version3" level="2" version="3">
   <model id="l2v3_all">
     <listOfFunctionDefinitions>
-      <functionDefinition id="fd">
+      <functionDefinition id="fd" sboTerm="SBO:0000064">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <lambda>
             <bvar>
@@ -148,7 +148,7 @@
           </math>
         </delay>
         <listOfEventAssignments>
-          <eventAssignment variable="a">
+          <eventAssignment variable="a" sboTerm="SBO:0000064">
             <math xmlns="http://www.w3.org/1998/Math/MathML">
               <apply>
                 <times/>

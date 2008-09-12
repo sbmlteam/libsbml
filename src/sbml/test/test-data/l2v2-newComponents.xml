@@ -45,7 +45,7 @@
         <listOfReactants>
           <speciesReference id="me" name="sarah" species="X0"/>
         </listOfReactants>
-        <kineticLaw>
+        <kineticLaw sboTerm="SBO:0000001">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <divide/>
@@ -58,7 +58,7 @@
             </apply>
           </math>
           <listOfParameters>
-            <parameter id="v" units="litre"/>
+            <parameter id="v" units="litre" sboTerm="SBO:0000002"/>
             <parameter id="t" units="second"/>
           </listOfParameters>
         </kineticLaw>

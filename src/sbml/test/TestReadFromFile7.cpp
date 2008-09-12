@@ -85,6 +85,9 @@ START_TEST (test_read_l2v3_all)
   Event*            e;
   Delay*            delay;
   Trigger*          t;
+  EventAssignment*  ea;
+  FunctionDefinition* fd;
+  InitialAssignment* ia;
   
   const ASTNode*   ast;
 
@@ -178,7 +181,7 @@ START_TEST (test_read_l2v3_all)
   //    </math>
   //  </delay>
   //  <listOfEventAssignments>
-  //    <eventAssignment variable="a">
+  //    <eventAssignment variable="a" sboTerm="SBO:0000064">
   //      <math xmlns="http://www.w3.org/1998/Math/MathML">
   //        <apply>
   //          <times/>
@@ -209,6 +212,126 @@ START_TEST (test_read_l2v3_all)
 
   ast = delay->getMath();
   fail_unless(!strcmp(SBML_formulaToString(ast), "p + 3"), NULL);
+
+  fail_unless( e->getNumEventAssignments() == 1, NULL );
+
+  ea = e->getEventAssignment(0);
+  fail_unless(ea != NULL, NULL);
+
+  fail_unless(ea->getVariable() == "a", NULL);
+  fail_unless(ea->getSBOTerm() == 64, NULL);
+  fail_unless(ea->getSBOTermID() == "SBO:0000064");
+
+  ast = ea->getMath();
+  fail_unless(!strcmp(SBML_formulaToString(ast), "x * p3"), NULL);
+
+  //<listOfFunctionDefinitions>
+  //  <functionDefinition id="fd" sboTerm="SBO:0000064">
+  //    <math xmlns="http://www.w3.org/1998/Math/MathML">
+  //      <lambda>
+  //        <bvar>
+  //          <ci> x </ci>
+  //        </bvar>
+  //        <apply>
+  //          <power/>
+  //          <ci> x </ci>
+  //          <cn type="integer"> 3 </cn>
+  //        </apply>
+  //      </lambda>
+  //    </math>
+  //  </functionDefinition>
+  //</listOfFunctionDefinitions>
+
+  fail_unless( m->getNumFunctionDefinitions() == 1, NULL );
+
+  fd = m->getFunctionDefinition(0);
+  fail_unless(fd != NULL, NULL);
+
+  fail_unless(fd->getId() == "fd", NULL);
+
+  fail_unless(fd->getSBOTerm() == 64, NULL);
+  fail_unless(fd->getSBOTermID() == "SBO:0000064");
+
+  ast = fd->getMath();
+  fail_unless(!strcmp(SBML_formulaToString(ast), "lambda(x, pow(x, 3))"), NULL);
+
+  //<listOfInitialAssignments>
+  //  <initialAssignment symbol="p1">
+  //    <math xmlns="http://www.w3.org/1998/Math/MathML">
+  //      <apply>
+  //        <times/>
+  //        <ci> x </ci>
+  //        <ci> p3 </ci>
+  //      </apply>
+  //    </math>
+  //  </initialAssignment>
+  //</listOfInitialAssignments>
+  fail_unless( m->getNumInitialAssignments() == 1, NULL );
+
+  ia = m->getInitialAssignment(0);
+  fail_unless( ia         != NULL  , NULL );
+  fail_unless(ia->getSymbol() == "p1", NULL);
+
+  ast = ia->getMath();
+  fail_unless(!strcmp(SBML_formulaToString(ast), "x * p3"), NULL);
+
+  //<listOfReactions>
+  //  <reaction id="r">
+  //    <listOfReactants>
+  //      <speciesReference species="s">
+  //        <stoichiometryMath>
+  //          <math xmlns="http://www.w3.org/1998/Math/MathML">
+  //            <apply>
+  //              <times/>
+  //              <ci> s </ci>
+  //              <ci> p </ci>
+  //            </apply>
+  //          </math>
+  //        </stoichiometryMath>
+  //      </speciesReference>
+  //    </listOfReactants>
+  //    <kineticLaw>
+  //      <math xmlns="http://www.w3.org/1998/Math/MathML">
+  //        <apply>
+  //          <divide/>
+  //          <apply>
+  //            <times/>
+  //            <ci> s </ci>
+  //            <ci> k </ci>
+  //          </apply>
+  //          <ci> p </ci>
+  //        </apply>
+  //      </math>
+  //      <listOfParameters>
+  //        <parameter id="k" value="9" units="litre"/>
+  //      </listOfParameters>
+  //    </kineticLaw>
+  //  </reaction>
+  //</listOfReactions>
+  fail_unless( m->getNumReactions() == 1, NULL );
+
+  r = m->getReaction(0);
+  fail_unless( r         != NULL  , NULL );
+  fail_unless(r->getId() == "r", NULL);
+
+  fail_unless(r->isSetKineticLaw(), NULL);
+
+  kl = r->getKineticLaw();
+  fail_unless( kl         != NULL  , NULL );
+
+  fail_unless(kl->isSetMath(), NULL);
+
+  ast = kl->getMath();
+  fail_unless(!strcmp(SBML_formulaToString(ast), "s * k / p"), NULL);
+
+  fail_unless(kl->getNumParameters() == 1, NULL);
+
+  p = kl->getParameter(0);
+  fail_unless( p         != NULL  , NULL );
+  fail_unless(p->getId() == "k", NULL);
+  fail_unless(p->getUnits() == "litre", NULL);
+  fail_unless(p->getValue() == 9, NULL);
+
 
 
   ///**

@@ -365,17 +365,20 @@ EventAssignment::readAttributes (const XMLAttributes& attributes)
   const unsigned int level = getLevel();
   const unsigned int version = getVersion();
 
+  if (level < 2)
+  {
+    logError(NotSchemaConformant, getLevel(), getVersion(),
+	      "EventAssignment is not a valid component for this level/version.");
+    return;
+  }
   std::vector<std::string> expectedAttributes;
   expectedAttributes.clear();
-  if (level == 2)
-  {
-    expectedAttributes.push_back("metaid");
-    expectedAttributes.push_back("variable");
+  expectedAttributes.push_back("metaid");
+  expectedAttributes.push_back("variable");
 
-    if (version != 1)
-    {
-      expectedAttributes.push_back("sboTerm");
-    }
+  if (!(level == 2 && version == 1))
+  {
+    expectedAttributes.push_back("sboTerm");
   }
 
   // check that all attributes are expected
@@ -391,7 +394,7 @@ EventAssignment::readAttributes (const XMLAttributes& attributes)
   }
 
   //
-  // variable: SId  { use="required" }  (L2v1, L2v2)
+  // variable: SId  { use="required" }  (L2v1 ->)
   //
   bool assigned = attributes.readInto("variable", mId, getErrorLog(), true);
   if (assigned && mId.size() == 0)
@@ -402,9 +405,9 @@ EventAssignment::readAttributes (const XMLAttributes& attributes)
 
 
   //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
   //
-  if (level == 2 && version > 1) 
+  if (!(level == 2 && version == 1))
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
 /** @endcond doxygen-libsbml-internal */
@@ -424,16 +427,22 @@ EventAssignment::writeAttributes (XMLOutputStream& stream) const
   const unsigned int level = getLevel();
   const unsigned int version = getVersion();
 
+  /* invalid level/version */
+  if (level < 2)
+  {
+    return;
+  }
+
   //
-  // variable: SId  { use="required" }  (L2v1, L2v2)
+  // variable: SId  { use="required" }  (L2v1 ->)
   //
   stream.writeAttribute("variable", mId);
 
 
   //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
   //
-  if (level == 2 && version > 1) 
+  if (!(level == 2 && version == 1)) 
     SBO::writeTerm(stream, mSBOTerm);
 }
 /** @endcond doxygen-libsbml-internal */

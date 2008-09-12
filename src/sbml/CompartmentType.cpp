@@ -143,6 +143,7 @@ CompartmentType::readAttributes (const XMLAttributes& attributes)
   {
     logError(NotSchemaConformant, getLevel(), getVersion(),
 	      "CompartmentType is not a valid component for this level/version.");
+    return;
   }
 
   std::vector<std::string> expectedAttributes;

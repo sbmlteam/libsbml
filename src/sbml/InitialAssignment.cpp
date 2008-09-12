@@ -361,15 +361,17 @@ InitialAssignment::readAttributes (const XMLAttributes& attributes)
   const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
 
+  if (level < 2 || (level == 2 && version == 1))
+  {
+    logError(NotSchemaConformant, getLevel(), getVersion(),
+	      "InitialAssignment is not a valid component for this level/version.");
+    return;
+  }
   std::vector<std::string> expectedAttributes;
   expectedAttributes.clear();
-  if (level == 2 && version > 1)
-  {
-    expectedAttributes.push_back("metaid");
-    expectedAttributes.push_back("symbol");
-
-    expectedAttributes.push_back("sboTerm");
-  }
+  expectedAttributes.push_back("metaid");
+  expectedAttributes.push_back("symbol");
+  expectedAttributes.push_back("sboTerm");
 
   // check that all attributes are expected
   for (int i = 0; i < attributes.getLength(); i++)
@@ -384,7 +386,7 @@ InitialAssignment::readAttributes (const XMLAttributes& attributes)
   }
 
   //
-  // symbol: SId  { use="required" }  (L2v2)
+  // symbol: SId  { use="required" }  (L2v2 -> )
   //
   bool assigned = attributes.readInto("symbol", mId, getErrorLog(), true);
   if (assigned && mId.size() == 0)
@@ -394,10 +396,9 @@ InitialAssignment::readAttributes (const XMLAttributes& attributes)
   SBase::checkIdSyntax();
 
   //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
   //
-  if (level == 2 && version > 1) 
-    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
+  mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
 /** @endcond doxygen-libsbml-internal */
 

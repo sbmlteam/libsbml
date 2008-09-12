@@ -537,6 +537,7 @@ Event::readAttributes (const XMLAttributes& attributes)
   {
     logError(NotSchemaConformant, getLevel(), getVersion(),
 	      "Event is not a valid component for this level/version.");
+    return;
   }
   std::vector<std::string> expectedAttributes;
   expectedAttributes.clear();
@@ -614,6 +615,7 @@ Event::writeAttributes (XMLOutputStream& stream) const
   const unsigned int level = getLevel();
   const unsigned int version = getVersion();
 
+  /* invalid level/version */
   if (level < 2)
   {
     return;

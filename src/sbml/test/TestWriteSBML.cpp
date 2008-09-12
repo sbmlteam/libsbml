@@ -294,6 +294,35 @@ START_TEST (test_WriteSBML_FunctionDefinition)
 END_TEST
 
 
+START_TEST (test_WriteSBML_FunctionDefinition_withSBO)
+{
+  const char* expected = wrapXML
+  (
+  "<functionDefinition id=\"pow3\" sboTerm=\"SBO:0000064\">\n"
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+    "    <lambda>\n"
+    "      <bvar>\n"
+    "        <ci> x </ci>\n"
+    "      </bvar>\n"
+    "      <apply>\n"
+    "        <power/>\n"
+    "        <ci> x </ci>\n"
+    "        <cn type=\"integer\"> 3 </cn>\n"
+    "      </apply>\n"
+    "    </lambda>\n"
+    "  </math>\n"
+    "</functionDefinition>"
+  );
+
+  FunctionDefinition fd("pow3", "lambda(x, x^3)");
+  fd.setSBOTerm(64);
+  fd.write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
+
+
 START_TEST (test_WriteSBML_Unit)
 {
   D->setLevelAndVersion(2, 1);
@@ -1563,6 +1592,83 @@ START_TEST (test_WriteSBML_KineticLaw_ListOfParameters)
 END_TEST
 
 
+START_TEST (test_WriteSBML_KineticLaw_l2v1)
+{
+  D->setLevelAndVersion(2, 1);
+
+  const char* expected = wrapXML
+  (
+    "<kineticLaw timeUnits=\"second\" substanceUnits=\"item\">\n"
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+    "    <apply>\n"
+    "      <divide/>\n"
+    "      <apply>\n"
+    "        <times/>\n"
+    "        <ci> vm </ci>\n"
+    "        <ci> s1 </ci>\n"
+    "      </apply>\n"
+    "      <apply>\n"
+    "        <plus/>\n"
+    "        <ci> km </ci>\n"
+    "        <ci> s1 </ci>\n"
+    "      </apply>\n"
+    "    </apply>\n"
+    "  </math>\n"
+    "</kineticLaw>"
+  );
+
+
+  KineticLaw kl;
+  kl.setTimeUnits("second");
+  kl.setSubstanceUnits("item");
+  kl.setFormula("(vm * s1)/(km + s1)");
+
+  kl.setSBMLDocument(D);
+  kl.write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
+
+
+START_TEST (test_WriteSBML_KineticLaw_withSBO)
+{
+  D->setLevelAndVersion(2, 2);
+
+  const char* expected = wrapXML
+  (
+  "<kineticLaw sboTerm=\"SBO:0000001\">\n"
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+    "    <apply>\n"
+    "      <divide/>\n"
+    "      <apply>\n"
+    "        <times/>\n"
+    "        <ci> vm </ci>\n"
+    "        <ci> s1 </ci>\n"
+    "      </apply>\n"
+    "      <apply>\n"
+    "        <plus/>\n"
+    "        <ci> km </ci>\n"
+    "        <ci> s1 </ci>\n"
+    "      </apply>\n"
+    "    </apply>\n"
+    "  </math>\n"
+    "</kineticLaw>"
+  );
+
+
+  KineticLaw kl;
+  kl.setFormula("(vm * s1)/(km + s1)");
+  kl.setSBOTerm(1);
+
+  kl.setSBMLDocument(D);
+  kl.write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
+
+
 START_TEST (test_WriteSBML_Event)
 {
   const char* expected = wrapXML("<event id=\"e\"/>");
@@ -1728,7 +1834,7 @@ START_TEST (test_WriteSBML_Event_full)
     "    </math>\n"
     "  </trigger>\n"
     "  <listOfEventAssignments>\n"
-    "    <eventAssignment variable=\"k2\">\n"
+    "    <eventAssignment variable=\"k2\" sboTerm=\"SBO:0000064\">\n"
     "      <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
     "        <cn type=\"integer\"> 0 </cn>\n"
     "      </math>\n"
@@ -1742,6 +1848,7 @@ START_TEST (test_WriteSBML_Event_full)
   Trigger t(node);
   ASTNode *math = SBML_parseFormula("0");
   EventAssignment ea("k2", math);
+  ea.setSBOTerm(64);
 
   e.setTrigger(&t);
   e.addEventAssignment( &ea );
@@ -1875,6 +1982,52 @@ START_TEST (test_WriteSBML_Constraint_full)
   c.setMessage(message);
 
   c.write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
+
+
+START_TEST (test_WriteSBML_InitialAssignment)
+{
+  D->setLevelAndVersion(2, 2);
+
+  const char* expected = wrapXML("<initialAssignment symbol=\"c\" sboTerm=\"SBO:0000064\"/>");
+
+
+  InitialAssignment ia;
+  ia.setSBOTerm(64);
+  ia.setSymbol("c");
+  ia.setSBMLDocument(D);
+  
+  ia.write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
+
+
+START_TEST (test_WriteSBML_InitialAssignment_math)
+{
+  const char* expected = wrapXML
+  (
+    "<initialAssignment symbol=\"c\">\n"
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+    "    <apply>\n"
+    "      <plus/>\n"
+    "      <ci> a </ci>\n"
+    "      <ci> b </ci>\n"
+    "    </apply>\n"
+    "  </math>\n"
+    "</initialAssignment>"
+  );
+
+  InitialAssignment ia;
+  ASTNode *node = SBML_parseFormula("a + b");
+  ia.setMath(node);
+  ia.setSymbol("c");
+
+  ia.write(*XOS);
 
   fail_unless( equals(expected) );
 }
@@ -2106,6 +2259,7 @@ create_suite_WriteSBML ()
 
   // FunctionDefinition
   tcase_add_test( tcase, test_WriteSBML_FunctionDefinition );
+  tcase_add_test( tcase, test_WriteSBML_FunctionDefinition_withSBO );
 
   // Unit
   tcase_add_test( tcase, test_WriteSBML_Unit          );
@@ -2185,6 +2339,8 @@ create_suite_WriteSBML ()
   tcase_add_test( tcase, test_WriteSBML_KineticLaw                  );
   tcase_add_test( tcase, test_WriteSBML_KineticLaw_skipOptional     );
   tcase_add_test( tcase, test_WriteSBML_KineticLaw_ListOfParameters );
+  tcase_add_test( tcase, test_WriteSBML_KineticLaw_l2v1                  );
+  tcase_add_test( tcase, test_WriteSBML_KineticLaw_withSBO                  );
 
   // Event
   tcase_add_test( tcase, test_WriteSBML_Event         );
@@ -2203,6 +2359,10 @@ create_suite_WriteSBML ()
   tcase_add_test( tcase, test_WriteSBML_Constraint    );
   tcase_add_test( tcase, test_WriteSBML_Constraint_math    );
   tcase_add_test( tcase, test_WriteSBML_Constraint_full    );
+
+  //InitialAssignment
+  tcase_add_test( tcase, test_WriteSBML_InitialAssignment    );
+  tcase_add_test( tcase, test_WriteSBML_InitialAssignment_math    );
 
   // Miscellaneous
   tcase_add_test( tcase, test_WriteSBML_NaN     );

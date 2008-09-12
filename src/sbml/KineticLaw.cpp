@@ -697,13 +697,13 @@ KineticLaw::readAttributes (const XMLAttributes& attributes)
   {
     expectedAttributes.push_back("metaid");
 
-    if (version == 1)
+    if (level == 2 && version == 1)
     {
       expectedAttributes.push_back("timeUnits");
       expectedAttributes.push_back("substanceUnits");
     }
 
-    if (version != 1)
+    if (!(level == 2 && version == 1))
     {
       expectedAttributes.push_back("sboTerm");
     }
@@ -721,29 +721,48 @@ KineticLaw::readAttributes (const XMLAttributes& attributes)
     }
   }
 
-  //
-  // formula: string  { use="required" }  (L1v1, L1v2)
-  //
-  if (level == 1) attributes.readInto("formula", mFormula, getErrorLog(), true);
+  if (level == 1) 
+  {
+    //
+    // formula: string  { use="required" }  (L1v1->)
+    //
+    attributes.readInto("formula", mFormula, getErrorLog(), true);
 
-  
-  //
-  // timeUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
-  // removed in l2v3
-  //
-  attributes.readInto("timeUnits", mTimeUnits);
+    //
+    // timeUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
+    // removed in l2v3
+    //
+    attributes.readInto("timeUnits", mTimeUnits);
 
-  //
-  // substanceUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
-  // removed in l2v3
-  //
-  attributes.readInto("substanceUnits", mSubstanceUnits);
+    //
+    // substanceUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
+    // removed in l2v3
+    //
+    attributes.readInto("substanceUnits", mSubstanceUnits);
+  }
+  else
+  {
+    if (level == 2 && version == 1)
+    {
+      //
+      // timeUnits  { use="optional" }  (L1v1, L1v2, L2v1)
+      // removed in l2v2
+      //
+      attributes.readInto("timeUnits", mTimeUnits);
 
-  //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
-  //
-  if (level == 2 && version > 1) 
-    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
+      //
+      // substanceUnits  { use="optional" }  (L1v1, L1v2, L2v1)
+      // removed in l2v2
+      //
+      attributes.readInto("substanceUnits", mSubstanceUnits);
+    }
+
+    //
+    // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
+    //
+    if (!(level == 2 && version == 1)) 
+      mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
+  }
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -765,10 +784,13 @@ KineticLaw::writeAttributes (XMLOutputStream& stream) const
   //
   // formula: string  { use="required" }  (L1v1, L1v2)
   //
-  if (level == 1) stream.writeAttribute("formula", getFormula());
-
-  if (level == 1  || version == 1)
+  if (level == 1) 
   {
+    //
+    // formula: string  { use="required" }  (L1v1, L1v2)
+    //
+    stream.writeAttribute("formula", getFormula());
+
     //
     // timeUnits  { use="optional" }  (L1v1, L1v2, L2v1)
     // removed in l2v2
@@ -781,12 +803,29 @@ KineticLaw::writeAttributes (XMLOutputStream& stream) const
     //
     stream.writeAttribute("substanceUnits", mSubstanceUnits);
   }
+  else
+  {
+    if (level == 2 && version == 1)
+    {
+      //
+      // timeUnits  { use="optional" }  (L1v1, L1v2, L2v1)
+      // removed in l2v2
+      //
+      stream.writeAttribute("timeUnits", mTimeUnits);
 
-  //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
-  //
-  if (level == 2 && version > 1) 
-    SBO::writeTerm(stream, mSBOTerm);
+      //
+      // substanceUnits  { use="optional" }  (L1v1, L1v2, L2v1)
+      // removed in l2v2
+      //
+      stream.writeAttribute("substanceUnits", mSubstanceUnits);
+    }
+
+    //
+    // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
+    //
+    if (!(level == 2 && version == 1)) 
+      SBO::writeTerm(stream, mSBOTerm);
+  }
 }
 /** @endcond doxygen-libsbml-internal */
 
