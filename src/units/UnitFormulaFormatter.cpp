@@ -387,7 +387,9 @@ UnitFormulaFormatter::getUnitDefinitionFromDivide(const ASTNode * node,
   for (i = 0; i < tempUD->getNumUnits(); i++)
   {
     unit = tempUD->getUnit(i);
-    unit->setExponent(-1 * unit->getExponent());
+    /* dont change the exponent on a dimensionless unit */
+    if (unit->getKind() != UNIT_KIND_DIMENSIONLESS)
+      unit->setExponent(-1 * unit->getExponent());
     ud->addUnit(unit);
   }
   delete tempUD;
