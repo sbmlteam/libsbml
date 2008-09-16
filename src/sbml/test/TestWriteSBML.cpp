@@ -1761,6 +1761,117 @@ START_TEST (test_WriteSBML_SpeciesReference_L2v1_3)
 END_TEST
 
 
+START_TEST (test_WriteSBML_SpeciesReference_L2v2_1)
+{
+  D->setLevelAndVersion(2, 2);
+
+  const char* expected = wrapXML
+  (
+  "<speciesReference id=\"ss\" name=\"odd\" sboTerm=\"SBO:0000009\" species=\"s\">\n"
+    "  <stoichiometryMath>\n"
+    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+    "      <cn type=\"rational\"> 3 <sep/> 2 </cn>\n"
+    "    </math>\n"
+    "  </stoichiometryMath>\n"
+    "</speciesReference>"
+  );
+
+
+  SpeciesReference sr("s", 3, 2);
+  sr.setId("ss");
+  sr.setName("odd");
+  sr.setSBOTerm(9);
+
+  sr.setSBMLDocument(D);
+  sr.write(*XOS);
+
+  fail_unless( equals(expected) );
+
+}
+END_TEST
+
+
+START_TEST (test_WriteSBML_SpeciesReference_L2v3_1)
+{
+  D->setLevelAndVersion(2, 3);
+
+  const char* expected = wrapXML
+  (
+    "<speciesReference id=\"ss\" name=\"odd\" sboTerm=\"SBO:0000009\" species=\"s\" stoichiometry=\"3.2\"/>"
+  );
+
+
+  SpeciesReference sr("s", 3.2);
+  sr.setId("ss");
+  sr.setName("odd");
+  sr.setSBOTerm(9);
+
+  sr.setSBMLDocument(D);
+  sr.write(*XOS);
+
+  fail_unless( equals(expected) );
+
+}
+END_TEST
+
+
+START_TEST (test_WriteSBML_StoichiometryMath)
+{
+  D->setLevelAndVersion(2, 1);
+
+  const char* expected = wrapXML
+  (
+    "<stoichiometryMath>\n"
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+    "    <apply>\n"
+    "      <divide/>\n"
+    "      <cn type=\"integer\"> 1 </cn>\n"
+    "      <ci> d </ci>\n"
+    "    </apply>\n"
+    "  </math>\n"
+    "</stoichiometryMath>"
+  );
+
+  ASTNode *math = SBML_parseFormula("1/d");
+  StoichiometryMath stoich = StoichiometryMath(math);
+
+  stoich.setSBMLDocument(D);
+  stoich.write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
+
+
+START_TEST (test_WriteSBML_StoichiometryMath_withSBO)
+{
+  D->setLevelAndVersion(2, 3);
+
+  const char* expected = wrapXML
+  (
+  "<stoichiometryMath sboTerm=\"SBO:0000333\">\n"
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+    "    <apply>\n"
+    "      <divide/>\n"
+    "      <cn type=\"integer\"> 1 </cn>\n"
+    "      <ci> d </ci>\n"
+    "    </apply>\n"
+    "  </math>\n"
+    "</stoichiometryMath>"
+  );
+
+  ASTNode *math = SBML_parseFormula("1/d");
+  StoichiometryMath stoich = StoichiometryMath(math);
+  stoich.setSBOTerm(333);
+
+  stoich.setSBMLDocument(D);
+  stoich.write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
+
+
 START_TEST (test_WriteSBML_KineticLaw)
 {
   D->setLevelAndVersion(1, 2);
@@ -2127,6 +2238,44 @@ START_TEST (test_WriteSBML_CompartmentType_withSBO)
   ct.setSBMLDocument(D);
   
   ct.write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
+
+
+START_TEST (test_WriteSBML_SpeciesType)
+{
+  D->setLevelAndVersion(2, 2);
+
+  const char* expected = wrapXML("<speciesType id=\"st\"/>");
+
+
+  SpeciesType st;
+  st.setId("st");
+  st.setSBOTerm(4);
+  st.setSBMLDocument(D);
+  
+  st.write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
+
+
+START_TEST (test_WriteSBML_SpeciesType_withSBO)
+{
+  D->setLevelAndVersion(2, 3);
+
+  const char* expected = wrapXML("<speciesType id=\"st\" sboTerm=\"SBO:0000004\"/>");
+
+
+  SpeciesType st;
+  st.setId("st");
+  st.setSBOTerm(4);
+  st.setSBMLDocument(D);
+  
+  st.write(*XOS);
 
   fail_unless( equals(expected) );
 }
@@ -2535,6 +2684,7 @@ create_suite_WriteSBML ()
   tcase_add_test( tcase, test_WriteSBML_Parameter_L2v1              );
   tcase_add_test( tcase, test_WriteSBML_Parameter_L2v1_skipOptional );
   tcase_add_test( tcase, test_WriteSBML_Parameter_L2v1_constant     );
+  tcase_add_test( tcase, test_WriteSBML_Parameter_L2v2              );
 
   // AlgebraicRule
   tcase_add_test( tcase, test_WriteSBML_AlgebraicRule      );
@@ -2576,7 +2726,12 @@ create_suite_WriteSBML ()
   tcase_add_test( tcase, test_WriteSBML_SpeciesReference_L2v1_1   );
   tcase_add_test( tcase, test_WriteSBML_SpeciesReference_L2v1_2   );
   tcase_add_test( tcase, test_WriteSBML_SpeciesReference_L2v1_3   );
+  tcase_add_test( tcase, test_WriteSBML_SpeciesReference_L2v2_1   );
+  tcase_add_test( tcase, test_WriteSBML_SpeciesReference_L2v3_1   );
 
+  // StoichiometryMath
+  tcase_add_test( tcase, test_WriteSBML_StoichiometryMath   );
+  tcase_add_test( tcase, test_WriteSBML_StoichiometryMath_withSBO   );
 
   // KineticLaw
   tcase_add_test( tcase, test_WriteSBML_KineticLaw                  );
@@ -2597,6 +2752,10 @@ create_suite_WriteSBML ()
   //CompartmentType
   tcase_add_test( tcase, test_WriteSBML_CompartmentType    );
   tcase_add_test( tcase, test_WriteSBML_CompartmentType_withSBO    );
+
+  //SpeciesType
+  tcase_add_test( tcase, test_WriteSBML_SpeciesType    );
+  tcase_add_test( tcase, test_WriteSBML_SpeciesType_withSBO    );
 
   //Constraint
   tcase_add_test( tcase, test_WriteSBML_Constraint    );

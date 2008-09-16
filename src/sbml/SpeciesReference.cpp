@@ -173,13 +173,12 @@ SimpleSpeciesReference::readAttributes (const XMLAttributes& attributes)
   else
   {
     expectedAttributes.push_back("metaid");
-  }
-
-  if (level == 2 && version > 1)
-  {
-    expectedAttributes.push_back("id");
-    expectedAttributes.push_back("name");
-    expectedAttributes.push_back("sboTerm");
+    if (!(level == 2 && version == 1))
+    {
+      expectedAttributes.push_back("id");
+      expectedAttributes.push_back("name");
+      expectedAttributes.push_back("sboTerm");
+    }
   }
 
   // check that all attributes are expected
@@ -195,32 +194,35 @@ SimpleSpeciesReference::readAttributes (const XMLAttributes& attributes)
   }
 
 
-  if (level == 2 && version > 1)
+  if (level > 1)
   {
-    //
-    // id: SId  { use="optional" }  (L2v2)
-    //
-    bool assigned = attributes.readInto("id", mId, getErrorLog());
-    if (assigned && mId.size() == 0)
+    if (!(level == 2 && version == 1))
     {
-      logEmptyString("id", level, version, "<speciesReference>");
+      //
+      // id: SId  { use="optional" }  (L2v2->)
+      //
+      bool assigned = attributes.readInto("id", mId, getErrorLog());
+      if (assigned && mId.size() == 0)
+      {
+        logEmptyString("id", level, version, "<speciesReference>");
+      }
+      SBase::checkIdSyntax();
+
+      //
+      // name: string  { use="optional" }  (L2v2->)
+      //
+      attributes.readInto("name" , mName);
+
+      //
+      // sboTerm: SBOTerm { use="optional" }  (L2v2->)
+      //
+      mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
     }
-    SBase::checkIdSyntax();
-
-    //
-    // name: string  { use="optional" }  (L2v2)
-    //
-    attributes.readInto("name" , mName);
-
-    //
-    // sboTerm: SBOTerm { use="optional" }  (L2v2)
-    //
-    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
   }
 
   //
   // specie : SName   { use="required" }  (L1v1)
-  // species: SName   { use="required" }  (L1v2, L2v1, L2v2)
+  // species: SName   { use="required" }  (L1v2, L2v1->)
   //
   //const string s = (level == 1 && version == 1) ? "specie" : "species";
   attributes.readInto(s , mSpecies, getErrorLog(), true);
@@ -243,27 +245,30 @@ SimpleSpeciesReference::writeAttributes (XMLOutputStream& stream) const
   const unsigned int version = getVersion();
 
 
-  if (level == 2 && version > 1)
+  if (level > 1)
   {
-    //
-    // id: SId  { use="optional" }  (L2v2)
-    //
-    stream.writeAttribute("id" , mId);
+    if (!(level == 2 && version == 1))
+    {
+      //
+      // id: SId  { use="optional" }  (L2v2->)
+      //
+      stream.writeAttribute("id" , mId);
 
-    //
-    // name: string  { use="optional" }  (L2v2)
-    //
-    stream.writeAttribute("name" , mName);
+      //
+      // name: string  { use="optional" }  (L2v2->)
+      //
+      stream.writeAttribute("name" , mName);
 
-    //
-    // sboTerm: SBOTerm { use="optional" }  (L2v2)
-    //
-    SBO::writeTerm(stream, mSBOTerm);
+      //
+      // sboTerm: SBOTerm { use="optional" }  (L2v2->)
+      //
+      SBO::writeTerm(stream, mSBOTerm);
+    }
   }
 
   //
   // specie : SName   { use="required" }  (L1v1)
-  // species: SName   { use="required" }  (L1v2, L2v1, L2v2)
+  // species: SName   { use="required" }  (L1v2, L2v1->)
   //
   const string s = (level == 1 && version == 1) ? "specie" : "species";
   stream.writeAttribute(s , mSpecies);
@@ -818,7 +823,7 @@ SpeciesReference::readAttributes (const XMLAttributes& attributes)
 
   //
   // stoichiometry: integer  { use="optional" default="1" }  (L1v1, L1v2)
-  // stoichiometry: double   { use="optional" default="1" }  (L2v1, L2v2)
+  // stoichiometry: double   { use="optional" default="1" }  (L2v1->)
   //
   attributes.readInto("stoichiometry", mStoichiometry);
 

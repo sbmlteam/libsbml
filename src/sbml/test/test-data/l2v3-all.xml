@@ -28,7 +28,7 @@
       <compartmentType id="hh" sboTerm="SBO:0000236"/>
     </listOfCompartmentTypes>
     <listOfSpeciesTypes>
-      <speciesType id="gg"/>
+      <speciesType id="gg" name="dd" sboTerm="SBO:0000236"/>
     </listOfSpeciesTypes>
     <listOfCompartments>
       <compartment id="a" size="2.3" compartmentType="hh" sboTerm="SBO:0000236" constant="false"/>
@@ -97,8 +97,8 @@
     <listOfReactions>
       <reaction id="r" fast="true" reversible="false">
         <listOfReactants>
-          <speciesReference species="s">
-            <stoichiometryMath>
+          <speciesReference species="s" sboTerm="SBO:0000003">
+            <stoichiometryMath sboTerm="SBO:0000064">
               <math xmlns="http://www.w3.org/1998/Math/MathML">
                 <apply>
                   <times/>

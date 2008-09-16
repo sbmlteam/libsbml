@@ -139,16 +139,21 @@ SpeciesType::readAttributes (const XMLAttributes& attributes)
   const unsigned int level = getLevel();
   const unsigned int version = getVersion();
 
-  std::vector<std::string> expectedAttributes;
-  expectedAttributes.clear();
-  if (level == 2 && version > 1)
+  if (level < 2 || (level == 2 && version == 1))
   {
-    expectedAttributes.push_back("metaid");
-    expectedAttributes.push_back("name");
-    expectedAttributes.push_back("id");
+    logError(NotSchemaConformant, getLevel(), getVersion(),
+	      "SpeciesType is not a valid component for this level/version.");
+    return;
   }
 
-  if (level == 2 && version > 2)
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+
+  expectedAttributes.push_back("name");
+  expectedAttributes.push_back("id");
+  expectedAttributes.push_back("metaid");
+
+  if (!(level == 2 && version < 3))
   {
     expectedAttributes.push_back("sboTerm");
   }
@@ -166,7 +171,7 @@ SpeciesType::readAttributes (const XMLAttributes& attributes)
   }
 
   //
-  // id: SId  { use="required" }  (L2v2)
+  // id: SId  { use="required" }  (L2v2->)
   //
   bool assigned = attributes.readInto("id", mId, getErrorLog(), true);
   if (assigned && mId.size() == 0)
@@ -176,14 +181,17 @@ SpeciesType::readAttributes (const XMLAttributes& attributes)
   SBase::checkIdSyntax();
 
   //
-  // name: string  { use="optional" }  (L2v2)
+  // name: string  { use="optional" }  (L2v2->)
   //
   attributes.readInto("name", mName);
+
   //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  // sboTerm: SBOTerm { use="optional" }  (L2v3->)
   //
-  if (level == 2 && version > 2) 
+  if (!(level == 2 && version < 3))
+  {
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
+  }
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -202,21 +210,28 @@ SpeciesType::writeAttributes (XMLOutputStream& stream) const
   const unsigned int level = getLevel();
   const unsigned int version = getVersion();
 
+  /* invalid level/version */
+  if (level < 2 || (level == 2 && version == 1))
+  {
+    return;
+  }
+
   //
-  // id: SId  { use="required" }  (L2v2)
+  // id: SId  { use="required" }  (L2v2 ->)
   //
   stream.writeAttribute("id", mId);
 
   //
-  // name: string  { use="optional" }  (L2v2)
+  // name: string  { use="optional" }  (L2v2 ->)
   //
   stream.writeAttribute("name", mName);
-
   //
-  // sboTerm: SBOTerm { use="optional" }  (L2v3)
+  // sboTerm: SBOTerm { use="optional" }  (L2v3 ->)
   //
-  if (level == 2 && version > 2) 
+  if (!(level == 2 && version < 3)) 
+  {
     SBO::writeTerm(stream, mSBOTerm);
+  }
 }
 /** @endcond doxygen-libsbml-internal */
 

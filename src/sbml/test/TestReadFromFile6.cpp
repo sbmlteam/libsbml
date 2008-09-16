@@ -83,6 +83,7 @@ START_TEST (test_read_l2v2_newComponents)
   Reaction*         r1;
   Constraint*       con;
   InitialAssignment* ia;
+  SpeciesType*      st;
   
   const ASTNode*   ast;
 
@@ -143,7 +144,17 @@ START_TEST (test_read_l2v2_newComponents)
   fail_unless( ct         != NULL  , NULL );
   fail_unless( ct->getId() == "mitochondria", NULL );
 
-  //<listOfSpecies>
+  //<listOfSpeciesTypes>
+  //  <speciesType id="Glucose"/>
+  //</listOfSpeciesTypes>
+  fail_unless( m->getNumSpeciesTypes() == 1, NULL );
+
+  st = m->getSpeciesType(0);
+  fail_unless( st         != NULL  , NULL );
+  fail_unless( st->getId() == "Glucose", NULL );
+
+
+    //<listOfSpecies>
   //  <species id="X0" speciesType="Glucose" compartment="cell"/>
   //  <species id="X1" compartment="cell" initialConcentration="0.013"/>
   //</listOfSpecies>
@@ -279,6 +290,16 @@ START_TEST (test_read_l2v2_newComponents)
   fail_unless(p->getSBOTermID() == "SBO:0000002", NULL);
   fail_unless(p->getId() == "v", NULL);
   fail_unless(p->getUnits() == "litre", NULL);
+
+  fail_unless(r->getNumReactants() == 1, NULL);
+  fail_unless(r->getNumProducts() == 0, NULL);
+  fail_unless(r->getNumModifiers() == 0, NULL);
+
+  sr = r->getReactant(0);
+  fail_unless( sr         != NULL  , NULL );
+  fail_unless(sr->getName() == "sarah", NULL);
+  fail_unless(sr->getId() == "me", NULL);
+  fail_unless(sr->getSpecies() == "X0", NULL);
 
 
   ///**

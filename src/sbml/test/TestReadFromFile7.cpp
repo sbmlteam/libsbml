@@ -90,6 +90,8 @@ START_TEST (test_read_l2v3_all)
   InitialAssignment* ia;
   AlgebraicRule*   alg;
   RateRule*        rr;
+  SpeciesType*     st;
+  StoichiometryMath* stoich;
   
   const ASTNode*   ast;
 
@@ -145,6 +147,18 @@ START_TEST (test_read_l2v3_all)
   fail_unless( ct->getId() == "hh", NULL );
   fail_unless( ct->getSBOTerm() == 236, NULL );
   fail_unless( ct->getSBOTermID() == "SBO:0000236", NULL );
+
+  //<listOfSpeciesTypes>
+  //  <speciesType id="gg" name="dd" sboTerm="SBO:0000236"/>
+  //</listOfSpeciesTypes>
+  fail_unless( m->getNumSpeciesTypes() == 1, NULL );
+
+  st = m->getSpeciesType(0);
+  fail_unless( st         != NULL  , NULL );
+  fail_unless( st->getId() == "gg", NULL );
+  fail_unless( st->getName() == "dd", NULL );
+  fail_unless( st->getSBOTerm() == 236, NULL );
+  fail_unless( st->getSBOTermID() == "SBO:0000236", NULL );
 
   //<listOfConstraints>
   //  <constraint>
@@ -360,8 +374,8 @@ START_TEST (test_read_l2v3_all)
   //<listOfReactions>
   //  <reaction id="r" fast="true" reversible="false">
   //    <listOfReactants>
-  //      <speciesReference species="s">
-  //        <stoichiometryMath>
+  //      <speciesReference species="s" sboTerm="SBO:0000003">
+  //        <stoichiometryMath sboTerm="SBO:0000064">
   //          <math xmlns="http://www.w3.org/1998/Math/MathML">
   //            <apply>
   //              <times/>
@@ -415,6 +429,24 @@ START_TEST (test_read_l2v3_all)
   fail_unless(p->getId() == "k", NULL);
   fail_unless(p->getUnits() == "litre", NULL);
   fail_unless(p->getValue() == 9, NULL);
+
+  fail_unless(r->getNumReactants() == 1, NULL);
+  fail_unless(r->getNumProducts() == 0, NULL);
+  fail_unless(r->getNumModifiers() == 0, NULL);
+
+  sr = r->getReactant(0);
+  fail_unless( sr         != NULL  , NULL );
+  fail_unless(sr->getSpecies() == "s", NULL);
+  fail_unless(sr->getSBOTerm() == 3, NULL);
+  fail_unless(sr->getSBOTermID() == "SBO:0000003", NULL);
+
+  stoich = sr->getStoichiometryMath();
+  fail_unless( stoich         != NULL  , NULL );
+  fail_unless(stoich->getSBOTerm() == 64, NULL);
+  fail_unless(stoich->getSBOTermID() == "SBO:0000064", NULL);
+
+  ast = stoich->getMath();
+  fail_unless(!strcmp(SBML_formulaToString(ast), "s * p"), NULL);
 
 
 
