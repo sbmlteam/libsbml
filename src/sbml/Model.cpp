@@ -2294,12 +2294,12 @@ Model::readAttributes (const XMLAttributes& attributes)
   std::vector<std::string> expectedAttributes;
   expectedAttributes.clear();
   expectedAttributes.push_back("name");
-  if (level == 2)
+  if (level > 1)
   {
     expectedAttributes.push_back("metaid");
     expectedAttributes.push_back("id");
 
-    if (version != 1)
+    if (!(level == 2 && version == 1))
     {
       expectedAttributes.push_back("sboTerm");
     }
@@ -2319,7 +2319,7 @@ Model::readAttributes (const XMLAttributes& attributes)
 
   //
   // name: SName  { use="optional" }  (L1v1, L1v2)
-  //   id: SId    { use="optional" }  (L2v1, L2v2)
+  //   id: SId    { use="optional" }  (L2v1 -> )
   //
   const string id = (level == 1) ? "name" : "id";
   bool assigned = attributes.readInto(id, mId, getErrorLog(), false);
@@ -2329,17 +2329,19 @@ Model::readAttributes (const XMLAttributes& attributes)
   }
   SBase::checkIdSyntax();
 
-  //
-  // name: string  { use="optional" }  (L2v1, L2v2)
-  //
-  if (level == 2) attributes.readInto("name", mName);
+  if (level > 1)
+  {
+    //
+    // name: string  { use="optional" }  (L2v1 ->)
+    //
+    attributes.readInto("name", mName);
 
-  //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
-  //
-  if (level == 2 && version > 1) 
-    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
-
+    //
+    // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
+    //
+    if (!(level == 2 && version == 1)) 
+      mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
+  }
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -2360,21 +2362,24 @@ Model::writeAttributes (XMLOutputStream& stream) const
 
   //
   // name: SName   { use="required" }  (L1v1, L1v2)
-  //   id: SId     { use="required" }  (L2v1, L2v2)
+  //   id: SId     { use="required" }  (L2v1->)
   //
   const string id = (level == 1) ? "name" : "id";
   stream.writeAttribute(id, mId);
 
-  //
-  // name: string  { use="optional" }  (L2v1, L2v2)
-  //
-  if (level == 2) stream.writeAttribute("name", mName);
+  if (level > 1)
+  {
+    //
+    // name: string  { use="optional" }  (L2v1->)
+    //
+    stream.writeAttribute("name", mName);
 
-  //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
-  //
-  if (level == 2 && version > 1) 
-    SBO::writeTerm(stream, mSBOTerm);
+    //
+    // sboTerm: SBOTerm { use="optional" }  (L2v2->)
+    //
+    if (!(level == 2 && version == 1)) 
+      SBO::writeTerm(stream, mSBOTerm);
+  }
 }
 /** @endcond doxygen-libsbml-internal */
 

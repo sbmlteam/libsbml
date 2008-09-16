@@ -88,6 +88,8 @@ START_TEST (test_read_l2v3_all)
   EventAssignment*  ea;
   FunctionDefinition* fd;
   InitialAssignment* ia;
+  AlgebraicRule*   alg;
+  RateRule*        rr;
   
   const ASTNode*   ast;
 
@@ -112,10 +114,12 @@ START_TEST (test_read_l2v3_all)
 
 
   //
-  // <model>
+  // <model id="l2v3_all">
   //
   m = d->getModel();
   fail_unless( m != NULL, NULL );
+
+  fail_unless(m->getId() == "l2v3_all", NULL);
 
 
   //<listOfCompartments>
@@ -275,8 +279,86 @@ START_TEST (test_read_l2v3_all)
   ast = ia->getMath();
   fail_unless(!strcmp(SBML_formulaToString(ast), "x * p3"), NULL);
 
+  //<listOfRules>
+  fail_unless( m->getNumRules() == 3, NULL );
+  
+  
+  //  <algebraicRule sboTerm="SBO:0000064">
+  //    <math xmlns="http://www.w3.org/1998/Math/MathML">
+  //      <apply>
+  //        <power/>
+  //        <ci> x </ci>
+  //        <cn type="integer"> 3 </cn>
+  //      </apply>
+  //    </math>
+  //  </algebraicRule>
+  alg = static_cast<AlgebraicRule*>( m->getRule(0));
+
+  fail_unless( alg         != NULL  , NULL );
+  fail_unless(alg->getSBOTerm() == 64, NULL);
+  fail_unless(alg->getSBOTermID() == "SBO:0000064");
+
+  ast = alg->getMath();
+  fail_unless(!strcmp(SBML_formulaToString(ast), "pow(x, 3)"), NULL);
+
+  //  <assignmentRule variable="p2" sboTerm="SBO:0000064">
+  //    <math xmlns="http://www.w3.org/1998/Math/MathML">
+  //      <apply>
+  //        <times/>
+  //        <ci> x </ci>
+  //        <ci> p3 </ci>
+  //      </apply>
+  //    </math>
+  //  </assignmentRule>
+  ar = static_cast <AssignmentRule*>(m->getRule(1));
+
+  fail_unless( ar         != NULL  , NULL );
+  fail_unless( ar->getVariable() == "p2", NULL);
+  fail_unless(ar->getSBOTerm() == 64, NULL);
+  fail_unless(ar->getSBOTermID() == "SBO:0000064");
+
+  ast = ar->getMath();
+  fail_unless(!strcmp(SBML_formulaToString(ast), "x * p3"), NULL);
+
+
+  //  <rateRule variable="p3" sboTerm="SBO:0000064">
+  //    <math xmlns="http://www.w3.org/1998/Math/MathML">
+  //      <apply>
+  //        <divide/>
+  //        <ci> p1 </ci>
+  //        <ci> p </ci>
+  //      </apply>
+  //    </math>
+  //  </rateRule>
+  rr = static_cast<RateRule*> (m->getRule(2));
+
+  fail_unless( rr         != NULL  , NULL );
+  fail_unless( rr->getVariable() == "p3", NULL);
+  fail_unless(rr->getSBOTerm() == 64, NULL);
+  fail_unless(rr->getSBOTermID() == "SBO:0000064");
+
+  ast = rr->getMath();
+  fail_unless(!strcmp(SBML_formulaToString(ast), "p1 / p"), NULL);
+
+  //<listOfSpecies>
+  //  <species id="s" compartment="a" initialAmount="0" speciesType="gg" sboTerm="SBO:000236"/>
+  //</listOfSpecies>
+  fail_unless( m->getNumSpecies() == 1, NULL );
+
+  s = m->getSpecies(0);
+  fail_unless( s          != NULL  , NULL );
+  fail_unless( s->getId() == "s", NULL );
+  fail_unless( s->getSpeciesType() == "gg", NULL );
+  fail_unless( s->getCompartment() == "a", NULL );
+  fail_unless(s->getSBOTerm() == 236, NULL);
+  fail_unless(s->getSBOTermID() == "SBO:0000236");
+  fail_unless(s->isSetInitialAmount(), NULL);
+  fail_unless(!s->isSetInitialConcentration(), NULL);
+  fail_unless(s->getInitialAmount() == 0, NULL);
+
+
   //<listOfReactions>
-  //  <reaction id="r">
+  //  <reaction id="r" fast="true" reversible="false">
   //    <listOfReactants>
   //      <speciesReference species="s">
   //        <stoichiometryMath>
@@ -313,6 +395,8 @@ START_TEST (test_read_l2v3_all)
   r = m->getReaction(0);
   fail_unless( r         != NULL  , NULL );
   fail_unless(r->getId() == "r", NULL);
+  fail_unless(!r->getReversible(), NULL);
+  fail_unless(r->getFast(), NULL);
 
   fail_unless(r->isSetKineticLaw(), NULL);
 

@@ -1867,7 +1867,7 @@ SBase::writeAttributes (XMLOutputStream& stream) const
 {
   if (mNamespaces) stream << *mNamespaces;
 
-  if ( getLevel() == 2 && !mMetaId.empty() )
+  if ( getLevel() > 1 && !mMetaId.empty() )
   {
     stream.writeAttribute("metaid", mMetaId);
   }

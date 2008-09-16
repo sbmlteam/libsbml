@@ -651,17 +651,17 @@ Species::readAttributes (const XMLAttributes& attributes)
     expectedAttributes.push_back("hasOnlySubstanceUnits");
     expectedAttributes.push_back("constant");
 
-    if (version != 1)
+    if (!(level == 2 && version == 1))
     {
       expectedAttributes.push_back("speciesType");
     }
 
-    if (version < 3)
+    if (level == 2 && version < 3)
     {
       expectedAttributes.push_back("spatialSizeUnits");
     }
 
-    if (version > 2)
+    if (!(level == 2 && version < 3))
     {
       expectedAttributes.push_back("sboTerm");
     }
@@ -693,27 +693,14 @@ Species::readAttributes (const XMLAttributes& attributes)
   SBase::checkIdSyntax();
 
   //
-  // name: string  { use="optional" }  (L2v1, L2v2)
-  //
-  if (level == 2) attributes.readInto("name", mName);
-
-  //
-  // speciesType: SId  { use="optional" }  (L2v2)
-  //
-  if (level == 2 && version > 1)
-  {
-    attributes.readInto("speciesType", mSpeciesType);
-  }
-
-  //
   // compartment: SName  { use="required" }  (L1v1, L2v1)
-  // compartment: SId    { use="required" }  (L2v1, L2v2)
+  // compartment: SId    { use="required" }  (L2v1->)
   //
   attributes.readInto("compartment", mCompartment, getErrorLog(), true);
 
   //
   // initialAmount: double  { use="required" }  (L1v1, L1v2)
-  // initialAmount: double  { use="optional" }  (L2v1, L2v2)
+  // initialAmount: double  { use="optional" }  (L2v1->)
   //
   if (level == 1)
   {
@@ -726,45 +713,16 @@ Species::readAttributes (const XMLAttributes& attributes)
   }
 
   //
-  // initialConcentration: double  { use="optional" }  (L2v1, L2v2)
-  //
-  if (level == 2)
-  {
-    mIsSetInitialConcentration =
-      attributes.readInto("initialConcentration", mInitialConcentration);
-  }
-
-  //
   //          units: SName  { use="optional" }  (L1v1, L1v2)
-  // substanceUntis: SId    { use="optional" }  (L2v1, L2v2)
+  // substanceUntis: SId    { use="optional" }  (L2v1->)
   //
   const string units = (level == 1) ? "units" : "substanceUnits";
   attributes.readInto(units, mSubstanceUnits);
   SBase::checkUnitSyntax();
 
-  if (level == 2)
-  {
-    //
-    // spatialSizeUnits: SId  { use="optional" }  (L2v1, L2v2) removed in l2v3
-    //
-    attributes.readInto("spatialSizeUnits", mSpatialSizeUnits);
-    SBase::checkUnitSyntax(1);
-
-    //
-    // hasOnlySubstanceUnits: boolean
-    // { use="optional" default="false" }  (L2v1, L2v2)
-    //
-    attributes.readInto("hasOnlySubstanceUnits", mHasOnlySubstanceUnits);
-  }
-  //else
-  //{
-  //  // inlevel 1 the units of a species were considered to be substance units
-  //  mHasOnlySubstanceUnits = 1;
-  //}
-
   //
   // boundaryCondition: boolean
-  // { use="optional" default="false" }  (L1v1, L1v2, L2v1, L2v2)
+  // { use="optional" default="false" }  (L1v1, L1v2, L2v1->)
   //
   attributes.readInto("boundaryCondition", mBoundaryCondition);
 
@@ -774,19 +732,53 @@ Species::readAttributes (const XMLAttributes& attributes)
   //
   mIsSetCharge = attributes.readInto("charge", mCharge);
 
-  if (level == 2)
+  if (level > 1)
   {
     //
-    // constant: boolean  { use="optional" default="false" }  (L2v1, L2v2)
+    // name: string  { use="optional" }  (L2v1->)
+    //
+    attributes.readInto("name", mName);
+
+    //
+    // speciesType: SId  { use="optional" }  (L2v2->)
+    //
+    if (!(level == 2 && version == 1))
+    {
+      attributes.readInto("speciesType", mSpeciesType);
+    }
+
+    //
+    // initialConcentration: double  { use="optional" }  (L2v1->)
+    //
+    mIsSetInitialConcentration =
+        attributes.readInto("initialConcentration", mInitialConcentration);
+
+    //
+    // spatialSizeUnits: SId  { use="optional" }  (L2v1, L2v2) removed in l2v3
+    //
+    if (level == 2 && version < 3)
+    {
+      attributes.readInto("spatialSizeUnits", mSpatialSizeUnits);
+      SBase::checkUnitSyntax(1);
+    }
+
+    //
+    // hasOnlySubstanceUnits: boolean
+    // { use="optional" default="false" }  (L2v1->)
+    //
+    attributes.readInto("hasOnlySubstanceUnits", mHasOnlySubstanceUnits);
+
+    //
+    // constant: boolean  { use="optional" default="false" }  (L2v1->)
     //
     attributes.readInto("constant", mConstant);
-  }
 
-  //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
-  //
-  if (level == 2 && version > 2) 
-    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
+    //
+    // sboTerm: SBOTerm { use="optional" }  (L2v3->)
+    //
+    if (!(level == 2 && version < 3)) 
+      mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
+  }
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -812,28 +804,31 @@ Species::writeAttributes (XMLOutputStream& stream) const
   const string id = (level == 1) ? "name" : "id";
   stream.writeAttribute(id, mId);
 
-  //
-  // name: string  { use="optional" }  (L2v1, L2v2)
-  //
-  if (level == 2) stream.writeAttribute("name", mName);
-
-  //
-  // speciesType: SId  { use="optional" }  (L2v2)
-  //
-  if (level == 2 && version > 1)
+  if (level > 1)
   {
-    stream.writeAttribute("speciesType", mSpeciesType);
+    //
+    // name: string  { use="optional" }  (L2v1->)
+    //
+    stream.writeAttribute("name", mName);
+
+    //
+    // speciesType: SId  { use="optional" }  (L2v2->)
+    //
+    if (!(level == 2 && version == 1))
+    {
+      stream.writeAttribute("speciesType", mSpeciesType);
+    }
   }
 
   //
   // compartment: SName  { use="required" }  (L1v1, L2v1)
-  // compartment: SId    { use="required" }  (L2v1, L2v2)
+  // compartment: SId    { use="required" }  (L2v1->)
   //
   stream.writeAttribute("compartment", mCompartment);
 
   //
   // initialAmount: double  { use="required" }  (L1v1, L1v2)
-  // initialAmount: double  { use="optional" }  (L2v1, L2v2)
+  // initialAmount: double  { use="optional" }  (L2v1->)
   //
   if ( isSetInitialAmount() )
   {
@@ -841,9 +836,9 @@ Species::writeAttributes (XMLOutputStream& stream) const
   }
 
   //
-  // initialConcentration: double  { use="optional" }  (L2v1, L2v2)
+  // initialConcentration: double  { use="optional" }  (L2v1-> )
   //
-  else if ( level == 2 && isSetInitialConcentration() )
+  else if ( level > 1 && isSetInitialConcentration() )
   {
     stream.writeAttribute("initialConcentration", mInitialConcentration);
   }
@@ -883,14 +878,14 @@ Species::writeAttributes (XMLOutputStream& stream) const
 
   //
   //          units: SName  { use="optional" }  (L1v1, L1v2)
-  // substanceUntis: SId    { use="optional" }  (L2v1, L2v2)
+  // substanceUntis: SId    { use="optional" }  (L2v1->)
   //
   const string units = (level == 1) ? "units" : "substanceUnits";
   stream.writeAttribute( units, getUnits() );
 
-  if (level == 2)
+  if (level > 1)
   {
-    if (version < 3)
+    if (level == 2 && version < 3)
     {
       //
       // spatialSizeUnits: SId  { use="optional" }  (L2v1, L2v2)
@@ -900,7 +895,7 @@ Species::writeAttributes (XMLOutputStream& stream) const
 
     //
     // hasOnlySubstanceUnits: boolean
-    // { use="optional" default="false" }  (L2v1, L2v2)
+    // { use="optional" default="false" }  (L2v1->)
     //
     if (mHasOnlySubstanceUnits)
     {
@@ -910,7 +905,7 @@ Species::writeAttributes (XMLOutputStream& stream) const
 
   //
   // boundaryCondition: boolean
-  // { use="optional" default="false" }  (L1v1, L1v2, L2v1, L2v2)
+  // { use="optional" default="false" }  (L1v1, L1v2, L2v1->)
   //
   if (mBoundaryCondition)
   {
@@ -926,19 +921,22 @@ Species::writeAttributes (XMLOutputStream& stream) const
     stream.writeAttribute("charge", mCharge);
   }
 
-  //
-  // constant: boolean  { use="optional" default="false" }  (L2v1, L2v2)
-  //
-  if (level == 2 && mConstant != false)
+  if (level > 1)
   {
-    stream.writeAttribute("constant", mConstant);
-  }
+    //
+    // constant: boolean  { use="optional" default="false" }  (L2v1->)
+    //
+    if (mConstant != false)
+    {
+      stream.writeAttribute("constant", mConstant);
+    }
 
-  //
-  // sboTerm: SBOTerm { use="optional" }  (L2v3)
-  //
-  if (level == 2 && version > 2) 
-    SBO::writeTerm(stream, mSBOTerm);
+    //
+    // sboTerm: SBOTerm { use="optional" }  (L2v3->)
+    //
+    if (!(level == 2 && version < 3)) 
+      SBO::writeTerm(stream, mSBOTerm);
+  }
 }
 /** @endcond doxygen-libsbml-internal */
 

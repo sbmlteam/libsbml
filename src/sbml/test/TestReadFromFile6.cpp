@@ -107,10 +107,14 @@ START_TEST (test_read_l2v2_newComponents)
 
 
   //
-  // <model>
+  //<model id="l2v2_newComponents" sboTerm="SBO:0000004">
   //
   m = d->getModel();
   fail_unless( m != NULL, NULL );
+
+  fail_unless(m->getId() == "l2v2_newComponents", NULL);
+  fail_unless(m->getSBOTerm() == 4, NULL);
+  fail_unless(m->getSBOTermID() == "SBO:0000004", NULL);
 
 
   //<listOfCompartments>
@@ -138,6 +142,47 @@ START_TEST (test_read_l2v2_newComponents)
   ct = m->getCompartmentType(0);
   fail_unless( ct         != NULL  , NULL );
   fail_unless( ct->getId() == "mitochondria", NULL );
+
+  //<listOfSpecies>
+  //  <species id="X0" speciesType="Glucose" compartment="cell"/>
+  //  <species id="X1" compartment="cell" initialConcentration="0.013"/>
+  //</listOfSpecies>
+  fail_unless( m->getNumSpecies() == 2, NULL );
+
+  s = m->getSpecies(0);
+  fail_unless( s          != NULL  , NULL );
+  fail_unless( s->getId() == "X0", NULL );
+  fail_unless( s->getSpeciesType() == "Glucose", NULL );
+  fail_unless( s->getCompartment() == "cell", NULL );
+  fail_unless(!s->isSetInitialAmount(), NULL);
+  fail_unless(!s->isSetInitialConcentration(), NULL);
+
+  s = m->getSpecies(1);
+  fail_unless( s          != NULL  , NULL );
+  fail_unless( s->getId() == "X1", NULL );
+  fail_unless( !s->isSetSpeciesType(), NULL);
+  fail_unless( s->getCompartment() == "cell", NULL );
+  fail_unless( s->getInitialConcentration() == 0.013, NULL);
+  fail_unless(!s->isSetInitialAmount(), NULL);
+  fail_unless(s->isSetInitialConcentration(), NULL);
+
+
+
+
+
+  //<listOfParameters>
+  //  <parameter id="y" value="2" units="dimensionless" sboTerm="SBO:0000002"/>
+  //</listOfParameters>
+  fail_unless( m->getNumParameters() == 1, NULL );
+
+  p = m->getParameter(0);
+  fail_unless( p         != NULL  , NULL );
+  fail_unless( p->getId() == "y", NULL );
+  fail_unless( p->getValue() == 2, NULL );
+  fail_unless( p->getUnits() == "dimensionless", NULL );
+  fail_unless( p->getId() == "y", NULL );
+  fail_unless(p->getSBOTerm() == 2, NULL);
+  fail_unless(p->getSBOTermID() == "SBO:0000002", NULL);
 
   //<listOfConstraints>
   //  <constraint sboTerm="SBO:0000064">
@@ -212,6 +257,7 @@ START_TEST (test_read_l2v2_newComponents)
   fail_unless( r         != NULL  , NULL );
   fail_unless(r->getSBOTerm() == 231, NULL);
   fail_unless(r->getSBOTermID() == "SBO:0000231", NULL);
+  fail_unless(r->getId() == "in", NULL);
 
   fail_unless(r->isSetKineticLaw(), NULL);
 

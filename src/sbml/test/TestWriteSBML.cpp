@@ -266,6 +266,22 @@ START_TEST (test_WriteSBML_Model_L2v1_skipOptional)
 END_TEST
 
 
+START_TEST (test_WriteSBML_Model_L2v2)
+{
+  D->setLevelAndVersion(2, 2);
+
+  const char* expected = wrapSBML_L2v2("  <model id=\"Branch\" sboTerm=\"SBO:0000004\"/>\n");
+
+  Model * m = D->createModel("Branch");
+  m->setSBOTerm(4);
+
+  S = writeSBMLToString(D);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
 START_TEST (test_WriteSBML_FunctionDefinition)
 {
   const char* expected = wrapXML
@@ -553,7 +569,7 @@ START_TEST (test_WriteSBML_Compartment_L2v1)
 
   const char* expected = wrapXML
   (
-    "<compartment id=\"M\" size=\"2.5\" spatialDimensions=\"2\"/>"
+    "<compartment id=\"M\" spatialDimensions=\"2\" size=\"2.5\"/>"
   );
 
 
@@ -803,6 +819,54 @@ START_TEST (test_WriteSBML_Species_L2v1_skipOptional)
 END_TEST
 
 
+START_TEST (test_WriteSBML_Species_L2v2)
+{
+  D->setLevelAndVersion(2, 2);
+
+  const char* expected = wrapXML
+  (
+    "<species id=\"Ca2\" speciesType=\"st\" compartment=\"cell\" initialAmount=\"0.7\" "
+    "substanceUnits=\"mole\" constant=\"true\"/>"
+  );
+
+  Species s("Ca2");
+
+  s.setCompartment("cell");
+  s.setInitialAmount(0.7);
+  s.setSubstanceUnits("mole");
+  s.setConstant(true);
+  s.setSpeciesType("st");
+
+  s.setSBMLDocument(D);
+  s.write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
+
+
+START_TEST (test_WriteSBML_Species_L2v3)
+{
+  D->setLevelAndVersion(2, 3);
+
+  const char* expected = wrapXML
+  (
+  "<species id=\"Ca2\" compartment=\"cell\" sboTerm=\"SBO:0000007\"/>"
+  );
+
+  Species s("Ca2");
+
+  s.setCompartment("cell");
+  s.setSBOTerm(7);
+
+  s.setSBMLDocument(D);
+  s.write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
+
+
 START_TEST (test_WriteSBML_Parameter)
 {
   D->setLevelAndVersion(1, 2);
@@ -921,6 +985,27 @@ START_TEST (test_WriteSBML_Parameter_L2v1_constant)
 END_TEST
 
 
+START_TEST (test_WriteSBML_Parameter_L2v2)
+{
+  D->setLevelAndVersion(2, 2);
+
+  const char* expected = wrapXML
+  (
+  "<parameter id=\"Km1\" value=\"2.3\" units=\"second\" sboTerm=\"SBO:0000002\"/>"
+  );
+
+
+  Parameter p("Km1", 2.3, "second");
+  p.setSBOTerm(2);
+
+  p.setSBMLDocument(D);
+  p.write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
+
+
 START_TEST (test_WriteSBML_AlgebraicRule)
 {
   D->setLevelAndVersion(1, 1);
@@ -957,6 +1042,35 @@ START_TEST (test_WriteSBML_AlgebraicRule_L2v1)
 
 
   AlgebraicRule r("x + 1");
+
+  r.setSBMLDocument(D);
+  r.write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
+
+
+START_TEST (test_WriteSBML_AlgebraicRule_L2v2)
+{
+  D->setLevelAndVersion(2, 2);
+
+  const char* expected = wrapXML
+  (
+    "<algebraicRule sboTerm=\"SBO:0000004\">\n"
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+    "    <apply>\n"
+    "      <plus/>\n"
+    "      <ci> x </ci>\n"
+    "      <cn type=\"integer\"> 1 </cn>\n"
+    "    </apply>\n"
+    "  </math>\n"
+    "</algebraicRule>"
+  );
+
+
+  AlgebraicRule r("x + 1");
+  r.setSBOTerm(4);
 
   r.setSBMLDocument(D);
   r.write(*XOS);
@@ -1072,6 +1186,39 @@ START_TEST (test_WriteSBML_SpeciesConcentrationRule_L2v1)
 END_TEST
 
 
+START_TEST (test_WriteSBML_SpeciesConcentrationRule_L2v2)
+{
+  D->setLevelAndVersion(2, 2);
+
+  const char* expected = wrapXML
+  (
+  "<assignmentRule variable=\"s\" sboTerm=\"SBO:0000006\">\n"
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+    "    <apply>\n"
+    "      <times/>\n"
+    "      <ci> t </ci>\n"
+    "      <ci> s </ci>\n"
+    "    </apply>\n"
+    "  </math>\n"
+    "</assignmentRule>"
+  );
+
+
+  D->createModel();
+  D->getModel()->createSpecies()->setId("s");
+
+  Rule* r = D->getModel()->createAssignmentRule();
+
+  r->setVariable("s");
+  r->setFormula("t * s");
+  r->setSBOTerm(6);
+  r->write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
+
+
 START_TEST (test_WriteSBML_CompartmentVolumeRule)
 {
   D->setLevelAndVersion(1, 1);
@@ -1153,6 +1300,39 @@ START_TEST (test_WriteSBML_CompartmentVolumeRule_L2v1)
 END_TEST
 
 
+START_TEST (test_WriteSBML_CompartmentVolumeRule_L2v2)
+{
+  D->setLevelAndVersion(2, 2);
+
+  const char* expected = wrapXML
+  (
+  "<assignmentRule variable=\"c\" sboTerm=\"SBO:0000005\">\n"
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+    "    <apply>\n"
+    "      <plus/>\n"
+    "      <ci> v </ci>\n"
+    "      <ci> c </ci>\n"
+    "    </apply>\n"
+    "  </math>\n"
+    "</assignmentRule>"
+  );
+
+
+  D->createModel();
+  D->getModel()->createCompartment()->setId("c");
+
+  Rule* r = D->getModel()->createAssignmentRule();
+
+  r->setVariable("c");
+  r->setFormula("v + c");
+  r->setSBOTerm(5);
+  r->write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
+
+
 START_TEST (test_WriteSBML_ParameterRule)
 {
   D->setLevelAndVersion(1, 1);
@@ -1227,6 +1407,39 @@ START_TEST (test_WriteSBML_ParameterRule_L2v1)
 
   r->setVariable("p");
   r->setFormula("p * t");
+  r->write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
+
+
+START_TEST (test_WriteSBML_ParameterRule_L2v2)
+{
+  D->setLevelAndVersion(2, 2);
+
+  const char* expected = wrapXML
+  (
+  "<rateRule variable=\"p\" sboTerm=\"SBO:0000007\">\n"
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+    "    <apply>\n"
+    "      <times/>\n"
+    "      <ci> p </ci>\n"
+    "      <ci> t </ci>\n"
+    "    </apply>\n"
+    "  </math>\n"
+    "</rateRule>"
+  );
+
+
+  D->createModel();
+  D->getModel()->createParameter()->setId("p");
+
+  Rule* r = D->getModel()->createRateRule();
+
+  r->setVariable("p");
+  r->setFormula("p * t");
+  r->setSBOTerm(7);
   r->write(*XOS);
 
   fail_unless( equals(expected) );
@@ -1381,6 +1594,28 @@ START_TEST (test_WriteSBML_Reaction_L2v1_full)
   r->createKineticLaw()->setFormula("(vm * s1)/(km + s1)");
 
   r->write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
+
+
+START_TEST (test_WriteSBML_Reaction_L2v2)
+{
+  D->setLevelAndVersion(2, 2);
+
+  const char* expected = wrapXML
+  (
+  "<reaction id=\"r\" name=\"r1\" reversible=\"false\" fast=\"true\" sboTerm=\"SBO:0000064\"/>"
+  );
+
+
+  Reaction r("r", "r1", NULL, false);
+  r.setFast(true);
+  r.setSBOTerm(64);
+
+  r.setSBMLDocument(D);
+  r.write(*XOS);
 
   fail_unless( equals(expected) );
 }
@@ -2256,6 +2491,7 @@ create_suite_WriteSBML ()
   tcase_add_test( tcase, test_WriteSBML_Model_skipOptional      );
   tcase_add_test( tcase, test_WriteSBML_Model_L2v1              );
   tcase_add_test( tcase, test_WriteSBML_Model_L2v1_skipOptional );
+  tcase_add_test( tcase, test_WriteSBML_Model_L2v2              );
 
   // FunctionDefinition
   tcase_add_test( tcase, test_WriteSBML_FunctionDefinition );
@@ -2289,6 +2525,8 @@ create_suite_WriteSBML ()
   tcase_add_test( tcase, test_WriteSBML_Species_skipOptional      );
   tcase_add_test( tcase, test_WriteSBML_Species_L2v1              );
   tcase_add_test( tcase, test_WriteSBML_Species_L2v1_skipOptional );
+  tcase_add_test( tcase, test_WriteSBML_Species_L2v2              );
+  tcase_add_test( tcase, test_WriteSBML_Species_L2v3              );
 
   // Parameter
   tcase_add_test( tcase, test_WriteSBML_Parameter                   );
@@ -2301,22 +2539,26 @@ create_suite_WriteSBML ()
   // AlgebraicRule
   tcase_add_test( tcase, test_WriteSBML_AlgebraicRule      );
   tcase_add_test( tcase, test_WriteSBML_AlgebraicRule_L2v1 );
+  tcase_add_test( tcase, test_WriteSBML_AlgebraicRule_L2v2 );
 
   // SpeciesConcentrationRule
   tcase_add_test( tcase, test_WriteSBML_SpeciesConcentrationRule          );
   tcase_add_test( tcase, test_WriteSBML_SpeciesConcentrationRule_defaults );
   tcase_add_test( tcase, test_WriteSBML_SpeciesConcentrationRule_L1v1     );
   tcase_add_test( tcase, test_WriteSBML_SpeciesConcentrationRule_L2v1     );
+  tcase_add_test( tcase, test_WriteSBML_SpeciesConcentrationRule_L2v2     );
 
   // CompartmentVolumeRule
   tcase_add_test( tcase, test_WriteSBML_CompartmentVolumeRule          );
   tcase_add_test( tcase, test_WriteSBML_CompartmentVolumeRule_defaults );
   tcase_add_test( tcase, test_WriteSBML_CompartmentVolumeRule_L2v1     );
+  tcase_add_test( tcase, test_WriteSBML_CompartmentVolumeRule_L2v2     );
 
   // ParameterRule
   tcase_add_test( tcase, test_WriteSBML_ParameterRule          );
   tcase_add_test( tcase, test_WriteSBML_ParameterRule_defaults );
   tcase_add_test( tcase, test_WriteSBML_ParameterRule_L2v1     );
+  tcase_add_test( tcase, test_WriteSBML_ParameterRule_L2v2     );
 
   // Reaction
   tcase_add_test( tcase, test_WriteSBML_Reaction           );
@@ -2324,6 +2566,7 @@ create_suite_WriteSBML ()
   tcase_add_test( tcase, test_WriteSBML_Reaction_full      );
   tcase_add_test( tcase, test_WriteSBML_Reaction_L2v1      );
   tcase_add_test( tcase, test_WriteSBML_Reaction_L2v1_full );
+  tcase_add_test( tcase, test_WriteSBML_Reaction_L2v2      );
 
   // SpeciesReference
 

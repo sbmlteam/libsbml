@@ -681,7 +681,7 @@ Rule::readAttributes (const XMLAttributes& attributes)
   {
     expectedAttributes.push_back("variable");
     expectedAttributes.push_back("metaid");
-    if (version != 1)
+    if (!(level == 2 && version == 1))
     {
       expectedAttributes.push_back("sboTerm");
     }
@@ -757,12 +757,12 @@ Rule::readAttributes (const XMLAttributes& attributes)
 
     }
   }
-  else if (level == 2)
+  else if (level > 1)
   {
     if (isAssignment() || isRate())
     {
       //
-      // variable: SId  { use="required" }  (L2v1, L2v2)
+      // variable: SId  { use="required" }  (L2v1 ->)
       //
       bool assigned = attributes.readInto("variable", mId, getErrorLog(), true);
       if (assigned && mId.size() == 0)
@@ -773,9 +773,9 @@ Rule::readAttributes (const XMLAttributes& attributes)
     }
 
     //
-    // sboTerm: SBOTerm { use="optional" }  (L2v2)
+    // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
     //
-    if (version > 1) 
+    if (!(level == 2 && version == 1)) 
       mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
   }
 }
@@ -844,18 +844,19 @@ Rule::writeAttributes (XMLOutputStream& stream) const
       stream.writeAttribute("units", mUnits);
     }
   }
-  else if (level == 2)
+  else if (level > 1)
   {
     //
-    // variable: SId  { use="required" }  (L2v1, L2v2)
+    // variable: SId  { use="required" }  (L2v1-> )
     //
     if(!isAlgebraic())
       stream.writeAttribute("variable", mId);
 
     //
-    // sboTerm: SBOTerm { use="optional" }  (L2v2)
+    // sboTerm: SBOTerm { use="optional" }  (L2v2->)
     //
-    if (version > 1) SBO::writeTerm(stream, mSBOTerm);
+    if (!(level == 2 && version == 1)) 
+      SBO::writeTerm(stream, mSBOTerm);
   }
 }
 /** @endcond doxygen-libsbml-internal */

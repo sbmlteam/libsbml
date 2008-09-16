@@ -16,7 +16,7 @@
       <species id="X1" compartment="cell" initialConcentration="0.013"/>
     </listOfSpecies>
     <listOfParameters>
-      <parameter id="y" value="2" units="dimensionless"/>
+      <parameter id="y" value="2" units="dimensionless" sboTerm="SBO:0000002"/>
     </listOfParameters>
     <listOfInitialAssignments>
       <initialAssignment symbol="X0" sboTerm="SBO:0000064">

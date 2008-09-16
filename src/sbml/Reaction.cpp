@@ -823,12 +823,12 @@ Reaction::readAttributes (const XMLAttributes& attributes)
   expectedAttributes.push_back("reversible");
   expectedAttributes.push_back("fast");
 
-  if (level == 2)
+  if (level > 1)
   {
     expectedAttributes.push_back("metaid");
     expectedAttributes.push_back("id");
 
-    if (version != 1)
+    if (!(level == 2 && version == 1))
     {
       expectedAttributes.push_back("sboTerm");
     }
@@ -848,7 +848,7 @@ Reaction::readAttributes (const XMLAttributes& attributes)
 
   //
   // name: SName  { use="required" }  (L1v1, L1v2)
-  //   id: SId    { use="required" }  (L2v1, L2v2)
+  //   id: SId    { use="required" }  (L2v1 ->)
   //
   const string id = (level == 1) ? "name" : "id";
   bool assigned = attributes.readInto(id, mId, getErrorLog(), true);
@@ -859,27 +859,30 @@ Reaction::readAttributes (const XMLAttributes& attributes)
   SBase::checkIdSyntax();
 
   //
-  // name: string  { use="optional" }  (L2v1, L2v2)
-  //
-  if (level == 2) attributes.readInto("name", mName);
-
-  //
   // reversible: boolean  { use="optional"  default="true" }
-  // (L1v1, L1v2, L2v1, L2v2)
+  // (L1v1, L1v2, L2v1->)
   //
   attributes.readInto("reversible", mReversible);
 
   //
   // fast: boolean  { use="optional" default="false" }  (L1v1, L1v2)
-  // fast: boolean  { use="optional" }                  (L2v1, L2v2)
+  // fast: boolean  { use="optional" }                  (L2v1 ->)
   //
   mIsSetFast = attributes.readInto("fast", mFast);
 
-  //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
-  //
-  if (level == 2 && version > 1) 
-    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
+  if (level > 1)
+  {
+    //
+    // name: string  { use="optional" }  (L2v1 ->)
+    //
+    attributes.readInto("name", mName);
+  
+    //
+    // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
+    //
+    if (!(level == 2 && version == 1)) 
+      mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
+  }
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -906,30 +909,33 @@ Reaction::writeAttributes (XMLOutputStream& stream) const
   stream.writeAttribute(id, mId);
 
   //
-  // name: string  { use="optional" }  (L2v1, L2v2)
+  // name: string  { use="optional" }  (L2v1->)
   //
-  if (level == 2) stream.writeAttribute("name", mName);
+  if (level > 1) stream.writeAttribute("name", mName);
 
   //
   // reversible: boolean  { use="optional"  default="true" }
-  // (L1v1, L1v2, L2v1, L2v2)
+  // (L1v1, L1v2, L2v1-> )
   //
   if (mReversible != true) stream.writeAttribute("reversible", mReversible);
 
   //
   // fast: boolean  { use="optional" default="false" }  (L1v1, L1v2)
-  // fast: boolean  { use="optional" }                  (L2v1, L2v2)
+  // fast: boolean  { use="optional" }                  (L2v1-> )
   //
   if (mIsSetFast)
   {
     if (level != 1 || mFast != false) stream.writeAttribute("fast", mFast);
   }
 
-  //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
-  //
-  if (level == 2 && version > 1) 
-    SBO::writeTerm(stream, mSBOTerm);
+  if (level > 1)
+  {
+    //
+    // sboTerm: SBOTerm { use="optional" }  (L2v2->)
+    //
+    if (!(level == 2 && version == 1)) 
+      SBO::writeTerm(stream, mSBOTerm);
+  }
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -950,7 +956,7 @@ Reaction::writeElements (XMLOutputStream& stream) const
   if (getNumReactants () > 0) mReactants.write(stream);
   if (getNumProducts  () > 0) mProducts .write(stream);
 
-  if (level == 2 && getNumModifiers () > 0) mModifiers.write(stream);
+  if (level > 1 && getNumModifiers () > 0) mModifiers.write(stream);
 
   if (mKineticLaw) mKineticLaw->write(stream);
 }

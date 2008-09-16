@@ -329,13 +329,13 @@ Parameter::readAttributes (const XMLAttributes& attributes)
   expectedAttributes.push_back("units");
   expectedAttributes.push_back("value");
 
-  if (level == 2)
+  if (level > 1)
   {
     expectedAttributes.push_back("metaid");
     expectedAttributes.push_back("id");
     expectedAttributes.push_back("constant");
 
-    if (version != 1)
+    if (!(level == 2 && version == 1))
     {
       expectedAttributes.push_back("sboTerm");
     }
@@ -366,13 +366,8 @@ Parameter::readAttributes (const XMLAttributes& attributes)
   SBase::checkIdSyntax();
 
   //
-  // name: string  { use="optional" }  (L2v1, L2v2)
-  //
-  if (level == 2) attributes.readInto("name", mName);
-
-  //
   // value: double  { use="required" }  (L1v2)
-  // value: double  { use="optional" }  (L1v2, L2v1, L2v2)
+  // value: double  { use="optional" }  (L1v2->)
   //
   if (level == 1 && version == 1)
   {
@@ -390,16 +385,24 @@ Parameter::readAttributes (const XMLAttributes& attributes)
   attributes.readInto("units", mUnits);
   SBase::checkUnitSyntax();
 
-  //
-  // constant: boolean  { use="optional" default="true" }  (L2v1, L2v2)
-  //
-  if (level == 2) attributes.readInto("constant", mConstant);
+  if (level > 1)
+  {
+    //
+    // name: string  { use="optional" }  (L2v1 ->)
+    //
+    attributes.readInto("name", mName);
 
-  //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
-  //
-  if (level == 2 && version > 1) 
-    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
+    //
+    // constant: boolean  { use="optional" default="true" }  (L2v1->)
+    //
+    attributes.readInto("constant", mConstant);
+
+    //
+    // sboTerm: SBOTerm { use="optional" }  (L2v2->)
+    //
+    if (!(level == 2 && version == 1)) 
+      mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
+  }
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -422,19 +425,22 @@ Parameter::writeAttributes (XMLOutputStream& stream) const
 
   //
   // name: SName   { use="required" }  (L1v1, L1v2)
-  //   id: SId     { use="required" }  (L2v1, L2v2)
+  //   id: SId     { use="required" }  (L2v1->)
   //
   const string id = (level == 1) ? "name" : "id";
   stream.writeAttribute(id, mId);
 
-  //
-  // name: string  { use="optional" }  (L2v1, L2v2)
-  //
-  if (level == 2) stream.writeAttribute("name", mName);
+  if (level > 1)
+  {
+    //
+    // name: string  { use="optional" }  (L2v1->)
+    //
+    stream.writeAttribute("name", mName);
+  }
 
   //
   // value: double  { use="required" }  (L1v1)
-  // value: double  { use="optional" }  (L1v2, L2v1, L2v2)
+  // value: double  { use="optional" }  (L1v2->)
   //
   if (mIsSetValue || (level == 1 && version == 1))
   {
@@ -443,23 +449,26 @@ Parameter::writeAttributes (XMLOutputStream& stream) const
 
   //
   // units: SName  { use="optional" }  (L1v1, L1v2)
-  // units: SId    { use="optional" }  (L2v1, L2v2)
+  // units: SId    { use="optional" }  (L2v1-> )
   //
   stream.writeAttribute("units", mUnits);
 
-  //
-  // constant: boolean  { use="optional" default="true" }  (L2v1, L2v2)
-  //
-  if (level == 2 && mConstant != true)
+  if (level > 1)
   {
-    stream.writeAttribute("constant", mConstant);
-  }
+    //
+    // constant: boolean  { use="optional" default="true" }  (L2v1->)
+    //
+    if (mConstant != true)
+    {
+      stream.writeAttribute("constant", mConstant);
+    }
 
-  //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
-  //
-  if (level == 2 && version > 1) 
-    SBO::writeTerm(stream, mSBOTerm);
+    //
+    // sboTerm: SBOTerm { use="optional" }  (L2v2->)
+    //
+    if (!(level == 2 && version == 1)) 
+      SBO::writeTerm(stream, mSBOTerm);
+  }
 }
 /** @endcond doxygen-libsbml-internal */
 

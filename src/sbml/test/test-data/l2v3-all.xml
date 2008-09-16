@@ -34,7 +34,7 @@
       <compartment id="a" size="2.3" compartmentType="hh" sboTerm="SBO:0000236" constant="false"/>
     </listOfCompartments>
     <listOfSpecies>
-      <species id="s" compartment="a" initialAmount="0"/>
+      <species id="s" compartment="a" initialAmount="0" speciesType="gg" sboTerm="SBO:0000236"/>
     </listOfSpecies>
     <listOfParameters>
       <parameter id="p" value="2" units="second" constant="false"/>
@@ -55,7 +55,7 @@
       </initialAssignment>
     </listOfInitialAssignments>
     <listOfRules>
-      <algebraicRule>
+      <algebraicRule sboTerm="SBO:0000064">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
             <power/>
@@ -64,7 +64,7 @@
           </apply>
         </math>
       </algebraicRule>
-      <assignmentRule variable="p2">
+      <assignmentRule variable="p2" sboTerm="SBO:0000064">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
             <times/>
@@ -73,7 +73,7 @@
           </apply>
         </math>
       </assignmentRule>
-      <rateRule variable="p3">
+      <rateRule variable="p3" sboTerm="SBO:0000064">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
             <divide/>
@@ -95,7 +95,7 @@
       </constraint>
     </listOfConstraints>
     <listOfReactions>
-      <reaction id="r">
+      <reaction id="r" fast="true" reversible="false">
         <listOfReactants>
           <speciesReference species="s">
             <stoichiometryMath>

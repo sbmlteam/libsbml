@@ -599,6 +599,31 @@ Compartment::writeAttributes (XMLOutputStream& stream) const
   const string id = (level == 1) ? "name" : "id";
   stream.writeAttribute(id, mId);
 
+  if (level > 1)
+  {
+    //
+    // name: string  { use="optional" }  (L2v1->)
+    //
+    stream.writeAttribute("name", mName);
+
+    //
+    // compartmentType: SId  { use="optional" }  (L2v2 -> )
+    //
+    if (!(level == 2 && version == 1))
+    {
+      stream.writeAttribute("compartmentType", mCompartmentType);
+    }
+
+    //
+    // spatialDimensions { maxInclusive="3" minInclusive="0" use="optional"
+    //                     default="3" }  (L2v1->)
+    //
+    if (mSpatialDimensions >= 0 && mSpatialDimensions <= 2)
+    {
+      stream.writeAttribute("spatialDimensions", mSpatialDimensions);
+    }
+  }
+
   //
   // volume  { use="optional" default="1" }  (L1v1, L1v2)
   // size    { use="optional" }              (L2v1, L2v2)
@@ -622,33 +647,11 @@ Compartment::writeAttributes (XMLOutputStream& stream) const
   if (level > 1)
   {
     //
-    // name: string  { use="optional" }  (L2v1->)
-    //
-    stream.writeAttribute("name", mName);
-
-    //
-    // spatialDimensions { maxInclusive="3" minInclusive="0" use="optional"
-    //                     default="3" }  (L2v1->)
-    //
-    if (mSpatialDimensions >= 0 && mSpatialDimensions <= 2)
-    {
-      stream.writeAttribute("spatialDimensions", mSpatialDimensions);
-    }
-
-    //
     // constant  { use="optional" default="true" }  (L2v1->)
     //
     if (mConstant != true)
     {
       stream.writeAttribute("constant", mConstant);
-    }
-
-    //
-    // compartmentType: SId  { use="optional" }  (L2v2 -> )
-    //
-    if (!(level == 2 && version == 1))
-    {
-      stream.writeAttribute("compartmentType", mCompartmentType);
     }
 
     //
