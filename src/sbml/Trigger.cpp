@@ -292,10 +292,16 @@ Trigger::readAttributes (const XMLAttributes& attributes)
   const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
 
+  if (level < 2)
+  {
+    logError(NotSchemaConformant, getLevel(), getVersion(),
+	      "Trigger is not a valid component for this level/version.");
+    return;
+  }
   std::vector<std::string> expectedAttributes;
   expectedAttributes.clear();
   expectedAttributes.push_back("metaid");
-  if (level == 2 && version > 2)
+  if (!(level == 2 && version < 3))
   {
     expectedAttributes.push_back("sboTerm");
   }
@@ -313,9 +319,9 @@ Trigger::readAttributes (const XMLAttributes& attributes)
   }
 
   //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  // sboTerm: SBOTerm { use="optional" }  (L2v3->)
   //
-  if (level == 2 && version > 1) 
+  if (!(level == 2 && version < 3))
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
 /** @endcond doxygen-libsbml-internal */
@@ -334,11 +340,17 @@ Trigger::writeAttributes (XMLOutputStream& stream) const
 
   const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
+ 
+  /* invalid level/version */
+  if (level < 2)
+  {
+    return;
+  }
 
   //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  // sboTerm: SBOTerm { use="optional" }  (L2v3->)
   //
-  if (level == 2 && version > 1) 
+  if (!(level == 2 && version < 3))
     SBO::writeTerm(stream, mSBOTerm);
 }
 /** @endcond doxygen-libsbml-internal */

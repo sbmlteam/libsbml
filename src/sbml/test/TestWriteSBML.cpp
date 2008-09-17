@@ -2127,6 +2127,36 @@ START_TEST (test_WriteSBML_Event_delayWithSBO)
 END_TEST
 
 
+START_TEST (test_WriteSBML_Event_trigger_withSBO)
+{
+  const char* expected = wrapXML
+  (
+    "<event id=\"e\">\n"
+    "  <trigger sboTerm=\"SBO:0000064\">\n"
+    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+    "      <apply>\n"
+    "        <leq/>\n"
+    "        <ci> P1 </ci>\n"
+    "        <ci> t </ci>\n"
+    "      </apply>\n"
+    "    </math>\n"
+    "  </trigger>\n"
+    "</event>"
+  );
+
+  Event e("e");
+  ASTNode *node = SBML_parseFormula("leq(P1,t)");
+  Trigger t(node);
+  t.setSBOTerm(64);
+
+  e.setTrigger(&t);
+  e.write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
+
+
 START_TEST (test_WriteSBML_Event_both)
 {
   const char* expected = wrapXML
@@ -2744,6 +2774,7 @@ create_suite_WriteSBML ()
   tcase_add_test( tcase, test_WriteSBML_Event         );
   tcase_add_test( tcase, test_WriteSBML_Event_WithSBO         );
   tcase_add_test( tcase, test_WriteSBML_Event_trigger );
+  tcase_add_test( tcase, test_WriteSBML_Event_trigger_withSBO );
   tcase_add_test( tcase, test_WriteSBML_Event_delay   );
   tcase_add_test( tcase, test_WriteSBML_Event_delayWithSBO   );
   tcase_add_test( tcase, test_WriteSBML_Event_both    );

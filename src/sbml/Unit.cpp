@@ -1238,17 +1238,17 @@ Unit::readAttributes (const XMLAttributes& attributes)
   expectedAttributes.push_back("exponent");
   expectedAttributes.push_back("scale");
 
-  if (level == 2)
+  if (level > 1)
   {
     expectedAttributes.push_back("metaid");
     expectedAttributes.push_back("multiplier");
 
-    if (version == 1)
+    if (level == 2 && version == 1)
     {
       expectedAttributes.push_back("offset");
     }
 
-    if (version > 2)
+    if (!(level == 2 && version < 3))
     {
       expectedAttributes.push_back("sboTerm");
     }
@@ -1267,7 +1267,7 @@ Unit::readAttributes (const XMLAttributes& attributes)
   }
 
   //
-  // kind: UnitKind  (L1v1, L1v2, L2v1, L2v2)
+  // kind: UnitKind  (L1v1, L1v2, L2v1->)
   //
   string kind;
   if ( attributes.readInto("kind", kind, getErrorLog(), true) )
@@ -1276,31 +1276,32 @@ Unit::readAttributes (const XMLAttributes& attributes)
   }
 
   //
-  // exponent  { use="optional" default="1" }  (L1v1, L1v2, L2v1, L2v2)
+  // exponent  { use="optional" default="1" }  (L1v1, L1v2, L2v1->)
   //
   attributes.readInto("exponent", mExponent, getErrorLog());
 
   //
-  // scale  { use="optional" default="0" }  (L1v1, L1v2, L2v1, L2v2)
+  // scale  { use="optional" default="0" }  (L1v1, L1v2, L2v1->)
   //
   attributes.readInto("scale", mScale, getErrorLog());
 
-  if (level == 2)
+  if (level > 1)
   {
     //
-    // multiplier  { use="optional" default="1" }  (L2v1, L2v2)
+    // multiplier  { use="optional" default="1" }  (L2v1-> )
     //
     attributes.readInto("multiplier", mMultiplier, getErrorLog());
 
     //
     // offset  { use="optional" default="0" }  (L2v1)
     //
-    attributes.readInto("offset", mOffset, getErrorLog());
+    if (level == 2 && version == 1)
+      attributes.readInto("offset", mOffset, getErrorLog());
 
     //
-    // sboTerm: SBOTerm { use="optional" }  (L2v2)
+    // sboTerm: SBOTerm { use="optional" }  (L2v3->)
     //
-    if (version > 2) 
+    if (!(level == 2 && version < 3)) 
         mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
   }
 
@@ -1323,37 +1324,37 @@ Unit::writeAttributes (XMLOutputStream& stream) const
   const unsigned int version = getVersion();
 
   //
-  // kind: UnitKind  { use="required" }  (L1v1, L1v2, L2v1, L2v2)
+  // kind: UnitKind  { use="required" }  (L1v1, L1v2, L2v1->)
   //
   const string kind = UnitKind_toString(mKind);
   stream.writeAttribute("kind", kind);
 
   //
-  // exponent  { use="optional" default="1" }  (L1v1, L1v2, L2v1, L2v2)
+  // exponent  { use="optional" default="1" }  (L1v1, L1v2, L2v1->)
   //
   if (mExponent != 1) stream.writeAttribute("exponent", mExponent);
 
   //
-  // scale  { use="optional" default="0" }  (L1v1, L1v2, L2v1, L2v2)
+  // scale  { use="optional" default="0" }  (L1v1, L1v2, L2v1->)
   //
   if (mScale != 0) stream.writeAttribute("scale", mScale);
 
-  if (level == 2)
+  if (level > 1)
   {
     //
-    // multiplier  { use="optional" default="1" }  (L2v1, L2v2)
+    // multiplier  { use="optional" default="1" }  (L2v1->)
     //
     if (mMultiplier != 1) stream.writeAttribute("multiplier", mMultiplier);
 
     //
-    // offset  { use="optional" default="0" }  (L2v1, L2v2)
+    // offset  { use="optional" default="0" }  (L2v1)
     //
-    if (version == 1 && mOffset != 0) stream.writeAttribute("offset", mOffset);
+    if (level == 2 && version == 1 && mOffset != 0) stream.writeAttribute("offset", mOffset);
 
     //
-    // sboTerm: SBOTerm { use="optional" }  (L2v3)
+    // sboTerm: SBOTerm { use="optional" }  (L2v3->)
     //
-    if (version > 2) 
+    if (!(level == 2 && version < 3)) 
         SBO::writeTerm(stream, mSBOTerm);
   }
 

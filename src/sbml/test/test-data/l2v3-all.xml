@@ -129,7 +129,7 @@
     </listOfReactions>
     <listOfEvents>
       <event id="e1" sboTerm="SBO:0000231">
-        <trigger>
+        <trigger sboTerm="SBO:0000231">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <lt/>
