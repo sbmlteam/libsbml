@@ -22,6 +22,9 @@
     expression using a functionDefinition that had not been properly
     defined.  The code that caused the crash has been fixed.
 
+  - Fixed a memory leak in the assignment operator of ListOf class.
+    Thanks to Sven Sahle for reporting this problem.
+
 * Changes:
 
   - Tracker issue #2082682.
