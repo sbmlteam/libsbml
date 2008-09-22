@@ -131,7 +131,7 @@ distfiles   = $(sources) $(extra_sources) $(check_sources) \
 extra_clean = $(class_files) $(check_sources:.java=.class) test_copy1.xml \
   test_write.xml TestFilenameFilter.class
 
-extra_distclean = java-files
+extra_distclean = 
 
 
 # -----------------------------------------------------------------------------
