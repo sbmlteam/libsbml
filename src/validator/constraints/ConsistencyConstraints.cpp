@@ -308,15 +308,16 @@ START_CONSTRAINT (20402, UnitDefinition, ud)
       "'exponent' attribute has a value "
       "of '1'.";
   }
-  else
+  else   
   {
     msg =
-      "Redefinitions of the built-in unit 'substance' must be based on the "
+      "Redefinitions of the predefined unit 'substance' must be based on the "
       "units 'mole', 'item', 'gram', 'kilogram', or 'dimensionless'. More "
       "formally, a <unitDefinition> for 'substance' must simplify to a single "
-      "<unit> whose 'kind' attribute has a value of 'mole', 'item', 'gram', "
-      "'kilogram', or 'dimensionless', and whose 'exponent' attribute has a "
-      "value of '1'.";
+      "<unit> in which either (a) the 'kind' attribute has a value of 'mole', "
+      "'item', 'gram' or 'kilogram', and the 'exponent' attribute has a "
+      "value of '1' or (b) the 'kind' attribute has a value of 'dimensionless' "
+      "with any 'exponent' attribute value.";
   }
 
 
@@ -358,7 +359,7 @@ START_CONSTRAINT (20403, UnitDefinition, ud)
       "'kind' attribute has a value of 'metre' and the 'exponent' attribute "
       "has a value of '1'.";
     }
-    else
+    else 
     {
       msg =
         "Redefinitions of the built-in unit 'length' must be based on the unit "
@@ -502,7 +503,7 @@ START_CONSTRAINT (20406, UnitDefinition, ud)
         "value is either 'litre' or 'metre'. Additional "
         "constraints apply if the kind is 'litre' or 'metre'.";
     }
-    else
+    else if (ud.getLevel() == 2 && ud.getVersion() < 4)
     {
       msg =
         "Redefinitions of the built-in unit 'volume' must be based on 'litre', "
@@ -512,44 +513,64 @@ START_CONSTRAINT (20406, UnitDefinition, ud)
         "value is either 'litre', 'metre', or 'dimensionless'. Additional "
         "constraints apply if the kind is 'litre' or 'metre'.";
     }
+    else 
+    {
+      msg =
+        "Redefinitions of the prefined unit 'volume' must be based on 'litre', "
+        "'metre' or 'dimensionless'. More formally, a <unitDefinition> for "
+        "'volume' must simplify to a single <unit> in which either (a) the 'kind' "
+        "attribute is 'litre' and the 'exponent' has a value of '1'; (b) the 'kind' "
+        "attribute has a value of 'metre' and the 'exponent' has a value of '3', or "
+        "(c) the 'kind' attribute has a value of 'dimensionless' with any 'exponent "
+        "value.";
+   }
   }
 
- /* Hack whilst we sort out whether there should be three rules for volume 
-  * redefinition or just one
-  */
-  /* dimensionless is allowable in L2V2 */
-  if (ud.getNumUnits() == 1)
+
+  if (ud.getLevel() == 1 || (ud.getLevel() == 2 && ud.getVersion() < 4))
   {
-    if (  ud.getLevel() == 1 )
+    /* Hack whilst we sort out whether there should be three rules for volume 
+    * redefinition or just one
+    */
+    /* dimensionless is allowable in L2V2 */
+    if (ud.getNumUnits() == 1)
     {
-      inv (ud.getUnit(0)->isLitre());
-    }
-    else if ( ud.getLevel() == 2 && ud.getVersion() == 1)
-    {
-      inv( ud.getUnit(0)->isLitre() || ud.getUnit(0)->isMetre() );
+      if (  ud.getLevel() == 1 )
+      {
+        inv (ud.getUnit(0)->isLitre());
+      }
+      else if ( ud.getLevel() == 2 && ud.getVersion() == 1)
+      {
+        inv( ud.getUnit(0)->isLitre() || ud.getUnit(0)->isMetre() );
+      }
+      else
+      {
+        inv( ud.getUnit(0)->isLitre() 
+          || ud.getUnit(0)->isMetre() 
+          || ud.getUnit(0)->isDimensionless() );
+      }
     }
     else
     {
-      inv( ud.getUnit(0)->isLitre() 
-        || ud.getUnit(0)->isMetre() 
-        || ud.getUnit(0)->isDimensionless() );
+      if (  ud.getLevel() == 1 )
+      {
+        inv (ud.getNumUnits() == 1 && ud.getUnit(0)->isLitre());
+      }
+      else if (ud.getLevel() == 2 && ud.getVersion() == 1)
+      {
+        inv(ud.isVariantOfVolume());
+      }
+      else
+      {
+        inv_or( ud.getNumUnits() == 1 && ud.getUnit(0)->isDimensionless() );
+        inv_or( ud.isVariantOfVolume());
+      }
     }
   }
   else
   {
-    if (  ud.getLevel() == 1 )
-    {
-      inv (ud.getNumUnits() == 1 && ud.getUnit(0)->isLitre());
-    }
-    else if (ud.getLevel() == 2 && ud.getVersion() == 1)
-    {
-      inv(ud.isVariantOfVolume());
-    }
-    else
-    {
-      inv_or( ud.getNumUnits() == 1 && ud.getUnit(0)->isDimensionless() );
-      inv_or( ud.isVariantOfVolume());
-    }
+    inv_or(ud.getNumUnits() == 1 && ud.getUnit(0)->isDimensionless());
+    inv_or(ud.isVariantOfVolume());
   }
 }
 END_CONSTRAINT
@@ -557,6 +578,8 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20407, UnitDefinition, ud)
 {
+  /* this constraint was removed in l2V4 as it was assumed into 20406 */
+  pre( ud.getLevel() == 1 || ( ud.getLevel() == 2 && ud.getVersion() < 4));
   pre( ud.getId()       == "volume" );
   pre( ud.getNumUnits() == 1        );
   pre( ud.getUnit(0)->isLitre()     );
@@ -575,6 +598,8 @@ END_CONSTRAINT
 START_CONSTRAINT (20408, UnitDefinition, ud)
 {
   pre( ud.getLevel() > 1);
+  /* this constraint was removed in l2V4 as it was assumed into 20406 */
+  pre( ud.getLevel() == 2 && ud.getVersion() < 4);
 
   pre( ud.getId()       == "volume" );
   pre( ud.getNumUnits() == 1        );
