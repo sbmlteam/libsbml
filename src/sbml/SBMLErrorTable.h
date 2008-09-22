@@ -1738,7 +1738,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "involving the 'outside' field. This means that a compartment cannot "
     "have its own identifier as the value of 'outside', nor can it point to "
     "another compartment whose 'outside' field points directly or indirectly "
-    "to the compartment. (References: L2V1 erratum 11; L2V2 Section 4.7.7; 
+    "to the compartment. (References: L2V1 erratum 11; L2V2 Section 4.7.7 " 
     "L2V3 Section 4.7.7; L2V4 Section 4.7.7) "
   },
 
