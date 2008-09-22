@@ -78,7 +78,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "beginning of the XML data stream cannot have a value other than "
     "'UTF-8'. An example valid declaration is "
     "'<?xml version=\"1.0\" encoding=\"UTF-8\"?>'. (References: L2V2 Section "
-    "4.1; L2V3 Section 4.1.)"
+    "4.1; L2V3 Section 4.1; L2V4 Section 4.1)"
   },
 
   //10102
@@ -94,7 +94,8 @@ static const sbmlErrorTableEntry errorTable[] =
     "An SBML XML document must not contain undefined elements or attributes "
     "in the SBML namespace. Documents containing unknown elements or "
     "attributes placed in the SBML namespace do not conform to the SBML "
-    "specification. (References: L2V2 Section 4.1; L2V3 Section 4.1.)"  
+    "specification. (References: L2V2 Section 4.1; L2V3 Section 4.1; L2V4 "
+    "Section 4.1)"  
   },
 
   //10103
@@ -111,7 +112,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "SBML Level, Version and Release. The XML Schema for SBML defines the "
     "basic SBML object structure, the data types used by those objects, and the "
     "order in which the objects may appear in an SBML document. (References: "
-    "L2V2 Section 4.1; L2V3 Section 4.1.)"
+    "L2V2 Section 4.1; L2V3 Section 4.1; L2V4 Section 4.1)"
   },
 
   //10201
@@ -127,7 +128,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "All MathML content in SBML must appear within a <math> element, and the "
     "<math> element must be either explicitly or implicitly in the XML "
     "namespace \"http://www.w3.org/1998/Math/MathML\". (References: L2V2 "
-    "Section 3.5; L2V3 Section 3.4.)"
+    "Section 3.5; L2V3 Section 3.4; L2V4 Section 3.4)"
   },
 
   //10202
@@ -150,7 +151,8 @@ static const sbmlErrorTableEntry errorTable[] =
     "<arcsec>, <arccsc>, <arccot>, <arcsinh>, <arccosh>, <arctanh>, "
     "<arcsech>, <arccsch>, <arccoth>, <true>, <false>, <notanumber>, <pi>, "
     "<infinity>, <exponentiale>, <semantics>, <annotation>, and "
-    "<annotation-xml>. (References: L2V2 Section 3.5.1; L2V3 Section 3.4.1.)"
+    "<annotation-xml>. (References: L2V2 Section 3.5.1; L2V3 Section 3.4.1; "
+    "L2V4 Section 3.4.1)"
   },
 
   //10203
@@ -166,7 +168,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "In the SBML subset of MathML 2.0, the MathML attribute "
     "'encoding' is only permitted on <csymbol>. No other MathML elements may "
     "have an 'encoding' attribute. (References: L2V2 Section 3.5.1; L2V3 "
-    "Section 3.4.1)."
+    "Section 3.4.1; L2V4 Section 3.4.1)."
   },
 
   //10204
@@ -189,7 +191,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "In the SBML subset of MathML 2.0, the MathML attribute "
     "'definitionURL' is only permitted on <csymbol>, <semantics> or <bvar>. "
     "No other MathML elements may have a 'definitionURL' attribute. "
-    "(References: L2V2 Section 3.5.1; L2V3 Section 3.4.1.)."
+    "(References: L2V2 Section 3.5.1; L2V3 Section 3.4.1; L2V4 Section 3.4.1)."
   },
 
   //10205
@@ -205,7 +207,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "In SBML Level 2, the only values permitted for 'definitionURL' on "
     "a <csymbol> element are \"http://www.sbml.org/sbml/symbols/time\" "
     "and \"http://www.sbml.org/sbml/symbols/delay\". (References: L2V2 "
-    "Section 3.5.5; L2V3 Section 3.4.6.)." 
+    "Section 3.5.5; L2V3 Section 3.4.6; L2V4 Section 3.4.6)." 
   },
 
   //10206
@@ -221,7 +223,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "In the SBML subset of MathML 2.0, the MathML attribute "
     "'type' is only permitted on the <cn> construct. No other MathML elements "
     "may have a 'type' attribute. (References: L2V2 Section 3.5.1; L2V3 "
-    "Section 3.4.1.)." 
+    "Section 3.4.1; L2V4 Section 3.4.1.)." 
   },
 
   //10207
@@ -236,7 +238,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The only permitted values for the 'type' attribute on MathML <cn> "
     "elements are 'e-notation', 'real', 'integer', and 'rational'. "
-    "(References: L2V2 Section 3.5.2; L2V3 Section 3.4.2.)"
+    "(References: L2V2 Section 3.5.2; L2V3 Section 3.4.2; L2V4 Section 3.4.2)"
   },
 
   //10208
@@ -253,8 +255,8 @@ static const sbmlErrorTableEntry errorTable[] =
     "the 'math' element of a <functionDefinition> or as the first element "
     "of a semantics element immediately inside inside the math element "
     "of a <functionDefinition>; they may not be used "
-    "elsewhere in an SBML model. (References: L2V2 Sections 4.3.2; L2V3 "
-    "Section 4.3.2.)"
+    "elsewhere in an SBML model. (References: L2V2 Sections 3.5.1 and 4.3; L2V3 "
+    "Sections 3.4.1 and 4.3.2; L2V4 Sections 3.4.1 and 4.3.2.)"
   },
 
   //10209
@@ -269,7 +271,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The arguments of the MathML logical operators 'and', 'or', 'xor', and "
     "'not' must have boolean values. (References: L2V2 Section 3.5.8; "
-    "L2V3 Section 3.4.9.)"
+    "L2V3 Section 3.4.9; L2V4 Section 3.4.9)"
   },
 
   //10210
@@ -288,7 +290,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "'tan', 'sec', 'csc', 'cot', 'sinh', 'cosh', 'tanh', 'sech', 'csch', "
     "'coth', 'arcsin', 'arccos', 'arctan', 'arcsec', 'arccsc', 'arccot', "
     "'arcsinh', 'arccosh', 'arctanh', 'arcsech', 'arccsch', 'arccoth'. "
-    "(References: L2V2 Section 3.5.8; L2V3 Section 3.4.9.)"
+    "(References: L2V2 Section 3.5.8; L2V3 Section 3.4.9; L2V4 Section 3.4.9)"
   },
 
   //10211
@@ -303,7 +305,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The values of all arguments to 'eq' and 'neq' operators should have the "
     "same type (either all boolean or all numeric). (References: L2V2 "
-    "Section 3.5.8.; L2V3 Section 3.4.9.)"
+    "Section 3.5.8.; L2V3 Section 3.4.9; L2V4 Section 3.4.9)"
   },
 
   //10212
@@ -320,7 +322,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "consistent: the set of expressions that make up the first arguments of "
     "the 'piece' and 'otherwise' operators within the same 'piecewise' "
     "operator should all return values of the same type. (References: L2V2 "
-    "Section 3.5.8; L2V3 Section 3.4.9.)"
+    "Section 3.5.8; L2V3 Section 3.4.9; L2V4 Section 3.4.9)"
   },
 
   //10213
@@ -334,7 +336,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The second argument of a MathML 'piece' operator must have a boolean "
-    "value. (References: L2V2 Section 3.5.8; L2V3 Section 3.4.9.)"
+    "value. (References: L2V2 Section 3.5.8; L2V3 Section 3.4.9; L2V4 "
+    "Section 3.4.9)"
   },
 
   //10214
@@ -350,7 +353,8 @@ static const sbmlErrorTableEntry errorTable[] =
     "Outside of a <functionDefinition>, if a 'ci' element is the first "
     "element within a MathML 'apply', then the 'ci''s value can only be "
     "chosen from the set of identifiers of <functionDefinition>s defined in "
-    "the SBML model. (References: L2V2 Section 4.3.2; L2V3 Section 4.3.2.)"
+    "the SBML model. (References: L2V2 Section 4.3.2; L2V3 Section 4.3.2; "
+    "L2V4 Section 4.3.2)"
   },
 
   //10215
@@ -367,7 +371,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "element within a MathML 'apply', then the 'ci''s value can only be "
     "chosen from the set of identifiers of <species>, <compartment>, "
     "<parameter> or <reaction> objects defined in the SBML model. "
-    "(References: L2V2 Section 3.5.3.; L2V3 Section 3.4.3.)"
+    "(References: L2V2 Section 4.3.2.; L2V3 Section 3.4.3; L2V4 Section 3.4.3)"
   },
 
   //10216
@@ -383,7 +387,8 @@ static const sbmlErrorTableEntry errorTable[] =
     "The 'id' value of a <parameter> defined within a <kineticLaw> can only "
     "be used in 'ci' elements within the MathML content of that same "
     "<kineticLaw>; the identifier is not visible to other parts of the "
-    "model. (References: L2V2 Section 3.5.3; L2V3 Section 3.4.3.)"
+    "model. (References: L2V2 Sections 3.4.1, 3.5.3 and 4.13.5; L2V3 Sections "
+    "3.3.1, 3.4.3 and 4.13.5; L2V4 Sections 3.3.1, 3.4.3 and 4.13.5)"
   },
 
   //10217
@@ -401,7 +406,8 @@ static const sbmlErrorTableEntry errorTable[] =
     "<speciesReference>, 'math' in <initialAssignment>, 'math' in "
     "<assignmentRule>, 'math' in <rateRule>, 'math' in <algebraicRule>, and "
     "'delay' in <event>, and 'math' in <eventAssignment>. "
-    "(References: L2V2 Section 3.5.8; L2V3 Section 3.4.9.)"
+    "(References: L2V2 Sections 4.10, 4.11, 4.12 and 4.13; L2V3 Sections "
+    "4.10, 4.11, 4.12 and 4.13; L2V4 Sections 4.10, 4.11, 4.12 and 4.13)"
   },
 
   //10218
@@ -416,7 +422,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "A MathML operator must be supplied the number of arguments "
     "appropriate for that operator. (References: SBML L2V2 Section "
-    "SBML 3.5.1; L2V3 Section 3.4.1.)"
+    "SBML 3.5.1; L2V3 Section 3.4.1; L2V4 Section 3.4.1)"
   },
 
   //10219
@@ -452,7 +458,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "<speciesReference>, <modifierSpeciesReference>, <event>, and model-wide "
     "<parameter>s. Note that <unitDefinition> and parameters defined inside "
     "a reaction are treated separately. (References: L2V1 Section 3.5; L2V2 "
-    "Section 3.4; L2V3 Section 3.3.)"
+    "Section 3.4.1; L2V3 Section 3.3; L2V4 Section 3.3)"
   },
 
   //10302
@@ -467,7 +473,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The value of the 'id' field of every <unitDefinition> must be unique "
     "across the set of all <unitDefinition>s in the entire model. "
-    "(References: L2V2 Section 4.4; L2V1 Section 3.4.1 and 4.4.1.)"
+    "(References: L2V1 Sections 3.5 and 4.4; L2V2 Sections 3.4.1 and 4.4; "
+    "L2V3 Sections 3.3 and 4.4; L2V4 Sections 3.3 and 4.4)"
   },
 
   //10303
@@ -482,8 +489,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The value of the 'id' field of each parameter defined locally within a "
     "<kineticLaw> must be unique across the set of all such parameter "
-    "definitions in that <kineticLaw>. (References: L2V2 Sections 3.4.1 and "
-    "4.13.9; L2V1 Sections 3.4.1 and 4.13.5.)"
+    "definitions in that <kineticLaw>. (References: L2V1 Sections 3.4.1 and "
+    "4.13.9; L2V2 Sections 3.4.1 and 4.13.5; L2V3 Sections 3.3.1 and 4.13.5; "
+    "L2V4 Sections 3.3.1 and 4.13.5)"
   },
 
   //10304
@@ -499,7 +507,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "The value of the 'variable' field in all <assignmentRule> and "
     "<rateRule> definitions must be unique across the set of all such rule "
     "definitions in a model. (References: L2V1 Section 4.8.4; L2V2 Section "
-    "4.11.3.)"
+    "4.11.3; L2V3 Section 4.11.3; L2V4 Section 4.11.3)"
   },
 
   //10305
@@ -515,7 +523,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "In each <event>, the value of the 'variable' field within every "
     "<eventAssignment> definition must be unique across the set of all "
     "<eventAssignment>s within that <event>. (References: L2V1 erratum 17; "
-    "L2V2 Section 4.14.)"
+    "L2V2 Section 4.14.2; L2V3 Section 4.14.4; L2V4 Section 4.14.4)"
   },
 
   //10306
@@ -530,7 +538,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "An identifier used as the value of 'variable' in an <eventAssignment> "
     "cannot also appear as the value of 'variable' in an <assignmentRule>. "
-    "(References: L2V1 Section 4.10.5; L2V2 Section 4.14.)"
+    "(References: L2V1 Section 4.10.5; L2V2 Section 4.14; L2V3 Section 4.14.4; "
+    "L2V4 section 4.14.4)"
   },
 
   //10307
@@ -545,7 +554,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "Every 'metaid' attribute value must be unique across the set of all "
     "'metaid' values in a model. (References: L2V2 Sections 3.3.1 and "
-    "3.1.6.)"
+    "3.1.6; L2V3 Sections 3.1.6 and 3.2.1; L2V4 Sections 3.1.6 and 3.2.1;)"
   },
 
   //10308
@@ -560,8 +569,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The value of an 'sboTerm' attribute must have the data type 'SBOTerm', "
     "which is a string consisting of the characters 'S', 'B', 'O', ':' "
-    "followed by exactly seven digits. (References: L2V2 Section 3.1.8; L2V3 "
-    "Section 3.1.9.)"
+    "followed by exactly seven digits. (References: L2V2 Section 3.1.9; L2V3 "
+    "Section 3.1.9; L2V4 Section 3.1.9)"
   },
 
   //10309
@@ -576,7 +585,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The syntax of 'metaid' attribute values must conform to the syntax of the "
     "XML type 'ID'. (References: L2V2 Sections 3.3.1 and 3.1.6; L2V3 Sections "
-    "3.2.1 and 3.1.6.)" 
+    "3.2.1 and 3.1.6; L2V4 Sections 3.2.1 and 3.1.6)" 
   },
 
   //10310
@@ -590,7 +599,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The syntax of 'id' attribute values must conform to the syntax of the SBML "
-    "type 'SId'. (References: L2V2 Sections 3.1.7; L2V3 Section 3.1.7.)" 
+    "type 'SId'. (References: L2V2 Sections 3.1.7; L2V3 Section 3.1.7; L2V4 "
+    "Section 3.1.7)" 
   },
 
   //10311
@@ -607,7 +617,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "on UnitDefinition, the units attribute on Compartment, the units "
     "attribute on Parameter, and the substanceUnits attribute on Species) "
     "must conform to the syntax of the SBML type UnitSId. "
-    "(References: L2V3 Section 3.1.8.)"
+    "(References: L2V3 Section 3.1.8; L2V4 Section 3.1.8)"
   },
 
   //10403
@@ -625,9 +635,10 @@ static const sbmlErrorTableEntry errorTable[] =
     "the URIs \"http://www.sbml.org/sbml/level1\", "
     "\"http://www.sbml.org/sbml/level2\", "
     "\"http://www.sbml.org/sbml/level2/version2\", or "
-    "\"http://www.sbml.org/sbml/level2/version3\", or implicitly (by failing "
+    "\"http://www.sbml.org/sbml/level2/version3\", or "
+    "\"http://www.sbml.org/sbml/level2/version4\", or implicitly (by failing "
     "to declare any namespace). (References: L2V2 Section 3.3.3; L2V3 "
-    "Section 3.2.4.)" 
+    "Section 3.2.4; L2V4 Section 3.2.4)" 
   },
 
   //10501
@@ -658,7 +669,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "When the 'variable' in an <assignmentRule> refers to a <compartment>, "
     "the units of the rule's right-hand side must be consistent with the "
     "units of that compartment's size. (References: L2V2 Section 4.11.3; "
-    "L2V3 Section 4.11.3.)"
+    "L2V3 Section 4.11.3; L2V4 Section 4.11.3)"
   },
 
   //10512
@@ -706,7 +717,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "When the 'variable' in an <initialAssignment> refers to a "
     "<compartment>, the units of the <initialAssignment>'s <math> expression "
     "must be consistent with the units of that compartment's size. "
-    "(References: L2V2 Section 4.10.4; L2V3 Section 4.10.)"
+    "(References: L2V2 Section 4.10.4; L2V3 Section 4.10; L2V4 Section 4.10)"
   },
 
   //10522
@@ -722,7 +733,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "When the 'variable' in an <initialAssignment> refers to a <species>, "
     "the units of the <initialAssignment>'s <math> expression must be "
     "consistent with the units of that species' quantity. (References: L2V2 "
-    "Section 4.10.4; L2V3 Section 4.11.3.)"
+    "Section 4.10.4; L2V3 Section 4.11.3; L2V4 Section 4.11.3)"
   },
 
   //10523
@@ -738,7 +749,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "When the 'variable' in an <initialAssignment> refers to a <parameter>, "
     "the units of the <initialAssignment>'s <math> expression must be "
     "consistent with the units declared for that parameter. (References: "
-    "L2V2 Section 4.10.4; L2V3 Section 4.11.3.)"
+    "L2V2 Section 4.10.4; L2V3 Section 4.11.3; L2V4 Section 4.11.3)"
   },
 
   //10531
@@ -757,7 +768,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "<compartment> definition, or (in the absence of explicit units declared "
     "for the compartment size) the default units for that compartment, and "
     "_time_ refers to the units of time for the model. (References: L2V2 "
-    "Section 4.11.4; L2V3 Section 4.11.4.)"
+    "Section 4.11.4; L2V3 Section 4.11.4; L2V4 Section 4.11.4)"
   },
 
   //10532
@@ -774,7 +785,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "the units of the rule's right-hand side must be of the form _x per "
     "time_, where _x_ is the units of that species' quantity, and _time_ "
     "refers to the units of time for the model. (References: L2V2 Section "
-    "4.11.4; L2V3 Section 4.11.4.)"
+    "4.11.4; L2V3 Section 4.11.4; L2V4 Section 4.11.4)"
   },
 
   //10533
@@ -791,7 +802,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "the units of the rule's right-hand side must be of the form _x per "
     "time_, where _x_ is the 'units' in that <parameter> definition, and "
     "_time_ refers to the units of time for the model. (References: L2V2 "
-    "Section 4.11.4; L2V3 Section 4.11.4.)"
+    "Section 4.11.4; L2V3 Section 4.11.4; L2V4 Section 4.11.4)"
   },
 
   //10541
@@ -822,7 +833,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "When a value for <delay> is given in a <event> definition, the units of "
     "the delay formula must correspond to either the value of 'timeUnits' in "
     "the <event> or (if no 'timeUnits' are given), the model's default units "
-    "of time. (References: L2V2 Section 4.14; L2V3 Section 4.14.3.)"
+    "of time. (References: L2V2 Section 4.14; L2V3 Section 4.14.3; L2V4 Section 4.14.3)"
   },
 
   //10561
@@ -838,7 +849,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "When the 'variable' in an <eventAssignment> refers to a <compartment>, "
     "the units of the <eventAssignment>'s <math> expression must be consistent "
     "with the units of that compartment's size. (References: L2V2 Section "
-    "4.14.2; L2V3 Section 4.14.4.)"
+    "4.14.2; L2V3 Section 4.14.4; L2V4 Section 4.14.4)"
   },
 
   //10562
@@ -854,7 +865,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "When the 'variable' in an <eventAssignment> refers to a <species>, the "
     "units of the <eventAssignment>'s <math> expression must be consistent "
     "with the units of the species' quantity. (References: L2V2 Section "
-    "4.14.2; L2V3 Section 4.14.4.)"
+    "4.14.2; L2V3 Section 4.14.4; L2V4 Section 4.14.4)"
   },
 
   //10563
@@ -870,7 +881,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "When the 'variable' in an <eventAssignment> refers to a <parameter>, the "
     "units of the <eventAssignment>'s <math> expression must be consistent "
     "with the units declared for that parameter. (References: L2V2 Section "
-    "4.14.2; L2V3 Section 4.14.4)"
+    "4.14.2; L2V3 Section 4.14.4; L2V4 Section 4.14.4)"
   },
 
   //10601
@@ -884,7 +895,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The system of equations created from an SBML model must not be "
-    "overdetermined. (References: L2V2 Section 4.11.5.)"
+    "overdetermined. (References: L2V2 Section 4.11.5; L2V3 Section 4.11.5; "
+    "L2V4 Section 4.11.5)"
   },
 
   //10701
@@ -901,7 +913,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "identifier (http://www.biomodels.net/SBO/) referring to a modeling "
     "framework defined in SBO (i.e., terms derived from SBO:0000004, "
     "\"modeling framework\"). "
-    "(References: L2V2 Section 4.2.1; L2V3 Section 4.2.2.)"
+    "(References: L2V2 Section 4.2.1; L2V3 Section 4.2.2; L2V4 Section 4.2.2)"
   },
 
   //10702
@@ -918,7 +930,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "an SBO identifier (http://www.biomodels.net/SBO/) referring to a "
     "mathematical expression (i.e., terms derived from SBO:0000064, "
     "\"mathematical expression\"). "
-    "(References: L2V2 Section 4.3.3; L2V3 Section 4.3.3.)"
+    "(References: L2V2 Section 4.3.3; L2V3 Section 4.3.3; L2V4 Section 4.3.3)"
   },
 
   //10703
@@ -935,7 +947,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "SBO identifier (http://www.biomodels.net/SBO/) referring to a "
     "quantitative parameter defined in SBO (i.e., terms derived from "
     "SBO:0000002, \"quantitative parameter\"). "
-    "(References: L2V2 Section 4.9.5; L2V3 Section 4.9.5.)"
+    "(References: L2V2 Section 4.9.5; L2V3 Section 4.9.5; L2V4 Section 4.9.5)"
   },
 
   //10704
@@ -952,7 +964,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "be an SBO identifier (http://www.biomodels.net/SBO/) referring to a "
     "mathematical expression (i.e., terms derived from SBO:0000064, "
     "\"mathematical expression\"). "
-    "(References: L2V2 Section 4.10.3; L2V3 Section 4.10.3.)"
+    "(References: L2V2 Section 4.10.3; L2V3 Section 4.10.3; L2V4 Section 4.10.3)"
   },
 
   //10705
@@ -969,7 +981,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "(http://www.biomodels.net/SBO/) referring to a mathematical expression "
     "(i.e., terms derived from SBO:0000064, \"mathematical expression\"). "
     "Note: This applies to Algebraic Rules in addition to Rate and Assignment "
-    "Rules. (References: L2V2 Section 4.11.1; L2V3 Section 4.11.1.)"
+    "Rules. (References: L2V2 Section 4.11.1; L2V3 Section 4.11.1; L2V4 Section 4.11.1)"
   },
 
   //10706
@@ -986,7 +998,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
     "expression (i.e., terms derived from SBO:0000064, \"mathematical "
     "expression\"). "
-    "(References: L2V2 Section 4.12.3; L2V3 Section 4.12.3.)"
+    "(References: L2V2 Section 4.12.3; L2V3 Section 4.12.3; L2V4 Section 4.12.3)"
   },
 
   //10707
@@ -1002,7 +1014,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "The value of the 'sboTerm' attribute on a <reaction> must be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to an event defined "
     "in SBO (i.e., terms derived from SBO:0000231, \"event\"). "
-    "(References: L2V2 Section 4.13.1; L2V3 Section 4.13.1)"
+    "(References: L2V2 Section 4.13.1; L2V3 Section 4.13.1; L2V4 Section 4.13.1)"
   },
 
   //10708
@@ -1023,7 +1035,8 @@ static const sbmlErrorTableEntry errorTable[] =
     "SBO:0000010, \"reactant\" hierarchy; if a product, then it should be a "
     "term in the SBO:0000011, \"product\" hierarchy; and if a modifier, then "
     "it should be a term in the SBO:0000019, \"modifier\" hierarchy. "
-    "(References: L2V2 Section 4.13.2; L2V3 Sections 4.13.1 and 5.)"
+    "(References: L2V2 Section 4.13.2; L2V3 Sections 4.13.1 and 5; L2V4 "
+    "Sections 4.13.1 and 5)"
   },
 
   //10709
@@ -1039,7 +1052,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "The value of the 'sboTerm' attribute on a <kineticLaw> must be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring rate law defined "
     "in SBO (i.e., terms derived from SBO:0000001, \"rate law\"). "
-    "(References: L2V2 Section 4.13.5.)"
+    "(References: L2V2 Section 4.13.5; L2V3 Section 4.13.1; L2V4 Section 4.13.1)"
   },
 
   //10710
@@ -1055,7 +1068,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "The value of the 'sboTerm' attribute on an <event> must be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to an event "
     "defined in SBO (i.e., terms derived from SBO:0000231, \"event\"). "
-    "(References: L2V2 Section 4.14.1; L2V3 Section 4.14.1.)"
+    "(References: L2V2 Section 4.14.1; L2V3 Section 4.14.1; L2V4 Section 4.14.1)"
   },
 
   //10711
@@ -1072,7 +1085,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "SBO identifier (http://www.biomodels.net/SBO/) referring to a "
     "mathematical expression (i.e., terms derived from SBO:0000064, "
     "\"mathematical expression\"). "
-    "(References: L2V2 Section 4.14.2; L2V3 Section 4.14.1.)"
+    "(References: L2V2 Section 4.14.2; L2V3 Section 4.14.1; L2V4 Section 4.14.1)"
   },
 
   //10712
@@ -1088,7 +1101,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "The value of the 'sboTerm' attribute on a <compartment> must be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to a participant "
     "physical type (i.e., terms derived from SBO:0000236, \"participant "
-    "physical type\"). (References: L2V3 Section 5.2.2.)"
+    "physical type\"). (References: L2V3 Section 5; L2V4 Section 5)"
   },
 
   //10713
@@ -1104,7 +1117,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "The value of the 'sboTerm' attribute on a <species> must be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to a participant "
     "physical type (i.e., terms derived from SBO:0000236, \"participant "
-    "physical type\"). (References: L2V3 Section 5.2.2.)"
+    "physical type\"). (References: L2V3 Section 5; L2V4 Section 5)"
   },
 
   //10714
@@ -1120,7 +1133,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "The value of the 'sboTerm' attribute on a <compartmentType> must be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to a participant "
     "physical type (i.e., terms derived from SBO:0000236, \"participant "
-    "physical type\"). (References: L2V3 Section 5.2.2.)"
+    "physical type\"). (References: L2V3 Section 5; L2V4 Section 5)"
   },
 
   //10715
@@ -1136,7 +1149,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "The value of the 'sboTerm' attribute on a <speciesType> must be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to a participant "
     "physical type (i.e., terms derived from SBO:0000236, \"participant "
-    "physical type\"). (References: L2V3 Section 5.2.2.)"
+    "physical type\"). (References: L2V3 Section 5; L2V4 Section 5)"
   },
 
   //10716
@@ -1152,7 +1165,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "The value of the 'sboTerm' attribute on a <trigger> must be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
     "expression (i.e., terms derived from SBO:0000064, \"mathematical "
-    "expression\"). (References: L2V3 Section 5.2.2.)"
+    "expression\"). (References: L2V3 Section 5; L2V4 Section 5)"
   },
 
   //10717
@@ -1168,7 +1181,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "The value of the 'sboTerm' attribute on a <delay> must be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
     "expression (i.e., terms derived from SBO:0000064, \"mathematical "
-    "expression\"). (References: L2V3 Section 5.2.2.)"
+    "expression\"). (References: L2V3 Section 5; L2V4 Section 5)"
   },
 
   //10801
@@ -1182,7 +1195,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The contents of the <notes> element must be explicitly placed in the "
-    "XHTML XML namespace. (References: L2V3 Section 3.2.3.)" 
+    "XHTML XML namespace. (References: L2V3 Section 3.2.3; L2V4 Section 3.2.3)" 
   },
 
   //10802
@@ -1197,7 +1210,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The contents of the <notes> element must not contain an XML declaration "
     "(i.e., a string of the form \"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\" "
-    "or similar). (References: L2V2 Section 3.3.2; L2V3 Section 3.2.3.)"
+    "or similar). (References: L2V2 Section 3.3.2; L2V3 Section 3.2.3; L2V4 "
+    "Section 3.2.3)"
   },
 
   //10803
@@ -1212,7 +1226,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The contents of the <notes> element must not contain an XML DOCTYPE "
     "declaration (i.e., a string beginning with the characters \"<!DOCTYPE\". "
-    "(References: L2V2 Section 3.3.2; L2V3 Section 3.2.3.)"
+    "(References: L2V2 Section 3.3.2; L2V3 Section 3.2.3; L2V4 Section 3.2.3)"
   },
 
   //10804
@@ -1230,7 +1244,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "the element <html> and ending with </html>; (2) the \"body\" portion of "
     "a document beginning with the element <body> and ending with </body>; or "
     "(3) XHTML content that is permitted within a <body> ... </body> elements. "
-    "(References: L2V2 Section 3.3.2; L2V3 Section 3.2.3.)"
+    "(References: L2V2 Section 3.3.2; L2V3 Section 3.2.3; L2V4 Section 3.2.3)"
   },
 
   //20101
@@ -1246,7 +1260,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "The <sbml> container element must declare the XML Namespace for SBML, "
     "and this declaration must be consistent with the values of the 'level' "
     "and 'version' attributes on the <sbml> element. (References: L2V2 "
-    "Section 4.1; L2V3 Section 4.1.)" 
+    "Section 4.1; L2V3 Section 4.1; L2V4 Section 4.1)" 
   },
 
   //20102
@@ -1262,7 +1276,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "The <sbml> container element must declare the SBML Level using the "
     "attribute 'level', and this declaration must be consistent with the XML "
     "Namespace declared for the <sbml> element. (References: L2V2 Section "
-    "4.1; L2V3 Section 4.1.)" 
+    "4.1; L2V3 Section 4.1; L2V4 Section 4.1)" 
   },
 
   //20103
@@ -1278,7 +1292,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "The <sbml> container element must declare the SBML Version using the "
     "attribute 'version', and this declaration must be consistent with the "
     "XML Namespace declared for the <sbml> element. (References: L2V2 "
-    "Section 4.1; L2V3 Section 4.1.)" 
+    "Section 4.1; L2V3 Section 4.1; L2V4 Section 4.1)" 
   },
 
   //20104   FIXME
@@ -1306,7 +1320,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "An SBML document must contain a <model> definition. (References: L2V1, "
-    "L2V2 and L2V3 Section 4.1.)" 
+    "L2V2 and L2V3 Section 4.1; L2V4 Section 4.1)" 
   },
 
   //20202
@@ -1325,7 +1339,8 @@ static const sbmlErrorTableEntry errorTable[] =
     "<listOfCompartmentTypes>, <listOfSpeciesTypes>, <listOfCompartments>, "
     "<listOfSpecies>, <listOfParameters>, <listOfInitialAssignments>, "
     "<listOfRules>, <listOfConstraints>, <listOfReactions> "
-    "and <listOfEvents>. (References: L2V2 Section 4.2; L2V3 Section 4.2.)" 
+    "and <listOfEvents>. (References: L2V2 Section 4.2; L2V3 Section 4.2; "
+    "L2V4 Section 4.2)" 
   },
 
   //20203
@@ -1346,7 +1361,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "<listOfSpecies>, <listOfParameters>, <listOfInitialAssignments>, "
     "<listOfRules>, <listOfConstraints>, <listOfReactions> and "
     "<listOfEvents>. (References: This is a requirement stemming from the "
-    "XML Schema used for SBML; L2V3 Section 4.2.)" 
+    "XML Schema used for SBML; L2V3 Section 4.2; L2V4 Section 4.2)" 
   },
 
   //20204
@@ -1363,7 +1378,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "least one compartment. This is an implication of the fact that the "
     "'compartment' attribute on the <species> element is not optional. "
     "(References: L2V1 Section 4.5; L2V2 Section 4.8.3; L2V3 Section "
-    "4.8.3.)"
+    "4.8.3; L2V4 Section 4.8.3)"
   },
 
   //20301
@@ -1378,7 +1393,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The top-level element within <math> in a <functionDefinition> is "
     "restricted. (References: L2V1 Section 4.3.2; L2V2 Section 4.3.2; "
-    "L2V3 Section 4.3.2.)"
+    "L2V3 Section 4.3.2; L2V4 Section 4.3.2)"
     // actual restrictions are listed in constraint 
     // as these vary between levels/versions
   },
@@ -1398,7 +1413,8 @@ static const sbmlErrorTableEntry errorTable[] =
     "be chosen from the set of identifiers of other SBML "
     "<functionDefinition>s defined prior to that point in the SBML model. In "
     "other words, forward references to user-defined functions are not "
-    "permitted. (References: L2V2 Section 4.3.2.)"
+    "permitted. (References: L2V2 Section 3.5.3; L2V3 Section 3.4.3; L2V4 "
+    "Section 3.4.3)"
   },
 
   //20303
@@ -1414,7 +1430,8 @@ static const sbmlErrorTableEntry errorTable[] =
     "Inside the <lambda> of a <functionDefinition>, the identifier of that "
     "<functionDefinition> cannot appear as the value of a <ci> element. SBML "
     "functions are not permitted to be recursive. (References: L2V2 Sections "
-    "3.5.3 and 4.3.2; L2V3 Sections 3.4.3 and 4.3.2.)"
+    "3.5.3 and 4.3.2; L2V3 Sections 3.4.3 and 4.3.2; L2V4 Sections 3.4.3 and "
+    "4.3.2)"
   },
 
   //20304
@@ -1431,8 +1448,9 @@ static const sbmlErrorTableEntry errorTable[] =
     "the first element within a MathML 'apply', then the 'ci''s value can "
     "only be the value of a 'bvar' element declared in that 'lambda'. In "
     "other words, all model entities referenced inside a function definition "
-    "must be passed arguments to that function. (References: L2V2 Section "
-    "4.3.2.)" 
+    "must be passed arguments to that function. (References: L2V2 Sections "
+    "3.5.3 and 4.3.2; L2V3 Sections 3.4.3 and 4.3.2; L2V4 Sections 3.4.3 and "
+    "4.3.2)"
   },
 
   //20305
@@ -1447,7 +1465,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The value type returned by a <functionDefinition>'s <lambda> must be "
     "either boolean or numeric. (References: L2V2 Section 3.5.8; L2V3 "
-    "Section 3.4.9.)"
+    "Section 3.4.9; L2V4 Section 3.4.9)"
   },
 
   //20401
@@ -1462,7 +1480,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The value of the 'id' attribute in a <unitDefinition> must be of "
     "type 'UnitSId' and not be identical to any unit predefined in SBML. "
-    "(References: L2V1 erratum 14; L2V2 Section 4.4.2; L2V3 Section 4.4.2.)"
+    "(References: L2V1 erratum 14; L2V2 Section 4.4.2; L2V3 Section 4.4.2; "
+    "L2V4 Section 4.4.2)"
     // actual unit are listed in constraint 
     // as these vary between levels/versions
   },
@@ -1478,7 +1497,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "Redefinitions of the built-in unit 'substance' are restricted."
-    "(References: L2V1 Section 4.4.3; L2V2 Section 4.4.3; L2V3 Section 4.4.3.)"
+    "(References: L2V1 Section 4.4.3; L2V2 Section 4.4.3; L2V3 Section 4.4.3; "
+    "L2V4 Section 4.4.3)"
      // actual restrictions are listed in constraint 
     // as these vary between levels/versions
   },
@@ -1494,7 +1514,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "Redefinitions of the built-in unit 'length' are restricted. (References: L2V2 "
-    "Section 4.4.3; L2V3 Section 4.4.3.)"
+    "Section 4.4.3; L2V3 Section 4.4.3; L2V4 Section 4.4.3)"
     // actual restrictions are listed in constraint 
     // as these vary between levels/versions
   },
@@ -1510,7 +1530,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "Redefinitions of the built-in unit 'area' are restricted. "
-    "(References: L2V2 Section 4.4.3; L2V3 Section 4.4.3.)"
+    "(References: L2V2 Section 4.4.3; L2V3 Section 4.4.3; L2V4 Section 4.4.3)"
     // actual restrictions are listed in constraint 
     // as these vary between levels/versions
   },
@@ -1526,7 +1546,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "Redefinitions of the built-in unit 'time' are restricted. (References: L2V1 "
-    "Section 4.4.3; L2V2 Section 4.4.3; L2V3 Section 4.4.3.)"
+    "Section 4.4.3; L2V2 Section 4.4.3; L2V3 Section 4.4.3; L2V4 Section 4.4.3)"
     // actual restrictions are listed in constraint 
     // as these vary between levels/versions
   },
@@ -1542,7 +1562,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "Redefinitions of the built-in unit 'volume' are restricted. (References: L2V1 "
-    "Section 4.4.3; L2V2 Section 4.4.3; L2V3 Section 4.4.3.)"
+    "Section 4.4.3; L2V2 Section 4.4.3; L2V3 Section 4.4.3; L2V4 Section 4.4.3)"
     // actual restrictions are listed in constraint 
     // as these vary between levels/versions
   },
@@ -1590,7 +1610,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The <listOfUnits> container in a <unitDefinition> cannot be empty. "
-    "(References: L2V2 Section 4.4; L2V3 Section 4.4.)" 
+    "(References: L2V2 Section 4.4; L2V3 Section 4.4; L2V4 Section 4.4)" 
   },
 
   //20410
@@ -1604,10 +1624,10 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The value of the 'kind' attribute of a <unit> can only be one of the "
-    "predefined units enumerated by 'UnitKind'; that is, the SBML unit "
+    "base units enumerated by 'UnitKind'; that is, the SBML unit "
     "system is not hierarchical and user-defined units cannot be defined "
-    "using other user-defined units. (References: L2V2 Section 4.4.2; L2V3 "
-    "Section 4.4.2.)"
+    "using other user-defined units. (References: L2V2 Section 4.4.1; L2V3 "
+    "Section 4.4.2; L2V4 Section 4.4.2)"
   },
 
   //20411
@@ -1619,7 +1639,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_SCHEMA_ERROR,
     LIBSBML_SEV_SCHEMA_ERROR,
-    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_NOT_APPLICABLE,
     "The 'offset' attribute on <unit> previously available in SBML Level 2 "
     "Version 1, has been removed as of SBML Level 2 Version 2. (References: "
     "L2V2 Section 4.4.)"
@@ -1634,7 +1654,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_SCHEMA_ERROR,
     LIBSBML_SEV_SCHEMA_ERROR,
-    LIBSBML_SEV_SCHEMA_ERROR,
+    LIBSBML_SEV_NOT_APPLICABLE,
     "The predefined unit 'Celsius', previously available in SBML Level 1 and "
     "Level 2 Version 1, has been removed as of SBML Level 2 Version 2. "
     "(References: L2V2 Section 4.4.)"
@@ -1652,7 +1672,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The size of a <compartment> must not be set if the compartment's "
     "'spatialDimensions' attribute has value '0'. (References: L2V1 Section "
-    "4.5.3; L2V2 Section 4.7.4; L2V3 Section 4.7.5.)"
+    "4.5.3; L2V2 Section 4.7.4; L2V3 Section 4.7.5; L2V4 Section 4.7.5)"
   },
 
   //20502
@@ -1668,7 +1688,8 @@ static const sbmlErrorTableEntry errorTable[] =
     "If a <compartment> definition has a 'spatialDimensions' value of '0', "
     "then its 'units' attribute must not be set. If the compartment has no "
     "dimensions, then no units can be associated with a non-existent size. "
-    "(References: L2V1 Section 4.5.4; L2V2 Section 4.7.5; L2V3 Section 4.7.5.)"
+    "(References: L2V1 Section 4.5.4; L2V2 Section 4.7.5; L2V3 Section 4.7.5; "
+    "L2V4 Section 4.7.5)"
   },
 
   //20503
@@ -1685,7 +1706,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "then its 'constant' attribute value must either default to or be set to "
     "'true'. If the compartment has no dimensions, then its size can never "
     "change. (References: L2V1 Section 4.5.5; L2V2 Section 4.7.4; L2V3 "
-    "Section 4.7.6.)"
+    "Section 4.7.6; L2V4 Section 4.7.6)"
   },
 
   //20504
@@ -1700,7 +1721,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The 'outside' attribute value of a <compartment> must be the identifier of "
     "another <compartment> defined in the model. (References: L2V1 Section "
-    "4.5.6; L2V2 Section 4.7.7; L2V3 Section 4.7.7.)"
+    "4.5.6; L2V2 Section 4.7.7; L2V3 Section 4.7.7; L2V4 Section 4.7.7)"
   },
 
   //20505
@@ -1717,7 +1738,8 @@ static const sbmlErrorTableEntry errorTable[] =
     "involving the 'outside' field. This means that a compartment cannot "
     "have its own identifier as the value of 'outside', nor can it point to "
     "another compartment whose 'outside' field points directly or indirectly "
-    "to the compartment. (References: L2V1 erratum 11; L2V2 Section 4.7.7.) "
+    "to the compartment. (References: L2V1 erratum 11; L2V2 Section 4.7.7; 
+    "L2V3 Section 4.7.7; L2V4 Section 4.7.7) "
   },
 
   //20506
@@ -1735,7 +1757,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "'spatialDimensions'='0'. Simply put, a zero-dimensional compartment "
     "cannot enclose compartments that have anything other than zero "
     "dimensions themselves. (References: L2V2 Section 4.7.7; L2V3 Section "
-    "4.7.7.)"
+    "4.7.7; L2V4 Section 4.7.7)"
   },
 
   //20507
@@ -1750,7 +1772,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The value of the 'units' attribute on a <compartment> having "
     "'spatialDimensions' of '1' is restricted. "
-    "(References: L2V2 Section 4.7.5; L2V3 Section 4.7.5.)"
+    "(References: L2V2 Section 4.7.5; L2V3 Section 4.7.5; L2V4 Section 4.7.5)"
     // actual restrictions are listed in constraint 
     // as these vary between levels/versions
   },
@@ -1767,7 +1789,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The value of the 'units' attribute on a <compartment> having "
     "'spatialDimensions' of '2' is restricted. (References: L2V1 Section "
-    "4.5.4; L2V2 Section 4.7.5; L2V3 Section 4.7.5.)"
+    "4.5.4; L2V2 Section 4.7.5; L2V3 Section 4.7.5; L2V4 Section 4.7.5)"
     // actual restrictions are listed in constraint 
     // as these vary between levels/versions
   },
@@ -1784,7 +1806,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The value of the 'units' attribute on a <compartment> having "
     "'spatialDimensions' of '3' is restricted. (References: L2V1 Section "
-    "4.5.4; L2V2 Section 4.7.5; L2V3 Section 4.7.5.)"
+    "4.5.4; L2V2 Section 4.7.5; L2V3 Section 4.7.5; L2V4 Section 4.7.5)"
     // actual restrictions are listed in constraint 
     // as these vary between levels/versions
   },
@@ -1801,7 +1823,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "If the 'compartmentType' attribute is given a value in a <compartment> "
     "definition, it must contain the identifier of an existing "
-    "<compartmentType>. (References: L2V2 Section 4.7.2; L2V3 Section 4.7.2.)"
+    "<compartmentType>. (References: L2V2 Section 4.7.2; L2V3 Section 4.7.2; "
+    "L2V4 Section 4.7.2)"
   },
 
   //20601
@@ -1816,7 +1839,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The value of 'compartment' in a <species> definition must be the "
     "identifier of an existing <compartment> defined in the model. "
-    "(References: L2V1 Section 4.6.2; L2V2 Section 4.8.3; L2V3 Section 4.8.3.)"
+    "(References: L2V1 Section 4.6.2; L2V2 Section 4.8.3; L2V3 Section 4.8.3; "
+    "L2V4 Section 4.8.3)"
   },
 
   //20602
@@ -1862,7 +1886,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "If a <species> located in a <compartment> whose 'spatialDimensions' is "
     "set to '0', then that <species> definition cannot set "
     "'initialConcentration'. (References: L2V1 Section 4.6.3; L2V2 Section "
-    "4.8.4; L2V3 Section 4.8.4.)"
+    "4.8.4; L2V3 Section 4.8.4; L2V4 Section 4.8.4)"
   },
 
   //20605
@@ -1930,7 +1954,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The value of a <species>'s 'units' attribute is restricted. "
-    "(References: L2V1 Section 4.6.4; L2V2 Section 4.8.5; L2V3 Section 4.8.5.)"
+    "(References: L2V1 Section 4.6.4; L2V2 Section 4.8.5; L2V3 Section 4.8.5; "
+    "L2V4 Section 4.8.5)"
     // actual restrictions are listed in constraint 
     // as these vary between levels/versions
   },
@@ -1947,7 +1972,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "A <species> cannot set values for both 'initialConcentration' and "
     "'initialAmount' because they are mutually exclusive. (References: L2V1 "
-    "Section 4.6.3; L2V2 Section 4.8.4; L2V3 Section 4.8.4.)"
+    "Section 4.6.3; L2V2 Section 4.8.4; L2V3 Section 4.8.4; L2V4 Section 4.8.4)"
   },
 
   //20610
@@ -1966,7 +1991,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "referenced by a <speciesReference> anywhere in a model, then this "
     "identifier cannot also appear as the value of a 'variable' in an "
     "<assignmentRule> or a <rateRule>. (References: L2V1 Section 4.6.5; L2V2 "
-    "Section 4.8.6; L2V3 Section 4.8.6.)" 
+    "Section 4.8.6; L2V3 Section 4.8.6; L2V4 Section 4.8.6)" 
   },
 
   //20611
@@ -1982,7 +2007,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "A <species> having boundaryCondition=\"false\" cannot appear as a "
     "reactant or product in any reaction if that Species also has "
     "constant=\"true\". (References: L2V1 Section 4.6.5; L2V2 Section "
-    "4.8.6; L2V3 Section 4.8.6.)"
+    "4.8.6; L2V3 Section 4.8.6; L2V4 Section 4.8.6)"
   },
 
   //20612
@@ -1997,7 +2022,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The value of 'speciesType' in a <species> definition must be the "
     "identifier of an existing <speciesType>. (References: L2V2 Section "
-    "4.8.2; L2V3 Section 4.8.2)"
+    "4.8.2; L2V3 Section 4.8.2; L2V4 Section 4.8.2)"
   },
 
   //20613
@@ -2017,7 +2042,8 @@ static const sbmlErrorTableEntry errorTable[] =
     "is set to that compartment's identifier and (ii) the <species>' "
     "'speciesType' is set the same value as the 'speciesType' of another "
     "<species> that also sets its 'compartment' to that compartment "
-    "identifier. (References: L2V2 Section 4.8.2; L2V3 Section 4.8.2)"
+    "identifier. (References: L2V2 Section 4.8.2; L2V3 Section 4.8.2; L2V4 "
+    "Section 4.8.2)"
   },
 
   //20614
@@ -2032,7 +2058,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The 'compartment' attribute in a <species> is mandatory. A <species> "
     "definition in a model must include a value for this attribute. "
-    "(References: L2V2 Section 4.8.3; L2V3 Section 4.8.3.)"
+    "(References: L2V2 Section 4.8.3; L2V3 Section 4.8.3; L2V4 Section 4.8.3)"
   },
 
   //20615
@@ -2047,7 +2073,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_SCHEMA_ERROR,
     "The 'spatialSizeUnits' attribute on <species>, previously available "
     "in SBML Level 2 versions prior to Version 3, has been removed as "
-    "of SBML Level 2 Version 3. (References: L2V3 Section 4.8.)"
+    "of SBML Level 2 Version 3. (References: L2V3 Section 4.8; L2V4 Section 4.8)"
   },
 
   //20701
@@ -2060,11 +2086,12 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "The 'units' in a <parameter> definition must be a value chosen from "
-    "among the following: a value from the 'UnitKind' enumeration (e.g., "
-    "'litre', 'mole', 'metre', etc.), a built-in unit (e.g., 'substance', "
-    "'time', etc.), or the identifier of a <unitDefinition> in the model. "
-    "(References: L2V1 Section 4.7.3; L2V2 Section 4.9.3; L2V3 Section 4.9.3.)"
+    "The 'units' in a <Parameter> definition must be a value chosen from "
+    "among the following: a predefined unit (e.g., 'substance', 'time', "
+    "etc.), the identifier of a <UnitDefinition> in the model, or one of the "
+    "base units in SBML (e.g., 'litre', 'mole', 'metre', etc.) (References: "
+    "L2V1 Section 4.7.3; L2V2 Section 4.9.3; L2V3 Section 4.9.3; L2V4 "
+    "Section 4.9.3)"
   },
 
   //20801
@@ -2079,7 +2106,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The value of 'symbol' in an <initialAssignment> definition must be the "
     "identifier of an existing <compartment>, <species>, or <parameter> "
-    "defined in the model. (References: L2V2 Section 4.10; L2V3 Section 4.10.)"
+    "defined in the model. (References: L2V2 Section 4.10; L2V3 Section 4.10; "
+    "L2V4 Section 4.10)"
   },
 
   //20802
@@ -2094,7 +2122,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "A given identifier cannot appear as the value of more than one 'symbol' "
     "field across the set of <initialAssignment>s in a model. (References: "
-    "L2V2 Section 4.10.)"
+    "L2V2 Section 4.10; L2V3 Section 4.10; L2V4 Section 4.10)"
   },
 
   //20803
@@ -2109,7 +2137,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The value of a 'symbol' field in any <initialAssignment> definition "
     "cannot also appear as the value of a 'variable' field in an "
-    "<assignmentRule>. (References: L2V2 Section 4.10.)"
+    "<assignmentRule>. (References: L2V2 Section 4.10.4; L2V3 Section 4.10; "
+    "L2V4 Section 4.10)"
   },
 
   //20901
@@ -2125,7 +2154,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "The value of an <assignmentRule>'s 'variable' must be the identifier of "
     "an existing <compartment>, <species>, or globally-defined <parameter>. "
     "(References: L2V1 Section 4.8.2; L2V2 Section 4.11.3; L2V3 Section "
-    "4.11.3.)"
+    "4.11.3; L2V4 Section 4.11.3)"
   },
 
   //20902
@@ -2141,7 +2170,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "The value of a <rateRule>'s 'variable' must be the identifier of an "
     "existing <compartment>, <species>, or globally-defined <parameter>. "
     "(References: L2V1 Section 4.8.3; L2V2 Section 4.11.4; L2V3 Section "
-    "4.11.4.)"
+    "4.11.4; L2V4 Section 4.11.4)"
   },
 
   //20903
@@ -2157,7 +2186,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "Any <compartment>, <species> or <parameter> whose identifier is the "
     "value of a 'variable' attribute in an <assignmentRule>, must have a value "
     "of 'false' for 'constant'. (References: L2V1 Section 4.8.4; L2V2 "
-    "Section 4.11.3; L2V3 Section 4.11.3.)"
+    "Section 4.11.3; L2V3 Section 4.11.3; L2V4 Section 4.11.3)"
   },
 
   //20904
@@ -2173,7 +2202,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "Any <compartment>, <species> or <parameter> whose identifier is the "
     "value of a 'variable' attribute in an <rateRule>, must have a value of "
     "'false' for 'constant'. (References: L2V1 Section 4.8.4; L2V2 Section "
-    "4.11.4; L2V3 Section 4.11.4)"
+    "4.11.4; L2V3 Section 4.11.4; L2V4 Section 4.11.4)"
   },
 
   //20905
@@ -2208,7 +2237,8 @@ static const sbmlErrorTableEntry errorTable[] =
     "constructs computes the value using a mathematical formula. The formula "
     "for a given identifier cannot make reference to a second identifier "
     "whose own definition depends directly or indirectly on the first "
-    "identifier. (References: L2V2 Section 4.11.5.)" 
+    "identifier. (References: L2V2 Section 4.11.5; L2V3 Section 4.11.5; "
+    "L2V4 Section 4.11.5)" 
   },
 
   //21001
@@ -2222,7 +2252,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "A <constraint>'s <math> expression must evaluate to a value of type "
-    "boolean. (References: L2V2 Section 4.12.1; L2V3 Section 4.12.)"
+    "boolean. (References: L2V2 Section 4.12.1; L2V3 Section 4.12; L2V4 "
+    "Section 4.12)"
   },
 
   //21002
@@ -2238,7 +2269,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "The order of subelements within <constraint> must be the following: "
     "<math>, <message>. The <message> element is optional, but if present, "
     "must follow the <math> element. (References: L2V2 Section 4.12; L2V3 "
-    "Section 4.12.)"
+    "Section 4.12; L2V4 Section 4.12)"
   },
 
   //21003
@@ -2253,7 +2284,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The contents of the <message> element in a <constraint> must be "
     "explicitly placed in the XHTML XML namespace. (References: L2V3 "
-    "Section 3.2.3.)" 
+    "Section 4.12.2; L2V4 Section 4.12.2)" 
   },
 
   //21004
@@ -2268,7 +2299,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The contents of the <message> element must not contain an XML declaration "
     "(i.e., a string of the form \"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\" "
-    "or similar). (References: L2V2 Section 3.3.2; L2V3 Section 3.2.3.)" 
+    "or similar). (References: L2V3 Section 4.12.2; "
+    "L2V4 Section 4.12.2)" 
   },
 
   //21005
@@ -2283,7 +2315,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The contents of the message element must not contain an XML DOCTYPE "
     "declaration (i.e., a string beginning with the characters \"<!DOCTYPE\". "
-    "(References: L2V2 Section 3.3.2; L2V3 Section 3.2.3.)" 
+    "(References: L2V3 Section 4.12.2; L2V4 Section 4.12.2)" 
   },
 
   //21006
@@ -2301,7 +2333,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "with the element <html> and ending with </html>; (2) the \"body\" portion "
     "of a document beginning with the element <body> and ending with </body>; "
     "or (3) XHTML content that is permitted within a <body> ... </body> "
-    "elements. (References: L2V2 Section 3.3.2; L2V3 Section 3.2.3.)" 
+    "elements. (References: L2V3 Section 4.12.2; L2V4 Section 4.12.2)" 
   },
 
   //21101
@@ -2318,7 +2350,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "either in its <listOfReactants> or its <listOfProducts>. A reaction "
     "without any reactant or product species is not permitted, regardless of "
     "whether the reaction has any modifier species. (References: L2V2 "
-    "Section 4.13.1; L2V3 Section 4.13.3.)"
+    "Section 4.13.1; L2V3 Section 4.13.3; L2V4 Section 4.13.3)"
   },
 
   //21102
@@ -2334,7 +2366,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "The order of subelements within <reaction> must be the following: "
     "<listOfReactants> (optional), <listOfProducts> (optional), "
     "<listOfModifiers> (optional), <kineticLaw>. (References: L2V2 Section "
-    "4.13; L2V3 Section 4.13.)"
+    "4.13; L2V3 Section 4.13; L2V4 Section 4.13)"
   },
 
   //21103
@@ -2350,7 +2382,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "The following containers are all optional in a <reaction>, but if any "
     "is present, it must not be empty: <listOfReactants>, <listOfProducts>, "
     "<listOfModifiers>, <kineticLaw>. (References: L2V2 Section 4.13; L2V3 "
-    "Section 4.13.)" 
+    "Section 4.13; L2V4 Section 4.13)" 
   },
 
   //21104
@@ -2366,7 +2398,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "The list of reactants (<listOfReactants>) and list of products "
     "(<listOfProducts>) in a <reaction> can only contain <speciesReference> "
     "elements. (References: L2V1 Section 4.9; L2V2 Section 4.13; L2V3 Section "
-    "4.13.)"
+    "4.13; L2V4 Section 4.13)"
   },
 
   //21105
@@ -2381,7 +2413,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The list of modifiers (<listOfModifiers>) in a <reaction> can only "
     "contain <modifierSpeciesReference> elements. (References: L2V1 Section "
-    "4.9; L2V2 Section 4.13; L2V3 Section 4.13.)" 
+    "4.9; L2V2 Section 4.13; L2V3 Section 4.13; L2V4 Section 4.13)" 
   },
 
   //21111
@@ -2396,7 +2428,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The value of a <speciesReference> 'species' attribute must be the "
     "identifier of an existing <species> in the model. (References: L2V1 "
-    "Section 4.9.5; L2V2 Section 4.13.2. L2V3 Section 4.13.3.)"
+    "Section 4.9.5; L2V2 Section 4.13.2. L2V3 Section 4.13.3; L2V4 Section "
+    "4.13.3)"
   },
 
   //21112
@@ -2424,7 +2457,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "A <speciesReference> must not have a value for both 'stoichiometry' and "
     "'stoichiometryMath'; they are mutually exclusive. (References: L2V1 "
-    "Section 4.9.5; L2V2 Section 4.13.3; L2V3 Section 4.13.3.)"
+    "Section 4.9.5; L2V2 Section 4.13.3; L2V3 Section 4.13.3; L2V4 Section "
+    "4.13.3)"
   },
 
   //21121
@@ -2443,7 +2477,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "appears in a 'ci' element of a <reaction>'s <kineticLaw> formula, that "
     "same identifier must also appear in at least one <speciesReference> or "
     "<modifierSpeciesReference> in the <reaction> definition. (References: "
-    "L2V2 Section 4.13.5; L2V3 Section 4.13.5.)"
+    "L2V2 Section 4.13.5; L2V3 Section 4.13.5; L2V4 Section 4.13.5)"
   },
 
   //21122
@@ -2459,7 +2493,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "The order of subelements within <kineticLaw> must be the following: "
     "<math>, <listOfParameters>. The <listOfParameters> is optional, but "
     "if present, must follow <math>. (References: L2V2 Section 4.13.9; "
-    "L2V3 Section 4.13.5.)" 
+    "L2V3 Section 4.13.5; L2V4 Section 4.13.5)" 
   },
 
   //21123
@@ -2473,7 +2507,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "If present, the <listOfParameters> in a <kineticLaw> must not be an "
-    "empty list. (References: L2V2 Section 4.13.5; L2V3 Section 4.13.)" 
+    "empty list. (References: L2V2 Section 4.13.5; L2V3 Section 4.13; L2V4 "
+    "Section 4.13)" 
   },
 
   //21124
@@ -2489,7 +2524,8 @@ static const sbmlErrorTableEntry errorTable[] =
     "The 'constant' attribute on a <parameter> local to a <kineticLaw> cannot "
     "have a value other than 'true'. The values of parameters local to "
     "<kineticLaw> definitions cannot be changed, and therefore they are "
-    "always constant. (References: L2V2 Section 4.9.4; L2V3 Section 4.9.4.)"
+    "always constant. (References: L2V2 Section 4.9.4; L2V3 Section 4.9.4; "
+    "L2V4 Section 4.9.4)"
   },
 
   //21125
@@ -2501,7 +2537,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_SCHEMA_ERROR,
     LIBSBML_SEV_SCHEMA_ERROR,
-    LIBSBML_SEV_SCHEMA_ERROR,
+    LIBSBML_SEV_NOT_APPLICABLE,
     "The 'substanceUnits' attribute on <kineticLaw>, previously available in "
     "SBML Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
     "Version 2. In SBML Level 2 Version 2, the substance units of a reaction "
@@ -2518,7 +2554,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_SCHEMA_ERROR,
     LIBSBML_SEV_SCHEMA_ERROR,
-    LIBSBML_SEV_SCHEMA_ERROR,
+    LIBSBML_SEV_NOT_APPLICABLE,
     "The 'timeUnits' attribute on <kineticLaw>, previously available in SBML "
     "Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
     "Version 2. In SBML Level 2 Version 2, the time units of a reaction rate "
@@ -2543,7 +2579,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "formula, that same identifier must also appear in at least one "
     "<speciesReference> or <modifierSpeciesReference> in the <reaction> "
     "definition. (References: L2V2 Sections 4.13.2 and 4.13.4; L2V3 Sections "
-    "4.13.2 and 4.13.4.)"
+    "4.13.2 and 4.13.4; L2V4 Sections 4.13.2 and 4.13.4)"
   },
 
   //21201
@@ -2557,7 +2593,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "An <event> object must have a 'trigger'. (References: L2V1 Section "
-    "4.10.2; L2V2 Section 4.14.)"
+    "4.10.2; L2V2 Section 4.14.1; L2V3 Section 4.14.2; L2V4 Section 4.14.2)"
   },
 
   //21202
@@ -2572,7 +2608,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "An <event>'s <trigger> expression must evaluate to a value of type "
     "boolean. (References: L2V1 Section 4.10.2; L2V2 Section 4.14.1; L2V3 "
-    "Section 4.14.2.)"
+    "Section 4.14.2; L2V4 Section 4.14.2)"
   },
 
   //21203
@@ -2587,7 +2623,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "An <event> object must have at least one <eventAssignment> object in "
     "its <listOfEventAssignments>. (References: L2V1 Section 4.10.5; L2V2 "
-    "Section 4.14; L2V3 Section 4.14.)"
+    "Section 4.14; L2V3 Section 4.14; L2V4 Section 4.14)"
   },
 
   //21204
@@ -2619,7 +2655,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "The order of subelements within <event> must be the following: "
     "<trigger>, <delay>, <listOfEventAssignments>. The <delay> element "
     "is optional, but if present, must follow <trigger>. (References: L2V2 "
-    "Section 4.14; L2V3 Section 4.14.)" 
+    "Section 4.14; L2V3 Section 4.14; L2V4 Section 4.14)" 
   },
 
   //21206
@@ -2634,7 +2670,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The 'timeUnits' attribute on <event>, previously available in SBML "
     "Level 2 versions prior to Version 3, has been removed as of SBML "
-    "Level 2 Version 3. (References: L2V3 Section 4.14.)"
+    "Level 2 Version 3. (References: L2V3 Section 4.14; L2V4 Section 4.14)"
   },
 
   //21211
@@ -2650,7 +2686,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "The value of 'variable' in an <eventAssignment> can only be the "
     "identifier of a <compartment>, <species>, or model-wide <parameter> "
     "definition. (References: L2V1 Section 4.10.5; L2V2 Section 4.14.2; "
-    "L2V3 Section 4.14.4.)"
+    "L2V3 Section 4.14.4; L2V4 Section 4.14.4)"
   },
 
   //21212
@@ -2666,7 +2702,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "Any <compartment>, <species> or <parameter> definition whose identifier "
     "is used as the value of 'variable' in an <eventAssignment> must have a "
     "value of 'false' for its 'constant' attribute. (References: L2V1 Section "
-    "4.10.5; L2V2 Section 4.14.2; L2V3 Section 4.14.4.)"
+    "4.10.5; L2V2 Section 4.14.2; L2V3 Section 4.14.4; L2V4 Section 4.14.4)"
   },
 
   // 80501
@@ -3124,7 +3160,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     "The 'spatialSizeUnits' attribute on <species>, previously available "
     "in SBML Level 2 versions prior to Version 3, has been removed as "
-    "of SBML Level 2 Version 3. (References: L2V3 Section 4.8.)"
+    "of SBML Level 2 Version 3. (References: L2V3 Section 4.8; L2V4 Section 4.8)"
   },
 
   //94005
@@ -3139,7 +3175,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     "The 'timeUnits' attribute on <event>, previously available in SBML "
     "Level 2 versions prior to Version 3, has been removed as of SBML "
-    "Level 2 Version 3. (References: L2V3 Section 4.14.)"
+    "Level 2 Version 3. (References: L2V3 Section 4.14; L2V4 Section 4.14)"
   },
 
   //99127
