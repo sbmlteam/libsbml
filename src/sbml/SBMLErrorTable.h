@@ -1576,7 +1576,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_NOT_APPLICABLE,
     "If a <unitDefinition> for 'volume' simplifies to a <unit> in which the "
     "'kind' attribute value is 'litre', then its 'exponent' attribute value "
     "must be '1'. (References: L2V1 Section 4.4.3; L2V2 Section 4.4.3; L2V3 "
@@ -1592,7 +1592,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_NOT_APPLICABLE,
     "If a <unitDefinition> for 'volume' simplifies to a <unit> in which the "
     "'kind' attribute value is 'metre', then its 'exponent' attribute value "
     "must be '3'. (References: L2V1 Section 4.4.3; L2V2 Section 4.4.3; L2V3 "
