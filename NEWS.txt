@@ -11,6 +11,10 @@
     the MathML reader now checks that a <math> element or the body
     of a <lambda> element use appropriate tags as detailed
     in the schema for the subset of MathML supported.
+    
+  - The MATLAB binding now correctly identifies the use of the csymbol
+    delay and provides the information to the user in a similar fashion
+    to csymbol time.
 
 * Bug fixes:
 
