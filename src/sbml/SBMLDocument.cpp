@@ -420,6 +420,12 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
       mNamespaces->add("http://www.sbml.org/sbml/level2/version3", "sbml");
     mNamespaces->add("http://www.sbml.org/sbml/level2/version3");
   }
+  else if (mLevel == 2 && mVersion == 4)
+  {
+    if (sbmlDecl)
+      mNamespaces->add("http://www.sbml.org/sbml/level2/version4", "sbml");
+    mNamespaces->add("http://www.sbml.org/sbml/level2/version4");
+  }
 
   return conversionSuccess;
 }
@@ -1042,6 +1048,19 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
         }
         break;
       }
+      else if (!strcmp(mNamespaces->getURI(n).c_str(), "http://www.sbml.org/sbml/level2/version4"))
+      {
+        match = 1;
+        if (mLevel != 2)
+        {
+          logError(MissingOrInconsistentLevel);
+        }
+        if (mVersion != 4)
+        {
+          logError(MissingOrInconsistentVersion);
+        }
+        break;
+      }
     }
     if (match == 0)
     {
@@ -1081,6 +1100,10 @@ SBMLDocument::writeAttributes (XMLOutputStream& stream) const
      else if (mLevel == 2 && mVersion == 3)
      {
        xmlns.add("http://www.sbml.org/sbml/level2/version3");
+     }
+     else if (mLevel == 2 && mVersion == 4)
+     {
+       xmlns.add("http://www.sbml.org/sbml/level2/version4");
      }
      stream << xmlns;
   }  
