@@ -117,6 +117,7 @@ USE_JAVA          = @USE_JAVA@
 JAVA              = @JAVA@
 JAVAC             = @JAVAC@
 JAR               = @JAR@
+JAVADOC_JAR       = @JAVADOC_JAR@
 JAVA_CPPFLAGS     = @JAVA_CPPFLAGS@
 JAVA_LDFLAGS      = @JAVA_LDFLAGS@
 JAVA_LIBS         = @JAVA_LIBS@

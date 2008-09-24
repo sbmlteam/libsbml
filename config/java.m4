@@ -143,6 +143,7 @@ AC_DEFUN([CONFIG_PROG_JAVA],
     AC_SUBST(JAVA_LIBS)
     AC_SUBST(JNIEXT)
     AC_SUBST(JNIBASENAME)
+    AC_SUBST(JAVADOC_JAR)
 
   fi
 
@@ -227,7 +228,7 @@ AC_DEFUN([AC_JAVA_INCLUDE_DIRS],[
 	    ;;
 	  *)
              _jtopdir=`echo "$_jtopdir" | sed -e 's:/[[^/]]*$::'`
-	     _jinc="$_jtopdir/Versions/Current/Headers"
+	     _jinc="$_jtopdir/Versions/CurrentJDK/Headers"
 	     ;;
 	esac
 
@@ -236,9 +237,15 @@ AC_DEFUN([AC_JAVA_INCLUDE_DIRS],[
           AC_MSG_ERROR([MacOS X 10.3.x has known problems with its Java 1.4 installation.])
           AC_MSG_ERROR([See http://developer.apple.com/java/faq.])
 	fi
+        _jlib=`echo "$_jinc" | sed -e 's:/[[^/]]*$:/Classes:'`
+        JAVADOC_JAR=$_jlib/classes.jar
 	;;
     *) 
+        if ! test -e "$_jtopdir/include"; then
+          _jtopdir=`echo "$_jtopdir" | sed -e 's:/[[^/]]*$::'`
+        fi
         _jinc="$_jtopdir/include"
+        JAVADOC_JAR=$_jtopdir/lib/tools.jar
 	;;
   esac
   if test -e "$_jinc/jni.h"; then

@@ -105,6 +105,20 @@ AC_DEFUN([CONFIG_PROG_DOXYGEN],
       AC_DEFINE([USE_DOXYGEN], 1, [Define to 1 to use DOXYGEN])
       AC_SUBST(USE_DOXYGEN, 1)
     fi
+
+    dnl Check the existence of a jar file for javadoc if --with-java enabled.
+    dnl The jar file is classes.jar (MacOSX) or tools.jar (other OSes).
+
+    if test $with_java; then 
+      AC_MSG_CHECKING(for javadoc)
+      if ! test -e $JAVADOC_JAR; then
+        AC_MSG_RESULT(no)
+        AC_MSG_ERROR([*** missing $JAVADOC_JAR - please install first or check config.log ***])
+      else
+        AC_MSG_RESULT(yes)
+      fi
+    fi
+
   fi
 
 ])
