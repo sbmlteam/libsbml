@@ -228,7 +228,7 @@ AC_DEFUN([AC_JAVA_INCLUDE_DIRS],[
 	    ;;
 	  *)
              _jtopdir=`echo "$_jtopdir" | sed -e 's:/[[^/]]*$::'`
-	     _jinc="$_jtopdir/Versions/CurrentJDK/Headers"
+	     _jinc="$_jtopdir/Headers"
 	     ;;
 	esac
 
@@ -241,9 +241,7 @@ AC_DEFUN([AC_JAVA_INCLUDE_DIRS],[
         JAVADOC_JAR=$_jlib/classes.jar
 	;;
     *) 
-        if ! test -e "$_jtopdir/include"; then
-          _jtopdir=`echo "$_jtopdir" | sed -e 's:/[[^/]]*$::'`
-        fi
+        _jtopdir=`echo "$_jtopdir" | sed -e 's:/[[^/]]*$::'`
         _jinc="$_jtopdir/include"
         JAVADOC_JAR=$_jtopdir/lib/tools.jar
 	;;
