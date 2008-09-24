@@ -97,7 +97,7 @@
     <listOfReactions>
       <reaction id="r" fast="true" reversible="false">
         <listOfReactants>
-          <speciesReference species="s" sboTerm="SBO:0000003">
+          <speciesReference species="s" sboTerm="SBO:0000011">
             <stoichiometryMath sboTerm="SBO:0000064">
               <math xmlns="http://www.w3.org/1998/Math/MathML">
                 <apply>
@@ -123,13 +123,14 @@
           </math>
           <listOfParameters>
             <parameter id="k" value="9" units="litre"/>
+            <parameter id="k1" value="9" units="ud1"/>
           </listOfParameters>
         </kineticLaw>
       </reaction>
     </listOfReactions>
     <listOfEvents>
       <event id="e1" sboTerm="SBO:0000231">
-        <trigger sboTerm="SBO:0000231">
+        <trigger sboTerm="SBO:0000064">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <lt/>

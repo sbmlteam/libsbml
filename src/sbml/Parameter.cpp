@@ -269,16 +269,56 @@ Parameter::getDerivedUnitDefinition()
     getSBMLDocument()->getModel()->populateListFormulaUnitsData();
   }
 
-  if (getSBMLDocument()->getModel()
-    ->getFormulaUnitsData(getId(), getTypeCode()))
+  /* need to distinguish between a global and local parameter
+   * for a global parameter a unit definition will have been created
+   * for a local parameter need to create one based on the units field
+   */
+  bool globalParameter = false;
+  if (getParentSBMLObject()->getParentSBMLObject()->getTypeCode() == SBML_MODEL)
+    globalParameter = true;
+
+  if (globalParameter)
   {
-    return getSBMLDocument()->getModel()
-      ->getFormulaUnitsData(getId(), getTypeCode())
-      ->getUnitDefinition();
+    if (getSBMLDocument()->getModel()
+      ->getFormulaUnitsData(getId(), getTypeCode()))
+    {
+      return getSBMLDocument()->getModel()
+        ->getFormulaUnitsData(getId(), getTypeCode())
+        ->getUnitDefinition();
+    }
+    else
+    {
+      return NULL;
+    }
   }
   else
   {
-    return NULL;
+    UnitDefinition *ud = NULL;
+    const char * units = getUnits().c_str();
+    if (!strcmp(units, ""))
+    {
+      ud   = new UnitDefinition();
+      return ud;
+    }
+    else
+    {
+      if (UnitKind_isValidUnitKindString(units, 
+                                getLevel(), getVersion()))
+      {
+        Unit * unit = new Unit(units);
+        ud   = new UnitDefinition();
+        
+        ud->addUnit(unit);
+
+        delete unit;
+      }
+      else
+      {
+        /* must be a unit definition */
+        ud = static_cast <Model *> (getAncestorOfType(SBML_MODEL))->getUnitDefinition(units);
+      }
+      return ud;
+    }
   }
 }
 

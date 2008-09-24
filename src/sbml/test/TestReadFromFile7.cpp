@@ -236,8 +236,8 @@ START_TEST (test_read_l2v3_all)
   trigger = e->getTrigger();
   fail_unless(trigger != NULL, NULL);
 
-  fail_unless(trigger->getSBOTerm() == 231, NULL);
-  fail_unless(trigger->getSBOTermID() == "SBO:0000231");
+  fail_unless(trigger->getSBOTerm() == 64, NULL);
+  fail_unless(trigger->getSBOTermID() == "SBO:0000064");
 
   ast = trigger->getMath();
   fail_unless(!strcmp(SBML_formulaToString(ast), "lt(x, 3)"), NULL);
@@ -385,7 +385,7 @@ START_TEST (test_read_l2v3_all)
   //<listOfReactions>
   //  <reaction id="r" fast="true" reversible="false">
   //    <listOfReactants>
-  //      <speciesReference species="s" sboTerm="SBO:0000003">
+  //      <speciesReference species="s" sboTerm="SBO:0000011">
   //        <stoichiometryMath sboTerm="SBO:0000064">
   //          <math xmlns="http://www.w3.org/1998/Math/MathML">
   //            <apply>
@@ -433,13 +433,29 @@ START_TEST (test_read_l2v3_all)
   ast = kl->getMath();
   fail_unless(!strcmp(SBML_formulaToString(ast), "s * k / p"), NULL);
 
-  fail_unless(kl->getNumParameters() == 1, NULL);
+  fail_unless(kl->getNumParameters() == 2, NULL);
 
   p = kl->getParameter(0);
   fail_unless( p         != NULL  , NULL );
   fail_unless(p->getId() == "k", NULL);
   fail_unless(p->getUnits() == "litre", NULL);
   fail_unless(p->getValue() == 9, NULL);
+
+  ud = p->getDerivedUnitDefinition();
+  fail_unless (ud->getNumUnits() == 1, NULL);
+  fail_unless( ud->getUnit(0)->getKind() == UNIT_KIND_LITRE, NULL );
+  fail_unless( ud->getUnit(0)->getExponent() ==  1, NULL );
+
+  p = kl->getParameter(1);
+  fail_unless( p         != NULL  , NULL );
+  fail_unless(p->getId() == "k1", NULL);
+  fail_unless(p->getUnits() == "ud1", NULL);
+  fail_unless(p->getValue() == 9, NULL);
+
+  ud = p->getDerivedUnitDefinition();
+  fail_unless (ud->getNumUnits() == 1, NULL);
+  fail_unless( ud->getUnit(0)->getKind() == UNIT_KIND_MOLE, NULL );
+  fail_unless( ud->getUnit(0)->getExponent() ==  1, NULL );
 
   fail_unless(r->getNumReactants() == 1, NULL);
   fail_unless(r->getNumProducts() == 0, NULL);
@@ -448,8 +464,8 @@ START_TEST (test_read_l2v3_all)
   sr = r->getReactant(0);
   fail_unless( sr         != NULL  , NULL );
   fail_unless(sr->getSpecies() == "s", NULL);
-  fail_unless(sr->getSBOTerm() == 3, NULL);
-  fail_unless(sr->getSBOTermID() == "SBO:0000003", NULL);
+  fail_unless(sr->getSBOTerm() == 11, NULL);
+  fail_unless(sr->getSBOTermID() == "SBO:0000011", NULL);
 
   stoich = sr->getStoichiometryMath();
   fail_unless( stoich         != NULL  , NULL );
