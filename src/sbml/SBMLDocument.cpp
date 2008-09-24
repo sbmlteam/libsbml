@@ -977,14 +977,14 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
   // level: positiveInteger  { use="required" fixed="1" }  (L1v1)
   // level: positiveInteger  { use="required" fixed="2" }  (L2v1)
   //
-  attributes.readInto("level", mLevel);
+  attributes.readInto("level", mLevel, getErrorLog(), true);
 
   //
   // version: positiveInteger  { use="required" fixed="1" }  (L1v1, L2v1)
   // version: positiveInteger  { use="required" fixed="2" }  (L1v2, L2v2)
   // version: positiveInteger  { use="required" fixed="3" }  (L2v3)
   //
-  attributes.readInto("version", mVersion);
+  attributes.readInto("version", mVersion, getErrorLog(), true);
 
   /* check that sbml namespace has been set */
   unsigned int match = 0;
