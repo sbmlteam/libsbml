@@ -18,6 +18,9 @@
 
 * Bug fixes:
 
+  - A missing 'level' or 'version' attribute was not being correctly
+    reported.
+
   - Tracker issue #2082584.
     Fixed memory leak reported by Jonathan Cooper.
     
@@ -30,6 +33,12 @@
     Thanks to Sven Sahle for reporting this problem.
 
 * Changes:
+
+  - Tracker issue #2118126
+    The getDerivedUnitDefinition() function always returned NULL for a
+    local parameter.  Andreas Draeger requested that it return a 
+    unitDefinition derived from the units attribute.  This has now
+    been implemented.
 
   - Tracker issue #2082682.
     The unit checking code was not dealing correctly with expressions
