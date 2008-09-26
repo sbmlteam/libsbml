@@ -52,6 +52,7 @@ Event::Event (const std::string& id, const std::string& name) :
    SBase    ( id, name   )
  , mTrigger ( 0          )
  , mDelay   ( 0          )
+ , mNewAttributePlaceHolder ( true )
 {
   mInternalIdOnly = false;
 }
@@ -75,6 +76,7 @@ Event::Event (const Event& orig) :
  , mTrigger         ( 0                      )
  , mDelay           ( 0                      )
  , mTimeUnits       ( orig.mTimeUnits        )
+ , mNewAttributePlaceHolder ( orig.mNewAttributePlaceHolder )
  , mInternalIdOnly  ( orig.mInternalIdOnly   )
  , mEventAssignments( orig.mEventAssignments )
 {
@@ -91,6 +93,7 @@ Event& Event::operator=(const Event& rhs)
   this->SBase::operator =(rhs);
  
   mTimeUnits        = rhs.mTimeUnits        ;
+  mNewAttributePlaceHolder = rhs.mNewAttributePlaceHolder;
   mInternalIdOnly   = rhs.mInternalIdOnly   ;
   mEventAssignments = rhs.mEventAssignments ;
 
@@ -190,6 +193,16 @@ Event::getTimeUnits () const
 
 
 /*
+ * Returns the value of the "newAttributePlaceHolder" attribute of this Event.
+ */
+bool 
+Event::getNewAttributePlaceHolder () const
+{
+  return mNewAttributePlaceHolder;
+}
+
+  
+/*
  * @return true if the trigger of this Event has been set, false otherwise.
  */
 bool
@@ -271,6 +284,16 @@ void
 Event::setTimeUnits (const std::string& sid)
 {
   mTimeUnits = sid;
+}
+
+
+/*
+ * Sets the "newAttributePlaceHolder" attribute of this Event to a @p value.
+ */
+void 
+Event::setNewAttributePlaceHolder (bool value)
+{
+  mNewAttributePlaceHolder = value;
 }
 
 
@@ -555,6 +578,11 @@ Event::readAttributes (const XMLAttributes& attributes)
     expectedAttributes.push_back("sboTerm");
   }
 
+  if (!(level == 2 && version < 4))
+  {
+    expectedAttributes.push_back("newAttributePlaceHolder");
+  }
+
   // check that all attributes are expected
   for (int i = 0; i < attributes.getLength(); i++)
   {
@@ -597,6 +625,12 @@ Event::readAttributes (const XMLAttributes& attributes)
   //
   if (!(level == 2 && version == 1)) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
+
+  //
+  // newAttributePlaceHolder: bool {use="optional" default="true"} (L2V4 ->)
+  //
+  if (!(level == 2 && version < 4))
+    attributes.readInto("newAttributePlaceHolder", mNewAttributePlaceHolder);
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -647,6 +681,15 @@ Event::writeAttributes (XMLOutputStream& stream) const
   //
   if (!(level == 2 && version == 1)) 
     SBO::writeTerm(stream, mSBOTerm);
+
+  //
+  // newAttributePlaceHolder: bool {use="optional" default="true"} (L2V4 ->)
+  //
+  if (!(level == 2 && version < 4))
+  {
+    if (!mNewAttributePlaceHolder)
+      stream.writeAttribute("newAttributePlaceHolder", mNewAttributePlaceHolder);
+  }
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -890,6 +933,22 @@ Event_getTimeUnits (const Event_t *e)
 
 
 /**
+ * Takes an Event_t structure and returns the value of its "newAttributePlaceHolder"
+ * attribute.
+ *
+ * @param e the Event_t structure whose "newAttributePlaceHolder" value is sought
+ * 
+ * @return the newAttributePlaceHolder of this Event
+ */
+LIBSBML_EXTERN
+int
+Event_getNewAttributePlaceHolder (const Event_t *e)
+{
+  return static_cast<int> (e->getNewAttributePlaceHolder());
+}
+
+
+/**
  * Predicate returning @c true or @c false depending on whether the given
  * Event_t structure's identifier has been set.
  *
@@ -1056,6 +1115,20 @@ void
 Event_setTimeUnits (Event_t *e, const char *sid)
 {
   (sid == NULL) ? e->unsetTimeUnits() : e->setTimeUnits(sid);
+}
+
+
+/**
+ * Sets the "newAttributePlaceHolder" attribute of this Event to a @p value.
+ * 
+ * @param e the Event_t structure to set
+ * @param value the value of the "newAttributePlaceHolder" attribute
+ */
+LIBSBML_EXTERN
+void
+Event_setNewAttributePlaceHolder (Event_t *e, int value)
+{
+  e->setNewAttributePlaceHolder( static_cast<bool>(value) );
 }
 
 

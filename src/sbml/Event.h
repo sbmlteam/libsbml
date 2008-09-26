@@ -266,6 +266,15 @@ public:
 
 
   /**
+   * Get the value of the "newAttributePlaceHolder" attribute of this Event.
+   * 
+   * @return the value of the attribute "newAttributePlaceHolder" as a boolean.
+   *
+   */
+  bool getNewAttributePlaceHolder () const;
+
+
+  /**
    * Predicate for testing whether the trigger for this Event has been set.
    *
    * @return @c true if the trigger of this Event has been set, @c false
@@ -343,6 +352,15 @@ public:
    * contain it.
    */
   void setTimeUnits (const std::string& sid);
+
+
+  /**
+   * Sets the "newAttributePlaceHolder" attribute of this Event to a @p value.
+   *
+   * @param value the value of the newAttributePlaceHolder to use.
+   *
+   */
+  void setNewAttributePlaceHolder (bool value);
 
 
   /**
@@ -530,6 +548,7 @@ protected:
   Trigger*                mTrigger;
   Delay*                  mDelay;
   std::string             mTimeUnits;
+  bool                    mNewAttributePlaceHolder;
   bool mInternalIdOnly;
   ListOfEventAssignments  mEventAssignments;
   
@@ -675,6 +694,11 @@ Event_getTimeUnits (const Event_t *e);
 
 LIBSBML_EXTERN
 int
+Event_getNewAttributePlaceHolder (const Event_t *e);
+
+
+LIBSBML_EXTERN
+int
 Event_isSetId (const Event_t *e);
 
 
@@ -721,6 +745,11 @@ Event_setDelay (Event_t *e, const Delay_t *delay);
 LIBSBML_EXTERN
 void
 Event_setTimeUnits (Event_t *e, const char *sid);
+
+
+LIBSBML_EXTERN
+void
+Event_setNewAttributePlaceHolder (Event_t *e, int value);
 
 
 LIBSBML_EXTERN

@@ -119,6 +119,7 @@ Suite *create_suite_TestReadFromFile4 (void);
 Suite *create_suite_TestReadFromFile5 (void);
 Suite *create_suite_TestReadFromFile6 (void);
 Suite *create_suite_TestReadFromFile7 (void);
+Suite *create_suite_TestReadFromFile8 (void);
 
 Suite *create_suite_TestConsistencyChecks (void);
 Suite *create_suite_ParentObject (void);
@@ -211,6 +212,7 @@ main (int argc, char* argv[])
   srunner_add_suite( runner, create_suite_TestReadFromFile5() );
   srunner_add_suite( runner, create_suite_TestReadFromFile6() );
   srunner_add_suite( runner, create_suite_TestReadFromFile7() );
+  srunner_add_suite( runner, create_suite_TestReadFromFile8() );
   srunner_add_suite( runner, create_suite_TestConsistencyChecks() );
   srunner_add_suite( runner, create_suite_ParentObject() );
   srunner_add_suite( runner, create_suite_AncestorObject() );

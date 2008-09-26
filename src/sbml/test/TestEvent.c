@@ -308,6 +308,19 @@ START_TEST (test_Event_full)
 END_TEST
 
 
+START_TEST (test_Event_setNewAttributePlaceHolder)
+{
+  Event_setNewAttributePlaceHolder(E, 0);
+
+  fail_unless( Event_getNewAttributePlaceHolder(E) == 0 );
+
+  Event_setNewAttributePlaceHolder(E, 1);
+
+  fail_unless( Event_getNewAttributePlaceHolder(E) == 1 );
+}
+END_TEST
+
+
 Suite *
 create_suite_Event (void)
 {
@@ -328,6 +341,7 @@ create_suite_Event (void)
   tcase_add_test( tcase, test_Event_setDelay     );
   tcase_add_test( tcase, test_Event_setTimeUnits );
   tcase_add_test( tcase, test_Event_full         );
+  tcase_add_test( tcase, test_Event_setNewAttributePlaceHolder );
 
   suite_add_tcase(suite, tcase);
 
