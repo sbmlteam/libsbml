@@ -393,18 +393,18 @@ install install-docs: $(docs)
 	    if test -d $$docdir; then d=.; else d=$(srcdir); fi; \
 	    dirname=`basename "$$docdir"`; \
 	    if test "$$dirname" != "$$docdir" && test "$$dirname" != "."; then \
-	      $(MKINSTALLDIRS) "$(DOCDIR)/$$dirname"; \
+	      $(MKINSTALLDIRS) "$(DESTDIR)$(DOCDIR)/$$dirname"; \
 	    fi; \
-	    echo Copying to $(DOCDIR)/$$dirname; \
+	    echo Copying to $(DESTDIR)$(DOCDIR)/$$dirname; \
 	    if test -d $$d/$$docdir; then \
 	      if test -d $(srcdir)/$$docdir && test $$d != $(srcdir); then \
-	        cp -pR $(srcdir)/$$docdir $(DOCDIR) || exit 1; \
+	        cp -pR $(srcdir)/$$docdir $(DESTDIR)$(DOCDIR) || exit 1; \
 	      else \
-	        cp -pR $$d/$$docdir $(DOCDIR) || exit 1; \
+	        cp -pR $$d/$$docdir $(DESTDIR)$(DOCDIR) || exit 1; \
 	      fi; \
 	    else \
-	      test -f $(DOCDIR)/$$docdir \
-	      || cp -p $$d/$$docdir $(DOCDIR)/$$dirname \
+	      test -f $(DESTDIR)$(DOCDIR)/$$docdir \
+	      || cp -p $$d/$$docdir $(DESTDIR)$(DOCDIR)/$$dirname \
 	      || exit 1; \
 	    fi; \
 	  done; \
