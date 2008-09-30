@@ -41,6 +41,7 @@
 #include <sbml/validator/L2v1CompatibilityValidator.h>
 #include <sbml/validator/L2v2CompatibilityValidator.h>
 #include <sbml/validator/L2v3CompatibilityValidator.h>
+#include <sbml/validator/InternalConsistencyValidator.h>
 
 #include <sbml/Model.h>
 #include <sbml/SBMLErrorLog.h>
@@ -716,6 +717,36 @@ SBMLDocument::checkConsistency ()
   return total_errors;
 }
 
+
+/*
+ * Performs consistency checking on libSBML's internal representation of 
+ * an SBML Model.
+ *
+ * Callers should query the results of the consistency check by calling
+ * getError().
+ *
+ * @return the number of failed checks (errors) encountered.
+ */
+unsigned int
+SBMLDocument::checkInternalConsistency()
+{
+  unsigned int nerrors = 0;
+  unsigned int totalerrors = 0;
+
+  InternalConsistencyValidator validator;
+  ConsistencyValidator validator1;
+
+  validator.init();
+  nerrors = validator.validate(*this);
+  if (nerrors) 
+  {
+    mErrorLog.add( validator.getFailures() );
+  }
+  totalerrors += nerrors;
+
+  return totalerrors;
+
+}
 
 /*
  * Performs a set of semantic consistency checks on the document to establish

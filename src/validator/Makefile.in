@@ -48,6 +48,7 @@ thisdir   = src/validator
 headers =								\
   ConsistencyValidator.h				\
   IdentifierConsistencyValidator.h		\
+  InternalConsistencyValidator.h				\
   MathMLConsistencyValidator.h			\
   UnitConsistencyValidator.h			\
   SBOConsistencyValidator.h				\
@@ -66,6 +67,7 @@ header_inst_prefix = validator
 sources =								\
   ConsistencyValidator.cpp				\
   IdentifierConsistencyValidator.cpp    \
+  InternalConsistencyValidator.cpp				\
   MathMLConsistencyValidator.cpp		\
   UnitConsistencyValidator.cpp			\
   SBOConsistencyValidator.cpp			\

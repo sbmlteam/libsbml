@@ -385,6 +385,18 @@ public:
 
 
   /**
+   * Performs consistency checking on libSBML's internal representation of 
+   * an SBML Model.
+   *
+   * Callers should query the results of the consistency check by calling
+   * getError().
+   *
+   * @return the number of failed checks (errors) encountered.
+   */
+  unsigned int checkInternalConsistency ();
+
+
+  /**
    * Performs a set of consistency checks on the document to establish
    * whether it is compatible with SBML Level&nbsp;1 and can be converted
    * to Level&nbsp;1.

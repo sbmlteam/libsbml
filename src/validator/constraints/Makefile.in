@@ -88,6 +88,7 @@ sources =                                     \
   IdBase.cpp                                  \
   IdentifierConsistencyConstraints.cpp        \
   IdList.cpp                                  \
+  InternalConsistencyConstraints.cpp          \
   KineticLawVars.cpp                          \
   L1CompatibilityConstraints.cpp              \
   L2v1CompatibilityConstraints.cpp            \

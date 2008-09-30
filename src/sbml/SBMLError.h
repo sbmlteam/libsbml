@@ -682,6 +682,15 @@ typedef enum
   , UndeclaredUnits                  = 99505 
   , UnrecognisedSBOTerm              = 99701
 
+  /* internal consistency checks */
+  , IncorrectCompartmentSpatialDimensions = 99901
+  , CompartmentTypeNotValidAttribute      = 99902
+  , ConstantNotValidAttribute             = 99903
+  , MetaIdNotValidAttribute               = 99904
+  , SBOTermNotValidAttribute              = 99905
+  , InvalidL1CompartmentUnits             = 99906
+  , L1V1CompartmentVolumeReqd             = 99907
+
   /* Bounds */
 
   , SBMLCodesUpperBound              = 99999 /*!< 99999, the upper bound of
@@ -771,6 +780,11 @@ typedef enum
     /*!< Category of warnings about recommended good practices involving
      * SBML and computational modeling.  (These are tests performed by
      * libSBML and do not have equivalent SBML validation rules.) */
+
+     , LIBSBML_CAT_INTERNAL_CONSISTENCY
+    /*!< Category of errors that can occur while validating the internal
+     * representation of SBML constructs.  */
+
 
 } SBMLErrorCategory_t;
 
