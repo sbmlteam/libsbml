@@ -138,6 +138,24 @@ START_CONSTRAINT (99905, Compartment, c)
 }
 END_CONSTRAINT
 
+START_CONSTRAINT (99905, CompartmentType, ct)
+{
+  // level 1; l2v1; l2v2 sboTerm didnt exist
+  pre( ct.getLevel() == 1 || (ct.getLevel() == 2 && ct.getVersion() < 3));
+  
+  inv( ct.isSetSBOTerm() == false );
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (99905, Delay, d)
+{
+  // level 1; l2v1; l2v2 sboTerm didnt exist
+  pre( d.getLevel() == 1 || (d.getLevel() == 2 && d.getVersion() < 3));
+  
+  inv( d.isSetSBOTerm() == false );
+}
+END_CONSTRAINT
+
 START_CONSTRAINT (99906, Compartment, c)
 {
   // level 1 units check gets missed in check consistency
@@ -159,5 +177,32 @@ START_CONSTRAINT (99907, Compartment, c)
   pre( c.getLevel() == 1 && c.getVersion() == 1)
   
   inv( c.isSetVolume() == true );
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (99908, Model, x)
+{
+  // compartmentType not valid in L1 or L2v1
+  pre( x.getLevel() == 1 ||(x.getLevel() == 2 && x.getVersion() == 1));
+  
+  inv( x.getNumCompartmentTypes() == 0 );
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (99909, Model, x)
+{
+  // constraint not valid in L1 or L2v1
+  pre( x.getLevel() == 1 ||(x.getLevel() == 2 && x.getVersion() == 1));
+  
+  inv( x.getNumConstraints() == 0 );
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (99910, Model, x)
+{
+  // event not valid in L1
+  pre( x.getLevel() == 1 );
+  
+  inv( x.getNumEvents() == 0 );
 }
 END_CONSTRAINT
