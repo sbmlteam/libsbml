@@ -690,6 +690,9 @@ typedef enum
   , SBOTermNotValidAttribute              = 99905
   , InvalidL1CompartmentUnits             = 99906
   , L1V1CompartmentVolumeReqd             = 99907
+  , CompartmentTypeNotValidComponent      = 99908
+  , ConstraintNotValidComponent           = 99909
+  , EventNotValidComponent                = 99910
 
   /* Bounds */
 

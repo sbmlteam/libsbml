@@ -3465,14 +3465,47 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,
     "Volume required"
+  },
+
+
+  //99908
+  {   
+    CompartmentTypeNotValidComponent,   
+    LIBSBML_CAT_INTERNAL_CONSISTENCY,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "CT not valid"
+  },
+
+  //99909
+  {   
+    ConstraintNotValidComponent,   
+    LIBSBML_CAT_INTERNAL_CONSISTENCY,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "Constraint not valid"
+  },
+
+  //99910
+  {   
+    EventNotValidComponent,   
+    LIBSBML_CAT_INTERNAL_CONSISTENCY,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "Event not valid"
   }
-
-
-
-
-
-
-
 
 };
 
