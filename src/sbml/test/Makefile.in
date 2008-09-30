@@ -92,6 +92,7 @@ test_sources =                   \
   TestReadFromFile8.cpp          \
   TestSBMLParentObject.cpp       \
   TestAncestor.cpp               \
+  TestInternalConsistencyChecks.cpp               \
   TestConsistencyChecks.cpp
 
 
