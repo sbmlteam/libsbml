@@ -76,10 +76,8 @@ START_TEST (test_internal_consistency_check_99901)
   m->addCompartment(c);
 
   errors = d->checkInternalConsistency();
-  /* FIX_ME the const error occurs here because by default constant is
-   * true - which it actually shouldnt be for l1 
-   */
-  fail_unless(errors == 2);
+
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99901);
 
   delete d;
@@ -99,10 +97,8 @@ START_TEST (test_internal_consistency_check_99902)
   m->addCompartment(c);
 
   errors = d->checkInternalConsistency();
-  /* FIX_ME the const error occurs here because by default constant is
-   * true - which it actually shouldnt be for l1 
-   */
-  fail_unless(errors == 2);
+
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99902);
 
   delete d;
@@ -119,7 +115,60 @@ START_TEST (test_internal_consistency_check_99903)
   Model *m = d->createModel();
 
   c->setConstant(true);
+  c->setId("c");
   m->addCompartment(c);
+
+  Rule * r = m->createAssignmentRule();
+  r->setVariable("c");
+
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99903);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99903_param)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Parameter *p = new Parameter();
+  d->setLevelAndVersion(1, 2);
+  Model *m = d->createModel();
+
+  p->setConstant(true);
+  p->setId("c");
+  m->addParameter(p);
+
+  Rule * r = m->createAssignmentRule();
+  r->setVariable("c");
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99903);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99903_localparam)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Parameter *p = new Parameter();
+  d->setLevelAndVersion(1, 2);
+  Model *m = d->createModel();
+  Reaction *r = m->createReaction();
+  KineticLaw *kl = r->createKineticLaw();
+
+  p->setConstant(false);
+  kl->addParameter(p);
 
   errors = d->checkInternalConsistency();
 
@@ -140,8 +189,71 @@ START_TEST (test_internal_consistency_check_99904)
   Model *m = d->createModel();
 
   c->setMetaId("mmm");
-  c->setConstant(false);
   m->addCompartment(c);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99904);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99904_kl)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  KineticLaw *kl = new KineticLaw();
+  Model *m = d->createModel();
+  d->setLevelAndVersion(1, 2);
+  Reaction *r = m->createReaction();
+
+  kl->setMetaId("mmm");
+  r->setKineticLaw(kl);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99904);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99904_model)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  d->setLevelAndVersion(1, 2);
+  Model * m = new Model();
+
+  m->setMetaId("mmm");
+  d->setModel(m);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99904);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99904_param)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Parameter *p = new Parameter();
+  d->setLevelAndVersion(1, 2);
+  Model *m = d->createModel();
+
+  p->setMetaId("mmm");
+  p->setConstant(false);
+  m->addParameter(p);
 
   errors = d->checkInternalConsistency();
 
@@ -158,7 +270,6 @@ START_TEST (test_internal_consistency_check_99905)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Compartment *c = new Compartment();
-  c->setConstant(false);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
 
@@ -222,7 +333,6 @@ START_TEST (test_internal_consistency_check_99906)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Compartment *c = new Compartment();
-  c->setConstant(false);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
 
@@ -244,7 +354,6 @@ START_TEST (test_internal_consistency_check_99907)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Compartment *c = new Compartment();
-  c->setConstant(false);
   d->setLevelAndVersion(1, 1);
   Model *m = d->createModel();
 
@@ -326,6 +435,175 @@ START_TEST (test_internal_consistency_check_99910)
 END_TEST
 
 
+START_TEST (test_internal_consistency_check_99911_event)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Event *e = new Event();
+  Model *m = d->createModel();
+  d->setLevelAndVersion(2, 1);
+
+  e->setSBOTerm(2);
+  m->addEvent(e);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99911);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99911_ea)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Model *m = d->createModel();
+  Event *e = m->createEvent();
+  EventAssignment *ea = new EventAssignment();
+  d->setLevelAndVersion(2, 1);
+
+  ea->setSBOTerm(2);
+  e->addEventAssignment(ea);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99911);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99911_fd)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Model *m = d->createModel();
+  FunctionDefinition *fd = new FunctionDefinition();
+  d->setLevelAndVersion(2, 1);
+
+  fd->setSBOTerm(2);
+  m->addFunctionDefinition(fd );
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99911);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99911_kl)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Model *m = d->createModel();
+  Reaction *r = m->createReaction();
+  KineticLaw *kl = new KineticLaw();
+  d->setLevelAndVersion(2, 1);
+
+  kl->setSBOTerm(2);
+  r->setKineticLaw(kl );
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99911);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99911_model)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  d->setLevelAndVersion(2, 1);
+  Model * m = new Model();
+
+  m->setSBOTerm(2);
+  d->setModel(m );
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99911);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99911_param)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Model *m = d->createModel();
+  Parameter *p = new Parameter();
+  d->setLevelAndVersion(2, 1);
+
+  p->setSBOTerm(2);
+  m->addParameter(p );
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99911);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99912)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  FunctionDefinition *fd = new FunctionDefinition();
+  Model *m = d->createModel();
+  d->setLevelAndVersion(1, 2);
+  Compartment *c = m->getCompartment(0);
+  c->setConstant(false);
+  m->addFunctionDefinition(fd );
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99912);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99913)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  InitialAssignment *ia = new InitialAssignment();
+  Model *m = d->createModel();
+  d->setLevelAndVersion(1, 2);
+  Compartment *c = m->getCompartment(0);
+  c->setConstant(false);
+  m->addInitialAssignment(ia );
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99913);
+
+  delete d;
+}
+END_TEST
+
+
 Suite *
 create_suite_TestInternalConsistencyChecks (void)
 { 
@@ -336,7 +614,12 @@ create_suite_TestInternalConsistencyChecks (void)
   tcase_add_test(tcase, test_internal_consistency_check_99901);
   tcase_add_test(tcase, test_internal_consistency_check_99902);
   tcase_add_test(tcase, test_internal_consistency_check_99903);
+  tcase_add_test(tcase, test_internal_consistency_check_99903_param);
+  tcase_add_test(tcase, test_internal_consistency_check_99903_localparam);
   tcase_add_test(tcase, test_internal_consistency_check_99904);
+  tcase_add_test(tcase, test_internal_consistency_check_99904_kl);
+  tcase_add_test(tcase, test_internal_consistency_check_99904_model);
+  tcase_add_test(tcase, test_internal_consistency_check_99904_param);
   tcase_add_test(tcase, test_internal_consistency_check_99905);
   tcase_add_test(tcase, test_internal_consistency_check_99905_ct);
   tcase_add_test(tcase, test_internal_consistency_check_99905_delay);
@@ -345,6 +628,14 @@ create_suite_TestInternalConsistencyChecks (void)
   tcase_add_test(tcase, test_internal_consistency_check_99908);
   tcase_add_test(tcase, test_internal_consistency_check_99909);
   tcase_add_test(tcase, test_internal_consistency_check_99910);
+  tcase_add_test(tcase, test_internal_consistency_check_99911_event);
+  tcase_add_test(tcase, test_internal_consistency_check_99911_ea);
+  tcase_add_test(tcase, test_internal_consistency_check_99911_fd);
+  tcase_add_test(tcase, test_internal_consistency_check_99911_kl);
+  tcase_add_test(tcase, test_internal_consistency_check_99911_model);
+  tcase_add_test(tcase, test_internal_consistency_check_99911_param);
+  tcase_add_test(tcase, test_internal_consistency_check_99912);
+  tcase_add_test(tcase, test_internal_consistency_check_99913);
 
   suite_add_tcase(suite, tcase);
 

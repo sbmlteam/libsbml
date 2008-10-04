@@ -687,12 +687,15 @@ typedef enum
   , CompartmentTypeNotValidAttribute      = 99902
   , ConstantNotValidAttribute             = 99903
   , MetaIdNotValidAttribute               = 99904
-  , SBOTermNotValidAttribute              = 99905
+  , SBOTermNotValidAttributeBeforeL2V3    = 99905
   , InvalidL1CompartmentUnits             = 99906
   , L1V1CompartmentVolumeReqd             = 99907
   , CompartmentTypeNotValidComponent      = 99908
   , ConstraintNotValidComponent           = 99909
   , EventNotValidComponent                = 99910
+  , SBOTermNotValidAttributeBeforeL2V2    = 99911
+  , FuncDefNotValidComponent              = 99912
+  , InitialAssignNotValidComponent        = 99913
 
   /* Bounds */
 

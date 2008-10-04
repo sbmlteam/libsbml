@@ -392,6 +392,10 @@ public:
    * getError().
    *
    * @return the number of failed checks (errors) encountered.
+   *
+   * @note The consistency checks performed by this function are limited
+   * to inconsistencies that are not caught by other consistency checks.
+   * @see setConsistencyChecks()
    */
   unsigned int checkInternalConsistency ();
 

@@ -3430,7 +3430,7 @@ static const sbmlErrorTableEntry errorTable[] =
 
   //99905
   {   
-    SBOTermNotValidAttribute,   
+    SBOTermNotValidAttributeBeforeL2V3,   
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
@@ -3505,7 +3505,48 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,
     "Event not valid"
+  },
+
+  //99911
+  {   
+    SBOTermNotValidAttributeBeforeL2V2,   
+    LIBSBML_CAT_INTERNAL_CONSISTENCY,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "SBOTerm not valid"
+  },
+
+  //99912
+  {   
+    FuncDefNotValidComponent,   
+    LIBSBML_CAT_INTERNAL_CONSISTENCY,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "FunctionDefinition not valid"
+  },
+
+  //99913
+  {   
+    InitialAssignNotValidComponent,   
+    LIBSBML_CAT_INTERNAL_CONSISTENCY,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "InitialAssignment not valid"
   }
+
+
 
 };
 

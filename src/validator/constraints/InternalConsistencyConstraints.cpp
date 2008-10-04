@@ -36,45 +36,6 @@
 
 #include <sbml/util/List.h>
 
-#include "CompartmentOutsideCycles.h"
-#include "FunctionDefinitionVars.h"
-
-#include "UniqueIdsForUnitDefinitions.h"
-#include "UniqueIdsInKineticLaw.h"
-#include "UniqueIdsInModel.h"
-#include "UniqueVarsInEventAssignments.h"
-#include "UniqueVarsInRules.h"
-#include "UniqueVarsInEventsAndRules.h"
-#include "UniqueMetaId.h"
-
-#include "FunctionReferredToExists.h"
-#include "SpeciesReactionOrRule.h"
-#include "UniqueSpeciesTypesInCompartment.h"
-#include "UniqueSymbolsInInitialAssignments.h"
-#include "UniqueVarsInInitialAssignmentsAndRules.h"
-#include "StoichiometryMathVars.h"
-#include "KineticLawVars.h"
-#include "AssignmentCycles.h"
-
-//#include "FormulaUnitsCheck.h"
-
-//#include "PowerUnitsCheck.h"
-//#include "ExponentUnitsCheck.h"
-#include "ArgumentsUnitsCheck.h"
-
-#include "LogicalArgsMathCheck.h"
-#include "NumericArgsMathCheck.h"
-#include "PieceBooleanMathCheck.h"
-#include "PiecewiseValueMathCheck.h"
-#include "EqualityArgsMathCheck.h"
-#include "FunctionApplyMathCheck.h"
-#include "CiElementMathCheck.h"
-#include "LambdaMathCheck.h"
-#include "NumericReturnMathCheck.h"
-#include "LocalParameterMathCheck.h"
-#include "NumberArgsMathCheck.h"
-
-#include "OverDeterminedCheck.h"
 
 #endif
 
@@ -110,16 +71,52 @@ START_CONSTRAINT (99902, Compartment, c)
 }
 END_CONSTRAINT
 
-
+// 99903 constant not valid attribute
+// assume it should default to false
 START_CONSTRAINT (99903, Compartment, c)
 {
-  // level 1 compartment constant didnt exist and should be false
+  // level 1 compartment constant didnt exist
+  // if compartment appears as the variable in a rule it should be false
+  // otherwise it can be either
   pre( c.getLevel() == 1);
   
-  inv( c.getConstant() == false );
+  const Rule *r = m.getRule(c.getId());
+
+  if (r != NULL)
+  {
+    inv( c.getConstant() == false );
+  }
 }
 END_CONSTRAINT
 
+START_CONSTRAINT (99903, Parameter, p)
+{
+  // level 1 parameter constant didnt exist
+  // if parameter appears as the variable in a rule it should be false
+  // otherwise it can be either
+  // BUT a local parameter must be true
+  pre( p.getLevel() == 1);
+  
+  SBase *sb = const_cast <Parameter *> (&p)->getParentSBMLObject();
+  if (sb->getParentSBMLObject()->getTypeCode() == SBML_KINETIC_LAW)
+  {
+    // local parameter
+    inv (p.getConstant() == true);
+  }
+  else
+  {
+    const Rule *r = m.getRule(p.getId());
+
+    if (r != NULL)
+    {
+      inv( p.getConstant() == false );
+    }
+  }
+}
+END_CONSTRAINT
+
+// 99904 - metaid did not exist in l1
+// this constraint applies to any component that did exist in l1
 START_CONSTRAINT (99904, Compartment, c)
 {
   // level 1 metaid didnt exist
@@ -129,6 +126,39 @@ START_CONSTRAINT (99904, Compartment, c)
 }
 END_CONSTRAINT
 
+
+START_CONSTRAINT (99904, KineticLaw, kl)
+{
+  // level 1 metaid didnt exist
+  pre( kl.getLevel() == 1);
+  
+  inv( kl.isSetMetaId() == false );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (99904, Model, x)
+{
+  // level 1 metaid didnt exist
+  pre( x.getLevel() == 1);
+  
+  inv( x.isSetMetaId() == false );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (99904, Parameter, p)
+{
+  // level 1 metaid didnt exist
+  pre( p.getLevel() == 1);
+  
+  inv( p.isSetMetaId() == false );
+}
+END_CONSTRAINT
+
+// 99905 SBOTerm not valid before l2v3
+// this constraint applies to any component that existed in l2v2
+// but did not have an sboterm
 START_CONSTRAINT (99905, Compartment, c)
 {
   // level 1; l2v1; l2v2 sboTerm didnt exist
@@ -137,6 +167,7 @@ START_CONSTRAINT (99905, Compartment, c)
   inv( c.isSetSBOTerm() == false );
 }
 END_CONSTRAINT
+
 
 START_CONSTRAINT (99905, CompartmentType, ct)
 {
@@ -147,6 +178,7 @@ START_CONSTRAINT (99905, CompartmentType, ct)
 }
 END_CONSTRAINT
 
+
 START_CONSTRAINT (99905, Delay, d)
 {
   // level 1; l2v1; l2v2 sboTerm didnt exist
@@ -155,6 +187,7 @@ START_CONSTRAINT (99905, Delay, d)
   inv( d.isSetSBOTerm() == false );
 }
 END_CONSTRAINT
+
 
 START_CONSTRAINT (99906, Compartment, c)
 {
@@ -171,14 +204,16 @@ START_CONSTRAINT (99906, Compartment, c)
 }
 END_CONSTRAINT
 
+
 START_CONSTRAINT (99907, Compartment, c)
 {
-  // level 1 version volume required
+  // level 1 version 1 volume required
   pre( c.getLevel() == 1 && c.getVersion() == 1)
   
   inv( c.isSetVolume() == true );
 }
 END_CONSTRAINT
+
 
 START_CONSTRAINT (99908, Model, x)
 {
@@ -189,6 +224,7 @@ START_CONSTRAINT (99908, Model, x)
 }
 END_CONSTRAINT
 
+
 START_CONSTRAINT (99909, Model, x)
 {
   // constraint not valid in L1 or L2v1
@@ -198,6 +234,7 @@ START_CONSTRAINT (99909, Model, x)
 }
 END_CONSTRAINT
 
+
 START_CONSTRAINT (99910, Model, x)
 {
   // event not valid in L1
@@ -206,3 +243,87 @@ START_CONSTRAINT (99910, Model, x)
   inv( x.getNumEvents() == 0 );
 }
 END_CONSTRAINT
+
+// 99911 SBOTerm not valid before l2v2
+// this constraint applies to any component that existed in l2v1 and earlier
+// but did not have an sboterm
+START_CONSTRAINT (99911, Event, e)
+{
+  // level 1; l2v1 sboTerm didnt exist
+  pre( e.getLevel() == 1 || (e.getLevel() == 2 && e.getVersion() == 1));
+  
+  inv( e.isSetSBOTerm() == false );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (99911, EventAssignment, ea)
+{
+  // level 1; l2v1 sboTerm didnt exist
+  pre( ea.getLevel() == 1 || (ea.getLevel() == 2 && ea.getVersion() == 1));
+  
+  inv( ea.isSetSBOTerm() == false );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (99911, FunctionDefinition, fd)
+{
+  // level 1; l2v1 sboTerm didnt exist
+  pre( fd.getLevel() == 1 || (fd.getLevel() == 2 && fd.getVersion() == 1));
+  
+  inv( fd.isSetSBOTerm() == false );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (99911, KineticLaw, kl)
+{
+  // level 1; l2v1 sboTerm didnt exist
+  pre( kl.getLevel() == 1 || (kl.getLevel() == 2 && kl.getVersion() == 1));
+  
+  inv( kl.isSetSBOTerm() == false );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (99911, Model, m1)
+{
+  // level 1; l2v1 sboTerm didnt exist
+  pre( m1.getLevel() == 1 || (m1.getLevel() == 2 && m1.getVersion() == 1));
+  
+  inv( m1.isSetSBOTerm() == false );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (99911, Parameter, p)
+{
+  // level 1; l2v1 sboTerm didnt exist
+  pre( p.getLevel() == 1 || (p.getLevel() == 2 && p.getVersion() == 1));
+  
+  inv( p.isSetSBOTerm() == false );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (99912, Model, x)
+{
+  // functionDefinition not valid in L1
+  pre( x.getLevel() == 1 );
+  
+  inv( x.getNumFunctionDefinitions() == 0 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (99913, Model, x)
+{
+  // initial assignment not valid in L1 or L2v1
+  pre( x.getLevel() == 1 ||(x.getLevel() == 2 && x.getVersion() == 1));
+  
+  inv( x.getNumInitialAssignments() == 0 );
+}
+END_CONSTRAINT
+
+
