@@ -400,6 +400,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\InternalConsistencyConstraints.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\validator\InternalConsistencyValidator.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\sbml\KineticLaw.cpp"
 				>
 			</File>
@@ -989,6 +997,10 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\InitialAssignment.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\validator\InternalConsistencyValidator.h"
 				>
 			</File>
 			<File

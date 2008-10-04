@@ -412,6 +412,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\validator\constraints\InternalConsistencyConstraints.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\validator\InternalConsistencyValidator.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\validator\constraints\IdList.cpp"
 				>
 			</File>

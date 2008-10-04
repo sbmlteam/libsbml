@@ -285,6 +285,12 @@
 				RelativePath="..\..\src\compress\InputDecompressor.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\InternalConsistencyConstraints.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\InternalConsistencyValidator.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\compress\ioapi.c">
 			</File>
 			<File
@@ -755,6 +761,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\compress\InputDecompressor.h">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\InternalConsistencyValidator.h">
 			</File>
 			<File
 				RelativePath="..\..\src\compress\ioapi.h">
