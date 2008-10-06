@@ -1239,14 +1239,19 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
   /* units of the species are units substance/size */
   ud = subsUD;
 
-  for (n = 0; n < sizeUD->getNumUnits(); n++)
+  /* shouldnt really happen but if someone is creating invalid
+   * sbml the sizeUD may be NULL
+   */
+  if (sizeUD != NULL)
   {
-    unit = sizeUD->getUnit(n);
-    unit->setExponent(-1 * unit->getExponent());
+    for (n = 0; n < sizeUD->getNumUnits(); n++)
+    {
+      unit = sizeUD->getUnit(n);
+      unit->setExponent(-1 * unit->getExponent());
 
-    ud->addUnit(unit);
+      ud->addUnit(unit);
+    }
   }
-
   // as a safety catch 
   if (ud == NULL)
   {
