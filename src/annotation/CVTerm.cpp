@@ -100,7 +100,7 @@ CVTerm::CVTerm(const XMLNode node)
     else if (name == "encodes") 
       setBiologicalQualifierType(BQB_ENCODES);
     else if (name == "occursIn") 
-      setBiologicalQualifierType(BQB_OCCURSIN);
+      setBiologicalQualifierType(BQB_OCCURS_IN);
 
 
   }

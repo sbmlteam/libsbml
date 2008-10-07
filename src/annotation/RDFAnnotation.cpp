@@ -406,6 +406,9 @@ RDFAnnotationParser::createCVTerms(const SBase * object)
         case BQB_ENCODES:
           name = "encodes";
           break;
+        case BQB_OCCURS_IN:
+          name = "occursIn";
+          break;
         case BQB_UNKNOWN:
           return NULL;
       	  break;
