@@ -696,6 +696,18 @@ typedef enum
   , SBOTermNotValidAttributeBeforeL2V2    = 99911
   , FuncDefNotValidComponent              = 99912
   , InitialAssignNotValidComponent        = 99913
+  , VariableNotValidAttribute             = 99914
+  , UnitsNotValidAttribute                = 99915
+  , ConstantSpeciesNotValidAttribute      = 99916
+  , SpatialSizeUnitsNotValidAttribute     = 99917
+  , SpeciesTypeNotValidAttribute          = 99918
+  , HasOnlySubsUnitsNotValidAttribute     = 99919
+  , IdNotValidAttribute                   = 99920
+  , NameNotValidAttribute                 = 99921
+  , SpeciesTypeNotValidComponent          = 99922
+  , StoichiometryMathNotValidComponent    = 99923
+  , MultiplierNotValidAttribute           = 99924
+  , OffsetNotValidAttribute               = 99925
 
   /* Bounds */
 

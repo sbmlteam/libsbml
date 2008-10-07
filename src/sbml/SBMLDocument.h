@@ -718,6 +718,11 @@ SBMLDocument_checkConsistency (SBMLDocument_t *d);
 
 
 LIBSBML_EXTERN
+unsigned int
+SBMLDocument_checkInternalConsistency (SBMLDocument_t *d);
+
+
+LIBSBML_EXTERN
 unsigned int 
 SBMLDocument_checkL1Compatibility (SBMLDocument_t *d);
 

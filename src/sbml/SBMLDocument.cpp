@@ -734,7 +734,6 @@ SBMLDocument::checkInternalConsistency()
   unsigned int totalerrors = 0;
 
   InternalConsistencyValidator validator;
-  ConsistencyValidator validator1;
 
   validator.init();
   nerrors = validator.validate(*this);
@@ -1447,6 +1446,26 @@ unsigned int
 SBMLDocument_checkConsistency (SBMLDocument_t *d)
 {
   return d->checkConsistency();
+}
+
+
+/**
+ * Performs consistency checking on libSBML's internal representation of 
+ * an SBML Model.
+ *
+ * @param d the SBMLDocument_t structure
+ *
+ * @return the number of failed checks (errors) encountered.
+ *
+ * @note The consistency checks performed by this function are limited
+ * to inconsistencies that are not caught by other consistency checks.
+ * @see setConsistencyChecks()
+ */
+LIBSBML_EXTERN
+unsigned int
+SBMLDocument_checkInternalConsistency (SBMLDocument_t *d)
+{
+  return d->checkInternalConsistency();
 }
 
 

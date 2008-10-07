@@ -252,8 +252,187 @@ START_TEST (test_internal_consistency_check_99904_param)
   Model *m = d->createModel();
 
   p->setMetaId("mmm");
-  p->setConstant(false);
   m->addParameter(p);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99904);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99904_react)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Reaction *r = new Reaction();
+  d->setLevelAndVersion(1, 2);
+  Model *m = d->createModel();
+
+  r->setMetaId("mmm");
+  m->addReaction(r);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99904);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99904_rule_assign)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Rule *r = new AssignmentRule();
+  d->setLevelAndVersion(1, 2);
+  Model *m = d->createModel();
+
+  r->setMetaId("mmm");
+  m->addRule(r);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99904);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99904_rule_rate)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Rule *r = new RateRule();
+  d->setLevelAndVersion(1, 2);
+  Model *m = d->createModel();
+
+  r->setMetaId("mmm");
+  m->addRule(r);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99904);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99904_rule_alg)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Rule *r = new AlgebraicRule();
+  d->setLevelAndVersion(1, 2);
+  Model *m = d->createModel();
+
+  r->setMetaId("mmm");
+  m->addRule(r);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99904);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99904_species)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Species *s = new Species();
+  d->setLevelAndVersion(1, 2);
+  Model *m = d->createModel();
+  Compartment *c = m->createCompartment();
+  c->setId("c");
+
+  s->setCompartment("c");
+  s->setMetaId("mmm");
+  m->addSpecies(s);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99904);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99904_speciesRef)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  SpeciesReference *sr = new SpeciesReference();
+  d->setLevelAndVersion(1, 2);
+  Model *m = d->createModel();
+  Compartment *c = m->createCompartment();
+  c->setId("c");
+  Species * s = m->createSpecies();
+  s->setId("s");
+  Reaction *r = m->createReaction();
+
+  s->setCompartment("c");
+  sr->setSpecies("s");
+  sr->setMetaId("mmm");
+  r->addProduct(sr);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99904);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99904_unit)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Unit *u = new Unit();
+  d->setLevelAndVersion(1, 2);
+  Model *m = d->createModel();
+  UnitDefinition *ud = m->createUnitDefinition();
+
+  u->setMetaId("mmm");
+  u->setKind(UNIT_KIND_MOLE);
+  ud->addUnit(u);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99904);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99904_unitdef)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  UnitDefinition *u = new UnitDefinition();
+  d->setLevelAndVersion(1, 2);
+  Model *m = d->createModel();
+
+  u->setMetaId("mmm");
+  m->addUnitDefinition(u);
 
   errors = d->checkInternalConsistency();
 
@@ -317,6 +496,145 @@ START_TEST (test_internal_consistency_check_99905_delay)
   delay->setSBOTerm(5);
   e->setDelay(delay);
   m->addEvent(e);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99905);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99905_species)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Species *s = new Species();
+  d->setLevelAndVersion(1, 2);
+  Model *m = d->createModel();
+  Compartment *c = m->createCompartment();
+  c->setId("c");
+
+  s->setCompartment("c");
+  s->setSBOTerm(2);
+  m->addSpecies(s);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99905);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99905_st)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  SpeciesType *ct = new SpeciesType();
+  Model *m = d->createModel();
+  d->setLevelAndVersion(2, 2);
+  ct->setSBOTerm(5);
+  m->addSpeciesType(ct);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99905);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99905_stoichmath)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  StoichiometryMath *sm = new StoichiometryMath();
+  Model *m = d->createModel();
+  d->setLevelAndVersion(2, 2);
+  Species *s = m->createSpecies();
+  s->setId("s");
+  Compartment *c = m->createCompartment();
+  c->setId("c");
+  s->setCompartment("c");
+  Reaction *r = m->createReaction();
+  SpeciesReference *sr = r->createProduct();
+  sr->setSpecies("s");
+  
+  sm->setSBOTerm(5);
+  sr->setStoichiometryMath(sm);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99905);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99905_trigger)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Trigger *trigger = new Trigger();
+  Event *e = new Event();
+  Model *m = d->createModel();
+  d->setLevelAndVersion(2, 2);
+  trigger->setSBOTerm(5);
+  e->setTrigger(trigger);
+  m->addEvent(e);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99905);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99905_unit)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Unit *u = new Unit();
+  d->setLevelAndVersion(1, 2);
+  Model *m = d->createModel();
+  UnitDefinition *ud = m->createUnitDefinition();
+
+  u->setKind(UNIT_KIND_MOLE);
+  u->setSBOTerm(9);
+  ud->addUnit(u);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99905);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99905_unitdef)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  UnitDefinition *u = new UnitDefinition();
+  d->setLevelAndVersion(1, 2);
+  Model *m = d->createModel();
+
+  u->setSBOTerm(9);
+  m->addUnitDefinition(u);
 
   errors = d->checkInternalConsistency();
 
@@ -562,6 +880,118 @@ START_TEST (test_internal_consistency_check_99911_param)
 END_TEST
 
 
+START_TEST (test_internal_consistency_check_99911_react)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Model *m = d->createModel();
+  Reaction *r = new Reaction();
+  d->setLevelAndVersion(2, 1);
+
+  r->setSBOTerm(2);
+  m->addReaction(r );
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99911);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99911_rule_assign)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Model *m = d->createModel();
+  Rule *r = new AssignmentRule();
+  d->setLevelAndVersion(2, 1);
+
+  r->setSBOTerm(2);
+  m->addRule(r );
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99911);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99911_rule_rate)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Model *m = d->createModel();
+  Rule *r = new RateRule();
+  d->setLevelAndVersion(2, 1);
+
+  r->setSBOTerm(2);
+  m->addRule(r );
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99911);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99911_rule_alg)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Model *m = d->createModel();
+  Rule *r = new AlgebraicRule();
+  d->setLevelAndVersion(2, 1);
+
+  r->setSBOTerm(2);
+  m->addRule(r );
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99911);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99911_speciesRef)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  SpeciesReference *sr = new SpeciesReference();
+  d->setLevelAndVersion(1, 2);
+  Model *m = d->createModel();
+  Compartment *c = m->createCompartment();
+  c->setId("c");
+  Species * s = m->createSpecies();
+  s->setId("s");
+  Reaction *r = m->createReaction();
+
+  s->setCompartment("c");
+  sr->setSpecies("s");
+  sr->setSBOTerm(4);
+  r->addReactant(sr);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99911);
+
+  delete d;
+}
+END_TEST
+
+
 START_TEST (test_internal_consistency_check_99912)
 {
   SBMLDocument*     d = new SBMLDocument();
@@ -604,6 +1034,372 @@ START_TEST (test_internal_consistency_check_99913)
 END_TEST
 
 
+START_TEST (test_internal_consistency_check_99914)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Model *m = d->createModel();
+  Rule *r = new AlgebraicRule();
+  d->setLevelAndVersion(2, 1);
+
+  r->setVariable("kk");
+  m->addRule(r );
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99914);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99915_alg)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Model *m = d->createModel();
+  Rule *r = new AlgebraicRule();
+  d->setLevelAndVersion(2, 1);
+
+  r->setUnits("kk");
+  m->addRule(r );
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99915);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99915_assign)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  d->setLevelAndVersion(1, 2);
+  Model *m = d->createModel();
+  AssignmentRule *r = m->createAssignmentRule();
+  r->setL1TypeCode(SBML_SPECIES_CONCENTRATION_RULE);
+
+  r->setUnits("mmm");
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99915);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99915_rate)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  d->setLevelAndVersion(1, 2);
+  Model *m = d->createModel();
+  RateRule *r = m->createRateRule();
+  r->setL1TypeCode(SBML_SPECIES_CONCENTRATION_RULE);
+
+  r->setUnits("mmm");
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99915);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99916_rule)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Species *s = new Species();
+  d->setLevelAndVersion(1, 2);
+  Model *m = d->createModel();
+  Compartment * c = m->createCompartment();
+  c->setId("c");
+
+  s->setId("s");
+  s->setCompartment("c");
+  s->setConstant(true);
+  m->addSpecies(s);
+
+  Rule * r = m->createAssignmentRule();
+  r->setVariable("s");
+
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99916);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99916_reaction)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Species *s = new Species();
+  d->setLevelAndVersion(1, 2);
+  Model *m = d->createModel();
+  Compartment * c = m->createCompartment();
+  c->setId("c");
+  Reaction * r = m->createReaction();
+  SpeciesReference *sr = r->createReactant();
+
+  s->setId("s");
+  s->setCompartment("c");
+  s->setConstant(true);
+  sr->setSpecies("s");
+  m->addSpecies(s);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99916);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99917)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Species *s = new Species();
+  d->setLevelAndVersion(1, 2);
+  Model *m = d->createModel();
+  Compartment * c = m->createCompartment();
+  c->setId("c");
+
+  s->setId("s");
+  s->setCompartment("c");
+  s->setSpatialSizeUnits("kkk");
+  m->addSpecies(s);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99917);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99918)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Species *s = new Species();
+  d->setLevelAndVersion(1, 2);
+  Model *m = d->createModel();
+  Compartment * c = m->createCompartment();
+  c->setId("c");
+
+  s->setCompartment("c");
+  s->setSpeciesType("kkk");
+  m->addSpecies(s);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99918);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99919)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Species *s = new Species();
+  d->setLevelAndVersion(1, 2);
+  Model *m = d->createModel();
+  Compartment * c = m->createCompartment();
+  c->setId("c");
+
+  s->setCompartment("c");
+  s->setHasOnlySubstanceUnits(true);
+  m->addSpecies(s);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99919);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99920)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  SpeciesReference *sr = new SpeciesReference();
+  d->setLevelAndVersion(1, 2);
+  Model *m = d->createModel();
+  Compartment *c = m->createCompartment();
+  c->setId("c");
+  Species * s = m->createSpecies();
+  s->setId("s");
+  Reaction *r = m->createReaction();
+
+  s->setCompartment("c");
+  sr->setSpecies("s");
+  sr->setId("mmm");
+  r->addProduct(sr);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 2);
+  fail_unless(d->getError(0)->getErrorId() == 99920);
+  fail_unless(d->getError(1)->getErrorId() == 99921);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99921)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  SpeciesReference *sr = new SpeciesReference();
+  d->setLevelAndVersion(2, 1);
+  Model *m = d->createModel();
+  Compartment *c = m->createCompartment();
+  c->setId("c");
+  Species * s = m->createSpecies();
+  s->setId("s");
+  Reaction *r = m->createReaction();
+
+  s->setCompartment("c");
+  sr->setSpecies("s");
+  sr->setName("mmm");
+  r->addReactant(sr);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99921);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99922)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  SpeciesType *ct = new SpeciesType();
+  Model *m = d->createModel();
+
+  d->setLevelAndVersion(2, 1);
+  m->addSpeciesType(ct);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99922);
+
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99923)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  StoichiometryMath *sm = new StoichiometryMath();
+  Model *m = d->createModel();
+  d->setLevelAndVersion(1, 2);
+  Species *s = m->createSpecies();
+  s->setId("s");
+  Compartment *c = m->createCompartment();
+  c->setId("c");
+  s->setCompartment("c");
+  Reaction *r = m->createReaction();
+  SpeciesReference *sr = r->createProduct();
+  sr->setSpecies("s");
+  
+  sr->setStoichiometryMath(sm);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99923);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99924)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Unit *u = new Unit();
+  d->setLevelAndVersion(1, 2);
+  Model *m = d->createModel();
+  UnitDefinition *ud = m->createUnitDefinition();
+
+  u->setKind(UNIT_KIND_MOLE);
+  u->setMultiplier(9);
+  ud->addUnit(u);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99924);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_internal_consistency_check_99925)
+{
+  SBMLDocument*     d = new SBMLDocument();
+  unsigned int errors;
+  Unit *u = new Unit();
+  d->setLevelAndVersion(1, 2);
+  Model *m = d->createModel();
+  UnitDefinition *ud = m->createUnitDefinition();
+
+  u->setKind(UNIT_KIND_MOLE);
+  u->setOffset(9);
+  ud->addUnit(u);
+
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 99925);
+
+  delete d;
+}
+END_TEST
+
+
 Suite *
 create_suite_TestInternalConsistencyChecks (void)
 { 
@@ -620,9 +1416,23 @@ create_suite_TestInternalConsistencyChecks (void)
   tcase_add_test(tcase, test_internal_consistency_check_99904_kl);
   tcase_add_test(tcase, test_internal_consistency_check_99904_model);
   tcase_add_test(tcase, test_internal_consistency_check_99904_param);
+  tcase_add_test(tcase, test_internal_consistency_check_99904_react);
+  tcase_add_test(tcase, test_internal_consistency_check_99904_rule_assign);
+  tcase_add_test(tcase, test_internal_consistency_check_99904_rule_rate);
+  tcase_add_test(tcase, test_internal_consistency_check_99904_rule_alg);
+  tcase_add_test(tcase, test_internal_consistency_check_99904_species);
+  tcase_add_test(tcase, test_internal_consistency_check_99904_speciesRef);
+  tcase_add_test(tcase, test_internal_consistency_check_99904_unit);
+  tcase_add_test(tcase, test_internal_consistency_check_99904_unitdef);
   tcase_add_test(tcase, test_internal_consistency_check_99905);
   tcase_add_test(tcase, test_internal_consistency_check_99905_ct);
   tcase_add_test(tcase, test_internal_consistency_check_99905_delay);
+  tcase_add_test(tcase, test_internal_consistency_check_99905_species);
+  tcase_add_test(tcase, test_internal_consistency_check_99905_st);
+  tcase_add_test(tcase, test_internal_consistency_check_99905_stoichmath);
+  tcase_add_test(tcase, test_internal_consistency_check_99905_trigger);
+  tcase_add_test(tcase, test_internal_consistency_check_99905_unit);
+  tcase_add_test(tcase, test_internal_consistency_check_99905_unitdef);
   tcase_add_test(tcase, test_internal_consistency_check_99906);
   tcase_add_test(tcase, test_internal_consistency_check_99907);
   tcase_add_test(tcase, test_internal_consistency_check_99908);
@@ -634,8 +1444,28 @@ create_suite_TestInternalConsistencyChecks (void)
   tcase_add_test(tcase, test_internal_consistency_check_99911_kl);
   tcase_add_test(tcase, test_internal_consistency_check_99911_model);
   tcase_add_test(tcase, test_internal_consistency_check_99911_param);
+  tcase_add_test(tcase, test_internal_consistency_check_99911_react);
+  tcase_add_test(tcase, test_internal_consistency_check_99911_rule_assign);
+  tcase_add_test(tcase, test_internal_consistency_check_99911_rule_rate);
+  tcase_add_test(tcase, test_internal_consistency_check_99911_rule_alg);
+  tcase_add_test(tcase, test_internal_consistency_check_99911_speciesRef);
   tcase_add_test(tcase, test_internal_consistency_check_99912);
   tcase_add_test(tcase, test_internal_consistency_check_99913);
+  tcase_add_test(tcase, test_internal_consistency_check_99914);
+  tcase_add_test(tcase, test_internal_consistency_check_99915_alg);
+  tcase_add_test(tcase, test_internal_consistency_check_99915_assign);
+  tcase_add_test(tcase, test_internal_consistency_check_99915_rate);
+  tcase_add_test(tcase, test_internal_consistency_check_99916_rule);
+  tcase_add_test(tcase, test_internal_consistency_check_99916_reaction);
+  tcase_add_test(tcase, test_internal_consistency_check_99917);
+  tcase_add_test(tcase, test_internal_consistency_check_99918);
+  tcase_add_test(tcase, test_internal_consistency_check_99919);
+  tcase_add_test(tcase, test_internal_consistency_check_99920);
+  tcase_add_test(tcase, test_internal_consistency_check_99921);
+  tcase_add_test(tcase, test_internal_consistency_check_99922);
+  tcase_add_test(tcase, test_internal_consistency_check_99923);
+  tcase_add_test(tcase, test_internal_consistency_check_99924);
+  tcase_add_test(tcase, test_internal_consistency_check_99925);
 
   suite_add_tcase(suite, tcase);
 

@@ -3386,7 +3386,10 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,
-    "Spatial dimensions is 3"
+    "The 'spatialDimensions' attribute on <compartment> was not available "
+    "in SBML Level 1. In order for the internal respresentation of a "
+    "<compartment> to be correct, the value for the spatialDimensions "
+    "member variable should be '3'."
   },
 
   //99902
@@ -3395,11 +3398,14 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
-    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,
-    "CompartmentType not valid"
+    "The 'compartmentType' attribute on <compartment> was not available "
+    "in SBML Level 1 or SBML Level 2 Version 1. In order for the internal "
+    "respresentation of a <compartment> to be correct, the value for the "
+    "compartmentType member variable should be not be set."
   },
 
   //99903
@@ -3412,7 +3418,12 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,
-    "Constant not valid"
+    "The 'constant' attribute on <compartment> and <parameter> was not "
+    "available in SBML Level 1. In order for the internal respresentation "
+    "of <compartment> and <parameter> to be correct, the value for the "
+    "constant member variable should be 'false' if the <compartment> or "
+    "<parameter> is the variable of a <rule> otherwise it can be either "
+    "'true' or 'false' without affecting the interpretation of the model."
   },
 
   //99904
@@ -3425,7 +3436,10 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,
-    "MetaId not valid"
+    "The 'metaId' attribute on all <SBase> objects was not available "
+    "in SBML Level 1. In order for the internal "
+    "respresentation to be correct, the value for the "
+    "metaId member variable should be not be set."
   },
 
   //99905
@@ -3438,7 +3452,12 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,
-    "SBOTerm not valid"
+    "The 'sboTerm' attribute on <compartment>, <compartmentType> "
+    "<delay>, <species>, <speciesType>, <stoichiometryMath>, <trigger> "
+    "<unit> and <unitDefinition> was not available before SBML Level 2 "
+    "Version 3. In order for the internal "
+    "respresentation of these components to be correct, the value for the "
+    "sboTerm member variable should be '-1'."
   },
 
   //99906
@@ -3451,7 +3470,10 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,
-    "Units not valid"
+    "The value of the 'units' attribute on a <compartment> must be either "
+    "'volume', 'litre', 'liter' or the identifier of a <unitDefinition> "
+    "based on either 'litre'/'liter' or 'metre'/'meter' (with "
+    "'exponent' equal to '3')."
   },
 
   //99907
@@ -3478,7 +3500,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,
-    "CT not valid"
+    "The <compartmentType> component was introduced in SBML Level 2 Version "
+    "2. In order for the internal respresentation of a <model> to "
+    "be correct, the <listOfCompartmentTypes> component should be empty."
   },
 
   //99909
@@ -3491,7 +3515,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,
-    "Constraint not valid"
+    "The <constraint> component was introduced in SBML Level 2 Version "
+    "2. In order for the internal respresentation of a <model> to "
+    "be correct, the <listOfConstraints> component should be empty."
   },
 
   //99910
@@ -3504,7 +3530,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,
-    "Event not valid"
+    "The <event> component was introduced in SBML Level 2 Version "
+    "1. In order for the internal respresentation of a <model> to "
+    "be correct, the <listOfEvents> component should be empty."
   },
 
   //99911
@@ -3517,7 +3545,12 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,
-    "SBOTerm not valid"
+    "The 'sboTerm' attribute on <event>, <eventAssignment> "
+    "<functionDefinition>, <kineticLaw>, <model>, <parameter>, <reaction> "
+    "<rule> and <speciesReferenece> was not available before SBML Level 2 "
+    "Version 2. In order for the internal "
+    "respresentation of these components to be correct, the value for the "
+    "sboTerm member variable should be '-1'."
   },
 
   //99912
@@ -3530,7 +3563,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,
-    "FunctionDefinition not valid"
+    "The <functionDefinition> component was introduced in SBML Level 2 Version "
+    "1. In order for the internal respresentation of a <model> to "
+    "be correct, the <listOfFunctionDefinitions> component should be empty."
   },
 
   //99913
@@ -3543,8 +3578,209 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,
-    "InitialAssignment not valid"
-  }
+    "The <initialAssignment> component was introduced in SBML Level 2 Version "
+    "2. In order for the internal respresentation of a <model> to "
+    "be correct, the <listOfInitialAssignments> component should be empty."
+  },
+
+  //99914
+  {   
+    VariableNotValidAttribute,   
+    LIBSBML_CAT_INTERNAL_CONSISTENCY,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,
+    "An <algebraicRule> does not assign value to a particular variable. "
+    "In order for the internal respresentation of a <algebraicRule> to "
+    "be correct, the variable member variable should not be set."
+  },
+
+  //99915
+  {   
+    UnitsNotValidAttribute,   
+    LIBSBML_CAT_INTERNAL_CONSISTENCY,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,
+    "The 'units' attribute on <rule> was only applicable to a <parameterRule> "
+    "in SBML Level 1. In order for the internal respresentation of a <rule> to "
+    "be correct, the value for the units member variable should not be set."
+  },
+
+  //99916
+  {   
+    ConstantSpeciesNotValidAttribute,   
+    LIBSBML_CAT_INTERNAL_CONSISTENCY,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "The 'constant' attribute on <species> was not available in SBML Level "
+    "1. In order for the internal respresentation "
+    "of <species> to be correct, the value for the "
+    "constant member variable should be 'false' if (1) the <species> is the "
+    "variable of a <rule> or (2) the 'boundaryCondition' attribute is 'false' "
+    "and the <species> is a procduct/reactant in a <reaction>. Otherwise it "
+    "can be either 'true' or 'false' without affecting the interpretation of "
+    "the model."
+  },
+
+  //99917
+  {   
+    SpatialSizeUnitsNotValidAttribute,   
+    LIBSBML_CAT_INTERNAL_CONSISTENCY,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "The 'spatialSizeUnits' attribute on <species> was not available "
+    "in SBML Level 1. In order for the internal "
+    "respresentation of a <species> to be correct, the value for the "
+    "spatialSizeUnits member variable should be not be set."
+  },
+
+  //99918
+  {   
+    SpeciesTypeNotValidAttribute,   
+    LIBSBML_CAT_INTERNAL_CONSISTENCY,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "The 'speciesType' attribute on <species> was not available "
+    "in SBML Level 1 or SBML Level 2 Version 1. In order for the internal "
+    "respresentation of a <species> to be correct, the value for the "
+    "speciesType member variable should be not be set."
+  },
+
+  //99919
+  {   
+    HasOnlySubsUnitsNotValidAttribute,   
+    LIBSBML_CAT_INTERNAL_CONSISTENCY,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "The 'hasOnlySubstanceUnits' attribute on <species> was not available "
+    "in SBML Level 1. In order for the internal "
+    "respresentation of a <species> to be correct, the value for the "
+    "hasOnlySubstanceUnits member variable should be 'false'."
+  },
+
+  //99920
+  {   
+    IdNotValidAttribute,   
+    LIBSBML_CAT_INTERNAL_CONSISTENCY,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "The 'id' attribute on <speciesReference> was not available "
+    "in SBML Level 1 or SBML Level 2 Version 1. In order for the internal "
+    "respresentation of a <speciesReference> to be correct, the value for the "
+    "id member variable should be not be set."
+  },
+
+    //99921
+  {   
+    NameNotValidAttribute,   
+    LIBSBML_CAT_INTERNAL_CONSISTENCY,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "The 'name' attribute on <speciesReference> was not available "
+    "in SBML Level 1 or SBML Level 2 Version 1. In order for the internal "
+    "respresentation of a <speciesReference> to be correct, the value for the "
+    "name member variable should be not be set."
+   },
+
+  //99922
+  {   
+    SpeciesTypeNotValidComponent,   
+    LIBSBML_CAT_INTERNAL_CONSISTENCY,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "The <speciesType> component was introduced in SBML Level 2 Version "
+    "2. In order for the internal respresentation of a <model> to "
+    "be correct, the <listOfSpeciesTypes> component should be empty."
+  },
+
+  //99923
+  {   
+    StoichiometryMathNotValidComponent,   
+    LIBSBML_CAT_INTERNAL_CONSISTENCY,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "The <stoichiometryMath> component on a <speciesReference> was "
+    "introduced in SBML Level 2. "
+    "In order for the internal respresentation of a <speciesReference> to "
+    "be correct, the <stoichiometryMath> component should be 'NULL'."
+  },
+
+  //99924
+  {   
+    MultiplierNotValidAttribute,   
+    LIBSBML_CAT_INTERNAL_CONSISTENCY,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "The 'multiplier' attribute on <unit> was not available in SBML Level 1. "
+    "In order for the internal respresentation of a <unit> to "
+    "be correct, the value for the multiplier member variable should be '1.0'."
+  }, 
+
+  //99925
+  {   
+    OffsetNotValidAttribute,   
+    LIBSBML_CAT_INTERNAL_CONSISTENCY,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "The 'offset' attribute on <unit> was only available in SBML Level 2 "
+    "Version 1. In order for the internal respresentation of a <unit> to "
+    "be correct, the value for the offset member variable should be '0'."
+  } 
+
+
+
+
+
+
+
+
 
 
 
