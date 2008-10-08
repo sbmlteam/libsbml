@@ -4,6 +4,18 @@
 
 * New features:
 
+    There is a new validator that checks the consistency of the internal
+    representation of a model.  Since the libSBML classes representing
+    SBML components maintain all variables associated with attributes 
+    from every level/version of SBML, it is possible to have an internal
+    representation that is in fact invalid SBML e.g. a level 1 compartment
+    where the spatialDimensions variable is set to 2.  This would never
+    be written out, as the spatialDimensions attribute did not exist in SBML
+    Level 1, but the stored information is an invalid representation.
+    This validator can be called using the function checkInternalConsistency()
+    on the SBMLDocument class.  As with all validators, errors are logged
+    in the SBMLErrorLog attached to the SBMLDocument.
+
   - Tracker issue #2086644.
     Validation was crashing when checking the math/units of an
     expression using a functionDefinition that had not been properly
@@ -17,6 +29,11 @@
     to csymbol time.
 
 * Bug fixes:
+
+  - Tracker issue #2136530
+    When adding a child to an XMLNode marked as an 'end' node the XMLNode
+    remained marked as an 'end' node.  This caused incorrect xml to be
+    written out.  Thanks to Ralph Gauges for reporting this.
 
   - A missing 'level' or 'version' attribute was not being correctly
     reported.
