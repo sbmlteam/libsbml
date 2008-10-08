@@ -206,6 +206,12 @@ void
 XMLNode::addChild (const XMLNode& node)
 {
   mChildren.push_back(node);
+
+  /* need to catch the case where this node is both a start and
+   * an end element
+   */
+  if (isEnd()) unsetEnd();
+
 }
 
 

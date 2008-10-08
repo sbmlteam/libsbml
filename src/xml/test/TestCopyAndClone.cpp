@@ -259,8 +259,8 @@ START_TEST (test_Node_copyConstructor)
   fail_unless(node->getName() == "sarah");
   fail_unless(node->getURI() == "http://foo.org/");
   fail_unless(node->getPrefix() == "bar");
-  fail_unless(node->isEnd() == 1);
-  fail_unless(node->isEOF() == 0);
+  fail_unless(node->isEnd() == 0);
+  fail_unless(node->isEOF() == 1);
   fail_unless(node->getLine() == 3);
   fail_unless(node->getColumn() == 4);
 
@@ -270,8 +270,8 @@ START_TEST (test_Node_copyConstructor)
   fail_unless(node2->getName() == "sarah");
   fail_unless(node2->getURI() == "http://foo.org/");
   fail_unless(node2->getPrefix() == "bar");
-  fail_unless(node2->isEnd() == 1);
-  fail_unless(node2->isEOF() == 0);
+  fail_unless(node2->isEnd() == 0);
+  fail_unless(node2->isEOF() == 1);
   fail_unless(node2->getLine() == 3);
   fail_unless(node2->getColumn() == 4);
 
@@ -295,8 +295,8 @@ START_TEST (test_Node_assignmentOperator)
   fail_unless(node->getName() == "sarah");
   fail_unless(node->getURI() == "http://foo.org/");
   fail_unless(node->getPrefix() == "bar");
-  fail_unless(node->isEnd() == 1);
-  fail_unless(node->isEOF() == 0);
+  fail_unless(node->isEnd() == 0);
+  fail_unless(node->isEOF() == 1);
   fail_unless(node->getLine() == 3);
   fail_unless(node->getColumn() == 4);
 
@@ -307,8 +307,8 @@ START_TEST (test_Node_assignmentOperator)
   fail_unless(node2->getName() == "sarah");
   fail_unless(node2->getURI() == "http://foo.org/");
   fail_unless(node2->getPrefix() == "bar");
-  fail_unless(node2->isEnd() == 1);
-  fail_unless(node2->isEOF() == 0);
+  fail_unless(node2->isEnd() == 0);
+  fail_unless(node2->isEOF() == 1);
   fail_unless(node2->getLine() == 3);
   fail_unless(node2->getColumn() == 4);
 
@@ -331,8 +331,8 @@ START_TEST (test_Node_clone)
   fail_unless(node->getName() == "sarah");
   fail_unless(node->getURI() == "http://foo.org/");
   fail_unless(node->getPrefix() == "bar");
-  fail_unless(node->isEnd() == 1);
-  fail_unless(node->isEOF() == 0);
+  fail_unless(node->isEnd() == 0);
+  fail_unless(node->isEOF() == 1);
   fail_unless(node->getLine() == 3);
   fail_unless(node->getColumn() == 4);
 
@@ -342,8 +342,8 @@ START_TEST (test_Node_clone)
   fail_unless(node2->getName() == "sarah");
   fail_unless(node2->getURI() == "http://foo.org/");
   fail_unless(node2->getPrefix() == "bar");
-  fail_unless(node2->isEnd() == 1);
-  fail_unless(node2->isEOF() == 0);
+  fail_unless(node2->isEnd() == 0);
+  fail_unless(node2->isEOF() == 1);
   fail_unless(node2->getLine() == 3);
   fail_unless(node2->getColumn() == 4);
 
