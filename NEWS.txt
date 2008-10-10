@@ -30,6 +30,10 @@
 
 * Bug fixes:
 
+  - The SBMLWriter::writeSBML() function could create a zip file in which 
+    an SBML file is stored with its path name.
+    Thanks to Florian Kamm for reporting this bug.
+
   - Tracker issue #2136530
     When adding a child to an XMLNode marked as an 'end' node the XMLNode
     remained marked as an 'end' node.  This caused incorrect xml to be

@@ -4,7 +4,7 @@
  * @author  Ben Bornstein
  *
  * $Id$
- * $HeadURL:$
+ * $HeadURL$
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -149,7 +149,20 @@ SBMLWriter::writeSBML (const SBMLDocument* d, const std::string& filename)
       {
         filenameinzip += ".xml";
       }
-  
+
+
+#if defined(WIN32) && !defined(CYGWIN)
+      char sepr = '\\';
+#else
+      char sepr = '/';
+#endif
+      size_t spos = filenameinzip.rfind(sepr, filenameinzip.length() - 1);
+      if( spos != string::npos )
+      {
+        filenameinzip = filenameinzip.substr(spos + 1, filenameinzip.length() - 1);
+      }
+
+      
       stream = OutputCompressor::openZipOStream(filename, filenameinzip);
     }
     else
