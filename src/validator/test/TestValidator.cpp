@@ -121,6 +121,10 @@ TestValidator::test (const TestFile& file)
   if (id == 99502 || id == 99503 || id == 99504)
     id = 10501;
 
+  /* change numbers for specific units tests that report same number */
+  if (id == 90502 || id == 90503 || id == 90504)
+    id = 90501;
+
   unsigned int expected = file.getNumFailures();
   unsigned int others   = file.getAdditionalFailId();
 
