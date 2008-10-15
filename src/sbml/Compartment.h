@@ -278,6 +278,40 @@ public:
 
 
   /**
+   * Creates a new Compartment with the given @p level and @p version
+   * values and optionally a set of XMLNamespaces.
+   *
+   * @param level an unsigned int, the SBML level to assign to this Compartment
+   * @param version an unsigned int, the SBML version to assign to this 
+   * Compartment
+   * @param xmlns XMLNamespaces, the set of XMLNamespaces to assign to
+   * this compartment
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
+   */
+  Compartment (unsigned int level, unsigned int version, 
+               XMLNamespaces* xmlns = 0);
+
+
+  /**
+   * Creates a new Compartment with the given @p document.
+   *
+   * @param document an SBMLDocument, the SBMLDocument to assign to this 
+   * Compartment
+   */
+  Compartment (SBMLDocument* document);
+
+  /**
    * Destroys this Compartment.
    */
   virtual ~Compartment ();
@@ -781,6 +815,17 @@ Compartment_createWith (const char *sid, const char *name);
 
 
 LIBSBML_EXTERN
+Compartment_t *
+Compartment_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns);
+
+
+LIBSBML_EXTERN
+Compartment_t *
+Compartment_createWithDocument (SBMLDocument_t *document);
+
+
+LIBSBML_EXTERN
 void
 Compartment_free (Compartment_t *c);
 
@@ -793,6 +838,11 @@ Compartment_clone (const Compartment_t* c);
 LIBSBML_EXTERN
 void
 Compartment_initDefaults (Compartment_t *c);
+
+
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+Compartment_getNamespaces(Compartment_t *c);
 
 
 LIBSBML_EXTERN

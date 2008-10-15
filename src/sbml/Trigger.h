@@ -96,6 +96,9 @@ public:
    */
   Trigger (const ASTNode* math = NULL);
 
+  Trigger (unsigned int level, unsigned int version, 
+               XMLNamespaces* xmlns = 0);
+  Trigger (SBMLDocument* document);
 
   /**
    * Destroys this Trigger.
@@ -280,6 +283,17 @@ Trigger_createWithMath ( const ASTNode_t *math);
 
 
 LIBSBML_EXTERN
+Trigger_t *
+Trigger_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns);
+
+
+LIBSBML_EXTERN
+Trigger_t *
+Trigger_createWithDocument (SBMLDocument_t *document);
+
+
+LIBSBML_EXTERN
 void
 Trigger_free (Trigger_t *t);
 
@@ -287,6 +301,11 @@ Trigger_free (Trigger_t *t);
 LIBSBML_EXTERN
 SBase_t *
 Trigger_clone (const Trigger_t *t);
+
+
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+Trigger_getNamespaces(Trigger_t *c);
 
 
 LIBSBML_EXTERN

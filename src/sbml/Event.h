@@ -147,6 +147,9 @@ public:
    */
   Event ( const std::string&  id = "", const std::string& name = "");
 
+  Event (unsigned int level, unsigned int version, 
+               XMLNamespaces* xmlns = 0);
+  Event (SBMLDocument* document);
 
   /**
    * Destroys this Event.
@@ -658,6 +661,17 @@ Event_createWith (const char *sid, const char *name);
 
 
 LIBSBML_EXTERN
+Event_t *
+Event_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns);
+
+
+LIBSBML_EXTERN
+Event_t *
+Event_createWithDocument (SBMLDocument_t *document);
+
+
+LIBSBML_EXTERN
 void
 Event_free (Event_t *e);
 
@@ -665,6 +679,11 @@ Event_free (Event_t *e);
 LIBSBML_EXTERN
 Event_t *
 Event_clone (const Event_t *e);
+
+
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+Event_getNamespaces(Event_t *c);
 
 
 LIBSBML_EXTERN

@@ -53,6 +53,8 @@
 
 #include <sbml/SBase.h>
 #include <sbml/Parameter.h>
+#include <sbml/xml/XMLNamespaces.h>
+#include <sbml/SBMLDocument.h>
 
 #include <check.h>
 
@@ -222,6 +224,53 @@ START_TEST (test_Parameter_setUnits)
 END_TEST
 
 
+START_TEST (test_Parameter_createWithLevelVersionAndNamespace)
+{
+  XMLNamespaces_t *xmlns = XMLNamespaces_create();
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+
+  Parameter_t *object = 
+    Parameter_createWithLevelVersionAndNamespaces(2, 1, xmlns);
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_PARAMETER );
+  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
+
+  fail_unless( SBase_getLevel       ((SBase_t *) object) == 2 );
+  fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
+
+  fail_unless( Parameter_getNamespaces     (object) != NULL );
+  fail_unless( XMLNamespaces_getLength(Parameter_getNamespaces(object)) == 1 );
+
+  Parameter_free(object);
+}
+END_TEST
+
+
+START_TEST (test_Parameter_createWithDocument)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
+
+  Parameter_t *object = 
+    Parameter_createWithDocument(d);
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_PARAMETER );
+  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
+
+  fail_unless( SBase_getLevel       ((SBase_t *) object) == 1 );
+  fail_unless( SBase_getVersion     ((SBase_t *) object) == 2 );
+  fail_unless( SBase_getSBMLDocument((SBase_t *) object) != NULL);
+
+  Parameter_free(object);
+}
+END_TEST
+
+
 Suite *
 create_suite_Parameter (void)
 {
@@ -239,6 +288,8 @@ create_suite_Parameter (void)
   tcase_add_test( tcase, test_Parameter_setId      );
   tcase_add_test( tcase, test_Parameter_setName    );
   tcase_add_test( tcase, test_Parameter_setUnits   );
+  tcase_add_test( tcase, test_Parameter_createWithLevelVersionAndNamespace        );
+  tcase_add_test( tcase, test_Parameter_createWithDocument  );
 
   suite_add_tcase(suite, tcase);
 

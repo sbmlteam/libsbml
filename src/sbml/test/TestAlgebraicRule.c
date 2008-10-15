@@ -56,6 +56,8 @@
 
 #include <sbml/SBase.h>
 #include <sbml/Rule.h>
+#include <sbml/xml/XMLNamespaces.h>
+#include <sbml/SBMLDocument.h>
 
 #include <check.h>
 
@@ -145,6 +147,55 @@ START_TEST (test_AlgebraicRule_free_NULL)
 END_TEST
 
 
+START_TEST (test_AlgebraicRule_createWithLevelVersionAndNamespace)
+{
+  XMLNamespaces_t *xmlns = XMLNamespaces_create();
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+
+  Rule_t *r = 
+    Rule_createAlgebraicWithLevelVersionAndNamespaces(2, 3, xmlns);
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) r) == SBML_ALGEBRAIC_RULE );
+  fail_unless( SBase_getMetaId    ((SBase_t *) r) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) r) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) r) == NULL );
+
+  fail_unless( SBase_getLevel       ((SBase_t *) r) == 2 );
+  fail_unless( SBase_getVersion     ((SBase_t *) r) == 3 );
+
+  fail_unless( Rule_getNamespaces     (r) != NULL );
+  fail_unless( XMLNamespaces_getLength(Rule_getNamespaces(r)) == 1 );
+
+
+  Rule_free(r);
+}
+END_TEST
+
+
+START_TEST (test_AlgebraicRule_createWithDocument)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
+
+  Rule_t *r = 
+    Rule_createAlgebraicWithDocument(d);
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) r) == SBML_ALGEBRAIC_RULE );
+  fail_unless( SBase_getMetaId    ((SBase_t *) r) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) r) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) r) == NULL );
+
+  fail_unless( SBase_getLevel       ((SBase_t *) r) == 1 );
+  fail_unless( SBase_getVersion     ((SBase_t *) r) == 2 );
+  fail_unless( SBase_getSBMLDocument((SBase_t *) r) != NULL);
+
+
+  Rule_free(r);
+}
+END_TEST
+
+
 Suite *
 create_suite_AlgebraicRule (void)
 {
@@ -160,6 +211,8 @@ create_suite_AlgebraicRule (void)
   tcase_add_test( tcase, test_AlgebraicRule_createWithFormula     );
   tcase_add_test( tcase, test_AlgebraicRule_createWithMath );
   tcase_add_test( tcase, test_AlgebraicRule_free_NULL      );
+  tcase_add_test( tcase, test_AlgebraicRule_createWithLevelVersionAndNamespace        );
+  tcase_add_test( tcase, test_AlgebraicRule_createWithDocument  );
 
   suite_add_tcase(suite, tcase);
 

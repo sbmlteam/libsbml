@@ -57,6 +57,23 @@ Trigger::Trigger (   const ASTNode* math ) :
 }
 
 
+Trigger::Trigger (unsigned int level, unsigned int version,
+                          XMLNamespaces *xmlns) :
+   SBase		  (  -1 )
+ , mMath      ( 0              )
+{
+  mObjectLevel = level;
+  mObjectVersion = version;
+  if (xmlns) setNamespaces(xmlns);;
+}
+                          
+Trigger::Trigger (SBMLDocument *document) :
+   SBase		  (  -1 )
+ , mMath      ( 0              )
+{
+  setSBMLDocument(document);
+}
+
 /*
  * Destroys this Trigger.
  */
@@ -408,6 +425,23 @@ Trigger_createWithMath (const ASTNode_t *math)
 }
 
 
+LIBSBML_EXTERN
+Trigger_t *
+Trigger_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns)
+{
+  return new(nothrow) Trigger(level, version, xmlns);
+}
+
+
+LIBSBML_EXTERN
+Trigger_t *
+Trigger_createWithDocument (SBMLDocument_t *document)
+{
+  return new(nothrow) Trigger(document);
+}
+
+
 /**
  * Frees the given Trigger.
  */
@@ -429,6 +463,22 @@ Trigger_clone (const Trigger_t *t)
   return t->clone();
 }
 
+
+/**
+ * Returns a list of XMLNamespaces_t associated with this Trigger_t
+ * structure.
+ *
+ * @param t the Trigger_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML object
+ */
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+Trigger_getNamespaces(Trigger_t *t)
+{
+  return t->getNamespaces();
+}
 
 /**
  * @return the math of this Trigger.

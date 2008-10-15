@@ -54,6 +54,8 @@
 #include <sbml/SBase.h>
 #include <sbml/Unit.h>
 #include <sbml/UnitDefinition.h>
+#include <sbml/xml/XMLNamespaces.h>
+#include <sbml/SBMLDocument.h>
 
 #include <check.h>
 
@@ -499,6 +501,53 @@ START_TEST (test_UnitDefinition_isVariantOfVolume_2)
 END_TEST
 
 
+START_TEST (test_UnitDefinition_createWithLevelVersionAndNamespace)
+{
+  XMLNamespaces_t *xmlns = XMLNamespaces_create();
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+
+  UnitDefinition_t *object = 
+    UnitDefinition_createWithLevelVersionAndNamespaces(2, 1, xmlns);
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_UNIT_DEFINITION );
+  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
+
+  fail_unless( SBase_getLevel       ((SBase_t *) object) == 2 );
+  fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
+
+  fail_unless( UnitDefinition_getNamespaces     (object) != NULL );
+  fail_unless( XMLNamespaces_getLength(UnitDefinition_getNamespaces(object)) == 1 );
+
+  UnitDefinition_free(object);
+}
+END_TEST
+
+
+START_TEST (test_UnitDefinition_createWithDocument)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
+
+  UnitDefinition_t *object = 
+    UnitDefinition_createWithDocument(d);
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_UNIT_DEFINITION );
+  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
+
+  fail_unless( SBase_getLevel       ((SBase_t *) object) == 1 );
+  fail_unless( SBase_getVersion     ((SBase_t *) object) == 2 );
+  fail_unless( SBase_getSBMLDocument((SBase_t *) object) != NULL);
+
+  UnitDefinition_free(object);
+}
+END_TEST
+
+
 Suite *
 create_suite_UnitDefinition (void)
 {
@@ -525,6 +574,8 @@ create_suite_UnitDefinition (void)
   tcase_add_test( tcase, test_UnitDefinition_isVariantOfTime        );
   tcase_add_test( tcase, test_UnitDefinition_isVariantOfVolume_1    );
   tcase_add_test( tcase, test_UnitDefinition_isVariantOfVolume_2    );
+  tcase_add_test( tcase, test_UnitDefinition_createWithLevelVersionAndNamespace        );
+  tcase_add_test( tcase, test_UnitDefinition_createWithDocument  );
 
 
   suite_add_tcase(suite, tcase);

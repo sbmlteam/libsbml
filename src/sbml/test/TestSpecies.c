@@ -53,6 +53,8 @@
 
 #include <sbml/SBase.h>
 #include <sbml/Species.h>
+#include <sbml/xml/XMLNamespaces.h>
+#include <sbml/SBMLDocument.h>
 
 #include <check.h>
 
@@ -360,6 +362,53 @@ START_TEST (test_Species_setUnits)
 END_TEST
 
 
+START_TEST (test_Species_createWithLevelVersionAndNamespace)
+{
+  XMLNamespaces_t *xmlns = XMLNamespaces_create();
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+
+  Species_t *object = 
+    Species_createWithLevelVersionAndNamespaces(2, 1, xmlns);
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_SPECIES );
+  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
+
+  fail_unless( SBase_getLevel       ((SBase_t *) object) == 2 );
+  fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
+
+  fail_unless( Species_getNamespaces     (object) != NULL );
+  fail_unless( XMLNamespaces_getLength(Species_getNamespaces(object)) == 1 );
+
+  Species_free(object);
+}
+END_TEST
+
+
+START_TEST (test_Species_createWithDocument)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
+
+  Species_t *object = 
+    Species_createWithDocument(d);
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_SPECIES );
+  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
+
+  fail_unless( SBase_getLevel       ((SBase_t *) object) == 1 );
+  fail_unless( SBase_getVersion     ((SBase_t *) object) == 2 );
+  fail_unless( SBase_getSBMLDocument((SBase_t *) object) != NULL);
+
+  Species_free(object);
+}
+END_TEST
+
+
 Suite *
 create_suite_Species (void)
 {
@@ -382,6 +431,8 @@ create_suite_Species (void)
   tcase_add_test( tcase, test_Species_setSubstanceUnits       );
   tcase_add_test( tcase, test_Species_setSpatialSizeUnits     );
   tcase_add_test( tcase, test_Species_setUnits                );
+  tcase_add_test( tcase, test_Species_createWithLevelVersionAndNamespace        );
+  tcase_add_test( tcase, test_Species_createWithDocument  );
 
   suite_add_tcase(suite, tcase);
 

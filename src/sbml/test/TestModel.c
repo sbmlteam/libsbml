@@ -51,6 +51,8 @@
 
 #include <sbml/common/common.h>
 #include <sbml/SBMLTypes.h>
+#include <sbml/xml/XMLNamespaces.h>
+#include <sbml/SBMLDocument.h>
 
 #include <check.h>
 
@@ -1118,6 +1120,53 @@ START_TEST (test_Model_getNumSpeciesWithBoundaryCondition)
 END_TEST
 
 
+START_TEST (test_Model_createWithLevelVersionAndNamespace)
+{
+  XMLNamespaces_t *xmlns = XMLNamespaces_create();
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+
+  Model_t *object = 
+    Model_createWithLevelVersionAndNamespaces(2, 1, xmlns);
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_MODEL );
+  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
+
+  fail_unless( SBase_getLevel       ((SBase_t *) object) == 2 );
+  fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
+
+  fail_unless( Model_getNamespaces     (object) != NULL );
+  fail_unless( XMLNamespaces_getLength(Model_getNamespaces(object)) == 1 );
+
+  Model_free(object);
+}
+END_TEST
+
+
+START_TEST (test_Model_createWithDocument)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
+
+  Model_t *object = 
+    Model_createWithDocument(d);
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_MODEL );
+  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
+
+  fail_unless( SBase_getLevel       ((SBase_t *) object) == 1 );
+  fail_unless( SBase_getVersion     ((SBase_t *) object) == 2 );
+  fail_unless( SBase_getSBMLDocument((SBase_t *) object) != NULL);
+
+  Model_free(object);
+}
+END_TEST
+
+
 Suite *
 create_suite_Model (void)
 {
@@ -1202,6 +1251,8 @@ create_suite_Model (void)
 
   tcase_add_test( t, test_Model_getNumSpeciesWithBoundaryCondition );
 
+  tcase_add_test( t, test_Model_createWithLevelVersionAndNamespace        );
+  tcase_add_test( t, test_Model_createWithDocument  );
   suite_add_tcase(s, t);
 
   return s;

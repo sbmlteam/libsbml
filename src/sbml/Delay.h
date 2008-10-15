@@ -149,6 +149,9 @@ public:
    * documentation.
    */
   Delay (const ASTNode* math = NULL);
+  Delay (unsigned int level, unsigned int version, 
+               XMLNamespaces* xmlns = 0);
+  Delay (SBMLDocument* document);
 
 
   /**
@@ -389,6 +392,17 @@ Delay_createWithMath ( const ASTNode_t *math);
 
 
 LIBSBML_EXTERN
+Delay_t *
+Delay_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns);
+
+
+LIBSBML_EXTERN
+Delay_t *
+Delay_createWithDocument (SBMLDocument_t *document);
+
+
+LIBSBML_EXTERN
 void
 Delay_free (Delay_t *d);
 
@@ -396,6 +410,11 @@ Delay_free (Delay_t *d);
 LIBSBML_EXTERN
 SBase_t *
 Delay_clone (const Delay_t *d);
+
+
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+Delay_getNamespaces(Delay_t *c);
 
 
 LIBSBML_EXTERN

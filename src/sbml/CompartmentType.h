@@ -152,6 +152,9 @@ public:
   CompartmentType (const std::string& id = "", const std::string& name = "");
 
 
+  CompartmentType (unsigned int level, unsigned int version, 
+               XMLNamespaces* xmlns = 0);
+  CompartmentType (SBMLDocument* document);
   /**
    * Destroys this CompartmentType.
    */
@@ -342,6 +345,17 @@ CompartmentType_createWith (const char *sid, const char *name);
 
 
 LIBSBML_EXTERN
+CompartmentType_t *
+CompartmentType_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns);
+
+
+LIBSBML_EXTERN
+CompartmentType_t *
+CompartmentType_createWithDocument (SBMLDocument_t *document);
+
+
+LIBSBML_EXTERN
 void
 CompartmentType_free (CompartmentType_t *ct);
 
@@ -349,6 +363,11 @@ CompartmentType_free (CompartmentType_t *ct);
 LIBSBML_EXTERN
 CompartmentType_t *
 CompartmentType_clone (const CompartmentType_t *ct);
+
+
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+CompartmentType_getNamespaces(CompartmentType_t *c);
 
 
 LIBSBML_EXTERN

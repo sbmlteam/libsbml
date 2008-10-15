@@ -1091,6 +1091,18 @@ SBase::setSBOTerm (int value)
 
 
 /*
+ * Sets the namespaces relevant of this SBML object.
+ *
+ * @param xmlns the namespaces to set
+ */
+void 
+SBase::setNamespaces(XMLNamespaces* xmlns)
+{
+  mNamespaces = xmlns->clone();
+}
+
+
+/*
  * Unsets the metaid of this SBML object.
  */
 void
@@ -1419,13 +1431,12 @@ SBase::getModel () const
 unsigned int
 SBase::getLevel () const
 {
-  return (mSBML) ? mSBML->mLevel : SBMLDocument::getDefaultLevel();
-  //if (mSBML)
-  //  return mSBML->mLevel;
-  //else if (mObjectLevel != 0)
-  //  return mObjectLevel;
-  //else
-  //  return SBMLDocument::getDefaultLevel();
+  if (mSBML)
+    return mSBML->mLevel;
+  else if (mObjectLevel != 0)
+    return mObjectLevel;
+  else
+    return SBMLDocument::getDefaultLevel();
 }
 
 
@@ -1435,13 +1446,12 @@ SBase::getLevel () const
 unsigned int
 SBase::getVersion () const
 {
-  return (mSBML) ? mSBML->mVersion : SBMLDocument::getDefaultVersion();
-  //if (mSBML)
-  //  return mSBML->mVersion;
-  //else if (mObjectVersion != 0)
-  //  return mObjectVersion;
-  //else
-  //  return SBMLDocument::getDefaultVersion();
+  if (mSBML)
+    return mSBML->mVersion;
+  else if (mObjectVersion != 0)
+    return mObjectVersion;
+  else
+    return SBMLDocument::getDefaultVersion();
 }
 
 
@@ -1463,6 +1473,128 @@ SBase::getTypeCode () const
   return SBML_UNKNOWN;
 }
 
+//bool 
+//SBase::isValidLevelVersionNamespaceCombination()
+//{
+//  bool valid = true;
+//  bool sbmlDeclared = false;
+//  unsigned int index = 0;
+//  unsigned int version = getVersion();
+//  XMLNamespaces * xmlns = getNamespaces();
+//  if (xmlns)
+//  {
+//    sbmlDeclared = xmlns->hasPrefix("sbml");
+//    if (sbmlDeclared)
+//      index = xmlns->getIndexByPrefix("sbml");
+//  }
+//  SBMLTypeCode_t typecode = getTypeCode();
+//
+//  switch (getLevel())
+//  {
+//    case 1:
+//      // some components didnt exist in level 1
+//      if ( typecode == SBML_COMPARTMENT_TYPE
+//        || typecode == SBML_CONSTRAINT
+//        || typecode == SBML_EVENT
+//        || typecode == SBML_EVENT_ASSIGNMENT
+//        || typecode == SBML_FUNCTION_DEFINITION
+//        || typecode == SBML_INITIAL_ASSIGNMENT
+//        || typecode == SBML_SPECIES_TYPE
+//        || typecode == SBML_MODIFIER_SPECIES_REFERENCE
+//        || typecode == SBML_TRIGGER
+//        || typecode == SBML_DELAY
+//        || typecode == SBML_STOICHIOMETRY_MATH)
+//        valid = false;
+//     switch (version)
+//      {
+//        case 1:
+//        case 2:
+//          // the namespaces contains the sbml namespaces
+//          // check it is the correct ns for the level/version
+//          if (sbmlDeclared)
+//          {
+//            if (strcmp(xmlns->getURI(index).c_str(), 
+//                     "http://www.sbml.org/sbml/level1"))
+//            {
+//              valid = false;
+//            }
+//          }
+//          break;
+//        default:
+//          valid = false;
+//          break;
+//        }
+//      break;
+//    case 2:
+//      switch (version)
+//      {
+//        case 1:
+//          // some components didnt exist in l2v1
+//          if ( typecode == SBML_COMPARTMENT_TYPE
+//            || typecode == SBML_CONSTRAINT
+//            || typecode == SBML_INITIAL_ASSIGNMENT
+//            || typecode == SBML_SPECIES_TYPE)
+//            valid = false;
+//         // the namespaces contains the sbml namespaces
+//          // check it is the correct ns for the level/version
+//          if (sbmlDeclared)
+//          {
+//            if (strcmp(xmlns->getURI(index).c_str(), 
+//                     "http://www.sbml.org/sbml/level2"))
+//            {
+//              valid = false;
+//            }
+//          }
+//          break;
+//        case 2:
+//          // the namespaces contains the sbml namespaces
+//          // check it is the correct ns for the level/version
+//          if (sbmlDeclared)
+//          {
+//            if (strcmp(xmlns->getURI(index).c_str(), 
+//                     "http://www.sbml.org/sbml/level2/version2"))
+//            {
+//              valid = false;
+//            }
+//          }
+//          break;
+//        case 3:
+//          // the namespaces contains the sbml namespaces
+//          // check it is the correct ns for the level/version
+//          if (sbmlDeclared)
+//          {
+//            if (strcmp(xmlns->getURI(index).c_str(), 
+//                     "http://www.sbml.org/sbml/level2/version3"))
+//            {
+//              valid = false;
+//            }
+//          }
+//          break;
+//        case 4:
+//          // the namespaces contains the sbml namespaces
+//          // check it is the correct ns for the level/version
+//          if (sbmlDeclared)
+//          {
+//            if (strcmp(xmlns->getURI(index).c_str(), 
+//                     "http://www.sbml.org/sbml/level2/version4"))
+//            {
+//              valid = false;
+//            }
+//          }
+//          break;
+//        default:
+//          valid = false;
+//          break;
+//        }
+//      break;
+//    default:
+//      valid = false;
+//      break;
+//  }
+//
+//  return valid;
+//}
+//
 
 /*
  * @return the partial SBML that describes this SBML object.
@@ -1865,7 +1997,8 @@ SBase::readAttributes (const XMLAttributes& attributes)
 void
 SBase::writeAttributes (XMLOutputStream& stream) const
 {
-  if (mNamespaces) stream << *mNamespaces;
+  if (getTypeCode() == SBML_DOCUMENT)
+    if (mNamespaces) stream << *mNamespaces;
 
   if ( getLevel() > 1 && !mMetaId.empty() )
   {
@@ -4461,6 +4594,22 @@ SBase_setSBOTerm (SBase_t *sb, int value)
 {
   sb->setSBOTerm(value);
 }
+
+
+/**
+ * Sets the namespaces relevant of this SBML object.
+ *
+ * @param sb the SBase_t structure
+ *
+ * @param xmlns the namespaces to set
+ */
+LIBSBML_EXTERN
+void
+SBase_setNamespaces (SBase_t *sb, XMLNamespaces_t *xmlns)
+{
+  sb->setNamespaces(xmlns);
+}
+
 
 /**
  * Sets the notes for the given SBML object.

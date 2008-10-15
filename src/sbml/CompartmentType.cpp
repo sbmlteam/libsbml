@@ -50,6 +50,23 @@ CompartmentType::CompartmentType (const std::string& id, const std::string& name
 }
 
 
+CompartmentType::CompartmentType (unsigned int level, unsigned int version,
+                          XMLNamespaces *xmlns) :
+   SBase ("", "", -1)
+{
+  mObjectLevel = level;
+  mObjectVersion = version;
+  if (xmlns) setNamespaces(xmlns);;
+}
+
+
+CompartmentType::CompartmentType (SBMLDocument *document) :
+   SBase ("", "", -1)
+{
+  setSBMLDocument(document);
+}
+
+
 /*
  * Destroys this CompartmentType.
  */
@@ -349,6 +366,23 @@ CompartmentType_createWith (const char *sid, const char *name)
 }
 
 
+LIBSBML_EXTERN
+CompartmentType_t *
+CompartmentType_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns)
+{
+  return new(nothrow) CompartmentType(level, version, xmlns);
+}
+
+
+LIBSBML_EXTERN
+CompartmentType_t *
+CompartmentType_createWithDocument (SBMLDocument_t *document)
+{
+  return new(nothrow) CompartmentType(document);
+}
+
+
 /**
  * Frees the given CompartmentType_t structure.
  *
@@ -374,6 +408,23 @@ CompartmentType_t *
 CompartmentType_clone (const CompartmentType_t *ct)
 {
   return static_cast<CompartmentType*>( ct->clone() );
+}
+
+
+/**
+ * Returns a list of XMLNamespaces_t associated with this CompartmentType_t
+ * structure.
+ *
+ * @param ct the CompartmentType_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML object
+ */
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+CompartmentType_getNamespaces(CompartmentType_t *ct)
+{
+  return ct->getNamespaces();
 }
 
 

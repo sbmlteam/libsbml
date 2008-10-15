@@ -55,6 +55,8 @@
 
 #include <sbml/SBase.h>
 #include <sbml/EventAssignment.h>
+#include <sbml/xml/XMLNamespaces.h>
+#include <sbml/SBMLDocument.h>
 
 #include <check.h>
 
@@ -195,6 +197,53 @@ START_TEST (test_EventAssignment_setMath)
 END_TEST
 
 
+START_TEST (test_EventAssignment_createWithLevelVersionAndNamespace)
+{
+  XMLNamespaces_t *xmlns = XMLNamespaces_create();
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+
+  EventAssignment_t *object = 
+    EventAssignment_createWithLevelVersionAndNamespaces(2, 1, xmlns);
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_EVENT_ASSIGNMENT );
+  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
+
+  fail_unless( SBase_getLevel       ((SBase_t *) object) == 2 );
+  fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
+
+  fail_unless( EventAssignment_getNamespaces     (object) != NULL );
+  fail_unless( XMLNamespaces_getLength(EventAssignment_getNamespaces(object)) == 1 );
+
+  EventAssignment_free(object);
+}
+END_TEST
+
+
+START_TEST (test_EventAssignment_createWithDocument)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
+
+  EventAssignment_t *object = 
+    EventAssignment_createWithDocument(d);
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_EVENT_ASSIGNMENT );
+  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
+
+  fail_unless( SBase_getLevel       ((SBase_t *) object) == 1 );
+  fail_unless( SBase_getVersion     ((SBase_t *) object) == 2 );
+  fail_unless( SBase_getSBMLDocument((SBase_t *) object) != NULL);
+
+  EventAssignment_free(object);
+}
+END_TEST
+
+
 Suite *
 create_suite_EventAssignment (void)
 {
@@ -211,6 +260,8 @@ create_suite_EventAssignment (void)
   tcase_add_test( tcase, test_EventAssignment_free_NULL   );
   tcase_add_test( tcase, test_EventAssignment_setVariable );
   tcase_add_test( tcase, test_EventAssignment_setMath     );
+  tcase_add_test( tcase, test_EventAssignment_createWithLevelVersionAndNamespace        );
+  tcase_add_test( tcase, test_EventAssignment_createWithDocument  );
 
   suite_add_tcase(suite, tcase);
 

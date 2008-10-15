@@ -882,6 +882,14 @@ public:
 
 
   /**
+   * Sets the namespaces relevant of this SBML object.
+   *
+   * @param xmlns the namespaces to set
+   */
+  void setNamespaces(XMLNamespaces* xmlns);
+
+
+  /**
    * Unsets the value of the "metaid" attribute of this SBML object.
    */
   void unsetMetaId ();
@@ -1038,6 +1046,7 @@ public:
   virtual SBMLTypeCode_t getTypeCode () const;
 
 
+  //bool isValidLevelVersionNamespaceCombination();
   /**
    * Returns the XML element name of this object.
    *
@@ -1536,6 +1545,11 @@ SBase_setName (SBase_t *sb, const char *name);
 LIBSBML_EXTERN
 void
 SBase_setSBOTerm (SBase_t *sb, int value);
+
+
+LIBSBML_EXTERN
+void
+SBase_setNamespaces (SBase_t *sb, XMLNamespaces_t *xmlns);
 
 
 LIBSBML_EXTERN

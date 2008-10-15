@@ -71,6 +71,23 @@ FunctionDefinition::FunctionDefinition (  const std::string&  id
 }
 
 
+FunctionDefinition::FunctionDefinition (unsigned int level, unsigned int version,
+                          XMLNamespaces *xmlns) :
+   SBase ("", "", -1)
+ , mMath( 0  )
+{
+  mObjectLevel = level;
+  mObjectVersion = version;
+  if (xmlns) setNamespaces(xmlns);;
+}
+                          
+FunctionDefinition::FunctionDefinition (SBMLDocument *document) :
+   SBase ("", "", -1)
+ , mMath( 0  )
+{
+  setSBMLDocument(document);
+}
+
 /*
  * Destroys this FunctionDefinition.
  */
@@ -584,6 +601,23 @@ FunctionDefinition_createWithIdAndMath (const char *sid, ASTNode_t *math)
 }
 
 
+LIBSBML_EXTERN
+FunctionDefinition_t *
+FunctionDefinition_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns)
+{
+  return new(nothrow) FunctionDefinition(level, version, xmlns);
+}
+
+
+LIBSBML_EXTERN
+FunctionDefinition_t *
+FunctionDefinition_createWithDocument (SBMLDocument_t *document)
+{
+  return new(nothrow) FunctionDefinition(document);
+}
+
+
 /**
  * Frees the given FunctionDefinition.
  *
@@ -609,6 +643,23 @@ FunctionDefinition_t *
 FunctionDefinition_clone (const FunctionDefinition_t* fd)
 {
   return static_cast<FunctionDefinition*>( fd->clone() );
+}
+
+
+/**
+ * Returns a list of XMLNamespaces_t associated with this FunctionDefinition_t
+ * structure.
+ *
+ * @param fd the FunctionDefinition_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML object
+ */
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+FunctionDefinition_getNamespaces(FunctionDefinition_t *fd)
+{
+  return fd->getNamespaces();
 }
 
 

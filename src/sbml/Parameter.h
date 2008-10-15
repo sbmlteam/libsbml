@@ -224,6 +224,9 @@ public:
               , const std::string&  units    = ""
               , bool                constant = true );
 
+  Parameter (unsigned int level, unsigned int version, 
+               XMLNamespaces* xmlns = 0);
+  Parameter (SBMLDocument* document);
 
   /**
    * Destroys this Parameter.
@@ -590,6 +593,17 @@ Parameter_createWithValueAndUnits (const char *sid, double value, const char *un
 
 
 LIBSBML_EXTERN
+Parameter_t *
+Parameter_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns);
+
+
+LIBSBML_EXTERN
+Parameter_t *
+Parameter_createWithDocument (SBMLDocument_t *document);
+
+
+LIBSBML_EXTERN
 void
 Parameter_free (Parameter_t *p);
 
@@ -602,6 +616,11 @@ Parameter_clone (const Parameter_t *p);
 LIBSBML_EXTERN
 void
 Parameter_initDefaults (Parameter_t *p);
+
+
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+Parameter_getNamespaces(Parameter_t *c);
 
 
 LIBSBML_EXTERN

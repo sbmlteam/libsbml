@@ -195,6 +195,9 @@ public:
    */
   EventAssignment (const std::string& variable = "", const ASTNode* math = NULL);
 
+  EventAssignment (unsigned int level, unsigned int version, 
+               XMLNamespaces* xmlns = 0);
+  EventAssignment (SBMLDocument* document);
 
   /**
    * Destroys this EventAssignment.
@@ -505,6 +508,17 @@ EventAssignment_createWithVarAndMath (const char *variable, ASTNode_t *math);
 
 
 LIBSBML_EXTERN
+EventAssignment_t *
+EventAssignment_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns);
+
+
+LIBSBML_EXTERN
+EventAssignment_t *
+EventAssignment_createWithDocument (SBMLDocument_t *document);
+
+
+LIBSBML_EXTERN
 void
 EventAssignment_free (EventAssignment_t *ea);
 
@@ -512,6 +526,11 @@ EventAssignment_free (EventAssignment_t *ea);
 LIBSBML_EXTERN
 EventAssignment_t *
 EventAssignment_clone (const EventAssignment_t *ea);
+
+
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+EventAssignment_getNamespaces(EventAssignment_t *c);
 
 
 LIBSBML_EXTERN

@@ -50,6 +50,21 @@ SpeciesType::SpeciesType (const std::string& id, const std::string& name) :
 }
 
 
+SpeciesType::SpeciesType (unsigned int level, unsigned int version,
+                          XMLNamespaces *xmlns) :
+   SBase ("", "", -1)
+{
+  mObjectLevel = level;
+  mObjectVersion = version;
+  if (xmlns) setNamespaces(xmlns);;
+}
+                          
+SpeciesType::SpeciesType (SBMLDocument *document) :
+   SBase ("", "", -1)
+{
+  setSBMLDocument(document);
+}
+
 /*
  * Destroys this SpeciesType.
  */
@@ -350,6 +365,23 @@ SpeciesType_createWith (const char *sid, const char *name)
 }
 
 
+LIBSBML_EXTERN
+SpeciesType_t *
+SpeciesType_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns)
+{
+  return new(nothrow) SpeciesType(level, version, xmlns);
+}
+
+
+LIBSBML_EXTERN
+SpeciesType_t *
+SpeciesType_createWithDocument (SBMLDocument_t *document)
+{
+  return new(nothrow) SpeciesType(document);
+}
+
+
 /**
  * Frees the given SpeciesType_t structure.
  *
@@ -375,6 +407,23 @@ SpeciesType_t *
 SpeciesType_clone (const SpeciesType_t *st)
 {
   return static_cast<SpeciesType*>( st->clone() );
+}
+
+
+/**
+ * Returns a list of XMLNamespaces_t associated with this SpeciesType_t
+ * structure.
+ *
+ * @param st the SpeciesType_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML object
+ */
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+SpeciesType_getNamespaces(SpeciesType_t *st)
+{
+  return st->getNamespaces();
 }
 
 

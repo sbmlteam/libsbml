@@ -78,6 +78,27 @@ KineticLaw::KineticLaw (   const ASTNode* math
 }
 
 
+KineticLaw::KineticLaw (unsigned int level, unsigned int version,
+                          XMLNamespaces *xmlns) :
+   SBase          ( -1             )
+ , mMath          ( 0              )
+ , mTimeUnits     ( ""             )
+ , mSubstanceUnits( ""             )
+{
+  mObjectLevel = level;
+  mObjectVersion = version;
+  if (xmlns) setNamespaces(xmlns);;
+}
+                          
+KineticLaw::KineticLaw (SBMLDocument *document) :
+   SBase          ( -1             )
+ , mMath          ( 0              )
+ , mTimeUnits     ( ""             )
+ , mSubstanceUnits( ""             )
+{
+  setSBMLDocument(document);
+}
+
 /*
  * Destroys this KineticLaw.
  */
@@ -931,6 +952,21 @@ KineticLaw_createWithMath (ASTNode_t *math)
 }
 
 
+LIBSBML_EXTERN
+KineticLaw_t *
+KineticLaw_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns)
+{
+  return new(nothrow) KineticLaw(level, version, xmlns);
+}
+
+
+LIBSBML_EXTERN
+KineticLaw_t *
+KineticLaw_createWithDocument (SBMLDocument_t *document)
+{
+  return new(nothrow) KineticLaw(document);
+}
 /**
  * Frees the given KineticLaw_t structure.
  *
@@ -958,6 +994,22 @@ KineticLaw_clone (const KineticLaw_t *kl)
   return kl->clone();
 }
 
+
+/**
+ * Returns a list of XMLNamespaces_t associated with this KineticLaw_t
+ * structure.
+ *
+ * @param kl the KineticLaw_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML object
+ */
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+KineticLaw_getNamespaces(KineticLaw_t *kl)
+{
+  return kl->getNamespaces();
+}
 
 /**
  * Gets the mathematical expression of this KineticLaw_t structure as a

@@ -61,6 +61,23 @@ SimpleSpeciesReference::SimpleSpeciesReference (const std::string& species) :
 }
 
 
+SimpleSpeciesReference::SimpleSpeciesReference (unsigned int level, unsigned int version,
+                          XMLNamespaces *xmlns) :
+   SBase (-1)
+ , mSpecies( "" )
+{
+  mObjectLevel = level;
+  mObjectVersion = version;
+  if (xmlns) setNamespaces(xmlns);;
+}
+                          
+SimpleSpeciesReference::SimpleSpeciesReference (SBMLDocument *document) :
+   SBase (-1)
+ , mSpecies( "" )
+{
+  setSBMLDocument(document);
+}
+
 /*
  * Destroys this SimpleSpeciesReference.
  */
@@ -291,6 +308,23 @@ SpeciesReference::SpeciesReference (  const std::string& species
 {
 }
 
+
+SpeciesReference::SpeciesReference (unsigned int level, unsigned int version,
+                          XMLNamespaces *xmlns) :
+   SimpleSpeciesReference( level, version, xmlns )
+ , mStoichiometry        ( 1.0 )
+ , mDenominator          ( 1   )
+ , mStoichiometryMath    ( 0             )
+{
+}
+                          
+SpeciesReference::SpeciesReference (SBMLDocument *document) :
+   SimpleSpeciesReference( document )
+ , mStoichiometry        ( 1.0 )
+ , mDenominator          ( 1   )
+ , mStoichiometryMath    ( 0             )
+{
+}
 
 /*
  * Destroys this SpeciesReference.
@@ -969,6 +1003,17 @@ ModifierSpeciesReference::ModifierSpeciesReference (const std::string& species) 
 }
 
 
+ModifierSpeciesReference::ModifierSpeciesReference (unsigned int level, 
+                          unsigned int version, XMLNamespaces *xmlns) :
+  SimpleSpeciesReference(level, version, xmlns)
+{
+}
+                          
+ModifierSpeciesReference::ModifierSpeciesReference (SBMLDocument *document) :
+  SimpleSpeciesReference(document)
+{
+}
+
 /*
  * Destroys this ModifierSpeciesReference.
  */
@@ -1333,6 +1378,41 @@ SpeciesReference_createWithSpeciesAndStoichiometry ( const char *species,
 }
 
 
+LIBSBML_EXTERN
+SpeciesReference_t *
+SpeciesReference_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns)
+{
+  return new(nothrow) SpeciesReference(level, version, xmlns);
+}
+
+
+LIBSBML_EXTERN
+SpeciesReference_t *
+SpeciesReference_createModifierWithLevelVersionAndNamespaces 
+                           (unsigned int level,
+                            unsigned int version, XMLNamespaces_t *xmlns)
+{
+  return new(nothrow) ModifierSpeciesReference(level, version, xmlns);
+}
+
+
+LIBSBML_EXTERN
+SpeciesReference_t *
+SpeciesReference_createWithDocument (SBMLDocument_t *document)
+{
+  return new(nothrow) SpeciesReference(document);
+}
+
+
+LIBSBML_EXTERN
+SpeciesReference_t *
+SpeciesReference_createModifierWithDocument (SBMLDocument_t *document)
+{
+  return new(nothrow) ModifierSpeciesReference(document);
+}
+
+
 /**
  * Frees the given SpeciesReference_t structure.
  *
@@ -1382,6 +1462,22 @@ SpeciesReference_initDefaults (SpeciesReference_t *sr)
   static_cast<SpeciesReference*>(sr)->initDefaults();
 }
 
+
+/**
+ * Returns a list of XMLNamespaces_t associated with this SpeciesReference_t
+ * structure.
+ *
+ * @param sr the SpeciesReference_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML object
+ */
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+SpeciesReference_getNamespaces(SpeciesReference_t *sr)
+{
+  return sr->getNamespaces();
+}
 
 /**
  * Predicate returning @c true or @c false depending on whether the

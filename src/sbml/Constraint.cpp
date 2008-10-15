@@ -58,6 +58,24 @@ Constraint::Constraint (const ASTNode* math) :
 }
 
 
+Constraint::Constraint (unsigned int level, unsigned int version,
+                          XMLNamespaces *xmlns) :
+   SBase   ( -1 )
+ , mMath   (  0 )
+ , mMessage(  0 )
+{
+  mObjectLevel = level;
+  mObjectVersion = version;
+  if (xmlns) setNamespaces(xmlns);;
+}
+                          
+Constraint::Constraint (SBMLDocument *document) :
+   SBase   ( -1 )
+ , mMath   (  0 )
+ , mMessage(  0 )
+{
+  setSBMLDocument(document);
+}
 /*
  * Destroys this Constraint.
  */
@@ -523,6 +541,23 @@ Constraint_createWithMath (ASTNode_t * math)
 }
 
 
+LIBSBML_EXTERN
+Constraint_t *
+Constraint_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns)
+{
+  return new(nothrow) Constraint(level, version, xmlns);
+}
+
+
+LIBSBML_EXTERN
+Constraint_t *
+Constraint_createWithDocument (SBMLDocument_t *document)
+{
+  return new(nothrow) Constraint(document);
+}
+
+
 /**
  * Frees the given Constraint_t structure.
  */
@@ -549,6 +584,21 @@ Constraint_clone (const Constraint_t *c)
 }
 
 
+/**
+ * Returns a list of XMLNamespaces_t associated with this Constraint_t
+ * structure.
+ *
+ * @param c the Constraint_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML object
+ */
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+Constraint_getNamespaces(Constraint_t *c)
+{
+  return c->getNamespaces();
+}
 /**
  * Get the message, if any, associated with this Constraint
  *

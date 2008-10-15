@@ -271,6 +271,9 @@ public:
    */
   SimpleSpeciesReference (const std::string& species = "");
 
+  SimpleSpeciesReference (unsigned int level, unsigned int version, 
+               XMLNamespaces* xmlns = 0);
+  SimpleSpeciesReference (SBMLDocument* document);
 
   /**
    * Destroys this SimpleSpeciesReference.
@@ -411,6 +414,9 @@ public:
                      , double             stoichiometry = 1.0
                      , int                denominator   = 1   );
 
+  SpeciesReference (unsigned int level, unsigned int version, 
+               XMLNamespaces* xmlns = 0);
+  SpeciesReference (SBMLDocument* document);
 
   /**
    * Destroys this SpeciesReference.
@@ -871,6 +877,9 @@ public:
    */
   ModifierSpeciesReference (const std::string& species = "");
 
+  ModifierSpeciesReference (unsigned int level, unsigned int version, 
+               XMLNamespaces* xmlns = 0);
+  ModifierSpeciesReference (SBMLDocument* document);
 
   /**
    * Destroys this ModifierSpeciesReference.
@@ -1074,6 +1083,29 @@ SpeciesReference_createWithSpeciesAndStoichiometry ( const char *species,
 
 
 LIBSBML_EXTERN
+SpeciesReference_t *
+SpeciesReference_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns);
+
+
+LIBSBML_EXTERN
+SpeciesReference_t *
+SpeciesReference_createModifierWithLevelVersionAndNamespaces 
+                           (unsigned int level,
+                            unsigned int version, XMLNamespaces_t *xmlns);
+
+
+LIBSBML_EXTERN
+SpeciesReference_t *
+SpeciesReference_createWithDocument (SBMLDocument_t *document);
+
+
+LIBSBML_EXTERN
+SpeciesReference_t *
+SpeciesReference_createModifierWithDocument (SBMLDocument_t *document);
+
+
+LIBSBML_EXTERN
 void
 SpeciesReference_free (SpeciesReference_t *sr);
 
@@ -1086,6 +1118,11 @@ SpeciesReference_clone (const SpeciesReference_t *sr);
 LIBSBML_EXTERN
 void
 SpeciesReference_initDefaults (SpeciesReference_t *sr);
+
+
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+SpeciesReference_getNamespaces(SpeciesReference_t *c);
 
 
 LIBSBML_EXTERN

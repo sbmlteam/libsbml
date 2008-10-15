@@ -222,6 +222,9 @@ public:
                , const std::string& substanceUnits = "" );
 
 
+  KineticLaw (unsigned int level, unsigned int version, 
+               XMLNamespaces* xmlns = 0);
+  KineticLaw (SBMLDocument* document);
   /**
    * Destroys this KineticLaw.
    */
@@ -266,7 +269,7 @@ public:
    * provided principally for compatibility compatibility with SBML Level
    * 1.
    * 
-   * @return a string representing the formula of this Kineticlaw.
+   * @return a string representing the formula of this KineticLaw.
    *
    * @see getMath()
    *
@@ -333,7 +336,7 @@ public:
    * getMath().
    *
    * @return @c true if the formula (meaning the @c math subelement) of
-   * this Kineticlaw has been set, @c false otherwise.
+   * this KineticLaw has been set, @c false otherwise.
    *
    * @note SBML Level&nbsp;1 uses a text-string format for mathematical
    * formulas.  SBML Level&nbsp;2 uses MathML, an XML format for
@@ -356,7 +359,7 @@ public:
    * in order to mirror the parallel between getFormula() and getMath().
    * 
    * @return @c true if the formula (meaning the @c math subelement) of
-   * this Kineticlaw has been set, @c false otherwise.
+   * this KineticLaw has been set, @c false otherwise.
    */
   bool isSetMath () const;
 
@@ -390,7 +393,7 @@ public:
 
 
   /**
-   * Sets the mathematical expression of this Kineticlaw instance to the
+   * Sets the mathematical expression of this KineticLaw instance to the
    * given @p formula.
    *
    * The given @p formula string is copied.  Internally, libSBML stores the
@@ -413,7 +416,7 @@ public:
 
 
   /**
-   * Sets the mathematical expression of this Kineticlaw instance to a copy
+   * Sets the mathematical expression of this KineticLaw instance to a copy
    * of the given ASTNode.
    *
    * This is fundamentally identical to setFormula().  The latter is
@@ -736,6 +739,17 @@ KineticLaw_createWithMath ( ASTNode_t *math);
 
 
 LIBSBML_EXTERN
+KineticLaw_t *
+KineticLaw_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns);
+
+
+LIBSBML_EXTERN
+KineticLaw_t *
+KineticLaw_createWithDocument (SBMLDocument_t *document);
+
+
+LIBSBML_EXTERN
 void
 KineticLaw_free (KineticLaw_t *kl);
 
@@ -743,6 +757,11 @@ KineticLaw_free (KineticLaw_t *kl);
 LIBSBML_EXTERN
 SBase_t *
 KineticLaw_clone (const KineticLaw_t *kl);
+
+
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+KineticLaw_getNamespaces(KineticLaw_t *kl);
 
 
 LIBSBML_EXTERN

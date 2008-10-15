@@ -74,6 +74,27 @@ Parameter::Parameter (   const std::string&  id
 }
 
 
+Parameter::Parameter (unsigned int level, unsigned int version,
+                          XMLNamespaces *xmlns) :
+   SBase ("", "", -1)
+  , mValue     ( 0.0      )
+  , mConstant  ( true     )
+  , mIsSetValue( false    )
+{
+  mObjectLevel = level;
+  mObjectVersion = version;
+  if (xmlns) setNamespaces(xmlns);;
+}
+                          
+Parameter::Parameter (SBMLDocument *document) :
+   SBase ("", "", -1)
+  , mValue     ( 0.0      )
+  , mConstant  ( true     )
+  , mIsSetValue( false    )
+{
+  setSBMLDocument(document);
+}
+
 /*
  * Destroys this Parameter.
  */
@@ -657,6 +678,23 @@ Parameter_createWithValueAndUnits (const char *id, double value, const char *uni
 }
 
 
+LIBSBML_EXTERN
+Parameter_t *
+Parameter_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns)
+{
+  return new(nothrow) Parameter(level, version, xmlns);
+}
+
+
+LIBSBML_EXTERN
+Parameter_t *
+Parameter_createWithDocument (SBMLDocument_t *document)
+{
+  return new(nothrow) Parameter(document);
+}
+
+
 /**
  * Frees the given Parameter_t structure.
  *
@@ -702,6 +740,22 @@ Parameter_initDefaults (Parameter_t *p)
   p->initDefaults();
 }
 
+
+/**
+ * Returns a list of XMLNamespaces_t associated with this Parameter_t
+ * structure.
+ *
+ * @param p the Parameter_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML object
+ */
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+Parameter_getNamespaces(Parameter_t *p)
+{
+  return p->getNamespaces();
+}
 
 /**
  * Takes a Parameter_t structure and returns its identifier.

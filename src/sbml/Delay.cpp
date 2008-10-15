@@ -57,6 +57,23 @@ Delay::Delay (   const ASTNode* math ) :
 }
 
 
+Delay::Delay (unsigned int level, unsigned int version,
+                          XMLNamespaces *xmlns) :
+   SBase		  (  -1 )
+ , mMath      ( 0              )
+{
+  mObjectLevel = level;
+  mObjectVersion = version;
+  if (xmlns) setNamespaces(xmlns);;
+}
+                          
+Delay::Delay (SBMLDocument *document) :
+   SBase		  (  -1 )
+ , mMath      ( 0              )
+{
+  setSBMLDocument(document);
+}
+
 /*
  * Destroys this Delay.
  */
@@ -466,6 +483,23 @@ Delay_createWithMath (const ASTNode_t *math)
 }
 
 
+LIBSBML_EXTERN
+Delay_t *
+Delay_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns)
+{
+  return new(nothrow) Delay(level, version, xmlns);
+}
+
+
+LIBSBML_EXTERN
+Delay_t *
+Delay_createWithDocument (SBMLDocument_t *document)
+{
+  return new(nothrow) Delay(document);
+}
+
+
 /**
  * Frees the given Delay_t structure.
  *
@@ -493,6 +527,22 @@ Delay_clone (const Delay_t *t)
   return t->clone();
 }
 
+
+/**
+ * Returns a list of XMLNamespaces_t associated with this Delay_t
+ * structure.
+ *
+ * @param d the Delay_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML object
+ */
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+Delay_getNamespaces(Delay_t *d)
+{
+  return d->getNamespaces();
+}
 
 /**
  * Get the mathematical formula for a Delay_t structure and return it as

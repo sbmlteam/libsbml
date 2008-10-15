@@ -271,6 +271,11 @@ SBMLDocument::getModel ()
 bool
 SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
 {
+  /* since this function will write to the error log we should
+   * clear anything in the log first
+   */
+  getErrorLog()->clearLog();
+
   bool conversionSuccess = false;
   if (mModel != 0)
   {
@@ -329,14 +334,14 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
   }
 
   /* commented out addition of note on conversion - it seemed like a good idea
-   * at the time but needs to located differently :-)
+   * at the time but needs to located differently :-) 
 
   if (conversionSuccess)
   {
     std::ostringstream conversion_note;
     conversion_note << "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n";
     conversion_note << "<p> This sbml model was automatically converted by ";
-    conversion_note << "libSBML version " << PACKAGE_VERSION;
+    conversion_note << "libSBML version " << getLibSBMLDottedVersion();
     conversion_note << " from SBML Level ";
     conversion_note << mLevel << " Version " << mVersion << ".</p>\n";
     if (getNumErrors() > 0)
@@ -360,10 +365,9 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
     }
     conversion_note << "</body>\n";
 
-    if (mModel) mModel->appendNotes(conversion_note.str());
+    appendNotes(conversion_note.str());
   }
-  */
-
+*/
   mLevel   = level;
   mVersion = version;
 

@@ -129,6 +129,9 @@ public:
    */
   Model (const std::string& id = "", const std::string& name = "");
 
+  Model (unsigned int level, unsigned int version, 
+               XMLNamespaces* xmlns = 0);
+  Model (SBMLDocument* document);
 
   /**
    * Destroys this Model.
@@ -1648,6 +1651,17 @@ Model_createWith (const char *sid, const char *name);
 
 
 LIBSBML_EXTERN
+Model_t *
+Model_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns);
+
+
+LIBSBML_EXTERN
+Model_t *
+Model_createWithDocument (SBMLDocument_t *document);
+
+
+LIBSBML_EXTERN
 void
 Model_free (Model_t *m);
 
@@ -1655,6 +1669,11 @@ Model_free (Model_t *m);
 LIBSBML_EXTERN
 Model_t *
 Model_clone (const Model_t *m);
+
+
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+Model_getNamespaces(Model_t *c);
 
 
 LIBSBML_EXTERN

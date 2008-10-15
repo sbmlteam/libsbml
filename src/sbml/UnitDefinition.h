@@ -315,6 +315,9 @@ public:
    */
   UnitDefinition (const std::string& id = "", const std::string& name = "");
 
+  UnitDefinition (unsigned int level, unsigned int version, 
+               XMLNamespaces* xmlns = 0);
+  UnitDefinition (SBMLDocument* document);
 
   /**
    * Destroys this UnitDefinition.
@@ -816,6 +819,17 @@ UnitDefinition_createWith (const char *sid, const char *name);
 
 
 LIBSBML_EXTERN
+UnitDefinition_t *
+UnitDefinition_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns);
+
+
+LIBSBML_EXTERN
+UnitDefinition_t *
+UnitDefinition_createWithDocument (SBMLDocument_t *document);
+
+
+LIBSBML_EXTERN
 void
 UnitDefinition_free (UnitDefinition_t *ud);
 
@@ -823,6 +837,11 @@ UnitDefinition_free (UnitDefinition_t *ud);
 LIBSBML_EXTERN
 UnitDefinition_t*
 UnitDefinition_clone (const UnitDefinition_t *ud);
+
+
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+UnitDefinition_getNamespaces(UnitDefinition_t *c);
 
 
 LIBSBML_EXTERN

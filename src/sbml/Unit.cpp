@@ -76,6 +76,31 @@ Unit::Unit (   const std::string&  kind
 }
 
 
+Unit::Unit (unsigned int level, unsigned int version,
+                          XMLNamespaces *xmlns) :
+    SBase      ( -1 )
+  , mKind      ( UNIT_KIND_INVALID )
+  , mExponent  ( 1.0   )
+  , mScale     ( 0      )
+  , mMultiplier( 1.0 )
+  , mOffset    ( 0.0     )
+{
+  mObjectLevel = level;
+  mObjectVersion = version;
+  if (xmlns) setNamespaces(xmlns);;
+}
+                          
+Unit::Unit (SBMLDocument *document) :
+    SBase      ( -1 )
+  , mKind      ( UNIT_KIND_INVALID )
+  , mExponent  ( 1.0   )
+  , mScale     ( 0      )
+  , mMultiplier( 1.0 )
+  , mOffset    ( 0.0     )
+{
+  setSBMLDocument(document);
+}
+
 /*
  * Destroys the given Unit.
  */
@@ -1511,6 +1536,23 @@ Unit_createWithKindExponentScaleMultiplier (UnitKind_t kind, int exponent, int s
 }
 
 
+LIBSBML_EXTERN
+Unit_t *
+Unit_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns)
+{
+  return new(nothrow) Unit(level, version, xmlns);
+}
+
+
+LIBSBML_EXTERN
+Unit_t *
+Unit_createWithDocument (SBMLDocument_t *document)
+{
+  return new(nothrow) Unit(document);
+}
+
+
 /**
  * Frees the given Unit_t structure.
  *
@@ -1554,6 +1596,23 @@ void
 Unit_initDefaults (Unit_t *u)
 {
   u->initDefaults();
+}
+
+
+/**
+ * Returns a list of XMLNamespaces_t associated with this Unit_t
+ * structure.
+ *
+ * @param u the Unit_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML object
+ */
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+Unit_getNamespaces(Unit_t *u)
+{
+  return u->getNamespaces();
 }
 
 

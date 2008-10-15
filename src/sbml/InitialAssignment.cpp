@@ -54,6 +54,23 @@ InitialAssignment::InitialAssignment (const std::string& symbol) :
 }
 
 
+InitialAssignment::InitialAssignment (unsigned int level, unsigned int version,
+                          XMLNamespaces *xmlns) :
+   SBase ("", "", -1)
+ , mMath   ( 0      )
+{
+  mObjectLevel = level;
+  mObjectVersion = version;
+  if (xmlns) setNamespaces(xmlns);;
+}
+                          
+InitialAssignment::InitialAssignment (SBMLDocument *document) :
+   SBase ("", "", -1)
+ , mMath   ( 0      )
+{
+  setSBMLDocument(document);
+}
+
 /*
  * Destroys this InitialAssignment.
  */
@@ -533,6 +550,23 @@ InitialAssignment_createWithSymbol (const char *symbol)
 }
 
 
+LIBSBML_EXTERN
+InitialAssignment_t *
+InitialAssignment_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns)
+{
+  return new(nothrow) InitialAssignment(level, version, xmlns);
+}
+
+
+LIBSBML_EXTERN
+InitialAssignment_t *
+InitialAssignment_createWithDocument (SBMLDocument_t *document)
+{
+  return new(nothrow) InitialAssignment(document);
+}
+
+
 /**
  * Frees the given InitialAssignment_t structure.
  *
@@ -558,6 +592,23 @@ InitialAssignment_t *
 InitialAssignment_clone (const InitialAssignment_t *ia)
 {
   return static_cast<InitialAssignment*>( ia->clone() );
+}
+
+
+/**
+ * Returns a list of XMLNamespaces_t associated with this InitialAssignment_t
+ * structure.
+ *
+ * @param ia the InitialAssignment_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML object
+ */
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+InitialAssignment_getNamespaces(InitialAssignment_t *ia)
+{
+  return ia->getNamespaces();
 }
 
 

@@ -57,6 +57,25 @@ Model::Model (const std::string& id, const std::string& name) :
 }
 
 
+Model::Model (unsigned int level, unsigned int version,
+                          XMLNamespaces *xmlns) :
+   SBase ("", "", -1)
+ , mHistory (0)
+ , mFormulaUnitsData (0)
+{
+  mObjectLevel = level;
+  mObjectVersion = version;
+  if (xmlns) setNamespaces(xmlns);;
+}
+                          
+Model::Model (SBMLDocument *document) :
+   SBase ("", "", -1)
+ , mHistory (0)
+ , mFormulaUnitsData (0)
+{
+  setSBMLDocument(document);
+}
+
 /*
  * Destroys this Model.
  */
@@ -3114,6 +3133,23 @@ Model_createWith (const char *sid, const char * name)
 }
 
 
+LIBSBML_EXTERN
+Model_t *
+Model_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns)
+{
+  return new(nothrow) Model(level, version, xmlns);
+}
+
+
+LIBSBML_EXTERN
+Model_t *
+Model_createWithDocument (SBMLDocument_t *document)
+{
+  return new(nothrow) Model(document);
+}
+
+
 /**
  * Creates and returns a deep copy of a given Model_t structure.
  *
@@ -3139,6 +3175,23 @@ void
 Model_free (Model_t *m)
 {
   delete m;
+}
+
+
+/**
+ * Returns a list of XMLNamespaces_t associated with this Model_t
+ * structure.
+ *
+ * @param m the Model_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML object
+ */
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+Model_getNamespaces(Model_t *m)
+{
+  return m->getNamespaces();
 }
 
 

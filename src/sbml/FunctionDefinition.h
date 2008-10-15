@@ -174,6 +174,9 @@ public:
    */
   FunctionDefinition (  const std::string& id      = ""
                       , const std::string& formula = "" );
+  FunctionDefinition (unsigned int level, unsigned int version, 
+               XMLNamespaces* xmlns = 0);
+  FunctionDefinition (SBMLDocument* document);
 
 
   /**
@@ -481,6 +484,17 @@ FunctionDefinition_createWithIdAndMath (const char *sid, ASTNode_t *math);
 
 
 LIBSBML_EXTERN
+FunctionDefinition_t *
+FunctionDefinition_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns);
+
+
+LIBSBML_EXTERN
+FunctionDefinition_t *
+FunctionDefinition_createWithDocument (SBMLDocument_t *document);
+
+
+LIBSBML_EXTERN
 void
 FunctionDefinition_free (FunctionDefinition_t *fd);
 
@@ -488,6 +502,11 @@ FunctionDefinition_free (FunctionDefinition_t *fd);
 LIBSBML_EXTERN
 FunctionDefinition_t *
 FunctionDefinition_clone (const FunctionDefinition_t* c);
+
+
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+FunctionDefinition_getNamespaces(FunctionDefinition_t *c);
 
 
 LIBSBML_EXTERN

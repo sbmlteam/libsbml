@@ -243,6 +243,9 @@ public:
    */
   InitialAssignment (const std::string& symbol = "");
 
+  InitialAssignment (unsigned int level, unsigned int version, 
+               XMLNamespaces* xmlns = 0);
+  InitialAssignment (SBMLDocument* document);
 
   /**
    * Destroys this InitialAssignment.
@@ -560,6 +563,17 @@ InitialAssignment_createWithSymbol (const char *symbol);
 
 
 LIBSBML_EXTERN
+InitialAssignment_t *
+InitialAssignment_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns);
+
+
+LIBSBML_EXTERN
+InitialAssignment_t *
+InitialAssignment_createWithDocument (SBMLDocument_t *document);
+
+
+LIBSBML_EXTERN
 void
 InitialAssignment_free (InitialAssignment_t *ia);
 
@@ -567,6 +581,11 @@ InitialAssignment_free (InitialAssignment_t *ia);
 LIBSBML_EXTERN
 InitialAssignment_t *
 InitialAssignment_clone (const InitialAssignment_t *ia);
+
+
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+InitialAssignment_getNamespaces(InitialAssignment_t *c);
 
 
 LIBSBML_EXTERN

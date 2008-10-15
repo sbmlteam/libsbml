@@ -53,6 +53,21 @@ UnitDefinition::UnitDefinition (const std::string& sid, const std::string& name)
 }
 
 
+UnitDefinition::UnitDefinition (unsigned int level, unsigned int version,
+                          XMLNamespaces *xmlns) :
+   SBase ("", "", -1)
+{
+  mObjectLevel = level;
+  mObjectVersion = version;
+  if (xmlns) setNamespaces(xmlns);;
+}
+                          
+UnitDefinition::UnitDefinition (SBMLDocument *document) :
+   SBase ("", "", -1)
+{
+  setSBMLDocument(document);
+}
+
 /*
  * Destroys this UnitDefinition.
  */
@@ -1129,6 +1144,23 @@ UnitDefinition_createWith (const char *id, const char *name)
 }
 
 
+LIBSBML_EXTERN
+UnitDefinition_t *
+UnitDefinition_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns)
+{
+  return new(nothrow) UnitDefinition(level, version, xmlns);
+}
+
+
+LIBSBML_EXTERN
+UnitDefinition_t *
+UnitDefinition_createWithDocument (SBMLDocument_t *document)
+{
+  return new(nothrow) UnitDefinition(document);
+}
+
+
 /**
  * Frees the given UnitDefinition_t.
  */
@@ -1154,6 +1186,22 @@ UnitDefinition_clone (const UnitDefinition_t *ud)
   return static_cast<UnitDefinition_t*>( ud->clone() );
 }
 
+
+/**
+ * Returns a list of XMLNamespaces_t associated with this UnitDefinition_t
+ * structure.
+ *
+ * @param ud the UnitDefinition_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML object
+ */
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+UnitDefinition_getNamespaces(UnitDefinition_t *ud)
+{
+  return ud->getNamespaces();
+}
 
 /**
  * Returns the identifier of this UnitDefinition_t structure.

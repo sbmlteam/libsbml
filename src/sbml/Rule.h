@@ -905,6 +905,10 @@ public:
   AlgebraicRule (const ASTNode* math);
 
 
+  AlgebraicRule (unsigned int level, unsigned int version, 
+               XMLNamespaces* xmlns = 0);
+  AlgebraicRule (SBMLDocument* document);
+
   /**
    * Destroys this AlgebraicRule.
    */
@@ -980,6 +984,10 @@ public:
   AssignmentRule (const std::string& variable, const ASTNode* math);
 
 
+  AssignmentRule (unsigned int level, unsigned int version, 
+               XMLNamespaces* xmlns = 0);
+  AssignmentRule (SBMLDocument* document);
+
   /**
    * Destroys this AssignmentRule.
    */
@@ -1053,6 +1061,10 @@ public:
    */
   RateRule (const std::string& variable, const ASTNode* math);
 
+
+  RateRule (unsigned int level, unsigned int version, 
+               XMLNamespaces* xmlns = 0);
+  RateRule (SBMLDocument* document);
 
   /**
    * Destroys this RateRule.
@@ -1216,6 +1228,39 @@ Rule_createRateWithVariableAndMath (const char * variable,
 
 
 LIBSBML_EXTERN
+Rule_t *
+Rule_createAlgebraicWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns);
+
+
+LIBSBML_EXTERN
+Rule_t *
+Rule_createAssignmentWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns);
+
+
+LIBSBML_EXTERN
+Rule_t *
+Rule_createRateWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns);
+
+
+LIBSBML_EXTERN
+Rule_t *
+Rule_createAlgebraicWithDocument (SBMLDocument_t *document);
+
+
+LIBSBML_EXTERN
+Rule_t *
+Rule_createAssignmentWithDocument (SBMLDocument_t *document);
+
+
+LIBSBML_EXTERN
+Rule_t *
+Rule_createRateWithDocument (SBMLDocument_t *document);
+
+
+LIBSBML_EXTERN
 void
 Rule_free (Rule_t *r);
 
@@ -1223,6 +1268,11 @@ Rule_free (Rule_t *r);
 LIBSBML_EXTERN
 Rule_t *
 Rule_clone (const Rule_t *r);
+
+
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+Rule_getNamespaces(Rule_t *r);
 
 
 LIBSBML_EXTERN

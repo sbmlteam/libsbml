@@ -144,6 +144,9 @@ public:
    */
   SpeciesType (const std::string& id = "", const std::string& name = "");
 
+  SpeciesType (unsigned int level, unsigned int version, 
+               XMLNamespaces* xmlns = 0);
+  SpeciesType (SBMLDocument* document);
 
   /**
    * Destroys this SpeciesType.
@@ -333,6 +336,17 @@ SpeciesType_createWith (const char *sid, const char *name);
 
 
 LIBSBML_EXTERN
+SpeciesType_t *
+SpeciesType_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns);
+
+
+LIBSBML_EXTERN
+SpeciesType_t *
+SpeciesType_createWithDocument (SBMLDocument_t *document);
+
+
+LIBSBML_EXTERN
 void
 SpeciesType_free (SpeciesType_t *st);
 
@@ -340,6 +354,11 @@ SpeciesType_free (SpeciesType_t *st);
 LIBSBML_EXTERN
 SpeciesType_t *
 SpeciesType_clone (const SpeciesType_t *st);
+
+
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+SpeciesType_getNamespaces(SpeciesType_t *c);
 
 
 LIBSBML_EXTERN

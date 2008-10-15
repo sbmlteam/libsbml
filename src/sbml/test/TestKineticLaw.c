@@ -57,6 +57,8 @@
 #include <sbml/SBase.h>
 #include <sbml/Parameter.h>
 #include <sbml/KineticLaw.h>
+#include <sbml/xml/XMLNamespaces.h>
+#include <sbml/SBMLDocument.h>
 
 #include <check.h>
 
@@ -392,6 +394,53 @@ START_TEST (test_KineticLaw_getParameterById)
 END_TEST
 
 
+START_TEST (test_KineticLaw_createWithLevelVersionAndNamespace)
+{
+  XMLNamespaces_t *xmlns = XMLNamespaces_create();
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+
+  KineticLaw_t *object = 
+    KineticLaw_createWithLevelVersionAndNamespaces(2, 1, xmlns);
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_KINETIC_LAW );
+  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
+
+  fail_unless( SBase_getLevel       ((SBase_t *) object) == 2 );
+  fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
+
+  fail_unless( KineticLaw_getNamespaces     (object) != NULL );
+  fail_unless( XMLNamespaces_getLength(KineticLaw_getNamespaces(object)) == 1 );
+
+  KineticLaw_free(object);
+}
+END_TEST
+
+
+START_TEST (test_KineticLaw_createWithDocument)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
+
+  KineticLaw_t *object = 
+    KineticLaw_createWithDocument(d);
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_KINETIC_LAW );
+  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
+
+  fail_unless( SBase_getLevel       ((SBase_t *) object) == 1 );
+  fail_unless( SBase_getVersion     ((SBase_t *) object) == 2 );
+  fail_unless( SBase_getSBMLDocument((SBase_t *) object) != NULL);
+
+  KineticLaw_free(object);
+}
+END_TEST
+
+
 Suite *
 create_suite_KineticLaw (void)
 {
@@ -415,6 +464,8 @@ create_suite_KineticLaw (void)
   tcase_add_test( tcase, test_KineticLaw_addParameter       );
   tcase_add_test( tcase, test_KineticLaw_getParameter       );
   tcase_add_test( tcase, test_KineticLaw_getParameterById   );
+  tcase_add_test( tcase, test_KineticLaw_createWithLevelVersionAndNamespace        );
+  tcase_add_test( tcase, test_KineticLaw_createWithDocument  );
 
   suite_add_tcase(suite, tcase);
 

@@ -57,6 +57,23 @@ StoichiometryMath::StoichiometryMath (   const ASTNode* math ) :
 }
 
 
+StoichiometryMath::StoichiometryMath (unsigned int level, unsigned int version,
+                          XMLNamespaces *xmlns) :
+   SBase (-1)
+ , mMath      ( 0              )
+{
+  mObjectLevel = level;
+  mObjectVersion = version;
+  if (xmlns) setNamespaces(xmlns);;
+}
+                          
+StoichiometryMath::StoichiometryMath (SBMLDocument *document) :
+   SBase (-1)
+ , mMath      ( 0              )
+{
+  setSBMLDocument(document);
+}
+
 /*
  * Destroys this StoichiometryMath.
  */
@@ -461,6 +478,23 @@ StoichiometryMath_createWithMath (const ASTNode_t *math)
 }
 
 
+LIBSBML_EXTERN
+StoichiometryMath_t *
+StoichiometryMath_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns)
+{
+  return new(nothrow) StoichiometryMath(level, version, xmlns);
+}
+
+
+LIBSBML_EXTERN
+StoichiometryMath_t *
+StoichiometryMath_createWithDocument (SBMLDocument_t *document)
+{
+  return new(nothrow) StoichiometryMath(document);
+}
+
+
 /**
  * Frees the given StoichiometryMath.
  */
@@ -480,6 +514,23 @@ SBase_t *
 StoichiometryMath_clone (const StoichiometryMath_t *stoichMath)
 {
   return stoichMath->clone();
+}
+
+
+/**
+ * Returns a list of XMLNamespaces_t associated with this StoichiometryMath_t
+ * structure.
+ *
+ * @param sm the StoichiometryMath_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML object
+ */
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+StoichiometryMath_getNamespaces(StoichiometryMath_t *sm)
+{
+  return sm->getNamespaces();
 }
 
 

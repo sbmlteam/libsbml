@@ -59,6 +59,39 @@ Species::Species (const std::string& id, const std::string& name) :
 }
 
 
+Species::Species (unsigned int level, unsigned int version,
+                          XMLNamespaces *xmlns) :
+   SBase ("", "", -1)
+  , mInitialAmount            ( 0.0   )
+  , mInitialConcentration     ( 0.0   )
+  , mHasOnlySubstanceUnits    ( false )
+  , mBoundaryCondition        ( false )
+  , mCharge                   ( 0     )
+  , mConstant                 ( false )
+  , mIsSetInitialAmount       ( false )
+  , mIsSetInitialConcentration( false )
+  , mIsSetCharge              ( false )
+{
+  mObjectLevel = level;
+  mObjectVersion = version;
+  if (xmlns) setNamespaces(xmlns);;
+}
+                          
+Species::Species (SBMLDocument *document) :
+   SBase ("", "", -1)
+  , mInitialAmount            ( 0.0   )
+  , mInitialConcentration     ( 0.0   )
+  , mHasOnlySubstanceUnits    ( false )
+  , mBoundaryCondition        ( false )
+  , mCharge                   ( 0     )
+  , mConstant                 ( false )
+  , mIsSetInitialAmount       ( false )
+  , mIsSetInitialConcentration( false )
+  , mIsSetCharge              ( false )
+{
+  setSBMLDocument(document);
+}
+
 /*
  * Destroys this Species.
  */
@@ -1064,6 +1097,22 @@ Species_createWith (const char *sid, const char *name)
 }
 
 
+LIBSBML_EXTERN
+Species_t *
+Species_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns)
+{
+  return new(nothrow) Species(level, version, xmlns);
+}
+
+
+LIBSBML_EXTERN
+Species_t *
+Species_createWithDocument (SBMLDocument_t *document)
+{
+  return new(nothrow) Species(document);
+}
+
 /**
  * Frees the given Species_t structure.
  *
@@ -1110,6 +1159,22 @@ Species_initDefaults (Species_t *s)
   s->initDefaults();
 }
 
+
+/**
+ * Returns a list of XMLNamespaces_t associated with this Species_t
+ * structure.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML object
+ */
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+Species_getNamespaces(Species_t *s)
+{
+  return s->getNamespaces();
+}
 
 /**
  * Takes a Species_t structure and returns its identifier.

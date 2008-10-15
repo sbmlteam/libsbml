@@ -55,6 +55,8 @@
 
 #include <sbml/SBase.h>
 #include <sbml/Rule.h>
+#include <sbml/xml/XMLNamespaces.h>
+#include <sbml/SBMLDocument.h>
 
 #include <check.h>
 
@@ -177,6 +179,53 @@ START_TEST (test_RateRule_createWithMath)
 END_TEST
 
 
+START_TEST (test_RateRule_createWithLevelVersionAndNamespace)
+{
+  XMLNamespaces_t *xmlns = XMLNamespaces_create();
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+
+  Rule_t *object = 
+    Rule_createRateWithLevelVersionAndNamespaces(2, 1, xmlns);
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_RATE_RULE );
+  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
+
+  fail_unless( SBase_getLevel       ((SBase_t *) object) == 2 );
+  fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
+
+  fail_unless( Rule_getNamespaces     (object) != NULL );
+  fail_unless( XMLNamespaces_getLength(Rule_getNamespaces(object)) == 1 );
+
+  Rule_free(object);
+}
+END_TEST
+
+
+START_TEST (test_RateRule_createWithDocument)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
+
+  Rule_t *object = 
+    Rule_createRateWithDocument(d);
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_RATE_RULE );
+  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
+
+  fail_unless( SBase_getLevel       ((SBase_t *) object) == 1 );
+  fail_unless( SBase_getVersion     ((SBase_t *) object) == 2 );
+  fail_unless( SBase_getSBMLDocument((SBase_t *) object) != NULL);
+
+  Rule_free(object);
+}
+END_TEST
+
+
 Suite *
 create_suite_RateRule (void)
 {
@@ -193,6 +242,8 @@ create_suite_RateRule (void)
   tcase_add_test( tcase, test_RateRule_setVariable );
   tcase_add_test( tcase, test_RateRule_createWithFormula   );
   tcase_add_test( tcase, test_RateRule_createWithMath   );
+  tcase_add_test( tcase, test_RateRule_createWithLevelVersionAndNamespace        );
+  tcase_add_test( tcase, test_RateRule_createWithDocument  );
 
   suite_add_tcase(suite, tcase);
 

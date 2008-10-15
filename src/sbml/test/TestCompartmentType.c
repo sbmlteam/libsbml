@@ -53,6 +53,8 @@
 
 #include <sbml/SBase.h>
 #include <sbml/CompartmentType.h>
+#include <sbml/xml/XMLNamespaces.h>
+#include <sbml/SBMLDocument.h>
 
 #include <check.h>
 
@@ -198,6 +200,53 @@ START_TEST (test_CompartmentType_unsetName)
 END_TEST
 
 
+START_TEST (test_CompartmentType_createWithLevelVersionAndNamespace)
+{
+  XMLNamespaces_t *xmlns = XMLNamespaces_create();
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+
+  CompartmentType_t *object = 
+    CompartmentType_createWithLevelVersionAndNamespaces(1, 1, xmlns);
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_COMPARTMENT_TYPE );
+  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
+
+  fail_unless( SBase_getLevel       ((SBase_t *) object) == 1 );
+  fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
+
+  fail_unless( CompartmentType_getNamespaces     (object) != NULL );
+  fail_unless( XMLNamespaces_getLength(CompartmentType_getNamespaces(object)) == 1 );
+
+  CompartmentType_free(object);
+}
+END_TEST
+
+
+START_TEST (test_CompartmentType_createWithDocument)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 2);
+
+  CompartmentType_t *object = 
+    CompartmentType_createWithDocument(d);
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_COMPARTMENT_TYPE );
+  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
+
+  fail_unless( SBase_getLevel       ((SBase_t *) object) == 2 );
+  fail_unless( SBase_getVersion     ((SBase_t *) object) == 2 );
+  fail_unless( SBase_getSBMLDocument((SBase_t *) object) != NULL);
+
+  CompartmentType_free(object);
+}
+END_TEST
+
+
 Suite *
 create_suite_CompartmentType (void)
 {
@@ -215,6 +264,8 @@ create_suite_CompartmentType (void)
   tcase_add_test( tcase, test_CompartmentType_setId       );
   tcase_add_test( tcase, test_CompartmentType_setName     );
   tcase_add_test( tcase, test_CompartmentType_unsetName   );
+  tcase_add_test( tcase, test_CompartmentType_createWithLevelVersionAndNamespace        );
+  tcase_add_test( tcase, test_CompartmentType_createWithDocument  );
 
   suite_add_tcase(suite, tcase);
 

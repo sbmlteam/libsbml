@@ -57,6 +57,23 @@ EventAssignment::EventAssignment (const std::string& variable, const ASTNode* ma
 }
 
 
+EventAssignment::EventAssignment (unsigned int level, unsigned int version,
+                          XMLNamespaces *xmlns) :
+   SBase ("", "", -1)
+ , mMath   ( 0        )
+{
+  mObjectLevel = level;
+  mObjectVersion = version;
+  if (xmlns) setNamespaces(xmlns);;
+}
+                          
+EventAssignment::EventAssignment (SBMLDocument *document) :
+   SBase ("", "", -1)
+ , mMath   ( 0        )
+{
+  setSBMLDocument(document);
+}
+
 /*
  * Destroys this EventAssignment.
  */
@@ -561,6 +578,23 @@ EventAssignment_createWithVarAndMath (const char *variable, ASTNode_t* math)
 }
 
 
+LIBSBML_EXTERN
+EventAssignment_t *
+EventAssignment_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns)
+{
+  return new(nothrow) EventAssignment(level, version, xmlns);
+}
+
+
+LIBSBML_EXTERN
+EventAssignment_t *
+EventAssignment_createWithDocument (SBMLDocument_t *document)
+{
+  return new(nothrow) EventAssignment(document);
+}
+
+
 /**
  * Frees the given EventAssignment_t structure.
  *
@@ -586,6 +620,23 @@ EventAssignment_t *
 EventAssignment_clone (const EventAssignment_t *ea)
 {
   return static_cast<EventAssignment*>( ea->clone() );
+}
+
+
+/**
+ * Returns a list of XMLNamespaces_t associated with this EventAssignment_t
+ * structure.
+ *
+ * @param ea the EventAssignment_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML object
+ */
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+EventAssignment_getNamespaces(EventAssignment_t *ea)
+{
+  return ea->getNamespaces();
 }
 
 

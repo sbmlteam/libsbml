@@ -58,6 +58,29 @@ Event::Event (const std::string& id, const std::string& name) :
 }
 
 
+Event::Event (unsigned int level, unsigned int version,
+                          XMLNamespaces *xmlns) :
+   SBase ("", "", -1)
+ , mTrigger ( 0          )
+ , mDelay   ( 0          )
+ , mNewAttributePlaceHolder ( true )
+{
+  mInternalIdOnly = false;
+  mObjectLevel = level;
+  mObjectVersion = version;
+  if (xmlns) setNamespaces(xmlns);;
+}
+                          
+Event::Event (SBMLDocument *document) :
+   SBase ("", "", -1)
+ , mTrigger ( 0          )
+ , mDelay   ( 0          )
+ , mNewAttributePlaceHolder ( true )
+{
+  mInternalIdOnly = false;
+  setSBMLDocument(document);
+}
+
 /*
  * Destroys this Event.
  */
@@ -822,6 +845,23 @@ Event_createWith (const char *sid, const char *name)
 }
 
 
+LIBSBML_EXTERN
+Event_t *
+Event_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns)
+{
+  return new(nothrow) Event(level, version, xmlns);
+}
+
+
+LIBSBML_EXTERN
+Event_t *
+Event_createWithDocument (SBMLDocument_t *document)
+{
+  return new(nothrow) Event(document);
+}
+
+
 /**
  * Frees the given Event_t structure.
  *
@@ -847,6 +887,23 @@ Event_t *
 Event_clone (const Event_t *e)
 {
   return static_cast<Event_t*>( e->clone() );
+}
+
+
+/**
+ * Returns a list of XMLNamespaces_t associated with this Event_t
+ * structure.
+ *
+ * @param e the Event_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML object
+ */
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+Event_getNamespaces(Event_t *e)
+{
+  return e->getNamespaces();
 }
 
 

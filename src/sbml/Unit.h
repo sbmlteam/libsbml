@@ -313,6 +313,9 @@ public:
          , int                 scale      = 0
          , double              multiplier = 1.0 );
 
+  Unit (unsigned int level, unsigned int version, 
+               XMLNamespaces* xmlns = 0);
+  Unit (SBMLDocument* document);
 
   /**
    * Destroys this Unit.
@@ -1107,6 +1110,17 @@ Unit_createWithKindExponentScaleMultiplier (UnitKind_t kind, int exponent, int s
 
 
 LIBSBML_EXTERN
+Unit_t *
+Unit_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns);
+
+
+LIBSBML_EXTERN
+Unit_t *
+Unit_createWithDocument (SBMLDocument_t *document);
+
+
+LIBSBML_EXTERN
 void
 Unit_free (Unit_t *u);
 
@@ -1119,6 +1133,11 @@ Unit_clone (const Unit_t* c);
 LIBSBML_EXTERN
 void
 Unit_initDefaults (Unit_t *u);
+
+
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+Unit_getNamespaces(Unit_t *c);
 
 
 LIBSBML_EXTERN

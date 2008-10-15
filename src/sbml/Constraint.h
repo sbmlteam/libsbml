@@ -186,6 +186,9 @@ public:
    */
   Constraint (const ASTNode* math = NULL);
 
+  Constraint (unsigned int level, unsigned int version, 
+               XMLNamespaces* xmlns = 0);
+  Constraint (SBMLDocument* document);
 
   /**
    * Destroys this Constraint.
@@ -462,6 +465,17 @@ Constraint_createWithMath (ASTNode_t * math);
 
 
 LIBSBML_EXTERN
+Constraint_t *
+Constraint_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns);
+
+
+LIBSBML_EXTERN
+Constraint_t *
+Constraint_createWithDocument (SBMLDocument_t *document);
+
+
+LIBSBML_EXTERN
 void
 Constraint_free (Constraint_t *c);
 
@@ -469,6 +483,11 @@ Constraint_free (Constraint_t *c);
 LIBSBML_EXTERN
 Constraint_t *
 Constraint_clone (const Constraint_t *c);
+
+
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+Constraint_getNamespaces(Constraint_t *c);
 
 
 LIBSBML_EXTERN

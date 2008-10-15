@@ -95,6 +95,37 @@ Reaction::Reaction (const std::string& id, const std::string& name,
 }
 
 
+Reaction::Reaction (unsigned int level, unsigned int version,
+                          XMLNamespaces *xmlns) :
+   SBase ("", "", -1)
+  , mKineticLaw( 0          )
+  , mReversible( true       )
+  , mFast      ( false      )
+  , mIsSetFast ( false      )
+{
+  mObjectLevel = level;
+  mObjectVersion = version;
+  if (xmlns) setNamespaces(xmlns);;
+
+  mReactants.setType( ListOfSpeciesReferences::Reactant );
+  mProducts .setType( ListOfSpeciesReferences::Product  );
+  mModifiers.setType( ListOfSpeciesReferences::Modifier );
+}
+                          
+Reaction::Reaction (SBMLDocument *document) :
+   SBase ("", "", -1)
+  , mKineticLaw( 0          )
+  , mReversible( true       )
+  , mFast      ( false      )
+  , mIsSetFast ( false      )
+{
+  setSBMLDocument(document);
+
+  mReactants.setType( ListOfSpeciesReferences::Reactant );
+  mProducts .setType( ListOfSpeciesReferences::Product  );
+  mModifiers.setType( ListOfSpeciesReferences::Modifier );
+}
+
 /*
  * Destroys this Reaction.
  */
@@ -1086,6 +1117,23 @@ Reaction_createWithKineticLaw ( const char   *sid,
 }
 
 
+LIBSBML_EXTERN
+Reaction_t *
+Reaction_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns)
+{
+  return new(nothrow) Reaction(level, version, xmlns);
+}
+
+
+LIBSBML_EXTERN
+Reaction_t *
+Reaction_createWithDocument (SBMLDocument_t *document)
+{
+  return new(nothrow) Reaction(document);
+}
+
+
 /**
  * Frees the given Reaction.
  */
@@ -1121,6 +1169,22 @@ Reaction_initDefaults (Reaction_t *r)
   r->initDefaults();
 }
 
+
+/**
+ * Returns a list of XMLNamespaces_t associated with this Reaction_t
+ * structure.
+ *
+ * @param r the Reaction_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML object
+ */
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+Reaction_getNamespaces(Reaction_t *r)
+{
+  return r->getNamespaces();
+}
 
 /**
  * @return the id of this Reaction.

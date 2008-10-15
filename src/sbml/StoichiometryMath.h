@@ -167,6 +167,9 @@ public:
    * documentation.
    */
   StoichiometryMath (const ASTNode* math = NULL);
+  StoichiometryMath (unsigned int level, unsigned int version, 
+               XMLNamespaces* xmlns = 0);
+  StoichiometryMath (SBMLDocument* document);
 
 
   /**
@@ -399,6 +402,17 @@ StoichiometryMath_createWithMath ( const ASTNode_t *math);
 
 
 LIBSBML_EXTERN
+StoichiometryMath_t *
+StoichiometryMath_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns);
+
+
+LIBSBML_EXTERN
+StoichiometryMath_t *
+StoichiometryMath_createWithDocument (SBMLDocument_t *document);
+
+
+LIBSBML_EXTERN
 void
 StoichiometryMath_free (StoichiometryMath_t *t);
 
@@ -406,6 +420,11 @@ StoichiometryMath_free (StoichiometryMath_t *t);
 LIBSBML_EXTERN
 SBase_t *
 StoichiometryMath_clone (const StoichiometryMath_t *t);
+
+
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+StoichiometryMath_getNamespaces(StoichiometryMath_t *c);
 
 
 LIBSBML_EXTERN

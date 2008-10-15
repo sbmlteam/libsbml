@@ -892,6 +892,21 @@ AlgebraicRule::AlgebraicRule (const ASTNode* math) :
 }
 
 
+AlgebraicRule::AlgebraicRule (unsigned int level, unsigned int version,
+                          XMLNamespaces *xmlns) :
+  Rule(SBML_ALGEBRAIC_RULE, "", 0)
+{
+  mObjectLevel = level;
+  mObjectVersion = version;
+  if (xmlns) setNamespaces(xmlns);;
+}
+                          
+AlgebraicRule::AlgebraicRule (SBMLDocument *document) :
+  Rule(SBML_ALGEBRAIC_RULE, "", 0)
+{
+  setSBMLDocument(document);
+}
+
 /*
  * Destroys this AlgebraicRule.
  */
@@ -945,6 +960,21 @@ AssignmentRule::AssignmentRule (const std::string& variable, const ASTNode* math
 }
 
 
+AssignmentRule::AssignmentRule (unsigned int level, unsigned int version,
+                          XMLNamespaces *xmlns) :
+  Rule(SBML_ASSIGNMENT_RULE, "", 0)
+{
+  mObjectLevel = level;
+  mObjectVersion = version;
+  if (xmlns) setNamespaces(xmlns);;
+}
+                          
+AssignmentRule::AssignmentRule (SBMLDocument *document) :
+  Rule(SBML_ASSIGNMENT_RULE, "", 0)
+{
+  setSBMLDocument(document);
+}
+
 /*
  * Destroys this AssignmentRule.
  */
@@ -995,6 +1025,21 @@ RateRule::RateRule (const std::string& variable, const ASTNode* math) :
 {
 }
 
+
+RateRule::RateRule (unsigned int level, unsigned int version,
+                          XMLNamespaces *xmlns) :
+  Rule(SBML_RATE_RULE, "", 0)
+{
+  mObjectLevel = level;
+  mObjectVersion = version;
+  if (xmlns) setNamespaces(xmlns);;
+}
+                          
+RateRule::RateRule (SBMLDocument *document) :
+  Rule(SBML_RATE_RULE, "", 0)
+{
+  setSBMLDocument(document);
+}
 
 /*
  * Destroys this RateRule.
@@ -1316,6 +1361,58 @@ Rule_createRateWithVariableAndMath (const char * variable,
 }
 
 
+LIBSBML_EXTERN
+Rule_t *
+Rule_createAlgebraicWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns)
+{
+  return new(nothrow) AlgebraicRule (level, version, xmlns);
+}
+
+
+LIBSBML_EXTERN
+Rule_t *
+Rule_createAssignmentWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns)
+{
+  return new(nothrow) AssignmentRule (level, version, xmlns);
+}
+
+
+
+LIBSBML_EXTERN
+Rule_t *
+Rule_createRateWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns)
+{
+  return new(nothrow) RateRule (level, version, xmlns);
+}
+
+
+LIBSBML_EXTERN
+Rule_t *
+Rule_createAlgebraicWithDocument (SBMLDocument_t *document)
+{
+  return new(nothrow) AlgebraicRule (document);
+}
+
+
+LIBSBML_EXTERN
+Rule_t *
+Rule_createAssignmentWithDocument (SBMLDocument_t *document)
+{
+  return new(nothrow) AssignmentRule (document);
+}
+
+
+LIBSBML_EXTERN
+Rule_t *
+Rule_createRateWithDocument (SBMLDocument_t *document)
+{
+  return new(nothrow) RateRule (document);
+}
+
+
 /**
  * Destroys this Rule.
  */
@@ -1337,6 +1434,22 @@ Rule_clone (const Rule_t *r)
   return static_cast<Rule*>( r->clone() );
 }
 
+
+/**
+ * Returns a list of XMLNamespaces_t associated with this Rule_t
+ * structure.
+ *
+ * @param r the Rule_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML object
+ */
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+Rule_getNamespaces(Rule_t *r)
+{
+  return r->getNamespaces();
+}
 
 /**
  * @note SBML Level 1 uses a text-string format for mathematical formulas.

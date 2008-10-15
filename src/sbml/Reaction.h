@@ -218,6 +218,9 @@ public:
             , const KineticLaw*   kl         = 0
             , bool                reversible = true );
 
+  Reaction (unsigned int level, unsigned int version, 
+               XMLNamespaces* xmlns = 0);
+  Reaction (SBMLDocument* document);
 
   /**
    * Destroys this Reaction.
@@ -920,6 +923,17 @@ Reaction_createWithKineticLaw ( const char   *sid,
 
 
 LIBSBML_EXTERN
+Reaction_t *
+Reaction_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version, XMLNamespaces_t *xmlns);
+
+
+LIBSBML_EXTERN
+Reaction_t *
+Reaction_createWithDocument (SBMLDocument_t *document);
+
+
+LIBSBML_EXTERN
 void
 Reaction_free (Reaction_t *r);
 
@@ -932,6 +946,11 @@ Reaction_clone (const Reaction_t *r);
 LIBSBML_EXTERN
 void
 Reaction_initDefaults (Reaction_t *r);
+
+
+LIBSBML_EXTERN
+const XMLNamespaces_t *
+Reaction_getNamespaces(Reaction_t *c);
 
 
 LIBSBML_EXTERN

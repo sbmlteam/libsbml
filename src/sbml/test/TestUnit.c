@@ -53,6 +53,8 @@
 
 #include <sbml/SBase.h>
 #include <sbml/Unit.h>
+#include <sbml/xml/XMLNamespaces.h>
+#include <sbml/SBMLDocument.h>
 
 #include <check.h>
 
@@ -284,6 +286,55 @@ START_TEST (test_Unit_set_get)
   Unit_free(u);
 }
 END_TEST
+
+
+START_TEST (test_Unit_createWithLevelVersionAndNamespace)
+{
+  XMLNamespaces_t *xmlns = XMLNamespaces_create();
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+
+  Unit_t *object = 
+    Unit_createWithLevelVersionAndNamespaces(2, 1, xmlns);
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_UNIT );
+  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
+
+  fail_unless( SBase_getLevel       ((SBase_t *) object) == 2 );
+  fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
+
+  fail_unless( Unit_getNamespaces     (object) != NULL );
+  fail_unless( XMLNamespaces_getLength(Unit_getNamespaces(object)) == 1 );
+
+  Unit_free(object);
+}
+END_TEST
+
+
+START_TEST (test_Unit_createWithDocument)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
+
+  Unit_t *object = 
+    Unit_createWithDocument(d);
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_UNIT );
+  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
+
+  fail_unless( SBase_getLevel       ((SBase_t *) object) == 1 );
+  fail_unless( SBase_getVersion     ((SBase_t *) object) == 2 );
+  fail_unless( SBase_getSBMLDocument((SBase_t *) object) != NULL);
+
+  Unit_free(object);
+}
+END_TEST
+
+
 Suite *
 create_suite_Unit (void)
 {
@@ -299,6 +350,8 @@ create_suite_Unit (void)
   tcase_add_test( tcase, test_Unit_isXXX      );
   tcase_add_test( tcase, test_Unit_isBuiltIn  );
   tcase_add_test( tcase, test_Unit_set_get    );
+  tcase_add_test( tcase, test_Unit_createWithLevelVersionAndNamespace        );
+  tcase_add_test( tcase, test_Unit_createWithDocument  );
 
   suite_add_tcase(suite, tcase);
 
