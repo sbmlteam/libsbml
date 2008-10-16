@@ -310,15 +310,15 @@ START_TEST (test_Event_full)
 END_TEST
 
 
-START_TEST (test_Event_setNewAttributePlaceHolder)
+START_TEST (test_Event_setUseValuesFromTriggerTime)
 {
-  Event_setNewAttributePlaceHolder(E, 0);
+  Event_setUseValuesFromTriggerTime(E, 0);
 
-  fail_unless( Event_getNewAttributePlaceHolder(E) == 0 );
+  fail_unless( Event_getUseValuesFromTriggerTime(E) == 0 );
 
-  Event_setNewAttributePlaceHolder(E, 1);
+  Event_setUseValuesFromTriggerTime(E, 1);
 
-  fail_unless( Event_getNewAttributePlaceHolder(E) == 1 );
+  fail_unless( Event_getUseValuesFromTriggerTime(E) == 1 );
 }
 END_TEST
 
@@ -390,7 +390,7 @@ create_suite_Event (void)
   tcase_add_test( tcase, test_Event_setDelay     );
   tcase_add_test( tcase, test_Event_setTimeUnits );
   tcase_add_test( tcase, test_Event_full         );
-  tcase_add_test( tcase, test_Event_setNewAttributePlaceHolder );
+  tcase_add_test( tcase, test_Event_setUseValuesFromTriggerTime );
   tcase_add_test( tcase, test_Event_createWithLevelVersionAndNamespace        );
   tcase_add_test( tcase, test_Event_createWithDocument  );
 

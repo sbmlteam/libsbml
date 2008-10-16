@@ -269,12 +269,12 @@ public:
 
 
   /**
-   * Get the value of the "newAttributePlaceHolder" attribute of this Event.
+   * Get the value of the "useValuesFromTriggerTime" attribute of this Event.
    * 
-   * @return the value of the attribute "newAttributePlaceHolder" as a boolean.
+   * @return the value of the attribute "useValuesFromTriggerTime" as a boolean.
    *
    */
-  bool getNewAttributePlaceHolder () const;
+  bool getUseValuesFromTriggerTime () const;
 
 
   /**
@@ -358,12 +358,12 @@ public:
 
 
   /**
-   * Sets the "newAttributePlaceHolder" attribute of this Event to a @p value.
+   * Sets the "useValuesFromTriggerTime" attribute of this Event to a @p value.
    *
-   * @param value the value of the newAttributePlaceHolder to use.
+   * @param value the value of useValuesFromTriggerTime to use.
    *
    */
-  void setNewAttributePlaceHolder (bool value);
+  void setUseValuesFromTriggerTime (bool value);
 
 
   /**
@@ -551,7 +551,7 @@ protected:
   Trigger*                mTrigger;
   Delay*                  mDelay;
   std::string             mTimeUnits;
-  bool                    mNewAttributePlaceHolder;
+  bool                    mUseValuesFromTriggerTime;
   bool mInternalIdOnly;
   ListOfEventAssignments  mEventAssignments;
   
@@ -713,7 +713,7 @@ Event_getTimeUnits (const Event_t *e);
 
 LIBSBML_EXTERN
 int
-Event_getNewAttributePlaceHolder (const Event_t *e);
+Event_getUseValuesFromTriggerTime (const Event_t *e);
 
 
 LIBSBML_EXTERN
@@ -768,7 +768,7 @@ Event_setTimeUnits (Event_t *e, const char *sid);
 
 LIBSBML_EXTERN
 void
-Event_setNewAttributePlaceHolder (Event_t *e, int value);
+Event_setUseValuesFromTriggerTime (Event_t *e, int value);
 
 
 LIBSBML_EXTERN

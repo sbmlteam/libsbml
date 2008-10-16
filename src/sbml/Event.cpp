@@ -52,7 +52,7 @@ Event::Event (const std::string& id, const std::string& name) :
    SBase    ( id, name   )
  , mTrigger ( 0          )
  , mDelay   ( 0          )
- , mNewAttributePlaceHolder ( true )
+ , mUseValuesFromTriggerTime ( true )
 {
   mInternalIdOnly = false;
 }
@@ -63,7 +63,7 @@ Event::Event (unsigned int level, unsigned int version,
    SBase ("", "", -1)
  , mTrigger ( 0          )
  , mDelay   ( 0          )
- , mNewAttributePlaceHolder ( true )
+ , mUseValuesFromTriggerTime ( true )
 {
   mInternalIdOnly = false;
   mObjectLevel = level;
@@ -75,7 +75,7 @@ Event::Event (SBMLDocument *document) :
    SBase ("", "", -1)
  , mTrigger ( 0          )
  , mDelay   ( 0          )
- , mNewAttributePlaceHolder ( true )
+ , mUseValuesFromTriggerTime ( true )
 {
   mInternalIdOnly = false;
   setSBMLDocument(document);
@@ -99,7 +99,7 @@ Event::Event (const Event& orig) :
  , mTrigger         ( 0                      )
  , mDelay           ( 0                      )
  , mTimeUnits       ( orig.mTimeUnits        )
- , mNewAttributePlaceHolder ( orig.mNewAttributePlaceHolder )
+ , mUseValuesFromTriggerTime ( orig.mUseValuesFromTriggerTime )
  , mInternalIdOnly  ( orig.mInternalIdOnly   )
  , mEventAssignments( orig.mEventAssignments )
 {
@@ -116,7 +116,7 @@ Event& Event::operator=(const Event& rhs)
   this->SBase::operator =(rhs);
  
   mTimeUnits        = rhs.mTimeUnits        ;
-  mNewAttributePlaceHolder = rhs.mNewAttributePlaceHolder;
+  mUseValuesFromTriggerTime = rhs.mUseValuesFromTriggerTime;
   mInternalIdOnly   = rhs.mInternalIdOnly   ;
   mEventAssignments = rhs.mEventAssignments ;
 
@@ -216,12 +216,12 @@ Event::getTimeUnits () const
 
 
 /*
- * Returns the value of the "newAttributePlaceHolder" attribute of this Event.
+ * Returns the value of the "useValuesFromTriggerTime" attribute of this Event.
  */
 bool 
-Event::getNewAttributePlaceHolder () const
+Event::getUseValuesFromTriggerTime () const
 {
-  return mNewAttributePlaceHolder;
+  return mUseValuesFromTriggerTime;
 }
 
   
@@ -311,12 +311,12 @@ Event::setTimeUnits (const std::string& sid)
 
 
 /*
- * Sets the "newAttributePlaceHolder" attribute of this Event to a @p value.
+ * Sets the "useValuesFromTriggerTime" attribute of this Event to a @p value.
  */
 void 
-Event::setNewAttributePlaceHolder (bool value)
+Event::setUseValuesFromTriggerTime (bool value)
 {
-  mNewAttributePlaceHolder = value;
+  mUseValuesFromTriggerTime = value;
 }
 
 
@@ -603,7 +603,7 @@ Event::readAttributes (const XMLAttributes& attributes)
 
   if (!(level == 2 && version < 4))
   {
-    expectedAttributes.push_back("newAttributePlaceHolder");
+    expectedAttributes.push_back("useValuesFromTriggerTime");
   }
 
   // check that all attributes are expected
@@ -650,10 +650,10 @@ Event::readAttributes (const XMLAttributes& attributes)
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 
   //
-  // newAttributePlaceHolder: bool {use="optional" default="true"} (L2V4 ->)
+  // useValuesFromTriggerTime: bool {use="optional" default="true"} (L2V4 ->)
   //
   if (!(level == 2 && version < 4))
-    attributes.readInto("newAttributePlaceHolder", mNewAttributePlaceHolder);
+    attributes.readInto("useValuesFromTriggerTime", mUseValuesFromTriggerTime);
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -706,12 +706,12 @@ Event::writeAttributes (XMLOutputStream& stream) const
     SBO::writeTerm(stream, mSBOTerm);
 
   //
-  // newAttributePlaceHolder: bool {use="optional" default="true"} (L2V4 ->)
+  // useValuesFromTriggerTime: bool {use="optional" default="true"} (L2V4 ->)
   //
   if (!(level == 2 && version < 4))
   {
-    if (!mNewAttributePlaceHolder)
-      stream.writeAttribute("newAttributePlaceHolder", mNewAttributePlaceHolder);
+    if (!mUseValuesFromTriggerTime)
+      stream.writeAttribute("useValuesFromTriggerTime", mUseValuesFromTriggerTime);
   }
 }
 /** @endcond doxygen-libsbml-internal */
@@ -990,18 +990,18 @@ Event_getTimeUnits (const Event_t *e)
 
 
 /**
- * Takes an Event_t structure and returns the value of its "newAttributePlaceHolder"
+ * Takes an Event_t structure and returns the value of its "useValuesFromTriggerTime"
  * attribute.
  *
- * @param e the Event_t structure whose "newAttributePlaceHolder" value is sought
+ * @param e the Event_t structure whose "useValuesFromTriggerTime" value is sought
  * 
- * @return the newAttributePlaceHolder of this Event
+ * @return the useValuesFromTriggerTime of this Event
  */
 LIBSBML_EXTERN
 int
-Event_getNewAttributePlaceHolder (const Event_t *e)
+Event_getUseValuesFromTriggerTime (const Event_t *e)
 {
-  return static_cast<int> (e->getNewAttributePlaceHolder());
+  return static_cast<int> (e->getUseValuesFromTriggerTime());
 }
 
 
@@ -1176,16 +1176,16 @@ Event_setTimeUnits (Event_t *e, const char *sid)
 
 
 /**
- * Sets the "newAttributePlaceHolder" attribute of this Event to a @p value.
+ * Sets the "useValuesFromTriggerTime" attribute of this Event to a @p value.
  * 
  * @param e the Event_t structure to set
- * @param value the value of the "newAttributePlaceHolder" attribute
+ * @param value the value of the "useValuesFromTriggerTime" attribute
  */
 LIBSBML_EXTERN
 void
-Event_setNewAttributePlaceHolder (Event_t *e, int value)
+Event_setUseValuesFromTriggerTime (Event_t *e, int value)
 {
-  e->setNewAttributePlaceHolder( static_cast<bool>(value) );
+  e->setUseValuesFromTriggerTime( static_cast<bool>(value) );
 }
 
 

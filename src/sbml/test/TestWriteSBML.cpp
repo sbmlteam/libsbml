@@ -2046,15 +2046,15 @@ START_TEST (test_WriteSBML_Event_WithSBO)
 END_TEST
 
 
-START_TEST (test_WriteSBML_Event_WithNewAttributePlaceHolder)
+START_TEST (test_WriteSBML_Event_WithUseValuesFromTriggerTime)
 {
-  const char* expected = wrapXML("<event id=\"e\" newAttributePlaceHolder=\"false\"/>");
+  const char* expected = wrapXML("<event id=\"e\" useValuesFromTriggerTime=\"false\"/>");
   D->setLevelAndVersion(2, 4);
 
 
   Event e;
   e.setId("e");
-  e.setNewAttributePlaceHolder(false);
+  e.setUseValuesFromTriggerTime(false);
   
   e.setSBMLDocument(D);
 
@@ -2792,7 +2792,7 @@ create_suite_WriteSBML ()
   // Event
   tcase_add_test( tcase, test_WriteSBML_Event         );
   tcase_add_test( tcase, test_WriteSBML_Event_WithSBO         );
-  tcase_add_test( tcase, test_WriteSBML_Event_WithNewAttributePlaceHolder         );
+  tcase_add_test( tcase, test_WriteSBML_Event_WithUseValuesFromTriggerTime         );
   tcase_add_test( tcase, test_WriteSBML_Event_trigger );
   tcase_add_test( tcase, test_WriteSBML_Event_trigger_withSBO );
   tcase_add_test( tcase, test_WriteSBML_Event_delay   );

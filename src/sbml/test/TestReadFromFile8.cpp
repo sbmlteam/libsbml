@@ -119,7 +119,7 @@ START_TEST (test_read_l2v4_new)
   fail_unless( !c->getConstant(), NULL );
 
 
-  //<event newAttributePlaceHolder="true">
+  //<event useValuesFromTriggerTime="true">
   //  <trigger>
   //    <math xmlns="http://www.w3.org/1998/Math/MathML">
   //      <apply>
@@ -146,7 +146,7 @@ START_TEST (test_read_l2v4_new)
   e = m->getEvent(0);
   fail_unless(e != NULL, NULL);
 
-  fail_unless(e->getNewAttributePlaceHolder(), NULL);
+  fail_unless(e->getUseValuesFromTriggerTime(), NULL);
 
   fail_unless(e->isSetTrigger(), NULL);
   
