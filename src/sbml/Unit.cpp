@@ -757,8 +757,17 @@ Unit::areEquivalent(Unit * unit1, Unit * unit2)
   if (!strcmp(UnitKind_toString(unit1->getKind()), 
               UnitKind_toString(unit2->getKind())))
   {
-    if ( (unit1->getOffset()    == unit2->getOffset())
-      && (unit1->getExponent()  == unit2->getExponent()))
+    // if the kind is dimensionless it doesnt matter 
+    // what the exponent is
+    if (unit1->getKind() != UNIT_KIND_DIMENSIONLESS)
+    {
+      if ( (unit1->getOffset()    == unit2->getOffset())
+        && (unit1->getExponent()  == unit2->getExponent()))
+      {
+        equivalent = true;
+      }
+    }
+    else
     {
       equivalent = true;
     }
