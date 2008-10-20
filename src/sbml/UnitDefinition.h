@@ -437,6 +437,19 @@ public:
 
 
   /**
+   * Convenience function for testing if a given unit definition is a
+   * variant of the built-in unit @c "substance" divided by the built-in
+   * unit @c "time".
+   *
+   * @return @c true if this UnitDefinition is a variant of the built-in
+   * unit substance per built-in unit time, meaning it contains two units
+   * one of which is a variant of substance and the other is a variant of
+   * time which an exponent of -1; @c false otherwise.
+   */
+  bool isVariantOfSubstancePerTime () const;
+
+
+  /**
    * Adds a copy of the given Unit to this UnitDefinition.
    *
    * @param u the Unit instance to add to this UnitDefinition.
@@ -897,6 +910,11 @@ UnitDefinition_isVariantOfDimensionless (const UnitDefinition_t *ud);
 LIBSBML_EXTERN
 int
 UnitDefinition_isVariantOfMass (const UnitDefinition_t *ud);
+
+
+LIBSBML_EXTERN
+int
+UnitDefinition_isVariantOfSubstancePerTime (const UnitDefinition_t *ud);
 
 
 LIBSBML_EXTERN

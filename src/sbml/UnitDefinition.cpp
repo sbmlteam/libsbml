@@ -301,6 +301,30 @@ UnitDefinition::isVariantOfMass () const
 
 
 /*
+ * @return true if this UnitDefinition is a variant of the built-in type
+ * substance per time, false otherwise.
+ */
+bool
+UnitDefinition::isVariantOfSubstancePerTime () const
+{
+  bool result = false;
+
+  // this unitDefinition times second^1 should be a variant
+  // of substance
+  UnitDefinition *ud = static_cast<UnitDefinition*>(this->clone());
+  Unit *u = new Unit(UNIT_KIND_SECOND);
+  ud->addUnit(u);
+
+  UnitDefinition::simplify(ud);
+
+  result = ud->isVariantOfSubstance();
+
+  delete ud;
+  return result;
+}
+
+
+/*
  * Adds a copy of the given Unit to this UnitDefinition.
  */
 void
@@ -1390,6 +1414,26 @@ int
 UnitDefinition_isVariantOfMass (const UnitDefinition_t *ud)
 {
   return static_cast<int>( ud->isVariantOfMass() );
+}
+
+
+/**
+ * Convenience function for testing if a given unit definition is a
+ * variant of the built-in unit @c "substance" divided by the built-in
+ * unit @c "time".
+ *
+ * @param ud the UnitDefinition_t to query.
+ *
+ * @return @c true if this UnitDefinition is a variant of the built-in
+ * unit substance per built-in unit time, meaning it contains two units
+ * one of which is a variant of substance and the other is a variant of
+ * time which an exponent of -1; @c false otherwise.
+ */
+LIBSBML_EXTERN
+int
+UnitDefinition_isVariantOfSubstancePerTime (const UnitDefinition_t *ud)
+{
+  return static_cast<int>( ud->isVariantOfSubstancePerTime() );
 }
 
 

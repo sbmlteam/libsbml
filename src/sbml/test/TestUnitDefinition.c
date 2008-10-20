@@ -501,6 +501,180 @@ START_TEST (test_UnitDefinition_isVariantOfVolume_2)
 END_TEST
 
 
+START_TEST (test_UnitDefinition_isVariantOfSubstancePerTime_1)
+{
+  Unit_t *dim   = Unit_create();
+  Unit_setKind( dim  , UnitKind_forName("dimensionless")   );
+
+  Unit_t *perTime = UnitDefinition_createUnit(UD);
+  Unit_setKind( perTime  , UnitKind_forName("second")   );
+  Unit_setExponent( perTime, -1);
+
+  Unit_t *u = UnitDefinition_createUnit(UD);
+
+  fail_unless( !UnitDefinition_isVariantOfSubstancePerTime(UD) );
+
+  Unit_setKind(u, UNIT_KIND_MOLE);
+  Unit_setExponent(u, 1);
+
+  fail_unless(  UnitDefinition_isVariantOfSubstancePerTime(UD) );
+
+  Unit_setScale(u, -1);
+  Unit_setScale(perTime, -1);
+  fail_unless(  UnitDefinition_isVariantOfSubstancePerTime(UD) );
+
+  Unit_setMultiplier(u, 2);
+  fail_unless(  UnitDefinition_isVariantOfSubstancePerTime(UD) );
+
+  Unit_setOffset(u, 3);
+  fail_unless(  UnitDefinition_isVariantOfSubstancePerTime(UD) );
+
+  Unit_setExponent(u, -3);
+  fail_unless( !UnitDefinition_isVariantOfSubstancePerTime(UD) );
+
+  Unit_setExponent(u, 1);
+  Unit_setExponent(perTime, -3);
+  fail_unless( !UnitDefinition_isVariantOfSubstancePerTime(UD) );
+  
+  Unit_setExponent(perTime, -1);
+  UnitDefinition_addUnit( UD, dim   );
+  fail_unless(  UnitDefinition_isVariantOfSubstancePerTime(UD) );
+
+}
+END_TEST
+
+
+START_TEST (test_UnitDefinition_isVariantOfSubstancePerTime_2)
+{
+  Unit_t *dim   = Unit_create();
+  Unit_setKind( dim  , UnitKind_forName("dimensionless")   );
+
+  Unit_t *perTime = UnitDefinition_createUnit(UD);
+  Unit_setKind( perTime  , UnitKind_forName("second")   );
+  Unit_setExponent( perTime, -1);
+
+  Unit_t *u = UnitDefinition_createUnit(UD);
+
+  fail_unless( !UnitDefinition_isVariantOfSubstancePerTime(UD) );
+
+  Unit_setKind(u, UNIT_KIND_ITEM);
+  Unit_setExponent(u, 1);
+
+  fail_unless(  UnitDefinition_isVariantOfSubstancePerTime(UD) );
+
+  Unit_setScale(u, -1);
+  Unit_setScale(perTime, -1);
+  fail_unless(  UnitDefinition_isVariantOfSubstancePerTime(UD) );
+
+  Unit_setMultiplier(u, 2);
+  fail_unless(  UnitDefinition_isVariantOfSubstancePerTime(UD) );
+
+  Unit_setOffset(u, 3);
+  fail_unless(  UnitDefinition_isVariantOfSubstancePerTime(UD) );
+
+  Unit_setExponent(u, -3);
+  fail_unless( !UnitDefinition_isVariantOfSubstancePerTime(UD) );
+
+  Unit_setExponent(u, 1);
+  Unit_setExponent(perTime, -3);
+  fail_unless( !UnitDefinition_isVariantOfSubstancePerTime(UD) );
+  
+  Unit_setExponent(perTime, -1);
+  UnitDefinition_addUnit( UD, dim   );
+  fail_unless(  UnitDefinition_isVariantOfSubstancePerTime(UD) );
+
+}
+END_TEST
+
+
+START_TEST (test_UnitDefinition_isVariantOfSubstancePerTime_3)
+{
+  UnitDefinition_t *ud = UnitDefinition_createWithLevelVersionAndNamespaces(2, 2, NULL);
+  Unit_t *dim   = Unit_create();
+  Unit_setKind( dim  , UnitKind_forName("dimensionless")   );
+
+  Unit_t *perTime = UnitDefinition_createUnit(ud);
+  Unit_setKind( perTime  , UnitKind_forName("second")   );
+  Unit_setExponent( perTime, -1);
+
+  Unit_t *u = UnitDefinition_createUnit(ud);
+
+  fail_unless( !UnitDefinition_isVariantOfSubstancePerTime(ud) );
+
+  Unit_setKind(u, UNIT_KIND_GRAM);
+  Unit_setExponent(u, 1);
+
+  fail_unless(  UnitDefinition_isVariantOfSubstancePerTime(ud) );
+
+  Unit_setScale(u, -1);
+  Unit_setScale(perTime, -1);
+  fail_unless(  UnitDefinition_isVariantOfSubstancePerTime(ud) );
+
+  Unit_setMultiplier(u, 2);
+  fail_unless(  UnitDefinition_isVariantOfSubstancePerTime(ud) );
+
+  Unit_setOffset(u, 3);
+  fail_unless(  UnitDefinition_isVariantOfSubstancePerTime(ud) );
+
+  Unit_setExponent(u, -3);
+  fail_unless( !UnitDefinition_isVariantOfSubstancePerTime(ud) );
+
+  Unit_setExponent(u, 1);
+  Unit_setExponent(perTime, -3);
+  fail_unless( !UnitDefinition_isVariantOfSubstancePerTime(ud) );
+  
+  Unit_setExponent(perTime, -1);
+  UnitDefinition_addUnit( ud, dim   );
+  fail_unless(  UnitDefinition_isVariantOfSubstancePerTime(ud) );
+
+}
+END_TEST
+
+
+START_TEST (test_UnitDefinition_isVariantOfSubstancePerTime_4)
+{
+  UnitDefinition_t *ud = UnitDefinition_createWithLevelVersionAndNamespaces(2, 2, NULL);
+  Unit_t *dim   = Unit_create();
+  Unit_setKind( dim  , UnitKind_forName("dimensionless")   );
+
+  Unit_t *perTime = UnitDefinition_createUnit(ud);
+  Unit_setKind( perTime  , UnitKind_forName("second")   );
+  Unit_setExponent( perTime, -1);
+
+  Unit_t *u = UnitDefinition_createUnit(ud);
+
+  fail_unless( !UnitDefinition_isVariantOfSubstancePerTime(ud) );
+
+  Unit_setKind(u, UNIT_KIND_KILOGRAM);
+  Unit_setExponent(u, 1);
+
+  fail_unless(  UnitDefinition_isVariantOfSubstancePerTime(ud) );
+
+  Unit_setScale(u, -1);
+  Unit_setScale(perTime, -1);
+  fail_unless(  UnitDefinition_isVariantOfSubstancePerTime(ud) );
+
+  Unit_setMultiplier(u, 2);
+  fail_unless(  UnitDefinition_isVariantOfSubstancePerTime(ud) );
+
+  Unit_setOffset(u, 3);
+  fail_unless(  UnitDefinition_isVariantOfSubstancePerTime(ud) );
+
+  Unit_setExponent(u, -3);
+  fail_unless( !UnitDefinition_isVariantOfSubstancePerTime(ud) );
+
+  Unit_setExponent(u, 1);
+  Unit_setExponent(perTime, -3);
+  fail_unless( !UnitDefinition_isVariantOfSubstancePerTime(ud) );
+  
+  Unit_setExponent(perTime, -1);
+  UnitDefinition_addUnit( ud, dim   );
+  fail_unless(  UnitDefinition_isVariantOfSubstancePerTime(ud) );
+
+}
+END_TEST
+
+
 START_TEST (test_UnitDefinition_createWithLevelVersionAndNamespace)
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
@@ -574,6 +748,10 @@ create_suite_UnitDefinition (void)
   tcase_add_test( tcase, test_UnitDefinition_isVariantOfTime        );
   tcase_add_test( tcase, test_UnitDefinition_isVariantOfVolume_1    );
   tcase_add_test( tcase, test_UnitDefinition_isVariantOfVolume_2    );
+  tcase_add_test( tcase, test_UnitDefinition_isVariantOfSubstancePerTime_1 );
+  tcase_add_test( tcase, test_UnitDefinition_isVariantOfSubstancePerTime_2 );
+  tcase_add_test( tcase, test_UnitDefinition_isVariantOfSubstancePerTime_3 );
+  tcase_add_test( tcase, test_UnitDefinition_isVariantOfSubstancePerTime_4 );
   tcase_add_test( tcase, test_UnitDefinition_createWithLevelVersionAndNamespace        );
   tcase_add_test( tcase, test_UnitDefinition_createWithDocument  );
 
