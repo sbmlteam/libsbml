@@ -613,6 +613,83 @@ ASTNode::prependChild (ASTNode* child)
 }
 
 
+LIBSBML_EXTERN
+int  
+ASTNode::removeChild(unsigned int n)
+{
+  int removed = LIBSBML_AST_NODE_INDEX_EXCEEDS_SIZE;
+  unsigned int size = getNumChildren();
+  if (n < size)
+  {
+    mChildren->remove(n);
+    if (getNumChildren() == size-1)
+    {
+      removed = LIBSBML_AST_NODE_OPERATION_SUCCESS;
+    }
+  }
+
+  return removed;
+}
+
+LIBSBML_EXTERN
+int 
+ASTNode::replaceChild(unsigned int n, ASTNode *newChild)
+{
+  int replaced = LIBSBML_AST_NODE_INDEX_EXCEEDS_SIZE;
+
+  unsigned int size = getNumChildren();
+  if (n < size)
+  {
+    mChildren->remove(n);
+    if (insertChild(n, newChild) == LIBSBML_AST_NODE_OPERATION_SUCCESS)
+      replaced = LIBSBML_AST_NODE_OPERATION_SUCCESS;    
+  }
+    
+  return replaced;
+}
+
+LIBSBML_EXTERN
+int 
+ASTNode::insertChild(unsigned int n, ASTNode *newChild)
+{
+  int inserted = LIBSBML_AST_NODE_INDEX_EXCEEDS_SIZE;
+
+  unsigned int i, size = getNumChildren();
+  if (n == 0)
+  {
+    prependChild(newChild);
+    inserted = LIBSBML_AST_NODE_OPERATION_SUCCESS;
+  }
+  else if (n <= size) 
+  {
+    /* starting at the end take each child in the list and prepend it
+    * then remove it from the end
+    * at the insertion point prepend the newChild
+    * eg list: a, b, c 
+    * inserting d at position 2
+    * list goes: c, a, b :  d, c, a, b : b, d, c, a : a, b, d, c
+    */
+    for (i = size-1; i >= n; i--)
+    {
+      prependChild(getChild(size-1));
+      mChildren->remove(size);
+    }
+
+    prependChild(newChild);
+
+    for (i = 0; i < n; i++)
+    {
+      prependChild(getChild(size));
+      mChildren->remove(size+1);
+    }
+
+    if (getNumChildren() == size + 1)
+      inserted = LIBSBML_AST_NODE_OPERATION_SUCCESS;
+  }
+
+  return inserted;
+}
+
 /*
  * @return a copy of this ASTNode and all its children.  The caller owns
  * the returned ASTNode and is reponsible for deleting it.
@@ -1633,9 +1710,6 @@ ASTNode::getDefinitionURL() const
 }
 
 
-
-
-
 /**
  * Creates a new ASTNode and returns a pointer to it.  The returned node
  * will have a type of AST_UNKNOWN and should be set to something else as
@@ -2409,4 +2483,62 @@ SBase_t *
 ASTNode_getParentSBMLObject(ASTNode_t* node)
 {
   return node->getParentSBMLObject();
+}
+
+/**
+ * Removes child n of the given ASTNode_t structure. 
+ *
+ * @param node the ASTNode_t from which to remove a child.
+ * @param n unsigned int the index of the child to remove
+ *
+ * @return int indicating the success or failure of the operation
+ *
+ * @note removing a child from an ASTNode may result in an
+ * inaccurate representation.
+ */
+LIBSBML_EXTERN
+int
+ASTNode_removeChild(ASTNode_t* node, unsigned int n)
+{
+  return node->removeChild(n);
+}
+
+/**
+ * Replaces the nth child of the given ASTNode_t structure 
+ * with the second ASTNode_t structure.
+ *
+ * @param node the ASTNode_t within which to replace a child.
+ * @param n unsigned int the index of the child to replace
+ * @param newChild ASTNode_t structure to replace the nth child
+ *
+ * @return int indicating the success or failure of the operation
+ *
+ * @note replacing a child within an ASTNode may result in an
+ * inaccurate representation.
+ */
+LIBSBML_EXTERN
+int
+ASTNode_replaceChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild)
+{
+  return node->replaceChild(n, newChild);
+}
+
+/**
+ * Insert the second ASTNode_t structure at point n in the list of children
+ * of the first ASTNode_t structure.
+ *
+ * @param node the ASTNode_t within which to insert a child.
+ * @param n unsigned int the index of the ASTNode_t being added
+ * @param newChild ASTNode_t to insert as the nth child
+ *
+ * @return int indicating the success or failure of the operation
+ *
+ * @note inserting a child within an ASTNode may result in an
+ * inaccurate representation.
+ */
+LIBSBML_EXTERN
+int
+ASTNode_insertChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild)
+{
+  return node->insertChild(n, newChild);
 }

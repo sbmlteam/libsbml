@@ -230,8 +230,15 @@
 #include <sbml/common/sbmlfwd.h>
 
 #include <sbml/math/FormulaTokenizer.h>
+#include <sbml/math/FormulaFormatter.h>
+#include <sbml/math/FormulaParser.h>
 #include <sbml/xml/XMLAttributes.h>
 
+typedef enum
+{
+    LIBSBML_AST_NODE_OPERATION_SUCCESS = 0
+  , LIBSBML_AST_NODE_INDEX_EXCEEDS_SIZE = -1
+} OperationReturnCodes_t;
 
 /**
  * ASTNodeType_t is the enumeration of possible ASTNode types.
@@ -491,6 +498,48 @@ public:
   LIBSBML_EXTERN
   void prependChild (ASTNode* child);
 
+
+  /**
+   * Removes child n of this ASTNode. 
+   *
+   * @param n unsigned int the index of the child to remove
+   *
+   * @return int indicating the success or failure of the operation
+   *
+   * @note removing a child from an ASTNode may result in an
+   * inaccurate representation.
+   */
+  LIBSBML_EXTERN
+  int removeChild(unsigned int n);
+
+  /**
+   * Replaces the nth child of this ASTNode with the given ASTNode.
+   *
+   * @param n unsigned int the index of the child to replace
+   * @param newChild ASTNode to replace the nth child
+   *
+   * @return int indicating the success or failure of the operation
+   *
+   * @note replacing a child within an ASTNode may result in an
+   * inaccurate representation.
+   */
+  LIBSBML_EXTERN
+  int replaceChild(unsigned int n, ASTNode *newChild);
+
+  /**
+   * Insert the given ASTNode at point n in the list of children
+   * of this ASTNode.
+   *
+   * @param n unsigned int the index of the ASTNode being added
+   * @param newChild ASTNode to insert as the nth child
+   *
+   * @return int indicating the success or failure of the operation
+   *
+   * @note inserting a child within an ASTNode may result in an
+   * inaccurate representation.
+   */
+  LIBSBML_EXTERN
+  int insertChild(unsigned int n, ASTNode *newChild);
 
   /**
    * Creates a recursive copy of this node and all its children.
@@ -1139,6 +1188,7 @@ public:
   LIBSBML_EXTERN
   void ReduceToBinary();
 
+
 protected:
   /** @cond doxygen-libsbml-internal */
 
@@ -1717,6 +1767,19 @@ ASTNode_setParentSBMLObject(ASTNode_t* node, SBase_t * sb);
 LIBSBML_EXTERN
 SBase_t * 
 ASTNode_getParentSBMLObject(ASTNode_t* node);
+
+LIBSBML_EXTERN
+int
+ASTNode_removeChild(ASTNode_t* node, unsigned int n);
+
+LIBSBML_EXTERN
+int
+ASTNode_replaceChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild);
+
+LIBSBML_EXTERN
+int
+ASTNode_insertChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild);
+
 
 END_C_DECLS
 

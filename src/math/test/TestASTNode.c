@@ -1802,6 +1802,134 @@ START_TEST (test_ASTNode_replaceArgument)
 END_TEST
 
 
+START_TEST (test_ASTNode_removeChild)
+{
+  ASTNode_t *node = ASTNode_create();
+  ASTNode_t *c1 = ASTNode_create();
+  ASTNode_t *c2 = ASTNode_create();
+  int i = 0;
+
+  ASTNode_setType(node, AST_PLUS);
+  ASTNode_setName(c1, "foo");
+  ASTNode_setName(c2, "foo2");
+  ASTNode_addChild(node, c1);
+  ASTNode_addChild(node, c2);
+
+  fail_unless( ASTNode_getNumChildren(node) == 2); 
+
+
+  i = ASTNode_removeChild(node, 0);
+
+  fail_unless( i == 0);
+  fail_unless( ASTNode_getNumChildren(node) == 1); 
+
+  i = ASTNode_removeChild(node, 1);
+
+  fail_unless( i == -1);
+  fail_unless( ASTNode_getNumChildren(node) == 1); 
+
+  i = ASTNode_removeChild(node, 0);
+
+  fail_unless( i == 0);
+  fail_unless( ASTNode_getNumChildren(node) == 0); 
+
+  ASTNode_free(node);
+}
+END_TEST
+
+
+START_TEST (test_ASTNode_replaceChild)
+{
+  ASTNode_t *node = ASTNode_create();
+  ASTNode_t *c1 = ASTNode_create();
+  ASTNode_t *c2 = ASTNode_create();
+  ASTNode_t *c3 = ASTNode_create();
+  ASTNode_t *newc = ASTNode_create();
+  int i = 0;
+
+  ASTNode_setType(node, AST_LOGICAL_AND);
+  ASTNode_setName(c1, "a");
+  ASTNode_setName(c2, "b");
+  ASTNode_setName(c3, "c");
+  ASTNode_addChild(node, c1);
+  ASTNode_addChild(node, c2);
+  ASTNode_addChild(node, c3);
+
+  fail_unless( ASTNode_getNumChildren(node) == 3); 
+  fail_unless( !strcmp(SBML_formulaToString(node), "and(a, b, c)"));
+
+  ASTNode_setName(newc, "d");
+
+  i = ASTNode_replaceChild(node, 0, newc);
+
+  fail_unless( i == 0);
+  fail_unless( ASTNode_getNumChildren(node) == 3); 
+  fail_unless( !strcmp(SBML_formulaToString(node), "and(d, b, c)"));
+
+  i = ASTNode_replaceChild(node, 3, newc);
+
+  fail_unless( i == -1);
+  fail_unless( ASTNode_getNumChildren(node) == 3); 
+  fail_unless( !strcmp(SBML_formulaToString(node), "and(d, b, c)"));
+
+  i = ASTNode_replaceChild(node, 1, c1);
+
+  fail_unless( i == 0);
+  fail_unless( ASTNode_getNumChildren(node) == 3); 
+  fail_unless( !strcmp(SBML_formulaToString(node), "and(d, a, c)"));
+
+  ASTNode_free(node);
+}
+END_TEST
+
+
+START_TEST (test_ASTNode_insertChild)
+{
+  ASTNode_t *node = ASTNode_create();
+  ASTNode_t *c1 = ASTNode_create();
+  ASTNode_t *c2 = ASTNode_create();
+  ASTNode_t *c3 = ASTNode_create();
+  ASTNode_t *newc = ASTNode_create();
+  ASTNode_t *newc1 = ASTNode_create();
+  int i = 0;
+
+  ASTNode_setType(node, AST_LOGICAL_AND);
+  ASTNode_setName(c1, "a");
+  ASTNode_setName(c2, "b");
+  ASTNode_setName(c3, "c");
+  ASTNode_addChild(node, c1);
+  ASTNode_addChild(node, c2);
+  ASTNode_addChild(node, c3);
+
+  fail_unless( ASTNode_getNumChildren(node) == 3); 
+  fail_unless( !strcmp(SBML_formulaToString(node), "and(a, b, c)"));
+
+  ASTNode_setName(newc, "d");
+  ASTNode_setName(newc1, "e");
+
+  i = ASTNode_insertChild(node, 1, newc);
+
+  fail_unless( i == 0);
+  fail_unless( ASTNode_getNumChildren(node) == 4); 
+  fail_unless( !strcmp(SBML_formulaToString(node), "and(a, d, b, c)"));
+
+  i = ASTNode_insertChild(node, 5, newc);
+
+  fail_unless( i == -1);
+  fail_unless( ASTNode_getNumChildren(node) == 4); 
+  fail_unless( !strcmp(SBML_formulaToString(node), "and(a, d, b, c)"));
+
+  i = ASTNode_insertChild(node, 2, newc1);
+
+  fail_unless( i == 0);
+  fail_unless( ASTNode_getNumChildren(node) == 5); 
+  fail_unless( !strcmp(SBML_formulaToString(node), "and(a, d, e, b, c)"));
+
+  ASTNode_free(node);
+}
+END_TEST
+
+
 Suite *
 create_suite_ASTNode (void) 
 { 
@@ -1838,6 +1966,9 @@ create_suite_ASTNode (void)
   tcase_add_test( tcase, test_ASTNode_children                );
   tcase_add_test( tcase, test_ASTNode_getListOfNodes          );
   tcase_add_test( tcase, test_ASTNode_replaceArgument         );
+  tcase_add_test( tcase, test_ASTNode_removeChild             );
+  tcase_add_test( tcase, test_ASTNode_replaceChild            );
+  tcase_add_test( tcase, test_ASTNode_insertChild             );
 
   suite_add_tcase(suite, tcase);
 
