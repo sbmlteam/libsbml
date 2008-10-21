@@ -4,7 +4,43 @@
 
 * New features:
 
-    There is a new validator that checks the consistency of the internal
+  - Tracker issue #2114473.
+    The UnitDefinition class has a new function isVariantOfSubstancePerTime()
+    which returns true if the unitDefinition is a variant of the built-in
+    unit of substance per the built-in unit of time, i.e. when multiplied by
+    a unit of 'second' the resulting unitDefinition is a variant of substance,
+    meaning moles or items (and grams or kilograms from SBML level 2 version 2 
+    onwards) with only abritrary variations in scale or multiplier values.
+    The function returns false if the unitDefinition is not a variant
+    of substance per time.   
+
+  - Tracker issue #2086608.
+    Added new functions to the ASTNode class.  These are 
+    removeChild(n) which removes the nth child; 
+    replaceChild(n, node) which replaces the nth child with node
+    and insertChild(n, node) which inserts node into the list of
+    children such that it becomes the nth child.  These functions all 
+    return an integer indicating success (0) or failure (-1). Failure 
+    is only reported if n exceeds the size of the node; invalid ASTNodes 
+    resulting from the operation are not reported.
+
+  - Classes relating to SBML components have two additional constructors:
+    the first is of the form XXX(unsigned int level, unsigned int version, 
+    XMLNamespaces* xmlns = 0).  This function constructs the object as
+    in other constructors but additionally sets new SBase variables 
+    mObjectLevel and mObjectVersion and the mNamespaces variable previously 
+    only used on an SBMLDocument.  Note that these are the only functions 
+    that ever set the mObjectLevel/mObjectVersion variables which can thus be 
+    used to verify the attributes of the object given the intended level and
+    version.  
+    the second is of the form XXX(SBMLDocument *).  This function constructs 
+    the object and sets the document pointed to by that object.  Note that it 
+    does not add the object to the document; but provides a means of checking 
+    that any add functions are valid.
+    There are C implementations of these functions:
+    XXX__createWithLevelVersionAndNamespaces and XXX_createWithDocument.
+
+  - There is a new validator that checks the consistency of the internal
     representation of a model.  Since the libSBML classes representing
     SBML components maintain all variables associated with attributes 
     from every level/version of SBML, it is possible to have an internal
@@ -62,7 +98,15 @@
 
 * Changes:
 
-  - Tracker issue #2118126
+  - Tracker issue #2175098. 
+    Unit validation was producing a dimensionless unit with an exponent 
+    of -1 and then failing to consider it equivalent to a dimensionless
+    unit with an exponent of 1.  Code should no longer assign an exponent
+    of -1 to a dimensionless unit and the comparison code no longer'
+    considers exponent when comparing dimensionless units.  Thanks to 
+    Likas endler for reporting this.
+
+  - Tracker issue #2118126.
     The getDerivedUnitDefinition() function always returned NULL for a
     local parameter.  Andreas Draeger requested that it return a 
     unitDefinition derived from the units attribute.  This has now
