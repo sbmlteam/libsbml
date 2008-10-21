@@ -2026,8 +2026,8 @@ SBase::syncAnnotation ()
          new_annotation = new XMLNode(ann_token);
          new_annotation->addChild(*mAnnotation);
       }
-      delete mAnnotation;
-      mAnnotation = new_annotation;
+      *mAnnotation = *new_annotation;
+      delete new_annotation;
     }
   }
 

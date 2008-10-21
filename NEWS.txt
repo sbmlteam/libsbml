@@ -30,6 +30,13 @@
 
 * Bug fixes:
 
+  - Tracker issue #2146714
+    syncAnnotation() functions in SBase, Model, and SpeciesReference class
+    could internally delete an old annotation object (XMLNode*) in an SBase
+    object. This could lead to an invalid pointer to an already deleted  
+    annotation object when syncAnnotation() functions are internally invoked 
+    from getAnnotation() function. Thanks to Ralph Gauges for reporting this.
+
   - The SBMLWriter::writeSBML() function could create a zip file in which 
     an SBML file is stored with its path name.
     Thanks to Florian Kamm for reporting this bug.

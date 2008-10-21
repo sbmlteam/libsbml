@@ -962,8 +962,8 @@ SpeciesReference::syncAnnotation ()
       if(mAnnotation)
       {
         XMLNode* new_annotation = deleteLayoutIdAnnotation(mAnnotation);
-        delete mAnnotation;
-        mAnnotation = new_annotation;
+        *mAnnotation = *new_annotation;
+        delete new_annotation;
       }
 
       if (this->isSetId())
@@ -982,6 +982,7 @@ SpeciesReference::syncAnnotation ()
               mAnnotation->unsetEnd();
             }
             mAnnotation->addChild(idAnnotation->getChild(0));
+            delete idAnnotation;
           }
         }
 

@@ -1035,8 +1035,8 @@ Model::syncAnnotation ()
       new_annotation = new XMLNode(ann_token);
       new_annotation->addChild(*mAnnotation);
     }
-    delete mAnnotation;
-    mAnnotation = new_annotation;
+    *mAnnotation = *new_annotation;
+    delete new_annotation;
   }
 
   if (history)
@@ -1068,8 +1068,8 @@ Model::syncAnnotation ()
   if(mAnnotation)
   {
     XMLNode* new_annotation = deleteLayoutAnnotation(mAnnotation);
-    delete mAnnotation;
-    mAnnotation = new_annotation;
+    *mAnnotation = *new_annotation;
+    delete new_annotation;
   }
 
   if (this->getListOfLayouts()->size()!=0)
@@ -1089,6 +1089,7 @@ Model::syncAnnotation ()
           mAnnotation->unsetEnd();
         }
         mAnnotation->addChild(layouts->getChild(0));
+        delete layouts;
       }
     }
   }
