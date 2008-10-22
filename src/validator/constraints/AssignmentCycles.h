@@ -59,11 +59,19 @@ protected:
   void checkInitialAssignment(const Model &, const InitialAssignment &);
   void checkReaction(const Model &, const Reaction &);
   void checkRule(const Model &, const Rule &);
+
+  void checkInitialAssignmentForSymbol(const Model &, 
+                                       const InitialAssignment &);
+  void checkReactionForId(const Model &, const Reaction &);
+  void checkRuleForVariable(const Model& m, const Rule& object);
+
   /**
    * Logs a message about an undefined <ci> element in the given
    * FunctionDefinition.
    */
   void logUndefined (const SBase& object, const SBase& conflict);
+  void logMathRefersToSelf (const ASTNode & node,
+                                             const SBase& object);
 
   IdList mVariables;
   IdList mTempList;

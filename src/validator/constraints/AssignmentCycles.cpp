@@ -79,6 +79,7 @@ AssignmentCycles::check_ (const Model& m, const Model& object)
     {
       mCheckedList.clear();
       mCheckedList.append(m.getInitialAssignment(n)->getId());
+      checkInitialAssignmentForSymbol(m, *m.getInitialAssignment(n));
       checkInitialAssignment(m, *m.getInitialAssignment(n));
     }
   }
@@ -90,6 +91,7 @@ AssignmentCycles::check_ (const Model& m, const Model& object)
       {
         mCheckedList.clear();
         mCheckedList.append(m.getReaction(n)->getId());
+        checkReactionForId(m, *m.getReaction(n));
         checkReaction(m, *m.getReaction(n));
       }
     }
@@ -101,6 +103,7 @@ AssignmentCycles::check_ (const Model& m, const Model& object)
     {
       mCheckedList.clear();
       mCheckedList.append(m.getRule(n)->getId());
+      checkRuleForVariable(m, *m.getRule(n));
       checkRule(m, *m.getRule(n));
     }
   }
@@ -574,6 +577,66 @@ AssignmentCycles::checkRule(const Model& m, const Rule& object)
 
 }
 
+void 
+AssignmentCycles::checkInitialAssignmentForSymbol(const Model& m, 
+                                  const InitialAssignment& object)
+{
+  /* list the <ci> elements */
+  List* variables = object.getMath()->getListOfNodes( ASTNode_isName );
+  std::string variable = object.getSymbol();
+
+  for (unsigned int i = 0; i < variables->getSize(); i++)
+  {
+    ASTNode* node = static_cast<ASTNode*>( variables->get(i) );
+    const char *   name = node->getName() ? node->getName() : "";
+    if (!(strcmp(variable.c_str(), name)))
+      logMathRefersToSelf(*(object.getMath()), object);
+  }
+}
+
+void 
+AssignmentCycles::checkReactionForId(const Model& m, const Reaction& object)
+{
+  /* list the <ci> elements */
+  if (!(object.isSetKineticLaw()))
+    return;
+  else if (!(object.getKineticLaw()->isSetMath()))
+    return;
+  else
+  {
+    List* variables = 
+      object.getKineticLaw()->getMath()->getListOfNodes( ASTNode_isName );
+    std::string variable = object.getId();
+
+    for (unsigned int i = 0; i < variables->getSize(); i++)
+    {
+      ASTNode* node = static_cast<ASTNode*>( variables->get(i) );
+      const char *   name = node->getName() ? node->getName() : "";
+      if (!(strcmp(variable.c_str(), name)))
+        logMathRefersToSelf(*(object.getKineticLaw()->getMath()), object);
+    }
+  }
+}
+
+
+
+void 
+AssignmentCycles::checkRuleForVariable(const Model& m, const Rule& object)
+{
+  /* list the <ci> elements */
+  List* variables = object.getMath()->getListOfNodes( ASTNode_isName );
+  std::string variable = object.getVariable();
+
+  for (unsigned int i = 0; i < variables->getSize(); i++)
+  {
+    ASTNode* node = static_cast<ASTNode*>( variables->get(i) );
+    const char *   name = node->getName() ? node->getName() : "";
+    if (!(strcmp(variable.c_str(), name)))
+      logMathRefersToSelf(*(object.getMath()), object);
+  }
+}
+
+
 /**
   * Logs a message about an undefined <ci> element in the given
   * FunctionDefinition.
@@ -607,3 +670,22 @@ AssignmentCycles::logUndefined ( const SBase& object,
   
   logFailure(object);
 }
+
+void
+AssignmentCycles::logMathRefersToSelf (const ASTNode & node,
+                                             const SBase& object)
+{
+  msg = "The ";
+
+  msg += SBMLTypeCode_toString( object.getTypeCode());
+  msg += " with id '";
+  msg += object.getId();
+  msg += "' refers to that variable within the math formula '";
+  msg += SBML_formulaToString(&node);
+  msg += "'.";
+
+  
+  logFailure(object);
+
+}
+
