@@ -182,7 +182,7 @@ SBMLError::SBMLError (  const unsigned int errorId
       mSeverity = LIBSBML_SEV_WARNING;
       newMsg << "[Although SBML Level " << level
              << " Version " << version << " does not explicitly define the "
-             << "following as an error, more recent Levels and/or Versions "
+             << "following as an error, other Levels and/or Versions "
              << "of SBML do.] " << endl;
     }
 

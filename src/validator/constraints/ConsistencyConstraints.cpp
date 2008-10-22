@@ -55,6 +55,7 @@
 #include "StoichiometryMathVars.h"
 #include "KineticLawVars.h"
 #include "AssignmentCycles.h"
+#include "AssignmentRuleOrdering.h"
 
 //#include "FormulaUnitsCheck.h"
 
@@ -1485,6 +1486,7 @@ END_CONSTRAINT
 
 // 20905 is missing as it is a repeat of 10304
 EXTERN_CONSTRAINT(20906, AssignmentCycles)
+EXTERN_CONSTRAINT(99106, AssignmentRuleOrdering)
 
 
 // Constraint validation

@@ -234,6 +234,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\validator\constraints\AssignmentRuleOrdering.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\math\ASTNode.cpp"
 				>
 			</File>

@@ -165,6 +165,9 @@
 				RelativePath="..\..\src\validator\constraints\AssignmentCycles.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\AssignmentRuleOrdering.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\math\ASTNode.cpp">
 			</File>
 			<File
@@ -644,6 +647,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\ArgumentsUnitsCheckWarnings.h">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\AssignmentRuleOrdering.h">
 			</File>
 			<File
 				RelativePath="..\..\src\math\ASTNode.h">

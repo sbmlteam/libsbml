@@ -682,6 +682,7 @@ typedef enum
 
   /* These are errors checked by libSBML that were never
    * published in a spec. */
+  , InvalidRuleOrdering              = 99106
 
   , SubsUnitsAllowedInKL             = 99127
   , TimeUnitsAllowedInKL             = 99128

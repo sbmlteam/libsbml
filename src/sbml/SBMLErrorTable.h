@@ -3450,6 +3450,23 @@ static const sbmlErrorTableEntry errorTable[] =
     "Level 2 Version 3. (References: L2V3 Section 4.14; L2V4 Section 4.14)"
   },
 
+  //99106
+  {
+    InvalidRuleOrdering,
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "The math field of an assignment rule structure can contain any "
+    "identifier in a MathML ci element except for the following: (a) "
+    "identifiers for which there exists a subsequent assignment rule, "
+    "and (b) the identifier for which the rule is defined. (L2V1 Section "
+    "4.8.4)."
+  },
+
   //99127
   {
     SubsUnitsAllowedInKL,

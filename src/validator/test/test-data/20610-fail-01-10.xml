@@ -11,7 +11,7 @@
 			<species name="x" compartment="c" initialAmount="0"/>
 		</listOfSpecies>
 		<listOfRules>
-			<speciesConcentrationRule species="s" formula="s"/>
+			<speciesConcentrationRule species="s" formula="5"/>
 		</listOfRules>
 		<listOfReactions>
 			<reaction name="r">

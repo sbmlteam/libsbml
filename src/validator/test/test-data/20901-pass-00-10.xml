@@ -12,7 +12,7 @@ Species, or Parameter.
 			<specie name="s" compartment="c" initialAmount="0"/>
 		</listOfSpecies>
 		<listOfRules>
-			<compartmentVolumeRule compartment="c" formula="c"/>
+			<compartmentVolumeRule compartment="c" formula="4"/>
 		</listOfRules>
 		<listOfReactions>
 			<reaction name="r">

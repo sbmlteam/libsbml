@@ -76,6 +76,7 @@ sources =                                     \
   ArgumentsUnitsCheck.cpp                     \
   ArgumentsUnitsCheckWarnings.cpp             \
   AssignmentCycles.cpp                        \
+  AssignmentRuleOrdering.cpp                  \
   CiElementMathCheck.cpp                      \
   CompartmentOutsideCycles.cpp                \
   ConsistencyConstraints.cpp                  \
@@ -141,6 +142,7 @@ other_headers = \
   ArgumentsUnitsCheck.h                    \
   ArgumentsUnitsCheckWarnings.h            \
   AssignmentCycles.h                       \
+  AssignmentRuleOrdering.h                 \
   CiElementMathCheck.h                     \
   CompartmentOutsideCycles.h               \
   EqualityArgsMathCheck.h                  \
