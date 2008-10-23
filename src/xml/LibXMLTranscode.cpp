@@ -1,7 +1,7 @@
 /**
- * @file    LibXMLNamespaces.cpp
- * @brief   Extracts XML namespace declarations from LibXML prefix/URI pairs.
- * @author  Ben Bornstein
+ * @file    LibXMLTranscode.cpp
+ * @brief   Transcodes a LibXML xmlChar string to UTF-8.
+ * @author  Akiya Jouraku
  *
  * $Id$
  * $HeadURL$
@@ -10,7 +10,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2007 California Institute of Technology.
+ * Copyright 2005-2008 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -22,7 +22,6 @@
  *----------------------------------------------------------------------- -->*/
 
 #include <sbml/xml/LibXMLTranscode.h>
-#include <sbml/xml/LibXMLNamespaces.h>
 
 /** @cond doxygen-ignored */
 
@@ -33,30 +32,58 @@ using namespace std;
 
 /** @cond doxygen-libsbml-internal */
 
+static const string NCRAmp = "&#38;"; 
+
 /**
- * Creates a new list of XML namespaces declarations from a "raw" LibXML
- * prefix/URI pairs.
+ * replaces each substring of "str" that matches "tstr" with "rstr". 
  */
-LibXMLNamespaces::LibXMLNamespaces (  const xmlChar**     namespaces
-                                    , const unsigned int& size )
+int replaceAll(string& str, const string& tstr, const string& rstr)
 {
-  mNamespaces.reserve(size);
+  int    count = 0;
+  size_t found = 0;
+  const size_t tstrlen = tstr.length(); 
 
-  for (unsigned int n = 0; n < size; ++n)
+  while (1)
   {
-    const string prefix = LibXMLTranscode( namespaces[2 * n]     );
-    const string uri    = LibXMLTranscode( namespaces[2 * n + 1], true );
+    found = str.find(tstr,found);
+    if ( found != string::npos )
+    {
+      str.replace(found, tstrlen, rstr);
+      ++count;
+    }
+    else
+    {
+      break;
+    }
+  }
+  
+  return count;
+}
 
-    add(uri, prefix);
+
+LibXMLTranscode::operator string ()
+{
+  if (mBuffer == 0)
+  {
+    return "";
+  }
+  else
+  {
+    string str =  (mLen == -1) ? string(mBuffer) : string(mBuffer, mLen);
+
+    if ( mReplaceNCR )
+    {
+      //
+      // replaces &#38; (numeric character reference of '&') with '&'
+      // 
+      if ( str.length() >= NCRAmp.length() ) 
+        ::replaceAll(str, NCRAmp,"&");
+    }
+
+    return str;
   }
 }
 
 
-/**
- * Destroys this list of XML namespace declarations.
- */
-LibXMLNamespaces::~LibXMLNamespaces ()
-{
-}
-
 /** @endcond doxygen-libsbml-internal */
+

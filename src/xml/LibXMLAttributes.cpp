@@ -47,13 +47,13 @@ LibXMLAttributes::LibXMLAttributes (  const xmlChar** attributes
   {
     const string name    = LibXMLTranscode( attributes[5 * n]     );
     const string prefix  = LibXMLTranscode( attributes[5 * n + 1] );
-    const string uri     = LibXMLTranscode( attributes[5 * n + 2] );
+    const string uri     = LibXMLTranscode( attributes[5 * n + 2], true );
 
     const xmlChar* start = attributes[5 * n + 3];
     const xmlChar* end   = attributes[5 * n + 4];
     int length           = (end - start) / sizeof(xmlChar);
 
-    const string value   =  LibXMLTranscode((length > 0) ? start : 0, length);
+    const string value   =  LibXMLTranscode((length > 0) ? start : 0, true, length);
 
     mNames .push_back( XMLTriple(name, uri, prefix) );
     mValues.push_back( value );

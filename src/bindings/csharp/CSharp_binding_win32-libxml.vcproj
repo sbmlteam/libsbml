@@ -501,6 +501,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\xml\LibXMLTranscode.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\sbml\layout\LineSegment.cpp"
 				>
 			</File>

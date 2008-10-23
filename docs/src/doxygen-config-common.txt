@@ -404,7 +404,9 @@ EXCLUDE =                            \
   ../../src/xml/LibXMLParser.h       \
   ../../src/xml/LibXMLParser.cpp     \
   ../../src/xml/XercesTranscode.h    \
+  ../../src/xml/XercesTranscode.cpp  \
   ../../src/xml/LibXMLTranscode.h    \
+  ../../src/xml/LibXMLTranscode.cpp  \
   ../../src/xml/XMLInputStream.cpp   \
   ../../src/xml/XMLInputStream.h     \
   ../../src/xml/XMLOutputStream.cpp  \

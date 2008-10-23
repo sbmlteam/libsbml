@@ -110,7 +110,8 @@ libxml_sources =       \
   LibXMLAttributes.cpp \
   LibXMLHandler.cpp    \
   LibXMLNamespaces.cpp \
-  LibXMLParser.cpp
+  LibXMLParser.cpp \
+  LibXMLTranscode.cpp
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default

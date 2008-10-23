@@ -66,6 +66,11 @@
 
 * Bug fixes:
 
+  - Tracker issue #2188734
+    "&amp;" (a predefined entity reference of ampersand) in an attribute value 
+    was wrongly converted to "&amp;#38;" when libXML used as an underlying XML
+    parser. Thanks to Chen Li for reporting this bug.
+
   - Tracker issue #2146714
     syncAnnotation() functions in SBase, Model, and SpeciesReference class
     could internally delete an old annotation object (XMLNode*) in an SBase

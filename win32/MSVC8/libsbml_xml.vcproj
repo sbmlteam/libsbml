@@ -484,6 +484,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\xml\LibXMLTranscode.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\common\libsbml-version.cpp"
 				>
 			</File>

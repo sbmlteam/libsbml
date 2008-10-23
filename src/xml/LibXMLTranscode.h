@@ -41,23 +41,20 @@ class LibXMLTranscode
 public:
 
   LibXMLTranscode (const xmlChar* s, int len = -1) :
-    mBuffer(reinterpret_cast<const char*>(s)), mLen(len) { }
+    mBuffer(reinterpret_cast<const char*>(s)), mLen(len), mReplaceNCR(false) { }
+
+  LibXMLTranscode (const xmlChar* s, bool replace, int len = -1) :
+    mBuffer(reinterpret_cast<const char*>(s)), mLen(len), mReplaceNCR(replace) { }
 
   ~LibXMLTranscode () { }
 
-  operator std::string ()
-  {
-    if (mBuffer == 0)
-      return "";
-    else
-      return (mLen == -1) ? std::string(mBuffer) : std::string(mBuffer, mLen);
-  }
-
+  operator std::string ();
 
 private:
 
   const char* mBuffer;
   int         mLen;
+  bool        mReplaceNCR;
 
   LibXMLTranscode  ();
   LibXMLTranscode  (const LibXMLTranscode&);
