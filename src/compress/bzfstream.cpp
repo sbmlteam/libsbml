@@ -128,11 +128,11 @@ bzfilebuf::close()
   // Attempt to sync and close bzip2 file
   if (this->sync() == -1)
     retval = NULL;
-  BZ2_bzclose(file);
   int errnum = 0;
   BZ2_bzerror(file, &errnum);
   if (errnum > 0)
     retval = NULL;
+  BZ2_bzclose(file);
   // File is now gone anyway (postcondition [27.8.1.3.8])
   file = NULL;
   own_fd = false;

@@ -66,6 +66,10 @@
 
 * Bug fixes:
 
+  - Tracker issue #2189194
+    bzip2-compression could cause a crash problem. 
+    Thanks to Florian Kamm for reporting this bug and providing a patch.
+
   - Tracker issue #2188734
     "&amp;" (a predefined entity reference of ampersand) in an attribute value 
     was wrongly converted to "&amp;#38;" when libXML used as an underlying XML
