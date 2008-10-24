@@ -128,7 +128,7 @@ for (0..$ListOfReaction->size()-1) {
   # and translate SpeciesReferences to Species
   my @modifiers = ();
   for (0..$ListOfModifiers->size()-1) {
-    push @modifiers, $ListOfProducts->get($_)->getSpecies();
+    push @modifiers, $ListOfModifiers->get($_)->getSpecies();
   }
 
   # print modifiers
