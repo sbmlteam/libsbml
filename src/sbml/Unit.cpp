@@ -80,7 +80,7 @@ Unit::Unit (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
     SBase      ( -1 )
   , mKind      ( UNIT_KIND_INVALID )
-  , mExponent  ( 1.0   )
+  , mExponent  ( 1   )
   , mScale     ( 0      )
   , mMultiplier( 1.0 )
   , mOffset    ( 0.0     )
@@ -93,7 +93,7 @@ Unit::Unit (unsigned int level, unsigned int version,
 Unit::Unit (SBMLDocument *document) :
     SBase      ( -1 )
   , mKind      ( UNIT_KIND_INVALID )
-  , mExponent  ( 1.0   )
+  , mExponent  ( 1   )
   , mScale     ( 0      )
   , mMultiplier( 1.0 )
   , mOffset    ( 0.0     )
