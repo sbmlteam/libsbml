@@ -570,28 +570,34 @@ UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node,
   for (i = 0; i < tempUD->getNumUnits(); i++)
   {
     unit = tempUD->getUnit(i);
-    // if fractional exponents are created flag not to check units
-    if (child->isInteger()) 
+    // if unit is dimensionless it doesnt matter 
+    if (unit->getKind() != UNIT_KIND_DIMENSIONLESS)
     {
-      double doubleExponent = double(unit->getExponent())/double(child->getInteger());
-      if (floor(doubleExponent) != doubleExponent)
+      // if fractional exponents are created flag not to check units
+      if (child->isInteger()) 
+      {
+        double doubleExponent = 
+                 double(unit->getExponent())/double(child->getInteger());
+        if (floor(doubleExponent) != doubleExponent)
+          mContainsUndeclaredUnits = true;
+        unit->setExponent(unit->getExponent()/child->getInteger());
+      }
+      else if (child->isReal())
+      {
+        double doubleExponent = 
+                            double(unit->getExponent())/child->getReal();
+        if (floor(doubleExponent) != doubleExponent)
+          mContainsUndeclaredUnits = true;
+        unit->setExponent((int)(unit->getExponent()/child->getReal()));
+      }
+      else
+      {
+        /* here the child is an expression
+        * which for now i'm not going to attempt
+        * flag the expression as not checked
+        */
         mContainsUndeclaredUnits = true;
-      unit->setExponent(unit->getExponent()/child->getInteger());
-    }
-    else if (child->isReal())
-    {
-      double doubleExponent = double(unit->getExponent())/child->getReal();
-      if (floor(doubleExponent) != doubleExponent)
-        mContainsUndeclaredUnits = true;
-      unit->setExponent((int)(unit->getExponent()/child->getReal()));
-    }
-    else
-    {
-      /* here the child is an expression
-       * which for now i'm not going to attempt
-       * flag the expression as not checked
-       */
-      mContainsUndeclaredUnits = true;
+      }
     }
     ud->addUnit(unit);
   }
