@@ -215,6 +215,16 @@ START_CONSTRAINT (20305, FunctionDefinition, fd)
 	 *		<bvar>	<ci> v </ci> </bvar>
 	 *		<ci> v </ci>
    *  </lambda>
+   *
+   * OR
+   * it contains the csymbol time
+   * eg
+   *  <lambda>
+	 *		<csymbol encoding="text" 
+   *    definitionURL="http://www.sbml.org/sbml/symbols/time"> 
+   *    time </csymbol>
+   *  </lambda>
+   *
    */
 
   bool specialCase = false;
@@ -226,6 +236,13 @@ START_CONSTRAINT (20305, FunctionDefinition, fd)
       {
         specialCase = true;
         break;
+      }
+    }
+    if (fd.getNumArguments() == 0)
+    {
+      if (fd.getBody()->getType() == AST_NAME_TIME)
+      {
+        specialCase = true;
       }
     }
   }
