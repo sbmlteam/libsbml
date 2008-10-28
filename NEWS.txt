@@ -66,6 +66,11 @@
 
 * Bug fixes:
 
+  - Tracker issue #2129044
+    Thw writeRootFunction in the mathML writer was failing to output a
+    root function correctly when it had only one child i.e. the default 
+    degree of 2 was being used.  Thanks to Ralph Gauges for spotting this.
+
   - Tracker issue #2157800
     When csymbol time was used in a functionDefinition it was not being
     correctly considered as a numeric value.

@@ -1014,6 +1014,11 @@ writeFunctionRoot (const ASTNode& node, XMLOutputStream& stream)
 
     stream.endElement("degree");
   }
+  else if (node.getNumChildren() == 1)
+  {
+    /* case where degree is not specified and defaults to 2 */
+    writeNode(*node.getChild(0), stream);
+  }
 
   if ( node.getRightChild() ) writeNode(*node.getRightChild(), stream);
 }
