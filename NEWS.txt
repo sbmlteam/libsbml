@@ -66,6 +66,10 @@
 
 * Bug fixes:
 
+  - Tracker issue #2157800
+    When csymbol time was used in a functionDefinition it was not being
+    correctly considered as a numeric value.
+
   - Tracker issue #2189194
     bzip2-compression could cause a crash problem. 
     Thanks to Florian Kamm for reporting this bug and providing a patch.
