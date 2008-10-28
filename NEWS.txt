@@ -4,6 +4,10 @@
 
 * New features:
 
+  - Tracker issue #2136796
+    There is now additional code to check the ordering of assignment rules
+    in a L1 or L2V1 model.  
+
   - Tracker issue #2114473.
     The UnitDefinition class has a new function isVariantOfSubstancePerTime()
     which returns true if the unitDefinition is a variant of the built-in
@@ -65,6 +69,11 @@
     to csymbol time.
 
 * Bug fixes:
+
+    The code that checks for AssignmentCycles was failing to check
+    for an assignment that refered to the subject of that assignment,
+    e.g. an assignment rule with variable "c" and math "2 * c" was
+    not returning an error.  This is now fixed.
 
   - Tracker issue #2129044
     The writeRootFunction in the mathML writer was failing to output a
