@@ -141,11 +141,19 @@ UnitsBase::check_ (const Model& m, const Model& object)
   {
     if (m.getEvent(n)->isSetTrigger())
     {
-      checkUnits(m, *m.getEvent(n)->getTrigger()->getMath(), *m.getEvent(n));
+      if (m.getEvent(n)->getTrigger()->isSetMath())
+      {
+        checkUnits(m, *m.getEvent(n)->getTrigger()->getMath(), 
+                                              *m.getEvent(n));
+      }
     }
     if (m.getEvent(n)->isSetDelay())
     {
-      checkUnits(m, *m.getEvent(n)->getDelay()->getMath(), *m.getEvent(n));
+      if (m.getEvent(n)->getDelay()->isSetMath())
+      {
+        checkUnits(m, *m.getEvent(n)->getDelay()->getMath(), 
+                                             *m.getEvent(n));
+      }
     }
     for (ea = 0; ea < m.getEvent(n)->getNumEventAssignments(); ea++)
     {

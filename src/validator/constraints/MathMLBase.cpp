@@ -144,13 +144,21 @@ MathMLBase::check_ (const Model& m, const Model& object)
     mIsTrigger = 0;
     if (m.getEvent(n)->isSetTrigger())
     {
-      mIsTrigger = 1;
-      checkMath(m, *m.getEvent(n)->getTrigger()->getMath(), *m.getEvent(n));
+      if (m.getEvent(n)->getTrigger()->isSetMath())
+      {
+        mIsTrigger = 1;
+        checkMath(m, *m.getEvent(n)->getTrigger()->getMath(), 
+                                               *m.getEvent(n));
+      }
     }
     if (m.getEvent(n)->isSetDelay())
     {
-      mIsTrigger = 0;
-      checkMath(m, *m.getEvent(n)->getDelay()->getMath(), *m.getEvent(n));
+      if (m.getEvent(n)->getDelay()->isSetMath())
+      {
+        mIsTrigger = 0;
+        checkMath(m, *m.getEvent(n)->getDelay()->getMath(), 
+                                            *m.getEvent(n));
+      }
     }
     for (ea = 0; ea < m.getEvent(n)->getNumEventAssignments(); ea++)
     {
