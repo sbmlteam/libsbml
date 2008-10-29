@@ -70,7 +70,11 @@
 
 * Bug fixes:
 
-    The code that checks for AssignmentCycles was failing to check
+  - Tracker issue #2130568
+    The check for AssignmentCycles was incorrectly reporting non-existant
+    loops. This is fixed.  Thanks to Kieran Smallbone for reporting it.
+
+  - The code that checks for AssignmentCycles was failing to check
     for an assignment that refered to the subject of that assignment,
     e.g. an assignment rule with variable "c" and math "2 * c" was
     not returning an error.  This is now fixed.
