@@ -56,15 +56,23 @@ protected:
    */
   virtual void check_ (const Model& m, const Model& object);
 
+  /* check each for loop back to the original variable */
   void checkInitialAssignment(const Model &, const InitialAssignment &);
   void checkReaction(const Model &, const Reaction &);
   void checkRule(const Model &, const Rule &);
 
+  /* check each for explicit use of original variable */
   void checkInitialAssignmentForSymbol(const Model &, 
                                        const InitialAssignment &);
   void checkReactionForId(const Model &, const Reaction &);
   void checkRuleForVariable(const Model& m, const Rule& object);
 
+  /* chech each for assignment to compartment using concentration
+   * of a species within that compartment */
+  void checkInitialAssignmentForCompartment(const Model &, 
+                                       const InitialAssignment &);
+  void checkRuleForCompartment(const Model& m, const Rule& object);
+  
   /**
    * Logs a message about an undefined <ci> element in the given
    * FunctionDefinition.
@@ -72,6 +80,7 @@ protected:
   void logUndefined (const SBase& object, const SBase& conflict);
   void logMathRefersToSelf (const ASTNode & node,
                                              const SBase& object);
+  void logImplicitReference (const SBase& object, const Species& conflict);
 
   IdList mVariables;
   IdList mTempList;

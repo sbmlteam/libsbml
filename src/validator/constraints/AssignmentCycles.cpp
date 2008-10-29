@@ -81,6 +81,7 @@ AssignmentCycles::check_ (const Model& m, const Model& object)
       mCheckedList.append(m.getInitialAssignment(n)->getId());
       checkInitialAssignmentForSymbol(m, *m.getInitialAssignment(n));
       checkInitialAssignment(m, *m.getInitialAssignment(n));
+      checkInitialAssignmentForCompartment(m, *m.getInitialAssignment(n));
     }
   }
   
@@ -105,6 +106,7 @@ AssignmentCycles::check_ (const Model& m, const Model& object)
       mCheckedList.append(m.getRule(n)->getId());
       checkRuleForVariable(m, *m.getRule(n));
       checkRule(m, *m.getRule(n));
+      checkRuleForCompartment(m, *m.getRule(n));
     }
   }
 }
@@ -636,6 +638,69 @@ AssignmentCycles::checkRuleForVariable(const Model& m, const Rule& object)
   }
 }
 
+  
+void 
+AssignmentCycles::checkInitialAssignmentForCompartment(const Model &m, 
+                                       const InitialAssignment &object)
+{
+  /* only need to check if the variable refers to a compartment
+   * with dimensions greater than 0
+   */
+  std::string id = object.getSymbol();
+  const Compartment *c = m.getCompartment(id);
+  if (c == NULL)
+    return;
+  else if (c->getSpatialDimensions() == 0)
+    return;
+
+  /* list the <ci> elements of the rule*/
+  List* variables = object.getMath()->getListOfNodes( ASTNode_isName );
+
+  for (unsigned int i = 0; i < variables->getSize(); i++)
+  {
+    ASTNode* node = static_cast<ASTNode*>( variables->get(i) );
+    const char *   name = node->getName() ? node->getName() : "";
+    const Species * s = m.getSpecies(name);
+    if (s && 
+        s->getCompartment() == id &&
+        s->getHasOnlySubstanceUnits() == false)
+    {
+      logImplicitReference(object, *(s));
+    }
+  }
+}
+ 
+
+void 
+AssignmentCycles::checkRuleForCompartment(const Model& m, 
+                                          const Rule& object)
+{
+  /* only need to check if the variable refers to a compartment
+   * with dimensions greater than 0
+   */
+  std::string id = object.getVariable();
+  const Compartment *c = m.getCompartment(id);
+  if (c == NULL)
+    return;
+  else if (c->getSpatialDimensions() == 0)
+    return;
+
+  /* list the <ci> elements of the rule*/
+  List* variables = object.getMath()->getListOfNodes( ASTNode_isName );
+
+  for (unsigned int i = 0; i < variables->getSize(); i++)
+  {
+    ASTNode* node = static_cast<ASTNode*>( variables->get(i) );
+    const char *   name = node->getName() ? node->getName() : "";
+    const Species * s = m.getSpecies(name);
+    if (s && 
+        s->getCompartment() == id &&
+        s->getHasOnlySubstanceUnits() == false)
+    {
+      logImplicitReference(object, *(s));
+    }
+  }
+}
 
 /**
   * Logs a message about an undefined <ci> element in the given
@@ -645,19 +710,7 @@ void
 AssignmentCycles::logUndefined ( const SBase& object,
                                        const SBase& conflict )
 {
-  msg =
-    //"There must not be circular dependencies in the combined set of "
-    //"<initialAssignment>, <assignmentRule> and <kineticLaw> definitions in a "
-    //"model. Each of these constructs has the effect of assigning a value to "
-    //"an identifier (i.e. the identifier given in the field 'symbol' in "
-    //"<initialAssignment>, the field 'variable' in <assignmentRule>, and the "
-    //"field 'id' on the <kineticLaw>'s enclosing <reaction>). Each of these "
-    //"constructs computes the value using a mathematical formula. The formula "
-    //"for a given identifier cannot make reference to a second identifier "
-    //"whose own definition depends directly or indirectly on the first "
-    //"identifier. (References: L2V2 Section 4.11.5.) 
-    "The ";
-
+  msg = "The ";
   msg += SBMLTypeCode_toString( object.getTypeCode());
   msg += " with id '";
   msg += object.getId();
@@ -687,5 +740,26 @@ AssignmentCycles::logMathRefersToSelf (const ASTNode & node,
   
   logFailure(object);
 
+}
+
+  
+void 
+AssignmentCycles::logImplicitReference (const SBase& object, 
+                                        const Species& conflict)
+{
+  msg = "The ";
+  msg += SBMLTypeCode_toString( object.getTypeCode());
+  msg += " assigning value to compartment '";
+  msg += object.getId();
+  msg += "' refers to species '";
+  msg += conflict.getId();
+  msg += "'.  Since the use of the species id in this context ";
+  msg += "refers to a concentration, this is an implicit ";
+  msg += "reference to compartment '";
+  msg += object.getId();
+  msg += "'.";
+
+  
+  logFailure(object);
 }
 

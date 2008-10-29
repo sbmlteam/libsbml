@@ -70,12 +70,18 @@
 
 * Bug fixes:
 
+  - The code that checks for AssignmentCycles was failing to check
+    for an assignment to a compartment that referred to the a species
+    concentration within that compartment. This is an implicit reference
+    to the compartment itself, since the concentration of the species
+    depends on the compartment value.  This is now fixed.
+
   - Tracker issue #2130568
     The check for AssignmentCycles was incorrectly reporting non-existant
     loops. This is fixed.  Thanks to Kieran Smallbone for reporting it.
 
   - The code that checks for AssignmentCycles was failing to check
-    for an assignment that refered to the subject of that assignment,
+    for an assignment that referred to the subject of that assignment,
     e.g. an assignment rule with variable "c" and math "2 * c" was
     not returning an error.  This is now fixed.
 
