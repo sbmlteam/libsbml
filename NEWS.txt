@@ -70,6 +70,11 @@
 
 * Bug fixes:
 
+  - Tracker issue #2209729
+    libSBML built with Xerces on Linux could crash due to a dereference 
+    of null pointer in Xerces side when parsing some invalid SBML file.
+    Thanks to Jordan Atlas for reporting this problem.
+
   - The code that checks for AssignmentCycles was failing to check
     for an assignment to a compartment that referred to the a species
     concentration within that compartment. This is an implicit reference

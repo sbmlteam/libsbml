@@ -22,6 +22,7 @@
  *----------------------------------------------------------------------- -->*/
 
 #include <xercesc/sax/Locator.hpp>
+#include <xercesc/internal/ReaderMgr.hpp>
 
 #include <sbml/xml/XMLHandler.h>
 #include <sbml/xml/XMLToken.h>
@@ -169,7 +170,9 @@ XercesHandler::getColumn () const
   unsigned int column = 0;
 
 
-  if (mLocator && mLocator->getColumnNumber() > 0)
+  if (mLocator 
+  &&  static_cast<const xercesc::ReaderMgr*>(mLocator)->getCurrentReader()
+  &&  mLocator->getColumnNumber() > 0)
   {
     column = static_cast<unsigned int>( mLocator->getColumnNumber() );
   }
@@ -187,7 +190,9 @@ XercesHandler::getLine () const
   unsigned int line = 0;
 
 
-  if (mLocator && mLocator->getLineNumber() > 0)
+  if (mLocator 
+  &&  static_cast<const xercesc::ReaderMgr*>(mLocator)->getCurrentReader() 
+  &&  mLocator->getLineNumber() > 0)
   {
     line = static_cast<unsigned int>( mLocator->getLineNumber() );
   }
