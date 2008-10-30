@@ -1026,6 +1026,38 @@ ListOfReactions::getElementName () const
 }
 
 
+/* return nth item in list */
+Reaction *
+ListOfReactions::get(unsigned int n)
+{
+  return static_cast<Reaction*>(ListOf::get(n));
+}
+
+
+/* return nth item in list */
+const Reaction *
+ListOfReactions::get(unsigned int n) const
+{
+  return static_cast<const Reaction*>(ListOf::get(n));
+}
+
+
+/* return item by id */
+Reaction*
+ListOfReactions::get (const std::string& sid)
+{
+  return static_cast<Reaction*>(ListOf::get(sid));
+}
+
+
+/* return item by id */
+const Reaction*
+ListOfReactions::get (const std::string& sid) const
+{
+  return static_cast<const Reaction*>(ListOf::get(sid));
+}
+
+
 /** @cond doxygen-libsbml-internal */
 /*
  * @return the ordinal position of the element with respect to its siblings

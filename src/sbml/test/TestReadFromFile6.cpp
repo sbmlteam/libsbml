@@ -81,7 +81,17 @@ START_TEST (test_read_l2v2_newComponents)
   Constraint*       con;
   InitialAssignment* ia;
   SpeciesType*      st;
-  
+  ListOfCompartmentTypes *loct;
+  CompartmentType * ct1;
+  ListOfConstraints *locon;
+  Constraint *con1;
+  ListOfInitialAssignments *loia;
+  InitialAssignment *ia1;
+  ListOfReactions *lor;
+  Reaction *r1;
+  ListOfSpeciesReferences *losr;
+  SpeciesReference * sr1;
+ 
   const ASTNode*   ast;
 
   std::string filename(TestDataDirectory);
@@ -140,6 +150,13 @@ START_TEST (test_read_l2v2_newComponents)
   ct = m->getCompartmentType(0);
   fail_unless( ct         != NULL  , NULL );
   fail_unless( ct->getId() == "mitochondria", NULL );
+
+  loct = m->getListOfCompartmentTypes();
+  ct1 = loct->get(0);
+  fail_unless(ct1 == ct);
+
+  ct1 = loct->get("mitochondria");
+  fail_unless(ct1 == ct);
 
   //<listOfSpeciesTypes>
   //  <speciesType id="Glucose"/>
@@ -213,6 +230,10 @@ START_TEST (test_read_l2v2_newComponents)
   ast = con->getMath();
   fail_unless(!strcmp(SBML_formulaToString(ast), "lt(1, cell)"), NULL);
 
+  locon = m->getListOfConstraints();
+  con1 = locon->get(0);
+  fail_unless(con1 == con);
+
   //<listOfInitialAssignments>
   //  <initialAssignment symbol="X0" sboTerm="SBO:0000064">
   //    <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -234,6 +255,13 @@ START_TEST (test_read_l2v2_newComponents)
 
   ast = ia->getMath();
   fail_unless(!strcmp(SBML_formulaToString(ast), "y * X1"), NULL);
+
+  loia = m->getListOfInitialAssignments();
+  ia1 = loia->get(0);
+  fail_unless( ia1 == ia);
+
+  ia1 = loia->get("X0");
+  fail_unless( ia1 == ia);
 
   //<listOfReactions>
   //  <reaction id="in" sboTerm="SBO:0000231">
@@ -267,6 +295,13 @@ START_TEST (test_read_l2v2_newComponents)
   fail_unless(r->getSBOTermID() == "SBO:0000231", NULL);
   fail_unless(r->getId() == "in", NULL);
 
+  lor = m->getListOfReactions();
+  r1 = lor->get(0);
+  fail_unless ( r1 == r);
+
+  r1 = lor->get("in");
+  fail_unless (r1 == r);
+
   fail_unless(r->isSetKineticLaw(), NULL);
 
   kl = r->getKineticLaw();
@@ -297,6 +332,13 @@ START_TEST (test_read_l2v2_newComponents)
   fail_unless(sr->getName() == "sarah", NULL);
   fail_unless(sr->getId() == "me", NULL);
   fail_unless(sr->getSpecies() == "X0", NULL);
+
+  losr = r->getListOfReactants();
+  sr1 = static_cast <SpeciesReference *> (losr->get(0));
+  fail_unless ( sr1 == sr);
+
+  sr1 = static_cast <SpeciesReference *> (losr->get("me"));
+  fail_unless ( sr1 == sr);
 
   delete d;
 }

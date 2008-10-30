@@ -1056,6 +1056,38 @@ ListOfUnitDefinitions::getElementName () const
 }
 
 
+/* return nth item in list */
+UnitDefinition *
+ListOfUnitDefinitions::get(unsigned int n)
+{
+  return static_cast<UnitDefinition*>(ListOf::get(n));
+}
+
+
+/* return nth item in list */
+const UnitDefinition *
+ListOfUnitDefinitions::get(unsigned int n) const
+{
+  return static_cast<const UnitDefinition*>(ListOf::get(n));
+}
+
+
+/* return item by id */
+UnitDefinition*
+ListOfUnitDefinitions::get (const std::string& sid)
+{
+  return static_cast<UnitDefinition*>(ListOf::get(sid));
+}
+
+
+/* return item by id */
+const UnitDefinition*
+ListOfUnitDefinitions::get (const std::string& sid) const
+{
+  return static_cast<const UnitDefinition*>(ListOf::get(sid));
+}
+
+
 /** @cond doxygen-libsbml-internal */
 /*
  * @return the ordinal position of the element with respect to its siblings

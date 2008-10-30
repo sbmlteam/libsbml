@@ -529,6 +529,63 @@ public:
   virtual const std::string& getElementName () const;
 
 
+  /**
+   * Get a Parameter from the ListOfParameters.
+   *
+   * @param n the index number of the Parameter to get.
+   * 
+   * @return the nth Parameter in this ListOfParameters.
+   *
+   * @see size()
+   */
+  virtual Parameter * get(unsigned int n); 
+
+
+  /**
+   * Get a Parameter from the ListOfParameters.
+   *
+   * @param n the index number of the Parameter to get.
+   * 
+   * @return the nth Parameter in this ListOfParameters.
+   *
+   * @see size()
+   */
+  virtual const Parameter * get(unsigned int n) const; 
+
+  /**
+   * Get a Parameter from the ListOfParameters
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the Parameter to get.
+   * 
+   * @return Parameter in this ListOfParameters
+   * with the given id or NULL if no such
+   * Parameter exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual Parameter* get (const std::string& sid);
+
+
+  /**
+   * Get a Parameter from the ListOfParameters
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the Parameter to get.
+   * 
+   * @return Parameter in this ListOfParameters
+   * with the given id or NULL if no such
+   * Parameter exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual const Parameter* get (const std::string& sid) const;
+
+
   /** @cond doxygen-libsbml-internal */
 
   /**

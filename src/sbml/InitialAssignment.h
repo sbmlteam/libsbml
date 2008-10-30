@@ -505,6 +505,63 @@ public:
   virtual const std::string& getElementName () const;
 
 
+  /**
+   * Get a InitialAssignment from the ListOfInitialAssignments.
+   *
+   * @param n the index number of the InitialAssignment to get.
+   * 
+   * @return the nth InitialAssignment in this ListOfInitialAssignments.
+   *
+   * @see size()
+   */
+  virtual InitialAssignment * get(unsigned int n); 
+
+
+  /**
+   * Get a InitialAssignment from the ListOfInitialAssignments.
+   *
+   * @param n the index number of the InitialAssignment to get.
+   * 
+   * @return the nth InitialAssignment in this ListOfInitialAssignments.
+   *
+   * @see size()
+   */
+  virtual const InitialAssignment * get(unsigned int n) const; 
+
+  /**
+   * Get a InitialAssignment from the ListOfInitialAssignments
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the InitialAssignment to get.
+   * 
+   * @return InitialAssignment in this ListOfInitialAssignments
+   * with the given id or NULL if no such
+   * InitialAssignment exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual InitialAssignment* get (const std::string& sid);
+
+
+  /**
+   * Get a InitialAssignment from the ListOfInitialAssignments
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the InitialAssignment to get.
+   * 
+   * @return InitialAssignment in this ListOfInitialAssignments
+   * with the given id or NULL if no such
+   * InitialAssignment exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual const InitialAssignment* get (const std::string& sid) const;
+
+
   /** @cond doxygen-libsbml-internal */
 
   /**

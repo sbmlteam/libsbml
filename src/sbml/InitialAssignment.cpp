@@ -480,6 +480,38 @@ ListOfInitialAssignments::getElementName () const
 }
 
 
+/* return nth item in list */
+InitialAssignment *
+ListOfInitialAssignments::get(unsigned int n)
+{
+  return static_cast<InitialAssignment*>(ListOf::get(n));
+}
+
+
+/* return nth item in list */
+const InitialAssignment *
+ListOfInitialAssignments::get(unsigned int n) const
+{
+  return static_cast<const InitialAssignment*>(ListOf::get(n));
+}
+
+
+/* return item by id */
+InitialAssignment*
+ListOfInitialAssignments::get (const std::string& sid)
+{
+  return static_cast<InitialAssignment*>(ListOf::get(sid));
+}
+
+
+/* return item by id */
+const InitialAssignment*
+ListOfInitialAssignments::get (const std::string& sid) const
+{
+  return static_cast<const InitialAssignment*>(ListOf::get(sid));
+}
+
+
 /** @cond doxygen-libsbml-internal */
 /*
  * @return the ordinal position of the element with respect to its siblings

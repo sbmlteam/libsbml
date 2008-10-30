@@ -1052,6 +1052,30 @@ public:
   virtual const std::string& getElementName () const;
 
 
+  /**
+   * Get a Unit from the ListOfUnits.
+   *
+   * @param n the index number of the Unit to get.
+   * 
+   * @return the nth Unit in this ListOfUnits.
+   *
+   * @see size()
+   */
+  virtual Unit * get(unsigned int n); 
+
+
+  /**
+   * Get a Unit from the ListOfUnits.
+   *
+   * @param n the index number of the Unit to get.
+   * 
+   * @return the nth Unit in this ListOfUnits.
+   *
+   * @see size()
+   */
+  virtual const Unit * get(unsigned int n) const; 
+
+
   /** @cond doxygen-libsbml-internal */
 
   /**

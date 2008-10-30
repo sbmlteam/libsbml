@@ -4,6 +4,11 @@
 
 * New features:
 
+  - Tracker issue #2015847
+    Each ListOfXXX class now has derived get functions that return an
+    object of the expected class e.g.  ListOfEvents->get() returns
+    an Event *.
+
   - Tracker issue #2136796
     There is now additional code to check the ordering of assignment rules
     in a L1 or L2V1 model.  

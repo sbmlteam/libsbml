@@ -719,6 +719,37 @@ ListOfCompartments::getElementName () const
   return name;
 }
 
+/* return nth item in list */
+Compartment *
+ListOfCompartments::get(unsigned int n)
+{
+  return static_cast<Compartment*>(ListOf::get(n));
+}
+
+
+/* return nth item in list */
+const Compartment *
+ListOfCompartments::get(unsigned int n) const
+{
+  return static_cast<const Compartment*>(ListOf::get(n));
+}
+
+
+/* return item by id */
+Compartment*
+ListOfCompartments::get (const std::string& sid)
+{
+  return static_cast<Compartment*>(ListOf::get(sid));
+}
+
+
+/* return item by id */
+const Compartment*
+ListOfCompartments::get (const std::string& sid) const
+{
+  return static_cast<const Compartment*>(ListOf::get(sid));
+}
+
 
 /** @cond doxygen-libsbml-internal */
 /*

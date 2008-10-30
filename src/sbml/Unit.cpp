@@ -1428,6 +1428,22 @@ ListOfUnits::getElementName () const
 }
 
 
+/* return nth item in list */
+Unit *
+ListOfUnits::get(unsigned int n)
+{
+  return static_cast<Unit*>(ListOf::get(n));
+}
+
+
+/* return nth item in list */
+const Unit *
+ListOfUnits::get(unsigned int n) const
+{
+  return static_cast<const Unit*>(ListOf::get(n));
+}
+
+
 /** @cond doxygen-libsbml-internal */
 /*
  * @return the ordinal position of the element with respect to its

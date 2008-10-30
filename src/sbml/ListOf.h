@@ -126,7 +126,7 @@ public:
    *
    * @see size()
    */
-  const SBase* get (unsigned int n) const;
+  virtual const SBase* get (unsigned int n) const;
 
 
   /**
@@ -138,7 +138,7 @@ public:
    *
    * @see size()
    */
-  SBase* get (unsigned int n);
+  virtual SBase* get (unsigned int n);
 
 
   /**
@@ -152,7 +152,7 @@ public:
    * @see get(unsigned int n)
    * @see size()
    */
-  const SBase* get (const std::string& sid) const;
+  virtual const SBase* get (const std::string& sid) const;
 
 
   /**
@@ -166,7 +166,7 @@ public:
    * @see get(unsigned int n)
    * @see size()
    */
-  SBase* get (const std::string& sid);
+  virtual SBase* get (const std::string& sid);
 
 
   /**

@@ -1010,6 +1010,63 @@ public:
   virtual const std::string& getElementName () const;
 
 
+  /**
+   * Get a SpeciesReference from the ListOfSpeciesReferences.
+   *
+   * @param n the index number of the SpeciesReference to get.
+   * 
+   * @return the nth SpeciesReference in this ListOfSpeciesReferences.
+   *
+   * @see size()
+   */
+  virtual SimpleSpeciesReference * get(unsigned int n); 
+
+
+  /**
+   * Get a SpeciesReference from the ListOfSpeciesReferences.
+   *
+   * @param n the index number of the SpeciesReference to get.
+   * 
+   * @return the nth SpeciesReference in this ListOfSpeciesReferences.
+   *
+   * @see size()
+   */
+  virtual const SimpleSpeciesReference * get(unsigned int n) const; 
+
+  /**
+   * Get a SpeciesReference from the ListOfSpeciesReferences
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the SpeciesReference to get.
+   * 
+   * @return SpeciesReference in this ListOfSpeciesReferences
+   * with the given id or NULL if no such
+   * SpeciesReference exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual SimpleSpeciesReference* get (const std::string& sid);
+
+
+  /**
+   * Get a SpeciesReference from the ListOfSpeciesReferences
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the SpeciesReference to get.
+   * 
+   * @return SpeciesReference in this ListOfSpeciesReferences
+   * with the given id or NULL if no such
+   * SpeciesReference exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual const SimpleSpeciesReference* get (const std::string& sid) const;
+
+
   /** @cond doxygen-libsbml-internal */
 
   /**

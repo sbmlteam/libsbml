@@ -472,6 +472,22 @@ ListOfConstraints::getElementName () const
 }
 
 
+/* return nth item in list */
+Constraint *
+ListOfConstraints::get(unsigned int n)
+{
+  return static_cast<Constraint*>(ListOf::get(n));
+}
+
+
+/* return nth item in list */
+const Constraint *
+ListOfConstraints::get(unsigned int n) const
+{
+  return static_cast<const Constraint*>(ListOf::get(n));
+}
+
+
 /** @cond doxygen-libsbml-internal */
 /*
  * @return the ordinal position of the element with respect to its siblings

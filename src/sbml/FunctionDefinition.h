@@ -427,6 +427,63 @@ public:
   virtual const std::string& getElementName () const;
 
 
+  /**
+   * Get a FunctionDefinition from the ListOfFunctionDefinitions.
+   *
+   * @param n the index number of the FunctionDefinition to get.
+   * 
+   * @return the nth FunctionDefinition in this ListOfFunctionDefinitions.
+   *
+   * @see size()
+   */
+  virtual FunctionDefinition * get(unsigned int n); 
+
+
+  /**
+   * Get a FunctionDefinition from the ListOfFunctionDefinitions.
+   *
+   * @param n the index number of the FunctionDefinition to get.
+   * 
+   * @return the nth FunctionDefinition in this ListOfFunctionDefinitions.
+   *
+   * @see size()
+   */
+  virtual const FunctionDefinition * get(unsigned int n) const; 
+
+  /**
+   * Get a FunctionDefinition from the ListOfFunctionDefinitions
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the FunctionDefinition to get.
+   * 
+   * @return FunctionDefinition in this ListOfFunctionDefinitions
+   * with the given id or NULL if no such
+   * FunctionDefinition exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual FunctionDefinition* get (const std::string& sid);
+
+
+  /**
+   * Get a FunctionDefinition from the ListOfFunctionDefinitions
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the FunctionDefinition to get.
+   * 
+   * @return FunctionDefinition in this ListOfFunctionDefinitions
+   * with the given id or NULL if no such
+   * FunctionDefinition exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual const FunctionDefinition* get (const std::string& sid) const;
+
+
   /** @cond doxygen-libsbml-internal */
 
   /**

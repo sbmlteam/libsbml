@@ -1007,6 +1007,38 @@ ListOfSpecies::getElementName () const
 }
 
 
+/* return nth item in list */
+Species *
+ListOfSpecies::get(unsigned int n)
+{
+  return static_cast<Species*>(ListOf::get(n));
+}
+
+
+/* return nth item in list */
+const Species *
+ListOfSpecies::get(unsigned int n) const
+{
+  return static_cast<const Species*>(ListOf::get(n));
+}
+
+
+/* return item by id */
+Species*
+ListOfSpecies::get (const std::string& sid)
+{
+  return static_cast<Species*>(ListOf::get(sid));
+}
+
+
+/* return item by id */
+const Species*
+ListOfSpecies::get (const std::string& sid) const
+{
+  return static_cast<const Species*>(ListOf::get(sid));
+}
+
+
 /** @cond doxygen-libsbml-internal */
 /*
  * @return the ordinal position of the element with respect to its siblings

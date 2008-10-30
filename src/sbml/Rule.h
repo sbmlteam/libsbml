@@ -1135,6 +1135,63 @@ public:
   virtual const std::string& getElementName () const;
 
 
+  /**
+   * Get a Rule from the ListOfRules.
+   *
+   * @param n the index number of the Rule to get.
+   * 
+   * @return the nth Rule in this ListOfRules.
+   *
+   * @see size()
+   */
+  virtual Rule * get(unsigned int n); 
+
+
+  /**
+   * Get a Rule from the ListOfRules.
+   *
+   * @param n the index number of the Rule to get.
+   * 
+   * @return the nth Rule in this ListOfRules.
+   *
+   * @see size()
+   */
+  virtual const Rule * get(unsigned int n) const; 
+
+  /**
+   * Get a Rule from the ListOfRules
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the Rule to get.
+   * 
+   * @return Rule in this ListOfRules
+   * with the given id or NULL if no such
+   * Rule exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual Rule* get (const std::string& sid);
+
+
+  /**
+   * Get a Rule from the ListOfRules
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the Rule to get.
+   * 
+   * @return Rule in this ListOfRules
+   * with the given id or NULL if no such
+   * Rule exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual const Rule* get (const std::string& sid) const;
+
+
   /** @cond doxygen-libsbml-internal */
 
   /**

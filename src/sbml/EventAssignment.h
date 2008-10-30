@@ -458,6 +458,63 @@ public:
   virtual const std::string& getElementName () const;
 
 
+  /**
+   * Get a EventAssignment from the ListOfEventAssignments.
+   *
+   * @param n the index number of the EventAssignment to get.
+   * 
+   * @return the nth EventAssignment in this ListOfEventAssignments.
+   *
+   * @see size()
+   */
+  virtual EventAssignment * get(unsigned int n); 
+
+
+  /**
+   * Get a EventAssignment from the ListOfEventAssignments.
+   *
+   * @param n the index number of the EventAssignment to get.
+   * 
+   * @return the nth EventAssignment in this ListOfEventAssignments.
+   *
+   * @see size()
+   */
+  virtual const EventAssignment * get(unsigned int n) const; 
+
+  /**
+   * Get a EventAssignment from the ListOfEventAssignments
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the EventAssignment to get.
+   * 
+   * @return EventAssignment in this ListOfEventAssignments
+   * with the given id or NULL if no such
+   * EventAssignment exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual EventAssignment* get (const std::string& sid);
+
+
+  /**
+   * Get a EventAssignment from the ListOfEventAssignments
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the EventAssignment to get.
+   * 
+   * @return EventAssignment in this ListOfEventAssignments
+   * with the given id or NULL if no such
+   * EventAssignment exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual const EventAssignment* get (const std::string& sid) const;
+
+
   /** @cond doxygen-libsbml-internal */
 
   /**

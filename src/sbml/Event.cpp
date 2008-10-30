@@ -775,6 +775,38 @@ ListOfEvents::getElementName () const
 }
 
 
+/* return nth item in list */
+Event *
+ListOfEvents::get(unsigned int n)
+{
+  return static_cast<Event*>(ListOf::get(n));
+}
+
+
+/* return nth item in list */
+const Event *
+ListOfEvents::get(unsigned int n) const
+{
+  return static_cast<const Event*>(ListOf::get(n));
+}
+
+
+/* return item by id */
+Event*
+ListOfEvents::get (const std::string& sid)
+{
+  return static_cast<Event*>(ListOf::get(sid));
+}
+
+
+/* return item by id */
+const Event*
+ListOfEvents::get (const std::string& sid) const
+{
+  return static_cast<const Event*>(ListOf::get(sid));
+}
+
+
 /** @cond doxygen-libsbml-internal */
 /*
  * @return the ordinal position of the element with respect to its siblings

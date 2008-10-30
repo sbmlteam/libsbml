@@ -277,6 +277,63 @@ public:
   virtual const std::string& getElementName () const;
 
 
+  /**
+   * Get a SpeciesType from the ListOfSpeciesTypes.
+   *
+   * @param n the index number of the SpeciesType to get.
+   * 
+   * @return the nth SpeciesType in this ListOfSpeciesTypes.
+   *
+   * @see size()
+   */
+  virtual SpeciesType * get(unsigned int n); 
+
+
+  /**
+   * Get a SpeciesType from the ListOfSpeciesTypes.
+   *
+   * @param n the index number of the SpeciesType to get.
+   * 
+   * @return the nth SpeciesType in this ListOfSpeciesTypes.
+   *
+   * @see size()
+   */
+  virtual const SpeciesType * get(unsigned int n) const; 
+
+  /**
+   * Get a SpeciesType from the ListOfSpeciesTypes
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the SpeciesType to get.
+   * 
+   * @return SpeciesType in this ListOfSpeciesTypes
+   * with the given id or NULL if no such
+   * SpeciesType exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual SpeciesType* get (const std::string& sid);
+
+
+  /**
+   * Get a SpeciesType from the ListOfSpeciesTypes
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the SpeciesType to get.
+   * 
+   * @return SpeciesType in this ListOfSpeciesTypes
+   * with the given id or NULL if no such
+   * SpeciesType exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual const SpeciesType* get (const std::string& sid) const;
+
+
   /** @cond doxygen-libsbml-internal */
 
   /**

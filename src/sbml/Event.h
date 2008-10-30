@@ -605,7 +605,64 @@ public:
   virtual const std::string& getElementName () const;
 
 
-  /** @cond doxygen-libsbml-internal */
+   /**
+   * Get a Event from the ListOfEvents.
+   *
+   * @param n the index number of the Event to get.
+   * 
+   * @return the nth Event in this ListOfEvents.
+   *
+   * @see size()
+   */
+  virtual Event * get(unsigned int n); 
+
+
+  /**
+   * Get a Event from the ListOfEvents.
+   *
+   * @param n the index number of the Event to get.
+   * 
+   * @return the nth Event in this ListOfEvents.
+   *
+   * @see size()
+   */
+  virtual const Event * get(unsigned int n) const; 
+
+  /**
+   * Get a Event from the ListOfEvents
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the Event to get.
+   * 
+   * @return Event in this ListOfEvents
+   * with the given id or NULL if no such
+   * Event exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual Event* get (const std::string& sid);
+
+
+  /**
+   * Get a Event from the ListOfEvents
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the Event to get.
+   * 
+   * @return Event in this ListOfEvents
+   * with the given id or NULL if no such
+   * Event exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual const Event* get (const std::string& sid) const;
+
+
+ /** @cond doxygen-libsbml-internal */
 
   /**
    * Get the ordinal position of this element in the containing object

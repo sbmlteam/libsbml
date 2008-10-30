@@ -497,6 +497,38 @@ ListOfEventAssignments::getElementName () const
 }
 
 
+/* return nth item in list */
+EventAssignment *
+ListOfEventAssignments::get(unsigned int n)
+{
+  return static_cast<EventAssignment*>(ListOf::get(n));
+}
+
+
+/* return nth item in list */
+const EventAssignment *
+ListOfEventAssignments::get(unsigned int n) const
+{
+  return static_cast<const EventAssignment*>(ListOf::get(n));
+}
+
+
+/* return item by id */
+EventAssignment*
+ListOfEventAssignments::get (const std::string& sid)
+{
+  return static_cast<EventAssignment*>(ListOf::get(sid));
+}
+
+
+/* return item by id */
+const EventAssignment*
+ListOfEventAssignments::get (const std::string& sid) const
+{
+  return static_cast<const EventAssignment*>(ListOf::get(sid));
+}
+
+
 /** @cond doxygen-libsbml-internal */
 /*
  * @return the ordinal position of the element with respect to its

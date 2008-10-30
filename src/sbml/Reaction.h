@@ -867,6 +867,63 @@ public:
   virtual const std::string& getElementName () const;
 
 
+  /**
+   * Get a Reaction from the ListOfReactions.
+   *
+   * @param n the index number of the Reaction to get.
+   * 
+   * @return the nth Reaction in this ListOfReactions.
+   *
+   * @see size()
+   */
+  virtual Reaction * get(unsigned int n); 
+
+
+  /**
+   * Get a Reaction from the ListOfReactions.
+   *
+   * @param n the index number of the Reaction to get.
+   * 
+   * @return the nth Reaction in this ListOfReactions.
+   *
+   * @see size()
+   */
+  virtual const Reaction * get(unsigned int n) const; 
+
+  /**
+   * Get a Reaction from the ListOfReactions
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the Reaction to get.
+   * 
+   * @return Reaction in this ListOfReactions
+   * with the given id or NULL if no such
+   * Reaction exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual Reaction* get (const std::string& sid);
+
+
+  /**
+   * Get a Reaction from the ListOfReactions
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the Reaction to get.
+   * 
+   * @return Reaction in this ListOfReactions
+   * with the given id or NULL if no such
+   * Reaction exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual const Reaction* get (const std::string& sid) const;
+
+
   /** @cond doxygen-libsbml-internal */
 
   /**

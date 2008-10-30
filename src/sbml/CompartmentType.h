@@ -285,6 +285,63 @@ public:
   virtual const std::string& getElementName () const;
 
 
+  /**
+   * Get a CompartmentType from the ListOfCompartmentTypes.
+   *
+   * @param n the index number of the CompartmentType to get.
+   * 
+   * @return the nth CompartmentType in this ListOfCompartmentTypes.
+   *
+   * @see size()
+   */
+  virtual CompartmentType * get(unsigned int n); 
+
+
+  /**
+   * Get a CompartmentType from the ListOfCompartmentTypes.
+   *
+   * @param n the index number of the CompartmentType to get.
+   * 
+   * @return the nth CompartmentType in this ListOfCompartmentTypes.
+   *
+   * @see size()
+   */
+  virtual const CompartmentType * get(unsigned int n) const; 
+
+  /**
+   * Get a CompartmentType from the ListOfCompartmentTypes
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the CompartmentType to get.
+   * 
+   * @return CompartmentType in this ListOfCompartmentTypes
+   * with the given id or NULL if no such
+   * CompartmentType exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual CompartmentType* get (const std::string& sid);
+
+
+  /**
+   * Get a CompartmentType from the ListOfCompartmentTypes
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the CompartmentType to get.
+   * 
+   * @return CompartmentType in this ListOfCompartmentTypes
+   * with the given id or NULL if no such
+   * CompartmentType exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual const CompartmentType* get (const std::string& sid) const;
+
+
   /** @cond doxygen-libsbml-internal */
 
   /**

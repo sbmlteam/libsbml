@@ -1106,6 +1106,38 @@ ListOfRules::getElementName () const
 }
 
 
+/* return nth item in list */
+Rule *
+ListOfRules::get(unsigned int n)
+{
+  return static_cast<Rule*>(ListOf::get(n));
+}
+
+
+/* return nth item in list */
+const Rule *
+ListOfRules::get(unsigned int n) const
+{
+  return static_cast<const Rule*>(ListOf::get(n));
+}
+
+
+/* return item by id */
+Rule*
+ListOfRules::get (const std::string& sid)
+{
+  return static_cast<Rule*>(ListOf::get(sid));
+}
+
+
+/* return item by id */
+const Rule*
+ListOfRules::get (const std::string& sid) const
+{
+  return static_cast<const Rule*>(ListOf::get(sid));
+}
+
+
 /** @cond doxygen-libsbml-internal */
 /*
  * @return the ordinal position of the element with respect to its siblings

@@ -758,6 +758,63 @@ public:
   virtual const std::string& getElementName () const;
 
 
+  /**
+   * Get a Compartment from the ListOfCompartments.
+   *
+   * @param n the index number of the Compartment to get.
+   * 
+   * @return the nth Compartment in this ListOfCompartments.
+   *
+   * @see size()
+   */
+  virtual Compartment * get(unsigned int n); 
+
+
+  /**
+   * Get a Compartment from the ListOfCompartments.
+   *
+   * @param n the index number of the Compartment to get.
+   * 
+   * @return the nth Compartment in this ListOfCompartments.
+   *
+   * @see size()
+   */
+  virtual const Compartment * get(unsigned int n) const; 
+
+  /**
+   * Get a Compartment from the ListOfCompartments
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the Compartment to get.
+   * 
+   * @return Compartment in this ListOfCompartments
+   * with the given id or NULL if no such
+   * Compartment exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual Compartment* get (const std::string& sid);
+
+
+  /**
+   * Get a Compartment from the ListOfCompartments
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the Compartment to get.
+   * 
+   * @return Compartment in this ListOfCompartments
+   * with the given id or NULL if no such
+   * Compartment exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual const Compartment* get (const std::string& sid) const;
+
+
   /** @cond doxygen-libsbml-internal */
 
   /**

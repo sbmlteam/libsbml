@@ -409,6 +409,30 @@ public:
   virtual const std::string& getElementName () const;
 
 
+  /**
+   * Get a Constraint from the ListOfConstraints.
+   *
+   * @param n the index number of the Constraint to get.
+   * 
+   * @return the nth Constraint in this ListOfConstraints.
+   *
+   * @see size()
+   */
+  virtual Constraint * get(unsigned int n); 
+
+
+  /**
+   * Get a Constraint from the ListOfConstraints.
+   *
+   * @param n the index number of the Constraint to get.
+   * 
+   * @return the nth Constraint in this ListOfConstraints.
+   *
+   * @see size()
+   */
+  virtual const Constraint * get(unsigned int n) const; 
+
+
   /** @cond doxygen-libsbml-internal */
 
   /**

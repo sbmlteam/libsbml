@@ -908,6 +908,63 @@ public:
   virtual const std::string& getElementName () const;
 
 
+  /**
+   * Get a Species from the ListOfSpecies.
+   *
+   * @param n the index number of the Species to get.
+   * 
+   * @return the nth Species in this ListOfSpecies.
+   *
+   * @see size()
+   */
+  virtual Species * get(unsigned int n); 
+
+
+  /**
+   * Get a Species from the ListOfSpecies.
+   *
+   * @param n the index number of the Species to get.
+   * 
+   * @return the nth Species in this ListOfSpecies.
+   *
+   * @see size()
+   */
+  virtual const Species * get(unsigned int n) const; 
+
+  /**
+   * Get a Species from the ListOfSpecies
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the Species to get.
+   * 
+   * @return Species in this ListOfSpecies
+   * with the given id or NULL if no such
+   * Species exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual Species* get (const std::string& sid);
+
+
+  /**
+   * Get a Species from the ListOfSpecies
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the Species to get.
+   * 
+   * @return Species in this ListOfSpecies
+   * with the given id or NULL if no such
+   * Species exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual const Species* get (const std::string& sid) const;
+
+
   /** @cond doxygen-libsbml-internal */
 
   /**

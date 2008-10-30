@@ -92,6 +92,20 @@ START_TEST (test_read_l2v3_all)
   SpeciesType*     st;
   StoichiometryMath* stoich;
   Unit* u;
+  ListOfEvents *loe;
+  Event *e1;
+  ListOfEventAssignments *loea;
+  EventAssignment *ea1;
+  ListOfFunctionDefinitions *lofd;
+  FunctionDefinition * fd1;
+  ListOfParameters *lop;
+  Parameter *p1;
+  ListOfSpeciesTypes *lost;
+  SpeciesType *st1;
+  ListOfUnitDefinitions *loud;
+  UnitDefinition *ud1;
+  ListOfUnits *lou;
+  Unit * u1;
   
   const ASTNode*   ast;
 
@@ -159,6 +173,13 @@ START_TEST (test_read_l2v3_all)
   fail_unless( st->getName() == "dd", NULL );
   fail_unless( st->getSBOTerm() == 236, NULL );
   fail_unless( st->getSBOTermID() == "SBO:0000236", NULL );
+
+  lost = m->getListOfSpeciesTypes();
+  st1 = lost->get(0);
+  fail_unless( st1 == st);
+
+  st1 = lost->get("gg");
+  fail_unless( st1 == st);
 
   //<listOfConstraints>
   //  <constraint>
@@ -242,6 +263,13 @@ START_TEST (test_read_l2v3_all)
   ast = trigger->getMath();
   fail_unless(!strcmp(SBML_formulaToString(ast), "lt(x, 3)"), NULL);
 
+  loe = m->getListOfEvents();
+  e1 = loe->get(0);
+  fail_unless( e1 == e);
+
+  e1 = loe->get("e1");
+  fail_unless( e1 == e);
+
   fail_unless( e->getNumEventAssignments() == 1, NULL );
 
   ea = e->getEventAssignment(0);
@@ -253,6 +281,13 @@ START_TEST (test_read_l2v3_all)
 
   ast = ea->getMath();
   fail_unless(!strcmp(SBML_formulaToString(ast), "x * p3"), NULL);
+
+  loea = e->getListOfEventAssignments();
+  ea1 = loea->get(0);
+  fail_unless( ea1 == ea);
+
+  ea1 = loea->get("a");
+  fail_unless( ea1 == ea);
 
   //<listOfFunctionDefinitions>
   //  <functionDefinition id="fd" sboTerm="SBO:0000064">
@@ -283,6 +318,13 @@ START_TEST (test_read_l2v3_all)
 
   ast = fd->getMath();
   fail_unless(!strcmp(SBML_formulaToString(ast), "lambda(x, pow(x, 3))"), NULL);
+
+  lofd = m->getListOfFunctionDefinitions();
+  fd1 = lofd->get(0);
+  fail_unless( fd1 == fd);
+
+  fd1 = lofd->get("fd");
+  fail_unless( fd1 == fd);
 
   //<listOfInitialAssignments>
   //  <initialAssignment symbol="p1">
@@ -446,6 +488,13 @@ START_TEST (test_read_l2v3_all)
   fail_unless( ud->getUnit(0)->getKind() == UNIT_KIND_LITRE, NULL );
   fail_unless( ud->getUnit(0)->getExponent() ==  1, NULL );
 
+  lop = kl->getListOfParameters();
+  p1 = lop->get(0);
+  fail_unless( p1 == p);
+
+  p1 = lop->get("k");
+  fail_unless( p1 == p);
+
   p = kl->getParameter(1);
   fail_unless( p         != NULL  , NULL );
   fail_unless(p->getId() == "k1", NULL);
@@ -489,13 +538,22 @@ START_TEST (test_read_l2v3_all)
   fail_unless( ud          != NULL  , NULL );
   fail_unless( ud->getId() == "ud1", NULL );
 
+  loud = m->getListOfUnitDefinitions();
+  ud1 = loud->get(0);
+  fail_unless (ud1 == ud);
+
+  ud1 = loud->get("ud1");
+  fail_unless ( ud1 == ud);
+
   fail_unless(ud->getNumUnits() == 1, NULL);
 
   u = ud->getUnit(0);
   fail_unless( u          != NULL  , NULL );
   fail_unless( u->getKind() == UNIT_KIND_MOLE, NULL );
 
-
+  lou = ud->getListOfUnits();
+  u1 = lou->get(0);
+  fail_unless (u1 == u);
 
   delete d;
 }

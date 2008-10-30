@@ -775,6 +775,63 @@ public:
   virtual const std::string& getElementName () const;
 
 
+  /**
+   * Get a UnitDefinition from the ListOfUnitDefinitions.
+   *
+   * @param n the index number of the UnitDefinition to get.
+   * 
+   * @return the nth UnitDefinition in this ListOfUnitDefinitions.
+   *
+   * @see size()
+   */
+  virtual UnitDefinition * get(unsigned int n); 
+
+
+  /**
+   * Get a UnitDefinition from the ListOfUnitDefinitions.
+   *
+   * @param n the index number of the UnitDefinition to get.
+   * 
+   * @return the nth UnitDefinition in this ListOfUnitDefinitions.
+   *
+   * @see size()
+   */
+  virtual const UnitDefinition * get(unsigned int n) const; 
+
+  /**
+   * Get a UnitDefinition from the ListOfUnitDefinitions
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the UnitDefinition to get.
+   * 
+   * @return UnitDefinition in this ListOfUnitDefinitions
+   * with the given id or NULL if no such
+   * UnitDefinition exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual UnitDefinition* get (const std::string& sid);
+
+
+  /**
+   * Get a UnitDefinition from the ListOfUnitDefinitions
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the UnitDefinition to get.
+   * 
+   * @return UnitDefinition in this ListOfUnitDefinitions
+   * with the given id or NULL if no such
+   * UnitDefinition exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual const UnitDefinition* get (const std::string& sid) const;
+
+
   /** @cond doxygen-libsbml-internal */
 
   /**

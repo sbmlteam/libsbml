@@ -80,6 +80,14 @@ START_TEST (test_read_l2v1_assignment)
   KineticLaw*       kl;
   UnitDefinition*   ud;
   Reaction*         r1;
+  ListOfCompartments *loc;
+  Compartment * c1;
+  ListOfRules *lor;
+  AssignmentRule *ar1; 
+  ListOfParameters *lop;
+  Parameter *p1;
+  ListOfSpecies *los;
+  Species *s1;
 
   std::string filename(TestDataDirectory);
   filename += "l2v1-assignment.xml";
@@ -126,6 +134,16 @@ START_TEST (test_read_l2v1_assignment)
   fail_unless (ud->getNumUnits() == 1, NULL);
   fail_unless( ud->getUnit(0)->getKind() == UNIT_KIND_LITRE, NULL );
 
+  /*
+   * test for derived list of functions
+   */
+  loc = m->getListOfCompartments();
+  c1 = loc->get(0);
+  fail_unless (c1 == c);
+
+  c1 = loc->get("cell");
+  fail_unless (c1 == c);
+
   //
   // <listOfSpecies>
   //   <species id="X0" compartment="cell" initialConcentration="1"/>
@@ -142,6 +160,13 @@ START_TEST (test_read_l2v1_assignment)
   fail_unless( s->getId()                   == "X0"  , NULL );
   fail_unless( s->getCompartment()          == "cell", NULL );
   fail_unless( s->getInitialConcentration() == 1.0   , NULL );
+
+  los = m->getListOfSpecies();
+  s1 = los->get(0);
+  fail_unless ( s1 == s);
+
+  s1 = los->get("X0");
+  fail_unless ( s1 == s);
 
   s = m->getSpecies(1);
   fail_unless( s                            != NULL  , NULL );
@@ -180,6 +205,13 @@ START_TEST (test_read_l2v1_assignment)
   fail_unless( p             != NULL , NULL );
   fail_unless( p->getId()    == "Keq", NULL );
   fail_unless( p->getValue() == 2.5  , NULL );
+
+  lop = m->getListOfParameters();
+  p1 = lop->get(0);
+  fail_unless( p1 == p);
+
+  p1 = lop->get("Keq");
+  fail_unless( p1 == p);
 
   /**
    * tests for the unit API functions
@@ -224,6 +256,13 @@ START_TEST (test_read_l2v1_assignment)
 
   fail_unless( ar->containsUndeclaredUnits() == 1, NULL);
 
+  lor = m->getListOfRules();
+  ar1 = static_cast <AssignmentRule*> (lor->get(0));
+  fail_unless (ar1 == ar);
+  
+  ar1 = static_cast <AssignmentRule*> (lor->get("S1"));
+  fail_unless (ar1 == ar);
+  
   //
   // <assignmentRule variable="S2">
   //   <math xmlns="http://www.w3.org/1998/Math/MathML">
