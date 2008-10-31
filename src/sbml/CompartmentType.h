@@ -154,7 +154,8 @@ public:
 
   CompartmentType (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
-  CompartmentType (SBMLDocument* document);
+
+
   /**
    * Destroys this CompartmentType.
    */
@@ -405,11 +406,6 @@ LIBSBML_EXTERN
 CompartmentType_t *
 CompartmentType_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
-
-
-LIBSBML_EXTERN
-CompartmentType_t *
-CompartmentType_createWithDocument (SBMLDocument_t *document);
 
 
 LIBSBML_EXTERN

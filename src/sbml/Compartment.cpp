@@ -67,15 +67,6 @@ Compartment::Compartment (unsigned int level, unsigned int version,
   if (xmlns) setNamespaces(xmlns);;
 }
                           
-Compartment::Compartment (SBMLDocument *document) :
-   SBase ("", "", -1)
- , mSpatialDimensions( 3        )
- , mSize             ( 1.0      )
- , mConstant         ( true     )
- , mIsSetSize        ( false    )
-{
-  setSBMLDocument(document);
-}
 /*
  * Destroys this Compartment.
  */
@@ -848,14 +839,6 @@ Compartment_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns)
 {
   return new(nothrow) Compartment(level, version, xmlns);
-}
-
-
-LIBSBML_EXTERN
-Compartment_t *
-Compartment_createWithDocument (SBMLDocument_t *document)
-{
-  return new(nothrow) Compartment(document);
 }
 
 

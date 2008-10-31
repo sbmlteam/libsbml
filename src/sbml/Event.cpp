@@ -71,16 +71,6 @@ Event::Event (unsigned int level, unsigned int version,
   if (xmlns) setNamespaces(xmlns);;
 }
                           
-Event::Event (SBMLDocument *document) :
-   SBase ("", "", -1)
- , mTrigger ( 0          )
- , mDelay   ( 0          )
- , mUseValuesFromTriggerTime ( true )
-{
-  mInternalIdOnly = false;
-  setSBMLDocument(document);
-}
-
 /*
  * Destroys this Event.
  */
@@ -883,14 +873,6 @@ Event_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns)
 {
   return new(nothrow) Event(level, version, xmlns);
-}
-
-
-LIBSBML_EXTERN
-Event_t *
-Event_createWithDocument (SBMLDocument_t *document)
-{
-  return new(nothrow) Event(document);
 }
 
 

@@ -377,33 +377,6 @@ START_TEST (test_Compartment_createWithLevelVersionAndNamespace)
 END_TEST
 
 
-START_TEST (test_Compartment_createWithDocument)
-{
-  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
-
-  Compartment_t *c = 
-    Compartment_createWithDocument(d);
-
-
-  fail_unless( SBase_getTypeCode  ((SBase_t *) c) == SBML_COMPARTMENT );
-  fail_unless( SBase_getMetaId    ((SBase_t *) c) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) c) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) c) == NULL );
-
-  fail_unless( SBase_getLevel       ((SBase_t *) c) == 1 );
-  fail_unless( SBase_getVersion     ((SBase_t *) c) == 2 );
-  fail_unless( SBase_getSBMLDocument((SBase_t *) c) != NULL);
-
-
-  fail_unless( Compartment_getName(c)              == NULL );
-  fail_unless( Compartment_getSpatialDimensions(c) == 3    );
-  fail_unless( Compartment_getConstant(c) == 1   );
-
-  Compartment_free(c);
-}
-END_TEST
-
-
 Suite *
 create_suite_Compartment (void)
 {
@@ -429,7 +402,6 @@ create_suite_Compartment (void)
   tcase_add_test( tcase, test_Compartment_getSpatialDimensions);
   tcase_add_test( tcase, test_Compartment_initDefaults        );
   tcase_add_test( tcase, test_Compartment_createWithLevelVersionAndNamespace        );
-  tcase_add_test( tcase, test_Compartment_createWithDocument  );
 
   suite_add_tcase(suite, tcase);
 

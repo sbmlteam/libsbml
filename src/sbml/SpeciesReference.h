@@ -273,7 +273,6 @@ public:
 
   SimpleSpeciesReference (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
-  SimpleSpeciesReference (SBMLDocument* document);
 
   /**
    * Destroys this SimpleSpeciesReference.
@@ -416,7 +415,6 @@ public:
 
   SpeciesReference (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
-  SpeciesReference (SBMLDocument* document);
 
   /**
    * Destroys this SpeciesReference.
@@ -879,7 +877,6 @@ public:
 
   ModifierSpeciesReference (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
-  ModifierSpeciesReference (SBMLDocument* document);
 
   /**
    * Destroys this ModifierSpeciesReference.
@@ -1150,16 +1147,6 @@ SpeciesReference_t *
 SpeciesReference_createModifierWithLevelVersionAndNamespaces 
                            (unsigned int level,
                             unsigned int version, XMLNamespaces_t *xmlns);
-
-
-LIBSBML_EXTERN
-SpeciesReference_t *
-SpeciesReference_createWithDocument (SBMLDocument_t *document);
-
-
-LIBSBML_EXTERN
-SpeciesReference_t *
-SpeciesReference_createModifierWithDocument (SBMLDocument_t *document);
 
 
 LIBSBML_EXTERN

@@ -67,12 +67,6 @@ Trigger::Trigger (unsigned int level, unsigned int version,
   if (xmlns) setNamespaces(xmlns);;
 }
                           
-Trigger::Trigger (SBMLDocument *document) :
-   SBase		  (  -1 )
- , mMath      ( 0              )
-{
-  setSBMLDocument(document);
-}
 
 /*
  * Destroys this Trigger.
@@ -431,14 +425,6 @@ Trigger_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns)
 {
   return new(nothrow) Trigger(level, version, xmlns);
-}
-
-
-LIBSBML_EXTERN
-Trigger_t *
-Trigger_createWithDocument (SBMLDocument_t *document)
-{
-  return new(nothrow) Trigger(document);
 }
 
 

@@ -170,28 +170,6 @@ START_TEST (test_ModifierSpeciesReference_createWithLevelVersionAndNamespace)
 END_TEST
 
 
-START_TEST (test_ModifierSpeciesReference_createWithDocument)
-{
-  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 2);
-
-  SpeciesReference_t *object = 
-    SpeciesReference_createModifierWithDocument(d);
-
-
-  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_MODIFIER_SPECIES_REFERENCE );
-  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
-
-  fail_unless( SBase_getLevel       ((SBase_t *) object) == 2 );
-  fail_unless( SBase_getVersion     ((SBase_t *) object) == 2 );
-  fail_unless( SBase_getSBMLDocument((SBase_t *) object) != NULL);
-
-  SpeciesReference_free(object);
-}
-END_TEST
-
-
 Suite *
 create_suite_ModifierSpeciesReference (void)
 {
@@ -207,7 +185,6 @@ create_suite_ModifierSpeciesReference (void)
   tcase_add_test( tcase, test_ModifierSpeciesReference_free_NULL  );
   tcase_add_test( tcase, test_ModifierSpeciesReference_setSpecies );
   tcase_add_test( tcase, test_ModifierSpeciesReference_createWithLevelVersionAndNamespace        );
-  tcase_add_test( tcase, test_ModifierSpeciesReference_createWithDocument  );
 
   suite_add_tcase(suite, tcase);
 

@@ -90,14 +90,6 @@ KineticLaw::KineticLaw (unsigned int level, unsigned int version,
   if (xmlns) setNamespaces(xmlns);;
 }
                           
-KineticLaw::KineticLaw (SBMLDocument *document) :
-   SBase          ( -1             )
- , mMath          ( 0              )
- , mTimeUnits     ( ""             )
- , mSubstanceUnits( ""             )
-{
-  setSBMLDocument(document);
-}
 
 /*
  * Destroys this KineticLaw.
@@ -961,12 +953,6 @@ KineticLaw_createWithLevelVersionAndNamespaces (unsigned int level,
 }
 
 
-LIBSBML_EXTERN
-KineticLaw_t *
-KineticLaw_createWithDocument (SBMLDocument_t *document)
-{
-  return new(nothrow) KineticLaw(document);
-}
 /**
  * Frees the given KineticLaw_t structure.
  *

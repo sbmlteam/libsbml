@@ -81,12 +81,6 @@ FunctionDefinition::FunctionDefinition (unsigned int level, unsigned int version
   if (xmlns) setNamespaces(xmlns);;
 }
                           
-FunctionDefinition::FunctionDefinition (SBMLDocument *document) :
-   SBase ("", "", -1)
- , mMath( 0  )
-{
-  setSBMLDocument(document);
-}
 
 /*
  * Destroys this FunctionDefinition.
@@ -639,14 +633,6 @@ FunctionDefinition_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns)
 {
   return new(nothrow) FunctionDefinition(level, version, xmlns);
-}
-
-
-LIBSBML_EXTERN
-FunctionDefinition_t *
-FunctionDefinition_createWithDocument (SBMLDocument_t *document)
-{
-  return new(nothrow) FunctionDefinition(document);
 }
 
 

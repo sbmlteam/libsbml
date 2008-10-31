@@ -41,13 +41,8 @@
     only used on an SBMLDocument.  Note that these are the only functions 
     that ever set the mObjectLevel/mObjectVersion variables which can thus be 
     used to verify the attributes of the object given the intended level and
-    version.  
-    the second is of the form XXX(SBMLDocument *).  This function constructs 
-    the object and sets the document pointed to by that object.  Note that it 
-    does not add the object to the document; but provides a means of checking 
-    that any add functions are valid.
-    There are C implementations of these functions:
-    XXX__createWithLevelVersionAndNamespaces and XXX_createWithDocument.
+    version.  There are C implementations of these functions:
+    XXX__createWithLevelVersionAndNamespaces.
 
   - There is a new validator that checks the consistency of the internal
     representation of a model.  Since the libSBML classes representing

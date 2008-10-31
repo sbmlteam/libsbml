@@ -67,12 +67,6 @@ StoichiometryMath::StoichiometryMath (unsigned int level, unsigned int version,
   if (xmlns) setNamespaces(xmlns);;
 }
                           
-StoichiometryMath::StoichiometryMath (SBMLDocument *document) :
-   SBase (-1)
- , mMath      ( 0              )
-{
-  setSBMLDocument(document);
-}
 
 /*
  * Destroys this StoichiometryMath.
@@ -484,14 +478,6 @@ StoichiometryMath_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns)
 {
   return new(nothrow) StoichiometryMath(level, version, xmlns);
-}
-
-
-LIBSBML_EXTERN
-StoichiometryMath_t *
-StoichiometryMath_createWithDocument (SBMLDocument_t *document)
-{
-  return new(nothrow) StoichiometryMath(document);
 }
 
 

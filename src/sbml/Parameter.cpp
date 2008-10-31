@@ -86,14 +86,6 @@ Parameter::Parameter (unsigned int level, unsigned int version,
   if (xmlns) setNamespaces(xmlns);;
 }
                           
-Parameter::Parameter (SBMLDocument *document) :
-   SBase ("", "", -1)
-  , mValue     ( 0.0      )
-  , mConstant  ( true     )
-  , mIsSetValue( false    )
-{
-  setSBMLDocument(document);
-}
 
 /*
  * Destroys this Parameter.
@@ -716,14 +708,6 @@ Parameter_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns)
 {
   return new(nothrow) Parameter(level, version, xmlns);
-}
-
-
-LIBSBML_EXTERN
-Parameter_t *
-Parameter_createWithDocument (SBMLDocument_t *document)
-{
-  return new(nothrow) Parameter(document);
 }
 
 

@@ -309,7 +309,7 @@ public:
 
   Species (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
-  Species (SBMLDocument* document);
+
 
   /**
    * Destroys this Species.
@@ -1025,11 +1025,6 @@ LIBSBML_EXTERN
 Species_t *
 Species_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
-
-
-LIBSBML_EXTERN
-Species_t *
-Species_createWithDocument (SBMLDocument_t *document);
 
 
 LIBSBML_EXTERN

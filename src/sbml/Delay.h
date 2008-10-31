@@ -151,7 +151,6 @@ public:
   Delay (const ASTNode* math = NULL);
   Delay (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
-  Delay (SBMLDocument* document);
 
 
   /**
@@ -395,11 +394,6 @@ LIBSBML_EXTERN
 Delay_t *
 Delay_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
-
-
-LIBSBML_EXTERN
-Delay_t *
-Delay_createWithDocument (SBMLDocument_t *document);
 
 
 LIBSBML_EXTERN

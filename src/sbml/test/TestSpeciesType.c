@@ -225,28 +225,6 @@ START_TEST (test_SpeciesType_createWithLevelVersionAndNamespace)
 END_TEST
 
 
-START_TEST (test_SpeciesType_createWithDocument)
-{
-  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 4);
-
-  SpeciesType_t *object = 
-    SpeciesType_createWithDocument(d);
-
-
-  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_SPECIES_TYPE );
-  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
-
-  fail_unless( SBase_getLevel       ((SBase_t *) object) == 2 );
-  fail_unless( SBase_getVersion     ((SBase_t *) object) == 4 );
-  fail_unless( SBase_getSBMLDocument((SBase_t *) object) != NULL);
-
-  SpeciesType_free(object);
-}
-END_TEST
-
-
 Suite *
 create_suite_SpeciesType (void)
 {
@@ -265,7 +243,6 @@ create_suite_SpeciesType (void)
   tcase_add_test( tcase, test_SpeciesType_setName     );
   tcase_add_test( tcase, test_SpeciesType_unsetName   );
   tcase_add_test( tcase, test_SpeciesType_createWithLevelVersionAndNamespace        );
-  tcase_add_test( tcase, test_SpeciesType_createWithDocument  );
 
   suite_add_tcase(suite, tcase);
 

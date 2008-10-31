@@ -901,11 +901,6 @@ AlgebraicRule::AlgebraicRule (unsigned int level, unsigned int version,
   if (xmlns) setNamespaces(xmlns);;
 }
                           
-AlgebraicRule::AlgebraicRule (SBMLDocument *document) :
-  Rule(SBML_ALGEBRAIC_RULE, "", 0)
-{
-  setSBMLDocument(document);
-}
 
 /*
  * Destroys this AlgebraicRule.
@@ -969,11 +964,6 @@ AssignmentRule::AssignmentRule (unsigned int level, unsigned int version,
   if (xmlns) setNamespaces(xmlns);;
 }
                           
-AssignmentRule::AssignmentRule (SBMLDocument *document) :
-  Rule(SBML_ASSIGNMENT_RULE, "", 0)
-{
-  setSBMLDocument(document);
-}
 
 /*
  * Destroys this AssignmentRule.
@@ -1035,11 +1025,6 @@ RateRule::RateRule (unsigned int level, unsigned int version,
   if (xmlns) setNamespaces(xmlns);;
 }
                           
-RateRule::RateRule (SBMLDocument *document) :
-  Rule(SBML_RATE_RULE, "", 0)
-{
-  setSBMLDocument(document);
-}
 
 /*
  * Destroys this RateRule.
@@ -1418,30 +1403,6 @@ Rule_createRateWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns)
 {
   return new(nothrow) RateRule (level, version, xmlns);
-}
-
-
-LIBSBML_EXTERN
-Rule_t *
-Rule_createAlgebraicWithDocument (SBMLDocument_t *document)
-{
-  return new(nothrow) AlgebraicRule (document);
-}
-
-
-LIBSBML_EXTERN
-Rule_t *
-Rule_createAssignmentWithDocument (SBMLDocument_t *document)
-{
-  return new(nothrow) AssignmentRule (document);
-}
-
-
-LIBSBML_EXTERN
-Rule_t *
-Rule_createRateWithDocument (SBMLDocument_t *document)
-{
-  return new(nothrow) RateRule (document);
 }
 
 

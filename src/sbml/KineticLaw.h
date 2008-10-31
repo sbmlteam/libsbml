@@ -224,7 +224,8 @@ public:
 
   KineticLaw (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
-  KineticLaw (SBMLDocument* document);
+
+
   /**
    * Destroys this KineticLaw.
    */
@@ -742,11 +743,6 @@ LIBSBML_EXTERN
 KineticLaw_t *
 KineticLaw_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
-
-
-LIBSBML_EXTERN
-KineticLaw_t *
-KineticLaw_createWithDocument (SBMLDocument_t *document);
 
 
 LIBSBML_EXTERN

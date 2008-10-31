@@ -220,7 +220,7 @@ public:
 
   Reaction (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
-  Reaction (SBMLDocument* document);
+
 
   /**
    * Destroys this Reaction.
@@ -983,11 +983,6 @@ LIBSBML_EXTERN
 Reaction_t *
 Reaction_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
-
-
-LIBSBML_EXTERN
-Reaction_t *
-Reaction_createWithDocument (SBMLDocument_t *document);
 
 
 LIBSBML_EXTERN

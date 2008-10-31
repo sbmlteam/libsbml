@@ -419,28 +419,6 @@ START_TEST (test_KineticLaw_createWithLevelVersionAndNamespace)
 END_TEST
 
 
-START_TEST (test_KineticLaw_createWithDocument)
-{
-  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
-
-  KineticLaw_t *object = 
-    KineticLaw_createWithDocument(d);
-
-
-  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_KINETIC_LAW );
-  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
-
-  fail_unless( SBase_getLevel       ((SBase_t *) object) == 1 );
-  fail_unless( SBase_getVersion     ((SBase_t *) object) == 2 );
-  fail_unless( SBase_getSBMLDocument((SBase_t *) object) != NULL);
-
-  KineticLaw_free(object);
-}
-END_TEST
-
-
 Suite *
 create_suite_KineticLaw (void)
 {
@@ -465,7 +443,6 @@ create_suite_KineticLaw (void)
   tcase_add_test( tcase, test_KineticLaw_getParameter       );
   tcase_add_test( tcase, test_KineticLaw_getParameterById   );
   tcase_add_test( tcase, test_KineticLaw_createWithLevelVersionAndNamespace        );
-  tcase_add_test( tcase, test_KineticLaw_createWithDocument  );
 
   suite_add_tcase(suite, tcase);
 

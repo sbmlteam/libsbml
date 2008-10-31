@@ -98,7 +98,7 @@ public:
 
   Trigger (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
-  Trigger (SBMLDocument* document);
+
 
   /**
    * Destroys this Trigger.
@@ -286,11 +286,6 @@ LIBSBML_EXTERN
 Trigger_t *
 Trigger_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
-
-
-LIBSBML_EXTERN
-Trigger_t *
-Trigger_createWithDocument (SBMLDocument_t *document);
 
 
 LIBSBML_EXTERN

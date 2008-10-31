@@ -313,28 +313,6 @@ START_TEST (test_Unit_createWithLevelVersionAndNamespace)
 END_TEST
 
 
-START_TEST (test_Unit_createWithDocument)
-{
-  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
-
-  Unit_t *object = 
-    Unit_createWithDocument(d);
-
-
-  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_UNIT );
-  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
-
-  fail_unless( SBase_getLevel       ((SBase_t *) object) == 1 );
-  fail_unless( SBase_getVersion     ((SBase_t *) object) == 2 );
-  fail_unless( SBase_getSBMLDocument((SBase_t *) object) != NULL);
-
-  Unit_free(object);
-}
-END_TEST
-
-
 Suite *
 create_suite_Unit (void)
 {
@@ -351,7 +329,6 @@ create_suite_Unit (void)
   tcase_add_test( tcase, test_Unit_isBuiltIn  );
   tcase_add_test( tcase, test_Unit_set_get    );
   tcase_add_test( tcase, test_Unit_createWithLevelVersionAndNamespace        );
-  tcase_add_test( tcase, test_Unit_createWithDocument  );
 
   suite_add_tcase(suite, tcase);
 

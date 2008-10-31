@@ -226,7 +226,7 @@ public:
 
   Parameter (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
-  Parameter (SBMLDocument* document);
+
 
   /**
    * Destroys this Parameter.
@@ -653,11 +653,6 @@ LIBSBML_EXTERN
 Parameter_t *
 Parameter_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
-
-
-LIBSBML_EXTERN
-Parameter_t *
-Parameter_createWithDocument (SBMLDocument_t *document);
 
 
 LIBSBML_EXTERN

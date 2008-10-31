@@ -64,12 +64,6 @@ InitialAssignment::InitialAssignment (unsigned int level, unsigned int version,
   if (xmlns) setNamespaces(xmlns);;
 }
                           
-InitialAssignment::InitialAssignment (SBMLDocument *document) :
-   SBase ("", "", -1)
- , mMath   ( 0      )
-{
-  setSBMLDocument(document);
-}
 
 /*
  * Destroys this InitialAssignment.
@@ -588,14 +582,6 @@ InitialAssignment_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns)
 {
   return new(nothrow) InitialAssignment(level, version, xmlns);
-}
-
-
-LIBSBML_EXTERN
-InitialAssignment_t *
-InitialAssignment_createWithDocument (SBMLDocument_t *document)
-{
-  return new(nothrow) InitialAssignment(document);
 }
 
 

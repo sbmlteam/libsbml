@@ -68,13 +68,6 @@ Model::Model (unsigned int level, unsigned int version,
   if (xmlns) setNamespaces(xmlns);;
 }
                           
-Model::Model (SBMLDocument *document) :
-   SBase ("", "", -1)
- , mHistory (0)
- , mFormulaUnitsData (0)
-{
-  setSBMLDocument(document);
-}
 
 /*
  * Destroys this Model.
@@ -3140,14 +3133,6 @@ Model_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns)
 {
   return new(nothrow) Model(level, version, xmlns);
-}
-
-
-LIBSBML_EXTERN
-Model_t *
-Model_createWithDocument (SBMLDocument_t *document)
-{
-  return new(nothrow) Model(document);
 }
 
 

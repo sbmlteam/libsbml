@@ -149,7 +149,7 @@ public:
 
   Event (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
-  Event (SBMLDocument* document);
+
 
   /**
    * Destroys this Event.
@@ -721,11 +721,6 @@ LIBSBML_EXTERN
 Event_t *
 Event_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
-
-
-LIBSBML_EXTERN
-Event_t *
-Event_createWithDocument (SBMLDocument_t *document);
 
 
 LIBSBML_EXTERN

@@ -197,7 +197,6 @@ public:
 
   EventAssignment (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
-  EventAssignment (SBMLDocument* document);
 
   /**
    * Destroys this EventAssignment.
@@ -568,11 +567,6 @@ LIBSBML_EXTERN
 EventAssignment_t *
 EventAssignment_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
-
-
-LIBSBML_EXTERN
-EventAssignment_t *
-EventAssignment_createWithDocument (SBMLDocument_t *document);
 
 
 LIBSBML_EXTERN

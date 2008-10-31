@@ -59,11 +59,6 @@ SpeciesType::SpeciesType (unsigned int level, unsigned int version,
   if (xmlns) setNamespaces(xmlns);;
 }
                           
-SpeciesType::SpeciesType (SBMLDocument *document) :
-   SBase ("", "", -1)
-{
-  setSBMLDocument(document);
-}
 
 /*
  * Destroys this SpeciesType.
@@ -403,14 +398,6 @@ SpeciesType_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns)
 {
   return new(nothrow) SpeciesType(level, version, xmlns);
-}
-
-
-LIBSBML_EXTERN
-SpeciesType_t *
-SpeciesType_createWithDocument (SBMLDocument_t *document)
-{
-  return new(nothrow) SpeciesType(document);
 }
 
 

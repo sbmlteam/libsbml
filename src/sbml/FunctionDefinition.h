@@ -176,7 +176,6 @@ public:
                       , const std::string& formula = "" );
   FunctionDefinition (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
-  FunctionDefinition (SBMLDocument* document);
 
 
   /**
@@ -544,11 +543,6 @@ LIBSBML_EXTERN
 FunctionDefinition_t *
 FunctionDefinition_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
-
-
-LIBSBML_EXTERN
-FunctionDefinition_t *
-FunctionDefinition_createWithDocument (SBMLDocument_t *document);
 
 
 LIBSBML_EXTERN

@@ -77,20 +77,6 @@ Species::Species (unsigned int level, unsigned int version,
   if (xmlns) setNamespaces(xmlns);;
 }
                           
-Species::Species (SBMLDocument *document) :
-   SBase ("", "", -1)
-  , mInitialAmount            ( 0.0   )
-  , mInitialConcentration     ( 0.0   )
-  , mHasOnlySubstanceUnits    ( false )
-  , mBoundaryCondition        ( false )
-  , mCharge                   ( 0     )
-  , mConstant                 ( false )
-  , mIsSetInitialAmount       ( false )
-  , mIsSetInitialConcentration( false )
-  , mIsSetCharge              ( false )
-{
-  setSBMLDocument(document);
-}
 
 /*
  * Destroys this Species.
@@ -1137,13 +1123,6 @@ Species_createWithLevelVersionAndNamespaces (unsigned int level,
   return new(nothrow) Species(level, version, xmlns);
 }
 
-
-LIBSBML_EXTERN
-Species_t *
-Species_createWithDocument (SBMLDocument_t *document)
-{
-  return new(nothrow) Species(document);
-}
 
 /**
  * Frees the given Species_t structure.

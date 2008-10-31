@@ -317,7 +317,7 @@ public:
 
   UnitDefinition (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
-  UnitDefinition (SBMLDocument* document);
+
 
   /**
    * Destroys this UnitDefinition.
@@ -892,11 +892,6 @@ LIBSBML_EXTERN
 UnitDefinition_t *
 UnitDefinition_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
-
-
-LIBSBML_EXTERN
-UnitDefinition_t *
-UnitDefinition_createWithDocument (SBMLDocument_t *document);
 
 
 LIBSBML_EXTERN

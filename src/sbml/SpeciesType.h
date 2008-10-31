@@ -146,7 +146,7 @@ public:
 
   SpeciesType (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
-  SpeciesType (SBMLDocument* document);
+
 
   /**
    * Destroys this SpeciesType.
@@ -396,11 +396,6 @@ LIBSBML_EXTERN
 SpeciesType_t *
 SpeciesType_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
-
-
-LIBSBML_EXTERN
-SpeciesType_t *
-SpeciesType_createWithDocument (SBMLDocument_t *document);
 
 
 LIBSBML_EXTERN

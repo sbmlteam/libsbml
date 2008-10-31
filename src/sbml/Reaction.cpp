@@ -112,19 +112,6 @@ Reaction::Reaction (unsigned int level, unsigned int version,
   mModifiers.setType( ListOfSpeciesReferences::Modifier );
 }
                           
-Reaction::Reaction (SBMLDocument *document) :
-   SBase ("", "", -1)
-  , mKineticLaw( 0          )
-  , mReversible( true       )
-  , mFast      ( false      )
-  , mIsSetFast ( false      )
-{
-  setSBMLDocument(document);
-
-  mReactants.setType( ListOfSpeciesReferences::Reactant );
-  mProducts .setType( ListOfSpeciesReferences::Product  );
-  mModifiers.setType( ListOfSpeciesReferences::Modifier );
-}
 
 /*
  * Destroys this Reaction.
@@ -1155,14 +1142,6 @@ Reaction_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns)
 {
   return new(nothrow) Reaction(level, version, xmlns);
-}
-
-
-LIBSBML_EXTERN
-Reaction_t *
-Reaction_createWithDocument (SBMLDocument_t *document)
-{
-  return new(nothrow) Reaction(document);
 }
 
 

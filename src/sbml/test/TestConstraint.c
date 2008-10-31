@@ -202,28 +202,6 @@ START_TEST (test_Constraint_createWithLevelVersionAndNamespace)
 END_TEST
 
 
-START_TEST (test_Constraint_createWithDocument)
-{
-  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
-
-  Constraint_t *object = 
-    Constraint_createWithDocument(d);
-
-
-  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_CONSTRAINT );
-  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
-
-  fail_unless( SBase_getLevel       ((SBase_t *) object) == 1 );
-  fail_unless( SBase_getVersion     ((SBase_t *) object) == 2 );
-  fail_unless( SBase_getSBMLDocument((SBase_t *) object) != NULL);
-
-  Constraint_free(object);
-}
-END_TEST
-
-
 Suite *
 create_suite_Constraint (void)
 {
@@ -241,7 +219,6 @@ create_suite_Constraint (void)
   tcase_add_test( tcase, test_Constraint_setMath     );
   tcase_add_test( tcase, test_Constraint_setMessage  );
   tcase_add_test( tcase, test_Constraint_createWithLevelVersionAndNamespace        );
-  tcase_add_test( tcase, test_Constraint_createWithDocument  );
 
   suite_add_tcase(suite, tcase);
 

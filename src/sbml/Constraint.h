@@ -188,7 +188,7 @@ public:
 
   Constraint (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
-  Constraint (SBMLDocument* document);
+
 
   /**
    * Destroys this Constraint.
@@ -492,11 +492,6 @@ LIBSBML_EXTERN
 Constraint_t *
 Constraint_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
-
-
-LIBSBML_EXTERN
-Constraint_t *
-Constraint_createWithDocument (SBMLDocument_t *document);
 
 
 LIBSBML_EXTERN

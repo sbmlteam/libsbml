@@ -67,12 +67,6 @@ Delay::Delay (unsigned int level, unsigned int version,
   if (xmlns) setNamespaces(xmlns);;
 }
                           
-Delay::Delay (SBMLDocument *document) :
-   SBase		  (  -1 )
- , mMath      ( 0              )
-{
-  setSBMLDocument(document);
-}
 
 /*
  * Destroys this Delay.
@@ -489,14 +483,6 @@ Delay_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns)
 {
   return new(nothrow) Delay(level, version, xmlns);
-}
-
-
-LIBSBML_EXTERN
-Delay_t *
-Delay_createWithDocument (SBMLDocument_t *document)
-{
-  return new(nothrow) Delay(document);
 }
 
 

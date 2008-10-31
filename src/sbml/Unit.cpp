@@ -90,16 +90,6 @@ Unit::Unit (unsigned int level, unsigned int version,
   if (xmlns) setNamespaces(xmlns);;
 }
                           
-Unit::Unit (SBMLDocument *document) :
-    SBase      ( -1 )
-  , mKind      ( UNIT_KIND_INVALID )
-  , mExponent  ( 1   )
-  , mScale     ( 0      )
-  , mMultiplier( 1.0 )
-  , mOffset    ( 0.0     )
-{
-  setSBMLDocument(document);
-}
 
 /*
  * Destroys the given Unit.
@@ -1567,14 +1557,6 @@ Unit_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns)
 {
   return new(nothrow) Unit(level, version, xmlns);
-}
-
-
-LIBSBML_EXTERN
-Unit_t *
-Unit_createWithDocument (SBMLDocument_t *document)
-{
-  return new(nothrow) Unit(document);
 }
 
 

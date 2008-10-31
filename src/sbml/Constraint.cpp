@@ -69,13 +69,7 @@ Constraint::Constraint (unsigned int level, unsigned int version,
   if (xmlns) setNamespaces(xmlns);;
 }
                           
-Constraint::Constraint (SBMLDocument *document) :
-   SBase   ( -1 )
- , mMath   (  0 )
- , mMessage(  0 )
-{
-  setSBMLDocument(document);
-}
+
 /*
  * Destroys this Constraint.
  */
@@ -563,14 +557,6 @@ Constraint_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns)
 {
   return new(nothrow) Constraint(level, version, xmlns);
-}
-
-
-LIBSBML_EXTERN
-Constraint_t *
-Constraint_createWithDocument (SBMLDocument_t *document)
-{
-  return new(nothrow) Constraint(document);
 }
 
 

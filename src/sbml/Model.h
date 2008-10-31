@@ -131,7 +131,7 @@ public:
 
   Model (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
-  Model (SBMLDocument* document);
+
 
   /**
    * Destroys this Model.
@@ -1654,11 +1654,6 @@ LIBSBML_EXTERN
 Model_t *
 Model_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
-
-
-LIBSBML_EXTERN
-Model_t *
-Model_createWithDocument (SBMLDocument_t *document);
 
 
 LIBSBML_EXTERN

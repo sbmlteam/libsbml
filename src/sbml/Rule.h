@@ -907,7 +907,6 @@ public:
 
   AlgebraicRule (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
-  AlgebraicRule (SBMLDocument* document);
 
   /**
    * Destroys this AlgebraicRule.
@@ -986,7 +985,6 @@ public:
 
   AssignmentRule (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
-  AssignmentRule (SBMLDocument* document);
 
   /**
    * Destroys this AssignmentRule.
@@ -1064,7 +1062,6 @@ public:
 
   RateRule (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
-  RateRule (SBMLDocument* document);
 
   /**
    * Destroys this RateRule.
@@ -1300,21 +1297,6 @@ LIBSBML_EXTERN
 Rule_t *
 Rule_createRateWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
-
-
-LIBSBML_EXTERN
-Rule_t *
-Rule_createAlgebraicWithDocument (SBMLDocument_t *document);
-
-
-LIBSBML_EXTERN
-Rule_t *
-Rule_createAssignmentWithDocument (SBMLDocument_t *document);
-
-
-LIBSBML_EXTERN
-Rule_t *
-Rule_createRateWithDocument (SBMLDocument_t *document);
 
 
 LIBSBML_EXTERN

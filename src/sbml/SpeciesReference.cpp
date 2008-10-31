@@ -71,12 +71,6 @@ SimpleSpeciesReference::SimpleSpeciesReference (unsigned int level, unsigned int
   if (xmlns) setNamespaces(xmlns);;
 }
                           
-SimpleSpeciesReference::SimpleSpeciesReference (SBMLDocument *document) :
-   SBase (-1)
- , mSpecies( "" )
-{
-  setSBMLDocument(document);
-}
 
 /*
  * Destroys this SimpleSpeciesReference.
@@ -318,13 +312,6 @@ SpeciesReference::SpeciesReference (unsigned int level, unsigned int version,
 {
 }
                           
-SpeciesReference::SpeciesReference (SBMLDocument *document) :
-   SimpleSpeciesReference( document )
- , mStoichiometry        ( 1.0 )
- , mDenominator          ( 1   )
- , mStoichiometryMath    ( 0             )
-{
-}
 
 /*
  * Destroys this SpeciesReference.
@@ -1010,10 +997,6 @@ ModifierSpeciesReference::ModifierSpeciesReference (unsigned int level,
 {
 }
                           
-ModifierSpeciesReference::ModifierSpeciesReference (SBMLDocument *document) :
-  SimpleSpeciesReference(document)
-{
-}
 
 /*
  * Destroys this ModifierSpeciesReference.
@@ -1427,22 +1410,6 @@ SpeciesReference_createModifierWithLevelVersionAndNamespaces
                             unsigned int version, XMLNamespaces_t *xmlns)
 {
   return new(nothrow) ModifierSpeciesReference(level, version, xmlns);
-}
-
-
-LIBSBML_EXTERN
-SpeciesReference_t *
-SpeciesReference_createWithDocument (SBMLDocument_t *document)
-{
-  return new(nothrow) SpeciesReference(document);
-}
-
-
-LIBSBML_EXTERN
-SpeciesReference_t *
-SpeciesReference_createModifierWithDocument (SBMLDocument_t *document)
-{
-  return new(nothrow) ModifierSpeciesReference(document);
 }
 
 

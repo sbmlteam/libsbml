@@ -427,28 +427,6 @@ START_TEST (test_Reaction_createWithLevelVersionAndNamespace)
 END_TEST
 
 
-START_TEST (test_Reaction_createWithDocument)
-{
-  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 3);
-
-  Reaction_t *object = 
-    Reaction_createWithDocument(d);
-
-
-  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_REACTION );
-  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
-
-  fail_unless( SBase_getLevel       ((SBase_t *) object) == 2 );
-  fail_unless( SBase_getVersion     ((SBase_t *) object) == 3 );
-  fail_unless( SBase_getSBMLDocument((SBase_t *) object) != NULL);
-
-  Reaction_free(object);
-}
-END_TEST
-
-
 Suite *
 create_suite_Reaction (void)
 {
@@ -473,7 +451,6 @@ create_suite_Reaction (void)
   tcase_add_test( tcase, test_Reaction_getModifier     );
   tcase_add_test( tcase, test_Reaction_getModifierById );
   tcase_add_test( tcase, test_Reaction_createWithLevelVersionAndNamespace        );
-  tcase_add_test( tcase, test_Reaction_createWithDocument  );
 
   suite_add_tcase(suite, tcase);
 

@@ -348,28 +348,6 @@ START_TEST (test_Event_createWithLevelVersionAndNamespace)
 END_TEST
 
 
-START_TEST (test_Event_createWithDocument)
-{
-  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 3);
-
-  Event_t *object = 
-    Event_createWithDocument(d);
-
-
-  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_EVENT );
-  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
-
-  fail_unless( SBase_getLevel       ((SBase_t *) object) == 2 );
-  fail_unless( SBase_getVersion     ((SBase_t *) object) == 3 );
-  fail_unless( SBase_getSBMLDocument((SBase_t *) object) != NULL);
-
-  Event_free(object);
-}
-END_TEST
-
-
 Suite *
 create_suite_Event (void)
 {
@@ -392,7 +370,6 @@ create_suite_Event (void)
   tcase_add_test( tcase, test_Event_full         );
   tcase_add_test( tcase, test_Event_setUseValuesFromTriggerTime );
   tcase_add_test( tcase, test_Event_createWithLevelVersionAndNamespace        );
-  tcase_add_test( tcase, test_Event_createWithDocument  );
 
   suite_add_tcase(suite, tcase);
 

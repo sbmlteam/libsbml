@@ -60,13 +60,6 @@ CompartmentType::CompartmentType (unsigned int level, unsigned int version,
 }
 
 
-CompartmentType::CompartmentType (SBMLDocument *document) :
-   SBase ("", "", -1)
-{
-  setSBMLDocument(document);
-}
-
-
 /*
  * Destroys this CompartmentType.
  */
@@ -404,14 +397,6 @@ CompartmentType_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns)
 {
   return new(nothrow) CompartmentType(level, version, xmlns);
-}
-
-
-LIBSBML_EXTERN
-CompartmentType_t *
-CompartmentType_createWithDocument (SBMLDocument_t *document)
-{
-  return new(nothrow) CompartmentType(document);
 }
 
 

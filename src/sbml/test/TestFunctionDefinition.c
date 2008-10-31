@@ -313,28 +313,6 @@ START_TEST (test_FunctionDefinition_createWithLevelVersionAndNamespace)
 END_TEST
 
 
-START_TEST (test_FunctionDefinition_createWithDocument)
-{
-  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 2);
-
-  FunctionDefinition_t *object = 
-    FunctionDefinition_createWithDocument(d);
-
-
-  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_FUNCTION_DEFINITION );
-  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
-
-  fail_unless( SBase_getLevel       ((SBase_t *) object) == 2 );
-  fail_unless( SBase_getVersion     ((SBase_t *) object) == 2 );
-  fail_unless( SBase_getSBMLDocument((SBase_t *) object) != NULL);
-
-  FunctionDefinition_free(object);
-}
-END_TEST
-
-
 Suite *
 create_suite_FunctionDefinition (void)
 {
@@ -355,7 +333,6 @@ create_suite_FunctionDefinition (void)
   tcase_add_test( tcase, test_FunctionDefinition_setName      );
   tcase_add_test( tcase, test_FunctionDefinition_setMath      );
   tcase_add_test( tcase, test_FunctionDefinition_createWithLevelVersionAndNamespace        );
-  tcase_add_test( tcase, test_FunctionDefinition_createWithDocument  );
 
   suite_add_tcase(suite, tcase);
 

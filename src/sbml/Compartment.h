@@ -304,14 +304,6 @@ public:
 
 
   /**
-   * Creates a new Compartment with the given @p document.
-   *
-   * @param document an SBMLDocument, the SBMLDocument to assign to this 
-   * Compartment
-   */
-  Compartment (SBMLDocument* document);
-
-  /**
    * Destroys this Compartment.
    */
   virtual ~Compartment ();
@@ -875,11 +867,6 @@ LIBSBML_EXTERN
 Compartment_t *
 Compartment_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
-
-
-LIBSBML_EXTERN
-Compartment_t *
-Compartment_createWithDocument (SBMLDocument_t *document);
 
 
 LIBSBML_EXTERN

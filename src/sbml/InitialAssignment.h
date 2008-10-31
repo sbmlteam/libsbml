@@ -245,7 +245,7 @@ public:
 
   InitialAssignment (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
-  InitialAssignment (SBMLDocument* document);
+
 
   /**
    * Destroys this InitialAssignment.
@@ -623,11 +623,6 @@ LIBSBML_EXTERN
 InitialAssignment_t *
 InitialAssignment_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
-
-
-LIBSBML_EXTERN
-InitialAssignment_t *
-InitialAssignment_createWithDocument (SBMLDocument_t *document);
 
 
 LIBSBML_EXTERN

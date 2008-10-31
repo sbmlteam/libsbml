@@ -194,28 +194,6 @@ START_TEST (test_StoichiometryMath_createWithLevelVersionAndNamespace)
 END_TEST
 
 
-START_TEST (test_StoichiometryMath_createWithDocument)
-{
-  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 2);
-
-  StoichiometryMath_t *object = 
-    StoichiometryMath_createWithDocument(d);
-
-
-  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_STOICHIOMETRY_MATH );
-  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
-
-  fail_unless( SBase_getLevel       ((SBase_t *) object) == 2 );
-  fail_unless( SBase_getVersion     ((SBase_t *) object) == 2 );
-  fail_unless( SBase_getSBMLDocument((SBase_t *) object) != NULL);
-
-  StoichiometryMath_free(object);
-}
-END_TEST
-
-
 Suite *
 create_suite_StoichiometryMath (void)
 {
@@ -232,7 +210,6 @@ create_suite_StoichiometryMath (void)
   tcase_add_test( tcase, test_StoichiometryMath_setMath      );
   tcase_add_test( tcase, test_StoichiometryMath_free_NULL );
   tcase_add_test( tcase, test_StoichiometryMath_createWithLevelVersionAndNamespace        );
-  tcase_add_test( tcase, test_StoichiometryMath_createWithDocument  );
 
   suite_add_tcase(suite, tcase);
 

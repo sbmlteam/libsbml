@@ -67,12 +67,6 @@ EventAssignment::EventAssignment (unsigned int level, unsigned int version,
   if (xmlns) setNamespaces(xmlns);;
 }
                           
-EventAssignment::EventAssignment (SBMLDocument *document) :
-   SBase ("", "", -1)
- , mMath   ( 0        )
-{
-  setSBMLDocument(document);
-}
 
 /*
  * Destroys this EventAssignment.
@@ -616,14 +610,6 @@ EventAssignment_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns)
 {
   return new(nothrow) EventAssignment(level, version, xmlns);
-}
-
-
-LIBSBML_EXTERN
-EventAssignment_t *
-EventAssignment_createWithDocument (SBMLDocument_t *document)
-{
-  return new(nothrow) EventAssignment(document);
 }
 
 

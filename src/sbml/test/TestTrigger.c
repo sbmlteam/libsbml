@@ -194,28 +194,6 @@ START_TEST (test_Trigger_createWithLevelVersionAndNamespace)
 END_TEST
 
 
-START_TEST (test_Trigger_createWithDocument)
-{
-  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 3);
-
-  Trigger_t *object = 
-    Trigger_createWithDocument(d);
-
-
-  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_TRIGGER );
-  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
-
-  fail_unless( SBase_getLevel       ((SBase_t *) object) == 2 );
-  fail_unless( SBase_getVersion     ((SBase_t *) object) == 3 );
-  fail_unless( SBase_getSBMLDocument((SBase_t *) object) != NULL);
-
-  Trigger_free(object);
-}
-END_TEST
-
-
 Suite *
 create_suite_Trigger (void)
 {
@@ -232,7 +210,6 @@ create_suite_Trigger (void)
   tcase_add_test( tcase, test_Trigger_setMath      );
   tcase_add_test( tcase, test_Trigger_free_NULL );
   tcase_add_test( tcase, test_Trigger_createWithLevelVersionAndNamespace        );
-  tcase_add_test( tcase, test_Trigger_createWithDocument  );
 
   suite_add_tcase(suite, tcase);
 

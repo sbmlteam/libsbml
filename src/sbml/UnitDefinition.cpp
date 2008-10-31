@@ -62,11 +62,6 @@ UnitDefinition::UnitDefinition (unsigned int level, unsigned int version,
   if (xmlns) setNamespaces(xmlns);;
 }
                           
-UnitDefinition::UnitDefinition (SBMLDocument *document) :
-   SBase ("", "", -1)
-{
-  setSBMLDocument(document);
-}
 
 /*
  * Destroys this UnitDefinition.
@@ -1206,14 +1201,6 @@ UnitDefinition_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns)
 {
   return new(nothrow) UnitDefinition(level, version, xmlns);
-}
-
-
-LIBSBML_EXTERN
-UnitDefinition_t *
-UnitDefinition_createWithDocument (SBMLDocument_t *document)
-{
-  return new(nothrow) UnitDefinition(document);
 }
 
 

@@ -205,28 +205,6 @@ START_TEST (test_AssignmentRule_createWithLevelVersionAndNamespace)
 END_TEST
 
 
-START_TEST (test_AssignmentRule_createWithDocument)
-{
-  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
-
-  Rule_t *object = 
-    Rule_createAssignmentWithDocument(d);
-
-
-  fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_ASSIGNMENT_RULE );
-  fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
-
-  fail_unless( SBase_getLevel       ((SBase_t *) object) == 1 );
-  fail_unless( SBase_getVersion     ((SBase_t *) object) == 2 );
-  fail_unless( SBase_getSBMLDocument((SBase_t *) object) != NULL);
-
-  Rule_free(object);
-}
-END_TEST
-
-
 Suite *
 create_suite_AssignmentRule (void)
 {
@@ -244,7 +222,6 @@ create_suite_AssignmentRule (void)
   tcase_add_test( tcase, test_AssignmentRule_createWithFormula   );
   tcase_add_test( tcase, test_AssignmentRule_createWithMath   );
   tcase_add_test( tcase, test_AssignmentRule_createWithLevelVersionAndNamespace        );
-  tcase_add_test( tcase, test_AssignmentRule_createWithDocument  );
 
   suite_add_tcase(suite, tcase);
 
