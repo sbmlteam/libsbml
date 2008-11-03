@@ -5,7 +5,7 @@
  * @author  Michael Hucka
  *
  * $Id$
- * $HeadURL:$
+ * $HeadURL$
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -101,7 +101,9 @@ static struct xercesError {
   { XMLErrs::PartialTagMarkupError,        XMLTagMismatch},
   { XMLErrs::PrefixXMLNotMatchXMLURI,      BadXMLPrefixValue},
   { XMLErrs::StandaloneNotLegal,           BadXMLDecl},
+#if XERCES_VERSION_MAJOR <= 2
   { XMLErrs::UnexpectedEOF,                XMLUnexpectedEOF},
+#endif
   { XMLErrs::UnknownPrefix,                BadXMLPrefix},
   { XMLErrs::UnsupportedXMLVersion,        BadXMLDecl},
   { XMLErrs::UnterminatedComment,          BadXMLComment},
@@ -216,8 +218,8 @@ public:
      , const XMLCh* const    theMessage
      , const XMLCh* const    thePublicId
      , const XMLCh* const    theSystemId
-     , const XMLSSize_t      theLineNumber
-     , const XMLSSize_t      theColumnNumber 
+     , const XercesFileLoc   theLineNumber
+     , const XercesFileLoc   theColumnNumber 
     ) : SAXParseException(theMessage, thePublicId, theSystemId,
 			  theLineNumber, theColumnNumber)
       
@@ -310,8 +312,8 @@ public:
 		      , const XMLCh* const                errorText
 		      , const XMLCh* const                systemId
 		      , const XMLCh* const                publicId
-		      , const XMLSSize_t                  lineNum
-		      , const XMLSSize_t                  colNum
+		      , const XercesFileLoc               lineNum
+		      , const XercesFileLoc               colNum
 		     )
   {
     OurSAXParseException toThrow =

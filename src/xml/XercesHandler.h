@@ -28,6 +28,7 @@
 
 #include <string>
 
+#include <sbml/xml/XercesTranscode.h>
 #include <xercesc/sax2/DefaultHandler.hpp>
 
 
@@ -103,7 +104,7 @@ public:
    * @param  chars   The characters
    * @param  length  The number of characters to use from the character array
    */
-  void characters (const XMLCh* const chars, const unsigned int length);
+  void characters (const XMLCh* const chars, const XercesSize_t length);
 
 
   /**

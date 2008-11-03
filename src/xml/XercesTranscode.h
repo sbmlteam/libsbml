@@ -29,6 +29,13 @@
 #include <string>
 #include <xercesc/util/XMLString.hpp>
 
+#if XERCES_VERSION_MAJOR <= 2
+typedef unsigned int XercesSize_t;
+typedef XMLSSize_t   XercesFileLoc;
+#else
+typedef XMLSize_t    XercesSize_t;
+typedef XMLFileLoc   XercesFileLoc;
+#endif
 
 /** @cond doxygen-libsbml-internal */
 

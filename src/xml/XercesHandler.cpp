@@ -152,7 +152,7 @@ XercesHandler::endElement (  const XMLCh* const  uri
  */
 void
 XercesHandler::characters (  const XMLCh* const  chars
-                           , const unsigned int  length )
+                           , const XercesSize_t  length )
 {
   const string   transcoded = XercesTranscode(chars);
   const XMLToken data(transcoded);
@@ -170,7 +170,7 @@ XercesHandler::getColumn () const
   unsigned int column = 0;
 
 
-  if (mLocator 
+  if (mLocator
   &&  static_cast<const xercesc::ReaderMgr*>(mLocator)->getCurrentReader()
   &&  mLocator->getColumnNumber() > 0)
   {

@@ -70,6 +70,10 @@
 
 * Bug fixes:
 
+  - Tracker issue #220973
+    libSBML couldn't be built with the Xerces 3.0.0 due to its incompatible 
+    API changes.
+
   - Tracker issue #2209729
     libSBML built with Xerces on Linux could crash due to a dereference 
     of null pointer in Xerces side when parsing some invalid SBML file.

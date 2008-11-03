@@ -49,7 +49,7 @@ XercesTranscode::transcodeToUTF8(const XMLCh* src_str)
     return str;
   }
 
-  const unsigned int block_size = 8192;
+  const XercesSize_t block_size = 8192;
   XMLTransService::Codes res_value;
   XMLTranscoder* transcoder = XMLPlatformUtils::fgTransService->makeNewTranscoderFor(
                                 XMLRecognizer::UTF_8, res_value, block_size);
@@ -61,9 +61,9 @@ XercesTranscode::transcodeToUTF8(const XMLCh* src_str)
   }
 
   const XMLCh* cur_srcptr= src_str;
-  unsigned int src_size  = XMLString::stringLen(src_str);
-  unsigned int read_size = 0;
-  unsigned int dst_size  = 0;
+  XercesSize_t src_size  = XMLString::stringLen(src_str);
+  XercesSize_t read_size = 0;
+  XercesSize_t dst_size  = 0;
   char* utf8_str         = new char[1];
 
   utf8_str[0] = '\0';
@@ -71,11 +71,11 @@ XercesTranscode::transcodeToUTF8(const XMLCh* src_str)
   while ( read_size < src_size )
   {
     XMLByte* buf_tofill      = new XMLByte[block_size+4];
-    unsigned int rest_size   = src_size - read_size;
-    unsigned int tmpbuf_size = (rest_size > block_size) ? block_size : rest_size;
+    XercesSize_t rest_size   = src_size - read_size;
+    XercesSize_t tmpbuf_size = (rest_size > block_size) ? block_size : rest_size;
 
-    unsigned int numchars_eaten = 0; 
-    unsigned int numchars_dst   = 0;
+    XercesSize_t numchars_eaten = 0; 
+    XercesSize_t numchars_dst   = 0;
 
     //
     // converts from the internal XMLCh* encoding to the UTF-8 encoding.
