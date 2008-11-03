@@ -1378,6 +1378,30 @@ Rule_createRateWithVariableAndMath (const char * variable,
 }
 
 
+/**
+ * Creates a new AlgebraicRule using the given SBML @p 
+ * level and @p version values and a set of XMLNamespaces.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this 
+ * Rule
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * Rule
+ * 
+ * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
+ * assign to this Rule
+ *
+ * @return a pointer to the newly created Rule_t structure.
+ *
+ * @note Once a Rule has been added to an SBMLDocument, the @p 
+ * level, @p version and @xmlns namespaces for the document @em override 
+ * those used to create the Rule.  Despite this, the ability 
+ * to supply the values at creation time is an important aid to creating 
+ * valid SBML.  Knowledge of the intended SBML Level and Version 
+ * determine whether it is valid to assign a particular value to an 
+ * attribute, or whether it is valid to add an object to an existing 
+ * SBMLDocument.
+ */
 LIBSBML_EXTERN
 Rule_t *
 Rule_createAlgebraicWithLevelVersionAndNamespaces (unsigned int level,
@@ -1387,6 +1411,30 @@ Rule_createAlgebraicWithLevelVersionAndNamespaces (unsigned int level,
 }
 
 
+/**
+ * Creates a new AssignmentRule using the given SBML @p 
+ * level and @p version values and a set of XMLNamespaces.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this 
+ * Rule
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * Rule
+ * 
+ * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
+ * assign to this Rule
+ *
+ * @return a pointer to the newly created Rule_t structure.
+ *
+ * @note Once a Rule has been added to an SBMLDocument, the @p 
+ * level, @p version and @xmlns namespaces for the document @em override 
+ * those used to create the Rule.  Despite this, the ability 
+ * to supply the values at creation time is an important aid to creating 
+ * valid SBML.  Knowledge of the intended SBML Level and Version 
+ * determine whether it is valid to assign a particular value to an 
+ * attribute, or whether it is valid to add an object to an existing 
+ * SBMLDocument.
+ */
 LIBSBML_EXTERN
 Rule_t *
 Rule_createAssignmentWithLevelVersionAndNamespaces (unsigned int level,
@@ -1397,6 +1445,30 @@ Rule_createAssignmentWithLevelVersionAndNamespaces (unsigned int level,
 
 
 
+/**
+ * Creates a new RateRule using the given SBML @p 
+ * level and @p version values and a set of XMLNamespaces.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this 
+ * Rule
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * Rule
+ * 
+ * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
+ * assign to this Rule
+ *
+ * @return a pointer to the newly created Rule_t structure.
+ *
+ * @note Once a Rule has been added to an SBMLDocument, the @p 
+ * level, @p version and @xmlns namespaces for the document @em override 
+ * those used to create the Rule.  Despite this, the ability 
+ * to supply the values at creation time is an important aid to creating 
+ * valid SBML.  Knowledge of the intended SBML Level and Version 
+ * determine whether it is valid to assign a particular value to an 
+ * attribute, or whether it is valid to add an object to an existing 
+ * SBMLDocument.
+ */
 LIBSBML_EXTERN
 Rule_t *
 Rule_createRateWithLevelVersionAndNamespaces (unsigned int level,

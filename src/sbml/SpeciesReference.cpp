@@ -1394,6 +1394,30 @@ SpeciesReference_createWithSpeciesAndStoichiometry ( const char *species,
 }
 
 
+/**
+ * Creates a new SpeciesReference_t structure using the given SBML @p 
+ * level and @p version values and a set of XMLNamespaces.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this 
+ * SpeciesReference
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * SpeciesReference
+ * 
+ * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
+ * assign to this SpeciesReference
+ *
+ * @return a pointer to the newly created SpeciesReference_t structure.
+ *
+ * @note Once a SpeciesReference has been added to an SBMLDocument, the @p 
+ * level, @p version and @xmlns namespaces for the document @em override 
+ * those used to create the SpeciesReference.  Despite this, the ability 
+ * to supply the values at creation time is an important aid to creating 
+ * valid SBML.  Knowledge of the intended SBML Level and Version 
+ * determine whether it is valid to assign a particular value to an 
+ * attribute, or whether it is valid to add an object to an existing 
+ * SBMLDocument.
+ */
 LIBSBML_EXTERN
 SpeciesReference_t *
 SpeciesReference_createWithLevelVersionAndNamespaces (unsigned int level,
@@ -1403,6 +1427,30 @@ SpeciesReference_createWithLevelVersionAndNamespaces (unsigned int level,
 }
 
 
+/**
+ * Creates a new ModifierSpeciesReference_t structure using the given SBML @p 
+ * level and @p version values and a set of XMLNamespaces.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this 
+ * ModifierSpeciesReference
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * ModifierSpeciesReference
+ * 
+ * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
+ * assign to this ModifierSpeciesReference
+ *
+ * @return a pointer to the newly created ModifierSpeciesReference_t structure.
+ *
+ * @note Once a ModifierSpeciesReference has been added to an SBMLDocument, the @p 
+ * level, @p version and @xmlns namespaces for the document @em override 
+ * those used to create the ModifierSpeciesReference.  Despite this, the ability 
+ * to supply the values at creation time is an important aid to creating 
+ * valid SBML.  Knowledge of the intended SBML Level and Version 
+ * determine whether it is valid to assign a particular value to an 
+ * attribute, or whether it is valid to add an object to an existing 
+ * SBMLDocument.
+ */
 LIBSBML_EXTERN
 SpeciesReference_t *
 SpeciesReference_createModifierWithLevelVersionAndNamespaces 

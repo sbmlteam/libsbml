@@ -905,6 +905,38 @@ public:
   AlgebraicRule (const ASTNode* math);
 
 
+  /**
+   * Creates a new AlgebraicRule using the given SBML @p level and @p version
+   * values and optionally a set of XMLNamespaces.
+   *
+   * @param level an unsigned int, the SBML Level to assign to this AlgebraicRule
+   *
+   * @param version an unsigned int, the SBML Version to assign to this
+   * AlgebraicRule
+   * 
+   * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
+   * assign to this AlgebraicRule
+   *
+   * @note Once a AlgebraicRule has been added to an SBMLDocument, the @p level,
+   * @p version and @xmlns namespaces for the document @em override those used
+   * to create the AlgebraicRule.  Despite this, the ability to supply the values
+   * at creation time is an important aid to creating valid SBML.  Knowledge of
+   * the intented SBML Level and Version determine whether it is valid to
+   * assign a particular value to an attribute, or whether it is valid to add
+   * an object to an existing SBMLDocument.
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
+   */
   AlgebraicRule (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
 
@@ -983,6 +1015,38 @@ public:
   AssignmentRule (const std::string& variable, const ASTNode* math);
 
 
+  /**
+   * Creates a new AssignmentRule using the given SBML @p level and @p version
+   * values and optionally a set of XMLNamespaces.
+   *
+   * @param level an unsigned int, the SBML Level to assign to this AssignmentRule
+   *
+   * @param version an unsigned int, the SBML Version to assign to this
+   * AssignmentRule
+   * 
+   * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
+   * assign to this AssignmentRule
+   *
+   * @note Once a AssignmentRule has been added to an SBMLDocument, the @p level,
+   * @p version and @xmlns namespaces for the document @em override those used
+   * to create the AssignmentRule.  Despite this, the ability to supply the values
+   * at creation time is an important aid to creating valid SBML.  Knowledge of
+   * the intented SBML Level and Version determine whether it is valid to
+   * assign a particular value to an attribute, or whether it is valid to add
+   * an object to an existing SBMLDocument.
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
+   */
   AssignmentRule (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
 
@@ -1060,6 +1124,38 @@ public:
   RateRule (const std::string& variable, const ASTNode* math);
 
 
+  /**
+   * Creates a new RateRule using the given SBML @p level and @p version
+   * values and optionally a set of XMLNamespaces.
+   *
+   * @param level an unsigned int, the SBML Level to assign to this RateRule
+   *
+   * @param version an unsigned int, the SBML Version to assign to this
+   * RateRule
+   * 
+   * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
+   * assign to this RateRule
+   *
+   * @note Once a RateRule has been added to an SBMLDocument, the @p level,
+   * @p version and @xmlns namespaces for the document @em override those used
+   * to create the RateRule.  Despite this, the ability to supply the values
+   * at creation time is an important aid to creating valid SBML.  Knowledge of
+   * the intented SBML Level and Version determine whether it is valid to
+   * assign a particular value to an attribute, or whether it is valid to add
+   * an object to an existing SBMLDocument.
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
+   */
   RateRule (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
 

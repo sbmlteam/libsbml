@@ -278,14 +278,24 @@ public:
 
 
   /**
-   * Creates a new Compartment with the given @p level and @p version
+   * Creates a new Compartment using the given SBML @p level and @p version
    * values and optionally a set of XMLNamespaces.
    *
-   * @param level an unsigned int, the SBML level to assign to this Compartment
-   * @param version an unsigned int, the SBML version to assign to this 
+   * @param level an unsigned int, the SBML Level to assign to this Compartment
+   *
+   * @param version an unsigned int, the SBML Version to assign to this
    * Compartment
-   * @param xmlns XMLNamespaces, the set of XMLNamespaces to assign to
-   * this compartment
+   * 
+   * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
+   * assign to this Compartment
+   *
+   * @note Once a Compartment has been added to an SBMLDocument, the @p level,
+   * @p version and @xmlns namespaces for the document @em override those used
+   * to create the Compartment.  Despite this, the ability to supply the values
+   * at creation time is an important aid to creating valid SBML.  Knowledge of
+   * the intented SBML Level and Version determine whether it is valid to
+   * assign a particular value to an attribute, or whether it is valid to add
+   * an object to an existing SBMLDocument.
    *
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different

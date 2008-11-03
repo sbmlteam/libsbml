@@ -1136,6 +1136,30 @@ Reaction_createWithKineticLaw ( const char   *sid,
 }
 
 
+/**
+ * Creates a new Reaction_t structure using the given SBML @p 
+ * level and @p version values and a set of XMLNamespaces.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this 
+ * Reaction
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * Reaction
+ * 
+ * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
+ * assign to this Reaction
+ *
+ * @return a pointer to the newly created Reaction_t structure.
+ *
+ * @note Once a Reaction has been added to an SBMLDocument, the @p 
+ * level, @p version and @xmlns namespaces for the document @em override 
+ * those used to create the Reaction.  Despite this, the ability 
+ * to supply the values at creation time is an important aid to creating 
+ * valid SBML.  Knowledge of the intended SBML Level and Version 
+ * determine whether it is valid to assign a particular value to an 
+ * attribute, or whether it is valid to add an object to an existing 
+ * SBMLDocument.
+ */
 LIBSBML_EXTERN
 Reaction_t *
 Reaction_createWithLevelVersionAndNamespaces (unsigned int level,
