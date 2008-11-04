@@ -12,3 +12,4 @@ doxygen-config-python.txt
 doxygen-config-c.txt
 doxygen-config-cpp.txt
 doxygen-config-perl.txt
+ExcludeDoclet.class
