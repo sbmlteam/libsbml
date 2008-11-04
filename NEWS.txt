@@ -70,7 +70,12 @@
 
 * Bug fixes:
 
-  - Tracker issue #220973
+  - Tracker issue #2187684
+    The unit checking code was not correctly interpreting the units of
+    a reaction id used as a ci element in a math expression.  This is
+    fixed and tested.
+
+  - Tracker issue #2209773
     libSBML couldn't be built with the Xerces 3.0.0 due to its incompatible 
     API changes.
 
