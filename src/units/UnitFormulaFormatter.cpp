@@ -738,6 +738,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
   Unit * unit;
 
   unsigned int n, found;
+  int exponent;
 
   const KineticLaw * kl;
 
@@ -830,6 +831,60 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
         if (ud)
         {
           found = 1;
+        }
+      }
+      
+      if (found == 0 )//&& n < model->getNumParameters())
+      {
+        if (model->getReaction(node->getName()))
+        {
+          // <ci> element refers to reaction
+          // units should be substance per time
+          // NOTE: whether the KL has correct units is
+          // checked elsewhere
+          /* check for builtin unit substance redefined */
+          tempUd = model->getUnitDefinition("substance");
+          if (!tempUd) 
+          {
+            unit = new Unit("mole");
+            ud   = new UnitDefinition();
+
+            ud->addUnit(unit);
+            delete unit;
+          }
+          else
+          {
+            ud   = new UnitDefinition();
+
+            for (n = 0; n < tempUd->getNumUnits(); n++)
+            {
+              ud->addUnit(tempUd->getUnit(n));
+            }
+          }
+          /* check for redinition of time
+           * and add per time to ud
+           */
+          tempUd = model->getUnitDefinition("time");
+
+          if (tempUd == NULL) 
+          {
+            unit = new Unit("second");
+            unit->setExponent(-1);
+        
+            ud->addUnit(unit);
+
+            delete unit;
+          }
+          else
+          {
+            for (n = 0; n < tempUd->getNumUnits(); n++)
+            {
+              unit = const_cast<Unit*>(tempUd->getUnit(n));
+              exponent = unit->getExponent();
+              unit->setExponent(exponent * -1);
+              ud->addUnit(unit);
+            }
+          }
         }
       }
       

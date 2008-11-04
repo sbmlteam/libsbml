@@ -350,6 +350,40 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_delay)
 END_TEST
 
 
+START_TEST (test_UnitFormulaFormatter_getUnitDefinition_reaction)
+{
+  UnitDefinition * ud = new UnitDefinition();
+
+  ud = uff->getUnitDefinition(m->getRule(13)->getMath());
+
+  fail_unless(ud->getNumUnits() == 3);
+
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  fail_unless(ud->getUnit(1)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(ud->getUnit(1)->getExponent() == 1);
+  fail_unless(ud->getUnit(1)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_MOLE);
+
+  fail_unless(ud->getUnit(2)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(2)->getScale() == 0);
+  fail_unless(ud->getUnit(2)->getExponent() == -1);
+  fail_unless(ud->getUnit(2)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_SECOND);
+
+  delete ud;
+
+}
+END_TEST
+
+
 START_TEST (test_UnitFormulaFormatter_getUnitDefinition_hasUndeclaredUnits)
 {
   uff->resetFlags();
