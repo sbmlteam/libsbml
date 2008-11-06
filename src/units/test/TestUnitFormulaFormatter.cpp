@@ -426,6 +426,7 @@ create_suite_UnitFormulaFormatter (void)
   tcase_add_test(tcase, test_UnitFormulaFormatter_getUnitDefinition_piecewise );
   tcase_add_test(tcase, test_UnitFormulaFormatter_getUnitDefinition_root );
   tcase_add_test(tcase, test_UnitFormulaFormatter_getUnitDefinition_delay );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_getUnitDefinition_reaction );
   tcase_add_test(tcase, test_UnitFormulaFormatter_getUnitDefinition_hasUndeclaredUnits );
 
   suite_add_tcase(suite, tcase);
