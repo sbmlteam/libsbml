@@ -139,6 +139,10 @@ class CHeader:
         continue
 
       if inClass:
+        if inFunc:
+          cppcomment = stripped.find('//')
+          if cppcomment != -1:
+            stripped = stripped[:cppcomment]
         lines += stripped + ' '         # Space avoids jamming code together.
 
       if inFunc and (stripped.endswith(';') or stripped.endswith(')')):
