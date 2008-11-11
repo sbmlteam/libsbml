@@ -198,6 +198,24 @@ ListOf::get (const std::string& sid)
 
 
 /*
+ * Removes all items in this ListOf object.
+ *
+ * If doDelete is true (default), all items in this ListOf object are deleted
+ * and cleared, and thus the caller doesn't have to delete those items.
+ * Otherwise, all items are just cleared from this ListOf object and the caller
+ * is responsible for deleting all items (In this case, pointers to all items
+ * should be stored elsewhere before calling this function by the caller).
+ */
+void
+ListOf::clear (bool doDelete)
+{
+  if (doDelete)
+    for_each( mItems.begin(), mItems.end(), Delete() );
+  mItems.clear();
+}
+
+
+/*
  * Removes the nth item from this ListOf items and returns a pointer to
  * it.  The caller owns the returned item and is responsible for deleting
  * it.
@@ -403,6 +421,17 @@ ListOf_append (ListOf_t *lo, const SBase *item)
 
 
 /**
+ * Adds the given item to the end of this ListOf items.
+ */
+LIBSBML_EXTERN
+void
+ListOf_appendAndOwn (ListOf_t *lo, SBase_t *item)
+{
+  lo->appendAndOwn(item);
+}
+
+
+/**
  * Returns the nth item in this ListOf items.
  */
 LIBSBML_EXTERN
@@ -422,6 +451,23 @@ SBase *
 ListOf_getById (ListOf_t *lo, const char *sid)
 {
   return (sid != NULL) ? lo->get(sid) : NULL;
+}
+
+
+/**
+ * Removes all items in this ListOf object.
+ *
+ * If doDelete is true (non-zero), all items in this ListOf object are deleted
+ * and cleared, and thus the caller doesn't have to delete those items.
+ * Otherwise (zero), all items are just cleared from this ListOf object and the 
+ * caller is responsible for deleting all items (In this case, pointers to all 
+ * items should be stored elsewhere before calling this function by the caller).
+ */
+LIBSBML_EXTERN
+void
+ListOf_clear (ListOf_t *lo, int doDelete)
+{
+  lo->clear(doDelete);
 }
 
 

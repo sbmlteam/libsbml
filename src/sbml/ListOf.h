@@ -170,6 +170,21 @@ public:
 
 
   /**
+   * Removes all items in this ListOf object.
+   *
+   * If doDelete is true (default), all items in this ListOf object are deleted
+   * and cleared, and thus the caller doesn't have to delete those items.
+   * Otherwise, all items are just cleared from this ListOf object and the caller 
+   * is responsible for deleting all items (In this case, pointers to all items 
+   * should be stored elsewhere before calling this function by the caller).
+   *
+   * @param doDelete if true (default), all items are deleted and cleared.
+   * Otherwise, all items are just cleared and not deleted. 
+   */ 
+  void clear (bool doDelete = true);
+
+
+  /**
    * Removes the nth item from this ListOf items and returns a pointer to
    * it.
    *
@@ -313,6 +328,13 @@ void
 ListOf_append (ListOf_t *lo, const SBase_t *item);
 
 /**
+ * Adds the given item to the end of this ListOf items.
+ */
+LIBSBML_EXTERN
+void
+ListOf_appendAndOwn (ListOf_t *lo, SBase_t *item);
+
+/**
  * Returns the nth item in this ListOf items.
  */
 LIBSBML_EXTERN
@@ -326,6 +348,13 @@ ListOf_get (ListOf_t *lo, unsigned int n);
 LIBSBML_EXTERN
 SBase_t *
 ListOf_getById (ListOf_t *lo, const char *sid);
+
+/**
+ * Removes all items in this ListOf object.
+ */
+LIBSBML_EXTERN
+void
+ListOf_clear (ListOf_t *lo, int doDelete);
 
 /**
  * Removes the nth item from this ListOf items and returns a pointer to

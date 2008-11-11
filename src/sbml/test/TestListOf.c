@@ -53,6 +53,7 @@
 
 #include <sbml/ListOf.h>
 #include <sbml/SBase.h>
+#include <sbml/Species.h>
 
 #include <check.h>
 
@@ -81,6 +82,92 @@ START_TEST (test_ListOf_free_NULL)
 END_TEST
 
 
+START_TEST (test_ListOf_remove)
+{
+  ListOf_t *lo = (ListOf_t*) ListOf_create();
+
+  SBase_t *sp = (SBase_t*)Species_create();
+
+  fail_unless( ListOf_size(lo) == 0 );
+
+  ListOf_append(lo, sp);
+  ListOf_append(lo, sp);
+  ListOf_append(lo, sp);
+  ListOf_append(lo, sp);
+  ListOf_append(lo, sp);
+
+  fail_unless( ListOf_size(lo) == 5 );
+
+  Species_free((Species_t*)ListOf_remove(lo, 0));
+  Species_free((Species_t*)ListOf_remove(lo, 0));
+  Species_free((Species_t*)ListOf_remove(lo, 0));
+  Species_free((Species_t*)ListOf_remove(lo, 0));
+  Species_free((Species_t*)ListOf_remove(lo, 0));
+
+  fail_unless( ListOf_size(lo) == 0 );
+
+  ListOf_append(lo, sp);
+  ListOf_append(lo, sp);
+  ListOf_append(lo, sp);
+  ListOf_append(lo, sp);
+  ListOf_appendAndOwn(lo, sp);
+
+  fail_unless( ListOf_size(lo) == 5 );
+
+  ListOf_free(lo);
+
+}
+END_TEST
+
+
+START_TEST (test_ListOf_clear)
+{
+  ListOf_t *lo = (ListOf_t*) ListOf_create();
+
+  SBase_t *sp = (SBase_t*)Species_create(); 
+
+  ListOf_append(lo, sp);
+  ListOf_append(lo, sp);
+  ListOf_append(lo, sp);
+  ListOf_append(lo, sp);
+  ListOf_append(lo, sp);
+
+  fail_unless( ListOf_size(lo) == 5 );
+
+  /* clear and delete */
+
+  ListOf_clear(lo, 1);
+
+  fail_unless( ListOf_size(lo) == 0 );
+
+  ListOf_append(lo, sp);
+  ListOf_append(lo, sp);
+  ListOf_append(lo, sp);
+  ListOf_append(lo, sp);
+  ListOf_appendAndOwn(lo, sp);
+
+  fail_unless( ListOf_size(lo) == 5 );
+
+  /* delete each item */
+
+  Species_free((Species_t*)ListOf_get(lo, 0));
+  Species_free((Species_t*)ListOf_get(lo, 1));
+  Species_free((Species_t*)ListOf_get(lo, 2));
+  Species_free((Species_t*)ListOf_get(lo, 3));
+  Species_free((Species_t*)ListOf_get(lo, 4));
+
+  /* clear only */
+
+  ListOf_clear(lo, 0);
+
+  fail_unless( ListOf_size(lo) == 0 );
+
+  ListOf_free(lo);
+  
+}
+END_TEST
+
+
 Suite *
 create_suite_ListOf (void) 
 { 
@@ -90,6 +177,8 @@ create_suite_ListOf (void)
 
   tcase_add_test(tcase, test_ListOf_create    );
   tcase_add_test(tcase, test_ListOf_free_NULL );
+  tcase_add_test(tcase, test_ListOf_remove    );
+  tcase_add_test(tcase, test_ListOf_clear     );
 
   suite_add_tcase(suite, tcase);
 
