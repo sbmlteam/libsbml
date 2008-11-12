@@ -63,23 +63,18 @@ FunctionReferredToExists::~FunctionReferredToExists ()
 void
 FunctionReferredToExists::check_ (const Model& m, const Model& object)
 {
-  unsigned int n;
-
-  for (n = 0; n < m.getNumFunctionDefinitions(); ++n)
+  // does not apply in l2v4 and beyond
+  if (m.getLevel() == 2 && m.getVersion() < 4)
   {
-    //const ASTNode* node = m.getFunctionDefinition(n)->getBody();
+    unsigned int n;
 
-    //if (node != NULL && node->getType() == AST_FUNCTION)
-    //{
-    //  if (!mFunctions.contains(node->getName()))
-    //  {
-    //    logUndefined(*m.getFunctionDefinition(n), node->getName());
-    //  }
-    //}
-    mFunctions.append(m.getFunctionDefinition(n)->getId());
+    for (n = 0; n < m.getNumFunctionDefinitions(); ++n)
+    {
+      mFunctions.append(m.getFunctionDefinition(n)->getId());
 
-    checkCiElements(m.getFunctionDefinition(n));
-  }  
+      checkCiElements(m.getFunctionDefinition(n));
+    }
+  }
 }
 
 /**

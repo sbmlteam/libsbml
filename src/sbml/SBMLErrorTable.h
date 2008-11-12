@@ -1407,7 +1407,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_NOT_APPLICABLE,
     "Inside the 'lambda' of a <functionDefinition>, if a 'ci' element is the "
     "first element within a MathML 'apply', then the 'ci''s value can only "
     "be chosen from the set of identifiers of other SBML "
