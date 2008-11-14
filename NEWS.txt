@@ -70,6 +70,10 @@
 
 * Bug fixes:
 
+  - LibSBML was failing to check that the value of the spatialDimensions
+    attribute on a <compartment> was correct.  This is in fact a schema
+    error. Thanks to Norihiro Kikuchi for spotting this.
+
   - Tracker issue #2187684
     The unit checking code was not correctly interpreting the units of
     a reaction id used as a ci element in a math expression.  This is

@@ -565,6 +565,14 @@ Compartment::readAttributes (const XMLAttributes& attributes)
     //
     attributes.readInto("spatialDimensions", mSpatialDimensions, 
                                                       getErrorLog(), false);
+    if (mSpatialDimensions < 0 || mSpatialDimensions > 3)
+    {
+      std::string message = "The spatialDimensions attribute on ";
+      message += "a <compartment> may only have values 0, 1, 2 or 3.";
+      getErrorLog()->logError(NotSchemaConformant, level, version,
+                                                            message);
+    }
+    
     //
     // constant  { use="optional" default="true" }  (L2v1 ->)
     //
