@@ -270,6 +270,7 @@ Layout::Layout(const Layout& source)
     {
       this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
     }
+    this->mId=source.getId();
     this->mDimensions=*source.getDimensions();
     this->mCompartmentGlyphs=*source.getListOfCompartmentGlyphs();
     this->mSpeciesGlyphs=*source.getListOfSpeciesGlyphs();
