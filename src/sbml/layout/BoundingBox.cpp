@@ -67,31 +67,10 @@ BoundingBox::BoundingBox() : SBase()
 /**
  * Copy constructor.
  */
-BoundingBox::BoundingBox(const BoundingBox& orig):SBase()
+BoundingBox::BoundingBox(const BoundingBox& orig):SBase(orig)
 {
-    this->mId=orig.mId;
     this->mPosition=orig.mPosition;
     this->mDimensions=orig.mDimensions;
-    // attributes of SBase
-    this->mId=orig.mId;
-    this->mName=orig.mName;
-    this->mMetaId=orig.mMetaId;
-    if(orig.mNotes) this->mNotes=new XMLNode(*const_cast<BoundingBox&>(orig).getNotes());
-    if(orig.mAnnotation) this->mAnnotation=new XMLNode(*const_cast<BoundingBox&>(orig).mAnnotation);
-    this->mSBML=orig.mSBML;
-    this->mSBOTerm=orig.mSBOTerm;
-    this->mLine=orig.mLine;
-    this->mColumn=orig.mColumn;
-
-    if(orig.mCVTerms)
-    {
-      this->mCVTerms=new List();
-      unsigned int i,iMax=orig.mCVTerms->getSize();
-      for(i=0;i<iMax;++i)
-      {
-        this->mCVTerms->add(static_cast<CVTerm*>(orig.mCVTerms->get(i))->clone());
-      }
-    }
 }
 
 
@@ -100,34 +79,9 @@ BoundingBox::BoundingBox(const BoundingBox& orig):SBase()
  */
 BoundingBox& BoundingBox::operator=(const BoundingBox& orig)
 {
-    this->mId=orig.mId;
+    this->SBase::operator=(orig);
     this->mPosition=orig.mPosition;
     this->mDimensions=orig.mDimensions;
-    // attributes of SBase
-    this->mId=orig.mId;
-    this->mName=orig.mName;
-    this->mMetaId=orig.mMetaId;
-    delete this->mNotes;
-    this->mNotes=NULL;
-    if(orig.mNotes) this->mNotes=new XMLNode(*const_cast<BoundingBox&>(orig).getNotes());
-    delete this->mAnnotation;
-    this->mAnnotation=NULL;
-    if(orig.mAnnotation) this->mAnnotation=new XMLNode(*const_cast<BoundingBox&>(orig).mAnnotation);
-    this->mSBML=orig.mSBML;
-    this->mSBOTerm=orig.mSBOTerm;
-    this->mLine=orig.mLine;
-    this->mColumn=orig.mColumn;
-    delete this->mCVTerms;
-    this->mCVTerms=NULL;
-    if(orig.mCVTerms)
-    {
-      this->mCVTerms=new List();
-      unsigned int i,iMax=orig.mCVTerms->getSize();
-      for(i=0;i<iMax;++i)
-      {
-        this->mCVTerms->add(static_cast<CVTerm*>(orig.mCVTerms->get(i))->clone());
-      }
-    }
     return *this;
 }
 
@@ -136,7 +90,7 @@ BoundingBox& BoundingBox::operator=(const BoundingBox& orig)
  * Constructor set position and dimensions to (0.0,0.0,0.0) and the id to a
  * copy of the given string.
  */ 
-BoundingBox::BoundingBox (const std::string id) : SBase(), mId(id)
+BoundingBox::BoundingBox (const std::string id) : SBase(id)
 {
 }
 
@@ -148,8 +102,7 @@ BoundingBox::BoundingBox (const std::string id) : SBase(), mId(id)
 BoundingBox::BoundingBox (const std::string id,
                           double x, double y,
                           double width, double height)
-  : SBase     ()
-  , mId        ( id )
+  : SBase     (id)
   , mPosition  ( x, y, 0.0               )
   , mDimensions( width, height, 0.0 )
 {
@@ -163,8 +116,7 @@ BoundingBox::BoundingBox (const std::string id,
 BoundingBox::BoundingBox (const std::string id,
                           double x, double y, double z,
                           double width, double height, double depth)
-  : SBase()
-  , mId        ( id )
+  : SBase(id)
   , mPosition  (x, y, z)                   
   , mDimensions( width, height, depth )
 {
@@ -178,8 +130,7 @@ BoundingBox::BoundingBox (const std::string id,
 BoundingBox::BoundingBox (const std::string id,
                           const Point*      p,
                           const Dimensions* d)
-  : SBase     ()
-  , mId        ( id )
+  : SBase     (id)
 {
     if(p)
     {
@@ -242,35 +193,6 @@ BoundingBox::~BoundingBox ()
  */ 
 void BoundingBox::initDefaults ()
 {
-}
-
-
-/**
- * Sets the id to a copy of the given string.
- */  
-void BoundingBox::setId (const std::string& id)
-{
-  this->mId = id;
-}
-
-
-/**
- * Returns the id of the BOundingBox.
- */ 
-const std::string
-BoundingBox::getId () const
-{
-  return this->mId;
-}
-
-
-/**
- * Returns true if the id is not the empty string.
- */ 
-bool
-BoundingBox::isSetId () const
-{
-  return ! this->mId.empty();
 }
 
 
@@ -655,41 +577,6 @@ void
 BoundingBox_initDefaults (BoundingBox_t *bb)
 {
   bb->initDefaults();
-}
-
-
-/**
- * Sets the id of the BoundingBox_t object to the id given as second
- * argument.
- */ 
-LIBSBML_EXTERN
-void
-BoundingBox_setId (BoundingBox_t *bb, const char* id)
-{
-    static_cast<BoundingBox*>(bb)->setId( id ? id : "" );
-}
-
-
-/**
- * Returns the id
- */ 
-LIBSBML_EXTERN
-const char *
-BoundingBox_getId (const BoundingBox_t *bb)
-{
-    return bb->isSetId() ? bb->getId().c_str() : NULL;
-}
-
-
-/**
- * Returns true if the id is set, that is if the id is not the empty
- * string.
- */ 
-LIBSBML_EXTERN
-int
-BoundingBox_isSetId (const BoundingBox_t *bb)
-{
-  return static_cast<int>( bb->isSetId() );
 }
 
 

@@ -274,20 +274,8 @@ Curve::clone () const
 /**
  * Copy constructor.
  */
-Curve::Curve(const Curve& source)
+Curve::Curve(const Curve& source):SBase(source)
 {
-    copySBaseAttributes(source,*this);
-    this->mLine=source.getLine();
-    this->mColumn=source.getColumn();
-    if(this->mNamespaces!=NULL)
-    {
-        delete this->mNamespaces;
-        this->mNamespaces=NULL;
-    }
-    if(source.getNamespaces()!=NULL)
-    {
-      this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
-    }
     // copy the line segments
     this->mCurveSegments=*source.getListOfCurveSegments();
 }
@@ -297,18 +285,7 @@ Curve::Curve(const Curve& source)
  */
 Curve& Curve::operator=(const Curve& source)
 {
-    copySBaseAttributes(source,*this);
-    this->mLine=source.getLine();
-    this->mColumn=source.getColumn();
-    if(this->mNamespaces!=NULL)
-    {
-        delete this->mNamespaces;
-        this->mNamespaces=NULL;
-    }
-    if(source.getNamespaces()!=NULL)
-    {
-      this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
-    }
+    this->SBase::operator=(source);
     // copy the line segments
     this->mCurveSegments=*source.getListOfCurveSegments();
     

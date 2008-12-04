@@ -66,7 +66,6 @@ class LIBSBML_EXTERN GraphicalObject : public SBase
 {
 protected:
 
-  std::string mId;
   BoundingBox mBoundingBox;
         
 
@@ -148,20 +147,6 @@ public:
    * Gets the id for the GraphicalObject.
    */
   
-  const std::string& getId () const;
-
-  /**
-   * Sets the id for the GraphicalObject.
-   */
-  
-  void setId (const std::string& id);
-
-  /**
-   * Returns true if the id is not the empty string.
-   */
-  
-  bool isSetId () const;
-
   /**
    * Sets the boundingbox for the GraphicalObject.
    */ 
@@ -291,20 +276,6 @@ LIBSBML_EXTERN
 void
 GraphicalObject_free (GraphicalObject_t *go);
 
-/**
- * Sets the id for the GraphicalObject.
- */
-LIBSBML_EXTERN
-void
-GraphicalObject_setId (GraphicalObject_t *go, const char *id);
-
-/**
- * Gets the id for the given GraphicalObject.
- */
-LIBSBML_EXTERN
-const char *
-GraphicalObject_getId (const GraphicalObject_t *go);
-
 
 /**
  * Sets the boundingbox for the GraphicalObject.
@@ -326,10 +297,6 @@ GraphicalObject_getBoundingBox (GraphicalObject_t *go);
 LIBSBML_EXTERN
 void
 GraphicalObject_initDefaults (GraphicalObject_t *go);
-
-LIBSBML_EXTERN
-int
-GraphicalObject_isSetId(const GraphicalObject_t* go);
 
 /**
  * @return a (deep) copy of this Model.

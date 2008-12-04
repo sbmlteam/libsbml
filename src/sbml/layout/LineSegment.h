@@ -66,7 +66,6 @@ class LIBSBML_EXTERN LineSegment : public SBase
 {
 protected:
 
-  std::string mId;
   Point mStartPoint;
   Point mEndPoint;
 
@@ -119,26 +118,6 @@ public:
    */
   virtual LineSegment& operator=(const LineSegment& orig);
 
-
-  /**
-   * Sets the id to a copy of the given string.
-   */     
-  
-  void setId (const std::string& id);
-
-  /**
-   * Returns the id.
-   */ 
-  
-  const std::string& getId () const;
-
-  /**
-   * Returns false if the id has been set and 
-   * true otherwise.
-   */
-  
-  bool
-  isSetId() const;
 
   /**
    * Returns the start point of the line.
@@ -357,28 +336,6 @@ LineSegment_getEnd (LineSegment_t *ls);
 LIBSBML_EXTERN
 void
 LineSegment_initDefaults (LineSegment_t *ls);
-
-/**
- * Returns the id of the LineSegment. Or NULL if the id is not set.
- */ 
-LIBSBML_EXTERN
-const char*
-LineSegment_getId (LineSegment_t *ls);
-
-/**
- * Sets the id of the LineSegment.
- */ 
-LIBSBML_EXTERN
-void
-LineSegment_setId(LineSegment_t* ls,const char* id);
-
-/**
- * Returns 0 if the id has been set and an 
- * integer different from 0 otherwise.
- */
-LIBSBML_EXTERN
-int
-LineSegment_isSetId(LineSegment_t* ls);
 
 /**
  * @return a (deep) copy of this Model.

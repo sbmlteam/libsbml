@@ -67,8 +67,7 @@ GraphicalObject::GraphicalObject() : SBase ()
  * Creates a new GraphicalObject with the given id.
  */
 GraphicalObject::GraphicalObject (const std::string& id) : 
-    SBase()
-  , mId   (id)
+    SBase(id)
 {
 }
 
@@ -79,8 +78,7 @@ GraphicalObject::GraphicalObject (const std::string& id) :
  */
 GraphicalObject::GraphicalObject (const std::string& id,
                                   double x, double y, double w, double h) :
-    SBase      ()
-  , mId         ( id )
+    SBase      (id)
   , mBoundingBox( BoundingBox("", x, y, 0.0, w, h, 0.0) )
 {
 }
@@ -93,8 +91,7 @@ GraphicalObject::GraphicalObject (const std::string& id,
 GraphicalObject::GraphicalObject (const std::string& id,
                                   double x, double y, double z,
                                   double w, double h, double d) :
-    SBase      ()
-  , mId         ( id )
+    SBase      (id)
   , mBoundingBox( BoundingBox("", x, y, z, w, h, d) )
 {
 }
@@ -107,8 +104,7 @@ GraphicalObject::GraphicalObject (const std::string& id,
 GraphicalObject::GraphicalObject (const std::string& id,
                                   const Point*       p,
                                   const Dimensions*  d) : 
-    SBase      ()
-  , mId         ( id )
+    SBase      (id)
   , mBoundingBox( BoundingBox("", p, d) )
 {
 }
@@ -119,8 +115,7 @@ GraphicalObject::GraphicalObject (const std::string& id,
  * the bounding box.
  */
 GraphicalObject::GraphicalObject (const std::string& id, const BoundingBox* bb)
-  : SBase      ()
-  , mId         ( id )
+  : SBase      (id)
 {
     if(bb)
     {
@@ -163,21 +158,8 @@ GraphicalObject::GraphicalObject(const XMLNode& node)
 /**
  * Copy constructor.
  */
-GraphicalObject::GraphicalObject(const GraphicalObject& source)
+GraphicalObject::GraphicalObject(const GraphicalObject& source):SBase(source)
 {
-    copySBaseAttributes(source,*this);
-    this->mLine=source.getLine();
-    this->mColumn=source.getColumn();
-    if(this->mNamespaces!=NULL)
-    {
-        delete this->mNamespaces;
-        this->mNamespaces=NULL;
-    }
-    if(source.getNamespaces()!=NULL)
-    {
-      this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
-    }
-    this->mId=source.getId();
     this->mBoundingBox=*source.getBoundingBox();
 }
 
@@ -186,19 +168,7 @@ GraphicalObject::GraphicalObject(const GraphicalObject& source)
  */
 GraphicalObject& GraphicalObject::operator=(const GraphicalObject& source)
 {
-    copySBaseAttributes(source,*this);
-    this->mLine=source.getLine();
-    this->mColumn=source.getColumn();
-    if(this->mNamespaces!=NULL)
-    {
-        delete this->mNamespaces;
-        this->mNamespaces=NULL;
-    }
-    if(source.getNamespaces()!=NULL)
-    {
-      this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
-    }
-    this->mId=source.getId();
+    this->SBase::operator=(source);
     this->mBoundingBox=*source.getBoundingBox();
         
     return *this;
@@ -209,33 +179,6 @@ GraphicalObject& GraphicalObject::operator=(const GraphicalObject& source)
  */ 
 GraphicalObject::~GraphicalObject ()
 {
-}
-
-
-/**
- * Gets the id for the GraphicalObject.
- */
-const std::string&
-GraphicalObject::getId () const
-{
-  return this->mId;
-}
-
-/**
- * returns true if the id is not the empty string
- */
-bool GraphicalObject::isSetId() const{
-    return !this->mId.empty();
-}
-
-
-/**
- * Sets the id for the GraphicalObject.
- */
-void
-GraphicalObject::setId (const std::string& id)
-{
-  this->mId = id;
 }
 
 
@@ -444,27 +387,6 @@ GraphicalObject_free (GraphicalObject_t *go)
 }
 
 
-/**
- * Sets the id for the GraphicalObject.
- */
-LIBSBML_EXTERN
-void
-GraphicalObject_setId (GraphicalObject_t *go, const char *id)
-{
-    go->setId( id ? id : "" );
-}
-
-
-/**
- * Gets the id for the given GraphicalObject.
- */
-LIBSBML_EXTERN
-const char *
-GraphicalObject_getId (const GraphicalObject_t *go)
-{
-    return go->isSetId() ? go->getId().c_str() : NULL;
-}
-
 
 /**
  * Sets the boundingbox for the GraphicalObject.
@@ -498,14 +420,7 @@ GraphicalObject_initDefaults (GraphicalObject_t *go)
   go->initDefaults();
 }
 
-/**
- * Returns zero if the id is the empty string
- */
-LIBSBML_EXTERN
-int
-GraphicalObject_isSetId(const GraphicalObject_t* go){
-    return (int)go->isSetId();
-}
+
 
 /**
  * @return a (deep) copy of this Model.

@@ -381,7 +381,6 @@ class LIBSBML_EXTERN Layout : public SBase
 {
 protected:
 
-  std::string mId;
   Dimensions mDimensions;
   ListOfCompartmentGlyphs mCompartmentGlyphs;
   ListOfSpeciesGlyphs mSpeciesGlyphs;
@@ -446,18 +445,6 @@ public:
   void initDefaults ();    
 
         
-  /**
-   * Returns the id.
-   */ 
-          
-  const std::string& getId () const;
-        
-  /**
-   * Sets the id to a copy of the given string.
-   */ 
-    
-  void setId (const std::string& id);
-
   /**
    * Returns the dimensions of the layout.
    */ 
@@ -734,13 +721,6 @@ public:
 
 
   /**
-   * Returns true if the id is not the empty string.
-   */ 
-  
-  bool isSetId () const;    
-
-
-  /**
    * Creates a CompartmentGlyph object, adds it to the end of the
    * compartment glyph objects list and returns a pointer to the newly
    * created object.
@@ -978,7 +958,6 @@ protected:
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
-
 };
 
 
@@ -1035,14 +1014,6 @@ Layout_createWithDimensions (const char *id, const Dimensions_t *dimensions);
 LIBSBML_EXTERN
 void 
 Layout_free (Layout_t *l);
-
-
-/**
- * Sets the id of the layout.
- */
-LIBSBML_EXTERN
-void
-Layout_setId (Layout_t *l, const char *sid);
 
 
 LIBSBML_EXTERN
@@ -1169,13 +1140,6 @@ Dimensions_t*
 Layout_getDimensions(Layout_t *l);
 
 /**
- * Returns a the id of the layout.
- */
-LIBSBML_EXTERN
-const char *
-Layout_getId (const Layout_t *l);
-
-/**
  * Returns the number of CompartmentGlyphs.
  */
 LIBSBML_EXTERN
@@ -1213,13 +1177,6 @@ unsigned int
 Layout_getNumTextGlyphs (const Layout_t *l);
 
 
-
-/**
- * Returns 0 if the id has not been set, 1 otherwise
- */
-LIBSBML_EXTERN
-int
-Layout_isSetId (const Layout_t *l);
 
 /**
  * Removes the compartment glyph with the given index.  If the index is

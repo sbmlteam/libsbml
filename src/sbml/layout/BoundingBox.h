@@ -66,7 +66,6 @@ class LIBSBML_EXTERN BoundingBox : public SBase
 {
 protected:
 
-  std::string mId;
   Point mPosition;
   Dimensions mDimensions;
 
@@ -130,24 +129,6 @@ public:
    * Assignment operator
    */
   BoundingBox& operator=(const BoundingBox& orig);
-
-  /**
-   * Sets the id to a copy of the given string.
-   */  
-  
-  void setId (const std::string& id);
-        
-  /**
-   * Returns the id of the BoundingBox.
-   */ 
-  
-  const std::string getId () const;
-        
-  /**
-   * Returns true if the id is not the empty string.
-   */ 
-  
-  bool isSetId () const;    
 
   /**
    * Returns the position of the BoundingBox as const referece to a Point
@@ -396,29 +377,6 @@ BoundingBox_free (BoundingBox_t *bb);
 LIBSBML_EXTERN
 void
 BoundingBox_initDefaults (BoundingBox_t *bb);
-
-/**
- * Sets the id of the BoundingBox_t object to the id given as second
- * argument.
- */ 
-LIBSBML_EXTERN
-void
-BoundingBox_setId (BoundingBox_t *bb, const char *id);
-
-/**
- * Returns the id
- */ 
-LIBSBML_EXTERN
-const char * 
-BoundingBox_getId (const BoundingBox_t *bb);
-
-/**
- * Returns true if the id is set, that is if the id is not the empty
- * string.
- */ 
-LIBSBML_EXTERN
-int
-BoundingBox_isSetId (const BoundingBox_t *bb);
 
 /**
  * Returns the position as a Point_t object.

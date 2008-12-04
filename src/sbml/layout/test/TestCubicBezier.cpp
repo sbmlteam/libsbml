@@ -81,7 +81,7 @@ START_TEST ( test_CubicBezier_create )
 //   fail_unless( SBase_getNotes      ((SBase_t*) CB) == NULL );
 //   fail_unless( SBase_getAnnotation ((SBase_t*) CB) == NULL );
 
-   fail_unless( LineSegment_isSetId((LineSegment_t*)CB) == 0 );
+   fail_unless( SBase_isSetId((LineSegment_t*)CB) == 0 );
    
    Point_t *pos=CubicBezier_getStart(CB);
    fail_unless(pos != NULL);
@@ -124,7 +124,7 @@ START_TEST ( test_CubicBezier_createWithPoints )
 //   fail_unless( SBase_getNotes      ((SBase_t*) cb) == NULL );
 //   fail_unless( SBase_getAnnotation ((SBase_t*) cb) == NULL );
 
-   fail_unless( LineSegment_isSetId(cb) == 0 );
+   fail_unless( SBase_isSetId(cb) == 0 );
    
    Point_t *pos=CubicBezier_getStart(cb);
    fail_unless(pos != NULL);
@@ -167,7 +167,7 @@ START_TEST ( test_CubicBezier_createWithPoints_NULL )
 //   fail_unless( SBase_getNotes      ((SBase_t*) cb) == NULL );
 //   fail_unless( SBase_getAnnotation ((SBase_t*) cb) == NULL );
 
-   fail_unless( LineSegment_isSetId((LineSegment_t*)cb) == 0 );
+   fail_unless( SBase_isSetId((LineSegment_t*)cb) == 0 );
    
    Point_t *pos=CubicBezier_getStart(cb);
    fail_unless(pos != NULL);
@@ -209,7 +209,7 @@ START_TEST ( test_CubicBezier_createWithCoordinates )
 //   fail_unless( SBase_getNotes      ((SBase_t*) cb) == NULL );
 //   fail_unless( SBase_getAnnotation ((SBase_t*) cb) == NULL );
 
-   fail_unless( LineSegment_isSetId((LineSegment_t*)cb) == 0 );
+   fail_unless( SBase_isSetId((LineSegment_t*)cb) == 0 );
    
    Point_t *pos=CubicBezier_getStart(cb);
    fail_unless(pos != NULL);
@@ -341,12 +341,12 @@ START_TEST ( test_CubicBezier_createFrom )
 //       fail_unless(!(c1 || c2));
 //   }
 
-   fail_unless( LineSegment_isSetId((LineSegment_t*)cb) == LineSegment_isSetId((LineSegment_t*)CB) );
-   if( LineSegment_isSetId((LineSegment_t*)cb) )
+   fail_unless( SBase_isSetId((LineSegment_t*)cb) == SBase_isSetId((LineSegment_t*)CB) );
+   if( SBase_isSetId((LineSegment_t*)cb) )
    {
-       c1=LineSegment_getId((LineSegment_t*)CB);
-       c2=LineSegment_getId((LineSegment_t*)cb);
-       if(LineSegment_isSetId((LineSegment_t*)CB))
+       c1=SBase_getId((LineSegment_t*)CB);
+       c2=SBase_getId((LineSegment_t*)cb);
+       if(SBase_isSetId((LineSegment_t*)CB))
        {
            fail_unless( strncmp(c1 , c2 ,strlen( c1)+1 )==0 );
        }

@@ -71,14 +71,15 @@ Layout::Layout () : SBase ()
  * Creates a new Layout with the given id and dimensions.
  */
 Layout::Layout (const std::string& id, const Dimensions* dimensions) :
-    SBase      ()
-  , mId         ( id )
+    SBase      (id)
 {
     if(dimensions)
     {
         this->mDimensions=*dimensions;
     }
 }
+
+
 /**
  * Creates a new Layout from the given XMLNode
  */
@@ -98,7 +99,7 @@ Layout::Layout(const XMLNode& node)
         }
         else if(childName=="annotation")
         {
-            this->mAnnotation=new XMLNode(*child);
+            this->setAnnotation(child);
         }
         else if(childName=="notes")
         {
@@ -250,26 +251,14 @@ Layout::Layout(const XMLNode& node)
         }
         
         ++n;
-    }    
+    }
 }
 
 /**
  * Copy constructor.
  */
-Layout::Layout(const Layout& source)
+Layout::Layout(const Layout& source):SBase(source)
 {
-    copySBaseAttributes(source,*this);
-    this->mLine=source.getLine();
-    this->mColumn=source.getColumn();
-    if(this->mNamespaces!=NULL)
-    {
-        delete this->mNamespaces;
-        this->mNamespaces=NULL;
-    }
-    if(source.getNamespaces()!=NULL)
-    {
-      this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
-    }
     this->mId=source.getId();
     this->mDimensions=*source.getDimensions();
     this->mCompartmentGlyphs=*source.getListOfCompartmentGlyphs();
@@ -284,18 +273,7 @@ Layout::Layout(const Layout& source)
  */
 Layout& Layout::operator=(const Layout& source)
 {
-    copySBaseAttributes(source,*this);
-    this->mLine=source.getLine();
-    this->mColumn=source.getColumn();
-    if(this->mNamespaces!=NULL)
-    {
-        delete this->mNamespaces;
-        this->mNamespaces=NULL;
-    }
-    if(source.getNamespaces()!=NULL)
-    {
-      this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
-    }
+    this->SBase::operator=(source);
     this->mDimensions=*source.getDimensions();
     this->mCompartmentGlyphs=*source.getListOfCompartmentGlyphs();
     this->mSpeciesGlyphs=*source.getListOfSpeciesGlyphs();
@@ -321,26 +299,6 @@ Layout::~Layout ()
 void
 Layout::initDefaults ()
 {
-}
-
-
-/**
- * Returns the id.
- */ 
-const std::string&
-Layout::getId () const
-{
-  return this->mId;
-}
-
-
-/**
- * Sets the id to a copy of the given string.
- */ 
-void
-Layout::setId (const std::string& id)
-{
-  this->mId = id;
 }
 
 
@@ -991,16 +949,6 @@ unsigned int
 Layout::getNumAdditionalGraphicalObjects () const
 {
   return this->mAdditionalGraphicalObjects.size();
-}
-
-
-/**
- * Returns true if the id is not the empty string.
- */ 
-bool
-Layout::isSetId () const
-{
-  return ! this->mId.empty();
 }
 
 
@@ -2190,16 +2138,6 @@ Layout_free (Layout_t *l)
 }
 
 
-/**
- * Sets the id of the layout.
- */
-LIBSBML_EXTERN
-void
-Layout_setId (Layout_t *l, const char *id)
-{
-    static_cast<Layout*>(l)->setId( id ? id : "" );
-}
-
 
 /**
  * Sets the dimensions of the layout.
@@ -2378,16 +2316,6 @@ Layout_getListOfAdditionalGraphicalObjects (Layout_t *l)
 }
 
 
-/**
- * Returns a the id of the layout.
- */
-LIBSBML_EXTERN
-const char *
-Layout_getId (const Layout_t *l)
-{
-    return l->isSetId() ? l->getId().c_str() : NULL;
-}
-
 
 /**
  * @return the dimensions of the layout
@@ -2452,16 +2380,6 @@ unsigned int
 Layout_getNumAdditionalGraphicalObjects (const Layout_t *l)
 {
   return l->getNumAdditionalGraphicalObjects();
-}
-
-/**
- * Returns 0 if the id has not been set, 1 otherwise
- */
-LIBSBML_EXTERN
-int
-Layout_isSetId (const Layout_t *l)
-{
-  return static_cast<int>( l->isSetId() );
 }
 
 
