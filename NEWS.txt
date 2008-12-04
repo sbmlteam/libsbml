@@ -70,6 +70,13 @@
 
 * Bug fixes:
 
+  - Tracker issue #2138670
+    Conversion of an L1 model to L2 was flagging all parameters and
+    compartments as constant.  The conversion code now checks whether
+    parameters/compartments are the subject of a rule and changes the
+    constant attribute to false for those components.  Thanks to
+    Ralph Gauges for reporting this.
+
   - LibSBML was failing to check that the value of the spatialDimensions
     attribute on a <compartment> was correct.  This is in fact a schema
     error. Thanks to Norihiro Kikuchi for spotting this.

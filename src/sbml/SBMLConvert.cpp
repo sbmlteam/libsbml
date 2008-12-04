@@ -119,5 +119,25 @@ Model::convertToL2 ()
 
     delete names;
   }
+  // parameters and compartments are declared to have constant=true
+  // by default. Since in L1 the constant attribute didnt exist 
+  // parameters/compartments that are the subjcet of rules must have
+  // the value changed
+
+  for ( n = 0; n < getNumParameters(); n++)
+  {
+    if (getRule(getParameter(n)->getId()) != NULL)
+    {
+      getParameter(n)->setConstant(false);
+    }
+  }
+
+  for ( n = 0; n < getNumCompartments(); n++)
+  {
+    if (getRule(getCompartment(n)->getId()) != NULL)
+    {
+      getCompartment(n)->setConstant(false);
+    }
+  }
 
 }
