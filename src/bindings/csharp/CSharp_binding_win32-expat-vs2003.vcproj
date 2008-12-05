@@ -229,6 +229,7 @@
 			</File>
 			<File
 				RelativePath="..\..\validator\constraints\AssignmentCycles.cpp"
+				>
 			</File>
 			<File
 				RelativePath="..\..\validator\constraints\AssignmentRuleOrdering.cpp">
