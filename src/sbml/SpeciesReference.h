@@ -1115,7 +1115,7 @@ public:
    *
    * @see size()
    */
-  virtual SimpleSpeciesReference * get(unsigned int n); 
+ // virtual SpeciesReference * get(unsigned int n); 
 
 
   /**
@@ -1127,7 +1127,7 @@ public:
    *
    * @see size()
    */
-  virtual const SimpleSpeciesReference * get(unsigned int n) const; 
+  //virtual const SpeciesReference * get(unsigned int n) const; 
 
   /**
    * Get a SpeciesReference from the ListOfSpeciesReferences
@@ -1143,7 +1143,7 @@ public:
    * @see get(unsigned int n)
    * @see size()
    */
-  virtual SimpleSpeciesReference* get (const std::string& sid);
+  //virtual SpeciesReference* get (const std::string& sid);
 
 
   /**
@@ -1160,7 +1160,7 @@ public:
    * @see get(unsigned int n)
    * @see size()
    */
-  virtual const SimpleSpeciesReference* get (const std::string& sid) const;
+  //virtual const SpeciesReference* get (const std::string& sid) const;
 
 
   /** @cond doxygen-libsbml-internal */
