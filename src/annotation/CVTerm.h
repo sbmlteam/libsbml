@@ -215,6 +215,30 @@ public:
 
   
   /**
+   * Returns the number of resources for this %CVTerm.
+   * 
+   * @return the number of resources in the set of XMLAttributes
+   * of this %CVTerm.
+   */
+  unsigned int getNumResources(); 
+
+  
+  /**
+   * Returns the value of the nth resource for this %CVTerm.
+   *
+   * @param n the index of the resource to query
+   *
+   * @return string representing the value of the nth resource
+   * in the set of XMLAttributes of this %CVTerm.
+   *
+   * @note Since the values of the resource attributes in a CVTerm
+   * are URIs this is a convenience function to facilitate
+   * interaction with the CVTerm class.
+   */
+  std::string getResourceURI(unsigned int n); 
+
+  
+  /**
    * Sets the #QualifierType_t value of this %CVTerm.
    *
    * @param type the #QualifierType_t type value 
@@ -327,6 +351,16 @@ CVTerm_getBiologicalQualifierType(CVTerm_t *);
 LIBSBML_EXTERN
 XMLAttributes_t * 
 CVTerm_getResources(CVTerm_t *); 
+
+
+LIBSBML_EXTERN
+unsigned int
+CVTerm_getNumResources(CVTerm_t*);
+
+
+LIBSBML_EXTERN
+const char *
+CVTerm_getResourceURI(CVTerm_t * cv, unsigned int n);
 
 
 LIBSBML_EXTERN

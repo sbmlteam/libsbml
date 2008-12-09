@@ -273,6 +273,26 @@ CVTerm::getResources() const
 }
 
 
+/*
+ * Returns the number of resources for this %CVTerm.
+ */
+unsigned int 
+CVTerm::getNumResources()
+{
+  return mResources->getLength();
+}
+
+  
+/*
+ * Returns the value of the nth resource for this %CVTerm.
+ */
+std::string
+CVTerm::getResourceURI(unsigned int n)
+{
+  return mResources->getValue(n);
+}
+
+  
 /**
   * adds a resource to the term
   */
@@ -436,7 +456,7 @@ CVTerm_getBiologicalQualifierType(CVTerm_t * term)
 /**
  * Takes a CVTerm_t structure and returns the resources.
  * 
- * @param term the CVTerm_t structure whose reources are sought.
+ * @param term the CVTerm_t structure whose resources are sought.
  *
  * @return the XMLAttributes_t that store the resources of this CVTerm_t.
  */
@@ -446,6 +466,43 @@ CVTerm_getResources(CVTerm_t * term)
 {
   return term->getResources();
 }
+
+/**
+ * Returns the number of resources for this %CVTerm.
+ *
+ * @param term the CVTerm_t structure whose resources are sought.
+ * 
+ * @return the number of resources in the set of XMLAttributes
+ * of this %CVTerm.
+ */
+LIBSBML_EXTERN
+unsigned int
+CVTerm_getNumResources(CVTerm_t* term)
+{
+  return term->getNumResources();
+}
+
+
+/**
+ * Returns the value of the nth resource for this %CVTerm.
+ *
+ * @param term the CVTerm_t structure
+ * @param n the index of the resource to query
+ *
+ * @return string representing the value of the nth resource
+ * in the set of XMLAttributes of this %CVTerm.
+ *
+ * @note Since the values of the resource attributes in a CVTerm
+ * are URIs this is a convenience function to facilitate
+ * interaction with the CVTerm class.
+ */
+LIBSBML_EXTERN
+const char *
+CVTerm_getResourceURI(CVTerm_t * cv, unsigned int n)
+{
+  return cv->getResourceURI(n).c_str();
+}
+
 
 /**
  * Sets the "QualifierType_t" of this %CVTerm_t.

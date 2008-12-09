@@ -138,6 +138,28 @@ START_TEST (test_CVTerm_addResource)
 END_TEST
 
 
+START_TEST (test_CVTerm_getResources)
+{
+  CVTerm_t *term = CVTerm_createWithQualifierType(MODEL_QUALIFIER);
+  const char * resource = "GO6666";
+  const char * resource1 = "OtherURI";
+  unsigned int number;
+  
+  CVTerm_addResource(term, resource);
+  CVTerm_addResource(term, resource1);
+
+  number = CVTerm_getNumResources(term);
+
+  fail_unless(number == 2);
+  fail_unless(!strcmp(CVTerm_getResourceURI(term, 0), "GO6666"));
+  fail_unless(!strcmp(CVTerm_getResourceURI(term, 1), "OtherURI"));
+
+
+  
+  CVTerm_free(term);
+
+}
+END_TEST
 
 
 Suite *
@@ -150,6 +172,7 @@ create_suite_CVTerms (void)
   tcase_add_test( tcase, test_CVTerm_set_get  );
   tcase_add_test( tcase, test_CVTerm_addResource  );
   tcase_add_test( tcase, test_CVTerm_createFromNode  );
+  tcase_add_test( tcase, test_CVTerm_getResources  );
   suite_add_tcase(suite, tcase);
 
   return suite;
