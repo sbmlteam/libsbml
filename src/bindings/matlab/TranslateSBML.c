@@ -4259,7 +4259,7 @@ GetEvent (Model_t      *pModel,
     "sboTerm",
     "name", 
 		"id",
-    "newFlagTBC",
+    "useValuesFromTriggerTime",
 		"trigger", 
 		"delay", 
 		"eventAssignment"};
@@ -4275,7 +4275,7 @@ GetEvent (Model_t      *pModel,
   const char * pacDelay = NULL;
   const char * pacTimeUnits = NULL;
   int nSBO = -1;
-  int nNewFlagTBC = 0;
+  int nUseValuesFromTriggerTime = 0;
 
   Event_t *pEvent;
   int i;
@@ -4344,7 +4344,7 @@ GetEvent (Model_t      *pModel,
       {
         nSBO = SBase_getSBOTerm((SBase_t*) pEvent);
       }
-      nNewFlagTBC = 1;
+      nUseValuesFromTriggerTime = Event_getUseValuesFromTriggerTime(pEvent);
       break;
     default:
       break;
@@ -4465,7 +4465,7 @@ GetEvent (Model_t      *pModel,
     mxSetField(mxEventReturn,i,"id",mxCreateString(pacId)); 
     if (unSBMLVersion == 4)
     {
-      mxSetField(mxEventReturn,i,"newFlagTBC",CreateIntScalar(nNewFlagTBC)); 
+      mxSetField(mxEventReturn,i,"useValuesFromTriggerTime",CreateIntScalar(nUseValuesFromTriggerTime)); 
     }
     if (unSBMLVersion < 3)
     {
