@@ -240,6 +240,8 @@ RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation)
   return history;
 
 }
+
+
 XMLNode * 
 RDFAnnotationParser::createAnnotation()
 {
@@ -517,14 +519,36 @@ RDFAnnotationParser::parseModelHistory(const Model *model)
   /* tokens */
   XMLToken bag_token      = XMLToken(bag_triple,      blank_att);
   XMLToken li_token       = XMLToken(li_triple,       parseType_att);
-  XMLToken creator_token  = XMLToken(creator_triple,  parseType_att);
+  // for L2V4 it was realised that it was invalid for the creator 
+  // to have a parseType attribute
+  XMLToken creator_token;
+  if (model->getLevel() > 2 || 
+    (model->getLevel() == 2 && model->getVersion() > 3))
+  {
+    creator_token  = XMLToken(creator_triple,  blank_att);
+  }
+  else
+  {
+    creator_token  = XMLToken(creator_triple,  parseType_att);
+  }
   XMLToken N_token        = XMLToken(N_triple,        parseType_att);
   XMLToken created_token  = XMLToken(created_triple,  parseType_att);
   XMLToken modified_token = XMLToken(modified_triple,  parseType_att);
   XMLToken Family_token   = XMLToken(Family_triple,   blank_att);
   XMLToken Given_token    = XMLToken(Given_triple,    blank_att);
   XMLToken Email_token    = XMLToken(Email_triple,    blank_att);
-  XMLToken Org_token      = XMLToken(Org_triple,      blank_att);
+  // for L2V4 it was realised that the VCard:ORG 
+  // should  have a parseType attribute
+  XMLToken Org_token;
+  if (model->getLevel() > 2 || 
+    (model->getLevel() == 2 && model->getVersion() > 3))
+  {
+    Org_token  = XMLToken(Org_triple,  parseType_att);
+  }
+  else
+  {
+    Org_token  = XMLToken(Org_triple,  blank_att);
+  }
   XMLToken Orgname_token  = XMLToken(Orgname_triple,  blank_att);
   XMLToken W3CDTF1_token  = XMLToken(W3CDTF_triple,   blank_att);
   XMLToken W3CDTF2_token  = XMLToken(W3CDTF_triple,   blank_att);
