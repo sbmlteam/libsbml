@@ -79,6 +79,7 @@ SBO::checkTerm (int sboTerm)
 }
 /** @endcond doxygen-libsbml-internal */
 
+/** @cond doxygen-libsbml-internal */
 
 /*
  * Reads (and checks) sboTerm from the given XMLAttributes set.
@@ -114,6 +115,7 @@ SBO::writeTerm (XMLOutputStream& stream, int sboTerm)
 {
   stream.writeAttribute( "sboTerm", intToString(sboTerm) );
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -409,6 +411,173 @@ SBO::isParticipant  (unsigned int sboTerm)
   }
 }
 
+/*
+ * Function for checking the SBO term is from correct part of SBO.
+ * 
+ * @return true if the term is-a Interaction, false otherwise
+ */
+bool
+SBO::isInteraction  (unsigned int sboTerm)
+{
+  return SBO::isEvent(sboTerm);
+}
+
+/*
+ * Function for checking the SBO term is from correct part of SBO.
+ * 
+ * @return true if the term is-a Entity, false otherwise
+ */
+bool 
+SBO::isEntity  (unsigned int sboTerm)
+{
+  return SBO::isPhysicalParticipant(sboTerm);
+}
+
+/*
+ * Function for checking the SBO term is from correct part of SBO.
+ * 
+ * @return true if the term is-a FunctionalEntity, false otherwise
+ */
+bool 
+SBO::isFunctionalEntity  (unsigned int sboTerm)
+{
+  if (sboTerm == 241)
+    return true;
+  else
+  {
+    return isChildOf(sboTerm, 241);
+  }
+}
+
+/*
+ * Function for checking the SBO term is from correct part of SBO.
+ * 
+ * @return true if the term is-a MaterialEntity, false otherwise
+ */
+bool 
+SBO::isMaterialEntity  (unsigned int sboTerm)
+{
+  if (sboTerm == 240)
+    return true;
+  else
+  {
+    return isChildOf(sboTerm, 240);
+  }
+}
+
+/*
+ * Function for checking the SBO term is from correct part of SBO.
+ * 
+ * @return true if the term is-a ConservationLaw, false otherwise
+ */
+bool 
+SBO::isConservationLaw  (unsigned int sboTerm)
+{
+  if (sboTerm == 355)
+    return true;
+  else
+  {
+    return isChildOf(sboTerm, 355);
+  }
+}
+
+/*
+ * Function for checking the SBO term is from correct part of SBO.
+ * 
+ * @return true if the term is-a SteadyStateExpression, false otherwise
+ */
+bool 
+SBO::isSteadyStateExpression  (unsigned int sboTerm)
+{
+  if (sboTerm == 391)
+    return true;
+  else
+  {
+    return isChildOf(sboTerm, 391);
+  }
+}
+
+/*
+ * Function for checking the SBO term is from correct part of SBO.
+ * 
+ * @return true if the term is-a FunctionalCompartment, false otherwise
+ */
+bool 
+SBO::isFunctionalCompartment  (unsigned int sboTerm)
+{
+  if (sboTerm == 289)
+    return true;
+  else
+  {
+    return isChildOf(sboTerm, 289);
+  }
+}
+
+/*
+ * Function for checking the SBO term is from correct part of SBO.
+ * 
+ * @return true if the term is-a ContinuousFramework, false otherwise
+ */
+bool 
+SBO::isContinuousFramework  (unsigned int sboTerm)
+{
+  if (sboTerm == 62)
+    return true;
+  else
+  {
+    return isChildOf(sboTerm, 62);
+  }
+}
+
+/*
+ * Function for checking the SBO term is from correct part of SBO.
+ * 
+ * @return true if the term is-a DiscreteFramework, false otherwise
+ */
+bool 
+SBO::isDiscreteFramework  (unsigned int sboTerm)
+{
+  if (sboTerm == 63)
+    return true;
+  else
+  {
+    return isChildOf(sboTerm, 63);
+  }
+}
+
+/*
+ * Function for checking the SBO term is from correct part of SBO.
+ * 
+ * @return true if the term is-a LogicalFramework, false otherwise
+ */
+bool 
+SBO::isLogicalFramework  (unsigned int sboTerm)
+{
+  if (sboTerm == 234)
+    return true;
+  else
+  {
+    return isChildOf(sboTerm, 234);
+  }
+}
+
+
+/*
+ * Function for checking the SBO term is Obselete
+ * 
+ * @return true if the term is-a Obselete, false otherwise
+ */
+bool 
+SBO::isObselete  (unsigned int sboTerm)
+{
+  if (sboTerm == 1000)
+    return true;
+  else
+  {
+    return isChildOf(sboTerm, 1000);
+  }
+}
+
 
 /** @cond doxygen-libsbml-internal */
 /**
@@ -418,13 +587,15 @@ SBO::isParticipant  (unsigned int sboTerm)
 void 
 SBO::populateSBOTree()
 {
-  // generated from SBO on August 14th 2008
+  // generated from SBO on December 9th 2008
   mParent.insert( make_pair(  1,  64) );
-  mParent.insert( make_pair(  3, 235) );
-  mParent.insert( make_pair(  5,  64) );
-  mParent.insert( make_pair(  6,   2) );
-  mParent.insert( make_pair(  7, 235) );
-  mParent.insert( make_pair(  8,   4) );
+  mParent.insert( make_pair(  2,   0) );
+  mParent.insert( make_pair(  3,   0) );
+  mParent.insert( make_pair(  4,   0) );
+  mParent.insert( make_pair(  5, 1000) );
+  mParent.insert( make_pair(  6, 1000) );
+  mParent.insert( make_pair(  7, 1000) );
+  mParent.insert( make_pair(  8, 1000) );
   mParent.insert( make_pair(  9, 256) );
   mParent.insert( make_pair( 10,   3) );
   mParent.insert( make_pair( 11,   3) );
@@ -498,6 +669,7 @@ SBO::populateSBOTree()
   mParent.insert( make_pair( 61, 163) );
   mParent.insert( make_pair( 62,   4) );
   mParent.insert( make_pair( 63,   4) );
+  mParent.insert( make_pair( 64,   0) );
   mParent.insert( make_pair( 65, 155) );
   mParent.insert( make_pair( 65, 162) );
   mParent.insert( make_pair( 66,  22) );
@@ -614,9 +786,10 @@ SBO::populateSBOTree()
   mParent.insert( make_pair(164, 1000) );
   mParent.insert( make_pair(165, 1000) );
   mParent.insert( make_pair(166,  41) );
-  mParent.insert( make_pair(232, 231) );
-  mParent.insert( make_pair(167, 231) );
-  mParent.insert( make_pair(168, 231) );
+  mParent.insert( make_pair(231,   0) );
+  mParent.insert( make_pair(232, 1000) );
+  mParent.insert( make_pair(167, 375) );
+  mParent.insert( make_pair(168, 374) );
   mParent.insert( make_pair(169, 168) );
   mParent.insert( make_pair(170, 168) );
   mParent.insert( make_pair(171, 170) );
@@ -638,7 +811,7 @@ SBO::populateSBOTree()
   mParent.insert( make_pair(187, 1000) );
   mParent.insert( make_pair(188, 256) );
   mParent.insert( make_pair(189, 188) );
-  mParent.insert( make_pair(190, 256) );
+  mParent.insert( make_pair(190, 382) );
   mParent.insert( make_pair(191, 193) );
   mParent.insert( make_pair(192,   1) );
   mParent.insert( make_pair(193, 308) );
@@ -654,7 +827,7 @@ SBO::populateSBOTree()
   mParent.insert( make_pair(202, 200) );
   mParent.insert( make_pair(203, 1000) );
   mParent.insert( make_pair(204, 205) );
-  mParent.insert( make_pair(205, 231) );
+  mParent.insert( make_pair(205, 375) );
   mParent.insert( make_pair(206,  20) );
   mParent.insert( make_pair(207,  20) );
   mParent.insert( make_pair(208, 176) );
@@ -684,14 +857,15 @@ SBO::populateSBOTree()
   mParent.insert( make_pair(230, 227) );
   mParent.insert( make_pair(233, 210) );
   mParent.insert( make_pair(234,   4) );
-  mParent.insert( make_pair(236, 235) );
-  mParent.insert( make_pair(237, 231) );
+  mParent.insert( make_pair(235, 1000) );
+  mParent.insert( make_pair(236,   0) );
+  mParent.insert( make_pair(237, 374) );
   mParent.insert( make_pair(238, 237) );
   mParent.insert( make_pair(239, 168) );
   mParent.insert( make_pair(240, 236) );
   mParent.insert( make_pair(241, 236) );
   mParent.insert( make_pair(242, 241) );
-  mParent.insert( make_pair(243, 354) );
+  mParent.insert( make_pair(243, 404) );
   mParent.insert( make_pair(244, 241) );
   mParent.insert( make_pair(245, 240) );
   mParent.insert( make_pair(246, 245) );
@@ -724,10 +898,11 @@ SBO::populateSBOTree()
   mParent.insert( make_pair(272, 188) );
   mParent.insert( make_pair(273, 269) );
   mParent.insert( make_pair(274, 273) );
+  mParent.insert( make_pair(274, 379) );
   mParent.insert( make_pair(275, 269) );
   mParent.insert( make_pair(276, 275) );
   mParent.insert( make_pair(277, 276) );
-  mParent.insert( make_pair(278, 354) );
+  mParent.insert( make_pair(278, 404) );
   mParent.insert( make_pair(279, 255) );
   mParent.insert( make_pair(280, 241) );
   mParent.insert( make_pair(281, 193) );
@@ -741,8 +916,8 @@ SBO::populateSBOTree()
   mParent.insert( make_pair(287, 193) );
   mParent.insert( make_pair(288, 193) );
   mParent.insert( make_pair(289,   3) );
-  mParent.insert( make_pair(290, 241) );
-  mParent.insert( make_pair(291, 241) );
+  mParent.insert( make_pair(290, 240) );
+  mParent.insert( make_pair(291, 240) );
   mParent.insert( make_pair(292,  62) );
   mParent.insert( make_pair(293,  62) );
   mParent.insert( make_pair(294,  63) );
@@ -784,14 +959,14 @@ SBO::populateSBOTree()
   mParent.insert( make_pair(326, 269) );
   mParent.insert( make_pair(327, 247) );
   mParent.insert( make_pair(328, 247) );
-  mParent.insert( make_pair(329, 354) );
+  mParent.insert( make_pair(329, 404) );
   mParent.insert( make_pair(330, 211) );
   mParent.insert( make_pair(331,   9) );
   mParent.insert( make_pair(331, 346) );
   mParent.insert( make_pair(332, 331) );
   mParent.insert( make_pair(333,  49) );
-  mParent.insert( make_pair(334, 354) );
-  mParent.insert( make_pair(335, 354) );
+  mParent.insert( make_pair(334, 404) );
+  mParent.insert( make_pair(335, 404) );
   mParent.insert( make_pair(336,  10) );
   mParent.insert( make_pair(337, 281) );
   mParent.insert( make_pair(338,  35) );
@@ -801,7 +976,7 @@ SBO::populateSBOTree()
   mParent.insert( make_pair(340,  37) );
   mParent.insert( make_pair(340, 341) );
   mParent.insert( make_pair(341, 154) );
-  mParent.insert( make_pair(342, 231) );
+  mParent.insert( make_pair(342, 375) );
   mParent.insert( make_pair(343, 342) );
   mParent.insert( make_pair(344, 342) );
   mParent.insert( make_pair(345, 255) );
@@ -814,11 +989,11 @@ SBO::populateSBOTree()
   mParent.insert( make_pair(352,  46) );
   mParent.insert( make_pair(352, 156) );
   mParent.insert( make_pair(353, 352) );
-  mParent.insert( make_pair(354, 241) );
+  mParent.insert( make_pair(354, 240) );
   mParent.insert( make_pair(355,  64) );
   mParent.insert( make_pair(356,  35) );
-  mParent.insert( make_pair(357, 231) );
-  mParent.insert( make_pair(358, 231) );
+  mParent.insert( make_pair(357, 375) );
+  mParent.insert( make_pair(358, 375) );
   mParent.insert( make_pair(359, 355) );
   mParent.insert( make_pair(360,   2) );
   mParent.insert( make_pair(361, 360) );
@@ -831,11 +1006,44 @@ SBO::populateSBOTree()
   mParent.insert( make_pair(366, 160) );
   mParent.insert( make_pair(367, 161) );
   mParent.insert( make_pair(368, 161) );
-  mParent.insert( make_pair(369, 354) );
+  mParent.insert( make_pair(369, 404) );
   mParent.insert( make_pair(370,  27) );
   mParent.insert( make_pair(371, 370) );
   mParent.insert( make_pair(372, 370) );
   mParent.insert( make_pair(373,  27) );
+  mParent.insert( make_pair(374, 231) );
+  mParent.insert( make_pair(375, 231) );
+  mParent.insert( make_pair(376, 176) );
+  mParent.insert( make_pair(377, 176) );
+  mParent.insert( make_pair(378, 270) );
+  mParent.insert( make_pair(379, 269) );
+  mParent.insert( make_pair(380, 256) );
+  mParent.insert( make_pair(381, 380) );
+  mParent.insert( make_pair(382, 380) );
+  mParent.insert( make_pair(383, 381) );
+  mParent.insert( make_pair(384, 381) );
+  mParent.insert( make_pair(385, 381) );
+  mParent.insert( make_pair(386, 378) );
+  mParent.insert( make_pair(387, 270) );
+  mParent.insert( make_pair(388, 378) );
+  mParent.insert( make_pair(389,   2) );
+  mParent.insert( make_pair(390, 389) );
+  mParent.insert( make_pair(391,  64) );
+  mParent.insert( make_pair(392, 374) );
+  mParent.insert( make_pair(393, 168) );
+  mParent.insert( make_pair(394, 168) );
+  mParent.insert( make_pair(395, 375) );
+  mParent.insert( make_pair(396, 375) );
+  mParent.insert( make_pair(397, 375) );
+  mParent.insert( make_pair(398, 374) );
+  mParent.insert( make_pair(399, 211) );
+  mParent.insert( make_pair(400, 211) );
+  mParent.insert( make_pair(401, 211) );
+  mParent.insert( make_pair(402, 182) );
+  mParent.insert( make_pair(403, 402) );
+  mParent.insert( make_pair(404, 241) );
+  mParent.insert( make_pair(405, 240) );
+  mParent.insert( make_pair(406, 240) );
 
 }
 /** @endcond doxygen-libsbml-internal */

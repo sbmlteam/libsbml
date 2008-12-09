@@ -1,6 +1,6 @@
 /**
  * @file    SBO.h
- * @brief   SBO utility functions
+ * @brief   SBO utility Function
  * @author  Ben Bornstein
  *
  * $Id$
@@ -60,7 +60,7 @@ static ParentMap mParent;
 class LIBSBML_EXTERN SBO
 {
 public:
-
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Reads (and checks) sboTerm from the given XMLAttributes set.
@@ -74,82 +74,176 @@ public:
    * Writes sboTerm as an XMLAttribute to the given XMLOutputStream.
    */
   static void writeTerm (XMLOutputStream& stream, int sboTerm);
+  
+  /** @endcond doxygen-libsbml-internal */
 
   /**
-   * functions for checking the SBO term is from correct part of SBO
-   * returns true if the term is-a QuantitativeParameter, false otherwise
+   * Function for checking the SBO term is from correct part of SBO.
+   * 
+   * @return true if the term is-a QuantitativeParameter, false otherwise
    */
   static bool isQuantitativeParameter  (unsigned int term);
 
   /**
-   * functions for checking the SBO term is from correct part of SBO
-   * returns true if the term is-a ParticipantRole, false otherwise
+   * Function for checking the SBO term is from correct part of SBO.
+   * 
+   * @return true if the term is-a ParticipantRole, false otherwise
    */
   static bool isParticipantRole  (unsigned int term);
 
   /**
-   * functions for checking the SBO term is from correct part of SBO
-   * returns true if the term is-a ModellingFramework, false otherwise
+   * Function for checking the SBO term is from correct part of SBO.
+   * 
+   * @return true if the term is-a ModellingFramework, false otherwise
    */
   static bool isModellingFramework  (unsigned int term);
 
   /**
-   * functions for checking the SBO term is from correct part of SBO
-   * returns true if the term is-a MathematicalExpression, false otherwise
+   * Function for checking the SBO term is from correct part of SBO.
+   * 
+   * @return true if the term is-a MathematicalExpression, false otherwise
    */
   static bool isMathematicalExpression  (unsigned int term);
 
   /**
-   * functions for checking the SBO term is from correct part of SBO
-   * returns true if the term is-a KineticConstant, false otherwise
+   * Function for checking the SBO term is from correct part of SBO.
+   * 
+   * @return true if the term is-a KineticConstant, false otherwise
    */
   static bool isKineticConstant  (unsigned int term);
 
   /**
-   * functions for checking the SBO term is from correct part of SBO
-   * returns true if the term is-a Reactant, false otherwise
+   * Function for checking the SBO term is from correct part of SBO.
+   * 
+   * @return true if the term is-a Reactant, false otherwise
    */
   static bool isReactant  (unsigned int term);
 
   /**
-   * functions for checking the SBO term is from correct part of SBO
-   * returns true if the term is-a Product, false otherwise
+   * Function for checking the SBO term is from correct part of SBO.
+   * 
+   * @return true if the term is-a Product, false otherwise
    */
   static bool isProduct  (unsigned int term);
 
   /**
-   * functions for checking the SBO term is from correct part of SBO
-   * returns true if the term is-a Modifier, false otherwise
+   * Function for checking the SBO term is from correct part of SBO.
+   * 
+   * @return true if the term is-a Modifier, false otherwise
    */
   static bool isModifier  (unsigned int term);
 
   /**
-   * functions for checking the SBO term is from correct part of SBO
-   * returns true if the term is-a RateLaw, false otherwise
+   * Function for checking the SBO term is from correct part of SBO.
+   * 
+   * @return true if the term is-a RateLaw, false otherwise
    */
   static bool isRateLaw  (unsigned int term);
 
   /**
-   * functions for checking the SBO term is from correct part of SBO
-   * returns true if the term is-a Event, false otherwise
+   * Function for checking the SBO term is from correct part of SBO.
+   * 
+   * @return true if the term is-a Event, false otherwise
    */
   static bool isEvent  (unsigned int term);
 
   /**
-    * functions for checking the SBO term is from correct part of SBO
-    * returns true if the term is-a PhysicalParticipant, false otherwise
+    * Function for checking the SBO term is from correct part of SBO.
+    * 
+    * @return true if the term is-a PhysicalParticipant, false otherwise
     */
   static bool isPhysicalParticipant  (unsigned int term);
 
   /**
-    * functions for checking the SBO term is from correct part of SBO
-    * returns true if the term is-a Participant, false otherwise
+    * Function for checking the SBO term is from correct part of SBO.
+    * 
+    * @return true if the term is-a Participant, false otherwise
     */
   static bool isParticipant  (unsigned int term);
 
   /**
+   * Function for checking the SBO term is from correct part of SBO.
+   * 
+   * @return true if the term is-a Interaction, false otherwise
+   */
+  static bool isInteraction  (unsigned int term);
+
+  /**
+   * Function for checking the SBO term is from correct part of SBO.
+   * 
+   * @return true if the term is-a Entity, false otherwise
+   */
+  static bool isEntity  (unsigned int term);
+
+  /**
+   * Function for checking the SBO term is from correct part of SBO.
+   * 
+   * @return true if the term is-a FunctionalEntity, false otherwise
+   */
+  static bool isFunctionalEntity  (unsigned int term);
+
+  /**
+   * Function for checking the SBO term is from correct part of SBO.
+   * 
+   * @return true if the term is-a MaterialEntity, false otherwise
+   */
+  static bool isMaterialEntity  (unsigned int term);
+
+  /**
+   * Function for checking the SBO term is from correct part of SBO.
+   * 
+   * @return true if the term is-a ConservationLaw, false otherwise
+   */
+  static bool isConservationLaw  (unsigned int term);
+
+  /**
+   * Function for checking the SBO term is from correct part of SBO.
+   * 
+   * @return true if the term is-a SteadyStateExpression, false otherwise
+   */
+  static bool isSteadyStateExpression  (unsigned int term);
+
+  /**
+   * Function for checking the SBO term is from correct part of SBO.
+   * 
+   * @return true if the term is-a FunctionalCompartment, false otherwise
+   */
+  static bool isFunctionalCompartment  (unsigned int term);
+
+  /**
+   * Function for checking the SBO term is from correct part of SBO.
+   * 
+   * @return true if the term is-a ContinuousFramework, false otherwise
+   */
+  static bool isContinuousFramework  (unsigned int term);
+
+  /**
+   * Function for checking the SBO term is from correct part of SBO.
+   * 
+   * @return true if the term is-a DiscreteFramework, false otherwise
+   */
+  static bool isDiscreteFramework  (unsigned int term);
+
+  /**
+   * Function for checking the SBO term is from correct part of SBO.
+   * 
+   * @return true if the term is-a LogicalFramework, false otherwise
+   */
+  static bool isLogicalFramework  (unsigned int term);
+
+  /**
+   * Function for checking whether the SBO term is obselete.
+   * 
+   * @return true if the term is-a Obsolete, false otherwise
+   */
+  static bool isObselete  (unsigned int term);
+
+  /**
+   * Returns the integer as a correctly formatted SBO string.
+   *
    * @return the given integer sboTerm as a zero-padded seven digit string.
-   * If the sboTerm is not in the correct range ([0 -- 9999999]), an empty
+   * 
+   * @note If the sboTerm is not in the correct range ([0 -- 9999999]), an empty
    * string is returned.
    */
   static std::string intToString (int sboTerm);
@@ -158,13 +252,13 @@ protected:
   /** @cond doxygen-libsbml-internal */
 
  /**
-   * functions for checking the SBO term is from correct part of SBO
-   * returns true if the term is-a parent, false otherwise
+   * Function for checking the SBO term is from correct part of SBO.
+   * * @return true if the term is-a parent, false otherwise
    */
   static bool isChildOf(unsigned int term, unsigned int parent);
 
  /**
-   * functions for checking the SBO term is from correct part of SBO
+   * Function for checking the SBO term is from correct part of SBO.
    * populates the parent-child map
    */
   static void populateSBOTree();
