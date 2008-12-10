@@ -102,9 +102,10 @@ START_CONSTRAINT(99701, Model, m1)
   inv_or(SBO::isQuantitativeParameter  (m1.getSBOTerm()));
   inv_or(SBO::isModellingFramework     (m1.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression (m1.getSBOTerm()));
-  inv_or(SBO::isEvent                  (m1.getSBOTerm()));
-  inv_or(SBO::isParticipant            (m1.getSBOTerm()));
-
+  inv_or(SBO::isInteraction            (m1.getSBOTerm()));
+  inv_or(SBO::isParticipantRole        (m1.getSBOTerm()));
+  inv_or(SBO::isEntity                 (m1.getSBOTerm()));
+  inv_or(SBO::isObselete               (m1.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -120,8 +121,10 @@ START_CONSTRAINT(99701, FunctionDefinition, fd)
   inv_or(SBO::isQuantitativeParameter  (fd.getSBOTerm()));
   inv_or(SBO::isModellingFramework     (fd.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression (fd.getSBOTerm()));
-  inv_or(SBO::isEvent                  (fd.getSBOTerm()));
-  inv_or(SBO::isParticipant            (fd.getSBOTerm()));
+  inv_or(SBO::isInteraction            (fd.getSBOTerm()));
+  inv_or(SBO::isParticipantRole        (fd.getSBOTerm()));
+  inv_or(SBO::isEntity                 (fd.getSBOTerm()));
+  inv_or(SBO::isObselete               (fd.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -138,8 +141,10 @@ START_CONSTRAINT(99701, Parameter, p)
   inv_or(SBO::isQuantitativeParameter  (p.getSBOTerm()));
   inv_or(SBO::isModellingFramework     (p.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression (p.getSBOTerm()));
-  inv_or(SBO::isEvent                  (p.getSBOTerm()));
-  inv_or(SBO::isParticipant            (p.getSBOTerm()));
+  inv_or(SBO::isInteraction            (p.getSBOTerm()));
+  inv_or(SBO::isParticipantRole        (p.getSBOTerm()));
+  inv_or(SBO::isEntity                 (p.getSBOTerm()));
+  inv_or(SBO::isObselete               (p.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -156,8 +161,10 @@ START_CONSTRAINT(99701, InitialAssignment, ia)
   inv_or(SBO::isQuantitativeParameter  (ia.getSBOTerm()));
   inv_or(SBO::isModellingFramework     (ia.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression (ia.getSBOTerm()));
-  inv_or(SBO::isEvent                  (ia.getSBOTerm()));
-  inv_or(SBO::isParticipant            (ia.getSBOTerm()));
+  inv_or(SBO::isInteraction            (ia.getSBOTerm()));
+  inv_or(SBO::isParticipantRole        (ia.getSBOTerm()));
+  inv_or(SBO::isEntity                 (ia.getSBOTerm()));
+  inv_or(SBO::isObselete               (ia.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -174,8 +181,10 @@ START_CONSTRAINT(99701, AssignmentRule, ar)
   inv_or(SBO::isQuantitativeParameter  (ar.getSBOTerm()));
   inv_or(SBO::isModellingFramework     (ar.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression (ar.getSBOTerm()));
-  inv_or(SBO::isEvent                  (ar.getSBOTerm()));
-  inv_or(SBO::isParticipant            (ar.getSBOTerm()));
+  inv_or(SBO::isInteraction            (ar.getSBOTerm()));
+  inv_or(SBO::isParticipantRole        (ar.getSBOTerm()));
+  inv_or(SBO::isEntity                 (ar.getSBOTerm()));
+  inv_or(SBO::isObselete               (ar.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -192,8 +201,10 @@ START_CONSTRAINT(99701, RateRule, rr)
   inv_or(SBO::isQuantitativeParameter  (rr.getSBOTerm()));
   inv_or(SBO::isModellingFramework     (rr.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression (rr.getSBOTerm()));
-  inv_or(SBO::isEvent                  (rr.getSBOTerm()));
-  inv_or(SBO::isParticipant            (rr.getSBOTerm()));
+  inv_or(SBO::isInteraction            (rr.getSBOTerm()));
+  inv_or(SBO::isParticipantRole        (rr.getSBOTerm()));
+  inv_or(SBO::isEntity                 (rr.getSBOTerm()));
+  inv_or(SBO::isObselete               (rr.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -210,8 +221,10 @@ START_CONSTRAINT(99701, AlgebraicRule, ar)
   inv_or(SBO::isQuantitativeParameter  (ar.getSBOTerm()));
   inv_or(SBO::isModellingFramework     (ar.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression (ar.getSBOTerm()));
-  inv_or(SBO::isEvent                  (ar.getSBOTerm()));
-  inv_or(SBO::isParticipant            (ar.getSBOTerm()));
+  inv_or(SBO::isInteraction            (ar.getSBOTerm()));
+  inv_or(SBO::isParticipantRole        (ar.getSBOTerm()));
+  inv_or(SBO::isEntity                 (ar.getSBOTerm()));
+  inv_or(SBO::isObselete               (ar.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -228,8 +241,10 @@ START_CONSTRAINT(99701, Constraint, c)
   inv_or(SBO::isQuantitativeParameter  (c.getSBOTerm()));
   inv_or(SBO::isModellingFramework     (c.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression (c.getSBOTerm()));
-  inv_or(SBO::isEvent                  (c.getSBOTerm()));
-  inv_or(SBO::isParticipant            (c.getSBOTerm()));
+  inv_or(SBO::isInteraction            (c.getSBOTerm()));
+  inv_or(SBO::isParticipantRole        (c.getSBOTerm()));
+  inv_or(SBO::isEntity                 (c.getSBOTerm()));
+  inv_or(SBO::isObselete               (c.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -246,8 +261,10 @@ START_CONSTRAINT(99701, Reaction, r)
   inv_or(SBO::isQuantitativeParameter  (r.getSBOTerm()));
   inv_or(SBO::isModellingFramework     (r.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression (r.getSBOTerm()));
-  inv_or(SBO::isEvent                  (r.getSBOTerm()));
-  inv_or(SBO::isParticipant            (r.getSBOTerm()));
+  inv_or(SBO::isInteraction            (r.getSBOTerm()));
+  inv_or(SBO::isParticipantRole        (r.getSBOTerm()));
+  inv_or(SBO::isEntity                 (r.getSBOTerm()));
+  inv_or(SBO::isObselete               (r.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -264,8 +281,10 @@ START_CONSTRAINT(99701, SpeciesReference, sr)
   inv_or(SBO::isQuantitativeParameter  (sr.getSBOTerm()));
   inv_or(SBO::isModellingFramework     (sr.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression (sr.getSBOTerm()));
-  inv_or(SBO::isEvent                  (sr.getSBOTerm()));
-  inv_or(SBO::isParticipant            (sr.getSBOTerm()));
+  inv_or(SBO::isInteraction            (sr.getSBOTerm()));
+  inv_or(SBO::isParticipantRole        (sr.getSBOTerm()));
+  inv_or(SBO::isEntity                 (sr.getSBOTerm()));
+  inv_or(SBO::isObselete               (sr.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -282,8 +301,10 @@ START_CONSTRAINT(99701, KineticLaw, kl)
   inv_or(SBO::isQuantitativeParameter  (kl.getSBOTerm()));
   inv_or(SBO::isModellingFramework     (kl.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression (kl.getSBOTerm()));
-  inv_or(SBO::isEvent                  (kl.getSBOTerm()));
-  inv_or(SBO::isParticipant            (kl.getSBOTerm()));
+  inv_or(SBO::isInteraction            (kl.getSBOTerm()));
+  inv_or(SBO::isParticipantRole        (kl.getSBOTerm()));
+  inv_or(SBO::isEntity                 (kl.getSBOTerm()));
+  inv_or(SBO::isObselete               (kl.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -300,8 +321,10 @@ START_CONSTRAINT(99701, Event, e)
   inv_or(SBO::isQuantitativeParameter  (e.getSBOTerm()));
   inv_or(SBO::isModellingFramework     (e.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression (e.getSBOTerm()));
-  inv_or(SBO::isEvent                  (e.getSBOTerm()));
-  inv_or(SBO::isParticipant            (e.getSBOTerm()));
+  inv_or(SBO::isInteraction            (e.getSBOTerm()));
+  inv_or(SBO::isParticipantRole        (e.getSBOTerm()));
+  inv_or(SBO::isEntity                 (e.getSBOTerm()));
+  inv_or(SBO::isObselete               (e.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -318,8 +341,10 @@ START_CONSTRAINT(99701, EventAssignment, ea)
   inv_or(SBO::isQuantitativeParameter  (ea.getSBOTerm()));
   inv_or(SBO::isModellingFramework     (ea.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression (ea.getSBOTerm()));
-  inv_or(SBO::isEvent                  (ea.getSBOTerm()));
-  inv_or(SBO::isParticipant            (ea.getSBOTerm()));
+  inv_or(SBO::isInteraction            (ea.getSBOTerm()));
+  inv_or(SBO::isParticipantRole        (ea.getSBOTerm()));
+  inv_or(SBO::isEntity                 (ea.getSBOTerm()));
+  inv_or(SBO::isObselete               (ea.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -336,8 +361,10 @@ START_CONSTRAINT(99701, Compartment, c)
   inv_or(SBO::isQuantitativeParameter  (c.getSBOTerm()));
   inv_or(SBO::isModellingFramework     (c.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression (c.getSBOTerm()));
-  inv_or(SBO::isEvent                  (c.getSBOTerm()));
-  inv_or(SBO::isParticipant            (c.getSBOTerm()));
+  inv_or(SBO::isInteraction            (c.getSBOTerm()));
+  inv_or(SBO::isParticipantRole        (c.getSBOTerm()));
+  inv_or(SBO::isEntity                 (c.getSBOTerm()));
+  inv_or(SBO::isObselete               (c.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -354,8 +381,10 @@ START_CONSTRAINT(99701, Species, s)
   inv_or(SBO::isQuantitativeParameter  (s.getSBOTerm()));
   inv_or(SBO::isModellingFramework     (s.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression (s.getSBOTerm()));
-  inv_or(SBO::isEvent                  (s.getSBOTerm()));
-  inv_or(SBO::isParticipant            (s.getSBOTerm()));
+  inv_or(SBO::isInteraction            (s.getSBOTerm()));
+  inv_or(SBO::isParticipantRole        (s.getSBOTerm()));
+  inv_or(SBO::isEntity                 (s.getSBOTerm()));
+  inv_or(SBO::isObselete               (s.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -372,8 +401,10 @@ START_CONSTRAINT(99701, CompartmentType, ct)
   inv_or(SBO::isQuantitativeParameter  (ct.getSBOTerm()));
   inv_or(SBO::isModellingFramework     (ct.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression (ct.getSBOTerm()));
-  inv_or(SBO::isEvent                  (ct.getSBOTerm()));
-  inv_or(SBO::isParticipant            (ct.getSBOTerm()));
+  inv_or(SBO::isInteraction            (ct.getSBOTerm()));
+  inv_or(SBO::isParticipantRole        (ct.getSBOTerm()));
+  inv_or(SBO::isEntity                 (ct.getSBOTerm()));
+  inv_or(SBO::isObselete               (ct.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -390,8 +421,10 @@ START_CONSTRAINT(99701, SpeciesType, st)
   inv_or(SBO::isQuantitativeParameter  (st.getSBOTerm()));
   inv_or(SBO::isModellingFramework     (st.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression (st.getSBOTerm()));
-  inv_or(SBO::isEvent                  (st.getSBOTerm()));
-  inv_or(SBO::isParticipant            (st.getSBOTerm()));
+  inv_or(SBO::isInteraction            (st.getSBOTerm()));
+  inv_or(SBO::isParticipantRole        (st.getSBOTerm()));
+  inv_or(SBO::isEntity                 (st.getSBOTerm()));
+  inv_or(SBO::isObselete               (st.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -408,8 +441,10 @@ START_CONSTRAINT(99701, Trigger, t)
   inv_or(SBO::isQuantitativeParameter  (t.getSBOTerm()));
   inv_or(SBO::isModellingFramework     (t.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression (t.getSBOTerm()));
-  inv_or(SBO::isEvent                  (t.getSBOTerm()));
-  inv_or(SBO::isParticipant            (t.getSBOTerm()));
+  inv_or(SBO::isInteraction            (t.getSBOTerm()));
+  inv_or(SBO::isParticipantRole        (t.getSBOTerm()));
+  inv_or(SBO::isEntity                 (t.getSBOTerm()));
+  inv_or(SBO::isObselete               (t.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -426,8 +461,10 @@ START_CONSTRAINT(99701, Delay, d)
   inv_or(SBO::isQuantitativeParameter  (d.getSBOTerm()));
   inv_or(SBO::isModellingFramework     (d.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression (d.getSBOTerm()));
-  inv_or(SBO::isEvent                  (d.getSBOTerm()));
-  inv_or(SBO::isParticipant            (d.getSBOTerm()));
+  inv_or(SBO::isInteraction            (d.getSBOTerm()));
+  inv_or(SBO::isParticipantRole        (d.getSBOTerm()));
+  inv_or(SBO::isEntity                 (d.getSBOTerm()));
+  inv_or(SBO::isObselete               (d.getSBOTerm()));
 
 }
 END_CONSTRAINT

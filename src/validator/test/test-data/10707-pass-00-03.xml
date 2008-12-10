@@ -8,7 +8,7 @@
       <species id="s" compartment="c"/>
     </listOfSpecies>
     <listOfReactions>
-      <reaction id="r" sboTerm="SBO:0000232">
+      <reaction id="r" sboTerm="SBO:0000231">
         <listOfReactants>
           <speciesReference species="s"/>
         </listOfReactants>

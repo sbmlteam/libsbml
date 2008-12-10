@@ -589,9 +589,6 @@ SBO::populateSBOTree()
 {
   // generated from SBO on December 9th 2008
   mParent.insert( make_pair(  1,  64) );
-  mParent.insert( make_pair(  2,   0) );
-  mParent.insert( make_pair(  3,   0) );
-  mParent.insert( make_pair(  4,   0) );
   mParent.insert( make_pair(  5, 1000) );
   mParent.insert( make_pair(  6, 1000) );
   mParent.insert( make_pair(  7, 1000) );
@@ -669,7 +666,6 @@ SBO::populateSBOTree()
   mParent.insert( make_pair( 61, 163) );
   mParent.insert( make_pair( 62,   4) );
   mParent.insert( make_pair( 63,   4) );
-  mParent.insert( make_pair( 64,   0) );
   mParent.insert( make_pair( 65, 155) );
   mParent.insert( make_pair( 65, 162) );
   mParent.insert( make_pair( 66,  22) );
@@ -786,7 +782,6 @@ SBO::populateSBOTree()
   mParent.insert( make_pair(164, 1000) );
   mParent.insert( make_pair(165, 1000) );
   mParent.insert( make_pair(166,  41) );
-  mParent.insert( make_pair(231,   0) );
   mParent.insert( make_pair(232, 1000) );
   mParent.insert( make_pair(167, 375) );
   mParent.insert( make_pair(168, 374) );
