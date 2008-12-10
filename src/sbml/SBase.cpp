@@ -729,7 +729,8 @@ SBase::setNotes(const XMLNode* notes)
     }
     else
     {
-      XMLToken notes_t = XMLToken(XMLTriple("notes", "", ""), XMLAttributes());
+    XMLToken notes_t = XMLToken(XMLTriple("notes", "", ""), 
+                                XMLAttributes());
       mNotes = new XMLNode(notes_t);
       mNotes->addChild(*notes);
     }
@@ -787,7 +788,22 @@ SBase::appendNotes(const XMLNode* notes)
     }
     else
     {
-      newNotes= notes->clone();
+      // if the XMLNode argument notes has been created from a string and 
+      // it is a set of subelements there may be a single empty node
+      // as parent - leaving this in doesnt affect the writing out of notes
+      //but messes up the check for correct syntax
+      if (notes->getNumChildren() == 1 && 
+          notes->isEOF()               &&
+          notes->isAttributesEmpty()   &&
+          notes->isNamespacesEmpty()   &&
+          name == "")
+      {
+        newNotes = notes->getChild(0).clone();
+      }
+      else
+      {
+        newNotes = notes->clone();
+      }
     }
 
 
@@ -855,7 +871,7 @@ SBase::appendNotes(const XMLNode* notes)
 
         for(i = 0; i < newNotes->getNumChildren(); i++)
         {
-          BodyTag->addChild(*newNotes->getChild(i).clone());
+          BodyTag->addChild(*newNotes->clone());
         }
 
         HTMLTag->addChild(*HeadTag);
@@ -889,9 +905,9 @@ SBase::appendNotes(const XMLNode* notes)
         // add body from existing notes to newly created body
         newBodyTag = new XMLNode(mNotes->getChild(0));
 
-        for(i = 0; i < newBodyTag->getNumChildren(); i++)
+        for(i = newBodyTag->getNumChildren(); i > 0; i--)
         {
-          BodyTag->addChild(*newBodyTag->getChild(i).clone());
+          BodyTag->insertChild(0, *newBodyTag->getChild(i-1).clone());
         }
         
         HTMLTag->addChild(*HeadTag);
@@ -923,12 +939,9 @@ SBase::appendNotes(const XMLNode* notes)
         // add new notes to body of existing
         XMLNode* BodyTag = new XMLNode(mNotes->getChild(0));
         
-        /* TO DO: first "child" is not returned properly from 
-         * convertStringToXMLNode
-         */
         for(i = 0; i < newNotes->getNumChildren(); i++)
         {
-          BodyTag->addChild(*newNotes->getChild(i).clone());
+          BodyTag->addChild(*newNotes->clone());
         }
         NotesTag->addChild(*BodyTag);
         delete BodyTag;
@@ -951,9 +964,9 @@ SBase::appendNotes(const XMLNode* notes)
         XMLNode* BodyTag = new XMLNode(newNotes->getChild(1));
         XMLNode* HeadTag = new XMLNode(newNotes->getChild(0));
         
-        for(i = 0; i < mNotes->getNumChildren(); i++)
+        for(i = mNotes->getNumChildren(); i > 0; i--)
         {
-          BodyTag->addChild(*mNotes->getChild(i).clone());
+          BodyTag->insertChild(0, *mNotes->getChild(i-1).clone());
         }
         
         HTMLTag->addChild(*HeadTag);
@@ -971,9 +984,9 @@ SBase::appendNotes(const XMLNode* notes)
          */
         XMLNode* NotesTag = new XMLNode(notesToken);
         XMLNode* BodyTag = new XMLNode(*newNotes);
-        for(i = 0; i < mNotes->getNumChildren(); i++)
+        for(i = mNotes->getNumChildren(); i > 0; i--)
         {
-          BodyTag->addChild(*mNotes->getChild(i).clone());
+          BodyTag->insertChild(0, *mNotes->getChild(i-1).clone());
         }
         
         NotesTag->addChild(*BodyTag);
@@ -982,14 +995,11 @@ SBase::appendNotes(const XMLNode* notes)
       }
       else
       {
-        /* TO DO: first "child" is not returned properly from 
-         * convertStringToXMLNode
-         */
         XMLNode* NotesTag = new XMLNode(*mNotes);
 
         for(i = 0; i < newNotes->getNumChildren(); i++)
         {
-          NotesTag->addChild(*newNotes->getChild(i).clone());
+          NotesTag->addChild(*newNotes->clone());
         }
         setNotes(NotesTag);
       }

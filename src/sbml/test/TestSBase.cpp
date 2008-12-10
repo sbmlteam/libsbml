@@ -312,6 +312,1067 @@ START_TEST (test_SBase_setAnnotationString)
 END_TEST
 
 
+START_TEST (test_SBase_appendNotes)
+{ // add a p tag to a p tag
+  XMLToken_t *token;
+  XMLNode_t *node;
+  XMLToken_t *token1;
+  XMLNode_t *node1;
+  XMLNode_t * node2;
+  XMLTriple_t *triple = XMLTriple_createWith("p", "", "");
+  XMLAttributes_t * att = XMLAttributes_create ();
+  XMLNamespaces_t *ns = XMLNamespaces_create();
+  XMLNamespaces_add(ns, "http://www.w3.org/1999/xhtml", "");
+  XMLToken_t *token4 = XMLToken_createWithText("This is my text");
+  XMLNode_t *node4 = XMLNode_createFromToken(token4);
+  XMLToken_t *token5 = XMLToken_createWithText("This is additional text");
+  XMLNode_t *node5 = XMLNode_createFromToken(token5);
+
+  token = XMLToken_createWithTripleAttrNS(triple, att, ns);
+  node = XMLNode_createFromToken(token);
+  XMLNode_addChild(node, node4);
+
+  SBase_setNotes(S, node);
+
+  fail_unless(SBase_isSetNotes(S) == 1);
+
+  token1 = XMLToken_createWithTripleAttrNS(triple, att, ns);
+  node1 = XMLNode_createFromToken(token1);
+  XMLNode_addChild(node1, node5);
+  
+  SBase_appendNotes(S, node1);
+
+  fail_unless(SBase_isSetNotes(S) == 1);
+
+  node2 = SBase_getNotes(S);
+
+  fail_unless(XMLNode_getNumChildren(node2) == 2);
+  fail_unless(!strcmp(XMLNode_getName(XMLNode_getChild(node2, 0)), "p"));
+  fail_unless(XMLNode_getNumChildren(XMLNode_getChild(node2, 0)) == 1);
+  fail_unless(!strcmp(XMLNode_getName(XMLNode_getChild(node2, 1)), "p"));
+  fail_unless(XMLNode_getNumChildren(XMLNode_getChild(node2, 1)) == 1);
+
+  const char * chars1 = XMLNode_getCharacters(XMLNode_getChild(
+    XMLNode_getChild(node2, 0), 0));
+  const char * chars2 = XMLNode_getCharacters(XMLNode_getChild(
+    XMLNode_getChild(node2, 1), 0));
+
+  fail_unless(!strcmp(chars1, "This is my text"));
+  fail_unless(!strcmp(chars2, "This is additional text"));
+
+  XMLNode_free(node);
+  XMLNode_free(node1);
+}
+END_TEST
+
+
+START_TEST (test_SBase_appendNotes1)
+{
+  // add a html tag to an html tag
+  XMLAttributes_t * att = XMLAttributes_create ();
+  XMLNamespaces_t *ns = XMLNamespaces_create();
+  XMLNamespaces_add(ns, "http://www.w3.org/1999/xhtml", "");
+  XMLTriple_t *html_triple = XMLTriple_createWith("html", "", "");
+  XMLTriple_t *head_triple = XMLTriple_createWith("head", "", "");
+  XMLTriple_t *body_triple = XMLTriple_createWith("body", "", "");
+  XMLTriple_t *p_triple = XMLTriple_createWith("p", "", "");
+  XMLToken_t *html_token = XMLToken_createWithTripleAttrNS(html_triple, att, ns);
+  XMLToken_t *head_token = XMLToken_createWithTripleAttr(head_triple, att);
+  XMLToken_t *body_token = XMLToken_createWithTripleAttr(body_triple, att);
+  XMLToken_t *p_token = XMLToken_createWithTripleAttr(p_triple, att);
+  XMLToken_t *text_token = XMLToken_createWithText("This is my text");
+  XMLNode_t *html_node = XMLNode_createFromToken(html_token);
+  XMLNode_t *head_node = XMLNode_createFromToken(head_token);
+  XMLNode_t *body_node = XMLNode_createFromToken(body_token);
+  XMLNode_t *p_node = XMLNode_createFromToken(p_token);
+  XMLNode_t *text_node = XMLNode_createFromToken(text_token);
+
+  XMLToken_t *text_token1 = XMLToken_createWithText("This is more text");
+  XMLNode_t *html_node1 = XMLNode_createFromToken(html_token);
+  XMLNode_t *head_node1 = XMLNode_createFromToken(head_token);
+  XMLNode_t *body_node1 = XMLNode_createFromToken(body_token);
+  XMLNode_t *p_node1 = XMLNode_createFromToken(p_token);
+  XMLNode_t *text_node1 = XMLNode_createFromToken(text_token1);
+
+  XMLNode_t * notes;
+  const XMLNode_t *child, *child1;
+
+  XMLNode_addChild(p_node, text_node);
+  XMLNode_addChild(body_node, p_node);
+  XMLNode_addChild(html_node, head_node);
+  XMLNode_addChild(html_node, body_node);
+
+  XMLNode_addChild(p_node1, text_node1);
+  XMLNode_addChild(body_node1, p_node1);
+  XMLNode_addChild(html_node1, head_node1);
+  XMLNode_addChild(html_node1, body_node1);
+
+  SBase_setNotes(S, html_node);
+  SBase_appendNotes(S, html_node1);
+
+  notes = SBase_getNotes(S);
+
+  fail_unless(!strcmp(XMLNode_getName(notes), "notes"));
+  fail_unless(XMLNode_getNumChildren(notes) == 1);
+
+  child = XMLNode_getChild(notes, 0);
+
+  fail_unless(!strcmp(XMLNode_getName(child), "html"));
+  fail_unless(XMLNode_getNumChildren(child) == 2);
+
+  child = XMLNode_getChild(child, 1);
+
+  fail_unless(!strcmp(XMLNode_getName(child), "body"));
+  fail_unless(XMLNode_getNumChildren(child) == 2);
+
+  child1 = XMLNode_getChild(child, 0);
+
+  fail_unless(!strcmp(XMLNode_getName(child1), "p"));
+  fail_unless(XMLNode_getNumChildren(child1) == 1);
+
+  child1 = XMLNode_getChild(child1, 0);
+
+  fail_unless(!strcmp(XMLNode_getCharacters(child1), "This is my text"));
+  fail_unless(XMLNode_getNumChildren(child1) == 0);
+
+  child1 = XMLNode_getChild(child, 1);
+
+  fail_unless(!strcmp(XMLNode_getName(child1), "p"));
+  fail_unless(XMLNode_getNumChildren(child1) == 1);
+
+  child1 = XMLNode_getChild(child1, 0);
+
+  fail_unless(!strcmp(XMLNode_getCharacters(child1), "This is more text"));
+  fail_unless(XMLNode_getNumChildren(child1) == 0);
+
+  XMLAttributes_free(att);
+  XMLNamespaces_free(ns);
+  XMLTriple_free(html_triple);
+  XMLTriple_free(head_triple);
+  XMLTriple_free(body_triple);
+  XMLTriple_free(p_triple);
+  XMLToken_free(html_token);
+  XMLToken_free(head_token);
+  XMLToken_free(body_token);
+  XMLToken_free(p_token);
+  XMLToken_free(text_token);
+  XMLToken_free(text_token1);
+  XMLNode_free(html_node);
+  XMLNode_free(head_node);
+  XMLNode_free(body_node);
+  XMLNode_free(p_node);
+  XMLNode_free(text_node);
+  XMLNode_free(html_node1);
+  XMLNode_free(head_node1);
+  XMLNode_free(body_node1);
+  XMLNode_free(p_node1);
+  XMLNode_free(text_node1);
+}
+END_TEST
+
+
+START_TEST (test_SBase_appendNotes2)
+{// add a body tag to an html tag
+  XMLAttributes_t * att = XMLAttributes_create ();
+  XMLNamespaces_t *ns = XMLNamespaces_create();
+  XMLNamespaces_add(ns, "http://www.w3.org/1999/xhtml", "");
+  XMLTriple_t *html_triple = XMLTriple_createWith("html", "", "");
+  XMLTriple_t *head_triple = XMLTriple_createWith("head", "", "");
+  XMLTriple_t *body_triple = XMLTriple_createWith("body", "", "");
+  XMLTriple_t *p_triple = XMLTriple_createWith("p", "", "");
+  XMLToken_t *html_token = XMLToken_createWithTripleAttrNS(html_triple, att, ns);
+  XMLToken_t *head_token = XMLToken_createWithTripleAttr(head_triple, att);
+  XMLToken_t *body_token = XMLToken_createWithTripleAttr(body_triple, att);
+  XMLToken_t *p_token = XMLToken_createWithTripleAttr(p_triple, att);
+  XMLToken_t *text_token = XMLToken_createWithText("This is my text");
+  XMLNode_t *html_node = XMLNode_createFromToken(html_token);
+  XMLNode_t *head_node = XMLNode_createFromToken(head_token);
+  XMLNode_t *body_node = XMLNode_createFromToken(body_token);
+  XMLNode_t *p_node = XMLNode_createFromToken(p_token);
+  XMLNode_t *text_node = XMLNode_createFromToken(text_token);
+
+  XMLToken_t *body_token1 = XMLToken_createWithTripleAttrNS(body_triple, att, ns);
+  XMLToken_t *text_token1 = XMLToken_createWithText("This is more text");
+  XMLNode_t *body_node1 = XMLNode_createFromToken(body_token1);
+  XMLNode_t *p_node1 = XMLNode_createFromToken(p_token);
+  XMLNode_t *text_node1 = XMLNode_createFromToken(text_token1);
+
+  XMLNode_t * notes;
+  const XMLNode_t *child, *child1;
+
+  XMLNode_addChild(p_node, text_node);
+  XMLNode_addChild(body_node, p_node);
+  XMLNode_addChild(html_node, head_node);
+  XMLNode_addChild(html_node, body_node);
+
+  XMLNode_addChild(p_node1, text_node1);
+  XMLNode_addChild(body_node1, p_node1);
+
+  SBase_setNotes(S, html_node);
+  SBase_appendNotes(S, body_node1);
+
+  notes = SBase_getNotes(S);
+
+  fail_unless(!strcmp(XMLNode_getName(notes), "notes"));
+  fail_unless(XMLNode_getNumChildren(notes) == 1);
+
+  child = XMLNode_getChild(notes, 0);
+
+  fail_unless(!strcmp(XMLNode_getName(child), "html"));
+  fail_unless(XMLNode_getNumChildren(child) == 2);
+
+  child = XMLNode_getChild(child, 1);
+
+  fail_unless(!strcmp(XMLNode_getName(child), "body"));
+  fail_unless(XMLNode_getNumChildren(child) == 2);
+
+  child1 = XMLNode_getChild(child, 0);
+
+  fail_unless(!strcmp(XMLNode_getName(child1), "p"));
+  fail_unless(XMLNode_getNumChildren(child1) == 1);
+
+  child1 = XMLNode_getChild(child1, 0);
+
+  fail_unless(!strcmp(XMLNode_getCharacters(child1), "This is my text"));
+  fail_unless(XMLNode_getNumChildren(child1) == 0);
+
+  child1 = XMLNode_getChild(child, 1);
+
+  fail_unless(!strcmp(XMLNode_getName(child1), "p"));
+  fail_unless(XMLNode_getNumChildren(child1) == 1);
+
+  child1 = XMLNode_getChild(child1, 0);
+
+  fail_unless(!strcmp(XMLNode_getCharacters(child1), "This is more text"));
+  fail_unless(XMLNode_getNumChildren(child1) == 0);
+
+  XMLAttributes_free(att);
+  XMLNamespaces_free(ns);
+  XMLTriple_free(html_triple);
+  XMLTriple_free(head_triple);
+  XMLTriple_free(body_triple);
+  XMLTriple_free(p_triple);
+  XMLToken_free(html_token);
+  XMLToken_free(head_token);
+  XMLToken_free(body_token);
+  XMLToken_free(p_token);
+  XMLToken_free(text_token);
+  XMLToken_free(text_token1);
+  XMLToken_free(body_token1);
+  XMLNode_free(html_node);
+  XMLNode_free(head_node);
+  XMLNode_free(body_node);
+  XMLNode_free(p_node);
+  XMLNode_free(text_node);
+  XMLNode_free(body_node1);
+  XMLNode_free(p_node1);
+  XMLNode_free(text_node1);
+}
+END_TEST
+
+
+START_TEST (test_SBase_appendNotes3)
+{
+  // add a p tag to an html tag
+  XMLAttributes_t * att = XMLAttributes_create ();
+  XMLNamespaces_t *ns = XMLNamespaces_create();
+  XMLNamespaces_add(ns, "http://www.w3.org/1999/xhtml", "");
+  XMLTriple_t *html_triple = XMLTriple_createWith("html", "", "");
+  XMLTriple_t *head_triple = XMLTriple_createWith("head", "", "");
+  XMLTriple_t *body_triple = XMLTriple_createWith("body", "", "");
+  XMLTriple_t *p_triple = XMLTriple_createWith("p", "", "");
+  XMLToken_t *html_token = XMLToken_createWithTripleAttrNS(html_triple, att, ns);
+  XMLToken_t *head_token = XMLToken_createWithTripleAttr(head_triple, att);
+  XMLToken_t *body_token = XMLToken_createWithTripleAttr(body_triple, att);
+  XMLToken_t *p_token = XMLToken_createWithTripleAttr(p_triple, att);
+  XMLToken_t *text_token = XMLToken_createWithText("This is my text");
+  XMLNode_t *html_node = XMLNode_createFromToken(html_token);
+  XMLNode_t *head_node = XMLNode_createFromToken(head_token);
+  XMLNode_t *body_node = XMLNode_createFromToken(body_token);
+  XMLNode_t *p_node = XMLNode_createFromToken(p_token);
+  XMLNode_t *text_node = XMLNode_createFromToken(text_token);
+
+  XMLToken_t *p_token1 = XMLToken_createWithTripleAttrNS(p_triple, att, ns);
+  XMLToken_t *text_token1 = XMLToken_createWithText("This is more text");
+  XMLNode_t *p_node1 = XMLNode_createFromToken(p_token1);
+  XMLNode_t *text_node1 = XMLNode_createFromToken(text_token1);
+
+  XMLNode_t * notes;
+  const XMLNode_t *child, *child1;
+
+  XMLNode_addChild(p_node, text_node);
+  XMLNode_addChild(body_node, p_node);
+  XMLNode_addChild(html_node, head_node);
+  XMLNode_addChild(html_node, body_node);
+
+  XMLNode_addChild(p_node1, text_node1);
+
+  SBase_setNotes(S, html_node);
+  SBase_appendNotes(S, p_node1);
+
+  notes = SBase_getNotes(S);
+
+  fail_unless(!strcmp(XMLNode_getName(notes), "notes"));
+  fail_unless(XMLNode_getNumChildren(notes) == 1);
+
+  child = XMLNode_getChild(notes, 0);
+
+  fail_unless(!strcmp(XMLNode_getName(child), "html"));
+  fail_unless(XMLNode_getNumChildren(child) == 2);
+
+  child = XMLNode_getChild(child, 1);
+
+  fail_unless(!strcmp(XMLNode_getName(child), "body"));
+  fail_unless(XMLNode_getNumChildren(child) == 2);
+
+  child1 = XMLNode_getChild(child, 0);
+
+  fail_unless(!strcmp(XMLNode_getName(child1), "p"));
+  fail_unless(XMLNode_getNumChildren(child1) == 1);
+
+  child1 = XMLNode_getChild(child1, 0);
+
+  fail_unless(!strcmp(XMLNode_getCharacters(child1), "This is my text"));
+  fail_unless(XMLNode_getNumChildren(child1) == 0);
+
+  child1 = XMLNode_getChild(child, 1);
+
+  fail_unless(!strcmp(XMLNode_getName(child1), "p"));
+  fail_unless(XMLNode_getNumChildren(child1) == 1);
+
+  child1 = XMLNode_getChild(child1, 0);
+
+  fail_unless(!strcmp(XMLNode_getCharacters(child1), "This is more text"));
+  fail_unless(XMLNode_getNumChildren(child1) == 0);
+
+  XMLAttributes_free(att);
+  XMLNamespaces_free(ns);
+  XMLTriple_free(html_triple);
+  XMLTriple_free(head_triple);
+  XMLTriple_free(body_triple);
+  XMLTriple_free(p_triple);
+  XMLToken_free(html_token);
+  XMLToken_free(head_token);
+  XMLToken_free(body_token);
+  XMLToken_free(p_token);
+  XMLToken_free(text_token);
+  XMLToken_free(text_token1);
+  XMLToken_free(p_token1);
+  XMLNode_free(html_node);
+  XMLNode_free(head_node);
+  XMLNode_free(body_node);
+  XMLNode_free(p_node);
+  XMLNode_free(text_node);
+  XMLNode_free(p_node1);
+  XMLNode_free(text_node1);
+}
+END_TEST
+
+
+START_TEST (test_SBase_appendNotes4)
+{
+  // add a html tag to a body tag
+  XMLAttributes_t * att = XMLAttributes_create ();
+  XMLNamespaces_t *ns = XMLNamespaces_create();
+  XMLNamespaces_add(ns, "http://www.w3.org/1999/xhtml", "");
+  XMLTriple_t *html_triple = XMLTriple_createWith("html", "", "");
+  XMLTriple_t *head_triple = XMLTriple_createWith("head", "", "");
+  XMLTriple_t *body_triple = XMLTriple_createWith("body", "", "");
+  XMLTriple_t *p_triple = XMLTriple_createWith("p", "", "");
+  XMLToken_t *html_token = XMLToken_createWithTripleAttrNS(html_triple, att, ns);
+  XMLToken_t *head_token = XMLToken_createWithTripleAttr(head_triple, att);
+  XMLToken_t *body_token = XMLToken_createWithTripleAttr(body_triple, att);
+  XMLToken_t *p_token = XMLToken_createWithTripleAttr(p_triple, att);
+  XMLToken_t *body_token1 = XMLToken_createWithTripleAttrNS(body_triple, att, ns);
+  XMLToken_t *text_token = XMLToken_createWithText("This is my text");
+  XMLNode_t *body_node = XMLNode_createFromToken(body_token1);
+  XMLNode_t *p_node = XMLNode_createFromToken(p_token);
+  XMLNode_t *text_node = XMLNode_createFromToken(text_token);
+
+  XMLToken_t *text_token1 = XMLToken_createWithText("This is more text");
+  XMLNode_t *html_node1 = XMLNode_createFromToken(html_token);
+  XMLNode_t *head_node1 = XMLNode_createFromToken(head_token);
+  XMLNode_t *body_node1 = XMLNode_createFromToken(body_token);
+  XMLNode_t *p_node1 = XMLNode_createFromToken(p_token);
+  XMLNode_t *text_node1 = XMLNode_createFromToken(text_token1);
+
+  XMLNode_t * notes;
+  const XMLNode_t *child, *child1;
+
+  XMLNode_addChild(p_node, text_node);
+  XMLNode_addChild(body_node, p_node);
+
+  XMLNode_addChild(p_node1, text_node1);
+  XMLNode_addChild(body_node1, p_node1);
+  XMLNode_addChild(html_node1, head_node1);
+  XMLNode_addChild(html_node1, body_node1);
+
+  SBase_setNotes(S, body_node);
+  SBase_appendNotes(S, html_node1);
+
+  notes = SBase_getNotes(S);
+
+  fail_unless(!strcmp(XMLNode_getName(notes), "notes"));
+  fail_unless(XMLNode_getNumChildren(notes) == 1);
+
+  child = XMLNode_getChild(notes, 0);
+
+  fail_unless(!strcmp(XMLNode_getName(child), "html"));
+  fail_unless(XMLNode_getNumChildren(child) == 2);
+
+  child = XMLNode_getChild(child, 1);
+
+  fail_unless(!strcmp(XMLNode_getName(child), "body"));
+  fail_unless(XMLNode_getNumChildren(child) == 2);
+
+  child1 = XMLNode_getChild(child, 0);
+
+  fail_unless(!strcmp(XMLNode_getName(child1), "p"));
+  fail_unless(XMLNode_getNumChildren(child1) == 1);
+
+  child1 = XMLNode_getChild(child1, 0);
+
+  fail_unless(!strcmp(XMLNode_getCharacters(child1), "This is my text"));
+  fail_unless(XMLNode_getNumChildren(child1) == 0);
+
+  child1 = XMLNode_getChild(child, 1);
+
+  fail_unless(!strcmp(XMLNode_getName(child1), "p"));
+  fail_unless(XMLNode_getNumChildren(child1) == 1);
+
+  child1 = XMLNode_getChild(child1, 0);
+
+  fail_unless(!strcmp(XMLNode_getCharacters(child1), "This is more text"));
+  fail_unless(XMLNode_getNumChildren(child1) == 0);
+
+  XMLAttributes_free(att);
+  XMLNamespaces_free(ns);
+  XMLTriple_free(html_triple);
+  XMLTriple_free(head_triple);
+  XMLTriple_free(body_triple);
+  XMLTriple_free(p_triple);
+  XMLToken_free(body_token);
+  XMLToken_free(p_token);
+  XMLToken_free(text_token);
+  XMLToken_free(text_token1);
+  XMLToken_free(body_token1);
+  XMLNode_free(body_node);
+  XMLNode_free(p_node);
+  XMLNode_free(text_node);
+  XMLNode_free(html_node1);
+  XMLNode_free(head_node1);
+  XMLNode_free(body_node1);
+  XMLNode_free(p_node1);
+  XMLNode_free(text_node1);
+}
+END_TEST
+
+
+START_TEST (test_SBase_appendNotes5)
+{
+  // add a html tag to a p tag
+  XMLAttributes_t * att = XMLAttributes_create ();
+  XMLNamespaces_t *ns = XMLNamespaces_create();
+  XMLNamespaces_add(ns, "http://www.w3.org/1999/xhtml", "");
+  XMLTriple_t *html_triple = XMLTriple_createWith("html", "", "");
+  XMLTriple_t *head_triple = XMLTriple_createWith("head", "", "");
+  XMLTriple_t *body_triple = XMLTriple_createWith("body", "", "");
+  XMLTriple_t *p_triple = XMLTriple_createWith("p", "", "");
+  XMLToken_t *html_token = XMLToken_createWithTripleAttrNS(html_triple, att, ns);
+  XMLToken_t *head_token = XMLToken_createWithTripleAttr(head_triple, att);
+  XMLToken_t *body_token = XMLToken_createWithTripleAttr(body_triple, att);
+  XMLToken_t *p_token = XMLToken_createWithTripleAttr(p_triple, att);
+  XMLToken_t *p_token1 = XMLToken_createWithTripleAttrNS(p_triple, att, ns);
+  XMLToken_t *text_token = XMLToken_createWithText("This is my text");
+  XMLNode_t *p_node = XMLNode_createFromToken(p_token1);
+  XMLNode_t *text_node = XMLNode_createFromToken(text_token);
+
+  XMLToken_t *text_token1 = XMLToken_createWithText("This is more text");
+  XMLNode_t *html_node1 = XMLNode_createFromToken(html_token);
+  XMLNode_t *head_node1 = XMLNode_createFromToken(head_token);
+  XMLNode_t *body_node1 = XMLNode_createFromToken(body_token);
+  XMLNode_t *p_node1 = XMLNode_createFromToken(p_token);
+  XMLNode_t *text_node1 = XMLNode_createFromToken(text_token1);
+
+  XMLNode_t * notes;
+  const XMLNode_t *child, *child1;
+
+  XMLNode_addChild(p_node, text_node);
+
+  XMLNode_addChild(p_node1, text_node1);
+  XMLNode_addChild(body_node1, p_node1);
+  XMLNode_addChild(html_node1, head_node1);
+  XMLNode_addChild(html_node1, body_node1);
+
+  SBase_setNotes(S, p_node);
+  SBase_appendNotes(S, html_node1);
+
+  notes = SBase_getNotes(S);
+
+  fail_unless(!strcmp(XMLNode_getName(notes), "notes"));
+  fail_unless(XMLNode_getNumChildren(notes) == 1);
+
+  child = XMLNode_getChild(notes, 0);
+
+  fail_unless(!strcmp(XMLNode_getName(child), "html"));
+  fail_unless(XMLNode_getNumChildren(child) == 2);
+
+  child = XMLNode_getChild(child, 1);
+
+  fail_unless(!strcmp(XMLNode_getName(child), "body"));
+  fail_unless(XMLNode_getNumChildren(child) == 2);
+
+  child1 = XMLNode_getChild(child, 0);
+
+  fail_unless(!strcmp(XMLNode_getName(child1), "p"));
+  fail_unless(XMLNode_getNumChildren(child1) == 1);
+
+  child1 = XMLNode_getChild(child1, 0);
+
+  fail_unless(!strcmp(XMLNode_getCharacters(child1), "This is my text"));
+  fail_unless(XMLNode_getNumChildren(child1) == 0);
+
+  child1 = XMLNode_getChild(child, 1);
+
+  fail_unless(!strcmp(XMLNode_getName(child1), "p"));
+  fail_unless(XMLNode_getNumChildren(child1) == 1);
+
+  child1 = XMLNode_getChild(child1, 0);
+
+  fail_unless(!strcmp(XMLNode_getCharacters(child1), "This is more text"));
+  fail_unless(XMLNode_getNumChildren(child1) == 0);
+
+  XMLAttributes_free(att);
+  XMLNamespaces_free(ns);
+  XMLTriple_free(html_triple);
+  XMLTriple_free(head_triple);
+  XMLTriple_free(body_triple);
+  XMLTriple_free(p_triple);
+  XMLToken_free(body_token);
+  XMLToken_free(p_token);
+  XMLToken_free(p_token1);
+  XMLToken_free(text_token);
+  XMLToken_free(text_token1);
+  XMLNode_free(p_node);
+  XMLNode_free(text_node);
+  XMLNode_free(html_node1);
+  XMLNode_free(head_node1);
+  XMLNode_free(body_node1);
+  XMLNode_free(p_node1);
+  XMLNode_free(text_node1);
+}
+END_TEST
+
+
+START_TEST (test_SBase_appendNotes6)
+{// add a body tag to an body tag
+  XMLAttributes_t * att = XMLAttributes_create ();
+  XMLNamespaces_t *ns = XMLNamespaces_create();
+  XMLNamespaces_add(ns, "http://www.w3.org/1999/xhtml", "");
+  XMLTriple_t *body_triple = XMLTriple_createWith("body", "", "");
+  XMLTriple_t *p_triple = XMLTriple_createWith("p", "", "");
+  XMLToken_t *body_token = XMLToken_createWithTripleAttrNS(body_triple, att, ns);
+  XMLToken_t *p_token = XMLToken_createWithTripleAttr(p_triple, att);
+  XMLToken_t *text_token = XMLToken_createWithText("This is my text");
+  XMLNode_t *body_node = XMLNode_createFromToken(body_token);
+  XMLNode_t *p_node = XMLNode_createFromToken(p_token);
+  XMLNode_t *text_node = XMLNode_createFromToken(text_token);
+
+  XMLToken_t *text_token1 = XMLToken_createWithText("This is more text");
+  XMLNode_t *body_node1 = XMLNode_createFromToken(body_token);
+  XMLNode_t *p_node1 = XMLNode_createFromToken(p_token);
+  XMLNode_t *text_node1 = XMLNode_createFromToken(text_token1);
+
+  XMLNode_t * notes;
+  const XMLNode_t *child, *child1;
+
+  XMLNode_addChild(p_node, text_node);
+  XMLNode_addChild(body_node, p_node);
+
+  XMLNode_addChild(p_node1, text_node1);
+  XMLNode_addChild(body_node1, p_node1);
+
+  SBase_setNotes(S, body_node);
+  SBase_appendNotes(S, body_node1);
+
+  notes = SBase_getNotes(S);
+
+  fail_unless(!strcmp(XMLNode_getName(notes), "notes"));
+  fail_unless(XMLNode_getNumChildren(notes) == 1);
+
+  child = XMLNode_getChild(notes, 0);
+
+  fail_unless(!strcmp(XMLNode_getName(child), "body"));
+  fail_unless(XMLNode_getNumChildren(child) == 2);
+
+  child1 = XMLNode_getChild(child, 0);
+
+  fail_unless(!strcmp(XMLNode_getName(child1), "p"));
+  fail_unless(XMLNode_getNumChildren(child1) == 1);
+
+  child1 = XMLNode_getChild(child1, 0);
+
+  fail_unless(!strcmp(XMLNode_getCharacters(child1), "This is my text"));
+  fail_unless(XMLNode_getNumChildren(child1) == 0);
+
+  child1 = XMLNode_getChild(child, 1);
+
+  fail_unless(!strcmp(XMLNode_getName(child1), "p"));
+  fail_unless(XMLNode_getNumChildren(child1) == 1);
+
+  child1 = XMLNode_getChild(child1, 0);
+
+  fail_unless(!strcmp(XMLNode_getCharacters(child1), "This is more text"));
+  fail_unless(XMLNode_getNumChildren(child1) == 0);
+
+  XMLAttributes_free(att);
+  XMLNamespaces_free(ns);
+  XMLTriple_free(body_triple);
+  XMLTriple_free(p_triple);
+  XMLToken_free(body_token);
+  XMLToken_free(p_token);
+  XMLToken_free(text_token);
+  XMLToken_free(text_token1);
+  XMLNode_free(body_node);
+  XMLNode_free(p_node);
+  XMLNode_free(text_node);
+  XMLNode_free(body_node1);
+  XMLNode_free(p_node1);
+  XMLNode_free(text_node1);
+}
+END_TEST
+
+
+START_TEST (test_SBase_appendNotes7)
+{// add a body tag to an p tag
+  XMLAttributes_t * att = XMLAttributes_create ();
+  XMLNamespaces_t *ns = XMLNamespaces_create();
+  XMLNamespaces_add(ns, "http://www.w3.org/1999/xhtml", "");
+  XMLTriple_t *body_triple = XMLTriple_createWith("body", "", "");
+  XMLTriple_t *p_triple = XMLTriple_createWith("p", "", "");
+  XMLToken_t *body_token = XMLToken_createWithTripleAttrNS(body_triple, att, ns);
+  XMLToken_t *p_token1 = XMLToken_createWithTripleAttrNS(p_triple, att, ns);
+  XMLToken_t *text_token = XMLToken_createWithText("This is my text");
+  XMLToken_t *p_token = XMLToken_createWithTripleAttr(p_triple, att);
+  XMLNode_t *p_node = XMLNode_createFromToken(p_token1);
+  XMLNode_t *text_node = XMLNode_createFromToken(text_token);
+
+  XMLToken_t *text_token1 = XMLToken_createWithText("This is more text");
+  XMLNode_t *body_node1 = XMLNode_createFromToken(body_token);
+  XMLNode_t *p_node1 = XMLNode_createFromToken(p_token);
+  XMLNode_t *text_node1 = XMLNode_createFromToken(text_token1);
+
+  XMLNode_t * notes;
+  const XMLNode_t *child, *child1;
+
+  XMLNode_addChild(p_node, text_node);
+
+  XMLNode_addChild(p_node1, text_node1);
+  XMLNode_addChild(body_node1, p_node1);
+
+  SBase_setNotes(S, p_node);
+  SBase_appendNotes(S, body_node1);
+
+  notes = SBase_getNotes(S);
+
+  fail_unless(!strcmp(XMLNode_getName(notes), "notes"));
+  fail_unless(XMLNode_getNumChildren(notes) == 1);
+
+  child = XMLNode_getChild(notes, 0);
+
+  fail_unless(!strcmp(XMLNode_getName(child), "body"));
+  fail_unless(XMLNode_getNumChildren(child) == 2);
+
+  child1 = XMLNode_getChild(child, 0);
+
+  fail_unless(!strcmp(XMLNode_getName(child1), "p"));
+  fail_unless(XMLNode_getNumChildren(child1) == 1);
+
+  child1 = XMLNode_getChild(child1, 0);
+
+  fail_unless(!strcmp(XMLNode_getCharacters(child1), "This is my text"));
+  fail_unless(XMLNode_getNumChildren(child1) == 0);
+
+  child1 = XMLNode_getChild(child, 1);
+
+  fail_unless(!strcmp(XMLNode_getName(child1), "p"));
+  fail_unless(XMLNode_getNumChildren(child1) == 1);
+
+  child1 = XMLNode_getChild(child1, 0);
+
+  fail_unless(!strcmp(XMLNode_getCharacters(child1), "This is more text"));
+  fail_unless(XMLNode_getNumChildren(child1) == 0);
+
+  XMLAttributes_free(att);
+  XMLNamespaces_free(ns);
+  XMLTriple_free(body_triple);
+  XMLTriple_free(p_triple);
+  XMLToken_free(body_token);
+  XMLToken_free(p_token);
+  XMLToken_free(p_token1);
+  XMLToken_free(text_token);
+  XMLToken_free(text_token1);
+  XMLNode_free(p_node);
+  XMLNode_free(text_node);
+  XMLNode_free(body_node1);
+  XMLNode_free(p_node1);
+  XMLNode_free(text_node1);
+}
+END_TEST
+
+
+START_TEST (test_SBase_appendNotes8)
+{
+  // add a p tag to an body tag
+  XMLAttributes_t * att = XMLAttributes_create ();
+  XMLNamespaces_t *ns = XMLNamespaces_create();
+  XMLNamespaces_add(ns, "http://www.w3.org/1999/xhtml", "");
+  XMLTriple_t *body_triple = XMLTriple_createWith("body", "", "");
+  XMLTriple_t *p_triple = XMLTriple_createWith("p", "", "");
+  XMLToken_t *body_token = XMLToken_createWithTripleAttrNS(body_triple, att, ns);
+  XMLToken_t *p_token = XMLToken_createWithTripleAttr(p_triple, att);
+  XMLToken_t *text_token = XMLToken_createWithText("This is my text");
+  XMLNode_t *body_node = XMLNode_createFromToken(body_token);
+  XMLNode_t *p_node = XMLNode_createFromToken(p_token);
+  XMLNode_t *text_node = XMLNode_createFromToken(text_token);
+
+  XMLToken_t *p_token1 = XMLToken_createWithTripleAttrNS(p_triple, att, ns);
+  XMLToken_t *text_token1 = XMLToken_createWithText("This is more text");
+  XMLNode_t *p_node1 = XMLNode_createFromToken(p_token1);
+  XMLNode_t *text_node1 = XMLNode_createFromToken(text_token1);
+
+  XMLNode_t * notes;
+  const XMLNode_t *child, *child1;
+
+  XMLNode_addChild(p_node, text_node);
+  XMLNode_addChild(body_node, p_node);
+
+  XMLNode_addChild(p_node1, text_node1);
+
+  SBase_setNotes(S, body_node);
+  SBase_appendNotes(S, p_node1);
+
+  notes = SBase_getNotes(S);
+
+  fail_unless(!strcmp(XMLNode_getName(notes), "notes"));
+  fail_unless(XMLNode_getNumChildren(notes) == 1);
+
+  child = XMLNode_getChild(notes, 0);
+
+  fail_unless(!strcmp(XMLNode_getName(child), "body"));
+  fail_unless(XMLNode_getNumChildren(child) == 2);
+
+  child1 = XMLNode_getChild(child, 0);
+
+  fail_unless(!strcmp(XMLNode_getName(child1), "p"));
+  fail_unless(XMLNode_getNumChildren(child1) == 1);
+
+  child1 = XMLNode_getChild(child1, 0);
+
+  fail_unless(!strcmp(XMLNode_getCharacters(child1), "This is my text"));
+  fail_unless(XMLNode_getNumChildren(child1) == 0);
+
+  child1 = XMLNode_getChild(child, 1);
+
+  fail_unless(!strcmp(XMLNode_getName(child1), "p"));
+  fail_unless(XMLNode_getNumChildren(child1) == 1);
+
+  child1 = XMLNode_getChild(child1, 0);
+
+  fail_unless(!strcmp(XMLNode_getCharacters(child1), "This is more text"));
+  fail_unless(XMLNode_getNumChildren(child1) == 0);
+
+  XMLAttributes_free(att);
+  XMLNamespaces_free(ns);
+  XMLTriple_free(body_triple);
+  XMLTriple_free(p_triple);
+  XMLToken_free(body_token);
+  XMLToken_free(p_token);
+  XMLToken_free(text_token);
+  XMLToken_free(text_token1);
+  XMLToken_free(p_token1);
+  XMLNode_free(body_node);
+  XMLNode_free(p_node);
+  XMLNode_free(text_node);
+  XMLNode_free(p_node1);
+  XMLNode_free(text_node1);
+}
+END_TEST
+
+
+START_TEST (test_SBase_appendNotesString)
+{
+  char * notes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>";
+  char * taggednewnotes = "<notes>\n"
+                       "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>\n"
+                       "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n"
+                       "</notes>";
+  char * newnotes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
+
+  SBase_setNotesString(S, notes);
+
+  fail_unless(SBase_isSetNotes(S) == 1);
+
+  SBase_appendNotesString(S, newnotes);
+
+  const char * notes1 = SBase_getNotesString(S);
+
+  fail_unless(SBase_isSetNotes(S) == 1);
+  fail_unless(!strcmp(taggednewnotes, notes1));
+
+}
+END_TEST
+
+
+START_TEST (test_SBase_appendNotesString1)
+{ // add html to html
+  char * notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+                 "  <head/>\n"
+                 "  <body>\n"
+                 "    <p>This is a test note </p>\n"
+                 "  </body>\n"
+                 "</html>";
+  char * taggednewnotes = 
+                 "<notes>\n"
+                 "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+                 "    <head/>\n"
+                 "    <body>\n"
+                 "      <p>This is a test note </p>\n"
+                 "      <p>This is more test notes </p>\n"
+                 "    </body>\n"
+                 "  </html>\n"
+                 "</notes>";
+  char * addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+                 "  <head/>\n"
+                 "  <body>\n"
+                 "    <p>This is more test notes </p>\n"
+                 "  </body>\n"
+                 "</html>";
+
+  SBase_setNotesString(S, notes);
+  SBase_appendNotesString(S, addnotes);
+
+  const char *notes1 = SBase_getNotesString(S);
+
+  fail_unless(SBase_isSetNotes(S) == 1);
+  fail_unless(!strcmp(taggednewnotes, notes1));
+
+}
+END_TEST
+
+
+START_TEST (test_SBase_appendNotesString2)
+{ // add body to html
+  char * notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+                 "  <head/>\n"
+                 "  <body>\n"
+                 "    <p>This is a test note </p>\n"
+                 "  </body>\n"
+                 "</html>";
+  char * taggednewnotes = 
+                 "<notes>\n"
+                 "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+                 "    <head/>\n"
+                 "    <body>\n"
+                 "      <p>This is a test note </p>\n"
+                 "      <p>This is more test notes </p>\n"
+                 "    </body>\n"
+                 "  </html>\n"
+                 "</notes>";
+  char * addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+                    "  <p>This is more test notes </p>\n"
+                    "</body>\n";
+
+  SBase_setNotesString(S, notes);
+  SBase_appendNotesString(S, addnotes);
+
+  const char *notes1 = SBase_getNotesString(S);
+
+  fail_unless(SBase_isSetNotes(S) == 1);
+  fail_unless(!strcmp(taggednewnotes, notes1));
+
+}
+END_TEST
+
+
+START_TEST (test_SBase_appendNotesString3)
+{ // add p to html
+  char * notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+                 "  <head/>\n"
+                 "  <body>\n"
+                 "    <p>This is a test note </p>\n"
+                 "  </body>\n"
+                 "</html>";
+  char * taggednewnotes = 
+                 "<notes>\n"
+                 "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+                 "    <head/>\n"
+                 "    <body>\n"
+                 "      <p>This is a test note </p>\n"
+                 "      <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n"
+                 "    </body>\n"
+                 "  </html>\n"
+                 "</notes>";
+  char * addnotes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
+
+  SBase_setNotesString(S, notes);
+  SBase_appendNotesString(S, addnotes);
+
+  const char *notes1 = SBase_getNotesString(S);
+
+  fail_unless(SBase_isSetNotes(S) == 1);
+  fail_unless(!strcmp(taggednewnotes, notes1));
+
+}
+END_TEST
+
+
+START_TEST (test_SBase_appendNotesString4)
+{ // add html to body
+  char * notes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+                 "  <p>This is a test note </p>\n"
+                 "</body>";
+  char * taggednewnotes = 
+                 "<notes>\n"
+                 "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+                 "    <head/>\n"
+                 "    <body>\n"
+                 "      <p>This is a test note </p>\n"
+                 "      <p>This is more test notes </p>\n"
+                 "    </body>\n"
+                 "  </html>\n"
+                 "</notes>";
+  char * addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+                 "  <head/>\n"
+                 "  <body>\n"
+                 "    <p>This is more test notes </p>\n"
+                 "  </body>\n"
+                 "</html>";
+
+  SBase_setNotesString(S, notes);
+  SBase_appendNotesString(S, addnotes);
+
+  const char *notes1 = SBase_getNotesString(S);
+
+  fail_unless(SBase_isSetNotes(S) == 1);
+  fail_unless(!strcmp(taggednewnotes, notes1));
+
+}
+END_TEST
+
+
+START_TEST (test_SBase_appendNotesString5)
+{ // add html to p
+  char * notes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>";
+  char * taggednewnotes = 
+                 "<notes>\n"
+                 "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+                 "    <head/>\n"
+                 "    <body>\n"
+                 "      <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>\n"
+                 "      <p>This is more test notes </p>\n"
+                 "    </body>\n"
+                 "  </html>\n"
+                 "</notes>";
+  char * addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+                 "  <head/>\n"
+                 "  <body>\n"
+                 "    <p>This is more test notes </p>\n"
+                 "  </body>\n"
+                 "</html>";
+
+  SBase_setNotesString(S, notes);
+  SBase_appendNotesString(S, addnotes);
+
+  const char *notes1 = SBase_getNotesString(S);
+
+  fail_unless(SBase_isSetNotes(S) == 1);
+  fail_unless(!strcmp(taggednewnotes, notes1));
+
+}
+END_TEST
+
+
+START_TEST (test_SBase_appendNotesString6)
+{ // add body to body
+  char * notes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+                 "  <p>This is a test note </p>\n"
+                 "</body>";
+  char * taggednewnotes = 
+                 "<notes>\n"
+                 "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+                 "    <p>This is a test note </p>\n"
+                 "    <p>This is more test notes </p>\n"
+                 "  </body>\n"
+                 "</notes>";
+  char * addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+                 "  <p>This is more test notes </p>\n"
+                 "</body>";
+
+  SBase_setNotesString(S, notes);
+  SBase_appendNotesString(S, addnotes);
+
+  const char *notes1 = SBase_getNotesString(S);
+
+  fail_unless(SBase_isSetNotes(S) == 1);
+  fail_unless(!strcmp(taggednewnotes, notes1));
+
+}
+END_TEST
+
+
+START_TEST (test_SBase_appendNotesString7)
+{ // add body to p
+  char * notes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>";
+  char * taggednewnotes = 
+                 "<notes>\n"
+                 "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+                 "    <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>\n"
+                 "    <p>This is more test notes </p>\n"
+                 "  </body>\n"
+                 "</notes>";
+  char * addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+                 "  <p>This is more test notes </p>\n"
+                 "</body>";
+
+  SBase_setNotesString(S, notes);
+  SBase_appendNotesString(S, addnotes);
+
+  const char *notes1 = SBase_getNotesString(S);
+
+  fail_unless(SBase_isSetNotes(S) == 1);
+  fail_unless(!strcmp(taggednewnotes, notes1));
+
+}
+END_TEST
+
+
+START_TEST (test_SBase_appendNotesString8)
+{ // add p to body
+  char * notes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+                 "  <p>This is a test note </p>\n"
+                 "</body>";
+  char * taggednewnotes = 
+                 "<notes>\n"
+                 "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+                 "    <p>This is a test note </p>\n"
+                 "    <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n"
+                 "  </body>\n"
+                 "</notes>";
+  char * addnotes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
+
+  SBase_setNotesString(S, notes);
+  SBase_appendNotesString(S, addnotes);
+
+  const char *notes1 = SBase_getNotesString(S);
+
+  fail_unless(SBase_isSetNotes(S) == 1);
+  fail_unless(!strcmp(taggednewnotes, notes1));
+
+}
+END_TEST
+
+
 START_TEST(test_SBase_CVTerms)
 {
   CVTerm_t * cv = CVTerm_createWithQualifierType(BIOLOGICAL_QUALIFIER);
@@ -488,6 +1549,25 @@ create_suite_SBase (void)
   tcase_add_test(tcase, test_SBase_setAnnotation );
   tcase_add_test(tcase, test_SBase_setNotesString);
   tcase_add_test(tcase, test_SBase_setAnnotationString);
+
+  tcase_add_test(tcase, test_SBase_appendNotes );
+  tcase_add_test(tcase, test_SBase_appendNotes1 );
+  tcase_add_test(tcase, test_SBase_appendNotes2 );
+  tcase_add_test(tcase, test_SBase_appendNotes3 );
+  tcase_add_test(tcase, test_SBase_appendNotes4 );
+  tcase_add_test(tcase, test_SBase_appendNotes5 );
+  tcase_add_test(tcase, test_SBase_appendNotes6 );
+  tcase_add_test(tcase, test_SBase_appendNotes7 );
+  tcase_add_test(tcase, test_SBase_appendNotes8 );
+  tcase_add_test(tcase, test_SBase_appendNotesString );
+  tcase_add_test(tcase, test_SBase_appendNotesString1);
+  tcase_add_test(tcase, test_SBase_appendNotesString2);
+  tcase_add_test(tcase, test_SBase_appendNotesString3);
+  tcase_add_test(tcase, test_SBase_appendNotesString4);
+  tcase_add_test(tcase, test_SBase_appendNotesString5);
+  tcase_add_test(tcase, test_SBase_appendNotesString6);
+  tcase_add_test(tcase, test_SBase_appendNotesString7);
+  tcase_add_test(tcase, test_SBase_appendNotesString8);
 
   tcase_add_test(tcase, test_SBase_CVTerms );
   tcase_add_test(tcase, test_SBase_addCVTerms );
