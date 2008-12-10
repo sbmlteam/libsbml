@@ -19,6 +19,9 @@
   Mailing lists and online web forums for discussing libSBML are at
                         http://sbml.org/Forums
 
+    To contact the core libSBML developers directly, send email to
+		       libsbml-team@caltech.edu
+
    ,----------------------------------------------------------------.
   | Table of contents                                               |
   | 0. Foreword                                                     |
