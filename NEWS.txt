@@ -4,6 +4,11 @@
 
 * New features:
 
+  - Added functions 'getNumResources' and 'getResourceURI' to the
+    CVTerm class.  These are convenience functions that allow the user 
+    to determine how many resources are stored for the particular term
+    and to index into the values directly.
+
   - Tracker issue #2015847
     Each ListOfXXX class now has derived get functions that return an
     object of the expected class e.g.  ListOfEvents->get() returns
