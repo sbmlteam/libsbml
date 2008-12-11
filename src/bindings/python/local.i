@@ -236,6 +236,40 @@ namespace std
 }
 
 
+/*
+ * SWIG-generated wrapper code wrongly invokes 
+ * XMLOutputStream::writeAttribute(.., const unsigned int& value) instead of
+ * XMLOutputStream::writeAttribute(.., const bool& value) even if the writeAttribute 
+ * function invoked with a bool value (True or False) in Python code.
+ * It seems that a bool value could be casted to unsigned int, int, or long value 
+ * in SWIG-generated internal type check code when these types are overloaded in the
+ * wrapped function.
+ *
+ * To avoid this problem, XMLOutputStream::writeAttribute(.., const bool& value)
+ * is internally wrapped as XMLOutputStream::writeAttributeBool(.., const bool&) 
+ * and this function is properly invoked when the writeAttribute function is invoked
+ * with a bool value in Python code.
+ */
+
+%extend XMLOutputStream
+{
+  void writeAttributeBool(const std::string& name, const bool& value)
+  {
+    $self->writeAttribute(name, value);
+  }
+
+  void writeAttributeBool(const XMLTriple& name, const bool& value)
+  {
+    $self->writeAttribute(name, value);
+  }
+}
+
+%feature("pythonprepend")
+XMLOutputStream::writeAttribute
+%{
+        if type(args[2]) == type(True): return _libsbml.XMLOutputStream_writeAttributeBool(*args)
+%}
+
 /**
  * Add an equality operator to SBase.  All subclasses of SBase
  * will inherit this method.
