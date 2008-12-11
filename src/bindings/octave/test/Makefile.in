@@ -45,18 +45,8 @@ thisdir = src/bindings/octave/test
 # binaries separate.  The approach taken here is to make symbolic links
 # to the Matlab files and then compile in the current directory.
 
-matlab_sources = \
-  testBinding.m       \
-  testReadFromFile1.m \
-  testReadFromFile2.m \
-  testReadFromFile3.m \
-  testReadFromFile4.m \
-  testReadFromFile5.m \
-  testReadFromFile6.m \
-  testReadFromFile7.m \
-  testReadFromFile8.m \
-  testReadFromFile10.m \
-  testReadFromFile11.m
+matlab_test_path = ../../matlab/test
+matlab_test_sources = $(wildcard $(matlab_test_path)/test*.m)
 
 local_sources = \
   testReadFromFile9.m
@@ -71,7 +61,8 @@ distfiles = Makefile.in $(local_sources)
 # `extra_clean' and `extra_distclean' determine the files and directories
 # removed during "make clean" and "make distclean".
 
-extra_disclean = $(matlab_sources)
+symlinks = $(shell find . -type l)
+extra_distclean = $(symlinks)
 
 
 # -----------------------------------------------------------------------------
@@ -81,13 +72,14 @@ extra_disclean = $(matlab_sources)
 all: Makefile link-sources
 
 link-sources:
-	files='$(matlab_sources)'; for file in $$files; do\
-	  if ! test -e $$file; then \
-	    ln -s ../../matlab/test/$$file; \
+	@files='$(matlab_test_sources)'; for file in $$files; do\
+	  lfile=`echo $$file | sed -e 's,.*/,,'`; \
+	  if ! test -e $$lfile; then \
+	    ln -s $$file; \
 	  fi; \
 	done; \
 	if ! test -e test-data; then \
-	  ln -s ../../matlab/test/test-data; \
+	  ln -s $(matlab_test_path)/test-data; \
 	fi
 
 
