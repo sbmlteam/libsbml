@@ -78,7 +78,7 @@ distfiles = Makefile.in
 
 extra_clean = TranslateSBML.$(OCTAVEEXT)
 
-extra_disclean = $(matlab_sources)
+extra_distclean = $(matlab_sources)
 
 
 # -----------------------------------------------------------------------------
