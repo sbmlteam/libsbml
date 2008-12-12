@@ -706,6 +706,14 @@ SWIGJAVA_EQUALS(XMLInputStream)
 %typemap(javain) ASTNode*       newChild "ASTNode.getCPtrAndDisown($javainput)";
 %typemap(javain) const ASTNode* newChild "ASTNode.getCPtr($javainput)";
 
+/**
+ * takeover ownership
+ *
+ * - void addSemanticsAnnotation (XMLNode* sAnnotation);
+ */
+%typemap(javain) XMLNode*       sAnnotation "XMLNode.getCPtrAndDisown($javainput)";
+%typemap(javain) const XMLNode* sAnnotation "XMLNode.getCPtr($javainput)";
+
 
 /**
  * On Windows, a string for filename should be encoded by ANSI CP 
