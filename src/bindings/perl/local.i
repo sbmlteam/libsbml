@@ -127,6 +127,14 @@
   }
 %}
 
+%feature("shadow") ASTNode::addSemanticsAnnotation(XMLNode*)
+%{
+  sub addSemanticsAnnotation {
+    $_[1]->DISOWN() if defined $_[1];
+    return LibSBMLc::ASTNode_addSemanticsAnnotation(@_);
+  }
+%}
+
 /**
  * Wraps standard output streams
  */
