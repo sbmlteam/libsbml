@@ -220,6 +220,14 @@ namespace std
 %apply SWIGTYPE *DISOWN {ASTNode* child};
 %apply SWIGTYPE * {const ASTNode* child};
 
+
+/**
+ * - void ASTNode::insertChild  (unsigned int n, ASTNode* newChild)
+ * - void ASTNode::replaceChild (unsigned int n, ASTNode* newChild)
+ */
+%apply SWIGTYPE *DISOWN {ASTNode* newChild};
+%apply SWIGTYPE * {const ASTNode* newChild};
+
 // ----------------------------------------------------------------------
 // Layout Extension
 // ----------------------------------------------------------------------
