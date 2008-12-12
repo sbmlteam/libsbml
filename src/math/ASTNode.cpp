@@ -760,9 +760,9 @@ ASTNode::getNumChildren () const
  */
 LIBSBML_EXTERN
 void 
-ASTNode::addSemanticsAnnotation (XMLNode* annotation)
+ASTNode::addSemanticsAnnotation (XMLNode* sAnnotation)
 {
-  mSemanticsAnnotations->add(annotation);
+  mSemanticsAnnotations->add(sAnnotation);
 }
 
 

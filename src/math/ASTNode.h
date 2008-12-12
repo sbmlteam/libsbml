@@ -600,10 +600,10 @@ public:
   /**
    * Adds the given XMLNode as a semantic annotation of this ASTNode.
    *
-   * @param annotation the annotation to add.
+   * @param sAnnotation the annotation to add.
    */
   LIBSBML_EXTERN
-  void addSemanticsAnnotation (XMLNode* annotation);
+  void addSemanticsAnnotation (XMLNode* sAnnotation);
 
 
   /**
