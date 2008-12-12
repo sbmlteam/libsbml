@@ -697,6 +697,14 @@ SWIGJAVA_EQUALS(XMLInputStream)
 %typemap(javain) ASTNode*       child "ASTNode.getCPtrAndDisown($javainput)";
 %typemap(javain) const ASTNode* child "ASTNode.getCPtr($javainput)";
 
+/**
+ * takeover ownership
+ *
+ * - void ASTNode::insertChild (unsigned int n, ASTNode *newChild)
+ * - void ASTNode::replaceChild(unsigned int n, ASTNode *newChild)
+ */
+%typemap(javain) ASTNode*       newChild "ASTNode.getCPtrAndDisown($javainput)";
+%typemap(javain) const ASTNode* newChild "ASTNode.getCPtr($javainput)";
 
 
 /**
