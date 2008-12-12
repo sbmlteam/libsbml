@@ -300,7 +300,7 @@ public:
    * 
    * @return a (deep) copy of this Parameter.
    */
-  virtual SBase* clone () const;
+  virtual Parameter* clone () const;
 
 
   /**
@@ -527,7 +527,7 @@ public:
    *
    * @return a (deep) copy of this ListOfParameters.
    */
-  virtual SBase* clone () const;
+  virtual ListOfParameters* clone () const;
 
   /**
    * Returns the libSBML type code for this %SBML object.

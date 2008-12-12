@@ -219,7 +219,7 @@ public:
    * 
    * @return a (deep) copy of this Event.
    */
-  virtual SBase* clone () const;
+  virtual Event* clone () const;
 
 
   /**
@@ -603,7 +603,7 @@ public:
    *
    * @return a (deep) copy of this ListOfEvents.
    */
-  virtual SBase* clone () const;
+  virtual ListOfEvents* clone () const;
 
   /**
    * Returns the libSBML type code for this %SBML object.

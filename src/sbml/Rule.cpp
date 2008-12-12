@@ -136,7 +136,7 @@ Rule::accept (SBMLVisitor& v) const
 /*
  * @return a (deep) copy of this Rule.
  */
-SBase*
+Rule*
 Rule::clone () const
 {
   return new Rule(*this);
@@ -912,7 +912,7 @@ AlgebraicRule::~AlgebraicRule ()
 /*
  * @return a (deep) copy of this Rule.
  */
-SBase*
+AlgebraicRule*
 AlgebraicRule::clone () const
 {
   return new AlgebraicRule(*this);
@@ -975,7 +975,7 @@ AssignmentRule::~AssignmentRule ()
 /*
  * @return a (deep) copy of this Rule.
  */
-SBase*
+AssignmentRule*
 AssignmentRule::clone () const
 {
   return new AssignmentRule(*this);
@@ -1036,7 +1036,7 @@ RateRule::~RateRule ()
 /*
  * @return a (deep) copy of this Rule.
  */
-SBase*
+RateRule*
 RateRule::clone () const
 {
   return new RateRule(*this);
@@ -1062,7 +1062,7 @@ RateRule::accept (SBMLVisitor& v) const
 /*
  * @return a (deep) copy of this ListOfRules.
  */
-SBase*
+ListOfRules*
 ListOfRules::clone () const
 {
   return new ListOfRules(*this);

@@ -376,7 +376,7 @@ SpeciesReference::accept (SBMLVisitor& v) const
 /*
  * @return a (deep) copy of this SpeciesReference.
  */
-SBase*
+SpeciesReference*
 SpeciesReference::clone () const
 {
   return new SpeciesReference(*this);
@@ -1023,7 +1023,7 @@ ModifierSpeciesReference::accept (SBMLVisitor& v) const
 /*
  * @return a (deep) copy of this ModifierSpeciesReference.
  */
-SBase*
+ModifierSpeciesReference*
 ModifierSpeciesReference::clone () const
 {
   return new ModifierSpeciesReference(*this);
@@ -1153,7 +1153,7 @@ ListOfSpeciesReferences::ListOfSpeciesReferences () : mType(Unknown)
 /*
  * @return a (deep) copy of this ListOfUnits.
  */
-SBase*
+ListOfSpeciesReferences*
 ListOfSpeciesReferences::clone () const
 {
   return new ListOfSpeciesReferences(*this);

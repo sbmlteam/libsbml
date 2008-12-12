@@ -216,7 +216,7 @@ public:
    * 
    * @return a (deep) copy of this SpeciesType.
    */
-  virtual SBase* clone () const;
+  virtual SpeciesType* clone () const;
 
 
   /**
@@ -275,7 +275,7 @@ public:
    *
    * @return a (deep) copy of this ListOfSpeciesTypes.
    */
-  virtual SBase* clone () const;
+  virtual ListOfSpeciesTypes* clone () const;
 
   /**
    * Returns the libSBML type code for this %SBML object.

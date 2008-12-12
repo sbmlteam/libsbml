@@ -267,7 +267,7 @@ public:
    * 
    * @return a (deep) copy of this EventAssignment.
    */
-  virtual SBase* clone () const;
+  virtual EventAssignment* clone () const;
 
 
   /**
@@ -454,7 +454,7 @@ public:
    *
    * @return a (deep) copy of this ListOfEventAssignments.
    */
-  virtual SBase* clone () const;
+  virtual ListOfEventAssignments* clone () const;
 
   /**
    * Returns the libSBML type code for this %SBML object.

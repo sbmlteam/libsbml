@@ -227,7 +227,7 @@ SBMLDocument::accept (SBMLVisitor& v) const
 /*
  * @return a (deep) copy of this SBMLDocument.
  */
-SBase*
+SBMLDocument*
 SBMLDocument::clone () const
 {
   return new SBMLDocument(*this);

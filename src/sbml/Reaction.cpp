@@ -189,7 +189,7 @@ Reaction::accept (SBMLVisitor& v) const
 /*
  * @return a (deep) copy of this Reaction.
  */
-SBase*
+Reaction*
 Reaction::clone () const
 {
   return new Reaction(*this);
@@ -984,7 +984,7 @@ Reaction::writeElements (XMLOutputStream& stream) const
 /*
  * @return a (deep) copy of this ListOfReactions.
  */
-SBase*
+ListOfReactions*
 ListOfReactions::clone () const
 {
   return new ListOfReactions(*this);

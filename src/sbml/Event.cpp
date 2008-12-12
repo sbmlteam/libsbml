@@ -142,7 +142,7 @@ Event::accept (SBMLVisitor& v) const
 /*
  * @return a (deep) copy of this Event.
  */
-SBase*
+Event*
 Event::clone () const
 {
   return new Event(*this);
@@ -736,7 +736,7 @@ Event::writeElements (XMLOutputStream& stream) const
 /*
  * @return a (deep) copy of this ListOfEvents.
  */
-SBase*
+ListOfEvents*
 ListOfEvents::clone () const
 {
   return new ListOfEvents(*this);

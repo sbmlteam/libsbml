@@ -315,7 +315,7 @@ public:
    * 
    * @return a (deep) copy of this InitialAssignment.
    */
-  virtual SBase* clone () const;
+  virtual InitialAssignment* clone () const;
 
 
   /**
@@ -501,7 +501,7 @@ public:
    *
    * @return a (deep) copy of this ListOfInitialAssignments.
    */
-  virtual SBase* clone () const;
+  virtual ListOfInitialAssignments* clone () const;
 
 
   /**

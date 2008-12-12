@@ -291,7 +291,7 @@ public:
    *
    * @return a (deep) copy of this KineticLaw.
    */
-  virtual SBase* clone () const;
+  virtual KineticLaw* clone () const;
 
 
   /**

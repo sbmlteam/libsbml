@@ -223,7 +223,7 @@ public:
    * 
    * @return a (deep) copy of this CompartmentType.
    */
-  virtual SBase* clone () const;
+  virtual CompartmentType* clone () const;
 
 
   /**
@@ -282,7 +282,7 @@ public:
    *
    * @return a (deep) copy of this ListOfCompartmentTypes.
    */
-  virtual SBase* clone () const;
+  virtual ListOfCompartmentTypes* clone () const;
 
   /**
    * Returns the libSBML type code for this %SBML object.

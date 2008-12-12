@@ -156,7 +156,7 @@ Species::accept (SBMLVisitor& v) const
 /*
  * @return a (deep) copy of this Species.
  */
-SBase*
+Species*
 Species::clone () const
 {
   return new Species(*this);
@@ -964,7 +964,7 @@ Species::writeAttributes (XMLOutputStream& stream) const
 /*
  * @return a (deep) copy of this ListOfSpecies.
  */
-SBase*
+ListOfSpecies*
 ListOfSpecies::clone () const
 {
   return new ListOfSpecies(*this);

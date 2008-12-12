@@ -377,7 +377,7 @@ public:
    * 
    * @return a (deep) copy of this Species.
    */
-  virtual SBase* clone () const;
+  virtual Species* clone () const;
 
 
   /**
@@ -905,7 +905,7 @@ public:
    *
    * @return a (deep) copy of this ListOfSpeciess.
    */
-  virtual SBase* clone () const;
+  virtual ListOfSpecies* clone () const;
 
 
   /**

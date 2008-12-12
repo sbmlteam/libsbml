@@ -37,9 +37,137 @@
  * In JDK 1.4.2, libsbml's *::clone() methods can't override 
  * "Object Java.lang.Object.clone()" because JDK 1.4.2 doesn't
  * allow override with different return type. 
+ *
+ * (2008-12-07)
+ * Currently, JDK 1.5 or later, which allows a covariant return type,
+ * is required for libSBML Java binding, and thus we don't have to use
+ * this rename directive. However, this directive is still enabled for 
+ * compatiblity.
  */
 
 %rename(cloneObject) *::clone;
+
+/**
+ * Wraps covariant return types of ::clone functions.
+ *
+ * Currently, SWIG doesn't allow a covariant return type although
+ * JDK 1.5 or later supports it.
+ * Thus, the following directives are required to enable the 
+ * covariant return type. 
+ */
+
+#pragma SWIG nowarn=822
+
+%define COVARIANT_RTYPE_CLONE(_CNAME_)
+%typemap(jstype) _CNAME_* _CNAME_::clone  "_CNAME_"
+%enddef
+
+COVARIANT_RTYPE_CLONE(Compartment)
+COVARIANT_RTYPE_CLONE(CompartmentType)
+COVARIANT_RTYPE_CLONE(Constraint)
+COVARIANT_RTYPE_CLONE(Delay)
+COVARIANT_RTYPE_CLONE(Event)
+COVARIANT_RTYPE_CLONE(EventAssignment)
+COVARIANT_RTYPE_CLONE(FunctionDefinition)
+COVARIANT_RTYPE_CLONE(InitialAssignment)
+COVARIANT_RTYPE_CLONE(KineticLaw)
+COVARIANT_RTYPE_CLONE(ListOf)
+COVARIANT_RTYPE_CLONE(Model)
+COVARIANT_RTYPE_CLONE(Parameter)
+COVARIANT_RTYPE_CLONE(Reaction)
+COVARIANT_RTYPE_CLONE(Rule)
+COVARIANT_RTYPE_CLONE(AlgebraicRule)
+COVARIANT_RTYPE_CLONE(AssignmentRule)
+COVARIANT_RTYPE_CLONE(RateRule)
+COVARIANT_RTYPE_CLONE(SBMLDocument)
+COVARIANT_RTYPE_CLONE(Species)
+COVARIANT_RTYPE_CLONE(SpeciesReference)
+COVARIANT_RTYPE_CLONE(SpeciesType)
+COVARIANT_RTYPE_CLONE(StoichiometryMath)
+COVARIANT_RTYPE_CLONE(Trigger)
+COVARIANT_RTYPE_CLONE(Unit)
+COVARIANT_RTYPE_CLONE(UnitDefinition)
+COVARIANT_RTYPE_CLONE(ListOf)
+COVARIANT_RTYPE_CLONE(ListOfCompartmentTypes)
+COVARIANT_RTYPE_CLONE(ListOfCompartments)
+COVARIANT_RTYPE_CLONE(ListOfConstraints)
+COVARIANT_RTYPE_CLONE(ListOfEventAssignments)
+COVARIANT_RTYPE_CLONE(ListOfEvents)
+COVARIANT_RTYPE_CLONE(ListOfFunctionDefinitions)
+COVARIANT_RTYPE_CLONE(ListOfInitialAssignments)
+COVARIANT_RTYPE_CLONE(ListOfParameters)
+COVARIANT_RTYPE_CLONE(ListOfReactions)
+COVARIANT_RTYPE_CLONE(ListOfRules)
+COVARIANT_RTYPE_CLONE(ListOfSpecies)
+COVARIANT_RTYPE_CLONE(ListOfSpeciesReferences)
+COVARIANT_RTYPE_CLONE(ListOfSpeciesTypes)
+COVARIANT_RTYPE_CLONE(ListOfUnitDefinitions)
+COVARIANT_RTYPE_CLONE(ListOfUnits)
+
+#ifdef USE_LAYOUT
+COVARIANT_RTYPE_CLONE(BoundingBox)
+COVARIANT_RTYPE_CLONE(CompartmentGlyph)
+COVARIANT_RTYPE_CLONE(CubicBezier)
+COVARIANT_RTYPE_CLONE(Curve)
+COVARIANT_RTYPE_CLONE(Dimensions)
+COVARIANT_RTYPE_CLONE(GraphicalObject)
+COVARIANT_RTYPE_CLONE(Layout)
+COVARIANT_RTYPE_CLONE(LineSegment)
+COVARIANT_RTYPE_CLONE(Point)
+COVARIANT_RTYPE_CLONE(ReactionGlyph)
+COVARIANT_RTYPE_CLONE(SpeciesGlyph)
+COVARIANT_RTYPE_CLONE(SpeciesReferenceGlyph)
+COVARIANT_RTYPE_CLONE(TextGlyph)
+COVARIANT_RTYPE_CLONE(ListOfGraphicalObjects)
+COVARIANT_RTYPE_CLONE(ListOfLayouts)
+COVARIANT_RTYPE_CLONE(ListOfLineSegments)
+COVARIANT_RTYPE_CLONE(ListOfReactionGlyphs)
+COVARIANT_RTYPE_CLONE(ListOfSpeciesGlyphs)
+COVARIANT_RTYPE_CLONE(ListOfSpeciesReferenceGlyphs)
+COVARIANT_RTYPE_CLONE(ListOfTextGlyphs)
+COVARIANT_RTYPE_CLONE(ListOfCompartmentGlyphs)
+#endif
+
+/**
+ *
+ * Wraps covariant return types of ListOfXXX::get functions.
+ *
+ */
+
+%define COVARIANT_RTYPE_LISTOF_GET(_CNAME_)
+%typemap(jstype) _CNAME_* ListOf ## _CNAME_ ## s::get  "_CNAME_"
+%enddef
+
+COVARIANT_RTYPE_LISTOF_GET(CompartmentType)
+COVARIANT_RTYPE_LISTOF_GET(Compartment)
+COVARIANT_RTYPE_LISTOF_GET(EventAssignment)
+COVARIANT_RTYPE_LISTOF_GET(Event)
+COVARIANT_RTYPE_LISTOF_GET(FunctionDefinition)
+COVARIANT_RTYPE_LISTOF_GET(InitialAssignment)
+COVARIANT_RTYPE_LISTOF_GET(Parameter)
+COVARIANT_RTYPE_LISTOF_GET(Reaction)
+COVARIANT_RTYPE_LISTOF_GET(Rule)
+COVARIANT_RTYPE_LISTOF_GET(SpeciesType)
+COVARIANT_RTYPE_LISTOF_GET(UnitDefinition)
+COVARIANT_RTYPE_LISTOF_GET(Constraint)
+COVARIANT_RTYPE_LISTOF_GET(Unit)
+
+// Only ListOfSpecies and ListOfSpeciesReference classes do not 
+// match the above macro...
+%typemap(jstype) Species* ListOfSpecies::get  "Species"
+%typemap(jstype) SimpleSpeciesReference* ListOfSpeciesReferences::get  "SimpleSpeciesReference"
+
+
+#ifdef USE_LAYOUT
+COVARIANT_RTYPE_LISTOF_GET(GraphicalObject)
+COVARIANT_RTYPE_LISTOF_GET(Layout)
+COVARIANT_RTYPE_LISTOF_GET(LineSegment)
+COVARIANT_RTYPE_LISTOF_GET(ReactionGlyph)
+COVARIANT_RTYPE_LISTOF_GET(SpeciesGlyph)
+COVARIANT_RTYPE_LISTOF_GET(SpeciesReferenceGlyph)
+COVARIANT_RTYPE_LISTOF_GET(TextGlyph)
+COVARIANT_RTYPE_LISTOF_GET(CompartmentGlyph)
+#endif
 
 /**
  * Ignores XMLToken::clone() in order to use XMLNode::clone().
@@ -49,7 +177,7 @@
  * allow override with different return type.
  */
 
-%javamethodmodifiers       XMLToken::clone "private"
+//%javamethodmodifiers       XMLToken::clone "private"
 
 /**
  * Ignores XMLErrorLog::getError(unsigned int) in order to use
@@ -60,7 +188,7 @@
  * due to the above mentioned reason.
  */
 
-%javamethodmodifiers       XMLErrorLog::getError "private"
+//%javamethodmodifiers       XMLErrorLog::getError "private"
 
 /**
  * Turns off object destruction.  For testing purposes only.

@@ -386,7 +386,7 @@ public:
    * 
    * @return a (deep) copy of this Unit.
    */
-  virtual SBase* clone () const;
+  virtual Unit* clone () const;
 
 
   /**
@@ -1049,7 +1049,7 @@ public:
    *
    * @return a (deep) copy of this ListOfUnits.
    */
-  virtual SBase* clone () const;
+  virtual ListOfUnits* clone () const;
 
 
   /**

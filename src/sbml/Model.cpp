@@ -212,7 +212,7 @@ Model::accept (SBMLVisitor& v) const
 /*
  * @return a (deep) copy of this Model.
  */
-SBase*
+Model*
 Model::clone () const
 {
   return new Model(*this);

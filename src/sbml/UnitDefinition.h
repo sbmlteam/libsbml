@@ -388,7 +388,7 @@ public:
    * 
    * @return a (deep) copy of this UnitDefinition.
    */
-  virtual SBase* clone () const;
+  virtual UnitDefinition* clone () const;
 
 
   /**
@@ -773,7 +773,7 @@ public:
    *
    * @return a (deep) copy of this ListOfUnitDefinitions.
    */
-  virtual SBase* clone () const;
+  virtual ListOfUnitDefinitions* clone () const;
 
   /**
    * Returns the libSBML type code for this %SBML object.

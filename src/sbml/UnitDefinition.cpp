@@ -112,7 +112,7 @@ UnitDefinition::accept (SBMLVisitor& v) const
 /*
  * @return a (deep) copy of this UnitDefinition.
  */
-SBase*
+UnitDefinition*
 UnitDefinition::clone () const
 {
   return new UnitDefinition(*this);
@@ -1022,7 +1022,7 @@ UnitDefinition::writeElements (XMLOutputStream& stream) const
 /*
  * @return a (deep) copy of this ListOfUnitDefinitions.
  */
-SBase*
+ListOfUnitDefinitions*
 ListOfUnitDefinitions::clone () const
 {
   return new ListOfUnitDefinitions(*this);

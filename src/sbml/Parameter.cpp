@@ -139,7 +139,7 @@ Parameter::accept (SBMLVisitor& v) const
 /*
  * @return a (deep) copy of this Parameter.
  */
-SBase*
+Parameter*
 Parameter::clone () const
 {
   return new Parameter(*this);
@@ -529,7 +529,7 @@ Parameter::writeAttributes (XMLOutputStream& stream) const
 /*
  * @return a (deep) copy of this ListOfParameters.
  */
-SBase*
+ListOfParameters*
 ListOfParameters::clone () const
 {
   return new ListOfParameters(*this);

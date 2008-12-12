@@ -259,7 +259,7 @@ public:
    * 
    * @return a (deep) copy of this FunctionDefinition.
    */
-  virtual SBase* clone () const;
+  virtual FunctionDefinition* clone () const;
 
 
   /**
@@ -424,7 +424,7 @@ public:
    *
    * @return a (deep) copy of this ListOfFunctionDefinitions.
    */
-  virtual SBase* clone () const;
+  virtual ListOfFunctionDefinitions* clone () const;
 
   /**
    * Returns the libSBML type code for this %SBML object.

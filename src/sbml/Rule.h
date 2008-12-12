@@ -482,7 +482,7 @@ public:
    * 
    * @return a (deep) copy of this Rule.
    */
-  virtual SBase* clone () const;
+  virtual Rule* clone () const;
 
 
   /**
@@ -950,7 +950,7 @@ public:
    * 
    * @return a (deep) copy of this Rule.
    */
-  virtual SBase* clone () const;
+  virtual AlgebraicRule* clone () const;
 
 
   /**
@@ -1060,7 +1060,7 @@ public:
    * 
    * @return a (deep) copy of this Rule.
    */
-  virtual SBase* clone () const;
+  virtual AssignmentRule* clone () const;
 
 
   /**
@@ -1169,7 +1169,7 @@ public:
    * 
    * @return a (deep) copy of this Rule.
    */
-  virtual SBase* clone () const;
+  virtual RateRule* clone () const;
 
 
   /**
@@ -1193,7 +1193,7 @@ public:
    *
    * @return a (deep) copy of this ListOfRules.
    */
-  virtual SBase* clone () const;
+  virtual ListOfRules* clone () const;
 
   /**
    * Returns the libSBML type code for this %SBML object.

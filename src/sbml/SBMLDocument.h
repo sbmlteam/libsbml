@@ -201,7 +201,7 @@ public:
    * 
    * @return a (deep) copy of this SBMLDocument.
    */
-  virtual SBase* clone () const;
+  virtual SBMLDocument* clone () const;
 
 
   /**

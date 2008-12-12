@@ -220,7 +220,7 @@ public:
    *
    * @return a (deep) copy of this Delay.
    */
-  virtual SBase* clone () const;
+  virtual Delay* clone () const;
 
 
   /**

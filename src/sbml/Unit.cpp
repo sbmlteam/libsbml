@@ -145,7 +145,7 @@ Unit::accept (SBMLVisitor& v) const
 /*
  * @return a (deep) copy of this Unit.
  */
-SBase*
+Unit*
 Unit::clone () const
 {
   return new Unit(*this);
@@ -1389,7 +1389,7 @@ Unit::writeAttributes (XMLOutputStream& stream) const
 /*
  * @return a (deep) copy of this ListOfUnits.
  */
-SBase*
+ListOfUnits*
 ListOfUnits::clone () const
 {
   return new ListOfUnits(*this);

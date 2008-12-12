@@ -124,7 +124,7 @@ Constraint::accept (SBMLVisitor& v) const
 /*
  * @return a (deep) copy of this Constraint.
  */
-SBase*
+Constraint*
 Constraint::clone () const
 {
   return new Constraint(*this);
@@ -437,7 +437,7 @@ Constraint::writeElements (XMLOutputStream& stream) const
 /*
  * @return a (deep) copy of this ListOfConstraints.
  */
-SBase*
+ListOfConstraints*
 ListOfConstraints::clone () const
 {
   return new ListOfConstraints(*this);

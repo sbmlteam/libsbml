@@ -112,7 +112,7 @@ Trigger::accept (SBMLVisitor& v) const
 /*
  * @return a (deep) copy of this Trigger.
  */
-SBase*
+Trigger*
 Trigger::clone () const
 {
   return new Trigger(*this);

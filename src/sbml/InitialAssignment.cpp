@@ -113,7 +113,7 @@ InitialAssignment::accept (SBMLVisitor& v) const
 /*
  * @return a (deep) copy of this InitialAssignment.
  */
-SBase*
+InitialAssignment*
 InitialAssignment::clone () const
 {
   return new InitialAssignment(*this);
@@ -445,7 +445,7 @@ InitialAssignment::writeAttributes (XMLOutputStream& stream) const
 /*
  * @return a (deep) copy of this ListOfInitialAssignments.
  */
-SBase*
+ListOfInitialAssignments*
 ListOfInitialAssignments::clone () const
 {
   return new ListOfInitialAssignments(*this);

@@ -130,7 +130,7 @@ FunctionDefinition::accept (SBMLVisitor& v) const
 /*
  * @return a (deep) copy of this FunctionDefinition.
  */
-SBase*
+FunctionDefinition*
 FunctionDefinition::clone () const
 {
   return new FunctionDefinition(*this);
@@ -479,7 +479,7 @@ FunctionDefinition::writeElements (XMLOutputStream& stream) const
 /*
  * @return a (deep) copy of this ListOfFunctionDefinitions.
  */
-SBase*
+ListOfFunctionDefinitions*
 ListOfFunctionDefinitions::clone () const
 {
   return new ListOfFunctionDefinitions(*this);

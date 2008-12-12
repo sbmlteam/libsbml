@@ -238,7 +238,7 @@ public:
    *
    * @return a (deep) copy of this StoichiometryMath.
    */
-  virtual SBase* clone () const;
+  virtual StoichiometryMath* clone () const;
 
 
   /**

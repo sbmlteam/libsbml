@@ -166,7 +166,7 @@ public:
    *
    * @return a (deep) copy of this Trigger.
    */
-  virtual SBase* clone () const;
+  virtual Trigger* clone () const;
 
 
   /**

@@ -104,7 +104,7 @@ CompartmentType::accept (SBMLVisitor& v) const
 /*
  * @return a (deep) copy of this CompartmentType.
  */
-SBase*
+CompartmentType*
 CompartmentType::clone () const
 {
   return new CompartmentType(*this);
@@ -249,7 +249,7 @@ CompartmentType::writeAttributes (XMLOutputStream& stream) const
 /*
  * @return a (deep) copy of this ListOfCompartmentTypes.
  */
-SBase*
+ListOfCompartmentTypes*
 ListOfCompartmentTypes::clone () const
 {
   return new ListOfCompartmentTypes(*this);

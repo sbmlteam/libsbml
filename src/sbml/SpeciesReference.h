@@ -515,7 +515,7 @@ public:
    *
    * @return a (deep) copy of this SpeciesReference.
    */
-  virtual SBase* clone () const;
+  virtual SpeciesReference* clone () const;
 
 
   /**
@@ -999,7 +999,7 @@ public:
    *
    * @return a (deep) copy of this ModifierSpeciesReference.
    */
-  virtual SBase* clone () const;
+  virtual ModifierSpeciesReference* clone () const;
 
 
   /**
@@ -1069,7 +1069,7 @@ public:
    *
    * @return a (deep) copy of this ListOfSpeciesReferences.
    */
-  virtual SBase* clone () const;
+  virtual ListOfSpeciesReferences* clone () const;
 
 
   /**

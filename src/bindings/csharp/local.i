@@ -810,6 +810,135 @@ SWIGCS_EQUALS(XMLInputStream)
 
 
 /**
+ * Wraps covariant return types of ::clone functions.
+ *
+ * Currently, C# doesn't support covariant return types.
+ * However, in wrapped C# functions, covariant return types can be emulated 
+ * just by changing the method modifier ("override" -> "new").
+ */
+
+#pragma SWIG nowarn=842
+
+%define COVARIANT_RTYPE_CLONE(_CNAME_)
+%typemap(cstype) _CNAME_* _CNAME_::clone  "_CNAME_"
+%csmethodmodifiers _CNAME_::clone  "public new"
+%enddef
+
+COVARIANT_RTYPE_CLONE(Compartment)
+COVARIANT_RTYPE_CLONE(CompartmentType)
+COVARIANT_RTYPE_CLONE(Constraint)
+COVARIANT_RTYPE_CLONE(Delay)
+COVARIANT_RTYPE_CLONE(Event)
+COVARIANT_RTYPE_CLONE(EventAssignment)
+COVARIANT_RTYPE_CLONE(FunctionDefinition)
+COVARIANT_RTYPE_CLONE(InitialAssignment)
+COVARIANT_RTYPE_CLONE(KineticLaw)
+COVARIANT_RTYPE_CLONE(Model)
+COVARIANT_RTYPE_CLONE(Parameter)
+COVARIANT_RTYPE_CLONE(Reaction)
+COVARIANT_RTYPE_CLONE(Rule)
+COVARIANT_RTYPE_CLONE(AlgebraicRule)
+COVARIANT_RTYPE_CLONE(AssignmentRule)
+COVARIANT_RTYPE_CLONE(RateRule)
+COVARIANT_RTYPE_CLONE(SBMLDocument)
+COVARIANT_RTYPE_CLONE(Species)
+COVARIANT_RTYPE_CLONE(SpeciesReference)
+COVARIANT_RTYPE_CLONE(SpeciesType)
+COVARIANT_RTYPE_CLONE(StoichiometryMath)
+COVARIANT_RTYPE_CLONE(Trigger)
+COVARIANT_RTYPE_CLONE(Unit)
+COVARIANT_RTYPE_CLONE(UnitDefinition)
+COVARIANT_RTYPE_CLONE(ListOf)
+COVARIANT_RTYPE_CLONE(ListOfCompartmentTypes)
+COVARIANT_RTYPE_CLONE(ListOfCompartments)
+COVARIANT_RTYPE_CLONE(ListOfConstraints)
+COVARIANT_RTYPE_CLONE(ListOfEventAssignments)
+COVARIANT_RTYPE_CLONE(ListOfEvents)
+COVARIANT_RTYPE_CLONE(ListOfFunctionDefinitions)
+COVARIANT_RTYPE_CLONE(ListOfInitialAssignments)
+COVARIANT_RTYPE_CLONE(ListOfParameters)
+COVARIANT_RTYPE_CLONE(ListOfReactions)
+COVARIANT_RTYPE_CLONE(ListOfRules)
+COVARIANT_RTYPE_CLONE(ListOfSpecies)
+COVARIANT_RTYPE_CLONE(ListOfSpeciesReferences)
+COVARIANT_RTYPE_CLONE(ListOfSpeciesTypes)
+COVARIANT_RTYPE_CLONE(ListOfUnitDefinitions)
+COVARIANT_RTYPE_CLONE(ListOfUnits)
+
+#ifdef USE_LAYOUT
+COVARIANT_RTYPE_CLONE(BoundingBox)
+COVARIANT_RTYPE_CLONE(CompartmentGlyph)
+COVARIANT_RTYPE_CLONE(CubicBezier)
+COVARIANT_RTYPE_CLONE(Curve)
+COVARIANT_RTYPE_CLONE(Dimensions)
+COVARIANT_RTYPE_CLONE(GraphicalObject)
+COVARIANT_RTYPE_CLONE(Layout)
+COVARIANT_RTYPE_CLONE(LineSegment)
+COVARIANT_RTYPE_CLONE(Point)
+COVARIANT_RTYPE_CLONE(ReactionGlyph)
+COVARIANT_RTYPE_CLONE(SpeciesGlyph)
+COVARIANT_RTYPE_CLONE(SpeciesReferenceGlyph)
+COVARIANT_RTYPE_CLONE(TextGlyph)
+COVARIANT_RTYPE_CLONE(ListOfGraphicalObjects)
+COVARIANT_RTYPE_CLONE(ListOfLayouts)
+COVARIANT_RTYPE_CLONE(ListOfLineSegments)
+COVARIANT_RTYPE_CLONE(ListOfReactionGlyphs)
+COVARIANT_RTYPE_CLONE(ListOfSpeciesGlyphs)
+COVARIANT_RTYPE_CLONE(ListOfSpeciesReferenceGlyphs)
+COVARIANT_RTYPE_CLONE(ListOfTextGlyphs)
+COVARIANT_RTYPE_CLONE(ListOfCompartmentGlyphs)
+#endif
+
+/**
+ *
+ * Wraps covariant return types of ListOfXXX::get functions.
+ *
+ * Currently, C# doesn't support covariant return types.
+ * However, in wrapped C# functions, covariant return types can be emulated 
+ * just by changing the method modifier ("override" -> "new").
+ */
+
+%define COVARIANT_RTYPE_LISTOF_GET(_CNAME_)
+%typemap(cstype) _CNAME_* ListOf ## _CNAME_ ## s::get  "_CNAME_"
+%csmethodmodifiers ListOf ## _CNAME_ ## s::get  "public new"
+%enddef
+
+COVARIANT_RTYPE_LISTOF_GET(CompartmentType)
+COVARIANT_RTYPE_LISTOF_GET(Compartment)
+COVARIANT_RTYPE_LISTOF_GET(EventAssignment)
+COVARIANT_RTYPE_LISTOF_GET(Event)
+COVARIANT_RTYPE_LISTOF_GET(FunctionDefinition)
+COVARIANT_RTYPE_LISTOF_GET(InitialAssignment)
+COVARIANT_RTYPE_LISTOF_GET(Parameter)
+COVARIANT_RTYPE_LISTOF_GET(Reaction)
+COVARIANT_RTYPE_LISTOF_GET(Rule)
+COVARIANT_RTYPE_LISTOF_GET(SpeciesType)
+COVARIANT_RTYPE_LISTOF_GET(UnitDefinition)
+COVARIANT_RTYPE_LISTOF_GET(Constraint)
+COVARIANT_RTYPE_LISTOF_GET(Unit)
+
+// Only ListOfSpecies and ListOfSpeciesReference classes do not 
+// match the above macro...
+%typemap(cstype) Species* ListOfSpecies::get  "Species"
+%csmethodmodifiers ListOfSpecies::get "public new"
+
+%typemap(cstype) SimpleSpeciesReference* ListOfSpeciesReferences::get  "SimpleSpeciesReference"
+%csmethodmodifiers ListOfSpeciesReferences::get  "public new"
+
+
+#ifdef USE_LAYOUT
+COVARIANT_RTYPE_LISTOF_GET(GraphicalObject)
+COVARIANT_RTYPE_LISTOF_GET(Layout)
+COVARIANT_RTYPE_LISTOF_GET(LineSegment)
+COVARIANT_RTYPE_LISTOF_GET(ReactionGlyph)
+COVARIANT_RTYPE_LISTOF_GET(SpeciesGlyph)
+COVARIANT_RTYPE_LISTOF_GET(SpeciesReferenceGlyph)
+COVARIANT_RTYPE_LISTOF_GET(TextGlyph)
+COVARIANT_RTYPE_LISTOF_GET(CompartmentGlyph)
+#endif
+
+
+/**
  * Most libSBML methods takeover ownership of passed-in objects, so we need
  * to make sure SWIG disowns the object.
  */

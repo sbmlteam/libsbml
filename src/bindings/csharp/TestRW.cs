@@ -67,6 +67,7 @@ namespace TestLibSBMLCSharp
             }
 
             testCreateSBML();
+            testCovariantReturnTypes();
 
             // 
             // Prints result
@@ -87,6 +88,192 @@ namespace TestLibSBMLCSharp
             Console.Out.WriteLine("\nAll tests passed.\n");
 
             Environment.Exit(0);
+        }
+
+        static void testCovariantReturnTypes()
+        {
+          //
+          // test clone() methods 
+          //
+          testClone(new Compartment());
+          testClone(new CompartmentType());
+          testClone(new Constraint());
+          testClone(new Delay());
+          testClone(new Event());
+          testClone(new EventAssignment());
+          testClone(new FunctionDefinition());
+          testClone(new InitialAssignment());
+          testClone(new KineticLaw());
+          testClone(new Model());
+          testClone(new Parameter());
+          testClone(new Reaction());
+          testClone(new AlgebraicRule());
+          testClone(new AssignmentRule());
+          testClone(new RateRule());
+          testClone(new SBMLDocument());
+          testClone(new Species());
+          testClone(new SpeciesReference());
+          testClone(new SpeciesType());
+          testClone(new StoichiometryMath());
+          testClone(new Trigger());
+          testClone(new Unit());
+          testClone(new UnitDefinition());
+          testClone(new ListOf());
+          testClone(new ListOfCompartmentTypes());
+          testClone(new ListOfCompartments());
+          testClone(new ListOfConstraints());
+          testClone(new ListOfEventAssignments());
+          testClone(new ListOfEvents());
+          testClone(new ListOfFunctionDefinitions());
+          testClone(new ListOfInitialAssignments());
+          testClone(new ListOfParameters());
+          testClone(new ListOfReactions());
+          testClone(new ListOfRules());
+          testClone(new ListOfSpecies());
+          testClone(new ListOfSpeciesReferences());
+          testClone(new ListOfSpeciesTypes());
+          testClone(new ListOfUnitDefinitions());
+          testClone(new ListOfUnits());
+
+          //
+          // test ListOfXXX:get() methods 
+          //
+          testListOfGet(new ListOfCompartmentTypes(), new CompartmentType());
+          testListOfGet(new ListOfCompartments(), new Compartment());
+          testListOfGet(new ListOfConstraints(), new Constraint());
+          testListOfGet(new ListOfEventAssignments(), new EventAssignment());
+          testListOfGet(new ListOfEvents(), new Event());
+          testListOfGet(new ListOfFunctionDefinitions(), new FunctionDefinition());
+          testListOfGet(new ListOfInitialAssignments(), new InitialAssignment());
+          testListOfGet(new ListOfParameters(), new Parameter());
+          testListOfGet(new ListOfReactions(), new Reaction());
+          testListOfGet(new ListOfRules(), new AssignmentRule());
+          testListOfGet(new ListOfRules(), new AlgebraicRule());
+          testListOfGet(new ListOfRules(), new RateRule());
+          testListOfGet(new ListOfSpecies(), new Species());
+          testListOfGet(new ListOfSpeciesReferences(), new SpeciesReference());
+          testListOfGet(new ListOfSpeciesTypes(), new SpeciesType());
+          testListOfGet(new ListOfUnitDefinitions(), new UnitDefinition());
+          testListOfGet(new ListOfUnits(), new Unit());
+        }
+
+        static void testClone(SBase s)
+        {
+          string ename = s.getElementName();
+          SBase c = s.clone();
+
+          if ( c is Compartment ) { Compartment x = (s as Compartment).clone(); c = x; }
+          else if ( c is CompartmentType ) { CompartmentType x = (s as CompartmentType).clone(); c = x; }
+          else if ( c is Constraint ) { Constraint x = (s as Constraint).clone(); c = x; }
+          else if ( c is Delay ) { Delay x = (s as Delay).clone(); c = x; }
+          else if ( c is Event ) { Event x = (s as Event).clone(); c = x; }
+          else if ( c is EventAssignment ) { EventAssignment x = (s as EventAssignment).clone(); c = x; }
+          else if ( c is FunctionDefinition ) { FunctionDefinition x = (s as FunctionDefinition).clone(); c = x; }
+          else if ( c is InitialAssignment ) { InitialAssignment x = (s as InitialAssignment).clone(); c = x; }
+          else if ( c is KineticLaw ) { KineticLaw x = (s as KineticLaw).clone(); c = x; }
+          // currently return type of ListOf::clone() is SBase
+          else if ( c is ListOf ) { SBase x = (s as ListOf).clone(); c = x; }
+          else if ( c is Model ) { Model x = (s as Model).clone(); c = x; }
+          else if ( c is Parameter ) { Parameter x = (s as Parameter).clone(); c = x; }
+          else if ( c is Reaction ) { Reaction x = (s as Reaction).clone(); c = x; }
+          else if ( c is AlgebraicRule ) { AlgebraicRule x = (s as AlgebraicRule).clone(); c = x; }
+          else if ( c is AssignmentRule ) { AssignmentRule x = (s as AssignmentRule).clone(); c = x; }
+          else if ( c is RateRule ) { RateRule x = (s as RateRule).clone(); c = x; }
+          else if ( c is SBMLDocument ) { SBMLDocument x = (s as SBMLDocument).clone(); c = x; }
+          else if ( c is Species ) { Species x = (s as Species).clone(); c = x; }
+          else if ( c is SpeciesReference ) { SpeciesReference x = (s as SpeciesReference).clone(); c = x; }
+          else if ( c is SpeciesType ) { SpeciesType x = (s as SpeciesType).clone(); c = x; }
+          else if ( c is SpeciesReference ) { SpeciesReference x = (s as SpeciesReference).clone(); c = x; }
+          else if ( c is StoichiometryMath ) { StoichiometryMath x = (s as StoichiometryMath).clone(); c = x; }
+          else if ( c is Trigger ) { Trigger x = (s as Trigger).clone(); c = x; }
+          else if ( c is Unit ) { Unit x = (s as Unit).clone(); c = x; }
+          else if ( c is UnitDefinition ) { UnitDefinition x = (s as UnitDefinition).clone(); c = x; }
+          else if ( c is ListOfCompartmentTypes ) { ListOfCompartmentTypes x = (s as ListOfCompartmentTypes).clone(); c = x; }
+          else if ( c is ListOfCompartments ) { ListOfCompartments x = (s as ListOfCompartments).clone(); c = x; }
+          else if ( c is ListOfConstraints ) { ListOfConstraints x = (s as ListOfConstraints).clone(); c = x; }
+          else if ( c is ListOfEventAssignments ) { ListOfEventAssignments x = (s as ListOfEventAssignments).clone(); c = x; }
+          else if ( c is ListOfEvents ) { ListOfEvents x = (s as ListOfEvents).clone(); c = x; }
+          else if ( c is ListOfFunctionDefinitions ) { ListOfFunctionDefinitions x = (s as ListOfFunctionDefinitions).clone(); c = x; }
+          else if ( c is ListOfInitialAssignments ) { ListOfInitialAssignments x = (s as ListOfInitialAssignments).clone(); c = x; }
+          else if ( c is ListOfParameters ) { ListOfParameters x = (s as ListOfParameters).clone(); c = x; }
+          else if ( c is ListOfReactions ) { ListOfReactions x = (s as ListOfReactions).clone(); c = x; }
+          else if ( c is ListOfRules ) { ListOfRules x = (s as ListOfRules).clone(); c = x; }
+          else if ( c is ListOfSpecies ) { ListOfSpecies x = (s as ListOfSpecies).clone(); c = x; }
+          else if ( c is ListOfSpeciesReferences ) { ListOfSpeciesReferences x = (s as ListOfSpeciesReferences).clone(); c = x; }
+          else if ( c is ListOfSpeciesTypes ) { ListOfSpeciesTypes x = (s as ListOfSpeciesTypes).clone(); c = x; }
+          else if ( c is ListOfUnitDefinitions ) { ListOfUnitDefinitions x = (s as ListOfUnitDefinitions).clone(); c = x; }
+          else if ( c is ListOfUnits ) { ListOfUnits x = (s as ListOfUnits).clone(); c = x; }
+          else
+          {
+            ERR("[testClone] Error: (" + ename + ") : clone() failed.");
+            return;
+          }
+
+          if ( c == null)
+          {
+            ERR("[testClone] Error: (" + ename + ") : clone() failed.");
+            return;
+          }
+
+          string enameClone = c.getElementName();
+
+          if ( ename == enameClone )
+          {
+            //Console.Out.WriteLine("[testClone] OK: (" + ename + ") clone(" + enameClone + ") : type match.");
+            OK();
+          }
+          else
+          {
+            ERR("[testClone] Error: (" + ename + ") clone(" + enameClone + ") : type mismatch.");
+          } 
+
+        }
+
+        static void testListOfGet(ListOf lof, SBase s)
+        {
+          string ename = s.getElementName();
+
+          lof.append(s);
+          SBase c = lof.get(0);
+
+          if ( c is CompartmentType ) { CompartmentType x = (lof as ListOfCompartmentTypes).get(0); c = x; }
+          else if ( c is Compartment ) { Compartment x = (lof as ListOfCompartments).get(0); c = x; }
+          else if ( c is Constraint )  { Constraint x = (lof as ListOfConstraints).get(0); c = x; }
+          else if ( c is EventAssignment ) { EventAssignment x = (lof as ListOfEventAssignments).get(0); c = x; }
+          else if ( c is Event ) { Event x = (lof as ListOfEvents).get(0); c = x; }
+          else if ( c is FunctionDefinition ) { FunctionDefinition x = (lof as ListOfFunctionDefinitions).get(0); c = x; }
+          else if ( c is InitialAssignment ) { InitialAssignment x = (lof as ListOfInitialAssignments).get(0); c = x; }
+          else if ( c is Parameter ) { Parameter x = (lof as ListOfParameters).get(0); c = x; }
+          else if ( c is Reaction ) { Reaction x = (lof as ListOfReactions).get(0); c = x; }
+          else if ( c is Rule ) { Rule x = (lof as ListOfRules).get(0); c = x; }
+          else if ( c is Species ) { Species x = (lof as ListOfSpecies).get(0); c = x; }
+          else if ( c is SpeciesReference ) { SimpleSpeciesReference x = (lof as ListOfSpeciesReferences).get(0); c = x; }
+          else if ( c is SpeciesType ) { SpeciesType x = (lof as ListOfSpeciesTypes).get(0); c = x; }
+          else if ( c is UnitDefinition ) { UnitDefinition x = (lof as ListOfUnitDefinitions).get(0); c = x; }
+          else if ( c is Unit ) { Unit x = (lof as ListOfUnits).get(0); c = x; }
+          else
+          {
+            ERR("[testListOfGet] Error: (" + ename + ") : ListOfXXX::get() failed.");
+            return;
+          }
+
+          if ( c == null)
+          {
+            ERR("[testListOfGet] Error: (" + ename + ") : ListOfXXX::get() failed.");
+            return;
+          }
+
+          string enameGet = c.getElementName();
+
+          if ( ename == enameGet )
+          {
+            //Console.Out.WriteLine("[testListOfGet] OK: (" + ename + ") get(" + enameGet + ") : type match.");
+            OK();
+          }
+          else
+          {
+            ERR("[testListOfGet] Error: (" + ename + ") get(" + enameGet + ") : type mismatch.");
+          }
         }
 
 

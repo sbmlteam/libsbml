@@ -112,7 +112,7 @@ StoichiometryMath::accept (SBMLVisitor& v) const
 /*
  * @return a (deep) copy of this StoichiometryMath.
  */
-SBase*
+StoichiometryMath*
 StoichiometryMath::clone () const
 {
   return new StoichiometryMath(*this);

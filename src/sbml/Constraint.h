@@ -259,7 +259,7 @@ public:
    * 
    * @return a (deep) copy of this Constraint.
    */
-  virtual SBase* clone () const;
+  virtual Constraint* clone () const;
 
 
   /**
@@ -408,7 +408,7 @@ public:
    *
    * @return a (deep) copy of this ListOfConstraints.
    */
-  virtual SBase* clone () const;
+  virtual ListOfConstraints* clone () const;
 
   /**
    * Returns the libSBML type code for this %SBML object.

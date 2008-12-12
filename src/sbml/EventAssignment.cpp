@@ -116,7 +116,7 @@ EventAssignment::accept (SBMLVisitor& v) const
 /*
  * @return a (deep) copy of this EventAssignment.
  */
-SBase*
+EventAssignment*
 EventAssignment::clone () const
 {
   return new EventAssignment(*this);
@@ -462,7 +462,7 @@ EventAssignment::writeAttributes (XMLOutputStream& stream) const
 /*
  * @return a (deep) copy of this ListOfEventAssignments.
  */
-SBase*
+ListOfEventAssignments*
 ListOfEventAssignments::clone () const
 {
   return new ListOfEventAssignments(*this);

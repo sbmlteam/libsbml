@@ -288,7 +288,7 @@ public:
    * 
    * @return a (deep) copy of this Reaction.
    */
-  virtual SBase* clone () const;
+  virtual Reaction* clone () const;
 
 
   /**
@@ -865,7 +865,7 @@ public:
    *
    * @return a (deep) copy of this ListOfReactions.
    */
-  virtual SBase* clone () const;
+  virtual ListOfReactions* clone () const;
 
 
   /**

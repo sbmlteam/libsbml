@@ -147,7 +147,7 @@ KineticLaw::accept (SBMLVisitor& v) const
 /*
  * @return a (deep) copy of this KineticLaw.
  */
-SBase*
+KineticLaw*
 KineticLaw::clone () const
 {
   return new KineticLaw(*this);

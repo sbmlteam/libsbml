@@ -112,7 +112,7 @@ Delay::accept (SBMLVisitor& v) const
 /*
  * @return a (deep) copy of this Delay.
  */
-SBase*
+Delay*
 Delay::clone () const
 {
   return new Delay(*this);
