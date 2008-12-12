@@ -835,6 +835,16 @@ SWIGCS_EQUALS(XMLInputStream)
 %typemap(csin) const ASTNode* child "ASTNode.getCPtr($csinput)";
 
 /**
+ * takeover ownership
+ *
+ * - void ASTNode::insertChild  (unsigned int n, ASTNode* newChild)
+ * - void ASTNode::replaceChild (unsigned int n, ASTNode* newChild)
+ */
+%typemap(csin) ASTNode*       newChild "ASTNode.getCPtrAndDisown($csinput)";
+%typemap(csin) const ASTNode* newChild "ASTNode.getCPtr($csinput)";
+
+
+/**
  * Of course, there are some exceptions to the above rule.  These typemaps
  * cover the following functions:
  *
