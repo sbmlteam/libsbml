@@ -111,6 +111,22 @@
   }
 %}
 
+%feature("shadow") ASTNode::insertChild(unsigned int, ASTNode*)
+%{
+  sub insertChild {
+    $_[2]->DISOWN() if defined $_[2];
+    return LibSBMLc::ASTNode_insertChild(@_);
+  }
+%}
+
+%feature("shadow") ASTNode::replaceChild(unsigned int, ASTNode*)
+%{
+  sub replaceChild {
+    $_[2]->DISOWN() if defined $_[2];
+    return LibSBMLc::ASTNode_replaceChild(@_);
+  }
+%}
+
 /**
  * Wraps standard output streams
  */
