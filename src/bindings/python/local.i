@@ -346,8 +346,9 @@ TAKEOVER_OWNERSHIP(ListOf::appendAndOwn(SBase*),1)
 
 TAKEOVER_OWNERSHIP(ASTNode::addChild(ASTNode*),1)
 TAKEOVER_OWNERSHIP(ASTNode::prependChild(ASTNode*),1)
-TAKEOVER_OWNERSHIP(ASTNode::insertChild(unsigned int, ASTNode*),1)
-TAKEOVER_OWNERSHIP(ASTNode::replaceChild(unsigned int, ASTNode*),1)
+TAKEOVER_OWNERSHIP(ASTNode::insertChild(unsigned int, ASTNode*),2)
+TAKEOVER_OWNERSHIP(ASTNode::replaceChild(unsigned int, ASTNode*),2)
+TAKEOVER_OWNERSHIP(ASTNode::addSemanticsAnnotation(XMLNode*),1)
 
 // ----------------------------------------------------------------------
 // SBMLReader
