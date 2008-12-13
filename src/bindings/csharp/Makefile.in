@@ -132,7 +132,7 @@ endif # USE_LAYOUT
 # GCC 4 with -O2 or higher optimization, and the problem can be avoided by adding
 # -fno-strict-aliasing option.
 
-ifeq (GCC,$(findstring GCC,$(shell $(CXX) --version)))
+ifeq (GCC,$(findstring GCC,$(shell $(CXX) -dumpversion | sed -e 's/^[34]\./GCC/' )))
       CXXFLAGS += -fno-strict-aliasing
 endif
 
