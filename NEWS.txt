@@ -14,6 +14,11 @@
     object of the expected class e.g.  ListOfEvents->get() returns
     an Event *.
 
+  - Tracker issue #2015847
+    The clone function on each of the sbml component classes now returns
+    a pointer to the appropriate class in place of the SBase * previously
+    returned.
+
   - Tracker issue #2136796
     There is now additional code to check the ordering of assignment rules
     in a L1 or L2V1 model.  
@@ -38,8 +43,8 @@
     is only reported if n exceeds the size of the node; invalid ASTNodes 
     resulting from the operation are not reported.
 
-  - Classes relating to SBML components have two additional constructors:
-    the first is of the form XXX(unsigned int level, unsigned int version, 
+  - Classes relating to SBML components have an additional constructor
+    of the form XXX(unsigned int level, unsigned int version, 
     XMLNamespaces* xmlns = 0).  This function constructs the object as
     in other constructors but additionally sets new SBase variables 
     mObjectLevel and mObjectVersion and the mNamespaces variable previously 

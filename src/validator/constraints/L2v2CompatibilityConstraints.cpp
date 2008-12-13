@@ -180,3 +180,9 @@ START_CONSTRAINT (93004, KineticLaw, kl)
 }
 END_CONSTRAINT
 
+
+START_CONSTRAINT (93005, Event, e)
+{
+  inv( e.getUseValuesFromTriggerTime() == true);
+}
+END_CONSTRAINT

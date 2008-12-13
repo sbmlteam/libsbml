@@ -99,3 +99,10 @@ START_CONSTRAINT (94005, Event, e)
 
 }
 END_CONSTRAINT
+
+
+START_CONSTRAINT (94006, Event, e)
+{
+  inv( e.getUseValuesFromTriggerTime() == true);
+}
+END_CONSTRAINT

@@ -474,6 +474,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\validator\constraints\L2v4CompatibilityConstraints.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\validator\L2v4CompatibilityValidator.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\validator\constraints\LambdaMathCheck.cpp"
 				>
 			</File>

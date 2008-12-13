@@ -247,7 +247,8 @@
 			</File>
                         <File
                                 RelativePath="..\..\src\compress\zipfstream.cpp"
-                                >                                                                                      </File>
+                                >
+                        </File>
                         <File
                                 RelativePath="..\..\src\compress\ioapi.c"
                                 >
@@ -259,7 +260,8 @@
                         <File
                                 RelativePath="..\..\src\compress\zip.c"
                                 >
-                        </File>                                                                                        <File
+                        </File>
+                        <File
                                 RelativePath="..\..\src\compress\unzip.c"
                                 >
                         </File>
@@ -449,6 +451,14 @@
 			</File>
 			<File
 				RelativePath="..\..\src\validator\L2v3CompatibilityValidator.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\L2v4CompatibilityConstraints.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\validator\L2v4CompatibilityValidator.cpp"
 				>
 			</File>
 			<File
@@ -1037,6 +1047,10 @@
 			</File>
 			<File
 				RelativePath="..\..\src\validator\L2v3CompatibilityValidator.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\validator\L2v4CompatibilityValidator.h"
 				>
 			</File>
 			<File

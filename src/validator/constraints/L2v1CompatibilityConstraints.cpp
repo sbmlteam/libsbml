@@ -263,3 +263,10 @@ START_CONSTRAINT (92006, SpeciesReference, sr)
   inv( sr.isSetId() == 0  );
 }
 END_CONSTRAINT
+
+
+START_CONSTRAINT (92007, Event, e)
+{
+  inv( e.getUseValuesFromTriggerTime() == true);
+}
+END_CONSTRAINT

@@ -664,6 +664,7 @@ typedef enum
   , NoCompartmentTypeInL2v1          = 92004
   , NoSBOTermsInL2v1                 = 92005
   , NoIdOnSpeciesReferenceInL2v1     = 92006
+  , NoDelayedEventAssignmentInL2v1   = 92007
 
   /* L2v2 compatability */
 
@@ -671,6 +672,7 @@ typedef enum
   , NoUnitOffsetInL2v2               = 93002
   , NoKineticLawTimeUnitsInL2v2      = 93003
   , NoKineticLawSubstanceUnitsInL2v2 = 93004
+  , NoDelayedEventAssignmentInL2v2   = 93005
 
   /* L2v3 compatability  */
 
@@ -679,6 +681,15 @@ typedef enum
   , NoKineticLawSubstanceUnitsInL2v3 = 94003
   , NoSpeciesSpatialSizeUnitsInL2v3  = 94004
   , NoEventTimeUnitsInL2v3           = 94005
+  , NoDelayedEventAssignmentInL2v3   = 94006
+
+  /* L2v4 compatability  */
+
+  , NoUnitOffsetInL2v4               = 95001
+  , NoKineticLawTimeUnitsInL2v4      = 95002
+  , NoKineticLawSubstanceUnitsInL2v4 = 95003
+  , NoSpeciesSpatialSizeUnitsInL2v4  = 95004
+  , NoEventTimeUnitsInL2v4           = 95005
 
   /* These are errors checked by libSBML that were never
    * published in a spec. */
@@ -824,10 +835,15 @@ typedef enum
      * SBML and computational modeling.  (These are tests performed by
      * libSBML and do not have equivalent SBML validation rules.) */
 
-     , LIBSBML_CAT_INTERNAL_CONSISTENCY
+  , LIBSBML_CAT_INTERNAL_CONSISTENCY
     /*!< Category of errors that can occur while validating the internal
      * representation of SBML constructs.  */
 
+  , LIBSBML_CAT_SBML_L2V4_COMPAT
+    /*!< Category of errors that can only occur during attempted
+     * translation from one Level/Version of SBML to another.  This
+     * particular category applies to errors encountered while trying to
+     * convert a model to SBML Level&nbsp;2 Version 4. */
 
 } SBMLErrorCategory_t;
 

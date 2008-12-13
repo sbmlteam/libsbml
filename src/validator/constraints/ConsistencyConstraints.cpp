@@ -1857,6 +1857,21 @@ START_CONSTRAINT (21206, Event, e)
 END_CONSTRAINT
 
 
+START_CONSTRAINT (21207, Event, e)
+{
+  pre (e.getLevel() > 1);
+  if (e.getLevel() == 2)
+  {
+    pre (e.getVersion() > 3);
+  }
+  
+  pre (e.getUseValuesFromTriggerTime() == false);
+  
+  inv( e.isSetDelay() == true);
+
+}
+END_CONSTRAINT
+
 //EventAssignment validation
 
 START_CONSTRAINT (21211, EventAssignment, ea)

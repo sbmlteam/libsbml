@@ -41,6 +41,7 @@
 #include <sbml/validator/L2v1CompatibilityValidator.h>
 #include <sbml/validator/L2v2CompatibilityValidator.h>
 #include <sbml/validator/L2v3CompatibilityValidator.h>
+#include <sbml/validator/L2v4CompatibilityValidator.h>
 #include <sbml/validator/InternalConsistencyValidator.h>
 
 #include <sbml/Model.h>
@@ -316,6 +317,13 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
       else if (version == 3)
       {
         if (!conversion_errors(checkL2v3Compatibility()))
+        {
+          conversionSuccess = true;
+        }
+      }
+      else if (version == 4)
+      {
+        if (!conversion_errors(checkL2v4Compatibility()))
         {
           conversionSuccess = true;
         }
@@ -830,6 +838,28 @@ SBMLDocument::checkL2v3Compatibility ()
   if (mModel == 0) return 0;
 
   L2v3CompatibilityValidator validator;
+  validator.init();
+
+  unsigned int nerrors = validator.validate(*this);
+  if (nerrors) mErrorLog.add( validator.getFailures() );
+
+  return nerrors;
+}
+
+
+/*
+ * Performs a set of semantic consistency checks on the document to establish
+ * whether it is compatible with L2v4 and can be converted.  Query
+ * the results by calling getNumErrors() and getError().
+ *
+ * @return the number of failed checks (errors) encountered.
+ */
+unsigned int
+SBMLDocument::checkL2v4Compatibility ()
+{
+  if (mModel == 0) return 0;
+
+  L2v4CompatibilityValidator validator;
   validator.init();
 
   unsigned int nerrors = validator.validate(*this);

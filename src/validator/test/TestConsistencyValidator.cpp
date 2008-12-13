@@ -37,6 +37,7 @@
 #include "L2v1CompatibilityValidator.h"
 #include "L2v2CompatibilityValidator.h"
 #include "L2v3CompatibilityValidator.h"
+#include "L2v4CompatibilityValidator.h"
 #include <sbml/validator/ModelingPracticeValidator.h>
 
 /** @cond doxygen-ignored */
@@ -198,6 +199,22 @@ bool
 runL2v3Test (const TestFile& file)
 {
   L2v3CompatibilityValidator validator;
+  TestValidator            tester(validator);
+
+
+  validator.init();
+
+  return tester.test(file);
+}
+
+/**
+ * @return true if the Validator behaved as expected when validating
+ * TestFile, false otherwise.
+ */
+bool
+runL2v4Test (const TestFile& file)
+{
+  L2v4CompatibilityValidator validator;
   TestValidator            tester(validator);
 
 
@@ -374,6 +391,9 @@ main (int argc, char* argv[])
 
   failed += runTests("Testing L2v3 Compatibility Constraints (94000 - 94999)",
 		     "test-data-conversion", 94000, 94999, runL2v3Test, library);
+
+  failed += runTests("Testing L2v3 Compatibility Constraints (94000 - 94999)",
+		     "test-data-conversion", 95000, 95999, runL2v4Test, library);
 
   failed += runTests("Testing Additional SBML Constraints (99100 - 99199)",
 		     "test-data", 99100, 99199, runAdditionalSBMLTest, library);

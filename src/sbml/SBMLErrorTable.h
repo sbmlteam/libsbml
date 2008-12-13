@@ -3306,6 +3306,23 @@ static const sbmlErrorTableEntry errorTable[] =
     "represented directly in SBML Level 2 Version 1."
   },
 
+  //92007
+  {
+    NoDelayedEventAssignmentInL2v1,
+    LIBSBML_CAT_SBML_L2V1_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "The implication of 'useValuesFromTriggerTime=false' "
+    "is that there is a delay between the time of trigger and the "
+    "time of value assignments performed by the <event>.  This interpretation is "
+    "supported by SBML Level 2 versions prior to Version 4. "
+    "(References: L2V3 Section 4.14; L2V4 Section 4.14)"
+  },
+
   //93001
   {
     SBOTermNotUniversalInL2v2,
@@ -3369,6 +3386,23 @@ static const sbmlErrorTableEntry errorTable[] =
     "Version 2. In SBML Level 2 Version 2, the substance units of a reaction "
     "rate expression are those of the global 'substance' units of the model. "
     "(References: L2V2 Section 4.13.5.)"
+  },
+
+  //93005
+  {
+    NoDelayedEventAssignmentInL2v2,
+    LIBSBML_CAT_SBML_L2V2_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "The implication of 'useValuesFromTriggerTime=false' "
+    "is that there is a delay between the time of trigger and the "
+    "time of value assignments performed by the <event>.  This interpretation is "
+    "supported by SBML Level 2 versions prior to Version 4. "
+    "(References: L2V3 Section 4.14; L2V4 Section 4.14)"
   },
 
   //94001
@@ -3439,6 +3473,102 @@ static const sbmlErrorTableEntry errorTable[] =
   {
     NoEventTimeUnitsInL2v3,
     LIBSBML_CAT_SBML_L2V3_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "The 'timeUnits' attribute on <event>, previously available in SBML "
+    "Level 2 versions prior to Version 3, has been removed as of SBML "
+    "Level 2 Version 3. (References: L2V3 Section 4.14; L2V4 Section 4.14)"
+  },
+
+  //94006
+  {
+    NoDelayedEventAssignmentInL2v3,
+    LIBSBML_CAT_SBML_L2V3_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "The implication of 'useValuesFromTriggerTime=false' "
+    "is that there is a delay between the time of trigger and the "
+    "time of value assignments performed by the <event>.  This interpretation is "
+    "supported by SBML Level 2 versions prior to Version 4. "
+    "(References: L2V3 Section 4.14; L2V4 Section 4.14)"
+  },
+
+  //95001
+  {
+    NoUnitOffsetInL2v4,
+    LIBSBML_CAT_SBML_L2V4_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "The 'offset' attribute on <unit> previously available in SBML Level 2 "
+    "Version 1, has been removed as of SBML Level 2 Version 2. (References: "
+    "L2V2 Section 4.4.)"
+  },
+
+  //95002
+  {
+    NoKineticLawTimeUnitsInL2v4,
+    LIBSBML_CAT_SBML_L2V4_COMPAT,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "The 'timeUnits' attribute on <kineticLaw>, previously available in SBML "
+    "Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
+    "Version 2. In SBML Level 2 Version 3, the time units of a reaction rate "
+    "expression are those of the global 'time' units of the model. "
+    "(References: L2V2 Section 4.13.5.)"
+  },
+
+  //95003
+  {
+    NoKineticLawSubstanceUnitsInL2v4,
+    LIBSBML_CAT_SBML_L2V4_COMPAT,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "The 'substanceUnits' attribute on <kineticLaw>, previously available in "
+    "SBML Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
+    "Version 2. In SBML Level 2 Version 3, the substance units of a reaction "
+    "rate expression are those of the global 'substance' units of the model. "
+    "(References: L2V2 Section 4.13.5.)"
+  },
+
+  //95004
+  {
+    NoSpeciesSpatialSizeUnitsInL2v4,
+    LIBSBML_CAT_SBML_L2V4_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "The 'spatialSizeUnits' attribute on <species>, previously available "
+    "in SBML Level 2 versions prior to Version 3, has been removed as "
+    "of SBML Level 2 Version 3. (References: L2V3 Section 4.8; L2V4 Section 4.8)"
+  },
+
+  //95005
+  {
+    NoEventTimeUnitsInL2v4,
+    LIBSBML_CAT_SBML_L2V4_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,

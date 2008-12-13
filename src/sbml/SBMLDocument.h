@@ -237,8 +237,9 @@ public:
    * use constructs specific to more advanced Levels of SBML.
    *
    * Callers can also check compatibility directly using the methods
-   * checkL1Compatibility(), checkL2v1Compatibility(), and 
-   * checkL2v2Compatibility().
+   * checkL1Compatibility(), checkL2v1Compatibility(),  
+   * checkL2v2Compatibility(), checkL2v3Compatibility() and
+   * chcekL2v4Compatibility().
    * 
    * The valid combinations as of this release of libSBML are the
    * following: 
@@ -247,6 +248,7 @@ public:
    * <li> Level&nbsp;2 Version&nbsp;1
    * <li> Level&nbsp;2 Version&nbsp;2
    * <li> Level&nbsp;2 Version&nbsp;3
+   * <li> Level&nbsp;2 Version&nbsp;4
    * </ul>
    * 
    * @param level the desired SBML Level
@@ -450,6 +452,19 @@ public:
    * @return the number of failed checks (errors) encountered.
    */
   unsigned int checkL2v3Compatibility ();
+
+
+  /**
+   * Performs a set of consistency checks on the document to establish
+   * whether it is compatible with SBML Level&nbsp;2 Version&nbsp;3 and can
+   * be converted to Level&nbsp;2 Version&nbsp;4.
+   *
+   * Callers should query the results of the consistency check by calling
+   * getError().
+   *
+   * @return the number of failed checks (errors) encountered.
+   */
+  unsigned int checkL2v4Compatibility ();
 
 
   /**
