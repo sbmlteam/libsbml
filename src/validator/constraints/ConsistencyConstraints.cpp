@@ -1839,7 +1839,7 @@ END_CONSTRAINT
 
 // FIXME
 
-START_CONSTRAINT (21206, Event, e)
+START_CONSTRAINT (99206, Event, e)
 {
   pre (e.getLevel() > 1);
   if (e.getLevel() == 2)
@@ -1857,7 +1857,7 @@ START_CONSTRAINT (21206, Event, e)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (21207, Event, e)
+START_CONSTRAINT (21206, Event, e)
 {
   pre (e.getLevel() > 1);
   if (e.getLevel() == 2)

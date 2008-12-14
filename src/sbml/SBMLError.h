@@ -597,7 +597,7 @@ typedef enum
   , MissingEventAssignment           = 21203 /*!< SBML L2v3 validation rule #21203 */
   , TimeUnitsEvent                   = 21204 /*!< SBML L2v3 validation rule #21204 */
   , IncorrectOrderInEvent            = 21205 /*!< SBML L2v3 validation rule #21205 */
-  , TimeUnitsRemoved                 = 21206 /*!< SBML L2v3 validation rule #21206 */
+  , ValuesFromTriggerTimeNeedDelay   = 21206 /*!< SBML L2v3 validation rule #21206 */
   , InvalidEventAssignmentVariable   = 21211 /*!< SBML L2v3 validation rule #21211 */
   , EventAssignmentForConstantEntity = 21212 /*!< SBML L2v3 validation rule #21212 */
 
@@ -698,6 +698,7 @@ typedef enum
   , SubsUnitsAllowedInKL             = 99127
   , TimeUnitsAllowedInKL             = 99128
   , FormulaInLevel1KL                = 99129
+  , TimeUnitsRemoved                 = 99206 /*!< SBML L2v3 validation rule #21206 */
 
   , BadMathML                        = 99219
   , FailedMathMLReadOfDouble         = 99220

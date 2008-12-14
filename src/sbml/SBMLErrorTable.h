@@ -2660,17 +2660,20 @@ static const sbmlErrorTableEntry errorTable[] =
 
   //21206
   {
-    TimeUnitsRemoved,
+    ValuesFromTriggerTimeNeedDelay,
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    "The 'timeUnits' attribute on <event>, previously available in SBML "
-    "Level 2 versions prior to Version 3, has been removed as of SBML "
-    "Level 2 Version 3. (References: L2V3 Section 4.14; L2V4 Section 4.14)"
+    "If an <event>'s 'useValuesFromTriggerTime' attribute has the "
+    "value 'false', then the <event> must contain a <delay> "
+    "element.  The implication of 'useValuesFromTriggerTime=false' "
+    "is that there is a delay between the time of trigger and the "
+    "time of value assignments performed by the <event>.  "
+    "(References: L2V4 Section 4.14.)"
   },
 
   //21211
@@ -3639,6 +3642,21 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     "In a Level 1 model, only predefined functions are permitted "
     "within the formula inside the KineticLaw. (L1V2 Appendix C) "
+  },
+
+  //99206
+  {
+    TimeUnitsRemoved,
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    "The 'timeUnits' attribute on <event>, previously available in SBML "
+    "Level 2 versions prior to Version 3, has been removed as of SBML "
+    "Level 2 Version 3. (References: L2V3 Section 4.14; L2V4 Section 4.14)"
   },
 
   //99219
