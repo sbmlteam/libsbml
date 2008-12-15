@@ -505,7 +505,7 @@ public:
    * Get the value of the "variable" attribute of this Rule.
    *
    * This applies to AssignmentRule and RateRule, which have explicit
-   * left-hand sides in their equations.  AssignmentRule does not have a
+   * left-hand sides in their equations.  AlgebraicRule does not have a
    * variable field.
    * 
    * @return the identifier string stored as the "variable" attribute value
