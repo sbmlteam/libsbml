@@ -351,7 +351,7 @@ print_whitespace()
 {
   i=$1
   if test -n "$i"; then
-    while expr $i > 0
+    while expr $i \> 0 > /dev/null
     do 
       i=`expr $i - 1`; echo -n ' '
     done
