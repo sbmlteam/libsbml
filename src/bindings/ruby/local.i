@@ -187,17 +187,9 @@ namespace std
 }
 
 /**
- * Convert SBase objects into the most specific type possible.
+ * Convert SBase, SimpleSpeciesReference, and Rule objects into the most specific type possible.
  */
-%typemap(out) SBase*
-{
-  $result = SWIG_NewPointerObj($1, GetDowncastSwigType($1), $owner | %newpointer_flags);
-}
-
-/**
- * Convert Rule objects into the most specific type possible.
- */
-%typemap(out) Rule*
+%typemap(out) SBase*, SimpleSpeciesReference*, Rule*
 {
   $result = SWIG_NewPointerObj($1, GetDowncastSwigType($1), $owner | %newpointer_flags);
 }

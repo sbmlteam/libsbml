@@ -609,6 +609,15 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 	return (Rule) libsbml.DowncastSBase($imcall, $owner);
 }
 
+/**
+ * Convert SimpleSpeciesReference objects into the most specific object possible.
+ */
+%typemap("csout") SimpleSpeciesReference*
+{
+       return (SimpleSpeciesReference) libsbml.DowncastSBase($imcall, $owner);
+}
+
+
 
 #ifdef USE_LAYOUT
 /**
@@ -971,6 +980,14 @@ COVARIANT_RTYPE_LISTOF_GET(CompartmentGlyph)
  */
 %typemap(csin) ASTNode*       newChild "ASTNode.getCPtrAndDisown($csinput)";
 %typemap(csin) const ASTNode* newChild "ASTNode.getCPtr($csinput)";
+
+/**
+ * takeover ownership
+ *
+ * - void ASTNode::addSemanticsAnnotation (XMLNode* sAnnotation);
+ */
+%typemap(csin) XMLNode*       sAnnotation "XMLNode.getCPtrAndDisown($csinput)";
+%typemap(csin) const XMLNode* sAnnotation "XMLNode.getCPtr($csinput)";
 
 
 /**

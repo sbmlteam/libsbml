@@ -622,6 +622,14 @@ COVARIANT_RTYPE_LISTOF_GET(CompartmentGlyph)
   return (Rule) libsbml.DowncastSBase($jnicall, $owner);
 }
 
+/**
+ * Convert SimpleSpeciesReference objects into the most specific object possible.
+ */
+%typemap("javaout") SimpleSpeciesReference*
+{
+  return (SimpleSpeciesReference) libsbml.DowncastSBase($jnicall, $owner);
+}
+
 #ifdef USE_LAYOUT
 /**
  * Convert LineSegment objects into the most specific object possible.
@@ -837,7 +845,7 @@ SWIGJAVA_EQUALS(XMLInputStream)
 /**
  * takeover ownership
  *
- * - void addSemanticsAnnotation (XMLNode* sAnnotation);
+ * - void ASTNode::addSemanticsAnnotation (XMLNode* sAnnotation);
  */
 %typemap(javain) XMLNode*       sAnnotation "XMLNode.getCPtrAndDisown($javainput)";
 %typemap(javain) const XMLNode* sAnnotation "XMLNode.getCPtr($javainput)";

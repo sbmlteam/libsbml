@@ -40,9 +40,9 @@
  */
 
 /**
- * Convert SBase and Rule objects into the most specific type possible.
+ * Convert SBase, SimpleSpeciesReference and Rule objects into the most specific type possible.
  */
-%typemap(out) SBase*, Rule*
+%typemap(out) SBase*, SimpleSpeciesReference*, Rule*
 {
   ST(argvi) = sv_newmortal();
   SWIG_MakePtr(ST(argvi++), (void*)$1, GetDowncastSwigType($1), $owner | %newpointer_flags);
