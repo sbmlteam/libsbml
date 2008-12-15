@@ -13562,12 +13562,24 @@ fi
 
 
 
+print_whitespace()
+{
+  i=$1
+  if test -n "$i"; then
+    while expr $i > 0
+    do
+      i=`expr $i - 1`; echo -n ' '
+    done
+  fi
+}
+
 print_flag()
 {
   if test -n "$2" -a "$2" != "no"; then
     i=`expr 13 - ${#1}`
-    whitespace="             "
-    echo "  Using $1 with path ${whitespace:0:i}= $3"
+    echo -n "  Using $1 with path "
+    print_whitespace $i
+    echo "= $3"
   fi
 }
 
