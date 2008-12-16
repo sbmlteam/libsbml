@@ -247,7 +247,7 @@ namespace TestLibSBMLCSharp
           else if ( c is Reaction ) { Reaction x = (lof as ListOfReactions).get(0); c = x; }
           else if ( c is Rule ) { Rule x = (lof as ListOfRules).get(0); c = x; }
           else if ( c is Species ) { Species x = (lof as ListOfSpecies).get(0); c = x; }
-          else if ( c is SpeciesReference ) { SimpleSpeciesReference x = (lof as ListOfSpeciesReferences).get(0); c = x; }
+          else if ( c is SpeciesReference ) {SBase x = (lof as ListOfSpeciesReferences).get(0); c = x; }
           else if ( c is SpeciesType ) { SpeciesType x = (lof as ListOfSpeciesTypes).get(0); c = x; }
           else if ( c is UnitDefinition ) { UnitDefinition x = (lof as ListOfUnitDefinitions).get(0); c = x; }
           else if ( c is Unit ) { Unit x = (lof as ListOfUnits).get(0); c = x; }
