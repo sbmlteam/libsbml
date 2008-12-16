@@ -77,14 +77,20 @@ LIBSBML_EXTERN
 char *
 SBML_formulaToString (const ASTNode_t *tree)
 {
-  StringBuffer_t *sb = StringBuffer_create(128);
   char           *s;
 
+  if (tree == NULL)
+  {
+    s="";
+  }
+  else
+  {
+    StringBuffer_t *sb = StringBuffer_create(128);
 
-  FormulaFormatter_visit(NULL, tree, sb);
-  s = StringBuffer_getBuffer(sb);
-  safe_free(sb);
-
+    FormulaFormatter_visit(NULL, tree, sb);
+    s = StringBuffer_getBuffer(sb);
+    safe_free(sb);
+  }
   return s;
 }
 

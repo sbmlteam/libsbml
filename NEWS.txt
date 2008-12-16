@@ -80,6 +80,11 @@
 
 * Bug fixes:
 
+  - Tracker issue #2418883
+    The SBML_formulaToString function was crashing if the ASTNode passed
+    to it was NULL.  The code now catches this and returns an empty string.
+    Thanks to Lucian Smith for reporting this.
+   
   - Tracker issue #2138670
     Conversion of an L1 model to L2 was flagging all parameters and
     compartments as constant.  The conversion code now checks whether
