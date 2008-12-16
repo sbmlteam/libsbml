@@ -188,7 +188,7 @@ endif
 ifeq "$(HOST_TYPE)" "darwin"
 	$(call link_shared_lib,$@ -install_name $@)
 else
-        $(call link_shared_lib,$@)
+	$(call link_shared_lib,$@)
 endif
 
 # The following define generic rules for creating object files.
