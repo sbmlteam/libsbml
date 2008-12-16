@@ -66,6 +66,14 @@ compile ?= $(CC) $(FPIC) $(CPPFLAGS) $(extra_CPPFLAGS) \
 cxxcompile ?= $(CXX) $(FPIC) $(CPPFLAGS) $(extra_CPPFLAGS) \
 	$(CXXFLAGS) $(extra_CXXFLAGS) $(sort $(default_includes) $(INCLUDES))
 
+# The following two commands are used for dependency tracking only when 
+# building universal binaries on MacOSX.
+compile_nocflags ?= $(CC) $(FPIC) $(CPPFLAGS) $(extra_CPPFLAGS) \
+	$(sort $(default_includes) $(INCLUDES))
+
+cxxcompile_nocxxflags ?= $(CXX) $(FPIC) $(CPPFLAGS) $(extra_CPPFLAGS) \
+	$(sort $(default_includes) $(INCLUDES))
+
 # For linking libraries, we try to follow the result of the libtool
 # numbering scheme, but at the final end, not in the input format.  (The
 # libtool input format is peculiar to us.)  Curious, this makes the
@@ -81,6 +89,19 @@ ifeq "$(HOST_TYPE)" "darwin"
   # have .so.  The default shared library definition here builds .dylib.
   platform_link_flags ?= -dynamiclib -flat_namespace \
 	-current_version $(library_version)
+
+  #
+  # -M options are not allowed with multiple -arch flags.
+  # 
+  match = $(shell echo $(compile) | grep '\-arch.*\-arch.*')
+  ifneq "$(match)" ""
+    USE_UNIVBINARY = 1
+  endif
+
+  match = $(shell echo $(cxxcompile) | grep '\-arch.*\-arch.*')
+  ifneq "$(match)" ""
+    USE_UNIVBINARY = 1
+  endif 
 else
 ifeq "$(HOST_TYPE)" "aix5.3.0.0" 
   platform_link_flags ?= -G
@@ -160,8 +181,15 @@ endif
 %.$(JNIEXT) ../%.$(JNIEXT): $(objfiles)
 	$(call link_shared_lib,$@)
 
+#
+# -install_name option should be used when building an universal binary on MacOSX.
+#
 %.$(SHAREDLIBEXT) ../%.$(SHAREDLIBEXT): $(objfiles)
-	$(call link_shared_lib,$@)
+ifeq "$(HOST_TYPE)" "darwin"
+	$(call link_shared_lib,$@ -install_name $@)
+else
+        $(call link_shared_lib,$@)
+endif
 
 # The following define generic rules for creating object files.
 
@@ -190,7 +218,12 @@ ifeq "$(HOST_TYPE)" "aix"
 else
 
 .c.$(OBJEXT):
+ifndef USE_UNIVBINARY
 	$(compile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.$(DEPEXT)" -c -o $@ $<
+else
+	$(compile_nocflags) -MT $@ -M -MP -MF "$(DEPDIR)/$*.$(DEPEXT)" $<
+	$(compile) -c -o $@ $<
+endif
 
 .c.obj:
 	if $(compile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" \
@@ -200,7 +233,12 @@ else
 	fi
 
 .cpp.$(OBJEXT) .cxx.$(OBJEXT):
+ifndef USE_UNIVBINARY
 	$(cxxcompile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.$(DEPEXT)" -c -o $@ $<
+else
+	$(cxxcompile_nocxxflags) -MT $@ -M -MP -MF "$(DEPDIR)/$*.$(DEPEXT)" $<
+	$(cxxcompile) -c -o $@ $<
+endif
 
 .cpp.obj:
 	if $(cxxcompile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" \

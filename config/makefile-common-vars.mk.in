@@ -182,6 +182,8 @@ BZ2_CPPFLAGS      = @BZ2_CPPFLAGS@
 BZ2_LDFLAGS       = @BZ2_LDFLAGS@
 BZ2_LIBS          = @BZ2_LIBS@
 
+USE_UNIVBINARY   = @USE_UNIVBINARY@
+
 AR                = @AR@
 AWK               = awk
 BUILD             = @build@

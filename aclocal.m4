@@ -1,7 +1,7 @@
-# generated automatically by aclocal 1.9.2 -*- Autoconf -*-
+# generated automatically by aclocal 1.9.6 -*- Autoconf -*-
 
-# Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004
-# Free Software Foundation, Inc.
+# Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004,
+# 2005  Free Software Foundation, Inc.
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
 # with or without modifications, as long as this notice is preserved.
@@ -26,5 +26,6 @@ m4_include([config/python.m4])
 m4_include([config/ruby.m4])
 m4_include([config/runldpath.m4])
 m4_include([config/swig.m4])
+m4_include([config/univbinary.m4])
 m4_include([config/xercesc.m4])
 m4_include([config/zlib.m4])

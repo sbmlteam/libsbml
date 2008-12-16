@@ -181,6 +181,7 @@ CONFIG_LIB_LIBXML(2.6.16)
 CONFIG_LIB_LIBCHECK(0.9.2)
 CONFIG_LIB_ZLIB
 CONFIG_LIB_BZ2
+CONFIG_LIB_UNIVBINARY
 
 
 dnl ---------------------------------------------------------------------------
