@@ -31,6 +31,8 @@
 #include <limits>
 #include <locale>
 #include <string>
+#include <time.h>
+#include <sbml/common/libsbml-version.h>
 
 
 #include <sbml/xml/XMLExtern.h>
@@ -60,8 +62,9 @@ public:
    */
   XMLOutputStream (  std::ostream&       stream
                    , const std::string&  encoding     = "UTF-8"
-                   , bool                writeXMLDecl = true );
-
+                   , bool                writeXMLDecl = true
+                   , const std::string&   programName  = ""
+                   , const std::string&  programVersion = "");
 
   /**
    * Writes the given XML end element name to this XMLOutputStream.
@@ -192,6 +195,14 @@ public:
    * <?xml version="1.0" encoding="..."?>
    */
   void writeXMLDecl ();
+
+
+  /**
+   * Writes an XML comment:
+   * <?xml version="1.0" encoding="..."?>
+   */
+  void writeComment (const std::string& programName, 
+                     const std::string& programVersion);
 
 
   /**
@@ -367,7 +378,9 @@ public:
    */
   XMLOutputStringStream (  std::ostringstream& stream
                          , const std::string&  encoding     = "UTF-8"
-                         , bool                writeXMLDecl = true );
+                         , bool                writeXMLDecl = true
+                         , const std::string&  programName  = ""
+                         , const std::string&  programVersion = "");
   
   std::ostringstream& getString() { return mString; }
 
@@ -398,7 +411,9 @@ public:
    */
   XMLOutputFileStream (  std::ofstream&      stream
                        , const std::string&  encoding     = "UTF-8"
-                       , bool                writeXMLDecl = true );
+                       , bool                writeXMLDecl = true 
+                       , const std::string&  programName  = ""
+                       , const std::string&  programVersion = "");
 
 };
 
@@ -428,6 +443,21 @@ XMLOutputStream_createAsString (char * encoding, int writeXMLDecl);
 LIBLAX_EXTERN
 XMLOutputStream_t *
 XMLOutputStream_createFile (char * filename, char * encoding, int writeXMLDecl);
+
+LIBLAX_EXTERN
+XMLOutputStream_t *
+XMLOutputStream_createAsStdoutWithProgramInfo (char * encoding, 
+        int writeXMLDecl, char * programName, char * programVersion);
+
+LIBLAX_EXTERN
+XMLOutputStream_t *
+XMLOutputStream_createAsStringWithProgramInfo (char * encoding,
+        int writeXMLDecl, char * programName, char * programVersion);
+
+LIBLAX_EXTERN
+XMLOutputStream_t *
+XMLOutputStream_createFileWithProgramInfo (char * filename, char * encoding, 
+        int writeXMLDecl, char * programName, char * programVersion);
 
 LIBLAX_EXTERN
 void

@@ -168,7 +168,7 @@ localobjfiles = $(filter %.$(OBJEXT),$(tmp))
 
 otherdirs     = ..  ../../util ../../xml ../../math ../../units \
                 ../../validator ../../validator/constraints ../../annotation \
-                ../../compress
+                ../../compress ../../common
 
 ifdef USE_LAYOUT
   otherdirs += ../layout

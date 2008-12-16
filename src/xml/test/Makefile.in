@@ -130,7 +130,7 @@ all: Makefile
 tmp           = $(test_sources:.cpp=.$(OBJEXT)) $(test_sources:.c=.$(OBJEXT))
 localobjfiles = $(filter %.$(OBJEXT),$(tmp))
 
-otherdirs     = .. ../../util ../../compress
+otherdirs     = .. ../../util ../../compress ../../common
 otherobjfiles = $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
 
 test_objfiles = $(localobjfiles) $(otherobjfiles)

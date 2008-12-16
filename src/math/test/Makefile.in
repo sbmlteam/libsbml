@@ -122,7 +122,8 @@ all: Makefile
 tmp           = $(test_sources:.cpp=.$(OBJEXT)) $(test_sources:.c=.$(OBJEXT))
 localobjfiles = $(filter %.$(OBJEXT),$(tmp))
 otherdirs     = .. ../../util ../../xml ../../sbml ../../annotation \
-	 ../../validator ../../validator/constraints ../../units ../../compress
+	 ../../validator ../../validator/constraints ../../units ../../compress \
+	 ../../common
 
 ifdef USE_LAYOUT
   otherdirs +=	../../sbml/layout

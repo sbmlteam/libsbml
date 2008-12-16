@@ -30,6 +30,7 @@
 #include <sbml/xml/XMLOutputStream.h>
 #include <sbml/util/util.h>
 #include <sbml/common/common.h>
+#include <sbml/common/libsbml-version.h>
 
 /** @cond doxygen-ignored */
 
@@ -43,7 +44,9 @@ using namespace std;
  */
 XMLOutputStream::XMLOutputStream (  std::ostream&       stream
                                   , const std::string&  encoding
-                                  , bool                writeXMLDecl ) :
+                                  , bool                writeXMLDecl
+                                  , const std::string&  programName
+                                  , const std::string&  programVersion) :
    mStream  ( stream   )
  , mEncoding( encoding )
  , mInStart ( false    )
@@ -54,6 +57,7 @@ XMLOutputStream::XMLOutputStream (  std::ostream&       stream
   unsetStringStream();
   mStream.imbue( locale::classic() );
   if (writeXMLDecl) this->writeXMLDecl();
+  this->writeComment(programName, programVersion);
 }
 
 
@@ -572,6 +576,38 @@ XMLOutputStream::writeXMLDecl ()
 
 
 /*
+ * Writes the XML comment:
+ *   <!-- Created by <program name> version <program version>
+ *   on yyyy-MM-dd HH:mm with libsbml version <libsbml version>. -->
+ */
+void
+XMLOutputStream::writeComment (const std::string& programName, 
+                               const std::string& programVersion)
+{
+  char formattedDateAndTime[17];
+  time_t tim=time(NULL);
+  tm *now=localtime(&tim);
+
+  sprintf(formattedDateAndTime, "%d-%02d-%02d %02d:%02d",
+    now->tm_year+1900, now->tm_mon+1, now->tm_mday, 
+    now->tm_hour, now->tm_min);
+
+  if (programName != "")
+  {
+    mStream << "<!-- Created by " << programName;
+    if (programVersion != "")
+    {
+      mStream << " version " << programVersion;
+    }
+    mStream << " on " << formattedDateAndTime;
+    mStream << " with libSBML version " << getLibSBMLDottedVersion();
+    mStream << ". -->";
+    mStream << endl;
+  }
+}
+
+
+/*
  * Outputs the given characters to the underlying stream.
  */
 XMLOutputStream&
@@ -628,8 +664,11 @@ XMLOutputStream::operator<< (const long& value)
 
 XMLOutputStringStream::XMLOutputStringStream (  std::ostringstream& stream
                    , const std::string&  encoding
-                   , bool                writeXMLDecl):
-  XMLOutputStream(stream, encoding, writeXMLDecl)
+                   , bool                writeXMLDecl
+                   , const std::string&  programName
+                   , const std::string&  programVersion):
+  XMLOutputStream(stream, encoding, writeXMLDecl, 
+                    programName, programVersion)
     , mString(stream)
 
 {
@@ -638,9 +677,11 @@ XMLOutputStringStream::XMLOutputStringStream (  std::ostringstream& stream
 
 XMLOutputFileStream::XMLOutputFileStream (  std::ofstream& stream
                    , const std::string&  encoding
-                   , bool                writeXMLDecl):
-  XMLOutputStream(stream, encoding, writeXMLDecl)
-
+                   , bool                writeXMLDecl
+                   , const std::string&  programName
+                   , const std::string&  programVersion):
+  XMLOutputStream(stream, encoding, writeXMLDecl, 
+                    programName, programVersion)
 {
 }
 
@@ -659,6 +700,20 @@ XMLOutputStream_createAsStdout (char * encoding, int writeXMLDecl)
 
 
 /**
+ * Creates a new XMLOutputStream_t that wraps std output stream
+ * and adds program information as a comment.
+ **/
+LIBLAX_EXTERN
+XMLOutputStream_t *
+XMLOutputStream_createAsStdoutWithProgramInfo (char * encoding,
+        int writeXMLDecl, char * programName, char * programVersion)
+{
+  return new(nothrow) XMLOutputStream(std::cout, encoding, writeXMLDecl,
+                                 programName, programVersion);
+}
+
+
+/**
  * Creates a new XMLOutputStream_t that wraps std string output stream.
  **/
 LIBLAX_EXTERN
@@ -672,6 +727,22 @@ XMLOutputStream_createAsString (char * encoding, int writeXMLDecl)
 
 
 /**
+ * Creates a new XMLOutputStream_t that wraps std string output stream
+ * and adds program information as a comment.
+**/
+LIBLAX_EXTERN
+XMLOutputStream_t *
+XMLOutputStream_createAsStringWithProgramInfo (char * encoding,
+        int writeXMLDecl, char * programName, char * programVersion)
+{
+  std::ostringstream *out = new std::ostringstream();
+
+  return new(nothrow) XMLOutputStringStream(*out, encoding, writeXMLDecl,
+                             programName, programVersion);
+}
+
+
+/**
  * Creates a new XMLOutputStream_t that wraps std file output stream.
  **/
 LIBLAX_EXTERN
@@ -680,6 +751,21 @@ XMLOutputStream_createFile (char * filename, char * encoding, int writeXMLDecl)
 {
   std::ofstream *fout = new std::ofstream(filename, std::ios::out);
   return new(nothrow) XMLOutputFileStream(*fout, encoding, writeXMLDecl);
+}
+
+
+/**
+ * Creates a new XMLOutputStream_t that wraps std file output stream
+ * and adds program information as a comment.
+**/
+LIBLAX_EXTERN
+XMLOutputStream_t *
+XMLOutputStream_createFileWithProgramInfo (char * filename, char * encoding, 
+        int writeXMLDecl, char * programName, char * programVersion)
+{
+  std::ofstream *fout = new std::ofstream(filename, std::ios::out);
+  return new(nothrow) XMLOutputFileStream(*fout, encoding, writeXMLDecl,
+                          programName, programVersion);
 }
 
 

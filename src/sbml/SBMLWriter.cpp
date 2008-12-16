@@ -221,7 +221,8 @@ SBMLWriter::writeSBML (const SBMLDocument* d, std::ostream& stream)
   try
   {
     stream.exceptions(ios_base::badbit | ios_base::failbit | ios_base::eofbit);
-    XMLOutputStream xos(stream, "UTF-8", true);
+    XMLOutputStream xos(stream, "UTF-8", true, mProgramName, 
+                                               mProgramVersion);
     d->write(xos);
     stream << endl;
 
@@ -318,7 +319,7 @@ LIBSBML_EXTERN
 void
 SBMLWriter_setProgramName (SBMLWriter_t *sw, const char *name)
 {
-  sw->setProgramName(name);
+  (name == NULL) ? sw->setProgramName("") : sw->setProgramName(name);
 }
 
 
@@ -335,7 +336,8 @@ LIBSBML_EXTERN
 void
 SBMLWriter_setProgramVersion (SBMLWriter_t *sw, const char *version)
 {
-  sw->setProgramVersion(version);
+  (version == NULL) ? sw->setProgramVersion("") :
+                             sw->setProgramVersion(version);
 }
 
 

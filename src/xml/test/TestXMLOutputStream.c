@@ -65,6 +65,46 @@ START_TEST (test_XMLOutputStream_createString)
 }
 END_TEST
 
+START_TEST (test_XMLOutputStream_createStdoutWithProgramInfo)
+{
+  XMLOutputStream_t * stream = 
+    XMLOutputStream_createAsStdoutWithProgramInfo("UTF-8", 0, "foo", "bar");
+  fail_unless(stream != NULL);
+
+  XMLOutputStream_free(stream);
+
+}
+END_TEST
+
+START_TEST (test_XMLOutputStream_createFileWithProgramInfo)
+{
+  XMLOutputStream_t * stream = 
+    XMLOutputStream_createFileWithProgramInfo("out.xml","UTF-8", 0,
+                                                 "foo", "bar");
+  fail_unless(stream != NULL);
+
+  XMLOutputStream_free(stream);
+
+}
+END_TEST
+
+START_TEST (test_XMLOutputStream_createStringWithProgramInfo)
+{
+  const char * expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+  
+  XMLOutputStream_t * stream = 
+    XMLOutputStream_createAsStringWithProgramInfo("UTF-8", 1, "", "");
+  fail_unless(stream != NULL);
+
+  const char * string = XMLOutputStream_getString(stream);
+
+  fail_unless(!strcmp(string, expected));
+
+  XMLOutputStream_free(stream);
+
+}
+END_TEST
+
 START_TEST (test_XMLOutputStream_startEnd)
 {
   XMLOutputStream_t *stream = XMLOutputStream_createAsString("", 0);
@@ -117,6 +157,9 @@ create_suite_XMLOutputStream (void)
   tcase_add_test( tcase, test_XMLOutputStream_createStdout  );
   tcase_add_test( tcase, test_XMLOutputStream_createFile  );
   tcase_add_test( tcase, test_XMLOutputStream_createString  );
+  tcase_add_test( tcase, test_XMLOutputStream_createStdoutWithProgramInfo  );
+  tcase_add_test( tcase, test_XMLOutputStream_createFileWithProgramInfo    );
+  tcase_add_test( tcase, test_XMLOutputStream_createStringWithProgramInfo  );
   tcase_add_test( tcase, test_XMLOutputStream_startEnd  );
   tcase_add_test( tcase, test_XMLOutputStream_Elements  );
   suite_add_tcase(suite, tcase);
