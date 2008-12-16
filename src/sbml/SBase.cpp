@@ -1180,6 +1180,12 @@ SBase::unsetSBOTerm ()
 void
 SBase::addCVTerm(CVTerm * term)
 {
+  // a CVTerm relies on the metaid 
+  // if the object has no metaid do not add
+  if (!isSetMetaId())
+  {
+    return;
+  }
   unsigned int added = 0;
   /* clone the term to be added so that I can adjust 
    * which resources are actually added
@@ -4066,6 +4072,10 @@ SBase::setSBaseFields (const XMLToken& element)
  *
  * @param sb the object to add the CVTerm to
  * @param term the CVTerm_t to assign
+ *
+ * @note Since the CV Term uses the metaid of the object as a 
+ * reference, if the object has no metaid set the CVTerm will
+ * not be added.
  */
 LIBSBML_EXTERN
 void 

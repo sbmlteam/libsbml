@@ -929,6 +929,10 @@ public:
    * Adds a copy of the given CVTerm to this SBML object.
    *
    * @param term the CVTerm to assign
+   *
+   * @note Since the CV Term uses the metaid of the object as a 
+   * reference, if the object has no metaid set the CVTerm will
+   * not be added.
    */
   void addCVTerm(CVTerm * term);
 

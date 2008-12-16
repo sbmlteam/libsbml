@@ -1380,6 +1380,7 @@ START_TEST(test_SBase_CVTerms)
   fail_unless(SBase_getNumCVTerms(S) == 0);
   fail_unless(SBase_getCVTerms(S) == NULL);
 
+  SBase_setMetaId(S, "sbase1");
   SBase_addCVTerm(S, cv);
   fail_unless(SBase_getNumCVTerms(S) == 1);
   fail_unless(SBase_getCVTerms(S) != NULL);
@@ -1398,6 +1399,7 @@ START_TEST(test_SBase_addCVTerms)
   CVTerm_t * cv = CVTerm_createWithQualifierType(BIOLOGICAL_QUALIFIER);
   CVTerm_setBiologicalQualifierType(cv, BQB_ENCODES);
   CVTerm_addResource(cv, "foo");
+  SBase_setMetaId(S, "sbase1");
   
   SBase_addCVTerm(S, cv);
   
@@ -1477,6 +1479,7 @@ START_TEST(test_SBase_unsetCVTerms)
   CVTerm_setBiologicalQualifierType(cv, BQB_ENCODES);
   CVTerm_addResource(cv, "foo");
   
+  SBase_setMetaId(S, "sbase1");
   SBase_addCVTerm(S, cv);
   CVTerm_t * cv1 = CVTerm_createWithQualifierType(BIOLOGICAL_QUALIFIER);
   CVTerm_setBiologicalQualifierType(cv1, BQB_IS);
@@ -1515,6 +1518,7 @@ START_TEST(test_SBase_getQualifiersFromResources)
   CVTerm_setBiologicalQualifierType(cv, BQB_ENCODES);
   CVTerm_addResource(cv, "foo");
   
+  SBase_setMetaId(S, "sbase1");
   SBase_addCVTerm(S, cv);
 
   fail_unless(SBase_getResourceBiologicalQualifier(S, "foo") == BQB_ENCODES);
