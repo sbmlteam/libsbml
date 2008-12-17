@@ -2389,12 +2389,54 @@ SBase::checkAnnotation()
   unsigned int nNodes = 0;
   unsigned int match = 0;
   int n = 0;
+  std::vector<std::string> prefixes;
+  prefixes.clear();
   while (nNodes < mAnnotation->getNumChildren())
   {
     XMLNode topLevel = mAnnotation->getChild(nNodes);
 
+    std::string prefix = topLevel.getPrefix();
+
+    // cannot be other toplevel element with this prefix
+    if (!prefix.empty())
+    {
+      if (find(prefixes.begin(), prefixes.end(), prefix) 
+                                               != prefixes.end())
+      {
+        logError(DuplicateAnnotationNamespaces);
+      }
+      prefixes.push_back(prefix);
+    }
+
     match = 0;
     n = 0;
+
+    bool implicitNSdecl = false;
+   // must have a namespace
+    if (topLevel.getNamespaces().getLength() == 0)
+    {
+      // not on actual element - is it explicit ??
+      if( mSBML->getNamespaces() != NULL)
+      /* check for implicit declaration */
+      {
+        for (n = 0; n < mSBML->getNamespaces()->getLength(); n++)
+        {
+          if (!strcmp(mSBML->getNamespaces()->getPrefix(n).c_str(), 
+                        prefix.c_str()))
+          {
+            implicitNSdecl = true;
+            break;
+          }
+        }
+     }
+
+
+      if (!implicitNSdecl)
+      {
+        logError(MissingAnnotationNamespace);
+      }
+    }
+    // cannot declare sbml namespace
     while(!match && n < topLevel.getNamespaces().getLength())
     {
       match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(), 
@@ -2411,6 +2453,12 @@ SBase::checkAnnotation()
     {
       logError(SBMLNamespaceInAnnotation);
       break;
+    }
+
+    if (implicitNSdecl && prefix.empty())
+    {
+      logError(MissingAnnotationNamespace);
+      logError(SBMLNamespaceInAnnotation);   
     }
     nNodes++;
   }

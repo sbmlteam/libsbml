@@ -4,6 +4,9 @@
 
 * New features:
 
+  - Tracker issue #2376930
+    Validation rules 10401 and 10402 had not previously been implemented.
+
   - Added functions 'getNumResources' and 'getResourceURI' to the
     CVTerm class.  These are convenience functions that allow the user 
     to determine how many resources are stored for the particular term

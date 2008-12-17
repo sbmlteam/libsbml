@@ -620,6 +620,37 @@ static const sbmlErrorTableEntry errorTable[] =
     "(References: L2V3 Section 3.1.8; L2V4 Section 3.1.8)"
   },
 
+  //10401
+  {
+    MissingAnnotationNamespace,
+    LIBSBML_CAT_SBML,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    "Every top-level element within an annotation element must "
+    "have a namespace declared. (References: L2V2 Section 3.3.3; "
+    "L2V3 Section 3.2.4; L2V4 Section 3.2.4)" 
+  },
+
+  //10402
+  {
+    DuplicateAnnotationNamespaces,
+    LIBSBML_CAT_SBML,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    "There cannot be more than one top-level element using a "
+    "given namespace inside a given annotation element. "
+    "(References: L2V2 Section 3.3.3; L2V3 Section 3.2.4; "
+    "L2V4 Section 3.2.4)" 
+  },
+
   //10403
   {
     SBMLNamespaceInAnnotation,
