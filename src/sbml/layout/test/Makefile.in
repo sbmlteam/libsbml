@@ -162,7 +162,7 @@ localobjfiles = $(filter %.$(OBJEXT),$(tmp))
 
 otherdirs     = .. ../..  ../../../util ../../../xml ../../../math ../../../validator \
                 ../../../validator/constraints ../../../annotation ../../../units \
-                ../../../compress
+                ../../../compress ../../../common
 
 
 
