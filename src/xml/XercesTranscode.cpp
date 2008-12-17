@@ -3,8 +3,8 @@
  * @brief   Transcodes a Xerces-C++ XMLCh* string to an UTF-8 string.
  * @author  Akiya Jouraku
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $URL$
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
