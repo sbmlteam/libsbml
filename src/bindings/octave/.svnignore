@@ -8,3 +8,5 @@ README.txt
 test.xml
 TranslateSBML.c
 TranslateSBML.m
+.deps
+Makefile
