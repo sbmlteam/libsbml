@@ -26,10 +26,10 @@ been advised of the possibility of such damage.  See the GNU
 Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public
-License along with this library in the file named "LICENSE.txt"
+License along with this library in the file named "COPYING.txt"
 included with the software distribution.  A copy is also
 available online at the Internet address
-http://sbml.org/software/libsbml/license.html for your
+http://sbml.org/software/libsbml/COPYING.html for your
 convenience.  You may also write to obtain a copy from the Free
 Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 MA 02111-1307 USA.
