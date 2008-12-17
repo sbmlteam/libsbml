@@ -303,7 +303,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "The values of all arguments to 'eq' and 'neq' operators should have the "
+    "The values of all arguments to 'eq' and 'neq' operators must have the "
     "same type (either all boolean or all numeric). (References: L2V2 "
     "Section 3.5.8.; L2V3 Section 3.4.9; L2V4 Section 3.4.9)"
   },
@@ -318,7 +318,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "The types of values within 'piecewise' operators should all be "
+    "The types of values within 'piecewise' operators must all be "
     "consistent: the set of expressions that make up the first arguments of "
     "the 'piece' and 'otherwise' operators within the same 'piecewise' "
     "operator should all return values of the same type. (References: L2V2 "
