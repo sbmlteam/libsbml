@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Python conversion)
 # @author  Sarah Keating 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $URL$
 #
 # This test file was converted from src/sbml/test/TestSBMLParentObject.cpp
 # with the help of conversion sciprt (ctest_converter.pl).

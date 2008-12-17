@@ -3,8 +3,8 @@
  * @brief  Test Runner for C# test files.
  * @author Frank Bergmann (fbergman@u.washington.edu)
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $URL$
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more

@@ -3,8 +3,8 @@
  * @brief  A very simple C# binding test program (only read/write SBML files)
  * @author Akiya Jouraku
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $URL$
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more

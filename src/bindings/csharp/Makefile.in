@@ -6,8 +6,8 @@
 ##          written by Michael Hucka and Ben Kovitz 
 ## @author  Akiya Jouraku
 ##
-## $Id:$
-## $HeadURL:$
+## $Id$
+## $URL$
 ##
 ## This file is part of libSBML.  Please visit http://sbml.org for more
 ## information about SBML, and the latest version of libSBML.
@@ -446,7 +446,7 @@ installcheck:
 
 dist: check_swigfile_consistency libsbml_wrap.cpp libsbml_wrap-win.cpp $(outpath) $(outpath_win)
 	$(MAKE) -$(MAKEFLAGS) dist-normal
-	
+
 
 distcheck: distcheck-normal
 

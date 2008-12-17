@@ -6,8 +6,8 @@
  * @author  Frank Bergmann (fbergman@u.washington.edu)
  * @author  Akiya Jouraku
  *
- * $ID:$
- * $HeadURL:$
+ * $Id$
+ * $URL$
  */
 
 /*
