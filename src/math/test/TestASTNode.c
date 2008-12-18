@@ -76,12 +76,6 @@ START_TEST (test_ASTNode_create)
 
   fail_unless( ASTNode_getParentSBMLObject(n) == NULL );
 
-  ASTNode_setParentSBMLObject(n, (SBase_t*)(ea));
-  fail_unless( (EventAssignment_t*)(ASTNode_getParentSBMLObject(n)) == ea );
-  
-  ASTNode_setParentSBMLObject(n, NULL);
-  fail_unless( ASTNode_getParentSBMLObject(n) == NULL );
-
   EventAssignment_free(ea);
 
   ASTNode_free(n);
@@ -114,12 +108,6 @@ START_TEST (test_ASTNode_createFromToken)
   fail_unless( !strcmp(ASTNode_getName(n), "foo") );
   fail_unless( ASTNode_getNumChildren(n) == 0     );
 
-  fail_unless( ASTNode_getParentSBMLObject(n) == NULL );
-
-  ASTNode_setParentSBMLObject(n, (SBase_t*)(ea));
-  fail_unless( (EventAssignment_t*)(ASTNode_getParentSBMLObject(n)) == ea );
-  
-  ASTNode_setParentSBMLObject(n, NULL);
   fail_unless( ASTNode_getParentSBMLObject(n) == NULL );
 
   EventAssignment_free(ea);
@@ -1202,7 +1190,7 @@ START_TEST (test_ASTNode_getReal)
 
   /** 12.3e3 **/
   ASTNode_setType(n, AST_REAL_E);
-  ASTNode_setRealWithExponent(n, 12.3, 3.0);
+  ASTNode_setRealWithExponent(n, 12.3, 3);
 
   fail_unless(abs(ASTNode_getReal(n) - 12300.0) < DBL_EPSILON);
 
