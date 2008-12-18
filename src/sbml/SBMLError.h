@@ -616,30 +616,6 @@ typedef enum
 
   , CannotConvertToL1V1              = 90001
 
-  /* L2V4 Unit validation checks */
-  , L2V4InconsistentArgUnits             = 90501 /*!< SBML L2v3 validation rule #90501 */
-  /* These are internal errors that reverts to 90501. */
-
-  /** @cond doxygen-libsbml-internal */
-  , L2V4InconsistentArgUnitsWarnings     = 90502 /*!< SBML L2v3 validation rule #10501 */
-  , L2V4InconsistentPowerUnitsWarnings   = 90503 /*!< SBML L2v3 validation rule #10501 */
-  , L2V4InconsistentExponUnitsWarnings   = 90504 /*!< SBML L2v3 validation rule #10501 */
-  /** @endcond doxygen-libsbml-internal */
-  , L2V4AssignRuleCompartmentMismatch    = 90511 /*!< SBML L2v3 validation rule #90511 */
-  , L2V4AssignRuleSpeciesMismatch        = 90512 /*!< SBML L2v3 validation rule #90512 */
-  , L2V4AssignRuleParameterMismatch      = 90513 /*!< SBML L2v3 validation rule #90513 */
-  , L2V4InitAssignCompartmenMismatch     = 90521 /*!< SBML L2v3 validation rule #90521 */
-  , L2V4InitAssignSpeciesMismatch        = 90522 /*!< SBML L2v3 validation rule #90522 */
-  , L2V4InitAssignParameterMismatch      = 90523 /*!< SBML L2v3 validation rule #90523 */
-  , L2V4RateRuleCompartmentMismatch      = 90531 /*!< SBML L2v3 validation rule #90531 */
-  , L2V4RateRuleSpeciesMismatch          = 90532 /*!< SBML L2v3 validation rule #90532 */
-  , L2V4RateRuleParameterMismatch        = 90533 /*!< SBML L2v3 validation rule #90533 */
-  , L2V4KineticLawNotSubstancePerTime    = 90541 /*!< SBML L2v3 validation rule #90541 */
-  , L2V4DelayUnitsNotTime                = 90551 /*!< SBML L2v3 validation rule #90551 */
-  , L2V4EventAssignCompartmentMismatch   = 90561 /*!< SBML L2v3 validation rule #90561 */
-  , L2V4EventAssignSpeciesMismatch       = 90562 /*!< SBML L2v3 validation rule #90562 */
-  , L2V4EventAssignParameterMismatch     = 90563 /*!< SBML L2v3 validation rule #90563 */
-
   /* L1Compatability */
 
   , NoEventsInL1                     = 91001

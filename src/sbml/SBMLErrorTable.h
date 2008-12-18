@@ -681,10 +681,10 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_GENERAL_WARNING,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    "The units of the expressions used as arguments to a function call must "
+    LIBSBML_SEV_WARNING,
+    "The units of the expressions used as arguments to a function call are expected to "
     "match the units expected for the arguments of that function. "
-    "(References: L2V2 Section 3.5; L2V3 Section 3.4) "
+    "(References: L2V2 Section 3.5; L2V3 Section 3.4; L2V4 Section 3.4) "
   },
 
   //10511
@@ -696,11 +696,11 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
     "When the 'variable' in an <assignmentRule> refers to a <compartment>, "
-    "the units of the rule's right-hand side must be consistent with the "
+    "the units of the rule's right-hand side are expected to be consistent with the "
     "units of that compartment's size. (References: L2V2 Section 4.11.3; "
-    "L2V3 Section 4.11.3)"
+    "L2V3 Section 4.11.3; L2V4 Section 4.11.3)"
   },
 
   //10512
@@ -712,11 +712,11 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
     "When the 'variable' in an <assignmentRule> refers to a <species>, the "
-    "units of the rule's right-hand side must be consistent with the units "
+    "units of the rule's right-hand side are expected to be consistent with the units "
     "of the species' quantity. (References: L2V2 Section 4.11.3; L2V3 "
-    "Section 4.11.3.)"
+    "Section 4.11.3; L2V4 Section 4.11.3)"
   },
 
   //10513
@@ -728,11 +728,11 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
     "When the 'variable' in an <assignmentRule> refers to a <parameter>, the "
-    "units of the rule's right-hand side must be consistent with the units "
+    "units of the rule's right-hand side are expected to be consistent with the units "
     "declared for that parameter. (References: L2V2 Section 4.11.3; L2V3 "
-    "Section 4.11.3.)"
+    "Section 4.11.3; L2V4 Section 4.11.3)"
   },
 
   //10521
@@ -744,11 +744,11 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
     "When the 'variable' in an <initialAssignment> refers to a "
     "<compartment>, the units of the <initialAssignment>'s <math> expression "
-    "must be consistent with the units of that compartment's size. "
-    "(References: L2V2 Section 4.10.4; L2V3 Section 4.10)"
+    "are expected to be consistent with the units of that compartment's size. "
+    "(References: L2V2 Section 4.10.4; L2V3 Section 4.10; L2V4 Section 4.10)"
   },
 
   //10522
@@ -760,11 +760,11 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
     "When the 'variable' in an <initialAssignment> refers to a <species>, "
-    "the units of the <initialAssignment>'s <math> expression must be "
+    "the units of the <initialAssignment>'s <math> expression are expected to be "
     "consistent with the units of that species' quantity. (References: L2V2 "
-    "Section 4.10.4; L2V3 Section 4.11.3)"
+    "Section 4.10.4; L2V3 Section 4.11.3; L2V4 Section 4.11.3)"
   },
 
   //10523
@@ -776,11 +776,11 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
     "When the 'variable' in an <initialAssignment> refers to a <parameter>, "
-    "the units of the <initialAssignment>'s <math> expression must be "
+    "the units of the <initialAssignment>'s <math> expression are expected to be "
     "consistent with the units declared for that parameter. (References: "
-    "L2V2 Section 4.10.4; L2V3 Section 4.11.3)"
+    "L2V2 Section 4.10.4; L2V3 Section 4.11.3; L2V4 Section 4.11.3)"
   },
 
   //10531
@@ -792,14 +792,14 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
     "When the 'variable' in a <rateRule> definition refers to a "
-    "<compartment>, the units of the rule's right-hand side must be of the "
+    "<compartment>, the units of the rule's right-hand side are expected to be of the "
     "form _x per time_, where _x_ is either the 'units' in that "
     "<compartment> definition, or (in the absence of explicit units declared "
     "for the compartment size) the default units for that compartment, and "
     "_time_ refers to the units of time for the model. (References: L2V2 "
-    "Section 4.11.4; L2V3 Section 4.11.4)"
+    "Section 4.11.4; L2V3 Section 4.11.4; L2V4 Section 4.11.4)"
   },
 
   //10532
@@ -811,12 +811,12 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
     "When the 'variable' in a <rateRule> definition refers to a <species>, "
-    "the units of the rule's right-hand side must be of the form _x per "
+    "the units of the rule's right-hand side are expected to be of the form _x per "
     "time_, where _x_ is the units of that species' quantity, and _time_ "
     "refers to the units of time for the model. (References: L2V2 Section "
-    "4.11.4; L2V3 Section 4.11.4)"
+    "4.11.4; L2V3 Section 4.11.4; L2V4 Section 4.11.4)"
   },
 
   //10533
@@ -828,12 +828,12 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
     "When the 'variable' in a <rateRule> definition refers to a <parameter>, "
-    "the units of the rule's right-hand side must be of the form _x per "
+    "the units of the rule's right-hand side are expected to be of the form _x per "
     "time_, where _x_ is the 'units' in that <parameter> definition, and "
     "_time_ refers to the units of time for the model. (References: L2V2 "
-    "Section 4.11.4; L2V3 Section 4.11.4)"
+    "Section 4.11.4; L2V3 Section 4.11.4; L2V4 Section 4.11.4)"
   },
 
   //10541
@@ -845,10 +845,10 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    "The units of the 'math' formula in a <kineticLaw> definition must be "
+    LIBSBML_SEV_WARNING,
+    "The units of the 'math' formula in a <kineticLaw> definition are expected to be "
     "the equivalent of _substance per time_. (References: L2V2 Section "
-    "4.13.5; L2V3 Section 4.13.5)"
+    "4.13.5; L2V3 Section 4.13.5; L2V4 Section 4.13.5)"
   },
 
   //10551
@@ -860,11 +860,11 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
     "When a value for <delay> is given in a <event> definition, the units of "
-    "the delay formula must correspond to either the value of 'timeUnits' in "
+    "the delay formula are expected to correspond to either the value of 'timeUnits' in "
     "the <event> or (if no 'timeUnits' are given), the model's default units "
-    "of time. (References: L2V2 Section 4.14; L2V3 Section 4.14.3)"
+    "of time. (References: L2V2 Section 4.14; L2V3 Section 4.14.3; L2V4 Section 4.14.3)"
   },
 
   //10561
@@ -876,11 +876,11 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
     "When the 'variable' in an <eventAssignment> refers to a <compartment>, "
-    "the units of the <eventAssignment>'s <math> expression must be consistent "
+    "the units of the <eventAssignment>'s <math> expression are expected to be consistent "
     "with the units of that compartment's size. (References: L2V2 Section "
-    "4.14.2; L2V3 Section 4.14.4)"
+    "4.14.2; L2V3 Section 4.14.4; L2V4 Section 4.14.4)"
   },
 
   //10562
@@ -892,11 +892,11 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
     "When the 'variable' in an <eventAssignment> refers to a <species>, the "
-    "units of the <eventAssignment>'s <math> expression must be consistent "
+    "units of the <eventAssignment>'s <math> expression are expected to be consistent "
     "with the units of the species' quantity. (References: L2V2 Section "
-    "4.14.2; L2V3 Section 4.14.4)"
+    "4.14.2; L2V3 Section 4.14.4; L2V4 Section 4.14.4)"
   },
 
   //10563
@@ -908,11 +908,11 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
     "When the 'variable' in an <eventAssignment> refers to a <parameter>, the "
-    "units of the <eventAssignment>'s <math> expression must be consistent "
+    "units of the <eventAssignment>'s <math> expression are expected to be consistent "
     "with the units declared for that parameter. (References: L2V2 Section "
-    "4.14.2; L2V3 Section 4.14.4)"
+    "4.14.2; L2V3 Section 4.14.4; L2V4 Section 4.14.4)"
   },
 
   //10601
@@ -2806,276 +2806,276 @@ static const sbmlErrorTableEntry errorTable[] =
     "not supported by libSBML."
   },
 
-  //90501
-  {
-    L2V4InconsistentArgUnits,
-    LIBSBML_CAT_UNITS_CONSISTENCY,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_GENERAL_WARNING,
-    "The units of the expressions used as arguments to a function call should "
-    "match the units expected for the arguments of that function. "
-  },
+  ////90501
+  //{
+  //  L2V4InconsistentArgUnits,
+  //  LIBSBML_CAT_UNITS_CONSISTENCY,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_GENERAL_WARNING,
+  //  "The units of the expressions used as arguments to a function call should "
+  //  "match the units expected for the arguments of that function. "
+  //},
 
-  //90502
-  // This is an internal error that reverts to 90501
-  {
-    L2V4InconsistentArgUnitsWarnings,
-    LIBSBML_CAT_UNITS_CONSISTENCY,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_GENERAL_WARNING,
-    ""
-  },
+  ////90502
+  //// This is an internal error that reverts to 90501
+  //{
+  //  L2V4InconsistentArgUnitsWarnings,
+  //  LIBSBML_CAT_UNITS_CONSISTENCY,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_GENERAL_WARNING,
+  //  ""
+  //},
 
-  //90503
-  // This is an internal error that reverts to 90501
-  {
-    L2V4InconsistentPowerUnitsWarnings,
-    LIBSBML_CAT_UNITS_CONSISTENCY,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_GENERAL_WARNING,
-    ""
-  },
+  ////90503
+  //// This is an internal error that reverts to 90501
+  //{
+  //  L2V4InconsistentPowerUnitsWarnings,
+  //  LIBSBML_CAT_UNITS_CONSISTENCY,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_GENERAL_WARNING,
+  //  ""
+  //},
 
-  //90504
-  // This is an internal error that reverts to 90501
-  {
-    L2V4InconsistentExponUnitsWarnings,
-    LIBSBML_CAT_UNITS_CONSISTENCY,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_GENERAL_WARNING,
-    ""
-  },
+  ////90504
+  //// This is an internal error that reverts to 90501
+  //{
+  //  L2V4InconsistentExponUnitsWarnings,
+  //  LIBSBML_CAT_UNITS_CONSISTENCY,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_GENERAL_WARNING,
+  //  ""
+  //},
 
-  //90511
-  {
-    L2V4AssignRuleCompartmentMismatch,
-    LIBSBML_CAT_UNITS_CONSISTENCY,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_GENERAL_WARNING,
-    "When the 'variable' in an <assignmentRule> refers to a <compartment>, "
-    "the units of the rule's right-hand side should be consistent with the "
-    "units of that compartment's size."
-  },
+  ////90511
+  //{
+  //  L2V4AssignRuleCompartmentMismatch,
+  //  LIBSBML_CAT_UNITS_CONSISTENCY,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_GENERAL_WARNING,
+  //  "When the 'variable' in an <assignmentRule> refers to a <compartment>, "
+  //  "the units of the rule's right-hand side should be consistent with the "
+  //  "units of that compartment's size."
+  //},
 
-  //90512
-  {
-    L2V4AssignRuleSpeciesMismatch,
-    LIBSBML_CAT_UNITS_CONSISTENCY,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_GENERAL_WARNING,
-    "When the 'variable' in an <assignmentRule> refers to a <species>, the "
-    "units of the rule's right-hand side should be consistent with the units "
-    "of the species' quantity."
-  },
+  ////90512
+  //{
+  //  L2V4AssignRuleSpeciesMismatch,
+  //  LIBSBML_CAT_UNITS_CONSISTENCY,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_GENERAL_WARNING,
+  //  "When the 'variable' in an <assignmentRule> refers to a <species>, the "
+  //  "units of the rule's right-hand side should be consistent with the units "
+  //  "of the species' quantity."
+  //},
 
-  //90513
-  {
-    L2V4AssignRuleParameterMismatch,
-    LIBSBML_CAT_UNITS_CONSISTENCY,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_GENERAL_WARNING,
-    "When the 'variable' in an <assignmentRule> refers to a <parameter>, the "
-    "units of the rule's right-hand side should be consistent with the units "
-    "declared for that parameter."
-  },
+  ////90513
+  //{
+  //  L2V4AssignRuleParameterMismatch,
+  //  LIBSBML_CAT_UNITS_CONSISTENCY,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_GENERAL_WARNING,
+  //  "When the 'variable' in an <assignmentRule> refers to a <parameter>, the "
+  //  "units of the rule's right-hand side should be consistent with the units "
+  //  "declared for that parameter."
+  //},
 
-  //90521
-  {
-    L2V4InitAssignCompartmenMismatch,
-    LIBSBML_CAT_UNITS_CONSISTENCY,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_GENERAL_WARNING,
-    "When the 'variable' in an <initialAssignment> refers to a "
-    "<compartment>, the units of the <initialAssignment>'s <math> expression "
-    "should be consistent with the units of that compartment's size."
-  },
+  ////90521
+  //{
+  //  L2V4InitAssignCompartmenMismatch,
+  //  LIBSBML_CAT_UNITS_CONSISTENCY,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_GENERAL_WARNING,
+  //  "When the 'variable' in an <initialAssignment> refers to a "
+  //  "<compartment>, the units of the <initialAssignment>'s <math> expression "
+  //  "should be consistent with the units of that compartment's size."
+  //},
 
-  //90522
-  {
-    L2V4InitAssignSpeciesMismatch,
-    LIBSBML_CAT_UNITS_CONSISTENCY,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_GENERAL_WARNING,
-    "When the 'variable' in an <initialAssignment> refers to a <species>, "
-    "the units of the <initialAssignment>'s <math> expression should be "
-    "consistent with the units of that species' quantity."
-  },
+  ////90522
+  //{
+  //  L2V4InitAssignSpeciesMismatch,
+  //  LIBSBML_CAT_UNITS_CONSISTENCY,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_GENERAL_WARNING,
+  //  "When the 'variable' in an <initialAssignment> refers to a <species>, "
+  //  "the units of the <initialAssignment>'s <math> expression should be "
+  //  "consistent with the units of that species' quantity."
+  //},
 
-  //90523
-  {
-    L2V4InitAssignParameterMismatch,
-    LIBSBML_CAT_UNITS_CONSISTENCY,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_GENERAL_WARNING,
-    "When the 'variable' in an <initialAssignment> refers to a <parameter>, "
-    "the units of the <initialAssignment>'s <math> expression should be "
-    "consistent with the units declared for that parameter."
-  },
+  ////90523
+  //{
+  //  L2V4InitAssignParameterMismatch,
+  //  LIBSBML_CAT_UNITS_CONSISTENCY,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_GENERAL_WARNING,
+  //  "When the 'variable' in an <initialAssignment> refers to a <parameter>, "
+  //  "the units of the <initialAssignment>'s <math> expression should be "
+  //  "consistent with the units declared for that parameter."
+  //},
 
-  //90531
-  {
-    L2V4RateRuleCompartmentMismatch,
-    LIBSBML_CAT_UNITS_CONSISTENCY,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_GENERAL_WARNING,
-    "When the 'variable' in a <rateRule> definition refers to a "
-    "<compartment>, the units of the rule's right-hand side should be of the "
-    "form _x per time_, where _x_ is either the 'units' in that "
-    "<compartment> definition, or (in the absence of explicit units declared "
-    "for the compartment size) the default units for that compartment, and "
-    "_time_ refers to the units of time for the model."
-  },
+  ////90531
+  //{
+  //  L2V4RateRuleCompartmentMismatch,
+  //  LIBSBML_CAT_UNITS_CONSISTENCY,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_GENERAL_WARNING,
+  //  "When the 'variable' in a <rateRule> definition refers to a "
+  //  "<compartment>, the units of the rule's right-hand side should be of the "
+  //  "form _x per time_, where _x_ is either the 'units' in that "
+  //  "<compartment> definition, or (in the absence of explicit units declared "
+  //  "for the compartment size) the default units for that compartment, and "
+  //  "_time_ refers to the units of time for the model."
+  //},
 
-  //90532
-  {
-    L2V4RateRuleSpeciesMismatch,
-    LIBSBML_CAT_UNITS_CONSISTENCY,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_GENERAL_WARNING,
-    "When the 'variable' in a <rateRule> definition refers to a <species>, "
-    "the units of the rule's right-hand side should be of the form _x per "
-    "time_, where _x_ is the units of that species' quantity, and _time_ "
-    "refers to the units of time for the model."
-  },
+  ////90532
+  //{
+  //  L2V4RateRuleSpeciesMismatch,
+  //  LIBSBML_CAT_UNITS_CONSISTENCY,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_GENERAL_WARNING,
+  //  "When the 'variable' in a <rateRule> definition refers to a <species>, "
+  //  "the units of the rule's right-hand side should be of the form _x per "
+  //  "time_, where _x_ is the units of that species' quantity, and _time_ "
+  //  "refers to the units of time for the model."
+  //},
 
-  //90533
-  {
-    L2V4RateRuleParameterMismatch,
-    LIBSBML_CAT_UNITS_CONSISTENCY,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_GENERAL_WARNING,
-    "When the 'variable' in a <rateRule> definition refers to a <parameter>, "
-    "the units of the rule's right-hand side should be of the form _x per "
-    "time_, where _x_ is the 'units' in that <parameter> definition, and "
-    "_time_ refers to the units of time for the model."
-  },
+  ////90533
+  //{
+  //  L2V4RateRuleParameterMismatch,
+  //  LIBSBML_CAT_UNITS_CONSISTENCY,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_GENERAL_WARNING,
+  //  "When the 'variable' in a <rateRule> definition refers to a <parameter>, "
+  //  "the units of the rule's right-hand side should be of the form _x per "
+  //  "time_, where _x_ is the 'units' in that <parameter> definition, and "
+  //  "_time_ refers to the units of time for the model."
+  //},
 
-  //90541
-  {
-    L2V4KineticLawNotSubstancePerTime,
-    LIBSBML_CAT_UNITS_CONSISTENCY,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_GENERAL_WARNING,
-    "The units of the 'math' formula in a <kineticLaw> definition should be "
-    "the equivalent of _substance per time_."
-  },
+  ////90541
+  //{
+  //  L2V4KineticLawNotSubstancePerTime,
+  //  LIBSBML_CAT_UNITS_CONSISTENCY,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_GENERAL_WARNING,
+  //  "The units of the 'math' formula in a <kineticLaw> definition should be "
+  //  "the equivalent of _substance per time_."
+  //},
 
-  //90551
-  {
-    L2V4DelayUnitsNotTime,
-    LIBSBML_CAT_UNITS_CONSISTENCY,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_GENERAL_WARNING,
-    "When a value for <delay> is given in a <event> definition, the units of "
-    "the delay formula should correspond to either the value of 'timeUnits' in "
-    "the <event> or (if no 'timeUnits' are given), the model's default units "
-    "of time."
-  },
+  ////90551
+  //{
+  //  L2V4DelayUnitsNotTime,
+  //  LIBSBML_CAT_UNITS_CONSISTENCY,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_GENERAL_WARNING,
+  //  "When a value for <delay> is given in a <event> definition, the units of "
+  //  "the delay formula should correspond to either the value of 'timeUnits' in "
+  //  "the <event> or (if no 'timeUnits' are given), the model's default units "
+  //  "of time."
+  //},
 
-  //90561
-  {
-    L2V4EventAssignCompartmentMismatch,
-    LIBSBML_CAT_UNITS_CONSISTENCY,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_GENERAL_WARNING,
-    "When the 'variable' in an <eventAssignment> refers to a <compartment>, "
-    "the units of the <eventAssignment>'s <math> expression should be consistent "
-    "with the units of that compartment's size."
-  },
+  ////90561
+  //{
+  //  L2V4EventAssignCompartmentMismatch,
+  //  LIBSBML_CAT_UNITS_CONSISTENCY,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_GENERAL_WARNING,
+  //  "When the 'variable' in an <eventAssignment> refers to a <compartment>, "
+  //  "the units of the <eventAssignment>'s <math> expression should be consistent "
+  //  "with the units of that compartment's size."
+  //},
 
-  //90562
-  {
-    L2V4EventAssignSpeciesMismatch,
-    LIBSBML_CAT_UNITS_CONSISTENCY,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_GENERAL_WARNING,
-    "When the 'variable' in an <eventAssignment> refers to a <species>, the "
-    "units of the <eventAssignment>'s <math> expression should be consistent "
-    "with the units of the species' quantity."
-  },
+  ////90562
+  //{
+  //  L2V4EventAssignSpeciesMismatch,
+  //  LIBSBML_CAT_UNITS_CONSISTENCY,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_GENERAL_WARNING,
+  //  "When the 'variable' in an <eventAssignment> refers to a <species>, the "
+  //  "units of the <eventAssignment>'s <math> expression should be consistent "
+  //  "with the units of the species' quantity."
+  //},
 
-  //90563
-  {
-    L2V4EventAssignParameterMismatch,
-    LIBSBML_CAT_UNITS_CONSISTENCY,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_GENERAL_WARNING,
-    "When the 'variable' in an <eventAssignment> refers to a <parameter>, the "
-    "units of the <eventAssignment>'s <math> expression should be consistent "
-    "with the units declared for that parameter."
-  },
+  ////90563
+  //{
+  //  L2V4EventAssignParameterMismatch,
+  //  LIBSBML_CAT_UNITS_CONSISTENCY,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_GENERAL_WARNING,
+  //  "When the 'variable' in an <eventAssignment> refers to a <parameter>, the "
+  //  "units of the <eventAssignment>'s <math> expression should be consistent "
+  //  "with the units declared for that parameter."
+  //},
 
 
   //91001
@@ -3782,7 +3782,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_GENERAL_WARNING,
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
-    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
     ""
   },
 
@@ -3796,7 +3796,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_GENERAL_WARNING,
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
-    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
     ""
   },
 
@@ -3810,7 +3810,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_GENERAL_WARNING,
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
-    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
     ""
   },
 

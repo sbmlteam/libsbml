@@ -377,8 +377,8 @@ main (int argc, char* argv[])
   failed += runTests( "Testing Model Consistency Constraints (20000 - 29999)",
 		      "test-data", 20000, 29999, runMainTest, library);
 
-  failed += runTests( "Testing Unit Consistency Constraints L2V4 (90500 - 90599)",
-		      "test-data", 90500, 90599, runUnitTest, library);
+  //failed += runTests( "Testing Unit Consistency Constraints L2V4 (90500 - 90599)",
+		//      "test-data", 90500, 90599, runUnitTest, library);
 
   failed += runTests( "Testing L1 Compatibility Constraints (91000 - 91999)",
 		      "test-data-conversion", 91000, 91999, runL1Test, library);

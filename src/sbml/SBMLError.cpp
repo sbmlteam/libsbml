@@ -145,12 +145,6 @@ SBMLError::SBMLError (  const unsigned int errorId
       mErrorId = InconsistentArgUnits;
     }
 
-    if ( mErrorId == L2V4InconsistentArgUnitsWarnings
-         || mErrorId == L2V4InconsistentPowerUnitsWarnings
-         || mErrorId == L2V4InconsistentExponUnitsWarnings )
-    {
-      mErrorId = L2V4InconsistentArgUnits;
-    }
     ostringstream newMsg;
     mSeverity = getSeverityForEntry(index, level, version);
 
