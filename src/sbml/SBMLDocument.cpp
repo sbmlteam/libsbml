@@ -49,6 +49,8 @@
 #include <sbml/SBMLVisitor.h>
 #include <sbml/SBMLError.h>
 #include <sbml/SBMLDocument.h>
+#include <sbml/SBMLReader.h>
+#include <sbml/SBMLWriter.h>
 
 /** @cond doxygen-ignored */
 
@@ -754,6 +756,19 @@ SBMLDocument::checkInternalConsistency()
     mErrorLog.add( validator.getFailures() );
   }
   totalerrors += nerrors;
+  
+  /* hack to catch errors normally caught at read time */
+
+  SBMLDocument *d = readSBMLFromString(writeSBMLToString(this));
+  nerrors = d->getNumErrors();
+
+  for (unsigned int i = 0; i < nerrors; i++)
+  {
+    mErrorLog.add(*(d->getError(i)));
+  }
+  delete d;
+  totalerrors += nerrors;
+
 
   return totalerrors;
 
