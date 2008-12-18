@@ -936,49 +936,17 @@ SWIGJAVA_EQUALS(XMLInputStream)
  * readSBML() always compute an absolute path and filename.
  */
 
-%typemap("javaimports") SBMLReader "
-import java.io.File;
-"
-
-%javamethodmodifiers       SBMLReader::readSBML "private";
-%rename(readSBMLInternal)  SBMLReader::readSBML;
-
-%typemap("javacode") SBMLReader
-%{
-  public boolean equals(Object sb)
-  {
-    if ( this == sb )
-    {
-      return true;
-    }
-    return swigCPtr == getCPtr((SBMLReader)(sb));
-  }
-
-  public int hashCode()
-  {
-    return (int)(swigCPtr^(swigCPtr>>>32));
-  }
-
-  public SBMLDocument readSBML (String filename)
-  {
-    File   file    = new java.io.File(filename);
-    String abspath = file.getAbsolutePath();
-    SBMLReader reader = new SBMLReader();
-    return reader.readSBMLInternal(abspath);
-  }
-%}
-
-%javamethodmodifiers       readSBML "private"
-%rename(readSBMLInternal)  readSBML;
-
 %pragma(java) modulecode =
 %{
-  public static SBMLDocument readSBML (String filename)
-  {
-    SBMLReader reader = new SBMLReader();
-    return reader.readSBML(filename);
-  }
+   static String getAbsolutePath(String filename)
+   {
+     java.io.File file = new java.io.File(filename);
+     return file.getAbsolutePath();
+   }
 %}
+
+%typemap("javain") const std::string& filename "libsbml.getAbsolutePath($javainput)";
+%typemap("javain") const char* filename        "libsbml.getAbsolutePath($javainput)";
 
 /**
  * Wraps std::ostream by implementing three simple wrapper classes.
