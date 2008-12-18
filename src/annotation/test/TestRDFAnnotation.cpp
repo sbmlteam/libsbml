@@ -262,12 +262,12 @@ START_TEST (test_RDFAnnotation_parseCVTerms)
   fail_unless(!strcmp(XMLNode_getURI(desc), "http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
   fail_unless(XMLNode_getNumChildren(desc) == 1);
 
-  const XMLNode_t * is = XMLNode_getChild(desc, 0);
-  fail_unless(!strcmp(XMLNode_getName(is), "is"));
-  fail_unless(!strcmp(XMLNode_getPrefix(is), "bqbiol"));
-  fail_unless(XMLNode_getNumChildren(is) == 1);
+  const XMLNode_t * is1 = XMLNode_getChild(desc, 0);
+  fail_unless(!strcmp(XMLNode_getName(is1), "is"));
+  fail_unless(!strcmp(XMLNode_getPrefix(is1), "bqbiol"));
+  fail_unless(XMLNode_getNumChildren(is1) == 1);
 
-  const XMLNode_t * Bag = XMLNode_getChild(is, 0);
+  const XMLNode_t * Bag = XMLNode_getChild(is1, 0);
   fail_unless(!strcmp(XMLNode_getName(Bag), "Bag"));
   fail_unless(!strcmp(XMLNode_getPrefix(Bag), "rdf"));
   fail_unless(!strcmp(XMLNode_getURI(Bag), "http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
