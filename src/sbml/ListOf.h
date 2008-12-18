@@ -219,6 +219,7 @@ public:
    */
   unsigned int size () const;
 
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Sets the parent SBMLDocument of this SBML object.
@@ -236,6 +237,7 @@ public:
    */
   virtual void setParentSBMLObject (SBase* sb);
 
+  /** @endcond doxygen-libsbml-internal */
 
   /**
    * Returns the libSBML type code for this object, namely, @c

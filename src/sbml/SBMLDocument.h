@@ -537,12 +537,14 @@ public:
   void printErrors (std::ostream& stream = std::cerr) const;
 
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * No-op; it is provided for consistency with the method available on
    * other libSBML object classes but has no effect on SBMLDocument.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
 
+  /** @endcond doxygen-libsbml-internal */
 
   /**
    * Returns the libSBML type code for this %SBML object.

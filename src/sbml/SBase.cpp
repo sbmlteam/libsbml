@@ -1042,6 +1042,7 @@ SBase::appendNotes(const std::string& notes)
   }
 }
 
+/** @cond doxygen-libsbml-internal */
 
 /*
  * Sets the parent SBMLDocument of this SBML object.
@@ -1063,6 +1064,7 @@ SBase::setParentSBMLObject (SBase* sb)
 {
   mParentSBMLObject = sb;
 }
+/** @endcond doxygen-libsbml-internal */
 
 SBase* 
 SBase::getAncestorOfType(SBMLTypeCode_t type)

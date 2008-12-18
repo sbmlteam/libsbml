@@ -913,6 +913,7 @@ SBMLDocument::printErrors (std::ostream& stream) const
   }
 }
 
+/** @cond doxygen-libsbml-internal */
 
 /*
  * Sets the parent SBMLDocument of this SBML object.
@@ -922,6 +923,7 @@ SBMLDocument::setSBMLDocument (SBMLDocument* d)
 {
   // No-op
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /*

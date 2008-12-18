@@ -285,6 +285,7 @@ struct SetParentSBMLObject : public unary_function<SBase*, void>
   void operator() (SBase* sbase) { sbase->setParentSBMLObject(sb); }
 };
 
+/** @cond doxygen-libsbml-internal */
 
 /*
  * Sets the parent SBMLDocument of this SBML object.
@@ -306,6 +307,7 @@ ListOf::setParentSBMLObject (SBase* sb)
   mParentSBMLObject = sb;
   for_each( mItems.begin(), mItems.end(), SetParentSBMLObject(sb) );
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /*

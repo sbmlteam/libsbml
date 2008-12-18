@@ -305,6 +305,7 @@ public:
    */
   bool containsUndeclaredUnits();
 
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Sets the parent SBMLDocument of this SBML object.
@@ -320,6 +321,8 @@ public:
    * @param sb the SBML object to use
    */
   virtual void setParentSBMLObject (SBase* sb);
+
+  /** @endcond doxygen-libsbml-internal */
 
 
   /**

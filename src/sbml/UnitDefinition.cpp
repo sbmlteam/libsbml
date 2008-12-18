@@ -407,6 +407,7 @@ UnitDefinition::getNumUnits () const
   return mUnits.size();
 }
 
+/** @cond doxygen-libsbml-internal */
 
 /*
  * Sets the parent SBMLDocument of this SBML object.
@@ -429,6 +430,7 @@ UnitDefinition::setParentSBMLObject (SBase* sb)
 {
   mParentSBMLObject = sb;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /*

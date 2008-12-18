@@ -505,6 +505,7 @@ KineticLaw::containsUndeclaredUnits()
 }
 
 
+/** @cond doxygen-libsbml-internal */
 
 /*
  * Sets the parent SBMLDocument of this SBML object.
@@ -528,6 +529,7 @@ KineticLaw::setParentSBMLObject (SBase* sb)
   mParentSBMLObject = sb;
 }
 
+/** @endcond doxygen-libsbml-internal */
 
 /*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN

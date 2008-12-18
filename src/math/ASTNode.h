@@ -1162,6 +1162,7 @@ public:
   LIBSBML_EXTERN
   void ReplaceArgument(const std::string bvar, ASTNode * arg);
 
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Sets the parent SBML object.
@@ -1170,6 +1171,8 @@ public:
    */
   LIBSBML_EXTERN
   void setParentSBMLObject(SBase * sb);
+
+  /** @endcond doxygen-libsbml-internal */
 
 
   /**
@@ -1758,10 +1761,6 @@ ASTNode_replaceArgument(ASTNode_t* node, const char * bvar, ASTNode_t* arg);
 LIBSBML_EXTERN
 void
 ASTNode_reduceToBinary(ASTNode_t* node);
-
-LIBSBML_EXTERN
-void 
-ASTNode_setParentSBMLObject(ASTNode_t* node, SBase_t * sb);
 
 
 LIBSBML_EXTERN

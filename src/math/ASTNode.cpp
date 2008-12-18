@@ -2458,20 +2458,6 @@ ASTNode_reduceToBinary(ASTNode_t* node)
 }
 
 /**
-  * Sets the parent SBML structure of the given ASTNode_t structure.
-  * 
-  * @param node the ASTNode_t
-  * @param sb the parent SBase_t structute of the ASTNode_t
-  */
-LIBSBML_EXTERN
-void 
-ASTNode_setParentSBMLObject(ASTNode_t* node, SBase_t * sb)
-{
-  node->setParentSBMLObject(sb);
-}
-
-
-/**
   * Returns the parent SBML structure of the given ASTNode_t structure.
   *
   * @param node the ASTNode_t of which to return the parent.

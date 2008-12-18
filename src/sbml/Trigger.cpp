@@ -156,6 +156,7 @@ Trigger::setMath (const ASTNode* math)
 
 }
 
+/** @cond doxygen-libsbml-internal */
 
 /*
  * Sets the parent SBMLDocument of this SBML object.
@@ -177,6 +178,7 @@ Trigger::setParentSBMLObject (SBase* sb)
 {
   mParentSBMLObject = sb;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /*

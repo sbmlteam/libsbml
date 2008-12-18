@@ -2004,6 +2004,7 @@ Model::isBoolean (const ASTNode* node) const
   return false;
 }
 
+/** @cond doxygen-libsbml-internal */
 
 /*
  * Sets the parent SBMLDocument of this SBML object.
@@ -2038,6 +2039,7 @@ Model::setParentSBMLObject (SBase* sb)
 {
   mParentSBMLObject = sb;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /*
