@@ -1548,7 +1548,7 @@ START_TEST (test_ASTNode_setReal)
   fail_unless( ASTNode_getDenominator(node) == 90      );
   fail_unless( ASTNode_getMantissa(node) == 0     );
 
-  ASTNode_setRealWithExponent(node, 32, 4);
+  ASTNode_setRealWithExponent(node, 32.0, 4);
   fail_unless( ASTNode_getType(node) == AST_REAL_E );
   fail_unless( ASTNode_getInteger(node) == 0         );
   fail_unless( ASTNode_getName(node)== NULL );
