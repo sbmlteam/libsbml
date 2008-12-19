@@ -106,3 +106,19 @@ START_CONSTRAINT (94006, Event, e)
   inv( e.getUseValuesFromTriggerTime() == true);
 }
 END_CONSTRAINT
+
+START_CONSTRAINT (94007, Model, m1)
+{
+  // if the model was L2V4 or above the model sbo term will not
+  // be valid in l2v3
+  pre( m1.getLevel() >1 );
+  if (m1.getLevel() == 2)
+  {
+    pre( m1.getVersion() > 3);
+  }
+
+  inv( !m1.isSetSBOTerm());
+}
+END_CONSTRAINT
+
+

@@ -3453,6 +3453,25 @@ static const sbmlErrorTableEntry errorTable[] =
     "(References: L2V3 Section 4.14; L2V4 Section 4.14)"
   },
 
+  //93006
+  {
+    ModelSBOBranchChangedBeyondL2v2,
+    LIBSBML_CAT_SBML_L2V2_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "In SBML Level 2 prior to Version 4 the value  of the 'sboTerm' "
+    "attribute on a <model> is expected to be a term "
+    "derived from SBO:0000004, \"modeling framework\"; in Version 4 "
+    "and above it is expected to be a term derived from SBO:0000231 "
+    "\"interaction\". Using the existing term will create an invalid "
+    " L2V2 model. (References: L2V2 Section 4.2.1; L2V3 "
+    "Sections 4.2.2 and 5; L2V4 Sections 4.2.2 and 5)"
+  },
+
   //94001
   {
     NoUnitOffsetInL2v3,
@@ -3549,6 +3568,25 @@ static const sbmlErrorTableEntry errorTable[] =
     "(References: L2V3 Section 4.14; L2V4 Section 4.14)"
   },
 
+  //94007
+  {
+    ModelSBOBranchChangedBeyondL2v3,
+    LIBSBML_CAT_SBML_L2V3_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "In SBML Level 2 prior to Version 4 the value  of the 'sboTerm' "
+    "attribute on a <model> is expected to be a term "
+    "derived from SBO:0000004, \"modeling framework\"; in Version 4 "
+    "and above it is expected to be a term derived from SBO:0000231 "
+    "\"interaction\". Using the existing term will create an invalid "
+    " L2V3 model. (References: L2V2 Section 4.2.1; L2V3 "
+    "Sections 4.2.2 and 5; L2V4 Sections 4.2.2 and 5)"
+  },
+
   //95001
   {
     NoUnitOffsetInL2v4,
@@ -3626,6 +3664,25 @@ static const sbmlErrorTableEntry errorTable[] =
     "The 'timeUnits' attribute on <event>, previously available in SBML "
     "Level 2 versions prior to Version 3, has been removed as of SBML "
     "Level 2 Version 3. (References: L2V3 Section 4.14; L2V4 Section 4.14)"
+  },
+
+  //95006
+  {
+    ModelSBOBranchChangedInL2v4,
+    LIBSBML_CAT_SBML_L2V4_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "In SBML Level 2 prior to Version 4 the value  of the 'sboTerm' "
+    "attribute on a <model> is expected to be a term "
+    "derived from SBO:0000004, \"modeling framework\"; in Version 4 "
+    "and above it is expected to be a term derived from SBO:0000231 "
+    "\"interaction\". Using the existing term will create an invalid "
+    " L2V4 model. (References: L2V2 Section 4.2.1; L2V3 "
+    "Sections 4.2.2 and 5; L2V4 Sections 4.2.2 and 5)"
   },
 
   //99106

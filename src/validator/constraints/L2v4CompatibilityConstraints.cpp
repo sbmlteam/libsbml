@@ -99,3 +99,14 @@ START_CONSTRAINT (95005, Event, e)
 
 }
 END_CONSTRAINT
+
+START_CONSTRAINT (95006, Model, m1)
+{
+  // if the model was earlier than L2V4 the model sbo term will not
+  // be valid in l2v4
+  pre( m1.getLevel() == 2 );
+  pre( m1.getVersion() < 4);
+
+  inv( !m1.isSetSBOTerm());
+}
+END_CONSTRAINT

@@ -649,6 +649,7 @@ typedef enum
   , NoKineticLawTimeUnitsInL2v2      = 93003
   , NoKineticLawSubstanceUnitsInL2v2 = 93004
   , NoDelayedEventAssignmentInL2v2   = 93005
+  , ModelSBOBranchChangedBeyondL2v2  = 93006
 
   /* L2v3 compatability  */
 
@@ -658,6 +659,7 @@ typedef enum
   , NoSpeciesSpatialSizeUnitsInL2v3  = 94004
   , NoEventTimeUnitsInL2v3           = 94005
   , NoDelayedEventAssignmentInL2v3   = 94006
+  , ModelSBOBranchChangedBeyondL2v3  = 94007
 
   /* L2v4 compatability  */
 
@@ -666,6 +668,7 @@ typedef enum
   , NoKineticLawSubstanceUnitsInL2v4 = 95003
   , NoSpeciesSpatialSizeUnitsInL2v4  = 95004
   , NoEventTimeUnitsInL2v4           = 95005
+  , ModelSBOBranchChangedInL2v4      = 95006
 
   /* These are errors checked by libSBML that were never
    * published in a spec. */
