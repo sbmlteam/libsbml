@@ -73,11 +73,12 @@ START_TEST (test_internal_consistency_check_99901)
   Model *m = d->createModel();
 
   c->setSpatialDimensions(2);
+  c->setId("c");
   m->addCompartment(c);
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99901);
 
   delete d;
@@ -94,11 +95,12 @@ START_TEST (test_internal_consistency_check_99902)
   Model *m = d->createModel();
 
   c->setCompartmentType("hh");
+  c->setId("c");
   m->addCompartment(c);
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99902);
 
   delete d;
@@ -120,11 +122,12 @@ START_TEST (test_internal_consistency_check_99903)
 
   Rule * r = m->createAssignmentRule();
   r->setVariable("c");
+  r->setFormula("2*3");
 
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99903);
 
   delete d;
@@ -139,6 +142,8 @@ START_TEST (test_internal_consistency_check_99903_param)
   Parameter *p = new Parameter();
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
+  Compartment *c = m->createCompartment();
+  c->setId("cc");
 
   p->setConstant(true);
   p->setId("c");
@@ -146,10 +151,11 @@ START_TEST (test_internal_consistency_check_99903_param)
 
   Rule * r = m->createAssignmentRule();
   r->setVariable("c");
+  r->setFormula("2*3");
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99903);
 
   delete d;
@@ -164,15 +170,20 @@ START_TEST (test_internal_consistency_check_99903_localparam)
   Parameter *p = new Parameter();
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
+  Compartment *c = m->createCompartment();
+  c->setId("cc");
   Reaction *r = m->createReaction();
+  r->setId("r");
   KineticLaw *kl = r->createKineticLaw();
+  kl->setFormula("2");
 
+  p->setId("p");
   p->setConstant(false);
   kl->addParameter(p);
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99903);
 
   delete d;
@@ -188,12 +199,13 @@ START_TEST (test_internal_consistency_check_99904)
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
 
+  c->setId("c");
   c->setMetaId("mmm");
   m->addCompartment(c);
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99904);
 
   delete d;
@@ -208,14 +220,18 @@ START_TEST (test_internal_consistency_check_99904_kl)
   KineticLaw *kl = new KineticLaw();
   Model *m = d->createModel();
   d->setLevelAndVersion(1, 2);
+  Compartment *c = m->createCompartment();
+  c->setId("cc");
   Reaction *r = m->createReaction();
+  r->setId("r");
 
+  kl->setFormula("2");
   kl->setMetaId("mmm");
   r->setKineticLaw(kl);
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99904);
 
   delete d;
@@ -229,13 +245,15 @@ START_TEST (test_internal_consistency_check_99904_model)
   unsigned int errors;
   d->setLevelAndVersion(1, 2);
   Model * m = new Model();
+  Compartment *c = m->createCompartment();
+  c->setId("cc");
 
   m->setMetaId("mmm");
   d->setModel(m);
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99904);
 
   delete d;
@@ -250,13 +268,16 @@ START_TEST (test_internal_consistency_check_99904_param)
   Parameter *p = new Parameter();
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
+  Compartment *c = m->createCompartment();
+  c->setId("cc");
 
+  p->setId("p");
   p->setMetaId("mmm");
   m->addParameter(p);
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99904);
 
   delete d;
@@ -271,13 +292,16 @@ START_TEST (test_internal_consistency_check_99904_react)
   Reaction *r = new Reaction();
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
+  Compartment *c = m->createCompartment();
+  c->setId("cc");
 
+  r->setId("r");
   r->setMetaId("mmm");
   m->addReaction(r);
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99904);
 
   delete d;
@@ -292,13 +316,18 @@ START_TEST (test_internal_consistency_check_99904_rule_assign)
   Rule *r = new AssignmentRule();
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
+  Compartment *c = m->createCompartment();
+  c->setId("cc");
+  c->setConstant(false);
 
+  r->setVariable("cc");
+  r->setFormula("2");
   r->setMetaId("mmm");
   m->addRule(r);
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99904);
 
   delete d;
@@ -313,13 +342,18 @@ START_TEST (test_internal_consistency_check_99904_rule_rate)
   Rule *r = new RateRule();
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
+  Compartment *c = m->createCompartment();
+  c->setId("cc");
+  c->setConstant(false);
 
+  r->setVariable("cc");
+  r->setFormula("2");
   r->setMetaId("mmm");
   m->addRule(r);
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99904);
 
   delete d;
@@ -334,13 +368,16 @@ START_TEST (test_internal_consistency_check_99904_rule_alg)
   Rule *r = new AlgebraicRule();
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
+  Compartment *c = m->createCompartment();
+  c->setId("cc");
 
   r->setMetaId("mmm");
+  r->setFormula("2");
   m->addRule(r);
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99904);
 
   delete d;
@@ -359,12 +396,13 @@ START_TEST (test_internal_consistency_check_99904_species)
   c->setId("c");
 
   s->setCompartment("c");
+  s->setId("s");
   s->setMetaId("mmm");
   m->addSpecies(s);
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99904);
 
   delete d;
@@ -384,6 +422,7 @@ START_TEST (test_internal_consistency_check_99904_speciesRef)
   Species * s = m->createSpecies();
   s->setId("s");
   Reaction *r = m->createReaction();
+  r->setId("r");
 
   s->setCompartment("c");
   sr->setSpecies("s");
@@ -392,7 +431,7 @@ START_TEST (test_internal_consistency_check_99904_speciesRef)
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99904);
 
   delete d;
@@ -407,7 +446,10 @@ START_TEST (test_internal_consistency_check_99904_unit)
   Unit *u = new Unit();
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
+  Compartment *c = m->createCompartment();
+  c->setId("cc");
   UnitDefinition *ud = m->createUnitDefinition();
+  ud->setId("ud");
 
   u->setMetaId("mmm");
   u->setKind(UNIT_KIND_MOLE);
@@ -415,7 +457,7 @@ START_TEST (test_internal_consistency_check_99904_unit)
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99904);
 
   delete d;
@@ -430,13 +472,16 @@ START_TEST (test_internal_consistency_check_99904_unitdef)
   UnitDefinition *u = new UnitDefinition();
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
+  Compartment *c = m->createCompartment();
+  c->setId("cc");
 
+  u->setId("ud");
   u->setMetaId("mmm");
   m->addUnitDefinition(u);
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99904);
 
   delete d;
@@ -452,12 +497,13 @@ START_TEST (test_internal_consistency_check_99905)
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
 
+  c->setId("c");
   c->setSBOTerm(2);
   m->addCompartment(c);
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99905);
 
   delete d;
@@ -472,12 +518,14 @@ START_TEST (test_internal_consistency_check_99905_ct)
   CompartmentType *ct = new CompartmentType();
   Model *m = d->createModel();
   d->setLevelAndVersion(2, 2);
+  
+  ct->setId("ct");
   ct->setSBOTerm(5);
   m->addCompartmentType(ct);
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99905);
 
   delete d;
@@ -499,7 +547,7 @@ START_TEST (test_internal_consistency_check_99905_delay)
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99905);
 
   delete d;
@@ -517,13 +565,14 @@ START_TEST (test_internal_consistency_check_99905_species)
   Compartment *c = m->createCompartment();
   c->setId("c");
 
+  s->setId("s");
   s->setCompartment("c");
   s->setSBOTerm(2);
   m->addSpecies(s);
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99905);
 
   delete d;
@@ -538,12 +587,14 @@ START_TEST (test_internal_consistency_check_99905_st)
   SpeciesType *ct = new SpeciesType();
   Model *m = d->createModel();
   d->setLevelAndVersion(2, 2);
+  
+  ct->setId("st");
   ct->setSBOTerm(5);
   m->addSpeciesType(ct);
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99905);
 
   delete d;
@@ -564,6 +615,7 @@ START_TEST (test_internal_consistency_check_99905_stoichmath)
   c->setId("c");
   s->setCompartment("c");
   Reaction *r = m->createReaction();
+  r->setId("r");
   SpeciesReference *sr = r->createProduct();
   sr->setSpecies("s");
   
@@ -572,7 +624,7 @@ START_TEST (test_internal_consistency_check_99905_stoichmath)
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99905);
 
   delete d;
@@ -594,7 +646,7 @@ START_TEST (test_internal_consistency_check_99905_trigger)
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99905);
 
   delete d;
@@ -607,9 +659,10 @@ START_TEST (test_internal_consistency_check_99905_unit)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Unit *u = new Unit();
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(2, 2);
   Model *m = d->createModel();
   UnitDefinition *ud = m->createUnitDefinition();
+  ud->setId("ud");
 
   u->setKind(UNIT_KIND_MOLE);
   u->setSBOTerm(9);
@@ -617,7 +670,7 @@ START_TEST (test_internal_consistency_check_99905_unit)
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99905);
 
   delete d;
@@ -630,15 +683,16 @@ START_TEST (test_internal_consistency_check_99905_unitdef)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   UnitDefinition *u = new UnitDefinition();
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(2, 2);
   Model *m = d->createModel();
 
+  u->setId("ud");
   u->setSBOTerm(9);
   m->addUnitDefinition(u);
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99905);
 
   delete d;
@@ -654,12 +708,13 @@ START_TEST (test_internal_consistency_check_99906)
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
 
+  c->setId("c");
   c->setUnits("mole");
   m->addCompartment(c);
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99906);
 
   delete d;
@@ -672,9 +727,10 @@ START_TEST (test_internal_consistency_check_99907)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Compartment *c = new Compartment();
-  d->setLevelAndVersion(1, 1);
+  d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
 
+  c->setId("c");
   /* note - it is impossible to create the situation where a l1 model
    * has no volume set as the code doesnt let you !!!
    */
@@ -684,7 +740,7 @@ START_TEST (test_internal_consistency_check_99907)
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 0);
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -697,13 +753,14 @@ START_TEST (test_internal_consistency_check_99908)
   unsigned int errors;
   CompartmentType *ct = new CompartmentType();
   Model *m = d->createModel();
-
   d->setLevelAndVersion(2, 1);
+
+  ct->setId("ct");
   m->addCompartmentType(ct);
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99908);
 
 
@@ -724,7 +781,7 @@ START_TEST (test_internal_consistency_check_99909)
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99909);
 
   delete d;
@@ -739,13 +796,14 @@ START_TEST (test_internal_consistency_check_99910)
   Event *e = new Event();
   Model *m = d->createModel();
   d->setLevelAndVersion(1, 2);
-  Compartment *c = m->getCompartment(0);
+  Compartment *c = m->createCompartment();
+  c->setId("cc");
   c->setConstant(false);
   m->addEvent(e);
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99910);
 
   delete d;
@@ -766,7 +824,7 @@ START_TEST (test_internal_consistency_check_99911_event)
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99911);
 
   delete d;
@@ -779,16 +837,20 @@ START_TEST (test_internal_consistency_check_99911_ea)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Model *m = d->createModel();
+  Compartment *c = m->createCompartment();
+  c->setId("c");
+  c->setConstant(false);
   Event *e = m->createEvent();
   EventAssignment *ea = new EventAssignment();
   d->setLevelAndVersion(2, 1);
 
+  ea->setVariable("c");
   ea->setSBOTerm(2);
   e->addEventAssignment(ea);
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99911);
 
   delete d;
@@ -804,12 +866,13 @@ START_TEST (test_internal_consistency_check_99911_fd)
   FunctionDefinition *fd = new FunctionDefinition();
   d->setLevelAndVersion(2, 1);
 
+  fd->setId("fd");
   fd->setSBOTerm(2);
   m->addFunctionDefinition(fd );
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99911);
 
   delete d;
@@ -823,15 +886,18 @@ START_TEST (test_internal_consistency_check_99911_kl)
   unsigned int errors;
   Model *m = d->createModel();
   Reaction *r = m->createReaction();
+  r->setId("r");
   KineticLaw *kl = new KineticLaw();
   d->setLevelAndVersion(2, 1);
 
   kl->setSBOTerm(2);
+  Parameter *p = kl->createParameter();
+  p->setId("p");
   r->setKineticLaw(kl );
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99911);
 
   delete d;
@@ -851,7 +917,7 @@ START_TEST (test_internal_consistency_check_99911_model)
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99911);
 
   delete d;
@@ -867,12 +933,13 @@ START_TEST (test_internal_consistency_check_99911_param)
   Parameter *p = new Parameter();
   d->setLevelAndVersion(2, 1);
 
+  p->setId("p");
   p->setSBOTerm(2);
   m->addParameter(p );
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99911);
 
   delete d;
@@ -888,12 +955,13 @@ START_TEST (test_internal_consistency_check_99911_react)
   Reaction *r = new Reaction();
   d->setLevelAndVersion(2, 1);
 
+  r->setId("r");
   r->setSBOTerm(2);
   m->addReaction(r );
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99911);
 
   delete d;
@@ -906,15 +974,19 @@ START_TEST (test_internal_consistency_check_99911_rule_assign)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Model *m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("p");
+  p->setConstant(false);
   Rule *r = new AssignmentRule();
   d->setLevelAndVersion(2, 1);
 
+  r->setVariable("p");
   r->setSBOTerm(2);
   m->addRule(r );
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99911);
 
   delete d;
@@ -927,15 +999,19 @@ START_TEST (test_internal_consistency_check_99911_rule_rate)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Model *m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("p");
+  p->setConstant(false);
   Rule *r = new RateRule();
   d->setLevelAndVersion(2, 1);
 
+  r->setVariable("p");
   r->setSBOTerm(2);
   m->addRule(r );
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99911);
 
   delete d;
@@ -956,7 +1032,7 @@ START_TEST (test_internal_consistency_check_99911_rule_alg)
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99911);
 
   delete d;
@@ -976,6 +1052,7 @@ START_TEST (test_internal_consistency_check_99911_speciesRef)
   Species * s = m->createSpecies();
   s->setId("s");
   Reaction *r = m->createReaction();
+  r->setId("r");
 
   s->setCompartment("c");
   sr->setSpecies("s");
@@ -984,7 +1061,7 @@ START_TEST (test_internal_consistency_check_99911_speciesRef)
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99911);
 
   delete d;
@@ -999,13 +1076,15 @@ START_TEST (test_internal_consistency_check_99912)
   FunctionDefinition *fd = new FunctionDefinition();
   Model *m = d->createModel();
   d->setLevelAndVersion(1, 2);
-  Compartment *c = m->getCompartment(0);
+  Compartment *c = m->createCompartment();
+  c->setId("cc");
   c->setConstant(false);
+ 
   m->addFunctionDefinition(fd );
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99912);
 
   delete d;
@@ -1020,13 +1099,14 @@ START_TEST (test_internal_consistency_check_99913)
   InitialAssignment *ia = new InitialAssignment();
   Model *m = d->createModel();
   d->setLevelAndVersion(1, 2);
-  Compartment *c = m->getCompartment(0);
+  Compartment *c = m->createCompartment();
+  c->setId("cc");
   c->setConstant(false);
   m->addInitialAssignment(ia );
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99913);
 
   delete d;
@@ -1047,7 +1127,7 @@ START_TEST (test_internal_consistency_check_99914)
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99914);
 
   delete d;
@@ -1068,7 +1148,7 @@ START_TEST (test_internal_consistency_check_99915_alg)
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99915);
 
   delete d;
@@ -1082,14 +1162,19 @@ START_TEST (test_internal_consistency_check_99915_assign)
   unsigned int errors;
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
+  Compartment *c = m->createCompartment();
+  c->setId("c");
+  c->setConstant(false);
   AssignmentRule *r = m->createAssignmentRule();
   r->setL1TypeCode(SBML_SPECIES_CONCENTRATION_RULE);
 
+  r->setVariable("c");
+  r->setFormula("2");
   r->setUnits("mmm");
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99915);
 
   delete d;
@@ -1103,14 +1188,19 @@ START_TEST (test_internal_consistency_check_99915_rate)
   unsigned int errors;
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
+  Compartment *c = m->createCompartment();
+  c->setId("c");
+  c->setConstant(false);
   RateRule *r = m->createRateRule();
   r->setL1TypeCode(SBML_SPECIES_CONCENTRATION_RULE);
 
+  r->setFormula("2");
+  r->setVariable("c");
   r->setUnits("mmm");
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99915);
 
   delete d;
@@ -1135,11 +1225,12 @@ START_TEST (test_internal_consistency_check_99916_rule)
 
   Rule * r = m->createAssignmentRule();
   r->setVariable("s");
+  r->setFormula("2");
 
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99916);
 
   delete d;
@@ -1157,6 +1248,7 @@ START_TEST (test_internal_consistency_check_99916_reaction)
   Compartment * c = m->createCompartment();
   c->setId("c");
   Reaction * r = m->createReaction();
+  r->setId("r");
   SpeciesReference *sr = r->createReactant();
 
   s->setId("s");
@@ -1167,7 +1259,7 @@ START_TEST (test_internal_consistency_check_99916_reaction)
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99916);
 
   delete d;
@@ -1192,7 +1284,7 @@ START_TEST (test_internal_consistency_check_99917)
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99917);
 
   delete d;
@@ -1210,13 +1302,14 @@ START_TEST (test_internal_consistency_check_99918)
   Compartment * c = m->createCompartment();
   c->setId("c");
 
+  s->setId("s");
   s->setCompartment("c");
   s->setSpeciesType("kkk");
   m->addSpecies(s);
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99918);
 
   delete d;
@@ -1234,13 +1327,14 @@ START_TEST (test_internal_consistency_check_99919)
   Compartment * c = m->createCompartment();
   c->setId("c");
 
+  s->setId("s");
   s->setCompartment("c");
   s->setHasOnlySubstanceUnits(true);
   m->addSpecies(s);
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99919);
 
   delete d;
@@ -1260,6 +1354,7 @@ START_TEST (test_internal_consistency_check_99920)
   Species * s = m->createSpecies();
   s->setId("s");
   Reaction *r = m->createReaction();
+  r->setId("r");
 
   s->setCompartment("c");
   sr->setSpecies("s");
@@ -1268,7 +1363,7 @@ START_TEST (test_internal_consistency_check_99920)
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 2);
+  fail_unless(errors == 2);
   fail_unless(d->getError(0)->getErrorId() == 99920);
   fail_unless(d->getError(1)->getErrorId() == 99921);
 
@@ -1289,6 +1384,7 @@ START_TEST (test_internal_consistency_check_99921)
   Species * s = m->createSpecies();
   s->setId("s");
   Reaction *r = m->createReaction();
+  r->setId("r");
 
   s->setCompartment("c");
   sr->setSpecies("s");
@@ -1297,7 +1393,7 @@ START_TEST (test_internal_consistency_check_99921)
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99921);
 
   delete d;
@@ -1312,12 +1408,13 @@ START_TEST (test_internal_consistency_check_99922)
   SpeciesType *ct = new SpeciesType();
   Model *m = d->createModel();
 
+  ct->setId("st");
   d->setLevelAndVersion(2, 1);
   m->addSpeciesType(ct);
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99922);
 
 
@@ -1339,6 +1436,7 @@ START_TEST (test_internal_consistency_check_99923)
   c->setId("c");
   s->setCompartment("c");
   Reaction *r = m->createReaction();
+  r->setId("r");
   SpeciesReference *sr = r->createProduct();
   sr->setSpecies("s");
   
@@ -1346,7 +1444,7 @@ START_TEST (test_internal_consistency_check_99923)
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99923);
 
   delete d;
@@ -1361,7 +1459,10 @@ START_TEST (test_internal_consistency_check_99924)
   Unit *u = new Unit();
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
+  Compartment *c = m->createCompartment();
+  c->setId("cc");
   UnitDefinition *ud = m->createUnitDefinition();
+  ud->setId("ud");
 
   u->setKind(UNIT_KIND_MOLE);
   u->setMultiplier(9);
@@ -1369,7 +1470,7 @@ START_TEST (test_internal_consistency_check_99924)
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99924);
 
   delete d;
@@ -1384,7 +1485,10 @@ START_TEST (test_internal_consistency_check_99925)
   Unit *u = new Unit();
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
+  Compartment *c = m->createCompartment();
+  c->setId("cc");
   UnitDefinition *ud = m->createUnitDefinition();
+  ud->setId("ud");
 
   u->setKind(UNIT_KIND_MOLE);
   u->setOffset(9);
@@ -1392,7 +1496,7 @@ START_TEST (test_internal_consistency_check_99925)
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors >= 1);
+  fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99925);
 
   delete d;
@@ -1429,7 +1533,7 @@ create_suite_TestInternalConsistencyChecks (void)
   tcase_add_test(tcase, test_internal_consistency_check_99905_delay);
   tcase_add_test(tcase, test_internal_consistency_check_99905_species);
   tcase_add_test(tcase, test_internal_consistency_check_99905_st);
- // tcase_add_test(tcase, test_internal_consistency_check_99905_stoichmath);
+  tcase_add_test(tcase, test_internal_consistency_check_99905_stoichmath);
   tcase_add_test(tcase, test_internal_consistency_check_99905_trigger);
   tcase_add_test(tcase, test_internal_consistency_check_99905_unit);
   tcase_add_test(tcase, test_internal_consistency_check_99905_unitdef);
