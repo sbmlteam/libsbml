@@ -6,7 +6,7 @@
       <compartment id="c"/>
     </listOfCompartments>
     <listOfSpecies>
-      <species id="s" compartment="a"/>
+      <species id="s" compartment="a" sboTerm="SBO:0000240"/>
     </listOfSpecies>
   </model>
 </sbml>

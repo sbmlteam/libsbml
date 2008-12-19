@@ -486,7 +486,14 @@ START_CONSTRAINT(10701, Model, m1)
   //  "(References: L2V2 Section 4.2.1; L2V3 Section 4.2.2.)";
 
 
-  inv(SBO::isModellingFramework(m1.getSBOTerm()));
+  if (m1.getLevel() == 2 && m1.getVersion() < 4)
+  {
+    inv(SBO::isModellingFramework(m1.getSBOTerm()));
+  }
+  else
+  {
+    inv(SBO::isInteraction(m1.getSBOTerm()));
+  }
 }
 END_CONSTRAINT
 
@@ -653,7 +660,14 @@ START_CONSTRAINT(10707, Reaction, r)
   //  "in SBO (i.e., terms derived from SBO:0000231, \"event\"). "
   //  "(References: L2V2 Section 4.13.1; L2V3 Section 4.13.1)";
 
-  inv(SBO::isEvent(r.getSBOTerm()));
+  if (r.getLevel() == 2 && r.getVersion() < 4)
+  {
+    inv(SBO::isEvent(r.getSBOTerm()));
+  }
+  else
+  {
+    inv(SBO::isInteraction(r.getSBOTerm()));
+  }
 }
 END_CONSTRAINT
 
@@ -726,7 +740,14 @@ START_CONSTRAINT(10710, Event, e)
   //  "defined in SBO (i.e., terms derived from SBO:0000231, \"event\"). "
   //  "(References: L2V2 Section 4.14.1; L2V3 Section 4.14.1.)";
  
-  inv(SBO::isEvent(e.getSBOTerm()));
+  if (e.getLevel() == 2 && e.getVersion() < 4)
+  {
+    inv(SBO::isEvent(e.getSBOTerm()));
+  }
+  else
+  {
+    inv(SBO::isInteraction(e.getSBOTerm()));
+  }
 }
 END_CONSTRAINT
 
@@ -767,7 +788,14 @@ START_CONSTRAINT(10712, Compartment, c)
   //  "physical type (i.e., terms derived from SBO:0000236, \"participant "
   //  "physical type\"). (References: L2V3 Section 5.2.2.)";
 
-  inv(SBO::isPhysicalParticipant(c.getSBOTerm()));
+  if (c.getLevel() == 2 && c.getVersion() == 3)
+  {
+    inv(SBO::isPhysicalParticipant(c.getSBOTerm()));
+  }
+  else
+  {
+    inv(SBO::isMaterialEntity(c.getSBOTerm()));
+  }
 }
 END_CONSTRAINT
 
@@ -787,7 +815,14 @@ START_CONSTRAINT(10713, Species, s)
   //  "physical type (i.e., terms derived from SBO:0000236, \"participant "
   //  "physical type\"). (References: L2V3 Section 5.2.2.)";
 
-  inv(SBO::isPhysicalParticipant(s.getSBOTerm()));
+  if (s.getLevel() == 2 && s.getVersion() == 3)
+  {
+    inv(SBO::isPhysicalParticipant(s.getSBOTerm()));
+  }
+  else
+  {
+    inv(SBO::isMaterialEntity(s.getSBOTerm()));
+  }
 }
 END_CONSTRAINT
 
@@ -807,7 +842,14 @@ START_CONSTRAINT(10714, CompartmentType, c)
   //  "physical type (i.e., terms derived from SBO:0000236, \"participant "
   //  "physical type\"). (References: L2V3 Section 5.2.2.)";
 
-  inv(SBO::isPhysicalParticipant(c.getSBOTerm()));
+  if (c.getLevel() == 2 && c.getVersion() == 3)
+  {
+    inv(SBO::isPhysicalParticipant(c.getSBOTerm()));
+  }
+  else
+  {
+    inv(SBO::isMaterialEntity(c.getSBOTerm()));
+  }
 }
 END_CONSTRAINT
 
@@ -827,7 +869,14 @@ START_CONSTRAINT(10715, SpeciesType, s)
   //  "physical type (i.e., terms derived from SBO:0000236, \"participant "
   //  "physical type\"). (References: L2V3 Section 5.2.2.)";
 
-  inv(SBO::isPhysicalParticipant(s.getSBOTerm()));
+  if (s.getLevel() == 2 && s.getVersion() == 3)
+  {
+    inv(SBO::isPhysicalParticipant(s.getSBOTerm()));
+  }
+  else
+  {
+    inv(SBO::isMaterialEntity(s.getSBOTerm()));
+  }
 }
 END_CONSTRAINT
 

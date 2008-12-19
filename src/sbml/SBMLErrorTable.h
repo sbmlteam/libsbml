@@ -939,12 +939,14 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    "The value of the 'sboTerm' attribute on a <model> must be an SBO "
-    "identifier (http://www.biomodels.net/SBO/) referring to a modeling "
-    "framework defined in SBO (i.e., terms derived from SBO:0000004, "
-    "\"modeling framework\"). "
-    "(References: L2V2 Section 4.2.1; L2V3 Section 4.2.2; L2V4 Section 4.2.2)"
+    LIBSBML_SEV_WARNING,
+    "The value of the 'sboTerm' attribute on a <model> is expected to "
+    "be an SBO identifier (http://www.biomodels.net/SBO/).  In SBML "
+    "Level 2 prior to Version 4 the value is expected to be a term "
+    "derived from SBO:0000004, \"modeling framework\"; in Version 4 "
+    "and above it is expected to be a term derived from SBO:0000231 "
+    "\"interaction\" (References: L2V2 Section 4.2.1; L2V3 "
+    "Sections 4.2.2 and 5; L2V4 Sections 4.2.2 and 5)"
   },
 
   //10702
@@ -956,8 +958,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    "The value of the 'sboTerm' attribute on a <functionDefinition> must be "
+    LIBSBML_SEV_WARNING,
+    "The value of the 'sboTerm' attribute on a <functionDefinition> is expected to be "
     "an SBO identifier (http://www.biomodels.net/SBO/) referring to a "
     "mathematical expression (i.e., terms derived from SBO:0000064, "
     "\"mathematical expression\"). "
@@ -973,8 +975,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    "The value of the 'sboTerm' attribute on a <parameter> must be an "
+    LIBSBML_SEV_WARNING,
+    "The value of the 'sboTerm' attribute on a <parameter> is expected to be an "
     "SBO identifier (http://www.biomodels.net/SBO/) referring to a "
     "quantitative parameter defined in SBO (i.e., terms derived from "
     "SBO:0000002, \"quantitative parameter\"). "
@@ -990,8 +992,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    "The value of the 'sboTerm' attribute on an <initialAssignment> must "
+    LIBSBML_SEV_WARNING,
+    "The value of the 'sboTerm' attribute on an <initialAssignment> is expected to "
     "be an SBO identifier (http://www.biomodels.net/SBO/) referring to a "
     "mathematical expression (i.e., terms derived from SBO:0000064, "
     "\"mathematical expression\"). "
@@ -1007,8 +1009,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    "The value of the 'sboTerm' attribute on a rule must be an SBO identifier "
+    LIBSBML_SEV_WARNING,
+    "The value of the 'sboTerm' attribute on a rule is expected to be an SBO identifier "
     "(http://www.biomodels.net/SBO/) referring to a mathematical expression "
     "(i.e., terms derived from SBO:0000064, \"mathematical expression\"). "
     "Note: This applies to Algebraic Rules in addition to Rate and Assignment "
@@ -1024,8 +1026,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    "The value of the 'sboTerm' attribute on a <constraint> must be an SBO "
+    LIBSBML_SEV_WARNING,
+    "The value of the 'sboTerm' attribute on a <constraint> is expected to be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
     "expression (i.e., terms derived from SBO:0000064, \"mathematical "
     "expression\"). "
@@ -1041,10 +1043,10 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    "The value of the 'sboTerm' attribute on a <reaction> must be an SBO "
-    "identifier (http://www.biomodels.net/SBO/) referring to an event defined "
-    "in SBO (i.e., terms derived from SBO:0000231, \"event\"). "
+    LIBSBML_SEV_WARNING,
+    "The value of the 'sboTerm' attribute on a <reaction> is expected to be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to an interaction defined "
+    "in SBO (i.e., terms derived from SBO:0000231, \"interaction\"). "
     "(References: L2V2 Section 4.13.1; L2V3 Section 4.13.1; L2V4 Section 4.13.1)"
   },
 
@@ -1057,9 +1059,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_WARNING,
     "The value of the 'sboTerm' attribute on a <speciesReference> "
-    "or <modifierSpeciesReference> must be an SBO "
+    "or <modifierSpeciesReference> is expected to be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to a participant "
     "role. The appropriate term depends on whether the object is a reactant, "
     "product or modifier. If a reactant, then it should be a term in the "
@@ -1079,8 +1081,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    "The value of the 'sboTerm' attribute on a <kineticLaw> must be an SBO "
+    LIBSBML_SEV_WARNING,
+    "The value of the 'sboTerm' attribute on a <kineticLaw> is expected to be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring rate law defined "
     "in SBO (i.e., terms derived from SBO:0000001, \"rate law\"). "
     "(References: L2V2 Section 4.13.5; L2V3 Section 4.13.1; L2V4 Section 4.13.1)"
@@ -1095,10 +1097,10 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    "The value of the 'sboTerm' attribute on an <event> must be an SBO "
-    "identifier (http://www.biomodels.net/SBO/) referring to an event "
-    "defined in SBO (i.e., terms derived from SBO:0000231, \"event\"). "
+    LIBSBML_SEV_WARNING,
+    "The value of the 'sboTerm' attribute on an <event> is expected to be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to an interaction "
+    "defined in SBO (i.e., terms derived from SBO:0000231, \"interaction\"). "
     "(References: L2V2 Section 4.14.1; L2V3 Section 4.14.1; L2V4 Section 4.14.1)"
   },
 
@@ -1111,8 +1113,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    "The value of the 'sboTerm' attribute on an <eventAssignment> must be an "
+    LIBSBML_SEV_WARNING,
+    "The value of the 'sboTerm' attribute on an <eventAssignment> is expected to be an "
     "SBO identifier (http://www.biomodels.net/SBO/) referring to a "
     "mathematical expression (i.e., terms derived from SBO:0000064, "
     "\"mathematical expression\"). "
@@ -1128,11 +1130,14 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    "The value of the 'sboTerm' attribute on a <compartment> must be an SBO "
-    "identifier (http://www.biomodels.net/SBO/) referring to a participant "
+    LIBSBML_SEV_WARNING,
+    "The value of the 'sboTerm' attribute on a <compartment> is expected to be an SBO "
+    "identifier (http://www.biomodels.net/SBO/). In SBML Level 2 prior "
+    "to Version 4 it is expected to refer to a participant "
     "physical type (i.e., terms derived from SBO:0000236, \"participant "
-    "physical type\"). (References: L2V3 Section 5; L2V4 Section 5)"
+    "physical type\"); in Versions 4 and above it is expected to refer "
+    "to a material entity (i.e., terms derived from SBO:0000240, "
+    "\"material entity\"). (References: L2V3 Section 5; L2V4 Section 5)"
   },
 
   //10713
@@ -1144,11 +1149,14 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    "The value of the 'sboTerm' attribute on a <species> must be an SBO "
-    "identifier (http://www.biomodels.net/SBO/) referring to a participant "
+    LIBSBML_SEV_WARNING,
+    "The value of the 'sboTerm' attribute on a <species> is expected to be an SBO "
+    "identifier (http://www.biomodels.net/SBO/). In SBML Level 2 prior "
+    "to Version 4 it is expected to refer to a participant "
     "physical type (i.e., terms derived from SBO:0000236, \"participant "
-    "physical type\"). (References: L2V3 Section 5; L2V4 Section 5)"
+    "physical type\"); in Versions 4 and above it is expected to refer "
+    "to a material entity (i.e., terms derived from SBO:0000240, "
+    "\"material entity\"). (References: L2V3 Section 5; L2V4 Section 5)"
   },
 
   //10714
@@ -1160,11 +1168,14 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    "The value of the 'sboTerm' attribute on a <compartmentType> must be an SBO "
-    "identifier (http://www.biomodels.net/SBO/) referring to a participant "
+    LIBSBML_SEV_WARNING,
+    "The value of the 'sboTerm' attribute on a <compartmentType> is expected to be an SBO "
+    "identifier (http://www.biomodels.net/SBO/). In SBML Level 2 prior "
+    "to Version 4 it is expected to refer to a participant "
     "physical type (i.e., terms derived from SBO:0000236, \"participant "
-    "physical type\"). (References: L2V3 Section 5; L2V4 Section 5)"
+    "physical type\"); in Versions 4 and above it is expected to refer "
+    "to a material entity (i.e., terms derived from SBO:0000240, "
+    "\"material entity\"). (References: L2V3 Section 5; L2V4 Section 5)"
   },
 
   //10715
@@ -1176,11 +1187,14 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    "The value of the 'sboTerm' attribute on a <speciesType> must be an SBO "
-    "identifier (http://www.biomodels.net/SBO/) referring to a participant "
+    LIBSBML_SEV_WARNING,
+    "The value of the 'sboTerm' attribute on a <speciesType> is expected to be an SBO "
+    "identifier (http://www.biomodels.net/SBO/). In SBML Level 2 prior "
+    "to Version 4 it is expected to refer to a participant "
     "physical type (i.e., terms derived from SBO:0000236, \"participant "
-    "physical type\"). (References: L2V3 Section 5; L2V4 Section 5)"
+    "physical type\"); in Versions 4 and above it is expected to refer "
+    "to a material entity (i.e., terms derived from SBO:0000240, "
+    "\"material entity\"). (References: L2V3 Section 5; L2V4 Section 5)"
   },
 
   //10716
@@ -1192,8 +1206,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    "The value of the 'sboTerm' attribute on a <trigger> must be an SBO "
+    LIBSBML_SEV_WARNING,
+    "The value of the 'sboTerm' attribute on a <trigger> is expected to be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
     "expression (i.e., terms derived from SBO:0000064, \"mathematical "
     "expression\"). (References: L2V3 Section 5; L2V4 Section 5)"
@@ -1208,8 +1222,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    "The value of the 'sboTerm' attribute on a <delay> must be an SBO "
+    LIBSBML_SEV_WARNING,
+    "The value of the 'sboTerm' attribute on a <delay> is expected to be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
     "expression (i.e., terms derived from SBO:0000064, \"mathematical "
     "expression\"). (References: L2V3 Section 5; L2V4 Section 5)"
