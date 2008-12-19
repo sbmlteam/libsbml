@@ -256,6 +256,30 @@ START_CONSTRAINT (20305, FunctionDefinition, fd)
 END_CONSTRAINT
 
 
+START_CONSTRAINT (99301, FunctionDefinition, fd)
+{
+  // csymbol time shouldnt be used in function
+  pre( fd.getLevel() > 1        );
+  pre( fd.isSetMath()            );
+  pre( fd.getBody() != NULL      );
+  
+  const string  id = fd.getId();
+
+  List* variables = fd.getBody()->getListOfNodes( ASTNode_isName );
+  for (unsigned int n = 0; n < variables->getSize(); ++n)
+  {
+    ASTNode* node = static_cast<ASTNode*>( variables->get(n) );
+    ASTNodeType_t type = node->getType();
+
+    inv(type != AST_NAME_TIME);
+ }
+
+}
+END_CONSTRAINT
+
+
+
+
 // Unit and UnitDefinition validation
 
 START_CONSTRAINT (20401, UnitDefinition, ud)

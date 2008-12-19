@@ -683,6 +683,8 @@ typedef enum
   , FailedMathMLReadOfRational       = 99223
   , BadMathMLNodeType                = 99224   
 
+  , NoTimeSymbolInFunctionDef        = 99301   
+
 
   /* These are internal errors that reverts to 10501. */
 
@@ -694,6 +696,7 @@ typedef enum
 
   , UndeclaredUnits                  = 99505 
   , UnrecognisedSBOTerm              = 99701
+  , ObseleteSBOTerm                  = 99702
 
   /* internal consistency checks */
   , IncorrectCompartmentSpatialDimensions = 99901

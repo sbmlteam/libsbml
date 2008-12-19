@@ -871,3 +871,267 @@ START_CONSTRAINT(10717, Delay, d)
 }
 END_CONSTRAINT
 
+START_CONSTRAINT(99702, Model, m1)
+{
+  pre(m1.getLevel() > 1);
+  if (m1.getLevel() == 2) 
+  {
+    pre( m1.getVersion() > 1);
+  }
+  pre(m1.isSetSBOTerm());
+
+  inv(! SBO::isObselete               (m1.getSBOTerm()));
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99702, FunctionDefinition, fd)
+{
+  pre(fd.getLevel() > 1);
+  if (fd.getLevel() == 2) 
+  {
+    pre( fd.getVersion() > 1);
+  }
+  pre(fd.isSetSBOTerm());
+
+  inv(! SBO::isObselete               (fd.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99702, Parameter, p)
+{
+  pre(p.getLevel() > 1);
+  if (p.getLevel() == 2) 
+  {
+    pre( p.getVersion() > 1);
+  }
+  pre(p.isSetSBOTerm());
+
+  inv(! SBO::isObselete               (p.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99702, InitialAssignment, ia)
+{
+  pre(ia.getLevel() > 1);
+  if (ia.getLevel() == 2) 
+  {
+    pre( ia.getVersion() > 1);
+  }
+  pre(ia.isSetSBOTerm());
+
+  inv(! SBO::isObselete               (ia.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99702, AssignmentRule, ar)
+{
+  pre(ar.getLevel() > 1);
+  if (ar.getLevel() == 2)
+  {
+    pre( ar.getVersion() > 1);
+  }
+  pre(ar.isSetSBOTerm());
+
+  inv(! SBO::isObselete               (ar.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99702, RateRule, rr)
+{
+  pre(rr.getLevel() > 1);
+  if (rr.getLevel() == 2)
+  {
+    pre( rr.getVersion() > 1);
+  }
+  pre(rr.isSetSBOTerm());
+
+  inv(! SBO::isObselete               (rr.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99702, AlgebraicRule, ar)
+{
+  pre(ar.getLevel() > 1);
+  if (ar.getLevel() == 2)
+  {
+    pre( ar.getVersion() > 1);
+  }
+  pre(ar.isSetSBOTerm());
+
+  inv(! SBO::isObselete               (ar.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99702, Constraint, c)
+{
+  pre(c.getLevel() > 1);
+  if (c.getLevel() == 2)
+  {
+    pre( c.getVersion() > 1);
+  }
+  pre(c.isSetSBOTerm());
+
+  inv(! SBO::isObselete               (c.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99702, Reaction, r)
+{
+  pre(r.getLevel() > 1);
+  if (r.getLevel() == 2)
+  {
+    pre( r.getVersion() > 1);
+  }
+  pre(r.isSetSBOTerm());
+
+  inv(! SBO::isObselete               (r.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99702, SpeciesReference, sr)
+{
+  pre(sr.getLevel() > 1);
+  if (sr.getLevel() == 2)
+  {
+    pre( sr.getVersion() > 1);
+  }
+  pre(sr.isSetSBOTerm());
+
+  inv(! SBO::isObselete               (sr.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99702, KineticLaw, kl)
+{
+  pre(kl.getLevel() > 1);
+  if (kl.getLevel() == 2)
+  {
+    pre( kl.getVersion() > 1);
+  }
+  pre(kl.isSetSBOTerm());
+
+  inv(! SBO::isObselete               (kl.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99702, Event, e)
+{
+  pre(e.getLevel() > 1);
+  if (e.getLevel() == 2)
+  {
+    pre( e.getVersion() > 1);
+  }
+  pre(e.isSetSBOTerm());
+
+  inv(! SBO::isObselete               (e.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99702, EventAssignment, ea)
+{
+  pre(ea.getLevel() > 1);
+  if (ea.getLevel() == 2)
+  {
+    pre( ea.getVersion() > 1);
+  }
+  pre(ea.isSetSBOTerm());
+
+  inv(! SBO::isObselete               (ea.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99702, Compartment, c)
+{
+  pre(c.getLevel() > 1);
+  if (c.getLevel() == 2)
+  {
+    pre( c.getVersion() > 2);
+  }
+  pre(c.isSetSBOTerm());
+
+  inv(! SBO::isObselete               (c.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99702, Species, s)
+{
+  pre(s.getLevel() > 1);
+  if (s.getLevel() == 2)
+  {
+    pre( s.getVersion() > 2);
+  }
+  pre(s.isSetSBOTerm());
+
+  inv(! SBO::isObselete               (s.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99702, CompartmentType, ct)
+{
+  pre(ct.getLevel() > 1);
+  if (ct.getLevel() == 2)
+  {
+    pre( ct.getVersion() > 2);
+  }
+  pre(ct.isSetSBOTerm());
+
+  inv(! SBO::isObselete               (ct.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99702, SpeciesType, st)
+{
+  pre(st.getLevel() > 1);
+  if (st.getLevel() == 2)
+  {
+    pre( st.getVersion() > 2);
+  }
+  pre(st.isSetSBOTerm());
+
+  inv(! SBO::isObselete               (st.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99702, Trigger, t)
+{
+  pre(t.getLevel() > 1);
+  if (t.getLevel() == 2)
+  {
+    pre( t.getVersion() > 2);
+  }
+  pre(t.isSetSBOTerm());
+
+  inv(! SBO::isObselete               (t.getSBOTerm()));
+
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(99702, Delay, d)
+{
+  pre(d.getLevel() > 1);
+  if (d.getLevel() == 2)
+  {
+    pre( d.getVersion() > 2);
+  }
+  pre(d.isSetSBOTerm());
+
+  inv(! SBO::isObselete               (d.getSBOTerm()));
+
+}
+END_CONSTRAINT

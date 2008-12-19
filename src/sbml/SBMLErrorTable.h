@@ -3772,6 +3772,21 @@ static const sbmlErrorTableEntry errorTable[] =
     "<semantics>. (References: L2V3 Appendix B)"
   },
 
+  //99301
+  {   
+    NoTimeSymbolInFunctionDef,   
+    LIBSBML_CAT_GENERAL_CONSISTENCY,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_GENERAL_WARNING,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    "The csymbol 'time' should not be used within a the <math> element "
+    "of a <FunctionDefinition>. (References: L2V3 Section 4.3.2; " 
+    "L2V4 Section 4.3.2)"
+  },
+
   //99502
   // This is an internal error that reverts to 10501
   {
@@ -3842,6 +3857,19 @@ static const sbmlErrorTableEntry errorTable[] =
     "The SBOTerm used is not recognised by libSBML and therefore the correct "
     "parentage cannot be checked. However, since libSBML is referring to a "
     "snapshot of the SBO tree the term may now exist."
+  },
+
+  //99701
+  {   
+    ObseleteSBOTerm,   
+    LIBSBML_CAT_SBO_CONSISTENCY,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_WARNING,   
+    LIBSBML_SEV_WARNING,   
+    LIBSBML_SEV_WARNING,
+    "The SBOTerm used is considered obselete."
   },
 
   //99901
