@@ -660,7 +660,9 @@ SpeciesReference::getElementName () const
 void
 SpeciesReference::sortMath()
 {
-  if (mStoichiometryMath && mStoichiometryMath->getMath()->isRational())
+  if (mStoichiometryMath && 
+    mStoichiometryMath->isSetMath() &&
+    mStoichiometryMath->getMath()->isRational())
   {
     mStoichiometry = mStoichiometryMath->getMath()->getNumerator();
     mDenominator   = mStoichiometryMath->getMath()->getDenominator();
