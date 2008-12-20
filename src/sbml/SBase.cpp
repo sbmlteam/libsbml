@@ -394,11 +394,44 @@ SBase::getSBMLDocument () const
 SBMLDocument*
 SBase::getSBMLDocument ()
 {
+  if (mSBML != NULL)
+  {
+    // if the document has been deleted the pointer is 
+    // still valid but points to nothing
+    // try to do something with the pointer
+    // and if it fails return NULL
+    try 
+    {
+      mSBML->getLevel();
+      return mSBML;
+    }
+    catch ( ... )
+    {
+      return NULL;
+    }
+  }
   return mSBML;
 }
 SBase*
 SBase::getParentSBMLObject ()
 {
+  if (mParentSBMLObject != NULL)
+  {
+    // if the parent object has been deleted the pointer is 
+    // still valid but points to nothing
+    // try to do something with the pointer
+    // and if it fails return NULL
+    try 
+    {
+      mParentSBMLObject->getLevel();
+      return mParentSBMLObject;
+    }
+    catch ( ... )
+    {
+      return NULL;
+    }
+  }
+  
   return mParentSBMLObject;
 }
 
