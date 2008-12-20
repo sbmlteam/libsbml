@@ -43,7 +43,7 @@ extra_sources     = \
 test_dir          = test
 test_source_path  = test/org/sbml/libsbml/test
 
-check_sources     = AutoTestRunner.java $(wildcard $(test_source_path)/Test*.java)
+check_sources     = AutoTestRunner.java $(wildcard $(test_source_path)/**/Test*.java)
 
 java_package      = org.sbml.$(PACKAGE)
 jarfile           = libsbmlj.jar

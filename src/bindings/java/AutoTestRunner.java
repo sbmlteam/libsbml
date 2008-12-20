@@ -32,27 +32,30 @@ import org.sbml.libsbml.*;
 
 public class AutoTestRunner
 {
-  static String pkgName     = "org.sbml.libsbml.test.";
-  static String testDir     = "test/org/sbml/libsbml/test/";
+  static String pkgNameBase = "org.sbml.libsbml.test";
+  static String testDirBase = "test/org/sbml/libsbml/test";
+  static String[] testDirs = { "sbml", "xml", "annotation", "math" };
   static String fileRegex   = "Test.*\\.java";
   static String methodRegex = "^test.*";
 
-  public static File[] getTestFileNames ()
+  static int testNum = 0;
+  static int failNum = 0;
+
+  public static File[] getTestFileNames (String dirname)
   {
-    File fd = new File(testDir);
+    File fd = new File(testDirBase + "/" + dirname);
     return fd.listFiles( new TestFilenameFilter(fileRegex) );
   }
 
-  public static void test()
+  public static void test(String dirname)
   {
-    File[] testFiles = getTestFileNames();
-    int testnum = 0;
-    int failnum = 0;
+    File[] testFiles = getTestFileNames(dirname);
     int filenum = testFiles.length;
 
     while ( --filenum >= 0 )
     {
-      String clsName = pkgName + testFiles[filenum].getName().replaceFirst(".java$","");
+      String pkgName = pkgNameBase + "." + dirname;
+      String clsName = pkgName + "." + testFiles[filenum].getName().replaceFirst(".java$","");
       Class  cls = null;
       Object obj = null;
       Method[] listMethods = null;
@@ -100,7 +103,7 @@ public class AutoTestRunner
 
         if ( m.matches()) {
 
-          ++testnum;
+          ++testNum;
 
           /**
            *
@@ -115,28 +118,28 @@ public class AutoTestRunner
           }
           catch ( IllegalAccessException e)
           {
-            ++failnum;
+            ++failNum;
             System.err.println("F");
             e.printStackTrace();
             continue;
           } 
           catch ( IllegalArgumentException e)
           {
-            ++failnum;
+            ++failNum;
             System.err.println("F");
              e.printStackTrace();
             continue;
           } 
           catch ( InvocationTargetException e)
           {
-            ++failnum;
+            ++failNum;
             System.err.println("F");
             e.getCause().printStackTrace();  
             continue;
           } 
           catch ( NullPointerException e)
           {
-            ++failnum;
+            ++failNum;
             System.err.println("F");
             e.printStackTrace();  
             continue;
@@ -154,25 +157,25 @@ public class AutoTestRunner
           }
           catch ( IllegalAccessException e)
           {
-            ++failnum;
+            ++failNum;
             System.err.println("F");
             e.printStackTrace();
           }
           catch ( IllegalArgumentException e)
           {
-            ++failnum;
+            ++failNum;
             System.err.println("F");
             e.printStackTrace();
           }
           catch ( InvocationTargetException e)
           {
-            ++failnum;
+            ++failNum;
             System.err.println("F");
             e.getCause().printStackTrace();
           }
           catch ( NullPointerException e)
           {
-            ++failnum;
+            ++failNum;
             System.err.println("F");
             e.printStackTrace();
           }
@@ -190,30 +193,39 @@ public class AutoTestRunner
            }
            catch ( IllegalAccessException e)
            {
-             ++failnum;
+             ++failNum;
              e.printStackTrace();
            }
            catch ( IllegalArgumentException e)
            {
-             ++failnum;
+             ++failNum;
              e.printStackTrace();
            }
            catch ( InvocationTargetException e)
            {
-             ++failnum;
+             ++failNum;
              e.getCause().printStackTrace();
            }
            catch ( NullPointerException e)
            {
-             ++failnum;
+             ++failNum;
              e.printStackTrace();
            }
         }
       }
     }
 
-    System.err.println("\n" + testnum + " tests, " + failnum + " failures ");
-    if ( failnum == 0 )
+  }
+
+  public static void main (String argv[])
+  {
+    for (int i=0; i < testDirs.length; i++ )
+    {
+      test(testDirs[i]);
+    }
+
+    System.err.println("\n" + testNum + " tests, " + failNum + " failures ");
+    if ( failNum == 0 )
     {
       System.err.println("All tests passed");
       System.exit(0);
@@ -222,11 +234,6 @@ public class AutoTestRunner
     {
       System.exit(1);
     }
-  }
-
-  public static void main (String argv[])
-  {
-    test();
   }
 
 }
