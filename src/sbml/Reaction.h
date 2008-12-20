@@ -959,6 +959,34 @@ public:
   virtual const Reaction* get (const std::string& sid) const;
 
 
+  /**
+   * Removes the nth item from this ListOfReactions items and returns a pointer to
+   * it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   *
+   * @param n the index of the item to remove
+   *
+   * @see size()
+   */
+  virtual Reaction* remove (unsigned int n);
+
+
+  /**
+   * Removes item in this ListOfReactions items with the given identifier.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   * If none of the items in this list have the identifier @p sid, then @c
+   * NULL is returned.
+   *
+   * @param sid the identifier of the item to remove
+   *
+   * @return the item removed.  As mentioned above, the caller owns the
+   * returned item.
+   */
+  virtual Reaction* remove (const std::string& sid);
+
+
   /** @cond doxygen-libsbml-internal */
 
   /**

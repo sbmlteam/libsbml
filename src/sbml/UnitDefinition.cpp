@@ -1085,6 +1085,22 @@ ListOfUnitDefinitions::get (const std::string& sid) const
 }
 
 
+/* Removes the nth item from this list */
+UnitDefinition*
+ListOfUnitDefinitions::remove (unsigned int n)
+{
+   return static_cast<UnitDefinition*>(ListOf::remove(n));
+}
+
+
+/* Removes item in this list by id */
+UnitDefinition*
+ListOfUnitDefinitions::remove (const std::string& sid)
+{
+   return static_cast<UnitDefinition*>(ListOf::remove(sid));
+}
+
+
 /** @cond doxygen-libsbml-internal */
 /*
  * @return the ordinal position of the element with respect to its siblings

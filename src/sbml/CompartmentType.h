@@ -375,6 +375,34 @@ public:
   virtual const CompartmentType* get (const std::string& sid) const;
 
 
+  /**
+   * Removes the nth item from this ListOfCompartmentTypes items and returns a pointer to
+   * it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   *
+   * @param n the index of the item to remove
+   *
+   * @see size()
+   */
+  virtual CompartmentType* remove (unsigned int n);
+
+
+  /**
+   * Removes item in this ListOfCompartmentTypes items with the given identifier.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   * If none of the items in this list have the identifier @p sid, then @c
+   * NULL is returned.
+   *
+   * @param sid the identifier of the item to remove
+   *
+   * @return the item removed.  As mentioned above, the caller owns the
+   * returned item.
+   */
+  virtual CompartmentType* remove (const std::string& sid);
+
+
   /** @cond doxygen-libsbml-internal */
 
   /**

@@ -143,6 +143,14 @@
 %ignore XMLOutputFileStream;
 
 /**
+ * Ignore the unsigned int version of XMLOutputStream::writeAttribute method
+ * in order to properly wrap the long version of XMLOutputStream::writeAttribute 
+ * method which should be used instead of the unsigned int version.
+ */
+%ignore XMLOutputStream::writeAttribute(const std::string&, const unsigned int&);
+%ignore XMLOutputStream::writeAttribute(const XMLTriple&,   const unsigned int&);
+
+/**
  * The following methods will create new objects.  To prevent memory
  * leaks we must inform SWIG of this.
  */
@@ -162,7 +170,7 @@
 %newobject SBML_formulaToString;
 %newobject SBML_parseFormula;
 %newobject ASTNode::deepCopy;
-%newobject ListOf::remove;
+%newobject *::remove;
 %newobject RDFAnnotationParser::parseRDFAnnotation(XMLNode *);
 %newobject RDFAnnotationParser::deleteRDFAnnotation;
 %newobject RDFAnnotationParser::parseCVTerms;

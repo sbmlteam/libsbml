@@ -310,6 +310,22 @@ ListOfSpeciesTypes::get (const std::string& sid) const
 }
 
 
+/* Removes the nth item from this list */
+SpeciesType*
+ListOfSpeciesTypes::remove (unsigned int n)
+{
+   return static_cast<SpeciesType*>(ListOf::remove(n));
+}
+
+
+/* Removes item in this list by id */
+SpeciesType*
+ListOfSpeciesTypes::remove (const std::string& sid)
+{
+   return static_cast<SpeciesType*>(ListOf::remove(sid));
+}
+
+
 /** @cond doxygen-libsbml-internal */
 /*
  * @return the ordinal position of the element with respect to its siblings

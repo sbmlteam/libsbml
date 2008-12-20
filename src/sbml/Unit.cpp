@@ -1434,6 +1434,14 @@ ListOfUnits::get(unsigned int n) const
 }
 
 
+/* Removes the nth item from this list */
+Unit*
+ListOfUnits::remove (unsigned int n)
+{
+   return static_cast<Unit*>(ListOf::remove(n));
+}
+
+
 /** @cond doxygen-libsbml-internal */
 /*
  * @return the ordinal position of the element with respect to its

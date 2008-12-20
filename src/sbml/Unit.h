@@ -1109,6 +1109,19 @@ public:
   virtual const Unit * get(unsigned int n) const; 
 
 
+  /**
+   * Removes the nth item from this ListOfUnits items and returns a pointer to
+   * it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   *
+   * @param n the index of the item to remove
+   *
+   * @see size()
+   */
+  virtual Unit* remove (unsigned int n);
+
+
   /** @cond doxygen-libsbml-internal */
 
   /**

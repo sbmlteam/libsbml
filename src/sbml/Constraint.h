@@ -466,6 +466,19 @@ public:
   virtual const Constraint * get(unsigned int n) const; 
 
 
+  /**
+   * Removes the nth item from this ListOfConstraints items and returns a pointer to
+   * it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   *
+   * @param n the index of the item to remove
+   *
+   * @see size()
+   */
+  virtual Constraint* remove (unsigned int n);
+
+
   /** @cond doxygen-libsbml-internal */
 
   /**

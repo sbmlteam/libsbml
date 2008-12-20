@@ -134,39 +134,42 @@ COVARIANT_RTYPE_CLONE(ListOfCompartmentGlyphs)
  *
  */
 
-%define COVARIANT_RTYPE_LISTOF_GET(_CNAME_)
+%define COVARIANT_RTYPE_LISTOF_GET_REMOVE(_CNAME_)
 %typemap(jstype) _CNAME_* ListOf ## _CNAME_ ## s::get  "_CNAME_"
+%typemap(jstype) _CNAME_* ListOf ## _CNAME_ ## s::remove  "_CNAME_"
 %enddef
 
-COVARIANT_RTYPE_LISTOF_GET(CompartmentType)
-COVARIANT_RTYPE_LISTOF_GET(Compartment)
-COVARIANT_RTYPE_LISTOF_GET(EventAssignment)
-COVARIANT_RTYPE_LISTOF_GET(Event)
-COVARIANT_RTYPE_LISTOF_GET(FunctionDefinition)
-COVARIANT_RTYPE_LISTOF_GET(InitialAssignment)
-COVARIANT_RTYPE_LISTOF_GET(Parameter)
-COVARIANT_RTYPE_LISTOF_GET(Reaction)
-COVARIANT_RTYPE_LISTOF_GET(Rule)
-COVARIANT_RTYPE_LISTOF_GET(SpeciesType)
-COVARIANT_RTYPE_LISTOF_GET(UnitDefinition)
-COVARIANT_RTYPE_LISTOF_GET(Constraint)
-COVARIANT_RTYPE_LISTOF_GET(Unit)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(CompartmentType)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(Compartment)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(EventAssignment)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(Event)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(FunctionDefinition)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(InitialAssignment)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(Parameter)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(Reaction)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(Rule)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(SpeciesType)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(UnitDefinition)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(Constraint)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(Unit)
 
 // Only ListOfSpecies and ListOfSpeciesReference classes do not 
 // match the above macro...
-%typemap(jstype) Species* ListOfSpecies::get  "Species"
-%typemap(jstype) SimpleSpeciesReference* ListOfSpeciesReferences::get  "SimpleSpeciesReference"
+%typemap(jstype) Species* ListOfSpecies::get    "Species"
+%typemap(jstype) Species* ListOfSpecies::remove "Species"
+%typemap(jstype) SimpleSpeciesReference* ListOfSpeciesReferences::get    "SimpleSpeciesReference"
+%typemap(jstype) SimpleSpeciesReference* ListOfSpeciesReferences::remove "SimpleSpeciesReference"
 
 
 #ifdef USE_LAYOUT
-COVARIANT_RTYPE_LISTOF_GET(GraphicalObject)
-COVARIANT_RTYPE_LISTOF_GET(Layout)
-COVARIANT_RTYPE_LISTOF_GET(LineSegment)
-COVARIANT_RTYPE_LISTOF_GET(ReactionGlyph)
-COVARIANT_RTYPE_LISTOF_GET(SpeciesGlyph)
-COVARIANT_RTYPE_LISTOF_GET(SpeciesReferenceGlyph)
-COVARIANT_RTYPE_LISTOF_GET(TextGlyph)
-COVARIANT_RTYPE_LISTOF_GET(CompartmentGlyph)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(GraphicalObject)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(Layout)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(LineSegment)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(ReactionGlyph)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(SpeciesGlyph)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(SpeciesReferenceGlyph)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(TextGlyph)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(CompartmentGlyph)
 #endif
 
 /**

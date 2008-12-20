@@ -310,6 +310,22 @@ ListOfCompartmentTypes::get (const std::string& sid) const
 }
 
 
+/* Removes the nth item from this list */
+CompartmentType*
+ListOfCompartmentTypes::remove (unsigned int n)
+{
+   return static_cast<CompartmentType*>(ListOf::remove(n));
+}
+
+
+/* Removes item in this list by id */
+CompartmentType*
+ListOfCompartmentTypes::remove (const std::string& sid)
+{
+   return static_cast<CompartmentType*>(ListOf::remove(sid));
+}
+
+
 /** @cond doxygen-libsbml-internal */
 /*
  * @return the ordinal position of the element with respect to its siblings

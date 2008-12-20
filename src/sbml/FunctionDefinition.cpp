@@ -540,6 +540,22 @@ ListOfFunctionDefinitions::get (const std::string& sid) const
 }
 
 
+/* Removes the nth item from this list */
+FunctionDefinition*
+ListOfFunctionDefinitions::remove (unsigned int n)
+{
+   return static_cast<FunctionDefinition*>(ListOf::remove(n));
+}
+
+
+/* Removes item in this list by id */
+FunctionDefinition*
+ListOfFunctionDefinitions::remove (const std::string& sid)
+{
+   return static_cast<FunctionDefinition*>(ListOf::remove(sid));
+}
+
+
 /** @cond doxygen-libsbml-internal */
 /*
  * @return the ordinal position of the element with respect to its siblings

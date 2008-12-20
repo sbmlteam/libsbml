@@ -506,6 +506,22 @@ ListOfInitialAssignments::get (const std::string& sid) const
 }
 
 
+/* Removes the nth item from this list */
+InitialAssignment*
+ListOfInitialAssignments::remove (unsigned int n)
+{
+   return static_cast<InitialAssignment*>(ListOf::remove(n));
+}
+
+
+/* Removes item in this list by id */
+InitialAssignment*
+ListOfInitialAssignments::remove (const std::string& sid)
+{
+   return static_cast<InitialAssignment*>(ListOf::remove(sid));
+}
+
+
 /** @cond doxygen-libsbml-internal */
 /*
  * @return the ordinal position of the element with respect to its siblings

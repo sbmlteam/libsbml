@@ -194,7 +194,7 @@ public:
    *
    * @see size()
    */
-  SBase* remove (unsigned int n);
+  virtual SBase* remove (unsigned int n);
 
 
   /**
@@ -209,7 +209,7 @@ public:
    * @return the item removed.  As mentioned above, the caller owns the
    * returned item.
    */
-  SBase* remove (const std::string& sid);
+  virtual SBase* remove (const std::string& sid);
 
 
   /**

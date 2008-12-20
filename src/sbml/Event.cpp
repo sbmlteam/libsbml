@@ -799,6 +799,22 @@ ListOfEvents::get (const std::string& sid) const
 }
 
 
+/* Removes the nth item from this list */
+Event*
+ListOfEvents::remove (unsigned int n)
+{
+   return static_cast<Event*>(ListOf::remove(n));
+}
+
+
+/* Removes item in this list by id */
+Event*
+ListOfEvents::remove (const std::string& sid)
+{
+   return static_cast<Event*>(ListOf::remove(sid));
+}
+
+
 /** @cond doxygen-libsbml-internal */
 /*
  * @return the ordinal position of the element with respect to its siblings

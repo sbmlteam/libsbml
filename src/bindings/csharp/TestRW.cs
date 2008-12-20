@@ -155,6 +155,27 @@ namespace TestLibSBMLCSharp
           testListOfGet(new ListOfSpeciesTypes(), new SpeciesType());
           testListOfGet(new ListOfUnitDefinitions(), new UnitDefinition());
           testListOfGet(new ListOfUnits(), new Unit());
+
+          //
+          // test ListOfXXX:remove() methods 
+          //
+          testListOfRemove(new ListOfCompartmentTypes(), new CompartmentType());
+          testListOfRemove(new ListOfCompartments(), new Compartment());
+          testListOfRemove(new ListOfConstraints(), new Constraint());
+          testListOfRemove(new ListOfEventAssignments(), new EventAssignment());
+          testListOfRemove(new ListOfEvents(), new Event());
+          testListOfRemove(new ListOfFunctionDefinitions(), new FunctionDefinition());
+          testListOfRemove(new ListOfInitialAssignments(), new InitialAssignment());
+          testListOfRemove(new ListOfParameters(), new Parameter());
+          testListOfRemove(new ListOfReactions(), new Reaction());
+          testListOfRemove(new ListOfRules(), new AssignmentRule());
+          testListOfRemove(new ListOfRules(), new AlgebraicRule());
+          testListOfRemove(new ListOfRules(), new RateRule());
+          testListOfRemove(new ListOfSpecies(), new Species());
+          testListOfRemove(new ListOfSpeciesReferences(), new SpeciesReference());
+          testListOfRemove(new ListOfSpeciesTypes(), new SpeciesType());
+          testListOfRemove(new ListOfUnitDefinitions(), new UnitDefinition());
+          testListOfRemove(new ListOfUnits(), new Unit());
         }
 
         static void testClone(SBase s)
@@ -247,7 +268,7 @@ namespace TestLibSBMLCSharp
           else if ( c is Reaction ) { Reaction x = (lof as ListOfReactions).get(0); c = x; }
           else if ( c is Rule ) { Rule x = (lof as ListOfRules).get(0); c = x; }
           else if ( c is Species ) { Species x = (lof as ListOfSpecies).get(0); c = x; }
-          else if ( c is SpeciesReference ) {SBase x = (lof as ListOfSpeciesReferences).get(0); c = x; }
+          else if ( c is SpeciesReference ) {SimpleSpeciesReference x = (lof as ListOfSpeciesReferences).get(0); c = x; }
           else if ( c is SpeciesType ) { SpeciesType x = (lof as ListOfSpeciesTypes).get(0); c = x; }
           else if ( c is UnitDefinition ) { UnitDefinition x = (lof as ListOfUnitDefinitions).get(0); c = x; }
           else if ( c is Unit ) { Unit x = (lof as ListOfUnits).get(0); c = x; }
@@ -273,6 +294,53 @@ namespace TestLibSBMLCSharp
           else
           {
             ERR("[testListOfGet] Error: (" + ename + ") get(" + enameGet + ") : type mismatch.");
+          }
+        }
+
+        static void testListOfRemove(ListOf lof, SBase s)
+        {
+          string ename = s.getElementName();
+
+          lof.append(s);
+          SBase c = lof.get(0);
+
+          if ( c is CompartmentType ) { CompartmentType x = (lof as ListOfCompartmentTypes).remove(0); c = x; }
+          else if ( c is Compartment ) { Compartment x = (lof as ListOfCompartments).remove(0); c = x; }
+          else if ( c is Constraint )  { Constraint x = (lof as ListOfConstraints).remove(0); c = x; }
+          else if ( c is EventAssignment ) { EventAssignment x = (lof as ListOfEventAssignments).remove(0); c = x; }
+          else if ( c is Event ) { Event x = (lof as ListOfEvents).remove(0); c = x; }
+          else if ( c is FunctionDefinition ) { FunctionDefinition x = (lof as ListOfFunctionDefinitions).remove(0); c = x; }
+          else if ( c is InitialAssignment ) { InitialAssignment x = (lof as ListOfInitialAssignments).remove(0); c = x; }
+          else if ( c is Parameter ) { Parameter x = (lof as ListOfParameters).remove(0); c = x; }
+          else if ( c is Reaction ) { Reaction x = (lof as ListOfReactions).remove(0); c = x; }
+          else if ( c is Rule ) { Rule x = (lof as ListOfRules).remove(0); c = x; }
+          else if ( c is Species ) { Species x = (lof as ListOfSpecies).remove(0); c = x; }
+          else if ( c is SpeciesReference ) {SimpleSpeciesReference x = (lof as ListOfSpeciesReferences).remove(0); c = x; }
+          else if ( c is SpeciesType ) { SpeciesType x = (lof as ListOfSpeciesTypes).remove(0); c = x; }
+          else if ( c is UnitDefinition ) { UnitDefinition x = (lof as ListOfUnitDefinitions).remove(0); c = x; }
+          else if ( c is Unit ) { Unit x = (lof as ListOfUnits).remove(0); c = x; }
+          else
+          {
+            ERR("[testListOfRemove] Error: (" + ename + ") : ListOfXXX::remove() failed.");
+            return;
+          }
+
+          if ( c == null)
+          {
+            ERR("[testListOfRemove] Error: (" + ename + ") : ListOfXXX::remove() failed.");
+            return;
+          }
+
+          string enameGet = c.getElementName();
+
+          if ( ename == enameGet )
+          {
+            //Console.Out.WriteLine("[testListOfRemove] OK: (" + ename + ") remove(" + enameGet + ") : type match.");
+            OK();
+          }
+          else
+          {
+            ERR("[testListOfRemove] Error: (" + ename + ") remove(" + enameGet + ") : type mismatch.");
           }
         }
 

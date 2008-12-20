@@ -481,6 +481,13 @@ ListOfConstraints::get(unsigned int n) const
   return static_cast<const Constraint*>(ListOf::get(n));
 }
 
+/* Removes the nth item from this list */
+Constraint*
+ListOfConstraints::remove (unsigned int n)
+{
+   return static_cast<Constraint*>(ListOf::remove(n));
+}
+
 
 /** @cond doxygen-libsbml-internal */
 /*
