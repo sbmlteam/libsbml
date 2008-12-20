@@ -29,7 +29,7 @@ import sys
 import unittest
 import libsbml
 
-class TestReadFromFile2(unittest.TestCase):
+class TestMathReadFromFile2(unittest.TestCase):
 
 
   def test_read_MathML_2(self):
