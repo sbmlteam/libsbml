@@ -28,16 +28,18 @@ import re
 import glob
 import unittest
 
-test_dir   = 'test'
-test_files = test_dir + "/Test*.py"
+test_basedir = 'test'
+test_subdirs = ('sbml','xml','math','annotation') 
+test_files   = "/Test*.py"
 
 def suite():
   suite = unittest.TestSuite()
-  for file in glob.glob(test_files):
-    module_name = re.compile(r"\.py$").sub('',os.path.basename(file)) 
-    module = __import__(module_name)
-    class_name = getattr(module, module_name)
-    suite.addTest(unittest.makeSuite(class_name))
+  for subdir in test_subdirs :
+    for file in glob.glob( test_basedir + '/' + subdir + '/' + test_files ) :
+      module_name = re.compile(r"\.py$").sub('',os.path.basename(file)) 
+      module = __import__(module_name)
+      class_name = getattr(module, module_name)
+      suite.addTest(unittest.makeSuite(class_name))
   return suite
 
 if __name__ == "__main__":

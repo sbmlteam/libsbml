@@ -135,7 +135,7 @@ distfiles =                                     \
             $(python_test_files)
 
 python_test_path = test
-python_test_files = $(wildcard $(python_test_path)/Test*.py)
+python_test_files = $(wildcard $(python_test_path)/**/Test*.py)
 
 extra_clean     = build
 extra_distclean = libsbml.pyc setup.py
@@ -236,13 +236,14 @@ setup.py: setup.py.in
 # Checking.
 # -----------------------------------------------------------------------------
 
+test_subdir_path = test/sbml:test/xml:test/annotation:test/math
 ifdef USE_LIBCHECK
   check: $(libraries)
 	@echo
 	@echo
 	@echo Running Tests in $(thisdir)
 	@echo -----------------------------------------------------------------
-	$(call libsbmlrun, env PYTHONPATH=.:test $(PYTHON) ./test.py)
+	$(call libsbmlrun, env PYTHONPATH=.:$(test_subdir_path) $(PYTHON) ./test.py)
 	@echo -----------------------------------------------------------------
 	@echo All tests passed
 	@echo
