@@ -119,7 +119,7 @@ endif
 # they appear in `distfiles', they will not be copied in the distribution.
 
 ruby_test_path  = test
-ruby_test_files = test.rb $(wildcard $(ruby_test_path)/Test*.rb)
+ruby_test_files = test.rb $(wildcard $(ruby_test_path)/**/Test*.rb)
 ruby_swig_sources = libsbml.i local.i layout_local.i local.cpp
 
 distfiles = Makefile.in libsbml_wrap.cpp README.txt $(ruby_swig_sources) $(ruby_test_files)

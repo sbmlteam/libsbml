@@ -195,6 +195,33 @@ namespace std
 }
 
 
+/*
+ * SWIG-generated wrapper code for Ruby binding wrongly invokes
+ * XMLOutputStream::writeAttribute(.., const unsigned int& value) instead of
+ * XMLOutputStream::writeAttribute(.., const bool& value) even if the writeAttribute
+ * function properly invoked with a bool value (true or false) in Ruby code.
+ * It seems that a bool value could be casted to unsigned int, int, or long value
+ * in SWIG-generated internal type check code when these types are overloaded in the
+ * wrapped function.
+ *
+ * To avoid this problem, XMLOutputStream::writeAttributeBool(.., const bool&)
+ * functions, which internally invoke XMLOutputStream::writeAttribute(.., const bool& value)
+ * functions properly, are additionally wrapped as aliases. 
+ */
+%extend XMLOutputStream
+{
+  void writeAttributeBool(const std::string& name, const bool& value)
+  {
+    $self->writeAttribute(name, value);
+  }
+
+  void writeAttributeBool(const XMLTriple& name, const bool& value)
+  {
+    $self->writeAttribute(name, value);
+  }
+}
+
+
 // ----------------------------------------------------------------------
 // takeover ownership
 // ----------------------------------------------------------------------
