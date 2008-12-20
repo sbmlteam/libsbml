@@ -305,7 +305,7 @@ void
 ListOf::setParentSBMLObject (SBase* sb)
 {
   mParentSBMLObject = sb;
-  for_each( mItems.begin(), mItems.end(), SetParentSBMLObject(sb) );
+  for_each( mItems.begin(), mItems.end(), SetParentSBMLObject(this) );
 }
 /** @endcond doxygen-libsbml-internal */
 
