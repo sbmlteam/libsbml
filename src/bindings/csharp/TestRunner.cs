@@ -103,21 +103,30 @@ namespace LibSBMLCSTestRunner
             // by the test files
             Compiler.addAssembly(sLibrary);
 
-            // then compile and run all C# files
-            string[] testFiles = Directory.GetFiles(sSource, "*.cs");            
+            int testFileNum = 0;
 
             nCompileErrors = 0;
             nSuccessSum    = 0;
             nFailureSum    = 0;
             nTestFunc      = 0;
-            foreach (string testFile in testFiles)
+
+            string[] testDirs = Directory.GetDirectories(sSource);            
+            foreach (string testDir in testDirs )
             {
-                RunTestFile(testFile, sData);
+                // then compile and run all C# files
+                string[] testFiles = Directory.GetFiles(testDir, "*.cs");            
+
+                testFileNum += testFiles.Length;
+
+                foreach (string testFile in testFiles)
+                {
+                    RunTestFile(testFile, sData);
+                }
             }
 
             Console.WriteLine(String.Format("Encountered {0} compile errors (invalid tests)", nCompileErrors));
             Console.WriteLine(String.Format("Total Number of Test files {0}, Tests {1}, failures {2}", 
-                                             testFiles.Length, nTestFunc, nFailureSum));
+                                             testFileNum, nTestFunc, nFailureSum));
             if (nFailureSum == 0 && nCompileErrors == 0 )
             {
               Console.WriteLine("\nAll tests passed.");

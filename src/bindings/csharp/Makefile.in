@@ -75,7 +75,7 @@ test_source_path  = $(test_dir)
 check_runner_source_cvt = TestRunner.cs Compiler.cs
 check_runner_source_man = TestRW.cs
 # Test*.cs are not implemented yet
-check_sources       = $(wildcard $(test_source_path)/Test*.cs)
+check_sources       = $(wildcard $(test_source_path)/**/Test*.cs)
 check_sources       += $(check_runner_source_cvt) $(check_runner_source_man)
 
 csproxy_lib       = libsbmlcsP.dll
