@@ -28,7 +28,7 @@
 require 'test/unit'
 require 'libSBML'
 
-class TestReadFromFile2 < Test::Unit::TestCase
+class TestMathReadFromFile2 < Test::Unit::TestCase
 
   def test_read_MathML_2
     reader = LibSBML::SBMLReader.new()
