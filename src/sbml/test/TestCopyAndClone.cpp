@@ -111,7 +111,7 @@ START_TEST ( test_Compartment_clone )
     fail_unless(o1->getId() == "c");
     fail_unless(o1->getOutside() == "c2");
 
-    Compartment* o2=static_cast<Compartment*>(o1->clone());
+    Compartment* o2=o1->clone();
    
     fail_unless(o2->getId() == "c");
     fail_unless(o2->getOutside() == "c2");
@@ -169,7 +169,7 @@ START_TEST ( test_CompartmentType_clone )
     
     fail_unless(o1->getId() == "c");
 
-    CompartmentType* o2=static_cast<CompartmentType*>(o1->clone());
+    CompartmentType* o2=o1->clone();
    
     fail_unless(o2->getId() == "c");
 
@@ -266,7 +266,7 @@ START_TEST ( test_Constraint_clone )
     fail_unless(o1->getMath() != NULL);
     fail_unless(o1->getMessage() != NULL);
 
-    Constraint* o2=static_cast<Constraint*>(o1->clone());
+    Constraint* o2=o1->clone();
    
     fail_unless(o2->getMetaId() == "c");
     fail_unless(o1->getMath() != NULL);
@@ -331,7 +331,7 @@ START_TEST ( test_Delay_clone )
 
     fail_unless(o1->getMath() != NULL);
 
-    Delay* o2 = static_cast <Delay *>(o1->clone());
+    Delay* o2 = o1->clone();
 
     fail_unless(o1->getMath() != NULL);
 
@@ -388,7 +388,7 @@ START_TEST ( test_Event_clone )
     
     fail_unless(o1->getId() == "c");
 
-    Event* o2=static_cast<Event*>(o1->clone());
+    Event* o2=o1->clone();
    
     fail_unless(o2->getId() == "c");
 
@@ -465,7 +465,7 @@ START_TEST ( test_EventAssignment_clone )
 
     fail_unless(o1->getMath() != NULL);
 
-    EventAssignment* o2=static_cast<EventAssignment*>(o1->clone());
+    EventAssignment* o2=o1->clone();
 
     fail_unless(o2->getVariable() == "c2");
     fail_unless(o2->getMath() != NULL);
@@ -543,7 +543,7 @@ START_TEST ( test_FunctionDefinition_clone )
 
     fail_unless(o1->getMath() != NULL);
 
-    FunctionDefinition* o2=static_cast<FunctionDefinition*>(o1->clone());
+    FunctionDefinition* o2=o1->clone();
    
     fail_unless(o2->getId() == "c");
     fail_unless(o2->getMath() != NULL);
@@ -601,7 +601,7 @@ START_TEST ( test_InitialAssignment_clone )
     
     fail_unless(o1->getId() == "c");
 
-    InitialAssignment* o2=static_cast<InitialAssignment*>(o1->clone());
+    InitialAssignment* o2=o1->clone();
    
     fail_unless(o2->getId() == "c");
 
@@ -680,7 +680,7 @@ START_TEST ( test_KineticLaw_clone )
     fail_unless(o1->getParameter(0)->getId() == "jake");
     fail_unless(o1->getId() == "c");
 
-    KineticLaw* o2=static_cast<KineticLaw*>(o1->clone());
+    KineticLaw* o2=o1->clone();
 
     fail_unless(o2->getNumParameters() == 1);
     fail_unless(o2->getParameter(0)->getId() == "jake");
@@ -709,7 +709,7 @@ START_TEST ( test_ListOf_copyConstructor )
     ListOf* o2=new ListOf(*o1);
     fail_unless(o2->size() == 1);
     fail_unless(o2->getId() == "c");
-    fail_unless(static_cast<Species *> (o2->get(0))->getId()
+    fail_unless(o2->get(0)->getId()
       == "species_1");
     fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
@@ -735,7 +735,7 @@ START_TEST ( test_ListOf_assignmentOperator )
 
     fail_unless(o2->size() == 1);
     fail_unless(o2->getId() == "c");
-    fail_unless(static_cast<Species *> (o2->get(0))->getId()
+    fail_unless(o2->get(0)->getId()
       == "species_1");
 
     fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
@@ -762,7 +762,7 @@ START_TEST ( test_ListOf_clone )
    
     fail_unless(o2->size() == 1);
     fail_unless(o2->getId() == "c");
-    fail_unless(static_cast<Species *> (o2->get(0))->getId()
+    fail_unless(o2->get(0)->getId()
       == "species_1");
 
     fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
@@ -856,7 +856,7 @@ START_TEST ( test_Model_clone )
     fail_unless(o1->getNumFormulaUnitsData() == 1);
     fail_unless(o1->getParameter(0)->getId() == "alex");
 
-    Model* o2=static_cast<Model*>(o1->clone());
+    Model* o2=o1->clone();
 
     fail_unless(o2->getId() == "c");
     fail_unless(o2->getNumParameters() == 1);
@@ -916,7 +916,7 @@ START_TEST ( test_Parameter_clone )
     
     fail_unless(o1->getId() == "c");
 
-    Parameter* o2=static_cast<Parameter*>(o1->clone());
+    Parameter* o2=o1->clone();
    
     fail_unless(o2->getId() == "c");
 
@@ -998,7 +998,7 @@ START_TEST ( test_Reaction_clone )
     fail_unless(o1->isSetKineticLaw() == 1);
     fail_unless (o1->getKineticLaw() != NULL);
    
-    Reaction* o2=static_cast<Reaction*>(o1->clone());
+    Reaction* o2=o1->clone();
    
     fail_unless(o2->getId() == "c");
     fail_unless(o2->isSetKineticLaw() == 1);
@@ -1074,7 +1074,7 @@ START_TEST ( test_Rule_clone )
 
     fail_unless(o1->isSetMath() == 1);
     
-    Rule* o2= static_cast <Rule*> (o1->clone());
+    Rule* o2= o1->clone();
     
     fail_unless(o2->getId() == "a");
     fail_unless(o2->isSetMath() == 1);
@@ -1140,7 +1140,7 @@ START_TEST ( test_Species_clone )
     fail_unless(o1->getId() == "c");
     fail_unless(o1->getSpeciesType() == "c1");
 
-    Species* o2=static_cast<Species*>(o1->clone());
+    Species* o2=o1->clone();
    
     fail_unless(o2->getId() == "c");
     fail_unless(o2->getSpeciesType() == "c1");
@@ -1198,7 +1198,7 @@ START_TEST ( test_SpeciesReference_clone )
     
     fail_unless(o1->getId() == "c");
 
-    SpeciesReference* o2=static_cast<SpeciesReference*>(o1->clone());
+    SpeciesReference* o2=o1->clone();
    
     fail_unless(o2->getId() == "c");
 
@@ -1255,7 +1255,7 @@ START_TEST ( test_SpeciesType_clone )
     
     fail_unless(o1->getId() == "c");
 
-    SpeciesType* o2=static_cast<SpeciesType*>(o1->clone());
+    SpeciesType* o2=o1->clone();
    
     fail_unless(o2->getId() == "c");
 
@@ -1318,7 +1318,7 @@ START_TEST ( test_Trigger_clone )
 
     fail_unless(o1->getMath() != NULL);
 
-    Trigger* o2 = static_cast <Trigger *>(o1->clone());
+    Trigger* o2 = o1->clone();
 
     fail_unless(o1->getMath() != NULL);
 
@@ -1375,7 +1375,7 @@ START_TEST ( test_Unit_clone )
     
     fail_unless(o1->getId() == "c");
 
-    Unit* o2=static_cast<Unit*>(o1->clone());
+    Unit* o2=o1->clone();
    
     fail_unless(o2->getId() == "c");
 
@@ -1432,7 +1432,7 @@ START_TEST ( test_UnitDefinition_clone )
     
     fail_unless(o1->getId() == "c");
 
-    UnitDefinition* o2=static_cast<UnitDefinition*>(o1->clone());
+    UnitDefinition* o2=o1->clone();
    
     fail_unless(o2->getId() == "c");
 
@@ -1498,7 +1498,7 @@ START_TEST ( test_SBMLDocument_clone )
     fail_unless(o1->getModel()->getVersion() == 1);
     fail_unless(o1->getModel()->getSBMLDocument() == o1);
 
-    SBMLDocument* o2=static_cast<SBMLDocument*>(o1->clone());
+    SBMLDocument* o2=o1->clone();
    
     fail_unless(o2->getLevel() == 1);
     fail_unless(o2->getVersion() == 1);
