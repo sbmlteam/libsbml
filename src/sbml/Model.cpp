@@ -2038,6 +2038,19 @@ void
 Model::setParentSBMLObject (SBase* sb)
 {
   mParentSBMLObject = sb;
+  
+  mFunctionDefinitions.setParentSBMLObject(this);
+  mUnitDefinitions    .setParentSBMLObject(this);
+  mCompartmentTypes   .setParentSBMLObject(this);
+  mSpeciesTypes       .setParentSBMLObject(this);
+  mCompartments       .setParentSBMLObject(this);
+  mSpecies            .setParentSBMLObject(this);
+  mParameters         .setParentSBMLObject(this);
+  mInitialAssignments .setParentSBMLObject(this);
+  mRules              .setParentSBMLObject(this);
+  mConstraints        .setParentSBMLObject(this);
+  mReactions          .setParentSBMLObject(this);
+  mEvents             .setParentSBMLObject(this);
 }
 /** @endcond doxygen-libsbml-internal */
 
