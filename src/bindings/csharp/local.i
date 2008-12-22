@@ -954,15 +954,6 @@ COVARIANT_RTYPE_LISTOF_GET_REMOVE(CompartmentGlyph)
 
 
 /**
- * Most libSBML methods takeover ownership of passed-in objects, so we need
- * to make sure SWIG disowns the object.
- */
-%typemap(csin) SWIGTYPE *, SWIGTYPE &
-"$csclassname.getCPtrAndDisown($csinput)";
-
-
-
-/**
  * takeover ownership
  *
  * - void ListOf::appendAndOwn(SBase* item)
