@@ -29,14 +29,20 @@
 
 /*
  * Creates a XMLBuffer based on the given sequence of bytes in buffer.
- * This class does not take ownership of or copy buffer, it merely
- * references it.
+ * This class copies the given character to its local buffer to avoid
+ * a potential segmentation fault which could happen if the given
+ * character deleted outside during the lifetime of this XMLMemoryBuffer object.
  */
 XMLMemoryBuffer::XMLMemoryBuffer (const char* buffer, unsigned int length) :
-   mBuffer( buffer )
+   mBuffer( 0 )
  , mLength( length )
  , mOffset( 0      )
 {
+  int bufsize  = strlen(buffer);
+  char* tmpbuf = new char[bufsize+1];
+
+  strncpy(tmpbuf, buffer, bufsize+1);
+  mBuffer = tmpbuf;
 }
 
 
@@ -45,6 +51,7 @@ XMLMemoryBuffer::XMLMemoryBuffer (const char* buffer, unsigned int length) :
  */
 XMLMemoryBuffer::~XMLMemoryBuffer ()
 {
+  delete[] mBuffer;
 }
 
 

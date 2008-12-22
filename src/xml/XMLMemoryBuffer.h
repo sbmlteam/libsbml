@@ -35,8 +35,9 @@ public:
 
   /**
    * Creates a XMLBuffer based on the given sequence of bytes in buffer.
-   * This class does not take ownership of or copy buffer, it merely
-   * references it.
+   * This class copies the given character to its local buffer to avoid
+   * a potential segmentation fault which could happen if the given
+   * character deleted outside during the lifetime of this XMLMemoryBuffer object.
    */
   XMLMemoryBuffer (const char* buffer, unsigned int length);
 
