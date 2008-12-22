@@ -173,7 +173,7 @@ win_bat_files = createInclude.bat runTestRunner.bat runTestRW.bat
 # compiled files.
 
 distfiles   = $(sources) $(extra_sources) $(check_sources) \
-  Makefile.in $(csharp_files) $(csharp_files_win) \
+  00README.txt Makefile.in $(csharp_files) $(csharp_files_win) \
   $(vs2003_files) $(vs2005_files) $(win_bat_files)
 
 tmpfiles = $(wildcard test*.xml*)
