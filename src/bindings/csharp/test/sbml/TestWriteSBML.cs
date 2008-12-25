@@ -1782,6 +1782,7 @@ namespace LibSBMLCSTest {
         {
           assertTrue( libsbml.writeSBML(d, bzfile) == 0 );
           d = null;
+          continue;
         }
         int result = libsbml.writeSBML(d, bzfile);
         assertTrue( result != 0);
@@ -1831,6 +1832,7 @@ namespace LibSBMLCSTest {
         {
           assertTrue( libsbml.writeSBML(d, gzfile) == 0 );
           d = null;
+          continue;
         }
         int result = libsbml.writeSBML(d, gzfile);
         assertTrue( result != 0);
@@ -1877,6 +1879,7 @@ namespace LibSBMLCSTest {
         {
           assertTrue( libsbml.writeSBML(d, zipfile) == 0 );
           d = null;
+          continue;
         }
         int result = libsbml.writeSBML(d, zipfile);
         assertTrue( result != 0);
