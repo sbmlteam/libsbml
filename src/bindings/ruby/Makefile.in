@@ -237,13 +237,19 @@ check: $(libraries)
 # -----------------------------------------------------------------------------
 
 install:
-	$(RUBY) -rfileutils -rrbconfig -e "include FileUtils::Verbose; mkpath(\"$(DESTDIR)$(LIBDIR)\")"
-	$(RUBY) -rfileutils -rrbconfig -e "include FileUtils::Verbose; install(\"$(libraries)\", \"$(DESTDIR)$(LIBDIR)\")"
+	archdir=`$(RUBY) -rrbconfig -e 's = File::SEPARATOR; a = Config::CONFIG["archdir"].squeeze(s); b = Config::CONFIG["libdir"].squeeze(s); print a.sub(/^#{b}#{s}ruby/, "$(LIBDIR)#{s}ruby#{s}site_ruby")'`; \
+	for i in $(libraries); do \
+	  $(MKINSTALLDIRS) $(DESTDIR)$$archdir; \
+	  $(INSTALL_SH) $$i $(DESTDIR)$$archdir/$$i; \
+	done ; \
 
 installcheck:
 
 uninstall:
-	$(RUBY) -rfileutils -rrbconfig -e "include FileUtils::Verbose; rm(\"$(DESTDIR)$(LIBDIR)\" + \"/\" + \"$(libraries)\")"
+	archdir=`$(RUBY) -rrbconfig -e 's = File::SEPARATOR; a = Config::CONFIG["archdir"].squeeze(s); b = Config::CONFIG["libdir"].squeeze(s); print a.sub(/^#{b}#{s}ruby/, "$(LIBDIR)#{s}ruby#{s}site_ruby")'`; \
+	for i in $(libraries); do \
+	  rm $(DESTDIR)$$archdir/$$i; \
+	done ; \
 
 # -----------------------------------------------------------------------------
 # Creating distribution (for libSBML maintainers only)

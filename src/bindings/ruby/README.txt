@@ -61,10 +61,11 @@ your dynamic library search path variable includes the directory in which the 'l
 (Linux) or libsbml.dylib (MacOSX) file is located.
 
 As an example, if you were running under Linux and you configured libSBML with a prefix 
-of '/usr/local' and did a normal "make install", and you were using the typical sh or 
-bash shell in your terminal, you would need to execute
+of '/usr/local' and did a normal "make install", and you were using Ruby 1.8.x and the 
+typical sh or bash shell in your terminal, you would need to execute
 
   export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
+  export RUBYLIB="/usr/local/lib/ruby/site_ruby/1.8/i386-linux:$RUBYLIB"
 
   (In MacOSX, 'DYLD_LIBRARY_PATH' is used instead of 'LD_LIBRARY_PATH'.)
 
