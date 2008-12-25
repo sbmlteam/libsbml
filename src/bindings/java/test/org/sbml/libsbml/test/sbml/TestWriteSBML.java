@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestWriteSBML.cpp
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -1775,6 +1775,7 @@ public class TestWriteSBML {
       {
         assertTrue( libsbml.writeSBML(d, bzfile) == 0 );
         d = null;
+        continue;
       }
       boolean result = (libsbml.writeSBML(d, bzfile) != 0);
       assertEquals( true, result );
@@ -1824,6 +1825,7 @@ public class TestWriteSBML {
       {
         assertTrue( libsbml.writeSBML(d, gzfile) == 0 );
         d = null;
+        continue;
       }
       boolean result = (libsbml.writeSBML(d, gzfile) != 0);
       assertEquals( true, result );
@@ -1870,6 +1872,7 @@ public class TestWriteSBML {
       {
         assertTrue( libsbml.writeSBML(d, zipfile) == 0 );
         d = null;
+        continue;
       }
       boolean result = (libsbml.writeSBML(d, zipfile) != 0);
       assertEquals( true, result );
