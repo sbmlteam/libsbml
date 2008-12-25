@@ -74,13 +74,20 @@ test_source_path  = $(test_dir)
 
 check_runner_source_cvt = TestRunner.cs Compiler.cs
 check_runner_source_man = TestRW.cs
+
+assembly_info_source    = Properties/AssemblyInfo.cs 
+assembly_info_source_tr = Properties/AssemblyInfoTR.cs 
+
 # Test*.cs are not implemented yet
 check_sources       = $(wildcard $(test_source_path)/**/Test*.cs)
 check_sources       += $(check_runner_source_cvt) $(check_runner_source_man)
 
-csproxy_lib       = libsbmlcsP.dll
+assembly_name     = libsbmlcsP
+csproxy_lib       = ${assembly_name}.dll
 dllimport_name    = libsbmlcs
 dllimport_lib     = $(dllimport_name).$(CSHARP_EXT)
+
+sn_keyfile = libsbmlcs.snk
 
 # There are two libraries to build: the shared native library file used for
 # Platform Invocation Service, and the CSharp proxy class DLL file.
@@ -157,7 +164,7 @@ vs2005_files = \
   CSharp_binding_win32-libxml.sln CSharp_binding_win32-libxml.vcproj \
   CSharp_binding_TestRW.csproj CSharp_binding_cspDLL.csproj \
   LibSBMLCSTestRunner-vs2005.csproj  LibSBMLCSTestRunner-vs2005.sln \
-  Properties/AssemblyInfo.cs Properties/AssemblyInfoTR.cs
+  $(assembly_info_source) $(assembly_info_source_tr)
 
 vs2003_files = \
   CSharp_binding_win32-xerces-vs2003.sln  CSharp_binding_win32-xerces-vs2003.vcproj \
@@ -181,7 +188,7 @@ tmpfiles = $(wildcard test*.xml*)
 # `extra_clean' and `extra_distclean' determine the files and directories
 # removed during "make clean" and "make distclean".
 
-extra_clean = $(csproxy_lib) $(dllimport_lib) $(check_runner_exe) $(tmpfiles)
+extra_clean = $(csproxy_lib) $(dllimport_lib) $(check_runner_exe) $(tmpfiles) $(sn_keyfile)
 
 extra_distclean = 
 
@@ -211,6 +218,7 @@ ifeq (Mono,$(findstring Mono,$(shell $(CSHARP_COMPILER) --version 2>&1)))
   CSC_OPT_EXE    = -target:exe
   CSC_OPT_OUTPUT = -out:
   CSC_OPT_REF    = -r:
+  CSC_OPT_KEYFILE = -keyfile:$(sn_keyfile)
 endif
 
 # 
@@ -227,6 +235,7 @@ ifeq (cscc,$(findstring cscc,$(shell $(CSHARP_COMPILER) --version 2>&1)))
   CSC_OPT_EXE    =
   CSC_OPT_OUTPUT = -o 
   CSC_OPT_REF    = -l
+  CSC_OPT_KEYFILE = 
 endif
 
 
@@ -290,7 +299,9 @@ endif   # ifeq (yes...
 
 
 $(csproxy_lib): $(outpath)/libsbml.cs $(dllimport_lib)
-	"$(CSHARP_COMPILER)" $(CSC_OPT_SHARED) $(CSC_OPT_OUTPUT)$(csproxy_lib) $(outpath)/*.cs
+	-"$(SN)" -k $(sn_keyfile)
+	"$(CSHARP_COMPILER)" $(CSC_OPT_SHARED) $(CSC_OPT_OUTPUT)$(csproxy_lib) $(CSC_OPT_KEYFILE) $(outpath)/*.cs \
+	$(assembly_info_source)
 
 
 $(outpath)/libsbml.cs: libsbml_wrap.cpp 
@@ -423,19 +434,19 @@ tags: etags ctags
 # Installation.
 # -----------------------------------------------------------------------------
 
+install_prefix=$(DESTDIR)$(LIBDIR)/mono/$(assembly_name)
+
 install: check_swigfile_consistency $(libraries)
-	@list='$(libraries)'; for lib in $$list; do \
-	  echo "$(INSTALL) $$lib $(DESTDIR)$(LIBDIR)"; \
-	  $(INSTALL) $$lib $(DESTDIR)$(LIBDIR); \
-	done;
+	-$(GACUTIL) -i $(csproxy_lib) -root $(DESTDIR)$(LIBDIR)
+	$(INSTALL_SH) $(csproxy_lib) $(install_prefix)/$(csproxy_lib)
+	$(INSTALL_SH) $(dllimport_lib) $(install_prefix)/$(dllimport_lib)
+	ln -sf ../../libsbml.$(SHAREDLIBEXT) $(install_prefix)/libsbml.$(SHAREDLIBEXT)
 
 uninstall:
-	@list='$(libraries)'; for lib in $$list; do \
-	  if test -f "$(DESTDIR)$(LIBDIR)/$$lib"; then \
-	    echo rm "$(DESTDIR)$(LIBDIR)/$$lib"; \
-	    rm $(DESTDIR)$(LIBDIR)/$$lib; \
-          fi; \
-	done;
+	-$(GACUTIL) -u $(assembly_name) -root $(DESTDIR)$(LIBDIR)
+	rm -f $(install_prefix)/$(csproxy_lib)
+	rm -f $(install_prefix)/$(dllimport_lib)
+	rm -f $(install_prefix)/libsbml.$(SHAREDLIBEXT)
 
 installcheck:
 

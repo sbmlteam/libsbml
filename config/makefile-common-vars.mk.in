@@ -131,6 +131,8 @@ CSHARP_CPPFLAGS       = @CSHARP_CPPFLAGS@
 CSHARP_LDFLAGS        = @CSHARP_LDFLAGS@
 CSHARP_SWIGFLAGS      = @CSHARP_SWIGFLAGS@
 CSHARP_EXT            = @CSHARP_EXT@
+SN                    = @SN@
+GACUTIL               = @GACUTIL@
 
 USE_MATLAB        = @USE_MATLAB@
 MATLAB            = @MATLAB@

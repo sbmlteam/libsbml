@@ -186,7 +186,8 @@ You can build and install libSBML C# library files as follows:
 
       % make install
 
-     The two library files will be installed in ${prefix}/lib/ directory.
+     The two library files will be installed in ${prefix}/lib/mono/libsbmlcsP/
+      directory.
      (By default (without --prefix option), the prefix is /usr/local/.)
       
 
@@ -323,7 +324,7 @@ You must make sure the following configurations to run the executable file:
      and you were using the typical sh or bash shell in your terminal, you
      would need to execute
 
-        export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
+        export LD_LIBRARY_PATH="/usr/local/lib/mono/libsbmlcsP:$LD_LIBRARY_PATH"
 
      ('DYLD_LIBRARY_PATH' is used instead of 'LD_LIBRARY_PATH' on MacOSX.)
 

@@ -248,6 +248,15 @@ AC_DEFUN([CONFIG_PROG_CSHARP],
       AC_MSG_ERROR([CSharp Compiler $CSHARP_CILINTERPRETER does not exist.])
     fi
 
+    # set SN/GACUTIL
+    if test -z "$CSHARP_PATH"; then
+      AC_PATH_PROGS([SN], [sn])
+      AC_PATH_PROGS([GACUTIL], [gacutil])
+    else
+      AC_PATH_PROGS([SN], [sn] "", $CSHARP_PATH)
+      AC_PATH_PROGS([GACUTIL], [gacutil] "", $CSHARP_PATH)
+    fi
+
     # Cygwin requires the Windows standard (Pascal) calling convention as it is a Windows executable and not a Cygwin built executable
     case $host in
     *-*-cygwin* | *-*-mingw*)
