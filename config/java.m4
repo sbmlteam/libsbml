@@ -159,78 +159,79 @@ dnl Available from the GNU Autoconf Macro Archive at:
 dnl http://www.gnu.org/software/ac-archive/htmldoc/ac_jni_include_dirs.html
 
 AC_DEFUN([AC_JAVA_INCLUDE_DIRS],[
-  
   test "x$JAVAC" = x && AC_MSG_ERROR(['$JAVAC' undefined])
-  
-  _AC_JAVA_FOLLOW_SYMLINKS("$JAVAC")
-  _jtopdir=`echo "$JAVA_FOLLOWED" | sed -e 's://*:/:g' -e 's:/[[^/]]*$::'`
-  case "$host_os" in
-    *darwin*)
-	java_bail=no
-	java_mac_prefix="/System/Library/Frameworks/JavaVM.framework"
-	case $JAVA_VER_MINOR in
-	  6) 
-	    if test -e "$java_mac_prefix/Versions/CurrentJDK/Headers"; then
-	      _jinc="$java_mac_prefix/Versions/CurrentJDK/Headers"
-	    elif test -e "$java_mac_prefix/Versions/1.6.0/Headers"; then
-	      _jinc="$java_mac_prefix/Versions/1.6.0/Headers"
-	    elif test -e "$java_mac_prefix/Versions/1.6/Headers"; then
-	      _jinc="$java_mac_prefix/Versions/1.6/Headers"
-	    else
-	      java_bail=yes
-	    fi
-	    ;;
-	  5) 
-	    if test -e "$java_mac_prefix/Versions/CurrentJDK/Headers"; then
-	      _jinc="$java_mac_prefix/Versions/CurrentJDK/Headers"
-	    elif test -e "$java_mac_prefix/Versions/1.5.0/Headers"; then
-	      _jinc="$java_mac_prefix/Versions/1.5.0/Headers"
-	    elif test -e "$java_mac_prefix/Versions/1.5/Headers"; then
-	      _jinc="$java_mac_prefix/Versions/1.5/Headers"
-	    else
-	      java_bail=yes
-	    fi
-	    ;;
-	  4)
-            dnl MacOS X's installation of Java 1.4.2 is broken: the header
-            dnl files are missing entirely, and there are dangling symlinks.
-            dnl The following are ugly kludges to try to do the best we can.
-            dnl One of the things this does deliberately is use the 1.4.1
-            dnl headers directory on the Mac even for Java 1.4.2 if the 
-            dnl 1.4.2 headers directory can't be found.  Yuck.
-            dnl 2004-07-07 <mhucka@caltech.edu>
-	    if test $JAVA_VER_SUBMINOR -eq 2; then
-	      if test -e "$java_mac_prefix/Versions/1.4.2/Headers"; then
-	        _jinc="$java_mac_prefix/Versions/1.4.2/Headers"
-              elif test -e "$java_mac_prefix/Versions/1.4.1/Headers"; then
-	        _jinc="$java_mac_prefix/Versions/1.4.1/Headers"
-              else
-	        java_bail=yes
-	      fi;
-	    elif test $JAVA_VER_SUBMINOR -eq 1; then
-	      if test -e "$java_mac_prefix/Versions/1.4.1/Headers"; then
-	        _jinc="$java_mac_prefix/Versions/1.4.1/Headers"
-              else
-	        java_bail=yes
-	      fi;
+ 
+  JAVA_CPPFLAGS= 
+  AC_MSG_CHECKING([for JAVA_HOME])
+  _AC_JAVA_FOLLOW_SYMLINKS("$JAVAC", [
+    _jtopdir=`echo "$JAVA_FOLLOWED" | sed -e 's://*:/:g' -e 's:/[[^/]]*$::'`
+    case "$host_os" in
+      *darwin*)
+        java_bail=no 
+        java_mac_prefix="/System/Library/Frameworks/JavaVM.framework"
+        case $JAVA_VER_MINOR in
+          6) 
+            if test -e "$java_mac_prefix/Versions/CurrentJDK/Headers"; then
+              _jinc="$java_mac_prefix/Versions/CurrentJDK/Headers"
+            elif test -e "$java_mac_prefix/Versions/1.6.0/Headers"; then
+              _jinc="$java_mac_prefix/Versions/1.6.0/Headers"
+            elif test -e "$java_mac_prefix/Versions/1.6/Headers"; then
+              _jinc="$java_mac_prefix/Versions/1.6/Headers"
             else
-	      java_bail=yes
-	    fi
-	    ;;
-	  3) 
-	    if test -e "$java_mac_prefix/Versions/1.3.1/Headers"; then
-	      _jinc="$java_mac_prefix/Versions/1.3.1/Headers"
-	    elif test -e "$java_mac_prefix/Versions/1.3/Headers"; then
-	      _jinc="$java_mac_prefix/Versions/1.3/Headers"
-	    else
-	      java_bail=yes
-	    fi
-	    ;;
+              java_bail=yes
+            fi
+            ;;
+          5) 
+            if test -e "$java_mac_prefix/Versions/CurrentJDK/Headers"; then
+              _jinc="$java_mac_prefix/Versions/CurrentJDK/Headers"
+            elif test -e "$java_mac_prefix/Versions/1.5.0/Headers"; then
+              _jinc="$java_mac_prefix/Versions/1.5.0/Headers"
+            elif test -e "$java_mac_prefix/Versions/1.5/Headers"; then
+              _jinc="$java_mac_prefix/Versions/1.5/Headers"
+            else
+              java_bail=yes
+            fi
+            ;;
+          4)
+              dnl MacOS X's installation of Java 1.4.2 is broken: the header
+              dnl files are missing entirely, and there are dangling symlinks.
+              dnl The following are ugly kludges to try to do the best we can.
+              dnl One of the things this does deliberately is use the 1.4.1
+              dnl headers directory on the Mac even for Java 1.4.2 if the 
+              dnl 1.4.2 headers directory can't be found.  Yuck.
+              dnl 2004-07-07 <mhucka@caltech.edu>
+            if test $JAVA_VER_SUBMINOR -eq 2; then
+              if test -e "$java_mac_prefix/Versions/1.4.2/Headers"; then
+                _jinc="$java_mac_prefix/Versions/1.4.2/Headers"
+                elif test -e "$java_mac_prefix/Versions/1.4.1/Headers"; then
+                _jinc="$java_mac_prefix/Versions/1.4.1/Headers"
+                else
+                java_bail=yes
+              fi;
+            elif test $JAVA_VER_SUBMINOR -eq 1; then
+              if test -e "$java_mac_prefix/Versions/1.4.1/Headers"; then
+                _jinc="$java_mac_prefix/Versions/1.4.1/Headers"
+                else
+                java_bail=yes
+              fi;
+              else
+              java_bail=yes
+            fi
+            ;;
+          3) 
+            if test -e "$java_mac_prefix/Versions/1.3.1/Headers"; then
+              _jinc="$java_mac_prefix/Versions/1.3.1/Headers"
+            elif test -e "$java_mac_prefix/Versions/1.3/Headers"; then
+              _jinc="$java_mac_prefix/Versions/1.3/Headers"
+            else
+              java_bail=yes
+            fi
+            ;;
 	  *)
              _jtopdir=`echo "$_jtopdir" | sed -e 's:/[[^/]]*$::'`
 	     _jinc="$_jtopdir/Headers"
 	     ;;
-	esac
+        esac
 
 	if test $java_bail = yes; then
           AC_MSG_ERROR([Cannot find Java include files.])
@@ -245,34 +246,41 @@ AC_DEFUN([AC_JAVA_INCLUDE_DIRS],[
         _jinc="$_jtopdir/include"
         JAVADOC_JAR=$_jtopdir/lib/tools.jar
 	;;
-  esac
-  if test -e "$_jinc/jni.h"; then
-    JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$_jinc\""
-  else
-    _jtopdir=`echo "$_jtopdir" | sed -e 's:/[[^/]]*$::'`
-    if test -e "$_jtopdir/include/jni.h"; then
-      JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$_jtopdir/include\""
+    esac
+    if test -e "$_jinc/jni.h"; then
+      JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$_jinc\""
     else
-      AC_MSG_ERROR([Cannot find Java include files.])
+      _jtopdir=`echo "$_jtopdir" | sed -e 's:/[[^/]]*$::'`
+      if test -e "$_jtopdir/include/jni.h"; then
+        JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$_jtopdir/include\""
+      fi
     fi
+    if test -n "$JAVA_CPPFLAGS"; then
+      AC_MSG_RESULT([$_jtopdir])
+      break
+    fi 
+  ])
+ 
+  if test -z "$JAVA_CPPFLAGS"; then
+    AC_MSG_ERROR([Cannot find Java include fiiles.] )
+  else
+    dnl Get the likely subdirectories for system specific Java includes.
+    case "$host_os" in
+      bsdi*)    _java_inc_subdirs="bsdos";;
+      linux*)   _java_inc_subdirs="linux genunix";;
+      osf*)     _java_inc_subdirs="alpha";;
+      solaris*) _java_inc_subdirs="solaris";;
+      *cygwin*) _java_inc_subdirs="win32";;
+      *)        _java_inc_subdirs="genunix";;
+    esac
+  
+    dnl Add any subdirectories that are present.
+    for jsubdir in $_java_inc_subdirs; do
+      if test -d "$_jtopdir/include/$jsubdir"; then
+        JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$_jtopdir/include/$jsubdir\""
+      fi
+    done
   fi
-  
-  dnl Get the likely subdirectories for system specific Java includes.
-  case "$host_os" in
-    bsdi*)    _java_inc_subdirs="bsdos";;
-    linux*)   _java_inc_subdirs="linux genunix";;
-    osf*)     _java_inc_subdirs="alpha";;
-    solaris*) _java_inc_subdirs="solaris";;
-    *cygwin*) _java_inc_subdirs="win32";;
-    *)        _java_inc_subdirs="genunix";;
-  esac
-  
-  dnl Add any subdirectories that are present.
-  for jsubdir in $_java_inc_subdirs; do
-    if test -d "$_jtopdir/include/$jsubdir"; then
-      JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$_jtopdir/include/$jsubdir\""
-    fi
-  done
 ])
 
 dnl _AC_JAVA_FOLLOW_SYMLINKS <path>
@@ -289,6 +297,9 @@ AC_DEFUN([_AC_JAVA_FOLLOW_SYMLINKS],[
           dnl 'X' avoids triggering unwanted echo options.
           *) _cur=`echo "X$_cur" | sed -e 's/^X//' -e 's:[[^/]]*$::'`"$_slink";;
         esac
+        JAVA_FOLLOWED="$_cur"
+        ifelse([$2],[],[:],[$2])
   done
   JAVA_FOLLOWED="$_cur"
+  ifelse([$2],[],[:],[$2])
 ])# _AC_JAVA
