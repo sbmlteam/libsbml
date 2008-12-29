@@ -45,7 +45,7 @@ using namespace std;
 /** @cond doxygen-libsbml-internal */
 
 static const int INT32_MAX = 2147483647;
-static const int INT32_MIN = -2147483648;
+static const int INT32_MIN = -2147483647 - 1;
 
 static const char* URL_TIME  = "http://www.sbml.org/sbml/symbols/time";
 static const char* URL_DELAY = "http://www.sbml.org/sbml/symbols/delay";
