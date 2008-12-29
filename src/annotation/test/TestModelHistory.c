@@ -314,6 +314,59 @@ START_TEST (test_ModelHistory_setModifiedDate)
 END_TEST
 
 
+START_TEST (test_ModelHistory_addModifiedDate)
+{
+  ModelHistory_t * history = ModelHistory_create();
+
+  fail_unless(history != NULL);
+  fail_unless(ModelHistory_isSetModifiedDate(history) == 0);
+  fail_unless(ModelHistory_getNumModifiedDates(history) == 0);
+
+  Date_t * date = Date_createFromValues(2005, 12, 30, 12, 15, 45, 1, 2, 0);
+  
+  ModelHistory_addModifiedDate(history, date);
+  Date_free(date);
+
+  fail_unless(ModelHistory_getNumModifiedDates(history) == 1);
+  fail_unless(ModelHistory_isSetModifiedDate(history) == 1);
+
+  Date_t * newdate = List_get(ModelHistory_getListModifiedDates(history), 0);
+
+  fail_unless(Date_getYear(newdate) == 2005);
+  fail_unless(Date_getMonth(newdate) == 12);
+  fail_unless(Date_getDay(newdate) == 30);
+  fail_unless(Date_getHour(newdate) == 12);
+  fail_unless(Date_getMinute(newdate) == 15);
+  fail_unless(Date_getSecond(newdate) == 45);
+  fail_unless(Date_getSignOffset(newdate) == 1);
+  fail_unless(Date_getHoursOffset(newdate) == 2);
+  fail_unless(Date_getMinutesOffset(newdate) == 0);
+
+  Date_t * date1 = Date_createFromValues(2008, 11, 2, 16, 42, 40, 1, 2, 0);
+  
+  ModelHistory_addModifiedDate(history, date1);
+  Date_free(date1);
+
+  fail_unless(ModelHistory_getNumModifiedDates(history) == 2);
+  fail_unless(ModelHistory_isSetModifiedDate(history) == 1);
+
+  Date_t * newdate1 = ModelHistory_getModifiedDateFromList(history, 1);
+
+  fail_unless(Date_getYear(newdate1) == 2008);
+  fail_unless(Date_getMonth(newdate1) == 11);
+  fail_unless(Date_getDay(newdate1) == 2);
+  fail_unless(Date_getHour(newdate1) == 16);
+  fail_unless(Date_getMinute(newdate1) == 42);
+  fail_unless(Date_getSecond(newdate1) == 40);
+  fail_unless(Date_getSignOffset(newdate1) == 1);
+  fail_unless(Date_getHoursOffset(newdate1) == 2);
+  fail_unless(Date_getMinutesOffset(newdate1) == 0);
+
+  ModelHistory_free(history);
+}
+END_TEST
+
+
 Suite *
 create_suite_ModelHistory (void)
 {
@@ -331,6 +384,7 @@ create_suite_ModelHistory (void)
   tcase_add_test( tcase, test_ModelHistory_addCreator  );
   tcase_add_test( tcase, test_ModelHistory_setCreatedDate  );
   tcase_add_test( tcase, test_ModelHistory_setModifiedDate  );
+  tcase_add_test( tcase, test_ModelHistory_addModifiedDate  );
   suite_add_tcase(suite, tcase);
 
   return suite;

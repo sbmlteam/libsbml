@@ -225,7 +225,7 @@ RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation)
 	            {
 		            modified = new Date(RDFTop->getChild(n).getChild(0).
 				                getChild(0).getCharacters());
-		            history->setModifiedDate(modified);
+		            history->addModifiedDate(modified);
                             delete modified;
 	            }
 	          }
@@ -669,10 +669,21 @@ RDFAnnotationParser::parseModelHistory(const Model *model)
   if (history->isSetModifiedDate())
   {
     XMLNode empty(empty_token);
-    empty.append(history->getModifiedDate()->getDateAsString());
+    empty.append(history->getModifiedDate(0)->getDateAsString());
     W3CDTF2.addChild(empty);
     modified.addChild(W3CDTF2);
     description->addChild(modified);
+
+    for (unsigned int n = 1; n < history->getNumModifiedDates(); n++)
+    {
+      XMLNode empty(empty_token);
+      W3CDTF2.removeChildren();
+      modified.removeChildren();
+      empty.append(history->getModifiedDate(n)->getDateAsString());
+      W3CDTF2.addChild(empty);
+      modified.addChild(W3CDTF2);
+      description->addChild(modified);
+    }
   }
 
   // add CVTerms here

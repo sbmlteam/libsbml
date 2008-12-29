@@ -575,6 +575,41 @@ public:
   void setModifiedDate(Date* date);
 
   /**
+   * Adds a modifiedDate.
+   *  
+   * @param date a Date object representing the date
+   * the ModelHistory was modified. 
+   */
+  void addModifiedDate(Date* date);
+
+  /**
+   * Get the List of ModifiedDate objects in this 
+   * ModelHistory.
+   * 
+   * @return the list of ModifiedDates for this ModelHistory.
+   */
+  List * getListModifiedDates();
+
+  /**
+   * Get the nth Date object in the list of ModifiedDates
+   * in this ModelHistory.
+   * 
+   * @return the nth Date in the list of ModifiedDates of 
+   * this ModelHistory.
+   */
+  Date* getModifiedDate(unsigned int n);
+
+  /**
+   * Get the number of ModifiedDate objects in this 
+   * ModelHistory.
+   * 
+   * @return the number of ModifiedDates in this 
+   * ModelHistory.
+   */
+  unsigned int getNumModifiedDates();
+
+
+  /**
    * Adds a copy of the given ModelCreator object to 
    * this ModelHistory.
    *
@@ -617,6 +652,12 @@ protected:
 
   Date* mCreatedDate;
   Date* mModifiedDate;
+
+  // there can be more than one modified date
+  // this is a bug and so as to not break code 
+  // I'll hack the old code to interact with a list
+  
+  List * mModifiedDates;
 
   /** @endcond doxygen-libsbml-internal */
 };
@@ -866,6 +907,23 @@ int ModelHistory_isSetCreatedDate(ModelHistory_t * mh);
 
 LIBSBML_EXTERN
 int ModelHistory_isSetModifiedDate(ModelHistory_t * mh);
+
+LIBSBML_EXTERN
+void 
+ModelHistory_addModifiedDate(ModelHistory_t * mh, Date_t * date);
+
+LIBSBML_EXTERN
+List_t * 
+ModelHistory_getListModifiedDates(ModelHistory_t * mh);
+
+LIBSBML_EXTERN
+unsigned int 
+ModelHistory_getNumModifiedDates(ModelHistory_t * mh);
+
+LIBSBML_EXTERN
+Date_t* 
+ModelHistory_getModifiedDateFromList(ModelHistory_t * mh, unsigned int n);
+
 
 
 END_C_DECLS

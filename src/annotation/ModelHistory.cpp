@@ -709,8 +709,9 @@ ModelCreator::unsetOrganisation()
 ModelHistory::ModelHistory ()
 {
   mCreatedDate = NULL;
-  mModifiedDate = NULL;
+//  mModifiedDate = NULL;
   mCreators = new List();
+  mModifiedDates = new List();
 }
 
 /*
@@ -725,7 +726,14 @@ ModelHistory::~ModelHistory()
     delete mCreators;
   }
   if (mCreatedDate) delete mCreatedDate;
-  if (mModifiedDate) delete mModifiedDate;
+//  if (mModifiedDate) delete mModifiedDate;
+  if (mModifiedDates)
+  {
+    unsigned int size = mModifiedDates->getSize();
+    while (size--) delete static_cast<Date*>
+                                     ( mModifiedDates->remove(0) );
+    delete mModifiedDates;
+  }
 }
 
 
@@ -735,9 +743,15 @@ ModelHistory::~ModelHistory()
 ModelHistory::ModelHistory(const ModelHistory& orig)
 {
   mCreators = new List();
-  for (unsigned int i = 0; i < orig.mCreators->getSize(); i++)
+  mModifiedDates = new List();
+  unsigned int i;
+  for (i = 0; i < orig.mCreators->getSize(); i++)
   {
     this->addCreator(static_cast<ModelCreator*>(orig.mCreators->get(i)));
+  }
+  for (i = 0; i < orig.mModifiedDates->getSize(); i++)
+  {
+    this->addModifiedDate(static_cast<Date*>(orig.mModifiedDates->get(i)));
   }
   if (orig.mCreatedDate) 
   {
@@ -747,14 +761,14 @@ ModelHistory::ModelHistory(const ModelHistory& orig)
   {
     mCreatedDate = NULL;
   }
-  if (orig.mModifiedDate)
-  {
-    setModifiedDate(orig.mModifiedDate);
-  }
-  else
-  {
-    mModifiedDate = NULL;
-  }
+  //if (orig.mModifiedDate)
+  //{
+  //  setModifiedDate(orig.mModifiedDate);
+  //}
+  //else
+  //{
+  //  mModifiedDate = NULL;
+  //}
 }
 
 
@@ -764,13 +778,18 @@ ModelHistory::ModelHistory(const ModelHistory& orig)
 ModelHistory& 
 ModelHistory::operator=(const ModelHistory& orig)
 {
-  for (unsigned int i = 0; i < orig.mCreators->getSize(); i++)
+  unsigned int i;
+  for (i = 0; i < orig.mCreators->getSize(); i++)
   {
     addCreator(static_cast<ModelCreator*>(orig.mCreators->get(i)));
   }
 
+  for (i = 0; i < orig.mModifiedDates->getSize(); i++)
+  {
+    addModifiedDate(static_cast<Date*>(orig.mModifiedDates->get(i)));
+  }
   if (orig.mCreatedDate) setCreatedDate(orig.mCreatedDate);
-  if (orig.mModifiedDate)setModifiedDate(orig.mModifiedDate);
+//  if (orig.mModifiedDate)setModifiedDate(orig.mModifiedDate);
   return *this;
 }
 
@@ -811,9 +830,17 @@ ModelHistory::setCreatedDate(Date* date)
 void 
 ModelHistory::setModifiedDate(Date* date)
 {
-  mModifiedDate = date->clone();
+  //mModifiedDate = date->clone();
+  addModifiedDate(date);
 }
-
+/*
+ * adds a modifieddate to the model history
+ */
+void 
+ModelHistory::addModifiedDate(Date * date)
+{
+  mModifiedDates->add((void *)(date->clone()));
+}
 
 /*
  * return the List of creators
@@ -822,6 +849,16 @@ List *
 ModelHistory::getListCreators()
 {
   return mCreators;
+}
+
+
+/*
+ * return the List of modified dates
+ */
+List *
+ModelHistory::getListModifiedDates()
+{
+  return mModifiedDates;
 }
 
 
@@ -841,7 +878,16 @@ ModelHistory::getCreatedDate()
 Date *
 ModelHistory::getModifiedDate()
 {
-  return mModifiedDate;
+  return getModifiedDate(0);
+}
+
+/*
+ * return modified date
+ */
+Date *
+ModelHistory::getModifiedDate(unsigned int n)
+{
+  return (Date *) (mModifiedDates->get(n));
 }
 
 
@@ -854,6 +900,15 @@ ModelHistory::getNumCreators()
   return mCreators->getSize();
 }
 
+
+/**
+  * @return number in List of modified dates
+  */
+unsigned int 
+ModelHistory::getNumModifiedDates()
+{
+  return mModifiedDates->getSize();
+}
 
 /**
   * @return nth Creator
@@ -883,7 +938,7 @@ ModelHistory::isSetCreatedDate()
 bool 
 ModelHistory::isSetModifiedDate()
 {
-  return mModifiedDate != 0;
+  return (getNumModifiedDates() != 0);
 }
 
 
@@ -1772,6 +1827,78 @@ unsigned int ModelHistory_getNumCreators(ModelHistory_t * mh)
 {
   return mh->getNumCreators();
 }
+
+/**
+ * Adds a copy of a Date_t structure to the 
+ * list of modifiedDates in the ModelHistory_t structure.
+ *
+ * @param mh the ModelHistory_t structure
+ * @param date the Date_t structure to add.
+ */
+LIBSBML_EXTERN
+void 
+ModelHistory_addModifiedDate(ModelHistory_t * mh, Date_t * date)
+{
+  mh->addModifiedDate(date);
+}
+
+/**
+ * Get the List of Date objects in the list of ModifiedDates 
+ * in this ModelHistory.
+ *
+ * @param mh the ModelHistory_t structure
+ * 
+ * @return a pointer to the List_t structure of Dates 
+ * for this ModelHistory_t structure.
+ */
+LIBSBML_EXTERN
+List_t * 
+ModelHistory_getListModifiedDates(ModelHistory_t * mh)
+{
+  return mh->getListModifiedDates();
+}
+
+/**
+ * Get the number of modified Date objects in the list of ModifiedDates 
+ * in this ModelHistory.
+ *
+ * @param mh the ModelHistory_t structure
+ * 
+ * @return the number of Dates in the list of ModifiedDates in this 
+ * ModelHistory.
+ */
+LIBSBML_EXTERN
+unsigned int 
+ModelHistory_getNumModifiedDates(ModelHistory_t * mh)
+{
+  return mh->getNumModifiedDates();
+}
+
+/**
+ * Get the nth Date_t structure in the list of ModifiedDates
+ * in this ModelHistory_t.
+ * 
+ * @param mh the ModelHistory_t structure
+ * @param n an unsigned int indicating which Date
+ *
+ * @return the nth Date in the list of ModifiedDates
+ * of this ModelHistory.
+ *
+ * @note A bug in libSBML meant that originally a ModelHistory object
+ * contained only one instance of a ModifiedDate.  In fact the MIRIAM
+ * annotation expects zero or more modified dates and thus the
+ * implementation was changed.  To avoid impacting on existing code
+ * there is a ditinction between the function 
+ * ModelHistory_getModifiedDate which requires no index value and
+ * this function that indexes into a list.
+ */
+LIBSBML_EXTERN
+Date_t* 
+ModelHistory_getModifiedDateFromList(ModelHistory_t * mh, unsigned int n)
+{
+  return mh->getModifiedDate(n);
+}
+
 
 
 

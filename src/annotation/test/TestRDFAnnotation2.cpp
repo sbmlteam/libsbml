@@ -134,6 +134,18 @@ START_TEST (test_RDFAnnotation2_getModelHistory)
   fail_unless(Date_getHoursOffset(date) == 0);
   fail_unless(Date_getMinutesOffset(date) == 0);
   fail_unless(!strcmp(Date_getDateAsString(date), "2006-05-30T10:46:02Z"));
+
+  date = history->getModifiedDate(1);
+  fail_unless(Date_getYear(date) == 2007);
+  fail_unless(Date_getMonth(date) == 1);
+  fail_unless(Date_getDay(date) == 16);
+  fail_unless(Date_getHour(date) == 15);
+  fail_unless(Date_getMinute(date) == 31);
+  fail_unless(Date_getSecond(date) == 52);
+  fail_unless(Date_getSignOffset(date) == 0);
+  fail_unless(Date_getHoursOffset(date) == 0);
+  fail_unless(Date_getMinutesOffset(date) == 0);
+  fail_unless(!strcmp(Date_getDateAsString(date), "2007-01-16T15:31:52Z"));
 }
 END_TEST
 
@@ -190,6 +202,59 @@ START_TEST (test_RDFAnnotation2_modelWithHistoryAndCVTerms)
 END_TEST
 
 
+START_TEST (test_RDFAnnotation2_modelWithHistoryAndMultipleModifiedDates)
+{
+  ModelHistory * h = new ModelHistory();
+
+  ModelCreator *c = new ModelCreator();
+  c->setFamilyName("Keating");
+  c->setGivenName("Sarah");
+
+  h->addCreator(c);
+
+  Date * d = new Date(2005, 2, 2, 14, 56, 11);
+  h->setCreatedDate(d);
+  h->addModifiedDate(d);
+  h->addModifiedDate(d);
+  m2->unsetModelHistory();
+
+  m2->setModelHistory(h);
+
+  XMLNode *Ann = RDFAnnotationParser::parseModelHistory(m2);
+
+  const char * expected =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "<annotation>\n"
+		"  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"    <rdf:Description rdf:about=\"#_000001\">\n"
+		"      <dc:creator rdf:parseType=\"Resource\">\n"
+		"        <rdf:Bag>\n"
+		"          <rdf:li rdf:parseType=\"Resource\">\n"
+		"            <vCard:N rdf:parseType=\"Resource\">\n"
+		"              <vCard:Family>Keating</vCard:Family>\n"
+		"              <vCard:Given>Sarah</vCard:Given>\n"
+		"            </vCard:N>\n"
+		"          </rdf:li>\n"
+		"        </rdf:Bag>\n"
+		"      </dc:creator>\n"
+		"      <dcterms:created rdf:parseType=\"Resource\">\n"
+		"        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+		"      </dcterms:created>\n"
+		"      <dcterms:modified rdf:parseType=\"Resource\">\n"
+		"        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+		"      </dcterms:modified>\n"
+		"      <dcterms:modified rdf:parseType=\"Resource\">\n"
+		"        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+		"      </dcterms:modified>\n"
+		"    </rdf:Description>\n"
+		"  </rdf:RDF>\n"
+    "</annotation>";
+
+  Ann->write(*XOS2);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
 
 
 Suite *
@@ -204,6 +269,7 @@ create_suite_RDFAnnotation2 (void)
 
   tcase_add_test(tcase, test_RDFAnnotation2_getModelHistory );
   tcase_add_test(tcase, test_RDFAnnotation2_modelWithHistoryAndCVTerms );
+  tcase_add_test(tcase, test_RDFAnnotation2_modelWithHistoryAndMultipleModifiedDates );
   suite_add_tcase(suite, tcase);
 
   return suite;
