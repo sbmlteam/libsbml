@@ -139,6 +139,7 @@ SBase::SBase (const std::string& id, const std::string& name, int sbo) :
  , mColumn    ( 0 )
  , mParentSBMLObject (0)
  , mCVTerms   ( 0 )
+ , mHasBeenDeleted (false)
 {
 }
 /** @endcond doxygen-libsbml-internal */
@@ -163,6 +164,7 @@ SBase::SBase (int sbo) :
  , mColumn    ( 0 )
  , mParentSBMLObject (0)
  , mCVTerms   ( 0 )
+ , mHasBeenDeleted (false)
 {
 }
 /** @endcond doxygen-libsbml-internal */
@@ -174,47 +176,50 @@ SBase::SBase (int sbo) :
  */
 SBase::SBase(const SBase& orig)
 {
-    this->mId     = orig.mId;
-    this->mName   = orig.mName;
-    this->mMetaId = orig.mMetaId;
+  this->mId     = orig.mId;
+  this->mName   = orig.mName;
+  this->mMetaId = orig.mMetaId;
 
-    if(orig.mNotes) 
-      this->mNotes = new XMLNode(*const_cast<SBase&>(orig).getNotes());
-    else
-      this->mNotes = 0;
-    
-    if(orig.mAnnotation) 
-      this->mAnnotation = new XMLNode(*const_cast<SBase&>(orig).mAnnotation);
-    else
-      this->mAnnotation = 0;
-    
-    this->mObjectLevel       = orig.mObjectLevel;
-    this->mObjectVersion       = orig.mObjectVersion;
-    this->mSBML       = orig.mSBML;
-    this->mSBOTerm    = orig.mSBOTerm;
-    this->mLine       = orig.mLine;
-    this->mColumn     = orig.mColumn;
-    this->mParentSBMLObject = orig.mParentSBMLObject;
+  if(orig.mNotes) 
+    this->mNotes = new XMLNode(*const_cast<SBase&>(orig).getNotes());
+  else
+    this->mNotes = 0;
+  
+  if(orig.mAnnotation) 
+    this->mAnnotation = new XMLNode(*const_cast<SBase&>(orig).mAnnotation);
+  else
+    this->mAnnotation = 0;
+  
+  this->mObjectLevel       = orig.mObjectLevel;
+  this->mObjectVersion       = orig.mObjectVersion;
+  this->mSBML       = orig.mSBML;
+  this->mSBOTerm    = orig.mSBOTerm;
+  this->mLine       = orig.mLine;
+  this->mColumn     = orig.mColumn;
+  this->mParentSBMLObject = orig.mParentSBMLObject;
 
-    if(orig.mNamespaces)
-      this->mNamespaces = new XMLNamespaces(*const_cast<SBase&>(orig).mNamespaces);
-    else
-      this->mNamespaces = 0;
+  if(orig.mNamespaces)
+    this->mNamespaces = new XMLNamespaces(*const_cast<SBase&>(orig).mNamespaces);
+  else
+    this->mNamespaces = 0;
 
-    if(orig.mCVTerms)
+  if(orig.mCVTerms)
+  {
+    this->mCVTerms  = new List();
+    unsigned int i,iMax = orig.mCVTerms->getSize();
+    for(i = 0; i < iMax; ++i)
     {
-      this->mCVTerms  = new List();
-      unsigned int i,iMax = orig.mCVTerms->getSize();
-      for(i = 0; i < iMax; ++i)
-      {
-        this->mCVTerms
-          ->add(static_cast<CVTerm*>(orig.mCVTerms->get(i))->clone());
-      }
+      this->mCVTerms
+        ->add(static_cast<CVTerm*>(orig.mCVTerms->get(i))->clone());
     }
-    else
-    {
-      this->mCVTerms = 0;
-    }
+  }
+  else
+  {
+    this->mCVTerms = 0;
+  }
+
+  this->mHasBeenDeleted = false;
+
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -233,6 +238,7 @@ SBase::~SBase ()
     while (size--) delete static_cast<CVTerm*>( mCVTerms->remove(0) );
     delete mCVTerms;
   }
+  mHasBeenDeleted = true;
 }
 
 /*
@@ -282,6 +288,7 @@ SBase& SBase::operator=(const SBase& orig)
       this->mCVTerms = 0;
     }
 
+    this->mHasBeenDeleted = orig.mHasBeenDeleted;
     return *this;
 
 }
@@ -385,6 +392,26 @@ SBase::getNamespaces() const
 const SBMLDocument*
 SBase::getSBMLDocument () const
 {
+  if (mSBML != NULL)
+  {
+    // if the doc object has been deleted the pointer is 
+    // still valid but points to nothing
+    try 
+    {
+      if (mSBML->getHasBeenDeleted())
+      {
+        return NULL;
+      }
+      else
+      {
+        return mSBML;
+      }
+    }
+    catch ( ... )
+    {
+      return NULL;
+    }
+  }
   return mSBML;
 }
 
@@ -396,14 +423,18 @@ SBase::getSBMLDocument ()
 {
   if (mSBML != NULL)
   {
-    // if the document has been deleted the pointer is 
+    // if the doc object has been deleted the pointer is 
     // still valid but points to nothing
-    // try to do something with the pointer
-    // and if it fails return NULL
     try 
     {
-      mSBML->getLevel();
-      return mSBML;
+      if (mSBML->getHasBeenDeleted())
+      {
+        return NULL;
+      }
+      else
+      {
+        return mSBML;
+      }
     }
     catch ( ... )
     {
@@ -419,12 +450,16 @@ SBase::getParentSBMLObject ()
   {
     // if the parent object has been deleted the pointer is 
     // still valid but points to nothing
-    // try to do something with the pointer
-    // and if it fails return NULL
     try 
     {
-      mParentSBMLObject->getLevel();
-      return mParentSBMLObject;
+      if (mParentSBMLObject->getHasBeenDeleted())
+      {
+        return NULL;
+      }
+      else
+      {
+        return mParentSBMLObject;
+      }
     }
     catch ( ... )
     {
@@ -1904,6 +1939,13 @@ SBase::readNotes (XMLInputStream& stream)
 
   return false;
 }
+
+bool
+SBase::getHasBeenDeleted()
+{
+  return mHasBeenDeleted;
+}
+
 /** @endcond doxygen-libsbml-internal */
 
 

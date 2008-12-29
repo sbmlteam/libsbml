@@ -1386,6 +1386,7 @@ protected:
 
   int mObjectLevel;
   int mObjectVersion;
+  bool mHasBeenDeleted;
 
   int mSBOTerm;
 
@@ -1421,6 +1422,8 @@ private:
    * @return true if read a <notes> element from the stream
    */
   bool readNotes (XMLInputStream& stream);
+
+  bool getHasBeenDeleted();
 
   /** @endcond doxygen-libsbml-internal */
 };

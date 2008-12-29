@@ -880,6 +880,25 @@ START_TEST ( test_UnitDefinition_parent_create )
 END_TEST
 
 
+START_TEST ( test_Compartment_parent_NULL )
+{
+  SBMLDocument *d = new SBMLDocument();
+  Model *m = d->createModel();
+  Compartment *c = m->createCompartment();
+  
+  Compartment *c1 = c->clone();
+  fail_unless (c1->getParentSBMLObject() == m->getListOfCompartments());
+  fail_unless (c1->getSBMLDocument() == d);
+
+  delete d;
+
+  fail_unless(c1->getAncestorOfType(SBML_MODEL) == NULL);
+  fail_unless(c1->getParentSBMLObject() == NULL);
+  fail_unless (c1->getSBMLDocument() == NULL);
+}
+END_TEST
+
+
 Suite *
 create_suite_ParentObject (void)
 {
@@ -938,6 +957,7 @@ create_suite_ParentObject (void)
   tcase_add_test( tcase, test_Unit_parent_create );
   tcase_add_test( tcase, test_Unit_parent_create_model );
   tcase_add_test( tcase, test_UnitDefinition_parent_create );
+  tcase_add_test( tcase, test_Compartment_parent_NULL );
 
   suite_add_tcase(suite, tcase);
 
