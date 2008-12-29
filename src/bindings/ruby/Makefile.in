@@ -246,7 +246,7 @@ install:
 installcheck:
 
 uninstall:
-	archdir=`$(RUBY) -rrbconfig -e 's = File::SEPARATOR; a = Config::CONFIG["archdir"].squeeze(s); b = Config::CONFIG["libdir"].squeeze(s); print a.sub(/^#{b}#{s}ruby/, "$(LIBDIR)#{s}ruby#{s}site_ruby")'`; \
+	-archdir=`$(RUBY) -rrbconfig -e 's = File::SEPARATOR; a = Config::CONFIG["archdir"].squeeze(s); b = Config::CONFIG["libdir"].squeeze(s); print a.sub(/^#{b}#{s}ruby/, "$(LIBDIR)#{s}ruby#{s}site_ruby")'`; \
 	for i in $(libraries); do \
 	  rm $(DESTDIR)$$archdir/$$i; \
 	done ; \
