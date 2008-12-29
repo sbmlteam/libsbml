@@ -44,6 +44,9 @@ using namespace std;
 
 /** @cond doxygen-libsbml-internal */
 
+static const int INT32_MAX = 2147483647;
+static const int INT32_MIN = -2147483648;
+
 static const char* URL_TIME  = "http://www.sbml.org/sbml/symbols/time";
 static const char* URL_DELAY = "http://www.sbml.org/sbml/symbols/delay";
 
@@ -372,12 +375,17 @@ setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 
   else if (type == "integer")
   {
-    long value = 0;
+    int value = 0;
     istringstream isint;
     isint.str( stream.next().getCharacters() );
     isint >> value;
 
     if (isint.fail())
+    {
+      static_cast <SBMLErrorLog*>
+        (stream.getErrorLog())->logError(FailedMathMLReadOfInteger);
+    }
+    else if ( sizeof(int) > 4 && ( (value > INT32_MAX) || (value < INT32_MIN) ) )
     {
       static_cast <SBMLErrorLog*>
         (stream.getErrorLog())->logError(FailedMathMLReadOfInteger);
@@ -417,8 +425,8 @@ setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 
   else if (type == "rational")
   {
-    long numerator = 0;
-    long denominator = 1;
+    int numerator = 0;
+    int denominator = 1;
 
     istringstream isnumerator;
     istringstream isdenominator;
@@ -437,8 +445,17 @@ setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
       static_cast <SBMLErrorLog*>
         (stream.getErrorLog())->logError(FailedMathMLReadOfRational);
     }
+    else if ( sizeof(int) > 4 && 
+        ( ( (numerator > INT32_MAX) || (numerator < INT32_MIN) ) 
+          ||
+          ( (denominator > INT32_MAX) || (denominator < INT32_MIN) ) 
+        ))
+    {
+      static_cast <SBMLErrorLog*>
+        (stream.getErrorLog())->logError(FailedMathMLReadOfRational);
+    }
 
-    node.setValue(numerator, denominator);
+    node.setValue(static_cast<long>(numerator), static_cast<long>(denominator));
   }
   else
   {
