@@ -2749,6 +2749,7 @@ Model::populateListFormulaUnitsData()
       newID.assign(newId);
       fud->setUnitReferenceId(newID);
       r->setId(newID);
+      static_cast <AlgebraicRule *> (r)->setInternalIdOnly();
       countAlg++;
     }
     else

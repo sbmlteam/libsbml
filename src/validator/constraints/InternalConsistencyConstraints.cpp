@@ -526,6 +526,8 @@ END_CONSTRAINT
 
 START_CONSTRAINT (99914, AlgebraicRule, ar)
 {
+  // might have been set internally 
+  pre (ar.getInternalIdOnly() == false);
   // algebraic rule shouldnt have a variable 
   inv( ar.isSetVariable() == false );
 }

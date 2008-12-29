@@ -889,6 +889,7 @@ AlgebraicRule::AlgebraicRule (const std::string& formula) :
 AlgebraicRule::AlgebraicRule (const ASTNode* math) :
   Rule(SBML_ALGEBRAIC_RULE, "", math)
 {
+  mInternalIdOnly = false;
 }
 
 
@@ -899,6 +900,7 @@ AlgebraicRule::AlgebraicRule (unsigned int level, unsigned int version,
   mObjectLevel = level;
   mObjectVersion = version;
   if (xmlns) setNamespaces(xmlns);;
+  mInternalIdOnly = false;
 }
                           
 
@@ -932,6 +934,27 @@ AlgebraicRule::accept (SBMLVisitor& v) const
   return v.visit(*this);
 }
 
+/** @cond doxygen-libsbml-internal */
+
+/*
+ * sets the mInternalIdOnly flag
+ */
+void 
+AlgebraicRule::setInternalIdOnly()
+{
+  mInternalIdOnly = true;
+}
+
+/*
+ * gets the mInternalIdOnly flag
+ */
+bool 
+AlgebraicRule::getInternalIdOnly() const
+{
+  return mInternalIdOnly;
+}
+
+  /** @endcond doxygen-libsbml-internal */
 
 
 

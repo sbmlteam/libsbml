@@ -961,6 +961,24 @@ public:
    * @return the result of calling <code>v.visit()</code>.
    */
   virtual bool accept (SBMLVisitor& v) const;
+
+  /** @cond doxygen-libsbml-internal */
+
+  /**
+   * sets the mInternalIdOnly flag
+   */
+  void setInternalIdOnly();
+  bool getInternalIdOnly() const;
+  
+  /** @endcond doxygen-libsbml-internal */
+
+protected:
+  /** @cond doxygen-libsbml-internal */
+
+  bool mInternalIdOnly;
+
+  /** @endcond doxygen-libsbml-internal */
+
 };
 
 
