@@ -881,6 +881,7 @@ Rule::setL1TypeCode (SBMLTypeCode_t type)
 AlgebraicRule::AlgebraicRule (const std::string& formula) :
   Rule(SBML_ALGEBRAIC_RULE, "", formula)
 {
+  mInternalIdOnly = false;
 }
 
 /*
