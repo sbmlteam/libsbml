@@ -218,7 +218,9 @@ ifeq (Mono,$(findstring Mono,$(shell $(CSHARP_COMPILER) --version 2>&1)))
   CSC_OPT_EXE    = -target:exe
   CSC_OPT_OUTPUT = -out:
   CSC_OPT_REF    = -r:
-  CSC_OPT_KEYFILE = -keyfile:$(sn_keyfile)
+  ifdef SN
+    CSC_OPT_KEYFILE = -keyfile:$(sn_keyfile)
+  endif
 endif
 
 # 
