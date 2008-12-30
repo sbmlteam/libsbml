@@ -24,7 +24,9 @@
 
 #include <check.h>
 #include <stdlib.h>
+#include <string.h>
 
+#include <sbml/util/memory.h>
 #include <sbml/common/extern.h>
 
 
