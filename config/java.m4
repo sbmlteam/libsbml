@@ -266,6 +266,7 @@ AC_DEFUN([AC_JAVA_INCLUDE_DIRS],[
   else
     dnl Get the likely subdirectories for system specific Java includes.
     case "$host_os" in
+      freebsd*) _java_inc_subdirs="freebsd";;
       bsdi*)    _java_inc_subdirs="bsdos";;
       linux*)   _java_inc_subdirs="linux genunix";;
       osf*)     _java_inc_subdirs="alpha";;

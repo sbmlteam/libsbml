@@ -56,7 +56,7 @@ AC_DEFUN([CONFIG_PROG_RUBY],
       AC_PATH_PROG([RUBY], [ruby])
     fi
 
-    if test -z $RUBY || ! test -f $RUBY; 
+    if test -z "$RUBY" || ! test -f "$RUBY"; 
     then
       AC_MSG_ERROR([*** ruby missing - please install first or check config.log ***])
     fi  
@@ -80,13 +80,14 @@ AC_DEFUN([CONFIG_PROG_RUBY],
     if test `$RUBY -rrbconfig -e ["puts RUBY_VERSION >= \"1.9.0\" ? \"OK\" : \"OLD\""]` = "OK"; 
     then
       RUBY_ARCHDIR=`$RUBY -rrbconfig -e ["include Config; print \"#{CONFIG['rubyhdrdir']} -I#{CONFIG['rubyhdrdir']}/#{CONFIG['arch']}\" "]`
+      RUBY_H=`$RUBY -rrbconfig -e ["include Config; print \"#{CONFIG['rubyhdrdir']}\" "]`"/ruby.h"
     else
       RUBY_ARCHDIR=`$RUBY -rrbconfig -e ["include Config; puts CONFIG['archdir']"]`
+      RUBY_H="${RUBY_ARCHDIR}/ruby.h"
     fi    
 
-    RUBY_H="${RUBY_ARCHDIR}/ruby.h"
     AC_MSG_CHECKING(for ruby.h)
-    if test -z $RUBY_H || ! test -f $RUBY_H; 
+    if test -z "$RUBY_H" || ! test -f "$RUBY_H"; 
     then
       AC_MSG_RESULT(no)
 
