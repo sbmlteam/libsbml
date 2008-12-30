@@ -86,7 +86,7 @@ extra_distclean = $(matlab_sources)
 # -----------------------------------------------------------------------------
 
 all: Makefile link-sources
-	make $(libraries)
+	${MAKE} $(libraries)
 
 link-sources:
 	files='$(matlab_sources)'; for file in $$files; do\
