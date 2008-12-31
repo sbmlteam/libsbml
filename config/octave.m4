@@ -42,9 +42,13 @@ AC_DEFUN([CONFIG_PROG_OCTAVE],
                      [no-octave-found], [$with_octave/bin])
       AC_PATH_PROG([MKOCTFILE], [mkoctfile], [$with_octave/bin/mkoctfile],
                      [no-mkoctfile-found], [$with_octave/bin])
+      AC_PATH_PROG([OCTAVE_CONFIG], [octave-config],
+                   [$with_octave/bin/octave-config],
+                     [no-octave-config-found], [$with_octave/bin])
     else
       AC_PATH_PROG([OCTAVE], [octave])
       AC_PATH_PROG([MKOCTFILE], [mkoctfile])
+      AC_PATH_PROG([OCTAVE_CONFIG], [octave-config])
     fi
 
     if test -z "$OCTAVE"; then
@@ -131,12 +135,12 @@ AC_DEFUN([CONFIG_PROG_OCTAVE],
       fi
     fi
 
-    dnl The following should probably be conditional on the platform, but I
-    dnl don't have enough experience right now to figure out what the 
-    dnl variations need to be.  So punt.
-
     MKOCTFILE_FLAGS="--mex"
     OCTAVEEXT="mex"
+
+    dnl get rid of prefix part from the directory name of the local oct file
+    dnl repository in order to rebase it later.
+    LOCALOCTFILEDIR=`"$OCTAVE_CONFIG" -p LOCALOCTFILEDIR | sed -e "s#^\`\"$OCTAVE_CONFIG\" -p PREFIX\`##"`
 
     AC_DEFINE([USE_OCTAVE], 1, [Define to 1 to use Octave])
     AC_SUBST(USE_OCTAVE, 1)
@@ -145,6 +149,7 @@ AC_DEFUN([CONFIG_PROG_OCTAVE],
     AC_SUBST(MKOCTFILE)
     AC_SUBST(MKOCTFILE_FLAGS)
     AC_SUBST(OCTAVEEXT)
+    AC_SUBST(LOCALOCTFILEDIR) 
 
   fi
 

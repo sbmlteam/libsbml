@@ -149,11 +149,17 @@ check: check-recursive
 # Installation.
 # -----------------------------------------------------------------------------
 
-install: all install-libraries
+install: all
+	for i in $(libraries); do \
+	  $(INSTALL_SH) $$i $(DESTDIR)$(prefix)$(LOCALOCTFILEDIR)/$$i; \
+	done
 
 installdirs: all
 
 uninstall: uninstall-libraries
+	for i in $(libraries); do \
+	  rm $(DESTDIR)$(prefix)$(LOCALOCTFILEDIR)/$$i; \
+	done
 
 
 # -----------------------------------------------------------------------------
