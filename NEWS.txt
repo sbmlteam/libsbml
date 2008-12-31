@@ -4,8 +4,15 @@
 
 * New features:
 
+  - Tracker issue #1862805
+    The ListOf class has a new function 'void ListOf::clear(bool doDelete = true)'.
+    When doDelete is true all the items in the ListOf are cleared and deleted, when
+    false the items are cleared from the ListOf but not deleted.  The user is 
+    responsible for deleting the items.
+ 
   - Tracker issue #2376930
     Validation rules 10401 and 10402 had not previously been implemented.
+    Thanks to Nicolas Rodriguez for reminding us.
 
   - Added functions 'getNumResources' and 'getResourceURI' to the
     CVTerm class.  These are convenience functions that allow the user 
@@ -82,6 +89,20 @@
     to csymbol time.
 
 * Bug fixes:
+
+  - Tracker issue #2114500.
+    The octave binding failed to build using 'cygwin'. This is now fixed.
+
+  - Tracker issue #2442566.
+    LibSBML incorrectly restricted the number of 'modified' date elements that could
+    be added to a ModelHistory element.  This has now been changed.  
+
+  - Tracker issue #2219230
+    LibSBML-2.3.4 enabled a user to write an xml comment containing information
+    on the program being used to write the file.  This used functions setProgramName
+    and setProgramVersion on the SBMLWriter class.  Whilst the documentation for 
+    libSBML-3.2 described this functionality; it was not in fact implemented.
+    This has been remedied. 
 
   - Tracker issue #2418883
     The SBML_formulaToString function was crashing if the ASTNode passed
@@ -177,6 +198,15 @@
     Thanks to Sven Sahle for reporting this problem.
 
 * Changes:
+
+  - The allowable value for a integer has been restricted to the standard 32-bit signed
+    integer values allowed, 2147483647 to -2147483648, as per the SBML specification.
+
+  - Tracker issue #2182856.
+    A CVTerm uses teh "metaid" attribute of the object it describes as a reference.
+    Since adding a CVTerm to an object that has no metaid creates a empty reference
+    the addCVTerm function will no longet add a CVTerm to an object that has no metaid
+    attribute set.
 
   - Tracker issue #2175098. 
     Unit validation was producing a dimensionless unit with an exponent 
