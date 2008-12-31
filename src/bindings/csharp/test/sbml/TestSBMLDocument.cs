@@ -122,7 +122,7 @@ namespace LibSBMLCSTest {
       assertTrue( d.getNotes() == null );
       assertTrue( d.getAnnotation() == null );
       assertTrue( d.getLevel() == 2 );
-      assertTrue( d.getVersion() == 3 );
+      assertTrue( d.getVersion() == 4 );
       assertTrue( d.getNumErrors() == 0 );
       d = null;
     }

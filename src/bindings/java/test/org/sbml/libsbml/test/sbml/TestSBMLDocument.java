@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestSBMLDocument.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -115,7 +115,7 @@ public class TestSBMLDocument {
     assertTrue( d.getNotes() == null );
     assertTrue( d.getAnnotation() == null );
     assertTrue( d.getLevel() == 2 );
-    assertTrue( d.getVersion() == 3 );
+    assertTrue( d.getVersion() == 4 );
     assertTrue( d.getNumErrors() == 0 );
     d = null;
   }

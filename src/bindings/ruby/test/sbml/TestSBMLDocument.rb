@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Ben Bornstein 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestSBMLDocument.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -36,7 +36,7 @@ class TestSBMLDocument < Test::Unit::TestCase
     assert( d.getNotes() == nil )
     assert( d.getAnnotation() == nil )
     assert( d.getLevel() == 2 )
-    assert( d.getVersion() == 3 )
+    assert( d.getVersion() == 4 )
     assert( d.getNumErrors() == 0 )
     d = nil
   end

@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Python conversion)
 # @author  Ben Bornstein 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestSBMLDocument.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -38,7 +38,7 @@ class TestSBMLDocument(unittest.TestCase):
     self.assert_( d.getNotes() == None )
     self.assert_( d.getAnnotation() == None )
     self.assert_( d.getLevel() == 2 )
-    self.assert_( d.getVersion() == 3 )
+    self.assert_( d.getVersion() == 4 )
     self.assert_( d.getNumErrors() == 0 )
     d = None
     pass  
