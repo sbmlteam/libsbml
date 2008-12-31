@@ -154,7 +154,7 @@ SBMLDocument::getDefaultLevel ()
 unsigned int
 SBMLDocument::getDefaultVersion ()
 {
-  return 3;
+  return 4;
 }
 
 
