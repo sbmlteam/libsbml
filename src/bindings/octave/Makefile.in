@@ -80,6 +80,31 @@ extra_clean = TranslateSBML.$(OCTAVEEXT)
 
 extra_distclean = $(matlab_sources)
 
+ifeq "$(HOST_TYPE)" "cygwin"
+
+# for some reason cygwin needs an additional libraries declared
+# at the build 
+ifdef USE_EXPAT
+  MKOCTFILE_LIBS     += @EXPAT_LIBS@
+endif
+
+ifdef USE_XERCES
+  MKOCTFILE_LIBS     += @XERCES_LIBS@
+endif
+
+ifdef USE_LIBXML
+  MKOCTFILE_LIBS     += @LIBXML_LIBS@
+endif
+
+ifdef USE_ZLIB
+ MKOCTFILE_LIBS += @ZLIB_LIBS@
+endif
+
+ifdef USE_BZ2
+ MKOCTFILE_LIBS += @BZ2_LIBS@
+endif
+
+endif
 
 # -----------------------------------------------------------------------------
 # Primary build actions
