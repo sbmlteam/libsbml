@@ -49,15 +49,13 @@ sources = libsbml.py libsbml_wrap.cpp
 # What we're building is a module for use with Python.
 # The leading underscore below is a Python convention.
 
+libraries = _libsbml.$(PYTHON_EXT)
+
+# environment variable MACOSX_DEPLOYMENT_TARGET must be set to 10.3 or later
+# to use -undefined dynamic_lookup.
 ifeq "$(HOST_TYPE)" "darwin"
-  # MacOS X note: this MUST remain .so even though we use .dylib for libsbml.
-  libraries = _libsbml.so
-  # environment variable MACOSX_DEPLOYMENT_TARGET must be set to 10.3 or later
-  # to use -undefined dynamic_lookup.
   macosx_version=$(shell sw_vers -productVersion | cut -d"." -f1,2)
   export MACOSX_DEPLOYMENT_TARGET=${macosx_version}
-else
-  libraries = _libsbml.$(SHAREDLIBEXT)
 endif
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
@@ -286,7 +284,7 @@ endif
 create-build-dir: $(libraries)
 	mkdir -p build build/libsbml
 	echo "libsbml" > build/libsbml.pth
-	cp $(libraries)  build
+	cp $(libraries)  build/libsbml
 	cp libsbml.py    build/libsbml
 
 installcheck:

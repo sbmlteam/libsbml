@@ -145,18 +145,23 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
 	  fi
 	fi
         CONFIG_ADD_LDPATH(${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload)
+
+        # MacOS X note: this MUST remain .so even though we use .dylib for libsbml.
+        PYTHON_EXT="so"
 	;;
     *cygwin* | *mingw*) 
 	PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME} -DUSE_DL_IMPORT"
 	PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/config"
         PYTHON_LIBS="-l${PYTHON_NAME}"
 	CONFIG_ADD_LDPATH(${PYTHON_PREFIX}/lib/${PYTHON_NAME}/config)
+        PYTHON_EXT="dll"
 	;;
     *)
 	PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
         PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/config"
         PYTHON_LIBS="-l${PYTHON_NAME}"
 	CONFIG_ADD_LDPATH(${PYTHON_PREFIX}/lib/${PYTHON_NAME}/config)
+        PYTHON_EXT="so"
 	;;
     esac
 
@@ -166,6 +171,7 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
     AC_SUBST(PYTHON_CPPFLAGS)
     AC_SUBST(PYTHON_LDFLAGS)
     AC_SUBST(PYTHON_LIBS)
+    AC_SUBST(PYTHON_EXT)
 
   fi
 
