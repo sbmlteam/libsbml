@@ -1,8 +1,10 @@
            libsbml NEWS -- History of user-visible changes
  
- === Next version ===
+ === Version 3.3.0 (released 2009-01-02) ===
 
 * New features:
+  
+  - Support for SBML Level 2 Version 4.
 
   - Tracker issue #1862805
     The ListOf class has a new function 'void ListOf::clear(bool doDelete = true)'.
