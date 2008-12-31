@@ -99,6 +99,7 @@
  * Ignore methods which receive or return List*.
  */
 %ignore ModelHistory::getListCreators;
+%ignore ModelHistory::getListModifiedDates;
 %ignore SBase::getCVTerms;
 %ignore RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation, List * CVTerms);
 
