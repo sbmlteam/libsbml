@@ -4,61 +4,7 @@
 
 * New features:
   
-  - Tracker issue #2183855.
-    Added functions to return the severity and category of the SBMLError
-    class as strings.  Unfortunately a function returning the ErrorId as 
-    a string has not yet been implemented.
-  
   - Support for SBML Level 2 Version 4.
-
-  - Tracker issue #1862805
-    The ListOf class has a new function 'void ListOf::clear(bool doDelete = true)'.
-    When doDelete is true all the items in the ListOf are cleared and deleted, when
-    false the items are cleared from the ListOf but not deleted.  The user is 
-    responsible for deleting the items.
- 
-  - Tracker issue #2376930
-    Validation rules 10401 and 10402 had not previously been implemented.
-    Thanks to Nicolas Rodriguez for reminding us.
-
-  - Added functions 'getNumResources' and 'getResourceURI' to the
-    CVTerm class.  These are convenience functions that allow the user 
-    to determine how many resources are stored for the particular term
-    and to index into the values directly.
-
-  - Tracker issue #2015847
-    Each ListOfXXX class now has derived get functions that return an
-    object of the expected class e.g.  ListOfEvents->get() returns
-    an Event *.
-
-  - Tracker issue #2015847
-    The clone function on each of the sbml component classes now returns
-    a pointer to the appropriate class in place of the SBase * previously
-    returned.
-
-  - Tracker issue #2136796
-    There is now additional code to check the ordering of assignment rules
-    in a L1 or L2V1 model.  
-
-  - Tracker issue #2114473.
-    The UnitDefinition class has a new function isVariantOfSubstancePerTime()
-    which returns true if the unitDefinition is a variant of the built-in
-    unit of substance per the built-in unit of time, i.e. when multiplied by
-    a unit of 'second' the resulting unitDefinition is a variant of substance,
-    meaning moles or items (and grams or kilograms from SBML level 2 version 2 
-    onwards) with only abritrary variations in scale or multiplier values.
-    The function returns false if the unitDefinition is not a variant
-    of substance per time.   
-
-  - Tracker issue #2086608.
-    Added new functions to the ASTNode class.  These are 
-    removeChild(n) which removes the nth child; 
-    replaceChild(n, node) which replaces the nth child with node
-    and insertChild(n, node) which inserts node into the list of
-    children such that it becomes the nth child.  These functions all 
-    return an integer indicating success (0) or failure (-1). Failure 
-    is only reported if n exceeds the size of the node; invalid ASTNodes 
-    resulting from the operation are not reported.
 
   - Classes relating to SBML components have an additional constructor
     of the form XXX(unsigned int level, unsigned int version, 
@@ -83,6 +29,38 @@
     on the SBMLDocument class.  As with all validators, errors are logged
     in the SBMLErrorLog attached to the SBMLDocument.
 
+  - Added functions 'getNumResources' and 'getResourceURI' to the
+    CVTerm class.  These are convenience functions that allow the user 
+    to determine how many resources are stored for the particular term
+    and to index into the values directly.
+
+  - The MATLAB binding now correctly identifies the use of the csymbol
+    delay and provides the information to the user in a similar fashion
+    to csymbol time.
+
+  - Tracker issue #2376930
+    Validation rules 10401 and 10402 had not previously been implemented.
+    Thanks to Nicolas Rodriguez for reminding us.
+
+  - Tracker issue #2183855.
+    Added functions to return the severity and category of the SBMLError
+    class as strings.  Unfortunately a function returning the ErrorId as 
+    a string has not yet been implemented.
+  
+  - Tracker issue #2136796
+    There is now additional code to check the ordering of assignment rules
+    in a L1 or L2V1 model.  
+
+  - Tracker issue #2114473.
+    The UnitDefinition class has a new function isVariantOfSubstancePerTime()
+    which returns true if the unitDefinition is a variant of the built-in
+    unit of substance per the built-in unit of time, i.e. when multiplied by
+    a unit of 'second' the resulting unitDefinition is a variant of substance,
+    meaning moles or items (and grams or kilograms from SBML level 2 version 2 
+    onwards) with only abritrary variations in scale or multiplier values.
+    The function returns false if the unitDefinition is not a variant
+    of substance per time.   
+
   - Tracker issue #2086644.
     Validation was crashing when checking the math/units of an
     expression using a functionDefinition that had not been properly
@@ -91,46 +69,75 @@
     of a <lambda> element use appropriate tags as detailed
     in the schema for the subset of MathML supported.
     
-  - The MATLAB binding now correctly identifies the use of the csymbol
-    delay and provides the information to the user in a similar fashion
-    to csymbol time.
+  - Tracker issue #2086608.
+    Added new functions to the ASTNode class.  These are 
+    removeChild(n) which removes the nth child; 
+    replaceChild(n, node) which replaces the nth child with node
+    and insertChild(n, node) which inserts node into the list of
+    children such that it becomes the nth child.  These functions all 
+    return an integer indicating success (0) or failure (-1). Failure 
+    is only reported if n exceeds the size of the node; invalid ASTNodes 
+    resulting from the operation are not reported.
 
+  - Tracker issue #2015847
+    Each ListOfXXX class now has derived get functions that return an
+    object of the expected class e.g.  ListOfEvents->get() returns
+    an Event *.
+
+  - Tracker issue #2015847
+    The clone function on each of the sbml component classes now returns
+    a pointer to the appropriate class in place of the SBase * previously
+    returned.
+
+  - Tracker issue #1862805
+    The ListOf class has a new function 
+    'void ListOf::clear(bool doDelete = true)'.
+    When doDelete is true all the items in the ListOf are cleared and 
+    deleted, when false the items are cleared from the ListOf but not 
+    deleted.  The user is responsible for deleting the items.
+ 
 * Bug fixes:
 
-  - Tracker issue #2114500.
-    The octave binding failed to build using 'cygwin'. This is now fixed.
+  - LibSBML was failing to check that the value of the spatialDimensions
+    attribute on a <compartment> was correct.  This is in fact a schema
+    error. Thanks to Norihiro Kikuchi for spotting this.
+
+  - The code that checks for AssignmentCycles was failing to check
+    for an assignment that referred to the subject of that assignment,
+    e.g. an assignment rule with variable "c" and math "2 * c" was
+    not returning an error.  This is now fixed.
+
+  - The code that checks for AssignmentCycles was failing to check
+    for an assignment to a compartment that referred to the a species
+    concentration within that compartment. This is an implicit reference
+    to the compartment itself, since the concentration of the species
+    depends on the compartment value.  This is now fixed.
+
+  - The SBMLWriter::writeSBML() function could create a zip file in which 
+    an SBML file is stored with its path name.
+    Thanks to Florian Kamm for reporting this bug.
+
+  - A missing 'level' or 'version' attribute was not being correctly
+    reported.
+
+  - Fixed a memory leak in the assignment operator of ListOf class.
+    Thanks to Sven Sahle for reporting this problem.
 
   - Tracker issue #2442566.
-    LibSBML incorrectly restricted the number of 'modified' date elements that could
-    be added to a ModelHistory element.  This has now been changed.  
-
-  - Tracker issue #2219230
-    LibSBML-2.3.4 enabled a user to write an xml comment containing information
-    on the program being used to write the file.  This used functions setProgramName
-    and setProgramVersion on the SBMLWriter class.  Whilst the documentation for 
-    libSBML-3.2 described this functionality; it was not in fact implemented.
-    This has been remedied. 
+    LibSBML incorrectly restricted the number of 'modified' date elements 
+    that could be added to a ModelHistory element.  This has now been changed.  
 
   - Tracker issue #2418883
     The SBML_formulaToString function was crashing if the ASTNode passed
     to it was NULL.  The code now catches this and returns an empty string.
     Thanks to Lucian Smith for reporting this.
    
-  - Tracker issue #2138670
-    Conversion of an L1 model to L2 was flagging all parameters and
-    compartments as constant.  The conversion code now checks whether
-    parameters/compartments are the subject of a rule and changes the
-    constant attribute to false for those components.  Thanks to
-    Ralph Gauges for reporting this.
-
-  - LibSBML was failing to check that the value of the spatialDimensions
-    attribute on a <compartment> was correct.  This is in fact a schema
-    error. Thanks to Norihiro Kikuchi for spotting this.
-
-  - Tracker issue #2187684
-    The unit checking code was not correctly interpreting the units of
-    a reaction id used as a ci element in a math expression.  This is
-    fixed and tested.
+  - Tracker issue #2219230
+    LibSBML-2.3.4 enabled a user to write an xml comment containing 
+    information on the program being used to write the file.  This used 
+    functions setProgramName and setProgramVersion on the SBMLWriter class.  
+    Whilst the documentation for libSBML-3.2 described this functionality; 
+    it was not in fact implemented.  This has been remedied. 
 
   - Tracker issue #2209773
     libSBML couldn't be built with the Xerces 3.0.0 due to its incompatible 
@@ -141,38 +148,23 @@
     of null pointer in Xerces side when parsing some invalid SBML file.
     Thanks to Jordan Atlas for reporting this problem.
 
-  - The code that checks for AssignmentCycles was failing to check
-    for an assignment to a compartment that referred to the a species
-    concentration within that compartment. This is an implicit reference
-    to the compartment itself, since the concentration of the species
-    depends on the compartment value.  This is now fixed.
-
-  - Tracker issue #2130568
-    The check for AssignmentCycles was incorrectly reporting non-existant
-    loops. This is fixed.  Thanks to Kieran Smallbone for reporting it.
-
-  - The code that checks for AssignmentCycles was failing to check
-    for an assignment that referred to the subject of that assignment,
-    e.g. an assignment rule with variable "c" and math "2 * c" was
-    not returning an error.  This is now fixed.
-
-  - Tracker issue #2129044
-    The writeRootFunction in the mathML writer was failing to output a
-    root function correctly when it had only one child i.e. the default 
-    degree of 2 was being used.  Thanks to Ralph Gauges for spotting this.
-
-  - Tracker issue #2157800
-    When csymbol time was used in a functionDefinition it was not being
-    correctly considered as a numeric value.
-
   - Tracker issue #2189194
     bzip2-compression could cause a crash problem. 
     Thanks to Florian Kamm for reporting this bug and providing a patch.
 
   - Tracker issue #2188734
-    "&amp;" (a predefined entity reference of ampersand) in an attribute value 
-    was wrongly converted to "&amp;#38;" when libXML used as an underlying XML
-    parser. Thanks to Chen Li for reporting this bug.
+    "&amp;" (a predefined entity reference of ampersand) in an attribute 
+    value was wrongly converted to "&amp;#38;" when libXML used as an 
+    underlying XML parser. Thanks to Chen Li for reporting this bug.
+
+  - Tracker issue #2187684
+    The unit checking code was not correctly interpreting the units of
+    a reaction id used as a ci element in a math expression.  This is
+    fixed and tested.
+
+  - Tracker issue #2157800
+    When csymbol time was used in a functionDefinition it was not being
+    correctly considered as a numeric value.
 
   - Tracker issue #2146714
     syncAnnotation() functions in SBase, Model, and SpeciesReference class
@@ -181,39 +173,56 @@
     annotation object when syncAnnotation() functions are internally invoked 
     from getAnnotation() function. Thanks to Ralph Gauges for reporting this.
 
-  - The SBMLWriter::writeSBML() function could create a zip file in which 
-    an SBML file is stored with its path name.
-    Thanks to Florian Kamm for reporting this bug.
+  - Tracker issue #2138670
+    Conversion of an L1 model to L2 was flagging all parameters and
+    compartments as constant.  The conversion code now checks whether
+    parameters/compartments are the subject of a rule and changes the
+    constant attribute to false for those components.  Thanks to
+    Ralph Gauges for reporting this.
 
   - Tracker issue #2136530
     When adding a child to an XMLNode marked as an 'end' node the XMLNode
     remained marked as an 'end' node.  This caused incorrect xml to be
     written out.  Thanks to Ralph Gauges for reporting this.
 
-  - A missing 'level' or 'version' attribute was not being correctly
-    reported.
+  - Tracker issue #2130568
+    The check for AssignmentCycles was incorrectly reporting non-existant
+    loops. This is fixed.  Thanks to Kieran Smallbone for reporting it.
 
-  - Tracker issue #2082584.
-    Fixed memory leak reported by Jonathan Cooper.
-    
+  - Tracker issue #2129044
+    The writeRootFunction in the mathML writer was failing to output a
+    root function correctly when it had only one child i.e. the default 
+    degree of 2 was being used.  Thanks to Ralph Gauges for spotting this.
+
+  - Tracker issue #2114500.
+    The octave binding failed to build using 'cygwin'. This is now fixed.
+
   - Tracker issue #2086644.
     Validation was crashing when checking the math/units of an
     expression using a functionDefinition that had not been properly
     defined.  The code that caused the crash has been fixed.
 
-  - Fixed a memory leak in the assignment operator of ListOf class.
-    Thanks to Sven Sahle for reporting this problem.
-
+  - Tracker issue #2082584.
+    Fixed memory leak reported by Jonathan Cooper.
+    
 * Changes:
 
-  - The allowable value for a integer has been restricted to the standard 32-bit signed
-    integer values allowed, 2147483647 to -2147483648, as per the SBML specification.
+  - There is now a mailing list for libsbml-team@caltech.edu.  This
+    is a contact address reaching just the core libSBML developers.
+    People are still encouraged to post questions to the
+    sbml-interoperability and libsbml-development mailing lists, but
+    this new list will allow us to advertise a direct contact address
+    in the libSBML documentation.
+
+  - The allowable value for a integer has been restricted to the standard 
+    32-bit signed integer values allowed, 2147483647 to -2147483648, as 
+    per the SBML specification.
 
   - Tracker issue #2182856.
-    A CVTerm uses teh "metaid" attribute of the object it describes as a reference.
-    Since adding a CVTerm to an object that has no metaid creates a empty reference
-    the addCVTerm function will no longet add a CVTerm to an object that has no metaid
-    attribute set.
+    A CVTerm uses the "metaid" attribute of the object it describes as a 
+    reference.  Since adding a CVTerm to an object that has no metaid 
+    creates an empty 'about' element the addCVTerm function will no longer 
+    add a CVTerm to an object that has no metaid attribute set.
 
   - Tracker issue #2175098. 
     Unit validation was producing a dimensionless unit with an exponent 
@@ -235,13 +244,6 @@
     The code now reports situations where it is unable to check the 
     unit consistency due to non integral exponents.  Thanks to Jonathan
     Cooper for reporting this. 
-
-  - There is now a mailing list for libsbml-team@caltech.edu.  This
-    is a contact address reaching just the core libSBML developers.
-    People are still encouraged to post questions to the
-    sbml-interoperability and libsbml-development mailing lists, but
-    this new list will allow us to advertise a direct contact address
-    in the libSBML documentation.
 
 
  === Version 3.2.0 (released 2008-08-20) ===
