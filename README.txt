@@ -78,11 +78,11 @@ causes errors in software using it.  Xerces versions 2.2 -
 2.5 and 2.7.0 are known to work properly.
 
 By default, libSBML only builds the C and C++ API library.  If you
-want to configure libSBML to build the Java, C#, Python, Perl, Lisp,
-MATLAB, Ruby and/or Octave API libraries as well, add the flags
---with-java, --with-csharp, --with-python, --with-perl, --with-lisp, 
---with-matlab, --with-ruby, and/or --with-octave to the configure
-command.  You can combine options as you need.
+want to configure libSBML to build the Java, C#, Python, Perl, MATLAB, 
+Ruby and/or Octave API libraries as well, add the flags --with-java,
+ --with-csharp, --with-python, --with-perl, --with-matlab, --with-ruby, 
+and/or --with-octave to the configure command.  
+You can combine options as you need.
 (To see what other options are available, run the configure command
 with --help option.)
 
@@ -151,7 +151,7 @@ Markup Language (SBML).  The library supports both SBML Level 1 and
 SBML Level 2.
 
 The library is written in ISO standard C and C++ and currently
-provides an API for the languages C, C++, C#, Java, Lisp, Perl, Python,
+provides an API for the languages C, C++, C#, Java, Perl, Python,
 Ruby, MATLAB and Octave.  LibSBML is known to run on Linux, Windows,
 and MacOS X, but is portable and support for other platforms should be
 straightforward to implement.
@@ -210,7 +210,7 @@ Feature Highlights:
   format of providing getters and setters for each variable stored
   within the class.
       
-* Interfaces for C, C++, C#, Java, Lisp, Python, Perl, MATLAB, Ruby
+* Interfaces for C, C++, C#, Java, Python, Perl, MATLAB, Ruby
   and Octave.  The C and C++ interfaces are implemented natively; the
   Java, Perl, Python, and Ruby interfaces are implemented using SWIG,
   the Simplified Wrapper Interface Generator; and the rest are

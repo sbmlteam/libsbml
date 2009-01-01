@@ -153,7 +153,6 @@ CONFIG_PROG_PERL
 CONFIG_PROG_JAVA(1.4.0)
 CONFIG_PROG_MATLAB
 CONFIG_PROG_OCTAVE(2.9.7,2.9.7)
-CONFIG_PROG_LISP
 CONFIG_PROG_RUBY
 CONFIG_PROG_CSHARP
 
@@ -262,14 +261,6 @@ AC_CONFIG_FILES([src/bindings/java/Makefile])
 AC_CONFIG_FILES([src/bindings/ruby/Makefile])
 
 AC_CONFIG_FILES([src/bindings/csharp/Makefile])
-
-# 2007-06-05 Temporarily disabling Lisp bindings
-# AC_CONFIG_FILES([src/bindings/lisp/Makefile])
-dnl logical pathnames for build
-# AC_CONFIG_FILES([src/bindings/lisp/libsbml-config.lisp])
-# AC_CONFIG_FILES([src/bindings/lisp/build.lisp])
-dnl logical pathnames for installed version
-# AC_CONFIG_FILES([src/bindings/lisp/libsbml-config-run.lisp])
 
 AC_CONFIG_FILES([src/annotation/Makefile])
 AC_CONFIG_FILES([src/annotation/test/Makefile])
@@ -405,7 +396,6 @@ print_flag "Python" 	$with_python	$PYTHON
 print_flag "Perl"   	$with_perl	$PERL
 print_flag "MATLAB"   	$with_matlab	$MATLAB
 print_flag "Octave"   	$with_octave	$OCTAVE
-print_flag "Lisp"   	$with_lisp	$lisp
 print_flag "Asdf"   	$EXT_ASDF	$ASDF
 print_flag "UFFI"   	$EXT_UFFI	$UFFI
 print_flag "Ruby"       $with_ruby      $RUBY

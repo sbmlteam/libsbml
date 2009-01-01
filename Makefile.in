@@ -184,7 +184,6 @@ distfiles =                         \
   config/java.m4                    \
   config/libcheck.m4                \
   config/libxml.m4                  \
-  config/lisp.m4                    \
   config/makefile-common-actions.mk \
   config/makefile-common-vars.mk.in \
   config/matlab.m4                  \
@@ -471,7 +470,7 @@ dist dist-zip: config-check dist-all
 # libsbml with certain flags, so that certain auto-generated files are
 # present when `make dist' runs and looks for them.
 
-# 2007-06-05 Temporarily disabling the Lisp bindings.
+# 2009-01-02 Lisp is now disabled.
 # check_vars_list = USE_SWIG USE_JAVA USE_LISP USE_PYTHON USE_PERL
 check_vars_list = USE_SWIG USE_JAVA USE_PYTHON USE_PERL
 num_vars        = $(words $(check_vars_list))

@@ -207,6 +207,8 @@
     
 * Changes:
 
+  - Lisp binding is now removed from the build and source distribution.
+
   - There is now a mailing list for libsbml-team@caltech.edu.  This
     is a contact address reaching just the core libSBML developers.
     People are still encouraged to post questions to the
