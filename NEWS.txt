@@ -4,6 +4,11 @@
 
 * New features:
   
+  - Tracker issue #2183855.
+    Added functions to return the severity and category of the SBMLError
+    class as strings.  Unfortunately a function returning the ErrorId as 
+    a string has not yet been implemented.
+  
   - Support for SBML Level 2 Version 4.
 
   - Tracker issue #1862805

@@ -33,6 +33,42 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+const char * ERROR_SEVERITY_STRINGS[] =
+{
+  "Information"
+, "Warning"
+, "Error"
+, "Fatal error"
+, "Schema error"
+, "General warning"
+, "Not applicable"
+, "Unknown severity code"
+};
+
+
+const char * ERROR_CATEGORY_STRINGS[] =
+{
+  "Internal"
+, "Operating system"
+, "XML content"
+, "General SBML"
+, "Translation to SBML L1V2"
+, "Translation to SBML L2V1"
+, "Translation to SBML L2V2"
+, "SBML component"
+, "SBML identifier"
+, "SBML units"
+, "MathML"
+, "SBO term"
+, "Overdetermined model"
+, "Translation to SBML L2V3"
+, "Modeling practice"
+, "Internal consistency"
+, "Translation to SBML L2V4"
+, "Unknown category code"
+};
+
+
 
 static const xmlErrorTableEntry errorTable[] =
 {
@@ -344,6 +380,13 @@ XMLError::getSeverity () const
 }
 
 
+std::string 
+XMLError::getSeverityAsString() const
+{
+  return ERROR_SEVERITY_STRINGS[mSeverity];
+}
+
+
 /*
  * @return the category of this XMLError.  A category is a string, similiar
  * in spirit to an XML namespace, which can be used to partition errors
@@ -357,6 +400,12 @@ XMLError::getCategory () const
   return mCategory;
 }
 
+
+std::string 
+XMLError::getCategoryAsString() const
+{
+  return ERROR_CATEGORY_STRINGS[mCategory];
+}
 
 /*
  * @return true if this XMLError is for informational purposes only,
@@ -669,6 +718,21 @@ XMLError_getSeverity (const XMLError_t *error)
 
 
 /**
+ * Return the severity of this XMLError as a string.erity_t.
+ *
+ * @param error the XMLError_t from which to return the severity.
+ *
+ * @return string representing the severity of this XMLError.
+ */
+LIBLAX_EXTERN
+const char *
+XMLError_getSeverityAsString (const XMLError_t *error)
+{
+  return error->getSeverityAsString().c_str();
+}
+
+
+/**
  * Return the category of this XMLError.  The possible values (for the XML
  * layers) are those from the enumeration XMLErrorCategory_t.
  *
@@ -681,6 +745,21 @@ unsigned int
 XMLError_getCategory (const XMLError_t *error)
 {
   return error->getCategory();
+}
+
+
+/**
+ * Return the category of this XMLError as a string.
+ *
+ * @param error the XMLError_t from which to return the category.
+ *
+ * @return tring representing the category of this XMLError.
+ */
+LIBLAX_EXTERN
+const char *
+XMLError_getCategoryAsString (const XMLError_t *error)
+{
+  return error->getCategoryAsString().c_str();
 }
 
 

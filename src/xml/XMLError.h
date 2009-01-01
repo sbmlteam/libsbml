@@ -591,6 +591,21 @@ public:
 
 
   /**
+   * Return the severity of this error as a string.
+   *
+   * XMLError defines an enumeration of severity codes for the XML layer.
+   * Applications that build on XMLError by subclassing it may add their
+   * own severity codes with numbers higher than those in the
+   * #XMLErrorSeverity_t enumeration.
+   *
+   * @return string representing the severity of this XMLError.
+   */
+
+
+  std::string getSeverityAsString() const;
+  
+  
+  /**
    * Return the category of this error.
    *
    * XMLError defines an enumeration of category codes for the XML layer.
@@ -605,6 +620,23 @@ public:
    * @return the category of this XMLError.
    */
   unsigned int getCategory () const;
+
+
+  /**
+   * Return the category of this error as a string.
+   *
+   * XMLError defines an enumeration of category codes for the XML layer.
+   * Applications that build on XMLError by subclassing it may add their
+   * own categories with numbers higher than those in the
+   * #XMLErrorCategory_t enumeration.
+   *
+   * Categories can be used to partition errors into distinct groups.
+   * Among other things, this can be used to prevent id conflicts by
+   * uniquely identifying an XMLError by both id and category.
+   *
+   * @return string representing the category of this XMLError.
+   */
+  std::string getCategoryAsString () const;
 
 
   /**
@@ -831,8 +863,18 @@ XMLError_getSeverity (const XMLError_t *error);
 
 
 LIBLAX_EXTERN
+const char *
+XMLError_getSeverityAsString (const XMLError_t *error);
+
+
+LIBLAX_EXTERN
 unsigned int
 XMLError_getCategory (const XMLError_t *error);
+
+
+LIBLAX_EXTERN
+const char *
+XMLError_getCategoryAsString (const XMLError_t *error);
 
 
 LIBLAX_EXTERN
