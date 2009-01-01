@@ -1386,7 +1386,6 @@ protected:
 
   int mObjectLevel;
   int mObjectVersion;
-  bool mHasBeenDeleted;
 
   int mSBOTerm;
 
@@ -1398,6 +1397,11 @@ protected:
 
   /* storing annotations */
   List * mCVTerms;
+
+  /* flag that allows object to know its been deleted
+   * for OS where the memory is still readable after a delete
+   */
+  bool mHasBeenDeleted;
 
   /** @endcond doxygen-libsbml-internal */
 
