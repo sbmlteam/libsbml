@@ -354,7 +354,7 @@ print_whitespace()
   if test -n "$i"; then
     while expr $i \> 0 > /dev/null
     do 
-      i=`expr $i - 1`; echo -n ' '
+      i=`expr $i - 1`; printf ' '
     done
   fi
 }
@@ -363,7 +363,7 @@ print_flag()
 {
   if test -n "$2" -a "$2" != "no"; then
     i=`expr 13 - ${#1}`
-    echo -n "  Using $1 with path "
+    printf "  Using $1 with path "
     print_whitespace $i
     echo "= $3"
   fi
