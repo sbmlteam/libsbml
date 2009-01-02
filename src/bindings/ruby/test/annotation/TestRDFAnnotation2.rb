@@ -89,6 +89,17 @@ class TestRDFAnnotation2 < Test::Unit::TestCase
     assert( date.getHoursOffset() == 0 )
     assert( date.getMinutesOffset() == 0 )
     assert ((  "2006-05-30T10:46:02Z" == date.getDateAsString() ))
+    date = history.getModifiedDate(1)
+    assert( date.getYear() == 2007 )
+    assert( date.getMonth() == 1 )
+    assert( date.getDay() == 16 )
+    assert( date.getHour() == 15 )
+    assert( date.getMinute() == 31 )
+    assert( date.getSecond() == 52 )
+    assert( date.getSignOffset() == 0 )
+    assert( date.getHoursOffset() == 0 )
+    assert( date.getMinutesOffset() == 0 )
+    assert ((  "2007-01-16T15:31:52Z" == date.getDateAsString() ))
   end
 
   def test_RDFAnnotation2_modelWithHistoryAndCVTerms
@@ -124,6 +135,49 @@ class TestRDFAnnotation2 < Test::Unit::TestCase
     "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0005892\"/>\n" + 
     "        </rdf:Bag>\n" + 
     "      </bqbiol:isVersionOf>\n" + 
+    "    </rdf:Description>\n" + 
+    "  </rdf:RDF>\n" + 
+    "</annotation>"
+    ann.write(@@xos2)
+    assert_equal true, equals(expected)
+  end
+
+  def test_RDFAnnotation2_modelWithHistoryAndMultipleModifiedDates
+    h = LibSBML::ModelHistory.new()
+    c = LibSBML::ModelCreator.new()
+    c.setFamilyName("Keating")
+    c.setGivenName("Sarah")
+    h.addCreator(c)
+    d = LibSBML::Date.new(2005,2,2,14,56,11)
+    h.setCreatedDate(d)
+    h.addModifiedDate(d)
+    h.addModifiedDate(d)
+    @@m2.unsetModelHistory()
+    @@m2.setModelHistory(h)
+    ann = LibSBML::RDFAnnotationParser.parseModelHistory(@@m2)
+    expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
+    "<annotation>\n" + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
+    "    <rdf:Description rdf:about=\"#_000001\">\n" + 
+    "      <dc:creator rdf:parseType=\"Resource\">\n" + 
+    "        <rdf:Bag>\n" + 
+    "          <rdf:li rdf:parseType=\"Resource\">\n" + 
+    "            <vCard:N rdf:parseType=\"Resource\">\n" + 
+    "              <vCard:Family>Keating</vCard:Family>\n" + 
+    "              <vCard:Given>Sarah</vCard:Given>\n" + 
+    "            </vCard:N>\n" + 
+    "          </rdf:li>\n" + 
+    "        </rdf:Bag>\n" + 
+    "      </dc:creator>\n" + 
+    "      <dcterms:created rdf:parseType=\"Resource\">\n" + 
+    "        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n" + 
+    "      </dcterms:created>\n" + 
+    "      <dcterms:modified rdf:parseType=\"Resource\">\n" + 
+    "        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n" + 
+    "      </dcterms:modified>\n" + 
+    "      <dcterms:modified rdf:parseType=\"Resource\">\n" + 
+    "        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n" + 
+    "      </dcterms:modified>\n" + 
     "    </rdf:Description>\n" + 
     "  </rdf:RDF>\n" + 
     "</annotation>"

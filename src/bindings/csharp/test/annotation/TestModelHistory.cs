@@ -275,6 +275,45 @@ namespace LibSBMLCSTest {
       history = null;
     }
 
+    public void test_ModelHistory_addModifiedDate()
+    {
+      ModelHistory history = new  ModelHistory();
+      assertTrue( history != null );
+      assertTrue( history.isSetModifiedDate() == false );
+      assertTrue( history.getNumModifiedDates() == 0 );
+      Date date = new  Date(2005,12,30,12,15,45,1,2,0);
+      history.addModifiedDate(date);
+      date = null;
+      assertTrue( history.getNumModifiedDates() == 1 );
+      assertTrue( history.isSetModifiedDate() == true );
+      Date newdate = history.getModifiedDate(0);
+      assertTrue( newdate.getYear() == 2005 );
+      assertTrue( newdate.getMonth() == 12 );
+      assertTrue( newdate.getDay() == 30 );
+      assertTrue( newdate.getHour() == 12 );
+      assertTrue( newdate.getMinute() == 15 );
+      assertTrue( newdate.getSecond() == 45 );
+      assertTrue( newdate.getSignOffset() == 1 );
+      assertTrue( newdate.getHoursOffset() == 2 );
+      assertTrue( newdate.getMinutesOffset() == 0 );
+      Date date1 = new  Date(2008,11,2,16,42,40,1,2,0);
+      history.addModifiedDate(date1);
+      date1 = null;
+      assertTrue( history.getNumModifiedDates() == 2 );
+      assertTrue( history.isSetModifiedDate() == true );
+      Date newdate1 = history.getModifiedDate(1);
+      assertTrue( newdate1.getYear() == 2008 );
+      assertTrue( newdate1.getMonth() == 11 );
+      assertTrue( newdate1.getDay() == 2 );
+      assertTrue( newdate1.getHour() == 16 );
+      assertTrue( newdate1.getMinute() == 42 );
+      assertTrue( newdate1.getSecond() == 40 );
+      assertTrue( newdate1.getSignOffset() == 1 );
+      assertTrue( newdate1.getHoursOffset() == 2 );
+      assertTrue( newdate1.getMinutesOffset() == 0 );
+      history = null;
+    }
+
     public void test_ModelHistory_create()
     {
       ModelHistory history = new  ModelHistory();

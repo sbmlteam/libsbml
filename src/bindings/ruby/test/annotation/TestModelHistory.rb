@@ -182,6 +182,44 @@ class TestModelHistory < Test::Unit::TestCase
     history = nil
   end
 
+  def test_ModelHistory_addModifiedDate
+    history = LibSBML::ModelHistory.new()
+    assert( history != nil )
+    assert( history.isSetModifiedDate() == false )
+    assert( history.getNumModifiedDates() == 0 )
+    date = LibSBML::Date.new(2005,12,30,12,15,45,1,2,0)
+    history.addModifiedDate(date)
+    date = nil
+    assert( history.getNumModifiedDates() == 1 )
+    assert( history.isSetModifiedDate() == true )
+    newdate = history.getModifiedDate(0)
+    assert( newdate.getYear() == 2005 )
+    assert( newdate.getMonth() == 12 )
+    assert( newdate.getDay() == 30 )
+    assert( newdate.getHour() == 12 )
+    assert( newdate.getMinute() == 15 )
+    assert( newdate.getSecond() == 45 )
+    assert( newdate.getSignOffset() == 1 )
+    assert( newdate.getHoursOffset() == 2 )
+    assert( newdate.getMinutesOffset() == 0 )
+    date1 = LibSBML::Date.new(2008,11,2,16,42,40,1,2,0)
+    history.addModifiedDate(date1)
+    date1 = nil
+    assert( history.getNumModifiedDates() == 2 )
+    assert( history.isSetModifiedDate() == true )
+    newdate1 = history.getModifiedDate(1)
+    assert( newdate1.getYear() == 2008 )
+    assert( newdate1.getMonth() == 11 )
+    assert( newdate1.getDay() == 2 )
+    assert( newdate1.getHour() == 16 )
+    assert( newdate1.getMinute() == 42 )
+    assert( newdate1.getSecond() == 40 )
+    assert( newdate1.getSignOffset() == 1 )
+    assert( newdate1.getHoursOffset() == 2 )
+    assert( newdate1.getMinutesOffset() == 0 )
+    history = nil
+  end
+
   def test_ModelHistory_create
     history = LibSBML::ModelHistory.new()
     assert( history != nil )
