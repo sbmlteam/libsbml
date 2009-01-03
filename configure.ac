@@ -30,7 +30,7 @@ dnl ---------------------------------------------------------------------------
 m4_define(LIBSBML_VERSION, 
   m4_esyscmd(cat VERSION.txt  | sed 's/\-.*$//' | tr -d '\n\r'))
 
-AC_INIT([libSBML], LIBSBML_VERSION, [sbml-team@caltech.edu], [libsbml])
+AC_INIT([libSBML], LIBSBML_VERSION, [libsbml-team@caltech.edu], [libsbml])
 AC_CONFIG_AUX_DIR(config)
 
 AC_REVISION($Revision$)
@@ -147,6 +147,9 @@ AC_PATH_PROG([AUTOCONF],[autoconf],[autoconf])
 AC_PATH_PROG([ACLOCAL],[aclocal],[aclocal])
 AC_PATH_PROG([AR],[ar],[ar])
 
+# The Lisp language binding has been removed for the time being, because it
+# no longer works in recent versions of libSBML.
+
 CONFIG_PROG_SWIG(1.3.33)
 CONFIG_PROG_PYTHON
 CONFIG_PROG_PERL
@@ -177,6 +180,7 @@ dnl chosen instead of it.
 CONFIG_LIB_EXPAT(1.95.8)
 CONFIG_LIB_XERCES
 CONFIG_LIB_LIBXML(2.6.16)
+
 CONFIG_LIB_LIBCHECK(0.9.2)
 CONFIG_LIB_ZLIB
 CONFIG_LIB_BZ2
@@ -257,6 +261,10 @@ AC_CONFIG_FILES([src/bindings/octave/Makefile])
 AC_CONFIG_FILES([src/bindings/octave/test/Makefile])
 
 AC_CONFIG_FILES([src/bindings/java/Makefile])
+
+# The Lisp language binding has been removed for the time being, because it
+# no longer works in recent versions of libSBML.
+# AC_CONFIG_FILES([src/bindings/java/Makefile])
 
 AC_CONFIG_FILES([src/bindings/ruby/Makefile])
 
