@@ -1,254 +1,279 @@
-           libsbml NEWS -- History of user-visible changes
+           libSBML NEWS -- History of user-visible changes
  
- === Version 3.3.0 (released 2009-01-02) ===
+======================================================================
+Version 3.3.0 (released 2009-01-05)
+======================================================================
 
 * New features:
   
-  - Support for SBML Level 2 Version 4.
+  - SBML Level 2 Version 4 support is now implemented.
 
   - Classes relating to SBML components have an additional constructor
-    of the form XXX(unsigned int level, unsigned int version, 
-    XMLNamespaces* xmlns = 0).  This function constructs the object as
-    in other constructors but additionally sets new SBase variables 
-    mObjectLevel and mObjectVersion and the mNamespaces variable previously 
-    only used on an SBMLDocument.  Note that these are the only functions 
-    that ever set the mObjectLevel/mObjectVersion variables which can thus be 
-    used to verify the attributes of the object given the intended level and
-    version.  There are C implementations of these functions:
-    XXX__createWithLevelVersionAndNamespaces.
+    of the form XXX(unsigned int level, unsigned int version,
+    XMLNamespaces* xmlns = 0).  This creates the object just as the
+    existing class constructors, but in addition it sets new SBase
+    variables mObjectLevel and mObjectVersion and the mNamespaces
+    variable previously only used on an SBMLDocument.  These are the
+    *only* methods that ever set the mObjectLevel/mObjectVersion
+    variables.  The variables can be used to verify the attributes of
+    the object given the intended SBML Level and Version.  There are
+    also C implementations of these methods; they have function names
+    of the form XXX__createWithLevelVersionAndNamespaces.
 
-  - There is a new validator that checks the consistency of the internal
-    representation of a model.  Since the libSBML classes representing
-    SBML components maintain all variables associated with attributes 
-    from every level/version of SBML, it is possible to have an internal
-    representation that is in fact invalid SBML e.g. a level 1 compartment
-    where the spatialDimensions variable is set to 2.  This would never
-    be written out, as the spatialDimensions attribute did not exist in SBML
-    Level 1, but the stored information is an invalid representation.
-    This validator can be called using the function checkInternalConsistency()
-    on the SBMLDocument class.  As with all validators, errors are logged
-    in the SBMLErrorLog attached to the SBMLDocument.
+  - There is a new validator for checking the consistency of the
+    internal representation of a model.  The need for this grew out of
+    the following situation.  LibSBML classes representing SBML
+    components internally maintain all variables associated with
+    attributes from every Level/Version of SBML.  This in fact makes
+    it possible to have an internal representation that is invalid
+    SBML.  For example, one can create a Level 1 compartment in memory
+    with a 'spatialDimensions' attribute value of 2.  This is invalid
+    for SBML Level 1, but previously, libSBML was only equipped to
+    catch this at the time the application attempted to write out the
+    internal representation.  Until then, the (invalid) internal
+    representation could exist and confuse software applications.  The
+    new validator can be called using the SBMLDocument class method
+    checkInternalConsistency().  As with all validators, errors are
+    logged in the SBMLErrorLog attached to the SBMLDocument.
 
-  - Added functions 'getNumResources' and 'getResourceURI' to the
-    CVTerm class.  These are convenience functions that allow the user 
-    to determine how many resources are stored for the particular term
-    and to index into the values directly.
+  - New methods getNumResources() and getResourceURI() are available
+    for the class CVTerm.  These are convenience methods that allow
+    the user to determine how many resources are stored for the
+    particular term and to index into the values directly.
 
-  - The MATLAB binding now correctly identifies the use of the csymbol
-    delay and provides the information to the user in a similar fashion
-    to csymbol time.
+  - The MATLAB language binding now correctly identifies the use of
+    the MathML <csymbol> 'delay' and provides the information to the
+    user in a similar fashion to <csymbol> 'time'.
 
-  - Tracker issue #2376930
-    Validation rules 10401 and 10402 had not previously been implemented.
-    Thanks to Nicolas Rodriguez for reminding us.
+  - [Tracker issue #2376930]
+    Validation rules 10401 and 10402 had not previously been
+    implemented.  Thanks to Nicolas Rodriguez for reminding us.
 
-  - Tracker issue #2183855.
-    Added functions to return the severity and category of the SBMLError
-    class as strings.  Unfortunately a function returning the ErrorId as 
-    a string has not yet been implemented.
+  - [Tracker issue #2183855]
+    Added methods to return the severity and category of the SBMLError
+    class as strings.  Unfortunately, a method returning the ErrorId
+    as a string has not yet been implemented.
   
-  - Tracker issue #2136796
-    There is now additional code to check the ordering of assignment rules
-    in a L1 or L2V1 model.  
+  - [Tracker issue #2136796]
+    There is now additional code to check the ordering of assignment
+    rules in a L1 or L2V1 model.
 
-  - Tracker issue #2114473.
-    The UnitDefinition class has a new function isVariantOfSubstancePerTime()
-    which returns true if the unitDefinition is a variant of the built-in
-    unit of substance per the built-in unit of time, i.e. when multiplied by
-    a unit of 'second' the resulting unitDefinition is a variant of substance,
-    meaning moles or items (and grams or kilograms from SBML level 2 version 2 
-    onwards) with only abritrary variations in scale or multiplier values.
-    The function returns false if the unitDefinition is not a variant
-    of substance per time.   
+  - [Tracker issue #2114473]
+    UnitDefinition has a new method, isVariantOfSubstancePerTime(),
+    which returns true if the unitDefinition is a variant of the SBML
+    predefined unit of 'substance' per the predefined unit of 'time'.
+    In other words, it returns true if, when multiplied by a unit of
+    'second', the resulting UnitDefinition is a variant of
+    'substance', meaning moles or items (and grams or kilograms from
+    SBML Level 2 Version 2 onwards) with only abritrary variations in
+    scale or multiplier values.  The method returns false if the
+    UnitDefinition is not a variant of 'substance' per 'time'.
 
-  - Tracker issue #2086644.
+  - [Tracker issue #2086644]
     Validation was crashing when checking the math/units of an
     expression using a functionDefinition that had not been properly
-    defined.  The code that caused the crash has been fixed and 
-    the MathML reader now checks that a <math> element or the body
-    of a <lambda> element use appropriate tags as detailed
-    in the schema for the subset of MathML supported.
+    defined.  The code that caused the crash has been fixed and the
+    MathML reader now checks that a <math> element or the body of a
+    <lambda> element use appropriate tags as detailed in the schema
+    for the subset of MathML supported.
     
-  - Tracker issue #2086608.
-    Added new functions to the ASTNode class.  These are 
-    removeChild(n) which removes the nth child; 
-    replaceChild(n, node) which replaces the nth child with node
-    and insertChild(n, node) which inserts node into the list of
-    children such that it becomes the nth child.  These functions all 
-    return an integer indicating success (0) or failure (-1). Failure 
-    is only reported if n exceeds the size of the node; invalid ASTNodes 
-    resulting from the operation are not reported.
+  - [Tracker issue #2086608]
+    Added new methods to the ASTNode class.  They are: removeChild(n)
+    which removes the nth child; replaceChild(n, node) which replaces
+    the nth child with the given node; and insertChild(n, node) which
+    inserts the given node into the list of children such that it
+    becomes the nth child.  These methods all return an integer
+    indicating success (0) or failure (-1).  Failure is only reported
+    if n exceeds the size of the node; invalid ASTNodes resulting from
+    the operation are not reported.
 
-  - Tracker issue #2015847
-    Each ListOfXXX class now has derived get functions that return an
-    object of the expected class e.g.  ListOfEvents->get() returns
+  - [Tracker issue #2015847]
+    Each ListOfXXX class now has derived "get" methods that return an
+    object of the expected class.  E.g.: ListOfEvents->get() returns
     an Event *.
 
-  - Tracker issue #2015847
-    The clone function on each of the sbml component classes now returns
-    a pointer to the appropriate class in place of the SBase * previously
+  - [Tracker issue #2015847]
+    The clone method on each SBML component class now returns a
+    pointer to the appropriate class instead of the SBase * previously
     returned.
 
-  - Tracker issue #1862805
-    The ListOf class has a new function 
-    'void ListOf::clear(bool doDelete = true)'.
-    When doDelete is true all the items in the ListOf are cleared and 
-    deleted, when false the items are cleared from the ListOf but not 
-    deleted.  The user is responsible for deleting the items.
+  - [Tracker issue #1862805]
+    The ListOf class has a new method "void ListOf::clear(bool
+    doDelete = true)".  When doDelete is true, all the items in the
+    ListOf are cleared and deleted; doDelete is false, the items are
+    cleared from the ListOf but not deleted and the user is
+    responsible for deleting the items.
  
 * Bug fixes:
 
-  - LibSBML was failing to check that the value of the spatialDimensions
-    attribute on a <compartment> was correct.  This is in fact a schema
-    error. Thanks to Norihiro Kikuchi for spotting this.
+  - LibSBML was failing to check that the value of the
+    'spatialDimensions' attribute on a <compartment> was correct.
+    This is in fact a schema error.  Thanks to Norihiro Kikuchi for
+    spotting this.
 
   - The code that checks for AssignmentCycles was failing to check
     for an assignment that referred to the subject of that assignment,
-    e.g. an assignment rule with variable "c" and math "2 * c" was
+    e.g., an assignment rule with variable "c" and math "2 * c", was
     not returning an error.  This is now fixed.
 
   - The code that checks for AssignmentCycles was failing to check
     for an assignment to a compartment that referred to the a species
-    concentration within that compartment. This is an implicit reference
-    to the compartment itself, since the concentration of the species
-    depends on the compartment value.  This is now fixed.
+    concentration within that compartment.  This is an implicit
+    reference to the compartment itself, since the concentration of
+    the species depends on the compartment value.  This is now fixed.
 
-  - The SBMLWriter::writeSBML() function could create a zip file in which 
-    an SBML file is stored with its path name.
-    Thanks to Florian Kamm for reporting this bug.
+  - The SBMLWriter::writeSBML() function could create a zip file in
+    which an SBML file was stored with its path name.  Thanks to
+    Florian Kamm for reporting this bug.
 
-  - A missing 'level' or 'version' attribute was not being correctly
-    reported.
+  - A missing 'level' or 'version' attribute on <sbml> was not being
+    correctly reported.
 
-  - Fixed a memory leak in the assignment operator of ListOf class.
-    Thanks to Sven Sahle for reporting this problem.
+  - Fixed a memory leak in the assignment operator of the ListOf
+    class.  Thanks to Sven Sahle for reporting this problem.
 
-  - Tracker issue #2442566.
-    LibSBML incorrectly restricted the number of 'modified' date elements 
-    that could be added to a ModelHistory element.  This has now been changed.  
+  - [Tracker issue #2442566]
+    LibSBML incorrectly restricted the number of 'modified' date
+    elements that could be added to a ModelHistory element.  This has
+    now been changed.
 
-  - Tracker issue #2418883
-    The SBML_formulaToString function was crashing if the ASTNode passed
-    to it was NULL.  The code now catches this and returns an empty string.
-    Thanks to Lucian Smith for reporting this.
+  - [Tracker issue #2418883]
+    The SBML_formulaToString function was crashing if the ASTNode
+    passed to it was NULL.  The code now catches this and returns an
+    empty string.  Thanks to Lucian Smith for reporting this.
    
-  - Tracker issue #2219230
-    LibSBML-2.3.4 enabled a user to write an xml comment containing 
-    information on the program being used to write the file.  This used 
-    functions setProgramName and setProgramVersion on the SBMLWriter class.  
-    Whilst the documentation for libSBML-3.2 described this functionality; 
-    it was not in fact implemented.  This has been remedied. 
+  - [Tracker issue #2219230]
+    LibSBML-2.3.4 enabled a user to write an xml comment containing
+    information on the program being used to write the file.  This
+    used functions setProgramName and setProgramVersion on the
+    SBMLWriter class.  Whilst the documentation for libSBML-3.2
+    described this functionality; it was not in fact implemented.
+    This has been remedied.
 
-  - Tracker issue #2209773
-    libSBML couldn't be built with the Xerces 3.0.0 due to its incompatible 
-    API changes.
+  - [Tracker issue #2209773]
+    libSBML couldn't be built with the Xerces 3.0.0 due to
+    incompatible API changes in Xerces 3.  Fixed.
 
-  - Tracker issue #2209729
-    libSBML built with Xerces on Linux could crash due to a dereference 
-    of null pointer in Xerces side when parsing some invalid SBML file.
-    Thanks to Jordan Atlas for reporting this problem.
+  - [Tracker issue #2209729]
+    Fixed a problem where libSBML built with Xerces on Linux could
+    crash due to Xerces dereferencing a null pointer when parsing some
+    invalid SBML files.  Thanks to Jordan Atlas for reporting this.
 
-  - Tracker issue #2189194
-    bzip2-compression could cause a crash problem. 
-    Thanks to Florian Kamm for reporting this bug and providing a patch.
+  - [Tracker issue #2189194]
+    Fixed a crash when using bzip2-based compression.  Thanks to
+    Florian Kamm for reporting this bug and providing a patch.
 
-  - Tracker issue #2188734
-    "&amp;" (a predefined entity reference of ampersand) in an attribute 
-    value was wrongly converted to "&amp;#38;" when libXML used as an 
-    underlying XML parser. Thanks to Chen Li for reporting this bug.
+  - [Tracker issue #2188734]
+    The sequence "&amp;" (a predefined entity reference of ampersand)
+    in an attribute value was wrongly converted to "&amp;#38;" when
+    libSBML used libxml2 as the underlying XML parser.  This is now
+    fixed.  Thanks to Chen Li for reporting this bug.
 
-  - Tracker issue #2187684
+  - [Tracker issue #2187684]
     The unit checking code was not correctly interpreting the units of
     a reaction id used as a ci element in a math expression.  This is
     fixed and tested.
 
-  - Tracker issue #2157800
-    When csymbol time was used in a functionDefinition it was not being
-    correctly considered as a numeric value.
+  - [Tracker issue #2157800]
+    When <csymbol> 'time' was used in a functionDefinition, it was not
+    being correctly considered as a numerical value.  Fixed.
 
-  - Tracker issue #2146714
-    syncAnnotation() functions in SBase, Model, and SpeciesReference class
-    could internally delete an old annotation object (XMLNode*) in an SBase
-    object. This could lead to an invalid pointer to an already deleted  
-    annotation object when syncAnnotation() functions are internally invoked 
-    from getAnnotation() function. Thanks to Ralph Gauges for reporting this.
+  - [Tracker issue #2146714]
+    syncAnnotation() functions in SBase, Model, and SpeciesReference
+    class could internally delete an old annotation object (XMLNode*)
+    in an SBase object.  This could lead to an invalid pointer to an
+    already deleted annotation object when syncAnnotation() functions
+    were internally invoked from getAnnotation() function.  This is
+    now fixed.  Thanks to Ralph Gauges for reporting the problem.
 
-  - Tracker issue #2138670
-    Conversion of an L1 model to L2 was flagging all parameters and
-    compartments as constant.  The conversion code now checks whether
-    parameters/compartments are the subject of a rule and changes the
-    constant attribute to false for those components.  Thanks to
-    Ralph Gauges for reporting this.
+  - [Tracker issue #2138670]
+    Conversion of an L1 model to L2 previously always produced
+    parameters and compartments with their 'constant' attributes set
+    to 'true'.  Now the libSBML conversion code checks whether
+    parameters and compartments are the subject of rules, and if so,
+    sets their 'constant' attribute to 'false'.  Thanks to Ralph
+    Gauges for reporting the problem.
 
-  - Tracker issue #2136530
-    When adding a child to an XMLNode marked as an 'end' node the XMLNode
-    remained marked as an 'end' node.  This caused incorrect xml to be
-    written out.  Thanks to Ralph Gauges for reporting this.
+  - [Tracker issue #2136530]
+    When adding a child to an XMLNode marked as an 'end' node, the
+    XMLNode remained marked as an 'end' node.  This caused incorrect
+    XML to be written out.  This is now fixed.  Thanks to Ralph Gauges
+    for reporting the bug.
 
-  - Tracker issue #2130568
-    The check for AssignmentCycles was incorrectly reporting non-existant
-    loops. This is fixed.  Thanks to Kieran Smallbone for reporting it.
+  - [Tracker issue #2130568]
+    The check for AssignmentCycles incorrectly reported non-existant
+    loops in some situations.  This is now fixed.  Thanks to Kieran
+    Smallbone for reporting it.
 
-  - Tracker issue #2129044
-    The writeRootFunction in the mathML writer was failing to output a
-    root function correctly when it had only one child i.e. the default 
-    degree of 2 was being used.  Thanks to Ralph Gauges for spotting this.
+  - [Tracker issue #2129044]
+    The writeRootFunction in the MathML writer was failing to output a
+    root function correctly when it had only one child; i.e., the
+    default degree value of 2 was being used.  This is now fixed.
+    Thanks to Ralph Gauges for spotting this.
 
-  - Tracker issue #2114500.
-    The octave binding failed to build using 'cygwin'. This is now fixed.
+  - [Tracker issue #2114500]
+    The Octave language binding failed to build under Cygwin.  This is
+    now fixed.
 
-  - Tracker issue #2086644.
-    Validation was crashing when checking the math/units of an
+  - [Tracker issue #2086644]
+    The validation code would crash when checking the math/units of an
     expression using a functionDefinition that had not been properly
     defined.  The code that caused the crash has been fixed.
 
-  - Tracker issue #2082584.
-    Fixed memory leak reported by Jonathan Cooper.
+  - [Tracker issue #2082584]
+    Fixed a memory leak reported by Jonathan Cooper.
     
-* Changes:
+* Other changes:
 
-  - Lisp binding is now removed from the build and source distribution.
+  - The Lisp binding code has been disabled from the configuration and
+    build systems because it no longer functions (and has not for
+    quite some time).  The code is still in the distribution because
+    we hope someone, someday will help get it working again.
 
-  - There is now a mailing list for libsbml-team@caltech.edu.  This
-    is a contact address reaching just the core libSBML developers.
+  - The allowable values for an integer have been restricted to the
+    range of the standard 32-bit signed integer values (2147483647 to
+    -2147483648), as per the SBML specification.
+
+  - There is now a mailing list (libsbml-team@caltech.edu) for the
+    core libSBML developers separate from the SBML Team mailing list.
     People are still encouraged to post questions to the
     sbml-interoperability and libsbml-development mailing lists, but
-    this new list will allow us to advertise a direct contact address
-    in the libSBML documentation.
+    this new list allows us to advertise a direct contact address in
+    the libSBML documentation.
 
-  - The allowable value for a integer has been restricted to the standard 
-    32-bit signed integer values allowed, 2147483647 to -2147483648, as 
-    per the SBML specification.
+  - [Tracker issue #2182856]
+    A CVTerm uses the 'metaid' attribute of the object it describes as
+    a reference.  Since adding a CVTerm to an object that has no
+    'metaid' creates an empty <rdf:about> element, the addCVTerm
+    function will no longer add a CVTerm to an object that has no
+    'metaid' attribute set.
 
-  - Tracker issue #2182856.
-    A CVTerm uses the "metaid" attribute of the object it describes as a 
-    reference.  Since adding a CVTerm to an object that has no metaid 
-    creates an empty 'about' element the addCVTerm function will no longer 
-    add a CVTerm to an object that has no metaid attribute set.
+  - [Tracker issue #2175098] 
+    Unit validation was producing a 'dimensionless' unit with an
+    'exponent' of -1 and then failing to consider it equivalent to a
+    'dimensionless' unit with an 'exponent' of 1.  The underlying code
+    no longer assigns an exponent of -1 to a 'dimensionless' unit and
+    the comparison code no longer considers the 'exponent' attribute
+    when comparing 'dimensionless' units.  Thanks to Likas endler for
+    reporting this.
 
-  - Tracker issue #2175098. 
-    Unit validation was producing a dimensionless unit with an exponent 
-    of -1 and then failing to consider it equivalent to a dimensionless
-    unit with an exponent of 1.  Code should no longer assign an exponent
-    of -1 to a dimensionless unit and the comparison code no longer'
-    considers exponent when comparing dimensionless units.  Thanks to 
-    Likas endler for reporting this.
-
-  - Tracker issue #2118126.
-    The getDerivedUnitDefinition() function always returned NULL for a
-    local parameter.  Andreas Draeger requested that it return a 
+  - [Tracker issue #2118126]
+    The getDerivedUnitDefinition() method always returned NULL for a
+    local parameter.  Andreas Draeger requested that it return a
     unitDefinition derived from the units attribute.  This has now
     been implemented.
 
-  - Tracker issue #2082682.
+  - [Tracker issue #2082682]
     The unit checking code was not dealing correctly with expressions
-    containing 'root' except in cases where exact integers were involved.
-    The code now reports situations where it is unable to check the 
-    unit consistency due to non integral exponents.  Thanks to Jonathan
-    Cooper for reporting this. 
+    containing MathML <root> except in cases where exact integers were
+    involved.  The code now reports situations where it is unable to
+    check the unit consistency due to non-integral exponents.  Thanks
+    to Jonathan Cooper for reporting the problem.
 
 
- === Version 3.2.0 (released 2008-08-20) ===
+======================================================================
+Version 3.2.0 (released 2008-08-20)
+======================================================================
 
 * New features:
 
@@ -520,7 +545,9 @@
     http://sbml.org/SBML_Projects/SVN_Repository_Access    
 
     
- === Version 3.1.1 (released 2008-02-25) ===
+======================================================================
+Version 3.1.1 (released 2008-02-25)
+======================================================================
 
 * New features:
 
@@ -589,7 +616,9 @@
   - This NEWS.txt file is now accessible from the API documents.
 
 
- === Version 3.1.0 (released 2008-01-25) ===
+======================================================================
+Version 3.1.0 (released 2008-01-25)
+======================================================================
 
 * Dependency changes:
 
@@ -685,7 +714,9 @@
     new docs list the constants with the relevant object definitions.
 
 
- === Version 3.0.3 (released 2007-12-17) ===
+======================================================================
+Version 3.0.3 (released 2007-12-17)
+======================================================================
 
 * Changes:
 
@@ -720,7 +751,9 @@
     default parser library used.  In fact, it is libxml2 now.
 
 
- === Version 3.0.2 (released 2007-11-28) ===
+======================================================================
+Version 3.0.2 (released 2007-11-28)
+======================================================================
 
 * Changes:
 
@@ -821,7 +854,9 @@
     configure, not the files installed by the original "make install".
 
 
- === Version 3.0.1 (released 2007-10-19) ===
+======================================================================
+Version 3.0.1 (released 2007-10-19)
+======================================================================
 
 * Changes:
 
@@ -895,7 +930,9 @@
     as was mistakenly the case previously.
 
  
- === Version 3.0.0 (released 2007-08-29) ===
+======================================================================
+Version 3.0.0 (released 2007-08-29)
+======================================================================
 
 * New features relative to 3.0.0 prerelease:
 
@@ -955,7 +992,9 @@
     system as for C++, Java and C.
 
 
- === Version 3.0.0 Prerelease ===
+======================================================================
+Version 3.0.0 Prerelease
+======================================================================
 
 * New Features relative to 3.0.0 beta_2:
 
@@ -1019,7 +1058,9 @@ See the sections below for other changes relative to earlier versions
 of libSBML such as version 2.3.4.
 
 
- === Version 3.0.0 beta_2 ===
+======================================================================
+Version 3.0.0 beta_2
+======================================================================
 
 * New Features:
 
@@ -1098,7 +1139,9 @@ of libSBML such as version 2.3.4.
 
 
 
-=== Version 2.3.4 ===
+======================================================================
+Version 2.3.4
+======================================================================
 
 * New Features:
 
@@ -1208,7 +1251,9 @@ of libSBML such as version 2.3.4.
 
 
 
-=== Version 2.3.3 ===
+======================================================================
+Version 2.3.3
+======================================================================
 
 * libSBML 2.3.3 was a prerelease for libSBML 2.3.4.  Thanks to Frank
   Bergmann, Christoph Flamm, Ed Frank, Ralph Gauges, Herbert Sauro,
@@ -1221,8 +1266,10 @@ of libSBML such as version 2.3.4.
 
 
 
+======================================================================
+Version 2.3.2
+======================================================================
 
-=== Version 2.3.2 ===
 
 * New Features:
 
@@ -1288,8 +1335,10 @@ of libSBML such as version 2.3.4.
 
 
 
+======================================================================
+Version 2.3.1
+======================================================================
 
-=== Version 2.3.1 ===
 
 * New Features:
 
@@ -1340,9 +1389,9 @@ of libSBML such as version 2.3.4.
 * Released May 9, 2005
 
 
-
-
-=== Version 2.3.0 ===
+======================================================================
+Version 2.3.0
+======================================================================
 
 * New Features:
 
@@ -1576,7 +1625,9 @@ of libSBML such as version 2.3.4.
 
 
 
-=== Version 2.2.0 ===
+======================================================================
+Version 2.2.0
+======================================================================
 
 * New Features:
 
@@ -1669,7 +1720,9 @@ of libSBML such as version 2.3.4.
 
 
 
-=== Version 2.1.0 ===
+======================================================================
+Version 2.1.0
+======================================================================
 
 * New Features:
 
@@ -1814,7 +1867,9 @@ of libSBML such as version 2.3.4.
 
 
 
-=== Version 2.0.3 ===
+======================================================================
+Version 2.0.3
+======================================================================
 
 * Major New Features:
 
@@ -1867,7 +1922,9 @@ of libSBML such as version 2.3.4.
 
 
 
-=== Version 2.0.2 ===
+======================================================================
+Version 2.0.2
+======================================================================
 
 * Major New Features:
 
@@ -1890,8 +1947,9 @@ of libSBML such as version 2.3.4.
 
 
 
-
-=== Version 2.0.1 ===
+======================================================================
+Version 2.0.1
+======================================================================
 
 * Bug Fixes:
 
@@ -2006,7 +2064,9 @@ of libSBML such as version 2.3.4.
 
 
 
-=== Version 2.0.0 ===
+======================================================================
+Version 2.0.0
+======================================================================
 
 * Near complete L2 support.  The two features not yet supported are:
 
@@ -2127,7 +2187,9 @@ of libSBML such as version 2.3.4.
 
 
 
-=== Version 1.1.2 ===
+======================================================================
+Version 1.1.2
+======================================================================
 
 * A new subdirectory, examples, contains a few small programs that
   demonstrate how libsbml may be used.
@@ -2173,7 +2235,9 @@ of libSBML such as version 2.3.4.
 
 
 
-=== Version 1.1.0 ====
+======================================================================
+Version 1.1.0
+======================================================================
 
 * A Developer's Manual (DRAFT) is available in docs/formatted/.
 
@@ -2215,7 +2279,9 @@ of libSBML such as version 2.3.4.
 
 
 
-=== Version 1.0.1 ====
+======================================================================
+Version 1.0.1
+======================================================================
 
 * The build system detects and supports Xerces-C 2.1.0, Xerces-C 2.2.0
   compiled with or without namespace support.
@@ -2225,7 +2291,9 @@ of libSBML such as version 2.3.4.
 
 
 
-=== Version 1.0.0 ===
+======================================================================
+Version 1.0.0
+======================================================================
 
 
 
