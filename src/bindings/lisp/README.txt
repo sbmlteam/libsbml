@@ -1,3 +1,14 @@
+
+  ,----NOTICE--NOTICE--NOTICE--NOTICE--NOTICE--NOTICE--NOTICE---.
+  |                                                             |
+  | The Lisp language binding is currently not functional.  The |
+  | libSBML configuration/build system ignores it, but the code |
+  | is still available.  We welcome any help in getting this    |
+  | working again.  [Jan. 2009, libsbml-team@caltech.edu]       |
+  |                                                             |
+  `-------------------------------------------------------------'
+
+
 Author: Martin Ginkel <martin.ginkel@epost.de>
 Organization: Max-Planck-Institute Magdeburg Germany
 Copyright: Max-Planck-Institute Magdeburg 2004
