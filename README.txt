@@ -57,7 +57,7 @@ please cite the libSBML paper:
 ------------------------------
 
 At the Unix command prompt, untar the distribution, cd into it (e.g.,
-libsbml-2.4/), and first type:
+libsbml-3.2/), and first type:
 
   ./configure
 
@@ -81,10 +81,9 @@ By default, libSBML only builds the C and C++ API library.  If you
 want to configure libSBML to build the Java, C#, Python, Perl, MATLAB, 
 Ruby and/or Octave API libraries as well, add the flags --with-java,
  --with-csharp, --with-python, --with-perl, --with-matlab, --with-ruby, 
-and/or --with-octave to the configure command.  
-You can combine options as you need.
-(To see what other options are available, run the configure command
-with --help option.)
+and/or --with-octave to the configure command.  You can combine
+options as you need.  (To see what other options are available, run
+the configure command with --help option.)
 
 Depending on your system, you may need to tell the configure program
 where to find some of these extra components by adding a directory
@@ -92,7 +91,7 @@ path after the option.  For example, if you wish to use a copy of Java
 whose components are in /usr/local (with files in /usr/local/bin and
 /usr/local/lib), use
 
-  ./configure --with-expat --with-python --with-java=/usr/local
+  ./configure --with-java=/usr/local
 
 Once you've successfully configured libSBML, run the following two
 commands to build and install it:
@@ -106,9 +105,11 @@ the installed libSBML library:
 
   gcc -o myapp.c myapp.c -lsbml
 
-If the compiler cannot find the library, refer to Section 3.2 below
-for information about ldconfig, LD_LIBRARY_PATH/DYLD_LIBRARY_PATH, and
-related matters.
+If the compiler cannot find the library, you probably need to adjust
+the settings of your environment variable LD_LIBRARY_PATH (called
+DYLD_LIBRARY_PATH on MacOS) or use ldconfig to adjust the library
+search paths on your computer.  Please refer to the full libSBML
+documentation for more information on this and related matters.
 
 Documentation for libSBML is available as a separate download from the
 same locations as the libSBML distribution (namely, the SBML project
@@ -163,39 +164,27 @@ please visit the website http://sbml.org/.
 Feature Highlights:
 -------------------
 
-* Parser abstraction layer.  LibSBML relies on third-party XML parser
-  libraries, but thanks to its implementation of an abstraction layer,
-  libSBML can use any of three different popular XML parser libraries:
-  Expat, Apache Xerces-C++, and Libxml2.  LibSBML provides identical
-  functionality and checking of XML syntax is now available no matter
-  which one is used.  SBML Documents are parsed and manipulated in the
-  Unicode codepage for efficiency; however, strings are transcoded to
-  the local code page for SBML structures.
-
-* Small memory footprint and fast runtime.  The parser is event-based
-  (SAX2) and loads SBML data into C++ structures that mirror the SBML
-  specification.
-
 * Full SBML Support.  All constructs in SBML Level 1 (Versions 1 and
-  2) and SBML Level 2 are supported.  These exceptions will be removed
-  in the near future.  LibSBML handles such SBML differences as the
-  alternate spellings of species and annotation between the SBML
-  specifications.  For compatibility with some technically incorrect
-  but popular Level 1 documents, the parser recognizes and stores
-  notes and annotations defined for the top-level <sbml> element
-  (logging a warning).
-
-* Dimensional analysis and unit checking.  LibSBML implements a
-  thorough system for dimensional analysis and checking units of
-  quantities in a model.  The validation rules for units that are
-  specified in SBML Level 2 Version 2 and Version 3 are fully
-  implemented, including checking units in mathematical formulas.
+  2) and SBML Level 2 are supported.  For compatibility with some
+  technically incorrect but popular Level 1 documents, the parser
+  recognizes and stores notes and annotations defined for the
+  top-level <sbml> element (logging a warning).
 
 * Unified SBML Level 2 and Level 1 object models.  All objects have
   .getSBMLDocument(), .getModel(), .getLevel(), and .getVersion(),
   methods among other things.  Also, the interface to SBML's Rules
   abstracts away some of the individual rule type (assignment, rate,
   algebraic) differences.
+
+* Full XML and SBML Validation.  All XML and Schema warning, error and
+  fatal error messages are logged with line and column number
+  information and may be retrieved and manipulated programmatically.
+
+* Dimensional analysis and unit checking.  LibSBML implements a
+  thorough system for dimensional analysis and checking units of
+  quantities in a model.  The validation rules for units that are
+  specified in SBML Level 2 Version 2 and Version 3 are fully
+  implemented, including checking units in mathematical formulas.
 
 * Access to SBML annotations and notes as XML objects.  Annotations
   and notes in libSBML 3.x are read and manipulated as XML structures;
@@ -209,17 +198,31 @@ Feature Highlights:
   layer.  Both ModelHistory and CVTerm follow the general libSBML
   format of providing getters and setters for each variable stored
   within the class.
+
+* Support for compressed SBML files.  If an SBML file name ends in
+  .gz, .zip or .bz2, libSBML will automatically uncompress the file
+  upon reading it.  Similarly, if the file to be written has one of
+  those extensions, libSBML will write it out in compressed form.
+
+* Parser abstraction layer.  LibSBML relies on third-party XML parser
+  libraries, but thanks to its implementation of a custom abstraction
+  layer (named LIBLAX), libSBML can use any of the three most popular
+  XML parser libraries: Expat, Apache Xerces-C++, and Libxml2.
+  LibSBML provides identical functionality and checking of XML syntax
+  is now available no matter which one is used.  SBML Documents are
+  parsed and manipulated in the Unicode codepage for efficiency;
+  however, strings are transcoded to the local code page for SBML
+  structures.
+
+* Small memory footprint and fast runtime.  The parser is event-based
+  (SAX2) and loads SBML data into C++ structures that mirror the SBML
+  specification.
       
 * Interfaces for C, C++, C#, Java, Python, Perl, MATLAB, Ruby
   and Octave.  The C and C++ interfaces are implemented natively; the
   Java, Perl, Python, and Ruby interfaces are implemented using SWIG,
   the Simplified Wrapper Interface Generator; and the rest are
   implemented using custom hand-written interface code.
-
-* Support for compressed SBML files.  If an SBML file name ends in
-  .gz, .zip or .bz2, libSBML will automatically uncompress the file
-  upon reading it.  Similarly, if the file to be written has one of
-  those extensions, libSBML will write it out in compressed form.
 
 * Well tested: version 3.0.0 has over 1280 unit tests and 5800
   individual assertions.  The entire library was written using the
@@ -228,10 +231,6 @@ Feature Highlights:
     
 * Written in portable, pure ISO C and C++. The build system uses GNU
   tools (Autoconf, GNU Make) to build shared and static libraries.
-
-* Full XML and SBML Validation.  All XML and Schema warning, error and
-  fatal error messages are logged with line and column number
-  information and may be retrieved and manipulated programmatically.
 
 * Complete user manual.  The manual is generated from the source code
   and closely reflects the actual API.
@@ -318,7 +317,7 @@ list by visiting the following URL:
 6. LICENSING AND DISTRIBUTION
 -----------------------------
 
-Copyright 2005-2008 California Institute of Technology.
+Copyright 2005-2009 California Institute of Technology.
 Copyright 2002-2005 California Institute of Technology and the
                     Japan Science and Technology Agency.
 
