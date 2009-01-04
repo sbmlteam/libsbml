@@ -13,7 +13,7 @@ extent) from Level&nbsp;2 to Level&nbsp;1 as well.
 LibSBML is written in ISO standard C++ and C and is highly portable.  It is
 currently supported on the Linux, Solaris, MacOS&nbsp;X, and Microsoft
 Windows operating systems.  The library provides language bindings for C,
-C++, C#, Java, Python, Perl, MATLAB, Octave, Ruby, and Common Lisp, with support
+C++, C#, Java, Python, Perl, MATLAB, Octave, and Ruby, with support
 for other languages planned for the future.  The package is distributed in
 both source-code form and as precompiled dynamic libraries for the Microsoft
 Windows, Linux and Apple MacOS&nbsp;X operating systems; they are available
@@ -61,6 +61,51 @@ stoichiometric matrix for all reactions in a model.
 Some of the other features of libSBML include the following:
 <ul>
 
+<li style="margin-bottom: 1em">  <em>Full SBML Support</em>.
+  All constructs in SBML Level 1 (Versions 1 and 2) and SBML Level 2 are
+  supported.  For compatibility with some technically incorrect but popular
+  Level&nbsp;1 applications and models, the parser recognizes and stores
+  notes and annotations defined for the top-level <tt>&lt;sbml&gt;</tt>
+  element (logging a warning).</li>
+
+<li style="margin-bottom: 1em">  <em>Unified SBML Level&nbsp;2 and
+  Level&nbsp;1 object models</em>.  All objects have
+  <code>.getSBMLDocument()</code>, <code>.getModel()</code>,
+  <code>.getLevel()</code>, and <code>.getVersion()</code> methods, among
+  other things.  Also, the interface to SBML's <em>Rules</em> abstracts
+  away some of the individual rule type (assignment, rate, algebraic)
+  differences.</li>
+
+<li style="margin-bottom: 1em">  <em>Full XML and SBML Validation</em>.
+  All XML and Schema warning, error and fatal error messages are logged
+  with line and column number information and may be retrieved and
+  manipulated programmatically.</li>
+
+<li style="margin-bottom: 1em">  <em>Dimensional analysis and unit
+  checking</em>.  LibSBML implements a thorough system for dimensional
+  analysis and checking units of quantities in a model.  The validation
+  rules for units that are specified in SBML Level 2 Version&nbsp;2 and
+  Version&nbsp;3 are fully implemented, including checking units in
+  mathematical formulas.</li>
+
+<li style="margin-bottom: 1em">  <em>Access to SBML annotations and notes
+  as XML objects</em>.  Annotations and notes are read and manipulated as
+  XML structures instead of text strings.  Further, in order to facilitate
+  the support of <a href="http://www.ebi.ac.uk/miriam">MIRIAM</a>
+  compatible annotations, there are new object classes ModelHistory and
+  CVTerm.  These classes facilitate the creation and addition of RDF
+  annotations inside <tt>&lt;annotation&gt;</tt> elements by providing
+  parsing and manipulation functions that treat the annotations in terms of
+  XMLNode objects implemented by the new XML layer.  Both ModelHistory and
+  CVTerm follow the general libSBML format of providing getters and setters
+  for each variable stored within the class.</li>
+
+<li style="margin-bottom: 1em"> <em>Support for compressed SBML files</em>.
+  If an SBML file name ends in <code>.gz</code>, <code>.zip</code> or
+  <code>.bz2</code>, libSBML will automatically uncompress the file upon
+  reading it.  Similarly, if the file to be written has one of those
+  extensions, libSBML will write it out in compressed form.
+
 <li style="margin-bottom: 1em"> <em>Parser abstraction layer</em>.
   LibSBML relies on third-party XML parser libraries, but thanks to its
   implementation of an abstraction layer, libSBML can use any of three
@@ -78,42 +123,6 @@ Some of the other features of libSBML include the following:
   file</em> (2&nbsp;MB in size, 2000 reactions; see
   http://www.gepasi.org/gep3sbml.html) loads in 1.18&nbsp;s on a 1&nbsp;GHz
   AMD Athlon XP and uses only 1.4&nbsp;MB of memory.</li>
-
-<li style="margin-bottom: 1em">  <em>Full SBML Support</em>.
-  All constructs in SBML Level 1 (Versions 1 and 2) and SBML Level 2 are
-  supported.  LibSBML handles such SBML differences as the alternate
-  spellings of <em>species</em> and <em>annotation</em> between the SBML
-  specifications.  For compatibility with some technically incorrect but
-  popular Level&nbsp;1 documents, the parser recognizes and stores notes
-  and annotations defined for the top-level <tt>&lt;sbml&gt;</tt> element
-  (logging a warning).</li>
-
-<li style="margin-bottom: 1em">  <em>Dimensional analysis and unit
-  checking</em>.  LibSBML implements a thorough system for dimensional
-  analysis and checking units of quantities in a model.  The validation
-  rules for units that are specified in SBML Level 2 Version&nbsp;2 and
-  Version&nbsp;3 are fully implemented, including checking units in
-  mathematical formulas.</li>
-
-<li style="margin-bottom: 1em">  <em>Unified SBML Level&nbsp;2 and
-  Level&nbsp;1 object models</em>.  All objects have
-  <code>.getSBMLDocument()</code>, <code>.getModel()</code>,
-  <code>.getLevel()</code>, and <code>.getVersion()</code> methods, among
-  other things.  Also, the interface to SBML's <em>Rules</em> abstracts
-  away some of the individual rule type (assignment, rate, algebraic)
-  differences.</li>
-
-<li style="margin-bottom: 1em">  <em>Access to SBML annotations and notes
-  as XML objects</em>.  Annotations and notes are read and manipulated as
-  XML structures instead of text strings.  Further, in order to facilitate
-  the support of <a href="http://www.ebi.ac.uk/miriam">MIRIAM</a>
-  compatible annotations, there are new object classes ModelHistory and
-  CVTerm.  These classes facilitate the creation and addition of RDF
-  annotations inside <tt>&lt;annotation&gt;</tt> elements by providing
-  parsing and manipulation functions that treat the annotations in terms of
-  XMLNode objects implemented by the new XML layer.  Both ModelHistory and
-  CVTerm follow the general libSBML format of providing getters and setters
-  for each variable stored within the class.</li>
       
 <li style="margin-bottom: 1em">  <em>Interfaces for C, C++, C#, Java, Lisp,
   Python, Perl, MATLAB, Octave, and Ruby</em>.  The C and C++ interfaces are
@@ -121,12 +130,6 @@ Some of the other features of libSBML include the following:
   implemented using <a href="http://www.swig.org">SWIG</a>, the Simplified
   Wrapper Interface Generator; and the rest are implemented through custom
   hand-written interfaces.</li>
-
-<li style="margin-bottom: 1em"> <em>Support for compressed SBML files</em>.
-  If an SBML file name ends in <code>.gz</code>, <code>.zip</code> or
-  <code>.bz2</code>, libSBML will automatically uncompress the file upon
-  reading it.  Similarly, if the file to be written has one of those
-  extensions, libSBML will write it out in compressed form.
 
 <li style="margin-bottom: 1em">  <em>Well tested: version 3.0.0 has over
   1280 unit tests and 5800 individual assertions</em>.  The entire library
@@ -136,11 +139,6 @@ Some of the other features of libSBML include the following:
 <li style="margin-bottom: 1em">  <em>Written in portable, pure ISO C and
   C++</em>. The build system uses GNU tools (Autoconf, GNU Make) to build
   shared and static libraries.</li>
-
-<li style="margin-bottom: 1em">  <em>Full XML and SBML Validation</em>.
-  All XML and Schema warning, error and fatal error messages are logged
-  with line and column number information and may be retrieved and
-  manipulated programmatically.</li>
 
 <li style="margin-bottom: 1em">  <em>Complete user
   manual</em>. Documentation is available in the "docs" subdirectory in
