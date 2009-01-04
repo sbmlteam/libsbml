@@ -166,9 +166,9 @@ Feature Highlights:
 
 * Full SBML Support.  All constructs in SBML Level 1 (Versions 1 and
   2) and SBML Level 2 are supported.  For compatibility with some
-  technically incorrect but popular Level 1 documents, the parser
-  recognizes and stores notes and annotations defined for the
-  top-level <sbml> element (logging a warning).
+  technically incorrect but popular Level 1 applications and models,
+  the parser recognizes and stores notes and annotations defined for
+  the top-level <sbml> element (logging a warning).
 
 * Unified SBML Level 2 and Level 1 object models.  All objects have
   .getSBMLDocument(), .getModel(), .getLevel(), and .getVersion(),
