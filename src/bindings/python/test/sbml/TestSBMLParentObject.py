@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Python conversion)
 # @author  Sarah Keating 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestSBMLParentObject.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -67,6 +67,19 @@ class TestSBMLParentObject(unittest.TestCase):
     self.assert_( lo == m.getCompartmentType(0).getParentSBMLObject() )
     self.assert_( lo == ct.getParentSBMLObject() )
     self.assert_( m == lo.getParentSBMLObject() )
+    pass  
+
+  def test_Compartment_parent_NULL(self):
+    d = libsbml.SBMLDocument()
+    m = d.createModel()
+    c = m.createCompartment()
+    c1 = c.clone()
+    self.assert_( c1.getParentSBMLObject() == m.getListOfCompartments() )
+    self.assert_( c1.getSBMLDocument() == d )
+    d = None
+    self.assert_( c1.getAncestorOfType(libsbml.SBML_MODEL) == None )
+    self.assert_( c1.getParentSBMLObject() == None )
+    self.assert_( c1.getSBMLDocument() == None )
     pass  
 
   def test_Compartment_parent_add(self):
