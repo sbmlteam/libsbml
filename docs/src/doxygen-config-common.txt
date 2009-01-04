@@ -105,13 +105,6 @@ JAVADOC_AUTOBRIEF      = YES
 
 MULTILINE_CPP_IS_BRIEF = NO
 
-# If the DETAILS_AT_TOP tag is set to YES then Doxygen 
-# will output the detailed description near the top, like JavaDoc.
-# If set to NO, the detailed description appears after the member 
-# documentation.
-
-DETAILS_AT_TOP         = YES
-
 # If the INHERIT_DOCS tag is set to YES (the default) then an undocumented 
 # member inherits the documentation from any documented member that it 
 # reimplements.
@@ -233,7 +226,7 @@ HIDE_SCOPE_NAMES       = NO
 # will put a list of the files that are included by a file in the documentation 
 # of that file.
 
-SHOW_INCLUDE_FILES     = YES
+SHOW_INCLUDE_FILES     = NO
 
 # If the INLINE_INFO tag is set to YES (the default) then a tag [inline] 
 # is inserted in the documentation for inline members.
@@ -291,6 +284,10 @@ MAX_INITIALIZER_LINES  = 30
 # list will mention the files that were used to generate the documentation.
 
 SHOW_USED_FILES        = NO
+
+SHOW_DIRECTORIES = YES
+DIRECTORY_GRAPH = YES
+
 
 #---------------------------------------------------------------------------
 # configuration options related to warning and progress messages
@@ -982,7 +979,7 @@ HAVE_DOT               = YES
 # indirect inheritance relations. Setting this tag to YES will force the 
 # the CLASS_DIAGRAMS tag to NO.
 
-CLASS_GRAPH            = NO
+CLASS_GRAPH            = YES
 
 # If the COLLABORATION_GRAPH and HAVE_DOT tags are set to YES then doxygen 
 # will generate a graph for each documented class showing the direct and 
@@ -995,7 +992,7 @@ COLLABORATION_GRAPH    = NO
 # collaboration diagrams in a style similiar to the OMG's Unified Modeling 
 # Language.
 
-UML_LOOK               = YES
+UML_LOOK               = NO
 
 # If set to YES, the inheritance and collaboration graphs will show the 
 # relations between templates and their instances.
@@ -1057,6 +1054,8 @@ GENERATE_LEGEND        = YES
 # the various graphs.
 
 DOT_CLEANUP            = YES
+
+DOT_MULTI_TARGETS      = YES
 
 #---------------------------------------------------------------------------
 # Configuration::addtions related to the search engine   
