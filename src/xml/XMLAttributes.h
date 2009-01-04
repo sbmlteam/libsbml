@@ -919,7 +919,7 @@ public:
 protected:
   /** @cond doxygen-libsbml-internal */
 
-/**
+  /**
    * Used by attributeTypeError().
    */ 
   enum DataType { Boolean = 0, Double = 1, Integer = 2 };
@@ -974,7 +974,6 @@ protected:
                  , bool&        value
                  , XMLErrorLog* log      = 0
                  , bool         required = false ) const;
-
 
 
   /**

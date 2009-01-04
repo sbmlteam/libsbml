@@ -450,7 +450,7 @@ XMLAttributes::isEmpty () const
 }
 
 
-
+/** @cond doxygen-libsbml-internal */
 /*
  * Reads the value for the attribute with the index into value.  If attribute 
  * was not found or value could not be interpreted as a boolean, value is not 
@@ -505,6 +505,7 @@ XMLAttributes::readInto (  int          index
 
   return assigned;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /*
@@ -554,6 +555,7 @@ XMLAttributes::readInto (  const XMLTriple& triple
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /*
  * Reads the value for the attribute with the given index into value.  
  * If name was not found or value could be interpreted as a double, value 
@@ -635,6 +637,7 @@ XMLAttributes::readInto (  int          index
 
   return assigned;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /*
@@ -688,6 +691,7 @@ XMLAttributes::readInto (  const std::string&   name
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /*
  * Reads the value for the attribute with the given index into value.  
  * If the attribute was not found or value could be interpreted as a long, 
@@ -745,6 +749,7 @@ XMLAttributes::readInto (  int          index
 
   return assigned;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /*
@@ -796,6 +801,7 @@ XMLAttributes::readInto (  const std::string& name
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /*
  * Reads the value for the attribute with the given index into value.  
  * If the attribute was not found or value could be interpreted as an integer, 
@@ -825,6 +831,7 @@ XMLAttributes::readInto (  int          index
   if (assigned) value = temp;
   return assigned;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /*
@@ -877,6 +884,7 @@ XMLAttributes::readInto (  const std::string&  name
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /*
  * Reads the value for the attribute with the given index into value.  
  * If the attribute was not found or value could be interpreted as an 
@@ -908,6 +916,7 @@ XMLAttributes::readInto (  int           index
 
   return assigned;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /*
@@ -961,6 +970,7 @@ XMLAttributes::readInto (  const std::string&  name
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /*
  * Reads the value for the attribute with the given index into value.  
  * If the attribute was not found, value is not modified.
@@ -995,6 +1005,7 @@ XMLAttributes::readInto (  int          index
 
   return assigned;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /*
