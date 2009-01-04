@@ -918,7 +918,7 @@ public:
    * assign to this AlgebraicRule
    *
    * @note Once a AlgebraicRule has been added to an SBMLDocument, the @p level,
-   * @p version and @xmlns namespaces for the document @em override those used
+   * @p version and @p xmlns namespaces for the document @em override those used
    * to create the AlgebraicRule.  Despite this, the ability to supply the values
    * at creation time is an important aid to creating valid SBML.  Knowledge of
    * the intented SBML Level and Version determine whether it is valid to
@@ -1046,7 +1046,7 @@ public:
    * assign to this AssignmentRule
    *
    * @note Once a AssignmentRule has been added to an SBMLDocument, the @p level,
-   * @p version and @xmlns namespaces for the document @em override those used
+   * @p version and @p xmlns namespaces for the document @em override those used
    * to create the AssignmentRule.  Despite this, the ability to supply the values
    * at creation time is an important aid to creating valid SBML.  Knowledge of
    * the intented SBML Level and Version determine whether it is valid to
@@ -1155,7 +1155,7 @@ public:
    * assign to this RateRule
    *
    * @note Once a RateRule has been added to an SBMLDocument, the @p level,
-   * @p version and @xmlns namespaces for the document @em override those used
+   * @p version and @p xmlns namespaces for the document @em override those used
    * to create the RateRule.  Despite this, the ability to supply the values
    * at creation time is an important aid to creating valid SBML.  Knowledge of
    * the intented SBML Level and Version determine whether it is valid to

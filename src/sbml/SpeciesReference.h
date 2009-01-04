@@ -285,7 +285,7 @@ public:
    * assign to this SimpleSpeciesReference
    *
    * @note Once a SimpleSpeciesReference has been added to an SBMLDocument, the @p level,
-   * @p version and @xmlns namespaces for the document @em override those used
+   * @p version and @p xmlns namespaces for the document @em override those used
    * to create the SimpleSpeciesReference.  Despite this, the ability to supply the values
    * at creation time is an important aid to creating valid SBML.  Knowledge of
    * the intented SBML Level and Version determine whether it is valid to
@@ -460,7 +460,7 @@ public:
    * assign to this SpeciesReference
    *
    * @note Once a SpeciesReference has been added to an SBMLDocument, the @p level,
-   * @p version and @xmlns namespaces for the document @em override those used
+   * @p version and @p xmlns namespaces for the document @em override those used
    * to create the SpeciesReference.  Despite this, the ability to supply the values
    * at creation time is an important aid to creating valid SBML.  Knowledge of
    * the intented SBML Level and Version determine whether it is valid to
@@ -955,7 +955,7 @@ public:
    * assign to this ModifierSpeciesReference
    *
    * @note Once a ModifierSpeciesReference has been added to an SBMLDocument, the @p level,
-   * @p version and @xmlns namespaces for the document @em override those used
+   * @p version and @p xmlns namespaces for the document @em override those used
    * to create the ModifierSpeciesReference.  Despite this, the ability to supply the values
    * at creation time is an important aid to creating valid SBML.  Knowledge of
    * the intented SBML Level and Version determine whether it is valid to

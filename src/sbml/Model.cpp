@@ -3159,7 +3159,7 @@ Model_createWith (const char *sid, const char * name)
  * @return a pointer to the newly created Model_t structure.
  *
  * @note Once a Model has been added to an SBMLDocument, the @p 
- * level, @p version and @xmlns namespaces for the document @em override 
+ * level, @p version and @p xmlns namespaces for the document @em override 
  * those used to create the Model.  Despite this, the ability 
  * to supply the values at creation time is an important aid to creating 
  * valid SBML.  Knowledge of the intended SBML Level and Version 
