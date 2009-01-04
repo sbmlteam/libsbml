@@ -80,7 +80,7 @@ correspondence in SBML Level&nbsp;1.  (But, it is created by libSBML no
 matter whether the model is Level&nbsp;1 or Level&nbsp;2.)
 
 SBMLDocument is derived from SBase, so that it contains the usual SBase
-attributes (in SBML Level&nbsp;2 Version&nbsp;3) of "metaid" and "sboTerm",
+attributes (in SBML Level&nbsp;2 Version&nbsp;4) of "metaid" and "sboTerm",
 as well as the subelements "notes" and "annotation".  It also contains the
 attributes "level" and "version" indicating the Level and Version of the
 SBML read.  SBase (and thus its subclasses such as SBMLDocument) provides
@@ -117,14 +117,14 @@ class provides methods for assessing the severity of the problem
 encountered and for finding out the line and column number of where the
 problem occurred in the SBML input.
 
-@li <code>SBMLDocument::printErrors(std::ostream& stream)</code> prints all
-of the diagnostics to the given output stream.
+@li <code>void SBMLDocument::printErrors(std::ostream& stream = std::cerr)</code> 
+prints all of the diagnostics to the given output stream.
 
 Finally, another set of SBMLDocument methods worth mentioning in the
 context of reading SBML are those for running consistency-checking and
 validation rules on the SBML content.  These methods assess whether the
 SBML is legal according to basic rules listed in the SBML Level&nbsp;2
-Version&nbsp;2 and Version&nbsp;3 specification documents.  Note that they are
+Versions&nbsp;2&ndash;4 specification documents.  Note that they are
 mostly structural checks, in the sense that they can indicate whether the
 SBML is properly constructed; they cannot tell if a model is nonsense.
 (But at least they can assess whether it's syntactically correct
@@ -151,9 +151,19 @@ peforms a set of semantic consistency checks on the document to establish
 whether it can be converted to SBML Level&nbsp;2 Version&nbsp;2, and
 returns the number of failures.  If all the checks succeed, it returns 0.
 
+@li <code>unsigned int SBMLDocument::checkL2v3Compatibility()</code>
+peforms a set of semantic consistency checks on the document to establish
+whether it can be converted to SBML Level&nbsp;2 Version&nbsp;3, and
+returns the number of failures.  If all the checks succeed, it returns 0.
+
+@li <code>unsigned int SBMLDocument::checkL2v4Compatibility()</code>
+peforms a set of semantic consistency checks on the document to establish
+whether it can be converted to SBML Level&nbsp;2 Version&nbsp;4, and
+returns the number of failures.  If all the checks succeed, it returns 0.
+
 At the time of this writing, the most recent release of SBML is
-Level&nbsp;2 Version&nbsp;3, which is why the compatibility checks above
-only refer to Level&nbsp;2 Version&nbsp;2 at the most.
+Level&nbsp;2 Version&nbsp;4, which is why the compatibility checks above
+only refer to Level&nbsp;2 Version&nbsp;4 at the most.
 
 
 @section rf-writing Writing SBML
@@ -161,13 +171,15 @@ only refer to Level&nbsp;2 Version&nbsp;2 at the most.
 Writing SBML is, in the end, a very simple matter in libSBML.  The library
 provides the following two global functions for this purposes:
 
-@li <code>int writeSBML(const SBMLDocument* d, const char* filename)</code>
+@li @link writeSBML(const SBMLDocument_t *d, const char *filename) 
+<code>int writeSBML(const SBMLDocument* d, const char* filename)</code>@endlink
 writes the given SBML document to the named file and returns either @c 1 on
 success or @c 0 on failure.  Reasons for failure can be, for example, that
 the named file could not be opened for writing.
 
-@li <code>char * writeSBMLToString(const SBMLDocument *d)</code> writes the
-given SBML document to a character string and returns a pointer to it, or
+@li @link writeSBMLToString(const SBMLDocument_t *d)
+<code>char * writeSBMLToString(const SBMLDocument *d)</code>@endlink writes
+the given SBML document to a character string and returns a pointer to it, or
 returns @c 0 if a failure occurred.  The string is owned by the caller and
 should be freed (using the standard C function <code>free()</code>)
 after it is no longer needed.
