@@ -61,7 +61,8 @@
  * SBMLDocument::checkL1Compatibility(),
  * SBMLDocument::checkL2v1Compatibility(),
  * SBMLDocument::checkL2v2Compatibility(), and
- * SBMLDocument::checkL2v3Compatibility(), which allow callers to check the
+ * SBMLDocument::checkL2v3Compatibility(), and
+ * SBMLDocument::checkL2v4Compatibility(), which allow callers to check the
  * downward compatibility of a model with other Levels/Versions of SBML.
  * At the time of this writing, the most recent release of SBML is
  * Level&nbsp;2 Version&nbsp;3.
@@ -486,6 +487,8 @@ public:
    * @see checkL1Compatibility()
    * @see checkL2v1Compatibility()
    * @see checkL2v2Compatibility()
+   * @see checkL2v3Compatibility()
+   * @see checkL2v4Compatibility()
    * @see SBMLReader::readSBML()
    * @see SBMLReader::readSBMLFromString()
    */
@@ -503,6 +506,8 @@ public:
    * @see checkL1Compatibility()
    * @see checkL2v1Compatibility()
    * @see checkL2v2Compatibility()
+   * @see checkL2v3Compatibility()
+   * @see checkL2v4Compatibility()
    * @see SBMLReader::readSBML()
    * @see SBMLReader::readSBMLFromString()
    */
@@ -577,6 +582,8 @@ public:
    * @see checkL1Compatibility()
    * @see checkL2v1Compatibility()
    * @see checkL2v2Compatibility()
+   * @see checkL2v3Compatibility()
+   * @see checkL2v4Compatibility()
    * @see SBMLReader::readSBML()
    * @see SBMLReader::readSBMLFromString()
    */
