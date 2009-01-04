@@ -10,7 +10,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2007 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
