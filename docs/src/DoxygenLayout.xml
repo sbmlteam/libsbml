@@ -18,13 +18,14 @@
       <tab type="files" visible="yes" title=""/>
       <tab type="globals" visible="yes" title=""/>
     </tab>
-    <tab type="dirs" visible="yes" title=""/>
+    <tab type="dirs" visible="no" title=""/>
     <tab type="examples" visible="yes" title=""/>  
   </navindex>
 
   <!-- Layout definition for a class page -->
   <class>
-    <includes visible="$SHOW_INCLUDE_FILES" />
+    <briefdescription visible="no"/>
+    <includes visible="$SHOW_INCLUDE_FILES"/>
     <inheritancegraph visible="$CLASS_GRAPH"/>
     <collaborationgraph visible="$COLLABORATION_GRAPH"/>
     <allmemberslink visible="yes"/>
@@ -99,6 +100,7 @@
 
   <!-- Layout definition for a file page -->
   <file>
+    <briefdescription visible="no"/>
     <detaileddescription title=""/>
     <includes visible="$SHOW_INCLUDE_FILES"/>
     <includegraph visible="$INCLUDE_GRAPH"/>
