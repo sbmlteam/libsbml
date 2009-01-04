@@ -392,6 +392,15 @@ uninstall: uninstall-recursive uninstall-libsbml-pc uninstall-libsbml-la
 	    echo "Directory $(DESTDIR) not empty; leaving it alone"; \
 	  fi; \
 	fi;
+	@echo ""
+	@echo "Uninstallation complete.  WARNING: if you have run libSBML's"
+	@echo "'configure' utility since the time of the last installation"
+	@echo "of libSBML on this computer, the uninstallation just"
+	@echo "performed may not have removed all of the libSBML files."
+	@echo "The 'make uninstall' command only knows about the files"
+	@echo "installed by libSBML according to its MOST RECENT"
+	@echo "CONFIGURATION."
+	@echo ""
 
 uninstall-libsbml-pc:
 	@target="$(DESTDIR)$(LIBDIR)/pkgconfig/libsbml.pc"; \
