@@ -85,7 +85,6 @@ extra_distclean =               \
 # There are additional separate rules below.
 
 distfiles =                                    \
-        ExcludeDoclet.class                    \
         ExcludeDoclet.java                     \
         doxygen-base.css                       \
         doxygen-config-c.txt.in                \
