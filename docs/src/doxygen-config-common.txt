@@ -135,7 +135,7 @@ TAB_SIZE               = 4
 # impossible to control the formatting of the paragraph after the tag in
 # the doc, dammit.
 
-ALIASES                = docnote="<p><b>Documentation note:</b><br>"
+ALIASES                = docnote="@par Documentation note:\n "
 
 # Set the SUBGROUPING tag to YES (the default) to allow class member groups of 
 # the same type (for instance a group of public functions) to be put as a 
@@ -284,9 +284,6 @@ MAX_INITIALIZER_LINES  = 30
 # list will mention the files that were used to generate the documentation.
 
 SHOW_USED_FILES        = NO
-
-SHOW_DIRECTORIES = YES
-DIRECTORY_GRAPH = YES
 
 
 #---------------------------------------------------------------------------
