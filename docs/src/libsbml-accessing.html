@@ -1,21 +1,25 @@
 <center>
+<br>
 <table border="0">
-<tr><td style="font-size: small" width="90">
+<tr><td style="font-size: small" width="85">
 <a href="#accessing-c">C++ and C</a>
-</td><td style="font-size: small" width="90">
+</td><td style="font-size: small" width="85">
 <a href="#accessing-java">Java</a>
-</td><td style="font-size: small" width="90">
+</td><td style="font-size: small" width="85">
 <a href="#accessing-python">Python</a>
-</td><td style="font-size: small" width="90">
+</td><td style="font-size: small" width="85">
 <a href="#accessing-matlab">MATLAB</a>
-</td><td style="font-size: small" width="90">
+</td><td style="font-size: small" width="85">
 <a href="#accessing-octave">Octave</a>
-</td><td style="font-size: small" width="90">
+</td><td style="font-size: small" width="85">
 <a href="#accessing-perl">Perl</a>
-</td><td style="font-size: small" width="90">
+</td><td style="font-size: small" width="85">
 <a href="#accessing-csharp">C#</a>
+</td><td style="font-size: small" width="85">
+<a href="#accessing-ruby">Ruby</a>
 </td></tr>
 </table>
+</br>
 </center>
 
 
@@ -36,36 +40,36 @@ and C</a></h2>
 software to use it is a matter of supplying certain compilation and
 linking options.  There are two main sets of settings:
 <ul>
-<li> The flag <code>-I</code><i>prefix</i><code>/include</code> needs
+<li> The flag <nobr><code>-I</code><i>prefix</i><code>/include</code></nobr> needs
 to be supplied to the compiler, where <i>prefix</i> is the value of
-the <code>--prefix=</code><i>value</i> option given during
+the <nobr><code>--prefix=</code><i>value</i></nobr> option given during
 configuration of libSBML.  In addition, it may be necessary to supply
-a second <code>-I</code> flag with the directory containing the
+a second <nobr><code>-I</code></nobr> flag with the directory containing the
 include files of the XML parser being used by libSBML.  For example,
 if you are using the Xerces XML parser and you compiled and installed
 Xerces in <code>/usr/local</code>, then when compiling your software
 to use libSBML, you will also need to add the flag
-<code>-I/usr/local/include</code>.
+<nobr><code>-I/usr/local/include</code></nobr>.
 
 <p>
 
-<li> The flags <code>-L</code><i>prefix</i><code>/lib -lsbml
--lstdc++ -lm</code> need to be supplied to the compiler or linker,
+<li> The flags <nobr><code>-L</code></nobr><i>prefix</i><code>/lib <nobr>-lsbml</nobr>
+<nobr>-lstdc++</nobr> <nobr>-lm</nobr></code> need to be supplied to the compiler or linker,
 where <i>prefix</i> is again the value of the
-<code>--prefix=</code><i>value</i> option given during configuration
+<nobr><code>--prefix=</code><i>value</i></nobr> option given during configuration
 of libSBML.  In addition, you may need to supply a corresponding
-<code>-L</code> flag value to tell the linker where to find the XML
+<nobr><code>-L</code></nobr> flag value to tell the linker where to find the XML
 parser library being used by libSBML.
 </ul>
 
-<p> If you have the <code>pkg-config</code> utility, the steps above
+<p> If you have the <nobr><code>pkg-config</code></nobr> utility, the steps above
 can be substantially simplified.  First, make sure that your
 <code>PKG_CONFIG_PATH</code> environment variable includes the path to
 the directory <i>prefix</i><code>/lib/pkgconfig</code> (which is the
 directory where the file <code>libsbml.pc</code> will be installed by
 libSBML's <code>make install</code> step).  Then, you can run
-<code>pkg-config</code> with the <code>--cflags</code> and/or
-<code>--libs</code> flags in your compilation/linking command.  Here
+<nobr><code>pkg-config</code></nobr> with the <nobr><code>--cflags</code></nobr> and/or
+<nobr><code>--libs</code></nobr> flags in your compilation/linking command.  Here
 is an example:
 
 <div class="fragment"><pre class="fragment">
@@ -73,8 +77,8 @@ g++ `pkg-config --cflags --libs libsbml` myprogram.cpp
 </pre></div>
 
 <p> Note the use of the backward quote in the shell command above; it
-has the effect of running the command <code>pkg-config --cflags
---libs libsbml</code> and substituting in place the flags returned by
+has the effect of running the command <code><nobr>pkg-config</nobr> <nobr>--cflags</nobr>
+<nobr>--libs</nobr> libsbml</code> and substituting in place the flags returned by
 the command.
 
 
@@ -94,7 +98,7 @@ the operating system in use, as described in the following subsections.
 <p>
 You must either (1) set your <code>CLASSPATH</code> environment
 variable to include the <code>.jar</code> file, or (2) the file must
-be listed in the <code>-classpath</code> option passed to the Java
+be listed in the <nobr><code>-classpath</code></nobr> option passed to the Java
 interpreter when it is started.  As an example of the former approach,
 if you had configured libSBML to install itself into
 <code>/usr/local</code>, the <code>libsbmlj.jar</code> file will end
@@ -133,16 +137,18 @@ accessing libSBML</a>), Python needs another environment variable named
 <code>PYTHONPATH</code> to be set according to where the libSBML Python
 binaries have been installed.  Unfortunately, this variable's value is
 confusing to set.  On Unix-based systems at least, if <i>prefix</i> is the
-value of the <code>--prefix=</code><i>value</i> option given during
+value of the <nobr><code>--prefix=</code><i>value</i></nobr> option given during
 configuration of libSBML and <i>version</i> is the version of your
 copy of Python, then the value of <code>PYTHONPATH</code> needs to be set
 as follows:
 
-<div class="fragment"><tt class="fragment" style="font-size: 12px;">
+<div class="fragment" style="padding: 1em 3px !important">
+<tt class="fragment" style="font-size: 12px">
 export PYTHONPATH=<i><u>prefix</u></i>/lib/<i><u>version</u></i>/site-packages/libsbml:<i><u>prefix</u></i>/lib/<i><u>version</u></i>/site-packages
 </tt></div>
 for <i>sh</i>-based shells such as Bash, or 
-<div class="fragment"><tt class="fragment" style="font-size: 12px;">
+<div class="fragment" style="padding: 1em 3px !important">
+<tt class="fragment" style="font-size: 12px">
 setenv PYTHONPATH <i><u>prefix</u></i>/lib/<i><u>version</u></i>/site-packages/libsbml:<i><u>prefix</u></i>/lib/<i><u>version</u></i>/site-packages
 </tt></div>
 for <i>csh</i>-based shells.  What is crucial in both cases is that the two
@@ -284,6 +290,11 @@ This will have the same effect as the previous alterantive
 
 
 <h2><a class="anchor" name="accessing-csharp">C#</a></h2>
+
+(Documentation unfinished.)
+
+
+<h2><a class="anchor" name="accessing-ruby">Ruby</a></h2>
 
 (Documentation unfinished.)
 
