@@ -3,8 +3,8 @@
  * \brief   Tests the internal consistency validation.
  * \author  Sarah Keating
  *
- * $Id: TestConsistencyChecks.cpp 7249 2008-06-26 22:48:40Z mhucka $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/trunk/libsbml/src/sbml/test/TestConsistencyChecks.cpp $
+ * $Id$
+ * $HeadURL$
  */
 /* Copyright 2004 California Institute of Technology and
  * Japan Science and Technology Corporation.

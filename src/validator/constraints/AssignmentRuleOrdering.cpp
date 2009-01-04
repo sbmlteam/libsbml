@@ -3,8 +3,8 @@
  * @brief   Checks rule ordering for l2v1 and l1
  * @author  Sarah Keating
  *
- * $Id: AssignmentRuleOrdering.cpp 8158 2008-09-05 09:12:03Z sarahkeating $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/trunk/libsbml/src/validator/constraints/AssignmentRuleOrdering.cpp $
+ * $Id$
+ * $HeadURL$
  */
 /* Copyright 2005 California Institute of Technology and Japan Science and
  * Technology Corporation.

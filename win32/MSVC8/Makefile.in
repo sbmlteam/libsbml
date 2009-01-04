@@ -5,8 +5,8 @@
 ## Author(s)   : SBML Team <sbml-team@caltech.edu>
 ## Organization: Caltech, USA, and University of Hertfordshire, UK
 ## Created     : 2004-07-13
-## Revision    : $Id: Makefile.in 7249 2008-06-26 22:48:40Z mhucka $
-## $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/trunk/libsbml/win32/MSVC7/Makefile.in $
+## Revision    : $Id$
+## $HeadURL$
 ##
 ## Copyright 2004 California Institute of Technology and
 ## Japan Science and Technology Corporation.

@@ -3,8 +3,8 @@
  * @brief   Ensures correct number of arguments to a function definition.
  * @author  Sarah Keating
  *
- * $Id:  $
- * $HeadURL:  $
+ * $Id$
+ * $HeadURL$
  */
 /* Copyright 2005 California Institute of Technology and Japan Science and
  * Technology Corporation.

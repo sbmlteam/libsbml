@@ -5,8 +5,8 @@
  * @brief   Checks the validity of internal respresentation of SBML model
  * @author  Sarah Keating
  *
- * $Id:  $
- * $HeadURL:  $
+ * $Id$
+ * $HeadURL$
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more

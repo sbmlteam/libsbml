@@ -3,8 +3,8 @@
  * \brief   Reads test-data/l2v2-newComponents.xml into memory and tests it.
  * \author  Sarah Keating
  *
- * $Id:  $
- * $HeadURL:  $
+ * $Id$
+ * $HeadURL$
  */
 /* Copyright 2004 California Institute of Technology and
  * Japan Science and Technology Corporation.

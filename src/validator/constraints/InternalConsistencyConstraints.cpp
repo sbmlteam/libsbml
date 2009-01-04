@@ -3,8 +3,8 @@
  * @brief   Consistency check constraints.  See SBML Wiki
  * @author  Sarah Keating
  *
- * $Id:  $
- * $HeadURL:  $
+ * $Id$
+ * $HeadURL$
  */
 /* Copyright 2005 California Institute of Technology and Japan Science and
  * Technology Corporation.

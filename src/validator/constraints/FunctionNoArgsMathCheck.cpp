@@ -3,8 +3,8 @@
  * @brief   Ensures correct number of arguments to a function definition.
  * @author  Sarah Keating
  *
- * $Id: FunctionNoArgsMathCheck.cpp 7249 2008-06-26 22:48:40Z mhucka $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/trunk/libsbml/src/validator/constraints/FunctionNoArgsMathCheck.cpp $
+ * $Id$
+ * $HeadURL$
  */
 /* Copyright 2005 California Institute of Technology and Japan Science and
  * Technology Corporation.

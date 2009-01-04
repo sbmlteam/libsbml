@@ -351,8 +351,8 @@ LICENSE.txt and  COPYING.txt at the top level of the libSBML distribution.
 
 
 -----------------------------------------------------------------------------
-Last Modified: $Date: 2008-06-27 07:48:40 +0900 (金, 27 6 2008) $
-Last Modified By: $Author: mhucka $
-$HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/trunk/libsbml/src/bindings/ruby/README.txt $
+Last Modified: $Date$
+Last Modified By: $Author$
+$HeadURL$
 -----------------------------------------------------------------------------
 

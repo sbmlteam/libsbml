@@ -5,8 +5,8 @@
  * @brief   Checks whether an SBML model can be converted to L2V3
  * @author  Sarah Keating
  *
- * $Id: L2v4CompatibilityValidator.cpp 7249 2008-06-26 22:48:40Z mhucka $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/trunk/libsbml/src/validator/L2v4CompatibilityValidator.cpp $
+ * $Id$
+ * $HeadURL$
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more

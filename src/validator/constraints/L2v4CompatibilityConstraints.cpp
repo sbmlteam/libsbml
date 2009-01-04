@@ -3,8 +3,8 @@
  * @brief   L2v4 compatibility for conversion
  * @author  Sarah Keating
  *
- * $Id: L2v4CompatibilityConstraints.cpp 7249 2008-06-26 22:48:40Z mhucka $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/trunk/libsbml/src/validator/constraints/L2v4CompatibilityConstraints.cpp $
+ * $Id$
+ * $HeadURL$
  */
 /* Copyright 2005 California Institute of Technology and Japan Science and
  * Technology Corporation.

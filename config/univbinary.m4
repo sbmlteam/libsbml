@@ -4,7 +4,7 @@ dnl Description : Autoconf macro to check for the options for creating universal
 dnl Author(s)   : SBML Team <sbml-team@caltech.edu>
 dnl Organization: California Institute of Technology
 dnl Created     : 2008-11-25
-dnl Revision    : $Id: $
+dnl Revision    : $Id$
 dnl $HeadURL$
 dnl
 dnl Portions of this code originally came from the aclocal 1.7
