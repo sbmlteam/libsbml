@@ -1684,12 +1684,16 @@ ASTNode::ReduceToBinary()
   ReduceToBinary();
 }
 
+
+/** @cond doxygen-libsbml-internal */
 LIBSBML_EXTERN
 void 
 ASTNode::setParentSBMLObject(SBase * sb)
 {
   mParentSBMLObject = sb;
 }
+/** @endcond doxygen-libsbml-internal */
+
 
 LIBSBML_EXTERN
 SBase * 
