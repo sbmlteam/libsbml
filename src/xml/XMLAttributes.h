@@ -21,7 +21,7 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  *------------------------------------------------------------------------- -->
  * @class XMLAttributes.
- * @brief Implementation of %XMLAttributes construct.
+ * @brief Representation of attributes on an XML node.
  *
  * @htmlinclude libsbml-not-sbml-warning.html
  *

@@ -22,7 +22,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class XMLNamespaces.
- * @brief Object class for storing a list of XML namespaces.
+ * @brief Representation of XML Namespaces.
  *
  * @htmlinclude libsbml-not-sbml-warning.html
  *

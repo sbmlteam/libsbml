@@ -22,7 +22,7 @@
  *------------------------------------------------------------------------- -->
  * 
  * @class List
- * @brief Simple, plain, generic lists and list utilities.
+ * @brief Simple, plain, generic lists, and associated list utilities.
  *
  * @htmlinclude libsbml-not-sbml-warning.html
  *

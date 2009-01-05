@@ -22,7 +22,7 @@
  *----------------------------------------------------------------------- -->
  *
  * @class VConstraint
- * @brief LibSBML helper class for implementing validation
+ * @brief Helper class for implementing SBML validation and consistency-checking
  * 
  * @htmlinclude libsbml-not-sbml-warning.html
  *

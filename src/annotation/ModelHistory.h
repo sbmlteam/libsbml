@@ -22,8 +22,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ModelHistory
- * @brief Read/write/manipulate MIRIAM-compliant model history data stored
- * in SBML annotation elements.
+ * @brief Representation of MIRIAM-compliant model history data.
  *
  * @htmlinclude libsbml-not-sbml-warning.html
  *
@@ -39,7 +38,8 @@
  */ 
 /**
  * @class ModelCreator
- * @brief Representation of the creator of an SBML model
+ * @brief Representation of MIRIAM-compliant model creator data used
+ * in ModelHistory. 
  *
  * @htmlinclude libsbml-not-sbml-warning.html
  *
@@ -55,8 +55,7 @@
  */ 
 /**
  * @class Date
- * @brief Representation of dates, for use with ModelHistory and other
- * annotation utility classes.
+ * @brief Representation of MIRIAM-compliant dates used in ModelHistory.
  *
  * @htmlinclude libsbml-not-sbml-warning.html
  *

@@ -197,7 +197,7 @@
  */ 
 /**
  * @class ListOfUnitDefinitions
- * @brief Container class for lists of UnitDefinition objects in a Model.
+ * @brief LibSBML implementation of SBML's ListOfUnitDefinitions construct.
  * 
  * The various ListOf___ classes in %SBML are merely containers used for
  * organizing the main components of an %SBML model.  All are derived from

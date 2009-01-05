@@ -22,7 +22,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class SBMLReader
- * @brief SBML reader class, for reading SBML from files and text strings.
+ * @brief Methods for reading SBML from files and text strings.
  *
  * @htmlinclude libsbml-not-sbml-warning.html
  *

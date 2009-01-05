@@ -22,7 +22,7 @@
  *------------------------------------------------------------------------- -->
  * 
  * @class CompartmentType.
- * @brief LibSBML implementation of %SBML's %CompartmentType construct.
+ * @brief LibSBML implementation of %SBML's CompartmentType construct.
  *
  * A <em>compartment type</em> in %SBML is a grouping construct used to
  * establish a relationship between multiple Compartment objects.
@@ -63,7 +63,7 @@
  * 
  * 
  * @class ListOfCompartmentTypes.
- * @brief Container class for lists of CompartmentType objects in a Model.
+ * @brief LibSBML implementation of SBML's ListOfCompartmentTypes construct.
  * 
  * The various ListOf___ classes in %SBML are merely containers used for
  * organizing the main components of an %SBML model.  All are derived from

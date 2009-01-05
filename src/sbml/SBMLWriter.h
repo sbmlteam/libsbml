@@ -22,7 +22,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class SBMLWriter
- * @brief SBML writer class, for writing SBML to files, streams and strings.
+ * @brief Methods for writing SBML to files and text strings.
  *
  * @htmlinclude libsbml-not-sbml-warning.html
  *

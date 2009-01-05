@@ -22,7 +22,7 @@
  *------------------------------------------------------------------------- -->
  * 
  * @class Parameter.
- * @brief LibSBML implementation of %SBML's %Parameter construct.
+ * @brief LibSBML implementation of %SBML's Parameter construct.
  *
  * A Parameter is used in %SBML to define a symbol associated with a value;
  * this symbol can then be used in mathematical formulas in a model.  By
@@ -102,7 +102,7 @@
  */ 
 /**
  * @class ListOfParameters.
- * @brief Container class for lists of Parameter objects in a Model.
+ * @brief LibSBML implementation of SBML's ListOfParameters construct.
  * 
  * The various ListOf___ classes in %SBML are merely containers used for
  * organizing the main components of an %SBML model.  All are derived from

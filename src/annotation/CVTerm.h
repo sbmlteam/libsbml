@@ -22,7 +22,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class CVTerm.
- * @brief Object class for representing a controlled vocabulary annotation.
+ * @brief Representation of MIRIAM-compliant controlled vocabulary annotation.
  *
  * @htmlinclude libsbml-not-sbml-warning.html
  *

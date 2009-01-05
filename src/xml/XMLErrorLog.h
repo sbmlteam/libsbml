@@ -22,7 +22,8 @@
  *------------------------------------------------------------------------- -->
  *
  * @class XMLErrorLog
- * @brief Log of errors and other events encountered while processing XML.
+ * @brief Log of errors and other events encountered while processing an XML
+ * file or data stream.
  *
  * @htmlinclude libsbml-not-sbml-warning.html
  *

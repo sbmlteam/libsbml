@@ -126,7 +126,7 @@
  * 
  * 
  * @class ListOfReactions.
- * @brief Container class for lists of Reaction objects in a Model.
+ * @brief LibSBML implementation of SBML's ListOfReactions construct.
  * 
  * The various ListOf___ classes in %SBML are merely containers used for
  * organizing the main components of an %SBML model.  All are derived from

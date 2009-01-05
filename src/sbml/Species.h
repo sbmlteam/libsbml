@@ -217,7 +217,7 @@
  */ 
 /**
  * @class ListOfSpecies.
- * @brief Container class for lists of Species objects in a Model.
+ * @brief LibSBML implementation of SBML's ListOfSpecies construct.
  * 
  * The various ListOf___ classes in %SBML are merely containers used for
  * organizing the main components of an %SBML model.  All are derived from

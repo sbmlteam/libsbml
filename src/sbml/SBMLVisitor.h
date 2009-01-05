@@ -72,6 +72,8 @@ class ListOf;
 
 
 /**
+ * Implementation of the Visitor design pattern, for operations on SBML objects
+ *
  * The Visitor Pattern (Design Patterns, Gamma et al.\ ) allows you to add
  * operations to an established class hierarchy without actually modifying
  * the classes in heirarchy.  For computer science types, C++

@@ -22,7 +22,8 @@
  *------------------------------------------------------------------------- -->
  *
  * @class SBMLDocument
- * @brief SBML Model container and interface for global operations.
+ * @brief Container for an SBML document and interface for global operations
+ * on SBML documents.
  *
  * @htmlinclude libsbml-not-sbml-warning.html
  *

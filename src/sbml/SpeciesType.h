@@ -22,7 +22,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class SpeciesType
- * @brief LibSBML implementation of %SBML's %SpeciesType construct.
+ * @brief LibSBML implementation of %SBML's SpeciesType construct.
  *
  * The term @em species @em type refers to reacting entities independent of
  * location.  These include simple ions (e.g., protons, calcium), simple
@@ -56,7 +56,7 @@
  * <!---------------------------------------------------------------------- -->
  *
  * @class ListOfSpeciesTypes.
- * @brief Container class for lists of SpeciesType objects in a Model.
+ * @brief LibSBML implementation of SBML's ListOfSpeciesTypes construct.
  * 
  * The various ListOf___ classes in %SBML are merely containers used for
  * organizing the main components of an %SBML model.  All are derived from
