@@ -129,7 +129,7 @@ distfiles   = $(sources) $(extra_sources) $(check_sources) \
 # removed during "make clean" and "make distclean".
 
 extra_clean = $(class_files) $(check_sources:.java=.class) test_copy1.xml \
-  test_write.xml TestFilenameFilter.class
+  test_write.xml TestFilenameFilter.class $(wildcard test.xml.*) out.xml
 
 extra_distclean = 
 

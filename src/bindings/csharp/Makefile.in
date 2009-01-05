@@ -188,7 +188,8 @@ tmpfiles = $(wildcard test*.xml*)
 # `extra_clean' and `extra_distclean' determine the files and directories
 # removed during "make clean" and "make distclean".
 
-extra_clean = $(csproxy_lib) $(dllimport_lib) $(check_runner_exe) $(tmpfiles) $(sn_keyfile)
+extra_clean = $(csproxy_lib) $(dllimport_lib) $(check_runner_exe) $(tmpfiles) $(sn_keyfile) \
+              $(wildcard test.xml.*) out.xml
 
 extra_distclean = 
 

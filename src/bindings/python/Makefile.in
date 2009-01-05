@@ -135,7 +135,7 @@ distfiles =                                     \
 python_test_path = test
 python_test_files = $(wildcard $(python_test_path)/**/Test*.py)
 
-extra_clean     = build
+extra_clean     = build $(python_test_files:.py=.pyc) $(wildcard test.xml.*)
 extra_distclean = libsbml.pyc setup.py
 
 
