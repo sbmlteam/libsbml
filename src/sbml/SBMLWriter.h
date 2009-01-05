@@ -24,6 +24,8 @@
  * @class SBMLWriter
  * @brief SBML writer class, for writing SBML to files, streams and strings.
  *
+ * @htmlinclude libsbml-not-sbml-warning.html
+ *
  * The SBMLWriter class is the converse of SBMLReader, and provides the
  * main interface for serializing SBML models into XML and writing the
  * result to files and text strings.  The methods for writing SBML all take

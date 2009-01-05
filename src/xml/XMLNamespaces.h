@@ -24,6 +24,8 @@
  * @class XMLNamespaces.
  * @brief Object class for storing a list of XML namespaces.
  *
+ * @htmlinclude libsbml-not-sbml-warning.html
+ *
  * This class serves to organize functionality for tracking XML namespaces
  * in a document or data stream.  The XMLNamespaces class stores namespace
  * declarations as a list and provides operators such as add(), getLength()

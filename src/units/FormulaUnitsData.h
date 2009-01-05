@@ -28,6 +28,8 @@
  * @brief Object for recording the units associated with objects
  * and math expressions.
  * 
+ * @htmlinclude libsbml-not-sbml-warning.html
+ *
  * A FormulaUnitsData object records information about the units of the
  * SBML object associated with it.
  *

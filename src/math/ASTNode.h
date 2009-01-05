@@ -25,6 +25,8 @@
  * @brief A node in the Abstract Syntax Tree (AST) representation of a
  * mathematical expression.
  *
+ * @htmlinclude libsbml-not-sbml-warning.html
+ *
  * Abstract Syntax Trees (ASTs) are a simple kind of data structure used in
  * libSBML for storing mathematical expressions.  The ASTNode is the
  * cornerstone of libSBML's AST representation.  ASTNodes represent the

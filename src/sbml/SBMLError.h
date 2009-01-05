@@ -25,6 +25,8 @@
  * @class SBMLError
  * @brief Representation of errors, warnings and other diagnostics
  *
+ * @htmlinclude libsbml-not-sbml-warning.html
+ *
  * When a libSBML operation on SBML content results in an error, or when
  * there is something wrong with the SBML content, the problems are
  * reported as SBMLError objects.  These are generally stored in an
@@ -72,7 +74,7 @@
  * closing tag on another line).  When communicating problems to humans, it
  * is generally best to provide all three pieces of information (message,
  * line, column), to help them determine the actual error.
- * 
+ *
  * <h3><a class="anchor" name="SBMLErrorCode_t">SBMLErrorCode_t</a></h3>
  *
  * This is an enumeration of all SBML-level error and warning codes.  When

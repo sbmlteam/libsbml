@@ -25,6 +25,8 @@
  * @class XMLError
  * @brief Representation of errors, warnings and other diagnostics
  *
+ * @htmlinclude libsbml-not-sbml-warning.html
+ *
  * LibSBML can be configured to use any of a number of XML parsers; at the
  * time of this writing, libSBML supports Xerces versions 2.4 through 2.7,
  * Expat version 1.95.x, and libxml2 version 2.6.16 and higher.  These

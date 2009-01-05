@@ -26,6 +26,8 @@
  * @brief Object for deriving the units associated with objects
  * and math expressions.
  * 
+ * @htmlinclude libsbml-not-sbml-warning.html
+ *
  * A UnitFormulaFormatter object is created using a Model object
  * and uses the information from that Model to derive the units
  * of either an ASTNode respresenting a math expression or

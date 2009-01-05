@@ -42,7 +42,7 @@
 
 
 /* Define to the address where bug reports for this package should be sent. */
-#define PACKAGE_BUGREPORT "sbml-team@caltech.edu"
+#define PACKAGE_BUGREPORT "libsbml-team@caltech.edu"
 
 /* Define to the full name of this package. */
 #define PACKAGE_NAME "libSBML"

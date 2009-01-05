@@ -25,6 +25,8 @@
  * @brief Read/write/manipulate MIRIAM-compliant model history data stored
  * in SBML annotation elements.
  *
+ * @htmlinclude libsbml-not-sbml-warning.html
+ *
  * The SBML specification beginning with Level 2 Version 2 defines a
  * standard approach to recording model history and model creator
  * information in a form that complies with MIRIAM ("Minimum Information
@@ -36,9 +38,27 @@
  * <!-- leave this next break as-is to work around some doxygen bug -->
  */ 
 /**
+ * @class ModelCreator
+ * @brief Representation of the creator of an SBML model
+ *
+ * @htmlinclude libsbml-not-sbml-warning.html
+ *
+ * The SBML specification beginning with Level 2 Version 2 defines a
+ * standard approach to recording model history and model creator
+ * information in a form that complies with MIRIAM ("Minimum Information
+ * Requested in the Annotation of biochemical Models", Nature
+ * Biotechnology, vol. 23, no. 12, Dec. 2005).  LibSBML provides the
+ * ModelCreator class as a convenience high-level interface for working
+ * with model creator data.
+ *
+ * <!-- leave this next break as-is to work around some doxygen bug -->
+ */ 
+/**
  * @class Date
  * @brief Representation of dates, for use with ModelHistory and other
  * annotation utility classes.
+ *
+ * @htmlinclude libsbml-not-sbml-warning.html
  *
  * A Date object stores a reasonably complete date representation,
  * consisting of the following fields:

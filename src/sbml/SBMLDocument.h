@@ -24,6 +24,8 @@
  * @class SBMLDocument
  * @brief SBML Model container and interface for global operations.
  *
+ * @htmlinclude libsbml-not-sbml-warning.html
+ *
  * LibSBML uses the class SBMLDocument as a top-level container for storing
  * SBML content and data associated with it (such as warnings and error
  * messages).  The two primary means of reading an SBML model, 

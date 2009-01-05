@@ -24,6 +24,8 @@
  * @class SBMLReader
  * @brief SBML reader class, for reading SBML from files and text strings.
  *
+ * @htmlinclude libsbml-not-sbml-warning.html
+ *
  * The SBMLReader class provides the main interface for reading SBML
  * content from files and strings.  The methods for reading SBML all return
  * an SBMLDocument object representing the results.

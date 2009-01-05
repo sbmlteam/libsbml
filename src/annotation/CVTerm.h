@@ -24,6 +24,8 @@
  * @class CVTerm.
  * @brief Object class for representing a controlled vocabulary annotation.
  *
+ * @htmlinclude libsbml-not-sbml-warning.html
+ *
  * CVTerm is a libSBML construct used as part of the libSBML support for
  * annotations conforming to the guidelines specified by MIRIAM ("Minimum
  * Information Requested in the Annotation of biochemical Models").  The

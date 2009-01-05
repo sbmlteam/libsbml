@@ -23,6 +23,9 @@
  *
  * @class XMLToken.
  * @brief Representation of a token in an XML stream.
+ *
+ * @htmlinclude libsbml-not-sbml-warning.html
+ *
  */
 
 

@@ -22,6 +22,9 @@
  *------------------------------------------------------------------------- -->
  * @class XMLAttributes.
  * @brief Implementation of %XMLAttributes construct.
+ *
+ * @htmlinclude libsbml-not-sbml-warning.html
+ *
  */
 
 

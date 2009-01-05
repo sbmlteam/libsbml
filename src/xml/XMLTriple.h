@@ -23,6 +23,8 @@
  * @class XMLTriple.
  * @brief Representation of a qualified XML name.
  *
+ * @htmlinclude libsbml-not-sbml-warning.html
+ *
  * A "triple" in the libSBML XML layer encapsulates the notion of qualified
  * name, meaning an element name or an attribute name with an optional
  * namespace qualifier.  An XMLTriple instance carries up to three data items:

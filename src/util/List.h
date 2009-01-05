@@ -24,6 +24,8 @@
  * @class List
  * @brief Simple, plain, generic lists and list utilities.
  *
+ * @htmlinclude libsbml-not-sbml-warning.html
+ *
  * This class implements basic vanilla lists for libSBML.  It was developed
  * in the time before libSBML was converted to C++ and used C++ STL library
  * classes more extensively.  At some point in the future, it may be removed

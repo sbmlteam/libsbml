@@ -19,7 +19,15 @@
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *----------------------------------------------------------------------- -->*/
+ *----------------------------------------------------------------------- -->
+ *
+ * @class ListOf
+ * @brief Parent class for the various SBML "ListOfXYZ" classes.
+ *
+ * @htmlinclude libsbml-not-sbml-warning.html
+ *
+ */
+
 
 #ifndef ListOf_h
 #define ListOf_h

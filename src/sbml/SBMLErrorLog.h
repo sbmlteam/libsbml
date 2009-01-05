@@ -25,6 +25,8 @@
  * @class SBMLErrorLog
  * @brief Log of errors and other events encountered during SBML processing.
  *
+ * @htmlinclude libsbml-not-sbml-warning.html
+ *
  * The error log is simply a list.  Each SBMLDocument maintains its own
  * SBMLErrorLog.  When a libSBML operation on SBML content results in an
  * error, or when there is something worth noting about the SBML content, 
