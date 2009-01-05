@@ -30,7 +30,7 @@
  * When a libSBML operation on SBML content results in an error, or when
  * there is something wrong with the SBML content, the problems are
  * reported as SBMLError objects.  These are generally stored in an
- * SBMLErrorLog object; the SBMLErrorLog object, in turn, is kept in the
+ * SBMLErrorLog object; this log object, in turn, is kept in the
  * SBMLDocument object containing the SBML content.  Applications can
  * obtain the list of logged errors using SBMLDocument.getErrorLog() and
  * then use the methods provided by SBMLErrorLog to access individual
@@ -42,21 +42,21 @@
  * XMLErrorCode_t (see the documentation for XMLError) and <a class="el"
  * href="#SBMLErrorCode_t">SBMLErrorCode_t</a>.  The latter enumeration
  * contains all the SBML validation rule numbers listed in the appendices
- * of the SBML specification documents, as well as some additional libSBML
- * error codes.  
+ * of the SBML specification documents, as well as some additional
+ * libSBML-specific error codes.
+ * 
+ * Error codes are useful for software but less so for humans.  So, for
+ * human consumption, SBMLError also includes a text message that describes
+ * the nature of a given problem.
  *
- * SBMLError also records a @em category code, drawn from the enumeration
- * <a class="el" href="#SBMLErrorCategory_t">SBMLErrorCategory_t</a>.
+ * An SBMLError object also contains a @em category code, drawn from the
+ * enumeration <a class="el" href="#SBMLErrorCategory_t">SBMLErrorCategory_t</a>.
  * Categories are used to partition errors into distinct conceptual groups.
  * This is principally used by the libSBML validation system to group
  * classes of validation checks into groups.  For example, @c
  * LIBSBML_CAT_IDENTIFIER_CONSISTENCY is the category for tests that check
  * identifier consistency; @c LIBSBML_CAT_MATHML_CONSISTENCY is the
  * category for MathML consistency checking; and so on.
- * 
- * The error codes are useful for software but less so for humans.  So, for
- * human consumption, SBMLError also includes a text message that describes
- * the nature of a given problem.
  *
  * In addition, SBMLError also has a @em severity code, drawn from the
  * enumeration <a class="el"
@@ -71,9 +71,10 @@
  * example, different XML parsers have different conventions for which line
  * and column number they report for a particular problem (which makes a
  * difference when a problem involves an opening XML tag on one line and a
- * closing tag on another line).  When communicating problems to humans, it
- * is generally best to provide all three pieces of information (message,
- * line, column), to help them determine the actual error.
+ * closing tag on another line).  If your application communicates problems
+ * to humans, we suggeset is generally best to provide all three pieces of
+ * information (message, line, column), to help them determine the actual
+ * error.
  *
  * <h3><a class="anchor" name="SBMLErrorCode_t">SBMLErrorCode_t</a></h3>
  *

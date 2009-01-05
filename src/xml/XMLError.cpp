@@ -33,42 +33,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
-const char * ERROR_SEVERITY_STRINGS[] =
-{
-  "Information"
-, "Warning"
-, "Error"
-, "Fatal error"
-, "Schema error"
-, "General warning"
-, "Not applicable"
-, "Unknown severity code"
-};
-
-
-const char * ERROR_CATEGORY_STRINGS[] =
-{
-  "Internal"
-, "Operating system"
-, "XML content"
-, "General SBML"
-, "Translation to SBML L1V2"
-, "Translation to SBML L2V1"
-, "Translation to SBML L2V2"
-, "SBML component"
-, "SBML identifier"
-, "SBML units"
-, "MathML"
-, "SBO term"
-, "Overdetermined model"
-, "Translation to SBML L2V3"
-, "Modeling practice"
-, "Internal consistency"
-, "Translation to SBML L2V4"
-, "Unknown category code"
-};
-
-
+/** @cond doxygen-libsbml-internal **/
 
 static const xmlErrorTableEntry errorTable[] =
 {
@@ -261,6 +226,35 @@ static const xmlErrorTableEntry errorTable[] =
 
 
 /*
+ * Table of strings corresponding to the values from XMLErrorSeverity_t.
+ * Be careful that the enum is used to index into this table.
+ * This approach is not very object oriented and someday we should do better.
+ */
+const char * xmlSeverityStringTable[] =
+{
+  "Informational"                       // LIBSBML_SEV_INFO
+, "Warning"                             // LIBSBML_SEV_WARNING
+, "Error"                               // LIBSBML_SEV_ERROR
+, "Fatal"                               // LIBSBML_SEV_FATAL
+};
+
+
+/*
+ * Table of strings corresponding to the values from XMLErrorCategory_t.
+ * Be careful that the enum is used to index into this table.
+ * This approach is not very object oriented and someday we should do better.
+ */
+const char * xmlCategoryStringTable[] =
+{
+  "Internal"                            // LIBSBML_CAT_INTERNAL
+, "Operating system"                    // LIBSBML_CAT_SYSTEM
+, "XML content"                         // LIBSBML_CAT_XML
+};
+
+/** @endcond doxygen-libsbml-internal **/
+
+
+/*
  * XMLErrorLog will check if line & column = 0 and attempt to fill in
  * the line and column by consulting the parser.  This constructor
  * purposefully doesn't do that.
@@ -297,6 +291,10 @@ XMLError::XMLError (  const int errorId
 
         mSeverity = errorTable[i].severity;
         mCategory = errorTable[i].category;
+        
+        mSeverityString = xmlSeverityStringTable[mSeverity];
+        mCategoryString = xmlCategoryStringTable[mCategory];
+
         return;
       }
     }
@@ -312,11 +310,18 @@ XMLError::XMLError (  const int errorId
 
   // It's not an error code in the XML layer, so assume the caller has
   // filled in all the relevant additional data.  (If they didn't, the
-  // following merely assigns the defaults.)
+  // following ends up merely assigning the defaults.)
 
   mMessage  = details;
+
   mSeverity = severity;
   mCategory = category;
+
+  if ( mSeverity >= LIBSBML_SEV_INFO && mSeverity <= LIBSBML_SEV_FATAL)
+    mSeverityString = xmlSeverityStringTable[mSeverity];
+
+  if ( mCategory >= LIBSBML_CAT_INTERNAL && mCategory <= LIBSBML_CAT_XML )
+    mCategoryString = xmlCategoryStringTable[mCategory];
 }
 
 
@@ -380,10 +385,15 @@ XMLError::getSeverity () const
 }
 
 
-std::string 
+/*
+ * @return a string explaining the severity code for this XMLError.
+ * XMLError severity levels correspond to those defined in the XML
+ * specification (with the addition of Info for informational messages).
+ */
+const std::string 
 XMLError::getSeverityAsString() const
 {
-  return ERROR_SEVERITY_STRINGS[mSeverity];
+  return mSeverityString;
 }
 
 
@@ -401,11 +411,15 @@ XMLError::getCategory () const
 }
 
 
-std::string 
+/*
+ * @return a string explaining the category code for this XMLError.
+ */
+const std::string 
 XMLError::getCategoryAsString() const
 {
-  return ERROR_CATEGORY_STRINGS[mCategory];
+  return mCategoryString;
 }
+
 
 /*
  * @return true if this XMLError is for informational purposes only,
@@ -536,22 +550,23 @@ XMLError::getStandardMessage (const int code)
  * a newline):
  *
  *   line: (error_id [severity]) message
+ *
+ * Implementation note:
+ * The following code was originally written before the implementation of
+ * xmlSeverityStringTable[] and getSeverityAsString().  It previously used
+ * hard-code strings, and for LIBSBML_SEV_INFO, it printed "Advisory"
+ * instead of "Information".  However, an inspection of the libSBML code
+ * showed that nothing ever used LIBSBML_SEV_INFO!  Therefore, changing the 
+ * severity string used here to be the same as what getSeverityAsString()
+ * returns should not break any caller code.
  */
 ostream& operator<< (ostream& s, const XMLError& error)
 {
   s << "line " << error.mLine << ": ("
     << setfill('0') << setw(5) << error.mErrorId
-    << " [";
+    << " [" << error.getSeverityAsString() << "]) "
+    << error.mMessage << endl;
 
-  switch (error.getSeverity())
-  {
-  case LIBSBML_SEV_INFO:      s << "Advisory"; break;
-  case LIBSBML_SEV_WARNING:   s << "Warning";  break;
-  case LIBSBML_SEV_FATAL:     s << "Fatal";    break;
-  case LIBSBML_SEV_ERROR:     s << "Error";    break;
-  }
-
-  s << "]) " << error.mMessage << endl;
   return s;
 }
 
@@ -728,7 +743,7 @@ LIBLAX_EXTERN
 const char *
 XMLError_getSeverityAsString (const XMLError_t *error)
 {
-  return error->getSeverityAsString().c_str();
+  return error->getSeverityAsString().empty() ? 0 : error->getSeverityAsString().c_str();
 }
 
 
@@ -759,7 +774,7 @@ LIBLAX_EXTERN
 const char *
 XMLError_getCategoryAsString (const XMLError_t *error)
 {
-  return error->getCategoryAsString().c_str();
+  return error->getCategoryAsString().empty() ? 0 : error->getCategoryAsString().c_str();
 }
 
 

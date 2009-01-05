@@ -56,7 +56,7 @@ START_TEST (test_XMLError_create)
   fail_unless( error->getErrorId()  == 12345 );
   fail_unless( error->getMessage()  == "My message" );
   fail_unless( error->getSeverity() == LIBSBML_SEV_FATAL );
-  fail_unless( error->getSeverityAsString() == "Fatal error" );
+  fail_unless( error->getSeverityAsString() == "Fatal" );
   fail_unless( error->getCategory() == LIBSBML_CAT_INTERNAL );
   fail_unless( error->getCategoryAsString() == "Internal");
   delete error;
@@ -66,7 +66,7 @@ START_TEST (test_XMLError_create)
   fail_unless( error->getErrorId()  == 12345 );
   fail_unless( error->getMessage()  == "My message" );
   fail_unless( error->getSeverity() == LIBSBML_SEV_INFO );
-  fail_unless( error->getSeverityAsString() == "Information" );
+  fail_unless( error->getSeverityAsString() == "Informational" );
   fail_unless( error->getCategory() == LIBSBML_CAT_SYSTEM );
   fail_unless( error->getCategoryAsString() == "Operating system");
   fail_unless( error->isInfo() );
@@ -78,7 +78,7 @@ START_TEST (test_XMLError_create)
   fail_unless( error->getErrorId()  == 10000 );
   fail_unless( error->getMessage()  == "Another message" );
   fail_unless( error->getSeverity() == LIBSBML_SEV_FATAL );
-  fail_unless( error->getSeverityAsString() == "Fatal error" );
+  fail_unless( error->getSeverityAsString() == "Fatal" );
   fail_unless( error->getCategory() == LIBSBML_CAT_XML );
   fail_unless( error->getCategoryAsString() == "XML content");
   fail_unless( error->isFatal() );

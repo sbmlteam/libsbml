@@ -564,7 +564,7 @@ public:
 
 
   /**
-   * Return the line number in the XML input where the error occurred.
+   * Returns the line number in the XML input where the error occurred.
    *
    * @return the line number 
    */
@@ -572,7 +572,7 @@ public:
 
 
   /**
-   * Return the column number in the XML input where the error occurred.
+   * Returns the column number in the XML input where the error occurred.
    *
    * @return the column number
    */
@@ -580,7 +580,7 @@ public:
 
 
   /**
-   * Return the severity of this error.
+   * Returns the severity of this error.
    *
    * XMLError defines an enumeration of severity codes for the XML layer.
    * Applications that build on XMLError by subclassing it may add their
@@ -588,12 +588,14 @@ public:
    * #XMLErrorSeverity_t enumeration.
    *
    * @return the severity of this XMLError.
+   *
+   * @see getCategory()
    */
   unsigned int getSeverity () const;
 
 
   /**
-   * Return the severity of this error as a string.
+   * Returns a string describing the severity level of this error.
    *
    * XMLError defines an enumeration of severity codes for the XML layer.
    * Applications that build on XMLError by subclassing it may add their
@@ -601,14 +603,15 @@ public:
    * #XMLErrorSeverity_t enumeration.
    *
    * @return string representing the severity of this XMLError.
+   *
+   * @see getSeverity()
+   * @see getCategoryAsString()
    */
-
-
-  std::string getSeverityAsString() const;
+  const std::string getSeverityAsString() const;
   
   
   /**
-   * Return the category of this error.
+   * Returns the category of this error.
    *
    * XMLError defines an enumeration of category codes for the XML layer.
    * Applications that build on XMLError by subclassing it may add their
@@ -620,12 +623,14 @@ public:
    * uniquely identifying an XMLError by both id and category.
    *
    * @return the category of this XMLError.
+   *
+   * @see getSeverity()
    */
   unsigned int getCategory () const;
 
 
   /**
-   * Return the category of this error as a string.
+   * Returns a string describing the category of this error.
    *
    * XMLError defines an enumeration of category codes for the XML layer.
    * Applications that build on XMLError by subclassing it may add their
@@ -637,8 +642,11 @@ public:
    * uniquely identifying an XMLError by both id and category.
    *
    * @return string representing the category of this XMLError.
+   *
+   * @see getCategory()
+   * @see getSeverityAsString()
    */
-  std::string getCategoryAsString () const;
+  const std::string getCategoryAsString () const;
 
 
   /**
@@ -783,6 +791,9 @@ protected:
 
   unsigned int mSeverity;
   unsigned int mCategory;
+
+  std::string mSeverityString;
+  std::string mCategoryString;
 
   unsigned int mLine;
   unsigned int mColumn;

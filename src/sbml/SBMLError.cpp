@@ -38,7 +38,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/** @cond doxygen-ignored **/
+/** @cond doxygen-libsbml-internal **/
 /** 
  * Helper function for SBMLError().  Takes an index, SBML level and version,
  * and returns the appropriate field for the severity code out of the
@@ -80,7 +80,41 @@ getSeverityForEntry(unsigned int index,
     }
   }
 }
-/** @endcond doxygen-ignored **/
+
+
+/*
+ * Table of strings corresponding to the values from SBMLErrorCategory_t.
+ * The enumeration starts at a number higher than 0, so each entry is keyed
+ * by its enum value.
+ *
+ * A similar table for severity strings is currently unnecessary because
+ * libSBML never returns anything more than the XMLSeverityCode_t values.
+ */
+static struct sbmlCategoryString {
+  unsigned int catCode;
+  const char * catString;
+} sbmlCategoryStringTable[] = {
+  { LIBSBML_CAT_SBML,                   "General SBML conformance"    },
+  { LIBSBML_CAT_SBML_L1_COMPAT,         "Translation to SBML L1V2"    },
+  { LIBSBML_CAT_SBML_L2V1_COMPAT,	"Translation to SBML L2V1"    },
+  { LIBSBML_CAT_SBML_L2V2_COMPAT,	"Translation to SBML L2V2"    },
+  { LIBSBML_CAT_GENERAL_CONSISTENCY,	"SBML component consistency"  },
+  { LIBSBML_CAT_IDENTIFIER_CONSISTENCY,	"SBML identifier consistency" },
+  { LIBSBML_CAT_UNITS_CONSISTENCY,	"SBML unit consistency"       },
+  { LIBSBML_CAT_MATHML_CONSISTENCY,     "MathML consistency"          },
+  { LIBSBML_CAT_SBO_CONSISTENCY,        "SBO term consistency"        },
+  { LIBSBML_CAT_OVERDETERMINED_MODEL,   "Overdetermined model"        },
+  { LIBSBML_CAT_SBML_L2V3_COMPAT,	"Translation to SBML L2V3"    },
+  { LIBSBML_CAT_MODELING_PRACTICE,      "Modeling practice"           },
+  { LIBSBML_CAT_INTERNAL_CONSISTENCY,   "Internal consistency"        },
+  { LIBSBML_CAT_SBML_L2V4_COMPAT,	"Translation to SBML L2V4"    }
+};
+
+static unsigned int sbmlCategoryStringTableSize
+  = sizeof(sbmlCategoryStringTable)/sizeof(sbmlCategoryStringTable[0]);
+
+
+/** @endcond doxygen-libsbml-internal **/
 
 
 SBMLError::SBMLError (  const unsigned int errorId
@@ -187,12 +221,27 @@ SBMLError::SBMLError (  const unsigned int errorId
     }      
     newMsg << endl;
       
-    mMessage  = newMsg.str();
-    mCategory = errorTable[index].category;
+    mMessage        = newMsg.str();
+    mCategory       = errorTable[index].category;
+
+    // If it's got a category from the XML layer, then it will already have
+    // been assigned a category string by the constructor.  Only go
+    // assigning one if it's in the SBML range of categories.
+
+    if ( mCategory >= LIBSBML_CAT_SBML )
+    {
+      for ( unsigned int i = 0; i < sbmlCategoryStringTableSize; i++ )
+        if ( sbmlCategoryStringTable[i].catCode == mCategory )
+        {
+          mCategoryString = sbmlCategoryStringTable[i].catString;
+          break;
+        }
+    }
+
     return;
   }
 
-  // It's not an error code in the XML layer, so assume the caller has
+  // It's not an error code in the SBML layer, so assume the caller has
   // filled in all the relevant additional data.  (If they didn't, the
   // following merely assigns the defaults.)
 
