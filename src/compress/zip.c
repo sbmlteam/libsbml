@@ -189,6 +189,8 @@ local void init_linkedlist(ll)
     ll->first_block = ll->last_block = NULL;
 }
 
+/* 2009-01-05 <mhucka@caltech.edu> This is never used anywhere.
+
 local void free_linkedlist(ll)
     linkedlist_data* ll;
 {
@@ -196,6 +198,7 @@ local void free_linkedlist(ll)
     ll->first_block = ll->last_block = NULL;
 }
 
+*/
 
 local int add_data_in_datablock(ll,buf,len)
     linkedlist_data* ll;
