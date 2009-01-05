@@ -78,8 +78,12 @@ ifeq "$(HOST_TYPE)" "darwin"
   extra_CPPFLAGS += -Wno-long-double
 endif
 
-extra_LDFLAGS  = $(RUBY_LDFLAGS)
-extra_LIBS     = -L../.. -lsbml $(RUBY_LIBS)
+#
+# -L../../ option appears first in command-line to always link
+# with the libSBML's shared library file in the relative path.
+#
+extra_LDFLAGS  = -L../../ $(RUBY_LDFLAGS)
+extra_LIBS     = -lsbml $(RUBY_LIBS)
 
 ifdef USE_EXPAT
   extra_CPPFLAGS += @EXPAT_CPPFLAGS@ 

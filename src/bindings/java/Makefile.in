@@ -60,7 +60,11 @@ libraries         = $(jarfile) $(jnifile)
 extra_CPPFLAGS    = $(JAVA_CPPFLAGS) -I../swig
 SWIGFLAGS        += $(JAVA_CPPFLAGS) -I../swig
 
-extra_LDFLAGS     = $(JAVA_LDFLAGS) -L../..
+#
+# -L../../ option appears first in command-line to always link
+# with the libSBML's shared library file in the relative path.
+#
+extra_LDFLAGS     = -L../../ $(JAVA_LDFLAGS)
 
 extra_LIBS        = -lsbml $(JAVA_LIBS)
 

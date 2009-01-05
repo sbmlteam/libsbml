@@ -60,19 +60,19 @@ endif
 # here is only to remove duplicates, which the 'sort' function does as a
 # documented side-effect.)
 
-compile ?= $(CC) $(FPIC) $(CPPFLAGS) $(extra_CPPFLAGS) \
-	$(CFLAGS) $(extra_CFLAGS) $(sort $(default_includes) $(INCLUDES))
+compile ?= $(CC) $(FPIC) $(sort $(default_includes) $(INCLUDES)) $(CPPFLAGS) \
+	$(extra_CPPFLAGS) $(CFLAGS) $(extra_CFLAGS) 
 
-cxxcompile ?= $(CXX) $(FPIC) $(CPPFLAGS) $(extra_CPPFLAGS) \
-	$(CXXFLAGS) $(extra_CXXFLAGS) $(sort $(default_includes) $(INCLUDES))
+cxxcompile ?= $(CXX) $(FPIC) $(sort $(default_includes) $(INCLUDES)) $(CPPFLAGS) \
+	$(extra_CPPFLAGS) $(CXXFLAGS) $(extra_CXXFLAGS) 
 
 # The following two commands are used for dependency tracking only when 
 # building universal binaries on MacOSX.
-compile_nocflags ?= $(CC) $(FPIC) $(CPPFLAGS) $(extra_CPPFLAGS) \
-	$(sort $(default_includes) $(INCLUDES))
+compile_nocflags ?= $(CC) $(FPIC) $(sort $(default_includes) $(INCLUDES)) \
+	$(CPPFLAGS) $(extra_CPPFLAGS) 
 
-cxxcompile_nocxxflags ?= $(CXX) $(FPIC) $(CPPFLAGS) $(extra_CPPFLAGS) \
-	$(sort $(default_includes) $(INCLUDES))
+cxxcompile_nocxxflags ?= $(CXX) $(FPIC) $(sort $(default_includes) $(INCLUDES)) \
+	$(CPPFLAGS) $(extra_CPPFLAGS) 
 
 # For linking libraries, we try to follow the result of the libtool
 # numbering scheme, but at the final end, not in the input format.  (The
@@ -118,7 +118,7 @@ endif
 
 ifndef link_shared_lib
   define link_shared_lib 
-    $(CXX) $(LDFLAGS) $(extra_LDFLAGS) $(platform_link_flags) \
+    $(CXX) $(extra_LDFLAGS) $(LDFLAGS) $(platform_link_flags) \
 	-o $(1) $(objfiles) $(extra_LIBS) $(LIBS)
   endef
 endif

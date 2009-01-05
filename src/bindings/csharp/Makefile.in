@@ -102,7 +102,11 @@ extra_CPPFLAGS    = $(CSHARP_CPPFLAGS) -I../swig
 SWIGFLAGS        += $(CSHARP_SWIGFLAGS) -I../swig 
 SWIGFLAGS_WIN     = -DSWIGWIN -DSWIG_CSHARP_NO_WSTRING_HELPER
 
-extra_LDFLAGS     = $(CSHARP_LDFLAGS) -L../..
+#
+# -L../../ option appears first in command-line to always link
+# with the libSBML's shared library file in the relative path.
+#
+extra_LDFLAGS     = -L../../ $(CSHARP_LDFLAGS)
 
 extra_LIBS        = -lsbml 
 
