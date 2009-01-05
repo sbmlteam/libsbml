@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Michael Hucka 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestXMLError.cpp
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -123,36 +123,36 @@ namespace LibSBMLCSTest {
       error = new XMLError(libsbml.DuplicateXMLAttribute);
       assertTrue( error.getErrorId() == libsbml.DuplicateXMLAttribute );
       assertTrue( error.getSeverity() == libsbml.LIBSBML_SEV_ERROR );
-      assertTrue( error.getSeverityAsString() == "Error" );
+      assertTrue( error.getSeverityAsString() ==  "Error"  );
       assertTrue( error.getCategory() == libsbml.LIBSBML_CAT_XML );
-      assertTrue( error.getCategoryAsString() == "XML content" );
-      assertTrue( error.getMessage() == "Duplicate attribute." );
+      assertTrue( error.getCategoryAsString() ==  "XML content" );
+      assertTrue( error.getMessage() ==  "Duplicate attribute."  );
       error = null;
       error = new XMLError(12345, "My message");
       assertTrue( error.getErrorId() == 12345 );
-      assertTrue( error.getMessage() == "My message" );
+      assertTrue( error.getMessage() ==  "My message"  );
       assertTrue( error.getSeverity() == libsbml.LIBSBML_SEV_FATAL );
-      assertTrue( error.getSeverityAsString() == "Fatal error" );
+      assertTrue( error.getSeverityAsString() ==  "Fatal"  );
       assertTrue( error.getCategory() == libsbml.LIBSBML_CAT_INTERNAL );
-      assertTrue( error.getCategoryAsString() == "Internal" );
+      assertTrue( error.getCategoryAsString() ==  "Internal" );
       error = null;
       error = new XMLError(12345, "My message",0,0,libsbml.LIBSBML_SEV_INFO,libsbml.LIBSBML_CAT_SYSTEM);
       assertTrue( error.getErrorId() == 12345 );
-      assertTrue( error.getMessage() == "My message" );
+      assertTrue( error.getMessage() ==  "My message"  );
       assertTrue( error.getSeverity() == libsbml.LIBSBML_SEV_INFO );
-      assertTrue( error.getSeverityAsString() == "Information" );
+      assertTrue( error.getSeverityAsString() ==  "Informational"  );
       assertTrue( error.getCategory() == libsbml.LIBSBML_CAT_SYSTEM );
-      assertTrue( error.getCategoryAsString() == "Operating system" );
+      assertTrue( error.getCategoryAsString() ==  "Operating system" );
       assertEquals( true, error.isInfo() );
       assertEquals( true, error.isSystem() );
       error = null;
       error = new XMLError(10000, "Another message",0,0,libsbml.LIBSBML_SEV_FATAL,libsbml.LIBSBML_CAT_XML);
       assertTrue( error.getErrorId() == 10000 );
-      assertTrue( error.getMessage() == "Another message" );
+      assertTrue( error.getMessage() ==  "Another message"  );
       assertTrue( error.getSeverity() == libsbml.LIBSBML_SEV_FATAL );
-      assertTrue( error.getSeverityAsString() == "Fatal error" );
+      assertTrue( error.getSeverityAsString() ==  "Fatal"  );
       assertTrue( error.getCategory() == libsbml.LIBSBML_CAT_XML );
-      assertTrue( error.getCategoryAsString() == "XML content" );
+      assertTrue( error.getCategoryAsString() ==  "XML content" );
       assertEquals( true, error.isFatal() );
       assertEquals( true, error.isXML() );
       error = null;

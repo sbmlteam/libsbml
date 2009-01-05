@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Michael Hucka 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestXMLError.cpp
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -125,7 +125,7 @@ public class TestXMLError {
     assertTrue( error.getErrorId() == 12345 );
     assertTrue( error.getMessage().equals( "My message" ) );
     assertTrue( error.getSeverity() == libsbml.LIBSBML_SEV_FATAL );
-    assertTrue( error.getSeverityAsString().equals( "Fatal error" ) );
+    assertTrue( error.getSeverityAsString().equals( "Fatal" ) );
     assertTrue( error.getCategory() == libsbml.LIBSBML_CAT_INTERNAL );
     assertTrue( error.getCategoryAsString().equals( "Internal") );
     error = null;
@@ -133,7 +133,7 @@ public class TestXMLError {
     assertTrue( error.getErrorId() == 12345 );
     assertTrue( error.getMessage().equals( "My message" ) );
     assertTrue( error.getSeverity() == libsbml.LIBSBML_SEV_INFO );
-    assertTrue( error.getSeverityAsString().equals( "Information" ) );
+    assertTrue( error.getSeverityAsString().equals( "Informational" ) );
     assertTrue( error.getCategory() == libsbml.LIBSBML_CAT_SYSTEM );
     assertTrue( error.getCategoryAsString().equals( "Operating system") );
     assertEquals( true, error.isInfo() );
@@ -143,7 +143,7 @@ public class TestXMLError {
     assertTrue( error.getErrorId() == 10000 );
     assertTrue( error.getMessage().equals( "Another message" ) );
     assertTrue( error.getSeverity() == libsbml.LIBSBML_SEV_FATAL );
-    assertTrue( error.getSeverityAsString().equals( "Fatal error" ) );
+    assertTrue( error.getSeverityAsString().equals( "Fatal" ) );
     assertTrue( error.getCategory() == libsbml.LIBSBML_CAT_XML );
     assertTrue( error.getCategoryAsString().equals( "XML content") );
     assertEquals( true, error.isFatal() );

@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Michael Hucka 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestXMLError.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -37,36 +37,36 @@ class TestXMLError < Test::Unit::TestCase
     error = LibSBML::XMLError.new(LibSBML::DuplicateXMLAttribute)
     assert( error.getErrorId() == LibSBML::DuplicateXMLAttribute )
     assert( error.getSeverity() == LibSBML::LIBSBML_SEV_ERROR )
-    assert( error.getSeverityAsString() == "Error" )
+    assert( error.getSeverityAsString() ==  "Error"  )
     assert( error.getCategory() == LibSBML::LIBSBML_CAT_XML )
-    assert( error.getCategoryAsString() == "XML content" )
-    assert( error.getMessage() == "Duplicate attribute." )
+    assert( error.getCategoryAsString() ==  "XML content" )
+    assert( error.getMessage() ==  "Duplicate attribute."  )
     error = nil
     error = LibSBML::XMLError.new(12345, "My message")
     assert( error.getErrorId() == 12345 )
-    assert( error.getMessage() == "My message" )
+    assert( error.getMessage() ==  "My message"  )
     assert( error.getSeverity() == LibSBML::LIBSBML_SEV_FATAL )
-    assert( error.getSeverityAsString() == "Fatal error" )
+    assert( error.getSeverityAsString() ==  "Fatal"  )
     assert( error.getCategory() == LibSBML::LIBSBML_CAT_INTERNAL )
-    assert( error.getCategoryAsString() == "Internal" )
+    assert( error.getCategoryAsString() ==  "Internal" )
     error = nil
     error = LibSBML::XMLError.new(12345, "My message",0,0,LibSBML::LIBSBML_SEV_INFO,LibSBML::LIBSBML_CAT_SYSTEM)
     assert( error.getErrorId() == 12345 )
-    assert( error.getMessage() == "My message" )
+    assert( error.getMessage() ==  "My message"  )
     assert( error.getSeverity() == LibSBML::LIBSBML_SEV_INFO )
-    assert( error.getSeverityAsString() == "Information" )
+    assert( error.getSeverityAsString() ==  "Informational"  )
     assert( error.getCategory() == LibSBML::LIBSBML_CAT_SYSTEM )
-    assert( error.getCategoryAsString() == "Operating system" )
+    assert( error.getCategoryAsString() ==  "Operating system" )
     assert_equal true, error.isInfo()
     assert_equal true, error.isSystem()
     error = nil
     error = LibSBML::XMLError.new(10000, "Another message",0,0,LibSBML::LIBSBML_SEV_FATAL,LibSBML::LIBSBML_CAT_XML)
     assert( error.getErrorId() == 10000 )
-    assert( error.getMessage() == "Another message" )
+    assert( error.getMessage() ==  "Another message"  )
     assert( error.getSeverity() == LibSBML::LIBSBML_SEV_FATAL )
-    assert( error.getSeverityAsString() == "Fatal error" )
+    assert( error.getSeverityAsString() ==  "Fatal"  )
     assert( error.getCategory() == LibSBML::LIBSBML_CAT_XML )
-    assert( error.getCategoryAsString() == "XML content" )
+    assert( error.getCategoryAsString() ==  "XML content" )
     assert_equal true, error.isFatal()
     assert_equal true, error.isXML()
     error = nil
