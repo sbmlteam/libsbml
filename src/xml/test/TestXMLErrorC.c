@@ -44,6 +44,22 @@ START_TEST (test_XMLError_create_C)
 }
 END_TEST
 
+
+START_TEST (test_XMLError_variablesAsStrings)
+{
+  XMLError_t *error = XMLError_createWithIdAndMessage(1003, "");
+  
+  fail_unless( XMLError_getErrorId(error)  == 1003 );
+  fail_unless( XMLError_getSeverity(error) == LIBSBML_SEV_ERROR );
+  fail_unless( !strcmp(XMLError_getSeverityAsString(error), "Error") );
+  fail_unless( XMLError_getCategory(error) == LIBSBML_CAT_XML );
+  fail_unless( !strcmp(XMLError_getCategoryAsString(error), "XML content"));
+
+  XMLError_free(error);
+}
+END_TEST
+
+
 Suite *
 create_suite_XMLError_C (void)
 {
@@ -51,6 +67,7 @@ create_suite_XMLError_C (void)
   TCase *tcase = tcase_create("XMLErrorC");
 
   tcase_add_test( tcase, test_XMLError_create_C  );
+  tcase_add_test( tcase, test_XMLError_variablesAsStrings  );
   suite_add_tcase(suite, tcase);
 
   return suite;

@@ -221,6 +221,7 @@
 
 #include <sbml/xml/XMLExtern.h>
 #include <sbml/common/sbmlfwd.h>
+#include <sbml/util/util.h>
 
 
 BEGIN_C_DECLS

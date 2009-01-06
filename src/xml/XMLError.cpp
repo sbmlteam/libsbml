@@ -743,7 +743,8 @@ LIBLAX_EXTERN
 const char *
 XMLError_getSeverityAsString (const XMLError_t *error)
 {
-  return error->getSeverityAsString().empty() ? 0 : error->getSeverityAsString().c_str();
+  return error->getSeverityAsString().empty() ? 0 : 
+      safe_strdup(error->getSeverityAsString().c_str());
 }
 
 
@@ -774,7 +775,8 @@ LIBLAX_EXTERN
 const char *
 XMLError_getCategoryAsString (const XMLError_t *error)
 {
-  return error->getCategoryAsString().empty() ? 0 : error->getCategoryAsString().c_str();
+  return error->getCategoryAsString().empty() ? 0 : 
+              safe_strdup(error->getCategoryAsString().c_str());
 }
 
 
