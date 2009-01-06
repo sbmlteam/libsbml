@@ -1,5 +1,6 @@
-The following files in this directory were borrowed "as is" 
-(except for one preprocessor code in unzip.c) from MiniZip version 1.01e 
+	Information about the compression library used in libSBML.
+
+The following files in this directory were borrowed from MiniZip version 1.01e
 (http://www.winimage.com/zLibDll/minizip.html) implemented by Gilles Vollant.
 
    1. crypt.h
@@ -7,13 +8,16 @@ The following files in this directory were borrowed "as is"
    3. ioapi.h
    4. iowin32.c
    5. iowin32.h
-   6. unzip.c
+   6. unzip.c*
    7. unzip.h
-   8. zip.c
+   8. zip.c*
    9. zip.h
 
+Files with * have been modified from their original versions of MiniZip
+1.0.1e in order to address compilation warnings on some platforms.
+
 Also, zip/unzip specific code in zipfstream.h and zipfstream.cpp in this 
-directory are based on the following files in MiniZIp version 1.0.1e.
+directory are based on the following files in MiniZip version 1.0.1e.
 
    1. minizip.c
    2. miniunz.c
@@ -58,9 +62,6 @@ in this directory are based on the above two files.
   3. zipfstream.h
   4. zipfstream.cpp 
 
------
-July 18, 2008
-Written by Akiya Jouraku <jouraku@bio.keio.ac.jp>
-
-
-
+======================================================================
+July 18, 2008 Written by Akiya Jouraku <jouraku@bio.keio.ac.jp>
+Jan. 6, 2009  Additional comments by Michael Hucka <mhucka@caltech.edu>

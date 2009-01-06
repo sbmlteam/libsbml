@@ -4,6 +4,10 @@
    27 Dec 2004 Rolf Kalbermatter
    Modification to zipOpen2 to support globalComment retrieval.
 
+   2009-01-06 <mhucka@caltech.edu> Modified to remove some unused
+   variables, functions, and ambiguous if-then-else nesting reported by
+   gcc -Wall under MacOS 10.5.6.
+
    Copyright (C) 1998-2005 Gilles Vollant
 
    Read zip.h for more info

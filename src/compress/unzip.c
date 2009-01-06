@@ -1,6 +1,10 @@
 /* unzip.c -- IO for uncompress .zip files using zlib
    Version 1.01e, February 12th, 2005
 
+   2009-01-06 <mhucka@caltech.edu> Modified to remove some unused
+   variables, functions, and ambiguous if-then-else nesting reported by
+   gcc -Wall under MacOS 10.5.6.
+
    Copyright (C) 1998-2005 Gilles Vollant
 
    Read unzip.h for more info
