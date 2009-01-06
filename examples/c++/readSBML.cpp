@@ -33,7 +33,7 @@ main (int argc, char* argv[])
   const char* filename   = argv[1];
   SBMLDocument* document;
   SBMLReader reader;
-  unsigned long start, stop;
+  unsigned long long start, stop;
 
   start    = getCurrentMillis();
   document = reader.readSBML(filename);

@@ -24,25 +24,25 @@
 /**
  * @return the number of milliseconds elapsed since the Epoch.
  */
-unsigned long
+unsigned long long
 getCurrentMillis (void)
 {
-  unsigned long result = 0;
+  unsigned long long result = 0;
 
 
 #if WIN32 && !defined(CYGWIN)
 
-  result = (unsigned long) GetTickCount();
+  result = (unsigned long long) GetTickCount();
 
 #else
 
   struct timeval tv;
 
-  if (gettimeofday(&tv, NULL) == 0)
+  if (gettimeofday(&tv, 0) == 0)
   {
-    result = static_cast<unsigned long>
+    result = static_cast<unsigned long long>
     (
-      (tv.tv_sec * 1000) + (tv.tv_usec * .001)
+     (tv.tv_sec * (time_t) 1000) + (tv.tv_usec * .001)
     );
   }
 
