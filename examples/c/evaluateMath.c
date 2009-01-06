@@ -54,8 +54,8 @@ evalAST(ASTNode_t *n);
 int
 main()
 {  
-  char           *line;
-  unsigned long  start, stop;
+  char               *line;
+  unsigned long long  start, stop;
      
   ASTNode_t *n;
   double result;    

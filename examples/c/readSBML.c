@@ -21,8 +21,8 @@ main (int argc, char *argv[])
 {
   const char *filename;
 
-  unsigned long start, stop, size;
-  unsigned int  errors;
+  unsigned long long start, stop, size;
+  unsigned int       errors;
 
   SBMLDocument_t *d;
 

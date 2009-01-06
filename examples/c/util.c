@@ -28,15 +28,15 @@
 /**
  * @return the number of milliseconds elapsed since the Epoch.
  */
-unsigned long
+unsigned long long
 getCurrentMillis (void)
 {
-  unsigned long result = 0;
+  unsigned long long result = 0;
 
 
 #if WIN32 && !defined(CYGWIN)
 
-  result = (unsigned long) GetTickCount();
+  result = (unsigned long long) GetTickCount();
 
 #else
 
@@ -44,7 +44,7 @@ getCurrentMillis (void)
 
   if (gettimeofday(&tv, NULL) == 0)
   {
-    result = (unsigned long) (tv.tv_sec * 1000) + (tv.tv_usec * .001);
+    result = (unsigned long long) (tv.tv_sec * 1000) + (tv.tv_usec * .001);
   }
 
 #endif /* WIN32 && !CYGWIN */
