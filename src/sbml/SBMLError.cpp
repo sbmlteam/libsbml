@@ -214,6 +214,9 @@ SBMLError::SBMLError (  const unsigned int errorId
              << "of SBML do.] " << endl;
     }
 
+    /* make sure severity int matches string */
+    syncSeverityString();
+
     newMsg << errorTable[index].message;
     if (!details.empty())
     {

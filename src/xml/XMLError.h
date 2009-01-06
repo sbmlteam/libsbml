@@ -786,6 +786,8 @@ public:
 protected:
   /** @cond doxygen-libsbml-internal */
 
+  void syncSeverityString();
+
   unsigned int mErrorId;
 
   std::string  mMessage;

@@ -98,6 +98,7 @@ Suite *create_suite_SBMLDocument             (void);
 Suite *create_suite_SBMLFormatter            (void);
 Suite *create_suite_SBMLHandler              (void);
 */
+Suite *create_suite_SBMLError                (void);
 Suite *create_suite_SBMLReader               (void);
 Suite *create_suite_SBMLWriter               (void);
 Suite *create_suite_SimpleSpeciesReference   (void);
@@ -206,6 +207,7 @@ main (int argc, char* argv[])
   srunner_add_suite( runner, create_suite_CopyAndClone                    () );
   srunner_add_suite( runner, create_suite_SBMLConvert              () );
   srunner_add_suite( runner, create_suite_SBMLDocument             () );
+  srunner_add_suite( runner, create_suite_SBMLError                () );
   srunner_add_suite( runner, create_suite_TestReadFromFile1() );
   srunner_add_suite( runner, create_suite_TestReadFromFile2() );
   srunner_add_suite( runner, create_suite_TestReadFromFile3() );

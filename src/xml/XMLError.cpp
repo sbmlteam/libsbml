@@ -570,6 +570,17 @@ ostream& operator<< (ostream& s, const XMLError& error)
   return s;
 }
 
+/* 
+ * since the severity of errors can be drawn from a table
+ * and therefore changed the unsigned int and string
+ * may go out of sync
+ */
+void
+XMLError::syncSeverityString()
+{
+  if ( mSeverity >= LIBSBML_SEV_INFO && mSeverity <= LIBSBML_SEV_FATAL)
+    mSeverityString = xmlSeverityStringTable[mSeverity];
+}
 
 /** @cond doxygen-c-only */
 
@@ -769,7 +780,7 @@ XMLError_getCategory (const XMLError_t *error)
  *
  * @param error the XMLError_t from which to return the category.
  *
- * @return tring representing the category of this XMLError.
+ * @return string representing the category of this XMLError.
  */
 LIBLAX_EXTERN
 const char *
