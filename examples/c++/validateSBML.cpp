@@ -34,27 +34,25 @@ main (int argc, char* argv[])
   const char* filename = argv[1];
   SBMLDocument* document;
   SBMLReader reader;
-  unsigned long start, stop;
+  unsigned long long start, stop;
 
   start    = getCurrentMillis();
   document = reader.readSBML(filename);
   stop     = getCurrentMillis();
-
-  unsigned int errors = document->getNumErrors();
 
   cout << endl;
   cout << "             filename: " << filename              << endl;
   cout << "            file size: " << getFileSize(filename) << endl;
   cout << "       read time (ms): " << stop - start          << endl;
 
-  bool seriousErrors = false;
+  unsigned int errors = document->getNumErrors();
+  bool seriousErrors  = false;
 
   if (errors > 0)
   {
     for (unsigned int i = 0; i < errors; i++)
     {
-      unsigned int severity = document->getError(i)->getSeverity();
-      if (severity == LIBSBML_SEV_ERROR || severity == LIBSBML_SEV_FATAL)
+      if (document->getError(i)->isFatal() || document->getError(i)->isError())
       {
         seriousErrors = true;
         break;
