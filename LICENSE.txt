@@ -1,4 +1,4 @@
-	   Licensing and Distribution Terms for libSBML
+           Licensing and Distribution Terms for libSBML
 
 Copyright 2005-2009 California Institute of Technology.
 Copyright 2002-2005 California Institute of Technology and 
@@ -33,3 +33,13 @@ http://sbml.org/software/libsbml/COPYING.html for your
 convenience.  You may also write to obtain a copy from the Free
 Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 MA 02111-1307 USA.
+
+
+            Third-party ssoftware incorporated into
+                   the libSBML distribution
+
+LibSBML incorporates a third-party software library, MiniZip
+1.01e, copyright (C) 1998-2005 Gilles Vollant, released under
+terms compatible with the LGPL.  Please see the file
+src/compress/00README.txt for more information about MiniZip
+1.01e and its license terms.

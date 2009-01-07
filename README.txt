@@ -203,6 +203,9 @@ Feature Highlights:
   .gz, .zip or .bz2, libSBML will automatically uncompress the file
   upon reading it.  Similarly, if the file to be written has one of
   those extensions, libSBML will write it out in compressed form.
+  (The compression library incorporated by libSBML is MiniZip 1.01e,
+  written by Gilles Vollant and made freely available for all uses
+  including commercial applications.)
 
 * Parser abstraction layer.  LibSBML relies on third-party XML parser
   libraries, but thanks to its implementation of a custom abstraction
@@ -317,9 +320,17 @@ list by visiting the following URL:
 6. LICENSING AND DISTRIBUTION
 -----------------------------
 
+LibSBML incorporates a third-party software library, MiniZip
+1.01e, copyright (C) 1998-2005 Gilles Vollant, released under
+terms compatible with the LGPL.  Please see the file
+src/compress/00README.txt for more information about MiniZip
+1.01e and its license terms.
+
+Licensing and Distribution Terms for libSBML:
+
 Copyright 2005-2009 California Institute of Technology.
 Copyright 2002-2005 California Institute of Technology and the
-                    Japan Science and Technology Agency.
+Japan Science and Technology Agency.
 
 LibSBML is free software; you can redistribute it and/or modify it
 under the terms of the GNU Lesser General Public License as published
@@ -367,6 +378,9 @@ California Institute of Technology (USA); the University of
 Hertfordshire (UK); the Molecular Sciences Institute (USA); the
 Systems Biology Institute (Japan); and Keio University (Japan).
 
+The libSBML authors are also grateful to Gilles Vollant for writing
+MiniZip 1.01e and making it freely available.  LibSBML incorporates
+MiniZip to support reading and writing compressed SBML files.
 
 
 -----------------------------------------------
