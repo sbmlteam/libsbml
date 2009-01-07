@@ -42,7 +42,8 @@ class TestXMLError(unittest.TestCase):
     self.assert_( error.getSeverityAsString() ==  "Error"  )
     self.assert_( error.getCategory() == libsbml.LIBSBML_CAT_XML )
     self.assert_( error.getCategoryAsString() ==  "XML content" )
-    self.assert_( error.getMessage() ==  "Duplicate attribute."  )
+    self.assert_( error.getMessage() ==  "Duplicate XML attribute."  )
+    self.assert_( error.getShortMessage() ==  "Duplicate attribute"  )
     error = None
     error = libsbml.XMLError(12345, "My message")
     self.assert_( error.getErrorId() == 12345 )
