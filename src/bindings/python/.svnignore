@@ -15,3 +15,6 @@ pydoc.i
 libsbml.py
 libsbml.pyc
 libsbml_wrap.cpp
+test.xml.zip
+test.xml.bz
+test.xml.gz
