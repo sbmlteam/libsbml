@@ -49,7 +49,8 @@ START_TEST (test_XMLError_create)
   fail_unless( error->getSeverityAsString() == "Error" );
   fail_unless( error->getCategory() == LIBSBML_CAT_XML );
   fail_unless( error->getCategoryAsString() == "XML content");
-  fail_unless( error->getMessage()  == "Duplicate attribute." );
+  fail_unless( error->getMessage()  == "Duplicate XML attribute." );
+  fail_unless( error->getShortMessage()  == "Duplicate attribute" );
   delete error;
 
   error = new XMLError(12345, "My message");

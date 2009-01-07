@@ -553,10 +553,16 @@ public:
    */
   virtual ~XMLError ();
 
+
   /**
    * Returns the identifier of this error.
    *
    * @return the id of this XMLError.
+   * 
+   * @see getMessage()
+   * @see getShortMessage()
+   * @see getCategory()
+   * @see getSeverity()
    */
   const unsigned int getErrorId () const;
 
@@ -564,9 +570,40 @@ public:
   /**
    * Returns the message text of this error.
    *
+   * The message associated with an error object describes the nature of
+   * the problem.  The message returned by this method is generally longer
+   * and clearer than the message returned by getShortMessage(), but not
+   * in all cases.
+   *
+   * Callers may use getCategory() and getSeverity() to obtain additional
+   * information about the nature and severity of the problem.
+   *
    * @return the message text
+   *
+   * @see getErrorId()
+   * @see getShortMessage()
+   * @see getCategory()
+   * @see getSeverity()
    */
   const std::string& getMessage () const;
+
+
+  /**
+   * Returns a brief message for this error.
+   *
+   * This is an alternative error message that, in general, is as short as
+   * the authors could make it.  However, brevity is often inversely
+   * proportional to clarity, so this short message may not be sufficiently
+   * informative to understand the nature of the error.
+   *
+   * @return the short error message text
+   * 
+   * @see getErrorId()
+   * @see getMessage()
+   * @see getCategory()
+   * @see getSeverity()
+   */
+  const std::string& getShortMessage () const;
 
 
   /**
@@ -595,6 +632,7 @@ public:
    *
    * @return the severity of this XMLError.
    *
+   * @see getSeverityAsString()
    * @see getCategory()
    */
   unsigned int getSeverity () const;
@@ -631,6 +669,7 @@ public:
    * @return the category of this XMLError.
    *
    * @see getSeverity()
+   * @see getCategoryAsString()
    */
   unsigned int getCategory () const;
 
@@ -796,20 +835,22 @@ public:
 protected:
   /** @cond doxygen-libsbml-internal */
 
-  void syncSeverityString();
-
   unsigned int mErrorId;
 
   std::string  mMessage;
+  std::string  mShortMessage;
 
   unsigned int mSeverity;
   unsigned int mCategory;
 
+  unsigned int mLine;
+  unsigned int mColumn;
+
   std::string mSeverityString;
   std::string mCategoryString;
 
-  unsigned int mLine;
-  unsigned int mColumn;
+  virtual std::string stringForSeverity(unsigned int code) const;
+  virtual std::string stringForCategory(unsigned int code) const;
 
   /** @endcond doxygen-libsbml-internal */
 };
@@ -839,6 +880,7 @@ typedef struct {
   int          code;
   unsigned int category;
   unsigned int severity;
+  const char*  shortMessage;
   const char*  message;
 } xmlErrorTableEntry;
 

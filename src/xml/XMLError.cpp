@@ -39,6 +39,7 @@ static const xmlErrorTableEntry errorTable[] =
 {
   // 0
   { XMLUnknownError, LIBSBML_CAT_INTERNAL, LIBSBML_SEV_FATAL,
+    "Unknown error",
     "Unrecognized error encountered internally." },
 
 
@@ -46,22 +47,27 @@ static const xmlErrorTableEntry errorTable[] =
 
   // 0001
   { XMLOutOfMemory, LIBSBML_CAT_SYSTEM, LIBSBML_SEV_FATAL,
+    "Out of memory",
     "Out of memory." },
 
   // 0002
   { XMLFileUnreadable, LIBSBML_CAT_SYSTEM, LIBSBML_SEV_ERROR,
+    "File unreadable",
     "File unreadable." },
 
   // 0003
   { XMLFileUnwritable, LIBSBML_CAT_SYSTEM, LIBSBML_SEV_ERROR,
+    "File unwritable",
     "File unwritable." },
 
   // 0004
   { XMLFileOperationError, LIBSBML_CAT_SYSTEM, LIBSBML_SEV_ERROR,
+    "File operation error",
     "Error encountered while attempting file operation." },
 
   // 0005
   { XMLNetworkAccessError, LIBSBML_CAT_SYSTEM, LIBSBML_SEV_ERROR,
+    "Network access error",
     "Network access error." },
 
 
@@ -69,14 +75,17 @@ static const xmlErrorTableEntry errorTable[] =
 
   // 0101
   { InternalXMLParserError, LIBSBML_CAT_INTERNAL, LIBSBML_SEV_FATAL,
+    "Internal XML parser error",
     "Internal XML parser state error." },
 
   // 0102
   { UnrecognizedXMLParserCode, LIBSBML_CAT_INTERNAL, LIBSBML_SEV_FATAL,
+    "Unrecognized XML parser code",
     "XML parser returned an unrecognized error code." },
 
   // 0102
   { XMLTranscoderError, LIBSBML_CAT_INTERNAL, LIBSBML_SEV_FATAL,
+    "Transcoder error",
     "Character transcoder error." },
 
 
@@ -84,142 +93,177 @@ static const xmlErrorTableEntry errorTable[] =
 
   // 1001
   { MissingXMLDecl, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Missing XML declaration",
     "Missing XML declaration at beginning of XML input." },
 
   // 1002
   { MissingXMLEncoding, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Missing XML encoding attribute",
     "Missing encoding attribute in XML declaration." },
 
   // 1003
   { BadXMLDecl, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Bad XML declaration",
     "Invalid or unrecognized XML declaration or XML encoding." },
 
   // 1004
   { BadXMLDOCTYPE, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Bad XML DOCTYPE",
     "Invalid, malformed or unrecognized XML DOCTYPE declaration." },
 
   // 1005
   { InvalidCharInXML, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Invalid character",
     "Invalid character in XML content." },
 
   // 1006
   { BadlyFormedXML, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Badly formed XML",
     "XML content is not well-formed." },
 
   // 1007
   { UnclosedXMLToken, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
-    "Unclosed token." },
+    "Unclosed token",
+    "Unclosed XML token." },
 
   // 1008
   { InvalidXMLConstruct, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Invalid XML construct",
     "XML construct is invalid or not permitted." },
 
   // 1009
   { XMLTagMismatch, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "XML tag mismatch",
     "Element tag mismatch or missing tag." },
 
   // 1010
   { DuplicateXMLAttribute, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
-    "Duplicate attribute." },
+    "Duplicate attribute",
+    "Duplicate XML attribute." },
 
   // 1011
   { UndefinedXMLEntity, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Undefined XML entity",
     "Undefined XML entity." },
 
   // 1012
   { BadProcessingInstruction, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Bad XML processing instruction",
     "Invalid, malformed or unrecognized XML processing instruction." },
 
   // 1013
   { BadXMLPrefix, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
-    "Invalid or undefined XML Namespace prefix." },
+    "Bad XML prefix",
+    "Invalid or undefined XML namespace prefix." },
 
   // 1014
   { BadXMLPrefixValue, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
-    "Invalid XML Namespace prefix value." },
+    "Bad XML prefix value",
+    "Invalid XML namespace prefix value." },
 
   // 1015
   { MissingXMLRequiredAttribute, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
-    "Missing a required attribute." },
+    "Missing required attribute",
+    "Missing a required XML attribute." },
 
   // 1016
   { XMLAttributeTypeMismatch, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Attribute type mismatch",
     "Data type mismatch for the value of an attribute." },
 
   // 1017
   { XMLBadUTF8Content, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Bad UTF8 content",
     "Invalid UTF8 content." },
 
   // 1018
   { MissingXMLAttributeValue, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Missing attribute value",
     "Missing or improperly formed attribute value." },
 
   // 1019
   { BadXMLAttributeValue, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Bad attribute value",
     "Invalid or unrecognizable attribute value." },
 
   // 1020
   { BadXMLAttribute, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Bad XML attribute",
     "Invalid, unrecognized or malformed attribute." },
 
   // 1021
   { UnrecognizedXMLElement, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Unrecognized XML element",
     "Element either not recognized or not permitted." },
 
   // 1022
   { BadXMLComment, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Bad XML comment",
     "Badly formed XML comment." },
 
   // 1023
   { BadXMLDeclLocation, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Bad XML declaration location",
     "XML declaration not permitted in this location." },
 
   // 1024
   { XMLUnexpectedEOF, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Unexpected EOF",
     "Reached end of input unexpectedly." },
 
   // 1025
   { BadXMLIDValue, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Bad XML ID value",
     "Value is invalid for XML ID, or has already been used." },
 
   // 1026
   { BadXMLIDRef, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Bad XML IDREF",
     "XML ID value was never declared." },
 
   // 1027
   { UninterpretableXMLContent, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Uninterpretable XML content",
     "Unable to interpret content." },
 
   // 1028
   { BadXMLDocumentStructure, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Bad XML document structure",
     "Bad XML document structure." },
 
   // 1029
   { InvalidAfterXMLContent, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Invalid content after XML content",
     "Encountered invalid content after expected content." },
 
   // 1031
   { XMLExpectedQuotedString, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Expected quoted string",
     "Expected to find a quoted string." },
 
   // 1032
   { XMLEmptyValueNotPermitted, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Empty value not permitted",
     "An empty value is not permitted in this context." },
 
   // 1033
   { XMLBadNumber, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Bad number",
     "Invalid or unrecognized number." },
 
   // 1034
   { XMLBadColon, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Colon character not permitted",
     "Colon characters are invalid in this context." },
 
   // 1035
   { MissingXMLElements, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Missing XML elements",
     "One or more expected elements are missing." },
 
   // 1036
   { XMLContentEmpty, LIBSBML_CAT_XML, LIBSBML_SEV_ERROR,
+    "Empty XML content",
     "Main XML content is empty." },
 
 };
@@ -281,7 +325,8 @@ XMLError::XMLError (  const int errorId
     {
       if ( errorTable[i].code == errorId )
       {
-        mMessage  = errorTable[i].message;
+        mMessage      = errorTable[i].message;
+	mShortMessage = errorTable[i].shortMessage;
 
         if ( !details.empty() )
         {
@@ -292,8 +337,8 @@ XMLError::XMLError (  const int errorId
         mSeverity = errorTable[i].severity;
         mCategory = errorTable[i].category;
         
-        mSeverityString = xmlSeverityStringTable[mSeverity];
-        mCategoryString = xmlCategoryStringTable[mCategory];
+        mSeverityString = stringForSeverity(mSeverity);
+        mCategoryString = stringForCategory(mSeverity);
 
         return;
       }
@@ -314,14 +359,18 @@ XMLError::XMLError (  const int errorId
 
   mMessage  = details;
 
-  mSeverity = severity;
-  mCategory = category;
+  // The following is just a default that seems more sensible than setting
+  // an empty string for the short message.
 
-  if ( mSeverity >= LIBSBML_SEV_INFO && mSeverity <= LIBSBML_SEV_FATAL)
-    mSeverityString = xmlSeverityStringTable[mSeverity];
+  mShortMessage = mMessage;
 
-  if ( mCategory >= LIBSBML_CAT_INTERNAL && mCategory <= LIBSBML_CAT_XML )
-    mCategoryString = xmlCategoryStringTable[mCategory];
+  // Other initializations.
+
+  mSeverity       = severity;
+  mSeverityString = stringForSeverity(severity);
+
+  mCategory       = category;
+  mCategoryString = stringForCategory(category);
 }
 
 
@@ -329,14 +378,14 @@ XMLError::XMLError (  const int errorId
  * Copy Constructor
  */
 XMLError::XMLError(const XMLError& orig) :
-   mErrorId(orig.mErrorId)
-  ,mMessage(orig.mMessage)
-  ,mSeverity(orig.mSeverity)
-  ,mCategory(orig.mCategory)
-  ,mSeverityString(orig.mSeverityString)
-  ,mCategoryString(orig.mCategoryString)
-  ,mLine(orig.mLine)
-  ,mColumn(orig.mColumn)
+    mErrorId(orig.mErrorId)
+  , mMessage(orig.mMessage)
+  , mSeverity(orig.mSeverity)
+  , mCategory(orig.mCategory)
+  , mLine(orig.mLine)
+  , mColumn(orig.mColumn)
+  , mSeverityString(orig.mSeverityString)
+  , mCategoryString(orig.mCategoryString)
 {
 }
 
@@ -350,7 +399,7 @@ XMLError::~XMLError ()
 
 
 /*
- * clone function
+ * Clone function.
  */
 XMLError* 
 XMLError::clone() const
@@ -376,6 +425,16 @@ const string&
 XMLError::getMessage () const
 {
   return mMessage;
+}
+
+
+/*
+ * @return the short message text of this XMLError.
+ */
+const string&
+XMLError::getShortMessage () const
+{
+  return mShortMessage;
 }
 
 
@@ -572,10 +631,37 @@ XMLError::getStandardMessage (const int code)
 
 
 /** @cond doxygen-libsbml-internal **/
-
 /*
- * Outputs this XMLError to stream in the following format (and followed by
- * a newline):
+ * @return the severity as a string for the given @n code.
+ */
+std::string XMLError::stringForSeverity(unsigned int code) const
+{
+  if ( code >= LIBSBML_SEV_INFO && code <= LIBSBML_SEV_FATAL)
+    return xmlSeverityStringTable[code];
+  else 
+    return "";
+}
+/** @endcond doxygen-libsbml-internal **/
+
+
+/** @cond doxygen-libsbml-internal **/
+/*
+ * @return the category as a string for the given @n code.
+ */
+std::string XMLError::stringForCategory(unsigned int code) const
+{
+  if ( code >= LIBSBML_CAT_INTERNAL && code <= LIBSBML_CAT_XML )
+    return xmlCategoryStringTable[code];
+  else 
+    return "";
+}
+/** @endcond doxygen-libsbml-internal **/
+
+
+/** @cond doxygen-libsbml-internal **/
+/*
+ * Prints this XMLError to stream @p s in the following format (and followed
+ * by a newline):
  *
  *   line: (error_id [severity]) message
  *
@@ -596,7 +682,6 @@ XMLError::print(std::ostream& s) const
     << " [" << getSeverityAsString() << "]) "
     << getMessage() << endl;
 }
-
 /** @endcond doxygen-libsbml-internal **/
 
 
@@ -613,17 +698,6 @@ ostream& operator<< (ostream& s, const XMLError& error)
   return s;
 }
 
-/* 
- * since the severity of errors can be drawn from a table
- * and therefore changed the unsigned int and string
- * may go out of sync
- */
-void
-XMLError::syncSeverityString()
-{
-  if ( mSeverity >= LIBSBML_SEV_INFO && mSeverity <= LIBSBML_SEV_FATAL)
-    mSeverityString = xmlSeverityStringTable[mSeverity];
-}
 
 /** @cond doxygen-c-only */
 
@@ -737,6 +811,21 @@ const char *
 XMLError_getMessage (const XMLError_t *error)
 {
   return error->getMessage().empty() ? 0 : error->getMessage().c_str();
+}
+
+
+/**
+ * Returns the short message text of this XMLError.
+ *
+ * @param error the XMLError_t from which to return the short message.
+ *
+ * @return the message text of this XMLError.
+ */
+LIBLAX_EXTERN
+const char *
+XMLError_getShortMessage (const XMLError_t *error)
+{
+  return error->getShortMessage().empty() ? 0 : error->getShortMessage().c_str();
 }
 
 
