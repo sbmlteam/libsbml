@@ -83,6 +83,14 @@ getSeverityForEntry(unsigned int index,
 
 
 /*
+ * @return the severity as a string for the given @n code.
+ */
+std::string SBMLError::stringForSeverity(unsigned int code) const
+{
+  return XMLError::stringForSeverity(code);
+}
+
+/*
  * Table of strings corresponding to the values from SBMLErrorCategory_t.
  * The enumeration starts at a number higher than 0, so each entry is keyed
  * by its enum value.
@@ -113,6 +121,20 @@ static struct sbmlCategoryString {
 static unsigned int sbmlCategoryStringTableSize
   = sizeof(sbmlCategoryStringTable)/sizeof(sbmlCategoryStringTable[0]);
 
+/*
+ * @return the category as a string for the given @n code.
+ */
+std::string SBMLError::stringForCategory(unsigned int code) const
+{
+  if ( code >= LIBSBML_CAT_SBML )
+  {
+    for ( unsigned int i = 0; i < sbmlCategoryStringTableSize; i++ )
+      if ( sbmlCategoryStringTable[i].catCode == code )
+        return sbmlCategoryStringTable[i].catString;
+  }
+
+  return XMLError::stringForCategory(code);
+}
 
 /** @endcond doxygen-libsbml-internal **/
 
@@ -124,46 +146,44 @@ SBMLError::SBMLError (  const unsigned int errorId
                       , const unsigned int line
                       , const unsigned int column
                       , const unsigned int severity
-                      , const unsigned int category ):
+                      , const unsigned int category ) :
     XMLError(errorId, details, line, column, severity, category)
 {
   // Check if the given id is one we have in our table of error codes.  If
   // it is, fill in the fields of the error object with the appropriate
   // content.  If it's not in the table, take the content as-is.
 
-  mErrorId = errorId;
-  mLine    = line;
-  mColumn  = column;
-
-  if ( errorId >= 0 && errorId < XMLErrorCodesUpperBound )
+  if ( mErrorId >= 0 && mErrorId < XMLErrorCodesUpperBound )
   {
-    // then error was caught during the XML read
+    // The error was caught during the XML read and the XMLError
+    // constructor will have filled in all the right pieces.
     return;
   }
-  else if ( errorId > XMLErrorCodesUpperBound
-            && errorId < SBMLCodesUpperBound )
+  else if ( mErrorId > XMLErrorCodesUpperBound
+            && mErrorId < SBMLCodesUpperBound )
   {
     unsigned int tableSize = sizeof(errorTable)/sizeof(errorTable[0]);
     unsigned int index = 0;
 
     for ( unsigned int i = 0; i < tableSize; i++ )
     {
-      if ( errorId == errorTable[i].code )
+      if ( mErrorId == errorTable[i].code )
       {
         index = i;
         break;
       }
     }
 
-    if ( index == 0 && ! (errorId > LibSBMLAdditionalCodesLowerBound
-                          && errorId < SBMLCodesUpperBound) )
+    if ( index == 0 && mErrorId != UnknownError
+         && ! (mErrorId > LibSBMLAdditionalCodesLowerBound
+               && mErrorId < SBMLCodesUpperBound) )
     {
       // The id is in the range of error numbers that are supposed to be in
       // the SBML layer, but it's NOT in our table. This is an internal error.
       // Unfortunately, we don't have an error log or anywhere to report it
       // except the measure of last resort: the standard error output.
     
-      cerr << "Internal error: unknown error code '" << errorId
+      cerr << "Internal error: unknown error code '" << mErrorId
            << "' encountered while processing error." << endl;
       return;
     }
@@ -171,6 +191,9 @@ SBMLError::SBMLError (  const unsigned int errorId
     // The rest of this block massages the results to account for how some
     // internal bookkeeping is done in libSBML 3, and also to provide
     // additional info in the messages.
+
+    mCategory     = errorTable[index].category;
+    mShortMessage = errorTable[index].shortMessage;
 
     if ( mErrorId == InconsistentArgUnitsWarnings
          || mErrorId == InconsistentPowerUnitsWarnings
@@ -214,8 +237,7 @@ SBMLError::SBMLError (  const unsigned int errorId
              << "of SBML do.] " << endl;
     }
 
-    /* make sure severity int matches string */
-    syncSeverityString();
+    // Finish updating the (full) error message.
 
     newMsg << errorTable[index].message;
     if (!details.empty())
@@ -223,23 +245,14 @@ SBMLError::SBMLError (  const unsigned int errorId
       newMsg << " " << details;
     }      
     newMsg << endl;
-      
-    mMessage        = newMsg.str();
-    mCategory       = errorTable[index].category;
+    mMessage  = newMsg.str();
 
-    // If it's got a category from the XML layer, then it will already have
-    // been assigned a category string by the constructor.  Only go
-    // assigning one if it's in the SBML range of categories.
+    // We mucked around with the severity code and (maybe) category code
+    // after creating the XMLError object, so we may have to update the
+    // corresponding strings.
 
-    if ( mCategory >= LIBSBML_CAT_SBML )
-    {
-      for ( unsigned int i = 0; i < sbmlCategoryStringTableSize; i++ )
-        if ( sbmlCategoryStringTable[i].catCode == mCategory )
-        {
-          mCategoryString = sbmlCategoryStringTable[i].catString;
-          break;
-        }
-    }
+    mSeverityString = stringForSeverity(mSeverity);
+    mCategoryString = stringForCategory(mCategory);
 
     return;
   }
@@ -248,9 +261,11 @@ SBMLError::SBMLError (  const unsigned int errorId
   // filled in all the relevant additional data.  (If they didn't, the
   // following merely assigns the defaults.)
 
-  mMessage  = details;
-  mSeverity = severity;
-  mCategory = category;
+  mMessage        = details;
+  mSeverity       = severity;
+  mCategory       = category;
+  mSeverityString = stringForSeverity(mSeverity);
+  mCategoryString = stringForCategory(mCategory);
 }
 
 
@@ -273,30 +288,19 @@ SBMLError::clone() const
 
 
 /** @cond doxygen-libsbml-internal **/
-
 /*
  * Outputs this SBMLError to stream in the following format (and followed by
  * a newline):
+ *
+ *   line: (error_id [severity]) message
  */
 void
 SBMLError::print(ostream& s) const
 {
   s << "line " << getLine() << ": ("
     << setfill('0') << setw(5) << getErrorId()
-    << " [";
-
-  switch (getSeverity())
-  {
-  case LIBSBML_SEV_INFO:            s << "Advisory"; break;
-  case LIBSBML_SEV_WARNING:         s << "Warning";  break;
-  case LIBSBML_SEV_FATAL:           s << "Fatal";    break;
-  case LIBSBML_SEV_ERROR:           s << "Error";    break;
-  case LIBSBML_SEV_SCHEMA_ERROR:    s << "Error";    break;
-  case LIBSBML_SEV_GENERAL_WARNING: s << "Warning";  break;
-  }
-
-  s << "]) " << getMessage() << endl;
+    << " [" << getSeverityAsString() << "]) "
+    << getMessage() << endl;
 }
 
 /** @endcond doxygen-libsbml-internal **/
-

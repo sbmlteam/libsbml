@@ -440,7 +440,7 @@ BEGIN_C_DECLS
  */
 typedef enum
 {
-    UnknownError                     =     0 /*!< 0 */
+    UnknownError                     = 10000 /*!< Internal error */
   , NotUTF8                          = 10101 /*!< SBML L2v3 validation rule #10101 */
   , UnrecognizedElement              = 10102 /*!< SBML L2v3 validation rule #10102 */
   , NotSchemaConformant              = 10103 /*!< SBML L2v3 validation rule #10103 */
@@ -996,6 +996,13 @@ public:
 
 #endif  /* !SWIG */
 
+protected:
+  /** @cond doxygen-libsbml-internal **/
+
+  virtual std::string stringForSeverity(unsigned int code) const;
+  virtual std::string stringForCategory(unsigned int code) const;
+
+  /** @endcond doxygen-libsbml-internal **/
 };
 
 #endif  /* __cplusplus */
