@@ -345,7 +345,7 @@ else
 fi
 
 
-dnl Simple helper function used below.
+dnl Simple helper functions used below.
 
 print_whitespace()
 {
@@ -412,7 +412,7 @@ print_flag "zlib"       $with_zlib      $with_zlib
 print_flag "bzip2"      $with_bzip2     $with_bzip2
 
 if test "$enable_layout" != "no" ; then
-  echo "  Using proposed layout exten.  = yes"
+  echo "  Using layout extension  = yes"
 fi
 
 echo ""
