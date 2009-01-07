@@ -10,3 +10,4 @@ TranslateSBML.c
 TranslateSBML.m
 .deps
 Makefile
+TranslateSBML.mex
