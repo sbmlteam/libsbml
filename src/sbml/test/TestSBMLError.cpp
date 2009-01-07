@@ -74,6 +74,28 @@ START_TEST (test_SBMLError_create)
   fail_unless( error->getCategory() == LIBSBML_CAT_SBML_L1_COMPAT );
   fail_unless( error->getCategoryAsString() == "Translation to SBML L1V2");
   delete error;
+
+  error = new SBMLError(DisallowedMathMLEncodingUse, 2, 2);
+  fail_unless( error->getErrorId()  == DisallowedMathMLEncodingUse );
+  fail_unless( error->getSeverity() == LIBSBML_SEV_ERROR );
+  fail_unless( error->getSeverityAsString() == "Error" );
+  fail_unless( error->getCategory() == LIBSBML_CAT_MATHML_CONSISTENCY );
+  fail_unless( error->getShortMessage() == "Disallowed use of MathML 'encoding' attribute");
+  delete error;
+
+  error = new SBMLError(DisallowedMathMLEncodingUse, 1, 2);
+  fail_unless( error->getErrorId()  == DisallowedMathMLEncodingUse );
+  fail_unless( error->getSeverity() == LIBSBML_SEV_NOT_APPLICABLE );
+  fail_unless( error->getCategory() == LIBSBML_CAT_MATHML_CONSISTENCY );
+  delete error;
+
+  error = new SBMLError(UnknownError, 2, 4);
+  fail_unless( error->getErrorId()  == UnknownError );
+  fail_unless( error->getSeverity() == LIBSBML_SEV_FATAL );
+  fail_unless( error->getSeverityAsString() == "Fatal" );
+  fail_unless( error->getCategory() == LIBSBML_CAT_INTERNAL );
+  fail_unless( error->getShortMessage() == "Unknown internal libSBML error");
+  delete error;
 }
 END_TEST
 
