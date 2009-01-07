@@ -255,18 +255,37 @@ SBMLError::SBMLError (  const unsigned int errorId
 
 
 /*
+ * Copy Constructor
+ */
+SBMLError::SBMLError(const SBMLError& orig) :
+ XMLError(orig)
+{}
+
+
+/*
+ * clone function
+ */
+SBMLError* 
+SBMLError::clone() const
+{
+  return new SBMLError(*this);
+}
+
+
+/** @cond doxygen-libsbml-internal **/
+
+/*
  * Outputs this SBMLError to stream in the following format (and followed by
  * a newline):
- *
- *   line: (error_id [severity]) message
  */
-ostream& operator<< (ostream& s, const SBMLError& error)
+void
+SBMLError::print(ostream& s) const
 {
-  s << "line " << error.getLine() << ": ("
-    << setfill('0') << setw(5) << error.getErrorId()
+  s << "line " << getLine() << ": ("
+    << setfill('0') << setw(5) << getErrorId()
     << " [";
 
-  switch (error.getSeverity())
+  switch (getSeverity())
   {
   case LIBSBML_SEV_INFO:            s << "Advisory"; break;
   case LIBSBML_SEV_WARNING:         s << "Warning";  break;
@@ -276,6 +295,8 @@ ostream& operator<< (ostream& s, const SBMLError& error)
   case LIBSBML_SEV_GENERAL_WARNING: s << "Warning";  break;
   }
 
-  s << "]) " << error.getMessage() << endl;
-  return s;
+  s << "]) " << getMessage() << endl;
 }
+
+/** @endcond doxygen-libsbml-internal **/
+

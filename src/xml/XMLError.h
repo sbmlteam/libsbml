@@ -543,10 +543,15 @@ public:
 
 
   /**
+   * Copy Constructor
+   */
+  XMLError(const XMLError& orig);
+
+
+  /**
    * Destroys this XMLError.
    */
   virtual ~XMLError ();
-
 
   /**
    * Returns the identifier of this error.
@@ -764,8 +769,15 @@ public:
    */
   static const std::string getStandardMessage (const int code);
 
-
 #ifndef SWIG
+
+  /** @cond doxygen-libsbml-internal */
+
+  /**
+   * clone function
+   */
+  virtual XMLError* clone() const;
+
 
   /**
    * Outputs this XMLError to stream in the following format (and followed
@@ -774,14 +786,12 @@ public:
    *   line: (error id) message
    *
    * @param stream the output stream to write to.
-   * @param error the XMLError to write.
    */
-  LIBLAX_EXTERN
-  friend
-  std::ostream& operator<< (std::ostream& stream, const XMLError& error);
+  virtual void print(std::ostream& stream) const;
 
-#endif  /* !SWIG */
+  /** @endcond doxygen-libsbml-internal */
 
+#endif
 
 protected:
   /** @cond doxygen-libsbml-internal */
@@ -805,7 +815,22 @@ protected:
 };
 
 
+#ifndef SWIG
+
 /** @cond doxygen-libsbml-internal */
+
+/**
+ * Outputs the given XMLError (or the derived class (e.g. SBMLError) ) to stream 
+ * by invoking the print function which is implemented as a virtual function in
+ * the class.
+ *
+ * @param stream the output stream to write to.
+ * @param error the XMLError to write.
+ */
+LIBLAX_EXTERN
+std::ostream& operator<< (std::ostream& stream, const XMLError& error);
+
+
 /**
  * The structured used in constructing tables of predefined error codes and
  * their associated messages, severities and categories. 
@@ -816,7 +841,10 @@ typedef struct {
   unsigned int severity;
   const char*  message;
 } xmlErrorTableEntry;
+
 /** @endcond doxygen-libsbml-internal */
+
+#endif  /* !SWIG */
 
 #endif  /* __cplusplus */
 

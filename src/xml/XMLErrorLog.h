@@ -144,7 +144,7 @@ public:
 protected:
   /** @cond doxygen-libsbml-internal */
 
-  std::vector<XMLError>  mErrors;
+  std::vector<XMLError*> mErrors;
   const XMLParser*       mParser;
 
   /** @endcond doxygen-libsbml-internal */

@@ -968,6 +968,34 @@ public:
    , const unsigned int category = LIBSBML_CAT_SBML
   );
 
+  /**
+   * Copy Constructor
+   */
+  SBMLError(const SBMLError&);
+
+#ifndef SWIG
+
+  /** @cond doxygen-libsbml-internal **/
+
+  /**
+   * clone function
+   */
+  virtual SBMLError* clone() const; 
+
+  /**
+   * Outputs this SBMLError to stream in the following format (and followed
+   * by a newline):
+   *
+   *   line: (error id) message
+   *
+   * @param stream the output stream to write to.
+   */
+  virtual void print(std::ostream& stream) const;
+
+  /** @endcond doxygen-libsbml-internal **/
+
+#endif  /* !SWIG */
+
 };
 
 #endif  /* __cplusplus */

@@ -22,6 +22,7 @@
  *----------------------------------------------------------------------- -->*/
 
 #include <algorithm>
+#include <functional>
 #include <string>
 #include <list>
 
@@ -50,11 +51,39 @@ SBMLErrorLog::SBMLErrorLog ()
 }
 
 
+/**
+ * Used by the Destructor to delete each item in mErrors.
+ */
+struct Delete : public unary_function<XMLError*, void>
+{
+  void operator() (XMLError* error) { delete error; }
+};
+
+
 /*
  * Destroys this SBMLErrorLog.
  */
 SBMLErrorLog::~SBMLErrorLog ()
 {
+/*
+  //
+  // debug code for SBMLErrorLog::remove(const unsigned int)
+  //
+  vector<XMLError*>::iterator iter;
+
+  int count = 0;
+  iter = mErrors.begin();
+  while(iter != mErrors.end() )
+  {
+    ++count;
+    unsigned int errid  = (*iter)->getErrorId();
+    unsigned int column = (*iter)->getColumn();
+    cout << "(" << count << ") ErrorId " << errid << " column " << column << endl;
+    remove (errid);
+    cout << "Size of mErrors " << mErrors.size() << endl;
+    iter = mErrors.begin();
+  }
+*/
 }
 
 
@@ -86,7 +115,7 @@ void
 SBMLErrorLog::add (const SBMLError& error)
 {
   if (error.getSeverity() != LIBSBML_SEV_NOT_APPLICABLE)
-    XMLErrorLog::add(dynamic_cast<const XMLError&>(error));
+    XMLErrorLog::add(error);
 }
 
 
@@ -103,7 +132,7 @@ SBMLErrorLog::add (const std::list<SBMLError>& errors)
   list<SBMLError>::const_iterator iter;
 
   for (iter = errors.begin(); iter != end; ++iter)
-    XMLErrorLog::add( XMLError(*iter) );
+    XMLErrorLog::add( *iter );
 }
 
 
@@ -115,9 +144,9 @@ class MatchErrorId
 public:
   MatchErrorId(const unsigned int theId) : idToFind(theId) {};
 
-  bool operator() (XMLError e) const
+  bool operator() (XMLError* e) const
   {
-    return e.getErrorId() == idToFind;
+    return e->getErrorId() == idToFind;
   };
 
 private:
@@ -133,9 +162,27 @@ private:
 void
 SBMLErrorLog::remove (const unsigned int errorId)
 {
-  mErrors.erase(
-    remove_if(mErrors.begin(), mErrors.end(), MatchErrorId(errorId)));
+  //
+  // "mErrors.erase( remove_if( ...), mErrors.end() )" can't be used for removing
+  // the matched items from the list, because the type of the vector container is pointer 
+  // of XMLError object. 
+  //
+  // (Effective STL 50 Specific Ways to Improve Your Use of the Standard Template Library
+  //  Scott Meyers
+  //  Item 33: Be wary of remove-like algorithms on containers of pointers. 143)
+  //
+  //
+  vector<XMLError*>::iterator endDelete;
 
+  // matched iterms are located from mErrors.begin() to endDelete (the return value of
+  // stable_partition algorithm)
+  endDelete = stable_partition(mErrors.begin(), mErrors.end(), MatchErrorId(errorId));
+
+  // deletes matched XMLError* items
+  for_each( mErrors.begin(), endDelete, Delete() );
+
+  // removes matched XMLError* items from the list
+  mErrors.erase( mErrors.begin(), endDelete);
 }
 
 
@@ -148,9 +195,9 @@ class MatchSeverity
 public:
   MatchSeverity(const unsigned int s) : severity(s) {};
 
-  bool operator() (XMLError e) const
+  bool operator() (XMLError* e) const
   {
-    return e.getSeverity() == severity;
+    return e->getSeverity() == severity;
   };
 
 private:

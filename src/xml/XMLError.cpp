@@ -326,10 +326,36 @@ XMLError::XMLError (  const int errorId
 
 
 /*
+ * Copy Constructor
+ */
+XMLError::XMLError(const XMLError& orig) :
+   mErrorId(orig.mErrorId)
+  ,mMessage(orig.mMessage)
+  ,mSeverity(orig.mSeverity)
+  ,mCategory(orig.mCategory)
+  ,mSeverityString(orig.mSeverityString)
+  ,mCategoryString(orig.mCategoryString)
+  ,mLine(orig.mLine)
+  ,mColumn(orig.mColumn)
+{
+}
+
+
+/*
  * Destroys this XMLError.
  */
 XMLError::~XMLError ()
 {
+}
+
+
+/*
+ * clone function
+ */
+XMLError* 
+XMLError::clone() const
+{
+  return new XMLError(*this);
 }
 
 
@@ -545,6 +571,8 @@ XMLError::getStandardMessage (const int code)
 }
 
 
+/** @cond doxygen-libsbml-internal **/
+
 /*
  * Outputs this XMLError to stream in the following format (and followed by
  * a newline):
@@ -560,12 +588,27 @@ XMLError::getStandardMessage (const int code)
  * severity string used here to be the same as what getSeverityAsString()
  * returns should not break any caller code.
  */
+void
+XMLError::print(std::ostream& s) const
+{
+  s << "line " << getLine() << ": ("
+    << setfill('0') << setw(5) << getErrorId()
+    << " [" << getSeverityAsString() << "]) "
+    << getMessage() << endl;
+}
+
+/** @endcond doxygen-libsbml-internal **/
+
+
+/*
+ * Outputs the given XMLError (or the derived class (e.g. SBMLError) ) to stream
+ * by invoking the print function which is implemented as a virtual function in
+ * the class.
+ *
+ */
 ostream& operator<< (ostream& s, const XMLError& error)
 {
-  s << "line " << error.mLine << ": ("
-    << setfill('0') << setw(5) << error.mErrorId
-    << " [" << error.getSeverityAsString() << "]) "
-    << error.mMessage << endl;
+  error.print(s);
 
   return s;
 }

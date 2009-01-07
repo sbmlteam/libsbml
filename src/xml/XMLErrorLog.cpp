@@ -21,6 +21,8 @@
  * also available online as http://sbml.org/software/libsbml/license.html
  *----------------------------------------------------------------------- -->*/
 
+#include <algorithm>
+#include <functional>
 #include <sstream>
 
 #include <sbml/xml/XMLError.h>
@@ -46,11 +48,22 @@ XMLErrorLog::XMLErrorLog ():mParser(NULL)
 
 
 /** @cond doxygen-libsbml-internal */
+
+/**
+ * Used by the Destructor to delete each item in mErrors.
+ */
+struct Delete : public unary_function<XMLError*, void>
+{
+  void operator() (XMLError* error) { delete error; }
+};
+
+
 /*
  * Destroys this XMLErrorLog.
  */
 XMLErrorLog::~XMLErrorLog ()
 {
+  for_each( mErrors.begin(), mErrors.end(), Delete() );
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -62,9 +75,22 @@ XMLErrorLog::~XMLErrorLog ()
 void
 XMLErrorLog::add (const XMLError& error)
 {
-  mErrors.push_back(error);
+  XMLError* cerror;
 
-  if (error.getLine() == 0 && error.getColumn() == 0)
+  try
+  {
+    cerror = error.clone();
+  }
+  catch (...)
+  {
+    // Currently do nothing.
+    // An error status would be returned in the 4.x.
+    return;
+  }
+
+  mErrors.push_back(cerror);
+
+  if (cerror->getLine() == 0 && cerror->getColumn() == 0)
   {
     unsigned int line, column;
     if (mParser != NULL)
@@ -86,15 +112,8 @@ XMLErrorLog::add (const XMLError& error)
       column = 1;
     }
 
-    // Can't modify 'error' directly because it's const, and the const
-    // declaration is needed to allow add() to be called in certain
-    // contexts.  The following cheats the const, in effect, by getting
-    // back the object after it's been added to the mErrors vector.
-
-    XMLError& e = mErrors.back();
-
-    e.setLine  ( line   );
-    e.setColumn( column );
+    cerror->setLine(line);
+    cerror->setColumn(column);
   }
 }
 /** @endcond doxygen-libsbml-internal */
@@ -111,7 +130,7 @@ XMLErrorLog::add (const std::list<XMLError>& errors)
   list<XMLError>::const_iterator end = errors.end();
   list<XMLError>::const_iterator iter;
 
-  for (iter = errors.begin(); iter != end; ++iter) add( XMLError(*iter) );
+  for (iter = errors.begin(); iter != end; ++iter) add( *iter );
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -122,7 +141,7 @@ XMLErrorLog::add (const std::list<XMLError>& errors)
 const XMLError*
 XMLErrorLog::getError (unsigned int n) const
 {
-  return (n < mErrors.size()) ? &mErrors[n] : 0;
+  return (n < mErrors.size()) ? mErrors[n] : 0;
 }
 
 
@@ -142,6 +161,7 @@ XMLErrorLog::getNumErrors () const
 void 
 XMLErrorLog::clearLog()
 {
+  for_each( mErrors.begin(), mErrors.end(), Delete() );
   mErrors.clear();
 }
 
