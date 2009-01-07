@@ -119,7 +119,7 @@ public class TestXMLError {
     assertTrue( error.getSeverityAsString().equals( "Error" ) );
     assertTrue( error.getCategory() == libsbml.LIBSBML_CAT_XML );
     assertTrue( error.getCategoryAsString().equals( "XML content") );
-    assertTrue( error.getMessage().equals( "Duplicate attribute." ) );
+    assertTrue( error.getMessage().equals( "Duplicate XML attribute." ) );
     error = null;
     error = new XMLError(12345, "My message");
     assertTrue( error.getErrorId() == 12345 );
