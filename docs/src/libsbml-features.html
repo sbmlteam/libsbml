@@ -104,7 +104,11 @@ Some of the other features of libSBML include the following:
   If an SBML file name ends in <code>.gz</code>, <code>.zip</code> or
   <code>.bz2</code>, libSBML will automatically uncompress the file upon
   reading it.  Similarly, if the file to be written has one of those
-  extensions, libSBML will write it out in compressed form.
+  extensions, libSBML will write it out in compressed form.  (The
+  compression library incorporated by libSBML is <a target="_blank"
+  href="http://www.winimage.com/zLibDll/minizip.html">MiniZip 1.01e</a>,
+  written by Gilles Vollant and made freely available for all uses
+  including commercial applications.)
 
 <li style="margin-bottom: 1em"> <em>Parser abstraction layer</em>.
   LibSBML relies on third-party XML parser libraries, but thanks to its
