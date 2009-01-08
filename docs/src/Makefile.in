@@ -286,10 +286,16 @@ endif
 else
 # Complain that doxygen isn't configured suitably.
 
-cpp-manual c-manual python-manual $(cpp-manual) $(c-manual) $(python-manual):;
-	@echo "Cannot make this manual because 'doxygen' cannot be"
-	@echo "found or its version is too old.  Please reconfigure with a"
-	@echo "suitable value for the configuration flag --with-doxygen."
+define nodoxygen
+
+  Cannot make create this manual, either because libSBML was not
+  configured using --with-doxygen, or 'doxygen' cannot be found, or
+  the version of 'doxygen' found is too old.  Please reconfigure with
+  a suitable value for the configuration flag --with-doxygen
+endef
+
+$(error $(nodoxygen))
+
 endif
 
 #
