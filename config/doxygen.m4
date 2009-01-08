@@ -24,6 +24,9 @@ dnl
 dnl Supports --with-doxygen[=PREFIX]
 dnl
 
+dnl WARNING: make sure to invoke this *after* invoking the check for Java,
+dnl because there's a test at the end of this file involving $with_java.
+
 AC_DEFUN([CONFIG_PROG_DOXYGEN],
 [
   AC_ARG_WITH([doxygen],
@@ -32,9 +35,12 @@ AC_DEFUN([CONFIG_PROG_DOXYGEN],
     [with_doxygen=$withval],
     [with_doxygen=no])
 
-  if test "$with_doxygen" != "yes" && test "$with_doxygen" != "no";
-  then
-    dnl Remove needless trailing slashes because it can confuse tests later.
+  if test "$with_doxygen" != "yes" && test "$with_doxygen" != "no"; then
+    dnl Users seems to have supplied a prefix directory path.  See if we can
+    dnl find swig somewhere in the given tree.
+
+    dnl 1st remove trailing slashes because it can confuse tests below.
+
     with_doxygen=`echo $with_doxygen | sed -e 's,\(.*\)/$,\1,g'`
 
     AC_PATH_PROG([DOXYGEN], [doxygen], [$with_doxygen],
@@ -44,67 +50,40 @@ AC_DEFUN([CONFIG_PROG_DOXYGEN],
     AC_PATH_PROG([DOXYGEN], [doxygen])
   fi
 
-  if test -n "$DOXYGEN";
-  then
+  if test -n "$DOXYGEN"; then
     dnl We've found a copy of doxygen.
-    dnl Now let's see: do we care which version we have?
+    dnl Check the version if required.
 
-    DOXYGEN_REQUEST_VERSION=
-
-    changequote(<<, >>)
-
-    for a in $1 $2 $3 $4 $5 $6 $7 $8 $9 x; do
-        case "$a" in
-            x) break;;
-            [0-9]*.[0-9]*.[0-9]*) DOXYGEN_REQUEST_VERSION="$a";;
-        esac
-    done
-
-    changequote([, ])
-
-    if test -n "$DOXYGEN_REQUEST_VERSION";
-    then
-      dnl Yes, apparently we care about the version.
-
-      doxygen_version=`"$DOXYGEN" --version | tr -d '\015'`
+    m4_ifvaln([$1], [
+      AC_MSG_CHECKING($DOXYGEN version >= $1)
 
       changequote(<<, >>)
 
-      doxygen_major_ver=`expr $doxygen_version : '\([0-9]*\)\.[0-9]*\.[0-9]*'`
-      doxygen_minor_ver=`expr $doxygen_version : '[0-9]*\.\([0-9]*\)\.[0-9]*'`
-      doxygen_micro_ver=`expr $doxygen_version : '[0-9]*\.[0-9]*\.\([0-9]*\)' '|' 0`
+      rx=`echo $1 | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\1/'`
+      ry=`echo $1 | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\2/'`
+      rz=`echo $1 | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\3/'`
+	
+      version=`"$DOXYGEN" --version | tr -d '\015'`
 
-      doxygen_major_req=`expr $DOXYGEN_REQUEST_VERSION : '\([0-9]*\)\.[0-9]*\.[0-9]*'`
-      doxygen_minor_req=`expr $DOXYGEN_REQUEST_VERSION : '[0-9]*\.\([0-9]*\)\.[0-9]*'`
-      doxygen_micro_req=`expr $DOXYGEN_REQUEST_VERSION : '[0-9]*\.[0-9]*\.\([0-9]*\)'`
+      dx=`echo $version | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\1/'`
+      dy=`echo $version | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\2/'`
+      dz=`echo $version | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\3/'`
 
       changequote([, ])
 
-      AC_MSG_CHECKING(if doxygen version >= $DOXYGEN_REQUEST_VERSION )
-
-      if test $doxygen_major_ver -gt $doxygen_major_req \
-         || (test $doxygen_major_ver -eq $doxygen_major_req && \
-             test $doxygen_minor_ver -gt $doxygen_minor_req) \
-         || (test $doxygen_major_ver -eq $doxygen_major_req && \
-             test $doxygen_minor_ver -eq $doxygen_minor_req && \
-             test $doxygen_micro_ver -ge $doxygen_micro_req)
-      then
-        AC_MSG_RESULT([yes (found $doxygen_version)])
-        AC_DEFINE([USE_DOXYGEN], 1, [Define to 1 to use DOXYGEN])
-        AC_SUBST(USE_DOXYGEN, 1)
+      if test $dx -gt $rx \
+         || (test $dx -eq $rx && test $dy -gt $ry) \
+         || (test $dx -eq $rx && test $dy -eq $ry && test $dz -ge $rz); then
+        AC_MSG_RESULT(yes (found $dx.$dy.$dz))
       else
-        AC_MSG_RESULT([no (found $doxygen_version)])
+        AC_MSG_RESULT(no)
+        AC_MSG_ERROR([Need DOXYGEN version $1, but only found version $dx.$dy.$dz.])
       fi
 
-      dnl The variable DOXYGEN will be defined automatically.
-      dnl The following are additional flags.
+    ])
 
-    else
-      dnl We don't care which version we have.
-
-      AC_DEFINE([USE_DOXYGEN], 1, [Define to 1 to use DOXYGEN])
-      AC_SUBST(USE_DOXYGEN, 1)
-    fi
+    AC_DEFINE([USE_DOXYGEN], 1, [Define to 1 to use DOXYGEN])
+    AC_SUBST(USE_DOXYGEN, 1)
 
     dnl Check the existence of a jar file for javadoc if --with-java enabled.
     dnl The jar file is classes.jar (MacOSX) or tools.jar (other OSes).

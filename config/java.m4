@@ -22,6 +22,10 @@ dnl in the file named "LICENSE.txt" included with this software distribution
 dnl and also available online as http://sbml.org/software/libsbml/license.html
 dnl --------------------------------------------------------------------- -->*/
 
+dnl
+dnl Supports --with-java[=PREFIX]
+dnl
+
 AC_DEFUN([CONFIG_PROG_JAVA],
 [
   AC_ARG_WITH([java],
@@ -32,21 +36,23 @@ AC_DEFUN([CONFIG_PROG_JAVA],
 
   if test "$with_java" != "no"; then
 
-    if test "$with_java" != "yes";
-    then
-      dnl Remove needless trailing slashes because it can confuse tests later.
-      with_java=`echo $with_java | sed -e 's,\(.*\)/$,\1,g'`
-
+    if test "$with_java" != "yes"; then
       dnl Users seems to have supplied a prefix directory path.  See if we can 
       dnl find Java somewhere in the given tree.
 
+      dnl 1st remove trailing slashes because it can confuse tests below.
+
+      with_java=`echo $with_java | sed -e 's,\(.*\)/$,\1,g'`
+
       AC_PATH_PROG([JAVA], [java], [$with_java/bin/java],
-                     [no-java-found], [$with_java/bin])
+                   [no-java-found], [$with_java/bin])
       AC_PATH_PROG([JAVAC], [javac], [$with_java/bin/javac],
-                     [no-javac-found], [$with_java/bin])
+                   [no-javac-found], [$with_java/bin])
       AC_PATH_PROG([JAR], [jar], [$with_java/bin/jar],
-                     [no-jar-found], [$with_java/bin])
+                   [no-jar-found], [$with_java/bin])
     else
+      dnl No prefix directory path supplied for --with-java.  Use defaults.
+
       AC_PATH_PROG([JAVA], [java])
       AC_PATH_PROG([JAVAC], [javac])
       AC_PATH_PROG([JAR], [jar])
@@ -64,38 +70,37 @@ AC_DEFUN([CONFIG_PROG_JAVA],
     dnl Check version if required.
 
     m4_ifvaln([$1], [
-        AC_MSG_CHECKING($JAVA version >= $1)
-        changequote(<<, >>)
-	rx=`echo $1 | sed -e 's/\([0-9]\)\.\([0-9]\)\.\([0-9]\).*/\1/'`
-	ry=`echo $1 | sed -e 's/\([0-9]\)\.\([0-9]\)\.\([0-9]\).*/\2/'`
-	rz=`echo $1 | sed -e 's/\([0-9]\)\.\([0-9]\)\.\([0-9]\).*/\3/'`
-	version=`"$JAVA" -version 2>&1 | sed -e 's/\(.*\)$/\1/;q'`
-	jx=`echo $version | sed -e 's/java version \"\([0-9]\)\.\([0-9]\)\.\([0-9]\).*/\1/'`
-	jy=`echo $version | sed -e 's/java version \"\([0-9]\)\.\([0-9]\)\.\([0-9]\).*/\2/'`
-	jz=`echo $version | sed -e 's/java version \"\([0-9]\)\.\([0-9]\)\.\([0-9]\).*/\3/'`
-        changequote([, ])
+      AC_MSG_CHECKING($JAVA version >= $1)
 
-	dnl The following long expression (which I couldn't figure out how
-	dnl to break across multiple lines in this autoconf script --
-	dnl sorry) checks that the Java major version is greater than or
-	dnl equal to the requested version and either (1) the minor version
-	dnl number is greater than the requested minor version number, or
-	dnl (2) the minor version number is equal to the requested number
-	dnl and the subminor Java version number is greater than or equal
-	dnl to the requested subminor version number.
+      changequote(<<, >>)
 
-        if test '(' $jx -ge $rx -a '(' '(' $jy -gt $ry ')' -o '(' '(' $jy -eq $ry ')' -a '(' $jz -ge $rz ')' ')' ')' ')' ; then
-          AC_MSG_RESULT(ok)
-        else
-          AC_MSG_RESULT(no)
-          AC_MSG_ERROR([Need Java version $1 but only found version $version.])
-        fi
+      rx=`echo $1 | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\1/'`
+      ry=`echo $1 | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\2/'`
+      rz=`echo $1 | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\3/'`
 
-	dnl Retain these for use below.
+      version=`"$JAVA" -version 2>&1 | sed -e 's/\(.*\)$/\1/;q'`
 
-	JAVA_VER_MAJOR=$jx
-	JAVA_VER_MINOR=$jy
-	JAVA_VER_SUBMINOR=$jz
+      jx=`echo $version | sed -e 's/java version \"\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\1/'`
+      jy=`echo $version | sed -e 's/java version \"\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\2/'`
+      jz=`echo $version | sed -e 's/java version \"\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\3/'`
+
+      changequote([, ])
+
+      if test $jx -gt $rx \
+         || (test $jx -eq $rx && test $jy -gt $ry) \
+         || (test $jx -eq $rx && test $jy -eq $ry && test $jz -ge $rz); then
+        AC_MSG_RESULT(yes (found $jx.$jy.$jz))
+      else
+        AC_MSG_RESULT(no)
+        AC_MSG_ERROR([Need Java version $1, but only found version $jx.$jy.$jz.])
+      fi
+
+      dnl Retain these for use below.
+
+      JAVA_VER_MAJOR=$jx
+      JAVA_VER_MINOR=$jy
+      JAVA_VER_SUBMINOR=$jz
+
     ])
 
     dnl Look for the path to the include files for Java.
