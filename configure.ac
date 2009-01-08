@@ -159,6 +159,9 @@ CONFIG_PROG_OCTAVE(2.9.7,2.9.7)
 CONFIG_PROG_RUBY
 CONFIG_PROG_CSHARP
 
+# Make sure to test doxygen *after* java, because there's a dependency on
+# in CONFIG_PROG_DOXYGEN on whether --with-java was also given.
+
 CONFIG_PROG_DOXYGEN(1.5.4)
 
 dnl AC_LIBTOOL_WIN32_DLL
@@ -399,6 +402,7 @@ echo "  Installation \$prefix          = $prefix"
 
 print_flag "libcheck"  	$with_libcheck	$with_check
 print_flag "SWIG"   	$with_swig	$SWIG
+print_flag "doxygen"    $with_doxygen   $with_doxygen
 print_flag "Java"   	$with_java	$JAVA
 print_flag "Python" 	$with_python	$PYTHON
 print_flag "Perl"   	$with_perl	$PERL
