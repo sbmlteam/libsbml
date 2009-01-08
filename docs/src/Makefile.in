@@ -284,7 +284,7 @@ endif
 
 
 else
-# Complain that doxygen isn't configured suitably.
+# Doxygen hasn't been configured suitably.
 
 define nodoxygen
 
@@ -294,7 +294,8 @@ define nodoxygen
   a suitable value for the configuration flag --with-doxygen
 endef
 
-$(error $(nodoxygen))
+docs:
+	$(error $(nodoxygen))
 
 endif
 
