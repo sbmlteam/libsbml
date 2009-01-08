@@ -342,6 +342,34 @@ endif
 # Installation.
 # -----------------------------------------------------------------------------
 
+define install-linux-warning-msg
+
+  The installation of libSBML is finished.  On certain platforms
+  (such as Linux), you will also need to do one of the following:
+  1) run 'ldconfig' (see the man page if this is unfamiliar)
+  2) set the LD_LIBRARY_PATH (or equivalent) environment variable
+  to contain the path "$(DESTDIR)$(LIBDIR)" so that programs can 
+  find the libSBML library at run-time.
+
+endef
+define install-darwin-warning-msg
+
+  The installation of libSBML is finished.  To use the library, you
+  may also need to set your DYLD_LIBRARY_PATH environment to contain
+  the path "$(DESTDIR)$(LIBDIR)" so that programs can find the 
+  libSBML library at run-time.
+
+endef
+define uninstall-warning-msg
+
+  Uninstallation complete.  WARNING: if you have run libSBML's 'configure'
+  utility since the time of the last installation of libSBML on this computer, 
+  the uninstallation just performed may not have removed all of the libSBML
+  files.  The 'make uninstall' command only knows about the files installed
+  by libSBML according to its MOST RECENT CONFIGURATION.
+
+endef
+
 install: all install-recursive install-warnings install-pc install-la
 
 install-docs: install-docs-recursive
@@ -349,13 +377,10 @@ install-docs: install-docs-recursive
 installcheck: installcheck-recursive
 
 install-warnings:
-ifneq "$(HOST_TYPE)" "darwin"
-	@echo ""
-	@echo "The installation of libSBML is finished.  On certain platforms"
-	@echo "(such as Linux), you will also need to do one of the following:"
-	@echo "1) run 'ldconfig' (see the man page if this is unfamiliar)"
-	@echo "2) set the LD_LIBRARY_PATH (or equivalent) environment variable"
-	@echo ""
+ifeq "$(HOST_TYPE)" "darwin"
+	$(warning $(install-darwin-warning-msg))
+else
+	$(warning $(install-linux-warning-msg))
 endif
 
 install-pc: libsbml.pc
@@ -392,15 +417,7 @@ uninstall: uninstall-recursive uninstall-libsbml-pc uninstall-libsbml-la
 	    echo "Directory $(DESTDIR) not empty; leaving it alone"; \
 	  fi; \
 	fi;
-	@echo ""
-	@echo "Uninstallation complete.  WARNING: if you have run libSBML's"
-	@echo "'configure' utility since the time of the last installation"
-	@echo "of libSBML on this computer, the uninstallation just"
-	@echo "performed may not have removed all of the libSBML files."
-	@echo "The 'make uninstall' command only knows about the files"
-	@echo "installed by libSBML according to its MOST RECENT"
-	@echo "CONFIGURATION."
-	@echo ""
+	$(warning $(uninstall-warning-msg))
 
 uninstall-libsbml-pc:
 	@target="$(DESTDIR)$(LIBDIR)/pkgconfig/libsbml.pc"; \
