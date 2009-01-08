@@ -190,7 +190,8 @@ all docs: Makefile $(docs)
 ifdef USE_LIBCHECK
   check: all run-checks
 else
-  check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
+  check:
+	$(error "Please first rerun 'configure' with the --with-check flag")
 endif
 
 
