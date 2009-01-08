@@ -371,10 +371,19 @@ print_flag()
   fi
 }
 
- 
+
 echo ""
-echo "------------------------------------------------------------"
+echo "----------------------------------------------------------------------"
 echo "${PACKAGE_NAME} version ${PACKAGE_VERSION}"
+echo "----------------------------------------------------------------------"
+echo ""
+echo "More information and the latest version are available online at"
+echo "http://sbml.org/Software/libSBML"
+echo ""
+echo "Please report problems using the issue tracker at"
+echo "http://sbml.org/software/libsbml/issue-tracker"
+echo ""
+echo "To contact the developers directly, email libsbml-team@caltech.edu"
 echo ""
 echo "Configured on host \"`hostname`\""
 echo "  host type                     = $HOST_TYPE"
@@ -436,5 +445,5 @@ fi
 dnl Temporarily unavailable anyway, so skip this for now:
 dnl echo "  enable memory tracing? = $enable_tracing"
 
-echo "------------------------------------------------------------"
+echo "----------------------------------------------------------------------"
 echo ""
