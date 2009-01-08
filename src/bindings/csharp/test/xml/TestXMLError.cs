@@ -126,7 +126,8 @@ namespace LibSBMLCSTest {
       assertTrue( error.getSeverityAsString() ==  "Error"  );
       assertTrue( error.getCategory() == libsbml.LIBSBML_CAT_XML );
       assertTrue( error.getCategoryAsString() ==  "XML content" );
-      assertTrue( error.getMessage() ==  "Duplicate attribute."  );
+      assertTrue( error.getMessage() ==  "Duplicate XML attribute."  );
+      assertTrue( error.getShortMessage() ==  "Duplicate attribute"  );
       error = null;
       error = new XMLError(12345, "My message");
       assertTrue( error.getErrorId() == 12345 );
