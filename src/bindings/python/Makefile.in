@@ -272,6 +272,10 @@ ifneq "$(DESTDIR)" ""
   root = --root "$(DESTDIR)"
 endif
 
+module_path = $(shell $(PYTHON) -c "from distutils.sysconfig import get_python_lib; \
+                prefix=\"$(prefix)\"; print get_python_lib(prefix=prefix)")
+
+
 # In order to avoid MACOSX_DEPLOYMENT_TARGET mismatch error on Mac OS X,
 # environment variable MACOSX_DEPLOYMENT_TARGET is set to '' at
 # install-time.  Python distutils sets proper value to
@@ -294,8 +298,12 @@ create-build-dir: $(libraries)
 
 installcheck:
 
-uninstall: setup.py
-	$(PYTHON) setup.py uninstall --prefix=$(prefix) $(root)
+uninstall: 
+	-rm $(DESTDIR)$(module_path)/libsbml.pth
+	-rm $(DESTDIR)$(module_path)/libsbml/_libsbml.$(PYTHON_EXT)
+	-rm $(DESTDIR)$(module_path)/libsbml/libsbml.py
+	-rm $(DESTDIR)$(module_path)/libsbml/libsbml.pyc
+	-rmdir $(DESTDIR)$(module_path)/libsbml
 
 
 # -----------------------------------------------------------------------------
