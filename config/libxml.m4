@@ -3,7 +3,8 @@ dnl Description : Autoconf macro to check for existence of libxml library
 dnl Created     : 2007-02-22
 dnl Revision    : $Id$
 dnl $HeadURL$
-
+dnl
+dnl ---------------------------------------------------------------------------
 dnl Portions of this file were taken from the file "libxml.m4" provided
 dnl with the libxml2 version 2.6.27 distribution.  Here are the headers
 dnl from that file:
@@ -15,13 +16,52 @@ dnl    Toshio Kuratomi 2001-04-21
 dnl    Adapted from:
 dnl    Configure paths for GLIB
 dnl    Owen Taylor     97-11-3
+dnl 
+dnl Modifications here (in the version used in libSBML) include changing
+dnl the configure flag to be "--with-libxml" to better distinguish the
+dnl library in the libSBML configure options, changing the name of the
+dnl macro to CONFIG_LIB_LIBXML, and various modifications to the code.
+dnl
+dnl The file libxml.m4 from libxml2 version 2.6.27 does not itself contain
+dnl a copyright or license statement, but libxml 2.6.27 overall contains the
+dnl following copyright and distribution notice:
+dnl
+dnl ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+dnl Except where otherwise noted in the source code (e.g. the files hash.c,
+dnl list.c and the trio files, which are covered by a similar licence but
+dnl with different Copyright notices) all the files are:
+dnl 
+dnl  Copyright (C) 1998-2003 Daniel Veillard.  All Rights Reserved.
+dnl 
+dnl Permission is hereby granted, free of charge, to any person obtaining a copy
+dnl of this software and associated documentation files (the "Software"), to deal
+dnl in the Software without restriction, including without limitation the rights
+dnl to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+dnl copies of the Software, and to permit persons to whom the Software is fur-
+dnl nished to do so, subject to the following conditions:
+dnl 
+dnl The above copyright notice and this permission notice shall be included in
+dnl all copies or substantial portions of the Software.
+dnl 
+dnl THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+dnl IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FIT-
+dnl NESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+dnl DANIEL VEILLARD BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+dnl IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CON-
+dnl NECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+dnl 
+dnl Except as contained in this notice, the name of Daniel Veillard shall not
+dnl be used in advertising or otherwise to promote the sale, use or other deal-
+dnl ings in this Software without prior written authorization from him.
+dnl ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 
-dnl Modifications include changing the configure flag to be "--with-libxml"
-dnl to better distinguish the library in the libSBML configure options,
-dnl also changing the name of the macro to CONFIG_LIB_LIBXML
 
+dnl
+dnl Supports --with-libxml[=PREFIX]
+dnl
+dnl Invoke from configure.ac as
 dnl CONFIG_LIB_LIBXML([MIN-VERSION, [ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND]]])
-dnl Test for XML, and define LIBXML_CPPFLAGS and LIBXML_LIBS
+dnl Tests for libxml2, and defines LIBXML_CPPFLAGS and LIBXML_LIBS.
 
 AC_DEFUN([CONFIG_LIB_LIBXML],
 [ 
