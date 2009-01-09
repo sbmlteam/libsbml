@@ -87,7 +87,32 @@ getSeverityForEntry(unsigned int index,
  */
 std::string SBMLError::stringForSeverity(unsigned int code) const
 {
-  return XMLError::stringForSeverity(code);
+  /* it should never happen that an error ends up with a severity
+   * that is not in the XMLSeverity_t enumeration
+   * but just in case:
+   */
+  if (code < LIBSBML_SEV_SCHEMA_ERROR)
+  {
+    return XMLError::stringForSeverity(code);
+  }
+  else
+  {
+    switch (code)
+    {
+      case LIBSBML_SEV_SCHEMA_ERROR:
+        return "Schema error";
+        break;
+      case LIBSBML_SEV_GENERAL_WARNING:
+        return "General warning";
+        break;
+      case LIBSBML_SEV_NOT_APPLICABLE:
+        return "Not applicable";
+        break;
+      default:
+        return "";
+        break;
+    }
+  }
 }
 
 /*

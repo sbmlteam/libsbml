@@ -380,6 +380,7 @@ XMLError::XMLError (  const int errorId
 XMLError::XMLError(const XMLError& orig) :
     mErrorId(orig.mErrorId)
   , mMessage(orig.mMessage)
+  , mShortMessage(orig.mShortMessage)
   , mSeverity(orig.mSeverity)
   , mCategory(orig.mCategory)
   , mLine(orig.mLine)
@@ -475,7 +476,7 @@ XMLError::getSeverity () const
  * XMLError severity levels correspond to those defined in the XML
  * specification (with the addition of Info for informational messages).
  */
-const std::string 
+const std::string& 
 XMLError::getSeverityAsString() const
 {
   return mSeverityString;
@@ -499,7 +500,7 @@ XMLError::getCategory () const
 /*
  * @return a string explaining the category code for this XMLError.
  */
-const std::string 
+const std::string& 
 XMLError::getCategoryAsString() const
 {
   return mCategoryString;
@@ -887,7 +888,7 @@ const char *
 XMLError_getSeverityAsString (const XMLError_t *error)
 {
   return error->getSeverityAsString().empty() ? 0 : 
-      safe_strdup(error->getSeverityAsString().c_str());
+                            error->getSeverityAsString().c_str();
 }
 
 
@@ -919,7 +920,7 @@ const char *
 XMLError_getCategoryAsString (const XMLError_t *error)
 {
   return error->getCategoryAsString().empty() ? 0 : 
-              safe_strdup(error->getCategoryAsString().c_str());
+                             error->getCategoryAsString().c_str();
 }
 
 

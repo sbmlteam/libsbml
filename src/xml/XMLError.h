@@ -651,7 +651,7 @@ public:
    * @see getSeverity()
    * @see getCategoryAsString()
    */
-  const std::string getSeverityAsString() const;
+  const std::string& getSeverityAsString() const;
   
   
   /**
@@ -691,7 +691,7 @@ public:
    * @see getCategory()
    * @see getSeverityAsString()
    */
-  const std::string getCategoryAsString () const;
+  const std::string& getCategoryAsString () const;
 
 
   /**
@@ -931,6 +931,11 @@ XMLError_getErrorId (const XMLError_t *error);
 LIBLAX_EXTERN
 const char *
 XMLError_getMessage (const XMLError_t *error);
+
+
+LIBLAX_EXTERN
+const char *
+XMLError_getShortMessage (const XMLError_t *error);
 
 
 LIBLAX_EXTERN
