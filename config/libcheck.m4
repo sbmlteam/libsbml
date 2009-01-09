@@ -1,20 +1,40 @@
-dnl
 dnl @file    libcheck.m4
 dnl @brief   Autoconf macro to check for existence of Check library
-dnl @author  Mike hucka
-dnl
+dnl @author  Mike hucka (but portions taken from Check 0.9.5)
 dnl $Id$
 dnl $HeadURL$
+dnl
+dnl ---------------------------------------------------------------------------
+dnl This file is part of libSBML.  Please visit http://sbml.org for more
+dnl information about SBML, and the latest version of libSBML.
+dnl
+dnl Copyright 2005-2009 California Institute of Technology.
+dnl Copyright 2002-2005 California Institute of Technology and
+dnl                     Japan Science and Technology Corporation.
+dnl 
+dnl This library is free software; you can redistribute it and/or modify it
+dnl under the terms of the GNU Lesser General Public License as published by
+dnl the Free Software Foundation.  A copy of the license agreement is provided
+dnl in the file named "LICENSE.txt" included with this software distribution 
+dnl and also available online as http://sbml.org/software/libsbml/license.html
+dnl ---------------------------------------------------------------------------
 dnl 
 dnl Portions of this file originally came from the check 0.9.5
-dnl distribution.  I (Mike Hucka) made some modifications because we
-dnl previously had written our own libcheck.m4 and I wanted to
-dnl preserve some of the features of that one, such as the messages
-dnl it printed and the extra steps it too on MacOS X.
+dnl distribution.  I (Mike Hucka) made some modifications because before
+dnl discovering the version provided by check 0.9.5, we previously had
+dnl written our own libcheck.m4, and I wanted to preserve some of the
+dnl features of that original one, such as the messages it printed and the
+dnl extra steps it too on MacOS X.
+dnl
+dnl According to the file NEWS in the check 0.9.5 distribution,
+dnl libcheck is distributed under the terms of the LGPL.
 
-dnl Invoke as CONFIG_LIB_CHECK or CONFIG_LIB_CHECK(MIN-VERSION).
-dnl Checks if --with-check[=PREFIX] is specified.
+dnl
+dnl Supports --with-check[=PREFIX]
+dnl
+dnl Invoke in configure.ac as CONFIG_LIB_CHECK or CONFIG_LIB_CHECK(MIN-VERSION).
 dnl Default minimum version is 0.9.2 because that's the minimum LibSBML needs.
+dnl
 
 AC_DEFUN([CONFIG_LIB_LIBCHECK],
 [
