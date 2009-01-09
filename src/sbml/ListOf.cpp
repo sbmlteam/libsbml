@@ -421,6 +421,27 @@ ListOf::readAttributes (const XMLAttributes& attributes)
     }
   }
 }
+
+void 
+ListOf::writeAttributes (XMLOutputStream& stream) const
+{
+  SBase::writeAttributes(stream);
+
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  if (level > 1)
+  {
+    //
+    // sboTerm: SBOTerm { use="optional" }  (L2v3 ->)
+    //
+    if (!(level == 2 && version < 3)) 
+    {
+      SBO::writeTerm(stream, mSBOTerm);
+    }
+  }
+}
+
 /** @endcond doxygen-libsbml-internal */
 
 
