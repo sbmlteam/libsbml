@@ -26,6 +26,7 @@
 
 #include <sbml/SBMLVisitor.h>
 #include <sbml/ListOf.h>
+#include <sbml/SBO.h>
 
 /** @cond doxygen-ignored */
 
@@ -369,6 +370,59 @@ ListOf::writeElements (XMLOutputStream& stream) const
   for_each( mItems.begin(), mItems.end(), Write(stream) );
 }
 /** @endcond doxygen-libsbml-internal */
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+ListOf::readAttributes (const XMLAttributes& attributes)
+{
+  SBase::readAttributes(attributes);
+
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+
+  if (level > 1)
+  {
+    expectedAttributes.push_back("metaid");
+
+    if (level > 2 || (level == 2 && version > 2))
+      expectedAttributes.push_back("sboTerm");
+  }
+
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
+  {
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      std::string component = "<" + getElementName() + ">";
+      logUnknownAttribute(name, level, version, component);
+    }
+  }
+
+  if (level > 1)
+  {
+    //
+    // sboTerm: SBOTerm { use="optional" }  (L2v3 ->)
+    //
+    if (!(level == 2 && version < 3)) 
+    {
+      mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
+    }
+  }
+}
+/** @endcond doxygen-libsbml-internal */
+
 
 
 /** @cond doxygen-c-only */
