@@ -7,29 +7,24 @@ dnl Created     : 2007-12-17
 dnl Revision    : $Id$
 dnl $HeadURL$
 dnl
-dnl Portions of this code originally came from the aclocal 1.7
-dnl distribution.  The main macro was named AM_PATH_PYTHON, but I (Mike
-dnl Hucka) changed the names of this and various variables it defines
-dnl because it is being used outside of automake.
+dnl <!-------------------------------------------------------------------------
+dnl This file is part of libSBML.  Please visit http://sbml.org for more
+dnl information about SBML, and the latest version of libSBML.
+dnl
+dnl Copyright 2005-2009 California Institute of Technology.
+dnl Copyright 2002-2005 California Institute of Technology and
+dnl                     Japan Science and Technology Corporation.
+dnl 
+dnl This library is free software; you can redistribute it and/or modify it
+dnl under the terms of the GNU Lesser General Public License as published by
+dnl the Free Software Foundation.  A copy of the license agreement is provided
+dnl in the file named "LICENSE.txt" included with this software distribution
+dnl and also available online as http://sbml.org/software/libsbml/license.html
+dnl --------------------------------------------------------------------- -->*/
 
-dnl Portions of the code contained here was initially developed by:
-dnl Andrew Dalke and James Henstridge.
-dnl Copyright 1999, 2000, 2001, 2002  Free Software Foundation, Inc.
 dnl
-dnl This program is free software; you can redistribute it and/or modify
-dnl it under the terms of the GNU General Public License as published by
-dnl the Free Software Foundation; either version 2, or (at your option)
-dnl any later version.
+dnl Provides --with-ruby[=PREFIX]
 dnl
-dnl This program is distributed in the hope that it will be useful,
-dnl but WITHOUT ANY WARRANTY; without even the implied warranty of
-dnl MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-dnl GNU General Public License for more details.
-dnl
-dnl You should have received a copy of the GNU General Public License
-dnl along with this program; if not, write to the Free Software
-dnl Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
-dnl 02111-1307, USA.
 
 AC_DEFUN([CONFIG_PROG_RUBY],
 [
