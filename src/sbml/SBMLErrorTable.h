@@ -3893,6 +3893,22 @@ static const sbmlErrorTableEntry errorTable[] =
     "Sections 4.2.2 and 5; L2V4 Sections 4.2.2 and 5)"
   },
 
+  //99101
+  {
+    InvalidSBMLLevelVersion,
+    "Invalid SBML Level and Version",
+    LIBSBML_CAT_SBML,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    "The level and version specified for the document must be "
+    "consistent with a valid published SBML specification.  These are "
+    "Level 1, Versions 1 and 2 and Level 2, Versions 1, 2, 3 and 4."
+  },
+
   //99106
   {
     InvalidRuleOrdering,

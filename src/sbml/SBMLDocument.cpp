@@ -1067,6 +1067,27 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
   //
   attributes.readInto("version", mVersion, getErrorLog(), true);
 
+  /* check that the level and version are valid */
+  if (mLevel == 1)
+  {
+    if (mVersion > 2)
+    {
+      logError(InvalidSBMLLevelVersion);
+    }
+  }
+  else if (mLevel == 2)
+  {
+    if (mVersion > 4)
+    {
+      logError(InvalidSBMLLevelVersion);
+    }
+  }
+  else
+  {
+    logError(InvalidSBMLLevelVersion);
+    return;
+  }
+  
   /* check that sbml namespace has been set */
   unsigned int match = 0;
   if (mNamespaces == NULL)

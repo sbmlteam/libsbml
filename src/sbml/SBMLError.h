@@ -675,6 +675,7 @@ typedef enum
 
   /* These are errors checked by libSBML that were never
    * published in a spec. */
+  , InvalidSBMLLevelVersion          = 99101
   , InvalidRuleOrdering              = 99106
 
   , SubsUnitsAllowedInKL             = 99127
