@@ -299,10 +299,10 @@ create-build-dir: $(libraries)
 installcheck:
 
 uninstall: 
-	-rm $(DESTDIR)$(module_path)/libsbml.pth
-	-rm $(DESTDIR)$(module_path)/libsbml/_libsbml.$(PYTHON_EXT)
-	-rm $(DESTDIR)$(module_path)/libsbml/libsbml.py
-	-rm $(DESTDIR)$(module_path)/libsbml/libsbml.pyc
+	-rm -f $(DESTDIR)$(module_path)/libsbml.pth
+	-rm -f $(DESTDIR)$(module_path)/libsbml/_libsbml.$(PYTHON_EXT)
+	-rm -f $(DESTDIR)$(module_path)/libsbml/libsbml.py
+	-rm -f $(DESTDIR)$(module_path)/libsbml/libsbml.pyc
 	-rmdir $(DESTDIR)$(module_path)/libsbml
 
 
