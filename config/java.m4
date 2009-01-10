@@ -108,7 +108,16 @@ AC_DEFUN([CONFIG_PROG_JAVA],
     dnl We need to get to the real directory first.
 
     while test -h "$JAVAC"; do
-      JAVAC=`readlink "$JAVAC"`
+      _slink=`readlink "$JAVAC"`
+      dnl
+      dnl _slink may be a relative path (e.g. "/usr/bin/java" -> "../java/bin/java" on Solaris).
+      dnl So, _slink must be appended to JAVAC if _slink is not an absolute path.
+      dnl
+      case "$_slink" in
+        /*) JAVAC="$_slink";;
+          dnl 'X' avoids triggering unwanted echo options.
+        *) JAVAC=`echo "X${JAVAC}" | sed -e 's/^X//' -e 's:[[^/]]*$::'`"$_slink";;
+      esac
     done
 
     dnl Need to find the include files.
@@ -170,11 +179,18 @@ AC_DEFUN([CONFIG_PROG_JAVA],
         parent=`dirname "$JAVAC"`
 
         if test -e "$parent/include/jni.h"; then
-          JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$parent/include\""
+          headers="${parent}/include"
+          JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"${headers}\""
         else
-          parent=`dirname "$JAVAC"`
-          if test -e "$parent/include/jni.h"; then
-            JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$parent/include\""
+
+          dnl The ${parent} directory seems to be "bin" directory (e.g. "/usr/local/bin").
+          dnl So, the parent's parent directory is checked below. 
+
+          parent=`dirname "${parent}"`
+
+          if test -e "${parent}/include/jni.h"; then
+            headers="${parent}/include"
+            JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"${headers}\""
           else
             AC_MSG_ERROR([Cannot find Java include files.])
           fi
