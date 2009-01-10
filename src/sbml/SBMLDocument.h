@@ -41,7 +41,7 @@
  * model is Level&nbsp;1 or Level&nbsp;2.)
  *
  * SBMLDocument is derived from SBase, so that it contains the usual SBase
- * attributes (in SBML Level&nbsp;2 Version&nbsp;3) of "metaid" and "sboTerm", as
+ * attributes (in SBML Level&nbsp;2 Version&nbsp;4) of "metaid" and "sboTerm", as
  * well as the subelements "notes" and "annotation".  It also contains the
  * attributes "level" and "version" indicating the Level and Version of the
  * SBML read.  These can be accessed using the SBase methods for that
@@ -58,7 +58,7 @@
  * SBMLDocument also includes methods for running consistency-checking and
  * validation rules on the SBML content.  These methods assess whether the
  * SBML is legal according to basic rules listed in the SBML Level&nbsp;2
- * Version&nbsp;2 and Version&nbsp;3 specification documents.  The primary
+ * Version&nbsp;2, Version&nbsp;3 and Version&nbsp;4 specification documents.  The primary
  * interface is SBMLDocument::checkConsistency() and
  * SBMLDocument::setConsistencyChecks().  Additional useful methods are
  * SBMLDocument::checkL1Compatibility(),
@@ -68,7 +68,7 @@
  * SBMLDocument::checkL2v4Compatibility(), which allow callers to check the
  * downward compatibility of a model with other Levels/Versions of SBML.
  * At the time of this writing, the most recent release of SBML is
- * Level&nbsp;2 Version&nbsp;3.
+ * Level&nbsp;2 Version&nbsp;4.
  */
 
 
@@ -145,7 +145,7 @@ public:
    *
    * If <em>both</em> the SBML Level and Version attributes are not
    * specified, the SBML document is treated as having the latest Level and
-   * Version (Level&nbsp;2 Version&nbsp;3 as of the libSBML&nbsp;3.1
+   * Version (Level&nbsp;2 Version&nbsp;4 as of the libSBML&nbsp;3.3
    * release); <em>however</em>, it is otherwise left blank.  In
    * particular, the blank SBMLDocument object has no associated XML
    * attributes yet such as an XML Namespace declaration.  The latter is
@@ -310,44 +310,44 @@ public:
    * or off (value of @c false) that particular category of checks.  The
    * possible categories are represented as values of the enumeration
    * #SBMLErrorCategory_t.  The following are the possible choices in
-   * libSBML version&nbsp;3.1.x:
+   * libSBML version&nbsp;3.3.x:
    *
    * @li @c LIBSBML_CAT_GENERAL_CONSISTENCY: Correctness and consistency of
    * specific SBML language constructs.  Performing this set of checks is
    * highly recommended.  With respect to the SBML specification, these
    * concern failures in applying the validation rules numbered 2xxxx in
-   * the Level&nbsp;2 Versions&nbsp;2 and&nbsp;3 specifications.
+   * the Level&nbsp;2 Versions&nbsp;2, 3 and&nbsp;4 specifications.
    * 
    * @li @c LIBSBML_CAT_IDENTIFIER_CONSISTENCY: Correctness and consistency
    * of identifiers used for model entities.  An example of inconsistency
    * would be using a species identifier in a reaction rate formula without
    * first having declared the species.  With respect to the SBML
    * specification, these concern failures in applying the validation rules
-   * numbered 103xx in the Level&nbsp;2 Versions&nbsp;2 and&nbsp;3
+   * numbered 103xx in the Level&nbsp;2 Versions&nbsp;2, 3 and&nbsp;4
    * specifications.
    * 
    * @li @c LIBSBML_CAT_UNITS_CONSISTENCY: Consistency of measurement units
    * associated with quantities in a model.  With respect to the SBML
    * specification, these concern failures in applying the validation rules
-   * numbered 105xx in the Level&nbsp;2 Versions&nbsp;2 and&nbsp;3
+   * numbered 105xx in the Level&nbsp;2 Versions&nbsp;2, 3 and&nbsp;4
    * specifications.
    * 
    * @li @c LIBSBML_CAT_MATHML_CONSISTENCY: Syntax of MathML constructs.
    * With respect to the SBML specification, these concern failures in
    * applying the validation rules numbered 102xx in the Level&nbsp;2
-   * Versions&nbsp;2 and&nbsp;3 specifications.
+   * Versions&nbsp;2, 3 and&nbsp;4 specifications.
    * 
    * @li @c LIBSBML_CAT_SBO_CONSISTENCY: Consistency and validity of SBO
    * identifiers (if any) used in the model.  With respect to the SBML
    * specification, these concern failures in applying the validation rules
-   * numbered 107xx in the Level&nbsp;2 Versions&nbsp;2 and&nbsp;3
+   * numbered 107xx in the Level&nbsp;2 Versions&nbsp;2, 3 and&nbsp;4
    * specifications.
    * 
    * @li @c LIBSBML_CAT_OVERDETERMINED_MODEL: Static analysis of
    * whether the system of equations implied by a model is mathematically
    * overdetermined.  With respect to the SBML specification, this is
-   * validation rule #10601 in the SBML Level&nbsp;2 Versions&nbsp;2
-   * and&nbsp;3 specifications.
+   * validation rule #10601 in the SBML Level&nbsp;2 Versions&nbsp;2, 3
+   * and&nbsp;4 specifications.
    * 
    * @li @c LIBSBML_CAT_MODELING_PRACTICE: Additional checks for
    * recommended good modeling practice. (These are tests performed by
@@ -460,7 +460,7 @@ public:
 
   /**
    * Performs a set of consistency checks on the document to establish
-   * whether it is compatible with SBML Level&nbsp;2 Version&nbsp;3 and can
+   * whether it is compatible with SBML Level&nbsp;2 Version&nbsp;4 and can
    * be converted to Level&nbsp;2 Version&nbsp;4.
    *
    * Callers should query the results of the consistency check by calling
@@ -767,6 +767,11 @@ SBMLDocument_checkL2v2Compatibility (SBMLDocument_t *d);
 LIBSBML_EXTERN
 unsigned int 
 SBMLDocument_checkL2v3Compatibility (SBMLDocument_t *d);
+
+
+LIBSBML_EXTERN
+unsigned int 
+SBMLDocument_checkL2v4Compatibility (SBMLDocument_t *d);
 
 
 LIBSBML_EXTERN

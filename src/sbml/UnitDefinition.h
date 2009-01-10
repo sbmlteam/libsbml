@@ -54,7 +54,7 @@
  *
  * @section unitdef-summary Summary of the UnitDefinition construct
  *
- * UnitDefinition in SBML Level&nbsp;2 Version&nbsp;3 has two attributes
+ * UnitDefinition in SBML Level&nbsp;2 Version&nbsp;4 has two attributes
  * and one subelement.  The two attributes are "id" and "name", and the
  * subelement is ListOfUnits.
  *
@@ -130,7 +130,7 @@
  * development of Level&nbsp;2 Version&nbsp;2, a consensus among %SBML
  * developers emerged that a fully generalized unit scheme is @em so
  * confusing and complicated that it actually @em impedes interoperability.
- * SBML Level&nbsp;2 Version&nbsp;2 and Version&nbsp;3 acknowledge this
+ * SBML Level&nbsp;2 Version&nbsp;2, Version&nbsp;3 and Version&nbsp;4 acknowledge this
  * reality by reducing and simplifying the unit system, specifically by
  * removing the "offset" attribute on Unit and @c Celsius as a pre-defined
  * unit.
@@ -904,7 +904,7 @@ public:
    * The ordering of elements in the XML form of %SBML is generally fixed
    * for most components in %SBML.  So, for example, the
    * ListOfUnitDefinitions in a model is (in %SBML Level&nbsp;2
-   * Version&nbsp;3) the second ListOf___.  (However, it differs for
+   * Version&nbsp;4) the second ListOf___.  (However, it differs for
    * different Levels and Versions of SBML.)
    *
    * @return the ordinal position of the element with respect to its

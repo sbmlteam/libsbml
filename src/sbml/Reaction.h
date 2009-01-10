@@ -44,7 +44,7 @@
  * reaction; this usage is explained below.  Reaction also has an optional
  * "name" attribute, of type @c string.  The "id" and "name" must be used
  * according to the guidelines described in the %SBML specification (e.g.,
- * Section 3.3 in the Level 2 Version 3 specification).
+ * Section 3.3 in the Level 2 Version 4 specification).
  *
  * The species participating as reactants, products, and/or modifiers in a
  * reaction are declared using lists of SpeciesReference and/or
@@ -107,14 +107,14 @@
  * Finally, Reaction has another optional boolean attribute called "fast".
  * It is used to indicate that a reaction occurs on a vastly faster time
  * scale than others in a system.  Readers are directed to the %SBML Level
- * 2 Version 3 specification, which provides more detail about the
+ * 2 Version 4 specification, which provides more detail about the
  * conditions under which a reaction can be considered to be fast in this
  * sense.  The attribute's default value is @c false.  SBML Level 1 and
  * Level 2 Version 1 incorrectly claimed that software tools could ignore
  * this attribute if they did not implement support for the corresponding
  * concept; however, further research in %SBML has revealed that this is
  * not true, and "fast" <em>cannot be ignored</em> if it is set to @c true.
- * %SBML Level 2 Versions 2 and 3 therefore stipulate that if a model has
+ * %SBML Level 2 Versions 2, 3 and 4 therefore stipulate that if a model has
  * any reactions with "fast" set to @c true, a software tool must be able
  * to respect the attribute or else indicate to the user that it does not
  * have the capacity to do so.  Analysis software cannot ignore the value
@@ -304,11 +304,11 @@ public:
    * software tools could ignore this attribute if they did not implement
    * support for the corresponding concept; however, further research in
    * %SBML has revealed that this is not true, and "fast" <em>cannot be
-   * ignored</em> if it is set to @c true.  %SBML Level 2 Versions 2 and 3
+   * ignored</em> if it is set to @c true.  %SBML Level 2 Versions 2, 3 and 4
    * therefore stipulate that if a model has any reactions with "fast" set
    * to @c true, a software tool must be able to respect the attribute or
    * else indicate to the user that it does not have the capacity to do so.
-   * Readers are directed to the %SBML Level 2 Version 3 specification,
+   * Readers are directed to the %SBML Level 2 Version 4 specification,
    * which provides more detail about the conditions under which a reaction
    * can be considered to be fast in this sense.
    */
@@ -350,11 +350,11 @@ public:
    * not implement support for the corresponding concept; however, further
    * research in %SBML has revealed that this is not true, and "fast"
    * <em>cannot be ignored</em> if it is set to @c true.  %SBML Level 2
-   * Versions 2 and 3 therefore stipulate that if a model has any reactions
+   * Versions 2, 3 and 4 therefore stipulate that if a model has any reactions
    * with "fast" set to @c true, a software tool must be able to respect
    * the attribute or else indicate to the user that it does not have the
    * capacity to do so.  Readers are directed to the %SBML Level 2 Version
-   * 3 specification, which provides more detail about the conditions under
+   * 4 specification, which provides more detail about the conditions under
    * which a reaction can be considered to be fast in this sense.
    */
   bool getFast () const;
@@ -381,11 +381,11 @@ public:
    * not implement support for the corresponding concept; however, further
    * research in %SBML has revealed that this is not true, and "fast"
    * <em>cannot be ignored</em> if it is set to @c true.  %SBML Level 2
-   * Versions 2 and 3 therefore stipulate that if a model has any reactions
+   * Versions 2, 3 and 4 therefore stipulate that if a model has any reactions
    * with "fast" set to @c true, a software tool must be able to respect
    * the attribute or else indicate to the user that it does not have the
    * capacity to do so.  Readers are directed to the %SBML Level 2 Version
-   * 3 specification, which provides more detail about the conditions under
+   * 4 specification, which provides more detail about the conditions under
    * which a reaction can be considered to be fast in this sense.  Note
    * also that in SBML Level 1, "fast" is defined as optional with a
    * default of @c false, which means it is effectively always set.
@@ -420,11 +420,11 @@ public:
    * not implement support for the corresponding concept; however, further
    * research in %SBML has revealed that this is not true, and "fast"
    * <em>cannot be ignored</em> if it is set to @c true.  %SBML Level 2
-   * Versions 2 and 3 therefore stipulate that if a model has any reactions
+   * Versions 2, 3 and 4 therefore stipulate that if a model has any reactions
    * with "fast" set to @c true, a software tool must be able to respect
    * the attribute or else indicate to the user that it does not have the
    * capacity to do so.  Readers are directed to the %SBML Level 2 Version
-   * 3 specification, which provides more detail about the conditions under
+   * 4 specification, which provides more detail about the conditions under
    * which a reaction can be considered to be fast in this sense.
    */
   void setFast (bool value);
@@ -446,11 +446,11 @@ public:
    * ignore this attribute if they did not implement support for the
    * corresponding concept; however, further research in %SBML has revealed
    * that this is not true, and "fast" <em>cannot be ignored</em> if it is
-   * set to @c true.  %SBML Level 2 Versions 2 and 3 therefore stipulate
+   * set to @c true.  %SBML Level 2 Versions 2, 3 and 4 therefore stipulate
    * that if a model has any reactions with "fast" set to @c true, a
    * software tool must be able to respect the attribute or else indicate
    * to the user that it does not have the capacity to do so.  Readers are
-   * directed to the %SBML Level 2 Version 3 specification, which provides
+   * directed to the %SBML Level 2 Version 4 specification, which provides
    * more detail about the conditions under which a reaction can be
    * considered to be fast in this sense.
    */

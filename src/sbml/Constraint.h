@@ -36,7 +36,7 @@
  * model definition can refer to it.  A Constraint object can also have an
  * optional "name" attribute of type @c string.  Identifiers and names must
  * be used according to the guidelines described in the %SBML specification
- * (e.g., Section 3.3 in the Level 2 Version 3 specification).  
+ * (e.g., Section 3.3 in the Level 2 Version 4 specification).  
  *
  * Constraint has one required subelement, "math", containing a MathML
  * formula defining the condition of the constraint.  This formula must
@@ -61,7 +61,7 @@
  * <code>&lt;body&gt;</code> and ending with <code>&lt;/body&gt;</code>; or
  * (3) XHTML content that is permitted within a <code>&lt;body&gt;</code> ...
  * <code>&lt;/body&gt;</code> elements.  The appendix of the SBML Level 2
- * Version 3 specification document describes one approach to reading the
+ * Version 4 specification document describes one approach to reading the
  * "message" subelement content.
  *
  * Constraint was introduced in SBML Level 2 Version 2.  It is not
@@ -487,7 +487,7 @@ public:
    *
    * The ordering of elements in the XML form of %SBML is generally fixed
    * for most components in %SBML.  So, for example, the ListOfConstraints
-   * in a model is (in %SBML Level 2 Version 3) the seventh ListOf___.
+   * in a model is (in %SBML Level 2 Version 4) the tenth ListOf___.
    * (However, it differs for different Levels and Versions of SBML.)
    *
    * @return the ordinal position of the element with respect to its

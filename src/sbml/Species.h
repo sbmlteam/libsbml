@@ -41,7 +41,7 @@
  * syntax permitted in %SBML.  Species also has an optional "name"
  * attribute, of type @c string.  The "id" and "name" must be used
  * according to the guidelines described in the %SBML specification (e.g.,
- * Section 3.3 in the Level&nbsp;2 Version&nbsp;3 specification).
+ * Section 3.3 in the Level&nbsp;2 Version&nbsp;4 specification).
  *
  * The required attribute "compartment" is used to identify the compartment
  * in which the species is located.  The attribute's value must be the
@@ -211,7 +211,7 @@
  * explicitly setting the units of size for initial concentration.  LibSBML
  * retains this attribute for compatibility with older definitions of
  * Level&nbsp;2, but its use is strongly discouraged because it is
- * incompatible with Level&nbsp;2 Version&nbsp;3.
+ * incompatible with Level&nbsp;2 Version&nbsp;3 andLevel&nbsp;2 Version&nbsp;4.
  *
  * <!-- leave this next break as-is to work around some doxygen bug -->
  */ 
@@ -447,7 +447,7 @@ public:
    * attribute was removed in SBML Level&nbsp;2 Version&nbsp;3.  LibSBML
    * retains this attribute for compatibility with older definitions of
    * Level&nbsp;2, but its use is strongly discouraged because it is
-   * incompatible with Level&nbsp;2 Version&nbsp;3.
+   * incompatible with Level&nbsp;2 Version&nbsp;3 and Level&nbsp;2 Version&nbsp;4.
    */
   const std::string& getSpatialSizeUnits () const;
 
@@ -576,7 +576,7 @@ public:
    * attribute was removed in SBML Level&nbsp;2 Version&nbsp;3.  LibSBML
    * retains this attribute for compatibility with older definitions of
    * Level&nbsp;2, but its use is strongly discouraged because it is
-   * incompatible with Level&nbsp;2 Version&nbsp;3.
+   * incompatible with Level&nbsp;2 Version&nbsp;3 and Level&nbsp;2 Version&nbsp;4.
    */
   bool isSetSpatialSizeUnits () const;
 
@@ -674,7 +674,7 @@ public:
    * attribute was removed in SBML Level&nbsp;2 Version&nbsp;3.  LibSBML
    * retains this attribute for compatibility with older definitions of
    * Level&nbsp;2, but its use is strongly discouraged because it is
-   * incompatible with Level&nbsp;2 Version&nbsp;3.
+   * incompatible with Level&nbsp;2 Version&nbsp;3 and Level&nbsp;2 Version&nbsp;4.
    */
   void setSpatialSizeUnits (const std::string& sid);
 
@@ -764,7 +764,7 @@ public:
    * attribute was removed in SBML Level&nbsp;2 Version&nbsp;3.  LibSBML
    * retains this attribute for compatibility with older definitions of
    * Level&nbsp;2, but its use is strongly discouraged because it is
-   * incompatible with Level&nbsp;2 Version&nbsp;3.
+   * incompatible with Level&nbsp;2 Version&nbsp;3 and Level&nbsp;2 Version&nbsp;4.
    */
   void unsetSpatialSizeUnits ();
 
@@ -1034,7 +1034,7 @@ public:
    *
    * The ordering of elements in the XML form of %SBML is generally fixed
    * for most components in %SBML.  So, for example, the ListOfSpeciess in
-   * a model is (in %SBML Level&nbsp;2 Version&nbsp;3) the second
+   * a model is (in %SBML Level&nbsp;2 Version&nbsp;4) the sixth
    * ListOf___.  (However, it differs for different Levels and Versions of
    * SBML.)
    *

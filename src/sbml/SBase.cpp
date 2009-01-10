@@ -4426,7 +4426,7 @@ SBase_getAncestorOfType (SBase_t *sb, SBMLTypeCode_t type)
  * integers.  SBO terms are a type of optional annotation, and each
  * different class of SBML object derived from SBase_t imposes its own
  * requirements about the values permitted for "sboTerm".  Please consult
- * the SBML Level 2 Version 3 specification for more information about
+ * the SBML Level 2 Version 4 specification for more information about
  * the use of SBO and the "sboTerm" attribute.
  *
  * @param sb the SBase_t structure
@@ -4718,7 +4718,7 @@ SBase_setName (SBase_t *sb, const char *name)
 /**
  * Sets the value of the "sboTerm" attribute.
  *
- * In SBML Level 2 Versions 2 and 3, the data type of the SBML "sboTerm"
+ * In SBML Level 2 Versions 2, 3 and 4, the data type of the SBML "sboTerm"
  * attribute is a string of the form SBO:NNNNNNN, where NNNNNNN is a seven
  * digit integer number; libSBML simplifies the representation by only
  * storing the NNNNNNN integer portion.  Thus, in libSBML, the "sboTerm"
@@ -4726,7 +4726,7 @@ SBase_setName (SBase_t *sb, const char *name)
  * stored simply as integers.  SBO terms are a type of optional annotation,
  * and each different class of SBML object derived from SBase_t imposes its
  * own requirements about the values permitted for "sboTerm".  Please
- * consult the SBML Level 2 Version 3 specification for more information
+ * consult the SBML Level 2 Version 4 specification for more information
  * about the use of SBO and the "sboTerm" attribute.
  *
  * @param sb the SBase_t structure

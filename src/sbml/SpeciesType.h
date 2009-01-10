@@ -48,7 +48,7 @@
  * permitted in %SBML.  SpeciesType also has an optional "name" attribute,
  * of type @c string.  The "id" and "name" must be used according to the
  * guidelines described in the %SBML specification (e.g., Section 3.3 in
- * the Level 2 Version 3 specification).
+ * the Level 2 Version 4 specification).
  *
  * SpeciesType was introduced in SBML Level 2 Version 2.  It is not
  * available in earlier versions of Level 2 nor in any version of Level 1.
@@ -403,7 +403,7 @@ public:
    *
    * The ordering of elements in the XML form of %SBML is generally fixed
    * for most components in %SBML.  For example, the
-   * ListOfSpeciesTypes in a model (in %SBML Level 2 Version 3) is the
+   * ListOfSpeciesTypes in a model (in %SBML Level 2 Version 4) is the
    * third ListOf___.  (However, it differs for different Levels and
    * Versions of SBML, so calling code should not hardwire this number.)
    *

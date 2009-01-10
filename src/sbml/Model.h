@@ -30,7 +30,7 @@
  * within the model, the list must not be empty; that is, it must have
  * length one or more.  The following are the components and lists
  * permitted in different Levels and Versions of SBML as of this version
- * of libSBML (3.0):
+ * of libSBML (3.3):
  * <ul>
  * <li> In SBML Level 1, the components are: UnitDefinition, Compartment,
  * Species, Parameter, Rule, and Reaction.  Instances of the classes are
@@ -45,7 +45,7 @@
  * ListOfSpecies, ListOfParameters, ListOfRules, ListOfReactions, and
  * ListOfEvents.
  *
- * <li> In SBML Level 2 Versions 2 and 3, the components are:
+ * <li> In SBML Level 2 Versions 2, 3 and 4, the components are:
  * FunctionDefinition, UnitDefinition, CompartmentType, SpeciesType,
  * Compartment, Species, Parameter, InitialAssignment, Rule, Constraint,
  * Reaction and Event.  Instances of the classes are placed inside

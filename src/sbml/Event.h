@@ -295,8 +295,8 @@ public:
    * included the attribute called "timeUnits", but it was removed in SBML
    * Level&nbsp;2 Version&nbsp;3.  LibSBML supports this attribute for
    * compatibility with previous versions of SBML Level&nbsp;2, but its use
-   * is discouraged since models in Level&nbsp;2 Version&nbsp;3 cannot
-   * contain it.
+   * is discouraged since models in Level&nbsp;2 Version&nbsp;3 or 
+   * Level&nbsp;2 Version&nbsp;4 cannot contain it.
    */
   const std::string& getTimeUnits () const;
 
@@ -339,8 +339,8 @@ public:
    * included the attribute called "timeUnits", but it was removed in SBML
    * Level&nbsp;2 Version&nbsp;3.  LibSBML supports this attribute for
    * compatibility with previous versions of SBML Level&nbsp;2, but its use
-   * is discouraged since models in Level&nbsp;2 Version&nbsp;3 cannot
-   * contain it.
+   * is discouraged since models in Level&nbsp;2 Version&nbsp;3 or 
+   * Level&nbsp;2 Version&nbsp;4 cannot contain it.
    */
   bool isSetTimeUnits () const;
 
@@ -384,8 +384,8 @@ public:
    * included the attribute called "timeUnits", but it was removed in SBML
    * Level&nbsp;2 Version&nbsp;3.  LibSBML supports this attribute for
    * compatibility with previous versions of SBML Level&nbsp;2, but its use
-   * is discouraged since models in Level&nbsp;2 Version&nbsp;3 cannot
-   * contain it.
+   * is discouraged since models in Level&nbsp;2 Version&nbsp;3 or 
+   * Level&nbsp;2 Version&nbsp;4 cannot contain it.
    */
   void setTimeUnits (const std::string& sid);
 
@@ -412,8 +412,8 @@ public:
    * included the attribute called "timeUnits", but it was removed in SBML
    * Level&nbsp;2 Version&nbsp;3.  LibSBML supports this attribute for
    * compatibility with previous versions of SBML Level&nbsp;2, but its use
-   * is discouraged since models in Level&nbsp;2 Version&nbsp;3 cannot
-   * contain it.
+   * is discouraged since models in Level&nbsp;2 Version&nbsp;3 or 
+   * Level&nbsp;2 Version&nbsp;4 cannot contain it.
    */
   void unsetTimeUnits ();
 
@@ -733,7 +733,7 @@ public:
    *
    * The ordering of elements in the XML form of %SBML is generally fixed
    * for most components in %SBML.  So, for example, the ListOfEvents in a
-   * model is (in %SBML Level&nbsp;2 Version&nbsp;3) the twelfth ListOf___.
+   * model is (in %SBML Level&nbsp;2 Version&nbsp;4) the twelfth ListOf___.
    * (However, it differs for different Levels and Versions of SBML, so
    * calling code should not hardwire this number.)
    *

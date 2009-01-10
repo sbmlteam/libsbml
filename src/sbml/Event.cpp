@@ -196,7 +196,7 @@ Event::getDelay ()
  * included the additional attribute called "timeUnits", but it was
  * removed in SBML Level 2 Version 3.  LibSBML supports this attribute
  * for compatibility with previous versions of SBML Level 2, but its use
- * is discouraged since models in Level 2 Version 3 cannot contain it.
+ * is discouraged since models in Level 2 Versions 3 cannot contain it.
  */
 const string&
 Event::getTimeUnits () const
@@ -1035,7 +1035,7 @@ Event_getDelay (Event_t *e)
  * included the additional attribute called "timeUnits", but it was
  * removed in SBML Level 2 Version 3.  LibSBML supports this attribute
  * for compatibility with previous versions of SBML Level 2, but its use
- * is discouraged since models in Level 2 Version 3 cannot contain it.
+ * is discouraged since models in Level 2 Versions 3 and 4 cannot contain it.
  */
 LIBSBML_EXTERN
 const char *
@@ -1142,7 +1142,7 @@ Event_isSetDelay (const Event_t *e)
  * included the additional attribute called "timeUnits", but it was
  * removed in SBML Level 2 Version 3.  LibSBML supports this attribute
  * for compatibility with previous versions of SBML Level 2, but its use
- * is discouraged since models in Level 2 Version 3 cannot contain it.
+ * is discouraged since models in Level 2 Versions 3 and 4 cannot contain it.
  */
 LIBSBML_EXTERN
 int
@@ -1221,7 +1221,7 @@ Event_setDelay (Event_t *e, const Delay_t *delay)
  * included the additional attribute called "timeUnits", but it was
  * removed in SBML Level 2 Version 3.  LibSBML supports this attribute
  * for compatibility with previous versions of SBML Level 2, but its use
- * is discouraged since models in Level 2 Version 3 cannot contain it.
+ * is discouraged since models in Level 2 Versions 3 and 4 cannot contain it.
  */
 LIBSBML_EXTERN
 void
@@ -1293,7 +1293,7 @@ Event_unsetDelay (Event_t *e)
  * included the additional attribute called "timeUnits", but it was
  * removed in SBML Level 2 Version 3.  LibSBML supports this attribute
  * for compatibility with previous versions of SBML Level 2, but its use
- * is discouraged since models in Level 2 Version 3 cannot contain it.
+ * is discouraged since models in Level 2 Versions 3 and 4 cannot contain it.
  */
 LIBSBML_EXTERN
 void

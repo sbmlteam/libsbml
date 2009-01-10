@@ -33,7 +33,7 @@
  * definition can refer to it.  A FunctionDefinition instance can also have
  * an optional "name" attribute of type @c string.  Identifiers and names
  * must be used according to the guidelines described in the %SBML
- * specification (e.g., Section 3.3 in the Level 2 Version 3
+ * specification (e.g., Section 3.3 in the Level 2 Version 4
  * specification).
  * 
  * FunctionDefinition has a required "math" subelement containing a MathML
@@ -553,8 +553,8 @@ public:
    *
    * The ordering of elements in the XML form of %SBML is generally fixed
    * for most components in %SBML.  So, for example, the
-   * ListOfFunctionDefinitions in a model is (in %SBML Level 2 Version 3)
-   * the seventh ListOf___.  (However, it differs for different Levels and
+   * ListOfFunctionDefinitions in a model is (in %SBML Level 2 Version 4)
+   * the first ListOf___.  (However, it differs for different Levels and
    * Versions of SBML.)
    *
    * @return the ordinal position of the element with respect to its

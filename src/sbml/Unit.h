@@ -38,7 +38,7 @@
  * A Unit structure has four attributes named "kind", "exponent", "scale"
  * and "multiplier".  It represents a (possibly transformed) reference to a
  * base unit.  The attribute "kind" on Unit indicates the chosen base unit.
- * Its value in SBML Level&nbsp;2 Version&nbsp;3 must be one of the following
+ * Its value in SBML Level&nbsp;2 Version&nbsp;4 must be one of the following
  * predefined strings:
  *
  * <table align="center" style="font-family: Courier, fixed; font-weight: bold; font-size: 12px;" cellspacing="7" border="0">
@@ -68,15 +68,16 @@
  * 
  * @warning In %SBML Level&nbsp;2 Version&nbsp;1, Unit had an additional
  * field called "offset".  This attribute has been removed entirely in
- * Level&nbsp;2 Versions&nbsp;2 and&nbsp;3.  As a necessary consequence,
+ * Level&nbsp;2 Versions&nbsp;2, 3 and&nbsp;4.  As a necessary consequence,
  * the predefined unit @c Celsius is also not defined in Level&nbsp;2
- * Versions&nbsp;2 and&nbsp;3.  Modelers and software tools need to account
+ * Versions&nbsp;2, 3 and&nbsp;4.  Modelers and software tools need to account
  * for units with offsets explicitly.  The %SBML specification document
  * offers a number of suggestions for how to achieve this.  The current
  * version of LibSBML retains methods related to the "offset" attribute and
  * the predefined unit @c Celsius for compatibility with earlier versions
  * of SBML Level&nbsp;2, but their use is strongly discouraged because the
- * constructs cannot appear directly in SBML Level&nbsp;2 Version&nbsp;3.
+ * constructs cannot appear directly in SBML Level&nbsp;2 Version&nbsp;3
+ * and Level&nbsp;2 Version&nbsp;4.
  * 
  * @note Another change in SBML Level&nbsp;2 Version&nbsp;3 is the removal
  * of the enumeration @c UnitKind and the redefinition of @c UnitSId to
@@ -871,8 +872,8 @@ public:
    * an enumeration called UnitKind was defined by SBML.  This enumeration
    * was removed in SBML Level&nbsp;2 Version&nbsp;3 and its values were
    * folded into the space of values of a type called UnitSId.  This method
-   * therefore has less significance in SBML Level&nbsp;2 Version&nbsp;3,
-   * but remains for backward compatibility.
+   * therefore has less significance in SBML Level&nbsp;2 Version&nbsp;3
+   * and Level&nbsp;2 Version&nbsp;4, but remains for backward compatibility.
    *
    * @param name a string to be tested
    * 
@@ -1021,7 +1022,7 @@ protected:
 
   /**
    * Predicate to test whether a given string is the name of a valid base
-   * unit in SBML Level&nbsp;2 Version&nbsp;2 or 3 (such as @c "gram" or @c
+   * unit in SBML Level&nbsp;2 Version&nbsp;2, 3 or 4 (such as @c "gram" or @c
    * "mole")
    *
    * @param name a string to be tested

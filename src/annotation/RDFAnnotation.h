@@ -31,7 +31,7 @@
  * support for annotations conforming to the guidelines specified by MIRIAM
  * ("Minimum Information Requested in the Annotation of biochemical
  * Models", Nature Biotechnology, vol. 23, no. 12, Dec. 2005).  Section 6
- * of the SBML Level 2 Versions 3 specification defines a recommended way
+ * of the SBML Level 2 Version 4 specification defines a recommended way
  * of encoding MIRIAM information as RDF annotations in SBML.  The general
  * scheme is as follows.  A set of RDF-based annotations attached to a
  * given SBML <code>&lt;annotation&gt;</code> element are read by
@@ -123,7 +123,7 @@ public:
  
   /**
    * Creates blank RDF annotation content organized in the form defined in
-   * Section 6 of the SBML Level 2 Version 3 specification .
+   * Section 6 of the SBML Level 2 Version 4 specification .
    *
    * The annotation created by this method has namespace declarations for
    * all the relevant XML namespaces used in RDF annotations and also has

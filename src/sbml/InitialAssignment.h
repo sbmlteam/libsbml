@@ -24,7 +24,7 @@
  * @class InitialAssignment
  * @brief  LibSBML implementation of %SBML's InitialAssignment construct.
  *
- * SBML Level 2 Versions 2 and 3 provide two ways of assigning initial
+ * SBML Level 2 Versions 2, 3 and 4 provide two ways of assigning initial
  * values to entities in a model.  The simplest and most basic is to set
  * the values of the appropriate attributes in the relevant components; for
  * example, the initial value of a model parameter (whether it is a
@@ -54,7 +54,7 @@
  *
  * InitialAssignment has a required attribute, "symbol", whose value must
  * follow the guidelines for identifiers described in the %SBML
- * specification (e.g., Section 3.3 in the Level 2 Version 3
+ * specification (e.g., Section 3.3 in the Level 2 Version 4
  * specification).  The value of this attribute in an InitialAssignment
  * object can be the identifier of a Compartment, Species or global
  * Parameter elsewhere in the model.  The InitialAssignment defines the
@@ -115,7 +115,7 @@
  * In the context of a simulation, initial assignments establish values
  * that are in effect prior to and including the start of simulation time,
  * i.e., <em>t \f$\leq\f$ 0</em>.  Section 3.4.8 in the SBML Level 2
- * Version 3 specification provides information about the interpretation of
+ * Version 4 specification provides information about the interpretation of
  * assignments, rules, and entity values for simulation time up to and
  * including the start time <em>t = 0</em>; this is important for
  * establishing the initial conditions of a simulation if the model
@@ -631,8 +631,8 @@ public:
    *
    * The ordering of elements in the XML form of %SBML is generally fixed
    * for most components in %SBML.  So, for example, the
-   * ListOfInitialAssignments in a model is (in %SBML Level 2 Version 3)
-   * the seventh ListOf___.  (However, it differs for different Levels and
+   * ListOfInitialAssignments in a model is (in %SBML Level 2 Version 4)
+   * the eigth ListOf___.  (However, it differs for different Levels and
    * Versions of SBML.)
    *
    * @return the ordinal position of the element with respect to its

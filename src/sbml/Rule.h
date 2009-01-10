@@ -31,7 +31,7 @@
  * expressed using Reaction nor InitialAssignment objects alone.
  *
  * The libSBML implementation of rules mirrors the SBML Level&nbsp;2
- * Version&nbsp;3 definition, with Rule being the parent class of three
+ * Version&nbsp;4 definition, with Rule being the parent class of three
  * subclasses as explained below.  The Rule class itself cannot be
  * instantiated by user programs and has no constructor; only the
  * subclasses AssignmentRule, AlgebraicRule and RateRule can be
@@ -138,8 +138,8 @@
  * define more equations than there are unknowns in a model.  An SBML model
  * that does not contain AlgebraicRule structures cannot be overdetermined.
  *
- * LibSBML 3.0 implements the static analysis procedure described in
- * Appendix D of the SBML Level&nbsp;2 Version&nbsp;3 specification for
+ * LibSBML 3.3 implements the static analysis procedure described in
+ * Appendix D of the SBML Level&nbsp;2 Version&nbsp;4 specification for
  * assessing whether a model is overdetermined.
  *
  * (In summary, assessing whether a given continuous, deterministic,
@@ -197,7 +197,7 @@
  * times, <em>t</em> \f$\geq\f$ <em>0</em>.  For purposes of evaluating
  * expressions that involve the delay "csymbol" (see the SBML
  * specification), algebraic rules are considered to apply also at
- * <em>t</em> \f$\leq\f$ <em>0</em>.  The SBML Level&nbsp;2 Version&nbsp;3
+ * <em>t</em> \f$\leq\f$ <em>0</em>.  The SBML Level&nbsp;2 Version&nbsp;4
  * specification provides additional information about the semantics of
  * assignments, rules, and entity values for simulation time <em>t</em>
  * \f$\leq\f$ <em>0</em>.
@@ -206,7 +206,7 @@
  * introduces the possibility that a model is mathematically overdetermined
  * by the overall system of equations constructed from its rules and
  * reactions.  An SBML model must not be overdetermined; see the
- * description of Rule and also the SBML Level&nbsp;2 Version&nbsp;3
+ * description of Rule and also the SBML Level&nbsp;2 Version&nbsp;4
  * specification.  An SBML model that does not contain AlgebraicRule
  * structures cannot be overdetermined.
  *
@@ -226,7 +226,7 @@
  * contain disconnected vertexes representing equations.  (If one maximal
  * matching has this property, then all the maximal matchings will have
  * this property; i.e., it is only necessary to find one maximal matching.)
- * Appendix D of the SBML Level&nbsp;2 Version&nbsp;3 specification
+ * Appendix D of the SBML Level&nbsp;2 Version&nbsp;4 specification
  * describes a method of applying this procedure to specific SBML data
  * objects.
  *
@@ -277,7 +277,7 @@
  * expressions that involve the <em>delay</em> "csymbol" (see the SBML
  * Level&nbsp;2 specification), assignment rules are considered to apply
  * also at <em>t</em> \f$\leq\f$ <em>0</em>.  The SBML Level&nbsp;2
- * Version&nbsp;3 specification provides additional information about the
+ * Version&nbsp;4 specification provides additional information about the
  * semantics of assignments, rules, and entity values for simulation time
  * <em>t</em> \f$\leq\f$ <em>0</em>.
  *
@@ -354,7 +354,7 @@
  * </ul>
  * 
  * In the context of a simulation, rate rules are in effect for simulation
- * time <em>t</em> &lt; <em>0</em>.  The SBML Level&nbsp;2 Version&nbsp;3
+ * time <em>t</em> &lt; <em>0</em>.  The SBML Level&nbsp;2 Version&nbsp;4
  * specification provides additional information about the semantics of
  * assignments, rules, and entity values for simulation time <em>t</em>
  * \f$\leq\f$ <em>0</em>.

@@ -1353,7 +1353,7 @@ Species_getSubstanceUnits (const Species_t *s)
  * attribute was removed in SBML Level 2 Version 3.  LibSBML retains this
  * attribute for compatibility with older definitions of Level 2, but its
  * use is strongly discouraged because it is incompatible with Level 2
- * Version 3.
+ * Versions 3 and 4.
  */
 LIBSBML_EXTERN
 const char *
@@ -1592,7 +1592,7 @@ Species_isSetSubstanceUnits (const Species_t *s)
  * attribute was removed in SBML Level 2 Version 3.  LibSBML retains this
  * attribute for compatibility with older definitions of Level 2, but its
  * use is strongly discouraged because it is incompatible with Level 2
- * Version 3.
+ * Versions 3 and 4.
  */
 LIBSBML_EXTERN
 int
@@ -1798,7 +1798,7 @@ Species_setSubstanceUnits (Species_t *s, const char *sid)
  * attribute was removed in SBML Level 2 Version 3.  LibSBML retains this
  * attribute for compatibility with older definitions of Level 2, but its
  * use is strongly discouraged because it is incompatible with Level 2
- * Version 3.
+ * Versions 3 and 4.
  */
 LIBSBML_EXTERN
 void
@@ -1980,7 +1980,7 @@ Species_unsetSubstanceUnits (Species_t *s)
  * attribute was removed in SBML Level 2 Version 3.  LibSBML retains this
  * attribute for compatibility with older definitions of Level 2, but its
  * use is strongly discouraged because it is incompatible with Level 2
- * Version 3.
+ * Versions 3 and 4.
  */
 LIBSBML_EXTERN
 void

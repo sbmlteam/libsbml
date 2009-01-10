@@ -38,7 +38,7 @@
  * definition can refer to it.  A parameter can also have an optional
  * "name" attribute of type @c string.  Identifiers and names must be used
  * according to the guidelines described in the %SBML specification (e.g.,
- * Section 3.3 in the Level&nbsp;2 Version&nbsp;3 specification).
+ * Section 3.3 in the Level&nbsp;2 Version&nbsp;4 specification).
  * 
  * The optional attribute "value" determines the value (of type @c double)
  * assigned to the identifier.  A missing value for "value" implies that
@@ -655,7 +655,7 @@ public:
    *
    * The ordering of elements in the XML form of %SBML is generally fixed
    * for most components in %SBML.  So, for example, the ListOfParameters
-   * in a model is (in %SBML Level&nbsp;2 Version&nbsp;3) the seventh
+   * in a model is (in %SBML Level&nbsp;2 Version&nbsp;4) the seventh
    * ListOf___.  (However, it differs for different Levels and Versions of
    * SBML.)
    *

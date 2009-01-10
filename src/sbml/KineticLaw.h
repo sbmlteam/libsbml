@@ -75,8 +75,8 @@
  * reactions between multiple volumes using
  * <em>concentration</em>/<em>time</em> (which is to say,
  * <em>substance</em>/<em>volume</em>/<em>time</em>) quickly leads to
- * difficulties, as explained in the SBML Level&nbsp;2 Version&nbsp;2
- * and&nbsp;3 specifications.
+ * difficulties, as explained in the SBML Level&nbsp;2 Version&nbsp;2, 3
+ * and&nbsp;4 specifications.
  *
  * The need to support multicompartment models requires that the reaction
  * rates in SBML to be expressed in terms of

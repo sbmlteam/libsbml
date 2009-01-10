@@ -84,7 +84,7 @@
  * SBO terms are a type of optional annotation, and each different class of
  * SBML object derived from SBase imposes its own requirements about the
  * values permitted for "sboTerm".  Please consult the SBML Level 2 Version
- * 3 specification for more information about the use of SBO and the
+ * 4 specification for more information about the use of SBO and the
  * "sboTerm" attribute.
  *
  * Finally, note that, in the list of methods on SBase, there is no public
@@ -148,7 +148,7 @@
  * 
  * SBML does not require the content of the "notes" subelement to be any
  * particular XHTML element; the content can be almost any well-formed
- * XHTML content.  SBML Level 2 Versions 2 and 3 added some small
+ * XHTML content.  SBML Level 2 Versions 2, 3 and 4 added some small
  * restrictions and clarifications for the allowable content in order to
  * promote greater interoperability between software tools.  The first
  * restriction comes from the requirements of XML: the "notes"
@@ -228,7 +228,7 @@
  *
  * A important requirement is that application-specific annotation data is
  * entirely contained inside a single <em>top-level element</em> within the
- * SBML "annotation" subelement.  SBML Level 2 Versions 2 and 3 place the
+ * SBML "annotation" subelement.  SBML Level 2 Versions 2, 3 and 4 place the
  * following restrictions on annotations:
  * <ul>
  * <li> Within a given SBML "annotation" element, there can only be one
@@ -325,7 +325,7 @@
  *
  * @section sbase-miriam Standard format for annotations linking data resources
  *
- * SBML Level 2 Versions 2 and 3 define a proposed regular format for
+ * SBML Level 2 Versions 2, 3 and 4 define a proposed regular format for
  * encoding two particular categories of annotations: (a) references to
  * controlled vocabulary terms and database identifiers which define and
  * describe biological and biochemical entities in a model; and (b)
@@ -547,7 +547,7 @@ public:
    * Returns the integer portion of the value of the "sboTerm" attribute of
    * this object.
    *
-   * In SBML Level 2 Versions 2 and 3, the data type of the attribute is a
+   * In SBML Level 2 Versions 2, 3 and 4, the data type of the attribute is a
    * string of the form SBO:NNNNNNN, where NNNNNNN is a seven digit integer
    * number; libSBML simplifies the representation by only storing the
    * NNNNNNN integer portion.  Thus, in libSBML, the "sboTerm" attribute on
@@ -555,7 +555,7 @@ public:
    * integers.  SBO terms are a type of optional annotation, and each
    * different class of SBML object derived from SBase imposes its own
    * requirements about the values permitted for "sboTerm".  Please consult
-   * the SBML Level 2 Version 3 specification for more information about
+   * the SBML Level 2 Version 4 specification for more information about
    * the use of SBO and the "sboTerm" attribute.
    *
    * @return the value of the "sboTerm" attribute as an integer, or @c -1
@@ -568,7 +568,7 @@ public:
    * Returns the string representation of the "sboTerm" attribute of
    * this object.
    *
-   * In SBML Level 2 Versions 2 and 3, the data type of the attribute is a
+   * In SBML Level 2 Versions 2, 3 and 4, the data type of the attribute is a
    * string of the form SBO:NNNNNNN, where NNNNNNN is a seven digit integer
    * number; libSBML simplifies the representation by only storing the
    * NNNNNNN integer portion.  Thus, in libSBML, the "sboTerm" attribute on
@@ -577,7 +577,7 @@ public:
    * stored value.  SBO terms are a type of optional annotation, and each
    * different class of SBML object derived from SBase imposes its own
    * requirements about the values permitted for "sboTerm".  Please consult
-   * the SBML Level 2 Version 3 specification for more information about
+   * the SBML Level 2 Version 4 specification for more information about
    * the use of SBO and the "sboTerm" attribute.
    *
    * @return the value of the "sboTerm" attribute as a string of the form
@@ -867,7 +867,7 @@ public:
   /**
    * Sets the value of the "sboTerm" attribute.
    *
-   * In SBML Level 2 Versions 2 and 3, the data type of the SBML "sboTerm"
+   * In SBML Level 2 Versions 2, 3 and 4, the data type of the SBML "sboTerm"
    * attribute is a string of the form SBO:NNNNNNN, where NNNNNNN is a
    * seven digit integer number; libSBML simplifies the representation by
    * only storing the NNNNNNN integer portion.  Thus, in libSBML, the
@@ -875,7 +875,7 @@ public:
    * are stored simply as integers.  SBO terms are a type of optional
    * annotation, and each different class of SBML object derived from SBase
    * imposes its own requirements about the values permitted for "sboTerm".
-   * Please consult the SBML Level 2 Version 3 specification for more
+   * Please consult the SBML Level 2 Version 4 specification for more
    * information about the use of SBO and the "sboTerm" attribute.
    *
    * @param value the NNNNNNN integer portion of the SBO identifier

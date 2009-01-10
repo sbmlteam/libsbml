@@ -26,7 +26,7 @@
  *
  * A <em>compartment type</em> in %SBML is a grouping construct used to
  * establish a relationship between multiple Compartment objects.
- * In %SBML Level 2 Versions 2 and 3, a compartment type only has an
+ * In %SBML Level 2 Versions 2, 3 and 4, a compartment type only has an
  * identity, and this identity can only be used to indicate that particular
  * compartments belong to this type.  This may be useful for conveying a
  * modeling intention, such as when a model contains many similar
@@ -51,7 +51,7 @@
  * permitted in %SBML.  CompartmentType also has an optional "name"
  * attribute, of type @c string.  The "id" and "name" must be used
  * according to the guidelines described in the %SBML specification (e.g.,
- * Section 3.3 in the Level 2 Version 3 specification).
+ * Section 3.3 in the Level 2 Version 4 specification).
  *
  * CompartmentType was introduced in SBML Level 2 Version 2.  It is not
  * available in earlier versions of Level 2 nor in any version of Level 1.
@@ -411,7 +411,7 @@ public:
    *
    * The ordering of elements in the XML form of %SBML is generally fixed
    * for most components in %SBML.  For example, the
-   * ListOfCompartmentTypes in a model (in %SBML Level 2 Version 3) is the
+   * ListOfCompartmentTypes in a model (in %SBML Level 2 Version 4) is the
    * third ListOf___.  (However, it differs for different Levels and
    * Versions of SBML, so calling code should not hardwire this number.)
    *

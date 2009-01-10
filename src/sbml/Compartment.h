@@ -40,7 +40,7 @@
  * refer to it.  A compartment can also have an optional "name" attribute
  * of type @c string.  Identifiers and names must be used according to the
  * guidelines described in the %SBML specification (e.g., Section 3.3 in
- * the Level 2 Version 3 specification).
+ * the Level 2 Version 4 specification).
  *
  * Each compartment in a model may optionally be designated as belonging to
  * a particular compartment type.  The optional attribute "compartmentType"
@@ -853,7 +853,7 @@ public:
    *
    * The ordering of elements in the XML form of %SBML is generally fixed
    * for most components in %SBML.  So, for example, the ListOfCompartments
-   * in a model is (in %SBML Level 2 Version 3) the second ListOf___.
+   * in a model is (in %SBML Level 2 Version 4) the fifth ListOf___.
    * (However, it differs for different Levels and Versions of SBML.)
    *
    * @return the ordinal position of the element with respect to its

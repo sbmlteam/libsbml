@@ -1382,6 +1382,7 @@ SBMLDocument_getModel (SBMLDocument_t *d)
  * @li Level 2 Version 1
  * @li Level 2 Version 2
  * @li Level 2 Version 3
+ * @li Level 2 Version 4
  *
  * @param d the SBMLDocument_t structure
  *
@@ -1622,6 +1623,25 @@ SBMLDocument_checkL2v3Compatibility (SBMLDocument_t *d)
   return d->checkL2v3Compatibility();
 }
 
+
+/**
+ * Performs a set of consistency checks on the document to establish
+ * whether it is compatible with SBML Level 2 Version 4 and can be
+ * converted to Level 2 Version 4.
+ *
+ * Callers should query the results of the consistency check by calling
+ * getError().
+ *
+ * @param d the SBMLDocument_t structure
+ *
+ * @return the number of failed checks (errors) encountered.
+ */
+LIBSBML_EXTERN
+unsigned int 
+SBMLDocument_checkL2v4Compatibility (SBMLDocument_t *d)
+{
+  return d->checkL2v4Compatibility();
+}
 
 
 /**
