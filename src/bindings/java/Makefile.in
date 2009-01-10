@@ -66,6 +66,8 @@ SWIGFLAGS        += $(JAVA_CPPFLAGS) -I../swig
 #
 extra_LDFLAGS     = -L../../ $(JAVA_LDFLAGS)
 
+extra_LIBS        = -lsbml
+
 ifdef USE_EXPAT
   extra_CPPFLAGS += @EXPAT_CPPFLAGS@ 
   extra_LDFLAGS  += @EXPAT_LDFLAGS@
