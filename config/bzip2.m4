@@ -43,17 +43,16 @@ dnl --------------------------------------------------------------------- -->*/
 
 AC_DEFUN([CONFIG_LIB_BZ2],
 [
-
   AC_ARG_WITH([bzip2],
-	      AC_HELP_STRING([--with-bzip2=PREFIX], 
-                             [Use bzip2 for read/write a bzipped SBML [[default=yes]] ]
+    AC_HELP_STRING([--with-bzip2=PREFIX], 
+	           [Enable reading/writing files compressed with bzip2 [[default=yes]] ]
               ),
-	      [with_bzip2="$withval"], [with_bzip2=yes]
+    [with_bzip2="$withval"], 
+    [with_bzip2=yes]
   )
 
-  AC_MSG_CHECKING(for bzip2 library)
   if test "x$withval" != "xno" ; then
-    AC_MSG_RESULT(yes)
+
     if test "x$withval" != "xyes"; then
       if test -d "$withval/lib"; then
         BZ2_LDFLAGS="-L${withval}/lib"

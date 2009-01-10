@@ -46,7 +46,7 @@ AC_DEFUN([CONFIG_LIB_ZLIB],
 
   AC_ARG_WITH([zlib],
 	      AC_HELP_STRING([--with-zlib=PREFIX], 
-                             [Use zlib for read/write a gzipped/zipped SBML [[default=yes]] ]
+                             [Enable reading/writing files compressed with zlib [[default=yes]] ]
               ),
 	      [with_zlib="$withval"], [with_zlib=yes]
   )
