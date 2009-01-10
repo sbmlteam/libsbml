@@ -477,10 +477,10 @@ endef
 
 to_uninstall_libraries = $(addprefix uninstall-,$(libraries))
 
-$(to_uninstall_libraries): $(libraries)
+$(to_uninstall_libraries): 
 	$(call uninstall_library,$(subst uninstall-,,$@),$(DESTDIR)$(LIBDIR))
 
-uninstall-libraries: $(libraries) $(to_uninstall_libraries)
+uninstall-libraries: $(to_uninstall_libraries)
 
 # 'install_includes takes one argument, the root of the destination directory.
 
