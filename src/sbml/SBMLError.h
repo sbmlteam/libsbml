@@ -96,211 +96,251 @@
  *      <td><strong>Enumerator</strong></td>
  *      <td><strong>Meaning</strong></td>
  *  </tr>
- * <tr><td><em>UnknownError</em></td><td>Indicates unknown libSBML problem</td>
- * <tr><td><em>NotUTF8</em></td><td>SBML L2v3 validation rule #10101</td>
- * <tr><td><em>UnrecognizedElement</em></td><td>SBML L2v3 validation rule #10102</td>
- * <tr><td><em>NotSchemaConformant</em></td><td>SBML L2v3 validation rule #10103</td>
- * <tr><td><em>InvalidMathElement</em></td><td>SBML L2v3 validation rule #10201</td>
- * <tr><td><em>DisallowedMathMLSymbol</em></td><td>SBML L2v3 validation rule #10202</td>
- * <tr><td><em>DisallowedMathMLEncodingUse</em></td><td>SBML L2v3 validation rule #10203</td>
- * <tr><td><em>DisallowedDefinitionURLUse</em></td><td>SBML L2v3 validation rule #10204</td>
- * <tr><td><em>BadCsymbolDefinitionURLValue</em></td><td>SBML L2v3 validation rule #10205</td>
- * <tr><td><em>DisallowedMathTypeAttributeUse</em></td><td>SBML L2v3 validation rule #10206</td>
- * <tr><td><em>DisallowedMathTypeAttributeValue</em></td><td>SBML L2v3 validation rule #10207</td>
- * <tr><td><em>LambdaOnlyAllowedInFunctionDef</em></td><td>SBML L2v3 validation rule #10208</td>
- * <tr><td><em>BooleanOpsNeedBooleanArgs</em></td><td>SBML L2v3 validation rule #10209</td>
- * <tr><td><em>NumericOpsNeedNumericArgs</em></td><td>SBML L2v3 validation rule #10210</td>
- * <tr><td><em>ArgsToEqNeedSameType</em></td><td>SBML L2v3 validation rule #10211</td>
- * <tr><td><em>PiecewiseNeedsConsistentTypes</em></td><td>SBML L2v3 validation rule #10212</td>
- * <tr><td><em>PieceNeedsBoolean</em></td><td>SBML L2v3 validation rule #10213</td>
- * <tr><td><em>ApplyCiMustBeUserFunction</em></td><td>SBML L2v3 validation rule #10214</td>
- * <tr><td><em>ApplyCiMustBeModelComponent</em></td><td>SBML L2v3 validation rule #10215</td>
- * <tr><td><em>KineticLawParametersAreLocalOnly</em></td><td>SBML L2v3 validation rule #10216</td>
- * <tr><td><em>MathResultMustBeNumeric</em></td><td>SBML L2v3 validation rule #10217</td>
- * <tr><td><em>OpsNeedCorrectNumberOfArgs</em></td><td>SBML L2v3 validation rule #10218</td>
- * <tr><td><em>InvalidNoArgsPassedToFunctionDef</em></td><td>SBML L2v4 validation rule #10219</td>
- * <tr><td><em>DuplicateComponentId</em></td><td>SBML L2v3 validation rule #10301</td>
- * <tr><td><em>DuplicateUnitDefinitionId</em></td><td>SBML L2v3 validation rule #10302</td>
- * <tr><td><em>DuplicateLocalParameterId</em></td><td>SBML L2v3 validation rule #10303</td>
- * <tr><td><em>MultipleAssignmentOrRateRules</em></td><td>SBML L2v3 validation rule #10304</td>
- * <tr><td><em>MultipleEventAssignmentsForId</em></td><td>SBML L2v3 validation rule #10305</td>
- * <tr><td><em>EventAndAssignmentRuleForId</em></td><td>SBML L2v3 validation rule #10306</td>
- * <tr><td><em>DuplicateMetaId</em></td><td>SBML L2v3 validation rule #10307</td>
- * <tr><td><em>InvalidSBOTermSyntax</em></td><td>SBML L2v3 validation rule #10308</td>
- * <tr><td><em>InvalidMetaidSyntax</em></td><td>SBML L2v3 validation rule #10309</td>
- * <tr><td><em>InvalidIdSyntax</em></td><td>SBML L2v3 validation rule #10310</td>
- * <tr><td><em>InvalidUnitIdSyntax</em></td><td>SBML L2v3 validation rule #10311</td>
- * <tr><td><em>MissingAnnotationNamespace</em></td><td>SBML L2v3 validation rule #10401</td>
- * <tr><td><em>DuplicateAnnotationNamespaces</em></td><td>SBML L2v3 validation rule #10402</td>
- * <tr><td><em>SBMLNamespaceInAnnotation</em></td><td>SBML L2v3 validation rule #10403</td>
- * <tr><td><em>InconsistentArgUnits</em></td><td>SBML L2v3 validation rule #10501</td>
- * <tr><td><em>AssignRuleCompartmentMismatch</em></td><td>SBML L2v3 validation rule #10511</td>
- * <tr><td><em>AssignRuleSpeciesMismatch</em></td><td>SBML L2v3 validation rule #10512</td>
- * <tr><td><em>AssignRuleParameterMismatch</em></td><td>SBML L2v3 validation rule #10513</td>
- * <tr><td><em>InitAssignCompartmenMismatch</em></td><td>SBML L2v3 validation rule #10521</td>
- * <tr><td><em>InitAssignSpeciesMismatch</em></td><td>SBML L2v3 validation rule #10522</td>
- * <tr><td><em>InitAssignParameterMismatch</em></td><td>SBML L2v3 validation rule #10523</td>
- * <tr><td><em>RateRuleCompartmentMismatch</em></td><td>SBML L2v3 validation rule #10531</td>
- * <tr><td><em>RateRuleSpeciesMismatch</em></td><td>SBML L2v3 validation rule #10532</td>
- * <tr><td><em>RateRuleParameterMismatch</em></td><td>SBML L2v3 validation rule #10533</td>
- * <tr><td><em>KineticLawNotSubstancePerTime</em></td><td>SBML L2v3 validation rule #10541</td>
- * <tr><td><em>DelayUnitsNotTime</em></td><td>SBML L2v3 validation rule #10551</td>
- * <tr><td><em>EventAssignCompartmentMismatch</em></td><td>SBML L2v3 validation rule #10561</td>
- * <tr><td><em>EventAssignSpeciesMismatch</em></td><td>SBML L2v3 validation rule #10562</td>
- * <tr><td><em>EventAssignParameterMismatch</em></td><td>SBML L2v3 validation rule #10563</td>
- * <tr><td><em>OverdeterminedSystem</em></td><td>SBML L2v3 validation rule #10601</td>
- * <tr><td><em>InvalidModelSBOTerm</em></td><td>SBML L2v3 validation rule #10701</td>
- * <tr><td><em>InvalidFunctionDefSBOTerm</em></td><td>SBML L2v3 validation rule #10702</td>
- * <tr><td><em>InvalidParameterSBOTerm</em></td><td>SBML L2v3 validation rule #10703</td>
- * <tr><td><em>InvalidInitAssignSBOTerm</em></td><td>SBML L2v3 validation rule #10704</td>
- * <tr><td><em>InvalidRuleSBOTerm</em></td><td>SBML L2v3 validation rule #10705</td>
- * <tr><td><em>InvalidConstraintSBOTerm</em></td><td>SBML L2v3 validation rule #10706</td>
- * <tr><td><em>InvalidReactionSBOTerm</em></td><td>SBML L2v3 validation rule #10707</td>
- * <tr><td><em>InvalidSpeciesReferenceSBOTerm</em></td><td>SBML L2v3 validation rule #10708</td>
- * <tr><td><em>InvalidKineticLawSBOTerm</em></td><td>SBML L2v3 validation rule #10709</td>
- * <tr><td><em>InvalidEventSBOTerm</em></td><td>SBML L2v3 validation rule #10710</td>
- * <tr><td><em>InvalidEventAssignmentSBOTerm</em></td><td>SBML L2v3 validation rule #10711</td>
- * <tr><td><em>InvalidCompartmentSBOTerm</em></td><td>SBML L2v3 validation rule #10712</td>
- * <tr><td><em>InvalidSpeciesSBOTerm</em></td><td>SBML L2v3 validation rule #10713</td>
- * <tr><td><em>InvalidCompartmentTypeSBOTerm</em></td><td>SBML L2v3 validation rule #10714</td>
- * <tr><td><em>InvalidSpeciesTypeSBOTerm</em></td><td>SBML L2v3 validation rule #10715</td>
- * <tr><td><em>InvalidTriggerSBOTerm</em></td><td>SBML L2v3 validation rule #10716</td>
- * <tr><td><em>InvalidDelaySBOTerm</em></td><td>SBML L2v3 validation rule #10717</td>
- * <tr><td><em>NotesNotInXHTMLNamespace</em></td><td>SBML L2v3 validation rule #10801</td>
- * <tr><td><em>NotesContainsXMLDecl</em></td><td>SBML L2v3 validation rule #10802</td>
- * <tr><td><em>NotesContainsDOCTYPE</em></td><td>SBML L2v3 validation rule #10803</td>
- * <tr><td><em>InvalidNotesContent</em></td><td>SBML L2v3 validation rule #10804</td>
- * <tr><td><em>InvalidNamespaceOnSBML</em></td><td>SBML L2v3 validation rule #20101</td>
- * <tr><td><em>MissingOrInconsistentLevel</em></td><td>SBML L2v3 validation rule #20102</td>
- * <tr><td><em>MissingOrInconsistentVersion</em></td><td>SBML L2v3 validation rule #20103</td>
- * <tr><td><em>AnnotationNotesNotAllowedLevel1</em></td><td>SBML L2v3 validation rule #20141</td>
- * <tr><td><em>MissingModel</em></td><td>SBML L2v3 validation rule #20201</td>
- * <tr><td><em>IncorrectOrderInModel</em></td><td>SBML L2v3 validation rule #20202</td>
- * <tr><td><em>EmptyListElement</em></td><td>SBML L2v3 validation rule #20203</td>
- * <tr><td><em>NeedCompartmentIfHaveSpecies</em></td><td>SBML L2v3 validation rule #20204</td>
- * <tr><td><em>FunctionDefMathNotLambda</em></td><td>SBML L2v3 validation rule #20301</td>
- * <tr><td><em>InvalidApplyCiInLambda</em></td><td>SBML L2v3 validation rule #20302</td>
- * <tr><td><em>RecursiveFunctionDefinition</em></td><td>SBML L2v3 validation rule #20303</td>
- * <tr><td><em>InvalidCiInLambda</em></td><td>SBML L2v3 validation rule #20304</td>
- * <tr><td><em>InvalidFunctionDefReturnType</em></td><td>SBML L2v3 validation rule #20305</td>
- * <tr><td><em>InvalidUnitDefId</em></td><td>SBML L2v3 validation rule #20401</td>
- * <tr><td><em>InvalidSubstanceRedefinition</em></td><td>SBML L2v3 validation rule #20402</td>
- * <tr><td><em>InvalidLengthRedefinition</em></td><td>SBML L2v3 validation rule #20403</td>
- * <tr><td><em>InvalidAreaRedefinition</em></td><td>SBML L2v3 validation rule #20404</td>
- * <tr><td><em>InvalidTimeRedefinition</em></td><td>SBML L2v3 validation rule #20405</td>
- * <tr><td><em>InvalidVolumeRedefinition</em></td><td>SBML L2v3 validation rule #20406</td>
- * <tr><td><em>VolumeLitreDefExponentNotOne</em></td><td>SBML L2v3 validation rule #20407</td>
- * <tr><td><em>VolumeMetreDefExponentNot3</em></td><td>SBML L2v3 validation rule #20408</td>
- * <tr><td><em>EmptyListOfUnits</em></td><td>SBML L2v3 validation rule #20409</td>
- * <tr><td><em>InvalidUnitKind</em></td><td>SBML L2v3 validation rule #20410</td>
- * <tr><td><em>OffsetNoLongerValid</em></td><td>SBML L2v3 validation rule #20411</td>
- * <tr><td><em>CelsiusNoLongerValid</em></td><td>SBML L2v3 validation rule #20412</td>
- * <tr><td><em>ZeroDimensionalCompartmentSize</em></td><td>SBML L2v3 validation rule #20501</td>
- * <tr><td><em>ZeroDimensionalCompartmentUnits</em></td><td>SBML L2v3 validation rule #20502</td>
- * <tr><td><em>ZeroDimensionalCompartmentConst</em></td><td>SBML L2v3 validation rule #20503</td>
- * <tr><td><em>UndefinedOutsideCompartment</em></td><td>SBML L2v3 validation rule #20504</td>
- * <tr><td><em>RecursiveCompartmentContainment</em></td><td>SBML L2v3 validation rule #20505</td>
- * <tr><td><em>ZeroDCompartmentContainment</em></td><td>SBML L2v3 validation rule #20506</td>
- * <tr><td><em>Invalid1DCompartmentUnits</em></td><td>SBML L2v3 validation rule #20507</td>
- * <tr><td><em>Invalid2DCompartmentUnits</em></td><td>SBML L2v3 validation rule #20508</td>
- * <tr><td><em>Invalid3DCompartmentUnits</em></td><td>SBML L2v3 validation rule #20509</td>
- * <tr><td><em>InvalidCompartmentTypeRef</em></td><td>SBML L2v3 validation rule #20510</td>
- * <tr><td><em>InvalidSpeciesCompartmentRef</em></td><td>SBML L2v3 validation rule #20601</td>
- * <tr><td><em>HasOnlySubsNoSpatialUnits</em></td><td>SBML L2v3 validation rule #20602</td>
- * <tr><td><em>NoSpatialUnitsInZeroD</em></td><td>SBML L2v3 validation rule #20603</td>
- * <tr><td><em>NoConcentrationInZeroD</em></td><td>SBML L2v3 validation rule #20604</td>
- * <tr><td><em>SpatialUnitsInOneD</em></td><td>SBML L2v3 validation rule #20605</td>
- * <tr><td><em>SpatialUnitsInTwoD</em></td><td>SBML L2v3 validation rule #20606</td>
- * <tr><td><em>SpatialUnitsInThreeD</em></td><td>SBML L2v3 validation rule #20607</td>
- * <tr><td><em>InvalidSpeciesSusbstanceUnits</em></td><td>SBML L2v3 validation rule #20608</td>
- * <tr><td><em>BothAmountAndConcentrationSet</em></td><td>SBML L2v3 validation rule #20609</td>
- * <tr><td><em>NonBoundarySpeciesAssignedAndUsed</em></td><td>SBML L2v3 validation rule #20610</td>
- * <tr><td><em>NonConstantSpeciesUsed</em></td><td>SBML L2v3 validation rule #20611</td>
- * <tr><td><em>InvalidSpeciesTypeRef</em></td><td>SBML L2v3 validation rule #20612</td>
- * <tr><td><em>MultSpeciesSameTypeInCompartment</em></td><td>SBML L2v3 validation rule #20613</td>
- * <tr><td><em>MissingSpeciesCompartment</em></td><td>SBML L2v3 validation rule #20614</td>
- * <tr><td><em>SpatialSizeUnitsRemoved</em></td><td>SBML L2v3 validation rule #20615</td>
- * <tr><td><em>InvalidParameterUnits</em></td><td>SBML L2v3 validation rule #20701</td>
- * <tr><td><em>InvalidInitAssignSymbol</em></td><td>SBML L2v3 validation rule #20801</td>
- * <tr><td><em>MultipleInitAssignments</em></td><td>SBML L2v3 validation rule #20802</td>
- * <tr><td><em>InitAssignmentAndRuleForSameId</em></td><td>SBML L2v3 validation rule #20803</td>
- * <tr><td><em>InvalidAssignRuleVariable</em></td><td>SBML L2v3 validation rule #20901</td>
- * <tr><td><em>InvalidRateRuleVariable</em></td><td>SBML L2v3 validation rule #20902</td>
- * <tr><td><em>AssignmentToConstantEntity</em></td><td>SBML L2v3 validation rule #20903</td>
- * <tr><td><em>RateRuleForConstantEntity</em></td><td>SBML L2v3 validation rule #20904</td>
- * <tr><td><em>RepeatedRule10304</em></td><td>SBML L2v3 validation rule #20905</td>
- * <tr><td><em>CircularRuleDependency</em></td><td>SBML L2v3 validation rule #20906</td>
- * <tr><td><em>ConstraintMathNotBoolean</em></td><td>SBML L2v3 validation rule #21001</td>
- * <tr><td><em>IncorrectOrderInConstraint</em></td><td>SBML L2v3 validation rule #21002</td>
- * <tr><td><em>ConstraintNotInXHTMLNamespace</em></td><td>SBML L2v3 validation rule #21003</td>
- * <tr><td><em>ConstraintContainsXMLDecl</em></td><td>SBML L2v3 validation rule #21004</td>
- * <tr><td><em>ConstraintContainsDOCTYPE</em></td><td>SBML L2v3 validation rule #21005</td>
- * <tr><td><em>InvalidConstraintContent</em></td><td>SBML L2v3 validation rule #21006</td>
- * <tr><td><em>NoReactantsOrProducts</em></td><td>SBML L2v3 validation rule #21101</td>
- * <tr><td><em>IncorrectOrderInReaction</em></td><td>SBML L2v3 validation rule #21102</td>
- * <tr><td><em>EmptyListInReaction</em></td><td>SBML L2v3 validation rule #21103</td>
- * <tr><td><em>InvalidReactantsProductsList</em></td><td>SBML L2v3 validation rule #21104</td>
- * <tr><td><em>InvalidModifiersList</em></td><td>SBML L2v3 validation rule #21105</td>
- * <tr><td><em>InvalidSpeciesReference</em></td><td>SBML L2v3 validation rule #21111</td>
- * <tr><td><em>RepeatedRule20611</em></td><td>SBML L2v3 validation rule #21112</td>
- * <tr><td><em>BothStoichiometryAndMath</em></td><td>SBML L2v3 validation rule #21113</td>
- * <tr><td><em>UndeclaredSpeciesRef</em></td><td>SBML L2v3 validation rule #21121</td>
- * <tr><td><em>IncorrectOrderInKineticLaw</em></td><td>SBML L2v3 validation rule #21122</td>
- * <tr><td><em>EmptyListInKineticLaw</em></td><td>SBML L2v3 validation rule #21123</td>
- * <tr><td><em>NonConstantLocalParameter</em></td><td>SBML L2v3 validation rule #21124</td>
- * <tr><td><em>SubsUnitsNoLongerValid</em></td><td>SBML L2v3 validation rule #21125</td>
- * <tr><td><em>TimeUnitsNoLongerValid</em></td><td>SBML L2v3 validation rule #21126</td>
- * <tr><td><em>UndeclaredSpeciesInStoichMath</em></td><td>SBML L2v3 validation rule #21131</td>
- * <tr><td><em>MissingTriggerInEvent</em></td><td>SBML L2v3 validation rule #21201</td>
- * <tr><td><em>TriggerMathNotBoolean</em></td><td>SBML L2v3 validation rule #21202</td>
- * <tr><td><em>MissingEventAssignment</em></td><td>SBML L2v3 validation rule #21203</td>
- * <tr><td><em>TimeUnitsEvent</em></td><td>SBML L2v3 validation rule #21204</td>
- * <tr><td><em>IncorrectOrderInEvent</em></td><td>SBML L2v3 validation rule #21205</td>
- * <tr><td><em>TimeUnitsRemoved</em></td><td>SBML L2v3 validation rule #21206</td>
- * <tr><td><em>InvalidEventAssignmentVariable</em></td><td>SBML L2v3 validation rule #21211</td>
- * <tr><td><em>EventAssignmentForConstantEntity</em></td><td>SBML L2v3 validation rule #21212</td>
- * <tr><td><em>CompartmentShouldHaveSize</em></td><td>Compartment is missing size</td></tr>
- * <tr><td><em>ParameterShouldHaveUnits</em></td><td>Parameter definition should specify units</td></tr>
- * <tr><td><em>LocalParameterShadowsId</em></td><td>Parameter inside KineticLaw has same id as a global parameter</td></tr>
- * <tr><td><em>CannotConvertToL1V1</em></td><td>Cannot convert this model to Level 1 Version 1</td></tr>
- * <tr><td><em>NoEventsInL1</em></td><td>Level 1 compatibility/conversion</td></tr>
- * <tr><td><em>NoFunctionDefinitionsInL1</em></td><td>Level 1 compatibility/conversion</td></tr>
- * <tr><td><em>NoConstraintsInL1</em></td><td>Level 1 compatibility/conversion</td></tr>
- * <tr><td><em>NoInitialAssignmentsInL1</em></td><td>Level 1 compatibility/conversion</td></tr>
- * <tr><td><em>NoSpeciesTypesInL1</em></td><td>Level 1 compatibility/conversion</td></tr>
- * <tr><td><em>NoCompartmentTypeInL1</em></td><td>Level 1 compatibility/conversion</td></tr>
- * <tr><td><em>NoNon3DComparmentsInL1</em></td><td>Level 1 compatibility/conversion</td></tr>
- * <tr><td><em>NoFancyStoichiometryMathInL1</em></td><td>Level 1 compatibility/conversion</td></tr>
- * <tr><td><em>NoNonIntegerStoichiometryInL1</em></td><td>Level 1 compatibility/conversion</td></tr>
- * <tr><td><em>NoUnitMultipliersOrOffsetsInL1</em></td><td>Level 1 compatibility/conversion</td></tr>
- * <tr><td><em>SpeciesCompartmentRequiredInL1</em></td><td>Level 1 compatibility/conversion</td></tr>
- * <tr><td><em>NoSpeciesSpatialSizeUnitsInL1</em></td><td>Level 1 compatibility/conversion</td></tr>
- * <tr><td><em>NoSBOTermsInL1</em></td><td>Level 1 compatibility/conversion</td></tr>
- * <tr><td><em>NoConstraintsInL2v1</em></td><td>Level 2 Version 1 compatibility/conversion</td></tr>
- * <tr><td><em>NoInitialAssignmentsInL2v1</em></td><td>Level 2 Version 1 compatibility/conversion</td></tr>
- * <tr><td><em>NoSpeciesTypeInL2v1</em></td><td>Level 2 Version 1 compatibility/conversion</td></tr>
- * <tr><td><em>NoCompartmentTypeInL2v1</em></td><td>Level 2 Version 1 compatibility/conversion</td></tr>
- * <tr><td><em>NoSBOTermsInL2v1</em></td><td>Level 2 Version 1 compatibility/conversion</td></tr>
- * <tr><td><em>NoIdOnSpeciesReferenceInL2v1</em></td><td>Level 2 Version 1 compatibility/conversion</td></tr>
- * <tr><td><em>SBOTermNotUniversalInL2v2</em></td><td>Level 2 Version 2 compatibility/conversion</td></tr>
- * <tr><td><em>NoUnitOffsetInL2v2</em></td><td>Level 2 Version 2 compatibility/conversion</td></tr>
- * <tr><td><em>NoKineticLawTimeUnitsInL2v2</em></td><td>Level 2 Version 2 compatibility/conversion</td></tr>
- * <tr><td><em>NoKineticLawSubstanceUnitsInL2v2</em></td><td>Level 2 Version 2 compatibility/conversion</td></tr>
- * <tr><td><em>NoUnitOffsetInL2v3</em></td><td>Level 2 Version 3 compatibility/conversion</td></tr>
- * <tr><td><em>NoKineticLawTimeUnitsInL2v3</em></td><td>Level 2 Version 3 compatibility/conversion</td></tr>
- * <tr><td><em>NoKineticLawSubstanceUnitsInL2v3</em></td><td>Level 2 Version 3 compatibility/conversion</td></tr>
- * <tr><td><em>NoSpeciesSpatialSizeUnitsInL2v3</em></td><td>Level 2 Version 3 compatibility/conversion</td></tr>
- * <tr><td><em>NoEventTimeUnitsInL2v3</em></td><td>Level 2 Version 3 compatibility/conversion</td></tr>
- * <tr><td><em>SubsUnitsAllowedInKL</em></td><td>Malformed model</td></tr>
- * <tr><td><em>TimeUnitsAllowedInKL</em></td><td>Malformed model</td></tr>
- * <tr><td><em>FormulaInLevel1KL</em></td><td>Malformed model</td></tr>
- * <tr><td><em>BadMathML</em></td><td>Malformed model</td></tr>
- * <tr><td><em>FailedMathMLReadOfDouble</em></td><td>Malformed MathML</td></tr>
- * <tr><td><em>FailedMathMLReadOfInteger</em></td><td>Malformed MathML</td></tr>
- * <tr><td><em>FailedMathMLReadOfExponential</em></td><td>Malformed MathML</td></tr>
- * <tr><td><em>FailedMathMLReadOfRational</em></td><td>Malformed MathML</td></tr>
- * <tr><td><em>UndeclaredUnits</em></td><td>Malformed model</td></tr>
- * <tr><td><em>UnrecognisedSBOTerm</em></td><td>Malformed model</td></tr>
+ * <tr><td><em>UnknownError</em></td><td>Unknown internal libSBML error</td>
+ * <tr><td><em>NotUTF8</em></td><td>Not UTF8</td>
+ * <tr><td><em>UnrecognizedElement</em></td><td>Unrecognized element</td>
+ * <tr><td><em>NotSchemaConformant</em></td><td>Not conformant to SBML XML schema</td>
+ * <tr><td><em>InvalidMathElement</em></td><td>Invalid MathML</td>
+ * <tr><td><em>DisallowedMathMLSymbol</em></td><td>Disallowed MathML symbol</td>
+ * <tr><td><em>DisallowedMathMLEncodingUse</em></td><td>Disallowed use of MathML 'encoding' attribute</td>
+ * <tr><td><em>DisallowedDefinitionURLUse</em></td><td>Disallowed use of MathML 'definitionURL' attribute</td>
+ * <tr><td><em>BadCsymbolDefinitionURLValue</em></td><td>Invalid <csymbol> 'definitionURL' attribute value</td>
+ * <tr><td><em>DisallowedMathTypeAttributeUse</em></td><td>Disallowed use of MathML 'type' attribute</td>
+ * <tr><td><em>DisallowedMathTypeAttributeValue</em></td><td>Disallowed MathML 'type' attribute value</td>
+ * <tr><td><em>LambdaOnlyAllowedInFunctionDef</em></td><td>Use of <lambda> not permitted outside of a <functionDefinition></td>
+ * <tr><td><em>BooleanOpsNeedBooleanArgs</em></td><td>Non-boolean argument given to boolean operator</td>
+ * <tr><td><em>NumericOpsNeedNumericArgs</em></td><td>Non-numerical argument given to numerical operator</td>
+ * <tr><td><em>ArgsToEqNeedSameType</em></td><td>Arguments to <eq> or <neq> have inconsistent data types</td>
+ * <tr><td><em>PiecewiseNeedsConsistentTypes</em></td><td><piecewise> terms have inconsistent data types</td>
+ * <tr><td><em>PieceNeedsBoolean</em></td><td>Second argument of <piece> must yield a boolean value</td>
+ * <tr><td><em>ApplyCiMustBeUserFunction</em></td><td><ci> does not refer to a function definition</td>
+ * <tr><td><em>ApplyCiMustBeModelComponent</em></td><td><ci>'s value is not a component in this model</td>
+ * <tr><td><em>KineticLawParametersAreLocalOnly</em></td><td>Cannot use <kineticLaw> parameter outside local scope</td>
+ * <tr><td><em>MathResultMustBeNumeric</em></td><td>Formula result is not a numerical value</td>
+ * <tr><td><em>OpsNeedCorrectNumberOfArgs</em></td><td>Incorrect number of arguments to operator</td>
+ * <tr><td><em>InvalidNoArgsPassedToFunctionDef</em></td><td>Incorrect number of arguments to function</td>
+ * <tr><td><em>DuplicateComponentId</em></td><td>Duplicate component identifier</td>
+ * <tr><td><em>DuplicateUnitDefinitionId</em></td><td>Duplicate unit definition identifier</td>
+ * <tr><td><em>DuplicateLocalParameterId</em></td><td>Duplicate local parameter identifier</td>
+ * <tr><td><em>MultipleAssignmentOrRateRules</em></td><td>Multiple rules for the same variable</td>
+ * <tr><td><em>MultipleEventAssignmentsForId</em></td><td>Multiple event assignments for the same variable</td>
+ * <tr><td><em>EventAndAssignmentRuleForId</em></td><td>'variable' value used in both event assignments and assignment rules</td>
+ * <tr><td><em>DuplicateMetaId</em></td><td>Duplicate 'metaid' identifier</td>
+ * <tr><td><em>InvalidSBOTermSyntax</em></td><td>Invalid 'sboTerm' value syntax</td>
+ * <tr><td><em>InvalidMetaidSyntax</em></td><td>Invalid 'metaid' value syntax</td>
+ * <tr><td><em>InvalidIdSyntax</em></td><td>Invalid identifier syntax</td>
+ * <tr><td><em>InvalidUnitIdSyntax</em></td><td>Invalid unit identifier syntax</td>
+ * <tr><td><em>MissingAnnotationNamespace</em></td><td>Missing declaration of XML namespace for annotation</td>
+ * <tr><td><em>DuplicateAnnotationNamespaces</em></td><td>Multiple annotations using same XML namespace</td>
+ * <tr><td><em>SBMLNamespaceInAnnotation</em></td><td>Invalid use of SBML XML namespace in annotation</td>
+ * <tr><td><em>InconsistentArgUnits</em></td><td>Units of arguments to function call do not match function's definition</td>
+ * <tr><td><em>AssignRuleCompartmentMismatch</em></td><td>Mismatched units in assignment rule for compartment</td>
+ * <tr><td><em>AssignRuleSpeciesMismatch</em></td><td>Mismatched units in assignment rule for species</td>
+ * <tr><td><em>AssignRuleParameterMismatch</em></td><td>Mismatched units in assignment rule for parameter</td>
+ * <tr><td><em>InitAssignCompartmenMismatch</em></td><td>Mismatched units in initial assignment to compartment</td>
+ * <tr><td><em>InitAssignSpeciesMismatch</em></td><td>Mismatched units in initial assignment to species</td>
+ * <tr><td><em>InitAssignParameterMismatch</em></td><td>Mismatched units in initial assignment to parameter</td>
+ * <tr><td><em>RateRuleCompartmentMismatch</em></td><td>Mismatched units in rate rule for compartment</td>
+ * <tr><td><em>RateRuleSpeciesMismatch</em></td><td>Mismatched units in rate rule for species</td>
+ * <tr><td><em>RateRuleParameterMismatch</em></td><td>Mismatched units in rate rule for parameter</td>
+ * <tr><td><em>KineticLawNotSubstancePerTime</em></td><td>Kinetic law units are not 'substance'/'time'</td>
+ * <tr><td><em>DelayUnitsNotTime</em></td><td>Units of delay are not units of time</td>
+ * <tr><td><em>EventAssignCompartmentMismatch</em></td><td>Mismatched units in event assignment for compartment</td>
+ * <tr><td><em>EventAssignSpeciesMismatch</em></td><td>Mismatched units in event assignment for species</td>
+ * <tr><td><em>EventAssignParameterMismatch</em></td><td>Mismatched units in event assignment for parameter</td>
+ * <tr><td><em>OverdeterminedSystem</em></td><td>Model is overdetermined</td>
+ * <tr><td><em>InvalidModelSBOTerm</em></td><td>Invalid 'sboTerm' value for model</td>
+ * <tr><td><em>InvalidFunctionDefSBOTerm</em></td><td>Invalid 'sboTerm' value for function definition</td>
+ * <tr><td><em>InvalidParameterSBOTerm</em></td><td>Invalid 'sboTerm' value for parameter</td>
+ * <tr><td><em>InvalidInitAssignSBOTerm</em></td><td>Invalid 'sboTerm' value for initial assignment</td>
+ * <tr><td><em>InvalidRuleSBOTerm</em></td><td>Invalid 'sboTerm' value for rule</td>
+ * <tr><td><em>InvalidConstraintSBOTerm</em></td><td>Invalid 'sboTerm' value for constraint</td>
+ * <tr><td><em>InvalidReactionSBOTerm</em></td><td>Invalid 'sboTerm' value for reaction</td>
+ * <tr><td><em>InvalidSpeciesReferenceSBOTerm</em></td><td>Invalid 'sboTerm' value for species reference</td>
+ * <tr><td><em>InvalidKineticLawSBOTerm</em></td><td>Invalid 'sboTerm' value for kinetic law</td>
+ * <tr><td><em>InvalidEventSBOTerm</em></td><td>Invalid 'sboTerm' value for event</td>
+ * <tr><td><em>InvalidEventAssignmentSBOTerm</em></td><td>Invalid 'sboTerm' value for event assignment</td>
+ * <tr><td><em>InvalidCompartmentSBOTerm</em></td><td>Invalid 'sboTerm' value for compartment</td>
+ * <tr><td><em>InvalidSpeciesSBOTerm</em></td><td>Invalid 'sboTerm' value for species</td>
+ * <tr><td><em>InvalidCompartmentTypeSBOTerm</em></td><td>Invalid 'sboTerm' value for compartment type</td>
+ * <tr><td><em>InvalidSpeciesTypeSBOTerm</em></td><td>Invalid 'sboTerm' value for species type</td>
+ * <tr><td><em>InvalidTriggerSBOTerm</em></td><td>Invalid 'sboTerm' value for event trigger</td>
+ * <tr><td><em>InvalidDelaySBOTerm</em></td><td>Invalid 'sboTerm' value for event delay</td>
+ * <tr><td><em>NotesNotInXHTMLNamespace</em></td><td>Notes not placed in XHTML namespace</td>
+ * <tr><td><em>NotesContainsXMLDecl</em></td><td>XML declarations not permitted in notes</td>
+ * <tr><td><em>NotesContainsDOCTYPE</em></td><td>XML DOCTYPE not permitted in notes</td>
+ * <tr><td><em>InvalidNotesContent</em></td><td>Invalid notes content</td>
+ * <tr><td><em>InvalidNamespaceOnSBML</em></td><td>Invalid XML namespace for SBML container</td>
+ * <tr><td><em>MissingOrInconsistentLevel</em></td><td>Missing or inconsistent value for 'level' attribute</td>
+ * <tr><td><em>MissingOrInconsistentVersion</em></td><td>Missing or inconsistent value for 'version' attribute</td>
+ * <tr><td><em>AnnotationNotesNotAllowedLevel1</em></td><td>Annotation on <sbml> not permitted in SBML Level 1</td>
+ * <tr><td><em>MissingModel</em></td><td>Missing model</td>
+ * <tr><td><em>IncorrectOrderInModel</em></td><td>Incorrect ordering of components in model definition</td>
+ * <tr><td><em>EmptyListElement</em></td><td>A given listOf___, if present, cannot be empty</td>
+ * <tr><td><em>NeedCompartmentIfHaveSpecies</em></td><td>Missing compartment in species definition</td>
+ * <tr><td><em>FunctionDefMathNotLambda</em></td><td>Invalid expression in function definition</td>
+ * <tr><td><em>InvalidApplyCiInLambda</em></td><td>Invalid forward reference in <apply><ci>...</ci></apply> value</td>
+ * <tr><td><em>RecursiveFunctionDefinition</em></td><td>Recursive function definition</td>
+ * <tr><td><em>InvalidCiInLambda</em></td><td>Unknown <ci> reference in <lambda></td>
+ * <tr><td><em>InvalidFunctionDefReturnType</em></td><td>Function return type must be either numerical or boolean</td>
+ * <tr><td><em>InvalidUnitDefId</em></td><td>Invalid 'id' value for unit definition</td>
+ * <tr><td><em>InvalidSubstanceRedefinition</em></td><td>Invalid redefinition of 'substance'</td>
+ * <tr><td><em>InvalidLengthRedefinition</em></td><td>Invalid redefinition of 'length'</td>
+ * <tr><td><em>InvalidAreaRedefinition</em></td><td>Invalid redefinition of 'area'</td>
+ * <tr><td><em>InvalidTimeRedefinition</em></td><td>Invalid redefinition of 'time'</td>
+ * <tr><td><em>InvalidVolumeRedefinition</em></td><td>Invalid redefinition of 'volume'</td>
+ * <tr><td><em>VolumeLitreDefExponentNotOne</em></td><td>Must use 'exponent'=1 when defining 'volume' in terms of litres</td>
+ * <tr><td><em>VolumeMetreDefExponentNot3</em></td><td>Must use 'exponent'=3 when defining 'volume' in terms of metres</td>
+ * <tr><td><em>EmptyListOfUnits</em></td><td>Empty list of units not permitted</td>
+ * <tr><td><em>InvalidUnitKind</em></td><td>Invalid value of 'kind' in unit definition</td>
+ * <tr><td><em>OffsetNoLongerValid</em></td><td>'offset' not supported in this Level+Version of SBML</td>
+ * <tr><td><em>CelsiusNoLongerValid</em></td><td>'Celsius' not defined in this Level+Version of SBML</td>
+ * <tr><td><em>ZeroDimensionalCompartmentSize</em></td><td>Use of 'size' is invalid for a zero-dimensional compartment</td>
+ * <tr><td><em>ZeroDimensionalCompartmentUnits</em></td><td>Use of 'units' is invalid for a zero-dimensional compartment</td>
+ * <tr><td><em>ZeroDimensionalCompartmentConst</em></td><td>Zero-dimensional compartments cannot be non-constant</td>
+ * <tr><td><em>UndefinedOutsideCompartment</em></td><td>Undefined compartment used as 'outside' value</td>
+ * <tr><td><em>RecursiveCompartmentContainment</em></td><td>Recursive nesting of compartments via 'outside'</td>
+ * <tr><td><em>ZeroDCompartmentContainment</em></td><td>Invalid nesting of zero-dimensional compartments</td>
+ * <tr><td><em>Invalid1DCompartmentUnits</em></td><td>Invalid value of 'units' for a one-dimensional compartment</td>
+ * <tr><td><em>Invalid2DCompartmentUnits</em></td><td>Invalid value of 'units' for a two-dimensional compartment</td>
+ * <tr><td><em>Invalid3DCompartmentUnits</em></td><td>Invalid value of 'units' for a three-dimensional compartment</td>
+ * <tr><td><em>InvalidCompartmentTypeRef</em></td><td>Invalid 'compartmentType' reference</td>
+ * <tr><td><em>InvalidSpeciesCompartmentRef</em></td><td>Invalid 'compartment' reference</td>
+ * <tr><td><em>HasOnlySubsNoSpatialUnits</em></td><td>No 'spatialSizeUnits' permitted if 'hasOnlySubstanceUnits'='true'</td>
+ * <tr><td><em>NoSpatialUnitsInZeroD</em></td><td>No 'spatialSizeUnits' permitted if compartment is zero-dimensional</td>
+ * <tr><td><em>NoConcentrationInZeroD</em></td><td>No 'initialConcentration' permitted if compartment is zero-dimensional</td>
+ * <tr><td><em>SpatialUnitsInOneD</em></td><td>Invalid value of 'spatialSizeUnits' for a one-dimensional compartment</td>
+ * <tr><td><em>SpatialUnitsInTwoD</em></td><td>Invalid value of 'spatialSizeUnits' for a two-dimensional compartment</td>
+ * <tr><td><em>SpatialUnitsInThreeD</em></td><td>Invalid value of 'spatialSizeUnits' for a three-dimensional compartment</td>
+ * <tr><td><em>InvalidSpeciesSusbstanceUnits</em></td><td>Invalid value of 'units'</td>
+ * <tr><td><em>BothAmountAndConcentrationSet</em></td><td>Cannot set both 'initialConcentration' and 'initialAmount'</td>
+ * <tr><td><em>NonBoundarySpeciesAssignedAndUsed=</em></td><td>Cannot use non-boundary species in both reactions and rules simultaneously</td>
+ * <tr><td><em>NonConstantSpeciesUsed</em></td><td>Cannot use non-boundary, constant species as reactant or product</td>
+ * <tr><td><em>InvalidSpeciesTypeRef</em></td><td>Invalid 'speciesType' reference</td>
+ * <tr><td><em>MultSpeciesSameTypeInCompartment</em></td><td>Cannot have multiple species of the same type in the same compartment</td>
+ * <tr><td><em>MissingSpeciesCompartment</em></td><td>Missing 'compartment' value for species</td>
+ * <tr><td><em>SpatialSizeUnitsRemoved</em></td><td>Attribute 'spatialSizeUnits' not supported in this Level+Version of SBML</td>
+ * <tr><td><em>InvalidParameterUnits</em></td><td>Invalid value for 'units' in parameter definition</td>
+ * <tr><td><em>InvalidInitAssignSymbol</em></td><td>Invalid 'symbol' reference in initial assignment</td>
+ * <tr><td><em>MultipleInitAssignments</em></td><td>Multiple initial assignments for the same 'symbol' value</td>
+ * <tr><td><em>InitAssignmentAndRuleForSameId</em></td><td>Cannot set a value with both initial assignments and assignment rules simultaneously</td>
+ * <tr><td><em>InvalidAssignRuleVariable</em></td><td>Invalid 'variable' reference in assignment rule</td>
+ * <tr><td><em>InvalidRateRuleVariable</em></td><td>Invalid 'variable' reference in rate rule</td>
+ * <tr><td><em>AssignmentToConstantEntity</em></td><td>Cannot reassign a constant in an assignment rule</td>
+ * <tr><td><em>RateRuleForConstantEntity</em></td><td>Cannot reassign a constant in a rate rule</td>
+ * <tr><td><em>CircularRuleDependency</em></td><td>Circular dependency involving rules and reactions</td>
+ * <tr><td><em>ConstraintMathNotBoolean</em></td><td>Non-boolean math expression in constraint definition</td>
+ * <tr><td><em>IncorrectOrderInConstraint</em></td><td>Incorrect order of elements in constraint definition</td>
+ * <tr><td><em>ConstraintNotInXHTMLNamespace</em></td><td>Constraint message is not in XHTML XML namespace</td>
+ * <tr><td><em>ConstraintContainsXMLDecl</em></td><td>XML declarations not permitted in constraint messages</td>
+ * <tr><td><em>ConstraintContainsDOCTYPE</em></td><td>XML DOCTYPE not permitted in constraint messages</td>
+ * <tr><td><em>InvalidConstraintContent</em></td><td>Invalid content for constraint message</td>
+ * <tr><td><em>NoReactantsOrProducts</em></td><td>Cannot have a reaction with neither reactants nor products</td>
+ * <tr><td><em>IncorrectOrderInReaction</em></td><td>Incorrect ordering of components in reaction definition</td>
+ * <tr><td><em>EmptyListInReaction</em></td><td>Reaction components, if present, cannot be empty</td>
+ * <tr><td><em>InvalidReactantsProductsList</em></td><td>Invalid element in list of reactants or products</td>
+ * <tr><td><em>InvalidModifiersList</em></td><td>Invalid element in list of modifiers</td>
+ * <tr><td><em>InvalidSpeciesReference</em></td><td>Invalid 'species' value in species reference</td>
+ * <tr><td><em>BothStoichiometryAndMath</em></td><td>Cannot use both 'stoichiometry' and <stochiometryMath> simultaneously</td>
+ * <tr><td><em>UndeclaredSpeciesRef</em></td><td>Undeclared species referenced in kinetic law formula</td>
+ * <tr><td><em>IncorrectOrderInKineticLaw</em></td><td>Incorrect ordering of components in kinetic law definition</td>
+ * <tr><td><em>EmptyListInKineticLaw</em></td><td>The list of parameters component, if present, cannot be empty</td>
+ * <tr><td><em>NonConstantLocalParameter</em></td><td>Parameters local to a kinetic law must have 'constant'='true'</td>
+ * <tr><td><em>SubsUnitsNoLongerValid</em></td><td>'substanceUnits' not supported in this Level+Version of SBML</td>
+ * <tr><td><em>TimeUnitsNoLongerValid</em></td><td>'timeUnits' not supported in this Level+Version of SBML</td>
+ * <tr><td><em>UndeclaredSpeciesInStoichMath</em></td><td>Undeclared species referenced in <stoichiometryMath> formula</td>
+ * <tr><td><em>MissingTriggerInEvent</em></td><td>Missing trigger in event definition</td>
+ * <tr><td><em>TriggerMathNotBoolean</em></td><td>Non-boolean math expression in trigger definition</td>
+ * <tr><td><em>MissingEventAssignment</em></td><td>Missing event assignment in event definition</td>
+ * <tr><td><em>TimeUnitsEvent</em></td><td>Units of 'timeUnits' are not time units</td>
+ * <tr><td><em>IncorrectOrderInEvent</em></td><td>Incorrect ordering of components in event definition</td>
+ * <tr><td><em>ValuesFromTriggerTimeNeedDelay</em></td><td>'useValuesFromTriggerTime'='false', but no delay defined in event</td>
+ * <tr><td><em>InvalidEventAssignmentVariable</em></td><td>Invalid value for 'variable' in event assignment</td>
+ * <tr><td><em>EventAssignmentForConstantEntity</em></td><td>Cannot assign to a constant component in an event assignment</td>
+ * <tr><td><em>CompartmentShouldHaveSize</em></td><td>It's best to define a size for every compartment in a model</td>
+ * <tr><td><em>ParameterShouldHaveUnits</em></td><td>It's best to declare units for every parameter in a model</td>
+ * <tr><td><em>LocalParameterShadowsId</em></td><td>Local parameters defined in a kinetic law shadow global parameters</td>
+ * <tr><td><em>CannotConvertToL1V1</em></td><td>Cannot convert to SBML Level 1 Version 1</td>
+ * <tr><td><em>NoEventsInL1</em></td><td>SBML Level 1 does not support events</td>
+ * <tr><td><em>NoFunctionDefinitionsInL1</em></td><td>SBML Level 1 does not support function definitions</td>
+ * <tr><td><em>NoConstraintsInL1</em></td><td>SBML Level 1 does not support constraints</td>
+ * <tr><td><em>NoInitialAssignmentsInL1</em></td><td>SBML Level 1 does not support initial assignments</td>
+ * <tr><td><em>NoSpeciesTypesInL1</em></td><td>SBML Level 1 does not support species types</td>
+ * <tr><td><em>NoCompartmentTypeInL1</em></td><td>SBML Level 1 does not support compartment types</td>
+ * <tr><td><em>NoNon3DComparmentsInL1</em></td><td>SBML Level 1 only supports three-dimensional compartments</td>
+ * <tr><td><em>NoFancyStoichiometryMathInL1</em></td><td>SBML Level 1 does not support non-integer nor non-rational stoichiometry formulas</td>
+ * <tr><td><em>NoNonIntegerStoichiometryInL1</em></td><td>SBML Level 1 does not support non-integer 'stoichiometry' attribute values</td>
+ * <tr><td><em>NoUnitMultipliersOrOffsetsInL1</em></td><td>SBML Level 1 does not support multipliers or offsets in unit definitions</td>
+ * <tr><td><em>SpeciesCompartmentRequiredInL1</em></td><td>In SBML Level 1, a value for 'compartment' is mandatory in species definitions</td>
+ * <tr><td><em>NoSpeciesSpatialSizeUnitsInL1</em></td><td>SBML Level 1 does not support species 'spatialSizeUnits' settings</td>
+ * <tr><td><em>NoSBOTermsInL1</em></td><td>SBML Level 1 does not support the 'sboTerm' attribute</td>
+ * <tr><td><em>NoConstraintsInL2v1</em></td><td>SBML Level 2 Version 1 does not support constraints</td>
+ * <tr><td><em>NoInitialAssignmentsInL2v1</em></td><td>SBML Level 2 Version 1 does not support initial assignments</td>
+ * <tr><td><em>NoSpeciesTypeInL2v1</em></td><td>SBML Level 2 Version 1 does not support species types</td>
+ * <tr><td><em>NoCompartmentTypeInL2v1</em></td><td>SBML Level 2 Version 1 does not support compartment types</td>
+ * <tr><td><em>NoSBOTermsInL2v1</em></td><td>SBML Level 2 Version 1 does not support the 'sboTerm' attribute</td>
+ * <tr><td><em>NoIdOnSpeciesReferenceInL2v1</em></td><td>SBML Level 2 Version 1 does not support the 'id' attribute on species references</td>
+ * <tr><td><em>NoDelayedEventAssignmentInL2v1</em></td><td>Attribute 'useValuesFromTriggerTime' not supported in this Level+Version of SBML</td>
+ * <tr><td><em>SBOTermNotUniversalInL2v2</em></td><td>The 'sboTerm' attribute is invalid for this component in Level 2 Version 2</td>
+ * <tr><td><em>NoUnitOffsetInL2v2</em></td><td>The unit 'offset' attribute is invalid in this Level+Version of SBML</td>
+ * <tr><td><em>NoKineticLawTimeUnitsInL2v2</em></td><td>The 'timeUnits' attribute is invalid in this Level+Version of SBML</td>
+ * <tr><td><em>NoKineticLawSubstanceUnitsInL2v2</em></td><td>The 'substanceUnits' attribute is invalid in this Level+Version of SBML</td>
+ * <tr><td><em>NoDelayedEventAssignmentInL2v2</em></td><td>Attribute 'useValuesFromTriggerTime' not supported in this Level+Version of SBML</td>
+ * <tr><td><em>ModelSBOBranchChangedBeyondL2v2</em></td><td>The allowable 'sboTerm' values for model differ for this SBML Level+Version</td>
+ * <tr><td><em>NoUnitOffsetInL2v3</em></td><td>Attribute 'offset' not supported in this Level+Version of SBML</td>
+ * <tr><td><em>NoKineticLawTimeUnitsInL2v3</em></td><td>Attribute 'timeUnits' not supported in this Level+Version of SBML</td>
+ * <tr><td><em>NoKineticLawSubstanceUnitsInL2v3</em></td><td>Attribute 'substanceUnits' not supported in this Level+Version of SBML</td>
+ * <tr><td><em>NoSpeciesSpatialSizeUnitsInL2v3</em></td><td>Attribute 'spatialSizeUnits' not supported in this Level+Version of SBML</td>
+ * <tr><td><em>NoEventTimeUnitsInL2v3</em></td><td>Attribute 'timeUnits' not supported in this Level+Version of SBML</td>
+ * <tr><td><em>NoDelayedEventAssignmentInL2v3</em></td><td>Attribute 'useValuesFromTriggerTime' not supported in this Level+Version of SBML</td>
+ * <tr><td><em>ModelSBOBranchChangedBeyondL2v3</em></td><td>The allowable 'sboTerm' values for model differ for this SBML Level+Version</td>
+ * <tr><td><em>NoUnitOffsetInL2v4</em></td><td>The unit 'offset' attribute is invalid in this Level+Version of SBML</td>
+ * <tr><td><em>NoKineticLawTimeUnitsInL2v4</em></td><td>The 'timeUnits' attribute is invalid in this Level+Version of SBML</td>
+ * <tr><td><em>NoKineticLawSubstanceUnitsInL2v4</em></td><td>The 'substanceUnits' attribute is invalid in this Level+Version of SBML</td>
+ * <tr><td><em>NoSpeciesSpatialSizeUnitsInL2v4</em></td><td>The 'spatialSizeUnits' attribute is invalid in this Level+Version of SBML</td>
+ * <tr><td><em>NoEventTimeUnitsInL2v4</em></td><td>The 'timeUnits' attribute is invalid in this Level+Version of SBML</td>
+ * <tr><td><em>ModelSBOBranchChangedInL2v4</em></td><td>The allowable 'sboTerm' values for model differ for this SBML Level+Version</td>
+ * <tr><td><em>InvalidSBMLLevelVersion</em></td><td>Invalid SBML Level and Version</td>
+ * <tr><td><em>InvalidRuleOrdering</em></td><td>Invalid ordering of rules</td>
+ * <tr><td><em>SubsUnitsAllowedInKL</em></td><td>Disallowed value for attribute 'substanceUnits'</td>
+ * <tr><td><em>TimeUnitsAllowedInKL</em></td><td>Disallowed value for attribute 'timeUnits'</td>
+ * <tr><td><em>FormulaInLevel1KL</em></td><td>Only predefined functions are permitted in SBML Level 1 formulas</td>
+ * <tr><td><em>TimeUnitsRemoved</em></td><td>The 'timeUnits' attribute is invalid in this Level+Version of SBML</td>
+ * <tr><td><em>BadMathML</em></td><td>Invalid MathML expression</td>
+ * <tr><td><em>FailedMathMLReadOfDouble</em></td><td>Failed to read floating-point number</td>
+ * <tr><td><em>FailedMathMLReadOfInteger</em></td><td>Failed to read an integer</td>
+ * <tr><td><em>FailedMathMLReadOfExponential</em></td><td>Failed to read an exponential expression</td>
+ * <tr><td><em>FailedMathMLReadOfRational</em></td><td>Failed to read a rational expression</td>
+ * <tr><td><em>BadMathMLNodeType</em></td><td>Invalid MathML element</td>
+ * <tr><td><em>NoTimeSymbolInFunctionDef</em></td><td><csymbol> for 'time' used within the <math> of a function definition</td>
+ * <tr><td><em>UndeclaredUnits</em></td><td>Undeclared units</td>
+ * <tr><td><em>UnrecognisedSBOTerm</em></td><td>Unrecognized 'sboTerm' value</td>
+ * <tr><td><em>ObseleteSBOTerm</em></td><td>Obsolete 'sboTerm' value</td>
+ * <tr><td><em>IncorrectCompartmentSpatialDimensions</em></td><td>in SBML Level 1, only three-dimensional compartments are permitted</td>
+ * <tr><td><em>CompartmentTypeNotValidAttribute</em></td><td>Compartment types not supported in this Level+Version of SBML</td>
+ * <tr><td><em>ConstantNotValidAttribute</em></td><td>Attribute 'constant' not supported on this component in SBML Level 1</td>
+ * <tr><td><em>MetaIdNotValidAttribute</em></td><td>Attribute 'metaid' not supported in SBML Level 1</td>
+ * <tr><td><em>SBOTermNotValidAttributeBeforeL2V3</em></td><td>'sboTerm' not available on this component before SBML Level 2 Version 3</td>
+ * <tr><td><em>InvalidL1CompartmentUnits</em></td><td>Invalid units for a compartment in SBML Level 1</td>
+ * <tr><td><em>L1V1CompartmentVolumeReqd</em></td><td>Compartment volume must be specified</td>
+ * <tr><td><em>CompartmentTypeNotValidComponent</em></td><td>Compartment types not supported in this Level+Version of SBML</td>
+ * <tr><td><em>ConstraintNotValidComponent</em></td><td>Constraints not supported in this Level+Version of SBML</td>
+ * <tr><td><em>EventNotValidComponent</em></td><td>Events not supported in this Level+Version of SBML</td>
+ * <tr><td><em>SBOTermNotValidAttributeBeforeL2V2</em></td><td>The 'sboTerm' attribute is invalid for this component before Level 2 Version 2</td>
+ * <tr><td><em>FuncDefNotValidComponent</em></td><td>Function definitions are not supported in this Level+Version of SBML</td>
+ * <tr><td><em>InitialAssignNotValidComponent</em></td><td>Initial assignments are not supported in this Level+Version of SBML</td>
+ * <tr><td><em>VariableNotValidAttribute</em></td><td>Attribute 'variable' not valid</td>
+ * <tr><td><em>UnitsNotValidAttribute</em></td><td>Attribute 'units' not valid</td>
+ * <tr><td><em>ConstantSpeciesNotValidAttribute</em></td><td>Attribute 'constant' on species not supported in SBML Level 1</td>
+ * <tr><td><em>SpatialSizeUnitsNotValidAttribute</em></td><td>Attribute 'spatialSizeUnits' on species not supported in SBML Level 1</td>
+ * <tr><td><em>SpeciesTypeNotValidAttribute</em></td><td>Attribute 'speciesType' on species not supported in SBML Level 1</td>
+ * <tr><td><em>HasOnlySubsUnitsNotValidAttribute</em></td><td>Attribute 'hasOnlySubstanceUnits' on species not supported in SBML Level 1</td>
+ * <tr><td><em>IdNotValidAttribute</em></td><td>Attribute 'id' on species references not supported in SBML Level 1</td>
+ * <tr><td><em>NameNotValidAttribute</em></td><td>Attribute 'name' on species references not supported in SBML Level 1</td>
+ * <tr><td><em>SpeciesTypeNotValidComponent</em></td><td>Species types not supported in SBML Level 1</td>
+ * <tr><td><em>StoichiometryMathNotValidComponent</em></td><td><stochiometryMath> not supported in SBML Level 1</td>
+ * <tr><td><em>MultiplierNotValidAttribute</em></td><td>Attribute 'multiplier' on units not supported in SBML Level 1</td>
+ * <tr><td><em>OffsetNotValidAttribute</em></td><td>Attribute 'offset' on units only available in SBML Level 2 Version 1</td>
  * </table>
  * </center>
  *
@@ -387,6 +427,17 @@
  * computational modeling.  (These are tests performed by libSBML and do
  * not have equivalent SBML validation rules.)</td></tr> 
  *
+ * <tr><td><em>LIBSBML_CAT_INTERNAL_CONSISTENCY</em></td><td>Category of
+ * errors that can occur while validating libSBML's internal representation
+ * of SBML constructs. (These are tests performed by libSBML and do
+ * not have equivalent SBML validation rules.)</td></tr> 
+ *
+ * <tr><td><em>LIBSBML_CAT_SBML_L2V4_COMPAT</em></td><td>Category of errors
+ * that can only occur during attempted translation from one Level/Version
+ * of SBML to another.  This particular category applies to errors
+ * encountered while trying to convert a model to SBML Level&nbsp;2 Version
+ * 4.</td></tr> 
+ *
  * </table>
  * </center>
  * 
@@ -440,171 +491,171 @@ BEGIN_C_DECLS
  */
 typedef enum
 {
-    UnknownError                     = 10000 /*!< Internal error */
-  , NotUTF8                          = 10101 /*!< SBML L2v3 validation rule #10101 */
-  , UnrecognizedElement              = 10102 /*!< SBML L2v3 validation rule #10102 */
-  , NotSchemaConformant              = 10103 /*!< SBML L2v3 validation rule #10103 */
-  , InvalidMathElement               = 10201 /*!< SBML L2v3 validation rule #10201 */
-  , DisallowedMathMLSymbol           = 10202 /*!< SBML L2v3 validation rule #10202 */
-  , DisallowedMathMLEncodingUse      = 10203 /*!< SBML L2v3 validation rule #10203 */
-  , DisallowedDefinitionURLUse       = 10204 /*!< SBML L2v3 validation rule #10204 */
-  , BadCsymbolDefinitionURLValue     = 10205 /*!< SBML L2v3 validation rule #10205 */
-  , DisallowedMathTypeAttributeUse   = 10206 /*!< SBML L2v3 validation rule #10206 */
-  , DisallowedMathTypeAttributeValue = 10207 /*!< SBML L2v3 validation rule #10207 */
-  , LambdaOnlyAllowedInFunctionDef   = 10208 /*!< SBML L2v3 validation rule #10208 */
-  , BooleanOpsNeedBooleanArgs        = 10209 /*!< SBML L2v3 validation rule #10209 */
-  , NumericOpsNeedNumericArgs        = 10210 /*!< SBML L2v3 validation rule #10210 */
-  , ArgsToEqNeedSameType             = 10211 /*!< SBML L2v3 validation rule #10211 */
-  , PiecewiseNeedsConsistentTypes    = 10212 /*!< SBML L2v3 validation rule #10212 */
-  , PieceNeedsBoolean                = 10213 /*!< SBML L2v3 validation rule #10213 */
-  , ApplyCiMustBeUserFunction        = 10214 /*!< SBML L2v3 validation rule #10214 */
-  , ApplyCiMustBeModelComponent      = 10215 /*!< SBML L2v3 validation rule #10215 */
-  , KineticLawParametersAreLocalOnly = 10216 /*!< SBML L2v3 validation rule #10216 */
-  , MathResultMustBeNumeric          = 10217 /*!< SBML L2v3 validation rule #10217 */
-  , OpsNeedCorrectNumberOfArgs       = 10218 /*!< SBML L2v3 validation rule #10218 */
-  , InvalidNoArgsPassedToFunctionDef = 10219 /*!< SBML L2v4 validation rule #10219 */
-  , DuplicateComponentId             = 10301 /*!< SBML L2v3 validation rule #10301 */
-  , DuplicateUnitDefinitionId        = 10302 /*!< SBML L2v3 validation rule #10302 */
-  , DuplicateLocalParameterId        = 10303 /*!< SBML L2v3 validation rule #10303 */
-  , MultipleAssignmentOrRateRules    = 10304 /*!< SBML L2v3 validation rule #10304 */
-  , MultipleEventAssignmentsForId    = 10305 /*!< SBML L2v3 validation rule #10305 */
-  , EventAndAssignmentRuleForId      = 10306 /*!< SBML L2v3 validation rule #10306 */
-  , DuplicateMetaId                  = 10307 /*!< SBML L2v3 validation rule #10307 */
-  , InvalidSBOTermSyntax             = 10308 /*!< SBML L2v3 validation rule #10308 */
-  , InvalidMetaidSyntax              = 10309 /*!< SBML L2v3 validation rule #10309 */
-  , InvalidIdSyntax                  = 10310 /*!< SBML L2v3 validation rule #10310 */
-  , InvalidUnitIdSyntax              = 10311 /*!< SBML L2v3 validation rule #10311 */
-  , MissingAnnotationNamespace       = 10401 /*!< SBML L2v3 validation rule #10401 */
-  , DuplicateAnnotationNamespaces    = 10402 /*!< SBML L2v3 validation rule #10402 */
-  , SBMLNamespaceInAnnotation        = 10403 /*!< SBML L2v3 validation rule #10403 */
-  , InconsistentArgUnits             = 10501 /*!< SBML L2v3 validation rule #10501 */
-  , AssignRuleCompartmentMismatch    = 10511 /*!< SBML L2v3 validation rule #10511 */
-  , AssignRuleSpeciesMismatch        = 10512 /*!< SBML L2v3 validation rule #10512 */
-  , AssignRuleParameterMismatch      = 10513 /*!< SBML L2v3 validation rule #10513 */
-  , InitAssignCompartmenMismatch     = 10521 /*!< SBML L2v3 validation rule #10521 */
-  , InitAssignSpeciesMismatch        = 10522 /*!< SBML L2v3 validation rule #10522 */
-  , InitAssignParameterMismatch      = 10523 /*!< SBML L2v3 validation rule #10523 */
-  , RateRuleCompartmentMismatch      = 10531 /*!< SBML L2v3 validation rule #10531 */
-  , RateRuleSpeciesMismatch          = 10532 /*!< SBML L2v3 validation rule #10532 */
-  , RateRuleParameterMismatch        = 10533 /*!< SBML L2v3 validation rule #10533 */
-  , KineticLawNotSubstancePerTime    = 10541 /*!< SBML L2v3 validation rule #10541 */
-  , DelayUnitsNotTime                = 10551 /*!< SBML L2v3 validation rule #10551 */
-  , EventAssignCompartmentMismatch   = 10561 /*!< SBML L2v3 validation rule #10561 */
-  , EventAssignSpeciesMismatch       = 10562 /*!< SBML L2v3 validation rule #10562 */
-  , EventAssignParameterMismatch     = 10563 /*!< SBML L2v3 validation rule #10563 */
-  , OverdeterminedSystem             = 10601 /*!< SBML L2v3 validation rule #10601 */
-  , InvalidModelSBOTerm              = 10701 /*!< SBML L2v3 validation rule #10701 */
-  , InvalidFunctionDefSBOTerm        = 10702 /*!< SBML L2v3 validation rule #10702 */
-  , InvalidParameterSBOTerm          = 10703 /*!< SBML L2v3 validation rule #10703 */
-  , InvalidInitAssignSBOTerm         = 10704 /*!< SBML L2v3 validation rule #10704 */
-  , InvalidRuleSBOTerm               = 10705 /*!< SBML L2v3 validation rule #10705 */
-  , InvalidConstraintSBOTerm         = 10706 /*!< SBML L2v3 validation rule #10706 */
-  , InvalidReactionSBOTerm           = 10707 /*!< SBML L2v3 validation rule #10707 */
-  , InvalidSpeciesReferenceSBOTerm   = 10708 /*!< SBML L2v3 validation rule #10708 */
-  , InvalidKineticLawSBOTerm         = 10709 /*!< SBML L2v3 validation rule #10709 */
-  , InvalidEventSBOTerm              = 10710 /*!< SBML L2v3 validation rule #10710 */
-  , InvalidEventAssignmentSBOTerm    = 10711 /*!< SBML L2v3 validation rule #10711 */
-  , InvalidCompartmentSBOTerm        = 10712 /*!< SBML L2v3 validation rule #10712 */
-  , InvalidSpeciesSBOTerm            = 10713 /*!< SBML L2v3 validation rule #10713 */
-  , InvalidCompartmentTypeSBOTerm    = 10714 /*!< SBML L2v3 validation rule #10714 */
-  , InvalidSpeciesTypeSBOTerm        = 10715 /*!< SBML L2v3 validation rule #10715 */
-  , InvalidTriggerSBOTerm            = 10716 /*!< SBML L2v3 validation rule #10716 */
-  , InvalidDelaySBOTerm              = 10717 /*!< SBML L2v3 validation rule #10717 */
-  , NotesNotInXHTMLNamespace         = 10801 /*!< SBML L2v3 validation rule #10801 */
-  , NotesContainsXMLDecl             = 10802 /*!< SBML L2v3 validation rule #10802 */
-  , NotesContainsDOCTYPE             = 10803 /*!< SBML L2v3 validation rule #10803 */
-  , InvalidNotesContent              = 10804 /*!< SBML L2v3 validation rule #10804 */
-  , InvalidNamespaceOnSBML           = 20101 /*!< SBML L2v3 validation rule #20101 */
-  , MissingOrInconsistentLevel       = 20102 /*!< SBML L2v3 validation rule #20102 */
-  , MissingOrInconsistentVersion     = 20103 /*!< SBML L2v3 validation rule #20103 */
-  , AnnotationNotesNotAllowedLevel1  = 20104 /*!< SBML L2v3 validation rule #20141 */
-  , MissingModel                     = 20201 /*!< SBML L2v3 validation rule #20201 */
-  , IncorrectOrderInModel            = 20202 /*!< SBML L2v3 validation rule #20202 */
-  , EmptyListElement                 = 20203 /*!< SBML L2v3 validation rule #20203 */
-  , NeedCompartmentIfHaveSpecies     = 20204 /*!< SBML L2v3 validation rule #20204 */
-  , FunctionDefMathNotLambda         = 20301 /*!< SBML L2v3 validation rule #20301 */
-  , InvalidApplyCiInLambda           = 20302 /*!< SBML L2v3 validation rule #20302 */
-  , RecursiveFunctionDefinition      = 20303 /*!< SBML L2v3 validation rule #20303 */
-  , InvalidCiInLambda                = 20304 /*!< SBML L2v3 validation rule #20304 */
-  , InvalidFunctionDefReturnType     = 20305 /*!< SBML L2v3 validation rule #20305 */
-  , InvalidUnitDefId                 = 20401 /*!< SBML L2v3 validation rule #20401 */
-  , InvalidSubstanceRedefinition     = 20402 /*!< SBML L2v3 validation rule #20402 */
-  , InvalidLengthRedefinition        = 20403 /*!< SBML L2v3 validation rule #20403 */
-  , InvalidAreaRedefinition          = 20404 /*!< SBML L2v3 validation rule #20404 */
-  , InvalidTimeRedefinition          = 20405 /*!< SBML L2v3 validation rule #20405 */
-  , InvalidVolumeRedefinition        = 20406 /*!< SBML L2v3 validation rule #20406 */
-  , VolumeLitreDefExponentNotOne     = 20407 /*!< SBML L2v3 validation rule #20407 */
-  , VolumeMetreDefExponentNot3       = 20408 /*!< SBML L2v3 validation rule #20408 */
-  , EmptyListOfUnits                 = 20409 /*!< SBML L2v3 validation rule #20409 */
-  , InvalidUnitKind                  = 20410 /*!< SBML L2v3 validation rule #20410 */
-  , OffsetNoLongerValid              = 20411 /*!< SBML L2v3 validation rule #20411 */
-  , CelsiusNoLongerValid             = 20412 /*!< SBML L2v3 validation rule #20412 */
-  , ZeroDimensionalCompartmentSize   = 20501 /*!< SBML L2v3 validation rule #20501 */
-  , ZeroDimensionalCompartmentUnits  = 20502 /*!< SBML L2v3 validation rule #20502 */
-  , ZeroDimensionalCompartmentConst  = 20503 /*!< SBML L2v3 validation rule #20503 */
-  , UndefinedOutsideCompartment      = 20504 /*!< SBML L2v3 validation rule #20504 */
-  , RecursiveCompartmentContainment  = 20505 /*!< SBML L2v3 validation rule #20505 */
-  , ZeroDCompartmentContainment      = 20506 /*!< SBML L2v3 validation rule #20506 */
-  , Invalid1DCompartmentUnits        = 20507 /*!< SBML L2v3 validation rule #20507 */
-  , Invalid2DCompartmentUnits        = 20508 /*!< SBML L2v3 validation rule #20508 */
-  , Invalid3DCompartmentUnits        = 20509 /*!< SBML L2v3 validation rule #20509 */
-  , InvalidCompartmentTypeRef        = 20510 /*!< SBML L2v3 validation rule #20510 */
-  , InvalidSpeciesCompartmentRef     = 20601 /*!< SBML L2v3 validation rule #20601 */
-  , HasOnlySubsNoSpatialUnits        = 20602 /*!< SBML L2v3 validation rule #20602 */
-  , NoSpatialUnitsInZeroD            = 20603 /*!< SBML L2v3 validation rule #20603 */
-  , NoConcentrationInZeroD           = 20604 /*!< SBML L2v3 validation rule #20604 */
-  , SpatialUnitsInOneD               = 20605 /*!< SBML L2v3 validation rule #20605 */
-  , SpatialUnitsInTwoD               = 20606 /*!< SBML L2v3 validation rule #20606 */
-  , SpatialUnitsInThreeD             = 20607 /*!< SBML L2v3 validation rule #20607 */
-  , InvalidSpeciesSusbstanceUnits    = 20608 /*!< SBML L2v3 validation rule #20608 */
-  , BothAmountAndConcentrationSet    = 20609 /*!< SBML L2v3 validation rule #20609 */
-  , NonBoundarySpeciesAssignedAndUsed= 20610 /*!< SBML L2v3 validation rule #20610 */
-  , NonConstantSpeciesUsed           = 20611 /*!< SBML L2v3 validation rule #20611 */
-  , InvalidSpeciesTypeRef            = 20612 /*!< SBML L2v3 validation rule #20612 */
-  , MultSpeciesSameTypeInCompartment = 20613 /*!< SBML L2v3 validation rule #20613 */
-  , MissingSpeciesCompartment        = 20614 /*!< SBML L2v3 validation rule #20614 */
-  , SpatialSizeUnitsRemoved          = 20615 /*!< SBML L2v3 validation rule #20615 */
-  , InvalidParameterUnits            = 20701 /*!< SBML L2v3 validation rule #20701 */
-  , InvalidInitAssignSymbol          = 20801 /*!< SBML L2v3 validation rule #20801 */
-  , MultipleInitAssignments          = 20802 /*!< SBML L2v3 validation rule #20802 */
-  , InitAssignmentAndRuleForSameId   = 20803 /*!< SBML L2v3 validation rule #20803 */
-  , InvalidAssignRuleVariable        = 20901 /*!< SBML L2v3 validation rule #20901 */
-  , InvalidRateRuleVariable          = 20902 /*!< SBML L2v3 validation rule #20902 */
-  , AssignmentToConstantEntity       = 20903 /*!< SBML L2v3 validation rule #20903 */
-  , RateRuleForConstantEntity        = 20904 /*!< SBML L2v3 validation rule #20904 */
-  , RepeatedRule10304                = 20905 /*!< SBML L2v3 validation rule #20905 */
-  , CircularRuleDependency           = 20906 /*!< SBML L2v3 validation rule #20906 */
-  , ConstraintMathNotBoolean         = 21001 /*!< SBML L2v3 validation rule #21001 */
-  , IncorrectOrderInConstraint       = 21002 /*!< SBML L2v3 validation rule #21002 */
-  , ConstraintNotInXHTMLNamespace    = 21003 /*!< SBML L2v3 validation rule #21003 */
-  , ConstraintContainsXMLDecl        = 21004 /*!< SBML L2v3 validation rule #21004 */
-  , ConstraintContainsDOCTYPE        = 21005 /*!< SBML L2v3 validation rule #21005 */
-  , InvalidConstraintContent         = 21006 /*!< SBML L2v3 validation rule #21006 */
-  , NoReactantsOrProducts            = 21101 /*!< SBML L2v3 validation rule #21101 */
-  , IncorrectOrderInReaction         = 21102 /*!< SBML L2v3 validation rule #21102 */
-  , EmptyListInReaction              = 21103 /*!< SBML L2v3 validation rule #21103 */
-  , InvalidReactantsProductsList     = 21104 /*!< SBML L2v3 validation rule #21104 */
-  , InvalidModifiersList             = 21105 /*!< SBML L2v3 validation rule #21105 */
-  , InvalidSpeciesReference          = 21111 /*!< SBML L2v3 validation rule #21111 */
-  , RepeatedRule20611                = 21112 /*!< SBML L2v3 validation rule #21112 */
-  , BothStoichiometryAndMath         = 21113 /*!< SBML L2v3 validation rule #21113 */
-  , UndeclaredSpeciesRef             = 21121 /*!< SBML L2v3 validation rule #21121 */
-  , IncorrectOrderInKineticLaw       = 21122 /*!< SBML L2v3 validation rule #21122 */
-  , EmptyListInKineticLaw            = 21123 /*!< SBML L2v3 validation rule #21123 */
-  , NonConstantLocalParameter        = 21124 /*!< SBML L2v3 validation rule #21124 */
-  , SubsUnitsNoLongerValid           = 21125 /*!< SBML L2v3 validation rule #21125 */
-  , TimeUnitsNoLongerValid           = 21126 /*!< SBML L2v3 validation rule #21126 */
-  , UndeclaredSpeciesInStoichMath    = 21131 /*!< SBML L2v3 validation rule #21131 */
-  , MissingTriggerInEvent            = 21201 /*!< SBML L2v3 validation rule #21201 */
-  , TriggerMathNotBoolean            = 21202 /*!< SBML L2v3 validation rule #21202 */
-  , MissingEventAssignment           = 21203 /*!< SBML L2v3 validation rule #21203 */
-  , TimeUnitsEvent                   = 21204 /*!< SBML L2v3 validation rule #21204 */
-  , IncorrectOrderInEvent            = 21205 /*!< SBML L2v3 validation rule #21205 */
-  , ValuesFromTriggerTimeNeedDelay   = 21206 /*!< SBML L2v3 validation rule #21206 */
-  , InvalidEventAssignmentVariable   = 21211 /*!< SBML L2v3 validation rule #21211 */
-  , EventAssignmentForConstantEntity = 21212 /*!< SBML L2v3 validation rule #21212 */
+   UnknownError                     = 10000 /*!<Unknown internal libSBML error */
+ , NotUTF8                          = 10101 /*!<Not UTF8 */
+ , UnrecognizedElement              = 10102 /*!<Unrecognized element */
+ , NotSchemaConformant              = 10103 /*!<Not conformant to SBML XML schema */
+ , InvalidMathElement               = 10201 /*!<Invalid MathML */
+ , DisallowedMathMLSymbol           = 10202 /*!<Disallowed MathML symbol */
+ , DisallowedMathMLEncodingUse      = 10203 /*!<Disallowed use of MathML 'encoding' attribute */
+ , DisallowedDefinitionURLUse       = 10204 /*!<Disallowed use of MathML 'definitionURL' attribute */
+ , BadCsymbolDefinitionURLValue     = 10205 /*!<Invalid <csymbol> 'definitionURL' attribute value */
+ , DisallowedMathTypeAttributeUse   = 10206 /*!<Disallowed use of MathML 'type' attribute */
+ , DisallowedMathTypeAttributeValue = 10207 /*!<Disallowed MathML 'type' attribute value */
+ , LambdaOnlyAllowedInFunctionDef   = 10208 /*!<Use of <lambda> not permitted outside of a <functionDefinition> */
+ , BooleanOpsNeedBooleanArgs        = 10209 /*!<Non-boolean argument given to boolean operator */
+ , NumericOpsNeedNumericArgs        = 10210 /*!<Non-numerical argument given to numerical operator */
+ , ArgsToEqNeedSameType             = 10211 /*!<Arguments to <eq> or <neq> have inconsistent data types */
+ , PiecewiseNeedsConsistentTypes    = 10212 /*!<<piecewise> terms have inconsistent data types */
+ , PieceNeedsBoolean                = 10213 /*!<Second argument of <piece> must yield a boolean value */
+ , ApplyCiMustBeUserFunction        = 10214 /*!<<ci> does not refer to a function definition */
+ , ApplyCiMustBeModelComponent      = 10215 /*!<<ci>'s value is not a component in this model */
+ , KineticLawParametersAreLocalOnly = 10216 /*!<Cannot use <kineticLaw> parameter outside local scope */
+ , MathResultMustBeNumeric          = 10217 /*!<Formula result is not a numerical value */
+ , OpsNeedCorrectNumberOfArgs       = 10218 /*!<Incorrect number of arguments to operator */
+ , InvalidNoArgsPassedToFunctionDef = 10219 /*!<Incorrect number of arguments to function */
+ , DuplicateComponentId             = 10301 /*!<Duplicate component identifier */
+ , DuplicateUnitDefinitionId        = 10302 /*!<Duplicate unit definition identifier */
+ , DuplicateLocalParameterId        = 10303 /*!<Duplicate local parameter identifier */
+ , MultipleAssignmentOrRateRules    = 10304 /*!<Multiple rules for the same variable */
+ , MultipleEventAssignmentsForId    = 10305 /*!<Multiple event assignments for the same variable */
+ , EventAndAssignmentRuleForId      = 10306 /*!<'variable' value used in both event assignments and assignment rules */
+ , DuplicateMetaId                  = 10307 /*!<Duplicate 'metaid' identifier */
+ , InvalidSBOTermSyntax             = 10308 /*!<Invalid 'sboTerm' value syntax */
+ , InvalidMetaidSyntax              = 10309 /*!<Invalid 'metaid' value syntax */
+ , InvalidIdSyntax                  = 10310 /*!<Invalid identifier syntax */
+ , InvalidUnitIdSyntax              = 10311 /*!<Invalid unit identifier syntax */
+ , MissingAnnotationNamespace       = 10401 /*!<Missing declaration of XML namespace for annotation */
+ , DuplicateAnnotationNamespaces    = 10402 /*!<Multiple annotations using same XML namespace */
+ , SBMLNamespaceInAnnotation        = 10403 /*!<Invalid use of SBML XML namespace in annotation */
+ , InconsistentArgUnits             = 10501 /*!<Units of arguments to function call do not match function's definition */
+ , AssignRuleCompartmentMismatch    = 10511 /*!<Mismatched units in assignment rule for compartment */
+ , AssignRuleSpeciesMismatch        = 10512 /*!<Mismatched units in assignment rule for species */
+ , AssignRuleParameterMismatch      = 10513 /*!<Mismatched units in assignment rule for parameter */
+ , InitAssignCompartmenMismatch     = 10521 /*!<Mismatched units in initial assignment to compartment */
+ , InitAssignSpeciesMismatch        = 10522 /*!<Mismatched units in initial assignment to species */
+ , InitAssignParameterMismatch      = 10523 /*!<Mismatched units in initial assignment to parameter */
+ , RateRuleCompartmentMismatch      = 10531 /*!<Mismatched units in rate rule for compartment */
+ , RateRuleSpeciesMismatch          = 10532 /*!<Mismatched units in rate rule for species */
+ , RateRuleParameterMismatch        = 10533 /*!<Mismatched units in rate rule for parameter */
+ , KineticLawNotSubstancePerTime    = 10541 /*!<Kinetic law units are not 'substance'/'time' */
+ , DelayUnitsNotTime                = 10551 /*!<Units of delay are not units of time */
+ , EventAssignCompartmentMismatch   = 10561 /*!<Mismatched units in event assignment for compartment */
+ , EventAssignSpeciesMismatch       = 10562 /*!<Mismatched units in event assignment for species */
+ , EventAssignParameterMismatch     = 10563 /*!<Mismatched units in event assignment for parameter */
+ , OverdeterminedSystem             = 10601 /*!<Model is overdetermined */
+ , InvalidModelSBOTerm              = 10701 /*!<Invalid 'sboTerm' value for model */
+ , InvalidFunctionDefSBOTerm        = 10702 /*!<Invalid 'sboTerm' value for function definition */
+ , InvalidParameterSBOTerm          = 10703 /*!<Invalid 'sboTerm' value for parameter */
+ , InvalidInitAssignSBOTerm         = 10704 /*!<Invalid 'sboTerm' value for initial assignment */
+ , InvalidRuleSBOTerm               = 10705 /*!<Invalid 'sboTerm' value for rule */
+ , InvalidConstraintSBOTerm         = 10706 /*!<Invalid 'sboTerm' value for constraint */
+ , InvalidReactionSBOTerm           = 10707 /*!<Invalid 'sboTerm' value for reaction */
+ , InvalidSpeciesReferenceSBOTerm   = 10708 /*!<Invalid 'sboTerm' value for species reference */
+ , InvalidKineticLawSBOTerm         = 10709 /*!<Invalid 'sboTerm' value for kinetic law */
+ , InvalidEventSBOTerm              = 10710 /*!<Invalid 'sboTerm' value for event */
+ , InvalidEventAssignmentSBOTerm    = 10711 /*!<Invalid 'sboTerm' value for event assignment */
+ , InvalidCompartmentSBOTerm        = 10712 /*!<Invalid 'sboTerm' value for compartment */
+ , InvalidSpeciesSBOTerm            = 10713 /*!<Invalid 'sboTerm' value for species */
+ , InvalidCompartmentTypeSBOTerm    = 10714 /*!<Invalid 'sboTerm' value for compartment type */
+ , InvalidSpeciesTypeSBOTerm        = 10715 /*!<Invalid 'sboTerm' value for species type */
+ , InvalidTriggerSBOTerm            = 10716 /*!<Invalid 'sboTerm' value for event trigger */
+ , InvalidDelaySBOTerm              = 10717 /*!<Invalid 'sboTerm' value for event delay */
+ , NotesNotInXHTMLNamespace         = 10801 /*!<Notes not placed in XHTML namespace */
+ , NotesContainsXMLDecl             = 10802 /*!<XML declarations not permitted in notes */
+ , NotesContainsDOCTYPE             = 10803 /*!<XML DOCTYPE not permitted in notes */
+ , InvalidNotesContent              = 10804 /*!<Invalid notes content */
+ , InvalidNamespaceOnSBML           = 20101 /*!<Invalid XML namespace for SBML container */
+ , MissingOrInconsistentLevel       = 20102 /*!<Missing or inconsistent value for 'level' attribute */
+ , MissingOrInconsistentVersion     = 20103 /*!<Missing or inconsistent value for 'version' attribute */
+ , AnnotationNotesNotAllowedLevel1  = 20104 /*!<Annotation on <sbml> not permitted in SBML Level 1 */
+ , MissingModel                     = 20201 /*!<Missing model */
+ , IncorrectOrderInModel            = 20202 /*!<Incorrect ordering of components in model definition */
+ , EmptyListElement                 = 20203 /*!<A given listOf___, if present, cannot be empty */
+ , NeedCompartmentIfHaveSpecies     = 20204 /*!<Missing compartment in species definition */
+ , FunctionDefMathNotLambda         = 20301 /*!<Invalid expression in function definition */
+ , InvalidApplyCiInLambda           = 20302 /*!<Invalid forward reference in <apply><ci>...</ci></apply> value */
+ , RecursiveFunctionDefinition      = 20303 /*!<Recursive function definition */
+ , InvalidCiInLambda                = 20304 /*!<Unknown <ci> reference in <lambda> */
+ , InvalidFunctionDefReturnType     = 20305 /*!<Function return type must be either numerical or boolean */
+ , InvalidUnitDefId                 = 20401 /*!<Invalid 'id' value for unit definition */
+ , InvalidSubstanceRedefinition     = 20402 /*!<Invalid redefinition of 'substance' */
+ , InvalidLengthRedefinition        = 20403 /*!<Invalid redefinition of 'length' */
+ , InvalidAreaRedefinition          = 20404 /*!<Invalid redefinition of 'area' */
+ , InvalidTimeRedefinition          = 20405 /*!<Invalid redefinition of 'time' */
+ , InvalidVolumeRedefinition        = 20406 /*!<Invalid redefinition of 'volume' */
+ , VolumeLitreDefExponentNotOne     = 20407 /*!<Must use 'exponent'=1 when defining 'volume' in terms of litres */
+ , VolumeMetreDefExponentNot3       = 20408 /*!<Must use 'exponent'=3 when defining 'volume' in terms of metres */
+ , EmptyListOfUnits                 = 20409 /*!<Empty list of units not permitted */
+ , InvalidUnitKind                  = 20410 /*!<Invalid value of 'kind' in unit definition */
+ , OffsetNoLongerValid              = 20411 /*!<'offset' not supported in this Level+Version of SBML */
+ , CelsiusNoLongerValid             = 20412 /*!<'Celsius' not defined in this Level+Version of SBML */
+ , ZeroDimensionalCompartmentSize   = 20501 /*!<Use of 'size' is invalid for a zero-dimensional compartment */
+ , ZeroDimensionalCompartmentUnits  = 20502 /*!<Use of 'units' is invalid for a zero-dimensional compartment */
+ , ZeroDimensionalCompartmentConst  = 20503 /*!<Zero-dimensional compartments cannot be non-constant */
+ , UndefinedOutsideCompartment      = 20504 /*!<Undefined compartment used as 'outside' value */
+ , RecursiveCompartmentContainment  = 20505 /*!<Recursive nesting of compartments via 'outside' */
+ , ZeroDCompartmentContainment      = 20506 /*!<Invalid nesting of zero-dimensional compartments */
+ , Invalid1DCompartmentUnits        = 20507 /*!<Invalid value of 'units' for a one-dimensional compartment */
+ , Invalid2DCompartmentUnits        = 20508 /*!<Invalid value of 'units' for a two-dimensional compartment */
+ , Invalid3DCompartmentUnits        = 20509 /*!<Invalid value of 'units' for a three-dimensional compartment */
+ , InvalidCompartmentTypeRef        = 20510 /*!<Invalid 'compartmentType' reference */
+ , InvalidSpeciesCompartmentRef     = 20601 /*!<Invalid 'compartment' reference */
+ , HasOnlySubsNoSpatialUnits        = 20602 /*!<No 'spatialSizeUnits' permitted if 'hasOnlySubstanceUnits'='true' */
+ , NoSpatialUnitsInZeroD            = 20603 /*!<No 'spatialSizeUnits' permitted if compartment is zero-dimensional */
+ , NoConcentrationInZeroD           = 20604 /*!<No 'initialConcentration' permitted if compartment is zero-dimensional */
+ , SpatialUnitsInOneD               = 20605 /*!<Invalid value of 'spatialSizeUnits' for a one-dimensional compartment */
+ , SpatialUnitsInTwoD               = 20606 /*!<Invalid value of 'spatialSizeUnits' for a two-dimensional compartment */
+ , SpatialUnitsInThreeD             = 20607 /*!<Invalid value of 'spatialSizeUnits' for a three-dimensional compartment */
+ , InvalidSpeciesSusbstanceUnits    = 20608 /*!<Invalid value of 'units' */
+ , BothAmountAndConcentrationSet    = 20609 /*!<Cannot set both 'initialConcentration' and 'initialAmount' */
+ , NonBoundarySpeciesAssignedAndUsed= 20610 /*!<Cannot use non-boundary species in both reactions and rules simultaneously */
+ , NonConstantSpeciesUsed           = 20611 /*!<Cannot use non-boundary, constant species as reactant or product */
+ , InvalidSpeciesTypeRef            = 20612 /*!<Invalid 'speciesType' reference */
+ , MultSpeciesSameTypeInCompartment = 20613 /*!<Cannot have multiple species of the same type in the same compartment */
+ , MissingSpeciesCompartment        = 20614 /*!<Missing 'compartment' value for species */
+ , SpatialSizeUnitsRemoved          = 20615 /*!<Attribute 'spatialSizeUnits' not supported in this Level+Version of SBML */
+ , InvalidParameterUnits            = 20701 /*!<Invalid value for 'units' in parameter definition */
+ , InvalidInitAssignSymbol          = 20801 /*!<Invalid 'symbol' reference in initial assignment */
+ , MultipleInitAssignments          = 20802 /*!<Multiple initial assignments for the same 'symbol' value */
+ , InitAssignmentAndRuleForSameId   = 20803 /*!<Cannot set a value with both initial assignments and assignment rules simultaneously */
+ , InvalidAssignRuleVariable        = 20901 /*!<Invalid 'variable' reference in assignment rule */
+ , InvalidRateRuleVariable          = 20902 /*!<Invalid 'variable' reference in rate rule */
+ , AssignmentToConstantEntity       = 20903 /*!<Cannot reassign a constant in an assignment rule */
+ , RateRuleForConstantEntity        = 20904 /*!<Cannot reassign a constant in a rate rule */
+ , RepeatedRule10304                = 20905 /*!< */
+ , CircularRuleDependency           = 20906 /*!<Circular dependency involving rules and reactions */
+ , ConstraintMathNotBoolean         = 21001 /*!<Non-boolean math expression in constraint definition */
+ , IncorrectOrderInConstraint       = 21002 /*!<Incorrect order of elements in constraint definition */
+ , ConstraintNotInXHTMLNamespace    = 21003 /*!<Constraint message is not in XHTML XML namespace */
+ , ConstraintContainsXMLDecl        = 21004 /*!<XML declarations not permitted in constraint messages */
+ , ConstraintContainsDOCTYPE        = 21005 /*!<XML DOCTYPE not permitted in constraint messages */
+ , InvalidConstraintContent         = 21006 /*!<Invalid content for constraint message */
+ , NoReactantsOrProducts            = 21101 /*!<Cannot have a reaction with neither reactants nor products */
+ , IncorrectOrderInReaction         = 21102 /*!<Incorrect ordering of components in reaction definition */
+ , EmptyListInReaction              = 21103 /*!<Reaction components, if present, cannot be empty */
+ , InvalidReactantsProductsList     = 21104 /*!<Invalid element in list of reactants or products */
+ , InvalidModifiersList             = 21105 /*!<Invalid element in list of modifiers */
+ , InvalidSpeciesReference          = 21111 /*!<Invalid 'species' value in species reference */
+ , RepeatedRule20611                = 21112 /*!< */
+ , BothStoichiometryAndMath         = 21113 /*!<Cannot use both 'stoichiometry' and <stochiometryMath> simultaneously */
+ , UndeclaredSpeciesRef             = 21121 /*!<Undeclared species referenced in kinetic law formula */
+ , IncorrectOrderInKineticLaw       = 21122 /*!<Incorrect ordering of components in kinetic law definition */
+ , EmptyListInKineticLaw            = 21123 /*!<The list of parameters component, if present, cannot be empty */
+ , NonConstantLocalParameter        = 21124 /*!<Parameters local to a kinetic law must have 'constant'='true' */
+ , SubsUnitsNoLongerValid           = 21125 /*!<'substanceUnits' not supported in this Level+Version of SBML */
+ , TimeUnitsNoLongerValid           = 21126 /*!<'timeUnits' not supported in this Level+Version of SBML */
+ , UndeclaredSpeciesInStoichMath    = 21131 /*!<Undeclared species referenced in <stoichiometryMath> formula */
+ , MissingTriggerInEvent            = 21201 /*!<Missing trigger in event definition */
+ , TriggerMathNotBoolean            = 21202 /*!<Non-boolean math expression in trigger definition */
+ , MissingEventAssignment           = 21203 /*!<Missing event assignment in event definition */
+ , TimeUnitsEvent                   = 21204 /*!<Units of 'timeUnits' are not time units */
+ , IncorrectOrderInEvent            = 21205 /*!<Incorrect ordering of components in event definition */
+ , ValuesFromTriggerTimeNeedDelay   = 21206 /*!<'useValuesFromTriggerTime'='false', but no delay defined in event */
+ , InvalidEventAssignmentVariable   = 21211 /*!<Invalid value for 'variable' in event assignment */
+ , EventAssignmentForConstantEntity = 21212 /*!<Cannot assign to a constant component in an event assignment */
 
-  , GeneralWarningNotSpecified       = 29999
+  , GeneralWarningNotSpecified       = 29999 /*!<Unknown error */
 
   /* ModelingPractice contraints */
 
@@ -615,82 +666,83 @@ typedef enum
   /* Lower bound for additional error codes returned by libSBML but not
    * defined in SBML specifications. */
 
-  , LibSBMLAdditionalCodesLowerBound = 90000
+  , LibSBMLAdditionalCodesLowerBound = 90000 /*!<Lower bound */
 
-  , CannotConvertToL1V1              = 90001
+  , CannotConvertToL1V1              = 90001/*!<Cannot convert to SBML Level 1 Version 1 */
 
   /* L1Compatability */
 
-  , NoEventsInL1                     = 91001
-  , NoFunctionDefinitionsInL1        = 91002
-  , NoConstraintsInL1                = 91003
-  , NoInitialAssignmentsInL1         = 91004
-  , NoSpeciesTypesInL1               = 91005
-  , NoCompartmentTypeInL1            = 91006
-  , NoNon3DComparmentsInL1           = 91007
-  , NoFancyStoichiometryMathInL1     = 91008
-  , NoNonIntegerStoichiometryInL1    = 91009
-  , NoUnitMultipliersOrOffsetsInL1   = 91010
-  , SpeciesCompartmentRequiredInL1   = 91011
-  , NoSpeciesSpatialSizeUnitsInL1    = 91012
-  , NoSBOTermsInL1                   = 91013
+ , NoEventsInL1                     = 91001/*!<SBML Level 1 does not support events */
+ , NoFunctionDefinitionsInL1        = 91002/*!<SBML Level 1 does not support function definitions */
+ , NoConstraintsInL1                = 91003/*!<SBML Level 1 does not support constraints */
+ , NoInitialAssignmentsInL1         = 91004/*!<SBML Level 1 does not support initial assignments */
+ , NoSpeciesTypesInL1               = 91005/*!<SBML Level 1 does not support species types */
+ , NoCompartmentTypeInL1            = 91006/*!<SBML Level 1 does not support compartment types */
+ , NoNon3DComparmentsInL1           = 91007/*!<SBML Level 1 only supports three-dimensional compartments */
+ , NoFancyStoichiometryMathInL1     = 91008/*!<SBML Level 1 does not support non-integer nor non-rational stoichiometry formulas */
+ , NoNonIntegerStoichiometryInL1    = 91009/*!<SBML Level 1 does not support non-integer 'stoichiometry' attribute values */
+ , NoUnitMultipliersOrOffsetsInL1   = 91010/*!<SBML Level 1 does not support multipliers or offsets in unit definitions */
+ , SpeciesCompartmentRequiredInL1   = 91011/*!<In SBML Level 1, a value for 'compartment' is mandatory in species definitions */
+ , NoSpeciesSpatialSizeUnitsInL1    = 91012/*!<SBML Level 1 does not support species 'spatialSizeUnits' settings */
+ , NoSBOTermsInL1                   = 91013/*!<SBML Level 1 does not support the 'sboTerm' attribute */
 
   /* L2v1 compatability */
 
-  , NoConstraintsInL2v1              = 92001
-  , NoInitialAssignmentsInL2v1       = 92002
-  , NoSpeciesTypeInL2v1              = 92003
-  , NoCompartmentTypeInL2v1          = 92004
-  , NoSBOTermsInL2v1                 = 92005
-  , NoIdOnSpeciesReferenceInL2v1     = 92006
-  , NoDelayedEventAssignmentInL2v1   = 92007
+ , NoConstraintsInL2v1              = 92001/*!<SBML Level 2 Version 1 does not support constraints */
+ , NoInitialAssignmentsInL2v1       = 92002/*!<SBML Level 2 Version 1 does not support initial assignments */
+ , NoSpeciesTypeInL2v1              = 92003/*!<SBML Level 2 Version 1 does not support species types */
+ , NoCompartmentTypeInL2v1          = 92004/*!<SBML Level 2 Version 1 does not support compartment types */
+ , NoSBOTermsInL2v1                 = 92005/*!<SBML Level 2 Version 1 does not support the 'sboTerm' attribute */
+ , NoIdOnSpeciesReferenceInL2v1     = 92006/*!<SBML Level 2 Version 1 does not support the 'id' attribute on species references */
+ , NoDelayedEventAssignmentInL2v1   = 92007/*!<Attribute 'useValuesFromTriggerTime' not supported in this Level+Version of SBML */
 
   /* L2v2 compatability */
 
-  , SBOTermNotUniversalInL2v2        = 93001
-  , NoUnitOffsetInL2v2               = 93002
-  , NoKineticLawTimeUnitsInL2v2      = 93003
-  , NoKineticLawSubstanceUnitsInL2v2 = 93004
-  , NoDelayedEventAssignmentInL2v2   = 93005
-  , ModelSBOBranchChangedBeyondL2v2  = 93006
+ , SBOTermNotUniversalInL2v2        = 93001/*!<The 'sboTerm' attribute is invalid for this component in Level 2 Version 2 */
+ , NoUnitOffsetInL2v2               = 93002/*!<The unit 'offset' attribute is invalid in this Level+Version of SBML */
+ , NoKineticLawTimeUnitsInL2v2      = 93003/*!<The 'timeUnits' attribute is invalid in this Level+Version of SBML */
+ , NoKineticLawSubstanceUnitsInL2v2 = 93004/*!<The 'substanceUnits' attribute is invalid in this Level+Version of SBML */
+ , NoDelayedEventAssignmentInL2v2   = 93005/*!<Attribute 'useValuesFromTriggerTime' not supported in this Level+Version of SBML */
+ , ModelSBOBranchChangedBeyondL2v2  = 93006/*!<The allowable 'sboTerm' values for model differ for this SBML Level+Version */
 
   /* L2v3 compatability  */
 
-  , NoUnitOffsetInL2v3               = 94001
-  , NoKineticLawTimeUnitsInL2v3      = 94002
-  , NoKineticLawSubstanceUnitsInL2v3 = 94003
-  , NoSpeciesSpatialSizeUnitsInL2v3  = 94004
-  , NoEventTimeUnitsInL2v3           = 94005
-  , NoDelayedEventAssignmentInL2v3   = 94006
-  , ModelSBOBranchChangedBeyondL2v3  = 94007
+ , NoUnitOffsetInL2v3               = 94001/*!<Attribute 'offset' not supported in this Level+Version of SBML */
+ , NoKineticLawTimeUnitsInL2v3      = 94002/*!<Attribute 'timeUnits' not supported in this Level+Version of SBML */
+ , NoKineticLawSubstanceUnitsInL2v3 = 94003/*!<Attribute 'substanceUnits' not supported in this Level+Version of SBML */
+ , NoSpeciesSpatialSizeUnitsInL2v3  = 94004/*!<Attribute 'spatialSizeUnits' not supported in this Level+Version of SBML */
+ , NoEventTimeUnitsInL2v3           = 94005/*!<Attribute 'timeUnits' not supported in this Level+Version of SBML */
+ , NoDelayedEventAssignmentInL2v3   = 94006/*!<Attribute 'useValuesFromTriggerTime' not supported in this Level+Version of SBML */
+ , ModelSBOBranchChangedBeyondL2v3  = 94007/*!<The allowable 'sboTerm' values for model differ for this SBML Level+Version */
 
   /* L2v4 compatability  */
 
-  , NoUnitOffsetInL2v4               = 95001
-  , NoKineticLawTimeUnitsInL2v4      = 95002
-  , NoKineticLawSubstanceUnitsInL2v4 = 95003
-  , NoSpeciesSpatialSizeUnitsInL2v4  = 95004
-  , NoEventTimeUnitsInL2v4           = 95005
-  , ModelSBOBranchChangedInL2v4      = 95006
+ , NoUnitOffsetInL2v4               = 95001/*!<The unit 'offset' attribute is invalid in this Level+Version of SBML */
+ , NoKineticLawTimeUnitsInL2v4      = 95002/*!<The 'timeUnits' attribute is invalid in this Level+Version of SBML */
+ , NoKineticLawSubstanceUnitsInL2v4 = 95003/*!<The 'substanceUnits' attribute is invalid in this Level+Version of SBML */
+ , NoSpeciesSpatialSizeUnitsInL2v4  = 95004/*!<The 'spatialSizeUnits' attribute is invalid in this Level+Version of SBML */
+ , NoEventTimeUnitsInL2v4           = 95005/*!<The 'timeUnits' attribute is invalid in this Level+Version of SBML */
+ , ModelSBOBranchChangedInL2v4      = 95006/*!<The allowable 'sboTerm' values for model differ for this SBML Level+Version */
 
   /* These are errors checked by libSBML that were never
    * published in a spec. */
-  , InvalidSBMLLevelVersion          = 99101
-  , InvalidRuleOrdering              = 99106
+ , InvalidSBMLLevelVersion          = 99101/*!<Invalid SBML Level and Version */
+ , InvalidRuleOrdering              = 99106/*!<Invalid ordering of rules */
 
-  , SubsUnitsAllowedInKL             = 99127
-  , TimeUnitsAllowedInKL             = 99128
-  , FormulaInLevel1KL                = 99129
-  , TimeUnitsRemoved                 = 99206 /*!< SBML L2v3 validation rule #21206 */
+ , SubsUnitsAllowedInKL             = 99127/*!<Disallowed value for attribute 'substanceUnits' */
+ , TimeUnitsAllowedInKL             = 99128/*!<Disallowed value for attribute 'timeUnits' */
+ , FormulaInLevel1KL                = 99129/*!<Only predefined functions are permitted in SBML Level 1 formulas */
 
-  , BadMathML                        = 99219
-  , FailedMathMLReadOfDouble         = 99220
-  , FailedMathMLReadOfInteger        = 99221
-  , FailedMathMLReadOfExponential    = 99222
-  , FailedMathMLReadOfRational       = 99223
-  , BadMathMLNodeType                = 99224   
+ , TimeUnitsRemoved                 = 99206 /*!<The 'timeUnits' attribute is invalid in this Level+Version of SBML */
 
-  , NoTimeSymbolInFunctionDef        = 99301   
+ , BadMathML                        = 99219/*!<Invalid MathML expression */
+ , FailedMathMLReadOfDouble         = 99220/*!<Failed to read floating-point number */
+ , FailedMathMLReadOfInteger        = 99221/*!<Failed to read an integer */
+ , FailedMathMLReadOfExponential    = 99222/*!<Failed to read an exponential expression */
+ , FailedMathMLReadOfRational       = 99223/*!<Failed to read a rational expression */
+ , BadMathMLNodeType                = 99224 /*!<Invalid MathML element */
+
+ , NoTimeSymbolInFunctionDef        = 99301 /*!<<csymbol> for 'time' used within the <math> of a function definition */
 
 
   /* These are internal errors that reverts to 10501. */
@@ -701,36 +753,36 @@ typedef enum
   , InconsistentExponUnitsWarnings   = 99504 /*!< SBML L2v3 validation rule #10501 */
   /** @endcond doxygen-libsbml-internal */
 
-  , UndeclaredUnits                  = 99505 
-  , UnrecognisedSBOTerm              = 99701
-  , ObseleteSBOTerm                  = 99702
+ , UndeclaredUnits                  = 99505 /*!<Undeclared units */
+ , UnrecognisedSBOTerm              = 99701/*!<Unrecognized 'sboTerm' value */
+ , ObseleteSBOTerm                  = 99702/*!<Obsolete 'sboTerm' value */
 
   /* internal consistency checks */
-  , IncorrectCompartmentSpatialDimensions = 99901
-  , CompartmentTypeNotValidAttribute      = 99902
-  , ConstantNotValidAttribute             = 99903
-  , MetaIdNotValidAttribute               = 99904
-  , SBOTermNotValidAttributeBeforeL2V3    = 99905
-  , InvalidL1CompartmentUnits             = 99906
-  , L1V1CompartmentVolumeReqd             = 99907
-  , CompartmentTypeNotValidComponent      = 99908
-  , ConstraintNotValidComponent           = 99909
-  , EventNotValidComponent                = 99910
-  , SBOTermNotValidAttributeBeforeL2V2    = 99911
-  , FuncDefNotValidComponent              = 99912
-  , InitialAssignNotValidComponent        = 99913
-  , VariableNotValidAttribute             = 99914
-  , UnitsNotValidAttribute                = 99915
-  , ConstantSpeciesNotValidAttribute      = 99916
-  , SpatialSizeUnitsNotValidAttribute     = 99917
-  , SpeciesTypeNotValidAttribute          = 99918
-  , HasOnlySubsUnitsNotValidAttribute     = 99919
-  , IdNotValidAttribute                   = 99920
-  , NameNotValidAttribute                 = 99921
-  , SpeciesTypeNotValidComponent          = 99922
-  , StoichiometryMathNotValidComponent    = 99923
-  , MultiplierNotValidAttribute           = 99924
-  , OffsetNotValidAttribute               = 99925
+ , IncorrectCompartmentSpatialDimensions = 99901/*!<in SBML Level 1, only three-dimensional compartments are permitted */
+ , CompartmentTypeNotValidAttribute      = 99902/*!<Compartment types not supported in this Level+Version of SBML */
+ , ConstantNotValidAttribute             = 99903/*!<Attribute 'constant' not supported on this component in SBML Level 1 */
+ , MetaIdNotValidAttribute               = 99904/*!<Attribute 'metaid' not supported in SBML Level 1 */
+ , SBOTermNotValidAttributeBeforeL2V3    = 99905/*!<'sboTerm' not available on this component before SBML Level 2 Version 3 */
+ , InvalidL1CompartmentUnits             = 99906/*!<Invalid units for a compartment in SBML Level 1 */
+ , L1V1CompartmentVolumeReqd             = 99907/*!<Compartment volume must be specified */
+ , CompartmentTypeNotValidComponent      = 99908/*!<Compartment types not supported in this Level+Version of SBML */
+ , ConstraintNotValidComponent           = 99909/*!<Constraints not supported in this Level+Version of SBML */
+ , EventNotValidComponent                = 99910/*!<Events not supported in this Level+Version of SBML */
+ , SBOTermNotValidAttributeBeforeL2V2    = 99911/*!<The 'sboTerm' attribute is invalid for this component before Level 2 Version 2 */
+ , FuncDefNotValidComponent              = 99912/*!<Function definitions are not supported in this Level+Version of SBML */
+ , InitialAssignNotValidComponent        = 99913/*!<Initial assignments are not supported in this Level+Version of SBML */
+ , VariableNotValidAttribute             = 99914/*!<Attribute 'variable' not valid */
+ , UnitsNotValidAttribute                = 99915/*!<Attribute 'units' not valid */
+ , ConstantSpeciesNotValidAttribute      = 99916/*!<Attribute 'constant' on species not supported in SBML Level 1 */
+ , SpatialSizeUnitsNotValidAttribute     = 99917/*!<Attribute 'spatialSizeUnits' on species not supported in SBML Level 1 */
+ , SpeciesTypeNotValidAttribute          = 99918/*!<Attribute 'speciesType' on species not supported in SBML Level 1 */
+ , HasOnlySubsUnitsNotValidAttribute     = 99919/*!<Attribute 'hasOnlySubstanceUnits' on species not supported in SBML Level 1 */
+ , IdNotValidAttribute                   = 99920/*!<Attribute 'id' on species references not supported in SBML Level 1 */
+ , NameNotValidAttribute                 = 99921/*!<Attribute 'name' on species references not supported in SBML Level 1 */
+ , SpeciesTypeNotValidComponent          = 99922/*!<Species types not supported in SBML Level 1 */
+ , StoichiometryMathNotValidComponent    = 99923/*!<<stochiometryMath> not supported in SBML Level 1 */
+ , MultiplierNotValidAttribute           = 99924/*!<Attribute 'multiplier' on units not supported in SBML Level 1 */
+ , OffsetNotValidAttribute               = 99925/*!<Attribute 'offset' on units only available in SBML Level 2 Version 1 */
 
   /* Bounds */
 
@@ -823,8 +875,10 @@ typedef enum
      * libSBML and do not have equivalent SBML validation rules.) */
 
   , LIBSBML_CAT_INTERNAL_CONSISTENCY
-    /*!< Category of errors that can occur while validating the internal
-     * representation of SBML constructs.  */
+    /*!< Category of errors that can occur while validating libSBML's 
+     * internal representation of SBML constructs. (These are tests 
+     * performed by libSBML and do not have equivalent SBML validation 
+     * rules.)  */
 
   , LIBSBML_CAT_SBML_L2V4_COMPAT
     /*!< Category of errors that can only occur during attempted
