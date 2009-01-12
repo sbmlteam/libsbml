@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sbml xmlns="http://www.sbml.org/sbml/level2/version3" level="2" version="3"
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4"
       xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <model id="unitsexample">
         <listOfUnitDefinitions>

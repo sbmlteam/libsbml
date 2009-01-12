@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sbml level="2" version="3" xmlns="http://www.sbml.org/sbml/level2/version3">
+<sbml level="2" version="4" xmlns="http://www.sbml.org/sbml/level2/version4">
     <model id="EnzymaticReaction">
         <listOfUnitDefinitions>
             <unitDefinition id="per_second">
