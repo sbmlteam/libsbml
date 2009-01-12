@@ -1,7 +1,7 @@
            libSBML NEWS -- History of user-visible changes
  
 ======================================================================
-Version 3.3.0 (released 2009-01-05)
+Version 3.3.0 (released 2009-01-14)
 ======================================================================
 
 * Dependency changes:
@@ -46,6 +46,15 @@ Version 3.3.0 (released 2009-01-05)
     for the class CVTerm.  These are convenience methods that allow
     the user to determine how many resources are stored for the
     particular term and to index into the values directly.
+    
+  - Previously the error reported when the 'level' and 'version' 
+    attributes on an SBMLDocument did not refer to a valid SBML 
+    specification did not make the cause of the error clear.  This
+    error should now be reported more clearly.  Thanks to Lucian
+    Smith for noticing this.
+    
+  - LibSBML was not reporting the use of invalid attributes on the
+    ListOfXXX classes as errors. This has now been fixed.
 
   - The MATLAB language binding now correctly identifies the use of
     the MathML <csymbol> 'delay' and provides the information to the
@@ -57,8 +66,10 @@ Version 3.3.0 (released 2009-01-05)
 
   - [Tracker issue #2183855]
     Added methods to return the severity and category of the SBMLError
-    class as strings.  Unfortunately, a method returning the ErrorId
-    as a string has not yet been implemented.
+    class as strings.  Since the ErrorId is drawn from an enumeration, 
+    returning the actual ErrorId or corresponding symbol did not see
+    useful.  Instead, a getShortMessage function has been implemented 
+    that returns a very brief description of the error.
   
   - [Tracker issue #2136796]
     There is now additional code to check the ordering of assignment
@@ -137,6 +148,10 @@ Version 3.3.0 (released 2009-01-05)
 
   - Fixed a memory leak in the assignment operator of the ListOf
     class.  Thanks to Sven Sahle for reporting this problem.
+
+  - [Tracker issue #2498694]
+    Fixed a typo in documentation. Thanks to Sven Sahle for reporting 
+    this.
 
   - [Tracker issue #2442566]
     LibSBML incorrectly restricted the number of 'modified' date
@@ -260,7 +275,7 @@ Version 3.3.0 (released 2009-01-05)
     'dimensionless' unit with an 'exponent' of 1.  The underlying code
     no longer assigns an exponent of -1 to a 'dimensionless' unit and
     the comparison code no longer considers the 'exponent' attribute
-    when comparing 'dimensionless' units.  Thanks to Likas endler for
+    when comparing 'dimensionless' units.  Thanks to Lukas Endler for
     reporting this.
 
   - [Tracker issue #2118126]
