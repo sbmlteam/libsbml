@@ -308,9 +308,9 @@ main()
     dnl condition arises.  Let's note the situation and conditionalize the
     dnl code where necessary.
 
-    if test $HOST_TYPE = "darwin"\
+    if test "$HOST_TYPE" = "darwin"\
          -a `echo $XML2_CONFIG | sed 's,///*,/,g'` = "/usr/bin/xml2-config"\
-         -a `$XML2_CONFIG --libtool-libs` = "/usr/lib/libxml2.la"\
+         -a "`$XML2_CONFIG --libtool-libs`" = "/usr/lib/libxml2.la"\
          -a $xml_config_major_version -eq 2\
          -a $xml_config_minor_version -eq 6\
          -a $xml_config_micro_version -eq 16; then
