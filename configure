@@ -12732,13 +12732,16 @@ fi
 
 echo ""
 echo "Other potentially important settings:"
+if test "$enable_univbinary" != "no"; then
+  echo "  Building libSBML as MacSO universal binary."
+fi
 if test "$HOST_TYPE" = "darwin"; then
-  echo "  value of \$DYLD_LIBRARY_PATH   = $DYLD_LIBRARY_PATH"
+  echo "  Value of \$DYLD_LIBRARY_PATH   = $DYLD_LIBRARY_PATH"
 else
-  echo "  value of \$LD_LIBRARY_PATH     = $LD_LIBRARY_PATH"
+  echo "  Value of \$LD_LIBRARY_PATH     = $LD_LIBRARY_PATH"
 fi
 if test -n "$with_java" -a "$with_java" != "no"; then
-  echo "  value of \$CLASSPATH for Java  = $CLASSPATH"
+  echo "  Value of \$CLASSPATH for Java  = $CLASSPATH"
 fi
 if test -n "$with_csharp" -a "$with_csharp" != "no"; then
   echo "  Using CSharp compiler = $CSHARP_COMPILER"
