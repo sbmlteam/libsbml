@@ -83,7 +83,7 @@
  * names hopefully evoke the construct that they represent:
  *
  * <center>
- * <table width="80%" cellspacing="1" cellspacing="1" border="0" class="normal-font">
+ * <table width="80%" cellspacing="1" cellpadding="2" border="0" class="small-font">
  *  <tr><td><code></code></td><td><code></code></td><td><code></code></td></tr>
  *  <tr><td><code>AST_UNKNOWN</code></td><td><code>AST_FUNCTION_ARCCOTH</code></td><td><code>AST_FUNCTION_POWER</code></td></tr>
  *  <tr><td><code>AST_PLUS</code></td><td><code>AST_FUNCTION_ARCCSC</code></td><td><code>AST_FUNCTION_ROOT</code></td></tr>
@@ -185,8 +185,27 @@
  * is used in C for a different purpose.  (Exponentiation can be invoked
  * using either <code>^</code> or the function @c power.)
  * 
- * @image html string-syntax.jpg "Table of precedence rules."
- * @image latex string-syntax.jpg "Table of precedence rules."
+ * <center>
+ * <table width="80%" cellspacing="1" border="0" class="normal-font alt-row-colors">
+ *  <tr style="background: lightgray; font-size: 14px;">
+ *      <th>Token</th>
+ *      <th>Operation</th>
+ *      <th>Class</th>
+ *      <th>Precedence</th>
+ *      <th>Associates</th>
+ *  </tr>
+ * <tr><td><em>name</em></td><td>symbol reference</td><td>operand</td><td align="center">6</td><td>n/a</td></tr>
+ * <tr><td><code>(</code><em>expression</em><code>)</code></td><td>expression grouping</td><td>operand</td><td align="center">6</td><td>n/a</td></tr>
+ * <tr><td><code>f(</code><em>...</em><code>)</code></td><td>function call</td><td>prefix</td><td align="center">6</td><td>left</td></tr>
+ * <tr><td><code>-</code></td><td>negation</td><td>unary</td><td align="center">5</td><td>right</td></tr>
+ * <tr><td><code>^</code></td><td>power</td><td>binary</td><td align="center">4</td><td>left</td></tr>
+ * <tr><td><code>*</code></td><td>multiplication</td><td>binary</td><td align="center">3</td><td>left</td></tr>
+ * <tr><td><code>/</code></td><td>divison</td><td>binary</td><td align="center">3</td><td>left</td></tr>
+ * <tr><td><code>+</code></td><td>addition</td><td>binary</td><td align="center">2</td><td>left</td></tr>
+ * <tr><td><code>-</code></td><td>subtraction</td><td>binary</td><td align="center">2</td><td>left</td></tr>
+ * <tr><td><code>,</code></td><td>argument delimiter</td><td>binary</td><td align="center">1</td><td>left</td></tr>
+ * </table>
+ * </center>
  * 
  * A program parsing a formula in an SBML model should assume that names
  * appearing in the formula are the identifiers of Species, Parameter,
@@ -206,10 +225,10 @@
  * Level&nbsp;2:
  * 
  * <center>
- * <table cellspacing="1" border="0">
+ * <table width="80%" cellspacing="1" border="0" class="normal-font alt-row-colors">
  *  <tr style="background: lightgray; font-size: 14px;">
- *      <td>Text string formula functions</td>
- *      <td>MathML equivalents in SBML Level 2</td>
+ *      <th>Text string formula functions</th>
+ *      <th>MathML equivalents in SBML Level 2</th>
  *  </tr>
  *  <tr><td><code>acos</code></td><td><code>arccos</code></td></tr>
  *  <tr><td><code>asin</code></td><td><code>arcsin</code></td></tr>
