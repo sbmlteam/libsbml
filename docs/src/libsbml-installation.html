@@ -34,6 +34,8 @@ for configuring LibSBML</a></li>
 
 <ul>
 
+<li style="font-size: small;"><a href="#univbinary">Creating universal binaries on MacOS</a></li>
+
 <li style="font-size: small;"><a href="#swig">Configuring for SWIG</a></li>
 
 <li style="font-size: small;"><a href="#unit-testing">Configuring for unit
@@ -379,6 +381,25 @@ with errors about being unable to find it.
 described, the libSBML configuration command supports the options
 described below.
 
+
+
+<h4><a class="anchor" name="univbinary">Creating universal binaries on MacOS</a></h4>
+
+<p> Apple Macintosh operating systems after 2005 have provided the option
+of building binaries that can run natively on either PowerPC or x86 (Intel)
+architectures.  Compiling a library to be a so-called universal binary
+requires the use of special options at compilation time.  To build libSBML
+as a universal binary, specify the optional argument
+<nobr><code>--enable-universal-binary</code></nobr> to
+<code>configure</code>.  The following example illustrates how to do this:
+
+<div class="fragment"><pre class="fragment">
+  ./configure --enable-universal-binary
+</pre></div>
+
+<p> Beware that building with this option turn on results in the creation
+of larger libSBML binary files, because the files contain essentially two
+copies of the same code (one for each architecture).
 
 
 <h4><a class="anchor" name="swig">Configuring SWIG</a></h4>
