@@ -362,7 +362,7 @@ public:
 
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * SpeciesReference's "formula" attribute has been set
+   * KineticLaw's "formula" attribute has been set
    *
    * This is functionally identical to the method isSetMath().  It is
    * provided in order to mirror the parallel between getFormula() and
@@ -386,7 +386,7 @@ public:
 
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * SpeciesReference's "math" subelement has been set
+   * Kinetic's "math" subelement has been set
    *
    * This is identical to the method isSetFormula().  It is provided
    * in order to mirror the parallel between getFormula() and getMath().
