@@ -106,19 +106,43 @@ AC_DEFUN([CONFIG_PROG_JAVA],
 
     dnl On some systems, what we first get as $JAVA or $JAVAC is a symlink.
     dnl We need to get to the real directory first.
+    dnl (However, only do this if the user didn't request a specific path.)
 
-    while test -h "$JAVAC"; do
-      _slink=`readlink "$JAVAC"`
-      dnl
-      dnl _slink may be a relative path (e.g. "/usr/bin/java" -> "../java/bin/java" on Solaris).
-      dnl So, _slink must be appended to JAVAC if _slink is not an absolute path.
-      dnl
-      case "$_slink" in
-        /*) JAVAC="$_slink";;
-          dnl 'X' avoids triggering unwanted echo options.
-        *) JAVAC=`echo "X${JAVAC}" | sed -e 's/^X//' -e 's:[[^/]]*$::'`"$_slink";;
-      esac
-    done
+    if test "$with_java" = "yes"; then
+      while test -h "$JAVAC"; do
+        javaclink=`readlink "$JAVAC"`
+        dnl
+        dnl This next case case statement does 2 things:
+        dnl 1) On Ubuntu and maybe some other systems, following the symlinks
+        dnl    gets us to /usr/bin/ecj, which is a shell script that invokes
+        dnl    the actual executable.  This stumps our code trying to find
+        dnl    the jni include directory.  The weak solution here is to
+        dnl    detect when /usr/lib/jvm/* appears in the path at
+        dnl    some point, which is the actual home under Ubuntu (and
+        dnl    hopefully others) containing files we're looking for.
+        dnl
+        dnl 2) $javaclink may end up being a relative path (e.g. 
+        dnl    "/usr/bin/java" -> "../java/bin/java" on Solaris).  So, the
+        dnl    value of javaclink must be appended to $JAVAC to construct an
+        dnl    absolute path.
+        dnl
+        case "$javaclink" in
+          /usr/lib/jvm/*)
+            JAVAC="$javaclink"
+            break
+            ;;
+  
+          /*) 
+            JAVAC="$javaclink"
+            ;;
+  
+          *) 
+            dnl 'X' avoids triggering unwanted echo options.
+            JAVAC=`echo "X${JAVAC}" | sed -e 's/^X//' -e 's:[[^/]]*$::'`"$javaclink"
+            ;;
+        esac
+      done
+    fi
 
     dnl Need to find the include files.
 
