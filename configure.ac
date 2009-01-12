@@ -66,7 +66,7 @@ dnl fi
 
 
 AC_ARG_ENABLE([layout],
-  AC_HELP_STRING([--enable-layout=yes|no],
+  AC_HELP_STRING([--enable-layout=[ARG]],
                  [Build the SBML layout extension (default=no)]),
   [enable_layout=$withval],
   [enable_layout=no])
@@ -367,7 +367,17 @@ print_flag()
     i=`expr 13 - ${#1}`
     printf "  Using $1 with path "
     print_whitespace $i
-    echo "= $3"
+    if test -n "$4"; then
+      /bin/echo -n "= $3"
+    else
+      echo "= $3"
+    fi
+  fi
+  dnl
+  dnl If there's a 4th arg, print it after everything else on the line.
+  dnl 
+  if test -n "$4"; then
+    echo "  ($4)"
   fi
 }
 
@@ -391,7 +401,7 @@ echo "  host vendor                   = $host_vendor"
 echo "  host operating system         = $host_os"
 echo "  host CPU architecture         = $host_cpu"
 echo ""
-echo "Build flags:"
+echo "General build flags:"
 echo "  CC                            = $CC"
 echo "  CXX                           = $CXX"
 echo "  CFLAGS                        = $CFLAGS"
