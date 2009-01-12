@@ -3866,7 +3866,7 @@ $patchFuncReplace{'python'}{'TestWriteSBML'}{'test_WriteSBML_gzip'} = <<'EOF';
 EOF
 
 $patchFuncReplace{'python'}{'TestWriteSBML'}{'test_WriteSBML_bzip2'} = $patchFuncReplace{'python'}{'TestWriteSBML'}{'test_WriteSBML_gzip'};
-$patchFuncReplace{'python'}{'TestWriteSBML'}{'test_WriteSBML_bzip2'} =~ s/gz/bz/g;
+$patchFuncReplace{'python'}{'TestWriteSBML'}{'test_WriteSBML_bzip2'} =~ s/gz/bz2/g;
 $patchFuncReplace{'python'}{'TestWriteSBML'}{'test_WriteSBML_bzip2'} =~ s/hasZlib/hasBzip2/g;
   
 
@@ -4075,7 +4075,7 @@ $patchFuncReplace{'java'}{'TestWriteSBML'}{'test_WriteSBML_gzip'} = <<'EOF';
 EOF
 
 $patchFuncReplace{'java'}{'TestWriteSBML'}{'test_WriteSBML_bzip2'} = $patchFuncReplace{'java'}{'TestWriteSBML'}{'test_WriteSBML_gzip'};
-$patchFuncReplace{'java'}{'TestWriteSBML'}{'test_WriteSBML_bzip2'} =~ s/gz/bz/g;
+$patchFuncReplace{'java'}{'TestWriteSBML'}{'test_WriteSBML_bzip2'} =~ s/gz/bz2/g;
 $patchFuncReplace{'java'}{'TestWriteSBML'}{'test_WriteSBML_bzip2'} =~ s/hasZlib/hasBzip2/g;
   
 
@@ -4238,7 +4238,7 @@ $patchFuncReplace{'csharp'}{'TestWriteSBML'}{'test_WriteSBML_gzip'} = <<'EOF';
 EOF
 
 $patchFuncReplace{'csharp'}{'TestWriteSBML'}{'test_WriteSBML_bzip2'} = $patchFuncReplace{'csharp'}{'TestWriteSBML'}{'test_WriteSBML_gzip'};
-$patchFuncReplace{'csharp'}{'TestWriteSBML'}{'test_WriteSBML_bzip2'} =~ s/gz/bz/g;
+$patchFuncReplace{'csharp'}{'TestWriteSBML'}{'test_WriteSBML_bzip2'} =~ s/gz/bz2/g;
 $patchFuncReplace{'csharp'}{'TestWriteSBML'}{'test_WriteSBML_bzip2'} =~ s/hasZlib/hasBzip2/g;
   
 

@@ -1766,7 +1766,7 @@ public class TestWriteSBML {
                         "../../../examples/sample-models/from-spec/level-2/twodimensional.xml",
                         "../../../examples/sample-models/from-spec/level-2/units.xml"
     };
-    String bzfile = "test.xml.bz";
+    String bzfile = "test.xml.bz2";
     for(int i = 0; i < filenum; i++)
     {
       SBMLDocument d = libsbml.readSBML(file[i]);

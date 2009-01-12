@@ -1563,7 +1563,7 @@ class TestWriteSBML < Test::Unit::TestCase
                         "../../../examples/sample-models/from-spec/level-2/twodimensional.xml",
                         "../../../examples/sample-models/from-spec/level-2/units.xml"
     ]
-    bzfile = "test.xml.bz"
+    bzfile = "test.xml.bz2"
     file.each do |f|
       d = LibSBML::readSBML(f)
       assert( d != nil )

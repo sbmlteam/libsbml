@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Ben Bornstein 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestWriteSBML.cpp
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -1773,7 +1773,7 @@ namespace LibSBMLCSTest {
                         "../../../examples/sample-models/from-spec/level-2/twodimensional.xml",
                         "../../../examples/sample-models/from-spec/level-2/units.xml"
       };
-      string bzfile = "test.xml.bz";
+      string bzfile = "test.xml.bz2";
       for(uint i = 0; i < filenum; i++) 
       { 
         SBMLDocument d = libsbml.readSBML(file[i]); 

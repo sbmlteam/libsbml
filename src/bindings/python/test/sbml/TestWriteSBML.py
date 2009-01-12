@@ -1567,7 +1567,7 @@ class TestWriteSBML(unittest.TestCase):
     file.append("../../../examples/sample-models/from-spec/level-2/twodimensional.xml")
     file.append("../../../examples/sample-models/from-spec/level-2/units.xml")
 
-    bzfile = "test.xml.bz"
+    bzfile = "test.xml.bz2"
     for f in file:
       d = libsbml.readSBML(f)
       self.assert_( d != None )
