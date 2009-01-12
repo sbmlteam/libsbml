@@ -110,7 +110,6 @@ AC_DEFUN([CONFIG_PROG_JAVA],
 
     if test "$with_java" = "yes"; then
       while test -h "$JAVAC"; do
-        javaclink=`readlink "$JAVAC"`
         dnl
         dnl This next case case statement does 2 things:
         dnl 1) On Ubuntu and maybe some other systems, following the symlinks
@@ -126,16 +125,21 @@ AC_DEFUN([CONFIG_PROG_JAVA],
         dnl    value of javaclink must be appended to $JAVAC to construct an
         dnl    absolute path.
         dnl
-        case "$javaclink" in
+
+        dnl "/usr/lib/jvm/java-gcj/bin/javac" might be initially set to JAVAC.
+        case "$JAVAC" in
           /usr/lib/jvm/*)
-            JAVAC="$javaclink"
             break
             ;;
-  
+          *) 
+            javaclink=`readlink "$JAVAC"`
+            ;;
+        esac
+
+        case "$javaclink" in
           /*) 
             JAVAC="$javaclink"
             ;;
-  
           *) 
             dnl 'X' avoids triggering unwanted echo options.
             JAVAC=`echo "X${JAVAC}" | sed -e 's/^X//' -e 's:[[^/]]*$::'`"$javaclink"
