@@ -68,12 +68,23 @@ dnl fi
 AC_ARG_ENABLE([layout],
   AC_HELP_STRING([--enable-layout=[ARG]],
                  [Build the SBML layout extension (default=no)]),
-  [enable_layout=$withval],
+  [enable_layout=$enableval],
   [enable_layout=no])
 
 if test "$enable_layout" != no; then
   AC_DEFINE([USE_LAYOUT], 1, [Define to 1 to build the SBML layout extension.])
   AC_SUBST(USE_LAYOUT, 1)
+fi
+
+AC_ARG_ENABLE([compression],
+  AC_HELP_STRING([--enable-compression=[ARG]],
+                 [Enable zlib/bzip2 compression if required libs detected, otherwise disabled (default=yes)]),
+  [enable_compression=$enableval],
+  [enable_compression=yes])
+
+if test "$enable_compression" != no; then
+  AC_DEFINE([USE_COMPRESSION], 1, [Define to 1 to enable zlib/bzip2 compression.])
+  AC_SUBST(USE_COMPRESSION, 1)
 fi
 
 dnl Other cmd-line options are defined in the individual .m4 files in the

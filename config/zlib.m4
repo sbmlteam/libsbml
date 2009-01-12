@@ -46,24 +46,30 @@ AC_DEFUN([CONFIG_LIB_ZLIB],
 
   AC_ARG_WITH([zlib],
 	      AC_HELP_STRING([--with-zlib=PREFIX], 
-                             [Enable reading/writing files compressed with zlib [[default=yes]] ]
+                             [Enable reading/writing files compressed with zlib [[default=autodetect]] ]
               ),
-	      [with_zlib="$withval"], [with_zlib=yes]
+	      [with_zlib="$withval"], [with_zlib=autodetect]
   )
 
+  if test "x$with_zlib" = "xautodetect"; then
+    if test "x$enable_compression" = "xno"; then
+      with_zlib=no
+    fi
+  fi
+
   AC_MSG_CHECKING(for zlib library)
-  if test "x$withval" != "xno" ; then
+  if test "x$with_zlib" != "xno"; then
     AC_MSG_RESULT(yes)
-    if test "x$withval" != "xyes"; then
-      if test -d "$withval/lib"; then
-        ZLIB_LDFLAGS="-L${withval}/lib"
+    if test "x$with_zlib" != "xyes" -a "x$with_zlib" != "xautodetect"; then
+      if test -d "$with_zlib/lib"; then
+        ZLIB_LDFLAGS="-L${with_zlib}/lib"
       else
-        ZLIB_LDFLAGS="-L${withval}"
+        ZLIB_LDFLAGS="-L${with_zlib}"
       fi
     fi
   
-    if test -d "$withval/include"; then
-      ZLIB_CPPFLAGS="-I${withval}/include"
+    if test -d "$with_zlib/include"; then
+      ZLIB_CPPFLAGS="-I${with_zlib}/include"
     fi
   
     ZLIB_LIBS="-lz"
@@ -71,34 +77,48 @@ AC_DEFUN([CONFIG_LIB_ZLIB],
     saved_CPPFLAGS=$CPPFLAGS
     saved_LDFLAGS=$LDFLAGS
     saved_LIBS=$LIBS
-  
+
     AC_CHECK_LIB(z, deflate, ,
   	       [
   		dnl Check default zlib install dir
   		LDFLAGS="-L/usr/lib -L/usr/local/lib ${LDFLAGS} ${ZLIB_LDFLAGS}"
   		CPPFLAGS="-I/usr/include -I/usr/local/include ${CPPFLAGS} ${ZLIB_CPPFLAGS}"
                   LIBS="${LIBS} ${ZLIB_LIBS}"
-  		AC_TRY_LINK_FUNC(deflate, AC_DEFINE(HAVE_LIBZ),
-  			[
-                          AC_MSG_ERROR([*** zlib missing - please install zlib first or check config.log.
+  		AC_TRY_LINK_FUNC(deflate, 
+                 [
+                    libz_detected=yes
+                    AC_DEFINE(HAVE_LIBZ)
+                 ], 
+                 [ 
+                   libz_detected=no 
+                   if test "x$with_zlib" != "xautodetect"; then
+                    AC_MSG_ERROR([*** zlib missing - please install zlib first or check config.log.
                   *** Please run the configure command with "--with-zlib=no" option if you 
                   *** want to build libSBML without support for gzip/zip compressed SBML file.])
-  			]
-  		)
+                   else
+                     AC_MSG_WARN([*** zlib missing.])
+                   fi
+                 ]
+               )
   	]
-     )
-  
-    AC_CHECK_HEADER([zlib.h], ,
+      )
+
+    AC_CHECK_HEADER([zlib.h], zlib_h_detected=yes, 
                     [
-                      AC_MSG_ERROR([*** zlib.h missing - please install zlib first or check config.log.
+                      zlib_h_detected="no"
+                      if test "x$with_zlib" != "xautodetect"; then
+                        AC_MSG_ERROR([*** zlib.h missing - please install zlib first or check config.log.
                   *** Please run the configure command with "--with-zlib=no" option if you 
                   *** want to build libSBML without support for gzip/zip compressed SBML file.])
+                      else
+                        AC_MSG_WARN([*** zlib.h missing.])
+                      fi
                     ]
     )
   
     AC_ARG_WITH(zlib-version-check,
             AC_HELP_STRING([--without-zlib-version-check], [Disable zlib version check]),
-      	  [  if test "x$withval" = "xno" ; then
+      	  [  if test "x$withval" = "xno"; then
   		zlib_check_nonfatal=1
   	     fi
   	  ]
@@ -132,17 +152,19 @@ AC_DEFUN([CONFIG_LIB_ZLIB],
       ]])],
       AC_MSG_RESULT(no),
       [ AC_MSG_RESULT(yes)
-        if test -z "$zlib_check_nonfatal" ; then
-	AC_MSG_ERROR([*** zlib too old - check config.log ***
+        if test -z "$zlib_check_nonfatal"; then
+          if test "x$with_zlib" != "xautodetect"; then
+  	    AC_MSG_ERROR([*** zlib too old - check config.log ***
 Your reported zlib version has known security problems.  It's possible your
 vendor has fixed these problems without changing the version number.  If you
 are sure this is the case, you can disable the check by running
 "./configure --without-zlib-version-check".
 If you are in doubt, upgrade zlib to version 1.2.3 or greater.
 See http://www.gzip.org/zlib/ for details.])
-         else
-           AC_MSG_WARN([zlib version may have security problems])
-         fi
+          fi
+        else
+          AC_MSG_WARN([zlib version may have security problems])
+        fi
        ],
        [	AC_MSG_WARN([cross compiling: not checking zlib version]) ]
      )
@@ -152,16 +174,22 @@ See http://www.gzip.org/zlib/ for details.])
     LDFLAGS=$saved_LDFLAGS
     LIBS=$saved_LIBS
   
-    AC_DEFINE([USE_ZLIB], 1, [Define to 1 to use the Zlib library])
-    AC_SUBST(USE_ZLIB, 1)
-    AC_SUBST(ZLIB_CPPFLAGS)
-    AC_SUBST(ZLIB_LDFLAGS)
-    AC_SUBST(ZLIB_LIBS)
+    if test "x$libz_detected" != "xno" -a "x$zlib_h_detected" != "xno"; then
+      AC_DEFINE([USE_ZLIB], 1, [Define to 1 to use the Zlib library])
+      AC_SUBST(USE_ZLIB, 1)
+      AC_SUBST(ZLIB_CPPFLAGS)
+      AC_SUBST(ZLIB_LDFLAGS)
+      AC_SUBST(ZLIB_LIBS)
   
-    dnl We record the USE_XXX flag, for later testing in Makefiles.
+      dnl We record the USE_XXX flag, for later testing in Makefiles.
   
-    LIBSBML_OPTIONS="$LIBSBML_OPTIONS USE_ZLIB"
+      LIBSBML_OPTIONS="$LIBSBML_OPTIONS USE_ZLIB"
+    else
+      AC_MSG_WARN([zlib was not found by autodetection.]) 
+      with_zlib=no
+      ZLIB_LIBS=""
+    fi
   else
-    AC_MSG_RESULT(no)
+    AC_MSG_RESULT([no])
   fi
 ])

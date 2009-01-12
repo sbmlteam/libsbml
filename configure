@@ -655,6 +655,7 @@ host_alias
 target_alias
 LIBSBML_VERSION_NUMERIC
 USE_LAYOUT
+USE_COMPRESSION
 build
 build_cpu
 build_vendor
@@ -1370,6 +1371,9 @@ Optional Features:
   --disable-FEATURE       do not include FEATURE (same as --enable-FEATURE=no)
   --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
   --enable-layout=ARG     Build the SBML layout extension (default=no)
+  --enable-compression=ARG
+                          Enable zlib/bzip2 compression if required libs
+                          detected, otherwise disabled (default=yes)
   --enable-universal-binary=ARG
                           Generate universal binaries on MacOSX [default=no]
                           ("-arch i386 -arch ppc" used when enabled without
@@ -1398,11 +1402,11 @@ Optional Packages:
   --with-libxml=PREFIX    Use the libxml2 XML library [default=no]
   --with-check=PREFIX     Use the libcheck unit testing library [default=no]
   --with-zlib=PREFIX      Enable reading/writing files compressed with zlib
-                          [default=yes]
+                          [default=autodetect]
   --without-zlib-version-check
                           Disable zlib version check
   --with-bzip2=PREFIX     Enable reading/writing files compressed with bzip2
-                          [default=yes]
+                          [default=autodetect]
 
 Some influential environment variables:
   CXX         C++ compiler command
@@ -1907,7 +1911,7 @@ LIBSBML_VERSION_NUMERIC=30300
 
 # Check whether --enable-layout was given.
 if test "${enable_layout+set}" = set; then
-  enableval=$enable_layout; enable_layout=$withval
+  enableval=$enable_layout; enable_layout=$enableval
 else
   enable_layout=no
 fi
@@ -1920,6 +1924,24 @@ cat >>confdefs.h <<\_ACEOF
 _ACEOF
 
   USE_LAYOUT=1
+
+fi
+
+# Check whether --enable-compression was given.
+if test "${enable_compression+set}" = set; then
+  enableval=$enable_compression; enable_compression=$enableval
+else
+  enable_compression=yes
+fi
+
+
+if test "$enable_compression" != no; then
+
+cat >>confdefs.h <<\_ACEOF
+#define USE_COMPRESSION 1
+_ACEOF
+
+  USE_COMPRESSION=1
 
 fi
 
@@ -9314,26 +9336,32 @@ _ACEOF
 if test "${with_zlib+set}" = set; then
   withval=$with_zlib; with_zlib="$withval"
 else
-  with_zlib=yes
+  with_zlib=autodetect
 
 fi
 
 
+  if test "x$with_zlib" = "xautodetect"; then
+    if test "x$enable_compression" = "xno"; then
+      with_zlib=no
+    fi
+  fi
+
   { echo "$as_me:$LINENO: checking for zlib library" >&5
 echo $ECHO_N "checking for zlib library... $ECHO_C" >&6; }
-  if test "x$withval" != "xno" ; then
+  if test "x$with_zlib" != "xno"; then
     { echo "$as_me:$LINENO: result: yes" >&5
 echo "${ECHO_T}yes" >&6; }
-    if test "x$withval" != "xyes"; then
-      if test -d "$withval/lib"; then
-        ZLIB_LDFLAGS="-L${withval}/lib"
+    if test "x$with_zlib" != "xyes" -a "x$with_zlib" != "xautodetect"; then
+      if test -d "$with_zlib/lib"; then
+        ZLIB_LDFLAGS="-L${with_zlib}/lib"
       else
-        ZLIB_LDFLAGS="-L${withval}"
+        ZLIB_LDFLAGS="-L${with_zlib}"
       fi
     fi
 
-    if test -d "$withval/include"; then
-      ZLIB_CPPFLAGS="-I${withval}/include"
+    if test -d "$with_zlib/include"; then
+      ZLIB_CPPFLAGS="-I${with_zlib}/include"
     fi
 
     ZLIB_LIBS="-lz"
@@ -9456,22 +9484,31 @@ eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
 	 test ! -s conftest.err
        } && test -s conftest$ac_exeext &&
        $as_test_x conftest$ac_exeext; then
-  cat >>confdefs.h <<\_ACEOF
+
+                    libz_detected=yes
+                    cat >>confdefs.h <<\_ACEOF
 #define HAVE_LIBZ 1
 _ACEOF
+
 
 else
   echo "$as_me: failed program was:" >&5
 sed 's/^/| /' conftest.$ac_ext >&5
 
 
-                          { { echo "$as_me:$LINENO: error: *** zlib missing - please install zlib first or check config.log.
+                   libz_detected=no
+                   if test "x$with_zlib" != "xautodetect"; then
+                    { { echo "$as_me:$LINENO: error: *** zlib missing - please install zlib first or check config.log.
                   *** Please run the configure command with \"--with-zlib=no\" option if you
                   *** want to build libSBML without support for gzip/zip compressed SBML file." >&5
 echo "$as_me: error: *** zlib missing - please install zlib first or check config.log.
                   *** Please run the configure command with \"--with-zlib=no\" option if you
                   *** want to build libSBML without support for gzip/zip compressed SBML file." >&2;}
    { (exit 1); exit 1; }; }
+                   else
+                     { echo "$as_me:$LINENO: WARNING: *** zlib missing." >&5
+echo "$as_me: WARNING: *** zlib missing." >&2;}
+                   fi
 
 
 fi
@@ -9614,16 +9651,22 @@ echo "${ECHO_T}$ac_cv_header_zlib_h" >&6; }
 
 fi
 if test $ac_cv_header_zlib_h = yes; then
-  :
+  zlib_h_detected=yes
 else
 
-                      { { echo "$as_me:$LINENO: error: *** zlib.h missing - please install zlib first or check config.log.
+                      zlib_h_detected="no"
+                      if test "x$with_zlib" != "xautodetect"; then
+                        { { echo "$as_me:$LINENO: error: *** zlib.h missing - please install zlib first or check config.log.
                   *** Please run the configure command with \"--with-zlib=no\" option if you
                   *** want to build libSBML without support for gzip/zip compressed SBML file." >&5
 echo "$as_me: error: *** zlib.h missing - please install zlib first or check config.log.
                   *** Please run the configure command with \"--with-zlib=no\" option if you
                   *** want to build libSBML without support for gzip/zip compressed SBML file." >&2;}
    { (exit 1); exit 1; }; }
+                      else
+                        { echo "$as_me:$LINENO: WARNING: *** zlib.h missing." >&5
+echo "$as_me: WARNING: *** zlib.h missing." >&2;}
+                      fi
 
 
 fi
@@ -9633,7 +9676,7 @@ fi
 
 # Check whether --with-zlib-version-check was given.
 if test "${with_zlib_version_check+set}" = set; then
-  withval=$with_zlib_version_check;   if test "x$withval" = "xno" ; then
+  withval=$with_zlib_version_check;   if test "x$withval" = "xno"; then
   		zlib_check_nonfatal=1
   	     fi
 
@@ -9710,8 +9753,9 @@ sed 's/^/| /' conftest.$ac_ext >&5
 ( exit $ac_status )
  { echo "$as_me:$LINENO: result: yes" >&5
 echo "${ECHO_T}yes" >&6; }
-        if test -z "$zlib_check_nonfatal" ; then
-	{ { echo "$as_me:$LINENO: error: *** zlib too old - check config.log ***
+        if test -z "$zlib_check_nonfatal"; then
+          if test "x$with_zlib" != "xautodetect"; then
+  	    { { echo "$as_me:$LINENO: error: *** zlib too old - check config.log ***
 Your reported zlib version has known security problems.  It's possible your
 vendor has fixed these problems without changing the version number.  If you
 are sure this is the case, you can disable the check by running
@@ -9726,10 +9770,11 @@ are sure this is the case, you can disable the check by running
 If you are in doubt, upgrade zlib to version 1.2.3 or greater.
 See http://www.gzip.org/zlib/ for details." >&2;}
    { (exit 1); exit 1; }; }
-         else
-           { echo "$as_me:$LINENO: WARNING: zlib version may have security problems" >&5
+          fi
+        else
+          { echo "$as_me:$LINENO: WARNING: zlib version may have security problems" >&5
 echo "$as_me: WARNING: zlib version may have security problems" >&2;}
-         fi
+        fi
 
 fi
 rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext conftest.$ac_objext conftest.$ac_ext
@@ -9742,19 +9787,26 @@ fi
     LDFLAGS=$saved_LDFLAGS
     LIBS=$saved_LIBS
 
+    if test "x$libz_detected" != "xno" -a "x$zlib_h_detected" != "xno"; then
 
 cat >>confdefs.h <<\_ACEOF
 #define USE_ZLIB 1
 _ACEOF
 
-    USE_ZLIB=1
+      USE_ZLIB=1
 
 
 
 
 
 
-    LIBSBML_OPTIONS="$LIBSBML_OPTIONS USE_ZLIB"
+      LIBSBML_OPTIONS="$LIBSBML_OPTIONS USE_ZLIB"
+    else
+      { echo "$as_me:$LINENO: WARNING: zlib was not found by autodetection." >&5
+echo "$as_me: WARNING: zlib was not found by autodetection." >&2;}
+      with_zlib=no
+      ZLIB_LIBS=""
+    fi
   else
     { echo "$as_me:$LINENO: result: no" >&5
 echo "${ECHO_T}no" >&6; }
@@ -9766,23 +9818,33 @@ echo "${ECHO_T}no" >&6; }
 if test "${with_bzip2+set}" = set; then
   withval=$with_bzip2; with_bzip2="$withval"
 else
-  with_bzip2=yes
+  with_bzip2=autodetect
 
 fi
 
 
-  if test "x$withval" != "xno" ; then
+  if test "x$with_bzip2" = "xautodetect"; then
+    if test "x$enable_compression" = "xno"; then
+      with_bzip2=no
+    fi
+  fi
 
-    if test "x$withval" != "xyes"; then
-      if test -d "$withval/lib"; then
-        BZ2_LDFLAGS="-L${withval}/lib"
+  { echo "$as_me:$LINENO: checking for bzip2 library" >&5
+echo $ECHO_N "checking for bzip2 library... $ECHO_C" >&6; }
+  if test "x$with_bzip2" != "xno" ; then
+    { echo "$as_me:$LINENO: result: yes" >&5
+echo "${ECHO_T}yes" >&6; }
+
+    if test "x$with_bzip2" != "xyes" -a "x$with_bzip2" != "xautodetect"; then
+      if test -d "$with_bzip2/lib"; then
+        BZ2_LDFLAGS="-L${with_bzip2}/lib"
       else
-        BZ2_LDFLAGS="-L${withval}"
+        BZ2_LDFLAGS="-L${with_bzip2}"
       fi
     fi
 
-    if test -d "$withval/include"; then
-      BZ2_CPPFLAGS="-I${withval}/include"
+    if test -d "$with_bzip2/include"; then
+      BZ2_CPPFLAGS="-I${with_bzip2}/include"
     fi
 
     BZ2_LIBS="-lbz2"
@@ -9905,22 +9967,31 @@ eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
 	 test ! -s conftest.err
        } && test -s conftest$ac_exeext &&
        $as_test_x conftest$ac_exeext; then
-  cat >>confdefs.h <<\_ACEOF
+
+                    libbz2_detected=yes
+                    cat >>confdefs.h <<\_ACEOF
 #define HAVE_BZ2 1
 _ACEOF
+
 
 else
   echo "$as_me: failed program was:" >&5
 sed 's/^/| /' conftest.$ac_ext >&5
 
 
-                          { { echo "$as_me:$LINENO: error: *** bzip2 missing - please install bzip2 first or check config.log.
-                  *** Please run the configure command with \"--with-bzip2=no\" option if you
-                  *** want to build libSBML without support for bzip2 compressed SBML file." >&5
+                    libbz2_detected=no
+                    if test "x$with_bzip2" != "xautodetect"; then
+                      { { echo "$as_me:$LINENO: error: *** bzip2 missing - please install bzip2 first or check config.log.
+                    *** Please run the configure command with \"--with-bzip2=no\" option if you
+                    *** want to build libSBML without support for bzip2 compressed SBML file." >&5
 echo "$as_me: error: *** bzip2 missing - please install bzip2 first or check config.log.
-                  *** Please run the configure command with \"--with-bzip2=no\" option if you
-                  *** want to build libSBML without support for bzip2 compressed SBML file." >&2;}
+                    *** Please run the configure command with \"--with-bzip2=no\" option if you
+                    *** want to build libSBML without support for bzip2 compressed SBML file." >&2;}
    { (exit 1); exit 1; }; }
+                    else
+                     { echo "$as_me:$LINENO: WARNING: *** bzip2 missing." >&5
+echo "$as_me: WARNING: *** bzip2 missing." >&2;}
+                    fi
 
 
 fi
@@ -10063,16 +10134,22 @@ echo "${ECHO_T}$ac_cv_header_bzlib_h" >&6; }
 
 fi
 if test $ac_cv_header_bzlib_h = yes; then
-  :
+  bzlib_h_detected=yes
 else
 
-                          { { echo "$as_me:$LINENO: error: *** bzlib.h missing - please install bzip2 first or check config.log.
+                      bzlib_h_detected="no"
+                      if test "x$with_bzip2" != "xautodetect"; then
+                        { { echo "$as_me:$LINENO: error: *** bzlib.h missing - please install bzip2 first or check config.log.
                   *** Please run the configure command with \"--with-bzip2=no\" option if you
                   *** want to build libSBML without support for bzip2 compressed SBML file." >&5
 echo "$as_me: error: *** bzlib.h missing - please install bzip2 first or check config.log.
                   *** Please run the configure command with \"--with-bzip2=no\" option if you
                   *** want to build libSBML without support for bzip2 compressed SBML file." >&2;}
    { (exit 1); exit 1; }; }
+                      else
+                        { echo "$as_me:$LINENO: WARNING: *** bzlib.h missing." >&5
+echo "$as_me: WARNING: *** bzlib.h missing." >&2;}
+                      fi
 
 
 fi
@@ -10083,19 +10160,26 @@ fi
     LDFLAGS=$saved_LDFLAGS
     LIBS=$saved_LIBS
 
+    if test "x$libbz2_detected" != "xno" -a "x$bzlib_h_detected" != "xno"; then
 
 cat >>confdefs.h <<\_ACEOF
 #define USE_BZ2 1
 _ACEOF
 
-    USE_BZ2=1
+      USE_BZ2=1
 
 
 
 
 
 
-    LIBSBML_OPTIONS="$LIBSBML_OPTIONS USE_BZ2"
+      LIBSBML_OPTIONS="$LIBSBML_OPTIONS USE_BZ2"
+    else
+      { echo "$as_me:$LINENO: WARNING: bzip2 was not found by autodetection." >&5
+echo "$as_me: WARNING: bzip2 was not found by autodetection." >&2;}
+      with_bzip2=no
+      BZ2_LIBS=""
+    fi
   else
     { echo "$as_me:$LINENO: result: no" >&5
 echo "${ECHO_T}no" >&6; }
@@ -12031,6 +12115,7 @@ host_alias!$host_alias$ac_delim
 target_alias!$target_alias$ac_delim
 LIBSBML_VERSION_NUMERIC!$LIBSBML_VERSION_NUMERIC$ac_delim
 USE_LAYOUT!$USE_LAYOUT$ac_delim
+USE_COMPRESSION!$USE_COMPRESSION$ac_delim
 build!$build$ac_delim
 build_cpu!$build_cpu$ac_delim
 build_vendor!$build_vendor$ac_delim
@@ -12088,7 +12173,6 @@ JAVA_LDFLAGS!$JAVA_LDFLAGS$ac_delim
 JNIEXT!$JNIEXT$ac_delim
 JNIBASENAME!$JNIBASENAME$ac_delim
 JAVADOC_JAR!$JAVADOC_JAR$ac_delim
-MEX!$MEX$ac_delim
 _ACEOF
 
   if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 97; then
@@ -12130,6 +12214,7 @@ _ACEOF
 ac_delim='%!_!# '
 for ac_last_try in false false false false false :; do
   cat >conf$$subs.sed <<_ACEOF
+MEX!$MEX$ac_delim
 MATLAB!$MATLAB$ac_delim
 USE_MATLAB!$USE_MATLAB$ac_delim
 MATLAB_CPPFLAGS!$MATLAB_CPPFLAGS$ac_delim
@@ -12196,7 +12281,7 @@ LIBOBJS!$LIBOBJS$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
 
-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 64; then
+  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 65; then
     break
   elif $ac_last_try; then
     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5

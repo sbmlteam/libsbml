@@ -45,24 +45,32 @@ AC_DEFUN([CONFIG_LIB_BZ2],
 [
   AC_ARG_WITH([bzip2],
     AC_HELP_STRING([--with-bzip2=PREFIX], 
-	           [Enable reading/writing files compressed with bzip2 [[default=yes]] ]
+	           [Enable reading/writing files compressed with bzip2 [[default=autodetect]] ]
               ),
     [with_bzip2="$withval"], 
-    [with_bzip2=yes]
+    [with_bzip2=autodetect]
   )
 
-  if test "x$withval" != "xno" ; then
+  if test "x$with_bzip2" = "xautodetect"; then
+    if test "x$enable_compression" = "xno"; then
+      with_bzip2=no
+    fi
+  fi
 
-    if test "x$withval" != "xyes"; then
-      if test -d "$withval/lib"; then
-        BZ2_LDFLAGS="-L${withval}/lib"
+  AC_MSG_CHECKING(for bzip2 library)
+  if test "x$with_bzip2" != "xno" ; then
+    AC_MSG_RESULT(yes)
+
+    if test "x$with_bzip2" != "xyes" -a "x$with_bzip2" != "xautodetect"; then
+      if test -d "$with_bzip2/lib"; then
+        BZ2_LDFLAGS="-L${with_bzip2}/lib"
       else
-        BZ2_LDFLAGS="-L${withval}"
+        BZ2_LDFLAGS="-L${with_bzip2}"
       fi
     fi
   
-    if test -d "$withval/include"; then
-      BZ2_CPPFLAGS="-I${withval}/include"
+    if test -d "$with_bzip2/include"; then
+      BZ2_CPPFLAGS="-I${with_bzip2}/include"
     fi
   
     BZ2_LIBS="-lbz2"
@@ -70,44 +78,64 @@ AC_DEFUN([CONFIG_LIB_BZ2],
     saved_CPPFLAGS=$CPPFLAGS
     saved_LDFLAGS=$LDFLAGS
     saved_LIBS=$LIBS
-  
+
     AC_CHECK_LIB(bz2, BZ2_bzopen, ,
   	       [
   		dnl Check default bzip2 install dir
   		LDFLAGS="-L/usr/lib -L/usr/local/lib ${LDFLAGS} ${BZ2_LDFLAGS}"
   		CPPFLAGS="-I/usr/include -I/usr/local/include ${CPPFLAGS} ${BZ2_CPPFLAGS}"
                   LIBS="${LIBS} ${BZ2_LIBS}"
-  		AC_TRY_LINK_FUNC(BZ2_bzopen, AC_DEFINE(HAVE_BZ2),
-  			[
-                          AC_MSG_ERROR([*** bzip2 missing - please install bzip2 first or check config.log.
-                  *** Please run the configure command with "--with-bzip2=no" option if you
-                  *** want to build libSBML without support for bzip2 compressed SBML file.])
-  			]
+  		AC_TRY_LINK_FUNC(BZ2_bzopen, 
+                  [
+                    libbz2_detected=yes
+                    AC_DEFINE(HAVE_BZ2)
+                  ],
+  		  [
+                    libbz2_detected=no
+                    if test "x$with_bzip2" != "xautodetect"; then
+                      AC_MSG_ERROR([*** bzip2 missing - please install bzip2 first or check config.log.
+                    *** Please run the configure command with "--with-bzip2=no" option if you
+                    *** want to build libSBML without support for bzip2 compressed SBML file.])
+                    else
+                     AC_MSG_WARN([*** bzip2 missing.])
+                    fi
+  		  ]
   		)
   	]
      )
   
-    AC_CHECK_HEADER([bzlib.h], ,
-  			[
-                          AC_MSG_ERROR([*** bzlib.h missing - please install bzip2 first or check config.log.
+    AC_CHECK_HEADER([bzlib.h], bzlib_h_detected=yes,
+  		    [
+                      bzlib_h_detected="no"
+                      if test "x$with_bzip2" != "xautodetect"; then
+                        AC_MSG_ERROR([*** bzlib.h missing - please install bzip2 first or check config.log.
                   *** Please run the configure command with "--with-bzip2=no" option if you
                   *** want to build libSBML without support for bzip2 compressed SBML file.])
-  			]
+                      else
+                        AC_MSG_WARN([*** bzlib.h missing.])
+                      fi
+  		    ]
     )
   
     CPPFLAGS=$saved_CPPFLAGS
     LDFLAGS=$saved_LDFLAGS
     LIBS=$saved_LIBS
+
+    if test "x$libbz2_detected" != "xno" -a "x$bzlib_h_detected" != "xno"; then  
+      AC_DEFINE([USE_BZ2], 1, [Define to 1 to use the bzip2 library])
+      AC_SUBST(USE_BZ2, 1)
+      AC_SUBST(BZ2_CPPFLAGS)
+      AC_SUBST(BZ2_LDFLAGS)
+      AC_SUBST(BZ2_LIBS)
   
-    AC_DEFINE([USE_BZ2], 1, [Define to 1 to use the bzip2 library])
-    AC_SUBST(USE_BZ2, 1)
-    AC_SUBST(BZ2_CPPFLAGS)
-    AC_SUBST(BZ2_LDFLAGS)
-    AC_SUBST(BZ2_LIBS)
+      dnl We record the USE_XXX flag, for later testing in Makefiles.
   
-    dnl We record the USE_XXX flag, for later testing in Makefiles.
-  
-    LIBSBML_OPTIONS="$LIBSBML_OPTIONS USE_BZ2"
+      LIBSBML_OPTIONS="$LIBSBML_OPTIONS USE_BZ2"
+    else
+      AC_MSG_WARN([bzip2 was not found by autodetection.]) 
+      with_bzip2=no
+      BZ2_LIBS=""
+    fi
   else
     AC_MSG_RESULT(no)
   fi
