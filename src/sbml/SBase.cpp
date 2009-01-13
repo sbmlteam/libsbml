@@ -821,7 +821,12 @@ SBase::setNotes(const std::string& notes)
     return;
   }
 
-  XMLNode* notes_xmln = XMLNode::convertStringToXMLNode(notes);
+  XMLNamespaces* xmlns = 0;
+  if (getSBMLDocument())
+  {
+    xmlns = getSBMLDocument()->getNamespaces(); 
+  }
+  XMLNode* notes_xmln = XMLNode::convertStringToXMLNode(notes, xmlns);
   if(notes_xmln)
   {
     setNotes(notes_xmln);
