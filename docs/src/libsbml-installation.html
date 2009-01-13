@@ -41,8 +41,8 @@ for configuring LibSBML</a></li>
 <li style="font-size: small;"><a href="#unit-testing">Configuring for unit
 testing</a></li> 
 
-<li style="font-size: small;"><a href="#compression">Disabling use of 
-compression libraries</a></li> 
+<li style="font-size: small;"><a href="#compression">Configuring support
+for compression</a></li>
 
 <li style="font-size: small;"><a href="#docs">Configuring for generating
 documentation</a></li> 
@@ -472,8 +472,7 @@ mechanisms described in the section titled "Bug Reports, Mailing
 Lists, and Related Topics" elsewhere in this manual.
 
 
-<h4><a class="anchor" name="compression">Disabling use of compression
-libraries</a></h4>
+<h4><a class="anchor" name="compression">Configuring support for compression</a></h4>
 
 <p> LibSBML provides built-in support for reading and writing compressed
 SBML files.  This facility works transparently: if a given SBML filename
@@ -482,12 +481,32 @@ ends with one of the suffixes recognized for a compressed file (namely,
 <code>readSBML()</code> method will automatically decompress the file upon
 reading it and the <code>writeSBML()</code> method will compress the file
 upon writing it.  (Files whose names have no extensions are read and
-written in uncompressed form.)  The compression feature requires the <a
-href="http://www.zlib.net/">zlib</a> library (for <em>gzip</em> and
-<em>zip</em> format) and the <a href="">bzip2</a> library (for
-<em>bzip2</em> format).  These features are enabled by default, and can be
-disabled at libSBML configuration time using the using the options
-<nobr><code>--with-zlib=no</code></nobr> and <nobr><code>--with-bzip2=no</code></nobr>.
+written in uncompressed form.)
+
+<p> These features are enabled by default if the required libraries can be
+found on your system.  The libraries are the <a
+href="http://www.zlib.net/">zlib</a> library (for the <em>gzip</em> and
+<em>zip</em> formats) and the <a href="">bzip2</a> library (for the
+<em>bzip2</em> format).  If the libSBML configure program cannot find the
+libraries in the locations where it searches by default, you can inform the
+configure program where to look by adding the flag
+<nobr><code>--with-zlib=</code><em>DIR</em></nobr> where <em>DIR</em> is
+the parent directory of the <code>lib</code> directory where the zlib
+library is located, and/or the flag
+<nobr><code>--with-bzip2=</code><em>DIR</em></nobr> where <em>DIR</em> is
+the parent directory of the <code>lib</code> directory where the bzip2
+library is located.
+
+<p> To selectively disable specific library checks and format support, add
+the option <nobr><code>--with-zlib=no</code></nobr> and/or
+<nobr><code>--with-bzip2=no</nobr></code> to the configure program
+invocation.  Or, to completely disable compression support and checking for
+both libraries, add the <nobr><code>--enable-compression=no</code></nobr>
+option to configure:
+
+<div class="fragment"><pre class="fragment">
+  ./configure --enable-compression=no
+</pre></div>
 
 
 <h4><a class="anchor" name="docs">Configuring for generating documentation</a></h4>
