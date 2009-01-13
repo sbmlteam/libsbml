@@ -114,7 +114,7 @@ distfiles =                                    \
         graphics/sbase.eps                     \
         graphics/sbase.pdf                     \
         graphics/sbase.vtt                     \
-        graphics/sbml-logo-long-124x56.gif     \
+        graphics/official-sbml-supported-40.jpg \
         graphics/species-boundarycondition.jpg \
         graphics/species-hasonlysubstance.jpg  \
         graphics/species.eps                   \
@@ -174,6 +174,10 @@ distfiles =                                    \
         templates/m4.txt                       \
         templates/makefile.txt                 \
         templates/python.txt
+
+# Additional odds and ends.
+
+logo-file = graphics/official-sbml-supported-40.jpg
 
 
 # -----------------------------------------------------------------------------
@@ -251,7 +255,7 @@ doxygen-minor-version = $(shell $(DOXYGEN) --version | cut -f2 -d'.')
 define run_doxygen
   mkdir -p $(2)
   $(DOXYGEN) $(1)
-  cp graphics/sbml-logo-long-124x56.gif $(2)
+  cp $(logo-file) $(2)
   cp graphics/right-arrow.gif $(2)
   if test $(doxygen-minor-version) -lt 5; then \
     cp -rf doxygen-tabs.css $(2)/tabs.css; \
@@ -364,8 +368,8 @@ java-manual $(java-manual): $(core-sources) ExcludeDoclet.class
 	    -tag docnote:a:"Documentation note:" \
 	    -sourcepath $(java-dir) org.sbml.libsbml \
         2>&1 | grep -v $(ignorable-warnings) 
-	cp -f graphics/sbml-logo-long-124x56.gif $(java-manual)
-	cp -f graphics/sbml-logo-long-124x56.gif $(java-manual)/org/sbml/libsbml/
+	cp -f $(logo-file) $(java-manual)
+	cp -f $(logo-file) $(java-manual)/org/sbml/libsbml/
 	cp -f graphics/*.jpg $(java-manual)/org/sbml/libsbml/
 	$(call merge_html,libsbml-java-overview.html,$(java-manual)/overview-summary.html,Java @PACKAGE_VERSION@ API)
 	$(call merge_html,libsbml-installation.html,$(java-manual)/libsbml-installation.html,installation)
