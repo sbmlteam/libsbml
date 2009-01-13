@@ -454,6 +454,16 @@ echo "Other potentially important settings:"
 if test "$enable_univbinary" != "no"; then
   echo "  Building libSBML as MacSO universal binary."
 fi
+if test "$with_zlib" != no; then
+  /bin/echo -n "  Compression support enabled for .zip"
+  if test "$with_bzip2" != no; then
+    echo ", .gz and .bz2 files"
+  else
+    echo " and .gz files"
+  fi
+elif test "$with_bzip2" != no; then
+  echo "  Compression support enabled for .bz2 files"
+fi
 if test "$HOST_TYPE" = "darwin"; then
   echo "  Value of \$DYLD_LIBRARY_PATH   = $DYLD_LIBRARY_PATH"
 else
