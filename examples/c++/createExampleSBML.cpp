@@ -18,8 +18,9 @@ using namespace std;
 //
 // Functions for creating the Example SBML documents.
 //
-SBMLDocument* createExampleEnzymaticReaction();  /* 7.1 */
-SBMLDocument* createExampleInvolvingUnits();     /* 7.2 */
+SBMLDocument* createExampleEnzymaticReaction();            /* 7.1 */
+SBMLDocument* createExampleInvolvingUnits();               /* 7.2 */
+SBMLDocument* createExampleInvolvingFunctionDefinitions(); /* 7.8 */
 
 //
 // Helper functions for writing/validation the created SBML document.
@@ -78,6 +79,14 @@ main (int argc, char *argv[])
     //-------------------------------------------------
     sbmlDoc = createExampleInvolvingUnits(); 
     result  = writeAndValidateExampleSBML(sbmlDoc, "units.xml");
+    delete sbmlDoc;
+    if (!result) return 1;
+
+    //-------------------------------------------------
+    // 7.8 Example involving function definitions
+    //-------------------------------------------------
+    sbmlDoc = createExampleInvolvingFunctionDefinitions(); 
+    result  = writeAndValidateExampleSBML(sbmlDoc, "functiondef.xml");
     delete sbmlDoc;
     if (!result) return 1;
 
@@ -428,7 +437,7 @@ SBMLDocument* createExampleEnzymaticReaction()
 /**
  *
  * Creates an SBML model represented in "7.2 Example involving units"
- * in SBML Specification.
+ * in SBML Level 2 Version 4 Specification.
  *
  */
 SBMLDocument* createExampleInvolvingUnits()
@@ -838,6 +847,205 @@ SBMLDocument* createExampleInvolvingUnits()
   return sbmlDoc;
 }
 
+
+
+/**
+ *
+ * Creates an SBML model represented in "7.8 Example involving function definitions"
+ * in SBML Level 2 Version 4 Specification.
+ *
+ */
+SBMLDocument* createExampleInvolvingFunctionDefinitions()
+{
+  const unsigned int level   = Level;
+  const unsigned int version = Version;
+
+  //---------------------------------------------------------------------------
+  //
+  // Creates an SBMLDocument object 
+  //
+  //---------------------------------------------------------------------------
+
+  SBMLDocument* sbmlDoc = new SBMLDocument(level,version);
+
+  //---------------------------------------------------------------------------
+  //
+  // Creates a Model object inside the SBMLDocument object. 
+  //
+  //---------------------------------------------------------------------------
+
+  Model* model = sbmlDoc->createModel();
+
+  //---------------------------------------------------------------------------
+  //
+  // Creates a FunctionDefinition object inside the Model object. 
+  //
+  //---------------------------------------------------------------------------
+
+  FunctionDefinition* fdef = model->createFunctionDefinition();
+  fdef->setId("f");
+
+  // Sets a math (ASTNode object) to the FunctionDefinition object.
+
+  string mathXMLString = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
+                         "  <lambda>"
+                         "    <bvar>"
+                         "      <ci> x </ci>"
+                         "    </bvar>"
+                         "    <apply>"
+                         "      <times/>"
+                         "      <ci> x </ci>"
+                         "      <cn> 2 </cn>"
+                         "    </apply>"
+                         "  </lambda>"
+                         "</math>";
+
+  fdef->setMath(readMathMLFromString(mathXMLString.c_str()));
+
+
+  //---------------------------------------------------------------------------
+  //
+  // Creates a Compartment object inside the Model object. 
+  //
+  //---------------------------------------------------------------------------
+
+  const string compName = "compartmentOne";
+
+  // Creates a Compartment object ("compartmentOne")
+
+  Compartment* comp = model->createCompartment();
+
+  comp->setId(compName);
+ 
+  // Sets the "size" attribute of the Compartment object.
+  //
+  //   The units of this Compartment object is the default SBML 
+  //   units of volume (litre), and thus we don't have to explicitly invoke 
+  //   setUnits("litre") function to set the default units.
+  //
+  comp->setSize(1);
+
+
+  //---------------------------------------------------------------------------
+  //
+  // Creates Species objects inside the Model object. 
+  //
+  //---------------------------------------------------------------------------
+  
+  //---------------------------------------------------------------------------
+  // (Species1) Creates a Species object ("S1")
+  //---------------------------------------------------------------------------
+
+  Species* sp = model->createSpecies();
+
+  sp->setId("S1");
+
+  // Sets the "compartment" attribute of the Species object to identify the 
+  // compartnet in which the Species object located.
+  sp->setCompartment(compName);
+
+  // Sets the "initialConcentration" attribute of the Species object.
+  //
+  //  The units of this Species object is determined by two attributes of this 
+  //  Species object ("subStanceUnits" and "hasOnlySubstanceUnits") and the
+  //  "spatialDimension" attribute of the Compartment object ("cytosol") in which 
+  //  this species object located.
+  //  Since the default values are used for "subStanceUnits" (substance (mole)) 
+  //  and "hasOnlySubstanceUnits" (false) and the value of "spatialDimension" (3) 
+  //  is greater than 0, the units of this Species object is  mole/litre . 
+  //
+  sp->setInitialConcentration(1);
+
+  //---------------------------------------------------------------------------
+  // (Species2) Creates a Species object ("S2")
+  //---------------------------------------------------------------------------
+
+  sp = model->createSpecies();
+  sp->setId("S2");
+  sp->setCompartment(compName);
+  sp->setInitialConcentration(0);
+
+
+  //---------------------------------------------------------------------------
+  //
+  // Creates a global Parameter object inside the Model object. 
+  //
+  //---------------------------------------------------------------------------
+
+  // Creates a Parameter ("t")  
+
+  Parameter* para = model->createParameter();
+  para->setId("t");
+  para->setValue(1);
+  para->setUnits("second");
+
+
+  //---------------------------------------------------------------------------
+  //
+  // Creates Reaction objects inside the Model object. 
+  //
+  //---------------------------------------------------------------------------
+  
+  //---------------------------------------------------------------------------
+  // (Reaction1) Creates a Reaction object ("reaction_1").
+  //---------------------------------------------------------------------------
+
+  Reaction* reac = model->createReaction();
+  reac->setId("reaction_1");
+  reac->setReversible(false);
+
+  //---------------------------------------------------------------------------
+  // Creates Reactant objects inside the Reaction object ("reaction_1"). 
+  //---------------------------------------------------------------------------
+
+  // (Reactant1) Creates a Reactant object that references Species "S1"
+  // in the model.
+  SpeciesReference* spr = reac->createReactant();
+  spr->setSpecies("S1");
+
+  //---------------------------------------------------------------------------
+  // Creates a Product object inside the Reaction object ("reaction_1"). 
+  //---------------------------------------------------------------------------
+
+  // Creates a Product object that references Species "S2" in the model. 
+  spr = reac->createProduct();
+  spr->setSpecies("S2");
+
+
+  //---------------------------------------------------------------------------
+  // Creates a KineticLaw object inside the Reaction object ("reaction_1"). 
+  //---------------------------------------------------------------------------
+  
+  KineticLaw* kl = reac->createKineticLaw();
+
+  //---------------------------------------------------------------------------
+  // Sets a math (ASTNode object) to the KineticLaw object.
+  //---------------------------------------------------------------------------
+
+  mathXMLString = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
+                  "  <apply>"
+                  "  <divide/>"
+                  "    <apply>"
+                  "      <times/>"
+                  "      <apply>"
+                  "        <ci> f </ci>"
+                  "        <ci> S1 </ci>"
+                  "      </apply>"
+                  "      <ci> compartmentOne </ci>"
+                  "    </apply>"
+                  "    <ci> t </ci>"
+                  "  </apply>"
+                  "</math>";
+
+  kl->setMath(readMathMLFromString(mathXMLString.c_str()));
+
+
+  // Returns the created SBMLDocument object.
+  // The returned object must be explicitly deleted by the caller,
+  // otherwise memory leak will happen.
+
+  return sbmlDoc;
+}
 
 
 //===============================================================================
