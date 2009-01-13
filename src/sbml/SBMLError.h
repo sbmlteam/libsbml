@@ -113,7 +113,7 @@
  * <table cellspacing="1" cellpadding="2" border="0" class="normal-font">
  * <tr><td class="s-na">N</td><td>= Not applicable</td></tr>
  * <tr><td class="s-info">I</td><td>= Informational</td></tr>
- * <tr><td class="s-warn">W</td><td>= Warning</td></tr>
+ * <tr><td class="s-warning">W</td><td>= Warning</td></tr>
  * <tr><td class="s-error">E</td><td>= Error</td></tr>
  * <tr><td class="s-fatal">F</td><td>= Fatal</td></tr>
  * </table>
