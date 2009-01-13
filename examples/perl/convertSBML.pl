@@ -73,7 +73,7 @@ else {
     $d->setLevelAndVersion(1, 2)
   }
   else {
-    $d->setLevelAndVersion(2, 3)
+    $d->setLevelAndVersion(2, 4)
   }
 
   $errors    =  $d->getNumErrors();

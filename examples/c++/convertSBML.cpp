@@ -55,9 +55,9 @@ main (int argc, char *argv[])
   }
 
   /**
-   * If the given model is not already L2v3, assume that the user wants to
-   * convert it to the latest release of SBML (which is L2v3 currently).
-   * If the model is already L2v3, assume that the user wants to attempt to
+   * If the given model is not already L2v4, assume that the user wants to
+   * convert it to the latest release of SBML (which is L2v4 currently).
+   * If the model is already L2v4, assume that the user wants to attempt to
    * convert it down to Level 1 (specifically L1v2).
    */
 

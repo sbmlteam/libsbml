@@ -1,13 +1,13 @@
 
-     Example models from the SBML Level 2 Version 3 specification
+     Example models from the SBML Level 2 Version 4 specification
 
-	   Michael Hucka, Sarah Keating, Nicolas Le Novere,
-		     Andrew Finney, Stefan Hoops
+	   Michael Hucka, Stefan Hoops, Sarah Keating, Nicolas Le Novere,
+		     Sven Sahle, Darren Wilkinson
 
 
 This directory contains the text of sample SBML models taken from the
 latest SBML Level 2 specification (which, at the time of this writing,
-is Version 3 Release 1).  These models are not meant to be meaningful
+is Version 4 Release 1).  These models are not meant to be meaningful
 in a biological sense; rather, they are meant to illustrate various
 SBML constructs and to serve as input for software testing.
 
