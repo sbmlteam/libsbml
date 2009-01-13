@@ -141,20 +141,20 @@
  * <tr><td><em>NotSchemaConformant</em></td><td>Not conformant to SBML XML schema</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>InvalidMathElement</em></td><td>Invalid MathML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>DisallowedMathMLSymbol</em></td><td>Disallowed MathML symbol</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>DisallowedMathMLEncodingUse</em></td><td>Disallowed use of MathML 'encoding' attribute</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>DisallowedDefinitionURLUse</em></td><td>Disallowed use of MathML 'definitionURL' attribute</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>BadCsymbolDefinitionURLValue</em></td><td>Invalid <csymbol> 'definitionURL' attribute value</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>DisallowedMathTypeAttributeUse</em></td><td>Disallowed use of MathML 'type' attribute</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>DisallowedMathTypeAttributeValue</em></td><td>Disallowed MathML 'type' attribute value</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>LambdaOnlyAllowedInFunctionDef</em></td><td>Use of <lambda> not permitted outside of a <functionDefinition></td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>DisallowedMathMLEncodingUse</em></td><td>Disallowed use of MathML <code>encoding</code> attribute</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>DisallowedDefinitionURLUse</em></td><td>Disallowed use of MathML <code>definitionURL</code> attribute</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>BadCsymbolDefinitionURLValue</em></td><td>Invalid <code>&lt;csymbol&gt;</code> <code>definitionURL</code> attribute value</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>DisallowedMathTypeAttributeUse</em></td><td>Disallowed use of MathML <code>type</code> attribute</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>DisallowedMathTypeAttributeValue</em></td><td>Disallowed MathML <code>type</code> attribute value</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>LambdaOnlyAllowedInFunctionDef</em></td><td>Use of <code>&lt;lambda&gt;</code> not permitted outside of a <code>&lt;functionDefinition&gt;</code></td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>BooleanOpsNeedBooleanArgs</em></td><td>Non-boolean argument given to boolean operator</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>NumericOpsNeedNumericArgs</em></td><td>Non-numerical argument given to numerical operator</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>ArgsToEqNeedSameType</em></td><td>Arguments to <eq> or <neq> have inconsistent data types</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>PiecewiseNeedsConsistentTypes</em></td><td><piecewise> terms have inconsistent data types</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>PieceNeedsBoolean</em></td><td>Second argument of <piece> must yield a boolean value</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>ApplyCiMustBeUserFunction</em></td><td><ci> does not refer to a function definition</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>ApplyCiMustBeModelComponent</em></td><td><ci>'s value is not a component in this model</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>KineticLawParametersAreLocalOnly</em></td><td>Cannot use <kineticLaw> parameter outside local scope</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>ArgsToEqNeedSameType</em></td><td>Arguments to <code>&lt;eq&gt;</code> or <code>&lt;neq&gt;</code> have inconsistent data types</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>PiecewiseNeedsConsistentTypes</em></td><td><code>&lt;piecewise&gt;</code> terms have inconsistent data types</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>PieceNeedsBoolean</em></td><td>Second argument of <code>&lt;piece&gt;</code> must yield a boolean value</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>ApplyCiMustBeUserFunction</em></td><td><code>&lt;ci&gt;</code> does not refer to a function definition</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>ApplyCiMustBeModelComponent</em></td><td><code>&lt;ci&gt;</code>'s value is not a component in this model</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>KineticLawParametersAreLocalOnly</em></td><td>Cannot use <code>&lt;kineticLaw&gt;</code> parameter outside local scope</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>MathResultMustBeNumeric</em></td><td>Formula result is not a numerical value</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>OpsNeedCorrectNumberOfArgs</em></td><td>Incorrect number of arguments to operator</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>InvalidNoArgsPassedToFunctionDef</em></td><td>Incorrect number of arguments to function</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
@@ -163,10 +163,10 @@
  * <tr><td><em>DuplicateLocalParameterId</em></td><td>Duplicate local parameter identifier</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>MultipleAssignmentOrRateRules</em></td><td>Multiple rules for the same variable</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>MultipleEventAssignmentsForId</em></td><td>Multiple event assignments for the same variable</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>EventAndAssignmentRuleForId</em></td><td>'variable' value used in both event assignments and assignment rules</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>DuplicateMetaId</em></td><td>Duplicate 'metaid' identifier</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>InvalidSBOTermSyntax</em></td><td>Invalid 'sboTerm' value syntax</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>InvalidMetaidSyntax</em></td><td>Invalid 'metaid' value syntax</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>EventAndAssignmentRuleForId</em></td><td><code>variable</code> value used in both event assignments and assignment rules</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>DuplicateMetaId</em></td><td>Duplicate <code>metaid</code> identifier</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>InvalidSBOTermSyntax</em></td><td>Invalid <code>sboTerm</code> value syntax</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>InvalidMetaidSyntax</em></td><td>Invalid <code>metaid</code> value syntax</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>InvalidIdSyntax</em></td><td>Invalid identifier syntax</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>InvalidUnitIdSyntax</em></td><td>Invalid unit identifier syntax</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>MissingAnnotationNamespace</em></td><td>Missing declaration of XML namespace for annotation</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
@@ -182,89 +182,89 @@
  * <tr><td><em>RateRuleCompartmentMismatch</em></td><td>Mismatched units in rate rule for compartment</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
  * <tr><td><em>RateRuleSpeciesMismatch</em></td><td>Mismatched units in rate rule for species</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
  * <tr><td><em>RateRuleParameterMismatch</em></td><td>Mismatched units in rate rule for parameter</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
- * <tr><td><em>KineticLawNotSubstancePerTime</em></td><td>Kinetic law units are not 'substance'/'time'</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
+ * <tr><td><em>KineticLawNotSubstancePerTime</em></td><td>Kinetic law units are not <code>substance</code>/<code>time</code></td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
  * <tr><td><em>DelayUnitsNotTime</em></td><td>Units of delay are not units of time</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
  * <tr><td><em>EventAssignCompartmentMismatch</em></td><td>Mismatched units in event assignment for compartment</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
  * <tr><td><em>EventAssignSpeciesMismatch</em></td><td>Mismatched units in event assignment for species</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
  * <tr><td><em>EventAssignParameterMismatch</em></td><td>Mismatched units in event assignment for parameter</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
  * <tr><td><em>OverdeterminedSystem</em></td><td>Model is overdetermined</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>InvalidModelSBOTerm</em></td><td>Invalid 'sboTerm' value for model</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
- * <tr><td><em>InvalidFunctionDefSBOTerm</em></td><td>Invalid 'sboTerm' value for function definition</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
- * <tr><td><em>InvalidParameterSBOTerm</em></td><td>Invalid 'sboTerm' value for parameter</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
- * <tr><td><em>InvalidInitAssignSBOTerm</em></td><td>Invalid 'sboTerm' value for initial assignment</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
- * <tr><td><em>InvalidRuleSBOTerm</em></td><td>Invalid 'sboTerm' value for rule</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
- * <tr><td><em>InvalidConstraintSBOTerm</em></td><td>Invalid 'sboTerm' value for constraint</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
- * <tr><td><em>InvalidReactionSBOTerm</em></td><td>Invalid 'sboTerm' value for reaction</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
- * <tr><td><em>InvalidSpeciesReferenceSBOTerm</em></td><td>Invalid 'sboTerm' value for species reference</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
- * <tr><td><em>InvalidKineticLawSBOTerm</em></td><td>Invalid 'sboTerm' value for kinetic law</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
- * <tr><td><em>InvalidEventSBOTerm</em></td><td>Invalid 'sboTerm' value for event</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
- * <tr><td><em>InvalidEventAssignmentSBOTerm</em></td><td>Invalid 'sboTerm' value for event assignment</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
- * <tr><td><em>InvalidCompartmentSBOTerm</em></td><td>Invalid 'sboTerm' value for compartment</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
- * <tr><td><em>InvalidSpeciesSBOTerm</em></td><td>Invalid 'sboTerm' value for species</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
- * <tr><td><em>InvalidCompartmentTypeSBOTerm</em></td><td>Invalid 'sboTerm' value for compartment type</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
- * <tr><td><em>InvalidSpeciesTypeSBOTerm</em></td><td>Invalid 'sboTerm' value for species type</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
- * <tr><td><em>InvalidTriggerSBOTerm</em></td><td>Invalid 'sboTerm' value for event trigger</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
- * <tr><td><em>InvalidDelaySBOTerm</em></td><td>Invalid 'sboTerm' value for event delay</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
+ * <tr><td><em>InvalidModelSBOTerm</em></td><td>Invalid <code>sboTerm</code> value for model</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
+ * <tr><td><em>InvalidFunctionDefSBOTerm</em></td><td>Invalid <code>sboTerm</code> value for function definition</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
+ * <tr><td><em>InvalidParameterSBOTerm</em></td><td>Invalid <code>sboTerm</code> value for parameter</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
+ * <tr><td><em>InvalidInitAssignSBOTerm</em></td><td>Invalid <code>sboTerm</code> value for initial assignment</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
+ * <tr><td><em>InvalidRuleSBOTerm</em></td><td>Invalid <code>sboTerm</code> value for rule</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
+ * <tr><td><em>InvalidConstraintSBOTerm</em></td><td>Invalid <code>sboTerm</code> value for constraint</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
+ * <tr><td><em>InvalidReactionSBOTerm</em></td><td>Invalid <code>sboTerm</code> value for reaction</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
+ * <tr><td><em>InvalidSpeciesReferenceSBOTerm</em></td><td>Invalid <code>sboTerm</code> value for species reference</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
+ * <tr><td><em>InvalidKineticLawSBOTerm</em></td><td>Invalid <code>sboTerm</code> value for kinetic law</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
+ * <tr><td><em>InvalidEventSBOTerm</em></td><td>Invalid <code>sboTerm</code> value for event</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
+ * <tr><td><em>InvalidEventAssignmentSBOTerm</em></td><td>Invalid <code>sboTerm</code> value for event assignment</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
+ * <tr><td><em>InvalidCompartmentSBOTerm</em></td><td>Invalid <code>sboTerm</code> value for compartment</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
+ * <tr><td><em>InvalidSpeciesSBOTerm</em></td><td>Invalid <code>sboTerm</code> value for species</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
+ * <tr><td><em>InvalidCompartmentTypeSBOTerm</em></td><td>Invalid <code>sboTerm</code> value for compartment type</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
+ * <tr><td><em>InvalidSpeciesTypeSBOTerm</em></td><td>Invalid <code>sboTerm</code> value for species type</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
+ * <tr><td><em>InvalidTriggerSBOTerm</em></td><td>Invalid <code>sboTerm</code> value for event trigger</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
+ * <tr><td><em>InvalidDelaySBOTerm</em></td><td>Invalid <code>sboTerm</code> value for event delay</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-warning">W</td></tr>
  * <tr><td><em>NotesNotInXHTMLNamespace</em></td><td>Notes not placed in XHTML namespace</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>NotesContainsXMLDecl</em></td><td>XML declarations not permitted in notes</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>NotesContainsDOCTYPE</em></td><td>XML DOCTYPE not permitted in notes</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>NotesContainsDOCTYPE</em></td><td>XML <code>DOCTYPE</code> not permitted in notes</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>InvalidNotesContent</em></td><td>Invalid notes content</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>InvalidNamespaceOnSBML</em></td><td>Invalid XML namespace for SBML container</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>MissingOrInconsistentLevel</em></td><td>Missing or inconsistent value for 'level' attribute</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>MissingOrInconsistentVersion</em></td><td>Missing or inconsistent value for 'version' attribute</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>AnnotationNotesNotAllowedLevel1</em></td><td>Annotation on <sbml> not permitted in SBML Level 1</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>MissingOrInconsistentLevel</em></td><td>Missing or inconsistent value for <code>level</code> attribute</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>MissingOrInconsistentVersion</em></td><td>Missing or inconsistent value for <code>version</code> attribute</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>AnnotationNotesNotAllowedLevel1</em></td><td>Annotation on <code>&lt;sbml&gt;</code> not permitted in SBML Level 1</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><em>MissingModel</em></td><td>Missing model</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>IncorrectOrderInModel</em></td><td>Incorrect ordering of components in model definition</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>EmptyListElement</em></td><td>A given listOf___, if present, cannot be empty</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>EmptyListElement</em></td><td>A given <code>listOf___</code>, if present, cannot be empty</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>NeedCompartmentIfHaveSpecies</em></td><td>Missing compartment in species definition</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>FunctionDefMathNotLambda</em></td><td>Invalid expression in function definition</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>InvalidApplyCiInLambda</em></td><td>Invalid forward reference in <apply><ci>...</ci></apply> value</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td></tr>
+ * <tr><td><em>InvalidApplyCiInLambda</em></td><td>Invalid forward reference in <code>&lt;apply&gt;</code><code>&lt;ci&gt;</code>...<code>&lt;/ci&gt;</code><code>&lt;/apply&gt;</code> value</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td></tr>
  * <tr><td><em>RecursiveFunctionDefinition</em></td><td>Recursive function definition</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>InvalidCiInLambda</em></td><td>Unknown <ci> reference in <lambda></td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>InvalidCiInLambda</em></td><td>Unknown <code>&lt;ci&gt;</code> reference in <code>&lt;lambda&gt;</code></td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>InvalidFunctionDefReturnType</em></td><td>Function return type must be either numerical or boolean</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>InvalidUnitDefId</em></td><td>Invalid 'id' value for unit definition</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>InvalidSubstanceRedefinition</em></td><td>Invalid redefinition of 'substance'</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>InvalidLengthRedefinition</em></td><td>Invalid redefinition of 'length'</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>InvalidAreaRedefinition</em></td><td>Invalid redefinition of 'area'</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>InvalidTimeRedefinition</em></td><td>Invalid redefinition of 'time'</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>InvalidVolumeRedefinition</em></td><td>Invalid redefinition of 'volume'</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>VolumeLitreDefExponentNotOne</em></td><td>Must use 'exponent'=1 when defining 'volume' in terms of litres</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td></tr>
- * <tr><td><em>VolumeMetreDefExponentNot3</em></td><td>Must use 'exponent'=3 when defining 'volume' in terms of metres</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td></tr>
+ * <tr><td><em>InvalidUnitDefId</em></td><td>Invalid <code>id</code> value for unit definition</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>InvalidSubstanceRedefinition</em></td><td>Invalid redefinition of <code>substance</code></td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>InvalidLengthRedefinition</em></td><td>Invalid redefinition of <code>length</code></td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>InvalidAreaRedefinition</em></td><td>Invalid redefinition of <code>area</code></td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>InvalidTimeRedefinition</em></td><td>Invalid redefinition of <code>time</code></td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>InvalidVolumeRedefinition</em></td><td>Invalid redefinition of <code>volume</code></td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>VolumeLitreDefExponentNotOne</em></td><td>Must use <code>exponent</code>=<code>1</code> when defining <code>volume</code> in terms of litres</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td></tr>
+ * <tr><td><em>VolumeMetreDefExponentNot3</em></td><td>Must use <code>exponent</code>=<code>3</code> when defining <code>volume</code> in terms of metres</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td></tr>
  * <tr><td><em>EmptyListOfUnits</em></td><td>Empty list of units not permitted</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>InvalidUnitKind</em></td><td>Invalid value of 'kind' in unit definition</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>OffsetNoLongerValid</em></td><td>'offset' not supported in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td></tr>
- * <tr><td><em>CelsiusNoLongerValid</em></td><td>'Celsius' not defined in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td></tr>
- * <tr><td><em>ZeroDimensionalCompartmentSize</em></td><td>Use of 'size' is invalid for a zero-dimensional compartment</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>ZeroDimensionalCompartmentUnits</em></td><td>Use of 'units' is invalid for a zero-dimensional compartment</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>InvalidUnitKind</em></td><td>Invalid value of <code>kind</code> in unit definition</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>OffsetNoLongerValid</em></td><td><code>offset</code> not supported in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td></tr>
+ * <tr><td><em>CelsiusNoLongerValid</em></td><td><code>Celsius</code> not defined in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td></tr>
+ * <tr><td><em>ZeroDimensionalCompartmentSize</em></td><td>Use of <code>size</code> is invalid for a zero-dimensional compartment</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>ZeroDimensionalCompartmentUnits</em></td><td>Use of <code>units</code> is invalid for a zero-dimensional compartment</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>ZeroDimensionalCompartmentConst</em></td><td>Zero-dimensional compartments cannot be non-constant</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>UndefinedOutsideCompartment</em></td><td>Undefined compartment used as 'outside' value</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>RecursiveCompartmentContainment</em></td><td>Recursive nesting of compartments via 'outside'</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>UndefinedOutsideCompartment</em></td><td>Undefined compartment used as <code>outside</code> value</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>RecursiveCompartmentContainment</em></td><td>Recursive nesting of compartments via <code>outside</code></td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>ZeroDCompartmentContainment</em></td><td>Invalid nesting of zero-dimensional compartments</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>Invalid1DCompartmentUnits</em></td><td>Invalid value of 'units' for a one-dimensional compartment</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>Invalid2DCompartmentUnits</em></td><td>Invalid value of 'units' for a two-dimensional compartment</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>Invalid3DCompartmentUnits</em></td><td>Invalid value of 'units' for a three-dimensional compartment</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>InvalidCompartmentTypeRef</em></td><td>Invalid 'compartmentType' reference</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>InvalidSpeciesCompartmentRef</em></td><td>Invalid 'compartment' reference</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>HasOnlySubsNoSpatialUnits</em></td><td>No 'spatialSizeUnits' permitted if 'hasOnlySubstanceUnits'='true'</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>NoSpatialUnitsInZeroD</em></td><td>No 'spatialSizeUnits' permitted if compartment is zero-dimensional</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>NoConcentrationInZeroD</em></td><td>No 'initialConcentration' permitted if compartment is zero-dimensional</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>SpatialUnitsInOneD</em></td><td>Invalid value of 'spatialSizeUnits' for a one-dimensional compartment</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>SpatialUnitsInTwoD</em></td><td>Invalid value of 'spatialSizeUnits' for a two-dimensional compartment</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>SpatialUnitsInThreeD</em></td><td>Invalid value of 'spatialSizeUnits' for a three-dimensional compartment</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>InvalidSpeciesSusbstanceUnits</em></td><td>Invalid value of 'units'</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>BothAmountAndConcentrationSet</em></td><td>Cannot set both 'initialConcentration' and 'initialAmount'</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>Invalid1DCompartmentUnits</em></td><td>Invalid value of <code>units</code> for a one-dimensional compartment</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>Invalid2DCompartmentUnits</em></td><td>Invalid value of <code>units</code> for a two-dimensional compartment</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>Invalid3DCompartmentUnits</em></td><td>Invalid value of <code>units</code> for a three-dimensional compartment</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>InvalidCompartmentTypeRef</em></td><td>Invalid <code>compartmentType</code> reference</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>InvalidSpeciesCompartmentRef</em></td><td>Invalid <code>compartment</code> reference</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>HasOnlySubsNoSpatialUnits</em></td><td>No <code>spatialSizeUnits</code> permitted if <code>hasOnlySubstanceUnits</code>=<code>true</code></td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>NoSpatialUnitsInZeroD</em></td><td>No <code>spatialSizeUnits</code> permitted if compartment is zero-dimensional</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>NoConcentrationInZeroD</em></td><td>No <code>initialConcentration</code> permitted if compartment is zero-dimensional</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>SpatialUnitsInOneD</em></td><td>Invalid value of <code>spatialSizeUnits</code> for a one-dimensional compartment</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>SpatialUnitsInTwoD</em></td><td>Invalid value of <code>spatialSizeUnits</code> for a two-dimensional compartment</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>SpatialUnitsInThreeD</em></td><td>Invalid value of <code>spatialSizeUnits</code> for a three-dimensional compartment</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>InvalidSpeciesSusbstanceUnits</em></td><td>Invalid value of <code>units</code></td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>BothAmountAndConcentrationSet</em></td><td>Cannot set both <code>initialConcentration</code> and <code>initialAmount</code></td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>NonBoundarySpeciesAssignedAndUsed</em></td><td>Cannot use non-boundary species in both reactions and rules simultaneously</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>NonConstantSpeciesUsed</em></td><td>Cannot use non-boundary, constant species as reactant or product</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>InvalidSpeciesTypeRef</em></td><td>Invalid 'speciesType' reference</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>InvalidSpeciesTypeRef</em></td><td>Invalid <code>speciesType</code> reference</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>MultSpeciesSameTypeInCompartment</em></td><td>Cannot have multiple species of the same type in the same compartment</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>MissingSpeciesCompartment</em></td><td>Missing 'compartment' value for species</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>SpatialSizeUnitsRemoved</em></td><td>Attribute 'spatialSizeUnits' not supported in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>InvalidParameterUnits</em></td><td>Invalid value for 'units' in parameter definition</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>InvalidInitAssignSymbol</em></td><td>Invalid 'symbol' reference in initial assignment</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>MultipleInitAssignments</em></td><td>Multiple initial assignments for the same 'symbol' value</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>MissingSpeciesCompartment</em></td><td>Missing <code>compartment</code> value for species</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>SpatialSizeUnitsRemoved</em></td><td>Attribute <code>spatialSizeUnits</code> not supported in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>InvalidParameterUnits</em></td><td>Invalid value for <code>units</code> in parameter definition</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>InvalidInitAssignSymbol</em></td><td>Invalid <code>symbol</code> reference in initial assignment</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>MultipleInitAssignments</em></td><td>Multiple initial assignments for the same <code>symbol</code> value</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>InitAssignmentAndRuleForSameId</em></td><td>Cannot set a value with both initial assignments and assignment rules simultaneously</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>InvalidAssignRuleVariable</em></td><td>Invalid 'variable' reference in assignment rule</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>InvalidRateRuleVariable</em></td><td>Invalid 'variable' reference in rate rule</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>InvalidAssignRuleVariable</em></td><td>Invalid <code>variable</code> reference in assignment rule</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>InvalidRateRuleVariable</em></td><td>Invalid <code>variable</code> reference in rate rule</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>AssignmentToConstantEntity</em></td><td>Cannot reassign a constant in an assignment rule</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>RateRuleForConstantEntity</em></td><td>Cannot reassign a constant in a rate rule</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>CircularRuleDependency</em></td><td>Circular dependency involving rules and reactions</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
@@ -272,29 +272,29 @@
  * <tr><td><em>IncorrectOrderInConstraint</em></td><td>Incorrect order of elements in constraint definition</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>ConstraintNotInXHTMLNamespace</em></td><td>Constraint message is not in XHTML XML namespace</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>ConstraintContainsXMLDecl</em></td><td>XML declarations not permitted in constraint messages</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>ConstraintContainsDOCTYPE</em></td><td>XML DOCTYPE not permitted in constraint messages</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>ConstraintContainsDOCTYPE</em></td><td>XML <code>DOCTYPE</code> not permitted in constraint messages</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>InvalidConstraintContent</em></td><td>Invalid content for constraint message</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>NoReactantsOrProducts</em></td><td>Cannot have a reaction with neither reactants nor products</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>IncorrectOrderInReaction</em></td><td>Incorrect ordering of components in reaction definition</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>EmptyListInReaction</em></td><td>Reaction components, if present, cannot be empty</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>InvalidReactantsProductsList</em></td><td>Invalid element in list of reactants or products</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>InvalidModifiersList</em></td><td>Invalid element in list of modifiers</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>InvalidSpeciesReference</em></td><td>Invalid 'species' value in species reference</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>BothStoichiometryAndMath</em></td><td>Cannot use both 'stoichiometry' and <stochiometryMath> simultaneously</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>InvalidSpeciesReference</em></td><td>Invalid <code>species</code> value in species reference</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>BothStoichiometryAndMath</em></td><td>Cannot use both <code>stoichiometry</code> and <code>&lt;stoichiometryMath&gt;</code> simultaneously</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>UndeclaredSpeciesRef</em></td><td>Undeclared species referenced in kinetic law formula</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>IncorrectOrderInKineticLaw</em></td><td>Incorrect ordering of components in kinetic law definition</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>EmptyListInKineticLaw</em></td><td>The list of parameters component, if present, cannot be empty</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>NonConstantLocalParameter</em></td><td>Parameters local to a kinetic law must have 'constant'='true'</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>SubsUnitsNoLongerValid</em></td><td>'substanceUnits' not supported in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td></tr>
- * <tr><td><em>TimeUnitsNoLongerValid</em></td><td>'timeUnits' not supported in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td></tr>
- * <tr><td><em>UndeclaredSpeciesInStoichMath</em></td><td>Undeclared species referenced in <stoichiometryMath> formula</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>NonConstantLocalParameter</em></td><td>Parameters local to a kinetic law must have <code>constant</code>=<code>true</code></td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>SubsUnitsNoLongerValid</em></td><td><code>substanceUnits</code> not supported in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td></tr>
+ * <tr><td><em>TimeUnitsNoLongerValid</em></td><td><code>timeUnits</code> not supported in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td></tr>
+ * <tr><td><em>UndeclaredSpeciesInStoichMath</em></td><td>Undeclared species referenced in <code>&lt;stoichiometryMath&gt;</code> formula</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>MissingTriggerInEvent</em></td><td>Missing trigger in event definition</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>TriggerMathNotBoolean</em></td><td>Non-boolean math expression in trigger definition</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>MissingEventAssignment</em></td><td>Missing event assignment in event definition</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>TimeUnitsEvent</em></td><td>Units of 'timeUnits' are not time units</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>TimeUnitsEvent</em></td><td>Units of <code>timeUnits</code> are not time units</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><em>IncorrectOrderInEvent</em></td><td>Incorrect ordering of components in event definition</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>ValuesFromTriggerTimeNeedDelay</em></td><td>'useValuesFromTriggerTime'='false', but no delay defined in event</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
- * <tr><td><em>InvalidEventAssignmentVariable</em></td><td>Invalid value for 'variable' in event assignment</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>ValuesFromTriggerTimeNeedDelay</em></td><td><code>useValuesFromTriggerTime</code>=<code>false</code>, but no delay defined in event</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
+ * <tr><td><em>InvalidEventAssignmentVariable</em></td><td>Invalid value for <code>variable</code> in event assignment</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>EventAssignmentForConstantEntity</em></td><td>Cannot assign to a constant component in an event assignment</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>CompartmentShouldHaveSize</em></td><td>It's best to define a size for every compartment in a model</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td></tr>
  * <tr><td><em>ParameterShouldHaveUnits</em></td><td>It's best to declare units for every parameter in a model</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td></tr>
@@ -308,78 +308,78 @@
  * <tr><td><em>NoCompartmentTypeInL1</em></td><td>SBML Level 1 does not support compartment types</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td></tr>
  * <tr><td><em>NoNon3DComparmentsInL1</em></td><td>SBML Level 1 only supports three-dimensional compartments</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>NoFancyStoichiometryMathInL1</em></td><td>SBML Level 1 does not support non-integer nor non-rational stoichiometry formulas</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>NoNonIntegerStoichiometryInL1</em></td><td>SBML Level 1 does not support non-integer 'stoichiometry' attribute values</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>NoNonIntegerStoichiometryInL1</em></td><td>SBML Level 1 does not support non-integer <code>stoichiometry</code> attribute values</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>NoUnitMultipliersOrOffsetsInL1</em></td><td>SBML Level 1 does not support multipliers or offsets in unit definitions</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>SpeciesCompartmentRequiredInL1</em></td><td>In SBML Level 1, a value for 'compartment' is mandatory in species definitions</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>NoSpeciesSpatialSizeUnitsInL1</em></td><td>SBML Level 1 does not support species 'spatialSizeUnits' settings</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>NoSBOTermsInL1</em></td><td>SBML Level 1 does not support the 'sboTerm' attribute</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td></tr>
+ * <tr><td><em>SpeciesCompartmentRequiredInL1</em></td><td>In SBML Level 1, a value for <code>compartment</code> is mandatory in species definitions</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>NoSpeciesSpatialSizeUnitsInL1</em></td><td>SBML Level 1 does not support species <code>spatialSizeUnits</code> settings</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>NoSBOTermsInL1</em></td><td>SBML Level 1 does not support the <code>sboTerm</code> attribute</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td></tr>
  * <tr><td><em>NoConstraintsInL2v1</em></td><td>SBML Level&nbsp;2 Version&nbsp;1 does not support constraints</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td></tr>
  * <tr><td><em>NoInitialAssignmentsInL2v1</em></td><td>SBML Level&nbsp;2 Version&nbsp;1 does not support initial assignments</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>NoSpeciesTypeInL2v1</em></td><td>SBML Level&nbsp;2 Version&nbsp;1 does not support species types</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td></tr>
  * <tr><td><em>NoCompartmentTypeInL2v1</em></td><td>SBML Level&nbsp;2 Version&nbsp;1 does not support compartment types</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td></tr>
- * <tr><td><em>NoSBOTermsInL2v1</em></td><td>SBML Level&nbsp;2 Version&nbsp;1 does not support the 'sboTerm' attribute</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td></tr>
- * <tr><td><em>NoIdOnSpeciesReferenceInL2v1</em></td><td>SBML Level&nbsp;2 Version&nbsp;1 does not support the 'id' attribute on species references</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td></tr>
- * <tr><td><em>NoDelayedEventAssignmentInL2v1</em></td><td>Attribute 'useValuesFromTriggerTime' not supported in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
- * <tr><td><em>SBOTermNotUniversalInL2v2</em></td><td>The 'sboTerm' attribute is invalid for this component in Level&nbsp;2 Version&nbsp;2</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-warning">W</td></tr>
- * <tr><td><em>NoUnitOffsetInL2v2</em></td><td>The unit 'offset' attribute is invalid in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>NoKineticLawTimeUnitsInL2v2</em></td><td>The 'timeUnits' attribute is invalid in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>NoKineticLawSubstanceUnitsInL2v2</em></td><td>The 'substanceUnits' attribute is invalid in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>NoDelayedEventAssignmentInL2v2</em></td><td>Attribute 'useValuesFromTriggerTime' not supported in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
- * <tr><td><em>ModelSBOBranchChangedBeyondL2v2</em></td><td>The allowable 'sboTerm' values for model differ for this SBML Level+Version</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
- * <tr><td><em>NoUnitOffsetInL2v3</em></td><td>Attribute 'offset' not supported in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>NoKineticLawTimeUnitsInL2v3</em></td><td>Attribute 'timeUnits' not supported in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>NoKineticLawSubstanceUnitsInL2v3</em></td><td>Attribute 'substanceUnits' not supported in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>NoSpeciesSpatialSizeUnitsInL2v3</em></td><td>Attribute 'spatialSizeUnits' not supported in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>NoEventTimeUnitsInL2v3</em></td><td>Attribute 'timeUnits' not supported in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>NoDelayedEventAssignmentInL2v3</em></td><td>Attribute 'useValuesFromTriggerTime' not supported in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
- * <tr><td><em>ModelSBOBranchChangedBeyondL2v3</em></td><td>The allowable 'sboTerm' values for model differ for this SBML Level+Version</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
- * <tr><td><em>NoUnitOffsetInL2v4</em></td><td>The unit 'offset' attribute is invalid in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>NoKineticLawTimeUnitsInL2v4</em></td><td>The 'timeUnits' attribute is invalid in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>NoKineticLawSubstanceUnitsInL2v4</em></td><td>The 'substanceUnits' attribute is invalid in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>NoSpeciesSpatialSizeUnitsInL2v4</em></td><td>The 'spatialSizeUnits' attribute is invalid in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>NoEventTimeUnitsInL2v4</em></td><td>The 'timeUnits' attribute is invalid in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>ModelSBOBranchChangedInL2v4</em></td><td>The allowable 'sboTerm' values for model differ for this SBML Level+Version</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td></tr>
+ * <tr><td><em>NoSBOTermsInL2v1</em></td><td>SBML Level&nbsp;2 Version&nbsp;1 does not support the <code>sboTerm</code> attribute</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td></tr>
+ * <tr><td><em>NoIdOnSpeciesReferenceInL2v1</em></td><td>SBML Level&nbsp;2 Version&nbsp;1 does not support the <code>id</code> attribute on species references</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td></tr>
+ * <tr><td><em>NoDelayedEventAssignmentInL2v1</em></td><td>Attribute <code>useValuesFromTriggerTime</code> not supported in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
+ * <tr><td><em>SBOTermNotUniversalInL2v2</em></td><td>The <code>sboTerm</code> attribute is invalid for this component in Level&nbsp;2 Version&nbsp;2</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-warning">W</td></tr>
+ * <tr><td><em>NoUnitOffsetInL2v2</em></td><td>The unit <code>offset</code> attribute is invalid in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>NoKineticLawTimeUnitsInL2v2</em></td><td>The <code>timeUnits</code> attribute is invalid in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>NoKineticLawSubstanceUnitsInL2v2</em></td><td>The <code>substanceUnits</code> attribute is invalid in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>NoDelayedEventAssignmentInL2v2</em></td><td>Attribute <code>useValuesFromTriggerTime</code> not supported in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
+ * <tr><td><em>ModelSBOBranchChangedBeyondL2v2</em></td><td>The allowable <code>sboTerm</code> values for model differ for this SBML Level+Version</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
+ * <tr><td><em>NoUnitOffsetInL2v3</em></td><td>Attribute <code>offset</code> not supported in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>NoKineticLawTimeUnitsInL2v3</em></td><td>Attribute <code>timeUnits</code> not supported in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>NoKineticLawSubstanceUnitsInL2v3</em></td><td>Attribute <code>substanceUnits</code> not supported in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>NoSpeciesSpatialSizeUnitsInL2v3</em></td><td>Attribute <code>spatialSizeUnits</code> not supported in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>NoEventTimeUnitsInL2v3</em></td><td>Attribute <code>timeUnits</code> not supported in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>NoDelayedEventAssignmentInL2v3</em></td><td>Attribute <code>useValuesFromTriggerTime</code> not supported in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
+ * <tr><td><em>ModelSBOBranchChangedBeyondL2v3</em></td><td>The allowable <code>sboTerm</code> values for model differ for this SBML Level+Version</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
+ * <tr><td><em>NoUnitOffsetInL2v4</em></td><td>The unit <code>offset</code> attribute is invalid in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>NoKineticLawTimeUnitsInL2v4</em></td><td>The <code>timeUnits</code> attribute is invalid in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>NoKineticLawSubstanceUnitsInL2v4</em></td><td>The <code>substanceUnits</code> attribute is invalid in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>NoSpeciesSpatialSizeUnitsInL2v4</em></td><td>The <code>spatialSizeUnits</code> attribute is invalid in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>NoEventTimeUnitsInL2v4</em></td><td>The <code>timeUnits</code> attribute is invalid in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>ModelSBOBranchChangedInL2v4</em></td><td>The allowable <code>sboTerm</code> values for model differ for this SBML Level+Version</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td></tr>
  * <tr><td><em>InvalidSBMLLevelVersion</em></td><td>Invalid SBML Level and Version</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>InvalidRuleOrdering</em></td><td>Invalid ordering of rules</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>SubsUnitsAllowedInKL</em></td><td>Disallowed value for attribute 'substanceUnits'</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>TimeUnitsAllowedInKL</em></td><td>Disallowed value for attribute 'timeUnits'</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>SubsUnitsAllowedInKL</em></td><td>Disallowed value for attribute <code>substanceUnits</code></td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>TimeUnitsAllowedInKL</em></td><td>Disallowed value for attribute <code>timeUnits</code></td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><em>FormulaInLevel1KL</em></td><td>Only predefined functions are permitted in SBML Level 1 formulas</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>TimeUnitsRemoved</em></td><td>The 'timeUnits' attribute is invalid in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>TimeUnitsRemoved</em></td><td>The <code>timeUnits</code> attribute is invalid in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>BadMathML</em></td><td>Invalid MathML expression</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td>   </tr>
  * <tr><td><em>FailedMathMLReadOfDouble</em></td><td>Failed to read floating-point number</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td>   </tr>
  * <tr><td><em>FailedMathMLReadOfInteger</em></td><td>Failed to read an integer</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td>   </tr>
  * <tr><td><em>FailedMathMLReadOfExponential</em></td><td>Failed to read an exponential expression</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td>   </tr>
  * <tr><td><em>FailedMathMLReadOfRational</em></td><td>Failed to read a rational expression</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td>   </tr>
  * <tr><td><em>BadMathMLNodeType</em></td><td>Invalid MathML element</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td>   </tr>
- * <tr><td><em>NoTimeSymbolInFunctionDef</em></td><td><csymbol> for 'time' used within the <math> of a function definition</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td>   </tr>
+ * <tr><td><em>NoTimeSymbolInFunctionDef</em></td><td><code>&lt;csymbol&gt;</code> for <code>time</code> used within the <code>&lt;math&gt;</code> of a function definition</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td>   </tr>
  * <tr><td><em>UndeclaredUnits</em></td><td>Undeclared units</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td></tr>
- * <tr><td><em>UnrecognisedSBOTerm</em></td><td>Unrecognized 'sboTerm' value</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td></tr>
- * <tr><td><em>ObseleteSBOTerm</em></td><td>Obsolete 'sboTerm' value</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td></tr>
+ * <tr><td><em>UnrecognisedSBOTerm</em></td><td>Unrecognized <code>sboTerm</code> value</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td></tr>
+ * <tr><td><em>ObseleteSBOTerm</em></td><td>Obsolete <code>sboTerm</code> value</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td></tr>
  * <tr><td><em>IncorrectCompartmentSpatialDimensions</em></td><td>in SBML Level 1, only three-dimensional compartments are permitted</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><em>CompartmentTypeNotValidAttribute</em></td><td>Compartment types not supported in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>ConstantNotValidAttribute</em></td><td>Attribute 'constant' not supported on this component in SBML Level 1</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>MetaIdNotValidAttribute</em></td><td>Attribute 'metaid' not supported in SBML Level 1</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>SBOTermNotValidAttributeBeforeL2V3</em></td><td>'sboTerm' not available on this component before SBML Level&nbsp;2 Version&nbsp;3</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>ConstantNotValidAttribute</em></td><td>Attribute <code>constant</code> not supported on this component in SBML Level 1</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>MetaIdNotValidAttribute</em></td><td>Attribute <code>metaid</code> not supported in SBML Level 1</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>SBOTermNotValidAttributeBeforeL2V3</em></td><td><code>sboTerm</code> not available on this component before SBML Level&nbsp;2 Version&nbsp;3</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><em>InvalidL1CompartmentUnits</em></td><td>Invalid units for a compartment in SBML Level 1</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><em>L1V1CompartmentVolumeReqd</em></td><td>Compartment volume must be specified</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><em>CompartmentTypeNotValidComponent</em></td><td>Compartment types not supported in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><em>ConstraintNotValidComponent</em></td><td>Constraints not supported in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><em>EventNotValidComponent</em></td><td>Events not supported in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>SBOTermNotValidAttributeBeforeL2V2</em></td><td>The 'sboTerm' attribute is invalid for this component before Level&nbsp;2 Version&nbsp;2</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>SBOTermNotValidAttributeBeforeL2V2</em></td><td>The <code>sboTerm</code> attribute is invalid for this component before Level&nbsp;2 Version&nbsp;2</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><em>FuncDefNotValidComponent</em></td><td>Function definitions are not supported in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><em>InitialAssignNotValidComponent</em></td><td>Initial assignments are not supported in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>VariableNotValidAttribute</em></td><td>Attribute 'variable' not valid</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>UnitsNotValidAttribute</em></td><td>Attribute 'units' not valid</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
- * <tr><td><em>ConstantSpeciesNotValidAttribute</em></td><td>Attribute 'constant' on species not supported in SBML Level 1</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>SpatialSizeUnitsNotValidAttribute</em></td><td>Attribute 'spatialSizeUnits' on species not supported in SBML Level 1</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>SpeciesTypeNotValidAttribute</em></td><td>Attribute 'speciesType' on species not supported in SBML Level 1</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>HasOnlySubsUnitsNotValidAttribute</em></td><td>Attribute 'hasOnlySubstanceUnits' on species not supported in SBML Level 1</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>IdNotValidAttribute</em></td><td>Attribute 'id' on species references not supported in SBML Level 1</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>NameNotValidAttribute</em></td><td>Attribute 'name' on species references not supported in SBML Level 1</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>VariableNotValidAttribute</em></td><td>Attribute <code>variable</code> not valid</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>UnitsNotValidAttribute</em></td><td>Attribute <code>units</code> not valid</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
+ * <tr><td><em>ConstantSpeciesNotValidAttribute</em></td><td>Attribute <code>constant</code> on species not supported in SBML Level 1</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>SpatialSizeUnitsNotValidAttribute</em></td><td>Attribute <code>spatialSizeUnits</code> on species not supported in SBML Level 1</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>SpeciesTypeNotValidAttribute</em></td><td>Attribute <code>speciesType</code> on species not supported in SBML Level 1</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>HasOnlySubsUnitsNotValidAttribute</em></td><td>Attribute <code>hasOnlySubstanceUnits</code> on species not supported in SBML Level 1</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>IdNotValidAttribute</em></td><td>Attribute <code>id</code> on species references not supported in SBML Level 1</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>NameNotValidAttribute</em></td><td>Attribute <code>name</code> on species references not supported in SBML Level 1</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><em>SpeciesTypeNotValidComponent</em></td><td>Species types not supported in SBML Level 1</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>StoichiometryMathNotValidComponent</em></td><td><stochiometryMath> not supported in SBML Level 1</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><em>MultiplierNotValidAttribute</em></td><td>Attribute 'multiplier' on units not supported in SBML Level 1</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr> 
- * <tr><td><em>OffsetNotValidAttribute</em></td><td>Attribute 'offset' on units only available in SBML Level&nbsp;2 Version&nbsp;1</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>StoichiometryMathNotValidComponent</em></td><td>lt;stoichiometryMath&gt; not supported in SBML Level 1</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><em>MultiplierNotValidAttribute</em></td><td>Attribute <code>multiplier</code> on units not supported in SBML Level 1</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr> 
+ * <tr><td><em>OffsetNotValidAttribute</em></td><td>Attribute <code>offset</code> on units only available in SBML Level&nbsp;2 Version&nbsp;1</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * </table>
  * </center>
  *
@@ -388,10 +388,10 @@
  *
  * This is an enumeration of category codes for SBMLError diagnostics.
  * These enumeration values are distinct from (and in addition to) the
- * XMLError::XMLErrorCategory_t XMLErrorCategory_t @endlink codes used by
- * the parent XMLError object.  User programs receiving an SBMLError object
- * can use this distinction to check whether the error represents a
- * low-level XML problem or an SBML problem.
+ * @link XMLError::XMLErrorCategory_t XMLErrorCategory_t @endlink codes
+ * used by the parent XMLError object.  User programs receiving an
+ * SBMLError object can use this distinction to check whether the error
+ * represents a low-level XML problem or an SBML problem.
  * 
  * <center>
  * <table width="90%" cellspacing="1" cellpadding="4" border="0"  class="small-font alt-row-colors">
@@ -510,20 +510,20 @@ typedef enum
  , NotSchemaConformant                   = 10103 /*!< Not conformant to SBML XML schema */
  , InvalidMathElement                    = 10201 /*!< Invalid MathML */
  , DisallowedMathMLSymbol                = 10202 /*!< Disallowed MathML symbol */
- , DisallowedMathMLEncodingUse           = 10203 /*!< Disallowed use of MathML 'encoding' attribute */
- , DisallowedDefinitionURLUse            = 10204 /*!< Disallowed use of MathML 'definitionURL' attribute */
- , BadCsymbolDefinitionURLValue          = 10205 /*!< Invalid <csymbol> 'definitionURL' attribute value */
- , DisallowedMathTypeAttributeUse        = 10206 /*!< Disallowed use of MathML 'type' attribute */
- , DisallowedMathTypeAttributeValue      = 10207 /*!< Disallowed MathML 'type' attribute value */
- , LambdaOnlyAllowedInFunctionDef        = 10208 /*!< Use of <lambda> not permitted outside of a <functionDefinition> */
+ , DisallowedMathMLEncodingUse           = 10203 /*!< Disallowed use of MathML <code>encoding</code> attribute */
+ , DisallowedDefinitionURLUse            = 10204 /*!< Disallowed use of MathML <code>definitionURL</code> attribute */
+ , BadCsymbolDefinitionURLValue          = 10205 /*!< Invalid <code>&lt;csymbol&gt;</code> <code>definitionURL</code> attribute value */
+ , DisallowedMathTypeAttributeUse        = 10206 /*!< Disallowed use of MathML <code>type</code> attribute */
+ , DisallowedMathTypeAttributeValue      = 10207 /*!< Disallowed MathML <code>type</code> attribute value */
+ , LambdaOnlyAllowedInFunctionDef        = 10208 /*!< Use of <code>&lt;lambda&gt;</code> not permitted outside of a <code>&lt;functionDefinition&gt;</code> */
  , BooleanOpsNeedBooleanArgs             = 10209 /*!< Non-boolean argument given to boolean operator */
  , NumericOpsNeedNumericArgs             = 10210 /*!< Non-numerical argument given to numerical operator */
- , ArgsToEqNeedSameType                  = 10211 /*!< Arguments to <eq> or <neq> have inconsistent data types */
- , PiecewiseNeedsConsistentTypes         = 10212 /*!< <piecewise> terms have inconsistent data types */
- , PieceNeedsBoolean                     = 10213 /*!< Second argument of <piece> must yield a boolean value */
- , ApplyCiMustBeUserFunction             = 10214 /*!< <ci> does not refer to a function definition */
- , ApplyCiMustBeModelComponent           = 10215 /*!< <ci>'s value is not a component in this model */
- , KineticLawParametersAreLocalOnly      = 10216 /*!< Cannot use <kineticLaw> parameter outside local scope */
+ , ArgsToEqNeedSameType                  = 10211 /*!< Arguments to <code>&lt;eq&gt;</code> or <code>&lt;neq&gt;</code> have inconsistent data types */
+ , PiecewiseNeedsConsistentTypes         = 10212 /*!< <code>&lt;piecewise&gt;</code> terms have inconsistent data types */
+ , PieceNeedsBoolean                     = 10213 /*!< Second argument of <code>&lt;piece&gt;</code> must yield a boolean value */
+ , ApplyCiMustBeUserFunction             = 10214 /*!< <code>&lt;ci&gt;</code> does not refer to a function definition */
+ , ApplyCiMustBeModelComponent           = 10215 /*!< <code>&lt;ci&gt;</code>'s value is not a component in this model */
+ , KineticLawParametersAreLocalOnly      = 10216 /*!< Cannot use <code>&lt;kineticLaw&gt;</code> parameter outside local scope */
  , MathResultMustBeNumeric               = 10217 /*!< Formula result is not a numerical value */
  , OpsNeedCorrectNumberOfArgs            = 10218 /*!< Incorrect number of arguments to operator */
  , InvalidNoArgsPassedToFunctionDef      = 10219 /*!< Incorrect number of arguments to function */
@@ -532,10 +532,10 @@ typedef enum
  , DuplicateLocalParameterId             = 10303 /*!< Duplicate local parameter identifier */
  , MultipleAssignmentOrRateRules         = 10304 /*!< Multiple rules for the same variable */
  , MultipleEventAssignmentsForId         = 10305 /*!< Multiple event assignments for the same variable */
- , EventAndAssignmentRuleForId           = 10306 /*!< 'variable' value used in both event assignments and assignment rules */
- , DuplicateMetaId                       = 10307 /*!< Duplicate 'metaid' identifier */
- , InvalidSBOTermSyntax                  = 10308 /*!< Invalid 'sboTerm' value syntax */
- , InvalidMetaidSyntax                   = 10309 /*!< Invalid 'metaid' value syntax */
+ , EventAndAssignmentRuleForId           = 10306 /*!< <code>variable</code> value used in both event assignments and assignment rules */
+ , DuplicateMetaId                       = 10307 /*!< Duplicate <code>metaid</code> identifier */
+ , InvalidSBOTermSyntax                  = 10308 /*!< Invalid <code>sboTerm</code> value syntax */
+ , InvalidMetaidSyntax                   = 10309 /*!< Invalid <code>metaid</code> value syntax */
  , InvalidIdSyntax                       = 10310 /*!< Invalid identifier syntax */
  , InvalidUnitIdSyntax                   = 10311 /*!< Invalid unit identifier syntax */
  , MissingAnnotationNamespace            = 10401 /*!< Missing declaration of XML namespace for annotation */
@@ -551,89 +551,89 @@ typedef enum
  , RateRuleCompartmentMismatch           = 10531 /*!< Mismatched units in rate rule for compartment */
  , RateRuleSpeciesMismatch               = 10532 /*!< Mismatched units in rate rule for species */
  , RateRuleParameterMismatch             = 10533 /*!< Mismatched units in rate rule for parameter */
- , KineticLawNotSubstancePerTime         = 10541 /*!< Kinetic law units are not 'substance'/'time' */
+ , KineticLawNotSubstancePerTime         = 10541 /*!< Kinetic law units are not <code>substance</code>/<code>time</code> */
  , DelayUnitsNotTime                     = 10551 /*!< Units of delay are not units of time */
  , EventAssignCompartmentMismatch        = 10561 /*!< Mismatched units in event assignment for compartment */
  , EventAssignSpeciesMismatch            = 10562 /*!< Mismatched units in event assignment for species */
  , EventAssignParameterMismatch          = 10563 /*!< Mismatched units in event assignment for parameter */
  , OverdeterminedSystem                  = 10601 /*!< Model is overdetermined */
- , InvalidModelSBOTerm                   = 10701 /*!< Invalid 'sboTerm' value for model */
- , InvalidFunctionDefSBOTerm             = 10702 /*!< Invalid 'sboTerm' value for function definition */
- , InvalidParameterSBOTerm               = 10703 /*!< Invalid 'sboTerm' value for parameter */
- , InvalidInitAssignSBOTerm              = 10704 /*!< Invalid 'sboTerm' value for initial assignment */
- , InvalidRuleSBOTerm                    = 10705 /*!< Invalid 'sboTerm' value for rule */
- , InvalidConstraintSBOTerm              = 10706 /*!< Invalid 'sboTerm' value for constraint */
- , InvalidReactionSBOTerm                = 10707 /*!< Invalid 'sboTerm' value for reaction */
- , InvalidSpeciesReferenceSBOTerm        = 10708 /*!< Invalid 'sboTerm' value for species reference */
- , InvalidKineticLawSBOTerm              = 10709 /*!< Invalid 'sboTerm' value for kinetic law */
- , InvalidEventSBOTerm                   = 10710 /*!< Invalid 'sboTerm' value for event */
- , InvalidEventAssignmentSBOTerm         = 10711 /*!< Invalid 'sboTerm' value for event assignment */
- , InvalidCompartmentSBOTerm             = 10712 /*!< Invalid 'sboTerm' value for compartment */
- , InvalidSpeciesSBOTerm                 = 10713 /*!< Invalid 'sboTerm' value for species */
- , InvalidCompartmentTypeSBOTerm         = 10714 /*!< Invalid 'sboTerm' value for compartment type */
- , InvalidSpeciesTypeSBOTerm             = 10715 /*!< Invalid 'sboTerm' value for species type */
- , InvalidTriggerSBOTerm                 = 10716 /*!< Invalid 'sboTerm' value for event trigger */
- , InvalidDelaySBOTerm                   = 10717 /*!< Invalid 'sboTerm' value for event delay */
+ , InvalidModelSBOTerm                   = 10701 /*!< Invalid <code>sboTerm</code> value for model */
+ , InvalidFunctionDefSBOTerm             = 10702 /*!< Invalid <code>sboTerm</code> value for function definition */
+ , InvalidParameterSBOTerm               = 10703 /*!< Invalid <code>sboTerm</code> value for parameter */
+ , InvalidInitAssignSBOTerm              = 10704 /*!< Invalid <code>sboTerm</code> value for initial assignment */
+ , InvalidRuleSBOTerm                    = 10705 /*!< Invalid <code>sboTerm</code> value for rule */
+ , InvalidConstraintSBOTerm              = 10706 /*!< Invalid <code>sboTerm</code> value for constraint */
+ , InvalidReactionSBOTerm                = 10707 /*!< Invalid <code>sboTerm</code> value for reaction */
+ , InvalidSpeciesReferenceSBOTerm        = 10708 /*!< Invalid <code>sboTerm</code> value for species reference */
+ , InvalidKineticLawSBOTerm              = 10709 /*!< Invalid <code>sboTerm</code> value for kinetic law */
+ , InvalidEventSBOTerm                   = 10710 /*!< Invalid <code>sboTerm</code> value for event */
+ , InvalidEventAssignmentSBOTerm         = 10711 /*!< Invalid <code>sboTerm</code> value for event assignment */
+ , InvalidCompartmentSBOTerm             = 10712 /*!< Invalid <code>sboTerm</code> value for compartment */
+ , InvalidSpeciesSBOTerm                 = 10713 /*!< Invalid <code>sboTerm</code> value for species */
+ , InvalidCompartmentTypeSBOTerm         = 10714 /*!< Invalid <code>sboTerm</code> value for compartment type */
+ , InvalidSpeciesTypeSBOTerm             = 10715 /*!< Invalid <code>sboTerm</code> value for species type */
+ , InvalidTriggerSBOTerm                 = 10716 /*!< Invalid <code>sboTerm</code> value for event trigger */
+ , InvalidDelaySBOTerm                   = 10717 /*!< Invalid <code>sboTerm</code> value for event delay */
  , NotesNotInXHTMLNamespace              = 10801 /*!< Notes not placed in XHTML namespace */
  , NotesContainsXMLDecl                  = 10802 /*!< XML declarations not permitted in notes */
- , NotesContainsDOCTYPE                  = 10803 /*!< XML DOCTYPE not permitted in notes */
+ , NotesContainsDOCTYPE                  = 10803 /*!< XML <code>DOCTYPE</code> not permitted in notes */
  , InvalidNotesContent                   = 10804 /*!< Invalid notes content */
  , InvalidNamespaceOnSBML                = 20101 /*!< Invalid XML namespace for SBML container */
- , MissingOrInconsistentLevel            = 20102 /*!< Missing or inconsistent value for 'level' attribute */
- , MissingOrInconsistentVersion          = 20103 /*!< Missing or inconsistent value for 'version' attribute */
- , AnnotationNotesNotAllowedLevel1       = 20104 /*!< Annotation on <sbml> not permitted in SBML Level&nbsp;1 */
+ , MissingOrInconsistentLevel            = 20102 /*!< Missing or inconsistent value for <code>level</code> attribute */
+ , MissingOrInconsistentVersion          = 20103 /*!< Missing or inconsistent value for <code>version</code> attribute */
+ , AnnotationNotesNotAllowedLevel1       = 20104 /*!< Annotation on <code>&lt;sbml&gt;</code> not permitted in SBML Level&nbsp;1 */
  , MissingModel                          = 20201 /*!< Missing model */
  , IncorrectOrderInModel                 = 20202 /*!< Incorrect ordering of components in model definition */
- , EmptyListElement                      = 20203 /*!< A given listOf___, if present, cannot be empty */
+ , EmptyListElement                      = 20203 /*!< A given <code>listOf___</code>, if present, cannot be empty */
  , NeedCompartmentIfHaveSpecies          = 20204 /*!< Missing compartment in species definition */
  , FunctionDefMathNotLambda              = 20301 /*!< Invalid expression in function definition */
- , InvalidApplyCiInLambda                = 20302 /*!< Invalid forward reference in <apply><ci>...</ci></apply> value */
+ , InvalidApplyCiInLambda                = 20302 /*!< Invalid forward reference in <code>&lt;apply&gt;</code><code>&lt;ci&gt;</code>...<code>&lt;/ci&gt;</code><code>&lt;/apply&gt;</code> value */
  , RecursiveFunctionDefinition           = 20303 /*!< Recursive function definition */
- , InvalidCiInLambda                     = 20304 /*!< Unknown <ci> reference in <lambda> */
+ , InvalidCiInLambda                     = 20304 /*!< Unknown <code>&lt;ci&gt;</code> reference in <code>&lt;lambda&gt;</code> */
  , InvalidFunctionDefReturnType          = 20305 /*!< Function return type must be either numerical or boolean */
- , InvalidUnitDefId                      = 20401 /*!< Invalid 'id' value for unit definition */
- , InvalidSubstanceRedefinition          = 20402 /*!< Invalid redefinition of 'substance' */
- , InvalidLengthRedefinition             = 20403 /*!< Invalid redefinition of 'length' */
- , InvalidAreaRedefinition               = 20404 /*!< Invalid redefinition of 'area' */
- , InvalidTimeRedefinition               = 20405 /*!< Invalid redefinition of 'time' */
- , InvalidVolumeRedefinition             = 20406 /*!< Invalid redefinition of 'volume' */
- , VolumeLitreDefExponentNotOne          = 20407 /*!< Must use 'exponent'=1 when defining 'volume' in terms of litres */
- , VolumeMetreDefExponentNot3            = 20408 /*!< Must use 'exponent'=3 when defining 'volume' in terms of metres */
+ , InvalidUnitDefId                      = 20401 /*!< Invalid <code>id</code> value for unit definition */
+ , InvalidSubstanceRedefinition          = 20402 /*!< Invalid redefinition of <code>substance</code> */
+ , InvalidLengthRedefinition             = 20403 /*!< Invalid redefinition of <code>length</code> */
+ , InvalidAreaRedefinition               = 20404 /*!< Invalid redefinition of <code>area</code> */
+ , InvalidTimeRedefinition               = 20405 /*!< Invalid redefinition of <code>time</code> */
+ , InvalidVolumeRedefinition             = 20406 /*!< Invalid redefinition of <code>volume</code> */
+ , VolumeLitreDefExponentNotOne          = 20407 /*!< Must use <code>exponent</code>=<code>1</code> when defining <code>volume</code> in terms of litres */
+ , VolumeMetreDefExponentNot3            = 20408 /*!< Must use <code>exponent</code>=<code>3</code> when defining <code>volume</code> in terms of metres */
  , EmptyListOfUnits                      = 20409 /*!< Empty list of units not permitted */
- , InvalidUnitKind                       = 20410 /*!< Invalid value of 'kind' in unit definition */
- , OffsetNoLongerValid                   = 20411 /*!< 'offset' not supported in this Level+Version of SBML */
- , CelsiusNoLongerValid                  = 20412 /*!< 'Celsius' not defined in this Level+Version of SBML */
- , ZeroDimensionalCompartmentSize        = 20501 /*!< Use of 'size' is invalid for a zero-dimensional compartment */
- , ZeroDimensionalCompartmentUnits       = 20502 /*!< Use of 'units' is invalid for a zero-dimensional compartment */
+ , InvalidUnitKind                       = 20410 /*!< Invalid value of <code>kind</code> in unit definition */
+ , OffsetNoLongerValid                   = 20411 /*!< <code>offset</code> not supported in this Level+Version of SBML */
+ , CelsiusNoLongerValid                  = 20412 /*!< <code>Celsius</code> not defined in this Level+Version of SBML */
+ , ZeroDimensionalCompartmentSize        = 20501 /*!< Use of <code>size</code> is invalid for a zero-dimensional compartment */
+ , ZeroDimensionalCompartmentUnits       = 20502 /*!< Use of <code>units</code> is invalid for a zero-dimensional compartment */
  , ZeroDimensionalCompartmentConst       = 20503 /*!< Zero-dimensional compartments cannot be non-constant */
- , UndefinedOutsideCompartment           = 20504 /*!< Undefined compartment used as 'outside' value */
- , RecursiveCompartmentContainment       = 20505 /*!< Recursive nesting of compartments via 'outside' */
+ , UndefinedOutsideCompartment           = 20504 /*!< Undefined compartment used as <code>outside</code> value */
+ , RecursiveCompartmentContainment       = 20505 /*!< Recursive nesting of compartments via <code>outside</code> */
  , ZeroDCompartmentContainment           = 20506 /*!< Invalid nesting of zero-dimensional compartments */
- , Invalid1DCompartmentUnits             = 20507 /*!< Invalid value of 'units' for a one-dimensional compartment */
- , Invalid2DCompartmentUnits             = 20508 /*!< Invalid value of 'units' for a two-dimensional compartment */
- , Invalid3DCompartmentUnits             = 20509 /*!< Invalid value of 'units' for a three-dimensional compartment */
- , InvalidCompartmentTypeRef             = 20510 /*!< Invalid 'compartmentType' reference */
- , InvalidSpeciesCompartmentRef          = 20601 /*!< Invalid 'compartment' reference */
- , HasOnlySubsNoSpatialUnits             = 20602 /*!< No 'spatialSizeUnits' permitted if 'hasOnlySubstanceUnits'='true' */
- , NoSpatialUnitsInZeroD                 = 20603 /*!< No 'spatialSizeUnits' permitted if compartment is zero-dimensional */
- , NoConcentrationInZeroD                = 20604 /*!< No 'initialConcentration' permitted if compartment is zero-dimensional */
- , SpatialUnitsInOneD                    = 20605 /*!< Invalid value of 'spatialSizeUnits' for a one-dimensional compartment */
- , SpatialUnitsInTwoD                    = 20606 /*!< Invalid value of 'spatialSizeUnits' for a two-dimensional compartment */
- , SpatialUnitsInThreeD                  = 20607 /*!< Invalid value of 'spatialSizeUnits' for a three-dimensional compartment */
- , InvalidSpeciesSusbstanceUnits         = 20608 /*!< Invalid value of 'units' */
- , BothAmountAndConcentrationSet         = 20609 /*!< Cannot set both 'initialConcentration' and 'initialAmount' */
+ , Invalid1DCompartmentUnits             = 20507 /*!< Invalid value of <code>units</code> for a one-dimensional compartment */
+ , Invalid2DCompartmentUnits             = 20508 /*!< Invalid value of <code>units</code> for a two-dimensional compartment */
+ , Invalid3DCompartmentUnits             = 20509 /*!< Invalid value of <code>units</code> for a three-dimensional compartment */
+ , InvalidCompartmentTypeRef             = 20510 /*!< Invalid <code>compartmentType</code> reference */
+ , InvalidSpeciesCompartmentRef          = 20601 /*!< Invalid <code>compartment</code> reference */
+ , HasOnlySubsNoSpatialUnits             = 20602 /*!< No <code>spatialSizeUnits</code> permitted if <code>hasOnlySubstanceUnits</code>=<code>true</code> */
+ , NoSpatialUnitsInZeroD                 = 20603 /*!< No <code>spatialSizeUnits</code> permitted if compartment is zero-dimensional */
+ , NoConcentrationInZeroD                = 20604 /*!< No <code>initialConcentration</code> permitted if compartment is zero-dimensional */
+ , SpatialUnitsInOneD                    = 20605 /*!< Invalid value of <code>spatialSizeUnits</code> for a one-dimensional compartment */
+ , SpatialUnitsInTwoD                    = 20606 /*!< Invalid value of <code>spatialSizeUnits</code> for a two-dimensional compartment */
+ , SpatialUnitsInThreeD                  = 20607 /*!< Invalid value of <code>spatialSizeUnits</code> for a three-dimensional compartment */
+ , InvalidSpeciesSusbstanceUnits         = 20608 /*!< Invalid value of <code>units</code> */
+ , BothAmountAndConcentrationSet         = 20609 /*!< Cannot set both <code>initialConcentration</code> and <code>initialAmount</code> */
  , NonBoundarySpeciesAssignedAndUsed     = 20610 /*!< Cannot use non-boundary species in both reactions and rules simultaneously */
  , NonConstantSpeciesUsed                = 20611 /*!< Cannot use non-boundary, constant species as reactant or product */
- , InvalidSpeciesTypeRef                 = 20612 /*!< Invalid 'speciesType' reference */
+ , InvalidSpeciesTypeRef                 = 20612 /*!< Invalid <code>speciesType</code> reference */
  , MultSpeciesSameTypeInCompartment      = 20613 /*!< Cannot have multiple species of the same type in the same compartment */
- , MissingSpeciesCompartment             = 20614 /*!< Missing 'compartment' value for species */
- , SpatialSizeUnitsRemoved               = 20615 /*!< Attribute 'spatialSizeUnits' not supported in this Level+Version of SBML */
- , InvalidParameterUnits                 = 20701 /*!< Invalid value for 'units' in parameter definition */
- , InvalidInitAssignSymbol               = 20801 /*!< Invalid 'symbol' reference in initial assignment */
- , MultipleInitAssignments               = 20802 /*!< Multiple initial assignments for the same 'symbol' value */
+ , MissingSpeciesCompartment             = 20614 /*!< Missing <code>compartment</code> value for species */
+ , SpatialSizeUnitsRemoved               = 20615 /*!< Attribute <code>spatialSizeUnits</code> not supported in this Level+Version of SBML */
+ , InvalidParameterUnits                 = 20701 /*!< Invalid value for <code>units</code> in parameter definition */
+ , InvalidInitAssignSymbol               = 20801 /*!< Invalid <code>symbol</code> reference in initial assignment */
+ , MultipleInitAssignments               = 20802 /*!< Multiple initial assignments for the same <code>symbol</code> value */
  , InitAssignmentAndRuleForSameId        = 20803 /*!< Cannot set a value with both initial assignments and assignment rules simultaneously */
- , InvalidAssignRuleVariable             = 20901 /*!< Invalid 'variable' reference in assignment rule */
- , InvalidRateRuleVariable               = 20902 /*!< Invalid 'variable' reference in rate rule */
+ , InvalidAssignRuleVariable             = 20901 /*!< Invalid <code>variable</code> reference in assignment rule */
+ , InvalidRateRuleVariable               = 20902 /*!< Invalid <code>variable</code> reference in rate rule */
  , AssignmentToConstantEntity            = 20903 /*!< Cannot reassign a constant in an assignment rule */
  , RateRuleForConstantEntity             = 20904 /*!< Cannot reassign a constant in a rate rule */
  , RepeatedRule10304                     = 20905 /*!<  */
@@ -642,30 +642,30 @@ typedef enum
  , IncorrectOrderInConstraint            = 21002 /*!< Incorrect order of elements in constraint definition */
  , ConstraintNotInXHTMLNamespace         = 21003 /*!< Constraint message is not in XHTML XML namespace */
  , ConstraintContainsXMLDecl             = 21004 /*!< XML declarations not permitted in constraint messages */
- , ConstraintContainsDOCTYPE             = 21005 /*!< XML DOCTYPE not permitted in constraint messages */
+ , ConstraintContainsDOCTYPE             = 21005 /*!< XML <code>DOCTYPE</code> not permitted in constraint messages */
  , InvalidConstraintContent              = 21006 /*!< Invalid content for constraint message */
  , NoReactantsOrProducts                 = 21101 /*!< Cannot have a reaction with neither reactants nor products */
  , IncorrectOrderInReaction              = 21102 /*!< Incorrect ordering of components in reaction definition */
  , EmptyListInReaction                   = 21103 /*!< Reaction components, if present, cannot be empty */
  , InvalidReactantsProductsList          = 21104 /*!< Invalid element in list of reactants or products */
  , InvalidModifiersList                  = 21105 /*!< Invalid element in list of modifiers */
- , InvalidSpeciesReference               = 21111 /*!< Invalid 'species' value in species reference */
+ , InvalidSpeciesReference               = 21111 /*!< Invalid <code>species</code> value in species reference */
  , RepeatedRule20611                     = 21112 /*!<  */
- , BothStoichiometryAndMath              = 21113 /*!< Cannot use both 'stoichiometry' and <stochiometryMath> simultaneously */
+ , BothStoichiometryAndMath              = 21113 /*!< Cannot use both <code>stoichiometry</code> and <code>&lt;stoichiometryMath&gt;</code> simultaneously */
  , UndeclaredSpeciesRef                  = 21121 /*!< Undeclared species referenced in kinetic law formula */
  , IncorrectOrderInKineticLaw            = 21122 /*!< Incorrect ordering of components in kinetic law definition */
  , EmptyListInKineticLaw                 = 21123 /*!< The list of parameters component, if present, cannot be empty */
- , NonConstantLocalParameter             = 21124 /*!< Parameters local to a kinetic law must have 'constant'='true' */
- , SubsUnitsNoLongerValid                = 21125 /*!< 'substanceUnits' not supported in this Level+Version of SBML */
- , TimeUnitsNoLongerValid                = 21126 /*!< 'timeUnits' not supported in this Level+Version of SBML */
- , UndeclaredSpeciesInStoichMath         = 21131 /*!< Undeclared species referenced in <stoichiometryMath> formula */
+ , NonConstantLocalParameter             = 21124 /*!< Parameters local to a kinetic law must have <code>constant</code>=<code>true</code> */
+ , SubsUnitsNoLongerValid                = 21125 /*!< <code>substanceUnits</code> not supported in this Level+Version of SBML */
+ , TimeUnitsNoLongerValid                = 21126 /*!< <code>timeUnits</code> not supported in this Level+Version of SBML */
+ , UndeclaredSpeciesInStoichMath         = 21131 /*!< Undeclared species referenced in <code>&lt;stoichiometryMath&gt;</code> formula */
  , MissingTriggerInEvent                 = 21201 /*!< Missing trigger in event definition */
  , TriggerMathNotBoolean                 = 21202 /*!< Non-boolean math expression in trigger definition */
  , MissingEventAssignment                = 21203 /*!< Missing event assignment in event definition */
- , TimeUnitsEvent                        = 21204 /*!< Units of 'timeUnits' are not time units */
+ , TimeUnitsEvent                        = 21204 /*!< Units of <code>timeUnits</code> are not time units */
  , IncorrectOrderInEvent                 = 21205 /*!< Incorrect ordering of components in event definition */
- , ValuesFromTriggerTimeNeedDelay        = 21206 /*!< 'useValuesFromTriggerTime'='false', but no delay defined in event */
- , InvalidEventAssignmentVariable        = 21211 /*!< Invalid value for 'variable' in event assignment */
+ , ValuesFromTriggerTimeNeedDelay        = 21206 /*!< <code>useValuesFromTriggerTime</code>=<code>false</code>, but no delay defined in event */
+ , InvalidEventAssignmentVariable        = 21211 /*!< Invalid value for <code>variable</code> in event assignment */
  , EventAssignmentForConstantEntity      = 21212 /*!< Cannot assign to a constant component in an event assignment */
 
  , GeneralWarningNotSpecified            = 29999 /*!< Unknown error */
@@ -674,7 +674,7 @@ typedef enum
 
  , CompartmentShouldHaveSize             = 80501 /*!< Compartment is missing size */
  , ParameterShouldHaveUnits              = 80701 /*!< Parameter definition should specify units */
- , LocalParameterShadowsId               = 81121 /*!< Parameter inside KineticLaw has same id as a global parameter */
+ , LocalParameterShadowsId               = 81121 /*!< Parameter inside KineticLaw has same <code>id</code> as a global parameter */
     
   /* Lower bound for additional error codes returned by libSBML but not
    * defined in SBML specifications. */
@@ -693,11 +693,11 @@ typedef enum
  , NoCompartmentTypeInL1                 = 91006 /*!< SBML Level&nbsp;1 does not support compartment types */
  , NoNon3DComparmentsInL1                = 91007 /*!< SBML Level&nbsp;1 only supports three-dimensional compartments */
  , NoFancyStoichiometryMathInL1          = 91008 /*!< SBML Level&nbsp;1 does not support non-integer nor non-rational stoichiometry formulas */
- , NoNonIntegerStoichiometryInL1         = 91009 /*!< SBML Level&nbsp;1 does not support non-integer 'stoichiometry' attribute values */
+ , NoNonIntegerStoichiometryInL1         = 91009 /*!< SBML Level&nbsp;1 does not support non-integer <code>stoichiometry</code> attribute values */
  , NoUnitMultipliersOrOffsetsInL1        = 91010 /*!< SBML Level&nbsp;1 does not support multipliers or offsets in unit definitions */
- , SpeciesCompartmentRequiredInL1        = 91011 /*!< In SBML Level&nbsp;1, a value for 'compartment' is mandatory in species definitions */
- , NoSpeciesSpatialSizeUnitsInL1         = 91012 /*!< SBML Level&nbsp;1 does not support species 'spatialSizeUnits' settings */
- , NoSBOTermsInL1                        = 91013 /*!< SBML Level&nbsp;1 does not support the 'sboTerm' attribute */
+ , SpeciesCompartmentRequiredInL1        = 91011 /*!< In SBML Level&nbsp;1, a value for <code>compartment</code> is mandatory in species definitions */
+ , NoSpeciesSpatialSizeUnitsInL1         = 91012 /*!< SBML Level&nbsp;1 does not support species <code>spatialSizeUnits</code> settings */
+ , NoSBOTermsInL1                        = 91013 /*!< SBML Level&nbsp;1 does not support the <code>sboTerm</code> attribute */
 
   /* L2v1 compatability */
 
@@ -705,37 +705,37 @@ typedef enum
  , NoInitialAssignmentsInL2v1            = 92002 /*!< SBML Level&nbsp;2 Version&nbsp;1 does not support initial assignments */
  , NoSpeciesTypeInL2v1                   = 92003 /*!< SBML Level&nbsp;2 Version&nbsp;1 does not support species types */
  , NoCompartmentTypeInL2v1               = 92004 /*!< SBML Level&nbsp;2 Version&nbsp;1 does not support compartment types */
- , NoSBOTermsInL2v1                      = 92005 /*!< SBML Level&nbsp;2 Version&nbsp;1 does not support the 'sboTerm' attribute */
- , NoIdOnSpeciesReferenceInL2v1          = 92006 /*!< SBML Level&nbsp;2 Version&nbsp;1 does not support the 'id' attribute on species references */
- , NoDelayedEventAssignmentInL2v1        = 92007 /*!< Attribute 'useValuesFromTriggerTime' not supported in this Level+Version of SBML */
+ , NoSBOTermsInL2v1                      = 92005 /*!< SBML Level&nbsp;2 Version&nbsp;1 does not support the <code>sboTerm</code> attribute */
+ , NoIdOnSpeciesReferenceInL2v1          = 92006 /*!< SBML Level&nbsp;2 Version&nbsp;1 does not support the <code>id</code> attribute on species references */
+ , NoDelayedEventAssignmentInL2v1        = 92007 /*!< Attribute <code>useValuesFromTriggerTime</code> not supported in this Level+Version of SBML */
 
   /* L2v2 compatability */
 
- , SBOTermNotUniversalInL2v2             = 93001 /*!< The 'sboTerm' attribute is invalid for this component in Level&nbsp;2 Version&nbsp;2 */
- , NoUnitOffsetInL2v2                    = 93002 /*!< The unit 'offset' attribute is invalid in this Level+Version of SBML */
- , NoKineticLawTimeUnitsInL2v2           = 93003 /*!< The 'timeUnits' attribute is invalid in this Level+Version of SBML */
- , NoKineticLawSubstanceUnitsInL2v2      = 93004 /*!< The 'substanceUnits' attribute is invalid in this Level+Version of SBML */
- , NoDelayedEventAssignmentInL2v2        = 93005 /*!< Attribute 'useValuesFromTriggerTime' not supported in this Level+Version of SBML */
- , ModelSBOBranchChangedBeyondL2v2       = 93006 /*!< The allowable 'sboTerm' values for model differ for this SBML Level+Version */
+ , SBOTermNotUniversalInL2v2             = 93001 /*!< The <code>sboTerm</code> attribute is invalid for this component in Level&nbsp;2 Version&nbsp;2 */
+ , NoUnitOffsetInL2v2                    = 93002 /*!< The unit <code>offset</code> attribute is invalid in this Level+Version of SBML */
+ , NoKineticLawTimeUnitsInL2v2           = 93003 /*!< The <code>timeUnits</code> attribute is invalid in this Level+Version of SBML */
+ , NoKineticLawSubstanceUnitsInL2v2      = 93004 /*!< The <code>substanceUnits</code> attribute is invalid in this Level+Version of SBML */
+ , NoDelayedEventAssignmentInL2v2        = 93005 /*!< Attribute <code>useValuesFromTriggerTime</code> not supported in this Level+Version of SBML */
+ , ModelSBOBranchChangedBeyondL2v2       = 93006 /*!< The allowable <code>sboTerm</code> values for model differ for this SBML Level+Version */
 
   /* L2v3 compatability  */
 
- , NoUnitOffsetInL2v3                    = 94001 /*!< Attribute 'offset' not supported in this Level+Version of SBML */
- , NoKineticLawTimeUnitsInL2v3           = 94002 /*!< Attribute 'timeUnits' not supported in this Level+Version of SBML */
- , NoKineticLawSubstanceUnitsInL2v3      = 94003 /*!< Attribute 'substanceUnits' not supported in this Level+Version of SBML */
- , NoSpeciesSpatialSizeUnitsInL2v3       = 94004 /*!< Attribute 'spatialSizeUnits' not supported in this Level+Version of SBML */
- , NoEventTimeUnitsInL2v3                = 94005 /*!< Attribute 'timeUnits' not supported in this Level+Version of SBML */
- , NoDelayedEventAssignmentInL2v3        = 94006 /*!< Attribute 'useValuesFromTriggerTime' not supported in this Level+Version of SBML */
- , ModelSBOBranchChangedBeyondL2v3       = 94007 /*!< The allowable 'sboTerm' values for model differ for this SBML Level+Version */
+ , NoUnitOffsetInL2v3                    = 94001 /*!< Attribute <code>offset</code> not supported in this Level+Version of SBML */
+ , NoKineticLawTimeUnitsInL2v3           = 94002 /*!< Attribute <code>timeUnits</code> not supported in this Level+Version of SBML */
+ , NoKineticLawSubstanceUnitsInL2v3      = 94003 /*!< Attribute <code>substanceUnits</code> not supported in this Level+Version of SBML */
+ , NoSpeciesSpatialSizeUnitsInL2v3       = 94004 /*!< Attribute <code>spatialSizeUnits</code> not supported in this Level+Version of SBML */
+ , NoEventTimeUnitsInL2v3                = 94005 /*!< Attribute <code>timeUnits</code> not supported in this Level+Version of SBML */
+ , NoDelayedEventAssignmentInL2v3        = 94006 /*!< Attribute <code>useValuesFromTriggerTime</code> not supported in this Level+Version of SBML */
+ , ModelSBOBranchChangedBeyondL2v3       = 94007 /*!< The allowable <code>sboTerm</code> values for model differ for this SBML Level+Version */
 
   /* L2v4 compatability  */
 
- , NoUnitOffsetInL2v4                    = 95001 /*!< The unit 'offset' attribute is invalid in this Level+Version of SBML */
- , NoKineticLawTimeUnitsInL2v4           = 95002 /*!< The 'timeUnits' attribute is invalid in this Level+Version of SBML */
- , NoKineticLawSubstanceUnitsInL2v4      = 95003 /*!< The 'substanceUnits' attribute is invalid in this Level+Version of SBML */
- , NoSpeciesSpatialSizeUnitsInL2v4       = 95004 /*!< The 'spatialSizeUnits' attribute is invalid in this Level+Version of SBML */
- , NoEventTimeUnitsInL2v4                = 95005 /*!< The 'timeUnits' attribute is invalid in this Level+Version of SBML */
- , ModelSBOBranchChangedInL2v4           = 95006 /*!< The allowable 'sboTerm' values for model differ for this SBML Level+Version */
+ , NoUnitOffsetInL2v4                    = 95001 /*!< The unit <code>offset</code> attribute is invalid in this Level+Version of SBML */
+ , NoKineticLawTimeUnitsInL2v4           = 95002 /*!< The <code>timeUnits</code> attribute is invalid in this Level+Version of SBML */
+ , NoKineticLawSubstanceUnitsInL2v4      = 95003 /*!< The <code>substanceUnits</code> attribute is invalid in this Level+Version of SBML */
+ , NoSpeciesSpatialSizeUnitsInL2v4       = 95004 /*!< The <code>spatialSizeUnits</code> attribute is invalid in this Level+Version of SBML */
+ , NoEventTimeUnitsInL2v4                = 95005 /*!< The <code>timeUnits</code> attribute is invalid in this Level+Version of SBML */
+ , ModelSBOBranchChangedInL2v4           = 95006 /*!< The allowable <code>sboTerm</code> values for model differ for this SBML Level+Version */
 
   /* These are errors checked by libSBML that were never
    * published in a spec. */
@@ -743,11 +743,11 @@ typedef enum
  , InvalidSBMLLevelVersion               = 99101 /*!< Invalid SBML Level and Version */
  , InvalidRuleOrdering                   = 99106 /*!< Invalid ordering of rules */
 
- , SubsUnitsAllowedInKL                  = 99127 /*!< Disallowed value for attribute 'substanceUnits' */
- , TimeUnitsAllowedInKL                  = 99128 /*!< Disallowed value for attribute 'timeUnits' */
+ , SubsUnitsAllowedInKL                  = 99127 /*!< Disallowed value for attribute <code>substanceUnits</code> */
+ , TimeUnitsAllowedInKL                  = 99128 /*!< Disallowed value for attribute <code>timeUnits</code> */
  , FormulaInLevel1KL                     = 99129 /*!< Only predefined functions are permitted in SBML Level&nbsp;1 formulas */
 
- , TimeUnitsRemoved                      = 99206  /*!< The 'timeUnits' attribute is invalid in this Level+Version of SBML */
+ , TimeUnitsRemoved                      = 99206  /*!< The <code>timeUnits</code> attribute is invalid in this Level+Version of SBML */
 
  , BadMathML                             = 99219 /*!< Invalid MathML expression */
  , FailedMathMLReadOfDouble              = 99220 /*!< Failed to read floating-point number */
@@ -756,7 +756,7 @@ typedef enum
  , FailedMathMLReadOfRational            = 99223 /*!< Failed to read a rational expression */
  , BadMathMLNodeType                     = 99224 /*!< Invalid MathML element */
 
- , NoTimeSymbolInFunctionDef             = 99301 /*!< <csymbol> for 'time' used within the <math> of a function definition */
+ , NoTimeSymbolInFunctionDef             = 99301 /*!< <code>&lt;csymbol&gt;</code> for <code>time</code> used within the <code>&lt;math&gt;</code> of a function definition */
 
 
   /* These are internal errors that reverts to 10501. */
@@ -768,36 +768,36 @@ typedef enum
   /** @endcond doxygen-libsbml-internal */
 
  , UndeclaredUnits                       = 99505 /*!< Undeclared units */
- , UnrecognisedSBOTerm                   = 99701 /*!< Unrecognized 'sboTerm' value */
- , ObseleteSBOTerm                       = 99702 /*!< Obsolete 'sboTerm' value */
+ , UnrecognisedSBOTerm                   = 99701 /*!< Unrecognized <code>sboTerm</code> value */
+ , ObseleteSBOTerm                       = 99702 /*!< Obsolete <code>sboTerm</code> value */
 
   /* Internal consistency checks */
 
  , IncorrectCompartmentSpatialDimensions = 99901 /*!< in SBML Level&nbsp;1, only three-dimensional compartments are permitted */
  , CompartmentTypeNotValidAttribute      = 99902 /*!< Compartment types not supported in this Level+Version of SBML */
- , ConstantNotValidAttribute             = 99903 /*!< Attribute 'constant' not supported on this component in SBML Level&nbsp;1 */
- , MetaIdNotValidAttribute               = 99904 /*!< Attribute 'metaid' not supported in SBML Level&nbsp;1 */
- , SBOTermNotValidAttributeBeforeL2V3    = 99905 /*!< 'sboTerm' not available on this component before SBML Level&nbsp;2 Version&nbsp;3 */
+ , ConstantNotValidAttribute             = 99903 /*!< Attribute <code>constant</code> not supported on this component in SBML Level&nbsp;1 */
+ , MetaIdNotValidAttribute               = 99904 /*!< Attribute <code>metaid</code> not supported in SBML Level&nbsp;1 */
+ , SBOTermNotValidAttributeBeforeL2V3    = 99905 /*!< <code>sboTerm</code> not available on this component before SBML Level&nbsp;2 Version&nbsp;3 */
  , InvalidL1CompartmentUnits             = 99906 /*!< Invalid units for a compartment in SBML Level&nbsp;1 */
  , L1V1CompartmentVolumeReqd             = 99907 /*!< Compartment volume must be specified */
  , CompartmentTypeNotValidComponent      = 99908 /*!< Compartment types not supported in this Level+Version of SBML */
  , ConstraintNotValidComponent           = 99909 /*!< Constraints not supported in this Level+Version of SBML */
  , EventNotValidComponent                = 99910 /*!< Events not supported in this Level+Version of SBML */
- , SBOTermNotValidAttributeBeforeL2V2    = 99911 /*!< The 'sboTerm' attribute is invalid for this component before Level&nbsp;2 Version&nbsp;2 */
+ , SBOTermNotValidAttributeBeforeL2V2    = 99911 /*!< The <code>sboTerm</code> attribute is invalid for this component before Level&nbsp;2 Version&nbsp;2 */
  , FuncDefNotValidComponent              = 99912 /*!< Function definitions are not supported in this Level+Version of SBML */
  , InitialAssignNotValidComponent        = 99913 /*!< Initial assignments are not supported in this Level+Version of SBML */
- , VariableNotValidAttribute             = 99914 /*!< Attribute 'variable' not valid */
- , UnitsNotValidAttribute                = 99915 /*!< Attribute 'units' not valid */
- , ConstantSpeciesNotValidAttribute      = 99916 /*!< Attribute 'constant' on species not supported in SBML Level&nbsp;1 */
- , SpatialSizeUnitsNotValidAttribute     = 99917 /*!< Attribute 'spatialSizeUnits' on species not supported in SBML Level&nbsp;1 */
- , SpeciesTypeNotValidAttribute          = 99918 /*!< Attribute 'speciesType' on species not supported in SBML Level&nbsp;1 */
- , HasOnlySubsUnitsNotValidAttribute     = 99919 /*!< Attribute 'hasOnlySubstanceUnits' on species not supported in SBML Level&nbsp;1 */
- , IdNotValidAttribute                   = 99920 /*!< Attribute 'id' on species references not supported in SBML Level&nbsp;1 */
- , NameNotValidAttribute                 = 99921 /*!< Attribute 'name' on species references not supported in SBML Level&nbsp;1 */
+ , VariableNotValidAttribute             = 99914 /*!< Attribute <code>variable</code> not valid */
+ , UnitsNotValidAttribute                = 99915 /*!< Attribute <code>units</code> not valid */
+ , ConstantSpeciesNotValidAttribute      = 99916 /*!< Attribute <code>constant</code> on species not supported in SBML Level&nbsp;1 */
+ , SpatialSizeUnitsNotValidAttribute     = 99917 /*!< Attribute <code>spatialSizeUnits</code> on species not supported in SBML Level&nbsp;1 */
+ , SpeciesTypeNotValidAttribute          = 99918 /*!< Attribute <code>speciesType</code> on species not supported in SBML Level&nbsp;1 */
+ , HasOnlySubsUnitsNotValidAttribute     = 99919 /*!< Attribute <code>hasOnlySubstanceUnits</code> on species not supported in SBML Level&nbsp;1 */
+ , IdNotValidAttribute                   = 99920 /*!< Attribute <code>id</code> on species references not supported in SBML Level&nbsp;1 */
+ , NameNotValidAttribute                 = 99921 /*!< Attribute <code>name</code> on species references not supported in SBML Level&nbsp;1 */
  , SpeciesTypeNotValidComponent          = 99922 /*!< Species types not supported in SBML Level&nbsp;1 */
- , StoichiometryMathNotValidComponent    = 99923 /*!< <stochiometryMath> not supported in SBML Level&nbsp;1 */
- , MultiplierNotValidAttribute           = 99924 /*!< Attribute 'multiplier' on units not supported in SBML Level&nbsp;1 */
- , OffsetNotValidAttribute               = 99925 /*!< Attribute 'offset' on units only available in SBML Level&nbsp;2 Version&nbsp;1 */
+ , StoichiometryMathNotValidComponent    = 99923 /*!< <code>&lt;stoichiometryMath&gt;</code> not supported in SBML Level&nbsp;1 */
+ , MultiplierNotValidAttribute           = 99924 /*!< Attribute <code>multiplier</code> on units not supported in SBML Level&nbsp;1 */
+ , OffsetNotValidAttribute               = 99925 /*!< Attribute <code>offset</code> on units only available in SBML Level&nbsp;2 Version&nbsp;1 */
 
   /* Bounds */
 
