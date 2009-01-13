@@ -18,8 +18,8 @@ using namespace std;
 //
 // Functions for creating the Example SBML documents.
 //
-SBMLDocument* createExampleEnzymaticReaction(); 
-SBMLDocument* createExampleInvolvingUnits();
+SBMLDocument* createExampleEnzymaticReaction();  /* 7.1 */
+SBMLDocument* createExampleInvolvingUnits();     /* 7.2 */
 
 //
 // Helper functions for writing/validation the created SBML document.
@@ -72,6 +72,15 @@ main (int argc, char *argv[])
     result  = writeAndValidateExampleSBML(sbmlDoc, "enzymaticreaction.xml");
     delete sbmlDoc;
     if (!result) return 1;
+
+    //-------------------------------------------------
+    // 7.2 Example involving units
+    //-------------------------------------------------
+    sbmlDoc = createExampleInvolvingUnits(); 
+    result  = writeAndValidateExampleSBML(sbmlDoc, "units.xml");
+    delete sbmlDoc;
+    if (!result) return 1;
+
   }
   catch(std::bad_alloc& e)
   {
@@ -421,8 +430,6 @@ SBMLDocument* createExampleEnzymaticReaction()
  * Creates an SBML model represented in "7.2 Example involving units"
  * in SBML Specification.
  *
- *  (not implemented yet)
- *
  */
 SBMLDocument* createExampleInvolvingUnits()
 {
@@ -437,13 +444,392 @@ SBMLDocument* createExampleInvolvingUnits()
 
   SBMLDocument* sbmlDoc = new SBMLDocument(level,version);
 
+  // Adds the namespace of xhtml to the SBMLDocument object.
+  // (By default, the namespace of the corresponding SBML level/version is added 
+  //  to the SBMLDocument object as a default namespace)
+
+  sbmlDoc->getNamespaces()->add("http://www.w3.org/1999/xhtml", "xhtml");
+
   //---------------------------------------------------------------------------
   //
   // Creates a Model object inside the SBMLDocument object. 
   //
   //---------------------------------------------------------------------------
 
-  //Model* model = sbmlDoc->createModel();
+  Model* model = sbmlDoc->createModel();
+
+
+  //---------------------------------------------------------------------------
+  //
+  // Creates UnitDefinition objects inside the Model object.
+  //
+  //---------------------------------------------------------------------------
+
+  //---------------------------------------------------------------------------  
+  // (UnitDefinition1) Creates an UnitDefinition object ("substance")
+  //---------------------------------------------------------------------------
+
+  UnitDefinition* unitdef = model->createUnitDefinition();
+  unitdef->setId("substance");
+
+  //  Creates an Unit inside the UnitDefinition object 
+
+  Unit* unit = unitdef->createUnit();
+  unit->setKind(UNIT_KIND_MOLE);
+  unit->setScale(-3);
+
+  //--------------------------------------------------------------------------------
+  // (UnitDefinition2) Creates an UnitDefinition object ("mmls") 
+  //--------------------------------------------------------------------------------
+    
+  unitdef = model->createUnitDefinition();
+  unitdef->setId("mmls");
+    
+  //  Creates an Unit inside the UnitDefinition object ("mmls")
+
+  unit = unitdef->createUnit();
+  unit->setKind(UNIT_KIND_MOLE);
+  unit->setScale(-3);
+
+  //  Creates an Unit inside the UnitDefinition object ("mmls")
+
+  unit = unitdef->createUnit();
+  unit->setKind(UNIT_KIND_LITRE);
+  unit->setExponent(-1);
+
+  //  Creates an Unit inside the UnitDefinition object ("mmls")
+
+  unit = unitdef->createUnit();
+  unit->setKind(UNIT_KIND_SECOND);
+  unit->setExponent(-1);
+
+  //--------------------------------------------------------------------------------
+  // (UnitDefinition3) Creates an UnitDefinition object ("mml") 
+  //--------------------------------------------------------------------------------
+    
+  unitdef = model->createUnitDefinition();
+  unitdef->setId("mml");
+    
+  //  Creates an Unit inside the UnitDefinition object ("mml")
+
+  unit = unitdef->createUnit();
+  unit->setKind(UNIT_KIND_MOLE);
+  unit->setScale(-3);
+
+  //  Creates an Unit inside the UnitDefinition object ("mml")
+
+  unit = unitdef->createUnit();
+  unit->setKind(UNIT_KIND_LITRE);
+  unit->setExponent(-1);
+
+
+  //---------------------------------------------------------------------------
+  //
+  // Creates a Compartment object inside the Model object. 
+  //
+  //---------------------------------------------------------------------------
+
+  const string compName = "cell";
+
+  // Creates a Compartment object ("cell")
+
+  Compartment* comp = model->createCompartment();
+
+  comp->setId(compName);
+ 
+  // Sets the "size" attribute of the Compartment object.
+  //
+  //   The units of this Compartment object is the default SBML 
+  //   units of volume (litre), and thus we don't have to explicitly invoke 
+  //   setUnits("litre") function to set the default units.
+  //
+  comp->setSize(1);
+
+
+  //---------------------------------------------------------------------------
+  //
+  // Creates Species objects inside the Model object. 
+  //
+  //---------------------------------------------------------------------------
+  
+  //---------------------------------------------------------------------------
+  // (Species1) Creates a Species object ("x0")
+  //---------------------------------------------------------------------------
+
+  Species* sp = model->createSpecies();
+
+  sp->setId("x0");
+
+  // Sets the "compartment" attribute of the Species object to identify the 
+  // compartnet in which the Species object located.
+  sp->setCompartment(compName);
+
+  // Sets the "initialConcentration" attribute of the Species object.
+  //
+  //  The units of this Species object is determined by two attributes of this 
+  //  Species object ("subStanceUnits" and "hasOnlySubstanceUnits") and the
+  //  "spatialDimension" attribute of the Compartment object ("cytosol") in which 
+  //  this species object located.
+  //  Since the default values are used for "subStanceUnits" (substance (mole)) 
+  //  and "hasOnlySubstanceUnits" (false) and the value of "spatialDimension" (3) 
+  //  is greater than 0, the units of this Species object is  mole/litre . 
+  //
+  sp->setInitialConcentration(1);
+
+  //---------------------------------------------------------------------------
+  // (Species2) Creates a Species object ("x1")
+  //---------------------------------------------------------------------------
+
+  sp = model->createSpecies();
+  sp->setId("x1");
+  sp->setCompartment(compName);
+  sp->setInitialConcentration(1);
+
+  //---------------------------------------------------------------------------
+  // (Species3) Creates a Species object ("s1")
+  //---------------------------------------------------------------------------
+
+  sp = model->createSpecies();
+  sp->setCompartment(compName);
+  sp->setId("s1");
+  sp->setInitialConcentration(1);
+
+  //---------------------------------------------------------------------------
+  // (Species4) Creates a Species object ("s2")
+  //---------------------------------------------------------------------------
+
+  sp = model->createSpecies();
+  sp->setCompartment(compName);
+  sp->setId("s2");
+  sp->setInitialConcentration(1);
+
+  //---------------------------------------------------------------------------
+  //
+  // Creates global Parameter objects inside the Model object. 
+  //
+  //---------------------------------------------------------------------------
+
+  // Creates a Parameter ("vm")  
+
+  Parameter* para = model->createParameter();
+  para->setId("vm");
+  para->setValue(2);
+  para->setUnits("mmls");
+
+  // Creates a Parameter ("km")  
+
+  para = model->createParameter();
+  para->setId("km");
+  para->setValue(2);
+  para->setUnits("mml");
+
+
+  //---------------------------------------------------------------------------
+  //
+  // Creates Reaction objects inside the Model object. 
+  //
+  //---------------------------------------------------------------------------
+  
+  //---------------------------------------------------------------------------
+  // (Reaction1) Creates a Reaction object ("v1").
+  //---------------------------------------------------------------------------
+
+  Reaction* reac = model->createReaction();
+  reac->setId("v1");
+
+  //---------------------------------------------------------------------------
+  // Creates Reactant objects inside the Reaction object ("v1"). 
+  //---------------------------------------------------------------------------
+
+  // (Reactant1) Creates a Reactant object that references Species "x0"
+  // in the model.
+  SpeciesReference* spr = reac->createReactant();
+  spr->setSpecies("x0");
+
+  //---------------------------------------------------------------------------
+  // Creates a Product object inside the Reaction object ("v1"). 
+  //---------------------------------------------------------------------------
+
+  // Creates a Product object that references Species "s1" in the model. 
+  spr = reac->createProduct();
+  spr->setSpecies("s1");
+
+
+  //---------------------------------------------------------------------------
+  // Creates a KineticLaw object inside the Reaction object ("v1"). 
+  //---------------------------------------------------------------------------
+  
+  KineticLaw* kl = reac->createKineticLaw();
+
+  // sets a notes (by string) to the KineticLaw object.
+
+  string notesString = "<xhtml:p>((vm * s1)/(km + s1))*cell</xhtml:p>";
+  kl->setNotes(notesString);
+
+  //---------------------------------------------------------------------------
+  // Sets a math (ASTNode object) to the KineticLaw object.
+  //---------------------------------------------------------------------------
+
+  string mathXMLString = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
+                         "  <apply>"
+                         "    <times/>"
+                         "    <apply>"
+                         "      <divide/>"
+                         "      <apply>"
+                         "        <times/>"
+                         "        <ci> vm </ci>"
+                         "        <ci> s1 </ci>"
+                         "      </apply>"
+                         "      <apply>"
+                         "        <plus/>"
+                         "          <ci> km </ci>"
+                         "          <ci> s1 </ci>"
+                         "      </apply>"
+                         "    </apply>"
+                         "    <ci> cell </ci>"
+                         "  </apply>"
+                         "</math>";
+
+  kl->setMath(readMathMLFromString(mathXMLString.c_str()));
+
+
+  //---------------------------------------------------------------------------
+  // (Reaction2) Creates a Reaction object ("v2").
+  //---------------------------------------------------------------------------
+
+  reac = model->createReaction();
+  reac->setId("v2");
+
+  //---------------------------------------------------------------------------
+  // Creates Reactant objects inside the Reaction object ("v2"). 
+  //---------------------------------------------------------------------------
+
+  // (Reactant2) Creates a Reactant object that references Species "s1"
+  // in the model.
+  spr = reac->createReactant();
+  spr->setSpecies("s1");
+
+  //---------------------------------------------------------------------------
+  // Creates a Product object inside the Reaction object ("v2"). 
+  //---------------------------------------------------------------------------
+
+  // Creates a Product object that references Species "s2" in the model. 
+  spr = reac->createProduct();
+  spr->setSpecies("s2");
+
+
+  //---------------------------------------------------------------------------
+  // Creates a KineticLaw object inside the Reaction object ("v2"). 
+  //---------------------------------------------------------------------------
+  
+  kl = reac->createKineticLaw();
+
+
+  // Sets a notes (by XMLNode) to the KineticLaw object.
+  //
+  //   The following code can be implemented by setNotes(const string&)
+  //   function instead of setNotes(const XMLNode*) as follows:
+  //   
+  //     notesString = "<xhtml:p>((vm * s2)/(km + s2))*cell</xhtml:p>";
+  //     kl->setNotes(notesString);
+  //
+
+  // Creates an XMLNode of start element (<xhtml:p>) without attributes.
+  XMLNode notesXMLNode(XMLTriple("p","","xhtml"),XMLAttributes());
+  // Adds a text element to the start element.
+  notesXMLNode.addChild(XMLNode("((vm * s2)/(km + s2))*cell")); 
+
+  kl->setNotes(&notesXMLNode);
+
+  //---------------------------------------------------------------------------
+  // Sets a math (ASTNode object) to the KineticLaw object.
+  //---------------------------------------------------------------------------
+
+  mathXMLString = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
+                  "  <apply>"
+                  "    <times/>"
+                  "    <apply>"
+                  "      <divide/>"
+                  "      <apply>"
+                  "        <times/>"
+                  "        <ci> vm </ci>"
+                  "        <ci> s2 </ci>"
+                  "      </apply>"
+                  "      <apply>"
+                  "        <plus/>"
+                  "          <ci> km </ci>"
+                  "          <ci> s2 </ci>"
+                  "      </apply>"
+                  "    </apply>"
+                  "    <ci> cell </ci>"
+                  "  </apply>"
+                  "</math>";
+
+  kl->setMath(readMathMLFromString(mathXMLString.c_str()));
+
+
+  //---------------------------------------------------------------------------
+  // (Reaction3) Creates a Reaction object ("v3").
+  //---------------------------------------------------------------------------
+
+  reac = model->createReaction();
+  reac->setId("v3");
+
+  //---------------------------------------------------------------------------
+  // Creates Reactant objects inside the Reaction object ("v3"). 
+  //---------------------------------------------------------------------------
+
+  // (Reactant2) Creates a Reactant object that references Species "s2"
+  // in the model.
+  spr = reac->createReactant();
+  spr->setSpecies("s2");
+
+  //---------------------------------------------------------------------------
+  // Creates a Product object inside the Reaction object ("v3"). 
+  //---------------------------------------------------------------------------
+
+  // Creates a Product object that references Species "x1" in the model. 
+  spr = reac->createProduct();
+  spr->setSpecies("x1");
+
+
+  //---------------------------------------------------------------------------
+  // Creates a KineticLaw object inside the Reaction object ("v3"). 
+  //---------------------------------------------------------------------------
+  
+  kl = reac->createKineticLaw();
+
+  // sets a notes (by string) to the KineticLaw object.
+
+  notesString = "<xhtml:p>((vm * x1)/(km + x1))*cell</xhtml:p>";
+  kl->setNotes(notesString);
+
+  //---------------------------------------------------------------------------
+  // Sets a math (ASTNode object) to the KineticLaw object.
+  //---------------------------------------------------------------------------
+
+  mathXMLString = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
+                  "  <apply>"
+                  "    <times/>"
+                  "    <apply>"
+                  "      <divide/>"
+                  "      <apply>"
+                  "        <times/>"
+                  "        <ci> vm </ci>"
+                  "        <ci> x1 </ci>"
+                  "      </apply>"
+                  "      <apply>"
+                  "        <plus/>"
+                  "          <ci> km </ci>"
+                  "          <ci> x1 </ci>"
+                  "      </apply>"
+                  "    </apply>"
+                  "    <ci> cell </ci>"
+                  "  </apply>"
+                  "</math>";
+
+  kl->setMath(readMathMLFromString(mathXMLString.c_str()));
+
 
   // Returns the created SBMLDocument object.
   // The returned object must be explicitly deleted by the caller,
