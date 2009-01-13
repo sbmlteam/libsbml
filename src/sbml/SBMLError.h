@@ -993,6 +993,10 @@ public:
    * href="#SBMLErrorCategory_t">SBMLErrorCategory_t</a>, but their own
    * special values) for @p severity and @p category.
    *
+   * Please see the top of the documentation for SBMLError for a longer
+   * discussion of the possible error codes, their meanings, and their
+   * applicability to different combinations of Level+Version of SBML.
+   *
    * @param errorId an unsigned int, the identification number of the error.
    *
    * @param level the SBML Level of the SBML model
