@@ -39,7 +39,7 @@ LIBS      += -lstdc++ -lm
 # assigned to the variables above.
 
 programs   = convertSBML echoSBML printSBML readSBML translateMath \
-	     validateSBML printMath printUnits
+	     validateSBML printMath printUnits createExampleSBML
 
 all: $(programs)
 
@@ -83,6 +83,9 @@ unsetAnnotation: unsetAnnotation.cpp util.c
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 unsetNotes: unsetNotes.cpp util.c
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+createExampleSBML: createExampleSBML.cpp
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 clean:

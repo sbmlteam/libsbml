@@ -77,6 +77,7 @@ examples =                                                       \
   examples/c++/util.c                                            \
   examples/c++/util.h                                            \
   examples/c++/validateSBML.cpp                                  \
+  examples/c++/createExampleSBML.cpp                             \
   examples/java/Makefile.in                                      \
   examples/java/README.txt                                       \
   examples/java/convertSBML.java                                 \
