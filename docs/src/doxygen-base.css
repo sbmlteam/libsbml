@@ -1,7 +1,7 @@
 BODY {
   background: white;
   color: black;
-  font-family: Palatino, serif;
+  font-family: Palatino, "Book Antiqua", serif;
   font-size: 14px;
   line-height: 120%;
   margin-right: 20px;
@@ -43,32 +43,24 @@ TD.footer {
 
 H1 {
   text-align: center;
-  font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
   font-size: 22px;
-  padding-top: 10px;
+  padding-top: 2em;
 }
 
 H2 {
-  font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
   font-size: 18px;
+  padding-top: 1em;
 }
 
 H3 {
-  font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
   font-style: italic;
   font-size: 16px;
+  padding-top: 0.5em;
 }
 
 H4 {
-  font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
   font-style: italic;
   font-size: 13px;
-}
-
-CAPTION {
-  font-weight: bold;
-  font-family: Helvetica, Arial, Geneva, Sans, sans-serif; 
-  font-size: 12px;
 }
 
 DIV.qindex {
@@ -568,3 +560,30 @@ td.s-na {
   text-align: center;
 }
 
+caption {
+  font-weight: normal;
+  font-style: italic;
+  text-align: left;
+  margin-bottom: 1em;
+}
+
+.text-table {
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+  margin: 2em auto;
+  border-collapse: collapse;
+}
+
+.text-table th {
+  padding: 3px 2px 1px 2px;
+  border-bottom: 1px solid #bbb;
+  vertical-align: bottom;
+}
+
+.text-table td { 
+  padding: 2px;
+}
+
+.width80 {
+  width: 80%;
+}
