@@ -32,25 +32,27 @@ main (int argc, char* argv[])
 }
 @endverbatim
 The code above illustrates probably the simplest possible use of libSBML:
-reading a model and printing any errors encountered.  The code begins with
-the inclusion of a single SBML header file, SBMLTypes.h, which serves to
-include most of the other useful libSBML individual header files.  Next, in
-the body of the main function, the line 
+reading a model and printing any errors or warnings encountered.  The code
+begins with the inclusion of a single SBML header file, SBMLTypes.h, which
+serves to include most of the other useful libSBML individual header files.
+Next, in the body of the main function, the line
 @verbatim
 SBMLDocument* document = readSBML(argv[1]);
 @endverbatim
 reads in a file and returns a pointer to an SBMLDocument object.  A
-subsequent call to the SBMLDocument::getNumErrors() method returns the
-number of errors encountered (if any), and the call to
-SBMLDocument::printErrors() prints them to the C++ standard error output
-stream.
+subsequent call to the method @link SBMLDocument::getNumErrors()
+getNumErrors() @endlink on that object returns the number of errors
+encountered (if any), and a call to @link SBMLDocument::printErrors()
+printErrors() @endlink method prints the errors (if any) to the C++
+standard error output stream.
 
 
 @section rf-reading Reading SBML
 
 SBML may be read from a file or an in-memory character string into an
-SBMLDocument.  LibSBML defines two basic, global functions for reading
-SBML:
+SBMLDocument.  LibSBML defines two basic, convenient, global functions (not
+methods on a specific object class, but global functions in the classic C
+programming sense) for reading SBML:
 
 @li <code>SBMLDocument* readSBML(const char* filename)</code>.  This
 function takes a file name, attempts to read an SBML document from the
@@ -86,18 +88,21 @@ attributes "level" and "version" indicating the Level and Version of the
 SBML read.  SBase (and thus its subclasses such as SBMLDocument) provides
 methods for querying this information:
 
-@li <code>unsigned int SBMLDocument::getLevel()</code> returns the SBML
-Level of the model.
+@li <code>unsigned int @link SBMLDocument::getLevel()
+getLevel()@endlink</code> on an SBMLDocument object returns the SBML Level
+of the model.
 
-@li <code>unsigned int SBMLDocument::getVersion()</code> returns the SBML
+@li <code>unsigned int @link SBMLDocument::getVersion()
+getVersion()@endlink</code> on an SBMLDocument object returns the SBML
 Version within the Level of the model.
 
 Of course, the whole point of reading an SBML file or data stream is to get
 at the SBML model it contains.  The following method allows access to the
 Model object within an SBML document:
 
-@li <code>Model* SBMLDocument::getModel()</code> returns a Model object
-for the SBML model contained in the SBMLDocument.
+@li <code>Model* @link SBMLDocument::getModel() getModel()@endlink</code>
+on an SBMLDocument object returns a Model object representing the SBML
+model contained within that SBMLDocument object.
 
 SBMLDocument also acts to log any problems encountered while reading the
 model from the file or data stream.  Whether the problems are warnings or
@@ -106,19 +111,25 @@ object class SBMLError.  The example earlier on this page already showed
 some of the methods available for accessing errors and warnings; here is a
 slightly more complete list:
 
-@li <code>unsigned int SBMLDocument::getNumErrors()</code> returns a count
-of the diagnostic messages logged during while attempting to read an SBML
-model using either readSBML(const char *filename) or readFromString(const
-char *xml).
+@li <code>unsigned int @link SBMLDocument::getNumErrors()
+getNumErrors()@endlink</code> on an SBMLDocument object returns a count of
+the diagnostic messages logged while attempting to read an SBML model using
+either readSBML(const char *filename) or readFromString(const char *xml).
 
-@li <code>const SBMLError* SBMLDocument::getError(unsigned int n) const</code>
-returns a specific error indexed by the integer @c n.  The SBMLError object
-class provides methods for assessing the severity of the problem
-encountered and for finding out the line and column number of where the
-problem occurred in the SBML input.
+@li <code>const SBMLError* @link SBMLDocument::getError(unsigned int n)
+getError(unsigned int n)@endlink const</code> returns a specific error
+indexed by the integer @c n.  (Callers should first use <code>@link
+SBMLDocument::getNumErrors() getNumErrors()@endlink</code> to get the
+number of errors, so that they can know the range of valid index numbers.)
+The SBMLError object class provides methods for assessing the severity of
+the problem encountered and for finding out the line and column number of
+where the problem occurred in the SBML input.
 
-@li <code>void SBMLDocument::printErrors(std::ostream& stream = std::cerr)</code> 
-prints all of the diagnostics to the given output stream.
+@li <code>void @link SBMLDocument::printErrors(std::ostream& stream = std::cerr)
+printErrors(std::ostream& stream = std::cerr)@endlink</code> on
+an SBMLDocument object prints all of the diagnostics to the given output
+stream, defaulting to the standard error stream if no stream argument is
+given in the call.
 
 Finally, another set of SBMLDocument methods worth mentioning in the
 context of reading SBML are those for running consistency-checking and
@@ -130,40 +141,47 @@ SBML is properly constructed; they cannot tell if a model is nonsense.
 (But at least they can assess whether it's syntactically correct
 nonsense!).
 
-@li <code>unsigned int SBMLDocument::checkConsistency()</code> performs a
-set of structural and mathematical checks on the SBML content and reports
-the number of failed checks (errors) encountered.  Use the
-SBMLDocument::getNumErrors() and SBMLDocument::getError(unsigned int)
-interfaces to examine the individual errors.
+@li <code>unsigned int @link SBMLDocument::checkConsistency()
+checkConsistency()@endlink</code>, invoked on an SBMLDocument object,
+performs a set of structural and mathematical checks on the SBML content
+and reports the number of failed checks (errors) encountered.  Callers may
+use <code>@link SBMLDocument::getNumErrors() getNumErrors()@endlink</code>
+and <code>@link SBMLDocument::getError(unsigned int n) getError(unsigned
+int n)@endlink</code> interfaces to examine the individual errors.
 
-@li <code>unsigned int SBMLDocument::checkL1Compatibility()</code> peforms
-a set of semantic consistency checks on the document to establish whether
-it can be converted to SBML Level&nbsp;1, and returns the number of failures.
+@li <code>unsigned int @link SBMLDocument::checkL1Compatibility()
+checkL1Compatibility()@endlink</code> peforms a set of semantic consistency
+checks on the document to establish whether it can be converted to SBML
+Level&nbsp;1, and returns the number of failures.  If all the checks
+succeed, it returns 0.
+
+@li <code>unsigned int @link SBMLDocument::checkL2v1Compatibility()
+checkL2v1Compatibility()@endlink</code> peforms a set of semantic
+consistency checks on the document to establish whether it can be converted
+to SBML Level&nbsp;2 Version 1, and returns the number of failures.  If all
+the checks succeed, it returns 0.
+
+@li <code>unsigned int @link SBMLDocument::checkL2v2Compatibility()
+checkL2v2Compatibility()@endlink</code> peforms a set of semantic
+consistency checks on the document to establish whether it can be converted
+to SBML Level&nbsp;2 Version&nbsp;2, and returns the number of failures.
 If all the checks succeed, it returns 0.
 
-@li <code>unsigned int SBMLDocument::checkL2v1Compatibility()</code>
-peforms a set of semantic consistency checks on the document to establish
-whether it can be converted to SBML Level&nbsp;2 Version 1, and returns the
-number of failures.  If all the checks succeed, it returns 0.
+@li <code>unsigned int @link SBMLDocument::checkL2v3Compatibility()
+checkL2v3Compatibility()@endlink</code> peforms a set of semantic
+consistency checks on the document to establish whether it can be converted
+to SBML Level&nbsp;2 Version&nbsp;3, and returns the number of failures.
+If all the checks succeed, it returns 0.
 
-@li <code>unsigned int SBMLDocument::checkL2v2Compatibility()</code>
-peforms a set of semantic consistency checks on the document to establish
-whether it can be converted to SBML Level&nbsp;2 Version&nbsp;2, and
-returns the number of failures.  If all the checks succeed, it returns 0.
-
-@li <code>unsigned int SBMLDocument::checkL2v3Compatibility()</code>
-peforms a set of semantic consistency checks on the document to establish
-whether it can be converted to SBML Level&nbsp;2 Version&nbsp;3, and
-returns the number of failures.  If all the checks succeed, it returns 0.
-
-@li <code>unsigned int SBMLDocument::checkL2v4Compatibility()</code>
-peforms a set of semantic consistency checks on the document to establish
-whether it can be converted to SBML Level&nbsp;2 Version&nbsp;4, and
-returns the number of failures.  If all the checks succeed, it returns 0.
+@li <code>unsigned int @link SBMLDocument::checkL2v4Compatibility()
+checkL2v4Compatibility()@endlink</code> peforms a set of semantic
+consistency checks on the document to establish whether it can be converted
+to SBML Level&nbsp;2 Version&nbsp;4, and returns the number of failures.
+If all the checks succeed, it returns 0.
 
 At the time of this writing, the most recent release of SBML is
-Level&nbsp;2 Version&nbsp;4, which is why the compatibility checks above
-only refer to Level&nbsp;2 Version&nbsp;4 at the most.
+Level&nbsp;2 Version&nbsp;4, which is why Version&nbsp;4 is the highest
+version numbered referred to in the compatibility checks above.
 
 
 @section rf-writing Writing SBML
