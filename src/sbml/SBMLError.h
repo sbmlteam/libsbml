@@ -313,6 +313,7 @@
  * <tr><td><em>SpeciesCompartmentRequiredInL1</em></td><td>In SBML Level 1, a value for <code>compartment</code> is mandatory in species definitions</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>NoSpeciesSpatialSizeUnitsInL1</em></td><td>SBML Level 1 does not support species <code>spatialSizeUnits</code> settings</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>NoSBOTermsInL1</em></td><td>SBML Level 1 does not support the <code>sboTerm</code> attribute</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td></tr>
+ * <tr><td><em>StrictUnitsRequiredInL1</em></td><td>SBML Level 1 requires strict unit consistency</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
  * <tr><td><em>NoConstraintsInL2v1</em></td><td>SBML Level&nbsp;2 Version&nbsp;1 does not support constraints</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td></tr>
  * <tr><td><em>NoInitialAssignmentsInL2v1</em></td><td>SBML Level&nbsp;2 Version&nbsp;1 does not support initial assignments</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><em>NoSpeciesTypeInL2v1</em></td><td>SBML Level&nbsp;2 Version&nbsp;1 does not support species types</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td></tr>
@@ -320,12 +321,15 @@
  * <tr><td><em>NoSBOTermsInL2v1</em></td><td>SBML Level&nbsp;2 Version&nbsp;1 does not support the <code>sboTerm</code> attribute</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td></tr>
  * <tr><td><em>NoIdOnSpeciesReferenceInL2v1</em></td><td>SBML Level&nbsp;2 Version&nbsp;1 does not support the <code>id</code> attribute on species references</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td></tr>
  * <tr><td><em>NoDelayedEventAssignmentInL2v1</em></td><td>Attribute <code>useValuesFromTriggerTime</code> not supported in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
+ * <tr><td><em>StrictUnitsRequiredInL2v1</em></td><td>SBML Level&nbsp;2 Version&nbsp;1 requires strict unit consistency</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
  * <tr><td><em>SBOTermNotUniversalInL2v2</em></td><td>The <code>sboTerm</code> attribute is invalid for this component in Level&nbsp;2 Version&nbsp;2</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-warning">W</td><td class="s-warning">W</td></tr>
  * <tr><td><em>NoUnitOffsetInL2v2</em></td><td>The unit <code>offset</code> attribute is invalid in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><em>NoKineticLawTimeUnitsInL2v2</em></td><td>The <code>timeUnits</code> attribute is invalid in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><em>NoKineticLawSubstanceUnitsInL2v2</em></td><td>The <code>substanceUnits</code> attribute is invalid in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><em>NoDelayedEventAssignmentInL2v2</em></td><td>Attribute <code>useValuesFromTriggerTime</code> not supported in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
  * <tr><td><em>ModelSBOBranchChangedBeyondL2v2</em></td><td>The allowable <code>sboTerm</code> values for model differ for this SBML Level+Version</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
+ * <tr><td><em>StrictUnitsRequiredInL2v2</em></td><td>SBML Level&nbsp;2 Version&nbsp;2 requires strict unit consistency</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
+ * <tr><td><em>StrictSBORequiredInL2v2</em></td><td>SBML Level&nbsp;2 Version&nbsp;2 requires strict sbo consistency</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
  * <tr><td><em>NoUnitOffsetInL2v3</em></td><td>Attribute <code>offset</code> not supported in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><em>NoKineticLawTimeUnitsInL2v3</em></td><td>Attribute <code>timeUnits</code> not supported in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><em>NoKineticLawSubstanceUnitsInL2v3</em></td><td>Attribute <code>substanceUnits</code> not supported in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
@@ -333,6 +337,8 @@
  * <tr><td><em>NoEventTimeUnitsInL2v3</em></td><td>Attribute <code>timeUnits</code> not supported in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><em>NoDelayedEventAssignmentInL2v3</em></td><td>Attribute <code>useValuesFromTriggerTime</code> not supported in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
  * <tr><td><em>ModelSBOBranchChangedBeyondL2v3</em></td><td>The allowable <code>sboTerm</code> values for model differ for this SBML Level+Version</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
+ * <tr><td><em>StrictUnitsRequiredInL2v3</em></td><td>SBML Level&nbsp;2 Version&nbsp;3 requires strict unit consistency</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
+ * <tr><td><em>StrictSBORequiredInL2v3</em></td><td>SBML Level&nbsp;2 Version&nbsp;3 requires strict sbo consistency</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
  * <tr><td><em>NoUnitOffsetInL2v4</em></td><td>The unit <code>offset</code> attribute is invalid in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><em>NoKineticLawTimeUnitsInL2v4</em></td><td>The <code>timeUnits</code> attribute is invalid in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><em>NoKineticLawSubstanceUnitsInL2v4</em></td><td>The <code>substanceUnits</code> attribute is invalid in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
@@ -698,6 +704,7 @@ typedef enum
  , SpeciesCompartmentRequiredInL1        = 91011 /*!< In SBML Level&nbsp;1, a value for <code>compartment</code> is mandatory in species definitions */
  , NoSpeciesSpatialSizeUnitsInL1         = 91012 /*!< SBML Level&nbsp;1 does not support species <code>spatialSizeUnits</code> settings */
  , NoSBOTermsInL1                        = 91013 /*!< SBML Level&nbsp;1 does not support the <code>sboTerm</code> attribute */
+ , StrictUnitsRequiredInL1               = 91014 /*!< SBML Level&nbsp;1 requires strict unit consistency */
 
   /* L2v1 compatability */
 
@@ -708,6 +715,7 @@ typedef enum
  , NoSBOTermsInL2v1                      = 92005 /*!< SBML Level&nbsp;2 Version&nbsp;1 does not support the <code>sboTerm</code> attribute */
  , NoIdOnSpeciesReferenceInL2v1          = 92006 /*!< SBML Level&nbsp;2 Version&nbsp;1 does not support the <code>id</code> attribute on species references */
  , NoDelayedEventAssignmentInL2v1        = 92007 /*!< Attribute <code>useValuesFromTriggerTime</code> not supported in this Level+Version of SBML */
+ , StrictUnitsRequiredInL2v1             = 92008 /*!< SBML Level&nbsp;2 Version&nbsp;1 requires strict unit consistency */
 
   /* L2v2 compatability */
 
@@ -717,6 +725,8 @@ typedef enum
  , NoKineticLawSubstanceUnitsInL2v2      = 93004 /*!< The <code>substanceUnits</code> attribute is invalid in this Level+Version of SBML */
  , NoDelayedEventAssignmentInL2v2        = 93005 /*!< Attribute <code>useValuesFromTriggerTime</code> not supported in this Level+Version of SBML */
  , ModelSBOBranchChangedBeyondL2v2       = 93006 /*!< The allowable <code>sboTerm</code> values for model differ for this SBML Level+Version */
+ , StrictUnitsRequiredInL2v2             = 93007 /*!< SBML Level&nbsp;2 Version&nbps;2 requires strict unit consistency */
+ , StrictSBORequiredInL2v2               = 93008 /*!< SBML Level&nbsp;2 Version&nbps;2 requires strict sbo consistency */
 
   /* L2v3 compatability  */
 
@@ -727,6 +737,8 @@ typedef enum
  , NoEventTimeUnitsInL2v3                = 94005 /*!< Attribute <code>timeUnits</code> not supported in this Level+Version of SBML */
  , NoDelayedEventAssignmentInL2v3        = 94006 /*!< Attribute <code>useValuesFromTriggerTime</code> not supported in this Level+Version of SBML */
  , ModelSBOBranchChangedBeyondL2v3       = 94007 /*!< The allowable <code>sboTerm</code> values for model differ for this SBML Level+Version */
+ , StrictUnitsRequiredInL2v3             = 94008 /*!< SBML Level&nbsp;2 Version&nbps;3 requires strict unit consistency */
+ , StrictSBORequiredInL2v3               = 94009 /*!< SBML Level&nbsp;2 Version&nbps;3 requires strict sbo consistency */
 
   /* L2v4 compatability  */
 

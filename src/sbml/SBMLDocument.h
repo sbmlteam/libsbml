@@ -651,6 +651,16 @@ protected:
    */
   bool conversion_errors(unsigned int errors);
 
+  /*
+   * Predicate returning true if model has strict unit consistency.
+   */
+  bool hasStrictUnits();
+
+  /*
+   * Predicate returning true if model has strict sbo consistency.
+   */
+  bool hasStrictSBO();
+
 
   int mLevel;
   int mVersion;

@@ -2974,7 +2974,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "happening accidentally."
   },
 
-  //90000
+  //90001
   {
     CannotConvertToL1V1,
     "Cannot convert to SBML Level 1 Version 1",
@@ -3453,6 +3453,23 @@ static const sbmlErrorTableEntry errorTable[] =
     "SBO terms cannot be represented directly in SBML Level 1."
   },
 
+  //91014
+  {
+    StrictUnitsRequiredInL1,
+    "SBML Level 1 requires strict unit consistency",
+    LIBSBML_CAT_SBML_L1_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "SBML Level 2 Version 4 removed the requirement that all units "
+    "be consistent.  This model contains units that produce "
+    "inconsistencies and thus conversion to Level 1 "
+    "would produce an invalid model."
+  },
+
   //92001
   {
     NoConstraintsInL2v1,
@@ -3560,6 +3577,23 @@ static const sbmlErrorTableEntry errorTable[] =
     "(References: L2V3 Section 4.14; L2V4 Section 4.14)"
   },
 
+  //92008
+  {
+    StrictUnitsRequiredInL2v1,
+    "SBML Level 2 Version 1 requires strict unit consistency",
+    LIBSBML_CAT_SBML_L2V1_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "SBML Level 2 Version 4 removed the requirement that all units "
+    "be consistent.  This model contains units that produce "
+    "inconsistencies and thus conversion to Level 2 Version 1 "
+    "would produce an invalid model."
+  },
+
   //93001
   {
     SBOTermNotUniversalInL2v2,
@@ -3665,6 +3699,41 @@ static const sbmlErrorTableEntry errorTable[] =
     "\"interaction\". Using the existing term will create an invalid "
     " L2V2 model. (References: L2V2 Section 4.2.1; L2V3 "
     "Sections 4.2.2 and 5; L2V4 Sections 4.2.2 and 5)"
+  },
+
+  //93007
+  {
+    StrictUnitsRequiredInL2v2,
+    "SBML Level 2 Version 2 requires strict unit consistency",
+    LIBSBML_CAT_SBML_L2V2_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "SBML Level 2 Version 4 removed the requirement that all units "
+    "be consistent.  This model contains units that produce "
+    "inconsistencies and thus conversion to Level 2 Version 2 "
+    "would produce an invalid model."
+  },
+
+  //93008
+  {
+    StrictSBORequiredInL2v2,
+    "SBML Level 2 Version 2 requires strict sbo consistency",
+    LIBSBML_CAT_SBML_L2V2_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "SBML Level 2 Version 4 removed the requirement that all sboTerms "
+    "be drawn from a given branch of SBO (http://www.biomodels.net/SBO/). "
+    "This model contains sboTerms that produce "
+    "inconsistencies and thus conversion to Level 2 Version 2 "
+    "would produce an invalid model."
   },
 
   //94001
@@ -3787,6 +3856,41 @@ static const sbmlErrorTableEntry errorTable[] =
     "\"interaction\". Using the existing term will create an invalid "
     " L2V3 model. (References: L2V2 Section 4.2.1; L2V3 "
     "Sections 4.2.2 and 5; L2V4 Sections 4.2.2 and 5)"
+  },
+
+  //94008
+  {
+    StrictUnitsRequiredInL2v3,
+    "SBML Level 2 Version 3 requires strict unit consistency",
+    LIBSBML_CAT_SBML_L2V3_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "SBML Level 2 Version 4 removed the requirement that all units "
+    "be consistent.  This model contains units that produce "
+    "inconsistencies and thus conversion to Level 2 Version 3 "
+    "would produce an invalid model."
+  },
+
+  //94009
+  {
+    StrictSBORequiredInL2v3,
+    "SBML Level 2 Version 3 requires strict sbo consistency",
+    LIBSBML_CAT_SBML_L2V3_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "SBML Level 2 Version 4 removed the requirement that all sboTerms "
+    "be drawn from a given branch of SBO (http://www.biomodels.net/SBO/). "
+    "This model contains sboTerms that produce "
+    "inconsistencies and thus conversion to Level 2 Version 3 "
+    "would produce an invalid model."
   },
 
   //95001

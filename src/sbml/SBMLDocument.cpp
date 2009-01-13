@@ -121,6 +121,25 @@ SBMLDocument::conversion_errors(unsigned int errors)
 
   //return false;
 }
+
+bool
+SBMLDocument::hasStrictUnits()
+{
+  UnitConsistencyValidator unit_validator;
+  unit_validator.init();
+  return (unit_validator.validate(*this) == 0);
+ 
+}
+
+
+bool
+SBMLDocument::hasStrictSBO()
+{
+  SBOConsistencyValidator sbo_validator;
+  sbo_validator.init();
+  return (sbo_validator.validate(*this) == 0);
+ 
+}
 /** @endcond doxygen-libsbml-internal */
 
 
@@ -297,8 +316,18 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
         }
         else if (!conversion_errors(checkL1Compatibility()))
         {
-          mModel->convertToL1();
-          conversionSuccess = true;
+          /* if existing model is L2V4 need to check that
+           * units are strict
+           */
+          if (mVersion == 4 && !hasStrictUnits())
+          {
+            logError(StrictUnitsRequiredInL1);
+          }
+          else
+          {
+            mModel->convertToL1();
+            conversionSuccess = true;
+          }
         }
       }
       /* check for conversion between L2 versions */
@@ -306,21 +335,59 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
       {
         if (!conversion_errors(checkL2v1Compatibility()))
         {
-          conversionSuccess = true;
+          /* if existing model is L2V4 need to check that
+          * units are strict
+          */
+          if (mVersion == 4 && !hasStrictUnits())
+          {
+            logError(StrictUnitsRequiredInL2v1);
+          }
+          else
+          {
+            conversionSuccess = true;
+          }
         }
       }
       else if (version == 2)
       {
         if (!conversion_errors(checkL2v2Compatibility()))
         {
-          conversionSuccess = true;
+          /* if existing model is L2V4 need to check that
+          * units are strict
+          */
+          if (mVersion == 4 && !hasStrictUnits())
+          {
+            logError(StrictUnitsRequiredInL2v2);
+          }
+          else if (mVersion == 4 && !hasStrictSBO())
+          {
+            logError(StrictSBORequiredInL2v2);
+          }
+          else
+          {
+            conversionSuccess = true;
+          }
         }
       }
       else if (version == 3)
       {
         if (!conversion_errors(checkL2v3Compatibility()))
         {
-          conversionSuccess = true;
+          /* if existing model is L2V4 need to check that
+          * units are strict
+          */
+          if (mVersion == 4 && !hasStrictUnits())
+          {
+            logError(StrictUnitsRequiredInL2v3);
+          }
+          else if (mVersion == 4 && !hasStrictSBO())
+          {
+            logError(StrictSBORequiredInL2v3);
+          }
+          else
+          {
+            conversionSuccess = true;
+          }
         }
       }
       else if (version == 4)

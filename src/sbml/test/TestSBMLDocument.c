@@ -57,6 +57,9 @@
 #include <sbml/UnitKind.h>
 #include <sbml/UnitDefinition.h>
 #include <sbml/SBMLDocument.h>
+#include <sbml/Compartment.h>
+#include <sbml/Parameter.h>
+#include <sbml/Rule.h>
 
 #include <check.h>
 
@@ -198,6 +201,34 @@ START_TEST (test_SBMLDocument_setLevelAndVersion_Error)
 END_TEST
 
 
+START_TEST (test_SBMLDocument_setLevelAndVersion_UnitsError)
+{
+  SBMLDocument_t *d  = SBMLDocument_create();
+  SBMLDocument_setLevelAndVersion(d, 2, 4);
+  
+  Model_t        *m1 = SBMLDocument_createModel(d);
+  
+  Compartment_t  *c = Model_createCompartment(m1);
+  Compartment_setId(c, "c");
+  
+  Parameter_t *p = Model_createParameter(m1);
+  Parameter_setId(p, "p");
+  Parameter_setUnits(p, "mole");
+
+  Rule_t * r = Model_createAssignmentRule(m1);
+  Rule_setVariable(r, "c");
+  Rule_setFormula(r, "p*p");
+
+  fail_unless(SBMLDocument_setLevelAndVersion(d,2,2) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersion(d,2,3) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersion(d,1,2) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersion(d,1,1) == 0);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLDocument (void) 
 { 
@@ -213,6 +244,7 @@ create_suite_SBMLDocument (void)
   tcase_add_test(tcase, test_SBMLDocument_setLevelAndVersion         );
   tcase_add_test(tcase, test_SBMLDocument_setLevelAndVersion_Warning );
   tcase_add_test(tcase, test_SBMLDocument_setLevelAndVersion_Error   );
+  tcase_add_test(tcase, test_SBMLDocument_setLevelAndVersion_UnitsError   );
 
   suite_add_tcase(suite, tcase);
 
