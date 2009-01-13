@@ -43,7 +43,7 @@
  * and white space characters.  The following table provides the precedence
  * rules for the different entities that may appear in formula strings.
  *
- * @image html math-formula-precedence.jpg "A table of the expression operators and their precedence in the text-string format for mathematical expressions used by SBML_parseFormula() and FormulaParser_getAction().  In the Class column, @em operand implies the construct is an operand, @em prefix implies the operation is applied to the following arguments, @em unary implies there is one argument, and @em binary implies there are two arguments.  The values in the Precedence column show how the order of different types of operation are determined.  For example, the expression a * b + c is evaluated as (a * b) + c because the @c * operator has higher precedence.  The Associates column shows how the order of similar precedence operations is determined; for example, a - b + c is evaluated as (a - b) + c because the @c + and @c - operators are left-associative."
+ * @htmlinclude libsbml-math-precedence-table.html
  * 
  * The function call syntax consists of a function name, followed by optional
  * white space, followed by an opening parenthesis token, followed by a
@@ -55,7 +55,7 @@
  * of certain common mathematical functions; this table corresponds to
  * Table&nbsp;6 in the SBML Level&nbsp;1 Version&nbsp;2 specification:
  *
- * @image html math-string-functions.jpg "Common mathematical functions recognized and used by SBML_parseFormula() and SBML_formulaToString()."
+ * @htmlinclude libsbml-string-functions-table.html
  *
  * @warning There are differences between the symbols used to represent the
  * common mathematical functions and the corresponding MathML token names.

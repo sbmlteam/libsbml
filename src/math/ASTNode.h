@@ -42,10 +42,11 @@
  * to the node's value (which might be, for example, a number or a symbol)
  * and a list of children nodes.  Each ASTNode node may have none, one,
  * two, or more child depending on its type. The following diagram
- * illustrates an example of how the mathematical expression "1 + 2" is
- * represented as an AST with one @em plus node having two @em integer
- * children nodes for the numbers 1 and 2.  The figure also shows the
- * corresponding MathML representation:
+ * illustrates an example of how the mathematical expression <code>"1 +
+ * 2"</code> is represented as an AST with one @em plus node having two @em
+ * integer children nodes for the numbers <code>1</code> and
+ * <code>2</code>.  The figure also shows the corresponding MathML
+ * representation:
  *
  * @image html astnode-illustration.jpg "Example AST representation of a mathematical expression."
  * @image latex astnode-illustration.jpg "Example AST representation of a mathematical expression."
@@ -82,33 +83,7 @@
  * permitted in SBML.  The values are shown in the following table; their
  * names hopefully evoke the construct that they represent:
  *
- * <center>
- * <table width="80%" cellspacing="1" cellpadding="2" border="0" class="small-font">
- *  <tr><td><code></code></td><td><code></code></td><td><code></code></td></tr>
- *  <tr><td><code>AST_UNKNOWN</code></td><td><code>AST_FUNCTION_ARCCOTH</code></td><td><code>AST_FUNCTION_POWER</code></td></tr>
- *  <tr><td><code>AST_PLUS</code></td><td><code>AST_FUNCTION_ARCCSC</code></td><td><code>AST_FUNCTION_ROOT</code></td></tr>
- *  <tr><td><code>AST_MINUS</code></td><td><code>AST_FUNCTION_ARCCSCH</code></td><td><code>AST_FUNCTION_SEC</code></td></tr>
- *  <tr><td><code>AST_TIMES</code></td><td><code>AST_FUNCTION_ARCSEC</code></td><td><code>AST_FUNCTION_SECH</code></td></tr>
- *  <tr><td><code>AST_DIVIDE</code></td><td><code>AST_FUNCTION_ARCSECH</code></td><td><code>AST_FUNCTION_SIN</code></td></tr>
- *  <tr><td><code>AST_POWER</code></td><td><code>AST_FUNCTION_ARCSIN</code></td><td><code>AST_FUNCTION_SINH</code></td></tr>
- *  <tr><td><code>AST_INTEGER</code></td><td><code>AST_FUNCTION_ARCSINH</code></td><td><code>AST_FUNCTION_TAN</code></td></tr>
- *  <tr><td><code>AST_REAL</code></td><td><code>AST_FUNCTION_ARCTAN</code></td><td><code>AST_FUNCTION_TANH</code></td></tr>
- *  <tr><td><code>AST_REAL_E</code></td><td><code>AST_FUNCTION_ARCTANH</code></td><td><code>AST_LOGICAL_AND</code></td></tr>
- *  <tr><td><code>AST_RATIONAL</code></td><td><code>AST_FUNCTION_CEILING</code></td><td><code>AST_LOGICAL_NOT</code></td></tr>
- *  <tr><td><code>AST_NAME</code></td><td><code>AST_FUNCTION_COS</code></td><td><code>AST_LOGICAL_OR</code></td></tr>
- *  <tr><td><code>AST_NAME_TIME</code></td><td><code>AST_FUNCTION_COSH</code></td><td><code>AST_LOGICAL_XOR</code></td></tr>
- *  <tr><td><code>AST_CONSTANT_E</code></td><td><code>AST_FUNCTION_COT</code></td><td><code>AST_RELATIONAL_EQ</code></td></tr>
- *  <tr><td><code>AST_CONSTANT_FALSE</code></td><td><code>AST_FUNCTION_COTH</code></td><td><code>AST_RELATIONAL_GEQ</code></td></tr>
- *  <tr><td><code>AST_CONSTANT_PI</code></td><td><code>AST_FUNCTION_CSC</code></td><td><code>AST_RELATIONAL_GT</code></td></tr>
- *  <tr><td><code>AST_CONSTANT_TRUE</code></td><td><code>AST_FUNCTION_CSCH</code></td><td><code>AST_RELATIONAL_LEQ</code></td></tr>
- *  <tr><td><code>AST_LAMBDA</code></td><td><code>AST_FUNCTION_EXP</code></td><td><code>AST_RELATIONAL_LT</code></td></tr>
- *  <tr><td><code>AST_FUNCTION</code></td><td><code>AST_FUNCTION_FACTORIAL</code></td><td><code>AST_RELATIONAL_NEQ</code></td></tr>
- *  <tr><td><code>AST_FUNCTION_ABS</code></td><td><code>AST_FUNCTION_FLOOR</code></td><td><code></code></td></tr>
- *  <tr><td><code>AST_FUNCTION_ARCCOS</code></td><td><code>AST_FUNCTION_LN</code></td></tr>
- *  <tr><td><code>AST_FUNCTION_ARCCOSH</code></td><td><code>AST_FUNCTION_LOG</code></td></tr>
- *  <tr><td><code>AST_FUNCTION_ARCCOT</code></td><td><code>AST_FUNCTION_PIECEWISE</code></td></tr>
- * </table>
- * </center>
+ * @htmlinclude libsbml-astnode-types.html
  *
  * The types have the following meanings:
  * <ul>
@@ -185,28 +160,8 @@
  * is used in C for a different purpose.  (Exponentiation can be invoked
  * using either <code>^</code> or the function @c power.)
  * 
- * <center>
- * <table width="80%" cellspacing="1" border="0" class="normal-font alt-row-colors">
- *  <tr style="background: lightgray; font-size: 14px;">
- *      <th>Token</th>
- *      <th>Operation</th>
- *      <th>Class</th>
- *      <th>Precedence</th>
- *      <th>Associates</th>
- *  </tr>
- * <tr><td><em>name</em></td><td>symbol reference</td><td>operand</td><td align="center">6</td><td>n/a</td></tr>
- * <tr><td><code>(</code><em>expression</em><code>)</code></td><td>expression grouping</td><td>operand</td><td align="center">6</td><td>n/a</td></tr>
- * <tr><td><code>f(</code><em>...</em><code>)</code></td><td>function call</td><td>prefix</td><td align="center">6</td><td>left</td></tr>
- * <tr><td><code>-</code></td><td>negation</td><td>unary</td><td align="center">5</td><td>right</td></tr>
- * <tr><td><code>^</code></td><td>power</td><td>binary</td><td align="center">4</td><td>left</td></tr>
- * <tr><td><code>*</code></td><td>multiplication</td><td>binary</td><td align="center">3</td><td>left</td></tr>
- * <tr><td><code>/</code></td><td>divison</td><td>binary</td><td align="center">3</td><td>left</td></tr>
- * <tr><td><code>+</code></td><td>addition</td><td>binary</td><td align="center">2</td><td>left</td></tr>
- * <tr><td><code>-</code></td><td>subtraction</td><td>binary</td><td align="center">2</td><td>left</td></tr>
- * <tr><td><code>,</code></td><td>argument delimiter</td><td>binary</td><td align="center">1</td><td>left</td></tr>
- * </table>
- * </center>
- * 
+ * @htmlinclude libsbml-math-precedence-table.html 
+ *
  * A program parsing a formula in an SBML model should assume that names
  * appearing in the formula are the identifiers of Species, Parameter,
  * Compartment, FunctionDefinition, or Reaction objects defined in a model.
@@ -224,23 +179,7 @@
  * functions in SBML Level&nbsp;1 and the MathML equivalents in SBML
  * Level&nbsp;2:
  * 
- * <center>
- * <table width="80%" cellspacing="1" border="0" class="normal-font alt-row-colors">
- *  <tr style="background: lightgray; font-size: 14px;">
- *      <th>Text string formula functions</th>
- *      <th>MathML equivalents in SBML Level 2</th>
- *  </tr>
- *  <tr><td><code>acos</code></td><td><code>arccos</code></td></tr>
- *  <tr><td><code>asin</code></td><td><code>arcsin</code></td></tr>
- *  <tr><td><code>atan</code></td><td><code>arctan</code></td></tr>
- *  <tr><td><code>ceil</code></td><td><code>ceiling</code></td></tr>
- *  <tr><td><code>log</code></td><td><code>ln</code></td></tr>
- *  <tr><td><code>log10(x)</code></td><td><code>log(10, x)</code></td></tr>
- *  <tr><td><code>pow(x, y)</code></td><td><code>power(x, y)</code></td></tr>
- *  <tr><td><code>sqr(x)</code></td><td><code>power(x, 2)</code></td></tr>
- *  <tr><td><code>sqrt(x)</code></td><td><code>root(2, x)</code></td></tr>
- * </table>
- * </center>
+ * @htmlinclude libsbml-math-functions.html
  */
 
 #ifndef ASTNode_h
@@ -255,14 +194,17 @@
 #include <sbml/math/FormulaParser.h>
 #include <sbml/xml/XMLAttributes.h>
 
+
 typedef enum
 {
     LIBSBML_AST_NODE_OPERATION_SUCCESS = 0
   , LIBSBML_AST_NODE_INDEX_EXCEEDS_SIZE = -1
 } OperationReturnCodes_t;
 
+
 /**
- * ASTNodeType_t is the enumeration of possible ASTNode types.
+ * @enum  ASTNodeType_t
+ * @brief ASTNodeType_t is the enumeration of possible ASTNode types.
  *
  * Each ASTNode has a type whose value is one of the elements of this
  * enumeration.  The types have the following meanings:
