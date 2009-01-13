@@ -2642,7 +2642,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21113
   {
     BothStoichiometryAndMath,
-    "Cannot use both 'stoichiometry' and <stochiometryMath> simultaneously",
+    "Cannot use both 'stoichiometry' and <stoichiometryMath> simultaneously",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4182,7 +4182,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,   
     LIBSBML_SEV_WARNING,   
     LIBSBML_SEV_WARNING,
-    "The SBOTerm used is considered obselete."
+    "The SBOTerm value used is considered obsolete."
   },
 
   //99901
@@ -4562,7 +4562,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99923
   {   
     StoichiometryMathNotValidComponent,   
-    "<stochiometryMath> not supported in SBML Level 1",
+    "<stoichiometryMath> not supported in SBML Level 1",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
