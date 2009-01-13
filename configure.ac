@@ -454,6 +454,7 @@ echo "Other potentially important settings:"
 if test "$enable_univbinary" != "no"; then
   echo "  Building libSBML as MacSO universal binary."
 fi
+
 if test "$with_zlib" != no; then
   /bin/echo -n "  Compression support enabled for .zip"
   if test "$with_bzip2" != no; then
@@ -464,17 +465,46 @@ if test "$with_zlib" != no; then
 elif test "$with_bzip2" != no; then
   echo "  Compression support enabled for .bz2 files"
 fi
+
 if test "$HOST_TYPE" = "darwin"; then
   echo "  Value of \$DYLD_LIBRARY_PATH   = $DYLD_LIBRARY_PATH"
 else
   echo "  Value of \$LD_LIBRARY_PATH     = $LD_LIBRARY_PATH"
 fi
+
 if test -n "$with_java" -a "$with_java" != "no"; then
   echo "  Value of \$CLASSPATH for Java  = $CLASSPATH"  
 fi
+
 if test -n "$with_csharp" -a "$with_csharp" != "no"; then
   echo "  Using CSharp compiler = $CSHARP_COMPILER"
 fi
+
+dnl Print these warnings at the end so they're less likely to be overlooked.
+
+if test "$with_zlib" = no && test "$with_bzip2" = no; then
+  echo ""
+  echo "Warning: reading/writing compressed SBML in this copy of libSBML"
+  echo "is not supported or has not been enabled.  If this was not your"
+  echo "intention, please check the --with-zlib, -with-bzip2, and/or"
+  echo "--enable-compression options."
+  echo ""
+elif test "$with_zlib" = no; then
+  echo ""
+  echo "Warning: reading/writing compressed SBML in .gz and .zip format"
+  echo "in this copy of libSBML is not supported or has been disabled."
+  echo "If this was not your intention, please check the --with-zlib"
+  echo "option."
+  echo ""
+elif test "$with_bzip2" = no; then
+  echo ""
+  echo "Warning: reading/writing compressed SBML in .bz2 format in"
+  echo "this copy of libSBML is not supported or has been disabled."
+  echo "If this was not your intention, please check the --with-bzip2"
+  echo "option."
+  echo ""
+fi
+
 
 dnl Temporarily unavailable anyway, so skip this for now:
 dnl echo "  enable memory tracing? = $enable_tracing"
