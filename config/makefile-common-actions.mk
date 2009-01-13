@@ -221,7 +221,7 @@ else
 ifndef USE_UNIVBINARY
 	$(compile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.$(DEPEXT)" -c -o $@ $<
 else
-	$(compile_nocflags) -MT $@ -M -MP -MF "$(DEPDIR)/$*.$(DEPEXT)" $<
+	$(compile_nocflags) -MT $@ -MM -MP -MF "$(DEPDIR)/$*.$(DEPEXT)" $<
 	$(compile) -c -o $@ $<
 endif
 
@@ -236,7 +236,7 @@ endif
 ifndef USE_UNIVBINARY
 	$(cxxcompile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.$(DEPEXT)" -c -o $@ $<
 else
-	$(cxxcompile_nocxxflags) -MT $@ -M -MP -MF "$(DEPDIR)/$*.$(DEPEXT)" $<
+	$(cxxcompile_nocxxflags) -MT $@ -MM -MP -MF "$(DEPDIR)/$*.$(DEPEXT)" $<
 	$(cxxcompile) -c -o $@ $<
 endif
 
