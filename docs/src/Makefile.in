@@ -145,6 +145,7 @@ distfiles =                                    \
         libsbml-installation.txt               \
         libsbml-issues.html                    \
         libsbml-issues.txt                     \
+        libsbml-math-precedence-table.html     \
         libsbml-java-bottom.html               \
         libsbml-java-fake-overview.html        \
         libsbml-java-footer.html               \
@@ -163,6 +164,7 @@ distfiles =                                    \
         libsbml-python-mainpage.txt            \
         libsbml-python-reading-files.txt       \
         libsbml-reading-files.txt              \
+	libsbml-string-functions-table.html    \
         libsbml-uninstallation.html            \
         libsbml-uninstallation.txt             \
         pythondocfilter.py                     \
@@ -249,15 +251,16 @@ doxygen-minor-version = $(shell $(DOXYGEN) --version | cut -f2 -d'.')
 define run_doxygen
   mkdir -p $(2)
   $(DOXYGEN) $(1)
-  cp -rf doxygen-tabs.css $(2)/tabs.css
   cp graphics/sbml-logo-long-124x56.gif $(2)
   cp graphics/right-arrow.gif $(2)
   if test $(doxygen-minor-version) -lt 5; then \
+    cp -rf doxygen-tabs.css $(2)/tabs.css; \
     head -n 9 $(2)/tree.html > tmp.html;\
     cat doxygen-tree.css >> tmp.html;\
     tail -n +15 $(2)/tree.html >> tmp.html;\
     mv -f tmp.html $(2)/tree.html;\
   else \
+    cp -rf doxygen-tabs.css $(2)/doxygen-tabs.css; \
     sed -is 's/libSBML Python Public API //' $(2)/tree.html;\
     sed -is 's/libSBML C++ Public API //' $(2)/tree.html;\
     sed -is 's/libSBML C Public API //' $(2)/tree.html;\
