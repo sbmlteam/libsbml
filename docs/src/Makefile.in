@@ -131,6 +131,7 @@ distfiles =                                    \
         java-skip.txt                          \
         libsbml-accessing.html                 \
         libsbml-accessing.txt                  \
+        libsbml-astnode-types.html             \ 
         libsbml-authors.html                   \
         libsbml-blurb.html                     \
         libsbml-blurb.txt                      \
@@ -145,6 +146,7 @@ distfiles =                                    \
         libsbml-installation.txt               \
         libsbml-issues.html                    \
         libsbml-issues.txt                     \
+        libsbml-math-functions.html            \
         libsbml-math-precedence-table.html     \
         libsbml-java-bottom.html               \
         libsbml-java-fake-overview.html        \
@@ -162,11 +164,13 @@ distfiles =                                    \
         libsbml-papers.html                    \
         libsbml-papers.txt                     \
         libsbml-python-mainpage.txt            \
+        libsbml-python-math.txt                \
         libsbml-python-reading-files.txt       \
         libsbml-reading-files.txt              \
 	libsbml-string-functions-table.html    \
         libsbml-uninstallation.html            \
         libsbml-uninstallation.txt             \
+        libsbml-not-sbml-warning.html          \
         pythondocfilter.py                     \
         sbml.js                                \
         templates/c++.txt                      \
