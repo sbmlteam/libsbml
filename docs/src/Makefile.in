@@ -131,7 +131,7 @@ distfiles =                                    \
         java-skip.txt                          \
         libsbml-accessing.html                 \
         libsbml-accessing.txt                  \
-        libsbml-astnode-types.html             \ 
+        libsbml-astnode-types.html             \
         libsbml-authors.html                   \
         libsbml-blurb.html                     \
         libsbml-blurb.txt                      \
