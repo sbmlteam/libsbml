@@ -53,6 +53,7 @@ XMLOutputStream::XMLOutputStream (  std::ostream&       stream
  , mDoIndent( true     )
  , mIndent  ( 0        )
  , mInText  ( false    )
+ , mSkipNextIndent ( false    )
 {
   unsetStringStream();
   mStream.imbue( locale::classic() );
@@ -75,6 +76,7 @@ XMLOutputStream::endElement (const std::string& name)
   else if (mInText)
   {
     mInText = false;
+    mSkipNextIndent = false;
     mStream << '<' << '/';
     writeName(name);
     mStream << '>';
@@ -106,6 +108,7 @@ XMLOutputStream::endElement (const XMLTriple& triple)
   else if (mInText)
   {
     mInText = false;
+    mSkipNextIndent = false;
     mStream << '<' << '/';
     writeName(triple);
     mStream << '>';
@@ -146,7 +149,14 @@ XMLOutputStream::startElement (const std::string& name)
 
   mInStart = true;
 
-  writeIndent();
+  if (mInText && mSkipNextIndent)
+  {
+    mSkipNextIndent = false;
+  }
+  else
+  {
+    writeIndent();
+  }
 
   mStream << '<';
   writeName(name);
@@ -168,7 +178,14 @@ XMLOutputStream::startElement (const XMLTriple& triple)
 
   mInStart = true;
 
-  writeIndent();
+  if (mInText && mSkipNextIndent)
+  {
+    mSkipNextIndent = false;
+  }
+  else
+  {
+    writeIndent();
+  }
 
   mStream << '<';
   writeName(triple);
@@ -187,9 +204,19 @@ XMLOutputStream::startEndElement (const std::string& name)
     upIndent();
   }
 
+  if (mSkipNextIndent)
+    mSkipNextIndent = false;
+
   mInStart = false;
 
-  writeIndent();
+  if (mInText && mSkipNextIndent)
+  {
+    mSkipNextIndent = false;
+  }
+  else
+  {
+    writeIndent();
+  }
 
   mStream << '<';
   writeName(name);
@@ -210,9 +237,19 @@ XMLOutputStream::startEndElement (const XMLTriple& triple)
     upIndent();
   }
 
+  if (mSkipNextIndent)
+    mSkipNextIndent = false;
+
   mInStart = false;
 
-  writeIndent();
+  if (mInText && mSkipNextIndent)
+  {
+    mSkipNextIndent = false;
+  }
+  else
+  {
+    writeIndent();
+  }
 
   mStream << '<';
   writeName(triple);
@@ -621,6 +658,7 @@ XMLOutputStream::operator<< (const std::string& chars)
 
   writeChars(chars);
   mInText = true;
+  mSkipNextIndent = true;
 
   return *this;
 }

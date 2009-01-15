@@ -345,6 +345,7 @@ protected:
   bool mDoIndent;
   unsigned int mIndent;
   bool mInText;
+  bool mSkipNextIndent;
 
   /* this is needed for the derived classes used to create the C wrapper */
   bool mStringStream;
