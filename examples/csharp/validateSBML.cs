@@ -21,7 +21,7 @@ namespace LibSBMLCSExample
 
   public class validateSBML
   {
-    private static int  NumErrors         = 0;
+    private static int  NumInvalid         = 0;
     private static bool enableUnitCCheck  = true;
 
     public static void Main (string[] args)
@@ -60,15 +60,15 @@ namespace LibSBMLCSExample
       Console.WriteLine("---------------------------------------------------------------------------");
       Console.WriteLine("Validated {0} files, {1} valid files, {2} invalid files."
                          , args.Length
-                         , args.Length - NumErrors
-                         , NumErrors
+                         , args.Length - NumInvalid
+                         , NumInvalid
                        );
       if ( ! enableUnitCCheck )
       {
         Console.WriteLine("(Unit consistency checks skipped)");
       }
 
-      if (NumErrors > 0 )
+      if (NumInvalid > 0 )
       {
         Environment.Exit(1);
       }
@@ -79,7 +79,7 @@ namespace LibSBMLCSExample
       if ( ! File.Exists(inputFile) )
       {
         Console.WriteLine("[Error] {0} : No such file.", inputFile);
-        ++NumErrors;
+        ++NumInvalid;
         return;
       }
 
@@ -135,7 +135,7 @@ namespace LibSBMLCSExample
       {
         skipCC = true;
         errMsgRead += "Further consistency checking and validation aborted.";
-        ++NumErrors;
+        ++NumInvalid;
       }
       else
       {
@@ -147,6 +147,7 @@ namespace LibSBMLCSExample
         stop     = System.DateTime.UtcNow.ToFileTimeUtc();
         timeCC    = (double)(stop - start)/10000;
   
+        bool isInvalid = false; 
         if (failures > 0)
         {
           for (int i = 0; i < failures; i++)
@@ -155,11 +156,16 @@ namespace LibSBMLCSExample
             if (severity == libsbml.LIBSBML_SEV_ERROR || severity == libsbml.LIBSBML_SEV_FATAL )
             {
               ++numCCErrors;
-              ++NumErrors;
+              isInvalid = true;
             }
             else {
               ++numCCWarnings;
             }
+          }
+
+          if ( isInvalid)
+          {
+            ++NumInvalid;
           }
 
           OStringStream oss = new OStringStream();
