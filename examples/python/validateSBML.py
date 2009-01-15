@@ -22,12 +22,12 @@ class validateSBML:
   def __init__(self, ucheck):
     self.reader    = libsbml.SBMLReader()
     self.ucheck    = ucheck
-    self.numerrors = 0
+    self.numinvalid = 0
 
   def validate(self, file):
     if not os.path.exists(file):
       print "[Error] %s : No such file." % (infile)
-      self.numerrors += 1
+      self.numinvalid += 1
       return
 
     start    = time.time()
@@ -69,7 +69,7 @@ class validateSBML:
     if seriousErrors:
       skipCC = True;
       errMsgRead += "Further consistency checking and validation aborted."
-      self.numerrors += 1;    
+      self.numinvalid += 1;    
     else:
       sbmlDoc.setConsistencyChecks(libsbml.LIBSBML_CAT_UNITS_CONSISTENCY, self.ucheck)
       start    = time.time()
@@ -80,13 +80,17 @@ class validateSBML:
  
       if failures > 0:
 
+        isinvalid = False;
         for i in range(failures):
           severity = sbmlDoc.getError(i).getSeverity()
           if (severity == libsbml.LIBSBML_SEV_ERROR) or (severity == libsbml.LIBSBML_SEV_FATAL):
             numCCErr += 1
-            self.numerrors += 1;    
+            isinvalid = True;
           else:
             numCCWarn += 1
+
+        if isinvalid:
+          self.numinvalid += 1;    
 
         oss = libsbml.ostringstream()
         sbmlDoc.printErrors(oss)
@@ -154,14 +158,14 @@ def main (args):
     validator.validate(args[i])
     fnum += 1
 
-  numerrors = validator.numerrors
+  numinvalid = validator.numinvalid
 
   print "---------------------------------------------------------------------------"
-  print "Validated %d files, %d valid files, %d invalid files" % (fnum, fnum - numerrors, numerrors)
+  print "Validated %d files, %d valid files, %d invalid files" % (fnum, fnum - numinvalid, numinvalid)
   if not enableUnitCCheck:
     print "(Unit consistency checks skipped)"
 
-  if numerrors > 0:
+  if numinvalid > 0:
     sys.exit(1)
 
 if __name__ == '__main__':
