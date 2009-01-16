@@ -142,6 +142,12 @@ ArgumentsUnitsCheck::checkUnitsFromDelay (const Model& m,
                                         const ASTNode& node, 
                                         const SBase & sb, bool inKL, int reactNo)
 {
+  /* check that node has two children */
+  if (node.getNumChildren() != 2)
+  {
+    return;
+  }
+
   /* delay(x, t) 
    * no restrictions on units of x
    * but t must have units of time
@@ -180,6 +186,12 @@ ArgumentsUnitsCheck::checkUnitsFromPiecewise (const Model& m,
                                         const ASTNode& node, 
                                         const SBase & sb, bool inKL, int reactNo)
 {
+  /* check that node has children */
+  if (node.getNumChildren() == 0)
+  {
+    return;
+  }
+
   /* piecewise(a0, a1, a2, a3, ...)
    * a0 and a2, a(n_even) must have same units
    * a1, a3, a(n_odd) must be dimensionless
@@ -244,6 +256,12 @@ ArgumentsUnitsCheck::checkSameUnitsAsArgs (const Model& m,
                                               const SBase & sb, bool inKL, 
                                               int reactNo)
 {
+  /* check that node has children */
+  if (node.getNumChildren() == 0)
+  {
+    return;
+  }
+
   UnitDefinition * ud;
   UnitDefinition * tempUD;
   unsigned int n;

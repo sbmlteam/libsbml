@@ -135,6 +135,12 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
                                         const ASTNode& node, 
                                         const SBase & sb, bool inKL, int reactNo)
 {
+  /* check that node has 2 children */
+  if (node.getNumChildren() != 2)
+  {
+    return;
+  }
+
   double value;
   UnitDefinition *dim = new UnitDefinition();
   Unit *unit = new Unit("dimensionless");

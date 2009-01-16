@@ -259,7 +259,7 @@ MathMLBase::checkFunction (const Model& m,
   ASTNode * fdMath;
   const FunctionDefinition *fd = m.getFunctionDefinition(node.getName());
 
-  if (fd)
+  if (fd && fd->isSetMath())
   {
     noBvars = fd->getNumArguments();
     if (noBvars == 0)
@@ -414,7 +414,7 @@ MathMLBase::checkNumericFunction (const Model& m, const ASTNode* node)
   ASTNode * fdMath;
   const FunctionDefinition *fd = m.getFunctionDefinition(node->getName());
 
-  if (fd)
+  if (fd && fd->isSetMath())
   {
     noBvars = fd->getNumArguments();
     if (noBvars == 0)

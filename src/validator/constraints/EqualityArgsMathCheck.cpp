@@ -122,6 +122,12 @@ EqualityArgsMathCheck::checkArgs (const Model& m,
                                         const ASTNode& node, 
                                         const SBase & sb)
 {
+  /* check that node has children */
+  if (node.getNumChildren() == 0)
+  {
+    return;
+  }
+
   /* arguments must return consistent value types */
   if (returnsNumeric(m, node.getLeftChild()) && 
      !returnsNumeric(m, node.getRightChild()))

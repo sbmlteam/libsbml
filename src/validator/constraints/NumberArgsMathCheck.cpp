@@ -199,8 +199,10 @@ void NumberArgsMathCheck::checkUnary(const Model& m,
   {
     logMathConflict(node, sb);
   }
-  
-  checkMath(m, *node.getLeftChild(), sb);
+  else
+  {
+    checkMath(m, *node.getLeftChild(), sb);
+  }
 }
 
 /**

@@ -287,7 +287,7 @@ UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node,
   {
     const FunctionDefinition *fd = 
                                model->getFunctionDefinition(node->getName());
-    if (fd)
+    if (fd && fd->isSetMath())
     {
       noBvars = fd->getNumArguments();
       if (noBvars == 0)

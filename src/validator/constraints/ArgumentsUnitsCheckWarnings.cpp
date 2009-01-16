@@ -163,6 +163,12 @@ ArgumentsUnitsCheckWarnings::checkDimensionlessArgs (const Model& m,
                                            const SBase & sb, 
                                            bool inKL, int reactNo)
 {
+  /* check that node has children */
+  if (node.getNumChildren() == 0)
+  {
+    return;
+  }
+
   UnitDefinition * dim = new UnitDefinition();
   UnitDefinition * tempUD;
   Unit * unit = new Unit("dimensionless");
