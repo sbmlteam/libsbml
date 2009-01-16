@@ -1,7 +1,8 @@
 /**
  * @file    createExampleSBML.cpp
- * @brief   creates example SBML models presented in SBML specification.
+ * @brief   Creates example SBML models presented in the SBML specification.
  * @author  Akiya Jouraku
+ * @author  Michael Hucka
  *
  * $Id$
  * $HeadURL$
@@ -23,38 +24,35 @@ SBMLDocument* createExampleInvolvingUnits();               /* 7.2 */
 SBMLDocument* createExampleInvolvingFunctionDefinitions(); /* 7.8 */
 
 //
-// Helper functions for writing/validation the created SBML document.
+// Helper functions for validating and writing the SBML documents created.
 //
-bool writeAndValidateExampleSBML(SBMLDocument *sbmlDoc, const string& filename);
 bool validateExampleSBML(SBMLDocument *sbmlDoc);
 bool writeExampleSBML(const SBMLDocument *sbmlDoc, const string& filename);
 
 //
-// These variables are used by SBMLWriter::setProgramName(ProgramName) and
-// SBMLWriter::setProgramVersion(ProgramVersion) functions respectively when
-// writing an SBML document.
+// These variables are used in writeExampleSBML when writing an SBML
+// document.  They are handed to libSBML functions in order to include
+// the program information into comments within the SBML file.
 //
 const static string ProgramName    = "createExampleModels";
 const static string ProgramVersion = "1.0.0";
 
 //
-// The SBML leve/version of example SBML models.
+// The SBML Level and Version of the example SBML models.
 //
 const static unsigned int Level   = 2;
 const static unsigned int Version = 4;
+
 
 //===============================================================================
 //
 // Main routine
 //
-//  Creates SBML models represented in "7 Example models expressed in XML using
-//  SBML" in SBML Level 2 Version 4 Specification(*). 
+//  Creates SBML models represented in "Example models expressed in XML using
+//  SBML" in Section 7 of the SBML Level 2 Version 4 specification(*). 
 //
-//   (*) The specification is available at the following URL:
+//   (*) The specification document is available at the following URL:
 //       http://sbml.org/Documents/Specifications
-//  
-//  Please see createExampleXXXXXX() functions to know how to create example 
-//  models by using libSBML APIs. 
 //
 //===============================================================================
 //
@@ -62,48 +60,55 @@ int
 main (int argc, char *argv[])
 {
   SBMLDocument* sbmlDoc = 0;
-  bool result = true;
+  bool SBMLok           = false;
 
   try
   {
     //-------------------------------------------------
     // 7.1 A Simple example application of SBML
     //-------------------------------------------------
+
     sbmlDoc = createExampleEnzymaticReaction(); 
-    result  = writeAndValidateExampleSBML(sbmlDoc, "enzymaticreaction.xml");
+    SBMLok  = validateExampleSBML(sbmlDoc);
+    if (SBMLok) writeExampleSBML(sbmlDoc, "enzymaticreaction.xml");
     delete sbmlDoc;
-    if (!result) return 1;
+    if (!SBMLok) return 1;
 
     //-------------------------------------------------
     // 7.2 Example involving units
     //-------------------------------------------------
+
     sbmlDoc = createExampleInvolvingUnits(); 
-    result  = writeAndValidateExampleSBML(sbmlDoc, "units.xml");
+    SBMLok  = validateExampleSBML(sbmlDoc);
+    if (SBMLok) writeExampleSBML(sbmlDoc, "units.xml");
     delete sbmlDoc;
-    if (!result) return 1;
+    if (!SBMLok) return 1;
 
     //-------------------------------------------------
     // 7.8 Example involving function definitions
     //-------------------------------------------------
+
     sbmlDoc = createExampleInvolvingFunctionDefinitions(); 
-    result  = writeAndValidateExampleSBML(sbmlDoc, "functiondef.xml");
+    SBMLok  = validateExampleSBML(sbmlDoc);
+    if (SBMLok) writeExampleSBML(sbmlDoc, "functiondef.xml");
     delete sbmlDoc;
-    if (!result) return 1;
+    if (!SBMLok) return 1;
 
   }
-  catch(std::bad_alloc& e)
+  catch (std::bad_alloc& e)
   {
-    cerr << e.what() << ": Failed to allocate heap buffer." << endl;
+    cerr << e.what() << ": Unable to allocate memory." << endl;
     return 1;
   }
-  catch(...)
+  catch (...)
   {
-    cerr << "Exception thrown." << endl;
+    cerr << "Unexpected exceptional condition encountered." << endl;
     return 1;
   }
 
-
+  // A 0 return status is the standard Unix/Linux way to say "all ok".
   return 0;
+
 }
 
 
@@ -119,7 +124,7 @@ main (int argc, char *argv[])
 /**
  *
  * Creates an SBML model represented in "7.1 A Simple example application of SBML"
- * in SBML Level 2 Version 4 Specification.
+ * in the SBML Level 2 Version 4 Specification.
  *
  */
 SBMLDocument* createExampleEnzymaticReaction()
@@ -142,8 +147,7 @@ SBMLDocument* createExampleEnzymaticReaction()
   //---------------------------------------------------------------------------
 
   Model* model = sbmlDoc->createModel();
-
-  model->setName("EnzymaticReaction");
+  model->setId("EnzymaticReaction");
 
   //---------------------------------------------------------------------------
   //
@@ -151,16 +155,21 @@ SBMLDocument* createExampleEnzymaticReaction()
   //
   //---------------------------------------------------------------------------
 
+  // Temporary pointers (reused more than once below).
+
+  UnitDefinition* unitdef;
+  Unit* unit;
+
   //---------------------------------------------------------------------------  
   // (UnitDefinition1) Creates an UnitDefinition object ("per_second")
   //---------------------------------------------------------------------------
 
-  UnitDefinition* unitdef = model->createUnitDefinition();
+  unitdef = model->createUnitDefinition();
   unitdef->setId("per_second");
 
   //  Creates an Unit inside the UnitDefinition object 
 
-  Unit* unit = unitdef->createUnit();
+  unit = unitdef->createUnit();
   unit->setKind(UNIT_KIND_SECOND);
   unit->setExponent(-1);
 
@@ -168,6 +177,10 @@ SBMLDocument* createExampleEnzymaticReaction()
   // (UnitDefinition2) Creates an UnitDefinition object ("litre_per_mole_per_second") 
   //--------------------------------------------------------------------------------
     
+  // Note that we can reuse the pointers 'unitdef' and 'unit' because the
+  // actual UnitDefinition object (along with the Unit objects within it)
+  // is already attached to the Model object.
+
   unitdef = model->createUnitDefinition();
   unitdef->setId("litre_per_mole_per_second");
     
@@ -196,19 +209,19 @@ SBMLDocument* createExampleEnzymaticReaction()
   //
   //---------------------------------------------------------------------------
 
+  Compartment* comp;
   const string compName = "cytosol";
 
   // Creates a Compartment object ("cytosol")
 
-  Compartment* comp = model->createCompartment();
-
+  comp = model->createCompartment();
   comp->setId(compName);
  
   // Sets the "size" attribute of the Compartment object.
   //
-  //   The units of this Compartment object is the default SBML 
-  //   units of volume (litre), and thus we don't have to explicitly invoke 
-  //   setUnits("litre") function to set the default units.
+  // We are not setting the units on the compartment size explicitly, so
+  // the units of this Compartment object will be the default SBML units of
+  // volume, which are liters.
   //
   comp->setSize(1e-14);
 
@@ -219,28 +232,37 @@ SBMLDocument* createExampleEnzymaticReaction()
   //
   //---------------------------------------------------------------------------
   
+  // Temporary pointer (reused more than once below).
+  
+  Species *sp;
+
   //---------------------------------------------------------------------------
   // (Species1) Creates a Species object ("ES")
   //---------------------------------------------------------------------------
 
-  Species* sp = model->createSpecies();
+  // Create the Species objects inside the Model object. 
 
-  // Sets the "compartment" attribute of the Species object to identify the 
-  // compartnet in which the Species object located.
-  sp->setCompartment(compName);
-
+  sp = model->createSpecies();
   sp->setId("ES");
   sp->setName("ES");
 
+  // Sets the "compartment" attribute of the Species object to identify the 
+  // compartment in which the Species object is located.
+
+  sp->setCompartment(compName);
+
   // Sets the "initialAmount" attribute of the Species object.
   //
-  //  The units of this Species object is determined by two attributes of this 
-  //  Species object ("subStanceUnits" and "hasOnlySubstanceUnits") and the
-  //  "spatialDimension" attribute of the Compartment object ("cytosol") in which 
-  //  this species object located.
-  //  Since the default values are used for "subStanceUnits" (substance (mole)) 
-  //  and "hasOnlySubstanceUnits" (false) and the value of "spatialDimension" (3) 
-  //  is greater than 0, the units of this Species object is  mole/litre . 
+  //  In SBML, the units of a Species object's initial quantity are
+  //  determined by two attributes, "substanceUnits" and
+  //  "hasOnlySubstanceUnits", and the "spatialDimensions" attribute
+  //  of the Compartment object ("cytosol") in which the species
+  //  object is located.  Here, we are using the default values for
+  //  "substanceUnits" (which is "mole") and "hasOnlySubstanceUnits"
+  //  (which is "false").  The compartment in which the species is
+  //  located uses volume units of liters, so the units of these
+  //  species (when the species appear in numerical formulas in the
+  //  model) will be moles/liters.  
   //
   sp->setInitialAmount(0);
 
@@ -281,45 +303,53 @@ SBMLDocument* createExampleEnzymaticReaction()
   //
   //---------------------------------------------------------------------------
   
+  // Temporary pointers.
+
+  Reaction* reaction;
+  SpeciesReference* spr;
+  KineticLaw* kl;
+
   //---------------------------------------------------------------------------
   // (Reaction1) Creates a Reaction object ("veq").
   //---------------------------------------------------------------------------
 
-  Reaction* reac = model->createReaction();
-  reac->setId("veq");
-
-  //---------------------------------------------------------------------------
-  // Creates Reactant objects inside the Reaction object ("veq"). 
-  //---------------------------------------------------------------------------
+  reaction = model->createReaction();
+  reaction->setId("veq");
 
   // (Reactant1) Creates a Reactant object that references Species "E"
-  // in the model.
-  SpeciesReference* spr = reac->createReactant();
+  // in the model.  The object will be created within the reaction in the
+  // SBML <listOfReactants>.
+
+  spr = reaction->createReactant();
   spr->setSpecies("E");
 
   // (Reactant2) Creates a Reactant object that references Species "S"
   // in the model.
-  spr = reac->createReactant();
+
+  spr = reaction->createReactant();
   spr->setSpecies("S");
 
   //---------------------------------------------------------------------------
-  // Creates a Product object inside the Reaction object ("veq"). 
+  // (Product1) Creates a Product object that references Species "ES" in
+  // the model.
   //---------------------------------------------------------------------------
 
-  // Creates a Product object that references Species "ES" in the model. 
-  spr = reac->createProduct();
+  spr = reaction->createProduct();
   spr->setSpecies("ES");
-
 
   //---------------------------------------------------------------------------
   // Creates a KineticLaw object inside the Reaction object ("veq"). 
   //---------------------------------------------------------------------------
-  
-  KineticLaw* kl = reac->createKineticLaw();
 
-  //---------------------------------------------------------------------------
-  // Sets a math (ASTNode object) to the KineticLaw object.
-  //---------------------------------------------------------------------------
+  kl = reaction->createKineticLaw();
+
+  // To create mathematical expressions, one would typically construct
+  // an ASTNode tree.  Here, to save some space and illustrate another
+  // approach of doing it, we will write out the formula in MathML
+  // form and then use a libSBML convenience function to create the
+  // ASTNode tree for us.  (This is a bit dangerous; it's very easy to
+  // make mistakes when writing MathML by hand, so in a real program,
+  // we would not really want to do it this way.)
 
   string mathXMLString = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
                          "  <apply>"
@@ -367,9 +397,9 @@ SBMLDocument* createExampleEnzymaticReaction()
   // (Reaction2) Creates a Reaction object ("vcat") .
   //---------------------------------------------------------------------------
   
-  reac = model->createReaction();
-  reac->setId("vcat");
-  reac->setReversible(false);
+  reaction = model->createReaction();
+  reaction->setId("vcat");
+  reaction->setReversible(false);
 
   //---------------------------------------------------------------------------
   // Creates Reactant objects inside the Reaction object ("vcat"). 
@@ -377,7 +407,8 @@ SBMLDocument* createExampleEnzymaticReaction()
 
   // (Reactant1) Creates a Reactant object that references Species "ES" in the
   // model.
-  spr = reac->createReactant();
+
+  spr = reaction->createReactant();
   spr->setSpecies("ES");
 
   //---------------------------------------------------------------------------
@@ -385,19 +416,20 @@ SBMLDocument* createExampleEnzymaticReaction()
   //---------------------------------------------------------------------------
   
   // (Product1) Creates a Product object that references Species "E" in the model.
-  spr = reac->createProduct();
+
+  spr = reaction->createProduct();
   spr->setSpecies("E");
 
   // (Product2) Creates a Product object that references Species "P" in the model.
-  spr = reac->createProduct();
-  spr->setSpecies("P");
 
+  spr = reaction->createProduct();
+  spr->setSpecies("P");
 
   //---------------------------------------------------------------------------
   // Creates a KineticLaw object inside the Reaction object ("vcat"). 
   //---------------------------------------------------------------------------
   
-  kl = reac->createKineticLaw();
+  kl = reaction->createKineticLaw();
 
   //---------------------------------------------------------------------------
   // Sets a math (ASTNode object) to the KineticLaw object.
@@ -411,6 +443,7 @@ SBMLDocument* createExampleEnzymaticReaction()
                   "    <ci> ES </ci>"
                   "  </apply>"
                   "</math>";
+
   kl->setMath(readMathMLFromString(mathXMLString.c_str()));
 
   //---------------------------------------------------------------------------
@@ -427,7 +460,7 @@ SBMLDocument* createExampleEnzymaticReaction()
 
   // Returns the created SBMLDocument object.
   // The returned object must be explicitly deleted by the caller,
-  // otherwise memory leak will happen.
+  // otherwise a memory leak will happen.
 
   return sbmlDoc;
 
@@ -437,7 +470,7 @@ SBMLDocument* createExampleEnzymaticReaction()
 /**
  *
  * Creates an SBML model represented in "7.2 Example involving units"
- * in SBML Level 2 Version 4 Specification.
+ * in the SBML Level 2 Version 4 Specification.
  *
  */
 SBMLDocument* createExampleInvolvingUnits()
@@ -453,9 +486,9 @@ SBMLDocument* createExampleInvolvingUnits()
 
   SBMLDocument* sbmlDoc = new SBMLDocument(level,version);
 
-  // Adds the namespace of xhtml to the SBMLDocument object.
-  // (By default, the namespace of the corresponding SBML level/version is added 
-  //  to the SBMLDocument object as a default namespace)
+  // Adds the namespace for XHTML to the SBMLDocument object.  We need this
+  // because we will add notes to the model.  (By default, the SBML document
+  // created by SBMLDocument only declares the SBML XML namespace.)
 
   sbmlDoc->getNamespaces()->add("http://www.w3.org/1999/xhtml", "xhtml");
 
@@ -466,7 +499,7 @@ SBMLDocument* createExampleInvolvingUnits()
   //---------------------------------------------------------------------------
 
   Model* model = sbmlDoc->createModel();
-
+  model->setId("unitsExample");
 
   //---------------------------------------------------------------------------
   //
@@ -474,16 +507,24 @@ SBMLDocument* createExampleInvolvingUnits()
   //
   //---------------------------------------------------------------------------
 
+  // Temporary pointers (reused more than once below).
+
+  UnitDefinition* unitdef;
+  Unit *unit;
+
   //---------------------------------------------------------------------------  
-  // (UnitDefinition1) Creates an UnitDefinition object ("substance")
+  // (UnitDefinition1) Creates an UnitDefinition object ("substance").
+  //
+  // This has the effect of redefining the default unit of subtance for the
+  // whole model.
   //---------------------------------------------------------------------------
 
-  UnitDefinition* unitdef = model->createUnitDefinition();
+  unitdef = model->createUnitDefinition();
   unitdef->setId("substance");
 
   //  Creates an Unit inside the UnitDefinition object 
 
-  Unit* unit = unitdef->createUnit();
+  unit = unitdef->createUnit();
   unit->setKind(UNIT_KIND_MOLE);
   unit->setScale(-3);
 
@@ -491,6 +532,10 @@ SBMLDocument* createExampleInvolvingUnits()
   // (UnitDefinition2) Creates an UnitDefinition object ("mmls") 
   //--------------------------------------------------------------------------------
     
+  // Note that we can reuse the pointers 'unitdef' and 'unit' because the
+  // actual UnitDefinition object (along with the Unit objects within it)
+  // is already attached to the Model object.
+
   unitdef = model->createUnitDefinition();
   unitdef->setId("mmls");
     
@@ -538,12 +583,12 @@ SBMLDocument* createExampleInvolvingUnits()
   //
   //---------------------------------------------------------------------------
 
+  Compartment* comp;
   const string compName = "cell";
 
   // Creates a Compartment object ("cell")
 
-  Compartment* comp = model->createCompartment();
-
+  comp = model->createCompartment();
   comp->setId(compName);
  
   // Sets the "size" attribute of the Compartment object.
@@ -561,27 +606,31 @@ SBMLDocument* createExampleInvolvingUnits()
   //
   //---------------------------------------------------------------------------
   
+  // Temporary pointer (reused more than once below).
+  
+  Species *sp;
+
   //---------------------------------------------------------------------------
   // (Species1) Creates a Species object ("x0")
   //---------------------------------------------------------------------------
 
-  Species* sp = model->createSpecies();
-
+  sp = model->createSpecies();
   sp->setId("x0");
 
   // Sets the "compartment" attribute of the Species object to identify the 
   // compartnet in which the Species object located.
+
   sp->setCompartment(compName);
 
   // Sets the "initialConcentration" attribute of the Species object.
   //
   //  The units of this Species object is determined by two attributes of this 
-  //  Species object ("subStanceUnits" and "hasOnlySubstanceUnits") and the
-  //  "spatialDimension" attribute of the Compartment object ("cytosol") in which 
-  //  this species object located.
-  //  Since the default values are used for "subStanceUnits" (substance (mole)) 
+  //  Species object ("substanceUnits" and "hasOnlySubstanceUnits") and the
+  //  "spatialDimensions" attribute of the Compartment object ("cytosol") in which 
+  //  this species object is located.
+  //  Since the default values are used for "substanceUnits" (substance (mole)) 
   //  and "hasOnlySubstanceUnits" (false) and the value of "spatialDimension" (3) 
-  //  is greater than 0, the units of this Species object is  mole/litre . 
+  //  is greater than 0, the units of this Species object is  moles/liters . 
   //
   sp->setInitialConcentration(1);
 
@@ -618,9 +667,11 @@ SBMLDocument* createExampleInvolvingUnits()
   //
   //---------------------------------------------------------------------------
 
+  Parameter* para;
+
   // Creates a Parameter ("vm")  
 
-  Parameter* para = model->createParameter();
+  para = model->createParameter();
   para->setId("vm");
   para->setValue(2);
   para->setUnits("mmls");
@@ -639,12 +690,18 @@ SBMLDocument* createExampleInvolvingUnits()
   //
   //---------------------------------------------------------------------------
   
+  // Temporary pointers.
+
+  Reaction* reaction;
+  SpeciesReference* spr;
+  KineticLaw* kl;
+
   //---------------------------------------------------------------------------
   // (Reaction1) Creates a Reaction object ("v1").
   //---------------------------------------------------------------------------
 
-  Reaction* reac = model->createReaction();
-  reac->setId("v1");
+  reaction = model->createReaction();
+  reaction->setId("v1");
 
   //---------------------------------------------------------------------------
   // Creates Reactant objects inside the Reaction object ("v1"). 
@@ -652,7 +709,8 @@ SBMLDocument* createExampleInvolvingUnits()
 
   // (Reactant1) Creates a Reactant object that references Species "x0"
   // in the model.
-  SpeciesReference* spr = reac->createReactant();
+
+  spr = reaction->createReactant();
   spr->setSpecies("x0");
 
   //---------------------------------------------------------------------------
@@ -660,19 +718,23 @@ SBMLDocument* createExampleInvolvingUnits()
   //---------------------------------------------------------------------------
 
   // Creates a Product object that references Species "s1" in the model. 
-  spr = reac->createProduct();
-  spr->setSpecies("s1");
 
+  spr = reaction->createProduct();
+  spr->setSpecies("s1");
 
   //---------------------------------------------------------------------------
   // Creates a KineticLaw object inside the Reaction object ("v1"). 
   //---------------------------------------------------------------------------
   
-  KineticLaw* kl = reac->createKineticLaw();
+  kl = reaction->createKineticLaw();
 
-  // sets a notes (by string) to the KineticLaw object.
+  // Creates a <notes> element in the KineticLaw object.
+  // Here we illustrate how to do it using a literal string.  This requires
+  // known the required syntax of XHTML and the requirements for SBML <notes>
+  // elements.  Later below, we show how to create notes using objects instead
+  // of strings.
 
-  string notesString = "<xhtml:p>((vm * s1)/(km + s1))*cell</xhtml:p>";
+  string notesString = "<xhtml:p> ((vm * s1)/(km + s1)) * cell </xhtml:p>";
   kl->setNotes(notesString);
 
   //---------------------------------------------------------------------------
@@ -706,8 +768,8 @@ SBMLDocument* createExampleInvolvingUnits()
   // (Reaction2) Creates a Reaction object ("v2").
   //---------------------------------------------------------------------------
 
-  reac = model->createReaction();
-  reac->setId("v2");
+  reaction = model->createReaction();
+  reaction->setId("v2");
 
   //---------------------------------------------------------------------------
   // Creates Reactant objects inside the Reaction object ("v2"). 
@@ -715,7 +777,8 @@ SBMLDocument* createExampleInvolvingUnits()
 
   // (Reactant2) Creates a Reactant object that references Species "s1"
   // in the model.
-  spr = reac->createReactant();
+
+  spr = reaction->createReactant();
   spr->setSpecies("s1");
 
   //---------------------------------------------------------------------------
@@ -723,30 +786,33 @@ SBMLDocument* createExampleInvolvingUnits()
   //---------------------------------------------------------------------------
 
   // Creates a Product object that references Species "s2" in the model. 
-  spr = reac->createProduct();
-  spr->setSpecies("s2");
 
+  spr = reaction->createProduct();
+  spr->setSpecies("s2");
 
   //---------------------------------------------------------------------------
   // Creates a KineticLaw object inside the Reaction object ("v2"). 
   //---------------------------------------------------------------------------
   
-  kl = reac->createKineticLaw();
-
+  kl = reaction->createKineticLaw();
 
   // Sets a notes (by XMLNode) to the KineticLaw object.
   //
-  //   The following code can be implemented by setNotes(const string&)
-  //   function instead of setNotes(const XMLNode*) as follows:
+  // The following code is an alternative to using setNotes(const string&).
+  // The equivalent code would be like this:
   //   
   //     notesString = "<xhtml:p>((vm * s2)/(km + s2))*cell</xhtml:p>";
   //     kl->setNotes(notesString);
-  //
 
   // Creates an XMLNode of start element (<xhtml:p>) without attributes.
-  XMLNode notesXMLNode(XMLTriple("p","","xhtml"),XMLAttributes());
+
+  XMLNode notesXMLNode(XMLTriple("p", "", "xhtml"), XMLAttributes());
+
   // Adds a text element to the start element.
-  notesXMLNode.addChild(XMLNode("((vm * s2)/(km + s2))*cell")); 
+
+  notesXMLNode.addChild(XMLNode(" ((vm * s2)/(km + s2)) * cell ")); 
+
+  // Adds it to the kineticLaw object.
 
   kl->setNotes(&notesXMLNode);
 
@@ -781,8 +847,8 @@ SBMLDocument* createExampleInvolvingUnits()
   // (Reaction3) Creates a Reaction object ("v3").
   //---------------------------------------------------------------------------
 
-  reac = model->createReaction();
-  reac->setId("v3");
+  reaction = model->createReaction();
+  reaction->setId("v3");
 
   //---------------------------------------------------------------------------
   // Creates Reactant objects inside the Reaction object ("v3"). 
@@ -790,7 +856,8 @@ SBMLDocument* createExampleInvolvingUnits()
 
   // (Reactant2) Creates a Reactant object that references Species "s2"
   // in the model.
-  spr = reac->createReactant();
+
+  spr = reaction->createReactant();
   spr->setSpecies("s2");
 
   //---------------------------------------------------------------------------
@@ -798,7 +865,8 @@ SBMLDocument* createExampleInvolvingUnits()
   //---------------------------------------------------------------------------
 
   // Creates a Product object that references Species "x1" in the model. 
-  spr = reac->createProduct();
+
+  spr = reaction->createProduct();
   spr->setSpecies("x1");
 
 
@@ -806,11 +874,11 @@ SBMLDocument* createExampleInvolvingUnits()
   // Creates a KineticLaw object inside the Reaction object ("v3"). 
   //---------------------------------------------------------------------------
   
-  kl = reac->createKineticLaw();
+  kl = reaction->createKineticLaw();
 
-  // sets a notes (by string) to the KineticLaw object.
+  // Sets a notes (by string) to the KineticLaw object.
 
-  notesString = "<xhtml:p>((vm * x1)/(km + x1))*cell</xhtml:p>";
+  notesString = "<xhtml:p> ((vm * x1)/(km + x1)) * cell </xhtml:p>";
   kl->setNotes(notesString);
 
   //---------------------------------------------------------------------------
@@ -845,6 +913,7 @@ SBMLDocument* createExampleInvolvingUnits()
   // otherwise memory leak will happen.
 
   return sbmlDoc;
+
 }
 
 
@@ -852,7 +921,7 @@ SBMLDocument* createExampleInvolvingUnits()
 /**
  *
  * Creates an SBML model represented in "7.8 Example involving function definitions"
- * in SBML Level 2 Version 4 Specification.
+ * in the SBML Level 2 Version 4 Specification.
  *
  */
 SBMLDocument* createExampleInvolvingFunctionDefinitions()
@@ -875,6 +944,7 @@ SBMLDocument* createExampleInvolvingFunctionDefinitions()
   //---------------------------------------------------------------------------
 
   Model* model = sbmlDoc->createModel();
+  model->setId("functionExample");
 
   //---------------------------------------------------------------------------
   //
@@ -909,12 +979,12 @@ SBMLDocument* createExampleInvolvingFunctionDefinitions()
   //
   //---------------------------------------------------------------------------
 
+  Compartment* comp;
   const string compName = "compartmentOne";
 
   // Creates a Compartment object ("compartmentOne")
 
-  Compartment* comp = model->createCompartment();
-
+  comp = model->createCompartment();
   comp->setId(compName);
  
   // Sets the "size" attribute of the Compartment object.
@@ -932,28 +1002,31 @@ SBMLDocument* createExampleInvolvingFunctionDefinitions()
   //
   //---------------------------------------------------------------------------
   
+  Species* sp;
+
   //---------------------------------------------------------------------------
   // (Species1) Creates a Species object ("S1")
   //---------------------------------------------------------------------------
 
-  Species* sp = model->createSpecies();
-
+  sp = model->createSpecies();
   sp->setId("S1");
 
   // Sets the "compartment" attribute of the Species object to identify the 
   // compartnet in which the Species object located.
+
   sp->setCompartment(compName);
 
   // Sets the "initialConcentration" attribute of the Species object.
   //
   //  The units of this Species object is determined by two attributes of this 
-  //  Species object ("subStanceUnits" and "hasOnlySubstanceUnits") and the
+  //  Species object ("substanceUnits" and "hasOnlySubstanceUnits") and the
   //  "spatialDimension" attribute of the Compartment object ("cytosol") in which 
   //  this species object located.
-  //  Since the default values are used for "subStanceUnits" (substance (mole)) 
+  //  Since the default values are used for "substanceUnits" (substance (mole)) 
   //  and "hasOnlySubstanceUnits" (false) and the value of "spatialDimension" (3) 
   //  is greater than 0, the units of this Species object is  mole/litre . 
   //
+
   sp->setInitialConcentration(1);
 
   //---------------------------------------------------------------------------
@@ -972,9 +1045,11 @@ SBMLDocument* createExampleInvolvingFunctionDefinitions()
   //
   //---------------------------------------------------------------------------
 
+  Parameter* para;
+
   // Creates a Parameter ("t")  
 
-  Parameter* para = model->createParameter();
+  para = model->createParameter();
   para->setId("t");
   para->setValue(1);
   para->setUnits("second");
@@ -986,13 +1061,19 @@ SBMLDocument* createExampleInvolvingFunctionDefinitions()
   //
   //---------------------------------------------------------------------------
   
+  // Temporary pointers.
+
+  Reaction* reaction;
+  SpeciesReference* spr;
+  KineticLaw* kl;
+
   //---------------------------------------------------------------------------
   // (Reaction1) Creates a Reaction object ("reaction_1").
   //---------------------------------------------------------------------------
 
-  Reaction* reac = model->createReaction();
-  reac->setId("reaction_1");
-  reac->setReversible(false);
+  reaction = model->createReaction();
+  reaction->setId("reaction_1");
+  reaction->setReversible(false);
 
   //---------------------------------------------------------------------------
   // Creates Reactant objects inside the Reaction object ("reaction_1"). 
@@ -1000,7 +1081,8 @@ SBMLDocument* createExampleInvolvingFunctionDefinitions()
 
   // (Reactant1) Creates a Reactant object that references Species "S1"
   // in the model.
-  SpeciesReference* spr = reac->createReactant();
+
+  spr = reaction->createReactant();
   spr->setSpecies("S1");
 
   //---------------------------------------------------------------------------
@@ -1008,7 +1090,8 @@ SBMLDocument* createExampleInvolvingFunctionDefinitions()
   //---------------------------------------------------------------------------
 
   // Creates a Product object that references Species "S2" in the model. 
-  spr = reac->createProduct();
+
+  spr = reaction->createProduct();
   spr->setSpecies("S2");
 
 
@@ -1016,7 +1099,7 @@ SBMLDocument* createExampleInvolvingFunctionDefinitions()
   // Creates a KineticLaw object inside the Reaction object ("reaction_1"). 
   //---------------------------------------------------------------------------
   
-  KineticLaw* kl = reac->createKineticLaw();
+  kl = reaction->createKineticLaw();
 
   //---------------------------------------------------------------------------
   // Sets a math (ASTNode object) to the KineticLaw object.
@@ -1056,52 +1139,6 @@ SBMLDocument* createExampleInvolvingFunctionDefinitions()
 //
 //===============================================================================
 
-/*
- *
- * Writes and Validates the given SBMLDocument.
- * (writeExampleSBML and validateExampleSBML functions are internally invoked).
- *
- */
-bool writeAndValidateExampleSBML(SBMLDocument *sbmlDoc, const string& filename)
-{
-  if (!writeExampleSBML(sbmlDoc, filename) )
-  {
-    return false;
-  }
-  else if (!validateExampleSBML(sbmlDoc))
-  {
-    return false;
-  } 
-  return true;
-}
-
-
-/**
- *
- * Writes the given SBMLDocument to the given file.
- *
- */ 
-bool writeExampleSBML(const SBMLDocument* sbmlDoc, const string& filename)
-{
-  SBMLWriter sbmlWriter;
-  sbmlWriter.setProgramName(ProgramName);
-  sbmlWriter.setProgramVersion(ProgramVersion);
- 
-  bool result = sbmlWriter.writeSBML(sbmlDoc, filename);
-
-  if (result)
-  {
-    cout << "Created " << filename << endl;
-    return true;
-  }
-  else
-  {
-    cerr << "Failed to write " << filename << endl;
-    return false;
-  }
-}
-
-
 /**
  *  
  *  Validates the given SBMLDocument.
@@ -1114,107 +1151,133 @@ bool validateExampleSBML (SBMLDocument* sbmlDoc)
 {
   if (!sbmlDoc)
   {
-    cerr << "validateExamplSBML: the given SBML Document is 0" << endl;
+    cerr << "validateExampleSBML: given a null SBML Document" << endl;
     return false;
   }
  
-  bool   seriousErrors = false;
-  bool   noErrors      = true;
-  string errorMessageRead;
-  string errorMessageCC;
-  unsigned int numReadErrors = 0;
-  unsigned int numReadWarns  = 0;
-  unsigned int numCCErrors   = 0;
-  unsigned int numCCWarns    = 0;
+  string consistencyMessages;
+  string validationMessages;
+  bool noProblems                  = true;
+  unsigned int numCheckFailures       = 0;
+  unsigned int numConsistencyErrors   = 0;
+  unsigned int numConsistencyWarnings = 0;
+  unsigned int numValidationErrors    = 0;
+  unsigned int numValidationWarnings  = 0;
 
-  unsigned int numErrors = sbmlDoc->getNumErrors();
+  // LibSBML 3.3 is lenient when generating models from scratch using the
+  // API for creating objects.  Once the whole model is done and before it
+  // gets written out, it's important to check that the whole model is in
+  // fact complete, consistent and valid.
 
-  if ( numErrors > 0 )
+  numCheckFailures = sbmlDoc->checkInternalConsistency();
+  if ( numCheckFailures > 0 )
   {
-    noErrors = false;
-    for (unsigned int i=0; i < numErrors; i++)
+    noProblems = false;
+    for (unsigned int i = 0; i < numCheckFailures; i++)
     {
       const SBMLError* sbmlErr = sbmlDoc->getError(i);
       if ( sbmlErr->isFatal() || sbmlErr->isError() )
       {
-        seriousErrors = true;
-        ++numReadErrors;
+        ++numConsistencyErrors;
       }
       else
       {
-        ++numReadWarns;
-      }
-    }
+        ++numConsistencyWarnings;
+      }      
+    } 
     ostringstream oss;
     sbmlDoc->printErrors(oss);
-    errorMessageRead = oss.str(); 
+    consistencyMessages = oss.str(); 
   }
 
-  // If serious errors are encountered while reading an SBML document, it
-  // does not make sense to go on and do full consistency checking because
-  // the model may be nonsense in the first place.
- 
-  if (seriousErrors)
+  // If the internal checks fail, it makes little sense to attempt
+  // further validation, because the model may be too compromised to
+  // be properly interpreted.
+
+  if (numConsistencyErrors > 0)
   {
-    errorMessageRead += "Further consistency check and validation aborted."; 
+    consistencyMessages += "Further validation aborted."; 
   }
   else
   {
-    numErrors = sbmlDoc->checkConsistency();
-    if ( numErrors > 0 )
+    numCheckFailures = sbmlDoc->checkConsistency();
+    if ( numCheckFailures > 0 )
     {
-      noErrors = false;
-      for (unsigned int i=0; i < numErrors; i++)
+      noProblems = false;
+      for (unsigned int i = 0; i < numCheckFailures; i++)
       {
         const SBMLError* sbmlErr = sbmlDoc->getError(i);
         if ( sbmlErr->isFatal() || sbmlErr->isError() )
         {
-          ++numCCErrors;
+          ++numValidationErrors;
         }
         else
         {
-          ++numCCWarns;
+          ++numValidationWarnings;
         }      
       } 
       ostringstream oss;
       sbmlDoc->printErrors(oss);
-      errorMessageCC = oss.str(); 
+      validationMessages = oss.str(); 
     }
   }
 
-  if (noErrors) return true;
-  
-  //
-  // Prints errors/wranings (if any)
-  //
+  if (noProblems)
+    return true;
+  else
+  {
+    if (numConsistencyErrors > 0)
+    {
+      cout << "ERROR: encountered " << numConsistencyErrors 
+           << " consistency error" << (numConsistencyErrors == 1 ? "" : "s")
+	   << " in model '" << sbmlDoc->getModel()->getId() << "'." << endl;
+    }
+    if (numConsistencyWarnings > 0)
+    {
+      cout << "Notice: encountered " << numConsistencyWarnings
+           << " consistency warning" << (numConsistencyWarnings == 1 ? "" : "s")
+	   << " in model '" << sbmlDoc->getModel()->getId() << "'." << endl;
+    }
+    cout << endl << consistencyMessages;
 
-  if ( numReadErrors > 0 )
-  {
-    cout << numReadErrors << " : validation error(s)" << endl;
-  }
-  if ( numReadWarns > 0 )
-  {
-    cout << numReadWarns << " : validation warning(s)" << endl;
-  }
-  cout << errorMessageRead;
+    if (numValidationErrors > 0)
+    {
+      cout << "ERROR: encountered " << numValidationErrors
+           << " validation error" << (numValidationErrors == 1 ? "" : "s")
+	   << " in model '" << sbmlDoc->getModel()->getId() << "'." << endl;
+    }
+    if (numValidationWarnings > 0)
+    {
+      cout << "Notice: encountered " << numValidationWarnings
+           << " validation warning" << (numValidationWarnings == 1 ? "" : "s")
+	   << " in model '" << sbmlDoc->getModel()->getId() << "'." << endl;
+    }
+    cout << endl << validationMessages;
 
-  if ( numCCErrors > 0 )
-  {
-    cout << numCCErrors << " : consistency error(s)" << endl;
+    return (numConsistencyErrors == 0 && numValidationErrors == 0);
   }
-  if ( numCCWarns > 0 )
-  {
-    cout << numCCWarns << " : consistency warning(s)" << endl;
-  }
-  cout << errorMessageCC;
-
-  if ( numReadErrors > 0 || numCCErrors > 0 )
-  {
-    return false;
-  }
-
-  return true;
 }
 
 
+/**
+ *
+ * Writes the given SBMLDocument to the given file.
+ *
+ */ 
+bool writeExampleSBML(const SBMLDocument* sbmlDoc, const string& filename)
+{
+  SBMLWriter sbmlWriter;
 
+  bool result = sbmlWriter.writeSBML(sbmlDoc, filename);
+
+  if (result)
+  {
+    cout << "Wrote file \"" << filename << "\"" << endl;
+    return true;
+  }
+  else
+  {
+    cerr << "Failed to write \"" << filename << "\"" << endl;
+    return false;
+  }
+}
