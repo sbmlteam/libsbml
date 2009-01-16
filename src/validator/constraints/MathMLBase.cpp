@@ -123,18 +123,18 @@ MathMLBase::check_ (const Model& m, const Model& object)
     {
       if (m.getReaction(n)->getProduct(sr)->isSetStoichiometryMath())
       {
-        checkMath(m, 
-          *m.getReaction(n)->getProduct(sr)->getStoichiometryMath()->getMath(), 
-          *m.getReaction(n)->getProduct(sr));
+        const StoichiometryMath* smm = m.getReaction(n)->getProduct(sr)->getStoichiometryMath();
+        if (smm->isSetMath())
+          checkMath(m, *smm->getMath(), *m.getReaction(n)->getProduct(sr));
       }
     }
     for (sr = 0; sr < m.getReaction(n)->getNumReactants(); sr++)
     {
       if (m.getReaction(n)->getReactant(sr)->isSetStoichiometryMath())
       {
-        checkMath(m, 
-          *m.getReaction(n)->getReactant(sr)->getStoichiometryMath()->getMath(), 
-          *m.getReaction(n)->getReactant(sr));
+        const StoichiometryMath* smm = m.getReaction(n)->getReactant(sr)->getStoichiometryMath();
+        if (smm->isSetMath())
+          checkMath(m, *smm->getMath(), *m.getReaction(n)->getReactant(sr));
       }
     }
   }
