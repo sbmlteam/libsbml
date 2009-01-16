@@ -24,3 +24,4 @@ translateMath
 unsetAnnotation
 unsetNotes
 validateSBML
+createExampleSBML
