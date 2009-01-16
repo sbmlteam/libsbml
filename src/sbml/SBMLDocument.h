@@ -35,17 +35,34 @@
  * inquire about any errors encountered (e.g., using
  * SBMLDocument::getNumErrors()), access the Model object, and perform
  * other actions such as consistency-checking and model translation.
- * SBMLDocument corresponds roughly to the class <i>Sbml</i> defined in the
- * SBML Level&nbsp;2 specification, but it does not have a direct correspondence
- * in SBML Level&nbsp;1.  (But, it is created by libSBML no matter whether the
- * model is Level&nbsp;1 or Level&nbsp;2.)
+ * 
+ * When creating fresh models programmatically, the starting point is
+ * typically the creation of an SBMLDocument object instance.  The
+ * SBMLDocument constructor accepts arguments for the SBML Level and
+ * Version of the model to be created.  After creating the SBMLDocument
+ * object, calling programs then typically call SBMLDocument::createModel()
+ * almost immediately, and then proceed to call the methods on the Model
+ * object to fill out the model's contents.
  *
- * SBMLDocument is derived from SBase, so that it contains the usual SBase
+ * SBMLDocument corresponds roughly to the class <i>Sbml</i> defined in the
+ * SBML Level&nbsp;2 specification.  It does not have a direct
+ * correspondence in SBML Level&nbsp;1.  (However, to make matters simpler
+ * for applications, it is created by libSBML no matter whether the model
+ * is Level&nbsp;1 or Level&nbsp;2.)  In its barest form, when written out
+ * in XML format for SBML Level&nbsp;2 Version&nbsp;4, the corresponding
+ * structure is the following:
+ * @verbatim
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4"
+  ...
+</sbml>
+@endverbatim
+ * 
+ * SBMLDocument is derived from SBase, and therefore contains the usual SBase
  * attributes (in SBML Level&nbsp;2 Version&nbsp;4) of "metaid" and "sboTerm", as
  * well as the subelements "notes" and "annotation".  It also contains the
  * attributes "level" and "version" indicating the Level and Version of the
- * SBML read.  These can be accessed using the SBase methods for that
- * purpose.
+ * SBML data structure.  These can be accessed using the methods defined by
+ * the SBase class for that purpose.
  *
  * Upon reading a model, SBMLDocument logs any problems encountered while
  * reading the model from the file or data stream.  Whether the problems
@@ -58,19 +75,23 @@
  * SBMLDocument also includes methods for running consistency-checking and
  * validation rules on the SBML content.  These methods assess whether the
  * SBML is legal according to basic rules listed in the SBML Level&nbsp;2
- * Version&nbsp;2, Version&nbsp;3 and Version&nbsp;4 specification documents.  The primary
- * interface is SBMLDocument::checkConsistency() and
- * SBMLDocument::setConsistencyChecks().  Additional useful methods are
- * SBMLDocument::checkL1Compatibility(),
- * SBMLDocument::checkL2v1Compatibility(),
- * SBMLDocument::checkL2v2Compatibility(), and
- * SBMLDocument::checkL2v3Compatibility(), and
- * SBMLDocument::checkL2v4Compatibility(), which allow callers to check the
- * downward compatibility of a model with other Levels/Versions of SBML.
- * At the time of this writing, the most recent release of SBML is
- * Level&nbsp;2 Version&nbsp;4.
+ * Versions&nbsp;2&ndash;4 specification documents.  The primary
+ * interface to this facility is SBMLDocument::checkConsistency() and
+ * SBMLDocument::setConsistencyChecks().
+ *
+ * If an application is interested in translating to a lower Level and/or
+ * Version of SBML within a Level, the following methods are useful:
+ * @li SBMLDocument::checkL1Compatibility(),
+ * @li SBMLDocument::checkL2v1Compatibility(),
+ * @li SBMLDocument::checkL2v2Compatibility(),
+ * @li SBMLDocument::checkL2v3Compatibility(), and
+ * @li SBMLDocument::checkL2v4Compatibility().
+ * 
+ * These methods allow a calling program to check the downward
+ * compatibility of a model with other Levels/Versions of SBML.  At the
+ * time of this writing, the most recent release of SBML is Level&nbsp;2
+ * Version&nbsp;4.
  */
-
 
 #ifndef SBMLDocument_h
 #define SBMLDocument_h
@@ -120,19 +141,33 @@ class LIBSBML_EXTERN SBMLDocument: public SBase
 public:
 
   /**
-   * Returns the most recent SBML specification Level (at the time this
-   * version of libSBML was released).
+   * The default SBML Level of new SBMLDocument objects.
    *
-   * @return an integer indicating the most recent SBML specification level
+   * This "default level" corresponds to the most recent SBML specification
+   * Level available at the time this version of libSBML was released.  For
+   * this copy of libSBML, the value is <code>2</code>.  The default Level
+   * is used by SBMLDocument if no Level is explicitly specified at the
+   * time of the construction of an SBMLDocument instance. 
+   *
+   * @return an integer indicating the most recent SBML specification Level
+   * 
+   * @see getDefaultVersion()
    */
   static unsigned int getDefaultLevel ();
 
 
   /**
-   * Returns the latest version of the SBML specification within the most
-   * recent Level (at the time this version of libSBML was released).
+   * The default Version of new SBMLDocument objects.
    *
-   * @return an integer indicating the most recent SBML version
+   * This "default version" corresponds to the most recent SBML Version
+   * within the most recent Level of SBML available at the time this
+   * version of libSBML was released.  For this copy of libSBML, the value
+   * is <code>4</code>.  The default Version is used by SBMLDocument if no
+   * Version is explicitly specified at the time of the construction of an
+   * SBMLDocument instance.
+   *
+   * @return an integer indicating the most recent SBML specification
+   * Version
    *
    * @see getDefaultLevel()
    */
@@ -145,11 +180,12 @@ public:
    *
    * If <em>both</em> the SBML Level and Version attributes are not
    * specified, the SBML document is treated as having the latest Level and
-   * Version (Level&nbsp;2 Version&nbsp;4 as of the libSBML&nbsp;3.3
-   * release); <em>however</em>, it is otherwise left blank.  In
-   * particular, the blank SBMLDocument object has no associated XML
-   * attributes yet such as an XML Namespace declaration.  The latter is
-   * not added until the model is written out, <em>or</em> the method
+   * Version of SBML as determined by getDefaultLevel() and
+   * getDefaultVersion(); <em>however</em>, the SBMLDocument object is
+   * otherwise left blank.  In particular, the blank SBMLDocument object
+   * has no associated XML attributes, including (but not limited to) an
+   * XML namespace declaration.  The XML namespace declaration is not added
+   * until the model is written out, <em>or</em> the method
    * setLevelAndVersion() is called.  This may be important to keep in mind
    * if an application needs to add additional XML namespace declarations
    * on the <code>&lt;sbml&gt;</code> element.  Application writers should
@@ -162,6 +198,8 @@ public:
    * @param version an integer for the Version within the SBML Level
    *
    * @see setLevelAndVersion()
+   * @see getDefaultLevel()
+   * @see getDefaultVersion()
    *
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different
@@ -211,42 +249,52 @@ public:
   /**
    * Returns the Model object stored in this SBMLDocument.
    *
-   * It is important to note that this method does not <em>create</em> a
-   * Model object.  The model in the SBMLDocument must have been created at
-   * some prior time using, for example, createModel() or setModel().  This
-   * method returns NULL if a model does not yet exist.
+   * It is important to note that this method <em>does not create</em> a
+   * Model instance.  The model in the SBMLDocument must have been created
+   * at some prior time, for example using createModel() or setModel().
+   * This method returns NULL if a model does not yet exist.
    * 
    * @return the Model contained in this SBMLDocument.
+   *
+   * @see createModel()
    */
   const Model* getModel () const;
 
 
   /**
    * Returns the Model object stored in this SBMLDocument.
+   *
+   * It is important to note that this method <em>does not create</em> a
+   * Model instance.  The model in the SBMLDocument must have been created
+   * at some prior time, for example using createModel() or setModel().
+   * This method returns NULL if a model does not yet exist.
    * 
    * @return the Model contained in this SBMLDocument.
+   *
+   * @see createModel()
    */
   Model* getModel ();
 
 
   /**
-   * Sets the SBML Level and Version of this SBMLDocument, attempting to
-   * convert the model as needed.
+   * Sets the SBML Level and Version of this SBMLDocument instance,
+   * attempting to convert the model as needed.
    *
-   * This method is used to convert models between Levels and Versions of
-   * SBML.  Generally, models can be converted upward without difficulty
-   * (e.g., from SBML Level&nbsp;1 to Level&nbsp;2, or from an earlier
-   * version of Level&nbsp;2 to the latest version of Level&nbsp;2).
-   * Sometimes models can be translated downward as well, if they do not
-   * use constructs specific to more advanced Levels of SBML.
+   * This method is the principal way in libSBML to convert models between
+   * Levels and Versions of SBML.  Generally, models can be converted
+   * upward without difficulty (e.g., from SBML Level&nbsp;1 to
+   * Level&nbsp;2, or from an earlier Version of Level&nbsp;2 to the latest
+   * Version of Level&nbsp;2).  Sometimes models can be translated downward
+   * as well, if they do not use constructs specific to more advanced
+   * Levels of SBML.
    *
-   * Callers can also check compatibility directly using the methods
-   * checkL1Compatibility(), checkL2v1Compatibility(),  
+   * Before calling this method, callers may check compatibility directly
+   * using the methods checkL1Compatibility(), checkL2v1Compatibility(),
    * checkL2v2Compatibility(), checkL2v3Compatibility() and
    * chcekL2v4Compatibility().
    * 
-   * The valid combinations as of this release of libSBML are the
-   * following: 
+   * The valid combinations of SBML Level and Version as of this release
+   * of libSBML are the following: 
    * <ul>
    * <li> Level&nbsp;1 Version&nbsp;2
    * <li> Level&nbsp;2 Version&nbsp;1
@@ -267,6 +315,12 @@ public:
    * can also check the Level of the model after calling this method to
    * find out whether it is Level&nbsp;1.  (If the conversion to
    * Level&nbsp;1 failed, the Level of this model will be left unchanged.)
+   * 
+   * @see checkL1Compatibility()
+   * @see checkL2v1Compatibility()
+   * @see checkL2v2Compatibility()
+   * @see checkL2v3Compatibility()
+   * @see checkL2v4Compatibility()
    */
   bool setLevelAndVersion (unsigned int level, unsigned int version);
 
@@ -274,14 +328,22 @@ public:
   /**
    * Sets the Model for this SBMLDocument to a copy of the given Model.
    *
-   * @param m the new Model to use. 
+   * @param m the new Model to use.
+   *
+   * @see createModel()
+   * @see getModel()
    */
   void setModel (const Model* m);
 
 
   /**
-   * Creates a new Model (optionally with its "id" attribute set) inside
-   * this SBMLDocument, and returns a pointer to it.
+   * Creates a new Model inside this SBMLDocument, and returns a pointer to
+   * it.
+   *
+   * In SBML Level&nbsp;2, the use of an identifier on a Model object is
+   * optional.  This method takes an optional argument, @p sid, for setting
+   * the identifier.  If not supplied, the identifier attribute on the
+   * Model instance is not set.
    *
    * @param sid the identifier of the new Model to create.
    *
@@ -296,6 +358,9 @@ public:
    * argument even though one is described, please look for descriptions of
    * other variants of this method near where this one appears in the
    * documentation.
+   *
+   * @see getModel()
+   * @see setModel()
    */
   Model* createModel (const std::string& sid = "");
 
@@ -304,13 +369,18 @@ public:
    * Controls the consistency checks that are performed when
    * SBMLDocument::checkConsistency() is called.
    *
-   * The first argument to this method indicates which category of
-   * consistency/error checks are being turned on or off, and the second
-   * argument (a boolean) indicates whether to turn on (value of @c true)
-   * or off (value of @c false) that particular category of checks.  The
-   * possible categories are represented as values of the enumeration
-   * #SBMLErrorCategory_t.  The following are the possible choices in
-   * libSBML version&nbsp;3.3.x:
+   * This method works by adding or subtracting consistency checks from the
+   * set of all possible checks that SBMLDocument::checkConsistency() knows
+   * how to perform.  This method may need to be called multiple times in
+   * order to achieve the desired combination of checks.  The first
+   * argument (@p category) in a call to this method indicates the category
+   * of consistency/error checks that are to be turned on or off, and the
+   * second argument (@p apply, a boolean) indicates whether to turn it on
+   * (value of @c true) or off (value of @c false).
+   *
+   * The possible categories (values to the argument @p category) are the
+   * set of values from the enumeration #SBMLErrorCategory_t.  The
+   * following are the possible choices in libSBML version&nbsp;3.3.x:
    *
    * @li @c LIBSBML_CAT_GENERAL_CONSISTENCY: Correctness and consistency of
    * specific SBML language constructs.  Performing this set of checks is
@@ -353,21 +423,23 @@ public:
    * recommended good modeling practice. (These are tests performed by
    * libSBML and do not have equivalent SBML validation rules.)
    * 
-   * <strong>By default, all validation checks are applied</strong> to the
-   * model in an SBMLDocument object @em unless setConsistencyChecks() is
-   * called to indicate that only a subset should be applied.
+   * <em>By default, all validation checks are applied</em> to the model in
+   * an SBMLDocument object @em unless setConsistencyChecks() is called to
+   * indicate that only a subset should be applied.  Further, this default
+   * (i.e., performing all checks) applies separately to <em>each new
+   * SBMLDocument object</em> created.  In other words, each time a model
+   * is read using SBMLReader::readSBML(), SBMLReader::readSBMLFromString,
+   * or the global functions readSBML() and readSBMLFromString(), a new
+   * SBMLDocument is created and for that document, a call to
+   * setConsistencyChecks() will default to applying all possible checks.
+   * Calling programs must invoke setConsistencyChecks() for each such new
+   * model if they wish to change the consistency checks applied.
    * 
    * @param category a value drawn from #SBMLErrorCategory_t indicating the
    * consistency checking/validation to be turned on or off
    *
    * @param apply a boolean indicating whether the checks indicated by @p
    * category should be applied or not.
-   * 
-   * @note The default (i.e., performing all checks) applies to each new
-   * SBMLDocument object created.  This means that each time a model is
-   * read using SBMLReader::readSBML(), SBMLReader::readSBMLFromString, or
-   * the global functions readSBML() and readSBMLFromString(), a new
-   * SBMLDocument is created and for that document
    *
    * @see checkConsistency()
    */
@@ -401,6 +473,7 @@ public:
    *
    * @note The consistency checks performed by this function are limited
    * to inconsistencies that are not caught by other consistency checks.
+   * 
    * @see setConsistencyChecks()
    */
   unsigned int checkInternalConsistency ();
@@ -476,8 +549,8 @@ public:
    * consistency checking, or attempted translation of this model.
    *
    * Callers can use method XMLError::getSeverity() on the result to assess
-   * the severity of the problem.  The severity levels range from
-   * informationl messages to fatal errors.
+   * the severity of the problem.  The possible severity levels range from
+   * informational messages to fatal errors.
    *
    * @return the error or warning indexed by integer @p n, or return @c
    * NULL if <code>n &gt; (getNumErrors() - 1)</code>.
@@ -589,6 +662,7 @@ public:
    * @see checkL2v4Compatibility()
    * @see SBMLReader::readSBML()
    * @see SBMLReader::readSBMLFromString()
+   * @see SBMLError()
    */
   SBMLErrorLog* getErrorLog ();
 
