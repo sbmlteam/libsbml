@@ -69,6 +69,7 @@ distfiles = \
   addCVTerms.vcproj	     \
   addModelHistory.vcproj \
   convertSBML.vcproj     \
+  createExampleSBML.vcproj \
   drawMath.vcproj        \
   echoSBML.vcproj        \
   libsbml.vcproj         \
