@@ -409,29 +409,18 @@ to the given ASTNodeType_t enumeration value.
 As mentioned above, applications often can avoid working with raw MathML by
 using either libSBML's text-string interface or the AST API.  However, when
 needed, reading MathML content directly and creating ASTs is easily done in
-libSBML using two methods designed for this purpose:
-
-@li <code>ASTNode* readMathML(XMLInputStream& stream)</code> reads raw
-MathML content from the given stream and constructs an AST from it, then
-returns the root ASTNode of the resulting expression tree.
+libSBML using a method designed for this purpose:
 
 @li <code>ASTNode* readMathMLFromString(const char* xml)</code> reads raw
 MathML from a text string, constructs an AST from it, then returns the root
 ASTNode of the resulting expression tree.
 
 Similarly, writing out Abstract Syntax Tree structures is easily done using
-the following methods:
-
-@li <code>void writeMathML(const ASTNode* node, XMLOutputStream& stream)</code>
-writes an AST to the given output stream.
+the following method:
 
 @li <code>char* writeMathMLToString(const ASTNode* node)</code> writes an
 AST to a string.  The caller owns the character string returned and should free
 it after it is no longer needed.
-
-
-
-
 
 
 */
