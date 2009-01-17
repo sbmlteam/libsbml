@@ -47,7 +47,6 @@ function alternateRowColors()
   var tables = document.getElementsByTagName("table");
   var rowCount = 0;
   for (var i = 0; i < tables.length; i++) {
-    // dump(tables.item(i).className + " " + tables.item(i).nodeName + "\n");
     if (hasClass(tables.item(i), className)) {
       atable = tables.item(i);
       rows = atable.getElementsByTagName("tr");
@@ -55,9 +54,9 @@ function alternateRowColors()
         arow = rows.item(j);
         if (arow.nodeName == "TR") {
           if (rowCount % 2) {
-            arow.style.backgroundColor = rowcolor;
-          } else {
             // default case
+          } else {
+            arow.style.backgroundColor = rowcolor;
           }
           rowCount++;
         }
