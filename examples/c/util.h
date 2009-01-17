@@ -15,7 +15,7 @@
 /**
  * @return the number of milliseconds elapsed since the Epoch.
  */
-unsigned long
+unsigned long long
 getCurrentMillis (void);
 
 /**
