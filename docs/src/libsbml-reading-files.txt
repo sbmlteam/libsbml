@@ -116,8 +116,8 @@ getNumErrors()@endlink</code> on an SBMLDocument object returns a count of
 the diagnostic messages logged while attempting to read an SBML model using
 either readSBML(const char *filename) or readFromString(const char *xml).
 
-@li <code>const SBMLError* @link SBMLDocument::getError(unsigned int n)
-getError(unsigned int n)@endlink const</code> returns a specific error
+@li <code>const SBMLError* @link SBMLDocument::getError()
+getError(unsigned int n)@endlink</code> returns a specific error
 indexed by the integer @c n.  (Callers should first use <code>@link
 SBMLDocument::getNumErrors() getNumErrors()@endlink</code> to get the
 number of errors, so that they can know the range of valid index numbers.)
@@ -125,7 +125,7 @@ The SBMLError object class provides methods for assessing the severity of
 the problem encountered and for finding out the line and column number of
 where the problem occurred in the SBML input.
 
-@li <code>void @link SBMLDocument::printErrors(std::ostream& stream = std::cerr)
+@li <code>void @link SBMLDocument::printErrors()
 printErrors(std::ostream& stream = std::cerr)@endlink</code> on
 an SBMLDocument object prints all of the diagnostics to the given output
 stream, defaulting to the standard error stream if no stream argument is
@@ -146,7 +146,7 @@ checkConsistency()@endlink</code>, invoked on an SBMLDocument object,
 performs a set of structural and mathematical checks on the SBML content
 and reports the number of failed checks (errors) encountered.  Callers may
 use <code>@link SBMLDocument::getNumErrors() getNumErrors()@endlink</code>
-and <code>@link SBMLDocument::getError(unsigned int n) getError(unsigned
+and <code>@link SBMLDocument::getError() getError(unsigned
 int n)@endlink</code> interfaces to examine the individual errors.
 
 @li <code>unsigned int @link SBMLDocument::checkL1Compatibility()
