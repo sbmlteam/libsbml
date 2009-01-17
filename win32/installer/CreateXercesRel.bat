@@ -164,6 +164,7 @@ copy "..\..\..\..\..\examples\c++\printAnnotation.cpp" printAnnotation.cpp
 copy "..\..\..\..\..\examples\c++\printNotes.cpp" printNotes.cpp
 copy "..\..\..\..\..\examples\c++\unsetAnnotation.cpp" unsetAnnotation.cpp
 copy "..\..\..\..\..\examples\c++\unsetNotes.cpp" unsetNotes.cpp
+copy "..\..\..\..\..\examples\c++\createExampleSBML.cpp" createExampleSBML.cpp
 cd ..
 
 rem examples/java directory
