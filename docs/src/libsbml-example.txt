@@ -510,10 +510,16 @@ SBML specifications, as well as additional rules offered by libSBML).
 When an application builds up a model programmatically and is finally
 ready to say "yes, this model is finished", it should call both of
 these methods to help ensure the correctness and consistency of the
-finished result.
+finished result.  Conversely, if it is reading a model from a file or
+data stream, libSBML will automatically run
+SBMLDocument::checkInternalConsistency().  The application only needs
+to check the results by interrogating the error log on the
+SBMLDocument object, then call SBMLDocument::checkConsistency() for
+checking the model against the SBML validation rules.
 
-The following code illustrates a complete sequence of checking a model
-using both SBMLDocument::checkInternalConsistency() and
+The following code illustrates a complete sequence of checking a
+newly-created model using both
+SBMLDocument::checkInternalConsistency() and
 SBMLDocument::checkConsistency(), and handling the reporting of
 problems to the user.
 
