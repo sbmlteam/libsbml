@@ -262,6 +262,7 @@ define run_doxygen
   $(DOXYGEN) $(1)
   cp $(logo-file) $(2)
   cp graphics/right-arrow.gif $(2)
+  cp sbml.js $(2)
   if test $(doxygen-minor-version) -lt 5; then \
     cp -rf doxygen-tabs.css $(2)/tabs.css; \
     head -n 9 $(2)/tree.html > tmp.html;\
@@ -376,6 +377,7 @@ java-manual $(java-manual): $(core-sources) ExcludeDoclet.class
 	cp -f $(logo-file) $(java-manual)
 	cp -f $(logo-file) $(java-manual)/org/sbml/libsbml/
 	cp -f graphics/*.jpg $(java-manual)/org/sbml/libsbml/
+        cp -f sbml.js $(java-manual)
 	$(call merge_html,libsbml-java-overview.html,$(java-manual)/overview-summary.html,Java @PACKAGE_VERSION@ API)
 	$(call merge_html,libsbml-installation.html,$(java-manual)/libsbml-installation.html,installation)
 	$(call merge_html,libsbml-accessing.html,$(java-manual)/libsbml-accessing.html,accessibility to your software)
