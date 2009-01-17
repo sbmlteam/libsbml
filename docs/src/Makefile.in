@@ -140,6 +140,7 @@ distfiles =                                    \
         libsbml-communications.txt             \
         libsbml-conversion-warnings.txt        \
         libsbml-conversion-warnings.html       \
+        libsbml-example.txt                    \
         libsbml-features.html                  \
         libsbml-features.txt                   \
         libsbml-installation.html              \
