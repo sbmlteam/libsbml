@@ -52,13 +52,18 @@ Version 3.3.0 (released 2009-01-14)
     specification did not make the cause of the error clear.  This
     error should now be reported more clearly.  Thanks to Lucian
     Smith for noticing this.
-    
+
   - LibSBML was not reporting the use of invalid attributes on the
     ListOfXXX classes as errors. This has now been fixed.
 
   - The MATLAB language binding now correctly identifies the use of
     the MathML <csymbol> 'delay' and provides the information to the
     user in a similar fashion to <csymbol> 'time'.
+
+  - There is a new section in the user documentation for C++,
+    "Tutorial: Creating a complete model, from start to finish".  This
+    describes the basics of constructing a model from scratch using
+    the libSBML API.
 
   - [Tracker issue #2376930]
     Validation rules 10401 and 10402 had not previously been
@@ -250,6 +255,12 @@ Version 3.3.0 (released 2009-01-14)
     build systems because it no longer functions (and has not for
     quite some time).  The code is still in the distribution because
     we hope someone, someday will help get it working again.
+
+  - The configuration system now will automatically disable support
+    for reading/writing compressed SBML if the 'configure' script
+    cannot find the necessary libraries (zlib and bzip2).  There is
+    also a configuration flag, --enable-compression, that can be used
+    to enable/disable both compression libraries in one go.
 
   - The allowable values for an integer have been restricted to the
     range of the standard 32-bit signed integer values (2147483647 to
