@@ -725,8 +725,8 @@ typedef enum
  , NoKineticLawSubstanceUnitsInL2v2      = 93004 /*!< The <code>substanceUnits</code> attribute is invalid in this Level+Version of SBML */
  , NoDelayedEventAssignmentInL2v2        = 93005 /*!< Attribute <code>useValuesFromTriggerTime</code> not supported in this Level+Version of SBML */
  , ModelSBOBranchChangedBeyondL2v2       = 93006 /*!< The allowable <code>sboTerm</code> values for model differ for this SBML Level+Version */
- , StrictUnitsRequiredInL2v2             = 93007 /*!< SBML Level&nbsp;2 Version&nbps;2 requires strict unit consistency */
- , StrictSBORequiredInL2v2               = 93008 /*!< SBML Level&nbsp;2 Version&nbps;2 requires strict sbo consistency */
+ , StrictUnitsRequiredInL2v2             = 93007 /*!< SBML Level&nbsp;2 Version&nbsp;2 requires strict unit consistency */
+ , StrictSBORequiredInL2v2               = 93008 /*!< SBML Level&nbsp;2 Version&nbsp;2 requires strict sbo consistency */
 
   /* L2v3 compatability  */
 
@@ -737,8 +737,8 @@ typedef enum
  , NoEventTimeUnitsInL2v3                = 94005 /*!< Attribute <code>timeUnits</code> not supported in this Level+Version of SBML */
  , NoDelayedEventAssignmentInL2v3        = 94006 /*!< Attribute <code>useValuesFromTriggerTime</code> not supported in this Level+Version of SBML */
  , ModelSBOBranchChangedBeyondL2v3       = 94007 /*!< The allowable <code>sboTerm</code> values for model differ for this SBML Level+Version */
- , StrictUnitsRequiredInL2v3             = 94008 /*!< SBML Level&nbsp;2 Version&nbps;3 requires strict unit consistency */
- , StrictSBORequiredInL2v3               = 94009 /*!< SBML Level&nbsp;2 Version&nbps;3 requires strict sbo consistency */
+ , StrictUnitsRequiredInL2v3             = 94008 /*!< SBML Level&nbsp;2 Version&nbsp;3 requires strict unit consistency */
+ , StrictSBORequiredInL2v3               = 94009 /*!< SBML Level&nbsp;2 Version&nbsp;3 requires strict sbo consistency */
 
   /* L2v4 compatability  */
 
