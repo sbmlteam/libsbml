@@ -55,7 +55,7 @@ perl-manual   = $(formatted)/perl-api
 # The C++ and C manuals are always made, but additional manuals depend on
 # the options with which libSBML was configured.
 
-docs = $(cpp-manual) $(c-manual)
+docs = Makefile $(cpp-manual) $(c-manual)
 
 ifdef USE_JAVA
   docs += $(java-manual)
@@ -377,7 +377,7 @@ java-manual $(java-manual): $(core-sources) ExcludeDoclet.class
 	cp -f $(logo-file) $(java-manual)
 	cp -f $(logo-file) $(java-manual)/org/sbml/libsbml/
 	cp -f graphics/*.jpg $(java-manual)/org/sbml/libsbml/
-        cp -f sbml.js $(java-manual)
+	cp -f sbml.js $(java-manual)
 	$(call merge_html,libsbml-java-overview.html,$(java-manual)/overview-summary.html,Java @PACKAGE_VERSION@ API)
 	$(call merge_html,libsbml-installation.html,$(java-manual)/libsbml-installation.html,installation)
 	$(call merge_html,libsbml-accessing.html,$(java-manual)/libsbml-accessing.html,accessibility to your software)
