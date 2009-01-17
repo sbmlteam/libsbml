@@ -17,6 +17,7 @@ Systems Biology Markup Language (SBML).
 @section main-programming Programming with libSBML
 - @subpage libsbml-reading-files
 - @subpage libsbml-math
+- @subpage libsbml-example
 - @subpage libsbml-issues
 
 @section main-other Other topics
