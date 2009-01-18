@@ -27,6 +27,15 @@
 
 import sys, string, os.path, re
 
+#
+# Globally-scoped variables
+#
+
+docincpath = ''
+
+#
+# Methods
+#
 
 class CHeader:
   """CHeader encapsulates the C++ class and C function definitions
@@ -311,12 +320,67 @@ def translateVerbatim (match):
   return text
 
 
+def translateInclude (match):
+  global docincpath
 
-def sanitizeForHTML (docstring):
-  """sanitizeForHTML (docstring, boolean) -> docstring
+  text    = match.group()
+  file    = match.group(1)
+  stream  = open(docincpath + '/' + file, 'r')
+  content = stream.read()
+  stream.close()
 
-  Performs some mimimal HTML transformations on the C++/Doxygen docstring.
+  return content
+
+
+def translateIfJava (match):
+  text = match.group()
+  if match.group(1) == 'java':
+    text =  match.group(2)
+  else:
+    text = ''
+  return text
+
+
+def translateIfPerl (match):
+  text = match.group()
+  if match.group(1) == 'perl':
+    text =  match.group(2)
+  else:
+    text = ''
+  return text
+
+
+def translateIfPython (match):
+  text = match.group()
+  if match.group(1) == 'python':
+    text =  match.group(2)
+  else:
+    text = ''
+  return text
+
+
+def translateJavaCrossRef (match):
+  prior = match.group(1)
+  classname = match.group(2)
+  method = match.group(3)
+  return prior + '{@link ' + classname + '#' + method + '}'
+
+
+def sanitizeForHTML (docstring, language):
+  """sanitizeForHTML (docstring, language) -> docstring
+
+  Performs HTML transformations on the C++/Doxygen docstring.
   """
+
+  # First do conditional section inclusion based on the current language.
+
+  p = re.compile('@if\s+doxygen-(java|python|perl|clike)-only\s+(.+?)@endif', re.DOTALL)
+  if language == 'java':
+    docstring = p.sub(translateIfJava, docstring)
+  elif language == 'perl':
+    docstring = p.sub(translateIfPerl, docstring)
+  elif language == 'python':
+    docstring = p.sub(translateIfPython, docstring)
 
   # Replace blank lines between paragraphs with <p>.  There are two main
   # cases: comments blocks whose lines always begin with an asterix (e.g.,
@@ -348,6 +412,12 @@ def sanitizeForHTML (docstring):
   docstring = p.sub(r'<h3>\1</h3>', docstring)
   p = re.compile('@subsubsection\s+[^\s]+\s+(.*)$', re.MULTILINE)
   docstring = p.sub(r'<h4>\1</h4>', docstring)
+
+  # Javadoc doesn't have an @htmlinclude command.  Slurp the file
+  # directly in at the point.
+
+  p = re.compile('@htmlinclude\s+([^\s]+).*$', re.MULTILINE)
+  docstring = p.sub(translateInclude, docstring)
 
   # Javadoc doesn't have an @image command.  We translate @image html
   # but ditch @image latex.
@@ -387,6 +457,11 @@ def sanitizeForHTML (docstring):
 
   docstring = re.sub(r'\s*\Z', '\n', docstring)
 
+  # Massage method cross-references.
+
+  p = re.compile('(\s+)(\S+?)::([^)]+?\))', re.MULTILINE)
+  docstring = p.sub(translateJavaCrossRef, docstring)
+
   return docstring
 
 
@@ -403,7 +478,7 @@ def sanitizeForJava (docstring):
   C++/Doxygen docstring.
   """
 
-  docstring = sanitizeForHTML(docstring)
+  docstring = sanitizeForHTML(docstring, 'java')
 
   # Try to rewrite some of the data type references to equivalent Java types.
 
@@ -608,7 +683,7 @@ def writeClassDocstring (ostream, language, docstring, classname):
 
 
 def main (args):
-  """usage: swigdoc.py [java | python | perl] -Ipath libsbml.i docstrings.i
+  """usage: swigdoc.py [java | python | perl] -Ipath -Dpath libsbml.i docstrings.i
 
   java | python | perl  generate docstrings for this language module.
   path                  is the path to the libsbml src/ directory.
@@ -616,14 +691,17 @@ def main (args):
   docstrings.i          is the file to output the SWIG docstrings.
   """
 
-  if len(args) != 5:
+  if len(args) != 6:
     print main.__doc__
     sys.exit(1)
 
+  global docincpath
+
   language    = args[1]
   includepath = string.replace(args[2], '-I', '')
-  headers     = getHeadersFromSWIG(args[3])
-  stream      = open(args[4], 'w')
+  docincpath  = string.replace(args[3], '-D', '')
+  headers     = getHeadersFromSWIG(args[4])
+  stream      = open(args[5], 'w')
 
   if language == 'perl':
     infile = open(os.path.abspath('LibSBML.txt'), 'r')
