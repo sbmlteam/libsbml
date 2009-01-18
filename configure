@@ -3972,7 +3972,7 @@ else
   ;;
   *)
   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in no-swig-found
+for as_dir in $with_swig/bin
 do
   IFS=$as_save_IFS
   test -z "$as_dir" && as_dir=.
@@ -3986,7 +3986,7 @@ done
 done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_SWIG" && ac_cv_path_SWIG="$with_swig/bin/swig"
+  test -z "$ac_cv_path_SWIG" && ac_cv_path_SWIG="no-swig-found"
   ;;
 esac
 fi
@@ -4142,7 +4142,7 @@ else
   ;;
   *)
   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in no-python-found
+for as_dir in $with_python/bin
 do
   IFS=$as_save_IFS
   test -z "$as_dir" && as_dir=.
@@ -4156,7 +4156,7 @@ done
 done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_PYTHON" && ac_cv_path_PYTHON="$with_python/bin/python"
+  test -z "$ac_cv_path_PYTHON" && ac_cv_path_PYTHON="no-python-found"
   ;;
 esac
 fi
@@ -4352,7 +4352,7 @@ else
   ;;
   *)
   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in no-perl-found
+for as_dir in $with_perl/bin
 do
   IFS=$as_save_IFS
   test -z "$as_dir" && as_dir=.
@@ -4366,7 +4366,7 @@ done
 done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_PERL" && ac_cv_path_PERL="$with_perl/bin/perl"
+  test -z "$ac_cv_path_PERL" && ac_cv_path_PERL="no-perl-found"
   ;;
 esac
 fi
@@ -4486,7 +4486,7 @@ else
   ;;
   *)
   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in no-java-found
+for as_dir in $with_java/bin
 do
   IFS=$as_save_IFS
   test -z "$as_dir" && as_dir=.
@@ -4500,7 +4500,7 @@ done
 done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_JAVA" && ac_cv_path_JAVA="$with_java/bin/java"
+  test -z "$ac_cv_path_JAVA" && ac_cv_path_JAVA="no-java-found"
   ;;
 esac
 fi
@@ -4527,7 +4527,7 @@ else
   ;;
   *)
   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in no-javac-found
+for as_dir in $with_java/bin
 do
   IFS=$as_save_IFS
   test -z "$as_dir" && as_dir=.
@@ -4541,7 +4541,7 @@ done
 done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_JAVAC" && ac_cv_path_JAVAC="$with_java/bin/javac"
+  test -z "$ac_cv_path_JAVAC" && ac_cv_path_JAVAC="no-javac-found"
   ;;
 esac
 fi
@@ -4568,7 +4568,7 @@ else
   ;;
   *)
   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in no-jar-found
+for as_dir in $with_java/bin
 do
   IFS=$as_save_IFS
   test -z "$as_dir" && as_dir=.
@@ -4582,7 +4582,7 @@ done
 done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_JAR" && ac_cv_path_JAR="$with_java/bin/jar"
+  test -z "$ac_cv_path_JAR" && ac_cv_path_JAR="no-jar-found"
   ;;
 esac
 fi
@@ -4959,7 +4959,7 @@ else
   ;;
   *)
   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in no-mex-found
+for as_dir in $with_matlab/bin
 do
   IFS=$as_save_IFS
   test -z "$as_dir" && as_dir=.
@@ -4973,7 +4973,7 @@ done
 done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_MEX" && ac_cv_path_MEX="$with_matlab/bin/mex"
+  test -z "$ac_cv_path_MEX" && ac_cv_path_MEX="no-mex-found"
   ;;
 esac
 fi
@@ -5000,7 +5000,7 @@ else
   ;;
   *)
   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in no-matlab-found
+for as_dir in $with_matlab/bin
 do
   IFS=$as_save_IFS
   test -z "$as_dir" && as_dir=.
@@ -5014,7 +5014,7 @@ done
 done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_MATLAB" && ac_cv_path_MATLAB="$with_matlab/bin/matlab"
+  test -z "$ac_cv_path_MATLAB" && ac_cv_path_MATLAB="no-matlab-found"
   ;;
 esac
 fi
@@ -5193,7 +5193,7 @@ else
   ;;
   *)
   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in no-octave-found
+for as_dir in $with_octave/bin
 do
   IFS=$as_save_IFS
   test -z "$as_dir" && as_dir=.
@@ -5207,7 +5207,7 @@ done
 done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_OCTAVE" && ac_cv_path_OCTAVE="$with_octave/bin/octave"
+  test -z "$ac_cv_path_OCTAVE" && ac_cv_path_OCTAVE="no-octave-found"
   ;;
 esac
 fi
@@ -5234,7 +5234,7 @@ else
   ;;
   *)
   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in no-mkoctfile-found
+for as_dir in $with_octave/bin
 do
   IFS=$as_save_IFS
   test -z "$as_dir" && as_dir=.
@@ -5248,7 +5248,7 @@ done
 done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_MKOCTFILE" && ac_cv_path_MKOCTFILE="$with_octave/bin/mkoctfile"
+  test -z "$ac_cv_path_MKOCTFILE" && ac_cv_path_MKOCTFILE="no-mkoctfile-found"
   ;;
 esac
 fi
@@ -5275,7 +5275,7 @@ else
   ;;
   *)
   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in no-octave-config-found
+for as_dir in $with_octave/bin
 do
   IFS=$as_save_IFS
   test -z "$as_dir" && as_dir=.
@@ -5289,7 +5289,7 @@ done
 done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_OCTAVE_CONFIG" && ac_cv_path_OCTAVE_CONFIG="$with_octave/bin/octave-config"
+  test -z "$ac_cv_path_OCTAVE_CONFIG" && ac_cv_path_OCTAVE_CONFIG="no-octave-config-found"
   ;;
 esac
 fi
@@ -5583,7 +5583,7 @@ else
   ;;
   *)
   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in no-ruby-found
+for as_dir in $with_ruby/bin
 do
   IFS=$as_save_IFS
   test -z "$as_dir" && as_dir=.
@@ -5597,7 +5597,7 @@ done
 done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_RUBY" && ac_cv_path_RUBY="$with_ruby/bin/ruby"
+  test -z "$ac_cv_path_RUBY" && ac_cv_path_RUBY="no-ruby-found"
   ;;
 esac
 fi
@@ -6421,7 +6421,7 @@ fi
 done
 
     else
-      for ac_prog in sn ""
+      for ac_prog in sn
 do
   # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
@@ -6436,7 +6436,7 @@ else
   ;;
   *)
   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $PATH
+for as_dir in $CSHARP_PATH
 do
   IFS=$as_save_IFS
   test -z "$as_dir" && as_dir=.
@@ -6465,9 +6465,9 @@ fi
 
   test -n "$SN" && break
 done
-test -n "$SN" || SN="$CSHARP_PATH"
+test -n "$SN" || SN=""""
 
-      for ac_prog in gacutil ""
+      for ac_prog in gacutil
 do
   # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
@@ -6482,7 +6482,7 @@ else
   ;;
   *)
   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $PATH
+for as_dir in $CSHARP_PATH
 do
   IFS=$as_save_IFS
   test -z "$as_dir" && as_dir=.
@@ -6511,7 +6511,7 @@ fi
 
   test -n "$GACUTIL" && break
 done
-test -n "$GACUTIL" || GACUTIL="$CSHARP_PATH"
+test -n "$GACUTIL" || GACUTIL=""""
 
     fi
 
@@ -6596,7 +6596,7 @@ else
   ;;
   *)
   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in no-doxygen-found
+for as_dir in $with_doxygen/bin $with_doxygen/Contents/Resources $with_doxygen
 do
   IFS=$as_save_IFS
   test -z "$as_dir" && as_dir=.
@@ -6610,7 +6610,7 @@ done
 done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_DOXYGEN" && ac_cv_path_DOXYGEN="$with_doxygen"
+  test -z "$ac_cv_path_DOXYGEN" && ac_cv_path_DOXYGEN="no-doxygen-found"
   ;;
 esac
 fi

@@ -38,13 +38,9 @@ AC_DEFUN([CONFIG_PROG_OCTAVE],
       dnl Remove needless trailing slashes because it can confuse tests later.
       with_octave=`echo $with_octave | sed -e 's,\(.*\)/$,\1,g'`
 
-      AC_PATH_PROG([OCTAVE], [octave], [$with_octave/bin/octave],
-                     [no-octave-found], [$with_octave/bin])
-      AC_PATH_PROG([MKOCTFILE], [mkoctfile], [$with_octave/bin/mkoctfile],
-                     [no-mkoctfile-found], [$with_octave/bin])
-      AC_PATH_PROG([OCTAVE_CONFIG], [octave-config],
-                   [$with_octave/bin/octave-config],
-                     [no-octave-config-found], [$with_octave/bin])
+      AC_PATH_PROG([OCTAVE], [octave], [no-octave-found], [$with_octave/bin])
+      AC_PATH_PROG([MKOCTFILE], [mkoctfile], [no-mkoctfile-found], [$with_octave/bin])
+      AC_PATH_PROG([OCTAVE_CONFIG], [octave-config], [no-octave-config-found], [$with_octave/bin])
     else
       AC_PATH_PROG([OCTAVE], [octave])
       AC_PATH_PROG([MKOCTFILE], [mkoctfile])

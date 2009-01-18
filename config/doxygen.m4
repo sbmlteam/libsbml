@@ -38,14 +38,14 @@ AC_DEFUN([CONFIG_PROG_DOXYGEN],
   if test "$with_doxygen" != "no"; then
     if test "$with_doxygen" != "yes"; then
       dnl Users seems to have supplied a prefix directory path.  See if we can
-      dnl find swig somewhere in the given tree.
+      dnl find doxygen somewhere in the given tree.
   
       dnl 1st remove trailing slashes because it can confuse tests below.
   
       with_doxygen=`echo $with_doxygen | sed -e 's,\(.*\)/$,\1,g'`
   
-      AC_PATH_PROG([DOXYGEN], [doxygen], [$with_doxygen],
-                   [no-doxygen-found], [$with_doxygen])
+      AC_PATH_PROG([DOXYGEN], [doxygen], [no-doxygen-found], 
+                   [$with_doxygen/bin $with_doxygen/Contents/Resources $with_doxygen])
     else
       dnl Nothing supplied -- look for doxygen on the user's path.
       AC_PATH_PROG([DOXYGEN], [doxygen])

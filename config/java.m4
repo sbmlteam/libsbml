@@ -44,12 +44,9 @@ AC_DEFUN([CONFIG_PROG_JAVA],
 
       with_java=`echo $with_java | sed -e 's,\(.*\)/$,\1,g'`
 
-      AC_PATH_PROG([JAVA], [java], [$with_java/bin/java],
-                   [no-java-found], [$with_java/bin])
-      AC_PATH_PROG([JAVAC], [javac], [$with_java/bin/javac],
-                   [no-javac-found], [$with_java/bin])
-      AC_PATH_PROG([JAR], [jar], [$with_java/bin/jar],
-                   [no-jar-found], [$with_java/bin])
+      AC_PATH_PROG([JAVA], [java], [no-java-found], [$with_java/bin])
+      AC_PATH_PROG([JAVAC], [javac], [no-javac-found], [$with_java/bin])
+      AC_PATH_PROG([JAR], [jar], [no-jar-found], [$with_java/bin])
     else
       dnl No prefix directory path supplied for --with-java.  Use defaults.
 

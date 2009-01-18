@@ -45,8 +45,7 @@ AC_DEFUN([CONFIG_PROG_RUBY],
       dnl Remove needless trailing slashes because it can confuse tests later.
       with_ruby=`echo $with_ruby | sed -e 's,\(.*\)/$,\1,g'`
 
-      AC_PATH_PROG([RUBY], [ruby], [$with_ruby/bin/ruby],
-                   [no-ruby-found], [$with_ruby/bin])
+      AC_PATH_PROG([RUBY], [ruby], [no-ruby-found], [$with_ruby/bin])
     else
       AC_PATH_PROG([RUBY], [ruby])
     fi

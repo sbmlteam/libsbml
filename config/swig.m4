@@ -43,8 +43,7 @@ AC_DEFUN([CONFIG_PROG_SWIG],
 
       with_swig=`echo $with_swig | sed -e 's,\(.*\)/$,\1,g'`
 
-      AC_PATH_PROG([SWIG], [swig], [$with_swig/bin/swig],
-                   [no-swig-found], [$with_swig/bin])
+      AC_PATH_PROG([SWIG], [swig], [no-swig-found], [$with_swig/bin])
     else
       dnl No prefix directory path supplied for --with-swig.  Use defaults.
 
