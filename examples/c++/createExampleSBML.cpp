@@ -3,6 +3,7 @@
  * @brief   Creates example SBML models presented in the SBML specification.
  * @author  Akiya Jouraku
  * @author  Michael Hucka
+ * @author  Sarah Keating
  *
  * $Id$
  * $HeadURL$
@@ -343,43 +344,181 @@ SBMLDocument* createExampleEnzymaticReaction()
 
   kl = reaction->createKineticLaw();
 
-  // To create mathematical expressions, one would typically construct
-  // an ASTNode tree.  Here, to save some space and illustrate another
-  // approach of doing it, we will write out the formula in MathML
-  // form and then use a libSBML convenience function to create the
-  // ASTNode tree for us.  (This is a bit dangerous; it's very easy to
-  // make mistakes when writing MathML by hand, so in a real program,
-  // we would not really want to do it this way.)
+ //---------------------------------------------------------------------------
+   // Creates an ASTNode object which represents the following math of the
+   // KineticLaw.
+   //
+   //      <math xmlns="http://www.w3.org/1998/Math/MathML">
+   //        <apply>
+   //          <times/>
+   //          <ci> cytosol </ci>
+   //          <apply>
+   //            <minus/>
+   //            <apply>
+   //              <times/>
+   //              <ci> kon </ci>
+   //              <ci> E </ci>
+   //              <ci> S </ci>
+   //            </apply>
+   //            <apply>
+   //              <times/>
+   //              <ci> koff </ci>
+   //              <ci> ES </ci>
+   //            </apply>
+   //          </apply>
+   //        </apply>
+   //      </math>
+   //
+ //---------------------------------------------------------------------------
 
-  string mathXMLString = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
-                         "  <apply>"
-                         "    <times/>"
-                         "    <ci> cytosol </ci>"
-                         "    <apply>"
-                         "      <minus/>"
-                         "      <apply>"
-                         "        <times/>"
-                         "        <ci> kon </ci>"
-                         "        <ci> E </ci>"
-                         "        <ci> S </ci>"
-                         "      </apply>"
-                         "      <apply>"
-                         "        <times/>"
-                         "          <ci> koff </ci>"
-                         "          <ci> ES </ci>"
-                         "      </apply>"
-                         "    </apply>"
-                         "  </apply>"
-                         "</math>";
+   //------------------------------------------
+   //
+   // create nodes representing the variables
+   //
+   //------------------------------------------
 
-  ASTNode* astMath = readMathMLFromString(mathXMLString.c_str());
+   ASTNode* astCytosol = new ASTNode(AST_NAME);
+   astCytosol->setName("cytosol");
+
+   ASTNode* astKon = new ASTNode(AST_NAME);
+   astKon->setName("kon");
+
+   ASTNode* astKoff = new ASTNode(AST_NAME);
+   astKoff->setName("koff");
+
+   ASTNode* astE = new ASTNode(AST_NAME);
+   astE->setName("E");
+
+   ASTNode* astS = new ASTNode(AST_NAME);
+   astS->setName("S");
+
+   ASTNode* astES = new ASTNode(AST_NAME);
+   astES->setName("ES");
+
+
+   //--------------------------------------------
+   //
+   // create node representing
+   //            <apply>
+   //              <times/>
+   //              <ci> koff </ci>
+   //              <ci> ES </ci>
+   //            </apply>
+   //
+   //--------------------------------------------
+
+   ASTNode *astTimes1 = new ASTNode(AST_TIMES);
+   astTimes1->addChild(astKoff);
+   astTimes1->addChild(astES);
+
+   //--------------------------------------------
+   //
+   // create node representing
+   //            <apply>
+   //              <times/>
+   //              <ci> kon </ci>
+   //              <ci> E </ci>
+   //              <ci> S </ci>
+   //            </apply>
+   //
+   //
+   // (NOTES)
+   //
+   //  Since there is a restriction with an ASTNode of "<times/>" operation
+   //  such that the ASTNode is a binary class and thus only two operands can
+   //  be directly added, the following code in this comment block is invalid
+   //  because the code directly adds three <ci> ASTNodes to <times/> ASTNode.
+   //
+   //    ASTNode *astTimes = new ASTNode(AST_TIMES);
+   //    astTimes->addChild(astKon);
+   //    astTimes->addChild(astE);
+   //    astTimes->addChild(astS);
+   //
+   // The following valid code after this comment block creates the ASTNode
+   // as a binary tree.
+   //
+   // Please see "Converting between ASTs and text strings" described
+   // at http://sbml.org/Software/libSBML/docs/cpp-api/class_a_s_t_node.html
+   // for the detailed information.
+   //
+   //--------------------------------------------
+
+   ASTNode *astTimes2 = new ASTNode(AST_TIMES);
+   astTimes2->addChild(astE);
+   astTimes2->addChild(astS);
+
+   ASTNode *astTimes = new ASTNode(AST_TIMES);
+   astTimes->addChild(astKon);
+   astTimes->addChild(astTimes2);
+
+   //--------------------------------------------
+   //
+   // create node representing
+   //          <apply>
+   //            <minus/>
+   //            <apply>
+   //              <times/>
+   //              <ci> kon </ci>
+   //              <ci> E </ci>
+   //              <ci> S </ci>
+   //            </apply>
+   //            <apply>
+   //              <times/>
+   //              <ci> koff </ci>
+   //              <ci> ES </ci>
+   //            </apply>
+   //          </apply>
+   //
+   //--------------------------------------------
+
+   ASTNode *astMinus = new ASTNode(AST_MINUS);
+   astMinus->addChild(astTimes);
+   astMinus->addChild(astTimes1);
+
+
+   //--------------------------------------------
+   //
+   // create node representing
+   //        <apply>
+   //          <times/>
+   //          <ci> cytosol </ci>
+   //          <apply>
+   //            <minus/>
+   //            <apply>
+   //              <times/>
+   //              <ci> kon </ci>
+   //              <ci> E </ci>
+   //              <ci> S </ci>
+   //            </apply>
+   //            <apply>
+   //              <times/>
+   //              <ci> koff </ci>
+   //              <ci> ES </ci>
+   //            </apply>
+   //          </apply>
+   //        </apply>
+   //
+   //--------------------------------------------
+
+   ASTNode* astMath = new ASTNode(AST_TIMES);
+   astMath->addChild(astCytosol);
+   astMath->addChild(astMinus);
+
+   //---------------------------------------------
+   //
+   // set the Math element
+   //
+   //------------------------------------------------
+
+   kl->setMath(astMath);
 
   // KineticLaw::setMath(const ASTNode*) sets the math of the KineticLaw object
   // to a copy of the given ASTNode, and thus basically the caller should delete 
   // the original ASTNode object if the caller has the ownership of the object to 
   // avoid memory leak.
-  kl->setMath(astMath);
-  delete astMath;
+
+   delete astMath;
+
 
   //---------------------------------------------------------------------------
   // Creates local Parameter objects inside the KineticLaw object.
@@ -442,14 +581,22 @@ SBMLDocument* createExampleEnzymaticReaction()
   // Sets a math (ASTNode object) to the KineticLaw object.
   //---------------------------------------------------------------------------
 
-  mathXMLString = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
-                  "  <apply>"
-                  "    <times/>"
-                  "    <ci> cytosol </ci>"
-                  "    <ci> kcat </ci>"
-                  "    <ci> ES </ci>"
-                  "  </apply>"
-                  "</math>";
+  // To create mathematical expressions, one would typically construct
+  // an ASTNode tree as the above example code which creates a math of another
+  // KineticLaw object.  Here, to save some space and illustrate another approach 
+  // of doing it, we will write out the formula in MathML form and then use a 
+  // libSBML convenience function to create the ASTNode tree for us.  
+  // (This is a bit dangerous; it's very easy to make mistakes when writing MathML 
+  // by hand, so in a real program, we would not really want to do it this way.)
+
+  string mathXMLString = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
+                         "  <apply>"
+                         "    <times/>"
+                         "    <ci> cytosol </ci>"
+                         "    <ci> kcat </ci>"
+                         "    <ci> ES </ci>"
+                         "  </apply>"
+                         "</math>";
 
   astMath = readMathMLFromString(mathXMLString.c_str());
   kl->setMath(astMath);
@@ -747,30 +894,70 @@ SBMLDocument* createExampleInvolvingUnits()
   kl->setNotes(notesString);
 
   //---------------------------------------------------------------------------
-  // Sets a math (ASTNode object) to the KineticLaw object.
+  // Creates an ASTNode object which represents the following KineticLaw object.
+  //
+  //  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">
+  //   <apply>
+  //     <times/>
+  //     <apply>
+  //       <divide/>
+  //       <apply>
+  //         <times/>
+  //           <ci> vm </ci>
+  //           <ci> s1 </ci>
+  //       </apply>
+  //       <apply>
+  //         <plus/>
+  //           <ci> km </ci>
+  //           <ci> s1 </ci>
+  //       </apply>
+  //     </apply>
+  //     <ci> cell </ci>
+  //    </apply>
+  //  </math>
   //---------------------------------------------------------------------------
 
-  string mathXMLString = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
-                         "  <apply>"
-                         "    <times/>"
-                         "    <apply>"
-                         "      <divide/>"
-                         "      <apply>"
-                         "        <times/>"
-                         "        <ci> vm </ci>"
-                         "        <ci> s1 </ci>"
-                         "      </apply>"
-                         "      <apply>"
-                         "        <plus/>"
-                         "          <ci> km </ci>"
-                         "          <ci> s1 </ci>"
-                         "      </apply>"
-                         "    </apply>"
-                         "    <ci> cell </ci>"
-                         "  </apply>"
-                         "</math>";
+  //
+  // In the following code, ASTNode objects, which construct an ASTNode tree 
+  // of the above math, are created and added in the order of preorder traversal 
+  // of the tree (i.e. the order corresponds to the nested structure of the above 
+  // MathML elements), and thus the following code maybe a bit more efficient but 
+  // maybe a bit difficult to read.
+  //
 
-  ASTNode* astMath = readMathMLFromString(mathXMLString.c_str());
+  ASTNode* astMath = new ASTNode(AST_TIMES);
+
+  astMath->addChild(new ASTNode(AST_DIVIDE));
+  ASTNode* astDivide = astMath->getLeftChild();
+
+  astDivide->addChild(new ASTNode(AST_TIMES));
+  ASTNode* astTimes = astDivide->getLeftChild();
+
+  astTimes->addChild(new ASTNode(AST_NAME));
+  astTimes->getLeftChild()->setName("vm");
+
+  astTimes->addChild(new ASTNode(AST_NAME));
+  astTimes->getRightChild()->setName("s1");
+
+  astDivide->addChild(new ASTNode(AST_PLUS));
+  ASTNode* astPlus = astDivide->getRightChild();
+
+  astPlus->addChild(new ASTNode(AST_NAME));
+  astPlus->getLeftChild()->setName("km");
+
+  astPlus->addChild(new ASTNode(AST_NAME));
+  astPlus->getRightChild()->setName("s1");
+
+
+  astMath->addChild(new ASTNode(AST_NAME));
+  astMath->getRightChild()->setName("cell");
+
+  //---------------------------------------------
+  //
+  // set the Math element
+  //
+  //------------------------------------------------
+
   kl->setMath(astMath);
   delete astMath;
 
@@ -831,25 +1018,33 @@ SBMLDocument* createExampleInvolvingUnits()
   // Sets a math (ASTNode object) to the KineticLaw object.
   //---------------------------------------------------------------------------
 
-  mathXMLString = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
-                  "  <apply>"
-                  "    <times/>"
-                  "    <apply>"
-                  "      <divide/>"
-                  "      <apply>"
-                  "        <times/>"
-                  "        <ci> vm </ci>"
-                  "        <ci> s2 </ci>"
-                  "      </apply>"
-                  "      <apply>"
-                  "        <plus/>"
-                  "          <ci> km </ci>"
-                  "          <ci> s2 </ci>"
-                  "      </apply>"
-                  "    </apply>"
-                  "    <ci> cell </ci>"
-                  "  </apply>"
-                  "</math>";
+  // To create mathematical expressions, one would typically construct
+  // an ASTNode tree as the above example code which creates a math of another
+  // KineticLaw object.  Here, to save some space and illustrate another approach 
+  // of doing it, we will write out the formula in MathML form and then use a 
+  // libSBML convenience function to create the ASTNode tree for us.  
+  // (This is a bit dangerous; it's very easy to make mistakes when writing MathML 
+  // by hand, so in a real program, we would not really want to do it this way.)
+
+  string mathXMLString = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
+                         "  <apply>"
+                         "    <times/>"
+                         "    <apply>"
+                         "      <divide/>"
+                         "      <apply>"
+                         "        <times/>"
+                         "        <ci> vm </ci>"
+                         "        <ci> s2 </ci>"
+                         "      </apply>"
+                         "      <apply>"
+                         "        <plus/>"
+                         "          <ci> km </ci>"
+                         "          <ci> s2 </ci>"
+                         "      </apply>"
+                         "    </apply>"
+                         "    <ci> cell </ci>"
+                         "  </apply>"
+                         "</math>";
 
   astMath = readMathMLFromString(mathXMLString.c_str());
   kl->setMath(astMath);
