@@ -372,7 +372,14 @@ SBMLDocument* createExampleEnzymaticReaction()
                          "  </apply>"
                          "</math>";
 
-  kl->setMath(readMathMLFromString(mathXMLString.c_str()));
+  ASTNode* astMath = readMathMLFromString(mathXMLString.c_str());
+
+  // KineticLaw::setMath(const ASTNode*) sets the math of the KineticLaw object
+  // to a copy of the given ASTNode, and thus basically the caller should delete 
+  // the original ASTNode object if the caller has the ownership of the object to 
+  // avoid memory leak.
+  kl->setMath(astMath);
+  delete astMath;
 
   //---------------------------------------------------------------------------
   // Creates local Parameter objects inside the KineticLaw object.
@@ -444,7 +451,9 @@ SBMLDocument* createExampleEnzymaticReaction()
                   "  </apply>"
                   "</math>";
 
-  kl->setMath(readMathMLFromString(mathXMLString.c_str()));
+  astMath = readMathMLFromString(mathXMLString.c_str());
+  kl->setMath(astMath);
+  delete astMath;
 
   //---------------------------------------------------------------------------
   // Creates local Parameter objects inside the KineticLaw object.
@@ -761,7 +770,9 @@ SBMLDocument* createExampleInvolvingUnits()
                          "  </apply>"
                          "</math>";
 
-  kl->setMath(readMathMLFromString(mathXMLString.c_str()));
+  ASTNode* astMath = readMathMLFromString(mathXMLString.c_str());
+  kl->setMath(astMath);
+  delete astMath;
 
 
   //---------------------------------------------------------------------------
@@ -840,7 +851,9 @@ SBMLDocument* createExampleInvolvingUnits()
                   "  </apply>"
                   "</math>";
 
-  kl->setMath(readMathMLFromString(mathXMLString.c_str()));
+  astMath = readMathMLFromString(mathXMLString.c_str());
+  kl->setMath(astMath);
+  delete astMath;
 
 
   //---------------------------------------------------------------------------
@@ -905,7 +918,9 @@ SBMLDocument* createExampleInvolvingUnits()
                   "  </apply>"
                   "</math>";
 
-  kl->setMath(readMathMLFromString(mathXMLString.c_str()));
+  astMath = readMathMLFromString(mathXMLString.c_str());
+  kl->setMath(astMath);
+  delete astMath;
 
 
   // Returns the created SBMLDocument object.
@@ -970,7 +985,9 @@ SBMLDocument* createExampleInvolvingFunctionDefinitions()
                          "  </lambda>"
                          "</math>";
 
-  fdef->setMath(readMathMLFromString(mathXMLString.c_str()));
+  ASTNode* astMath = readMathMLFromString(mathXMLString.c_str());
+  fdef->setMath(astMath);
+  delete astMath;
 
 
   //---------------------------------------------------------------------------
@@ -1120,7 +1137,9 @@ SBMLDocument* createExampleInvolvingFunctionDefinitions()
                   "  </apply>"
                   "</math>";
 
-  kl->setMath(readMathMLFromString(mathXMLString.c_str()));
+  astMath = readMathMLFromString(mathXMLString.c_str());
+  kl->setMath(astMath);
+  delete astMath;
 
 
   // Returns the created SBMLDocument object.
