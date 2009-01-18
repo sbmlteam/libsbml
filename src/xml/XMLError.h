@@ -28,147 +28,195 @@
  * @htmlinclude libsbml-not-sbml-warning.html
  *
  * LibSBML can be configured to use any of a number of XML parsers; at the
- * time of this writing, libSBML supports Xerces versions 2.4 through 2.7,
- * Expat version 1.95.x, and libxml2 version 2.6.16 and higher.  These
- * parsers each report different status codes for the various exceptions
- * that can occur during XML processing.  The XMLError object class
- * abstracts away from the particular diagnostics reported by the different
- * parsers and presents a single uniform interface and set of status codes,
- * along with operations for manipulating the error objects.
+ * time of this writing, libSBML supports Xerces versions 2.4 through 3.0,
+ * Expat version 1.95.x and higher, and libxml2 version 2.6.16 and higher.
+ * These parsers each report different status codes for the various
+ * exceptions that can occur during XML processing.  The XMLError object
+ * class abstracts away from the particular diagnostics reported by the
+ * different parsers and presents a single uniform interface and set of
+ * status codes, along with operations for manipulating the error objects.
  *
  * When the libSBML XML parser layer encounters an error in the XML content
  * being processed, or when there is something else wrong (such as an
  * out-of-memory condition), the problems are reported as XMLError objects.
- *
  * Each XMLError object instance has an identification number that
- * identifies the nature of the problem.  This number will be up to five
- * digits long and drawn from the enumeration <a class="el"
+ * identifies the nature of the problem.
+ * @if doxygen-clike-only This error identifier will be up to five digits 
+ * long and drawn from the enumeration <a class="el"
  * href="#XMLErrorCode_t">XMLErrorCode_t</a>.  Applications can use the
  * error identifiers as a means of recognizing the error encountered and
- * changing their behavior if desired.
+ * changing their behavior if desired. @endif@if doxygen-java-only This
+ * error identifier is one of the constants listed in the next section below.
+ * Applications can use the error identifiers as a means of recognizing the
+ * error encountered and changing their behavior if desired.  @endif
  *
- * XMLError also logs a text message describing the nature of the error.
- * The text message is suitable for displaying to humans.
+ * Integer error codes are useful for software, but not so much for telling
+ * humans what happened.  For this reason, XMLError also provides two text
+ * messages describing the nature of the error.  These messages are
+ * accessible by means of the methods XMLError::getShortMessage() and
+ * XMLError::getMessage().  The method XMLError::getShortMessage() returns
+ * a very brief synopsis of the warning or error condition, whereas
+ * XMLError::getMessage() returns a longer explanation.  These text strings
+ * are suitable for displaying to human users.
  *
- * Each XMLError object also contains a @em category code, drawn from the
- * enumeration
- * <a class="el" href="#XMLErrorCategory_t">XMLErrorCategory_t</a>.
- * Categories are used to provide more information about the nature of a
- * given error, such as whether it is a system problem or a problem with
- * the XML content.
+ * Each XMLError object also contains a category code; its value may be
+ * retrieved using the method XMLError::getCategory().  Category values
+ * are @if doxygen-clike-only drawn from the enumeration
+ * <a class="el" href="#XMLErrorCategory_t">XMLErrorCategory_t</a> 
+ * described below.  Categories are used by libSBML to provide more
+ * information to calling programs about the nature of a given
+ * error. @endif@if doxygen-java-only drawn from a set of constants whose
+ * names begin with the characters @c LIBSBML_CAT_.  The list of possible
+ * codes is described in a separate section below. Categories are used by
+ * libSBML to provide more information to calling programs about the nature
+ * of a given error.  @endif
  *
- * Each XMLError object also has a @em severity code, drawn from the
- * enumeration
- * <a class="el" href="#XMLErrorSeverity_t">XMLErrorSeverity_t</a>.
- * Severity levels currently range from informational (@c LIBSBML_SEV_INFO)
- * to fatal errors (@c LIBSBML_SEV_FATAL).
+ * In addition to category codes, each XMLError object also has a severity
+ * code; its value may be retrieved using the method
+ * XMLError::getSeverity().  Severity code values are 
+ * @if doxygen-clike-only drawn from the enumeration 
+ * <a class="el" href="#XMLErrorSeverity_t">XMLErrorSeverity_t</a> described
+ * in a separate section below.  Severity levels range from informational
+ * (@c LIBSBML_SEV_INFO) to fatal errors (@c LIBSBML_SEV_FATAL).
+ * @endif@if doxygen-java-only drawn from a
+ * set of constants whose names begin with the characters @c LIBSBML_SEV_.
+ * The list of possible severity codes is described in a separate section
+ * below.  Severity levels range from informational (@c LIBSBML_SEV_INFO)
+ * to fatal errors (@c LIBSBML_SEV_FATAL). @endif
  *
  * Finally, XMLError objects record the line and column near where the
- * problem occurred in the XML content.  We say "near", because many
- * factors affect how accurate the line/column information ultimately is.
- * For example, different XML parsers have different conventions for which
- * line and column number they report for a particular problem (which makes
- * a difference when a problem involves an opening XML tag on one line and
- * a closing tag on another line).  When communicating problems to humans,
- * it is generally best to provide all three pieces of information
- * (message, line, column), to help them determine the actual error.
+ * problem occurred in the XML content.  The values can be retrieved using
+ * the methods XMLError::getLine() and XMLError::getColumn().  We say "near
+ * where the problem occurred", because many factors affect how accurate
+ * the line/column information ultimately is.  For example, different XML
+ * parsers have different conventions for which line and column number they
+ * report for a particular problem (which in turn makes a difference when a
+ * problem involves an opening XML tag on one line and a closing tag on
+ * another line).  In some situations, some parsers report invalid line
+ * and/or column numbers altogether.  If this occurs, the line and/or
+ * column number in the XMLError object will be set to the the value of the
+ * maximum unsigned long integer representable on the platform where
+ * libSBML is running.  (This is equal to the constant named
+ * <code>ULONG_MAX</code> in C and C++.)  The probability that a true line
+ * or column number in an SBML model would equal this value is vanishingly
+ * small; thus, if an application encounters these values in an XMLError
+ * object, it can assume no valid line/column number could be provided by
+ * libSBML in that situation.
  *
  * 
+ * @if doxygen-clike-only
  * <h3><a class="anchor" name="XMLErrorCode_t">XMLErrorCode_t</a></h3>
  *
  * This is an enumeration of all the error and warning codes returned by
  * the XML layer in libSBML.  Each code is an integer with a 4-digit value
  * less than 10000.  The following table lists each possible value and a
  * brief description of its meaning.
+ * @endif@if doxygen-java-only <h3><a class="anchor" 
+ * name="XMLErrorCode_t">Error codes associated with XMLError objects</a></h3>
  * 
+ * The error and warning codes returned by the XML layer in libSBML are
+ * listed in the table below.  In the libSBML Java language interface,
+ * these error identifiers are currently (in libSBML 3.3.x) implemented as
+ * static integer constants defined in the interface class
+ * <code>libsbmlConstants</code> in the file "libsbmlConstants.java".  This
+ * is admittedly not an ideal approach from the standpoint of modern Java
+ * programming, but it was necessary to work around the lack of
+ * enumerations in Java prior to JDK 1.5.  Future versions of libSBML may
+ * use a proper Java enumeration type to define the error identifiers. @endif
+ *
  * <center>
- * <table width="90%" cellspacing="1" cellpadding="1" border="0" class="normal-font">
+ * <table cellspacing="1" cellpadding="1" border="0" class="text-table width80 small-font alt-row-colors">
+ * <caption>Possible XMLError error codes.  Depending on the programming
+ * language in use, the <em>Enumerator</em> values will be defined either
+ * as a value from the enumeration XMLErrorCode_t or as integer constants.
+ * To make this table more compact, we have shortened the identifiers for
+ * the category and severity codes to their essential parts.  To get the
+ * actual names of the constants, prepend <code>LIBSBML_CAT_</code> to the
+ * category names and <code>LIBSBML_SEV_</code> to the severity names
+ * shown in the two right-hand columns below.
+ * </caption>
  *  <tr style="background: lightgray" class="normal-font">
- *      <td><strong>Enumerator</strong></td>
- *      <td><strong>Meaning</strong></td>
+ *      <th>Enumerator</th>
+ *      <th>Meaning</th>
+ *      <th width="90">Category</th>
+ *      <th width="90">Severity</th>
  *  </tr>
- * <tr><td><em>XMLUnknownError</em></td><td>Unknown error encountered.</td></tr>
- * <tr><td><em>XMLOutOfMemory</em></td><td>LibSBML unexpected encountered an out
- *   of memory condition from the operating system.</td></tr>
- * <tr><td><em>XMLFileUnreadable</em></td><td>Could not open or read the file.</td></tr>
- * <tr><td><em>XMLFileUnwritable</em></td><td>Could not write to the file.</td></tr>
- * <tr><td><em>XMLFileOperationError</em></td><td>Error encountered while attempting
- *   a file operation.</td></tr>
- * <tr><td><em>XMLNetworkAccessError</em></td><td>Error encountered while attempting
- *   a network access.</td></tr>
- * <tr><td><em>InternalXMLParserError</em></td><td>Internal error in XML parser.</td></tr>
- * <tr><td><em>UnrecognizedXMLParserCode</em></td><td>The XML parser returned an error
- *   code that is not recognized by
- *   libSBML.</td></tr>
- * <tr><td><em>XMLTranscoderError</em></td><td>The character transcoder reported
- *   an error.</td></tr>
- * <tr><td><em>MissingXMLDecl</em></td><td>Missing XML declaration at beginning
- *   of XML input.</td></tr>
- * <tr><td><em>MissingXMLEncoding</em></td><td>Missing encoding attribute in
- *   XML declaration.</td></tr>
- * <tr><td><em>BadXMLDecl</em></td><td>Invalid or unrecognized XML
- *   declaration or XML encoding.</td></tr>
- * <tr><td><em>BadXMLDOCTYPE</em></td><td>Invalid, malformed or unrecognized
- *   XML DOCTYPE declaration.</td></tr>
- * <tr><td><em>InvalidCharInXML</em></td><td>Invalid character in XML content.</td></tr>
- * <tr><td><em>BadlyFormedXML</em></td><td>XML is not well-formed.</td></tr>
- * <tr><td><em>UnclosedXMLToken</em></td><td>Unclosed token.</td></tr>
- * <tr><td><em>InvalidXMLConstruct</em></td><td>XML construct is invalid or
- *   not permitted.</td></tr>
- * <tr><td><em>XMLTagMismatch</em></td><td>Element tag mismatch or missing tag.</td></tr>
- * <tr><td><em>DuplicateXMLAttribute</em></td><td>Duplicate attribute.</td></tr>
- * <tr><td><em>UndefinedXMLEntity</em></td><td>Undefined XML entity.</td></tr>
- * <tr><td><em>BadProcessingInstruction</em></td><td>Invalid, malformed or unrecognized
- *   XML processing instruction.</td></tr>
- * <tr><td><em>BadXMLPrefix</em></td><td>Invalid or undefined XML
- *   Namespace prefix.</td></tr>
- * <tr><td><em>BadXMLPrefixValue</em></td><td>Invalid XML Namespace prefix value.</td></tr>
- * <tr><td><em>MissingXMLRequiredAttribute</em></td><td>Required attribute is missing.</td></tr>
- * <tr><td><em>XMLAttributeTypeMismatch</em></td><td>Data type mismatch for attribute
- *   value.</td></tr>
- * <tr><td><em>XMLBadUTF8Content</em></td><td>Invalid UTF8 content.</td></tr>
- * <tr><td><em>MissingXMLAttributeValue</em></td><td>Missing or improperly formed
- *   attribute value.</td></tr>
- * <tr><td><em>BadXMLAttributeValue</em></td><td>Invalid or unrecognizable attribute
- *   value.</td></tr>
- * <tr><td><em>BadXMLAttribute</em></td><td>Invalid, unrecognized or malformed
- *   attribute.</td></tr>
- * <tr><td><em>UnrecognizedXMLElement</em></td><td>Element either not recognized or
- *   not permitted.</td></tr>
- * <tr><td><em>BadXMLComment</em></td><td>Badly formed XML comment.</td></tr>
- * <tr><td><em>BadXMLDeclLocation</em></td><td>XML declaration not permitted in
- *   this location.</td></tr>
- * <tr><td><em>XMLUnexpectedEOF</em></td><td>Reached end of input unexpectedly.</td></tr>
- * <tr><td><em>BadXMLIDValue</em></td><td>Value is invalid for XML ID, or has
- *   already been used.</td></tr>
- * <tr><td><em>BadXMLIDRef</em></td><td>XML ID value was never declared.</td></tr>
- * <tr><td><em>UninterpretableXMLContent</em></td><td>Unable to interpret content.</td></tr>
- * <tr><td><em>BadXMLDocumentStructure</em></td><td>Bad XML document structure.</td></tr>
- * <tr><td><em>InvalidAfterXMLContent</em></td><td>Encountered invalid content after
- *   expected content.</td></tr>
- * <tr><td><em>XMLExpectedQuotedString</em></td><td>Expected to find a quoted string.</td></tr>
- * <tr><td><em>XMLEmptyValueNotPermitted</em></td><td>An empty value is not permitted in
- *   this context.</td></tr>
- * <tr><td><em>XMLBadNumber</em></td><td>Invalid or unrecognized number.</td></tr>
- * <tr><td><em>XMLBadColon</em></td><td>Colon characters are invalid in
- *   this context.</td></tr>
- * <tr><td><em>MissingXMLElements</em></td><td>One or more expected elements
- *   are missing.</td></tr>
- * <tr><td><em>XMLContentEmpty</em></td><td>Main XML content is empty.</td></tr>
+ * <tr><td><code>XMLUnknownError</code></td><td>Unrecognized error encountered internally</td><td>INTERNAL</td><td>FATAL</td></tr>
+ * <tr><td><code>XMLOutOfMemory</code></td> <td>Out of memory</td><td>SYSTEM</td><td>FATAL</td></tr>
+ * <tr><td><code>XMLFileUnreadable</code></td> <td>File unreadable</td><td>SYSTEM</td><td>ERROR</td></tr>
+ * <tr><td><code>XMLFileUnwritable</code></td> <td>File unwritable</td><td>SYSTEM</td><td>ERROR</td></tr>
+ * <tr><td><code>XMLFileOperationError</code></td><td>Error encountered while attempting file operation</td><td>SYSTEM</td><td>ERROR</td></tr>
+ * <tr><td><code>XMLNetworkAccessError</code></td><td>Network access error</td><td>SYSTEM</td><td>ERROR</td></tr>
+ * <tr><td><code>InternalXMLParserError</code></td><td>Internal XML parser state error</td><td>INTERNAL</td><td>FATAL</td></tr>
+ * <tr><td><code>UnrecognizedXMLParserCode</code></td><td>XML parser returned an unrecognized error code</td><td>INTERNAL</td><td>FATAL</td></tr>
+ * <tr><td><code>XMLTranscoderError</code></td><td>Character transcoder error</td><td>INTERNAL</td><td>FATAL</td></tr>
+ * <tr><td><code>MissingXMLDecl</code></td><td>Missing XML declaration at beginning of XML input</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>MissingXMLEncoding</code></td><td>Missing encoding attribute in XML declaration</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>BadXMLDecl</code></td><td>Invalid or unrecognized XML declaration or XML encoding</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>BadXMLDOCTYPE</code></td><td>Invalid, malformed or unrecognized XML DOCTYPE declaration</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>InvalidCharInXML</code></td><td>Invalid character in XML content</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>BadlyFormedXML</code></td><td>XML content is not well-formed</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>UnclosedXMLToken</code></td><td>Unclosed XML token</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>InvalidXMLConstruct</code></td><td>XML construct is invalid or not permitted</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>XMLTagMismatch</code></td><td>Element tag mismatch or missing tag</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>DuplicateXMLAttribute</code></td><td>Duplicate XML attribute</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>UndefinedXMLEntity</code></td><td>Undefined XML entity</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>BadProcessingInstruction</code></td><td>Invalid, malformed or unrecognized XML processing instruction</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>BadXMLPrefix</code></td><td>Invalid or undefined XML namespace prefix</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>BadXMLPrefixValue</code></td><td>Invalid XML namespace prefix value</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>MissingXMLRequiredAttribute</code></td><td>Missing a required XML attribute</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>XMLAttributeTypeMismatch</code></td><td>Data type mismatch for the value of an attribute</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>XMLBadUTF8Content</code></td><td>Invalid UTF8 content</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>MissingXMLAttributeValue</code></td><td>Missing or improperly formed attribute value</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>BadXMLAttributeValue</code></td><td>Invalid or unrecognizable attribute value</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>BadXMLAttribute</code></td><td>Invalid, unrecognized or malformed attribute</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>UnrecognizedXMLElement</code></td><td>Element either not recognized or not permitted</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>BadXMLComment</code></td><td>Badly formed XML comment</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>BadXMLDeclLocation</code></td><td>XML declaration not permitted in this location</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>XMLUnexpectedEOF</code></td><td>Reached end of input unexpectedly</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>BadXMLIDValue</code></td><td>Value is invalid for XML ID, or has already been used</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>BadXMLIDRef</code></td><td>XML ID value was never declared</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>UninterpretableXMLContent</code></td><td>Unable to interpret content</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>BadXMLDocumentStructure</code></td><td>Bad XML document structure</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>InvalidAfterXMLContent</code></td><td>Encountered invalid content after expected content</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>XMLExpectedQuotedString</code></td><td>Expected to find a quoted string</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>XMLEmptyValueNotPermitted</code></td><td>An empty value is not permitted in this context</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>XMLBadNumber</code></td><td>Invalid or unrecognized number</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>XMLBadColon</code></td><td>Colon characters are invalid in this context</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>MissingXMLElements</code></td><td>One or more expected elements are missing</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td><code>XMLContentEmpty</code></td><td>Main XML content is empty</td><td>XML</td><td>ERROR</td></tr>
  * </table>
  * </center>
  *
  *
+ * @if doxygen-clike-only
  * <h3><a class="anchor" name="XMLErrorCategory_t">XMLErrorCategory_t</a></h3>
  *
- * This is an enumeration of category codes for XML errors.  The following
- * table lists each possible value and a brief description of its meaning.
+ * As discussed above, each XMLError object contains a value for a category
+ * identifier, describing the type of issue that the XMLError object
+ * represents.  The category can be retrieved from an XMLError object using
+ * the method XMLError::getCategory().  The value is chosen from the
+ * enumeration of category codes XMLErrorCategory_t.  The following table
+ * lists each possible value and a brief description of its meaning.
+ * @endif@if doxygen-java-only <h3><a class="anchor"
+ * name="XMLErrorCategory_t">Category codes associated with XMLError objects</a></h3>
+ *
+ * As discussed above, each XMLError object contains a value for a category
+ * identifier, describing the type of issue that the XMLError object represents.
+ * The category can be retrieved from an XMLError object using the method
+ * XMLError::getCategory(). The following table lists each possible value
+ * and a brief description of its meaning.
+ * 
+ * As is the case with the error codes, in the libSBML Java language
+ * interface, the category identifiers are currently implemented as static
+ * integer constants defined in the interface class
+ * <code>libsbmlConstants</code> in the file "libsbmlConstants.java". @endif
  *
  * <center>
- * <table width="90%" cellspacing="1" cellpadding="1" border="0" class="normal-font">
+ * <table width="90%" cellspacing="1" cellpadding="1" border="0" class="text-table width80 normal-font alt-row-colors">
  *  <tr style="background: lightgray" class="normal-font">
- *      <td><strong>Enumerator</strong></td>
- *      <td><strong>Meaning</strong></td>
+ *      <th>Enumerator</th>
+ *      <th>Meaning</th>
  *  </tr>
  * <tr><td><em>LIBSBML_CAT_INTERNAL</em></td><td>A problem involving the libSBML
  * software itself or the underlying XML parser.  This almost certainly
@@ -185,16 +233,38 @@
  * </center>
  *
  *
+ * @if doxygen-clike-only
  * <h3><a class="anchor" name="XMLErrorSeverity_t">XMLErrorSeverity_t</a></h3>
  *
- * This is an enumeration of severity codes for XML errors.  The following
- * table lists each possible value and a brief description of its meaning.
+ * As described above, each XMLError object contains a value for a severity
+ * code, describing how critical is the issue that the XMLError object
+ * represents.  The severity can be retrieved from an XMLError object using
+ * the method XMLError::getSeverity().  The value is chosen from the
+ * enumeration of category codes XMLErrorSeverity_t.  The following table
+ * lists each possible value and a brief description of its meaning.
+ * @endif@if doxygen-java-only <h3><a class="anchor"
+ * name="XMLErrorSeverity_t">Severity codes associated with XMLError objects</a></h3>
+ * 
+ * As described above, each XMLError object contains a value for a severity
+ * code, describing how severe is the issue that the XMLError object
+ * represents.  The severity be retrieved from an XMLError object using the
+ * method XMLError::getSeverity(). The following table lists each possible
+ * value and a brief description of its meaning.
+ * 
+ * As is the case with the category codes, in the libSBML Java language
+ * interface, these severity codes are currently (in libSBML 3.3.x)
+ * implemented as static integer constants defined in the interface class
+ * <code>libsbmlConstants</code> in the file "libsbmlConstants.java".  This
+ * is admittedly not an ideal approach from the standpoint of modern Java
+ * programming, but it was necessary to work around the lack of
+ * enumerations in Java prior to JDK 1.5.  Future versions of libSBML may
+ * use a proper Java enumeration type to define the severity codes. @endif
  *
  * <center>
- * <table width="90%" cellspacing="1" cellpadding="1" border="0" class="normal-font">
+ * <table width="90%" cellspacing="1" cellpadding="1" border="0" class="text-table width80 normal-font alt-row-colors">
  *  <tr style="background: lightgray" class="normal-font">
- *      <td><strong>Enumerator</strong></td>
- *      <td><strong>Meaning</strong></td>
+ *      <th>Enumerator</th>
+ *      <th>Meaning</th>
  *  </tr>
  * <tr><td><em>LIBSBML_SEV_INFO</em></td><td>The error is actually informational and
  * not necessarily a serious problem.</td></tr>
@@ -465,42 +535,70 @@ public:
    * processing.
    *
    * XMLError objects have identification numbers to indicate the nature of
-   * the exception.  These numbers are drawn from the enumeration <a
-   * class="el" href="#XMLErrorCode_t">XMLErrorCode_t</a>.  The argument @p
+   * the exception.  @if doxygen-clike-only These numbers are drawn from
+   * the enumeration <a class="el"
+   * href="#XMLErrorCode_t">XMLErrorCode_t</a>.
+   * @endif@if doxygen-java-only These numbers are defined as unsigned 
+   * integer constants in the file
+   * "libsbmlConstants.java".  See the <a class="el"
+   * href="#XMLErrorCode_t">top of this documentation</a> for a table
+   * listing the possible values and their meanings. @endif The argument @p
    * errorId to this constructor @em can be (but does not have to be) a
-   * value from this enumeration.  If it is a value from <a class="el"
-   * href="#XMLErrorCode_t">XMLErrorCode_t</a>, the XMLError class assumes
-   * the error is a low-level system or XML layer error and prepends a
-   * predefined error message to any string passed in @p details.  In
+   * value from this @if doxygen-clike-only enumeration. If it is a value
+   * from <a class="el" href="#XMLErrorCode_t">XMLErrorCode_t</a>, the
+   * XMLError class assumes the error is a low-level system or XML layer
+   * error and <em>prepends</em> a built-in, predefined error message to
+   * any string passed in the argument @p details to this constructor.  In
    * addition, all <a class="el" href="#XMLErrorCode_t">XMLErrorCode_t</a>
-   * errors have associated severity and category codes, and these fields
-   * are filled-in as well from the enumerations <a class="el"
-   * href="#XMLErrorSeverity_t">XMLErrorSeverity_t</a> and <a class="el"
-   * href="#XMLErrorCategory_t">XMLErrorCategory_t</a>, respectively.
+   * errors have associated values for the @p severity and @p category
+   * codes, and these fields are filled-in as well from the enumerations <a
+   * class="el" href="#XMLErrorSeverity_t">XMLErrorSeverity_t</a> and <a
+   * class="el" href="#XMLErrorCategory_t">XMLErrorCategory_t</a>,
+   * respectively. @endif@if doxygen-java-only set of constants.  If it is
+   * one of the predefined error identifiers, the XMLError class assumes
+   * the error is a low-level system or XML layer error and
+   * <em>prepends</em> a built-in, predefined error message to any string
+   * passed in the argument @p details to this constructor.  In addition,
+   * all the predefined error identifiers have associated values for the @p
+   * severity and @p category codes, and these fields are filled-in as
+   * well. @endif
    *
-   * If the error identifier @p errorId is a number greater than 9999, the
-   * XMLError class assumes the error was generated from another part of
-   * the software and does not do additional filling in of values beyond
-   * the default in the constructor itself.  This allows XMLError to serve
+   * If the error identifier @p errorId is a number greater than 9999, this
+   * constructor assumes that the error was generated from another part of
+   * the software, and does not do additional filling in of values beyond
+   * the defaults in the constructor itself.  This allows XMLError to serve
    * as a base class for other errors (and is used in this way elsewhere in
    * libSBML).  Callers should fill in all the parameters with suitable
    * values if generating errors with codes greater than 9999 to make
    * maximum use of the XMLError facilities.
    *
-   * As mentioned above, there are two other enumerations, <a class="el"
+   * @if doxygen-clike-only As mentioned above, there are two other
+   * enumerations, <a class="el"
    * href="#XMLErrorSeverity_t">XMLErrorSeverity_t</a> and <a class="el"
    * href="#XMLErrorCategory_t">XMLErrorCategory_t</a>, used for indicating
    * the severity and category of error for the predefined XMLError codes.
    * The values passed in @p severity and @p category override the defaults
-   * assigned based on the error code.  If the error identifier is a code
-   * number from <a class="el" href="#XMLErrorCode_t">XMLErrorCode_t</a>,
+   * assigned based on the error code.  If the value of @p errorId is a
+   * value from <a class="el" href="#XMLErrorCode_t">XMLErrorCode_t</a>,
    * callers do not need to fill in @p severity and @p category.
    * Conversely, if @p errorId is not a value from <a class="el"
    * href="#XMLErrorCode_t">XMLErrorCode_t</a>, callers can use other
    * values (not just those from <a class="el"
    * href="#XMLErrorSeverity_t">XMLErrorSeverity_t</a> and <a class="el"
    * href="#XMLErrorCategory_t">XMLErrorCategory_t</a>, but their own
-   * special values) for @p severity and @p category.
+   * special values) for @p severity and @p
+   * category. @endif@if doxygen-java-only As mentioned above, 
+   * there are additional constants defined for <a class="el"
+   * href="#XMLErrorSeverity_t">standard severity</a> and <a class="el"
+   * href="#XMLErrorCategory_t">standard category</a> codes, and every predefined error in
+   * libSBML has an associated value for severity and category taken
+   * from these predefined sets.  These constants have symbol names
+   * prefixed with <code>LIBSBML_SEV_</code> and <code>LIBSBML_CAT_</code>,
+   * respectively.  If the value of @p errorId is one of the standard error
+   * codes, callers do not need to fill in @p severity and @p category in a
+   * call to this constructor.  Conversely, if @p errorId is not an existing
+   * XML-level error code, callers can use other values for @p severity and
+   * @p category. @endif
    *
    * @param errorId an unsigned int, the identification number of the error.
    * 
@@ -572,11 +670,12 @@ public:
    *
    * The message associated with an error object describes the nature of
    * the problem.  The message returned by this method is generally longer
-   * and clearer than the message returned by getShortMessage(), but not
-   * in all cases.
+   * and clearer than the message returned by XMLError::getShortMessage(),
+   * but not in all cases.
    *
-   * Callers may use getCategory() and getSeverity() to obtain additional
-   * information about the nature and severity of the problem.
+   * Callers may use XMLError::getCategory() and XMLError::getSeverity() to
+   * obtain additional information about the nature and severity of the
+   * problem.
    *
    * @return the message text
    *
@@ -594,7 +693,9 @@ public:
    * This is an alternative error message that, in general, is as short as
    * the authors could make it.  However, brevity is often inversely
    * proportional to clarity, so this short message may not be sufficiently
-   * informative to understand the nature of the error.
+   * informative to understand the nature of the error.  Calling
+   * applications may wish to check XMLError::getMessage() in addition or
+   * instead.
    *
    * @return the short error message text
    * 
@@ -607,17 +708,55 @@ public:
 
 
   /**
-   * Returns the line number in the XML input where the error occurred.
+   * Returns the line number in the XML input near where the error, warning
+   * or other diagnostic occurred.
    *
-   * @return the line number 
+   * We say "near where the problem occurred", because many factors affect
+   * how accurate the line/column information ultimately is.  For example,
+   * different XML parsers have different conventions for which line and
+   * column number they report for a particular problem (which in turn
+   * makes a difference when a problem involves an opening XML tag on one
+   * line and a closing tag on another line).  In some situations, some
+   * parsers report invalid line and/or column numbers altogether.  If this
+   * occurs, the line and/or column number in the XMLError object will be
+   * set to the the value of the maximum unsigned long integer
+   * representable on the platform where libSBML is running.  (This is
+   * equal to the constant named <code>ULONG_MAX</code> in C and C++.)  The
+   * probability that a true line or column number in an SBML model would
+   * equal this value is vanishingly small; thus, if an application
+   * encounters these values in an XMLError object, it can assume no valid
+   * line/column number could be provided by libSBML in that situation.
+   *
+   * @return the line number
+   *
+   * @see getColumn()
    */
   unsigned int getLine () const;
 
 
   /**
-   * Returns the column number in the XML input where the error occurred.
+   * Returns the column number in the XML input near where the error,
+   * warning or other diagnostic occurred.
+   *
+   * We say "near where the problem occurred", because many factors affect
+   * how accurate the line/column information ultimately is.  For example,
+   * different XML parsers have different conventions for which line and
+   * column number they report for a particular problem (which in turn
+   * makes a difference when a problem involves an opening XML tag on one
+   * line and a closing tag on another line).  In some situations, some
+   * parsers report invalid line and/or column numbers altogether.  If this
+   * occurs, the line and/or column number in the XMLError object will be
+   * set to the the value of the maximum unsigned long integer
+   * representable on the platform where libSBML is running.  (This is
+   * equal to the constant named <code>ULONG_MAX</code> in C and C++.)  The
+   * probability that a true line or column number in an SBML model would
+   * equal this value is vanishingly small; thus, if an application
+   * encounters these values in an XMLError object, it can assume no valid
+   * line/column number could be provided by libSBML in that situation.
    *
    * @return the column number
+   *
+   * @see getLine()
    */
   unsigned int getColumn () const;
 
@@ -627,8 +766,8 @@ public:
    *
    * XMLError defines an enumeration of severity codes for the XML layer.
    * Applications that build on XMLError by subclassing it may add their
-   * own severity codes with numbers higher than those in the
-   * #XMLErrorSeverity_t enumeration.
+   * own severity codes with numbers higher than those in the predefined
+   * set of severity codes.
    *
    * @return the severity of this XMLError.
    *
@@ -643,8 +782,8 @@ public:
    *
    * XMLError defines an enumeration of severity codes for the XML layer.
    * Applications that build on XMLError by subclassing it may add their
-   * own severity codes with numbers higher than those in the
-   * #XMLErrorSeverity_t enumeration.
+   * own severity codes with numbers higher than those in the predefined
+   * set of severity codes.
    *
    * @return string representing the severity of this XMLError.
    *
@@ -659,8 +798,8 @@ public:
    *
    * XMLError defines an enumeration of category codes for the XML layer.
    * Applications that build on XMLError by subclassing it may add their
-   * own categories with numbers higher than those in the
-   * #XMLErrorCategory_t enumeration.
+   * own categories with numbers higher than those in the predefined
+   * set of category codes.
    *
    * Categories can be used to partition errors into distinct groups.
    * Among other things, this can be used to prevent id conflicts by
@@ -679,8 +818,8 @@ public:
    *
    * XMLError defines an enumeration of category codes for the XML layer.
    * Applications that build on XMLError by subclassing it may add their
-   * own categories with numbers higher than those in the
-   * #XMLErrorCategory_t enumeration.
+   * own categories with numbers higher than those in the predefined
+   * set of category codes.
    *
    * Categories can be used to partition errors into distinct groups.
    * Among other things, this can be used to prevent id conflicts by
@@ -698,9 +837,12 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * error object is for information purposes only.
    *
-   * This is equivalent to obtaining the severity code from an
-   * XMLError object (via getSeverity()) and then comparing it to
-   * the value LIBSBML_SEV_INFO from the enumeration #XMLErrorSeverity_t.
+   * This is equivalent to obtaining the severity code from an XMLError
+   * object (via XMLError::getSeverity()) and then comparing it to the
+   * value <code>LIBSBML_SEV_INFO</code> from the
+   * @if doxygen-clike-only enumeration
+   * #XMLErrorSeverity_t. @endif@if doxygen-java-only set of predefined
+   * severity codes.@endif
    *
    * @return @c true if this XMLError is for informational purposes only,
    * @c false otherwise.
@@ -712,9 +854,12 @@ public:
    * Predicate returning @c true or @c false depending on whether 
    * this error object is a warning.
    *
-   * This is equivalent to obtaining the severity code from an
-   * XMLError object (via getSeverity()) and then comparing it to
-   * the value LIBSBML_SEV_WARNING from the enumeration #XMLErrorSeverity_t.
+   * This is equivalent to obtaining the severity code from an XMLError
+   * object (via XMLError::getSeverity()) and then comparing it to the
+   * value <code>LIBSBML_SEV_WARNING</code> from the
+   * @if doxygen-clike-only enumeration
+   * #XMLErrorSeverity_t. @endif@if doxygen-java-only set of predefined
+   * severity codes.@endif
    *
    * @return @c true if this error is a warning, @c false otherwise.
    */
@@ -725,9 +870,12 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * error is a significant error.
    *
-   * This is equivalent to obtaining the severity code from an
-   * XMLError object (via getSeverity()) and then comparing it to
-   * the value LIBSBML_SEV_ERROR from the enumeration #XMLErrorSeverity_t.
+   * This is equivalent to obtaining the severity code from an XMLError
+   * object (via XMLError::getSeverity()) and then comparing it to the
+   * value <code>LIBSBML_SEV_ERROR</code> from the
+   * @if doxygen-clike-only enumeration
+   * #XMLErrorSeverity_t. @endif@if doxygen-java-only set of predefined
+   * severity codes.@endif
    *
    * @return @c true if this error is an error, @c false otherwise.
    */
@@ -748,8 +896,11 @@ public:
    * error resulted from an internal program error.
    *
    * This is equivalent to obtaining the category identifier from an
-   * XMLError object (via getCategory()) and then comparing it to
-   * the value LIBSBML_CAT_INTERNAL from the enumeration #XMLErrorCategory_t.
+   * XMLError object (via XMLError::getCategory()) and then comparing it to
+   * the value <code>LIBSBML_CAT_INTERNAL</code> from the
+   * @if doxygen-clike-only
+   * enumeration #XMLErrorCategory_t. @endif@if doxygen-java-only set of
+   * predefined category codes.@endif
    *
    * @return @c true or @c false
    */
@@ -761,8 +912,11 @@ public:
    * error was generated by the operating system.
    *
    * This is equivalent to obtaining the category identifier from an
-   * XMLError object (via getCategory()) and then comparing it to
-   * the value LIBSBML_CAT_SYSTEM from the enumeration #XMLErrorCategory_t.
+   * XMLError object (via XMLError::getCategory()) and then comparing it to
+   * the value <code>LIBSBML_CAT_SYSTEM</code> from the
+   * @if doxygen-clike-only
+   * enumeration #XMLErrorCategory_t. @endif@if doxygen-java-only set of
+   * predefined category codes.@endif
    *
    * @return @c true or @c false
    */
@@ -775,8 +929,11 @@ public:
    * error).
    *
    * This is equivalent to obtaining the category identifier from an
-   * XMLError object (via getCategory()) and then comparing it to
-   * the value LIBSBML_CAT_XML from the enumeration #XMLErrorCategory_t.
+   * XMLError object (via XMLError::getCategory()) and then comparing it to
+   * the value <code>LIBSBML_CAT_XML</code> from the
+   * @if doxygen-clike-only
+   * enumeration #XMLErrorCategory_t. @endif@if doxygen-java-only set of
+   * predefined category codes.@endif
    *
    * @return @c true or @c false
    */
@@ -804,7 +961,10 @@ public:
    * predefined XMLError code.
    *
    * @param code the error code whose message is sought; it must be a
-   * predefined value from XMLError::Code
+   * predefined value from @if doxygen-clike-only <a class="el"
+   * href="#XMLErrorCode_t">XMLErrorCode_t</a>. @endif@if doxygen-java-only
+   * <a class="el" href="#XMLErrorCode_t">the set of predefined
+   * error identifiers.@endif
    */
   static const std::string getStandardMessage (const int code);
 
