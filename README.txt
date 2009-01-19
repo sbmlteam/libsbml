@@ -75,7 +75,7 @@ and for Xerces, use
 IMPORTANT: If you are using the Xerces XML library, beware there is a
 bug in Xerces 2.6.0 that cannot be worked around at this time and
 causes errors in software using it.  Xerces versions 2.2 -
-2.5 and 2.7.0 are known to work properly.
+2.5, and 2.7.0 and above, are known to work properly.
 
 By default, libSBML only builds the C and C++ API library.  If you
 want to configure libSBML to build the Java, C#, Python, Perl, MATLAB, 
@@ -171,7 +171,7 @@ Feature Highlights:
   the top-level <sbml> element (logging a warning).
 
 * Unified SBML Level 2 and Level 1 object models.  All objects have
-  .getSBMLDocument(), .getModel(), .getLevel(), and .getVersion(),
+  getSBMLDocument(), getModel(), getLevel(), and getVersion(),
   methods among other things.  Also, the interface to SBML's Rules
   abstracts away some of the individual rule type (assignment, rate,
   algebraic) differences.
