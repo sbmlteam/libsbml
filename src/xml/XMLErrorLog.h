@@ -35,6 +35,11 @@
  * inability to open a file) to XML syntax errors (such as mismatched tags
  * or other problems).
  *
+ * A typical approach for using this error log is to first use
+ * XMLErrorLog::getNumErrors() to inquire how many XMLError object instances
+ * it contains, and then to iterate over the list of objects one at a time
+ * using XMLErrorLog::getError(unsigned int n).
+ *
  * In normal circumstances, programs using libSBML will actually obtain an
  * SBMLErrorLog rather than an actual XMLErrorLog.  The former is
  * subclassed from XMLErrorLog and simply wraps commands for working with
@@ -68,7 +73,7 @@ public:
    * Returns the number of errors that have been logged.
    *
    * To retrieve individual errors from the log, callers may use
-   * getError().
+   * XMLErrorLog::getError(unsigned int n).
    *
    * @return the number of errors that have been logged.
    */
@@ -78,21 +83,23 @@ public:
   /**
    * Returns the nth XMLError in this log.
    *
-   * Callers should first use getNumErrors() to find out how many errors
-   * are in the log.
+   * Callers should first use XMLErrorLog::getNumErrors() to find out how
+   * many errors are in the log.
    *
    * @param n the index number of the error to retrieve (with 0 being the
    * first error)
    *
    * @return the nth XMLError in this log, or NULL if @p n is greater than
-   * or equal to getNumErrors().
+   * or equal to XMLErrorLog::getNumErrors().
    */
   const XMLError* getError (unsigned int n) const;
+
 
   /**
    * Removes all errors from this log.
    */
   void clearLog();
+
 
   /** @cond doxygen-libsbml-internal */
 

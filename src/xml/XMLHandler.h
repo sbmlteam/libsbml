@@ -19,7 +19,13 @@
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution and
  * also available online as http://sbml.org/software/libsbml/license.html
- *----------------------------------------------------------------------- -->*/
+ *----------------------------------------------------------------------- -->
+ *
+ * @class XMLHandler
+ * @brief Class providing a unified interface to different XML parsers.
+ *
+ * @if doxygen-java-only @deprecated libSBML internal @endif
+ */
 
 #ifndef XMLHandler_h
 #define XMLHandler_h

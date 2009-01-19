@@ -125,7 +125,7 @@
  * use a proper Java enumeration type to define the error identifiers. @endif
  *
  * <center>
- * <table cellspacing="1" cellpadding="1" border="0" class="text-table width80 small-font alt-row-colors">
+ * <table cellspacing="1" cellpadding="1" border="0" class="text-table width80 normal-font alt-row-colors">
  * <caption>Possible XMLError error codes.  Depending on the programming
  * language in use, the <em>Enumerator</em> values will be defined either
  * as a value from the enumeration XMLErrorCode_t or as integer constants.
@@ -846,6 +846,10 @@ public:
    *
    * @return @c true if this XMLError is for informational purposes only,
    * @c false otherwise.
+   *
+   * @see isWarning()
+   * @see isError()
+   * @see isFatal()
    */
   bool isInfo () const;
 
@@ -862,6 +866,10 @@ public:
    * severity codes.@endif
    *
    * @return @c true if this error is a warning, @c false otherwise.
+   *
+   * @see isInfo()
+   * @see isError()
+   * @see isFatal()
    */
   bool isWarning () const;
 
@@ -878,6 +886,10 @@ public:
    * severity codes.@endif
    *
    * @return @c true if this error is an error, @c false otherwise.
+   *
+   * @see isInfo()
+   * @see isWarning()
+   * @see isFatal()
    */
   bool isError () const;
 
@@ -886,7 +898,18 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * error is a fatal run-time error.
    *
+   * This is equivalent to obtaining the severity code from an XMLError
+   * object (via XMLError::getSeverity()) and then comparing it to the
+   * value <code>LIBSBML_SEV_FATAL</code> from the
+   * @if doxygen-clike-only enumeration
+   * #XMLErrorSeverity_t. @endif@if doxygen-java-only set of predefined
+   * severity codes.@endif
+   *
    * @return @c true if this error is a fatal error, @c false otherwise.
+   *
+   * @see isInfo()
+   * @see isWarning()
+   * @see isError()
    */
   bool isFatal () const;
 
@@ -903,6 +926,9 @@ public:
    * predefined category codes.@endif
    *
    * @return @c true or @c false
+   *
+   * @see isSystem()
+   * @see isXML()
    */
   bool isInternal () const;
 
@@ -919,6 +945,9 @@ public:
    * predefined category codes.@endif
    *
    * @return @c true or @c false
+   *
+   * @see isInternal()
+   * @see isXML()
    */
   bool isSystem () const;
 
@@ -936,6 +965,9 @@ public:
    * predefined category codes.@endif
    *
    * @return @c true or @c false
+   *
+   * @see isInternal()
+   * @see isSystem()
    */
   bool isXML () const;
 
@@ -944,6 +976,8 @@ public:
    * Sets the line number where this error occurred.
    * 
    * @param line an unsigned int, the line number to set.
+   *
+   * @see setColunn()
    */
   void setLine (unsigned int line);
 
@@ -952,6 +986,8 @@ public:
    * Sets the column number where this error occurred.
    * 
    * @param column an unsigned int, the column number to set.
+   *
+   * @see setLine()
    */
   void setColumn (unsigned int column);
 

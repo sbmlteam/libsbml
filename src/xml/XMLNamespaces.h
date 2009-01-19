@@ -27,11 +27,25 @@
  * @htmlinclude libsbml-not-sbml-warning.html
  *
  * This class serves to organize functionality for tracking XML namespaces
- * in a document or data stream.  The XMLNamespaces class stores namespace
- * declarations as a list and provides operators such as add(), getLength()
- * and clear() to manipulate the list.  Individual namespaces stored in a
- * given XMLNamespace object instance can be retrieved by their index using
- * getPrefix() or by other characteristics such as their URI.
+ * in a document or data stream.  The namespace declarations are stored as
+ * a list of pairs of XML namespace URIs and prefix strings.  These
+ * correspond to the parts of a namespace declaration on an XML element.
+ * For example, in the following XML fragment,
+ * @verbatim
+<annotation>
+    <mysim:nodecolors xmlns:mysim="urn:lsid:mysim.org"
+         mysim:bgcolor="green" mysim:fgcolor="white"/>
+</annotation>
+@endverbatim
+ * there is one namespace declaration.  Its URI is
+ * <code>urn:lsid:mysim.org</code> and its prefix is <code>mysim</code>.
+ * This pair could be stored as one item in an XMLNamespaces list.
+ *
+ * XMLNamespaces provides various methods for manipulating the list of
+ * prefix-URI pairs.  Individual namespaces stored in a given XMLNamespace
+ * object instance can be retrieved based on their index using
+ * XMLNamespaces::getPrefix(int index), or by their characteristics such as
+ * their URI or position in the list.
  */
 
 #ifndef XMLNamespaces_h
@@ -92,8 +106,16 @@ public:
   /**
    * Appends an XML namespace prefix and URI pair to this list of namespace
    * declarations.
-   * If there is an XML namespace with the given prefix in this list, 
-   * then the existing XML namespace will be overwritten by the new one.
+   *
+   * An XMLNamespace object stores a list of pairs of namespaces and their
+   * prefixes.  If there is an XML namespace with the given @p uri prefix
+   * in this list, then its corresponding URI will be overwritten by the
+   * new @p uri.  Calling programs could use one of the other XMLNamespaces
+   * methods, such as
+   * @if doxygen-clike-only XMLNamespaces::hasPrefix() @endif@if doxygen-java-only XMLNamespaces::hasPrefix(String) @endif and 
+   * @if doxygen-clike-only XMLNamespaces::hasURI() @endif@if doxygen-java-only XMLNamespaces::hasURI(String) @endif to
+   * inquire whether a given prefix and/or URI
+   * is already present in this XMLNamespaces object.
    *
    * @param uri a string, the uri for the namespace
    * @param prefix a string, the prefix for the namespace
@@ -125,6 +147,8 @@ public:
    * Removes an XML Namespace with the given prefix.
    *
    * @param prefix a string, prefix of the required namespace.
+   *
+   * @see remove(int index)
    */
   void remove (const std::string& prefix);
 
@@ -132,6 +156,8 @@ public:
   /**
    * Clears (deletes) all XML namespace declarations in this XMLNamespaces
    * object.
+   *
+   * @see remove(int index)
    */
   void clear ();
 
@@ -139,9 +165,14 @@ public:
   /**
    * Look up the index of an XML namespace declaration by URI.
    *
-   * @param uri a string, uri of the required namespace.
+   * An XMLNamespace object stores a list of pairs of namespaces and their
+   * prefixes.  If this XMLNamespaces object contains a pair with the given
+   * URI @p uri, this method returns its index in the list.
    *
-   * @return the index of the given declaration, or -1 if not present.
+   * @param uri a string, the URI of the sought-after namespace.
+   *
+   * @return the index of the given declaration, or <code>-1</code> if not
+   * present.
    */
   int getIndex (const std::string uri) const;
 
@@ -149,16 +180,22 @@ public:
   /**
    * Look up the index of an XML namespace declaration by prefix.
    *
-   * @param prefix a string, prefix of the required namespace.
+   * An XMLNamespace object stores a list of pairs of namespaces and their
+   * prefixes.  If this XMLNamespaces object contains a pair with the given
+   * prefix @p prefix, this method returns its index in the list.
    *
-   * @return the index of the given declaration, or -1 if not present.
+   * @param prefix a string, the prefix string of the sought-after
+   * namespace
+   *
+   * @return the index of the given declaration, or <code>-1</code> if not
+   * present.
    */
   int getIndexByPrefix (const std::string prefix) const;
 
 
   /**
-   * Returns the number of XML namespaces stored in this particular
-   * XMLNamespaces instance.
+   * Returns the total number of URI-and-prefix pairs stored in this
+   * particular XMLNamespaces instance.
    *
    * @return the number of namespaces in this list.
    */
@@ -166,18 +203,18 @@ public:
 
 
   /**
-   * Look up the prefix of an XML namespace declaration by position.
+   * Look up the prefix of an XML namespace declaration by its position.
    *
-   * Callers should use getLength() to find out how many namespaces
-   * are stored in the list.
+   * An XMLNamespace object stores a list of pairs of namespaces and their
+   * prefixes.  This method returns the prefix of the <code>n</code>th
+   * element in that list (if it exists).  Callers should use
+   * XMLAttributes::getLength() first to find out how many namespaces are
+   * stored in the list.
    *
-   * @param index an integer, position of the required prefix.
+   * @param index an integer, position of the sought-after prefix
    *
    * @return the prefix of an XML namespace declaration in this list (by
-   * position).  
-   *
-   * @note If index is out of range, an empty string will be
-   * returned.
+   * position), or an empty string if the @p index is out of range
    *
    * @see getLength()
    */
@@ -187,11 +224,14 @@ public:
   /**
    * Look up the prefix of an XML namespace declaration by its URI.
    *
+   * An XMLNamespace object stores a list of pairs of namespaces and their
+   * prefixes.  This method returns the prefix for a pair that has the
+   * given @p uri.
+   *
    * @param uri a string, the URI of the prefix being sought
    *
-   * @return the prefix of an XML namespace declaration given its URI.  
-   *
-   * @note If @p uri does not exist, an empty string will be returned.
+   * @return the prefix of an XML namespace declaration given its URI, or
+   * an empty string if no such @p uri exists in this XMLNamespaces object
    */
   std::string getPrefix (const std::string& uri) const;
 
@@ -199,13 +239,16 @@ public:
   /**
    * Look up the URI of an XML namespace declaration by its position.
    *
+   * An XMLNamespace object stores a list of pairs of namespaces and their
+   * prefixes.  This method returns the URI of the <code>n</code>th element
+   * in that list (if it exists).  Callers should use
+   * XMLAttributes::getLength() first to find out how many namespaces are
+   * stored in the list.
+   *
    * @param index an integer, position of the required URI.
    *
    * @return the URI of an XML namespace declaration in this list (by
-   * position).  
-   *
-   * @note If @p index is out of range, an empty string will be
-   * returned.
+   * position), or an empty string if the @p index is out of range.
    *
    * @see getLength()
    */
@@ -215,11 +258,15 @@ public:
   /**
    * Look up the URI of an XML namespace declaration by its prefix.
    *
+   * An XMLNamespace object stores a list of pairs of namespaces and their
+   * prefixes.  This method returns the namespace URI for a pair that has
+   * the given @p prefix.
+   *
    * @param prefix a string, the prefix of the required URI
    *
-   * @return the URI of an XML namespace declaration given its prefix.  
-   *
-   * @note If @p prefix does not exist, an empty string will be returned.
+   * @return the URI of an XML namespace declaration having the given @p
+   * prefix, or an empty string if no such prefix-and-URI pair exists
+   * in this XMLNamespaces object
    *
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different
@@ -232,13 +279,15 @@ public:
    * argument even though one is described, please look for descriptions of
    * other variants of this method near where this one appears in the
    * documentation.
+   * 
+   * @see getURI()
    */
   std::string getURI (const std::string& prefix = "") const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether 
-   * this XMLNamespaces list is empty.
+   * Predicate returning @c true or @c false depending on whether this
+   * XMLNamespaces list is empty.
    * 
    * @return @c true if this XMLNamespaces list is empty, @c false otherwise.
    */
@@ -246,39 +295,40 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether 
-   * an XML Namespace with the given URI is contained in this XMLNamespaces list.
+   * Predicate returning @c true or @c false depending on whether an XML
+   * Namespace with the given URI is contained in this XMLNamespaces list.
    * 
    * @param uri a string, the uri for the namespace
    *
-   * @return @c true if an XML Namespace with the given URI is contained in this 
-   * XMLNamespaces list,  @c false otherwise.
+   * @return @c true if an XML Namespace with the given URI is contained in
+   * this XMLNamespaces list, @c false otherwise.
    */
   bool hasURI(const std::string& uri) const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether 
-   * an XML Namespace with the given prefix is contained in this XMLNamespaces list.
+   * Predicate returning @c true or @c false depending on whether an XML
+   * Namespace with the given prefix is contained in this XMLNamespaces
+   * list.
    *
    * @param prefix a string, the prefix for the namespace
    * 
-   * @return @c true if an XML Namespace with the given URI is contained in this 
-   * XMLNamespaces list, @c false otherwise.
+   * @return @c true if an XML Namespace with the given URI is contained in
+   * this XMLNamespaces list, @c false otherwise.
    */
   bool hasPrefix(const std::string& prefix) const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether 
-   * an XML Namespace with the given uri/prefix pair is contained in this 
+   * Predicate returning @c true or @c false depending on whether an XML
+   * Namespace with the given URI and prefix pair is contained in this
    * XMLNamespaces list.
    *
-   * @param uri a string, the uri for the namespace
+   * @param uri a string, the URI for the namespace
    * @param prefix a string, the prefix for the namespace
    * 
-   * @return @c true if an XML Namespace with the given uri/prefix pair is contained 
-   * in this XMLNamespaces list,  @c false otherwise.
+   * @return @c true if an XML Namespace with the given uri/prefix pair is
+   * contained in this XMLNamespaces list, @c false otherwise.
    */
   bool hasNS(const std::string& uri, const std::string& prefix) const;
 
