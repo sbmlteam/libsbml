@@ -196,10 +196,10 @@ model is Level&nbsp;1 or Level&nbsp;2.)
 derived from class <a href="org/sbml/libsbml/SBase.html">SBase</a>, so
 that it contains the usual <a
 href="org/sbml/libsbml/SBase.html">SBase</a> attributes (in SBML
-Level&nbsp;2 Version&nbsp;3) of "metaid" and "sboTerm", as well as the
-subelements "notes" and "annotation".  It also contains the attributes
-"level" and "version" indicating the Level and Version of the SBML
-document read.  The class <a
+Level&nbsp;2 Versions&nbsp;3 and&nbsp;4) of "metaid" and "sboTerm", as well
+as the subelements "notes" and "annotation".  It also contains the
+attributes "level" and "version" indicating the Level and Version of the
+SBML document read.  The class <a
 href="org/sbml/libsbml/SBase.html">SBase</a> (and thus its subclasses
 such as <a href="org/sbml/libsbml/SBMLDocument.html">SBMLDocument</a>)
 provides methods for querying this information:
@@ -279,7 +279,7 @@ href="org/sbml/libsbml/SBMLDocument.html">SBMLDocument</a> methods worth
 mentioning in the context of reading SBML are those for running
 consistency-checking and validation rules on the SBML content.  These
 methods assess whether the SBML is legal according to basic rules listed in
-the SBML Level&nbsp;2 Version&nbsp;2 and Version&nbsp;3 specification
+the SBML Level&nbsp;2 Versions&nbsp;2 through&nbsp;4 specification
 documents.  Note that they are mostly structural checks, in the sense that
 they can indicate whether the SBML is properly constructed; they cannot
 tell if a model is nonsense.  (But at least they can assess whether it's
@@ -290,9 +290,9 @@ syntactically correct nonsense!).
 <li style="margin-bottom: 1em">
 <code>public long <a href="org/sbml/libsbml/SBMLDocument.html">checkConsistency()</a></code> performs a
 set of structural and mathematical checks on the SBML content and reports
-the number of failed checks (errors) encountered.  Use the
+the number of failed checks (errors) encountered.  Callers may use the
 <a href="org/sbml/libsbml/SBMLDocument.html#getNumErrors()">getNumErrors()</a>
-and <a href="org/sbml/libsbml/SBMLDocument.html#getError(long)">getError(long)</a>
+and <a href="org/sbml/libsbml/SBMLDocument.html#getError(long)">getError()</a>
 interfaces to examine the individual errors.
 </li>
 
@@ -317,11 +317,24 @@ whether it can be converted to SBML Level&nbsp;2 Version&nbsp;2, and
 returns the number of failures.  If all the checks succeed, it returns 0.
 </li>
 
+<li style="margin-bottom: 1em"> <code>public long <a
+href="org/sbml/libsbml/SBMLDocument.html#checkL2v3Compatibility()">checkL2v3Compatibility()</a></code>
+peforms a set of semantic consistency checks on the document to establish
+whether it can be converted to SBML Level&nbsp;2 Version&nbsp;3, and
+returns the number of failures.  If all the checks succeed, it returns 0.
+</li>
+
+<li style="margin-bottom: 1em"> <code>public long <a
+href="org/sbml/libsbml/SBMLDocument.html#checkL2v4Compatibility()">checkL2v4Compatibility()</a></code>
+peforms a set of semantic consistency checks on the document to establish
+whether it can be converted to SBML Level&nbsp;2 Version&nbsp;4, and
+returns the number of failures.  If all the checks succeed, it returns 0.
+</li>
+
 </ul>
 
-At the time of this writing, the most recent release of SBML is
-Level&nbsp;2 Version&nbsp;3, which is why the compatibility checks above
-only refer to Level&nbsp;2 Version&nbsp;2 at the most.
+At the time of this libSBML release, the most recent release of SBML is
+Level&nbsp;2 Version&nbsp;4.
 
 
 <h2><a class="anchor" name="writing">Writing SBML</a></h2>
