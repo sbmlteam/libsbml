@@ -310,7 +310,7 @@ define nodoxygen
   a suitable value for the configuration flag --with-doxygen
 endef
 
-docs:
+docs cpp-manual c-manual perl-manual python-manual:
 	$(error $(nodoxygen))
 
 endif
