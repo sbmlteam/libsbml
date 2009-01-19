@@ -44,9 +44,9 @@ AC_DEFUN([CONFIG_PROG_JAVA],
 
       with_java=`echo $with_java | sed -e 's,\(.*\)/$,\1,g'`
 
-      AC_PATH_PROG([JAVA], [java], [no-java-found], [$with_java/bin])
-      AC_PATH_PROG([JAVAC], [javac], [no-javac-found], [$with_java/bin])
-      AC_PATH_PROG([JAR], [jar], [no-jar-found], [$with_java/bin])
+      AC_PATH_PROG([JAVA], [java], [no], [$with_java/bin])
+      AC_PATH_PROG([JAVAC], [javac], [no], [$with_java/bin])
+      AC_PATH_PROG([JAR], [jar], [no], [$with_java/bin])
     else
       dnl No prefix directory path supplied for --with-java.  Use defaults.
 
@@ -57,10 +57,10 @@ AC_DEFUN([CONFIG_PROG_JAVA],
 
     dnl Sanity checks.
 
-    if test -z "$JAVA"; then
+    if test -z "$JAVA" -o "$JAVA" = "no"; then
       AC_MSG_ERROR([Could not find `java' executable.])
     fi    
-    if test -z "$JAVAC"; then
+    if test -z "$JAVAC" -o "$JAVAC" = "no"; then
       AC_MSG_ERROR([Could not find `javac' executable.])
     fi    
 
@@ -84,8 +84,8 @@ AC_DEFUN([CONFIG_PROG_JAVA],
       changequote([, ])
 
       if test $jx -gt $rx \
-         || (test $jx -eq $rx && test $jy -gt $ry) \
-         || (test $jx -eq $rx && test $jy -eq $ry && test $jz -ge $rz); then
+         || (test $jx -eq $rx -a $jy -gt $ry) \
+         || (test $jx -eq $rx -a $jy -eq $ry -a $jz -ge $rz); then
         AC_MSG_RESULT(yes (found $jx.$jy.$jz))
       else
         AC_MSG_RESULT(no)

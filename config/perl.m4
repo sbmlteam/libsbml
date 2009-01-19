@@ -41,7 +41,7 @@ AC_DEFUN([CONFIG_PROG_PERL],
     dnl Find a perl executable.
 
     if test $with_perl != yes; then
-      AC_PATH_PROG([PERL], [perl], [no-perl-found], [$with_perl/bin])
+      AC_PATH_PROG([PERL], [perl], [no], [$with_perl/bin])
     else
       AC_PATH_PROG([PERL], [perl])
     fi

@@ -43,7 +43,7 @@ AC_DEFUN([CONFIG_PROG_SWIG],
 
       with_swig=`echo $with_swig | sed -e 's,\(.*\)/$,\1,g'`
 
-      AC_PATH_PROG([SWIG], [swig], [no-swig-found], [$with_swig/bin])
+      AC_PATH_PROG([SWIG], [swig], [no], [$with_swig/bin])
     else
       dnl No prefix directory path supplied for --with-swig.  Use defaults.
 
@@ -52,7 +52,7 @@ AC_DEFUN([CONFIG_PROG_SWIG],
 
     dnl Sanity checks.
 
-    if test -z "$SWIG"; then
+    if test -z "$SWIG" -o "$SWIG" = "no"; then
       AC_MSG_ERROR([Could not find `swig' executable.])
     fi    
 

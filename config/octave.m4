@@ -38,18 +38,18 @@ AC_DEFUN([CONFIG_PROG_OCTAVE],
       dnl Remove needless trailing slashes because it can confuse tests later.
       with_octave=`echo $with_octave | sed -e 's,\(.*\)/$,\1,g'`
 
-      AC_PATH_PROG([OCTAVE], [octave], [no-octave-found], [$with_octave/bin])
-      AC_PATH_PROG([MKOCTFILE], [mkoctfile], [no-mkoctfile-found], [$with_octave/bin])
-      AC_PATH_PROG([OCTAVE_CONFIG], [octave-config], [no-octave-config-found], [$with_octave/bin])
+      AC_PATH_PROG([OCTAVE], [octave], [no], [$with_octave/bin])
+      AC_PATH_PROG([MKOCTFILE], [mkoctfile], [no], [$with_octave/bin])
+      AC_PATH_PROG([OCTAVE_CONFIG], [octave-config], [no], [$with_octave/bin])
     else
       AC_PATH_PROG([OCTAVE], [octave])
       AC_PATH_PROG([MKOCTFILE], [mkoctfile])
       AC_PATH_PROG([OCTAVE_CONFIG], [octave-config])
     fi
 
-    if test -z "$OCTAVE"; then
+    if test -z "$OCTAVE" -o "$OCTAVE" = "no"; then
       AC_MSG_ERROR([Could not find 'octave' executable for Octave.])
-    elif  test -z "$MKOCTFILE"; then
+    elif  test -z "$MKOCTFILE" -o "$MKOCTFILE" = "no"; then
       AC_MSG_ERROR([Could not find 'mkoctfile' executable for Octave.])
     fi
 

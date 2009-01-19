@@ -45,12 +45,12 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
       dnl Remove needless trailing slashes because it can confuse tests later.
       with_python=`echo $with_python | sed -e 's,\(.*\)/$,\1,g'`
 
-      AC_PATH_PROG([PYTHON], [python], [no-python-found], [$with_python/bin])
+      AC_PATH_PROG([PYTHON], [python], [no], [$with_python/bin])
     else
       AC_PATH_PROG([PYTHON], [python])
     fi
 
-    if test -z $PYTHON || ! test -f $PYTHON;
+    if test -z $PYTHON -o "$PYTHON" = "no" -o ! -f $PYTHON;
     then
       AC_MSG_ERROR([*** python missing - please install first or check config.log ***])
     fi

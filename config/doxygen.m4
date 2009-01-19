@@ -44,7 +44,7 @@ AC_DEFUN([CONFIG_PROG_DOXYGEN],
   
       with_doxygen=`echo $with_doxygen | sed -e 's,\(.*\)/$,\1,g'`
   
-      AC_PATH_PROG([DOXYGEN], [doxygen], [no-doxygen-found], 
+      AC_PATH_PROG([DOXYGEN], [doxygen], [no], 
                    [$with_doxygen/bin $with_doxygen/Contents/Resources $with_doxygen])
     else
       dnl Nothing supplied -- look for doxygen on the user's path.
@@ -52,7 +52,7 @@ AC_DEFUN([CONFIG_PROG_DOXYGEN],
     fi
   fi
   
-  if test -n "$DOXYGEN"; then
+  if test -n "$DOXYGEN" -a "$DOXYGEN" != "no"; then
     dnl We've found a copy of doxygen.
     dnl Check the version if required.
 
@@ -74,8 +74,8 @@ AC_DEFUN([CONFIG_PROG_DOXYGEN],
       changequote([, ])
 
       if test $dx -gt $rx \
-         || (test $dx -eq $rx && test $dy -gt $ry) \
-         || (test $dx -eq $rx && test $dy -eq $ry && test $dz -ge $rz); then
+         || (test $dx -eq $rx -a $dy -gt $ry) \
+         || (test $dx -eq $rx -a $dy -eq $ry -a $dz -ge $rz); then
         AC_MSG_RESULT(yes (found $dx.$dy.$dz))
       else
         AC_MSG_RESULT(no)
@@ -100,6 +100,8 @@ AC_DEFUN([CONFIG_PROG_DOXYGEN],
       fi
     fi
 
+  else
+    DOXYGEN="no-doxygen-found"
   fi
 
 ])

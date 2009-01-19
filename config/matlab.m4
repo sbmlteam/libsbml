@@ -36,16 +36,16 @@ AC_DEFUN([CONFIG_PROG_MATLAB],
       dnl Remove needless trailing slashes because it can confuse tests later.
       with_matlab=`echo $with_matlab | sed -e 's,\(.*\)/$,\1,g'`
 
-      AC_PATH_PROG([MEX], [mex], [no-mex-found], [$with_matlab/bin])
-      AC_PATH_PROG([MATLAB], [matlab], [no-matlab-found], [$with_matlab/bin])
+      AC_PATH_PROG([MEX], [mex], [no], [$with_matlab/bin])
+      AC_PATH_PROG([MATLAB], [matlab], [no], [$with_matlab/bin])
     else
       AC_PATH_PROG([MEX], [mex])
       AC_PATH_PROG([MATLAB], [matlab])
     fi
 
-    if test -z "$MATLAB"; then
+    if test -z "$MATLAB" -o "$MATLAB" = "no"; then
       AC_MSG_ERROR([Could not find 'matlab' executable for MATLAB.])
-    elif  test -z "$MEX"; then
+    elif  test -z "$MEX" -o "$MEX" = "no"; then
       AC_MSG_ERROR([Could not find 'mex' executable for MATLAB.])
     fi
 
