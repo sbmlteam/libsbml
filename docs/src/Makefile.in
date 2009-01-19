@@ -395,6 +395,9 @@ java-manual $(java-manual): $(core-sources) ExcludeDoclet.class
 	$(call merge_html,libsbml-uninstallation.html,$(java-manual)/libsbml-uninstallation.html,uninstallation)
 	$(call merge_html,../../LICENSE.html,$(java-manual)/libsbml-license.html,license)
 	$(call merge_html_verb,../../NEWS.txt,$(java-manual)/libsbml-news.html,news)
+	${MAKE} insert-js
+
+insert-js : 
 	$(call insert_javascript,$(java-manual)/org/sbml/libsbml)
 
 endif
