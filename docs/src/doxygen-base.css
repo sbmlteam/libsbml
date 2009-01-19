@@ -586,5 +586,7 @@ caption {
 }
 
 .width80 {
-  margin: auto 3em;
+  width: 90%;
+  margin-left: 3em;
+  margin-right: 3em;
 }
