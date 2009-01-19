@@ -69,12 +69,7 @@
 %newobject removeReactionGlyph;
 %newobject removeTextGlyph;
 %newobject removeAdditionalGraphicalObject;
-%newobject removeCompartmentGlyph;
-%newobject removeSpeciesGlyph;
-%newobject removeReactionGlyph;
 %newobject removeSpeciesReferenceGlyph;
-%newobject removeTextGlyph;
-%newobject removeAdditionalGraphicalObject;
 
 %include sbml/layout/SpeciesReferenceRole.h
 %include sbml/layout/Point.h
