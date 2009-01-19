@@ -176,6 +176,10 @@ swig_sources = \
 	  ../swig/libsbml.h \
 	  ../swig/libsbml.i
 
+ifdef USE_LAYOUT
+  swig_sources += ../swig/layout.i
+endif
+
 ifdef USE_SWIG
 # If swig is enabled, always rebuild the swig wrapper files.
 

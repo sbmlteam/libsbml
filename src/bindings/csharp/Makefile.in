@@ -205,6 +205,10 @@ swig_sources =      \
   ../swig/libsbml.h \
   ../swig/libsbml.i
 
+ifdef USE_LAYOUT
+  swig_sources += ../swig/layout.i
+endif
+
 main_sources = \
   $(shell grep '%include sbml' ../swig/libsbml.i | grep -v 'libsbml-version.h' | cut -f2 -d' ' \
     | cut -f2- -d'/' | sed -e '/\//s/^/..\/..\//;/\//!s/^/..\/..\/sbml\//')
