@@ -69,6 +69,7 @@ class CHeader:
     inDocs      = False
     inFunc      = False
     inSkip      = False
+    isInternal  = False
 
     docstring   = ''
     lines       = ''
@@ -79,6 +80,12 @@ class CHeader:
       if stripped      == '#ifndef SWIG': inSkip = True
       if stripped[0:6] == '#endif'      : inSkip = False
       if inSkip: continue
+
+      # Track things that we flag as internal, so that we can
+      # remove them from the documentation.
+
+      if (stripped.find('@cond doxygen-libsbml-internal') > 0):    isInternal = True
+      if (stripped.find('@endcond doxygen-libsbml-internal') > 0): isInternal = False
 
       # Watch for class description, usually at top of file.
 
@@ -164,7 +171,7 @@ class CHeader:
 
           # Swig doesn't seem to mind C++ argument lists, even though they
           # have "const", "&", etc.  So I'm leaving the arg list unmodified.
-          func = Method(forLanguage, docstring, name, args, (isConst > 0))
+          func = Method(forLanguage, isInternal, docstring, name, args, (isConst > 0))
 
           if inClass:
             self.classes[-1].methods.append(func)
@@ -198,13 +205,14 @@ class Method:
   following public attributes:
 
     - forLanguage
+    - isInternal
     - docstring
     - name
     - args
     - isConst
   """
 
-  def __init__ (self, forLanguage, docstring, name, args, isConst):
+  def __init__ (self, forLanguage, isInternal, docstring, name, args, isConst):
     """Method(forLanguage, docstring name, args) -> Method
 
     Creates a new Method description with the given docstring, name and args,
@@ -212,8 +220,20 @@ class Method:
     was declared constant.
     """
 
-    self.docstring = docstring
     self.name      = name
+
+    # This is a hack, but Javadoc offers no way of selectively omitting
+    # documentation from the output, so this is the most straightforward
+    # and unobtrusive approach I've found.  The following flags our
+    # internal methods with the Javadoc @deprecated tag.  We then invoke
+    # the javadoc program with the flag -nodeprecated, and presto, the
+    # methods are not put into the documentation generated.
+
+    if isInternal:
+      p = re.compile('(.+?)\*/', re.MULTILINE)
+      self.docstring = p.sub(r'\1\n * @deprecated libSBML internal\n */', docstring)
+    else:
+      self.docstring = docstring
 
     # In Java, if a method is const and swig has to translate the type,
     # then for some reason swig cannot match up the resulting doc strings
@@ -227,7 +247,7 @@ class Method:
     # combination doesn't seem to arise in libSBML currently, and anyway,
     # this fixes a real problem in the Java documentation for libSBML.
 
-    if forLanguage == 'java' and isConst == True and args.find('unsigned int'):
+    if forLanguage == 'java' and isConst and args.find('unsigned int'):
       self.args = ''
     elif not args.strip() == '()':
       self.args = args
@@ -257,6 +277,7 @@ class CClassDoc:
     self.name      = name
 
 
+
 def fixUpIncludePath(line):
   # All our paths start with 'sbml/...'.  Look to see if there's any other
   # slash, as an indication the path is 'sbml/xml/foo.h' and not 'sbml/foo.h'.
@@ -265,6 +286,7 @@ def fixUpIncludePath(line):
     return line[5:]
   else:
     return line
+
 
 
 def getHeadersFromSWIG (filename):
