@@ -530,6 +530,7 @@ def sanitizeForJava (docstring):
   docstring = docstring.replace(r'const char *', 'string ')
   docstring = docstring.replace(r'const char* ', 'string ')
   docstring = docstring.replace(r'an unsigned int', 'a long integer')
+  docstring = docstring.replace(r'unsigned int', 'long')
 
   # Inside of @see, change double colons to pound signs.
 
