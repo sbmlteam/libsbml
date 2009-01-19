@@ -333,7 +333,7 @@ ifdef USE_JAVA
 java-dir            = ../../src/bindings/java/java-files
 
 javadoc-doctitle    = "@PACKAGE_NAME@ @PACKAGE_VERSION@ Java API Reference"
-javadoc-header      = "<B>@PACKAGE_NAME@<BR>@PACKAGE_VERSION@<B>"
+javadoc-header      = "<B>@PACKAGE_NAME@<BR>@PACKAGE_VERSION@</B>"
 javadoc-footer      = "`cat libsbml-java-footer.html`"
 javadoc-windowtitle = "LibSBML Java API"
 
@@ -366,6 +366,7 @@ ignorable-warnings = "warning - @param argument"
 java-manual $(java-manual): $(core-sources) ExcludeDoclet.class
 	$(JAVA) -cp $(JAVADOC_JAR):. ExcludeDoclet -excludefile java-skip.txt \
 	    -use -public -version -author -sourcetab 4 -keywords \
+	    -nodeprecated \
 	    -header $(javadoc-header) \
 	    -bottom $(javadoc-footer) \
 	    -windowtitle $(javadoc-windowtitle) \
@@ -378,6 +379,7 @@ java-manual $(java-manual): $(core-sources) ExcludeDoclet.class
 	    -tag docnote:a:"Documentation note:" \
 	    -sourcepath $(java-dir) org.sbml.libsbml \
         2>&1 | grep -v $(ignorable-warnings) 
+	cp -f doxygen-base.css $(java-manual)
 	cp -f $(logo-file) $(java-manual)
 	cp -f $(logo-file) $(java-manual)/org/sbml/libsbml/
 	cp -f graphics/*.jpg $(java-manual)/org/sbml/libsbml/
