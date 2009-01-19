@@ -46,8 +46,8 @@ class CHeader:
     - functions
   """
 
-  def __init__ (self, stream):
-    """CHeader (stream=None) -> CHeader
+  def __init__ (self, forLanguage, stream):
+    """CHeader (forLanguage, stream=None) -> CHeader
 
     Creates a new CHeader reading from the given stream.
     """
@@ -56,10 +56,10 @@ class CHeader:
     self.classDocs = [ ]
 
     if stream is not None:
-      self.read(stream)
+      self.read(forLanguage, stream)
 
 
-  def read (self, stream):
+  def read (self, forLanguage, stream):
     """read (PushBackStream)
 
     Reads a C/C++ header file from the given stream.
@@ -157,13 +157,14 @@ class CHeader:
       if inFunc and (stripped.endswith(';') or stripped.endswith(')')):
         # It might be an enum.  Skip it.
         if not stripped.startswith('enum'):
-          stop = lines.rfind('(')
-          name = lines[:stop].split()[-1]
-          args = lines[stop:lines.rfind(')')+1]
+          stop    = lines.rfind('(')
+          name    = lines[:stop].split()[-1]
+          args    = lines[stop:lines.rfind(')')+1]
+          isConst = lines[stop:].rfind('const')
 
           # Swig doesn't seem to mind C++ argument lists, even though they
           # have "const", "&", etc.  So I'm leaving the arg list unmodified.
-          func = CFunction(docstring, name, args)
+          func = Method(forLanguage, docstring, name, args, (isConst > 0))
 
           if inClass:
             self.classes[-1].methods.append(func)
@@ -192,23 +193,43 @@ class CClass:
 
 
 
-class CFunction:
-  """A CFunction encapsulates a C/C++ function.  Currently, it has the
+class Method:
+  """A Method encapsulates a C/C++ function.  Currently, it has the
   following public attributes:
 
+    - forLanguage
     - docstring
     - name
     - args
+    - isConst
   """
 
-  def __init__ (self, docstring, name, args):
-    """CFunction(docstring, name, args) -> CFunction
+  def __init__ (self, forLanguage, docstring, name, args, isConst):
+    """Method(forLanguage, docstring name, args) -> Method
 
-    Creates a new CFunction with the given docstring, name and args.
+    Creates a new Method description with the given docstring, name and args,
+    for the language forLanguage, with special consideration if the method
+    was declared constant.
     """
+
     self.docstring = docstring
     self.name      = name
-    if not args.strip() == '()':
+
+    # In Java, if a method is const and swig has to translate the type,
+    # then for some reason swig cannot match up the resulting doc strings
+    # that we put into %javamethodmodifiers.  The result is that the java
+    # documentation for the methods are empty.  I can't figure out why, but
+    # have figured out that if we omit the argument list in the doc string
+    # put on %javamethodmodifiers for such case, swig does generate the
+    # comments for those methods.  This approach is potentially dangerous
+    # because swig might attach the doc string to the wrong method if a
+    # methods has multiple versions with varying argument types, but the
+    # combination doesn't seem to arise in libSBML currently, and anyway,
+    # this fixes a real problem in the Java documentation for libSBML.
+
+    if forLanguage == 'java' and isConst == True and args.find('unsigned int'):
+      self.args = ''
+    elif not args.strip() == '()':
       self.args = args
     else:
       self.args = ''
@@ -284,7 +305,7 @@ def processHeader (filename, ostream, language):
   docstring appropriate for the given language.
   """
   istream = open(filename)
-  header  = CHeader(istream)
+  header  = CHeader(language, istream)
   istream.close()
 
   for c in header.classDocs:
@@ -481,9 +502,12 @@ def sanitizeForJava (docstring):
   docstring = sanitizeForHTML(docstring, 'java')
 
   # Try to rewrite some of the data type references to equivalent Java types.
+  # (Note: this rewriting affects only the documentation comments, not the
+  # method declarations.)
 
   docstring = docstring.replace(r'const char *', 'string ')
   docstring = docstring.replace(r'const char* ', 'string ')
+  docstring = docstring.replace(r'an unsigned int', 'a long integer')
 
   # Inside of @see, change double colons to pound signs.
 
