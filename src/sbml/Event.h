@@ -22,7 +22,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class Event
- * @brief LibSBML implementation of %SBML's Event construct.
+ * @brief LibSBML implementation of SBML's Event construct.
  * 
  * An Event object defines when the event can occur, the variables that are
  * affected by the event, and how the variables are affected.
@@ -41,22 +41,14 @@
  * Please consult the descriptions of Trigger, Delay and EventAssignment
  * for more information.
  *
- * @note In the SBML Level&nbsp;2 specifications prior to Version&nbsp;3,
- * the definitions of the delay and trigger constructs on Event were
- * unclear.  In particular, it was not obvious whether they were meant to
- * be separate objects and whether those objects were derived from SBase.
- * The SBML Level&nbsp;2 Version&nbsp;3 specification cleans up this area
- * and makes it clear that Delay and Trigger are in fact separate object
- * classes derived from SBase.  This affects the libSBML API in a small but
- * backward-incompatible way: namely, the libSBML interface is now oriented
- * around the use of Delay and Trigger objects derived from SBase.  This
- * affects methods such as getTrigger() and getDelay().
- *
  * @warning Definitions of Event in SBML Level&nbsp;2 Versions 1 and 2
  * included an additional attribute called "timeUnits", which allowed the
- * time units of the Delay to be set explicitly.  SBML Level&nbsp;2
- * Version&nbsp;3 removed this attribute.  LibSBML supports this field for
- * compatibility with previous versions of SBML Level&nbsp;2.
+ * time units of the Delay to be set explicitly.  As of Version&nbsp;3,
+ * SBML Level&nbsp;2 no longer defines this attribute.  The LibSBML
+ * supports this attribute for compatibility with previous versions of SBML
+ * Level&nbsp;2; however, if a Version&nbsp;3 or&nbsp;4 model sets this
+ * attribute, the consistency-checking method
+ * SBMLDocument::checkConsistency() will report an error.
  *
  * 
  * @class ListOfEvents
@@ -226,14 +218,6 @@ public:
    * Get the trigger definition of this Event.
    * 
    * @return the Trigger object of this Event.
-   *
-   * @note The value returned by this method changed in libSBML 3.0 to be
-   * aligned with the definitions of Event, Trigger and Delay in SBML
-   * Level&nbsp;2 Version&nbsp;3.  Previous versions of this method return
-   * an ASTNode tree for the mathematical expression of the trigger; the
-   * libSBML 3.0 version follows the definition of Event and Trigger in
-   * SBML Level&nbsp;2 Version&nbsp;3 and returns a separate Trigger
-   * object.
    */
   const Trigger* getTrigger () const;
 
@@ -242,14 +226,6 @@ public:
    * Get the trigger definition of this Event.
    * 
    * @return the Trigger object of this Event.
-   *
-   * @note The value returned by this method changed in libSBML 3.0 to be
-   * aligned with the definitions of Event, Trigger and Delay in SBML
-   * Level&nbsp;2 Version&nbsp;3.  Previous versions of this method return
-   * an ASTNode tree for the mathematical expression of the trigger; the
-   * libSBML 3.0 version follows the definition of Event and Trigger in
-   * SBML Level&nbsp;2 Version&nbsp;3 and returns a separate Trigger
-   * object.
    */
   Trigger* getTrigger ();
 
@@ -259,13 +235,6 @@ public:
    * 
    * @return the delay of this Event if one is defined, or @c NULL if none
    * is defined.
-   *
-   * @note The value returned by this method changed in libSBML 3.0 to be
-   * aligned with the definitions of Event, Trigger and Delay in SBML
-   * Level&nbsp;2 Version&nbsp;3.  Previous versions of this method return
-   * an ASTNode tree for the mathematical expression of the delay; the
-   * libSBML 3.0 version follows the definition of Event and Delay in SBML
-   * Level&nbsp;2 Version&nbsp;3 and returns a separate Delay object.
    */
   const Delay* getDelay () const;
 
@@ -275,13 +244,6 @@ public:
    * 
    * @return the delay of this Event if one is defined, or @c NULL if none
    * is defined.
-   *
-   * @note The value returned by this method changed in libSBML 3.0 to be
-   * aligned with the definitions of Event, Trigger and Delay in SBML
-   * Level&nbsp;2 Version&nbsp;3.  Previous versions of this method return
-   * an ASTNode tree for the mathematical expression of the delay; the
-   * libSBML 3.0 version follows the definition of Event and Delay in SBML
-   * Level&nbsp;2 Version&nbsp;3 and returns a separate Delay object.
    */
   Delay* getDelay ();
 
@@ -290,13 +252,6 @@ public:
    * Get the value of the "timeUnits" attribute of this Event.
    * 
    * @return the value of the attribute "timeUnits" as a string.
-   *
-   * @warning Definitions of Event in SBML Level&nbsp;2 Versions 1 and 2
-   * included the attribute called "timeUnits", but it was removed in SBML
-   * Level&nbsp;2 Version&nbsp;3.  LibSBML supports this attribute for
-   * compatibility with previous versions of SBML Level&nbsp;2, but its use
-   * is discouraged since models in Level&nbsp;2 Version&nbsp;3 or 
-   * Level&nbsp;2 Version&nbsp;4 cannot contain it.
    */
   const std::string& getTimeUnits () const;
 
@@ -339,8 +294,10 @@ public:
    * included the attribute called "timeUnits", but it was removed in SBML
    * Level&nbsp;2 Version&nbsp;3.  LibSBML supports this attribute for
    * compatibility with previous versions of SBML Level&nbsp;2, but its use
-   * is discouraged since models in Level&nbsp;2 Version&nbsp;3 or 
-   * Level&nbsp;2 Version&nbsp;4 cannot contain it.
+   * is discouraged since models in Level&nbsp;2 Version&nbsp;3 and
+   * Version&nbsp;4 cannot contain it.  If a Version&nbsp;3 or&nbsp;4 model
+   * sets this attribute, the consistency-checking method
+   * SBMLDocument::checkConsistency() will report an error.
    */
   bool isSetTimeUnits () const;
 
@@ -349,13 +306,6 @@ public:
    * Sets the trigger of this Event to a copy of the given Trigger.
    *
    * @param trigger the Trigger object instance to use.
-   *
-   * @note The value returned by this method changed in libSBML 3.0 to be
-   * aligned with the definitions of Event, Trigger and Delay in SBML
-   * Level&nbsp;2 Version&nbsp;3.  Previous versions of this method
-   * accepted an ASTNode argument; the libSBML 3.0 version follows the
-   * definition of Event and Trigger in SBML Level&nbsp;2 Version&nbsp;3
-   * and accepts a separate Trigger object as argument.
    */
   void setTrigger (const Trigger* trigger);
 
@@ -364,13 +314,6 @@ public:
    * Sets the delay of this Event to a copy of the given Delay.
    *
    * @param delay the Delay object instance to use
-   *
-   * @note The value returned by this method changed in libSBML 3.0 to be
-   * aligned with the definitions of Event, Trigger and Delay in SBML
-   * Level&nbsp;2 Version&nbsp;3.  Previous versions of this method
-   * accepted an ASTNode argument; the libSBML 3.0 version follows the
-   * definition of Event and Delay in SBML Level&nbsp;2 Version&nbsp;3 and
-   * accepts a separate Delay object as argument.
    */
   void setDelay (const Delay* delay);
 
@@ -384,8 +327,10 @@ public:
    * included the attribute called "timeUnits", but it was removed in SBML
    * Level&nbsp;2 Version&nbsp;3.  LibSBML supports this attribute for
    * compatibility with previous versions of SBML Level&nbsp;2, but its use
-   * is discouraged since models in Level&nbsp;2 Version&nbsp;3 or 
-   * Level&nbsp;2 Version&nbsp;4 cannot contain it.
+   * is discouraged since models in Level&nbsp;2 Version&nbsp;3 and
+   * Version&nbsp;4 cannot contain it.  If a Version&nbsp;3 or&nbsp;4 model
+   * sets this attribute, the consistency-checking method
+   * SBMLDocument::checkConsistency() will report an error.
    */
   void setTimeUnits (const std::string& sid);
 
@@ -412,8 +357,10 @@ public:
    * included the attribute called "timeUnits", but it was removed in SBML
    * Level&nbsp;2 Version&nbsp;3.  LibSBML supports this attribute for
    * compatibility with previous versions of SBML Level&nbsp;2, but its use
-   * is discouraged since models in Level&nbsp;2 Version&nbsp;3 or 
-   * Level&nbsp;2 Version&nbsp;4 cannot contain it.
+   * is discouraged since models in Level&nbsp;2 Version&nbsp;3 and
+   * Version&nbsp;4 cannot contain it.  If a Version&nbsp;3 or&nbsp;4 model
+   * sets this attribute, the consistency-checking method
+   * SBMLDocument::checkConsistency() will report an error.
    */
   void unsetTimeUnits ();
 
