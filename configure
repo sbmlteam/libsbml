@@ -3986,7 +3986,7 @@ done
 done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_SWIG" && ac_cv_path_SWIG="no-swig-found"
+  test -z "$ac_cv_path_SWIG" && ac_cv_path_SWIG="no"
   ;;
 esac
 fi
@@ -4045,7 +4045,7 @@ fi
     fi
 
 
-    if test -z "$SWIG"; then
+    if test -z "$SWIG" -o "$SWIG" = "no"; then
       { { echo "$as_me:$LINENO: error: Could not find \`swig' executable." >&5
 echo "$as_me: error: Could not find \`swig' executable." >&2;}
    { (exit 1); exit 1; }; }
@@ -4156,7 +4156,7 @@ done
 done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_PYTHON" && ac_cv_path_PYTHON="no-python-found"
+  test -z "$ac_cv_path_PYTHON" && ac_cv_path_PYTHON="no"
   ;;
 esac
 fi
@@ -4213,7 +4213,7 @@ fi
 
     fi
 
-    if test -z $PYTHON || ! test -f $PYTHON;
+    if test -z $PYTHON -o "$PYTHON" = "no" -o ! -f $PYTHON;
     then
       { { echo "$as_me:$LINENO: error: *** python missing - please install first or check config.log ***" >&5
 echo "$as_me: error: *** python missing - please install first or check config.log ***" >&2;}
@@ -4366,7 +4366,7 @@ done
 done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_PERL" && ac_cv_path_PERL="no-perl-found"
+  test -z "$ac_cv_path_PERL" && ac_cv_path_PERL="no"
   ;;
 esac
 fi
@@ -4500,7 +4500,7 @@ done
 done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_JAVA" && ac_cv_path_JAVA="no-java-found"
+  test -z "$ac_cv_path_JAVA" && ac_cv_path_JAVA="no"
   ;;
 esac
 fi
@@ -4541,7 +4541,7 @@ done
 done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_JAVAC" && ac_cv_path_JAVAC="no-javac-found"
+  test -z "$ac_cv_path_JAVAC" && ac_cv_path_JAVAC="no"
   ;;
 esac
 fi
@@ -4582,7 +4582,7 @@ done
 done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_JAR" && ac_cv_path_JAR="no-jar-found"
+  test -z "$ac_cv_path_JAR" && ac_cv_path_JAR="no"
   ;;
 esac
 fi
@@ -4721,12 +4721,12 @@ fi
     fi
 
 
-    if test -z "$JAVA"; then
+    if test -z "$JAVA" -o "$JAVA" = "no"; then
       { { echo "$as_me:$LINENO: error: Could not find \`java' executable." >&5
 echo "$as_me: error: Could not find \`java' executable." >&2;}
    { (exit 1); exit 1; }; }
     fi
-    if test -z "$JAVAC"; then
+    if test -z "$JAVAC" -o "$JAVAC" = "no"; then
       { { echo "$as_me:$LINENO: error: Could not find \`javac' executable." >&5
 echo "$as_me: error: Could not find \`javac' executable." >&2;}
    { (exit 1); exit 1; }; }
@@ -4752,8 +4752,8 @@ echo $ECHO_N "checking $JAVA version >= 1.5.0... $ECHO_C" >&6; }
 
 
       if test $jx -gt $rx \
-         || (test $jx -eq $rx && test $jy -gt $ry) \
-         || (test $jx -eq $rx && test $jy -eq $ry && test $jz -ge $rz); then
+         || (test $jx -eq $rx -a $jy -gt $ry) \
+         || (test $jx -eq $rx -a $jy -eq $ry -a $jz -ge $rz); then
         { echo "$as_me:$LINENO: result: yes (found $jx.$jy.$jz)" >&5
 echo "${ECHO_T}yes (found $jx.$jy.$jz)" >&6; }
       else
@@ -4973,7 +4973,7 @@ done
 done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_MEX" && ac_cv_path_MEX="no-mex-found"
+  test -z "$ac_cv_path_MEX" && ac_cv_path_MEX="no"
   ;;
 esac
 fi
@@ -5014,7 +5014,7 @@ done
 done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_MATLAB" && ac_cv_path_MATLAB="no-matlab-found"
+  test -z "$ac_cv_path_MATLAB" && ac_cv_path_MATLAB="no"
   ;;
 esac
 fi
@@ -5111,11 +5111,11 @@ fi
 
     fi
 
-    if test -z "$MATLAB"; then
+    if test -z "$MATLAB" -o "$MATLAB" = "no"; then
       { { echo "$as_me:$LINENO: error: Could not find 'matlab' executable for MATLAB." >&5
 echo "$as_me: error: Could not find 'matlab' executable for MATLAB." >&2;}
    { (exit 1); exit 1; }; }
-    elif  test -z "$MEX"; then
+    elif  test -z "$MEX" -o "$MEX" = "no"; then
       { { echo "$as_me:$LINENO: error: Could not find 'mex' executable for MATLAB." >&5
 echo "$as_me: error: Could not find 'mex' executable for MATLAB." >&2;}
    { (exit 1); exit 1; }; }
@@ -5207,7 +5207,7 @@ done
 done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_OCTAVE" && ac_cv_path_OCTAVE="no-octave-found"
+  test -z "$ac_cv_path_OCTAVE" && ac_cv_path_OCTAVE="no"
   ;;
 esac
 fi
@@ -5248,7 +5248,7 @@ done
 done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_MKOCTFILE" && ac_cv_path_MKOCTFILE="no-mkoctfile-found"
+  test -z "$ac_cv_path_MKOCTFILE" && ac_cv_path_MKOCTFILE="no"
   ;;
 esac
 fi
@@ -5289,7 +5289,7 @@ done
 done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_OCTAVE_CONFIG" && ac_cv_path_OCTAVE_CONFIG="no-octave-config-found"
+  test -z "$ac_cv_path_OCTAVE_CONFIG" && ac_cv_path_OCTAVE_CONFIG="no"
   ;;
 esac
 fi
@@ -5426,11 +5426,11 @@ fi
 
     fi
 
-    if test -z "$OCTAVE"; then
+    if test -z "$OCTAVE" -o "$OCTAVE" = "no"; then
       { { echo "$as_me:$LINENO: error: Could not find 'octave' executable for Octave." >&5
 echo "$as_me: error: Could not find 'octave' executable for Octave." >&2;}
    { (exit 1); exit 1; }; }
-    elif  test -z "$MKOCTFILE"; then
+    elif  test -z "$MKOCTFILE" -o "$MKOCTFILE" = "no"; then
       { { echo "$as_me:$LINENO: error: Could not find 'mkoctfile' executable for Octave." >&5
 echo "$as_me: error: Could not find 'mkoctfile' executable for Octave." >&2;}
    { (exit 1); exit 1; }; }
@@ -5597,7 +5597,7 @@ done
 done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_RUBY" && ac_cv_path_RUBY="no-ruby-found"
+  test -z "$ac_cv_path_RUBY" && ac_cv_path_RUBY="no"
   ;;
 esac
 fi
@@ -5654,7 +5654,7 @@ fi
 
     fi
 
-    if test -z "$RUBY" || ! test -f "$RUBY";
+    if test -z "$RUBY" -o "$RUBY" = "no" -o ! -f "$RUBY";
     then
       { { echo "$as_me:$LINENO: error: *** ruby missing - please install first or check config.log ***" >&5
 echo "$as_me: error: *** ruby missing - please install first or check config.log ***" >&2;}
@@ -6610,7 +6610,7 @@ done
 done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_DOXYGEN" && ac_cv_path_DOXYGEN="no-doxygen-found"
+  test -z "$ac_cv_path_DOXYGEN" && ac_cv_path_DOXYGEN="no"
   ;;
 esac
 fi
@@ -6668,7 +6668,7 @@ fi
     fi
   fi
 
-  if test -n "$DOXYGEN"; then
+  if test -n "$DOXYGEN" -a "$DOXYGEN" != "no"; then
 
 
       { echo "$as_me:$LINENO: checking $DOXYGEN version >= 1.5.4" >&5
@@ -6689,8 +6689,8 @@ echo $ECHO_N "checking $DOXYGEN version >= 1.5.4... $ECHO_C" >&6; }
 
 
       if test $dx -gt $rx \
-         || (test $dx -eq $rx && test $dy -gt $ry) \
-         || (test $dx -eq $rx && test $dy -eq $ry && test $dz -ge $rz); then
+         || (test $dx -eq $rx -a $dy -gt $ry) \
+         || (test $dx -eq $rx -a $dy -eq $ry -a $dz -ge $rz); then
         { echo "$as_me:$LINENO: result: yes (found $dx.$dy.$dz)" >&5
 echo "${ECHO_T}yes (found $dx.$dy.$dz)" >&6; }
       else
@@ -6728,6 +6728,8 @@ echo "${ECHO_T}yes" >&6; }
       fi
     fi
 
+  else
+    DOXYGEN="no-doxygen-found"
   fi
 
 
