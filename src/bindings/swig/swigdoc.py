@@ -167,7 +167,7 @@ class CHeader:
           stop    = lines.rfind('(')
           name    = lines[:stop].split()[-1]
           args    = lines[stop:lines.rfind(')')+1]
-          isConst = lines[stop:].rfind('const')
+          isConst = lines[lines.rfind(')'):].rfind('const')
 
           # Swig doesn't seem to mind C++ argument lists, even though they
           # have "const", "&", etc.  So I'm leaving the arg list unmodified.
@@ -253,6 +253,10 @@ class Method:
       self.args = args
     else:
       self.args = ''
+
+    if isConst:
+      self.args = self.args + ' const'
+
 
 
 class CClassDoc:
@@ -530,6 +534,7 @@ def sanitizeForJava (docstring):
   docstring = docstring.replace(r'const char* ', 'string ')
   docstring = docstring.replace(r'an unsigned int', 'a long integer')
   docstring = docstring.replace(r'unsigned int', 'long')
+  docstring = docstring.replace(r'const std::string', 'String')
 
   # Inside of @see, change double colons to pound signs.
 
