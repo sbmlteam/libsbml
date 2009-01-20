@@ -777,6 +777,38 @@ SWIGJAVA_ATTRIBS(TYPENAME, public, public)
 %define SWIGJAVA_EQUALS(CLASS)
 %typemap("javacode") CLASS
 %{
+  /**
+   * Equality comparison method for CLASS.
+   * <p>
+   * Because the Java methods for libSBML are actually wrappers around code
+   * implemented in C++ and C, certain operations will not behave as
+   * expected.  Equality comparison is one such case.  An instance of a
+   * libSBML object class is actually a <em>proxy object</em>
+   * wrapping the real underlying C/C++ object.  The normal <code>==</code>
+   * equality operator in Java will <em>only compare the Java proxy objects</em>,
+   * not the underlying native object.  The result is almost never what you
+   * want in practical situations.  Unfortunately, Java does not provide a
+   * way to override <code>==</code>.
+   *  <p>
+   * The alternative that must be followed is to use the
+   * <code>equals()</code> method.  The <code>equals</code> method on this
+   * class overrides the default java.lang.Object one, and performs an
+   * intelligent comparison of instances of objects of this class.  The
+   * result is an assessment of whether two libSBML Java objects are truly 
+   * the same underlying native-code objects.
+   *  <p>
+   * The use of this method in practice is the same as the use of any other
+   * Java <code>equals</code> method.  For example,
+   * <em>a</em><code>.equals(</code><em>b</em><code>)</code> returns
+   * <code>true</code> if <em>a</em> and <em>b</em> are the same underlying
+   * object.
+   *
+   * @param sb a reference to an object to which the current object will be
+   * compared
+   *
+   * @return <code>true</code> if <code>sb</code> refers to the same underlying 
+   * object as this one, <code>false</code> otherwise
+   */
   public boolean equals(Object sb)
   {
     if ( this == sb ) 
@@ -786,6 +818,11 @@ SWIGJAVA_ATTRIBS(TYPENAME, public, public)
     return swigCPtr == getCPtr((CLASS)(sb));
   }
 
+  /**
+   * Returns a hashcode for this CLASS object.
+   *
+   * @return a hash code usable by Java methods that need them.
+   */
   public int hashCode()
   {
     return (int)(swigCPtr^(swigCPtr>>>32));
@@ -1161,4 +1198,3 @@ SWIGJAVA_EQUALS(XMLInputStream)
     clog = new OStream(OStream.CLOG); 
   }
 %}
-
