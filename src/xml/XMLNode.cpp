@@ -272,6 +272,8 @@ XMLNode::getChild (unsigned int n)
 const XMLNode&
 XMLNode::getChild (unsigned int n) const
 {
+  static const XMLNode outOfRange;
+
   unsigned int size = getNumChildren();
   if ( (n < size) && (size > 0) )
   {
@@ -279,9 +281,13 @@ XMLNode::getChild (unsigned int n) const
   }
   else
   {
-    // this should not happen, or memory leak occurs...
-    // (I think some exception should be thrown here.)
-    return *(new XMLNode());
+    // An empty XMLNode object, which is neither start node, 
+    // end node, nor text node, returned if the given index 
+    // is out of range. 
+    // Currently, this object is allocated as a static object
+    // to avoid a memory leak.
+    // This may be fixed in the futrure release.
+    return outOfRange;
   }
 }
 
