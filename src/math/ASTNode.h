@@ -63,7 +63,7 @@
  *  
  * <li> Rational numbers are represented in an AST node using separate
  * numerator and denominator values.  These can be retrieved using the
- * methods getNumerator() and getDenominator()
+ * methods ASTNode::getNumerator() and ASTNode::getDenominator().
  * 
  * <li> The children of an ASTNode are other ASTNode objects.  The list of
  * children is empty for nodes that are leaf elements, such as numbers.
@@ -73,15 +73,26 @@
  * </ul>
  *
  *
- * <h3><a class="anchor" name="ASTNodeType_t">ASTNodeType_t</a></h3>
+ * @if doxygen-clike-only <h3><a class="anchor" name="ASTNodeType_t">
+ * ASTNodeType_t</a></h3> @endif@if doxygen-java-only <h3><a class="anchor"
+ * name="ASTNodeType_t">The set of possible %ASTNode types</a></h3> @endif
  *
- * Every ASTNode has an associated type to indicate, for example, whether
- * it holds a number or stands for an arithmetic operator.  The type is
- * recorded as a value drawn from the enumeration <a class="el"
- * href="#ASTNodeType_t">ASTNodeType_t</a>.  The list of possible types is
- * quite long, because it covers all the mathematical functions that are
- * permitted in SBML.  The values are shown in the following table; their
- * names hopefully evoke the construct that they represent:
+ * @if doxygen-clike-only Every ASTNode has an associated type code to indicate,
+ * for example, whether it holds a number or stands for an arithmetic
+ * operator.  The type is recorded as a value drawn from the enumeration <a
+ * class="el" href="#ASTNodeType_t">ASTNodeType_t</a>.  The list of
+ * possible types is quite long, because it covers all the mathematical
+ * functions that are permitted in SBML.  The values are shown in the
+ * following table; their names hopefully evoke the construct that they
+ * represent: @endif@if doxygen-java-only Every ASTNode has an associated
+ * type code to indicate, for example, whether it holds a number or stands for
+ * an arithmetic operator.  The type is recorded as a value drawn from a
+ * set of static integer constants defined in the class {@link
+ * libsbmlConstants}.  Their names begin with the characters @c AST_.  The
+ * list of possible types is quite long, because it covers all the
+ * mathematical functions that are permitted in SBML.  The values are shown
+ * in the following table; their names hopefully evoke the construct that
+ * they represent: @endif
  *
  * @htmlinclude libsbml-astnode-types.html
  *
@@ -123,15 +134,26 @@
  * 
  * <h3><a class="anchor" name="math-convert">Converting between ASTs and text strings</a></h3>
  * 
- * The text-string form of mathematical formulas produced by
- * SBML_formulaToString() and read by SBML_parseFormula() are simple
- * C-inspired infix notation taken from SBML Level&nbsp;1.  A formula in
- * this text-string form can be handed to a program that understands SBML
+ * @if doxygen-clike-only The text-string form of mathematical formulas
+ * produced by SBML_formulaToString() and read by SBML_parseFormula() are
+ * simple C-inspired infix notation taken from SBML Level&nbsp;1.  A
+ * formula in this text-string form can be handed to a program that
+ * understands SBML Level&nbsp;1 mathematical expressions, or used as part
+ * of a translation system.  The libSBML distribution comes with an example
+ * program in the @c "examples" subdirectory called @c translateMath that
+ * implements an interactive command-line demonstration of translating
+ * infix formulas into MathML and
+ * vice-versa. @endif@if doxygen-java-only
+ * The text-string form of mathematical formulas produced by <code><a
+ * href="libsbml.java">libsbml.formulaToString()</a></code> and read by <code><a
+ * href="libsbml.java">libsbml.parseFormula()</a></code> are simple C-inspired
+ * infix notation taken from SBML Level&nbsp;1.  A formula in this
+ * text-string form can be handed to a program that understands SBML
  * Level&nbsp;1 mathematical expressions, or used as part of a translation
  * system.  The libSBML distribution comes with an example program in the
  * @c "examples" subdirectory called @c translateMath that implements an
  * interactive command-line demonstration of translating infix formulas
- * into MathML and vice-versa.
+ * into MathML and vice-versa.@endif
  *
  * The formula strings may contain operators, function calls, symbols, and
  * white space characters.  The allowable white space characters are tab
@@ -344,9 +366,7 @@ public:
    *
    * By default, the returned node will have a type of @c AST_UNKNOWN.  The
    * calling code should set the node type to something else as soon as
-   * possible.
-   *
-   * @see setType
+   * possible using @if doxygen-clike-only ASTNode::setType() @endif@if doxygen-java-only ASTNode::setType(int) @endif
    *
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different
@@ -408,16 +428,16 @@ public:
    *
    * The rules determining the canonical form conversion are as follows:
    * <ul>
-
+   *
    * <li> If the node type is @c AST_NAME and the node name matches @c
    * "ExponentialE", @c "Pi", @c "True" or @c "False" the node type is
-   * converted to the corresponding @c AST_CONSTANT_<em>x</em> type.
+   * converted to the corresponding <code>AST_CONSTANT_</code><em>x</em> type.
    *
    * <li> If the node type is an @c AST_FUNCTION and the node name matches
    * an SBML Level&nbsp;1 or Level&nbsp;2 (MathML) function name, logical
    * operator name, or relational operator name, the node is converted to
-   * the correspnding @c AST_FUNCTION_<em>x</em> or @c
-   * AST_LOGICAL_<em>x</em> type.
+   * the correspnding <code>AST_FUNCTION_</code><em>x</em> or
+   * <code>AST_LOGICAL_</code><em>x</em> type.
    *
    * </ul>
    *
@@ -429,9 +449,9 @@ public:
    * Sometimes canonicalization of a node results in a structural converion
    * of the node as a result of adding a child.  For example, a node with
    * the SBML Level&nbsp;1 function name @c sqr and a single child node
-   * (the argument) will be transformed to a node of type @c
+   * (the argument) will be transformed to a node of type
    * @c AST_FUNCTION_POWER with two children.  The first child will remain
-   * unchanged, but the second child will be an ASTNode of type @c
+   * unchanged, but the second child will be an ASTNode of type
    * @c AST_INTEGER and a value of 2.  The function names that result in
    * structural changes are: @c log10, @c sqr, and @c sqrt.
    *
@@ -475,6 +495,7 @@ public:
   LIBSBML_EXTERN
   int removeChild(unsigned int n);
 
+
   /**
    * Replaces the nth child of this ASTNode with the given ASTNode.
    *
@@ -488,6 +509,7 @@ public:
    */
   LIBSBML_EXTERN
   int replaceChild(unsigned int n, ASTNode *newChild);
+
 
   /**
    * Insert the given ASTNode at point n in the list of children
@@ -503,6 +525,7 @@ public:
    */
   LIBSBML_EXTERN
   int insertChild(unsigned int n, ASTNode *newChild);
+
 
   /**
    * Creates a recursive copy of this node and all its children.
@@ -520,7 +543,7 @@ public:
    * @param n the index of the child to get
    * 
    * @return the nth child of this ASTNode or NULL if this node has no nth
-   * child (<code>n &gt; ASTNode_getNumChildren() - 1</code>).
+   * child (<code>n &gt; getNumChildren() - 1</code>).
    */
   LIBSBML_EXTERN
   ASTNode* getChild (unsigned int n) const;
@@ -540,8 +563,8 @@ public:
    * Get the right child of this node.
    *
    * @return the right child of this ASTNode, or NULL if this node has no
-   * right child.  If <code>getNumChildren() &gt; 1</code>, then this is
-   * equivalent to:
+   * right child.  If <code>getNumChildren() &gt; 1</code>, then
+   * this is equivalent to:
    * @code
    * getChild( getNumChildren() - 1 );
    * @endcode
@@ -582,7 +605,7 @@ public:
    * Get the nth semantic annotation of this node.
    * 
    * @return the nth annotation of this ASTNode, or NULL if this node has no nth
-   * annotation (<code>n &gt; ASTNode_getNumChildren() - 1</code>).
+   * annotation (<code>n &gt; getNumChildren() - 1</code>).
    */
   LIBSBML_EXTERN
   XMLNode* getSemanticsAnnotation (unsigned int n) const;
@@ -613,16 +636,16 @@ public:
 
 
   /**
-   * This method is identical in functionality to getListOfNodes(), except
-   * the List is passed-in by the caller.
+   * This method is identical in functionality to
+   * ASTNode::getListOfNodes(), except the List is passed-in by the caller.
    */
   LIBSBML_EXTERN
   void fillListOfNodes (ASTNodePredicate predicate, List* lst) const;
 
 
   /**
-   * Get the value of this node as a single character.  This
-   * function should be called only when getType() is one of @c AST_PLUS,
+   * Get the value of this node as a single character.  This function
+   * should be called only when ASTNode::getType() is one of @c AST_PLUS,
    * @c AST_MINUS, @c AST_TIMES, @c AST_DIVIDE or @c AST_POWER.
    * 
    * @return the value of this ASTNode as a single character
@@ -632,8 +655,8 @@ public:
 
 
   /**
-   * Get the value of this node as an integer. This function
-   * should be called only when <code>getType() == AST_INTEGER</code>.
+   * Get the value of this node as an integer. This function should be
+   * called only when <code>getType() == AST_INTEGER</code>.
    * 
    * @return the value of this ASTNode as a (<code>long</code>) integer. 
    */
