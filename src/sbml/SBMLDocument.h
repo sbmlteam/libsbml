@@ -154,8 +154,9 @@
  * </table>
  * </center>
  *
- * An example of using the consistency-checking and validation facilities
- * is provided in this manual in the section @ref libsbml-example.
+ * @if doxygen-clike-only An example of using the consistency-checking
+ * and validation facilities is provided in this manual in the
+ * section @ref libsbml-example. @endif
  * 
  * @section converting Converting documents between Levels and Versions of SBML
  *
