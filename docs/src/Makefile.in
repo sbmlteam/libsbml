@@ -133,6 +133,7 @@ distfiles =                                    \
         libsbml-accessing.txt                  \
         libsbml-astnode-types.html             \
         libsbml-authors.html                   \
+	libsbml-base-units.html                \
         libsbml-blurb.html                     \
         libsbml-blurb.txt                      \
         libsbml-coding.txt                     \
@@ -164,6 +165,7 @@ distfiles =                                    \
         libsbml-news.txt                       \
         libsbml-papers.html                    \
         libsbml-papers.txt                     \
+	libsbml-predefined-units.html          \
         libsbml-python-mainpage.txt            \
         libsbml-python-math.txt                \
         libsbml-python-reading-files.txt       \
@@ -171,7 +173,9 @@ distfiles =                                    \
 	libsbml-string-functions-table.html    \
         libsbml-uninstallation.html            \
         libsbml-uninstallation.txt             \
+	libsbml-unitkind-table.html            \
         libsbml-not-sbml-warning.html          \
+	libsbml-string-functions-table.html    \
         pythondocfilter.py                     \
         sbml.js                                \
         templates/c++.txt                      \
