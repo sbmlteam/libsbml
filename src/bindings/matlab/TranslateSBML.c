@@ -618,6 +618,17 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   GetReaction      (sbmlModel, unSBMLLevel, unSBMLVersion);
   GetRule          (sbmlModel, unSBMLLevel, unSBMLVersion);
   
+  if (unSBMLLevel == 2 && unSBMLVersion > 1)
+  {
+    if (SBase_isSetSBOTerm((SBase_t*)sbmlModel)) {
+      nSBO = SBase_getSBOTerm((SBase_t*)sbmlModel);
+    }
+    GetCompartmentType  (sbmlModel, unSBMLLevel, unSBMLVersion);
+    GetSpeciesType      (sbmlModel, unSBMLLevel, unSBMLVersion);
+    GetInitialAssignment(sbmlModel, unSBMLLevel, unSBMLVersion);
+    GetConstraint       (sbmlModel, unSBMLLevel, unSBMLVersion);
+  }
+
   if (unSBMLLevel == 2)
   {
     pacMetaid = SBase_getMetaId((SBase_t*)sbmlModel);
@@ -640,16 +651,6 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     }
   }
 
-  if (unSBMLLevel == 2 && unSBMLVersion > 1)
-  {
-    if (SBase_isSetSBOTerm((SBase_t*)sbmlModel)) {
-      nSBO = SBase_getSBOTerm((SBase_t*)sbmlModel);
-    }
-    GetCompartmentType  (sbmlModel, unSBMLLevel, unSBMLVersion);
-    GetSpeciesType      (sbmlModel, unSBMLLevel, unSBMLVersion);
-    GetInitialAssignment(sbmlModel, unSBMLLevel, unSBMLVersion);
-    GetConstraint       (sbmlModel, unSBMLLevel, unSBMLVersion);
-  }
 
 
   mxSetField( plhs[0], 0, "typecode", mxCreateString(pacTypecode) ); 
@@ -5411,7 +5412,7 @@ GetInitialAssignment (Model_t      *pModel,
       nSBO = SBase_getSBOTerm((SBase_t*) pInitialAssignment);
     }
 
-    if (InitialAssignment_isSetMath(pInitialAssignment)) {
+    if (InitialAssignment_isSetMath(pInitialAssignment) == 1) {
       LookForCSymbolTime(InitialAssignment_getMath(pInitialAssignment));
       LookForCSymbolDelay(InitialAssignment_getMath(pInitialAssignment));
       pacMath = SBML_formulaToString(InitialAssignment_getMath(pInitialAssignment));
