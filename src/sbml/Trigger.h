@@ -182,7 +182,7 @@ public:
    * Predicate to test whether the math for this trigger has been set.
    *
    * 
-   * @return @c true if the formula (meaning the @c math subelement) of
+   * @return @c true if the formula (meaning the "math" subelement) of
    * this Trigger has been set, @c false otherwise.
    */
   bool isSetMath () const;
@@ -196,6 +196,7 @@ public:
    */
   void setMath (const ASTNode* math);
 
+
   /** @cond doxygen-libsbml-internal */
 
   /**
@@ -204,7 +205,6 @@ public:
    * @param d the SBMLDocument to use.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
-
 
   /**
    * Sets the parent SBML object of this SBML object.
@@ -215,11 +215,23 @@ public:
 
   /** @endcond doxygen-libsbml-internal */
 
+
   /**
    * Returns the libSBML type code of this object instance.
    *
-   * @return the #SBMLTypeCode_t value of this SBML object or SBML_UNKNOWN 
-   * (default).
+   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.
+   * The set of possible type codes is defined in the enumeration
+   * #SBMLTypeCode_t.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In other languages, the set of type codes
+   * is stored in an enumeration; in the Java language interface for
+   * libSBML, the type codes are defined as static integer constants in
+   * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */

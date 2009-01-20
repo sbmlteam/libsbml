@@ -70,11 +70,12 @@
  * InitialAssignment also has a required "math" subelement that contains a
  * MathML expression used to calculate the value of the constant or the
  * initial value of the variable.  The units of the value computed by the
- * formula in the "math" subelement must be identical to be the units
- * associated with the identifier given in the "symbol" attribute.  (That
- * is, the units are the units of the species, compartment, or parameter,
- * as appropriate for the kind of object identified by the value of
- * "symbol".)
+ * formula in the "math" subelement should (in SBML Level&nbsp;2
+ * Version&nbsp;4) or must (in previous Versions) be identical to be the
+ * units associated with the identifier given in the "symbol" attribute.
+ * (That is, the units are the units of the species, compartment, or
+ * parameter, as appropriate for the kind of object identified by the value
+ * of "symbol".)
  *
  * InitialAssignment was introduced in SBML Level 2 Version 2.  It is not
  * available in earlier versions of Level 2 nor in any version of Level 1.
@@ -99,18 +100,21 @@
  * <li> <em>In the case of a species</em>, an InitialAssignment sets the
  * referenced species' initial quantity (concentration or amount of
  * substance) to the value determined by the formula in the "math"
- * subelement.
+ * subelement.    The overall units of the formula should (in SBML
+ * Level&nbsp;2 Version&nbsp;4) or must (in previous Versions) be the same
+ * as the units specified for the species.
  * 
- * <li> <em>In the case of a compartment</em>, an InitialAssignment sets the
- * referenced compartment's initial size to the size determined by the
- * formula in "math".  The overall units of the formula must be the same as
- * the units specified for the size of the compartment.
+ * <li> <em>In the case of a compartment</em>, an InitialAssignment sets
+ * the referenced compartment's initial size to the size determined by the
+ * formula in "math".  The overall units of the formula should (in SBML
+ * Level&nbsp;2 Version&nbsp;4) or must (in previous Versions) be the same
+ * as the units specified for the size of the compartment.
  * 
  * <li> <em>In the case of a parameter</em>, an InitialAssignment sets the
  * referenced parameter's initial value to that determined by the formula
- * in "math".  The overall units of the formula must be the same as the
- * units defined for the parameter.
- * </ul>
+ * in "math".  The overall units of the formula should (in SBML
+ * Level&nbsp;2 Version&nbsp;4) or must (in previous Versions) be the same
+ * as the units defined for the parameter.  </ul>
  * 
  * In the context of a simulation, initial assignments establish values
  * that are in effect prior to and including the start of simulation time,
@@ -428,8 +432,19 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @return the #SBMLTypeCode_t value of this object or SBML_UNKNOWN
-   * (default).
+   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.
+   * The set of possible type codes is defined in the enumeration
+   * #SBMLTypeCode_t.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In other languages, the set of type codes
+   * is stored in an enumeration; in the Java language interface for
+   * libSBML, the type codes are defined as static integer constants in
+   * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */

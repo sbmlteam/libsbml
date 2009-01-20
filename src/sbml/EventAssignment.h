@@ -49,10 +49,7 @@
  * is, at the end of any given delay period (if defined) following the
  * moment that the Event is triggered.  When the event fires, the effect is
  * to change the value of the model component identified by the "variable"
- * attribute.  Specifically, the component's value (which may be a species'
- * quantity, compartment's size or parameter's value) is instantaneously
- * reset to the value computed by the "math" subelement of the
- * EventAssignment.
+ * attribute.
  * 
  * Certain restrictions are placed on what can appear in "variable":
  * <ul>
@@ -80,38 +77,61 @@
  * event that reassigns the value of the same variable.)
  * </ul>
  *
+ * Note that the time of assignment of the object identified by the
+ * value of the "variable" attribute is always the time at which the Event
+ * is <em>executed</em>, not when it is <em>fired</em>.  The timing is
+ * controlled by the optional Delay in an Event.  The time of
+ * assignment is not affected by the "useValuesFromTriggerTime"
+ * attribute on Event&mdash;that attribute affects the time at which the
+ * EventAssignment's "math" expression is @em evaluated.  In other
+ * words, SBML allows decoupling the time at which the
+ * "variable" is assigned from the time at which its value
+ * expression is calculated.
+ *
  * @section event-math The "math" subelement in an EventAssignment
  * 
  * The MathML expression contained in an EventAssignment defines the new
- * value of the variable being assigned by the Event.  This expression is
- * evaluated when the Event is @em fired, but the variable only acquires
- * the result or new value when the Event is actually @em executed.  The
- * order of the EventAssignment structures is not significant; the effect
- * of one assignment cannot affect the result of another assignment.  The
- * identifiers occurring in the MathML @c ci attributes of the
- * EventAssignment structures represent the value of the identifier at the
- * point when the Event is @em fired.
- * 
- * In all cases, as would be expected, the units of the formula in an
- * EventAssignment must be consistent with the units of the object
- * identified by the @c variable attribute.  More precisely:
- * <ul>
- * <li> In the case of a species, an EventAssignment sets the referenced
- * species' quantity (concentration or amount of substance) to the value
- * determined by the formula in the EventAssignment's "math" subelement.
- * The units of the "math" formula must be identical to the units of the
- * species.
+ * value of the variable being assigned by the Event.  The order of the
+ * EventAssignment structures is not significant; the effect of one
+ * assignment cannot affect the result of another assignment.
  *
- * <li> In the case of a compartment, an EventAssignment sets the referenced
- * compartment's size to the size determined by the formula in the "math"
- * subelement of the EventAssignment.  The overall units of the formula
- * must be identical to the units specified for the size of the compartment
- * identified by the EventAssignment's "variable" attribute.
+ * The time at which this expression is evaluated is determined by Event's
+ * "useValuesFromTriggerTime" attribute.  If the attribute value is @c true
+ * (the default), the expression must be evaluated when the event is
+ * <em>fired</em>; more precisely, the values of identifiers occurring in
+ * MathML @c ci attributes in the EventAssignment's "math" expression are
+ * the values they have at the point when the event <em>fired</em>.  If,
+ * instead, "useValuesFromTriggerTime"'s value is @c false, it means the
+ * values at <em>execution</em> time should be used; that is, the values of
+ * identifiers occurring in MathML @c ci attributes in the
+ * EventAssignment's "math" expression are the values they have at the
+ * point when the event <em>executed</em>.
+ *
+ * Between Version&nsp;4 and previous versions of SBML Level&nbsp;2, the
+ * requirements regarding the matching of units between an
+ * EvengAssignment's formula and the units of the object identified by the
+ * "variable" attribute changed.  Previous versions required consistency,
+ * but in Version&nbsp;4, unit consistency is only recommended.  More
+ * precisely: <ul> <li> In the case of a species, an EventAssignment sets
+ * the referenced species' quantity (concentration or amount of substance)
+ * to the value determined by the formula in the EventAssignment's "math"
+ * subelement.  The units of the "math" formula should (in SBML
+ * Level&nbsp;2 Version&nbsp;4) or must (in previous Versions) be identical
+ * to the units of the species.
+ *
+ * <li> In the case of a compartment, an EventAssignment sets the
+ * referenced compartment's size to the size determined by the formula in
+ * the "math" subelement of the EventAssignment.  The overall units of the
+ * formula should (in SBML Level&nbsp;2 Version&nbsp;4) or must (in
+ * previous Versions) be identical to the units specified for the size of
+ * the compartment identified by the EventAssignment's "variable"
+ * attribute.
  *
  * <li> In the case of a parameter, an EventAssignment sets the referenced
  * parameter's value to that determined by the formula in "math".  The
- * overall units of the formula must be identical to the units defined for
- * the parameter
+ * overall units of the formula should (in SBML Level&nbsp;2
+ * Version&nbsp;4) or must (in previous Versions) be identical to the units
+ * defined for the parameter.
  * </ul>
  * 
  * Note that the formula placed in the "math" element <em>has no assumed
@@ -171,14 +191,16 @@ public:
    * @param variable the identifier of a Species, Compartment or Parameter
    * object.
    *
-   * @param math an AST defining the mathematical formula used
-   * as the expression for the event assignment's effect.
+   * @param math the top ASTNode of an abstract syntax tree defining the
+   * mathematical formula used as the expression for the event assignment's
+   * effect.
    *
    * @note Although the value of the "variable" attribute is optional in
    * this constructor, it is worth emphasizing that valid EventAssignment
    * definitions must have a value for this attribute.  If no variable is
    * provided at the time of creation, the value is left as the empty
-   * string.  Callers are cautioned to set the value using setVariable()
+   * string.  Callers are cautioned to set the value
+   * using @if doxygen-clike-only EventAssignment::setVariable(String id) @endif@if doxygen-java-only EventAssignment::setVariable() @endif
    * soon after invoking this constructor.
    *
    * @docnote The native C++ implementation of this method defines a
@@ -283,8 +305,8 @@ public:
    * Get the mathematical expression in this EventAssignment's "math"
    * subelement.
    * 
-   * @return an AST representing the mathematical formula in this
-   * EventAssignment.
+   * @return the top ASTNode of an abstract syntax tree representing the
+   * mathematical formula in this EventAssignment.
    */
   const ASTNode* getMath () const;
 
@@ -337,20 +359,22 @@ public:
    * The units are calculated based on the mathematical expression in the
    * EventAssignment and the model quantities referenced by
    * <code>&lt;ci&gt;</code> elements used within that expression.  The
-   * getDerivedUnitDefinition() method returns the calculated units.
+   * EventAssignment::getDerivedUnitDefinition() method returns the
+   * calculated units.
    * 
    * @warning Note that it is possible the "math" expression in the
-   * EventAssignment contains pure numbers or parameters with undeclared
+   * EventAssignment contains literal numbers or parameters with undeclared
    * units.  In those cases, it is not possible to calculate the units of
    * the overall expression without making assumptions.  LibSBML does not
-   * make assumptions about the units, and getDerivedUnitDefinition() only
-   * returns the units as far as it is able to determine them.  For
-   * example, in an expression <em>X + Y</em>, if <em>X</em> has
-   * unambiguously-defined units and <em>Y</em> does not, it will return
-   * the units of <em>X</em>.  <strong>It is important that callers also
-   * invoke the method</strong> containsUndeclaredUnits() <strong>to
-   * determine whether this situation holds</strong>.  Callers may wish to
-   * take suitable actions in those scenarios.
+   * make assumptions about the units, and
+   * EventAssignment::getDerivedUnitDefinition() only returns the units as
+   * far as it is able to determine them.  For example, in an expression
+   * <em>X + Y</em>, if <em>X</em> has unambiguously-defined units and
+   * <em>Y</em> does not, it will return the units of <em>X</em>.  When
+   * using this method, <strong>it is critical that callers also invoke the
+   * method</strong> EventAssignment::containsUndeclaredUnits() <strong>to
+   * determine whether this situation holds</strong>.  Callers should take
+   * suitable action in those situations.
    * 
    * @return a UnitDefinition that expresses the units of the math 
    * expression of this EventAssignment.
@@ -361,17 +385,27 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether 
-   * the math expression of this EventAssignment contains
-   * parameters/numbers with undeclared units.
+   * Predicate returning @c true or @c false depending on whether the math
+   * expression of this EventAssignment contains literal numbers or
+   * parameters with undeclared units.
+   *
+   * The EventAssignment::getDerivedUnitDefinition() method returns what
+   * libSBML computes to be the units of the "math", to the extent that
+   * libSBML can compute them.  However, if the expression contains literal
+   * numbers or parameters with undeclared units, libSBML may not be able
+   * to compute the full units of the expression and will only return what
+   * it can compute.  Callers should always use
+   * EventAssignment::containsUndeclaredUnits() when using
+   * EventAssignment::getDerivedUnitDefinition() to decide whether the
+   * returned units may be incomplete.
    * 
    * @return @c true if the math expression of this EventAssignment
    * includes parameters/numbers 
    * with undeclared units, @c false otherwise.
    *
    * @note A return value of @c true indicates that the UnitDefinition
-   * returned by getDerivedUnitDefinition() may not accurately represent
-   * the units of the expression.
+   * returned by EventAssignment::getDerivedUnitDefinition() may not
+   * accurately represent the units of the expression.
    *
    * @see getDerivedUnitDefinition()
    */
@@ -381,8 +415,19 @@ public:
   /**
    * Returns the libSBML type code of this object instance.
    *
-   * @return the #SBMLTypeCode_t value of this SBML object or SBML_UNKNOWN
-   * (default).
+   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.
+   * The set of possible type codes is defined in the enumeration
+   * #SBMLTypeCode_t.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In other languages, the set of type codes
+   * is stored in an enumeration; in the Java language interface for
+   * libSBML, the type codes are defined as static integer constants in
+   * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */

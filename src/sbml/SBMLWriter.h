@@ -31,12 +31,6 @@
  * result to files and text strings.  The methods for writing SBML all take
  * an SBMLDocument object and a destination.  They return a boolean value
  * to indicate success or failure.
- *
- * For convenience as well as easy access from other languages besides C++,
- * this file also defines two global functions, writeSBML() and
- * writeSBMLToString().  They are equivalent to creating an SBMLWriter
- * object and then calling the SBMLWriter::writeSBML() or
- * SBMLWriter::writeSBMLFromString() methods, respectively.
  */
 
 #ifndef SBMLWriter_h
@@ -185,6 +179,12 @@ public:
    * Predicate returning @c true or @c false depending on whether
    * underlying libSBML is linked with zlib.
    *
+   * LibSBML supports reading and writing files compressed with either
+   * bzip2 or zip/gzip compression.  The facility depends on libSBML having
+   * been compiled with the necessary support libraries.  This method
+   * allows a calling program to inquire whether that is the case for the
+   * copy of libSBML it is running.
+   *
    * @return @c true if libSBML is linked with zlib, @c false otherwise.
    */
   static bool hasZlib();
@@ -194,9 +194,16 @@ public:
    * Predicate returning @c true or @c false depending on whether
    * underlying libSBML is linked with bzip2.
    *
+   * LibSBML supports reading and writing files compressed with either
+   * bzip2 or zip/gzip compression.  The facility depends on libSBML having
+   * been compiled with the necessary support libraries.  This method
+   * allows a calling program to inquire whether that is the case for the
+   * copy of libSBML it is running.
+   *
    * @return @c true if libSBML is linked with bzip2, @c false otherwise.
    */
   static bool hasBzip2();
+
 
  protected:
   /** @cond doxygen-libsbml-internal */

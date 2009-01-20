@@ -25,14 +25,23 @@
  * @brief Container for an SBML document and interface for global operations
  * on SBML documents.
  *
- * LibSBML uses the class SBMLDocument as a top-level container for storing
- * SBML content and data associated with it (such as warnings and error
- * messages).  The two primary means of reading an SBML model, 
- * SBMLReader::readSBML() and SBMLReader::readSBMLFromString(), both
- * return a pointer to an SBMLDocument object.  From there, callers can
- * inquire about any errors encountered (e.g., using
- * SBMLDocument::getNumErrors()), access the Model object, and perform
- * other actions such as consistency-checking and model translation.
+ * @if doxygen-clike-only LibSBML uses the class SBMLDocument as a
+ * top-level container for storing SBML content and data associated with it
+ * (such as warnings and error messages).  The two primary means of reading
+ * an SBML model, SBMLReader::readSBML() and
+ * SBMLReader::readSBMLFromString(), both return a pointer to an
+ * SBMLDocument object.  From there, callers can inquire about any errors
+ * encountered (e.g., using SBMLDocument::getNumErrors()), access the Model
+ * object, and perform other actions such as consistency-checking and model
+ * translation. @endif@if doxygen-java-only LibSBML uses the class
+ * SBMLDocument as a top-level container for storing SBML content and data
+ * associated with it (such as warnings and error messages).  The two
+ * primary means of reading an SBML model, SBMLReader::readSBML(String
+ * filename) and SBMLReader::readSBMLFromString(String xml), both return a
+ * pointer to an SBMLDocument object.  From there, callers can inquire
+ * about any errors encountered (e.g., using SBMLDocument::getNumErrors()),
+ * access the Model object, and perform other actions such as
+ * consistency-checking and model translation. @endif
  * 
  * When creating fresh models programmatically, the starting point is
  * typically the creation of an SBMLDocument object instance.  The
@@ -81,23 +90,32 @@
  * program finally wants to finish a complete SBML document.
  *
  * The primary interface to this facility is SBMLDocument's
- * checkInternalConsistency() and checkConsistency().  The former verifies
- * the basic internal consistency and syntax of an SBML document, and the
- * latter implements more elaborate validation rules (both those defined by
- * the SBML specifications, as well as additional rules offered by
- * libSBML).
+ * SBMLDocument::checkInternalConsistency() and
+ * SBMLDocument::checkConsistency().  The former verifies the basic
+ * internal consistency and syntax of an SBML document, and the latter
+ * implements more elaborate validation rules (both those defined by the
+ * SBML specifications, as well as additional rules offered by libSBML).
  *
- * The checks performed by checkInternalConsistency() are hardwired and
+ * @if doxygen-clike-only The checks performed by
+ * SBMLDocument::checkInternalConsistency() are hardwired and cannot be
+ * changed by calling programs, but the validation performed by
+ * SBMLDocument::checkConsistency() is under program control using the
+ * method SBMLDocument::setConsistencyChecks().  Applications can
+ * selectively disable specific kinds of checks that they may not be
+ * interested by calling SBMLDocument::setConsistencyChecks() with
+ * appropriate parameters.  @endif@if doxygen-java-only The checks
+ * performed by SBMLDocument::checkInternalConsistency() are hardwired and
  * cannot be changed by calling programs, but the validation performed by
- * checkConsistency() is under program control using the method
- * setConsistencyChecks().  Applications can selectively disable specific
- * kinds of checks that they may not be interested by calling
- * setConsistencyChecks() with appropriate parameters.
+ * SBMLDocument::checkConsistency() is under program control using the
+ * method SBMLDocument::setConsistencyChecks(int categ, boolean onoff).
+ * Applications can selectively disable specific kinds of checks that they
+ * may not be interested by calling SBMLDocument::setConsistencyChecks(int
+ * categ, boolean onoff) with appropriate parameters. @endif
  *
  * These methods have slightly different relevance depending on whether a
- * model is beingn created programmaticaly from scratch, or whether it is
- * being read in from a file or data stream.  The following table
- * summarizes the possible scenarios.
+ * model is created programmaticaly from scratch, or whether it is read in
+ * from a file or data stream.  The following table summarizes the possible
+ * scenarios.
  *
  * <center>
  * <table border="0" class="text-table width80 normal-font alt-row-colors">
@@ -112,9 +130,9 @@
  * SBMLDocument::checkInternalConsistency(), then inquire about the results by
  * calling SBMLDocument::getNumErrors()</li>
  * 
- * <li style="margin-bottom: 0.5em">Call SBMLDocument::setConsistencyChecks()
- * to configure which checks will be performed by
- * SBMLDocument::checkConsistency()</li>
+ * <li style="margin-bottom: 0.5em">
+ * Call @if doxygen-clike-only SBMLDocument::setConsistencyChecks() @endif@if doxygen-java-only SBMLDocument::setConsistencyChecks(int categ, boolean onoff) @endif to configure which checks
+ * will be performed by SBMLDocument::checkConsistency()</li>
  * 
  * <li>Call SBMLDocument::checkConsistency(), then inquire about the results by
  * calling SBMLDocument::getNumErrors()</li>
@@ -126,9 +144,9 @@
  * performed automatically by libSBML upon reading the content&mdash;only need
  * to inquire about the results by using SBMLDocument::getNumErrors()</li>
  * 
- * <li style="margin-bottom: 0.5em">Call SBMLDocument::setConsistencyChecks()
- * to configure which checks are performed by
- * SBMLDocument::checkConsistency()</li>
+ * <li style="margin-bottom: 0.5em">
+ * Call @if doxygen-clike-only SBMLDocument::setConsistencyChecks() @endif@if doxygen-java-only SBMLDocument::setConsistencyChecks(int categ, boolean onoff) @endif to configure which
+ * checks are performed by SBMLDocument::checkConsistency()</li>
  * 
  * <li>Call SBMLDocument::checkConsistency(), then inquire about the results
  * by calling SBMLDocument::getNumErrors()</li>
@@ -143,16 +161,18 @@
  *
  * LibSBML provides facilities for limited translation of SBML between
  * Levels and Versions of the SBML specifications.  The method for doing is
- * is setLevelAndVersion().  In general, models can be converted upward
- * without difficulty (e.g., from SBML Level&nbsp;1 to Level&nbsp;2, or
- * from an earlier Version of Level&nbsp;2 to the latest Version of
- * Level&nbsp;2).  Sometimes models can be translated downward as well, if
- * they do not use constructs specific to more advanced Levels of SBML.
+ * is @if doxygen-clike-only SBMLDocument::setLevelAndVersion() @endif@if doxygen-java-only SBMLDocument::setLevelAndVersion(long lev, long ver) @endif.  In 
+ * general, models can be converted upward without difficulty (e.g., from
+ * SBML Level&nbsp;1 to Level&nbsp;2, or from an earlier Version of
+ * Level&nbsp;2 to the latest Version of Level&nbsp;2).  Sometimes models
+ * can be translated downward as well, if they do not use constructs
+ * specific to more advanced Levels of SBML.
  *
- * Calling setLevelAndVersion() will not @em necessarily lead to a
- * successful conversion.  Callers must check the error log (see next
+ * Calling @if doxygen-clike-only SBMLDocument::setLevelAndVersion() @endif@if doxygen-java-only SBMLDocument::setLevelAndVersion(long lev, long ver) @endif will not @em necessarily lead
+ * to a successful conversion.  Callers must check the error log (see next
  * section) attached to the SBMLDocument object after calling
- * setLevelAndVersion() in order to assess whether any problems arose.
+ * @if doxygen-clike-only SBMLDocument::setLevelAndVersion() @endif@if doxygen-java-only SBMLDocument::setLevelAndVersion(long lev, long ver) @endif in order to assess whether any
+ * problems arose.
  *
  * If an application is interested in translating to a lower Level and/or
  * Version of SBML within a Level, the following methods allow for prior
@@ -183,20 +203,23 @@
  * reported through a single common interface involving the object class
  * SBMLError.
  *
- * The methods getNumErrors(), getError() and printErrors() allow callers
- * to interact with the warnings or errors logged.  Alternatively, callers
- * may retrieve the entire log as an SBMLErrorLog object using the method
- * getErrorLog().  The SBMLErrorLog object provides some alternative
- * methods for interacting with the set of errors and warnings.  In either
- * case, applications typically should first call getNumErrors() to find
- * out if any issues have been logged after specific libSBML operations
- * such as the ones discussed in the sections above.  If they have, then an
- * application will should proceed to inspect the individual reports using
- * either the direct interfaces on SBMLDocument or using the methods on the
- * SBMLErrorLog object.
+ * The methods SBMLDocument::getNumErrors(), @if doxygen-clike-only SBMLDocument::getError() @endif@if doxygen-java-only SBMLDocument::getError(long n) @endif and
+ * SBMLDocument::printErrors() allow callers to interact with the warnings
+ * or errors logged.  Alternatively, callers may retrieve the entire log as
+ * an SBMLErrorLog object using the method SBMLDocument::getErrorLog().
+ * The SBMLErrorLog object provides some alternative methods for
+ * interacting with the set of errors and warnings.  In either case,
+ * applications typically should first call SBMLDocument::getNumErrors() to
+ * find out if any issues have been logged after specific libSBML
+ * operations such as the ones discussed in the sections above.  If they
+ * have, then an application will should proceed to inspect the individual
+ * reports using either the direct interfaces on SBMLDocument or using the
+ * methods on the SBMLErrorLog object.
  *
- * An example of using the error facility is provided in this manual in the
- * section @ref libsbml-example.
+ * @if doxygen-clike-only An example of using the error facility is
+ * provided in this manual in the
+ * section @ref libsbml-example. @endif
+ * 
  * 
  * <hr style="margin: 1em auto">
  */
@@ -288,24 +311,24 @@ public:
    *
    * If <em>both</em> the SBML Level and Version attributes are not
    * specified, the SBML document is treated as having the latest Level and
-   * Version of SBML as determined by getDefaultLevel() and
-   * getDefaultVersion(); <em>however</em>, the SBMLDocument object is
-   * otherwise left blank.  In particular, the blank SBMLDocument object
-   * has no associated XML attributes, including (but not limited to) an
-   * XML namespace declaration.  The XML namespace declaration is not added
-   * until the model is written out, <em>or</em> the method
-   * setLevelAndVersion() is called.  This may be important to keep in mind
+   * Version of SBML as determined by SBMLDocument::getDefaultLevel() and
+   * SBMLDocument::getDefaultVersion(); <em>however</em>, the SBMLDocument
+   * object is otherwise left blank.  In particular, the blank SBMLDocument
+   * object has no associated XML attributes, including (but not limited
+   * to) an XML namespace declaration.  The XML namespace declaration is
+   * not added until the model is written out, <em>or</em> the method
+   * @if doxygen-clike-only SBMLDocument::setLevelAndVersion() @endif@if doxygen-java-only SBMLDocument::setLevelAndVersion(long lev, long ver) @endif is called.  This may be important to keep in mind
    * if an application needs to add additional XML namespace declarations
    * on the <code>&lt;sbml&gt;</code> element.  Application writers should
    * either provide values for @p level and @p version on the call to this
-   * constructor, or else call setLevelAndVersion() shortly after creating
+   * constructor, or else call @if doxygen-clike-only SBMLDocument::setLevelAndVersion() @endif@if doxygen-java-only SBMLDocument::setLevelAndVersion(long lev, long ver) @endif shortly after creating
    * the SBMLDocument object.
    *
    * @param level an integer for the SBML Level
    *
    * @param version an integer for the Version within the SBML Level
    *
-   * @see setLevelAndVersion()
+   * @if doxygen-clike-only @see SBMLDocument::setLevelAndVersion() @endif@if doxygen-java-only @see SBMLDocument::setLevelAndVersion(long lev, long ver) @endif
    * @see getDefaultLevel()
    * @see getDefaultVersion()
    *
@@ -359,7 +382,8 @@ public:
    *
    * It is important to note that this method <em>does not create</em> a
    * Model instance.  The model in the SBMLDocument must have been created
-   * at some prior time, for example using createModel() or setModel().
+   * at some prior time, for example using SBMLDocument::createModel() 
+   * or @if doxygen-clike-only SBMLDocument::setModel() @endif@if doxygen-java-only SBMLDocument::setModel(Model m) @endif.
    * This method returns NULL if a model does not yet exist.
    * 
    * @return the Model contained in this SBMLDocument.
@@ -374,7 +398,8 @@ public:
    *
    * It is important to note that this method <em>does not create</em> a
    * Model instance.  The model in the SBMLDocument must have been created
-   * at some prior time, for example using createModel() or setModel().
+   * at some prior time, for example using SBMLDocument::createModel() 
+   * or @if doxygen-clike-only SBMLDocument::setModel() @endif@if doxygen-java-only SBMLDocument::setModel(Model m) @endif.
    * This method returns NULL if a model does not yet exist.
    * 
    * @return the Model contained in this SBMLDocument.
@@ -397,9 +422,11 @@ public:
    * Levels of SBML.
    *
    * Before calling this method, callers may check compatibility directly
-   * using the methods checkL1Compatibility(), checkL2v1Compatibility(),
-   * checkL2v2Compatibility(), checkL2v3Compatibility() and
-   * chcekL2v4Compatibility().
+   * using the methods SBMLDocument::checkL1Compatibility(),
+   * SBMLDocument::checkL2v1Compatibility(),
+   * SBMLDocument::checkL2v2Compatibility(),
+   * SBMLDocument::checkL2v3Compatibility() and
+   * SBMLDocument::checkL2v4Compatibility().
    * 
    * The valid combinations of SBML Level and Version as of this release
    * of libSBML are the following: 
@@ -468,7 +495,7 @@ public:
    * documentation.
    *
    * @see getModel()
-   * @see setModel()
+   * @see @if doxygen-clike-only SBMLDocument::setModel() @endif@if doxygen-java-only SBMLDocument::setModel(Model m) @endif
    */
   Model* createModel (const std::string& sid = "");
 
@@ -532,15 +559,15 @@ public:
    * libSBML and do not have equivalent SBML validation rules.)
    * 
    * <em>By default, all validation checks are applied</em> to the model in
-   * an SBMLDocument object @em unless setConsistencyChecks() is called to
+   * an SBMLDocument object @em unless @if doxygen-clike-only SBMLDocument::setConsistencyChecks() @endif@if doxygen-java-only SBMLDocument::setConsistencyChecks(int categ, boolean onoff) @endif is called to
    * indicate that only a subset should be applied.  Further, this default
    * (i.e., performing all checks) applies separately to <em>each new
    * SBMLDocument object</em> created.  In other words, each time a model
-   * is read using SBMLReader::readSBML(), SBMLReader::readSBMLFromString,
+   * is read using @if doxygen-clike-only SBMLReader::readSBML() @endif@if doxygen-java-only SBMLReader::readSBML(String filename) @endif, @if doxygen-clike-only SBMLReader::readSBMLFromString() @endif@if doxygen-java-only SBMLReader::readSBMLFromString(String xml) @endif,
    * or the global functions readSBML() and readSBMLFromString(), a new
    * SBMLDocument is created and for that document, a call to
-   * setConsistencyChecks() will default to applying all possible checks.
-   * Calling programs must invoke setConsistencyChecks() for each such new
+   * SBMLDocument::checkConsistency() will default to applying all possible checks.
+   * Calling programs must invoke @if doxygen-clike-only SBMLDocument::setConsistencyChecks() @endif@if doxygen-java-only SBMLDocument::setConsistencyChecks(int categ, boolean onoff) @endif for each such new
    * model if they wish to change the consistency checks applied.
    * 
    * @param category a value drawn from #SBMLErrorCategory_t indicating the
@@ -549,7 +576,7 @@ public:
    * @param apply a boolean indicating whether the checks indicated by @p
    * category should be applied or not.
    *
-   * @see checkConsistency()
+   * @see SBMLDocument::checkConsistency()
    */
   void setConsistencyChecks(SBMLErrorCategory_t category, bool apply);
 
@@ -560,13 +587,12 @@ public:
    * If this method returns a nonzero value (meaning, one or more
    * consistency checks have failed for SBML document), the failures may be
    * due to warnings @em or errors.  Callers should inspect the severity
-   * flag in the individual SBMLError objects returned by getError() to
-   * determine the nature of the failures.
+   * flag in the individual SBMLError objects returned by
+   * @if doxygen-clike-only SBMLDocument::getError() @endif@if doxygen-java-only SBMLDocument::getError(long n) @endif to determine the nature of the failures.
    *
    * @return the number of failed checks (errors) encountered.
    *
-   * @see setConsistencyChecks()
-   * @see checkInternalConsistency()
+   * @see SBMLDocument::checkInternalConsistency()
    */
   unsigned int checkConsistency ();
 
@@ -576,19 +602,19 @@ public:
    * an SBML Model.
    *
    * Callers should query the results of the consistency check by calling
-   * getError().
+   * @if doxygen-clike-only SBMLDocument::getError() @endif@if doxygen-java-only SBMLDocument::getError(long n) @endif.
    *
    * @return the number of failed checks (errors) encountered.
    *
-   * The distinction between this method and checkConsistency() is that
-   * this method reports on fundamental syntactic and structural errors
-   * that violate the XML Schema for SBML; by contrast, checkConsistency()
+   * The distinction between this method and
+   * SBMLDocument::checkConsistency() is that this method reports on
+   * fundamental syntactic and structural errors that violate the XML
+   * Schema for SBML; by contrast, SBMLDocument::checkConsistency()
    * performs more elaborate model verifications and also validation
    * according to the validation rules written in the appendices of the
    * SBML Level&nbsp;2 Versions&nbsp;2&ndash;4 specification documents.
    * 
-   * @see setConsistencyChecks()
-   * @see checkConsistency()
+   * @see SBMLDocument::checkConsistency()
    */
   unsigned int checkInternalConsistency ();
 
@@ -599,7 +625,7 @@ public:
    * to Level&nbsp;1.
    *
    * Callers should query the results of the consistency check by calling
-   * getError().
+   * @if doxygen-clike-only SBMLDocument::getError() @endif@if doxygen-java-only SBMLDocument::getError(long n) @endif.
    *
    * @return the number of failed checks (errors) encountered.
    */
@@ -612,7 +638,7 @@ public:
    * be converted to Level&nbsp;2 Version&nbsp;1.
    *
    * Callers should query the results of the consistency check by calling
-   * getError().
+   * @if doxygen-clike-only SBMLDocument::getError() @endif@if doxygen-java-only SBMLDocument::getError(long n) @endif.
    *
    * @return the number of failed checks (errors) encountered.
    */
@@ -625,7 +651,7 @@ public:
    * be converted to Level&nbsp;2 Version&nbsp;2.
    *
    * Callers should query the results of the consistency check by calling
-   * getError().
+   * @if doxygen-clike-only SBMLDocument::getError() @endif@if doxygen-java-only SBMLDocument::getError(long n) @endif.
    *
    * @return the number of failed checks (errors) encountered.
    */
@@ -638,7 +664,7 @@ public:
    * be converted to Level&nbsp;2 Version&nbsp;3.
    *
    * Callers should query the results of the consistency check by calling
-   * getError().
+   * @if doxygen-clike-only SBMLDocument::getError() @endif@if doxygen-java-only SBMLDocument::getError(long n) @endif.
    *
    * @return the number of failed checks (errors) encountered.
    */
@@ -651,7 +677,7 @@ public:
    * be converted to Level&nbsp;2 Version&nbsp;4.
    *
    * Callers should query the results of the consistency check by calling
-   * getError().
+   * @if doxygen-clike-only SBMLDocument::getError() @endif@if doxygen-java-only SBMLDocument::getError(long n) @endif.
    *
    * @return the number of failed checks (errors) encountered.
    */
@@ -671,16 +697,7 @@ public:
    *
    * @param n the integer index of the error sought.
    *
-   * @see getNumErrors()
-   * @see setLevelAndVersion()
-   * @see checkConsistency()
-   * @see checkL1Compatibility()
-   * @see checkL2v1Compatibility()
-   * @see checkL2v2Compatibility()
-   * @see checkL2v3Compatibility()
-   * @see checkL2v4Compatibility()
-   * @see SBMLReader::readSBML()
-   * @see SBMLReader::readSBMLFromString()
+   * @see SBMLDocument::getNumErrors()
    */
   const SBMLError* getError (unsigned int n) const;
 
@@ -690,16 +707,6 @@ public:
    * consistency checking, or attempted translation of this model.
    *
    * @return the number of errors or warnings encountered
-   *
-   * @see setLevelAndVersion()
-   * @see checkConsistency()
-   * @see checkL1Compatibility()
-   * @see checkL2v1Compatibility()
-   * @see checkL2v2Compatibility()
-   * @see checkL2v3Compatibility()
-   * @see checkL2v4Compatibility()
-   * @see SBMLReader::readSBML()
-   * @see SBMLReader::readSBMLFromString()
    */
   unsigned int getNumErrors () const;
 
@@ -713,9 +720,10 @@ public:
    * output will be sent to the stream.
    *
    * The format of the output is:
-   *
-   *   N error(s):
-   *     line NNN: (id) message
+   * @verbatim
+   N error(s):
+     line NNN: (id) message
+@endverbatim
    *
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different
@@ -744,10 +752,21 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @return the #SBMLTypeCode_t value of this object or @c SBML_UNKNOWN
-   * (default).
+   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.
+   * The set of possible type codes is defined in the enumeration
+   * #SBMLTypeCode_t.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In other languages, the set of type codes
+   * is stored in an enumeration; in the Java language interface for
+   * libSBML, the type codes are defined as static integer constants in
+   * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif
    *
-   * @see getElementName()
+   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
+   *
+   * @see SBMLDocument::getElementName()
    */
   virtual SBMLTypeCode_t getTypeCode () const;
 
@@ -766,17 +785,8 @@ public:
    * consistency checking, or attempted translation of this model.
    * 
    * @return the SBMLErrorLog used for this SBMLDocument
-   *
-   * @see setLevelAndVersion()
-   * @see checkConsistency()
-   * @see checkL1Compatibility()
-   * @see checkL2v1Compatibility()
-   * @see checkL2v2Compatibility()
-   * @see checkL2v3Compatibility()
-   * @see checkL2v4Compatibility()
-   * @see SBMLReader::readSBML()
-   * @see SBMLReader::readSBMLFromString()
-   * @see SBMLError()
+   * 
+   * @see SBMLDocument::getNumErrors()
    */
   SBMLErrorLog* getErrorLog ();
 

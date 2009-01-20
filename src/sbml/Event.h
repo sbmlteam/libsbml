@@ -41,14 +41,47 @@
  * Please consult the descriptions of Trigger, Delay and EventAssignment
  * for more information.
  *
- * @warning Definitions of Event in SBML Level&nbsp;2 Versions 1 and 2
- * included an additional attribute called "timeUnits", which allowed the
- * time units of the Delay to be set explicitly.  As of Version&nbsp;3,
- * SBML Level&nbsp;2 no longer defines this attribute.  The LibSBML
- * supports this attribute for compatibility with previous versions of SBML
- * Level&nbsp;2; however, if a Version&nbsp;3 or&nbsp;4 model sets this
- * attribute, the consistency-checking method
- * SBMLDocument::checkConsistency() will report an error.
+ * The optional Delay on Event means there are two times to consider when
+ * computing the results of an event: the time at which the event
+ * <em>fires</em>, and the time at which assignments are <em>executed</em>.
+ * It is also possible to distinguish between the time at which the
+ * EventAssignment's expression is calculated, and the time at which the
+ * assignment is made: the expression could be evaluated at the same time
+ * the assignments are performed, i.e., when the event is
+ * <em>executed</em>, but it could also be defined to be evaluated at the
+ * time the event <em>fired</em>.
+ * 
+ * In SBML Level&nbsp;2 versions prior to Version&nbsp;4, the semantics of
+ * Event time delays were defined such that the expressions in the event's
+ * assignments were always evaluated at the time the event was
+ * <em>fired</em>.  This definition made it difficult to define an event
+ * whose assignment formulas were meant to be evaluated at the time the
+ * event was <em>executed</em> (i.e., after the time period defined by the
+ * value of the Delay element).  In SBML Level&nbsp;2 Version&nbsp;4, the
+ * attribute "useValuesFromTriggerTime" on Event allows a model to indicate
+ * the time at which the event's assignments are intended to be evaluated.
+ * The default value is @c true, which corresponds to the interpretation of
+ * event assignments prior to Version&nbsp;4: the values of the assignment
+ * formulas are computed at the moment the event fired, not after the
+ * delay.  If "useValuesFromTriggerTime"=@c false, it means that the
+ * formulas in the event's assignments are to be computed after the delay,
+ * at the time the event is executed.
+ *
+ * @section version-diffs SBML version differences
+ *
+ * Definitions of Event in SBML Level&nbsp;2 Versions 1 and 2 included an
+ * additional attribute called "timeUnits", which allowed the time units of
+ * the Delay to be set explicitly.  Versions&nbsp;3 and&nbsp;4 do not
+ * define this attribute.  The LibSBML supports this attribute for
+ * compatibility with previous versions of SBML Level&nbsp;2; however, if a
+ * Version&nbsp;3 or&nbsp;4 model sets the attribute, the
+ * consistency-checking method SBMLDocument::checkConsistency() will report
+ * an error.
+ *
+ * The attribute "useValuesFromTriggerTime" was introduced in SBML
+ * Level&nbsp;2 Version&nbsp;4.  Models defined in prior Versions of SBML
+ * Level&nbsp;2 cannot use this attribute, and
+ * SBMLDocument::checkConsistency() will report an error if they do.
  *
  * 
  * @class ListOfEvents
@@ -61,7 +94,7 @@
  * ListOf___ classes do not add any attributes of their own.
  *
  * The relationship between the lists and the rest of an %SBML model is
- * illustrated by the following (for %SBML Level&nbsp;2 Version&nbsp;3):
+ * illustrated by the following (for %SBML Level&nbsp;2 Version&nbsp;4):
  *
  * @image html listof-illustration.jpg "ListOf___ elements in an SBML Model"
  * @image latex listof-illustration.jpg "ListOf___ elements in an SBML Model"
@@ -215,7 +248,7 @@ public:
 
 
   /**
-   * Get the trigger definition of this Event.
+   * Get the event trigger portion of this Event.
    * 
    * @return the Trigger object of this Event.
    */
@@ -223,7 +256,7 @@ public:
 
 
   /**
-   * Get the trigger definition of this Event.
+   * Get the event trigger portion of this Event.
    * 
    * @return the Trigger object of this Event.
    */
@@ -231,7 +264,7 @@ public:
 
 
   /**
-   * Get the delay definition of this Event.
+   * Get the assignment delay portion of this Event, if there is one.
    * 
    * @return the delay of this Event if one is defined, or @c NULL if none
    * is defined.
@@ -240,7 +273,7 @@ public:
 
 
   /**
-   * Get the delay definition of this Event.
+   * Get the assignment delay portion of this Event, if there is one.
    * 
    * @return the delay of this Event if one is defined, or @c NULL if none
    * is defined.
@@ -249,9 +282,18 @@ public:
 
 
   /**
-   * Get the value of the "timeUnits" attribute of this Event.
+   * Get the value of the "timeUnits" attribute of this Event, if it has one.
    * 
    * @return the value of the attribute "timeUnits" as a string.
+   * 
+   * @warning Definitions of Event in SBML Level 2 Versions&nbsp;1
+   * and&nbsp;2 included the additional attribute called "timeUnits", but
+   * it was removed in SBML Level&nbsp;2 Version&nbsp;3.  LibSBML supports
+   * this attribute for compatibility with previous versions of SBML
+   * Level&nbsp;2, but its use is discouraged since models in Level 2
+   * Versions&nbsp;3 and&nbsp;4 cannot contain it.  If a Version&nbsp;3
+   * or&nbsp;4 model sets the attribute, the consistency-checking method
+   * SBMLDocument::checkConsistency() will report an error.
    */
   const std::string& getTimeUnits () const;
 
@@ -259,8 +301,40 @@ public:
   /**
    * Get the value of the "useValuesFromTriggerTime" attribute of this Event.
    * 
+   * The optional Delay on Event means there are two times to consider when
+   * computing the results of an event: the time at which the event
+   * <em>fires</em>, and the time at which assignments are <em>executed</em>.
+   * It is also possible to distinguish between the time at which the
+   * EventAssignment's expression is calculated, and the time at which the
+   * assignment is made: the expression could be evaluated at the same time
+   * the assignments are performed, i.e., when the event is
+   * <em>executed</em>, but it could also be defined to be evaluated at the
+   * time the event <em>fired</em>.
+   * 
+   * In SBML Level&nbsp;2 versions prior to Version&nbsp;4, the semantics of
+   * Event time delays were defined such that the expressions in the event's
+   * assignments were always evaluated at the time the event was
+   * <em>fired</em>.  This definition made it difficult to define an event
+   * whose assignment formulas were meant to be evaluated at the time the
+   * event was <em>executed</em> (i.e., after the time period defined by the
+   * value of the Delay element).  In SBML Level&nbsp;2 Version&nbsp;4, the
+   * attribute "useValuesFromTriggerTime" on Event allows a model to indicate
+   * the time at which the event's assignments are intended to be evaluated.
+   * The default value is @c true, which corresponds to the interpretation of
+   * event assignments prior to Version&nbsp;4: the values of the assignment
+   * formulas are computed at the moment the event fired, not after the
+   * delay.  If "useValuesFromTriggerTime"=@c false, it means that the
+   * formulas in the event's assignments are to be computed after the delay,
+   * at the time the event is executed.
+   * 
    * @return the value of the attribute "useValuesFromTriggerTime" as a boolean.
    *
+   * @warning The attribute "useValuesFromTriggerTime" was introduced in
+   * SBML Level&nbsp;2 Version&nbsp;4.  It is not valid in models defined
+   * using SBML Level&nbsp;2 versions prior to Version&nbsp;4.  If a
+   * Version&nbsp;1&ndash;&nbsp;3 model sets the attribute, the
+   * consistency-checking method SBMLDocument::checkConsistency() will
+   * report an error.
    */
   bool getUseValuesFromTriggerTime () const;
 
@@ -290,20 +364,21 @@ public:
    * @return @c true if the "timeUnits" attribute of this Event has been
    * set, @c false otherwise.
    *
-   * @warning Definitions of Event in SBML Level&nbsp;2 Versions 1 and 2
-   * included the attribute called "timeUnits", but it was removed in SBML
-   * Level&nbsp;2 Version&nbsp;3.  LibSBML supports this attribute for
-   * compatibility with previous versions of SBML Level&nbsp;2, but its use
-   * is discouraged since models in Level&nbsp;2 Version&nbsp;3 and
-   * Version&nbsp;4 cannot contain it.  If a Version&nbsp;3 or&nbsp;4 model
-   * sets this attribute, the consistency-checking method
+   * @warning Definitions of Event in SBML Level 2 Versions&nbsp;1
+   * and&nbsp;2 included the additional attribute called "timeUnits", but
+   * it was removed in SBML Level&nbsp;2 Version&nbsp;3.  LibSBML supports
+   * this attribute for compatibility with previous versions of SBML
+   * Level&nbsp;2, but its use is discouraged since models in Level 2
+   * Versions&nbsp;3 and&nbsp;4 cannot contain it.  If a Version&nbsp;3
+   * or&nbsp;4 model sets the attribute, the consistency-checking method
    * SBMLDocument::checkConsistency() will report an error.
    */
   bool isSetTimeUnits () const;
 
 
   /**
-   * Sets the trigger of this Event to a copy of the given Trigger.
+   * Sets the trigger definition of this Event to a copy of the given
+   * Trigger object instance.
    *
    * @param trigger the Trigger object instance to use.
    */
@@ -311,7 +386,8 @@ public:
 
 
   /**
-   * Sets the delay of this Event to a copy of the given Delay.
+   * Sets the delay definition of this Event to a copy of the given Delay
+   * object instance.
    *
    * @param delay the Delay object instance to use
    */
@@ -323,13 +399,13 @@ public:
    *
    * @param sid the identifier of the time units to use.
    *
-   * @warning Definitions of Event in SBML Level&nbsp;2 Versions 1 and 2
-   * included the attribute called "timeUnits", but it was removed in SBML
-   * Level&nbsp;2 Version&nbsp;3.  LibSBML supports this attribute for
-   * compatibility with previous versions of SBML Level&nbsp;2, but its use
-   * is discouraged since models in Level&nbsp;2 Version&nbsp;3 and
-   * Version&nbsp;4 cannot contain it.  If a Version&nbsp;3 or&nbsp;4 model
-   * sets this attribute, the consistency-checking method
+   * @warning Definitions of Event in SBML Level 2 Versions&nbsp;1
+   * and&nbsp;2 included the additional attribute called "timeUnits", but
+   * it was removed in SBML Level&nbsp;2 Version&nbsp;3.  LibSBML supports
+   * this attribute for compatibility with previous versions of SBML
+   * Level&nbsp;2, but its use is discouraged since models in Level 2
+   * Versions&nbsp;3 and&nbsp;4 cannot contain it.  If a Version&nbsp;3
+   * or&nbsp;4 model sets the attribute, the consistency-checking method
    * SBMLDocument::checkConsistency() will report an error.
    */
   void setTimeUnits (const std::string& sid);
@@ -337,15 +413,47 @@ public:
 
   /**
    * Sets the "useValuesFromTriggerTime" attribute of this Event to a @p value.
+   * 
+   * The optional Delay on Event means there are two times to consider when
+   * computing the results of an event: the time at which the event
+   * <em>fires</em>, and the time at which assignments are <em>executed</em>.
+   * It is also possible to distinguish between the time at which the
+   * EventAssignment's expression is calculated, and the time at which the
+   * assignment is made: the expression could be evaluated at the same time
+   * the assignments are performed, i.e., when the event is
+   * <em>executed</em>, but it could also be defined to be evaluated at the
+   * time the event <em>fired</em>.
+   * 
+   * In SBML Level&nbsp;2 versions prior to Version&nbsp;4, the semantics of
+   * Event time delays were defined such that the expressions in the event's
+   * assignments were always evaluated at the time the event was
+   * <em>fired</em>.  This definition made it difficult to define an event
+   * whose assignment formulas were meant to be evaluated at the time the
+   * event was <em>executed</em> (i.e., after the time period defined by the
+   * value of the Delay element).  In SBML Level&nbsp;2 Version&nbsp;4, the
+   * attribute "useValuesFromTriggerTime" on Event allows a model to indicate
+   * the time at which the event's assignments are intended to be evaluated.
+   * The default value is @c true, which corresponds to the interpretation of
+   * event assignments prior to Version&nbsp;4: the values of the assignment
+   * formulas are computed at the moment the event fired, not after the
+   * delay.  If "useValuesFromTriggerTime"=@c false, it means that the
+   * formulas in the event's assignments are to be computed after the delay,
+   * at the time the event is executed.
    *
    * @param value the value of useValuesFromTriggerTime to use.
    *
+   * @warning The attribute "useValuesFromTriggerTime" was introduced in
+   * SBML Level&nbsp;2 Version&nbsp;4.  It is not valid in models defined
+   * using SBML Level&nbsp;2 versions prior to Version&nbsp;4.  If a
+   * Version&nbsp;1&ndash;&nbsp;3 model sets the attribute, the
+   * consistency-checking method SBMLDocument::checkConsistency() will
+   * report an error.
    */
   void setUseValuesFromTriggerTime (bool value);
 
 
   /**
-   * Unsets the delay of this Event.
+   * Unsets the Delay of this Event.
    */
   void unsetDelay ();
 
@@ -376,6 +484,8 @@ public:
   /**
    * Creates a new, empty EventAssignment, adds it to this Event's list of
    * event assignments and returns the EventAssignment.
+   *
+   * @return the newly created EventAssignment object instance
    */
   EventAssignment* createEventAssignment ();
 
@@ -401,7 +511,7 @@ public:
    *
    * @param n an integer, the index of the EventAssignment object to return
    * 
-   * @return the nth EventAssignment of this Event.
+   * @return the <code>n</code>th EventAssignment of this Event.
    */
   const EventAssignment* getEventAssignment (unsigned int n) const;
 
@@ -411,7 +521,7 @@ public:
    *
    * @param n an integer, the index of the EventAssignment object to return
    * 
-   * @return the nth EventAssignment of this Event.
+   * @return the <code>n</code>th EventAssignment of this Event.
    */
   EventAssignment* getEventAssignment (unsigned int n);
 
@@ -422,8 +532,8 @@ public:
    * @param variable a string, the identifier of the variable whose
    * EventAssignment is being sought.
    *
-   * @return the EventAssignment for the given variable, or @c NULL if no such
-   * EventAssignment exits.
+   * @return the EventAssignment for the given @p variable, or @c NULL if
+   * no such EventAssignment exits.
    */
   const EventAssignment* getEventAssignment (const std::string& variable) const;
 
@@ -434,8 +544,8 @@ public:
    * @param variable a string, the identifier of the variable whose
    * EventAssignment is being sought.
    *
-   * @return the EventAssignment for the given variable, or @c NULL if no such
-   * EventAssignment exits.
+   * @return the EventAssignment for the given @p variable, or @c NULL if
+   * no such EventAssignment exits.
    */
   EventAssignment* getEventAssignment (const std::string& variable);
 
@@ -447,6 +557,7 @@ public:
    * @return the number of EventAssignments in this Event.
    */
   unsigned int getNumEventAssignments () const;
+
 
   /** @cond doxygen-libsbml-internal */
 
@@ -470,8 +581,19 @@ public:
   /**
    * Returns the libSBML type code of this object instance.
    *
-   * @return the #SBMLTypeCode_t value of this SBML object or @c
-   * SBML_UNKNOWN (default).
+   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.
+   * The set of possible type codes is defined in the enumeration
+   * #SBMLTypeCode_t.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In other languages, the set of type codes
+   * is stored in an enumeration; in the Java language interface for
+   * libSBML, the type codes are defined as static integer constants in
+   * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */
@@ -616,7 +738,7 @@ public:
    *
    * @param n the index number of the Event to get.
    * 
-   * @return the nth Event in this ListOfEvents.
+   * @return the <code>n</code>th Event in this ListOfEvents.
    *
    * @see size()
    */
@@ -628,11 +750,12 @@ public:
    *
    * @param n the index number of the Event to get.
    * 
-   * @return the nth Event in this ListOfEvents.
+   * @return the <code>n</code>th Event in this ListOfEvents.
    *
    * @see size()
    */
   virtual const Event * get(unsigned int n) const; 
+
 
   /**
    * Get a Event from the ListOfEvents

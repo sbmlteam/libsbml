@@ -111,7 +111,7 @@
  * ListOf___ classes do not add any attributes of their own.
  *
  * The relationship between the lists and the rest of an %SBML model is
- * illustrated by the following (for %SBML Level&nbsp;2 Version&nbsp;3):
+ * illustrated by the following (for %SBML Level&nbsp;2 Version&nbsp;4):
  *
  * @image html listof-illustration.jpg "ListOf___ elements in an SBML Model"
  * @image latex listof-illustration.jpg "ListOf___ elements in an SBML Model"
@@ -175,7 +175,10 @@ public:
    * for this constructor, in SBML Level&nbsp;2 and beyond, the "id"
    * (identifier) attribute of a Parameter is required to have a value.
    * Thus, callers are cautioned to assign a value after calling this
-   * constructor if no identifier is provided as an argument.
+   * constructor if no identifier is provided as an argument.  Setting the
+   * identifier can be accomplished using the method @if doxygen-clike-only
+   * SBase::setId() @endif@if doxygen-java-only SBase::setId(String id)
+   * @endif.
    *
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different
@@ -197,7 +200,7 @@ public:
    * values, and optionally with the given @p units and @p constant
    * attribute values.
    *
-   * In contrast to the other constructor for this class, the @p id
+   * In contrast to the other constructors for this class, the @p id
    * (identifier) and @p value parameters are required in this call.
    *
    * @param id a string, the identifier to assign to this Parameter instance
@@ -228,6 +231,15 @@ public:
   /**
    * Creates a new Parameter using the given SBML @p level and @p version
    * values and optionally a set of XMLNamespaces.
+   * 
+   * It is worth emphasizing that although this constructor does not take
+   * an identifier argument, in SBML Level&nbsp;2 and beyond, the "id"
+   * (identifier) attribute of a Parameter is required to have a value.
+   * Thus, callers are cautioned to assign a value after calling this
+   * constructor if no identifier is provided as an argument.  Setting the
+   * identifier can be accomplished using the method @if doxygen-clike-only
+   * SBase::setId() @endif@if doxygen-java-only SBase::setId(String id)
+   * @endif.
    *
    * @param level an unsigned int, the SBML Level to assign to this Parameter
    *
@@ -344,10 +356,10 @@ public:
   /**
    * Gets the value of the "constant" attribute of this Parameter instance.
    *
-   * Note that in SBML Level&nbsp;2 and beyond, the default value of Parameter's
-   * "constant" attribute is @c true.  Since a boolean value can only be
-   * true or value, there is no isSetConstant() method as is available for
-   * the other attributes on Parameter.
+   * Note that in SBML Level&nbsp;2 and beyond, the default value of
+   * Parameter's "constant" attribute is @c true.  Since a boolean value
+   * can only be true or value, there is no Parameter::isSetConstant()
+   * method as is available for the other attributes on Parameter.
    * 
    * @return @c true if this Parameter has been declared as being constant,
    * @c false otherwise.
@@ -450,15 +462,15 @@ public:
    * Parameters in SBML have an attribute ("units") for declaring the units
    * of measurement intended for the parameter's value.  <b>No defaults are
    * defined</b> by SBML in the absence of a definition for "units".  The
-   * getDerivedUnitDefinition() method returns a UnitDefinition object
-   * based on the units declared for this Parameter using its "units"
-   * attribute, or it returns NULL if no units have been declared.
+   * Parameter::getDerivedUnitDefinition() method returns a UnitDefinition
+   * object based on the units declared for this Parameter using its
+   * "units" attribute, or it returns NULL if no units have been declared.
    *
    * Note that unit declarations for Parameter are in terms of the @em
    * identifier of a unit, but this method returns a UnitDefinition object,
    * not a unit identifier.  It does this by constructing an appropriate
    * UnitDefinition even when the value of the "units" attribute is one of
-   * the built-in SBML units @c "substance", @c "volume", @c "area", @c
+   * the predefined SBML units @c "substance", @c "volume", @c "area", @c
    * "length" or @c "time".  Callers may find this particularly useful
    * when used in conjunction with the helper methods on UnitDefinition
    * for comparing different UnitDefinition objects.
@@ -472,8 +484,19 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @return the #SBMLTypeCode_t value of this object or @c SBML_UNKNOWN
-   * (default).
+   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.
+   * The set of possible type codes is defined in the enumeration
+   * #SBMLTypeCode_t.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In other languages, the set of type codes
+   * is stored in an enumeration; in the Java language interface for
+   * libSBML, the type codes are defined as static integer constants in
+   * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */

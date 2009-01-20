@@ -45,15 +45,24 @@
  *
  * @section delay-units The units of the mathematical expression in a Delay
  *
- * The units of the numerical value computed by the Delay's "math"
- * expression must be units of time.  Note that <em>units are not
- * predefined or assumed</em> for the contents of "math" in a Delay object;
- * rather, they must be defined explicitly for each instance of a Delay
- * object in a model.  This is an important point to bear in mind when pure
- * numbers are used in delay expressions.  For example, the following Event
- * instance would fail model validation: the expression inside the "math"
- * element does not have any declared units, and what is required in this
- * context is units of time:
+ * In SBML Level&nbsp;2 versions before Version&nbsp;4, the units of the
+ * numerical value computed by the Delay's "math" expression were @em
+ * required to be in units of time or the model is considered to have a
+ * unit consistency error.  In Version&nbsp;4, this requirement is relaxed.
+ * The Version&nbsp;4 specification only stipulates that the units of the
+ * numerical value computed by a Delay instance's "math" expression @em
+ * should match the model's units of time (meaning the definition of the @c
+ * time units in the model).  Depending on which Version of SBML
+ * Level&nbsp;2 is in use, libSBML may or may not flag unit inconsistencies
+ * as errors or just warnings. 
+ *
+ * Note that <em>units are not predefined or assumed</em> for the contents
+ * of "math" in a Delay object; rather, they must be defined explicitly for
+ * each instance of a Delay object in a model.  This is an important point
+ * to bear in mind when literal numbers are used in delay expressions.  For
+ * example, the following Event instance would fail model validation: the
+ * expression inside the "math" element does not have any declared units,
+ * and what is required in this context is units of time:
  * @code
  * <model>
  *     ...
@@ -72,19 +81,17 @@
  * </model>
  * @endcode
  * 
- * The <tt>&lt;cn&gt; 1 &lt;/cn&gt;</tt> within the mathematical formula of
- * the @c delay above has <em>no units declared</em>.  To make the
- * expression have the needed units of time, we must use one of the
- * techniques discussed in the SBML Level&nbsp;2 Version&nbsp;4
- * specification, namely, either defining a parameter for the number and
- * using it in place of the number, or else multiplying the number with a
- * parameter having the proper units.  Here we employ the second approach
- * as an illustration:
+ * The <code>&lt;cn&gt; 1 &lt;/cn&gt;</code> within the mathematical formula
+ * of the @c delay above has <em>no units declared</em>.  To make the
+ * expression have the needed units of time, literal numbers should be
+ * avoided in favor of defining Parameter objects for each quantity, and
+ * declaring units for the Parameter values.  The following fragment of
+ * SBML illustrates this approach:
  * @code
  * <model>
  *     ...
  *     <listOfParameters>
- *         <parameter id="TimeUnits" value="1" units="time"/>
+ *         <parameter id="transcriptionDelay" value="10" units="time"/>
  *     </listOfParameters>
  *     ...
  *     <listOfEvents>
@@ -92,15 +99,12 @@
  *             ...
  *             <delay>
  *                 <math xmlns="http://www.w3.org/1998/Math/MathML">
- *                     <apply>
- *                         <times/>
- *                         <cn> 1 </cn>
- *                         <ci> TimeUnits </ci>
- *                     </apply>
+ *                     <ci> transcriptionDelay </ci>
  *                 </math>
  *             </delay>
  *             ...
  *         </event>
+ *     </listOfEvents>
  *     ...
  * </model>
  * @endcode
@@ -235,7 +239,6 @@ public:
   /**
    * Predicate to test whether the formula for this delay has been set.
    *
-   * 
    * @return @c true if the formula (meaning the @c math subelement) of
    * this Delay has been set, @c false otherwise.
    */
@@ -259,26 +262,29 @@ public:
    * with SBML Level&nbsp;2 Version&nbsp;2, the units of that time are
    * calculated based on the mathematical expression and the model
    * quantities referenced by <code>&lt;ci&gt;</code> elements used within
-   * that expression.  The getDerivedUnitDefinition() method returns the
-   * calculated units.  (Prior to SBML Level&nbsp;2 Version&nbsp;2, there
-   * existed an attribute on Event called "timeUnits".  This attribute
-   * could be used to set the intended units of the delay expression.  For
-   * such models, the method getDerivedUnitDefinition() will return a
-   * UnitDefinition object that corresponds to the declared "timeUnits"
-   * units.)
+   * that expression.  The Delay::getDerivedUnitDefinition() method returns
+   * what libSBML computes the units to be, to the extent that libSBML can
+   * compute them.
+   *
+   * (Prior to SBML Level&nbsp;2 Version&nbsp;2, there existed an attribute
+   * on Event called "timeUnits".  This attribute could be used to set the
+   * intended units of the delay expression.  For such models, this will
+   * return a UnitDefinition object that corresponds to the declared
+   * "timeUnits" units.)
    *
    * @warning Note that it is possible the "math" expression in the Delay
-   * contains pure numbers or parameters with undeclared units.  In those
-   * cases, it is not possible to calculate the units of the overall
+   * contains literal numbers or parameters with undeclared units.  In
+   * those cases, it is not possible to calculate the units of the overall
    * expression without making assumptions.  LibSBML does not make
-   * assumptions about the units, and getDerivedUnitDefinition() only
-   * returns the units as far as it is able to determine them.  For
+   * assumptions about the units, and Delay::getDerivedUnitDefinition()
+   * only returns the units as far as it is able to determine them.  For
    * example, in an expression <em>X + Y</em>, if <em>X</em> has
    * unambiguously-defined units and <em>Y</em> does not, it will return
-   * the units of <em>X</em>.  <strong>It is important that callers also
-   * invoke the method</strong> containsUndeclaredUnits() <strong>to
-   * determine whether this situation holds</strong>.  Callers may wish to
-   * take suitable actions in those scenarios.
+   * the units of <em>X</em>.  When using this method, <strong>it is
+   * critical that callers also invoke the method</strong>
+   * Delay::containsUndeclaredUnits() <strong>to determine whether this
+   * situation holds</strong>.  Callers should take suitable action in
+   * those situations.
    * 
    * @return a UnitDefinition that expresses the units of the math 
    * expression of this Delay.
@@ -290,20 +296,33 @@ public:
 
   /**
    * Predicate returning @c true or @c false depending on whether 
-   * the math expression of this Delay contains
-   * parameters/numbers with undeclared units.
+   * the "math" expression in this Delay instance contains
+   * parameters with undeclared units or literal numbers.
    * 
-   * @return @c true if the math expression of this Delay
-   * includes parameters/numbers 
-   * with undeclared units, @c false otherwise.
+   * Delay elements in SBML express a time delay for an Event.  Beginning
+   * with SBML Level&nbsp;2 Version&nbsp;2, the units of that time are
+   * calculated based on the mathematical expression and the model
+   * quantities referenced by <code>&lt;ci&gt;</code> elements used within
+   * that expression.  The Delay::getDerivedUnitDefinition() method returns
+   * what libSBML computes the units to be, to the extent that libSBML can
+   * compute them.  However, if the expression contains literal numbers or
+   * parameters with undeclared units, libSBML may not be able to compute
+   * the full units of the expression and will only return what it can
+   * compute.  Callers should always use Delay::containsUndeclaredUnits()
+   * when using Delay::getDerivedUnitDefinition() to decide whether the
+   * returned units may be incomplete.
+   * 
+   * @return @c true if the math expression of this Delay includes
+   * numbers/parameters with undeclared units, @c false otherwise.
    *
    * @note A return value of @c true indicates that the UnitDefinition
-   * returned by getDerivedUnitDefinition() may not accurately represent
-   * the units of the expression.
+   * returned by Delay::getDerivedUnitDefinition() may not accurately
+   * represent the units of the expression.
    *
    * @see getDerivedUnitDefinition()
    */
   bool containsUndeclaredUnits();
+
 
   /** @cond doxygen-libsbml-internal */
 
@@ -328,8 +347,19 @@ public:
   /**
    * Returns the libSBML type code of this object instance.
    *
-   * @return the #SBMLTypeCode_t value of this SBML object or @c SBML_UNKNOWN
-   * (default).
+   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.
+   * The set of possible type codes is defined in the enumeration
+   * #SBMLTypeCode_t.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In other languages, the set of type codes
+   * is stored in an enumeration; in the Java language interface for
+   * libSBML, the type codes are defined as static integer constants in
+   * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */
@@ -340,7 +370,9 @@ public:
    * Returns the XML element name of this object, which for Delay, is
    * always @c "delay".
    * 
-   * @return the name of this element, i.e., @c "delay". 
+   * @return the name of this element, i.e., @c "delay".
+   *
+   * @see getTypeCode()
    */
   virtual const std::string& getElementName () const;
 

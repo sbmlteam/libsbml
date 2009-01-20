@@ -250,8 +250,9 @@
  * referenced species' quantity (@em concentration or <em>amount of
  * substance</em>) to the value determined by the formula in the subelement
  * "math" of the AssignmentRule object.  The units of the formula in "math"
- * must be the same as the <em>units of the species</em> for the species
- * identified by the "variable" attribute of the AssignmentRule.
+ * should (in SBML Level&nbsp;2 Version&nbsp;4) or must (in previous
+ * Versions) be the same as the <em>units of the species</em> for the
+ * species identified by the "variable" attribute of the AssignmentRule.
  * <em>Restrictions</em>: There must not be both an AssignmentRule
  * "variable" attribute and a SpeciesReference "species" attribute having
  * the same value, unless that species has its "boundaryCondition"
@@ -262,15 +263,16 @@
  * <li> <em>In the case of a compartment</em>, an AssignmentRule sets the
  * referenced compartment's size to the value determined by the formula in
  * the "math" subelement of the AssignmentRule object.  The overall units
- * of the formula in "math" must be the same as the units of the size of
- * the compartment.
+ * of the formula in "math" should (in SBML Level&nbsp;2 Version&nbsp;4) or
+ * must (in previous Versions) be the same as the units of the size of the
+ * compartment.
  *
  * <li> <em>In the case of a parameter</em>, an AssignmentRule sets the
  * referenced parameter's value to that determined by the formula in the
  * "math" subelement of the AssignmentRule object.  The overall units of
- * the formula in the "math" subelement must be the same as the units
- * defined for the parameter.
- * </ul>
+ * the formula in the "math" subelement should (in SBML Level&nbsp;2
+ * Version&nbsp;4) or must (in previous Versions) be the same as the units
+ * defined for the parameter.  </ul>
  * 
  * In the context of a simulation, assignment rules are in effect at all
  * times, <em>t</em> \f$\geq\f$ <em>0</em>.  For purposes of evaluating
@@ -329,7 +331,8 @@
  * change of the species' quantity (<em>concentration</em> or <em>amount of
  * substance</em>) to the value determined by the formula in the "math"
  * subelement of the RateRule object.  The overall units of the formula in
- * "math" must be <em>species quantity</em>/<em>time</em>, where the
+ * "math" should (in SBML Level&nbsp;2 Version&nbsp;4) or must (in previous
+ * Versions) be <em>species quantity</em>/<em>time</em>, where the
  * <em>time</em> units are the SBML predefined units of time and the
  * <em>species quantity</em> units are the <em>units of the species</em>.
  * <em>Restrictions</em>: There must not be both a RateRule "variable"
@@ -342,14 +345,16 @@
  * <li> <em>In the case of a compartment</em>, a RateRule sets the rate of
  * change of the compartment's size to the value determined by the formula
  * in the "math" subelement of the RateRule object.  The overall units of
- * the formula must be <em>size</em>/<em>time</em>, where the <em>time</em>
+ * the formula should (in SBML Level&nbsp;2 Version&nbsp;4) or must (in previous
+ * Versions) be <em>size</em>/<em>time</em>, where the <em>time</em>
  * units are the SBML predefined units of time and the <em>size</em> units
  * are the units of size on the compartment.
  *
  * <li> <em>In the case of a parameter</em>, a RateRule sets the rate of
  * change of the parameter's value to that determined by the formula in the
  * "math" subelement of the RateRule object.  The overall units of the
- * formula must be <em>x</em>/<em>time</em>, where <em>x</em> are the units
+ * formula should (in SBML Level&nbsp;2 Version&nbsp;4) or must (in previous
+ * Versions) be <em>x</em>/<em>time</em>, where <em>x</em> are the units
  * of the parameter.
  * </ul>
  * 
@@ -381,7 +386,7 @@
  * ListOf___ classes do not add any attributes of their own.
  *
  * The relationship between the lists and the rest of an %SBML model is
- * illustrated by the following (for %SBML Level&nbsp;2 Version&nbsp;3):
+ * illustrated by the following (for %SBML Level&nbsp;2 Version&nbsp;4):
  *
  * @image html listof-illustration.jpg "ListOf___ elements in an SBML Model"
  * @image latex listof-illustration.jpg "ListOf___ elements in an SBML Model"
@@ -745,8 +750,19 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @return the #SBMLTypeCode_t value of this object or @c SBML_UNKNOWN
-   * (default).
+   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.
+   * The set of possible type codes is defined in the enumeration
+   * #SBMLTypeCode_t.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In other languages, the set of type codes
+   * is stored in an enumeration; in the Java language interface for
+   * libSBML, the type codes are defined as static integer constants in
+   * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */

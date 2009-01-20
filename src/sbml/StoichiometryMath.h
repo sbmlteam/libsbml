@@ -148,7 +148,7 @@ class LIBSBML_EXTERN StoichiometryMath : public SBase
 public:
 
   /**
-   * Creates a new StoichiometryMath, optionally with the given math. 
+   * Creates a new StoichiometryMath object, optionally with the given math. 
    *
    * @param math an ASTNode representing the mathematical formula for
    * the stoichiometry expression.
@@ -169,8 +169,8 @@ public:
 
 
   /**
-   * Creates a new StoichiometryMath using the given SBML @p level and @p version
-   * values and optionally a set of XMLNamespaces.
+   * Creates a new StoichiometryMath object using the given SBML @p level
+   * and @p version values and optionally a set of XMLNamespaces.
    *
    * @param level an unsigned int, the SBML Level to assign to this StoichiometryMath
    *
@@ -205,7 +205,7 @@ public:
 
 
   /**
-   * Destroys this StoichiometryMath.
+   * Destroys this StoichiometryMath object.
    */
   virtual ~StoichiometryMath ();
 
@@ -233,7 +233,7 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this StoichiometryMath.
+   * Creates and returns a deep copy of this StoichiometryMath object.
    *
    * @return a (deep) copy of this StoichiometryMath.
    */
@@ -241,8 +241,8 @@ public:
 
 
   /**
-   * Get the mathematical formula for the stoichiometryMath and return it
-   * as an AST.
+   * Retrieves the mathematical formula within this StoichiometryMath and
+   * return it as an AST.
    * 
    * @return the math of this StoichiometryMath.
    */
@@ -250,8 +250,8 @@ public:
 
 
   /**
-   * Predicate to test whether the math for this stoichiometryMath has been set.
-   *
+   * Predicate to test whether the math for this StoichiometryMath object
+   * has been set.
    * 
    * @return @c true if the formula (meaning the @c math subelement) of
    * this StoichiometryMath has been set, @c false otherwise.
@@ -260,8 +260,8 @@ public:
 
 
   /**
-   * Sets the stoichiometryMath expression of this StoichiometryMath instance to a copy of the given
-   * ASTNode.
+   * Sets the 'math' expression of this StoichiometryMath instance to a
+   * copy of the given ASTNode.
    *
    * @param math an ASTNode representing a formula tree.
    */
@@ -269,26 +269,29 @@ public:
 
 
   /**
-   * Calculates and returns a UnitDefinition that expresses the units
-   * returned by the math expression in this StoichiometryMath.
+   * Calculates and returns a UnitDefinition object that expresses the
+   * units returned by the math expression in this StoichiometryMath
+   * object.
    *
    * The units are calculated based on the mathematical expression in the
    * StoichiometryMath and the model quantities referenced by
    * <code>&lt;ci&gt;</code> elements used within that expression.  The
-   * getDerivedUnitDefinition() method returns the calculated units.
+   * StoichiometryMath::getDerivedUnitDefinition() method returns the
+   * calculated units.
    * 
    * @warning Note that it is possible the "math" expression in the
-   * StoichiometryMath contains pure numbers or parameters with undeclared
-   * units.  In those cases, it is not possible to calculate the units of
-   * the overall expression without making assumptions.  LibSBML does not
-   * make assumptions about the units, and getDerivedUnitDefinition() only
-   * returns the units as far as it is able to determine them.  For
-   * example, in an expression <em>X + Y</em>, if <em>X</em> has
-   * unambiguously-defined units and <em>Y</em> does not, it will return
-   * the units of <em>X</em>.  <strong>It is important that callers also
-   * invoke the method</strong> containsUndeclaredUnits() <strong>to
-   * determine whether this situation holds</strong>.  Callers may wish to
-   * take suitable actions in those scenarios.
+   * StoichiometryMath instance contains literal numbers or parameters with
+   * undeclared units.  In those cases, it is not possible to calculate the
+   * units of the overall expression without making assumptions.  LibSBML
+   * does not make assumptions about the units, and
+   * StoichiometryMath::getDerivedUnitDefinition() only returns the units
+   * as far as it is able to determine them.  For example, in an expression
+   * <em>X + Y</em>, if <em>X</em> has unambiguously-defined units and
+   * <em>Y</em> does not, it will return the units of <em>X</em>.  When
+   * using this method, <strong>it is critical that callers also invoke the
+   * method</strong> StoichiometryMath::containsUndeclaredUnits()
+   * <strong>to determine whether this situation holds</strong>.  Callers
+   * should take suitable action in those situations.
    * 
    * @return a UnitDefinition that expresses the units of the math 
    *
@@ -298,21 +301,31 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether 
-   * the math expression of this StoichiometryMath contains
-   * parameters/numbers with undeclared units.
+   * Predicate returning @c true or @c false depending on whether the math
+   * expression of this StoichiometryMath object contains literal numbers
+   * or parameters with undeclared units.
    * 
+   * The StoichiometryMath::getDerivedUnitDefinition() method returns what
+   * libSBML computes the units of the Stoichiometry to be, to the extent
+   * that libSBML can compute them.  However, if the expression contains
+   * literal numbers or parameters with undeclared units, libSBML may not
+   * be able to compute the full units of the expression and will only
+   * return what it can compute.  Callers should always use
+   * StoichiometryMath::containsUndeclaredUnits() when using
+   * StoichiometryMath::getDerivedUnitDefinition() to decide whether the
+   * returned units may be incomplete.
+   *
    * @return @c true if the math expression of this StoichiometryMath
-   * includes parameters/numbers 
-   * with undeclared units, @c false otherwise.
+   * includes numbers/parameters with undeclared units, @c false otherwise.
    *
    * @note A return value of @c true indicates that the UnitDefinition
-   * returned by getDerivedUnitDefinition() may not accurately represent
-   * the units of the expression.
+   * returned by StoichiometryMath::getDerivedUnitDefinition() may not
+   * accurately represent the units of the expression.
    *
    * @see getDerivedUnitDefinition()
    */
   bool containsUndeclaredUnits();
+
 
   /** @cond doxygen-libsbml-internal */
 
@@ -336,8 +349,19 @@ public:
   /**
    * Returns the libSBML type code of this object instance.
    *
-   * @return the #SBMLTypeCode_t value of this SBML object or @c
-   * SBML_UNKNOWN (default).
+   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.
+   * The set of possible type codes is defined in the enumeration
+   * #SBMLTypeCode_t.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In other languages, the set of type codes
+   * is stored in an enumeration; in the Java language interface for
+   * libSBML, the type codes are defined as static integer constants in
+   * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */
