@@ -104,6 +104,7 @@ distfiles =                                    \
         graphics/astnode-illustration.jpg      \
         graphics/built-in-units.jpg            \
         graphics/compartment-size.jpg          \
+	graphics/enzymatic-reaction.jpg        \
         graphics/listof-illustration.jpg       \
         graphics/right-arrow.gif               \
         graphics/math-formula-precedence.jpg   \
