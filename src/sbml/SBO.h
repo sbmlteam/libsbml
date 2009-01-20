@@ -22,7 +22,7 @@
  *----------------------------------------------------------------------- -->
  *
  * @class SBO
- * @brief Methods for interacting with Systems Biology Ontology (SBO) terms.
+ * @brief Methods for interacting with Systems Biology Ontology (%SBO) terms.
  *
  * @htmlinclude libsbml-not-sbml-warning.html
  *

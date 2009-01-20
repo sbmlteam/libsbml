@@ -22,7 +22,7 @@
  *------------------------------------------------------------------------- -->
  * 
  * @class Reaction
- * @brief LibSBML implementation of %SBML's Reaction construct.
+ * @brief LibSBML implementation of %SBML's %Reaction construct.
  *
  * A @em reaction represents any transformation, transport or binding
  * process, typically a chemical reaction, that can change the quantity of
@@ -135,7 +135,7 @@
  * ListOf___ classes do not add any attributes of their own.
  *
  * The relationship between the lists and the rest of an %SBML model is
- * illustrated by the following (for %SBML Level 2 Version 3):
+ * illustrated by the following (for %SBML Level&nbsp;2 Version&nbsp;4):
  *
  * @image html listof-illustration.jpg "ListOf___ elements in an SBML Model"
  * @image latex listof-illustration.jpg "ListOf___ elements in an SBML Model"
@@ -873,8 +873,19 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @return the #SBMLTypeCode_t value of this object or SBML_UNKNOWN
-   * (default).
+   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.
+   * The set of possible type codes is defined in the enumeration
+   * #SBMLTypeCode_t.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In other languages, the set of type codes
+   * is stored in an enumeration; in the Java language interface for
+   * libSBML, the type codes are defined as static integer constants in
+   * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */
@@ -885,8 +896,20 @@ public:
    * Returns the libSBML type code for the objects contained in this ListOf
    * (i.e., Reaction objects, if the list is non-empty).
    * 
-   * @return the #SBMLTypeCode_t value of SBML objects contained in this
-   * ListOf or SBML_UNKNOWN (default).
+   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.
+   * The set of possible type codes is defined in the enumeration
+   * #SBMLTypeCode_t.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In other languages, the set of type codes
+   * is stored in an enumeration; in the Java language interface for
+   * libSBML, the type codes are defined as static integer constants in
+   * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif
+   * 
+   * @return the SBML type code for the objects contained in this ListOf
+   * instance, or @c SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */

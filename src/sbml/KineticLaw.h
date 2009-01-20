@@ -22,7 +22,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class KineticLaw
- * @brief LibSBML implementation of %SBML's KineticLaw construct.
+ * @brief LibSBML implementation of %SBML's %KineticLaw construct.
  *
  * An object of class KineticLaw is used to describe the rate at which the
  * process defined by a given Reaction takes place.  KineticLaw has

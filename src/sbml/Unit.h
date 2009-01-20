@@ -22,9 +22,9 @@
  *----------------------------------------------------------------------- -->
  *
  * @class Unit
- * @brief LibSBML implementation of %SBML's Unit construct.
+ * @brief LibSBML implementation of SBML's %Unit construct.
  *
- * The %SBML unit definition facility uses two classes of objects,
+ * The SBML unit definition facility uses two classes of objects,
  * UnitDefinition and Unit.  The approach to defining units in %SBML is
  * compositional; for example, <em>meter second<sup> &ndash;2</sup></em> is
  * constructed by combining a Unit object representing <em>meter</em> with
@@ -41,16 +41,17 @@
  * Its value in SBML Level&nbsp;2 Version&nbsp;4 must be one of the following
  * predefined strings:
  *
- * <table align="center" style="font-family: Courier, fixed; font-weight: bold; font-size: 12px;" cellspacing="7" border="0">
- * <tr><td>ampere</td><td>gram</td><td>katal</td><td>metre</td><td>second</td><td>watt</td></tr>
- * <tr><td>becquerel</td><td>gray</td><td>kelvin</td><td>mole</td><td>siemens</td><td>weber</td></tr>
- * <tr><td>candela</td><td>henry</td><td>kilogram</td><td>newton</td><td>sievert</td></tr>
- * <tr><td>coulomb</td><td>hertz</td><td>litre</td><td>ohm</td><td>steradian</td></tr>
- * <tr><td>dimensionless</td><td>item</td><td>lumen</td><td>pascal</td><td>tesla</td></tr>
- * <tr><td>farad</td><td>joule</td><td>lux</td><td>radian</td><td>volt</td></tr>
- * </table>
+ * @htmlinclude libsbml-base-units.html
  *
- * (See also the definition of <a class="el" href="#UnitKind_t">UnitKind_t</a> below.)
+ * (See also the definition of the <code>UNIT_KIND_</code> constants in <a
+ * class="el" href="#UnitKind_t">the section below</a>.)  For SBML
+ * Level&nbsp;2 Version&nbsp;1 models, the string @c Celsius is also
+ * permitted.  Note also that the table above contains two names not
+ * strictly defined in SBML Level&nbsp;2: @c liter and @c meter.  For
+ * convenience, libSBML defines the American English spellings of these
+ * units, although the SBML specification limits the valid unit names to
+ * those defined by SI.
+ *
  * The optional attribute named "exponent" on Unit represents an exponent
  * on the unit.  Its default value is @c 1 (one).  A Unit structure also
  * has an optional attribute called "scale"; its value must be an integer
@@ -65,51 +66,43 @@
  * 0.3048 could be used to define @c foot as a measure of length in terms
  * of a @c metre.  The "multiplier" attribute has a default value of @c 1
  * (one).
- * 
- * @warning In %SBML Level&nbsp;2 Version&nbsp;1, Unit had an additional
- * field called "offset".  This attribute has been removed entirely in
- * Level&nbsp;2 Versions&nbsp;2, 3 and&nbsp;4.  As a necessary consequence,
- * the predefined unit @c Celsius is also not defined in Level&nbsp;2
- * Versions&nbsp;2, 3 and&nbsp;4.  Modelers and software tools need to account
- * for units with offsets explicitly.  The %SBML specification document
- * offers a number of suggestions for how to achieve this.  The current
- * version of LibSBML retains methods related to the "offset" attribute and
- * the predefined unit @c Celsius for compatibility with earlier versions
- * of SBML Level&nbsp;2, but their use is strongly discouraged because the
- * constructs cannot appear directly in SBML Level&nbsp;2 Version&nbsp;3
- * and Level&nbsp;2 Version&nbsp;4.
- * 
- * @note Another change in SBML Level&nbsp;2 Version&nbsp;3 is the removal
- * of the enumeration @c UnitKind and the redefinition of @c UnitSId to
- * include the previous @c UnitKind values as reserved symbols in the @c
- * UnitSId space.  This change has no net effect on permissible models,
- * their representation or their syntax.  The purpose of the change in the
- * SBML specification was simply to clean up an inconsistency about the
- * contexts in which these values were usable.  However, LibSBML
- * <em>maintains UnitKind</em> (in the form of the type definition <a
- * class="el" href="#UnitKind_t">UnitKind_t</a>) to simply the treatment of
- * different levels and versions of SBML.
  *
  * <h3><a class="anchor" name="UnitKind_t">UnitKind_t</a></h3>
  *
  * SBML defines a set of base units which serves as the starting point for
  * new unit definitions.  This set of base units consists of the SI units
- * and a small number of additional convenience units.  Until SBML Level&nbsp;2
- * Version&nbsp;3, there existed a data type in the SBML specifications called
- * @c UnitKind, enumerating the possible SBML base units.  Although SBML
- * Level&nbsp;2 Version&nbsp;3 removed this type from the language specification,
- * libSBML maintains the corresponding enumeration type UnitKind_t as a
- * convenience and a way to provide backward compatibility to previous SBML
- * Level/Version specifications.  (The removal in SBML Level&nbsp;2 Version&nbsp;3 of
- * the enumeration @c UnitKind was also accompanied by the redefinition of
- * @c UnitSId to include the previous @c UnitKind values as reserved
- * symbols in the @c UnitSId space.  This change has no net effect on
+ * and a small number of additional convenience units.
+ * 
+ * @if doxygen-clike-only Until SBML Level&nbsp;2 Version&nbsp;3, there
+ * existed a data type in the SBML specifications called @c UnitKind,
+ * enumerating the possible SBML base units.  Although SBML Level&nbsp;2
+ * Version&nbsp;3 removed this type from the language specification,
+ * libSBML maintains the corresponding enumeration type @c UnitKind_t as a
+ * convenience and as a way to provide backward compatibility to previous
+ * SBML Level/Version specifications.  (The removal in SBML Level&nbsp;2
+ * Version&nbsp;3 of the enumeration @c UnitKind was also accompanied by
+ * the redefinition of the data type @c UnitSId to include the previous @c
+ * UnitKind values as reserved symbols in the @c UnitSId space.  This
+ * change has no net effect on permissible models, their representation or
+ * their syntax.  The purpose of the change in the SBML specification was
+ * simply to clean up an inconsistency about the contexts in which these
+ * values were usable.)  The @c UnitKind_t enumeration in libSBML has a 
+ * small number of differences compared to the SBML specifications:
+ * @endif@if doxygen-java-only In SBML Level&nbsp;2 Versions before
+ * Version&nbsp;3, there existed an enumeration of units called @c
+ * UnitKind.  In Version&nbsp;3, this enumeration was removed and the
+ * identifier class @c UnitSId redefined to include the previous @c
+ * UnitKind values as reserved symbols.  This change has no net effect on
  * permissible models, their representation or their syntax.  The purpose
  * of the change in the SBML specification was simply to clean up an
- * inconsistency about the contexts in which these values were usable.)
+ * inconsistency about the contexts in which these values were usable.
+ * However, LibSBML maintains UnitKind in the form of of a set of static
+ * integer constants whose names begin with the characters
+ * <code>UNIT_KIND_</code>.  These constants are defined in the class
+ * <code><a href="libsbmlConstants.java">libsbmlConstants</a></code> This
+ * enumeration in libSBML has a small number of differences compared to the
+ * SBML specifications: @endif
  *
- * The UnitKind_t enumeration in libSBML has a small number of differences
- * compared to the SBML specifications:
  * <ul>
  * <li> The alternate spelling @c "meter" is included in addition to the
  * official SI spelling @c "metre".
@@ -121,61 +114,18 @@
  * specifications of SBML prior to SBML Level&nbsp;2 Version&nbsp;3.
  * </ul>
  *
- * <center>
- * <table width="90%" cellspacing="1" cellpadding="1" border="0" class="normal-font">
- *  <tr style="background: lightgray" class="normal-font">
- *      <td width="40%"><strong>Enumerator</strong></td>
- *      <td><strong>Meaning</strong></td>
- *  </tr>
- * <tr><td><em>UNIT_KIND_AMPERE</em></td><td>The ampere unit</td></tr>
- * <tr><td><em>UNIT_KIND_BECQUEREL</em></td><td>The becquerel unit.</td></tr>
- * <tr><td><em>UNIT_KIND_CANDELA</em></td><td>The candela unit.</td></tr>
- * <tr><td><em>UNIT_KIND_CELSIUS</em></td><td>The Celsius unit.</td></tr>
- * <tr><td><em>UNIT_KIND_COULOMB</em></td><td>The coulomb unit.</td></tr>
- * <tr><td><em>UNIT_KIND_DIMENSIONLESS</em></td><td>A pseudo-unit
- * indicating a dimensionless quantity.  (This is in fact defined in the
- * SBML specification.)</td></tr>
- * <tr><td><em>UNIT_KIND_FARAD</em></td><td>The farad unit.</td></tr>
- * <tr><td><em>UNIT_KIND_GRAM</em></td><td>The gram unit.</td></tr>
- * <tr><td><em>UNIT_KIND_GRAY</em></td><td>The gray unit.</td></tr>
- * <tr><td><em>UNIT_KIND_HENRY</em></td><td>The henry unit.</td></tr>
- * <tr><td><em>UNIT_KIND_HERTZ</em></td><td>The hertz unit.</td></tr>
- * <tr><td><em>UNIT_KIND_ITEM</em></td><td>A pseudo-unit representing a
- * single "thing". (This is in fact defined in the
- * SBML specification.)</td></tr>
- * <tr><td><em>UNIT_KIND_JOULE</em></td><td>The joule unit.</td></tr>
- * <tr><td><em>UNIT_KIND_KATAL</em></td><td>The katal unit.</td></tr>
- * <tr><td><em>UNIT_KIND_KELVIN</em></td><td>The kelvin unit.</td></tr>
- * <tr><td><em>UNIT_KIND_KILOGRAM</em></td><td>The kilogram unit.</td></tr>
- * <tr><td><em>UNIT_KIND_LITER</em></td><td>Alternate spelling of litre.</td></tr>
- * <tr><td><em>UNIT_KIND_LITRE</em></td><td>The litre unit.</td></tr>
- * <tr><td><em>UNIT_KIND_LUMEN</em></td><td>The lumen unit.</td></tr>
- * <tr><td><em>UNIT_KIND_LUX</em></td><td>The lux unit.</td></tr>
- * <tr><td><em>UNIT_KIND_METER</em></td><td>Alternate spelling of metre.</td></tr>
- * <tr><td><em>UNIT_KIND_METRE</em></td><td>The metre unit.</td></tr>
- * <tr><td><em>UNIT_KIND_MOLE</em></td><td>The mole unit.</td></tr>
- * <tr><td><em>UNIT_KIND_NEWTON</em></td><td>The newton unit.</td></tr>
- * <tr><td><em>UNIT_KIND_OHM</em></td><td>The ohm unit.</td></tr>
- * <tr><td><em>UNIT_KIND_PASCAL</em></td><td>The pascal unit.</td></tr>
- * <tr><td><em>UNIT_KIND_RADIAN</em></td><td>The radian unit.</td></tr>
- * <tr><td><em>UNIT_KIND_SECOND</em></td><td>The second unit.</td></tr>
- * <tr><td><em>UNIT_KIND_SIEMENS</em></td><td>The siemens unit.</td></tr>
- * <tr><td><em>UNIT_KIND_SIEVERT</em></td><td>The sievert unit.</td></tr>
- * <tr><td><em>UNIT_KIND_STERADIAN</em></td><td>The steradian unit.</td></tr>
- * <tr><td><em>UNIT_KIND_TESLA</em></td><td>The tesla unit.</td></tr>
- * <tr><td><em>UNIT_KIND_VOLT</em></td><td>The volt unit.</td></tr>
- * <tr><td><em>UNIT_KIND_WATT</em></td><td>The watt unit.</td></tr>
- * <tr><td><em>UNIT_KIND_WEBER</em></td><td>The weber unit.</td></tr>
- * <tr><td><em>UNIT_KIND_INVALID</em></td><td></td>Marker used by libSBML
- * to indicate an invalid or unset unit.</tr>
- * </table>
- * </center>
+ * @if doxygen-clike-only The table below lists the symbols defined in the
+ * @c UnitKind_t enumeration, and their
+ * meanings. @endif@if doxygen-java-only The table below lists the unit
+ * constants defined in libSBML, and their meanings. @endif
+ *
+ * @htmlinclude libsbml-unitkind-table.html
  * 
  * <!-- leave this next break as-is to work around some doxygen bug -->
  */ 
 /**
  * @class ListOfUnits
- * @brief LibSBML implementation of SBML's ListOfUnits construct.
+ * @brief LibSBML implementation of SBML's %ListOfUnits construct.
  * 
  * The various ListOf___ classes in %SBML are merely containers used for
  * organizing the main components of an %SBML model.  All are derived from
@@ -214,15 +164,19 @@ class LIBSBML_EXTERN Unit : public SBase
 public:
 
   /**
-   * Creates a new Unit, optionally with specific values of @p kind (given
-   * a value from the <a class="el" href="#UnitKind_t">UnitKind_t</a>
-   * enumeration), @p exponent, @p scale and @p multipler.
+   * Creates a new Unit, optionally with specific values of @p kind, @p
+   * exponent, @p scale and @p multipler.
    *
-   * If no arguments are passed to this constructor, the value of @p kind
+   * @if doxygen-clike-only If no arguments are passed to this constructor,
+   * the value of @p kind defaults to @c UNIT_KIND_INVALID.  Callers must
+   * reset the value to something appropriate using the Unit::setKind()
+   * method.  The use of arguments to this constructor is functionally
+   * equivalent to the following: @endif@if doxygen-java-only If no
+   * arguments are passed to this constructor, the value of @p kind
    * defaults to @c UNIT_KIND_INVALID.  Callers must reset the value to
-   * something appropriate using the Unit::setKind() method.  The use of
-   * arguments to this constructor is functionally equivalent to the
-   * following:
+   * something appropriate using the method Unit::setKind(int kind). 
+   * The use of arguments to this constructor is functionally
+   * equivalent to the following: @endif
    * @code
    *   Unit u = new Unit();
    *   u.setKind(kind);
@@ -231,12 +185,18 @@ public:
    *   u.setMultiplier(multipler);
    * @endcode
    *
-   * Readers are urged to read the description of the Unit class for more
-   * information about the meaning of the arguments to this constructor.
+   * Readers are urged to read the description of the Unit class (both the
+   * beginning of this page, and in the SBML specification documents) for
+   * more information about the meaning of the arguments to this
+   * constructor.
    *
-   * @param kind a value from the <a class="el"
+   * @if doxygen-clike-only @param kind a value from the <a class="el"
    * href="#UnitKind_t">UnitKind_t</a> enumeration naming the base unit
-   * serving as the basis of this particular unit definition
+   * serving as the basis of this particular unit
+   * definition @endif@if doxygen-java-only @param kind a value from the
+   * set of static integer constants having names beginning with the
+   * characters @c UNIT_KIND_ in <code><a
+   * href="libsbmlConstants.java">libsbmlConstants</a></code> @endif
    * 
    * @param exponent an integer, the "exponent" attribute of the unit
    * definition 
@@ -265,29 +225,33 @@ public:
 
 
   /**
-   * Creates a new Unit, optionally with specific values of @p kind (given
-   * as a string), @p exponent, @p scale and @p multipler.
+   * Creates a new Unit of a specific @p kind (given as a string), and
+   * optionally with @p exponent, @p scale and @p multipler.
    *
-   * If no arguments are passed to this constructor, the value of @p kind
-   * defaults to @c UNIT_KIND_INVALID.  Callers must reset the value to
-   * something appropriate using the Unit::setKind() method.  The use of
-   * arguments to this constructor is functionally equivalent to the
-   * following: 
-   * @code 
-   *   Unit u = new Unit();
-   *
-   *   u.setKind(kind);
-   *   u.setExponent(exponent);
-   *   u.setScale(scale);
-   *   u.setMultiplier(multipler);
-   * @endcode
-   *
-   * Readers are urged to read the description of the Unit class for more
-   * information about the meaning of the arguments to this constructor.
+   * @if doxygen-clike-only This method accepts a base unit name as a
+   * string, and internally converts it to a value from the <a class="el"
+   * href="#UnitKind_t">UnitKind_t</a> enumeration.  If the string passed
+   * as the value of @p kind is not recognized as a valid unit name, this
+   * method sets the value to @c UNIT_KIND_INVALID.  The following table
+   * lists the valid unit kind names: @endif@if doxygen-java-only This
+   * method accepts a unit kind name as a string, and internally converts
+   * it to the appropriate @c UNIT_KIND_ constants from <code><a
+   * href="libsbmlConstants.java">libsbmlConstants</a></code>.  If the
+   * string passed as the value of @p kind is not recognized as a valid
+   * unit name, this method sets the value to @c UNIT_KIND_INVALID.  The
+   * following table lists the valid unit kind names: @endif
    * 
-   * @param kind a string corresponding to a value from the <a class="el"
-   * href="#UnitKind_t">UnitKind_t</a> enumeration naming the base unit
-   * serving as the basis of this particular unit definition
+   * @htmlinclude libsbml-base-units.html
+   * 
+   * In addition to the strings above, the string <code>Celsius</code> is
+   * accepted for models in SBML Level&nbsp;2 Version&nbsp;1 format.
+   *
+   * Readers are urged to read the description of the Unit class (both the
+   * beginning of this page, and in the SBML specification documents) for
+   * more information about the meaning of the arguments to this
+   * constructor.
+   *
+   * @param kind a string whose value is a valid unit name
    * 
    * @param exponent an integer, the "exponent" attribute of the unit
    * definition 
@@ -396,9 +360,11 @@ public:
    *
    * The default values are as follows:
    * 
-   * - exponent   = 1
-   * - scale      = 0
-   * - multiplier = 1.0
+   * @li exponent   = 1
+   * @li scale      = 0
+   * @li multiplier = 1.0
+   *
+   * The "kind" attribute is left unchanged.
    */
   void initDefaults ();
 
@@ -488,11 +454,11 @@ public:
    * otherwise. 
    *
    * @warning The predefined unit @c Celsius was removed from the list of
-   * predefined units in SBML Level&nbsp;2 Version&nbsp;3 at the same time
+   * predefined units in SBML Level&nbsp;2 Version&nbsp;2 at the same time
    * that the "offset" attribute was removed from Unit definitions.
-   * LibSBML methods such as this one related to @c Celsius are retained
-   * for compatibility with earlier versions of SBML Level&nbsp;2, but
-   * their use is strongly discouraged.
+   * LibSBML methods such as this one related to @c Celsius are retained in
+   * order to support SBML Level&nbsp;2 Version&nbsp;1, but their use is
+   * strongly discouraged.
    */
   bool isCelsius () const;
 
@@ -846,20 +812,20 @@ public:
 
   /**
    * Predicate to test whether a given string is the name of a
-   * built-in SBML unit.
+   * predefined SBML unit.
    *
-   * @param name a string to be tested against the built-in unit names
+   * @param name a string to be tested against the predefined unit names
    *
    * @param level the Level of SBML for which the determination should be
    * made.  This is necessary because there are a few small differences
-   * in this regard between SBML Level&nbsp;1 and Level&nbsp;2.
+   * in allowed units between SBML Level&nbsp;1 and Level&nbsp;2.
    * 
-   * @return @c true if @p name is one of the five SBML built-in units (@c
-   * "substance", @c "volume", @c "area", @c "length" or @c "time"), @c
-   * false otherwise.
+   * @return @c true if @p name is one of the five SBML predefined unit
+   * identifiers (@c "substance", @c "volume", @c "area", @c "length" or @c
+   * "time"), @c false otherwise.
    *
-   * @note The built-in units @c "length" and @c "area" were added in
-   * Level&nbsp;2 Version&nbsp;1
+   * @note The predefined unit identifiers @c "length" and @c "area" were
+   * added in Level&nbsp;2 Version&nbsp;1
    */
   static bool isBuiltIn (const std::string& name, unsigned int level);
 
@@ -869,11 +835,13 @@ public:
    * base unit in SBML (such as @c "gram" or @c "mole").
    *
    * This method exists because prior to SBML Level&nbsp;2 Version&nbsp;3,
-   * an enumeration called UnitKind was defined by SBML.  This enumeration
+   * an enumeration called @c UnitKind was defined by SBML.  This enumeration
    * was removed in SBML Level&nbsp;2 Version&nbsp;3 and its values were
-   * folded into the space of values of a type called UnitSId.  This method
+   * folded into the space of values of a type called @c UnitSId.  This method
    * therefore has less significance in SBML Level&nbsp;2 Version&nbsp;3
-   * and Level&nbsp;2 Version&nbsp;4, but remains for backward compatibility.
+   * and Level&nbsp;2 Version&nbsp;4, but remains for backward
+   * compatibility and support for reading models in older Versions of
+   * Level&nbsp;2.
    *
    * @param name a string to be tested
    * 
@@ -899,7 +867,7 @@ public:
   *
   * Two Unit objects are considered to be @em identical if they match in
   * all attributes.  (Contrast this to the method areEquivalent(), which
-  * compares units only with respect to certain attributes.)
+  * compares Unit objects only with respect to certain attributes.)
   *
   * @param unit1 the first Unit object to compare
   * @param unit2 the second Unit object to compare
@@ -918,7 +886,7 @@ public:
   *
   * Two Unit objects are considered to be @em equivalent if their "kind"
   * and "exponent" attributes are equal.  (Contrast this to the method
-  * areIdentical(), which compares Unit objects with respect to all
+  * Unit::areIdentical(), which compares Unit objects with respect to all
   * attributes, not just the kind and exponent.)
   *
   * @param unit1 the first Unit object to compare
@@ -938,9 +906,9 @@ public:
   * value of the scale attribute reduced to zero.
   *
   * For example, 1 millimetre can be expressed as a Unit with kind=@c
-  * "metre" multipier=@c "1" scale=@c "-3" exponent=@c "1". It can also be
-  * expressed as a Unit with kind=@c "metre" multiplier=@c "0.001" scale=@c
-  * "0" exponent=@c "1".
+  * "metre" multiplier=@c "1" scale=@c "-3" exponent=@c "1". It can also be
+  * expressed as a Unit with kind=@c "metre"
+  * multiplier=<code>"0.001"</code> scale=@c "0" exponent=@c "1".
   *
   * @param unit the Unit object to manipulate.
   */
@@ -1056,8 +1024,19 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @return the #SBMLTypeCode_t value of this object or @c SBML_UNKNOWN
-   * (default).
+   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.
+   * The set of possible type codes is defined in the enumeration
+   * #SBMLTypeCode_t.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In other languages, the set of type codes
+   * is stored in an enumeration; in the Java language interface for
+   * libSBML, the type codes are defined as static integer constants in
+   * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */
@@ -1068,8 +1047,20 @@ public:
    * Returns the libSBML type code for the objects contained in this ListOf
    * (i.e., Unit objects, if the list is non-empty).
    * 
-   * @return the #SBMLTypeCode_t value of SBML objects contained in this
-   * ListOf or @c SBML_UNKNOWN (default).
+   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.
+   * The set of possible type codes is defined in the enumeration
+   * #SBMLTypeCode_t.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In other languages, the set of type codes
+   * is stored in an enumeration; in the Java language interface for
+   * libSBML, the type codes are defined as static integer constants in
+   * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif
+   * 
+   * @return the SBML type code for the objects contained in this ListOf
+   * instance, or @c SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */

@@ -22,7 +22,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class UnitDefinition
- * @brief LibSBML implementation of %SBML's UnitDefinition construct.
+ * @brief LibSBML implementation of %SBML's %UnitDefinition construct.
  *
  * Units of measurement may be supplied in a number of contexts in an %SBML
  * model.  The units of the following mathematical entities can be
@@ -36,8 +36,8 @@
  * Rather than requiring a complete unit definition on every construct,
  * %SBML provides a facility for defining units that can be referenced
  * throughout a model.  In addition, every kind of %SBML mathematical
- * entity has units assigned to it from a set of built-in defaults (listed
- * below); by redefining these built-in default units, it is possible to
+ * entity has units assigned to it from a set of predefined defaults (listed
+ * below); by redefining these predefined default units, it is possible to
  * change the units used throughout a model in a simple and consistent
  * manner.
  * 
@@ -52,11 +52,11 @@
  * UnitDefinition class is the container, and Unit instances are placed
  * inside UnitDefinition instances.
  *
- * @section unitdef-summary Summary of the UnitDefinition construct
+ * @section unitdef-summary Summary of the %UnitDefinition construct
  *
- * UnitDefinition in SBML Level&nbsp;2 Version&nbsp;4 has two attributes
- * and one subelement.  The two attributes are "id" and "name", and the
- * subelement is ListOfUnits.
+ * UnitDefinition in SBML Level&nbsp;2 has two attributes and one
+ * subelement.  The two attributes are "id" and "name", and the subelement
+ * is ListOfUnits.
  *
  * The required attribute "id" and optional attribute "name" are both
  * strings.  The "id" attribute is used to give the defined unit a unique
@@ -65,23 +65,25 @@
  * definition an optional human-readable name.
  *
  * There are two important restrictions about the use of unit definition
- * "id" values:
+ * "id" values in SBML Level&nbsp;2 Versions&nbsp;3&ndash;4:
  * <ul>
  * <li> The "id" of a UnitDefinition must @em not contain a value from the
  *   list of reserved base unit names (i.e., the strings @c gram, @c liter,
  *   etc.; see the definition of Unit for the complete list).  This
  *   constraint simply prevents the redefinition of the base units.
  *
- * <li> There is a set of predefined identifiers for the built-in default
+ * <li> There is a set of reserved identifiers for the predefined
  *   units in SBML; these identifiers are @c substance, @c volume, @c area,
  *   @c length, and @c time.  Using one of these values for the attribute
  *   "id" of a UnitDefinition has the effect of redefining the model-wide
  *   default units for the corresponding quantities.  The list of
- *   built-in units is given in the table below:
- *   @image html built-in-units.jpg "SBML's built-in units"
- *   @image latex built-in-units.jpg "SBML's built-in units"
- *   Two limitations are imposed on redefining the built-in units:
- *   (1) The UnitDefinition of a redefined built-in unit can only
+ *   predefined units is given in the table below:
+ *
+ *   @htmlinclude libsbml-predefined-units.html
+ *
+ *   Also, two limitations are imposed on redefining the predefined
+ *   unit @c substance, @c volume, @c area, @c length, and @c time:
+ *   (1) The UnitDefinition of a predefined SBML unit can only
  *      contain a single Unit object within it.
  *   (2) The value of the "kind" attribute in 
  *      a Unit instance must be drawn from one of the values
@@ -266,35 +268,28 @@ public:
    *
    * The permitted values of the identifier @p id @em exclude the
    * predefined base units in SBML and two spelling variants @c "meter" and
-   * @c "liter".  The following is the set of base unit names which may @em
-   * not be used as a value of @p id:
+   * @c "liter".  More specifically, the following is the set of base unit
+   * names which are @em excluded from being used as a value of @p id:
    *
-   * <table align="center" style="font-family: Courier, fixed; font-weight: bold; font-size: 12px;" cellspacing="7" border="0">
-   * <tr><td>ampere</td><td>gram</td><td>katal</td><td>metre</td><td>second</td><td>watt</td></tr>
-   * <tr><td>becquerel</td><td>gray</td><td>kelvin</td><td>mole</td><td>siemens</td><td>weber</td></tr>
-   * <tr><td>candela</td><td>henry</td><td>kilogram</td><td>newton</td><td>sievert</td><td>Celsius</td></tr>
-   * <tr><td>coulomb</td><td>hertz</td><td>litre</td><td>ohm</td><td>steradian</td><td>meter</td></tr>
-   * <tr><td>dimensionless</td><td>item</td><td>lumen</td><td>pascal</td><td>tesla</td><td>liter</td></tr>
-   * <tr><td>farad</td><td>joule</td><td>lux</td><td>radian</td><td>volt</td></tr>
-   * </table>
-   *
-   * In addition, there is a set of predefined identifiers for the built-in
+   * @htmlinclude libsbml-base-units.html
+   * 
+   * In addition, there is a set of reserved identifiers for the predefined
    * default units in SBML.  These identifiers are @c substance, @c volume,
    * @c area, @c length, and @c time.  Using one of these values for the
-   * attribute @p id of a UnitDefinition has the effect of redefining the
-   * model-wide default units for the corresponding quantities.  The list
-   * of built-in units is given in the table below:
-   * @image html built-in-units.jpg "SBML's built-in units"
-   * @image latex built-in-units.jpg "SBML's built-in units"
+   * attribute @p id of a UnitDefinition has the special meaning of @em
+   * redefining the model-wide default units for the corresponding
+   * quantities.  The list of reserved unit names is given in the table below:
+   *
+   * @htmlinclude libsbml-predefined-units.html
    * 
    * Finally, note that SBML imposes two limitations on redefining the
-   * built-in units listed above:
+   * predefined units listed above:
    * <ul>
-   * <li> The UnitDefinition of a redefined built-in unit can only
-   *   contain a single Unit object within it.
-   * 
-   * <li> The value of the "kind" attribute in a Unit instance must be drawn
-   *   from one of the values in the second column of the table above.
+   * <li> The UnitDefinition of a predefined SBML unit can only
+   *      contain a single Unit object within it.
+   * <li> The value of the "kind" attribute in 
+   *      a Unit instance must be drawn from one of the values
+   *      in the second column of the table above.
    * </ul>
    * 
    * @param id the identifier to assign to the new unit definition.
@@ -393,9 +388,9 @@ public:
 
   /**
    * Convenience function for testing if a given unit definition is a
-   * variant of the built-in unit @c "area".
+   * variant of the predefined unit identifier @c "area".
    *
-   * @return @c true if this UnitDefinition is a variant of the built-in
+   * @return @c true if this UnitDefinition is a variant of the predefined
    * unit @c area, meaning square metres with only abritrary variations
    * in scale or multiplier values; @c false otherwise.
    */
@@ -404,9 +399,9 @@ public:
 
   /**
    * Convenience function for testing if a given unit definition is a
-   * variant of the built-in unit @c "length".
+   * variant of the predefined unit identifier @c "length".
    *
-   * @return @c true if this UnitDefinition is a variant of the built-in
+   * @return @c true if this UnitDefinition is a variant of the predefined
    * unit @c length, meaning metres with only abritrary variations in scale
    * or multiplier values; @c false otherwise.
    */
@@ -415,11 +410,11 @@ public:
 
   /**
    * Convenience function for testing if a given unit definition is a
-   * variant of the built-in unit @c "substance".
+   * variant of the predefined unit identifier @c "substance".
    *
-   * @return @c true if this UnitDefinition is a variant of the built-in
-   * unit substance, meaning moles or items (and grams or kilograms from
-   * SBML level 2 version 2 onwards) with only abritrary variations
+   * @return @c true if this UnitDefinition is a variant of the predefined
+   * unit @c substance, meaning moles or items (and grams or kilograms from
+   * SBML Level&nbsp;2 Version&nbsp;2 onwards) with only abritrary variations
    * in scale or multiplier values; @c false otherwise.
    */
   bool isVariantOfSubstance () const;
@@ -427,10 +422,10 @@ public:
 
   /**
    * Convenience function for testing if a given unit definition is a
-   * variant of the built-in unit @c "time".
+   * variant of the predefined unit identifier @c "time".
    *
-   * @return @c true if this UnitDefinition is a variant of the built-in
-   * unit time, meaning seconds with only abritrary variations in scale or
+   * @return @c true if this UnitDefinition is a variant of the predefined
+   * unit @c time, meaning seconds with only abritrary variations in scale or
    * multiplier values; @c false otherwise.
    */
   bool isVariantOfTime () const;
@@ -438,10 +433,10 @@ public:
 
   /**
    * Convenience function for testing if a given unit definition is a
-   * variant of the built-in unit @c "volume".
+   * variant of the predefined unit identifier @c "volume".
    *
-   * @return @c true if this UnitDefinition is a variant of the built-in
-   * unit volume, meaning litre or cubic metre with only abritrary
+   * @return @c true if this UnitDefinition is a variant of the predefined
+   * unit @c volume, meaning litre or cubic metre with only abritrary
    * variations in scale or multiplier values; @c false otherwise.
    */
   bool isVariantOfVolume () const;
@@ -451,33 +446,33 @@ public:
    * Convenience function for testing if a given unit definition is a
    * variant of the unit @c "dimensionless".
    *
-   * @return @c true if this UnitDefinition is a variant of dimensionless,
-   * meaning dimensionless with only abritrary variations in scale or
-   * multiplier values; @c false otherwise.
+   * @return @c true if this UnitDefinition is a variant of @c
+   * dimensionless, meaning dimensionless with only abritrary variations in
+   * scale or multiplier values; @c false otherwise.
    */
   bool isVariantOfDimensionless () const;
 
 
   /**
    * Convenience function for testing if a given unit definition is a
-   * variant of the built-in unit @c "mass".
+   * variant of the predefined unit identifier @c "mass".
    *
-   * @return @c true if this UnitDefinition is a variant of mass, meaning
-   * gram or kilogram with only abritrary variations in scale or multiplier
-   * values; @c false otherwise.
+   * @return @c true if this UnitDefinition is a variant of mass units,
+   * meaning gram or kilogram with only abritrary variations in scale or
+   * multiplier values; @c false otherwise.
    */
   bool isVariantOfMass () const;
 
 
   /**
    * Convenience function for testing if a given unit definition is a
-   * variant of the built-in unit @c "substance" divided by the built-in
+   * variant of the predefined unit @c "substance" divided by the predefined
    * unit @c "time".
    *
-   * @return @c true if this UnitDefinition is a variant of the built-in
-   * unit substance per built-in unit time, meaning it contains two units
-   * one of which is a variant of substance and the other is a variant of
-   * time which an exponent of -1; @c false otherwise.
+   * @return @c true if this UnitDefinition is a variant of the predefined
+   * unit @c substance per predefined unit @c time, meaning it contains two
+   * units one of which is a variant of substance and the other is a
+   * variant of time which an exponent of -1; @c false otherwise.
    */
   bool isVariantOfSubstancePerTime () const;
 
@@ -592,7 +587,7 @@ public:
 
   /** 
   * Simplifies the UnitDefinition so that any Unit objects occurring within
-  * the @c listOfUnits occurs only once.
+  * the ListOfUnits occurs only once.
   *
   * For example, the following definition,
   * @code
@@ -618,7 +613,7 @@ public:
 
 
   /** 
-   * Orders alphabetically the Unit objects within the listOfUnits of a
+   * Orders alphabetically the Unit objects within the ListOfUnits of a
    * UnitDefinition.
    *
    * @param ud the UnitDefinition object whose units are to be reordered.
@@ -646,8 +641,8 @@ public:
    * objects are considered identical when they contain identical lists of
    * Unit objects.  Pairs of Unit objects in the lists are in turn
    * considered identical if they satisfy the predicate
-   * Unit::areIdentical(Unit * unit1, Unit * unit2).  The predicate
-   * compares every attribute of the Unit objects.
+   * Unit::areIdentical().  The predicate compares every attribute of the
+   * Unit objects.
    *
    * @param ud1 the first UnitDefinition object to compare
    * @param ud2 the second UnitDefinition object to compare
@@ -656,7 +651,7 @@ public:
    * Unit objects of ud2, @c false otherwise.
    *
    * @see areEquivalent()
-   * @see Unit::areIdentical(Unit * unit1, Unit * unit2)
+   * @see Unit::areIdentical()
    */
   static bool areIdentical(const UnitDefinition * ud1, const UnitDefinition * ud2);
 
@@ -668,8 +663,8 @@ public:
    * For the purposes of performing this comparison, two UnitDefinition
    * objects are considered equivalent when they contain @em equivalent
    * list of Unit objects.  Unit objects are in turn considered equivalent
-   * if they satisfy the predicate Unit::areEquivalent(Unit * unit1, Unit *
-   * unit2).  The predicate tests a subset of the objects's attributes.
+   * if they satisfy the predicate Unit::areEquivalent().  The predicate
+   * tests a subset of the objects's attributes.
    *
    * @param ud1 the first UnitDefinition object to compare
    * 
@@ -679,7 +674,7 @@ public:
    * to the Unit objects in ud2, @c false otherwise.
    *
    * @see areIdentical()
-   * @see Unit::areEquivalent(Unit * unit1, Unit * unit2)
+   * @see Unit::areEquivalent()
    */
   static bool areEquivalent(const UnitDefinition *ud1 , const UnitDefinition * ud2);
 
@@ -712,7 +707,8 @@ public:
    * <unitDefinition>
    * @endcode
    * will return the string <code>"metre (exponent = 1) second (exponent =
-   * -2)"</code>.
+   * -2)"</code>.  This may be useful for printing unit information to
+   * human users, or in debugging, or other situations.
    *
    * @param ud the UnitDefinition object
    *
@@ -777,22 +773,47 @@ public:
    */
   virtual ListOfUnitDefinitions* clone () const;
 
+
   /**
    * Returns the libSBML type code for this %SBML object.
-   * 
-   * @return the #SBMLTypeCode_t value of this object or @c SBML_UNKNOWN
-   * (default).
+   *
+   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.
+   * The set of possible type codes is defined in the enumeration
+   * #SBMLTypeCode_t.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In other languages, the set of type codes
+   * is stored in an enumeration; in the Java language interface for
+   * libSBML, the type codes are defined as static integer constants in
+   * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */
   virtual SBMLTypeCode_t getTypeCode () const { return SBML_LIST_OF; };
 
+
   /**
    * Returns the libSBML type code for the objects contained in this ListOf
    * (i.e., UnitDefinition objects, if the list is non-empty).
+   *
+   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.
+   * The set of possible type codes is defined in the enumeration
+   * #SBMLTypeCode_t.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In other languages, the set of type codes
+   * is stored in an enumeration; in the Java language interface for
+   * libSBML, the type codes are defined as static integer constants in
+   * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif
    * 
-   * @return the #SBMLTypeCode_t value of SBML objects contained in this
-   * ListOf or @c SBML_UNKNOWN (default).
+   * @return the SBML type code for the objects contained in this ListOf
+   * instance, or @c SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */
@@ -832,6 +853,7 @@ public:
    * @see size()
    */
   virtual const UnitDefinition * get(unsigned int n) const; 
+
 
   /**
    * Get a UnitDefinition from the ListOfUnitDefinitions

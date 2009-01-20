@@ -23,7 +23,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class Rule
- * @brief LibSBML implementation of %SBML's Rule construct.
+ * @brief LibSBML implementation of %SBML's %Rule construct.
  *
  * In SBML, @em rules provide additional ways to define the values of
  * variables in a model, their relationships, and the dynamical behaviors
@@ -185,7 +185,7 @@
  */ 
 /**
  * @class AlgebraicRule
- * @brief LibSBML implementation of %SBML's AlgebraicRule construct.
+ * @brief LibSBML implementation of %SBML's %AlgebraicRule construct.
  *
  * The rule type AlgebraicRule is derived from the parent class Rule.  It
  * is used to express equations that are neither assignments of model
@@ -235,7 +235,7 @@
  */ 
 /**
  * @class AssignmentRule
- * @brief LibSBML implementation of %SBML's AssignmentRule construct.
+ * @brief LibSBML implementation of %SBML's %AssignmentRule construct.
  *
  * The rule type AssignmentRule is derived from the parent class Rule.  It
  * is used to express equations that set the values of variables.  The
@@ -314,7 +314,7 @@
  */ 
 /**
  * @class RateRule
- * @brief LibSBML implementation of %SBML's RateRule construct.
+ * @brief LibSBML implementation of %SBML's %RateRule construct.
  *
  * The rule type RateRule is derived from the parent class Rule.  It is
  * used to express equations that determine the rates of change of
@@ -330,7 +330,7 @@
  * substance</em>) to the value determined by the formula in the "math"
  * subelement of the RateRule object.  The overall units of the formula in
  * "math" must be <em>species quantity</em>/<em>time</em>, where the
- * <em>time</em> units are the SBML built-in units of time and the
+ * <em>time</em> units are the SBML predefined units of time and the
  * <em>species quantity</em> units are the <em>units of the species</em>.
  * <em>Restrictions</em>: There must not be both a RateRule "variable"
  * attribute and a SpeciesReference "species" attribute having the same
@@ -343,7 +343,7 @@
  * change of the compartment's size to the value determined by the formula
  * in the "math" subelement of the RateRule object.  The overall units of
  * the formula must be <em>size</em>/<em>time</em>, where the <em>time</em>
- * units are the SBML built-in units of time and the <em>size</em> units
+ * units are the SBML predefined units of time and the <em>size</em> units
  * are the units of size on the compartment.
  *
  * <li> <em>In the case of a parameter</em>, a RateRule sets the rate of
@@ -945,6 +945,7 @@ public:
    */
   virtual ~AlgebraicRule ();
 
+
   /**
    * Creates and returns a deep copy of this Rule.
    * 
@@ -962,11 +963,13 @@ public:
    */
   virtual bool accept (SBMLVisitor& v) const;
 
+
   /** @cond doxygen-libsbml-internal */
 
   /**
    * sets the mInternalIdOnly flag
    */
+
   void setInternalIdOnly();
   bool getInternalIdOnly() const;
   
@@ -1072,6 +1075,7 @@ public:
    * Destroys this AssignmentRule.
    */
   virtual ~AssignmentRule ();
+
 
   /**
    * Creates and returns a deep copy of this Rule.
@@ -1213,11 +1217,23 @@ public:
    */
   virtual ListOfRules* clone () const;
 
+
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @return the #SBMLTypeCode_t value of this object or @c SBML_UNKNOWN
-   * (default).
+   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.
+   * The set of possible type codes is defined in the enumeration
+   * #SBMLTypeCode_t.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In other languages, the set of type codes
+   * is stored in an enumeration; in the Java language interface for
+   * libSBML, the type codes are defined as static integer constants in
+   * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */
@@ -1228,8 +1244,20 @@ public:
    * Returns the libSBML type code for the objects contained in this ListOf
    * (i.e., Rule objects, if the list is non-empty).
    * 
-   * @return the #SBMLTypeCode_t value of SBML objects contained in this
-   * ListOf or @c SBML_UNKNOWN (default).
+   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.
+   * The set of possible type codes is defined in the enumeration
+   * #SBMLTypeCode_t.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In other languages, the set of type codes
+   * is stored in an enumeration; in the Java language interface for
+   * libSBML, the type codes are defined as static integer constants in
+   * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif
+   * 
+   * @return the SBML type code for the objects contained in this ListOf
+   * instance, or @c SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */
@@ -1268,6 +1296,7 @@ public:
    * @see size()
    */
   virtual const Rule * get(unsigned int n) const; 
+
 
   /**
    * Get a Rule from the ListOfRules

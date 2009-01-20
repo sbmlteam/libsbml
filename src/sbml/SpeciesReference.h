@@ -23,7 +23,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class SimpleSpeciesReference
- * @brief LibSBML implementation of %SBML's SimpleSpeciesReference construct.
+ * @brief LibSBML implementation of %SBML's %SimpleSpeciesReference construct.
  *
  * As mentioned in the description of Reaction, every species that enters
  * into a given reaction must appear in that reaction's lists of reactants,
@@ -1075,8 +1075,19 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @return the #SBMLTypeCode_t value of this object or SBML_UNKNOWN
-   * (default).
+   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.
+   * The set of possible type codes is defined in the enumeration
+   * #SBMLTypeCode_t.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In other languages, the set of type codes
+   * is stored in an enumeration; in the Java language interface for
+   * libSBML, the type codes are defined as static integer constants in
+   * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */
@@ -1086,9 +1097,21 @@ public:
   /**
    * Returns the libSBML type code for the objects contained in this ListOf
    * (i.e., SpeciesReference objects, if the list is non-empty).
+   *
+   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.
+   * The set of possible type codes is defined in the enumeration
+   * #SBMLTypeCode_t.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In other languages, the set of type codes
+   * is stored in an enumeration; in the Java language interface for
+   * libSBML, the type codes are defined as static integer constants in
+   * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif
    * 
-   * @return the #SBMLTypeCode_t value of SBML objects contained in this
-   * ListOf or SBML_UNKNOWN (default).
+   * @return the SBML type code for the objects contained in this ListOf
+   * instance, or @c SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */
@@ -1128,6 +1151,7 @@ public:
    * @see size()
    */
   virtual const SimpleSpeciesReference * get(unsigned int n) const; 
+
 
   /**
    * Get a SpeciesReference from the ListOfSpeciesReferences

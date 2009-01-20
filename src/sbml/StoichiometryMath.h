@@ -22,7 +22,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class StoichiometryMath
- * @brief LibSBML implementation of %SBML's StoichiometryMath construct.
+ * @brief LibSBML implementation of %SBML's %StoichiometryMath construct.
  *
  * In SBML Level 2, product and reactant stoichiometries can be specified
  * using @em either the "stoichiometry" attribute or a "stoichiometryMath"

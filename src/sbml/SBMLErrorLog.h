@@ -35,18 +35,24 @@
  *
  * SBMLErrorLog is derived from XMLErrorLog, an object class that serves
  * exactly the same purpose but for the XML parsing layer.  XMLErrorLog
- * provides crucial methods such as getNumErrors() for determining how many
- * SBMLError or XMLError objects are in the log.  SBMLErrorLog inherits
- * these methods.
+ * provides crucial methods such as SBMLErrorLog::getNumErrors() for
+ * determining how many SBMLError or XMLError objects are in the log.
+ * SBMLErrorLog inherits these methods.
  *
  * The general approach to working with SBMLErrorLog in user programs
  * involves first obtaining a pointer to a log from a libSBML object such
- * as SBMLDocument.  Callers should then use getNumErrors() to inquire how
- * many objects there are in the list.  (The answer may be 0.)  If there is
- * at least one SBMLError object in the SBMLErrorLog instance, callers can
- * then iterate over the list using getError() and use methods on SBMLError
+ * as SBMLDocument.  Callers should then use SBMLErrorLog::getNumErrors()
+ * to inquire how many objects there are in the list.  (The answer may be
+ * 0.)  If there is at least one SBMLError object in the SBMLErrorLog
+ * instance, callers can then iterate over the list using 
+ * @if doxygen-clike-only SBMLErrorLog::getError(), using methods on SBMLError
  * to find out the error code and associated information such as the error
- * severity, the message, and the line number in the input.
+ * severity, the message, and the line number in the
+ * input. @endif@if doxygen-java-only SBMLErrorLog::getError(long n), using
+ * methods on SBMLError  to find out the error code and associated
+ * information such as the error severity, the message, and the line number
+ * in the input. 
+ * @endif
  *
  * If you wish to simply print the error strings for a human to read, an
  * easier and more direct way might be to use SBMLDocument::printErrors().
@@ -72,22 +78,37 @@ public:
    * Returns the nth SBMLError in this log.
    *
    * Callers should first inquire about the number of items in the log by
-   * using the getNumErrors() method defined on the parent class
-   * (XMLErrorLog).  Attempting to using an error index number that exceed
-   * the number of errors in the log will result in a NULL being returned.
+   * using the SBMLErrorLog::getNumErrors() method.  (This method is
+   * inherited from the parent class, XMLErrorLog).  Attempting to using an
+   * error index number that exceed the number of errors in the log will
+   * result in a NULL being returned.
    *
    * @param n unsigned int number of the error to retrieve.
    *
-   * @return the nth SBMLError in this log.
+   * @return the <code>n</code>th SBMLError in this log.
    */
   const SBMLError* getError (unsigned int n) const;
 
 
   /**
-   * Returns number of errors that are logged with the given severity, which
-   * should be a value taken from the enumeration #SBMLErrorSeverity_t.
-   * 
-   * @param severity a value from #SBMLErrorSeverity_t
+   * Returns the number of errors that have been logged with the given
+   * severity code.
+   *
+   * LibSBML associates severity levels with every SBMLError object to
+   * provide an indication of how serious the problem is.  Severities range
+   * from informational diagnostics to fatal (irrecoverable) errors.  Given
+   * an SBMLError object instance, a caller can interrogate it for its
+   * severity level using methods such as SBMLError::getSeverity(),
+   * SBMLError::isFatal(), and so on.  The present method encapsulates
+   * iteration and interrogation of all objects in an SBMLErrorLog, making
+   * it easy to check for the presence of error objects with specific
+   * severity levels.
+   *
+   * @if doxygen-clike-only @param severity a value from
+   * #SBMLErrorSeverity_t @endif@if doxygen-java-only @param severity a
+   * value from the set of <code>LIBSBML_SEV_</code> constants defined by
+   * the interface class <code><a
+   * href="libsbmlConstants.html">libsbmlConstants</a></code> @endif
    */
   unsigned int getNumFailsWithSeverity(unsigned int severity);
 

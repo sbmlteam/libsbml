@@ -22,7 +22,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class Trigger
- * @brief LibSBML implementation of %SBML's Trigger construct for Event.
+ * @brief LibSBML implementation of %SBML's %Trigger construct for Event.
  *
  * An Event object defines when the event can occur, the variables that
  * are affected by the event, and how the variables are affected.  The

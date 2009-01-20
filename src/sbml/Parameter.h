@@ -22,7 +22,7 @@
  *------------------------------------------------------------------------- -->
  * 
  * @class Parameter.
- * @brief LibSBML implementation of %SBML's Parameter construct.
+ * @brief LibSBML implementation of %SBML's %Parameter construct.
  *
  * A Parameter is used in %SBML to define a symbol associated with a value;
  * this symbol can then be used in mathematical formulas in a model.  By
@@ -529,11 +529,23 @@ public:
    */
   virtual ListOfParameters* clone () const;
 
+
   /**
    * Returns the libSBML type code for this %SBML object.
-   * 
-   * @return the #SBMLTypeCode_t value of this object or @c SBML_UNKNOWN
-   * (default).
+   *
+   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.
+   * The set of possible type codes is defined in the enumeration
+   * #SBMLTypeCode_t.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In other languages, the set of type codes
+   * is stored in an enumeration; in the Java language interface for
+   * libSBML, the type codes are defined as static integer constants in
+   * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */
@@ -544,8 +556,20 @@ public:
    * Returns the libSBML type code for the objects contained in this ListOf
    * (i.e., Parameter objects, if the list is non-empty).
    * 
-   * @return the #SBMLTypeCode_t value of SBML objects contained in this
-   * ListOf or @c SBML_UNKNOWN (default).
+   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.
+   * The set of possible type codes is defined in the enumeration
+   * #SBMLTypeCode_t.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In other languages, the set of type codes
+   * is stored in an enumeration; in the Java language interface for
+   * libSBML, the type codes are defined as static integer constants in
+   * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif
+   * 
+   * @return the SBML type code for the objects contained in this ListOf
+   * instance, or @c SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */
@@ -584,6 +608,7 @@ public:
    * @see size()
    */
   virtual const Parameter * get(unsigned int n) const; 
+
 
   /**
    * Get a Parameter from the ListOfParameters

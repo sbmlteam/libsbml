@@ -22,7 +22,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class Compartment
- * @brief  LibSBML implementation of %SBML's Compartment construct.
+ * @brief  LibSBML implementation of %SBML's %Compartment construct.
  *
  * A compartment in SBML represents a bounded space in which species are
  * located.  Compartments do not necessarily have to correspond to actual
@@ -86,10 +86,10 @@
  * units, and the kinds of units allowed as values of the attribute
  * "units", interact with the number of spatial dimensions of the
  * compartment.  The value of the "units" attribute of a Compartment object
- * must be one of the base units (see Unit), or the built-in units @c
- * volume, @c area, @c length or @c dimensionless, or a new unit defined by
- * a UnitDefinition object in the enclosing Model, subject to the
- * restrictions detailed in the following table:
+ * must be one of the base units (see Unit), or the predefined unit
+ * identifiers @c volume, @c area, @c length or @c dimensionless, or a new
+ * unit defined by a UnitDefinition object in the enclosing Model, subject
+ * to the restrictions detailed in the following table:
  *
  * @image html compartment-size.jpg "Units permitted for compartment sizes"
  * @image latex compartment-size.jpg "Units permitted for compartment sizes"
@@ -164,23 +164,40 @@
  * inside itself.  In the absence of a value for "outside", compartment
  * definitions in SBML Level 2 do not have any implied spatial
  * relationships between each other.
+ *
+ * It is worth noting that in SBML, there is no relationship between
+ * compartment sizes when compartment positioning is expressed using the
+ * "outside" attribute.  The size of a given compartment does not in any
+ * sense include the sizes of other compartments having it as the value of
+ * their "outside" attributes.  In other words, if a compartment @em B has
+ * the identifier of compartment @em A as its "outside" attribute value,
+ * the size of @em A does not include the size of @em B.  The compartment
+ * sizes are separate.
  * 
- * @note The "size" attribute on Compartment is defined as optional;
+ * @note the "size" attribute on a compartment must be defined as optional;
  * however, <em>it is extremely good practice to specify values for
- * compartment sizes</em> when such values are available.  There are two
- * major technical reasons for this.  First, models ideally should be
- * instantiable in a variety of simulation frameworks.  A commonly-used one
- * is the discrete stochastic framework, in which species are represented
- * as item counts (e.g., molecule counts).  If species' initial quantities
- * are given in terms of concentrations or densities, it is impossible to
- * convert the values to item counts without knowing compartment sizes.
- * Second, and more importantly, if a model contains multiple compartments
+ * compartment sizes</em> when such values are available.  There are three
+ * major technical reasons for this.  First, if the model contains any
+ * species whose initial amounts are given in terms of concentrations, and
+ * there is at least one reaction in the model referencing such a species,
+ * then the model is numerically incomplete if it lacks a value for the
+ * size of the compartment in which the species is located.  The reason is
+ * simply that SBML Reaction objects defined in units of
+ * <em>substance</em>/<em>time</em>, not concentration per time, and
+ * thus the compartment size must at some point be used to convert from
+ * species concentration to substance units.  Second, models ideally should
+ * be instantiable in a variety of simulation frameworks.  A commonly-used
+ * one is the discrete stochastic framework in which species are
+ * represented as item counts (e.g., molecule counts).  If species' initial
+ * quantities are given in terms of concentrations or densities, it is
+ * impossible to convert the values to item counts without knowing
+ * compartment sizes.  Third, if a model contains multiple compartments
  * whose sizes are not all identical to each other, it is impossible to
  * quantify the reaction rate expressions without knowing the compartment
- * volumes.  The reason for the latter is that reaction rates in SBML are
- * defined in terms of substance/time, and when species quantities are
- * given in terms of concentrations or densities, the compartment sizes
- * become factors in the reaction rate expressions.
+ * volumes.  The reason for the latter is again that reaction rates in SBML
+ * are defined in terms of <em>substance</em>/<em>time</em>, and when
+ * species quantities are given in terms of concentrations or densities,
+ * the compartment sizes become factors in the reaction rate expressions.
  *
  * <!-- leave this next break as-is to work around some doxygen bug -->
  */ 
@@ -195,7 +212,7 @@
  * ListOf___ classes do not add any attributes of their own.
  *
  * The relationship between the lists and the rest of an %SBML model is
- * illustrated by the following (for %SBML Level 2 Version 3):
+ * illustrated by the following (for %SBML Level&nbsp;2 Version&nbsp;4):
  *
  * @image html listof-illustration.jpg "ListOf___ elements in an SBML Model"
  * @image latex listof-illustration.jpg "ListOf___ elements in an SBML Model"
@@ -728,23 +745,48 @@ public:
    */
   virtual ListOfCompartments* clone () const;
 
+
   /**
    * Returns the libSBML type code for this %SBML object.
-   * 
-   * @return the #SBMLTypeCode_t value of this object or SBML_UNKNOWN
-   * (default).
    *
+   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.
+   * The set of possible type codes is defined in the enumeration
+   * #SBMLTypeCode_t.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In other languages, the set of type codes
+   * is stored in an enumeration; in the Java language interface for
+   * libSBML, the type codes are defined as static integer constants in
+   * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
+
    * @see getElementName()
    */
   virtual SBMLTypeCode_t getTypeCode () const { return SBML_LIST_OF; };
 
+
   /**
    * Returns the libSBML type code for the objects contained in this ListOf
    * (i.e., Compartment objects, if the list is non-empty).
-   * 
-   * @return the #SBMLTypeCode_t value of SBML objects contained in this
-   * ListOf or SBML_UNKNOWN (default).
    *
+   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.
+   * The set of possible type codes is defined in the enumeration
+   * #SBMLTypeCode_t.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In other languages, the set of type codes
+   * is stored in an enumeration; in the Java language interface for
+   * libSBML, the type codes are defined as static integer constants in
+   * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif
+   * 
+   * @return the SBML type code for the objects contained in this ListOf
+   * instance, or @c SBML_UNKNOWN (default).
+
    * @see getElementName()
    */
   virtual SBMLTypeCode_t getItemTypeCode () const;

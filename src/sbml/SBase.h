@@ -22,7 +22,7 @@
  *------------------------------------------------------------------------- -->
  * 
  * @class SBase
- * @brief LibSBML implementation of SBase, the base class of all SBML objects.
+ * @brief LibSBML implementation of %SBase, the base class of all SBML objects.
  *
  * Most components in SBML are derived from a single abstract base type,
  * SBase.  In addition to serving as the parent class for most other
@@ -109,7 +109,7 @@
  * "notes" element content using a prefix.  The following example
  * illustrates this approach:
  * @verbatim
-<sbml xmlns="http://www.sbml.org/sbml/level2/version2" level="2" version="3"
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4"
       xmlns:xhtml="http://www.w3.org/1999/xhtml">
   ...
   <notes>
