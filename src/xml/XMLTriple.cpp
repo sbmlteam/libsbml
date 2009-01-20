@@ -100,6 +100,7 @@ XMLTriple::XMLTriple(const XMLTriple& orig)
   mPrefix = orig.mPrefix;
 }
 
+
 /*
  * Assignment operator for XMLTriple.
  */
@@ -113,6 +114,7 @@ XMLTriple::operator=(const XMLTriple& orig)
   return *this;
 }
 
+
 /*
  * Creates and returns a deep copy of this XMLTriple set.
  * 
@@ -122,6 +124,36 @@ XMLTriple*
 XMLTriple::clone () const
 {
   return new XMLTriple(*this);
+}
+
+
+/*
+ * @return a string, the name from this XMLTriple.
+ */
+const std::string&
+XMLTriple::getName () const
+{
+  return mName;
+}
+
+
+/*
+ * @return a string, the @em prefix portion of this XMLTriple.
+ */
+const std::string& 
+XMLTriple::getPrefix () const
+{
+  return mPrefix;
+}
+
+
+/*
+ * @return URI a string, the @em prefix portion of this XMLTriple.
+ */
+const std::string&
+XMLTriple::getURI () const
+{
+  return mURI;
 }
 
 

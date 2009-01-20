@@ -77,7 +77,8 @@ public:
 
 
   /**
-   * Creates a new XMLTriple with the given @p name, @p prefix and and @p uri.
+   * Creates a new XMLTriple with the given @p name, @p uri and and @p
+   * prefix.
    *
    * @param name a string, name for the XMLTriple.
    * @param uri a string, URI of the XMLTriple.
@@ -137,33 +138,33 @@ public:
 
 
   /**
-   * Returns the name from this XMLTriple.
+   * Returns the @em name portion of this XMLTriple.
    *
-   * @return name from this XMLTriple.
+   * @return a string, the name from this XMLTriple.
    */
-  const std::string& getName   () const { return mName;   }
+  const std::string& getName () const;
 
 
   /**
-   * Returns the prefix from this XMLTriple.
+   * Returns the @em prefix portion of this XMLTriple.
    *
-   * @return prefix from this XMLTriple.
+   * @return a string, the @em prefix portion of this XMLTriple.
    */
-  const std::string& getPrefix () const { return mPrefix; }
+  const std::string& getPrefix () const;
 
 
   /**
-   * Returns the URI from this XMLTriple.
+   * Returns the @em URI portion of this XMLTriple.
    *
-   * @return URI from this XMLTriple.
+   * @return URI a string, the @em prefix portion of this XMLTriple.
    */
-  const std::string& getURI    () const { return mURI;    }
+  const std::string& getURI () const;
 
 
   /**
    * Returns the prefixed name from this XMLTriple.
    *
-   * @return prefixed name from this XMLTriple.
+   * @return a string, the prefixed name from this XMLTriple.
    */
   const std::string getPrefixedName () const;
 
