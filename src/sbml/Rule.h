@@ -921,6 +921,7 @@ public:
   AlgebraicRule (const ASTNode* math);
 
 
+  /** @cond doxygen-libsbml-internal until after the 3.3.0 release */
   /**
    * Creates a new AlgebraicRule using the given SBML @p level and @p version
    * values and optionally a set of XMLNamespaces.
@@ -955,6 +956,8 @@ public:
    */
   AlgebraicRule (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
+  /** @endcond doxygen-libsbml-internal */
+
 
   /**
    * Destroys this AlgebraicRule.
@@ -1052,6 +1055,7 @@ public:
   AssignmentRule (const std::string& variable, const ASTNode* math);
 
 
+  /** @cond doxygen-libsbml-internal until after the 3.3.0 release */
   /**
    * Creates a new AssignmentRule using the given SBML @p level and @p version
    * values and optionally a set of XMLNamespaces.
@@ -1086,6 +1090,8 @@ public:
    */
   AssignmentRule (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
+  /** @endcond doxygen-libsbml-internal */
+
 
   /**
    * Destroys this AssignmentRule.
@@ -1162,6 +1168,7 @@ public:
   RateRule (const std::string& variable, const ASTNode* math);
 
 
+  /** @cond doxygen-libsbml-internal until after the 3.3.0 release */
   /**
    * Creates a new RateRule using the given SBML @p level and @p version
    * values and optionally a set of XMLNamespaces.
@@ -1196,6 +1203,9 @@ public:
    */
   RateRule (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
+  /** @endcond doxygen-libsbml-internal */
+
+
 
   /**
    * Destroys this RateRule.

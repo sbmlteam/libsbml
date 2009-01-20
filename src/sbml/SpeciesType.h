@@ -145,6 +145,7 @@ public:
   SpeciesType (const std::string& id = "", const std::string& name = "");
 
 
+  /** @cond doxygen-libsbml-internal until after the 3.3.0 release */
   /**
    * Creates a new SpeciesType using the given SBML @p level and @p version
    * values and optionally a set of XMLNamespaces.
@@ -186,6 +187,8 @@ public:
    */
   SpeciesType (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
+  /** @endcond doxygen-libsbml-internal */
+
 
 
   /**
