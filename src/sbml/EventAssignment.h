@@ -107,7 +107,7 @@
  * EventAssignment's "math" expression are the values they have at the
  * point when the event <em>executed</em>.
  *
- * Between Version&nsp;4 and previous versions of SBML Level&nbsp;2, the
+ * Between Version&nbsp;4 and previous versions of SBML Level&nbsp;2, the
  * requirements regarding the matching of units between an
  * EvengAssignment's formula and the units of the object identified by the
  * "variable" attribute changed.  Previous versions required consistency,

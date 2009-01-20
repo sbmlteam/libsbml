@@ -1144,6 +1144,7 @@ XMLAttributes::attributeRequiredError (const std::string&  name,
 /** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /*
  * Sets the XMLErrorLog this parser will use to log errors.
  */
@@ -1152,6 +1153,7 @@ XMLAttributes::setErrorLog (XMLErrorLog* log)
 {
   mLog = log;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /** @cond doxygen-libsbml-internal */

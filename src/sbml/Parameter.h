@@ -178,7 +178,7 @@ public:
    * constructor if no identifier is provided as an argument.  Setting the
    * identifier can be accomplished using the method @if doxygen-clike-only
    * SBase::setId() @endif@if doxygen-java-only SBase::setId(String id)
-   * @endif.
+   * @endif
    *
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different
@@ -238,8 +238,8 @@ public:
    * Thus, callers are cautioned to assign a value after calling this
    * constructor if no identifier is provided as an argument.  Setting the
    * identifier can be accomplished using the method @if doxygen-clike-only
-   * SBase::setId() @endif@if doxygen-java-only SBase::setId(String id)
-   * @endif.
+   * SBase::setId(). @endif@if doxygen-java-only SBase::setId(String id).
+   * @endif
    *
    * @param level an unsigned int, the SBML Level to assign to this Parameter
    *
