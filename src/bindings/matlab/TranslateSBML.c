@@ -2882,9 +2882,9 @@ GetStoichiometryMath ( SpeciesReference_t      *pSpeciesReference,
   }
     
   if (StoichiometryMath_isSetMath(pStoichiometryMath)) {
-    LookForCSymbolTime(StoichiometryMath_getMath(pStoichiometryMath));
-    LookForCSymbolDelay(StoichiometryMath_getMath(pStoichiometryMath));
-    pacFormula = SBML_formulaToString(StoichiometryMath_getMath(pStoichiometryMath));
+    LookForCSymbolTime((ASTNode_t*)StoichiometryMath_getMath(pStoichiometryMath));
+    LookForCSymbolDelay((ASTNode_t*)StoichiometryMath_getMath(pStoichiometryMath));
+    pacFormula = SBML_formulaToString((ASTNode_t*)StoichiometryMath_getMath(pStoichiometryMath));
 
      /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
 
@@ -3064,10 +3064,10 @@ GetKineticLaw ( Reaction_t   *pReaction,
      if (KineticLaw_isSetMath(pKineticLaw)) 
       {
         /* look for csymbol time */
-        LookForCSymbolTime(KineticLaw_getMath(pKineticLaw));
-        LookForCSymbolDelay(KineticLaw_getMath(pKineticLaw));
+        LookForCSymbolTime((ASTNode_t*)KineticLaw_getMath(pKineticLaw));
+        LookForCSymbolDelay((ASTNode_t*)KineticLaw_getMath(pKineticLaw));
       /*  KineticLaw_setFormulaFromMath(pKineticLaw); */
-        pacMathFormula = SBML_formulaToString(KineticLaw_getMath(pKineticLaw));
+        pacMathFormula = SBML_formulaToString((ASTNode_t*)KineticLaw_getMath(pKineticLaw));
       }
       
       switch (unSBMLVersion)
@@ -3709,9 +3709,9 @@ GetRule ( Model_t      *pModel,
     {
       pacMetaid = SBase_getMetaId((SBase_t*)pRule);
       if (Rule_isSetFormula(pRule) == 1){
-        LookForCSymbolTime(Rule_getMath(pRule));
-        LookForCSymbolDelay(Rule_getMath(pRule));
-        pacFormula = SBML_formulaToString(Rule_getMath(pRule));
+        LookForCSymbolTime((ASTNode_t*)Rule_getMath(pRule));
+        LookForCSymbolDelay((ASTNode_t*)Rule_getMath(pRule));
+        pacFormula = SBML_formulaToString((ASTNode_t*)Rule_getMath(pRule));
       }
     }
 
@@ -4128,9 +4128,9 @@ GetFunctionDefinition ( Model_t      *pModel,
     }
    if (FunctionDefinition_isSetMath(pFuncDefinition)) 
    {
-      LookForCSymbolTime(FunctionDefinition_getMath(pFuncDefinition));
-      LookForCSymbolDelay(FunctionDefinition_getMath(pFuncDefinition));
-      pacFormula = SBML_formulaToString(FunctionDefinition_getMath(pFuncDefinition));
+      LookForCSymbolTime((ASTNode_t*)FunctionDefinition_getMath(pFuncDefinition));
+      LookForCSymbolDelay((ASTNode_t*)FunctionDefinition_getMath(pFuncDefinition));
+      pacFormula = SBML_formulaToString((ASTNode_t*)FunctionDefinition_getMath(pFuncDefinition));
     }
   /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
     
@@ -4356,16 +4356,16 @@ GetEvent (Model_t      *pModel,
     {
       if (Event_isSetTrigger(pEvent)) 
       {
-        LookForCSymbolTime(Trigger_getMath(Event_getTrigger(pEvent)));
-        LookForCSymbolDelay(Trigger_getMath(Event_getTrigger(pEvent)));
-        pacTrigger = SBML_formulaToString(Trigger_getMath(Event_getTrigger(pEvent)));
+        LookForCSymbolTime((ASTNode_t*)Trigger_getMath(Event_getTrigger(pEvent)));
+        LookForCSymbolDelay((ASTNode_t*)Trigger_getMath(Event_getTrigger(pEvent)));
+        pacTrigger = SBML_formulaToString((ASTNode_t*)Trigger_getMath(Event_getTrigger(pEvent)));
       }
 
       if (Event_isSetDelay(pEvent)) 
       {
-        LookForCSymbolTime(Delay_getMath(Event_getDelay(pEvent)));
-        LookForCSymbolDelay(Delay_getMath(Event_getDelay(pEvent)));
-        pacDelay      = SBML_formulaToString(Delay_getMath(Event_getDelay(pEvent)));
+        LookForCSymbolTime((ASTNode_t*)Delay_getMath(Event_getDelay(pEvent)));
+        LookForCSymbolDelay((ASTNode_t*)Delay_getMath(Event_getDelay(pEvent)));
+        pacDelay      = SBML_formulaToString((ASTNode_t*)Delay_getMath(Event_getDelay(pEvent)));
       }
         /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
 
@@ -4614,9 +4614,9 @@ GetEventAssignment ( Event_t      *pEvent,
     }
      
      if (EventAssignment_isSetMath(pEventAssignment)) {
-      LookForCSymbolTime(EventAssignment_getMath(pEventAssignment));
-      LookForCSymbolDelay(EventAssignment_getMath(pEventAssignment));
-      pacFormula = SBML_formulaToString(EventAssignment_getMath(pEventAssignment));
+      LookForCSymbolTime((ASTNode_t*)EventAssignment_getMath(pEventAssignment));
+      LookForCSymbolDelay((ASTNode_t*)EventAssignment_getMath(pEventAssignment));
+      pacFormula = SBML_formulaToString((ASTNode_t*)EventAssignment_getMath(pEventAssignment));
     }
    /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
   
@@ -4756,9 +4756,9 @@ GetTrigger ( Event_t      *pEvent,
   }
     
   if (Trigger_isSetMath(pTrigger)) {
-    LookForCSymbolTime(Trigger_getMath(pTrigger));
-    LookForCSymbolDelay(Trigger_getMath(pTrigger));
-    pacFormula = SBML_formulaToString(Trigger_getMath(pTrigger));
+    LookForCSymbolTime((ASTNode_t*)Trigger_getMath(pTrigger));
+    LookForCSymbolDelay((ASTNode_t*)Trigger_getMath(pTrigger));
+    pacFormula = SBML_formulaToString((ASTNode_t*)Trigger_getMath(pTrigger));
 
      /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
 
@@ -4886,9 +4886,9 @@ GetDelay ( Event_t      *pEvent,
   }
     
   if (Delay_isSetMath(pDelay)) {
-    LookForCSymbolTime(Delay_getMath(pDelay));
-    LookForCSymbolDelay(Delay_getMath(pDelay));
-    pacFormula = SBML_formulaToString(Delay_getMath(pDelay));
+    LookForCSymbolTime((ASTNode_t*)Delay_getMath(pDelay));
+    LookForCSymbolDelay((ASTNode_t*)Delay_getMath(pDelay));
+    pacFormula = SBML_formulaToString((ASTNode_t*)Delay_getMath(pDelay));
 
      /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
 
@@ -5413,9 +5413,9 @@ GetInitialAssignment (Model_t      *pModel,
     }
 
     if (InitialAssignment_isSetMath(pInitialAssignment) == 1) {
-      LookForCSymbolTime(InitialAssignment_getMath(pInitialAssignment));
-      LookForCSymbolDelay(InitialAssignment_getMath(pInitialAssignment));
-      pacMath = SBML_formulaToString(InitialAssignment_getMath(pInitialAssignment));
+      LookForCSymbolTime((ASTNode_t*)InitialAssignment_getMath(pInitialAssignment));
+      LookForCSymbolDelay((ASTNode_t*)InitialAssignment_getMath(pInitialAssignment));
+      pacMath = SBML_formulaToString((ASTNode_t*)InitialAssignment_getMath(pInitialAssignment));
     }
  
       /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
@@ -5577,9 +5577,9 @@ GetConstraint (Model_t      *pModel,
     }
 
     if (Constraint_isSetMath(pConstraint)) {
-      LookForCSymbolTime(Constraint_getMath(pConstraint));
-      LookForCSymbolDelay(Constraint_getMath(pConstraint));
-      pacMath = SBML_formulaToString(Constraint_getMath(pConstraint));
+      LookForCSymbolTime((ASTNode_t*)Constraint_getMath(pConstraint));
+      LookForCSymbolDelay((ASTNode_t*)Constraint_getMath(pConstraint));
+      pacMath = SBML_formulaToString((ASTNode_t*)Constraint_getMath(pConstraint));
     }
     
       /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
