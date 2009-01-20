@@ -93,8 +93,8 @@
  * report for a particular problem (which in turn makes a difference when a
  * problem involves an opening XML tag on one line and a closing tag on
  * another line).  In some situations, some parsers report invalid line
- * and/or column numbers altogether.  If this occurs, the line and/or
- * column number in the XMLError object will be set to the the value of the
+ * and/or column numbers altogether.  If this occurs, libSBML sets the line
+ * and/or column number in the XMLError object to the the value of the
  * maximum unsigned long integer representable on the platform where
  * libSBML is running.  (This is equal to the constant named
  * <code>ULONG_MAX</code> in C and C++.)  The probability that a true line
@@ -117,12 +117,12 @@
  * The error and warning codes returned by the XML layer in libSBML are
  * listed in the table below.  In the libSBML Java language interface,
  * these error identifiers are currently (in libSBML 3.3.x) implemented as
- * static integer constants defined in the interface class
- * <code>libsbmlConstants</code> in the file "libsbmlConstants.java".  This
- * is admittedly not an ideal approach from the standpoint of modern Java
- * programming, but it was necessary to work around the lack of
- * enumerations in Java prior to JDK 1.5.  Future versions of libSBML may
- * use a proper Java enumeration type to define the error identifiers. @endif
+ * static integer constants defined in the interface class <code><a
+ * href="libsbmlConstants.html">libsbmlConstants</a></code>.  This is admittedly
+ * not an ideal approach from the standpoint of modern Java programming,
+ * but it was necessary to work around the lack of enumerations in Java
+ * prior to JDK 1.5.  Future versions of libSBML may use a proper Java
+ * enumeration type to define the error identifiers. @endif
  *
  * <center>
  * <table cellspacing="1" cellpadding="1" border="0" class="text-table width80 normal-font alt-row-colors">
@@ -210,7 +210,9 @@
  * As is the case with the error codes, in the libSBML Java language
  * interface, the category identifiers are currently implemented as static
  * integer constants defined in the interface class
- * <code>libsbmlConstants</code> in the file "libsbmlConstants.java". @endif
+ * <code>libsbmlConstants</code> in the file "<a
+ * href="libsbmlConstants.html">libsbmlConstants.java</a>".
+ * @endif
  *
  * <center>
  * <table width="90%" cellspacing="1" cellpadding="1" border="0" class="text-table width80 normal-font alt-row-colors">
@@ -590,8 +592,8 @@ public:
    * category. @endif@if doxygen-java-only As mentioned above, 
    * there are additional constants defined for <a class="el"
    * href="#XMLErrorSeverity_t">standard severity</a> and <a class="el"
-   * href="#XMLErrorCategory_t">standard category</a> codes, and every predefined error in
-   * libSBML has an associated value for severity and category taken
+   * href="#XMLErrorCategory_t">standard category</a> codes, and every predefined 
+   * error in libSBML has an associated value for severity and category taken
    * from these predefined sets.  These constants have symbol names
    * prefixed with <code>LIBSBML_SEV_</code> and <code>LIBSBML_CAT_</code>,
    * respectively.  If the value of @p errorId is one of the standard error
@@ -641,7 +643,7 @@ public:
 
 
   /**
-   * Copy Constructor
+   * Copy constructor; creates a copy of this XMLError.
    */
   XMLError(const XMLError& orig);
 
@@ -998,9 +1000,9 @@ public:
    *
    * @param code the error code whose message is sought; it must be a
    * predefined value from @if doxygen-clike-only <a class="el"
-   * href="#XMLErrorCode_t">XMLErrorCode_t</a>. @endif@if doxygen-java-only
-   * <a class="el" href="#XMLErrorCode_t">the set of predefined
-   * error identifiers.@endif
+   * href="#XMLErrorCode_t">
+   * XMLErrorCode_t</a>. @endif@if doxygen-java-only <a class="el"
+   * href="#XMLErrorCode_t">the set of predefined error identifiers.@endif
    */
   static const std::string getStandardMessage (const int code);
 

@@ -31,8 +31,11 @@
  * @em node, represented by XMLNode.
  *
  * An XMLNode can contain any number of children.  Each child is another
- * XMLNode, forming a tree.  The methods getNumChildren() and getChild()
+ * XMLNode, thereby forming a tree.  The methods XMLNode::getNumChildren()
+ * and @if doxygen-clike-only XMLNode::getChild() can be used to access the
+ * tree structure starting from a given node. @endif@if doxygen-java-only XMLNode::getChild(long n)
  * can be used to access the tree structure starting from a given node.
+ * @endif
  *
  * Each XMLNode is subclassed from XMLToken, and thus has the same methods
  * available as XMLToken.  These methods include XMLToken::getNamespaces(),
@@ -222,39 +225,47 @@ public:
 
 
   /**
-   * Adds a copy of child node to this XMLNode.
+   * Adds a copy of @p node as a child of this XMLNode.
    *
-   * @param node XMLNode to be added as child.
+   * The given @p node is added at the end of the list of children.
    *
-   * @note The given node is added at the end of the children list.
+   * @param node the XMLNode to be added as child.
    */
   void addChild (const XMLNode& node);
 
 
   /**
-   * Inserts a copy of the given node as the nth child of this XMLNode.
+   * Inserts a copy of the given node as the <code>n</code>th child of this
+   * XMLNode.
    *
-   * @param n the index at which the given node is inserted
-   * @param node XMLNode to be inserted as child.
+   * If the given index @p n is out of range for this XMLNode instance,
+   * the @p node is added at the end of the list of children.  Even in
+   * that situation, this method does not throw an error.
    *
-   * @return the reference to the newly inserted child in this XMLNode.
+   * @param n an integer, the index at which the given node is inserted
+   * @param node an XMLNode to be inserted as <code>n</code>th child.
    *
-   * @note The given node is added at the end of the list of the 
-   * children if the given index is out of range.
+   * @return a reference to the newly-inserted child @p node
    */
   XMLNode& insertChild (unsigned int n, const XMLNode& node);
 
 
   /**
-   * Removes the nth child of this XMLNode and returned the removed node.
-   * The caller owns the returned node and is responsible for deleting it.
+   * Removes the <code>n</code>th child of this XMLNode and returns the
+   * removed node.
    *
-   * @param n the index of the node to be removed
+   * It is important to keep in mind that a given XMLNode may have more
+   * than one child.  Calling this method erases all existing references to
+   * child nodes @em after the given position @p n.  If the index @p n is
+   * greater than the number of child nodes in this XMLNode, this method
+   * takes no action (and returns NULL).
    *
-   * @return the removed child, or NULL if the given index is out of range. 
+   * @param n an integer, the index of the node to be removed
    *
-   * @note This function invalidates all existing references to child nodes 
-   * after the position or first.
+   * @return the removed child, or NULL if @p n is greater than the number
+   * of children in this node
+   *
+   * @note The caller owns the returned node and is responsible for deleting it.
    */
   XMLNode* removeChild(unsigned int n);
 
@@ -266,21 +277,27 @@ public:
 
 
   /**
-   * Returns the nth child of this XMLNode.
+   * Returns the <code>n</code>th child of this XMLNode.
+   *
+   * If the index @p n is greater than the number of child nodes, or it is
+   * 0 or less, this method returns an empty node.
    *
    * @param n the index of the node to return
    * 
-   * @return the nth child of this XMLNode.
+   * @return the  <code>n</code>th child of this XMLNode.
    */
   XMLNode& getChild (unsigned int n);
 
 
   /**
-   * Returns the nth child of this XMLNode.
+   * Returns the  <code>n</code>th child of this XMLNode.
    *
-   * @param n the index of the node to return
+   * If the index @p n is greater than the number of child nodes, or it is
+   * 0 or less, this method returns an empty node.
+   *
+   * @param n an integer, the index of the node to return
    * 
-   * @return the nth child of this XMLNode.
+   * @return the  <code>n</code>th child of this XMLNode.
    */
   const XMLNode& getChild (unsigned int n) const;
 
@@ -305,35 +322,36 @@ public:
 
 
   /**
-   * Returns a string which is converted from this XMLNode. 
+   * Returns a string representation of this XMLNode. 
    *
-   * @return a string which is converted from this XMLNode.
+   * @return a string derived from this XMLNode.
    */
   std::string toXMLString() const;
 
 
   /**
-   * Returns a string which is converted from a given XMLNode. 
+   * Returns a string representation of a given XMLNode. 
    *
-   * @param node XMLNode to be converted to a string.
+   * @param node the XMLNode to be represented as a string
    *
-   * @return a string which is converted from a given XMLNode.
+   * @return a string-form representation of @p node
    */
   static std::string convertXMLNodeToString(const XMLNode* node);
 
 
   /**
-   * Returns an XMLNode which is converted from a given string containing
-   * XML content.
+   * Returns an XMLNode which is derived from a string containing XML
+   * content.
    *
-   * XMLNamespaces (the second argument) must be given if the corresponding 
-   * xmlns attribute is not included in the string of the first argument. 
+   * The XML namespace must be defined using argument @p xmlns if the
+   * corresponding XML namespace attribute is not part of the string of the
+   * first argument.
    *
    * @param xmlstr string to be converted to a XML node.
    * @param xmlns XMLNamespaces the namespaces to set (default value is NULL).
    *
-   * @return a XMLNode which is converted from a given string. The caller owns
-   * the returned XMLNode and is reponsible for deleting it.
+   * @return a XMLNode which is converted from string @p xmlstr.  The
+   * caller owns the returned XMLNode and is reponsible for deleting it.
    *
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different
