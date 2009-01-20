@@ -60,9 +60,11 @@
  * of "math" in a Delay object; rather, they must be defined explicitly for
  * each instance of a Delay object in a model.  This is an important point
  * to bear in mind when literal numbers are used in delay expressions.  For
- * example, the following Event instance would fail model validation: the
- * expression inside the "math" element does not have any declared units,
- * and what is required in this context is units of time:
+ * example, the following Event instance would result in a warning logged
+ * by SBMLDocument::checkConsistency() about the fact that libSBML cannot
+ * verify the consistency of the units of the expression.  The reason is
+ * that the formula inside the "math" element does not have any declared
+ * units, whereas what is expected in this context is units of time:
  * @code
  * <model>
  *     ...

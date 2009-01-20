@@ -54,7 +54,7 @@
  * SBMLDocument corresponds roughly to the class <i>Sbml</i> defined in the
  * SBML Level&nbsp;2 specification.  It does not have a direct
  * correspondence in SBML Level&nbsp;1.  (However, to make matters simpler
- * for applications, it is created by libSBML no matter whether the model
+ * for applications, libSBML creates an SBMLDocument no matter whether the model
  * is Level&nbsp;1 or Level&nbsp;2.)  In its barest form, when written out
  * in XML format for SBML Level&nbsp;2 Version&nbsp;4, the corresponding
  * structure is the following:
@@ -102,7 +102,7 @@
  * SBMLDocument::checkConsistency() is under program control using the
  * method SBMLDocument::setConsistencyChecks().  Applications can
  * selectively disable specific kinds of checks that they may not be
- * interested by calling SBMLDocument::setConsistencyChecks() with
+ * interested in, by calling SBMLDocument::setConsistencyChecks() with
  * appropriate parameters.  @endif@if doxygen-java-only The checks
  * performed by SBMLDocument::checkInternalConsistency() are hardwired and
  * cannot be changed by calling programs, but the validation performed by
@@ -170,8 +170,9 @@
  * specific to more advanced Levels of SBML.
  *
  * Calling @if doxygen-clike-only SBMLDocument::setLevelAndVersion() @endif@if doxygen-java-only SBMLDocument::setLevelAndVersion(long lev, long ver) @endif will not @em necessarily lead
- * to a successful conversion.  Callers must check the error log (see next
- * section) attached to the SBMLDocument object after calling
+ * to a successful conversion.  The method will return a boolean value
+ * to indicate success or failure.  Callers must check the error log (see 
+ * next section) attached to the SBMLDocument object after calling
  * @if doxygen-clike-only SBMLDocument::setLevelAndVersion() @endif@if doxygen-java-only SBMLDocument::setLevelAndVersion(long lev, long ver) @endif in order to assess whether any
  * problems arose.
  *
