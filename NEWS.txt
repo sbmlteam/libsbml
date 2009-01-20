@@ -128,6 +128,12 @@ Version 3.3.0 (released 2009-01-14)
  
 * Bug fixes:
 
+  - LibSBML could be built without an underlying XML parser if 
+    --with-libxml=no is given whereas neither --with-expat nor
+    --with-xerces given when running the configure script, which
+    generated broken shared libraries.
+    Thanks to Giuseppe Aprea for reporting this problem.
+
   - LibSBML was failing to check that the value of the
     'spatialDimensions' attribute on a <compartment> was correct.
     This is in fact a schema error.  Thanks to Norihiro Kikuchi for

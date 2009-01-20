@@ -316,7 +316,12 @@ main()
          -a $xml_config_micro_version -eq 16; then
       AC_SUBST(BUGGY_APPLE_LIBXML,1)
     fi
-
+  elif test "$with_expat" = "no" -a "$with_xerces" = "no"; then
+    AC_MSG_ERROR([No XML parser was chosen. One of the underlying XML Parsers 
+                 (Expat, Xerces, or libXML) is required to build libSBML.
+                  Please rerun the configure script with --with-expat (Expat), 
+                  --with-xerces (Xerces) , or --with-libxml (LibXML) option. 
+                  By default, --with-libxml is enabled.])
   fi
 
 ])
