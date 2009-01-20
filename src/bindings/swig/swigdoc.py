@@ -161,8 +161,10 @@ class CHeader:
             stripped = stripped[:cppcomment]
         lines += stripped + ' '         # Space avoids jamming code together.
 
-      if inFunc and (stripped.endswith(';') or stripped.endswith(')')):
+      if inFunc and (stripped.endswith(';') or stripped.endswith(')') or stripped.endswith('}')):
         # It might be an enum.  Skip it.
+        if stripped.endswith('}'):
+          lines   = lines[:lines.rfind('{')]
         if not stripped.startswith('enum'):
           stop    = lines.rfind('(')
           name    = lines[:stop].split()[-1]
@@ -250,12 +252,15 @@ class Method:
     if forLanguage == 'java' and isConst and (args.find('unsigned int') > 0):
       self.args = ''
     elif not args.strip() == '()':
-      self.args = args
+      if isConst:
+        self.args = args + ' const'
+      else:
+        self.args = args
     else:
-      self.args = ''
-
-    if isConst:
-      self.args = self.args + ' const'
+      if isConst:
+        self.args = '() const'
+      else:
+        self.args = ''
 
 
 
