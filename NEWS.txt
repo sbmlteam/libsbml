@@ -1,7 +1,7 @@
            libSBML NEWS -- History of user-visible changes
  
 ======================================================================
-Version 3.3.0 (released 2009-01-14)
+Version 3.3.0 (released 2009-01-20)
 ======================================================================
 
 * Dependency changes:
@@ -258,7 +258,7 @@ Version 3.3.0 (released 2009-01-14)
 * Other changes:
 
   - The Lisp binding code has been disabled from the configuration and
-    build systems because it no longer functions (and has not for
+    build systems because it no longer functions (and has not been for
     quite some time).  The code is still in the distribution because
     we hope someone, someday will help get it working again.
 
@@ -271,6 +271,15 @@ Version 3.3.0 (released 2009-01-14)
   - The allowable values for an integer have been restricted to the
     range of the standard 32-bit signed integer values (2147483647 to
     -2147483648), as per the SBML specification.
+
+  - The Java API documentation has been substantially improved.  Many
+    methods previous exposed should not have been, and many methods
+    lacked documentation due to glitches in the software used to
+    generate the Java documentation from the C++ source files.  This
+    release corrects almost all of these errors.  The Java docs are
+    now much closer to the intended API, although a few glitches
+    remain.  A number of classes still remain poorly documented in
+    both the Java and C++ API documentation.
 
   - There is now a mailing list (libsbml-team@caltech.edu) for the
     core libSBML developers separate from the SBML Team mailing list.
