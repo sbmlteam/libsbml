@@ -247,13 +247,12 @@ class Method:
     # combination doesn't seem to arise in libSBML currently, and anyway,
     # this fixes a real problem in the Java documentation for libSBML.
 
-    if forLanguage == 'java' and isConst and args.find('unsigned int'):
+    if forLanguage == 'java' and isConst and (args.find('unsigned int') > 0):
       self.args = ''
     elif not args.strip() == '()':
       self.args = args
     else:
       self.args = ''
-
 
 
 class CClassDoc:
