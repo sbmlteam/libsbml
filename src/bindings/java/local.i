@@ -800,14 +800,14 @@ SWIGJAVA_ATTRIBS(TYPENAME, public, public)
    * The use of this method in practice is the same as the use of any other
    * Java <code>equals</code> method.  For example,
    * <em>a</em><code>.equals(</code><em>b</em><code>)</code> returns
-   * <code>true</code> if <em>a</em> and <em>b</em> are the same underlying
-   * object.
+   * <code>true</code> if <em>a</em> and <em>b</em> are references to the
+   * same underlying object.
    *
-   * @param sb a reference to an object to which the current object will be
-   * compared
+   * @param sb a reference to an object to which the current object
+   * instance will be compared
    *
    * @return <code>true</code> if <code>sb</code> refers to the same underlying 
-   * object as this one, <code>false</code> otherwise
+   * native object as this one, <code>false</code> otherwise
    */
   public boolean equals(Object sb)
   {
