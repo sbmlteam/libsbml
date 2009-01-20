@@ -102,7 +102,7 @@
  */ 
 /**
  * @class ListOfParameters.
- * @brief LibSBML implementation of SBML's ListOfParameters construct.
+ * @brief LibSBML implementation of SBML's %ListOfParameters construct.
  * 
  * The various ListOf___ classes in %SBML are merely containers used for
  * organizing the main components of an %SBML model.  All are derived from

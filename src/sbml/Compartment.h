@@ -203,7 +203,7 @@
  */ 
 /**
  * @class ListOfCompartments
- * @brief LibSBML implementation of SBML's ListOfCompartments construct.
+ * @brief LibSBML implementation of SBML's %ListOfCompartments construct.
  * 
  * The various ListOf___ classes in %SBML are merely containers used for
  * organizing the main components of an %SBML model.  All are derived from

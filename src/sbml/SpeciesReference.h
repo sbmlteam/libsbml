@@ -60,7 +60,7 @@
  * <!---------------------------------------------------------------------- -->
  *
  * @class SpeciesReference
- * @brief LibSBML implementation of %SBML's SpeciesReference construct.
+ * @brief LibSBML implementation of %SBML's %SpeciesReference construct.
  *
  * The Reaction structure provides a way to express which species act as
  * reactants and which species act as products in a reaction.  In a given
@@ -177,7 +177,7 @@
  * <!---------------------------------------------------------------------- -->
  *
  * @class ModifierSpeciesReference
- * @brief LibSBML implementation of %SBML's ModifierSpeciesReference construct.
+ * @brief LibSBML implementation of %SBML's %ModifierSpeciesReference construct.
  *
  * Sometimes a species appears in the kinetic rate formula of a reaction
  * but is itself neither created nor destroyed in that reaction (for
@@ -205,7 +205,7 @@
  * <!---------------------------------------------------------------------- -->
  *
  * @class ListOfSpeciesReferences
- * @brief LibSBML implementation of SBML's ListOfSpeciesReferences construct.
+ * @brief LibSBML implementation of SBML's %ListOfSpeciesReferences construct.
  *
  * The ListOfSpeciesReferences class is used to store lists of reactants
  * and products in a Reaction object.

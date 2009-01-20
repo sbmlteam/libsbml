@@ -163,7 +163,7 @@
  * <!---------------------------------------------------------------------- -->
  *
  * @class ListOfInitialAssignments
- * @brief LibSBML implementation of SBML's ListOfInitialAssignments construct.
+ * @brief LibSBML implementation of SBML's %ListOfInitialAssignments construct.
  * 
  * The various ListOf___ classes in %SBML are merely containers used for
  * organizing the main components of an %SBML model.  All are derived from
