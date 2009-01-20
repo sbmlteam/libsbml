@@ -401,6 +401,7 @@ def translateIfPerl (match):
   return text
 
 
+
 def translateIfPython (match):
   text = match.group()
   if match.group(1) == 'python':
@@ -415,6 +416,17 @@ def translateJavaCrossRef (match):
   classname = match.group(2)
   method = match.group(3)
   return prior + '{@link ' + classname + '#' + method + '}'
+
+
+def translateJavaClassRef (match):
+  leading      = match.group(1)
+  classname    = match.group(2)
+  trailing     = match.group(3)
+
+  if leading != '%' and leading != '(':
+    return leading + '{@link ' + classname + '}' + trailing
+  else:
+    return leading + classname + trailing
 
 
 def sanitizeForHTML (docstring, language):
@@ -478,10 +490,6 @@ def sanitizeForHTML (docstring, language):
   p = re.compile('@image\s+latex+\s+([^\s]+).*$', re.MULTILINE)
   docstring = p.sub(r'', docstring)
 
-  # Javadoc doesn't have the %foo quoting mechanism, either.
-
-  docstring = re.sub('(\s)%(\w)', r'\1\2', docstring)
-
   # Doxygen doesn't understand HTML character codes like &ge;, so we've
   # been using doxygen's Latex facility to get special mathematical
   # characters into the documentation, but as luck would have it, Javadoc
@@ -508,10 +516,25 @@ def sanitizeForHTML (docstring, language):
 
   docstring = re.sub(r'\s*\Z', '\n', docstring)
 
-  # Massage method cross-references.
+  # Doxygen automatically cross-references class names in text to the class
+  # definition page, but Javadoc does not.  Rather than having to put in a
+  # lot conditional @if/@endif's into the documentation to manually create
+  # cross-links just for the Java case, let's automate.  This needs to be
+  # done better (e.g., by not hard-wiring the class names).  The use of %
+  # as a quote indicator follows the doxygen convention.
+
+  p = re.compile(r'(\W)(AlgebraicRule|AssignmentRule|ASTNode|Compartment|CompartmentType|Constraint|CVTerm|Date|Delay|Event|EventAssignment|FunctionDefinition|InitialAssignment|KineticLaw|ListOf|ListOfCompartments|ListOfCompartmentTypes|ListOfConstraints|ListOfEventAssignments|ListOfEvents|ListOfFunctionDefinitions|ListOfInitialAssignments|ListOfParameters|ListOfReactions|ListOfRules|ListOfSpecies|ListOfSpeciesReferences|ListOfSpeciesTypes|ListOfUnitDefinitions|ListOfUnits|Model|ModelCreator|ModelHistory|ModifierSpeciesReference|OFStream|OStream|OStringStream|Parameter|RateRule|Reaction|Rule|SBase|SBMLDocument|SBMLError|SBMLErrorLog|SBMLReader|SBMLWriter|SBO|SimpleSpeciesReference|Species|SpeciesReference|SpeciesType|StoichiometryMath|Trigger|UnitDefinition|Unit)\b([^:])', re.DOTALL)
+  docstring = p.sub(translateJavaClassRef, docstring)
+
+  # Massage Java method cross-references.
 
   p = re.compile('(\s+)(\S+?)::([^)]+?\))', re.MULTILINE)
   docstring = p.sub(translateJavaCrossRef, docstring)
+
+  # Take out any left-over quotes, because Javadoc doesn't have the %foo
+  # quoting mechanism.
+
+  docstring = re.sub('(\s)%(\w)', r'\1\2', docstring)
 
   return docstring
 
@@ -540,6 +563,12 @@ def sanitizeForJava (docstring):
   docstring = docstring.replace(r'an unsigned int', 'a long integer')
   docstring = docstring.replace(r'unsigned int', 'long')
   docstring = docstring.replace(r'const std::string', 'String')
+
+  # Fix up for a problem introduced by sanitizeForHTML -- should fix
+  # properly some day.
+
+  p = re.compile('@see\s+{@link\s+([^}]+?)}', re.DOTALL)
+  docstring = p.sub(r'@see \1', docstring)
 
   # Inside of @see, change double colons to pound signs.
 
