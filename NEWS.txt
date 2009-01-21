@@ -14,18 +14,6 @@ Version 3.3.0 (released 2009-01-20)
   
   - SBML Level 2 Version 4 support is now implemented.
 
-  - Classes relating to SBML components have an additional constructor
-    of the form XXX(unsigned int level, unsigned int version,
-    XMLNamespaces* xmlns = 0).  This creates the object just as the
-    existing class constructors, but in addition it sets new SBase
-    variables mObjectLevel and mObjectVersion and the mNamespaces
-    variable previously only used on an SBMLDocument.  These are the
-    *only* methods that ever set the mObjectLevel/mObjectVersion
-    variables.  The variables can be used to verify the attributes of
-    the object given the intended SBML Level and Version.  There are
-    also C implementations of these methods; they have function names
-    of the form XXX__createWithLevelVersionAndNamespaces.
-
   - There is a new validator for checking the consistency of the
     internal representation of a model.  The need for this grew out of
     the following situation.  LibSBML classes representing SBML
