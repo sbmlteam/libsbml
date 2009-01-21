@@ -191,7 +191,10 @@ public:
 
 
   /**
-   * Removes the error(s) having errorId from the SBMLError list.
+   * Removes an error having errorId from the SBMLError list.
+   *  
+   * Only the first item will be removed if there are multiple errors
+   * with the given errorId.
    *
    * @param errorId the error identifier of the error to be removed.
    */

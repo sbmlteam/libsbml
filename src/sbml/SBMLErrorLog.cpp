@@ -155,7 +155,10 @@ private:
 
 
 /*
- * Removes the error(s) having errorId from the SBMLError list.
+ * Removes an error having errorId from the SBMLError list.
+ *
+ * Only the first item will be removed if there are multiple errors
+ * with the given errorId.
  *
  * @param errorId the error identifier of the error to be removed.
  */
@@ -163,7 +166,7 @@ void
 SBMLErrorLog::remove (const unsigned int errorId)
 {
   //
-  // "mErrors.erase( remove_if( ...), mErrors.end() )" can't be used for removing
+  // "mErrors.erase( remove_if( ...))" can't be used for removing
   // the matched items from the list, because the type of the vector container is pointer 
   // of XMLError object. 
   //
@@ -178,11 +181,15 @@ SBMLErrorLog::remove (const unsigned int errorId)
   // stable_partition algorithm)
   endDelete = stable_partition(mErrors.begin(), mErrors.end(), MatchErrorId(errorId));
 
-  // deletes matched XMLError* items
-  for_each( mErrors.begin(), endDelete, Delete() );
-
-  // removes matched XMLError* items from the list
-  mErrors.erase( mErrors.begin(), endDelete);
+  //
+  // deletes (invoke delete operator for the matched item) and erases (removes the pointer 
+  // from mErrors) only the first matched item (if any)
+  //
+  if (endDelete != mErrors.begin())
+  {
+    delete *mErrors.begin();
+    mErrors.erase(mErrors.begin());    
+  }
 }
 
 
