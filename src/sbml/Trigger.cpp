@@ -57,6 +57,7 @@ Trigger::Trigger (   const ASTNode* math ) :
 }
 
 
+/** @cond doxygen-libsbml-internal */
 Trigger::Trigger (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
    SBase		  (  -1 )
@@ -66,6 +67,8 @@ Trigger::Trigger (unsigned int level, unsigned int version,
   mObjectVersion = version;
   if (xmlns) setNamespaces(xmlns);;
 }
+/** @endcond doxygen-libsbml-internal */
+
                           
 
 /*
@@ -421,6 +424,7 @@ Trigger_createWithMath (const ASTNode_t *math)
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Creates a new Trigger_t structure using the given SBML @p 
  * level and @p version values and a set of XMLNamespaces.
@@ -452,6 +456,7 @@ Trigger_createWithLevelVersionAndNamespaces (unsigned int level,
 {
   return new(nothrow) Trigger(level, version, xmlns);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /**

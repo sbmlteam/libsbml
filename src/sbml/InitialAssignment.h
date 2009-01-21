@@ -721,10 +721,12 @@ InitialAssignment_t *
 InitialAssignment_createWithSymbol (const char *symbol);
 
 
+/** @cond doxygen-libsbml-internal */
 LIBSBML_EXTERN
 InitialAssignment_t *
 InitialAssignment_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
+/** @endcond doxygen-libsbml-internal */
 
 
 LIBSBML_EXTERN

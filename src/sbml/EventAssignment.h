@@ -696,10 +696,12 @@ EventAssignment_t *
 EventAssignment_createWithVarAndMath (const char *variable, ASTNode_t *math);
 
 
+/** @cond doxygen-libsbml-internal */
 LIBSBML_EXTERN
 EventAssignment_t *
 EventAssignment_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
+/** @endcond doxygen-libsbml-internal */
 
 
 LIBSBML_EXTERN

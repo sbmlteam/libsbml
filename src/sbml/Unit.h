@@ -1184,10 +1184,12 @@ Unit_t *
 Unit_createWithKindExponentScaleMultiplier (UnitKind_t kind, int exponent, int scale, double multiplier);
 
 
+/** @cond doxygen-libsbml-internal */
 LIBSBML_EXTERN
 Unit_t *
 Unit_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
+/** @endcond doxygen-libsbml-internal */
 
 
 LIBSBML_EXTERN

@@ -639,10 +639,12 @@ FunctionDefinition_t *
 FunctionDefinition_createWithIdAndMath (const char *sid, ASTNode_t *math);
 
 
+/** @cond doxygen-libsbml-internal */
 LIBSBML_EXTERN
 FunctionDefinition_t *
 FunctionDefinition_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
+/** @endcond doxygen-libsbml-internal */
 
 
 LIBSBML_EXTERN

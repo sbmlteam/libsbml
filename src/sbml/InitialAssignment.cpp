@@ -54,6 +54,7 @@ InitialAssignment::InitialAssignment (const std::string& symbol) :
 }
 
 
+/** @cond doxygen-libsbml-internal */
 InitialAssignment::InitialAssignment (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
    SBase ("", "", -1)
@@ -63,6 +64,7 @@ InitialAssignment::InitialAssignment (unsigned int level, unsigned int version,
   mObjectVersion = version;
   if (xmlns) setNamespaces(xmlns);;
 }
+/** @endcond doxygen-libsbml-internal */
                           
 
 /*
@@ -592,6 +594,7 @@ InitialAssignment_createWithSymbol (const char *symbol)
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Creates a new InitialAssignment_t structure using the given SBML @p 
  * level and @p version values and a set of XMLNamespaces.
@@ -623,6 +626,7 @@ InitialAssignment_createWithLevelVersionAndNamespaces (unsigned int level,
 {
   return new(nothrow) InitialAssignment(level, version, xmlns);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /**

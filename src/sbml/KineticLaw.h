@@ -786,10 +786,12 @@ KineticLaw_t *
 KineticLaw_createWithMath ( ASTNode_t *math);
 
 
+/** @cond doxygen-libsbml-internal */
 LIBSBML_EXTERN
 KineticLaw_t *
 KineticLaw_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
+/** @endcond doxygen-libsbml-internal */
 
 
 LIBSBML_EXTERN

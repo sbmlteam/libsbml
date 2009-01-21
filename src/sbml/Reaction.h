@@ -1078,10 +1078,12 @@ Reaction_createWithKineticLaw ( const char   *sid,
                       int          fast );
 
 
+/** @cond doxygen-libsbml-internal */
 LIBSBML_EXTERN
 Reaction_t *
 Reaction_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
+/** @endcond doxygen-libsbml-internal */
 
 
 LIBSBML_EXTERN

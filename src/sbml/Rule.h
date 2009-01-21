@@ -1478,22 +1478,28 @@ Rule_createRateWithVariableAndMath (const char * variable,
                                     ASTNode_t *math);
 
 
+/** @cond doxygen-libsbml-internal */
 LIBSBML_EXTERN
 Rule_t *
 Rule_createAlgebraicWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 LIBSBML_EXTERN
 Rule_t *
 Rule_createAssignmentWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 LIBSBML_EXTERN
 Rule_t *
 Rule_createRateWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
+/** @endcond doxygen-libsbml-internal */
 
 
 LIBSBML_EXTERN

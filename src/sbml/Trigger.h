@@ -331,10 +331,12 @@ Trigger_t *
 Trigger_createWithMath ( const ASTNode_t *math);
 
 
+/** @cond doxygen-libsbml-internal */
 LIBSBML_EXTERN
 Trigger_t *
 Trigger_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
+/** @endcond doxygen-libsbml-internal */
 
 
 LIBSBML_EXTERN

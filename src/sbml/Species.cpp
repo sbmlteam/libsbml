@@ -59,6 +59,7 @@ Species::Species (const std::string& id, const std::string& name) :
 }
 
 
+/** @cond doxygen-libsbml-internal */
 Species::Species (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
    SBase ("", "", -1)
@@ -76,6 +77,8 @@ Species::Species (unsigned int level, unsigned int version,
   mObjectVersion = version;
   if (xmlns) setNamespaces(xmlns);;
 }
+/** @endcond doxygen-libsbml-internal */
+
                           
 
 /*
@@ -1131,6 +1134,7 @@ Species_createWith (const char *sid, const char *name)
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Creates a new Species_t structure using the given SBML @p 
  * level and @p version values and a set of XMLNamespaces.
@@ -1162,6 +1166,7 @@ Species_createWithLevelVersionAndNamespaces (unsigned int level,
 {
   return new(nothrow) Species(level, version, xmlns);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /**

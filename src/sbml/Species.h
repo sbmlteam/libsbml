@@ -1126,10 +1126,12 @@ Species_t *
 Species_createWith (const char *sid, const char *name);
 
 
+/** @cond doxygen-libsbml-internal */
 LIBSBML_EXTERN
 Species_t *
 Species_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
+/** @endcond doxygen-libsbml-internal */
 
 
 LIBSBML_EXTERN

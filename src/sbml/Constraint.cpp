@@ -58,6 +58,7 @@ Constraint::Constraint (const ASTNode* math) :
 }
 
 
+/** @cond doxygen-libsbml-internal */
 Constraint::Constraint (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
    SBase   ( -1 )
@@ -68,6 +69,8 @@ Constraint::Constraint (unsigned int level, unsigned int version,
   mObjectVersion = version;
   if (xmlns) setNamespaces(xmlns);;
 }
+/** @endcond doxygen-libsbml-internal */
+
                           
 
 /*
@@ -558,6 +561,7 @@ Constraint_createWithMath (ASTNode_t * math)
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Creates a new Constraint_t structure using the given SBML @p 
  * level and @p version values and a set of XMLNamespaces.
@@ -589,6 +593,7 @@ Constraint_createWithLevelVersionAndNamespaces (unsigned int level,
 {
   return new(nothrow) Constraint(level, version, xmlns);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -632,6 +637,8 @@ Constraint_getNamespaces(Constraint_t *c)
 {
   return c->getNamespaces();
 }
+
+
 /**
  * Get the message, if any, associated with this Constraint
  *

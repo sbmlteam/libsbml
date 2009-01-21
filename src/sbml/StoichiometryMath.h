@@ -461,10 +461,12 @@ StoichiometryMath_t *
 StoichiometryMath_createWithMath ( const ASTNode_t *math);
 
 
+/** @cond doxygen-libsbml-internal */
 LIBSBML_EXTERN
 StoichiometryMath_t *
 StoichiometryMath_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
+/** @endcond doxygen-libsbml-internal */
 
 
 LIBSBML_EXTERN

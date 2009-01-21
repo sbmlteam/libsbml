@@ -57,6 +57,7 @@ Model::Model (const std::string& id, const std::string& name) :
 }
 
 
+/** @cond doxygen-libsbml-internal */
 Model::Model (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
    SBase ("", "", -1)
@@ -67,6 +68,8 @@ Model::Model (unsigned int level, unsigned int version,
   mObjectVersion = version;
   if (xmlns) setNamespaces(xmlns);;
 }
+/** @endcond doxygen-libsbml-internal */
+
                           
 
 /*
@@ -3143,6 +3146,7 @@ Model_createWith (const char *sid, const char * name)
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Creates a new Model_t structure using the given SBML @p 
  * level and @p version values and a set of XMLNamespaces.
@@ -3174,6 +3178,7 @@ Model_createWithLevelVersionAndNamespaces (unsigned int level,
 {
   return new(nothrow) Model(level, version, xmlns);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /**

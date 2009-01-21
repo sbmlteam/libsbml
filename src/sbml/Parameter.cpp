@@ -74,6 +74,7 @@ Parameter::Parameter (   const std::string&  id
 }
 
 
+/** @cond doxygen-libsbml-internal */
 Parameter::Parameter (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
    SBase ("", "", -1)
@@ -85,6 +86,8 @@ Parameter::Parameter (unsigned int level, unsigned int version,
   mObjectVersion = version;
   if (xmlns) setNamespaces(xmlns);;
 }
+/** @endcond doxygen-libsbml-internal */
+
                           
 
 /*
@@ -718,6 +721,7 @@ Parameter_createWithValueAndUnits (const char *id, double value, const char *uni
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Creates a new Parameter_t structure using the given SBML @p 
  * level and @p version values and a set of XMLNamespaces.
@@ -749,6 +753,7 @@ Parameter_createWithLevelVersionAndNamespaces (unsigned int level,
 {
   return new(nothrow) Parameter(level, version, xmlns);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /**

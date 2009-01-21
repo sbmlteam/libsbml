@@ -76,6 +76,7 @@ Unit::Unit (   const std::string&  kind
 }
 
 
+/** @cond doxygen-libsbml-internal */
 Unit::Unit (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
     SBase      ( -1 )
@@ -89,6 +90,8 @@ Unit::Unit (unsigned int level, unsigned int version,
   mObjectVersion = version;
   if (xmlns) setNamespaces(xmlns);;
 }
+/** @endcond doxygen-libsbml-internal */
+
                           
 
 /*
@@ -1559,6 +1562,7 @@ Unit_createWithKindExponentScaleMultiplier (UnitKind_t kind, int exponent, int s
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Creates a new Unit_t structure using the given SBML @p 
  * level and @p version values and a set of XMLNamespaces.
@@ -1590,6 +1594,7 @@ Unit_createWithLevelVersionAndNamespaces (unsigned int level,
 {
   return new(nothrow) Unit(level, version, xmlns);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /**

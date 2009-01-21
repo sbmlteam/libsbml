@@ -760,10 +760,12 @@ Parameter_t *
 Parameter_createWithValueAndUnits (const char *sid, double value, const char *units);
 
 
+/** @cond doxygen-libsbml-internal */
 LIBSBML_EXTERN
 Parameter_t *
 Parameter_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
+/** @endcond doxygen-libsbml-internal */
 
 
 LIBSBML_EXTERN

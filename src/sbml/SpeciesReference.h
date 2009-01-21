@@ -1318,17 +1318,21 @@ SpeciesReference_createWithSpeciesAndStoichiometry ( const char *species,
                               int         denominator );
 
 
+/** @cond doxygen-libsbml-internal */
 LIBSBML_EXTERN
 SpeciesReference_t *
 SpeciesReference_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 LIBSBML_EXTERN
 SpeciesReference_t *
 SpeciesReference_createModifierWithLevelVersionAndNamespaces 
                            (unsigned int level,
                             unsigned int version, XMLNamespaces_t *xmlns);
+/** @endcond doxygen-libsbml-internal */
 
 
 LIBSBML_EXTERN

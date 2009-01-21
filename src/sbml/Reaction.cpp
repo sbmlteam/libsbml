@@ -95,6 +95,7 @@ Reaction::Reaction (const std::string& id, const std::string& name,
 }
 
 
+/** @cond doxygen-libsbml-internal */
 Reaction::Reaction (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
    SBase ("", "", -1)
@@ -111,6 +112,7 @@ Reaction::Reaction (unsigned int level, unsigned int version,
   mProducts .setType( ListOfSpeciesReferences::Product  );
   mModifiers.setType( ListOfSpeciesReferences::Modifier );
 }
+/** @endcond doxygen-libsbml-internal */
                           
 
 /*
@@ -1154,6 +1156,7 @@ Reaction_createWithKineticLaw ( const char   *sid,
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Creates a new Reaction_t structure using the given SBML @p 
  * level and @p version values and a set of XMLNamespaces.
@@ -1185,6 +1188,7 @@ Reaction_createWithLevelVersionAndNamespaces (unsigned int level,
 {
   return new(nothrow) Reaction(level, version, xmlns);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /**

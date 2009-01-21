@@ -61,6 +61,7 @@ SimpleSpeciesReference::SimpleSpeciesReference (const std::string& species) :
 }
 
 
+/** @cond doxygen-libsbml-internal */
 SimpleSpeciesReference::SimpleSpeciesReference (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
    SBase (-1)
@@ -70,6 +71,8 @@ SimpleSpeciesReference::SimpleSpeciesReference (unsigned int level, unsigned int
   mObjectVersion = version;
   if (xmlns) setNamespaces(xmlns);;
 }
+/** @endcond doxygen-libsbml-internal */
+
                           
 
 /*
@@ -303,6 +306,7 @@ SpeciesReference::SpeciesReference (  const std::string& species
 }
 
 
+/** @cond doxygen-libsbml-internal */
 SpeciesReference::SpeciesReference (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
    SimpleSpeciesReference( level, version, xmlns )
@@ -311,6 +315,8 @@ SpeciesReference::SpeciesReference (unsigned int level, unsigned int version,
  , mStoichiometryMath    ( 0             )
 {
 }
+/** @endcond doxygen-libsbml-internal */
+
                           
 
 /*
@@ -993,11 +999,14 @@ ModifierSpeciesReference::ModifierSpeciesReference (const std::string& species) 
 }
 
 
+/** @cond doxygen-libsbml-internal */
 ModifierSpeciesReference::ModifierSpeciesReference (unsigned int level, 
                           unsigned int version, XMLNamespaces *xmlns) :
   SimpleSpeciesReference(level, version, xmlns)
 {
 }
+/** @endcond doxygen-libsbml-internal */
+
                           
 
 /*
@@ -1412,6 +1421,7 @@ SpeciesReference_createWithSpeciesAndStoichiometry ( const char *species,
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Creates a new SpeciesReference_t structure using the given SBML @p 
  * level and @p version values and a set of XMLNamespaces.
@@ -1443,8 +1453,10 @@ SpeciesReference_createWithLevelVersionAndNamespaces (unsigned int level,
 {
   return new(nothrow) SpeciesReference(level, version, xmlns);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Creates a new ModifierSpeciesReference_t structure using the given SBML @p 
  * level and @p version values and a set of XMLNamespaces.
@@ -1477,6 +1489,7 @@ SpeciesReference_createModifierWithLevelVersionAndNamespaces
 {
   return new(nothrow) ModifierSpeciesReference(level, version, xmlns);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /**

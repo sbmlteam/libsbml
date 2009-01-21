@@ -57,6 +57,7 @@ EventAssignment::EventAssignment (const std::string& variable, const ASTNode* ma
 }
 
 
+/** @cond doxygen-libsbml-internal */
 EventAssignment::EventAssignment (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
    SBase ("", "", -1)
@@ -66,6 +67,8 @@ EventAssignment::EventAssignment (unsigned int level, unsigned int version,
   mObjectVersion = version;
   if (xmlns) setNamespaces(xmlns);;
 }
+/** @endcond doxygen-libsbml-internal */
+
                           
 
 /*
@@ -620,6 +623,7 @@ EventAssignment_createWithVarAndMath (const char *variable, ASTNode_t* math)
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Creates a new EventAssignment_t structure using the given SBML @p 
  * level and @p version values and a set of XMLNamespaces.
@@ -651,6 +655,7 @@ EventAssignment_createWithLevelVersionAndNamespaces (unsigned int level,
 {
   return new(nothrow) EventAssignment(level, version, xmlns);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /**

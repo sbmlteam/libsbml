@@ -53,6 +53,7 @@ UnitDefinition::UnitDefinition (const std::string& sid, const std::string& name)
 }
 
 
+/** @cond doxygen-libsbml-internal */
 UnitDefinition::UnitDefinition (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
    SBase ("", "", -1)
@@ -61,6 +62,8 @@ UnitDefinition::UnitDefinition (unsigned int level, unsigned int version,
   mObjectVersion = version;
   if (xmlns) setNamespaces(xmlns);;
 }
+/** @endcond doxygen-libsbml-internal */
+
                           
 
 /*
@@ -1213,6 +1216,7 @@ UnitDefinition_createWith (const char *id, const char *name)
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Creates a new UnitDefinition_t structure using the given SBML @p level 
  * and @p version values and a set of XMLNamespaces.
@@ -1244,6 +1248,7 @@ UnitDefinition_createWithLevelVersionAndNamespaces (unsigned int level,
 {
   return new(nothrow) UnitDefinition(level, version, xmlns);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /**

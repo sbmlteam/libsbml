@@ -894,6 +894,7 @@ AlgebraicRule::AlgebraicRule (const ASTNode* math) :
 }
 
 
+/** @cond doxygen-libsbml-internal */
 AlgebraicRule::AlgebraicRule (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
   Rule(SBML_ALGEBRAIC_RULE, "", 0)
@@ -903,6 +904,8 @@ AlgebraicRule::AlgebraicRule (unsigned int level, unsigned int version,
   if (xmlns) setNamespaces(xmlns);;
   mInternalIdOnly = false;
 }
+/** @endcond doxygen-libsbml-internal */
+
                           
 
 /*
@@ -979,6 +982,7 @@ AssignmentRule::AssignmentRule (const std::string& variable, const ASTNode* math
 }
 
 
+/** @cond doxygen-libsbml-internal */
 AssignmentRule::AssignmentRule (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
   Rule(SBML_ASSIGNMENT_RULE, "", 0)
@@ -987,6 +991,8 @@ AssignmentRule::AssignmentRule (unsigned int level, unsigned int version,
   mObjectVersion = version;
   if (xmlns) setNamespaces(xmlns);;
 }
+/** @endcond doxygen-libsbml-internal */
+
                           
 
 /*
@@ -1040,6 +1046,7 @@ RateRule::RateRule (const std::string& variable, const ASTNode* math) :
 }
 
 
+/** @cond doxygen-libsbml-internal */
 RateRule::RateRule (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
   Rule(SBML_RATE_RULE, "", 0)
@@ -1048,6 +1055,8 @@ RateRule::RateRule (unsigned int level, unsigned int version,
   mObjectVersion = version;
   if (xmlns) setNamespaces(xmlns);;
 }
+/** @endcond doxygen-libsbml-internal */
+
                           
 
 /*
@@ -1418,6 +1427,7 @@ Rule_createRateWithVariableAndMath (const char * variable,
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Creates a new AlgebraicRule using the given SBML @p 
  * level and @p version values and a set of XMLNamespaces.
@@ -1449,8 +1459,10 @@ Rule_createAlgebraicWithLevelVersionAndNamespaces (unsigned int level,
 {
   return new(nothrow) AlgebraicRule (level, version, xmlns);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Creates a new AssignmentRule using the given SBML @p 
  * level and @p version values and a set of XMLNamespaces.
@@ -1482,9 +1494,11 @@ Rule_createAssignmentWithLevelVersionAndNamespaces (unsigned int level,
 {
   return new(nothrow) AssignmentRule (level, version, xmlns);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Creates a new RateRule using the given SBML @p 
  * level and @p version values and a set of XMLNamespaces.
@@ -1516,6 +1530,7 @@ Rule_createRateWithLevelVersionAndNamespaces (unsigned int level,
 {
   return new(nothrow) RateRule (level, version, xmlns);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /**

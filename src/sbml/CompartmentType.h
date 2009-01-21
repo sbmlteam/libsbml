@@ -504,10 +504,12 @@ CompartmentType_t *
 CompartmentType_createWith (const char *sid, const char *name);
 
 
+/** @cond doxygen-libsbml-internal */
 LIBSBML_EXTERN
 CompartmentType_t *
 CompartmentType_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
+/** @endcond doxygen-libsbml-internal */
 
 
 LIBSBML_EXTERN

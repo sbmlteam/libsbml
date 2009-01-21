@@ -50,6 +50,7 @@ CompartmentType::CompartmentType (const std::string& id, const std::string& name
 }
 
 
+/** @cond doxygen-libsbml-internal */
 CompartmentType::CompartmentType (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
    SBase ("", "", -1)
@@ -58,6 +59,8 @@ CompartmentType::CompartmentType (unsigned int level, unsigned int version,
   mObjectVersion = version;
   if (xmlns) setNamespaces(xmlns);;
 }
+/** @endcond doxygen-libsbml-internal */
+
 
 
 /*
@@ -407,6 +410,7 @@ CompartmentType_createWith (const char *sid, const char *name)
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Creates a new CompartmentType_t structure using the given SBML @p 
  * level and @p version values and a set of XMLNamespaces.
@@ -438,6 +442,7 @@ CompartmentType_createWithLevelVersionAndNamespaces (unsigned int level,
 {
   return new(nothrow) CompartmentType(level, version, xmlns);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /**
