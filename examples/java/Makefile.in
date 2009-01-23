@@ -53,9 +53,10 @@ ifeq "@JAVA@" ""
 	@echo "libSBML must be configured with --with-java to use the Java bindings."
 	exit 1
 else
-	@javaversion=`$(JAVA) -version 2>&1 | head -n 1`; \
-	if test `expr "$$javaversion" ':' '.*1\.5.*'` -eq 0; then \
-	  echo "*** JDK 1.5 is required to compile evaluateMath. ***"; \
+	@jversion=`$(JAVA) -version 2>&1 | head -n 1`; \
+	jshort=`echo $$jversion | sed -e 's/.*\([0-9]\)\.\([0-9]\)\.\([0-9]\).*/\1\2\3/'`; \
+	if test $$jshort -lt 150; then \
+	  echo "*** Our apologies, but JDK 1.5+ is required to compile evaluateMath. ***"; \
 	else \
 	  $(JAVAC) $(JFLAGS) $^; \
 	fi
