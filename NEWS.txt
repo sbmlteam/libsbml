@@ -1,5 +1,29 @@
            libSBML NEWS -- History of user-visible changes
- 
+
+======================================================================
+Next release
+======================================================================
+
+* Changes
+  
+  - Validation relating to attributes that have been removed from later
+    SBML Levels/Versions (e.g. 'offset' on <unit>) has changed slightly.
+    Reading in a model that contains such an invalid attribute reports
+    a schema error.  This has not changed but checking the consistency
+    of a document that has been created using an invalid attribute will
+    now report an error stating that the attribute has been removed e.g.
+    Validation Rule 20411 in SBML L2V2 specification. 
+
+
+* Bug fixes:
+
+  - The makefile for the java examples directory required Java 1.5 not
+    versions greater than 1.5.  This has been changed.  Thanks to
+    Nicolas Rodriguez for reporting this.
+
+  - A problem in error logging whilst reading a file meant that files
+    with certain errors caused libSBML to crash.  This has been fixed.
+    
 ======================================================================
 Version 3.3.0 (released 2009-01-20)
 ======================================================================
