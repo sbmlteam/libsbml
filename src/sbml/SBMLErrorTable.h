@@ -1782,9 +1782,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_SCHEMA_ERROR,
-    LIBSBML_SEV_SCHEMA_ERROR,
-    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
     "The 'offset' attribute on <unit> previously available in SBML Level 2 "
     "Version 1, has been removed as of SBML Level 2 Version 2. (References: "
     "L2V2 Section 4.4.)"
@@ -2240,8 +2240,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_SCHEMA_ERROR,
-    LIBSBML_SEV_SCHEMA_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
     "The 'spatialSizeUnits' attribute on <species>, previously available "
     "in SBML Level 2 versions prior to Version 3, has been removed as "
     "of SBML Level 2 Version 3. (References: L2V3 Section 4.8; L2V4 Section 4.8)"
@@ -2735,9 +2735,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_SCHEMA_ERROR,
-    LIBSBML_SEV_SCHEMA_ERROR,
-    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
     "The 'substanceUnits' attribute on <kineticLaw>, previously available in "
     "SBML Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
     "Version 2. In SBML Level 2 Version 2, the substance units of a reaction "
@@ -2753,9 +2753,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_SCHEMA_ERROR,
-    LIBSBML_SEV_SCHEMA_ERROR,
-    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
     "The 'timeUnits' attribute on <kineticLaw>, previously available in SBML "
     "Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
     "Version 2. In SBML Level 2 Version 2, the time units of a reaction rate "
