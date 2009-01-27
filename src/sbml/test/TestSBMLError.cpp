@@ -60,7 +60,7 @@ START_TEST (test_SBMLError_create)
   delete error;
 
   error = new SBMLError(OffsetNoLongerValid, 2, 2);
-  fail_unless( error->getErrorId()  == NotSchemaConformant );
+  fail_unless( error->getErrorId()  == OffsetNoLongerValid );
   fail_unless( error->getSeverity() == LIBSBML_SEV_ERROR );
   fail_unless( error->getSeverityAsString() == "Error" );
   fail_unless( error->getCategory() == LIBSBML_CAT_GENERAL_CONSISTENCY );

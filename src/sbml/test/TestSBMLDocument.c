@@ -219,9 +219,9 @@ START_TEST (test_SBMLDocument_setLevelAndVersion_UnitsError)
   Rule_setVariable(r, "c");
   Rule_setFormula(r, "p*p");
 
-  fail_unless(SBMLDocument_setLevelAndVersion(d,2,2) == 0);
-  fail_unless(SBMLDocument_setLevelAndVersion(d,2,3) == 0);
-  fail_unless(SBMLDocument_setLevelAndVersion(d,1,2) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersion(d,2,2) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersion(d,2,3) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersion(d,1,2) == 1);
   fail_unless(SBMLDocument_setLevelAndVersion(d,1,1) == 0);
 
   SBMLDocument_free(d);

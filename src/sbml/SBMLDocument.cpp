@@ -323,11 +323,11 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
           {
             logError(StrictUnitsRequiredInL1);
           }
-          else
-          {
+          //else
+          //{
             mModel->convertToL1();
             conversionSuccess = true;
-          }
+          //}
         }
       }
       /* check for conversion between L2 versions */
@@ -342,10 +342,10 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
           {
             logError(StrictUnitsRequiredInL2v1);
           }
-          else
-          {
+          //else
+          //{
             conversionSuccess = true;
-          }
+          //}
         }
       }
       else if (version == 2)
@@ -359,14 +359,15 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
           {
             logError(StrictUnitsRequiredInL2v2);
           }
-          else if (mVersion == 4 && !hasStrictSBO())
+          
+          if (mVersion == 4 && !hasStrictSBO())
           {
             logError(StrictSBORequiredInL2v2);
           }
-          else
-          {
+          //else
+          //{
             conversionSuccess = true;
-          }
+          //}
         }
       }
       else if (version == 3)
@@ -380,14 +381,14 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
           {
             logError(StrictUnitsRequiredInL2v3);
           }
-          else if (mVersion == 4 && !hasStrictSBO())
+          if (mVersion == 4 && !hasStrictSBO())
           {
             logError(StrictSBORequiredInL2v3);
           }
-          else
-          {
+          //else
+          //{
             conversionSuccess = true;
-          }
+          //}
         }
       }
       else if (version == 4)
