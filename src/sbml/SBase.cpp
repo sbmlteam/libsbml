@@ -1255,6 +1255,11 @@ SBase::unsetSBOTerm ()
 void
 SBase::addCVTerm(CVTerm * term)
 {
+  if (term == NULL)
+  {
+    return;
+  }
+
   // a CVTerm relies on the metaid 
   // if the object has no metaid do not add
   if (!isSetMetaId())
