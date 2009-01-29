@@ -853,7 +853,7 @@ UnitDefinition::combine(UnitDefinition *ud1, UnitDefinition *ud2)
  * @return a string expressing the units
  */
 std::string
-UnitDefinition::printUnits(const UnitDefinition * ud)
+UnitDefinition::printUnits(const UnitDefinition * ud, bool compact)
 {
   std::string unitDef;
   if (!ud || ud->getNumUnits() == 0)
@@ -862,23 +862,46 @@ UnitDefinition::printUnits(const UnitDefinition * ud)
   }
   else
   {
-    for (unsigned int p = 0; p < ud->getNumUnits(); p++)
+    if (!compact)
     {
-	    UnitKind_t kind = ud->getUnit(p)->getKind();
-	    int exp = ud->getUnit(p)->getExponent();
+      for (unsigned int p = 0; p < ud->getNumUnits(); p++)
+      {
+	      UnitKind_t kind = ud->getUnit(p)->getKind();
+	      int exp = ud->getUnit(p)->getExponent();
+        int scale = ud->getUnit(p)->getScale();
+        double mult = ud->getUnit(p)->getMultiplier();
 
-      char unit[40];
-      sprintf(unit, "%s (exponent = %i)", UnitKind_toString(kind), exp);
-      unitDef += unit;
-      //msg +=  UnitKind_toString(kind);
-      //msg += " (exponent = ";
-      //msg += exp;
-      //msg +=  ")";
+        char unit[80];
+        sprintf(unit, "%s (exponent = %i, multiplier = %.6g, scale = %i)", 
+          UnitKind_toString(kind), exp, mult, scale);
+        unitDef += unit;
 
-	    if (p + 1 < ud->getNumUnits())
-	    {
-	      unitDef += ", ";
-	    }	  
+	      if (p + 1 < ud->getNumUnits())
+	      {
+	        unitDef += ", ";
+	      }	  
+      }
+    }
+    else
+    {
+      for (unsigned int p = 0; p < ud->getNumUnits(); p++)
+      {
+	      UnitKind_t kind = ud->getUnit(p)->getKind();
+	      int exp = ud->getUnit(p)->getExponent();
+        int scale = ud->getUnit(p)->getScale();
+        double mult = ud->getUnit(p)->getMultiplier();
+        mult = mult * pow(10, scale);
+
+        char unit[40];
+        sprintf(unit, "(%.6g %s)^%i", mult,  
+          UnitKind_toString(kind), exp);
+        unitDef += unit;
+
+	      if (p + 1 < ud->getNumUnits())
+	      {
+	        unitDef += ", ";
+	      }	  
+      }
     }
   }
   return unitDef;
@@ -1680,9 +1703,10 @@ UnitDefinition_combine(UnitDefinition_t * ud1, UnitDefinition_t * ud2)
 
 LIBSBML_EXTERN
 const char *
-UnitDefinition_printUnits(UnitDefinition_t * ud)
+UnitDefinition_printUnits(UnitDefinition_t * ud, int compact)
 {
-  return UnitDefinition::printUnits(static_cast<UnitDefinition*>(ud)).c_str();
+  return safe_strdup(UnitDefinition::printUnits(static_cast<UnitDefinition*>(ud)
+    , compact).c_str());
 }
 
 /** @endcond doxygen-c-only */

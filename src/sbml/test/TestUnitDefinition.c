@@ -700,6 +700,42 @@ START_TEST (test_UnitDefinition_createWithLevelVersionAndNamespace)
 END_TEST
 
 
+START_TEST (test_UnitDefinition_printUnits)
+{
+  UnitDefinition_t *ud = UnitDefinition_createWith("mmls", "");
+
+  Unit_t *perTime = UnitDefinition_createUnit(ud);
+  Unit_setKind( perTime  , UnitKind_forName("second")   );
+  Unit_setExponent( perTime, -1);
+
+  const char * ud_str = UnitDefinition_printUnits(ud, 0);
+  fail_unless(!strcmp(ud_str, 
+               "second (exponent = -1, multiplier = 1, scale = 0)"));
+
+  const char * ud_str1 = UnitDefinition_printUnits(ud, 1);
+  fail_unless(!strcmp(ud_str1, "(1 second)^-1"));
+
+  UnitDefinition_t *ud1 = UnitDefinition_createWith("mmls", "");
+  Unit_t *u = UnitDefinition_createUnit(ud1);
+
+  Unit_setKind(u, UNIT_KIND_KILOGRAM);
+  Unit_setExponent(u, 1);
+  Unit_setScale(u, 2);
+  Unit_setMultiplier(u, 3.0);
+
+  const char * ud_str2 = UnitDefinition_printUnits(ud1, 0);
+  fail_unless(!strcmp(ud_str2, 
+               "kilogram (exponent = 1, multiplier = 3, scale = 2)"));
+
+  const char * ud_str3 = UnitDefinition_printUnits(ud1, 1);
+  fail_unless(!strcmp(ud_str3, "(300 kilogram)^1"));
+
+}
+END_TEST
+
+
+
+
 Suite *
 create_suite_UnitDefinition (void)
 {
@@ -731,7 +767,7 @@ create_suite_UnitDefinition (void)
   tcase_add_test( tcase, test_UnitDefinition_isVariantOfSubstancePerTime_3 );
   tcase_add_test( tcase, test_UnitDefinition_isVariantOfSubstancePerTime_4 );
   tcase_add_test( tcase, test_UnitDefinition_createWithLevelVersionAndNamespace        );
-
+  tcase_add_test( tcase, test_UnitDefinition_printUnits        );
 
   suite_add_tcase(suite, tcase);
 

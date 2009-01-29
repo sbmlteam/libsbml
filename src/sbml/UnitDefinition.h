@@ -707,7 +707,7 @@ public:
 
 
   /** 
-   * Returns a string that expresses in a compact way the unit definition
+   * Returns a string that expresses the unit definition
    * represented by this UnitDefinition object.
    *
    * For example printUnits applied to
@@ -719,15 +719,20 @@ public:
    *  </listOfUnits>
    * <unitDefinition>
    * @endcode
-   * will return the string <code>"metre (exponent = 1) second (exponent =
-   * -2)"</code>.  This may be useful for printing unit information to
+   * will return the string <code>"metre (exponent = 1, multiplier = 1, scale = 0) 
+   * second (exponent = -2, multiplier = 1, scale = 0)"</code> or, if 
+   * compact = true, the string <code>"(1 metre)^1 (1 second)^-2"</code>
+   * This may be useful for printing unit information to
    * human users, or in debugging, or other situations.
    *
    * @param ud the UnitDefinition object
+   * @param compact boolean indicating whether the compact form
+   * should be used (defaults to false)
    *
    * @return a string expressing the unit definition
    */
-  static std::string printUnits(const UnitDefinition * ud);
+  static std::string printUnits(const UnitDefinition * ud, 
+                                bool compact = false);
 
 
   /** @cond doxygen-libsbml-internal */
@@ -1135,7 +1140,7 @@ UnitDefinition_combine(UnitDefinition_t * ud1, UnitDefinition_t * ud2);
 
 LIBSBML_EXTERN
 const char *
-UnitDefinition_printUnits(UnitDefinition_t * ud);
+UnitDefinition_printUnits(UnitDefinition_t * ud, int compact);
 
 
 END_C_DECLS
