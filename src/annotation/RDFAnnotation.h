@@ -69,7 +69,7 @@
 #include <cstdlib>
 
 
-class RDFAnnotationParser
+class LIBSBML_EXTERN RDFAnnotationParser
 {
 public:
 
@@ -172,6 +172,19 @@ public:
   static XMLNode * createRDFDescription(const SBase *object);
 
 
+  /**
+   * Takes a list of CVTerms and creates a the RDF "Description" element.
+   *
+   * This essentially takes the given SBML object, reads out the CVTerms
+   * attached to it, calls createRDFDescriptiom() to create an RDF
+   * "Description" element to hold the terms and adds each term with
+   * appropriate qualifiers.
+   *
+   * @param object the SBML object to start from
+   *
+   * @return the XMLNode tree corresponding to the Description element of
+   * an RDF annotation.
+   */
   static XMLNode * createCVTerms(const SBase *object);
 
 
@@ -179,7 +192,8 @@ public:
    * Takes a list of CVTerms and creates a complete SBML annotation
    * around it.
    *
-   * This essentially takes the given SBML object, reads out the CVTerms
+   * This essentially takes the given SBML object, calls createCVTerms
+   * to read out the CVTerms
    * attached to it, calls createRDFAnnotation() to create an RDF
    * annotation to hold the terms, and finally calls createAnnotation() to
    * wrap the result as an SBML <code>&lt;annotation&gt;</code> element.
@@ -205,5 +219,48 @@ public:
 };
 
 #endif  /* __cplusplus */
+
+#ifndef SWIG
+
+BEGIN_C_DECLS
+
+/*-----------------------------------------------------------------------------
+ * See the .cpp file for the documentation of the following functions.
+ *---------------------------------------------------------------------------*/
+
+void
+RDFAnnotationParser_parseRDFAnnotation(const XMLNode_t * annotation, 
+                                       List_t *CVTerms);
+
+ModelHistory_t *
+RDFAnnotationParser_parseRDFAnnotationWithModelHistory(
+                                        const XMLNode_t * annotation);
+
+XMLNode_t *
+RDFAnnotationParser_createAnnotation();
+
+XMLNode_t *
+RDFAnnotationParser_createRDFAnnotation();
+
+XMLNode_t *
+RDFAnnotationParser_deleteRDFAnnotation(XMLNode_t *annotation);
+
+XMLNode_t *
+RDFAnnotationParser_createRDFDescription(const SBase_t * object);
+
+XMLNode_t *
+RDFAnnotationParser_createCVTerms(const SBase_t * object);
+
+XMLNode_t *
+RDFAnnotationParser_parseCVTerms(const SBase_t * object);
+
+XMLNode_t *
+RDFAnnotationParser_parseModelHistory(const Model_t * object);
+
+
+END_C_DECLS
+
+#endif  /* !SWIG */
+
 
 #endif  /** RDFAnnotation_h **/

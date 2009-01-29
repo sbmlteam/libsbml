@@ -50,6 +50,7 @@ test_sources =           \
   TestModelHistory.c     \
   TestRDFAnnotation.cpp  \
   TestRDFAnnotation2.cpp \
+  TestRDFAnnotationC.c   \
   TestRunner.c
 
 test_data_files = \

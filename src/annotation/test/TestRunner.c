@@ -71,6 +71,7 @@ Suite *create_suite_RDFAnnotation (void);
 Suite *create_suite_RDFAnnotation2 (void);
 Suite *create_suite_ModelHistory (void);
 Suite *create_suite_CopyAndClone (void);
+Suite *create_suite_RDFAnnotation_C (void);
 
 END_C_DECLS
 /**
@@ -121,6 +122,7 @@ main (int argc, char* argv[])
   srunner_add_suite( runner, create_suite_CopyAndClone  () );
   srunner_add_suite( runner, create_suite_RDFAnnotation () );
   srunner_add_suite( runner, create_suite_RDFAnnotation2() );
+  srunner_add_suite( runner, create_suite_RDFAnnotation_C () );
 
   if (argc > 1 && !strcmp(argv[1], "-nofork"))
   {
