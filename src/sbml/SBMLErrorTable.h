@@ -3463,7 +3463,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_WARNING,
     "SBML Level 2 Version 4 removed the requirement that all units "
     "be consistent.  This model contains units that produce "
     "inconsistencies and thus conversion to Level 1 "
@@ -3587,7 +3587,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_WARNING,
     "SBML Level 2 Version 4 removed the requirement that all units "
     "be consistent.  This model contains units that produce "
     "inconsistencies and thus conversion to Level 2 Version 1 "
@@ -3711,7 +3711,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_WARNING,
     "SBML Level 2 Version 4 removed the requirement that all units "
     "be consistent.  This model contains units that produce "
     "inconsistencies and thus conversion to Level 2 Version 2 "
@@ -3728,7 +3728,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_WARNING,
     "SBML Level 2 Version 4 removed the requirement that all sboTerms "
     "be drawn from a given branch of SBO (http://www.biomodels.net/SBO/). "
     "This model contains sboTerms that produce "
@@ -3868,7 +3868,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_WARNING,
     "SBML Level 2 Version 4 removed the requirement that all units "
     "be consistent.  This model contains units that produce "
     "inconsistencies and thus conversion to Level 2 Version 3 "
@@ -3885,7 +3885,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_WARNING,
     "SBML Level 2 Version 4 removed the requirement that all sboTerms "
     "be drawn from a given branch of SBO (http://www.biomodels.net/SBO/). "
     "This model contains sboTerms that produce "
