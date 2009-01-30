@@ -228,6 +228,13 @@ XMLNode::addChild (const XMLNode& node)
 XMLNode&
 XMLNode::insertChild (unsigned int n, const XMLNode& node)
 {
+  /* catch case where node is NULL
+   */
+  if (&(node) == NULL)
+  {
+    return const_cast<XMLNode&>(node);
+  }
+
   unsigned int size = mChildren.size();
 
   if ( (n >= size) || (size == 0) )
