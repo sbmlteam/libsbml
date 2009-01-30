@@ -890,7 +890,7 @@ UnitDefinition::printUnits(const UnitDefinition * ud, bool compact)
 	      int exp = ud->getUnit(p)->getExponent();
         int scale = ud->getUnit(p)->getScale();
         double mult = ud->getUnit(p)->getMultiplier();
-        mult = mult * pow(10, scale);
+        mult = mult * pow(10.0, scale);
 
         char unit[40];
         sprintf(unit, "(%.6g %s)^%i", mult,  
