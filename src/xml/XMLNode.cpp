@@ -205,6 +205,13 @@ XMLNode::clone () const
 void
 XMLNode::addChild (const XMLNode& node)
 {
+  /* catch case where node is NULL
+   */
+  if (&(node) == NULL)
+  {
+    return;
+  }
+
   mChildren.push_back(node);
 
   /* need to catch the case where this node is both a start and
