@@ -175,20 +175,18 @@ SBMLErrorLog::remove (const unsigned int errorId)
   //  Item 33: Be wary of remove-like algorithms on containers of pointers. 143)
   //
   //
-  vector<XMLError*>::iterator endDelete;
+  vector<XMLError*>::iterator delIter;
 
-  // matched iterms are located from mErrors.begin() to endDelete (the return value of
-  // stable_partition algorithm)
-  endDelete = stable_partition(mErrors.begin(), mErrors.end(), MatchErrorId(errorId));
+  // finds an item with the given errorId (the first item will be found if 
+  // there are two or more items with the same Id)  
+  delIter = find_if(mErrors.begin(), mErrors.end(), MatchErrorId(errorId));
 
-  //
-  // deletes (invoke delete operator for the matched item) and erases (removes the pointer 
-  // from mErrors) only the first matched item (if any)
-  //
-  if (endDelete != mErrors.begin())
+  if ( delIter != mErrors.end() )
   {
-    delete *mErrors.begin();
-    mErrors.erase(mErrors.begin());    
+    // deletes (invoke delete operator for the matched item) and erases (removes 
+    // the pointer from mErrors) the matched item (if any)
+    delete *delIter;
+    mErrors.erase(delIter);    
   }
 }
 
