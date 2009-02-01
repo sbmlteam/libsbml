@@ -173,7 +173,7 @@ CONFIG_PROG_CSHARP
 # Make sure to test doxygen *after* java, because there's a dependency on
 # in CONFIG_PROG_DOXYGEN on whether --with-java was also given.
 
-CONFIG_PROG_DOXYGEN(1.5.4)
+CONFIG_PROG_DOXYGEN(1.5.8)
 
 dnl AC_LIBTOOL_WIN32_DLL
 dnl AC_PROG_LIBTOOL

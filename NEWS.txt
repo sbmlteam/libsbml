@@ -24,6 +24,10 @@ Next release
   - A problem in error logging whilst reading a file meant that files
     with certain errors caused libSBML to crash.  This has been fixed.
     
+  - 'configure' requested doxygen version 1.5.4, but actually some of
+    the latest documentation code requires 1.5.8.
+
+
 ======================================================================
 Version 3.3.0 (released 2009-01-20)
 ======================================================================
