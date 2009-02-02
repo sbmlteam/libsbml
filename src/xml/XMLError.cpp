@@ -338,7 +338,7 @@ XMLError::XMLError (  const int errorId
         mCategory = errorTable[i].category;
         
         mSeverityString = stringForSeverity(mSeverity);
-        mCategoryString = stringForCategory(mSeverity);
+        mCategoryString = stringForCategory(mCategory);
 
         return;
       }
