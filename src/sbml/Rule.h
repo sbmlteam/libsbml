@@ -532,9 +532,9 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * Rule's mathematical expression has been set.
    * 
-   * Equivalent to isSetMath().  This version is present for easier
-   * compatibility with SBML Level&nbsp;1, in which mathematical formulas were
-   * written in text-string form.
+   * This method is equivalent to isSetMath().  This version is present for
+   * easier compatibility with SBML Level&nbsp;1, in which mathematical
+   * formulas were written in text-string form.
    * 
    * @return @c true if the mathematical formula for this Rule has been
    * set, @c false otherwise.
@@ -546,7 +546,7 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * Rule's mathematical expression has been set.
    *
-   * Equivalent to isSetFormula().
+   * This method is equivalent to isSetFormula().
    * 
    * @return @c true if the formula (or equivalently the math) for this
    * Rule has been set, @c false otherwise.
@@ -567,6 +567,8 @@ public:
   /**
    * (SBML Level&nbsp;1 ParameterRule only) Predicate returning @c true or @c
    * false depending on whether this Rule's "units" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @return @c true if the units for this Rule has been set, @c false
    * otherwise
@@ -608,6 +610,8 @@ public:
   /**
    * (SBML Level&nbsp;1 ParameterRule only) Sets the units for this Rule.
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * @param sname the identifier of the units
    */
   void setUnits (const std::string& sname);
@@ -615,6 +619,8 @@ public:
 
   /**
    * (SBML Level&nbsp;1 ParameterRule only) Unsets the "units" for this Rule.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    */
   void unsetUnits ();
 

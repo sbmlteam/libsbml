@@ -344,6 +344,8 @@ public:
   /**
    * Predicate for testing whether the trigger for this Event has been set.
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * @return @c true if the trigger of this Event has been set, @c false
    * otherwise.
    */
@@ -352,6 +354,8 @@ public:
 
   /**
    * Predicate for testing whether the delay for this Event has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @return @c true if the delay of this Event has been set, @c false
    * otherwise.
@@ -362,6 +366,8 @@ public:
   /**
    * Predicate for testing whether the "timeUnits" attribute of this Event
    * has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @return @c true if the "timeUnits" attribute of this Event has been
    * set, @c false otherwise.
@@ -382,6 +388,8 @@ public:
    * Sets the trigger definition of this Event to a copy of the given
    * Trigger object instance.
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * @param trigger the Trigger object instance to use.
    */
   void setTrigger (const Trigger* trigger);
@@ -391,6 +399,8 @@ public:
    * Sets the delay definition of this Event to a copy of the given Delay
    * object instance.
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * @param delay the Delay object instance to use
    */
   void setDelay (const Delay* delay);
@@ -398,6 +408,8 @@ public:
 
   /**
    * Sets the "timeUnits" attribute of this Event to a copy of @p sid.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param sid the identifier of the time units to use.
    *
@@ -456,12 +468,16 @@ public:
 
   /**
    * Unsets the Delay of this Event.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    */
   void unsetDelay ();
 
 
   /**
    * Unsets the "timeUnits" attribute of this Event.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @warning Definitions of Event in SBML Level&nbsp;2 Versions 1 and 2
    * included the attribute called "timeUnits", but it was removed in SBML

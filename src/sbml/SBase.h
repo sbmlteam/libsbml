@@ -612,7 +612,9 @@ public:
   /**
    * Predicate returning @c true or @c false depending on whether this
    * object's "metaid" attribute has been set.
-   * 
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * @return @c true if the "metaid" attribute of this SBML object has been
    * set, @c false otherwise.
    */
@@ -622,6 +624,8 @@ public:
   /**
    * Predicate returning @c true or @c false depending on whether this
    * object's "id" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    * 
    * @return @c true if the "id" attribute of this SBML object has been
    * set, @c false otherwise.
@@ -632,6 +636,8 @@ public:
   /**
    * Predicate returning @c true or @c false depending on whether this
    * object's "name" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    * 
    * @return @c true if the "name" attribute of this SBML object has been
    * set, @c false otherwise.
@@ -642,6 +648,8 @@ public:
   /**
    * Predicate returning @c true or @c false depending on whether this
    * object's "notes" subelement exists and has content.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    * 
    * @return @c true if a "notes" subelement exists, @c false otherwise.
    */
@@ -651,6 +659,8 @@ public:
   /**
    * Predicate returning @c true or @c false depending on whether this
    * object's "annotation" subelement exists and has content.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    * 
    * @return @c true if a "annotation" subelement exists, @c false
    * otherwise.
@@ -661,6 +671,8 @@ public:
   /**
    * Predicate returning @c true or @c false depending on whether this
    * object's "sboTerm" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    * 
    * @return @c true if the "sboTerm" attribute of this SBML object has been
    * set, @c false otherwise.
@@ -679,6 +691,8 @@ public:
    * if they use XML ID's in XML portions of a model that are not defined
    * by SBML, such as in the application-specific content of the
    * "annotation" subelement.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param metaid the identifier string to use as the value of the
    * "metaid" attribute
@@ -705,6 +719,8 @@ public:
    * the uniqueness of identifiers in an SBML model.  Please consult the
    * SBML specifications for the exact formulations.
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * @param sid the string to use as the identifier of this object
    */
   void setId (const std::string& sid);
@@ -714,6 +730,8 @@ public:
    * Sets the value of the "name" attribute of this SBML object.
    *
    * The string in @p name is copied.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param name the new name for the object
    */
@@ -730,6 +748,8 @@ public:
    * assigned, it is likely that performing such wholesale replacement is
    * unfriendly towards other software applications whose annotations are
    * discarded.  An alternative may be to use appendAnnotation().
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param annotation an XML structure that is to be used as the content
    * of the "annotation" subelement of this object
@@ -749,6 +769,8 @@ public:
    * assigned, it is likely that performing such wholesale replacement is
    * unfriendly towards other software applications whose annotations are
    * discarded.  An alternative may be to use appendAnnotation().
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param annotation an XML string that is to be used as the content
    * of the "annotation" subelement of this object
@@ -794,6 +816,8 @@ public:
    * Sets the value of the "notes" subelement of this SBML object to a copy
    * of @p notes.
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * Any existing content of the "notes" subelement is discarded.
    *
    * @param notes an XML structure that is to be used as the content of the
@@ -809,6 +833,8 @@ public:
    * of @p notes.
    *
    * Any existing content of the "notes" subelement is discarded.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param notes an XML string that is to be used as the content of the
    * "notes" subelement of this object
@@ -845,6 +871,7 @@ public:
    */
   void appendNotes(const std::string& notes);
 
+
   /** @cond doxygen-libsbml-internal */
 
   /**
@@ -864,6 +891,7 @@ public:
 
   /** @endcond doxygen-libsbml-internal */
 
+
   /**
    * Sets the value of the "sboTerm" attribute.
    *
@@ -877,6 +905,8 @@ public:
    * imposes its own requirements about the values permitted for "sboTerm".
    * Please consult the SBML Level 2 Version 4 specification for more
    * information about the use of SBO and the "sboTerm" attribute.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param value the NNNNNNN integer portion of the SBO identifier
    */
@@ -893,36 +923,48 @@ public:
 
   /**
    * Unsets the value of the "metaid" attribute of this SBML object.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    */
   void unsetMetaId ();
 
 
   /**
    * Unsets the value of the "id" attribute of this SBML object.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    */
   void unsetId ();
 
 
   /**
    * Unsets the value of the "name" attribute of this SBML object.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    */
   void unsetName ();
 
 
   /**
    * Unsets the value of the "notes" subelement of this SBML object.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    */
   void unsetNotes ();
 
 
   /**
    * Unsets the value of the "annotation" subelement of this SBML object.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    */
   void unsetAnnotation ();
 
 
   /**
    * Unsets the value of the "sboTerm" attribute of this SBML object.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    */
   void unsetSBOTerm ();
 

@@ -284,9 +284,8 @@ public:
 
 
   /**
-   * Sets the "math" subelement of this FunctionDefinition.
-   *
-   * The Abstract Syntax Tree passed in @p math is copied.
+   * Sets the "math" subelement of this FunctionDefinition to the Abstract
+   * Syntax Tree given in @p math.
    *
    * @param math an AST containing the mathematical expression to
    * be used as the formula for this FunctionDefinition.
@@ -295,7 +294,7 @@ public:
 
 
   /**
-   * Get the nth argument to this function.
+   * Get the <code>n</code>th argument to this function.
    *
    * Callers should first find out the number of arguments to the function
    * by calling getNumArguments().

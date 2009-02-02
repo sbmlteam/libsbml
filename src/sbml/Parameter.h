@@ -373,6 +373,8 @@ public:
    * Predicate returning @c true or @c false depending on whether the
    * "value" attribute of this Parameter has been set.
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * In %SBML definitions after %SBML Level&nbsp;1 Version&nbsp;1,
    * parameter values are optional and have no defaults.  If a model read
    * from a file does not contain a setting for the "value" attribute of a
@@ -404,6 +406,8 @@ public:
   /**
    * Predicate returning @c true or @c false depending on whether the
    * "units" attribute of this Parameter has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    * 
    * @return @c true if the "units" attribute of this Parameter has been
    * set, @c false otherwise.
@@ -415,6 +419,8 @@ public:
    * Sets the "value" attribute of this Parameter to the given @c double
    * value and marks the attribute as set.
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * @param value a @c double, the value to assign
    */
   void setValue (double value);
@@ -423,6 +429,8 @@ public:
   /**
    * Sets the "units" attribute of this Parameter to a copy of the given
    * units identifier @p units.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param units a string, the identifier of the units to assign to this
    * Parameter instance
@@ -443,6 +451,8 @@ public:
   /**
    * Unsets the "value" attribute of this Parameter instance.
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * In %SBML Level&nbsp;1 Version&nbsp;1, parameters are required to have
    * values and therefore, the value of a Parameter <b>should always be
    * set</b>.  In %SBML Level&nbsp;1 Version&nbsp;2 and beyond, the value
@@ -453,6 +463,8 @@ public:
 
   /**
    * Unsets the "units" attribute of this Parameter instance.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    */
   void unsetUnits ();
 

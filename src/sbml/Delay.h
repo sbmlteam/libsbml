@@ -243,6 +243,8 @@ public:
   /**
    * Predicate to test whether the formula for this delay has been set.
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * @return @c true if the formula (meaning the @c math subelement) of
    * this Delay has been set, @c false otherwise.
    */
@@ -252,6 +254,8 @@ public:
   /**
    * Sets the delay expression of this Delay instance to a copy of the given
    * ASTNode.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param math an ASTNode representing a formula tree.
    */

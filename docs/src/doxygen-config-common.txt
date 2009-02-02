@@ -333,30 +333,31 @@ WARN_LOGFILE           =
 # directories like "/usr/src/myproject". Separate the files or directories 
 # with spaces.
 
-INPUT =                      \
-  libsbml-accessing.txt      \
-  libsbml-coding.txt         \
-  libsbml-blurb.txt          \
-  libsbml-communications.txt \
-  libsbml-example.txt        \
-  libsbml-features.txt       \
-  libsbml-installation.txt   \
-  libsbml-issues.txt         \
-  libsbml-license.txt        \
-  libsbml-mainpage.txt       \
-  libsbml-math.txt           \
-  libsbml-news.txt           \
-  libsbml-papers.txt         \
-  libsbml-reading-files.txt  \
-  libsbml-uninstallation.txt \
-  ../../src/common           \
-  ../../src/annotation       \
-  ../../src/math             \
-  ../../src/sbml             \
-  ../../src/util             \
-  ../../src/validator        \
+INPUT =                            \
+  libsbml-accessing.txt            \
+  libsbml-coding.txt               \
+  libsbml-blurb.txt                \
+  libsbml-communications.txt       \
+  libsbml-comment-set-methods.html \
+  libsbml-example.txt              \
+  libsbml-features.txt             \
+  libsbml-installation.txt         \
+  libsbml-issues.txt               \
+  libsbml-license.txt              \
+  libsbml-mainpage.txt             \
+  libsbml-math.txt                 \
+  libsbml-news.txt                 \
+  libsbml-papers.txt               \
+  libsbml-reading-files.txt        \
+  libsbml-uninstallation.txt       \
+  ../../src/common                 \
+  ../../src/annotation             \
+  ../../src/math                   \
+  ../../src/sbml                   \
+  ../../src/util                   \
+  ../../src/validator              \
   ../../src/xml
-#  ../../src/sbml/layout      \
+#  ../../src/sbml/layout           \
 
 # The EXCLUDE tag can be used to specify files and/or directories that should 
 # excluded from the INPUT source files. This way you can easily exclude a 

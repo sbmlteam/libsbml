@@ -183,7 +183,6 @@ public:
   /**
    * Predicate to test whether the math for this trigger has been set.
    *
-   * 
    * @return @c true if the formula (meaning the "math" subelement) of
    * this Trigger has been set, @c false otherwise.
    */

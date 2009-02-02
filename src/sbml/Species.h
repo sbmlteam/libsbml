@@ -519,6 +519,8 @@ public:
   /**
    * Predicate returning @c true or @c false depending on whether this
    * Species's "speciesType" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    * 
    * @return @c true if the "speciesType" attribute of this Species has
    * been set, @c false otherwise.
@@ -529,6 +531,8 @@ public:
   /**
    * Predicate returning @c true or @c false depending on whether this
    * Species's "compartment" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    * 
    * @return @c true if the "compartment" attribute of this Species has
    * been set, @c false otherwise.
@@ -539,6 +543,8 @@ public:
   /**
    * Predicate returning @c true or @c false depending on whether this
    * Species's "initialAmount" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    * 
    * @return @c true if the "initialAmount" attribute of this Species has
    * been set, @c false otherwise.
@@ -555,6 +561,8 @@ public:
   /**
    * Predicate returning @c true or @c false depending on whether this
    * Species's "initialConcentration" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    * 
    * @return @c true if the "initialConcentration" attribute of this Species has
    * been set, @c false otherwise.
@@ -565,6 +573,8 @@ public:
   /**
    * Predicate returning @c true or @c false depending on whether this
    * Species's "substanceUnits" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    * 
    * @return @c true if the "substanceUnits" attribute of this Species has
    * been set, @c false otherwise.
@@ -575,6 +585,8 @@ public:
   /**
    * Predicate returning @c true or @c false depending on whether this
    * Species's "spatialSizeUnits" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    * 
    * @return @c true if the "spatialSizeUnits" attribute of this Species has
    * been set, @c false otherwise.
@@ -593,6 +605,8 @@ public:
   /**
    * (SBML Level&nbsp;1 only) Predicate returning @c true or @c false depending
    * on whether this Species's "units" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    * 
    * @return @c true if the "units" attribute of this Species has
    * been set, @c false otherwise.
@@ -603,6 +617,8 @@ public:
   /**
    * Predicate returning @c true or @c false depending on whether this
    * Species's "charge" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    * 
    * @return @c true if the "charge" attribute of this Species has
    * been set, @c false otherwise.
@@ -625,6 +641,8 @@ public:
   /**
    * Sets the "speciesType" attribute of this Species.
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * @param sid the identifier of a SpeciesType object defined elsewhere
    * in this Model.
    */
@@ -633,6 +651,8 @@ public:
 
   /**
    * Sets the "compartment" attribute of this Species.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param sid the identifier of a Compartment object defined elsewhere
    * in this Model.
@@ -646,6 +666,8 @@ public:
    *
    * This method also unsets the "initialConcentration" attribute.
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * @param value the value to which the "initialAmount" attribute should
    * be set.
    */
@@ -658,6 +680,8 @@ public:
    *
    * This method also unsets the "initialAmount" attribute.
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * @param value the value to which the "initialConcentration" attribute
    * should be set.
    */
@@ -667,6 +691,8 @@ public:
   /**
    * Sets the "substanceUnits" attribute of this Species.
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * @param sid the identifier of the unit to use.
    */
   void setSubstanceUnits (const std::string& sid);
@@ -674,6 +700,8 @@ public:
 
   /**
    * Sets the "spatialSizeUnits" attribute of this Species.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param sid the identifier of the unit to use.
    * 
@@ -691,6 +719,8 @@ public:
   /**
    * (SBML Level&nbsp;1 only) Sets the units of this Species.
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * @param sname the identifier of the unit to use.
    */
   void setUnits (const std::string& sname);
@@ -698,6 +728,8 @@ public:
 
   /**
    * Sets the "hasOnlySubstanceUnits" attribute of this Species.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param value boolean value for the "hasOnlySubstanceUnits" attribute.
    */
@@ -707,6 +739,8 @@ public:
   /**
    * Sets the "boundaryCondition" attribute of this Species.
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * @param value boolean value for the "boundaryCondition" attribute.
    */
   void setBoundaryCondition (bool value);
@@ -714,6 +748,8 @@ public:
 
   /**
    * Sets the "charge" attribute of this Species.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param value an integer to which to set the "charge" to.
    *
@@ -735,6 +771,8 @@ public:
   /**
    * Sets the "constant" attribute of this Species.
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * @param value a boolean value for the "constant" attribute
    */
   void setConstant (bool value);
@@ -742,30 +780,40 @@ public:
 
   /**
    * Unsets the "speciesType" attribute value of this Species.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    */
   void unsetSpeciesType ();
 
 
   /**
    * Unsets the "initialAmount" attribute value of this Species.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    */
   void unsetInitialAmount ();
 
 
   /**
    * Unsets the "initialConcentration" attribute value of this Species.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    */
   void unsetInitialConcentration ();
 
 
   /**
    * Unsets the "substanceUnits" attribute value of this Species.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    */
   void unsetSubstanceUnits ();
 
 
   /**
    * Unsets the "spatialSizeUnits" attribute value of this Species.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    * 
    * @warning In versions of SBML Level~2 before Version&nbsp;3, the class
    * Species included an attribute called "spatialSizeUnits", which allowed
@@ -780,12 +828,16 @@ public:
 
   /**
    * (SBML Level&nbsp;1 only) Unsets the "units" attribute value of this Species.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    */
   void unsetUnits ();
 
 
   /**
    * Unsets the "charge" attribute value of this Species.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @note Beginning in SBML Level&nbsp;2 Version&nbsp;2, the "charge"
    * attribute on Species in SBML is deprecated and its use strongly

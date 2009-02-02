@@ -365,7 +365,9 @@ public:
   /**
    * Predicate returning @c true or @c false depending on whether this
    * Reaction contains a kinetic law object.
-   * 
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * @return @c true if a KineticLaw is present in this Reaction,, @c false
    * otherwise.
    */
@@ -375,6 +377,8 @@ public:
   /**
    * Predicate returning @c true or @c false depending on the value of
    * the "fast" attribute on this Reaction.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    * 
    * @return @c true if the "fast" attribute is true, @c false otherwise.
    *
@@ -399,6 +403,8 @@ public:
    * Sets the "kineticLaw" subelement of this Reaction to a copy of the
    * given KineticLaw object.
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * @param kl the KineticLaw object to use.
    */
   void setKineticLaw (const KineticLaw* kl);
@@ -407,6 +413,8 @@ public:
   /**
    * Sets the value of the "reversible" attribute of this Reaction.
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * @param value the value of the "reversible" attribute.
    */
   void setReversible (bool value);
@@ -414,6 +422,8 @@ public:
 
   /**
    * Sets the value of the "fast" attribute of this Reaction.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param value the value of the "fast" attribute.
    * 
@@ -434,12 +444,16 @@ public:
 
   /**
    * Unsets the "kineticLaw" subelement of this Reaction.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    */
   void unsetKineticLaw ();
 
 
   /**
    * Unsets the value of the "fast" attribute of this Reaction.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @warning In SBML Level 1, "fast" is optional with a default of @c
    * false, which means it is effectively always set (and reset to @c false

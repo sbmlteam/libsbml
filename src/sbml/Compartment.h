@@ -476,7 +476,9 @@ public:
   /**
    * Predicate returning @c true or @c false depending on whether this
    * Compartment's "compartmentType" attribute has been set.
-   * 
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * @return @c true if the "compartmentType" attribute of this Compartment
    * has been set, @c false otherwise.
    */
@@ -486,6 +488,8 @@ public:
   /**
    * Predicate returning @c true or @c false depending on whether this
    * Compartment's "size" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * This method is similar but not identical to isSetVolume().  The latter
    * should be used in the context of SBML Level 1 models instead of
@@ -506,6 +510,8 @@ public:
    * (For SBML Level 1) Predicate returning @c true or @c false depending
    * on whether this Compartment's "volume" attribute has been set.
    * 
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * This method is similar but not identical to isSetSize().  The latter
    * should not be used in the context of SBML Level 1 models because this
    * method (isSetVolume()) performs extra processing to take into account
@@ -530,6 +536,8 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * Compartment's "units" attribute has been set.
    * 
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * @return @c true if the "units" attribute of this Compartment has been
    * set, @c false otherwise.
    */
@@ -540,6 +548,8 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * Compartment's "outside" attribute has been set.
    * 
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * @return @c true if the "outside" attribute of this Compartment has
    * been set, @c false otherwise.
    */
@@ -549,6 +559,8 @@ public:
   /**
    * Sets the "compartmentType" attribute of this Compartment.
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * @param sid the identifier of a CompartmentType object defined
    * elsewhere in this Model.
    */
@@ -557,6 +569,8 @@ public:
 
   /**
    * Sets the "spatialDimensions" attribute of this Compartment.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * If @p value is not one of @c 0, @c 1, @c 2, or @c 3, this method will
    * have no effect (i.e., the "spatialDimensions" attribute will not be
@@ -572,6 +586,8 @@ public:
    * Sets the "size" attribute (or "volume" in SBML Level 1) of this
    * Compartment.
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * This method is identical to setVolume() and is provided for
    * compatibility between SBML Level 1 and Level 2.
    *
@@ -585,6 +601,8 @@ public:
    * Sets the "volume" attribute (or "size" in SBML Level 2) of this
    * Compartment.
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * This method is identical to setVolume() and is provided for
    * compatibility between SBML Level 1 and Level 2.
    * 
@@ -597,6 +615,8 @@ public:
   /**
    * Sets the "units" attribute of this Compartment.
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * @param sid the identifier of the defined units to use.
    */
   void setUnits (const std::string& sid);
@@ -604,6 +624,8 @@ public:
 
   /**
    * Sets the "outside" attribute of this Compartment.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param sid the identifier of a compartment that encloses this one.
    */
@@ -623,12 +645,21 @@ public:
   /**
    * Unsets the value of the "compartmentType" attribute of this
    * Compartment.
+   * 
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @see setCompartmentType()
+   * @see isSetCompartmentType()
+   *
    */
   void unsetCompartmentType ();
 
 
   /**
    * Unsets the value of the "size" attribute of this Compartment.
+   * 
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    */
   void unsetSize ();
 
@@ -636,6 +667,8 @@ public:
   /**
    * (For SBML Level 1) Unsets the value of the "volume" attribute of this
    * Compartment.
+   * 
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * In SBML Level 1, a Compartment volume has a default value (1.0) and
    * therefore <em>should always be set</em>.  In Level 2, "size" is
@@ -646,12 +679,16 @@ public:
 
   /**
    * Unsets the value of the "units" attribute of this Compartment.
+   * 
+   * @htmlinclude libsbml-comment-set-methods.html
    */
   void unsetUnits ();
 
 
   /**
    * Unsets the value of the "outside" attribute of this Compartment.
+   * 
+   * @htmlinclude libsbml-comment-set-methods.html
    */
   void unsetOutside ();
 

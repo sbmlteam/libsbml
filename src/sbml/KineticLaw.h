@@ -366,6 +366,8 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * KineticLaw's "formula" attribute has been set
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * This is functionally identical to the method isSetMath().  It is
    * provided in order to mirror the parallel between getFormula() and
    * getMath().
@@ -390,6 +392,8 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * Kinetic's "math" subelement has been set
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * This is identical to the method isSetFormula().  It is provided
    * in order to mirror the parallel between getFormula() and getMath().
    * 
@@ -402,6 +406,8 @@ public:
  /**
    * Predicate returning @c true or @c false depending on whether this
    * SpeciesReference's "timeUnits" attribute has been set
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @return @c true if the "timeUnits" attribute of this KineticLaw object
    * has been set, @c false otherwise.
@@ -417,6 +423,8 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * SpeciesReference's "substanceUnits" attribute has been set
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * @return @c true if the "substanceUnits" attribute of this KineticLaw
    * object has been set, @c false otherwise.
    *
@@ -430,6 +438,8 @@ public:
   /**
    * Sets the mathematical expression of this KineticLaw instance to the
    * given @p formula.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * The given @p formula string is copied.  Internally, libSBML stores the
    * mathematical expression as an ASTNode.
@@ -454,6 +464,8 @@ public:
    * Sets the mathematical expression of this KineticLaw instance to a copy
    * of the given ASTNode.
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * This is fundamentally identical to setFormula().  The latter is
    * provided principally for compatibility compatibility with SBML Level
    * 1, which represented mathematical formulas in text-string form.
@@ -464,9 +476,10 @@ public:
 
 
   /**
-   * Sets the "timeUnits" attribute of this KineticLaw object.
+   * Sets the "timeUnits" attribute of this KineticLaw object to a copy of
+   * the identifier in @p sid.
    *
-   * The units identifier in @p sid is copied.
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param sid the identifier of the units to use.
    *
@@ -478,9 +491,10 @@ public:
 
 
   /**
-   * Sets the "substanceUnits" attribute of this KineticLaw object.
+   * Sets the "substanceUnits" attribute of this KineticLaw object to a copy
+   * of the identifier given in @p sid.
    *
-   * The units identifier in @p sid is copied.
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param sid the identifier of the units to use.
    *
@@ -494,6 +508,8 @@ public:
   /**
    * Unsets the "timeUnits" attribugte of this KineticLaw object.
    *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
    * @warning In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
    * "substanceUnits" attributes were removed.  For compatibility with new
    * versions of SBML, users are cautioned to avoid these attributes.
@@ -503,6 +519,8 @@ public:
 
   /**
    * Unsets the "substanceUnits" attribute of this KineticLaw object.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @warning In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
    * "substanceUnits" attributes were removed.  For compatibility with new

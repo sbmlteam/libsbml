@@ -138,6 +138,7 @@ distfiles =                                    \
         libsbml-blurb.html                     \
         libsbml-blurb.txt                      \
         libsbml-coding.txt                     \
+	libsbml-comment-set-methods.html       \
         libsbml-communications.html            \
         libsbml-communications.txt             \
         libsbml-conversion-warnings.txt        \

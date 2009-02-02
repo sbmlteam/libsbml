@@ -223,6 +223,8 @@ public:
   /**
    * Predicate returning @c true or @c false depending on whether this
    * Model's ModelHistory has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    * 
    * @return @c true if the ModelHistory of this Model
    * has been set, @c false otherwise.
@@ -232,6 +234,8 @@ public:
 
   /**
    * Sets the ModelHistory of this Model.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    * 
    * @param history ModelHistory of this Model.
    */
@@ -240,6 +244,8 @@ public:
 
   /**
    * Unsets the ModelHistory of this Model.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    */
   void unsetModelHistory();
 
