@@ -32,8 +32,8 @@
  *
  * An XMLNode can contain any number of children.  Each child is another
  * XMLNode, thereby forming a tree.  The methods XMLNode::getNumChildren()
- * and @if doxygen-clike-only XMLNode::getChild() can be used to access the
- * tree structure starting from a given node. @endif@if doxygen-java-only XMLNode::getChild(long n)
+ * and @if clike XMLNode::getChild() can be used to access the
+ * tree structure starting from a given node. @endif@if java XMLNode::getChild(long n)
  * can be used to access the tree structure starting from a given node.
  * @endif
  *

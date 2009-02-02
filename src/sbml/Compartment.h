@@ -279,17 +279,17 @@ public:
    * Thus, callers are cautioned to assign a value after calling this
    * constructor if no identifier is provided as an argument.
    *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
+   * @if clike @else @docnote The native C++ implementation of this method
+   * defines a default argument value.  In the documentation generated for
+   * different libSBML language bindings, you may or may not see
+   * corresponding arguments in the method declarations.  For example, in
+   * Java, a default argument is handled by declaring two separate methods,
+   * with one of them having the argument and the other one lacking the
+   * argument.  However, the libSBML documentation will be @em identical
+   * for both methods.  Consequently, if you are reading this and do not
+   * see an argument even though one is described, please look for
+   * descriptions of other variants of this method near where this one
+   * appears in the documentation. @endif
    */
   Compartment (const std::string& id = "", const std::string& name = "");
 
@@ -304,7 +304,7 @@ public:
    * (identifier) attribute of a Compartment is required to have a value.
    * Thus, callers are cautioned to assign a value after calling this
    * constructor.  Setting the identifier can be accomplished using the
-   * method @if doxygen-clike-only SBase::setId() @endif@if doxygen-java-only SBase::setId(String id) @endif.
+   * method @if clike SBase::setId() @endif@if java SBase::setId(String id) @endif.
    *
    * @param level an unsigned int, the SBML Level to assign to this Compartment
    *
@@ -693,11 +693,11 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * @if clike LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.
    * The set of possible type codes is defined in the enumeration
    * #SBMLTypeCode_t.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * characters @c SBML_. @endif@if java LibSBML attaches an
    * identifying code to every kind of SBML object.  These are known as
    * <em>SBML type codes</em>.  In other languages, the set of type codes
    * is stored in an enumeration; in the Java language interface for
@@ -769,11 +769,11 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    *
-   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * @if clike LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.
    * The set of possible type codes is defined in the enumeration
    * #SBMLTypeCode_t.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * characters @c SBML_. @endif@if java LibSBML attaches an
    * identifying code to every kind of SBML object.  These are known as
    * <em>SBML type codes</em>.  In other languages, the set of type codes
    * is stored in an enumeration; in the Java language interface for
@@ -792,11 +792,11 @@ public:
    * Returns the libSBML type code for the objects contained in this ListOf
    * (i.e., Compartment objects, if the list is non-empty).
    *
-   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * @if clike LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.
    * The set of possible type codes is defined in the enumeration
    * #SBMLTypeCode_t.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * characters @c SBML_. @endif@if java LibSBML attaches an
    * identifying code to every kind of SBML object.  These are known as
    * <em>SBML type codes</em>.  In other languages, the set of type codes
    * is stored in an enumeration; in the Java language interface for

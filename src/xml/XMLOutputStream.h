@@ -23,7 +23,7 @@
  *
  * @class XMLOutputStream
  *
- * @if doxygen-java-only @deprecated libSBML internal @endif
+ * @if java @deprecated libSBML internal @endif
  */
 
 #ifndef XMLOutputStream_h

@@ -437,7 +437,7 @@ def sanitizeForHTML (docstring, language):
 
   # First do conditional section inclusion based on the current language.
 
-  p = re.compile('@if\s+doxygen-(java|python|perl|clike)-only\s+(.+?)@endif', re.DOTALL)
+  p = re.compile('@if\s+(java|python|perl|clike)\s+(.+?)@endif', re.DOTALL)
   if language == 'java':
     docstring = p.sub(translateIfJava, docstring)
   elif language == 'perl':

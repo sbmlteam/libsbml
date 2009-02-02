@@ -200,7 +200,7 @@ public:
    * definitions must have a value for this attribute.  If no variable is
    * provided at the time of creation, the value is left as the empty
    * string.  Callers are cautioned to set the value
-   * using @if doxygen-clike-only EventAssignment::setVariable(String id) @endif@if doxygen-java-only EventAssignment::setVariable() @endif
+   * using @if clike EventAssignment::setVariable(String id) @endif@if java EventAssignment::setVariable() @endif
    * soon after invoking this constructor.
    *
    * @docnote The native C++ implementation of this method defines a
@@ -418,11 +418,11 @@ public:
   /**
    * Returns the libSBML type code of this object instance.
    *
-   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * @if clike LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.
    * The set of possible type codes is defined in the enumeration
    * #SBMLTypeCode_t.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * characters @c SBML_. @endif@if java LibSBML attaches an
    * identifying code to every kind of SBML object.  These are known as
    * <em>SBML type codes</em>.  In other languages, the set of type codes
    * is stored in an enumeration; in the Java language interface for
@@ -508,11 +508,11 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    *
-   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * @if clike LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.
    * The set of possible type codes is defined in the enumeration
    * #SBMLTypeCode_t.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * characters @c SBML_. @endif@if java LibSBML attaches an
    * identifying code to every kind of SBML object.  These are known as
    * <em>SBML type codes</em>.  In other languages, the set of type codes
    * is stored in an enumeration; in the Java language interface for
@@ -531,11 +531,11 @@ public:
    * Returns the libSBML type code for the objects contained in this ListOf
    * (i.e., EventAssignment objects, if the list is non-empty).
    *
-   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * @if clike LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.
    * The set of possible type codes is defined in the enumeration
    * #SBMLTypeCode_t.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * characters @c SBML_. @endif@if java LibSBML attaches an
    * identifying code to every kind of SBML object.  These are known as
    * <em>SBML type codes</em>.  In other languages, the set of type codes
    * is stored in an enumeration; in the Java language interface for

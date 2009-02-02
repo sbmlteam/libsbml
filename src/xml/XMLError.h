@@ -41,11 +41,11 @@
  * out-of-memory condition), the problems are reported as XMLError objects.
  * Each XMLError object instance has an identification number that
  * identifies the nature of the problem.
- * @if doxygen-clike-only This error identifier will be up to five digits 
+ * @if clike This error identifier will be up to five digits 
  * long and drawn from the enumeration <a class="el"
  * href="#XMLErrorCode_t">XMLErrorCode_t</a>.  Applications can use the
  * error identifiers as a means of recognizing the error encountered and
- * changing their behavior if desired. @endif@if doxygen-java-only This
+ * changing their behavior if desired. @endif@if java This
  * error identifier is one of the constants listed in the next section below.
  * Applications can use the error identifiers as a means of recognizing the
  * error encountered and changing their behavior if desired.  @endif
@@ -61,11 +61,11 @@
  *
  * Each XMLError object also contains a category code; its value may be
  * retrieved using the method XMLError::getCategory().  Category values
- * are @if doxygen-clike-only drawn from the enumeration
+ * are @if clike drawn from the enumeration
  * <a class="el" href="#XMLErrorCategory_t">XMLErrorCategory_t</a> 
  * described below.  Categories are used by libSBML to provide more
  * information to calling programs about the nature of a given
- * error. @endif@if doxygen-java-only drawn from a set of constants whose
+ * error. @endif@if java drawn from a set of constants whose
  * names begin with the characters @c LIBSBML_CAT_.  The list of possible
  * codes is described in a separate section below. Categories are used by
  * libSBML to provide more information to calling programs about the nature
@@ -74,11 +74,11 @@
  * In addition to category codes, each XMLError object also has a severity
  * code; its value may be retrieved using the method
  * XMLError::getSeverity().  Severity code values are 
- * @if doxygen-clike-only drawn from the enumeration 
+ * @if clike drawn from the enumeration 
  * <a class="el" href="#XMLErrorSeverity_t">XMLErrorSeverity_t</a> described
  * in a separate section below.  Severity levels range from informational
  * (@c LIBSBML_SEV_INFO) to fatal errors (@c LIBSBML_SEV_FATAL).
- * @endif@if doxygen-java-only drawn from a
+ * @endif@if java drawn from a
  * set of constants whose names begin with the characters @c LIBSBML_SEV_.
  * The list of possible severity codes is described in a separate section
  * below.  Severity levels range from informational (@c LIBSBML_SEV_INFO)
@@ -104,14 +104,14 @@
  * libSBML in that situation.
  *
  * 
- * @if doxygen-clike-only
+ * @if clike
  * <h3><a class="anchor" name="XMLErrorCode_t">XMLErrorCode_t</a></h3>
  *
  * This is an enumeration of all the error and warning codes returned by
  * the XML layer in libSBML.  Each code is an integer with a 4-digit value
  * less than 10000.  The following table lists each possible value and a
  * brief description of its meaning.
- * @endif@if doxygen-java-only <h3><a class="anchor" 
+ * @endif@if java <h3><a class="anchor" 
  * name="XMLErrorCode_t">Error codes associated with XMLError objects</a></h3>
  * 
  * The error and warning codes returned by the XML layer in libSBML are
@@ -189,7 +189,7 @@
  * </center>
  *
  *
- * @if doxygen-clike-only
+ * @if clike
  * <h3><a class="anchor" name="XMLErrorCategory_t">XMLErrorCategory_t</a></h3>
  *
  * As discussed above, each XMLError object contains a value for a category
@@ -198,7 +198,7 @@
  * the method XMLError::getCategory().  The value is chosen from the
  * enumeration of category codes XMLErrorCategory_t.  The following table
  * lists each possible value and a brief description of its meaning.
- * @endif@if doxygen-java-only <h3><a class="anchor"
+ * @endif@if java <h3><a class="anchor"
  * name="XMLErrorCategory_t">Category codes associated with XMLError objects</a></h3>
  *
  * As discussed above, each XMLError object contains a value for a category
@@ -235,7 +235,7 @@
  * </center>
  *
  *
- * @if doxygen-clike-only
+ * @if clike
  * <h3><a class="anchor" name="XMLErrorSeverity_t">XMLErrorSeverity_t</a></h3>
  *
  * As described above, each XMLError object contains a value for a severity
@@ -244,7 +244,7 @@
  * the method XMLError::getSeverity().  The value is chosen from the
  * enumeration of category codes XMLErrorSeverity_t.  The following table
  * lists each possible value and a brief description of its meaning.
- * @endif@if doxygen-java-only <h3><a class="anchor"
+ * @endif@if java <h3><a class="anchor"
  * name="XMLErrorSeverity_t">Severity codes associated with XMLError objects</a></h3>
  * 
  * As described above, each XMLError object contains a value for a severity
@@ -537,16 +537,16 @@ public:
    * processing.
    *
    * XMLError objects have identification numbers to indicate the nature of
-   * the exception.  @if doxygen-clike-only These numbers are drawn from
+   * the exception.  @if clike These numbers are drawn from
    * the enumeration <a class="el"
    * href="#XMLErrorCode_t">XMLErrorCode_t</a>.
-   * @endif@if doxygen-java-only These numbers are defined as unsigned 
+   * @endif@if java These numbers are defined as unsigned 
    * integer constants in the file
    * "libsbmlConstants.java".  See the <a class="el"
    * href="#XMLErrorCode_t">top of this documentation</a> for a table
    * listing the possible values and their meanings. @endif The argument @p
    * errorId to this constructor @em can be (but does not have to be) a
-   * value from this @if doxygen-clike-only enumeration. If it is a value
+   * value from this @if clike enumeration. If it is a value
    * from <a class="el" href="#XMLErrorCode_t">XMLErrorCode_t</a>, the
    * XMLError class assumes the error is a low-level system or XML layer
    * error and <em>prepends</em> a built-in, predefined error message to
@@ -556,7 +556,7 @@ public:
    * codes, and these fields are filled-in as well from the enumerations <a
    * class="el" href="#XMLErrorSeverity_t">XMLErrorSeverity_t</a> and <a
    * class="el" href="#XMLErrorCategory_t">XMLErrorCategory_t</a>,
-   * respectively. @endif@if doxygen-java-only set of constants.  If it is
+   * respectively. @endif@if java set of constants.  If it is
    * one of the predefined error identifiers, the XMLError class assumes
    * the error is a low-level system or XML layer error and
    * <em>prepends</em> a built-in, predefined error message to any string
@@ -574,7 +574,7 @@ public:
    * values if generating errors with codes greater than 9999 to make
    * maximum use of the XMLError facilities.
    *
-   * @if doxygen-clike-only As mentioned above, there are two other
+   * @if clike As mentioned above, there are two other
    * enumerations, <a class="el"
    * href="#XMLErrorSeverity_t">XMLErrorSeverity_t</a> and <a class="el"
    * href="#XMLErrorCategory_t">XMLErrorCategory_t</a>, used for indicating
@@ -589,7 +589,7 @@ public:
    * href="#XMLErrorSeverity_t">XMLErrorSeverity_t</a> and <a class="el"
    * href="#XMLErrorCategory_t">XMLErrorCategory_t</a>, but their own
    * special values) for @p severity and @p
-   * category. @endif@if doxygen-java-only As mentioned above, 
+   * category. @endif@if java As mentioned above, 
    * there are additional constants defined for <a class="el"
    * href="#XMLErrorSeverity_t">standard severity</a> and <a class="el"
    * href="#XMLErrorCategory_t">standard category</a> codes, and every predefined 
@@ -842,8 +842,8 @@ public:
    * This is equivalent to obtaining the severity code from an XMLError
    * object (via XMLError::getSeverity()) and then comparing it to the
    * value <code>LIBSBML_SEV_INFO</code> from the
-   * @if doxygen-clike-only enumeration
-   * #XMLErrorSeverity_t. @endif@if doxygen-java-only set of predefined
+   * @if clike enumeration
+   * #XMLErrorSeverity_t. @endif@if java set of predefined
    * severity codes.@endif
    *
    * @return @c true if this XMLError is for informational purposes only,
@@ -863,8 +863,8 @@ public:
    * This is equivalent to obtaining the severity code from an XMLError
    * object (via XMLError::getSeverity()) and then comparing it to the
    * value <code>LIBSBML_SEV_WARNING</code> from the
-   * @if doxygen-clike-only enumeration
-   * #XMLErrorSeverity_t. @endif@if doxygen-java-only set of predefined
+   * @if clike enumeration
+   * #XMLErrorSeverity_t. @endif@if java set of predefined
    * severity codes.@endif
    *
    * @return @c true if this error is a warning, @c false otherwise.
@@ -883,8 +883,8 @@ public:
    * This is equivalent to obtaining the severity code from an XMLError
    * object (via XMLError::getSeverity()) and then comparing it to the
    * value <code>LIBSBML_SEV_ERROR</code> from the
-   * @if doxygen-clike-only enumeration
-   * #XMLErrorSeverity_t. @endif@if doxygen-java-only set of predefined
+   * @if clike enumeration
+   * #XMLErrorSeverity_t. @endif@if java set of predefined
    * severity codes.@endif
    *
    * @return @c true if this error is an error, @c false otherwise.
@@ -903,8 +903,8 @@ public:
    * This is equivalent to obtaining the severity code from an XMLError
    * object (via XMLError::getSeverity()) and then comparing it to the
    * value <code>LIBSBML_SEV_FATAL</code> from the
-   * @if doxygen-clike-only enumeration
-   * #XMLErrorSeverity_t. @endif@if doxygen-java-only set of predefined
+   * @if clike enumeration
+   * #XMLErrorSeverity_t. @endif@if java set of predefined
    * severity codes.@endif
    *
    * @return @c true if this error is a fatal error, @c false otherwise.
@@ -923,8 +923,8 @@ public:
    * This is equivalent to obtaining the category identifier from an
    * XMLError object (via XMLError::getCategory()) and then comparing it to
    * the value <code>LIBSBML_CAT_INTERNAL</code> from the
-   * @if doxygen-clike-only
-   * enumeration #XMLErrorCategory_t. @endif@if doxygen-java-only set of
+   * @if clike
+   * enumeration #XMLErrorCategory_t. @endif@if java set of
    * predefined category codes.@endif
    *
    * @return @c true or @c false
@@ -942,8 +942,8 @@ public:
    * This is equivalent to obtaining the category identifier from an
    * XMLError object (via XMLError::getCategory()) and then comparing it to
    * the value <code>LIBSBML_CAT_SYSTEM</code> from the
-   * @if doxygen-clike-only
-   * enumeration #XMLErrorCategory_t. @endif@if doxygen-java-only set of
+   * @if clike
+   * enumeration #XMLErrorCategory_t. @endif@if java set of
    * predefined category codes.@endif
    *
    * @return @c true or @c false
@@ -962,8 +962,8 @@ public:
    * This is equivalent to obtaining the category identifier from an
    * XMLError object (via XMLError::getCategory()) and then comparing it to
    * the value <code>LIBSBML_CAT_XML</code> from the
-   * @if doxygen-clike-only
-   * enumeration #XMLErrorCategory_t. @endif@if doxygen-java-only set of
+   * @if clike
+   * enumeration #XMLErrorCategory_t. @endif@if java set of
    * predefined category codes.@endif
    *
    * @return @c true or @c false
@@ -999,9 +999,9 @@ public:
    * predefined XMLError code.
    *
    * @param code the error code whose message is sought; it must be a
-   * predefined value from @if doxygen-clike-only <a class="el"
+   * predefined value from @if clike <a class="el"
    * href="#XMLErrorCode_t">
-   * XMLErrorCode_t</a>. @endif@if doxygen-java-only <a class="el"
+   * XMLErrorCode_t</a>. @endif@if java <a class="el"
    * href="#XMLErrorCode_t">the set of predefined error identifiers.@endif
    */
   static const std::string getStandardMessage (const int code);

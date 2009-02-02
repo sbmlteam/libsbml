@@ -42,14 +42,14 @@
  *
  * Each SBMLError object instance has an identification number that
  * identifies the nature of the problem.  This "error id" number will be up
- * to five digits long, @if doxygen-clike-only and it will be listed in one
+ * to five digits long, @if clike and it will be listed in one
  * of two enumerations: <a class="el" href="#SBMLErrorCode_t">
  * SBMLErrorCode_t</a> (described <a class="el" href="#SBMLErrorCode_t">
  * below</a>) or @link XMLError::XMLErrorCode_t XMLErrorCode_t @endlink
  * (described in the documentation for the class XMLError).  The former
  * enumeration contains all the SBML validation rule numbers listed in the
  * appendices of the SBML specification documents, as well as some
- * additional libSBML-specific error codes.@endif@if doxygen-java-only and
+ * additional libSBML-specific error codes.@endif@if java and
  * it will come from one of two sets of static integer constants defined in
  * the interface class <code><a href="libsbmlConstants.html">
  * libsbmlConstants</a></code>: either the SBML error identifiers <a
@@ -72,7 +72,7 @@
  *
  * An SBMLError object also contains a category code; its value may be
  * retrieved using the method SBMLError::getCategory().  Category values
- * are @if doxygen-clike-only drawn from the enumeration <a class="el"
+ * are @if clike drawn from the enumeration <a class="el"
  * href="#SBMLErrorCategory_t">SBMLErrorCategory_t</a> described below.
  * Categories are used to partition errors into distinct conceptual groups.
  * This is principally used by the libSBML validation system to group
@@ -80,7 +80,7 @@
  * LIBSBML_CAT_IDENTIFIER_CONSISTENCY is the category for tests that check
  * identifier consistency; @c LIBSBML_CAT_MATHML_CONSISTENCY is the
  * category for MathML consistency checking; and so
- * on.  @endif@if doxygen-java-only drawn from a set of static integer
+ * on.  @endif@if java drawn from a set of static integer
  * constants defined in <code><a
  * href="libsbmlConstants.html">libsbmlConstants</a></code>, and having
  * names beginning with the characters <code>LIBSBML_CAT_</code>.  The list
@@ -94,11 +94,11 @@
  *
  * In addition, SBMLError also has a severity code.  Its value may be
  * retrieved using the method SBMLError::getSeverity().  The possible
- * severity values are the same as those reported by @if doxygen-clike-only
+ * severity values are the same as those reported by @if clike
  * XMLError.  Severity levels currently range from informational (@c
  * LIBSBML_SEV_INFO) to fatal errors (@c LIBSBML_SEV_FATAL).  They can be
  * used by an application to evaluate how serious a given problem
- * is. @endif@if doxygen-java-only <code><a
+ * is. @endif@if java <code><a
  * href="XMLError.html">XMLError</a></code>. Severity levels currently
  * range from informational (@c LIBSBML_SEV_INFO) to fatal errors (@c
  * LIBSBML_SEV_FATAL).  They can be used by an application to evaluate how
@@ -122,7 +122,7 @@
  * encounters these values in an XMLError object, it can assume no valid
  * line/column number could be provided by libSBML in that situation.
  *
- * @if doxygen-clike-only
+ * @if clike
  * <h3><a class="anchor" name="SBMLErrorCode_t">SBMLErrorCode_t</a></h3>
  *
  * SBMLErrorCode_t is an enumeration of all SBML-level error, warning and
@@ -144,7 +144,7 @@
  * severity of the condition in that particular Level+Version of SBML.
  * The codes stand for the following:
  * 
- * @endif@if doxygen-java-only <h3><a class="anchor" 
+ * @endif@if java <h3><a class="anchor" 
  * name="SBMLErrorCode_t">Error codes associated with SBMLError objects</a></h3>
  *
  * The error and warning codes returned by libSBML are listed in the table
@@ -444,7 +444,7 @@
  * </table>
  * </center>
  *
- * @if doxygen-clike-only
+ * @if clike
  * <h3><a class="anchor" name="SBMLErrorCategory_t">SBMLErrorCategory_t</a></h3>
  *
  * SBMLErrorCategory_t is an enumeration of category codes for SBMLError
@@ -459,7 +459,7 @@
  * The following table lists each possible value and a brief description of
  * its meaning.
  * 
- * @endif@if doxygen-java-only <h3><a class="anchor"
+ * @endif@if java <h3><a class="anchor"
  * name="SBMLErrorCategory_t">Category codes associated with SBMLError objects</a></h3>
  * 
  * As discussed above, each SBMLError object contains a value for a
@@ -548,7 +548,7 @@
  * </table>
  * </center>
  * 
- * @if doxygen-clike-only
+ * @if clike
  * <h3><a class="anchor" name="SBMLErrorSeverity_t">SBMLErrorSeverity_t</a></h3>
  *
  * This is an enumeration of severity codes for SBMLError diagnostics.
@@ -561,7 +561,7 @@
  * XMLError::XMLErrorSeverity_t XMLErrorSeverity_t @endlink.
  * 
  * <hr>
- * @endif@if doxygen-java-only <h3><a class="anchor"
+ * @endif@if java <h3><a class="anchor"
  * name="SBMLErrorSeverity_t">Severity codes associated with SBMLError
  * objects</h3>
  *
@@ -1053,16 +1053,16 @@ public:
    * When a libSBML operation on SBML content results in a warning, error
    * or other diagnostic, the issue is reported as an SBMLError object.
    * SBMLError objects have identification numbers to indicate the nature
-   * of the exception.  @if doxygen-clike-only These numbers are drawn from
+   * of the exception.  @if clike These numbers are drawn from
    * the enumeration <a class="el"
    * href="#SBMLErrorCode_t">
-   * SBMLErrorCode_t</a>.  @endif@if doxygen-java-only These numbers are
+   * SBMLErrorCode_t</a>.  @endif@if java These numbers are
    * defined as unsigned integer constants in the file
    * "libsbmlConstants.html".  See the <a class="el"
    * href="#SBMLErrorCode_t">top of this documentation page</a> for a table
    * listing the possible values and their meanings. @endif The argument @p
    * errorId to this constructor @em can be (but does not have to be) a
-   * value from this @if doxygen-clike-only enumeration. If it @em is a value
+   * value from this @if clike enumeration. If it @em is a value
    * from <a class="el" href="#SBMLErrorCode_t">SBMLErrorCode_t</a>, the
    * SBMLError class assumes the error is a low-level system or SBML layer
    * error and <em>prepends</em> a built-in, predefined error message to
@@ -1073,7 +1073,7 @@ public:
    * filled-in as well from the enumerations <a class="el"
    * href="#SBMLErrorSeverity_t">SBMLErrorSeverity_t</a> and <a class="el"
    * href="#SBMLErrorCategory_t">SBMLErrorCategory_t</a>,
-   * respectively. @endif@if doxygen-java-only set of constants.  If it @em
+   * respectively. @endif@if java set of constants.  If it @em
    * is one of the predefined error identifiers, the SBMLError class
    * assumes the error is a low-level system or SBML layer error and
    * <em>prepends</em> a built-in, predefined error message to any string
@@ -1091,7 +1091,7 @@ public:
    * suitable values if generating errors with codes greater than 99999 to
    * make maximum use of the SBMLError facilities.
    *
-   * @if doxygen-clike-only As mentioned above, there are two other
+   * @if clike As mentioned above, there are two other
    * enumerations, <a class="el"
    * href="#SBMLErrorSeverity_t">SBMLErrorSeverity_t</a> and <a class="el"
    * href="#SBMLErrorCategory_t">SBMLErrorCategory_t</a>, used for indicating
@@ -1106,7 +1106,7 @@ public:
    * href="#SBMLErrorSeverity_t">SBMLErrorSeverity_t</a> and <a class="el"
    * href="#SBMLErrorCategory_t">SBMLErrorCategory_t</a>, but their own
    * special values) for @p severity and @p
-   * category. @endif@if doxygen-java-only As mentioned above, 
+   * category. @endif@if java As mentioned above, 
    * there are additional constants defined for <a class="el"
    * href="#SBMLErrorSeverity_t">standard severity</a> and <a class="el"
    * href="#SBMLErrorCategory_t">standard category</a> codes, and every predefined 

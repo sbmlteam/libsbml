@@ -40,8 +40,8 @@
  * this file also defines two global functions, readSBML() and
  * readSBMLFromString().  They are equivalent to creating an SBMLReader
  * object and then calling
- * the @if doxygen-clike-only SBMLReader::readSBML() @endif@if doxygen-java-only SBMLReader::readSBML(String filename) @endif or
- * @if doxygen-clike-only SBMLReader::readSBMLFromString() @endif@if doxygen-java-only SBMLReader::readSBMLFromString(String xml)  @endif methods, respectively.
+ * the @if clike SBMLReader::readSBML() @endif@if java SBMLReader::readSBML(String filename) @endif or
+ * @if clike SBMLReader::readSBMLFromString() @endif@if java SBMLReader::readSBMLFromString(String xml)  @endif methods, respectively.
  */
 
 #ifndef SBMLReader_h
@@ -85,8 +85,8 @@ public:
    * valid SBML, one or more errors will be logged with the SBMLDocument
    * object returned by this method.  Callers can use the methods on
    * SBMLDocument such as SBMLDocument::getNumErrors() and
-   * @if doxygen-clike-only SBMLDocument::getError() @endif@if doxygen-java-only SBMLDocument::getError(long n) @endif to get the errors.  The object returned by
-   * @if doxygen-clike-only SBMLDocument::getError() @endif@if doxygen-java-only SBMLDocument::getError(long n) @endif is an SBMLError object, and it has methods to
+   * @if clike SBMLDocument::getError() @endif@if java SBMLDocument::getError(long n) @endif to get the errors.  The object returned by
+   * @if clike SBMLDocument::getError() @endif@if java SBMLDocument::getError(long n) @endif is an SBMLError object, and it has methods to
    * get the error code, category, and severity level of the problem, as
    * well as a textual description of the problem.  The possible severity
    * levels range from informational messages to fatal errors; see the
@@ -177,14 +177,14 @@ public:
    *
    * This method will log a fatal error if the content given in the
    * parameter @p xml is not SBML.  See the method documentation for
-   * @if doxygen-clike-only SBMLReader::readSBML() @endif@if doxygen-java-only SBMLReader::readSBML(String filename) @endif for an example of code for testing the returned
+   * @if clike SBMLReader::readSBML() @endif@if java SBMLReader::readSBML(String filename) @endif for an example of code for testing the returned
    * error code.
    *
    * @param xml a string containing a full SBML model
    *
    * @return a pointer to the SBMLDocument created from the SBML content.
    *
-   * @if doxygen-clike-only @see SBMLReader::readSBML() @endif@if doxygen-java-only @see SBMLReader::readSBML(String filename) @endif
+   * @if clike @see SBMLReader::readSBML() @endif@if java @see SBMLReader::readSBML(String filename) @endif
    */
   SBMLDocument* readSBMLFromString (const std::string& xml);
 

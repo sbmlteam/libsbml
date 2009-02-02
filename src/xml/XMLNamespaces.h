@@ -112,8 +112,8 @@ public:
    * in this list, then its corresponding URI will be overwritten by the
    * new @p uri.  Calling programs could use one of the other XMLNamespaces
    * methods, such as
-   * @if doxygen-clike-only XMLNamespaces::hasPrefix() @endif@if doxygen-java-only XMLNamespaces::hasPrefix(String) @endif and 
-   * @if doxygen-clike-only XMLNamespaces::hasURI() @endif@if doxygen-java-only XMLNamespaces::hasURI(String) @endif to
+   * @if clike XMLNamespaces::hasPrefix() @endif@if java XMLNamespaces::hasPrefix(String) @endif and 
+   * @if clike XMLNamespaces::hasURI() @endif@if java XMLNamespaces::hasURI(String) @endif to
    * inquire whether a given prefix and/or URI
    * is already present in this XMLNamespaces object.
    *

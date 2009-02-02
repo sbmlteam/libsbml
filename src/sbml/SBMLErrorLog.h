@@ -45,10 +45,10 @@
  * to inquire how many objects there are in the list.  (The answer may be
  * 0.)  If there is at least one SBMLError object in the SBMLErrorLog
  * instance, callers can then iterate over the list using 
- * @if doxygen-clike-only SBMLErrorLog::getError(), using methods on SBMLError
+ * @if clike SBMLErrorLog::getError(), using methods on SBMLError
  * to find out the error code and associated information such as the error
  * severity, the message, and the line number in the
- * input. @endif@if doxygen-java-only SBMLErrorLog::getError(long n), using
+ * input. @endif@if java SBMLErrorLog::getError(long n), using
  * methods on SBMLError  to find out the error code and associated
  * information such as the error severity, the message, and the line number
  * in the input. 
@@ -104,8 +104,8 @@ public:
    * it easy to check for the presence of error objects with specific
    * severity levels.
    *
-   * @if doxygen-clike-only @param severity a value from
-   * #SBMLErrorSeverity_t @endif@if doxygen-java-only @param severity a
+   * @if clike @param severity a value from
+   * #SBMLErrorSeverity_t @endif@if java @param severity a
    * value from the set of <code>LIBSBML_SEV_</code> constants defined by
    * the interface class <code><a
    * href="libsbmlConstants.html">libsbmlConstants</a></code> @endif

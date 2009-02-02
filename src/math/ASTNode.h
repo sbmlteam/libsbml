@@ -73,18 +73,18 @@
  * </ul>
  *
  *
- * @if doxygen-clike-only <h3><a class="anchor" name="ASTNodeType_t">
- * ASTNodeType_t</a></h3> @endif@if doxygen-java-only <h3><a class="anchor"
+ * @if clike <h3><a class="anchor" name="ASTNodeType_t">
+ * ASTNodeType_t</a></h3> @endif@if java <h3><a class="anchor"
  * name="ASTNodeType_t">The set of possible %ASTNode types</a></h3> @endif
  *
- * @if doxygen-clike-only Every ASTNode has an associated type code to indicate,
+ * @if clike Every ASTNode has an associated type code to indicate,
  * for example, whether it holds a number or stands for an arithmetic
  * operator.  The type is recorded as a value drawn from the enumeration <a
  * class="el" href="#ASTNodeType_t">ASTNodeType_t</a>.  The list of
  * possible types is quite long, because it covers all the mathematical
  * functions that are permitted in SBML.  The values are shown in the
  * following table; their names hopefully evoke the construct that they
- * represent: @endif@if doxygen-java-only Every ASTNode has an associated
+ * represent: @endif@if java Every ASTNode has an associated
  * type code to indicate, for example, whether it holds a number or stands for
  * an arithmetic operator.  The type is recorded as a value drawn from a
  * set of static integer constants defined in the class {@link
@@ -134,7 +134,7 @@
  * 
  * <h3><a class="anchor" name="math-convert">Converting between ASTs and text strings</a></h3>
  * 
- * @if doxygen-clike-only The text-string form of mathematical formulas
+ * @if clike The text-string form of mathematical formulas
  * produced by SBML_formulaToString() and read by SBML_parseFormula() are
  * simple C-inspired infix notation taken from SBML Level&nbsp;1.  A
  * formula in this text-string form can be handed to a program that
@@ -143,7 +143,7 @@
  * program in the @c "examples" subdirectory called @c translateMath that
  * implements an interactive command-line demonstration of translating
  * infix formulas into MathML and
- * vice-versa. @endif@if doxygen-java-only
+ * vice-versa. @endif@if java
  * The text-string form of mathematical formulas produced by <code><a
  * href="libsbml.java">libsbml.formulaToString()</a></code> and read by <code><a
  * href="libsbml.java">libsbml.parseFormula()</a></code> are simple C-inspired
@@ -366,7 +366,7 @@ public:
    *
    * By default, the returned node will have a type of @c AST_UNKNOWN.  The
    * calling code should set the node type to something else as soon as
-   * possible using @if doxygen-clike-only ASTNode::setType() @endif@if doxygen-java-only ASTNode::setType(int) @endif
+   * possible using @if clike ASTNode::setType() @endif@if java ASTNode::setType(int) @endif
    *
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different

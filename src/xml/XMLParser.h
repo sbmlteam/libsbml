@@ -26,7 +26,7 @@
  * @class XMLParser
  * @brief Class providing a unified interface to different XML parsers.
  *
- * @if doxygen-java-only @deprecated libSBML internal @endif
+ * @if java @deprecated libSBML internal @endif
  */
 
 #ifndef XMLParser_h

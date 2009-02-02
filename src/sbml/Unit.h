@@ -73,7 +73,7 @@
  * new unit definitions.  This set of base units consists of the SI units
  * and a small number of additional convenience units.
  * 
- * @if doxygen-clike-only Until SBML Level&nbsp;2 Version&nbsp;3, there
+ * @if clike Until SBML Level&nbsp;2 Version&nbsp;3, there
  * existed a data type in the SBML specifications called @c UnitKind,
  * enumerating the possible SBML base units.  Although SBML Level&nbsp;2
  * Version&nbsp;3 removed this type from the language specification,
@@ -88,7 +88,7 @@
  * simply to clean up an inconsistency about the contexts in which these
  * values were usable.)  The @c UnitKind_t enumeration in libSBML has a 
  * small number of differences compared to the SBML specifications:
- * @endif@if doxygen-java-only In SBML Level&nbsp;2 Versions before
+ * @endif@if java In SBML Level&nbsp;2 Versions before
  * Version&nbsp;3, there existed an enumeration of units called @c
  * UnitKind.  In Version&nbsp;3, this enumeration was removed and the
  * identifier class @c UnitSId redefined to include the previous @c
@@ -114,9 +114,9 @@
  * specifications of SBML prior to SBML Level&nbsp;2 Version&nbsp;3.
  * </ul>
  *
- * @if doxygen-clike-only The table below lists the symbols defined in the
+ * @if clike The table below lists the symbols defined in the
  * @c UnitKind_t enumeration, and their
- * meanings. @endif@if doxygen-java-only The table below lists the unit
+ * meanings. @endif@if java The table below lists the unit
  * constants defined in libSBML, and their meanings. @endif
  *
  * @htmlinclude libsbml-unitkind-table.html
@@ -167,11 +167,11 @@ public:
    * Creates a new Unit, optionally with specific values of @p kind, @p
    * exponent, @p scale and @p multipler.
    *
-   * @if doxygen-clike-only If no arguments are passed to this constructor,
+   * @if clike If no arguments are passed to this constructor,
    * the value of @p kind defaults to @c UNIT_KIND_INVALID.  Callers must
    * reset the value to something appropriate using the Unit::setKind()
    * method.  The use of arguments to this constructor is functionally
-   * equivalent to the following: @endif@if doxygen-java-only If no
+   * equivalent to the following: @endif@if java If no
    * arguments are passed to this constructor, the value of @p kind
    * defaults to @c UNIT_KIND_INVALID.  Callers must reset the value to
    * something appropriate using the method Unit::setKind(int kind). 
@@ -190,10 +190,10 @@ public:
    * more information about the meaning of the arguments to this
    * constructor.
    *
-   * @if doxygen-clike-only @param kind a value from the <a class="el"
+   * @if clike @param kind a value from the <a class="el"
    * href="#UnitKind_t">UnitKind_t</a> enumeration naming the base unit
    * serving as the basis of this particular unit
-   * definition @endif@if doxygen-java-only @param kind a value from the
+   * definition @endif@if java @param kind a value from the
    * set of static integer constants having names beginning with the
    * characters @c UNIT_KIND_ in <code><a
    * href="libsbmlConstants.java">libsbmlConstants</a></code> @endif
@@ -228,12 +228,12 @@ public:
    * Creates a new Unit of a specific @p kind (given as a string), and
    * optionally with @p exponent, @p scale and @p multipler.
    *
-   * @if doxygen-clike-only This method accepts a base unit name as a
+   * @if clike This method accepts a base unit name as a
    * string, and internally converts it to a value from the <a class="el"
    * href="#UnitKind_t">UnitKind_t</a> enumeration.  If the string passed
    * as the value of @p kind is not recognized as a valid unit name, this
    * method sets the value to @c UNIT_KIND_INVALID.  The following table
-   * lists the valid unit kind names: @endif@if doxygen-java-only This
+   * lists the valid unit kind names: @endif@if java This
    * method accepts a unit kind name as a string, and internally converts
    * it to the appropriate @c UNIT_KIND_ constants from <code><a
    * href="libsbmlConstants.java">libsbmlConstants</a></code>.  If the
@@ -795,11 +795,11 @@ public:
   /**
    * Returns the libSBML type code of this object instance.
    *
-   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * @if clike LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.
    * The set of possible type codes is defined in the enumeration
    * #SBMLTypeCode_t.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * characters @c SBML_. @endif@if java LibSBML attaches an
    * identifying code to every kind of SBML object.  These are known as
    * <em>SBML type codes</em>.  In other languages, the set of type codes
    * is stored in an enumeration; in the Java language interface for
@@ -1037,11 +1037,11 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * @if clike LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.
    * The set of possible type codes is defined in the enumeration
    * #SBMLTypeCode_t.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * characters @c SBML_. @endif@if java LibSBML attaches an
    * identifying code to every kind of SBML object.  These are known as
    * <em>SBML type codes</em>.  In other languages, the set of type codes
    * is stored in an enumeration; in the Java language interface for
@@ -1060,11 +1060,11 @@ public:
    * Returns the libSBML type code for the objects contained in this ListOf
    * (i.e., Unit objects, if the list is non-empty).
    * 
-   * @if doxygen-clike-only LibSBML attaches an identifying code to every
+   * @if clike LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.
    * The set of possible type codes is defined in the enumeration
    * #SBMLTypeCode_t.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if doxygen-java-only LibSBML attaches an
+   * characters @c SBML_. @endif@if java LibSBML attaches an
    * identifying code to every kind of SBML object.  These are known as
    * <em>SBML type codes</em>.  In other languages, the set of type codes
    * is stored in an enumeration; in the Java language interface for
