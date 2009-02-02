@@ -87,6 +87,25 @@ class TestSBMLDocument(unittest.TestCase):
     d = None
     pass  
 
+  def test_SBMLDocument_setLevelAndVersion_UnitsError(self):
+    d = libsbml.SBMLDocument()
+    d.setLevelAndVersion(2,4)
+    m1 = d.createModel()
+    c = m1.createCompartment()
+    c.setId( "c")
+    p = m1.createParameter()
+    p.setId( "p")
+    p.setUnits( "mole")
+    r = m1.createAssignmentRule()
+    r.setVariable( "c")
+    r.setFormula( "p*p")
+    self.assert_( d.setLevelAndVersion(2,2) == True )
+    self.assert_( d.setLevelAndVersion(2,3) == True )
+    self.assert_( d.setLevelAndVersion(1,2) == True )
+    self.assert_( d.setLevelAndVersion(1,1) == False )
+    d = None
+    pass  
+
   def test_SBMLDocument_setLevelAndVersion_Warning(self):
     d = libsbml.SBMLDocument()
     d.setLevelAndVersion(2,2)

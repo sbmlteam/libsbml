@@ -100,6 +100,7 @@ my %MiscClass = (
    XMLNode         => 0,
    XMLToken        => 0,
    XMLError        => 0,
+   SBMLError       => 0,
    CVTerm          => 0,
    ModelHistory    => 0,
    ModelCreator    => 0,
@@ -1235,6 +1236,10 @@ sub parseBlock
 
   # ModelHistory::getListCreators()->get(...) -> ModelHistory::getCreator(..)
   $line =~ s/ getListCreators\(\)->get /getCreator/gx;
+
+  # "(...);" -> "..."
+  $line =~ s/^ \s* \( (.*) \) \s* \; \s* $/$1/x;
+
   ###################################################################### 
 
 
@@ -2175,6 +2180,50 @@ sub convertSBaseCFuncCall
     }
   }
 
+  if ( $cname eq 'UnitDefinition' ) 
+  {
+    if ( $fname eq 'printUnits' ) 
+    {
+      if ( ($Target eq 'java') || ($Target eq 'csharp') )
+      {
+        $fcall  = $cname . "." . $fname;
+      }
+      else
+      {
+        $fcall  = $Prefix{$Target} . $cname . "." . $fname;
+      }
+
+      if ( scalar(@arg) == 2)
+      {
+        if ( $arg[1]  != 0 )
+        {
+          $arg[1] = $IdTRUE{$Target};
+        }
+        else
+        {
+          $arg[1] = $IdFALSE{$Target};
+        }
+      }
+
+      $fcall .= '(' . join(",",@arg) . ')'; 
+      return $fcall;
+    }
+  }
+
+  if ( $cname eq 'RDFAnnotationParser' )
+  {
+    if ( ($Target eq 'java') || ($Target eq 'csharp') )
+    {
+      $fcall  = $cname . "." . $fname;
+    }
+    else
+    {
+      $fcall  = $Prefix{$Target} . $cname . "." . $fname;
+    }
+
+    $fcall .= '(' . join(",",@arg) . ')';
+    return $fcall;
+  }
 
 #  print "[In convertSBaseCFuncCall] -> $cname $fname @arg\n";
 #print "[convertSBaseCFuncCall] $cname || $fname || @arg\n";
@@ -2735,7 +2784,15 @@ sub convertVal
      $val = $Prefix{$Target} . $val  if ( $val =~ /^RULE_TYPE_[A-Z]+/);
      $val = $Prefix{$Target} . $val  if ( $val =~ /^UNIT_KIND_[A-Z]+/);
      $val = $Prefix{$Target} . $val  if ( $val =~ /^XMLFile[A-Z]/);
+
      $val = $Prefix{$Target} . $val  if ( $val =~ /^DuplicateXMLAttribute/);
+     $val = $Prefix{$Target} . $val  if ( $val =~ /^EmptyListInReaction/);
+     $val = $Prefix{$Target} . $val  if ( $val =~ /^OverdeterminedSystem/);
+     $val = $Prefix{$Target} . $val  if ( $val =~ /^OffsetNoLongerValid/);
+     $val = $Prefix{$Target} . $val  if ( $val =~ /^NoSBOTermsInL1/);
+     $val = $Prefix{$Target} . $val  if ( $val =~ /^DisallowedMathMLEncodingUse/);
+     $val = $Prefix{$Target} . $val  if ( $val =~ /^UnknownError/);
+
      $val = $constDBL_EPSILON{$Target} if ( $val =~ /^DBL_EPSILON$/);
      $val = $IdTRUE{$Target}   if ( $val =~ /^true$/);
      $val = $IdFALSE{$Target}  if ( $val =~ /^false$/);

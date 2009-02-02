@@ -85,6 +85,25 @@ class TestSBMLDocument < Test::Unit::TestCase
     d = nil
   end
 
+  def test_SBMLDocument_setLevelAndVersion_UnitsError
+    d = LibSBML::SBMLDocument.new()
+    d.setLevelAndVersion(2,4)
+    m1 = d.createModel()
+    c = m1.createCompartment()
+    c.setId( "c")
+    p = m1.createParameter()
+    p.setId( "p")
+    p.setUnits( "mole")
+    r = m1.createAssignmentRule()
+    r.setVariable( "c")
+    r.setFormula( "p*p")
+    assert( d.setLevelAndVersion(2,2) == true )
+    assert( d.setLevelAndVersion(2,3) == true )
+    assert( d.setLevelAndVersion(1,2) == true )
+    assert( d.setLevelAndVersion(1,1) == false )
+    d = nil
+  end
+
   def test_SBMLDocument_setLevelAndVersion_Warning
     d = LibSBML::SBMLDocument.new()
     d.setLevelAndVersion(2,2)

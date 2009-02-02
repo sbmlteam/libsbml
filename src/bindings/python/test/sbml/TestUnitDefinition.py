@@ -395,6 +395,27 @@ class TestUnitDefinition(unittest.TestCase):
     self.assertEqual( True, self.UD.isVariantOfVolume() )
     pass  
 
+  def test_UnitDefinition_printUnits(self):
+    ud = libsbml.UnitDefinition("mmls", "")
+    perTime = ud.createUnit()
+    perTime.setKind(libsbml.UnitKind_forName("second"))
+    perTime.setExponent(-1)
+    ud_str = libsbml.UnitDefinition.printUnits(ud,False)
+    self.assert_((                 "second (exponent = -1, multiplier = 1, scale = 0)" == ud_str ))
+    ud_str1 = libsbml.UnitDefinition.printUnits(ud,True)
+    self.assert_((  "(1 second)^-1" == ud_str1 ))
+    ud1 = libsbml.UnitDefinition("mmls", "")
+    u = ud1.createUnit()
+    u.setKind(libsbml.UNIT_KIND_KILOGRAM)
+    u.setExponent(1)
+    u.setScale(2)
+    u.setMultiplier(3.0)
+    ud_str2 = libsbml.UnitDefinition.printUnits(ud1,False)
+    self.assert_((                 "kilogram (exponent = 1, multiplier = 3, scale = 2)" == ud_str2 ))
+    ud_str3 = libsbml.UnitDefinition.printUnits(ud1,True)
+    self.assert_((  "(300 kilogram)^1" == ud_str3 ))
+    pass  
+
   def test_UnitDefinition_setId(self):
     id =  "mmls";
     self.UD.setId(id)

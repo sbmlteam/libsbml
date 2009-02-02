@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestUnitDefinition.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -490,6 +490,28 @@ public class TestUnitDefinition {
     u.setExponent(3);
     UD.addUnit(dim);
     assertEquals( true, UD.isVariantOfVolume() );
+  }
+
+  public void test_UnitDefinition_printUnits()
+  {
+    UnitDefinition ud = new  UnitDefinition("mmls", "");
+    Unit perTime = ud.createUnit();
+    perTime.setKind(libsbml.UnitKind_forName("second"));
+    perTime.setExponent(-1);
+    String ud_str = UnitDefinition.printUnits(ud,false);
+    assertTrue(ud_str.equals(                "second (exponent = -1, multiplier = 1, scale = 0)"));
+    String ud_str1 = UnitDefinition.printUnits(ud,true);
+    assertTrue(ud_str1.equals( "(1 second)^-1"));
+    UnitDefinition ud1 = new  UnitDefinition("mmls", "");
+    Unit u = ud1.createUnit();
+    u.setKind(libsbml.UNIT_KIND_KILOGRAM);
+    u.setExponent(1);
+    u.setScale(2);
+    u.setMultiplier(3.0);
+    String ud_str2 = UnitDefinition.printUnits(ud1,false);
+    assertTrue(ud_str2.equals(                "kilogram (exponent = 1, multiplier = 3, scale = 2)"));
+    String ud_str3 = UnitDefinition.printUnits(ud1,true);
+    assertTrue(ud_str3.equals( "(300 kilogram)^1"));
   }
 
   public void test_UnitDefinition_setId()

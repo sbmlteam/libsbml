@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Ben Bornstein 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestUnitDefinition.c
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -497,6 +497,28 @@ namespace LibSBMLCSTest {
       u.setExponent(3);
       UD.addUnit(dim);
       assertEquals( true, UD.isVariantOfVolume() );
+    }
+
+    public void test_UnitDefinition_printUnits()
+    {
+      UnitDefinition ud = new  UnitDefinition("mmls", "");
+      Unit perTime = ud.createUnit();
+      perTime.setKind(libsbml.UnitKind_forName("second"));
+      perTime.setExponent(-1);
+      string ud_str = UnitDefinition.printUnits(ud,false);
+      assertTrue((                 "second (exponent = -1, multiplier = 1, scale = 0)" == ud_str ));
+      string ud_str1 = UnitDefinition.printUnits(ud,true);
+      assertTrue((  "(1 second)^-1" == ud_str1 ));
+      UnitDefinition ud1 = new  UnitDefinition("mmls", "");
+      Unit u = ud1.createUnit();
+      u.setKind(libsbml.UNIT_KIND_KILOGRAM);
+      u.setExponent(1);
+      u.setScale(2);
+      u.setMultiplier(3.0);
+      string ud_str2 = UnitDefinition.printUnits(ud1,false);
+      assertTrue((                 "kilogram (exponent = 1, multiplier = 3, scale = 2)" == ud_str2 ));
+      string ud_str3 = UnitDefinition.printUnits(ud1,true);
+      assertTrue((  "(300 kilogram)^1" == ud_str3 ));
     }
 
     public void test_UnitDefinition_setId()

@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Ben Bornstein 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestSBMLDocument.c
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -171,6 +171,26 @@ namespace LibSBMLCSTest {
       assertTrue( d.setLevelAndVersion(2,2) == false );
       assertTrue( d.setLevelAndVersion(2,3) == false );
       assertTrue( d.setLevelAndVersion(1,2) == false );
+      assertTrue( d.setLevelAndVersion(1,1) == false );
+      d = null;
+    }
+
+    public void test_SBMLDocument_setLevelAndVersion_UnitsError()
+    {
+      SBMLDocument d = new  SBMLDocument();
+      d.setLevelAndVersion(2,4);
+      Model m1 = d.createModel();
+      Compartment c = m1.createCompartment();
+      c.setId( "c");
+      Parameter p = m1.createParameter();
+      p.setId( "p");
+      p.setUnits( "mole");
+      Rule r = m1.createAssignmentRule();
+      r.setVariable( "c");
+      r.setFormula( "p*p");
+      assertTrue( d.setLevelAndVersion(2,2) == true );
+      assertTrue( d.setLevelAndVersion(2,3) == true );
+      assertTrue( d.setLevelAndVersion(1,2) == true );
       assertTrue( d.setLevelAndVersion(1,1) == false );
       d = null;
     }

@@ -392,6 +392,27 @@ class TestUnitDefinition < Test::Unit::TestCase
     assert_equal true, @@ud.isVariantOfVolume()
   end
 
+  def test_UnitDefinition_printUnits
+    ud = LibSBML::UnitDefinition.new("mmls", "")
+    perTime = ud.createUnit()
+    perTime.setKind(LibSBML::UnitKind_forName("second"))
+    perTime.setExponent(-1)
+    ud_str = LibSBML::UnitDefinition.printUnits(ud,false)
+    assert ((                 "second (exponent = -1, multiplier = 1, scale = 0)" == ud_str ))
+    ud_str1 = LibSBML::UnitDefinition.printUnits(ud,true)
+    assert ((  "(1 second)^-1" == ud_str1 ))
+    ud1 = LibSBML::UnitDefinition.new("mmls", "")
+    u = ud1.createUnit()
+    u.setKind(LibSBML::UNIT_KIND_KILOGRAM)
+    u.setExponent(1)
+    u.setScale(2)
+    u.setMultiplier(3.0)
+    ud_str2 = LibSBML::UnitDefinition.printUnits(ud1,false)
+    assert ((                 "kilogram (exponent = 1, multiplier = 3, scale = 2)" == ud_str2 ))
+    ud_str3 = LibSBML::UnitDefinition.printUnits(ud1,true)
+    assert ((  "(300 kilogram)^1" == ud_str3 ))
+  end
+
   def test_UnitDefinition_setId
     id =  "mmls";
     @@ud.setId(id)

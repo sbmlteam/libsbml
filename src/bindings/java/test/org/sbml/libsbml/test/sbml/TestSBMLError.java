@@ -1,15 +1,15 @@
 /*
  *
- * @file    TestSBMLDocument.java
- * @brief   SBMLDocument unit tests
+ * @file    TestSBMLError.java
+ * @brief   SBMLError unit tests, C++ version
  *
  * @author  Akiya Jouraku (Java conversion)
- * @author  Ben Bornstein 
+ * @author  Sarah Keating 
  *
  * $Id$
  * $HeadURL$
  *
- * This test file was converted from src/sbml/test/TestSBMLDocument.c
+ * This test file was converted from src/sbml/test/TestSBMLError.cpp
  * with the help of conversion sciprt (ctest_converter.pl).
  *
  *<!---------------------------------------------------------------------------
@@ -35,7 +35,7 @@ import org.sbml.libsbml.*;
 import java.io.File;
 import java.lang.AssertionError;
 
-public class TestSBMLDocument {
+public class TestSBMLError {
 
   static void assertTrue(boolean condition) throws AssertionError
   {
@@ -108,113 +108,58 @@ public class TestSBMLDocument {
     throw new AssertionError();
   }
 
-  public void test_SBMLDocument_create()
+  public void test_SBMLError_create()
   {
-    SBMLDocument d = new  SBMLDocument();
-    assertTrue( d.getTypeCode() == libsbml.SBML_DOCUMENT );
-    assertTrue( d.getNotes() == null );
-    assertTrue( d.getAnnotation() == null );
-    assertTrue( d.getLevel() == 2 );
-    assertTrue( d.getVersion() == 4 );
-    assertTrue( d.getNumErrors() == 0 );
-    d = null;
-  }
-
-  public void test_SBMLDocument_createWith()
-  {
-    SBMLDocument d = new  SBMLDocument(1,2);
-    assertTrue( d.getTypeCode() == libsbml.SBML_DOCUMENT );
-    assertTrue( d.getNotes() == null );
-    assertTrue( d.getAnnotation() == null );
-    assertTrue( d.getLevel() == 1 );
-    assertTrue( d.getVersion() == 2 );
-    assertTrue( d.getNumErrors() == 0 );
-    d = null;
-  }
-
-  public void test_SBMLDocument_free_NULL()
-  {
-  }
-
-  public void test_SBMLDocument_setLevelAndVersion()
-  {
-    SBMLDocument d = new  SBMLDocument();
-    d.setLevelAndVersion(2,2);
-    Model m1 = new  Model();
-    d.setModel(m1);
-    assertTrue( d.setLevelAndVersion(2,3) == true );
-    assertTrue( d.setLevelAndVersion(2,1) == true );
-    assertTrue( d.setLevelAndVersion(1,2) == true );
-    assertTrue( d.setLevelAndVersion(1,1) == false );
-    d = null;
-  }
-
-  public void test_SBMLDocument_setLevelAndVersion_Error()
-  {
-    SBMLDocument d = new  SBMLDocument();
-    d.setLevelAndVersion(2,1);
-    Model m1 = new  Model();
-    Unit u = new  Unit();
-    u.setKind(libsbml.UnitKind_forName("mole"));
-    u.setOffset(3.2);
-    UnitDefinition ud = new  UnitDefinition();
-    ud.addUnit(u);
-    m1.addUnitDefinition(ud);
-    d.setModel(m1);
-    assertTrue( d.setLevelAndVersion(2,2) == false );
-    assertTrue( d.setLevelAndVersion(2,3) == false );
-    assertTrue( d.setLevelAndVersion(1,2) == false );
-    assertTrue( d.setLevelAndVersion(1,1) == false );
-    d = null;
-  }
-
-  public void test_SBMLDocument_setLevelAndVersion_UnitsError()
-  {
-    SBMLDocument d = new  SBMLDocument();
-    d.setLevelAndVersion(2,4);
-    Model m1 = d.createModel();
-    Compartment c = m1.createCompartment();
-    c.setId( "c");
-    Parameter p = m1.createParameter();
-    p.setId( "p");
-    p.setUnits( "mole");
-    Rule r = m1.createAssignmentRule();
-    r.setVariable( "c");
-    r.setFormula( "p*p");
-    assertTrue( d.setLevelAndVersion(2,2) == true );
-    assertTrue( d.setLevelAndVersion(2,3) == true );
-    assertTrue( d.setLevelAndVersion(1,2) == true );
-    assertTrue( d.setLevelAndVersion(1,1) == false );
-    d = null;
-  }
-
-  public void test_SBMLDocument_setLevelAndVersion_Warning()
-  {
-    SBMLDocument d = new  SBMLDocument();
-    d.setLevelAndVersion(2,2);
-    Model m1 = new  Model();
-    (m1).setSBOTerm(2);
-    d.setModel(m1);
-    assertTrue( d.setLevelAndVersion(2,3) == true );
-    assertTrue( d.setLevelAndVersion(2,1) == true );
-    assertTrue( d.setLevelAndVersion(1,2) == true );
-    assertTrue( d.setLevelAndVersion(1,1) == false );
-    d = null;
-  }
-
-  public void test_SBMLDocument_setModel()
-  {
-    SBMLDocument d = new  SBMLDocument();
-    Model m1 = new  Model();
-    Model m2 = new  Model();
-    assertEquals(d.getModel(),null);
-    d.setModel(m1);
-    assertNotEquals(d.getModel(),m1);
-    d.setModel(d.getModel());
-    assertNotEquals(d.getModel(),m1);
-    d.setModel(m2);
-    assertNotEquals(d.getModel(),m2);
-    d = null;
+    SBMLError error = new SBMLError();
+    assertTrue( error != null );
+    error = null;
+    error = new SBMLError(libsbml.EmptyListInReaction);
+    assertTrue( error.getErrorId() == libsbml.EmptyListInReaction );
+    assertTrue( error.getSeverity() == libsbml.LIBSBML_SEV_ERROR );
+    assertTrue( error.getSeverityAsString().equals( "Error" ) );
+    assertTrue( error.getCategory() == libsbml.LIBSBML_CAT_SBML );
+    assertTrue( error.getCategoryAsString().equals( "General SBML conformance") );
+    error = null;
+    error = new SBMLError(libsbml.OverdeterminedSystem,2,1);
+    assertTrue( error.getErrorId() == libsbml.OverdeterminedSystem );
+    assertTrue( error.getSeverity() == libsbml.LIBSBML_SEV_WARNING );
+    assertTrue( error.getSeverityAsString().equals( "Warning" ) );
+    assertTrue( error.getCategory() == libsbml.LIBSBML_CAT_SBML );
+    assertTrue( error.getCategoryAsString().equals( "General SBML conformance") );
+    error = null;
+    error = new SBMLError(libsbml.OffsetNoLongerValid,2,2);
+    assertTrue( error.getErrorId() == libsbml.OffsetNoLongerValid );
+    assertTrue( error.getSeverity() == libsbml.LIBSBML_SEV_ERROR );
+    assertTrue( error.getSeverityAsString().equals( "Error" ) );
+    assertTrue( error.getCategory() == libsbml.LIBSBML_CAT_GENERAL_CONSISTENCY );
+    assertTrue( error.getCategoryAsString().equals( "SBML component consistency") );
+    error = null;
+    error = new SBMLError(libsbml.NoSBOTermsInL1,2,2);
+    assertTrue( error.getErrorId() == libsbml.NoSBOTermsInL1 );
+    assertTrue( error.getSeverity() == libsbml.LIBSBML_SEV_WARNING );
+    assertTrue( error.getSeverityAsString().equals( "Warning" ) );
+    assertTrue( error.getCategory() == libsbml.LIBSBML_CAT_SBML_L1_COMPAT );
+    assertTrue( error.getCategoryAsString().equals( "Translation to SBML L1V2") );
+    error = null;
+    error = new SBMLError(libsbml.DisallowedMathMLEncodingUse,2,2);
+    assertTrue( error.getErrorId() == libsbml.DisallowedMathMLEncodingUse );
+    assertTrue( error.getSeverity() == libsbml.LIBSBML_SEV_ERROR );
+    assertTrue( error.getSeverityAsString().equals( "Error" ) );
+    assertTrue( error.getCategory() == libsbml.LIBSBML_CAT_MATHML_CONSISTENCY );
+    assertTrue( error.getShortMessage().equals( "Disallowed use of MathML 'encoding' attribute") );
+    error = null;
+    error = new SBMLError(libsbml.DisallowedMathMLEncodingUse,1,2);
+    assertTrue( error.getErrorId() == libsbml.DisallowedMathMLEncodingUse );
+    assertTrue( error.getSeverity() == libsbml.LIBSBML_SEV_NOT_APPLICABLE );
+    assertTrue( error.getCategory() == libsbml.LIBSBML_CAT_MATHML_CONSISTENCY );
+    error = null;
+    error = new SBMLError(libsbml.UnknownError,2,4);
+    assertTrue( error.getErrorId() == libsbml.UnknownError );
+    assertTrue( error.getSeverity() == libsbml.LIBSBML_SEV_FATAL );
+    assertTrue( error.getSeverityAsString().equals( "Fatal" ) );
+    assertTrue( error.getCategory() == libsbml.LIBSBML_CAT_INTERNAL );
+    assertTrue( error.getShortMessage().equals( "Unknown internal libSBML error") );
+    error = null;
   }
 
   /**
