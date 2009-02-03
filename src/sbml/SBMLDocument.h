@@ -136,6 +136,7 @@
  * 
  * <li>Call SBMLDocument::checkConsistency(), then inquire about the results by
  * calling SBMLDocument::getNumErrors()</li>
+ * </ol>
  * </td>
  * <tr><td>Reading a model from a file or data stream</td>
  * <td>After reading the model:<ol>
@@ -150,6 +151,7 @@
  * 
  * <li>Call SBMLDocument::checkConsistency(), then inquire about the results
  * by calling SBMLDocument::getNumErrors()</li>
+ * </ol>
  * </td>
  * </table>
  * </center>

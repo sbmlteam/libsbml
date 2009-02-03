@@ -60,6 +60,108 @@
  * An example is that defining a species requires defining a compartment,
  * and defining a reaction requires defining a species.  The dependencies
  * are explained in more detail in the SBML specifications.
+ *
+ * @section approaches Approaches to creating objects using the libSBML API
+ *
+ * LibSBML provides two main mechanisms for creating objects: class
+ * constructors (e.g., @link Species::Species() Species() @endlink), and
+ * <code>create<i>Object</i>()</code> methods (such as
+ * Model::createSpecies()) provided by certain object classes such as
+ * Model.  These multiple mechanisms are provided by libSBML for
+ * flexibility and to support different use-cases, but they also have
+ * different implications for the overall model structure.
+ * 
+ * In general, the recommended approach is to use the
+ * <code>create<i>Object</i>()</code> methods.  These methods both create
+ * an object @em and link it to the parent in one step.  Here is an
+ * example:
+ * @verbatim
+// Create an SBMLDocument object in Level 2 Version 4 format:
+
+SBMLDocument* sbmlDoc = new SBMLDocument(2, 4);
+
+// Create a Model object inside the SBMLDocument object and set
+// its identifier.  The call returns a pointer to the Model object
+// created, and methods called on that object affect the attributes
+// of the object attached to the model (as expected).
+
+Model* model = sbmlDoc->createModel();
+model->setId("MyModel");
+
+// Create a Species object inside the Model and set its identifier.
+// Similar to the lines above, this call returns a pointer to the Species
+// object created, and methods called on that object affect the attributes
+// of the object attached to the model (as expected).
+
+Species *sp = model->createSpecies();
+sp->setId("MySpecies");
+@endverbatim
+ * 
+ * The <code>create<i>Object</i>()</code> methods return a pointer to the
+ * object created, but they also add the object to the relevant list of
+ * object instances contained in the parent.  (These lists become the
+ * <code>&lt;listOf<i>Object</i>s&gt;</code> elements in the finished XML
+ * rendition of SBML.)  In the example above, createSpecies() adds the
+ * created species directly to the <code>&lt;listOfSpecies&gt;</code> list
+ * in the model.  Subsequently, methods called on the species change the
+ * species in the model (which is what is expected in most situations).
+ * 
+ * By contrast, the other main way of creating an object and adding it to a
+ * parent makes a @em copy of the object, and requires more care on the
+ * part of the caller.  Here is an example of this alternative approach:
+ * @verbatim
+// Create a Species object and add it to the model.
+// This uses the Species class constructor:
+
+Species *newsp = Species("MySpecies");
+model->addSpecies(newsp); // Warning! This makes a COPY inside 'model'.
+
+// addSpecies(...) copies the object, with the result that
+// 'newsp' still refers to the original.  The following may not
+// do what is expected:
+
+newsp.setId("NewId");    // Warning -- doesn't change the species in 'model'!
+
+// If 'newsp' object isn't going to be used further, it needs
+// to be deleted to avoid a memory leak.
+
+delete newsp;
+@endverbatim
+ * 
+ * The key point of the example above is that, because the addSpecies()
+ * call makes a copy of the object handed to it, care is needed both when
+ * attempting to make changes to the object, and when the original object
+ * is no longer needed.
+ *
+ * @section checking Consistency and adherence to SBML specifications
+ *
+ * To make it easier for applications to do whatever they need,
+ * libSBML&nbsp;3.x is relatively lax when it comes to enforcing
+ * correctness and completeness of models during model construction and
+ * editing.  Essentially, libSBML @em will @em not in most cases check
+ * automatically that a model's components have valid attribute values, or
+ * that the overall model is consistent and free of errors&mdash;even
+ * obvious errors such as duplication of identifiers.  This allows
+ * applications great leeway in how they build their models, but it means
+ * that software authors must take deliberate steps to ensure that the
+ * model will be, in the end, valid SBML.  These steps include such things
+ * as keeping track of the identifiers used in a model, manually performing
+ * updates in certain situations where an entity is referenced in more than
+ * one place (e.g., a species that is referenced by multiple
+ * SpeciesReference objects), and so on.
+ *
+ * That said, libSBML does provide powerful features for deliberately
+ * performing validation of SBML when an application decides it is time to
+ * do so.  The interfaces to these facilities are on the SBMLDocument
+ * class, in the form of SBMLDocument::checkInternalConsistency() and
+ * SBMLDocument::checkConsistency().  Please refer to the documentation for
+ * SBMLDocument for more information about this.
+ *
+ * While applications may play fast and loose and live like free spirits
+ * during the construction and editing of SBML models, they should always
+ * make sure to call SBMLDocument::checkInternalConsistency() and/or
+ * SBMLDocument::checkConsistency() before writing out the final version of
+ * an SBML model.
  */
 
 #ifndef Model_h
@@ -254,6 +356,18 @@ public:
    * Adds a copy of the given FunctionDefinition object to this Model.
    *
    * @param fd the FunctionDefinition to add
+   * 
+   * @note This method should be used with some caution.  The fact that
+   * this method @em copies the object passed to it means that the caller
+   * will be left holding a physically different object instance than the
+   * one contained in this Model.  Changes made to the original object
+   * instance (such as resetting attribute values) will <em>not affect the
+   * instance in the Model</em>.  In addition, the caller should make sure
+   * to free the original object if it is no longer being used, or else a
+   * memory leak will result.  Please see createFunctionDefinition() for a
+   * method that does not lead to these issues.
+   *
+   * @see createFunctionDefinition()
    */
   void addFunctionDefinition (const FunctionDefinition* fd);
 
@@ -262,6 +376,18 @@ public:
    * Adds a copy of the given UnitDefinition object to this Model.
    *
    * @param ud the UnitDefinition object to add
+   * 
+   * @note This method should be used with some caution.  The fact that
+   * this method @em copies the object passed to it means that the caller
+   * will be left holding a physically different object instance than the
+   * one contained in this Model.  Changes made to the original object
+   * instance (such as resetting attribute values) will <em>not affect the
+   * instance in the Model</em>.  In addition, the caller should make sure
+   * to free the original object if it is no longer being used, or else a
+   * memory leak will result.  Please see createUnitDefinition() for a
+   * method that does not lead to these issues.
+   *
+   * @see createUnitDefinition()
    */
   void addUnitDefinition (const UnitDefinition* ud);
 
@@ -270,6 +396,18 @@ public:
    * Adds a copy of the given CompartmentType object to this Model.
    *
    * @param ct the CompartmentType object to add
+   * 
+   * @note This method should be used with some caution.  The fact that
+   * this method @em copies the object passed to it means that the caller
+   * will be left holding a physically different object instance than the
+   * one contained in this Model.  Changes made to the original object
+   * instance (such as resetting attribute values) will <em>not affect the
+   * instance in the Model</em>.  In addition, the caller should make sure
+   * to free the original object if it is no longer being used, or else a
+   * memory leak will result.  Please see createCompartmentType() for a
+   * method that does not lead to these issues.
+   *
+   * @see createCompartmentType()
    */
   void addCompartmentType (const CompartmentType* ct);
 
@@ -278,6 +416,18 @@ public:
    * Adds a copy of the given SpeciesType object to this Model.
    *
    * @param st the SpeciesType object to add
+   * 
+   * @note This method should be used with some caution.  The fact that
+   * this method @em copies the object passed to it means that the caller
+   * will be left holding a physically different object instance than the
+   * one contained in this Model.  Changes made to the original object
+   * instance (such as resetting attribute values) will <em>not affect the
+   * instance in the Model</em>.  In addition, the caller should make sure
+   * to free the original object if it is no longer being used, or else a
+   * memory leak will result.  Please see createSpeciesType() for a
+   * method that does not lead to these issues.
+   *
+   * @see createSpeciesType()
    */
   void addSpeciesType (const SpeciesType* st);
 
@@ -286,6 +436,18 @@ public:
    * Adds a copy of the given Compartment object to this Model.
    *
    * @param c the Compartment object to add
+   *
+   * @note This method should be used with some caution.  The fact that
+   * this method @em copies the object passed to it means that the caller
+   * will be left holding a physically different object instance than the
+   * one contained in this Model.  Changes made to the original object
+   * instance (such as resetting attribute values) will <em>not affect the
+   * instance in the Model</em>.  In addition, the caller should make sure
+   * to free the original object if it is no longer being used, or else a
+   * memory leak will result.  Please see createCompartment() for a method
+   * that does not lead to these issues.
+   *
+   * @see createCompartment()
    */
   void addCompartment (const Compartment* c);
 
@@ -294,6 +456,18 @@ public:
    * Adds a copy of the given Species object to this Model.
    *
    * @param s the Species object to add
+   * 
+   * @note This method should be used with some caution.  The fact that
+   * this method @em copies the object passed to it means that the caller
+   * will be left holding a physically different object instance than the
+   * one contained in this Model.  Changes made to the original object
+   * instance (such as resetting attribute values) will <em>not affect the
+   * instance in the Model</em>.  In addition, the caller should make sure
+   * to free the original object if it is no longer being used, or else a
+   * memory leak will result.  Please see createSpecies() for a
+   * method that does not lead to these issues.
+   *
+   * @see createSpecies()
    */
   void addSpecies (const Species* s);
 
@@ -302,6 +476,18 @@ public:
    * Adds a copy of the given Parameter object to this Model.
    *
    * @param p the Parameter object to add
+   * 
+   * @note This method should be used with some caution.  The fact that
+   * this method @em copies the object passed to it means that the caller
+   * will be left holding a physically different object instance than the
+   * one contained in this Model.  Changes made to the original object
+   * instance (such as resetting attribute values) will <em>not affect the
+   * instance in the Model</em>.  In addition, the caller should make sure
+   * to free the original object if it is no longer being used, or else a
+   * memory leak will result.  Please see createParameter() for a
+   * method that does not lead to these issues.
+   *
+   * @see createParameter()
    */
   void addParameter (const Parameter* p);
 
@@ -310,6 +496,18 @@ public:
    * Adds a copy of the given InitialAssignment object to this Model.
    *
    * @param ia the InitialAssignment object to add
+   * 
+   * @note This method should be used with some caution.  The fact that
+   * this method @em copies the object passed to it means that the caller
+   * will be left holding a physically different object instance than the
+   * one contained in this Model.  Changes made to the original object
+   * instance (such as resetting attribute values) will <em>not affect the
+   * instance in the Model</em>.  In addition, the caller should make sure
+   * to free the original object if it is no longer being used, or else a
+   * memory leak will result.  Please see createInitialAssignment() for a
+   * method that does not lead to these issues.
+   *
+   * @see createInitialAssignment()
    */
   void addInitialAssignment (const InitialAssignment* ia);
 
@@ -318,6 +516,18 @@ public:
    * Adds a copy of the given Rule object to this Model.
    *
    * @param r the Rule object to add
+   * 
+   * @note This method should be used with some caution.  The fact that
+   * this method @em copies the object passed to it means that the caller
+   * will be left holding a physically different object instance than the
+   * one contained in this Model.  Changes made to the original object
+   * instance (such as resetting attribute values) will <em>not affect the
+   * instance in the Model</em>.  In addition, the caller should make sure
+   * to free the original object if it is no longer being used, or else a
+   * memory leak will result.  Please see createRule() for a
+   * method that does not lead to these issues.
+   *
+   * @see createRule()
    */
   void addRule (const Rule* r);
 
@@ -326,6 +536,18 @@ public:
    * Adds a copy of the given Constraint object to this Model.
    *
    * @param c the Constraint object to add
+   * 
+   * @note This method should be used with some caution.  The fact that
+   * this method @em copies the object passed to it means that the caller
+   * will be left holding a physically different object instance than the
+   * one contained in this Model.  Changes made to the original object
+   * instance (such as resetting attribute values) will <em>not affect the
+   * instance in the Model</em>.  In addition, the caller should make sure
+   * to free the original object if it is no longer being used, or else a
+   * memory leak will result.  Please see createConstraint() for a
+   * method that does not lead to these issues.
+   *
+   * @see createConstraint()
    */
   void addConstraint (const Constraint* c);
 
@@ -334,6 +556,18 @@ public:
    * Adds a copy of the given Reaction object to this Model.
    *
    * @param r the Reaction object to add
+   * 
+   * @note This method should be used with some caution.  The fact that
+   * this method @em copies the object passed to it means that the caller
+   * will be left holding a physically different object instance than the
+   * one contained in this Model.  Changes made to the original object
+   * instance (such as resetting attribute values) will <em>not affect the
+   * instance in the Model</em>.  In addition, the caller should make sure
+   * to free the original object if it is no longer being used, or else a
+   * memory leak will result.  Please see createReaction() for a
+   * method that does not lead to these issues.
+   *
+   * @see createReaction()
    */
   void addReaction (const Reaction* r);
 
@@ -342,6 +576,18 @@ public:
    * Adds a copy of the given Event object to this Model.
    *
    * @param e the Event object to add
+   * 
+   * @note This method should be used with some caution.  The fact that
+   * this method @em copies the object passed to it means that the caller
+   * will be left holding a physically different object instance than the
+   * one contained in this Model.  Changes made to the original object
+   * instance (such as resetting attribute values) will <em>not affect the
+   * instance in the Model</em>.  In addition, the caller should make sure
+   * to free the original object if it is no longer being used, or else a
+   * memory leak will result.  Please see createEvent() for a
+   * method that does not lead to these issues.
+   *
+   * @see createEvent()
    */
   void addEvent (const Event* e);
 
@@ -350,6 +596,8 @@ public:
    * Creates a new FunctionDefinition inside this Model and returns it.
    *
    * @return the FunctionDefinition object created
+   *
+   * @see addFunctionDefinition()
    */
   FunctionDefinition* createFunctionDefinition ();
 
@@ -358,6 +606,8 @@ public:
    * Creates a new UnitDefinition inside this Model and returns it.
    *
    * @return the UnitDefinition object created
+   *
+   * @see addUnitDefinition()
    */
   UnitDefinition* createUnitDefinition ();
 
@@ -371,6 +621,8 @@ public:
    * a new Unit is @em not created and NULL is returned instead.
    *
    * @return the Unit object created
+   *
+   * @see addUnit()
    */
   Unit* createUnit ();
 
@@ -379,6 +631,8 @@ public:
    * Creates a new CompartmentType inside this Model and returns it.
    *
    * @return the CompartmentType object created
+   *
+   * @see addCompartmentType()
    */
   CompartmentType* createCompartmentType ();
 
@@ -387,6 +641,8 @@ public:
    * Creates a new SpeciesType inside this Model and returns it.
    *
    * @return the SpeciesType object created
+   *
+   * @see addSpeciesType()
    */
   SpeciesType* createSpeciesType ();
 
@@ -395,6 +651,8 @@ public:
    * Creates a new Compartment inside this Model and returns it.
    *
    * @return the Compartment object created
+   *
+   * @see addCompartment()
    */
   Compartment* createCompartment ();
 
@@ -403,6 +661,8 @@ public:
    * Creates a new Species inside this Model and returns it.
    *
    * @return the Species object created
+   *
+   * @see addSpecies()
    */
   Species* createSpecies ();
 
@@ -411,6 +671,8 @@ public:
    * Creates a new Parameter inside this Model and returns it.
    *
    * @return the Parameter object created
+   *
+   * @see addParameter()
    */
   Parameter* createParameter ();
 
@@ -419,6 +681,8 @@ public:
    * Creates a new InitialAssignment inside this Model and returns it.
    *
    * @return the InitialAssignment object created
+   *
+   * @see addInitialAssignment()
    */
   InitialAssignment* createInitialAssignment ();
 
@@ -427,6 +691,8 @@ public:
    * Creates a new AlgebraicRule inside this Model and returns it.
    *
    * @return the AlgebraicRule object created
+   *
+   * @see addRule()
    */
   AlgebraicRule* createAlgebraicRule ();
 
@@ -435,6 +701,8 @@ public:
    * Creates a new AssignmentRule inside this Model and returns it.
    *
    * @return the AssignmentRule object created
+   *
+   * @see addRule()
    */
   AssignmentRule* createAssignmentRule ();
 
@@ -443,6 +711,8 @@ public:
    * Creates a new RateRule inside this Model and returns it.
    *
    * @return the RateRule object created
+   *
+   * @see addRule()
    */
   RateRule* createRateRule ();
 
@@ -451,6 +721,8 @@ public:
    * Creates a new Constraint inside this Model and returns it.
    *
    * @return the Constraint object created
+   *
+   * @see addConstraint()
    */
   Constraint* createConstraint ();
 
@@ -459,6 +731,8 @@ public:
    * Creates a new Reaction inside this Model and returns it.
    *
    * @return the Reaction object created
+   *
+   * @see addReaction()
    */
   Reaction* createReaction ();
 

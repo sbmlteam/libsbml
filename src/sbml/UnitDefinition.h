@@ -52,7 +52,7 @@
  * UnitDefinition class is the container, and Unit instances are placed
  * inside UnitDefinition instances.
  *
- * @section unitdef-summary Summary of the %UnitDefinition construct
+ * @section unitdef-summary Summary of the UnitDefinition construct
  *
  * UnitDefinition in SBML Level&nbsp;2 has two attributes and one
  * subelement.  The two attributes are "id" and "name", and the subelement
@@ -483,6 +483,18 @@ public:
    * Adds a copy of the given Unit to this UnitDefinition.
    *
    * @param u the Unit instance to add to this UnitDefinition.
+   * 
+   * @note This method should be used with some caution.  The fact that
+   * this method @em copies the object passed to it means that the caller
+   * will be left holding a physically different object instance than the
+   * one contained in this UnitDefinition.  Changes made to the original
+   * object instance (such as resetting attribute values) will <em>not
+   * affect the instance in the UnitDefinition</em>.  In addition, the
+   * caller should make sure to free the original object if it is no longer
+   * being used, or else a memory leak will result.  Please see
+   * createUnit() for a method that does not lead to these issues.
+   *
+   * @see createUnit()
    */
   void addUnit (const Unit* u);
 
@@ -499,6 +511,8 @@ public:
    * unit (instead, it sets the "kind" to @c UNIT_KIND_INVALID).  Callers
    * are cautioned to set the newly-constructed Unit's kind using
    * Unit::setKind() soon after calling this method.
+   *
+   * @see addUnit()
    */
   Unit* createUnit ();
 

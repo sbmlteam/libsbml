@@ -495,6 +495,18 @@ public:
    * Appends a copy of the given EventAssignment to this Event.
    *
    * @param ea the EventAssignment object to add.
+   *
+   * @note This method should be used with some caution.  The fact that
+   * this method @em copies the object passed to it means that the caller
+   * will be left holding a physically different object instance than the
+   * one contained in this Event.  Changes made to the original object
+   * instance (such as resetting attribute values) will <em>not affect the
+   * instance in the Event</em>.  In addition, the caller should make sure
+   * to free the original object if it is no longer being used, or else a
+   * memory leak will result.  Please see createEventAssignment() for a
+   * method that does not lead to these issues.
+   *
+   * @see createEventAssignment()
    */
   void addEventAssignment (const EventAssignment* ea);
 
@@ -504,6 +516,8 @@ public:
    * event assignments and returns the EventAssignment.
    *
    * @return the newly created EventAssignment object instance
+   *
+   * @see addEvent()
    */
   EventAssignment* createEventAssignment ();
 

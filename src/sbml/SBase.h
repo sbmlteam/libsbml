@@ -977,6 +977,14 @@ public:
    * @note Since the CV Term uses the metaid of the object as a 
    * reference, if the object has no metaid set the CVTerm will
    * not be added.
+   *
+   * @note The fact that this method @em copies the object passed to it
+   * means that the caller will be left holding a physically different
+   * object instance than the one contained in @em this object.  Changes
+   * made to the original object instance (such as resetting attribute
+   * values) will <em>not affect the instance added here</em>.  In
+   * addition, the caller should make sure to free the original object if
+   * it is no longer being used, or else a memory leak will result.
    */
   void addCVTerm(CVTerm * term);
 

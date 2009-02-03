@@ -480,6 +480,18 @@ public:
    *
    * @param sr a SpeciesReference object referring to a Species in the
    * enclosing Model
+   *
+   * @note This method should be used with some caution.  The fact that
+   * this method @em copies the object passed to it means that the caller
+   * will be left holding a physically different object instance than the
+   * one contained in this Reaction.  Changes made to the original object
+   * instance (such as resetting attribute values) will <em>not affect the
+   * instance in the Reaction</em>.  In addition, the caller should make
+   * sure to free the original object if it is no longer being used, or
+   * else a memory leak will result.  Please see createReactant()
+   * for a method that does not lead to these issues.
+   *
+   * @see createReactant()
    */
   void addReactant (const SpeciesReference* sr);
 
@@ -491,6 +503,18 @@ public:
    *
    * @param sr a SpeciesReference object referring to a Species in the
    * enclosing Model
+   *
+   * @note This method should be used with some caution.  The fact that
+   * this method @em copies the object passed to it means that the caller
+   * will be left holding a physically different object instance than the
+   * one contained in this Reaction.  Changes made to the original object
+   * instance (such as resetting attribute values) will <em>not affect the
+   * instance in the Reaction</em>.  In addition, the caller should make
+   * sure to free the original object if it is no longer being used, or
+   * else a memory leak will result.  Please see createProduct()
+   * for a method that does not lead to these issues.
+   *
+   * @see createProduct()
    */
   void addProduct (const SpeciesReference* sr);
 
@@ -503,6 +527,18 @@ public:
    *
    * @param msr a ModifierSpeciesReference object referring to a Species in
    * the enclosing Model
+   *
+   * @note This method should be used with some caution.  The fact that
+   * this method @em copies the object passed to it means that the caller
+   * will be left holding a physically different object instance than the
+   * one contained in this Reaction.  Changes made to the original object
+   * instance (such as resetting attribute values) will <em>not affect the
+   * instance in the Reaction</em>.  In addition, the caller should make
+   * sure to free the original object if it is no longer being used, or
+   * else a memory leak will result.  Please see createModifier()
+   * for a method that does not lead to these issues.
+   *
+   * @see createModifier()
    */
   void addModifier (const ModifierSpeciesReference* msr);
 
