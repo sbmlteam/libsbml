@@ -503,8 +503,8 @@ public:
    * instance (such as resetting attribute values) will <em>not affect the
    * instance in the Event</em>.  In addition, the caller should make sure
    * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see createEventAssignment() for a
-   * method that does not lead to these issues.
+   * memory leak will result.  Please see Event::createEventAssignment()
+   * for a method that does not lead to these issues.
    *
    * @see createEventAssignment()
    */

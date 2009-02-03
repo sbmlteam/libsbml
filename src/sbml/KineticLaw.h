@@ -540,10 +540,11 @@ public:
    * will be left holding a physically different object instance than the
    * one contained in this KineticLaw.  Changes made to the original object
    * instance (such as resetting attribute values) will <em>not affect the
-   * instance in the KineticLaw</em>.  In addition, the caller should make sure
-   * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see createParameter() for a
-   * method that does not lead to these issues.
+   * instance in the KineticLaw</em>.  In addition, the caller should make
+   * sure to free the original object if it is no longer being used, or
+   * else a memory leak will result.  Please see
+   * KineticLaw::createParameter() for ab method that does not lead to
+   * these issues.
    *
    * @see createParameter()
    */

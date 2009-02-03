@@ -492,7 +492,8 @@ public:
    * affect the instance in the UnitDefinition</em>.  In addition, the
    * caller should make sure to free the original object if it is no longer
    * being used, or else a memory leak will result.  Please see
-   * createUnit() for a method that does not lead to these issues.
+   * UnitDefinition::createUnit() for a method that does not lead to these
+   * issues.
    *
    * @see createUnit()
    */

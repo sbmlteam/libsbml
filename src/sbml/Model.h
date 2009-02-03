@@ -64,8 +64,9 @@
  * @section approaches Approaches to creating objects using the libSBML API
  *
  * LibSBML provides two main mechanisms for creating objects: class
- * constructors (e.g., @link Species::Species() Species() @endlink), and
- * <code>create<i>Object</i>()</code> methods (such as
+ * constructors (e.g., @if clike @link Species::Species() Species()
+ * @endlink @endif@if java <a href="org/sbml/libsbml/Species.html">Species()</a> @endif),
+ * and <code>create<i>Object</i>()</code> methods (such as
  * Model::createSpecies()) provided by certain object classes such as
  * Model.  These multiple mechanisms are provided by libSBML for
  * flexibility and to support different use-cases, but they also have
@@ -101,10 +102,10 @@ sp->setId("MySpecies");
  * object created, but they also add the object to the relevant list of
  * object instances contained in the parent.  (These lists become the
  * <code>&lt;listOf<i>Object</i>s&gt;</code> elements in the finished XML
- * rendition of SBML.)  In the example above, createSpecies() adds the
- * created species directly to the <code>&lt;listOfSpecies&gt;</code> list
- * in the model.  Subsequently, methods called on the species change the
- * species in the model (which is what is expected in most situations).
+ * rendition of SBML.)  In the example above, Model::createSpecies() adds
+ * the created species directly to the <code>&lt;listOfSpecies&gt;</code>
+ * list in the model.  Subsequently, methods called on the species change
+ * the species in the model (which is what is expected in most situations).
  * 
  * By contrast, the other main way of creating an object and adding it to a
  * parent makes a @em copy of the object, and requires more care on the
@@ -128,7 +129,8 @@ newsp.setId("NewId");    // Warning -- doesn't change the species in 'model'!
 delete newsp;
 @endverbatim
  * 
- * The key point of the example above is that, because the addSpecies()
+ * The key point of the example above is that, because the @if clike
+ * Model::addSpecies() @endif@if java Model::addSpecies(Species s) @endif
  * call makes a copy of the object handed to it, care is needed both when
  * attempting to make changes to the object, and when the original object
  * is no longer needed.
@@ -364,8 +366,8 @@ public:
    * instance (such as resetting attribute values) will <em>not affect the
    * instance in the Model</em>.  In addition, the caller should make sure
    * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see createFunctionDefinition() for a
-   * method that does not lead to these issues.
+   * memory leak will result.  Please see Model::createFunctionDefinition()
+   * for a method that does not lead to these issues.
    *
    * @see createFunctionDefinition()
    */
@@ -384,8 +386,8 @@ public:
    * instance (such as resetting attribute values) will <em>not affect the
    * instance in the Model</em>.  In addition, the caller should make sure
    * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see createUnitDefinition() for a
-   * method that does not lead to these issues.
+   * memory leak will result.  Please see Model::createUnitDefinition() for
+   * a method that does not lead to these issues.
    *
    * @see createUnitDefinition()
    */
@@ -404,8 +406,8 @@ public:
    * instance (such as resetting attribute values) will <em>not affect the
    * instance in the Model</em>.  In addition, the caller should make sure
    * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see createCompartmentType() for a
-   * method that does not lead to these issues.
+   * memory leak will result.  Please see Model::createCompartmentType()
+   * for a method that does not lead to these issues.
    *
    * @see createCompartmentType()
    */
@@ -424,7 +426,7 @@ public:
    * instance (such as resetting attribute values) will <em>not affect the
    * instance in the Model</em>.  In addition, the caller should make sure
    * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see createSpeciesType() for a
+   * memory leak will result.  Please see Model::createSpeciesType() for a
    * method that does not lead to these issues.
    *
    * @see createSpeciesType()
@@ -444,8 +446,8 @@ public:
    * instance (such as resetting attribute values) will <em>not affect the
    * instance in the Model</em>.  In addition, the caller should make sure
    * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see createCompartment() for a method
-   * that does not lead to these issues.
+   * memory leak will result.  Please see Model::createCompartment() for a
+   * method that does not lead to these issues.
    *
    * @see createCompartment()
    */
@@ -464,7 +466,7 @@ public:
    * instance (such as resetting attribute values) will <em>not affect the
    * instance in the Model</em>.  In addition, the caller should make sure
    * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see createSpecies() for a
+   * memory leak will result.  Please see Model::createSpecies() for a
    * method that does not lead to these issues.
    *
    * @see createSpecies()
@@ -484,7 +486,7 @@ public:
    * instance (such as resetting attribute values) will <em>not affect the
    * instance in the Model</em>.  In addition, the caller should make sure
    * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see createParameter() for a
+   * memory leak will result.  Please see Model::createParameter() for a
    * method that does not lead to these issues.
    *
    * @see createParameter()
@@ -504,8 +506,8 @@ public:
    * instance (such as resetting attribute values) will <em>not affect the
    * instance in the Model</em>.  In addition, the caller should make sure
    * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see createInitialAssignment() for a
-   * method that does not lead to these issues.
+   * memory leak will result.  Please see Model::createInitialAssignment()
+   * for a method that does not lead to these issues.
    *
    * @see createInitialAssignment()
    */
@@ -524,8 +526,8 @@ public:
    * instance (such as resetting attribute values) will <em>not affect the
    * instance in the Model</em>.  In addition, the caller should make sure
    * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see createRule() for a
-   * method that does not lead to these issues.
+   * memory leak will result.  Please see Model::createRule() for a method
+   * that does not lead to these issues.
    *
    * @see createRule()
    */
@@ -544,7 +546,7 @@ public:
    * instance (such as resetting attribute values) will <em>not affect the
    * instance in the Model</em>.  In addition, the caller should make sure
    * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see createConstraint() for a
+   * memory leak will result.  Please see Model::createConstraint() for a
    * method that does not lead to these issues.
    *
    * @see createConstraint()
@@ -564,7 +566,7 @@ public:
    * instance (such as resetting attribute values) will <em>not affect the
    * instance in the Model</em>.  In addition, the caller should make sure
    * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see createReaction() for a
+   * memory leak will result.  Please see Model::createReaction() for a
    * method that does not lead to these issues.
    *
    * @see createReaction()
@@ -584,8 +586,8 @@ public:
    * instance (such as resetting attribute values) will <em>not affect the
    * instance in the Model</em>.  In addition, the caller should make sure
    * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see createEvent() for a
-   * method that does not lead to these issues.
+   * memory leak will result.  Please see Model::createEvent() for a method
+   * that does not lead to these issues.
    *
    * @see createEvent()
    */

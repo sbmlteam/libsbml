@@ -488,7 +488,7 @@ public:
    * instance (such as resetting attribute values) will <em>not affect the
    * instance in the Reaction</em>.  In addition, the caller should make
    * sure to free the original object if it is no longer being used, or
-   * else a memory leak will result.  Please see createReactant()
+   * else a memory leak will result.  Please see Reaction::createReactant()
    * for a method that does not lead to these issues.
    *
    * @see createReactant()
@@ -511,7 +511,7 @@ public:
    * instance (such as resetting attribute values) will <em>not affect the
    * instance in the Reaction</em>.  In addition, the caller should make
    * sure to free the original object if it is no longer being used, or
-   * else a memory leak will result.  Please see createProduct()
+   * else a memory leak will result.  Please see Reaction::createProduct()
    * for a method that does not lead to these issues.
    *
    * @see createProduct()
@@ -535,7 +535,7 @@ public:
    * instance (such as resetting attribute values) will <em>not affect the
    * instance in the Reaction</em>.  In addition, the caller should make
    * sure to free the original object if it is no longer being used, or
-   * else a memory leak will result.  Please see createModifier()
+   * else a memory leak will result.  Please see Reaction::createModifier()
    * for a method that does not lead to these issues.
    *
    * @see createModifier()
