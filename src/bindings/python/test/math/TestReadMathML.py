@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Python conversion)
 # @author  Ben Bornstein 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestReadMathML.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -63,6 +63,10 @@ def XML_HEADER():
   pass
 
 def test_isnan(x):
+  # for Python 2.3.x
+  if x == util_NaN():
+    return True
+  # for Python 2.4.x or later
   return (x != x)
   pass
 

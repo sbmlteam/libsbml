@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Python conversion)
 # @author  Michael Hucka <mhucka@caltech.edu> 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestXMLToken.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -281,7 +281,7 @@ class TestXMLToken(unittest.TestCase):
     token.addNamespace( "http://test1.org/", "test1a")
     self.assert_( token.getNamespacesLength() == 3 )
     self.assert_( token.isNamespacesEmpty() == False )
-    self.assertFalse( token.getNamespaceIndex( "http://test1.org/") == -1 )
+    self.assert_( token.getNamespaceIndex( "http://test1.org/") != -1 )
     token = None
     triple = None
     attr = None

@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Python conversion)
 # @author  Michael Hucka <mhucka@caltech.edu> 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestXMLNode.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -489,7 +489,7 @@ class TestXMLNode(unittest.TestCase):
     node.addNamespace( "http://test1.org/", "test1a")
     self.assert_( node.getNamespacesLength() == 3 )
     self.assert_( node.isNamespacesEmpty() == False )
-    self.assertFalse( node.getNamespaceIndex( "http://test1.org/") == -1 )
+    self.assert_( (node.getNamespaceIndex( "http://test1.org/") == -1) == False)
     node = None
     triple = None
     attr = None

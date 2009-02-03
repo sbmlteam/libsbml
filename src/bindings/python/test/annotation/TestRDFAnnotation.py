@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Python conversion)
 # @author  Ben Bornstein 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestRDFAnnotation.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -107,7 +107,7 @@ class TestRDFAnnotation(unittest.TestCase):
     pass  
 
   def test_RDFAnnotation_getModelHistory(self):
-    self.assertFalse( self.m == 0 )
+    self.assert_( self.m != 0 )
     history = self.m.getModelHistory()
     self.assert_( history != None )
     mc = (history.getCreator(0))

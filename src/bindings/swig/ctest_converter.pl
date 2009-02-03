@@ -1766,7 +1766,7 @@ sub addAssertion2
     }
     elsif ( $CurLine =~ /fail_if/ )
     {
-      $assertion = "self.assertFalse( " . $left . " " . $op . " " . $right . " )";
+      $assertion = "self.assert_( (" . $left . " " . $op . " " . $right . ") == False )";
     }
   }
   ##################################################
