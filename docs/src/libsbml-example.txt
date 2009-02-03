@@ -197,7 +197,7 @@ hand, it is quite straightforward and hopefully easy to follow:
   UnitDefinition* unitdef;
   Unit* unit;
 
-  // (UnitDefinition1) Create an UnitDefinition object for "per_second".
+  // (UnitDefinition 1) Create a UnitDefinition object for "per_second".
 
   unitdef = model->createUnitDefinition();
   unitdef->setId("per_second");
@@ -208,7 +208,7 @@ hand, it is quite straightforward and hopefully easy to follow:
   unit->setKind(UNIT_KIND_SECOND);
   unit->setExponent(-1);
 
-  // (UnitDefinition2) Create an UnitDefinition object for
+  // (UnitDefinition 2) Create a UnitDefinition object for
   // "litre_per_mole_per_second".  Note that we can reuse the pointers
   // 'unitdef' and 'unit' because the actual UnitDefinition object
   // (along with the Unit objects within it) is already attached to
@@ -237,7 +237,7 @@ hand, it is quite straightforward and hopefully easy to follow:
 Next, we create a compartment object.
 
 @verbatim
-  // Creat a string for the identifier of the compartment.  This
+  // Create a string for the identifier of the compartment.  This
   // will be used again later, so it's worth defining a constant here.
 
   const string compName = "cytosol";
@@ -268,7 +268,7 @@ compartment.
 
   // Create the Species objects inside the Model object. 
 
-  // (Species1) Create a Species object for species "ES", and set its
+  // (Species1 ) Create a Species object for species "ES", and set its
   // compartment attribute to be the "cytosol" compartment in the model.
 
   sp = model->createSpecies();
@@ -290,7 +290,7 @@ compartment.
   //
   sp->setInitialAmount(0);
 
-  // (Species2) Create a Species object for "P"
+  // (Species 2) Create a Species object for "P"
 
   sp = model->createSpecies();
   sp->setCompartment(compName);
@@ -309,7 +309,7 @@ compartment.
   sp = model->createSpecies();
   sp->setCompartment(compName);
   sp->setId("E");
-  sp->setInitialAmount(5e-21);
+  sp->setInitialAmount(5e-21 );
 @endverbatim
 
 
@@ -317,6 +317,13 @@ It remains only to create objects representing the reactions in the
 model.  In this example, we will create the system as one reversible
 and one irreversible reaction; alternatively, the system could have
 been created as three irreversible reactions.
+
+This program has hard-coded versions of the reaction rate formulas
+only for the purposes of this example.  Of course, in a more practical
+real-life situation, the formulas would not be fixed in this
+way&mdash;one would have methods to read/write/translate expressions
+originating from different sources (users, files, other programs etc.)
+to/from the Abstract Syntax Trees (ASTs) used by libSBML.
 
 @verbatim
   // Temporary pointers reused below.
@@ -331,14 +338,14 @@ been created as three irreversible reactions.
   reaction = model->createReaction();
   reaction->setId("veq");
 
-  // (Reactant1) Create a Reactant object that references Species "E"
+  // (Reactant 1) Create a Reactant object that references Species "E"
   // in the model.  The object will be created within the reaction in the
   // SBML <listOfReactants>.
 
   spr = reaction->createReactant();
   spr->setSpecies("E");
 
-  // (Reactant2) Create a Reactant object that references Species "S"
+  // (Reactant 2) Create a Reactant object that references Species "S"
   // in the model.
 
   spr = reaction->createReactant();
@@ -350,44 +357,144 @@ been created as three irreversible reactions.
   spr->setSpecies("ES");
 
   // Create a KineticLaw object inside the Reaction object ("veq").
-  // To create mathematical expressions, one would typically construct
-  // an ASTNode tree.  Here, to save some space and illustrate another
-  // approach of doing it, we will write out the formula in MathML
-  // form and then use a libSBML convenience function to create the
-  // ASTNode tree for us.  (This is a bit dangerous; it's very easy to
-  // make mistakes when writing MathML by hand, so in a real program,
-  // we would not really want to do it this way.)
   
   kl  = reaction->createKineticLaw();
 
-  // In the MathML below, note how the formula includes the volume of
-  // the compartment "cytosol".  The reason for this volume correction
-  // factor is explained in detail in the SBML specification document,
-  // and follows from the fact that SBML "kinetic laws" must yield
-  // substance/time units, not concentration/time units.
+  // Next, we will create an Abstract Syntax Tree representation of the
+  // following MathML expression:
+  //
+  //      <math xmlns=\"http://www.w3.org/1998/Math/MathML\">
+  //        <apply>
+  //          <times/> 
+  //          <ci> cytosol </ci>
+  //          <apply>
+  //            <minus/>
+  //            <apply>
+  //              <times/>
+  //              <ci> kon </ci>
+  //              <ci> E </ci>
+  //              <ci> S </ci>
+  //            </apply>
+  //            <apply>
+  //              <times/>
+  //              <ci> koff </ci>
+  //              <ci> ES </ci>
+  //            </apply>
+  //          </apply>
+  //        </apply>
+  //      </math>
 
-  string mathXMLString = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
-                         "  <apply>"
-                         "    <times/>"
-                         "    <ci> cytosol </ci>"
-                         "    <apply>"
-                         "      <minus/>"
-                         "      <apply>"
-                         "        <times/>"
-                         "        <ci> kon </ci>"
-                         "        <ci> E </ci>"
-                         "        <ci> S </ci>"
-                         "      </apply>"
-                         "      <apply>"
-                         "        <times/>"
-                         "          <ci> koff </ci>"
-                         "          <ci> ES </ci>"
-                         "      </apply>"
-                         "    </apply>"
-                         "  </apply>"
-                         "</math>";
+  // First, create nodes representing the variables:
 
-  kl->setMath(readMathMLFromString(mathXMLString.c_str()));
+  ASTNode* astCytosol = new ASTNode(AST_NAME);
+  astCytosol->setName("cytosol");
+
+  ASTNode* astKon = new ASTNode(AST_NAME);
+  astKon->setName("kon");
+
+  ASTNode* astKoff = new ASTNode(AST_NAME);
+  astKoff->setName("koff");
+
+  ASTNode* astE = new ASTNode(AST_NAME);
+  astE->setName("E");
+
+  ASTNode* astS = new ASTNode(AST_NAME);
+  astS->setName("S");
+
+  ASTNode* astES = new ASTNode(AST_NAME);
+  astES->setName("ES");
+
+  // Next, we build up the tree bottom-up, beginning with the
+  // following part:
+  //
+  //  <apply>
+  //    <times/>
+  //    <ci> koff </ci>
+  //    <ci> ES </ci>
+  //  </apply>
+
+  ASTNode *astTimes1 = new ASTNode(AST_TIMES);
+  astTimes1->addChild(astKoff);
+  astTimes1->addChild(astES);
+
+  // Continuing, we now create nodes representing the following part:
+  //
+  //  <apply>
+  //    <times/>
+  //    <ci> kon </ci>
+  //    <ci> E </ci>
+  //    <ci> S </ci>
+  //  </apply>
+  //
+  // Note: it is worth pointing out that the expression above has 3
+  // elements inside the <apply>, but libSBML's ASTs are binary trees,
+  // and only accept two operands.  The following code illustrates how
+  // to construct such an expression using binary ASTNode objects.
+
+  ASTNode *astTimes2 = new ASTNode(AST_TIMES);
+  astTimes2->addChild(astE);
+  astTimes2->addChild(astS);
+
+  ASTNode *astTimes = new ASTNode(AST_TIMES);
+  astTimes->addChild(astKon);
+  astTimes->addChild(astTimes2);
+
+  // Now for a node representing the following part:
+  //
+  //  <apply>
+  //    <minus/>
+  //    <apply>
+  //      <times/>
+  //      <ci> kon </ci>
+  //      <ci> E </ci>
+  //      <ci> S </ci>
+  //    </apply>
+  //    <apply>
+  //      <times/>
+  //      <ci> koff </ci>
+  //      <ci> ES </ci>
+  //    </apply>
+  //  </apply>
+
+  ASTNode *astMinus = new ASTNode(AST_MINUS);
+  astMinus->addChild(astTimes);
+  astMinus->addChild(astTimes1);
+
+  // And finally, the top node, representing the complete expression:
+  //
+  // <apply>
+  //  <times/>
+  //  <ci> cytosol </ci>
+  //  <apply>
+  //    <minus/>
+  //    <apply>
+  //      <times/>
+  //      <ci> kon </ci>
+  //      <ci> E </ci>
+  //      <ci> S </ci>
+  //    </apply>
+  //    <apply>
+  //      <times/>
+  //      <ci> koff </ci>
+  //      <ci> ES </ci>
+  //    </apply>
+  //  </apply>
+  // </apply>
+
+  ASTNode* astMath = new ASTNode(AST_TIMES);
+  astMath->addChild(astCytosol);
+  astMath->addChild(astMinus);
+
+  // Now set the <math> element in the KineticLaw object:
+
+  kl->setMath(astMath);
+
+  // KineticLaw::setMath(const ASTNode*) sets the math of the
+  // KineticLaw object to a COPY of the given ASTNode.  The caller
+  // (i.e., this program) should delete the original ASTNode object to
+  // avoid a memory leak.
+
+  delete astMath;
 
   // Create local Parameter objects for "kon" and "koff" inside the
   // KineticLaw object.  Note how we set the units on the parameter
@@ -405,54 +512,70 @@ been created as three irreversible reactions.
 @endverbatim
 
 
-That was one reaction.  One more reaction to go.  It follows the above
-pattern.
+That was one reaction.  One more reaction to go.  This time around,
+for variety and to illustrate another one of libSBML's facilities, we
+create the AST for the reaction rate formula starting from a string in
+MathML form.
 
 @verbatim
-  // (Reaction2) Create a Reaction object ("vcat") .
+  // (Reaction 2) Create a Reaction object ("vcat") .
   
-  reac = model->createReaction();
-  reac->setId("vcat");
-  reac->setReversible(false);
+  reaction = model->createReaction();
+  reaction->setId("vcat");
+  reaction->setReversible(false);
 
   // Create Reactant objects inside the Reaction object ("vcat"). 
 
-  // (Reactant1) Create a Reactant object that references Species
+  // (Reactant 1) Create a Reactant object that references Species
   // "ES" in the model.
 
-  spr = reac->createReactant();
+  spr = reaction->createReactant();
   spr->setSpecies("ES");
 
-  // (Product1) Create a Product object that references Species "E"
+  // (Product 1) Create a Product object that references Species "E"
   // in the model.
   
-  spr = reac->createProduct();
+  spr = reaction->createProduct();
   spr->setSpecies("E");
 
-  // (Product2) Create a Product object that references Species "P"
+  // (Product 2) Create a Product object that references Species "P"
   // in the model.
 
-  spr = reac->createProduct();
+  spr = reaction->createProduct();
   spr->setSpecies("P");
 
   // Create a KineticLaw object inside the Reaction object ("vcat"). 
   
-  kl = reac->createKineticLaw();
+  kl = reaction->createKineticLaw();
 
-  // Set the math (ASTNode object) to the KineticLaw object.  As in
-  // the case of the first reaction ("veq") earlier, we define the
-  // formula in MathML and then convert it to ASTNode.
+  // To create mathematical expressions, one would typically construct
+  // an ASTNode tree as the above example code which creates a math of
+  // another KineticLaw object.  Here, to save some space and
+  // illustrate another approach of doing it, we will write out the
+  // formula in MathML form and then use a libSBML convenience
+  // function to create the ASTNode tree for us.  (However, this is a
+  // bit dangerous; it's very easy to make mistakes when writing
+  // MathML by hand, so in a real program, we would not really want to
+  // do it this way.  We do this here mostly to illustrate this approach.)
 
-  mathXMLString = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
-                  "  <apply>"
-                  "    <times/>"
-                  "    <ci> cytosol </ci>"
-                  "    <ci> kcat </ci>"
-                  "    <ci> ES </ci>"
-                  "  </apply>"
-                  "</math>";
+  string mathXMLString = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
+                         "  <apply>"
+                         "    <times/>"
+                         "    <ci> cytosol </ci>"
+                         "    <ci> kcat </ci>"
+                         "    <ci> ES </ci>"
+                         "  </apply>"
+                         "</math>";
 
-  kl->setMath(readMathMLFromString(mathXMLString.c_str()));
+  // The following reuses 'astMath' declared earlier in this program.
+  // Note also how this is careful to delete the structure after handing
+  // it to setMath().  As noted earlier, setMath() copies the structure
+  // given to it, so if the caller is finished using it, the structure
+  // should be deleted in order to avoid leaking memory.
+
+  astMath = readMathMLFromString(mathXMLString.c_str());
+  kl->setMath(astMath);
+  delete astMath;
 
   // Create a local Parameter object for "kcat" inside the KineticLaw
   // object.
@@ -534,7 +657,7 @@ bool validateExampleSBML (SBMLDocument* sbmlDoc)
  
   string consistencyMessages;
   string validationMessages;
-  bool noProblems                  = true;
+  bool noProblems                     = true;
   unsigned int numCheckFailures       = 0;
   unsigned int numConsistencyErrors   = 0;
   unsigned int numConsistencyWarnings = 0;
