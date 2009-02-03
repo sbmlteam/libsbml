@@ -1,7 +1,18 @@
-This section documents known problems, limitations, and possible pitfalls
-in using libSBML.
+This section documents the following known problems, limitations, and
+possible pitfalls in using libSBML:
+<ul style="line-height: 150%">
+<li><a href="#name-collisions">Name collisions in mathematical expressions</a></li>
+<li><a href="#math-syntax-diffs">Differences in mathematical formula syntax</a></li>
+<li><a href="#xml-parser-diffs">Differences in XML parser behavior</a></li>
+<li><a href="#link-accidents">Potential for language bindings to link old versions of libSBML by accident</a></li>
+<li><a href="#make-uninstall">Possible unexpected <code>make uninstall</code> behavior</a></li>
+<li><a href="#ubuntu-tomcat">Java exceptions when running in stock Tomcat 6 under Ubuntu "Intrepid"</a></li>
+<li><a href="#conv-l1v1">Conversion to/from SBML Level 1 Version 1 is not supported</a></li>
+<li><a href="#doc-warnings">Warnings during creation of documentation</a></li>
+</ul>
 
-<h2>Name collisions in mathematical expressions</h2>
+
+<h2><a class="anchor" name="name-collisions"/>Name collisions in mathematical expressions</h2>
 
 <p>
 In the C-like, text-based, formula expression syntax supported by libSBML
@@ -33,7 +44,7 @@ and instead use ASTs.  All libSBML methods that accept text-string
 mathematical formulas have variants that accept ASTs instead.
 
 
-<h2>Differences in mathematical formula syntax</h2>
+<h2><a class="anchor" name="math-syntax-diffs"/>Differences in mathematical formula syntax</h2>
 
 The functions <code>char* SBML_formulaToString(const ASTNode* tree)</code>
 and <code>ASTNode* SBML_parseFormula(const char* formula)</code> can be
@@ -54,7 +65,7 @@ and to be careful when translating between text forms and MathML forms
 facility to users).
 
 
-<h2>Differences in XML parser behavior</h2>
+<h2><a class="anchor" name="xml-parser-diffs"/>Differences in XML parser behavior</h2>
 
 <p> The different parsers supported by libSBML (Xerces, Expat, libxml2)
 behave slightly differently when reading files, and the differences are
@@ -93,15 +104,8 @@ XML constructs inside <code>&lt;notes&gt;</code> and
 
 </ol>
 
-<h2>Conversion to/from SBML Level 1 Version 1 is not supported</h2>
 
-The method <code>SBMLDocument::setLevelAndVersion()</code> performs
-conversion between versions and levels of SBML (to the extent possible
-within technical and practical limits).  However, conversion to/from SBML
-Level&nbsp;1 Version&nbsp;1 is not supported.
-
-
-<h2>Potential for language bindings to link old versions of libSBML by accident</h2>
+<h2><a class="anchor" name="link-accidents"/>Potential for language bindings to link old versions of libSBML by accident</h2>
 
 At application run-time, the language bindings for C#, Java, Python, Perl
 and others must be able to dynamically link the core libSBML library file
@@ -115,7 +119,7 @@ libSBML components and are free of older versions that may be picked up
 inadvertently.
 
 
-<h2>Possible unexpected <code>make uninstall</code> behavior</h2>
+<h2><a class="anchor" name="make-uninstall"/>Possible unexpected <code>make uninstall</code> behavior</h2>
 
 <p> The libSBML <code>make uninstall</code> command on Linux, MacOS, Cygwin,
 and Solaris only knows about the features <em>most recently</em> configured
@@ -128,7 +132,57 @@ attempt removing the files implied by the most recent run of
 
 
 
-<h2>Warnings during creation of documentation</h2>
+<h2><a class="anchor" name="ubuntu-tomcat"/>Java exceptions when running in stock Tomcat 6 under Ubuntu "Intrepid"</h2>
+
+<p> (Thanks to Allyson Lister for reporting and solving the following.) For
+reasons that remain a mystery, attempting to use the libSBML Java interface
+from within an application installed as a war file in the <em>stock</em>
+version of Tomcat v.6 under the Ubuntu "Intrepid" release will result in
+exceptions such as the following:
+
+<div class="fragment"><pre class="fragment">
+ java.lang.UnsatisfiedLinkError:
+ org.sbml.libsbml.libsbmlJNI.new_SBMLReader()J
+</pre></div>
+
+<p> The cause appears to be unrelated to libSBML.  Users are advised to
+uninstall the stock tomcat6 package that comes from running the command
+<code>sudo apt-get install tomcat6</code>, and instead install the latest
+version of Tomcat.  The following detailed recipe comes from Allyson
+Lister:
+
+<ol>
+
+<li style="margin-bottom: 1.5em">Run <code>sudo apt-get remove
+tomcat6</code> followed by <code>sudo apt-get autoremove</code> to remove
+the copy of Tomcat that came with the Ubuntu installation.
+
+<li style="margin-bottom: 1em">Download the latest version of Tomcat
+(6.0.18) from the <a href="http://tomcat.apache.org/">Tomcat website</a>,
+and unpack it into a location of your choosing.
+
+<li style="margin-bottom: 1em">Open <code>bin/catalina.sh</code> in an
+editor and add the following line to the beginning of the file (after the
+main comments section at the top of the file):
+
+<div class="fragment"><pre class="fragment">
+   JAVA_OPTS="$JAVA_OPTS -Djava.library.path=/usr/local/lib"
+</pre></div>
+
+<li style="margin-bottom: 1em">Start Tomcat and load your war file.  The
+application should now be able to access all the native libraries from
+libSBML.  </ol>
+
+
+<h2><a class="anchor" name="conv-l1v1"/>Conversion to/from SBML Level 1 Version 1 is not supported</h2>
+
+The method <code>SBMLDocument::setLevelAndVersion()</code> performs
+conversion between versions and levels of SBML (to the extent possible
+within technical and practical limits).  However, conversion to/from SBML
+Level&nbsp;1 Version&nbsp;1 is not supported.
+
+
+<h2><a class="anchor" name="doc-warnings"/>Warnings during creation of documentation</h2>
 
 <p> If you run the commands to generate the libSBML documentation, there
 will be warnings printed for all except the C++ documentation.  These
@@ -137,3 +191,4 @@ are known incompatibilities that are next to impossible to resolve between
 the different tools used to generate different versions of the API
 documentation.  It is probably safe to ignore them.  Hopefully the warnings
 will be eliminated in a future version of libSBML.
+
