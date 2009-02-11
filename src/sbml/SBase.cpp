@@ -1746,8 +1746,9 @@ SBase::read (XMLInputStream& stream)
         checkOrderAndLogError(object, position);
         position = object->getElementPosition();
 
-        object->mSBML = mSBML;
-        object->mParentSBMLObject = static_cast <SBase*>(this);
+        object->setSBMLDocument(mSBML);
+        object->setParentSBMLObject(static_cast <SBase*>(this));
+
         object->read(stream);
 
         if ( !stream.isGood() ) break;
