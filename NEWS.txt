@@ -1,6 +1,17 @@
            libSBML NEWS -- History of user-visible changes
 
 ======================================================================
+Next release
+======================================================================
+
+* Bug fixes:
+
+ - An object being read from a file/string was not correctly recording
+   the SBMLDocument and ParentSBMLObject information.  This is fixed.
+   Thanks to Andreas Drager for reporting this.
+
+
+======================================================================
 Version 3.3.1 (released 2009-02-03)
 ======================================================================
 
