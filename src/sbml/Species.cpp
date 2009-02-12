@@ -1717,7 +1717,7 @@ Species_setSpeciesType (Species_t *s, const char *sid)
  *
  * @param s the Species_t structure
  * 
- * @param speciesType the identifer to which the "speciesType" attribute
+ * @param sid the identifer to which the "compartment" attribute
  * should be set.
  */
 LIBSBML_EXTERN
