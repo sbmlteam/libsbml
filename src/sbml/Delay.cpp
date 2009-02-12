@@ -538,7 +538,7 @@ Delay_free (Delay_t *t)
  * @return a (deep) copy of the given Delay_t structure @p t.
  */
 LIBSBML_EXTERN
-SBase_t *
+Delay_t *
 Delay_clone (const Delay_t *t)
 {
   return t->clone();

@@ -481,7 +481,7 @@ Delay_free (Delay_t *d);
 
 
 LIBSBML_EXTERN
-SBase_t *
+Delay_t *
 Delay_clone (const Delay_t *d);
 
 
