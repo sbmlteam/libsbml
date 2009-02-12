@@ -609,7 +609,7 @@ EventAssignment_create (void)
  * This convenience function is functionally equivalent to:
  * @code
  *   eventassign = EventAssignment_create();
- *   EventAssignment_setId(eventassign, variable);
+ *   EventAssignment_setVariable(eventassign, variable);
  *   EventAssignment_setMath(eventassign, math);
  * @endcode
  * 
