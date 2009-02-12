@@ -833,7 +833,7 @@ KineticLaw_free (KineticLaw_t *kl);
 
 
 LIBSBML_EXTERN
-SBase_t *
+KineticLaw_t *
 KineticLaw_clone (const KineticLaw_t *kl);
 
 

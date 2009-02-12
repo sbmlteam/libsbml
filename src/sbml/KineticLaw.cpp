@@ -1004,7 +1004,7 @@ KineticLaw_free (KineticLaw_t *kl)
  * @return a (deep) copy of this KineticLaw_t structure.
  */
 LIBSBML_EXTERN
-SBase_t *
+KineticLaw_t *
 KineticLaw_clone (const KineticLaw_t *kl)
 {
   return kl->clone();
