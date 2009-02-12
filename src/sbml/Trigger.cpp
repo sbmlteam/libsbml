@@ -474,7 +474,7 @@ Trigger_free (Trigger_t *t)
  * @return a (deep) copy of this Trigger.
  */
 LIBSBML_EXTERN
-SBase_t *
+Trigger_t *
 Trigger_clone (const Trigger_t *t)
 {
   return t->clone();

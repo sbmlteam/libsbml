@@ -475,7 +475,7 @@ StoichiometryMath_free (StoichiometryMath_t *t);
 
 
 LIBSBML_EXTERN
-SBase_t *
+StoichiometryMath_t *
 StoichiometryMath_clone (const StoichiometryMath_t *t);
 
 

@@ -527,7 +527,7 @@ StoichiometryMath_free (StoichiometryMath_t *stoichMath)
  * @return a (deep) copy of this StoichiometryMath.
  */
 LIBSBML_EXTERN
-SBase_t *
+StoichiometryMath_t *
 StoichiometryMath_clone (const StoichiometryMath_t *stoichMath)
 {
   return stoichMath->clone();
