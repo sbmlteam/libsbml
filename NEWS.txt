@@ -17,22 +17,22 @@ Version 3.3.1 (released 2009-02-03)
 
 * Changes
   
-  - Validation relating to attributes that have been removed from 
-    later SBML Levels/Versions (e.g. 'offset' on <unit>) has changed 
-    slightly.  Reading in a model that contains such an invalid 
-    attribute reports a schema error.  This has not changed but 
+  - Validation relating to attributes that have been removed from
+    later SBML Levels/Versions (e.g. 'offset' on <unit>) has changed
+    slightly.  Reading in a model that contains such an invalid
+    attribute reports a schema error.  This has not changed but
     checking the consistency of a document that has been created using
-    an invalid attribute will now report an error stating that the 
-    attribute has been removed e.g. Validation Rule 20411 in SBML 
-    L2V2 specification. 
+    an invalid attribute will now report an error stating that the
+    attribute has been removed.  This affects, e.g., validation rule
+    20411 in the SBML L2V2 specification.
     
-  - The code used to a convert an SBML L2V4 model was failing to 
+  - The code used to a convert an SBML L2V4 model would fail to 
     perform the conversion if the units in the L2V4 model would 
     produce a target model that had invalid units.  Ralph Gauges 
     pointed out that this behaviour was inconsistent with existing 
     behaviour, which allows conversion of invalid models.  The code 
     has been changed to merely log the invalid units as a warning, 
-    whilst performing the conversion if it is otherwise possible.
+    but still perform the conversion if it is otherwise possible.
     
   - The RDFAnnotationParser class was not marked as external within 
     the Windows prebuilt dlls.  This has been changed and the relevant
@@ -44,7 +44,7 @@ Version 3.3.1 (released 2009-02-03)
     The unit 
     <unit kind="mole" exponent="-1" multiplier="2" scale="1"/> 
     will now be output as 
-    "mole (exponent = -1, multilpier  2, scale = 1)".  
+    "mole (exponent = -1, multiplier  2, scale = 1)".  
     In addition, the function now has an optional argument, 
     defaulting to false, that if set to true will write the units out
     in a more compact form e.g.
@@ -53,9 +53,10 @@ Version 3.3.1 (released 2009-02-03)
 
 * Bug fixes:
 
-  - The makefile for the java examples directory required Java 1.5 not
-    versions greater than 1.5.  This has been changed.  Thanks to
-    Nicolas Rodriguez for reporting this.
+  - The makefile for the java examples directory incorrectly tested
+    only for Java 1.5.0, not for versions greater than or equal to
+    1.5.0 as it should have.  Fixed.  Thanks to Nicolas Rodriguez for
+    reporting this.
 
   - A problem in error logging whilst reading a file meant that files
     with certain errors caused libSBML to crash.  This has been fixed.
