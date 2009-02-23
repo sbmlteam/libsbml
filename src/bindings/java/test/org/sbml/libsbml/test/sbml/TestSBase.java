@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestSBase.cpp
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -245,7 +245,7 @@ public class TestSBase {
     XMLNode p_node1 = new XMLNode(p_token);
     XMLNode text_node1 = new XMLNode(text_token1);
     XMLNode notes;
-    XMLNode child, child1;
+    XMLNode child,child1;
     p_node.addChild(text_node);
     body_node.addChild(p_node);
     html_node.addChild(head_node);
@@ -326,7 +326,7 @@ public class TestSBase {
     XMLNode p_node1 = new XMLNode(p_token);
     XMLNode text_node1 = new XMLNode(text_token1);
     XMLNode notes;
-    XMLNode child, child1;
+    XMLNode child,child1;
     p_node.addChild(text_node);
     body_node.addChild(p_node);
     html_node.addChild(head_node);
@@ -403,7 +403,7 @@ public class TestSBase {
     XMLNode p_node1 = new XMLNode(p_token1);
     XMLNode text_node1 = new XMLNode(text_token1);
     XMLNode notes;
-    XMLNode child, child1;
+    XMLNode child,child1;
     p_node.addChild(text_node);
     body_node.addChild(p_node);
     html_node.addChild(head_node);
@@ -479,7 +479,7 @@ public class TestSBase {
     XMLNode p_node1 = new XMLNode(p_token);
     XMLNode text_node1 = new XMLNode(text_token1);
     XMLNode notes;
-    XMLNode child, child1;
+    XMLNode child,child1;
     p_node.addChild(text_node);
     body_node.addChild(p_node);
     p_node1.addChild(text_node1);
@@ -554,7 +554,7 @@ public class TestSBase {
     XMLNode p_node1 = new XMLNode(p_token);
     XMLNode text_node1 = new XMLNode(text_token1);
     XMLNode notes;
-    XMLNode child, child1;
+    XMLNode child,child1;
     p_node.addChild(text_node);
     p_node1.addChild(text_node1);
     body_node1.addChild(p_node1);
@@ -621,7 +621,7 @@ public class TestSBase {
     XMLNode p_node1 = new XMLNode(p_token);
     XMLNode text_node1 = new XMLNode(text_token1);
     XMLNode notes;
-    XMLNode child, child1;
+    XMLNode child,child1;
     p_node.addChild(text_node);
     body_node.addChild(p_node);
     p_node1.addChild(text_node1);
@@ -680,7 +680,7 @@ public class TestSBase {
     XMLNode p_node1 = new XMLNode(p_token);
     XMLNode text_node1 = new XMLNode(text_token1);
     XMLNode notes;
-    XMLNode child, child1;
+    XMLNode child,child1;
     p_node.addChild(text_node);
     p_node1.addChild(text_node1);
     body_node1.addChild(p_node1);
@@ -738,7 +738,7 @@ public class TestSBase {
     XMLNode p_node1 = new XMLNode(p_token1);
     XMLNode text_node1 = new XMLNode(text_token1);
     XMLNode notes;
-    XMLNode child, child1;
+    XMLNode child,child1;
     p_node.addChild(text_node);
     body_node.addChild(p_node);
     p_node1.addChild(text_node1);
@@ -784,53 +784,103 @@ public class TestSBase {
     String taggednewnotes = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>\n" + 
     "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
     "</notes>";
-    String newnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";;
+    String taggednewnotes2 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
+    "</notes>";
+    String newnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
+    String newnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>" +
+                       "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
+    String newnotes3 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + "</notes>";
+    String newnotes4 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
+    "</notes>";
     S.setNotes(notes);
     assertTrue( S.isSetNotes() == true );
     S.appendNotes(newnotes);
     String notes1 = S.getNotesString();
     assertTrue( S.isSetNotes() == true );
     assertTrue(taggednewnotes.equals(notes1));
+    S.setNotes(notes);
+    S.appendNotes(newnotes2);
+    String notes2 = S.getNotesString();
+    assertTrue( S.isSetNotes() == true );
+    assertTrue(taggednewnotes2.equals(notes2));
+    S.setNotes(notes);
+    S.appendNotes(newnotes3);
+    String notes3 = S.getNotesString();
+    assertTrue( S.isSetNotes() == true );
+    assertTrue(taggednewnotes.equals(notes3));
+    S.setNotes(notes);
+    S.appendNotes(newnotes4);
+    String notes4 = S.getNotesString();
+    assertTrue( S.isSetNotes() == true );
+    assertTrue(taggednewnotes2.equals(notes4));
   }
 
   public void test_SBase_appendNotesString1()
   {
-    String notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head/>\n" + 
+    String notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head>\n" + 
+    "    <title/>\n" + 
+    "  </head>\n" + 
     "  <body>\n" + 
     "    <p>This is a test note </p>\n" + 
     "  </body>\n" + 
     "</html>";
     String taggednewnotes = "<notes>\n" + 
     "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
-    "    <head/>\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
     "    <body>\n" + 
     "      <p>This is a test note </p>\n" + 
     "      <p>This is more test notes </p>\n" + 
     "    </body>\n" + 
     "  </html>\n" + 
     "</notes>";
-    String addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head/>\n" + 
+    String addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head>\n" + 
+    "    <title/>\n" + 
+    "  </head>\n" + 
     "  <body>\n" + 
     "    <p>This is more test notes </p>\n" + 
     "  </body>\n" + 
     "</html>";
+    String addnotes2 = "<notes>\n" + 
+    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
+    "    <body>\n" + 
+    "      <p>This is more test notes </p>\n" + 
+    "    </body>\n" + 
+    "  </html>\n" + 
+    "</notes>";
     S.setNotes(notes);
     S.appendNotes(addnotes);
     String notes1 = S.getNotesString();
     assertTrue( S.isSetNotes() == true );
     assertTrue(taggednewnotes.equals(notes1));
+    S.setNotes(notes);
+    S.appendNotes(addnotes2);
+    String notes2 = S.getNotesString();
+    assertTrue( S.isSetNotes() == true );
+    assertTrue(taggednewnotes.equals(notes2));
   }
 
   public void test_SBase_appendNotesString2()
   {
-    String notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head/>\n" + 
+    String notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head>\n" + 
+    "    <title/>\n" + 
+    "  </head>\n" + 
     "  <body>\n" + 
     "    <p>This is a test note </p>\n" + 
     "  </body>\n" + 
     "</html>";
     String taggednewnotes = "<notes>\n" + 
     "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
-    "    <head/>\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
     "    <body>\n" + 
     "      <p>This is a test note </p>\n" + 
     "      <p>This is more test notes </p>\n" + 
@@ -838,35 +888,85 @@ public class TestSBase {
     "  </html>\n" + 
     "</notes>";
     String addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <p>This is more test notes </p>\n" + "</body>\n";;
+    String addnotes2 = "<notes>\n" + 
+    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <p>This is more test notes </p>\n" + 
+    "  </body>\n" + 
+    "</notes>";
     S.setNotes(notes);
     S.appendNotes(addnotes);
     String notes1 = S.getNotesString();
     assertTrue( S.isSetNotes() == true );
     assertTrue(taggednewnotes.equals(notes1));
+    S.setNotes(notes);
+    S.appendNotes(addnotes2);
+    String notes2 = S.getNotesString();
+    assertTrue( S.isSetNotes() == true );
+    assertTrue(taggednewnotes.equals(notes2));
   }
 
   public void test_SBase_appendNotesString3()
   {
-    String notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head/>\n" + 
+    String notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head>\n" + 
+    "    <title/>\n" + 
+    "  </head>\n" + 
     "  <body>\n" + 
     "    <p>This is a test note </p>\n" + 
     "  </body>\n" + 
     "</html>";
     String taggednewnotes = "<notes>\n" + 
     "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
-    "    <head/>\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
     "    <body>\n" + 
     "      <p>This is a test note </p>\n" + 
     "      <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
     "    </body>\n" + 
     "  </html>\n" + 
     "</notes>";
-    String addnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";;
+    String taggednewnotes2 = "<notes>\n" + 
+    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
+    "    <body>\n" + 
+    "      <p>This is a test note </p>\n" + 
+    "      <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+    "      <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
+    "    </body>\n" + 
+    "  </html>\n" + 
+    "</notes>";
+    String addnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n";
+    String addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+                       "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
+    String addnotes3 = "<notes>\n" + 
+                       "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
+                       "</notes>";
+    String addnotes4 = "<notes>\n" + 
+                       "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+                       "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
+                       "</notes>";
     S.setNotes(notes);
     S.appendNotes(addnotes);
     String notes1 = S.getNotesString();
     assertTrue( S.isSetNotes() == true );
     assertTrue(taggednewnotes.equals(notes1));
+    S.setNotes(notes);
+    S.appendNotes(addnotes2);
+    String notes2 = S.getNotesString();
+    assertTrue( S.isSetNotes() == true );
+    assertTrue(taggednewnotes2.equals(notes2));
+    S.setNotes(notes);
+    S.appendNotes(addnotes3);
+    String notes3 = S.getNotesString();
+    assertTrue( S.isSetNotes() == true );
+    assertTrue(taggednewnotes.equals(notes3));
+    S.setNotes(notes);
+    S.appendNotes(addnotes4);
+    String notes4 = S.getNotesString();
+    assertTrue( S.isSetNotes() == true );
+    assertTrue(taggednewnotes2.equals(notes4));
   }
 
   public void test_SBase_appendNotesString4()
@@ -874,23 +974,42 @@ public class TestSBase {
     String notes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <p>This is a test note </p>\n" + "</body>";;
     String taggednewnotes = "<notes>\n" + 
     "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
-    "    <head/>\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
     "    <body>\n" + 
     "      <p>This is a test note </p>\n" + 
     "      <p>This is more test notes </p>\n" + 
     "    </body>\n" + 
     "  </html>\n" + 
     "</notes>";
-    String addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head/>\n" + 
+    String addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head>\n" + 
+    "    <title/>\n" + 
+    "  </head>\n" + 
     "  <body>\n" + 
     "    <p>This is more test notes </p>\n" + 
     "  </body>\n" + 
     "</html>";
+    String addnotes2 = "<notes>\n" + 
+    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
+    "    <body>\n" + 
+    "      <p>This is more test notes </p>\n" + 
+    "    </body>\n" + 
+    "  </html>\n" + 
+    "</notes>";
     S.setNotes(notes);
     S.appendNotes(addnotes);
     String notes1 = S.getNotesString();
     assertTrue( S.isSetNotes() == true );
     assertTrue(taggednewnotes.equals(notes1));
+    S.setNotes(notes);
+    S.appendNotes(addnotes2);
+    String notes2 = S.getNotesString();
+    assertTrue( S.isSetNotes() == true );
+    assertTrue(taggednewnotes.equals(notes2));
   }
 
   public void test_SBase_appendNotesString5()
@@ -898,23 +1017,42 @@ public class TestSBase {
     String notes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>";;
     String taggednewnotes = "<notes>\n" + 
     "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
-    "    <head/>\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
     "    <body>\n" + 
     "      <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>\n" + 
     "      <p>This is more test notes </p>\n" + 
     "    </body>\n" + 
     "  </html>\n" + 
     "</notes>";
-    String addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head/>\n" + 
+    String addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head>\n" + 
+    "    <title/>\n" + 
+    "  </head>\n" + 
     "  <body>\n" + 
     "    <p>This is more test notes </p>\n" + 
     "  </body>\n" + 
     "</html>";
+    String addnotes2 = "<notes>\n" + 
+    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
+    "    <body>\n" + 
+    "      <p>This is more test notes </p>\n" + 
+    "    </body>\n" + 
+    "  </html>\n" + 
+    "</notes>";
     S.setNotes(notes);
     S.appendNotes(addnotes);
     String notes1 = S.getNotesString();
     assertTrue( S.isSetNotes() == true );
     assertTrue(taggednewnotes.equals(notes1));
+    S.setNotes(notes);
+    S.appendNotes(addnotes2);
+    String notes2 = S.getNotesString();
+    assertTrue( S.isSetNotes() == true );
+    assertTrue(taggednewnotes.equals(notes2));
   }
 
   public void test_SBase_appendNotesString6()
@@ -927,11 +1065,21 @@ public class TestSBase {
     "  </body>\n" + 
     "</notes>";
     String addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <p>This is more test notes </p>\n" + "</body>";;
+    String addnotes2 = "<notes>\n" + 
+    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <p>This is more test notes </p>\n" + 
+    "  </body>\n" + 
+    "</notes>";
     S.setNotes(notes);
     S.appendNotes(addnotes);
     String notes1 = S.getNotesString();
     assertTrue( S.isSetNotes() == true );
     assertTrue(taggednewnotes.equals(notes1));
+    S.setNotes(notes);
+    S.appendNotes(addnotes2);
+    String notes2 = S.getNotesString();
+    assertTrue( S.isSetNotes() == true );
+    assertTrue(taggednewnotes.equals(notes2));
   }
 
   public void test_SBase_appendNotesString7()
@@ -944,11 +1092,21 @@ public class TestSBase {
     "  </body>\n" + 
     "</notes>";
     String addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <p>This is more test notes </p>\n" + "</body>";;
+    String addnotes2 = "<notes>\n" + 
+    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <p>This is more test notes </p>\n" + 
+    "  </body>\n" + 
+    "</notes>";
     S.setNotes(notes);
     S.appendNotes(addnotes);
     String notes1 = S.getNotesString();
     assertTrue( S.isSetNotes() == true );
     assertTrue(taggednewnotes.equals(notes1));
+    S.setNotes(notes);
+    S.appendNotes(addnotes2);
+    String notes2 = S.getNotesString();
+    assertTrue( S.isSetNotes() == true );
+    assertTrue(taggednewnotes.equals(notes2));
   }
 
   public void test_SBase_appendNotesString8()
@@ -960,12 +1118,43 @@ public class TestSBase {
     "    <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
     "  </body>\n" + 
     "</notes>";
-    String addnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";;
+    String taggednewnotes2 = "<notes>\n" + 
+    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <p>This is a test note </p>\n" + 
+    "    <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+    "    <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
+    "  </body>\n" + 
+    "</notes>";
+    String addnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
+    String addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" +
+                       "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
+    String addnotes3 = "<notes>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
+    "</notes>";
+    String addnotes4 = "<notes>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
+    "</notes>";
     S.setNotes(notes);
     S.appendNotes(addnotes);
     String notes1 = S.getNotesString();
     assertTrue( S.isSetNotes() == true );
     assertTrue(taggednewnotes.equals(notes1));
+    S.setNotes(notes);
+    S.appendNotes(addnotes2);
+    String notes2 = S.getNotesString();
+    assertTrue( S.isSetNotes() == true );
+    assertTrue(taggednewnotes2.equals(notes2));
+    S.setNotes(notes);
+    S.appendNotes(addnotes3);
+    String notes3 = S.getNotesString();
+    assertTrue( S.isSetNotes() == true );
+    assertTrue(taggednewnotes.equals(notes3));
+    S.setNotes(notes);
+    S.appendNotes(addnotes4);
+    String notes4 = S.getNotesString();
+    assertTrue( S.isSetNotes() == true );
+    assertTrue(taggednewnotes2.equals(notes4));
   }
 
   public void test_SBase_getQualifiersFromResources()
@@ -1023,8 +1212,7 @@ public class TestSBase {
     }
     XMLNode t1 = S.getAnnotation();
     assertTrue( t1.getNumChildren() == 1 );
-    XMLNode t2 = t1.getChild(0);
-    assertTrue(t2.getChild(0).getCharacters().equals( "This is a test note"));
+    assertTrue(t1.getChild(0).getCharacters().equals( "This is a test note"));
     S.setAnnotation(S.getAnnotationString());
     t1 = S.getAnnotation();
     assertTrue( t1.getNumChildren() == 1 );
@@ -1042,7 +1230,7 @@ public class TestSBase {
     }
     t1 = S.getAnnotation();
     assertTrue( t1.getNumChildren() == 1 );
-    t2 = t1.getChild(0);
+    XMLNode t2 = t1.getChild(0);
     assertTrue(t2.getCharacters().equals( "This is a test note"));
   }
 
@@ -1104,8 +1292,7 @@ public class TestSBase {
     }
     XMLNode t1 = S.getNotes();
     assertTrue( t1.getNumChildren() == 1 );
-    XMLNode t2 = t1.getChild(0);
-    assertTrue(t2.getChild(0).getCharacters().equals( "This is a test note"));
+    assertTrue(t1.getChild(0).getCharacters().equals( "This is a test note"));
     S.setNotes(S.getNotesString());
     t1 = S.getNotes();
     assertTrue( t1.getNumChildren() == 1 );
@@ -1123,7 +1310,7 @@ public class TestSBase {
     }
     t1 = S.getNotes();
     assertTrue( t1.getNumChildren() == 1 );
-    t2 = t1.getChild(0);
+    XMLNode t2 = t1.getChild(0);
     assertTrue(t2.getCharacters().equals( "This is a test note"));
   }
 

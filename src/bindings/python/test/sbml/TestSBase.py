@@ -677,51 +677,100 @@ class TestSBase(unittest.TestCase):
     taggednewnotes = wrapString("<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>\n" + 
     "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
     "</notes>")
+    taggednewnotes2 = wrapString("<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
+    "</notes>")
     newnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
+    newnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>""<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>"
+    newnotes3 = wrapString("<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + "</notes>")
+    newnotes4 = wrapString("<notes>\n" "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
+    "</notes>")
     self.S.setNotes(notes)
     self.assert_( self.S.isSetNotes() == True )
     self.S.appendNotes(newnotes)
     notes1 = self.S.getNotesString()
     self.assert_( self.S.isSetNotes() == True )
     self.assert_(( notes1 == taggednewnotes ))
+    self.S.setNotes(notes)
+    self.S.appendNotes(newnotes2)
+    notes2 = self.S.getNotesString()
+    self.assert_( self.S.isSetNotes() == True )
+    self.assert_(( notes2 == taggednewnotes2 ))
+    self.S.setNotes(notes)
+    self.S.appendNotes(newnotes3)
+    notes3 = self.S.getNotesString()
+    self.assert_( self.S.isSetNotes() == True )
+    self.assert_(( notes3 == taggednewnotes ))
+    self.S.setNotes(notes)
+    self.S.appendNotes(newnotes4)
+    notes4 = self.S.getNotesString()
+    self.assert_( self.S.isSetNotes() == True )
+    self.assert_(( notes4 == taggednewnotes2 ))
     pass  
 
   def test_SBase_appendNotesString1(self):
-    notes = wrapString("<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head/>\n" + 
+    notes = wrapString("<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head>\n" + 
+    "    <title/>\n" + 
+    "  </head>\n" + 
     "  <body>\n" + 
     "    <p>This is a test note </p>\n" + 
     "  </body>\n" + 
     "</html>")
     taggednewnotes = wrapString("<notes>\n" + 
     "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
-    "    <head/>\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
     "    <body>\n" + 
     "      <p>This is a test note </p>\n" + 
     "      <p>This is more test notes </p>\n" + 
     "    </body>\n" + 
     "  </html>\n" + 
     "</notes>")
-    addnotes = wrapString("<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head/>\n" + 
+    addnotes = wrapString("<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head>\n" + 
+    "    <title/>\n" + 
+    "  </head>\n" + 
     "  <body>\n" + 
     "    <p>This is more test notes </p>\n" + 
     "  </body>\n" + 
     "</html>")
+    addnotes2 = wrapString("<notes>\n" + 
+    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
+    "    <body>\n" + 
+    "      <p>This is more test notes </p>\n" + 
+    "    </body>\n" + 
+    "  </html>\n" + 
+    "</notes>")
     self.S.setNotes(notes)
     self.S.appendNotes(addnotes)
     notes1 = self.S.getNotesString()
     self.assert_( self.S.isSetNotes() == True )
     self.assert_(( notes1 == taggednewnotes ))
+    self.S.setNotes(notes)
+    self.S.appendNotes(addnotes2)
+    notes2 = self.S.getNotesString()
+    self.assert_( self.S.isSetNotes() == True )
+    self.assert_(( notes2 == taggednewnotes ))
     pass  
 
   def test_SBase_appendNotesString2(self):
-    notes = wrapString("<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head/>\n" + 
+    notes = wrapString("<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head>\n" + 
+    "    <title/>\n" + 
+    "  </head>\n" + 
     "  <body>\n" + 
     "    <p>This is a test note </p>\n" + 
     "  </body>\n" + 
     "</html>")
     taggednewnotes = wrapString("<notes>\n" + 
     "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
-    "    <head/>\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
     "    <body>\n" + 
     "      <p>This is a test note </p>\n" + 
     "      <p>This is more test notes </p>\n" + 
@@ -729,80 +778,165 @@ class TestSBase(unittest.TestCase):
     "  </html>\n" + 
     "</notes>")
     addnotes = wrapString("<body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <p>This is more test notes </p>\n" + "</body>\n")
+    addnotes2 = wrapString("<notes>\n" + 
+    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <p>This is more test notes </p>\n" + 
+    "  </body>\n" + 
+    "</notes>")
     self.S.setNotes(notes)
     self.S.appendNotes(addnotes)
     notes1 = self.S.getNotesString()
     self.assert_( self.S.isSetNotes() == True )
     self.assert_(( notes1 == taggednewnotes ))
+    self.S.setNotes(notes)
+    self.S.appendNotes(addnotes2)
+    notes2 = self.S.getNotesString()
+    self.assert_( self.S.isSetNotes() == True )
+    self.assert_(( notes2 == taggednewnotes ))
     pass  
 
   def test_SBase_appendNotesString3(self):
-    notes = wrapString("<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head/>\n" + 
+    notes = wrapString("<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head>\n" + 
+    "    <title/>\n" + 
+    "  </head>\n" + 
     "  <body>\n" + 
     "    <p>This is a test note </p>\n" + 
     "  </body>\n" + 
     "</html>")
     taggednewnotes = wrapString("<notes>\n" + 
     "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
-    "    <head/>\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
     "    <body>\n" + 
     "      <p>This is a test note </p>\n" + 
     "      <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
     "    </body>\n" + 
     "  </html>\n" + 
     "</notes>")
-    addnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
+    taggednewnotes2 = wrapString("<notes>\n" + 
+    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
+    "    <body>\n" + 
+    "      <p>This is a test note </p>\n" + 
+    "      <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+    "      <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
+    "    </body>\n" + 
+    "  </html>\n" + 
+    "</notes>")
+    addnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n";
+    addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n""<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>"
+    addnotes3 = wrapString("<notes>\n" "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
+    "</notes>")
+    addnotes4 = wrapString("<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
+    "</notes>")
     self.S.setNotes(notes)
     self.S.appendNotes(addnotes)
     notes1 = self.S.getNotesString()
     self.assert_( self.S.isSetNotes() == True )
     self.assert_(( notes1 == taggednewnotes ))
+    self.S.setNotes(notes)
+    self.S.appendNotes(addnotes2)
+    notes2 = self.S.getNotesString()
+    self.assert_( self.S.isSetNotes() == True )
+    self.assert_(( notes2 == taggednewnotes2 ))
+    self.S.setNotes(notes)
+    self.S.appendNotes(addnotes3)
+    notes3 = self.S.getNotesString()
+    self.assert_( self.S.isSetNotes() == True )
+    self.assert_(( notes3 == taggednewnotes ))
+    self.S.setNotes(notes)
+    self.S.appendNotes(addnotes4)
+    notes4 = self.S.getNotesString()
+    self.assert_( self.S.isSetNotes() == True )
+    self.assert_(( notes4 == taggednewnotes2 ))
     pass  
 
   def test_SBase_appendNotesString4(self):
     notes = wrapString("<body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <p>This is a test note </p>\n" + "</body>")
     taggednewnotes = wrapString("<notes>\n" + 
     "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
-    "    <head/>\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
     "    <body>\n" + 
     "      <p>This is a test note </p>\n" + 
     "      <p>This is more test notes </p>\n" + 
     "    </body>\n" + 
     "  </html>\n" + 
     "</notes>")
-    addnotes = wrapString("<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head/>\n" + 
+    addnotes = wrapString("<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head>\n" + 
+    "    <title/>\n" + 
+    "  </head>\n" + 
     "  <body>\n" + 
     "    <p>This is more test notes </p>\n" + 
     "  </body>\n" + 
     "</html>")
+    addnotes2 = wrapString("<notes>\n" + 
+    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
+    "    <body>\n" + 
+    "      <p>This is more test notes </p>\n" + 
+    "    </body>\n" + 
+    "  </html>\n" + 
+    "</notes>")
     self.S.setNotes(notes)
     self.S.appendNotes(addnotes)
     notes1 = self.S.getNotesString()
     self.assert_( self.S.isSetNotes() == True )
     self.assert_(( notes1 == taggednewnotes ))
+    self.S.setNotes(notes)
+    self.S.appendNotes(addnotes2)
+    notes2 = self.S.getNotesString()
+    self.assert_( self.S.isSetNotes() == True )
+    self.assert_(( notes2 == taggednewnotes ))
     pass  
 
   def test_SBase_appendNotesString5(self):
     notes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>";
     taggednewnotes = wrapString("<notes>\n" + 
     "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
-    "    <head/>\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
     "    <body>\n" + 
     "      <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>\n" + 
     "      <p>This is more test notes </p>\n" + 
     "    </body>\n" + 
     "  </html>\n" + 
     "</notes>")
-    addnotes = wrapString("<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head/>\n" + 
+    addnotes = wrapString("<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head>\n" + 
+    "    <title/>\n" + 
+    "  </head>\n" + 
     "  <body>\n" + 
     "    <p>This is more test notes </p>\n" + 
     "  </body>\n" + 
     "</html>")
+    addnotes2 = wrapString("<notes>\n" + 
+    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
+    "    <body>\n" + 
+    "      <p>This is more test notes </p>\n" + 
+    "    </body>\n" + 
+    "  </html>\n" + 
+    "</notes>")
     self.S.setNotes(notes)
     self.S.appendNotes(addnotes)
     notes1 = self.S.getNotesString()
     self.assert_( self.S.isSetNotes() == True )
     self.assert_(( notes1 == taggednewnotes ))
+    self.S.setNotes(notes)
+    self.S.appendNotes(addnotes2)
+    notes2 = self.S.getNotesString()
+    self.assert_( self.S.isSetNotes() == True )
+    self.assert_(( notes2 == taggednewnotes ))
     pass  
 
   def test_SBase_appendNotesString6(self):
@@ -814,11 +948,21 @@ class TestSBase(unittest.TestCase):
     "  </body>\n" + 
     "</notes>")
     addnotes = wrapString("<body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <p>This is more test notes </p>\n" + "</body>")
+    addnotes2 = wrapString("<notes>\n" + 
+    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <p>This is more test notes </p>\n" + 
+    "  </body>\n" + 
+    "</notes>")
     self.S.setNotes(notes)
     self.S.appendNotes(addnotes)
     notes1 = self.S.getNotesString()
     self.assert_( self.S.isSetNotes() == True )
     self.assert_(( notes1 == taggednewnotes ))
+    self.S.setNotes(notes)
+    self.S.appendNotes(addnotes2)
+    notes2 = self.S.getNotesString()
+    self.assert_( self.S.isSetNotes() == True )
+    self.assert_(( notes2 == taggednewnotes ))
     pass  
 
   def test_SBase_appendNotesString7(self):
@@ -830,11 +974,21 @@ class TestSBase(unittest.TestCase):
     "  </body>\n" + 
     "</notes>")
     addnotes = wrapString("<body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <p>This is more test notes </p>\n" + "</body>")
+    addnotes2 = wrapString("<notes>\n" + 
+    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <p>This is more test notes </p>\n" + 
+    "  </body>\n" + 
+    "</notes>")
     self.S.setNotes(notes)
     self.S.appendNotes(addnotes)
     notes1 = self.S.getNotesString()
     self.assert_( self.S.isSetNotes() == True )
     self.assert_(( notes1 == taggednewnotes ))
+    self.S.setNotes(notes)
+    self.S.appendNotes(addnotes2)
+    notes2 = self.S.getNotesString()
+    self.assert_( self.S.isSetNotes() == True )
+    self.assert_(( notes2 == taggednewnotes ))
     pass  
 
   def test_SBase_appendNotesString8(self):
@@ -845,12 +999,42 @@ class TestSBase(unittest.TestCase):
     "    <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
     "  </body>\n" + 
     "</notes>")
+    taggednewnotes2 = wrapString("<notes>\n" + 
+    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <p>This is a test note </p>\n" + 
+    "    <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+    "    <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
+    "  </body>\n" + 
+    "</notes>")
     addnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
+    addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n""<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>"
+    addnotes3 = wrapString("<notes>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
+    "</notes>")
+    addnotes4 = wrapString("<notes>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
+    "</notes>")
     self.S.setNotes(notes)
     self.S.appendNotes(addnotes)
     notes1 = self.S.getNotesString()
     self.assert_( self.S.isSetNotes() == True )
     self.assert_(( notes1 == taggednewnotes ))
+    self.S.setNotes(notes)
+    self.S.appendNotes(addnotes2)
+    notes2 = self.S.getNotesString()
+    self.assert_( self.S.isSetNotes() == True )
+    self.assert_(( notes2 == taggednewnotes2 ))
+    self.S.setNotes(notes)
+    self.S.appendNotes(addnotes3)
+    notes3 = self.S.getNotesString()
+    self.assert_( self.S.isSetNotes() == True )
+    self.assert_(( notes3 == taggednewnotes ))
+    self.S.setNotes(notes)
+    self.S.appendNotes(addnotes4)
+    notes4 = self.S.getNotesString()
+    self.assert_( self.S.isSetNotes() == True )
+    self.assert_(( notes4 == taggednewnotes2 ))
     pass  
 
   def test_SBase_getQualifiersFromResources(self):
@@ -900,8 +1084,7 @@ class TestSBase(unittest.TestCase):
       pass    
     t1 = self.S.getAnnotation()
     self.assert_( t1.getNumChildren() == 1 )
-    t2 = t1.getChild(0)
-    self.assert_((  "This is a test note" == t2.getChild(0).getCharacters() ))
+    self.assert_((  "This is a test note" == t1.getChild(0).getCharacters() ))
     self.S.setAnnotation(self.S.getAnnotationString())
     t1 = self.S.getAnnotation()
     self.assert_( t1.getNumChildren() == 1 )
@@ -969,8 +1152,7 @@ class TestSBase(unittest.TestCase):
       pass    
     t1 = self.S.getNotes()
     self.assert_( t1.getNumChildren() == 1 )
-    t2 = t1.getChild(0)
-    self.assert_((  "This is a test note" == t2.getChild(0).getCharacters() ))
+    self.assert_((  "This is a test note" == t1.getChild(0).getCharacters() ))
     self.S.setNotes(self.S.getNotesString())
     t1 = self.S.getNotes()
     self.assert_( t1.getNumChildren() == 1 )

@@ -670,51 +670,100 @@ class TestSBase < Test::Unit::TestCase
     taggednewnotes = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>\n" + 
     "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
     "</notes>"
+    taggednewnotes2 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
+    "</notes>"
     newnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
+    newnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>""<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>"
+    newnotes3 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + "</notes>";
+    newnotes4 = "<notes>\n" "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
+    "</notes>"
     @@s.setNotes(notes)
     assert( @@s.isSetNotes() == true )
     @@s.appendNotes(newnotes)
     notes1 = @@s.getNotesString()
     assert( @@s.isSetNotes() == true )
     assert (( notes1 == taggednewnotes ))
+    @@s.setNotes(notes)
+    @@s.appendNotes(newnotes2)
+    notes2 = @@s.getNotesString()
+    assert( @@s.isSetNotes() == true )
+    assert (( notes2 == taggednewnotes2 ))
+    @@s.setNotes(notes)
+    @@s.appendNotes(newnotes3)
+    notes3 = @@s.getNotesString()
+    assert( @@s.isSetNotes() == true )
+    assert (( notes3 == taggednewnotes ))
+    @@s.setNotes(notes)
+    @@s.appendNotes(newnotes4)
+    notes4 = @@s.getNotesString()
+    assert( @@s.isSetNotes() == true )
+    assert (( notes4 == taggednewnotes2 ))
   end
 
   def test_SBase_appendNotesString1
-    notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head/>\n" + 
+    notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head>\n" + 
+    "    <title/>\n" + 
+    "  </head>\n" + 
     "  <body>\n" + 
     "    <p>This is a test note </p>\n" + 
     "  </body>\n" + 
     "</html>"
     taggednewnotes = "<notes>\n" + 
     "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
-    "    <head/>\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
     "    <body>\n" + 
     "      <p>This is a test note </p>\n" + 
     "      <p>This is more test notes </p>\n" + 
     "    </body>\n" + 
     "  </html>\n" + 
     "</notes>"
-    addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head/>\n" + 
+    addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head>\n" + 
+    "    <title/>\n" + 
+    "  </head>\n" + 
     "  <body>\n" + 
     "    <p>This is more test notes </p>\n" + 
     "  </body>\n" + 
     "</html>"
+    addnotes2 = "<notes>\n" + 
+    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
+    "    <body>\n" + 
+    "      <p>This is more test notes </p>\n" + 
+    "    </body>\n" + 
+    "  </html>\n" + 
+    "</notes>"
     @@s.setNotes(notes)
     @@s.appendNotes(addnotes)
     notes1 = @@s.getNotesString()
     assert( @@s.isSetNotes() == true )
     assert (( notes1 == taggednewnotes ))
+    @@s.setNotes(notes)
+    @@s.appendNotes(addnotes2)
+    notes2 = @@s.getNotesString()
+    assert( @@s.isSetNotes() == true )
+    assert (( notes2 == taggednewnotes ))
   end
 
   def test_SBase_appendNotesString2
-    notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head/>\n" + 
+    notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head>\n" + 
+    "    <title/>\n" + 
+    "  </head>\n" + 
     "  <body>\n" + 
     "    <p>This is a test note </p>\n" + 
     "  </body>\n" + 
     "</html>"
     taggednewnotes = "<notes>\n" + 
     "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
-    "    <head/>\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
     "    <body>\n" + 
     "      <p>This is a test note </p>\n" + 
     "      <p>This is more test notes </p>\n" + 
@@ -722,80 +771,165 @@ class TestSBase < Test::Unit::TestCase
     "  </html>\n" + 
     "</notes>"
     addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <p>This is more test notes </p>\n" + "</body>\n";
+    addnotes2 = "<notes>\n" + 
+    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <p>This is more test notes </p>\n" + 
+    "  </body>\n" + 
+    "</notes>"
     @@s.setNotes(notes)
     @@s.appendNotes(addnotes)
     notes1 = @@s.getNotesString()
     assert( @@s.isSetNotes() == true )
     assert (( notes1 == taggednewnotes ))
+    @@s.setNotes(notes)
+    @@s.appendNotes(addnotes2)
+    notes2 = @@s.getNotesString()
+    assert( @@s.isSetNotes() == true )
+    assert (( notes2 == taggednewnotes ))
   end
 
   def test_SBase_appendNotesString3
-    notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head/>\n" + 
+    notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head>\n" + 
+    "    <title/>\n" + 
+    "  </head>\n" + 
     "  <body>\n" + 
     "    <p>This is a test note </p>\n" + 
     "  </body>\n" + 
     "</html>"
     taggednewnotes = "<notes>\n" + 
     "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
-    "    <head/>\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
     "    <body>\n" + 
     "      <p>This is a test note </p>\n" + 
     "      <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
     "    </body>\n" + 
     "  </html>\n" + 
     "</notes>"
-    addnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
+    taggednewnotes2 = "<notes>\n" + 
+    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
+    "    <body>\n" + 
+    "      <p>This is a test note </p>\n" + 
+    "      <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+    "      <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
+    "    </body>\n" + 
+    "  </html>\n" + 
+    "</notes>"
+    addnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n";
+    addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n""<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>"
+    addnotes3 = "<notes>\n" "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
+    "</notes>"
+    addnotes4 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
+    "</notes>"
     @@s.setNotes(notes)
     @@s.appendNotes(addnotes)
     notes1 = @@s.getNotesString()
     assert( @@s.isSetNotes() == true )
     assert (( notes1 == taggednewnotes ))
+    @@s.setNotes(notes)
+    @@s.appendNotes(addnotes2)
+    notes2 = @@s.getNotesString()
+    assert( @@s.isSetNotes() == true )
+    assert (( notes2 == taggednewnotes2 ))
+    @@s.setNotes(notes)
+    @@s.appendNotes(addnotes3)
+    notes3 = @@s.getNotesString()
+    assert( @@s.isSetNotes() == true )
+    assert (( notes3 == taggednewnotes ))
+    @@s.setNotes(notes)
+    @@s.appendNotes(addnotes4)
+    notes4 = @@s.getNotesString()
+    assert( @@s.isSetNotes() == true )
+    assert (( notes4 == taggednewnotes2 ))
   end
 
   def test_SBase_appendNotesString4
     notes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <p>This is a test note </p>\n" + "</body>";
     taggednewnotes = "<notes>\n" + 
     "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
-    "    <head/>\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
     "    <body>\n" + 
     "      <p>This is a test note </p>\n" + 
     "      <p>This is more test notes </p>\n" + 
     "    </body>\n" + 
     "  </html>\n" + 
     "</notes>"
-    addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head/>\n" + 
+    addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head>\n" + 
+    "    <title/>\n" + 
+    "  </head>\n" + 
     "  <body>\n" + 
     "    <p>This is more test notes </p>\n" + 
     "  </body>\n" + 
     "</html>"
+    addnotes2 = "<notes>\n" + 
+    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
+    "    <body>\n" + 
+    "      <p>This is more test notes </p>\n" + 
+    "    </body>\n" + 
+    "  </html>\n" + 
+    "</notes>"
     @@s.setNotes(notes)
     @@s.appendNotes(addnotes)
     notes1 = @@s.getNotesString()
     assert( @@s.isSetNotes() == true )
     assert (( notes1 == taggednewnotes ))
+    @@s.setNotes(notes)
+    @@s.appendNotes(addnotes2)
+    notes2 = @@s.getNotesString()
+    assert( @@s.isSetNotes() == true )
+    assert (( notes2 == taggednewnotes ))
   end
 
   def test_SBase_appendNotesString5
     notes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>";
     taggednewnotes = "<notes>\n" + 
     "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
-    "    <head/>\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
     "    <body>\n" + 
     "      <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>\n" + 
     "      <p>This is more test notes </p>\n" + 
     "    </body>\n" + 
     "  </html>\n" + 
     "</notes>"
-    addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head/>\n" + 
+    addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head>\n" + 
+    "    <title/>\n" + 
+    "  </head>\n" + 
     "  <body>\n" + 
     "    <p>This is more test notes </p>\n" + 
     "  </body>\n" + 
     "</html>"
+    addnotes2 = "<notes>\n" + 
+    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
+    "    <body>\n" + 
+    "      <p>This is more test notes </p>\n" + 
+    "    </body>\n" + 
+    "  </html>\n" + 
+    "</notes>"
     @@s.setNotes(notes)
     @@s.appendNotes(addnotes)
     notes1 = @@s.getNotesString()
     assert( @@s.isSetNotes() == true )
     assert (( notes1 == taggednewnotes ))
+    @@s.setNotes(notes)
+    @@s.appendNotes(addnotes2)
+    notes2 = @@s.getNotesString()
+    assert( @@s.isSetNotes() == true )
+    assert (( notes2 == taggednewnotes ))
   end
 
   def test_SBase_appendNotesString6
@@ -807,11 +941,21 @@ class TestSBase < Test::Unit::TestCase
     "  </body>\n" + 
     "</notes>"
     addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <p>This is more test notes </p>\n" + "</body>";
+    addnotes2 = "<notes>\n" + 
+    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <p>This is more test notes </p>\n" + 
+    "  </body>\n" + 
+    "</notes>"
     @@s.setNotes(notes)
     @@s.appendNotes(addnotes)
     notes1 = @@s.getNotesString()
     assert( @@s.isSetNotes() == true )
     assert (( notes1 == taggednewnotes ))
+    @@s.setNotes(notes)
+    @@s.appendNotes(addnotes2)
+    notes2 = @@s.getNotesString()
+    assert( @@s.isSetNotes() == true )
+    assert (( notes2 == taggednewnotes ))
   end
 
   def test_SBase_appendNotesString7
@@ -823,11 +967,21 @@ class TestSBase < Test::Unit::TestCase
     "  </body>\n" + 
     "</notes>"
     addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <p>This is more test notes </p>\n" + "</body>";
+    addnotes2 = "<notes>\n" + 
+    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <p>This is more test notes </p>\n" + 
+    "  </body>\n" + 
+    "</notes>"
     @@s.setNotes(notes)
     @@s.appendNotes(addnotes)
     notes1 = @@s.getNotesString()
     assert( @@s.isSetNotes() == true )
     assert (( notes1 == taggednewnotes ))
+    @@s.setNotes(notes)
+    @@s.appendNotes(addnotes2)
+    notes2 = @@s.getNotesString()
+    assert( @@s.isSetNotes() == true )
+    assert (( notes2 == taggednewnotes ))
   end
 
   def test_SBase_appendNotesString8
@@ -838,12 +992,42 @@ class TestSBase < Test::Unit::TestCase
     "    <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
     "  </body>\n" + 
     "</notes>"
+    taggednewnotes2 = "<notes>\n" + 
+    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <p>This is a test note </p>\n" + 
+    "    <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+    "    <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
+    "  </body>\n" + 
+    "</notes>"
     addnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
+    addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n""<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>"
+    addnotes3 = "<notes>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
+    "</notes>"
+    addnotes4 = "<notes>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
+    "</notes>"
     @@s.setNotes(notes)
     @@s.appendNotes(addnotes)
     notes1 = @@s.getNotesString()
     assert( @@s.isSetNotes() == true )
     assert (( notes1 == taggednewnotes ))
+    @@s.setNotes(notes)
+    @@s.appendNotes(addnotes2)
+    notes2 = @@s.getNotesString()
+    assert( @@s.isSetNotes() == true )
+    assert (( notes2 == taggednewnotes2 ))
+    @@s.setNotes(notes)
+    @@s.appendNotes(addnotes3)
+    notes3 = @@s.getNotesString()
+    assert( @@s.isSetNotes() == true )
+    assert (( notes3 == taggednewnotes ))
+    @@s.setNotes(notes)
+    @@s.appendNotes(addnotes4)
+    notes4 = @@s.getNotesString()
+    assert( @@s.isSetNotes() == true )
+    assert (( notes4 == taggednewnotes2 ))
   end
 
   def test_SBase_getQualifiersFromResources
@@ -893,8 +1077,7 @@ class TestSBase < Test::Unit::TestCase
     end
     t1 = @@s.getAnnotation()
     assert( t1.getNumChildren() == 1 )
-    t2 = t1.getChild(0)
-    assert ((  "This is a test note" == t2.getChild(0).getCharacters() ))
+    assert ((  "This is a test note" == t1.getChild(0).getCharacters() ))
     @@s.setAnnotation(@@s.getAnnotationString())
     t1 = @@s.getAnnotation()
     assert( t1.getNumChildren() == 1 )
@@ -962,8 +1145,7 @@ class TestSBase < Test::Unit::TestCase
     end
     t1 = @@s.getNotes()
     assert( t1.getNumChildren() == 1 )
-    t2 = t1.getChild(0)
-    assert ((  "This is a test note" == t2.getChild(0).getCharacters() ))
+    assert ((  "This is a test note" == t1.getChild(0).getCharacters() ))
     @@s.setNotes(@@s.getNotesString())
     t1 = @@s.getNotes()
     assert( t1.getNumChildren() == 1 )

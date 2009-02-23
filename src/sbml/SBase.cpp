@@ -630,7 +630,23 @@ SBase::setAnnotation (const XMLNode* annotation)
       {
         XMLToken ann_t = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
         mAnnotation = new XMLNode(ann_t);
-        mAnnotation->addChild(*annotation);
+
+        // The root node of the given XMLNode tree can be an empty XMLNode 
+        // (i.e. neither start, end, nor text XMLNode) if the given annotation was 
+        // converted from an XML string whose top level elements are neither 
+        // "html" nor "body" and not enclosed with <annotation>..</annotation> tags
+        // (e.g. <foo xmlns:foo="...">..</foo><bar xmlns:bar="...">..</bar> ) 
+        if (!annotation->isStart() && !annotation->isEnd() && !annotation->isText()) 
+        {
+          for (unsigned int i=0; i < annotation->getNumChildren(); i++)
+          {
+            mAnnotation->addChild(annotation->getChild(i));
+          }
+        }
+        else
+        {
+          mAnnotation->addChild(*annotation);
+        }
       }
       else
       {
@@ -800,7 +816,23 @@ SBase::setNotes(const XMLNode* notes)
     XMLToken notes_t = XMLToken(XMLTriple("notes", "", ""), 
                                 XMLAttributes());
       mNotes = new XMLNode(notes_t);
-      mNotes->addChild(*notes);
+
+      // The root node of the given XMLNode tree can be an empty XMLNode 
+      // (i.e. neither start, end, nor text XMLNode) if the given notes was 
+      // converted from an XML string whose top level elements are neither 
+      // "html" nor "body" and not enclosed with <notes>..</notes> tag 
+      // (e.g. <p ...>..</p><br/>).
+      if (!notes->isStart() && !notes->isEnd() && !notes->isText() ) 
+      {
+        for (unsigned int i=0; i < notes->getNumChildren(); i++)
+        {
+          mNotes->addChild(notes->getChild(i));
+        }
+      }
+      else
+      {
+        mNotes->addChild(*notes);
+      }
     }
   }
   else
@@ -845,18 +877,76 @@ SBase::appendNotes(const XMLNode* notes)
 {
   if(!notes) return;
 
-  const string&  name = notes->getName();
-
-  if (mNotes != 0)
+  if (mNotes && mNotes->getNumChildren() > 0)
   {
-    XMLNode *newNotes = new XMLNode();
-    /* check for notes tags on the added notes and strip if present*/
+    // The content of notes in SBML can consist only of the following 
+    // possibilities:
+    //
+    //  1. A complete XHTML document (minus the XML and DOCTYPE 
+    //     declarations), that is, XHTML content beginning with the 
+    //     html tag.
+    //     (_NotesType is _ANotesHTML.)
+    //
+    //  2. The body element from an XHTML document.
+    //     (_NotesType is _ANotesBody.) 
+    //
+    //  3. Any XHTML content that would be permitted within a body 
+    //     element, each one must declare the XML namespace separately.
+    //     (_NotesType is _ANotesAny.) 
+
+    typedef enum { _ANotesHTML, _ANotesBody, _ANotesAny } _NotesType;
+
+    _NotesType curNotesType   = _ANotesAny; 
+    _NotesType addedNotesType = _ANotesAny; 
+
+    XMLNode&  curNotes = *mNotes;
+    XMLNode   addedNotes;
+
+    //------------------------------------------------------------
+    //
+    // STEP1 : identifies the type of the given notes
+    //
+    //------------------------------------------------------------
+
+    const string&  name = notes->getName();
+
     if (name == "notes")
     {
-      int num_children = notes->getNumChildren();
-      for(int i=0; i < num_children; i++)
+      /* check for notes tags on the added notes and strip if present and
+         the notes tag has "html" or "body" element */
+
+      if (notes->getNumChildren() > 0)  
+      { 
+        // notes->getChild(0) must be "html", "body", or any XHTML
+        // element that would be permitted within a "body" element 
+        // (e.g. <p>..</p>,  <br>..</br> and so forth).
+
+        const string& cname = notes->getChild(0).getName();
+
+        if (cname == "html")
+        {
+          addedNotes = notes->getChild(0);
+          addedNotesType = _ANotesHTML;
+        }
+        else if (cname == "body") 
+        {
+          addedNotes = notes->getChild(0);
+          addedNotesType = _ANotesBody;
+        }
+        else
+        {
+          // the notes tag must NOT be stripped if notes->getChild(0) node 
+          // is neither "html" nor "body" element because the children of 
+          // the addedNotes will be added to the curNotes later if the node 
+          // is neither "html" nor "body".
+          addedNotes = *notes;
+          addedNotesType = _ANotesAny;
+        }
+      }
+      else
       {
-        newNotes->addChild(notes->getChild(i));
+        // the given notes is empty 
+        return;
       }
     }
     else
@@ -864,237 +954,218 @@ SBase::appendNotes(const XMLNode* notes)
       // if the XMLNode argument notes has been created from a string and 
       // it is a set of subelements there may be a single empty node
       // as parent - leaving this in doesnt affect the writing out of notes
-      //but messes up the check for correct syntax
-      if (notes->getNumChildren() == 1 && 
-          notes->isEOF()               &&
-          notes->isAttributesEmpty()   &&
-          notes->isNamespacesEmpty()   &&
-          name == "")
+      // but messes up the check for correct syntax
+      if (!notes->isStart() && !notes->isEnd() && !notes->isText() ) 
       {
-        newNotes = notes->getChild(0).clone();
+        if (notes->getNumChildren() > 0)
+        { 
+          addedNotes = *notes;
+          addedNotesType = _ANotesAny;
+        }
+        else
+        {
+          // the given notes is empty 
+          return;
+        }
       }
       else
       {
-        newNotes = notes->clone();
+        if (name == "html")
+        {
+          addedNotes = *notes;
+          addedNotesType = _ANotesHTML;
+        }
+        else if (name == "body")
+        {
+          addedNotes = *notes;
+          addedNotesType = _ANotesBody;
+        }
+        else
+        {
+          // The given notes node needs to be added to a parent node
+          // if the node is neither "html" nor "body" element because the 
+          // children of addedNotes will be added to the curNotes later if the 
+          // node is neither "html" nor "body" (i.e. any XHTML element that 
+          // would be permitted within a "body" element)
+          addedNotes.addChild(*notes);
+          addedNotesType = _ANotesAny;
+        }
       }
     }
 
+    //
+    // checks the addedNotes of "html" if the html tag contains "head" and 
+    // "body" tags which must be located in this order, otherwise nothing will
+    // be done.
+    //
+    if (addedNotesType == _ANotesHTML)
+    {
+      if ((addedNotes.getNumChildren() != 2) ||
+          ( (addedNotes.getChild(0).getName() != "head") ||
+            (addedNotes.getChild(1).getName() != "body")
+          )
+         )
+      {
+        return;
+      }
+    }
+
+    //------------------------------------------------------------
+    //
+    //  STEP2: identifies the type of the existing notes 
+    //
+    //------------------------------------------------------------
+
+    // curNotes.getChild(0) must be "html", "body", or any XHTML
+    // element that would be permitted within a "body" element .
+
+    const string& cname = curNotes.getChild(0).getName();
+
+    if (cname == "html")
+    {
+      XMLNode& curHTML = curNotes.getChild(0);
+      //
+      // checks the curHTML if the html tag contains "head" and "body" tags
+      // which must be located in this order, otherwise nothing will be done.
+      //
+      if ((curHTML.getNumChildren() != 2) ||
+          ( (curHTML.getChild(0).getName() != "head") ||
+            (curHTML.getChild(1).getName() != "body")
+          )
+         )
+      {
+        return;
+      }
+      curNotesType = _ANotesHTML;
+    }
+    else if (cname == "body") 
+    {
+      curNotesType = _ANotesBody;
+    }
+    else
+    {
+      curNotesType = _ANotesAny;
+    }
 
     /*
      * BUT we also have the issue of the rules relating to notes
      * contents and where to add them ie we cannot add a second body element
      * etc...
      */
-    XMLToken notesToken = XMLToken(XMLTriple("notes", "", ""), XMLAttributes());
 
-    XMLNode* newHeadTag=NULL;
-    XMLNode* newBodyTag=NULL;
+    //------------------------------------------------------------
+    //
+    //  STEP3: appends the given notes to the current notes
+    //
+    //------------------------------------------------------------
+
     unsigned int i;
 
-    if (mNotes->getNumChildren() == 1 
-      && mNotes->getChild(0).getName() == "html")
+    if (curNotesType == _ANotesHTML)
     {
-      XMLNode* NotesTag = new XMLNode(notesToken);
-      XMLNode* HTMLTag = new XMLNode(mNotes->getChild(0));
-      HTMLTag->removeChildren();
-      XMLNode* BodyTag = new XMLNode(mNotes->getChild(0).getChild(1));
-      XMLNode* HeadTag = new XMLNode(mNotes->getChild(0).getChild(0));
+      XMLNode& curHTML = curNotes.getChild(0); 
+      XMLNode& curBody = curHTML.getChild(1);
 
-      if (newNotes->getNumChildren() == 2 
-        && newNotes->getName() == "html")
+      if (addedNotesType == _ANotesHTML)
       {
-        // add head and body from new notes to existing head and body
-        newHeadTag = new XMLNode(newNotes->getChild(0));
-        newBodyTag = new XMLNode(newNotes->getChild(1));
+        // adds the given html tag to the current html tag
 
-        for(i = 0; i < newHeadTag->getNumChildren(); i++)
+        XMLNode& addedBody = addedNotes.getChild(1);   
+
+        for (i=0; i < addedBody.getNumChildren(); i++)
         {
-          HeadTag->addChild(*newHeadTag->getChild(i).clone());
+          curBody.addChild(addedBody.getChild(i));
         }
-        for(i = 0; i < newBodyTag->getNumChildren(); i++)
-        {
-          BodyTag->addChild(*newBodyTag->getChild(i).clone());
-        }
-        
-        HTMLTag->addChild(*HeadTag);
-        HTMLTag->addChild(*BodyTag);
-        NotesTag->addChild(*HTMLTag);
-        delete newHeadTag;
-        delete newBodyTag;
-        setNotes(NotesTag);
       }
-      else if (newNotes->getName() == "body")
+      else if ((addedNotesType == _ANotesBody) || (addedNotesType == _ANotesAny))
       {
-        // add contents of new body to existing body
-        newBodyTag = new XMLNode(*newNotes);
-        for(i = 0; i < newBodyTag->getNumChildren(); i++)
+        // adds the given body or other tag (permitted in the body) to the current 
+        // html tag
+
+        for (i=0; i < addedNotes.getNumChildren(); i++)
         {
-          BodyTag->addChild(*newBodyTag->getChild(i).clone());
+          curBody.addChild(addedNotes.getChild(i));
         }
- 
-        HTMLTag->addChild(*HeadTag);
-        HTMLTag->addChild(*BodyTag);
-        NotesTag->addChild(*HTMLTag);
-        delete newBodyTag;
-        setNotes(NotesTag);
-      }
-      else
-      {
-        // add new notes to body of existing
-
-        for(i = 0; i < newNotes->getNumChildren(); i++)
-        {
-          BodyTag->addChild(*newNotes->clone());
-        }
-
-        HTMLTag->addChild(*HeadTag);
-        HTMLTag->addChild(*BodyTag);
-        NotesTag->addChild(*HTMLTag);
-        setNotes(NotesTag);
-      }
-
-      delete HTMLTag;
-      delete BodyTag;
-      delete HeadTag;
-
-    }
-
-    else if (mNotes->getNumChildren() == 1 
-      && mNotes->getChild(0).getName() == "body")
-    {
-      XMLNode* NotesTag = new XMLNode(notesToken);
-
-      if (newNotes->getNumChildren() == 2 
-        && newNotes->getName() == "html")
-      {
-        /* in this case the original doesnt have a html tag
-         * so we need to add one
-         */
-        XMLNode* HTMLTag = new XMLNode(*newNotes);
-        HTMLTag->removeChildren();
-        XMLNode* BodyTag = new XMLNode(newNotes->getChild(1));
-        XMLNode* HeadTag = new XMLNode(newNotes->getChild(0));
-        
-        // add body from existing notes to newly created body
-        newBodyTag = new XMLNode(mNotes->getChild(0));
-
-        for(i = newBodyTag->getNumChildren(); i > 0; i--)
-        {
-          BodyTag->insertChild(0, *newBodyTag->getChild(i-1).clone());
-        }
-        
-        HTMLTag->addChild(*HeadTag);
-        HTMLTag->addChild(*BodyTag);
-        NotesTag->addChild(*HTMLTag);
-        delete HTMLTag;
-        delete BodyTag;
-        delete HeadTag;
-        delete newBodyTag;
-        setNotes(NotesTag);
-      }
-      else if (newNotes->getName() == "body")
-      {
-        XMLNode* BodyTag = new XMLNode(mNotes->getChild(0));
-        // add contents of new body to existing body
-        newBodyTag = new XMLNode(*newNotes);
-        for(i = 0; i < newBodyTag->getNumChildren(); i++)
-        {
-          BodyTag->addChild(*newBodyTag->getChild(i).clone());
-        }
-        
-        NotesTag->addChild(*BodyTag);
-        delete BodyTag;
-        delete newBodyTag;
-        setNotes(NotesTag);
-      }
-      else
-      {
-        // add new notes to body of existing
-        XMLNode* BodyTag = new XMLNode(mNotes->getChild(0));
-        
-        for(i = 0; i < newNotes->getNumChildren(); i++)
-        {
-          BodyTag->addChild(*newNotes->clone());
-        }
-        NotesTag->addChild(*BodyTag);
-        delete BodyTag;
-        setNotes(NotesTag);
       }
     }
-
-    else
+    else if (curNotesType == _ANotesBody)
     {
+      if (addedNotesType == _ANotesHTML)
+      {
+        // adds the given html tag to the current body tag
 
-      if (newNotes->getNumChildren() == 2 
-        && newNotes->getName() == "html")
-      {
-        /* in this case the original doesnt have a html tag
-         * so we need to add one
-         */
-        XMLNode* NotesTag = new XMLNode(notesToken);
-        XMLNode* HTMLTag = new XMLNode(*newNotes);
-        HTMLTag->removeChildren();
-        XMLNode* BodyTag = new XMLNode(newNotes->getChild(1));
-        XMLNode* HeadTag = new XMLNode(newNotes->getChild(0));
-        
-        for(i = mNotes->getNumChildren(); i > 0; i--)
-        {
-          BodyTag->insertChild(0, *mNotes->getChild(i-1).clone());
-        }
-        
-        HTMLTag->addChild(*HeadTag);
-        HTMLTag->addChild(*BodyTag);
-        NotesTag->addChild(*HTMLTag);
-        delete HTMLTag;
-        delete BodyTag;
-        delete HeadTag;
-        setNotes(NotesTag);
-      }
-      else if (newNotes->getName() == "body")
-      {
-        /* in this case the original doesnt have a body tag
-         * so we need to add one
-         */
-        XMLNode* NotesTag = new XMLNode(notesToken);
-        XMLNode* BodyTag = new XMLNode(*newNotes);
-        for(i = mNotes->getNumChildren(); i > 0; i--)
-        {
-          BodyTag->insertChild(0, *mNotes->getChild(i-1).clone());
-        }
-        
-        NotesTag->addChild(*BodyTag);
-        delete BodyTag;
-        setNotes(NotesTag);
-      }
-      else
-      {
-        XMLNode* NotesTag = new XMLNode(*mNotes);
+        XMLNode  addedHTML(addedNotes);
+        XMLNode& addedBody = addedHTML.getChild(1);
+        XMLNode& curBody   = curNotes.getChild(0);
 
-        for(i = 0; i < newNotes->getNumChildren(); i++)
+        for (i=0; i < curBody.getNumChildren(); i++)
         {
-          NotesTag->addChild(*newNotes->clone());
+          addedBody.insertChild(i,curBody.getChild(i));
         }
-        setNotes(NotesTag);
+        
+        curNotes.removeChildren();
+        curNotes.addChild(addedHTML);
+      }
+      else if ((addedNotesType == _ANotesBody) || (addedNotesType == _ANotesAny))
+      {
+        // adds the given body or other tag (permitted in the body) to the current 
+        // body tag
+
+        XMLNode& curBody = curNotes.getChild(0);
+
+        for (i=0; i < addedNotes.getNumChildren(); i++)
+        {
+          curBody.addChild(addedNotes.getChild(i));
+        }
       }
     }
+    else if (curNotesType == _ANotesAny)
+    {
+      if (addedNotesType == _ANotesHTML)
+      {
+        // adds the given html tag to the current any tag permitted in the body.
 
-    delete newNotes;
+        XMLNode  addedHTML(addedNotes);
+        XMLNode& addedBody = addedHTML.getChild(1);
+
+        for (i=0; i < curNotes.getNumChildren(); i++)
+        {
+          addedBody.insertChild(i,curNotes.getChild(i));
+        }
+
+        curNotes.removeChildren();
+        curNotes.addChild(addedHTML);
+      }
+      else if (addedNotesType == _ANotesBody)
+      {
+        // adds the given body tag to the current any tag permitted in the body.
+
+        XMLNode addedBody(addedNotes);
+
+        for (i=0; i < curNotes.getNumChildren(); i++)
+        {
+          addedBody.insertChild(i,curNotes.getChild(i));
+        }
+
+        curNotes.removeChildren();
+        curNotes.addChild(addedBody);
+      }
+      else if (addedNotesType == _ANotesAny)
+      {
+        // adds the given any tag permitted in the boy to that of the current 
+        // any tag.
+
+        for (i=0; i < addedNotes.getNumChildren(); i++)
+        {
+          curNotes.addChild(addedNotes.getChild(i));
+        }
+      }
+    }
   }
-  else
+  else // if (mNotes == NULL)
   {
-    /* check for notes tags and add if necessary */
-
-    if (name == "notes")
-    {
-      setNotes(notes);
-    }
-    else
-    {
-      XMLToken ann_t = XMLToken(XMLTriple("notes", "", ""), XMLAttributes());
-      XMLNode * ann = new XMLNode(ann_t);
-      ann->addChild(*notes);
-      setNotes(ann);
-    }
+    // setNotes accepts XMLNode with/without top level notes tags.
+    setNotes(notes);
   }
 
 }
