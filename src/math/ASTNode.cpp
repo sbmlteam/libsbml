@@ -246,6 +246,7 @@ ASTNode::ASTNode (const ASTNode& orig) :
  ,mChildren             ( new List() )
  ,mSemanticsAnnotations ( new List() )
  ,mParentSBMLObject     ( orig.mParentSBMLObject )
+ ,mUserData             ( orig.mUserData )
 {
   if (orig.mName)
   {
@@ -1713,6 +1714,20 @@ ASTNode::getDefinitionURL() const
   return mDefinitionURL;
 }
 
+LIBSBML_EXTERN
+void *
+ASTNode::getUserData() const
+{
+	return this->mUserData;
+}
+
+
+LIBSBML_EXTERN
+void
+ASTNode::setUserData(void *userData)
+{
+	this->mUserData = userData;
+}
 
 /**
  * Creates a new ASTNode and returns a pointer to it.  The returned node
@@ -2531,4 +2546,34 @@ int
 ASTNode_insertChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild)
 {
   return node->insertChild(n, newChild);
+}
+
+
+/**
+ * Sets the user data of this node. This can be used by the application
+ * developer to attach custom information to the node. In case of a deep
+ * copy this attribute will passed as it is. The attribute will be never
+ * interpreted by this class.
+ * 
+ * @param node defines the node of which the user data should be set.
+ * @param userData specifies the new user data. 
+ */
+LIBSBML_EXTERN
+void ASTNode_setUserData(ASTNode_t* node, void *userData)
+{
+  node->setUserData(userData);
+}
+
+
+/**
+ * Returns the user data that has been previously set by setUserData().
+ *
+ * @param node defines the node of interest.
+ * @return the user data of this node. NULL if no user data has been.
+ * @see ASTNode_setUserData
+ */
+LIBSBML_EXTERN
+void *ASTNode_getUserData(ASTNode_t* node)
+{
+  return node->getUserData();
 }

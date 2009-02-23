@@ -1169,13 +1169,33 @@ public:
   LIBSBML_EXTERN
   SBase * getParentSBMLObject() const;
 
-/**
+ /**
   * Reduces this ASTNode to a binary tree
   * e.g. if the formula in this ASTNode is and(x, y, z) then the 
   * formula of the reduced node would be and(and(x, y), z)
   */
   LIBSBML_EXTERN
   void ReduceToBinary();
+
+ /**
+  * Sets the user data of this node. This can be used by the application
+  * developer to attach custom information to the node. In case of a deep
+  * copy this attribute will passed as it is. The attribute will be never
+  * interpreted by this class.
+  * 
+  * @param userData specifies the new user data. 
+  */
+  LIBSBML_EXTERN
+  void setUserData(void *userData);
+
+ /**
+  * Returns the user data that has been previously set via setUserData().
+  *
+  * @return the user data of this node. NULL if no user data has been.
+  * @see ASTNode::setUserData
+  */
+  LIBSBML_EXTERN
+  void *getUserData() const;
 
 
 protected:
@@ -1209,6 +1229,8 @@ protected:
   List *mSemanticsAnnotations;
 
   SBase *mParentSBMLObject;
+
+  void *mUserData;
 
 
   friend class MathMLFormatter;
@@ -1764,6 +1786,14 @@ ASTNode_replaceChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild);
 LIBSBML_EXTERN
 int
 ASTNode_insertChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild);
+
+LIBSBML_EXTERN
+void 
+ASTNode_setUserData(ASTNode_t* node, void *userData);
+
+LIBSBML_EXTERN
+void *
+ASTNode_getUserData(ASTNode_t* node);
 
 
 END_C_DECLS
