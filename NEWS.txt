@@ -4,12 +4,30 @@
 Next release
 ======================================================================
 
+* New features:
+
+ - The ASTNode class has as a user data field.  This is a new member
+   variable of type void * which allows a user to add/retrieve their
+   own data.  Thanks to Sebastian Bauer for contributing this code.
+
 * Bug fixes:
 
  - An object being read from a file/string was not correctly recording
    the SBMLDocument and ParentSBMLObject information.  This is fixed.
    Thanks to Andreas Drager for reporting this.
-
+   
+ - In a couple of cases the return type for the clone function in the 
+   C API was still an SBase_t *, rather than a pointer to the structure 
+   being cloned.  These have been changed.
+   
+ - The code that converted a string to an XMLNode uses a dummy node as
+   part of the process.  This empty dummy node was left in the resulting
+   XMLNode which, whilst not invalid, meant manipulating the XMLNode was
+   not intuitive.  The code has been changed to remove the dummy node
+   from the resulting XMLNode.
+   
+ - Potential memory leaks present within the appendNotes function have
+   been identified and fixed.
 
 ======================================================================
 Version 3.3.1 (released 2009-02-03)
