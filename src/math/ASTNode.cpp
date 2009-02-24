@@ -175,6 +175,7 @@ ASTNode::ASTNode (ASTNodeType_t type)
   mInteger       = 0;
   mDenominator   = 1;
   mParentSBMLObject = NULL;
+  mUserData      = NULL;
 
   setType(type);
 
@@ -201,6 +202,7 @@ ASTNode::ASTNode (Token_t* token)
   mInteger       = 0;
   mDenominator   = 1;
   mParentSBMLObject = NULL;
+  mUserData      = NULL;
 
   mChildren             = new List;
   mSemanticsAnnotations = new List;
@@ -1580,7 +1582,22 @@ ASTNode::setDefinitionURL(XMLAttributes url)
 
 /** @endcond doxygen-libsbml-internal */
 
+LIBSBML_EXTERN
+void
+ASTNode::replaceArgument(const std::string bvar, ASTNode * arg)
+{
+  this->ReplaceArgument(bvar, arg);
+}
 
+
+LIBSBML_EXTERN
+void
+ASTNode::reduceToBinary()
+{
+  this->ReduceToBinary();
+}
+  
+/** @cond doxygen-libsbml-internal */
 LIBSBML_EXTERN
 void
 ASTNode::ReplaceArgument(const std::string bvar, ASTNode * arg)
@@ -1684,6 +1701,7 @@ ASTNode::ReduceToBinary()
 
   ReduceToBinary();
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /** @cond doxygen-libsbml-internal */

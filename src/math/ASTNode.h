@@ -1146,9 +1146,23 @@ public:
    */
 
   LIBSBML_EXTERN
-  void ReplaceArgument(const std::string bvar, ASTNode * arg);
+  void replaceArgument(const std::string bvar, ASTNode * arg);
 
   /** @cond doxygen-libsbml-internal */
+
+  /*
+   * Replaces occurences of a name within this ASTNode with the name/value/formula
+   * represented by the second argument ASTNode
+   * e.g. if the formula in this ASTNode is x + y; bvar is x and arg is an 
+   * ASTNode representing the real value 3 ReplaceArgument substitutes 3 for
+   * x within this ASTNode
+   *
+   * @param bvar a string representing the variable name to be substituted
+   * @param arg an ASTNode representing the name/value/formula to substitute
+   */
+
+  LIBSBML_EXTERN
+  void ReplaceArgument(const std::string bvar, ASTNode * arg);
 
   /**
    * Sets the parent SBML object.
@@ -1169,14 +1183,26 @@ public:
   LIBSBML_EXTERN
   SBase * getParentSBMLObject() const;
 
- /**
+  /** @cond doxygen-libsbml-internal */
+ /*
   * Reduces this ASTNode to a binary tree
   * e.g. if the formula in this ASTNode is and(x, y, z) then the 
   * formula of the reduced node would be and(and(x, y), z)
   */
   LIBSBML_EXTERN
   void ReduceToBinary();
+  /** @endcond doxygen-libsbml-internal */
 
+
+ /**
+  * Reduces this ASTNode to a binary tree
+  * e.g. if the formula in this ASTNode is and(x, y, z) then the 
+  * formula of the reduced node would be and(and(x, y), z)
+  */
+  LIBSBML_EXTERN
+  void reduceToBinary();
+
+  
  /**
   * Sets the user data of this node. This can be used by the application
   * developer to attach custom information to the node. In case of a deep
