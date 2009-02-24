@@ -256,11 +256,19 @@ namespace std
   }
 }
 
+#if SWIG_VERSION > 0x010336
+%feature("pythonprepend")
+XMLOutputStream::writeAttribute
+%{
+        if type(args[1]) == type(True): return _libsbml.XMLOutputStream_writeAttributeBool(self, *args)
+%}
+#else 
 %feature("pythonprepend")
 XMLOutputStream::writeAttribute
 %{
         if type(args[2]) == type(True): return _libsbml.XMLOutputStream_writeAttributeBool(*args)
 %}
+#endif
 
 /**
  * Add an equality operator to SBase.  All subclasses of SBase
@@ -330,17 +338,29 @@ METHOD_NAME
 // ListOf
 // ----------------------------------------------------------------------
 
+#if SWIG_VERSION > 0x010336
+TAKEOVER_OWNERSHIP(ListOf::appendAndOwn(SBase*),0)
+#else
 TAKEOVER_OWNERSHIP(ListOf::appendAndOwn(SBase*),1)
+#endif
 
 // ----------------------------------------------------------------------
 // ASTNode
 // ----------------------------------------------------------------------
 
+#if SWIG_VERSION > 0x010336
+TAKEOVER_OWNERSHIP(ASTNode::addChild(ASTNode*),0)
+TAKEOVER_OWNERSHIP(ASTNode::prependChild(ASTNode*),0)
+TAKEOVER_OWNERSHIP(ASTNode::insertChild(unsigned int, ASTNode*),1)
+TAKEOVER_OWNERSHIP(ASTNode::replaceChild(unsigned int, ASTNode*),1)
+TAKEOVER_OWNERSHIP(ASTNode::addSemanticsAnnotation(XMLNode*),0)
+#else
 TAKEOVER_OWNERSHIP(ASTNode::addChild(ASTNode*),1)
 TAKEOVER_OWNERSHIP(ASTNode::prependChild(ASTNode*),1)
 TAKEOVER_OWNERSHIP(ASTNode::insertChild(unsigned int, ASTNode*),2)
 TAKEOVER_OWNERSHIP(ASTNode::replaceChild(unsigned int, ASTNode*),2)
 TAKEOVER_OWNERSHIP(ASTNode::addSemanticsAnnotation(XMLNode*),1)
+#endif
 
 // ----------------------------------------------------------------------
 // SBMLReader
