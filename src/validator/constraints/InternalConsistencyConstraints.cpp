@@ -294,6 +294,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (99905, SpeciesReference, sr)
 {
+  pre( sr.isModifier() == false);
   // testing the stoichiometrymath element
   pre( sr.isSetStoichiometryMath());
   // level 1; l2v1; l2v2 sboTerm didnt exist
@@ -663,6 +664,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (99923, SpeciesReference, sr)
 {
+  pre( sr.isModifier() == false);
   // testing the stoichiometrymath element
   pre( sr.isSetStoichiometryMath());
   // level 1 stoichiometryMath didnt exist
