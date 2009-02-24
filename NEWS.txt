@@ -29,6 +29,11 @@ Next release
  - Potential memory leaks present within the appendNotes function have
    been identified and fixed.
 
+ - [Tracker issue #2599679] 
+   Python bindings didn't work with the latest SWIG 1.3.38 due to  
+   incompatible changes in SWIG-generated Python proxy code (libsbml.py).
+   The problem has been fixed.
+   
 ======================================================================
 Version 3.3.1 (released 2009-02-03)
 ======================================================================
