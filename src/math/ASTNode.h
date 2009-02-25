@@ -1814,6 +1814,18 @@ int
 ASTNode_insertChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild);
 
 LIBSBML_EXTERN
+void
+ASTNode_addSemanticsAnnotation(ASTNode_t* node, XMLNode_t * annotation);
+
+LIBSBML_EXTERN
+unsigned int
+ASTNode_getNumSemanticsAnnotations(ASTNode_t* node);
+
+LIBSBML_EXTERN
+XMLNode_t *
+ASTNode_getSemanticsAnnotation(ASTNode_t* node, unsigned int n);
+
+LIBSBML_EXTERN
 void 
 ASTNode_setUserData(ASTNode_t* node, void *userData);
 

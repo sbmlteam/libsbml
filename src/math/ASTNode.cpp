@@ -2566,6 +2566,49 @@ ASTNode_insertChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild)
   return node->insertChild(n, newChild);
 }
 
+/**
+ * Adds the given XMLNode as a semantic annotation of this ASTNode.
+ *
+ * @param node the ASTNode_t to which the annotation is to be added.
+ * @param annotation the XMLNode_t representing the annotation to add.
+ */
+LIBSBML_EXTERN
+void
+ASTNode_addSemanticsAnnotation(ASTNode_t* node, XMLNode_t * annotation)
+{
+  node->addSemanticsAnnotation(annotation);
+}
+
+/**
+ * Get the number of semantic annotation elements inside this node.
+ * 
+ * @param node the ASTNode_t structure to query.
+ *
+ * @return the number of annotations of this ASTNode.  
+ */
+LIBSBML_EXTERN
+unsigned int
+ASTNode_getNumSemanticsAnnotations(ASTNode_t* node)
+{
+  return node->getNumSemanticsAnnotations();
+}
+
+/**
+ * Get the nth semantic annotation of this node.
+ * 
+ * @param node the ASTNode_t structure to query.
+ * @param n unsigned int the index of the annotation to be retrieved.
+ * 
+ * @return the nth annotation of this ASTNode, or NULL if this node has no nth
+ * annotation (<code>n &gt; ASTNode_getNumSemanticsAnnotations() - 1</code>).
+ */
+LIBSBML_EXTERN
+XMLNode_t *
+ASTNode_getSemanticsAnnotation(ASTNode_t* node, unsigned int n)
+{
+  return node->getSemanticsAnnotation(n);
+}
+
 
 /**
  * Sets the user data of this node. This can be used by the application
