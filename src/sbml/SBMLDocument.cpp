@@ -125,20 +125,69 @@ SBMLDocument::conversion_errors(unsigned int errors)
 bool
 SBMLDocument::hasStrictUnits()
 {
+  unsigned int errors = 0;
+
   UnitConsistencyValidator unit_validator;
   unit_validator.init();
-  return (unit_validator.validate(*this) == 0);
- 
+  errors = unit_validator.validate(*this);
+
+  /* only want to return true if there are errors
+  * not warnings
+  * but in a L2V4 model they will only be warnings
+  * so need to go by ErrorId
+  * EventAssignParameterMismatch is the largest errorId that
+  * would be considered an error in other level/versions
+  */
+  if (errors > 0)
+  {
+    std::list<SBMLError> fails = unit_validator.getFailures();
+    std::list<SBMLError>::iterator iter;
+
+    for (iter = fails.begin(); iter != fails.end(); iter++)
+    {
+      if ( iter->getErrorId() > EventAssignParameterMismatch)
+      {
+        errors--;
+      }
+    }
+  }
+    
+  return (errors == 0);
 }
 
 
 bool
 SBMLDocument::hasStrictSBO()
 {
+  unsigned int errors = 0;
+
   SBOConsistencyValidator sbo_validator;
   sbo_validator.init();
-  return (sbo_validator.validate(*this) == 0);
- 
+  errors = sbo_validator.validate(*this);
+
+  /* only want to return true if there are errors
+  * not warnings
+  * but in a L2V4 model they will only be warnings
+  * so need to go by ErrorId
+  * InvalidDelaySBOTerm is the largest errorId that
+  * would be considered an error in other level/versions
+  */
+  if (errors > 0)
+  {
+    std::list<SBMLError> fails = sbo_validator.getFailures();
+    std::list<SBMLError>::iterator iter;
+
+    for (iter = fails.begin(); iter != fails.end(); iter++)
+    {
+      if ( iter->getErrorId() > InvalidDelaySBOTerm)
+      {
+        errors--;
+      }
+    }
+  }
+    
+  return (errors == 0);
+
 }
 /** @endcond doxygen-libsbml-internal */
 
