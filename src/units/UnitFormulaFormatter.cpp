@@ -1205,6 +1205,14 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
         delete unit;
       }
     }
+    else if (subsUD == NULL)
+    {
+      // units is undefined 
+
+      // as a safety catch
+      return new UnitDefinition();
+    }
+
   }
   if (species->getHasOnlySubstanceUnits())
   {
@@ -1215,7 +1223,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
   /* get the compartment containing the species */
   c = model->getCompartment(species->getCompartment().c_str());
 
-  if (c->getSpatialDimensions() == 0)
+  if (c && c->getSpatialDimensions() == 0)
   {
     ud = subsUD;
     return ud;
