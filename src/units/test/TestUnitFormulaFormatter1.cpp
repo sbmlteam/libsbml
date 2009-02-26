@@ -228,8 +228,20 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_compartment)
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
 
+  /* check deals with invalid nodes */
   delete ud;
+  UnitDefinition * ud1 = new UnitDefinition();
+  
+  Compartment *c = new Compartment();
+  c->setId("c");
+  c->setUnits("undefined");
 
+  ud1 = uff->getUnitDefinitionFromCompartment(c);
+
+  fail_unless (ud->getNumUnits() == 0);
+
+  delete c;
+  delete ud1;
 }
 END_TEST
 
@@ -377,7 +389,25 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_species)
   fail_unless(ud->getUnit(1)->getOffset() == 0.0);
   fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_LITRE);
 
+  /* check deals with invalid nodes */
   delete ud;
+  UnitDefinition * ud1 = new UnitDefinition();
+  
+  Species *s = new Species();
+  s->setId("s");
+  s->setUnits("undefined");
+
+  ud1 = uff->getUnitDefinitionFromSpecies(s);
+
+  fail_unless (ud->getNumUnits() == 0);
+
+  s->setUnits("mole"); // here the compartment size will be NULL
+
+  ud1 = uff->getUnitDefinitionFromSpecies(s);
+
+  fail_unless (ud->getNumUnits() == 0);
+  delete s;
+  delete ud1;
 
 }
 END_TEST
@@ -438,7 +468,20 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_parameter)
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
 
+  /* check deals with invalid nodes */
   delete ud;
+  UnitDefinition * ud1 = new UnitDefinition();
+  
+  Parameter *p = new Parameter();
+  p->setId("p");
+  p->setUnits("undefined");
+
+  ud1 = uff->getUnitDefinitionFromParameter(p);
+
+  fail_unless (ud->getNumUnits() == 0);
+
+  delete p;
+  delete ud1;
 
 }
 END_TEST
@@ -560,8 +603,20 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_event)
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
   
-
+  /* check deals with invalid nodes */
   delete ud;
+  UnitDefinition * ud1 = new UnitDefinition();
+  
+  Event *e = new Event();
+  e->setId("p");
+  e->setTimeUnits("undefined");
+
+  ud1 = uff->getUnitDefinitionFromEventTime(e);
+
+  fail_unless (ud->getNumUnits() == 0);
+
+  delete e;
+  delete ud1;
 
 }
 END_TEST

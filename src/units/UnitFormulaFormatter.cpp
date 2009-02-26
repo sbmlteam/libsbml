@@ -228,7 +228,9 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
     ud = new UnitDefinition();
   }
 
-  UnitDefinition::simplify(ud);
+  // dont simplify an empty ud
+  if (ud->getNumUnits() > 1)
+    UnitDefinition::simplify(ud);
 
   --depthRecursiveCall;
 
@@ -344,20 +346,27 @@ UnitFormulaFormatter::getUnitDefinitionFromTimes(const ASTNode * node,
   int numChildren = node->getNumChildren();
   int n = 0;
   unsigned int i;
-  unsigned int currentIgnore = mCanIgnoreUndeclaredUnits;;
+  unsigned int currentIgnore = mCanIgnoreUndeclaredUnits;
 
   ud = getUnitDefinition(node->getChild(n), inKL, reactNo);
   if (mCanIgnoreUndeclaredUnits == 0) currentIgnore = 0;
 
-  for(n = 1; n < numChildren; n++)
+  if (ud)
   {
-    tempUD = getUnitDefinition(node->getChild(n), inKL, reactNo);
-    if (mCanIgnoreUndeclaredUnits == 0) currentIgnore = 0;
-    for (i = 0; i < tempUD->getNumUnits(); i++)
+    for(n = 1; n < numChildren; n++)
     {
-      ud->addUnit(tempUD->getUnit(i));
+      tempUD = getUnitDefinition(node->getChild(n), inKL, reactNo);
+      if (mCanIgnoreUndeclaredUnits == 0) currentIgnore = 0;
+      for (i = 0; i < tempUD->getNumUnits(); i++)
+      {
+        ud->addUnit(tempUD->getUnit(i));
+      }
+      delete tempUD;
     }
-    delete tempUD;
+  }
+  else
+  {
+    ud = new UnitDefinition();
   }
 
   mCanIgnoreUndeclaredUnits = currentIgnore;

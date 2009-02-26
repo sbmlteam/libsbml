@@ -199,8 +199,17 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_plus)
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
 
+   /* check an invalid node */
   delete ud;
+  UnitDefinition * ud1 = new UnitDefinition();
+  ASTNode *node = new ASTNode(AST_PLUS);
+  
+  ud1 = uff->getUnitDefinition(node);
 
+  fail_unless (ud1->getNumUnits() == 0);
+
+  delete ud1;
+  delete node;
 }
 END_TEST
 
@@ -259,7 +268,17 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_times)
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
 
+  /* check an invalid node */
   delete ud;
+  UnitDefinition * ud1 = new UnitDefinition();
+  ASTNode *node = new ASTNode(AST_TIMES);
+  
+  ud1 = uff->getUnitDefinition(node);
+
+  fail_unless (ud1->getNumUnits() == 0);
+
+  delete ud1;
+  delete node;
 
 }
 END_TEST
@@ -301,8 +320,24 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_piecewise)
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
 
+  /* check deals with invalid nodes */
   delete ud;
+  UnitDefinition * ud1 = new UnitDefinition();
+  ASTNode *node = new ASTNode(AST_FUNCTION_PIECEWISE);
 
+  ud1 == uff->getUnitDefinition(node);
+
+  fail_unless (ud1->getNumUnits() == 0);
+
+  ASTNode *c = new ASTNode(AST_UNKNOWN);
+  node->addChild(c);
+  
+  ud1 == uff->getUnitDefinition(node);
+
+  fail_unless (ud1->getNumUnits() == 0);
+
+  delete ud1;
+  delete node;
 }
 END_TEST
 
