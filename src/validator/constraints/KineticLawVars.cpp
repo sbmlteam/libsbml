@@ -91,6 +91,8 @@ KineticLawVars::check_ (const Model& m, const Reaction& r)
     }
     delete names;
   }
+
+  mSpecies.clear();
 }
 
 
