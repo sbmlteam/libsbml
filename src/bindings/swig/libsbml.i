@@ -21,7 +21,6 @@
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
  */
 
-
 %module libsbml
 
 
@@ -63,6 +62,8 @@
 %ignore ASTNode::unsetSemanticsFlag;
 %ignore ASTNode::getSemanticsFlag;
 %ignore ASTNode::setDefinitionURL;
+%ignore ASTNode::setUserData;
+%ignore ASTNode::getUserData;
 
 /**
  * SWIG makes no distinction between int and long arguments.
