@@ -405,7 +405,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_species)
 
   ud1 = uff->getUnitDefinitionFromSpecies(s);
 
-  fail_unless (ud->getNumUnits() == 0);
+  fail_unless (ud1->getNumUnits() == 1);
   delete s;
   delete ud1;
 
