@@ -238,7 +238,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_compartment)
 
   ud1 = uff->getUnitDefinitionFromCompartment(c);
 
-  fail_unless (ud->getNumUnits() == 0);
+  fail_unless (ud1->getNumUnits() == 0);
 
   delete c;
   delete ud1;
@@ -399,7 +399,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_species)
 
   ud1 = uff->getUnitDefinitionFromSpecies(s);
 
-  fail_unless (ud->getNumUnits() == 0);
+  fail_unless (ud1->getNumUnits() == 0);
 
   s->setUnits("mole"); // here the compartment size will be NULL
 
@@ -478,7 +478,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_parameter)
 
   ud1 = uff->getUnitDefinitionFromParameter(p);
 
-  fail_unless (ud->getNumUnits() == 0);
+  fail_unless (ud1->getNumUnits() == 0);
 
   delete p;
   delete ud1;
@@ -613,7 +613,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_event)
 
   ud1 = uff->getUnitDefinitionFromEventTime(e);
 
-  fail_unless (ud->getNumUnits() == 0);
+  fail_unless (ud1->getNumUnits() == 0);
 
   delete e;
   delete ud1;
