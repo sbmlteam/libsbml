@@ -2,3 +2,5 @@ org.sbml.libsbml.SWIGTYPE_p_std__ofstream
 org.sbml.libsbml.SWIGTYPE_p_std__ostream
 org.sbml.libsbml.SWIGTYPE_p_std__ostringstream
 org.sbml.libsbml.SWIGTYPE_p_XMLParser 
+org.sbml.libsbml.SWIGTYPE_p_void
+
