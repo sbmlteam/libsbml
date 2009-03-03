@@ -60,7 +60,7 @@ H3 {
 
 H4 {
   font-style: italic;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 DIV.qindex {
@@ -576,17 +576,22 @@ caption {
 
 .text-table th {
   background-color: #dfdfdf;
-  padding: 3px 2px 1px 2px;
+  padding: 3px 0.5em 1px 0.5em;
   border-bottom: 1px solid #bbb;
   vertical-align: bottom;
 }
 
 .text-table td { 
-  padding: 2px;
+  padding: 2px 0.5em;
 }
 
 .width80 {
   width: 90%;
   margin-left: 3em;
   margin-right: 3em;
+}
+
+.bigger-row-spacing td {
+  padding-top: 0.35em !important;  
+  padding-bottom: 0.35em !important;  
 }
