@@ -150,8 +150,6 @@ distfiles =                                    \
         libsbml-installation.txt               \
         libsbml-issues.html                    \
         libsbml-issues.txt                     \
-        libsbml-math-functions.html            \
-        libsbml-math-precedence-table.html     \
         libsbml-java-bottom.html               \
         libsbml-java-fake-overview.html        \
         libsbml-java-footer.html               \
@@ -163,8 +161,11 @@ distfiles =                                    \
         libsbml-java-verb-bottom.html          \
         libsbml-license.txt                    \
         libsbml-mainpage.txt                   \
+        libsbml-math-functions.html            \
+        libsbml-math-precedence-table.html     \
         libsbml-math.txt                       \
         libsbml-news.txt                       \
+        libsbml-not-sbml-warning.html          \
         libsbml-papers.html                    \
         libsbml-papers.txt                     \
 	libsbml-predefined-units.html          \
@@ -173,11 +174,12 @@ distfiles =                                    \
         libsbml-python-reading-files.txt       \
         libsbml-reading-files.txt              \
 	libsbml-string-functions-table.html    \
+        libsbml-species-boundarycondition.html \
+        libsbml-species-hasonlysubstance.html  \
+        libsbml-string-functions-table.html    \
         libsbml-uninstallation.html            \
         libsbml-uninstallation.txt             \
 	libsbml-unitkind-table.html            \
-        libsbml-not-sbml-warning.html          \
-	libsbml-string-functions-table.html    \
         pythondocfilter.py                     \
         sbml.js                                \
         templates/c++.txt                      \
