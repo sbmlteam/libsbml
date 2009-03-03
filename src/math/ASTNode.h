@@ -166,6 +166,7 @@
  * @verbatim
 (vm * s1)/(km + s1)
 @endverbatim
+ *
  * The following table shows the precedence rules in this syntax.  In the
  * Class column, @em operand implies the construct is an operand, @em
  * prefix implies the operation is applied to the following arguments, @em
