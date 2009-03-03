@@ -158,7 +158,10 @@ installdirs: all
 
 uninstall: uninstall-libraries
 	for i in $(libraries); do \
-	  rm $(DESTDIR)$(prefix)$(LOCALOCTFILEDIR)/$$i; \
+	  f=$(DESTDIR)$(prefix)$(LOCALOCTFILEDIR)/$$i; \
+	  if test -e $$f; then \
+	    rm $(DESTDIR)$(prefix)$(LOCALOCTFILEDIR)/$$i; \
+          fi; \
 	done
 
 
