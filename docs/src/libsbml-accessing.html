@@ -1,40 +1,87 @@
-<center>
 <br>
-<table border="0">
-<tr><td style="font-size: small" width="85">
-<a href="#accessing-c">C++ and C</a>
-</td><td style="font-size: small" width="85">
-<a href="#accessing-java">Java</a>
-</td><td style="font-size: small" width="85">
-<a href="#accessing-python">Python</a>
-</td><td style="font-size: small" width="85">
-<a href="#accessing-matlab">MATLAB</a>
-</td><td style="font-size: small" width="85">
-<a href="#accessing-octave">Octave</a>
-</td><td style="font-size: small" width="85">
-<a href="#accessing-perl">Perl</a>
-</td><td style="font-size: small" width="85">
-<a href="#accessing-csharp">C#</a>
-</td><td style="font-size: small" width="85">
-<a href="#accessing-ruby">Ruby</a>
-</td></tr>
-</table>
-</br>
-</center>
+
+<p> Once the libSBML files are installed as described in the <a
+href="libsbml-installation.html">installation instructions</a>, you may
+need to do additional configuration steps so that software applications can
+find the libSBML library files at <em>run</em> time.  This section provides
+information about how to do that.
+
+<ol>
+ <li><a href="#common">Run-time environment configuration</a></li>
+ <li><a href="#languages">Compiling software to use libSBML</a><br>
+    <ul>
+      <li><a href="#accessing-c">C++ and C</a></li>
+      <li><a href="#accessing-java">Java</a></li>
+      <li><a href="#accessing-python">Python</a></li>
+      <li><a href="#accessing-matlab">MATLAB</a></li>
+      <li><a href="#accessing-octave">Octave</a></li>
+      <li><a href="#accessing-perl">Perl</a></li>
+      <li><a href="#accessing-csharp">C#</a></li>
+      <li><a href="#accessing-ruby">Ruby</a></li>
+    </ul>
+  </li>
+</ol>
+
+
+<h2><a class="anchor" name="common">1. Run-time environment configuration</a></h2>
+
+<p>
+Whether you downloaded a ready-built libSBML installation, or you followed
+the <a href="libsbml-installation.html">installation instructions</a>,
+copies of the different libSBML files will end up in appropriate
+destination directories on your computer.  However, this does not
+necessarily guarantee that a given software application will be able to
+<em>find</em> those files when it runs.  The run-time environment must be
+properly configured first.
+
+<p> In particular, on most Linux/Unix-based platforms, you must perform one
+of the following two steps:
+
+<ul><li>(<em>On Linux and Unix-based systems other than MacOS&nbsp;X</em>.)
+Run the system program <code>ldconfig</code> as user 'root'.  (Please
+consult the man page for <code>ldconfig</code> if this is unfamiliar.  On
+MacOS&nbsp;X, there is no equivalent to the <code>ldconfig</code>
+facility.)</li></ul>
+
+<em>or</em>
+
+<ul><li>Ensure that each user sets the environment variable
+<code>LD_LIBRARY_PATH</code> in their command shells.  (On MacOS&nbsp;X,
+the variable is named <code>DYLD_LIBRARY_PATH</code>.)  The value of
+<code>LD_LIBRARY_PATH</code> or <code>DYLD_LIBRARY_PATH</code> must include
+the directory used as the value of the <nobr><code>--prefix=</code><em><span
+style="background-color: #dfd">DIR</span></em></nobr> option used during the <a
+href="libsbml-installation.html">libSBML configuration step</a>.
+
+<p> For example, suppose that you configured libSBML to use the default
+installation prefix <code><nobr>/usr/local/</nobr></code>.  Then in
+csh-based command shells under Linux, if the <code>ldconfig</code> step is
+not performed, you may have to set the variable as follows (perhaps in your
+<code>.cshrc</code> file):
+
+<div class="fragment"><pre class="fragment">
+setenv LD_LIBRARY_PATH /usr/local/lib
+</pre></div>
+
+</li></ul>
+
+<p> If your run-time environment and the run-time environment for your
+software applications do not know to look in the installation directory for
+libSBML, programs that require libSBML will fail to run and report errors
+about being unable to find libSBML.
 
 
 
-<p> Once libSBML has been installed on a computer, you will still need
-to link your software with libSBML to make its API accessible from
-your software.  (Note that this is separate from the issue of your
-software being able to find libSBML at run time; see the <a
-href="libsbml-installation.html#accessing">section about accessing
-libSBML</a> for more information.)  This section provides information
-about how to do that.
+<h2><a class="anchor" name="languages">2. Compiling software to use
+libSBML</a></h2>
+
+If you configured libSBML to provide additional language interfaces (such
+as Java, Python, etc.), then you may also need to perform the following
+steps to make the language bindings available to software on your computer.
 
 
-<h2><a class="anchor" name="accessing-c">C++
-and C</a></h2>
+<h3><a class="anchor" name="accessing-c">C++
+and C</a></h3>
 
 <p> If libSBML has been configured normally, then compiling C++ or C
 software to use it is a matter of supplying certain compilation and
@@ -82,18 +129,23 @@ has the effect of running the command <code><nobr>pkg-config</nobr> <nobr>--cfla
 the command.
 
 
-<h2><a class="anchor" name="accessing-java">Java</a></h2>
+<h3><a class="anchor" name="accessing-java">Java</a></h3>
 
-<p> In addition to the instructions for configuring the
-<code>LD_LIBRARY_PATH</code> or <code>DYLD_LIBRARY_PATH</code> variables
-(see the <a href="libsbml-installation.html#accessing">section about
-accessing libSBML</a>), Java applications separately need to have their
-class search paths include the libSBML <code>.jar</code> file.  This is
-often most easily done by setting the <code>CLASSPATH</code> environment
-variable, but other methods are possible.  The exact recipe also depends on
-the operating system in use, as described in the following subsections.
+<p> First, note that by default, libSBML only builds the C and C++ APIs.
+To build the Java API as well, libSBML has to be configured with the
+<nobr><code>--with-java</code></nobr> flag as described in the <a
+href="libsbml-installation.html">installation instructions</a>.
 
-<h3>On Linux, MacOS X and similar Unix-like systems</h3>
+<p> Once that is done, then in addition to the instructions for configuring
+the <code>LD_LIBRARY_PATH</code> or <code>DYLD_LIBRARY_PATH</code>
+variables described in the beginning of this section, Java applications
+separately need to have their class search paths include the libSBML
+<code>.jar</code> and binary object files.  This is often most easily done
+by setting the <code>CLASSPATH</code> environment variable, but other
+methods are possible.  The exact recipe also depends on the operating
+system in use, as described in the following subsections.
+
+<h4>Java on Linux, MacOS X and similar Unix-like systems</h4>
 
 <p>
 You must either (1) set your <code>CLASSPATH</code> environment
@@ -110,7 +162,7 @@ variable would at minimum need to be set as follows:
 </pre></div>
 
 
-<h3>On Windows systems</h3>
+<h4>Java on Windows systems</h4>
 
 <p>
 The instructions are essentially the same as for the case of Linux and
@@ -128,32 +180,41 @@ might set your environment variable as follows:
 
 
 
-<h2><a class="anchor" name="accessing-python">Python</a></h2>
+<h3><a class="anchor" name="accessing-python">Python</a></h3>
 
-<p> In addition to the instructions for configuring the
-<code>LD_LIBRARY_PATH</code> or <code>DYLD_LIBRARY_PATH</code> variables
-(see the <a href="libsbml-installation.html#accessing">section about
-accessing libSBML</a>), Python needs another environment variable named
-<code>PYTHONPATH</code> to be set according to where the libSBML Python
-binaries have been installed.  Unfortunately, this variable's value is
-confusing to set.  On Unix-based systems at least, if <i>prefix</i> is the
-value of the <nobr><code>--prefix=</code><i>value</i></nobr> option given during
-configuration of libSBML and <i>version</i> is the version of your
-copy of Python, then the value of <code>PYTHONPATH</code> needs to be set
-as follows:
+<p> First, note that by default, libSBML only builds the C and C++ APIs.
+To build the Python API as well, libSBML has to be configured with the
+<nobr><code>--with-python</code></nobr> flag as described in the <a
+href="libsbml-installation.html">installation instructions</a>.
+
+<p> Once that is done, then in addition to the instructions for configuring
+the <code>LD_LIBRARY_PATH</code> or <code>DYLD_LIBRARY_PATH</code>
+variables described at the beginning of this section, Python needs another
+environment variable named <code>PYTHONPATH</code> to be set according to
+where the libSBML Python binaries have been installed.  Unfortunately, this
+variable's value is confusing to set.  On Unix-based systems at least, if
+<em><span style="background-color: #dfd">DIR</span></em> is the value of
+the <nobr><code>--prefix=</code><em><span style="background-color:
+#dfd">DIR</span></em></nobr> option given during configuration of libSBML
+and <em><span style="background-color: #dfd">version</span></em> is the
+version of your copy of Python, then the value of <code>PYTHONPATH</code>
+needs to be set as follows:
 
 <div class="fragment" style="padding: 1em 3px !important">
 <tt class="fragment" style="font-size: 12px">
-export PYTHONPATH=<i><u>prefix</u></i>/lib/<i><u>version</u></i>/site-packages/libsbml:<i><u>prefix</u></i>/lib/<i><u>version</u></i>/site-packages
+export PYTHONPATH=<u><em><span style="background-color: #dfd">DIR</span></em></u>/lib/<u><em><span style="background-color: #dfd">version</span></em></u>/site-packages/libsbml:<u><em><span style="background-color: #dfd">DIR</span></em></u>/lib/<u><em><span style="background-color: #dfd">version</span></em></u>/site-packages
 </tt></div>
 for <i>sh</i>-based shells such as Bash, or 
 <div class="fragment" style="padding: 1em 3px !important">
 <tt class="fragment" style="font-size: 12px">
-setenv PYTHONPATH <i><u>prefix</u></i>/lib/<i><u>version</u></i>/site-packages/libsbml:<i><u>prefix</u></i>/lib/<i><u>version</u></i>/site-packages
+setenv PYTHONPATH <u><em><span style="background-color: #dfd">DIR</span></em></u>/lib/<u><em><span style="background-color: #dfd">version</span></em></u>/site-packages/libsbml:<u><em><span style="background-color: #dfd">DIR</span></em></u>/lib/<u><em><span style="background-color: #dfd">version</span></em></u>/site-packages
 </tt></div>
 for <i>csh</i>-based shells.  What is crucial in both cases is that the two
 directories listed on the path are the directories containing the files
-<code>_libsbml.so</code> and <code>libsbml.py</code>.
+<code>_libsbml.so</code> and <code>libsbml.py</code>.  Please see the
+section titled "<a href="libsbml-installation.html#locations">Files
+installed by libSBML, and their locations</a>" elsewhere in this manual for
+more information about the files installed for libSBML.
 
 <p>
 Once both the library path environment variable and <code>PYTHONPATH</code>
@@ -174,9 +235,14 @@ consult your systems administrator or (if you have administrator
 priviledges) reset the permissions yourself.
 
 
-<h2><a class="anchor" name="accessing-matlab">MATLAB</a></h2>
+<h3><a class="anchor" name="accessing-matlab">MATLAB</a></h3>
 
-<h3>On Linux, MacOS X and similar Unix-like systems</h3>
+<p> First, note that by default, libSBML only builds the C and C++ APIs.
+To build the MATLAB API as well, libSBML has to be configured with the
+<nobr><code>--with-matlab</code></nobr> flag as described in the <a
+href="libsbml-installation.html">installation instructions</a>.
+
+<h4>MATLAB on Linux, MacOS X and similar Unix-like systems</h4>
 
 <p> As with the other cases described above, the first configuration
 step necessary for users is to make sure that their
@@ -228,7 +294,7 @@ initialization).  Please refer to the MATLAB documentation for more
 information about <code>startup.m</code> and where it is located.)
 
 
-<h3>On Windows systems</h3>
+<h4>MATLAB on Windows systems</h4>
 
 <p> Most Windows users will probably prefer to install libSBML using
 the self-extracting installer provided separately and available for
@@ -279,22 +345,22 @@ This will have the same effect as the previous alterantive
 
 
 
-<h2><a class="anchor" name="accessing-octave">Octave</a></h2>
+<h3><a class="anchor" name="accessing-octave">Octave</a></h3>
 
 (Documentation unfinished.)
 
 
-<h2><a class="anchor" name="accessing-perl">Perl</a></h2>
+<h3><a class="anchor" name="accessing-perl">Perl</a></h3>
 
 (Documentation unfinished.)
 
 
-<h2><a class="anchor" name="accessing-csharp">C#</a></h2>
+<h3><a class="anchor" name="accessing-csharp">C#</a></h3>
 
 (Documentation unfinished.)
 
 
-<h2><a class="anchor" name="accessing-ruby">Ruby</a></h2>
+<h3><a class="anchor" name="accessing-ruby">Ruby</a></h3>
 
 (Documentation unfinished.)
 
