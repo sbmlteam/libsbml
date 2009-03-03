@@ -196,7 +196,6 @@
 %rename(formulaToString) SBML_formulaToString;
 %rename(parseFormula)    SBML_parseFormula;
 
-
 /**
  * Wrap these files.
  */
@@ -241,7 +240,7 @@
 %include sbml/math/MathML.h
 %include sbml/math/ASTNode.h
 %include sbml/math/FormulaParser.h
-
+%include sbml/math/FormulaFormatter.h
 %include sbml/xml/XMLAttributes.h
 %include sbml/xml/XMLNamespaces.h
 %include sbml/xml/XMLToken.h
@@ -265,12 +264,3 @@
 #ifdef USE_LAYOUT
 %include ../swig/layout.i
 #endif /* USE_LAYOUT */
-
-/**
- * @return the given formula AST as an SBML L1 string formula.  The caller
- * owns the returned string and is responsible for freeing it.
- */
-LIBSBML_EXTERN
-char *
-SBML_formulaToString (const ASTNode_t *tree);
-
