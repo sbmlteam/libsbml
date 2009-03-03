@@ -768,6 +768,7 @@ discussed above).
  <tr style="background: lightgray; font-size: 14px;">
      <th colspan="2" align="left">Language</th>
      <th align="left">Directories</th>
+     <th align="left">Notes</th>
  </tr>
 <tr>
   <td>C#</td>
@@ -777,6 +778,7 @@ discussed above).
   </td>
   <td><em><span style="background-color: #dfd">DIR</span></em><code>/lib/mono/libsbmlcsP/</code><br>
       <em><span style="background-color: #dfd">DIR</span></em><code>/lib/mono/libsbmlcsP/</code></td>
+  <td></td>
 </tr><tr>
   <td>Java</td>
   <td>
@@ -785,12 +787,15 @@ discussed above).
   </td>
   <td><em><span style="background-color: #dfd">DIR</span></em><code>/lib/</code><br>
       <em><span style="background-color: #dfd">DIR</span></em><code>/lib/</code></td>
+  <td></td>
 </tr><tr>
   <td colspan="2">MATLAB</td>
   <td><em><span style="background-color: #dfd">DIR</span></em><code>/lib/</code></td>
+  <td></td>
 </tr><tr>
   <td colspan="2">Octave</td>
   <td><em><span style="background-color: #dfd">DIR</span></em><code>/lib/octave/site/oct/</code><em><span style="background-color: #dfd">platform</span></em><code>/</code></td>
+  <td>(1)</td>
 </tr><tr>
   <td>Perl</td>
   <td>
@@ -801,6 +806,7 @@ discussed above).
   <td><em><span style="background-color: #dfd">DIR</span></em><code>/lib/perl5/site_perl/</code><em><span style="background-color: #dfd">perl-version</span></em><code>/</code><em><span style="background-color: #dfd">platform</span></em><code>/auto/libSBML/</code><br>
       <em><span style="background-color: #dfd">DIR</span></em><code>/lib/perl5/site_perl/</code><em><span style="background-color: #dfd">perl-version</span></em><code>/</code><em><span style="background-color: #dfd">platform</span></em><code>/</code><br>
       <em><span style="background-color: #dfd">DIR</span></em><code>/lib/perl5/site_perl/</code><em><span style="background-color: #dfd">perl-version</span></em><code>/</code><em><span style="background-color: #dfd">platform</span></em><code>/</code></td>
+  <td>(2)</td>
 </tr><tr>
   <td>Python</td>
   <td>
@@ -813,9 +819,11 @@ discussed above).
       <em><span style="background-color: #dfd">DIR</span></em><code>/lib/</code><em><span style="background-color: #dfd">python-version</span></em><code>/site-packages/libsbml/</code><br>
       <em><span style="background-color: #dfd">DIR</span></em><code>/lib/</code><em><span style="background-color: #dfd">python-version</span></em><code>/site-packages/libsbml/</code><br>
       <em><span style="background-color: #dfd">DIR</span></em><code>/lib/</code><em><span style="background-color: #dfd">python-version</span></em><code>/site-packages/</code></td>
+  <td>(2)</td>
 </tr><tr>
   <td colspan="2">Ruby</td>
   <td><em><span style="background-color: #dfd">DIR</span></em><code>/lib/ruby/site_ruby/</code><em><span style="background-color: #dfd">ruby-version</span></em><code>/</code><em><span style="background-color: #dfd">platform</span></em><code>/</code></td>
+  <td></td>
 </tr>
 <caption align="bottom">The placeholder
 <em><span style="background-color: #dfd">platform</span></em> stands for a
@@ -831,9 +839,16 @@ configured.  The placeholder <em><span style="background-color:
 #dfd">ruby-version</span></em> refers to the version number of the Ruby
 executable against which libSBML was configured.  Note that none of these
 values are actually under the control of libSBML; they are set by the
-operating system and programming language package conventions.  Also, for
-Perl and Python, the <code>lib</code> may be replaced by <code>lib64</code>
-on some 64-bit operating systems (e.g., CentOS 5.2 x86-64).
+operating system and programming language package conventions.  
+<br><br>
+Additional notes: <br>
+(1) The Octave installation directory actually depends on
+how Octave was configured at build time.  If your installation of Octave
+came as a precompiled binary, the package directory may in fact be
+different from what is shown here.
+<br>(2) The directory component <code>lib</code> may be replaced by
+<code>lib64</code> on some 64-bit operating systems (e.g., CentOS 5.2
+x86-64).
 </caption>
 
 </table>
