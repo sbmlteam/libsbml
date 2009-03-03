@@ -145,8 +145,8 @@
  * infix formulas into MathML and
  * vice-versa. @endif@if java
  * The text-string form of mathematical formulas produced by <code><a
- * href="libsbml.java">libsbml.formulaToString()</a></code> and read by <code><a
- * href="libsbml.java">libsbml.parseFormula()</a></code> are simple C-inspired
+ * href="libsbml.html">libsbml.formulaToString()</a></code> and read by <code><a
+ * href="libsbml.html">libsbml.parseFormula()</a></code> are simple C-inspired
  * infix notation taken from SBML Level&nbsp;1.  A formula in this
  * text-string form can be handed to a program that understands SBML
  * Level&nbsp;1 mathematical expressions, or used as part of a translation
@@ -1144,13 +1144,12 @@ public:
    * @param bvar a string representing the variable name to be substituted
    * @param arg an ASTNode representing the name/value/formula to substitute
    */
-
   LIBSBML_EXTERN
   void replaceArgument(const std::string bvar, ASTNode * arg);
 
   /** @cond doxygen-libsbml-internal */
 
-  /*
+  /**
    * Replaces occurences of a name within this ASTNode with the name/value/formula
    * represented by the second argument ASTNode
    * e.g. if the formula in this ASTNode is x + y; bvar is x and arg is an 
