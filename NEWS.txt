@@ -32,8 +32,12 @@ Version 3.3.2 (released 2009-03-03)
    the XMLNode was not intuitive.  The code has been changed to 
    remove the dummy node from the resulting XMLNode.
    
- - Potential memory leaks present within the appendNotes function 
+ - A potential memory leaks present within the appendNotes function 
    have been identified and fixed.
+
+ - The documentation for Java lacked content for the 'libsbml' class
+   (which mostly consists of functions outside of C++ classes).
+   Fixed.
 
  - [Tracker issue #2641323]
    In certain cases validation was failing to report that a species 
