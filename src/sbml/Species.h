@@ -136,8 +136,7 @@
  * dimensions of the compartment is due to the fact that a zero-dimensional
  * compartment cannot support concentrations or densities.)
  *
- * @image html species-hasonlysubstance.jpg "Interpretation of species' units"
- * @image latex species-hasonlysubstance.jpg "Interpretation of species' units"
+ * @htmlinclude libsbml-species-hasonlysubstance.html 
  *
  * The value assigned to "substanceUnits" must be chosen from one of the
  * following possibilities: one of the base unit identifiers defined in
@@ -168,8 +167,7 @@
  * quantity of that species can vary during a simulation.  The following
  * table shows how to interpret the combined values of these attributes.
  *
- * @image html species-boundarycondition.jpg "Interpretation of 'constant' and 'boundaryCondition'"
- * @image latex species-boundarycondition.jpg "Interpretation of 'constant' and 'boundaryCondition'"
+ * @htmlinclude libsbml-species-boundarycondition.html
  * 
  * By default, when a species is a product or reactant of one or more
  * reactions, its quantity is determined by those reactions.  In SBML, it
@@ -206,8 +204,8 @@
  * appear as a reactant or product, or as the target of any
  * AssignmentRule, RateRule or EventAssignment structure in the model.
  *
- * @warning In versions of SBML Level~2 before Version&nbsp;3, the class
- * Species included an attribute called "spatialSizeUnits", which allowed
+ * @warning In versions of SBML Level&nbsp;2 before Version&nbsp;3, the class
+ * Species included an attribute called "spatialSizeUnits, which allowed
  * explicitly setting the units of size for initial concentration.  LibSBML
  * retains this attribute for compatibility with older definitions of
  * Level&nbsp;2, but its use is strongly discouraged because it is
