@@ -301,12 +301,12 @@ language binding files are <em>not</em> standalone implementations.  For
 instance, the Java language API files consist of a file named
 <code>libsbmlj.jar</code> and a native object library file named (depending
 on the operating system) <code>libsbmlj.jnilib</code> (MacOS),
-<code>libsbml.so</code> (Linux), or sbmlj.dll (Windows); <em>both</em> of
-these must be installed and shipped with applications <em>along with</em>
-the core libSBML library file.  Please refer to section <a
-href="#locations">Files installed by libSBML, and their locations</a>) for
-an explanation of the name and location of the libSBML library file under
-different operating systems.
+<code>libsbml.so</code> (Linux), or <code>sbmlj.dll</code> (Windows);
+<em>both</em> of these must be installed and shipped with applications
+<em>along with</em> the core libSBML library file.  Please refer to section
+<a href="#locations">Files installed by libSBML, and their locations</a>)
+for an explanation of the name and location of the libSBML library file
+under different operating systems.
 
 
 <h3><a class="anchor" name="other-options">Additional configuration options</a></h3>
@@ -345,7 +345,7 @@ architectures in the following example :
 
 <div class="fragment"><pre class="fragment">
   ./configure --enable-universal-binary="-arch i386 -arch ppc -arch x86_64 -arch ppc64"
-</div>
+</pre></div>
 
 
 <h4><a class="anchor" name="swig">Configuring SWIG</a></h4>
