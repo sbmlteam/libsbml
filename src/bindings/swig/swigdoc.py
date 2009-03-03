@@ -70,6 +70,7 @@ class CHeader:
     inFunc      = False
     inSkip      = False
     isInternal  = False
+    ignoreThis  = False
 
     docstring   = ''
     lines       = ''
@@ -77,15 +78,17 @@ class CHeader:
     for line in stream.xreadlines():
       stripped = line.strip()
 
-      if stripped      == '#ifndef SWIG': inSkip = True
-      if stripped[0:6] == '#endif'      : inSkip = False
+      if stripped == '#ifndef SWIG':
+        inSkip = True
+      if stripped.startswith('#endif') and (stripped.find('SWIG') >= 0):
+        inSkip = False
       if inSkip: continue
 
       # Track things that we flag as internal, so that we can
       # remove them from the documentation.
 
-      if (stripped.find('@cond doxygen-libsbml-internal') > 0):    isInternal = True
-      if (stripped.find('@endcond doxygen-libsbml-internal') > 0): isInternal = False
+      if (stripped.find('@cond doxygen-libsbml-internal') >= 0):    isInternal = True
+      if (stripped.find('@endcond doxygen-libsbml-internal') >= 0): isInternal = False
 
       # Watch for class description, usually at top of file.
 
@@ -120,16 +123,10 @@ class CHeader:
         docstring = ''
         continue
 
-      # Watch for class definition and methods.
-
-      if stripped == '':
-        docstring = ''
-        lines     = ''
-        inDocs    = False
-        inFunc    = False
-        continue
+      # Watch for class definition, methods and out-of-class functions.
 
       if stripped.startswith('class ') and not stripped.endswith(';'):
+        ignoreThis = False
         inClass   = True
         classname = line[6:].split(':')[0].strip()
         if classname[:6] == 'LIBSBM' or classname[:6] == 'LIBLAX':
@@ -142,47 +139,61 @@ class CHeader:
         continue
 
       if stripped == '/**':
-        inDocs = True
-        if inClass:
-          inFunc = True
-      else:
-        if inClass and not inFunc:
-          continue
+        docstring  = ''
+        lines      = ''
+        ignoreThis = False
+        inDocs     = True
 
       if inDocs:
         docstring += line
         inDocs     = (stripped != '*/')
         continue
 
-      if inClass:
-        if inFunc:
-          cppcomment = stripped.find('//')
-          if cppcomment != -1:
-            stripped = stripped[:cppcomment]
+      # If we get here, we're no longer inside a comment block.
+      # Start saving lines, but skip embedded comments.
+
+      if stripped.startswith('#') or (stripped.find('typedef') >= 0):
+        ignoreThis = True
+        continue
+
+      if not ignoreThis:
+        cppcomment = stripped.find('//')
+        if cppcomment != -1:
+          stripped = stripped[:cppcomment]
         lines += stripped + ' '         # Space avoids jamming code together.
 
-      if inFunc and (stripped.endswith(';') or stripped.endswith(')') or stripped.endswith('}')):
-        # It might be an enum.  Skip it.
-        if stripped.endswith('}'):
-          lines   = lines[:lines.rfind('{')]
-        if not stripped.startswith('enum'):
-          stop    = lines.rfind('(')
-          name    = lines[:stop].split()[-1]
-          args    = lines[stop:lines.rfind(')')+1]
-          isConst = lines[lines.rfind(')'):].rfind('const')
+        # Keep an eye out for the end of the declaration.
 
-          # Swig doesn't seem to mind C++ argument lists, even though they
-          # have "const", "&", etc.  So I'm leaving the arg list unmodified.
-          func = Method(forLanguage, isInternal, docstring, name, args, (isConst > 0))
+        if not stripped.startswith('*') and \
+               (stripped.endswith(';') or stripped.endswith(')') or stripped.endswith('}')):
+          # It might be a forward declaration.  Skip it.
+          if lines.startswith('class'):
+            continue
 
-          if inClass:
-            self.classes[-1].methods.append(func)
-          else:
-            self.functions.append(func)
+          # It might be a C++ operator redefinition.  Skip it.
+          if lines.find('operator') >= 0:
+            continue
 
-          inFunc = False
+          # It might be an enum.  Skip it.
+          if stripped.endswith('}'):
+            lines   = lines[:lines.rfind('{')]
+          if not stripped.startswith('enum'):
+            stop    = lines.rfind('(')
+            name    = lines[:stop].split()[-1]
+            args    = lines[stop:lines.rfind(')')+1]
+            isConst = lines[lines.rfind(')'):].rfind('const')
+  
+            # print 'found ' + name
 
-
+            # Swig doesn't seem to mind C++ argument lists, even though they
+            # have "const", "&", etc.  So I'm leaving the arg list unmodified.
+            func = Method(forLanguage, isInternal, docstring, name, args, (isConst > 0))
+  
+            if inClass:
+              self.classes[-1].methods.append(func)
+            else:
+              self.functions.append(func)
+  
 
 class CClass:
   """A CClass encapsulates a C++ class.  It has the following public
@@ -249,7 +260,7 @@ class Method:
     # combination doesn't seem to arise in libSBML currently, and anyway,
     # this fixes a real problem in the Java documentation for libSBML.
 
-    if forLanguage == 'java' and isConst and (args.find('unsigned int') > 0):
+    if forLanguage == 'java' and isConst and (args.find('unsigned int') >= 0):
       self.args = ''
     elif not args.strip() == '()':
       if isConst:
@@ -334,6 +345,9 @@ def processHeader (filename, ostream, language):
   SWIG incantation to annotate each method (or function) with a
   docstring appropriate for the given language.
   """
+
+  # print filename
+
   istream = open(filename)
   header  = CHeader(language, istream)
   istream.close()
