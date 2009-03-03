@@ -365,26 +365,13 @@ SBMLReader_hasBzip2 ();
 
 
 /**
- * Reads an SBML document from the given file.  If filename does not exist
- * or is not an SBML file, an error will be logged.  Errors can be
- * identified by their unique ids, e.g.:
+ * Reads an SBML document from the given file @p filename.
  *
- * <code>
- *   SBMLReader_t   *sr;\n
- *   SBMLDocument_t *d;
- *
- *   sr = SBMLReader_create();
- *
- *   d = SBMLReader_readSBML(reader, filename);
- *
- *   if (SBMLDocument_getNumErrors(d) > 0)\n
- *   {\n
- *     if (XMLError_getId(SBMLDocument_getError(d, 0))
- *                                           == SBML_READ_ERROR_FILE_NOT_FOUND)\n
- *     if (XMLError_getId(SBMLDocument_getError(d, 0))
- *                                           == SBML_READ_ERROR_NOT_SBML)\n
- *   }\n
- * </code>
+ * If @p filename does not exist, or it is not an SBML file, an error will
+ * be logged in the error log of the SBMLDocument object returned by this
+ * method.  Calling programs can inspect this error log to determine
+ * the nature of the problem.  Please refer to the definition of
+ * SBMLDocument for more information about the error reporting mechanism.
  *
  * @return a pointer to the SBMLDocument read.
  */
@@ -392,18 +379,22 @@ LIBSBML_EXTERN
 SBMLDocument_t *
 readSBML (const char *filename);
 
+
 /**
- * Reads an SBML document from the given XML string.
+ * Reads an SBML document from a string assumed to be in XML format.
  *
- * If the string does not begin with XML declaration:
+ * If the string does not begin with XML declaration,
+ *@verbatim
+<?xml version='1.0' encoding='UTF-8'?>
+@endverbatim
  *
- *   <?xml version='1.0' encoding='UTF-8'?>
+ * an XML declaration string will be prepended.
  *
- * it will be prepended.
- *
- * This method will log a fatal error if the XML string is not SBML.  See
- * the method documentation for readSBML(filename) for example error
- * checking code.
+ * This method will report an error if the given string @p xml is not SBML.
+ * The error will be logged in the error log of the SBMLDocument object
+ * returned by this method.  Calling programs can inspect this error log to
+ * determine the nature of the problem.  Please refer to the definition of
+ * SBMLDocument for more information about the error reporting mechanism.
  *
  * @return a pointer to the SBMLDocument read.
  */
