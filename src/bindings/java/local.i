@@ -245,6 +245,13 @@ COVARIANT_RTYPE_LISTOF_GET_REMOVE(CompartmentGlyph)
  */
 %pragma(java) modulecode =
 %{
+  /**
+   * Internal method.  This is not actually deprecated, but we
+   * cheat and use @deprecated to hide this in the documentation
+   * produced by Javadoc:
+   *
+   * @deprecated
+   */
   public static SBase DowncastSBase(long cPtr, boolean owner)
   {
     if (cPtr == 0) return null;
