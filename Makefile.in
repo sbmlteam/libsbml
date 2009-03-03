@@ -223,6 +223,16 @@ ifeq "$(HOST_TYPE)" "cygwin"
   extra_clean += libsbml.la
 endif
 
+# Misc things used later below.
+
+define nodoxygen
+
+  Cannot make create this manual, either because libSBML was not
+  configured using --with-doxygen, or 'doxygen' cannot be found, or
+  the version of 'doxygen' found is too old.  Please reconfigure with
+  a suitable value for the configuration flag --with-doxygen
+endef
+
 
 # -----------------------------------------------------------------------------
 # Primary build actions.
@@ -235,6 +245,13 @@ endif
 all: configure Makefile include all-recursive libsbml.pc libsbml.la
 
 docs:;
+# Only in the case of Java can we make the docs without doxygen.
+ifndef USE_JAVA
+ifeq "$(USE_DOXYGEN)" ""
+# Doxygen hasn't been configured suitably.
+	$(error $(nodoxygen))
+endif
+endif
 ifneq "$(MAKEFLAGS)" ""
 	$(MAKE) -w -C docs -$(MAKEFLAGS) $(MAKECMDGOALS)
 else
@@ -373,7 +390,18 @@ endef
 
 install: all install-recursive install-warnings install-pc install-la
 
+# Only in the case of Java can we make the docs without doxygen.
+ifdef USE_JAVA
 install-docs: install-docs-recursive
+else
+ifeq "$(USE_DOXYGEN)" ""
+# Doxygen hasn't been configured suitably.
+install-docs:
+	$(error $(nodoxygen))
+else
+install-docs: install-docs-recursive
+endif
+endif
 
 installcheck: installcheck-recursive
 
