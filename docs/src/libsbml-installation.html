@@ -696,12 +696,18 @@ table below lists the pathnames where those files will be installed.
   <td>MATLAB</td>
   <td valign="top">
     <font size="-1"><nobr><em>(Intel)</em></nobr><br>
-    <nobr><em>(PPC)</em></nobr></font>
+    <nobr><em>(PPC)</em><br>
+    <nobr><em>(Additional files)</em></nobr></font>
   </td>
-  <td valign="top"><code>TranslateSBML.mexglx</code></td>
+  <td valign="top"><code>TranslateSBML.mexglx</code><br>
+                   <em>N/A</em><br>
+                   <code>CheckAndConvert.m</code></td>
   <td valign="top"><code>TranslateSBML.mexmaci</code></br>
-                   <code>TranslateSBML.mexmac</code></td>
-  <td valign="top"><code>TranslateSBML.mexw32</code></td>
+                   <code>TranslateSBML.mexmac</code><br>
+                   <code>CheckAndConvert.m</code></td>
+  <td valign="top"><code>TranslateSBML.mexw32</code><br>
+                   <em>N/A</em><br>
+                   <code>CheckAndConvert.m</code></td>
 </tr><tr>
   <td colspan="2">Octave</td>
   <td><code>TranslateSBML.mex</code></td>
@@ -727,7 +733,27 @@ table below lists the pathnames where those files will be installed.
       <code>LibSBML.pod</code><br>
       <code>.packlist</code></td>
 </tr><tr>
-  <td>Python</td>
+  <td>Python <nobr>2.3&ndash;2.4</nobr></td>
+  <td>
+    <font size="-1"><nobr><em>(native C++ library)</em></nobr><br>
+    <nobr><em>(Python module file)</em></nobr><br>
+    <nobr><em>(Compiled module file)</em></nobr><br>
+    <nobr><em>(Path configuration file)</em></nobr></font>
+  </td>
+  <td><code>_libsbml.so</code><br>
+      <code>libsbml.py</code><br>
+      <code>libsbml.pyc</code><br>
+      <code>libsbml.pth</code></td>
+  <td><code>_libsbml.so</code><br>
+      <code>libsbml.py</code><br>
+      <code>libsbml.pyc</code><br>
+      <code>libsbml.pth</code></td>
+  <td><code>_libsbml.dll</code><br>
+      <code>libsbml.py</code><br>
+      <code>libsbml.pyc</code><br>
+      <code>libsbml.pth</code></td>
+</tr><tr>
+  <td>Python&nbsp;2.5</td>
   <td>
     <font size="-1"><nobr><em>(native C++ library)</em></nobr><br>
     <nobr><em>(Python module file)</em></nobr><br>
@@ -752,6 +778,8 @@ table below lists the pathnames where those files will be installed.
   <td><code>libSBML.bundle</code></td>
   <td><code>libSBML.dll</code></td>
 </tr>
+<caption align="bottom">Legend: N/A = not available.
+</caption>
 </table>
 </center>
 
@@ -825,7 +853,7 @@ discussed above).
   <td><nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/ruby/site_ruby/</code><em><span style="background-color: #dfd">ruby-version</span></em><code>/</code><em><span style="background-color: #dfd">platform</span></em><code>/</code></nobr></td>
   <td></td>
 </tr>
-<caption align="bottom">The placeholder
+<caption align="bottom">Legend: The placeholder
 <em><span style="background-color: #dfd">platform</span></em> stands for a
 platform-specific directory name; the exact string depends on the
 combination of your operating system, machine architecture, programming
