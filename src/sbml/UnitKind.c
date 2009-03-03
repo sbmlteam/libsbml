@@ -66,17 +66,17 @@ const char* UNIT_KIND_STRINGS[] =
 };
 
 
-/**
+/*
  * Tests for logical equality between two given UnitKind_t values.
  *
  * This function behaves exactly like C's <tt>==</tt> operator, except for
  * the following two cases:
+ * 
+ * @li UNIT_KIND_LITER <code>==</code> UNIT_KIND_LITRE
+ * @li UNIT_KIND_METER <code>==</code> UNIT_KIND_METRE
  *
- *   - UNIT_KIND_LITER == UNIT_KIND_LITRE
- *   - UNIT_KIND_METER == UNIT_KIND_METRE
- *
- * where C would yield false (since each of the above is a distinct
- * enumeration value), UnitKind_equals() returns true.
+ * C equality comparison would yield false (because each of the above is a
+ * distinct enumeration value), but UnitKind_equals() returns true.
  *
  * @param uk1 a UnitKind_t enumeration value 
  * @param uk2 the UnitKind_t enumeration value to compare to @p uk1
@@ -97,7 +97,7 @@ UnitKind_equals (UnitKind_t uk1, UnitKind_t uk2)
 }
 
 
-/**
+/*
  * Converts a string to its corresponding UnitKind_t enumeration value.
  *
  * @param name a string, the name of a predefined base unit in SBML
@@ -116,15 +116,15 @@ UnitKind_forName (const char *name)
 }
 
 
-/**
+/*
  * Converts a UnitKind_t enumeration value to a text string equivalent.
  *
  * @param uk the UnitKind_t value to convert
  *
  * @return the name of the given UnitKind.
  *
- * @note The string returned is a static data value.  caller does not own
- * the returned string and is therefore not allowed to modify it.
+ * @note The string returned is a static data value.  The caller does not
+ * own the returned string and is therefore not allowed to modify it.
  */
 LIBSBML_EXTERN
 const char *
@@ -139,7 +139,7 @@ UnitKind_toString (UnitKind_t uk)
 }
 
 
-/**
+/*
  * Predicate for testing whether a given string corresponds to a
  * predefined UnitKind_t enumeration value.
  *
