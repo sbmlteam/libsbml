@@ -109,9 +109,12 @@ LineSegment::LineSegment(const LineSegment& orig):SBase(orig)
  */
 LineSegment& LineSegment::operator=(const LineSegment& orig)
 {
-    this->SBase::operator=(orig);
-    this->mStartPoint=orig.mStartPoint;
-    this->mEndPoint=orig.mEndPoint;
+    if(&orig!=this)
+    {
+      this->SBase::operator=(orig);
+      this->mStartPoint=orig.mStartPoint;
+      this->mEndPoint=orig.mEndPoint;
+    }
     return *this;
 }
 

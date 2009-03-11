@@ -128,8 +128,11 @@ SpeciesGlyph::SpeciesGlyph(const SpeciesGlyph& source):GraphicalObject(source)
  */
 SpeciesGlyph& SpeciesGlyph::operator=(const SpeciesGlyph& source)
 {
-    GraphicalObject::operator=(source);
-    this->mSpecies=source.getSpeciesId();    
+    if(&source!=this)
+    {
+      GraphicalObject::operator=(source);
+      this->mSpecies=source.getSpeciesId();
+    }
     return *this;
 }
 

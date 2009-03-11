@@ -285,10 +285,12 @@ Curve::Curve(const Curve& source):SBase(source)
  */
 Curve& Curve::operator=(const Curve& source)
 {
-    this->SBase::operator=(source);
-    // copy the line segments
-    this->mCurveSegments=*source.getListOfCurveSegments();
-    
+    if(&source!=this)
+    {
+        this->SBase::operator=(source);
+        // copy the line segments
+        this->mCurveSegments=*source.getListOfCurveSegments();
+    }
     return *this;
 }
 
@@ -392,32 +394,9 @@ XMLNode Curve::toXML() const
 
 ListOfLineSegments& ListOfLineSegments::operator=(const ListOfLineSegments& source)
 {
-    copySBaseAttributes(source,*this);
-    this->mLine=source.getLine();
-    this->mColumn=source.getColumn();
-    if(this->mNamespaces!=NULL)
+    if(&source!=this)
     {
-        delete this->mNamespaces;
-        this->mNamespaces=NULL;
-    }
-    if(source.getNamespaces()!=NULL)
-    {
-      this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
-    }
-    // clear the old list
-    unsigned int i=0,iMax=this->size();
-    while(i<iMax)
-    {
-        LineSegment* ls=static_cast<LineSegment*>(this->remove(0));
-        delete ls;
-        ++i;
-    }
-    i=0;
-    iMax=source.size();
-    while(i<iMax)
-    {
-      this->append(source.get(i));
-      ++i;
+        this->ListOf::operator=(source);
     }
     return *this;
 }

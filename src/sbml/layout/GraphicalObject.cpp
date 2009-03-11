@@ -168,9 +168,11 @@ GraphicalObject::GraphicalObject(const GraphicalObject& source):SBase(source)
  */
 GraphicalObject& GraphicalObject::operator=(const GraphicalObject& source)
 {
-    this->SBase::operator=(source);
-    this->mBoundingBox=*source.getBoundingBox();
-        
+    if(&source!=this)
+    {
+      this->SBase::operator=(source);
+      this->mBoundingBox=*source.getBoundingBox();
+    }   
     return *this;
 }
 

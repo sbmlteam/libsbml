@@ -273,14 +273,16 @@ Layout::Layout(const Layout& source):SBase(source)
  */
 Layout& Layout::operator=(const Layout& source)
 {
-    this->SBase::operator=(source);
-    this->mDimensions=*source.getDimensions();
-    this->mCompartmentGlyphs=*source.getListOfCompartmentGlyphs();
-    this->mSpeciesGlyphs=*source.getListOfSpeciesGlyphs();
-    this->mReactionGlyphs=*source.getListOfReactionGlyphs();
-    this->mTextGlyphs=*source.getListOfTextGlyphs();
-    this->mAdditionalGraphicalObjects=*source.getListOfAdditionalGraphicalObjects();
-       
+    if(&source!=this)
+    {
+        this->SBase::operator=(source);
+        this->mDimensions=*source.getDimensions();
+        this->mCompartmentGlyphs=*source.getListOfCompartmentGlyphs();
+        this->mSpeciesGlyphs=*source.getListOfSpeciesGlyphs();
+        this->mReactionGlyphs=*source.getListOfReactionGlyphs();
+        this->mTextGlyphs=*source.getListOfTextGlyphs();
+        this->mAdditionalGraphicalObjects=*source.getListOfAdditionalGraphicalObjects();
+    }   
     return *this;
 }
 
@@ -1291,32 +1293,9 @@ ListOfLayouts::clone () const
 
 ListOfLayouts& ListOfLayouts::operator=(const ListOfLayouts& source)
 {
-    copySBaseAttributes(source,*this);
-    this->mLine=source.getLine();
-    this->mColumn=source.getColumn();
-    if(this->mNamespaces!=NULL)
+    if(&source!=this)
     {
-        delete this->mNamespaces;
-        this->mNamespaces=NULL;
-    }
-    if(source.getNamespaces()!=NULL)
-    {
-      this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
-    }
-    // clear the old list
-    unsigned int i=0,iMax=this->size();
-    while(i<iMax)
-    {
-        SBase* o=static_cast<SBase*>(this->remove(0));
-        delete o;
-        ++i;
-    }
-    i=0;
-    iMax=source.size();
-    while(i<iMax)
-    {
-      this->append(source.get(i));
-      ++i;
+        this->ListOf::operator=(source);
     }
     return *this;
 }
@@ -1417,32 +1396,9 @@ ListOfCompartmentGlyphs::clone () const
 
 ListOfCompartmentGlyphs& ListOfCompartmentGlyphs::operator=(const ListOfCompartmentGlyphs& source)
 {
-    copySBaseAttributes(source,*this);
-    // clear the old list
-    this->mLine=source.getLine();
-    this->mColumn=source.getColumn();
-    if(this->mNamespaces!=NULL)
+    if(&source!=this)
     {
-        delete this->mNamespaces;
-        this->mNamespaces=NULL;
-    }
-    if(source.getNamespaces()!=NULL)
-    {
-      this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
-    }
-    unsigned int i=0,iMax=this->size();
-    while(i<iMax)
-    {
-        SBase* o=static_cast<SBase*>(this->remove(0));
-        delete o;
-        ++i;
-    }
-    i=0;
-    iMax=source.size();
-    while(i<iMax)
-    {
-      this->append(source.get(i));
-      ++i;
+        this->ListOf::operator=(source);
     }
     return *this;
 }
@@ -1547,32 +1503,9 @@ ListOfSpeciesGlyphs::clone () const
 
 ListOfSpeciesGlyphs& ListOfSpeciesGlyphs::operator=(const ListOfSpeciesGlyphs& source)
 {
-    copySBaseAttributes(source,*this);
-    this->mLine=source.getLine();
-    this->mColumn=source.getColumn();
-    if(this->mNamespaces!=NULL)
+    if(&source!=this)
     {
-        delete this->mNamespaces;
-        this->mNamespaces=NULL;
-    }
-    if(source.getNamespaces()!=NULL)
-    {
-      this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
-    }
-    // clear the old list
-    unsigned int i=0,iMax=this->size();
-    while(i<iMax)
-    {
-        SBase* o=static_cast<SBase*>(this->remove(0));
-        delete o;
-        ++i;
-    }
-    i=0;
-    iMax=source.size();
-    while(i<iMax)
-    {
-      this->append(source.get(i));
-      ++i;
+        this->ListOf::operator=(source);
     }
     return *this;
 }
@@ -1676,32 +1609,9 @@ ListOfReactionGlyphs::clone () const
 
 ListOfReactionGlyphs& ListOfReactionGlyphs::operator=(const ListOfReactionGlyphs& source)
 {
-    copySBaseAttributes(source,*this);
-    this->mLine=source.getLine();
-    this->mColumn=source.getColumn();
-    if(this->mNamespaces!=NULL)
+    if(&source!=this)
     {
-        delete this->mNamespaces;
-        this->mNamespaces=NULL;
-    }
-    if(source.getNamespaces()!=NULL)
-    {
-      this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
-    }
-    // clear the old list
-    unsigned int i=0,iMax=this->size();
-    while(i<iMax)
-    {
-        SBase* o=static_cast<SBase*>(this->remove(0));
-        delete o;
-        ++i;
-    }
-    i=0;
-    iMax=source.size();
-    while(i<iMax)
-    {
-      this->append(source.get(i));
-      ++i;
+        this->ListOf::operator=(source);
     }
     return *this;
 }
@@ -1805,31 +1715,9 @@ ListOfTextGlyphs::clone () const
 
 ListOfTextGlyphs& ListOfTextGlyphs::operator=(const ListOfTextGlyphs& source)
 {
-    copySBaseAttributes(source,*this);
-    this->mLine=source.getLine();
-    this->mColumn=source.getColumn();
-    if(this->mNamespaces!=NULL)
+    if(&source!=this)
     {
-        delete this->mNamespaces;
-        this->mNamespaces=NULL;
-    }
-    if(source.getNamespaces()!=NULL)
-    {
-      this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
-    }
-    // clear the old list
-    unsigned int i=0,iMax=this->size();
-    while(i<iMax)
-    {
-        SBase* o=static_cast<SBase*>(this->remove(0));
-        delete o;
-        ++i;
-    }
-    i=0;iMax=source.size();
-    while(i<iMax)
-    {
-      this->append(source.get(i));
-      ++i;
+        this->ListOf::operator=(source);
     }
     return *this;
 }
@@ -1932,32 +1820,9 @@ ListOfGraphicalObjects::clone () const
 
 ListOfGraphicalObjects& ListOfGraphicalObjects::operator=(const ListOfGraphicalObjects& source)
 {
-    copySBaseAttributes(source,*this);
-    this->mLine=source.getLine();
-    this->mColumn=source.getColumn();
-    if(this->mNamespaces!=NULL)
+    if(&source!=this)
     {
-        delete this->mNamespaces;
-        this->mNamespaces=NULL;
-    }
-    if(source.getNamespaces()!=NULL)
-    {
-      this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
-    }
-    // clear the old list
-    unsigned int i=0,iMax=this->size();
-    while(i<iMax)
-    {
-        SBase* o=static_cast<SBase*>(this->remove(0));
-        delete o;
-        ++i;
-    }
-    i=0;
-    iMax=source.size();
-    while(i<iMax)
-    {
-      this->append(source.get(i));
-      ++i;
+        this->ListOf::operator=(source);
     }
     return *this;
 }

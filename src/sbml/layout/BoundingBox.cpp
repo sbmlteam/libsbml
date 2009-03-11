@@ -79,9 +79,12 @@ BoundingBox::BoundingBox(const BoundingBox& orig):SBase(orig)
  */
 BoundingBox& BoundingBox::operator=(const BoundingBox& orig)
 {
-    this->SBase::operator=(orig);
-    this->mPosition=orig.mPosition;
-    this->mDimensions=orig.mDimensions;
+    if(&orig!=this)
+    {
+      this->SBase::operator=(orig);
+      this->mPosition=orig.mPosition;
+      this->mDimensions=orig.mDimensions;
+    }
     return *this;
 }
 

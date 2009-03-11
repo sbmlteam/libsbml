@@ -173,11 +173,14 @@ SpeciesReferenceGlyph::SpeciesReferenceGlyph(const SpeciesReferenceGlyph& source
  */
 SpeciesReferenceGlyph& SpeciesReferenceGlyph::operator=(const SpeciesReferenceGlyph& source)
 {
-    GraphicalObject::operator=(source);
-    this->mSpeciesReference=source.getSpeciesReferenceId();
-    this->mSpeciesGlyph=source.getSpeciesGlyphId();
-    this->mRole=source.getRole();
-    this->mCurve=*source.getCurve();
+    if(&source!=this)
+    {
+      GraphicalObject::operator=(source);
+      this->mSpeciesReference=source.getSpeciesReferenceId();
+      this->mSpeciesGlyph=source.getSpeciesGlyphId();
+      this->mRole=source.getRole();
+      this->mCurve=*source.getCurve();
+    }
     return *this;
 }
 

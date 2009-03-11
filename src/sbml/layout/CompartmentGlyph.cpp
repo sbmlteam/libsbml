@@ -127,8 +127,11 @@ CompartmentGlyph::CompartmentGlyph(const CompartmentGlyph& source):GraphicalObje
  */
 CompartmentGlyph& CompartmentGlyph::operator=(const CompartmentGlyph& source)
 {
-    GraphicalObject::operator=(source);
-    this->mCompartment=source.getCompartmentId();    
+    if(&source!=this)
+    {
+        GraphicalObject::operator=(source);
+        this->mCompartment=source.getCompartmentId();
+    }
     return *this;
 }
 

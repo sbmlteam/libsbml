@@ -130,10 +130,13 @@ TextGlyph::TextGlyph(const TextGlyph& source):GraphicalObject(source)
  */
 TextGlyph& TextGlyph::operator=(const TextGlyph& source)
 {
-    GraphicalObject::operator=(source);
-    this->mText=source.getText();
-    this->mOriginOfText=source.getOriginOfTextId();
-    this->mGraphicalObject=source.getGraphicalObjectId();    
+    if(&source!=this)
+    {
+      GraphicalObject::operator=(source);
+      this->mText=source.getText();
+      this->mOriginOfText=source.getOriginOfTextId();
+      this->mGraphicalObject=source.getGraphicalObjectId();
+    }
     return *this;
 }
 
