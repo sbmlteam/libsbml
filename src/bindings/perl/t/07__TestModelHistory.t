@@ -3,8 +3,7 @@
 # followed by little human processing to fix syntactic specialties
 # perify.pl is unable to handle right now =;) xtof
 use Test::More;
-#BEGIN { plan tests => 132 };
-BEGIN { plan tests => 106 };
+BEGIN { plan tests => 152 };
 
 use LibSBML;
 use strict;
@@ -21,6 +20,9 @@ test_ModelHistory_addCreator();
 test_ModelHistory_setCreatedDate();
 test_ModelHistory_setModifiedDate();
 test_ModelHistory_addModifiedDate();
+# scalar/list context test for functions returning a List*
+test_ModelHistory_getListModifiedDates();
+test_ModelHistory_getCreators();
 
 #---
 sub test_Date_create {
@@ -157,11 +159,9 @@ sub test_ModelCreator_setters {
 sub test_ModelHistory_create {
  my $history = new LibSBML::ModelHistory();
  ok( defined $history );
-=errors
- ok( $history->getListCreators() != '' );
- ok( $history->getCreatedDate() eq '' );
- ok( $history->getModifiedDate() eq '' );
-=cut
+ ok( !defined $history->getListCreators()->getModelCreator(0) );
+ ok( !defined $history->getCreatedDate() );
+ ok( !defined $history->getModifiedDate() );
 }
 
 #---
@@ -177,14 +177,12 @@ sub test_ModelHistory_addCreator {
  $mc->setOrganisation('UH');
  $history->addCreator($mc);
  ok( $history->getNumCreators() == 1 );
-=errors
- my $newMC = $history->getListCreators()->get(0);
+ my $newMC = $history->getListCreators()->getModelCreator(0);
  ok( defined $newMC );
  ok( $newMC->getFamilyName() eq 'Keating' );
  ok( $newMC->getGivenName() eq 'Sarah' );
  ok( $newMC->getEmail() eq 'sbml-team@caltech.edu' );
  ok( $newMC->getOrganisation() eq 'UH' );
-=cut
 }
 
 #---
@@ -237,8 +235,7 @@ sub test_ModelHistory_addModifiedDate {
  $history->addModifiedDate($date);
  ok( $history->getNumModifiedDates() == 1 );
  ok( $history->isSetModifiedDate() == 1 );
-=errors
- my $newdate = $history->getListModifiedDates()->get(0);
+ my $newdate = $history->getListModifiedDates()->getDate(0);
  ok( $newdate->getYear() == 2005 );
  ok( $newdate->getMonth() == 12 );
  ok( $newdate->getDay() == 30 );
@@ -248,13 +245,11 @@ sub test_ModelHistory_addModifiedDate {
  ok( $newdate->getSignOffset() == 1 );
  ok( $newdate->getHoursOffset() == 2 );
  ok( $newdate->getMinutesOffset() == 0 );
-=cut
  my $date1 = new LibSBML::Date(2008, 11, 2, 16, 42, 40, 1, 2, 0);
  $history->addModifiedDate($date1);
  ok( $history->getNumModifiedDates() == 2 );
  ok( $history->isSetModifiedDate() == 1 );
-=errors
- my $newdate1 = $history->getModifiedDateFromList(1);
+ my $newdate1 = $history->getListModifiedDates()->getDate(1);
  ok( $newdate1->getYear() == 2008 );
  ok( $newdate1->getMonth() == 11 );
  ok( $newdate1->getDay() == 2 );
@@ -264,5 +259,87 @@ sub test_ModelHistory_addModifiedDate {
  ok( $newdate1->getSignOffset() == 1 );
  ok( $newdate1->getHoursOffset() == 2 );
  ok( $newdate1->getMinutesOffset() == 0 );
-=cut
+}
+
+#---
+sub test_ModelHistory_getListModifiedDates {
+  my $history = new LibSBML::ModelHistory();
+  my $date1 = new LibSBML::Date(2005, 12, 30, 12, 15, 45, 1, 2, 0);
+  $history->addModifiedDate($date1);  
+  my $date2 = new LibSBML::Date(2008, 11, 2, 16, 42, 40, 1, 2, 0);
+  $history->addModifiedDate($date2);
+
+  # list context
+  my $i = 0;
+  foreach my $date4 ($history->getListModifiedDates()) {
+    $date4 = $date4->getDateAsString();
+    my $date3 = ($i==0) ? $date1->getDateAsString() : $date2->getDateAsString();
+    ok( $date4 eq $date3 );
+    $i++
+  }
+
+  # scalar context
+  for $i (0, 1) {
+    my $d4 = $history->getListModifiedDates()->getDate($i)->getDateAsString();
+    my $d3 = ($i==0) ? $date1->getDateAsString() : $date2->getDateAsString();
+    ok( $d4 eq $d3 );
+  }
+}
+
+#---
+sub test_ModelHistory_getCreators {
+  my $xtofA = 'Flamm';
+  my $xtofB = 'Christoph';
+  my $xtofC = 'xtof@tbi.univie.ac.at';
+  my $uni = 'University of Vienna';
+  my $raimA = 'Machne';
+  my $raimB = 'Rainer';
+  my $raimC = 'raim@tbi.univie.ac.at';  
+  my $history = new LibSBML::ModelHistory();
+  # creator xtof  
+  my $mc = new LibSBML::ModelCreator();
+  $mc->setFamilyName($xtofA);
+  $mc->setGivenName($xtofB);
+  $mc->setEmail($xtofC);
+  $mc->setOrganisation($uni);
+  $history->addCreator($mc);
+  # creator raim
+  $mc = new LibSBML::ModelCreator();
+  $mc->setFamilyName($raimA);
+  $mc->setGivenName($raimB);
+  $mc->setEmail($raimC);
+  $mc->setOrganisation($uni);
+  $history->addCreator($mc);  
+
+  my $i = 0;
+  foreach my $newmc ($history->getListCreators()) {
+    if ($i++ == 0) { # check creator xtof
+      ok( $newmc->getFamilyName() eq $xtofA );
+      ok( $newmc->getGivenName() eq $xtofB );
+      ok( $newmc->getEmail() eq $xtofC );
+      ok( $newmc->getOrganisation() eq $uni );
+    }
+    else { # check creator raim
+      ok( $newmc->getFamilyName() eq $raimA );
+      ok( $newmc->getGivenName() eq $raimB );
+      ok( $newmc->getEmail() eq $raimC );
+      ok( $newmc->getOrganisation() eq $uni ); 
+    }
+  }
+
+  for $i (0, 1) {
+    my $newmc = $history->getListCreators()->getModelCreator($i);
+    if ($i == 0) { # check creator xtof
+      ok( $newmc->getFamilyName() eq $xtofA );
+      ok( $newmc->getGivenName() eq $xtofB );
+      ok( $newmc->getEmail() eq $xtofC );
+      ok( $newmc->getOrganisation() eq $uni );
+    }
+    else { # check creator raim
+      ok( $newmc->getFamilyName() eq $raimA );
+      ok( $newmc->getGivenName() eq $raimB );
+      ok( $newmc->getEmail() eq $raimC );
+      ok( $newmc->getOrganisation() eq $uni ); 
+    }  
+  }
 }

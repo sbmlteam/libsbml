@@ -96,6 +96,7 @@
  */
 %ignore XMLAttributes::readInto;
 
+#ifndef SWIGPERL5
 /**
  * Ignore methods which receive or return List*.
  */
@@ -103,6 +104,7 @@
 %ignore ModelHistory::getListModifiedDates;
 %ignore SBase::getCVTerms;
 %ignore RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation, List * CVTerms);
+#endif
 
 /**
  * Ignore methods which receive std::list.
@@ -260,6 +262,10 @@
 %include sbml/annotation/CVTerm.h
 %include sbml/annotation/ModelHistory.h
 %include sbml/annotation/RDFAnnotation.h
+
+#ifdef SWIGPERL5
+%include sbml/util/List.h
+#endif
 
 #ifdef USE_LAYOUT
 %include ../swig/layout.i

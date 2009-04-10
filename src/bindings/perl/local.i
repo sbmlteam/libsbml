@@ -299,3 +299,4 @@ extern std::ostream clog;
 %rename(nextToken) XMLTokenizer::next;
 
 %include list_of_fix.i
+%include list_get_fix.i
