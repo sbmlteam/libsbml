@@ -217,6 +217,13 @@ const ASTNode*
 FunctionDefinition::getBody () const
 {
   if (!mMath) return NULL;
+
+  /* if the math is not a lambda this function can cause issues
+   * elsewhere, technically if the math is not a lambda
+   * function the body is NULL
+   */
+  if (!(mMath->isLambda())) return NULL;
+
   unsigned int nc = mMath->getNumChildren();
   if (nc > 1)
     return mMath->getRightChild();
@@ -234,6 +241,14 @@ FunctionDefinition::getBody () const
 ASTNode*
 FunctionDefinition::getBody ()
 {
+   if (!mMath) return NULL;
+
+  /* if the math is not a lambda this function can cause issues
+   * elsewhere, technically if the math is not a lambda
+   * function the body is NULL
+   */
+  if (!(mMath->isLambda())) return NULL;
+
   unsigned int nc = mMath->getNumChildren();
   if (nc > 1)
     return mMath->getRightChild();
@@ -251,8 +266,16 @@ FunctionDefinition::getBody ()
 unsigned int
 FunctionDefinition::getNumArguments () const
 {
-  if (!isSetMath() || mMath->getNumChildren() == 0) return 0;
-  else return mMath->getNumChildren() - 1;
+  /* if the math is not a lambda this function can cause issues
+   * elsewhere, technically if the math is not a lambda
+   * function there are no arguments
+   */
+  if ( !isSetMath()
+    || !(mMath->isLambda())
+    || mMath->getNumChildren() == 0) 
+    return 0;
+  else 
+    return mMath->getNumChildren() - 1;
 }
 
 
