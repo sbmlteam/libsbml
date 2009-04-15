@@ -594,6 +594,8 @@ AssignmentCycles::checkInitialAssignmentForSymbol(const Model& m,
     if (!(strcmp(variable.c_str(), name)))
       logMathRefersToSelf(*(object.getMath()), object);
   }
+
+  delete variables;
 }
 
 void 
@@ -617,6 +619,8 @@ AssignmentCycles::checkReactionForId(const Model& m, const Reaction& object)
       if (!(strcmp(variable.c_str(), name)))
         logMathRefersToSelf(*(object.getKineticLaw()->getMath()), object);
     }
+    
+    delete variables;
   }
 }
 
@@ -636,6 +640,8 @@ AssignmentCycles::checkRuleForVariable(const Model& m, const Rule& object)
     if (!(strcmp(variable.c_str(), name)))
       logMathRefersToSelf(*(object.getMath()), object);
   }
+  
+  delete variables;
 }
 
   
@@ -668,6 +674,8 @@ AssignmentCycles::checkInitialAssignmentForCompartment(const Model &m,
       logImplicitReference(object, *(s));
     }
   }
+  
+  delete variables;
 }
  
 
@@ -700,6 +708,8 @@ AssignmentCycles::checkRuleForCompartment(const Model& m,
       logImplicitReference(object, *(s));
     }
   }
+  
+  delete variables;
 }
 
 /**
