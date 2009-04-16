@@ -98,8 +98,12 @@ SimpleSpeciesReference::SimpleSpeciesReference(const SimpleSpeciesReference& ori
  */
 SimpleSpeciesReference& SimpleSpeciesReference::operator=(const SimpleSpeciesReference& rhs)
 {
-  this->SBase::operator =(rhs);
-  mSpecies = rhs.mSpecies;
+  if(&rhs!=this)
+  {
+    this->SBase::operator =(rhs);
+    mSpecies = rhs.mSpecies;
+  }
+
   return *this;
 }
 
@@ -349,14 +353,18 @@ SpeciesReference::SpeciesReference (const SpeciesReference& orig) :
  */
 SpeciesReference& SpeciesReference::operator=(const SpeciesReference& rhs)
 {
-  this->SBase::operator =(rhs);
-  this->SimpleSpeciesReference::operator = ( rhs );
-  mStoichiometry = rhs.mStoichiometry ;
-  mDenominator = rhs.mDenominator   ;
-  if (rhs.mStoichiometryMath)
+  if(&rhs!=this)
   {
-    mStoichiometryMath = new StoichiometryMath(*rhs.getStoichiometryMath());
+    this->SBase::operator =(rhs);
+    this->SimpleSpeciesReference::operator = ( rhs );
+    mStoichiometry = rhs.mStoichiometry ;
+    mDenominator = rhs.mDenominator   ;
+    if (rhs.mStoichiometryMath)
+    {
+      mStoichiometryMath = new StoichiometryMath(*rhs.getStoichiometryMath());
+    }
   }
+
   return *this;
 }
 

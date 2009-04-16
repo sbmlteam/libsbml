@@ -85,11 +85,15 @@ ListOf::ListOf (const ListOf& orig) : SBase(orig)
  */
 ListOf& ListOf::operator=(const ListOf& rhs)
 {
-  this->SBase::operator =(rhs);
-  // Deletes existing items
-  for_each( mItems.begin(), mItems.end(), Delete() );
-  mItems.resize( rhs.size() );
-  transform( rhs.mItems.begin(), rhs.mItems.end(), mItems.begin(), Clone() );
+  if(&rhs!=this)
+  {
+    this->SBase::operator =(rhs);
+    // Deletes existing items
+    for_each( mItems.begin(), mItems.end(), Delete() );
+    mItems.resize( rhs.size() );
+    transform( rhs.mItems.begin(), rhs.mItems.end(), mItems.begin(), Clone() );
+  }
+  
   return *this;
 }
 

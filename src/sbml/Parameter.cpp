@@ -116,11 +116,15 @@ Parameter::Parameter(const Parameter& orig) :
  */
 Parameter& Parameter::operator=(const Parameter& rhs)
 {
-  this->SBase::operator =(rhs);
-     mValue      = rhs.mValue    ;
-     mUnits      = rhs.mUnits    ;
-     mConstant   = rhs.mConstant ;
-     mIsSetValue = rhs.mIsSetValue;
+  if(&rhs!=this)
+  {
+    this->SBase::operator =(rhs);
+    mValue      = rhs.mValue    ;
+    mUnits      = rhs.mUnits    ;
+    mConstant   = rhs.mConstant ;
+    mIsSetValue = rhs.mIsSetValue;
+  }
+
   return *this;
 }
 

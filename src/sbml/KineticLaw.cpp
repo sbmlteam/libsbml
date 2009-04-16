@@ -122,12 +122,16 @@ KineticLaw::KineticLaw (const KineticLaw& orig) :
  */
 KineticLaw& KineticLaw::operator=(const KineticLaw& rhs)
 {
-  this->SBase::operator =(rhs);
-  mFormula        = rhs.mFormula        ;
-  mTimeUnits      = rhs.mTimeUnits      ;
-  mSubstanceUnits = rhs.mSubstanceUnits ;
-  mParameters     = rhs.mParameters     ;
-  if (rhs.mMath) mMath = rhs.mMath->deepCopy();
+  if(&rhs!=this)
+  {
+    this->SBase::operator =(rhs);
+    mFormula        = rhs.mFormula        ;
+    mTimeUnits      = rhs.mTimeUnits      ;
+    mSubstanceUnits = rhs.mSubstanceUnits ;
+    mParameters     = rhs.mParameters     ;
+    if (rhs.mMath) mMath = rhs.mMath->deepCopy();
+  }
+
   return *this;
 }
 

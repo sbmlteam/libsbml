@@ -121,12 +121,16 @@ Unit::Unit(const Unit& orig) :
  */
 Unit& Unit::operator=(const Unit& rhs)
 {
-  this->SBase::operator =(rhs);
-  mKind       = rhs.mKind       ;
-  mExponent   = rhs.mExponent   ;
-  mScale      = rhs.mScale      ;
-  mMultiplier = rhs.mMultiplier ;
-  mOffset     = rhs.mOffset     ;
+  if(&rhs!=this)
+  {
+    this->SBase::operator =(rhs);
+    mKind       = rhs.mKind       ;
+    mExponent   = rhs.mExponent   ;
+    mScale      = rhs.mScale      ;
+    mMultiplier = rhs.mMultiplier ;
+    mOffset     = rhs.mOffset     ;
+  }
+
   return *this;
 }
 

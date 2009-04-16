@@ -120,7 +120,9 @@ Species::Species(const Species& orig) :
  */
 Species& Species::operator=(const Species& orig)
 {
-  this->SBase::operator =(orig);
+  if(&orig!=this)
+  {
+    this->SBase::operator =(orig);
     this->mSpeciesType = orig.mSpeciesType;
     this->mCompartment = orig.mCompartment;
 
@@ -138,6 +140,8 @@ Species& Species::operator=(const Species& orig)
     this->mIsSetInitialAmount = orig.mIsSetInitialAmount;
     this->mIsSetInitialConcentration = orig.mIsSetInitialConcentration;
     this->mIsSetCharge = orig.mIsSetCharge;
+  }
+
   return *this;
 }
 

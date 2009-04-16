@@ -157,11 +157,15 @@ CVTerm::CVTerm(const CVTerm& orig):
 CVTerm& 
 CVTerm::operator=(const CVTerm& rhs)
 {
-  mQualifier       = rhs.mQualifier;
-  mModelQualifier  = rhs.mModelQualifier;
-  mBiolQualifier   = rhs.mBiolQualifier;
+  if(&rhs!=this)
+  {
+    mQualifier       = rhs.mQualifier;
+    mModelQualifier  = rhs.mModelQualifier;
+    mBiolQualifier   = rhs.mBiolQualifier;
 
-  mResources=new XMLAttributes(*rhs.mResources);
+    mResources=new XMLAttributes(*rhs.mResources);
+  }
+
   return *this;
 }
 

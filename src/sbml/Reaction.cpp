@@ -149,17 +149,21 @@ Reaction::Reaction (const Reaction& orig) :
  */
 Reaction& Reaction::operator=(const Reaction& rhs)
 {
-  this->SBase::operator =(rhs);
- mReversible = rhs.mReversible ;
- mFast       = rhs.mFast       ;
- mIsSetFast  = rhs.mIsSetFast  ;
- mReactants  = rhs.mReactants  ;
- mProducts   = rhs.mProducts   ;
- mModifiers  = rhs.mModifiers  ;
-  if (rhs.mKineticLaw)
+  if(&rhs!=this)
   {
-    mKineticLaw = static_cast<KineticLaw*>( rhs.mKineticLaw->clone() );
+    this->SBase::operator =(rhs);
+    mReversible = rhs.mReversible ;
+    mFast       = rhs.mFast       ;
+    mIsSetFast  = rhs.mIsSetFast  ;
+    mReactants  = rhs.mReactants  ;
+    mProducts   = rhs.mProducts   ;
+    mModifiers  = rhs.mModifiers  ;
+    if (rhs.mKineticLaw)
+    {
+      mKineticLaw = static_cast<KineticLaw*>( rhs.mKineticLaw->clone() );
+    }
   }
+
   return *this;
 }
 

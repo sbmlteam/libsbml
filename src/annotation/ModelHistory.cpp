@@ -90,18 +90,22 @@ Date::Date(const Date& orig):
   */
 Date& Date::operator=(const Date& orig)
 {
-  mYear   = orig.mYear;
-  mMonth  = orig.mMonth;
-  mDay    = orig.mDay;
-  mHour   = orig.mHour;  
-  mMinute = orig.mMinute;
-  mSecond = orig.mSecond;
-  
-  mSignOffset     = orig.mSignOffset;
-  mHoursOffset    = orig.mHoursOffset;
-  mMinutesOffset  = orig.mMinutesOffset;;
+  if(&orig!=this)
+  {
+    mYear   = orig.mYear;
+    mMonth  = orig.mMonth;
+    mDay    = orig.mDay;
+    mHour   = orig.mHour;  
+    mMinute = orig.mMinute;
+    mSecond = orig.mSecond;
+    
+    mSignOffset     = orig.mSignOffset;
+    mHoursOffset    = orig.mHoursOffset;
+    mMinutesOffset  = orig.mMinutesOffset;;
 
-  mDate = orig.mDate;
+    mDate = orig.mDate;
+  }
+
   return *this;
 }
 
@@ -566,10 +570,14 @@ ModelCreator::ModelCreator(const ModelCreator& orig):
   */
 ModelCreator& ModelCreator::operator=(const ModelCreator& orig)
 {
-  mFamilyName   = orig.mFamilyName;
-  mGivenName    = orig.mGivenName;
-  mEmail        = orig.mEmail;
-  mOrganization = orig.mOrganization;
+  if(&orig!=this)
+  {
+    mFamilyName   = orig.mFamilyName;
+    mGivenName    = orig.mGivenName;
+    mEmail        = orig.mEmail;
+    mOrganization = orig.mOrganization;
+  }
+
   return *this;
 }
 
@@ -778,18 +786,21 @@ ModelHistory::ModelHistory(const ModelHistory& orig)
 ModelHistory& 
 ModelHistory::operator=(const ModelHistory& orig)
 {
-  unsigned int i;
-  for (i = 0; i < orig.mCreators->getSize(); i++)
+  if(&orig!=this)
   {
-    addCreator(static_cast<ModelCreator*>(orig.mCreators->get(i)));
+    unsigned int i;
+    for (i = 0; i < orig.mCreators->getSize(); i++)
+    {
+      addCreator(static_cast<ModelCreator*>(orig.mCreators->get(i)));
+    }
+
+    for (i = 0; i < orig.mModifiedDates->getSize(); i++)
+    {
+      addModifiedDate(static_cast<Date*>(orig.mModifiedDates->get(i)));
+    }
+    if (orig.mCreatedDate) setCreatedDate(orig.mCreatedDate);
   }
 
-  for (i = 0; i < orig.mModifiedDates->getSize(); i++)
-  {
-    addModifiedDate(static_cast<Date*>(orig.mModifiedDates->get(i)));
-  }
-  if (orig.mCreatedDate) setCreatedDate(orig.mCreatedDate);
-//  if (orig.mModifiedDate)setModifiedDate(orig.mModifiedDate);
   return *this;
 }
 

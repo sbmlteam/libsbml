@@ -96,8 +96,12 @@ Delay::Delay (const Delay& orig) :
  */
 Delay& Delay::operator=(const Delay& rhs)
 {
-  this->SBase::operator =(rhs);
-  if (rhs.mMath) mMath = rhs.mMath->deepCopy();
+  if(&rhs!=this)
+  {
+    this->SBase::operator =(rhs);
+    if (rhs.mMath) mMath = rhs.mMath->deepCopy();
+  }
+
   return *this;
 }
 

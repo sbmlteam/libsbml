@@ -96,8 +96,12 @@ Trigger::Trigger (const Trigger& orig) :
  */
 Trigger& Trigger::operator=(const Trigger& rhs)
 {
-  this->SBase::operator =(rhs);
-  if (rhs.mMath) mMath = rhs.mMath->deepCopy();
+  if(&rhs!=this)
+  {
+    this->SBase::operator =(rhs);
+    if (rhs.mMath) mMath = rhs.mMath->deepCopy();
+  }
+
   return *this;
 }
 

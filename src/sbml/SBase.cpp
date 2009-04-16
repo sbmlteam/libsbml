@@ -246,6 +246,8 @@ SBase::~SBase ()
  */
 SBase& SBase::operator=(const SBase& orig)
 {
+  if(&orig!=this)
+  {
     this->mId     = orig.mId;
     this->mName   = orig.mName;
     this->mMetaId = orig.mMetaId;
@@ -254,12 +256,12 @@ SBase& SBase::operator=(const SBase& orig)
       this->mNotes = new XMLNode(*const_cast<SBase&>(orig).getNotes());
     else
       this->mNotes = 0;
-    
+
     if(orig.mAnnotation) 
       this->mAnnotation = new XMLNode(*const_cast<SBase&>(orig).mAnnotation);
     else
       this->mAnnotation = 0;
-    
+
     this->mObjectLevel       = orig.mObjectLevel;
     this->mObjectVersion       = orig.mObjectVersion;
     this->mSBML       = orig.mSBML;
@@ -289,8 +291,9 @@ SBase& SBase::operator=(const SBase& orig)
     }
 
     this->mHasBeenDeleted = orig.mHasBeenDeleted;
-    return *this;
-
+  }
+  
+  return *this;
 }
 
 

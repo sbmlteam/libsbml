@@ -85,7 +85,11 @@ SpeciesType::SpeciesType(const SpeciesType& orig) :
  */
 SpeciesType& SpeciesType::operator=(const SpeciesType& rhs)
 {
-  this->SBase::operator =(rhs);
+  if(&rhs!=this)
+  {
+    this->SBase::operator =(rhs);
+  }
+
   return *this;
 }
 

@@ -89,8 +89,12 @@ UnitDefinition::UnitDefinition(const UnitDefinition& orig) :
  */
 UnitDefinition& UnitDefinition::operator=(const UnitDefinition& rhs)
 {
-  this->SBase::operator =(rhs);
-  mUnits = rhs.mUnits;
+  if(&rhs!=this)
+  {
+    this->SBase::operator =(rhs);
+    mUnits = rhs.mUnits;
+  }
+
   return *this;
 }
 

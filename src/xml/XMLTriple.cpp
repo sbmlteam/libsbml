@@ -107,9 +107,12 @@ XMLTriple::XMLTriple(const XMLTriple& orig)
 XMLTriple& 
 XMLTriple::operator=(const XMLTriple& orig)
 {
-  mName   = orig.mName;
-  mURI    = orig.mURI;
-  mPrefix = orig.mPrefix;
+  if(&orig!=this)
+  {
+    mName   = orig.mName;
+    mURI    = orig.mURI;
+    mPrefix = orig.mPrefix;
+  }
 
   return *this;
 }

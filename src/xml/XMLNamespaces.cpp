@@ -68,7 +68,11 @@ XMLNamespaces::XMLNamespaces(const XMLNamespaces& orig)
 XMLNamespaces& 
 XMLNamespaces::operator=(const XMLNamespaces& orig)
 {
-  this->mNamespaces.assign( orig.mNamespaces.begin(), orig.mNamespaces.end() ); 
+  if(&orig!=this)
+  {
+    this->mNamespaces.assign( orig.mNamespaces.begin(), orig.mNamespaces.end() ); 
+  }
+  
   return *this;
 }
 

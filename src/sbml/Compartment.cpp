@@ -99,14 +99,18 @@ Compartment::Compartment(const Compartment& orig) :
  */
 Compartment& Compartment::operator=(const Compartment& rhs)
 {
-  this->SBase::operator =(rhs);
-  mSpatialDimensions= rhs.mSpatialDimensions  ;
-  mSize             = rhs.mSize      ;
-  mConstant         = rhs.mConstant     ;
-  mIsSetSize        = rhs.mIsSetSize    ;
-  mCompartmentType  = rhs.mCompartmentType;
-  mUnits            = rhs.mUnits ;
-  mOutside          = rhs.mOutside ;
+  if(&rhs!=this)
+  {
+    this->SBase::operator =(rhs);
+    mSpatialDimensions= rhs.mSpatialDimensions  ;
+    mSize             = rhs.mSize      ;
+    mConstant         = rhs.mConstant     ;
+    mIsSetSize        = rhs.mIsSetSize    ;
+    mCompartmentType  = rhs.mCompartmentType;
+    mUnits            = rhs.mUnits ;
+    mOutside          = rhs.mOutside ;
+  }
+
   return *this;
 }
 

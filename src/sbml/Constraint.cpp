@@ -101,10 +101,13 @@ Constraint::Constraint (const Constraint& orig) :
  */
 Constraint& Constraint::operator=(const Constraint& rhs)
 {
-  this->SBase::operator =(rhs);
+  if(&rhs!=this)
+  {
+    this->SBase::operator =(rhs);
 
-  if (rhs.mMath)    mMath    = rhs.mMath->deepCopy();
-  if (rhs.mMessage) mMessage = new XMLNode(*rhs.mMessage);
+    if (rhs.mMath)    mMath    = rhs.mMath->deepCopy();
+    if (rhs.mMessage) mMessage = new XMLNode(*rhs.mMessage);
+  }
 
   return *this;
 }

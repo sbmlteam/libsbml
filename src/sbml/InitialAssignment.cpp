@@ -92,8 +92,12 @@ InitialAssignment::InitialAssignment (const InitialAssignment& orig) :
  */
 InitialAssignment& InitialAssignment::operator=(const InitialAssignment& rhs)
 {
-  this->SBase::operator =(rhs);
-  if (rhs.mMath) mMath = rhs.mMath->deepCopy();
+  if(&rhs!=this)
+  {
+    this->SBase::operator =(rhs);
+    if (rhs.mMath) mMath = rhs.mMath->deepCopy();
+  }
+
   return *this;
 }
 

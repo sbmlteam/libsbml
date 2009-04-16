@@ -182,8 +182,12 @@ XMLNode::XMLNode(const XMLNode& orig):
 XMLNode& 
 XMLNode::operator=(const XMLNode& orig)
 {
-  this->XMLToken::operator=(orig);
-  this->mChildren.assign( orig.mChildren.begin(), orig.mChildren.end() ); 
+  if(&orig!=this)
+  {
+    this->XMLToken::operator=(orig);
+    this->mChildren.assign( orig.mChildren.begin(), orig.mChildren.end() ); 
+  }
+
   return *this;
 }
 

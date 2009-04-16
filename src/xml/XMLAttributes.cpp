@@ -89,10 +89,14 @@ XMLAttributes::XMLAttributes(const XMLAttributes& orig)
 XMLAttributes& 
 XMLAttributes::operator=(const XMLAttributes& orig)
 {
-  this->mNames.assign( orig.mNames.begin(), orig.mNames.end() ); 
-  this->mValues.assign( orig.mValues.begin(), orig.mValues.end() ); 
-  this->mElementName = orig.mElementName;
-  this->mLog = orig.mLog;
+  if(&orig!=this)
+  {
+    this->mNames.assign( orig.mNames.begin(), orig.mNames.end() ); 
+    this->mValues.assign( orig.mValues.begin(), orig.mValues.end() ); 
+    this->mElementName = orig.mElementName;
+    this->mLog = orig.mLog;
+  }
+
   return *this;
 }
 

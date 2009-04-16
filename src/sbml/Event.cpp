@@ -106,15 +106,18 @@ Event::Event (const Event& orig) :
  */
 Event& Event::operator=(const Event& rhs)
 {
-  this->SBase::operator =(rhs);
- 
-  mTimeUnits        = rhs.mTimeUnits        ;
-  mUseValuesFromTriggerTime = rhs.mUseValuesFromTriggerTime;
-  mInternalIdOnly   = rhs.mInternalIdOnly   ;
-  mEventAssignments = rhs.mEventAssignments ;
+  if(&rhs!=this)
+  {
+    this->SBase::operator =(rhs);
+   
+    mTimeUnits        = rhs.mTimeUnits        ;
+    mUseValuesFromTriggerTime = rhs.mUseValuesFromTriggerTime;
+    mInternalIdOnly   = rhs.mInternalIdOnly   ;
+    mEventAssignments = rhs.mEventAssignments ;
 
-  if (rhs.mTrigger) mTrigger = new Trigger(*rhs.getTrigger());
-  if (rhs.mDelay) mDelay = new Delay(*rhs.getDelay());
+    if (rhs.mTrigger) mTrigger = new Trigger(*rhs.getTrigger());
+    if (rhs.mDelay) mDelay = new Delay(*rhs.getDelay());
+  }
 
   return *this;
 }

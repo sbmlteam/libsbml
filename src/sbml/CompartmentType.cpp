@@ -85,7 +85,11 @@ CompartmentType::CompartmentType(const CompartmentType& orig) :
  */
 CompartmentType& CompartmentType::operator=(const CompartmentType& rhs)
 {
-  this->SBase::operator =(rhs);
+  if(&rhs!=this)
+  {
+    this->SBase::operator =(rhs);
+  }
+
   return *this;
 }
 

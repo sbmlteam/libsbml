@@ -109,8 +109,12 @@ FunctionDefinition::FunctionDefinition (const FunctionDefinition& orig) :
  */
 FunctionDefinition& FunctionDefinition::operator=(const FunctionDefinition& rhs)
 {
-  this->SBase::operator =(rhs);
-  if (rhs.mMath) mMath = rhs.mMath->deepCopy();
+  if(&rhs!=this)
+  {
+    this->SBase::operator =(rhs);
+    if (rhs.mMath) mMath = rhs.mMath->deepCopy();
+  }
+
   return *this;
 }
 
