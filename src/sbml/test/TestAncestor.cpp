@@ -585,6 +585,47 @@ START_TEST ( test_Constraint_ancestor_create )
 END_TEST
 
 
+START_TEST ( test_Delay_ancestor_create )
+{
+  Event *e = new Event();
+
+  Delay *ea = e->createDelay();
+
+  fail_unless(ea->getAncestorOfType(SBML_EVENT)    == e);
+  fail_unless(ea->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(ea->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  Delay *obj = e->getDelay();
+
+  fail_unless(obj->getAncestorOfType(SBML_EVENT)    == e);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+}
+END_TEST
+
+
+START_TEST ( test_Delay_ancestor_create_model )
+{
+  Model *m = new Model();
+  Event *e = m->createEvent();
+
+  Delay *ea = m->createDelay();
+
+  fail_unless(ea->getAncestorOfType(SBML_EVENT)    == e);
+  fail_unless(ea->getAncestorOfType(SBML_MODEL)    == m);
+  fail_unless(ea->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(ea->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  Delay *obj = e->getDelay();
+
+  fail_unless(obj->getAncestorOfType(SBML_EVENT)    == e);
+  fail_unless(obj->getAncestorOfType(SBML_MODEL)    == m);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+}
+END_TEST
+
+
 START_TEST ( test_Event_ancestor_create )
 {
   Model *m = new Model();
@@ -1116,6 +1157,66 @@ START_TEST ( test_SpeciesType_ancestor_create )
 END_TEST
 
 
+START_TEST ( test_StoichiometryMath_ancestor_create )
+{
+  SpeciesReference *sr = new SpeciesReference();
+  StoichiometryMath *sm = sr->createStoichiometryMath();
+
+  fail_unless(sm->getAncestorOfType(SBML_SPECIES_REFERENCE) == sr);
+  fail_unless(sm->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(sm->getAncestorOfType(SBML_COMPARTMENT) == NULL);
+
+  StoichiometryMath *obj = sr->getStoichiometryMath();
+
+  fail_unless(obj->getAncestorOfType(SBML_SPECIES_REFERENCE) == sr);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT) == NULL);
+
+}
+END_TEST
+
+
+START_TEST ( test_Trigger_ancestor_create )
+{
+  Event *e = new Event();
+
+  Trigger *ea = e->createTrigger();
+
+  fail_unless(ea->getAncestorOfType(SBML_EVENT)    == e);
+  fail_unless(ea->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(ea->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  Trigger *obj = e->getTrigger();
+
+  fail_unless(obj->getAncestorOfType(SBML_EVENT)    == e);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+}
+END_TEST
+
+
+START_TEST ( test_Trigger_ancestor_create_model )
+{
+  Model *m = new Model();
+  Event *e = m->createEvent();
+
+  Trigger *ea = m->createTrigger();
+
+  fail_unless(ea->getAncestorOfType(SBML_EVENT)    == e);
+  fail_unless(ea->getAncestorOfType(SBML_MODEL)    == m);
+  fail_unless(ea->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(ea->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  Trigger *obj = e->getTrigger();
+
+  fail_unless(obj->getAncestorOfType(SBML_EVENT)    == e);
+  fail_unless(obj->getAncestorOfType(SBML_MODEL)    == m);
+  fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
+  fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+}
+END_TEST
+
+
 START_TEST ( test_Unit_ancestor_create )
 {
   UnitDefinition* ud = new UnitDefinition();
@@ -1225,6 +1326,8 @@ create_suite_AncestorObject (void)
   tcase_add_test( tcase, test_Compartment_ancestor_create );
   tcase_add_test( tcase, test_CompartmentType_ancestor_create );
   tcase_add_test( tcase, test_Constraint_ancestor_create );
+  tcase_add_test( tcase, test_Delay_ancestor_create );
+  tcase_add_test( tcase, test_Delay_ancestor_create_model );
   tcase_add_test( tcase, test_Event_ancestor_create );
   tcase_add_test( tcase, test_EventAssignment_ancestor_create );
   tcase_add_test( tcase, test_EventAssignment_ancestor_create_model );
@@ -1248,6 +1351,9 @@ create_suite_AncestorObject (void)
   tcase_add_test( tcase, test_SpeciesReference_Modifier_ancestor_create );
   tcase_add_test( tcase, test_SpeciesReference_Modifier_ancestor_create_model );
   tcase_add_test( tcase, test_SpeciesType_ancestor_create );
+  tcase_add_test( tcase, test_StoichiometryMath_ancestor_create );
+  tcase_add_test( tcase, test_Trigger_ancestor_create );
+  tcase_add_test( tcase, test_Trigger_ancestor_create_model );
   tcase_add_test( tcase, test_Unit_ancestor_create );
   tcase_add_test( tcase, test_Unit_ancestor_create_model );
   tcase_add_test( tcase, test_UnitDefinition_ancestor_create );

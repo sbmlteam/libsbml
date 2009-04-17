@@ -876,6 +876,36 @@ Model::createEventAssignment ()
 
 
 /*
+ * Creates a new Trigger inside this Model and returns a pointer to
+ * it.  The Trigger is added to the the last Event created.
+ *
+ * If an Event does not exist for this model, a new Trigger is not
+ * created and NULL is returned.
+ */
+Trigger*
+Model::createTrigger ()
+{
+  unsigned int size = getNumEvents();
+  return (size > 0) ? getEvent(size - 1)->createTrigger() : 0;
+}
+
+
+/*
+ * Creates a new Delay inside this Model and returns a pointer to
+ * it.  The Delay is added to the the last Event created.
+ *
+ * If an Event does not exist for this model, a new Delay is not
+ * created and NULL is returned.
+ */
+Delay*
+Model::createDelay ()
+{
+  unsigned int size = getNumEvents();
+  return (size > 0) ? getEvent(size - 1)->createDelay() : 0;
+}
+
+
+/*
  * Sets the annotation of this SBML object to a copy of annotation.
  */
 void
@@ -3957,6 +3987,52 @@ EventAssignment_t *
 Model_createEventAssignment (Model_t *m)
 {
   return m->createEventAssignment();
+}
+
+
+/**
+ * Creates a new Trigger_t structure inside the last Event_t
+ * structure created in the given Model_t structure, and returns a pointer
+ * to it.
+ *
+ * The mechanism by which the last Event_t structure was created is not
+ * significant.  It could have been created in a variety of ways, for
+ * example by using Model_createEvent().  If an Event_t structure does not
+ * exist, a new Trigger_t structure is @em not created and NULL is
+ * returned instead.
+ *
+ * @param m the Model_t structure
+ *
+ * @return the new Trigger_t structure
+ */
+LIBSBML_EXTERN
+Trigger_t *
+Model_createTrigger (Model_t *m)
+{
+  return m->createTrigger();
+}
+
+
+/**
+ * Creates a new Delay_t structure inside the last Event_t
+ * structure created in the given Model_t structure, and returns a pointer
+ * to it.
+ *
+ * The mechanism by which the last Event_t structure was created is not
+ * significant.  It could have been created in a variety of ways, for
+ * example by using Model_createEvent().  If an Event_t structure does not
+ * exist, a new Delay_t structure is @em not created and NULL is
+ * returned instead.
+ *
+ * @param m the Model_t structure
+ *
+ * @return the new Delay_t structure
+ */
+LIBSBML_EXTERN
+Delay_t *
+Model_createDelay (Model_t *m)
+{
+  return m->createDelay();
 }
 
 

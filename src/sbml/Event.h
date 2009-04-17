@@ -523,6 +523,28 @@ public:
 
 
   /**
+   * Creates a new, empty Trigger, adds it to this Event and 
+   * returns the Trigger.
+   *
+   * @return the newly created Trigger object instance
+   *
+   * @see addEvent()
+   */
+  Trigger* createTrigger ();
+
+
+  /**
+   * Creates a new, empty Delay, adds it to this Event and 
+   * returns the Delay.
+   *
+   * @return the newly created Delay object instance
+   *
+   * @see addEvent()
+   */
+  Delay* createDelay ();
+
+
+  /**
    * Returns the list of event assignments for this Event.
    * 
    * @return the list of EventAssignments for this Event.
@@ -1042,6 +1064,16 @@ Event_addEventAssignment (Event_t *e, const EventAssignment_t *ea);
 LIBSBML_EXTERN
 EventAssignment_t *
 Event_createEventAssignment (Event_t *e);
+
+
+LIBSBML_EXTERN
+Trigger_t *
+Event_createTrigger (Event_t *e);
+
+
+LIBSBML_EXTERN
+Delay_t *
+Event_createDelay (Event_t *e);
 
 
 LIBSBML_EXTERN

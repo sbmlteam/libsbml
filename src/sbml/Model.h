@@ -842,6 +842,36 @@ public:
 
 
   /**
+   * Creates a new Trigger inside the last Event object created in
+   * this Model, and returns a pointer to it.
+   *
+   * The mechanism by which the last Event object in this model was created
+   * is not significant.  It could have been created in a variety of ways,
+   * for example by using createEvent().  If no Event object exists in this
+   * Model object, a new Trigger is @em not created and NULL is
+   * returned instead.
+   *
+   * @return the Trigger object created
+   */
+  Trigger* createTrigger ();
+
+
+  /**
+   * Creates a new Delay inside the last Event object created in
+   * this Model, and returns a pointer to it.
+   *
+   * The mechanism by which the last Event object in this model was created
+   * is not significant.  It could have been created in a variety of ways,
+   * for example by using createEvent().  If no Event object exists in this
+   * Model object, a new Delay is @em not created and NULL is
+   * returned instead.
+   *
+   * @return the Delay object created
+   */
+  Delay* createDelay ();
+
+
+  /**
    * Sets the value of the "annotation" subelement of this SBML object to a
    * copy of @p annotation.
    *
@@ -2224,6 +2254,16 @@ Model_createEvent (Model_t *m);
 LIBSBML_EXTERN
 EventAssignment_t *
 Model_createEventAssignment (Model_t *m);
+
+
+LIBSBML_EXTERN
+Trigger_t *
+Model_createTrigger (Model_t *m);
+
+
+LIBSBML_EXTERN
+Delay_t *
+Model_createDelay (Model_t *m);
 
 
 LIBSBML_EXTERN

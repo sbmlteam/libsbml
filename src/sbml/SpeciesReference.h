@@ -760,6 +760,18 @@ public:
 
 
   /**
+   * Creates a new, empty StoichiometryMath, adds it to this SpeciesReference
+   * and returns the StoichiometryMath.
+   *
+   * @return the newly created StoichiometryMath object instance
+   *
+   * @see addReactant()
+   * @see addProduct()
+   */
+  StoichiometryMath* createStoichiometryMath ();
+
+
+  /**
    * Sets the value of the "annotation" subelement of this SBML object to a
    * copy of @p annotation.
    *
@@ -1450,6 +1462,10 @@ LIBSBML_EXTERN
 void
 SpeciesReference_unsetName (SpeciesReference_t *sr);
 
+
+LIBSBML_EXTERN
+StoichiometryMath_t *
+SpeciesReference_createStoichiometryMath (SpeciesReference_t *sr);
 
 END_C_DECLS
 

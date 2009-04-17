@@ -514,7 +514,21 @@ SpeciesReference::unsetStoichiometryMath ()
 }
 
 
+/*
+ * Creates a new StoichiometryMath, adds it to this SpeciesReference
+ * and returns it.
+ */
+StoichiometryMath*
+SpeciesReference::createStoichiometryMath ()
+{
+  delete mStoichiometryMath;
+  mStoichiometryMath = new StoichiometryMath;
 
+  mStoichiometryMath->setSBMLDocument(mSBML);
+  mStoichiometryMath->setParentSBMLObject(this);
+
+  return mStoichiometryMath;
+}
 
 
 /*
@@ -1939,5 +1953,21 @@ SpeciesReference_unsetName (SpeciesReference_t *sr)
 {
   sr->unsetName();
 }
+
+
+/**
+ * Creates a new, empty StoichiometryMath_t structure, adds it to this
+ * SpeciesReference, and returns the StoichiometryMath_t.
+ *
+ * @param e the SpeciesReference_t structure to which the StoichiometryMath should be
+ * added
+ */
+LIBSBML_EXTERN
+StoichiometryMath_t *
+SpeciesReference_createStoichiometryMath (SpeciesReference_t *sr)
+{
+  return static_cast<SpeciesReference*>(sr)->createStoichiometryMath();
+}
+
 
 /** @endcond doxygen-c-only */

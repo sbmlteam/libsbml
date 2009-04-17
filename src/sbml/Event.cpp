@@ -383,6 +383,40 @@ Event::createEventAssignment ()
 
 
 /*
+ * Creates a new Trigger, adds it to this Event
+ * and returns it.
+ */
+Trigger*
+Event::createTrigger ()
+{
+  delete mTrigger;
+  mTrigger = new Trigger;
+
+  mTrigger->setSBMLDocument(mSBML);
+  mTrigger->setParentSBMLObject(this);
+
+  return mTrigger;
+}
+
+
+/*
+ * Creates a new Delay, adds it to this Event
+ * and returns it.
+ */
+Delay*
+Event::createDelay ()
+{
+  delete mDelay;
+  mDelay = new Delay;
+
+  mDelay->setSBMLDocument(mSBML);
+  mDelay->setParentSBMLObject(this);
+
+  return mDelay;
+}
+
+
+/*
  * @return the list of EventAssignments for this Event.
  */
 const ListOfEventAssignments*
@@ -1340,6 +1374,36 @@ EventAssignment_t *
 Event_createEventAssignment (Event_t *e)
 {
   return e->createEventAssignment();
+}
+
+
+/**
+ * Creates a new, empty Trigger_t structure, adds it to this
+ * Event, and returns the Trigger_t.
+ *
+ * @param e the Event_t structure to which the trigger should be
+ * added
+ */
+LIBSBML_EXTERN
+Trigger_t *
+Event_createTrigger (Event_t *e)
+{
+  return e->createTrigger();
+}
+
+
+/**
+ * Creates a new, empty Delay_t structure, adds it to this
+ * Event, and returns the Delay_t.
+ *
+ * @param e the Event_t structure to which the delay should be
+ * added
+ */
+LIBSBML_EXTERN
+Delay_t *
+Event_createDelay (Event_t *e)
+{
+  return e->createDelay();
 }
 
 
