@@ -491,9 +491,9 @@ SBase::getSBOTerm () const
 std::string
 SBase::getSBOTermID () const
 {
-  if (mSBOTerm == -1)
-    return NULL;
-  else
+  //if (mSBOTerm == -1)
+  //  return NULL;
+  //else
     return SBO::intToString(mSBOTerm);
 }
 

@@ -136,6 +136,8 @@ START_TEST (test_read_l2v2_newComponents)
   fail_unless( c->getId() == "cell", NULL );
   fail_unless( c->getCompartmentType() == "mitochondria", NULL );
   fail_unless( c->getOutside() == "m", NULL );
+  fail_unless( c->getSBOTerm() == -1, NULL);
+  fail_unless( c->getSBOTermID() == "", NULL);
 
   c = m->getCompartment(1);
   fail_unless( c          != NULL  , NULL );

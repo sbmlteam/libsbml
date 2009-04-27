@@ -581,7 +581,7 @@ public:
    * the use of SBO and the "sboTerm" attribute.
    *
    * @return the value of the "sboTerm" attribute as a string of the form
-   * SBO:NNNNNNN, or  NULL
+   * SBO:NNNNNNN, or  an empty string
    * if the value is not set.
    */
   std::string getSBOTermID () const;

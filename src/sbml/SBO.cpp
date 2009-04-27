@@ -153,7 +153,7 @@ SBO::stringToInt (const std::string& sboTerm)
 string
 SBO::intToString (int sboTerm)
 {
-  string result;
+  string result = "";
 
   if ( checkTerm(sboTerm) )
   {
