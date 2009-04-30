@@ -1,14 +1,14 @@
 ## @configure_input@
 ##
 ## Filename    : Makefile.in
-## Description : Makefile for win32 subdirectory
+## Description : Makefile for win32/MSVC9 subdirectory
 ## Author(s)   : SBML Team <sbml-team@caltech.edu>
 ## Organization: Caltech, USA, and University of Hertfordshire, UK
-## Created     : 2004-07-13
+## Created     : 2009-04-30
 ## Revision    : $Id$
 ## $HeadURL$
 ##
-## Copyright 2004 California Institute of Technology and
+## Copyright 2009 California Institute of Technology and
 ## Japan Science and Technology Corporation.
 ##
 ## This library is free software; you can redistribute it and/or modify it
@@ -45,7 +45,7 @@
 ## Contributor(s):
 ##   Michael Hucka <mhucka@caltech.edu> Wrote this Makefile.in.
 ##
-
+
 # -----------------------------------------------------------------------------
 # Configuration variables
 # -----------------------------------------------------------------------------
@@ -61,20 +61,24 @@ include @top_srcdir@/config/makefile-common-vars.mk
 # set `subdir' to an absolute path, or some `make' actions will fail.
 
 srcdir  = @srcdir@
-thisdir = win32
-
-subdirs = MSVC7 MSVC8 MSVC9
+thisdir = win32/MSVC9
 
 # This makefile only serves a role for `make dist'.
 
 distfiles = \
-        createInclude.bat               \
-        createIncludeFromMSVC.bat       \
-        README.txt             \
-  Makefile.in  
+  convertSBML.vcproj     \
+  echoSBML.vcproj        \
+  libsbml.sln            \
+  libsbml.vcproj         \
+  libsbml_expat.sln      \
+  libsbml_expat.vcproj   \
+  libsbml_xml.sln        \
+  libsbml_xml.vcproj     \
+  printSBML.vcproj       \
+  validateSBML.vcproj    \
+  Makefile.in
 
 
-
 # -----------------------------------------------------------------------------
 # Primary build actions
 # -----------------------------------------------------------------------------
@@ -84,23 +88,29 @@ distfiles = \
 
 all: 
 
-
+
 # -----------------------------------------------------------------------------
 # Checking.
 # -----------------------------------------------------------------------------
 
 check:
 
-
+
 # -----------------------------------------------------------------------------
-# Tags.
+# Formatting documentation.
 # -----------------------------------------------------------------------------
 
-# Nothing to be done for tags right now.
+dvi:
 
-tags:
+pdf:
 
-
+ps:
+
+info:
+
+html:
+
+
 # -----------------------------------------------------------------------------
 # Installation
 # -----------------------------------------------------------------------------
@@ -110,29 +120,27 @@ tags:
 
 install:
 
-install-docs:
+uninstall:
 
 installcheck:
 
-uninstall:
 
-
 # -----------------------------------------------------------------------------
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-dist: all dist-normal dist-recursive
+dist: dist-normal
 
-distcheck: all distcheck-normal distcheck-recursive
+distcheck: distcheck-normal
 
-
+
 # -----------------------------------------------------------------------------
 # Miscellaneous
 # -----------------------------------------------------------------------------
 
 include @top_srcdir@/config/makefile-common-actions.mk
 
-
+
 # -----------------------------------------------------------------------------
 # End.
 # -----------------------------------------------------------------------------

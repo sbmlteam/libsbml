@@ -321,6 +321,7 @@ AC_CONFIG_FILES([docs/src/Makefile])
 AC_CONFIG_FILES([win32/Makefile])
 AC_CONFIG_FILES([win32/MSVC7/Makefile])
 AC_CONFIG_FILES([win32/MSVC8/Makefile])
+AC_CONFIG_FILES([win32/MSVC9/Makefile])
 
 AC_CONFIG_FILES([examples/c/Makefile])
 AC_CONFIG_FILES([examples/c++/Makefile])
