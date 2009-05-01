@@ -255,11 +255,11 @@ AssignmentCycles::checkInitialAssignment(const Model& m, const InitialAssignment
     }
 
     // create list of checked items
-    //for (the_iterator = mTempList.begin();
-    //  the_iterator != mTempList.end(); the_iterator++)
-    //{
-    //  mCheckedList.append(*the_iterator);
-    //}
+    for (the_iterator = mTempList.begin();
+      the_iterator != mTempList.end(); the_iterator++)
+    {
+      mCheckedList.append(*the_iterator);
+    }
     mTempList.clear();
 
   } // end of while
@@ -411,11 +411,11 @@ AssignmentCycles::checkReaction(const Model& m, const Reaction& object)
     }
 
     // create list of checked items
-    //for (the_iterator = mTempList.begin();
-    //  the_iterator != mTempList.end(); the_iterator++)
-    //{
-    //  mCheckedList.append(*the_iterator);
-    //}
+    for (the_iterator = mTempList.begin();
+      the_iterator != mTempList.end(); the_iterator++)
+    {
+      mCheckedList.append(*the_iterator);
+    }
     mTempList.clear();
 
   } // end of while
@@ -568,11 +568,11 @@ AssignmentCycles::checkRule(const Model& m, const Rule& object)
     }
 
     // create list of checked items
-    //for (the_iterator = mTempList.begin();
-    //  the_iterator != mTempList.end(); the_iterator++)
-    //{
-    //  mCheckedList.append(*the_iterator);
-    //}
+    for (the_iterator = mTempList.begin();
+      the_iterator != mTempList.end(); the_iterator++)
+    {
+      mCheckedList.append(*the_iterator);
+    }
     mTempList.clear();
 
   } // end of while
