@@ -33,6 +33,9 @@
 
 #include "IdList.h"
 
+typedef std::multimap<std::string, std::string>    IdMap;
+typedef IdMap::const_iterator                      IdIter;
+typedef pair<IdIter, IdIter>                       IdRange;
 
 class AssignmentCycles: public TConstraint<Model>
 {
@@ -51,40 +54,64 @@ public:
 
 protected:
 
-  /**
-   * Checks that <ci> element after an apply is already listed as a FunctionDefinition.
-   */
   virtual void check_ (const Model& m, const Model& object);
 
-  /* check each for loop back to the original variable */
-  void checkInitialAssignment(const Model &, const InitialAssignment &);
-  void checkReaction(const Model &, const Reaction &);
-  void checkRule(const Model &, const Rule &);
+  
+  /* create pairs of ids that depend on each other */
+  void addInitialAssignmentDependencies(const Model &, 
+                                        const InitialAssignment &);
+  
+  void addReactionDependencies(const Model &, const Reaction &);
+  
+  
+  void addRuleDependencies(const Model &, const Rule &);
 
-  /* check each for explicit use of original variable */
-  void checkInitialAssignmentForSymbol(const Model &, 
-                                       const InitialAssignment &);
-  void checkReactionForId(const Model &, const Reaction &);
-  void checkRuleForVariable(const Model& m, const Rule& object);
+  
+  void determineAllDependencies();
 
-  /* chech each for assignment to compartment using concentration
-   * of a species within that compartment */
-  void checkInitialAssignmentForCompartment(const Model &, 
-                                       const InitialAssignment &);
-  void checkRuleForCompartment(const Model& m, const Rule& object);
+
+  /* helper function to check if a pair already exists */
+  bool alreadyExistsInMap(IdMap map, 
+                          pair<std::string, std::string> dependency);
+
+  
+  /* check for explicit use of original variable */
+  void checkForSelfAssignment(const Model &);
+
+
+  /* find cycles in the map of dependencies */
+  void determineCycles(const Model& m);
+
+
+  /* if a rule for a compartment refers to a species
+   * within that compartment it is an implicit reference
+   */
+  void checkForImplicitCompartmentReference(const Model& m);
   
   /**
-   * Logs a message about an undefined <ci> element in the given
-   * FunctionDefinition.
+   * functions for logging messages about the cycle
    */
-  void logUndefined (const SBase& object, const SBase& conflict);
-  void logMathRefersToSelf (const ASTNode & node,
-                                             const SBase& object);
-  void logImplicitReference (const SBase& object, const Species& conflict);
+  void logCycle (const SBase* object, const SBase* conflict);
+  
+  
+  void logCycle (const Model& m, std::string id, std::string id1);
+  
+  
+  void logMathRefersToSelf (const ASTNode * node,
+                                             const SBase* object);
+  
+  
+  void logMathRefersToSelf (const Model& m, std::string id);
 
-  IdList mVariables;
-  IdList mTempList;
-  IdList mCheckedList;
+  
+  void logImplicitReference (const SBase* object, const Species* conflict);
+
+
+  void logImplicitReference (const Model& m, std::string id, 
+                             const Species* conflict);
+
+  
+  IdMap mIdMap;
 
 };
 

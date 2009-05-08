@@ -71,17 +71,16 @@ AssignmentCycles::check_ (const Model& m, const Model& object)
 
   unsigned int n;
 
-  mCheckedList.clear();
+  mIdMap.clear();
 
+  /* create map of id mapped to id that it refers to that is
+   * also the id of a Reaction, AssignmentRule or InitialAssignment
+   */
   for (n = 0; n < m.getNumInitialAssignments(); ++n)
   { 
     if (m.getInitialAssignment(n)->isSetMath())
     {
-      mCheckedList.clear();
-      mCheckedList.append(m.getInitialAssignment(n)->getId());
-      checkInitialAssignmentForSymbol(m, *m.getInitialAssignment(n));
-      checkInitialAssignment(m, *m.getInitialAssignment(n));
-      checkInitialAssignmentForCompartment(m, *m.getInitialAssignment(n));
+      addInitialAssignmentDependencies(m, *m.getInitialAssignment(n));
     }
   }
   
@@ -90,10 +89,7 @@ AssignmentCycles::check_ (const Model& m, const Model& object)
     if (m.getReaction(n)->isSetKineticLaw()){
       if (m.getReaction(n)->getKineticLaw()->isSetMath())
       {
-        mCheckedList.clear();
-        mCheckedList.append(m.getReaction(n)->getId());
-        checkReactionForId(m, *m.getReaction(n));
-        checkReaction(m, *m.getReaction(n));
+        addReactionDependencies(m, *m.getReaction(n));
       }
     }
   }
@@ -102,23 +98,30 @@ AssignmentCycles::check_ (const Model& m, const Model& object)
   { 
     if (m.getRule(n)->isAssignment() && m.getRule(n)->isSetMath())
     {
-      mCheckedList.clear();
-      mCheckedList.append(m.getRule(n)->getId());
-      checkRuleForVariable(m, *m.getRule(n));
-      checkRule(m, *m.getRule(n));
-      checkRuleForCompartment(m, *m.getRule(n));
+      addRuleDependencies(m, *m.getRule(n));
     }
   }
+
+  // check for self assignment
+  checkForSelfAssignment(m);
+
+  determineAllDependencies();
+  determineCycles(m);
+
+  checkForImplicitCompartmentReference(m);
 }
  
 void 
-AssignmentCycles::checkInitialAssignment(const Model& m, const InitialAssignment& object)
+AssignmentCycles::addInitialAssignmentDependencies(const Model& m, 
+                                         const InitialAssignment& object)
 {
   unsigned int ns;
+  std::string thisId = object.getSymbol();
 
   /* loop thru the list of names in the Math
     * if they refer to a Reaction, an Assignment Rule
-    * or an Initial Assignment add to the list
+    * or an Initial Assignment add to the map
+    * with the variable as key
     */
   List* variables = object.getMath()->getListOfNodes( ASTNode_isName );
   for (ns = 0; ns < variables->getSize(); ns++)
@@ -126,154 +129,34 @@ AssignmentCycles::checkInitialAssignment(const Model& m, const InitialAssignment
     ASTNode* node = static_cast<ASTNode*>( variables->get(ns) );
     string   name = node->getName() ? node->getName() : "";
 
-    if (!mVariables.contains(name))
+    if (m.getReaction(name))
     {
-      if (m.getReaction(name))
-        mVariables.append(name);
-      else if (m.getRule(name) && m.getRule(name)->isAssignment())
-        mVariables.append(name);
-      else if (m.getInitialAssignment(name))
-        mVariables.append(name);
+      mIdMap.insert(make_pair(thisId, name));
+    }
+    else if (m.getRule(name) && m.getRule(name)->isAssignment())
+    {
+      mIdMap.insert(make_pair(thisId, name));
+    }
+    else if (m.getInitialAssignment(name))
+    {
+      mIdMap.insert(make_pair(thisId, name));
     }
   }
 
   delete variables;
-
-  while(mVariables.size() != 0)
-  {
-    IdList::const_iterator the_iterator;
-
-    // create temporary list
-    for (the_iterator = mVariables.begin();
-      the_iterator != mVariables.end(); the_iterator++)
-    {
-      mTempList.append(*the_iterator);
-    }
-    mVariables.clear();
-
-    // loop thru list and find other reactions/assignments
-    for (the_iterator = mTempList.begin();
-      the_iterator != mTempList.end(); the_iterator++)
-    {
-      if (m.getInitialAssignment(*the_iterator))
-      {
-        const InitialAssignment * ia = m.getInitialAssignment(*the_iterator);
-
-        /* if this is the initial assignment being checked skip */
-        if (strcmp(ia->getId().c_str(), object.getId().c_str()))
-        {
-          if (ia->isSetMath())
-          {
-            List* variables = ia->getMath()->getListOfNodes( ASTNode_isName );
-            for (ns = 0; ns < variables->getSize(); ns++)
-            {
-              ASTNode* node = static_cast<ASTNode*>( variables->get(ns) );
-              string   name = node->getName() ? node->getName() : "";
-
-              if (mCheckedList.contains(name))
-              {
-                logUndefined(object, *m.getInitialAssignment(*the_iterator));
-              }
-              else if (!mVariables.contains(name))
-              {
-                if (m.getReaction(name))
-                  mVariables.append(name);
-                else if (m.getRule(name) && m.getRule(name)->isAssignment())
-                  mVariables.append(name);
-                else if (m.getInitialAssignment(name))
-                  mVariables.append(name);
-              }
-            }
-            delete variables;
-          }
-        }
-      }
-      else if (m.getReaction(*the_iterator))
-      {
-        const Reaction * r = m.getReaction(*the_iterator);
-
-        //check that the reaction has a Kinetic Law
-        if (r->isSetKineticLaw())
-        {
-          if (r->getKineticLaw()->isSetMath())
-          {
-            List* variables = r->getKineticLaw()
-                               ->getMath()->getListOfNodes( ASTNode_isName );
-            for (ns = 0; ns < variables->getSize(); ns++)
-            {
-              ASTNode* node = static_cast<ASTNode*>( variables->get(ns) );
-              string   name = node->getName() ? node->getName() : "";
-
-              if (mCheckedList.contains(name))
-              {
-                logUndefined(object, *m.getReaction(*the_iterator));
-              }
-              else if (!mVariables.contains(name))
-              {
-                if (m.getReaction(name))
-                  mVariables.append(name);
-                else if (m.getRule(name) && m.getRule(name)->isAssignment())
-                  mVariables.append(name);
-                else if (m.getInitialAssignment(name))
-                  mVariables.append(name);
-              }
-            }
-            delete variables;
-          }
-        }
-      }
-      else if (m.getRule(*the_iterator) 
-        && m.getRule(*the_iterator)->isAssignment())
-      {
-        const Rule * ar = m.getRule(*the_iterator);
-
-        if (ar->isSetMath())
-        {
-          List* variables = ar->getMath()->getListOfNodes( ASTNode_isName );
-          for (ns = 0; ns < variables->getSize(); ns++)
-          {
-            ASTNode* node = static_cast<ASTNode*>( variables->get(ns) );
-            string   name = node->getName() ? node->getName() : "";
-
-            if (mCheckedList.contains(name))
-            {
-              logUndefined(object, *m.getRule(*the_iterator));
-            }
-            else if (!mVariables.contains(name))
-            {
-              if (m.getReaction(name))
-                mVariables.append(name);
-              else if (m.getRule(name) && m.getRule(name)->isAssignment())
-                mVariables.append(name);
-              else if (m.getInitialAssignment(name))
-                mVariables.append(name);
-            }
-          }
-          delete variables;
-        }
-      }
-    }
-
-    // create list of checked items
-    for (the_iterator = mTempList.begin();
-      the_iterator != mTempList.end(); the_iterator++)
-    {
-      mCheckedList.append(*the_iterator);
-    }
-    mTempList.clear();
-
-  } // end of while
-
 }
 
+
 void 
-AssignmentCycles::checkReaction(const Model& m, const Reaction& object)
+AssignmentCycles::addReactionDependencies(const Model& m, const Reaction& object)
 {
   unsigned int ns;
+  std::string thisId = object.getId();
 
   /* loop thru the list of names in the Math
     * if they refer to a Reaction, an Assignment Rule
-    * or an Initial Assignment add to the list
+    * or an Initial Assignment add to the map
+    * with the variable as key
     */
   List* variables = object.getKineticLaw()->getMath()
                                       ->getListOfNodes( ASTNode_isName );
@@ -282,153 +165,34 @@ AssignmentCycles::checkReaction(const Model& m, const Reaction& object)
     ASTNode* node = static_cast<ASTNode*>( variables->get(ns) );
     string   name = node->getName() ? node->getName() : "";
 
-    if (!mVariables.contains(name))
+    if (m.getReaction(name))
     {
-      if (m.getReaction(name))
-        mVariables.append(name);
-      else if (m.getRule(name) && m.getRule(name)->isAssignment())
-        mVariables.append(name);
-      else if (m.getInitialAssignment(name))
-        mVariables.append(name);
+      mIdMap.insert(make_pair(thisId, name));
+    }
+    else if (m.getRule(name) && m.getRule(name)->isAssignment())
+    {
+      mIdMap.insert(make_pair(thisId, name));
+    }
+    else if (m.getInitialAssignment(name))
+    {
+      mIdMap.insert(make_pair(thisId, name));
     }
   }
+
   delete variables;
-
-
-  while(mVariables.size() != 0)
-  {
-    IdList::const_iterator the_iterator;
-
-    // create temporary list
-    for (the_iterator = mVariables.begin();
-      the_iterator != mVariables.end(); the_iterator++)
-    {
-      mTempList.append(*the_iterator);
-    }
-    mVariables.clear();
-
-    // loop thru list and find other reactions/assignments
-    for (the_iterator = mTempList.begin();
-      the_iterator != mTempList.end(); the_iterator++)
-    {
-      if (m.getInitialAssignment(*the_iterator))
-      {
-        const InitialAssignment * ia = m.getInitialAssignment(*the_iterator);
-
-        if (ia->isSetMath())
-        {
-          List* variables = ia->getMath()->getListOfNodes( ASTNode_isName );
-          for (ns = 0; ns < variables->getSize(); ns++)
-          {
-            ASTNode* node = static_cast<ASTNode*>( variables->get(ns) );
-            string   name = node->getName() ? node->getName() : "";
-
-            if (mCheckedList.contains(name))
-            {
-              logUndefined(object, *m.getInitialAssignment(*the_iterator));
-            }
-            else if (!mVariables.contains(name))
-            {
-              if (m.getReaction(name))
-                mVariables.append(name);
-              else if (m.getRule(name) && m.getRule(name)->isAssignment())
-                mVariables.append(name);
-              else if (m.getInitialAssignment(name))
-                mVariables.append(name);
-            }
-          }
-          delete variables;
-        }
-      }
-      else if (m.getReaction(*the_iterator))
-      {
-        const Reaction * r = m.getReaction(*the_iterator);
-
-         /* if this is the reaction being checked skip */
-        if (strcmp(r->getId().c_str(), object.getId().c_str()))
-        {
-        //check that the reaction has a Kinetic Law
-          if (r->isSetKineticLaw())
-          {
-            if (r->getKineticLaw()->isSetMath())
-            {
-              List* variables = r->getKineticLaw()
-                                ->getMath()->getListOfNodes( ASTNode_isName );
-              for (ns = 0; ns < variables->getSize(); ns++)
-              {
-                ASTNode* node = static_cast<ASTNode*>( variables->get(ns) );
-                string   name = node->getName() ? node->getName() : "";
-
-                if (mCheckedList.contains(name))
-                {
-                  logUndefined(object, *m.getReaction(*the_iterator));
-                }
-                else if (!mVariables.contains(name))
-                {
-                  if (m.getReaction(name))
-                    mVariables.append(name);
-                  else if (m.getRule(name) && m.getRule(name)->isAssignment())
-                    mVariables.append(name);
-                  else if (m.getInitialAssignment(name))
-                    mVariables.append(name);
-                }
-              }
-              delete variables;
-            }
-          }
-        }
-      }
-      else if (m.getRule(*the_iterator) 
-        && m.getRule(*the_iterator)->isAssignment())
-      {
-        const Rule * ar = m.getRule(*the_iterator);
-
-        if (ar->isSetMath())
-        {
-          List* variables = ar->getMath()->getListOfNodes( ASTNode_isName );
-          for (ns = 0; ns < variables->getSize(); ns++)
-          {
-            ASTNode* node = static_cast<ASTNode*>( variables->get(ns) );
-            string   name = node->getName() ? node->getName() : "";
-
-            if (mCheckedList.contains(name))
-            {
-              logUndefined(object, *m.getRule(*the_iterator));
-            }
-            else if (!mVariables.contains(name))
-            {
-              if (m.getReaction(name))
-                mVariables.append(name);
-              else if (m.getRule(name) && m.getRule(name)->isAssignment())
-                mVariables.append(name);
-              else if (m.getInitialAssignment(name))
-                mVariables.append(name);
-            }
-          }
-          delete variables;
-        }
-      }
-    }
-
-    // create list of checked items
-    for (the_iterator = mTempList.begin();
-      the_iterator != mTempList.end(); the_iterator++)
-    {
-      mCheckedList.append(*the_iterator);
-    }
-    mTempList.clear();
-
-  } // end of while
-
 }
+
+
 void 
-AssignmentCycles::checkRule(const Model& m, const Rule& object)
+AssignmentCycles::addRuleDependencies(const Model& m, const Rule& object)
 {
   unsigned int ns;
+  std::string thisId = object.getVariable();
 
   /* loop thru the list of names in the Math
     * if they refer to a Reaction, an Assignment Rule
-    * or an Initial Assignment add to the list
+    * or an Initial Assignment add to the map
+    * with the variable as key
     */
   List* variables = object.getMath()->getListOfNodes( ASTNode_isName );
   for (ns = 0; ns < variables->getSize(); ns++)
@@ -436,280 +200,201 @@ AssignmentCycles::checkRule(const Model& m, const Rule& object)
     ASTNode* node = static_cast<ASTNode*>( variables->get(ns) );
     string   name = node->getName() ? node->getName() : "";
 
-    if (!mVariables.contains(name))
+    if (m.getReaction(name))
     {
-      if (m.getReaction(name))
-        mVariables.append(name);
-      else if (m.getRule(name) && m.getRule(name)->isAssignment())
-        mVariables.append(name);
-      else if (m.getInitialAssignment(name))
-        mVariables.append(name);
+      mIdMap.insert(make_pair(thisId, name));
     }
-  }
-  delete variables;
-
-
-  while(mVariables.size() != 0)
-  {
-    IdList::const_iterator the_iterator;
-
-    // create temporary list
-    for (the_iterator = mVariables.begin();
-      the_iterator != mVariables.end(); the_iterator++)
+    else if (m.getRule(name) && m.getRule(name)->isAssignment())
     {
-      mTempList.append(*the_iterator);
+      mIdMap.insert(make_pair(thisId, name));
     }
-    mVariables.clear();
-
-    // loop thru list and find other reactions/assignments
-    for (the_iterator = mTempList.begin();
-      the_iterator != mTempList.end(); the_iterator++)
+    else if (m.getInitialAssignment(name))
     {
-      if (m.getInitialAssignment(*the_iterator))
-      {
-        const InitialAssignment * ia = m.getInitialAssignment(*the_iterator);
-
-        if (ia->isSetMath())
-        {
-          List* variables = ia->getMath()->getListOfNodes( ASTNode_isName );
-          for (ns = 0; ns < variables->getSize(); ns++)
-          {
-            ASTNode* node = static_cast<ASTNode*>( variables->get(ns) );
-            string   name = node->getName() ? node->getName() : "";
-
-            if (mCheckedList.contains(name))
-            {
-              logUndefined(object, *m.getInitialAssignment(*the_iterator));
-            }
-            else if (!mVariables.contains(name))
-            {
-              if (m.getReaction(name))
-                mVariables.append(name);
-              else if (m.getRule(name) && m.getRule(name)->isAssignment())
-                mVariables.append(name);
-              else if (m.getInitialAssignment(name))
-                mVariables.append(name);
-            }
-          }
-          delete variables;
-        }
-      }
-      else if (m.getReaction(*the_iterator))
-      {
-        const Reaction * r = m.getReaction(*the_iterator);
-
-         /* if this is the reaction being checked skip */
-        if (strcmp(r->getId().c_str(), object.getId().c_str()))
-        {
-        //check that the reaction has a Kinetic Law
-          if (r->isSetKineticLaw())
-          {
-            if (r->getKineticLaw()->isSetMath())
-            {
-              List* variables = r->getKineticLaw()
-                                ->getMath()->getListOfNodes( ASTNode_isName );
-              for (ns = 0; ns < variables->getSize(); ns++)
-              {
-                ASTNode* node = static_cast<ASTNode*>( variables->get(ns) );
-                string   name = node->getName() ? node->getName() : "";
-
-                if (mCheckedList.contains(name))
-                {
-                  logUndefined(object, *m.getReaction(*the_iterator));
-                }
-                else if (!mVariables.contains(name))
-                {
-                  if (m.getReaction(name))
-                    mVariables.append(name);
-                  else if (m.getRule(name) && m.getRule(name)->isAssignment())
-                    mVariables.append(name);
-                  else if (m.getInitialAssignment(name))
-                    mVariables.append(name);
-                }
-              }
-              delete variables;
-            }
-          }
-        }
-      }
-      else if (m.getRule(*the_iterator) 
-        && m.getRule(*the_iterator)->isAssignment())
-      {
-        const Rule * ar = m.getRule(*the_iterator);
-         /* if this is the reaction being checked skip */
-        if (strcmp(ar->getId().c_str(), object.getId().c_str()))
-        {
-          if (ar->isSetMath())
-          {
-            List* variables = ar->getMath()->getListOfNodes( ASTNode_isName );
-            for (ns = 0; ns < variables->getSize(); ns++)
-            {
-              ASTNode* node = static_cast<ASTNode*>( variables->get(ns) );
-              string   name = node->getName() ? node->getName() : "";
-
-              if (mCheckedList.contains(name))
-              {
-                logUndefined(object, *m.getRule(*the_iterator));
-              }
-              else if (!mVariables.contains(name))
-              {
-                if (m.getReaction(name))
-                  mVariables.append(name);
-                else if (m.getRule(name) && m.getRule(name)->isAssignment())
-                  mVariables.append(name);
-                else if (m.getInitialAssignment(name))
-                  mVariables.append(name);
-              }
-            }
-            delete variables;
-          }
-        }
-      }
+      mIdMap.insert(make_pair(thisId, name));
     }
-
-    // create list of checked items
-    for (the_iterator = mTempList.begin();
-      the_iterator != mTempList.end(); the_iterator++)
-    {
-      mCheckedList.append(*the_iterator);
-    }
-    mTempList.clear();
-
-  } // end of while
-
-}
-
-void 
-AssignmentCycles::checkInitialAssignmentForSymbol(const Model& m, 
-                                  const InitialAssignment& object)
-{
-  /* list the <ci> elements */
-  List* variables = object.getMath()->getListOfNodes( ASTNode_isName );
-  std::string variable = object.getSymbol();
-
-  for (unsigned int i = 0; i < variables->getSize(); i++)
-  {
-    ASTNode* node = static_cast<ASTNode*>( variables->get(i) );
-    const char *   name = node->getName() ? node->getName() : "";
-    if (!(strcmp(variable.c_str(), name)))
-      logMathRefersToSelf(*(object.getMath()), object);
   }
 
   delete variables;
 }
 
-void 
-AssignmentCycles::checkReactionForId(const Model& m, const Reaction& object)
-{
-  /* list the <ci> elements */
-  if (!(object.isSetKineticLaw()))
-    return;
-  else if (!(object.getKineticLaw()->isSetMath()))
-    return;
-  else
-  {
-    List* variables = 
-      object.getKineticLaw()->getMath()->getListOfNodes( ASTNode_isName );
-    std::string variable = object.getId();
-
-    for (unsigned int i = 0; i < variables->getSize(); i++)
-    {
-      ASTNode* node = static_cast<ASTNode*>( variables->get(i) );
-      const char *   name = node->getName() ? node->getName() : "";
-      if (!(strcmp(variable.c_str(), name)))
-        logMathRefersToSelf(*(object.getKineticLaw()->getMath()), object);
-    }
-    
-    delete variables;
-  }
-}
-
-
 
 void 
-AssignmentCycles::checkRuleForVariable(const Model& m, const Rule& object)
+AssignmentCycles::determineAllDependencies()
 {
-  /* list the <ci> elements */
-  List* variables = object.getMath()->getListOfNodes( ASTNode_isName );
-  std::string variable = object.getVariable();
+  IdIter iterator;
+  IdIter inner_it;
+  IdRange range;
+  pair<std::string, std::string> depend;
 
-  for (unsigned int i = 0; i < variables->getSize(); i++)
-  {
-    ASTNode* node = static_cast<ASTNode*>( variables->get(i) );
-    const char *   name = node->getName() ? node->getName() : "";
-    if (!(strcmp(variable.c_str(), name)))
-      logMathRefersToSelf(*(object.getMath()), object);
-  }
-  
-  delete variables;
-}
-
-  
-void 
-AssignmentCycles::checkInitialAssignmentForCompartment(const Model &m, 
-                                       const InitialAssignment &object)
-{
-  /* only need to check if the variable refers to a compartment
-   * with dimensions greater than 0
+  /* for each pair in the map (x, y)
+   * retrieve all other pairs where y is first (e.g. (y, s))
+   * and create pairs showing that x depends on these e.g. (x, s)
+   * check whether the pair already exists in the map
+   * and add it if not
    */
-  std::string id = object.getSymbol();
-  const Compartment *c = m.getCompartment(id);
-  if (c == NULL)
-    return;
-  else if (c->getSpatialDimensions() == 0)
-    return;
-
-  /* list the <ci> elements of the rule*/
-  List* variables = object.getMath()->getListOfNodes( ASTNode_isName );
-
-  for (unsigned int i = 0; i < variables->getSize(); i++)
+  for (iterator = mIdMap.begin(); iterator != mIdMap.end(); iterator++)
   {
-    ASTNode* node = static_cast<ASTNode*>( variables->get(i) );
-    const char *   name = node->getName() ? node->getName() : "";
-    const Species * s = m.getSpecies(name);
-    if (s && 
-        s->getCompartment() == id &&
-        s->getHasOnlySubstanceUnits() == false)
+    range = mIdMap.equal_range((*iterator).second);
+    for (inner_it = range.first; inner_it != range.second; inner_it++)
     {
-      logImplicitReference(object, *(s));
+      depend = make_pair((*iterator).first, (*inner_it).second);
+      if (!alreadyExistsInMap(mIdMap, depend))
+        mIdMap.insert(depend);
     }
   }
+}
+
+
+bool 
+AssignmentCycles::alreadyExistsInMap(IdMap map, 
+                                     pair<std::string, std::string> dependency)
+{
+  bool exists = false;
+
+  IdIter it;
   
-  delete variables;
+  for (it = map.begin(); it != map.end(); it++)
+  {
+    if (((*it).first == dependency.first)
+      && ((*it).second == dependency.second))
+      exists = true;
+  }
+
+  return exists;
+}
+
+  
+void 
+AssignmentCycles::checkForSelfAssignment(const Model& m)
+{
+  IdIter the_iterator;
+
+  for (the_iterator = mIdMap.begin();
+    the_iterator != mIdMap.end(); the_iterator++)
+  {
+    if ((*the_iterator).first == (*the_iterator).second)
+    {
+      logMathRefersToSelf(m, (*the_iterator).first);
+    }
+  }
+}
+
+
+void 
+AssignmentCycles::determineCycles(const Model& m)
+{
+  IdIter it;
+  IdRange range;
+  IdList variables;
+  IdMap logged;
+  std::string id;
+  variables.clear();
+
+  /* create a list of variables that are cycles ie (x, x) */
+  for (it = mIdMap.begin(); it != mIdMap.end(); it++)
+  {
+    if ((*it).first == (*it).second)
+    {
+      id = (*it).first;
+      if (!variables.contains(id))
+      {
+        variables.append(id);
+      }
+    }
+  }
+
+  /* loop thru other dependencies for each; if the dependent is also
+   * in the list then this is the cycle
+   * keep a record of logged dependencies to avoid logging twice
+   */
+   
+  for (unsigned int n = 0; n < variables.size(); n++)
+  {
+    id = variables.at(n);
+    range = mIdMap.equal_range(id);
+    for (it = range.first; it != range.second; it++)
+    {
+      if (((*it).second != id)
+        && (variables.contains((*it).second))
+        && !alreadyExistsInMap(logged, make_pair(id, (*it).second))
+        && !alreadyExistsInMap(logged, make_pair((*it).second, id)))
+      {
+        logCycle(m, id, (*it).second);
+        logged.insert(make_pair(id, (*it).second));
+      }
+    }
+  }
 }
  
 
 void 
-AssignmentCycles::checkRuleForCompartment(const Model& m, 
-                                          const Rule& object)
+AssignmentCycles::checkForImplicitCompartmentReference(const Model& m)
 {
-  /* only need to check if the variable refers to a compartment
-   * with dimensions greater than 0
-   */
-  std::string id = object.getVariable();
-  const Compartment *c = m.getCompartment(id);
-  if (c == NULL)
-    return;
-  else if (c->getSpatialDimensions() == 0)
-    return;
+  mIdMap.clear();
 
-  /* list the <ci> elements of the rule*/
-  List* variables = object.getMath()->getListOfNodes( ASTNode_isName );
+  unsigned int i, ns;
+  std::string id;
 
-  for (unsigned int i = 0; i < variables->getSize(); i++)
+  for (i = 0; i < m.getNumInitialAssignments(); i++)
   {
-    ASTNode* node = static_cast<ASTNode*>( variables->get(i) );
-    const char *   name = node->getName() ? node->getName() : "";
-    const Species * s = m.getSpecies(name);
-    if (s && 
-        s->getCompartment() == id &&
-        s->getHasOnlySubstanceUnits() == false)
+    if (m.getInitialAssignment(i)->isSetMath())
     {
-      logImplicitReference(object, *(s));
+      id = m.getInitialAssignment(i)->getSymbol();
+      if (m.getCompartment(id) 
+        && m.getCompartment(id)->getSpatialDimensions() > 0)
+      {
+        List* variables = m.getInitialAssignment(i)->getMath()
+                                        ->getListOfNodes( ASTNode_isName );
+        for (ns = 0; ns < variables->getSize(); ns++)
+        {
+          ASTNode* node = static_cast<ASTNode*>( variables->get(ns) );
+          string   name = node->getName() ? node->getName() : "";
+          if (!name.empty() && !alreadyExistsInMap(mIdMap, make_pair(id, name)))
+            mIdMap.insert(make_pair(id, name));
+        }
+        delete variables;
+      }
     }
   }
-  
-  delete variables;
+
+  for (i = 0; i < m.getNumRules(); i++)
+  {
+    if (m.getRule(i)->isSetMath() && m.getRule(i)->isAssignment())
+    {
+      id = m.getRule(i)->getVariable();
+      if (m.getCompartment(id) 
+        && m.getCompartment(id)->getSpatialDimensions() > 0)
+      {
+        List* variables = m.getRule(i)->getMath()->getListOfNodes( ASTNode_isName );
+        for (ns = 0; ns < variables->getSize(); ns++)
+        {
+          ASTNode* node = static_cast<ASTNode*>( variables->get(ns) );
+          string   name = node->getName() ? node->getName() : "";
+          if (!name.empty() && !alreadyExistsInMap(mIdMap, make_pair(id, name)))
+            mIdMap.insert(make_pair(id, name));
+        }
+        delete variables;
+      }
+    }
+  }
+
+  IdIter it;
+  IdRange range;
+
+  for (i = 0; i < m.getNumCompartments(); i++)
+  {
+    std::string id = m.getCompartment(i)->getId();
+    range = mIdMap.equal_range(id);
+    for (it = range.first; it != range.second; it++)
+    {
+      const Species *s = m.getSpecies((*it).second);
+      if (s && s->getCompartment() == id
+        && s->getHasOnlySubstanceUnits() == false)
+      {
+        logImplicitReference(m, id, s);
+      }
+    }
+  }
 }
 
 /**
@@ -717,59 +402,169 @@ AssignmentCycles::checkRuleForCompartment(const Model& m,
   * FunctionDefinition.
   */
 void
-AssignmentCycles::logUndefined ( const SBase& object,
-                                       const SBase& conflict )
+AssignmentCycles::logCycle (const Model& m, std::string id,
+                                std::string id1)
+{
+  if (m.getInitialAssignment(id))
+  {
+    if (m.getInitialAssignment(id1))
+    {
+      logCycle(
+        static_cast <const SBase *> (m.getInitialAssignment(id)),
+        static_cast <const SBase *> (m.getInitialAssignment(id1)));
+    }
+    else if (m.getReaction(id1))
+    {
+      logCycle(
+        static_cast <const SBase *> (m.getInitialAssignment(id)),
+        static_cast <const SBase *> (m.getReaction(id1)));
+    }
+    else if (m.getRule(id1))
+    {
+      logCycle(
+        static_cast <const SBase *> (m.getInitialAssignment(id)),
+        static_cast <const SBase *> (m.getRule(id1)));
+    }
+  }
+  else if (m.getReaction(id))
+  {
+    if (m.getInitialAssignment(id1))
+    {
+      logCycle(
+        static_cast <const SBase *> (m.getReaction(id)),
+        static_cast <const SBase *> (m.getInitialAssignment(id1)));
+    }
+    else if (m.getReaction(id1))
+    {
+      logCycle(
+        static_cast <const SBase *> (m.getReaction(id)),
+        static_cast <const SBase *> (m.getReaction(id1)));
+    }
+    else if (m.getRule(id1))
+    {
+      logCycle(
+        static_cast <const SBase *> (m.getReaction(id)),
+        static_cast <const SBase *> (m.getRule(id1)));
+    }
+  }
+  else if (m.getRule(id))
+  {
+    if (m.getInitialAssignment(id1))
+    {
+      logCycle(
+        static_cast <const SBase *> (m.getRule(id)),
+        static_cast <const SBase *> (m.getInitialAssignment(id1)));
+    }
+    else if (m.getReaction(id1))
+    {
+      logCycle(
+        static_cast <const SBase *> (m.getRule(id)),
+        static_cast <const SBase *> (m.getReaction(id1)));
+    }
+    else if (m.getRule(id1))
+    {
+      logCycle(
+        static_cast <const SBase *> (m.getRule(id)),
+        static_cast <const SBase *> (m.getRule(id1)));
+    }
+  }
+}  
+
+
+void
+AssignmentCycles::logCycle ( const SBase* object,
+                                       const SBase* conflict )
 {
   msg = "The ";
-  msg += SBMLTypeCode_toString( object.getTypeCode());
+  msg += SBMLTypeCode_toString( object->getTypeCode());
   msg += " with id '";
-  msg += object.getId();
+  msg += object->getId();
   msg += "' creates a cycle with the ";
-  msg += SBMLTypeCode_toString( conflict.getTypeCode());
+  msg += SBMLTypeCode_toString( conflict->getTypeCode());
   msg += " with id '";
-  msg += conflict.getId();
+  msg += conflict->getId();
   msg += "'.";
 
   
-  logFailure(object);
+  logFailure(*object);
 }
 
 void
-AssignmentCycles::logMathRefersToSelf (const ASTNode & node,
-                                             const SBase& object)
+AssignmentCycles::logMathRefersToSelf (const Model& m, std::string id)
+{
+  if (m.getInitialAssignment(id))
+  {
+    logMathRefersToSelf(m.getInitialAssignment(id)->getMath(), 
+              static_cast <const SBase * > (m.getInitialAssignment(id)));
+  }
+  else if (m.getReaction(id))
+  {
+    logMathRefersToSelf(m.getReaction(id)->getKineticLaw()->getMath(), 
+              static_cast <const SBase * > (m.getReaction(id)));
+  }
+  else if (m.getRule(id))
+  {
+    logMathRefersToSelf(m.getRule(id)->getMath(), 
+              static_cast <const SBase * > (m.getRule(id)));
+  }
+
+}  
+  
+  
+  
+void
+AssignmentCycles::logMathRefersToSelf (const ASTNode * node,
+                                             const SBase* object)
 {
   msg = "The ";
 
-  msg += SBMLTypeCode_toString( object.getTypeCode());
+  msg += SBMLTypeCode_toString( object->getTypeCode());
   msg += " with id '";
-  msg += object.getId();
+  msg += object->getId();
   msg += "' refers to that variable within the math formula '";
-  msg += SBML_formulaToString(&node);
+  msg += SBML_formulaToString(node);
   msg += "'.";
 
   
-  logFailure(object);
+  logFailure(*object);
 
 }
 
   
 void 
-AssignmentCycles::logImplicitReference (const SBase& object, 
-                                        const Species& conflict)
+AssignmentCycles::logImplicitReference (const Model& m, std::string id, 
+                                        const Species* conflict)
+{
+  if (m.getInitialAssignment(id))
+  {
+    logImplicitReference(
+      static_cast <const SBase * > (m.getInitialAssignment(id)), conflict);
+  }
+  else if (m.getRule(id))
+  {
+    logImplicitReference(static_cast <const SBase * > (m.getRule(id)), 
+                         conflict);
+  }
+}
+
+                                        
+void 
+AssignmentCycles::logImplicitReference (const SBase* object, 
+                                        const Species* conflict)
 {
   msg = "The ";
-  msg += SBMLTypeCode_toString( object.getTypeCode());
+  msg += SBMLTypeCode_toString( object->getTypeCode());
   msg += " assigning value to compartment '";
-  msg += object.getId();
+  msg += object->getId();
   msg += "' refers to species '";
-  msg += conflict.getId();
-  msg += "'.  Since the use of the species id in this context ";
+  msg += conflict->getId();
+  msg += "'->  Since the use of the species id in this context ";
   msg += "refers to a concentration, this is an implicit ";
   msg += "reference to compartment '";
-  msg += object.getId();
+  msg += object->getId();
   msg += "'.";
 
   
-  logFailure(object);
+  logFailure(*object);
 }
 
