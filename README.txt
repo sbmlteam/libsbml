@@ -53,7 +53,7 @@ please cite the libSBML paper:
 1. QUICK START
 --------------
 
-1.1 Linux, MacOS X and Solaris
+1.1 Linux, MacOS X and FreeBSD
 ------------------------------
 
 At the Unix command prompt, untar the distribution, cd into it (e.g.,
@@ -154,8 +154,8 @@ SBML Level 2.
 The library is written in ISO standard C and C++ and currently
 provides an API for the languages C, C++, C#, Java, Perl, Python,
 Ruby, MATLAB and Octave.  LibSBML is known to run on Linux, Windows,
-and MacOS X, but is portable and support for other platforms should be
-straightforward to implement.
+MacOS X and FreeBSD, but is portable and support for other platforms
+should be straightforward to implement.
 
 LibSBML is entirely open-source and all specifications and source code
 are freely and publicly available.  For more information about SBML,
