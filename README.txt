@@ -96,8 +96,8 @@ whose components are in /usr/local (with files in /usr/local/bin and
 Once you've successfully configured libSBML, run the following two
 commands to build and install it:
 
-  make
-  make install
+  make                   # Note: use 'gmake' on FreeBSD
+  make install           # Note: use 'gmake install' on FreeBSD
 
 To compile C or C++ programs that use libSBML with GCC, use a command
 such as the following, where -lsbml tells the compiler to link with
@@ -119,7 +119,7 @@ distribution if you have Doxygen version 1.5.4 installed and have
 configured libSBML with the --with-doxygen flag.  Then you can execute
 the following to generate and install the libSBML documentation files:
 
-  make install-docs
+  make install-docs       # Note: use 'gmake install-docs' on FreeBSD
 
 
 1.2 Windows
