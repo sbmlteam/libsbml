@@ -1053,6 +1053,16 @@ Model::appendAnnotation (const std::string& annotation)
 void
 Model::syncAnnotation ()
 {
+  bool hasRDF = false;
+  bool hasAdditionalRDF = false;
+  // determine status of existing annotation before doing anything
+  if (mAnnotation)
+  {
+    hasRDF = RDFAnnotationParser::hasRDFAnnotation(mAnnotation);
+    hasAdditionalRDF = 
+      RDFAnnotationParser::hasAdditionalRDFAnnotation(mAnnotation);
+  }
+
   XMLNode * history = RDFAnnotationParser::parseModelHistory(this);
 
   if(mAnnotation)
@@ -1080,7 +1090,25 @@ Model::syncAnnotation ()
       {
         mAnnotation->unsetEnd();
       }
-      mAnnotation->addChild(history->getChild(0));
+      if (hasAdditionalRDF)
+      {
+        //need to insert the history into existing RDF
+        unsigned int n = 0;
+        while (n < mAnnotation->getNumChildren())
+        {
+          if (mAnnotation->getChild(n).getName() == "RDF")
+          {
+            mAnnotation->getChild(n).insertChild(0, 
+              history->getChild(0).getChild(0));
+            break;
+          }
+          n++;
+        }
+      }
+      else
+      {
+        mAnnotation->addChild(history->getChild(0));
+      }
       delete history;
     }
   }
@@ -2154,8 +2182,12 @@ Model::readOtherXML (XMLInputStream& stream)
     }
     mCVTerms = new List();
     delete mHistory;
-    mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation);
-    RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
+    if (RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation))
+      mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation);
+    else
+      mHistory = NULL;
+    if (RDFAnnotationParser::hasCVTermRDFAnnotation(mAnnotation))
+      RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
 //    new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
 //    delete mAnnotation;
 //    mAnnotation = new_annotation;

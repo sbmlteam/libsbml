@@ -105,23 +105,48 @@ RDFAnnotationParser::deleteRDFAnnotation(const XMLNode * annotation)
   unsigned int n = 0;
   XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), annotation->getAttributes(),annotation->getNamespaces());
   XMLNode * newAnnotation = NULL;
+  XMLNode rdfAnnotation;
+  bool hasAdditionalRDF = 
+      RDFAnnotationParser::hasAdditionalRDFAnnotation(annotation);
+  bool hasCVTermRDF = 
+      RDFAnnotationParser::hasCVTermRDFAnnotation(annotation);
+  bool hasHistoryRDF = 
+    RDFAnnotationParser::hasHistoryRDFAnnotation(annotation);
 
   if (name != "annotation")
   {
     return NULL;
   }
+
+
   
   if (children > 1)
   {
     newAnnotation = new XMLNode(ann_token);
   
-    // need to find each annotation and remove it if it is an RDF
+    // need to find each annotation and add if not RDF
     while (n < children)
     {
       const string &name1 = annotation->getChild(n).getName();
       if (name1 != "RDF")
       {
         newAnnotation->addChild(annotation->getChild(n));
+      }
+      else
+      {
+        // is RDF - if there is additional rdf preserve this
+        if ((hasCVTermRDF || hasHistoryRDF) && hasAdditionalRDF)
+        {
+          rdfAnnotation = annotation->getChild(n);
+          *(rdfAnnotation).removeChild(0);
+          newAnnotation->addChild(rdfAnnotation);
+        }
+        else if (hasAdditionalRDF)
+        {
+          rdfAnnotation = annotation->getChild(n);
+          newAnnotation->addChild(rdfAnnotation);
+        }
+
       }
       n++;
     }
@@ -135,8 +160,24 @@ RDFAnnotationParser::deleteRDFAnnotation(const XMLNode * annotation)
     }
     else
     {
-      ann_token.setEnd();
-      newAnnotation = new XMLNode(ann_token);
+      if ((hasCVTermRDF || hasHistoryRDF) && hasAdditionalRDF)
+      {
+        rdfAnnotation = annotation->getChild(0);
+        *(rdfAnnotation).removeChild(0);
+        newAnnotation = new XMLNode(ann_token);
+        newAnnotation->addChild(rdfAnnotation);
+      }
+      else if (hasAdditionalRDF)
+      {
+        rdfAnnotation = annotation->getChild(0);
+        newAnnotation = new XMLNode(ann_token);
+        newAnnotation->addChild(rdfAnnotation);
+      }
+      else
+      {
+        ann_token.setEnd();
+        newAnnotation = new XMLNode(ann_token);
+      }
     }
   }
 
@@ -648,6 +689,11 @@ RDFAnnotationParser::parseModelHistory(const Model *model)
       li.addChild(*Org);
       delete Org;
     }
+    if (c->getAdditionalRDF())
+    {
+      li.addChild(*(c->getAdditionalRDF()));
+    }
+
     bag.addChild(li);
   }
 
@@ -708,6 +754,137 @@ RDFAnnotationParser::parseModelHistory(const Model *model)
 
   return ann;
 }
+
+
+/** @cond doxygen-libsbml-internal */
+
+  
+bool 
+RDFAnnotationParser::hasRDFAnnotation(const XMLNode *annotation)
+{
+  bool hasRDF = false;
+  const string&  name = annotation->getName();
+  unsigned int n = 0;
+
+  if (name != "annotation")
+  {
+    return hasRDF;
+  }
+
+  while (n < annotation->getNumChildren())
+  {
+    const string &name1 = annotation->getChild(n).getName();
+    if (name1 == "RDF")
+    {
+      hasRDF = true;
+      break;
+    }
+    n++;
+  }
+
+  return hasRDF;
+
+}
+
+
+bool 
+RDFAnnotationParser::hasAdditionalRDFAnnotation(const XMLNode *annotation)
+{
+  bool hasAdditionalRDF = false;
+  unsigned int n = 0;
+  const XMLNode* rdf = NULL;
+
+  if (!RDFAnnotationParser::hasRDFAnnotation(annotation))
+  {
+    return hasAdditionalRDF;
+  }
+
+  // get the RDF annotation
+  while ( n < annotation->getNumChildren())
+  {
+    const string &name1 = annotation->getChild(n).getName();
+    if (name1 == "RDF")
+    {
+      rdf = &(annotation->getChild(n));
+      break;
+    }
+    n++;
+  }
+
+  // does it have more than one child
+  if (rdf->getNumChildren() > 1)
+  {
+    hasAdditionalRDF = true;
+  }
+  else
+  {
+    // check whether the annotation relates to CVTerms
+    List * temp = new List();
+    parseRDFAnnotation(annotation, temp);
+    if (temp && temp->getSize() == 0 && 
+      !RDFAnnotationParser::hasHistoryRDFAnnotation(annotation))
+    {
+      hasAdditionalRDF = true;
+    }
+    delete temp;
+  }
+
+  return hasAdditionalRDF;
+}
+
+
+bool 
+RDFAnnotationParser::hasCVTermRDFAnnotation(const XMLNode *annotation)
+{
+  bool hasCVTermRDF = false;
+  unsigned int n = 0;
+  const XMLNode* rdf = NULL;
+
+  if (!RDFAnnotationParser::hasRDFAnnotation(annotation))
+  {
+    return hasCVTermRDF;
+  }
+
+  // check whether the annotation relates to CVTerms
+  List * temp = new List();
+  parseRDFAnnotation(annotation, temp);
+  if (temp && temp->getSize() > 0)
+  {
+    hasCVTermRDF = true;
+  }
+  delete temp;
+
+
+  return hasCVTermRDF;
+}
+
+
+bool 
+RDFAnnotationParser::hasHistoryRDFAnnotation(const XMLNode *annotation)
+{
+  bool hasHistoryRDF = false;
+  unsigned int n = 0;
+  const XMLNode* rdf = NULL;
+
+  if (!RDFAnnotationParser::hasRDFAnnotation(annotation))
+  {
+    return hasHistoryRDF;
+  }
+
+  // check whether the annotation relates to Model History
+  ModelHistory *temp = parseRDFAnnotation(annotation);
+  if (temp && temp->getNumCreators() > 0)
+  {
+    hasHistoryRDF = true;
+  }
+  delete temp;
+
+
+  return hasHistoryRDF;
+}
+
+
+  /** @endcond doxygen-libsbml-internal */
 
 /** @cond doxygen-c-only */
 

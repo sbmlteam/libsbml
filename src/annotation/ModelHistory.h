@@ -498,15 +498,21 @@ public:
   void unsetOrganization();
   /** @cond doxygen-libsbml-internal */
   void unsetOrganisation();
+
+
+  XMLNode * getAdditionalRDF();
   /** @endcond doxygen-libsbml-internal */
 
 protected:
   /** @cond doxygen-libsbml-internal */
 
+
   std::string mFamilyName;
   std::string mGivenName;
   std::string mEmail;
   std::string mOrganization;
+
+  XMLNode * mAdditionalRDF;
 
   /** @endcond doxygen-libsbml-internal */
 };
@@ -670,7 +676,6 @@ protected:
   List * mCreators;
 
   Date* mCreatedDate;
-  Date* mModifiedDate;
 
   // there can be more than one modified date
   // this is a bug and so as to not break code 

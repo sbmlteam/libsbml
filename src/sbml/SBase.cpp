@@ -2190,11 +2190,29 @@ SBase::writeAttributes (XMLOutputStream& stream) const
 void
 SBase::syncAnnotation ()
 {
-  if (this->getTypeCode() != SBML_MODEL)
+  bool hasRDF = false;
+  bool hasAdditionalRDF = false;
+  
+  if (this->getCVTerms() == NULL || this->getCVTerms()->getSize() == 0)
   {
-    if(mAnnotation)
+    // no CVTerms  do nothing
+    return;
+  }
+
+  // determine status of existing annotation before doing anything
+  if (mAnnotation)
+  {
+    hasRDF = RDFAnnotationParser::hasRDFAnnotation(mAnnotation);
+    hasAdditionalRDF = 
+      RDFAnnotationParser::hasAdditionalRDFAnnotation(mAnnotation);
+  }
+
+ // if (this->getTypeCode() != SBML_MODEL)
+ // {
+  if(mAnnotation && hasRDF)
     {
-      XMLNode* new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
+      XMLNode* new_annotation = 
+        RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
       if(!new_annotation)
       {
          XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
@@ -2204,7 +2222,7 @@ SBase::syncAnnotation ()
       *mAnnotation = *new_annotation;
       delete new_annotation;
     }
-  }
+ // }
 
   XMLNode * cvTerms = RDFAnnotationParser::parseCVTerms(this);
 
@@ -2220,7 +2238,25 @@ SBase::syncAnnotation ()
       {
         mAnnotation->unsetEnd();
       }
-      mAnnotation->addChild(cvTerms->getChild(0));
+      if (hasAdditionalRDF)
+      {
+        //need to insert the CVTerms into existing RDF
+        unsigned int n = 0;
+        while (n < mAnnotation->getNumChildren())
+        {
+          if (mAnnotation->getChild(n).getName() == "RDF")
+          {
+            mAnnotation->getChild(n).insertChild(0, 
+              cvTerms->getChild(0).getChild(0));
+            break;
+          }
+          n++;
+        }
+      }
+      else
+      {
+        mAnnotation->addChild(cvTerms->getChild(0));
+      }
       delete cvTerms;
     }
   }

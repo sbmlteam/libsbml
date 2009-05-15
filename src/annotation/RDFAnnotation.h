@@ -216,6 +216,23 @@ public:
    * MIRIAM-compliant model history information in RDF format
    */
   static XMLNode * parseModelHistory(const Model * object);
+
+
+  /** @cond doxygen-libsbml-internal */
+
+  
+  static bool hasRDFAnnotation(const XMLNode *annotation);
+
+
+  static bool hasAdditionalRDFAnnotation(const XMLNode *annotation);
+
+
+  static bool hasCVTermRDFAnnotation(const XMLNode *annotation);
+
+
+  static bool hasHistoryRDFAnnotation(const XMLNode *annotation);
+
+   /** @endcond doxygen-libsbml-internal */
 };
 
 #endif  /* __cplusplus */

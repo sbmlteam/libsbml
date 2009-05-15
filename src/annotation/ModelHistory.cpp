@@ -501,14 +501,16 @@ Date::parseDateStringToNumbers()
 /*
  * Creates a new ModelCreator.
  */
-ModelCreator::ModelCreator ()
+ModelCreator::ModelCreator () :
+ mAdditionalRDF(0)
 {
 }
 
 /*
  * create a new ModelCreator from an XMLNode
  */
-ModelCreator::ModelCreator(const XMLNode creator)
+ModelCreator::ModelCreator(const XMLNode creator):
+  mAdditionalRDF(0)
 {
   // check that this is the right place in the RDF Annotation
   if (creator.getName() == "li")
@@ -540,6 +542,14 @@ ModelCreator::ModelCreator(const XMLNode creator)
       {
         setOrganization(creator.getChild(n).getChild(0).getChild(0).getCharacters());
       }
+      else
+      {
+        if (!mAdditionalRDF)
+        {
+          mAdditionalRDF = new XMLNode();
+        }
+        mAdditionalRDF->addChild(creator.getChild(n));
+      }
     }
   }
 }
@@ -550,6 +560,7 @@ ModelCreator::ModelCreator(const XMLNode creator)
  */
 ModelCreator::~ModelCreator()
 {
+  delete mAdditionalRDF;
 }
 
 
@@ -562,6 +573,10 @@ ModelCreator::ModelCreator(const ModelCreator& orig):
  , mEmail        ( orig.mEmail )
  , mOrganization ( orig.mOrganization )
 {
+  if (orig.mAdditionalRDF)
+    this->mAdditionalRDF = orig.mAdditionalRDF->clone();
+  else
+    this->mAdditionalRDF = 0;
 }
 
 
@@ -576,6 +591,10 @@ ModelCreator& ModelCreator::operator=(const ModelCreator& orig)
     mGivenName    = orig.mGivenName;
     mEmail        = orig.mEmail;
     mOrganization = orig.mOrganization;
+    if (orig.mAdditionalRDF)
+      this->mAdditionalRDF = orig.mAdditionalRDF->clone();
+    else
+      this->mAdditionalRDF = 0;
   }
 
   return *this;
@@ -708,6 +727,13 @@ ModelCreator::unsetOrganisation()
 {
   unsetOrganization();
 }
+
+XMLNode *
+ModelCreator::getAdditionalRDF()
+{
+  return mAdditionalRDF;
+}
+
 /** @endcond doxygen-libsbml-internal */
 
 
