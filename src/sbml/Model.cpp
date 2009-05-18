@@ -913,12 +913,11 @@ Model::setAnnotation (const XMLNode* annotation)
 {
   SBase::setAnnotation(annotation);
 
-  // delete existing mHistory 
-  delete mHistory;
-  mHistory = NULL;
-
-  if(mAnnotation)
+  if(mAnnotation && RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation))
   {
+    // delete existing mHistory 
+    delete mHistory;
+    mHistory = NULL;
     // parse mAnnotation (if any) and set mHistory
     mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation);
   }
@@ -996,13 +995,15 @@ Model::appendAnnotation (const XMLNode* annotation)
   }
 
   // parse new_annotation and reset mHistory 
-  ModelHistory* new_mhistory = RDFAnnotationParser::parseRDFAnnotation(new_annotation);
-  if(new_mhistory)
+  if (RDFAnnotationParser::hasHistoryRDFAnnotation(new_annotation))
   {
-    delete mHistory;
-    mHistory = new_mhistory;
+    ModelHistory* new_mhistory = RDFAnnotationParser::parseRDFAnnotation(new_annotation);
+    if(new_mhistory)
+    {
+      delete mHistory;
+      mHistory = new_mhistory;
+    }
   }
-
 #ifdef USE_LAYOUT
   // parse new_annotation and add mLayouts 
   parseLayoutAnnotation(new_annotation,mLayouts);

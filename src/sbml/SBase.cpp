@@ -660,17 +660,17 @@ SBase::setAnnotation (const XMLNode* annotation)
     }
   }
 
-  if (mCVTerms)
-  {
-    // delete existing mCVTerms (if any)
-    unsigned int size = mCVTerms->getSize();
-    while (size--) delete static_cast<CVTerm*>( mCVTerms->remove(0) );
-    delete mCVTerms;
-    mCVTerms = NULL;
-  }
 
-  if(mAnnotation)
+  if(mAnnotation && RDFAnnotationParser::hasCVTermRDFAnnotation(mAnnotation))
   {
+    if (mCVTerms)
+    {
+      // delete existing mCVTerms (if any)
+      unsigned int size = mCVTerms->getSize();
+      while (size--) delete static_cast<CVTerm*>( mCVTerms->remove(0) );
+      delete mCVTerms;
+      mCVTerms = NULL;
+    }
     // parse mAnnotation (if any) and set mCVTerms 
     mCVTerms = new List();
     RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
@@ -735,7 +735,10 @@ SBase::appendAnnotation (const XMLNode* annotation)
   }
 
   // parse new_annotation and add mCVTerms (if any) 
-  RDFAnnotationParser::parseRDFAnnotation(new_annotation,mCVTerms);
+  if (RDFAnnotationParser::hasCVTermRDFAnnotation(new_annotation))
+  {
+    RDFAnnotationParser::parseRDFAnnotation(new_annotation,mCVTerms);
+  }
 
   // delete RDFAnnotation (CVTerm and ModelHistory) from new_annotation 
 //  XMLNode* tmp_annotation = RDFAnnotationParser::deleteRDFAnnotation(new_annotation);
@@ -753,7 +756,30 @@ SBase::appendAnnotation (const XMLNode* annotation)
 
     for(unsigned int i=0; i < new_annotation->getNumChildren(); i++)
     {
-      mAnnotation->addChild(new_annotation->getChild(i));
+      if (new_annotation->getChild(i).getName() == "RDF")
+      {
+        if (RDFAnnotationParser::hasRDFAnnotation(mAnnotation))
+        {
+          unsigned int n = 0;
+          while(n < mAnnotation->getNumChildren())
+          {
+            if (mAnnotation->getChild(n).getName() == "RDF")
+            {
+              break;
+            }
+            n++;
+          }
+          mAnnotation->getChild(n).addChild(new_annotation->getChild(i).getChild(0));
+        }
+        else
+        {
+          mAnnotation->addChild(new_annotation->getChild(i));
+        }
+      }
+      else
+      {
+        mAnnotation->addChild(new_annotation->getChild(i));
+      }
     }
   }
   else
