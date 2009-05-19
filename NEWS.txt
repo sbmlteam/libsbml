@@ -1,6 +1,48 @@
            libSBML NEWS -- History of user-visible changes
 
 ======================================================================
+Next Version (in progress) 
+======================================================================
+
+* New features:
+
+ - It is possible to use create functions to construct new SBML
+   objects within a model.  However, createTrigger, createDelay and
+   createStoichiometryMath functions were missing.  These have now 
+   been added.  Thanks to Chris Myers and Lucian Smith, who both
+   spotted the ommission.
+
+* Bug fixes:
+
+ - The code that tests for assignment cycles could cause an infinite 
+   loop in certain cases.  This was in fact a result of an earlier fix
+   that had intended to stop incorrect cycles being reported.  The code 
+   that been rewritten to solve both the issues.  Thanks to the many
+   people who reported this one. 
+
+ - The assignment operator functions now check for self assignment.
+
+ - [Tracker issue #2787352]
+   Annotations that included MIRIAM compliant RDF annotations and 
+   additional RDF annotations were not being correctly roundtripped.
+   This has been fixed.
+
+ - [Tracker issue #2749067]
+   Models using FunctionDefinitions where the math element did not
+   contain a lambda expressions was causing validation code to crash.
+   This has been fixed.  Thanks to Lucian Smith for reporting this.
+   
+ - [Tracker issue #2748785]
+   The code that looks for assignment cycles was leaking memory; which 
+   is now fixed.  Thanks to Lucian Smith for reporting this.
+   
+ - [Tracker issue #2714870]
+   The function getSBOTermID was crashing when called for an object on
+   which the SBO term had not been set.  The function now returns an
+   empty string in this situation.  Thanks to Alice Villeger for
+   reporting this.
+
+======================================================================
 Version 3.3.2 (released 2009-03-03)
 ======================================================================
 
