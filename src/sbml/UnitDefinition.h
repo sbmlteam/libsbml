@@ -706,6 +706,11 @@ public:
    */
   static bool areEquivalent(const UnitDefinition *ud1 , const UnitDefinition * ud2);
 
+  /** @cond doxygen-libsbml-internal */
+
+  static bool areIdenticalSIUnits(const UnitDefinition * ud1, 
+    const UnitDefinition * ud2);
+  /** @endcond doxygen-libsbml-internal */
 
   /** 
    * Combines two UnitDefinition objects into a single UnitDefinition

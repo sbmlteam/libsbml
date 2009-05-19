@@ -798,6 +798,69 @@ UnitDefinition::areEquivalent(const UnitDefinition * ud1, const UnitDefinition *
   return equivalent;
 }
 
+/** @cond doxygen-libsbml-internal */
+
+bool 
+UnitDefinition::areIdenticalSIUnits(const UnitDefinition * ud1, 
+                               const UnitDefinition * ud2)
+{
+  bool identical = false;
+
+  bool A = (ud1 == NULL);
+  bool B = (ud2 == NULL);
+
+  /* if one or other is NULL no need to check
+   */
+  if ((A || B) && !(A && B))
+  {
+    return identical;
+  }
+
+  /* if both NULL no need to check */
+  if (A && B)
+  {
+    identical = true;
+    return identical;
+  }
+
+  unsigned int n;
+
+  /* need to order the unitDefinitions so must make copies
+   * since the arguments are const
+   */
+  UnitDefinition * ud1Temp = UnitDefinition::convertToSI(ud1);
+  UnitDefinition * ud2Temp = UnitDefinition::convertToSI(ud2);
+
+  if (ud1Temp->getNumUnits() == ud2Temp->getNumUnits())
+  {
+    UnitDefinition::reorder(ud1Temp);
+    UnitDefinition::reorder(ud2Temp);
+    
+    n = 0;
+    while (n < ud1Temp->getNumUnits())
+    {
+      if (!Unit::areIdentical(ud1Temp->getUnit(n), ud2Temp->getUnit(n)))
+      {
+        break;
+      }
+      else
+      {
+        n++;
+      }
+    }
+    if (n == ud1Temp->getNumUnits())
+    {
+      identical = true;
+    }
+  }
+
+  delete ud1Temp;
+  delete ud2Temp;
+
+  return identical;
+}
+
+/** @endcond doxygen-libsbml-internal */
 
 /* 
  * Combines two UnitDefinition objects into a single UnitDefinition object

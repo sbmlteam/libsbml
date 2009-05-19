@@ -291,7 +291,7 @@ ArgumentsUnitsCheck::checkSameUnitsAsArgs (const Model& m,
 
     if (!unitFormat->getContainsUndeclaredUnits())
     {
-      if (!UnitDefinition::areIdentical(ud, tempUD))
+      if (!UnitDefinition::areIdenticalSIUnits(ud, tempUD))
       {
         logInconsistentSameUnits(node, sb);
       }
