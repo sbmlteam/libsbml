@@ -720,7 +720,11 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction
   }
 
   /* restore original value of undeclaredUnits */
-  mContainsUndeclaredUnits = currentUndeclared;
+  if (node->getNumChildren() > 1)
+  {
+    mContainsUndeclaredUnits = currentUndeclared;
+  }
+
   /* temporary HACK while I figure this out */
   if (originalIgnore == 2)
   {
