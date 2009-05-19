@@ -27,6 +27,11 @@ Next Version (in progress)
    additional RDF annotations were not being correctly roundtripped.
    This has been fixed.
 
+ - [Tracker issue #2778709]
+   Validation of units was incorrectly reporting mismatches between 
+   units.  This has been fixed and further tests added.  Thanks to
+   Lukas Endler for reporting this.
+   
  - [Tracker issue #2749067]
    Models using FunctionDefinitions where the math element did not
    contain a lambda expressions was causing validation code to crash.
