@@ -894,6 +894,47 @@ public:
 
 
   /**
+   * Constructs and returns a UnitDefinition that corresponds to the units
+   * of this Species' amount or concentration.
+   *
+   * Species in SBML have an attribute ("substanceUnits") for declaring the
+   * units of measurement intended for the species' amount or concentration
+   * (depending on which one applies).  In the absence of a value given for
+   * "substanceUnits", the units are taken from the enclosing Model's
+   * definition of @c "substance" or @c "substance"/<em>(size of the
+   * compartment)</em> in which the species is located, or finally, if
+   * these are not redefined by the Model, the relevant SBML default units
+   * for those quantities.  Following that procedure, the method
+   * getDerivedUnitDefinition() returns a UnitDefinition based on the
+   * interpreted units of this species's amount or concentration.
+   *
+   * Note that method will always return a value, never NULL, because SBML
+   * defines default units for species' initial amounts and concentrations.
+   * It is thus not possible for the units to be undefined (which is unlike
+   * the case of Parameter).
+   *
+   * Note also that unit declarations for Species are in terms of the @em
+   * identifier of a unit, but this method returns a UnitDefinition object,
+   * not a unit identifier.  It does this by constructing an appropriate
+   * UnitDefinition.  Callers may find this particularly useful when used
+   * in conjunction with the helper methods on UnitDefinition for comparing
+   * different UnitDefinition objects.
+   * 
+   * In SBML Level&nbsp;2 specifications prior to Version&nbsp;3, Species
+   * includes an additional attribute named "spatialSizeUnits", which
+   * allows explicitly setting the units of size for initial concentration.
+   * The getDerivedUnitDefinition() takes this into account for models
+   * expressed in SBML Level&nbsp;2 Versions&nbsp;1 and&nbsp;2.
+   *
+   * @return a UnitDefinition that expresses the units of this 
+   * Species.
+   *
+   * @see getSubstanceUnits()
+   */
+  const UnitDefinition * getDerivedUnitDefinition() const;
+
+
+  /**
    * Returns the libSBML type code for this %SBML object.
    * 
    * @if clike LibSBML attaches an identifying code to every

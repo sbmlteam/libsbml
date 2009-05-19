@@ -388,6 +388,39 @@ public:
 
 
   /**
+   * Calculates and returns a UnitDefinition that expresses the units
+   * of measurement assumed for the "math" expression of this
+   * EventAssignment.
+   *
+   * The units are calculated based on the mathematical expression in the
+   * EventAssignment and the model quantities referenced by
+   * <code>&lt;ci&gt;</code> elements used within that expression.  The
+   * EventAssignment::getDerivedUnitDefinition() method returns the
+   * calculated units.
+   * 
+   * @warning Note that it is possible the "math" expression in the
+   * EventAssignment contains literal numbers or parameters with undeclared
+   * units.  In those cases, it is not possible to calculate the units of
+   * the overall expression without making assumptions.  LibSBML does not
+   * make assumptions about the units, and
+   * EventAssignment::getDerivedUnitDefinition() only returns the units as
+   * far as it is able to determine them.  For example, in an expression
+   * <em>X + Y</em>, if <em>X</em> has unambiguously-defined units and
+   * <em>Y</em> does not, it will return the units of <em>X</em>.  When
+   * using this method, <strong>it is critical that callers also invoke the
+   * method</strong> EventAssignment::containsUndeclaredUnits() <strong>to
+   * determine whether this situation holds</strong>.  Callers should take
+   * suitable action in those situations.
+   * 
+   * @return a UnitDefinition that expresses the units of the math 
+   * expression of this EventAssignment.
+   *
+   * @see containsUndeclaredUnits()
+   */
+  const UnitDefinition * getDerivedUnitDefinition() const;
+
+
+  /**
    * Predicate returning @c true or @c false depending on whether the math
    * expression of this EventAssignment contains literal numbers or
    * parameters with undeclared units.
@@ -413,6 +446,34 @@ public:
    * @see getDerivedUnitDefinition()
    */
   bool containsUndeclaredUnits();
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether the math
+   * expression of this EventAssignment contains literal numbers or
+   * parameters with undeclared units.
+   *
+   * The EventAssignment::getDerivedUnitDefinition() method returns what
+   * libSBML computes to be the units of the "math", to the extent that
+   * libSBML can compute them.  However, if the expression contains literal
+   * numbers or parameters with undeclared units, libSBML may not be able
+   * to compute the full units of the expression and will only return what
+   * it can compute.  Callers should always use
+   * EventAssignment::containsUndeclaredUnits() when using
+   * EventAssignment::getDerivedUnitDefinition() to decide whether the
+   * returned units may be incomplete.
+   * 
+   * @return @c true if the math expression of this EventAssignment
+   * includes parameters/numbers 
+   * with undeclared units, @c false otherwise.
+   *
+   * @note A return value of @c true indicates that the UnitDefinition
+   * returned by EventAssignment::getDerivedUnitDefinition() may not
+   * accurately represent the units of the expression.
+   *
+   * @see getDerivedUnitDefinition()
+   */
+  bool containsUndeclaredUnits() const;
 
 
   /**

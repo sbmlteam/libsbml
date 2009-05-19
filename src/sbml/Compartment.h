@@ -728,6 +728,40 @@ public:
 
 
   /**
+   * Constructs and returns a UnitDefinition that corresponds to the units
+   * of this Compartment's designated size.
+   *
+   * Compartments in SBML have an attribute ("units") for declaring the
+   * units of measurement intended for the value of the compartment's size.
+   * In the absence of a value given for this attribute, the units are
+   * taken from the model's definition of @c "volume", @c "area", @c
+   * "length" units, depending on the value given to this Compartment's
+   * "size" attribute, or (if the Model does not redefine them) the
+   * corresponding SBML default units for those quantities.  Following that
+   * procedure, the method getDerivedUnitDefinition() returns a
+   * UnitDefinition based on the interpreted units of this compartment's
+   * size.
+   *
+   * Note that method will always return a value, never NULL, because SBML
+   * defines default units for compartment sizes.  It is thus not possible
+   * for the units to be undefined (which is unlike the case of Parameter).
+   *
+   * Note also that unit declarations for Compartment are in terms of the
+   * @em identifier of a unit, but this method returns a UnitDefinition
+   * object, not a unit identifier.  It does this by constructing an
+   * appropriate UnitDefinition.  Callers may find this particularly useful
+   * when used in conjunction with the helper methods on UnitDefinition for
+   * comparing different UnitDefinition objects.
+   * 
+   * @return a UnitDefinition that expresses the units of this 
+   * Compartment.
+   *
+   * @see getUnits()
+   */
+  const UnitDefinition * getDerivedUnitDefinition() const;
+
+
+  /**
    * Returns the libSBML type code for this %SBML object.
    * 
    * @if clike LibSBML attaches an identifying code to every

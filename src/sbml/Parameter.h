@@ -496,6 +496,32 @@ public:
 
 
   /**
+   * Constructs and returns a UnitDefinition that corresponds to the units
+   * of this Parameter's value.
+   *
+   * Parameters in SBML have an attribute ("units") for declaring the units
+   * of measurement intended for the parameter's value.  <b>No defaults are
+   * defined</b> by SBML in the absence of a definition for "units".  The
+   * Parameter::getDerivedUnitDefinition() method returns a UnitDefinition
+   * object based on the units declared for this Parameter using its
+   * "units" attribute, or it returns NULL if no units have been declared.
+   *
+   * Note that unit declarations for Parameter are in terms of the @em
+   * identifier of a unit, but this method returns a UnitDefinition object,
+   * not a unit identifier.  It does this by constructing an appropriate
+   * UnitDefinition even when the value of the "units" attribute is one of
+   * the predefined SBML units @c "substance", @c "volume", @c "area", @c
+   * "length" or @c "time".  Callers may find this particularly useful
+   * when used in conjunction with the helper methods on UnitDefinition
+   * for comparing different UnitDefinition objects.
+   *
+   * @return a UnitDefinition that expresses the units of this 
+   * Parameter.
+   */
+  const UnitDefinition * getDerivedUnitDefinition() const;
+
+
+  /**
    * Returns the libSBML type code for this %SBML object.
    * 
    * @if clike LibSBML attaches an identifying code to every

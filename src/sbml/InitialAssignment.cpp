@@ -221,6 +221,18 @@ InitialAssignment::getDerivedUnitDefinition()
   }
 }
 
+
+/*
+  * Constructs and returns a UnitDefinition that expresses the units of this 
+  * Compartment.
+  */
+const UnitDefinition *
+InitialAssignment::getDerivedUnitDefinition() const
+{
+  return const_cast <InitialAssignment *> (this)->getDerivedUnitDefinition();
+}
+
+
 /*
  * Predicate returning @c true or @c false depending on whether 
  * the math expression of this InitialAssignment contains
@@ -247,6 +259,13 @@ InitialAssignment::containsUndeclaredUnits()
   {
     return false;
   }
+}
+
+
+bool 
+InitialAssignment::containsUndeclaredUnits() const
+{
+  return const_cast<InitialAssignment *> (this)->containsUndeclaredUnits();
 }
 
 

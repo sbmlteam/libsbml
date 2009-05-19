@@ -618,6 +618,18 @@ Species::getDerivedUnitDefinition()
   }
 }
 
+
+/*
+  * Constructs and returns a UnitDefinition that expresses the units of this 
+  * Compartment.
+  */
+const UnitDefinition *
+Species::getDerivedUnitDefinition() const
+{
+  return const_cast <Species *> (this)->getDerivedUnitDefinition();
+}
+
+
 /*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).

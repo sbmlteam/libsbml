@@ -344,6 +344,17 @@ Parameter::getDerivedUnitDefinition()
 
 
 /*
+  * Constructs and returns a UnitDefinition that expresses the units of this 
+  * Compartment.
+  */
+const UnitDefinition *
+Parameter::getDerivedUnitDefinition() const
+{
+  return const_cast <Parameter *> (this)->getDerivedUnitDefinition();
+}
+
+
+/*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *

@@ -482,6 +482,18 @@ KineticLaw::getDerivedUnitDefinition()
   }
 }
 
+
+/*
+  * Constructs and returns a UnitDefinition that expresses the units of this 
+  * Compartment.
+  */
+const UnitDefinition *
+KineticLaw::getDerivedUnitDefinition() const
+{
+  return const_cast <KineticLaw *> (this)->getDerivedUnitDefinition();
+}
+
+
 /*
  * Predicate returning @c true or @c false depending on whether 
  * the math expression of this KineticLaw contains
@@ -508,6 +520,13 @@ KineticLaw::containsUndeclaredUnits()
   {
     return false;
   }
+}
+
+
+bool 
+KineticLaw::containsUndeclaredUnits() const
+{
+  return const_cast<KineticLaw *> (this)->containsUndeclaredUnits();
 }
 
 

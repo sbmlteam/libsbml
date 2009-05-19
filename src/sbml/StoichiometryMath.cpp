@@ -401,6 +401,18 @@ StoichiometryMath::getDerivedUnitDefinition()
   }
 }
 
+
+/*
+  * Constructs and returns a UnitDefinition that expresses the units of this 
+  * Compartment.
+  */
+const UnitDefinition *
+StoichiometryMath::getDerivedUnitDefinition() const
+{
+  return const_cast <StoichiometryMath *> (this)->getDerivedUnitDefinition();
+}
+
+
 /*
  * Predicate returning @c true or @c false depending on whether 
  * the math expression of this StoichiometryMath contains
@@ -427,6 +439,13 @@ StoichiometryMath::containsUndeclaredUnits()
   {
     return false;
   }
+}
+
+
+bool 
+StoichiometryMath::containsUndeclaredUnits() const
+{
+  return const_cast<StoichiometryMath *> (this)->containsUndeclaredUnits();
 }
 
 

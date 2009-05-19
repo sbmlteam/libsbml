@@ -303,6 +303,46 @@ public:
 
 
   /**
+   * Calculates and returns a UnitDefinition that expresses the units
+   * of measurement assumed for the "math" expression of this Delay.
+   *
+   * Delay elements in SBML express a time delay for an Event.  Beginning
+   * with SBML Level&nbsp;2 Version&nbsp;2, the units of that time are
+   * calculated based on the mathematical expression and the model
+   * quantities referenced by <code>&lt;ci&gt;</code> elements used within
+   * that expression.  The Delay::getDerivedUnitDefinition() method returns
+   * what libSBML computes the units to be, to the extent that libSBML can
+   * compute them.
+   *
+   * (Prior to SBML Level&nbsp;2 Version&nbsp;2, there existed an attribute
+   * on Event called "timeUnits".  This attribute could be used to set the
+   * intended units of the delay expression.  For such models, this will
+   * return a UnitDefinition object that corresponds to the declared
+   * "timeUnits" units.)
+   *
+   * @warning Note that it is possible the "math" expression in the Delay
+   * contains literal numbers or parameters with undeclared units.  In
+   * those cases, it is not possible to calculate the units of the overall
+   * expression without making assumptions.  LibSBML does not make
+   * assumptions about the units, and Delay::getDerivedUnitDefinition()
+   * only returns the units as far as it is able to determine them.  For
+   * example, in an expression <em>X + Y</em>, if <em>X</em> has
+   * unambiguously-defined units and <em>Y</em> does not, it will return
+   * the units of <em>X</em>.  When using this method, <strong>it is
+   * critical that callers also invoke the method</strong>
+   * Delay::containsUndeclaredUnits() <strong>to determine whether this
+   * situation holds</strong>.  Callers should take suitable action in
+   * those situations.
+   * 
+   * @return a UnitDefinition that expresses the units of the math 
+   * expression of this Delay.
+   *
+   * @see containsUndeclaredUnits()
+   */
+  const UnitDefinition * getDerivedUnitDefinition() const;
+
+
+  /**
    * Predicate returning @c true or @c false depending on whether 
    * the "math" expression in this Delay instance contains
    * parameters with undeclared units or literal numbers.
@@ -330,6 +370,36 @@ public:
    * @see getDerivedUnitDefinition()
    */
   bool containsUndeclaredUnits();
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether 
+   * the "math" expression in this Delay instance contains
+   * parameters with undeclared units or literal numbers.
+   * 
+   * Delay elements in SBML express a time delay for an Event.  Beginning
+   * with SBML Level&nbsp;2 Version&nbsp;2, the units of that time are
+   * calculated based on the mathematical expression and the model
+   * quantities referenced by <code>&lt;ci&gt;</code> elements used within
+   * that expression.  The Delay::getDerivedUnitDefinition() method returns
+   * what libSBML computes the units to be, to the extent that libSBML can
+   * compute them.  However, if the expression contains literal numbers or
+   * parameters with undeclared units, libSBML may not be able to compute
+   * the full units of the expression and will only return what it can
+   * compute.  Callers should always use Delay::containsUndeclaredUnits()
+   * when using Delay::getDerivedUnitDefinition() to decide whether the
+   * returned units may be incomplete.
+   * 
+   * @return @c true if the math expression of this Delay includes
+   * numbers/parameters with undeclared units, @c false otherwise.
+   *
+   * @note A return value of @c true indicates that the UnitDefinition
+   * returned by Delay::getDerivedUnitDefinition() may not accurately
+   * represent the units of the expression.
+   *
+   * @see getDerivedUnitDefinition()
+   */
+  bool containsUndeclaredUnits() const;
 
 
   /** @cond doxygen-libsbml-internal */

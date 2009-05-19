@@ -225,6 +225,18 @@ EventAssignment::getDerivedUnitDefinition()
   }
 }
 
+
+/*
+  * Constructs and returns a UnitDefinition that expresses the units of this 
+  * Compartment.
+  */
+const UnitDefinition *
+EventAssignment::getDerivedUnitDefinition() const
+{
+  return const_cast <EventAssignment *> (this)->getDerivedUnitDefinition();
+}
+
+
 /*
  * Predicate returning @c true or @c false depending on whether 
  * the math expression of this EventAssignment contains
@@ -252,6 +264,13 @@ EventAssignment::containsUndeclaredUnits()
   {
     return false;
   }
+}
+
+
+bool 
+EventAssignment::containsUndeclaredUnits() const
+{
+  return const_cast<EventAssignment *> (this)->containsUndeclaredUnits();
 }
 
 

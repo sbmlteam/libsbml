@@ -350,6 +350,18 @@ Rule::getDerivedUnitDefinition()
   }
 }
 
+
+/*
+  * Constructs and returns a UnitDefinition that expresses the units of this 
+  * Compartment.
+  */
+const UnitDefinition *
+Rule::getDerivedUnitDefinition() const
+{
+  return const_cast <Rule *> (this)->getDerivedUnitDefinition();
+}
+
+
 /*
  * Predicate returning @c true or @c false depending on whether 
  * the math expression of this Rule contains
@@ -378,6 +390,12 @@ Rule::containsUndeclaredUnits()
   }
 }
 
+
+bool 
+Rule::containsUndeclaredUnits() const
+{
+  return const_cast<Rule *> (this)->containsUndeclaredUnits();
+}
 
 
 /*

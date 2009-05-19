@@ -190,6 +190,18 @@ Delay::getDerivedUnitDefinition()
   }
 }
 
+
+/*
+  * Constructs and returns a UnitDefinition that expresses the units of this 
+  * Compartment.
+  */
+const UnitDefinition *
+Delay::getDerivedUnitDefinition() const
+{
+  return const_cast <Delay *> (this)->getDerivedUnitDefinition();
+}
+
+
 /*
  * Predicate returning @c true or @c false depending on whether 
  * the math expression of this InitialAssignment contains
@@ -217,6 +229,19 @@ Delay::containsUndeclaredUnits()
     return false;
   }
 }
+
+
+/*
+ * Predicate returning @c true or @c false depending on whether 
+ * the math expression of this InitialAssignment contains
+ * parameters/numbers with undeclared units that cannot be ignored.
+ */
+bool 
+Delay::containsUndeclaredUnits() const
+{
+  return const_cast<Delay *> (this)->containsUndeclaredUnits();
+}
+
 
 /** @cond doxygen-libsbml-internal */
 

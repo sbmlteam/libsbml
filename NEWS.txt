@@ -11,6 +11,10 @@ Next Version (in progress)
    createStoichiometryMath functions were missing.  These have now 
    been added.  Thanks to Chris Myers and Lucian Smith, who both
    spotted the ommission.
+   
+ - [Tracker issue #2787514]
+   Additional const versions of the getDerivedUnitDefinition() and
+   containsUndeclaredUnits() functions have been added.
 
 * Bug fixes:
 

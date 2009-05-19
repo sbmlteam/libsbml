@@ -303,6 +303,38 @@ public:
 
 
   /**
+   * Calculates and returns a UnitDefinition object that expresses the
+   * units returned by the math expression in this StoichiometryMath
+   * object.
+   *
+   * The units are calculated based on the mathematical expression in the
+   * StoichiometryMath and the model quantities referenced by
+   * <code>&lt;ci&gt;</code> elements used within that expression.  The
+   * StoichiometryMath::getDerivedUnitDefinition() method returns the
+   * calculated units.
+   * 
+   * @warning Note that it is possible the "math" expression in the
+   * StoichiometryMath instance contains literal numbers or parameters with
+   * undeclared units.  In those cases, it is not possible to calculate the
+   * units of the overall expression without making assumptions.  LibSBML
+   * does not make assumptions about the units, and
+   * StoichiometryMath::getDerivedUnitDefinition() only returns the units
+   * as far as it is able to determine them.  For example, in an expression
+   * <em>X + Y</em>, if <em>X</em> has unambiguously-defined units and
+   * <em>Y</em> does not, it will return the units of <em>X</em>.  When
+   * using this method, <strong>it is critical that callers also invoke the
+   * method</strong> StoichiometryMath::containsUndeclaredUnits()
+   * <strong>to determine whether this situation holds</strong>.  Callers
+   * should take suitable action in those situations.
+   * 
+   * @return a UnitDefinition that expresses the units of the math 
+   *
+   * @see containsUndeclaredUnits()
+   */
+  const UnitDefinition * getDerivedUnitDefinition() const;
+
+
+  /**
    * Predicate returning @c true or @c false depending on whether the math
    * expression of this StoichiometryMath object contains literal numbers
    * or parameters with undeclared units.
@@ -327,6 +359,33 @@ public:
    * @see getDerivedUnitDefinition()
    */
   bool containsUndeclaredUnits();
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether the math
+   * expression of this StoichiometryMath object contains literal numbers
+   * or parameters with undeclared units.
+   * 
+   * The StoichiometryMath::getDerivedUnitDefinition() method returns what
+   * libSBML computes the units of the Stoichiometry to be, to the extent
+   * that libSBML can compute them.  However, if the expression contains
+   * literal numbers or parameters with undeclared units, libSBML may not
+   * be able to compute the full units of the expression and will only
+   * return what it can compute.  Callers should always use
+   * StoichiometryMath::containsUndeclaredUnits() when using
+   * StoichiometryMath::getDerivedUnitDefinition() to decide whether the
+   * returned units may be incomplete.
+   *
+   * @return @c true if the math expression of this StoichiometryMath
+   * includes numbers/parameters with undeclared units, @c false otherwise.
+   *
+   * @note A return value of @c true indicates that the UnitDefinition
+   * returned by StoichiometryMath::getDerivedUnitDefinition() may not
+   * accurately represent the units of the expression.
+   *
+   * @see getDerivedUnitDefinition()
+   */
+  bool containsUndeclaredUnits() const;
 
 
   /** @cond doxygen-libsbml-internal */
