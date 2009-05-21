@@ -199,8 +199,8 @@ TestFile::getFilesIn ( const string& directory,
 
         // libxml bug for 2.6.16 on a Mac
 #ifdef BUGGY_APPLE_LIBXML
-        if (id == 1013 && num < 6) continue;
-        if (id == 1014 && num == 1) continue;
+        if (id == 1013 && num <= 10) continue;
+        if (id == 1014 && num <= 4) continue;
 #endif
       //}
 
