@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# This shell script creates a package file (.dmg file) for MacOSX.
+# This file was originally implemented by Akira Funahashi.
+#
+
+set -e 
+set -x
+
+SKELDIR=macosx
+PKGBASE=libSBML.pkg
+DMGBASE=@PACKAGE_TARNAME@-@PACKAGE_VERSION@-@XML_PARSER@
+DMGNAME=${DMGBASE}_macosx-installer.dmg
+
+# create a pkg bundle
+
+cd @abs_top_srcdir@/${SKELDIR}/root
+
+/bin/pax -w -z -x cpio -f ../libSBML.pkg/Contents/Archive.pax.gz .
+/usr/bin/mkbom . ../${PKGBASE}/Contents/Archive.bom
+
+# create a dmg file
+
+cd @abs_top_srcdir@/${SKELDIR}
+
+/usr/bin/hdiutil create -ov -fs HFSX -layout SPUD -format UDZO -volname ${DMGBASE} \
+                 -srcfolder ${PKGBASE} -imagekey zlib-level=9 -scrub ../${DMGNAME}

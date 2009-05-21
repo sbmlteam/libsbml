@@ -46,6 +46,14 @@ LIBSBML_VERSION_NUMERIC=m4_esyscmd(cat VERSION.txt |\
   awk -F'.' '{ printf("%d%02d%02d\n", $1, $2, $3) }')
 AC_SUBST(LIBSBML_VERSION_NUMERIC)
 
+LIBSBML_MAJOR_VERSION=m4_esyscmd(cat VERSION.txt |\
+  awk -F'.' '{ printf("%d\n", $1) }')
+AC_SUBST(LIBSBML_MAJOR_VERSION)
+
+LIBSBML_MINOR_VERSION=m4_esyscmd(cat VERSION.txt |\
+  awk -F'.' '{ printf("%d\n", $2) }')
+AC_SUBST(LIBSBML_MINOR_VERSION)
+
 
 dnl ---------------------------------------------------------------------------
 dnl Command-line options
@@ -331,6 +339,11 @@ AC_CONFIG_FILES([examples/csharp/Makefile])
 if test "$enable_layout" != "no" ; then
   AC_CONFIG_FILES([examples/layout/Makefile])
 fi
+
+AC_CONFIG_FILES([macosx/Makefile])
+AC_CONFIG_FILES([macosx/build.sh], [chmod a+x macosx/build.sh])
+AC_CONFIG_FILES([macosx/libSBML.pkg/Contents/Info.plist])
+AC_CONFIG_FILES([macosx/libSBML.pkg/Contents/Resources/package_version])
 
 AC_OUTPUT
 

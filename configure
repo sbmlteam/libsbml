@@ -654,6 +654,8 @@ build_alias
 host_alias
 target_alias
 LIBSBML_VERSION_NUMERIC
+LIBSBML_MAJOR_VERSION
+LIBSBML_MINOR_VERSION
 USE_LAYOUT
 USE_COMPRESSION
 build
@@ -750,6 +752,8 @@ USE_EXPAT
 EXPAT_CPPFLAGS
 EXPAT_LDFLAGS
 EXPAT_LIBS
+XML_PARSER
+XML_REQUIRED_VERSION
 CXXCPP
 USE_XERCES
 XERCES_CPPFLAGS
@@ -1900,6 +1904,14 @@ ac_config_headers="$ac_config_headers src/common/libsbml-package.h"
 
 
 LIBSBML_VERSION_NUMERIC=30302
+
+
+
+LIBSBML_MAJOR_VERSION=3
+
+
+
+LIBSBML_MINOR_VERSION=3
 
 
 
@@ -7765,6 +7777,11 @@ _ACEOF
 
 
 
+    XML_PARSER=expat
+
+    XML_REQUIRED_VERSION=>= 1.95.8
+
+
   fi
 
   if test $with_expat != no; then
@@ -8365,6 +8382,10 @@ _ACEOF
 
 
 
+    XML_PARSER=xerces
+
+
+
   fi
 
 
@@ -8779,6 +8800,11 @@ _ACEOF
 
 
     rm -f conf.xmltest
+
+    XML_PARSER=libxml2
+
+    XML_REQUIRED_VERSION=">= 2.6.16"
+
 
 
     if test "$HOST_TYPE" = "darwin"\
@@ -11426,6 +11452,15 @@ if test "$enable_layout" != "no" ; then
 
 fi
 
+ac_config_files="$ac_config_files macosx/Makefile"
+
+ac_config_files="$ac_config_files macosx/build.sh"
+
+ac_config_files="$ac_config_files macosx/libSBML.pkg/Contents/Info.plist"
+
+ac_config_files="$ac_config_files macosx/libSBML.pkg/Contents/Resources/package_version"
+
+
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
 # tests run on this system so they can be shared between configure
@@ -12031,6 +12066,10 @@ do
     "examples/java/Makefile") CONFIG_FILES="$CONFIG_FILES examples/java/Makefile" ;;
     "examples/csharp/Makefile") CONFIG_FILES="$CONFIG_FILES examples/csharp/Makefile" ;;
     "examples/layout/Makefile") CONFIG_FILES="$CONFIG_FILES examples/layout/Makefile" ;;
+    "macosx/Makefile") CONFIG_FILES="$CONFIG_FILES macosx/Makefile" ;;
+    "macosx/build.sh") CONFIG_FILES="$CONFIG_FILES macosx/build.sh" ;;
+    "macosx/libSBML.pkg/Contents/Info.plist") CONFIG_FILES="$CONFIG_FILES macosx/libSBML.pkg/Contents/Info.plist" ;;
+    "macosx/libSBML.pkg/Contents/Resources/package_version") CONFIG_FILES="$CONFIG_FILES macosx/libSBML.pkg/Contents/Resources/package_version" ;;
 
   *) { { echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5
 echo "$as_me: error: invalid argument: $ac_config_target" >&2;}
@@ -12130,6 +12169,8 @@ build_alias!$build_alias$ac_delim
 host_alias!$host_alias$ac_delim
 target_alias!$target_alias$ac_delim
 LIBSBML_VERSION_NUMERIC!$LIBSBML_VERSION_NUMERIC$ac_delim
+LIBSBML_MAJOR_VERSION!$LIBSBML_MAJOR_VERSION$ac_delim
+LIBSBML_MINOR_VERSION!$LIBSBML_MINOR_VERSION$ac_delim
 USE_LAYOUT!$USE_LAYOUT$ac_delim
 USE_COMPRESSION!$USE_COMPRESSION$ac_delim
 build!$build$ac_delim
@@ -12187,8 +12228,6 @@ USE_JAVA!$USE_JAVA$ac_delim
 JAVA_CPPFLAGS!$JAVA_CPPFLAGS$ac_delim
 JAVA_LDFLAGS!$JAVA_LDFLAGS$ac_delim
 JNIEXT!$JNIEXT$ac_delim
-JNIBASENAME!$JNIBASENAME$ac_delim
-JAVADOC_JAR!$JAVADOC_JAR$ac_delim
 _ACEOF
 
   if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 97; then
@@ -12230,6 +12269,8 @@ _ACEOF
 ac_delim='%!_!# '
 for ac_last_try in false false false false false :; do
   cat >conf$$subs.sed <<_ACEOF
+JNIBASENAME!$JNIBASENAME$ac_delim
+JAVADOC_JAR!$JAVADOC_JAR$ac_delim
 MEX!$MEX$ac_delim
 MATLAB!$MATLAB$ac_delim
 USE_MATLAB!$USE_MATLAB$ac_delim
@@ -12267,6 +12308,8 @@ USE_EXPAT!$USE_EXPAT$ac_delim
 EXPAT_CPPFLAGS!$EXPAT_CPPFLAGS$ac_delim
 EXPAT_LDFLAGS!$EXPAT_LDFLAGS$ac_delim
 EXPAT_LIBS!$EXPAT_LIBS$ac_delim
+XML_PARSER!$XML_PARSER$ac_delim
+XML_REQUIRED_VERSION!$XML_REQUIRED_VERSION$ac_delim
 CXXCPP!$CXXCPP$ac_delim
 USE_XERCES!$USE_XERCES$ac_delim
 XERCES_CPPFLAGS!$XERCES_CPPFLAGS$ac_delim
@@ -12297,7 +12340,7 @@ LIBOBJS!$LIBOBJS$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
 
-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 65; then
+  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 69; then
     break
   elif $ac_last_try; then
     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5
@@ -12696,6 +12739,11 @@ echo "$as_me: $ac_file is unchanged" >&6;}
 
   esac
 
+
+  case $ac_file$ac_mode in
+    "macosx/build.sh":F) chmod a+x macosx/build.sh ;;
+
+  esac
 done # for ac_tag
 
 

@@ -157,7 +157,7 @@ docs =         \
 # used by the default rules in `makefile-common-actions.mk' included at the
 # end.
 
-subdirs = src docs win32
+subdirs = src docs win32 macosx
 
 # `distfile' is the list of files used for creating distributions,
 # something that only the libSBML developers should do.  The list of files
@@ -257,6 +257,32 @@ ifneq "$(MAKEFLAGS)" ""
 else
 	$(MAKE) -w -C docs $(MAKECMDGOALS)
 endif
+
+# -----------------------------------------------------------------------------
+# Create a package (.dmg file) for MacOSX
+#
+# (NOTES)
+#
+# Executing "make create-dmg" will create a
+# libsbml-${VERSION}-${XML_PARSER}_macosx-installer.dmg
+# in the top directory of source tree.
+#
+# Install prefix, underlying XML parser (expat, libxml2, or xerces), language
+# bindings and etc. are determined by options passed to the configure script.
+#
+# For example, a created package will install libSBML (depends on expat) as
+# universal binaries (i386 and ppc) in /usr/local/ directory (default path)
+# with Java and Python bindings if the configure script is run as follows:
+#
+#  ./configure --with-expat --enable-universal-binary --with-java --with-python
+#
+# -----------------------------------------------------------------------------
+create-dmg:
+ifneq "$(MAKEFLAGS)" ""
+	$(MAKE) -w -C macosx -$(MAKEFLAGS) $(MAKECMDGOALS)
+else
+	$(MAKE) -w -C macosx $(MAKECMDGOALS)
+endif	
 
 include: include-recursive
 

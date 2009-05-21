@@ -154,6 +154,9 @@ exit(0);
     AC_SUBST(XERCES_LDFLAGS)
     AC_SUBST(XERCES_LIBS)
 
+    AC_SUBST(XML_PARSER, [xerces])
+    AC_SUBST(XML_REQUIRED_VERSION)
+
   fi
 
   dnl We record the USE_XXX flag, for later testing in Makefiles.
