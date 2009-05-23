@@ -40,7 +40,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libexpat.lib odbc32.lib odbccp32.lib zlib.lib bzip2.lib"
+				AdditionalDependencies="libexpat.lib odbc32.lib odbccp32.lib zdll.lib bzip2.lib"
 				OutputFile="../bin/libsbmlD.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
@@ -111,7 +111,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libexpat.lib odbc32.lib odbccp32.lib zlib.lib bzip2.lib"
+				AdditionalDependencies="libexpat.lib odbc32.lib odbccp32.lib zdll.lib bzip2.lib"
 				OutputFile="../bin/libsbml.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
@@ -457,6 +457,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\SBMLErrorLog.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\SBMLNamespaces.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\SBMLReader.cpp">
@@ -926,6 +929,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\common\sbmlfwd.h">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\SBMLNamespaces.h">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\SBMLReader.h">

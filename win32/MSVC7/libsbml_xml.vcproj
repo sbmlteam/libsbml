@@ -40,7 +40,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libxml2.lib iconv.lib zlib.lib bzip2.lib odbc32.lib odbccp32.lib"
+				AdditionalDependencies="libxml2.lib iconv.lib zdll.lib bzip2.lib odbc32.lib odbccp32.lib"
 				OutputFile="../bin/libsbmlD.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
@@ -111,7 +111,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libxml2.lib iconv.lib zlib.lib odbc32.lib odbccp32.lib bzip2.lib"
+				AdditionalDependencies="libxml2.lib iconv.lib zdll.lib odbc32.lib odbccp32.lib bzip2.lib"
 				OutputFile="../bin/libsbml.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
@@ -339,6 +339,9 @@
 				RelativePath="..\..\src\sbml\layout\LayoutUtilities.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\common\libsbml-version.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\xml\LibXMLAttributes.cpp">
 			</File>
 			<File
@@ -352,9 +355,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\xml\LibXMLTranscode.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\common\libsbml-version.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\layout\LineSegment.cpp">
@@ -463,6 +463,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\SBMLErrorLog.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\SBMLNamespaces.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\SBMLReader.cpp">
@@ -938,6 +941,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\common\sbmlfwd.h">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\SBMLNamespaces.h">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\SBMLReader.h">
