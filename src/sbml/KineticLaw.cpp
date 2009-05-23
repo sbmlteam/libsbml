@@ -78,7 +78,6 @@ KineticLaw::KineticLaw (   const ASTNode* math
 }
 
 
-/** @cond doxygen-libsbml-internal */
 KineticLaw::KineticLaw (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
    SBase          ( -1             )
@@ -90,8 +89,19 @@ KineticLaw::KineticLaw (unsigned int level, unsigned int version,
   mObjectVersion = version;
   if (xmlns) setNamespaces(xmlns);;
 }
-/** @endcond doxygen-libsbml-internal */
+
                           
+KineticLaw::KineticLaw (SBMLNamespaces *sbmlns) :
+   SBase          ( -1             )
+ , mMath          ( 0              )
+ , mTimeUnits     ( ""             )
+ , mSubstanceUnits( ""             )
+{
+  mObjectLevel = sbmlns->getLevel();
+  mObjectVersion = sbmlns->getVersion();
+  setNamespaces(sbmlns->getNamespaces());
+}
+
 
 /*
  * Destroys this KineticLaw.

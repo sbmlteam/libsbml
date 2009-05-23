@@ -57,7 +57,6 @@ Delay::Delay (   const ASTNode* math ) :
 }
 
 
-/** @cond doxygen-libsbml-internal */
 Delay::Delay (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
    SBase		  (  -1 )
@@ -67,9 +66,17 @@ Delay::Delay (unsigned int level, unsigned int version,
   mObjectVersion = version;
   if (xmlns) setNamespaces(xmlns);;
 }
-/** @endcond doxygen-libsbml-internal */
 
                           
+Delay::Delay (SBMLNamespaces *sbmlns) :
+   SBase		  (  -1 )
+ , mMath      ( 0              )
+{
+  mObjectLevel = sbmlns->getLevel();
+  mObjectVersion = sbmlns->getVersion();
+  setNamespaces(sbmlns->getNamespaces());
+}
+
 
 /*
  * Destroys this Delay.

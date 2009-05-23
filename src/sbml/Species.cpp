@@ -59,7 +59,6 @@ Species::Species (const std::string& id, const std::string& name) :
 }
 
 
-/** @cond doxygen-libsbml-internal */
 Species::Species (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
    SBase ("", "", -1)
@@ -77,9 +76,25 @@ Species::Species (unsigned int level, unsigned int version,
   mObjectVersion = version;
   if (xmlns) setNamespaces(xmlns);;
 }
-/** @endcond doxygen-libsbml-internal */
 
                           
+Species::Species (SBMLNamespaces *sbmlns) :
+   SBase ("", "", -1)
+  , mInitialAmount            ( 0.0   )
+  , mInitialConcentration     ( 0.0   )
+  , mHasOnlySubstanceUnits    ( false )
+  , mBoundaryCondition        ( false )
+  , mCharge                   ( 0     )
+  , mConstant                 ( false )
+  , mIsSetInitialAmount       ( false )
+  , mIsSetInitialConcentration( false )
+  , mIsSetCharge              ( false )
+{
+  mObjectLevel = sbmlns->getLevel();
+  mObjectVersion = sbmlns->getVersion();
+  setNamespaces(sbmlns->getNamespaces());
+}
+
 
 /*
  * Destroys this Species.

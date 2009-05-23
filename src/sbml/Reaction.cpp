@@ -95,7 +95,6 @@ Reaction::Reaction (const std::string& id, const std::string& name,
 }
 
 
-/** @cond doxygen-libsbml-internal */
 Reaction::Reaction (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
    SBase ("", "", -1)
@@ -112,7 +111,23 @@ Reaction::Reaction (unsigned int level, unsigned int version,
   mProducts .setType( ListOfSpeciesReferences::Product  );
   mModifiers.setType( ListOfSpeciesReferences::Modifier );
 }
-/** @endcond doxygen-libsbml-internal */
+
+                          
+Reaction::Reaction (SBMLNamespaces *sbmlns) :
+   SBase ("", "", -1)
+  , mKineticLaw( 0          )
+  , mReversible( true       )
+  , mFast      ( false      )
+  , mIsSetFast ( false      )
+{
+  mObjectLevel = sbmlns->getLevel();
+  mObjectVersion = sbmlns->getVersion();
+  setNamespaces(sbmlns->getNamespaces());
+
+  mReactants.setType( ListOfSpeciesReferences::Reactant );
+  mProducts .setType( ListOfSpeciesReferences::Product  );
+  mModifiers.setType( ListOfSpeciesReferences::Modifier );
+}
                           
 
 /*

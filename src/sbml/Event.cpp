@@ -58,7 +58,6 @@ Event::Event (const std::string& id, const std::string& name) :
 }
 
 
-/** @cond doxygen-libsbml-internal */
 Event::Event (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
    SBase ("", "", -1)
@@ -71,9 +70,21 @@ Event::Event (unsigned int level, unsigned int version,
   mObjectVersion = version;
   if (xmlns) setNamespaces(xmlns);;
 }
-/** @endcond doxygen-libsbml-internal */
 
                           
+Event::Event (SBMLNamespaces *sbmlns) :
+   SBase ("", "", -1)
+ , mTrigger ( 0          )
+ , mDelay   ( 0          )
+ , mUseValuesFromTriggerTime ( true )
+{
+  mInternalIdOnly = false;
+  mObjectLevel = sbmlns->getLevel();
+  mObjectVersion = sbmlns->getVersion();
+  setNamespaces(sbmlns->getNamespaces());
+}
+
+
 /*
  * Destroys this Event.
  */

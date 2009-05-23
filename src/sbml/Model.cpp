@@ -57,7 +57,6 @@ Model::Model (const std::string& id, const std::string& name) :
 }
 
 
-/** @cond doxygen-libsbml-internal */
 Model::Model (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
    SBase ("", "", -1)
@@ -68,9 +67,19 @@ Model::Model (unsigned int level, unsigned int version,
   mObjectVersion = version;
   if (xmlns) setNamespaces(xmlns);;
 }
-/** @endcond doxygen-libsbml-internal */
 
                           
+Model::Model (SBMLNamespaces *sbmlns) :
+   SBase ("", "", -1)
+ , mHistory (0)
+ , mFormulaUnitsData (0)
+
+{
+  mObjectLevel = sbmlns->getLevel();
+  mObjectVersion = sbmlns->getVersion();
+  setNamespaces(sbmlns->getNamespaces());
+}
+
 
 /*
  * Destroys this Model.

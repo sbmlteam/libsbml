@@ -57,7 +57,6 @@ StoichiometryMath::StoichiometryMath (   const ASTNode* math ) :
 }
 
 
-/** @cond doxygen-libsbml-internal */
 StoichiometryMath::StoichiometryMath (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
    SBase (-1)
@@ -67,9 +66,17 @@ StoichiometryMath::StoichiometryMath (unsigned int level, unsigned int version,
   mObjectVersion = version;
   if (xmlns) setNamespaces(xmlns);;
 }
-/** @endcond doxygen-libsbml-internal */
 
                           
+StoichiometryMath::StoichiometryMath (SBMLNamespaces *sbmlns) :
+   SBase (-1)
+ , mMath      ( 0              )
+{
+  mObjectLevel = sbmlns->getLevel();
+  mObjectVersion = sbmlns->getVersion();
+  setNamespaces(sbmlns->getNamespaces());
+}
+
 
 /*
  * Destroys this StoichiometryMath.

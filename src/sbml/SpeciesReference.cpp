@@ -61,7 +61,6 @@ SimpleSpeciesReference::SimpleSpeciesReference (const std::string& species) :
 }
 
 
-/** @cond doxygen-libsbml-internal */
 SimpleSpeciesReference::SimpleSpeciesReference (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
    SBase (-1)
@@ -71,9 +70,17 @@ SimpleSpeciesReference::SimpleSpeciesReference (unsigned int level, unsigned int
   mObjectVersion = version;
   if (xmlns) setNamespaces(xmlns);;
 }
-/** @endcond doxygen-libsbml-internal */
 
                           
+SimpleSpeciesReference::SimpleSpeciesReference (SBMLNamespaces *sbmlns) :
+   SBase (-1)
+ , mSpecies( "" )
+{
+  mObjectLevel = sbmlns->getLevel();
+  mObjectVersion = sbmlns->getVersion();
+  setNamespaces(sbmlns->getNamespaces());
+}
+
 
 /*
  * Destroys this SimpleSpeciesReference.
@@ -310,7 +317,6 @@ SpeciesReference::SpeciesReference (  const std::string& species
 }
 
 
-/** @cond doxygen-libsbml-internal */
 SpeciesReference::SpeciesReference (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
    SimpleSpeciesReference( level, version, xmlns )
@@ -319,9 +325,16 @@ SpeciesReference::SpeciesReference (unsigned int level, unsigned int version,
  , mStoichiometryMath    ( 0             )
 {
 }
-/** @endcond doxygen-libsbml-internal */
 
                           
+SpeciesReference::SpeciesReference (SBMLNamespaces *sbmlns) :
+   SimpleSpeciesReference( sbmlns )
+ , mStoichiometry        ( 1.0 )
+ , mDenominator          ( 1   )
+ , mStoichiometryMath    ( 0             )
+{
+}
+
 
 /*
  * Destroys this SpeciesReference.
@@ -1021,15 +1034,18 @@ ModifierSpeciesReference::ModifierSpeciesReference (const std::string& species) 
 }
 
 
-/** @cond doxygen-libsbml-internal */
 ModifierSpeciesReference::ModifierSpeciesReference (unsigned int level, 
                           unsigned int version, XMLNamespaces *xmlns) :
   SimpleSpeciesReference(level, version, xmlns)
 {
 }
-/** @endcond doxygen-libsbml-internal */
 
                           
+ModifierSpeciesReference::ModifierSpeciesReference (SBMLNamespaces *sbmlns) :
+  SimpleSpeciesReference(sbmlns)
+{
+}
+
 
 /*
  * Destroys this ModifierSpeciesReference.

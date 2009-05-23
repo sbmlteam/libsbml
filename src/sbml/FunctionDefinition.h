@@ -176,7 +176,18 @@ public:
                       , const std::string& formula = "" );
 
 
-  /** @cond doxygen-libsbml-internal until after the 3.3.0 release */
+  /**
+   * Creates a new FunctionDefinition, optionally with a given identifier
+   * and mathematical formula.
+   *
+   * @param id a string, the identifier of this FunctionDefinition instance
+   *
+   * @param math the formula of the function definition expressed as an
+   * AST.
+   */
+  FunctionDefinition (const std::string& id, const ASTNode* math);
+
+
   /**
    * Creates a new FunctionDefinition using the given SBML @p level and @p version
    * values and optionally a set of XMLNamespaces.
@@ -211,19 +222,35 @@ public:
    */
   FunctionDefinition (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
-  /** @endcond doxygen-libsbml-internal */
 
 
   /**
-   * Creates a new FunctionDefinition, optionally with a given identifier
-   * and mathematical formula.
+   * Creates a new FunctionDefinition using the given SBMLNamespaces object @p 
+   * sbmlns.
    *
-   * @param id a string, the identifier of this FunctionDefinition instance
+   * @param sbmlns an SBMLNamespaces object.
    *
-   * @param math the formula of the function definition expressed as an
-   * AST.
+   * @note Once a FunctionDefinition has been added to an SBMLDocument, the @p level,
+   * @p version and @p xmlns namespaces for the document @em override those used
+   * to create the FunctionDefinition.  Despite this, the ability to supply the values
+   * at creation time is an important aid to creating valid SBML.  Knowledge of
+   * the intented SBML Level and Version determine whether it is valid to
+   * assign a particular value to an attribute, or whether it is valid to add
+   * an object to an existing SBMLDocument.
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
    */
-  FunctionDefinition (const std::string& id, const ASTNode* math);
+  FunctionDefinition (SBMLNamespaces* sbmlns);
 
 
   /**

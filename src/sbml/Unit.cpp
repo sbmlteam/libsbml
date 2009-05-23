@@ -76,7 +76,6 @@ Unit::Unit (   const std::string&  kind
 }
 
 
-/** @cond doxygen-libsbml-internal */
 Unit::Unit (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
     SBase      ( -1 )
@@ -90,9 +89,21 @@ Unit::Unit (unsigned int level, unsigned int version,
   mObjectVersion = version;
   if (xmlns) setNamespaces(xmlns);;
 }
-/** @endcond doxygen-libsbml-internal */
 
                           
+Unit::Unit (SBMLNamespaces *sbmlns) :
+    SBase      ( -1 )
+  , mKind      ( UNIT_KIND_INVALID )
+  , mExponent  ( 1   )
+  , mScale     ( 0      )
+  , mMultiplier( 1.0 )
+  , mOffset    ( 0.0     )
+{
+  mObjectLevel = sbmlns->getLevel();
+  mObjectVersion = sbmlns->getVersion();
+  setNamespaces(sbmlns->getNamespaces());
+}
+
 
 /*
  * Destroys the given Unit.

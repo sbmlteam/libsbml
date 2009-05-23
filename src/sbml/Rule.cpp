@@ -916,7 +916,6 @@ AlgebraicRule::AlgebraicRule (const ASTNode* math) :
 }
 
 
-/** @cond doxygen-libsbml-internal */
 AlgebraicRule::AlgebraicRule (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
   Rule(SBML_ALGEBRAIC_RULE, "", 0)
@@ -926,9 +925,17 @@ AlgebraicRule::AlgebraicRule (unsigned int level, unsigned int version,
   if (xmlns) setNamespaces(xmlns);;
   mInternalIdOnly = false;
 }
-/** @endcond doxygen-libsbml-internal */
 
                           
+AlgebraicRule::AlgebraicRule (SBMLNamespaces *sbmlns) :
+  Rule(SBML_ALGEBRAIC_RULE, "", 0)
+{
+  mObjectLevel = sbmlns->getLevel();
+  mObjectVersion = sbmlns->getVersion();
+  setNamespaces(sbmlns->getNamespaces());
+  mInternalIdOnly = false;
+}
+
 
 /*
  * Destroys this AlgebraicRule.
@@ -1004,7 +1011,6 @@ AssignmentRule::AssignmentRule (const std::string& variable, const ASTNode* math
 }
 
 
-/** @cond doxygen-libsbml-internal */
 AssignmentRule::AssignmentRule (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
   Rule(SBML_ASSIGNMENT_RULE, "", 0)
@@ -1013,9 +1019,16 @@ AssignmentRule::AssignmentRule (unsigned int level, unsigned int version,
   mObjectVersion = version;
   if (xmlns) setNamespaces(xmlns);;
 }
-/** @endcond doxygen-libsbml-internal */
 
                           
+AssignmentRule::AssignmentRule (SBMLNamespaces *sbmlns) :
+  Rule(SBML_ASSIGNMENT_RULE, "", 0)
+{
+  mObjectLevel = sbmlns->getLevel();
+  mObjectVersion = sbmlns->getVersion();
+  setNamespaces(sbmlns->getNamespaces());
+}
+
 
 /*
  * Destroys this AssignmentRule.
@@ -1068,7 +1081,6 @@ RateRule::RateRule (const std::string& variable, const ASTNode* math) :
 }
 
 
-/** @cond doxygen-libsbml-internal */
 RateRule::RateRule (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
   Rule(SBML_RATE_RULE, "", 0)
@@ -1077,9 +1089,16 @@ RateRule::RateRule (unsigned int level, unsigned int version,
   mObjectVersion = version;
   if (xmlns) setNamespaces(xmlns);;
 }
-/** @endcond doxygen-libsbml-internal */
 
                           
+RateRule::RateRule (SBMLNamespaces *sbmlns) :
+  Rule(SBML_RATE_RULE, "", 0)
+{
+  mObjectLevel = sbmlns->getLevel();
+  mObjectVersion = sbmlns->getVersion();
+  setNamespaces(sbmlns->getNamespaces());
+}
+
 
 /*
  * Destroys this RateRule.

@@ -306,7 +306,6 @@ public:
   Species (const std::string& id = "", const std::string& name = "");
 
 
-  /** @cond doxygen-libsbml-internal until after the 3.3.0 release */
   /**
    * Creates a new Species using the given SBML @p level and @p version
    * values and optionally a set of XMLNamespaces.
@@ -348,7 +347,42 @@ public:
    */
   Species (unsigned int level, unsigned int version, 
                XMLNamespaces* xmlns = 0);
-  /** @endcond doxygen-libsbml-internal */
+
+
+  /**
+   * Creates a new Species using the given SBMLNamespaces object @p 
+   * sbmlns.
+   *
+   * It is worth emphasizing that although this constructor does not take
+   * an identifier argument, in SBML Level&nbsp;2 and beyond, the "id"
+   * (identifier) attribute of a Species is required to have a value.
+   * Thus, callers are cautioned to assign a value after calling this
+   * constructor.  Setting the identifier can be accomplished using the
+   * method @if clike SBase::setId() @endif@if java SBase::setId(String id) @endif.
+   *
+   * @param sbmlns an SBMLNamespaces object.
+   *
+   * @note Once a Species has been added to an SBMLDocument, the @p level,
+   * @p version and @p xmlns namespaces for the document @em override those used
+   * to create the Species.  Despite this, the ability to supply the values
+   * at creation time is an important aid to creating valid SBML.  Knowledge of
+   * the intented SBML Level and Version determine whether it is valid to
+   * assign a particular value to an attribute, or whether it is valid to add
+   * an object to an existing SBMLDocument.
+   *
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
+   */
+  Species (SBMLNamespaces* sbmlns);
 
 
   /**

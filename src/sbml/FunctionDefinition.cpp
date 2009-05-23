@@ -71,7 +71,6 @@ FunctionDefinition::FunctionDefinition (  const std::string&  id
 }
 
 
-/** @cond doxygen-libsbml-internal */
 FunctionDefinition::FunctionDefinition (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
    SBase ("", "", -1)
@@ -81,8 +80,17 @@ FunctionDefinition::FunctionDefinition (unsigned int level, unsigned int version
   mObjectVersion = version;
   if (xmlns) setNamespaces(xmlns);;
 }
-/** @endcond doxygen-libsbml-internal */
+
                           
+FunctionDefinition::FunctionDefinition (SBMLNamespaces *sbmlns) :
+   SBase ("", "", -1)
+ , mMath( 0  )
+{
+  mObjectLevel = sbmlns->getLevel();
+  mObjectVersion = sbmlns->getVersion();
+  setNamespaces(sbmlns->getNamespaces());
+}
+
 
 /*
  * Destroys this FunctionDefinition.

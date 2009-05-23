@@ -57,7 +57,6 @@ EventAssignment::EventAssignment (const std::string& variable, const ASTNode* ma
 }
 
 
-/** @cond doxygen-libsbml-internal */
 EventAssignment::EventAssignment (unsigned int level, unsigned int version,
                           XMLNamespaces *xmlns) :
    SBase ("", "", -1)
@@ -67,9 +66,17 @@ EventAssignment::EventAssignment (unsigned int level, unsigned int version,
   mObjectVersion = version;
   if (xmlns) setNamespaces(xmlns);;
 }
-/** @endcond doxygen-libsbml-internal */
 
                           
+EventAssignment::EventAssignment (SBMLNamespaces *sbmlns) :
+   SBase ("", "", -1)
+ , mMath   ( 0        )
+{
+  mObjectLevel = sbmlns->getLevel();
+  mObjectVersion = sbmlns->getVersion();
+  setNamespaces(sbmlns->getNamespaces());
+}
+
 
 /*
  * Destroys this EventAssignment.

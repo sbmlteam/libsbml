@@ -64,6 +64,7 @@ headers =              \
   SBMLError.h          \
   SBMLErrorLog.h       \
   SBMLErrorTable.h	   \
+  SBMLNamespaces.h     \
   SBMLReader.h         \
   SBMLTypeCodes.h      \
   SBMLTypes.h          \
@@ -99,6 +100,7 @@ sources =                \
   SBMLDocument.cpp       \
   SBMLError.cpp          \
   SBMLErrorLog.cpp       \
+  SBMLNamespaces.cpp     \
   SBMLReader.cpp         \
   SBMLTypeCodes.cpp      \
   SBMLVisitor.cpp        \

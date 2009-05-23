@@ -344,6 +344,7 @@
 #include <sbml/annotation/RDFAnnotation.h>
 #include <sbml/annotation/CVTerm.h>
 #include <sbml/util/List.h>
+#include <sbml/SBMLNamespaces.h>
 
 
 #ifdef __cplusplus
