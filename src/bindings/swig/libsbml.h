@@ -56,6 +56,7 @@
 #include <sbml/SpeciesType.h>
 #include <sbml/SBO.h>
 #include <sbml/StoichiometryMath.h>
+#include <sbml/SBMLNamespaces.h>
 
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/MathML.h>

@@ -238,6 +238,7 @@
 %include sbml/Delay.h
 %include sbml/SBO.h
 %include sbml/StoichiometryMath.h
+%include sbml/SBMLNamespaces.h
 
 %include sbml/math/MathML.h
 %include sbml/math/ASTNode.h
