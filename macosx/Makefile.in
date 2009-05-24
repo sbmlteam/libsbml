@@ -66,7 +66,7 @@ distfiles = \
 # of the form `foo-recursive' to run 'make foo' in directories defined in
 # variable `subdirs'.
 
-all: create-dmg
+all:
 
 # -----------------------------------------------------------------------------
 # Create a package (.dmg file) for MacOSX
