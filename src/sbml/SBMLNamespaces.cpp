@@ -72,14 +72,6 @@ SBMLNamespaces::~SBMLNamespaces()
 }
 
 
-SBMLNamespaces * 
-SBMLNamespaces::getSBMLNamespaces(unsigned int level,
-                                  unsigned int version)
-{
-  return new SBMLNamespaces(level, version);
-}
-
-
 std::string 
 SBMLNamespaces::getSBMLNamespaceURI(unsigned int level,
                                  unsigned int version)

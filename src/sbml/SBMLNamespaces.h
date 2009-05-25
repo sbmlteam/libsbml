@@ -78,20 +78,6 @@ public:
 
   
   /**
-   * Creates a new SBMLNamespaces object from the arguments
-   * and returns it.
-   *
-   * @param level, the SBML level
-   * @param version, the SBML version
-   *
-   * @return an SBMLNamespaces object that reflects the level
-   * and version specified.
-   */
-  static SBMLNamespaces * getSBMLNamespaces(unsigned int level,
-                                            unsigned int version);
-
-  
-  /**
    * Returns a string representing the SBML namespace for the 
    * level and version specified.
    *
