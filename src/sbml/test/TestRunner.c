@@ -124,6 +124,7 @@ Suite *create_suite_TestReadFromFile8 (void);
 
 Suite *create_suite_TestConsistencyChecks (void);
 Suite *create_suite_ParentObject (void);
+Suite *create_suite_SBMLNamespaces (void);
 Suite *create_suite_AncestorObject (void);
 Suite *create_suite_TestInternalConsistencyChecks (void);
 
@@ -220,6 +221,7 @@ main (int argc, char* argv[])
   srunner_add_suite( runner, create_suite_ParentObject() );
   srunner_add_suite( runner, create_suite_AncestorObject() );
   srunner_add_suite( runner, create_suite_TestInternalConsistencyChecks() );
+  srunner_add_suite( runner, create_suite_SBMLNamespaces() );
 
 
   setTestDataDirectory();

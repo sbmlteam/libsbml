@@ -93,6 +93,7 @@ test_sources =                   \
   TestSBMLParentObject.cpp       \
   TestSBMLError.cpp              \
   TestAncestor.cpp               \
+  TestSBMLNamespaces.cpp         \
   TestInternalConsistencyChecks.cpp               \
   TestConsistencyChecks.cpp
 
