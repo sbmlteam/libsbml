@@ -106,6 +106,7 @@ my %MiscClass = (
    ModelCreator    => 0,
    Date            => 0,
    RDFAnnotationParser => 0,
+   SBMLNamespaces  => 0,
 );
 
 my %IgnoredClass = (
