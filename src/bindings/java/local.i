@@ -1293,6 +1293,14 @@ SWIGJAVA_EQUALS(XMLInputStream)
     cerr = new OStream(OStream.CERR); 
     clog = new OStream(OStream.CLOG); 
   }
+
+  /**
+   * This private constructor does nothing and never invoked.
+   * The purpose of this constuctor is to hide a default constructor of this 
+   * class in javadoc documentation.
+   */
+  private libsbml() {}
+
 %}
 
 
