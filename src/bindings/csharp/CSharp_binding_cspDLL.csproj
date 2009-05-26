@@ -101,6 +101,7 @@
     <Compile Include="csharp-files-win\SBMLDocument.cs" />
     <Compile Include="csharp-files-win\SBMLError.cs" />
     <Compile Include="csharp-files-win\SBMLErrorLog.cs" />
+    <Compile Include="csharp-files-win\SBMLNamespaces.cs" />
     <Compile Include="csharp-files-win\SBMLReader.cs" />
     <Compile Include="csharp-files-win\SBMLWriter.cs" />
     <Compile Include="csharp-files-win\SBO.cs" />

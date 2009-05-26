@@ -108,7 +108,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:init_libsbml"
-				AdditionalDependencies="odbc32.lib odbccp32.lib ../../../win32/bin/xerces-c_2.lib zlib.lib bzip2.lib &quot;$(PYTHON_LIB)&quot;"
+				AdditionalDependencies="odbc32.lib odbccp32.lib xerces-c_3.lib zdll.lib bzip2.lib &quot;$(PYTHON_LIB)&quot;"
 				OutputFile=".\libs/_libsbml.dll"
 				LinkIncremental="0"
 				SuppressStartupBanner="TRUE"
@@ -268,12 +268,6 @@
 				RelativePath="..\..\validator\IdentifierConsistencyValidator.cpp">
 			</File>
 			<File
-				RelativePath="..\..\validator\constraints\InternalConsistencyConstraints.cpp">
-			</File>
-			<File
-				RelativePath="..\..\validator\InternalConsistencyValidator.cpp">
-			</File>
-			<File
 				RelativePath="..\..\validator\constraints\IdList.cpp">
 			</File>
 			<File
@@ -281,6 +275,12 @@
 			</File>
 			<File
 				RelativePath="..\..\compress\InputDecompressor.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\InternalConsistencyConstraints.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\InternalConsistencyValidator.cpp">
 			</File>
 			<File
 				RelativePath="..\..\compress\ioapi.c">
@@ -449,6 +449,9 @@
 			</File>
 			<File
 				RelativePath="..\..\sbml\SBMLErrorLog.cpp">
+			</File>
+			<File
+				RelativePath="..\..\sbml\SBMLNamespaces.cpp">
 			</File>
 			<File
 				RelativePath="..\..\sbml\SBMLReader.cpp">

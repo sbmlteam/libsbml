@@ -647,8 +647,10 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\sbml\SBMLErrorLog.cpp"
-				>
+				RelativePath="..\..\sbml\SBMLErrorLog.cpp">
+			</File>
+			<File
+				RelativePath="..\..\sbml\SBMLNamespaces.cpp">
 			</File>
 			<File
 				RelativePath="..\..\sbml\SBMLReader.cpp"

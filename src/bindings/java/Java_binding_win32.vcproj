@@ -42,7 +42,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib ../../../win32/bin/xerces-c_2D.lib zlib.lib bzip2.lib"
+				AdditionalDependencies="odbc32.lib odbccp32.lib xerces-c_3D.lib zlib.lib bzip2.lib"
 				OutputFile="./libs/sbmljD.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -113,7 +113,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib ../../../win32/bin/xerces-c_2.lib zlib.lib bzip2.lib"
+				AdditionalDependencies="odbc32.lib odbccp32.lib xerces-c_3.lib zdll.lib bzip2.lib"
 				OutputFile="./libs/sbmlj.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -272,12 +272,6 @@
 				RelativePath="..\..\validator\IdentifierConsistencyValidator.cpp">
 			</File>
 			<File
-				RelativePath="..\..\validator\constraints\InternalConsistencyConstraints.cpp">
-			</File>
-			<File
-				RelativePath="..\..\validator\InternalConsistencyValidator.cpp">
-			</File>
-			<File
 				RelativePath="..\..\validator\constraints\IdList.cpp">
 			</File>
 			<File
@@ -285,6 +279,12 @@
 			</File>
 			<File
 				RelativePath="..\..\compress\InputDecompressor.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\InternalConsistencyConstraints.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\InternalConsistencyValidator.cpp">
 			</File>
 			<File
 				RelativePath="..\..\compress\ioapi.c">
@@ -453,6 +453,9 @@
 			</File>
 			<File
 				RelativePath="..\..\sbml\SBMLErrorLog.cpp">
+			</File>
+			<File
+				RelativePath="..\..\sbml\SBMLNamespaces.cpp">
 			</File>
 			<File
 				RelativePath="..\..\sbml\SBMLReader.cpp">

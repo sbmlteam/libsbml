@@ -633,6 +633,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\sbml\SBMLNamespaces.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\sbml\SBMLReader.cpp"
 				>
 			</File>
