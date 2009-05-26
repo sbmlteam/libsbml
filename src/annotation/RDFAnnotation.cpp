@@ -837,8 +837,6 @@ bool
 RDFAnnotationParser::hasCVTermRDFAnnotation(const XMLNode *annotation)
 {
   bool hasCVTermRDF = false;
-  unsigned int n = 0;
-  const XMLNode* rdf = NULL;
 
   if (!RDFAnnotationParser::hasRDFAnnotation(annotation))
   {
@@ -863,8 +861,6 @@ bool
 RDFAnnotationParser::hasHistoryRDFAnnotation(const XMLNode *annotation)
 {
   bool hasHistoryRDF = false;
-  unsigned int n = 0;
-  const XMLNode* rdf = NULL;
 
   if (!RDFAnnotationParser::hasRDFAnnotation(annotation))
   {
