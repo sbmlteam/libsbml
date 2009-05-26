@@ -55,7 +55,7 @@ perl-manual   = $(formatted)/perl-api
 # The C++ and C manuals are always made, but additional manuals depend on
 # the options with which libSBML was configured.
 
-docs = Makefile $(cpp-manual) $(c-manual)
+docs = $(cpp-manual) $(c-manual)
 
 ifdef USE_JAVA
   docs += $(java-manual)
@@ -75,6 +75,7 @@ endif
 # only a distclean.
 
 extra_distclean =               \
+        Makefile                \
         $(docs)                 \
         doxygen-config-c.txt    \
         doxygen-config-cpp.txt  \

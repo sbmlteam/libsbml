@@ -688,6 +688,7 @@ SET_MAKE
 AUTOCONF
 ACLOCAL
 AR
+SWIG_CONFIG_OPT
 SWIG
 USE_SWIG
 SWIGLIB
@@ -744,6 +745,7 @@ CSHARP_CPPFLAGS
 CSHARP_LDFLAGS
 CSHARP_SWIGFLAGS
 CSHARP_EXT
+DOXYGEN_CONFIG_OPT
 DOXYGEN
 USE_DOXYGEN
 GREP
@@ -753,7 +755,6 @@ EXPAT_CPPFLAGS
 EXPAT_LDFLAGS
 EXPAT_LIBS
 XML_PARSER
-XML_REQUIRED_VERSION
 CXXCPP
 USE_XERCES
 XERCES_CPPFLAGS
@@ -3956,6 +3957,8 @@ fi
 
 
 
+
+
 # Check whether --with-swig was given.
 if test "${with_swig+set}" = set; then
   withval=$with_swig; with_swig=$withval
@@ -4011,6 +4014,8 @@ else
 echo "${ECHO_T}no" >&6; }
 fi
 
+
+      SWIG_CONFIG_OPT==$with_swig
 
     else
 
@@ -6581,6 +6586,8 @@ _ACEOF
 
 
 
+
+
 # Check whether --with-doxygen was given.
 if test "${with_doxygen+set}" = set; then
   withval=$with_doxygen; with_doxygen=$withval
@@ -6635,6 +6642,8 @@ else
 echo "${ECHO_T}no" >&6; }
 fi
 
+
+      DOXYGEN_CONFIG_OPT==$with_doxygen
 
     else
             # Extract the first word of "doxygen", so it can be a program name with args.
@@ -7779,8 +7788,6 @@ _ACEOF
 
     XML_PARSER=expat
 
-    XML_REQUIRED_VERSION=>= 1.95.8
-
 
   fi
 
@@ -8385,7 +8392,6 @@ _ACEOF
     XML_PARSER=xerces
 
 
-
   fi
 
 
@@ -8802,8 +8808,6 @@ _ACEOF
     rm -f conf.xmltest
 
     XML_PARSER=libxml2
-
-    XML_REQUIRED_VERSION=">= 2.6.16"
 
 
 
@@ -11327,6 +11331,9 @@ ac_config_files="$ac_config_files config/makefile-common-vars.mk"
 ac_config_files="$ac_config_files ./Makefile"
 
 
+ac_config_files="$ac_config_files libsbml.spec"
+
+
 ac_config_files="$ac_config_files src/Makefile"
 
 
@@ -12018,6 +12025,7 @@ do
     "src/common/libsbml-package.h") CONFIG_HEADERS="$CONFIG_HEADERS src/common/libsbml-package.h" ;;
     "config/makefile-common-vars.mk") CONFIG_FILES="$CONFIG_FILES config/makefile-common-vars.mk" ;;
     "./Makefile") CONFIG_FILES="$CONFIG_FILES ./Makefile" ;;
+    "libsbml.spec") CONFIG_FILES="$CONFIG_FILES libsbml.spec" ;;
     "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
     "src/common/Makefile") CONFIG_FILES="$CONFIG_FILES src/common/Makefile" ;;
     "src/common/libsbml-version.h") CONFIG_FILES="$CONFIG_FILES src/common/libsbml-version.h" ;;
@@ -12203,6 +12211,7 @@ SET_MAKE!$SET_MAKE$ac_delim
 AUTOCONF!$AUTOCONF$ac_delim
 ACLOCAL!$ACLOCAL$ac_delim
 AR!$AR$ac_delim
+SWIG_CONFIG_OPT!$SWIG_CONFIG_OPT$ac_delim
 SWIG!$SWIG$ac_delim
 USE_SWIG!$USE_SWIG$ac_delim
 SWIGLIB!$SWIGLIB$ac_delim
@@ -12227,7 +12236,6 @@ JAR!$JAR$ac_delim
 USE_JAVA!$USE_JAVA$ac_delim
 JAVA_CPPFLAGS!$JAVA_CPPFLAGS$ac_delim
 JAVA_LDFLAGS!$JAVA_LDFLAGS$ac_delim
-JNIEXT!$JNIEXT$ac_delim
 _ACEOF
 
   if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 97; then
@@ -12269,6 +12277,7 @@ _ACEOF
 ac_delim='%!_!# '
 for ac_last_try in false false false false false :; do
   cat >conf$$subs.sed <<_ACEOF
+JNIEXT!$JNIEXT$ac_delim
 JNIBASENAME!$JNIBASENAME$ac_delim
 JAVADOC_JAR!$JAVADOC_JAR$ac_delim
 MEX!$MEX$ac_delim
@@ -12300,6 +12309,7 @@ CSHARP_CPPFLAGS!$CSHARP_CPPFLAGS$ac_delim
 CSHARP_LDFLAGS!$CSHARP_LDFLAGS$ac_delim
 CSHARP_SWIGFLAGS!$CSHARP_SWIGFLAGS$ac_delim
 CSHARP_EXT!$CSHARP_EXT$ac_delim
+DOXYGEN_CONFIG_OPT!$DOXYGEN_CONFIG_OPT$ac_delim
 DOXYGEN!$DOXYGEN$ac_delim
 USE_DOXYGEN!$USE_DOXYGEN$ac_delim
 GREP!$GREP$ac_delim
@@ -12309,7 +12319,6 @@ EXPAT_CPPFLAGS!$EXPAT_CPPFLAGS$ac_delim
 EXPAT_LDFLAGS!$EXPAT_LDFLAGS$ac_delim
 EXPAT_LIBS!$EXPAT_LIBS$ac_delim
 XML_PARSER!$XML_PARSER$ac_delim
-XML_REQUIRED_VERSION!$XML_REQUIRED_VERSION$ac_delim
 CXXCPP!$CXXCPP$ac_delim
 USE_XERCES!$USE_XERCES$ac_delim
 XERCES_CPPFLAGS!$XERCES_CPPFLAGS$ac_delim
@@ -12340,7 +12349,7 @@ LIBOBJS!$LIBOBJS$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
 
-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 69; then
+  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 70; then
     break
   elif $ac_last_try; then
     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5

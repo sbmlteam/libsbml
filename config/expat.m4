@@ -254,7 +254,6 @@ int main ()
     AC_SUBST(EXPAT_LIBS)
 
     AC_SUBST(XML_PARSER, [expat])
-    AC_SUBST(XML_REQUIRED_VERSION, [>= 1.95.8])
 
   fi
 

@@ -304,7 +304,6 @@ main()
     rm -f conf.xmltest
 
     AC_SUBST(XML_PARSER, [libxml2])
-    AC_SUBST(XML_REQUIRED_VERSION, ">= 2.6.16")
 
     dnl One more wrinkle: libxml 2.6.16 as shipped by Apple is broken, in
     dnl that it doesn't report XML_NS_ERR_UNDEFINED_NAMESPACE when the

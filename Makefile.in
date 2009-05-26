@@ -203,7 +203,8 @@ distfiles =                         \
   config/bzip2.m4                   \
   configure                         \
   configure.ac                      \
-  $(examples)                              
+  libsbml.spec.in                   \
+  $(examples)
 
 # The files listed in `extra_distclean' are items created by configure or
 # make, and that are removed by the default rules for `make distclean' in

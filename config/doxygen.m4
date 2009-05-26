@@ -29,6 +29,8 @@ dnl because there's a test at the end of this file involving $with_java.
 
 AC_DEFUN([CONFIG_PROG_DOXYGEN],
 [
+  AC_SUBST(DOXYGEN_CONFIG_OPT)
+
   AC_ARG_WITH([doxygen],
     AC_HELP_STRING([--with-doxygen=PREFIX],
                    [Specify path to doxygen [[default=autodetect]]]),
@@ -46,6 +48,7 @@ AC_DEFUN([CONFIG_PROG_DOXYGEN],
   
       AC_PATH_PROG([DOXYGEN], [doxygen], [no], 
                    [$with_doxygen/bin $with_doxygen/Contents/Resources $with_doxygen])
+      AC_SUBST(DOXYGEN_CONFIG_OPT,[=$with_doxygen])
     else
       dnl Nothing supplied -- look for doxygen on the user's path.
       AC_PATH_PROG([DOXYGEN], [doxygen])

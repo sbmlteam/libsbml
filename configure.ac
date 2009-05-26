@@ -263,6 +263,8 @@ dnl ---------------------------------------------------------------------------
 AC_CONFIG_FILES([config/makefile-common-vars.mk])
 AC_CONFIG_FILES([./Makefile])
 
+AC_CONFIG_FILES([libsbml.spec])
+
 AC_CONFIG_FILES([src/Makefile])
 
 AC_CONFIG_FILES([src/common/Makefile])

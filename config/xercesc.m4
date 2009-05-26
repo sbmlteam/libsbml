@@ -155,7 +155,6 @@ exit(0);
     AC_SUBST(XERCES_LIBS)
 
     AC_SUBST(XML_PARSER, [xerces])
-    AC_SUBST(XML_REQUIRED_VERSION)
 
   fi
 
