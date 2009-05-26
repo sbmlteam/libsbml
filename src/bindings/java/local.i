@@ -1202,8 +1202,90 @@ SWIGJAVA_EQUALS(XMLInputStream)
   
 %pragma(java) modulecode =
 %{
+  /**
+    * Stream handle for low-level C++ standard output stream.
+    * <p>
+    * A few libSBML methods accept an argument for indicating where to send
+    * text string output.  An example is the {@link
+    * SBMLDocument#printErrors} method.  However, the methods use C++ style
+    * streams and not Java stream objects.  This <code>cout</code> object
+    * exists to bridge the Java and underlying native implementation.  An
+    * example use might be something like this:
+    * <p>
+    * <div class="fragment"><pre class="fragment">
+    * SBMLDocument document = libsbml.readSBML("somefile.xml");
+    * if (document.getNumErrors() > 0)
+    * {
+    *     document.printErrors(libsbml.cout);
+    *     println("Please correct the above problems first.");
+    *     System.exit(1);
+    * }</div>
+    *
+    * @see cerr
+    * @see clog
+    */
   public final static OStream cout;
+
+
+  /**
+    * Stream handle for low-level C++ standard error stream.
+    * <p>
+    * A few libSBML methods accept an argument for indicating where to send
+    * text string output.  An example is the {@link
+    * SBMLDocument#printErrors} method.  However, the methods use C++ style
+    * streams and not Java stream objects.  This <code>cerr</code> object
+    * exists to bridge the Java and underlying native implementation.  An
+    * example use might be something like this:
+    * <p>
+    * <div class="fragment"><pre class="fragment">
+    * SBMLDocument document = libsbml.readSBML("somefile.xml");
+    * if (document.getNumErrors() > 0)
+    * {
+    *     document.printErrors(libsbml.cerr);
+    *     println("Please correct the above problems first.");
+    *     System.exit(1);
+    * }</div>
+    * <p>
+    * By default, most operating systems have have their standard error and
+    * logging output streams directed to the console/terminal, and this is
+    * where text messages will be shown.  This can usually be redirected
+    * elsewhere, although how to do this depends on the specific environment
+    * where the program is running.
+    *
+    * @see cout
+    * @see clog
+    */
   public final static OStream cerr;
+
+
+  /**
+    * Stream handle for low-level C++ standard logging stream.
+    * <p>
+    * A few libSBML methods accept an argument for indicating where to send
+    * text string output.  An example is the {@link
+    * SBMLDocument#printErrors} method.  However, the methods use C++ style
+    * streams and not Java stream objects.  This <code>clog</code> object
+    * exists to bridge the Java and underlying native implementation.  An
+    * example use might be something like this:
+    * <p>
+    * <div class="fragment"><pre class="fragment">
+    * SBMLDocument document = libsbml.readSBML("somefile.xml");
+    * if (document.getNumErrors() > 0)
+    * {
+    *     document.printErrors(libsbml.clog);
+    *     println("Please correct the above problems first.");
+    *     System.exit(1);
+    * }</div>
+    * <p>
+    * By default, most operating systems have have their standard error and
+    * logging output streams directed to the console/terminal, and this is
+    * where text messages will be shown.  This can usually be redirected
+    * elsewhere, although how to do this depends on the specific environment
+    * where the program is running.
+    *
+    * @see cout
+    * @see cerr
+    */
   public final static OStream clog;
 
   static {
