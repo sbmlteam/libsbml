@@ -98,8 +98,8 @@ public:
    * SBML Level&nbsp;3, the SBMLNamespaces object only records one SBML
    * Level/Version/namespace combination at a time.
    *
-   * @param level, the SBML level
-   * @param version, the SBML version
+   * @param level the SBML level
+   * @param version the SBML version
    * 
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different
@@ -127,8 +127,8 @@ public:
    * Returns a string representing the SBML XML namespace for the 
    * given @p level and @p version of SBML.
    *
-   * @param level, the SBML level
-   * @param version, the SBML version
+   * @param level the SBML level
+   * @param version the SBML version
    *
    * @return a string representing the SBML namespace that reflects the
    * SBML Level and Version specified.
