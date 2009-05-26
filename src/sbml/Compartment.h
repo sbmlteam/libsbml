@@ -91,8 +91,7 @@
  * unit defined by a UnitDefinition object in the enclosing Model, subject
  * to the restrictions detailed in the following table:
  *
- * @image html compartment-size.jpg "Units permitted for compartment sizes"
- * @image latex compartment-size.jpg "Units permitted for compartment sizes"
+ * @htmlinclude libsbml-compartment-size-restrictions.html 
  *
  * In SBML Level 2, the units of the compartment size, as defined by the
  * "units" attribute or (if "units" is not set) the default value listed in
