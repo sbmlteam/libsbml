@@ -37,24 +37,50 @@
  *     Christoph Flamm
  *
  * Contributor(s):
+ *
+ *  Akiya Jouraku
  */
 
-%extend List {
-  ModelCreator *getModelCreator(int i) {
-    return (ModelCreator *)self->get(i);
-  }
+
+/**
+ *  Wraps the following functions by using the corresponding
+ *  ListWrapper<TYPENAME> class ( src/bindings/swig/ListWrapper.h ).
+ *
+ *  - List* ModelHistory::getListCreators()
+ *  - List* ModelHistory::getListModifiedDates()
+ *  - List* SBase::getCVTerms()
+ *
+ *  ListWrapper<TYPENAME> class is wrapped as ListTYPENAMEs class.
+ *  So, the above functions are wrapped as follows:
+ *
+ *  - ListModelCreators ModelHistory::getListCreators()
+ *  - ListDates         ModelHistory::getListModifiedDates()
+ *  - ListCVTerms       SBase::getCVTerms()
+ *
+ */
+
+%typemap(out) List* ModelHistory::getListCreators
+{
+  ListWrapper<ModelCreator> *listw = ($1 != 0) ? new ListWrapper<ModelCreator>($1) : 0;
+  ST(argvi) = SWIG_NewPointerObj(SWIG_as_voidptr(listw), SWIGTYPE_p_ListWrapperT_ModelCreator_t, 
+                                 $owner | %newpointer_flags);
+  argvi++;
 }
 
-%extend List {
-  Date *getDate(int i) {
-    return (Date *)self->get(i);
-  }
+%typemap(out) List* ModelHistory::getListModifiedDates
+{
+  ListWrapper<Date> *listw = ($1 != 0) ? new ListWrapper<Date>($1) : 0;
+  ST(argvi) = SWIG_NewPointerObj(SWIG_as_voidptr(listw), SWIGTYPE_p_ListWrapperT_Date_t, 
+                                 $owner | %newpointer_flags);
+  argvi++;
 }
 
-%extend List {
-  CVTerm *getCVTerm(int i) {
-    return (CVTerm *)self->get(i);
-  }
+%typemap(out) List* SBase::getCVTerms
+{
+  ListWrapper<CVTerm> *listw = ($1 != 0) ? new ListWrapper<CVTerm>($1) : 0;
+  ST(argvi) = SWIG_NewPointerObj(SWIG_as_voidptr(listw), SWIGTYPE_p_ListWrapperT_CVTerm_t, 
+                                 $owner | %newpointer_flags);
+  argvi++;
 }
 
 %feature("shadow")
@@ -64,7 +90,7 @@ ModelHistory::getListModifiedDates()
     my $lox = LibSBMLc::ModelHistory_getListModifiedDates(@_);
     my @lox = ();
     for (my $i=0; $i<$lox->getSize(); $i++) {
-      push @lox, $lox->getDate($i);
+      push @lox, $lox->get($i);
     }
     return wantarray ? @lox : $lox;
   }
@@ -77,7 +103,20 @@ ModelHistory::getListCreators()
     my $lox = LibSBMLc::ModelHistory_getListCreators(@_);
     my @lox = ();
     for (my $i=0; $i<$lox->getSize(); $i++) {
-      push @lox, $lox->getModelCreator($i);
+      push @lox, $lox->get($i);
+    }
+    return wantarray ? @lox : $lox;
+  }
+%}
+
+%feature("shadow")
+SBase::getCVTerms()
+%{
+  sub getCVTerms {
+    my $lox = LibSBMLc::SBase_getCVTerms(@_);
+    my @lox = ();
+    for (my $i=0; $i<$lox->getSize(); $i++) {
+      push @lox, $lox->get($i);
     }
     return wantarray ? @lox : $lox;
   }

@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Python conversion)
 # @author  Sarah Keating 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestModelHistory.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -175,7 +175,7 @@ class TestModelHistory(unittest.TestCase):
     history.addCreator(mc)
     self.assert_( history.getNumCreators() == 1 )
     mc = None
-    newMC = history.getCreator(0)
+    newMC = history.getListCreators().get(0)
     self.assert_( newMC != None )
     self.assert_((  "Keating" == newMC.getFamilyName() ))
     self.assert_((  "Sarah" == newMC.getGivenName() ))
@@ -194,7 +194,7 @@ class TestModelHistory(unittest.TestCase):
     date = None
     self.assert_( history.getNumModifiedDates() == 1 )
     self.assert_( history.isSetModifiedDate() == True )
-    newdate = history.getModifiedDate(0)
+    newdate = history.getListModifiedDates().get(0)
     self.assert_( newdate.getYear() == 2005 )
     self.assert_( newdate.getMonth() == 12 )
     self.assert_( newdate.getDay() == 30 )
@@ -225,6 +225,7 @@ class TestModelHistory(unittest.TestCase):
   def test_ModelHistory_create(self):
     history = libsbml.ModelHistory()
     self.assert_( history != None )
+    self.assert_( history.getListCreators() != None )
     self.assert_( history.getCreatedDate() == None )
     self.assert_( history.getModifiedDate() == None )
     history = None

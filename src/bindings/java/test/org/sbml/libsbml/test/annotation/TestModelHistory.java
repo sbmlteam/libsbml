@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Sarah Keating 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestModelHistory.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -259,7 +259,7 @@ public class TestModelHistory {
     history.addCreator(mc);
     assertTrue( history.getNumCreators() == 1 );
     mc = null;
-    newMC = history.getCreator(0);
+    newMC = history.getListCreators().get(0);
     assertTrue( newMC != null );
     assertTrue(newMC.getFamilyName().equals( "Keating"));
     assertTrue(newMC.getGivenName().equals( "Sarah"));
@@ -279,7 +279,7 @@ public class TestModelHistory {
     date = null;
     assertTrue( history.getNumModifiedDates() == 1 );
     assertTrue( history.isSetModifiedDate() == true );
-    Date newdate = history.getModifiedDate(0);
+    Date newdate = history.getListModifiedDates().get(0);
     assertTrue( newdate.getYear() == 2005 );
     assertTrue( newdate.getMonth() == 12 );
     assertTrue( newdate.getDay() == 30 );
@@ -311,6 +311,7 @@ public class TestModelHistory {
   {
     ModelHistory history = new  ModelHistory();
     assertTrue( history != null );
+    assertTrue( history.getListCreators() != null );
     assertTrue( history.getCreatedDate() == null );
     assertTrue( history.getModifiedDate() == null );
     history = null;

@@ -44,8 +44,9 @@
  */
 %typemap(out) SBase*, SimpleSpeciesReference*, Rule*
 {
-  ST(argvi) = sv_newmortal();
-  SWIG_MakePtr(ST(argvi++), (void*)$1, GetDowncastSwigType($1), $owner | %newpointer_flags);
+  ST(argvi) = SWIG_NewPointerObj(SWIG_as_voidptr($1), GetDowncastSwigType($1), 
+                                 $owner | %newpointer_flags);
+  argvi++;
 }
 
 /**

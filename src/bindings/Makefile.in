@@ -77,7 +77,8 @@ swig_extras =    \
   swig/layout.i  \
   swig/libsbml.h \
   swig/libsbml.i \
-  swig/swigdoc.py
+  swig/swigdoc.py\
+  swig/ListWrapper.h
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default

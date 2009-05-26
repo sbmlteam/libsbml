@@ -53,6 +53,31 @@ public class"
 #include "local.cpp"
 %}
 
+%import  sbml/common/extern.h
+%import  sbml/common/sbmlfwd.h
+%import  sbml/xml/XMLExtern.h
+
+/**
+ * Wraps List class by ListWrapper<TYPENAME> template class.
+ * TYPENAME is replaced with a corresponding data type which is
+ * stored in the List object (e.g. ModelCreator, CVTerm and ASTNode). 
+ *
+ * ListWrapper<TYPENAME> class is wrapped as ListTYPENAMEs class
+ * (e.g. ListWrapper<CVTerm> -> ListCVTerms)
+ *
+ */
+
+%include "ListWrapper.h"
+%template(ListModelCreators) ListWrapper<ModelCreator>;
+%template(ListDates)         ListWrapper<Date>;
+%template(ListCVTerms)       ListWrapper<CVTerm>;
+%template(ListASTNodes)      ListWrapper<ASTNode>;
+
+/**
+ *
+ * Includes a language specific interface file.
+ *
+ */
 
 %include local.i
 
@@ -76,7 +101,7 @@ public class"
  * Ignore internal implementation methods in ASTNode.h
  */
 %ignore ASTNode(Token_t*);
-%ignore ASTNode::getListOfNodes;
+%ignore ASTNode::getListOfNodes(ASTNodePredicate predicate) const;
 %ignore ASTNode::fillListOfNodes;
 %ignore ASTNode::freeName;
 %ignore ASTNode::setSemanticsFlag;
@@ -117,15 +142,10 @@ public class"
  */
 %ignore XMLAttributes::readInto;
 
-#ifndef SWIGPERL5
 /**
- * Ignore methods which receive or return List*.
+ * Ignore methods which receive List*.
  */
-%ignore ModelHistory::getListCreators;
-%ignore ModelHistory::getListModifiedDates;
-%ignore SBase::getCVTerms;
 %ignore RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation, List * CVTerms);
-#endif
 
 /**
  * Ignore methods which receive std::list.
@@ -195,6 +215,7 @@ public class"
 %newobject SBML_formulaToString;
 %newobject SBML_parseFormula;
 %newobject ASTNode::deepCopy;
+%newobject ASTNode::getListOfNodes();
 %newobject *::remove;
 %newobject RDFAnnotationParser::parseRDFAnnotation(XMLNode *);
 %newobject RDFAnnotationParser::deleteRDFAnnotation;
@@ -220,14 +241,35 @@ public class"
 %rename(parseFormula)    SBML_parseFormula;
 
 /**
+ * 
+ * wraps "List* ASTNode::getListOfNodes(ASTNodePredicate)" function
+ * as "ListWrapper<ASTNode>* ASTNode::getListOfNodes()" function 
+ * which returns a list of all ASTNodes. 
+ *
+ */
+
+%inline
+%{
+  int ASTNode_true(const ASTNode *node)
+  {
+    return 1;
+  }
+%}
+
+%extend ASTNode
+{
+  ListWrapper<ASTNode>* getListOfNodes()
+  {
+    List *list = $self->getListOfNodes(ASTNode_true);
+    return new ListWrapper<ASTNode>(list);
+  }
+}
+
+/**
  * Wrap these files.
  */
 
 %include "std_string.i"
-
-%import  sbml/common/extern.h
-%import  sbml/common/sbmlfwd.h
-%import  sbml/xml/XMLExtern.h
 
 %include sbml/common/libsbml-version.h
 
@@ -284,10 +326,6 @@ public class"
 %include sbml/annotation/CVTerm.h
 %include sbml/annotation/ModelHistory.h
 %include sbml/annotation/RDFAnnotation.h
-
-#ifdef SWIGPERL5
-%include sbml/util/List.h
-#endif
 
 #ifdef USE_LAYOUT
 %include ../swig/layout.i

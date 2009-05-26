@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Sarah Keating 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestModelHistory.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -173,7 +173,7 @@ class TestModelHistory < Test::Unit::TestCase
     history.addCreator(mc)
     assert( history.getNumCreators() == 1 )
     mc = nil
-    newMC = history.getCreator(0)
+    newMC = history.getListCreators().get(0)
     assert( newMC != nil )
     assert ((  "Keating" == newMC.getFamilyName() ))
     assert ((  "Sarah" == newMC.getGivenName() ))
@@ -192,7 +192,7 @@ class TestModelHistory < Test::Unit::TestCase
     date = nil
     assert( history.getNumModifiedDates() == 1 )
     assert( history.isSetModifiedDate() == true )
-    newdate = history.getModifiedDate(0)
+    newdate = history.getListModifiedDates().get(0)
     assert( newdate.getYear() == 2005 )
     assert( newdate.getMonth() == 12 )
     assert( newdate.getDay() == 30 )
@@ -223,6 +223,7 @@ class TestModelHistory < Test::Unit::TestCase
   def test_ModelHistory_create
     history = LibSBML::ModelHistory.new()
     assert( history != nil )
+    assert( history.getListCreators() != nil )
     assert( history.getCreatedDate() == nil )
     assert( history.getModifiedDate() == nil )
     history = nil

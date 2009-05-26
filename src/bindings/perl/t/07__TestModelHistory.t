@@ -159,7 +159,7 @@ sub test_ModelCreator_setters {
 sub test_ModelHistory_create {
  my $history = new LibSBML::ModelHistory();
  ok( defined $history );
- ok( !defined $history->getListCreators()->getModelCreator(0) );
+ ok( !defined $history->getListCreators()->get(0) );
  ok( !defined $history->getCreatedDate() );
  ok( !defined $history->getModifiedDate() );
 }
@@ -177,7 +177,7 @@ sub test_ModelHistory_addCreator {
  $mc->setOrganisation('UH');
  $history->addCreator($mc);
  ok( $history->getNumCreators() == 1 );
- my $newMC = $history->getListCreators()->getModelCreator(0);
+ my $newMC = $history->getListCreators()->get(0);
  ok( defined $newMC );
  ok( $newMC->getFamilyName() eq 'Keating' );
  ok( $newMC->getGivenName() eq 'Sarah' );
@@ -235,7 +235,7 @@ sub test_ModelHistory_addModifiedDate {
  $history->addModifiedDate($date);
  ok( $history->getNumModifiedDates() == 1 );
  ok( $history->isSetModifiedDate() == 1 );
- my $newdate = $history->getListModifiedDates()->getDate(0);
+ my $newdate = $history->getListModifiedDates()->get(0);
  ok( $newdate->getYear() == 2005 );
  ok( $newdate->getMonth() == 12 );
  ok( $newdate->getDay() == 30 );
@@ -249,7 +249,7 @@ sub test_ModelHistory_addModifiedDate {
  $history->addModifiedDate($date1);
  ok( $history->getNumModifiedDates() == 2 );
  ok( $history->isSetModifiedDate() == 1 );
- my $newdate1 = $history->getListModifiedDates()->getDate(1);
+ my $newdate1 = $history->getListModifiedDates()->get(1);
  ok( $newdate1->getYear() == 2008 );
  ok( $newdate1->getMonth() == 11 );
  ok( $newdate1->getDay() == 2 );
@@ -280,7 +280,7 @@ sub test_ModelHistory_getListModifiedDates {
 
   # scalar context
   for $i (0, 1) {
-    my $d4 = $history->getListModifiedDates()->getDate($i)->getDateAsString();
+    my $d4 = $history->getListModifiedDates()->get($i)->getDateAsString();
     my $d3 = ($i==0) ? $date1->getDateAsString() : $date2->getDateAsString();
     ok( $d4 eq $d3 );
   }
@@ -328,7 +328,7 @@ sub test_ModelHistory_getCreators {
   }
 
   for $i (0, 1) {
-    my $newmc = $history->getListCreators()->getModelCreator($i);
+    my $newmc = $history->getListCreators()->get($i);
     if ($i == 0) { # check creator xtof
       ok( $newmc->getFamilyName() eq $xtofA );
       ok( $newmc->getGivenName() eq $xtofB );

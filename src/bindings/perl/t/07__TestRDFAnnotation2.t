@@ -42,12 +42,12 @@ sub readSBMLFromString {
 sub test_RDFAnnotation2_getModelHistory {
  my $history = $m2->getModelHistory();
  ok( defined $history );
- my $mc = $history->getListCreators()->getModelCreator(0);
+ my $mc = $history->getListCreators()->get(0);
  ok( $mc->getFamilyName() eq 'Hucka' );
  ok( $mc->getGivenName() eq 'Mike' );
  ok( $mc->getEmail() eq 'mhucka@caltech.edu' );
  ok( $mc->getOrganisation() eq 'BNMC' );
- my $mc1 = $history->getListCreators()->getModelCreator(1);
+ my $mc1 = $history->getListCreators()->get(1);
  ok( $mc1->getFamilyName() eq 'Keating' );
  ok( $mc1->getGivenName() eq 'Sarah' );
  ok( $mc1->getEmail() eq 'skeating@caltech.edu' );

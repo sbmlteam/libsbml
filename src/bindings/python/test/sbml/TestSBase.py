@@ -50,9 +50,11 @@ class TestSBase(unittest.TestCase):
   def test_SBase_CVTerms(self):
     cv = libsbml.CVTerm(libsbml.BIOLOGICAL_QUALIFIER)
     self.assert_( self.S.getNumCVTerms() == 0 )
+    self.assert_( self.S.getCVTerms() == None )
     self.S.setMetaId( "sbase1")
     self.S.addCVTerm(cv)
     self.assert_( self.S.getNumCVTerms() == 1 )
+    self.assert_( self.S.getCVTerms() != None )
     self.assert_( self.S.getCVTerm(0) != cv )
     cv = None
     pass  
@@ -64,6 +66,7 @@ class TestSBase(unittest.TestCase):
     self.S.setMetaId( "sbase1")
     self.S.addCVTerm(cv)
     self.assert_( self.S.getNumCVTerms() == 1 )
+    self.assert_( self.S.getCVTerms() != None )
     res = self.S.getCVTerm(0).getResources()
     self.assert_((  "foo" == res.getValue(0) ))
     cv1 = libsbml.CVTerm(libsbml.BIOLOGICAL_QUALIFIER)
@@ -1193,6 +1196,7 @@ class TestSBase(unittest.TestCase):
     self.assert_( self.S.getNumCVTerms() == 2 )
     self.S.unsetCVTerms()
     self.assert_( self.S.getNumCVTerms() == 0 )
+    self.assert_( self.S.getCVTerms() == None )
     cv = None
     cv2 = None
     cv1 = None

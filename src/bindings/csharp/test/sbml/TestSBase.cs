@@ -132,9 +132,11 @@ namespace LibSBMLCSTest {
     {
       CVTerm cv = new  CVTerm(libsbml.BIOLOGICAL_QUALIFIER);
       assertTrue( S.getNumCVTerms() == 0 );
+      assertTrue( S.getCVTerms() == null );
       S.setMetaId( "sbase1");
       S.addCVTerm(cv);
       assertTrue( S.getNumCVTerms() == 1 );
+      assertTrue( S.getCVTerms() != null );
       assertTrue( S.getCVTerm(0) != cv );
       cv = null;
     }
@@ -147,6 +149,7 @@ namespace LibSBMLCSTest {
       S.setMetaId( "sbase1");
       S.addCVTerm(cv);
       assertTrue( S.getNumCVTerms() == 1 );
+      assertTrue( S.getCVTerms() != null );
       XMLAttributes res = S.getCVTerm(0).getResources();
       assertTrue((  "foo" == res.getValue(0) ));
       CVTerm cv1 = new  CVTerm(libsbml.BIOLOGICAL_QUALIFIER);
@@ -797,10 +800,9 @@ namespace LibSBMLCSTest {
     "</notes>";
       string newnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
       string newnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>" +
-                         "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
-      string newnotes3 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + "</notes>";;
-      string newnotes4 = "<notes>\n" + 
-    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+			"<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
+      string newnotes3 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + "</notes>";
+      string newnotes4 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
     "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
     "</notes>";
       S.setNotes(notes);
@@ -895,7 +897,7 @@ namespace LibSBMLCSTest {
     "    </body>\n" + 
     "  </html>\n" + 
     "</notes>";
-      string addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <p>This is more test notes </p>\n" + "</body>\n";;
+      string addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <p>This is more test notes </p>\n" + "</body>\n";
       string addnotes2 = "<notes>\n" + 
     "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
     "    <p>This is more test notes </p>\n" + 
@@ -947,12 +949,11 @@ namespace LibSBMLCSTest {
     "</notes>";
       string addnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n";
       string addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" +
-                         "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
+			"<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
       string addnotes3 = "<notes>\n" +
-    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
+			"  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
     "</notes>";
-      string addnotes4 = "<notes>\n" + 
-    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+      string addnotes4 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
     "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
     "</notes>";
       S.setNotes(notes);
@@ -1072,7 +1073,7 @@ namespace LibSBMLCSTest {
     "    <p>This is more test notes </p>\n" + 
     "  </body>\n" + 
     "</notes>";
-      string addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <p>This is more test notes </p>\n" + "</body>";;
+      string addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <p>This is more test notes </p>\n" + "</body>";
       string addnotes2 = "<notes>\n" + 
     "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
     "    <p>This is more test notes </p>\n" + 
@@ -1135,7 +1136,7 @@ namespace LibSBMLCSTest {
     "</notes>";
       string addnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
       string addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" +
-                         "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
+			"<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
       string addnotes3 = "<notes>\n" + 
     "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
     "</notes>";
@@ -1344,6 +1345,7 @@ namespace LibSBMLCSTest {
       assertTrue( S.getNumCVTerms() == 2 );
       S.unsetCVTerms();
       assertTrue( S.getNumCVTerms() == 0 );
+      assertTrue( S.getCVTerms() == null );
       cv = null;
       cv2 = null;
       cv1 = null;

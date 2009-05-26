@@ -531,7 +531,7 @@ sub parse
     {
 
       # ignore SBase_getCVTerms
-      next if ( $line =~ /SBase_getCVTerms/ );
+      #next if ( $line =~ /SBase_getCVTerms/ );
 
 
       if ($line =~ /^ \s* END_TEST /x)

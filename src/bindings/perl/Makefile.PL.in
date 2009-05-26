@@ -72,7 +72,9 @@ sub postamble {
 extra_sources  = \
   LibSBML.i \
   local.cpp \
-  local.i
+  local.i   \
+	list_get_fix.i \
+	list_of_fix.i
 
 swig_sources =      \
   $(extra_sources)  \
