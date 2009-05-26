@@ -3,8 +3,8 @@
  * @brief   SBMLError unit tests, C++ version
  * @author  Sarah Keating
  *
- * $Id: TestSBMLError.cpp 8738 2009-01-05 08:27:41Z mhucka $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/trunk/libsbml/src/xml/test/TestSBMLError.cpp $
+ * $Id$
+ * $HeadURL$
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
