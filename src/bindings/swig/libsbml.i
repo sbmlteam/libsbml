@@ -23,6 +23,27 @@
 
 %module libsbml
 
+%pragma(java) moduleclassmodifiers="
+/**
+  * Wrapper class for global methods and constants defined by libSBML.
+  * <p>
+  * <em style='color: #555'>
+  * This class of objects is defined by libSBML only and has no direct
+  * equivalent in terms of SBML components.  This class is not prescribed by
+  * the SBML specifications, although it is used to implement features
+  * defined in SBML.
+  * </em>
+  * <p>
+  * In the C++ and C versions of libSBML, there exists a small number of
+  * methods that are global in scope; in addition, libSBML uses a number
+  * of enum's to define such things as error codes in a way that can be
+  * used by both C++ and C.  This poses a problem in languages such as
+  * Java, where there is no concept of global method or global constant.
+  * SWIG wraps these global identifiers in the class whose documentation
+  * you see before you.
+  */
+public class"
+
 
 %{
 #include "libsbml.h"
