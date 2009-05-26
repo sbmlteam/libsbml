@@ -3,8 +3,8 @@
  * @brief   SBMLNamespaces class to store level/version and namespace 
  * @author  Sarah Keating
  *
- * $Id:  $
- * $HeadURL:  $
+ * $Id$
+ * $HeadURL$
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -19,13 +19,35 @@
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *----------------------------------------------------------------------- -->
+ *------------------------------------------------------------------------- -->
  *
  * @class SBMLNamespaces
  * @brief Class to store the SBML level, version and namespace information.
  *
  * @htmlinclude libsbml-not-sbml-warning.html
  *
+ * There are differences in the definitions of components between different
+ * SBML Levels, as well as Versions within Levels.  For example, the
+ * "sboTerm" attribute was not introduced until Level&nbsp;2
+ * Version&nbsp;2, and then only on certain component classes; the SBML
+ * Level&nbsp;2 Version&nbsp;3 specification moved the "sboTerm" attribute
+ * to the SBase class, thereby allowing nearly all components to have SBO
+ * annotations.  As a result of differences such as those, libSBML needs to
+ * track the SBML Level and Version of every object created.
+ * 
+ * The purpose of the SBMLNamespaces object class is to make it easier to
+ * communicate SBML Level and Version data between libSBML constructors and
+ * other methods.  The SBMLNamespaces object class tracks 3-tuples
+ * (triples) consisting of SBML Level, Version, and the corresponding SBML
+ * XML namespace.  (The plural name is not a mistake, because in SBML
+ * Level&nbsp;3, objects may have extensions added by Level&nbsp;3 packages
+ * used by a given model; however, until the introduction of SBML
+ * Level&nbsp;3, the SBMLNamespaces object only records one SBML
+ * Level/Version/namespace combination at a time.)  Most constructors for
+ * SBML objects in libSBML take a SBMLNamespaces object as an argument,
+ * thereby allowing the constructor to produce the proper combination of
+ * attributes and other internal data structures for the given SBML
+ * Level and Version.
  */
 
 #ifndef SBMLNamespaces_h
@@ -58,14 +80,38 @@ class LIBSBML_EXTERN SBMLNamespaces
 public:
 
   /**
-   * Creates a new SBMLNamespaces object from the given level
-   * and version.
+   * Creates a new SBMLNamespaces object corresponding to the given SBML
+   * @p level and @p version.
    *
-   * The SBMLNamespaces object stores the SBML level, version
-   * and appropriate namespace.
+   * SBMLNamespaces objects are used in libSBML to communicate SBML Level
+   * and Version data between constructors and other methods.  The
+   * SBMLNamespaces object class tracks 3-tuples (triples) consisting of
+   * SBML Level, Version, and the corresponding SBML XML namespace.  Most
+   * constructors for SBML objects in libSBML take a SBMLNamespaces object
+   * as an argument, thereby allowing the constructor to produce the proper
+   * combination of attributes and other internal data structures for the
+   * given SBML Level and Version.
+   *
+   * The plural name "SBMLNamespaces" is not a mistake, because in SBML
+   * Level&nbsp;3, objects may have extensions added by Level&nbsp;3
+   * packages used by a given model; however, until the introduction of
+   * SBML Level&nbsp;3, the SBMLNamespaces object only records one SBML
+   * Level/Version/namespace combination at a time.
    *
    * @param level, the SBML level
    * @param version, the SBML version
+   * 
+   * @docnote The native C++ implementation of this method defines a
+   * default argument value.  In the documentation generated for different
+   * libSBML language bindings, you may or may not see corresponding
+   * arguments in the method declarations.  For example, in Java, a default
+   * argument is handled by declaring two separate methods, with one of
+   * them having the argument and the other one lacking the argument.
+   * However, the libSBML documentation will be @em identical for both
+   * methods.  Consequently, if you are reading this and do not see an
+   * argument even though one is described, please look for descriptions of
+   * other variants of this method near where this one appears in the
+   * documentation.
    */
   SBMLNamespaces(unsigned int level = SBML_DEFAULT_LEVEL, 
                  unsigned int version = SBML_DEFAULT_VERSION);
@@ -78,39 +124,47 @@ public:
 
   
   /**
-   * Returns a string representing the SBML namespace for the 
-   * level and version specified.
+   * Returns a string representing the SBML XML namespace for the 
+   * given @p level and @p version of SBML.
    *
    * @param level, the SBML level
    * @param version, the SBML version
    *
-   * @return a string representing the SBML namespace that reflects the level
-   * and version specified.
+   * @return a string representing the SBML namespace that reflects the
+   * SBML Level and Version specified.
    */
   static std::string getSBMLNamespaceURI(unsigned int level,
                                             unsigned int version);
   
   
   /**
-   * Get the SBML level of this SBMLNamespaces object.
+   * Get the SBML Level of this SBMLNamespaces object.
    *
-   * @return the SBML level of this SBMLNamespaces object.
+   * @return the SBML Level of this SBMLNamespaces object.
    */
   unsigned int getLevel();
 
 
 
   /**
-   * Get the SBML version of this SBMLNamespaces object.
+   * Get the SBML Version of this SBMLNamespaces object.
    *
-   * @return the SBML version of this SBMLNamespaces object.
+   * @return the SBML Version of this SBMLNamespaces object.
    */
   unsigned int getVersion();
 
 
 
   /**
-   * Get the XML namespaces of this SBMLNamespaces object.
+   * Get the XML namespaces list for this SBMLNamespaces object.
+   * 
+   * The plural is not a mistake, because in SBML Level&nbsp;3, objects may
+   * have extensions added by Level&nbsp;3 packages used by a given model,
+   * and therefore there may be multiple XML namespaces involved too.
+   * However, until the introduction of SBML Level&nbsp;3, the
+   * SBMLNamespaces object only records one SBML Level/Version/namespace
+   * combination at a time, and so this method will also only return
+   * a list of one item.
    *
    * @return the XML namespaces of this SBMLNamespaces object.
    */
@@ -120,10 +174,8 @@ public:
 protected:  
   /** @cond doxygen-libsbml-internal */
 
-  unsigned int mLevel;
-
-  unsigned int mVersion;
-
+  unsigned int    mLevel;
+  unsigned int    mVersion;
   XMLNamespaces * mNamespaces;
 
   /** @endcond doxygen-libsbml-internal */

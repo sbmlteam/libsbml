@@ -3,8 +3,8 @@
  * @brief   SBMLNamespaces class to store level/version and namespace 
  * @author  Sarah Keating
  *
- * $Id:  $
- * $HeadURL:  $
+ * $Id$
+ * $HeadURL$
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -123,4 +123,3 @@ SBMLNamespaces::getNamespaces()
 {
   return mNamespaces;
 }
-
