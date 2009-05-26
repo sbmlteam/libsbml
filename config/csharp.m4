@@ -154,9 +154,9 @@ AC_DEFUN([CONFIG_PROG_CSHARP],
       *-*-cygwin* | *-*-mingw*)
         # prefer Mono gmcs (.NET 2.0) over mcs (.NET 1.1) - note mcs-1.2.3 has major pinvoke bug
         if test -z "$CSHARP_PATH"; then
-          AC_PATH_PROGS(CSHARP_COMPILER, csc gmcs mcs cscc)
+          AC_PATH_PROGS(CSHARP_COMPILER, csc gmcs2 gmcs mcs cscc)
         else
-          AC_PATH_PROGS(CSHARP_COMPILER, csc gmcs mcs cscc, "", $CSHARP_PATH)
+          AC_PATH_PROGS(CSHARP_COMPILER, csc gmcs2 gmcs mcs cscc, "", $CSHARP_PATH)
         fi
         if test -n "$CSHARP_COMPILER" && test "$CSHARP_COMPILER" = "csc" ; then
           AC_MSG_CHECKING(whether csc is the Microsoft CSharp compiler)
@@ -164,9 +164,9 @@ AC_DEFUN([CONFIG_PROG_CSHARP],
           if test -z "$CSHARP_COMPILER" ; then
             AC_MSG_RESULT(no)
             if test -z "$CSHARP_PATH"; then
-              AC_PATH_PROGS(CSHARP_COMPILER, gmcs mcs cscc)
+              AC_PATH_PROGS(CSHARP_COMPILER, gmcs2 gmcs mcs cscc)
             else
-              AC_PATH_PROGS(CSHARP_COMPILER, gmcs mcs cscc, "", $CSHARP_PATH)
+              AC_PATH_PROGS(CSHARP_COMPILER, gmcs2 gmcs mcs cscc, "", $CSHARP_PATH)
             fi
           else
             AC_MSG_RESULT(yes)
@@ -175,9 +175,9 @@ AC_DEFUN([CONFIG_PROG_CSHARP],
         ;;
       *)
         if test -z "$CSHARP_PATH"; then
-          AC_PATH_PROGS(CSHARP_COMPILER, gmcs mcs cscc)
+          AC_PATH_PROGS(CSHARP_COMPILER, gmcs2 gmcs mcs cscc)
         else
-          AC_PATH_PROGS(CSHARP_COMPILER, gmcs mcs cscc, "", $CSHARP_PATH)
+          AC_PATH_PROGS(CSHARP_COMPILER, gmcs2 gmcs mcs cscc, "", $CSHARP_PATH)
         fi
         ;;
       esac
@@ -222,7 +222,7 @@ AC_DEFUN([CONFIG_PROG_CSHARP],
             echo "mcs is not a working Mono C# compiler"
           fi
         fi
-        if test "mcs" = "$CSHARP_COMPILER_NAME" || test "gmcs" = "$CSHARP_COMPILER_NAME"; then
+        if test "mcs" = "$CSHARP_COMPILER_NAME" || test "gmcs" = "$CSHARP_COMPILER_NAME" || test "gmcs2" = "$CSHARP_COMPILER_NAME"; then
             if test -z "$CSHARP_PATH"; then
               AC_PATH_PROGS(CSHARP_CILINTERPRETER, mono) # Mono JIT
             else

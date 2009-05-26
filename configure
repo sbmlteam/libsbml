@@ -5788,7 +5788,7 @@ fi
       *-*-cygwin* | *-*-mingw*)
         # prefer Mono gmcs (.NET 2.0) over mcs (.NET 1.1) - note mcs-1.2.3 has major pinvoke bug
         if test -z "$CSHARP_PATH"; then
-          for ac_prog in csc gmcs mcs cscc
+          for ac_prog in csc gmcs2 gmcs mcs cscc
 do
   # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
@@ -5834,7 +5834,7 @@ fi
 done
 
         else
-          for ac_prog in csc gmcs mcs cscc
+          for ac_prog in csc gmcs2 gmcs mcs cscc
 do
   # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
@@ -5889,7 +5889,7 @@ echo $ECHO_N "checking whether csc is the Microsoft CSharp compiler... $ECHO_C" 
             { echo "$as_me:$LINENO: result: no" >&5
 echo "${ECHO_T}no" >&6; }
             if test -z "$CSHARP_PATH"; then
-              for ac_prog in gmcs mcs cscc
+              for ac_prog in gmcs2 gmcs mcs cscc
 do
   # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
@@ -5935,7 +5935,7 @@ fi
 done
 
             else
-              for ac_prog in gmcs mcs cscc
+              for ac_prog in gmcs2 gmcs mcs cscc
 do
   # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
@@ -5990,7 +5990,7 @@ echo "${ECHO_T}yes" >&6; }
         ;;
       *)
         if test -z "$CSHARP_PATH"; then
-          for ac_prog in gmcs mcs cscc
+          for ac_prog in gmcs2 gmcs mcs cscc
 do
   # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
@@ -6036,7 +6036,7 @@ fi
 done
 
         else
-          for ac_prog in gmcs mcs cscc
+          for ac_prog in gmcs2 gmcs mcs cscc
 do
   # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
@@ -6220,7 +6220,7 @@ test -n "$CSHARP_CILINTERPRETER" || CSHARP_CILINTERPRETER=""""
             echo "mcs is not a working Mono C# compiler"
           fi
         fi
-        if test "mcs" = "$CSHARP_COMPILER_NAME" || test "gmcs" = "$CSHARP_COMPILER_NAME"; then
+        if test "mcs" = "$CSHARP_COMPILER_NAME" || test "gmcs" = "$CSHARP_COMPILER_NAME" || test "gmcs2" = "$CSHARP_COMPILER_NAME"; then
             if test -z "$CSHARP_PATH"; then
               for ac_prog in mono
 do
