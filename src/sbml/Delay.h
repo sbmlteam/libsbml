@@ -197,6 +197,13 @@ public:
    * Creates a new Delay using the given SBMLNamespaces object @p 
    * sbmlns.
    *
+   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
+   * information.  It is used to communicate the SBML Level, Version, and
+   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp; Core.
+   * A common approach to using this class constructor is to create an
+   * SBMLNamespaces object somewhere in a program, once, then pass it to
+   * object constructors such as this one when needed.
+   *
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Once a Delay has been added to an SBMLDocument, the @p level,

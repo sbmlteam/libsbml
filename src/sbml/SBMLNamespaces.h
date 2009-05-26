@@ -22,7 +22,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class SBMLNamespaces
- * @brief Class to store the SBML level, version and namespace information.
+ * @brief Class to store SBML level, version and namespace information.
  *
  * @htmlinclude libsbml-not-sbml-warning.html
  *
