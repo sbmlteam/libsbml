@@ -179,7 +179,7 @@ ifdef USE_SWIG
 # If swig is enabled, always rebuild the swig wrapper files.
 
 swig-prereq:
-	$(MAKE) swigfiles
+	$(MAKE) -$(MAKEFLAGS) swigfiles
 
 else # not USE_SWIG
 
@@ -196,15 +196,15 @@ swig-prereq:
 	  echo "Reconfigure --with-swig --enable-layout to correct this."; \
 	  exit 1; \
 	else \
-	  $(MAKE) libsbml_wrap.cpp; \
+	  $(MAKE) -$(MAKEFLAGS) libsbml_wrap.cpp; \
 	fi
 
 else # not USE_LAYOUT
 swig-prereq:
 	@if test -n "`grep SWIGTYPE_p_Layout libsbml_wrap.cpp`"; then \
-	  $(MAKE) swigfiles; \
+	  $(MAKE) -$(MAKEFLAGS) swigfiles; \
 	else \
-	  $(MAKE) libsbml_wrap.cpp; \
+	  $(MAKE) -$(MAKEFLAGS) libsbml_wrap.cpp; \
 	fi
 endif # USE_LAYOUT
 endif # USE_SWIG
@@ -224,7 +224,7 @@ endif
 # The following are the normal dependency rules.
 
 libsbml_wrap.cpp: $(swig_sources) $(main_sources)
-	$(MAKE) swigfiles
+	$(MAKE) -$(MAKEFLAGS) swigfiles
 
 
 # -----------------------------------------------------------------------------
