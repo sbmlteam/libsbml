@@ -73,6 +73,10 @@ Version 3.4.0 (released 2009-05-27)
    empty string in this situation.  Thanks to Alice Villeger for
    reporting this.
 
+ - A number of documentation bugs in the Java documentation have been
+   fixed.  Thanks to Nicolas Rodriguez and Alice Villeger for reporting
+   them during the 2009 SBML Hackathon.  More still remain to be fixed.
+
 * Changes:
 
  - Python bindings are now installed into an approprite directory 
