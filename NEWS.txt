@@ -31,8 +31,8 @@ Version 3.4.0 (released 2009-05-27)
 
  - libSBML package (.dmg file) for MacOSX can be created by running
    "make create-dmg". Please see macosx/Makefile.in.
-	 Thanks to Akira Funahashi for contributing skeleton files for 
-	 creating the package.
+   Thanks to Akira Funahashi for contributing skeleton files for 
+   creating the package.
 
  - [Tracker issue #2787514]
    Additional const versions of the getDerivedUnitDefinition() and
