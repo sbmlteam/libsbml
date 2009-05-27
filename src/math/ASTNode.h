@@ -145,8 +145,10 @@
  * infix formulas into MathML and
  * vice-versa. @endif@if java
  * The text-string form of mathematical formulas produced by <code><a
- * href="libsbml.html">libsbml.formulaToString()</a></code> and read by <code><a
- * href="libsbml.html">libsbml.parseFormula()</a></code> are simple C-inspired
+ * href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">
+ * libsbml.formulaToString()</a></code> and read by <code><a
+ * href="libsbml.html#parseFormula(java.lang.String)">
+ * libsbml.parseFormula()</a></code> are simple C-inspired
  * infix notation taken from SBML Level&nbsp;1.  A formula in this
  * text-string form can be handed to a program that understands SBML
  * Level&nbsp;1 mathematical expressions, or used as part of a translation
