@@ -207,88 +207,10 @@ extern std::ostream clog;
   }
 %}
 
-%inline
+%include "OStream.h"
+
 %{
-  class LIBLAX_EXTERN OStream
-  {
-  protected:
-    std::ostream* Stream;
-
-  public:
-    enum StdOSType {COUT,CERR,CLOG};
-
-    /**
-     * Creates a new OStream object with one of standard output stream objects.
-     */
-    OStream (StdOSType sot = COUT) 
-    {
-      switch (sot) {
-        case COUT:
-          Stream = &std::cout;
-          break;
-        case CERR:
-          Stream = &std::cerr;
-          break;
-        case CLOG:
-          Stream = &std::clog;
-          break;
-        default:
-          Stream = &std::cout;
-      }
-    }
-
-    virtual ~OStream () 
-    {
-    }
-  
-    /**
-     * Returns stream object.
-     */
-    virtual std::ostream* get_ostream ()  
-    { 
-      return Stream;
-    }
-
-    void endl ()
-    {
-      std::endl(*Stream);
-    }
-  };
-  
-  class LIBLAX_EXTERN OStringStream : public OStream 
-  {
-  public:
-    /**
-     * Creates a new OStringStream object
-     */
-    OStringStream () 
-    {
-      Stream = new std::ostringstream();
-    }
-  
-    /**
-     * Returns the copy of the string object currently assosiated 
-     * with the stream buffer.
-     */
-    std::string str () 
-    {
-      return static_cast<std::ostringstream*>(Stream)->str();
-    }
-  
-    /**
-     * Sets string s to the string object currently assosiated with 
-     * the stream buffer.
-     */
-    void str (const std::string& s)
-    {
-      static_cast<std::ostringstream*>(Stream)->str(s.c_str());
-    }
-  
-    virtual ~OStringStream () 
-    {
-      delete Stream;
-    }
-  };
+#include "OStream.cpp"
 %}
 
 /**

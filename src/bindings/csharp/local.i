@@ -41,11 +41,6 @@
 %csconstvalue("'/'") AST_DIVIDE;
 %csconstvalue("'^'") AST_POWER;
 
-%{
-#include <iostream>
-#include <fstream>
-#include <sstream>
-%}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -1143,149 +1138,10 @@ COVARIANT_RTYPE_LISTOF_GET_REMOVE(CompartmentGlyph)
 
 ///////////////////////////////////////////////////////////////////////////
 
+%include "OStream.h"
 
-%inline 
 %{
-	
-	class LIBLAX_EXTERN OStream 
-	{
-	protected:
-		std::ostream* Stream;
-		
-	public:
-		enum StdOSType {COUT,CERR,CLOG};
-		
-		/**
-		 * Creates a new OStream object with one of standard output stream objects.
-		 */
-		OStream (StdOSType sot = COUT) 
-		{
-			switch (sot) {
-				case COUT:
-					Stream = &std::cout;
-					break;
-				case CERR:
-					Stream = &std::cerr;
-					break;
-				case CLOG:
-					Stream = &std::clog;
-					break;
-				default:
-					Stream = &std::cout;
-			}
-		}
-		
-		virtual ~OStream () 
-		{
-		}
-		
-		/**
-		 * Returns stream object.
-		 */
-		virtual std::ostream* get_ostream ()  
-		{ 
-			return Stream;
-		}
-		
-		void endl ()
-		{
-			std::endl(*Stream);
-		}
-		
-	};
-	
-	class LIBLAX_EXTERN OFStream : public OStream 
-	{
-	public:
-		/**
-		 * Creates a new OFStream object and opens a given file with 
-		 * append flag (default is false) and associates its content 
-		 * with stream object (Stream).
-		 */
-		OFStream (const std::string& filename, bool is_append = false) 
-		{
-			if (is_append) {
-				Stream = new std::ofstream(filename.c_str(),ios_base::app);
-			}
-			else {
-				Stream = new std::ofstream(filename.c_str(),ios_base::out);
-			}
-		}
-		
-		/**
-		 * Opens a given file with append flag (default is false) and associates
-		 * its content with existing stream object (Stream).
-		 */
-		void open (const std::string& filename, bool is_append = false) 
-		{ 
-			if (is_append) {
-				static_cast<std::ofstream*>(Stream)->open(filename.c_str(),ios_base::app);
-			}
-			else {
-				static_cast<std::ofstream*>(Stream)->open(filename.c_str(),ios_base::out);
-			}
-		}  
-		
-		/**
-		 * Closes the file currently associated with stream object.
-		 */
-		void close ()
-		{
-			static_cast<std::ofstream*>(Stream)->close();
-		}
-		
-		/**
-		 * Returns true if stream object is currently associated with a file
-		 */
-		bool is_open () 
-		{ 
-			return static_cast<std::ofstream*>(Stream)->is_open(); 
-		}
-		
-		virtual ~OFStream ()
-		{
-			delete Stream;
-		}
-		
-	};
-	
-	class LIBLAX_EXTERN OStringStream : public OStream 
-	{
-	public:
-		/**
-		 * Creates a new OStringStream object
-		 */
-		OStringStream () 
-		{
-			Stream = new std::ostringstream();
-		}
-		
-		/**
-		 * Returns the copy of the string object currently assosiated 
-		 * with the stream buffer.
-		 */
-		std::string str () 
-		{
-			return static_cast<std::ostringstream*>(Stream)->str();
-		}
-		
-		/**
-		 * Sets string s to the string object currently assosiated with 
-		 * the stream buffer.
-		 */
-		void str (const std::string& s)
-		{
-			static_cast<std::ostringstream*>(Stream)->str(s.c_str());
-		}
-		
-		virtual ~OStringStream () 
-		{
-			delete Stream;
-		}
-		
-	};
-
-
+#include "OStream.cpp"
 %}
 
 %pragma(csharp) modulecode =

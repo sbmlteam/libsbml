@@ -803,6 +803,8 @@ def main (args):
   headers     = getHeadersFromSWIG(args[4])
   stream      = open(args[5], 'w')
 
+  headers.append("bindings/swig/OStream.h")
+
   if language == 'perl':
     infile = open(os.path.abspath('LibSBML.txt'), 'r')
     stream.write(infile.read())
