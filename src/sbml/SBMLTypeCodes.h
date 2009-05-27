@@ -108,9 +108,29 @@ typedef enum
 
 
 /**
- * @return a human readable name for the given #SBMLTypeCode_t.  The caller
- * does not own the returned string and is therefore not allowed to modify
- * it.
+ * This method takes an SBML type code and returns a string representing
+ * the code.
+ *
+ * @if clike LibSBML attaches an identifying code to every
+ * kind of SBML object.  These are known as <em>SBML type codes</em>.
+ * The set of possible type codes is defined in the enumeration
+ * #SBMLTypeCode_t.  The names of the type codes all begin with the
+ * characters @c SBML_. @endif@if java LibSBML attaches an
+ * identifying code to every kind of SBML object.  These are known as
+ * <em>SBML type codes</em>.  In other languages, the set of type codes
+ * is stored in an enumeration; in the Java language interface for
+ * libSBML, the type codes are defined as static integer constants in
+ * interface class {@link libsbmlConstants}.  The names of the type codes
+ * all begin with the characters @c SBML_. @endif
+ * This method takes a type code as argument, and returns a string name
+ * corresponding to that code.  For example, passing it the type code
+ * <code>SBML_COMPARTMENT</code> will return the string
+ * "<code>Compartment</code>". 
+ *
+ * @return a human readable name for the given SBMLTypeCode_t.
+ *
+ * @note The caller does not own the returned string and is therefore not
+ * allowed to modify it.
  */
 LIBSBML_EXTERN
 const char *

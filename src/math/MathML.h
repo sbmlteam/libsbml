@@ -54,6 +54,7 @@ LIBSBML_EXTERN
 ASTNode*
 readMathML (XMLInputStream& stream);
 
+
 /**
  * Writes the given ASTNode (and its children) to the XMLOutputStream as
  * MathML.
@@ -73,16 +74,29 @@ BEGIN_C_DECLS
 
 /**
  * Reads the MathML from the given XML string, constructs a corresponding
- * abstract syntax tree and returns a pointer to the root of the tree.
+ * abstract syntax tree, and returns a pointer to the root of the tree.
+ *
+ * @param xml a string containing a full MathML expression
+ *
+ * @return the root of an AST corresponding to the given mathematical
+ * expression
  */
 LIBSBML_EXTERN
 ASTNode_t *
 readMathMLFromString (const char *xml);
 
+
 /**
- * Writes the given ASTNode (and its children) to the XMLOutputStream as
- * MathML.  The string is owned by the caller and should be freed
- * (with free()) when no longer needed.
+ * Writes the given ASTNode (and its children) to a string as MathML, and
+ * returns the string.
+ *
+ * @param node the root of an AST to write out to the stream.
+ *
+ * @return a string containing the written-out MathML representation
+ * of the given AST
+ *
+ * @note The string is owned by the caller and should be freed (with
+ * free()) when no longer needed.
  */
 LIBSBML_EXTERN
 char *

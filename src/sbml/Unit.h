@@ -99,7 +99,7 @@
  * However, LibSBML maintains UnitKind in the form of of a set of static
  * integer constants whose names begin with the characters
  * <code>UNIT_KIND_</code>.  These constants are defined in the class
- * <code><a href="libsbmlConstants.java">libsbmlConstants</a></code> This
+ * <code><a href="libsbmlConstants.html">libsbmlConstants</a></code> This
  * enumeration in libSBML has a small number of differences compared to the
  * SBML specifications: @endif
  *
