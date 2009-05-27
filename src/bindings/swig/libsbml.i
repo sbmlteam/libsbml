@@ -248,7 +248,6 @@ public class"
  *
  */
 
-%inline
 %{
   int ASTNode_true(const ASTNode *node)
   {
