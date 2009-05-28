@@ -473,6 +473,12 @@ def sanitizeForHTML (docstring, language):
   p = re.compile('^(?!\Z)$', re.MULTILINE)
   docstring = p.sub(r'<p>', docstring)
 
+  # Javadoc doesn't have an @htmlinclude command.  Slurp the file
+  # directly in at the point.
+
+  p = re.compile('@htmlinclude\s+([^\s]+).*$', re.MULTILINE)
+  docstring = p.sub(translateInclude, docstring)
+
   # There's no verbatim or @code/@endcode equivalent, so we have to convert
   # it to raw HTML and transform the content too.  This requires helpers.
   # The following treats both @verbatim and @code the same way.
@@ -490,12 +496,6 @@ def sanitizeForHTML (docstring, language):
   docstring = p.sub(r'<h3>\1</h3>', docstring)
   p = re.compile('@subsubsection\s+[^\s]+\s+(.*)$', re.MULTILINE)
   docstring = p.sub(r'<h4>\1</h4>', docstring)
-
-  # Javadoc doesn't have an @htmlinclude command.  Slurp the file
-  # directly in at the point.
-
-  p = re.compile('@htmlinclude\s+([^\s]+).*$', re.MULTILINE)
-  docstring = p.sub(translateInclude, docstring)
 
   # Javadoc doesn't have an @image command.  We translate @image html
   # but ditch @image latex.
