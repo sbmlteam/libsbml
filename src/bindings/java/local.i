@@ -1128,7 +1128,7 @@ SWIGJAVA_EQUALS(XMLInputStream)
     * SBMLDocument#printErrors} method.  However, the methods use C++ style
     * streams and not Java stream objects.  The OStream object class in the
     * libSBML Java interface provides a wrapper for the underlying C++
-    * streams.  The present object (cerr) is a static final variable that
+    * streams.  The present object (clog) is a static final variable that
     * can be used directly from your code.  An example use might be
     * something like this:
     * <p>
