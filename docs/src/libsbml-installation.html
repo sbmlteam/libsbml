@@ -73,11 +73,20 @@ worked around at this time and causes errors in software using it.  Xerces
 versions 2.2 &#150; 2.5, and 2.7.0 and above, are known to work properly.
 
 
-<h3><a class="anchor" name="quick-unix">Linux, MacOS&nbsp;X, and Solaris</a></h3>
+<h3><a class="anchor" name="quick-unix">Linux, MacOS&nbsp;X, FreeBSD, and Solaris</a></h3>
 
-<p> At a shell (terminal) command prompt, unzip the distribution, cd
-into the directory thereby created (e.g., <code>libsbml-3.3.0</code>),
-and first type:
+<p>First, for MacOS&nbsp;X and Linux, check the <a
+href="https://sourceforge.net/project/showfiles.php?group_id=71971&package_id=71670">download
+site for libSBML on SourceForge.net</a> for possible installation packages
+for these operating systems.  You may be able to download and install a
+precompiled copy of libSBML for your system.
+
+<p> If there is no installer for your system, or you prefer to build
+libSBML from the source distribution, proceed as follows.  At a shell
+(terminal) command prompt, unzip the distribution, and cd into the
+directory thereby created (e.g., <code>libsbml-3.4.0</code>).  If you only
+want to build the C and C++ interfaces, then configuring libSBML is simply
+a matter of executing the following command:
 
 <div class="fragment"><pre class="fragment">
   ./configure
@@ -126,8 +135,8 @@ files in <code>/usr/local/lib</code>), use
 commands to build and install it:
 
 <div class="fragment"><pre class="fragment">
-  make
-  make install
+  make               # Note: use 'gmake' on FreeBSD
+  make install       # Note: use 'gmake install' on FreeBSD
 </pre></div>
 
 <p> To call and access libSBML from your software application, please refer
@@ -171,24 +180,35 @@ version of the VC++ runtime, respectively.
 
 <p> LibSBML requires a separate XML library for low-level XML tokenizing
 and Unicode support.  As of libSBML 3.0, it supports the Xerces-C++, Expat,
-and libXML XML libraries on Linux, Windows, MacOS&nbsp;X and Solaris.  Many
-Linux and other UNIX-like systems provide one or more of these libraries
-either as part of their standard distribution or as an optional RPM,
-Debian, Mandrake or other package.  (Libxml2 appears to be the most
-commonly available library on Linux and MacOSX systems.)  For more
+and libXML XML libraries on Linux, Windows, MacOS&nbsp;X, FreeBSD and
+Solaris.  Many Linux and other UNIX-like systems provide one or more of
+these libraries either as part of their standard distribution or as an
+optional RPM, Debian, Mandrake or other package.  (Libxml2 appears to be
+the most commonly available library on Linux and MacOSX systems.)  For more
 information, see <a target="_blank"
 href="http://xerces.apache.org/xerces-c/">http://xml.apache.org/xerces-c/</a>
-for Xerces, <a target="_blank" href="http://expat.sf.net">http://expat.sf.net</a> for
-Expat, and <a target="_blank" href="http://xmlsoft.org">http://xmlsoft.org</a> for libxml2.
+for Xerces, <a target="_blank"
+href="http://expat.sf.net">http://expat.sf.net</a> for Expat, and <a
+target="_blank" href="http://xmlsoft.org">http://xmlsoft.org</a> for
+libxml2.
 
 
-<h3><a class="anchor" name="basic-config">Configuring for Linux, MacOS&nbsp;X, and Solaris</a></h3>
+<h3><a class="anchor" name="basic-config">Configuring for Linux,
+MacOS&nbsp;X, FreeBSD, and Solaris</a></h3>
 
-<p> If you have obtained the libSBML source code distribution, then at
-your Linux, MacOS&nbsp;X or Solaris command prompt, unpack the
-distribution, cd into the directory created (e.g.,
-<code>libsbml-3.0.0</code>), and type the following command in a terminal
-shell window to configure libSBML for your system:
+<p>As mentioned above, for MacOS&nbsp;X and Linux, check the <a
+href="https://sourceforge.net/project/showfiles.php?group_id=71971&package_id=71670">download
+site for libSBML on SourceForge.net</a> for possible installation packages
+for these operating systems.  You may be able to download and install a
+precompiled copy of libSBML for your system, and void the process of
+building libSBML from source files.
+
+<p> If you have obtained the libSBML source code distribution, then at your
+Linux, MacOS&nbsp;X, FreeBSD or Solaris terminal command prompt, unpack the
+distribution, and cd into the directory created (e.g.,
+<code>libsbml-3.4.0</code>).    If you only
+want to build the C and C++ interfaces, then configuring libSBML is simply
+a matter of executing the following command:
 
 <div class="fragment"><pre class="fragment">
   ./configure
@@ -404,8 +424,8 @@ versions of g++ after 3.3.)
 Following this, you must build libSBML and then you can run the tests:
 
 <div class="fragment"><pre class="fragment">
-  make
-  make check
+  make                   # Note: use 'gmake' on FreeBSD
+  make check             # Note: use 'gmake check' on FreeBSD
 </pre></div>
 
 <p> The make check step is optional and will build and run an
@@ -520,19 +540,19 @@ Alternatively, you can moving to the <code>docs/src</code> subdirectory and
 execute
 
 <div class="fragment"><pre class="fragment">
-  make java-manual
+  make java-manual                   # Note: use 'gmake java-manual' on FreeBSD
 </pre></div>
 to recreate just the Java documentation, or 
 <div class="fragment"><pre class="fragment">
-  make cpp-manual
+  make cpp-manual                    # Note: use 'gmake cpp-manual' on FreeBSD
 </pre></div>
 to recreate just the C++ documentation, or 
 <div class="fragment"><pre class="fragment">
-  make c-manual
+  make c-manual                      # Note: use 'gmake c-manual' on FreeBSD
 </pre></div>
 to recreate just the C documentation, or
 <div class="fragment"><pre class="fragment">
-  make python-manual
+  make python-manual                 # Note: use 'gmake python-manual' on FreeBSD
 </pre></div>
 to recreate just the Python documentation.
 
@@ -546,8 +566,8 @@ Simply execute the following commands at your Linux, MacOS&nbsp;X or
 Solaris command prompt:
 
 <div class="fragment"><pre class="fragment">
-  make
-  make install
+  make                      # Note: use 'gmake' on FreeBSD
+  make install              # Note: use 'gmake install' on FreeBSD
 </pre></div>
 
 <p> Note that you will probably have to perform the <code>make
