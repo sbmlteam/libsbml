@@ -19,36 +19,53 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  *------------------------------------------------------------------------->
  *
- * @class OStream.
+ * @class OStream
  *
- * Wrapper class for the C++ streams <code>std::cout</code>,
- * <code>std::cerr</code>, and <code>std::clog</code>.
- * <p>
+ * Wrapper class for the C++ standard streams <code>cout</code>,
+ * <code>cerr</code>, and <code>clog</code>.
+ *
  * A few libSBML methods accept an argument for indicating where to send
- * text string output.  An example is the {@link SBMLDocument#printErrors} 
- * method. However, the methods use C++ style streams and not Java stream 
- * objects.  The OStream object exists to bridge the Java and underlying 
- * native implementation.  It is a simple wrapper around the underlying 
- * stream object and provides a few basic methods for manipulating it.
+ * text string output.  An example is the SBMLDocument::printErrors(OStream
+ * stream) method. However, the methods use C++ style streams and not Java
+ * stream objects.  The OStream object exists to bridge the Java and
+ * underlying native implementation.  It is a simple wrapper around the
+ * underlying stream object and provides a few basic methods for
+ * manipulating it.
+ * 
+ * @class OFStream
  *
- * @class OFStream.
+ * Wrapper class for the C++ standard file stream <code>ofstream</code>.
  *
- * Wrapper class for the C++ file stream <code>std::ofstream</code>.
- * <p>
  * The C++ <code>ofstream</code> ("output file stream") provides an
- * interface for writing data to files as output streams.  The file
- * to be associated with the stream can be specified as a parameter
- * to the constructors in this class.
+ * interface for writing data to files as output streams.  This class,
+ * OFStream, wraps the C++ <code>ofstream</code> and provides an OStream
+ * interface to it.  The file to be associated with the stream can be
+ * specified as a parameter to the constructors in this class.
  *
- * @class OStringStream.
+ * This class may be useful because some libSBML methods accept an argument
+ * for indicating where to send text string output.  An example is the
+ * SBMLDocument::printErrors(OStream stream) method.  The methods use C++ style streams
+ * and not Java stream objects.  The OStream object exists to bridge the
+ * Java and underlying native implementation.  It is a simple wrapper
+ * around the underlying stream object and provides a few basic methods for
+ * manipulating it.
  *
- * Wrapper class for the C++ <code>std::ostringstream</code> class.
- * <p>
+ * @class OStringStream
+ *
+ * Wrapper class for the C++ standard stream <code>ostringstream</code>.
+ * 
  * The C++ <code>ostringstream</code> ("output string stream class")
- * provides an interface to manipulating strings as if they were
- * output streams.  The object class below wraps the
+ * provides an interface to manipulating strings as if they were output
+ * streams.  This class class, OStringStream, wraps the
  * <code>ostringstream</code> and provides an OStream interface to it.
- *
+ * 
+ * This class may be useful because some libSBML methods accept an argument
+ * for indicating where to send text string output.  An example is the 
+ * SBMLDocument::printErrors(OStream stream) method.  The methods use
+ * C++ style streams and not Java stream objects.  The OStream object
+ * exists to bridge the Java and underlying native implementation.  It is a
+ * simple wrapper around the underlying stream object and provides a few
+ * basic methods for manipulating it.
  */
 
 #ifndef OStream_h
@@ -118,6 +135,18 @@ class LIBLAX_EXTERN OFStream : public OStream
      * @param filename the name of the file to open
      * @param is_append whether to open the file for appending (default:
      * <code>false</code>, meaning overwrite the content instead)
+     * 
+     * @docnote The native C++ implementation of this method defines a
+     * default argument value.  In the documentation generated for different
+     * libSBML language bindings, you may or may not see corresponding
+     * arguments in the method declarations.  For example, in Java, a default
+     * argument is handled by declaring two separate methods, with one of
+     * them having the argument and the other one lacking the argument.
+     * However, the libSBML documentation will be @em identical for both
+     * methods.  Consequently, if you are reading this and do not see an
+     * argument even though one is described, please look for descriptions of
+     * other variants of this method near where this one appears in the
+     * documentation.
      */
     OFStream (const std::string& filename, bool is_append = false); 
 
@@ -138,6 +167,18 @@ class LIBLAX_EXTERN OFStream : public OStream
      * @param filename the name of the file to open
      * @param is_append whether to open the file for appending (default:
      * <code>false</code>, meaning overwrite the content instead)
+     * 
+     * @docnote The native C++ implementation of this method defines a
+     * default argument value.  In the documentation generated for different
+     * libSBML language bindings, you may or may not see corresponding
+     * arguments in the method declarations.  For example, in Java, a default
+     * argument is handled by declaring two separate methods, with one of
+     * them having the argument and the other one lacking the argument.
+     * However, the libSBML documentation will be @em identical for both
+     * methods.  Consequently, if you are reading this and do not see an
+     * argument even though one is described, please look for descriptions of
+     * other variants of this method near where this one appears in the
+     * documentation.
      */
     void open (const std::string& filename, bool is_append = false);
   
