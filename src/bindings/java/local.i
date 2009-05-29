@@ -1081,8 +1081,8 @@ SWIGJAVA_EQUALS(XMLInputStream)
     *     System.exit(1);
     * }</div>
     *
-    * @see cerr
-    * @see clog
+    * @see #cerr
+    * @see #clog
     */
   public final static OStream cout;
 
@@ -1114,8 +1114,8 @@ SWIGJAVA_EQUALS(XMLInputStream)
     * elsewhere, although how to do this depends on the specific environment
     * where the program is running.
     *
-    * @see cout
-    * @see clog
+    * @see #cout
+    * @see #clog
     */
   public final static OStream cerr;
 
@@ -1147,8 +1147,8 @@ SWIGJAVA_EQUALS(XMLInputStream)
     * elsewhere, although how to do this depends on the specific environment
     * where the program is running.
     *
-    * @see cout
-    * @see cerr
+    * @see #cout
+    * @see #cerr
     */
   public final static OStream clog;
 

@@ -109,6 +109,8 @@ public:
    * value from the set of <code>LIBSBML_SEV_</code> constants defined by
    * the interface class <code><a
    * href="libsbmlConstants.html">libsbmlConstants</a></code> @endif
+   *
+   * @return a count of the number of errors with the given severity code
    */
   unsigned int getNumFailsWithSeverity(unsigned int severity);
 

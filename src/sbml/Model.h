@@ -560,10 +560,13 @@ public:
    * instance (such as resetting attribute values) will <em>not affect the
    * instance in the Model</em>.  In addition, the caller should make sure
    * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see Model::createRule() for a method
-   * that does not lead to these issues.
+   * memory leak will result.  Please see the methods
+   * Model::createAlgebraicRule(), Model::createAssignmentRule() and
+   * Model::createRateRule() for methods that do not lead to these issues.
    *
-   * @see createRule()
+   * @see createAlgebraicRule()
+   * @see createAssignmentRule()
+   * @see createRateRule()
    */
   void addRule (const Rule* r);
 
@@ -633,7 +636,7 @@ public:
    *
    * @return the FunctionDefinition object created
    *
-   * @see addFunctionDefinition()
+   * @see addFunctionDefinition(const FunctionDefinition* fd)
    */
   FunctionDefinition* createFunctionDefinition ();
 
@@ -643,7 +646,7 @@ public:
    *
    * @return the UnitDefinition object created
    *
-   * @see addUnitDefinition()
+   * @see addUnitDefinition(const UnitDefinition* ud)
    */
   UnitDefinition* createUnitDefinition ();
 
@@ -658,7 +661,7 @@ public:
    *
    * @return the Unit object created
    *
-   * @see addUnit()
+   * @see addUnitDefinition(const UnitDefinition* ud)
    */
   Unit* createUnit ();
 
@@ -668,7 +671,7 @@ public:
    *
    * @return the CompartmentType object created
    *
-   * @see addCompartmentType()
+   * @see addCompartmentType(const CompartmentType* ct)
    */
   CompartmentType* createCompartmentType ();
 
@@ -678,7 +681,7 @@ public:
    *
    * @return the SpeciesType object created
    *
-   * @see addSpeciesType()
+   * @see addSpeciesType(const SpeciesType* st)
    */
   SpeciesType* createSpeciesType ();
 
@@ -688,7 +691,7 @@ public:
    *
    * @return the Compartment object created
    *
-   * @see addCompartment()
+   * @see addCompartment(const Compartment *c)
    */
   Compartment* createCompartment ();
 
@@ -698,7 +701,7 @@ public:
    *
    * @return the Species object created
    *
-   * @see addSpecies()
+   * @see addSpecies(const Species *s)
    */
   Species* createSpecies ();
 
@@ -708,7 +711,7 @@ public:
    *
    * @return the Parameter object created
    *
-   * @see addParameter()
+   * @see addParameter(const Parameter *p)
    */
   Parameter* createParameter ();
 
@@ -718,7 +721,7 @@ public:
    *
    * @return the InitialAssignment object created
    *
-   * @see addInitialAssignment()
+   * @see addInitialAssignment(const InitialAssignment* ia)
    */
   InitialAssignment* createInitialAssignment ();
 
@@ -728,7 +731,7 @@ public:
    *
    * @return the AlgebraicRule object created
    *
-   * @see addRule()
+   * @see addRule(const Rule* r)
    */
   AlgebraicRule* createAlgebraicRule ();
 
@@ -738,7 +741,7 @@ public:
    *
    * @return the AssignmentRule object created
    *
-   * @see addRule()
+   * @see addRule(const Rule* r)
    */
   AssignmentRule* createAssignmentRule ();
 
@@ -748,7 +751,7 @@ public:
    *
    * @return the RateRule object created
    *
-   * @see addRule()
+   * @see addRule(const Rule* r)
    */
   RateRule* createRateRule ();
 
@@ -758,7 +761,7 @@ public:
    *
    * @return the Constraint object created
    *
-   * @see addConstraint()
+   * @see addConstraint(const Constraint *c)
    */
   Constraint* createConstraint ();
 
@@ -768,7 +771,7 @@ public:
    *
    * @return the Reaction object created
    *
-   * @see addReaction()
+   * @see addReaction(const Reaction *r)
    */
   Reaction* createReaction ();
 
@@ -1833,7 +1836,7 @@ public:
    * each mathematical expression encountered within the model.
    *
    * @note This function is utilised by the Unit Consistency Validator.
-   * The List is populated prior to running the validation and thus
+   * The list is populated prior to running the validation and thus
    * the consistency of units can be checked by accessing the members
    * of the list and comparing the appropriate data.
    */
@@ -1892,7 +1895,7 @@ public:
    * @note The SBMLTypecode_t parameter is necessary as the unitReferenceId
    * of the FormulaUnitsData need not be unique. For example if a Species
    * with id 's' is assigned by an AssignmentRule there will be two 
-   * elements of the FormulaUnitsData List with the unitReferenceId 's'; 
+   * elements of the FormulaUnitsData list with the unitReferenceId 's'; 
    * one with
    * typecode 'SBML_SPECIES' referring to the units related to the species, 
    * the other with typecode 'SBML_ASSIGNMENT_RULE' referring to the units
@@ -1912,7 +1915,7 @@ public:
    * @note The SBMLTypecode_t parameter is necessary as the unitReferenceId
    * of the FormulaUnitsData need not be unique. For example if a Species
    * with id 's' is assigned by an AssignmentRule there will be two 
-   * elements of the FormulaUnitsData List with the unitReferenceId 's'; 
+   * elements of the FormulaUnitsData list with the unitReferenceId 's'; 
    * one with
    * typecode 'SBML_SPECIES' referring to the units related to the species, 
    * the other with typecode 'SBML_ASSIGNMENT_RULE' referring to the units

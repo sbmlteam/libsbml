@@ -337,8 +337,8 @@ public:
   
   
   /**
-   * Creates a new Compartment using the given SBMLNamespaces object @p 
-   * sbmlns.
+   * Creates a new Compartment using the given SBMLNamespaces object 
+   * @p sbmlns.
    *
    * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
    * information.  It is used to communicate the SBML Level, Version, and
@@ -688,7 +688,7 @@ public:
    * 
    * @htmlinclude libsbml-comment-set-methods.html
    *
-   * @see setCompartmentType()
+   * @see setCompartmentType(const std::string& sid)
    * @see isSetCompartmentType()
    *
    */

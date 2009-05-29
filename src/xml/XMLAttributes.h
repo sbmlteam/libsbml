@@ -196,8 +196,8 @@ public:
    * @note A namespace bound to the name is not checked by this function.
    * Thus, if there are multiple attributes with the given local name and
    * different namespaces, the smallest index among those attributes will
-   * be returned.  XMLAttributes::getIndex(name,uri) or
-   * XMLAttributes::getIndex(triple) should be used to get an index of an
+   * be returned.  XMLAttributes::getIndex(const std::string& name, const std::string& uri) or
+   * XMLAttributes::getIndex(const XMLTriple& triple) should be used to get an index of an
    * attribute with the given local name and namespace.
    *
    * @param name a string, the local name of the attribute for which the 
@@ -248,7 +248,7 @@ public:
    * @return the local name of an attribute in this list (by position).  
    *
    * @note If index is out of range, an empty string will be returned.  Use
-   * XMLAttributes::hasAttribute(index) to test for the attribute
+   * XMLAttributes::hasAttribute(int index) to test for the attribute
    * existence.
    */
   std::string getName (int index) const;
@@ -264,7 +264,7 @@ public:
    * position).  
    *
    * @note If index is out of range, an empty string will be returned. Use
-   * XMLAttributes::hasAttribute(index) to test for the attribute
+   * XMLAttributes::hasAttribute(int index) to test for the attribute
    * existence.
    */
   std::string getPrefix (int index) const;
@@ -280,7 +280,7 @@ public:
    * position).  
    *
    * @note If index is out of range, an empty string will be returned.  Use
-   * XMLAttributes::hasAttribute(index) to test for attribute existence.
+   * XMLAttributes::hasAttribute(int index) to test for attribute existence.
    */
   std::string getPrefixedName (int index) const;
 
@@ -294,7 +294,7 @@ public:
    * @return the namespace URI of an attribute in this list (by position).
    *
    * @note If index is out of range, an empty string will be returned.  Use
-   * XMLAttributes::hasAttribute(index) to test for attribute existence.
+   * XMLAttributes::hasAttribute(int index) to test for attribute existence.
    */
   std::string getURI (int index) const;
 
@@ -308,7 +308,7 @@ public:
    * @return the value of an attribute in the list (by position).  
    *
    * @note If index is out of range, an empty string will be returned.  Use
-   * XMLAttributes::hasAttribute(index) to test for attribute existence.
+   * XMLAttributes::hasAttribute(int index) to test for attribute existence.
    */
   std::string getValue (int index) const;
 
@@ -321,13 +321,13 @@ public:
    * @return The attribute value as a string.  
    *
    * @note If an attribute with the given local name does not exist, an
-   * empty string will be returned.  Use XMLAttributes::hasAttribute(name)
+   * empty string will be returned.  Use XMLAttributes::hasAttribute(const std::string name, const std::string uri)
    * to test for attribute existence.  A namespace bound to the local name
    * is not checked by this function.  Thus, if there are multiple
    * attributes with the given local name and different namespaces, the
    * value of an attribute with the smallest index among those attributes
-   * will be returned.  XMLAttributes::getValue(name,uri) or
-   * XMLAttributes::getValue(triple) should be used to get a value of an
+   * will be returned.  XMLAttributes::getValue(const std::string name) or
+   * XMLAttributes::getValue(const XMLTriple& triple) should be used to get a value of an
    * attribute with the given local name and namespace.
    */
   std::string getValue (const std::string name) const;
@@ -343,8 +343,8 @@ public:
    *
    * @note If an attribute with the given local name and namespace URI does
    * not exist, an empty string will be returned.  Use
-   * XMLAttributes::hasAttribute(name, uri) to test for attribute
-   * existence.
+   * XMLAttributes::hasAttribute(const std::string name, const std::string uri)
+   * to test for attribute existence.
    */
   std::string getValue (const std::string name, const std::string uri) const;
 
@@ -358,7 +358,7 @@ public:
    *
    * @note If an attribute with the given XMLTriple does not exist, an
    * empty string will be returned.  Use
-   * XMLAttributes::hasAttribute(triple) to test for attribute existence.
+   * XMLAttributes::hasAttribute(const XMLTriple& triple) to test for attribute existence.
    */
   std::string getValue (const XMLTriple& triple) const;
 

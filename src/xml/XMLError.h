@@ -979,7 +979,7 @@ public:
    * 
    * @param line an unsigned int, the line number to set.
    *
-   * @see setColunn()
+   * @see setColumn(unsigned int column)
    */
   void setLine (unsigned int line);
 
@@ -989,7 +989,7 @@ public:
    * 
    * @param column an unsigned int, the column number to set.
    *
-   * @see setLine()
+   * @see setLine(unsigned int line)
    */
   void setColumn (unsigned int column);
 

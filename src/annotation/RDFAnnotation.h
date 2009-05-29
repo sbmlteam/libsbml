@@ -100,8 +100,6 @@ public:
    * @param annotation XMLNode containing the annotation.
    *
    * @return a pointer to the ModelHistory created.
-   *
-   * @see parseRDFAnnotation(const XMLNode *annotation, List *CVTerms)
    */
   static ModelHistory* parseRDFAnnotation(const XMLNode *annotation);
 

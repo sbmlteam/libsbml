@@ -403,8 +403,9 @@ public:
    *
    * Note that in SBML Level&nbsp;2 and beyond, the default value of
    * Parameter's "constant" attribute is @c true.  Since a boolean value
-   * can only be true or value, there is no Parameter::isSetConstant()
-   * method as is available for the other attributes on Parameter.
+   * can only be @c true or @c false, there is no "isSetConstant()"
+   * method as is available for the other attributes on Parameter, because
+   * "unset" is not an option.
    * 
    * @return @c true if this Parameter has been declared as being constant,
    * @c false otherwise.

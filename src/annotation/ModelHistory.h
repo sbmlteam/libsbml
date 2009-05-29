@@ -608,7 +608,7 @@ public:
   void addModifiedDate(Date* date);
 
   /**
-   * Get the List of ModifiedDate objects in this 
+   * Get the list of ModifiedDate objects in this 
    * ModelHistory.
    * 
    * @return the list of ModifiedDates for this ModelHistory.
@@ -643,7 +643,7 @@ public:
   void addCreator(ModelCreator * mc);
 
   /**
-   * Get the List of ModelCreator objects in this 
+   * Get the list of ModelCreator objects in this 
    * ModelHistory.
    * 
    * @return the list of ModelCreators for this ModelHistory.

@@ -200,7 +200,7 @@ public:
    * definitions must have a value for this attribute.  If no variable is
    * provided at the time of creation, the value is left as the empty
    * string.  Callers are cautioned to set the value
-   * using @if clike EventAssignment::setVariable(String id) @endif@if java EventAssignment::setVariable() @endif
+   * using EventAssignment::setVariable(const std::string& sid)
    * soon after invoking this constructor.
    *
    * @docnote The native C++ implementation of this method defines a

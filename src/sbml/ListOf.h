@@ -106,7 +106,7 @@ public:
    *
    * @param item the item to be added to the list.
    *
-   * @see appendAndOwn
+   * @see appendAndOwn(SBase* item)
    */
   void append (const SBase* item);
 
@@ -120,7 +120,7 @@ public:
    *
    * @param item the item to be added to the list.
    *
-   * @see append
+   * @see append(const SBase* item)
    */
   void appendAndOwn (SBase* item);
 

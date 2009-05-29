@@ -472,7 +472,7 @@ public:
    *
    * @see ModelHistory
    * @see CVTerm
-   * @see RDFAnnotation
+   * @see RDFAnnotationParser
    */
   XMLNode* getAnnotation ();
 
@@ -490,7 +490,7 @@ public:
    *
    * @see ModelHistory
    * @see CVTerm
-   * @see RDFAnnotation
+   * @see RDFAnnotationParser
    */
   std::string getAnnotationString ();
 
@@ -530,11 +530,12 @@ public:
    * Returns the ancestor SBML object that corresponds to the 
    * given SBMLTypeCode_t.
    *
-   * This function allows any object to determine its exact 
-   * location/function within a model. For example a 
-   * StoichiometryMath object has ancestors of type SpeciesReference,
-   * ListOf(Products/Reactants), Reaction, ListOfReactions and Model; 
-   * any of which can be accessed via this function.
+   * This function allows any object to determine its exact
+   * location/function within a model. For example a StoichiometryMath
+   * object has ancestors of type SpeciesReference,
+   * ListOfProducts/ListOfReactants/ListOfModifiers, Reaction,
+   * ListOfReactions and Model; any of which can be accessed via this
+   * function.
    *
    * @param type the SBMLTypeCode_t of the ancestor to be returned.
    * 
@@ -755,7 +756,8 @@ public:
    * @param annotation an XML structure that is to be used as the content
    * of the "annotation" subelement of this object
    *
-   * @see appendAnnotation()
+   * @see appendAnnotation(const XMLNode* annotation)
+   * @see appendAnnotation(const std::string& annotation)
    */
   virtual void setAnnotation (const XMLNode* annotation);
 
@@ -776,7 +778,8 @@ public:
    * @param annotation an XML string that is to be used as the content
    * of the "annotation" subelement of this object
    *
-   * @see appendAnnotation()
+   * @see appendAnnotation(const XMLNode* annotation)
+   * @see appendAnnotation(const std::string& annotation)
    */
   virtual void setAnnotation (const std::string& annotation);
 
@@ -792,7 +795,8 @@ public:
    * @param annotation an XML structure that is to be copied and appended
    * to the content of the "annotation" subelement of this object
    *
-   * @see setAnnotation()
+   * @see setAnnotation(const std::string& annotation)
+   * @see setAnnotation(const XMLNode* annotation)
    */
   virtual void appendAnnotation (const XMLNode* annotation);
 
@@ -808,7 +812,8 @@ public:
    * @param annotation an XML string that is to be copied and appended
    * to the content of the "annotation" subelement of this object
    *
-   * @see setAnnotation()
+   * @see setAnnotation(const std::string& annotation)
+   * @see setAnnotation(const XMLNode* annotation)
    */
   virtual void appendAnnotation (const std::string& annotation);
 
@@ -824,7 +829,8 @@ public:
    * @param notes an XML structure that is to be used as the content of the
    * "notes" subelement of this object
    *
-   * @see appendNotes()
+   * @see appendNotes(const XMLNode* notes)
+   * @see appendNotes(const std::string& notes)
    */
   void setNotes(const XMLNode* notes);
 
@@ -840,7 +846,8 @@ public:
    * @param notes an XML string that is to be used as the content of the
    * "notes" subelement of this object
    *
-   * @see appendNotes()
+   * @see appendNotes(const XMLNode* notes)
+   * @see appendNotes(const std::string& notes)
    */
   void setNotes(const std::string& notes);
 
@@ -854,7 +861,8 @@ public:
    * @param notes an XML structure that is to appended to the content of
    * the "notes" subelement of this object
    *
-   * @see setNotes()
+   * @see setNotes(const XMLNode* notes)
+   * @see setNotes(const std::string& notes)
    */
   void appendNotes(const XMLNode* notes);
 
@@ -868,7 +876,8 @@ public:
    * @param notes an XML string that is to appended to the content of
    * the "notes" subelement of this object
    *
-   * @see setNotes()
+   * @see setNotes(const XMLNode* notes)
+   * @see setNotes(const std::string& notes)
    */
   void appendNotes(const std::string& notes);
 
@@ -979,7 +988,7 @@ public:
    * reference, if the object has no metaid set the CVTerm will
    * not be added.
    *
-   * @note The fact that this method @em copies the object passed to it
+   * @warning The fact that this method @em copies the object passed to it
    * means that the caller will be left holding a physically different
    * object instance than the one contained in @em this object.  Changes
    * made to the original object instance (such as resetting attribute
@@ -1037,7 +1046,7 @@ public:
 
   /**
    * Returns the BiologicalQualifier associated with this resource,
-   * BQB_UNKNOWN if the resource does not exist.
+   * or BQB_UNKNOWN if the resource does not exist.
    *
    * @param resource string representing the resource; e.g.,
    * "http://www.geneontology.org/#GO:0005892"
@@ -1048,7 +1057,7 @@ public:
 
   /**
    * Returns the ModelQualifier associated with this resource,
-   * BQM_UNKNOWN if the resource does not exist.
+   * or BQM_UNKNOWN if the resource does not exist.
    *
    * @param resource string representing the resource; e.g.,
    * "http://www.geneontology.org/#GO:0005892"

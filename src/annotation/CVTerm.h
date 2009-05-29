@@ -132,9 +132,9 @@ public:
   /**
    * Create a new CVTerm from the given XMLNode.
    *
-   * RDFAnnotations within a model are stored as a List of CVTerms.  This allows
+   * RDFAnnotations within a model are stored as a list of CVTerms.  This allows
    * the user to interact with the %CVTerms directly.  When LibSBML reads in a 
-   * model containing RDFAnnotations it parses them into a %List of CVTerms and
+   * model containing RDFAnnotations it parses them into a list of CVTerms and
    * when writing a model it parses the CVTerms into the appropriate annotation
    * structure.  This function creates a %CVTerm from the %XMLNode supplied.
    *

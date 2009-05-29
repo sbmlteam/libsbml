@@ -593,11 +593,11 @@ public:
    * </ul>
    *
    * @see getDenominator()
-   * @see setDenominator()
+   * @see setDenominator(int value)
    * @see getStoichiometry()
-   * @see setStoichiometry()
+   * @see setStoichiometry(double value)
    * @see getStoichiometryMath()
-   * @see setStoichiometryMath()
+   * @see setStoichiometryMath(const StoichiometryMath* math)
    */
   void initDefaults ();
 
@@ -826,8 +826,8 @@ public:
    *
    * @return the newly created StoichiometryMath object instance
    *
-   * @see addReactant()
-   * @see addProduct()
+   * @see Reaction::addReactant(const SpeciesReference* sr)
+   * @see Reaction::addProduct(const SpeciesReference* sr)
    */
   StoichiometryMath* createStoichiometryMath ();
 
@@ -846,7 +846,8 @@ public:
    * @param annotation an XML structure that is to be used as the content
    * of the "annotation" subelement of this object
    *
-   * @see appendAnnotation()
+   * @see appendAnnotation(const XMLNode* annotation)
+   * @see appendAnnotation(const std::string& annotation)
    */
   virtual void setAnnotation (const XMLNode* annotation);
 
@@ -865,7 +866,8 @@ public:
    * @param annotation an XML string that is to be used as the content
    * of the "annotation" subelement of this object
    *
-   * @see appendAnnotation()
+   * @see appendAnnotation(const XMLNode* annotation)
+   * @see appendAnnotation(const std::string& annotation)
    */
   virtual void setAnnotation (const std::string& annotation);
 
@@ -881,7 +883,8 @@ public:
    * @param annotation an XML structure that is to be copied and appended
    * to the content of the "annotation" subelement of this object
    *
-   * @see setAnnotation()
+   * @see setAnnotation(const std::string& annotation)
+   * @see setAnnotation(const XMLNode* annotation)
    */
   virtual void appendAnnotation (const XMLNode* annotation);
 
@@ -897,7 +900,8 @@ public:
    * @param annotation an XML string that is to be copied and appended
    * to the content of the "annotation" subelement of this object
    *
-   * @see setAnnotation()
+   * @see setAnnotation(const std::string& annotation)
+   * @see setAnnotation(const XMLNode* annotation)
    */
   virtual void appendAnnotation (const std::string& annotation);
 

@@ -547,7 +547,7 @@ public:
    * are cautioned to set the newly-constructed Unit's kind using
    * Unit::setKind() soon after calling this method.
    *
-   * @see addUnit()
+   * @see addUnit(const Unit* u)
    */
   Unit* createUnit ();
 
@@ -712,8 +712,8 @@ public:
    * @return @c true if all the Unit objects in ud1 are identical to the
    * Unit objects of ud2, @c false otherwise.
    *
-   * @see areEquivalent()
-   * @see Unit::areIdentical()
+   * @see areEquivalent(const UnitDefinition * ud1, const %UnitDefinition * ud2)
+   * @see Unit::areIdentical(Unit * unit1, %Unit * unit2)
    */
   static bool areIdentical(const UnitDefinition * ud1, const UnitDefinition * ud2);
 
@@ -735,8 +735,8 @@ public:
    * @return @c true if all the Unit objects in ud1 are equivalent
    * to the Unit objects in ud2, @c false otherwise.
    *
-   * @see areIdentical()
-   * @see Unit::areEquivalent()
+   * @see areIdentical(const UnitDefinition * ud1, const %UnitDefinition * ud2)
+   * @see Unit::areEquivalent(Unit * unit1, %Unit * unit2)
    */
   static bool areEquivalent(const UnitDefinition *ud1 , const UnitDefinition * ud2);
 

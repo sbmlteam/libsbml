@@ -552,7 +552,7 @@ public:
    *
    * @return the newly created EventAssignment object instance
    *
-   * @see addEvent()
+   * @see addEventAssignment(const EventAssignment* ea)
    */
   EventAssignment* createEventAssignment ();
 
@@ -562,8 +562,6 @@ public:
    * returns the Trigger.
    *
    * @return the newly created Trigger object instance
-   *
-   * @see addEvent()
    */
   Trigger* createTrigger ();
 
@@ -573,8 +571,6 @@ public:
    * returns the Delay.
    *
    * @return the newly created Delay object instance
-   *
-   * @see addEvent()
    */
   Delay* createDelay ();
 

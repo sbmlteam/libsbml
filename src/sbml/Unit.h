@@ -913,8 +913,9 @@ public:
   * Unit objects are identical.
   *
   * Two Unit objects are considered to be @em identical if they match in
-  * all attributes.  (Contrast this to the method areEquivalent(), which
-  * compares Unit objects only with respect to certain attributes.)
+  * all attributes.  (Contrast this to the method
+  * Unit::areEquivalent(Unit * unit1, %Unit * unit2), which compares
+  * Unit objects only with respect to certain attributes.)
   *
   * @param unit1 the first Unit object to compare
   * @param unit2 the second Unit object to compare
@@ -922,7 +923,7 @@ public:
   * @return @c true if all the attributes of unit1 are identical
   * to the attributes of unit2, @c false otherwise.
   *
-  * @see areEquivalent()
+  * @see areEquivalent(Unit * unit1, %Unit * unit2)
   */
   static bool areIdentical(Unit * unit1, Unit * unit2);
 
@@ -933,8 +934,9 @@ public:
   *
   * Two Unit objects are considered to be @em equivalent if their "kind"
   * and "exponent" attributes are equal.  (Contrast this to the method
-  * Unit::areIdentical(), which compares Unit objects with respect to all
-  * attributes, not just the kind and exponent.)
+  * Unit::areIdentical(Unit * unit1, %Unit * unit2), which compares Unit
+  * objects with respect to all attributes, not just the kind and
+  * exponent.)
   *
   * @param unit1 the first Unit object to compare
   * @param unit2 the second Unit object to compare
@@ -943,7 +945,7 @@ public:
   * identical to the kind and exponent attributes of unit2, @c false
   * otherwise.
   * 
-  * @see areIdentical()
+  * @see areIdentical(Unit * unit1, %Unit * unit2)
   */
   static bool areEquivalent(Unit * unit1, Unit * unit2);
 
@@ -981,7 +983,7 @@ public:
   * 
   * @param unit2 the second Unit object to merge with the first
   */
-  static void merge(Unit * unit1, Unit * unit2);
+  static void merge(Unit * unit1, %Unit * unit2);
 
 
   /**

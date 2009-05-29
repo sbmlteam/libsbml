@@ -591,7 +591,7 @@ public:
    *
    * @return a new Parameter object instance
    *
-   * @see addParameter()
+   * @see addParameter(const Parameter* p)
    */
   Parameter* createParameter ();
 
