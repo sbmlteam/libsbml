@@ -164,8 +164,8 @@ class LIBSBML_EXTERN Unit : public SBase
 public:
 
   /**
-   * Creates a new Unit, optionally with specific values of @p kind, @p
-   * exponent, @p scale and @p multipler.
+   * Creates a new Unit, optionally with specific values of @p kind,
+   * @p exponent, @p scale and @p multipler.
    *
    * @if clike If no arguments are passed to this constructor,
    * the value of @p kind defaults to @c UNIT_KIND_INVALID.  Callers must
@@ -316,8 +316,8 @@ public:
 
 
   /**
-   * Creates a new Unit using the given SBMLNamespaces object @p 
-   * sbmlns.
+   * Creates a new Unit using the given SBMLNamespaces object
+   * @p sbmlns.
    *
    * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
    * information.  It is used to communicate the SBML Level, Version, and

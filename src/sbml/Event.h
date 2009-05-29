@@ -152,8 +152,8 @@ class LIBSBML_EXTERN Event : public SBase
 public:
 
   /**
-   * Creates a new Event, optionally with specific values of @p id and @p
-   * name attributes.
+   * Creates a new Event, optionally with specific values of @p id and
+   * @p name attributes.
    *
    * @param id a string, the identifier to assign to this Event
    * @param name a string, the name to be assigned to this Event
@@ -211,8 +211,8 @@ public:
 
 
   /**
-   * Creates a new Event using the given SBMLNamespaces object @p 
-   * sbmlns.
+   * Creates a new Event using the given SBMLNamespaces object
+   * @p sbmlns.
    *
    * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
    * information.  It is used to communicate the SBML Level, Version, and

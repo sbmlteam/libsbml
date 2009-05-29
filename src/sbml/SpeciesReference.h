@@ -309,8 +309,8 @@ public:
 
 
   /**
-   * Creates a new SimpleSpeciesReference using the given SBMLNamespaces object @p 
-   * sbmlns.
+   * Creates a new SimpleSpeciesReference using the given SBMLNamespaces object
+   * @p sbmlns.
    *
    * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
    * information.  It is used to communicate the SBML Level, Version, and
@@ -521,8 +521,8 @@ public:
 
 
   /**
-   * Creates a new SpeciesReference using the given SBMLNamespaces object @p 
-   * sbmlns.
+   * Creates a new SpeciesReference using the given SBMLNamespaces object
+   * @p sbmlns.
    *
    * @param sbmlns an SBMLNamespaces object.
    *
@@ -1073,8 +1073,8 @@ public:
 
 
   /**
-   * Creates a new ModifierSpeciesReference using the given SBMLNamespaces object @p 
-   * sbmlns.
+   * Creates a new ModifierSpeciesReference using the given SBMLNamespaces object
+   * @p sbmlns.
    *
    * @param sbmlns an SBMLNamespaces object.
    *

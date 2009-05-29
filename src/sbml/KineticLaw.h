@@ -135,8 +135,8 @@ public:
    * Creates a new KineticLaw object, optionally with values for its "formula",
    * "timeUnits" and/or "substanceUnits" attributes.
    *
-   * This will copy the strings handed in @p formula, @p timeUnits and @p
-   * substanceUnits.  This method is functionally equivalent to the following:
+   * This will copy the strings handed in @p formula, @p timeUnits and
+   * @p substanceUnits.  This method is functionally equivalent to the following:
    * @code
    *   KineticLaw k = new KineticLaw();
    *   k.setFormula(formula);
@@ -186,8 +186,8 @@ public:
    * Creates a new KineticLaw object, optionally with values for the "math"
    * subelement and the "timeUnits" and/or "substanceUnits" attributes.
    *
-   * This will copy the strings handed in @p timeUnits and @p
-   * substanceUnits.  This method is functionally equivalent to the following:
+   * This will copy the strings handed in @p timeUnits and
+   * @p substanceUnits.  This method is functionally equivalent to the following:
    * @code
    *   KineticLaw k = new KineticLaw();
    *   k.setMath(math);
@@ -259,8 +259,8 @@ public:
 
 
   /**
-   * Creates a new KineticLaw using the given SBMLNamespaces object @p 
-   * sbmlns.
+   * Creates a new KineticLaw using the given SBMLNamespaces object
+   * @p sbmlns.
    *
    * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
    * information.  It is used to communicate the SBML Level, Version, and

@@ -577,8 +577,8 @@ public:
    * @param category a value drawn from #SBMLErrorCategory_t indicating the
    * consistency checking/validation to be turned on or off
    *
-   * @param apply a boolean indicating whether the checks indicated by @p
-   * category should be applied or not.
+   * @param apply a boolean indicating whether the checks indicated by
+   * @p category should be applied or not.
    *
    * @see SBMLDocument::checkConsistency()
    */

@@ -225,8 +225,8 @@ public:
 
 
   /**
-   * Creates a new FunctionDefinition using the given SBMLNamespaces object @p 
-   * sbmlns.
+   * Creates a new FunctionDefinition using the given SBMLNamespaces object
+   * @p sbmlns.
    *
    * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
    * information.  It is used to communicate the SBML Level, Version, and

@@ -874,8 +874,8 @@ public:
 
 
   /**
-   * Creates a new AlgebraicRule using the given SBMLNamespaces object @p 
-   * sbmlns.
+   * Creates a new AlgebraicRule using the given SBMLNamespaces object
+   * @p sbmlns.
    *
    * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
    * information.  It is used to communicate the SBML Level, Version, and
@@ -1042,8 +1042,8 @@ public:
 
 
   /**
-   * Creates a new AssignmentRule using the given SBMLNamespaces object @p 
-   * sbmlns.
+   * Creates a new AssignmentRule using the given SBMLNamespaces object
+   * @p sbmlns.
    *
    * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
    * information.  It is used to communicate the SBML Level, Version, and
@@ -1189,8 +1189,8 @@ public:
 
 
   /**
-   * Creates a new RateRule using the given SBMLNamespaces object @p 
-   * sbmlns.
+   * Creates a new RateRule using the given SBMLNamespaces object
+   * @p sbmlns.
    *
    * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
    * information.  It is used to communicate the SBML Level, Version, and

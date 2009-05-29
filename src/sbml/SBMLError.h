@@ -1060,8 +1060,8 @@ public:
    * defined as unsigned integer constants in the file
    * "libsbmlConstants.html".  See the <a class="el"
    * href="#SBMLErrorCode_t">top of this documentation page</a> for a table
-   * listing the possible values and their meanings. @endif The argument @p
-   * errorId to this constructor @em can be (but does not have to be) a
+   * listing the possible values and their meanings. @endif The argument 
+   * @p errorId to this constructor @em can be (but does not have to be) a
    * value from this @if clike enumeration. If it @em is a value
    * from <a class="el" href="#SBMLErrorCode_t">SBMLErrorCode_t</a>, the
    * SBMLError class assumes the error is a low-level system or SBML layer
@@ -1078,8 +1078,8 @@ public:
    * assumes the error is a low-level system or SBML layer error and
    * <em>prepends</em> a built-in, predefined error message to any string
    * passed in the argument @p details to this constructor.  In addition,
-   * all the predefined error identifiers have associated values for the @p
-   * severity and @p category codes, and these fields are filled-in using
+   * all the predefined error identifiers have associated values for the 
+   * @p severity and @p category codes, and these fields are filled-in using
    * the libSBML defaults for each different error identifier. @endif
    *
    * If the error identifier @p errorId is a number greater than 99999, the
@@ -1105,8 +1105,8 @@ public:
    * values (not just those from <a class="el"
    * href="#SBMLErrorSeverity_t">SBMLErrorSeverity_t</a> and <a class="el"
    * href="#SBMLErrorCategory_t">SBMLErrorCategory_t</a>, but their own
-   * special values) for @p severity and @p
-   * category. @endif@if java As mentioned above, 
+   * special values) for @p severity and 
+   * @p category. @endif@if java As mentioned above, 
    * there are additional constants defined for <a class="el"
    * href="#SBMLErrorSeverity_t">standard severity</a> and <a class="el"
    * href="#SBMLErrorCategory_t">standard category</a> codes, and every predefined 

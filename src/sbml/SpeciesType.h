@@ -119,8 +119,8 @@ class LIBSBML_EXTERN SpeciesType : public SBase
 public:
 
   /**
-   * Creates a new SpeciesType, optionally with the given @p id and @p
-   * name attribute values.
+   * Creates a new SpeciesType, optionally with the given @p id and
+   * @p name attribute values.
    *
    * In %SBML, identifiers are required for SpeciesType objects;
    * however, the identifier does not have to be set at the time of
@@ -189,8 +189,8 @@ public:
 
 
   /**
-   * Creates a new SpeciesType using the given SBMLNamespaces object @p 
-   * sbmlns.
+   * Creates a new SpeciesType using the given SBMLNamespaces object
+   * @p sbmlns.
    *
    * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
    * information.  It is used to communicate the SBML Level, Version, and

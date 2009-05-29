@@ -271,8 +271,8 @@ public:
 
 
   /**
-   * Creates a new Model using the given SBMLNamespaces object @p 
-   * sbmlns.
+   * Creates a new Model using the given SBMLNamespaces object
+   * @p sbmlns.
    *
    * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
    * information.  It is used to communicate the SBML Level, Version, and
@@ -1189,8 +1189,8 @@ public:
   /**
    * Get a FunctionDefinition object based on its identifier.
    * 
-   * @return the FunctionDefinition in this Model with the identifier @p
-   * sid or NULL if no such FunctionDefinition exists.
+   * @return the FunctionDefinition in this Model with the identifier
+   * @p sid or NULL if no such FunctionDefinition exists.
    */
   const FunctionDefinition*
   getFunctionDefinition (const std::string& sid) const;
@@ -1199,8 +1199,8 @@ public:
   /**
    * Get a FunctionDefinition object based on its identifier.
    * 
-   * @return the FunctionDefinition in this Model with the identifier @p
-   * sid or NULL if no such FunctionDefinition exists.
+   * @return the FunctionDefinition in this Model with the identifier
+   * @p sid or NULL if no such FunctionDefinition exists.
    */
   FunctionDefinition* getFunctionDefinition (const std::string& sid);
 
