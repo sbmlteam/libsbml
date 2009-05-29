@@ -31,7 +31,73 @@ import sys, string, os.path, re
 # Globally-scoped variables
 #
 
-docincpath = ''
+docincpath     = ''
+libsbmlclasses = ["AlgebraicRule",
+                  "ASTNode",
+                  "AssignmentRule",
+                  "CVTerm",
+                  "Compartment",
+                  "CompartmentType",
+                  "Constraint",
+                  "Date",
+                  "Delay",
+                  "Event",
+                  "EventAssignment",
+                  "FunctionDefinition",
+                  "InitialAssignment",
+                  "KineticLaw",
+                  "List",
+                  "ListOf",
+                  "ListOfCompartmentTypes",
+                  "ListOfCompartments",
+                  "ListOfConstraints",
+                  "ListOfEventAssignments",
+                  "ListOfEvents",
+                  "ListOfFunctionDefinitions",
+                  "ListOfInitialAssignments",
+                  "ListOfParameters",
+                  "ListOfReactions",
+                  "ListOfRules",
+                  "ListOfSpecies",
+                  "ListOfSpeciesReferences",
+                  "ListOfSpeciesTypes",
+                  "ListOfUnitDefinitions",
+                  "ListOfUnits",
+                  "Model",
+                  "ModelCreator",
+                  "ModelHistory",
+                  "ModifierSpeciesReference",
+                  "OFStream",
+                  "OStream",
+                  "OStringStream",
+                  "Parameter",
+                  "RateRule",
+                  "Reaction",
+                  "Rule",
+                  "SBMLDocument",
+                  "SBMLError",
+                  "SBMLErrorLog",
+                  "SBMLReader",
+                  "SBMLNamespaces",
+                  "SBMLVisitor",
+                  "SBMLWriter",
+                  "SBO",
+                  "SBase",
+                  "SimpleSpeciesReference",
+                  "Species",
+                  "SpeciesReference",
+                  "SpeciesType",
+                  "StoichiometryMath",
+                  "Trigger",
+                  "Unit", 
+                  "UnitDefinition",
+                  "XMLAttributes",
+                  "XMLError",
+                  "XMLErrorLog",
+                  "XMLNamespaces",
+                  "XMLNode",
+                  "XMLToken",
+                  "XMLTriple" ]
 
 #
 # Methods
@@ -432,6 +498,10 @@ def translateJavaCrossRef (match):
   return prior + '{@link ' + classname + '#' + method + '}'
 
 
+def javafyClassRef (match):
+  return match.group(1) + match.group(2) + ' '
+
+
 def translateJavaClassRef (match):
   leading      = match.group(1)
   classname    = match.group(2)
@@ -538,12 +608,12 @@ def sanitizeForHTML (docstring, language):
   # done better (e.g., by not hard-wiring the class names).  The use of %
   # as a quote indicator follows the doxygen convention.
 
-  p = re.compile(r'(\W)(AlgebraicRule|AssignmentRule|ASTNode|Compartment|CompartmentType|Constraint|CVTerm|Date|Delay|Event|EventAssignment|FunctionDefinition|InitialAssignment|KineticLaw|ListOf|ListOfCompartments|ListOfCompartmentTypes|ListOfConstraints|ListOfEventAssignments|ListOfEvents|ListOfFunctionDefinitions|ListOfInitialAssignments|ListOfParameters|ListOfReactions|ListOfRules|ListOfSpecies|ListOfSpeciesReferences|ListOfSpeciesTypes|ListOfUnitDefinitions|ListOfUnits|Model|ModelCreator|ModelHistory|ModifierSpeciesReference|OFStream|OStream|OStringStream|Parameter|RateRule|Reaction|Rule|SBase|SBMLDocument|SBMLError|SBMLErrorLog|SBMLReader|SBMLWriter|SBO|SimpleSpeciesReference|Species|SpeciesReference|SpeciesType|StoichiometryMath|Trigger|UnitDefinition|Unit)\b([^:])', re.DOTALL)
+  p = re.compile(r'(\W)(' + '|'.join(libsbmlclasses) + r')\b([^:])', re.DOTALL)
   docstring = p.sub(translateJavaClassRef, docstring)
 
   # Massage Java method cross-references.
 
-  p = re.compile('(\s+)(\S+?)::([^)]+?\))', re.MULTILINE)
+  p = re.compile('(\s+)(\S+?)::(\w+\s*\([^)]+?\))', re.MULTILINE)
   docstring = p.sub(translateJavaCrossRef, docstring)
 
   # Take out any left-over quotes, because Javadoc doesn't have the %foo
@@ -567,17 +637,27 @@ def sanitizeForJava (docstring):
   C++/Doxygen docstring.
   """
 
-  docstring = sanitizeForHTML(docstring, 'java')
-
-  # Try to rewrite some of the data type references to equivalent Java types.
-  # (Note: this rewriting affects only the documentation comments, not the
-  # method declarations.)
+  # Preliminary: rewrite some of the data type references to equivalent
+  # Java types.  (Note: this rewriting affects only the documentation
+  # comments inside classes & methods, not the method signatures.)
 
   docstring = docstring.replace(r'const char *', 'string ')
   docstring = docstring.replace(r'const char* ', 'string ')
   docstring = docstring.replace(r'an unsigned int', 'a long integer')
   docstring = docstring.replace(r'unsigned int', 'long')
+  docstring = docstring.replace(r'const std::string&', 'String')
   docstring = docstring.replace(r'const std::string', 'String')
+
+  # Also use Java syntax instead of "const XMLNode*" etc.
+
+  p = re.compile(r'const (%?)(' + '|'.join(libsbmlclasses) + r') ?(\*|&)', re.DOTALL)
+  docstring = p.sub(javafyClassRef, docstring)  
+  p = re.compile(r'(%?)(' + '|'.join(libsbmlclasses) + r') ?(\*|&)', re.DOTALL)
+  docstring = p.sub(javafyClassRef, docstring)  
+
+  # Do the big work.
+
+  docstring = sanitizeForHTML(docstring, 'java')
 
   # Fix up for a problem introduced by sanitizeForHTML -- should fix
   # properly some day.
