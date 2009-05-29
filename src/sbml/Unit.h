@@ -983,7 +983,7 @@ public:
   * 
   * @param unit2 the second Unit object to merge with the first
   */
-  static void merge(Unit * unit1, %Unit * unit2);
+  static void merge(Unit * unit1, Unit * unit2);
 
 
   /**
