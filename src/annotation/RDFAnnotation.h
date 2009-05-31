@@ -30,16 +30,18 @@
  * RDFAnnotationParser is a libSBML construct used as part of the libSBML
  * support for annotations conforming to the guidelines specified by MIRIAM
  * ("Minimum Information Requested in the Annotation of biochemical
- * Models", Nature Biotechnology, vol. 23, no. 12, Dec. 2005).  Section 6
- * of the SBML Level 2 Version 4 specification defines a recommended way
+ * Models", <i>Nature Biotechnology</i>, vol. 23, no. 12, Dec. 2005).  Section 6
+ * of the SBML Level&nbsp;2 Version&nbsp;4 specification defines a recommended way
  * of encoding MIRIAM information as RDF annotations in SBML.  The general
  * scheme is as follows.  A set of RDF-based annotations attached to a
  * given SBML <code>&lt;annotation&gt;</code> element are read by
  * RDFAnnotationParser and converted into a list of CVTerm objects.  There
- * are different versions of the main method, parseRDFAnnotation(), used
- * depending on whether the annotation in question concerns the MIRIAM
+ * are different versions of the main method,
+ * RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, %List *CVTerms)
+ * and RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation), 
+ * used depending on whether the annotation in question concerns the MIRIAM
  * model history or other MIRIAM resource annotations.  A special object
- * class (ModelHistory) is used to make it easier to manipulate model
+ * class, ModelHistory, is used to make it easier to manipulate model
  * history annotations.
  *
  * All of the methods on RDFAnnotationParser are static; the class exists

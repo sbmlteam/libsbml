@@ -29,8 +29,8 @@
  * The SBML specification beginning with Level 2 Version 2 defines a
  * standard approach to recording model history and model creator
  * information in a form that complies with MIRIAM ("Minimum Information
- * Requested in the Annotation of biochemical Models", Nature
- * Biotechnology, vol. 23, no. 12, Dec. 2005).  LibSBML provides the
+ * Requested in the Annotation of biochemical Models", <i>Nature
+ * Biotechnology</i>, vol. 23, no. 12, Dec. 2005).  LibSBML provides the
  * ModelHistory class as a convenience high-level interface for working
  * with model history data.
  *
@@ -46,8 +46,8 @@
  * The SBML specification beginning with Level 2 Version 2 defines a
  * standard approach to recording model history and model creator
  * information in a form that complies with MIRIAM ("Minimum Information
- * Requested in the Annotation of biochemical Models", Nature
- * Biotechnology, vol. 23, no. 12, Dec. 2005).  LibSBML provides the
+ * Requested in the Annotation of biochemical Models", <i>Nature
+ * Biotechnology</i>, vol. 23, no. 12, Dec. 2005).  LibSBML provides the
  * ModelCreator class as a convenience high-level interface for working
  * with model creator data.
  *
