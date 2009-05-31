@@ -235,9 +235,11 @@ hr {
 }
 
 TABLE.memname { 
-  background-color: #e5e9e7;
+  font-family: "Courier New", Courier, monospace, fixed;
+  font-weight: bold;
   font-size: 10pt;
   text-align: left;
+  background-color: #e5e9e7;
 }
 
 TABLE.memname TR {
@@ -245,9 +247,10 @@ TABLE.memname TR {
 }
 
 TD.md, TD.memname, TD.paramtype {
-  background-color: #e5e9e7;
-  font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
+  font-family: "Courier New", Courier, monospace, fixed;
+  font-weight: bold;
   font-size: 10pt;
+  background-color: #e5e9e7;
   white-space: nowrap;
 }
 
