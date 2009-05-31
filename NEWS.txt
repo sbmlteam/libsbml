@@ -75,7 +75,12 @@ Version 3.4.0 (released 2009-05-27)
 
  - A number of documentation bugs in the Java documentation have been
    fixed.  Thanks to Nicolas Rodriguez and Alice Villeger for reporting
-   them during the 2009 SBML Hackathon.  More still remain to be fixed.
+   them during the 2009 SBML Hackathon.  Also, all the javadoc errors
+   are now fixed, and most cross-references in the Java API documentation
+   are fixed as well.
+
+ - We have considerably expanded the documentation of SBase methods.
+
 
 * Changes:
 
