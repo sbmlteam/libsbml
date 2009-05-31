@@ -405,7 +405,24 @@ public:
   /**
    * Returns the value of the "metaid" attribute of this object.
    * 
+   * The optional attribute named "metaid", present on every major SBML
+   * component type, is for supporting metadata annotations using RDF
+   * (Resource Description Format). The attribute value has the data type
+   * <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, the XML
+   * identifier type, which means each "metaid" value must be globally
+   * unique within an SBML file.  (Importantly, this uniqueness criterion
+   * applies across any attribute with type <a
+   * href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, not just the
+   * "metaid" attribute used by SBML&mdash;something to be aware of if your
+   * application-specific XML content inside the "annotation" subelement
+   * happens to use XML ID.)  The "metaid" value serves to identify a model
+   * component for purposes such as referencing that component from
+   * metadata placed within "annotation" subelements.
+   *  
    * @return the metaid of this SBML object.
+   *
+   * @see isSetMetaId()
+   * @see setMetaId(const std::string& metaid)
    */
   const std::string& getMetaId () const;
 
@@ -413,84 +430,257 @@ public:
   /**
    * Returns the value of the "metaid" attribute of this object.
    * 
+   * The optional attribute named "metaid", present on every major SBML
+   * component type, is for supporting metadata annotations using RDF
+   * (Resource Description Format). The attribute value has the data type
+   * <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, the XML
+   * identifier type, which means each "metaid" value must be globally
+   * unique within an SBML file.  (Importantly, this uniqueness criterion
+   * applies across any attribute with type <a
+   * href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, not just the
+   * "metaid" attribute used by SBML&mdash;something to be aware of if your
+   * application-specific XML content inside the "annotation" subelement
+   * happens to use XML ID.)  The "metaid" value serves to identify a model
+   * component for purposes such as referencing that component from
+   * metadata placed within "annotation" subelements.
+   *  
    * @return the metaid of this SBML object.
+   *
+   * @see isSetMetaId()
+   * @see setMetaId(const std::string& metaid)
    */
   std::string& getMetaId ();
 
 
   /**
-   * Returns the value of the "id" attribute of this object.
+   * Returns the value of the "id" attribute of this object, if it has one.
    * 
+   * Most (but not all) objects in SBML include two common attributes: "id"
+   * and "name".  The identifier given by an object's "id" attribute value
+   * is used to identify the object within the SBML model definition.
+   * Other objects can refer to the component using this identifier.  The
+   * data type of "id" is always either <code>Sid</code> or
+   * <code>UnitSId</code>, depending on the object in question.  Both
+   * data types are defined as follows:
+   * @code
+   *   letter ::= 'a'..'z','A'..'Z'
+   *   digit  ::= '0'..'9'
+   *   idChar ::= letter | digit | '_'
+   *   SId    ::= ( letter | '_' ) idChar*
+   * @endcode
+   *
+   * The equality of <code>SId</code> and <code>UnitSId</code> type values
+   * in SBML is determined by an exact character sequence match; i.e.,
+   * comparisons of these identifiers must be performed in a case-sensitive
+   * manner.  This applies to all uses of <code>SId</code> and
+   * <code>UnitSId</code>.
+   *
    * @return the id of this SBML object.
+   *
+   * @note The fact that the value of attribute "id" is defined on the
+   * SBase parent class object is a convenience provided by libSBML, and
+   * <b>does not strictly follow SBML specifications</b>.  This libSBML
+   * implementation of SBase allows client applications to use more
+   * generalized code in some situations (for instance, when manipulating
+   * objects that are all known to have identifiers), but beware that not
+   * all SBML object classes provide an "id" attribute.  LibSBML will allow
+   * the identifier to be set, but it will not read nor write "id"
+   * attributes for objects that do not possess them according to the SBML
+   * specification for the Level and Version in use.
+   *
+   * @see setId(const std::string& sid)
+   * @see isSetId()
+   * @see unsetId()
    */
   const std::string& getId () const;
 
 
   /**
-   * Returns the value of the "name" attribute of this object.
+   * Returns the value of the "name" attribute of this object, if it has one.
+   * 
+   * Most (but not all) objects in SBML include two common attributes: "id"
+   * and "name".  In contrast to the "id" attribute, the "name" attribute is
+   * optional and is not intended to be used for cross-referencing purposes
+   * within a model.  Its purpose instead is to provide a human-readable
+   * label for the component.  The data type of "name" is the type
+   * <code>string</code> defined in XML Schema.  SBML imposes no
+   * restrictions as to the content of "name" attributes beyond those
+   * restrictions defined by the <code>string</code> type in XML Schema.
+   *
+   * The recommended practice for handling "name" is as follows.  If a
+   * software tool has the capability for displaying the content of "name"
+   * attributes, it should display this content to the user as a
+   * component's label instead of the component's "id".  If the user
+   * interface does not have this capability (e.g., because it cannot
+   * display or use special characters in symbol names), or if the "name"
+   * attribute is missing on a given component, then the user interface
+   * should display the value of the "id" attribute instead.  (Script
+   * language interpreters are especially likely to display "id" instead of
+   * "name".)
+   * 
+   * As a consequence of the above, authors of systems that automatically
+   * generate the values of "id" attributes should be aware some systems
+   * may display the "id"'s to the user.  Authors therefore may wish to
+   * take some care to have their software create "id" values that are: (a)
+   * reasonably easy for humans to type and read; and (b) likely to be
+   * meaningful, for example by making the "id" attribute be an abbreviated
+   * form of the name attribute value.
+   * 
+   * An additional point worth mentioning is although there are
+   * restrictions on the uniqueness of "id" values, there are no
+   * restrictions on the uniqueness of "name" values in a model.  This
+   * allows software packages leeway in assigning component identifiers.
    * 
    * @return the name of this SBML object.
+   *
+   * @note The fact that the "name" attribute is defined on the SBase parent
+   * class object is a convenience provided by libSBML, and <b>does not
+   * strictly follow SBML specifications</b>.  This libSBML implementation
+   * of SBase allows client applications to use more generalized code in
+   * some situations (for instance, when manipulating objects that are all
+   * known to have identifiers), but beware that not all SBML object
+   * classes provide an "id" attribute.  LibSBML will allow the identifier
+   * to be set, but it will not read nor write "id" attributes for objects
+   * that do not possess them according to the SBML specification for the
+   * Level and Version in use.
+   *
+   * @see isSetName()
+   * @see setName(const std::string& name)
+   * @see unsetName()
    */
   const std::string& getName () const;
 
 
   /**
-   * Returns the content of the "notes" subelement of this object.
+   * Returns the content of the "notes" subelement of this object as
+   * a tree of XML nodes.
    *
-   * The notes content will be in XML form, but libSBML does not provide an
-   * object model specifically for the content of notes.  Callers will need
-   * to traverse the XML tree structure using the facilities available on
-   * XMLNode and related objects.
+   * The optional element named "notes", present on every major SBML
+   * component type, is intended as a place for storing optional
+   * information intended to be seen by humans.  An example use of the
+   * "notes" element would be to contain formatted user comments
+   * about the model element in which the "notes" element is
+   * enclosed.  Every object derived directly or indirectly from type
+   * SBase can have a separate value for "notes", allowing users
+   * considerable freedom when adding comments to their models.
+   * The format of "notes" elements must be XHTML 1.0.  The SBML
+   * Level&nbsp;2 specification has considerable detail about how
+   * "notes" element content must be handled; please refer to the
+   * specifications.
+   *
+   * The "notes" element content returned by this method will be in XML
+   * form, but libSBML does not provide an object model specifically for
+   * the content of notes.  Callers will need to traverse the XML tree
+   * structure using the facilities available on XMLNode and related
+   * objects.
    *
    * @return the content of the "notes" subelement of this SBML object.
+   *
+   * @see getNotesString()
+   * @see isSetNotes()
+   * @see setNotes(const XMLNode* notes)
+   * @see setNotes(const std::string& notes)
+   * @see appendNotes(const XMLNode* notes)
+   * @see appendNotes(const std::string& notes)
+   * @see unsetNotes()
    */
   XMLNode* getNotes();
 
 
   /**
-   * Returns the content of the "notes" subelement of this object by string.
+   * Returns the content of the "notes" subelement of this object as a
+   * string.
    *
-   * The notes content will be in XML form, but libSBML does not provide an
-   * object model specifically for the content of notes.  Callers will need
-   * to traverse the XML tree structure using the facilities available on
-   * XMLNode and related objects.
+   * The optional element named "notes", present on every major SBML
+   * component type, is intended as a place for storing optional
+   * information intended to be seen by humans.  An example use of the
+   * "notes" element would be to contain formatted user comments
+   * about the model element in which the "notes" element is
+   * enclosed.  Every object derived directly or indirectly from type
+   * SBase can have a separate value for "notes", allowing users
+   * considerable freedom when adding comments to their models.
+   * The format of "notes" elements must be XHTML 1.0.  The SBML
+   * Level&nbsp;2 specification has considerable detail about how
+   * "notes" element content must be handled; please refer to the
+   * specifications.
    *
    * @return the content of the "notes" subelement of this SBML object.
+   *
+   * @see getNotes()
+   * @see isSetNotes()
+   * @see setNotes(const XMLNode* notes)
+   * @see setNotes(const std::string& notes)
+   * @see appendNotes(const XMLNode* notes)
+   * @see appendNotes(const std::string& notes)
+   * @see unsetNotes()
    */
   std::string getNotesString ();
-
+-
 
   /**
-   * Returns the content of the "annotation" subelement of this object.
+   * Returns the content of the "annotation" subelement of this object as
+   * an XML node tree.
    *
-   * Annotations will be in XML form.  LibSBML provides an object model and
-   * related interfaces for certain specific kinds of annotations, namely
-   * model history information and RDF content.  See the relevant object
-   * classes for more information about the facilities available.
+   * Whereas the SBase "notes" subelement is a container for content to be
+   * shown directly to humans, the "annotation" element is a container for
+   * optional software-generated content @em not meant to be shown to
+   * humans.  Every object derived from SBase can have its own value for
+   * "annotation".  The element's content type is XML type
+   * <code>any</code>, allowing essentially arbitrary well-formed XML data
+   * content.
    *
-   * @return the annotation of this SBML object.
+   * SBML places a few restrictions on the organization of the content of
+   * annotations; these are intended to help software tools read and write
+   * the data as well as help reduce conflicts between annotations added by
+   * different tools.  Please see the SBML specifications for more details.
    *
-   * @see ModelHistory
-   * @see CVTerm
-   * @see RDFAnnotationParser
+   * The annotations returned by this method will be in XML form.  LibSBML
+   * provides an object model and related interfaces for certain specific
+   * kinds of annotations, namely model history information and RDF
+   * content.  See the ModelHistory, CVTerm and RDFAnnotationParser classes
+   * for more information about the facilities available.
+   *
+   * @return the annotation of this SBML object as an XMLNode
+   *
+   * @see getAnnotationString()
+   * @see isSetAnnotation()
+   * @see setAnnotation(const XMLNode* annotation)
+   * @see setAnnotation(const std::string& annotation)
+   * @see appendAnnotation(const XMLNode* annotation)
+   * @see appendAnnotation(const std::string& annotation)
+   * @see unsetAnnotation()
    */
   XMLNode* getAnnotation ();
 
 
   /**
-   * Returns the content of the "annotation" subelement of this object by.
-   * string.
+   * Returns the content of the "annotation" subelement of this object as a
+   * character string.
    *
-   * Annotations will be in XML form.  LibSBML provides an object model and
-   * related interfaces for certain specific kinds of annotations, namely
-   * model history information and RDF content.  See the relevant object
-   * classes for more information about the facilities available.
+   * Whereas the SBase "notes" subelement is a container for content to be
+   * shown directly to humans, the "annotation" element is a container for
+   * optional software-generated content @em not meant to be shown to
+   * humans.  Every object derived from SBase can have its own value for
+   * "annotation".  The element's content type is XML type
+   * <code>any</code>, allowing essentially arbitrary well-formed XML data
+   * content.
+   *
+   * SBML places a few restrictions on the organization of the content of
+   * annotations; these are intended to help software tools read and write
+   * the data as well as help reduce conflicts between annotations added by
+   * different tools.  Please see the SBML specifications for more details.
+   *
+   * The annotations returned by this method will be in string form.
    *
    * @return the annotation string of this SBML object.
    *
-   * @see ModelHistory
-   * @see CVTerm
-   * @see RDFAnnotationParser
+   * @see getAnnotation()
+   * @see isSetAnnotation()
+   * @see setAnnotation(const XMLNode* annotation)
+   * @see setAnnotation(const std::string& annotation)
+   * @see appendAnnotation(const XMLNode* annotation)
+   * @see appendAnnotation(const std::string& annotation)
+   * @see unsetAnnotation()
    */
   std::string getAnnotationString ();
 
@@ -498,20 +688,45 @@ public:
   /**
    * Returns a list of the XML Namespaces declared on this SBML document.
    * 
-   * @return the Namespaces associated with this SBML object
+   * @return the XML Namespaces associated with this SBML object
    */
   virtual XMLNamespaces* getNamespaces() const ;
 
 
   /**
    * Returns the parent SBMLDocument object.
+   *
+   * LibSBML uses the class SBMLDocument as a top-level container for
+   * storing SBML content and data associated with it (such as warnings and
+   * error messages).  An SBML model in libSBML is contained inside an
+   * SBMLDocument object.  SBMLDocument corresponds roughly to the class
+   * <i>Sbml</i> defined in the SBML Level&nbsp;2 specification, but it
+   * does not have a direct correspondence in SBML Level&nbsp;1.  (But, it
+   * is created by libSBML no matter whether the model is Level&nbsp;1 or
+   * Level&nbsp;2.)
+   *
+   * This method allows the SBMLDocument for the current object to be
+   * retrieved.
    * 
    * @return the parent SBMLDocument object of this SBML object.
    */
   const SBMLDocument* getSBMLDocument () const;
 
+
   /**
    * Returns the parent SBMLDocument object.
+   *
+   * LibSBML uses the class SBMLDocument as a top-level container for
+   * storing SBML content and data associated with it (such as warnings and
+   * error messages).  An SBML model in libSBML is contained inside an
+   * SBMLDocument object.  SBMLDocument corresponds roughly to the class
+   * <i>Sbml</i> defined in the SBML Level&nbsp;2 specification, but it
+   * does not have a direct correspondence in SBML Level&nbsp;1.  (But, it
+   * is created by libSBML no matter whether the model is Level&nbsp;1 or
+   * Level&nbsp;2.)
+   *
+   * This method allows the SBMLDocument for the current object to be
+   * retrieved.
    * 
    * @return the parent SBMLDocument object of this SBML object.
    */
@@ -520,6 +735,10 @@ public:
 
   /**
    * Returns the parent SBML object.
+   *
+   * This method is convenient when holding an object nested inside
+   * other objects in an SBML model.  It allows direct access to the
+   * <code>&lt;model&gt;</code> element containing it.
    * 
    * @return the parent SBML object of this SBML object.
    */
@@ -615,10 +834,27 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * object's "metaid" attribute has been set.
    *
+   * The optional attribute named "metaid", present on every major SBML
+   * component type, is for supporting metadata annotations using RDF
+   * (Resource Description Format). The attribute value has the data type
+   * <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, the XML
+   * identifier type, which means each "metaid" value must be globally
+   * unique within an SBML file.  (Importantly, this uniqueness criterion
+   * applies across any attribute with type <a
+   * href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, not just the
+   * "metaid" attribute used by SBML&mdash;something to be aware of if your
+   * application-specific XML content inside the "annotation" subelement
+   * happens to use XML ID.)  The "metaid" value serves to identify a model
+   * component for purposes such as referencing that component from
+   * metadata placed within "annotation" subelements.
+   *  
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @return @c true if the "metaid" attribute of this SBML object has been
    * set, @c false otherwise.
+   *
+   * @see getMetaId()
+   * @see setMetaId(const std::string& metaid)
    */
   bool isSetMetaId () const;
 
@@ -627,10 +863,45 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * object's "id" attribute has been set.
    *
+   * Most (but not all) objects in SBML include two common attributes: "id"
+   * and "name".  The identifier given by an object's "id" attribute value
+   * is used to identify the object within the SBML model definition.
+   * Other objects can refer to the component using this identifier.  The
+   * data type of "id" is always either <code>Sid</code> or
+   * <code>UnitSId</code>, depending on the object in question.  Both
+   * data types are defined as follows:
+   * @code
+   *   letter ::= 'a'..'z','A'..'Z'
+   *   digit  ::= '0'..'9'
+   *   idChar ::= letter | digit | '_'
+   *   SId    ::= ( letter | '_' ) idChar*
+   * @endcode
+   *
+   * The equality of <code>SId</code> and <code>UnitSId</code> type values
+   * in SBML is determined by an exact character sequence match; i.e.,
+   * comparisons of these identifiers must be performed in a case-sensitive
+   * manner.  This applies to all uses of <code>SId</code> and
+   * <code>UnitSId</code>.
+   * 
    * @htmlinclude libsbml-comment-set-methods.html
    * 
    * @return @c true if the "id" attribute of this SBML object has been
    * set, @c false otherwise.
+   * 
+   * @note The fact that the value of attribute "id" is defined on the
+   * SBase parent class object is a convenience provided by libSBML, and
+   * <b>does not strictly follow SBML specifications</b>.  This libSBML
+   * implementation of SBase allows client applications to use more
+   * generalized code in some situations (for instance, when manipulating
+   * objects that are all known to have identifiers), but beware that not
+   * all SBML object classes provide an "id" attribute.  LibSBML will allow
+   * the identifier to be set, but it will not read nor write "id"
+   * attributes for objects that do not possess them according to the SBML
+   * specification for the Level and Version in use.
+   *
+   * @see getId()
+   * @see setId(const std::string& sid)
+   * @see unsetId()
    */
   bool isSetId () const;
 
@@ -638,11 +909,59 @@ public:
   /**
    * Predicate returning @c true or @c false depending on whether this
    * object's "name" attribute has been set.
+   * 
+   * Most (but not all) objects in SBML include two common attributes: "id"
+   * and "name".  In contrast to the "id" attribute, the "name" attribute is
+   * optional and is not intended to be used for cross-referencing purposes
+   * within a model.  Its purpose instead is to provide a human-readable
+   * label for the component.  The data type of "name" is the type
+   * <code>string</code> defined in XML Schema.  SBML imposes no
+   * restrictions as to the content of "name" attributes beyond those
+   * restrictions defined by the <code>string</code> type in XML Schema.
+   * 
+   * The recommended practice for handling "name" is as follows.  If a
+   * software tool has the capability for displaying the content of "name"
+   * attributes, it should display this content to the user as a
+   * component's label instead of the component's "id".  If the user
+   * interface does not have this capability (e.g., because it cannot
+   * display or use special characters in symbol names), or if the "name"
+   * attribute is missing on a given component, then the user interface
+   * should display the value of the "id" attribute instead.  (Script
+   * language interpreters are especially likely to display "id" instead of
+   * "name".)
+   * 
+   * As a consequence of the above, authors of systems that automatically
+   * generate the values of "id" attributes should be aware some systems
+   * may display the "id"'s to the user.  Authors therefore may wish to
+   * take some care to have their software create "id" values that are: (a)
+   * reasonably easy for humans to type and read; and (b) likely to be
+   * meaningful, for example by making the "id" attribute be an abbreviated
+   * form of the name attribute value.
+   * 
+   * An additional point worth mentioning is although there are
+   * restrictions on the uniqueness of "id" values, there are no
+   * restrictions on the uniqueness of "name" values in a model.  This
+   * allows software packages leeway in assigning component identifiers.
    *
    * @htmlinclude libsbml-comment-set-methods.html
    * 
    * @return @c true if the "name" attribute of this SBML object has been
    * set, @c false otherwise.
+   *
+   * @note The fact that the "name" attribute is defined on the SBase parent
+   * class object is a convenience provided by libSBML, and <b>does not
+   * strictly follow SBML specifications</b>.  This libSBML implementation
+   * of SBase allows client applications to use more generalized code in
+   * some situations (for instance, when manipulating objects that are all
+   * known to have identifiers), but beware that not all SBML object
+   * classes provide an "id" attribute.  LibSBML will allow the identifier
+   * to be set, but it will not read nor write "id" attributes for objects
+   * that do not possess them according to the SBML specification for the
+   * Level and Version in use.
+   *
+   * @see getName()
+   * @see setName(const std::string& name)
+   * @see unsetName()
    */
   bool isSetName () const;
 
@@ -651,9 +970,30 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * object's "notes" subelement exists and has content.
    *
+   * The optional element named "notes", present on every major SBML
+   * component type, is intended as a place for storing optional
+   * information intended to be seen by humans.  An example use of the
+   * "notes" element would be to contain formatted user comments
+   * about the model element in which the "notes" element is
+   * enclosed.  Every object derived directly or indirectly from type
+   * SBase can have a separate value for "notes", allowing users
+   * considerable freedom when adding comments to their models.
+   * The format of "notes" elements must be XHTML 1.0.  The SBML
+   * Level&nbsp;2 specification has considerable detail about how
+   * "notes" element content must be handled; please refer to the
+   * specifications.
+   *
    * @htmlinclude libsbml-comment-set-methods.html
    * 
    * @return @c true if a "notes" subelement exists, @c false otherwise.
+   * 
+   * @see getNotes()
+   * @see getNotesString()
+   * @see setNotes(const XMLNode* notes)
+   * @see setNotes(const std::string& notes)
+   * @see appendNotes(const XMLNode* notes)
+   * @see appendNotes(const std::string& notes)
+   * @see unsetNotes()
    */
   bool isSetNotes () const;
 
@@ -662,10 +1002,31 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * object's "annotation" subelement exists and has content.
    *
+   * Whereas the SBase "notes" subelement is a container for content to be
+   * shown directly to humans, the "annotation" element is a container for
+   * optional software-generated content @em not meant to be shown to
+   * humans.  Every object derived from SBase can have its own value for
+   * "annotation".  The element's content type is XML type
+   * <code>any</code>, allowing essentially arbitrary well-formed XML data
+   * content.
+   *
+   * SBML places a few restrictions on the organization of the content of
+   * annotations; these are intended to help software tools read and write
+   * the data as well as help reduce conflicts between annotations added by
+   * different tools.  Please see the SBML specifications for more details.
+   *
    * @htmlinclude libsbml-comment-set-methods.html
    * 
    * @return @c true if a "annotation" subelement exists, @c false
    * otherwise.
+   * 
+   * @see getAnnotation()
+   * @see getAnnotationString()
+   * @see setAnnotation(const XMLNode* annotation)
+   * @see setAnnotation(const std::string& annotation)
+   * @see appendAnnotation(const XMLNode* annotation)
+   * @see appendAnnotation(const std::string& annotation)
+   * @see unsetAnnotation()
    */
   bool isSetAnnotation () const;
 
@@ -687,23 +1048,28 @@ public:
    *
    * The string @p metaid is copied.  The value of @p metaid must be an
    * identifier conforming to the syntax defined by the XML 1.0 data type
-   * ID.  Among other things, this type requires that a value is unique
-   * among all the values of type XML ID in an SBMLDocument.  Although SBML
-   * only uses XML ID for the "metaid" attribute, callers should be careful
-   * if they use XML ID's in XML portions of a model that are not defined
-   * by SBML, such as in the application-specific content of the
-   * "annotation" subelement.
+   * <a href="http://www.w3.org/TR/REC-xml/#id">ID</a>.  Among other
+   * things, this type requires that a value is unique among all the values
+   * of type XML ID in an SBMLDocument.  Although SBML only uses <a
+   * href="http://www.w3.org/TR/REC-xml/#id">XML ID</a> for the "metaid"
+   * attribute, callers should be careful if they use XML ID's in XML
+   * portions of a model that are not defined by SBML, such as in the
+   * application-specific content of the "annotation" subelement.
    *
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param metaid the identifier string to use as the value of the
    * "metaid" attribute
+   * 
+   * @see getMetaId()
+   * @see isSetMetaId()
    */
   void setMetaId (const std::string& metaid);
 
 
   /**
-   * Sets the value of the "id" attribute of this SBML object.
+   * Sets the value of the "id" attribute of this SBML object to a copy
+   * of @p id.
    *
    * The string @p sid is copied.  Note that SBML has strict requirements
    * for the syntax of identifiers.  The following is summary of the
@@ -724,160 +1090,368 @@ public:
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param sid the string to use as the identifier of this object
+   * 
+   * @note The fact that the value of attribute "id" is defined on the
+   * SBase parent class object is a convenience provided by libSBML, and
+   * <b>does not strictly follow SBML specifications</b>.  This libSBML
+   * implementation of SBase allows client applications to use more
+   * generalized code in some situations (for instance, when manipulating
+   * objects that are all known to have identifiers), but beware that not
+   * all SBML object classes provide an "id" attribute.  LibSBML will allow
+   * the identifier to be set, but it will not read nor write "id"
+   * attributes for objects that do not possess them according to the SBML
+   * specification for the Level and Version in use.
+   *
+   * @see isSetId()
+   * @see getId()
+   * @see unsetId()
    */
   void setId (const std::string& sid);
 
 
   /**
-   * Sets the value of the "name" attribute of this SBML object.
+   * Sets the value of the "name" attribute of this SBML object to a copy
+   * of @p name.
+   * 
+   * Most (but not all) objects in SBML include two common attributes: "id"
+   * and "name".  In contrast to the "id" attribute, the "name" attribute is
+   * optional and is not intended to be used for cross-referencing purposes
+   * within a model.  Its purpose instead is to provide a human-readable
+   * label for the component.  The data type of "name" is the type
+   * <code>string</code> defined in XML Schema.  SBML imposes no
+   * restrictions as to the content of "name" attributes beyond those
+   * restrictions defined by the <code>string</code> type in XML Schema.
    *
-   * The string in @p name is copied.
-   *
+   * The recommended practice for handling "name" is as follows.  If a
+   * software tool has the capability for displaying the content of "name"
+   * attributes, it should display this content to the user as a
+   * component's label instead of the component's "id".  If the user
+   * interface does not have this capability (e.g., because it cannot
+   * display or use special characters in symbol names), or if the "name"
+   * attribute is missing on a given component, then the user interface
+   * should display the value of the "id" attribute instead.  (Script
+   * language interpreters are especially likely to display "id" instead of
+   * "name".)
+   * 
+   * As a consequence of the above, authors of systems that automatically
+   * generate the values of "id" attributes should be aware some systems
+   * may display the "id"'s to the user.  Authors therefore may wish to
+   * take some care to have their software create "id" values that are: (a)
+   * reasonably easy for humans to type and read; and (b) likely to be
+   * meaningful, for example by making the "id" attribute be an abbreviated
+   * form of the name attribute value.
+   * 
+   * An additional point worth mentioning is although there are
+   * restrictions on the uniqueness of "id" values, there are no
+   * restrictions on the uniqueness of "name" values in a model.  This
+   * allows software packages leeway in assigning component identifiers.
+   * 
    * @htmlinclude libsbml-comment-set-methods.html
    *
-   * @param name the new name for the object
+   * @param name the new name for the object; the string will be copied
+   *
+   * @note The fact that the "name" attribute is defined on the SBase parent
+   * class object is a convenience provided by libSBML, and <b>does not
+   * strictly follow SBML specifications</b>.  This libSBML implementation
+   * of SBase allows client applications to use more generalized code in
+   * some situations (for instance, when manipulating objects that are all
+   * known to have identifiers), but beware that not all SBML object
+   * classes provide an "id" attribute.  LibSBML will allow the identifier
+   * to be set, but it will not read nor write "id" attributes for objects
+   * that do not possess them according to the SBML specification for the
+   * Level and Version in use.
+   *
+   * @see getName()
+   * @see isSetName()
+   * @see unsetName()
    */
   void setName (const std::string& name);
 
 
   /**
-   * Sets the value of the "annotation" subelement of this SBML object to a
+   * Resets the value of the "annotation" subelement of this SBML object to a
    * copy of @p annotation.
+   * 
+   * Whereas the SBase "notes" subelement is a container for content to be
+   * shown directly to humans, the "annotation" element is a container for
+   * optional software-generated content @em not meant to be shown to
+   * humans.  Every object derived from SBase can have its own value for
+   * "annotation".  The element's content type is XML type
+   * <code>any</code>, allowing essentially arbitrary well-formed XML data
+   * content.
    *
-   * Any existing content of the "annotation" subelement is discarded.
-   * Unless you have taken steps to first copy and reconstitute any
-   * existing annotations into the @p annotation that is about to be
-   * assigned, it is likely that performing such wholesale replacement is
-   * unfriendly towards other software applications whose annotations are
-   * discarded.  An alternative may be to use appendAnnotation().
+   * SBML places a few restrictions on the organization of the content of
+   * annotations; these are intended to help software tools read and write
+   * the data as well as help reduce conflicts between annotations added by
+   * different tools.  Please see the SBML specifications for more details.
+   *
+   * Call this method will result in any existing content of the
+   * "annotation" subelement to be discarded.  Unless you have taken steps
+   * to first copy and reconstitute any existing annotations into the @p
+   * annotation that is about to be assigned, it is likely that performing
+   * such wholesale replacement is unfriendly towards other software
+   * applications whose annotations are discarded.  An alternative may be
+   * to use Sbase::appendAnnotation(const XMLNode* annotation) or
+   * appendAnnotation(const std::string& annotation).
    *
    * @htmlinclude libsbml-comment-set-methods.html
    *
-   * @param annotation an XML structure that is to be used as the content
+   * @param annotation an XML structure that is to be used as the new content
    * of the "annotation" subelement of this object
    *
+   * @see getAnnotationString()
+   * @see isSetAnnotation()
+   * @see setAnnotation(const std::string& annotation)
    * @see appendAnnotation(const XMLNode* annotation)
    * @see appendAnnotation(const std::string& annotation)
+   * @see unsetAnnotation()
    */
   virtual void setAnnotation (const XMLNode* annotation);
 
 
   /**
    * Sets the value of the "annotation" subelement of this SBML object to a
-   * copy of @p annotation.
+   * copy of @p annotation given as a character string.
+   * 
+   * Whereas the SBase "notes" subelement is a container for content to be
+   * shown directly to humans, the "annotation" element is a container for
+   * optional software-generated content @em not meant to be shown to
+   * humans.  Every object derived from SBase can have its own value for
+   * "annotation".  The element's content type is XML type
+   * <code>any</code>, allowing essentially arbitrary well-formed XML data
+   * content.
    *
-   * Any existing content of the "annotation" subelement is discarded.
-   * Unless you have taken steps to first copy and reconstitute any
-   * existing annotations into the @p annotation that is about to be
-   * assigned, it is likely that performing such wholesale replacement is
-   * unfriendly towards other software applications whose annotations are
-   * discarded.  An alternative may be to use appendAnnotation().
+   * SBML places a few restrictions on the organization of the content of
+   * annotations; these are intended to help software tools read and write
+   * the data as well as help reduce conflicts between annotations added by
+   * different tools.  Please see the SBML specifications for more details.
+   *
+   * Call this method will result in any existing content of the
+   * "annotation" subelement to be discarded.  Unless you have taken steps
+   * to first copy and reconstitute any existing annotations into the @p
+   * annotation that is about to be assigned, it is likely that performing
+   * such wholesale replacement is unfriendly towards other software
+   * applications whose annotations are discarded.  An alternative may be
+   * to use Sbase::appendAnnotation(const XMLNode* annotation) or
+   * appendAnnotation(const std::string& annotation).
    *
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param annotation an XML string that is to be used as the content
    * of the "annotation" subelement of this object
    *
+   * @see getAnnotationString()
+   * @see isSetAnnotation()
+   * @see setAnnotation(const XMLNode* annotation)
    * @see appendAnnotation(const XMLNode* annotation)
    * @see appendAnnotation(const std::string& annotation)
+   * @see unsetAnnotation()
    */
   virtual void setAnnotation (const std::string& annotation);
 
 
   /**
-   * Appends annotation content to any existing content in the "annotation"
-   * subelement of this object.
+   * Appends the annotation content given by @p annotation to any existing
+   * content in the "annotation" subelement of this object.
+   * 
+   * Whereas the SBase "notes" subelement is a container for content to be
+   * shown directly to humans, the "annotation" element is a container for
+   * optional software-generated content @em not meant to be shown to
+   * humans.  Every object derived from SBase can have its own value for
+   * "annotation".  The element's content type is XML type
+   * <code>any</code>, allowing essentially arbitrary well-formed XML data
+   * content.
    *
-   * The content in @p annotation is copied.  Unlike setAnnotation(), this
-   * method allows other annotations to be preserved when an application
-   * adds its own data.
+   * SBML places a few restrictions on the organization of the content of
+   * annotations; these are intended to help software tools read and write
+   * the data as well as help reduce conflicts between annotations added by
+   * different tools.  Please see the SBML specifications for more details.
+   *
+   * Unlike SBase::setAnnotation(const XMLNode* annotation) or
+   * Sbase::setAnnotation(const std::string& annotation), this method
+   * allows other annotations to be preserved when an application adds its
+   * own data.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    * 
    * @param annotation an XML structure that is to be copied and appended
    * to the content of the "annotation" subelement of this object
    *
-   * @see setAnnotation(const std::string& annotation)
+   * @see getAnnotationString()
+   * @see isSetAnnotation()
    * @see setAnnotation(const XMLNode* annotation)
+   * @see setAnnotation(const std::string& annotation)
+   * @see appendAnnotation(const std::string& annotation)
+   * @see unsetAnnotation()
    */
   virtual void appendAnnotation (const XMLNode* annotation);
 
 
   /**
-   * Appends annotation content to any existing content in the "annotation"
-   * subelement of this object.
+   * Appends the annotation content given by @p annotation to any existing
+   * content in the "annotation" subelement of this object.
    *
-   * The content in @p annotation is copied.  Unlike setAnnotation(), this
-   * method allows other annotations to be preserved when an application
-   * adds its own data.
+   * Whereas the SBase "notes" subelement is a container for content to be
+   * shown directly to humans, the "annotation" element is a container for
+   * optional software-generated content @em not meant to be shown to
+   * humans.  Every object derived from SBase can have its own value for
+   * "annotation".  The element's content type is XML type
+   * <code>any</code>, allowing essentially arbitrary well-formed XML data
+   * content.
    *
+   * SBML places a few restrictions on the organization of the content of
+   * annotations; these are intended to help software tools read and write
+   * the data as well as help reduce conflicts between annotations added by
+   * different tools.  Please see the SBML specifications for more details.
+   *
+   * Unlike SBase::setAnnotation(const XMLNode* annotation) or
+   * Sbase::setAnnotation(const std::string& annotation), this method
+   * allows other annotations to be preserved when an application adds its
+   * own data.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
    * @param annotation an XML string that is to be copied and appended
    * to the content of the "annotation" subelement of this object
    *
-   * @see setAnnotation(const std::string& annotation)
+   * @see getAnnotationString()
+   * @see isSetAnnotation()
    * @see setAnnotation(const XMLNode* annotation)
+   * @see setAnnotation(const std::string& annotation)
+   * @see appendAnnotation(const XMLNode* annotation)
+   * @see unsetAnnotation()
    */
   virtual void appendAnnotation (const std::string& annotation);
 
 
   /**
    * Sets the value of the "notes" subelement of this SBML object to a copy
-   * of @p notes.
-   *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * of the XML structure given by @p notes.
    *
    * Any existing content of the "notes" subelement is discarded.
+   *
+   * The optional element named "notes", present on every major SBML
+   * component type, is intended as a place for storing optional
+   * information intended to be seen by humans.  An example use of the
+   * "notes" element would be to contain formatted user comments
+   * about the model element in which the "notes" element is
+   * enclosed.  Every object derived directly or indirectly from type
+   * SBase can have a separate value for "notes", allowing users
+   * considerable freedom when adding comments to their models.
+   * The format of "notes" elements must be XHTML 1.0.  The SBML
+   * Level&nbsp;2 specification has considerable detail about how
+   * "notes" element content must be handled; please refer to the
+   * specifications.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param notes an XML structure that is to be used as the content of the
    * "notes" subelement of this object
    *
+   * @see getNotesString()
+   * @see isSetNotes()
+   * @see setNotes(const std::string& notes)
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
+   * @see unsetNotes()
    */
   void setNotes(const XMLNode* notes);
 
 
   /**
    * Sets the value of the "notes" subelement of this SBML object to a copy
-   * of @p notes.
+   * of the string @p notes.
    *
    * Any existing content of the "notes" subelement is discarded.
+   *
+   * The optional element named "notes", present on every major SBML
+   * component type, is intended as a place for storing optional
+   * information intended to be seen by humans.  An example use of the
+   * "notes" element would be to contain formatted user comments
+   * about the model element in which the "notes" element is
+   * enclosed.  Every object derived directly or indirectly from type
+   * SBase can have a separate value for "notes", allowing users
+   * considerable freedom when adding comments to their models.
+   * The format of "notes" elements must be XHTML 1.0.  The SBML
+   * Level&nbsp;2 specification has considerable detail about how
+   * "notes" element content must be handled; please refer to the
+   * specifications.
    *
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param notes an XML string that is to be used as the content of the
    * "notes" subelement of this object
    *
+   * @see getNotesString()
+   * @see isSetNotes()
+   * @see setNotes(const XMLNode* notes)
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
+   * @see unsetNotes()
    */
   void setNotes(const std::string& notes);
 
 
   /**
-   * Appends annotation content to any existing content in the "annotation"
-   * subelement of this object.
+   * Appends notes content to the "notes" element attached to this
+   * object.
    *
    * The content in @p notes is copied.
-   * 
-   * @param notes an XML structure that is to appended to the content of
-   * the "notes" subelement of this object
    *
+   * The optional element named "notes", present on every major SBML
+   * component type, is intended as a place for storing optional
+   * information intended to be seen by humans.  An example use of the
+   * "notes" element would be to contain formatted user comments
+   * about the model element in which the "notes" element is
+   * enclosed.  Every object derived directly or indirectly from type
+   * SBase can have a separate value for "notes", allowing users
+   * considerable freedom when adding comments to their models.
+   * The format of "notes" elements must be XHTML 1.0.  The SBML
+   * Level&nbsp;2 specification has considerable detail about how
+   * "notes" element content must be handled; please refer to the
+   * specifications.
+   * 
+   * @param notes an XML node structure that is to appended to the content
+   * of the "notes" subelement of this object
+   *
+   * @see getNotesString()
+   * @see isSetNotes()
    * @see setNotes(const XMLNode* notes)
    * @see setNotes(const std::string& notes)
+   * @see appendNotes(const std::string& notes)
+   * @see unsetNotes()
    */
   void appendNotes(const XMLNode* notes);
 
 
   /**
-   * Appends annotation content to any existing content in the "annotation"
-   * subelement of this object.
+   * Appends notes content to the "notes" element attached to this
+   * object.
    *
    * The content in @p notes is copied.
+   *
+   * The optional element named "notes", present on every major SBML
+   * component type, is intended as a place for storing optional
+   * information intended to be seen by humans.  An example use of the
+   * "notes" element would be to contain formatted user comments
+   * about the model element in which the "notes" element is
+   * enclosed.  Every object derived directly or indirectly from type
+   * SBase can have a separate value for "notes", allowing users
+   * considerable freedom when adding comments to their models.
+   * The format of "notes" elements must be XHTML 1.0.  The SBML
+   * Level&nbsp;2 specification has considerable detail about how
+   * "notes" element content must be handled; please refer to the
+   * specifications.
    *
    * @param notes an XML string that is to appended to the content of
    * the "notes" subelement of this object
    *
+   * @see getNotesString()
+   * @see isSetNotes()
    * @see setNotes(const XMLNode* notes)
    * @see setNotes(const std::string& notes)
+   * @see appendNotes(const XMLNode* notes)
+   * @see unsetNotes()
    */
   void appendNotes(const std::string& notes);
 
@@ -934,6 +1508,20 @@ public:
   /**
    * Unsets the value of the "metaid" attribute of this SBML object.
    *
+   * The optional attribute named "metaid", present on every major SBML
+   * component type, is for supporting metadata annotations using RDF
+   * (Resource Description Format). The attribute value has the data type
+   * <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, the XML
+   * identifier type, which means each "metaid" value must be globally
+   * unique within an SBML file.  (Importantly, this uniqueness criterion
+   * applies across any attribute with type <a
+   * href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, not just the
+   * "metaid" attribute used by SBML&mdash;something to be aware of if your
+   * application-specific XML content inside the "annotation" subelement
+   * happens to use XML ID.)  The "metaid" value serves to identify a model
+   * component for purposes such as referencing that component from
+   * metadata placed within "annotation" subelements.
+   *  
    * @htmlinclude libsbml-comment-set-methods.html
    */
   void unsetMetaId ();
@@ -942,15 +1530,98 @@ public:
   /**
    * Unsets the value of the "id" attribute of this SBML object.
    *
+   * Most (but not all) objects in SBML include two common attributes: "id"
+   * and "name".  The identifier given by an object's "id" attribute value
+   * is used to identify the object within the SBML model definition.
+   * Other objects can refer to the component using this identifier.  The
+   * data type of "id" is always either <code>Sid</code> or
+   * <code>UnitSId</code>, depending on the object in question.  Both
+   * data types are defined as follows:
+   * @code
+   *   letter ::= 'a'..'z','A'..'Z'
+   *   digit  ::= '0'..'9'
+   *   idChar ::= letter | digit | '_'
+   *   SId    ::= ( letter | '_' ) idChar*
+   * @endcode
+   *
+   * The equality of <code>SId</code> and <code>UnitSId</code> type values
+   * in SBML is determined by an exact character sequence match; i.e.,
+   * comparisons of these identifiers must be performed in a case-sensitive
+   * manner.  This applies to all uses of <code>SId</code> and
+   * <code>UnitSId</code>.
+   *
    * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @note The fact that the value of attribute "id" is defined on the
+   * SBase parent class object is a convenience provided by libSBML, and
+   * <b>does not strictly follow SBML specifications</b>.  This libSBML
+   * implementation of SBase allows client applications to use more
+   * generalized code in some situations (for instance, when manipulating
+   * objects that are all known to have identifiers), but beware that not
+   * all SBML object classes provide an "id" attribute.  LibSBML will allow
+   * the identifier to be set, but it will not read nor write "id"
+   * attributes for objects that do not possess them according to the SBML
+   * specification for the Level and Version in use.
+   *
+   * @see setId(const std::string& sid)
+   * @see getId()
+   * @see isSetId()
    */
   void unsetId ();
 
 
   /**
    * Unsets the value of the "name" attribute of this SBML object.
+   * 
+   * Most (but not all) objects in SBML include two common attributes: "id"
+   * and "name".  In contrast to the "id" attribute, the "name" attribute is
+   * optional and is not intended to be used for cross-referencing purposes
+   * within a model.  Its purpose instead is to provide a human-readable
+   * label for the component.  The data type of "name" is the type
+   * <code>string</code> defined in XML Schema.  SBML imposes no
+   * restrictions as to the content of "name" attributes beyond those
+   * restrictions defined by the <code>string</code> type in XML Schema.
    *
+   * The recommended practice for handling "name" is as follows.  If a
+   * software tool has the capability for displaying the content of "name"
+   * attributes, it should display this content to the user as a
+   * component's label instead of the component's "id".  If the user
+   * interface does not have this capability (e.g., because it cannot
+   * display or use special characters in symbol names), or if the "name"
+   * attribute is missing on a given component, then the user interface
+   * should display the value of the "id" attribute instead.  (Script
+   * language interpreters are especially likely to display "id" instead of
+   * "name".)
+   * 
+   * As a consequence of the above, authors of systems that automatically
+   * generate the values of "id" attributes should be aware some systems
+   * may display the "id"'s to the user.  Authors therefore may wish to
+   * take some care to have their software create "id" values that are: (a)
+   * reasonably easy for humans to type and read; and (b) likely to be
+   * meaningful, for example by making the "id" attribute be an abbreviated
+   * form of the name attribute value.
+   * 
+   * An additional point worth mentioning is although there are
+   * restrictions on the uniqueness of "id" values, there are no
+   * restrictions on the uniqueness of "name" values in a model.  This
+   * allows software packages leeway in assigning component identifiers.
+   * 
    * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @note The fact that the "name" attribute is defined on the SBase parent
+   * class object is a convenience provided by libSBML, and <b>does not
+   * strictly follow SBML specifications</b>.  This libSBML implementation
+   * of SBase allows client applications to use more generalized code in
+   * some situations (for instance, when manipulating objects that are all
+   * known to have identifiers), but beware that not all SBML object
+   * classes provide an "id" attribute.  LibSBML will allow the identifier
+   * to be set, but it will not read nor write "id" attributes for objects
+   * that do not possess them according to the SBML specification for the
+   * Level and Version in use.
+   *
+   * @see isSetName()
+   * @see setName(const std::string& name)
+   * @see getName()
    */
   void unsetName ();
 
@@ -958,7 +1629,27 @@ public:
   /**
    * Unsets the value of the "notes" subelement of this SBML object.
    *
+   * The optional element named "notes", present on every major SBML
+   * component type, is intended as a place for storing optional
+   * information intended to be seen by humans.  An example use of the
+   * "notes" element would be to contain formatted user comments
+   * about the model element in which the "notes" element is
+   * enclosed.  Every object derived directly or indirectly from type
+   * SBase can have a separate value for "notes", allowing users
+   * considerable freedom when adding comments to their models.
+   * The format of "notes" elements must be XHTML 1.0.  The SBML
+   * Level&nbsp;2 specification has considerable detail about how
+   * "notes" element content must be handled; please refer to the
+   * specifications.
+   *
    * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @see getNotesString()
+   * @see isSetNotes()
+   * @see setNotes(const XMLNode* notes)
+   * @see setNotes(const std::string& notes)
+   * @see appendNotes(const XMLNode* notes)
+   * @see appendNotes(const std::string& notes)
    */
   void unsetNotes ();
 
@@ -966,7 +1657,28 @@ public:
   /**
    * Unsets the value of the "annotation" subelement of this SBML object.
    *
+   * Whereas the SBase "notes" subelement is a container for content to be
+   * shown directly to humans, the "annotation" element is a container for
+   * optional software-generated content @em not meant to be shown to
+   * humans.  Every object derived from SBase can have its own value for
+   * "annotation".  The element's content type is XML type
+   * <code>any</code>, allowing essentially arbitrary well-formed XML data
+   * content.
+   *
+   * SBML places a few restrictions on the organization of the content of
+   * annotations; these are intended to help software tools read and write
+   * the data as well as help reduce conflicts between annotations added by
+   * different tools.  Please see the SBML specifications for more details.
+   *
    * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @see getAnnotation()
+   * @see getAnnotationString()
+   * @see isSetAnnotation()
+   * @see setAnnotation(const XMLNode* annotation)
+   * @see setAnnotation(const std::string& annotation)
+   * @see appendAnnotation(const XMLNode* annotation)
+   * @see appendAnnotation(const std::string& annotation)
    */
   void unsetAnnotation ();
 
@@ -1054,6 +1766,7 @@ public:
    * @return the #BiolQualifierType_t value associated with the resource
    */
   BiolQualifierType_t getResourceBiologicalQualifier(std::string resource);
+
 
   /**
    * Returns the ModelQualifier associated with this resource,
@@ -1337,14 +2050,23 @@ protected:
 
   /**
    * Checks the syntax of a metaid attribute.
-   * The syntax of a metaid is XML 1.0 type ID. The literal representation of 
-   * this type consists of strings of characters restricted to:
-   *
-   *  - NCNameChar ::= letter | digit | '.' | '-' | ' ' | ':' | CombiningChar | Extender
-   *  - ID ::= ( letter | ' ' | ':' ) NCNameChar*
-   *
+   * 
+   * The optional attribute named "metaid", present on every major SBML
+   * component type, is for supporting metadata annotations using RDF
+   * (Resource Description Format). The attribute value has the data type
+   * <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, the XML
+   * identifier type, which means each "metaid" value must be globally
+   * unique within an SBML file.  (Importantly, this uniqueness criterion
+   * applies across any attribute with type <a
+   * href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, not just the
+   * "metaid" attribute used by SBML&mdash;something to be aware of if your
+   * application-specific XML content inside the "annotation" subelement
+   * happens to use XML ID.)  The "metaid" value serves to identify a model
+   * component for purposes such as referencing that component from
+   * metadata placed within "annotation" subelements.
+   *  
    * If the syntax of the metaid attribute of this object is incorrect, 
-   * an error is logged
+   * this method logs an error in the SBMLDocument's error log.
    */
   void checkMetaIdSyntax();
 
