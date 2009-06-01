@@ -615,7 +615,7 @@ public:
    * @see unsetNotes()
    */
   std::string getNotesString ();
--
+
 
   /**
    * Returns the content of the "annotation" subelement of this object as
