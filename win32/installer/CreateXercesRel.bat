@@ -36,13 +36,11 @@ cd java
 mkdir classes
 
 cd classes
-copy ..\..\..\..\..\..\src\bindings\java\java-files\sbmlj.jar sbmlj.jar
+copy ..\..\..\..\..\MSVC7\bin\java\sbmlj.jar sbmlj.jar
 
 cd ..
-copy ..\..\..\..\..\src\bindings\java\libs\sbmlj.dll sbmlj.dll
-copy ..\..\..\..\..\src\bindings\java\libs\sbmljD.dll sbmljD.dll
-copy ..\..\..\..\..\src\bindings\java\libs\sbmlj.lib sbmlj.lib
-copy ..\..\..\..\..\src\bindings\java\libs\sbmljD.lib sbmljD.lib
+copy ..\..\..\..\MSVC7\bin\java\sbmlj.dll sbmlj.dll
+copy ..\..\..\..\MSVC7\bin\java\sbmlj.lib sbmlj.lib
 cd ..
 
 rem bindings/matlab directory
@@ -67,11 +65,9 @@ cd ..
 
 rem bindings/csharp directory
 cd csharp
-copy ..\..\..\..\..\src\bindings\csharp\libsbmlcs.dll libsbmlcs.dll
-copy ..\..\..\..\..\src\bindings\csharp\libsbmlcsD.dll libsbmlcsD.dll
-copy ..\..\..\..\..\src\bindings\csharp\libsbmlcs.lib libsbmlcs.lib
-copy ..\..\..\..\..\src\bindings\csharp\libsbmlcsD.lib libsbmlcsD.lib
-copy ..\..\..\..\..\src\bindings\csharp\obj\Release\libsbmlcsP.dll libsbmlcsP.dll
+copy ..\..\..\..\MSVC7\bin\csharp\libsbmlcs.dll libsbmlcs.dll
+copy ..\..\..\..\MSVC7\bin\csharp\libsbmlcs.lib libsbmlcs.lib
+copy ..\..\..\..\MSVC7\bin\csharp\libsbmlcsP.dll libsbmlcsP.dll
 cd ..
 
 
@@ -84,24 +80,24 @@ mkdir python24
 mkdir python25
 
 cd python23
-copy ..\..\..\..\..\..\src\bindings\python\libs\_libsbml.dll _libsbml.dll
-copy ..\..\..\..\..\..\src\bindings\python\libs\_libsbml.lib _libsbml.lib
-copy ..\..\..\..\..\..\src\bindings\python\libsbml.py libsbml.py
-copy ..\..\..\..\..\..\src\bindings\python\setup.py setup.py
+copy ..\..\..\..\..\MSVC7\bin\python\python23\_libsbml.dll _libsbml.dll
+copy ..\..\..\..\..\MSVC7\bin\python\python23\_libsbml.lib _libsbml.lib
+copy ..\..\..\..\..\MSVC7\bin\python\python23\libsbml.py libsbml.py
+copy ..\..\..\..\..\MSVC7\bin\python\python23\setup.py setup.py
 cd ..
 
 cd python24
-copy ..\..\..\..\..\..\src\bindings\Python24\libs\_libsbml.dll _libsbml.dll
-copy ..\..\..\..\..\..\src\bindings\Python24\libs\_libsbml.lib _libsbml.lib
-copy ..\..\..\..\..\..\src\bindings\python\libsbml.py libsbml.py
-copy ..\..\..\..\..\..\src\bindings\python\setup.py setup.py
+copy ..\..\..\..\..\MSVC7\bin\python\python24\_libsbml.dll _libsbml.dll
+copy ..\..\..\..\..\MSVC7\bin\python\python24\_libsbml.lib _libsbml.lib
+copy ..\..\..\..\..\MSVC7\bin\python\python24\libsbml.py libsbml.py
+copy ..\..\..\..\..\MSVC7\bin\python\python24\setup.py setup.py
 cd ..
 
 cd python25
-copy ..\..\..\..\..\..\src\bindings\Python25\libs\_libsbml.pyd _libsbml.pyd
-copy ..\..\..\..\..\..\src\bindings\Python25\libs\_libsbml.lib _libsbml.lib
-copy ..\..\..\..\..\..\src\bindings\python\libsbml.py libsbml.py
-copy ..\..\..\..\..\..\src\bindings\python\setup.py setup.py
+copy ..\..\..\..\..\MSVC7\bin\python\python25\_libsbml.pyd _libsbml.pyd
+copy ..\..\..\..\..\MSVC7\bin\python\python25\_libsbml.lib _libsbml.lib
+copy ..\..\..\..\..\MSVC7\bin\python\python25\libsbml.py libsbml.py
+copy ..\..\..\..\..\MSVC7\bin\python\python25\setup.py setup.py
 cd ..
 cd ..
 cd ..
@@ -251,28 +247,20 @@ mkdir include
 rem win32/bin directory
 
 cd bin
-copy ..\..\..\..\bin\convertSBML.exe convertSBML.exe
-copy ..\..\..\..\bin\convertSBMLD.exe convertSBMLD.exe
-copy ..\..\..\..\bin\echoSBML.exe echoSBML.exe
-copy ..\..\..\..\bin\echoSBMLD.exe echoSBMLD.exe
-copy ..\..\..\..\bin\validateSBML.exe validateSBML.exe
-copy ..\..\..\..\bin\validateSBMLD.exe validateSBMLD.exe
-copy ..\..\..\..\bin\libsbml.dll libsbml.dll
-copy ..\..\..\..\bin\libsbmlD.dll libsbmlD.dll
-copy ..\..\..\..\..\..\zlib-1.2.3.win32\bin\zlib1.dll zlib1.dll
-copy ..\..\..\..\..\..\bzip2-1.0.5\bin\bzip2.dll bzip2.dll
-copy ..\..\..\..\bin\xerces-c_2_7.dll xerces-c_2_7.dll
-copy ..\..\..\..\bin\xerces-c_2_7D.dll xerces-c_2_7D.dll
+copy ..\..\..\..\MSVC7\bin\convertSBML.exe convertSBML.exe
+copy ..\..\..\..\MSVC7\bin\echoSBML.exe echoSBML.exe
+copy ..\..\..\..\MSVC7\bin\validateSBML.exe validateSBML.exe
+copy ..\..\..\..\MSVC7\bin\libsbml.dll libsbml.dll
+copy ..\..\..\..\bin\zlib1.dll zlib1.dll
+copy ..\..\..\..\bin\bzip2.dll bzip2.dll
+copy ..\..\..\..\bin\xerces-c_3_0.dll xerces-c_3_0.dll
 cd ..
 
 cd lib
-copy ..\..\..\..\bin\libsbml.lib libsbml.lib
-copy ..\..\..\..\bin\libsbmlD.lib libsbmlD.lib
-copy ..\..\..\..\bin\xerces-c_2.lib xerces-c_2.lib
-copy ..\..\..\..\bin\xerces-c_2D.lib xerces-c_2D.lib
-copy ..\..\..\..\..\..\zlib-1.2.3.win32\lib\zdll.lib zdll.lib
-copy ..\..\..\..\..\..\zlib-1.2.3.win32\lib\zlib.lib zlib.lib
-copy ..\..\..\..\..\..\bzip2-1.0.5\lib\bzip2.lib bzip2.lib
+copy ..\..\..\..\MSVC7\bin\libsbml.lib libsbml.lib
+copy ..\..\..\..\bin\xerces-c_3.lib xerces-c_3.lib
+copy ..\..\..\..\bin\zdll.lib zdll.lib
+copy ..\..\..\..\bin\bzip2.lib bzip2.lib
 cd ..
 
 cd include
@@ -322,17 +310,17 @@ rem The following are hardcoded directory structures
 
 rem win32/include/xercesc
 
-cd C:\xerces\xerces-c-windows_2000-msvc_60\include\xercesc
-xcopy C:\xerces\xerces-c-windows_2000-msvc_60\include\xercesc C:\libsbml\win32\installer\libsbml_3_xerces\win32\include\xercesc /S 
+cd C:\libSBML_Dependencies\xerces-c-3.0.1-x86-windows-vc-7.1\include\xercesc
+xcopy C:\libSBML_Dependencies\xerces-c-3.0.1-x86-windows-vc-7.1\include\xercesc C:\libsbml\win32\installer\libsbml_3_xerces\win32\include\xercesc /S 
  
 rem win32/include/bzip2
 
-cd C:\bzip2-1.0.5\include
+cd C:\libSBML_Dependencies\bzip2\include
 echo a | xcopy *.h C:\libsbml\win32\installer\libsbml_3_xerces\win32\include\bzip2
 
 rem win32/include/zlib
 
-cd C:\zlib-1.2.3.win32\include
+cd C:\libSBML_Dependencies\zlib1.2.3\include
 echo a | xcopy *.h C:\libsbml\win32\installer\libsbml_3_xerces\win32\include\zlib
 
 cd C:\libsbml\win32\installer

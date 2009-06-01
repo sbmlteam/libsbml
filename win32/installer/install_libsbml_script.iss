@@ -1,19 +1,19 @@
-; Version No is currently 3.3.2
+; Version No is currently 3.4.0
 ; Check before use
 
 
 [Setup]
 AppName=libSBML
-AppVerName=libSBML 3.3.2
+AppVerName=libSBML 3.4.0
 AppPublisher=SBML Team
 AppPublisherURL=http://sbml.org
 AppSupportURL=http://sbml.org
 AppUpdatesURL=http://sbml.org
-DefaultDirName={pf}\SBML\libSBML-3.3.2-xerces
+DefaultDirName={pf}\SBML\libSBML-3.4.0-xerces-vc71
 DefaultGroupName=libSBML
 DisableProgramGroupPage=yes
 OutputDir=..\..\..\libsbml\win32\installer\Output
-OutputBaseFilename=libSBML-3.3.2-win-xerces
+OutputBaseFilename=libSBML-3.4.0-win-xerces-vc71
 WizardSmallImageFile=libsbml-installer-mini-logo.bmp
 WizardImageFile=libsbml-installer-graphic-v3.bmp
 UsePreviousAppDir=no
@@ -28,7 +28,7 @@ Source: C:\libsbml\win32\installer\libsbml_3_xerces\*; DestDir: {app}; Flags: ig
 Source: C:\libsbml\win32\installer\libsbml_3_xerces\bindings\java\*; DestDir: {code:GetJavaDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetJava
 Source: C:\libsbml\win32\installer\libsbml_3_xerces\bindings\matlab\*; DestDir: {code:GetMatlabDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetMatlab
 Source: C:\libsbml\win32\installer\libsbml_3_xerces\bindings\octave\*; DestDir: {code:GetOctaveDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetOctave
-Source: C:\libsbml\win32\installer\libsbml_3_xerces\bindings\csharp\*; DestDir: {code:GetCSharpDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetCSharp
+;Source: C:\libsbml\win32\installer\libsbml_3_xerces\bindings\csharp\*; DestDir: {code:GetCSharpDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetCSharp
 Source: C:\libsbml\win32\installer\libsbml_3_xerces\bindings\python\python23\libsbml.py; DestDir: {code:GetPython23Dir}; Check: GetPython23
 Source: C:\libsbml\win32\installer\libsbml_3_xerces\bindings\python\python23\_libsbml.dll; DestDir: {code:GetPython23Dir}; Check: GetPython23
 Source: C:\libsbml\win32\installer\libsbml_3_xerces\bindings\python\python24\libsbml.py; DestDir: {code:GetPython24Dir}; Check: GetPython24
@@ -37,16 +37,11 @@ Source: C:\libsbml\win32\installer\libsbml_3_xerces\bindings\python\python25\lib
 Source: C:\libsbml\win32\installer\libsbml_3_xerces\bindings\python\python25\_libsbml.pyd; DestDir: {code:GetPython25Dir}; Check: GetPython25
 Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\bin\libsbml.dll; DestDir: {sys}; Check: GetLibrary
 Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\lib\libsbml.lib; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\bin\libsbmlD.dll; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\lib\libsbmlD.lib; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\lib\xerces-c_2D.lib; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\lib\xerces-c_2.lib; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\bin\xerces-c_2_7.dll; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\bin\xerces-c_2_7D.dll; DestDir: {sys}; Check: GetLibrary
+Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\lib\xerces-c_3.lib; DestDir: {sys}; Check: GetLibrary
+Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\bin\xerces-c_3_0.dll; DestDir: {sys}; Check: GetLibrary
 Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\lib\bzip2.lib; DestDir: {sys}; Check: GetLibrary
 Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\bin\bzip2.dll; DestDir: {sys}; Check: GetLibrary
 Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\lib\zdll.lib; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\lib\zlib.lib; DestDir: {sys}; Check: GetLibrary
 Source: C:\libsbml\win32\installer\libsbml_3_xerces\win32\bin\zlib1.dll; DestDir: {sys}; Check: GetLibrary
 
 [Registry]
@@ -54,7 +49,7 @@ Root: HKCU; Subkey: Software\SBML; Flags: uninsdeletekeyifempty
 Root: HKCU; Subkey: Software\SBML\libSBML; Flags: uninsdeletekey
 Root: HKLM; Subkey: Software\SBML; Flags: uninsdeletekeyifempty
 Root: HKLM; Subkey: Software\SBML\libSBML; Flags: uninsdeletekey
-Root: HKLM; Subkey: Software\SBML\libSBML; ValueType: string; ValueName: Version; ValueData: 3.3.2
+Root: HKLM; Subkey: Software\SBML\libSBML; ValueType: string; ValueName: Version; ValueData: 3.4.0
 Root: HKLM; Subkey: Software\SBML\libSBML; ValueType: string; ValueName: InstallPath; ValueData: {app}
 
 [Code]
@@ -233,7 +228,7 @@ begin
 
   Note: it includes a version number
 **********************************************************************************************************}
-  MsgBox('This setup installs the Windows version of libSBML 3.3.2 built using the Xerces 2.7 XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);
+  MsgBox('This setup installs the Windows version of libSBML 3.4.0 built using the Xerces 3.0 XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);
  { MsgBox('This setup installs the Windows release of libSBML 3.0.2 built using the Expat XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);  }
 end;
 
@@ -250,7 +245,7 @@ procedure InitializeWizard;
 begin
   {get data from system}
   PreviousInstalledVersion := GetVersion();
-  ThisVersion := '3.3.2';
+  ThisVersion := '3.4.0';
   MatlabRoot := GetMatlabRoot('');
 
   if (PreviousInstalledVersion = '') then begin
@@ -299,7 +294,7 @@ begin
   InstallOptionsPage.Add('Copy libraries to systems directories');
   InstallOptionsPage.Add('Install Java binding');
   InstallOptionsPage.Add('Copy Python binding libraries to site-packages directory');
-  InstallOptionsPage.Add('Install C# binding');
+  {InstallOptionsPage.Add('Install C# binding');}
   InstallOptionsPage.Add('Install Octave binding');
   if (MatlabPresent) then begin
     InstallOptionsPage.Add('Install MATLAB binding');
@@ -372,22 +367,23 @@ begin
 
   if (MatlabPresent) then begin
     if GetPreviousData('Matlab', '') = '0' then begin
-      InstallOptionsPage.Values[5] := False;
+      InstallOptionsPage.Values[4] := False;
     end else begin
-      InstallOptionsPage.Values[5] := True;
+      InstallOptionsPage.Values[4] := True;
     end;
   end;
-
+  {take out c# as an option for vc7 builds
   if GetPreviousData('CSharp', '') = '0' then begin
     InstallOptionsPage.Values[3] := False;
   end else begin
     InstallOptionsPage.Values[3] := True;
   end;
-  
+  InstallOptionsPage.Values[3] := False;  }
+
   if GetPreviousData('Octave', '') = '0' then begin
-    InstallOptionsPage.Values[4] := False;
+    InstallOptionsPage.Values[3] := False;
   end else begin
-    InstallOptionsPage.Values[4] := True;
+    InstallOptionsPage.Values[3] := True;
   end;
 
   {python page}
@@ -402,9 +398,9 @@ begin
   {matlab page}
   MatlabPage.Values[0] := GetPreviousData('MatlabDir', MatlabRoot);
 
-  {csharp page}
+  {csharp page
   CSharpPage.Values[0] := GetPreviousData('CSharpDir', CSharpRoot);
-  
+  }
   {java page}
   JavaPage.Values[0] := GetPreviousData('JavaDir', JavaRoot);
 
@@ -457,27 +453,22 @@ begin
     InstallOptions[3] := '0';
   end;
 
-  if InstallOptionsPage.Values[4] then begin
-    InstallOptions[4] := '1';
-  end else begin
-    InstallOptions[4] := '0';
-  end;
 
   if (MatlabPresent) then begin
-    if InstallOptionsPage.Values[5] then begin
-      InstallOptions[5] := '1';
+    if InstallOptionsPage.Values[4] then begin
+      InstallOptions[4] := '1';
     end else begin
-      InstallOptions[5] := '0';
+      InstallOptions[4] := '0';
     end;
   end;
 
   SetPreviousData(PreviousDataKey, 'Libraries', InstallOptions[0]);
   SetPreviousData(PreviousDataKey, 'Java',      InstallOptions[1]);
   SetPreviousData(PreviousDataKey, 'Python',    InstallOptions[2]);
-  SetPreviousData(PreviousDataKey, 'CSharp',    InstallOptions[3]);
-  SetPreviousData(PreviousDataKey, 'Octave',    InstallOptions[4]);
+{  SetPreviousData(PreviousDataKey, 'CSharp',    InstallOptions[3]);   }
+  SetPreviousData(PreviousDataKey, 'Octave',    InstallOptions[3]);
   if (MatlabPresent) then begin
-    SetPreviousData(PreviousDataKey, 'Matlab',    InstallOptions[5]);
+    SetPreviousData(PreviousDataKey, 'Matlab',    InstallOptions[4]);
   end;
 
   {python page}
@@ -491,9 +482,9 @@ begin
   {matlab page}
   SetPreviousData(PreviousDataKey, 'MatlabDir', MatlabPage.Values[0]);
 
-  {csharp page}
+  {csharp page
   SetPreviousData(PreviousDataKey, 'CSharpDir', CSharpPage.Values[0]);
-
+  }
   {java page}
   SetPreviousData(PreviousDataKey, 'JavaDir', JavaPage.Values[0]);
 
@@ -513,15 +504,15 @@ begin
     Result := True
   else if (PageID = PythonPage.ID) and (InstallOptionsPage.Values[2] = False) then
     Result := True
-  else if (PageID = CSharpPage.ID) and (InstallOptionsPage.Values[3] = False) then
+  else if (PageID = CSharpPage.ID) then
     Result := True
-  else if (PageID = CSharpPage.ID) and (InstallTypePage.SelectedValueIndex = 0) then
-    Result := True
-  else if (PageID = OctavePage.ID) and (InstallOptionsPage.Values[4] = False) then
+ { else if (PageID = CSharpPage.ID) and (InstallTypePage.SelectedValueIndex = 0) then
+    Result := True }
+  else if (PageID = OctavePage.ID) and (InstallOptionsPage.Values[3] = False) then
     Result := True
   else if (PageID = MatlabPage.ID) and (MatlabPresent = False) then
     Result := True
-  else if (PageID = MatlabPage.ID) and (InstallOptionsPage.Values[5] = False) then
+  else if (PageID = MatlabPage.ID) and (InstallOptionsPage.Values[4] = False) then
     Result := True
   else
     Result := False;
@@ -623,7 +614,7 @@ begin
         S := S + NewLine;
     end;
 
-    if (InstallOptionsPage.Values[3] = True) then begin
+  {  if (InstallOptionsPage.Values[3] = True) then begin
         S := S + NewLine;
         S := S + 'Writing libSBML C# library files (libsbmlcs.*) to ' + NewLine;
         S := S + '      ' + CSharpPage.Values[0];
@@ -633,8 +624,8 @@ begin
         S := S + 'Not installing libSBML C# library files' + NewLine;
         S := S + NewLine;
     end;
-
-    if (InstallOptionsPage.Values[4] = True) then begin
+   }
+    if (InstallOptionsPage.Values[3] = True) then begin
         S := S + NewLine;
         S := S + 'Installing Octave files  to ' + NewLine;
         S := S + '      ' + OctavePage.Values[0];
@@ -646,7 +637,7 @@ begin
     end;
 
     if (MatlabPresent) then begin
-      if(InstallOptionsPage.Values[5] = True) then begin
+      if(InstallOptionsPage.Values[4] = True) then begin
         S := S + NewLine;
         S := S + 'Installing matlab binding files to ' + NewLine;
         S := S + '      ' + MatlabPage.Values[0];
