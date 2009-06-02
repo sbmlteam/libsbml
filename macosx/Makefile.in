@@ -50,6 +50,7 @@ subdirs =
 distfiles = \
   Makefile.in                                        \
   build.sh.in                                        \
+  uninstall-libsbml-pkg.sh                           \
   libSBML.pkg/Contents/Info.plist.in                 \
   libSBML.pkg/Contents/PkgInfo                       \
   libSBML.pkg/Contents/Resources/en.lproj            \
@@ -88,16 +89,19 @@ all:
 #
 # -----------------------------------------------------------------------------
 
+apath_thisdir = $(top_srcdir)/$(thisdir)
 archive_basename = $(shell basename $(DISTDIR))
 PKGDIST = root
 PKGBASE = libSBML.pkg
 
 create-dmg: clean-pkg
-	-mkdir $(top_srcdir)/$(thisdir)/root/ 
+	-mkdir $(apath_thisdir)/root/ 
+	-mkdir -p $(apath_thisdir)/root$(prefix)/bin
 	cd $(top_srcdir) \
 	$(MAKE) \
-	&& $(MAKE) install DESTDIR=$(top_srcdir)/$(thisdir)/root \
-	&& ${top_srcdir}/$(thisdir)/build.sh 
+	&& $(MAKE) install DESTDIR=$(apath_thisdir)/root \
+	&& cp $(apath_thisdir)/uninstall-libsbml-pkg.sh $(apath_thisdir)/root$(prefix)/bin/ \
+	&& $(apath_thisdir)/build.sh 
 
 clean-pkg:
 	-rm -rf $(top_srcdir)/${thisdir}/${PKGDIST}/
