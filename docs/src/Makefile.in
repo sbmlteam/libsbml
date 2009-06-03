@@ -142,6 +142,7 @@ distfiles =                                    \
 	libsbml-comment-set-methods.html       \
         libsbml-communications.html            \
         libsbml-communications.txt             \
+        libsbml-compartment-size-restrictions.html \
         libsbml-conversion-warnings.txt        \
         libsbml-conversion-warnings.html       \
         libsbml-example.txt                    \
