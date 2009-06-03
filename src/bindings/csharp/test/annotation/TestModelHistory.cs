@@ -266,7 +266,7 @@ namespace LibSBMLCSTest {
       history.addCreator(mc);
       assertTrue( history.getNumCreators() == 1 );
       mc = null;
-      newMC = history.getListCreators().get(0);
+      newMC = history.getCreator(0);
       assertTrue( newMC != null );
       assertTrue((  "Keating" == newMC.getFamilyName() ));
       assertTrue((  "Sarah" == newMC.getGivenName() ));
@@ -286,7 +286,7 @@ namespace LibSBMLCSTest {
       date = null;
       assertTrue( history.getNumModifiedDates() == 1 );
       assertTrue( history.isSetModifiedDate() == true );
-      Date newdate = history.getListModifiedDates().get(0);
+      Date newdate = history.getModifiedDate(0);
       assertTrue( newdate.getYear() == 2005 );
       assertTrue( newdate.getMonth() == 12 );
       assertTrue( newdate.getDay() == 30 );
@@ -318,7 +318,6 @@ namespace LibSBMLCSTest {
     {
       ModelHistory history = new  ModelHistory();
       assertTrue( history != null );
-      assertTrue( history.getListCreators() != null );
       assertTrue( history.getCreatedDate() == null );
       assertTrue( history.getModifiedDate() == null );
       history = null;

@@ -78,7 +78,6 @@ swig_extras =    \
   swig/libsbml.h \
   swig/libsbml.i \
   swig/swigdoc.py\
-  swig/ListWrapper.h \
   swig/OStream.cpp \
   swig/OStream.h
 

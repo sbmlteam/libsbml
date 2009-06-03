@@ -42,16 +42,20 @@ sub readSBMLFromString {
 sub test_RDFAnnotation2_getModelHistory {
  my $history = $m2->getModelHistory();
  ok( defined $history );
- my $mc = $history->getListCreators()->get(0);
- ok( $mc->getFamilyName() eq 'Hucka' );
- ok( $mc->getGivenName() eq 'Mike' );
- ok( $mc->getEmail() eq 'mhucka@caltech.edu' );
- ok( $mc->getOrganisation() eq 'BNMC' );
- my $mc1 = $history->getListCreators()->get(1);
- ok( $mc1->getFamilyName() eq 'Keating' );
- ok( $mc1->getGivenName() eq 'Sarah' );
- ok( $mc1->getEmail() eq 'skeating@caltech.edu' );
- ok( $mc1->getOrganisation() eq 'UH' );
+ SKIP : {
+   eval '$history->getListCreators()';
+   skip("ModelHistory::getListCreators() is not wrapped.",8) if $@;
+   my $mc = $history->getListCreators()->get(0);
+   ok( $mc->getFamilyName() eq 'Hucka' );
+   ok( $mc->getGivenName() eq 'Mike' );
+   ok( $mc->getEmail() eq 'mhucka@caltech.edu' );
+   ok( $mc->getOrganisation() eq 'BNMC' );
+   my $mc1 = $history->getListCreators()->get(1);
+   ok( $mc1->getFamilyName() eq 'Keating' );
+   ok( $mc1->getGivenName() eq 'Sarah' );
+   ok( $mc1->getEmail() eq 'skeating@caltech.edu' );
+   ok( $mc1->getOrganisation() eq 'UH' );
+ }
  my $date = $history->getCreatedDate();
  ok( $date->getYear() == 2005 );
  ok( $date->getMonth() == 2 );

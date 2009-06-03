@@ -15,11 +15,6 @@ Version 3.4.0 (released 2009-05-27)
    constructor to produce the proper combination of attributes and 
    other internal data structures for the given SBML Level and Version.
    
- - There is a new ListWrapper type in the SWIG bindings that allows 
-   functions related to List objects to be wrapped.  Each language
-   now has types ListModelCreators, ListCVTerms, ListDates and
-   ListASTNodes to allow Lists containing different types to be used. 
-
  - It is possible to use create functions to construct new SBML
    objects within a model.  However, createTrigger, createDelay and
    createStoichiometryMath functions were missing.  These have now 

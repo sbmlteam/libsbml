@@ -253,42 +253,6 @@ namespace std
 %apply SWIGTYPE * {const XMLNode* sAnnotation};
 
 
-/**
- *  Wraps the following functions by using the corresponding 
- *  ListWrapper<TYPENAME> class.
- *
- *  - List* ModelHistory::getListCreators()
- *  - List* ModelHistory::getListModifiedDates()
- *  - List* SBase::getCVTerms()
- *
- *  ListWrapper<TYPENAME> class is wrapped as ListTYPENAMEs class.
- *  So, the above functions are wrapped as follows:
- *
- *  - ListModelCreators ModelHistory.getListCreators()
- *  - ListDates         ModelHistory.getListModifiedDates()
- *  - ListCVTerms       SBase.getCVTerms()
- *
- */
-
-%typemap(out) List* ModelHistory::getListCreators
-{
-  ListWrapper<ModelCreator> *listw = ($1 != 0) ? new ListWrapper<ModelCreator>($1) : 0;
-  $result = SWIG_NewPointerObj(SWIG_as_voidptr(listw), SWIGTYPE_p_ListWrapperT_ModelCreator_t, SWIG_POINTER_OWN |  0 );
-}
-
-%typemap(out) List* ModelHistory::getListModifiedDates
-{
-  ListWrapper<Date> *listw = ($1 != 0) ? new ListWrapper<Date>($1) : 0;
-  $result = SWIG_NewPointerObj(SWIG_as_voidptr(listw), SWIGTYPE_p_ListWrapperT_Date_t, SWIG_POINTER_OWN |  0 );
-}
-
-%typemap(out) List* SBase::getCVTerms
-{
-  ListWrapper<CVTerm> *listw = ($1 != 0)? new ListWrapper<CVTerm>($1) : 0;
-  $result = SWIG_NewPointerObj(SWIG_as_voidptr(listw), SWIGTYPE_p_ListWrapperT_CVTerm_t, SWIG_POINTER_OWN |  0 );
-}
-
-
 // ----------------------------------------------------------------------
 // Layout Extension
 // ----------------------------------------------------------------------

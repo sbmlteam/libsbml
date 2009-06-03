@@ -159,7 +159,8 @@ sub test_ModelCreator_setters {
 sub test_ModelHistory_create {
  my $history = new LibSBML::ModelHistory();
  ok( defined $history );
- ok( !defined $history->getListCreators()->get(0) );
+ ok( !defined $history->getCreator(0) );
+# ok( !defined $history->getListCreators()->get(0) );
  ok( !defined $history->getCreatedDate() );
  ok( !defined $history->getModifiedDate() );
 }
@@ -177,7 +178,8 @@ sub test_ModelHistory_addCreator {
  $mc->setOrganisation('UH');
  $history->addCreator($mc);
  ok( $history->getNumCreators() == 1 );
- my $newMC = $history->getListCreators()->get(0);
+ my $newMC = $history->getCreator(0);
+# my $newMC = $history->getListCreators()->get(0);
  ok( defined $newMC );
  ok( $newMC->getFamilyName() eq 'Keating' );
  ok( $newMC->getGivenName() eq 'Sarah' );
@@ -235,7 +237,8 @@ sub test_ModelHistory_addModifiedDate {
  $history->addModifiedDate($date);
  ok( $history->getNumModifiedDates() == 1 );
  ok( $history->isSetModifiedDate() == 1 );
- my $newdate = $history->getListModifiedDates()->get(0);
+ my $newdate = $history->getModifiedDate(0);
+# my $newdate = $history->getListModifiedDates()->get(0);
  ok( $newdate->getYear() == 2005 );
  ok( $newdate->getMonth() == 12 );
  ok( $newdate->getDay() == 30 );
@@ -249,7 +252,8 @@ sub test_ModelHistory_addModifiedDate {
  $history->addModifiedDate($date1);
  ok( $history->getNumModifiedDates() == 2 );
  ok( $history->isSetModifiedDate() == 1 );
- my $newdate1 = $history->getListModifiedDates()->get(1);
+ my $newdate1 = $history->getModifiedDate(1);
+# my $newdate1 = $history->getListModifiedDates()->get(1);
  ok( $newdate1->getYear() == 2008 );
  ok( $newdate1->getMonth() == 11 );
  ok( $newdate1->getDay() == 2 );
@@ -269,20 +273,25 @@ sub test_ModelHistory_getListModifiedDates {
   my $date2 = new LibSBML::Date(2008, 11, 2, 16, 42, 40, 1, 2, 0);
   $history->addModifiedDate($date2);
 
-  # list context
-  my $i = 0;
-  foreach my $date4 ($history->getListModifiedDates()) {
-    $date4 = $date4->getDateAsString();
-    my $date3 = ($i==0) ? $date1->getDateAsString() : $date2->getDateAsString();
-    ok( $date4 eq $date3 );
-    $i++
-  }
+  SKIP : {
+    eval '$history->getListModifiedDates()';
+    skip("ModelHistory::getListModifiedDates is not wrapped.",4) if $@;
 
-  # scalar context
-  for $i (0, 1) {
-    my $d4 = $history->getListModifiedDates()->get($i)->getDateAsString();
-    my $d3 = ($i==0) ? $date1->getDateAsString() : $date2->getDateAsString();
-    ok( $d4 eq $d3 );
+    # list context
+    my $i = 0;
+    foreach my $date4 ($history->getListModifiedDates()) {
+      $date4 = $date4->getDateAsString();
+      my $date3 = ($i==0) ? $date1->getDateAsString() : $date2->getDateAsString();
+      ok( $date4 eq $date3 );
+      $i++
+    }
+
+    # scalar context
+    for $i (0, 1) {
+      my $d4 = $history->getListModifiedDates()->get($i)->getDateAsString();
+      my $d3 = ($i==0) ? $date1->getDateAsString() : $date2->getDateAsString();
+      ok( $d4 eq $d3 );
+    }
   }
 }
 
@@ -311,35 +320,40 @@ sub test_ModelHistory_getCreators {
   $mc->setOrganisation($uni);
   $history->addCreator($mc);  
 
-  my $i = 0;
-  foreach my $newmc ($history->getListCreators()) {
-    if ($i++ == 0) { # check creator xtof
-      ok( $newmc->getFamilyName() eq $xtofA );
-      ok( $newmc->getGivenName() eq $xtofB );
-      ok( $newmc->getEmail() eq $xtofC );
-      ok( $newmc->getOrganisation() eq $uni );
-    }
-    else { # check creator raim
-      ok( $newmc->getFamilyName() eq $raimA );
-      ok( $newmc->getGivenName() eq $raimB );
-      ok( $newmc->getEmail() eq $raimC );
-      ok( $newmc->getOrganisation() eq $uni ); 
-    }
-  }
+  SKIP : {
+    eval '$history->getListCreators()';
+    skip("ModelHistory::getListCreators() is not wrapped.",16) if $@;
 
-  for $i (0, 1) {
-    my $newmc = $history->getListCreators()->get($i);
-    if ($i == 0) { # check creator xtof
-      ok( $newmc->getFamilyName() eq $xtofA );
-      ok( $newmc->getGivenName() eq $xtofB );
-      ok( $newmc->getEmail() eq $xtofC );
-      ok( $newmc->getOrganisation() eq $uni );
+    my $i = 0;
+    foreach my $newmc ($history->getListCreators()) {
+      if ($i++ == 0) { # check creator xtof
+        ok( $newmc->getFamilyName() eq $xtofA );
+        ok( $newmc->getGivenName() eq $xtofB );
+        ok( $newmc->getEmail() eq $xtofC );
+        ok( $newmc->getOrganisation() eq $uni );
+      }
+      else { # check creator raim
+        ok( $newmc->getFamilyName() eq $raimA );
+        ok( $newmc->getGivenName() eq $raimB );
+        ok( $newmc->getEmail() eq $raimC );
+        ok( $newmc->getOrganisation() eq $uni ); 
+      }
     }
-    else { # check creator raim
-      ok( $newmc->getFamilyName() eq $raimA );
-      ok( $newmc->getGivenName() eq $raimB );
-      ok( $newmc->getEmail() eq $raimC );
-      ok( $newmc->getOrganisation() eq $uni ); 
-    }  
+
+    for $i (0, 1) {
+      my $newmc = $history->getListCreators()->get($i);
+      if ($i == 0) { # check creator xtof
+        ok( $newmc->getFamilyName() eq $xtofA );
+        ok( $newmc->getGivenName() eq $xtofB );
+        ok( $newmc->getEmail() eq $xtofC );
+        ok( $newmc->getOrganisation() eq $uni );
+      }
+      else { # check creator raim
+        ok( $newmc->getFamilyName() eq $raimA );
+        ok( $newmc->getGivenName() eq $raimB );
+        ok( $newmc->getEmail() eq $raimC );
+        ok( $newmc->getOrganisation() eq $uni ); 
+      }  
+    }
   }
 }

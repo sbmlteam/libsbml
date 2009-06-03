@@ -132,11 +132,9 @@ namespace LibSBMLCSTest {
     {
       CVTerm cv = new  CVTerm(libsbml.BIOLOGICAL_QUALIFIER);
       assertTrue( S.getNumCVTerms() == 0 );
-      assertTrue( S.getCVTerms() == null );
       S.setMetaId( "sbase1");
       S.addCVTerm(cv);
       assertTrue( S.getNumCVTerms() == 1 );
-      assertTrue( S.getCVTerms() != null );
       assertTrue( S.getCVTerm(0) != cv );
       cv = null;
     }
@@ -149,7 +147,6 @@ namespace LibSBMLCSTest {
       S.setMetaId( "sbase1");
       S.addCVTerm(cv);
       assertTrue( S.getNumCVTerms() == 1 );
-      assertTrue( S.getCVTerms() != null );
       XMLAttributes res = S.getCVTerm(0).getResources();
       assertTrue((  "foo" == res.getValue(0) ));
       CVTerm cv1 = new  CVTerm(libsbml.BIOLOGICAL_QUALIFIER);
@@ -1345,7 +1342,6 @@ namespace LibSBMLCSTest {
       assertTrue( S.getNumCVTerms() == 2 );
       S.unsetCVTerms();
       assertTrue( S.getNumCVTerms() == 0 );
-      assertTrue( S.getCVTerms() == null );
       cv = null;
       cv2 = null;
       cv1 = null;

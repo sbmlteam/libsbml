@@ -80,4 +80,3 @@
 #include <sbml/annotation/ModelHistory.h>
 #include <sbml/annotation/RDFAnnotation.h>
 
-#include "ListWrapper.h"

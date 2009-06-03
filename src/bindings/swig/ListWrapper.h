@@ -67,6 +67,8 @@ class LIBSBML_EXTERN ListWrapper
      */
     ListWrapper(List* list, bool memown = false) : mList(list), mMemOwn(memown) {}
 
+    List* getList() { return mList; }
+
 #endif
 
 

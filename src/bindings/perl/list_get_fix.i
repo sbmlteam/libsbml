@@ -53,17 +53,27 @@
  *  ListWrapper<TYPENAME> class is wrapped as ListTYPENAMEs class.
  *  So, the above functions are wrapped as follows:
  *
- *  - ListModelCreators ModelHistory::getListCreators()
- *  - ListDates         ModelHistory::getListModifiedDates()
- *  - ListCVTerms       SBase::getCVTerms()
+ *  - ModelCreatorsList ModelHistory::getListCreators()
+ *  - DatesList         ModelHistory::getListModifiedDates()
+ *  - CVTermsList       SBase::getCVTerms()
  *
  */
+
+%{
+#include "ListWrapper.h"
+%}
+
+%include "ListWrapper.h"
+%template(ModelCreatorList) ListWrapper<ModelCreator>;
+%template(DateList)         ListWrapper<Date>;
+%template(CVTermList)       ListWrapper<CVTerm>;
+%template(ASTNodeList)      ListWrapper<ASTNode>;
 
 %typemap(out) List* ModelHistory::getListCreators
 {
   ListWrapper<ModelCreator> *listw = ($1 != 0) ? new ListWrapper<ModelCreator>($1) : 0;
   ST(argvi) = SWIG_NewPointerObj(SWIG_as_voidptr(listw), SWIGTYPE_p_ListWrapperT_ModelCreator_t, 
-                                 $owner | %newpointer_flags);
+                                 SWIG_OWNER | %newpointer_flags);
   argvi++;
 }
 
@@ -71,7 +81,7 @@
 {
   ListWrapper<Date> *listw = ($1 != 0) ? new ListWrapper<Date>($1) : 0;
   ST(argvi) = SWIG_NewPointerObj(SWIG_as_voidptr(listw), SWIGTYPE_p_ListWrapperT_Date_t, 
-                                 $owner | %newpointer_flags);
+                                 SWIG_OWNER | %newpointer_flags);
   argvi++;
 }
 
@@ -79,7 +89,7 @@
 {
   ListWrapper<CVTerm> *listw = ($1 != 0) ? new ListWrapper<CVTerm>($1) : 0;
   ST(argvi) = SWIG_NewPointerObj(SWIG_as_voidptr(listw), SWIGTYPE_p_ListWrapperT_CVTerm_t, 
-                                 $owner | %newpointer_flags);
+                                 SWIG_OWNER | %newpointer_flags);
   argvi++;
 }
 

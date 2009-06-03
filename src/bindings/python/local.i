@@ -219,6 +219,7 @@ namespace std
 }
 
 
+
 /**
  * Convert SBase, SimpleSpeciesReference and Rule objects into the most specific type possible.
  */
@@ -443,96 +444,6 @@ def readSBML(*args):
   reader = SBMLReader()
   return reader.readSBML(args[0])
 %}
-
-/**
- *  Wraps the following functions by using the corresponding 
- *  ListWrapper<TYPENAME> class.
- *
- *  - List* ModelHistory::getListCreators()
- *  - List* ModelHistory::getListModifiedDates()
- *  - List* SBase::getCVTerms()
- *
- *  ListWrapper<TYPENAME> class is wrapped as ListTYPENAMEs class.
- *  So, the above functions are wrapped as follows:
- *
- *  - ListModelCreators ModelHistory.getListCreators()
- *  - ListDates         ModelHistory.getListModifiedDates()
- *  - ListCVTerms       SBase.getCVTerms()
- *
- */
-
-%feature("shadow")
-ModelHistory::getListCreators
-%{
-  def getListCreators(self):
-    """
-    getListCreators(self) -> ListModelCreators
-
-    Get the ListModelCreators of ModelCreator objects in this 
-    ModelHistory.
-
-    @return the ListModelCreators for this ModelHistory.
-          
-
-    """
-    return _libsbml.ModelHistory_getListCreators(self)
-%}
-
-%typemap(out) List* ModelHistory::getListCreators
-{
-  ListWrapper<ModelCreator> *listw = ($1 != 0) ? new ListWrapper<ModelCreator>($1) : 0;
-  $result = SWIG_NewPointerObj(SWIG_as_voidptr(listw), SWIGTYPE_p_ListWrapperT_ModelCreator_t, 
-                               SWIG_POINTER_OWN |  0 );
-}
-
-
-%feature("shadow")
-ModelHistory::getListModifiedDates
-%{
-  def getListModifiedDates(self):
-    """
-    getListModifiedDates(self) -> ListDates
-
-    Get the ListDates of Date objects in this ModelHistory.
-
-    @return the ListDates for this ModelHistory.
-          
-
-    """
-    return _libsbml.ModelHistory_getListModifiedDates(self)
-%}
-
-%typemap(out) List* ModelHistory::getListModifiedDates
-{
-  ListWrapper<Date> *listw = ($1 != 0) ? new ListWrapper<Date>($1) : 0;
-  $result = SWIG_NewPointerObj(SWIG_as_voidptr(listw), SWIGTYPE_p_ListWrapperT_Date_t, 
-                               SWIG_POINTER_OWN |  0 );
-}
-
-%feature("shadow")
-SBase::getCVTerms
-%{
-  def getCVTerms(self):
-    """
-    getCVTerms(self) -> ListCVTerms
-
-    Get the ListCVTerms of CVTerm objects in this SBase.
-
-    @return the ListCVTerms for this SBase.
-
-
-    """
-    return _libsbml.SBase_getCVTerms(self)
-%}
-
-%typemap(out) List* SBase::getCVTerms
-{
-  ListWrapper<CVTerm> *listw = ($1 != 0) ? new ListWrapper<CVTerm>($1) : 0;
-  $result = SWIG_NewPointerObj(SWIG_as_voidptr(listw), SWIGTYPE_p_ListWrapperT_CVTerm_t, 
-                               SWIG_POINTER_OWN |  0 );
-}
-
-
 
 // ----------------------------------------------------------------------
 // Layout Extension

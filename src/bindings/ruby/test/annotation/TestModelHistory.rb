@@ -173,7 +173,7 @@ class TestModelHistory < Test::Unit::TestCase
     history.addCreator(mc)
     assert( history.getNumCreators() == 1 )
     mc = nil
-    newMC = history.getListCreators().get(0)
+    newMC = history.getCreator(0)
     assert( newMC != nil )
     assert ((  "Keating" == newMC.getFamilyName() ))
     assert ((  "Sarah" == newMC.getGivenName() ))
@@ -192,7 +192,7 @@ class TestModelHistory < Test::Unit::TestCase
     date = nil
     assert( history.getNumModifiedDates() == 1 )
     assert( history.isSetModifiedDate() == true )
-    newdate = history.getListModifiedDates().get(0)
+    newdate = history.getModifiedDate(0)
     assert( newdate.getYear() == 2005 )
     assert( newdate.getMonth() == 12 )
     assert( newdate.getDay() == 30 )
@@ -223,7 +223,6 @@ class TestModelHistory < Test::Unit::TestCase
   def test_ModelHistory_create
     history = LibSBML::ModelHistory.new()
     assert( history != nil )
-    assert( history.getListCreators() != nil )
     assert( history.getCreatedDate() == nil )
     assert( history.getModifiedDate() == nil )
     history = nil

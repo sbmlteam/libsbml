@@ -1151,38 +1151,3 @@ COVARIANT_RTYPE_LISTOF_GET_REMOVE(CompartmentGlyph)
   public static readonly OStream clog = new OStream(OStream.CLOG); 
 %}
 
-
-/**
- *  Wraps the following functions by using the corresponding
- *  ListWrapper<TYPENAME> class.
- *
- *  - List* ModelHistory::getListCreators()
- *  - List* ModelHistory::getListModifiedDates()
- *  - List* SBase::getCVTerms()
- *
- *  ListWrapper<TYPENAME> class is wrapped as ListTYPENAMEs class.
- *  So, the above functions are wrapped as follows:
- *
- *  - ListModelCreators ModelHistory.getListCreators()
- *  - ListDates         ModelHistory.getListModifiedDates()
- *  - ListCVTerms       SBase.getCVTerms()
- *
- */
-
-%define LIST_WRAPPER(_FNAME_,_TYPENAME_)
-%typemap(cstype)  List* _FNAME_ %{ List ## _TYPENAME_ ## s %}
-%typemap(csout) List* _FNAME_ 
-{ 
-  IntPtr cPtr = $imcall;
-  return (cPtr == IntPtr.Zero) ? null : new List ## _TYPENAME_ ## s(cPtr, true);
-}
-%typemap(out) List* _FNAME_ 
-{
-   ListWrapper<_TYPENAME_> *listw = ($1 != 0) ? new ListWrapper<_TYPENAME_>($1) : 0;  
-   $result = (void*)listw;
-}
-%enddef
-
-LIST_WRAPPER(ModelHistory::getListCreators,ModelCreator)
-LIST_WRAPPER(ModelHistory::getListModifiedDates,Date)
-LIST_WRAPPER(SBase::getCVTerms,CVTerm)

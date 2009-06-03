@@ -43,11 +43,9 @@ class TestSBase < Test::Unit::TestCase
   def test_SBase_CVTerms
     cv = LibSBML::CVTerm.new(LibSBML::BIOLOGICAL_QUALIFIER)
     assert( @@s.getNumCVTerms() == 0 )
-    assert( @@s.getCVTerms() == nil )
     @@s.setMetaId( "sbase1")
     @@s.addCVTerm(cv)
     assert( @@s.getNumCVTerms() == 1 )
-    assert( @@s.getCVTerms() != nil )
     assert( @@s.getCVTerm(0) != cv )
     cv = nil
   end
@@ -59,7 +57,6 @@ class TestSBase < Test::Unit::TestCase
     @@s.setMetaId( "sbase1")
     @@s.addCVTerm(cv)
     assert( @@s.getNumCVTerms() == 1 )
-    assert( @@s.getCVTerms() != nil )
     res = @@s.getCVTerm(0).getResources()
     assert ((  "foo" == res.getValue(0) ))
     cv1 = LibSBML::CVTerm.new(LibSBML::BIOLOGICAL_QUALIFIER)
@@ -1189,7 +1186,6 @@ class TestSBase < Test::Unit::TestCase
     assert( @@s.getNumCVTerms() == 2 )
     @@s.unsetCVTerms()
     assert( @@s.getNumCVTerms() == 0 )
-    assert( @@s.getCVTerms() == nil )
     cv = nil
     cv2 = nil
     cv1 = nil
