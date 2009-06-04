@@ -220,10 +220,14 @@ private:
 unsigned int
 SBMLErrorLog::getNumFailsWithSeverity(unsigned int severity)
 {
-  // Workaround for Sun cc which is missing:
-  // int n = count_if(mErrors.begin(), mErrors.end(), MatchSeverity(severity));
   int n;
+
+#ifdef SOLARIS
+  // Workaround for Sun cc which is missing:
   count_if(mErrors.begin(), mErrors.end(), MatchSeverity(severity), n);
+#else
+  n = count_if(mErrors.begin(), mErrors.end(), MatchSeverity(severity));
+#endif
 
   return n;
 }

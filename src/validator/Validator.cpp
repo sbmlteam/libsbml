@@ -751,10 +751,14 @@ Validator::validate (const SBMLDocument& d)
      */
     bool unrecognisedTerm = false;
 
-    // Workaround for Sun cc which is missing:
-    // int n = count_if(mFailures.begin(), mFailures.end(), MatchId(99701));
-    int n;
-    count_if(mFailures.begin(), mFailures.end(), MatchId(99701), n);
+   int n;
+
+#ifdef SOLARIS
+  // Workaround for Sun cc which is missing:
+  count_if(mFailures.begin(), mFailures.end(), MatchId(99701), n);
+#else
+  n = count_if(mFailures.begin(), mFailures.end(), MatchId(99701));
+#endif
 
     if (n)
       unrecognisedTerm = true;
