@@ -50,28 +50,36 @@ top_include := $(TOP_SRCDIR)/include
 
 default_includes ?= -I. -I$(top_include)
 
-# Compiling under cygwin doesn't need -fPIC.
+# Compiling under cygwin and solaris doesn't need -fPIC.
 
 ifneq "$(HOST_TYPE)" "cygwin"
-  FPIC = -fPIC
+  ifneq "$(HOST_TYPE)" "solaris"
+    FPIC = -fPIC
+  endif
+endif
+
+# Compiling under solaris must not use -Wall.
+
+ifneq "$(HOST_TYPE)" "solaris"
+  WALL = -Wall
 endif
 
 # Here follow the generic compilation commands.  (Note: the use of 'sort'
 # here is only to remove duplicates, which the 'sort' function does as a
 # documented side-effect.)
 
-compile ?= $(CC) $(FPIC) $(sort $(default_includes) $(INCLUDES)) $(CPPFLAGS) \
+compile ?= $(CC) $(FPIC) $(WALL) $(sort $(default_includes) $(INCLUDES)) $(CPPFLAGS) \
 	$(extra_CPPFLAGS) $(CFLAGS) $(extra_CFLAGS) 
 
-cxxcompile ?= $(CXX) $(FPIC) $(sort $(default_includes) $(INCLUDES)) $(CPPFLAGS) \
+cxxcompile ?= $(CXX) $(FPIC) $(WALL) $(sort $(default_includes) $(INCLUDES)) $(CPPFLAGS) \
 	$(extra_CPPFLAGS) $(CXXFLAGS) $(extra_CXXFLAGS) 
 
 # The following two commands are used for dependency tracking only when 
 # building universal binaries on MacOSX.
-compile_nocflags ?= $(CC) $(FPIC) $(sort $(default_includes) $(INCLUDES)) \
+compile_nocflags ?= $(CC) $(FPIC) $(WALL) $(sort $(default_includes) $(INCLUDES)) \
 	$(CPPFLAGS) $(extra_CPPFLAGS) 
 
-cxxcompile_nocxxflags ?= $(CXX) $(FPIC) $(sort $(default_includes) $(INCLUDES)) \
+cxxcompile_nocxxflags ?= $(CXX) $(FPIC) $(WALL) $(sort $(default_includes) $(INCLUDES)) \
 	$(CPPFLAGS) $(extra_CPPFLAGS) 
 
 # For linking libraries, we try to follow the result of the libtool
@@ -106,7 +114,11 @@ else
 ifeq "$(HOST_TYPE)" "aix5.3.0.0" 
   platform_link_flags ?= -G
 else
+ifeq "$(HOST_TYPE)" "solaris" 
+  platform_link_flags ?= -G
+else
   platform_link_flags ?= -shared
+endif
 endif
 endif
 
@@ -129,11 +141,18 @@ endif
 # to the call.  An enclosing makefile can provide another definition, in
 # which case the definition below will not be used.
 
-define link_static_lib
-  -rm -f $(1)
-  $(AR) -cru $(1) $(objfiles)
-  $(RANLIB) $(1)
-endef
+ifeq "$(HOST_TYPE)" "solaris" 
+  define link_static_lib
+    -rm -f $(1)
+    $(CXX) -xar -o $(1) $(objfiles)
+  endef
+else
+  define link_static_lib
+    -rm -f $(1)
+    $(AR) -cru $(1) $(objfiles)
+    $(RANLIB) $(1)
+  endef
+endif
 
 # Most of the sources are a mix of C and C++ files.  They have separate
 # extensions, and simply using something like $(sources:.cpp=.o) doesn't

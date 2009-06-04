@@ -13,7 +13,7 @@
  * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
- * 
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
@@ -59,7 +59,14 @@ class SBMLErrorLog;
 /* create a map of parent-child sbo terms */
 typedef multimap<int, int>            ParentMap;
 typedef ParentMap::const_iterator     ParentIter;
-typedef pair<ParentIter, ParentIter>  ParentRange;
+
+#ifdef SOLARIS
+  typedef pair<ParentMap::iterator, ParentMap::iterator>  ParentRange;
+# define MAKE_MAP(__p, __c) make_pair<const int, int>(__p, __c)
+#else
+  typedef pair<ParentIter, ParentIter>  ParentRange;
+# define MAKE_MAP(__p, __c) make_pair(__p, __c)
+#endif
 
 static ParentMap mParent;
 
@@ -81,166 +88,166 @@ public:
    * Writes sboTerm as an XMLAttribute to the given XMLOutputStream.
    */
   static void writeTerm (XMLOutputStream& stream, int sboTerm);
-  
+
   /** @endcond doxygen-libsbml-internal */
 
   /**
    * Function for checking the SBO term is from correct part of SBO.
-   * 
+   *
    * @return true if the term is-a QuantitativeParameter, false otherwise
    */
   static bool isQuantitativeParameter  (unsigned int term);
 
   /**
    * Function for checking the SBO term is from correct part of SBO.
-   * 
+   *
    * @return true if the term is-a ParticipantRole, false otherwise
    */
   static bool isParticipantRole  (unsigned int term);
 
   /**
    * Function for checking the SBO term is from correct part of SBO.
-   * 
+   *
    * @return true if the term is-a ModellingFramework, false otherwise
    */
   static bool isModellingFramework  (unsigned int term);
 
   /**
    * Function for checking the SBO term is from correct part of SBO.
-   * 
+   *
    * @return true if the term is-a MathematicalExpression, false otherwise
    */
   static bool isMathematicalExpression  (unsigned int term);
 
   /**
    * Function for checking the SBO term is from correct part of SBO.
-   * 
+   *
    * @return true if the term is-a KineticConstant, false otherwise
    */
   static bool isKineticConstant  (unsigned int term);
 
   /**
    * Function for checking the SBO term is from correct part of SBO.
-   * 
+   *
    * @return true if the term is-a Reactant, false otherwise
    */
   static bool isReactant  (unsigned int term);
 
   /**
    * Function for checking the SBO term is from correct part of SBO.
-   * 
+   *
    * @return true if the term is-a Product, false otherwise
    */
   static bool isProduct  (unsigned int term);
 
   /**
    * Function for checking the SBO term is from correct part of SBO.
-   * 
+   *
    * @return true if the term is-a Modifier, false otherwise
    */
   static bool isModifier  (unsigned int term);
 
   /**
    * Function for checking the SBO term is from correct part of SBO.
-   * 
+   *
    * @return true if the term is-a RateLaw, false otherwise
    */
   static bool isRateLaw  (unsigned int term);
 
   /**
    * Function for checking the SBO term is from correct part of SBO.
-   * 
+   *
    * @return true if the term is-a Event, false otherwise
    */
   static bool isEvent  (unsigned int term);
 
   /**
     * Function for checking the SBO term is from correct part of SBO.
-    * 
+    *
     * @return true if the term is-a PhysicalParticipant, false otherwise
     */
   static bool isPhysicalParticipant  (unsigned int term);
 
   /**
     * Function for checking the SBO term is from correct part of SBO.
-    * 
+    *
     * @return true if the term is-a Participant, false otherwise
     */
   static bool isParticipant  (unsigned int term);
 
   /**
    * Function for checking the SBO term is from correct part of SBO.
-   * 
+   *
    * @return true if the term is-a Interaction, false otherwise
    */
   static bool isInteraction  (unsigned int term);
 
   /**
    * Function for checking the SBO term is from correct part of SBO.
-   * 
+   *
    * @return true if the term is-a Entity, false otherwise
    */
   static bool isEntity  (unsigned int term);
 
   /**
    * Function for checking the SBO term is from correct part of SBO.
-   * 
+   *
    * @return true if the term is-a FunctionalEntity, false otherwise
    */
   static bool isFunctionalEntity  (unsigned int term);
 
   /**
    * Function for checking the SBO term is from correct part of SBO.
-   * 
+   *
    * @return true if the term is-a MaterialEntity, false otherwise
    */
   static bool isMaterialEntity  (unsigned int term);
 
   /**
    * Function for checking the SBO term is from correct part of SBO.
-   * 
+   *
    * @return true if the term is-a ConservationLaw, false otherwise
    */
   static bool isConservationLaw  (unsigned int term);
 
   /**
    * Function for checking the SBO term is from correct part of SBO.
-   * 
+   *
    * @return true if the term is-a SteadyStateExpression, false otherwise
    */
   static bool isSteadyStateExpression  (unsigned int term);
 
   /**
    * Function for checking the SBO term is from correct part of SBO.
-   * 
+   *
    * @return true if the term is-a FunctionalCompartment, false otherwise
    */
   static bool isFunctionalCompartment  (unsigned int term);
 
   /**
    * Function for checking the SBO term is from correct part of SBO.
-   * 
+   *
    * @return true if the term is-a ContinuousFramework, false otherwise
    */
   static bool isContinuousFramework  (unsigned int term);
 
   /**
    * Function for checking the SBO term is from correct part of SBO.
-   * 
+   *
    * @return true if the term is-a DiscreteFramework, false otherwise
    */
   static bool isDiscreteFramework  (unsigned int term);
 
   /**
    * Function for checking the SBO term is from correct part of SBO.
-   * 
+   *
    * @return true if the term is-a LogicalFramework, false otherwise
    */
   static bool isLogicalFramework  (unsigned int term);
 
   /**
    * Function for checking whether the SBO term is obselete.
-   * 
+   *
    * @return true if the term is-a Obsolete, false otherwise
    */
   static bool isObselete  (unsigned int term);
@@ -249,13 +256,13 @@ public:
    * Returns the integer as a correctly formatted SBO string.
    *
    * @return the given integer sboTerm as a zero-padded seven digit string.
-   * 
+   *
    * @note If the sboTerm is not in the correct range ([0 -- 9999999]), an empty
    * string is returned.
    */
   static std::string intToString (int sboTerm);
 
-protected:  
+protected:
   /** @cond doxygen-libsbml-internal */
 
  /**

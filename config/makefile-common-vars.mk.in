@@ -195,13 +195,13 @@ BUILD_CPU         = @build_cpu@
 BUILD_OS          = @build_os@
 CC                = @CC@
 CD                = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd
-CFLAGS            = -Wall @CFLAGS@
+CFLAGS            = @CFLAGS@
 CPP               = @CPP@
 CPPFLAGS          = @CPPFLAGS@ @ZLIB_CPPFLAGS@ @BZ2_CPPFLAGS@
 CTAGS             = ctags
 CTAGSFLAGS        = --ignore-indentation --members --globals --typedefs-and-c++ --no-warn -o CTAGS
 CXX               = @CXX@
-CXXFLAGS          = -Wall @CXXFLAGS@
+CXXFLAGS          = @CXXFLAGS@
 CYGPATH_W         = @CYGPATH_W@
 DEFS              = @DEFS@
 DEPDIR            = .deps

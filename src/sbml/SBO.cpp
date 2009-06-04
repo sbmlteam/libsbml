@@ -13,7 +13,7 @@
  * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
- * 
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
@@ -59,7 +59,7 @@ SBO::checkTerm (const std::string& sboTerm)
     okay = (sboTerm[n] == sbo[n]);
     n++;
   }
-  
+
   for (n = 4; okay && n < size; ++n) okay = isdigit(sboTerm[n]);
 
   return okay;
@@ -182,7 +182,7 @@ struct GetParent : public unary_function<const pair<const int, int>, int>
   * functions for checking the SBO term is from correct part of SBO
   * returns true if the term is-a parent, false otherwise
   */
-bool 
+bool
 SBO::isChildOf(unsigned int term, unsigned int parent)
 {
   bool        result = false;
@@ -224,7 +224,7 @@ SBO::isChildOf(unsigned int term, unsigned int parent)
   * functions for checking the SBO term is from correct part of SBO
   * returns true if the term is-a QuantitativeParameter, false otherwise
   */
-bool 
+bool
 SBO::isQuantitativeParameter  (unsigned int sboTerm)
 {
   if (sboTerm == 2)
@@ -240,7 +240,7 @@ SBO::isQuantitativeParameter  (unsigned int sboTerm)
   * functions for checking the SBO term is from correct part of SBO
   * returns true if the term is-a ParticipantRole, false otherwise
   */
-bool 
+bool
 SBO::isParticipantRole  (unsigned int sboTerm)
 {
   if (sboTerm == 3)
@@ -256,7 +256,7 @@ SBO::isParticipantRole  (unsigned int sboTerm)
   * functions for checking the SBO term is from correct part of SBO
   * returns true if the term is-a ModellingFramework, false otherwise
   */
-bool 
+bool
 SBO::isModellingFramework  (unsigned int sboTerm)
 {
   if (sboTerm == 4)
@@ -272,7 +272,7 @@ SBO::isModellingFramework  (unsigned int sboTerm)
   * functions for checking the SBO term is from correct part of SBO
   * returns true if the term is-a MathematicalExpression, false otherwise
   */
-bool 
+bool
 SBO::isMathematicalExpression  (unsigned int sboTerm)
 {
   if (sboTerm == 64)
@@ -288,7 +288,7 @@ SBO::isMathematicalExpression  (unsigned int sboTerm)
   * functions for checking the SBO term is from correct part of SBO
   * returns true if the term is-a KineticConstant, false otherwise
   */
-bool 
+bool
 SBO::isKineticConstant  (unsigned int sboTerm)
 {
   if (sboTerm == 9)
@@ -304,7 +304,7 @@ SBO::isKineticConstant  (unsigned int sboTerm)
   * functions for checking the SBO term is from correct part of SBO
   * returns true if the term is-a Reactant, false otherwise
   */
-bool 
+bool
 SBO::isReactant  (unsigned int sboTerm)
 {
   if (sboTerm == 10)
@@ -320,7 +320,7 @@ SBO::isReactant  (unsigned int sboTerm)
   * functions for checking the SBO term is from correct part of SBO
   * returns true if the term is-a Product, false otherwise
   */
-bool 
+bool
 SBO::isProduct  (unsigned int sboTerm)
 {
   if (sboTerm == 11)
@@ -336,7 +336,7 @@ SBO::isProduct  (unsigned int sboTerm)
   * functions for checking the SBO term is from correct part of SBO
   * returns true if the term is-a isModifier, false otherwise
   */
-bool 
+bool
 SBO::isModifier  (unsigned int sboTerm)
 {
   if (sboTerm == 19)
@@ -352,7 +352,7 @@ SBO::isModifier  (unsigned int sboTerm)
   * functions for checking the SBO term is from correct part of SBO
   * returns true if the term is-a RateLaw, false otherwise
   */
-bool 
+bool
 SBO::isRateLaw  (unsigned int sboTerm)
 {
   if (sboTerm == 1)
@@ -368,7 +368,7 @@ SBO::isRateLaw  (unsigned int sboTerm)
   * functions for checking the SBO term is from correct part of SBO
   * returns true if the term is-a Event, false otherwise
   */
-bool 
+bool
 SBO::isEvent  (unsigned int sboTerm)
 {
   if (sboTerm == 231)
@@ -384,7 +384,7 @@ SBO::isEvent  (unsigned int sboTerm)
   * functions for checking the SBO term is from correct part of SBO
   * returns true if the term is-a PhysicalParticipant, false otherwise
   */
-bool 
+bool
 SBO::isPhysicalParticipant  (unsigned int sboTerm)
 {
   if (sboTerm == 236)
@@ -400,7 +400,7 @@ SBO::isPhysicalParticipant  (unsigned int sboTerm)
   * functions for checking the SBO term is from correct part of SBO
   * returns true if the term is-a Participant, false otherwise
   */
-bool 
+bool
 SBO::isParticipant  (unsigned int sboTerm)
 {
   if (sboTerm == 235)
@@ -413,7 +413,7 @@ SBO::isParticipant  (unsigned int sboTerm)
 
 /*
  * Function for checking the SBO term is from correct part of SBO.
- * 
+ *
  * @return true if the term is-a Interaction, false otherwise
  */
 bool
@@ -424,10 +424,10 @@ SBO::isInteraction  (unsigned int sboTerm)
 
 /*
  * Function for checking the SBO term is from correct part of SBO.
- * 
+ *
  * @return true if the term is-a Entity, false otherwise
  */
-bool 
+bool
 SBO::isEntity  (unsigned int sboTerm)
 {
   return SBO::isPhysicalParticipant(sboTerm);
@@ -435,10 +435,10 @@ SBO::isEntity  (unsigned int sboTerm)
 
 /*
  * Function for checking the SBO term is from correct part of SBO.
- * 
+ *
  * @return true if the term is-a FunctionalEntity, false otherwise
  */
-bool 
+bool
 SBO::isFunctionalEntity  (unsigned int sboTerm)
 {
   if (sboTerm == 241)
@@ -451,10 +451,10 @@ SBO::isFunctionalEntity  (unsigned int sboTerm)
 
 /*
  * Function for checking the SBO term is from correct part of SBO.
- * 
+ *
  * @return true if the term is-a MaterialEntity, false otherwise
  */
-bool 
+bool
 SBO::isMaterialEntity  (unsigned int sboTerm)
 {
   if (sboTerm == 240)
@@ -467,10 +467,10 @@ SBO::isMaterialEntity  (unsigned int sboTerm)
 
 /*
  * Function for checking the SBO term is from correct part of SBO.
- * 
+ *
  * @return true if the term is-a ConservationLaw, false otherwise
  */
-bool 
+bool
 SBO::isConservationLaw  (unsigned int sboTerm)
 {
   if (sboTerm == 355)
@@ -483,10 +483,10 @@ SBO::isConservationLaw  (unsigned int sboTerm)
 
 /*
  * Function for checking the SBO term is from correct part of SBO.
- * 
+ *
  * @return true if the term is-a SteadyStateExpression, false otherwise
  */
-bool 
+bool
 SBO::isSteadyStateExpression  (unsigned int sboTerm)
 {
   if (sboTerm == 391)
@@ -499,10 +499,10 @@ SBO::isSteadyStateExpression  (unsigned int sboTerm)
 
 /*
  * Function for checking the SBO term is from correct part of SBO.
- * 
+ *
  * @return true if the term is-a FunctionalCompartment, false otherwise
  */
-bool 
+bool
 SBO::isFunctionalCompartment  (unsigned int sboTerm)
 {
   if (sboTerm == 289)
@@ -515,10 +515,10 @@ SBO::isFunctionalCompartment  (unsigned int sboTerm)
 
 /*
  * Function for checking the SBO term is from correct part of SBO.
- * 
+ *
  * @return true if the term is-a ContinuousFramework, false otherwise
  */
-bool 
+bool
 SBO::isContinuousFramework  (unsigned int sboTerm)
 {
   if (sboTerm == 62)
@@ -531,10 +531,10 @@ SBO::isContinuousFramework  (unsigned int sboTerm)
 
 /*
  * Function for checking the SBO term is from correct part of SBO.
- * 
+ *
  * @return true if the term is-a DiscreteFramework, false otherwise
  */
-bool 
+bool
 SBO::isDiscreteFramework  (unsigned int sboTerm)
 {
   if (sboTerm == 63)
@@ -547,10 +547,10 @@ SBO::isDiscreteFramework  (unsigned int sboTerm)
 
 /*
  * Function for checking the SBO term is from correct part of SBO.
- * 
+ *
  * @return true if the term is-a LogicalFramework, false otherwise
  */
-bool 
+bool
 SBO::isLogicalFramework  (unsigned int sboTerm)
 {
   if (sboTerm == 234)
@@ -564,10 +564,10 @@ SBO::isLogicalFramework  (unsigned int sboTerm)
 
 /*
  * Function for checking the SBO term is Obselete
- * 
+ *
  * @return true if the term is-a Obselete, false otherwise
  */
-bool 
+bool
 SBO::isObselete  (unsigned int sboTerm)
 {
   if (sboTerm == 1000)
@@ -584,461 +584,461 @@ SBO::isObselete  (unsigned int sboTerm)
   * functions for checking the SBO term is from correct part of SBO
   * populates the parent-child map
   */
-void 
+void
 SBO::populateSBOTree()
 {
   // generated from SBO on December 9th 2008
-  mParent.insert( make_pair(  1,  64) );
-  mParent.insert( make_pair(  5, 1000) );
-  mParent.insert( make_pair(  6, 1000) );
-  mParent.insert( make_pair(  7, 1000) );
-  mParent.insert( make_pair(  8, 1000) );
-  mParent.insert( make_pair(  9, 256) );
-  mParent.insert( make_pair( 10,   3) );
-  mParent.insert( make_pair( 11,   3) );
-  mParent.insert( make_pair( 12,   1) );
-  mParent.insert( make_pair( 13,  19) );
-  mParent.insert( make_pair( 14, 241) );
-  mParent.insert( make_pair( 15,  10) );
-  mParent.insert( make_pair( 16,   9) );
-  mParent.insert( make_pair( 17,   9) );
-  mParent.insert( make_pair( 18,   9) );
-  mParent.insert( make_pair( 19,   3) );
-  mParent.insert( make_pair( 20,  19) );
-  mParent.insert( make_pair( 21,  19) );
-  mParent.insert( make_pair( 22,  16) );
-  mParent.insert( make_pair( 22, 153) );
-  mParent.insert( make_pair( 23,  17) );
-  mParent.insert( make_pair( 23, 153) );
-  mParent.insert( make_pair( 24,  18) );
-  mParent.insert( make_pair( 24, 153) );
-  mParent.insert( make_pair( 25,  35) );
-  mParent.insert( make_pair( 26, 1000) );
-  mParent.insert( make_pair( 27, 193) );
-  mParent.insert( make_pair( 28, 150) );
-  mParent.insert( make_pair( 28, 326) );
-  mParent.insert( make_pair( 29,  28) );
-  mParent.insert( make_pair( 30,  28) );
-  mParent.insert( make_pair( 31,  28) );
-  mParent.insert( make_pair( 32,  16) );
-  mParent.insert( make_pair( 32, 156) );
-  mParent.insert( make_pair( 33,  17) );
-  mParent.insert( make_pair( 33, 156) );
-  mParent.insert( make_pair( 34,  18) );
-  mParent.insert( make_pair( 34, 156) );
-  mParent.insert( make_pair( 35,  22) );
-  mParent.insert( make_pair( 35, 154) );
-  mParent.insert( make_pair( 36,  23) );
-  mParent.insert( make_pair( 36, 154) );
-  mParent.insert( make_pair( 37,  24) );
-  mParent.insert( make_pair( 37, 154) );
-  mParent.insert( make_pair( 38,  32) );
-  mParent.insert( make_pair( 39,  33) );
-  mParent.insert( make_pair( 40,  34) );
-  mParent.insert( make_pair( 41,  12) );
-  mParent.insert( make_pair( 42,  12) );
-  mParent.insert( make_pair( 43,  41) );
-  mParent.insert( make_pair( 44,  41) );
-  mParent.insert( make_pair( 45,  41) );
-  mParent.insert( make_pair( 46,   9) );
-  mParent.insert( make_pair( 47,  43) );
-  mParent.insert( make_pair( 47, 163) );
-  mParent.insert( make_pair( 48, 154) );
-  mParent.insert( make_pair( 48, 162) );
-  mParent.insert( make_pair( 49,  44) );
-  mParent.insert( make_pair( 49, 163) );
-  mParent.insert( make_pair( 50,  45) );
-  mParent.insert( make_pair( 51, 1000) );
-  mParent.insert( make_pair( 52,  50) );
-  mParent.insert( make_pair( 52, 163) );
-  mParent.insert( make_pair( 53,  45) );
-  mParent.insert( make_pair( 54,  53) );
-  mParent.insert( make_pair( 54, 163) );
-  mParent.insert( make_pair( 55,  41) );
-  mParent.insert( make_pair( 56,  55) );
-  mParent.insert( make_pair( 57,  56) );
-  mParent.insert( make_pair( 57, 163) );
-  mParent.insert( make_pair( 58,  55) );
-  mParent.insert( make_pair( 59,  58) );
-  mParent.insert( make_pair( 59, 163) );
-  mParent.insert( make_pair( 60,  55) );
-  mParent.insert( make_pair( 61,  60) );
-  mParent.insert( make_pair( 61, 163) );
-  mParent.insert( make_pair( 62,   4) );
-  mParent.insert( make_pair( 63,   4) );
-  mParent.insert( make_pair( 65, 155) );
-  mParent.insert( make_pair( 65, 162) );
-  mParent.insert( make_pair( 66,  22) );
-  mParent.insert( make_pair( 66, 155) );
-  mParent.insert( make_pair( 67,  23) );
-  mParent.insert( make_pair( 67, 155) );
-  mParent.insert( make_pair( 68,  24) );
-  mParent.insert( make_pair( 68, 155) );
-  mParent.insert( make_pair( 69,  42) );
-  mParent.insert( make_pair( 70,  69) );
-  mParent.insert( make_pair( 71,  69) );
-  mParent.insert( make_pair( 72,  71) );
-  mParent.insert( make_pair( 73,  71) );
-  mParent.insert( make_pair( 74,  69) );
-  mParent.insert( make_pair( 75,  74) );
-  mParent.insert( make_pair( 76,  74) );
-  mParent.insert( make_pair( 77,  74) );
-  mParent.insert( make_pair( 78,  42) );
-  mParent.insert( make_pair( 79,  78) );
-  mParent.insert( make_pair( 80,  78) );
-  mParent.insert( make_pair( 81,  78) );
-  mParent.insert( make_pair( 82,  81) );
-  mParent.insert( make_pair( 83,  81) );
-  mParent.insert( make_pair( 84,  78) );
-  mParent.insert( make_pair( 85,  84) );
-  mParent.insert( make_pair( 86,  84) );
-  mParent.insert( make_pair( 87,  84) );
-  mParent.insert( make_pair( 88,  42) );
-  mParent.insert( make_pair( 89,  88) );
-  mParent.insert( make_pair( 90,  89) );
-  mParent.insert( make_pair( 91,  89) );
-  mParent.insert( make_pair( 92,  89) );
-  mParent.insert( make_pair( 93,  92) );
-  mParent.insert( make_pair( 94,  92) );
-  mParent.insert( make_pair( 95,  89) );
-  mParent.insert( make_pair( 96,  95) );
-  mParent.insert( make_pair( 97,  95) );
-  mParent.insert( make_pair( 98,  95) );
-  mParent.insert( make_pair( 99,  88) );
-  mParent.insert( make_pair(100,  99) );
-  mParent.insert( make_pair(101,  99) );
-  mParent.insert( make_pair(102,  99) );
-  mParent.insert( make_pair(103, 102) );
-  mParent.insert( make_pair(104, 102) );
-  mParent.insert( make_pair(105,  99) );
-  mParent.insert( make_pair(106, 105) );
-  mParent.insert( make_pair(107, 105) );
-  mParent.insert( make_pair(108, 105) );
-  mParent.insert( make_pair(109,  42) );
-  mParent.insert( make_pair(110, 109) );
-  mParent.insert( make_pair(111, 110) );
-  mParent.insert( make_pair(112, 110) );
-  mParent.insert( make_pair(113, 110) );
-  mParent.insert( make_pair(114, 113) );
-  mParent.insert( make_pair(115, 113) );
-  mParent.insert( make_pair(116, 110) );
-  mParent.insert( make_pair(117, 116) );
-  mParent.insert( make_pair(118, 116) );
-  mParent.insert( make_pair(119, 116) );
-  mParent.insert( make_pair(120, 109) );
-  mParent.insert( make_pair(121, 120) );
-  mParent.insert( make_pair(122, 120) );
-  mParent.insert( make_pair(123, 120) );
-  mParent.insert( make_pair(124, 123) );
-  mParent.insert( make_pair(125, 123) );
-  mParent.insert( make_pair(126, 120) );
-  mParent.insert( make_pair(127, 126) );
-  mParent.insert( make_pair(128, 126) );
-  mParent.insert( make_pair(129, 126) );
-  mParent.insert( make_pair(130, 109) );
-  mParent.insert( make_pair(131, 130) );
-  mParent.insert( make_pair(132, 130) );
-  mParent.insert( make_pair(133, 130) );
-  mParent.insert( make_pair(134, 133) );
-  mParent.insert( make_pair(135, 133) );
-  mParent.insert( make_pair(136, 130) );
-  mParent.insert( make_pair(137, 136) );
-  mParent.insert( make_pair(138, 136) );
-  mParent.insert( make_pair(139, 136) );
-  mParent.insert( make_pair(140,  43) );
-  mParent.insert( make_pair(140, 166) );
-  mParent.insert( make_pair(141,  44) );
-  mParent.insert( make_pair(141, 166) );
-  mParent.insert( make_pair(142,  50) );
-  mParent.insert( make_pair(142, 166) );
-  mParent.insert( make_pair(143,  53) );
-  mParent.insert( make_pair(143, 166) );
-  mParent.insert( make_pair(144,  56) );
-  mParent.insert( make_pair(144, 166) );
-  mParent.insert( make_pair(145,  58) );
-  mParent.insert( make_pair(145, 166) );
-  mParent.insert( make_pair(146,  60) );
-  mParent.insert( make_pair(146, 166) );
-  mParent.insert( make_pair(147, 255) );
-  mParent.insert( make_pair(148, 255) );
-  mParent.insert( make_pair(149, 188) );
-  mParent.insert( make_pair(150, 268) );
-  mParent.insert( make_pair(151, 150) );
-  mParent.insert( make_pair(152, 150) );
-  mParent.insert( make_pair(153,   9) );
-  mParent.insert( make_pair(154, 153) );
-  mParent.insert( make_pair(155, 153) );
-  mParent.insert( make_pair(156,   9) );
-  mParent.insert( make_pair(157, 188) );
-  mParent.insert( make_pair(158, 256) );
-  mParent.insert( make_pair(159,   9) );
-  mParent.insert( make_pair(160, 153) );
-  mParent.insert( make_pair(160, 159) );
-  mParent.insert( make_pair(161, 156) );
-  mParent.insert( make_pair(161, 159) );
-  mParent.insert( make_pair(162,  46) );
-  mParent.insert( make_pair(162, 153) );
-  mParent.insert( make_pair(163,  41) );
-  mParent.insert( make_pair(164, 1000) );
-  mParent.insert( make_pair(165, 1000) );
-  mParent.insert( make_pair(166,  41) );
-  mParent.insert( make_pair(232, 1000) );
-  mParent.insert( make_pair(167, 375) );
-  mParent.insert( make_pair(168, 374) );
-  mParent.insert( make_pair(169, 168) );
-  mParent.insert( make_pair(170, 168) );
-  mParent.insert( make_pair(171, 170) );
-  mParent.insert( make_pair(172, 170) );
-  mParent.insert( make_pair(173, 237) );
-  mParent.insert( make_pair(174, 237) );
-  mParent.insert( make_pair(175, 237) );
-  mParent.insert( make_pair(176, 167) );
-  mParent.insert( make_pair(177, 176) );
-  mParent.insert( make_pair(178, 182) );
-  mParent.insert( make_pair(179, 176) );
-  mParent.insert( make_pair(180, 176) );
-  mParent.insert( make_pair(181, 176) );
-  mParent.insert( make_pair(182, 176) );
-  mParent.insert( make_pair(183, 205) );
-  mParent.insert( make_pair(184, 205) );
-  mParent.insert( make_pair(185, 167) );
-  mParent.insert( make_pair(186,  46) );
-  mParent.insert( make_pair(187, 1000) );
-  mParent.insert( make_pair(188, 256) );
-  mParent.insert( make_pair(189, 188) );
-  mParent.insert( make_pair(190, 382) );
-  mParent.insert( make_pair(191, 193) );
-  mParent.insert( make_pair(192,   1) );
-  mParent.insert( make_pair(193, 308) );
-  mParent.insert( make_pair(194, 193) );
-  mParent.insert( make_pair(195, 192) );
-  mParent.insert( make_pair(196, 226) );
-  mParent.insert( make_pair(196, 360) );
-  mParent.insert( make_pair(197, 196) );
-  mParent.insert( make_pair(198, 192) );
-  mParent.insert( make_pair(199,  28) );
-  mParent.insert( make_pair(200, 176) );
-  mParent.insert( make_pair(201, 200) );
-  mParent.insert( make_pair(202, 200) );
-  mParent.insert( make_pair(203, 1000) );
-  mParent.insert( make_pair(204, 205) );
-  mParent.insert( make_pair(205, 375) );
-  mParent.insert( make_pair(206,  20) );
-  mParent.insert( make_pair(207,  20) );
-  mParent.insert( make_pair(208, 176) );
-  mParent.insert( make_pair(209, 176) );
-  mParent.insert( make_pair(210, 182) );
-  mParent.insert( make_pair(211, 182) );
-  mParent.insert( make_pair(212, 208) );
-  mParent.insert( make_pair(212, 210) );
-  mParent.insert( make_pair(213, 208) );
-  mParent.insert( make_pair(213, 211) );
-  mParent.insert( make_pair(214, 210) );
-  mParent.insert( make_pair(215, 210) );
-  mParent.insert( make_pair(216, 210) );
-  mParent.insert( make_pair(217, 210) );
-  mParent.insert( make_pair(218, 210) );
-  mParent.insert( make_pair(219, 210) );
-  mParent.insert( make_pair(220, 210) );
-  mParent.insert( make_pair(221, 210) );
-  mParent.insert( make_pair(222, 221) );
-  mParent.insert( make_pair(223, 221) );
-  mParent.insert( make_pair(224, 210) );
-  mParent.insert( make_pair(225, 346) );
-  mParent.insert( make_pair(226,   2) );
-  mParent.insert( make_pair(227,   2) );
-  mParent.insert( make_pair(228, 227) );
-  mParent.insert( make_pair(229, 227) );
-  mParent.insert( make_pair(230, 227) );
-  mParent.insert( make_pair(233, 210) );
-  mParent.insert( make_pair(234,   4) );
-  mParent.insert( make_pair(235, 1000) );
-  mParent.insert( make_pair(236,   0) );
-  mParent.insert( make_pair(237, 374) );
-  mParent.insert( make_pair(238, 237) );
-  mParent.insert( make_pair(239, 168) );
-  mParent.insert( make_pair(240, 236) );
-  mParent.insert( make_pair(241, 236) );
-  mParent.insert( make_pair(242, 241) );
-  mParent.insert( make_pair(243, 404) );
-  mParent.insert( make_pair(244, 241) );
-  mParent.insert( make_pair(245, 240) );
-  mParent.insert( make_pair(246, 245) );
-  mParent.insert( make_pair(247, 240) );
-  mParent.insert( make_pair(248, 245) );
-  mParent.insert( make_pair(249, 248) );
-  mParent.insert( make_pair(250, 246) );
-  mParent.insert( make_pair(251, 246) );
-  mParent.insert( make_pair(252, 246) );
-  mParent.insert( make_pair(253, 240) );
-  mParent.insert( make_pair(254, 255) );
-  mParent.insert( make_pair(255,   2) );
-  mParent.insert( make_pair(256,   2) );
-  mParent.insert( make_pair(257, 255) );
-  mParent.insert( make_pair(258, 255) );
-  mParent.insert( make_pair(259, 255) );
-  mParent.insert( make_pair(260, 267) );
-  mParent.insert( make_pair(260, 270) );
-  mParent.insert( make_pair(261, 282) );
-  mParent.insert( make_pair(262, 269) );
-  mParent.insert( make_pair(263, 308) );
-  mParent.insert( make_pair(264, 263) );
-  mParent.insert( make_pair(265, 275) );
-  mParent.insert( make_pair(266, 265) );
-  mParent.insert( make_pair(267, 273) );
-  mParent.insert( make_pair(268,   1) );
-  mParent.insert( make_pair(269, 268) );
-  mParent.insert( make_pair(270, 269) );
-  mParent.insert( make_pair(271, 270) );
-  mParent.insert( make_pair(272, 188) );
-  mParent.insert( make_pair(273, 269) );
-  mParent.insert( make_pair(274, 273) );
-  mParent.insert( make_pair(274, 379) );
-  mParent.insert( make_pair(275, 269) );
-  mParent.insert( make_pair(276, 275) );
-  mParent.insert( make_pair(277, 276) );
-  mParent.insert( make_pair(278, 404) );
-  mParent.insert( make_pair(279, 255) );
-  mParent.insert( make_pair(280, 241) );
-  mParent.insert( make_pair(281, 193) );
-  mParent.insert( make_pair(282, 281) );
-  mParent.insert( make_pair(282, 309) );
-  mParent.insert( make_pair(283, 282) );
-  mParent.insert( make_pair(283, 310) );
-  mParent.insert( make_pair(284, 241) );
-  mParent.insert( make_pair(285, 240) );
-  mParent.insert( make_pair(286, 253) );
-  mParent.insert( make_pair(287, 193) );
-  mParent.insert( make_pair(288, 193) );
-  mParent.insert( make_pair(289,   3) );
-  mParent.insert( make_pair(290, 240) );
-  mParent.insert( make_pair(291, 240) );
-  mParent.insert( make_pair(292,  62) );
-  mParent.insert( make_pair(293,  62) );
-  mParent.insert( make_pair(294,  63) );
-  mParent.insert( make_pair(295,  63) );
-  mParent.insert( make_pair(296, 253) );
-  mParent.insert( make_pair(297, 296) );
-  mParent.insert( make_pair(298, 241) );
-  mParent.insert( make_pair(299, 241) );
-  mParent.insert( make_pair(300, 1000) );
-  mParent.insert( make_pair(301,  35) );
-  mParent.insert( make_pair(302,  36) );
-  mParent.insert( make_pair(303, 308) );
-  mParent.insert( make_pair(304, 303) );
-  mParent.insert( make_pair(305, 303) );
-  mParent.insert( make_pair(306, 303) );
-  mParent.insert( make_pair(306, 309) );
-  mParent.insert( make_pair(307, 306) );
-  mParent.insert( make_pair(307, 310) );
-  mParent.insert( make_pair(308, 256) );
-  mParent.insert( make_pair(309, 308) );
-  mParent.insert( make_pair(310, 309) );
-  mParent.insert( make_pair(311, 278) );
-  mParent.insert( make_pair(312, 278) );
-  mParent.insert( make_pair(313, 334) );
-  mParent.insert( make_pair(314, 334) );
-  mParent.insert( make_pair(315, 241) );
-  mParent.insert( make_pair(316, 334) );
-  mParent.insert( make_pair(317, 241) );
-  mParent.insert( make_pair(318, 334) );
-  mParent.insert( make_pair(319, 334) );
-  mParent.insert( make_pair(320,  25) );
-  mParent.insert( make_pair(321,  25) );
-  mParent.insert( make_pair(322,  27) );
-  mParent.insert( make_pair(323,  27) );
-  mParent.insert( make_pair(324, 186) );
-  mParent.insert( make_pair(324, 350) );
-  mParent.insert( make_pair(325, 186) );
-  mParent.insert( make_pair(325, 353) );
-  mParent.insert( make_pair(326, 269) );
-  mParent.insert( make_pair(327, 247) );
-  mParent.insert( make_pair(328, 247) );
-  mParent.insert( make_pair(329, 404) );
-  mParent.insert( make_pair(330, 211) );
-  mParent.insert( make_pair(331,   9) );
-  mParent.insert( make_pair(331, 346) );
-  mParent.insert( make_pair(332, 331) );
-  mParent.insert( make_pair(333,  49) );
-  mParent.insert( make_pair(334, 404) );
-  mParent.insert( make_pair(335, 404) );
-  mParent.insert( make_pair(336,  10) );
-  mParent.insert( make_pair(337, 281) );
-  mParent.insert( make_pair(338,  35) );
-  mParent.insert( make_pair(338,  38) );
-  mParent.insert( make_pair(339,  36) );
-  mParent.insert( make_pair(339, 341) );
-  mParent.insert( make_pair(340,  37) );
-  mParent.insert( make_pair(340, 341) );
-  mParent.insert( make_pair(341, 154) );
-  mParent.insert( make_pair(342, 375) );
-  mParent.insert( make_pair(343, 342) );
-  mParent.insert( make_pair(344, 342) );
-  mParent.insert( make_pair(345, 255) );
-  mParent.insert( make_pair(346,   2) );
-  mParent.insert( make_pair(347, 346) );
-  mParent.insert( make_pair(348,   9) );
-  mParent.insert( make_pair(348, 346) );
-  mParent.insert( make_pair(349,  35) );
-  mParent.insert( make_pair(350,  48) );
-  mParent.insert( make_pair(352,  46) );
-  mParent.insert( make_pair(352, 156) );
-  mParent.insert( make_pair(353, 352) );
-  mParent.insert( make_pair(354, 240) );
-  mParent.insert( make_pair(355,  64) );
-  mParent.insert( make_pair(356,  35) );
-  mParent.insert( make_pair(357, 375) );
-  mParent.insert( make_pair(358, 375) );
-  mParent.insert( make_pair(359, 355) );
-  mParent.insert( make_pair(360,   2) );
-  mParent.insert( make_pair(361, 360) );
-  mParent.insert( make_pair(362, 359) );
-  mParent.insert( make_pair(363, 282) );
-  mParent.insert( make_pair(364, 188) );
-  mParent.insert( make_pair(365, 154) );
-  mParent.insert( make_pair(365, 160) );
-  mParent.insert( make_pair(366, 155) );
-  mParent.insert( make_pair(366, 160) );
-  mParent.insert( make_pair(367, 161) );
-  mParent.insert( make_pair(368, 161) );
-  mParent.insert( make_pair(369, 404) );
-  mParent.insert( make_pair(370,  27) );
-  mParent.insert( make_pair(371, 370) );
-  mParent.insert( make_pair(372, 370) );
-  mParent.insert( make_pair(373,  27) );
-  mParent.insert( make_pair(374, 231) );
-  mParent.insert( make_pair(375, 231) );
-  mParent.insert( make_pair(376, 176) );
-  mParent.insert( make_pair(377, 176) );
-  mParent.insert( make_pair(378, 270) );
-  mParent.insert( make_pair(379, 269) );
-  mParent.insert( make_pair(380, 256) );
-  mParent.insert( make_pair(381, 380) );
-  mParent.insert( make_pair(382, 380) );
-  mParent.insert( make_pair(383, 381) );
-  mParent.insert( make_pair(384, 381) );
-  mParent.insert( make_pair(385, 381) );
-  mParent.insert( make_pair(386, 378) );
-  mParent.insert( make_pair(387, 270) );
-  mParent.insert( make_pair(388, 378) );
-  mParent.insert( make_pair(389,   2) );
-  mParent.insert( make_pair(390, 389) );
-  mParent.insert( make_pair(391,  64) );
-  mParent.insert( make_pair(392, 374) );
-  mParent.insert( make_pair(393, 168) );
-  mParent.insert( make_pair(394, 168) );
-  mParent.insert( make_pair(395, 375) );
-  mParent.insert( make_pair(396, 375) );
-  mParent.insert( make_pair(397, 375) );
-  mParent.insert( make_pair(398, 374) );
-  mParent.insert( make_pair(399, 211) );
-  mParent.insert( make_pair(400, 211) );
-  mParent.insert( make_pair(401, 211) );
-  mParent.insert( make_pair(402, 182) );
-  mParent.insert( make_pair(403, 402) );
-  mParent.insert( make_pair(404, 241) );
-  mParent.insert( make_pair(405, 240) );
-  mParent.insert( make_pair(406, 240) );
+  mParent.insert( MAKE_MAP(  1,  64) );
+  mParent.insert( MAKE_MAP(  5, 1000) );
+  mParent.insert( MAKE_MAP(  6, 1000) );
+  mParent.insert( MAKE_MAP(  7, 1000) );
+  mParent.insert( MAKE_MAP(  8, 1000) );
+  mParent.insert( MAKE_MAP(  9, 256) );
+  mParent.insert( MAKE_MAP( 10,   3) );
+  mParent.insert( MAKE_MAP( 11,   3) );
+  mParent.insert( MAKE_MAP( 12,   1) );
+  mParent.insert( MAKE_MAP( 13,  19) );
+  mParent.insert( MAKE_MAP( 14, 241) );
+  mParent.insert( MAKE_MAP( 15,  10) );
+  mParent.insert( MAKE_MAP( 16,   9) );
+  mParent.insert( MAKE_MAP( 17,   9) );
+  mParent.insert( MAKE_MAP( 18,   9) );
+  mParent.insert( MAKE_MAP( 19,   3) );
+  mParent.insert( MAKE_MAP( 20,  19) );
+  mParent.insert( MAKE_MAP( 21,  19) );
+  mParent.insert( MAKE_MAP( 22,  16) );
+  mParent.insert( MAKE_MAP( 22, 153) );
+  mParent.insert( MAKE_MAP( 23,  17) );
+  mParent.insert( MAKE_MAP( 23, 153) );
+  mParent.insert( MAKE_MAP( 24,  18) );
+  mParent.insert( MAKE_MAP( 24, 153) );
+  mParent.insert( MAKE_MAP( 25,  35) );
+  mParent.insert( MAKE_MAP( 26, 1000) );
+  mParent.insert( MAKE_MAP( 27, 193) );
+  mParent.insert( MAKE_MAP( 28, 150) );
+  mParent.insert( MAKE_MAP( 28, 326) );
+  mParent.insert( MAKE_MAP( 29,  28) );
+  mParent.insert( MAKE_MAP( 30,  28) );
+  mParent.insert( MAKE_MAP( 31,  28) );
+  mParent.insert( MAKE_MAP( 32,  16) );
+  mParent.insert( MAKE_MAP( 32, 156) );
+  mParent.insert( MAKE_MAP( 33,  17) );
+  mParent.insert( MAKE_MAP( 33, 156) );
+  mParent.insert( MAKE_MAP( 34,  18) );
+  mParent.insert( MAKE_MAP( 34, 156) );
+  mParent.insert( MAKE_MAP( 35,  22) );
+  mParent.insert( MAKE_MAP( 35, 154) );
+  mParent.insert( MAKE_MAP( 36,  23) );
+  mParent.insert( MAKE_MAP( 36, 154) );
+  mParent.insert( MAKE_MAP( 37,  24) );
+  mParent.insert( MAKE_MAP( 37, 154) );
+  mParent.insert( MAKE_MAP( 38,  32) );
+  mParent.insert( MAKE_MAP( 39,  33) );
+  mParent.insert( MAKE_MAP( 40,  34) );
+  mParent.insert( MAKE_MAP( 41,  12) );
+  mParent.insert( MAKE_MAP( 42,  12) );
+  mParent.insert( MAKE_MAP( 43,  41) );
+  mParent.insert( MAKE_MAP( 44,  41) );
+  mParent.insert( MAKE_MAP( 45,  41) );
+  mParent.insert( MAKE_MAP( 46,   9) );
+  mParent.insert( MAKE_MAP( 47,  43) );
+  mParent.insert( MAKE_MAP( 47, 163) );
+  mParent.insert( MAKE_MAP( 48, 154) );
+  mParent.insert( MAKE_MAP( 48, 162) );
+  mParent.insert( MAKE_MAP( 49,  44) );
+  mParent.insert( MAKE_MAP( 49, 163) );
+  mParent.insert( MAKE_MAP( 50,  45) );
+  mParent.insert( MAKE_MAP( 51, 1000) );
+  mParent.insert( MAKE_MAP( 52,  50) );
+  mParent.insert( MAKE_MAP( 52, 163) );
+  mParent.insert( MAKE_MAP( 53,  45) );
+  mParent.insert( MAKE_MAP( 54,  53) );
+  mParent.insert( MAKE_MAP( 54, 163) );
+  mParent.insert( MAKE_MAP( 55,  41) );
+  mParent.insert( MAKE_MAP( 56,  55) );
+  mParent.insert( MAKE_MAP( 57,  56) );
+  mParent.insert( MAKE_MAP( 57, 163) );
+  mParent.insert( MAKE_MAP( 58,  55) );
+  mParent.insert( MAKE_MAP( 59,  58) );
+  mParent.insert( MAKE_MAP( 59, 163) );
+  mParent.insert( MAKE_MAP( 60,  55) );
+  mParent.insert( MAKE_MAP( 61,  60) );
+  mParent.insert( MAKE_MAP( 61, 163) );
+  mParent.insert( MAKE_MAP( 62,   4) );
+  mParent.insert( MAKE_MAP( 63,   4) );
+  mParent.insert( MAKE_MAP( 65, 155) );
+  mParent.insert( MAKE_MAP( 65, 162) );
+  mParent.insert( MAKE_MAP( 66,  22) );
+  mParent.insert( MAKE_MAP( 66, 155) );
+  mParent.insert( MAKE_MAP( 67,  23) );
+  mParent.insert( MAKE_MAP( 67, 155) );
+  mParent.insert( MAKE_MAP( 68,  24) );
+  mParent.insert( MAKE_MAP( 68, 155) );
+  mParent.insert( MAKE_MAP( 69,  42) );
+  mParent.insert( MAKE_MAP( 70,  69) );
+  mParent.insert( MAKE_MAP( 71,  69) );
+  mParent.insert( MAKE_MAP( 72,  71) );
+  mParent.insert( MAKE_MAP( 73,  71) );
+  mParent.insert( MAKE_MAP( 74,  69) );
+  mParent.insert( MAKE_MAP( 75,  74) );
+  mParent.insert( MAKE_MAP( 76,  74) );
+  mParent.insert( MAKE_MAP( 77,  74) );
+  mParent.insert( MAKE_MAP( 78,  42) );
+  mParent.insert( MAKE_MAP( 79,  78) );
+  mParent.insert( MAKE_MAP( 80,  78) );
+  mParent.insert( MAKE_MAP( 81,  78) );
+  mParent.insert( MAKE_MAP( 82,  81) );
+  mParent.insert( MAKE_MAP( 83,  81) );
+  mParent.insert( MAKE_MAP( 84,  78) );
+  mParent.insert( MAKE_MAP( 85,  84) );
+  mParent.insert( MAKE_MAP( 86,  84) );
+  mParent.insert( MAKE_MAP( 87,  84) );
+  mParent.insert( MAKE_MAP( 88,  42) );
+  mParent.insert( MAKE_MAP( 89,  88) );
+  mParent.insert( MAKE_MAP( 90,  89) );
+  mParent.insert( MAKE_MAP( 91,  89) );
+  mParent.insert( MAKE_MAP( 92,  89) );
+  mParent.insert( MAKE_MAP( 93,  92) );
+  mParent.insert( MAKE_MAP( 94,  92) );
+  mParent.insert( MAKE_MAP( 95,  89) );
+  mParent.insert( MAKE_MAP( 96,  95) );
+  mParent.insert( MAKE_MAP( 97,  95) );
+  mParent.insert( MAKE_MAP( 98,  95) );
+  mParent.insert( MAKE_MAP( 99,  88) );
+  mParent.insert( MAKE_MAP(100,  99) );
+  mParent.insert( MAKE_MAP(101,  99) );
+  mParent.insert( MAKE_MAP(102,  99) );
+  mParent.insert( MAKE_MAP(103, 102) );
+  mParent.insert( MAKE_MAP(104, 102) );
+  mParent.insert( MAKE_MAP(105,  99) );
+  mParent.insert( MAKE_MAP(106, 105) );
+  mParent.insert( MAKE_MAP(107, 105) );
+  mParent.insert( MAKE_MAP(108, 105) );
+  mParent.insert( MAKE_MAP(109,  42) );
+  mParent.insert( MAKE_MAP(110, 109) );
+  mParent.insert( MAKE_MAP(111, 110) );
+  mParent.insert( MAKE_MAP(112, 110) );
+  mParent.insert( MAKE_MAP(113, 110) );
+  mParent.insert( MAKE_MAP(114, 113) );
+  mParent.insert( MAKE_MAP(115, 113) );
+  mParent.insert( MAKE_MAP(116, 110) );
+  mParent.insert( MAKE_MAP(117, 116) );
+  mParent.insert( MAKE_MAP(118, 116) );
+  mParent.insert( MAKE_MAP(119, 116) );
+  mParent.insert( MAKE_MAP(120, 109) );
+  mParent.insert( MAKE_MAP(121, 120) );
+  mParent.insert( MAKE_MAP(122, 120) );
+  mParent.insert( MAKE_MAP(123, 120) );
+  mParent.insert( MAKE_MAP(124, 123) );
+  mParent.insert( MAKE_MAP(125, 123) );
+  mParent.insert( MAKE_MAP(126, 120) );
+  mParent.insert( MAKE_MAP(127, 126) );
+  mParent.insert( MAKE_MAP(128, 126) );
+  mParent.insert( MAKE_MAP(129, 126) );
+  mParent.insert( MAKE_MAP(130, 109) );
+  mParent.insert( MAKE_MAP(131, 130) );
+  mParent.insert( MAKE_MAP(132, 130) );
+  mParent.insert( MAKE_MAP(133, 130) );
+  mParent.insert( MAKE_MAP(134, 133) );
+  mParent.insert( MAKE_MAP(135, 133) );
+  mParent.insert( MAKE_MAP(136, 130) );
+  mParent.insert( MAKE_MAP(137, 136) );
+  mParent.insert( MAKE_MAP(138, 136) );
+  mParent.insert( MAKE_MAP(139, 136) );
+  mParent.insert( MAKE_MAP(140,  43) );
+  mParent.insert( MAKE_MAP(140, 166) );
+  mParent.insert( MAKE_MAP(141,  44) );
+  mParent.insert( MAKE_MAP(141, 166) );
+  mParent.insert( MAKE_MAP(142,  50) );
+  mParent.insert( MAKE_MAP(142, 166) );
+  mParent.insert( MAKE_MAP(143,  53) );
+  mParent.insert( MAKE_MAP(143, 166) );
+  mParent.insert( MAKE_MAP(144,  56) );
+  mParent.insert( MAKE_MAP(144, 166) );
+  mParent.insert( MAKE_MAP(145,  58) );
+  mParent.insert( MAKE_MAP(145, 166) );
+  mParent.insert( MAKE_MAP(146,  60) );
+  mParent.insert( MAKE_MAP(146, 166) );
+  mParent.insert( MAKE_MAP(147, 255) );
+  mParent.insert( MAKE_MAP(148, 255) );
+  mParent.insert( MAKE_MAP(149, 188) );
+  mParent.insert( MAKE_MAP(150, 268) );
+  mParent.insert( MAKE_MAP(151, 150) );
+  mParent.insert( MAKE_MAP(152, 150) );
+  mParent.insert( MAKE_MAP(153,   9) );
+  mParent.insert( MAKE_MAP(154, 153) );
+  mParent.insert( MAKE_MAP(155, 153) );
+  mParent.insert( MAKE_MAP(156,   9) );
+  mParent.insert( MAKE_MAP(157, 188) );
+  mParent.insert( MAKE_MAP(158, 256) );
+  mParent.insert( MAKE_MAP(159,   9) );
+  mParent.insert( MAKE_MAP(160, 153) );
+  mParent.insert( MAKE_MAP(160, 159) );
+  mParent.insert( MAKE_MAP(161, 156) );
+  mParent.insert( MAKE_MAP(161, 159) );
+  mParent.insert( MAKE_MAP(162,  46) );
+  mParent.insert( MAKE_MAP(162, 153) );
+  mParent.insert( MAKE_MAP(163,  41) );
+  mParent.insert( MAKE_MAP(164, 1000) );
+  mParent.insert( MAKE_MAP(165, 1000) );
+  mParent.insert( MAKE_MAP(166,  41) );
+  mParent.insert( MAKE_MAP(232, 1000) );
+  mParent.insert( MAKE_MAP(167, 375) );
+  mParent.insert( MAKE_MAP(168, 374) );
+  mParent.insert( MAKE_MAP(169, 168) );
+  mParent.insert( MAKE_MAP(170, 168) );
+  mParent.insert( MAKE_MAP(171, 170) );
+  mParent.insert( MAKE_MAP(172, 170) );
+  mParent.insert( MAKE_MAP(173, 237) );
+  mParent.insert( MAKE_MAP(174, 237) );
+  mParent.insert( MAKE_MAP(175, 237) );
+  mParent.insert( MAKE_MAP(176, 167) );
+  mParent.insert( MAKE_MAP(177, 176) );
+  mParent.insert( MAKE_MAP(178, 182) );
+  mParent.insert( MAKE_MAP(179, 176) );
+  mParent.insert( MAKE_MAP(180, 176) );
+  mParent.insert( MAKE_MAP(181, 176) );
+  mParent.insert( MAKE_MAP(182, 176) );
+  mParent.insert( MAKE_MAP(183, 205) );
+  mParent.insert( MAKE_MAP(184, 205) );
+  mParent.insert( MAKE_MAP(185, 167) );
+  mParent.insert( MAKE_MAP(186,  46) );
+  mParent.insert( MAKE_MAP(187, 1000) );
+  mParent.insert( MAKE_MAP(188, 256) );
+  mParent.insert( MAKE_MAP(189, 188) );
+  mParent.insert( MAKE_MAP(190, 382) );
+  mParent.insert( MAKE_MAP(191, 193) );
+  mParent.insert( MAKE_MAP(192,   1) );
+  mParent.insert( MAKE_MAP(193, 308) );
+  mParent.insert( MAKE_MAP(194, 193) );
+  mParent.insert( MAKE_MAP(195, 192) );
+  mParent.insert( MAKE_MAP(196, 226) );
+  mParent.insert( MAKE_MAP(196, 360) );
+  mParent.insert( MAKE_MAP(197, 196) );
+  mParent.insert( MAKE_MAP(198, 192) );
+  mParent.insert( MAKE_MAP(199,  28) );
+  mParent.insert( MAKE_MAP(200, 176) );
+  mParent.insert( MAKE_MAP(201, 200) );
+  mParent.insert( MAKE_MAP(202, 200) );
+  mParent.insert( MAKE_MAP(203, 1000) );
+  mParent.insert( MAKE_MAP(204, 205) );
+  mParent.insert( MAKE_MAP(205, 375) );
+  mParent.insert( MAKE_MAP(206,  20) );
+  mParent.insert( MAKE_MAP(207,  20) );
+  mParent.insert( MAKE_MAP(208, 176) );
+  mParent.insert( MAKE_MAP(209, 176) );
+  mParent.insert( MAKE_MAP(210, 182) );
+  mParent.insert( MAKE_MAP(211, 182) );
+  mParent.insert( MAKE_MAP(212, 208) );
+  mParent.insert( MAKE_MAP(212, 210) );
+  mParent.insert( MAKE_MAP(213, 208) );
+  mParent.insert( MAKE_MAP(213, 211) );
+  mParent.insert( MAKE_MAP(214, 210) );
+  mParent.insert( MAKE_MAP(215, 210) );
+  mParent.insert( MAKE_MAP(216, 210) );
+  mParent.insert( MAKE_MAP(217, 210) );
+  mParent.insert( MAKE_MAP(218, 210) );
+  mParent.insert( MAKE_MAP(219, 210) );
+  mParent.insert( MAKE_MAP(220, 210) );
+  mParent.insert( MAKE_MAP(221, 210) );
+  mParent.insert( MAKE_MAP(222, 221) );
+  mParent.insert( MAKE_MAP(223, 221) );
+  mParent.insert( MAKE_MAP(224, 210) );
+  mParent.insert( MAKE_MAP(225, 346) );
+  mParent.insert( MAKE_MAP(226,   2) );
+  mParent.insert( MAKE_MAP(227,   2) );
+  mParent.insert( MAKE_MAP(228, 227) );
+  mParent.insert( MAKE_MAP(229, 227) );
+  mParent.insert( MAKE_MAP(230, 227) );
+  mParent.insert( MAKE_MAP(233, 210) );
+  mParent.insert( MAKE_MAP(234,   4) );
+  mParent.insert( MAKE_MAP(235, 1000) );
+  mParent.insert( MAKE_MAP(236,   0) );
+  mParent.insert( MAKE_MAP(237, 374) );
+  mParent.insert( MAKE_MAP(238, 237) );
+  mParent.insert( MAKE_MAP(239, 168) );
+  mParent.insert( MAKE_MAP(240, 236) );
+  mParent.insert( MAKE_MAP(241, 236) );
+  mParent.insert( MAKE_MAP(242, 241) );
+  mParent.insert( MAKE_MAP(243, 404) );
+  mParent.insert( MAKE_MAP(244, 241) );
+  mParent.insert( MAKE_MAP(245, 240) );
+  mParent.insert( MAKE_MAP(246, 245) );
+  mParent.insert( MAKE_MAP(247, 240) );
+  mParent.insert( MAKE_MAP(248, 245) );
+  mParent.insert( MAKE_MAP(249, 248) );
+  mParent.insert( MAKE_MAP(250, 246) );
+  mParent.insert( MAKE_MAP(251, 246) );
+  mParent.insert( MAKE_MAP(252, 246) );
+  mParent.insert( MAKE_MAP(253, 240) );
+  mParent.insert( MAKE_MAP(254, 255) );
+  mParent.insert( MAKE_MAP(255,   2) );
+  mParent.insert( MAKE_MAP(256,   2) );
+  mParent.insert( MAKE_MAP(257, 255) );
+  mParent.insert( MAKE_MAP(258, 255) );
+  mParent.insert( MAKE_MAP(259, 255) );
+  mParent.insert( MAKE_MAP(260, 267) );
+  mParent.insert( MAKE_MAP(260, 270) );
+  mParent.insert( MAKE_MAP(261, 282) );
+  mParent.insert( MAKE_MAP(262, 269) );
+  mParent.insert( MAKE_MAP(263, 308) );
+  mParent.insert( MAKE_MAP(264, 263) );
+  mParent.insert( MAKE_MAP(265, 275) );
+  mParent.insert( MAKE_MAP(266, 265) );
+  mParent.insert( MAKE_MAP(267, 273) );
+  mParent.insert( MAKE_MAP(268,   1) );
+  mParent.insert( MAKE_MAP(269, 268) );
+  mParent.insert( MAKE_MAP(270, 269) );
+  mParent.insert( MAKE_MAP(271, 270) );
+  mParent.insert( MAKE_MAP(272, 188) );
+  mParent.insert( MAKE_MAP(273, 269) );
+  mParent.insert( MAKE_MAP(274, 273) );
+  mParent.insert( MAKE_MAP(274, 379) );
+  mParent.insert( MAKE_MAP(275, 269) );
+  mParent.insert( MAKE_MAP(276, 275) );
+  mParent.insert( MAKE_MAP(277, 276) );
+  mParent.insert( MAKE_MAP(278, 404) );
+  mParent.insert( MAKE_MAP(279, 255) );
+  mParent.insert( MAKE_MAP(280, 241) );
+  mParent.insert( MAKE_MAP(281, 193) );
+  mParent.insert( MAKE_MAP(282, 281) );
+  mParent.insert( MAKE_MAP(282, 309) );
+  mParent.insert( MAKE_MAP(283, 282) );
+  mParent.insert( MAKE_MAP(283, 310) );
+  mParent.insert( MAKE_MAP(284, 241) );
+  mParent.insert( MAKE_MAP(285, 240) );
+  mParent.insert( MAKE_MAP(286, 253) );
+  mParent.insert( MAKE_MAP(287, 193) );
+  mParent.insert( MAKE_MAP(288, 193) );
+  mParent.insert( MAKE_MAP(289,   3) );
+  mParent.insert( MAKE_MAP(290, 240) );
+  mParent.insert( MAKE_MAP(291, 240) );
+  mParent.insert( MAKE_MAP(292,  62) );
+  mParent.insert( MAKE_MAP(293,  62) );
+  mParent.insert( MAKE_MAP(294,  63) );
+  mParent.insert( MAKE_MAP(295,  63) );
+  mParent.insert( MAKE_MAP(296, 253) );
+  mParent.insert( MAKE_MAP(297, 296) );
+  mParent.insert( MAKE_MAP(298, 241) );
+  mParent.insert( MAKE_MAP(299, 241) );
+  mParent.insert( MAKE_MAP(300, 1000) );
+  mParent.insert( MAKE_MAP(301,  35) );
+  mParent.insert( MAKE_MAP(302,  36) );
+  mParent.insert( MAKE_MAP(303, 308) );
+  mParent.insert( MAKE_MAP(304, 303) );
+  mParent.insert( MAKE_MAP(305, 303) );
+  mParent.insert( MAKE_MAP(306, 303) );
+  mParent.insert( MAKE_MAP(306, 309) );
+  mParent.insert( MAKE_MAP(307, 306) );
+  mParent.insert( MAKE_MAP(307, 310) );
+  mParent.insert( MAKE_MAP(308, 256) );
+  mParent.insert( MAKE_MAP(309, 308) );
+  mParent.insert( MAKE_MAP(310, 309) );
+  mParent.insert( MAKE_MAP(311, 278) );
+  mParent.insert( MAKE_MAP(312, 278) );
+  mParent.insert( MAKE_MAP(313, 334) );
+  mParent.insert( MAKE_MAP(314, 334) );
+  mParent.insert( MAKE_MAP(315, 241) );
+  mParent.insert( MAKE_MAP(316, 334) );
+  mParent.insert( MAKE_MAP(317, 241) );
+  mParent.insert( MAKE_MAP(318, 334) );
+  mParent.insert( MAKE_MAP(319, 334) );
+  mParent.insert( MAKE_MAP(320,  25) );
+  mParent.insert( MAKE_MAP(321,  25) );
+  mParent.insert( MAKE_MAP(322,  27) );
+  mParent.insert( MAKE_MAP(323,  27) );
+  mParent.insert( MAKE_MAP(324, 186) );
+  mParent.insert( MAKE_MAP(324, 350) );
+  mParent.insert( MAKE_MAP(325, 186) );
+  mParent.insert( MAKE_MAP(325, 353) );
+  mParent.insert( MAKE_MAP(326, 269) );
+  mParent.insert( MAKE_MAP(327, 247) );
+  mParent.insert( MAKE_MAP(328, 247) );
+  mParent.insert( MAKE_MAP(329, 404) );
+  mParent.insert( MAKE_MAP(330, 211) );
+  mParent.insert( MAKE_MAP(331,   9) );
+  mParent.insert( MAKE_MAP(331, 346) );
+  mParent.insert( MAKE_MAP(332, 331) );
+  mParent.insert( MAKE_MAP(333,  49) );
+  mParent.insert( MAKE_MAP(334, 404) );
+  mParent.insert( MAKE_MAP(335, 404) );
+  mParent.insert( MAKE_MAP(336,  10) );
+  mParent.insert( MAKE_MAP(337, 281) );
+  mParent.insert( MAKE_MAP(338,  35) );
+  mParent.insert( MAKE_MAP(338,  38) );
+  mParent.insert( MAKE_MAP(339,  36) );
+  mParent.insert( MAKE_MAP(339, 341) );
+  mParent.insert( MAKE_MAP(340,  37) );
+  mParent.insert( MAKE_MAP(340, 341) );
+  mParent.insert( MAKE_MAP(341, 154) );
+  mParent.insert( MAKE_MAP(342, 375) );
+  mParent.insert( MAKE_MAP(343, 342) );
+  mParent.insert( MAKE_MAP(344, 342) );
+  mParent.insert( MAKE_MAP(345, 255) );
+  mParent.insert( MAKE_MAP(346,   2) );
+  mParent.insert( MAKE_MAP(347, 346) );
+  mParent.insert( MAKE_MAP(348,   9) );
+  mParent.insert( MAKE_MAP(348, 346) );
+  mParent.insert( MAKE_MAP(349,  35) );
+  mParent.insert( MAKE_MAP(350,  48) );
+  mParent.insert( MAKE_MAP(352,  46) );
+  mParent.insert( MAKE_MAP(352, 156) );
+  mParent.insert( MAKE_MAP(353, 352) );
+  mParent.insert( MAKE_MAP(354, 240) );
+  mParent.insert( MAKE_MAP(355,  64) );
+  mParent.insert( MAKE_MAP(356,  35) );
+  mParent.insert( MAKE_MAP(357, 375) );
+  mParent.insert( MAKE_MAP(358, 375) );
+  mParent.insert( MAKE_MAP(359, 355) );
+  mParent.insert( MAKE_MAP(360,   2) );
+  mParent.insert( MAKE_MAP(361, 360) );
+  mParent.insert( MAKE_MAP(362, 359) );
+  mParent.insert( MAKE_MAP(363, 282) );
+  mParent.insert( MAKE_MAP(364, 188) );
+  mParent.insert( MAKE_MAP(365, 154) );
+  mParent.insert( MAKE_MAP(365, 160) );
+  mParent.insert( MAKE_MAP(366, 155) );
+  mParent.insert( MAKE_MAP(366, 160) );
+  mParent.insert( MAKE_MAP(367, 161) );
+  mParent.insert( MAKE_MAP(368, 161) );
+  mParent.insert( MAKE_MAP(369, 404) );
+  mParent.insert( MAKE_MAP(370,  27) );
+  mParent.insert( MAKE_MAP(371, 370) );
+  mParent.insert( MAKE_MAP(372, 370) );
+  mParent.insert( MAKE_MAP(373,  27) );
+  mParent.insert( MAKE_MAP(374, 231) );
+  mParent.insert( MAKE_MAP(375, 231) );
+  mParent.insert( MAKE_MAP(376, 176) );
+  mParent.insert( MAKE_MAP(377, 176) );
+  mParent.insert( MAKE_MAP(378, 270) );
+  mParent.insert( MAKE_MAP(379, 269) );
+  mParent.insert( MAKE_MAP(380, 256) );
+  mParent.insert( MAKE_MAP(381, 380) );
+  mParent.insert( MAKE_MAP(382, 380) );
+  mParent.insert( MAKE_MAP(383, 381) );
+  mParent.insert( MAKE_MAP(384, 381) );
+  mParent.insert( MAKE_MAP(385, 381) );
+  mParent.insert( MAKE_MAP(386, 378) );
+  mParent.insert( MAKE_MAP(387, 270) );
+  mParent.insert( MAKE_MAP(388, 378) );
+  mParent.insert( MAKE_MAP(389,   2) );
+  mParent.insert( MAKE_MAP(390, 389) );
+  mParent.insert( MAKE_MAP(391,  64) );
+  mParent.insert( MAKE_MAP(392, 374) );
+  mParent.insert( MAKE_MAP(393, 168) );
+  mParent.insert( MAKE_MAP(394, 168) );
+  mParent.insert( MAKE_MAP(395, 375) );
+  mParent.insert( MAKE_MAP(396, 375) );
+  mParent.insert( MAKE_MAP(397, 375) );
+  mParent.insert( MAKE_MAP(398, 374) );
+  mParent.insert( MAKE_MAP(399, 211) );
+  mParent.insert( MAKE_MAP(400, 211) );
+  mParent.insert( MAKE_MAP(401, 211) );
+  mParent.insert( MAKE_MAP(402, 182) );
+  mParent.insert( MAKE_MAP(403, 402) );
+  mParent.insert( MAKE_MAP(404, 241) );
+  mParent.insert( MAKE_MAP(405, 240) );
+  mParent.insert( MAKE_MAP(406, 240) );
 
 }
 /** @endcond doxygen-libsbml-internal */

@@ -13,7 +13,7 @@
  * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
- * 
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
@@ -169,12 +169,12 @@ struct ValidatorConstraints
 };
 
 /*
- * Deletes constraints (TConstraint(T>*) which are stored in lists 
- * (ConstraintSet<T>) of this struct. 
- * Since the same pointer values could be stored in different lists 
- * (e.g., TConstraint<SimpleSpeciesReference>* is stored in both 
- * ConstraintSet<SimpleSpeciesReference> and 
- * ConstraintSet<ModifierSimpleSpeciesReference>), a pointer map is used for 
+ * Deletes constraints (TConstraint(T>*) which are stored in lists
+ * (ConstraintSet<T>) of this struct.
+ * Since the same pointer values could be stored in different lists
+ * (e.g., TConstraint<SimpleSpeciesReference>* is stored in both
+ * ConstraintSet<SimpleSpeciesReference> and
+ * ConstraintSet<ModifierSimpleSpeciesReference>), a pointer map is used for
  * avoiding segmentation fault caused by deleting the same pointer twice.
  */
 ValidatorConstraints::~ValidatorConstraints ()
@@ -183,7 +183,7 @@ ValidatorConstraints::~ValidatorConstraints ()
 
   while(it != ptrMap.end())
   {
-     if(it->second) delete it->first; 
+     if(it->second) delete it->first;
      ++it;
   }
 }
@@ -356,7 +356,7 @@ ValidatorConstraints::add (VConstraint* c)
     mDelay.add( static_cast< TConstraint<Delay>* >(c) );
     return;
   }
- 
+
   if (dynamic_cast< TConstraint<CompartmentType>* >(c))
   {
     mCompartmentType.add( static_cast< TConstraint<CompartmentType>* >(c) );
@@ -687,7 +687,7 @@ Validator::logFailure (const SBMLError& msg)
 }
 
 /*
- * Helper class used by 
+ * Helper class used by
  * validate
  */
 class MatchId
@@ -750,15 +750,21 @@ Validator::validate (const SBMLDocument& d)
      * dont want to report the others since they may not be accurate
      */
     bool unrecognisedTerm = false;
-    if (count_if(mFailures.begin(), mFailures.end(), MatchId(99701)))
+
+    // Workaround for Sun cc which is missing:
+    // int n = count_if(mFailures.begin(), mFailures.end(), MatchId(99701));
+    int n;
+    count_if(mFailures.begin(), mFailures.end(), MatchId(99701), n);
+
+    if (n)
       unrecognisedTerm = true;
 
     if (unrecognisedTerm)
     {
       std::list<SBMLError>::iterator it;
       it = remove_if(mFailures.begin(), mFailures.end(),DontMatchId(99701));
-      mFailures.erase(it, mFailures.end());      
-      
+      mFailures.erase(it, mFailures.end());
+
       //remove_if(mFailures.begin(), mFailures.end(), DontMatchId(99701));
     }
   }

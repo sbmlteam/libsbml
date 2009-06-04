@@ -13,7 +13,7 @@
  * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
- * 
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
@@ -92,7 +92,7 @@ SBMLErrorLog::~SBMLErrorLog ()
  * for a list of system and XML-level error codes.
  */
 void
-SBMLErrorLog::logError ( const unsigned int errorId 
+SBMLErrorLog::logError ( const unsigned int errorId
                        , const unsigned int level
                        , const unsigned int version
                        , const std::string& details
@@ -101,7 +101,7 @@ SBMLErrorLog::logError ( const unsigned int errorId
                        , const unsigned int severity
                        , const unsigned int category )
 {
-  add( SBMLError( errorId, level, version, details, line, column, 
+  add( SBMLError( errorId, level, version, details, line, column,
                   severity, category ));
 }
 
@@ -167,8 +167,8 @@ SBMLErrorLog::remove (const unsigned int errorId)
 {
   //
   // "mErrors.erase( remove_if( ...))" can't be used for removing
-  // the matched items from the list, because the type of the vector container is pointer 
-  // of XMLError object. 
+  // the matched items from the list, because the type of the vector container is pointer
+  // of XMLError object.
   //
   // (Effective STL 50 Specific Ways to Improve Your Use of the Standard Template Library
   //  Scott Meyers
@@ -177,22 +177,22 @@ SBMLErrorLog::remove (const unsigned int errorId)
   //
   vector<XMLError*>::iterator delIter;
 
-  // finds an item with the given errorId (the first item will be found if 
-  // there are two or more items with the same Id)  
+  // finds an item with the given errorId (the first item will be found if
+  // there are two or more items with the same Id)
   delIter = find_if(mErrors.begin(), mErrors.end(), MatchErrorId(errorId));
 
   if ( delIter != mErrors.end() )
   {
-    // deletes (invoke delete operator for the matched item) and erases (removes 
+    // deletes (invoke delete operator for the matched item) and erases (removes
     // the pointer from mErrors) the matched item (if any)
     delete *delIter;
-    mErrors.erase(delIter);    
+    mErrors.erase(delIter);
   }
 }
 
 
 /*
- * Helper class used by 
+ * Helper class used by
  * SBMLErrorLog::getNumFailsWithSeverity(SBMLErrorSeverity_t).
  */
 class MatchSeverity
@@ -220,8 +220,12 @@ private:
 unsigned int
 SBMLErrorLog::getNumFailsWithSeverity(unsigned int severity)
 {
-  return count_if(mErrors.begin(), mErrors.end(),
-                  MatchSeverity(severity));
+  // Workaround for Sun cc which is missing:
+  // int n = count_if(mErrors.begin(), mErrors.end(), MatchSeverity(severity));
+  int n;
+  count_if(mErrors.begin(), mErrors.end(), MatchSeverity(severity), n);
+
+  return n;
 }
 
 
