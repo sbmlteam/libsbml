@@ -242,7 +242,7 @@ else
 .c.$(OBJEXT):
 ifndef USE_UNIVBINARY
   ifneq "$(use_suncc)" ""
-	$(compile) -xMD -xMF "$(DEPDIR)/$*.$(DEPEXT)" -c -o $@ $<
+	$(compile) -c -o $@ $<
   else
 	$(compile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.$(DEPEXT)" -c -o $@ $<
   endif
@@ -261,7 +261,7 @@ endif
 .cpp.$(OBJEXT) .cxx.$(OBJEXT):
 ifndef USE_UNIVBINARY
   ifneq "$(use_suncc)" ""
-	$(cxxcompile) -xMD -xMF "$(DEPDIR)/$*.$(DEPEXT)" -c -o $@ $<
+	$(cxxcompile) -c -o $@ $<
   else
 	$(cxxcompile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.$(DEPEXT)" -c -o $@ $<
   endif
