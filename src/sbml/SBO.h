@@ -60,7 +60,7 @@ class SBMLErrorLog;
 typedef multimap<int, int>            ParentMap;
 typedef ParentMap::const_iterator     ParentIter;
 
-#ifdef SOLARIS
+#if defined(__SUNPRO_CC)
   typedef pair<ParentMap::iterator, ParentMap::iterator>  ParentRange;
 # define MAKE_MAP(__p, __c) make_pair<const int, int>(__p, __c)
 #else

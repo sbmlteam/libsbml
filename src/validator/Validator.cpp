@@ -753,7 +753,7 @@ Validator::validate (const SBMLDocument& d)
 
    int n;
 
-#ifdef SOLARIS
+#if defined(__SUNPRO_CC)
   // Workaround for Sun cc which is missing:
   count_if(mFailures.begin(), mFailures.end(), MatchId(99701), n);
 #else

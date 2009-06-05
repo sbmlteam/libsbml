@@ -50,17 +50,20 @@ top_include := $(TOP_SRCDIR)/include
 
 default_includes ?= -I. -I$(top_include)
 
-# Compiling under cygwin and solaris doesn't need -fPIC.
+use_gcc   = $(shell $(CXX) -dumpversion 2>&1 | grep '^[34]\.' )
+use_suncc = $(shell $(CXX) -V 2>&1 | grep 'Sun C++' )
+
+# Compiling under cygwin and Sun cc doesn't need -fPIC.
 
 ifneq "$(HOST_TYPE)" "cygwin"
-  ifneq "$(HOST_TYPE)" "solaris"
+  ifeq "$(use_suncc)" ""
     FPIC = -fPIC
   endif
 endif
 
-# Compiling under solaris must not use -Wall.
+# Compiling under Sun cc must not use -Wall.
 
-ifneq "$(HOST_TYPE)" "solaris"
+ifeq "$(use_suncc)" ""
   WALL = -Wall
 endif
 
@@ -111,15 +114,15 @@ ifeq "$(HOST_TYPE)" "darwin"
     USE_UNIVBINARY = 1
   endif 
 else
-ifeq "$(HOST_TYPE)" "aix5.3.0.0" 
-  platform_link_flags ?= -G
-else
-ifeq "$(HOST_TYPE)" "solaris" 
-  platform_link_flags ?= -G
-else
-  platform_link_flags ?= -shared
-endif
-endif
+  ifeq "$(HOST_TYPE)" "aix5.3.0.0" 
+    platform_link_flags ?= -G
+  else
+    ifneq "$(use_suncc)" ""
+      platform_link_flags ?= -G
+    else
+      platform_link_flags ?= -shared
+    endif
+  endif
 endif
 
 # The following defines the default function for linking objects into a
@@ -141,10 +144,10 @@ endif
 # to the call.  An enclosing makefile can provide another definition, in
 # which case the definition below will not be used.
 
-ifeq "$(HOST_TYPE)" "solaris" 
+ifneq "$(use_suncc)" ""
   define link_static_lib
     -rm -f $(1)
-    $(CXX) -xar -o $(1) $(objfiles)
+   $(CXX) -xar -o $(1) $(objfiles)
   endef
 else
   define link_static_lib
@@ -238,7 +241,11 @@ else
 
 .c.$(OBJEXT):
 ifndef USE_UNIVBINARY
+  ifneq "$(use_suncc)" ""
+	$(compile) -xMD -xMF "$(DEPDIR)/$*.$(DEPEXT)" -c -o $@ $<
+  else
 	$(compile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.$(DEPEXT)" -c -o $@ $<
+  endif
 else
 	$(compile_nocflags) -MT $@ -MM -MP -MF "$(DEPDIR)/$*.$(DEPEXT)" $<
 	$(compile) -c -o $@ $<
@@ -253,11 +260,16 @@ endif
 
 .cpp.$(OBJEXT) .cxx.$(OBJEXT):
 ifndef USE_UNIVBINARY
+  ifneq "$(use_suncc)" ""
+	$(cxxcompile) -xMD -xMF "$(DEPDIR)/$*.$(DEPEXT)" -c -o $@ $<
+  else
 	$(cxxcompile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.$(DEPEXT)" -c -o $@ $<
+  endif
 else
 	$(cxxcompile_nocxxflags) -MT $@ -MM -MP -MF "$(DEPDIR)/$*.$(DEPEXT)" $<
 	$(cxxcompile) -c -o $@ $<
 endif
+
 
 .cpp.obj:
 	if $(cxxcompile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" \
