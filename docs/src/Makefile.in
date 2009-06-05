@@ -175,6 +175,7 @@ distfiles =                                    \
         libsbml-python-math.txt                \
         libsbml-python-reading-files.txt       \
         libsbml-reading-files.txt              \
+        libsbml-rule-general-summary.html      \
 	libsbml-string-functions-table.html    \
         libsbml-species-boundarycondition.html \
         libsbml-species-hasonlysubstance.html  \
