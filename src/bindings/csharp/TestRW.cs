@@ -503,7 +503,7 @@ namespace TestLibSBMLCSharp
         static void testCreateSBML()
         {
             SBMLDocument d = new SBMLDocument();
-            d.setLevelAndVersion(2, 3);
+            d.setLevelAndVersion(2, 4);
 
             Model m = d.createModel();
             m.setId("testmodel");
@@ -548,6 +548,8 @@ namespace TestLibSBMLCSharp
             {
                 ERR("[CreateSBML] (" + file + ") Error: Exception thrown : " + e.Message);
             }
+
+            testReadSBMLFromFile(file);
         }
 
 
