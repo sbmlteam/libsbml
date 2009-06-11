@@ -86,9 +86,9 @@ catch
     Path_to_libs = strcat(Path_to_libs, '\bin\win32');
 
     % determine the location of the library files
-    lib{1} = '..\..\win32\bin\libsbml.lib';
+    lib{1} = '..\..\win32\lib\libsbml.lib';
     lib{2} = '..\..\win32\bin\libsbml.dll';
-    lib{3} = '..\..\win32\bin\libexpat.lib';
+    lib{3} = '..\..\win32\lib\libexpat.lib';
     lib{4} = '..\..\win32\bin\libexpat.dll';
 
     for i = 1:4
