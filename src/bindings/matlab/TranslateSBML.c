@@ -623,6 +623,10 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     if (SBase_isSetSBOTerm((SBase_t*)sbmlModel)) {
       nSBO = SBase_getSBOTerm((SBase_t*)sbmlModel);
     }
+    else
+    {
+      nSBO = -1;
+    }
     GetCompartmentType  (sbmlModel, unSBMLLevel, unSBMLVersion);
     GetSpeciesType      (sbmlModel, unSBMLLevel, unSBMLVersion);
     GetInitialAssignment(sbmlModel, unSBMLLevel, unSBMLVersion);
@@ -1171,6 +1175,10 @@ GetSpecies ( Model_t      *pModel,
         {
           nSBO = SBase_getSBOTerm((SBase_t*) pSpecies);
         }
+        else
+        {
+          nSBO = -1;
+        }
         break;
       default:
         break;
@@ -1389,6 +1397,10 @@ if (unSBMLLevel == 2)
         if (SBase_isSetSBOTerm((SBase_t*) pUnitDefinition)) 
         {
           nSBO = SBase_getSBOTerm((SBase_t*) pUnitDefinition);
+        }
+        else
+        {
+          nSBO = -1;
         }
       }
     }
@@ -1614,6 +1626,10 @@ GetCompartment ( Model_t      *pModel,
         {
           nSBO = SBase_getSBOTerm((SBase_t*) pCompartment);
         }
+       else
+       {
+         nSBO = -1;
+       }
         break;
       default:
         break;
@@ -1845,12 +1861,20 @@ GetParameter ( Model_t      *pModel,
         {
           nSBO = SBase_getSBOTerm((SBase_t*) pParameter);
         }
+        else
+        {
+          nSBO = -1;
+        }
         break;
       case 3:
       case 4:
         if (SBase_isSetSBOTerm((SBase_t*) pParameter)) 
         {
           nSBO = SBase_getSBOTerm((SBase_t*) pParameter);
+        }
+        else
+        {
+          nSBO = -1;
         }
         break;
       default:
@@ -2075,12 +2099,20 @@ void GetReaction ( Model_t      *pModel,
         {
           nSBO = SBase_getSBOTerm((SBase_t*) pReaction);
         }
+        else
+        {
+          nSBO = -1;
+        }
         break;
       case 3:
       case 4:
         if (SBase_isSetSBOTerm((SBase_t*) pReaction)) 
         {
           nSBO = SBase_getSBOTerm((SBase_t*) pReaction);
+        }
+        else
+        {
+          nSBO = -1;
         }
         break;
       default:
@@ -2281,6 +2313,10 @@ GetUnit ( UnitDefinition_t *pUnitDefinition,
         {
           nSBO = SBase_getSBOTerm((SBase_t*) pUnit);
         }
+        else
+        {
+          nSBO = -1;
+        }
         break;
       default:
         break;
@@ -2473,6 +2509,10 @@ GetReactants ( Reaction_t   *pReaction,
         if (SBase_isSetSBOTerm((SBase_t*) pReactant)) {
           nSBO = SBase_getSBOTerm((SBase_t*) pReactant);
         }
+        else
+        {
+          nSBO = -1;
+        }
         break;
       case 3:
       case 4:
@@ -2485,6 +2525,10 @@ GetReactants ( Reaction_t   *pReaction,
         pacName     = SpeciesReference_getName(pReactant);
         if (SBase_isSetSBOTerm((SBase_t*) pReactant)) {
           nSBO = SBase_getSBOTerm((SBase_t*) pReactant);
+        }
+        else
+        {
+          nSBO = -1;
         }
         break;
       default:
@@ -2712,6 +2756,10 @@ const int nNoFields_l2v2 = 10;
         if (SBase_isSetSBOTerm((SBase_t*) pProduct)) {
           nSBO = SBase_getSBOTerm((SBase_t*) pProduct);
         }
+        else
+        {
+          nSBO = -1;
+        }
         break;
       case 3:
       case 4:
@@ -2724,6 +2772,10 @@ const int nNoFields_l2v2 = 10;
         pacName     = SpeciesReference_getName(pProduct);
         if (SBase_isSetSBOTerm((SBase_t*) pProduct)) {
           nSBO = SBase_getSBOTerm((SBase_t*) pProduct);
+        }
+        else
+        {
+          nSBO = -1;
         }
         break;
       default:
@@ -2879,6 +2931,10 @@ GetStoichiometryMath ( SpeciesReference_t      *pSpeciesReference,
   if (SBase_isSetSBOTerm((SBase_t*) pStoichiometryMath))
   {
     nSBO = SBase_getSBOTerm((SBase_t*) pStoichiometryMath);
+  }
+  else
+  {
+    nSBO = -1;
   }
     
   if (StoichiometryMath_isSetMath(pStoichiometryMath)) {
@@ -3081,12 +3137,20 @@ GetKineticLaw ( Reaction_t   *pReaction,
         {
           nSBO = SBase_getSBOTerm((SBase_t*) pKineticLaw);
         }
-        break;
+         else
+        {
+          nSBO = -1;
+        }
+       break;
       case 3:
       case 4:
         if (SBase_isSetSBOTerm((SBase_t*) pKineticLaw)) 
         {
           nSBO = SBase_getSBOTerm((SBase_t*) pKineticLaw);
+        }
+        else
+        {
+          nSBO = -1;
         }
         break;
       default:
@@ -3327,12 +3391,20 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
         {
           nSBO = SBase_getSBOTerm((SBase_t*) pParameter);
         }
+        else
+        {
+          nSBO = -1;
+        }
         break;
       case 3:
       case 4:
         if (SBase_isSetSBOTerm((SBase_t*) pParameter)) 
         {
           nSBO = SBase_getSBOTerm((SBase_t*) pParameter);
+        }
+        else
+        {
+          nSBO = -1;
         }
         break;
       default:
@@ -3504,6 +3576,10 @@ GetModifier ( Reaction_t   *pReaction,
       {
         nSBO = SBase_getSBOTerm((SBase_t*) pModifier);
       }
+      else
+      {
+        nSBO = -1;
+      }
       break;
     case 3:
     case 4:
@@ -3512,6 +3588,10 @@ GetModifier ( Reaction_t   *pReaction,
       if (SBase_isSetSBOTerm((SBase_t*) pModifier)) 
       {
         nSBO = SBase_getSBOTerm((SBase_t*) pModifier);
+      }
+      else
+      {
+        nSBO = -1;
       }
       break;
     default:
@@ -3944,7 +4024,11 @@ GetRule ( Model_t      *pModel,
       {
         nSBO = SBase_getSBOTerm((SBase_t*) pRule);
       }
-    }
+      else
+      {
+        nSBO = -1;
+      }
+   }
   }
 
 
@@ -4115,12 +4199,20 @@ GetFunctionDefinition ( Model_t      *pModel,
       {
         nSBO = SBase_getSBOTerm((SBase_t*) pFuncDefinition);
       }
+      else
+      {
+        nSBO = -1;
+      }
       break;
     case 3:
     case 4:
       if (SBase_isSetSBOTerm((SBase_t*) pFuncDefinition)) 
       {
         nSBO = SBase_getSBOTerm((SBase_t*) pFuncDefinition);
+      }
+      else
+      {
+        nSBO = -1;
       }
       break;
     default:
@@ -4333,17 +4425,29 @@ GetEvent (Model_t      *pModel,
       {
         nSBO = SBase_getSBOTerm((SBase_t*) pEvent);
       }
+      else
+      {
+        nSBO = -1;
+      }
       break;
     case 3:
       if (SBase_isSetSBOTerm((SBase_t*) pEvent))
       {
         nSBO = SBase_getSBOTerm((SBase_t*) pEvent);
       }
+      else
+      {
+        nSBO = -1;
+      }
       break;
     case 4:
       if (SBase_isSetSBOTerm((SBase_t*) pEvent))
       {
         nSBO = SBase_getSBOTerm((SBase_t*) pEvent);
+      }
+      else
+      {
+        nSBO = -1;
       }
       nUseValuesFromTriggerTime = Event_getUseValuesFromTriggerTime(pEvent);
       break;
@@ -4601,12 +4705,20 @@ GetEventAssignment ( Event_t      *pEvent,
       {
         nSBO = SBase_getSBOTerm((SBase_t*) pEventAssignment);
       }
+      else
+      {
+        nSBO = -1;
+      }
       break;
     case 3:
     case 4:
       if (SBase_isSetSBOTerm((SBase_t*) pEventAssignment))
       {
         nSBO = SBase_getSBOTerm((SBase_t*) pEventAssignment);
+      }
+      else
+      {
+        nSBO = -1;
       }
       break;
     default:
@@ -4754,6 +4866,10 @@ GetTrigger ( Event_t      *pEvent,
   {
     nSBO = SBase_getSBOTerm((SBase_t*) pTrigger);
   }
+  else
+  {
+    nSBO = -1;
+  }
     
   if (Trigger_isSetMath(pTrigger)) {
     LookForCSymbolTime((ASTNode_t*)Trigger_getMath(pTrigger));
@@ -4883,6 +4999,10 @@ GetDelay ( Event_t      *pEvent,
   if (SBase_isSetSBOTerm((SBase_t*) pDelay))
   {
     nSBO = SBase_getSBOTerm((SBase_t*) pDelay);
+  }
+  else
+  {
+    nSBO = -1;
   }
     
   if (Delay_isSetMath(pDelay)) {
@@ -5143,6 +5263,10 @@ GetCompartmentType (Model_t      *pModel,
       {
         nSBO = SBase_getSBOTerm((SBase_t*) pCompartmentType);
       }
+      else
+      {
+        nSBO = -1;
+      }
       break;
     default:
       break;
@@ -5281,6 +5405,10 @@ GetSpeciesType (Model_t      *pModel,
       {
         nSBO = SBase_getSBOTerm((SBase_t*) pSpeciesType);
       }
+      else
+      {
+        nSBO = -1;
+      }
       break;
     default:
       break;
@@ -5410,6 +5538,10 @@ GetInitialAssignment (Model_t      *pModel,
     pacSymbol       = InitialAssignment_getSymbol(pInitialAssignment);
     if (SBase_isSetSBOTerm((SBase_t*) pInitialAssignment)){
       nSBO = SBase_getSBOTerm((SBase_t*) pInitialAssignment);
+    }
+    else
+    {
+      nSBO = -1;
     }
 
     if (InitialAssignment_isSetMath(pInitialAssignment) == 1) {
@@ -5574,6 +5706,10 @@ GetConstraint (Model_t      *pModel,
 
     if (SBase_isSetSBOTerm((SBase_t*) pConstraint)) {
       nSBO = SBase_getSBOTerm((SBase_t*) pConstraint);
+    }
+    else
+    {
+      nSBO = -1;
     }
 
     if (Constraint_isSetMath(pConstraint)) {
