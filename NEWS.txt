@@ -1,7 +1,7 @@
            libSBML NEWS -- History of user-visible changes
 
 ======================================================================
-Version 3.4.0 (released 2009-06-05)
+Version 3.4.0 (released 2009-06-12)
 ======================================================================
 
 * New features:
@@ -42,6 +42,10 @@ Version 3.4.0 (released 2009-06-05)
    people who reported this one. 
 
  - The assignment operator functions now check for self assignment.
+ 
+ - The MATLAB binding was incorrectly importing SBO terms in certain
+   circumstances.  This has been fixed.  Thanks to Kieran Smallbone
+   for reporting it.
 
  - [Tracker issue #2787352]
    Annotations that included MIRIAM compliant RDF annotations and 
