@@ -1047,6 +1047,7 @@ class TestSBase < Test::Unit::TestCase
   end
 
   def test_SBase_setAnnotation
+    taggedannt =  "<annotation>This is a test note</annotation>";
     token = LibSBML::XMLToken.new("This is a test note")
     node = LibSBML::XMLNode.new(token)
     @@s.setAnnotation(node)
@@ -1066,6 +1067,24 @@ class TestSBase < Test::Unit::TestCase
     assert( @@s.isSetAnnotation() == true )
     @@s.unsetAnnotation()
     assert( @@s.isSetAnnotation() == false )
+    triple = LibSBML::XMLTriple.new("annotation", "", "")
+    node2 = LibSBML::XMLNode.new(triple)
+    node2.addChild(node)
+    sp = @@s.createSpecies()
+    sp.setAnnotation(node2)
+    assert( sp.isSetAnnotation() == true )
+    assert (( taggedannt == sp.getAnnotationString() ))
+    sp.unsetAnnotation()
+    assert( sp.isSetAnnotation() == false )
+    @@s.setAnnotation(node2)
+    assert( @@s.isSetAnnotation() == true )
+    assert (( taggedannt == @@s.getAnnotationString() ))
+    @@s.unsetAnnotation()
+    assert( @@s.isSetAnnotation() == false )
+    token = nil
+    node = nil
+    node2 = nil
+    triple = nil
   end
 
   def test_SBase_setAnnotationString
@@ -1163,6 +1182,98 @@ class TestSBase < Test::Unit::TestCase
     assert( t1.getNumChildren() == 1 )
     t2 = t1.getChild(0)
     assert ((  "This is a test note" == t2.getCharacters() ))
+  end
+
+  def test_SBase_unsetAnnotationWithCVTerms
+    annt = "<annotation>\n" + 
+    "  <test:test xmlns:test=\"http://test.org/test\">this is a test node</test:test>\n" + 
+    "</annotation>"
+    annt_with_cvterm = "<annotation>\n" + 
+    "  <test:test xmlns:test=\"http://test.org/test\">this is a test node</test:test>\n" + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" " + 
+    "xmlns:dc=\"http://purl.org/dc/elements/1.1/\" " + 
+    "xmlns:dcterms=\"http://purl.org/dc/terms/\" " + 
+    "xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" " + 
+    "xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" " + 
+    "xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
+    "    <rdf:Description rdf:about=\"#_000001\">\n" + 
+    "      <bqbiol:is>\n" + 
+    "        <rdf:Bag>\n" + 
+    "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0005895\"/>\n" + 
+    "        </rdf:Bag>\n" + 
+    "      </bqbiol:is>\n" + 
+    "    </rdf:Description>\n" + 
+    "  </rdf:RDF>\n" + 
+    "</annotation>"
+    @@s.setAnnotation(annt)
+    assert( @@s.isSetAnnotation() == true )
+    assert (( annt == @@s.getAnnotationString() ))
+    @@s.unsetAnnotation()
+    assert( @@s.isSetAnnotation() == false )
+    assert( @@s.getAnnotation() == nil )
+    @@s.setAnnotation(annt)
+    @@s.setMetaId( "_000001")
+    cv = LibSBML::CVTerm.new(LibSBML::BIOLOGICAL_QUALIFIER)
+    cv.setBiologicalQualifierType(LibSBML::BQB_IS)
+    cv.addResource( "http://www.geneontology.org/#GO:0005895")
+    @@s.addCVTerm(cv)
+    assert( @@s.isSetAnnotation() == true )
+    assert (( annt_with_cvterm == @@s.getAnnotationString() ))
+    @@s.unsetAnnotation()
+    assert( @@s.isSetAnnotation() == false )
+    assert( @@s.getAnnotation() == nil )
+    cv = nil
+  end
+
+  def test_SBase_unsetAnnotationWithModelHistory
+    h = LibSBML::ModelHistory.new()
+    c = LibSBML::ModelCreator.new()
+    annt = "<annotation>\n" + 
+    "  <test:test xmlns:test=\"http://test.org/test\">this is a test node</test:test>\n" + 
+    "</annotation>"
+    annt_with_modelhistory = "<annotation>\n" + 
+    "  <test:test xmlns:test=\"http://test.org/test\">this is a test node</test:test>\n" + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" " + 
+    "xmlns:dc=\"http://purl.org/dc/elements/1.1/\" " + 
+    "xmlns:dcterms=\"http://purl.org/dc/terms/\" " + 
+    "xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" " + 
+    "xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" " + 
+    "xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
+    "    <rdf:Description rdf:about=\"#_000001\">\n" + 
+    "      <dc:creator>\n" + 
+    "        <rdf:Bag>\n" + 
+    "          <rdf:li rdf:parseType=\"Resource\">\n" + 
+    "            <vCard:N rdf:parseType=\"Resource\">\n" + 
+    "              <vCard:Family>Keating</vCard:Family>\n" + 
+    "              <vCard:Given>Sarah</vCard:Given>\n" + 
+    "            </vCard:N>\n" + 
+    "            <vCard:EMAIL>sbml-team@caltech.edu</vCard:EMAIL>\n" + 
+    "          </rdf:li>\n" + 
+    "        </rdf:Bag>\n" + 
+    "      </dc:creator>\n" + 
+    "    </rdf:Description>\n" + 
+    "  </rdf:RDF>\n" + 
+    "</annotation>"
+    @@s.setAnnotation(annt)
+    assert( @@s.isSetAnnotation() == true )
+    assert (( annt == @@s.getAnnotationString() ))
+    @@s.unsetAnnotation()
+    assert( @@s.isSetAnnotation() == false )
+    assert( @@s.getAnnotation() == nil )
+    @@s.setAnnotation(annt)
+    @@s.setMetaId( "_000001")
+    c.setFamilyName("Keating")
+    c.setGivenName("Sarah")
+    c.setEmail("sbml-team@caltech.edu")
+    h.addCreator(c)
+    @@s.setModelHistory(h)
+    assert( @@s.isSetAnnotation() == true )
+    assert (( annt_with_modelhistory == @@s.getAnnotationString() ))
+    @@s.unsetAnnotation()
+    assert( @@s.isSetAnnotation() == false )
+    assert( @@s.getAnnotation() == nil )
+    c = nil
+    h = nil
   end
 
   def test_SBase_unsetCVTerms

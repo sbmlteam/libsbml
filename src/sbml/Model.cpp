@@ -921,12 +921,19 @@ void
 Model::setAnnotation (const XMLNode* annotation)
 {
   SBase::setAnnotation(annotation);
+	
+  //
+  // delete existing mHistory 
+  //
+  // existing mHistory (if any) needs to be deleted at any rate, otherwise
+  // unsetAnnotation() ( setAnnotation(NULL) ) doesn't work as expected.
+  // (These functions must clear all elements in an annotation.)
+  //
+  delete mHistory;
+  mHistory = NULL;
 
   if(mAnnotation && RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation))
   {
-    // delete existing mHistory 
-    delete mHistory;
-    mHistory = NULL;
     // parse mAnnotation (if any) and set mHistory
     mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation);
   }
@@ -1075,7 +1082,7 @@ Model::syncAnnotation ()
 
   XMLNode * history = RDFAnnotationParser::parseModelHistory(this);
 
-  if(mAnnotation)
+  if(mAnnotation && hasRDF)
   {
     XMLNode* new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
     if(!new_annotation)

@@ -650,7 +650,34 @@ SBase::setAnnotation (const XMLNode* annotation)
       }
       else
       {
-        mAnnotation = annotation->clone();
+        //
+        // (NOTES)
+        //
+        // If the given XMLNode is not a start element of annotaiton (e.g. </annotation>),
+        // fixes the element to an start element (i.e. <annotation> ).
+        //
+        // This fix had been performed in syncAnnotation() function in libSBML 3.3.2
+        // or before. 
+        // However, in libSBML 3.4.0, syncAnnotation() function has been modified to 
+        // fix tracker issue #2787352 (Additional RDF not handled) and the fix is no 
+        // longer performed in syncAnnotation(). Thus, the fix code is now implemented
+        // here for backward compatibility.
+        //
+        // This fix code will not be required in libSBML 4 or later.
+        //
+        if ( !annotation->isStart() )
+        {
+          XMLToken ann_t = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
+          mAnnotation = new XMLNode(ann_t);
+          for (unsigned int i=0; i < annotation->getNumChildren(); i++)
+          {
+            mAnnotation->addChild(annotation->getChild(i));
+          }
+        }
+        else
+        {
+          mAnnotation = annotation->clone();
+        }	  
       }
     }
     else
@@ -660,17 +687,24 @@ SBase::setAnnotation (const XMLNode* annotation)
     }
   }
 
+  //
+  // delete existing mCVTerms
+  //
+  // existing CVTerms (if any) needs to be deleted at any rate, otherwise
+  // unsetAnnotation() ( setAnnotation(NULL) ) doesn't work as expected.
+  // (These functions must clear all elements in an annotation.)
+  //
+  if (mCVTerms)
+  {
+    // delete existing mCVTerms (if any)
+    unsigned int size = mCVTerms->getSize();
+    while (size--) delete static_cast<CVTerm*>( mCVTerms->remove(0) );
+    delete mCVTerms;
+    mCVTerms = NULL;
+  }
 
   if(mAnnotation && RDFAnnotationParser::hasCVTermRDFAnnotation(mAnnotation))
   {
-    if (mCVTerms)
-    {
-      // delete existing mCVTerms (if any)
-      unsigned int size = mCVTerms->getSize();
-      while (size--) delete static_cast<CVTerm*>( mCVTerms->remove(0) );
-      delete mCVTerms;
-      mCVTerms = NULL;
-    }
     // parse mAnnotation (if any) and set mCVTerms 
     mCVTerms = new List();
     RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
@@ -1512,7 +1546,7 @@ SBase::getNumCVTerms()
 CVTerm* 
 SBase::getCVTerm(unsigned int n)
 {
-  return static_cast <CVTerm*> (mCVTerms->get(n));
+  return (mCVTerms) ? static_cast <CVTerm*> (mCVTerms->get(n)) : 0;
 }
 
 

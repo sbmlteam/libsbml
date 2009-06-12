@@ -1054,6 +1054,7 @@ class TestSBase(unittest.TestCase):
     pass  
 
   def test_SBase_setAnnotation(self):
+    taggedannt =  "<annotation>This is a test note</annotation>";
     token = libsbml.XMLToken("This is a test note")
     node = libsbml.XMLNode(token)
     self.S.setAnnotation(node)
@@ -1073,6 +1074,24 @@ class TestSBase(unittest.TestCase):
     self.assert_( self.S.isSetAnnotation() == True )
     self.S.unsetAnnotation()
     self.assert_( self.S.isSetAnnotation() == False )
+    triple = libsbml.XMLTriple("annotation", "", "")
+    node2 = libsbml.XMLNode(triple)
+    node2.addChild(node)
+    sp = self.S.createSpecies()
+    sp.setAnnotation(node2)
+    self.assert_( sp.isSetAnnotation() == True )
+    self.assert_(( taggedannt == sp.getAnnotationString() ))
+    sp.unsetAnnotation()
+    self.assert_( sp.isSetAnnotation() == False )
+    self.S.setAnnotation(node2)
+    self.assert_( self.S.isSetAnnotation() == True )
+    self.assert_(( taggedannt == self.S.getAnnotationString() ))
+    self.S.unsetAnnotation()
+    self.assert_( self.S.isSetAnnotation() == False )
+    token = None
+    node = None
+    node2 = None
+    triple = None
     pass  
 
   def test_SBase_setAnnotationString(self):
@@ -1170,6 +1189,98 @@ class TestSBase(unittest.TestCase):
     self.assert_( t1.getNumChildren() == 1 )
     t2 = t1.getChild(0)
     self.assert_((  "This is a test note" == t2.getCharacters() ))
+    pass  
+
+  def test_SBase_unsetAnnotationWithCVTerms(self):
+    annt = wrapString("<annotation>\n" + 
+    "  <test:test xmlns:test=\"http://test.org/test\">this is a test node</test:test>\n" + 
+    "</annotation>")
+    annt_with_cvterm = wrapString("<annotation>\n" + 
+    "  <test:test xmlns:test=\"http://test.org/test\">this is a test node</test:test>\n" + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" " + 
+    "xmlns:dc=\"http://purl.org/dc/elements/1.1/\" " + 
+    "xmlns:dcterms=\"http://purl.org/dc/terms/\" " + 
+    "xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" " + 
+    "xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" " + 
+    "xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
+    "    <rdf:Description rdf:about=\"#_000001\">\n" + 
+    "      <bqbiol:is>\n" + 
+    "        <rdf:Bag>\n" + 
+    "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0005895\"/>\n" + 
+    "        </rdf:Bag>\n" + 
+    "      </bqbiol:is>\n" + 
+    "    </rdf:Description>\n" + 
+    "  </rdf:RDF>\n" + 
+    "</annotation>")
+    self.S.setAnnotation(annt)
+    self.assert_( self.S.isSetAnnotation() == True )
+    self.assert_(( annt == self.S.getAnnotationString() ))
+    self.S.unsetAnnotation()
+    self.assert_( self.S.isSetAnnotation() == False )
+    self.assert_( self.S.getAnnotation() == None )
+    self.S.setAnnotation(annt)
+    self.S.setMetaId( "_000001")
+    cv = libsbml.CVTerm(libsbml.BIOLOGICAL_QUALIFIER)
+    cv.setBiologicalQualifierType(libsbml.BQB_IS)
+    cv.addResource( "http://www.geneontology.org/#GO:0005895")
+    self.S.addCVTerm(cv)
+    self.assert_( self.S.isSetAnnotation() == True )
+    self.assert_(( annt_with_cvterm == self.S.getAnnotationString() ))
+    self.S.unsetAnnotation()
+    self.assert_( self.S.isSetAnnotation() == False )
+    self.assert_( self.S.getAnnotation() == None )
+    cv = None
+    pass  
+
+  def test_SBase_unsetAnnotationWithModelHistory(self):
+    h = libsbml.ModelHistory()
+    c = libsbml.ModelCreator()
+    annt = wrapString("<annotation>\n" + 
+    "  <test:test xmlns:test=\"http://test.org/test\">this is a test node</test:test>\n" + 
+    "</annotation>")
+    annt_with_modelhistory = wrapString("<annotation>\n" + 
+    "  <test:test xmlns:test=\"http://test.org/test\">this is a test node</test:test>\n" + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" " + 
+    "xmlns:dc=\"http://purl.org/dc/elements/1.1/\" " + 
+    "xmlns:dcterms=\"http://purl.org/dc/terms/\" " + 
+    "xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" " + 
+    "xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" " + 
+    "xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
+    "    <rdf:Description rdf:about=\"#_000001\">\n" + 
+    "      <dc:creator>\n" + 
+    "        <rdf:Bag>\n" + 
+    "          <rdf:li rdf:parseType=\"Resource\">\n" + 
+    "            <vCard:N rdf:parseType=\"Resource\">\n" + 
+    "              <vCard:Family>Keating</vCard:Family>\n" + 
+    "              <vCard:Given>Sarah</vCard:Given>\n" + 
+    "            </vCard:N>\n" + 
+    "            <vCard:EMAIL>sbml-team@caltech.edu</vCard:EMAIL>\n" + 
+    "          </rdf:li>\n" + 
+    "        </rdf:Bag>\n" + 
+    "      </dc:creator>\n" + 
+    "    </rdf:Description>\n" + 
+    "  </rdf:RDF>\n" + 
+    "</annotation>")
+    self.S.setAnnotation(annt)
+    self.assert_( self.S.isSetAnnotation() == True )
+    self.assert_(( annt == self.S.getAnnotationString() ))
+    self.S.unsetAnnotation()
+    self.assert_( self.S.isSetAnnotation() == False )
+    self.assert_( self.S.getAnnotation() == None )
+    self.S.setAnnotation(annt)
+    self.S.setMetaId( "_000001")
+    c.setFamilyName("Keating")
+    c.setGivenName("Sarah")
+    c.setEmail("sbml-team@caltech.edu")
+    h.addCreator(c)
+    self.S.setModelHistory(h)
+    self.assert_( self.S.isSetAnnotation() == True )
+    self.assert_(( annt_with_modelhistory == self.S.getAnnotationString() ))
+    self.S.unsetAnnotation()
+    self.assert_( self.S.isSetAnnotation() == False )
+    self.assert_( self.S.getAnnotation() == None )
+    c = None
+    h = None
     pass  
 
   def test_SBase_unsetCVTerms(self):

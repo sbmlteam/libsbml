@@ -790,8 +790,8 @@ public class TestSBase {
     "</notes>";
     String newnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
     String newnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>" +
-		"<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
-    String newnotes3 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + "</notes>";
+		                   "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
+    String newnotes3 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + "</notes>";;
     String newnotes4 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
     "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
     "</notes>";
@@ -939,7 +939,7 @@ public class TestSBase {
     "</notes>";
     String addnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n";
     String addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" +
-		"<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
+		                   "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
     String addnotes3 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
     "</notes>";
     String addnotes4 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
@@ -1124,8 +1124,8 @@ public class TestSBase {
     "  </body>\n" + 
     "</notes>";
     String addnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
-    String addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" +
-		"<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
+    String addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+		                   "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
     String addnotes3 = "<notes>\n" + 
     "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
     "</notes>";
@@ -1176,6 +1176,10 @@ public class TestSBase {
   {
     XMLToken token;
     XMLNode node;
+    XMLTriple triple;
+    XMLNode node2;
+    Species sp;
+    String taggedannt =  "<annotation>This is a test note</annotation>";;
     token = new  XMLToken("This is a test note");
     node = new XMLNode(token);
     S.setAnnotation(node);
@@ -1197,6 +1201,24 @@ public class TestSBase {
     assertTrue( S.isSetAnnotation() == true );
     S.unsetAnnotation();
     assertTrue( S.isSetAnnotation() == false );
+    triple = new  XMLTriple("annotation", "", "");
+    node2 = new XMLNode(triple);
+    node2.addChild(node);
+    sp = ((Model)S).createSpecies();
+    sp.setAnnotation(node2);
+    assertTrue( sp.isSetAnnotation() == true );
+    assertTrue(sp.getAnnotationString().equals(taggedannt));
+    sp.unsetAnnotation();
+    assertTrue( sp.isSetAnnotation() == false );
+    S.setAnnotation(node2);
+    assertTrue( S.isSetAnnotation() == true );
+    assertTrue(S.getAnnotationString().equals(taggedannt));
+    S.unsetAnnotation();
+    assertTrue( S.isSetAnnotation() == false );
+    token = null;
+    node = null;
+    node2 = null;
+    triple = null;
   }
 
   public void test_SBase_setAnnotationString()
@@ -1310,6 +1332,101 @@ public class TestSBase {
     assertTrue( t1.getNumChildren() == 1 );
     XMLNode t2 = t1.getChild(0);
     assertTrue(t2.getCharacters().equals( "This is a test note"));
+  }
+
+  public void test_SBase_unsetAnnotationWithCVTerms()
+  {
+    CVTerm cv;
+    String annt = "<annotation>\n" + 
+    "  <test:test xmlns:test=\"http://test.org/test\">this is a test node</test:test>\n" + 
+    "</annotation>";
+    String annt_with_cvterm = "<annotation>\n" + 
+    "  <test:test xmlns:test=\"http://test.org/test\">this is a test node</test:test>\n" + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" " + 
+    "xmlns:dc=\"http://purl.org/dc/elements/1.1/\" " + 
+    "xmlns:dcterms=\"http://purl.org/dc/terms/\" " + 
+    "xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" " + 
+    "xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" " + 
+    "xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
+    "    <rdf:Description rdf:about=\"#_000001\">\n" + 
+    "      <bqbiol:is>\n" + 
+    "        <rdf:Bag>\n" + 
+    "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0005895\"/>\n" + 
+    "        </rdf:Bag>\n" + 
+    "      </bqbiol:is>\n" + 
+    "    </rdf:Description>\n" + 
+    "  </rdf:RDF>\n" + 
+    "</annotation>";
+    S.setAnnotation(annt);
+    assertTrue( S.isSetAnnotation() == true );
+    assertTrue(S.getAnnotationString().equals(annt));
+    S.unsetAnnotation();
+    assertTrue( S.isSetAnnotation() == false );
+    assertTrue( S.getAnnotation() == null );
+    S.setAnnotation(annt);
+    S.setMetaId( "_000001");
+    cv = new  CVTerm(libsbml.BIOLOGICAL_QUALIFIER);
+    cv.setBiologicalQualifierType(libsbml.BQB_IS);
+    cv.addResource( "http://www.geneontology.org/#GO:0005895");
+    S.addCVTerm(cv);
+    assertTrue( S.isSetAnnotation() == true );
+    assertTrue(S.getAnnotationString().equals(annt_with_cvterm));
+    S.unsetAnnotation();
+    assertTrue( S.isSetAnnotation() == false );
+    assertTrue( S.getAnnotation() == null );
+    cv = null;
+  }
+
+  public void test_SBase_unsetAnnotationWithModelHistory()
+  {
+    ModelHistory h = new  ModelHistory();
+    ModelCreator c = new  ModelCreator();
+    String annt = "<annotation>\n" + 
+    "  <test:test xmlns:test=\"http://test.org/test\">this is a test node</test:test>\n" + 
+    "</annotation>";
+    String annt_with_modelhistory = "<annotation>\n" + 
+    "  <test:test xmlns:test=\"http://test.org/test\">this is a test node</test:test>\n" + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" " + 
+    "xmlns:dc=\"http://purl.org/dc/elements/1.1/\" " + 
+    "xmlns:dcterms=\"http://purl.org/dc/terms/\" " + 
+    "xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" " + 
+    "xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" " + 
+    "xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
+    "    <rdf:Description rdf:about=\"#_000001\">\n" + 
+    "      <dc:creator>\n" + 
+    "        <rdf:Bag>\n" + 
+    "          <rdf:li rdf:parseType=\"Resource\">\n" + 
+    "            <vCard:N rdf:parseType=\"Resource\">\n" + 
+    "              <vCard:Family>Keating</vCard:Family>\n" + 
+    "              <vCard:Given>Sarah</vCard:Given>\n" + 
+    "            </vCard:N>\n" + 
+    "            <vCard:EMAIL>sbml-team@caltech.edu</vCard:EMAIL>\n" + 
+    "          </rdf:li>\n" + 
+    "        </rdf:Bag>\n" + 
+    "      </dc:creator>\n" + 
+    "    </rdf:Description>\n" + 
+    "  </rdf:RDF>\n" + 
+    "</annotation>";
+    S.setAnnotation(annt);
+    assertTrue( S.isSetAnnotation() == true );
+    assertTrue(S.getAnnotationString().equals(annt));
+    S.unsetAnnotation();
+    assertTrue( S.isSetAnnotation() == false );
+    assertTrue( S.getAnnotation() == null );
+    S.setAnnotation(annt);
+    S.setMetaId( "_000001");
+    c.setFamilyName("Keating");
+    c.setGivenName("Sarah");
+    c.setEmail("sbml-team@caltech.edu");
+    h.addCreator(c);
+    ((Model)S).setModelHistory(h);
+    assertTrue( S.isSetAnnotation() == true );
+    assertTrue(S.getAnnotationString().equals(annt_with_modelhistory));
+    S.unsetAnnotation();
+    assertTrue( S.isSetAnnotation() == false );
+    assertTrue( S.getAnnotation() == null );
+    c = null;
+    h = null;
   }
 
   public void test_SBase_unsetCVTerms()

@@ -164,12 +164,15 @@ END_TEST
 
 START_TEST (test_SBase_setAnnotation)
 {
-  XMLToken_t *token;
-  XMLNode_t *node;
+  XMLToken_t  *token;
+  XMLNode_t   *node;
+  XMLTriple_t *triple;
+  XMLNode_t   *node2;
+  Species_t   *sp;
+  char *taggedannt = "<annotation>This is a test note</annotation>";
 
   token = XMLToken_createWithText("This is a test note");
   node = XMLNode_createFromToken(token);
-
 
   SBase_setAnnotation(S, node);
 
@@ -204,8 +207,157 @@ START_TEST (test_SBase_setAnnotation)
   SBase_unsetAnnotation(S);
 
   fail_unless(SBase_isSetAnnotation(S) == 0);
+
+  /* 3.x compatibility test (accepting an end annotation element) */
+
+  triple = XMLTriple_createWith("annotation", "", "");
+	node2  = XMLNode_createEndElement(triple);
+  XMLNode_addChild(node2, node);
+  sp = Model_createSpecies((Model_t*)S);
+	SBase_setAnnotation(sp, node2);
+
+  fail_unless(SBase_isSetAnnotation(sp) == 1);
+  fail_unless(!strcmp(SBase_getAnnotationString(sp),taggedannt));
+
+  SBase_unsetAnnotation(sp);
+  fail_unless(SBase_isSetAnnotation(sp) == 0);
+
+	SBase_setAnnotation(S, node2);
+  fail_unless(SBase_isSetAnnotation(S) == 1);
+  fail_unless(!strcmp(SBase_getAnnotationString(S),taggedannt));
+
+  SBase_unsetAnnotation(S);
+  fail_unless(SBase_isSetAnnotation(S) == 0);
+
+
+	XMLToken_free(token);
+	XMLNode_free(node);
+	XMLNode_free(node2);
+	XMLTriple_free(triple);
+
 }
 END_TEST
+
+
+START_TEST (test_SBase_unsetAnnotationWithCVTerms)
+{
+  CVTerm_t   *cv;
+
+  const char *annt =
+        "<annotation>\n"
+        "  <test:test xmlns:test=\"http://test.org/test\">this is a test node</test:test>\n"
+        "</annotation>";
+
+  const char *annt_with_cvterm =
+        "<annotation>\n"
+        "  <test:test xmlns:test=\"http://test.org/test\">this is a test node</test:test>\n"
+        "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" "
+				"xmlns:dc=\"http://purl.org/dc/elements/1.1/\" "
+        "xmlns:dcterms=\"http://purl.org/dc/terms/\" "
+				"xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" "
+        "xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" "
+				"xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+        "    <rdf:Description rdf:about=\"#_000001\">\n"
+        "      <bqbiol:is>\n"
+        "        <rdf:Bag>\n"
+        "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0005895\"/>\n"
+        "        </rdf:Bag>\n"
+        "      </bqbiol:is>\n"
+        "    </rdf:Description>\n"
+        "  </rdf:RDF>\n"
+        "</annotation>";
+
+  SBase_setAnnotationString(S, (char*)annt);
+  fail_unless(SBase_isSetAnnotation(S) == 1);
+  fail_unless(!strcmp(SBase_getAnnotationString(S), annt));
+
+  SBase_unsetAnnotation(S);
+  fail_unless(SBase_isSetAnnotation(S) == 0);
+  fail_unless(SBase_getAnnotation(S) == NULL);
+
+  SBase_setAnnotationString(S, (char*)annt);
+  SBase_setMetaId(S, "_000001");
+  cv = CVTerm_createWithQualifierType(BIOLOGICAL_QUALIFIER);
+  CVTerm_setBiologicalQualifierType(cv, BQB_IS);
+  CVTerm_addResource(cv, "http://www.geneontology.org/#GO:0005895");
+  SBase_addCVTerm(S, cv);
+
+  fail_unless(SBase_isSetAnnotation(S) == 1);
+  fail_unless(!strcmp(SBase_getAnnotationString(S), annt_with_cvterm));
+
+  SBase_unsetAnnotation(S);
+  fail_unless(SBase_isSetAnnotation(S) == 0);
+  fail_unless(SBase_getAnnotation(S) == NULL);
+
+  CVTerm_free(cv);
+}
+END_TEST
+
+START_TEST (test_SBase_unsetAnnotationWithModelHistory)
+{
+  ModelHistory_t *h = ModelHistory_create();
+  ModelCreator_t *c = ModelCreator_create();
+
+  const char *annt =
+        "<annotation>\n"
+        "  <test:test xmlns:test=\"http://test.org/test\">this is a test node</test:test>\n"
+        "</annotation>";
+
+  const char *annt_with_modelhistory =
+       "<annotation>\n"
+       "  <test:test xmlns:test=\"http://test.org/test\">this is a test node</test:test>\n"
+       "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" "
+			 "xmlns:dc=\"http://purl.org/dc/elements/1.1/\" "
+			 "xmlns:dcterms=\"http://purl.org/dc/terms/\" "
+			 "xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" "
+			 "xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" "
+			 "xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+       "    <rdf:Description rdf:about=\"#_000001\">\n"
+       "      <dc:creator>\n"
+       "        <rdf:Bag>\n"
+       "          <rdf:li rdf:parseType=\"Resource\">\n"
+       "            <vCard:N rdf:parseType=\"Resource\">\n"
+       "              <vCard:Family>Keating</vCard:Family>\n"
+       "              <vCard:Given>Sarah</vCard:Given>\n"
+       "            </vCard:N>\n"
+       "            <vCard:EMAIL>sbml-team@caltech.edu</vCard:EMAIL>\n"
+       "          </rdf:li>\n"
+       "        </rdf:Bag>\n"
+       "      </dc:creator>\n"
+       "    </rdf:Description>\n"
+       "  </rdf:RDF>\n"
+       "</annotation>";
+
+  SBase_setAnnotationString(S, (char*)annt);
+  fail_unless(SBase_isSetAnnotation(S) == 1);
+  fail_unless(!strcmp(SBase_getAnnotationString(S), annt));
+
+  SBase_unsetAnnotation(S);
+  fail_unless(SBase_isSetAnnotation(S) == 0);
+  fail_unless(SBase_getAnnotation(S) == NULL);
+
+  SBase_setAnnotationString(S, (char*)annt);
+  SBase_setMetaId(S, "_000001");
+
+  ModelCreator_setFamilyName(c,"Keating");
+  ModelCreator_setGivenName(c,"Sarah");
+  ModelCreator_setEmail(c,"sbml-team@caltech.edu");
+  ModelHistory_addCreator(h, c);
+  Model_setModelHistory((Model_t*)S, h);
+
+  fail_unless(SBase_isSetAnnotation(S) == 1);
+  fail_unless(!strcmp(SBase_getAnnotationString(S), annt_with_modelhistory));
+
+  SBase_unsetAnnotation(S);
+  fail_unless(SBase_isSetAnnotation(S) == 0);
+  fail_unless(SBase_getAnnotation(S) == NULL);
+
+  ModelCreator_free(c);
+  ModelHistory_free(h);
+}
+END_TEST
+
+
 
 START_TEST (test_SBase_setNotesString)
 {
@@ -1848,6 +2000,8 @@ create_suite_SBase (void)
   tcase_add_test(tcase, test_SBase_setAnnotation );
   tcase_add_test(tcase, test_SBase_setNotesString);
   tcase_add_test(tcase, test_SBase_setAnnotationString);
+  tcase_add_test(tcase, test_SBase_unsetAnnotationWithCVTerms );
+  tcase_add_test(tcase, test_SBase_unsetAnnotationWithModelHistory );
 
   tcase_add_test(tcase, test_SBase_appendNotes );
   tcase_add_test(tcase, test_SBase_appendNotes1 );
