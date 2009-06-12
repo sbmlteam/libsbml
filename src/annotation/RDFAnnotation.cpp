@@ -240,6 +240,13 @@ RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation)
 	      {
           // this should be the Bag node containing the list of creators
           const XMLNode *creatorNode = &(RDFTop->getChild(n).getChild(0));
+          /* HACK for catching an empty creator */
+          if (creatorNode->getNumChildren() == 0)
+          {
+            creator = new ModelCreator();
+            history->addCreator(creator);
+            delete creator;
+          }
           for (unsigned int c = 0; c < creatorNode->getNumChildren(); c++)
           {
 	          creator = new ModelCreator(creatorNode->getChild(c));
@@ -694,7 +701,11 @@ RDFAnnotationParser::parseModelHistory(const Model *model)
       li.addChild(*(c->getAdditionalRDF()));
     }
 
-    bag.addChild(li);
+    /* hack to catch empty creator */
+    if (li.getNumChildren() > 0)
+    {
+      bag.addChild(li);
+    }
   }
 
   XMLNode creator(creator_token);
