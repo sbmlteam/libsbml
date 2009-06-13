@@ -276,9 +276,7 @@ ifneq "$(DESTDIR)" ""
   root = --root "$(DESTDIR)"
 endif
 
-module_path = $(shell $(PYTHON) -c "from distutils.sysconfig import get_python_lib; \
-                prefix=\"$(prefix)\"; print get_python_lib(prefix=prefix)")
-
+installed_files_list = installed-files.txt
 
 # In order to avoid MACOSX_DEPLOYMENT_TARGET mismatch error on Mac OS X,
 # environment variable MACOSX_DEPLOYMENT_TARGET is set to '' at
@@ -286,9 +284,9 @@ module_path = $(shell $(PYTHON) -c "from distutils.sysconfig import get_python_l
 # MACOSX_DEPLOYMENT_TARGET if the environment variable is set to ''.
 
 ifeq (, $(shell $(PYTHON) setup.py install --help | grep "\--install-layout.*known values: deb")) 
-  install-cmd = setup.py install --skip-build --prefix=$(prefix) $(root)
+  install-cmd = setup.py install --record $(installed_files_list) --skip-build --prefix=$(prefix) $(root)
 else
-  install-cmd = setup.py install --skip-build --install-layout=deb --prefix=$(prefix) $(root)
+  install-cmd = setup.py install --record $(installed_files_list) --skip-build --install-layout=deb --prefix=$(prefix) $(root)
 endif
 
 install: setup.py create-build-dir
@@ -307,11 +305,10 @@ create-build-dir: $(libraries)
 installcheck:
 
 uninstall: 
-	-rm -f $(DESTDIR)$(module_path)/libsbml.pth
-	-rm -f $(DESTDIR)$(module_path)/libsbml/_libsbml.$(PYTHON_EXT)
-	-rm -f $(DESTDIR)$(module_path)/libsbml/libsbml.py
-	-rm -f $(DESTDIR)$(module_path)/libsbml/libsbml.pyc
-	-rmdir $(DESTDIR)$(module_path)/libsbml
+	for i in `cat $(installed_files_list)`; do \
+	  d=`dirname $$i`; f=`echo $$i | sed 's,.*/,,'`; \
+	  find $$d -name "$$f" -o -name "libsbml.pth" | xargs -t /bin/rm -f ; \
+	done ; \
 
 
 # -----------------------------------------------------------------------------
