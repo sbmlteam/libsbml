@@ -241,7 +241,7 @@ install: all install-libraries install-headers
 
 installcheck: all installcheck-libraries installcheck-headers
 
-uninstall: uninstall-headers uninstall-libraries
+uninstall: uninstall-headers uninstall-libraries uninstall-recursive
 
 
 # -----------------------------------------------------------------------------
