@@ -23,6 +23,7 @@
 
 
 #include <sbml/annotation/ModelHistory.h>
+#include <cstdio>
 
 /** @cond doxygen-ignore */
 

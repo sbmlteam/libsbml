@@ -24,6 +24,7 @@
 #include <limits>
 #include <iostream>
 #include <cstring>
+#include <cstdio>
 
 #include <check.h>
 
