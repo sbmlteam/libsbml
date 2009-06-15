@@ -26,7 +26,6 @@ cd bindings
 mkdir java
 mkdir matlab
 mkdir python
-mkdir csharp
 mkdir octave
 
 rem bindings/java directory
@@ -61,13 +60,6 @@ cd octave
 copy ..\..\..\..\..\src\bindings\octave\TranslateSBML.mex TranslateSBML.mex
 copy ..\..\..\..\..\src\bindings\matlab\CheckAndConvert.m  CheckAndConvert.m
 copy ..\..\..\..\..\src\bindings\matlab\test.xml test.xml
-cd ..
-
-rem bindings/csharp directory
-cd csharp
-copy ..\..\..\..\MSVC7\bin\csharp\libsbmlcs.dll libsbmlcs.dll
-copy ..\..\..\..\MSVC7\bin\csharp\libsbmlcs.lib libsbmlcs.lib
-copy ..\..\..\..\MSVC7\bin\csharp\libsbmlcsP.dll libsbmlcsP.dll
 cd ..
 
 
@@ -310,7 +302,7 @@ rem The following are hardcoded directory structures
 
 rem win32/include/expat
 
-cd C:\libSBML_Dependencies\Expat-2.0.1\Source\lib
+cd C:\libSBML_Dependencies\Expat 2.0.1\Source\lib
 echo a | xcopy *.h C:\libsbml\win32\installer\libsbml_3_expat\win32\include\expat
  
 rem win32/include/bzip2

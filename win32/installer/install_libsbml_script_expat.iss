@@ -28,7 +28,7 @@ Source: C:\libsbml\win32\installer\libsbml_3_expat\*; DestDir: {app}; Flags: ign
 Source: C:\libsbml\win32\installer\libsbml_3_expat\bindings\java\*; DestDir: {code:GetJavaDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetJava
 Source: C:\libsbml\win32\installer\libsbml_3_expat\bindings\matlab\*; DestDir: {code:GetMatlabDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetMatlab
 Source: C:\libsbml\win32\installer\libsbml_3_expat\bindings\octave\*; DestDir: {code:GetOctaveDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetOctave
-Source: C:\libsbml\win32\installer\libsbml_3_expat\bindings\csharp\*; DestDir: {code:GetCSharpDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetCSharp
+;Source: C:\libsbml\win32\installer\libsbml_3_expat\bindings\csharp\*; DestDir: {code:GetCSharpDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetCSharp
 Source: C:\libsbml\win32\installer\libsbml_3_expat\bindings\python\python23\libsbml.py; DestDir: {code:GetPython23Dir}; Check: GetPython23
 Source: C:\libsbml\win32\installer\libsbml_3_expat\bindings\python\python23\_libsbml.dll; DestDir: {code:GetPython23Dir}; Check: GetPython23
 Source: C:\libsbml\win32\installer\libsbml_3_expat\bindings\python\python24\libsbml.py; DestDir: {code:GetPython24Dir}; Check: GetPython24
@@ -731,7 +731,7 @@ end;
 function GetMatlab() : Boolean;
 begin
   if (MatlabPresent) then begin
-    if (InstallOptionsPage.Values[5] = True) then
+    if (InstallOptionsPage.Values[4] = True) then
       Result := True
     else
       Result := False;
@@ -762,7 +762,7 @@ end;
 
 function GetOctave() : Boolean;
 begin
-  if (InstallOptionsPage.Values[4] = True) then
+  if (InstallOptionsPage.Values[3] = True) then
     Result := True
   else
     Result := False;

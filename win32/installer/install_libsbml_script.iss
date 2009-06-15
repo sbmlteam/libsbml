@@ -742,7 +742,7 @@ end;
 function GetMatlab() : Boolean;
 begin
   if (MatlabPresent) then begin
-    if (InstallOptionsPage.Values[5] = True) then
+    if (InstallOptionsPage.Values[4] = True) then
       Result := True
     else
       Result := False;
@@ -773,7 +773,7 @@ end;
 
 function GetOctave() : Boolean;
 begin
-  if (InstallOptionsPage.Values[4] = True) then
+  if (InstallOptionsPage.Values[3] = True) then
     Result := True
   else
     Result := False;
