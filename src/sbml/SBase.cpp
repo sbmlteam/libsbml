@@ -2829,7 +2829,11 @@ SBase::checkXHTML(const XMLNode * xhtml)
             break;
           }
         }
-        if (!match)
+        if (!match && !implicitNSdecl)
+        {
+          logError(errorELEM);
+        }
+        if (implicitNSdecl && elem.getPrefix() != "xhtml")
         {
           logError(errorELEM);
         }
