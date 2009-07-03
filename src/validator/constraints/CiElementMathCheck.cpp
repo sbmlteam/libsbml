@@ -127,10 +127,15 @@ CiElementMathCheck::checkCiElement (const Model& m,
    */
   if (!mLocalParameters.contains(name))
   {
+    bool allowReactionId = true;
+
+    if ( (m.getLevel() == 2) && (m.getVersion() == 1) )
+      allowReactionId = false;
+
     if (!m.getCompartment(name) &&
         !m.getSpecies(name)     &&
         !m.getParameter(name)   &&
-        !m.getReaction(name))
+        (!allowReactionId || !m.getReaction(name))  )
     {
       /* check whether we are in a kinetic law since there
       * may be local parameters
@@ -172,7 +177,10 @@ CiElementMathCheck::getMessage (const ASTNode& node, const SBase& object)
   char * formula = SBML_formulaToString(&node);
   msg << "\nThe formula '" << formula;
   msg << "' in the " << getFieldname() << " element of the " << getTypename(object);
-  msg << " uses '" << node.getName() << "' that is not the id of a species/compartment/parameter/reaction.";
+  if (object.getLevel() == 2 && object.getVersion() == 1)
+    msg << " uses '" << node.getName() << "' that is not the id of a species/compartment/parameter.";
+  else
+    msg << " uses '" << node.getName() << "' that is not the id of a species/compartment/parameter/reaction.";
   safe_free(formula);
 
   return msg.str();
