@@ -1350,6 +1350,10 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
     {
       object = new SpeciesReference();
     }
+    else if (name == "annotation" || name == "notes")
+    {
+      // do nothing
+    }
     else
     {
       /* create the object anyway - or will also get unrecognized element message 

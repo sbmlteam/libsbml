@@ -4349,6 +4349,64 @@ SBase::isExtender(std::string::iterator it, unsigned int numBytes)
       
   return extender; 
 }
+
+
+void
+SBase::removeDuplicateAnnotations()
+{
+  bool resetNecessary = false;
+  XMLNamespaces xmlns = XMLNamespaces();
+  xmlns.add("http://www.sbml.org/libsbml/annotation", "");
+  XMLTriple triple = XMLTriple("duplicateTopLevelElements",
+    "http://www.sbml.org/libsbml/annotation", "");
+  XMLAttributes att = XMLAttributes();
+  XMLToken token = XMLToken(triple, att, xmlns);
+  XMLNode * newNode = NULL;
+  if (isSetAnnotation())
+  { 
+    //make a copy to work with
+    XMLNode * newAnnotation = mAnnotation->clone();
+
+    unsigned int numChildren = newAnnotation->getNumChildren();
+    if (numChildren == 1)
+      return;
+
+    bool duplicate = false;
+    for (unsigned int i = 0; i < numChildren; i++)
+    {
+      duplicate = false;
+      std::string name = newAnnotation->getChild(i).getName();
+      for (unsigned int j = numChildren-1; j > i; j--)
+      {
+        if (name == newAnnotation->getChild(j).getName())
+        {
+          resetNecessary = true;
+          duplicate = true;
+          if (!newNode)
+          {
+            // need to  create the new node
+            newNode = new XMLNode(token);
+          }
+          newNode->addChild(static_cast <XMLNode> 
+                            (*(newAnnotation->removeChild(j))));
+        }
+      }
+      if (duplicate)
+        newNode->addChild(static_cast <XMLNode>
+                          (*(newAnnotation->removeChild(i))));
+      numChildren = newAnnotation->getNumChildren();
+    }
+    if (resetNecessary)
+    {
+      newAnnotation->addChild(*(newNode));
+      setAnnotation(newAnnotation);
+    }
+  }
+
+
+}
+
+
 /** @endcond doxygen-libsbml-internal */
 
 

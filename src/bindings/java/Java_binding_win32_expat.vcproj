@@ -221,6 +221,9 @@
 				RelativePath="..\..\sbml\layout\Dimensions.cpp">
 			</File>
 			<File
+				RelativePath="..\..\validator\constraints\DuplicateTopLevelAnnotation.cpp">
+			</File>
+			<File
 				RelativePath="..\..\validator\constraints\EqualityArgsMathCheck.cpp">
 			</File>
 			<File

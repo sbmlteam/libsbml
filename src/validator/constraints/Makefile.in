@@ -80,6 +80,7 @@ sources =                                     \
   CiElementMathCheck.cpp                      \
   CompartmentOutsideCycles.cpp                \
   ConsistencyConstraints.cpp                  \
+  DuplicateTopLevelAnnotation.cpp             \
   EqualityArgsMathCheck.cpp                   \
   ExponentUnitsCheck.cpp		          			  \
   FunctionApplyMathCheck.cpp                  \
@@ -146,6 +147,7 @@ other_headers = \
   AssignmentRuleOrdering.h                 \
   CiElementMathCheck.h                     \
   CompartmentOutsideCycles.h               \
+  DuplicateTopLevelAnnotation.h            \
   EqualityArgsMathCheck.h                  \
   ExponentUnitsCheck.h                     \
   FunctionApplyMathCheck.h                 \

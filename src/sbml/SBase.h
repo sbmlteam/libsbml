@@ -1875,6 +1875,12 @@ public:
   /** @endcond doxygen-libsbml-internal */
 
 
+  /** @cond doxygen-libsbml-internal */
+
+  /*removes duplicate top level annotations*/
+  void removeDuplicateAnnotations();
+
+  /** @endcond doxygen-libsbml-internal */
 protected:
   /** @cond doxygen-libsbml-internal */
 

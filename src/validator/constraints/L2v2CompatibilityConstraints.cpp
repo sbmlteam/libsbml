@@ -27,6 +27,7 @@
 #include <sbml/SBase.h>
 #include <sbml/validator/VConstraint.h>
 #include <math.h>
+#include "DuplicateTopLevelAnnotation.h"
 #endif
 
 
@@ -200,3 +201,6 @@ START_CONSTRAINT (93006, Model, m1)
   inv( !m1.isSetSBOTerm());
 }
 END_CONSTRAINT
+
+EXTERN_CONSTRAINT(93009, DuplicateTopLevelAnnotation)
+

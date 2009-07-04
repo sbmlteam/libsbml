@@ -3737,6 +3737,26 @@ static const sbmlErrorTableEntry errorTable[] =
     "would produce an invalid model."
   },
 
+  //93009
+  {
+    DuplicateAnnotationInvalidInL2v2,
+    "Duplicate top level annotations invalid in L2V2",
+    LIBSBML_CAT_SBML_L2V2_COMPAT,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "In SBML prior to Level 2 Version 1 annotations it was permissible "
+    "to have multiple top level elements using the same namespace. "
+    "This is no longer valid.  (References: L2V2 Section 3.3.3; "
+    "L2V3 Section 3.2.4; L2V4 Section 3.2.4.)  Any duplicate top level "
+    "elements will be placed inside a new top level element named "
+    "\"duplicateTopLevelElements\" with the namespace "
+    "\"http://www.sbml.org/libsbml/annotation\""
+  },
+
   //94001
   {
     NoUnitOffsetInL2v3,
@@ -3894,6 +3914,26 @@ static const sbmlErrorTableEntry errorTable[] =
     "would produce an invalid model."
   },
 
+  //94010
+  {
+    DuplicateAnnotationInvalidInL2v3,
+    "Duplicate top level annotations invalid in L2V3",
+    LIBSBML_CAT_SBML_L2V3_COMPAT,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "In SBML prior to Level 2 Version 1 annotations it was permissible "
+    "to have multiple top level elements using the same namespace. "
+    "This is no longer valid.  (References: L2V2 Section 3.3.3; "
+    "L2V3 Section 3.2.4; L2V4 Section 3.2.4.)  Any duplicate top level "
+    "elements will be placed inside a new top level element named "
+    "\"duplicateTopLevelElements\" with the namespace "
+    "\"http://www.sbml.org/libsbml/annotation\""
+  },
+
   //95001
   {
     NoUnitOffsetInL2v4,
@@ -3996,6 +4036,26 @@ static const sbmlErrorTableEntry errorTable[] =
     "\"interaction\". Using the existing term will create an invalid "
     " L2V4 model. (References: L2V2 Section 4.2.1; L2V3 "
     "Sections 4.2.2 and 5; L2V4 Sections 4.2.2 and 5)"
+  },
+
+  //95007
+  {
+    DuplicateAnnotationInvalidInL2v4,
+    "Duplicate top level annotations invalid in L2V4",
+    LIBSBML_CAT_SBML_L2V4_COMPAT,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "In SBML prior to Level 2 Version 1 annotations it was permissible "
+    "to have multiple top level elements using the same namespace. "
+    "This is no longer valid.  (References: L2V2 Section 3.3.3; "
+    "L2V3 Section 3.2.4; L2V4 Section 3.2.4.)  Any duplicate top level "
+    "elements will be placed inside a new top level element named "
+    "\"duplicateTopLevelElements\" with the namespace "
+    "\"http://www.sbml.org/libsbml/annotation\""
   },
 
   //99101

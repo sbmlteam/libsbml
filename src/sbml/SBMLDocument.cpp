@@ -348,6 +348,23 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
   getErrorLog()->clearLog();
 
   bool conversionSuccess = false;
+  unsigned int i;
+  bool duplicateAnn = false;
+  //look at annotation on sbml element - since validation only happens on teh model :-(
+  XMLNode *ann = getAnnotation();
+  if (ann)
+  {
+    for (i = 0; i < ann->getNumChildren(); i++)
+    {
+      std::string name = ann->getChild(i).getPrefix();
+      for( unsigned int n= i+1; n < ann->getNumChildren(); n++)
+      {
+        if (ann->getChild(n).getPrefix() == name)
+          duplicateAnn = true;
+      }
+    }
+  }
+
   if (mModel != 0)
   {
     if (mLevel == 1 && level == 2)
@@ -413,6 +430,18 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
           {
             logError(StrictSBORequiredInL2v2);
           }
+            // look for duplicate top level annotations
+            for (i = 0; i < getErrorLog()->getNumErrors(); i++)
+            {
+              if (getErrorLog()->getError(i)->getErrorId() 
+                                  == DuplicateAnnotationInvalidInL2v2)
+                duplicateAnn = true;
+            }
+            if (duplicateAnn)
+            {
+              this->removeDuplicateAnnotations();
+              mModel->removeDuplicateTopLevelAnnotations();
+            }
           //else
           //{
             conversionSuccess = true;
@@ -434,6 +463,18 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
           {
             logError(StrictSBORequiredInL2v3);
           }
+            // look for duplicate top level annotations
+            for (i = 0; i < getErrorLog()->getNumErrors(); i++)
+            {
+              if (getErrorLog()->getError(i)->getErrorId() 
+                               == DuplicateAnnotationInvalidInL2v3)
+                duplicateAnn = true;
+            }
+            if (duplicateAnn)
+            {
+              this->removeDuplicateAnnotations();
+              mModel->removeDuplicateTopLevelAnnotations();
+            }
           //else
           //{
             conversionSuccess = true;
@@ -444,6 +485,18 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
       {
         if (!conversion_errors(checkL2v4Compatibility()))
         {
+            // look for duplicate top level annotations
+            for (i = 0; i < getErrorLog()->getNumErrors(); i++)
+            {
+              if (getErrorLog()->getError(i)->getErrorId() 
+                               == DuplicateAnnotationInvalidInL2v4)
+                duplicateAnn = true;
+            }
+            if (duplicateAnn)
+            {
+              this->removeDuplicateAnnotations();
+              mModel->removeDuplicateTopLevelAnnotations();
+            }
           conversionSuccess = true;
         }
       }

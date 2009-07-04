@@ -385,6 +385,7 @@
  * <tr><td><code>ModelSBOBranchChangedBeyondL2v2</code></td><td>The allowable <code>sboTerm</code> values for model differ for this SBML Level+Version</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
  * <tr><td><code>StrictUnitsRequiredInL2v2</code></td><td>SBML Level&nbsp;2 Version&nbsp;2 requires strict unit consistency</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
  * <tr><td><code>StrictSBORequiredInL2v2</code></td><td>SBML Level&nbsp;2 Version&nbsp;2 requires strict sbo consistency</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
+ * <tr><td><code>DuplicateAnnotationInvalidInL2v2</code></td><td>Duplicate top level annotations invalid for this SBML Level+Version</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><code>NoUnitOffsetInL2v3</code></td><td>Attribute <code>offset</code> not supported in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><code>NoKineticLawTimeUnitsInL2v3</code></td><td>Attribute <code>timeUnits</code> not supported in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><code>NoKineticLawSubstanceUnitsInL2v3</code></td><td>Attribute <code>substanceUnits</code> not supported in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
@@ -394,12 +395,14 @@
  * <tr><td><code>ModelSBOBranchChangedBeyondL2v3</code></td><td>The allowable <code>sboTerm</code> values for model differ for this SBML Level+Version</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
  * <tr><td><code>StrictUnitsRequiredInL2v3</code></td><td>SBML Level&nbsp;2 Version&nbsp;3 requires strict unit consistency</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
  * <tr><td><code>StrictSBORequiredInL2v3</code></td><td>SBML Level&nbsp;2 Version&nbsp;3 requires strict sbo consistency</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
+ * <tr><td><code>DuplicateAnnotationInvalidInL2v3</code></td><td>Duplicate top level annotations invalid for this SBML Level+Version</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><code>NoUnitOffsetInL2v4</code></td><td>The unit <code>offset</code> attribute is invalid in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><code>NoKineticLawTimeUnitsInL2v4</code></td><td>The <code>timeUnits</code> attribute is invalid in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><code>NoKineticLawSubstanceUnitsInL2v4</code></td><td>The <code>substanceUnits</code> attribute is invalid in this Level+Version of SBML</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><code>NoSpeciesSpatialSizeUnitsInL2v4</code></td><td>The <code>spatialSizeUnits</code> attribute is invalid in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><code>NoEventTimeUnitsInL2v4</code></td><td>The <code>timeUnits</code> attribute is invalid in this Level+Version of SBML</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><code>ModelSBOBranchChangedInL2v4</code></td><td>The allowable <code>sboTerm</code> values for model differ for this SBML Level+Version</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td></tr>
+ * <tr><td><code>DuplicateAnnotationInvalidInL2v4</code></td><td>Duplicate top level annotations invalid for this SBML Level+Version</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-warning">W</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><code>InvalidSBMLLevelVersion</code></td><td>Invalid SBML Level and Version</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><code>InvalidRuleOrdering</code></td><td>Invalid ordering of rules</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><code>SubsUnitsAllowedInKL</code></td><td>Disallowed value for attribute <code>substanceUnits</code></td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
@@ -811,6 +814,7 @@ typedef enum
  , ModelSBOBranchChangedBeyondL2v2       = 93006 /*!< The allowable <code>sboTerm</code> values for model differ for this SBML Level+Version */
  , StrictUnitsRequiredInL2v2             = 93007 /*!< SBML Level&nbsp;2 Version&nbsp;2 requires strict unit consistency */
  , StrictSBORequiredInL2v2               = 93008 /*!< SBML Level&nbsp;2 Version&nbsp;2 requires strict sbo consistency */
+ , DuplicateAnnotationInvalidInL2v2      = 93009 /*!< Duplicate top level annotations invalid for this SBML Level+Version */
 
   /* L2v3 compatability  */
 
@@ -823,6 +827,7 @@ typedef enum
  , ModelSBOBranchChangedBeyondL2v3       = 94007 /*!< The allowable <code>sboTerm</code> values for model differ for this SBML Level+Version */
  , StrictUnitsRequiredInL2v3             = 94008 /*!< SBML Level&nbsp;2 Version&nbsp;3 requires strict unit consistency */
  , StrictSBORequiredInL2v3               = 94009 /*!< SBML Level&nbsp;2 Version&nbsp;3 requires strict sbo consistency */
+ , DuplicateAnnotationInvalidInL2v3      = 94010 /*!< Duplicate top level annotations invalid for this SBML Level+Version */
 
   /* L2v4 compatability  */
 
@@ -832,6 +837,7 @@ typedef enum
  , NoSpeciesSpatialSizeUnitsInL2v4       = 95004 /*!< The <code>spatialSizeUnits</code> attribute is invalid in this Level+Version of SBML */
  , NoEventTimeUnitsInL2v4                = 95005 /*!< The <code>timeUnits</code> attribute is invalid in this Level+Version of SBML */
  , ModelSBOBranchChangedInL2v4           = 95006 /*!< The allowable <code>sboTerm</code> values for model differ for this SBML Level+Version */
+ , DuplicateAnnotationInvalidInL2v4      = 95007 /*!< Duplicate top level annotations invalid for this SBML Level+Version */
 
   /* These are errors checked by libSBML that were never
    * published in a spec. */

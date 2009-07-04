@@ -141,3 +141,159 @@ Model::convertToL2 ()
   }
 
 }
+void
+Model::removeDuplicateTopLevelAnnotations()
+{
+  unsigned int i, n;
+  this->removeDuplicateAnnotations();
+
+  if (getNumFunctionDefinitions() > 0)
+  {
+    getListOfFunctionDefinitions()->removeDuplicateAnnotations();
+    for (i = 0; i < getNumFunctionDefinitions(); i++)
+    {
+      getFunctionDefinition(i)->removeDuplicateAnnotations();
+    }
+  }
+  if (getNumUnitDefinitions() > 0)
+  {
+    getListOfUnitDefinitions()->removeDuplicateAnnotations();
+    for (i = 0; i < getNumUnitDefinitions(); i++)
+    {
+      getUnitDefinition(i)->removeDuplicateAnnotations();
+      getUnitDefinition(i)->getListOfUnits()->removeDuplicateAnnotations();
+      for (n = 0; n < getUnitDefinition(i)->getNumUnits(); n++)
+      {
+        getUnitDefinition(i)->getUnit(n)->removeDuplicateAnnotations();
+      }
+    }
+  }
+  if (getNumCompartmentTypes() > 0)
+  {
+    getListOfCompartmentTypes()->removeDuplicateAnnotations();
+    for (i = 0; i < getNumCompartmentTypes(); i++)
+    {
+      getCompartmentType(i)->removeDuplicateAnnotations();
+    }
+  }
+  if (getNumSpeciesTypes() > 0)
+  {
+    getListOfSpeciesTypes()->removeDuplicateAnnotations();
+    for (i = 0; i < getNumSpeciesTypes(); i++)
+    {
+      getSpeciesType(i)->removeDuplicateAnnotations();
+    }
+  }
+  if (getNumCompartments() > 0)
+  {
+    getListOfCompartments()->removeDuplicateAnnotations();
+    for (i = 0; i < getNumCompartments(); i++)
+    {
+      getCompartment(i)->removeDuplicateAnnotations();
+    }
+  }
+  if (getNumSpecies() > 0)
+  {
+    getListOfSpecies()->removeDuplicateAnnotations();
+    for (i = 0; i < getNumSpecies(); i++)
+    {
+      getSpecies(i)->removeDuplicateAnnotations();
+    }
+  }
+  if (getNumParameters() > 0)
+  {
+    getListOfParameters()->removeDuplicateAnnotations();
+    for (i = 0; i < getNumParameters(); i++)
+    {
+      getParameter(i)->removeDuplicateAnnotations();
+    }
+  }
+  if (getNumInitialAssignments() > 0)
+  {
+    getListOfInitialAssignments()->removeDuplicateAnnotations();
+    for (i = 0; i < getNumInitialAssignments(); i++)
+    {
+      getInitialAssignment(i)->removeDuplicateAnnotations();
+    }
+  }
+  if (getNumConstraints() > 0)
+  {
+    getListOfConstraints()->removeDuplicateAnnotations();
+    for (i = 0; i < getNumConstraints(); i++)
+    {
+      getConstraint(i)->removeDuplicateAnnotations();
+    }
+  }
+  if (getNumRules() > 0)
+  {
+    getListOfRules()->removeDuplicateAnnotations();
+    for (i = 0; i < getNumRules(); i++)
+    {
+      getRule(i)->removeDuplicateAnnotations();
+    }
+  }
+  if (getNumReactions() > 0)
+  {
+    getListOfReactions()->removeDuplicateAnnotations();
+    for (i = 0; i < getNumReactions(); i++)
+    {
+      Reaction * r = getReaction(i);
+      r->removeDuplicateAnnotations();
+      if (r->getNumReactants() > 0)
+      {
+        r->getListOfReactants()->removeDuplicateAnnotations();
+        for (n = 0; n < r->getNumReactants(); n++)
+        {
+          r->getReactant(n)->removeDuplicateAnnotations();
+        }
+      }
+      if (r->getNumProducts() > 0)
+      {
+        r->getListOfProducts()->removeDuplicateAnnotations();
+        for (n = 0; n < r->getNumProducts(); n++)
+        {
+          r->getProduct(n)->removeDuplicateAnnotations();
+        }
+      }
+      if (r->getNumModifiers() > 0)
+      {
+        r->getListOfModifiers()->removeDuplicateAnnotations();
+        for (n = 0; n < r->getNumModifiers(); n++)
+        {
+          r->getModifier(n)->removeDuplicateAnnotations();
+        }
+      }
+      if (r->isSetKineticLaw())
+      {
+        r->getKineticLaw()->removeDuplicateAnnotations();
+        if (r->getKineticLaw()->getNumParameters() > 0)
+        {
+          r->getKineticLaw()->getListOfParameters()
+                            ->removeDuplicateAnnotations();
+          for (n = 0; n < r->getKineticLaw()->getNumParameters(); n++)
+          {
+            r->getKineticLaw()->getParameter(n)->removeDuplicateAnnotations();
+          }
+        }
+      }
+    }
+  }
+  if (getNumEvents() > 0)
+  {
+    getListOfEvents()->removeDuplicateAnnotations();
+    for (i = 0; i < getNumEvents(); i++)
+    {
+      getEvent(i)->removeDuplicateAnnotations();
+      if (getEvent(i)->getNumEventAssignments() > 0)
+      {
+        getEvent(i)->getListOfEventAssignments()->removeDuplicateAnnotations();
+        for (n = 0; n < getEvent(i)->getNumEventAssignments(); n++)
+        {
+          getEvent(i)->getEventAssignment(n)->removeDuplicateAnnotations();
+        }
+      }
+    }
+  }
+}
+
+

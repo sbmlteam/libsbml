@@ -1706,6 +1706,10 @@ public:
 
   /** @cond doxygen-libsbml-internal */
 
+
+  void removeDuplicateTopLevelAnnotations();
+
+
   /**
    * Sets the parent SBMLDocument of this SBML object.
    *

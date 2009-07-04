@@ -201,6 +201,57 @@ START_TEST (test_SBMLConvert_convertToL1_Species_Concentration)
 END_TEST
 
 
+START_TEST (test_SBMLConvert_convertToL2v4_DuplicateAnnotations_doc)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 1);
+  Model_t * m = SBMLDocument_createModel(d);
+
+  char * annotation = "<rdf/>\n<rdf/>";
+
+  SBase_setAnnotationString(d, annotation);
+  fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
+  fail_unless( SBMLDocument_getVersion(d) == 1, NULL );
+  fail_unless( XMLNode_getNumChildren(SBase_getAnnotation(d)) == 2);
+
+  SBMLDocument_setLevelAndVersion(d, 2, 4);
+
+  fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
+  fail_unless( SBMLDocument_getVersion(d) == 4, NULL );
+
+  fail_unless( XMLNode_getNumChildren(SBase_getAnnotation(d)) == 1);
+
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvert_convertToL2v4_DuplicateAnnotations_model)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 1);
+  Model_t * m = SBMLDocument_createModel(d);
+
+  char * annotation = "<rdf/>\n<rdf/>";
+
+  SBase_setAnnotationString(m, annotation);
+  fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
+  fail_unless( SBMLDocument_getVersion(d) == 1, NULL );
+  fail_unless( XMLNode_getNumChildren(SBase_getAnnotation(m)) == 2);
+
+  SBMLDocument_setLevelAndVersion(d, 2, 4);
+
+  fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
+  fail_unless( SBMLDocument_getVersion(d) == 4, NULL );
+
+  m = SBMLDocument_getModel(d);
+  fail_unless( XMLNode_getNumChildren(SBase_getAnnotation(m)) == 1);
+
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLConvert (void) 
 { 
@@ -213,6 +264,8 @@ create_suite_SBMLConvert (void)
   tcase_add_test( tcase, test_SBMLConvert_convertToL1_SBMLDocument          );
   tcase_add_test( tcase, test_SBMLConvert_convertToL1_Species_Amount        );
   tcase_add_test( tcase, test_SBMLConvert_convertToL1_Species_Concentration );
+  tcase_add_test( tcase, test_SBMLConvert_convertToL2v4_DuplicateAnnotations_doc );
+  tcase_add_test( tcase, test_SBMLConvert_convertToL2v4_DuplicateAnnotations_model );
 
   suite_add_tcase(suite, tcase);
 
