@@ -73,7 +73,7 @@ SBMLDocument *document=new SBMLDocument(2,1);
 // create the Model
 
 Model* model=document->createModel();
-model->setId("TestModel with modifiers");
+model->setId("TestModel_with_modifiers");
 document->setModel(model);
 
 
@@ -124,7 +124,7 @@ tGlyph->setGraphicalObjectId(glyph_Gluc->getId());
 // Glucose-6-phosphate
 
 Species* species_G6P=model->createSpecies();
-species_G6P->setId("Glucose-6-phosphate");
+species_G6P->setId("Glucose_hyphen_6_hyphen_phosphate");
 species_G6P->setCompartment(compartment->getId());
 
 SpeciesGlyph* glyph_G6P=layout->createSpeciesGlyph();
@@ -315,8 +315,6 @@ ModifierSpeciesReference* reference_G6P_2=reaction_Hexokinase->createModifier();
 reference_G6P_2->setSpecies(species_G6P->getId());
 reference_G6P_2->setId("ModifierSpeciesReference_G6P");
 
-reaction_Hexokinase->addModifier(reference_G6P_2);
-
 // create species reference glyph for G6P as a modifier
 
 speciesReferenceGlyph=glyph_Hexokinase->createSpeciesReferenceGlyph();
@@ -340,8 +338,6 @@ cb->setEnd(&p);
 ModifierSpeciesReference* reference_Pi=reaction_Hexokinase->createModifier();
 reference_Pi->setSpecies(species_Pi->getId());
 reference_Pi->setId("ModifierSpeciesReference_Pi");
-
-reaction_Hexokinase->addModifier(reference_Pi);
 
 // create the species reference glyph for Phosphate
 speciesReferenceGlyph=glyph_Hexokinase->createSpeciesReferenceGlyph();

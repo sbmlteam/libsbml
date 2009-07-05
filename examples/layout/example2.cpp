@@ -67,7 +67,6 @@
 #include "sbml/SBMLWriter.h"
 
 
-
 Species* createSpecies(const char* id, const char* name, const char* compartmentId,Model* model){
 	Species* species=model->createSpecies();
 	species->setId(id);
@@ -97,20 +96,20 @@ compartment->setId("Yeast");
 // create the Species
 
 Species* species_Gluc=createSpecies("Glucose","Glucose",compartment->getId().c_str(),model);
-Species* species_G6P=createSpecies("Glucose-6-phosphate","Glucose-6-phosphate",compartment->getId().c_str(),model);
-Species* species_F6P=createSpecies("Fructose-6-phosphate","Fructose-6-phosphate",compartment->getId().c_str(),model);
-Species* species_F16BP=createSpecies("Fructose-1_6-bisphosphate","Fructose-1,6-bisphosphate",compartment->getId().c_str(),model);
+Species* species_G6P=createSpecies("Glucose_hyphen_6_hyphen_phosphate","Glucose-6-phosphate",compartment->getId().c_str(),model);
+Species* species_F6P=createSpecies("Fructose_hyphen_6_hyphen_phosphate","Fructose-6-phosphate",compartment->getId().c_str(),model);
+Species* species_F16BP=createSpecies("Fructose_hyphen_1_6_hyphen_bisphosphate","Fructose-1,6-bisphosphate",compartment->getId().c_str(),model);
 Species* species_DHAP=createSpecies("Dihydroxyacetonephosphate","Dihydroxyacetonephosphate",compartment->getId().c_str(),model);
-Species* species_GAP=createSpecies("Glyceraldehyd-3-phosphate","Glyceraldehyd-3-phosphate",compartment->getId().c_str(),model);
-Species* species_BPG=createSpecies("1_3-Bisphosphoglycerate","1,3-Bisphosphoglycerate",compartment->getId().c_str(),model);
-Species* species_3PG=createSpecies("3-Phosphoglycerate","3-Phosphoglycerate",compartment->getId().c_str(),model);
-Species* species_2PG=createSpecies("2-Phosphoglycerate","2-Phosphoglycerate",compartment->getId().c_str(),model);
+Species* species_GAP=createSpecies("Glyceraldehyd_hyphen_3_hyphen_phosphate","Glyceraldehyd-3-phosphate",compartment->getId().c_str(),model);
+Species* species_BPG=createSpecies("_1_3_hyphen_Bisphosphoglycerate","1,3-Bisphosphoglycerate",compartment->getId().c_str(),model);
+Species* species_3PG=createSpecies("_3_hyphen_Phosphoglycerate","3-Phosphoglycerate",compartment->getId().c_str(),model);
+Species* species_2PG=createSpecies("_2_hyphen_Phosphoglycerate","2-Phosphoglycerate",compartment->getId().c_str(),model);
 Species* species_PEP=createSpecies("Phosphoenolpyruvate","Phosphoenolpyruvate",compartment->getId().c_str(),model);
 Species* species_Pyr=createSpecies("Pyruvate","Pyruvate",compartment->getId().c_str(),model);
 Species* species_ATP=createSpecies("ATP","ATP",compartment->getId().c_str(),model);
 Species* species_ADP=createSpecies("ADP","ADP",compartment->getId().c_str(),model);
-Species* species_H=createSpecies("H+","H+",compartment->getId().c_str(),model);
-Species* species_NAD=createSpecies("NAD+","NAD+",compartment->getId().c_str(),model);
+Species* species_H=createSpecies("H_plus_","H+",compartment->getId().c_str(),model);
+Species* species_NAD=createSpecies("NAD_plus_","NAD+",compartment->getId().c_str(),model);
 Species* species_NADH=createSpecies("NADH","NADH",compartment->getId().c_str(),model);
 Species* species_H2O=createSpecies("H2O","H2O",compartment->getId().c_str(),model);
 Species* species_PI=createSpecies("Pi","Pi",compartment->getId().c_str(),model);
