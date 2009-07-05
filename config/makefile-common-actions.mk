@@ -50,20 +50,17 @@ top_include := $(TOP_SRCDIR)/include
 
 default_includes ?= -I. -I$(top_include)
 
-use_gcc   = $(shell $(CXX) -dumpversion 2>&1 | grep '^[34]\.' )
-use_suncc = $(shell $(CXX) -V 2>&1 | grep 'Sun C++' )
-
 # Compiling under cygwin and Sun cc doesn't need -fPIC.
 
 ifneq "$(HOST_TYPE)" "cygwin"
-  ifeq "$(use_suncc)" ""
+  ifndef USE_SUN_CC
     FPIC = -fPIC
   endif
 endif
 
 # Compiling under Sun cc must not use -Wall.
 
-ifeq "$(use_suncc)" ""
+ifndef USE_SUN_CC
   WALL = -Wall
 endif
 
@@ -117,7 +114,7 @@ else
   ifeq "$(HOST_TYPE)" "aix5.3.0.0" 
     platform_link_flags ?= -G
   else
-    ifneq "$(use_suncc)" ""
+    ifdef USE_SUN_CC
       platform_link_flags ?= -G
     else
       platform_link_flags ?= -shared
@@ -144,7 +141,7 @@ endif
 # to the call.  An enclosing makefile can provide another definition, in
 # which case the definition below will not be used.
 
-ifneq "$(use_suncc)" ""
+ifdef USE_SUN_CC
   define link_static_lib
     -rm -f $(1)
    $(CXX) -xar -o $(1) $(objfiles)
@@ -241,7 +238,7 @@ else
 
 .c.$(OBJEXT):
 ifndef USE_UNIVBINARY
-  ifneq "$(use_suncc)" ""
+  ifdef USE_SUN_CC
 	$(compile) -c -o $@ $<
   else
 	$(compile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.$(DEPEXT)" -c -o $@ $<
@@ -260,7 +257,7 @@ endif
 
 .cpp.$(OBJEXT) .cxx.$(OBJEXT):
 ifndef USE_UNIVBINARY
-  ifneq "$(use_suncc)" ""
+  ifdef USE_SUN_CC
 	$(cxxcompile) -c -o $@ $<
   else
 	$(cxxcompile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.$(DEPEXT)" -c -o $@ $<

@@ -131,15 +131,15 @@ AssignmentCycles::addInitialAssignmentDependencies(const Model& m,
 
     if (m.getReaction(name))
     {
-      mIdMap.insert(make_pair(thisId, name));
+      mIdMap.insert(pair<const std::string, std::string>(thisId, name));
     }
     else if (m.getRule(name) && m.getRule(name)->isAssignment())
     {
-      mIdMap.insert(make_pair(thisId, name));
+      mIdMap.insert(pair<const std::string, std::string>(thisId, name));
     }
     else if (m.getInitialAssignment(name))
     {
-      mIdMap.insert(make_pair(thisId, name));
+      mIdMap.insert(pair<const std::string, std::string>(thisId, name));
     }
   }
 
@@ -167,15 +167,15 @@ AssignmentCycles::addReactionDependencies(const Model& m, const Reaction& object
 
     if (m.getReaction(name))
     {
-      mIdMap.insert(make_pair(thisId, name));
+      mIdMap.insert(pair<const std::string, std::string>(thisId, name));
     }
     else if (m.getRule(name) && m.getRule(name)->isAssignment())
     {
-      mIdMap.insert(make_pair(thisId, name));
+      mIdMap.insert(pair<const std::string, std::string>(thisId, name));
     }
     else if (m.getInitialAssignment(name))
     {
-      mIdMap.insert(make_pair(thisId, name));
+      mIdMap.insert(pair<const std::string, std::string>(thisId, name));
     }
   }
 
@@ -202,15 +202,15 @@ AssignmentCycles::addRuleDependencies(const Model& m, const Rule& object)
 
     if (m.getReaction(name))
     {
-      mIdMap.insert(make_pair(thisId, name));
+      mIdMap.insert(pair<const std::string, std::string>(thisId, name));
     }
     else if (m.getRule(name) && m.getRule(name)->isAssignment())
     {
-      mIdMap.insert(make_pair(thisId, name));
+      mIdMap.insert(pair<const std::string, std::string>(thisId, name));
     }
     else if (m.getInitialAssignment(name))
     {
-      mIdMap.insert(make_pair(thisId, name));
+      mIdMap.insert(pair<const std::string, std::string>(thisId, name));
     }
   }
 
@@ -224,7 +224,6 @@ AssignmentCycles::determineAllDependencies()
   IdIter iterator;
   IdIter inner_it;
   IdRange range;
-  pair<std::string, std::string> depend;
 
   /* for each pair in the map (x, y)
    * retrieve all other pairs where y is first (e.g. (y, s))
@@ -237,7 +236,8 @@ AssignmentCycles::determineAllDependencies()
     range = mIdMap.equal_range((*iterator).second);
     for (inner_it = range.first; inner_it != range.second; inner_it++)
     {
-      depend = make_pair((*iterator).first, (*inner_it).second);
+      const pair<const std::string, std::string> &depend = 
+            pair<const std::string, std::string>((*iterator).first, (*inner_it).second);
       if (!alreadyExistsInMap(mIdMap, depend))
         mIdMap.insert(depend);
     }
@@ -247,7 +247,7 @@ AssignmentCycles::determineAllDependencies()
 
 bool 
 AssignmentCycles::alreadyExistsInMap(IdMap map, 
-                                     pair<std::string, std::string> dependency)
+                                     pair<const std::string, std::string> dependency)
 {
   bool exists = false;
 
@@ -316,11 +316,11 @@ AssignmentCycles::determineCycles(const Model& m)
     {
       if (((*it).second != id)
         && (variables.contains((*it).second))
-        && !alreadyExistsInMap(logged, make_pair(id, (*it).second))
-        && !alreadyExistsInMap(logged, make_pair((*it).second, id)))
+        && !alreadyExistsInMap(logged, pair<const std::string, std::string>(id, (*it).second))
+        && !alreadyExistsInMap(logged, pair<const std::string, std::string>((*it).second, id)))
       {
         logCycle(m, id, (*it).second);
-        logged.insert(make_pair(id, (*it).second));
+        logged.insert(pair<const std::string, std::string>(id, (*it).second));
       }
     }
   }
@@ -349,8 +349,8 @@ AssignmentCycles::checkForImplicitCompartmentReference(const Model& m)
         {
           ASTNode* node = static_cast<ASTNode*>( variables->get(ns) );
           string   name = node->getName() ? node->getName() : "";
-          if (!name.empty() && !alreadyExistsInMap(mIdMap, make_pair(id, name)))
-            mIdMap.insert(make_pair(id, name));
+          if (!name.empty() && !alreadyExistsInMap(mIdMap, pair<const std::string, std::string>(id, name)))
+            mIdMap.insert(pair<const std::string, std::string>(id, name));
         }
         delete variables;
       }
@@ -370,8 +370,8 @@ AssignmentCycles::checkForImplicitCompartmentReference(const Model& m)
         {
           ASTNode* node = static_cast<ASTNode*>( variables->get(ns) );
           string   name = node->getName() ? node->getName() : "";
-          if (!name.empty() && !alreadyExistsInMap(mIdMap, make_pair(id, name)))
-            mIdMap.insert(make_pair(id, name));
+          if (!name.empty() && !alreadyExistsInMap(mIdMap, pair<const std::string, std::string>(id, name)))
+            mIdMap.insert(pair<const std::string, std::string>(id, name));
         }
         delete variables;
       }

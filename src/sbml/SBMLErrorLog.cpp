@@ -220,7 +220,7 @@ private:
 unsigned int
 SBMLErrorLog::getNumFailsWithSeverity(unsigned int severity)
 {
-  int n;
+  int n = 0;
 
 #if defined(__SUNPRO_CC)
   // Workaround for Sun cc which is missing:

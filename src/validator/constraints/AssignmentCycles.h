@@ -33,9 +33,9 @@
 
 #include "IdList.h"
 
-typedef std::multimap<std::string, std::string>    IdMap;
-typedef IdMap::const_iterator                      IdIter;
-typedef pair<IdIter, IdIter>                       IdRange;
+typedef std::multimap<const std::string, std::string> IdMap;
+typedef IdMap::iterator                               IdIter;
+typedef pair<IdIter, IdIter>                          IdRange;
 
 class AssignmentCycles: public TConstraint<Model>
 {
@@ -72,7 +72,7 @@ protected:
 
   /* helper function to check if a pair already exists */
   bool alreadyExistsInMap(IdMap map, 
-                          pair<std::string, std::string> dependency);
+                          pair<const std::string, std::string> dependency);
 
   
   /* check for explicit use of original variable */

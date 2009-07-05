@@ -58,15 +58,8 @@ class SBMLErrorLog;
 
 /* create a map of parent-child sbo terms */
 typedef multimap<int, int>            ParentMap;
-typedef ParentMap::const_iterator     ParentIter;
-
-#if defined(__SUNPRO_CC)
-  typedef pair<ParentMap::iterator, ParentMap::iterator>  ParentRange;
-# define MAKE_MAP(__p, __c) make_pair<const int, int>(__p, __c)
-#else
-  typedef pair<ParentIter, ParentIter>  ParentRange;
-# define MAKE_MAP(__p, __c) make_pair(__p, __c)
-#endif
+typedef ParentMap::iterator           ParentIter;
+typedef pair<ParentIter, ParentIter>  ParentRange;
 
 static ParentMap mParent;
 
