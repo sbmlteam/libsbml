@@ -69,8 +69,11 @@ RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation, List * CVTer
       {
 	      if (annotation->getChild(n).getNumChildren() > 0)
 	      {
-	        RDFTop = &(annotation->getChild(n).getChild(0));
-	        break;
+          if (annotation->getChild(n).getChild(0).getName() == "Description")
+          {
+	          RDFTop = &(annotation->getChild(n).getChild(0));
+	          break;
+          }
 	      }
       }
       n++;

@@ -619,6 +619,7 @@ SBase::setName (const std::string& name)
 void 
 SBase::setAnnotation (const XMLNode* annotation)
 {
+  syncAnnotation();
   if ( (mAnnotation != annotation) || !annotation)
   { 
     delete mAnnotation;
@@ -717,6 +718,7 @@ SBase::setAnnotation (const XMLNode* annotation)
 void
 SBase::setAnnotation (const std::string& annotation)
 {
+  syncAnnotation();
   if(annotation.empty()) 
   {
     unsetAnnotation();
@@ -751,6 +753,7 @@ SBase::setAnnotation (const std::string& annotation)
 void 
 SBase::appendAnnotation (const XMLNode* annotation)
 {
+  syncAnnotation();
   if(!annotation) return;
 
   XMLNode* new_annotation = NULL;
