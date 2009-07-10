@@ -99,6 +99,12 @@ public:
   FormulaUnitsData(const FormulaUnitsData& orig);
 
   /**
+   * Assignment operator for FormulaUnitsData.
+   */
+  FormulaUnitsData& operator=(const FormulaUnitsData& orig);
+
+
+  /**
    * Destroys this FormulaUnitsData.
    */
   virtual ~FormulaUnitsData();

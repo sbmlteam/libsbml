@@ -36,8 +36,10 @@ using namespace std;
 
 FormulaUnitsData::FormulaUnitsData()
 {
+  mUnitReferenceId = "";
   mContainsUndeclaredUnits = false;
   mCanIgnoreUndeclaredUnits = true;
+  mTypeOfElement = SBML_UNKNOWN;
   mUnitDefinition = new UnitDefinition();
   mPerTimeUnitDefinition = new UnitDefinition();
   mEventTimeUnitDefinition = new UnitDefinition();
@@ -45,9 +47,11 @@ FormulaUnitsData::FormulaUnitsData()
 
 FormulaUnitsData::FormulaUnitsData(const FormulaUnitsData& orig)
 {
+  mUnitReferenceId = orig.mUnitReferenceId;
   mContainsUndeclaredUnits = 
                           orig.mContainsUndeclaredUnits;
   mCanIgnoreUndeclaredUnits = orig.mCanIgnoreUndeclaredUnits;
+  mTypeOfElement = orig.mTypeOfElement;
   if (orig.mUnitDefinition) 
   {
     mUnitDefinition = static_cast <UnitDefinition*> 
@@ -76,6 +80,51 @@ FormulaUnitsData::FormulaUnitsData(const FormulaUnitsData& orig)
     mEventTimeUnitDefinition = NULL;
   }
 }
+
+/*
+ * Assignment operator
+ */
+FormulaUnitsData& FormulaUnitsData::operator=(const FormulaUnitsData& rhs)
+{
+  if(&rhs!=this)
+  {
+    mUnitReferenceId = rhs.mUnitReferenceId;
+    mContainsUndeclaredUnits = 
+                            rhs.mContainsUndeclaredUnits;
+    mCanIgnoreUndeclaredUnits = rhs.mCanIgnoreUndeclaredUnits;
+    mTypeOfElement = rhs.mTypeOfElement;
+    if (rhs.mUnitDefinition) 
+    {
+      mUnitDefinition = static_cast <UnitDefinition*> 
+                                        (rhs.mUnitDefinition->clone());
+    }
+    else
+    {
+      mUnitDefinition = NULL;
+    }
+    if (rhs.mPerTimeUnitDefinition)
+    {
+      mPerTimeUnitDefinition = static_cast <UnitDefinition*> 
+                                  (rhs.mPerTimeUnitDefinition->clone());
+    }
+    else
+    {
+      mPerTimeUnitDefinition = NULL;
+    }
+    if (rhs.mEventTimeUnitDefinition)
+    {
+      mEventTimeUnitDefinition = static_cast <UnitDefinition*> 
+                                (rhs.mEventTimeUnitDefinition->clone());
+    }
+    else
+    {
+      mEventTimeUnitDefinition = NULL;
+    }
+  }
+
+  return *this;
+}
+
 
 FormulaUnitsData::~FormulaUnitsData()
 {
