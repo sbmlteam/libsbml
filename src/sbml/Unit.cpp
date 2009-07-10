@@ -727,6 +727,8 @@ Unit::areIdentical(Unit * unit1, Unit * unit2)
 {
   bool identical = false;
 
+  removeScale(unit1);
+  removeScale(unit2);
   if (!strcmp(UnitKind_toString(unit1->getKind()), 
               UnitKind_toString(unit2->getKind())))
   {
@@ -799,6 +801,10 @@ Unit::removeScale(Unit * unit)
 {
   double scaleFactor = pow(10.0, unit->getScale());
   double newMultiplier = unit->getMultiplier() * scaleFactor;
+  /* hack to force multiplier to be double precision */
+  char mult[20];
+  sprintf(mult, "%.15g", newMultiplier);
+  newMultiplier = strtod(mult, NULL);
   unit->setMultiplier(newMultiplier);
   unit->setScale(0);
 }
@@ -847,6 +853,11 @@ Unit::merge(Unit * unit1, Unit * unit2)
                                                   1/(double)(newExponent));
   }
     
+  /* hack to force multiplier to be double precision */
+  char mult[20];
+  sprintf(mult, "%.15g", newMultiplier);
+  newMultiplier = strtod(mult, NULL);
+
   unit1->setScale(0);
   unit1->setExponent(newExponent);
   unit1->setMultiplier(newMultiplier);
@@ -863,6 +874,8 @@ Unit::merge(Unit * unit1, Unit * unit2)
 UnitDefinition * 
 Unit::convertToSI(const Unit * unit)
 {
+  double newMultiplier;
+  char mult[20];
   UnitKind_t uKind = unit->getKind();
   Unit * newUnit = new Unit(uKind, unit->getExponent(), 
                                     unit->getScale(), unit->getMultiplier());
@@ -883,7 +896,11 @@ Unit::convertToSI(const Unit * unit)
       /* 1 hertz = 1 sec^-1 = (0.1 sec) ^-1*/
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setExponent(newUnit->getExponent()*-1);
-      newUnit->setMultiplier(pow(newUnit->getMultiplier(), -1.0)); 
+      /* hack to force multiplier to be double precision */
+      newMultiplier = pow(newUnit->getMultiplier(), -1.0);
+      sprintf(mult, "%.15g", newMultiplier);
+      newMultiplier = strtod(mult, NULL);
+      newUnit->setMultiplier(newMultiplier); 
       ud->addUnit(newUnit);
       break;
 
@@ -921,7 +938,11 @@ Unit::convertToSI(const Unit * unit)
     case UNIT_KIND_FARAD:
       /* 1 Farad = 1 m^-2 kg^-1 s^4 A^2 */
       newUnit->setKind(UNIT_KIND_AMPERE);
-      newUnit->setMultiplier(sqrt(newUnit->getMultiplier()));
+      /* hack to force multiplier to be double precision */
+      newMultiplier = sqrt(newUnit->getMultiplier());
+      sprintf(mult, "%.15g", newMultiplier);
+      newMultiplier = strtod(mult, NULL);
+      newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(2*newUnit->getExponent());  
       ud->addUnit(newUnit);
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
@@ -953,7 +974,11 @@ Unit::convertToSI(const Unit * unit)
       /* 1 Gray = 1 m^2 sec^-2 */
       /* 1 Sievert = 1 m^2 sec^-2 */
       newUnit->setKind(UNIT_KIND_METRE);
-      newUnit->setMultiplier(sqrt(newUnit->getMultiplier()));
+      /* hack to force multiplier to be double precision */
+      newMultiplier = sqrt(newUnit->getMultiplier());
+      sprintf(mult, "%.15g", newMultiplier);
+      newMultiplier = strtod(mult, NULL);
+      newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(2*newUnit->getExponent());  
       ud->addUnit(newUnit);
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
@@ -966,7 +991,11 @@ Unit::convertToSI(const Unit * unit)
     case UNIT_KIND_HENRY:
       /* 1 Henry = 1 m^2 kg s^-2 A^-2 */
       newUnit->setKind(UNIT_KIND_AMPERE);
-      newUnit->setMultiplier(1.0/sqrt(newUnit->getMultiplier()));
+       /* hack to force multiplier to be double precision */
+      newMultiplier = (1.0/sqrt(newUnit->getMultiplier()));
+      sprintf(mult, "%.15g", newMultiplier);
+      newMultiplier = strtod(mult, NULL);
+      newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(-2*newUnit->getExponent());  
       ud->addUnit(newUnit);
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
@@ -1027,7 +1056,11 @@ Unit::convertToSI(const Unit * unit)
       /* 1 litre = 0.001 m^3 = (0.1 m)^3*/ 
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setExponent(newUnit->getExponent()*3);
-      newUnit->setMultiplier(pow((newUnit->getMultiplier() * 0.001), 1.0/3.0)); 
+      /* hack to force multiplier to be double precision */
+      newMultiplier = pow((newUnit->getMultiplier() * 0.001), 1.0/3.0);
+      sprintf(mult, "%.15g", newMultiplier);
+      newMultiplier = strtod(mult, NULL);
+      newUnit->setMultiplier(newMultiplier); 
       ud->addUnit(newUnit);
       break;
 
@@ -1078,7 +1111,11 @@ Unit::convertToSI(const Unit * unit)
     case UNIT_KIND_OHM:
       /* 1 ohm = 1 m^2 kg s^-3 A^-2 */
       newUnit->setKind(UNIT_KIND_AMPERE);
-      newUnit->setMultiplier(1.0/sqrt(newUnit->getMultiplier()));
+      /* hack to force multiplier to be double precision */
+      newMultiplier = (1.0/sqrt(newUnit->getMultiplier()));
+      sprintf(mult, "%.15g", newMultiplier);
+      newMultiplier = strtod(mult, NULL);
+      newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(-2*newUnit->getExponent());  
       ud->addUnit(newUnit);
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
@@ -1121,7 +1158,11 @@ Unit::convertToSI(const Unit * unit)
     case UNIT_KIND_SIEMENS:
       /* 1 siemen = 1 m^-2 kg^-1 s^3 A^2 */
       newUnit->setKind(UNIT_KIND_AMPERE);
-      newUnit->setMultiplier(sqrt(newUnit->getMultiplier()));
+      /* hack to force multiplier to be double precision */
+      newMultiplier = sqrt(newUnit->getMultiplier());
+      sprintf(mult, "%.15g", newMultiplier);
+      newMultiplier = strtod(mult, NULL);
+      newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(2*newUnit->getExponent());  
       ud->addUnit(newUnit);
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
@@ -1144,7 +1185,11 @@ Unit::convertToSI(const Unit * unit)
     case UNIT_KIND_TESLA:
       /* 1 tesla = 1 kg s^-2 A^-1 */
       newUnit->setKind(UNIT_KIND_AMPERE);
-      newUnit->setMultiplier(1.0/(newUnit->getMultiplier()));
+      /* hack to force multiplier to be double precision */
+      newMultiplier = (1.0/(newUnit->getMultiplier()));
+      sprintf(mult, "%.15g", newMultiplier);
+      newMultiplier = strtod(mult, NULL);
+      newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(-1*newUnit->getExponent());  
       ud->addUnit(newUnit);
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
@@ -1161,7 +1206,11 @@ Unit::convertToSI(const Unit * unit)
     case UNIT_KIND_VOLT:
       /* 1 volt = 1 m^2 kg s^-3 A^-1 */
       newUnit->setKind(UNIT_KIND_AMPERE);
-      newUnit->setMultiplier(1.0/(newUnit->getMultiplier()));
+      /* hack to force multiplier to be double precision */
+      newMultiplier = (1.0/(newUnit->getMultiplier()));
+      sprintf(mult, "%.15g", newMultiplier);
+      newMultiplier = strtod(mult, NULL);
+      newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(-1*newUnit->getExponent());  
       ud->addUnit(newUnit);
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
@@ -1199,7 +1248,11 @@ Unit::convertToSI(const Unit * unit)
     case UNIT_KIND_WEBER:
       /* 1 weber = 1 m^2 kg s^-2 A^-1 */
       newUnit->setKind(UNIT_KIND_AMPERE);
-      newUnit->setMultiplier(1.0/(newUnit->getMultiplier()));
+      /* hack to force multiplier to be double precision */
+      newMultiplier = (1.0/(newUnit->getMultiplier()));
+      sprintf(mult, "%.15g", newMultiplier);
+      newMultiplier = strtod(mult, NULL);
+      newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(-1*newUnit->getExponent());  
       ud->addUnit(newUnit);
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());

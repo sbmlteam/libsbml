@@ -459,7 +459,7 @@ START_TEST(test_unit_convert_SI)
 
     fail_unless(ud->getNumUnits() == 1);
 
-    fail_unless(ud->getUnit(0)->getMultiplier() == pow(0.000008, (1.0/3.0)));
+    fail_unless(ud->getUnit(0)->getMultiplier() == 0.02);
     fail_unless(ud->getUnit(0)->getScale() == 0);
     fail_unless(ud->getUnit(0)->getExponent() == 3);
     fail_unless(ud->getUnit(0)->getOffset() == 0.0);
@@ -477,7 +477,7 @@ START_TEST(test_unit_convert_SI)
 
     fail_unless(ud->getNumUnits() == 1);
 
-    fail_unless(ud->getUnit(0)->getMultiplier() == pow(0.000008, (1.0/3.0)));
+    fail_unless(ud->getUnit(0)->getMultiplier() == 0.02);
     fail_unless(ud->getUnit(0)->getScale() == 0);
     fail_unless(ud->getUnit(0)->getExponent() == 3);
     fail_unless(ud->getUnit(0)->getOffset() == 0.0);
