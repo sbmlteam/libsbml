@@ -1,4 +1,4 @@
-﻿<VisualStudioProject>
+<VisualStudioProject>
     <CSHARP
         ProjectType = "Local"
         ProductVersion = "7.10.3077"
@@ -99,6 +99,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath ="csharp-files-win\ASTNodeList.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "csharp-files-win\BoundingBox.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -139,7 +144,17 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath ="csharp-files-win\CVTermList.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "csharp-files-win\Date.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath ="csharp-files-win\DateList.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -330,6 +345,11 @@
                 />
                 <File
                     RelPath = "csharp-files-win\ModelCreator.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath ="csharp-files-win\ModelCreatorList.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

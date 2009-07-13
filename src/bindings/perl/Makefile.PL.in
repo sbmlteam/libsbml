@@ -73,7 +73,8 @@ extra_sources  = \
   LibSBML.i \
   local.cpp \
   local.i   \
-  list_of_fix.i
+  list_of_fix.i \
+  list_get_fix.i
 
 swig_sources =      \
   $(extra_sources)  \

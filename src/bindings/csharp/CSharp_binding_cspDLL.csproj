@@ -1,4 +1,4 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -38,6 +38,7 @@
     <Compile Include="csharp-files-win\AlgebraicRule.cs" />
     <Compile Include="csharp-files-win\AssignmentRule.cs" />
     <Compile Include="csharp-files-win\ASTNode.cs" />
+    <Compile Include="csharp-files-win\ASTNodeList.cs" />
     <Compile Include="csharp-files-win\BoundingBox.cs" />
     <Compile Include="csharp-files-win\Compartment.cs" />
     <Compile Include="csharp-files-win\CompartmentGlyph.cs" />
@@ -46,7 +47,9 @@
     <Compile Include="csharp-files-win\CubicBezier.cs" />
     <Compile Include="csharp-files-win\Curve.cs" />
     <Compile Include="csharp-files-win\CVTerm.cs" />
+    <Compile Include="csharp-files-win\CVTermList.cs" />
     <Compile Include="csharp-files-win\Date.cs" />
+    <Compile Include="csharp-files-win\DateList.cs" />
     <Compile Include="csharp-files-win\Delay.cs" />
     <Compile Include="csharp-files-win\Dimensions.cs" />
     <Compile Include="csharp-files-win\Event.cs" />
@@ -85,6 +88,7 @@
     <Compile Include="csharp-files-win\ListOfUnits.cs" />
     <Compile Include="csharp-files-win\Model.cs" />
     <Compile Include="csharp-files-win\ModelCreator.cs" />
+    <Compile Include="csharp-files-win\ModelCreatorList.cs" />
     <Compile Include="csharp-files-win\ModelHistory.cs" />
     <Compile Include="csharp-files-win\ModifierSpeciesReference.cs" />
     <Compile Include="csharp-files-win\OFStream.cs" />

@@ -82,6 +82,7 @@ distfiles =                        \
   LibSBML.txt                      \
   LibSBML_wrap.cxx                 \
   list_of_fix.i                    \
+  list_of_get.i                    \
   local.cpp                        \
   local.i                          \
   Makefile.in                      \

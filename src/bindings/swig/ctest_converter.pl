@@ -531,7 +531,7 @@ sub parse
     {
 
       # ignore SBase_getCVTerms
-      next if ( $line =~ /SBase_getCVTerms/ );
+      #next if ( $line =~ /SBase_getCVTerms/ );
 
 
       if ($line =~ /^ \s* END_TEST /x)
@@ -611,6 +611,11 @@ sub parse
               {
                 $block =~ s/\+ (\s*) \z/$1/x;
               }
+              elsif ( ( $line !~ /\s+ = \s+/x )  && ( $block !~ / \+ \s* $/x ) )
+              {
+                $line = " + " . $line; 
+              }
+
               chomp $block;
               $block .= $line;
               last BLOCK;
@@ -3758,7 +3763,7 @@ $patchFuncReplace{'ruby'}{'TestWriteSBML'}{'test_WriteSBML_gzip'} = <<'EOF';
 EOF
 
 $patchFuncReplace{'ruby'}{'TestWriteSBML'}{'test_WriteSBML_bzip2'} =  $patchFuncReplace{'ruby'}{'TestWriteSBML'}{'test_WriteSBML_gzip'};
-$patchFuncReplace{'ruby'}{'TestWriteSBML'}{'test_WriteSBML_bzip2'} =~ s/gz/bz/g;
+$patchFuncReplace{'ruby'}{'TestWriteSBML'}{'test_WriteSBML_bzip2'} =~ s/gz/bz2/g;
 $patchFuncReplace{'ruby'}{'TestWriteSBML'}{'test_WriteSBML_bzip2'} =~ s/hasZlib/hasBzip2/g;
   
 

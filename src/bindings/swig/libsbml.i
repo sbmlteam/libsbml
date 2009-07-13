@@ -58,6 +58,22 @@ public class"
 %import  sbml/xml/XMLExtern.h
 
 /**
+ * Wraps List class by ListWrapper<TYPENAME> template class.
+ * TYPENAME is replaced with a corresponding data type which is
+ * stored in the List object (e.g. ModelCreator, CVTerm and ASTNode). 
+ *
+ * ListWrapper<TYPENAME> class is wrapped as TYPENAMEList class
+ * (e.g. ListWrapper<CVTerm> -> CVTermList)
+ *
+ */
+
+%include "ListWrapper.h"
+%template(ModelCreatorList) ListWrapper<ModelCreator>;
+%template(DateList)         ListWrapper<Date>;
+%template(CVTermList)       ListWrapper<CVTerm>;
+%template(ASTNodeList)      ListWrapper<ASTNode>;
+
+/**
  *
  * Includes a language specific interface file.
  *
@@ -129,9 +145,6 @@ public class"
 /**
  * Ignore methods which receive List*.
  */
-%ignore ModelHistory::getListCreators;
-%ignore ModelHistory::getListModifiedDates;
-%ignore SBase::getCVTerms;
 %ignore RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation, List * CVTerms);
 
 /**
@@ -202,6 +215,7 @@ public class"
 %newobject SBML_formulaToString;
 %newobject SBML_parseFormula;
 %newobject ASTNode::deepCopy;
+%newobject ASTNode::getListOfNodes();
 %newobject *::remove;
 %newobject RDFAnnotationParser::parseRDFAnnotation(XMLNode *);
 %newobject RDFAnnotationParser::deleteRDFAnnotation;
@@ -225,6 +239,54 @@ public class"
  */
 %rename(formulaToString) SBML_formulaToString;
 %rename(parseFormula)    SBML_parseFormula;
+
+
+/**
+ * 
+ * wraps "List* ASTNode::getListOfNodes(ASTNodePredicate)" function
+ * as "ListWrapper<ASTNode>* ASTNode::getListOfNodes()" function 
+ * which returns a list of all ASTNodes. 
+ *
+ */
+
+
+%inline
+%{
+  int ASTNode_true(const ASTNode *node)
+  {
+    return 1;
+  }
+%}
+
+%extend ASTNode
+{
+  ListWrapper<ASTNode>* getListOfNodes()
+  {
+    List *list = $self->getListOfNodes(ASTNode_true);
+    return new ListWrapper<ASTNode>(list);
+  }
+}
+
+/*
+ * Wraps "static void RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, 
+ * List *CVTerms)" function as 
+ * "static void RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, 
+ *  ListWrapper<CVTerm> *CVTerms);
+ *
+ */
+
+%extend RDFAnnotationParser
+{
+  static void RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, 
+                                                      ListWrapper<CVTerm> *CVTerms)
+  {
+    if (!CVTerms) return;
+
+    List *list = CVTerms->getList();
+    RDFAnnotationParser::parseRDFAnnotation(annotation,list);
+  }
+}
+
 
 /**
  * Wrap these files.

@@ -5,6 +5,8 @@ LibSBML.txt
 LibSBML_wrap.cxx
 local.cpp
 local.i
+list_get_fix.i
+list_of_fix.i
 Makefile.PL
 MANIFEST			This list of files
 README.txt
@@ -31,4 +33,9 @@ t/05__ParameterRule.t
 t/05__Parameter.t
 t/05__RateRule.t
 t/05__SBMLDocument.t
+t/06__TestReadSBML.t
+t/06__TestWriteSBML.t
+t/07__TestCVTerms.t
+t/07__TestModelHistory.t
+t/07__TestRDFAnnotation2.t
 t/l1v1-branch.xml

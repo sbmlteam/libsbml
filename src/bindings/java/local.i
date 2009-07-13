@@ -1167,3 +1167,39 @@ SWIGJAVA_EQUALS(XMLInputStream)
 
 %}
 
+/**
+ *  Wraps the following functions by using the corresponding
+ *  ListWrapper<TYPENAME> class.
+ *
+ *  - List* ModelHistory::getListCreators()
+ *  - List* ModelHistory::getListModifiedDates()
+ *  - List* SBase::getCVTerms()
+ *
+ *  ListWrapper<TYPENAME> class is wrapped as TYPENAMEListclass.
+ *  So, the above functions are wrapped as follows:
+ *
+ *  - ModelCreatorList ModelHistory.getListCreators()
+ *  - DateList         ModelHistory.getListModifiedDates()
+ *  - CVTermList       SBase.getCVTerms()
+ *
+ */
+
+%define LIST_WRAPPER(_FNAME_,_TYPENAME_)
+%typemap(jstype)  List* _FNAME_ %{ _TYPENAME_ ## List %}
+
+%typemap(javaout) List* _FNAME_ 
+{ 
+  long cPtr = $jnicall;
+  return (cPtr == 0) ? null : new  _TYPENAME_ ## List(cPtr, true);
+}
+
+%typemap(out) List* _FNAME_ 
+{
+   ListWrapper<_TYPENAME_> *listw = ($1 != 0) ? new ListWrapper<_TYPENAME_>($1) : 0;  
+   *( ListWrapper<_TYPENAME_>   **)&$result = listw;
+}
+%enddef
+
+LIST_WRAPPER(ModelHistory::getListCreators,ModelCreator)
+LIST_WRAPPER(ModelHistory::getListModifiedDates,Date)
+LIST_WRAPPER(SBase::getCVTerms,CVTerm)

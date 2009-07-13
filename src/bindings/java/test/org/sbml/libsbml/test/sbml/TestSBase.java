@@ -125,9 +125,11 @@ public class TestSBase {
   {
     CVTerm cv = new  CVTerm(libsbml.BIOLOGICAL_QUALIFIER);
     assertTrue( S.getNumCVTerms() == 0 );
+    assertTrue( S.getCVTerms() == null );
     S.setMetaId( "sbase1");
     S.addCVTerm(cv);
     assertTrue( S.getNumCVTerms() == 1 );
+    assertTrue( S.getCVTerms() != null );
     assertTrue( !S.getCVTerm(0).equals(cv) );
     cv = null;
   }
@@ -140,6 +142,7 @@ public class TestSBase {
     S.setMetaId( "sbase1");
     S.addCVTerm(cv);
     assertTrue( S.getNumCVTerms() == 1 );
+    assertTrue( S.getCVTerms() != null );
     XMLAttributes res = S.getCVTerm(0).getResources();
     assertTrue(res.getValue(0).equals( "foo"));
     CVTerm cv1 = new  CVTerm(libsbml.BIOLOGICAL_QUALIFIER);
@@ -788,9 +791,8 @@ public class TestSBase {
     "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
     "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
     "</notes>";
-    String newnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
-    String newnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>" +
-		                   "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
+    String newnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";;
+    String newnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>" + "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";;
     String newnotes3 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + "</notes>";;
     String newnotes4 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
     "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
@@ -937,11 +939,9 @@ public class TestSBase {
     "    </body>\n" + 
     "  </html>\n" + 
     "</notes>";
-    String addnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n";
-    String addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" +
-		                   "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
-    String addnotes3 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
-    "</notes>";
+    String addnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n";;
+    String addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";;
+    String addnotes3 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + "</notes>";;
     String addnotes4 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
     "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
     "</notes>";
@@ -1123,9 +1123,8 @@ public class TestSBase {
     "    <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
     "  </body>\n" + 
     "</notes>";
-    String addnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
-    String addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
-		                   "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
+    String addnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";;
+    String addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";;
     String addnotes3 = "<notes>\n" + 
     "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
     "</notes>";
@@ -1451,6 +1450,7 @@ public class TestSBase {
     assertTrue( S.getNumCVTerms() == 2 );
     S.unsetCVTerms();
     assertTrue( S.getNumCVTerms() == 0 );
+    assertTrue( S.getCVTerms() == null );
     cv = null;
     cv2 = null;
     cv1 = null;
