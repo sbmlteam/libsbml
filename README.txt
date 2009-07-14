@@ -57,7 +57,7 @@ please cite the libSBML paper:
 ---------------------------------------
 
 At the Unix command prompt, untar the distribution, cd into it (e.g.,
-libsbml-3.2/), and first type:
+libsbml-3.4.1/), and first type:
 
   ./configure
 
@@ -120,6 +120,12 @@ configured libSBML with the --with-doxygen flag.  Then you can execute
 the following to generate and install the libSBML documentation files:
 
   make install-docs       # Note: use 'gmake install-docs' on FreeBSD
+
+To uninstall the libSBML installed by the above 'make install' command,
+cd into the top directory of the libSBML source tree and run the following
+command:
+
+  make uninstall
 
 
 1.2 Windows
