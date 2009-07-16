@@ -334,6 +334,7 @@
 			</File>
 			<File
 				RelativePath="..\..\sbml\layout\Dimensions.cpp"
+				>
 			</File>
 			<File
 				RelativePath="..\..\validator\constraints\DuplicateTopLevelAnnotation.cpp">
