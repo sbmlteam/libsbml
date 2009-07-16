@@ -79,7 +79,8 @@ swig_extras =    \
   swig/libsbml.i \
   swig/swigdoc.py\
   swig/OStream.cpp \
-  swig/OStream.h
+  swig/OStream.h \
+  swig/ListWrapper.h
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
