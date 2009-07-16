@@ -301,6 +301,7 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\layout\Dimensions.cpp"
+				>
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\DuplicateTopLevelAnnotation.cpp">
@@ -634,7 +635,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\sbml\SBMLNamespaces.cpp">
+				RelativePath="..\..\src\sbml\SBMLNamespaces.cpp"
 				>
 			</File>
 			<File
@@ -951,6 +952,7 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\layout\Dimensions.h"
+				>
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\DuplicateTopLevelAnnotation.h">
@@ -1244,7 +1246,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\sbml\SBMLNamespaces.h">
+				RelativePath="..\..\src\sbml\SBMLNamespaces.h"
 				>
 			</File>
 			<File
