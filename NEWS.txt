@@ -1,6 +1,45 @@
            libSBML NEWS -- History of user-visible changes
 
 ======================================================================
+Version 3.4.1 (released 2009-07-18)
+======================================================================
+
+* New features:
+
+ - There is a new ListWrapper type in the SWIG bindings that allows 
+   functions related to List objects to be wrapped.  Each language
+   now has types ListModelCreators, ListCVTerms, ListDates and
+   ListASTNodes to allow Lists containing different types to be used.   
+
+* Bug fixes:
+
+ - [Tracker issue #2818943]
+   The FormulaUnitsData class was not completely copying all data
+   and had no assignment operator defined.  This has been fixed.
+   Thanks to Ralph Gauges for reporting this.
+
+ - [Tracker issue #2812794]
+   Validation was not correctly identifying that references to
+   reaction 'id' was invalid in L2V1.  This has been fixed.  Thanks
+   to Ralph Gauges for reporting it.
+
+ - Validation was incorrectly identifying some configuration of 
+   notes as invalid.  This has been fixed.
+
+ - Conversion of a model where annotations with duplicate top level
+   elements was permissible to a level/version where this is invalid
+   are now performed without producing invalid SBML.  Duplicate
+   top level elements are placed into a single top level element
+   named duplicateTopLevelElements in the namespace
+   http://www.sbml.org/libsbml/annotation.
+   
+ - Unit consistency checks were producing reporting incorrect
+   mismatches between units where the multiplier calculated
+   for comparison purposes contained rounding errors.  This
+   has been corrected.  Thanks to Sven Sahle for reporting this.
+   
+
+======================================================================
 Version 3.4.0 (released 2009-06-12)
 ======================================================================
 
