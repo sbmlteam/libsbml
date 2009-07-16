@@ -204,21 +204,21 @@ END_TEST
 START_TEST (test_SBMLConvert_convertToL2v4_DuplicateAnnotations_doc)
 {
   SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 1);
-  Model_t * m = SBMLDocument_createModel(d);
+  SBMLDocument_createModel(d);
 
-  char * annotation = "<rdf/>\n<rdf/>";
+  char * annotation = "<layout/>\n<layout/>";
 
-  SBase_setAnnotationString(d, annotation);
+  SBase_setAnnotationString((SBase_t *)(d), annotation);
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 1, NULL );
-  fail_unless( XMLNode_getNumChildren(SBase_getAnnotation(d)) == 2);
+  fail_unless( XMLNode_getNumChildren(SBase_getAnnotation((SBase_t *)(d))) == 2);
 
   SBMLDocument_setLevelAndVersion(d, 2, 4);
 
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 4, NULL );
 
-  fail_unless( XMLNode_getNumChildren(SBase_getAnnotation(d)) == 1);
+  fail_unless( XMLNode_getNumChildren(SBase_getAnnotation((SBase_t *)(d))) == 1);
 
 
   SBMLDocument_free(d);
@@ -233,10 +233,10 @@ START_TEST (test_SBMLConvert_convertToL2v4_DuplicateAnnotations_model)
 
   char * annotation = "<rdf/>\n<rdf/>";
 
-  SBase_setAnnotationString(m, annotation);
+  SBase_setAnnotationString((SBase_t *)(m), annotation);
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 1, NULL );
-  fail_unless( XMLNode_getNumChildren(SBase_getAnnotation(m)) == 2);
+  fail_unless( XMLNode_getNumChildren(SBase_getAnnotation((SBase_t *)(m))) == 2);
 
   SBMLDocument_setLevelAndVersion(d, 2, 4);
 
@@ -244,7 +244,7 @@ START_TEST (test_SBMLConvert_convertToL2v4_DuplicateAnnotations_model)
   fail_unless( SBMLDocument_getVersion(d) == 4, NULL );
 
   m = SBMLDocument_getModel(d);
-  fail_unless( XMLNode_getNumChildren(SBase_getAnnotation(m)) == 1);
+  fail_unless( XMLNode_getNumChildren(SBase_getAnnotation((SBase_t *)(m))) == 1);
 
 
   SBMLDocument_free(d);
