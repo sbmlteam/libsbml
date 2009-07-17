@@ -685,9 +685,9 @@ class TestSBase(unittest.TestCase):
     "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
     "</notes>")
     newnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
-    newnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>""<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>"
+    newnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>" + "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
     newnotes3 = wrapString("<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + "</notes>")
-    newnotes4 = wrapString("<notes>\n" "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+    newnotes4 = wrapString("<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
     "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
     "</notes>")
     self.S.setNotes(notes)
@@ -830,9 +830,8 @@ class TestSBase(unittest.TestCase):
     "  </html>\n" + 
     "</notes>")
     addnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n";
-    addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n""<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>"
-    addnotes3 = wrapString("<notes>\n" "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
-    "</notes>")
+    addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
+    addnotes3 = wrapString("<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + "</notes>")
     addnotes4 = wrapString("<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
     "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
     "</notes>")
@@ -1010,7 +1009,7 @@ class TestSBase(unittest.TestCase):
     "  </body>\n" + 
     "</notes>")
     addnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
-    addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n""<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>"
+    addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
     addnotes3 = wrapString("<notes>\n" + 
     "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
     "</notes>")
@@ -1091,6 +1090,22 @@ class TestSBase(unittest.TestCase):
     self.assert_(( taggedannt == self.S.getAnnotationString() ))
     self.S.unsetAnnotation()
     self.assert_( self.S.isSetAnnotation() == False )
+    token = libsbml.XMLToken("(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &#; &#x; &#00a8; &#0168 &#x00a8")
+    node = libsbml.XMLNode(token)
+    self.S.setAnnotation(node)
+    t1 = self.S.getAnnotation()
+    self.assert_( t1.getNumChildren() == 1 )
+    s = t1.getChild(0).toXMLString()
+    expected =  "(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &amp;#; &amp;#x; &amp;#00a8; &amp;#0168 &amp;#x00a8";
+    self.assert_(( expected == s ))
+    token = libsbml.XMLToken("& ' > < \" &amp; &apos; &gt; &lt; &quot;")
+    node = libsbml.XMLNode(token)
+    self.S.setAnnotation(node)
+    t1 = self.S.getAnnotation()
+    self.assert_( t1.getNumChildren() == 1 )
+    s2 = t1.getChild(0).toXMLString()
+    expected2 =  "&amp; &apos; &gt; &lt; &quot; &amp; &apos; &gt; &lt; &quot;";
+    self.assert_(( expected2 == s2 ))
     token = None
     node = None
     node2 = None
@@ -1162,6 +1177,25 @@ class TestSBase(unittest.TestCase):
       pass    
     self.S.setNotes(node)
     self.assert_( self.S.isSetNotes() == True )
+    token = None
+    node = None
+    token = libsbml.XMLToken("(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &#; &#x; &#00a8; &#0168 &#x00a8")
+    node = libsbml.XMLNode(token)
+    self.S.setNotes(node)
+    t1 = self.S.getNotes()
+    self.assert_( t1.getNumChildren() == 1 )
+    s = t1.getChild(0).toXMLString()
+    expected =  "(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &amp;#; &amp;#x; &amp;#00a8; &amp;#0168 &amp;#x00a8";
+    self.assert_(( expected == s ))
+    token = libsbml.XMLToken("& ' > < \" &amp; &apos; &gt; &lt; &quot;")
+    node = libsbml.XMLNode(token)
+    self.S.setNotes(node)
+    t1 = self.S.getNotes()
+    self.assert_( t1.getNumChildren() == 1 )
+    s2 = t1.getChild(0).toXMLString()
+    expected2 =  "&amp; &apos; &gt; &lt; &quot; &amp; &apos; &gt; &lt; &quot;";
+    self.assert_(( expected2 == s2 ))
+    token = None
     node = None
     pass  
 

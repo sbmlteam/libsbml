@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Sarah Keating 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestXMLOutputStream.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -108,6 +108,32 @@ public class TestXMLOutputStream {
     throw new AssertionError();
   }
 
+  public void test_XMLOutputStream_CharacterReference()
+  {
+    OStringStream oss = new OStringStream();
+    XMLOutputStream stream = new  XMLOutputStream(oss,"",false);
+    stream.startElement( "testcr");
+    stream.writeAttribute( "chars",    "one"     );
+    stream.writeAttribute( "amp",      "&"       );
+    stream.writeAttribute( "deccr",    "&#0168;"  );
+    stream.writeAttribute( "hexcr",    "&#x00a8;");
+    stream.writeAttribute( "lhexcr",   "&#x00A8;");
+    stream.writeAttribute( "nodeccr1", "&#01688"  );
+    stream.writeAttribute( "nodeccr2", "&#;"     );
+    stream.writeAttribute( "nodeccr3", "&#00a8;" );
+    stream.writeAttribute( "nodeccr4", "&#00A8;" );
+    stream.writeAttribute( "nohexcr1", "&#x;"    );
+    stream.writeAttribute( "nohexcr2", "&#xABCD" );
+    stream.endElement( "testcr");
+    String expected = "<testcr chars=\"one\" amp=\"&amp;\" deccr=\"&#0168;\" hexcr=\"&#x00a8;\" " +
+    "lhexcr=\"&#x00A8;\" nodeccr1=\"&amp;#01688\" nodeccr2=\"&amp;#;\" " + 
+    "nodeccr3=\"&amp;#00a8;\" nodeccr4=\"&amp;#00A8;\" " + 
+    "nohexcr1=\"&amp;#x;\" nohexcr2=\"&amp;#xABCD\"/>";
+    String s = oss.str();
+    assertTrue(s.equals(expected));
+    stream = null;
+  }
+
   public void test_XMLOutputStream_Elements()
   {
     double d = 2.4;
@@ -130,10 +156,27 @@ public class TestXMLOutputStream {
     stream = null;
   }
 
-  public void test_XMLOutputStream_createFileWithProgramInfo()
+  public void test_XMLOutputStream_PredefinedEntity()
   {
-    XMLOutputStream stream = new  XMLOutputStream(new  OFStream("out.xml"),"UTF-8",false,"foo", "bar");
-    assertTrue( stream != null );
+    OStringStream oss = new OStringStream();
+    XMLOutputStream stream = new  XMLOutputStream(oss,"",false);
+    stream.startElement( "testpde");
+    stream.writeAttribute( "amp",     "&"     );
+    stream.writeAttribute( "apos",    "'"     );
+    stream.writeAttribute( "gt",      ">"     );
+    stream.writeAttribute( "lt",      "<"     );
+    stream.writeAttribute( "quot",    "\""    );
+    stream.writeAttribute( "pdeamp",  "&amp;" );
+    stream.writeAttribute( "pdeapos", "&apos;");
+    stream.writeAttribute( "pdegt",   "&gt;"  );
+    stream.writeAttribute( "pdelt",   "&lt;"  );
+    stream.writeAttribute( "pdequot", "&quot;");
+    stream.endElement( "testpde");
+    String expected = "<testpde amp=\"&amp;\" apos=\"&apos;\" gt=\"&gt;\" lt=\"&lt;\" " + 
+                      "quot=\"&quot;\" pdeamp=\"&amp;\" pdeapos=\"&apos;\" pdegt=\"&gt;\" " + 
+                      "pdelt=\"&lt;\" pdequot=\"&quot;\"/>";
+    String s = oss.str();
+    assertTrue(s.equals(expected));
     stream = null;
   }
 
@@ -155,9 +198,8 @@ public class TestXMLOutputStream {
   {
     String expected =  "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";;
     OStringStream oss = new OStringStream();
-    XMLOutputStream stream = new  XMLOutputStream(oss,"UTF-8",false);
+    XMLOutputStream stream = new  XMLOutputStream(oss,"UTF-8",true);
     assertTrue( stream != null );
-    stream.writeXMLDecl();
     String string = oss.str();
     assertTrue(string.equals(expected));
     stream = null;
@@ -167,9 +209,8 @@ public class TestXMLOutputStream {
   {
     String expected =  "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";;
     OStringStream oss = new OStringStream();
-    XMLOutputStream stream = new  XMLOutputStream(oss,"UTF-8",false, "", "");
+    XMLOutputStream stream = new  XMLOutputStream(oss,"UTF-8",true, "", "");
     assertTrue( stream != null );
-    stream.writeXMLDecl();
     String string = oss.str();
     assertTrue(string.equals(expected));
     stream = null;

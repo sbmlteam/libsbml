@@ -56,9 +56,9 @@ START_TEST (test_XMLOutputStream_createString)
   XMLOutputStream_t * stream = XMLOutputStream_createAsString("UTF-8", 1);
   fail_unless(stream != NULL);
 
-  const char * string = XMLOutputStream_getString(stream);
+  const char * str = XMLOutputStream_getString(stream);
 
-  fail_unless(!strcmp(string, expected));
+  fail_unless(!strcmp(str, expected));
 
   XMLOutputStream_free(stream);
 
@@ -96,9 +96,9 @@ START_TEST (test_XMLOutputStream_createStringWithProgramInfo)
     XMLOutputStream_createAsStringWithProgramInfo("UTF-8", 1, "", "");
   fail_unless(stream != NULL);
 
-  const char * string = XMLOutputStream_getString(stream);
+  const char * str = XMLOutputStream_getString(stream);
 
-  fail_unless(!strcmp(string, expected));
+  fail_unless(!strcmp(str, expected));
 
   XMLOutputStream_free(stream);
 
@@ -113,9 +113,9 @@ START_TEST (test_XMLOutputStream_startEnd)
 
   XMLOutputStream_startEndElement(stream, "id");
 
-  const char * string = XMLOutputStream_getString(stream);
+  const char * str = XMLOutputStream_getString(stream);
 
-  fail_unless(!strcmp(string, "<id/>"));
+  fail_unless(!strcmp(str, "<id/>"));
 
   XMLOutputStream_free(stream);
 }
@@ -147,6 +147,65 @@ START_TEST (test_XMLOutputStream_Elements)
 }
 END_TEST
 
+START_TEST (test_XMLOutputStream_CharacterReference)
+{
+  XMLOutputStream_t *stream = XMLOutputStream_createAsString("", 0);
+  XMLOutputStream_startElement(stream, "testcr");
+  XMLOutputStream_writeAttributeChars(stream, "chars",    "one"     );
+  XMLOutputStream_writeAttributeChars(stream, "amp",      "&"       );
+  XMLOutputStream_writeAttributeChars(stream, "deccr",    "&#0168;"  );
+  XMLOutputStream_writeAttributeChars(stream, "hexcr",    "&#x00a8;");
+  XMLOutputStream_writeAttributeChars(stream, "lhexcr",   "&#x00A8;");
+  XMLOutputStream_writeAttributeChars(stream, "nodeccr1", "&#01688"  );
+  XMLOutputStream_writeAttributeChars(stream, "nodeccr2", "&#;"     );
+  XMLOutputStream_writeAttributeChars(stream, "nodeccr3", "&#00a8;" );
+  XMLOutputStream_writeAttributeChars(stream, "nodeccr4", "&#00A8;" );
+  XMLOutputStream_writeAttributeChars(stream, "nohexcr1", "&#x;"    );
+  XMLOutputStream_writeAttributeChars(stream, "nohexcr2", "&#xABCD" );
+  XMLOutputStream_endElement(stream, "testcr");
+
+  const char * expected = "<testcr chars=\"one\" amp=\"&amp;\" deccr=\"&#0168;\" hexcr=\"&#x00a8;\" "
+                          "lhexcr=\"&#x00A8;\" nodeccr1=\"&amp;#01688\" nodeccr2=\"&amp;#;\" "
+                          "nodeccr3=\"&amp;#00a8;\" nodeccr4=\"&amp;#00A8;\" "
+                          "nohexcr1=\"&amp;#x;\" nohexcr2=\"&amp;#xABCD\"/>";
+  const char * s = XMLOutputStream_getString(stream);
+
+  fail_unless(!strcmp(s,expected));
+
+  XMLOutputStream_free(stream);
+
+}
+END_TEST
+
+START_TEST (test_XMLOutputStream_PredefinedEntity)
+{
+  XMLOutputStream_t *stream = XMLOutputStream_createAsString("", 0);
+  XMLOutputStream_startElement(stream, "testpde");
+  XMLOutputStream_writeAttributeChars(stream, "amp",     "&"     );
+  XMLOutputStream_writeAttributeChars(stream, "apos",    "'"     );
+  XMLOutputStream_writeAttributeChars(stream, "gt",      ">"     );
+  XMLOutputStream_writeAttributeChars(stream, "lt",      "<"     );
+  XMLOutputStream_writeAttributeChars(stream, "quot",    "\""    );
+  XMLOutputStream_writeAttributeChars(stream, "pdeamp",  "&amp;" );
+  XMLOutputStream_writeAttributeChars(stream, "pdeapos", "&apos;");
+  XMLOutputStream_writeAttributeChars(stream, "pdegt",   "&gt;"  );
+  XMLOutputStream_writeAttributeChars(stream, "pdelt",   "&lt;"  );
+  XMLOutputStream_writeAttributeChars(stream, "pdequot", "&quot;");
+
+  XMLOutputStream_endElement(stream, "testpde");
+
+  const char * expected = "<testpde amp=\"&amp;\" apos=\"&apos;\" gt=\"&gt;\" lt=\"&lt;\" "
+                          "quot=\"&quot;\" pdeamp=\"&amp;\" pdeapos=\"&apos;\" pdegt=\"&gt;\" "
+                          "pdelt=\"&lt;\" pdequot=\"&quot;\"/>";
+  const char * s = XMLOutputStream_getString(stream);
+
+  fail_unless(!strcmp(s,expected));
+
+  XMLOutputStream_free(stream);
+
+}
+END_TEST
+
 
 Suite *
 create_suite_XMLOutputStream (void)
@@ -162,6 +221,8 @@ create_suite_XMLOutputStream (void)
   tcase_add_test( tcase, test_XMLOutputStream_createStringWithProgramInfo  );
   tcase_add_test( tcase, test_XMLOutputStream_startEnd  );
   tcase_add_test( tcase, test_XMLOutputStream_Elements  );
+  tcase_add_test( tcase, test_XMLOutputStream_CharacterReference );
+  tcase_add_test( tcase, test_XMLOutputStream_PredefinedEntity );
   suite_add_tcase(suite, tcase);
 
   return suite;

@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Python conversion)
 # @author  Sarah Keating 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestXMLOutputStream.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -29,8 +29,36 @@ import sys
 import unittest
 import libsbml
 
+def wrapString(s):
+  return s
+  pass
+
 class TestXMLOutputStream(unittest.TestCase):
 
+
+  def test_XMLOutputStream_CharacterReference(self):
+    oss = libsbml.ostringstream()
+    stream = libsbml.XMLOutputStream(oss,"",False)
+    stream.startElement( "testcr")
+    stream.writeAttribute( "chars",    "one"     )
+    stream.writeAttribute( "amp",      "&"       )
+    stream.writeAttribute( "deccr",    "&#0168;"  )
+    stream.writeAttribute( "hexcr",    "&#x00a8;")
+    stream.writeAttribute( "lhexcr",   "&#x00A8;")
+    stream.writeAttribute( "nodeccr1", "&#01688"  )
+    stream.writeAttribute( "nodeccr2", "&#;"     )
+    stream.writeAttribute( "nodeccr3", "&#00a8;" )
+    stream.writeAttribute( "nodeccr4", "&#00A8;" )
+    stream.writeAttribute( "nohexcr1", "&#x;"    )
+    stream.writeAttribute( "nohexcr2", "&#xABCD" )
+    stream.endElement( "testcr")
+    expected = wrapString("<testcr chars=\"one\" amp=\"&amp;\" deccr=\"&#0168;\" hexcr=\"&#x00a8;\" ""lhexcr=\"&#x00A8;\" nodeccr1=\"&amp;#01688\" nodeccr2=\"&amp;#;\" " + 
+    "nodeccr3=\"&amp;#00a8;\" nodeccr4=\"&amp;#00A8;\" " + 
+    "nohexcr1=\"&amp;#x;\" nohexcr2=\"&amp;#xABCD\"/>")
+    s = oss.str()
+    self.assert_(( expected == s ))
+    stream = None
+    pass  
 
   def test_XMLOutputStream_Elements(self):
     d = 2.4
@@ -48,6 +76,27 @@ class TestXMLOutputStream(unittest.TestCase):
     stream.writeAttribute( "int",i)
     stream.endElement( "fred")
     expected =  "<fred chars=\"two\" bool=\"true\" double=\"2.4\" long=\"123456789\" uint=\"5\" int=\"-3\"/>";
+    s = oss.str()
+    self.assert_(( expected == s ))
+    stream = None
+    pass  
+
+  def test_XMLOutputStream_PredefinedEntity(self):
+    oss = libsbml.ostringstream()
+    stream = libsbml.XMLOutputStream(oss,"",False)
+    stream.startElement( "testpde")
+    stream.writeAttribute( "amp",     "&"     )
+    stream.writeAttribute( "apos",    "'"     )
+    stream.writeAttribute( "gt",      ">"     )
+    stream.writeAttribute( "lt",      "<"     )
+    stream.writeAttribute( "quot",    "\""    )
+    stream.writeAttribute( "pdeamp",  "&amp;" )
+    stream.writeAttribute( "pdeapos", "&apos;")
+    stream.writeAttribute( "pdegt",   "&gt;"  )
+    stream.writeAttribute( "pdelt",   "&lt;"  )
+    stream.writeAttribute( "pdequot", "&quot;")
+    stream.endElement( "testpde")
+    expected = wrapString("<testpde amp=\"&amp;\" apos=\"&apos;\" gt=\"&gt;\" lt=\"&lt;\" ""quot=\"&quot;\" pdeamp=\"&amp;\" pdeapos=\"&apos;\" pdegt=\"&gt;\" " + "pdelt=\"&lt;\" pdequot=\"&quot;\"/>")
     s = oss.str()
     self.assert_(( expected == s ))
     stream = None

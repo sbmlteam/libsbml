@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Sarah Keating 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestXMLOutputStream.c
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -115,6 +115,32 @@ namespace LibSBMLCSTest {
     }
 
 
+    public void test_XMLOutputStream_CharacterReference()
+    {
+      OStringStream oss = new OStringStream();
+      XMLOutputStream stream = new  XMLOutputStream(oss,"",false);
+      stream.startElement( "testcr");
+      stream.writeAttribute( "chars",    "one"     );
+      stream.writeAttribute( "amp",      "&"       );
+      stream.writeAttribute( "deccr",    "&#0168;"  );
+      stream.writeAttribute( "hexcr",    "&#x00a8;");
+      stream.writeAttribute( "lhexcr",   "&#x00A8;");
+      stream.writeAttribute( "nodeccr1", "&#01688"  );
+      stream.writeAttribute( "nodeccr2", "&#;"     );
+      stream.writeAttribute( "nodeccr3", "&#00a8;" );
+      stream.writeAttribute( "nodeccr4", "&#00A8;" );
+      stream.writeAttribute( "nohexcr1", "&#x;"    );
+      stream.writeAttribute( "nohexcr2", "&#xABCD" );
+      stream.endElement( "testcr");
+      string expected = "<testcr chars=\"one\" amp=\"&amp;\" deccr=\"&#0168;\" hexcr=\"&#x00a8;\" " +
+      "lhexcr=\"&#x00A8;\" nodeccr1=\"&amp;#01688\" nodeccr2=\"&amp;#;\" " + 
+      "nodeccr3=\"&amp;#00a8;\" nodeccr4=\"&amp;#00A8;\" " + 
+      "nohexcr1=\"&amp;#x;\" nohexcr2=\"&amp;#xABCD\"/>";
+      string s = oss.str();
+      assertTrue(( expected == s ));
+      stream = null;
+    }
+
     public void test_XMLOutputStream_Elements()
     {
       double d = 2.4;
@@ -137,10 +163,27 @@ namespace LibSBMLCSTest {
       stream = null;
     }
 
-    public void test_XMLOutputStream_createFileWithProgramInfo()
+    public void test_XMLOutputStream_PredefinedEntity()
     {
-      XMLOutputStream stream = new  XMLOutputStream(new  OFStream("out.xml"),"UTF-8",false,"foo", "bar");
-      assertTrue( stream != null );
+      OStringStream oss = new OStringStream();
+      XMLOutputStream stream = new  XMLOutputStream(oss,"",false);
+      stream.startElement( "testpde");
+      stream.writeAttribute( "amp",     "&"     );
+      stream.writeAttribute( "apos",    "'"     );
+      stream.writeAttribute( "gt",      ">"     );
+      stream.writeAttribute( "lt",      "<"     );
+      stream.writeAttribute( "quot",    "\""    );
+      stream.writeAttribute( "pdeamp",  "&amp;" );
+      stream.writeAttribute( "pdeapos", "&apos;");
+      stream.writeAttribute( "pdegt",   "&gt;"  );
+      stream.writeAttribute( "pdelt",   "&lt;"  );
+      stream.writeAttribute( "pdequot", "&quot;");
+      stream.endElement( "testpde");
+      string expected = "<testpde amp=\"&amp;\" apos=\"&apos;\" gt=\"&gt;\" lt=\"&lt;\" " +
+      "quot=\"&quot;\" pdeamp=\"&amp;\" pdeapos=\"&apos;\" pdegt=\"&gt;\" " + 
+      "pdelt=\"&lt;\" pdequot=\"&quot;\"/>";
+      string s = oss.str();
+      assertTrue(( expected == s ));
       stream = null;
     }
 
@@ -164,8 +207,8 @@ namespace LibSBMLCSTest {
       OStringStream oss = new OStringStream();
       XMLOutputStream stream = new  XMLOutputStream(oss,"UTF-8",true);
       assertTrue( stream != null );
-      string string1 = oss.str();
-      assertTrue(( expected == string1 ));
+      string str = oss.str();
+      assertTrue(( expected == str ));
       stream = null;
     }
 
@@ -175,8 +218,8 @@ namespace LibSBMLCSTest {
       OStringStream oss = new OStringStream();
       XMLOutputStream stream = new  XMLOutputStream(oss,"UTF-8",true, "", "");
       assertTrue( stream != null );
-      string string1 = oss.str();
-      assertTrue(( expected == string1 ));
+      string str = oss.str();
+      assertTrue(( expected == str ));
       stream = null;
     }
 
@@ -186,8 +229,8 @@ namespace LibSBMLCSTest {
       XMLOutputStream stream = new  XMLOutputStream(oss,"",false);
       assertTrue( stream != null );
       stream.startEndElement( "id");
-      string string1 = oss.str();
-      assertTrue((  "<id/>" == string1 ));
+      string str = oss.str();
+      assertTrue((  "<id/>" == str ));
       stream = null;
     }
 

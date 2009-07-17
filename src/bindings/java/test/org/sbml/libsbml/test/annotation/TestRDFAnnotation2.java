@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestRDFAnnotation2.cpp
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -133,12 +133,12 @@ public class TestRDFAnnotation2 {
   {
     ModelHistory history = m2.getModelHistory();
     assertTrue( history != null );
-    ModelCreator mc = (history.getCreator(0));
+    ModelCreator mc = history.getCreator(0);
     assertTrue(mc.getFamilyName().equals( "Hucka"));
     assertTrue(mc.getGivenName().equals( "Mike"));
     assertTrue(mc.getEmail().equals( "mhucka@caltech.edu"));
     assertTrue(mc.getOrganisation().equals( "BNMC"));
-    ModelCreator mc1 = (history.getCreator(1));
+    ModelCreator mc1 = history.getCreator(1);
     assertTrue(mc1.getFamilyName().equals( "Keating"));
     assertTrue(mc1.getGivenName().equals( "Sarah"));
     assertTrue(mc1.getEmail().equals( "skeating@caltech.edu"));
@@ -256,6 +256,37 @@ public class TestRDFAnnotation2 {
     "      <dcterms:modified rdf:parseType=\"Resource\">\n" + 
     "        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n" + 
     "      </dcterms:modified>\n" + 
+    "    </rdf:Description>\n" + 
+    "  </rdf:RDF>\n" + 
+    "</annotation>";
+    Ann.write(XOS2);
+    assertEquals( true, equals(expected) );
+  }
+
+  public void test_RDFAnnotation2_modelWithHistoryWithCharacterReference()
+  {
+    ModelHistory h = new ModelHistory();
+    ModelCreator c = new ModelCreator();
+    c.setFamilyName("Dr&#228;ger");
+    c.setGivenName("Andreas");
+    h.addCreator(c);
+    m2.unsetModelHistory();
+    m2.setModelHistory(h);
+    XMLNode Ann = RDFAnnotationParser.parseModelHistory(m2);
+    String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
+    "<annotation>\n" + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
+    "    <rdf:Description rdf:about=\"#_000001\">\n" + 
+    "      <dc:creator rdf:parseType=\"Resource\">\n" + 
+    "        <rdf:Bag>\n" + 
+    "          <rdf:li rdf:parseType=\"Resource\">\n" + 
+    "            <vCard:N rdf:parseType=\"Resource\">\n" + 
+    "              <vCard:Family>Dr&#228;ger</vCard:Family>\n" + 
+    "              <vCard:Given>Andreas</vCard:Given>\n" + 
+    "            </vCard:N>\n" + 
+    "          </rdf:li>\n" + 
+    "        </rdf:Bag>\n" + 
+    "      </dc:creator>\n" + 
     "    </rdf:Description>\n" + 
     "  </rdf:RDF>\n" + 
     "</annotation>";

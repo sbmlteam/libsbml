@@ -1221,6 +1221,22 @@ namespace LibSBMLCSTest {
       assertTrue(( taggedannt == S.getAnnotationString() ));
       S.unsetAnnotation();
       assertTrue( S.isSetAnnotation() == false );
+      token = new  XMLToken("(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &#; &#x; &#00a8; &#0168 &#x00a8");
+      node = new XMLNode(token);
+      S.setAnnotation(node);
+      t1 = S.getAnnotation();
+      assertTrue( t1.getNumChildren() == 1 );
+      string s = t1.getChild(0).toXMLString();
+      string expected =  "(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &amp;#; &amp;#x; &amp;#00a8; &amp;#0168 &amp;#x00a8";;
+      assertTrue(( expected == s ));
+      token = new  XMLToken("& ' > < \" &amp; &apos; &gt; &lt; &quot;");
+      node = new XMLNode(token);
+      S.setAnnotation(node);
+      t1 = S.getAnnotation();
+      assertTrue( t1.getNumChildren() == 1 );
+      string s2 = t1.getChild(0).toXMLString();
+      string expected2 =  "&amp; &apos; &gt; &lt; &quot; &amp; &apos; &gt; &lt; &quot;";;
+      assertTrue(( expected2 == s2 ));
       token = null;
       node = null;
       node2 = null;
@@ -1304,6 +1320,25 @@ namespace LibSBMLCSTest {
       }
       S.setNotes(node);
       assertTrue( S.isSetNotes() == true );
+      token = null;
+      node = null;
+      token = new  XMLToken("(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &#; &#x; &#00a8; &#0168 &#x00a8");
+      node = new XMLNode(token);
+      S.setNotes(node);
+      t1 = S.getNotes();
+      assertTrue( t1.getNumChildren() == 1 );
+      string s = t1.getChild(0).toXMLString();
+      string expected =  "(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &amp;#; &amp;#x; &amp;#00a8; &amp;#0168 &amp;#x00a8";;
+      assertTrue(( expected == s ));
+      token = new  XMLToken("& ' > < \" &amp; &apos; &gt; &lt; &quot;");
+      node = new XMLNode(token);
+      S.setNotes(node);
+      t1 = S.getNotes();
+      assertTrue( t1.getNumChildren() == 1 );
+      string s2 = t1.getChild(0).toXMLString();
+      string expected2 =  "&amp; &apos; &gt; &lt; &quot; &amp; &apos; &gt; &lt; &quot;";;
+      assertTrue(( expected2 == s2 ));
+      token = null;
       node = null;
     }
 

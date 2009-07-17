@@ -122,6 +122,7 @@ my %IgnoreTestFunc = (
   test_ASTNode_getListOfNodes  => 0,
   test_ASTNode_createFromToken => 0,
   test_XMLOutputStream_createFile => 0,
+  test_XMLOutputStream_createFileWithProgramInfo => 0,
   test_XMLAttributes_readInto_bool   => 0,
   test_XMLAttributes_readInto_long   => 0,
   test_XMLAttributes_readInto_int    => 0,
@@ -3883,6 +3884,7 @@ def wrapString(s):
 EOF
 
 $patchGlobal{'python'}{'TestXMLInputStream'} = $patchGlobal{'python'}{'TestSBase'};
+$patchGlobal{'python'}{'TestXMLOutputStream'} = $patchGlobal{'python'}{'TestSBase'};
 $patchGlobal{'python'}{'TestXMLNode'} = $patchGlobal{'python'}{'TestSBase'};
 $patchGlobal{'python'}{'TestRDFAnnotation'} = $patchGlobal{'python'}{'TestSBase'};
 $patchGlobal{'python'}{'TestRDFAnnotation2'} = $patchGlobal{'python'}{'TestSBase'};

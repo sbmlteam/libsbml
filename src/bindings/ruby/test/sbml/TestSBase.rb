@@ -678,9 +678,9 @@ class TestSBase < Test::Unit::TestCase
     "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
     "</notes>"
     newnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
-    newnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>""<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>"
+    newnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>" + "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
     newnotes3 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + "</notes>";
-    newnotes4 = "<notes>\n" "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+    newnotes4 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
     "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
     "</notes>"
     @@s.setNotes(notes)
@@ -823,9 +823,8 @@ class TestSBase < Test::Unit::TestCase
     "  </html>\n" + 
     "</notes>"
     addnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n";
-    addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n""<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>"
-    addnotes3 = "<notes>\n" "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
-    "</notes>"
+    addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
+    addnotes3 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + "</notes>";
     addnotes4 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
     "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
     "</notes>"
@@ -1003,7 +1002,7 @@ class TestSBase < Test::Unit::TestCase
     "  </body>\n" + 
     "</notes>"
     addnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
-    addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n""<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>"
+    addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
     addnotes3 = "<notes>\n" + 
     "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
     "</notes>"
@@ -1084,6 +1083,22 @@ class TestSBase < Test::Unit::TestCase
     assert (( taggedannt == @@s.getAnnotationString() ))
     @@s.unsetAnnotation()
     assert( @@s.isSetAnnotation() == false )
+    token = LibSBML::XMLToken.new("(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &#; &#x; &#00a8; &#0168 &#x00a8")
+    node = LibSBML::XMLNode.new(token)
+    @@s.setAnnotation(node)
+    t1 = @@s.getAnnotation()
+    assert( t1.getNumChildren() == 1 )
+    s = t1.getChild(0).toXMLString()
+    expected =  "(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &amp;#; &amp;#x; &amp;#00a8; &amp;#0168 &amp;#x00a8";
+    assert (( expected == s ))
+    token = LibSBML::XMLToken.new("& ' > < \" &amp; &apos; &gt; &lt; &quot;")
+    node = LibSBML::XMLNode.new(token)
+    @@s.setAnnotation(node)
+    t1 = @@s.getAnnotation()
+    assert( t1.getNumChildren() == 1 )
+    s2 = t1.getChild(0).toXMLString()
+    expected2 =  "&amp; &apos; &gt; &lt; &quot; &amp; &apos; &gt; &lt; &quot;";
+    assert (( expected2 == s2 ))
     token = nil
     node = nil
     node2 = nil
@@ -1155,6 +1170,25 @@ class TestSBase < Test::Unit::TestCase
     end
     @@s.setNotes(node)
     assert( @@s.isSetNotes() == true )
+    token = nil
+    node = nil
+    token = LibSBML::XMLToken.new("(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &#; &#x; &#00a8; &#0168 &#x00a8")
+    node = LibSBML::XMLNode.new(token)
+    @@s.setNotes(node)
+    t1 = @@s.getNotes()
+    assert( t1.getNumChildren() == 1 )
+    s = t1.getChild(0).toXMLString()
+    expected =  "(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &amp;#; &amp;#x; &amp;#00a8; &amp;#0168 &amp;#x00a8";
+    assert (( expected == s ))
+    token = LibSBML::XMLToken.new("& ' > < \" &amp; &apos; &gt; &lt; &quot;")
+    node = LibSBML::XMLNode.new(token)
+    @@s.setNotes(node)
+    t1 = @@s.getNotes()
+    assert( t1.getNumChildren() == 1 )
+    s2 = t1.getChild(0).toXMLString()
+    expected2 =  "&amp; &apos; &gt; &lt; &quot; &amp; &apos; &gt; &lt; &quot;";
+    assert (( expected2 == s2 ))
+    token = nil
     node = nil
   end
 

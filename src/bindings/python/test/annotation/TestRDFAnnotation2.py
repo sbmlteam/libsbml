@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Python conversion)
 # @author  Ben Bornstein 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestRDFAnnotation2.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -63,12 +63,12 @@ class TestRDFAnnotation2(unittest.TestCase):
   def test_RDFAnnotation2_getModelHistory(self):
     history = self.m2.getModelHistory()
     self.assert_( history != None )
-    mc = (history.getCreator(0))
+    mc = history.getCreator(0)
     self.assert_((  "Hucka" == mc.getFamilyName() ))
     self.assert_((  "Mike" == mc.getGivenName() ))
     self.assert_((  "mhucka@caltech.edu" == mc.getEmail() ))
     self.assert_((  "BNMC" == mc.getOrganisation() ))
-    mc1 = (history.getCreator(1))
+    mc1 = history.getCreator(1)
     self.assert_((  "Keating" == mc1.getFamilyName() ))
     self.assert_((  "Sarah" == mc1.getGivenName() ))
     self.assert_((  "skeating@caltech.edu" == mc1.getEmail() ))
@@ -184,6 +184,36 @@ class TestRDFAnnotation2(unittest.TestCase):
     "      <dcterms:modified rdf:parseType=\"Resource\">\n" + 
     "        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n" + 
     "      </dcterms:modified>\n" + 
+    "    </rdf:Description>\n" + 
+    "  </rdf:RDF>\n" + 
+    "</annotation>")
+    Ann.write(self.XOS2)
+    self.assertEqual( True, self.equals(expected) )
+    pass  
+
+  def test_RDFAnnotation2_modelWithHistoryWithCharacterReference(self):
+    h = libsbml.ModelHistory()
+    c = libsbml.ModelCreator()
+    c.setFamilyName("Dr&#228;ger")
+    c.setGivenName("Andreas")
+    h.addCreator(c)
+    self.m2.unsetModelHistory()
+    self.m2.setModelHistory(h)
+    Ann = libsbml.RDFAnnotationParser.parseModelHistory(self.m2)
+    expected = wrapString("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
+    "<annotation>\n" + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
+    "    <rdf:Description rdf:about=\"#_000001\">\n" + 
+    "      <dc:creator rdf:parseType=\"Resource\">\n" + 
+    "        <rdf:Bag>\n" + 
+    "          <rdf:li rdf:parseType=\"Resource\">\n" + 
+    "            <vCard:N rdf:parseType=\"Resource\">\n" + 
+    "              <vCard:Family>Dr&#228;ger</vCard:Family>\n" + 
+    "              <vCard:Given>Andreas</vCard:Given>\n" + 
+    "            </vCard:N>\n" + 
+    "          </rdf:li>\n" + 
+    "        </rdf:Bag>\n" + 
+    "      </dc:creator>\n" + 
     "    </rdf:Description>\n" + 
     "  </rdf:RDF>\n" + 
     "</annotation>")

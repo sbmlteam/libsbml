@@ -231,20 +231,7 @@ public:
   /**
    * Outputs a single character to the underlying stream.
    */
-  XMLOutputStream& operator<< (const char& c)
-  {
-    switch (c)
-    {
-      case '&' : mStream << "&amp;" ; break;
-      case '\'': mStream << "&apos;"; break;
-      case '<' : mStream << "&lt;"  ; break;
-      case '>' : mStream << "&gt;"  ; break;
-      case '"' : mStream << "&quot;"; break;
-      default  : mStream << c;        break;
-    }
-
-    return *this;
-  }
+  XMLOutputStream& operator<< (const char& c);
 
 
   /**
@@ -351,6 +338,10 @@ protected:
   unsigned int mIndent;
   bool mInText;
   bool mSkipNextIndent;
+
+  // this bool value is used to identify if the next character is '&' 
+  // for a character reference or predefined entity.
+  bool mNextAmpersandIsRef;
 
   /* this is needed for the derived classes used to create the C wrapper */
   bool mStringStream;

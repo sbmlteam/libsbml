@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Ben Bornstein 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestRDFAnnotation2.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -57,12 +57,12 @@ class TestRDFAnnotation2 < Test::Unit::TestCase
   def test_RDFAnnotation2_getModelHistory
     history = @@m2.getModelHistory()
     assert( history != nil )
-    mc = (history.getCreator(0))
+    mc = history.getCreator(0)
     assert ((  "Hucka" == mc.getFamilyName() ))
     assert ((  "Mike" == mc.getGivenName() ))
     assert ((  "mhucka@caltech.edu" == mc.getEmail() ))
     assert ((  "BNMC" == mc.getOrganisation() ))
-    mc1 = (history.getCreator(1))
+    mc1 = history.getCreator(1)
     assert ((  "Keating" == mc1.getFamilyName() ))
     assert ((  "Sarah" == mc1.getGivenName() ))
     assert ((  "skeating@caltech.edu" == mc1.getEmail() ))
@@ -178,6 +178,36 @@ class TestRDFAnnotation2 < Test::Unit::TestCase
     "      <dcterms:modified rdf:parseType=\"Resource\">\n" + 
     "        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n" + 
     "      </dcterms:modified>\n" + 
+    "    </rdf:Description>\n" + 
+    "  </rdf:RDF>\n" + 
+    "</annotation>"
+    ann.write(@@xos2)
+    assert_equal true, equals(expected)
+  end
+
+  def test_RDFAnnotation2_modelWithHistoryWithCharacterReference
+    h = LibSBML::ModelHistory.new()
+    c = LibSBML::ModelCreator.new()
+    c.setFamilyName("Dr&#228;ger")
+    c.setGivenName("Andreas")
+    h.addCreator(c)
+    @@m2.unsetModelHistory()
+    @@m2.setModelHistory(h)
+    ann = LibSBML::RDFAnnotationParser.parseModelHistory(@@m2)
+    expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
+    "<annotation>\n" + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
+    "    <rdf:Description rdf:about=\"#_000001\">\n" + 
+    "      <dc:creator rdf:parseType=\"Resource\">\n" + 
+    "        <rdf:Bag>\n" + 
+    "          <rdf:li rdf:parseType=\"Resource\">\n" + 
+    "            <vCard:N rdf:parseType=\"Resource\">\n" + 
+    "              <vCard:Family>Dr&#228;ger</vCard:Family>\n" + 
+    "              <vCard:Given>Andreas</vCard:Given>\n" + 
+    "            </vCard:N>\n" + 
+    "          </rdf:li>\n" + 
+    "        </rdf:Bag>\n" + 
+    "      </dc:creator>\n" + 
     "    </rdf:Description>\n" + 
     "  </rdf:RDF>\n" + 
     "</annotation>"

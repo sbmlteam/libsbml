@@ -38,6 +38,127 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+/**
+ * Checks if the given string has a character reference at index in the string.
+ *
+ * character reference is expressed as follows:
+ *
+ *  CharRef ::=  '&#' [0-9]+ ';' | '&#x' [0-9a-fA-F]+ ';'
+ *
+ * This function is internal implementation.
+ */
+bool hasCharacterReference(const std::string &chars, size_t index)
+{
+  const std::string decChars = "0123456789";
+  const std::string hexChars = "0123456789abcdefABCDEF";
+
+  if ((chars.length() - 1) <= index)
+  {
+    return false;
+  }
+  else if (chars.at(index) != '&')
+  {
+    return false;
+  }
+  else if (chars.at(index+1) != '#')
+  {
+    return false;
+  }
+  else if (chars.at(index+2) == 'x')
+  {
+    //
+    // the character reference uses hex characters (e.g. &#x00A8; ) if any
+    //
+    size_t pos = chars.find_first_not_of(hexChars, index+3);
+    
+    if (pos == std::string::npos)
+    {
+      // ';' is not found
+      return false;
+    }    
+    else if (pos < index + 4)
+    {
+      // hex characters are not found
+      return false;
+    }
+    else if (chars.at(pos) != ';')
+    {
+      // ';' is not found immediately after hex characters
+      return false;
+    }
+  }
+  else
+  {
+    //
+    // the character reference uses deciaml characters (e.g. &#0185; ) if any
+    //
+    size_t pos = chars.find_first_not_of(decChars, index+2);
+    
+    if (pos == std::string::npos)
+    {
+      // ';' is not found
+      return false;
+    }    
+    else if (pos < index + 3)
+    {
+      // decimal characters are not found
+      return false;
+    }
+    else if (chars.at(pos) != ';')
+    {
+      // ';' is not found immediately after decimal characters
+      return false;
+    }
+  }
+
+  return true;
+}   
+
+
+/**
+ * Checks if the given string has a predefined entity at index in the string.
+ *
+ * predefined entities are expressed as follows:
+ *
+ *  1) &amp;
+ *  2) &apos;
+ *  3) &lt;
+ *  4) &gt;
+ *  5) &quot;
+ *
+ * This function is internal implementation.
+ */
+bool hasPredefinedEntity(const std::string &chars, size_t index)
+{
+  if ((chars.length() - 1) <= index)
+  {
+    return false;
+  }
+
+  if (chars.find("&amp;",index) == index)
+  {
+    return true;
+  }
+  else if (chars.find("&apos;",index) == index)
+  {
+    return true;
+  }
+  else if (chars.find("&lt;",index) == index)
+  {
+    return true;
+  }
+  else if (chars.find("&gt;",index) == index)
+  {
+    return true;
+  }
+  else if (chars.find("&quot;",index) == index)
+  {
+    return true;
+  }
+     
+  return false;
+}   
+
 
 /*
  * Creates a new XMLOutputStream that wraps stream.
@@ -54,6 +175,7 @@ XMLOutputStream::XMLOutputStream (  std::ostream&       stream
  , mIndent  ( 0        )
  , mInText  ( false    )
  , mSkipNextIndent ( false    )
+ , mNextAmpersandIsRef( false )
 {
   unsetStringStream();
   mStream.imbue( locale::classic() );
@@ -464,9 +586,14 @@ XMLOutputStream::writeIndent (bool isEnd)
 void
 XMLOutputStream::writeChars (const std::string& chars)
 {
-  for (string::const_iterator c = chars.begin(); c != chars.end(); ++c)
+  for (size_t i=0; i < chars.length(); i++)
   {
-    *this << *c;
+    const char& c = chars.at(i);
+    if ( c == '&' && 
+        (::hasCharacterReference(chars, i) || ::hasPredefinedEntity(chars,i)) )
+      mNextAmpersandIsRef = true;
+
+    *this << c;
   }
 }
 /** @endcond doxygen-libsbml-internal */
@@ -698,6 +825,37 @@ XMLOutputStream::operator<< (const long& value)
 
   return *this;
 }
+
+
+/**
+ * Outputs a single character to the underlying stream.
+ */
+XMLOutputStream& 
+XMLOutputStream::operator<< (const char& c)
+{
+  if (c == '&' && mNextAmpersandIsRef)
+  {
+    // outputs '&' as-is because the '&' is the first letter
+    // of a character reference (e.g. &#0168; )
+    mStream << c;
+    mNextAmpersandIsRef = false;
+    return *this;
+  }
+  
+  switch (c)
+  {
+    case '&' : mStream << "&amp;" ; break;
+    case '\'': mStream << "&apos;"; break;
+    case '<' : mStream << "&lt;"  ; break;
+    case '>' : mStream << "&gt;"  ; break;
+    case '"' : mStream << "&quot;"; break;
+    default  : mStream << c;        break;
+  }
+
+  return *this;
+}
+
+
 /** @cond doxygen-libsbml-internal */
 
 XMLOutputStringStream::XMLOutputStringStream (  std::ostringstream& stream
