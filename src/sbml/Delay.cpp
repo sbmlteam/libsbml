@@ -179,17 +179,27 @@ Delay::getDerivedUnitDefinition()
 {
   if (!isSetMath())
     return NULL;
-  if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
-  {
-    getSBMLDocument()->getModel()->populateListFormulaUnitsData();
-  }
+  /* if we have the whole model but it is not in a document
+   * it is still possible to determine the units
+   */
+  Model * m = static_cast <Model *> (getAncestorOfType(SBML_MODEL));
 
-  if (getSBMLDocument()->getModel()
-    ->getFormulaUnitsData(getId(), SBML_EVENT))
+  if (m)
   {
-    return getSBMLDocument()->getModel()
-      ->getFormulaUnitsData(getId(), SBML_EVENT)
-      ->getUnitDefinition();
+    if (!m->isPopulatedListFormulaUnitsData())
+    {
+      m->populateListFormulaUnitsData();
+    }
+    
+    if (m->getFormulaUnitsData(getId(), SBML_EVENT))
+    {
+      return m->getFormulaUnitsData(getId(), SBML_EVENT)
+                                             ->getUnitDefinition();
+    }
+    else
+    {
+      return NULL;
+    } 
   }
   else
   {
@@ -219,17 +229,27 @@ Delay::containsUndeclaredUnits()
 {
   if (!isSetMath())
     return false;
-  if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
-  {
-    getSBMLDocument()->getModel()->populateListFormulaUnitsData();
-  }
+  /* if we have the whole model but it is not in a document
+   * it is still possible to determine the units
+   */
+  Model * m = static_cast <Model *> (getAncestorOfType(SBML_MODEL));
 
-  if (getSBMLDocument()->getModel()
-    ->getFormulaUnitsData(getId(), SBML_EVENT))
+  if (m)
   {
-    return getSBMLDocument()->getModel()
-      ->getFormulaUnitsData(getId(), SBML_EVENT)
+    if (!m->isPopulatedListFormulaUnitsData())
+    {
+      m->populateListFormulaUnitsData();
+    }
+    
+    if (m->getFormulaUnitsData(getId(), SBML_EVENT))
+    {
+      return m->getFormulaUnitsData(getId(), SBML_EVENT)
       ->getContainsUndeclaredUnits();
+    }
+    else
+    {
+      return false;
+    }  
   }
   else
   {

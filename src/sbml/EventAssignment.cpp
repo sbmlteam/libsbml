@@ -213,18 +213,28 @@ EventAssignment::getDerivedUnitDefinition()
 {
   if (!isSetMath())
     return NULL;
-  if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
-  {
-    getSBMLDocument()->getModel()->populateListFormulaUnitsData();
-  }
+  /* if we have the whole model but it is not in a document
+   * it is still possible to determine the units
+   */
+  Model * m = static_cast <Model *> (getAncestorOfType(SBML_MODEL));
 
-  std::string id = getId() + getAncestorOfType(SBML_EVENT)->getId();
-  if (getSBMLDocument()->getModel()
-    ->getFormulaUnitsData(id, getTypeCode()))
+  if (m)
   {
-    return getSBMLDocument()->getModel()
-      ->getFormulaUnitsData(id, getTypeCode())
-      ->getUnitDefinition();
+    if (!m->isPopulatedListFormulaUnitsData())
+    {
+      m->populateListFormulaUnitsData();
+    }
+    
+    std::string id = getId() + getAncestorOfType(SBML_EVENT)->getId();
+    if (m->getFormulaUnitsData(id, getTypeCode()))
+    {
+      return m->getFormulaUnitsData(id, getTypeCode())
+                                             ->getUnitDefinition();
+    }
+    else
+    {
+      return NULL;
+    } 
   }
   else
   {
@@ -254,18 +264,28 @@ EventAssignment::containsUndeclaredUnits()
 {
   if (!isSetMath())
     return false;
-  if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
-  {
-    getSBMLDocument()->getModel()->populateListFormulaUnitsData();
-  }
+  /* if we have the whole model but it is not in a document
+   * it is still possible to determine the units
+   */
+  Model * m = static_cast <Model *> (getAncestorOfType(SBML_MODEL));
 
-  std::string id = getId() + getAncestorOfType(SBML_EVENT)->getId();
-  if (getSBMLDocument()->getModel()
-    ->getFormulaUnitsData(id, getTypeCode()))
+  if (m)
   {
-    return getSBMLDocument()->getModel()
-      ->getFormulaUnitsData(id, getTypeCode())
+    if (!m->isPopulatedListFormulaUnitsData())
+    {
+      m->populateListFormulaUnitsData();
+    }
+
+    std::string id = getId() + getAncestorOfType(SBML_EVENT)->getId();
+    if (m->getFormulaUnitsData(id, getTypeCode()))
+    {
+      return m->getFormulaUnitsData(id, getTypeCode())
       ->getContainsUndeclaredUnits();
+    }
+    else
+    {
+      return false;
+    }  
   }
   else
   {

@@ -441,17 +441,27 @@ Compartment::unsetOutside ()
 UnitDefinition *
 Compartment::getDerivedUnitDefinition()
 {
-  if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
-  {
-    getSBMLDocument()->getModel()->populateListFormulaUnitsData();
-  }
+  /* if we have the whole model but it is not in a document
+   * it is still possible to determine the units
+   */
+  Model * m = static_cast <Model *> (getAncestorOfType(SBML_MODEL));
 
-  if (getSBMLDocument()->getModel()
-    ->getFormulaUnitsData(getId(), getTypeCode()))
+  if (m)
   {
-    return getSBMLDocument()->getModel()
-      ->getFormulaUnitsData(getId(), getTypeCode())
-      ->getUnitDefinition();
+    if (!m->isPopulatedListFormulaUnitsData())
+    {
+      m->populateListFormulaUnitsData();
+    }
+    
+    if (m->getFormulaUnitsData(getId(), getTypeCode()))
+    {
+      return m->getFormulaUnitsData(getId(), getTypeCode())
+                                             ->getUnitDefinition();
+    }
+    else
+    {
+      return NULL;
+    }  
   }
   else
   {

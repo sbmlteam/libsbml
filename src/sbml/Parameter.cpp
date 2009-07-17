@@ -293,61 +293,70 @@ Parameter::unsetUnits ()
 UnitDefinition *
 Parameter::getDerivedUnitDefinition()
 {
-  if (!getSBMLDocument()->getModel()->isPopulatedListFormulaUnitsData())
-  {
-    getSBMLDocument()->getModel()->populateListFormulaUnitsData();
-  }
-
-  /* need to distinguish between a global and local parameter
-   * for a global parameter a unit definition will have been created
-   * for a local parameter need to create one based on the units field
+  /* if we have the whole model but it is not in a document
+   * it is still possible to determine the units
    */
-  bool globalParameter = false;
-  if (getParentSBMLObject()->getParentSBMLObject()->getTypeCode() == SBML_MODEL)
-    globalParameter = true;
+  Model * m = static_cast <Model *> (getAncestorOfType(SBML_MODEL));
 
-  if (globalParameter)
+  if (m)
   {
-    if (getSBMLDocument()->getModel()
-      ->getFormulaUnitsData(getId(), getTypeCode()))
+    if (!m->isPopulatedListFormulaUnitsData())
     {
-      return getSBMLDocument()->getModel()
-        ->getFormulaUnitsData(getId(), getTypeCode())
-        ->getUnitDefinition();
+      m->populateListFormulaUnitsData();
+    }
+    
+    /* need to distinguish between a global and local parameter
+    * for a global parameter a unit definition will have been created
+    * for a local parameter need to create one based on the units field
+    */
+    bool globalParameter = false;
+    if (getParentSBMLObject()->getParentSBMLObject()->getTypeCode() == SBML_MODEL)
+      globalParameter = true;
+    if (globalParameter)
+    {
+      if (m->getFormulaUnitsData(getId(), getTypeCode()))
+      {
+        return m->getFormulaUnitsData(getId(), getTypeCode())
+                                              ->getUnitDefinition();
+      }
+      else
+      {
+        return NULL;
+      } 
     }
     else
     {
-      return NULL;
+      UnitDefinition *ud = NULL;
+      const char * units = getUnits().c_str();
+      if (!strcmp(units, ""))
+      {
+        ud   = new UnitDefinition();
+        return ud;
+      }
+      else
+      {
+        if (UnitKind_isValidUnitKindString(units, 
+                                  getLevel(), getVersion()))
+        {
+          Unit * unit = new Unit(units);
+          ud   = new UnitDefinition();
+          
+          ud->addUnit(unit);
+
+          delete unit;
+        }
+        else
+        {
+          /* must be a unit definition */
+          ud = static_cast <Model *> (getAncestorOfType(SBML_MODEL))->getUnitDefinition(units);
+        }
+        return ud;
+      }
     }
   }
   else
   {
-    UnitDefinition *ud = NULL;
-    const char * units = getUnits().c_str();
-    if (!strcmp(units, ""))
-    {
-      ud   = new UnitDefinition();
-      return ud;
-    }
-    else
-    {
-      if (UnitKind_isValidUnitKindString(units, 
-                                getLevel(), getVersion()))
-      {
-        Unit * unit = new Unit(units);
-        ud   = new UnitDefinition();
-        
-        ud->addUnit(unit);
-
-        delete unit;
-      }
-      else
-      {
-        /* must be a unit definition */
-        ud = static_cast <Model *> (getAncestorOfType(SBML_MODEL))->getUnitDefinition(units);
-      }
-      return ud;
-    }
+    return NULL;
   }
 }
 
