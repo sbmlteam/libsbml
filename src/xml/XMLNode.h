@@ -41,6 +41,79 @@
  * available as XMLToken.  These methods include XMLToken::getNamespaces(),
  * XMLToken::getPrefix(), XMLToken::getName(), XMLToken::getURI(), and
  * XMLToken::getAttributes().
+ *
+ * @section xmlnode-str2xmlnode Conversion between an XML string and an XMLNode
+ *
+ * LibSBML provides the following utility functions for converting an XML string 
+ * (e.g., &lt;annotation&gt;...&lt;/annotation&gt;) to/from an XMLNode object.
+ * <ul>
+ * <li> XMLNode::toXMLString() returns a string representation of the XMLNode object. 
+ *
+ * <li> XMLNode::convertXMLNodeToString() (static function) returns a string representation 
+ * of the given XMLNode object.
+ *
+ * <li> XMLNode::convertStringToXMLNode() (static function) returns an XMLNode object converted 
+ * from the given XML string.
+ * </ul>
+ *
+ * The returned XMLNode object by XMLNode::convertStringToXMLNode() is a dummy root 
+ * (container) XMLNode if the top-level element in the given XML string is NOT @p html, 
+ * @p body, @p annotation, or @p notes element. In the dummy root node, each top-level element 
+ * in the given XML string is contained as a child XMLNode. XMLToken::isEOF() can be used to 
+ * identify if the returned XMLNode object is a dummy node or not. 
+ * Here is an example:
+ * @if clike @verbatim
+// Checks if the returned XMLNode object by XMLNode::convertStringToXMLNode() is a dummy root node:
+                                                                                         
+std::string str = "..."; 
+XMLNode* xn = XMLNode::convertStringToXMLNode(str);                                      
+if (!xn)
+{                                                                                      
+  // returned value is null (error)                                                    
+  ...
+}                                                                                      
+else if ( xn->isEOF() )                                                                 
+{                                                                                      
+  // root node is a dummy node                                                         
+  for (int i=0; i < xn->getNumChildren(); i++)                                          
+  {                                                                                    
+    // access to each child node of the dummy node.                                    
+    XMLNode& xnChild = xn->getChild(i);                                                  
+    ...                                                                                
+  }                                                                                    
+}                                                                                      
+else                                                                                   
+{                                                                                      
+  // root node is NOT a dummy node                                                     
+  ...                                                                                  
+}
+@endverbatim @endif@if java @verbatim
+// Checks if the returned XMLNode object by XMLNode::convertStringToXMLNode() is a dummy root node:
+
+String str = "...";
+XMLNode xn = XMLNode.convertStringToXMLNode(str);
+if (xn == null)
+{
+  // returned value is null (error)
+  ...
+}
+else if ( xn.isEOF() )
+{
+  // root node is a dummy node
+  for (int i=0; i < xn.getNumChildren(); i++)
+  {
+    // access to each child node of the dummy node.
+    XMLNode xnChild = xn.getChild(i);
+    ...
+  }
+}
+else
+{
+  // root node is NOT a dummy node
+  ...
+}
+@endverbatim @endif
+ *
  */
 
 #ifndef XMLNode_h
@@ -350,8 +423,16 @@ public:
    * @param xmlstr string to be converted to a XML node.
    * @param xmlns XMLNamespaces the namespaces to set (default value is NULL).
    *
-   * @return a XMLNode which is converted from string @p xmlstr.  The
-   * caller owns the returned XMLNode and is reponsible for deleting it.
+   * @note The caller owns the returned XMLNode and is reponsible for deleting it.
+   * The returned XMLNode object is a dummy root (container) XMLNode if the top-level 
+   * element in the given XML string is NOT @p html, @p body, @p annotation, @p notes.
+   * In the dummy root node, each top-level element in the given XML string is contained
+   * as a child XMLNode. XMLToken::isEOF() can be used to identify if the returned XMLNode 
+   * object is a dummy node.
+   *
+   * @return a XMLNode which is converted from string @p xmlstr. NULL is returned
+   * if the conversion failed. 
+   * 
    *
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different
