@@ -37,7 +37,11 @@ Version 3.4.1 (released 2009-07-18)
    mismatches between units where the multiplier calculated
    for comparison purposes contained rounding errors.  This
    has been corrected.  Thanks to Sven Sahle for reporting this.
-   
+
+ - '&' in a character reference (e.g. &#0168;) or predefined entity 
+   (e.g. &amp;) could be wrongly replaced with &amp; (e.g. &#0168; 
+   -> &amp;#0168;) when writing an SBML file or string. This has been 
+   fixed. Thanks to Andreas Drager for reporting this problem.   
 
 ======================================================================
 Version 3.4.0 (released 2009-06-12)
