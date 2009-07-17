@@ -64,13 +64,16 @@
  *
  * Beginning with SBML Level 2, SBase also has an optional attribute named
  * "metaid" for supporting metadata annotations using RDF (Resource
- * Description Format). The attribute value has the data type XML ID, the
+ * Description Format). The attribute value has the data type 
+ * <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, the
  * XML identifier type, which means each "metaid" value must be globally
  * unique within an SBML file.  (Importantly, this uniqueness criterion
- * applies across any attribute with type XML ID, not just the "metaid"
+ * applies across any attribute with type 
+ * <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, not just the "metaid"
  * attribute used by SBML&mdash;something to be aware of if your
  * application-specific XML content inside the "annotation" subelement
- * happens to use XML ID.)  The "metaid" value serves to identify a model
+ * happens to use <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>.)
+ * The "metaid" value serves to identify a model
  * component for purposes such as referencing that component from metadata
  * placed within "annotation" subelements.
  *
@@ -415,7 +418,8 @@ public:
    * href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, not just the
    * "metaid" attribute used by SBML&mdash;something to be aware of if your
    * application-specific XML content inside the "annotation" subelement
-   * happens to use XML ID.)  The "metaid" value serves to identify a model
+   * happens to use <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>.)
+   * The "metaid" value serves to identify a model
    * component for purposes such as referencing that component from
    * metadata placed within "annotation" subelements.
    *  
@@ -440,7 +444,8 @@ public:
    * href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, not just the
    * "metaid" attribute used by SBML&mdash;something to be aware of if your
    * application-specific XML content inside the "annotation" subelement
-   * happens to use XML ID.)  The "metaid" value serves to identify a model
+   * happens to use <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>.)
+   * The "metaid" value serves to identify a model
    * component for purposes such as referencing that component from
    * metadata placed within "annotation" subelements.
    *  
@@ -844,7 +849,8 @@ public:
    * href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, not just the
    * "metaid" attribute used by SBML&mdash;something to be aware of if your
    * application-specific XML content inside the "annotation" subelement
-   * happens to use XML ID.)  The "metaid" value serves to identify a model
+   * happens to use <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>.)
+   * The "metaid" value serves to identify a model
    * component for purposes such as referencing that component from
    * metadata placed within "annotation" subelements.
    *  
@@ -1052,7 +1058,8 @@ public:
    * things, this type requires that a value is unique among all the values
    * of type XML ID in an SBMLDocument.  Although SBML only uses <a
    * href="http://www.w3.org/TR/REC-xml/#id">XML ID</a> for the "metaid"
-   * attribute, callers should be careful if they use XML ID's in XML
+   * attribute, callers should be careful if they use
+   * <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>'s in XML
    * portions of a model that are not defined by SBML, such as in the
    * application-specific content of the "annotation" subelement.
    *
@@ -1518,7 +1525,8 @@ public:
    * href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, not just the
    * "metaid" attribute used by SBML&mdash;something to be aware of if your
    * application-specific XML content inside the "annotation" subelement
-   * happens to use XML ID.)  The "metaid" value serves to identify a model
+   * happens to use <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>.)
+   * The "metaid" value serves to identify a model
    * component for purposes such as referencing that component from
    * metadata placed within "annotation" subelements.
    *  
@@ -2067,7 +2075,8 @@ protected:
    * href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, not just the
    * "metaid" attribute used by SBML&mdash;something to be aware of if your
    * application-specific XML content inside the "annotation" subelement
-   * happens to use XML ID.)  The "metaid" value serves to identify a model
+   * happens to use <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>.)
+   * The "metaid" value serves to identify a model
    * component for purposes such as referencing that component from
    * metadata placed within "annotation" subelements.
    *  
