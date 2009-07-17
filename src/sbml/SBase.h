@@ -1191,8 +1191,8 @@ public:
    * annotation that is about to be assigned, it is likely that performing
    * such wholesale replacement is unfriendly towards other software
    * applications whose annotations are discarded.  An alternative may be
-   * to use Sbase::appendAnnotation(const XMLNode* annotation) or
-   * appendAnnotation(const std::string& annotation).
+   * to use SBase::appendAnnotation(const XMLNode* annotation) or
+   * SBase::appendAnnotation(const std::string& annotation).
    *
    * @htmlinclude libsbml-comment-set-methods.html
    *
@@ -1232,8 +1232,8 @@ public:
    * annotation that is about to be assigned, it is likely that performing
    * such wholesale replacement is unfriendly towards other software
    * applications whose annotations are discarded.  An alternative may be
-   * to use Sbase::appendAnnotation(const XMLNode* annotation) or
-   * appendAnnotation(const std::string& annotation).
+   * to use SBase::appendAnnotation(const XMLNode* annotation) or
+   * SBase::appendAnnotation(const std::string& annotation).
    *
    * @htmlinclude libsbml-comment-set-methods.html
    *
@@ -1268,7 +1268,7 @@ public:
    * different tools.  Please see the SBML specifications for more details.
    *
    * Unlike SBase::setAnnotation(const XMLNode* annotation) or
-   * Sbase::setAnnotation(const std::string& annotation), this method
+   * SBase::setAnnotation(const std::string& annotation), this method
    * allows other annotations to be preserved when an application adds its
    * own data.
    *
@@ -1305,7 +1305,7 @@ public:
    * different tools.  Please see the SBML specifications for more details.
    *
    * Unlike SBase::setAnnotation(const XMLNode* annotation) or
-   * Sbase::setAnnotation(const std::string& annotation), this method
+   * SBase::setAnnotation(const std::string& annotation), this method
    * allows other annotations to be preserved when an application adds its
    * own data.
    *
