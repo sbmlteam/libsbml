@@ -53,21 +53,11 @@
  *  ListWrapper<TYPENAME> class is wrapped as ListTYPENAMEs class.
  *  So, the above functions are wrapped as follows:
  *
- *  - ModelCreatorsList ModelHistory::getListCreators()
- *  - DatesList         ModelHistory::getListModifiedDates()
- *  - CVTermsList       SBase::getCVTerms()
+ *  - ModelCreatorList ModelHistory::getListCreators()
+ *  - DateList         ModelHistory::getListModifiedDates()
+ *  - CVTermList       SBase::getCVTerms()
  *
  */
-
-%{
-#include "ListWrapper.h"
-%}
-
-%include "ListWrapper.h"
-%template(ModelCreatorList) ListWrapper<ModelCreator>;
-%template(DateList)         ListWrapper<Date>;
-%template(CVTermList)       ListWrapper<CVTerm>;
-%template(ASTNodeList)      ListWrapper<ASTNode>;
 
 %typemap(out) List* ModelHistory::getListCreators
 {
