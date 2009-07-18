@@ -103,6 +103,10 @@ ifdef USE_LIBXML
   extra_LIBS     += @LIBXML_LIBS@
 endif
 
+ifdef USE_SUN_CC
+  extra_LIBS      += -lCstd
+endif
+
 # -fno-strict-aliasing option is added to CXXFLAGS when using GCC.
 # As written in the SWIG Manual (section 20.2.4), SWIG generated code could cause
 # crash problems when compiled by GCC with -fstrict-aliasing option (automatically

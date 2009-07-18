@@ -150,6 +150,10 @@ ifdef USE_BZ2
  extra_CPPFLAGS += -DUSE_BZ2
 endif
 
+ifdef USE_SUN_CC
+  extra_LIBS      += -lCstd
+endif
+
 
 ifneq "$(MAKECMDGOALS)" "dist"
   ifdef USE_LAYOUT

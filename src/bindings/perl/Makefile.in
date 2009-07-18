@@ -144,8 +144,13 @@ else
 # LDLOADLIBS in Makefile-perl.
 # ExtUtil::Makemaker may ignore -lstdc++ option in some environments (e.g. MacOSX, cygwin)
 # even if corresponding standard c++ library exists.
+ifdef USE_SUN_CC
+	perl -pi -e 's|(^EXTRALIBS.*)|\1 -lCstd|  if (/^EXTRALIBS/  and !/\-lCstd/)'  Makefile-perl
+	perl -pi -e 's|(^LDLOADLIBS.*)|\1 -lCstd| if (/^LDLOADLIBS/ and !/\-lCstd/);' Makefile-perl
+else
 	perl -pi -e 's|(^EXTRALIBS.*)|\1 -lstdc++|  if (/^EXTRALIBS/  and !/\-lstdc\+\+/)'  Makefile-perl
 	perl -pi -e 's|(^LDLOADLIBS.*)|\1 -lstdc++| if (/^LDLOADLIBS/ and !/\-lstdc\+\+/);' Makefile-perl
+endif
 endif
 
 Makefile.PL: Makefile.PL.in $(TOP_SRCDIR)/configure \
