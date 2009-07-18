@@ -133,7 +133,7 @@
  * the category and severity codes to their essential parts.  To get the
  * actual names of the constants, prepend <code>LIBSBML_CAT_</code> to the
  * category names and <code>LIBSBML_SEV_</code> to the severity names
- * shown in the two right-hand columns below.
+ * shown in the two right-hand columns.
  * </caption>
  *  <tr style="background: lightgray" class="normal-font">
  *      <th>Enumerator</th>
@@ -196,7 +196,8 @@
  * identifier, describing the type of issue that the XMLError object
  * represents.  The category can be retrieved from an XMLError object using
  * the method XMLError::getCategory().  The value is chosen from the
- * enumeration of category codes XMLErrorCategory_t.  The following table
+ * enumeration of category codes <a class="el" href="#XMLErrorCategory_t">
+ * XMLErrorCategory_t</a>.  The following table
  * lists each possible value and a brief description of its meaning.
  * @endif@if java <h3><a class="anchor"
  * name="XMLErrorCategory_t">Category codes associated with XMLError objects</a></h3>
@@ -242,7 +243,8 @@
  * code, describing how critical is the issue that the XMLError object
  * represents.  The severity can be retrieved from an XMLError object using
  * the method XMLError::getSeverity().  The value is chosen from the
- * enumeration of category codes XMLErrorSeverity_t.  The following table
+ * enumeration of category codes <a class="el" href="#XMLErrorSeverity_t">
+ * XMLErrorSeverity_t</a>.  The following table
  * lists each possible value and a brief description of its meaning.
  * @endif@if java <h3><a class="anchor"
  * name="XMLErrorSeverity_t">Severity codes associated with XMLError objects</a></h3>
