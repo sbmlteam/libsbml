@@ -406,6 +406,8 @@ EXCLUDE =                            \
   ../../src/xml/XMLOutputStream.h    \
   ../../src/xml/XMLBuffer.cpp        \
   ../../src/xml/XMLBuffer.h          \
+  ../../src/xml/XMLHandler.cpp       \
+  ../../src/xml/XMLHandler.h         \
   ../../src/xml/XMLFileBuffer.cpp    \
   ../../src/xml/XMLFileBuffer.h      \
   ../../src/xml/XMLMemoryBuffer.cpp  \
