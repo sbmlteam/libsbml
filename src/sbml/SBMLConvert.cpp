@@ -30,6 +30,9 @@
 #include <sbml/SpeciesReference.h>
 
 
+/** @cond doxygen-libsbml-internal **/
+
+
 static const char* ASSIGNED_COMPARTMENT = "AssignedName";
 
 
@@ -297,3 +300,4 @@ Model::removeDuplicateTopLevelAnnotations()
 }
 
 
+/** @endcond doxygen-libsbml-internal **/

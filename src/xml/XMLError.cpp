@@ -399,6 +399,7 @@ XMLError::~XMLError ()
 }
 
 
+/** @cond doxygen-libsbml-internal **/
 /*
  * Clone function.
  */
@@ -407,6 +408,7 @@ XMLError::clone() const
 {
   return new XMLError(*this);
 }
+/** @endcond doxygen-libsbml-internal **/
 
 
 /*

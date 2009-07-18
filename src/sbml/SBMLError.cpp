@@ -302,6 +302,7 @@ SBMLError::SBMLError(const SBMLError& orig) :
 {}
 
 
+/** @cond doxygen-libsbml-internal **/
 /*
  * clone function
  */
@@ -310,6 +311,7 @@ SBMLError::clone() const
 {
   return new SBMLError(*this);
 }
+/** @endcond doxygen-libsbml-internal **/
 
 
 /** @cond doxygen-libsbml-internal **/
