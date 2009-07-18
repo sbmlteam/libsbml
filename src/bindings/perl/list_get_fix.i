@@ -72,7 +72,12 @@
 %typemap(out) List* ModelHistory::getListCreators
 {
   ListWrapper<ModelCreator> *listw = ($1 != 0) ? new ListWrapper<ModelCreator>($1) : 0;
-  ST(argvi) = SWIG_NewPointerObj(SWIG_as_voidptr(listw), SWIGTYPE_p_ListWrapperT_ModelCreator_t, 
+  ST(argvi) = SWIG_NewPointerObj(SWIG_as_voidptr(listw), 
+#if SWIG_VERSION > 0x010333
+                                 SWIGTYPE_p_ListWrapperT_ModelCreator_t, 
+#else
+                                 SWIGTYPE_p_ListWrapperTModelCreator_t, 
+#endif
                                  SWIG_OWNER | %newpointer_flags);
   argvi++;
 }
@@ -80,7 +85,12 @@
 %typemap(out) List* ModelHistory::getListModifiedDates
 {
   ListWrapper<Date> *listw = ($1 != 0) ? new ListWrapper<Date>($1) : 0;
-  ST(argvi) = SWIG_NewPointerObj(SWIG_as_voidptr(listw), SWIGTYPE_p_ListWrapperT_Date_t, 
+  ST(argvi) = SWIG_NewPointerObj(SWIG_as_voidptr(listw), 
+#if SWIG_VERSION > 0x010333
+                                 SWIGTYPE_p_ListWrapperT_Date_t, 
+#else
+                                 SWIGTYPE_p_ListWrapperTDate_t, 
+#endif
                                  SWIG_OWNER | %newpointer_flags);
   argvi++;
 }
@@ -88,7 +98,12 @@
 %typemap(out) List* SBase::getCVTerms
 {
   ListWrapper<CVTerm> *listw = ($1 != 0) ? new ListWrapper<CVTerm>($1) : 0;
-  ST(argvi) = SWIG_NewPointerObj(SWIG_as_voidptr(listw), SWIGTYPE_p_ListWrapperT_CVTerm_t, 
+  ST(argvi) = SWIG_NewPointerObj(SWIG_as_voidptr(listw), 
+#if SWIG_VERSION > 0x010333
+                                 SWIGTYPE_p_ListWrapperT_CVTerm_t, 
+#else
+                                 SWIGTYPE_p_ListWrapperTCVTerm_t, 
+#endif
                                  SWIG_OWNER | %newpointer_flags);
   argvi++;
 }
