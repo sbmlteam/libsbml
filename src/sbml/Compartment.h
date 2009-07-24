@@ -748,9 +748,10 @@ public:
    * UnitDefinition based on the interpreted units of this compartment's
    * size.
    *
-   * Note that method will always return a value, never NULL, because SBML
-   * defines default units for compartment sizes.  It is thus not possible
-   * for the units to be undefined (which is unlike the case of Parameter).
+   * Note that the functionality that facilitates unit analysis depends 
+   * on the model as a whole.  Thus, in cases where the object has not 
+   * been added to a model or the model itself is incomplete,
+   * unit analysis is not possible and this method will return NULL.
    *
    * Note also that unit declarations for Compartment are in terms of the
    * @em identifier of a unit, but this method returns a UnitDefinition
@@ -782,9 +783,10 @@ public:
    * UnitDefinition based on the interpreted units of this compartment's
    * size.
    *
-   * Note that method will always return a value, never NULL, because SBML
-   * defines default units for compartment sizes.  It is thus not possible
-   * for the units to be undefined (which is unlike the case of Parameter).
+   * Note that the functionality that facilitates unit analysis depends 
+   * on the model as a whole.  Thus, in cases where the object has not 
+   * been added to a model or the model itself is incomplete,
+   * unit analysis is not possible and this method will return NULL.
    *
    * Note also that unit declarations for Compartment are in terms of the
    * @em identifier of a unit, but this method returns a UnitDefinition

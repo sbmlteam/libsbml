@@ -2088,6 +2088,12 @@ Species_unsetCharge (Species_t *s)
  * as a UnitDefinition_t. The units may be those explicitly declared 
  * or those derived from the default units of the Model_t containing
  * this Species_t and it's Compartment_t.
+ *
+ * Note that the functionality that facilitates unit analysis depends 
+ * on the model as a whole.  Thus, in cases where the object has not 
+ * been added to a model or the model itself is incomplete,
+ * unit analysis is not possible and this method will return NULL.
+ *
  */
 LIBSBML_EXTERN
 UnitDefinition_t * 

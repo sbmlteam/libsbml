@@ -639,6 +639,11 @@ StoichiometryMath_setMath (StoichiometryMath_t *stoichMath, const ASTNode_t *mat
  * Calculates and returns a UnitDefinition that expresses the units
  * returned by the math expression in this StoichiometryMath.
  *
+ * @param stoichMath the StoichiometryMath structure to check
+ *
+ * @return A UnitDefinition that expresses the units of the math 
+ *
+ *
  * The units are calculated based on the mathematical expression in the
  * StoichiometryMath and the model quantities referenced by
  * <code>&lt;ci&gt;</code> elements used within that expression.  The
@@ -656,10 +661,6 @@ StoichiometryMath_setMath (StoichiometryMath_t *stoichMath, const ASTNode_t *mat
  * invoke the method</strong> containsUndeclaredUnits() <strong>to
  * determine whether this situation holds</strong>.  Callers may wish to
  * take suitable actions in those scenarios.
- *
- * @param stoichMath the StoichiometryMath structure to check
- *
- * @return A UnitDefinition that expresses the units of the math 
  *
  * @see containsUndeclaredUnits()
  */

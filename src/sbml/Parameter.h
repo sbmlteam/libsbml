@@ -524,6 +524,11 @@ public:
    * object based on the units declared for this Parameter using its
    * "units" attribute, or it returns NULL if no units have been declared.
    *
+   * Note that the functionality that facilitates unit analysis depends 
+   * on the model as a whole.  Thus, in cases where the object has not 
+   * been added to a model or the model itself is incomplete,
+   * unit analysis is not possible and this method will return NULL.
+   *
    * Note that unit declarations for Parameter are in terms of the @em
    * identifier of a unit, but this method returns a UnitDefinition object,
    * not a unit identifier.  It does this by constructing an appropriate
@@ -549,6 +554,11 @@ public:
    * Parameter::getDerivedUnitDefinition() method returns a UnitDefinition
    * object based on the units declared for this Parameter using its
    * "units" attribute, or it returns NULL if no units have been declared.
+   *
+   * Note that the functionality that facilitates unit analysis depends 
+   * on the model as a whole.  Thus, in cases where the object has not 
+   * been added to a model or the model itself is incomplete,
+   * unit analysis is not possible and this method will return NULL.
    *
    * Note that unit declarations for Parameter are in terms of the @em
    * identifier of a unit, but this method returns a UnitDefinition object,

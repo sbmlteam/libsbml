@@ -1511,12 +1511,17 @@ KineticLaw_getNumParameters (const KineticLaw_t *kl)
   * @return a UnitDefinition_t that expresses the units of the math 
   * expression of this KineticLaw_t.
   *
+  * Note that the functionality that facilitates unit analysis depends 
+  * on the model as a whole.  Thus, in cases where the object has not 
+  * been added to a model or the model itself is incomplete,
+  * unit analysis is not possible and this method will return NULL.
+  *
   * @note The units are calculated by applying the mathematics 
   * from the expression to the units of the <ci> elements used 
   * within the expression. Where there are parameters/numbers
   * with undeclared units the UnitDefinition_t returned by this
   * function may not accurately represent the units of the expression.
-  * 
+  *
   * @see KineticLaw_containsUndeclaredUnits()
   */
 LIBSBML_EXTERN

@@ -314,6 +314,11 @@ public:
    * return a UnitDefinition object that corresponds to the declared
    * "timeUnits" units.)
    *
+   * Note that the functionality that facilitates unit analysis depends 
+   * on the model as a whole.  Thus, in cases where the object has not 
+   * been added to a model or the model itself is incomplete,
+   * unit analysis is not possible and this method will return NULL.
+   *
    * @warning Note that it is possible the "math" expression in the Delay
    * contains literal numbers or parameters with undeclared units.  In
    * those cases, it is not possible to calculate the units of the overall
@@ -353,6 +358,11 @@ public:
    * intended units of the delay expression.  For such models, this will
    * return a UnitDefinition object that corresponds to the declared
    * "timeUnits" units.)
+   *
+   * Note that the functionality that facilitates unit analysis depends 
+   * on the model as a whole.  Thus, in cases where the object has not 
+   * been added to a model or the model itself is incomplete,
+   * unit analysis is not possible and this method will return NULL.
    *
    * @warning Note that it is possible the "math" expression in the Delay
    * contains literal numbers or parameters with undeclared units.  In

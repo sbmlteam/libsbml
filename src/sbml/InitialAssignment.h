@@ -425,7 +425,12 @@ public:
    * InitialAssignment and the model quantities referenced by
    * <code>&lt;ci&gt;</code> elements used within that expression.  The
    * getDerivedUnitDefinition() method returns the calculated units.
-   * 
+   *
+   * Note that the functionality that facilitates unit analysis depends 
+   * on the model as a whole.  Thus, in cases where the object has not 
+   * been added to a model or the model itself is incomplete,
+   * unit analysis is not possible and this method will return NULL.
+   *
    * @warning Note that it is possible the "math" expression in the
    * InitialAssignment contains pure numbers or parameters with undeclared
    * units.  In those cases, it is not possible to calculate the units of
@@ -456,7 +461,12 @@ public:
    * InitialAssignment and the model quantities referenced by
    * <code>&lt;ci&gt;</code> elements used within that expression.  The
    * getDerivedUnitDefinition() method returns the calculated units.
-   * 
+   *
+   * Note that the functionality that facilitates unit analysis depends 
+   * on the model as a whole.  Thus, in cases where the object has not 
+   * been added to a model or the model itself is incomplete,
+   * unit analysis is not possible and this method will return NULL.
+   *
    * @warning Note that it is possible the "math" expression in the
    * InitialAssignment contains pure numbers or parameters with undeclared
    * units.  In those cases, it is not possible to calculate the units of

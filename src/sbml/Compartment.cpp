@@ -1554,7 +1554,7 @@ Compartment_unsetOutside (Compartment_t *c)
 
 
 /**
- * Constructs and returns a UnitDefinition_t strucutre that expresses 
+ * Constructs and returns a UnitDefinition_t structure that expresses 
  * the units of this Compartment_t structure.
  *
  * @param c the Compartment_t structure whose units are to be returned.
@@ -1566,6 +1566,12 @@ Compartment_unsetOutside (Compartment_t *c)
  * as a UnitDefinition_t. The units may be those explicitly declared 
  * or those derived from the default units of the Model_t containing
  * this Compartment_t.
+ *
+ * Note that the functionality that facilitates unit analysis depends 
+ * on the model as a whole.  Thus, in cases where the object has not 
+ * been added to a model or the model itself is incomplete,
+ * unit analysis is not possible and this method will return NULL.
+ *
  */
 LIBSBML_EXTERN
 UnitDefinition_t * 

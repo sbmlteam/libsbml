@@ -908,10 +908,10 @@ public:
    * getDerivedUnitDefinition() returns a UnitDefinition based on the
    * interpreted units of this species's amount or concentration.
    *
-   * Note that method will always return a value, never NULL, because SBML
-   * defines default units for species' initial amounts and concentrations.
-   * It is thus not possible for the units to be undefined (which is unlike
-   * the case of Parameter).
+   * Note that the functionality that facilitates unit analysis depends 
+   * on the model as a whole.  Thus, in cases where the object has not 
+   * been added to a model or the model itself is incomplete,
+   * unit analysis is not possible and this method will return NULL.
    *
    * Note also that unit declarations for Species are in terms of the @em
    * identifier of a unit, but this method returns a UnitDefinition object,
@@ -949,10 +949,10 @@ public:
    * getDerivedUnitDefinition() returns a UnitDefinition based on the
    * interpreted units of this species's amount or concentration.
    *
-   * Note that method will always return a value, never NULL, because SBML
-   * defines default units for species' initial amounts and concentrations.
-   * It is thus not possible for the units to be undefined (which is unlike
-   * the case of Parameter).
+   * Note that the functionality that facilitates unit analysis depends 
+   * on the model as a whole.  Thus, in cases where the object has not 
+   * been added to a model or the model itself is incomplete,
+   * unit analysis is not possible and this method will return NULL.
    *
    * Note also that unit declarations for Species are in terms of the @em
    * identifier of a unit, but this method returns a UnitDefinition object,
