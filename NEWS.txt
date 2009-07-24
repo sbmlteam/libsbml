@@ -1,7 +1,7 @@
            libSBML NEWS -- History of user-visible changes
 
 ======================================================================
-Version 3.4.1 (released 2009-07-18)
+Version 3.4.1 (released 2009-07-25)
 ======================================================================
 
 * New features:
@@ -13,6 +13,12 @@ Version 3.4.1 (released 2009-07-18)
 
 * Bug fixes:
 
+ - [Tracker issue #2818945]
+   The documentation of the getDerivedUnitDefinition functions
+   was not clarifying when the function might return NULL.  The
+   documentation has been updated.  Thanks to Ralph Gauges for
+   reporting this.
+   
  - [Tracker issue #2818943]
    The FormulaUnitsData class was not completely copying all data
    and had no assignment operator defined.  This has been fixed.
