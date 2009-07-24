@@ -1,19 +1,19 @@
-; Version No is currently 3.4.0
+; Version No is currently 3.4.1
 ; Check before use
 
 
 [Setup]
 AppName=libSBML
-AppVerName=libSBML 3.4.0
+AppVerName=libSBML 3.4.1
 AppPublisher=SBML Team
 AppPublisherURL=http://sbml.org
 AppSupportURL=http://sbml.org
 AppUpdatesURL=http://sbml.org
-DefaultDirName={pf}\SBML\libSBML-3.4.0-expat-vc71
+DefaultDirName={pf}\SBML\libSBML-3.4.1-expat-vc71
 DefaultGroupName=libSBML
 DisableProgramGroupPage=yes
 OutputDir=..\..\..\libsbml\win32\installer\Output
-OutputBaseFilename=libSBML-3.4.0-win-expat-vc71
+OutputBaseFilename=libSBML-3.4.1-win-expat-vc71
 WizardSmallImageFile=libsbml-installer-mini-logo.bmp
 WizardImageFile=libsbml-installer-graphic-v3.bmp
 UsePreviousAppDir=no
@@ -28,7 +28,7 @@ Source: C:\libsbml\win32\installer\libsbml_3_expat\*; DestDir: {app}; Flags: ign
 Source: C:\libsbml\win32\installer\libsbml_3_expat\bindings\java\*; DestDir: {code:GetJavaDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetJava
 Source: C:\libsbml\win32\installer\libsbml_3_expat\bindings\matlab\*; DestDir: {code:GetMatlabDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetMatlab
 Source: C:\libsbml\win32\installer\libsbml_3_expat\bindings\octave\*; DestDir: {code:GetOctaveDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetOctave
-;Source: C:\libsbml\win32\installer\libsbml_3_expat\bindings\csharp\*; DestDir: {code:GetCSharpDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetCSharp
+Source: C:\libsbml\win32\installer\libsbml_3_expat\bindings\csharp\*; DestDir: {code:GetCSharpDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetCSharp
 Source: C:\libsbml\win32\installer\libsbml_3_expat\bindings\python\python23\libsbml.py; DestDir: {code:GetPython23Dir}; Check: GetPython23
 Source: C:\libsbml\win32\installer\libsbml_3_expat\bindings\python\python23\_libsbml.dll; DestDir: {code:GetPython23Dir}; Check: GetPython23
 Source: C:\libsbml\win32\installer\libsbml_3_expat\bindings\python\python24\libsbml.py; DestDir: {code:GetPython24Dir}; Check: GetPython24
@@ -49,7 +49,7 @@ Root: HKCU; Subkey: Software\SBML; Flags: uninsdeletekeyifempty
 Root: HKCU; Subkey: Software\SBML\libSBML; Flags: uninsdeletekey
 Root: HKLM; Subkey: Software\SBML; Flags: uninsdeletekeyifempty
 Root: HKLM; Subkey: Software\SBML\libSBML; Flags: uninsdeletekey
-Root: HKLM; Subkey: Software\SBML\libSBML; ValueType: string; ValueName: Version; ValueData: 3.4.0
+Root: HKLM; Subkey: Software\SBML\libSBML; ValueType: string; ValueName: Version; ValueData: 3.4.1
 Root: HKLM; Subkey: Software\SBML\libSBML; ValueType: string; ValueName: InstallPath; ValueData: {app}
 
 [Code]
@@ -226,7 +226,7 @@ begin
 
   Note: it includes a version number
 **********************************************************************************************************}
-  MsgBox('This setup installs the Windows version of libSBML 3.4.0 built using the Expat 2.0.1 XML Parser library version 2.0.0. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);
+  MsgBox('This setup installs the Windows version of libSBML 3.4.1 built using the Expat 2.0.1 XML Parser library version 2.0.0. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);
  { MsgBox('This setup installs the Windows release of libSBML 2.3.4 built using the Expat XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);  }
 end;
 
@@ -243,7 +243,7 @@ procedure InitializeWizard;
 begin
   {get data from system}
   PreviousInstalledVersion := GetVersion();
-  ThisVersion := '3.4.0';
+  ThisVersion := '3.4.1';
   MatlabRoot := GetMatlabRoot('');
 
   if (PreviousInstalledVersion = '') then begin
