@@ -33,6 +33,8 @@
 #include <sbml/Unit.h>
 #include <sbml/UnitDefinition.h>
 
+#include <sstream>
+
 /** @cond doxygen-ignored */
 
 using namespace std;
@@ -802,9 +804,10 @@ Unit::removeScale(Unit * unit)
   double scaleFactor = pow(10.0, unit->getScale());
   double newMultiplier = unit->getMultiplier() * scaleFactor;
   /* hack to force multiplier to be double precision */
-  char mult[20];
-  sprintf(mult, "%.15g", newMultiplier);
-  newMultiplier = strtod(mult, NULL);
+  std::ostringstream oss;
+  oss.precision(15);
+  oss << newMultiplier;
+  newMultiplier = strtod(oss.str().c_str(), NULL);
   unit->setMultiplier(newMultiplier);
   unit->setScale(0);
 }
@@ -854,9 +857,10 @@ Unit::merge(Unit * unit1, Unit * unit2)
   }
     
   /* hack to force multiplier to be double precision */
-  char mult[20];
-  sprintf(mult, "%.15g", newMultiplier);
-  newMultiplier = strtod(mult, NULL);
+  std::ostringstream oss;
+  oss.precision(15);
+  oss << newMultiplier;
+  newMultiplier = strtod(oss.str().c_str(), NULL);
 
   unit1->setScale(0);
   unit1->setExponent(newExponent);
@@ -875,13 +879,14 @@ UnitDefinition *
 Unit::convertToSI(const Unit * unit)
 {
   double newMultiplier;
-  char mult[20];
+  std::ostringstream oss;
   UnitKind_t uKind = unit->getKind();
   Unit * newUnit = new Unit(uKind, unit->getExponent(), 
                                     unit->getScale(), unit->getMultiplier());
   UnitDefinition * ud = new UnitDefinition();
 
   Unit::removeScale(newUnit);
+  oss.precision(15);
 
   switch (uKind)
   {
@@ -898,8 +903,10 @@ Unit::convertToSI(const Unit * unit)
       newUnit->setExponent(newUnit->getExponent()*-1);
       /* hack to force multiplier to be double precision */
       newMultiplier = pow(newUnit->getMultiplier(), -1.0);
-      sprintf(mult, "%.15g", newMultiplier);
-      newMultiplier = strtod(mult, NULL);
+
+      oss << newMultiplier;
+      newMultiplier = strtod(oss.str().c_str(), NULL);
+
       newUnit->setMultiplier(newMultiplier); 
       ud->addUnit(newUnit);
       break;
@@ -940,8 +947,10 @@ Unit::convertToSI(const Unit * unit)
       newUnit->setKind(UNIT_KIND_AMPERE);
       /* hack to force multiplier to be double precision */
       newMultiplier = sqrt(newUnit->getMultiplier());
-      sprintf(mult, "%.15g", newMultiplier);
-      newMultiplier = strtod(mult, NULL);
+
+      oss << newMultiplier;
+      newMultiplier = strtod(oss.str().c_str(), NULL);
+
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(2*newUnit->getExponent());  
       ud->addUnit(newUnit);
@@ -976,8 +985,10 @@ Unit::convertToSI(const Unit * unit)
       newUnit->setKind(UNIT_KIND_METRE);
       /* hack to force multiplier to be double precision */
       newMultiplier = sqrt(newUnit->getMultiplier());
-      sprintf(mult, "%.15g", newMultiplier);
-      newMultiplier = strtod(mult, NULL);
+
+      oss << newMultiplier;
+      newMultiplier = strtod(oss.str().c_str(), NULL);
+
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(2*newUnit->getExponent());  
       ud->addUnit(newUnit);
@@ -993,8 +1004,10 @@ Unit::convertToSI(const Unit * unit)
       newUnit->setKind(UNIT_KIND_AMPERE);
        /* hack to force multiplier to be double precision */
       newMultiplier = (1.0/sqrt(newUnit->getMultiplier()));
-      sprintf(mult, "%.15g", newMultiplier);
-      newMultiplier = strtod(mult, NULL);
+
+      oss << newMultiplier;
+      newMultiplier = strtod(oss.str().c_str(), NULL);
+
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(-2*newUnit->getExponent());  
       ud->addUnit(newUnit);
@@ -1058,8 +1071,10 @@ Unit::convertToSI(const Unit * unit)
       newUnit->setExponent(newUnit->getExponent()*3);
       /* hack to force multiplier to be double precision */
       newMultiplier = pow((newUnit->getMultiplier() * 0.001), 1.0/3.0);
-      sprintf(mult, "%.15g", newMultiplier);
-      newMultiplier = strtod(mult, NULL);
+
+      oss << newMultiplier;
+      newMultiplier = strtod(oss.str().c_str(), NULL);
+
       newUnit->setMultiplier(newMultiplier); 
       ud->addUnit(newUnit);
       break;
@@ -1113,8 +1128,10 @@ Unit::convertToSI(const Unit * unit)
       newUnit->setKind(UNIT_KIND_AMPERE);
       /* hack to force multiplier to be double precision */
       newMultiplier = (1.0/sqrt(newUnit->getMultiplier()));
-      sprintf(mult, "%.15g", newMultiplier);
-      newMultiplier = strtod(mult, NULL);
+
+      oss << newMultiplier;
+      newMultiplier = strtod(oss.str().c_str(), NULL);
+
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(-2*newUnit->getExponent());  
       ud->addUnit(newUnit);
@@ -1160,8 +1177,10 @@ Unit::convertToSI(const Unit * unit)
       newUnit->setKind(UNIT_KIND_AMPERE);
       /* hack to force multiplier to be double precision */
       newMultiplier = sqrt(newUnit->getMultiplier());
-      sprintf(mult, "%.15g", newMultiplier);
-      newMultiplier = strtod(mult, NULL);
+
+      oss << newMultiplier;
+      newMultiplier = strtod(oss.str().c_str(), NULL);
+
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(2*newUnit->getExponent());  
       ud->addUnit(newUnit);
@@ -1187,8 +1206,10 @@ Unit::convertToSI(const Unit * unit)
       newUnit->setKind(UNIT_KIND_AMPERE);
       /* hack to force multiplier to be double precision */
       newMultiplier = (1.0/(newUnit->getMultiplier()));
-      sprintf(mult, "%.15g", newMultiplier);
-      newMultiplier = strtod(mult, NULL);
+
+      oss << newMultiplier;
+      newMultiplier = strtod(oss.str().c_str(), NULL);
+
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(-1*newUnit->getExponent());  
       ud->addUnit(newUnit);
@@ -1208,8 +1229,10 @@ Unit::convertToSI(const Unit * unit)
       newUnit->setKind(UNIT_KIND_AMPERE);
       /* hack to force multiplier to be double precision */
       newMultiplier = (1.0/(newUnit->getMultiplier()));
-      sprintf(mult, "%.15g", newMultiplier);
-      newMultiplier = strtod(mult, NULL);
+
+      oss << newMultiplier;
+      newMultiplier = strtod(oss.str().c_str(), NULL);
+
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(-1*newUnit->getExponent());  
       ud->addUnit(newUnit);
@@ -1250,8 +1273,10 @@ Unit::convertToSI(const Unit * unit)
       newUnit->setKind(UNIT_KIND_AMPERE);
       /* hack to force multiplier to be double precision */
       newMultiplier = (1.0/(newUnit->getMultiplier()));
-      sprintf(mult, "%.15g", newMultiplier);
-      newMultiplier = strtod(mult, NULL);
+
+      oss << newMultiplier;
+      newMultiplier = strtod(oss.str().c_str(), NULL);
+
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(-1*newUnit->getExponent());  
       ud->addUnit(newUnit);
