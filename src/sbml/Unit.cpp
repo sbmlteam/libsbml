@@ -804,10 +804,10 @@ Unit::removeScale(Unit * unit)
   double scaleFactor = pow(10.0, unit->getScale());
   double newMultiplier = unit->getMultiplier() * scaleFactor;
   /* hack to force multiplier to be double precision */
-  std::ostringstream oss;
-  oss.precision(15);
-  oss << newMultiplier;
-  newMultiplier = strtod(oss.str().c_str(), NULL);
+  std::ostringstream ossMultiplier;
+  ossMultiplier.precision(15);
+  ossMultiplier << newMultiplier;
+  newMultiplier = strtod(ossMultiplier.str().c_str(), NULL);
   unit->setMultiplier(newMultiplier);
   unit->setScale(0);
 }
@@ -857,10 +857,10 @@ Unit::merge(Unit * unit1, Unit * unit2)
   }
     
   /* hack to force multiplier to be double precision */
-  std::ostringstream oss;
-  oss.precision(15);
-  oss << newMultiplier;
-  newMultiplier = strtod(oss.str().c_str(), NULL);
+  std::ostringstream ossMultiplier;
+  ossMultiplier.precision(15);
+  ossMultiplier << newMultiplier;
+  newMultiplier = strtod(ossMultiplier.str().c_str(), NULL);
 
   unit1->setScale(0);
   unit1->setExponent(newExponent);
@@ -879,14 +879,14 @@ UnitDefinition *
 Unit::convertToSI(const Unit * unit)
 {
   double newMultiplier;
-  std::ostringstream oss;
+  std::ostringstream ossMultiplier;
   UnitKind_t uKind = unit->getKind();
   Unit * newUnit = new Unit(uKind, unit->getExponent(), 
                                     unit->getScale(), unit->getMultiplier());
   UnitDefinition * ud = new UnitDefinition();
 
   Unit::removeScale(newUnit);
-  oss.precision(15);
+  ossMultiplier.precision(15);
 
   switch (uKind)
   {
@@ -904,8 +904,8 @@ Unit::convertToSI(const Unit * unit)
       /* hack to force multiplier to be double precision */
       newMultiplier = pow(newUnit->getMultiplier(), -1.0);
 
-      oss << newMultiplier;
-      newMultiplier = strtod(oss.str().c_str(), NULL);
+      ossMultiplier << newMultiplier;
+      newMultiplier = strtod(ossMultiplier.str().c_str(), NULL);
 
       newUnit->setMultiplier(newMultiplier); 
       ud->addUnit(newUnit);
@@ -948,8 +948,8 @@ Unit::convertToSI(const Unit * unit)
       /* hack to force multiplier to be double precision */
       newMultiplier = sqrt(newUnit->getMultiplier());
 
-      oss << newMultiplier;
-      newMultiplier = strtod(oss.str().c_str(), NULL);
+      ossMultiplier << newMultiplier;
+      newMultiplier = strtod(ossMultiplier.str().c_str(), NULL);
 
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(2*newUnit->getExponent());  
@@ -986,8 +986,8 @@ Unit::convertToSI(const Unit * unit)
       /* hack to force multiplier to be double precision */
       newMultiplier = sqrt(newUnit->getMultiplier());
 
-      oss << newMultiplier;
-      newMultiplier = strtod(oss.str().c_str(), NULL);
+      ossMultiplier << newMultiplier;
+      newMultiplier = strtod(ossMultiplier.str().c_str(), NULL);
 
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(2*newUnit->getExponent());  
@@ -1005,8 +1005,8 @@ Unit::convertToSI(const Unit * unit)
        /* hack to force multiplier to be double precision */
       newMultiplier = (1.0/sqrt(newUnit->getMultiplier()));
 
-      oss << newMultiplier;
-      newMultiplier = strtod(oss.str().c_str(), NULL);
+      ossMultiplier << newMultiplier;
+      newMultiplier = strtod(ossMultiplier.str().c_str(), NULL);
 
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(-2*newUnit->getExponent());  
@@ -1072,8 +1072,8 @@ Unit::convertToSI(const Unit * unit)
       /* hack to force multiplier to be double precision */
       newMultiplier = pow((newUnit->getMultiplier() * 0.001), 1.0/3.0);
 
-      oss << newMultiplier;
-      newMultiplier = strtod(oss.str().c_str(), NULL);
+      ossMultiplier << newMultiplier;
+      newMultiplier = strtod(ossMultiplier.str().c_str(), NULL);
 
       newUnit->setMultiplier(newMultiplier); 
       ud->addUnit(newUnit);
@@ -1129,8 +1129,8 @@ Unit::convertToSI(const Unit * unit)
       /* hack to force multiplier to be double precision */
       newMultiplier = (1.0/sqrt(newUnit->getMultiplier()));
 
-      oss << newMultiplier;
-      newMultiplier = strtod(oss.str().c_str(), NULL);
+      ossMultiplier << newMultiplier;
+      newMultiplier = strtod(ossMultiplier.str().c_str(), NULL);
 
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(-2*newUnit->getExponent());  
@@ -1178,8 +1178,8 @@ Unit::convertToSI(const Unit * unit)
       /* hack to force multiplier to be double precision */
       newMultiplier = sqrt(newUnit->getMultiplier());
 
-      oss << newMultiplier;
-      newMultiplier = strtod(oss.str().c_str(), NULL);
+      ossMultiplier << newMultiplier;
+      newMultiplier = strtod(ossMultiplier.str().c_str(), NULL);
 
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(2*newUnit->getExponent());  
@@ -1207,8 +1207,8 @@ Unit::convertToSI(const Unit * unit)
       /* hack to force multiplier to be double precision */
       newMultiplier = (1.0/(newUnit->getMultiplier()));
 
-      oss << newMultiplier;
-      newMultiplier = strtod(oss.str().c_str(), NULL);
+      ossMultiplier << newMultiplier;
+      newMultiplier = strtod(ossMultiplier.str().c_str(), NULL);
 
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(-1*newUnit->getExponent());  
@@ -1230,8 +1230,8 @@ Unit::convertToSI(const Unit * unit)
       /* hack to force multiplier to be double precision */
       newMultiplier = (1.0/(newUnit->getMultiplier()));
 
-      oss << newMultiplier;
-      newMultiplier = strtod(oss.str().c_str(), NULL);
+      ossMultiplier << newMultiplier;
+      newMultiplier = strtod(ossMultiplier.str().c_str(), NULL);
 
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(-1*newUnit->getExponent());  
@@ -1274,8 +1274,8 @@ Unit::convertToSI(const Unit * unit)
       /* hack to force multiplier to be double precision */
       newMultiplier = (1.0/(newUnit->getMultiplier()));
 
-      oss << newMultiplier;
-      newMultiplier = strtod(oss.str().c_str(), NULL);
+      ossMultiplier << newMultiplier;
+      newMultiplier = strtod(ossMultiplier.str().c_str(), NULL);
 
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(-1*newUnit->getExponent());  
