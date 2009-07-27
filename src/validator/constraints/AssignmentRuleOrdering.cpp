@@ -103,13 +103,20 @@ AssignmentRuleOrdering::checkRuleForVariable(const Model& m, const Rule& object)
   List* variables = object.getMath()->getListOfNodes( ASTNode_isName );
   std::string variable = object.getVariable();
 
-  for (unsigned int i = 0; i < variables->getSize(); i++)
+  if (variables)
   {
-    ASTNode* node = static_cast<ASTNode*>( variables->get(i) );
-    const char *   name = node->getName() ? node->getName() : "";
-    if (!(strcmp(variable.c_str(), name)))
-      logRuleRefersToSelf(*(object.getMath()), object);
+    for (unsigned int i = 0; i < variables->getSize(); i++)
+    {
+      ASTNode* node = static_cast<ASTNode*>( variables->get(i) );
+      const char *   name = node->getName() ? node->getName() : "";
+      if (!(strcmp(variable.c_str(), name)))
+        logRuleRefersToSelf(*(object.getMath()), object);
+    }
+    // return value of ASTNode::getListOfNodes() needs to be
+    // deleted by caller.
+    delete variables;
   }
+
 }
 
 
@@ -121,26 +128,32 @@ AssignmentRuleOrdering::checkRuleForLaterVariables(const Model& m,
   /* list the <ci> elements of this rule*/
   List* variables = object.getMath()->getListOfNodes( ASTNode_isName );
 
-  unsigned int index;
-  for (unsigned int i = 0; i < variables->getSize(); i++)
+  if (variables)
   {
-    ASTNode* node = static_cast<ASTNode*>( variables->get(i) );
-    const char *   name = node->getName() ? node->getName() : "";
-
-    if (mVariableList.contains(name))
+    unsigned int index;
+    for (unsigned int i = 0; i < variables->getSize(); i++)
     {
-      // this <ci> is a variable
-      // check that it occurs later
-      index = 0; 
-      while(index < mVariableList.size())
+      ASTNode* node = static_cast<ASTNode*>( variables->get(i) );
+      const char *   name = node->getName() ? node->getName() : "";
+  
+      if (mVariableList.contains(name))
       {
-        if (!strcmp(name, mVariableList.at(index).c_str()))
-          break;
-        index++;
+        // this <ci> is a variable
+        // check that it occurs later
+        index = 0; 
+        while(index < mVariableList.size())
+        {
+          if (!strcmp(name, mVariableList.at(index).c_str()))
+            break;
+          index++;
+        }
+        if (index > n)
+          logForwardReference(*(object.getMath()), object, name);
       }
-      if (index > n)
-        logForwardReference(*(object.getMath()), object, name);
     }
+    // return value of ASTNode::getListOfNodes() needs to be
+    // deleted by caller.
+    delete variables;
   }
 }
 

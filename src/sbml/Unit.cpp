@@ -927,6 +927,7 @@ Unit::convertToSI(const Unit * unit)
       /* 1 coulomb = 1 Ampere second */
       newUnit->setKind(UNIT_KIND_AMPERE);
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1);
@@ -954,16 +955,19 @@ Unit::convertToSI(const Unit * unit)
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(2*newUnit->getExponent());  
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       newUnit->setMultiplier(1.0);
       newUnit->setExponent(-1*newUnit->getExponent());  
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
       newUnit->setExponent(-2*newUnit->getExponent());  
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
@@ -992,6 +996,7 @@ Unit::convertToSI(const Unit * unit)
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(2*newUnit->getExponent());  
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
@@ -1011,15 +1016,18 @@ Unit::convertToSI(const Unit * unit)
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(-2*newUnit->getExponent());  
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       newUnit->setMultiplier(1.0);
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
       newUnit->setExponent(2*newUnit->getExponent());  
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
@@ -1031,11 +1039,13 @@ Unit::convertToSI(const Unit * unit)
       /* 1 joule = 1 m^2 kg s^-2 */
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
       newUnit->setExponent(2*newUnit->getExponent());  
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
@@ -1047,6 +1057,7 @@ Unit::convertToSI(const Unit * unit)
       /* 1 katal = 1 mol s^-1 */
       newUnit->setKind(UNIT_KIND_MOLE);
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
@@ -1089,6 +1100,7 @@ Unit::convertToSI(const Unit * unit)
       /* 1 lux = 1 candela m^-2*/ 
       newUnit->setKind(UNIT_KIND_CANDELA);
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
@@ -1112,10 +1124,12 @@ Unit::convertToSI(const Unit * unit)
       /* 1 newton = 1 m kg s^-2 */
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
@@ -1135,15 +1149,18 @@ Unit::convertToSI(const Unit * unit)
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(-2*newUnit->getExponent());  
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       newUnit->setMultiplier(1.0);
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
       newUnit->setExponent(2*newUnit->getExponent());  
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
@@ -1155,11 +1172,13 @@ Unit::convertToSI(const Unit * unit)
       /* 1 pascal = 1 m^-1 kg s^-2 */
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
       newUnit->setExponent(-1*newUnit->getExponent());  
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
@@ -1184,16 +1203,19 @@ Unit::convertToSI(const Unit * unit)
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(2*newUnit->getExponent());  
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       newUnit->setMultiplier(1.0);
       newUnit->setExponent(-1*newUnit->getExponent());  
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
       newUnit->setExponent(-2*newUnit->getExponent());  
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
@@ -1213,10 +1235,12 @@ Unit::convertToSI(const Unit * unit)
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(-1*newUnit->getExponent());  
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       newUnit->setMultiplier(1.0);
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
@@ -1236,15 +1260,18 @@ Unit::convertToSI(const Unit * unit)
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(-1*newUnit->getExponent());  
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       newUnit->setMultiplier(1.0);
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
       newUnit->setExponent(2*newUnit->getExponent());  
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
@@ -1256,11 +1283,13 @@ Unit::convertToSI(const Unit * unit)
       /* 1 watt = 1 m^2 kg s^-3 */
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
       newUnit->setExponent(2*newUnit->getExponent());  
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
@@ -1280,15 +1309,18 @@ Unit::convertToSI(const Unit * unit)
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(-1*newUnit->getExponent());  
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       newUnit->setMultiplier(1.0);
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
       newUnit->setExponent(2*newUnit->getExponent());  
       ud->addUnit(newUnit);
+      delete newUnit;
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
