@@ -92,6 +92,9 @@ StoichiometryMathVars::check_ (const Model& m, const Reaction& r)
         if (m.getSpecies(name) && !mSpecies.contains(name))
           logUndefined(r, name);
       }
+
+      delete variables;
+
     }
   }
   for (n = 0; n < r.getNumProducts(); n++)
@@ -110,6 +113,9 @@ StoichiometryMathVars::check_ (const Model& m, const Reaction& r)
         if (m.getSpecies(name) && !mSpecies.contains(name))
           logUndefined(r, name);
       }
+ 
+      delete variables;
+
     }
   }
 }

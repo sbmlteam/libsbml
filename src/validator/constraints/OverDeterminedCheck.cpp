@@ -371,6 +371,9 @@ OverDeterminedCheck::createGraph(const Model& m)
           joined.append(name);
         }
       }
+
+      delete names;
+
     }
 
     mGraph[mEquations.at(eqnCount)] = joined;
@@ -419,6 +422,9 @@ OverDeterminedCheck::createGraph(const Model& m)
             joined.append(name);
           }
         }
+
+        delete names;
+
       }
       mGraph[mEquations.at(eqnCount)] = joined;
       joined.clear();

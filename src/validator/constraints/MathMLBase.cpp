@@ -472,6 +472,7 @@ MathMLBase::checkNumericFunction (const Model& m, const ASTNode* node)
     bool isNumeric = returnsNumeric(m, fdMath);
     //bool isNumeric = returnsNumeric(m, newMath);
     //if(needDelete) delete newMath;
+    delete fdMath;
    
     return isNumeric;
   }

@@ -24,8 +24,8 @@
 
 #ifndef AddingConstraintsToValidator
 
-//#include <string>
 #include <cstring>
+#include <list>
 
 #include <sbml/SBMLTypes.h>
 #include <sbml/SBMLTypeCodes.h>
@@ -180,13 +180,27 @@ START_CONSTRAINT (20303, FunctionDefinition, fd)
   const string  id = fd.getId();
 
   List* variables = fd.getBody()->getListOfNodes( ASTNode_isFunction );
+
+  std::list<ASTNode*> astlist;
   for (unsigned int n = 0; n < variables->getSize(); ++n)
   {
-    ASTNode* node = static_cast<ASTNode*>( variables->get(n) );
-    const char *   name = node->getName() ? node->getName() : "";
+    astlist.push_back(static_cast<ASTNode*>(variables->get(n)));
+  }
+
+  // To avoid memory leak, the List object (variables) needs to be
+  // deleted before invoking the inv macro below
+  delete variables;
+
+  std::list<ASTNode*>::iterator it = astlist.begin();
+
+  while(it != astlist.end())
+  {
+    const char *   name = (*it)->getName() ? (*it)->getName() : "";
 
     inv(strcmp(name, id.c_str()));
- }
+
+    ++it;
+  }
 
 }
 END_CONSTRAINT
@@ -266,13 +280,26 @@ START_CONSTRAINT (99301, FunctionDefinition, fd)
   const string  id = fd.getId();
 
   List* variables = fd.getBody()->getListOfNodes( ASTNode_isName );
+
+  std::list<ASTNode*> astlist;
   for (unsigned int n = 0; n < variables->getSize(); ++n)
   {
-    ASTNode* node = static_cast<ASTNode*>( variables->get(n) );
-    ASTNodeType_t type = node->getType();
+    astlist.push_back(static_cast<ASTNode*>(variables->get(n)));
+  }
+
+  // To avoid memory leak, the List object (variables) needs to be 
+  // deleted before invoking the inv macro below
+  delete variables;
+
+  std::list<ASTNode*>::iterator it = astlist.begin();
+
+  while(it != astlist.end())
+  {
+    ASTNodeType_t type = (*it)->getType();
 
     inv(type != AST_NAME_TIME);
- }
+    ++it;
+  }
 
 }
 END_CONSTRAINT

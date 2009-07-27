@@ -93,6 +93,8 @@ FunctionDefinitionVars::check_ (const Model& m, const FunctionDefinition& fd)
       }
     }
   }
+
+  delete variables;
 }
 
 
