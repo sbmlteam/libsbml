@@ -28,6 +28,7 @@
 #include <sbml/Reaction.h>
 #include <sbml/InitialAssignment.h>
 #include <sbml/util/List.h>
+#include <sbml/util/memory.h>
 
 #include "AssignmentCycles.h"
 #include "IdList.h"
@@ -516,15 +517,16 @@ void
 AssignmentCycles::logMathRefersToSelf (const ASTNode * node,
                                              const SBase* object)
 {
+  char * formula = SBML_formulaToString(node);
   msg = "The ";
 
   msg += SBMLTypeCode_toString( object->getTypeCode());
   msg += " with id '";
   msg += object->getId();
   msg += "' refers to that variable within the math formula '";
-  msg += SBML_formulaToString(node);
+  msg += formula;
   msg += "'.";
-
+  safe_free(formula);
   
   logFailure(*object);
 

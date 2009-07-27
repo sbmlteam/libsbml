@@ -28,6 +28,7 @@
 #include <sbml/Reaction.h>
 #include <sbml/InitialAssignment.h>
 #include <sbml/util/List.h>
+#include <sbml/util/memory.h>
 
 #include "AssignmentRuleOrdering.h"
 #include "IdList.h"
@@ -162,13 +163,14 @@ void
 AssignmentRuleOrdering::logRuleRefersToSelf (const ASTNode & node,
                                              const SBase& object)
 {
+  char * formula = SBML_formulaToString(&node);
   msg =
     "The AssignmentRule with variable '";
   msg += object.getId();
   msg += "' refers to that variable within the math formula '";
-  msg += SBML_formulaToString(&node);
+  msg += formula;
   msg += "'.";
-
+  safe_free(formula);
   
   logFailure(object);
 
@@ -179,17 +181,18 @@ AssignmentRuleOrdering::logForwardReference (const ASTNode & node,
                                              const SBase& object,
                                              std::string name)
 {
+  char * formula = SBML_formulaToString(&node);
   msg =
     "The AssignmentRule with variable '";
   msg += object.getId();
   msg += "' refers to the variable '";
   msg += name;
   msg += "' within the math formula '";
-  msg += SBML_formulaToString(&node);
+  msg += formula;
   msg += "'. '";
   msg += name;
   msg += "' is the subject of a later assignment rule.";
-
+  safe_free(formula);
   
   logFailure(object);
 
