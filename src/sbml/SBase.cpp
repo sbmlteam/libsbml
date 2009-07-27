@@ -2778,22 +2778,24 @@ SBase::checkXHTML(const XMLNode * xhtml)
 
   /*
   * namespace declaration is variable
-  * if a whole html tag has been used
-  * or a whole body tag then namespace can be implicitly declared
+  * A whole html tag, a whole body tag, or one or more elements permitted in
+  * a body tag can be used without XHTML namespace declaration if XHTML namespace
+  * is declared in a sbml element.
   *
-  * HOWEVER if more than one permitted elements have been used 
-  * each MUST explicitly declare the namespace
   */
-  bool implicitNSdecl = false;
+  bool   implicitNSdecl         = false;
+  string implicitXhtmlPrefixStr = "";
+
   if( mSBML->getNamespaces() != NULL)
   /* check for implicit declaration */
   {
-    for (n = 0; n < mSBML->getNamespaces()->getLength(); n++)
+    const XMLNamespaces* xmlns = mSBML->getNamespaces();
+    for (n = 0; n < xmlns->getLength(); n++)
     {
-      if (!strcmp(mSBML->getNamespaces()->getURI(n).c_str(), 
-                                        "http://www.w3.org/1999/xhtml"))
+      if (xmlns->getURI(n) == "http://www.w3.org/1999/xhtml")
       {
-        implicitNSdecl = true;
+        implicitNSdecl         = true;
+        implicitXhtmlPrefixStr = xmlns->getPrefix(n);
         break;
       }
     }
@@ -2807,7 +2809,7 @@ SBase::checkXHTML(const XMLNode * xhtml)
   bool match;
   if (children > 1)
   {
-    /* each element must declare namespace */
+    /* each element must declare namespace or implicit declaration required */
     for (i=0; i < children; i++)
     {
       const char * top = xhtml->getChild(i).getName().c_str();
@@ -2821,25 +2823,48 @@ SBase::checkXHTML(const XMLNode * xhtml)
       }
       else
       {
-        const XMLToken elem = xhtml->getChild(i);
+        const XMLToken&      elem  = xhtml->getChild(i);
+        const XMLNamespaces& xmlns = elem.getNamespaces();
         match = false;
-        for (n = 0; n < elem.getNamespaces().getLength(); n++)
+        string nsprefix = "";
+        for (n = 0; n < xmlns.getLength(); n++)
         {
-          if (!strcmp(elem.getNamespaces().getURI(n).c_str(), 
-                                              "http://www.w3.org/1999/xhtml"))
+          if (xmlns.getURI(n) == "http://www.w3.org/1999/xhtml")
           {
-            match = true;
+            match    = true;
+            nsprefix = xmlns.getPrefix(n);
             break;
           }
         }
-        if (!match && !implicitNSdecl)
+
+        if (!match)
         {
-          logError(errorELEM);
+          // xmlns attribute for XHTML is not declared in this elem.
+          if ( !implicitNSdecl || (elem.getPrefix() != implicitXhtmlPrefixStr) )
+          {
+            // xmlns attribute for XHTML is not declared in <sbml> element
+            // or the prefix of this element is not equal to the prefix of
+            // xmlns attribute for XHTML declared in <sbml> element.
+            logError(errorELEM);
+          }
         }
-        if (implicitNSdecl && elem.getPrefix() != "xhtml")
+        else
         {
-          logError(errorELEM);
+          // xmlns attribute for XHTML is declared in this elem.
+          if (elem.getPrefix() != nsprefix)
+          {
+            // the prefix of this element is not equal to the prefix of
+            // xmlns attribute for XHTML declared in this element.
+            if ( !implicitNSdecl || (elem.getPrefix() != implicitXhtmlPrefixStr) )
+            {
+              // xmlns attribute for XHTML is not declared in <sbml> element
+              // or the prefix of this element is not equal to the prefix of
+              // xmlns attribute for XHTML declared in <sbml> element.
+              logError(errorELEM);
+            }
+          }
         }
+
       }
     }
 
@@ -2851,7 +2876,7 @@ SBase::checkXHTML(const XMLNode * xhtml)
     * OR could be one of the listed elements.
     */
 
-    const XMLToken top_elem = xhtml->getChild(0);
+    const XMLToken& top_elem = xhtml->getChild(0);
     const string& top_name = top_elem.getName();
     const char* top_name_c = top_name.c_str();
     index = util_bsearchStringsI(XHTML_ELEMENTS, top_name_c, 0, size - 1);
@@ -2864,20 +2889,47 @@ SBase::checkXHTML(const XMLNode * xhtml)
     }
     else
     {
+      const XMLNamespaces& xmlns = top_elem.getNamespaces();
       match = false;
-      for (n = 0; n < top_elem.getNamespaces().getLength(); n++)
+      string nsprefix = "";
+      for (n = 0; n < xmlns.getLength(); n++)
       {
-        if (!strcmp(top_elem.getNamespaces().getURI(n).c_str(), 
-                                              "http://www.w3.org/1999/xhtml"))
+        if (xmlns.getURI(n) == "http://www.w3.org/1999/xhtml")
         {
-          match = true;
+          match    = true;
+          nsprefix = xmlns.getPrefix(n);
           break;
         }
       }
-      if (!implicitNSdecl && !match)
+
+      if (!match)
       {
-        logError(errorNS);
+        // xmlns attribute for XHTML is not declared in this top elem.
+        if ( !implicitNSdecl || (top_elem.getPrefix() != implicitXhtmlPrefixStr) )
+        {
+          // xmlns attribute for XHTML is not declared in <sbml> element
+          // or the prefix of this top element is not equal to the prefix of
+          // xmlns attribute for XHTML declared in <sbml> element.
+          logError(errorNS);
+        }
       }
+      else
+      {
+        // xmlns attribute for XHTML is declared in this top elem.
+        if (top_elem.getPrefix() != nsprefix)
+        {
+          // the prefix of this top element is not equal to the prefix of
+          // xmlns attribute for XHTML declared in this element.
+          if ( !implicitNSdecl || (top_elem.getPrefix() != implicitXhtmlPrefixStr) )
+          {
+            // xmlns attribute for XHTML is not declared in <sbml> element
+            // or the prefix of this top element is not equal to the prefix of
+            // xmlns attribute for XHTML declared in <sbml> element.
+            logError(errorNS);
+          }
+        }
+      }
+
     }
   }
 }
