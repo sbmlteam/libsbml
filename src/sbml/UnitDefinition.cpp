@@ -549,8 +549,8 @@ UnitDefinition::simplify(UnitDefinition * ud)
   /* if all units have been cancelled need to add dimensionless */
   if (units->size() == 0 && cancelFlag == 1)
   {
-    unit = new Unit("dimensionless");
-    ud->addUnit(unit);
+    Unit tmpunit("dimensionless");
+    ud->addUnit(&tmpunit);
   }
 }
 

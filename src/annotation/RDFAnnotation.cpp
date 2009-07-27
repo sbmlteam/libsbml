@@ -858,13 +858,19 @@ RDFAnnotationParser::hasCVTermRDFAnnotation(const XMLNode *annotation)
   }
 
   // check whether the annotation relates to CVTerms
-  List * temp = new List();
-  parseRDFAnnotation(annotation, temp);
-  if (temp && temp->getSize() > 0)
+  List * tempCVTerms = new List();
+  parseRDFAnnotation(annotation, tempCVTerms);
+  if (tempCVTerms && tempCVTerms->getSize() > 0)
   {
     hasCVTermRDF = true;
   }
-  delete temp;
+
+  if (tempCVTerms)
+  {
+    unsigned int size = tempCVTerms->getSize();
+    while (size--) delete static_cast<CVTerm*>( tempCVTerms->remove(0) );
+  }
+  delete tempCVTerms;
 
 
   return hasCVTermRDF;

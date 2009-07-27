@@ -142,9 +142,9 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
   }
 
   double value;
-  UnitDefinition *dim = new UnitDefinition();
-  Unit *unit = new Unit("dimensionless");
-  dim->addUnit(unit);
+  UnitDefinition dim;
+  Unit unit("dimensionless");
+  dim.addUnit(&unit);
 
   UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
 
@@ -162,7 +162,7 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
   // The second argument (b) should always have units of “dimensionless”.
   // or it has undeclared units that we assume are correct
 
-  if (undeclaredUnitsPower == 0 && !UnitDefinition::areEquivalent(dim, unitsArgPower))
+  if (undeclaredUnitsPower == 0 && !UnitDefinition::areEquivalent(&dim, unitsArgPower))
   {
     logNonDimensionlessPowerConflict(node, sb);
   }
@@ -170,7 +170,7 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
   // The first argument is dimensionless then it doesnt matter 
   // what the power is
 
-  if (undeclaredUnits == 0 && !UnitDefinition::areEquivalent(dim, unitsArg1))
+  if (undeclaredUnits == 0 && !UnitDefinition::areEquivalent(&dim, unitsArg1))
   {
     // if not argument needs to be an integer or a rational 
     unsigned int isInteger = 0;
@@ -229,7 +229,7 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
       {
         /* We found a parameter with this identifier. */
 
-        if (UnitDefinition::areEquivalent(dim, unitsArgPower) || undeclaredUnitsPower)
+        if (UnitDefinition::areEquivalent(&dim, unitsArgPower) || undeclaredUnitsPower)
         {
           value = param->getValue();
           if (value != 0)
