@@ -851,7 +851,10 @@ ModelHistory::operator=(const ModelHistory& orig)
     }
 
     delete mCreatedDate;
-    if (orig.mCreatedDate) setCreatedDate(orig.mCreatedDate);
+    if (orig.mCreatedDate) 
+      setCreatedDate(orig.mCreatedDate);
+    else
+      mCreatedDate = 0;
   }
 
   return *this;
