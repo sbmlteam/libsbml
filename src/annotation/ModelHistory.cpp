@@ -592,6 +592,8 @@ ModelCreator& ModelCreator::operator=(const ModelCreator& orig)
     mGivenName    = orig.mGivenName;
     mEmail        = orig.mEmail;
     mOrganization = orig.mOrganization;
+
+    delete this->mAdditionalRDF;
     if (orig.mAdditionalRDF)
       this->mAdditionalRDF = orig.mAdditionalRDF->clone();
     else
@@ -815,16 +817,40 @@ ModelHistory::operator=(const ModelHistory& orig)
 {
   if(&orig!=this)
   {
+    if (mCreators)
+    {
+      unsigned int size = mCreators->getSize();
+      while (size--) delete static_cast<ModelCreator*>( mCreators->remove(0) );
+    }
+    else
+    {
+      mCreators = new List();
+    }
+
     unsigned int i;
     for (i = 0; i < orig.mCreators->getSize(); i++)
     {
       addCreator(static_cast<ModelCreator*>(orig.mCreators->get(i)));
     }
 
+
+    if (mModifiedDates)
+    {
+      unsigned int size = mModifiedDates->getSize();
+      while (size--) delete static_cast<Date*>
+                                       ( mModifiedDates->remove(0) );
+    }
+    else
+    {
+      mModifiedDates = new List();
+    }
+
     for (i = 0; i < orig.mModifiedDates->getSize(); i++)
     {
       addModifiedDate(static_cast<Date*>(orig.mModifiedDates->get(i)));
     }
+
+    delete mCreatedDate;
     if (orig.mCreatedDate) setCreatedDate(orig.mCreatedDate);
   }
 

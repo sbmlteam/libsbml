@@ -139,7 +139,12 @@ KineticLaw& KineticLaw::operator=(const KineticLaw& rhs)
     mTimeUnits      = rhs.mTimeUnits      ;
     mSubstanceUnits = rhs.mSubstanceUnits ;
     mParameters     = rhs.mParameters     ;
-    if (rhs.mMath) mMath = rhs.mMath->deepCopy();
+
+    delete mMath;
+    if (rhs.mMath)
+      mMath = rhs.mMath->deepCopy();
+    else
+      mMath = 0;
   }
 
   return *this;

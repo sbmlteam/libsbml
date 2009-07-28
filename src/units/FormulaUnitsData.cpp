@@ -93,6 +93,8 @@ FormulaUnitsData& FormulaUnitsData::operator=(const FormulaUnitsData& rhs)
                             rhs.mContainsUndeclaredUnits;
     mCanIgnoreUndeclaredUnits = rhs.mCanIgnoreUndeclaredUnits;
     mTypeOfElement = rhs.mTypeOfElement;
+
+    delete mUnitDefinition;
     if (rhs.mUnitDefinition) 
     {
       mUnitDefinition = static_cast <UnitDefinition*> 
@@ -102,6 +104,8 @@ FormulaUnitsData& FormulaUnitsData::operator=(const FormulaUnitsData& rhs)
     {
       mUnitDefinition = NULL;
     }
+
+    delete mPerTimeUnitDefinition;
     if (rhs.mPerTimeUnitDefinition)
     {
       mPerTimeUnitDefinition = static_cast <UnitDefinition*> 
@@ -111,6 +115,9 @@ FormulaUnitsData& FormulaUnitsData::operator=(const FormulaUnitsData& rhs)
     {
       mPerTimeUnitDefinition = NULL;
     }
+
+
+    delete mEventTimeUnitDefinition;
     if (rhs.mEventTimeUnitDefinition)
     {
       mEventTimeUnitDefinition = static_cast <UnitDefinition*> 

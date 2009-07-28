@@ -168,6 +168,9 @@ Model& Model::operator=(const Model& rhs)
   #ifdef USE_LAYOUT
     mLayouts              = rhs.mLayouts;
   #endif
+
+    delete this->mHistory;
+
     if (rhs.mHistory)
     {
       this->mHistory = rhs.mHistory->clone();
@@ -176,6 +179,15 @@ Model& Model::operator=(const Model& rhs)
     {
       this->mHistory = 0;
     }
+
+    if (this->mFormulaUnitsData)
+    {  
+      unsigned int size = this->mFormulaUnitsData->getSize();
+      while (size--) 
+        delete static_cast<FormulaUnitsData*>( this->mFormulaUnitsData->remove(0) );
+      delete this->mFormulaUnitsData;
+    }
+
     if(rhs.mFormulaUnitsData)
     {
       this->mFormulaUnitsData  = new List();

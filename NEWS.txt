@@ -1,7 +1,7 @@
            libSBML NEWS -- History of user-visible changes
 
 ======================================================================
-Version 3.4.1 (released 2009-07-25)
+Version 3.4.1 (released 2009-07-29)
 ======================================================================
 
 * New features:
@@ -48,6 +48,8 @@ Version 3.4.1 (released 2009-07-25)
    (e.g. &amp;) could be wrongly replaced with &amp; (e.g. &#0168; 
    -> &amp;#0168;) when writing an SBML file or string. This has been 
    fixed. Thanks to Andreas Drager for reporting this problem.   
+
+  - A number of memory leaks have been fixed.
 
 ======================================================================
 Version 3.4.0 (released 2009-06-12)

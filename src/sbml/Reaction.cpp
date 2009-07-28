@@ -173,10 +173,13 @@ Reaction& Reaction::operator=(const Reaction& rhs)
     mReactants  = rhs.mReactants  ;
     mProducts   = rhs.mProducts   ;
     mModifiers  = rhs.mModifiers  ;
+
+    delete mKineticLaw;
     if (rhs.mKineticLaw)
-    {
       mKineticLaw = static_cast<KineticLaw*>( rhs.mKineticLaw->clone() );
-    }
+    else
+      mKineticLaw = 0;
+
   }
 
   return *this;

@@ -252,10 +252,14 @@ SBase& SBase::operator=(const SBase& orig)
     this->mName   = orig.mName;
     this->mMetaId = orig.mMetaId;
 
+    delete this->mNotes;
+
     if(orig.mNotes) 
       this->mNotes = new XMLNode(*const_cast<SBase&>(orig).getNotes());
     else
       this->mNotes = 0;
+
+    delete this->mAnnotation;
 
     if(orig.mAnnotation) 
       this->mAnnotation = new XMLNode(*const_cast<SBase&>(orig).mAnnotation);
@@ -270,10 +274,19 @@ SBase& SBase::operator=(const SBase& orig)
     this->mColumn     = orig.mColumn;
     this->mParentSBMLObject = orig.mParentSBMLObject;
 
+    delete this->mNamespaces;
+
     if(orig.mNamespaces)
       this->mNamespaces = new XMLNamespaces(*const_cast<SBase&>(orig).mNamespaces);
     else
       this->mNamespaces = 0;
+
+    if (this->mCVTerms)
+    {  
+      unsigned int size = this->mCVTerms->getSize();
+      while (size--) delete static_cast<CVTerm*>( this->mCVTerms->remove(0) );
+      delete this->mCVTerms;
+    }
 
     if(orig.mCVTerms)
     {

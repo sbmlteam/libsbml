@@ -103,7 +103,12 @@ InitialAssignment& InitialAssignment::operator=(const InitialAssignment& rhs)
   if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
-    if (rhs.mMath) mMath = rhs.mMath->deepCopy();
+
+    delete mMath;
+    if (rhs.mMath) 
+      mMath = rhs.mMath->deepCopy();
+    else
+      mMath = 0;
   }
 
   return *this;

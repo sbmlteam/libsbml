@@ -126,8 +126,18 @@ Event& Event::operator=(const Event& rhs)
     mInternalIdOnly   = rhs.mInternalIdOnly   ;
     mEventAssignments = rhs.mEventAssignments ;
 
-    if (rhs.mTrigger) mTrigger = new Trigger(*rhs.getTrigger());
-    if (rhs.mDelay) mDelay = new Delay(*rhs.getDelay());
+
+    delete mTrigger;
+    if (rhs.mTrigger) 
+      mTrigger = new Trigger(*rhs.getTrigger());
+    else
+      mTrigger = 0;
+
+    delete mDelay;
+    if (rhs.mDelay) 
+      mDelay = new Delay(*rhs.getDelay());
+    else
+      mDelay = 0;
   }
 
   return *this;

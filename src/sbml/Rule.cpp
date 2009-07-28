@@ -116,7 +116,12 @@ Rule& Rule::operator=(const Rule& rhs)
     mUnits   = rhs.mUnits   ;
     mType    = rhs.mType    ;
     mL1Type  = rhs.mL1Type  ;
-    if (rhs.mMath) mMath = rhs.mMath->deepCopy();
+
+    delete mMath;
+    if (rhs.mMath) 
+      mMath = rhs.mMath->deepCopy();
+    else
+      mMath = 0;
   }
 
   return *this;

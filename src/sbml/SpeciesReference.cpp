@@ -372,10 +372,12 @@ SpeciesReference& SpeciesReference::operator=(const SpeciesReference& rhs)
     this->SimpleSpeciesReference::operator = ( rhs );
     mStoichiometry = rhs.mStoichiometry ;
     mDenominator = rhs.mDenominator   ;
+
+    delete mStoichiometryMath;
     if (rhs.mStoichiometryMath)
-    {
       mStoichiometryMath = new StoichiometryMath(*rhs.getStoichiometryMath());
-    }
+    else
+      mStoichiometryMath = 0;
   }
 
   return *this;

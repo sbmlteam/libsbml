@@ -112,9 +112,19 @@ Constraint& Constraint::operator=(const Constraint& rhs)
   if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
+   
 
-    if (rhs.mMath)    mMath    = rhs.mMath->deepCopy();
-    if (rhs.mMessage) mMessage = new XMLNode(*rhs.mMessage);
+    delete mMath;
+    if (rhs.mMath)    
+      mMath = rhs.mMath->deepCopy();
+    else
+      mMath = 0;
+
+    delete mMessage;
+    if (rhs.mMessage) 
+      mMessage = new XMLNode(*rhs.mMessage);
+    else
+      mMessage = 0;
   }
 
   return *this;

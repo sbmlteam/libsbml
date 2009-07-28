@@ -163,6 +163,7 @@ CVTerm::operator=(const CVTerm& rhs)
     mModelQualifier  = rhs.mModelQualifier;
     mBiolQualifier   = rhs.mBiolQualifier;
 
+    delete mResources;
     mResources=new XMLAttributes(*rhs.mResources);
   }
 
