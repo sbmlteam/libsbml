@@ -122,8 +122,8 @@ EqualityArgsMathCheck::checkArgs (const Model& m,
                                         const ASTNode& node, 
                                         const SBase & sb)
 {
-  /* check that node has children */
-  if (node.getNumChildren() == 0)
+  /* check that node has two children */
+  if (node.getNumChildren() != 2)
   {
     return;
   }
