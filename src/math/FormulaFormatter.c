@@ -81,7 +81,7 @@ SBML_formulaToString (const ASTNode_t *tree)
 
   if (tree == NULL)
   {
-    s="";
+    s=safe_strdup("");
   }
   else
   {
