@@ -31,12 +31,6 @@
 #include <sbml/common/extern.h>
 #include <sbml/compress/CompressCommon.h>
 
-/** @cond doxygen-ignored */
-
-using namespace std;
-
-/** @endcond doxygen-ignored */
-
 
 class LIBSBML_EXTERN OutputCompressor
 {
@@ -53,7 +47,7 @@ public:
   * @return a ostream* object bound to the given gzip file or NULL if the initialization
   * for the object failed.
   */
-  static ostream* openGzipOStream(const std::string& filename);
+  static std::ostream* openGzipOStream(const std::string& filename);
 
 
  /**
@@ -67,7 +61,7 @@ public:
   * @return a ostream* object bound to the given bzip2 file or NULL if the initialization
   * for the object failed.
   */
-  static ostream* openBzip2OStream(const std::string& filename);
+  static std::ostream* openBzip2OStream(const std::string& filename);
 
 
  /**
@@ -83,7 +77,7 @@ public:
   * @return a ostream* object bound to the given zip file or NULL if the initialization
   * for the object failed.
   */
-  static ostream* openZipOStream(const std::string& filename, const std::string& filenameinzip);
+  static std::ostream* openZipOStream(const std::string& filename, const std::string& filenameinzip);
 
 };
 

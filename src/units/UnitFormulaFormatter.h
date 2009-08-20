@@ -292,9 +292,9 @@ private:
   /* a depth of recursive call of getUnitDefinition()*/
   int depthRecursiveCall;
 
-  map<const ASTNode*, UnitDefinition*> unitDefinitionMap;
-  map<const ASTNode*, bool>    undeclaredUnitsMap;
-  map<const ASTNode*, unsigned int>    canIgnoreUndeclaredUnitsMap;  
+  std::map<const ASTNode*, UnitDefinition*> unitDefinitionMap;
+  std::map<const ASTNode*, bool>    undeclaredUnitsMap;
+  std::map<const ASTNode*, unsigned int>    canIgnoreUndeclaredUnitsMap;  
 
 };
 

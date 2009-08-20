@@ -31,12 +31,6 @@
 #include <sbml/common/extern.h>
 #include <sbml/compress/CompressCommon.h>
 
-/** @cond doxygen-ignored */
-
-using namespace std;
-
-/** @endcond doxygen-ignored */
-
 
 class LIBSBML_EXTERN InputDecompressor
 {
@@ -53,7 +47,7 @@ public:
   * @return a istream* object bound to the given gzip file or NULL if the initialization
   * for the object failed.
   */
-  static istream* openGzipIStream (const std::string& filename);
+  static std::istream* openGzipIStream (const std::string& filename);
 
 
  /**
@@ -67,7 +61,7 @@ public:
   * @return a istream* object bound to the given bzip2 file or NULL if the initialization
   * for the object failed.
   */
-  static istream* openBzip2IStream (const std::string& filename);
+  static std::istream* openBzip2IStream (const std::string& filename);
 
 
  /**
@@ -82,7 +76,7 @@ public:
   * @note The first file in the given zip archive file will be opened if the zip archive
   * contains two or more files.
   */
-  static istream* openZipIStream (const std::string& filename);
+  static std::istream* openZipIStream (const std::string& filename);
 
 
  /**

@@ -45,21 +45,14 @@
 #include <deque>
 #include <map>
 
-/** @cond doxygen-ignored */
-
-using namespace std;
-
-/** @endcond doxygen-ignored */
-
-
 class XMLAttributes;
 class XMLOutputStream;
 class SBMLErrorLog;
 
 /* create a map of parent-child sbo terms */
-typedef multimap<int, int>            ParentMap;
-typedef ParentMap::iterator           ParentIter;
-typedef pair<ParentIter, ParentIter>  ParentRange;
+typedef std::multimap<int, int>            ParentMap;
+typedef ParentMap::iterator                ParentIter;
+typedef std::pair<ParentIter, ParentIter>  ParentRange;
 
 static ParentMap mParent;
 

@@ -59,7 +59,7 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
     * (This is for avoiding redundant recursive calls.)
     */
 
-  map<const ASTNode*, UnitDefinition*>::iterator it = 
+  std::map<const ASTNode*, UnitDefinition*>::iterator it = 
                                                 unitDefinitionMap.find(node);
   if(it != unitDefinitionMap.end()) {
     return static_cast<UnitDefinition*>(it->second->clone());
@@ -240,11 +240,11 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
     {
       /* adds a pair of ASTNode* (node) and 
          UnitDefinition* (ud) to the UnitDefinitionMap */
-      unitDefinitionMap.insert(pair<const ASTNode*, 
+      unitDefinitionMap.insert(std::pair<const ASTNode*, 
         UnitDefinition*>(node,static_cast<UnitDefinition*>(ud->clone())));
-      undeclaredUnitsMap.insert(pair<const ASTNode*, 
+      undeclaredUnitsMap.insert(std::pair<const ASTNode*, 
                                     bool>(node,mContainsUndeclaredUnits));
-      canIgnoreUndeclaredUnitsMap.insert(pair<const ASTNode*, 
+      canIgnoreUndeclaredUnitsMap.insert(std::pair<const ASTNode*, 
                            unsigned int>(node,mCanIgnoreUndeclaredUnits));
     }
   }
@@ -253,7 +253,7 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
     /** 
       * Clears two map objects because all recursive call has finished.
       */ 
-    map<const ASTNode*, UnitDefinition*>::iterator it = 
+    std::map<const ASTNode*, UnitDefinition*>::iterator it = 
                                                 unitDefinitionMap.begin();
     while( it != unitDefinitionMap.end() )
     {

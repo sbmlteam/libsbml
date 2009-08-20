@@ -3,8 +3,8 @@
  * @brief   Implementations of wrapper classes for C++ standard output streams. 
  * @author  Akiya Jouraku
  *
- * $Id:$
- * $URL:$
+ * $Id$
+ * $URL$
  *
  *<!-----------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -90,10 +90,10 @@ OStream::endl ()
 OFStream::OFStream (const std::string& filename, bool is_append) 
 {
   if (is_append) {
-    Stream = new std::ofstream(filename.c_str(),ios_base::app);
+    Stream = new std::ofstream(filename.c_str(),std::ios_base::app);
   }
   else {
-    Stream = new std::ofstream(filename.c_str(),ios_base::out);
+    Stream = new std::ofstream(filename.c_str(),std::ios_base::out);
   }
 }
 
@@ -122,10 +122,10 @@ void
 OFStream::open (const std::string& filename, bool is_append) 
 { 
   if (is_append) {
-    static_cast<std::ofstream*>(Stream)->open(filename.c_str(),ios_base::app);
+    static_cast<std::ofstream*>(Stream)->open(filename.c_str(),std::ios_base::app);
   }
   else {
-    static_cast<std::ofstream*>(Stream)->open(filename.c_str(),ios_base::out);
+    static_cast<std::ofstream*>(Stream)->open(filename.c_str(),std::ios_base::out);
   }
 }  
   

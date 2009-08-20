@@ -30,13 +30,6 @@
 #include <exception>
 #include <sbml/common/extern.h>
 
-/** @cond doxygen-ignored */
-
-using namespace std;
-
-/** @endcond doxygen-ignored */
-
-
 /**
  *
  *  This exception will be thrown if a function which depends on

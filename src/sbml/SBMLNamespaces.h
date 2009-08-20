@@ -61,11 +61,6 @@
 
 
 
-/** @cond doxygen-ignored */
-
-using namespace std;
-
-/** @endcond doxygen-ignored */
 
 #define SBML_DEFAULT_LEVEL   2
 #define SBML_DEFAULT_VERSION 4

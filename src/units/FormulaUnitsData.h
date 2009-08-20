@@ -77,13 +77,6 @@
 
 class SBMLVisitor;
 
-/** @cond doxygen-ignored */
-
-using namespace std;
-
-/** @endcond doxgen-ignored */
-
-
 class LIBSBML_EXTERN FormulaUnitsData : public SBase
 {
 public:
@@ -136,7 +129,7 @@ public:
    * @return the value of the unitReferenceId of this 
    * FormulaUnitsData as a string.
    */
-  const string& getUnitReferenceId();
+  const std::string& getUnitReferenceId();
 
   /**
    * Get the unitReferenceId of this FormulaUnitsData.
@@ -144,7 +137,7 @@ public:
    * @return the value of the unitReferenceId of this 
    * FormulaUnitsData as a string.
    */
-  const string& getUnitReferenceId() const;
+  const std::string& getUnitReferenceId() const;
  
   /**
    * Get the SBMLTypecode of this FormulaUnitsData.

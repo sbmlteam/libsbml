@@ -38,7 +38,7 @@
 #include <check.h>
 
 
-ostringstream*   OSS2;
+std::ostringstream*   OSS2;
 XMLOutputStream* XOS2;
 Model *m2;
 SBMLDocument* d2;
@@ -53,7 +53,7 @@ CK_CPPSTART
 void
 RDFAnnotation2_setup (void)
 {
-  OSS2 = new ostringstream;
+  OSS2 = new std::ostringstream;
   XOS2 = new XMLOutputStream(*OSS2);
  
   char *filename = safe_strcat(TestDataDirectory, "annotation2.xml");

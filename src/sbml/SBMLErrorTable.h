@@ -29,13 +29,6 @@
 #include <sbml/SBMLError.h>
 
 
-/** @cond doxygen-ignored */
-
-using namespace std;
-
-/** @endcond doxygen-ignored */
-
-
 /** @cond doxygen-libsbml-internal */
 
 typedef struct {
