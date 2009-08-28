@@ -52,6 +52,7 @@
 #ifndef LIBSBML_CONFIG_H
 #define LIBSBML_CONFIG_H 1
 
+#include <sbml/common/libsbml-namespace.h>
 
 #if defined(WIN32) && !defined(CYGWIN)
 #  include <sbml/common/libsbml-config-win.h>

@@ -50,7 +50,9 @@ headers =               \
   libsbml-config.h      \
   libsbml-config-unix.h \
   libsbml-config-win.h  \
+  libsbml-namespace.h   \
   libsbml-version.h     \
+  operationReturnValues.h \
   sbmlfwd.h
 
 sources = libsbml-version.cpp
@@ -69,11 +71,14 @@ distfiles =                \
   libsbml-config-unix.h    \
   libsbml-config-unix.h.in \
   libsbml-config-win.h     \
+  libsbml-namespace.h      \
+  libsbml-namespace.h.in   \
   libsbml-package.h        \
   libsbml-package.h.in     \
   libsbml-version.h        \
   libsbml-version.h.in     \
   libsbml-version.cpp     \
+  operationReturnValues.h \
   sbmlfwd.h
 
 

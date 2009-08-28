@@ -24,6 +24,7 @@
 #ifndef LIBSBML_EXTERN_H
 #define LIBSBML_EXTERN_H
 
+#include <sbml/common/libsbml-namespace.h>
 
 #if ( WIN32 && ! defined CYGWIN )
 

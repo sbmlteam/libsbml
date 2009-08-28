@@ -32,6 +32,7 @@
 #define sbmlfwd_h
 
 
+#include <sbml/common/libsbml-namespace.h>
 #include <sbml/common/libsbml-config.h>
 
 
@@ -49,6 +50,7 @@
 #  define CLASS_OR_STRUCT struct
 #endif  /* __cplusplus */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * @var typedef class SBase SBase_t
@@ -300,6 +302,13 @@ typedef CLASS_OR_STRUCT ModelCreator              ModelCreator_t;
  */
 typedef CLASS_OR_STRUCT ModelHistory              ModelHistory_t;
 
+/**
+ * @var typedef class SBMLNamespaces SBMLNamespaces_t
+ * @copydoc SBMLNamespaces
+ */
+typedef CLASS_OR_STRUCT SBMLNamespaces             SBMLNamespaces_t;
+
+LIBSBML_CPP_NAMESPACE_END
 
 #undef CLASS_OR_STRUCT
 

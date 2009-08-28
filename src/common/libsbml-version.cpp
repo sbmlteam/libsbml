@@ -24,6 +24,7 @@
 
 #include "libsbml-version.h"
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Returns the libSBML version as an integer: version 1.2.3 becomes 10203.
@@ -62,5 +63,7 @@ getLibSBMLVersionString ()
 { 
   return LIBSBML_VERSION_STRING;
 }
+
+LIBSBML_CPP_NAMESPACE_END
 
 
