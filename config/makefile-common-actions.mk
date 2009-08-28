@@ -40,7 +40,7 @@
 # -----------------------------------------------------------------------------
 
 .SUFFIXES:
-.SUFFIXES: .a .so .dylib .jnilib .c .h .cpp .hpp .o .obj .Po .py .pyc .pyo .i .bundle
+.SUFFIXES: .a .so .dylib .jnilib .c .h .cpp .hpp .o .lo .la .obj .Po .py .pyc .pyo .i .bundle
 
 # The following define default values of variables like `cxxcompile'.  An
 # enclosing makefile can define other values, in which case those
@@ -68,26 +68,31 @@ endif
 # here is only to remove duplicates, which the 'sort' function does as a
 # documented side-effect.)
 
-compile ?= $(CC) $(FPIC) $(WALL) $(sort $(default_includes) $(INCLUDES)) $(CPPFLAGS) \
-	$(extra_CPPFLAGS) $(CFLAGS) $(extra_CFLAGS) 
+compile ?= $(LIBTOOL) --mode=compile --tag=CC $(CC) $(sort $(default_includes) $(INCLUDES)) $(CPPFLAGS) \
+        $(extra_CPPFLAGS) $(CFLAGS) $(extra_CFLAGS) 
 
-cxxcompile ?= $(CXX) $(FPIC) $(WALL) $(sort $(default_includes) $(INCLUDES)) $(CPPFLAGS) \
-	$(extra_CPPFLAGS) $(CXXFLAGS) $(extra_CXXFLAGS) 
+cxxcompile ?= $(LIBTOOL) --mode=compile --tag=CXX $(CXX) $(sort $(default_includes) $(INCLUDES)) \
+        $(CPPFLAGS) $(extra_CPPFLAGS) $(CXXFLAGS) $(extra_CXXFLAGS) 
 
 # The following two commands are used for dependency tracking only when 
 # building universal binaries on MacOSX.
-compile_nocflags ?= $(CC) $(FPIC) $(WALL) $(sort $(default_includes) $(INCLUDES)) \
-	$(CPPFLAGS) $(extra_CPPFLAGS) 
+compile_nocflags ?= $(CC) $(sort $(default_includes) $(INCLUDES)) \
+        $(CPPFLAGS) $(extra_CPPFLAGS) 
 
-cxxcompile_nocxxflags ?= $(CXX) $(FPIC) $(WALL) $(sort $(default_includes) $(INCLUDES)) \
-	$(CPPFLAGS) $(extra_CPPFLAGS) 
+cxxcompile_nocxxflags ?= $(CXX) $(sort $(default_includes) $(INCLUDES)) \
+        $(CPPFLAGS) $(extra_CPPFLAGS) \
 
 # For linking libraries, we try to follow the result of the libtool
 # numbering scheme, but at the final end, not in the input format.  (The
 # libtool input format is peculiar to us.)  Curious, this makes the
 # numbering very easy: it's a direct mapping of the libsbml version number.
 
-library_version = $(PACKAGE_VERSION)
+#library_version = $(subst $(empty) $(empty),.,$(wordlist 1, 2, $(subst ., ,$(PACKAGE_VERSION)))).0
+#library_version = $(PACKAGE_VERSION)
+library_version = $(shell echo $(PACKAGE_VERSION) | sed -e 's/\-.*//g' -e 's/[a-zA-Z]//g' )
+library_major_version = $(word 1, $(subst ., ,$(library_version)))
+library_minor_version = $(word 2, $(subst ., ,$(library_version)))
+library_patch_version = $(word 3, $(subst ., ,$(library_version)))
 
 # `platform_link_flags' is used below in the definition of link_shared_lib.
 # Generally, gcc and ld need -shared, but some systems think different.
@@ -111,16 +116,25 @@ ifeq "$(HOST_TYPE)" "darwin"
     USE_UNIVBINARY = 1
   endif 
 else
-  ifeq "$(HOST_TYPE)" "aix5.3.0.0" 
-    platform_link_flags ?= -G
+  #
+  # -no-undefined option is required to generate a *.dll file
+  # by using libtool on Cygwin  
+  #
+  ifeq "$(HOST_TYPE)" "cygwin" 
+    platform_link_flags ?= -no-undefined
   else
-    ifdef USE_SUN_CC
+    ifeq "$(HOST_TYPE)" "aix5.3.0.0" 
       platform_link_flags ?= -G
     else
-      platform_link_flags ?= -shared
+      ifdef USE_SUN_CC
+        platform_link_flags ?= -G
+      else
+        platform_link_flags ?= -shared
+      endif
     endif
   endif
 endif
+
 
 # The following defines the default function for linking objects into a
 # shared library. It gets used thus: $(call link_shared_lib,ARGS...).  The
@@ -128,10 +142,24 @@ endif
 # to the call.  An enclosing makefile can provide another definition, in
 # which case, the definition below will not be used.
 
+#    -version-info $(subst .,:,$(library_version)) \
+
 ifndef link_shared_lib
   define link_shared_lib 
-    $(CXX) $(extra_LDFLAGS) $(LDFLAGS) $(platform_link_flags) \
-	-o $(1) $(objfiles) $(extra_LIBS) $(LIBS)
+    $(LIBTOOL) --mode=link $(CXX) $(extra_LDFLAGS) $(LDFLAGS) \
+    -version-info \
+    `expr $(library_major_version) \+ $(library_minor_version)`:$(library_patch_version):$(library_minor_version) \
+    -inst-prefix-dir "$(DESTDIR)" \
+    $(platform_link_flags) -rpath $(LIBDIR) -o $(1) $(objfiles:.o=.lo) \
+    $(extra_LIBS) $(LIBS)
+  endef
+endif
+
+ifndef link_dl_lib
+  define link_dl_lib
+    $(TOP_SRCDIR)/config/lt_link_helper.sh $(CXX) --libdir $(LIBDIR) \
+    $(LDFLAGS) $(extra_LDFLAGS) $(platform_link_flags) \
+    -o $(1) $(objfiles:.o=.lo) $(extra_LIBS) $(LIBS)
   endef
 endif
 
@@ -161,16 +189,16 @@ endif
 # filter the results.  This abstracts out this common operation.
 
 make_objects_list = \
-  $(filter %.$(OBJEXT),\
-    $(patsubst %.cpp,%.$(OBJEXT),$(1)) $(patsubst %.c,%.$(OBJEXT),$(1)))
+  $(filter %.lo,\
+    $(patsubst %.cpp,%.lo,$(1)) $(patsubst %.c,%.lo,$(1)))
 
 # The following generate the list of object file names and dependency file
 # names from the list of source files.  They're used for the generic
 # compilation rules further below.
 
-tmplist  ?= $(sources:.cpp=.$(OBJEXT)) $(sources:.c=.$(OBJEXT))
-objfiles ?= $(filter %.$(OBJEXT),$(tmplist))
-depfiles ?= $(addprefix $(DEPDIR)/,$(objfiles:.$(OBJEXT)=.$(DEPEXT)))
+tmplist  ?= $(sources:.cpp=.lo) $(sources:.c=.lo)
+objfiles ?= $(filter %.lo,$(tmplist))
+depfiles ?= $(addprefix $(DEPDIR)/,$(objfiles:.lo=.$(DEPEXT)))
 
 # This next line includes the dependency files.  This doesn't use
 # $depfiles, but rather a wildcard on the actual files, so that if they
@@ -194,27 +222,30 @@ ifneq "$(HOST_TYPE)" "aix"
 
 endif
 
-%.so ../%.so: $(objfiles)
+%.la ../%.la: $(objfiles)
 	$(call link_shared_lib,$@)
 
+%.$(SHAREDLIBEXT) ../%.$(SHAREDLIBEXT): $(objfiles)
+	$(call link_dl_lib,$@)
+
 %.$(JNIEXT) ../%.$(JNIEXT): $(objfiles)
-	$(call link_shared_lib,$@)
+	$(call link_dl_lib,$@)
 
 #
 # -install_name option should be used when building an universal binary on MacOSX.
 #
-%.$(SHAREDLIBEXT) ../%.$(SHAREDLIBEXT): $(objfiles)
-ifeq "$(HOST_TYPE)" "darwin"
-	$(call link_shared_lib,$@ -install_name $@)
-else
-	$(call link_shared_lib,$@)
-endif
+#%.$(SHAREDLIBEXT) ../%.$(SHAREDLIBEXT): $(objfiles)
+#ifeq "$(HOST_TYPE)" "darwin"
+#	$(call link_shared_lib,$@ -install_name $@)
+#else
+#	$(call link_shared_lib,$@)
+#endif
 
 # The following define generic rules for creating object files.
 
 ifeq "$(HOST_TYPE)" "aix"
 
-.c.$(OBJEXT):
+.c.lo:
 	$(compile) -c -o $@ $<
 
 .c.obj:
@@ -224,7 +255,7 @@ ifeq "$(HOST_TYPE)" "aix"
 	else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; \
 	fi
 
-.cpp.$(OBJEXT) .cxx.$(OBJEXT):
+.cpp.lo .cxx.lo:
 	$(cxxcompile) -c -o $@ $<
 
 .cpp.obj:
@@ -236,7 +267,7 @@ ifeq "$(HOST_TYPE)" "aix"
 
 else
 
-.c.$(OBJEXT):
+.c.lo:
 ifndef USE_UNIVBINARY
   ifdef USE_SUN_CC
 	$(compile) -c -o $@ $<
@@ -255,7 +286,7 @@ endif
 	else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; \
 	fi
 
-.cpp.$(OBJEXT) .cxx.$(OBJEXT):
+.cpp.lo .cxx.lo:
 ifndef USE_UNIVBINARY
   ifdef USE_SUN_CC
 	$(cxxcompile) -c -o $@ $<
@@ -266,7 +297,6 @@ else
 	$(cxxcompile_nocxxflags) -MT $@ -MM -MP -MF "$(DEPDIR)/$*.$(DEPEXT)" $<
 	$(cxxcompile) -c -o $@ $<
 endif
-
 
 .cpp.obj:
 	if $(cxxcompile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" \
@@ -280,7 +310,7 @@ endif
 ifeq "$(HOST_TYPE)" "darwin"
 
 %.bundle ../%.bundle: $(objfiles)
-	$(call link_shared_lib,$@)
+	$(call link_dl_lib,$@)
 
 endif
 
@@ -353,7 +383,7 @@ endif
 # in the including Makefile.
 
 $(check_driver): $(test_objfiles)
-	$(CXX) $(extra_CPPFLAGS) $(extra_CXXFLAGS) $(default_includes) \
+	$(LIBTOOL) --mode=link $(CXX) $(extra_CPPFLAGS) $(extra_CXXFLAGS) $(default_includes) \
 	  $(CPPFLAGS) $(CFLAGS) $(INCLUDES) \
 	  $(test_objfiles) $(objfiles) $(extra_LDFLAGS) $(LDFLAGS) \
 	  $(LIBS) $(extra_LIBS) -o $@
@@ -390,18 +420,7 @@ endif
 
 define install_library
   $(MKINSTALLDIRS) $(DESTDIR)$(LIBDIR)
-  @if test "$(suffix $(1))" = ".so" -o "$(suffix $(1))" = ".dylib" -o "$(suffix $(1))" = ".jnilib"; then \
-    finalname="$(notdir $(basename $(1))).$(library_version)$(suffix $(1))"; \
-    echo $(INSTALL_SH) $(1) $(2)/$$finalname; \
-    $(INSTALL_SH) $(1) $(2)/$$finalname; \
-    echo $(install_strip) $(1) $(2)/$$finalname; \
-    $(install_strip) $(1) $(2)/$$finalname; \
-    echo ln -fs $$finalname $(2)/$(notdir $(1)); \
-    ln -fs $$finalname $(2)/$(notdir $(1)); \
-  else \
-    echo $(INSTALL_SH) $(1) $(2); \
-    $(INSTALL_SH) $(1) $(2); \
-  fi
+  $(LIBTOOL) --mode=install $(INSTALL_SH) $(1) $(DESTDIR)$(LIBDIR)
 endef
 
 to_install_libraries = $(addprefix install-,$(libraries))
@@ -474,7 +493,7 @@ $(addprefix $(include_root),$(headers)): $(headers)
 
 define uninstall_library
   @if test -f $(1); then \
-    finalname="$(notdir $(basename $(1))).$(library_version)$(suffix $(1))"; \
+    finalname="$(notdir $(basename $(1)))$(suffix $(1)).$(library_version)"; \
     target="$(2)/$$finalname"; \
     if test -f $$target ; then \
       echo rm $$target; \
@@ -621,7 +640,7 @@ clean:        mostlyclean clean-libraries clean-libtool clean-extras
 clean-normal: mostlyclean clean-libraries clean-libtool clean-extras
 
 clean-generic:
-	-rm -f *.$(OBJEXT) core *.core
+	-rm -f *.$(OBJEXT) *.lo core *.core
 
 clean-libtool:
 	-rm -rf .libs _libs
@@ -641,7 +660,7 @@ else
 endif
 
 mostlyclean-libtool:
-	-rm -f *.lo
+	-rm -f *.lo *.la *.loT
 
 distclean: clean distclean-compile distclean-depend distclean-generic \
 	distclean-tags distclean-libtool
@@ -683,15 +702,13 @@ maintainer-clean-generic:
 ifeq "$(HOST_TYPE)" "darwin"
 
   define libsbmlrun
-	DYLD_LIBRARY_PATH="$(TOP_BUILDDIR)/src:.:$(RUN_LDPATH):$(DYLD_LIBRARY_PATH)"; export DYLD_LIBRARY_PATH; export srcdir=.; \
-	$(1)
+	env DYLD_LIBRARY_PATH="$(RUN_LDPATH):$(DYLD_LIBRARY_PATH):." srcdir=. $(LIBTOOL) -dlopen $(TOP_BUILDDIR)/src/libsbml.la --mode=execute $(1)
   endef
 
 else
 
   define libsbmlrun
-	LD_LIBRARY_PATH="$(TOP_BUILDDIR)/src:.:$(RUN_LDPATH):$(LD_LIBRARY_PATH)"; export LD_LIBRARY_PATH; export srcdir=.; \
-	$(1)
+	env LD_LIBRARY_PATH="$(RUN_LDPATH):$(LD_LIBRARY_PATH):." srcdir=. $(LIBTOOL) -dlopen $(TOP_BUILDDIR)/src/libsbml.la --mode=execute $(1)
   endef
 
 endif
@@ -723,8 +740,8 @@ $(TOP_SRCDIR)/configure: \
 	cd $(TOP_SRCDIR) && $(AUTOCONF) --force
 	cd $(TOP_SRCDIR) && $(SHELL) ./config.status --recheck
 
-$(ACLOCAL_M4): $(wildcard $(TOP_SRCDIR)/config/*.m4)
-	cd $(TOP_SRCDIR) && $(ACLOCAL) --acdir=config
+$(ACLOCAL_M4): $(ACINCLUDE_M4) $(wildcard $(TOP_SRCDIR)/config/*.m4)
+	cd $(TOP_SRCDIR) && $(ACLOCAL) -I config
 
 $(TOP_SRCDIR)/src/sbml/config.h: src/sbml/stamp-h1
 	@if test ! -f $@; then \

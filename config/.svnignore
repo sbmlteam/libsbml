@@ -9,3 +9,5 @@ CTAGS
 libsbml.pc
 *.o
 makefile-common-vars.mk
+mkoctfile_wrapper.sh
+lt_link_helper.sh
