@@ -44,13 +44,18 @@ thisdir   = src/annotation/test
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-test_sources =           \
-  TestCVTerms.c          \
-  TestCopyAndClone.cpp   \
-  TestModelHistory.c     \
-  TestRDFAnnotation.cpp  \
-  TestRDFAnnotation2.cpp \
-  TestRDFAnnotationC.c   \
+test_sources =                   \
+  TestCVTerms.c                  \
+  TestCVTerms_newSetters.c       \
+  TestCopyAndClone.cpp           \
+  TestModelHistory.c             \
+  TestDate_newSetters.c          \
+  TestModelCreator_newSetters.c  \
+  TestModelHistory_newSetters.c  \
+  TestRDFAnnotation.cpp          \
+  TestRDFAnnotation2.cpp         \
+  TestRDFAnnotationC.c           \
+  TestValidation.cpp             \
   TestRunner.c
 
 test_data_files = \
@@ -123,8 +128,8 @@ all: Makefile
 # dependencies on other subdirectoris of the source tree, we do some rummaging
 # around in .. and ../../subdirs.
 
-tmp           = $(test_sources:.cpp=.$(OBJEXT)) $(test_sources:.c=.$(OBJEXT))
-localobjfiles = $(filter %.$(OBJEXT),$(tmp))
+tmp           = $(test_sources:.cpp=.lo) $(test_sources:.c=.lo)
+localobjfiles = $(filter %.lo,$(tmp))
 otherdirs     = .. ../../util ../../xml ../../math ../../sbml ../../validator \
 	../../validator/constraints ../../units ../../compress ../../common
 
@@ -132,7 +137,7 @@ ifdef USE_LAYOUT
   otherdirs +=	../../sbml/layout
 endif
 
-otherobjfiles = $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
+otherobjfiles = $(wildcard $(addsuffix /*.lo,$(otherdirs)))
 test_objfiles = $(localobjfiles) $(otherobjfiles)
 
 ifdef USE_LIBCHECK

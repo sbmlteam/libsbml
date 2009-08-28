@@ -42,6 +42,7 @@ using namespace std;
 
 /** @endcond doxygen-ignore */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /*
  * takes an annotation that has been read into the model
@@ -704,11 +705,7 @@ RDFAnnotationParser::parseModelHistory(const Model *model)
       li.addChild(*(c->getAdditionalRDF()));
     }
 
-    /* hack to catch empty creator */
-    if (li.getNumChildren() > 0)
-    {
-      bag.addChild(li);
-    }
+    bag.addChild(li);
   }
 
   XMLNode creator(creator_token);
@@ -1088,3 +1085,5 @@ RDFAnnotationParser_parseModelHistory(const Model_t * object)
 }
 
 /** @endcond doxygen-c-only */
+
+LIBSBML_CPP_NAMESPACE_END

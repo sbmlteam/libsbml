@@ -1,7 +1,7 @@
 /**
- * \file    TestReadSBML.cpp
- * \brief   Read SBML unit tests
- * \author  Ben Bornstein
+ * \file    TestCopyAndClone.cpp
+ * \brief   Test the copy and clone methods for annotation classes
+ * \author  Sarah Keating
  *
  * $Id$
  * $HeadURL$
@@ -29,6 +29,7 @@
 
 
 using namespace std;
+LIBSBML_CPP_NAMESPACE_USE
 
 CK_CPPSTART
 START_TEST ( test_Date_copyConstructor )
@@ -154,6 +155,7 @@ START_TEST ( test_ModelHistory_copyConstructor )
   
   ModelCreator *mc = new ModelCreator();
   mc->setFamilyName("Keating");
+  mc->setGivenName("Sarah");
   mc->setEmail("sbml-team@caltech.edu");
 
   mh->addCreator(mc);
@@ -167,7 +169,8 @@ START_TEST ( test_ModelHistory_copyConstructor )
   fail_unless(mh->getCreatedDate()->getMonth() == 12);
   fail_unless(mh->getCreatedDate()->getSecond() == 45);
 
-  fail_unless(static_cast <ModelCreator*>(mh->getListCreators()->get(0))->getFamilyName() == "Keating");
+  fail_unless(static_cast <ModelCreator*>
+    (mh->getListCreators()->get(0))->getFamilyName() == "Keating");
 
   ModelHistory* mh2=new ModelHistory(*mh);
 
@@ -186,6 +189,7 @@ START_TEST ( test_ModelHistory_assignmentOperator )
   ModelHistory * mh = new ModelHistory();
   
   ModelCreator *mc = new ModelCreator();
+  mc->setGivenName("Sarah");
   mc->setFamilyName("Keating");
   mc->setEmail("sbml-team@caltech.edu");
 
@@ -223,6 +227,7 @@ START_TEST ( test_ModelHistory_clone )
   
   ModelCreator *mc = new ModelCreator();
   mc->setFamilyName("Keating");
+  mc->setGivenName("Sarah");
   mc->setEmail("sbml-team@caltech.edu");
 
   mh->addCreator(mc);

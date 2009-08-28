@@ -37,9 +37,8 @@
 
 #include <check.h>
 
+LIBSBML_CPP_NAMESPACE_USE
 
-std::ostringstream*   OSS2;
-XMLOutputStream* XOS2;
 Model *m2;
 SBMLDocument* d2;
 
@@ -53,9 +52,6 @@ CK_CPPSTART
 void
 RDFAnnotation2_setup (void)
 {
-  OSS2 = new std::ostringstream;
-  XOS2 = new XMLOutputStream(*OSS2);
- 
   char *filename = safe_strcat(TestDataDirectory, "annotation2.xml");
 
   // The following will return a pointer to a new SBMLDocument.
@@ -68,12 +64,10 @@ void
 RDFAnnotation2_teardown (void)
 {
   delete d2;
-  delete OSS2;
-  delete XOS2;
 }
 
 static bool
-equals1 (const char* expected, const char* actual)
+equals (const char* expected, const char* actual)
 {
   if ( !strcmp(expected, actual) ) return true;
 
@@ -85,11 +79,6 @@ equals1 (const char* expected, const char* actual)
 }
 
 
-static bool
-equals (const char* expected)
-{
-  return equals1(expected, OSS2->str().c_str());
-}
 
 START_TEST (test_RDFAnnotation2_getModelHistory)
 {
@@ -159,6 +148,11 @@ START_TEST (test_RDFAnnotation2_modelWithHistoryAndCVTerms)
   c->setGivenName("Sarah");
 
   h->addCreator(c);
+
+  Date *d = new Date(2008, 11, 17, 18, 37, 0, 0, 0, 0);
+  h->setCreatedDate(d);
+  h->setModifiedDate(d);
+
   m2->unsetModelHistory();
 
   m2->setModelHistory(h);
@@ -169,10 +163,9 @@ START_TEST (test_RDFAnnotation2_modelWithHistoryAndCVTerms)
   cv->addResource("http://www.geneontology.org/#GO:0005892");
 
   m2->addCVTerm(cv);
-  XMLNode *Ann = RDFAnnotationParser::parseModelHistory(m2);
+  XMLNode *ann = RDFAnnotationParser::parseModelHistory(m2);
 
   const char * expected =
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
     "<annotation>\n"
 		"  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
 		"    <rdf:Description rdf:about=\"#_000001\">\n"
@@ -186,6 +179,12 @@ START_TEST (test_RDFAnnotation2_modelWithHistoryAndCVTerms)
 		"          </rdf:li>\n"
 		"        </rdf:Bag>\n"
 		"      </dc:creator>\n"
+    "      <dcterms:created rdf:parseType=\"Resource\">\n"
+    "        <dcterms:W3CDTF>2008-11-17T18:37:00Z</dcterms:W3CDTF>\n"
+    "      </dcterms:created>\n"
+    "      <dcterms:modified rdf:parseType=\"Resource\">\n"
+    "        <dcterms:W3CDTF>2008-11-17T18:37:00Z</dcterms:W3CDTF>\n"
+    "      </dcterms:modified>\n"
 		"      <bqbiol:isVersionOf>\n"
 		"        <rdf:Bag>\n"
 		"          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0005892\"/>\n"
@@ -195,9 +194,14 @@ START_TEST (test_RDFAnnotation2_modelWithHistoryAndCVTerms)
 		"  </rdf:RDF>\n"
     "</annotation>";
 
-  Ann->write(*XOS2);
-
-  fail_unless( equals(expected) );
+  if (ann) 
+  {
+    fail_unless( equals(expected, ann->toXMLString().c_str()) );
+  }
+  else
+  {
+    fail("parseModelHistory failed");
+  }
 }
 END_TEST
 
@@ -220,10 +224,9 @@ START_TEST (test_RDFAnnotation2_modelWithHistoryAndMultipleModifiedDates)
 
   m2->setModelHistory(h);
 
-  XMLNode *Ann = RDFAnnotationParser::parseModelHistory(m2);
+  XMLNode *ann = RDFAnnotationParser::parseModelHistory(m2);
 
   const char * expected =
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
     "<annotation>\n"
 		"  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
 		"    <rdf:Description rdf:about=\"#_000001\">\n"
@@ -250,13 +253,57 @@ START_TEST (test_RDFAnnotation2_modelWithHistoryAndMultipleModifiedDates)
 		"  </rdf:RDF>\n"
     "</annotation>";
 
-  Ann->write(*XOS2);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected, ann->toXMLString().c_str()) );
 }
 END_TEST
 
 START_TEST (test_RDFAnnotation2_modelWithHistoryWithCharacterReference)
+
+{
+  ModelHistory * h = new ModelHistory();
+
+  ModelCreator *c = new ModelCreator();
+  c->setFamilyName("Dr&#228;ger");
+  c->setGivenName("Andreas");
+
+  h->addCreator(c);
+  Date * d = new Date(2005, 2, 2, 14, 56, 11);
+  h->setCreatedDate(d);
+  h->addModifiedDate(d);
+
+  m2->unsetModelHistory();
+
+  m2->setModelHistory(h);
+
+  XMLNode *ann = RDFAnnotationParser::parseModelHistory(m2);
+
+  const char * expected =
+    "<annotation>\n"
+		"  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"    <rdf:Description rdf:about=\"#_000001\">\n"
+		"      <dc:creator rdf:parseType=\"Resource\">\n"
+		"        <rdf:Bag>\n"
+		"          <rdf:li rdf:parseType=\"Resource\">\n"
+		"            <vCard:N rdf:parseType=\"Resource\">\n"
+		"              <vCard:Family>Dr&#228;ger</vCard:Family>\n"
+		"              <vCard:Given>Andreas</vCard:Given>\n"
+		"            </vCard:N>\n"
+		"          </rdf:li>\n"
+		"        </rdf:Bag>\n"
+		"      </dc:creator>\n"
+		"      <dcterms:created rdf:parseType=\"Resource\">\n"
+		"        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+		"      </dcterms:created>\n"
+		"      <dcterms:modified rdf:parseType=\"Resource\">\n"
+		"        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+		"      </dcterms:modified>\n"
+		"    </rdf:Description>\n"
+		"  </rdf:RDF>\n"
+    "</annotation>";
+
+  fail_unless( equals(expected, ann->toXMLString().c_str()) );
+}
+END_TEST
 
 {
   ModelHistory * h = new ModelHistory();

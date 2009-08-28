@@ -70,6 +70,7 @@
 
 #include <cstdlib>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN RDFAnnotationParser
 {
@@ -235,10 +236,13 @@ public:
    /** @endcond doxygen-libsbml-internal */
 };
 
+LIBSBML_CPP_NAMESPACE_END
+
 #endif  /* __cplusplus */
 
 #ifndef SWIG
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /*-----------------------------------------------------------------------------
@@ -276,8 +280,7 @@ RDFAnnotationParser_parseModelHistory(const Model_t * object);
 
 
 END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
-
-
 #endif  /** RDFAnnotation_h **/

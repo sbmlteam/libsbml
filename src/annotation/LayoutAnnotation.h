@@ -43,6 +43,8 @@
 
 #include <cstdlib>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 #ifdef USE_LAYOUT // make the functions inaccesible when the layout is not used
 
 
@@ -90,6 +92,7 @@ XMLNode* parseLayoutId(const SimpleSpeciesReference* sr);
 
 #endif // USE_LAOYUT
 
-#endif  /* __cplusplus */
+LIBSBML_CPP_NAMESPACE_END
 
+#endif  /* __cplusplus */
 #endif  /** LayoutAnnotation_h **/

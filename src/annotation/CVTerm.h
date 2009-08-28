@@ -54,8 +54,11 @@
 
 #include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
+#include <sbml/common/operationReturnValues.h>
 
 #include <sbml/xml/XMLAttributes.h>
+
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 typedef enum
 {
@@ -86,6 +89,8 @@ typedef enum
   , BQB_UNKNOWN
 } BiolQualifierType_t;
 
+LIBSBML_CPP_NAMESPACE_END
+
 #ifdef __cplusplus
 
 
@@ -96,7 +101,7 @@ typedef enum
 
 #include <cstdlib>
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN CVTerm
 {
@@ -244,8 +249,12 @@ public:
    * Sets the #QualifierType_t value of this %CVTerm.
    *
    * @param type the #QualifierType_t type value 
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
-  void setQualifierType(QualifierType_t type);
+  int setQualifierType(QualifierType_t type);
 
 
   /**
@@ -253,10 +262,17 @@ public:
    *
    * @param type the #ModelQualifierType_t value
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   *
    * @note If the Qualifier Type of this object is not MODEL_QUALIFIER,
    * then the ModelQualifierType_t will default to BQM_UNKNOWN.
    */
-  void setModelQualifierType(ModelQualifierType_t type);
+  int setModelQualifierType(ModelQualifierType_t type);
 
 
   /**
@@ -264,11 +280,18 @@ public:
    *
    * @param type the #BiolQualifierType_t value
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   *
    * @note if the Qualifier Type of this object is not
    * BIOLOGICAL_QUALIFIER, then the #BiolQualifierType_t value will default
    * to BQB_UNKNOWN.
    */
-  void setBiologicalQualifierType(BiolQualifierType_t type);
+  int setBiologicalQualifierType(BiolQualifierType_t type);
 
 
   /**
@@ -279,8 +302,15 @@ public:
    *
    * @note this method adds the name "rdf:resource" to the attribute prior
    * to adding it to the resources in this CVTerm.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  void addResource(std::string resource);
+  int addResource(std::string resource);
 
 
   /**
@@ -288,8 +318,21 @@ public:
    *
    * @param resource string representing the resource; e.g.,
    * "http://www.geneontology.org/#GO:0005892"
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  void removeResource(std::string resource);
+  int removeResource(std::string resource);
+  
+  /* The required attributes for a CVTerm are:
+   * qualifierType and appropriate biologicalQualifierType or 
+   * modelQualifierType and at least one resource.
+   */ 
+  bool hasRequiredAttributes();
 
 protected:
   /** @cond doxygen-libsbml-internal */
@@ -303,12 +346,13 @@ protected:
   /** @endcond doxygen-libsbml-internal */
 };
 
-
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
 #ifndef SWIG
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /*-----------------------------------------------------------------------------
@@ -366,32 +410,37 @@ CVTerm_getResourceURI(CVTerm_t * cv, unsigned int n);
 
 
 LIBSBML_EXTERN
-void 
+int 
 CVTerm_setQualifierType(CVTerm_t * CVT, QualifierType_t type);
 
 
 LIBSBML_EXTERN
-void 
+int 
 CVTerm_setModelQualifierType(CVTerm_t * CVT, ModelQualifierType_t type);
 
 
 LIBSBML_EXTERN
-void 
+int 
 CVTerm_setBiologicalQualifierType(CVTerm_t * CVT, BiolQualifierType_t type);
 
 
 LIBSBML_EXTERN
-void 
+int 
 CVTerm_addResource(CVTerm_t * CVT, const char * resource);
 
 
 LIBSBML_EXTERN
-void 
+int 
 CVTerm_removeResource(CVTerm_t * CVT, const char * resource);
 
 
+LIBSBML_EXTERN
+int
+CVTerm_hasRequiredAttributes(CVTerm_t *cvt);
+
+
 END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
-
 #endif  /** CVTerm_h **/

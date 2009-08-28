@@ -31,6 +31,7 @@ using namespace std;
 
 /** @endcond doxygen-ignore */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
   * creates a date from the individual fields entered as numbers
@@ -121,39 +122,54 @@ Date* Date::clone () const
 /*
  * sets the value of the year checking appropriateness
  */
-void 
+int 
 Date::setYear    (unsigned int year)
 {
   if (year <1000 || year > 9999)
-    mYear = 2007;
+  {
+    mYear = 2000;
+    parseDateNumbersToString();
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
   else
+  {
     mYear = year;
-  
-  parseDateNumbersToString();
+    parseDateNumbersToString();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 /*
  * sets the value of the year checking appropriateness
  */
-void 
+int 
 Date::setMonth   (unsigned int month)
 {
   if (month < 1 || month > 12)
+  {
     mMonth = 1;
+    parseDateNumbersToString();
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
   else
+  {
     mMonth = month;
-  
-  parseDateNumbersToString();
+    parseDateNumbersToString();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 /*
  * sets the value of the year checking appropriateness
  */
-void 
+int 
 Date::setDay     (unsigned int day)
 {
+  bool validDay = true;
   if (day < 1 || day > 31)
-    mDay = 1;
+  {
+    validDay = false;
+  }
   else
   {
     switch (mMonth)
@@ -162,26 +178,17 @@ Date::setDay     (unsigned int day)
     case 6:
     case 9:
     case 11:
-      if (day > 30)
-        mDay = 1;
-      else
-        mDay = day;
+      if (day > 30) validDay = false;
       break;
     case 2:
       if (mYear % 4 == 0)
       {
-        if (day > 29)
-          mDay = 1;
-        else
-          mDay = day;
+        if (day > 29) validDay = false;
       }
       else
       {
-         if (day > 28)
-          mDay = 1;
-        else
-          mDay = day;
-     }
+         if (day > 28) validDay = false;
+      }
       break;
     case 1:
     case 3:
@@ -191,151 +198,181 @@ Date::setDay     (unsigned int day)
     case 10:
     case 12:
     default:
-      mDay = day;
       break;
-
     }
   }
   
-  parseDateNumbersToString();
+  if (!validDay)
+  {
+    mDay = 1;
+    parseDateNumbersToString();
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mDay = day;
+    parseDateNumbersToString();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 } 
 
 /*
  * sets the value of the year checking appropriateness
  */
-void 
+int 
 Date::setHour    (unsigned int hour)
 {
   if (hour < 0 || hour > 23)
+  {
     mHour = 0;
+    parseDateNumbersToString();
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
   else
+  {
     mHour = hour;
-  
-  parseDateNumbersToString();
+    parseDateNumbersToString();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 /*
  * sets the value of the year checking appropriateness
  */
-void 
+int 
 Date::setMinute  (unsigned int minute)
 {
   if (minute < 0 || minute > 59)
+  {
     mMinute = 0;
+    parseDateNumbersToString();
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
   else
+  {
     mMinute = minute;
-  
-  parseDateNumbersToString();
+    parseDateNumbersToString();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 /*
  * sets the value of the year checking appropriateness
  */
-void 
+int 
 Date::setSecond  (unsigned int second)
 {
   if (second < 0 || second > 59)
+  {
     mSecond = 0;
+    parseDateNumbersToString();
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
   else
+  {
     mSecond = second;
-  
-  parseDateNumbersToString();
+    parseDateNumbersToString();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 /*
  * sets the value of the year checking appropriateness
  */
-void 
+int 
 Date::setSignOffset    (unsigned int sign)
 {
   if (sign < 0 || sign > 1)
+  {
     mSignOffset = 0;
+    parseDateNumbersToString();
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
   else
+  {
     mSignOffset = sign;
-  
-  parseDateNumbersToString();
+    parseDateNumbersToString();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * sets the value of the year checking appropriateness
  */
-void 
+int 
 Date::setHoursOffset    (unsigned int hour)
 {
   if (hour < 0 || hour > 12)
+  {
     mHoursOffset = 0;
+    parseDateNumbersToString();
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
   else
+  {
     mHoursOffset = hour;
-  
-  parseDateNumbersToString();
+    parseDateNumbersToString();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 /*
  * sets the value of the year checking appropriateness
  */
-void 
+int 
 Date::setMinutesOffset  (unsigned int minute)
 {
   if (minute < 0 || minute > 59)
+  {
     mMinutesOffset = 0;
+    parseDateNumbersToString();
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
   else
+  {
     mMinutesOffset = minute;
-  
-  parseDateNumbersToString();
+    parseDateNumbersToString();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 /*
  * sets the value of the date string checking appropriateness
  */
-void 
+int 
 Date::setDateAsString (std::string date)
 {
+  /* if date is NULL consider this as resetting 
+   * the date completely
+   */
+  if (date.empty())
+  {
+    mDate = "";
+    // revert to default numbers
+    // rewrite date string to reflect the defaults
+    parseDateStringToNumbers();
+    parseDateNumbersToString();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+
   /* Date must be: YYYY-MM-DDThh:mm:ssTZD
    * where TZD is either Z or +/-HH:MM
    */
-  if (date.length() != 20 && date.length() != 25)
-  {
-    mDate = "";
-    parseDateStringToNumbers();
-    return;
-  }
-
-  const char * cdate = date.c_str();
-  /* check for - and :*/
-  if (cdate[4]  != '-' ||
-      cdate[7]  != '-' ||
-      cdate[10] != 'T' ||
-      cdate[13] != ':' ||
-      cdate[16] != ':')
-  {
-    mDate = "";
-    parseDateStringToNumbers();
-    return;
-  }
-
-  /* check TZD */
-  if (cdate[19] != 'Z' &&
-      cdate[19] != '+' && 
-      cdate[19] != '-')
-  {
-    mDate = "";
-    parseDateStringToNumbers();
-    return;
-  }
-
-  if (cdate[19] != 'Z')
-  {
-    if (cdate[22] != ':')
-    {
-      mDate = "";
-      parseDateStringToNumbers();
-      return;
-    }
-  }
-
   mDate = date;
-  parseDateStringToNumbers();
+
+  if (!representsValidDate())
+  {
+    mDate = "";
+    parseDateNumbersToString();
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    parseDateStringToNumbers();
+    parseDateNumbersToString();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -415,7 +452,7 @@ Date::parseDateStringToNumbers()
 {
   if (mDate.length() == 0)
   {
-    mYear   = 2007;
+    mYear   = 2000;
     mMonth  = 1;
     mDay    = 1;
     mHour   = 0;  
@@ -495,6 +532,80 @@ Date::parseDateStringToNumbers()
       mMinutesOffset = 0;
     }
   }
+}
+
+bool
+Date::representsValidDate()
+{
+  bool valid = true;
+//  parseDateNumbersToString();
+  const char * cdate = mDate.c_str();
+
+  if (mDate.length() != 20 && mDate.length() != 25)
+  {
+    valid = false;
+  }
+  else if (cdate[4]  != '-' ||
+      cdate[7]  != '-' ||
+      cdate[10] != 'T' ||
+      cdate[13] != ':' ||
+      cdate[16] != ':')
+  {
+    valid = false;
+  }
+  else if (cdate[19] != 'Z' &&
+      cdate[19] != '+' && 
+      cdate[19] != '-')
+  {
+    valid = false;
+  }
+  else if (cdate[19] != 'Z' &&
+           cdate[22] != ':')
+  {
+    valid = false;
+  }
+
+
+  if (getMonth() > 12 ||
+      getDay() > 31   ||
+      getHour() > 23  ||
+      getMinute() > 59 ||
+      getSecond() > 59 ||
+      getSignOffset() > 1 ||
+      getHoursOffset() > 11 ||
+      getMinutesOffset() > 59)
+  {
+    valid = false;
+  }
+  else
+  {
+    switch(getMonth())
+    {
+    case 4:
+    case 6:
+    case 9:
+    case 11:
+      if (getDay() > 30)
+        valid = false;
+      break;
+    case 2:
+      if (getYear() % 4 == 0)
+      {
+        if (getDay() > 29)
+          valid = false;
+      }
+      else
+      {
+        if (getDay() > 28)
+          valid = false;
+      }
+      break;
+    default:
+      break;
+    }
+  }
+  
+  return valid;
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -641,103 +752,156 @@ ModelCreator::isSetOrganization()
 }
 
 
-/** @cond doxygen-libsbml-internal */
 bool 
 ModelCreator::isSetOrganisation()
 {
   return isSetOrganization();
 }
-/** @endcond doxygen-libsbml-internal */
 
 
 /*
  * sets the family name
  */
-void 
+int 
 ModelCreator::setFamilyName(std::string name)
 {
   mFamilyName = name;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
 /*
  * sets the given name
  */
-void 
+int 
 ModelCreator::setGivenName(std::string name)
 {
   mGivenName = name;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
 /*
  * sets the email
  */
-void 
+int 
 ModelCreator::setEmail(std::string email)
 {
   mEmail = email;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
-void 
+int 
 ModelCreator::setOrganization(std::string organization)
 {
   mOrganization = organization;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
-/** @cond doxygen-libsbml-internal */
-void 
+int 
 ModelCreator::setOrganisation(std::string organization)
 {
-  setOrganization(organization);
+  return setOrganization(organization);
 }
-/** @endcond doxygen-libsbml-internal */
 
 
-void 
+int 
 ModelCreator::unsetFamilyName()
 {
   mFamilyName.erase();
+
+  if (mFamilyName.empty()) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
-void 
+int 
 ModelCreator::unsetGivenName()
 {
   mGivenName.erase();
+
+  if (mGivenName.empty()) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
-void 
+int 
 ModelCreator::unsetEmail()
 {
   mEmail.erase();
+
+  if (mEmail.empty()) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
-void 
+int 
 ModelCreator::unsetOrganization()
 {
   mOrganization.erase();
+
+  if (mOrganization.empty()) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
-/** @cond doxygen-libsbml-internal */
-void 
+int 
 ModelCreator::unsetOrganisation()
 {
-  unsetOrganization();
+  return unsetOrganization();
 }
 
+/** @cond doxygen-libsbml-internal */
 XMLNode *
 ModelCreator::getAdditionalRDF()
 {
   return mAdditionalRDF;
 }
-
 /** @endcond doxygen-libsbml-internal */
+
+bool
+ModelCreator::hasRequiredAttributes()
+{
+  bool valid = true;
+
+  if (!isSetFamilyName())
+  {
+    valid = false;
+  }
+
+  if (!isSetGivenName())
+  {
+    valid = false;
+  }
+
+  return valid;
+}
 
 
 /*
@@ -792,7 +956,7 @@ ModelHistory::ModelHistory(const ModelHistory& orig)
   }
   if (orig.mCreatedDate) 
   {
-    setCreatedDate(orig.mCreatedDate);
+    this->mCreatedDate = orig.mCreatedDate->clone();
   }
   else
   {
@@ -832,7 +996,6 @@ ModelHistory::operator=(const ModelHistory& orig)
     {
       addCreator(static_cast<ModelCreator*>(orig.mCreators->get(i)));
     }
-
 
     if (mModifiedDates)
     {
@@ -874,39 +1037,84 @@ ModelHistory::clone() const
 /*
  * adds a creator to the model history
  */
-void 
+int 
 ModelHistory::addCreator(ModelCreator * creator)
 {
-  mCreators->add((void *)(creator->clone()));
+  if (creator == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (!creator->hasRequiredAttributes())
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else
+  {
+    mCreators->add((void *)(creator->clone()));
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /**
   * sets the created date
   */
-void 
+int 
 ModelHistory::setCreatedDate(Date* date)
 {
-  mCreatedDate = date->clone();
+  if (mCreatedDate == date)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (date == NULL)
+  {
+    delete mCreatedDate;
+    mCreatedDate = 0;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (!date->representsValidDate())
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else
+  {
+    delete mCreatedDate;
+    mCreatedDate = date->clone();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /**
   * sets teh modiefied date
   */
-void 
+int 
 ModelHistory::setModifiedDate(Date* date)
 {
   //mModifiedDate = date->clone();
-  addModifiedDate(date);
+  return addModifiedDate(date);
 }
 /*
  * adds a modifieddate to the model history
  */
-void 
+int 
 ModelHistory::addModifiedDate(Date * date)
 {
-  mModifiedDates->add((void *)(date->clone()));
+  if (date == NULL)
+  {
+    //delete mModifiedDate;
+    //mModifiedDate = 0;
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (!date->representsValidDate())
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else
+  {
+    mModifiedDates->add((void *)(date->clone()));
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 /*
@@ -1006,6 +1214,43 @@ bool
 ModelHistory::isSetModifiedDate()
 {
   return (getNumModifiedDates() != 0);
+}
+
+bool
+ModelHistory::hasRequiredAttributes()
+{
+  bool valid = true;
+  
+  if ( getNumCreators() < 1 ||
+      !isSetCreatedDate()  ||
+      !isSetModifiedDate() )
+  {
+    valid = false;
+  }
+
+  unsigned int i = 0;
+  while(valid && i < getNumCreators())
+  {
+    valid = static_cast<ModelCreator *>(getCreator(i))
+      ->hasRequiredAttributes();
+    i++;
+  }
+
+  if (!valid) 
+  {
+    return valid;
+  }
+
+  valid = getCreatedDate()->representsValidDate();
+
+  if (!valid) 
+  {
+    return valid;
+  }
+  
+  valid = getModifiedDate()->representsValidDate();
+
+  return valid;
 }
 
 
@@ -1240,12 +1485,19 @@ Date_getMinutesOffset(Date_t * date)
  *  
  * @param date the Date_t structure to be set
  * @param value an unsigned int representing the year to set.  
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
  */
 LIBSBML_EXTERN
-void
+int
 Date_setYear(Date_t * date, unsigned int value) 
 { 
-  date->setYear(value); 
+  return date->setYear(value); 
 }
 
 
@@ -1254,12 +1506,19 @@ Date_setYear(Date_t * date, unsigned int value)
  *  
  * @param date the Date_t structure to be set
  * @param value an unsigned int representing the month to set.  
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
  */
 LIBSBML_EXTERN
-void
+int
 Date_setMonth(Date_t * date, unsigned int value) 
 { 
-  date->setMonth(value); 
+  return date->setMonth(value); 
 }
 
 
@@ -1268,12 +1527,19 @@ Date_setMonth(Date_t * date, unsigned int value)
  *  
  * @param date the Date_t structure to be set
  * @param value an unsigned int representing the day to set.  
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
  */
 LIBSBML_EXTERN
-void
+int
 Date_setDay(Date_t * date, unsigned int value) 
 { 
-  date->setDay(value); 
+  return date->setDay(value); 
 }
 
 
@@ -1282,12 +1548,19 @@ Date_setDay(Date_t * date, unsigned int value)
  *  
  * @param date the Date_t structure to be set
  * @param value an unsigned int representing the hour to set.  
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
  */
 LIBSBML_EXTERN
-void
+int
 Date_setHour(Date_t * date, unsigned int value) 
 { 
-  date->setHour(value); 
+  return date->setHour(value); 
 }
 
 
@@ -1296,12 +1569,19 @@ Date_setHour(Date_t * date, unsigned int value)
  *  
  * @param date the Date_t structure to be set
  * @param value an unsigned int representing the minute to set.  
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
  */
 LIBSBML_EXTERN
-void
+int
 Date_setMinute(Date_t * date, unsigned int value) 
 { 
-  date->setMinute(value); 
+  return date->setMinute(value); 
 }
 
 
@@ -1310,12 +1590,19 @@ Date_setMinute(Date_t * date, unsigned int value)
  *  
  * @param date the Date_t structure to be set
  * @param value an unsigned int representing the second to set.  
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
  */
 LIBSBML_EXTERN
-void
+int
 Date_setSecond(Date_t * date, unsigned int value) 
 { 
-  date->setSecond(value); 
+  return date->setSecond(value); 
 }
 
 
@@ -1325,12 +1612,19 @@ Date_setSecond(Date_t * date, unsigned int value)
  * @param date the Date_t structure to be set
  * @param value an unsigned int representing the sign of the 
  * offset to set.  
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
  */
 LIBSBML_EXTERN
-void
+int
 Date_setSignOffset(Date_t * date, unsigned int value) 
 { 
-  date->setSignOffset(value); 
+  return date->setSignOffset(value); 
 }
 
 
@@ -1340,12 +1634,19 @@ Date_setSignOffset(Date_t * date, unsigned int value)
  * @param date the Date_t structure to be set
  * @param value an unsigned int representing the hours of the 
  * offset to set.  
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
  */
 LIBSBML_EXTERN
-void
+int
 Date_setHoursOffset(Date_t * date, unsigned int value) 
 { 
-  date->setHoursOffset(value); 
+  return date->setHoursOffset(value); 
 }
 
 
@@ -1355,12 +1656,48 @@ Date_setHoursOffset(Date_t * date, unsigned int value)
  * @param date the Date_t structure to be set
  * @param value an unsigned int representing the minutes of the 
  * offset to set.  
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
  */
 LIBSBML_EXTERN
-void
+int
 Date_setMinutesOffset(Date_t * date, unsigned int value) 
 { 
-  date->setMinutesOffset(value); 
+  return date->setMinutesOffset(value); 
+}
+
+/**
+ * Sets the value of the date from a string.
+ *  
+ * @param date the Date_t structure to be set
+ * @param str string representing the date to set.  
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ */
+LIBSBML_EXTERN
+int
+Date_setDateAsString(Date_t * date, const char *str)
+{
+  return (str == NULL) ? date->setDateAsString("") :
+                          date->setDateAsString(str);
+}
+
+
+LIBSBML_EXTERN
+int
+Date_representsValidDate(Date_t *date)
+{
+  return static_cast<int> (date->representsValidDate());
 }
 
 
@@ -1463,17 +1800,21 @@ ModelCreator_getEmail(ModelCreator_t *mc)
 }
 
 
-/** @cond doxygen-libsbml-internal */
 /**
-  * ModelCreator_gets the org
-  */
+ * Returns the organization from the ModelCreator.
+ *
+ * @note This function is an alias of ModelCreator_getOrganization().
+ * 
+ * @param mc the ModelCreator_t structure to be queried
+ *
+ * @return organization from the ModelCreator.
+ */
 LIBSBML_EXTERN
 const char * 
 ModelCreator_getOrganisation(ModelCreator_t *mc)
 {
   return mc->getOrganisation().c_str();
 }
-/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -1542,14 +1883,23 @@ ModelCreator_isSetEmail(ModelCreator_t *mc)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/**
+ * Predicate indicating whether this
+ * ModelCreator's organization has been set.
+ *
+ * @note This function is an alias of ModelCretor_isSetOrganization().
+ *
+ * @param mc the ModelCreator_t structure to be queried
+ *
+ * @return true (non-zero) if the organization of this 
+ * ModelCreator_t structure has been set, false (0) otherwise.
+ */
 LIBSBML_EXTERN
 int 
 ModelCreator_isSetOrganisation(ModelCreator_t *mc)
 {
   return static_cast<int>(mc->isSetOrganisation());
 }
-/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -1574,12 +1924,18 @@ ModelCreator_isSetOrganization(ModelCreator_t *mc)
  *  
  * @param mc the ModelCreator_t structure
  * @param name a string representing the familyName of the ModelCreator. 
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void 
+int 
 ModelCreator_setFamilyName(ModelCreator_t *mc, char * name)
 {
-  mc->setFamilyName(name);
+  return mc->setFamilyName(name);
 }
 
 
@@ -1588,12 +1944,18 @@ ModelCreator_setFamilyName(ModelCreator_t *mc, char * name)
  *  
  * @param mc the ModelCreator_t structure
  * @param name a string representing the givenName of the ModelCreator. 
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void 
+int 
 ModelCreator_setGivenName(ModelCreator_t *mc, char * name)
 {
-  mc->setGivenName(name);
+  return mc->setGivenName(name);
 }
 
 
@@ -1602,26 +1964,19 @@ ModelCreator_setGivenName(ModelCreator_t *mc, char * name)
  *  
  * @param mc the ModelCreator_t structure
  * @param email a string representing the email of the ModelCreator. 
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void 
+int 
 ModelCreator_setEmail(ModelCreator_t *mc, char * email)
 {
-  mc->setEmail(email);
+  return mc->setEmail(email);
 }
-
-
-/** @cond doxygen-libsbml-internal */
-/**
-  * ModelCreator_sets the org
-  */
-LIBSBML_EXTERN
-void 
-ModelCreator_setOrganisation(ModelCreator_t *mc, char * name)
-{
-  mc->setOrganisation(name);
-}
-/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -1629,12 +1984,40 @@ ModelCreator_setOrganisation(ModelCreator_t *mc, char * name)
  *  
  * @param mc the ModelCreator_t structure
  * @param org a string representing the organisation of the ModelCreator. 
+ *
+ * @note This function is an alias of ModelCretor_setOrganization().
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void 
+int 
+ModelCreator_setOrganisation(ModelCreator_t *mc, char * name)
+{
+  return mc->setOrganisation(name);
+}
+
+
+/**
+ * Sets the organization
+ *  
+ * @param mc the ModelCreator_t structure
+ * @param org a string representing the organisation of the ModelCreator. 
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ */
+LIBSBML_EXTERN
+int 
 ModelCreator_setOrganization(ModelCreator_t *mc, char * org)
 {
-  ModelCreator_setOrganisation(mc, org);
+  return ModelCreator_setOrganisation(mc, org);
 }
 
 
@@ -1642,12 +2025,19 @@ ModelCreator_setOrganization(ModelCreator_t *mc, char * org)
  * Unsets the familyName of this ModelCreator.
  *
  * @param mc the ModelCreator_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void 
+int 
 ModelCreator_unsetFamilyName(ModelCreator_t *mc)
 {
-  mc->unsetFamilyName();
+  return mc->unsetFamilyName();
 }
 
 
@@ -1655,12 +2045,19 @@ ModelCreator_unsetFamilyName(ModelCreator_t *mc)
  * Unsets the givenName of this ModelCreator.
  *
  * @param mc the ModelCreator_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void 
+int 
 ModelCreator_unsetGivenName(ModelCreator_t *mc)
 {
-  mc->unsetGivenName();
+  return mc->unsetGivenName();
 }
 
 
@@ -1668,35 +2065,69 @@ ModelCreator_unsetGivenName(ModelCreator_t *mc)
  * Unsets the email of this ModelCreator.
  *
  * @param mc the ModelCreator_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void 
+int 
 ModelCreator_unsetEmail(ModelCreator_t *mc)
 {
-  mc->unsetEmail();
+  return mc->unsetEmail();
 }
-
-
-/** @cond doxygen-libsbml-internal */
-LIBSBML_EXTERN
-void 
-ModelCreator_unsetOrganisation(ModelCreator_t *mc)
-{
-  mc->unsetOrganisation();
-}
-/** @endcond doxygen-libsbml-internal */
 
 
 /**
  * Unsets the organization of this ModelCreator.
  *
  * @param mc the ModelCreator_t structure.
+ *
+ * @note This function is an alias of ModelCretor_unsetOrganization().
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void 
+int 
+ModelCreator_unsetOrganisation(ModelCreator_t *mc)
+{
+  return mc->unsetOrganisation();
+}
+
+
+/**
+ * Unsets the organization of this ModelCreator.
+ *
+ * @param mc the ModelCreator_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ */
+LIBSBML_EXTERN
+int 
 ModelCreator_unsetOrganization(ModelCreator_t *mc)
 {
-  ModelCreator_unsetOrganisation(mc);
+  return ModelCreator_unsetOrganisation(mc);
+}
+
+
+LIBSBML_EXTERN
+int
+ModelCreator_hasRequiredAttributes(ModelCreator_t *mc)
+{
+  return static_cast<int> (mc->hasRequiredAttributes());
 }
 
 
@@ -1809,12 +2240,19 @@ int ModelHistory_isSetModifiedDate(ModelHistory_t * mh)
  * @param mh the ModelHistory_t structure
  * @param date the Date_t structure representing the date
  * the ModelHistory was created. 
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
-void ModelHistory_setCreatedDate(ModelHistory_t * mh, 
+int ModelHistory_setCreatedDate(ModelHistory_t * mh, 
                                  Date_t * date)
 {
-  mh->setCreatedDate(date);
+  return mh->setCreatedDate(date);
 }
 
 
@@ -1824,12 +2262,20 @@ void ModelHistory_setCreatedDate(ModelHistory_t * mh,
  * @param mh the ModelHistory_t structure
  * @param date the Date_t structure representing the date
  * the ModelHistory was modified. 
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
-void ModelHistory_setModifiedDate(ModelHistory_t * mh, 
+int
+ModelHistory_setModifiedDate(ModelHistory_t * mh, 
                                   Date_t * date)
 {
-  mh->setModifiedDate(date);
+  return mh->setModifiedDate(date);
 }
 
 
@@ -1839,13 +2285,21 @@ void ModelHistory_setModifiedDate(ModelHistory_t * mh,
  *
  * @param mh the ModelHistory_t structure
  * @param mc the ModelCreator_t structure to add.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void 
+int 
 ModelHistory_addCreator(ModelHistory_t * mh, 
                              ModelCreator_t * mc)
 {
-  mh->addCreator(mc);
+  return mh->addCreator(mc);
 }
 
 
@@ -1903,10 +2357,10 @@ unsigned int ModelHistory_getNumCreators(ModelHistory_t * mh)
  * @param date the Date_t structure to add.
  */
 LIBSBML_EXTERN
-void 
+int 
 ModelHistory_addModifiedDate(ModelHistory_t * mh, Date_t * date)
 {
-  mh->addModifiedDate(date);
+  return mh->addModifiedDate(date);
 }
 
 /**
@@ -1966,6 +2420,13 @@ ModelHistory_getModifiedDateFromList(ModelHistory_t * mh, unsigned int n)
   return mh->getModifiedDate(n);
 }
 
+LIBSBML_EXTERN
+int
+ModelHistory_hasRequiredAttributes(ModelHistory_t *mh)
+{
+  return static_cast<int> (mh->hasRequiredAttributes());
+}
 
 
+LIBSBML_CPP_NAMESPACE_END
 

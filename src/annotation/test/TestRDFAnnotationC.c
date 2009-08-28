@@ -38,8 +38,8 @@
 #include <check.h>
 
 
-Model_t *m;
-SBMLDocument_t* d;
+static Model_t *m;
+static SBMLDocument_t* d;
 
 extern char *TestDataDirectory;
 

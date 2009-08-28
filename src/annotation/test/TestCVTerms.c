@@ -72,10 +72,11 @@ START_TEST (test_CVTerm_createFromNode)
   XMLTriple_t * li_triple = XMLTriple_create();
   XMLAttributes_t * att = XMLAttributes_create ();
   XMLAttributes_add(att, "", "This is my resource");
+  XMLAttributes_t *att1 = XMLAttributes_create();
 
   XMLToken_t * li_token = XMLToken_createWithTripleAttr(li_triple, att);
-  XMLToken_t * bag_token = XMLToken_createWithTriple(bag_triple);
-  XMLToken_t * qual_token = XMLToken_createWithTriple(qual_triple);
+  XMLToken_t * bag_token = XMLToken_createWithTripleAttr(bag_triple, att1);
+  XMLToken_t * qual_token = XMLToken_createWithTripleAttr(qual_triple, att1);
 
   XMLNode_t * li = XMLNode_createFromToken(li_token);
   XMLNode_t * bag = XMLNode_createFromToken(bag_token);
@@ -104,6 +105,7 @@ START_TEST (test_CVTerm_createFromNode)
   XMLToken_free(bag_token);
   XMLToken_free(qual_token);
   XMLAttributes_free(att);
+  XMLAttributes_free(att1);
   CVTerm_free(term);
   XMLNode_free(node);
   XMLNode_free(bag);

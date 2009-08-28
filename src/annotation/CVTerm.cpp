@@ -43,6 +43,7 @@ using namespace std;
 
 /** @endcond doxygen-ignore */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /*
  * create a new CVTerm
@@ -187,10 +188,21 @@ CVTerm* CVTerm::clone() const
 /*
  * set the qualifier type
  */
-void 
+int 
 CVTerm::setQualifierType(QualifierType_t type)
 {
   mQualifier = type;
+  
+  if (mQualifier == MODEL_QUALIFIER)
+  {
+    mBiolQualifier = BQB_UNKNOWN;
+  }
+  else
+  {
+    mModelQualifier = BQM_UNKNOWN;
+  }
+
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -198,16 +210,19 @@ CVTerm::setQualifierType(QualifierType_t type)
  * set the model qualifier type
  * this should be consistent with the mQualifier == MODEL_QUALIFIER
  */
-void 
+int 
 CVTerm::setModelQualifierType(ModelQualifierType_t type)
 {
   if (mQualifier == MODEL_QUALIFIER)
   {
     mModelQualifier = type;
+    mBiolQualifier = BQB_UNKNOWN;
+    return LIBSBML_OPERATION_SUCCESS;
   }
   else
   {
     mModelQualifier = BQM_UNKNOWN;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
 }
 
@@ -216,16 +231,19 @@ CVTerm::setModelQualifierType(ModelQualifierType_t type)
  * set the biological qualifier type
  * this should be consistent with the mQualifier == BIOLOGICAL_QUALIFIER
  */
-void 
+int 
 CVTerm::setBiologicalQualifierType(BiolQualifierType_t type)
 {
   if (mQualifier == BIOLOGICAL_QUALIFIER)
   {
     mBiolQualifier = type;
+    mModelQualifier = BQM_UNKNOWN;
+    return LIBSBML_OPERATION_SUCCESS;
   }
   else
   {
     mBiolQualifier = BQB_UNKNOWN;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
 }
 
@@ -301,24 +319,32 @@ CVTerm::getResourceURI(unsigned int n)
 /**
   * adds a resource to the term
   */
-void 
+int 
 CVTerm::addResource(std::string resource)
 {
-  mResources->addResource("rdf:resource", resource);
+  if (resource.empty())
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else
+  {
+    return mResources->addResource("rdf:resource", resource);
+  }
 }
 
 
 /**
   * removes a resource to the term
   */
-void 
+int 
 CVTerm::removeResource(std::string resource)
 {
+  int result = LIBSBML_INVALID_ATTRIBUTE_VALUE;
   for (int n = 0; n < mResources->getLength(); n++)
   {
     if (resource == mResources->getValue(n))
     {
-      mResources->removeResource(n);
+      result = mResources->removeResource(n);
     }
   }
 
@@ -335,7 +361,46 @@ CVTerm::removeResource(std::string resource)
       setQualifierType(UNKNOWN_QUALIFIER);
     }
   }
+
+  return result;
 }
+
+/** @cond doxygen-libsbml-internal */
+bool 
+CVTerm::hasRequiredAttributes()
+{
+  bool valid = true;
+
+  if (getQualifierType() == UNKNOWN_QUALIFIER)
+  {
+    valid = false;
+  }
+  else if (getQualifierType() == MODEL_QUALIFIER)
+  {
+    if (getModelQualifierType() == BQM_UNKNOWN)
+    {
+      valid = false;
+    }
+  }
+  else
+  {
+    if (getBiologicalQualifierType() == BQB_UNKNOWN)
+    {
+      valid = false;
+    }
+  }
+
+  if (valid)
+  {
+    if (getResources()->isEmpty())
+    {
+      valid = false;
+    }
+  }
+
+  return valid;
+}
+/** @endcond doxygen-libsbml-internal */
 
 
 
@@ -514,12 +579,18 @@ CVTerm_getResourceURI(CVTerm_t * cv, unsigned int n)
  *
  * @param term the CVTerm_t structure to set.
  * @param type the QualifierType_t 
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void 
+int 
 CVTerm_setQualifierType(CVTerm_t * term, QualifierType_t type)
 {
-  term->setQualifierType(type);
+  return term->setQualifierType(type);
 }
 
 
@@ -529,14 +600,21 @@ CVTerm_setQualifierType(CVTerm_t * term, QualifierType_t type)
  * @param term the CVTerm_t structure to set.
  * @param type the ModelQualifierType_t
  *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
  * @note if the QualifierType for this object is not MODEL_QUALIFIER
  * then the ModelQualifierType will default to BQM_UNKNOWN.
  */
 LIBSBML_EXTERN
-void 
+int 
 CVTerm_setModelQualifierType(CVTerm_t * term, ModelQualifierType_t type)
 {
-  term->setModelQualifierType(type);
+  return term->setModelQualifierType(type);
 }
 
 
@@ -546,14 +624,21 @@ CVTerm_setModelQualifierType(CVTerm_t * term, ModelQualifierType_t type)
  * @param term the CVTerm_t structure to set.
  * @param type the BiolQualifierType_t
  *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
  * @note if the QualifierType for this object is not BIOLOGICAL_QUALIFIER
  * then the BiolQualifierType_t will default to BQB_UNKNOWN.
  */
 LIBSBML_EXTERN
-void 
+int 
 CVTerm_setBiologicalQualifierType(CVTerm_t * term, BiolQualifierType_t type)
 {
-  term->setBiologicalQualifierType(type);
+  return term->setBiologicalQualifierType(type);
 }
 
 
@@ -564,14 +649,21 @@ CVTerm_setBiologicalQualifierType(CVTerm_t * term, BiolQualifierType_t type)
  * @param resource string representing the resource 
  * e.g. http://www.geneontology.org/#GO:0005892
  *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ *
  * @note this method adds the name "rdf:resource" to the attribute prior
  * to adding it to the resources in this CVTerm.
  */
 LIBSBML_EXTERN
-void 
+int 
 CVTerm_addResource(CVTerm_t * term, const char * resource)
 {
-  term->addResource(resource);
+  return term->addResource(resource);
 }
 
 /**
@@ -580,13 +672,32 @@ CVTerm_addResource(CVTerm_t * term, const char * resource)
  * @param term the CVTerm_t structure.
  * @param resource string representing the resource 
  * e.g. http://www.geneontology.org/#GO:0005892
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
  */
 LIBSBML_EXTERN
-void 
+int 
 CVTerm_removeResource(CVTerm_t * term, const char * resource)
 {
-  term->removeResource(resource);
+  return term->removeResource(resource);
 }
 
 
+LIBSBML_EXTERN
+int
+CVTerm_hasRequiredAttributes(CVTerm_t *cvt)
+{
+  return static_cast<int> (cvt->hasRequiredAttributes());
+}
+
+
+
+
 /** @endcond doxygen-c-only */
+
+LIBSBML_CPP_NAMESPACE_END

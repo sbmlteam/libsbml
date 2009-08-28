@@ -37,11 +37,10 @@
 
 #include <check.h>
 
+LIBSBML_CPP_NAMESPACE_USE
 
-std::ostringstream*   OSS;
-XMLOutputStream* XOS;
-Model *m;
-SBMLDocument* d;
+static Model *m;
+static SBMLDocument* d;
 
 extern char *TestDataDirectory;
 
@@ -54,9 +53,6 @@ CK_CPPSTART
 void
 RDFAnnotation_setup (void)
 {
-  OSS = new std::ostringstream;
-  XOS = new XMLOutputStream(*OSS);
- 
   char *filename = safe_strcat(TestDataDirectory, "annotation.xml");
 
   // The following will return a pointer to a new SBMLDocument.
@@ -69,12 +65,10 @@ void
 RDFAnnotation_teardown (void)
 {
   delete d;
-  delete OSS;
-  delete XOS;
 }
 
 static bool
-equals1 (const char* expected, const char* actual)
+equals (const char* expected, const char* actual)
 {
   if ( !strcmp(expected, actual) ) return true;
 
@@ -85,12 +79,6 @@ equals1 (const char* expected, const char* actual)
   return false;
 }
 
-
-static bool
-equals (const char* expected)
-{
-  return equals1(expected, OSS->str().c_str());
-}
 
 
 START_TEST (test_RDFAnnotation_getModelHistory)
@@ -307,16 +295,12 @@ START_TEST (test_RDFAnnotation_delete)
 
   XMLNode* n1 = RDFAnnotationParser::deleteRDFAnnotation(node);
 
-  const char * expected =
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<annotation/>";
+  const char * expected = "<annotation/>";
 
   fail_unless(n1->getNumChildren() == 0);
   fail_unless(n1->getName() == "annotation");
 
-  n1->write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected, n1->toXMLString().c_str()) );
 
   delete node;
 }
@@ -328,9 +312,7 @@ START_TEST (test_RDFAnnotation_deleteWithOther)
   Compartment* c = m->getCompartment(1);
 
   XMLNode* node = RDFAnnotationParser::deleteRDFAnnotation(c->getAnnotation());
-  const char * expected =
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<annotation>\n"
+  const char * expected = "<annotation>\n"
 		"  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n"
 		"    <jd2:header>\n"
 		"      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n"
@@ -340,10 +322,7 @@ START_TEST (test_RDFAnnotation_deleteWithOther)
 		"  </jd2:JDesignerLayout>\n"
     "</annotation>";
 
-
-  node->write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,node->toXMLString().c_str()) );
 
 }
 END_TEST
@@ -353,7 +332,6 @@ START_TEST (test_RDFAnnotation_recreate)
   Compartment* c = m->getCompartment(1);
 
   const char * expected =
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
     "<compartment id=\"A\">\n"
     "  <annotation>\n"
 		"    <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n"
@@ -374,11 +352,7 @@ START_TEST (test_RDFAnnotation_recreate)
 		"    </rdf:RDF>\n"
     "  </annotation>\n"
     "</compartment>";
-
-
-  c->write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected, c->toSBML()) );
 
 }
 END_TEST
@@ -388,7 +362,6 @@ START_TEST (test_RDFAnnotation_recreateFromEmpty)
   Compartment* c = m->getCompartment(3);
 
   const char * expected =
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
     "<compartment id=\"C\">\n"
     "  <annotation>\n"
 		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
@@ -404,9 +377,7 @@ START_TEST (test_RDFAnnotation_recreateFromEmpty)
     "</compartment>";
 
 
-  c->write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected, c->toSBML()) );
 
 }
 END_TEST
@@ -417,9 +388,7 @@ START_TEST (test_RDFAnnotation_deleteWithOutOther)
   Compartment* c = m->getCompartment(2);
 
   XMLNode* node = c->getAnnotation();
-  const char * expected =
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<annotation>\n"
+  const char * expected = "<annotation>\n"
 		"  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n"
 		"    <jd2:header>\n"
 		"      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n"
@@ -430,9 +399,7 @@ START_TEST (test_RDFAnnotation_deleteWithOutOther)
     "</annotation>";
 
 
-  node->write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected, node->toXMLString().c_str()) );
 
 }
 END_TEST
@@ -443,7 +410,6 @@ START_TEST (test_RDFAnnotation_recreateWithOutOther)
   Compartment* c = m->getCompartment(2);
 
   const char * expected =
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
     "<compartment id=\"B\">\n"
     "  <annotation>\n"
 		"    <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n"
@@ -457,9 +423,7 @@ START_TEST (test_RDFAnnotation_recreateWithOutOther)
     "</compartment>";
 
 
-  c->write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected, c->toSBML()) );
 
 }
 END_TEST

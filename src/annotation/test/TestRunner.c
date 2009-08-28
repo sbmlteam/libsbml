@@ -67,10 +67,15 @@
 BEGIN_C_DECLS
 
 Suite *create_suite_CVTerms (void);
+Suite *create_suite_CVTerms_newSetters (void);
 Suite *create_suite_RDFAnnotation (void);
 Suite *create_suite_RDFAnnotation2 (void);
 Suite *create_suite_ModelHistory (void);
+Suite *create_suite_Date_newSetters (void);
+Suite *create_suite_ModelCreator_newSetters (void);
+Suite *create_suite_ModelHistory_newSetters (void);
 Suite *create_suite_CopyAndClone (void);
+Suite *create_suite_Validation (void);
 Suite *create_suite_RDFAnnotation_C (void);
 
 END_C_DECLS
@@ -118,10 +123,15 @@ main (int argc, char* argv[])
 
   SRunner *runner = srunner_create( create_suite_CVTerms() );
 
+  srunner_add_suite( runner, create_suite_CVTerms_newSetters  () );
   srunner_add_suite( runner, create_suite_ModelHistory  () );
+  srunner_add_suite( runner, create_suite_Date_newSetters  () );
+  srunner_add_suite( runner, create_suite_ModelCreator_newSetters  () );
+  srunner_add_suite( runner, create_suite_ModelHistory_newSetters  () );
   srunner_add_suite( runner, create_suite_CopyAndClone  () );
   srunner_add_suite( runner, create_suite_RDFAnnotation () );
   srunner_add_suite( runner, create_suite_RDFAnnotation2() );
+  srunner_add_suite( runner, create_suite_Validation () );
   srunner_add_suite( runner, create_suite_RDFAnnotation_C () );
 
   if (argc > 1 && !strcmp(argv[1], "-nofork"))

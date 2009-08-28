@@ -80,6 +80,7 @@
 
 #include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
+#include <sbml/common/operationReturnValues.h>
 #include <sbml/util/List.h>
 
 #include <sbml/xml/XMLNode.h>
@@ -88,6 +89,8 @@
 #ifdef __cplusplus
 
 #include <string>
+
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN Date
 {
@@ -232,78 +235,158 @@ public:
    * Sets the value of the year checking appropriateness.
    *  
    * @param year an unsigned int representing the year to set.  
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  void setYear    (unsigned int year);    
+  int setYear    (unsigned int year);    
 
   /**
    * Sets the value of the month checking appropriateness.
    *  
    * @param month an unsigned int representing the month to set  
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  void setMonth   (unsigned int month);   
+  int setMonth   (unsigned int month);   
 
   /**
    * Sets the value of the day checking appropriateness.
    *  
    * @param day an unsigned int representing the day to set.  
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  void setDay     (unsigned int day);  
+  int setDay     (unsigned int day);  
 
   /**
    * Sets the value of the hour checking appropriateness.
    *  
    * @param hour an unsigned int representing the hour to set.  
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  void setHour    (unsigned int hour); 
+  int setHour    (unsigned int hour); 
 
   /**
    * Sets the value of the minute checking appropriateness.
    *  
    * @param minute an unsigned int representing the minute to set.  
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  void setMinute  (unsigned int minute);  
+  int setMinute  (unsigned int minute);  
 
   /**
    * Sets the value of the second checking appropriateness.
    *  
    * @param second an unsigned int representing the second to set.  
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  void setSecond  (unsigned int second);
+  int setSecond  (unsigned int second);
 
   /**
    * Sets the value of the offset sign checking appropriateness.
    *  
    * @param sign an unsigned int representing 
    * the sign of the offset to set.  
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  void setSignOffset   (unsigned int sign); 
+  int setSignOffset   (unsigned int sign); 
 
   /**
    * Sets the value of the offset hour checking appropriateness.
    *  
    * @param hoursOffset an unsigned int representing the hours of the 
    * offset to set.  
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  void setHoursOffset  (unsigned int hoursOffset);  
+  int setHoursOffset  (unsigned int hoursOffset);  
   
   /**
    * Sets the value of the offset minutes checking appropriateness.
    *  
    * @param minutesOffset an unsigned int representing the minutes of the 
    * offset to set.  
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  void setMinutesOffset(unsigned int minutesOffset);
+  int setMinutesOffset(unsigned int minutesOffset);
 
   /**
    * Sets the value of the date string checking appropriateness.
    *
    * @param date a string representing the date.
    *
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   *
    * @note the string should be in W3CDTF format 
    * YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)
    * where TZD is the time zone designator.
    */
-  void setDateAsString (std::string date);
+  int setDateAsString (std::string date);
+
+
+  /* a valid date has member variables consistent with 
+   * appropriate date
+   * Date must be: YYYY-MM-DDThh:mm:ssTZD
+   * where TZD is either Z or +/-HH:MM
+   */
+  bool representsValidDate();
+
 
 protected:
   /** @cond doxygen-libsbml-internal */
@@ -404,9 +487,16 @@ public:
    */
   std::string getOrganization() {  return  mOrganization;  }
 
-  /** @cond doxygen-libsbml-internal */
+  /**
+   * Returns the organization from the ModelCreator.
+   *
+   * @note This function is an alias of getOrganization().
+   *
+   * @return organization from the ModelCreator.
+   *
+   * @see getOrganization()
+   */
   std::string getOrganisation() {  return  mOrganization;  }
-  /** @endcond doxygen-libsbml-internal */
  
   /**
    * Predicate returning @c true or @c false depending on whether this
@@ -439,69 +529,170 @@ public:
    * @return @c true if the organization of this ModelCreator has been set, @c false otherwise.
    */
   bool isSetOrganization();
-  /** @cond doxygen-libsbml-internal */
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * ModelCreator's organization has been set.
+   *
+   * @note This function is an alias of isSetOrganization().
+   *
+   * @return @c true if the organization of this ModelCreator has been set, @c false otherwise.
+   *
+   * @see isSetOrganization()
+   */
   bool isSetOrganisation();
-  /** @endcond doxygen-libsbml-internal */
 
 
   /**
    * Sets the family name
    *  
    * @param familyName a string representing the familyName of the ModelCreator. 
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
-  void setFamilyName(std::string familyName);
+  int setFamilyName(std::string familyName);
 
   /**
    * Sets the given name
    *  
    * @param givenName a string representing the givenName of the ModelCreator. 
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
-  void setGivenName(std::string givenName);
+  int setGivenName(std::string givenName);
 
   /**
    * Sets the email
    *  
    * @param email a string representing the email of the ModelCreator. 
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
-  void setEmail(std::string email);
+  int setEmail(std::string email);
 
   /**
    * Sets the organization
    *  
    * @param organization a string representing the organization of the 
    * ModelCreator. 
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
-  void setOrganization(std::string organization);
-  /** @cond doxygen-libsbml-internal */
-  void setOrganisation(std::string organization);
-  /** @endcond doxygen-libsbml-internal */
+  int setOrganization(std::string organization);
+
+  /**
+   * Sets the organization
+   *
+   * @param organization a string representing the organization of the
+   * ModelCreator.
+   *
+   * @note This function is an alias of setOrganization(std::string organization).
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   *
+   * @see setOrganization(std::string organization);
+   */
+  int setOrganisation(std::string organization);
 
 
   /**
    * Unsets the familyName of this ModelCreator.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  void unsetFamilyName();
+  int unsetFamilyName();
 
   /**
    * Unsets the givenName of this ModelCreator.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  void unsetGivenName();
+  int unsetGivenName();
 
   /**
    * Unsets the email of this ModelCreator.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  void unsetEmail();
+  int unsetEmail();
 
   /**
    * Unsets the organization of this ModelCreator.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  void unsetOrganization();
+  int unsetOrganization();
+
+  /**
+   * Unsets the organization of this ModelCreator.
+   *
+   * @note This function is an alias of unsetOrganization().
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   *
+   * @see unsetOrganization()
+   */
+  int unsetOrganisation();
+
+
   /** @cond doxygen-libsbml-internal */
-  void unsetOrganisation();
+  XMLNode * getAdditionalRDF();
 
 
   XMLNode * getAdditionalRDF();
   /** @endcond doxygen-libsbml-internal */
+
+  /* The required attributes for a ModelCreator are:
+   * familyName and givenName.
+   */ 
+  bool hasRequiredAttributes();
+  
 
 protected:
   /** @cond doxygen-libsbml-internal */
@@ -588,16 +779,30 @@ public:
    *  
    * @param date a Date object representing the date
    * the ModelHistory was created. 
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_OBJECT
    */
-  void setCreatedDate(Date* date);
+  int setCreatedDate(Date* date);
 
   /**
    * Sets the modifiedDate.
    *  
    * @param date a Date object representing the date
    * the ModelHistory was modified. 
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_OBJECT
    */
-  void setModifiedDate(Date* date);
+  int setModifiedDate(Date* date);
 
   /**
    * Adds a modifiedDate.
@@ -605,7 +810,7 @@ public:
    * @param date a Date object representing the date
    * the ModelHistory was modified. 
    */
-  void addModifiedDate(Date* date);
+  int addModifiedDate(Date* date);
 
   /**
    * Get the list of ModifiedDate objects in this 
@@ -639,8 +844,16 @@ public:
    * this ModelHistory.
    *
    * @param mc the ModelCreator to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_OBJECT
+   * @li LIBSBML_OPERATION_FAILED
    */
-  void addCreator(ModelCreator * mc);
+  int addCreator(ModelCreator * mc);
 
   /**
    * Get the list of ModelCreator objects in this 
@@ -667,6 +880,12 @@ public:
   unsigned int getNumCreators();
 
 
+  /* The required attributes for a ModelHistory are:
+   * createdDate, modifiedDate and at least one ModelCreator.
+   */ 
+  bool hasRequiredAttributes();
+  
+
 
 protected:
   /** @cond doxygen-libsbml-internal */
@@ -686,12 +905,13 @@ protected:
   /** @endcond doxygen-libsbml-internal */
 };
 
-
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
 #ifndef SWIG
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 LIBSBML_EXTERN
@@ -747,40 +967,44 @@ unsigned int
 Date_getMinutesOffset(Date_t * date);
 
 LIBSBML_EXTERN
-void
+int
 Date_setYear(Date_t * date, unsigned int value);
 
 LIBSBML_EXTERN
-void
+int
 Date_setMonth(Date_t * date, unsigned int value);
 
 LIBSBML_EXTERN
-void
+int
 Date_setDay(Date_t * date, unsigned int value);
 
 LIBSBML_EXTERN
-void
+int
 Date_setHour(Date_t * date, unsigned int value);
 
 LIBSBML_EXTERN
-void
+int
 Date_setMinute(Date_t * date, unsigned int value);
 
 LIBSBML_EXTERN
-void
+int
 Date_setSecond(Date_t * date, unsigned int value);
 
 LIBSBML_EXTERN
-void
+int
 Date_setSignOffset(Date_t * date, unsigned int value);
 
 LIBSBML_EXTERN
-void
+int
 Date_setHoursOffset(Date_t * date, unsigned int value);
 
 LIBSBML_EXTERN
-void
+int
 Date_setMinutesOffset(Date_t * date, unsigned int value);
+
+LIBSBML_EXTERN
+int
+Date_setDateAsString(Date_t * date, const char *);
 
 LIBSBML_EXTERN
 void
@@ -789,6 +1013,11 @@ Date_free(Date_t *);
 LIBSBML_EXTERN
 Date_t *
 Date_clone (const Date_t* date);
+
+
+LIBSBML_EXTERN
+int
+Date_representsValidDate(Date_t *date);
 
 
 LIBSBML_EXTERN
@@ -849,44 +1078,49 @@ int
 ModelCreator_isSetOrganization(ModelCreator_t *mc);
 
 LIBSBML_EXTERN
-void 
+int 
 ModelCreator_setFamilyName(ModelCreator_t *mc, char * name);
 
 LIBSBML_EXTERN
-void 
+int 
 ModelCreator_setGivenName(ModelCreator_t *mc, char * name);
 
 LIBSBML_EXTERN
-void 
+int 
 ModelCreator_setEmail(ModelCreator_t *mc, char * name);
 
 LIBSBML_EXTERN
-void 
+int 
 ModelCreator_setOrganisation(ModelCreator_t *mc, char * name);
 
 LIBSBML_EXTERN
-void 
+int 
 ModelCreator_setOrganization(ModelCreator_t *mc, char * name);
 
 LIBSBML_EXTERN
-void 
+int 
 ModelCreator_unsetFamilyName(ModelCreator_t *mc);
 
 LIBSBML_EXTERN
-void 
+int 
 ModelCreator_unsetGivenName(ModelCreator_t *mc);
 
 LIBSBML_EXTERN
-void 
+int 
 ModelCreator_unsetEmail(ModelCreator_t *mc);
 
 LIBSBML_EXTERN
-void 
+int 
 ModelCreator_unsetOrganisation(ModelCreator_t *mc);
 
 LIBSBML_EXTERN
-void 
+int 
 ModelCreator_unsetOrganization(ModelCreator_t *mc);
+
+LIBSBML_EXTERN
+int
+ModelCreator_hasRequiredAttributes(ModelCreator_t *mc);
+
 
 LIBSBML_EXTERN
 ModelHistory_t * ModelHistory_create ();
@@ -900,15 +1134,15 @@ ModelHistory_clone (const ModelHistory_t* mh);
 
 
 LIBSBML_EXTERN
-void ModelHistory_addCreator(ModelHistory_t * mh, 
+int ModelHistory_addCreator(ModelHistory_t * mh, 
                              ModelCreator_t * mc);
 
 LIBSBML_EXTERN
-void ModelHistory_setCreatedDate(ModelHistory_t * mh, 
+int ModelHistory_setCreatedDate(ModelHistory_t * mh, 
                                  Date_t * date);
 
 LIBSBML_EXTERN
-void ModelHistory_setModifiedDate(ModelHistory_t * mh, 
+int ModelHistory_setModifiedDate(ModelHistory_t * mh, 
                                   Date_t * date);
 
 LIBSBML_EXTERN
@@ -933,7 +1167,7 @@ LIBSBML_EXTERN
 int ModelHistory_isSetModifiedDate(ModelHistory_t * mh);
 
 LIBSBML_EXTERN
-void 
+int 
 ModelHistory_addModifiedDate(ModelHistory_t * mh, Date_t * date);
 
 LIBSBML_EXTERN
@@ -949,9 +1183,13 @@ Date_t*
 ModelHistory_getModifiedDateFromList(ModelHistory_t * mh, unsigned int n);
 
 
+LIBSBML_EXTERN
+int
+ModelHistory_hasRequiredAttributes(ModelHistory_t *mh);
+
 
 END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
-
 #endif  /** ModelHistory_h **/
