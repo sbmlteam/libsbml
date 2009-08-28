@@ -31,6 +31,7 @@
 #include <xercesc/sax2/Attributes.hpp>
 #include <sbml/xml/XMLAttributes.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygen-libsbml-internal */
 
@@ -53,6 +54,8 @@ public:
 };
 
 /** @endcond doxygen-libsbml-internal */
+
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* XercesAttributes_h */

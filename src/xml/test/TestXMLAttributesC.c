@@ -209,6 +209,34 @@ START_TEST(test_XMLAttributes_add_remove_qname_C)
 END_TEST
 
 
+START_TEST(test_XMLAttributes_add1)
+{
+  XMLAttributes_t *xa = XMLAttributes_create();
+  XMLTriple_t* xt2    = XMLTriple_createWith("name2", "http://name2.org/", "p2");
+
+  int i = XMLAttributes_addWithNamespace(xa, "name1", "val1", "http://name1.org/", "p1");
+  
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+
+  i = XMLAttributes_addWithTriple(xa, xt2, "val2");
+  
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+
+  fail_unless( XMLAttributes_getLength(xa) == 2 );
+  fail_unless( XMLAttributes_isEmpty(xa)   == 0 );
+
+  i = XMLAttributes_add(xa, "noprefix", "val3");
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( XMLAttributes_getLength(xa) == 3 );
+  fail_unless( XMLAttributes_isEmpty(xa)   == 0 );
+
+  XMLAttributes_free(xa);
+  XMLTriple_free(xt2);
+}
+END_TEST
+
+
 START_TEST (test_XMLAttributes_readInto_string_C)
 {
   XMLAttributes_t* attrs = XMLAttributes_create();
@@ -683,6 +711,80 @@ START_TEST (test_XMLAttributes_readInto_uint_C)
 END_TEST
 
 
+START_TEST(test_XMLAttributes_remove1)
+{
+  XMLAttributes_t *xa = XMLAttributes_create();
+  XMLTriple_t* xt2    = XMLTriple_createWith("name2", "http://name2.org/", "p2");
+
+  int i = XMLAttributes_addWithNamespace(xa, "name1", "val1", "http://name1.org/", "p1");
+  
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+
+  i = XMLAttributes_addWithTriple(xa, xt2, "val2");
+  
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+
+  i = XMLAttributes_add(xa, "noprefix", "val3");
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+  
+  i = XMLAttributes_addWithNamespace(xa, "name4", "val4", "http://name4.org/", "p1");
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( XMLAttributes_getLength(xa) == 4 );
+
+  i = XMLAttributes_remove(xa, 4);
+
+  fail_unless(i == LIBSBML_INDEX_EXCEEDS_SIZE);
+
+  i = XMLAttributes_remove(xa, 3);
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( XMLAttributes_getLength(xa) == 3 );
+
+  i = XMLAttributes_removeByName(xa, "noprefix");
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( XMLAttributes_getLength(xa) ==  2);
+
+  i = XMLAttributes_removeByTriple(xa, xt2);
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( XMLAttributes_getLength(xa) ==  1);
+
+  i = XMLAttributes_removeByNS(xa, "name1", "http://name1.org/");
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( XMLAttributes_getLength(xa) ==  0);
+
+  XMLAttributes_free(xa);
+  XMLTriple_free(xt2);
+}
+END_TEST
+
+
+START_TEST(test_XMLAttributes_clear1)
+{
+  XMLAttributes_t *xa = XMLAttributes_create();
+  XMLTriple_t* xt2    = XMLTriple_createWith("name2", "http://name2.org/", "p2");
+  int i = XMLAttributes_addWithNamespace(xa, "name1", "val1", "http://name1.org/", "p1");
+  i = XMLAttributes_addWithTriple(xa, xt2, "val2");
+  i = XMLAttributes_add(xa, "noprefix", "val3");
+  fail_unless( XMLAttributes_getLength(xa) == 3 );
+  fail_unless( XMLAttributes_isEmpty(xa)   == 0 );
+
+  i = XMLAttributes_clear(xa);
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( XMLAttributes_getLength(xa) == 0 );
+  fail_unless( XMLAttributes_isEmpty(xa)   == 1 );
+
+  XMLAttributes_free(xa);
+  XMLTriple_free(xt2);
+}
+END_TEST
+
+
 Suite *
 create_suite_XMLAttributes_C (void)
 {
@@ -691,12 +793,15 @@ create_suite_XMLAttributes_C (void)
 
   tcase_add_test( tcase, test_XMLAttributes_create_C  );
   tcase_add_test( tcase, test_XMLAttributes_add_remove_qname_C);
+  tcase_add_test( tcase, test_XMLAttributes_add1);
   tcase_add_test( tcase, test_XMLAttributes_readInto_string_C );
   tcase_add_test( tcase, test_XMLAttributes_readInto_boolean_C );
   tcase_add_test( tcase, test_XMLAttributes_readInto_double_C );
   tcase_add_test( tcase, test_XMLAttributes_readInto_long_C );
   tcase_add_test( tcase, test_XMLAttributes_readInto_int_C );
   tcase_add_test( tcase, test_XMLAttributes_readInto_uint_C );
+  tcase_add_test( tcase, test_XMLAttributes_remove1);
+  tcase_add_test( tcase, test_XMLAttributes_clear1);
   suite_add_tcase(suite, tcase);
 
   return suite;

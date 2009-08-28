@@ -44,33 +44,46 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
-/*
- * Creates a new Event, optionally with its id and name attributes set. 
- */
-Event::Event (const std::string& id, const std::string& name) :
-   SBase    ( id, name   )
- , mTrigger ( 0          )
- , mDelay   ( 0          )
+Event::Event (unsigned int level, unsigned int version) :
+   SBase ( level, version )
+ , mId                       ( ""   )
+ , mName                     ( ""   )
+ , mTrigger                  ( 0    )
+ , mDelay                    ( 0    )
  , mUseValuesFromTriggerTime ( true )
 {
   mInternalIdOnly = false;
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
 
-Event::Event (unsigned int level, unsigned int version,
-                          XMLNamespaces *xmlns) :
-   SBase ("", "", -1)
- , mTrigger ( 0          )
- , mDelay   ( 0          )
+Event::Event (SBMLNamespaces * sbmlns) :
+   SBase                     ( sbmlns )
+ , mId                       ( ""   )
+ , mName                     ( ""   )
+ , mTrigger                  ( 0    )
+ , mDelay                    ( 0    )
  , mUseValuesFromTriggerTime ( true )
 {
   mInternalIdOnly = false;
-  mObjectLevel = level;
-  mObjectVersion = version;
-  if (xmlns) setNamespaces(xmlns);;
+
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
+
+/** @cond doxygen-libsbml-internal */
+
+/* constructor for validators */
+Event::Event() :
+  SBase ()
+{
+}
+
+/** @endcond doxygen-libsbml-internal */
                           
 Event::Event (SBMLNamespaces *sbmlns) :
    SBase ("", "", -1)
@@ -99,16 +112,33 @@ Event::~Event ()
  * Copy constructor. Creates a copy of this Event.
  */
 Event::Event (const Event& orig) :
-   SBase            ( orig                   )
- , mTrigger         ( 0                      )
- , mDelay           ( 0                      )
- , mTimeUnits       ( orig.mTimeUnits        )
+   SBase                     ( orig                           )
+ , mId                       ( orig.mId                       )  
+ , mName                     ( orig.mName                     )
+ , mTrigger                  ( 0                              )
+ , mDelay                    ( 0                              )
+ , mTimeUnits                ( orig.mTimeUnits                )
  , mUseValuesFromTriggerTime ( orig.mUseValuesFromTriggerTime )
- , mInternalIdOnly  ( orig.mInternalIdOnly   )
- , mEventAssignments( orig.mEventAssignments )
+ , mInternalIdOnly           ( orig.mInternalIdOnly           )
+ , mEventAssignments         ( orig.mEventAssignments         )
 {
-  if (orig.mTrigger) mTrigger = new Trigger(*orig.getTrigger());
-  if (orig.mDelay) mDelay = new Delay(*orig.getDelay());
+  /* since a unit definition has children we need to re-establish the
+   * parentage of these children
+   */
+  if (orig.getNumEventAssignments() > 0)
+  {
+    mEventAssignments.setParentSBMLObject(this);
+  }
+  if (orig.mTrigger) 
+  {
+    mTrigger = new Trigger(*orig.getTrigger());
+    mTrigger->setParentSBMLObject(this);
+  }
+  if (orig.mDelay) 
+  {
+    mDelay = new Delay(*orig.getDelay());
+    mDelay->setParentSBMLObject(this);
+  }
 }
  
 
@@ -121,23 +151,39 @@ Event& Event::operator=(const Event& rhs)
   {
     this->SBase::operator =(rhs);
    
+    mId = rhs.mId;
+    mName = rhs.mName;
     mTimeUnits        = rhs.mTimeUnits        ;
     mUseValuesFromTriggerTime = rhs.mUseValuesFromTriggerTime;
     mInternalIdOnly   = rhs.mInternalIdOnly   ;
     mEventAssignments = rhs.mEventAssignments ;
 
-
+    if (rhs.getNumEventAssignments() > 0)
+    {
+      mEventAssignments.setParentSBMLObject(this);
+    }
+   
     delete mTrigger;
     if (rhs.mTrigger) 
+    {
       mTrigger = new Trigger(*rhs.getTrigger());
+      mTrigger->setParentSBMLObject(this);
+    }
     else
+    {
       mTrigger = 0;
+    }
 
     delete mDelay;
     if (rhs.mDelay) 
+    {
       mDelay = new Delay(*rhs.getDelay());
+      mDelay->setParentSBMLObject(this);
+    }
     else
+    {
       mDelay = 0;
+    }
   }
 
   return *this;
@@ -173,6 +219,26 @@ Event*
 Event::clone () const
 {
   return new Event(*this);
+}
+
+
+/*
+ * @return the id of this SBML object.
+ */
+const string&
+Event::getId () const
+{
+  return mId;
+}
+
+
+/*
+ * @return the name of this SBML object.
+ */
+const string&
+Event::getName () const
+{
+  return (getLevel() == 1) ? mId : mName;
 }
 
 
@@ -243,6 +309,29 @@ Event::getUseValuesFromTriggerTime () const
 
   
 /*
+ * @return true if the id of this SBML object has been set, false
+ * otherwise.
+ */
+bool
+Event::isSetId () const
+{
+  return (mId.empty() == false);
+}
+
+
+/*
+ * @return true if the name of this SBML object has been set, false
+ * otherwise.
+ */
+bool
+Event::isSetName () const
+{
+  return (getLevel() == 1) ? (mId.empty() == false) : 
+                            (mName.empty() == false);
+}
+
+
+/*
  * @return true if the trigger of this Event has been set, false otherwise.
  */
 bool
@@ -280,34 +369,132 @@ Event::isSetTimeUnits () const
 
 
 /*
+ * Sets the id of this SBML object to a copy of sid.
+ */
+int
+Event::setId (const std::string& sid)
+{
+  /* since the setId function has been used as an
+   * alias for setName we cant require it to only
+   * be used on a L2 model
+   */
+/*  if (getLevel() == 1)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+*/
+  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mId = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Sets the name of this SBML object to a copy of name.
+ */
+int
+Event::setName (const std::string& name)
+{
+  /* if this is setting an L2 name the type is string
+   * whereas if it is setting an L1 name its type is SId
+   */
+  if (getLevel() == 1)
+  {
+    if (!(SyntaxChecker::isValidSBMLSId(name)))
+    {
+      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    }
+    else
+    {
+      mId = name;
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+  else
+  {
+    mName = name;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
  * Sets the trigger of this Event to a copy of the given Trigger.
  */
-void
+int
 Event::setTrigger (const Trigger* trigger)
 {
-  if(mTrigger == trigger) return;
+  if (mTrigger == trigger)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (trigger == NULL)
+  {
+    delete mTrigger;
+    mTrigger = 0;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (getLevel() != trigger->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != trigger->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else
+  {
+    delete mTrigger;
+    mTrigger = (trigger != 0) ? static_cast<Trigger*>( trigger->clone() ) : 0;
 
-  delete mTrigger;
-  mTrigger = (trigger != 0) ? static_cast<Trigger*>( trigger->clone() ) : 0;
-
-  if (mTrigger) mTrigger->setSBMLDocument(mSBML);
-  if (mTrigger) mTrigger->setParentSBMLObject(this);
+    if (mTrigger) mTrigger->setSBMLDocument(mSBML);
+    if (mTrigger) mTrigger->setParentSBMLObject(this);
+    
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Sets the delay of this Event to a copy of the given Delay.
  */
-void
+int
 Event::setDelay (const Delay* delay)
 {
-  if(mDelay == delay) return;
+  if (mDelay == delay) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (delay == NULL)
+  {
+    delete mDelay;
+    mDelay = 0;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (getLevel() != delay->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != delay->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else
+  {
+    delete mDelay;
+    mDelay = (delay != 0) ? static_cast<Delay*>( delay->clone() ) : 0;
 
-  delete mDelay;
-  mDelay = (delay != 0) ? static_cast<Delay*>( delay->clone() ) : 0;
-
-  if (mDelay) mDelay->setSBMLDocument(mSBML);
-  if (mDelay) mDelay->setParentSBMLObject(this);
+    if (mDelay) mDelay->setSBMLDocument(mSBML);
+    if (mDelay) mDelay->setParentSBMLObject(this);
+    
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -320,31 +507,109 @@ Event::setDelay (const Delay* delay)
  * for compatibility with previous versions of SBML Level 2, but its use
  * is discouraged since models in Level 2 Version 3 cannot contain it.
  */
-void
+int
 Event::setTimeUnits (const std::string& sid)
 {
-  mTimeUnits = sid;
+  if (getLevel() == 2 && getVersion() > 2)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mTimeUnits = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Sets the "useValuesFromTriggerTime" attribute of this Event to a @p value.
  */
-void 
+int 
 Event::setUseValuesFromTriggerTime (bool value)
 {
-  mUseValuesFromTriggerTime = value;
+  if (getLevel() == 2 && getVersion() < 4)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else
+  {
+    mUseValuesFromTriggerTime = value;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Unsets the id of this SBML object.
+ */
+int
+Event::unsetId ()
+{
+  mId.erase();
+
+  if (mId.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the name of this SBML object.
+ */
+int
+Event::unsetName ()
+{
+  if (getLevel() == 1) 
+  {
+    mId.erase();
+  }
+  else 
+  {
+    mName.erase();
+  }
+
+  if (getLevel() == 1 && mId.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (mName.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
 /*
  * Unsets the delay of this Event.
  */
-void
+int
 Event::unsetDelay ()
 {
   delete mDelay;
   mDelay = 0;
+
+  if (mDelay == NULL) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -357,27 +622,67 @@ Event::unsetDelay ()
  * for compatibility with previous versions of SBML Level 2, but its use
  * is discouraged since models in Level 2 Version 3 cannot contain it.
  */
-void
+int
 Event::unsetTimeUnits ()
 {
+  if (getLevel() == 2 && getVersion() > 2)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+
   mTimeUnits.erase();
+  
+  if (mTimeUnits.empty()) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
 /*
  * Appends a copy of the given EventAssignment to this Event.
  */
-void
+int
 Event::addEventAssignment (const EventAssignment* ea)
 {
-  /* if the ListOf is empty it doesnt know its parent */
-  if (mEventAssignments.size() == 0)
+  if (ea == NULL)
   {
-    mEventAssignments.setSBMLDocument(this->getSBMLDocument());
-    mEventAssignments.setParentSBMLObject(this);
+    return LIBSBML_OPERATION_FAILED;
   }
+  else if (!(ea->hasRequiredAttributes()) || !(ea->hasRequiredElements()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != ea->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != ea->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (getEventAssignment(ea->getVariable()) != NULL)
+  {
+    // an eventAssignment for this variable already exists
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
+  else
+  {
+    /* if the ListOf is empty it doesnt know its parent */
+    if (mEventAssignments.size() == 0)
+    {
+      mEventAssignments.setSBMLDocument(this->getSBMLDocument());
+      mEventAssignments.setParentSBMLObject(this);
+    }
 
-  mEventAssignments.append(ea);
+    mEventAssignments.append(ea);
+
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -388,7 +693,21 @@ Event::addEventAssignment (const EventAssignment* ea)
 EventAssignment*
 Event::createEventAssignment ()
 {
-  EventAssignment* ea = new EventAssignment;
+  EventAssignment* ea = 0;
+
+  try
+  {
+    ea = new EventAssignment(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
+
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mEventAssignments.size() == 0)
@@ -397,7 +716,7 @@ Event::createEventAssignment ()
     mEventAssignments.setParentSBMLObject(this);
   }
   
-  mEventAssignments.appendAndOwn(ea);
+  if (ea) mEventAssignments.appendAndOwn(ea);
 
   return ea;
 }
@@ -411,10 +730,26 @@ Trigger*
 Event::createTrigger ()
 {
   delete mTrigger;
-  mTrigger = new Trigger;
+  mTrigger = 0;
+  
+  try
+  {
+    mTrigger = new Trigger(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
 
-  mTrigger->setSBMLDocument(mSBML);
-  mTrigger->setParentSBMLObject(this);
+  if (mTrigger)
+  {
+    mTrigger->setSBMLDocument(mSBML);
+    mTrigger->setParentSBMLObject(this);
+  }
 
   return mTrigger;
 }
@@ -428,10 +763,26 @@ Delay*
 Event::createDelay ()
 {
   delete mDelay;
-  mDelay = new Delay;
+  mDelay = 0;
+  
+  try
+  {
+    mDelay = new Delay(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
 
-  mDelay->setSBMLDocument(mSBML);
-  mDelay->setParentSBMLObject(this);
+  if (mDelay)
+  {
+    mDelay->setSBMLDocument(mSBML);
+    mDelay->setParentSBMLObject(this);
+  }
 
   return mDelay;
 }
@@ -509,6 +860,29 @@ Event::getNumEventAssignments () const
   return mEventAssignments.size();
 }
 
+
+/**
+ * Removes the nth EventAssignment object from this Event object and
+ * returns a pointer to it.
+ */
+EventAssignment* 
+Event::removeEventAssignment (unsigned int n)
+{
+  return mEventAssignments.remove(n);  
+}
+
+
+/**
+ * Removes the EventAssignment object with the given "variable" attribute 
+ * from this Event object and returns a pointer to it.
+ */
+EventAssignment* 
+Event::removeEventAssignment (const std::string& variable)
+{
+  return mEventAssignments.remove(variable);  
+}
+
+
 /** @cond doxygen-libsbml-internal */
 
 /*
@@ -561,6 +935,23 @@ Event::getElementName () const
 }
 
 
+bool 
+Event::hasRequiredElements() const
+{
+  bool allPresent = true;
+
+  /* required attributes for event: trigger; listOfEventAssignments */
+
+  if (!isSetTrigger())
+    allPresent = false;
+
+  if (getNumEventAssignments() == 0)
+    allPresent = false;
+
+  return allPresent;
+}
+
+
 /** @cond doxygen-libsbml-internal */
 
 /*
@@ -594,7 +985,20 @@ Event::createObject (XMLInputStream& stream)
   {
     delete mTrigger;
 
-    mTrigger = new Trigger();
+    try
+    {
+      mTrigger = new Trigger(getSBMLNamespaces());
+    }
+    catch (SBMLConstructorException*)
+    {
+      mTrigger = new Trigger(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    catch ( ... )
+    {
+      mTrigger = new Trigger(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
     return mTrigger;
   }
   else if (name == "delay")
@@ -607,7 +1011,20 @@ Event::createObject (XMLInputStream& stream)
     }
     delete mDelay;
 
-    mDelay = new Delay();
+    try
+    {
+      mDelay = new Delay(getSBMLNamespaces());
+    }
+    catch (SBMLConstructorException*)
+    {
+      mDelay = new Delay(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    catch ( ... )
+    {
+      mDelay = new Delay(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
     return mDelay;
   }
   else
@@ -679,7 +1096,7 @@ Event::readAttributes (const XMLAttributes& attributes)
   {
     logEmptyString("id", level, version, "<event>");
   }
-  SBase::checkIdSyntax();
+  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
 
   //
   // name: string  { use="optional" }  (L2v1 ->)
@@ -692,8 +1109,15 @@ Event::readAttributes (const XMLAttributes& attributes)
   //
   if (level == 2 && version < 3)
   {
-    attributes.readInto("timeUnits", mTimeUnits);
-    SBase::checkUnitSyntax();
+    assigned = attributes.readInto("timeUnits", mTimeUnits);
+    if (assigned && mTimeUnits.size() == 0)
+    {
+      logEmptyString("timeUnits", level, version, "<event>");
+    }
+    if (!SyntaxChecker::isValidUnitSId(mTimeUnits))
+    {
+      logError(InvalidUnitIdSyntax);
+    }
   }
 
   //
@@ -844,11 +1268,25 @@ ListOfEvents::get(unsigned int n) const
 }
 
 
+/**
+ * Used by ListOf::get() to lookup an SBase based by its id.
+ */
+struct IdEqE : public unary_function<SBase*, bool>
+{
+  const string& id;
+
+  IdEqE (const string& id) : id(id) { }
+  bool operator() (SBase* sb) 
+       { return static_cast <Event *> (sb)->getId() == id; }
+};
+
+
 /* return item by id */
 Event*
 ListOfEvents::get (const std::string& sid)
 {
-  return static_cast<Event*>(ListOf::get(sid));
+  return const_cast<Event*>( 
+    static_cast<const ListOfEvents&>(*this).get(sid) );
 }
 
 
@@ -856,7 +1294,10 @@ ListOfEvents::get (const std::string& sid)
 const Event*
 ListOfEvents::get (const std::string& sid) const
 {
-  return static_cast<const Event*>(ListOf::get(sid));
+  vector<SBase*>::const_iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqE(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <Event*> (*result);
 }
 
 
@@ -872,7 +1313,18 @@ ListOfEvents::remove (unsigned int n)
 Event*
 ListOfEvents::remove (const std::string& sid)
 {
-   return static_cast<Event*>(ListOf::remove(sid));
+  SBase* item = 0;
+  vector<SBase*>::iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqE(sid) );
+
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
+  }
+
+  return static_cast <Event*> (item);
 }
 
 
@@ -903,8 +1355,22 @@ ListOfEvents::createObject (XMLInputStream& stream)
 
   if (name == "event")
   {
-    object = new Event();
-    mItems.push_back(object);
+    try
+    {
+      object = new Event(getSBMLNamespaces());
+    }
+    catch (SBMLConstructorException*)
+    {
+      object = new Event(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    catch ( ... )
+    {
+      object = new Event(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    
+    if (object) mItems.push_back(object);
   }
 
   return object;
@@ -917,68 +1383,72 @@ ListOfEvents::createObject (XMLInputStream& stream)
 
 
 /**
- * Creates a new, empty Event_t structure and returns a pointer to it.
- * 
- * @return the newly-created Event_t structure.
- */
-LIBSBML_EXTERN
-Event_t *
-Event_create (void)
-{
-  return new(nothrow) Event;
-}
-
-
-/**
- * Creates a new Event with a specific identifier and name and returns
- * a pointer to it.
+ * Creates a new Event_t structure using the given SBML @p level
+ * and @p version values.
  *
- * @param sid a string to be assigned as the identifier of the Event
- * @param name a string to be assigned as the name of the Event
- *
- * @return the newly-created Event_t structure.
- */
-LIBSBML_EXTERN
-Event_t *
-Event_createWith (const char *sid, const char *name)
-{
-  return new(nothrow) Event(sid ? sid : "", name ? name : "");
-}
-
-
-/** @cond doxygen-libsbml-internal */
-/**
- * Creates a new Event_t structure using the given SBML @p 
- * level and @p version values and a set of XMLNamespaces.
- *
- * @param level an unsigned int, the SBML Level to assign to this 
+ * @param level an unsigned int, the SBML Level to assign to this
  * Event
  *
  * @param version an unsigned int, the SBML Version to assign to this
  * Event
- * 
- * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
- * assign to this Event
  *
  * @return a pointer to the newly created Event_t structure.
  *
- * @note Once a Event has been added to an SBMLDocument, the @p 
- * level, @p version and @p xmlns namespaces for the document @em override 
- * those used to create the Event.  Despite this, the ability 
- * to supply the values at creation time is an important aid to creating 
- * valid SBML.  Knowledge of the intended SBML Level and Version 
- * determine whether it is valid to assign a particular value to an 
- * attribute, or whether it is valid to add an object to an existing 
+ * @note Once a Event has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the Event.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
+ */
+LIBSBML_EXTERN
+Event_t *
+Event_create (unsigned int level, unsigned int version)
+{
+  try
+  {
+    Event* obj = new Event(level,version);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
+
+
+/**
+ * Creates a new Event_t structure using the given
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this Event
+ *
+ * @return a pointer to the newly created Event_t structure.
+ *
+ * @note Once a Event has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the Event.  Despite this, the ability to supply the values at creation time
+ * is an important aid to creating valid SBML.  Knowledge of the intended SBML
+ * Level and Version determine whether it is valid to assign a particular value
+ * to an attribute, or whether it is valid to add an object to an existing
  * SBMLDocument.
  */
 LIBSBML_EXTERN
 Event_t *
-Event_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns)
+Event_createWithNS (SBMLNamespaces_t* sbmlns)
 {
-  return new(nothrow) Event(level, version, xmlns);
+  try
+  {
+    Event* obj = new Event(sbmlns);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
 }
-/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -1222,12 +1692,22 @@ Event_isSetTimeUnits (const Event_t *e)
  *
  * @param e the Event_t structure to set.
  * @param sid the string to use as the identifier.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "id" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 Event_setId (Event_t *e, const char *sid)
 {
-  (sid == NULL) ? e->unsetId() : e->setId(sid);
+  return (sid == NULL) ? e->unsetId() : e->setId(sid);
 }
 
 
@@ -1236,12 +1716,22 @@ Event_setId (Event_t *e, const char *sid)
  *
  * @param e the Event_t structure to set
  * @param name the name to assign to this Event_t's "name" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "name" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 Event_setName (Event_t *e, const char *name)
 {
-  (name == NULL) ? e->unsetName() : e->setName(name);
+  return (name == NULL) ? e->unsetName() : e->setName(name);
 }
 
 
@@ -1250,12 +1740,20 @@ Event_setName (Event_t *e, const char *name)
  *
  * @param e the Event_t structure to set
  * @param trigger the Trigger_t structure to use.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
  */
 LIBSBML_EXTERN
-void
+int
 Event_setTrigger (Event_t *e, const Trigger_t *trigger)
 {
-  e->setTrigger(trigger);
+  return e->setTrigger(trigger);
 }
 
 
@@ -1264,12 +1762,20 @@ Event_setTrigger (Event_t *e, const Trigger_t *trigger)
  * 
  * @param e the Event_t structure to set
  * @param delay the Delay_t structure to use.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
  */
 LIBSBML_EXTERN
-void
+int
 Event_setDelay (Event_t *e, const Delay_t *delay)
 {
-  e->setDelay(delay);
+  return e->setDelay(delay);
 }
 
 
@@ -1285,12 +1791,23 @@ Event_setDelay (Event_t *e, const Delay_t *delay)
  * removed in SBML Level 2 Version 3.  LibSBML supports this attribute
  * for compatibility with previous versions of SBML Level 2, but its use
  * is discouraged since models in Level 2 Versions 3 and 4 cannot contain it.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "timeUnits" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 Event_setTimeUnits (Event_t *e, const char *sid)
 {
-  (sid == NULL) ? e->unsetTimeUnits() : e->setTimeUnits(sid);
+  return (sid == NULL) ? e->unsetTimeUnits() : e->setTimeUnits(sid);
 }
 
 
@@ -1299,12 +1816,19 @@ Event_setTimeUnits (Event_t *e, const char *sid)
  * 
  * @param e the Event_t structure to set
  * @param value the value of the "useValuesFromTriggerTime" attribute
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
  */
 LIBSBML_EXTERN
-void
+int
 Event_setUseValuesFromTriggerTime (Event_t *e, int value)
 {
-  e->setUseValuesFromTriggerTime( static_cast<bool>(value) );
+  return e->setUseValuesFromTriggerTime( static_cast<bool>(value) );
 }
 
 
@@ -1312,12 +1836,19 @@ Event_setUseValuesFromTriggerTime (Event_t *e, int value)
  * Unsets the "id" attribute of this Event_t structure.
  *
  * @param e the Event_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Event_unsetId (Event_t *e)
 {
-  e->unsetId();
+  return e->unsetId();
 }
 
 
@@ -1325,12 +1856,19 @@ Event_unsetId (Event_t *e)
  * Unsets the "name" attribute of this Event_t structure.
  *
  * @param e the Event_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Event_unsetName (Event_t *e)
 {
-  e->unsetName();
+  return e->unsetName();
 }
 
 
@@ -1338,12 +1876,19 @@ Event_unsetName (Event_t *e)
  * Unsets the delay of this Event.
  *
  * @param e the Event_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Event_unsetDelay (Event_t *e)
 {
-  e->unsetDelay();
+  return e->unsetDelay();
 }
 
 
@@ -1352,6 +1897,13 @@ Event_unsetDelay (Event_t *e)
  *
  * @param e the Event_t structure to unset
  *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ *
  * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
  * included the additional attribute called "timeUnits", but it was
  * removed in SBML Level 2 Version 3.  LibSBML supports this attribute
@@ -1359,10 +1911,10 @@ Event_unsetDelay (Event_t *e)
  * is discouraged since models in Level 2 Versions 3 and 4 cannot contain it.
  */
 LIBSBML_EXTERN
-void
+int
 Event_unsetTimeUnits (Event_t *e)
 {
-  e->unsetTimeUnits();
+  return e->unsetTimeUnits();
 }
 
 
@@ -1374,12 +1926,22 @@ Event_unsetTimeUnits (Event_t *e)
  * added
  *
  * @param ea an EventAssignment_t structure to add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
+ * @li LIBSBML_DUPLICATE_OBJECT_ID
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Event_addEventAssignment (Event_t *e, const EventAssignment_t *ea)
 {
-  if (ea != NULL) e->addEventAssignment(ea);
+  return e->addEventAssignment(ea);
 }
 
 
@@ -1496,4 +2058,77 @@ Event_getNumEventAssignments (const Event_t *e)
 }
 
 
+/**
+ * Removes the nth EventAssignment_t object from this Event_t object and
+ * returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Event_t structure
+ * @param n the integer index of the EventAssignment_t sought
+ *
+ * @return the EventAssignment_t object removed.  As mentioned above, 
+ * the caller owns the returned item. NULL is returned if the given index 
+ * is out of range.
+ */
+LIBSBML_EXTERN
+EventAssignment_t *
+Event_removeEventAssignment (Event_t *e, unsigned int n)
+{
+  if (!e) return 0;
+  return e->removeEventAssignment(n);
+}
+
+
+/**
+ * Removes the EventAssignment_t object with the given "variable" attribute
+ * from this Event_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Event_t structure
+ * @param sid the string of the "variable" attribute of the EventAssignment_t sought
+ *
+ * @return the EventAssignment_t object removed.  As mentioned above, the 
+ * caller owns the returned object. NULL is returned if no EventAssignment_t
+ * object with the "variable" attribute exists in this Event_t object.
+ */
+LIBSBML_EXTERN
+EventAssignment_t *
+Event_removeEventAssignmentByVar (Event_t *e, const char *variable)
+{
+  if (!e) return 0;
+  return e->removeEventAssignment(variable);
+}
+
+
+/**
+ * @return item in this ListOfEvent with the given id or NULL if no such
+ * item exists.
+ */
+LIBSBML_EXTERN
+Event_t *
+ListOfEvents_getById (ListOf_t *lo, const char *sid)
+{
+  return (sid != NULL) ? 
+    static_cast <ListOfEvents *> (lo)->get(sid) : NULL;
+}
+
+
+/**
+ * Removes item in this ListOf items with the given id or NULL if no such
+ * item exists.  The caller owns the returned item and is responsible for
+ * deleting it.
+ */
+LIBSBML_EXTERN
+Event_t *
+ListOfEvents_removeById (ListOf_t *lo, const char *sid)
+{
+  return (sid != NULL) ? 
+    static_cast <ListOfEvents *> (lo)->remove(sid) : NULL;
+}
+
 /** @endcond doxygen-c-only */
+
+LIBSBML_CPP_NAMESPACE_END
+

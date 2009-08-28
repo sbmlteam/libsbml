@@ -37,6 +37,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygen-libsbml-internal */
 
@@ -139,3 +140,6 @@ XMLFileBuffer::error ()
 }
 
 /** @endcond doxygen-libsbml-internal */
+
+LIBSBML_CPP_NAMESPACE_END
+

@@ -27,6 +27,8 @@
 
 using namespace std;
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 /** @endcond doxygen-ignored */
 
 
@@ -63,5 +65,7 @@ ExpatAttributes::ExpatAttributes (const XML_Char** attrs,
 ExpatAttributes::~ExpatAttributes ()
 {
 }
+
+LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond doxygen-libsbml-internal */

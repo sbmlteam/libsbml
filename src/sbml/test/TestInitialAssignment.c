@@ -67,7 +67,7 @@ static InitialAssignment_t *IA;
 void
 InitialAssignmentTest_setup (void)
 {
-  IA = InitialAssignment_create();
+  IA = InitialAssignment_create(2, 4);
 
   if (IA == NULL)
   {
@@ -96,23 +96,23 @@ START_TEST (test_InitialAssignment_create)
 END_TEST
 
 
-START_TEST (test_InitialAssignment_createWith)
-{
-  InitialAssignment_t *ia   = InitialAssignment_createWithSymbol("k");
-
-  fail_unless( SBase_getTypeCode  ((SBase_t *) ia) == SBML_INITIAL_ASSIGNMENT );
-  fail_unless( SBase_getMetaId    ((SBase_t *) ia) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) ia) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) ia) == NULL );
-
-  fail_unless( !InitialAssignment_isSetMath(ia) );
-
-  fail_unless( !strcmp(InitialAssignment_getSymbol(ia), "k") );
-  fail_unless( InitialAssignment_isSetSymbol(ia) );
-
-  InitialAssignment_free(ia);
-}
-END_TEST
+//START_TEST (test_InitialAssignment_createWith)
+//{
+//  InitialAssignment_t *ia   = InitialAssignment_createWithSymbol("k");
+//
+//  fail_unless( SBase_getTypeCode  ((SBase_t *) ia) == SBML_INITIAL_ASSIGNMENT );
+//  fail_unless( SBase_getMetaId    ((SBase_t *) ia) == NULL );
+//  fail_unless( SBase_getNotes     ((SBase_t *) ia) == NULL );
+//  fail_unless( SBase_getAnnotation((SBase_t *) ia) == NULL );
+//
+//  fail_unless( !InitialAssignment_isSetMath(ia) );
+//
+//  fail_unless( !strcmp(InitialAssignment_getSymbol(ia), "k") );
+//  fail_unless( InitialAssignment_isSetSymbol(ia) );
+//
+//  InitialAssignment_free(ia);
+//}
+//END_TEST
 
 
 START_TEST (test_InitialAssignment_free_NULL)
@@ -193,13 +193,15 @@ START_TEST (test_InitialAssignment_setMath)
 END_TEST
 
 
-START_TEST (test_InitialAssignment_createWithLevelVersionAndNamespace)
+START_TEST (test_InitialAssignment_createWithNS )
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
-  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "testsbml");
+  SBMLNamespaces_t *sbmlns = SBMLNamespaces_create(2,3);
+  SBMLNamespaces_addNamespaces(sbmlns,xmlns);
 
   InitialAssignment_t *object = 
-    InitialAssignment_createWithLevelVersionAndNamespaces(2, 3, xmlns);
+    InitialAssignment_createWithNS (sbmlns);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_INITIAL_ASSIGNMENT );
@@ -211,7 +213,8 @@ START_TEST (test_InitialAssignment_createWithLevelVersionAndNamespace)
   fail_unless( SBase_getVersion     ((SBase_t *) object) == 3 );
 
   fail_unless( InitialAssignment_getNamespaces     (object) != NULL );
-  fail_unless( XMLNamespaces_getLength(InitialAssignment_getNamespaces(object)) == 1 );
+  fail_unless( XMLNamespaces_getLength(
+                      InitialAssignment_getNamespaces(object)) == 2 );
 
   InitialAssignment_free(object);
 }
@@ -230,11 +233,11 @@ create_suite_InitialAssignment (void)
                              InitialAssignmentTest_teardown );
 
   tcase_add_test( tcase, test_InitialAssignment_create      );
-  tcase_add_test( tcase, test_InitialAssignment_createWith  );
+  //tcase_add_test( tcase, test_InitialAssignment_createWith  );
   tcase_add_test( tcase, test_InitialAssignment_free_NULL   );
   tcase_add_test( tcase, test_InitialAssignment_setSymbol );
   tcase_add_test( tcase, test_InitialAssignment_setMath     );
-  tcase_add_test( tcase, test_InitialAssignment_createWithLevelVersionAndNamespace        );
+  tcase_add_test( tcase, test_InitialAssignment_createWithNS         );
 
   suite_add_tcase(suite, tcase);
 

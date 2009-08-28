@@ -23,6 +23,7 @@
 
 #include <sbml/util/List.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /*
  * Creates a new List.
@@ -491,5 +492,6 @@ List_size (const List_t *lst)
   return static_cast<const List*>(lst)->getSize();
 }
 
+LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond doxygen-c-only */

@@ -45,63 +45,43 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
-/*
- * Creates a new KineticLaw, optionally with its formula, timeUnits and/or
- * substanceUnits set.
- */
-KineticLaw::KineticLaw (   const std::string& formula
-                         , const std::string& timeUnits
-                         , const std::string& substanceUnits ) :
-   SBase          ( -1             )
- , mFormula       ( formula        )
- , mMath          ( 0              )
- , mTimeUnits     ( timeUnits      )
- , mSubstanceUnits( substanceUnits )
-{
-}
-
-
-/*
- * Creates a new KineticLaw, optionally with its math, timeUnits and/or
- * substanceUnits set.
- */
-KineticLaw::KineticLaw (   const ASTNode* math
-                         , const std::string& timeUnits
-                         , const std::string& substanceUnits ) :
-   SBase          ( -1             )
- , mMath          ( 0              )
- , mTimeUnits     ( timeUnits      )
- , mSubstanceUnits( substanceUnits )
-{
-  if (math) mMath = math->deepCopy();
-}
-
-
-KineticLaw::KineticLaw (unsigned int level, unsigned int version,
-                          XMLNamespaces *xmlns) :
-   SBase          ( -1             )
+KineticLaw::KineticLaw (unsigned int level, unsigned int version) :
+   SBase ( level, version )
  , mMath          ( 0              )
  , mTimeUnits     ( ""             )
  , mSubstanceUnits( ""             )
+ , mInternalId    ( ""             )
+
 {
-  mObjectLevel = level;
-  mObjectVersion = version;
-  if (xmlns) setNamespaces(xmlns);;
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
+
+KineticLaw::KineticLaw (SBMLNamespaces * sbmlns) :
+   SBase          ( sbmlns         )
+ , mMath          ( 0              )
+ , mTimeUnits     ( ""             )
+ , mSubstanceUnits( ""             )
+ , mInternalId    ( ""             )
+
+{
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
+}
+
+
+
+/* constructor for validators */
+KineticLaw::KineticLaw() :
+  SBase()
+{
+}
+
+/** @endcond doxygen-libsbml-internal */
                           
-KineticLaw::KineticLaw (SBMLNamespaces *sbmlns) :
-   SBase          ( -1             )
- , mMath          ( 0              )
- , mTimeUnits     ( ""             )
- , mSubstanceUnits( ""             )
-{
-  mObjectLevel = sbmlns->getLevel();
-  mObjectVersion = sbmlns->getVersion();
-  setNamespaces(sbmlns->getNamespaces());
-}
-
 
 /*
  * Destroys this KineticLaw.
@@ -122,8 +102,21 @@ KineticLaw::KineticLaw (const KineticLaw& orig) :
  , mParameters    ( orig.mParameters     )
  , mTimeUnits     ( orig.mTimeUnits      )
  , mSubstanceUnits( orig.mSubstanceUnits )
+ , mInternalId    ( orig.mInternalId     )
 {
-  if (orig.mMath) mMath = orig.mMath->deepCopy();
+  if (orig.mMath) 
+  {
+    mMath = orig.mMath->deepCopy();
+    mMath->setParentSBMLObject(this);
+  }
+
+  /* since a kinetic Law has children we need to re-establish the
+   * parentage of these children
+   */
+  if (orig.getNumParameters() > 0)
+  {
+    mParameters.setParentSBMLObject(this);
+  }
 }
 
 
@@ -139,12 +132,23 @@ KineticLaw& KineticLaw::operator=(const KineticLaw& rhs)
     mTimeUnits      = rhs.mTimeUnits      ;
     mSubstanceUnits = rhs.mSubstanceUnits ;
     mParameters     = rhs.mParameters     ;
-
+    mInternalId     = rhs.mInternalId     ;
+    
+    if (rhs.getNumParameters() > 0)
+    {
+      mParameters.setParentSBMLObject(this);
+    }
+    
     delete mMath;
-    if (rhs.mMath)
+    if (rhs.mMath) 
+    {
       mMath = rhs.mMath->deepCopy();
+      mMath->setParentSBMLObject(this);
+    }
     else
+    {
       mMath = 0;
+    }
   }
 
   return *this;
@@ -290,15 +294,31 @@ KineticLaw::isSetSubstanceUnits () const
 /*
  * Sets the formula of this KineticLaw to a copy of formula.
  */
-void
+int
 KineticLaw::setFormula (const std::string& formula)
 {
-  mFormula = formula;
-
-  if (mMath)
+  ASTNode * math = SBML_parseFormula(formula.c_str());
+  if (formula == "")
   {
+    mFormula.erase();
     delete mMath;
     mMath = 0;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (math == NULL || !(math->isWellFormedASTNode()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else
+  {
+    mFormula = formula;
+
+    if (mMath)
+    {
+      delete mMath;
+      mMath = 0;
+    }
+    return LIBSBML_OPERATION_SUCCESS;
   }
 }
 
@@ -306,74 +326,175 @@ KineticLaw::setFormula (const std::string& formula)
 /*
  * Sets the math of this KineticLaw to a copy of the given ASTNode.
  */
-void
+int
 KineticLaw::setMath (const ASTNode* math)
 {
-  if (mMath == math) return;
-
-
-  delete mMath;
-  mMath = (math != 0) ? math->deepCopy() : 0;
-  if (mMath) mMath->setParentSBMLObject(this);
-
-  mFormula.erase();
+  if (mMath == math) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (math == NULL)
+  {
+    delete mMath;
+    mMath = 0;
+    mFormula.erase();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (!(math->isWellFormedASTNode()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else
+  {
+    delete mMath;
+    mMath = (math != 0) ? math->deepCopy() : 0;
+    if (mMath) mMath->setParentSBMLObject(this);
+    mFormula.erase();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Sets the timeUnits of this KineticLaw to a copy of sid.
  */
-void
+int
 KineticLaw::setTimeUnits (const std::string& sid)
 {
-  mTimeUnits = sid;
+  /* only in L1 and L2V1 */
+  if ((getLevel() == 2 && getVersion() > 1)
+    || getLevel() > 2)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mTimeUnits = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Sets the substanceUnits of this KineticLaw to a copy of sid.
  */
-void
+int
 KineticLaw::setSubstanceUnits (const std::string& sid)
 {
-  mSubstanceUnits = sid;
+  /* only in L1 and L2V1 */
+  if ((getLevel() == 2 && getVersion() > 1)
+    || getLevel() > 2)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mSubstanceUnits = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Unsets the timeUnits of this KineticLaw.
  */
-void
+int
 KineticLaw::unsetTimeUnits ()
 {
+  /* only in L1 and L2V1 */
+  if ((getLevel() == 2 && getVersion() > 1)
+    || getLevel() > 2)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+
   mTimeUnits.erase();
+
+  if (mTimeUnits.empty()) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
 /*
  * Unsets the substanceUnits of this KineticLaw.
  */
-void
+int
 KineticLaw::unsetSubstanceUnits ()
 {
+  /* only in L1 and L2V1 */
+  if ((getLevel() == 2 && getVersion() > 1)
+    || getLevel() > 2)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+ 
   mSubstanceUnits.erase();
+  
+  if (mSubstanceUnits.empty()) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
 /*
  * Adds a copy of the given Parameter to this KineticLaw.
  */
-void
+int
 KineticLaw::addParameter (const Parameter* p)
 {
-  /* if the ListOf is empty it doesnt know its parent */
-  if (mParameters.size() == 0)
+  if (p == NULL)
   {
-    mParameters.setSBMLDocument(this->getSBMLDocument());
-    mParameters.setParentSBMLObject(this);
+    return LIBSBML_OPERATION_FAILED;
   }
-  
-  mParameters.append(p);
+  else if (!(p->hasRequiredAttributes()) || !(p->hasRequiredElements()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != p->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != p->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (getParameter(p->getId()) != NULL)
+  {
+    // an parameter with this id already exists
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
+  else
+  {
+    /* if the ListOf is empty it doesnt know its parent */
+    if (mParameters.size() == 0)
+    {
+      mParameters.setSBMLDocument(this->getSBMLDocument());
+      mParameters.setParentSBMLObject(this);
+    }
+    
+    mParameters.append(p);
+
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -384,7 +505,20 @@ KineticLaw::addParameter (const Parameter* p)
 Parameter*
 KineticLaw::createParameter ()
 {
-  Parameter* p = new Parameter();
+  Parameter* p = 0;
+
+  try
+  {
+    p = new Parameter(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mParameters.size() == 0)
@@ -393,7 +527,7 @@ KineticLaw::createParameter ()
     mParameters.setParentSBMLObject(this);
   }
   
-  mParameters.appendAndOwn(p);
+  if (p) mParameters.appendAndOwn(p);
 
   return p;
 }
@@ -491,9 +625,9 @@ KineticLaw::getDerivedUnitDefinition()
       m->populateListFormulaUnitsData();
     }
     
-    if (m->getFormulaUnitsData(getId(), getTypeCode()))
+    if (m->getFormulaUnitsData(getInternalId(), getTypeCode()))
     {
-      return m->getFormulaUnitsData(getId(), getTypeCode())
+      return m->getFormulaUnitsData(getInternalId(), getTypeCode())
                                              ->getUnitDefinition();
     }
     else
@@ -541,9 +675,9 @@ KineticLaw::containsUndeclaredUnits()
       m->populateListFormulaUnitsData();
     }
     
-    if (m->getFormulaUnitsData(getId(), getTypeCode()))
+    if (m->getFormulaUnitsData(getInternalId(), getTypeCode()))
     {
-      return m->getFormulaUnitsData(getId(), getTypeCode())
+      return m->getFormulaUnitsData(getInternalId(), getTypeCode())
       ->getContainsUndeclaredUnits();
     }
     else
@@ -562,6 +696,27 @@ bool
 KineticLaw::containsUndeclaredUnits() const
 {
   return const_cast<KineticLaw *> (this)->containsUndeclaredUnits();
+}
+
+/**
+ * Removes the nth Parameter object in the list of local parameters 
+ * in this KineticLaw instance.
+ */
+Parameter* 
+KineticLaw::removeParameter (unsigned int n)
+{
+  return mParameters.remove(n);  
+}
+
+
+/**
+ * Removes a Parameter object with the given identifier in the list of
+ * local parameters in this KineticLaw instance.
+ */
+Parameter* 
+KineticLaw::removeParameter (const std::string& sid)
+{
+  return mParameters.remove(sid);
 }
 
 
@@ -612,6 +767,34 @@ KineticLaw::getElementName () const
 {
   static const string name = "kineticLaw";
   return name;
+}
+
+
+bool 
+KineticLaw::hasRequiredAttributes() const
+{
+  bool allPresent = true;
+
+  /* required attributes for kineticLaw: formula (L1 only) */
+
+  if (getLevel() == 1 && !isSetFormula())
+    allPresent = false;
+
+  return allPresent;
+}
+
+
+bool 
+KineticLaw::hasRequiredElements() const
+{
+  bool allPresent = true;
+
+  /* required attributes for kineticlaw: math */
+
+  if (!isSetMath())
+    allPresent = false;
+
+  return allPresent;
 }
 
 
@@ -908,137 +1091,73 @@ KineticLaw::writeAttributes (XMLOutputStream& stream) const
 /** @cond doxygen-c-only */
 
 
-
 /**
- * Creates a new, empty KineticLaw_t structure and returns a pointer to it.
+ * Creates a new KineticLaw_t structure using the given SBML @p level
+ * and @p version values.
  *
- * Note that in SBML Level 2, if a KineticLaw_t structure is present in a
- * Reaction_t object, the KineticLaw_t structure must contain a non-empty
- * "math" subelement.  Although this method allows the creation of empty
- * KineticLaw_t structures, callers should make sure to assign a
- * mathematical expression for the rate using (for example)
- * KineticLaw_setMath().
- *
- * @return pointer to newly created KineticLaw_t structure.
- */
-LIBSBML_EXTERN
-KineticLaw_t *
-KineticLaw_create (void)
-{
-  return new(nothrow) KineticLaw;
-}
-
-
-/**
- * Creates a new KineticLaw_t structure with the given formula and returns a pointer
- * to it.
- *
- * See the description of Reaction for important information about the
- * interpretation of reaction rate expressions, and on particular about the
- * units of the expressions.
- *
- * This convenience function is functionally equivalent to:
- * @code
- *   KineticLaw_t *kl = KineticLaw_create();
- *   KineticLaw_setFormula(kl, formula);
- * @endcode
- *
- * @param formula a mathematical expression in text-string form
- * representing the rate of the reaction.
- * 
- * @param timeUnits the identifier of the units of time for this
- * KineticLaw_t structure.
- * 
- * @param substanceUnits the identifier of the units of substance for this
- * KineticLaw_t structure.
- *
- * @return pointer to newly created KineticLaw_t structure.
- *
- * @note SBML Level 1 uses a text-string format for mathematical formulas.
- * SBML Level 2 uses MathML, an XML format for representing mathematical
- * expressions.  LibSBML provides an Abstract Syntax Tree API for working
- * with mathematical expressions; this API is more powerful than working
- * with formulas directly in text form, and ASTs can be translated into
- * either MathML or the text-string syntax.  The libSBML methods that
- * accept text-string formulas directly (such as this constructor) are
- * provided for SBML Level 1 compatibility, but developers are encouraged
- * to use the AST mechanisms.  See KineticLaw_createWithMath for a
- * version that takes an ASTNode_t structure.
- *
- * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
- * attributes were removed.  For compatibility with new versions of SBML,
- * users are cautioned to avoid these attributes.
- */
-LIBSBML_EXTERN
-KineticLaw_t *
-KineticLaw_createWithFormula ( const char *formula)
-{
-  string f  = formula        ? formula        : "";
-
-  return new(nothrow) KineticLaw(f);
-}
-
-
-/**
- * Creates a new KineticLaw_t structure with the given mathematical
- * expression and returns a pointer to it.
- *
- * See the description of Reaction for important information about the
- * interpretation of reaction rate expressions, and on particular about the
- * units of the expressions.
- *
- * This convenience function is functionally equivalent to:
- * @code
- *   KineticLaw_t *kl = KineticLaw_create();
- *   KineticLaw_setMath(kl, math);
- * @endcode
- *
- * @param math an ASTNode structure representing a mathematical expression
- * for the rate of the reaction.
- *
- * @return pointer to newly created KineticLaw_t structure.
- */
-LIBSBML_EXTERN
-KineticLaw_t *
-KineticLaw_createWithMath (ASTNode_t *math)
-{
-  return new(nothrow) KineticLaw(math);
-}
-
-
-/** @cond doxygen-libsbml-internal */
-/**
- * Creates a new KineticLaw_t structure using the given SBML @p 
- * level and @p version values and a set of XMLNamespaces.
- *
- * @param level an unsigned int, the SBML Level to assign to this 
+ * @param level an unsigned int, the SBML Level to assign to this
  * KineticLaw
  *
  * @param version an unsigned int, the SBML Version to assign to this
  * KineticLaw
- * 
- * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
- * assign to this KineticLaw
  *
  * @return a pointer to the newly created KineticLaw_t structure.
  *
- * @note Once a KineticLaw has been added to an SBMLDocument, the @p 
- * level, @p version and @p xmlns namespaces for the document @em override 
- * those used to create the KineticLaw.  Despite this, the ability 
- * to supply the values at creation time is an important aid to creating 
- * valid SBML.  Knowledge of the intended SBML Level and Version 
- * determine whether it is valid to assign a particular value to an 
- * attribute, or whether it is valid to add an object to an existing 
+ * @note Once a KineticLaw has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the KineticLaw.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
+ */
+LIBSBML_EXTERN
+KineticLaw_t *
+KineticLaw_create (unsigned int level, unsigned int version)
+{
+  try
+  {
+    KineticLaw* obj = new KineticLaw(level,version);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
+
+
+/**
+ * Creates a new KineticLaw_t structure using the given
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this KineticLaw
+ *
+ * @return a pointer to the newly created KineticLaw_t structure.
+ *
+ * @note Once a KineticLaw has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the KineticLaw.  Despite this, the ability to supply the values at creation time
+ * is an important aid to creating valid SBML.  Knowledge of the intended SBML
+ * Level and Version determine whether it is valid to assign a particular value
+ * to an attribute, or whether it is valid to add an object to an existing
  * SBMLDocument.
  */
 LIBSBML_EXTERN
 KineticLaw_t *
-KineticLaw_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns)
+KineticLaw_createWithNS (SBMLNamespaces_t* sbmlns)
 {
-  return new(nothrow) KineticLaw(level, version, xmlns);
+  try
+  {
+    KineticLaw* obj = new KineticLaw(sbmlns);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
 }
-/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -1288,6 +1407,13 @@ KineticLaw_isSetSubstanceUnits (const KineticLaw_t *kl)
  *
  * @param formula the mathematical expression, in text-string form.
  *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
+ *
  * @note SBML Level 1 uses a text-string format for mathematical formulas.
  * SBML Level 2 uses MathML, an XML format for representing mathematical
  * expressions.  LibSBML provides an Abstract Syntax Tree API for working
@@ -1300,10 +1426,10 @@ KineticLaw_isSetSubstanceUnits (const KineticLaw_t *kl)
  * version that takes an ASTNode_t structure.
  */
 LIBSBML_EXTERN
-void
+int
 KineticLaw_setFormula (KineticLaw_t *kl, const char *formula)
 {
-  kl->setFormula(formula ? formula : "");
+  return kl->setFormula(formula ? formula : "");
 }
 
 
@@ -1317,12 +1443,19 @@ KineticLaw_setFormula (KineticLaw_t *kl, const char *formula)
  * @param kl the KineticLaw_t structure.
  *
  * @param math an ASTNode_t structure representing the mathematical formula
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
-void
+int
 KineticLaw_setMath (KineticLaw_t *kl, const ASTNode_t *math)
 {
-  kl->setMath(math);
+  return kl->setMath(math);
 }
 
 
@@ -1335,15 +1468,26 @@ KineticLaw_setMath (KineticLaw_t *kl, const ASTNode_t *math)
  *
  * @param sid the identifier of the units
  *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "timeUnits" attribute.
+ *
  * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
  * attributes were removed.  For compatibility with new versions of SBML,
  * users are cautioned to avoid these attributes.
  */
 LIBSBML_EXTERN
-void
+int
 KineticLaw_setTimeUnits (KineticLaw_t *kl, const char *sid)
 {
-  (sid == NULL) ? kl->unsetTimeUnits() : kl->setTimeUnits(sid);
+  return (sid == NULL) ? kl->unsetTimeUnits() : kl->setTimeUnits(sid);
 }
 
 
@@ -1356,15 +1500,26 @@ KineticLaw_setTimeUnits (KineticLaw_t *kl, const char *sid)
  *
  * @param sid the identifier of the units
  *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "substanceUnits" attribute.
+ *
  * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
  * attributes were removed.  For compatibility with new versions of SBML,
  * users are cautioned to avoid these attributes.
  */
 LIBSBML_EXTERN
-void
+int
 KineticLaw_setSubstanceUnits (KineticLaw_t *kl, const char *sid)
 {
-  (sid == NULL) ? kl->unsetSubstanceUnits() : kl->setSubstanceUnits(sid);
+  return (sid == NULL) ? kl->unsetSubstanceUnits() : kl->setSubstanceUnits(sid);
 }
 
 
@@ -1373,15 +1528,22 @@ KineticLaw_setSubstanceUnits (KineticLaw_t *kl, const char *sid)
  *
  * @param kl the KineticLaw_t structure.
  *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ *
  * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
  * attributes were removed.  For compatibility with new versions of SBML,
  * users are cautioned to avoid these attributes.
  */
 LIBSBML_EXTERN
-void
+int
 KineticLaw_unsetTimeUnits (KineticLaw_t *kl)
 {
-  kl->unsetTimeUnits();
+  return kl->unsetTimeUnits();
 }
 
 
@@ -1390,15 +1552,22 @@ KineticLaw_unsetTimeUnits (KineticLaw_t *kl)
  *
  * @param kl the KineticLaw_t structure.
  *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ *
  * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
  * attributes were removed.  For compatibility with new versions of SBML,
  * users are cautioned to avoid these attributes.
  */
 LIBSBML_EXTERN
-void
+int
 KineticLaw_unsetSubstanceUnits (KineticLaw_t *kl)
 {
-  kl->unsetSubstanceUnits();
+  return kl->unsetSubstanceUnits();
 }
 
 
@@ -1409,12 +1578,22 @@ KineticLaw_unsetSubstanceUnits (KineticLaw_t *kl)
  * @param kl the KineticLaw_t structure.
  *
  * @param p a pointer to a Parameter_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
+ * @li LIBSBML_OPERATION_FAILED
+ * @li LIBSBML_DUPLICATE_OBJECT_ID
  */
 LIBSBML_EXTERN
-void
+int
 KineticLaw_addParameter (KineticLaw_t *kl, const Parameter_t *p)
 {
-  if (p != NULL) kl->addParameter(p);
+  return kl->addParameter(p);
 }
 
 
@@ -1560,4 +1739,52 @@ KineticLaw_containsUndeclaredUnits(KineticLaw_t *kl)
 }
 
 
+/**
+ * Removes the nth Parameter_t object from the list of local parameters
+ * in this KineticLaw_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Model_t structure
+ * @param n the integer index of the Parameter_t sought
+ *
+ * @return the Parameter_t object removed.  As mentioned above, 
+ * the caller owns the returned item. NULL is returned if the given index 
+ * is out of range.
+ */
+LIBSBML_EXTERN
+Parameter_t *
+KineticLaw_removeParameter (KineticLaw_t *kl, unsigned int n)
+{
+  if (!kl) return 0;
+  return kl->removeParameter(n);
+}
+
+
+/**
+ * Removes the Parameter_t object with the given "id" attribute
+ * from the list of local parameters in this KineticLaw_t object and 
+ * returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the KineticLaw_t structure
+ * @param sid the string of the "id" attribute of the Parameter_t sought
+ *
+ * @return the Parameter_t object removed.  As mentioned above, the 
+ * caller owns the returned object. NULL is returned if no KineticLaw_t
+ * object with the identifier exists in this KineticLaw_t object.
+ */
+LIBSBML_EXTERN
+Parameter_t *
+KineticLaw_removeParameterById (KineticLaw_t *kl, const char *sid)
+{
+  if (!kl) return 0;
+  return kl->removeParameter(sid);
+}
+
+
 /** @endcond doxygen-c-only */
+
+LIBSBML_CPP_NAMESPACE_END
+

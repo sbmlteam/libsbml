@@ -52,7 +52,7 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Creates a new SpeciesGlyph with the id of the associated species set to
@@ -128,12 +128,13 @@ SpeciesGlyph::SpeciesGlyph(const SpeciesGlyph& source):GraphicalObject(source)
  */
 SpeciesGlyph& SpeciesGlyph::operator=(const SpeciesGlyph& source)
 {
-    if(&source!=this)
-    {
-      GraphicalObject::operator=(source);
-      this->mSpecies=source.getSpeciesId();
-    }
-    return *this;
+  if(&source!=this)
+  {
+    GraphicalObject::operator=(source);
+    this->mSpecies=source.getSpeciesId();    
+  }
+  
+  return *this;
 }
 
 
@@ -415,4 +416,5 @@ SpeciesGlyph_clone (const SpeciesGlyph_t *m)
   return static_cast<SpeciesGlyph*>( m->clone() );
 }
 
+LIBSBML_CPP_NAMESPACE_END
 

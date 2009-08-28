@@ -31,6 +31,8 @@
 using namespace std;
 using namespace xercesc;
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 /** @endcond doxygen-ignored */
 
 
@@ -112,6 +114,8 @@ XercesTranscode::transcodeToUTF8(const XMLCh* src_str)
 
   return utf8_str;
 }
+
+LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond doxygen-libsbml-internal */
 

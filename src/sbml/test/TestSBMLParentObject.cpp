@@ -53,6 +53,7 @@
 /** @cond doxygen-ignored */
 
 using namespace std;
+LIBSBML_CPP_NAMESPACE_USE
 
 /** @endcond doxygen-ignored */
 
@@ -60,8 +61,9 @@ using namespace std;
 CK_CPPSTART
 START_TEST ( test_Compartment_parent_add )
 {
-  Compartment *c = new Compartment();
-  Model *m = new Model();
+  Compartment *c = new Compartment(2, 4);
+  c->setId("c");
+  Model *m = new Model(2, 4);
 
   m->addCompartment(c);
 
@@ -77,9 +79,9 @@ END_TEST
 
 START_TEST ( test_CompartmentType_parent_add )
 {
-  CompartmentType *ct = new CompartmentType();
-  Model *m = new Model();
-
+  CompartmentType *ct = new CompartmentType(2, 4);
+  Model *m = new Model(2, 4);
+  ct->setId("ct");
   m->addCompartmentType(ct);
 
   delete ct;
@@ -94,9 +96,9 @@ END_TEST
 
 START_TEST ( test_Constraint_parent_add )
 {
-  Constraint *ct = new Constraint();
-  Model *m = new Model();
-
+  Constraint *ct = new Constraint(2, 4);
+  Model *m = new Model(2, 4);
+  ct->setMath(SBML_parseFormula("a-k"));
   m->addConstraint(ct);
 
   delete ct;
@@ -111,8 +113,8 @@ END_TEST
 
 START_TEST ( test_Delay_parent_add )
 {
-  Delay *d = new Delay();
-  Event *e = new Event();
+  Delay *d = new Delay(2, 4);
+  Event *e = new Event(2, 4);
 
   e->setDelay(d);
 
@@ -127,8 +129,11 @@ END_TEST
 
 START_TEST ( test_Event_parent_add )
 {
-  Event *e = new Event();
-  Model *m = new Model();
+  Event *e = new Event(2, 4);
+  Trigger *t = new Trigger(2, 4);
+  e->setTrigger(t);
+  e->createEventAssignment();
+  Model *m = new Model(2, 4);
 
   m->addEvent(e);
 
@@ -144,8 +149,10 @@ END_TEST
 
 START_TEST ( test_EventAssignment_parent_add )
 {
-  Event *e = new Event();
-  EventAssignment *ea = new EventAssignment();
+  Event *e = new Event(2, 4);
+  EventAssignment *ea = new EventAssignment(2, 4);
+  ea->setVariable("c");
+  ea->setMath(SBML_parseFormula("K+L"));
 
   e->addEventAssignment(ea);
 
@@ -161,8 +168,10 @@ END_TEST
 
 START_TEST ( test_FunctionDefinition_parent_add )
 {
-  FunctionDefinition *fd = new FunctionDefinition();
-  Model *m = new Model();
+  FunctionDefinition *fd = new FunctionDefinition(2, 4);
+  Model *m = new Model(2, 4);
+  fd->setId("fd");
+  fd->setMath(SBML_parseFormula("l"));
 
   m->addFunctionDefinition(fd);
 
@@ -178,8 +187,10 @@ END_TEST
 
 START_TEST ( test_InitialAssignment_parent_add )
 {
-  InitialAssignment *ia = new InitialAssignment();
-  Model *m = new Model();
+  InitialAssignment *ia = new InitialAssignment(2, 4);
+  Model *m = new Model(2, 4);
+  ia->setSymbol("c");
+  ia->setMath(SBML_parseFormula("9"));
 
   m->addInitialAssignment(ia);
 
@@ -195,9 +206,9 @@ END_TEST
 
 START_TEST ( test_KineticLaw_parent_add )
 {
-  KineticLaw* kl=new KineticLaw();
+  KineticLaw* kl=new KineticLaw(2, 4);
   
-  Reaction * r = new Reaction();
+  Reaction * r = new Reaction(2, 4);
 
   r->setKineticLaw(kl);
 
@@ -210,9 +221,10 @@ END_TEST
 
 START_TEST ( test_KineticLaw_Parameter_parent_add )
 {
-  KineticLaw* kl=new KineticLaw();
+  KineticLaw* kl=new KineticLaw(2, 4);
   
-  Parameter * p = new Parameter("jake");
+  Parameter *p = new Parameter(2, 4);
+  p->setId("jake");
   kl->addParameter(p);
   delete p;
 
@@ -231,8 +243,8 @@ END_TEST
 
 START_TEST ( test_Model_parent_add )
 {
-  SBMLDocument *d = new SBMLDocument();
-  Model *m = new Model();
+  SBMLDocument *d = new SBMLDocument(2, 4);
+  Model *m = new Model(2, 4);
 
   d->setModel(m);
 
@@ -245,8 +257,9 @@ END_TEST
 
 START_TEST ( test_Parameter_parent_add )
 {
-  Parameter *ia = new Parameter();
-  Model *m = new Model();
+  Parameter *ia = new Parameter(2, 4);
+  Model *m = new Model(2, 4);
+  ia->setId("p");
 
   m->addParameter(ia);
 
@@ -262,8 +275,9 @@ END_TEST
 
 START_TEST ( test_Reaction_parent_add )
 {
-  Reaction *ia = new Reaction();
-  Model *m = new Model();
+  Reaction *ia = new Reaction(2, 4);
+  Model *m = new Model(2, 4);
+  ia->setId("k");
 
   m->addReaction(ia);
 
@@ -280,8 +294,10 @@ END_TEST
 
 START_TEST ( test_Rule_parent_add )
 {
-  Rule *ia = new RateRule("a");
-  Model *m = new Model();
+  Rule *ia = new RateRule(2, 4);
+  ia->setVariable("a");
+  ia->setMath(SBML_parseFormula("9"));
+  Model *m = new Model(2, 4);
 
   m->addRule(ia);
 
@@ -298,8 +314,10 @@ END_TEST
 
 START_TEST ( test_Species_parent_add )
 {
-  Species *ia = new Species();
-  Model *m = new Model();
+  Species *ia = new Species(2, 4);
+  ia->setId("s");
+  ia->setCompartment("c");
+  Model *m = new Model(2, 4);
 
   m->addSpecies(ia);
 
@@ -316,8 +334,9 @@ END_TEST
 
 START_TEST ( test_SpeciesReference_Product_parent_add )
 {
-  SpeciesReference *sr = new SpeciesReference();
-  Reaction *r = new Reaction();
+  SpeciesReference *sr = new SpeciesReference(2, 4);
+  Reaction *r = new Reaction(2, 4);
+  sr->setSpecies("p");
 
   r->addProduct(sr);
 
@@ -333,9 +352,10 @@ END_TEST
 
 START_TEST ( test_SpeciesReference_Reactant_parent_add )
 {
-  SpeciesReference *sr = new SpeciesReference();
-  Reaction *r = new Reaction();
+  SpeciesReference *sr = new SpeciesReference(2, 4);
+  Reaction *r = new Reaction(2, 4);
 
+  sr->setSpecies("s");
   r->addReactant(sr);
 
   delete sr;
@@ -350,8 +370,9 @@ END_TEST
 
 START_TEST ( test_SpeciesReference_Modifier_parent_add )
 {
-  ModifierSpeciesReference *sr = new ModifierSpeciesReference();
-  Reaction *r = new Reaction();
+  ModifierSpeciesReference *sr = new ModifierSpeciesReference(2, 4);
+  sr->setSpecies("s");
+  Reaction *r = new Reaction(2, 4);
 
   r->addModifier(sr);
 
@@ -367,8 +388,9 @@ END_TEST
 
 START_TEST ( test_SpeciesType_parent_add )
 {
-  SpeciesType *ia = new SpeciesType();
-  Model *m = new Model();
+  SpeciesType *ia = new SpeciesType(2, 4);
+  ia->setId("s");
+  Model *m = new Model(2, 4);
 
   m->addSpeciesType(ia);
 
@@ -384,8 +406,8 @@ END_TEST
 
 START_TEST ( test_StoichiometryMath_parent_add )
 {
-  StoichiometryMath *m = new StoichiometryMath();
-  SpeciesReference *sr = new SpeciesReference();
+  StoichiometryMath *m = new StoichiometryMath(2, 4);
+  SpeciesReference *sr = new SpeciesReference(2, 4);
 
   sr->setStoichiometryMath(m);
 
@@ -400,8 +422,8 @@ END_TEST
 
 START_TEST ( test_Trigger_parent_add )
 {
-  Trigger *d = new Trigger();
-  Event *e = new Event();
+  Trigger *d = new Trigger(2, 4);
+  Event *e = new Event(2, 4);
 
   e->setTrigger(d);
 
@@ -416,9 +438,10 @@ END_TEST
 
 START_TEST ( test_Unit_parent_add )
 {
-  UnitDefinition* ud=new UnitDefinition();
+  UnitDefinition* ud=new UnitDefinition(2, 4);
   
-  Unit * u = new Unit();
+  Unit * u = new Unit(2, 4);
+  u->setKind(UNIT_KIND_MOLE);
   ud->addUnit(u);
   delete u;
 
@@ -436,8 +459,10 @@ END_TEST
 
 START_TEST ( test_UnitDefinition_parent_add )
 {
-  UnitDefinition *ia = new UnitDefinition();
-  Model *m = new Model();
+  UnitDefinition *ia = new UnitDefinition(2, 4);
+  Model *m = new Model(2, 4);
+  ia->setId("u");
+  ia->createUnit();
 
   m->addUnitDefinition(ia);
 
@@ -453,7 +478,7 @@ END_TEST
 
 START_TEST ( test_Compartment_parent_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   Compartment *c = m->createCompartment();
 
   ListOf *lo = m->getListOfCompartments();
@@ -467,7 +492,7 @@ END_TEST
 
 START_TEST ( test_CompartmentType_parent_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   CompartmentType *ct = m->createCompartmentType();
 
   ListOf *lo = m->getListOfCompartmentTypes();
@@ -481,7 +506,7 @@ END_TEST
 
 START_TEST ( test_Constraint_parent_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   Constraint *ct = m->createConstraint();
 
   ListOf *lo = m->getListOfConstraints();
@@ -495,7 +520,7 @@ END_TEST
 
 START_TEST ( test_Event_parent_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   Event *e = m->createEvent();
 
   ListOf *lo = m->getListOfEvents();
@@ -509,7 +534,7 @@ END_TEST
 
 START_TEST ( test_EventAssignment_parent_create )
 {
-  Event *e = new Event();
+  Event *e = new Event(2, 4);
 
   EventAssignment *ea = e->createEventAssignment();
 
@@ -524,7 +549,7 @@ END_TEST
 
 START_TEST ( test_EventAssignment_parent_create_model )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   Event *e = m->createEvent();
 
   EventAssignment *ea = m->createEventAssignment();
@@ -540,7 +565,7 @@ END_TEST
 
 START_TEST ( test_FunctionDefinition_parent_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   FunctionDefinition *fd = m->createFunctionDefinition();
 
   ListOf *lo = m->getListOfFunctionDefinitions();
@@ -554,7 +579,7 @@ END_TEST
 
 START_TEST ( test_InitialAssignment_parent_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   InitialAssignment *ia = m->createInitialAssignment();
 
   ListOf *lo = m->getListOfInitialAssignments();
@@ -568,7 +593,7 @@ END_TEST
 
 START_TEST ( test_KineticLaw_parent_create )
 {
-  Reaction * r = new Reaction();
+  Reaction * r = new Reaction(2, 4);
   KineticLaw* kl = r->createKineticLaw();
 
   fail_unless(r == kl->getParentSBMLObject());
@@ -580,7 +605,7 @@ END_TEST
 
 START_TEST ( test_KineticLaw_parent_create_model )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   Reaction * r = m->createReaction();
   KineticLaw* kl = r->createKineticLaw();
 
@@ -594,7 +619,7 @@ END_TEST
 
 START_TEST ( test_KineticLaw_Parameter_parent_create )
 {
-  KineticLaw* kl=new KineticLaw();
+  KineticLaw* kl=new KineticLaw(2, 4);
   Parameter * p = kl->createParameter();
 
   fail_unless(kl->getNumParameters() == 1);
@@ -612,7 +637,7 @@ END_TEST
 
 START_TEST ( test_KineticLaw_Parameter_parent_create_model )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   Reaction *r = m->createReaction();
   KineticLaw* kl = m->createKineticLaw();
   Parameter * p = m->createKineticLawParameter();
@@ -633,7 +658,7 @@ END_TEST
 
 START_TEST ( test_Model_parent_create )
 {
-  SBMLDocument *d = new SBMLDocument();
+  SBMLDocument *d = new SBMLDocument(2, 4);
   Model *m = d->createModel();
 
   fail_unless(d == m->getParentSBMLObject());
@@ -645,7 +670,7 @@ END_TEST
 
 START_TEST ( test_Parameter_parent_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   Parameter *p = m->createParameter();
 
   ListOf *lo = m->getListOfParameters();
@@ -659,7 +684,7 @@ END_TEST
 
 START_TEST ( test_Reaction_parent_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   Reaction *r = m->createReaction();
 
   ListOf *lo = m->getListOfReactions();
@@ -674,7 +699,7 @@ END_TEST
 
 START_TEST ( test_AlgebraicRule_parent_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   AlgebraicRule *r = m->createAlgebraicRule();
 
   ListOf *lo = m->getListOfRules();
@@ -688,7 +713,7 @@ END_TEST
 
 START_TEST ( test_AssignmentRule_parent_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   AssignmentRule *r = m->createAssignmentRule();
 
   ListOf *lo = m->getListOfRules();
@@ -702,7 +727,7 @@ END_TEST
 
 START_TEST ( test_RateRule_parent_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   RateRule *r = m->createRateRule();
 
   ListOf *lo = m->getListOfRules();
@@ -716,7 +741,7 @@ END_TEST
 
 START_TEST ( test_Species_parent_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   Species *s = m->createSpecies();
 
   ListOf *lo = m->getListOfSpecies();
@@ -730,7 +755,7 @@ END_TEST
 
 START_TEST ( test_SpeciesReference_Product_parent_create )
 {
-  Reaction *r = new Reaction();
+  Reaction *r = new Reaction(2, 4);
   SpeciesReference *sr = r->createProduct();
 
   ListOf *lo = r->getListOfProducts();
@@ -744,7 +769,7 @@ END_TEST
 
 START_TEST ( test_SpeciesReference_Product_parent_create_model )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   Reaction *r = m->createReaction();
   SpeciesReference *sr = m->createProduct();
 
@@ -759,7 +784,7 @@ END_TEST
 
 START_TEST ( test_SpeciesReference_Reactant_parent_create )
 {
-  Reaction *r = new Reaction();
+  Reaction *r = new Reaction(2, 4);
   SpeciesReference *sr = r->createReactant();
 
   ListOf *lo = r->getListOfReactants();
@@ -773,7 +798,7 @@ END_TEST
 
 START_TEST ( test_SpeciesReference_Reactant_parent_create_model )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   Reaction *r = m->createReaction();
   SpeciesReference *sr = m->createReactant();
 
@@ -788,7 +813,7 @@ END_TEST
 
 START_TEST ( test_SpeciesReference_Modifier_parent_create )
 {
-  Reaction *r = new Reaction();
+  Reaction *r = new Reaction(2, 4);
   ModifierSpeciesReference *sr = r->createModifier();
 
   ListOf *lo = r->getListOfModifiers();
@@ -802,7 +827,7 @@ END_TEST
 
 START_TEST ( test_SpeciesReference_Modifier_parent_create_model )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   Reaction *r = m->createReaction();
   ModifierSpeciesReference *sr = m->createModifier();
 
@@ -817,7 +842,7 @@ END_TEST
 
 START_TEST ( test_SpeciesType_parent_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   SpeciesType *st = m->createSpeciesType();
 
   ListOf *lo = m->getListOfSpeciesTypes();
@@ -831,7 +856,7 @@ END_TEST
 
 START_TEST ( test_Unit_parent_create )
 {
-  UnitDefinition* ud = new UnitDefinition();
+  UnitDefinition* ud = new UnitDefinition(2, 4);
   Unit * u = ud->createUnit();
 
   fail_unless(ud->getNumUnits() == 1);
@@ -849,7 +874,7 @@ END_TEST
 
 START_TEST ( test_Unit_parent_create_model )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   UnitDefinition* ud = m->createUnitDefinition();
   Unit * u = m->createUnit();
 
@@ -868,7 +893,7 @@ END_TEST
 
 START_TEST ( test_UnitDefinition_parent_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   UnitDefinition *ud = m->createUnitDefinition();
 
   ListOf *lo = m->getListOfUnitDefinitions();
@@ -887,14 +912,265 @@ START_TEST ( test_Compartment_parent_NULL )
   Compartment *c = m->createCompartment();
   
   Compartment *c1 = c->clone();
-  fail_unless (c1->getParentSBMLObject() == m->getListOfCompartments());
-  fail_unless (c1->getSBMLDocument() == d);
-
   delete d;
 
   fail_unless(c1->getAncestorOfType(SBML_MODEL) == NULL);
   fail_unless(c1->getParentSBMLObject() == NULL);
   fail_unless (c1->getSBMLDocument() == NULL);
+
+  delete c1;
+}
+END_TEST
+
+
+START_TEST ( test_CompartmentType_parent_NULL )
+{
+  SBMLDocument *d = new SBMLDocument();
+  Model *m = d->createModel();
+  CompartmentType *c = m->createCompartmentType();
+  
+  CompartmentType *c1 = c->clone();
+  delete d;
+
+  fail_unless(c1->getAncestorOfType(SBML_MODEL) == NULL);
+  fail_unless(c1->getParentSBMLObject() == NULL);
+  fail_unless (c1->getSBMLDocument() == NULL);
+
+  delete c1;
+}
+END_TEST
+
+
+START_TEST ( test_Constraint_parent_NULL )
+{
+  SBMLDocument *d = new SBMLDocument();
+  Model *m = d->createModel();
+  Constraint *c = m->createConstraint();
+  
+  Constraint *c1 = c->clone();
+  delete d;
+
+  fail_unless(c1->getAncestorOfType(SBML_MODEL) == NULL);
+  fail_unless(c1->getParentSBMLObject() == NULL);
+  fail_unless (c1->getSBMLDocument() == NULL);
+
+  delete c1;
+}
+END_TEST
+
+
+START_TEST ( test_Event_parent_NULL )
+{
+  SBMLDocument *d = new SBMLDocument();
+  Model *m = d->createModel();
+  Event *c = m->createEvent();
+  EventAssignment *ea = c->createEventAssignment();
+  Trigger *t = new Trigger(2, 4);
+  t->setMath(new ASTNode());
+  Delay *dy = new Delay(2, 4);
+  dy->setMath(new ASTNode());
+  c->setTrigger(t);
+  c->setDelay(dy);
+  
+  fail_unless(c->getAncestorOfType(SBML_MODEL) == m);
+  fail_unless(c->getTrigger()->getParentSBMLObject() == c);
+  fail_unless (c->getDelay()->getSBMLDocument() == d);
+  fail_unless(ea->getAncestorOfType(SBML_EVENT) == c);
+
+  Event *c1 = c->clone();
+  delete d;
+
+  fail_unless(c1->getAncestorOfType(SBML_MODEL) == NULL);
+  fail_unless(c1->getParentSBMLObject() == NULL);
+  fail_unless (c1->getSBMLDocument() == NULL);
+
+  fail_unless(c1->getEventAssignment(0)->getAncestorOfType(SBML_MODEL) == NULL);
+  fail_unless(c1->getEventAssignment(0)->getAncestorOfType(SBML_EVENT) == c1);
+  fail_unless(c1->getEventAssignment(0)->getParentSBMLObject() != NULL);
+  fail_unless(c1->getEventAssignment(0)->getSBMLDocument() == NULL);
+
+  fail_unless(c1->getTrigger()->getAncestorOfType(SBML_MODEL) == NULL);
+  fail_unless(c1->getTrigger()->getAncestorOfType(SBML_EVENT) == c1);
+  fail_unless(c1->getTrigger()->getParentSBMLObject() != NULL);
+  fail_unless(c1->getTrigger()->getSBMLDocument() == NULL);
+
+  fail_unless(c1->getDelay()->getAncestorOfType(SBML_MODEL) == NULL);
+  fail_unless(c1->getDelay()->getAncestorOfType(SBML_EVENT) == c1);
+  fail_unless(c1->getDelay()->getParentSBMLObject() != NULL);
+  fail_unless(c1->getDelay()->getSBMLDocument() == NULL);
+
+  delete c1;
+}
+END_TEST
+
+
+START_TEST ( test_FunctionDefinition_parent_NULL )
+{
+  SBMLDocument *d = new SBMLDocument();
+  Model *m = d->createModel();
+  FunctionDefinition *c = m->createFunctionDefinition();
+  
+  FunctionDefinition *c1 = c->clone();
+  delete d;
+
+  fail_unless(c1->getAncestorOfType(SBML_MODEL) == NULL);
+  fail_unless(c1->getParentSBMLObject() == NULL);
+  fail_unless (c1->getSBMLDocument() == NULL);
+
+  delete c1;
+}
+END_TEST
+
+
+START_TEST ( test_InitialAssignment_parent_NULL )
+{
+  SBMLDocument *d = new SBMLDocument();
+  Model *m = d->createModel();
+  InitialAssignment *c = m->createInitialAssignment();
+  
+  InitialAssignment *c1 = c->clone();
+  delete d;
+
+  fail_unless(c1->getAncestorOfType(SBML_MODEL) == NULL);
+  fail_unless(c1->getParentSBMLObject() == NULL);
+  fail_unless (c1->getSBMLDocument() == NULL);
+
+  delete c1;
+}
+END_TEST
+
+
+START_TEST ( test_KineticLaw_parent_NULL )
+{
+  Reaction * r = new Reaction(2, 4);
+  KineticLaw *kl = r->createKineticLaw();
+  Parameter *p = kl->createParameter();
+
+  fail_unless(r == kl->getParentSBMLObject());
+  fail_unless(r == p->getAncestorOfType(SBML_REACTION));
+  fail_unless(kl == p->getAncestorOfType(SBML_KINETIC_LAW));
+
+  KineticLaw *kl1 = kl->clone();
+
+  fail_unless(kl1->getParentSBMLObject() == NULL);
+  fail_unless(kl1->getParameter(0)->getAncestorOfType(SBML_REACTION) == NULL);
+  fail_unless(kl1 == kl1->getParameter(0)->getAncestorOfType(SBML_KINETIC_LAW));
+  
+  delete r;
+}
+END_TEST
+
+
+START_TEST ( test_Parameter_parent_NULL )
+{
+  SBMLDocument *d = new SBMLDocument();
+  Model *m = d->createModel();
+  Parameter *c = m->createParameter();
+  
+  Parameter *c1 = c->clone();
+  delete d;
+
+  fail_unless(c1->getAncestorOfType(SBML_MODEL) == NULL);
+  fail_unless(c1->getParentSBMLObject() == NULL);
+  fail_unless (c1->getSBMLDocument() == NULL);
+
+  delete c1;
+}
+END_TEST
+
+
+START_TEST ( test_Reaction_parent_NULL )
+{
+  SBMLDocument *d = new SBMLDocument();
+  Model *m = d->createModel();
+  Reaction *c = m->createReaction();
+  SpeciesReference *sr = c->createReactant();
+  KineticLaw *kl = c->createKineticLaw();
+
+  fail_unless(c->getAncestorOfType(SBML_MODEL) == m);
+  fail_unless (c->getSBMLDocument() == d);
+  fail_unless(sr->getAncestorOfType(SBML_REACTION) == c);
+  fail_unless(kl->getAncestorOfType(SBML_REACTION) == c);
+
+  Reaction *c1 = c->clone();
+  delete d;
+
+  fail_unless(c1->getAncestorOfType(SBML_MODEL) == NULL);
+  fail_unless(c1->getParentSBMLObject() == NULL);
+  fail_unless (c1->getSBMLDocument() == NULL);
+
+  SpeciesReference *sr1 = c1->getReactant(0);
+  fail_unless(sr1->getAncestorOfType(SBML_MODEL) == NULL);
+  fail_unless(sr1->getAncestorOfType(SBML_REACTION) == c1);
+  fail_unless (sr1->getSBMLDocument() == NULL);
+
+  fail_unless(c1->getKineticLaw()->getAncestorOfType(SBML_MODEL) == NULL);
+  fail_unless(c1->getKineticLaw()->getAncestorOfType(SBML_REACTION) == c1);
+  fail_unless (c1->getKineticLaw()->getSBMLDocument() == NULL);
+
+
+  delete c1;
+}
+END_TEST
+
+
+START_TEST ( test_Species_parent_NULL )
+{
+  SBMLDocument *d = new SBMLDocument();
+  Model *m = d->createModel();
+  Species *c = m->createSpecies();
+  
+  Species *c1 = c->clone();
+  delete d;
+
+  fail_unless(c1->getAncestorOfType(SBML_MODEL) == NULL);
+  fail_unless(c1->getParentSBMLObject() == NULL);
+  fail_unless (c1->getSBMLDocument() == NULL);
+
+  delete c1;
+}
+END_TEST
+
+
+START_TEST ( test_SpeciesType_parent_NULL )
+{
+  SBMLDocument *d = new SBMLDocument();
+  Model *m = d->createModel();
+  SpeciesType *c = m->createSpeciesType();
+  
+  SpeciesType *c1 = c->clone();
+  delete d;
+
+  fail_unless(c1->getAncestorOfType(SBML_MODEL) == NULL);
+  fail_unless(c1->getParentSBMLObject() == NULL);
+  fail_unless (c1->getSBMLDocument() == NULL);
+
+  delete c1;
+}
+END_TEST
+
+
+START_TEST ( test_UnitDefinition_parent_NULL )
+{
+  SBMLDocument *d = new SBMLDocument();
+  Model *m = d->createModel();
+  UnitDefinition *c = m->createUnitDefinition();
+  Unit *u = c->createUnit();
+  
+  fail_unless(u->getAncestorOfType(SBML_UNIT_DEFINITION) == c);
+  
+  UnitDefinition *c1 = c->clone();
+  delete d;
+
+  fail_unless(c1->getAncestorOfType(SBML_MODEL) == NULL);
+  fail_unless(c1->getParentSBMLObject() == NULL);
+  fail_unless (c1->getSBMLDocument() == NULL);
+
+  fail_unless(c1->getUnit(0)->getAncestorOfType(SBML_UNIT_DEFINITION) == c1);
+  fail_unless(c1->getUnit(0)->getParentSBMLObject() != NULL);
+  fail_unless (c1->getUnit(0)->getSBMLDocument() == NULL);
+  
+  delete c1;
 }
 END_TEST
 
@@ -958,6 +1234,17 @@ create_suite_ParentObject (void)
   tcase_add_test( tcase, test_Unit_parent_create_model );
   tcase_add_test( tcase, test_UnitDefinition_parent_create );
   tcase_add_test( tcase, test_Compartment_parent_NULL );
+  tcase_add_test( tcase, test_CompartmentType_parent_NULL );
+  tcase_add_test( tcase, test_Constraint_parent_NULL );
+  tcase_add_test( tcase, test_Event_parent_NULL );
+  tcase_add_test( tcase, test_FunctionDefinition_parent_NULL );
+  tcase_add_test( tcase, test_InitialAssignment_parent_NULL );
+  tcase_add_test( tcase, test_KineticLaw_parent_NULL );
+  tcase_add_test( tcase, test_Parameter_parent_NULL );
+  tcase_add_test( tcase, test_Reaction_parent_NULL );
+  tcase_add_test( tcase, test_Species_parent_NULL );
+  tcase_add_test( tcase, test_SpeciesType_parent_NULL );
+  tcase_add_test( tcase, test_UnitDefinition_parent_NULL );
 
   suite_add_tcase(suite, tcase);
 

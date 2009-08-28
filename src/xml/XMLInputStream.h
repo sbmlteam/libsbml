@@ -32,6 +32,7 @@
 #include <sbml/xml/XMLExtern.h>
 #include <sbml/xml/XMLToken.h>
 #include <sbml/common/sbmlfwd.h>
+#include <sbml/common/operationReturnValues.h>
 
 
 #ifdef __cplusplus
@@ -40,6 +41,9 @@
 
 #include <sbml/xml/XMLTokenizer.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+/** @cond doxygen-libsbml-internal */
 
 class XMLErrorLog;
 class XMLParser;
@@ -147,8 +151,15 @@ public:
 
   /**
    * Sets the XMLErrorLog this stream will use to log errors.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  void setErrorLog (XMLErrorLog* log);
+  int setErrorLog (XMLErrorLog* log);
 
 
   /**
@@ -159,7 +170,6 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
 
   /**
    * Unitialized XMLInputStreams may only be created by subclasses.
@@ -180,14 +190,21 @@ protected:
   XMLTokenizer mTokenizer;
   XMLParser*   mParser;
 
-  /** @endcond doxygen-libsbml-internal */
 };
+
+/** @endcond doxygen-libsbml-internal */
+
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
 
 
 #ifndef SWIG
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+/** @cond doxygen-libsbml-internal */
 
 BEGIN_C_DECLS
 
@@ -253,14 +270,14 @@ XMLInputStream_skipText (XMLInputStream_t *stream);
 
 
 LIBLAX_EXTERN
-void
+int
 XMLInputStream_setErrorLog (XMLInputStream_t *stream, XMLErrorLog_t *log);
-
-
 
 END_C_DECLS
 
+/** @endcond doxygen-libsbml-internal */
+
+LIBSBML_CPP_NAMESPACE_END
+
 #endif  /* !SWIG */
-
-
 #endif  /* XMLInputStream_h */

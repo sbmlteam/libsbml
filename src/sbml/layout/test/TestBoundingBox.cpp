@@ -51,6 +51,8 @@
 
 #include <check.h>
 
+LIBSBML_CPP_NAMESPACE_USE
+
 static BoundingBox* BB;
 
 static void

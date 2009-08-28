@@ -45,38 +45,36 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
-/*
- * Creates a new Trigger, optionally with its formula set.
- */
-Trigger::Trigger (   const ASTNode* math ) :
-   SBase		  (  -1 )
+Trigger::Trigger (unsigned int level, unsigned int version) :
+   SBase ( level, version )
  , mMath      ( 0              )
 {
-  if (math) mMath = math->deepCopy();
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
 
-Trigger::Trigger (unsigned int level, unsigned int version,
-                          XMLNamespaces *xmlns) :
-   SBase		  (  -1 )
+Trigger::Trigger (SBMLNamespaces * sbmlns) :
+   SBase ( sbmlns )
  , mMath      ( 0              )
 {
-  mObjectLevel = level;
-  mObjectVersion = version;
-  if (xmlns) setNamespaces(xmlns);;
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
+
+/** @cond doxygen-libsbml-internal */
+
+/* constructor for validators */
+Trigger::Trigger() :
+  SBase()
+{
+}
+
+/** @endcond doxygen-libsbml-internal */
                           
-Trigger::Trigger (SBMLNamespaces *sbmlns) :
-   SBase		  (  -1 )
- , mMath      ( 0              )
-{
-  mObjectLevel = sbmlns->getLevel();
-  mObjectVersion = sbmlns->getVersion();
-  setNamespaces(sbmlns->getNamespaces());
-}
-
 
 /*
  * Destroys this Trigger.
@@ -94,7 +92,11 @@ Trigger::Trigger (const Trigger& orig) :
    SBase          ( orig )
  , mMath          ( 0    )
 {
-  if (orig.mMath) mMath = orig.mMath->deepCopy();
+  if (orig.mMath) 
+  {
+    mMath = orig.mMath->deepCopy();
+    mMath->setParentSBMLObject(this);
+  }
 }
 
 
@@ -109,9 +111,14 @@ Trigger& Trigger::operator=(const Trigger& rhs)
 
     delete mMath;
     if (rhs.mMath) 
+    {
       mMath = rhs.mMath->deepCopy();
+      mMath->setParentSBMLObject(this);
+    }
     else
+    {
       mMath = 0;
+    }
   }
 
   return *this;
@@ -163,16 +170,30 @@ Trigger::isSetMath () const
 /*
  * Sets the math of this Trigger to a copy of the given ASTNode.
  */
-void
+int
 Trigger::setMath (const ASTNode* math)
 {
-  if (mMath == math) return;
-
-
-  delete mMath;
-  mMath = (math != 0) ? math->deepCopy() : 0;
-  if (mMath) mMath->setParentSBMLObject(this);
-
+  if (mMath == math) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (math == NULL)
+  {
+    delete mMath;
+    mMath = 0;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (!(math->isWellFormedASTNode()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else
+  {
+    delete mMath;
+    mMath = (math != 0) ? math->deepCopy() : 0;
+    if (mMath) mMath->setParentSBMLObject(this);
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 /** @cond doxygen-libsbml-internal */
@@ -235,6 +256,20 @@ Trigger::getElementPosition () const
   return 0;
 }
 /** @endcond doxygen-libsbml-internal */
+
+
+bool 
+Trigger::hasRequiredElements() const
+{
+  bool allPresent = true;
+
+  /* required attributes for trigger: math */
+
+  if (!isSetMath())
+    allPresent = false;
+
+  return allPresent;
+}
 
 
 /** @cond doxygen-libsbml-internal */
@@ -408,71 +443,72 @@ Trigger::writeElements (XMLOutputStream& stream) const
 /** @cond doxygen-c-only */
 
 /**
- * Creates a new Trigger and returns a pointer to it.
- */
-LIBSBML_EXTERN
-Trigger_t *
-Trigger_create (void)
-{
-  return new(nothrow) Trigger;
-}
-
-
-/**
- * Creates a new Trigger_t structure with the given math.
+ * Creates a new Trigger_t structure using the given SBML @p level
+ * and @p version values.
  *
- * This is functionally equivalent to
- * @code
- *   Trigger_t *t = Trigger_create();
- *   Trigger_setMath(math);
- * @endcode.
- *
- * @param math an ASTNode_t structure representing the mathematical 
- * formula for the trigger expressions.
- *
- * @return the newly constructed Trigger_t structure.
- */
-LIBSBML_EXTERN
-Trigger_t *
-Trigger_createWithMath (const ASTNode_t *math)
-{
-  return new(nothrow) Trigger(math);
-}
-
-
-/** @cond doxygen-libsbml-internal */
-/**
- * Creates a new Trigger_t structure using the given SBML @p 
- * level and @p version values and a set of XMLNamespaces.
- *
- * @param level an unsigned int, the SBML Level to assign to this 
+ * @param level an unsigned int, the SBML Level to assign to this
  * Trigger
  *
  * @param version an unsigned int, the SBML Version to assign to this
  * Trigger
- * 
- * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
- * assign to this Trigger
  *
  * @return a pointer to the newly created Trigger_t structure.
  *
- * @note Once a Trigger has been added to an SBMLDocument, the @p 
- * level, @p version and @p xmlns namespaces for the document @em override 
- * those used to create the Trigger.  Despite this, the ability 
- * to supply the values at creation time is an important aid to creating 
- * valid SBML.  Knowledge of the intended SBML Level and Version 
- * determine whether it is valid to assign a particular value to an 
- * attribute, or whether it is valid to add an object to an existing 
+ * @note Once a Trigger has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the Trigger.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
+ */
+LIBSBML_EXTERN
+Trigger_t *
+Trigger_create (unsigned int level, unsigned int version)
+{
+  try
+  {
+    Trigger* obj = new Trigger(level,version);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
+
+
+/**
+ * Creates a new Trigger_t structure using the given
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this Trigger
+ *
+ * @return a pointer to the newly created Trigger_t structure.
+ *
+ * @note Once a Trigger has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the Trigger.  Despite this, the ability to supply the values at creation time
+ * is an important aid to creating valid SBML.  Knowledge of the intended SBML
+ * Level and Version determine whether it is valid to assign a particular value
+ * to an attribute, or whether it is valid to add an object to an existing
  * SBMLDocument.
  */
 LIBSBML_EXTERN
 Trigger_t *
-Trigger_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns)
+Trigger_createWithNS (SBMLNamespaces_t* sbmlns)
 {
-  return new(nothrow) Trigger(level, version, xmlns);
+  try
+  {
+    Trigger* obj = new Trigger(sbmlns);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
 }
-/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -538,13 +574,22 @@ Trigger_isSetMath (const Trigger_t *t)
 
 /**
  * Sets the math of this Trigger to a copy of the given ASTNode.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
-void
+int
 Trigger_setMath (Trigger_t *t, const ASTNode_t *math)
 {
-  t->setMath(math);
+  return t->setMath(math);
 }
 
 
 /** @endcond doxygen-c-only */
+
+LIBSBML_CPP_NAMESPACE_END

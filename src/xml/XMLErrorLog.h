@@ -61,6 +61,7 @@
 #include <vector>
 #include <list>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class XMLParser;
 
@@ -142,8 +143,15 @@ public:
    * application programs.
    *
    * @param p XMLParser, the parser to use
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  void setParser (const XMLParser* p);
+  int setParser (const XMLParser* p);
 
   /** @endcond doxygen-libsbml-internal */
 
@@ -157,11 +165,14 @@ protected:
   /** @endcond doxygen-libsbml-internal */
 };
 
+LIBSBML_CPP_NAMESPACE_END
+
 #endif  /* __cplusplus */
 
 
 #ifndef SWIG
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /*-----------------------------------------------------------------------------
@@ -200,6 +211,7 @@ XMLErrorLog_clearLog (XMLErrorLog_t *log);
 
 
 END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
 #endif  /* XMLErrorLog_h */

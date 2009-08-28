@@ -53,12 +53,15 @@
 
 #include <sbml/xml/XMLExtern.h>
 #include <sbml/common/sbmlfwd.h>
+#include <sbml/common/operationReturnValues.h>
 
 
 #ifdef __cplusplus
 
 #include <string>
 #include <vector>
+
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygen-libsbml-internal */
 class XMLOutputStream;
@@ -120,6 +123,12 @@ public:
    * @param uri a string, the uri for the namespace
    * @param prefix a string, the prefix for the namespace
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   *
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different
    * libSBML language bindings, you may or may not see corresponding
@@ -132,15 +141,22 @@ public:
    * other variants of this method near where this one appears in the
    * documentation.
    */
-  void add (const std::string& uri, const std::string& prefix = "");
+  int add (const std::string& uri, const std::string& prefix = "");
 
 
   /**
    * Removes an XML Namespace stored in the given position of this list.
    *
-   * @param index an integer, position of the removed namespace.
+   * @param index an integer, position of the namespace to remove.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INDEX_EXCEEDS_SIZE
    */
-  void remove (int index);
+  int remove (int index);
 
 
   /**
@@ -148,18 +164,32 @@ public:
    *
    * @param prefix a string, prefix of the required namespace.
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INDEX_EXCEEDS_SIZE
+   *
    * @see remove(int index)
    */
-  void remove (const std::string& prefix);
+  int remove (const std::string& prefix);
 
 
   /**
    * Clears (deletes) all XML namespace declarations in this XMLNamespaces
    * object.
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   *
    * @see remove(int index)
    */
-  void clear ();
+  int clear ();
 
 
   /**
@@ -380,11 +410,14 @@ protected:
 };
 
 
+LIBSBML_CPP_NAMESPACE_END
+
 #endif  /* __cplusplus */
 
 
 #ifndef SWIG
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /*-----------------------------------------------------------------------------
@@ -408,21 +441,23 @@ XMLNamespaces_clone (const XMLNamespaces_t* c);
 
 
 LIBLAX_EXTERN
-void
+int
 XMLNamespaces_add (XMLNamespaces_t *ns, 
 		   const char *uri, const char *prefix);
 
 
 LIBLAX_EXTERN
-void XMLNamespaces_remove (XMLNamespaces_t *ns, int index);
+int 
+XMLNamespaces_remove (XMLNamespaces_t *ns, int index);
 
 
 LIBLAX_EXTERN
-void XMLNamespaces_removeByPrefix (XMLNamespaces_t *ns, const char* prefix);
+int 
+XMLNamespaces_removeByPrefix (XMLNamespaces_t *ns, const char* prefix);
 
 
 LIBLAX_EXTERN
-void
+int
 XMLNamespaces_clear (XMLNamespaces_t *ns);
 
 
@@ -480,8 +515,8 @@ int
 XMLNamespaces_hasNS(const XMLNamespaces_t *ns, const char* uri, const char* prefix);
 
 
-
 END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
 #endif  /* XMLNamespaces_h */

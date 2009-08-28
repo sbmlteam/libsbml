@@ -121,10 +121,10 @@ all: Makefile
 # for running check are abstracted out into makefile-common-actions.mk,
 # which is included at the bottom of this file.
 
-tmp     = $(test_sources:.cpp=.$(OBJEXT)) $(test_sources:.c=.$(OBJEXT))
-objects = $(filter %.$(OBJEXT),$(tmp))
+tmp     = $(test_sources:.cpp=.lo) $(test_sources:.c=.lo)
+objects = $(filter %.lo,$(tmp))
 
-test_objfiles = $(objects) $(wildcard ../*.$(OBJEXT))
+test_objfiles = $(objects) $(wildcard ../*.lo)
 
 ifdef USE_LIBCHECK
   check: all run-checks

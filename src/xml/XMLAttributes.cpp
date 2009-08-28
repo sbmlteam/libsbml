@@ -40,6 +40,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /*
  * @return s with whitespace removed from the beginning and end.
@@ -118,7 +119,7 @@ XMLAttributes::clone () const
  * If name with the same namespace URI already exists in this attribute set, 
  * its value will be replaced.
  */
-void
+int
 XMLAttributes::add (const std::string& name,
 		    const std::string& value,
 		    const std::string& namespaceURI,
@@ -141,6 +142,7 @@ XMLAttributes::add (const std::string& name,
     mValues[index] = value;
     mNames[index]  = XMLTriple(name, namespaceURI, prefix);
   }
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -149,10 +151,10 @@ XMLAttributes::add (const std::string& name,
  * If name with the same namespaceURI already exists in this attribute set,
  * its value will be replaced.
  */
-void 
+int 
 XMLAttributes::add ( const XMLTriple& triple, const std::string& value)
 {
-  add(triple.getName(), value, triple.getURI(), triple.getPrefix());
+  return add(triple.getName(), value, triple.getURI(), triple.getPrefix());
 }
 
 
@@ -162,11 +164,12 @@ XMLAttributes::add ( const XMLTriple& triple, const std::string& value)
  * This is really the add function but an attribute with same name wont 
  * be overwritten - this is for annotations
  */
-void
+int
 XMLAttributes::addResource (const std::string& name, const std::string& value)
 {
   mNames .push_back( XMLTriple(name, "", "") );
   mValues.push_back( value );
+  return LIBSBML_OPERATION_SUCCESS;
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -175,16 +178,21 @@ XMLAttributes::addResource (const std::string& name, const std::string& value)
  * Removes an attribute with the given index from this XMLAttributes set.  
  * This is for annotations
  */
-void
+int
 XMLAttributes::removeResource (int n)
 {
-  if (n < 0 || n >= getLength()) return;
+  if (n < 0 || n >= getLength()) 
+  {
+    return LIBSBML_INDEX_EXCEEDS_SIZE;
+  }
 
   vector<XMLTriple>::iterator   names_iter  = mNames.begin()  + n;
   vector<std::string>::iterator values_iter = mValues.begin() + n;
 
   mNames.erase(names_iter);
   mValues.erase(values_iter);
+
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -192,10 +200,10 @@ XMLAttributes::removeResource (int n)
  * Removes an attribute with the given index from this XMLAttributes set.  
  * This is for annotations
  */
-void
+int
 XMLAttributes::remove (int n)
 {
-  removeResource(n);
+  return removeResource(n);
 }
 
 
@@ -203,31 +211,32 @@ XMLAttributes::remove (int n)
  * Removes an attribute with the given name and namespace URI from this 
  * XMLAttributes set.
  */
-void 
+int 
 XMLAttributes::remove (const std::string& name, const std::string& uri)
 {
-  remove(getIndex(name,uri));
+  return remove(getIndex(name,uri));
 }
 
 
 /*
  * Removes an attribute with the given triple from this XMLAttributes set.
  */
-void 
+int 
 XMLAttributes::remove (const XMLTriple& triple)
 {
-  remove(getIndex(triple));
+  return remove(getIndex(triple));
 }
 
 
 /*
  * Clears (deletes) all attributes in this XMLAttributes object.
  */
-void 
+int 
 XMLAttributes::clear()
 {
   mNames.clear();
   mValues.clear();
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -1152,10 +1161,24 @@ XMLAttributes::attributeRequiredError (const std::string&  name,
 /*
  * Sets the XMLErrorLog this parser will use to log errors.
  */
-void
+int
 XMLAttributes::setErrorLog (XMLErrorLog* log)
 {
-  mLog = log;
+  if (mLog == log)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (log == NULL)
+  {
+    delete mLog;
+    mLog = 0;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    mLog = log;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -1223,16 +1246,22 @@ XMLAttributes_clone (const XMLAttributes_t* att)
  * @param name a string, the local name of the attribute.
  * @param value a string, the value of the attribute.
  *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ *
  * @note if local name already exists in this attribute set, its value 
  * will be replaced.
  **/
 LIBLAX_EXTERN
-void
+int
 XMLAttributes_add (XMLAttributes_t *xa,
                    const char *name,
                    const char *value)
 {
-  xa->add(name, value);
+  return xa->add(name, value);
 }
 
 
@@ -1246,18 +1275,24 @@ XMLAttributes_add (XMLAttributes_t *xa,
  * @param namespaceURI a string, the namespace URI of the attribute.
  * @param prefix a string, the prefix of the namespace
  *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ *
  * @note if local name with the same namespace URI already exists in this 
  * attribute set, its value will be replaced.
  **/
 LIBLAX_EXTERN
-void
+int
 XMLAttributes_addWithNamespace (XMLAttributes_t *xa,
                                 const char *name,
                                 const char *value,
                                 const char* uri,
                                 const char* prefix)
 {
-  xa->add(name, value, uri, prefix);
+  return xa->add(name, value, uri, prefix);
 }
 
 
@@ -1267,14 +1302,20 @@ XMLAttributes_addWithNamespace (XMLAttributes_t *xa,
   * @param xa the XMLAttributes_t structure.
   * @param triple an XMLTriple_t, the triple of the attribute.
   * @param value a string, the value of the attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  **/
 LIBLAX_EXTERN
-void
+int
 XMLAttributes_addWithTriple ( XMLAttributes_t *xa 
 			              , const XMLTriple_t* triple
 			              , const char *value)
 {
-  xa->add(*triple, value);
+  return xa->add(*triple, value);
 }
 
 
@@ -1304,12 +1345,19 @@ XMLAttributes_addResource (XMLAttributes_t *xa,
  *
  * @param xa the XMLAttributes_t structure.
  * @param n an integer the index of the resource to be deleted
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INDEX_EXCEEDS_SIZE
  */
 LIBLAX_EXTERN
-void
+int
 XMLAttributes_removeResource (XMLAttributes_t *xa, int n)
 {
-  xa->removeResource(n);
+  return xa->removeResource(n);
 }
 
 
@@ -1318,12 +1366,19 @@ XMLAttributes_removeResource (XMLAttributes_t *xa, int n)
  *
  * @param xa the XMLAttributes_t structure.
  * @param n an integer the index of the resource to be deleted
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INDEX_EXCEEDS_SIZE
  */
 LIBLAX_EXTERN
-void
+int
 XMLAttributes_remove (XMLAttributes_t *xa, int n)
 {
-  xa->remove(n);
+  return xa->remove(n);
 }
 
 
@@ -1333,16 +1388,23 @@ XMLAttributes_remove (XMLAttributes_t *xa, int n)
  * @param xa the XMLAttributes_t structure.
  * @param name a string, the local name of the attribute.
  *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INDEX_EXCEEDS_SIZE
+ *
  * @note A prefix and namespace URI bound to the local name are set to empty 
  * in this function.
  * XMLAttributes_removeByNS(name,uri) or XMLAttributes_removeByTriple(triple) 
  * should be used to remove an attribute with the given local name and namespace.
  */
 LIBLAX_EXTERN
-void
+int
 XMLAttributes_removeByName (XMLAttributes_t *xa, const char* name)
 {
-  xa->remove(name);
+  return xa->remove(name);
 }
 
 
@@ -1354,12 +1416,18 @@ XMLAttributes_removeByName (XMLAttributes_t *xa, const char* name)
  * @param name a string, the local name of the attribute for which the index is required.
  * @param uri a string, the namespace URI of the attribute.
  *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INDEX_EXCEEDS_SIZE
  */
 LIBLAX_EXTERN
-void
+int
 XMLAttributes_removeByNS (XMLAttributes_t *xa, const char* name, const char* uri)
 {
-  xa->remove(name, uri);
+  return xa->remove(name, uri);
 }
 
 
@@ -1369,12 +1437,19 @@ XMLAttributes_removeByNS (XMLAttributes_t *xa, const char* name, const char* uri
  * @param xa the XMLAttributes_t structure.
  * @param triple an XMLTriple, the XML triple of the attribute for which
  *        the index is required.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INDEX_EXCEEDS_SIZE
  */
 LIBLAX_EXTERN
-void
+int
 XMLAttributes_removeByTriple (XMLAttributes_t *xa, const XMLTriple_t* triple)
 {
-  xa->remove(*triple);
+  return xa->remove(*triple);
 }
 
 
@@ -1382,12 +1457,18 @@ XMLAttributes_removeByTriple (XMLAttributes_t *xa, const XMLTriple_t* triple)
  * Clears (deletes) all attributes in this XMLAttributes object.
  *
  * @param xa the XMLAttributes_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBLAX_EXTERN
-void 
+int 
 XMLAttributes_clear(XMLAttributes_t *xa)
 {
-  xa->clear();
+  return xa->clear();
 }
 
 
@@ -2226,7 +2307,7 @@ XMLAttributes_readIntoStringByTriple (XMLAttributes_t *xa,
 }
 
 
-
+LIBSBML_CPP_NAMESPACE_END
 
 
 /** @endcond doxygen-c-only */

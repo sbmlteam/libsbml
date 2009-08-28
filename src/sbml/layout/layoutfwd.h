@@ -63,6 +63,7 @@
 #  define CLASS_OR_STRUCT struct
 #endif  /* __cplusplus */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 typedef CLASS_OR_STRUCT BoundingBox                     BoundingBox_t;
 typedef CLASS_OR_STRUCT CompartmentGlyph                CompartmentGlyph_t;
@@ -77,6 +78,8 @@ typedef CLASS_OR_STRUCT ReactionGlyph                   ReactionGlyph_t;
 typedef CLASS_OR_STRUCT SpeciesGlyph                    SpeciesGlyph_t;
 typedef CLASS_OR_STRUCT SpeciesReferenceGlyph           SpeciesReferenceGlyph_t;
 typedef CLASS_OR_STRUCT TextGlyph                       TextGlyph_t;
+
+LIBSBML_CPP_NAMESPACE_END
 
 #undef CLASS_OR_STRUCT
 

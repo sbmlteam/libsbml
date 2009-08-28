@@ -67,7 +67,7 @@ static Rule_t *AR;
 void
 AssignmentRuleTest_setup (void)
 {
-  AR = Rule_createAssignment();
+  AR = Rule_createAssignment(2, 4);
 
   if (AR == NULL)
   {
@@ -140,7 +140,9 @@ START_TEST (test_AssignmentRule_createWithFormula)
   const ASTNode_t *math;
   char *formula;
 
-  Rule_t *ar = Rule_createAssignmentWithVariableAndFormula("s", "1 + 1");
+  Rule_t *ar = Rule_createAssignment(2, 4);
+  Rule_setVariable(ar, "s");
+  Rule_setFormula(ar, "1 + 1");
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) ar) == SBML_ASSIGNMENT_RULE );
@@ -166,7 +168,9 @@ START_TEST (test_AssignmentRule_createWithMath)
 {
   ASTNode_t       *math = SBML_parseFormula("1 + 1");
 
-  Rule_t *ar = Rule_createAssignmentWithVariableAndMath("s", math);
+  Rule_t *ar = Rule_createAssignment(2, 4);
+  Rule_setVariable(ar, "s");
+  Rule_setMath(ar, math);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) ar) == SBML_ASSIGNMENT_RULE );
@@ -180,13 +184,15 @@ START_TEST (test_AssignmentRule_createWithMath)
 END_TEST
 
 
-START_TEST (test_AssignmentRule_createWithLevelVersionAndNamespace)
+START_TEST (test_AssignmentRule_createWithNS )
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
-  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "testsbml");
+  SBMLNamespaces_t *sbmlns = SBMLNamespaces_create(2,1);
+  SBMLNamespaces_addNamespaces(sbmlns,xmlns);
 
   Rule_t *object = 
-    Rule_createAssignmentWithLevelVersionAndNamespaces(2, 1, xmlns);
+    Rule_createAssignmentWithNS(sbmlns);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_ASSIGNMENT_RULE );
@@ -198,7 +204,7 @@ START_TEST (test_AssignmentRule_createWithLevelVersionAndNamespace)
   fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
 
   fail_unless( Rule_getNamespaces     (object) != NULL );
-  fail_unless( XMLNamespaces_getLength(Rule_getNamespaces(object)) == 1 );
+  fail_unless( XMLNamespaces_getLength(Rule_getNamespaces(object)) == 2 );
 
   Rule_free(object);
 }
@@ -221,7 +227,7 @@ create_suite_AssignmentRule (void)
   tcase_add_test( tcase, test_AssignmentRule_setVariable   );
   tcase_add_test( tcase, test_AssignmentRule_createWithFormula   );
   tcase_add_test( tcase, test_AssignmentRule_createWithMath   );
-  tcase_add_test( tcase, test_AssignmentRule_createWithLevelVersionAndNamespace        );
+  tcase_add_test( tcase, test_AssignmentRule_createWithNS         );
 
   suite_add_tcase(suite, tcase);
 

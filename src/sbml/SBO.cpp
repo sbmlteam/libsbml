@@ -39,6 +39,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygen-libsbml-internal */
 /*
@@ -1042,3 +1043,5 @@ SBO::populateSBOTree()
 
 }
 /** @endcond doxygen-libsbml-internal */
+
+LIBSBML_CPP_NAMESPACE_END

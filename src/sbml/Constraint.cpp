@@ -44,42 +44,38 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
-/*
- * Creates a new Constraint
- * set.
- */
-Constraint::Constraint (const ASTNode* math) :
-   SBase   ( -1 )
+Constraint::Constraint (unsigned int level, unsigned int version) :
+   SBase ( level, version )
  , mMath   (  0 )
  , mMessage(  0 )
 {
-  if (math) mMath = math->deepCopy();
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
 
-Constraint::Constraint (unsigned int level, unsigned int version,
-                          XMLNamespaces *xmlns) :
-   SBase   ( -1 )
+Constraint::Constraint (SBMLNamespaces* sbmlns) :
+   SBase   ( sbmlns )
  , mMath   (  0 )
  , mMessage(  0 )
 {
-  mObjectLevel = level;
-  mObjectVersion = version;
-  if (xmlns) setNamespaces(xmlns);;
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
+
+/** @cond doxygen-libsbml-internal */
+
+/* constructor for validators */
+Constraint::Constraint() :
+  SBase()
+{
+}
+
+/** @endcond doxygen-libsbml-internal */
                           
-Constraint::Constraint (SBMLNamespaces *sbmlns) :
-   SBase   ( -1 )
- , mMath   (  0 )
- , mMessage(  0 )
-{
-  mObjectLevel = sbmlns->getLevel();
-  mObjectVersion = sbmlns->getVersion();
-  setNamespaces(sbmlns->getNamespaces());
-}
-
 
 /*
  * Destroys this Constraint.
@@ -99,7 +95,11 @@ Constraint::Constraint (const Constraint& orig) :
  , mMath   ( 0   )
  , mMessage( 0   )
 {
-  if (orig.mMath)    mMath    = orig.mMath->deepCopy();
+  if (orig.mMath)    
+  {
+    mMath    = orig.mMath->deepCopy();
+    mMath->setParentSBMLObject(this);
+  }
   if (orig.mMessage) mMessage = new XMLNode(*orig.mMessage);
 }
 
@@ -112,13 +112,17 @@ Constraint& Constraint::operator=(const Constraint& rhs)
   if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
-   
 
     delete mMath;
     if (rhs.mMath)    
-      mMath = rhs.mMath->deepCopy();
+    {
+      mMath    = rhs.mMath->deepCopy();
+      mMath->setParentSBMLObject(this);
+    }
     else
+    {
       mMath = 0;
+    }
 
     delete mMessage;
     if (rhs.mMessage) 
@@ -210,15 +214,29 @@ Constraint::isSetMath () const
 /*
  * Sets the message of this Constraint to a copy of xhtml.
  */
-void
+int
 Constraint::setMessage (const XMLNode* xhtml)
 {
-  if (mMessage == xhtml) return;
-
-
-  delete mMessage;
-  mMessage = (xhtml != 0) ? new XMLNode(*xhtml) : 0;
-
+  if (mMessage == xhtml)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (xhtml == NULL)
+  {
+    delete mMessage;
+    mMessage = 0;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (!SyntaxChecker::hasExpectedXHTMLSyntax(xhtml, getSBMLNamespaces()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else
+  {
+    delete mMessage;
+    mMessage = (xhtml != 0) ? new XMLNode(*xhtml) : 0;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -226,26 +244,50 @@ Constraint::setMessage (const XMLNode* xhtml)
  * Sets the math of this Constraint to a copy of the given
  * ASTNode.
  */
-void
+int
 Constraint::setMath (const ASTNode* math)
 {
-  if (mMath == math) return;
-
-
-  delete mMath;
-  mMath = (math != 0) ? math->deepCopy() : 0;
-  if (mMath) mMath->setParentSBMLObject(this);
+  if (mMath == math) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (math == NULL)
+  {
+    delete mMath;
+    mMath = 0;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (!(math->isWellFormedASTNode()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else
+  {
+    delete mMath;
+    mMath = (math != 0) ? math->deepCopy() : 0;
+    if (mMath) mMath->setParentSBMLObject(this);
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Unsets the message of this Constraint.
  */
-void 
+int 
 Constraint::unsetMessage ()
 {
   delete mMessage;
   mMessage = 0;
+  
+  if (mMessage)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -270,6 +312,20 @@ Constraint::getElementName () const
 {
   static const string name = "constraint";
   return name;
+}
+
+
+bool 
+Constraint::hasRequiredElements() const
+{
+  bool allPresent = true;
+
+  /* required attributes for constraint: math */
+
+  if (!isSetMath())
+    allPresent = false;
+
+  return allPresent;
 }
 
 
@@ -505,6 +561,7 @@ ListOfConstraints::get(unsigned int n) const
   return static_cast<const Constraint*>(ListOf::get(n));
 }
 
+
 /* Removes the nth item from this list */
 Constraint*
 ListOfConstraints::remove (unsigned int n)
@@ -540,8 +597,22 @@ ListOfConstraints::createObject (XMLInputStream& stream)
 
   if (name == "constraint")
   {
-    object = new Constraint();
-    mItems.push_back(object);
+    try
+    {
+      object = new Constraint(getSBMLNamespaces());
+    }
+    catch (SBMLConstructorException*)
+    {
+      object = new Constraint(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    catch ( ... )
+    {
+      object = new Constraint(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    
+    if (object) mItems.push_back(object);
   }
 
   return object;
@@ -554,67 +625,72 @@ ListOfConstraints::createObject (XMLInputStream& stream)
 
 
 /**
- * Creates a new, empty Constraint_t structure and returns a pointer to it.
+ * Creates a new Constraint_t structure using the given SBML @p level
+ * and @p version values.
  *
- * @return a pointer to a Constraint_t structure
- */
-LIBSBML_EXTERN
-Constraint_t *
-Constraint_create ()
-{
-  return new(nothrow) Constraint;
-}
-
-
-/**
- * Creates a new Constraint_t structure with the math set
- * and returns a pointer to it.
- *
- * @param math ASTNode_t structure representing the math.
- *
- * @return a pointer to a Constraint_t structure
- */
-LIBSBML_EXTERN
-Constraint_t *
-Constraint_createWithMath (ASTNode_t * math)
-{
-  return new(nothrow) Constraint(math);
-}
-
-
-/** @cond doxygen-libsbml-internal */
-/**
- * Creates a new Constraint_t structure using the given SBML @p 
- * level and @p version values and a set of XMLNamespaces.
- *
- * @param level an unsigned int, the SBML Level to assign to this 
+ * @param level an unsigned int, the SBML Level to assign to this
  * Constraint
  *
  * @param version an unsigned int, the SBML Version to assign to this
  * Constraint
- * 
- * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
- * assign to this Constraint
  *
  * @return a pointer to the newly created Constraint_t structure.
  *
- * @note Once a Constraint has been added to an SBMLDocument, the @p 
- * level, @p version and @p xmlns namespaces for the document @em override 
- * those used to create the Constraint.  Despite this, the ability 
- * to supply the values at creation time is an important aid to creating 
- * valid SBML.  Knowledge of the intended SBML Level and Version 
- * determine whether it is valid to assign a particular value to an 
- * attribute, or whether it is valid to add an object to an existing 
+ * @note Once a Constraint has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the Constraint.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
+ */
+LIBSBML_EXTERN
+Constraint_t *
+Constraint_create (unsigned int level, unsigned int version)
+{
+  try
+  {
+    Constraint* obj = new Constraint(level,version);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
+
+
+/**
+ * Creates a new Constraint_t structure using the given
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this Constraint
+ *
+ * @return a pointer to the newly created Constraint_t structure.
+ *
+ * @note Once a Constraint has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the Constraint.  Despite this, the ability to supply the values at creation 
+ * time is an important aid to creating valid SBML.  Knowledge of the intended 
+ * SBML Level and Version determine whether it is valid to assign a particular 
+ * value to an attribute, or whether it is valid to add an object to an existing
  * SBMLDocument.
  */
 LIBSBML_EXTERN
 Constraint_t *
-Constraint_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns)
+Constraint_createWithNS (SBMLNamespaces_t* sbmlns)
 {
-  return new(nothrow) Constraint(level, version, xmlns);
+  try
+  {
+    Constraint* obj = new Constraint(sbmlns);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
 }
-/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -748,12 +824,19 @@ Constraint_isSetMath (const Constraint_t *c)
  * @param c the Constraint_t structure
  *
  * @param xhtml an XML tree containing XHTML content.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
-void
+int
 Constraint_setMessage (Constraint_t *c, const XMLNode_t *xhtml)
 {
-  c->setMessage(xhtml);
+  return c->setMessage(xhtml);
 }
 
 
@@ -764,12 +847,19 @@ Constraint_setMessage (Constraint_t *c, const XMLNode_t *xhtml)
  *
  * @param math an ASTNode expression to be assigned as the "math"
  * subelement of this Constraint
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
-void
+int
 Constraint_setMath (Constraint_t *c, const ASTNode_t *math)
 {
-  c->setMath(math);
+  return c->setMath(math);
 }
 
 
@@ -777,13 +867,21 @@ Constraint_setMath (Constraint_t *c, const ASTNode_t *math)
  * Unsets the "message" subelement of this Constraint.
  *
  * @param c the Constraint_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void 
+int 
 Constraint_unsetMessage (Constraint_t *c)
 {
-  c->unsetMessage();
+  return c->unsetMessage();
 }
 
-
 /** @endcond doxygen-c-only */
+
+LIBSBML_CPP_NAMESPACE_END

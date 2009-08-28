@@ -62,12 +62,12 @@ static Rule_t *SCR;
 void
 SpeciesConcentrationRuleTest_setup (void)
 {
-  SCR = Rule_createAssignment();
+  SCR = Rule_createAssignment(1, 2);
   Rule_setL1TypeCode(SCR, SBML_SPECIES_CONCENTRATION_RULE);
 
   if (SCR == NULL)
   {
-    fail("SpeciesConcentrationRule_create() returned a NULL pointer.");
+    fail("Rule_createAssignment() returned a NULL pointer.");
   }
 }
 
@@ -98,32 +98,32 @@ START_TEST (test_SpeciesConcentrationRule_create)
 END_TEST
 
 
-START_TEST (test_SpeciesConcentrationRule_createWith)
-{
-  Rule_t *scr;
-
-
-  scr = Rule_createRateWithVariableAndFormula("c", "v + 1");
-  Rule_setL1TypeCode(scr, SBML_SPECIES_CONCENTRATION_RULE);
-
-  fail_unless( SBase_getTypeCode((SBase_t *) scr) ==
-               SBML_RATE_RULE );
-  fail_unless( Rule_getL1TypeCode((Rule_t *) scr) ==
-               SBML_SPECIES_CONCENTRATION_RULE );
-
-  fail_unless( SBase_getNotes     ((SBase_t *) scr) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) scr) == NULL );
-
-  fail_unless( !strcmp(Rule_getFormula( scr), "v + 1") );
-  fail_unless( !strcmp(Rule_getVariable(scr), "c") );
-
-  fail_unless( Rule_getType( scr) ==  RULE_TYPE_RATE );
-
-  fail_unless( Rule_isSetVariable(scr) );
-
-  Rule_free(scr);
-}
-END_TEST
+//START_TEST (test_SpeciesConcentrationRule_createWith)
+//{
+//  Rule_t *scr;
+//
+//
+//  scr = Rule_createRateWithVariableAndFormula("c", "v + 1");
+//  Rule_setL1TypeCode(scr, SBML_SPECIES_CONCENTRATION_RULE);
+//
+//  fail_unless( SBase_getTypeCode((SBase_t *) scr) ==
+//               SBML_RATE_RULE );
+//  fail_unless( Rule_getL1TypeCode((Rule_t *) scr) ==
+//               SBML_SPECIES_CONCENTRATION_RULE );
+//
+//  fail_unless( SBase_getNotes     ((SBase_t *) scr) == NULL );
+//  fail_unless( SBase_getAnnotation((SBase_t *) scr) == NULL );
+//
+//  fail_unless( !strcmp(Rule_getFormula( scr), "v + 1") );
+//  fail_unless( !strcmp(Rule_getVariable(scr), "c") );
+//
+//  fail_unless( Rule_getType( scr) ==  RULE_TYPE_RATE );
+//
+//  fail_unless( Rule_isSetVariable(scr) );
+//
+//  Rule_free(scr);
+//}
+//END_TEST
 
 
 START_TEST (test_SpeciesConcentrationRule_free_NULL)
@@ -181,7 +181,7 @@ create_suite_SpeciesConcentrationRule (void)
                              SpeciesConcentrationRuleTest_teardown );
 
   tcase_add_test( tcase, test_SpeciesConcentrationRule_create     );
-  tcase_add_test( tcase, test_SpeciesConcentrationRule_createWith );
+  //tcase_add_test( tcase, test_SpeciesConcentrationRule_createWith );
   tcase_add_test( tcase, test_SpeciesConcentrationRule_free_NULL  );
   tcase_add_test( tcase, test_SpeciesConcentrationRule_setSpecies );
 

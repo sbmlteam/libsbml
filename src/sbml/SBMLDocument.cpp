@@ -58,6 +58,8 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 /*
  * Function to check whether an error reported by a compatability validation
  * prior to conversion between levels/versions can be ignored.
@@ -205,7 +207,7 @@ SBMLDocument::hasStrictSBO()
 unsigned int
 SBMLDocument::getDefaultLevel ()
 {
-  return 2;
+  return SBML_DEFAULT_LEVEL;
 }
 
 
@@ -222,7 +224,7 @@ SBMLDocument::getDefaultLevel ()
 unsigned int
 SBMLDocument::getDefaultVersion ()
 {
-  return 4;
+  return SBML_DEFAULT_VERSION;
 }
 
 
@@ -232,7 +234,8 @@ SBMLDocument::getDefaultVersion ()
  * time this libSBML was released).
  */
 SBMLDocument::SBMLDocument (unsigned int level, unsigned int version) :
-   mLevel   ( level   )
+   SBase (level, version)
+ , mLevel   ( level   )
  , mVersion ( version )
  , mModel   ( 0       )
 {
@@ -249,6 +252,10 @@ SBMLDocument::SBMLDocument (unsigned int level, unsigned int version) :
   }
 
   mApplicableValidators = AllChecksON; // turn all validators ON
+  mApplicableValidatorsForConversion = AllChecksON; // turn all validators ON
+
+  mSBMLNamespaces->setLevel(mLevel);
+  mSBMLNamespaces->setVersion(mVersion);
 }
 
 
@@ -270,6 +277,7 @@ SBMLDocument::SBMLDocument (const SBMLDocument& orig) :
  , mVersion ( orig.mVersion )
  , mModel   ( 0             )
  , mApplicableValidators (orig.mApplicableValidators)
+ , mApplicableValidatorsForConversion (orig.mApplicableValidatorsForConversion)
 {
   mSBML = this;
 
@@ -278,6 +286,13 @@ SBMLDocument::SBMLDocument (const SBMLDocument& orig) :
     mModel = static_cast<Model*>( orig.mModel->clone() );
     mModel->setSBMLDocument(this);
   }
+  
+  //if(orig.mNamespaces)
+  //  this->mNamespaces = 
+  //  new XMLNamespaces(*const_cast<SBMLDocument&>(orig).mNamespaces);
+  //else
+  //  this->mNamespaces = 0;
+
 }
 
 
@@ -340,7 +355,8 @@ SBMLDocument::getModel ()
  * is possible.
  */
 bool
-SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
+SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
+                                  bool strict)
 {
   /* since this function will write to the error log we should
    * clear anything in the log first
@@ -348,6 +364,41 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
   getErrorLog()->clearLog();
 
   bool conversionSuccess = false;
+
+  unsigned char origValidators = mApplicableValidators;
+  mApplicableValidators = mApplicableValidatorsForConversion;
+  /* if strict = true we will only convert a valid model
+   * to a valid model with a valid internal representation
+   */
+  /* see whether the unit validator is on */
+  bool strictSBO   = ((mApplicableValidatorsForConversion & 0x04) == 0x04);
+  bool strictUnits = ((mApplicableValidatorsForConversion & 0x10) == 0x10);
+  
+  if (strict)
+  {
+    /* use validators that the user has selected
+    */
+    unsigned int errors = checkConsistency();
+
+    errors = getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
+
+    /* if the current model is not valid dont convert 
+    */
+    if (errors > 0)
+    {
+      return conversionSuccess;
+    }
+
+    getErrorLog()->clearLog();
+  }
+
+
+
+  //mLevel   = level;
+  //mVersion = version;
+  //mSBMLNamespaces->setLevel(mLevel);
+  //mSBMLNamespaces->setVersion(mVersion);
+
   unsigned int i;
   bool duplicateAnn = false;
   //look at annotation on sbml element - since validation only happens on teh model :-(
@@ -364,72 +415,77 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
       }
     }
   }
-
   if (mModel != 0)
   {
-    if (mLevel == 1 && level == 2)
+    if (!strict)
     {
-      mModel->convertToL2();
-      conversionSuccess = true;
-    }
-    else if (mLevel == 2)
-    {
-      if (level == 1)
+      if (mLevel == 1 && level == 2)
       {
-        if (version == 1)
-        {
-          mErrorLog.add(CannotConvertToL1V1);
-        }
-        else if (!conversion_errors(checkL1Compatibility()))
-        {
-          /* if existing model is L2V4 need to check that
-           * units are strict
-           */
-          if (mVersion == 4 && !hasStrictUnits())
-          {
-            logError(StrictUnitsRequiredInL1);
-          }
-          //else
-          //{
-            mModel->convertToL1();
-            conversionSuccess = true;
-          //}
-        }
+        mLevel   = level;
+        mVersion = version;
+        mSBMLNamespaces->setLevel(mLevel);
+        mSBMLNamespaces->setVersion(mVersion);
+        mModel->convertToL2();
+        conversionSuccess = true;
       }
-      /* check for conversion between L2 versions */
-      else if (version == 1)
+      else if (mLevel == 2)
       {
-        if (!conversion_errors(checkL2v1Compatibility()))
+        if (level == 1)
         {
-          /* if existing model is L2V4 need to check that
-          * units are strict
-          */
-          if (mVersion == 4 && !hasStrictUnits())
+          if (version == 1)
           {
-            logError(StrictUnitsRequiredInL2v1);
+            mErrorLog.add(CannotConvertToL1V1);
           }
-          //else
-          //{
-            conversionSuccess = true;
-          //}
+          else if (!conversion_errors(checkL1Compatibility()))
+          {
+            /* if existing model is L2V4 need to check that
+            * units are strict
+            */
+            if (mVersion == 4 && !hasStrictUnits())
+            {
+              logError(StrictUnitsRequiredInL1);
+            }
+            //else
+            //{
+              mModel->convertToL1();
+              conversionSuccess = true;
+            //}
+          }
         }
-      }
-      else if (version == 2)
-      {
-        if (!conversion_errors(checkL2v2Compatibility()))
+        /* check for conversion between L2 versions */
+        else if (version == 1)
         {
-          /* if existing model is L2V4 need to check that
-          * units are strict
-          */
-          if (mVersion == 4 && !hasStrictUnits())
+          if (!conversion_errors(checkL2v1Compatibility()))
           {
-            logError(StrictUnitsRequiredInL2v2);
+            /* if existing model is L2V4 need to check that
+            * units are strict
+            */
+            if (mVersion == 4 && !hasStrictUnits())
+            {
+              logError(StrictUnitsRequiredInL2v1);
+            }
+            //else
+            //{
+              conversionSuccess = true;
+            //}
           }
-          
-          if (mVersion == 4 && !hasStrictSBO())
+        }
+        else if (version == 2)
+        {
+          if (!conversion_errors(checkL2v2Compatibility()))
           {
-            logError(StrictSBORequiredInL2v2);
-          }
+            /* if existing model is L2V4 need to check that
+            * units are strict
+            */
+            if (mVersion == 4 && !hasStrictUnits())
+            {
+              logError(StrictUnitsRequiredInL2v2);
+            }
+            
+            if (mVersion == 4 && !hasStrictSBO())
+            {
+              logError(StrictSBORequiredInL2v2);
+            }
             // look for duplicate top level annotations
             for (i = 0; i < getErrorLog()->getNumErrors(); i++)
             {
@@ -442,27 +498,27 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
               this->removeDuplicateAnnotations();
               mModel->removeDuplicateTopLevelAnnotations();
             }
-          //else
-          //{
-            conversionSuccess = true;
-          //}
+            //else
+            //{
+              conversionSuccess = true;
+            //}
+          }
         }
-      }
-      else if (version == 3)
-      {
-        if (!conversion_errors(checkL2v3Compatibility()))
+        else if (version == 3)
         {
-          /* if existing model is L2V4 need to check that
-          * units are strict
-          */
-          if (mVersion == 4 && !hasStrictUnits())
+          if (!conversion_errors(checkL2v3Compatibility()))
           {
-            logError(StrictUnitsRequiredInL2v3);
-          }
-          if (mVersion == 4 && !hasStrictSBO())
-          {
-            logError(StrictSBORequiredInL2v3);
-          }
+            /* if existing model is L2V4 need to check that
+            * units are strict
+            */
+            if (mVersion == 4 && !hasStrictUnits())
+            {
+              logError(StrictUnitsRequiredInL2v3);
+            }
+            if (mVersion == 4 && !hasStrictSBO())
+            {
+              logError(StrictSBORequiredInL2v3);
+            }
             // look for duplicate top level annotations
             for (i = 0; i < getErrorLog()->getNumErrors(); i++)
             {
@@ -475,16 +531,16 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
               this->removeDuplicateAnnotations();
               mModel->removeDuplicateTopLevelAnnotations();
             }
-          //else
-          //{
-            conversionSuccess = true;
-          //}
+            //else
+            //{
+              conversionSuccess = true;
+            //}
+          }
         }
-      }
-      else if (version == 4)
-      {
-        if (!conversion_errors(checkL2v4Compatibility()))
+        else if (version == 4)
         {
+          if (!conversion_errors(checkL2v4Compatibility()))
+          {
             // look for duplicate top level annotations
             for (i = 0; i < getErrorLog()->getNumErrors(); i++)
             {
@@ -497,15 +553,242 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
               this->removeDuplicateAnnotations();
               mModel->removeDuplicateTopLevelAnnotations();
             }
-          conversionSuccess = true;
+            conversionSuccess = true;
+          }
+        }
+
+        if (!conversionSuccess)
+        {
+          return conversionSuccess;
+        }
+
+      }
+    }
+    else
+    {
+      unsigned int origLevel = mLevel;
+      unsigned int origVersion = mVersion;
+      /* here we are strict and only want to do
+       * conversion if output will be valid
+       *
+       * save a copy of the model
+       */
+      Model *origModel = mModel->clone();
+      if (mLevel == 1 && level == 2)
+      {
+        mModel->convertToL2Strict();
+        mLevel   = level;
+        mVersion = version;
+        mSBMLNamespaces->setLevel(mLevel);
+        mSBMLNamespaces->setVersion(mVersion);
+        mModel->convertToL2();
+        conversionSuccess = true;
+      }
+      else if (mLevel == 2)
+      {
+        if (level == 1)
+        {
+          if (version == 1)
+          {
+            mErrorLog.add(CannotConvertToL1V1);
+          }
+          else if (!conversion_errors(checkL1Compatibility()))
+          {
+            bool strictFailed = false;
+            /* if existing model is L2V4 need to check that
+            * units are strict
+            */
+            if (strictUnits)
+            {
+              if (mVersion == 4 && !hasStrictUnits())
+              {
+                logError(StrictUnitsRequiredInL1);
+                strictFailed = true;
+              }
+            }
+            if (!strictFailed)
+            {
+              mModel->convertToL1(strict);
+              conversionSuccess = true;
+            }
+          }
+        }
+        /* check for conversion between L2 versions */
+        else if (version == 1)
+        {
+          if (!conversion_errors(checkL2v1Compatibility()))
+          {
+            bool strictFailed = false;
+            /* if existing model is L2V4 need to check that
+            * units are strict
+            */
+            if (strictUnits)
+            {
+              if (mVersion == 4 && !hasStrictUnits())
+              {
+                logError(StrictUnitsRequiredInL2v1);
+                strictFailed = true;
+              }
+            }
+            if (!strictFailed)
+            {
+              mModel->convertToL2V1(strict);
+             conversionSuccess = true;
+            }
+          }
+        }
+        else if (version == 2)
+        {
+          if (!conversion_errors(checkL2v2Compatibility()))
+          {
+            bool strictFailed = false;
+            /* if existing model is L2V4 need to check that
+            * units are strict
+            */
+            if (strictUnits)
+            {
+              if (mVersion == 4 && !hasStrictUnits())
+              {
+                logError(StrictUnitsRequiredInL2v2);
+                strictFailed = true;
+              }
+            }
+
+            if (strictSBO)
+            {
+              if (mVersion == 4 && !hasStrictSBO())
+              {
+                logError(StrictSBORequiredInL2v2);
+                strictFailed = true;
+              }
+            }
+
+            if (!strictFailed)
+            {
+              mModel->convertToL2V2(strict);
+              // look for duplicate top level annotations
+              for (i = 0; i < getErrorLog()->getNumErrors(); i++)
+              {
+                if (getErrorLog()->getError(i)->getErrorId() 
+                                 == DuplicateAnnotationInvalidInL2v2)
+                  duplicateAnn = true;
+              }
+              if (duplicateAnn)
+              {
+                this->removeDuplicateAnnotations();
+                mModel->removeDuplicateTopLevelAnnotations();
+              }
+              conversionSuccess = true;
+            }            
+          }
+        }
+        else if (version == 3)
+        {
+          if (!conversion_errors(checkL2v3Compatibility()))
+          {
+            bool strictFailed = false;
+            /* if existing model is L2V4 need to check that
+            * units are strict
+            */
+            if (strictUnits)
+            {
+              if (mVersion == 4 && !hasStrictUnits())
+              {
+                logError(StrictUnitsRequiredInL2v3);
+                strictFailed = true;
+              }
+            }
+            
+            if (strictSBO)
+            {
+              if (mVersion == 4 && !hasStrictSBO())
+              {
+                logError(StrictSBORequiredInL2v3);
+                strictFailed = true;
+              }
+            }
+
+            // look for duplicate top level annotations
+            for (i = 0; i < getErrorLog()->getNumErrors(); i++)
+            {
+              if (getErrorLog()->getError(i)->getErrorId() 
+                               == DuplicateAnnotationInvalidInL2v3)
+                duplicateAnn = true;
+            }
+            if (duplicateAnn)
+            {
+              this->removeDuplicateAnnotations();
+              mModel->removeDuplicateTopLevelAnnotations();
+            }
+
+            if (!strictFailed)
+            {
+              conversionSuccess = true;
+            }            
+          }
+        }
+        else if (version == 4)
+        {
+          if (!conversion_errors(checkL2v4Compatibility()))
+          {
+              // look for duplicate top level annotations
+            for (i = 0; i < getErrorLog()->getNumErrors(); i++)
+            {
+              if (getErrorLog()->getError(i)->getErrorId() 
+                               == DuplicateAnnotationInvalidInL2v4)
+                duplicateAnn = true;
+            }
+            if (duplicateAnn)
+            {
+              this->removeDuplicateAnnotations();
+              mModel->removeDuplicateTopLevelAnnotations();
+            }
+            conversionSuccess = true;
+          }
         }
       }
-
       if (!conversionSuccess)
       {
+        delete origModel;
+        mApplicableValidators = origValidators;
+        mLevel   = origLevel;
+        mVersion = origVersion;
+        mSBMLNamespaces->setLevel(mLevel);
+        mSBMLNamespaces->setVersion(mVersion);
         return conversionSuccess;
       }
-
+      else
+      {
+        /* now we want to check whether the resulting model is valid
+         * but need to make it think its new level/version
+         */
+        mLevel   = level;
+        mVersion = version;
+        this->checkConsistency();
+        unsigned int errors = 
+                     getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
+        if (errors > 0)
+        { /* error - we dont covert
+           * restore original values and return
+           */
+          conversionSuccess = false;
+          mModel = origModel->clone();
+          mLevel   = origLevel;
+          mVersion = origVersion;
+          mSBMLNamespaces->setLevel(mLevel);
+          mSBMLNamespaces->setVersion(mVersion);
+          mApplicableValidators = origValidators;
+          delete origModel;
+          return conversionSuccess;
+        }
+        else
+        {
+          mLevel   = origLevel;
+          mVersion = origVersion;
+          mApplicableValidators = origValidators;
+          delete origModel;
+        }
+      }
     }
   }
   else
@@ -513,45 +796,14 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
     conversionSuccess = true;
   }
 
-  /* commented out addition of note on conversion - it seemed like a good idea
-   * at the time but needs to located differently :-) 
-
-  if (conversionSuccess)
-  {
-    std::ostringstream conversion_note;
-    conversion_note << "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n";
-    conversion_note << "<p> This sbml model was automatically converted by ";
-    conversion_note << "libSBML version " << getLibSBMLDottedVersion();
-    conversion_note << " from SBML Level ";
-    conversion_note << mLevel << " Version " << mVersion << ".</p>\n";
-    if (getNumErrors() > 0)
-    {
-      conversion_note << "<p> The following possible loss of information ";
-      conversion_note << "should be noted: </p>\n";
-      for (unsigned int n = 0; n < getNumErrors(); n++)
-      {
-        conversion_note << "<p> (" << getError(n)->getErrorId() << ") " 
-          << getError(n)->getMessage() << " </p>\n";
-      }
-      if (!conversion_errors(getNumErrors()))
-      {
-        conversion_note << "<p> Conversion successful. </p>\n";
-      }
-      else
-      {
-        conversion_note << "<p> Conversion NOT successful. </p>\n";
-      }
-        
-    }
-    conversion_note << "</body>\n";
-
-    appendNotes(conversion_note.str());
-  }
-*/
+  /* restore original value */
+  mApplicableValidators = origValidators; 
+  
   mLevel   = level;
   mVersion = version;
 
-  if (mNamespaces == 0) mNamespaces = new XMLNamespaces;
+  if (mSBMLNamespaces == 0) 
+    mSBMLNamespaces = new SBMLNamespaces(mLevel, mVersion);;
 
   /**
    * check for the case where the sbml namespace has been expicitly declared
@@ -559,10 +811,11 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
    */
   bool sbmlDecl = false;
   int index;
-  for (index = 0; index < mNamespaces->getLength(); index++)
+  for (index = 0; index < mSBMLNamespaces->getNamespaces()->getLength(); 
+                                                                  index++)
   {
-    if (!mNamespaces->getPrefix(index).empty() 
-      && mNamespaces->getPrefix(index)=="sbml")
+    if (!mSBMLNamespaces->getNamespaces()->getPrefix(index).empty() 
+      && mSBMLNamespaces->getNamespaces()->getPrefix(index)=="sbml")
     {
       sbmlDecl = true;
       break;
@@ -570,12 +823,12 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
   }
   if (sbmlDecl)
   {
-    XMLNamespaces * copyNamespaces = mNamespaces->clone();
-    mNamespaces->clear();
+    XMLNamespaces * copyNamespaces = mSBMLNamespaces->getNamespaces()->clone();
+    mSBMLNamespaces->getNamespaces()->clear();
     for (int i = 0; i < copyNamespaces->getLength(); i++)
     {
       if ( i != index)
-        mNamespaces->add(copyNamespaces->getURI(i),
+        mSBMLNamespaces->getNamespaces()->add(copyNamespaces->getURI(i),
                          copyNamespaces->getPrefix(i));
     }
     delete copyNamespaces;
@@ -584,33 +837,36 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
   if (mLevel == 1)
   {
     if (sbmlDecl)
-      mNamespaces->add("http://www.sbml.org/sbml/level1", "sbml");
-    mNamespaces->add("http://www.sbml.org/sbml/level1");
+      mSBMLNamespaces->getNamespaces()->add("http://www.sbml.org/sbml/level1", "sbml");
+    mSBMLNamespaces->getNamespaces()->add("http://www.sbml.org/sbml/level1");
   }
   else if (mLevel == 2 && mVersion == 1)
   {
     if (sbmlDecl)
-      mNamespaces->add("http://www.sbml.org/sbml/level2", "sbml");
-    mNamespaces->add("http://www.sbml.org/sbml/level2");
+      mSBMLNamespaces->getNamespaces()->add("http://www.sbml.org/sbml/level2", "sbml");
+    mSBMLNamespaces->getNamespaces()->add("http://www.sbml.org/sbml/level2");
   }
   else if (mLevel == 2 && mVersion == 2)
   {
     if (sbmlDecl)
-      mNamespaces->add("http://www.sbml.org/sbml/level2/version2", "sbml");
-    mNamespaces->add("http://www.sbml.org/sbml/level2/version2");
+      mSBMLNamespaces->getNamespaces()->add("http://www.sbml.org/sbml/level2/version2", "sbml");
+    mSBMLNamespaces->getNamespaces()->add("http://www.sbml.org/sbml/level2/version2");
   }
   else if (mLevel == 2 && mVersion == 3)
   {
     if (sbmlDecl)
-      mNamespaces->add("http://www.sbml.org/sbml/level2/version3", "sbml");
-    mNamespaces->add("http://www.sbml.org/sbml/level2/version3");
+      mSBMLNamespaces->getNamespaces()->add("http://www.sbml.org/sbml/level2/version3", "sbml");
+    mSBMLNamespaces->getNamespaces()->add("http://www.sbml.org/sbml/level2/version3");
   }
   else if (mLevel == 2 && mVersion == 4)
   {
     if (sbmlDecl)
-      mNamespaces->add("http://www.sbml.org/sbml/level2/version4", "sbml");
-    mNamespaces->add("http://www.sbml.org/sbml/level2/version4");
+      mSBMLNamespaces->getNamespaces()->add("http://www.sbml.org/sbml/level2/version4", "sbml");
+    mSBMLNamespaces->getNamespaces()->add("http://www.sbml.org/sbml/level2/version4");
   }
+
+  mSBMLNamespaces->setLevel(mLevel);
+  mSBMLNamespaces->setVersion(mVersion);
 
   return conversionSuccess;
 }
@@ -619,17 +875,37 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
 /*
  * Sets the Model for this SBMLDocument to a copy of the given Model.
  */
-void
+int
 SBMLDocument::setModel (const Model* m)
 {
-  if (mModel == m) return;
+  if (mModel == m)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (m == NULL)
+  {
+    delete mModel;
+    mModel = 0;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (getLevel() != m->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != m->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else
+  {
+    delete mModel;
+    mModel = (m != 0) ? new Model(*m) : 0;
 
-
-  delete mModel;
-  mModel = (m != 0) ? new Model(*m) : 0;
-
-  if (mModel) mModel->setSBMLDocument(this);
-  if (mModel) mModel->setParentSBMLObject(this);
+    if (mModel) mModel->setSBMLDocument(this);
+    if (mModel) mModel->setParentSBMLObject(this);
+    
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -641,11 +917,27 @@ Model*
 SBMLDocument::createModel (const std::string& sid)
 {
   if (mModel) delete mModel;
-  mModel = new Model(sid);
 
-  mModel->setSBMLDocument(this);
-  mModel->setParentSBMLObject(this);
+  try
+  {
+    mModel = new Model(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
+  
+  if (mModel)
+  {
+    mModel->setId(sid);
 
+    mModel->setSBMLDocument(this);
+    mModel->setParentSBMLObject(this);
+  }
   return mModel;
 }
 
@@ -736,6 +1028,104 @@ SBMLDocument::setConsistencyChecks(SBMLErrorCategory_t category,
     else
     {
       mApplicableValidators &= PracticeCheckOFF;
+    }
+
+    break;
+
+  default:
+    // If it's a category for which we don't have validators, ignore it.
+    break;
+  }
+
+}
+
+
+void 
+SBMLDocument::setConsistencyChecksForConversion(SBMLErrorCategory_t category,
+                                   bool apply)
+{
+  switch (category)
+  {
+  case LIBSBML_CAT_IDENTIFIER_CONSISTENCY:
+    if (apply)
+    {
+      mApplicableValidatorsForConversion |= IdCheckON;
+    }
+    else
+    {
+      mApplicableValidatorsForConversion &= IdCheckOFF;
+    }
+
+    break;
+
+  case LIBSBML_CAT_GENERAL_CONSISTENCY:
+    if (apply)
+    {
+      mApplicableValidatorsForConversion |= SBMLCheckON;
+    }
+    else
+    {
+      mApplicableValidatorsForConversion &= SBMLCheckOFF;
+    }
+
+    break;
+  
+  case LIBSBML_CAT_SBO_CONSISTENCY:
+    if (apply)
+    {
+      mApplicableValidatorsForConversion |= SBOCheckON;
+    }
+    else
+    {
+      mApplicableValidatorsForConversion &= SBOCheckOFF;
+    }
+
+    break;
+  
+  case LIBSBML_CAT_MATHML_CONSISTENCY:
+    if (apply)
+    {
+      mApplicableValidatorsForConversion |= MathCheckON;
+    }
+    else
+    {
+      mApplicableValidatorsForConversion &= MathCheckOFF;
+    }
+
+    break;
+  
+  case LIBSBML_CAT_UNITS_CONSISTENCY:
+    if (apply)
+    {
+      mApplicableValidatorsForConversion |= UnitsCheckON;
+    }
+    else
+    {
+      mApplicableValidatorsForConversion &= UnitsCheckOFF;
+    }
+
+    break;
+  
+  case LIBSBML_CAT_OVERDETERMINED_MODEL:
+    if (apply)
+    {
+      mApplicableValidatorsForConversion |= OverdeterCheckON;
+    }
+    else
+    {
+      mApplicableValidatorsForConversion &= OverdeterCheckOFF;
+    }
+
+    break;
+
+  case LIBSBML_CAT_MODELING_PRACTICE:
+    if (apply)
+    {
+      mApplicableValidatorsForConversion |= PracticeCheckON;
+    }
+    else
+    {
+      mApplicableValidatorsForConversion &= PracticeCheckOFF;
     }
 
     break;
@@ -1164,7 +1554,20 @@ SBMLDocument::createObject (XMLInputStream& stream)
   {
     delete mModel;
 
-    mModel = new Model();
+    try
+    {
+      mModel = new Model(getSBMLNamespaces());
+    }
+    catch ( ... )
+    {
+      mModel = new Model(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    //catch ( ... )
+    //{
+    //  // do nothing
+    //}
+
     object = mModel;
   }
 
@@ -1179,7 +1582,7 @@ SBMLDocument::createObject (XMLInputStream& stream)
 XMLNamespaces* 
 SBMLDocument::getNamespaces() const
 {
-  return SBase::mNamespaces;
+  return mSBMLNamespaces->getNamespaces();
 }
 
 
@@ -1260,15 +1663,15 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
   
   /* check that sbml namespace has been set */
   unsigned int match = 0;
-  if (mNamespaces == NULL)
+  if (mSBMLNamespaces->getNamespaces() == NULL)
   {
     logError(InvalidNamespaceOnSBML);
   }
   else 
   {
-    for (int n = 0; n < mNamespaces->getLength(); n++)
+    for (int n = 0; n < mSBMLNamespaces->getNamespaces()->getLength(); n++)
     {
-      if (!strcmp(mNamespaces->getURI(n).c_str(), "http://www.sbml.org/sbml/level1"))
+      if (!strcmp(mSBMLNamespaces->getNamespaces()->getURI(n).c_str(), "http://www.sbml.org/sbml/level1"))
       {
         match = 1;
         if (mLevel != 1)
@@ -1281,7 +1684,7 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
         }
        break;
       }
-      else if (!strcmp(mNamespaces->getURI(n).c_str(), "http://www.sbml.org/sbml/level2"))
+      else if (!strcmp(mSBMLNamespaces->getNamespaces()->getURI(n).c_str(), "http://www.sbml.org/sbml/level2"))
       {
         match = 1;
         if (mLevel != 2)
@@ -1294,7 +1697,7 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
         }
         break;
       }
-      else if (!strcmp(mNamespaces->getURI(n).c_str(), "http://www.sbml.org/sbml/level2/version2"))
+      else if (!strcmp(mSBMLNamespaces->getNamespaces()->getURI(n).c_str(), "http://www.sbml.org/sbml/level2/version2"))
       {
         match = 1;
         if (mLevel != 2)
@@ -1307,7 +1710,7 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
         }
         break;
       }
-      else if (!strcmp(mNamespaces->getURI(n).c_str(), "http://www.sbml.org/sbml/level2/version3"))
+      else if (!strcmp(mSBMLNamespaces->getNamespaces()->getURI(n).c_str(), "http://www.sbml.org/sbml/level2/version3"))
       {
         match = 1;
         if (mLevel != 2)
@@ -1320,7 +1723,7 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
         }
         break;
       }
-      else if (!strcmp(mNamespaces->getURI(n).c_str(), "http://www.sbml.org/sbml/level2/version4"))
+      else if (!strcmp(mSBMLNamespaces->getNamespaces()->getURI(n).c_str(), "http://www.sbml.org/sbml/level2/version4"))
       {
         match = 1;
         if (mLevel != 2)
@@ -1338,6 +1741,11 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
     {
       logError(InvalidNamespaceOnSBML);
     }
+    else
+    {
+      mSBMLNamespaces->setLevel(mLevel);
+      mSBMLNamespaces->setVersion(mVersion);
+    }
 
   }
 }
@@ -1353,7 +1761,7 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
 void
 SBMLDocument::writeAttributes (XMLOutputStream& stream) const
 {
-  if (mNamespaces == 0)
+  if (mSBMLNamespaces->getNamespaces() == 0)
   {
      XMLNamespaces xmlns;
 
@@ -1378,6 +1786,8 @@ SBMLDocument::writeAttributes (XMLOutputStream& stream) const
        xmlns.add("http://www.sbml.org/sbml/level2/version4");
      }
      stream << xmlns;
+
+     mSBMLNamespaces->setNamespaces(&xmlns);
   }  
 
   SBase::writeAttributes(stream);
@@ -1575,7 +1985,68 @@ SBMLDocument_setLevelAndVersion (  SBMLDocument_t *d
                                  , unsigned int    level
                                  , unsigned int    version )
 {
-  return static_cast <int> (d->setLevelAndVersion(level, version));
+  return static_cast <int> (d->setLevelAndVersion(level, version, false));
+}
+
+
+/**
+ * Sets the SBML Level and Version of this SBMLDocument, attempting to
+ * convert the model as needed.
+ *
+ * This method is used to convert models between Levels and Versions of
+ * SBML.  Generally, models can be converted upward without difficulty
+ * (e.g., from SBML Level 1 to Level 2, or from an earlier version of
+ * Level 2 to the latest version of Level 2).  Sometimes models can be
+ * translated downward as well, if they do not use constructs specific to
+ * more advanced Levels of SBML.
+ *
+ * Callers can also check compatibility directly using the methods
+ * checkL1Compatibility(), checkL2v1Compatibility(), and 
+ * checkL2v2Compatibility().
+ * 
+ * The valid combinations as of this release of libSBML are the
+ * following: 
+ *
+ * @li Level 1 Version 1
+ * @li Level 1 Version 2
+ * @li Level 2 Version 1
+ * @li Level 2 Version 2
+ * @li Level 2 Version 3
+ * @li Level 2 Version 4
+ *
+ * @param d the SBMLDocument_t structure
+ *
+ * @param level the desired SBML Level
+ *
+ * @param version the desired Version within the SBML Level
+ *
+ * @note Calling this method will not @em necessarily lead to successful
+ * conversion.  If the conversion fails, it will be logged in the error
+ * list associated with this SBMLDocument_t structure.  Callers should
+ * consult getNumErrors() to find out if the conversion succeeded without
+ * problems.  For conversions from Level 2 to Level 1, callers can also
+ * check the Level of the model after calling this method to find out
+ * whether it is Level 1.  (If the conversion to Level 1 failed, the Level
+ * of this model will be left unchanged.)
+ *
+ *
+ * Strict conversion applies the additional criteria that both the source
+ * and the target model must be consistent SBML.  Users can control the
+ * consistency checks that are applied using the 
+ * SBMLDocument::setConsistencyChecks function.  If either the source
+ * or the potential target model have validation errors, the conversion
+ * is not performed.  When a strict conversion is successful, the
+ * underlying SBML object model is altered to reflect the new level
+ * and version.  Thus information that cannot be converted (e.g. sboTerms)
+ * will be lost.  
+ */
+LIBSBML_EXTERN
+int
+SBMLDocument_setLevelAndVersionStrict (  SBMLDocument_t *d
+                                       , unsigned int    level
+                                       , unsigned int    version )
+{
+  return static_cast <int> (d->setLevelAndVersion(level, version, true));
 }
 
 
@@ -1586,12 +2057,20 @@ SBMLDocument_setLevelAndVersion (  SBMLDocument_t *d
  * @param d the SBMLDocument_t structure
  *
  * @param m the new Model_t structure to use.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
  */
 LIBSBML_EXTERN
-void
+int
 SBMLDocument_setModel (SBMLDocument_t *d, const Model_t *m)
 {
-  d->setModel(m);
+  return d->setModel(m);
 }
 
 
@@ -1656,7 +2135,7 @@ SBMLDocument_createModel (SBMLDocument_t *d)
  * SBMLDocument object created.  This means that each time a model is
  * read using SBMLReader::readSBML(), SBMLReader::readSBMLFromString, or
  * the global functions readSBML() and readSBMLFromString(), a new
- * SBMLDocument is created and for that document
+ * SBMLDocument is created and for that document all checks are enabled.
  *
  * @see SBMLDocument_checkConsistency()
  */
@@ -1667,6 +2146,66 @@ SBMLDocument_setConsistencyChecks(SBMLDocument_t * d,
                                   int apply)
 {
   d->setConsistencyChecks(SBMLErrorCategory_t(category), apply);
+}
+
+
+/**
+ * Allows particular validators to be turned on or off prior to
+ * calling setLevelAndVersion. 
+ *
+ * The second argument (@p category) to this method indicates which
+ * category of consistency/error checks are being turned on or off, and
+ * the second argument (a boolean) indicates whether to turn on (value of
+ * @c true) or off (value of @c false) that particula category of checks.
+ * The possible categories are represented as values of the enumeration
+ * SBMLErrorCategory_t.  The following are the possible choices in libSBML
+ * version 3.0.2:
+ *
+ * @li LIBSBML_CAT_GENERAL_CONSISTENCY:    General overall SBML consistency.
+ * 
+ * @li LIBSBML_CAT_IDENTIFIER_CONSISTENCY: Consistency of identifiers.  An
+ * example of inconsistency would be using a species identifier in a
+ * reaction rate formula without first having declared the species.
+ * 
+ * @li LIBSBML_CAT_UNITS_CONSISTENCY:      Consistency of units of measure.
+ * 
+ * @li LIBSBML_CAT_MATHML_CONSISTENCY:     Consistency of MathML constructs.
+ * 
+ * @li LIBSBML_CAT_SBO_CONSISTENCY:        Consistency of SBO identifiers.
+ * 
+ * @li LIBSBML_CAT_OVERDETERMINED_MODEL:   Checking whether the system of
+ * equations implied by a model is mathematically overdetermined.
+ * 
+ * @li LIBSBML_CAT_MODELING_PRACTICE:      General good practice in
+ * model construction.
+ * 
+ * By default, all validation checks are applied to the model in an
+ * SBMLDocument object @em unless setConsistencyChecks() is called to
+ * indicate that only a subset should be applied.
+ *
+ * @param d the SBMLDocument_t structure
+ *
+ * @param category a value drawn from SBMLErrorCategory_t indicating the
+ * consistency checking/validation to be turned on or off
+ *
+ * @param apply a boolean indicating whether the checks indicated by @p
+ * category should be applied or not. 
+ * 
+ * @note The default (i.e., performing all checks) applies to each new
+ * SBMLDocument object created.  This means that each time a model is
+ * read using SBMLReader::readSBML(), SBMLReader::readSBMLFromString, or
+ * the global functions readSBML() and readSBMLFromString(), a new
+ * SBMLDocument is created and for that document all checks are enabled.
+ *
+ * @see SBMLDocument_setLevelAndVersionStrict()
+ */
+LIBSBML_EXTERN
+void
+SBMLDocument_setConsistencyChecksForConversion(SBMLDocument_t * d, 
+                                  SBMLErrorCategory_t category,
+                                  int apply)
+{
+  d->setConsistencyChecksForConversion(SBMLErrorCategory_t(category), apply);
 }
 
 
@@ -1934,7 +2473,5 @@ SBMLDocument_getNamespaces(SBMLDocument_t *d)
   return d->getNamespaces();
 }
 
-
-
-
 /** @endcond doxygen-c-only */
+LIBSBML_CPP_NAMESPACE_END

@@ -28,7 +28,7 @@
 #include <sbml/common/libsbml-config.h>
 #include <sbml/common/extern.h>
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
@@ -138,6 +138,6 @@ SBMLTypeCode_toString (SBMLTypeCode_t tc);
 
 
 END_C_DECLS
-
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* SBMLTypeCodes_h */

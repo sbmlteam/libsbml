@@ -156,6 +156,7 @@
 
 #include <string>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class SBMLVisitor;
 
@@ -165,73 +166,36 @@ class LIBSBML_EXTERN Parameter : public SBase
 public:
 
   /**
-   * Creates a new Parameter, optionally with the given @p id and @p name
-   * attribute values.
-   *
-   * @param id a string, the identifier to assign to this Parameter
-   * @param name a string, the optional name to assign to this Parameter
-   *
-   * @note It is worth emphasizing that although the identifier is optional
-   * for this constructor, in SBML Level&nbsp;2 and beyond, the "id"
-   * (identifier) attribute of a Parameter is required to have a value.
-   * Thus, callers are cautioned to assign a value after calling this
-   * constructor if no identifier is provided as an argument.  Setting the
-   * identifier can be accomplished using the method @if clike
-   * SBase::setId() @endif@if java SBase::setId(String id)
-   * @endif
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
-   */
-  Parameter (const std::string& id = "", const std::string& name = "");
-
-
-  /**
-   * Creates a new Parameter with the given @p id and @p value attribute
-   * values, and optionally with the given @p units and @p constant
-   * attribute values.
-   *
-   * In contrast to the other constructors for this class, the @p id
-   * (identifier) and @p value parameters are required in this call.
-   *
-   * @param id a string, the identifier to assign to this Parameter instance
-   * @param value a double, the value to assign to this Parameter
-   * @param units a string, an optional identifier for units to be assigned
-   * to this Parameter
-   * @param constant a boolean, the optional value to assign to the
-   * "constant" attribute of this Parameter instance
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
-   */
-  Parameter (   const std::string&  id
-              , double              value
-              , const std::string&  units    = ""
-              , bool                constant = true );
-
-
-  /**
    * Creates a new Parameter using the given SBML @p level and @p version
-   * values and optionally a set of XMLNamespaces.
+   * values.
+   *
+   * @param level an unsigned int, the SBML Level to assign to this Parameter
+   *
+   * @param version an unsigned int, the SBML Version to assign to this
+   * Parameter
    * 
+   * @note Once a Parameter has been added to an SBMLDocument, the @p level,
+   * @p version for the document @em override those used
+   * to create the Parameter.  Despite this, the ability to supply the values
+   * at creation time is an important aid to creating valid SBML.  Knowledge of
+   * the intented SBML Level and Version determine whether it is valid to
+   * assign a particular value to an attribute, or whether it is valid to add
+   * an object to an existing SBMLDocument.
+   */
+  Parameter (unsigned int level, unsigned int version);
+
+
+  /**
+   * Creates a new Parameter using the given SBMLNamespaces object
+   * @p sbmlns.
+   *
+   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
+   * information.  It is used to communicate the SBML Level, Version, and
+   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp; Core.
+   * A common approach to using this class constructor is to create an
+   * SBMLNamespaces object somewhere in a program, once, then pass it to
+   * object constructors such as this one when needed.
+   *
    * It is worth emphasizing that although this constructor does not take
    * an identifier argument, in SBML Level&nbsp;2 and beyond, the "id"
    * (identifier) attribute of a Parameter is required to have a value.
@@ -241,13 +205,7 @@ public:
    * SBase::setId(). @endif@if java SBase::setId(String id).
    * @endif
    *
-   * @param level an unsigned int, the SBML Level to assign to this Parameter
-   *
-   * @param version an unsigned int, the SBML Version to assign to this
-   * Parameter
-   * 
-   * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
-   * assign to this Parameter
+   * @param sbmlns an SBMLNamespaces object.
    *
    * @note Once a Parameter has been added to an SBMLDocument, the @p level,
    * @p version and @p xmlns namespaces for the document @em override those used
@@ -256,21 +214,8 @@ public:
    * the intented SBML Level and Version determine whether it is valid to
    * assign a particular value to an attribute, or whether it is valid to add
    * an object to an existing SBMLDocument.
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
    */
-  Parameter (unsigned int level, unsigned int version, 
-               XMLNamespaces* xmlns = 0);
+  Parameter (SBMLNamespaces* sbmlns);
 
 
   /**
@@ -373,6 +318,22 @@ public:
 
 
   /**
+   * Returns the value of the "id" attribute of this Parameter.
+   * 
+   * @return the id of this Parameter.
+   */
+  const std::string& getId () const;
+
+
+  /**
+   * Returns the value of the "name" attribute of this Parameter.
+   * 
+   * @return the name of this Parameter.
+   */
+  const std::string& getName () const;
+
+
+  /**
    * Gets the numerical value of this Parameter.
    * 
    * @return the value of the "value" attribute of this Parameter, as a
@@ -411,6 +372,30 @@ public:
    * @c false otherwise.
    */
   bool getConstant () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Parameter's "id" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "id" attribute of this Parameter has been
+   * set, @c false otherwise.
+   */
+  bool isSetId () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Parameter's "name" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "name" attribute of this Parameter has been
+   * set, @c false otherwise.
+   */
+  bool isSetName () const;
 
 
   /**
@@ -460,14 +445,72 @@ public:
 
 
   /**
+   * Sets the value of the "id" attribute of this Parameter.
+   *
+   * The string @p sid is copied.  Note that SBML has strict requirements
+   * for the syntax of identifiers.  The following is summary of the
+   * definition of the SBML identifier type @c SId (here expressed in an
+   * extended form of BNF notation):
+   * @code
+   *   letter ::= 'a'..'z','A'..'Z'
+   *   digit  ::= '0'..'9'
+   *   idChar ::= letter | digit | '_'
+   *   SId    ::= ( letter | '_' ) idChar*
+   * @endcode
+   * The equality of SBML identifiers is determined by an exact character
+   * sequence match; i.e., comparisons must be performed in a
+   * case-sensitive manner.  In addition, there are a few conditions for
+   * the uniqueness of identifiers in an SBML model.  Please consult the
+   * SBML specifications for the exact formulations.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @param sid the string to use as the identifier of this Parameter
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int setId (const std::string& sid);
+
+
+  /**
+   * Sets the value of the "name" attribute of this Parameter.
+   *
+   * The string in @p name is copied.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @param name the new name for the Parameter
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int setName (const std::string& name);
+
+
+  /**
    * Sets the "value" attribute of this Parameter to the given @c double
    * value and marks the attribute as set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param value a @c double, the value to assign
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
-  void setValue (double value);
+  int setValue (double value);
 
 
   /**
@@ -478,8 +521,15 @@ public:
    *
    * @param units a string, the identifier of the units to assign to this
    * Parameter instance
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  void setUnits (const std::string& units);
+  int setUnits (const std::string& units);
 
 
   /**
@@ -488,8 +538,30 @@ public:
    *
    * @param flag a boolean, the value for the "constant" attribute of this
    * Parameter instance
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
    */
-  void setConstant (bool flag);
+  int setConstant (bool flag);
+
+
+  /**
+   * Unsets the value of the "name" attribute of this Parameter.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  int unsetName ();
 
 
   /**
@@ -497,20 +569,33 @@ public:
    *
    * @htmlinclude libsbml-comment-set-methods.html
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   *
    * In %SBML Level&nbsp;1 Version&nbsp;1, parameters are required to have
    * values and therefore, the value of a Parameter <b>should always be
    * set</b>.  In %SBML Level&nbsp;1 Version&nbsp;2 and beyond, the value
    * is optional and as such, the "value" attribute may or may not be set.
    */
-  void unsetValue ();
+  int unsetValue ();
 
 
   /**
    * Unsets the "units" attribute of this Parameter instance.
    *
    * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  void unsetUnits ();
+  int unsetUnits ();
 
 
   /**
@@ -606,8 +691,28 @@ public:
   virtual const std::string& getElementName () const;
 
 
+  /**
+   * Predicate returning @c true or @c false depending on whether
+   * all the required attributes for this Parameter object
+   * have been set.
+   *
+   * @note The required attributes for a Parameter object are:
+   * id (name in L1); value (L1V1 only)
+   *
+   * @return a boolean value indicating whether all the required
+   * attributes for this object have been defined.
+   */
+  virtual bool hasRequiredAttributes() const ;
+
+
 protected:
   /** @cond doxygen-libsbml-internal */
+
+  /* this is a constructor that takes no arguments and 
+   * only exists because the validator code needs it
+   */
+  Parameter ();
+
 
   /**
    * Subclasses should override this method to read values from the given
@@ -625,11 +730,31 @@ protected:
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
+  std::string  mId;
+  std::string  mName;
   double       mValue;
   std::string  mUnits;
   bool         mConstant;
 
   bool mIsSetValue;
+
+  /* the validator classes need to be friends to access the 
+   * protected constructor that takes no arguments
+   */
+  friend class Validator;
+  friend class ConsistencyValidator;
+  friend class IdentifierConsistencyValidator;
+  friend class InternalConsistencyValidator;
+  friend class L1CompatibilityValidator;
+  friend class L2v1CompatibilityValidator;
+  friend class L2v2CompatibilityValidator;
+  friend class L2v3CompatibilityValidator;
+  friend class L2v4CompatibilityValidator;
+  friend class MathMLConsistencyValidator;
+  friend class ModelingPracticeValidator;
+  friend class OverdeterminedValidator;
+  friend class SBOConsistencyValidator;
+  friend class UnitConsistencyValidator;
 
   /** @endcond doxygen-libsbml-internal */
 };
@@ -824,12 +949,14 @@ protected:
   /** @endcond doxygen-libsbml-internal */
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
 
 #ifndef SWIG
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
@@ -840,24 +967,12 @@ BEGIN_C_DECLS
 
 LIBSBML_EXTERN
 Parameter_t *
-Parameter_create (void);
+Parameter_create (unsigned int level, unsigned int version);
 
 
 LIBSBML_EXTERN
 Parameter_t *
-Parameter_createWith (const char *sid, const char *name);
-
-LIBSBML_EXTERN
-Parameter_t *
-Parameter_createWithValueAndUnits (const char *sid, double value, const char *units);
-
-
-/** @cond doxygen-libsbml-internal */
-LIBSBML_EXTERN
-Parameter_t *
-Parameter_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns);
-/** @endcond doxygen-libsbml-internal */
+Parameter_createWithNS (SBMLNamespaces_t *sbmlns);
 
 
 LIBSBML_EXTERN
@@ -926,42 +1041,42 @@ Parameter_isSetUnits (const Parameter_t *p);
 
 
 LIBSBML_EXTERN
-void
+int
 Parameter_setId (Parameter_t *p, const char *sid);
 
 
 LIBSBML_EXTERN
-void
+int
 Parameter_setName (Parameter_t *p, const char *name);
 
 
 LIBSBML_EXTERN
-void
+int
 Parameter_setValue (Parameter_t *p, double value);
 
 
 LIBSBML_EXTERN
-void
+int
 Parameter_setUnits (Parameter_t *p, const char *units);
 
 
 LIBSBML_EXTERN
-void
+int
 Parameter_setConstant (Parameter_t *p, int value);
 
 
 LIBSBML_EXTERN
-void
+int
 Parameter_unsetName (Parameter_t *p);
 
 
 LIBSBML_EXTERN
-void
+int
 Parameter_unsetValue (Parameter_t *p);
 
 
 LIBSBML_EXTERN
-void
+int
 Parameter_unsetUnits (Parameter_t *p);
 
 
@@ -969,7 +1084,19 @@ LIBSBML_EXTERN
 UnitDefinition_t * 
 Parameter_getDerivedUnitDefinition(Parameter_t *p);
 
+
+LIBSBML_EXTERN
+Parameter_t *
+ListOfParameters_getById (ListOf_t *lo, const char *sid);
+
+
+LIBSBML_EXTERN
+Parameter_t *
+ListOfParameters_removeById (ListOf_t *lo, const char *sid);
+
+
 END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
 #endif  /* Parameter_h */

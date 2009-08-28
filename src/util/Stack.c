@@ -27,6 +27,7 @@
 #include <sbml/common/common.h>
 #include <sbml/util/Stack.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 #ifdef DEBUG
 
@@ -218,5 +219,6 @@ Stack_capacity (Stack_t *s)
   return s->capacity;
 }
 
+LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond doxygen-libsbml-internal */

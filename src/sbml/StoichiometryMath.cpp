@@ -45,38 +45,38 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
-/*
- * Creates a new StoichiometryMath, optionally with its math set.
- */
-StoichiometryMath::StoichiometryMath (   const ASTNode* math ) :
-   SBase		  (  -1 )
+StoichiometryMath::StoichiometryMath (unsigned int level, unsigned int version) :
+   SBase ( level, version )
  , mMath      ( 0              )
+ , mInternalId ( "" )
 {
-  if (math) mMath = math->deepCopy();
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
 
-StoichiometryMath::StoichiometryMath (unsigned int level, unsigned int version,
-                          XMLNamespaces *xmlns) :
-   SBase (-1)
+StoichiometryMath::StoichiometryMath (SBMLNamespaces * sbmlns) :
+   SBase ( sbmlns )
  , mMath      ( 0              )
+ , mInternalId ( "" )
 {
-  mObjectLevel = level;
-  mObjectVersion = version;
-  if (xmlns) setNamespaces(xmlns);;
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
+
+/** @cond doxygen-libsbml-internal */
+
+/* constructor for validators */
+StoichiometryMath::StoichiometryMath() :
+  SBase()
+{
+}
+
+/** @endcond doxygen-libsbml-internal */
                           
-StoichiometryMath::StoichiometryMath (SBMLNamespaces *sbmlns) :
-   SBase (-1)
- , mMath      ( 0              )
-{
-  mObjectLevel = sbmlns->getLevel();
-  mObjectVersion = sbmlns->getVersion();
-  setNamespaces(sbmlns->getNamespaces());
-}
-
 
 /*
  * Destroys this StoichiometryMath.
@@ -93,8 +93,13 @@ StoichiometryMath::~StoichiometryMath ()
 StoichiometryMath::StoichiometryMath (const StoichiometryMath& rhs) :
    SBase          ( rhs )
  , mMath          ( 0    )
+ , mInternalId    ( rhs.mInternalId )
 {
-  if (rhs.mMath) mMath = rhs.mMath->deepCopy();
+  if (rhs.mMath) 
+  {
+    mMath = rhs.mMath->deepCopy();
+    mMath->setParentSBMLObject(this);
+  }
 }
 
 
@@ -106,12 +111,18 @@ StoichiometryMath& StoichiometryMath::operator=(const StoichiometryMath& rhs)
   if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
+    this->mInternalId = rhs.mInternalId;
 
     delete mMath;
     if (rhs.mMath) 
+    {
       mMath = rhs.mMath->deepCopy();
+      mMath->setParentSBMLObject(this);
+    }
     else
+    {
       mMath = 0;
+    }
   }
 
   return *this;
@@ -163,16 +174,30 @@ StoichiometryMath::isSetMath () const
 /*
  * Sets the math of this StoichiometryMath to a copy of the given ASTNode.
  */
-void
+int
 StoichiometryMath::setMath (const ASTNode* math)
 {
-  if (mMath == math) return;
-
-
-  delete mMath;
-  mMath = (math != 0) ? math->deepCopy() : 0;
-  if (mMath) mMath->setParentSBMLObject(this);
-
+  if (mMath == math) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (math == NULL)
+  {
+    delete mMath;
+    mMath = 0;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (!(math->isWellFormedASTNode()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else
+  {
+    delete mMath;
+    mMath = (math != 0) ? math->deepCopy() : 0;
+    if (mMath) mMath->setParentSBMLObject(this);
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 /** @cond doxygen-libsbml-internal */
@@ -235,6 +260,20 @@ StoichiometryMath::getElementPosition () const
   return 0;
 }
 /** @endcond doxygen-libsbml-internal */
+
+
+bool 
+StoichiometryMath::hasRequiredElements() const
+{
+  bool allPresent = true;
+
+  /* required attributes for stoichiometryMath: math */
+
+  if (!isSetMath())
+    allPresent = false;
+
+  return allPresent;
+}
 
 
 /** @cond doxygen-libsbml-internal */
@@ -407,9 +446,9 @@ StoichiometryMath::getDerivedUnitDefinition()
       m->populateListFormulaUnitsData();
     }
     
-    if (m->getFormulaUnitsData(getId(), getTypeCode()))
+    if (m->getFormulaUnitsData(getInternalId(), getTypeCode()))
     {
-      return m->getFormulaUnitsData(getId(), getTypeCode())
+      return m->getFormulaUnitsData(getInternalId(), getTypeCode())
                                              ->getUnitDefinition();
     }
     else
@@ -457,9 +496,9 @@ StoichiometryMath::containsUndeclaredUnits()
       m->populateListFormulaUnitsData();
     }
     
-    if (m->getFormulaUnitsData(getId(), getTypeCode()))
+    if (m->getFormulaUnitsData(getInternalId(), getTypeCode()))
     {
-      return m->getFormulaUnitsData(getId(), getTypeCode())
+      return m->getFormulaUnitsData(getInternalId(), getTypeCode())
       ->getContainsUndeclaredUnits();
     }
     else
@@ -498,73 +537,73 @@ StoichiometryMath::writeElements (XMLOutputStream& stream) const
 
 
 
-
 /**
- * Creates a new StoichiometryMath and returns a pointer to it.
- */
-LIBSBML_EXTERN
-StoichiometryMath_t *
-StoichiometryMath_create (void)
-{
-  return new(nothrow) StoichiometryMath;
-}
-
-
-/**
- * Creates a new StoichiometryMath_t structure with the given math.
+ * Creates a new StoichiometryMath_t structure using the given SBML @p level
+ * and @p version values.
  *
- * This is functionally equivalent to
- * @code
- *   StoichiometryMath_t *t = StoichiometryMath_create();
- *   StoichiometryMath_setMath(math);
- * @endcode.
- *
- * @param math an ASTNode_t structure representing the mathematical 
- * formula for the stoichiometryMath expressions.
- *
- * @return the newly constructed StoichiometryMath_t structure.
- */
-LIBSBML_EXTERN
-StoichiometryMath_t *
-StoichiometryMath_createWithMath (const ASTNode_t *math)
-{
-  return new(nothrow) StoichiometryMath(math);
-}
-
-
-/** @cond doxygen-libsbml-internal */
-/**
- * Creates a new StoichiometryMath_t structure using the given SBML @p 
- * level and @p version values and a set of XMLNamespaces.
- *
- * @param level an unsigned int, the SBML Level to assign to this 
+ * @param level an unsigned int, the SBML Level to assign to this
  * StoichiometryMath
  *
  * @param version an unsigned int, the SBML Version to assign to this
  * StoichiometryMath
- * 
- * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
- * assign to this StoichiometryMath
  *
  * @return a pointer to the newly created StoichiometryMath_t structure.
  *
- * @note Once a StoichiometryMath has been added to an SBMLDocument, the @p 
- * level, @p version and @p xmlns namespaces for the document @em override 
- * those used to create the StoichiometryMath.  Despite this, the ability 
- * to supply the values at creation time is an important aid to creating 
- * valid SBML.  Knowledge of the intended SBML Level and Version 
- * determine whether it is valid to assign a particular value to an 
- * attribute, or whether it is valid to add an object to an existing 
- * SBMLDocument.
+ * @note Once a StoichiometryMath has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the StoichiometryMath.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
  */
 LIBSBML_EXTERN
 StoichiometryMath_t *
-StoichiometryMath_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns)
+StoichiometryMath_create (unsigned int level, unsigned int version)
 {
-  return new(nothrow) StoichiometryMath(level, version, xmlns);
+  try
+  {
+    StoichiometryMath* obj = new StoichiometryMath(level,version);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
 }
-/** @endcond doxygen-libsbml-internal */
+
+
+/**
+ * Creates a new StoichiometryMath_t structure using the given
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this StoichiometryMath
+ *
+ * @return a pointer to the newly created StoichiometryMath_t structure.
+ *
+ * @note Once a StoichiometryMath has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the StoichiometryMath.  Despite this, the ability to supply the values at 
+ * creation time is an important aid to creating valid SBML.  Knowledge of the
+ * intended SBML Level and Version determine whether it is valid to assign a 
+ * particular value to an attribute, or whether it is valid to add an object 
+ * to an existing SBMLDocument.
+ */
+LIBSBML_EXTERN
+StoichiometryMath_t *
+StoichiometryMath_createWithNS (SBMLNamespaces_t* sbmlns)
+{
+  try
+  {
+    StoichiometryMath* obj = new StoichiometryMath(sbmlns);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
 
 
 /**
@@ -631,12 +670,19 @@ StoichiometryMath_isSetMath (const StoichiometryMath_t *stoichMath)
 
 /**
  * Sets the math of this StoichiometryMath to a copy of the given ASTNode.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
-void
+int
 StoichiometryMath_setMath (StoichiometryMath_t *stoichMath, const ASTNode_t *math)
 {
-  stoichMath->setMath(math);
+  return stoichMath->setMath(math);
 }
 
 
@@ -703,3 +749,4 @@ StoichiometryMath_containsUndeclaredUnits(StoichiometryMath_t *stoichMath)
 }
 
 
+LIBSBML_CPP_NAMESPACE_END

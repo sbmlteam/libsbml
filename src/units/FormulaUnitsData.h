@@ -75,6 +75,9 @@
 
 #include <sbml/units/UnitFormulaFormatter.h>
 
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 class SBMLVisitor;
 
 class LIBSBML_EXTERN FormulaUnitsData : public SBase
@@ -381,12 +384,14 @@ protected:
   /** @endcond doxygen-libsbml-internal */
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
 /* NOT YET NECESSARY 
 #ifndef SWIG
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 -----------------------------------------------------------------------------
@@ -460,10 +465,12 @@ FormulaUnitsData_setEventTimeUnitDefinition(FormulaUnitsData_t* fud,
                                    UnitDefinition_t* ud);
 
 END_C_DECLS
-
+LIBSBML_CPP_NAMESPACE_END
 
 #endif   !SWIG   */
-#endif
+
+
+#endif //FormulaUnitsData_h
 
 /** @endcond doxygen-libsbml-internal */
 

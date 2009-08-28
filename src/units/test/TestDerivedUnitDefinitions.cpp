@@ -36,6 +36,8 @@
 
 #include <check.h>
 
+LIBSBML_CPP_NAMESPACE_USE
+
 extern char *TestDataDirectory;
 
 static Model *m;

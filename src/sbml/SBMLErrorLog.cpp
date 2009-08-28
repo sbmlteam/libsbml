@@ -38,6 +38,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygen-libsbml-internal */
 /** Most of the methods are internal.  A few visible ones are at the end. */
@@ -245,3 +246,6 @@ SBMLErrorLog::getError (unsigned int n) const
 {
   return static_cast<const SBMLError*>(XMLErrorLog::getError(n));
 }
+
+LIBSBML_CPP_NAMESPACE_END
+

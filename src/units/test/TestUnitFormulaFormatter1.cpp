@@ -62,6 +62,8 @@
 
 #include <check.h>
 
+LIBSBML_CPP_NAMESPACE_USE
+
 extern char *TestDataDirectory;
 
 static UnitFormulaFormatter *uff;
@@ -102,7 +104,7 @@ UnitFormulaFormatter1Test_teardown (void)
 
 START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_compartment)
 {
-  UnitDefinition * ud = new UnitDefinition();
+  UnitDefinition * ud = new UnitDefinition(2, 4);
 
   /* compartment with declared standard units */
   ud = uff->getUnitDefinitionFromCompartment(m->getCompartment(0));
@@ -230,9 +232,9 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_compartment)
 
   /* check deals with invalid nodes */
   delete ud;
-  UnitDefinition * ud1 = new UnitDefinition();
+  UnitDefinition * ud1 = new UnitDefinition(m->getLevel(), m->getVersion());
   
-  Compartment *c = new Compartment();
+  Compartment *c = new Compartment(m->getLevel(), m->getVersion());
   c->setId("c");
   c->setUnits("undefined");
 
@@ -247,7 +249,7 @@ END_TEST
 
 START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_species)
 {
-  UnitDefinition * ud = new UnitDefinition();
+  UnitDefinition * ud = new UnitDefinition(2, 4);
   
   /* species with declared standard units for substance and spatialSize*/
   ud = uff->getUnitDefinitionFromSpecies(m->getSpecies(0));
@@ -391,9 +393,9 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_species)
 
   /* check deals with invalid nodes */
   delete ud;
-  UnitDefinition * ud1 = new UnitDefinition();
+  UnitDefinition * ud1 = new UnitDefinition(m->getLevel(), m->getVersion());
   
-  Species *s = new Species();
+  Species *s = new Species(m->getLevel(), m->getVersion());
   s->setId("s");
   s->setUnits("undefined");
 
@@ -414,7 +416,7 @@ END_TEST
 
 START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_parameter)
 {
-  UnitDefinition * ud = new UnitDefinition();
+  UnitDefinition * ud = new UnitDefinition(2, 4);
  
   /* parameter with declared standard units */
   ud = uff->getUnitDefinitionFromParameter(m->getParameter(0));
@@ -470,9 +472,9 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_parameter)
 
   /* check deals with invalid nodes */
   delete ud;
-  UnitDefinition * ud1 = new UnitDefinition();
+  UnitDefinition * ud1 = new UnitDefinition(m->getLevel(), m->getVersion());
   
-  Parameter *p = new Parameter();
+  Parameter *p = new Parameter(m->getLevel(), m->getVersion());
   p->setId("p");
   p->setUnits("undefined");
 
@@ -548,7 +550,7 @@ END_TEST
 
 START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_event)
 {
-  UnitDefinition * ud = new UnitDefinition();
+  UnitDefinition * ud = new UnitDefinition(2, 4);
 
   /* event with no time units */
   ud = uff->getUnitDefinitionFromEventTime(m->getEvent(0));
@@ -605,9 +607,9 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_event)
   
   /* check deals with invalid nodes */
   delete ud;
-  UnitDefinition * ud1 = new UnitDefinition();
+  UnitDefinition * ud1 = new UnitDefinition(m->getLevel(), m->getVersion());
   
-  Event *e = new Event();
+  Event *e = new Event(m->getLevel(), m->getVersion());
   e->setId("p");
   e->setTimeUnits("undefined");
 

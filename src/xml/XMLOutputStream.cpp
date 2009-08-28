@@ -38,6 +38,8 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 /**
  * Checks if the given string has a character reference at index in the string.
  *
@@ -590,7 +592,8 @@ XMLOutputStream::writeChars (const std::string& chars)
   {
     const char& c = chars.at(i);
     if ( c == '&' && 
-        (::hasCharacterReference(chars, i) || ::hasPredefinedEntity(chars,i)) )
+        (LIBSBML_CPP_NAMESPACE ::hasCharacterReference(chars, i) || 
+         LIBSBML_CPP_NAMESPACE ::hasPredefinedEntity(chars,i)) )
       mNextAmpersandIsRef = true;
 
     *this << c;
@@ -1303,4 +1306,6 @@ XMLOutputStream_getString(XMLOutputStream_t* stream)
 
 
 /** @endcond doxygen-c-only */
+
+LIBSBML_CPP_NAMESPACE_END
 

@@ -62,6 +62,8 @@
 
 #include <check.h>
 
+LIBSBML_CPP_NAMESPACE_USE
+
 extern char *TestDataDirectory;
 
 static UnitFormulaFormatter *uff;
@@ -106,7 +108,7 @@ UnitFormulaFormatterTest_teardown (void)
 START_TEST (test_UnitFormulaFormatter_getUnitDefinition_unknown)
 {
   ASTNode * node = new ASTNode(AST_UNKNOWN);
-  UnitDefinition * ud = new UnitDefinition();
+  UnitDefinition * ud = new UnitDefinition(2, 4);
     
   ud = uff->getUnitDefinition(node);
 
@@ -122,7 +124,7 @@ END_TEST
 
 START_TEST (test_UnitFormulaFormatter_getUnitDefinition_boolean)
 {
-  UnitDefinition * ud = new UnitDefinition();
+  UnitDefinition * ud = new UnitDefinition(2, 4);
 
   ud = uff->getUnitDefinition(m->getRule(0)->getMath());
 
@@ -143,7 +145,7 @@ END_TEST
 
 START_TEST (test_UnitFormulaFormatter_getUnitDefinition_dimensionless)
 {
-  UnitDefinition * ud = new UnitDefinition();
+  UnitDefinition * ud = new UnitDefinition(2, 4);
 
   ud = uff->getUnitDefinition(m->getRule(1)->getMath());
 
@@ -164,7 +166,7 @@ END_TEST
 
 START_TEST (test_UnitFormulaFormatter_getUnitDefinition_invtrig)
 {
-  UnitDefinition * ud = new UnitDefinition();
+  UnitDefinition * ud = new UnitDefinition(2, 4);
 
   ud = uff->getUnitDefinition(m->getRule(2)->getMath());
 
@@ -185,7 +187,7 @@ END_TEST
 
 START_TEST (test_UnitFormulaFormatter_getUnitDefinition_plus)
 {
-  UnitDefinition * ud = new UnitDefinition();
+  UnitDefinition * ud = new UnitDefinition(2, 4);
 
   ud = uff->getUnitDefinition(m->getRule(3)->getMath());
 
@@ -201,7 +203,7 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_plus)
 
    /* check an invalid node */
   delete ud;
-  UnitDefinition * ud1 = new UnitDefinition();
+  UnitDefinition * ud1 = new UnitDefinition(m->getLevel(), m->getVersion());
   ASTNode *node = new ASTNode(AST_PLUS);
   
   ud1 = uff->getUnitDefinition(node);
@@ -215,7 +217,7 @@ END_TEST
 
 START_TEST (test_UnitFormulaFormatter_getUnitDefinition_power)
 {
-  UnitDefinition * ud = new UnitDefinition();
+  UnitDefinition * ud = new UnitDefinition(2, 4);
 
   ud = uff->getUnitDefinition(m->getRule(4)->getMath());
 
@@ -236,7 +238,7 @@ END_TEST
 
 START_TEST (test_UnitFormulaFormatter_getUnitDefinition_times)
 {
-  UnitDefinition * ud = new UnitDefinition();
+  UnitDefinition * ud = new UnitDefinition(2, 4);
 
   ud = uff->getUnitDefinition(m->getRule(5)->getMath());
 
@@ -270,7 +272,7 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_times)
 
   /* check an invalid node */
   delete ud;
-  UnitDefinition * ud1 = new UnitDefinition();
+  UnitDefinition * ud1 = new UnitDefinition(m->getLevel(), m->getVersion());
   ASTNode *node = new ASTNode(AST_TIMES);
   
   ud1 = uff->getUnitDefinition(node);
@@ -285,7 +287,7 @@ END_TEST
 
 START_TEST (test_UnitFormulaFormatter_getUnitDefinition_divide)
 {
-  UnitDefinition * ud = new UnitDefinition();
+  UnitDefinition * ud = new UnitDefinition(2, 4);
 
   ud = uff->getUnitDefinition(m->getRule(6)->getMath());
 
@@ -306,7 +308,7 @@ END_TEST
 
 START_TEST (test_UnitFormulaFormatter_getUnitDefinition_piecewise)
 {
-  UnitDefinition * ud = new UnitDefinition();
+  UnitDefinition * ud = new UnitDefinition(2, 4);
 
   ud = uff->getUnitDefinition(m->getRule(7)->getMath());
 
@@ -322,7 +324,7 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_piecewise)
 
   /* check deals with invalid nodes */
   delete ud;
-  UnitDefinition * ud1 = new UnitDefinition();
+  UnitDefinition * ud1 = new UnitDefinition(m->getLevel(), m->getVersion());
   ASTNode *node = new ASTNode(AST_FUNCTION_PIECEWISE);
 
   ud1 == uff->getUnitDefinition(node);
@@ -343,7 +345,7 @@ END_TEST
 
 START_TEST (test_UnitFormulaFormatter_getUnitDefinition_root)
 {
-  UnitDefinition * ud = new UnitDefinition();
+  UnitDefinition * ud = new UnitDefinition(2, 4);
 
   ud = uff->getUnitDefinition(m->getRule(8)->getMath());
 
@@ -365,7 +367,7 @@ END_TEST
 
 START_TEST (test_UnitFormulaFormatter_getUnitDefinition_delay)
 {
-  UnitDefinition * ud = new UnitDefinition();
+  UnitDefinition * ud = new UnitDefinition(2, 4);
 
   ud = uff->getUnitDefinition(m->getRule(10)->getMath());
 
@@ -387,7 +389,7 @@ END_TEST
 
 START_TEST (test_UnitFormulaFormatter_getUnitDefinition_reaction)
 {
-  UnitDefinition * ud = new UnitDefinition();
+  UnitDefinition * ud = new UnitDefinition(2, 4);
 
   ud = uff->getUnitDefinition(m->getRule(13)->getMath());
 

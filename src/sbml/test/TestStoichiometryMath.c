@@ -67,7 +67,7 @@ static StoichiometryMath_t *D;
 void
 StoichiometryMathTest_setup (void)
 {
-  D = StoichiometryMath_create();
+  D = StoichiometryMath_create(2, 4);
 
   if (D == NULL)
   {
@@ -95,33 +95,33 @@ START_TEST (test_StoichiometryMath_create)
 END_TEST
 
 
-START_TEST (test_StoichiometryMath_createWithMath)
-{
-  ASTNode_t            *math = SBML_parseFormula("x^3");
-  StoichiometryMath_t *fd   = StoichiometryMath_createWithMath(math);
-
-  const ASTNode_t * math1;
-  char * formula;
-
-  fail_unless( SBase_getTypeCode((SBase_t *) fd) == SBML_STOICHIOMETRY_MATH );
-  fail_unless( SBase_getMetaId    ((SBase_t *) fd) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) fd) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) fd) == NULL );
-
-
-  math1 = StoichiometryMath_getMath(fd);
-  fail_unless( math1 != NULL );
-
-  formula = SBML_formulaToString(math1);
-  fail_unless( formula != NULL );
-  fail_unless( !strcmp(formula, "x^3") );
-  fail_unless( StoichiometryMath_getMath(fd) != math );
-  fail_unless( StoichiometryMath_isSetMath(fd) );
-
-
-  StoichiometryMath_free(fd);
-}
-END_TEST
+//START_TEST (test_StoichiometryMath_createWithMath)
+//{
+//  ASTNode_t            *math = SBML_parseFormula("x^3");
+//  StoichiometryMath_t *fd   = StoichiometryMath_createWithMath(math);
+//
+//  const ASTNode_t * math1;
+//  char * formula;
+//
+//  fail_unless( SBase_getTypeCode((SBase_t *) fd) == SBML_STOICHIOMETRY_MATH );
+//  fail_unless( SBase_getMetaId    ((SBase_t *) fd) == NULL );
+//  fail_unless( SBase_getNotes     ((SBase_t *) fd) == NULL );
+//  fail_unless( SBase_getAnnotation((SBase_t *) fd) == NULL );
+//
+//
+//  math1 = StoichiometryMath_getMath(fd);
+//  fail_unless( math1 != NULL );
+//
+//  formula = SBML_formulaToString(math1);
+//  fail_unless( formula != NULL );
+//  fail_unless( !strcmp(formula, "x^3") );
+//  fail_unless( StoichiometryMath_getMath(fd) != math );
+//  fail_unless( StoichiometryMath_isSetMath(fd) );
+//
+//
+//  StoichiometryMath_free(fd);
+//}
+//END_TEST
 
 
 START_TEST (test_StoichiometryMath_free_NULL)
@@ -169,13 +169,50 @@ START_TEST (test_StoichiometryMath_setMath)
 END_TEST
 
 
-START_TEST (test_StoichiometryMath_createWithLevelVersionAndNamespace)
+START_TEST (test_StoichiometryMath_setMath1)
+{
+  ASTNode_t *math = SBML_parseFormula("2 * k");
+
+  int i = StoichiometryMath_setMath(D, math);
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( StoichiometryMath_getMath(D) != math );
+  fail_unless( StoichiometryMath_isSetMath(D) );
+
+  i = StoichiometryMath_setMath(D, NULL);
+  
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( StoichiometryMath_getMath(D) == NULL );
+  fail_unless( !StoichiometryMath_isSetMath(D) );
+
+  ASTNode_free(math);
+}
+END_TEST
+
+
+START_TEST (test_StoichiometryMath_setMath2)
+{
+  ASTNode_t *math = ASTNode_createWithType(AST_TIMES);
+
+  int i = StoichiometryMath_setMath(D, math);
+
+  fail_unless( i == LIBSBML_INVALID_OBJECT);
+  fail_unless( !StoichiometryMath_isSetMath(D) );
+
+  ASTNode_free(math);
+}
+END_TEST
+
+
+START_TEST (test_StoichiometryMath_createWithNS )
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
-  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "testsbml");
+  SBMLNamespaces_t *sbmlns = SBMLNamespaces_create(2,1);
+  SBMLNamespaces_addNamespaces(sbmlns,xmlns);
 
   StoichiometryMath_t *object = 
-    StoichiometryMath_createWithLevelVersionAndNamespaces(2, 1, xmlns);
+    StoichiometryMath_createWithNS (sbmlns);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_STOICHIOMETRY_MATH );
@@ -187,7 +224,8 @@ START_TEST (test_StoichiometryMath_createWithLevelVersionAndNamespace)
   fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
 
   fail_unless( StoichiometryMath_getNamespaces     (object) != NULL );
-  fail_unless( XMLNamespaces_getLength(StoichiometryMath_getNamespaces(object)) == 1 );
+  fail_unless( XMLNamespaces_getLength(
+                      StoichiometryMath_getNamespaces(object)) == 2 );
 
   StoichiometryMath_free(object);
 }
@@ -206,10 +244,12 @@ create_suite_StoichiometryMath (void)
                              StoichiometryMathTest_teardown );
 
   tcase_add_test( tcase, test_StoichiometryMath_create       );
-  tcase_add_test( tcase, test_StoichiometryMath_createWithMath   );
+  //tcase_add_test( tcase, test_StoichiometryMath_createWithMath   );
   tcase_add_test( tcase, test_StoichiometryMath_setMath      );
+  tcase_add_test( tcase, test_StoichiometryMath_setMath1      );
+  tcase_add_test( tcase, test_StoichiometryMath_setMath2      );
   tcase_add_test( tcase, test_StoichiometryMath_free_NULL );
-  tcase_add_test( tcase, test_StoichiometryMath_createWithLevelVersionAndNamespace        );
+  tcase_add_test( tcase, test_StoichiometryMath_createWithNS         );
 
   suite_add_tcase(suite, tcase);
 

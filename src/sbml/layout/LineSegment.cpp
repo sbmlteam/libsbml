@@ -53,7 +53,7 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Creates a line segment with both points set to (0.0,0.0,0.0)
@@ -101,6 +101,7 @@ LineSegment::LineSegment(const LineSegment& orig):SBase(orig)
 {
     this->mStartPoint=orig.mStartPoint;
     this->mEndPoint=orig.mEndPoint;
+  this->mId = orig.mId;
 }
 
 
@@ -109,13 +110,15 @@ LineSegment::LineSegment(const LineSegment& orig):SBase(orig)
  */
 LineSegment& LineSegment::operator=(const LineSegment& orig)
 {
-    if(&orig!=this)
-    {
-      this->SBase::operator=(orig);
-      this->mStartPoint=orig.mStartPoint;
-      this->mEndPoint=orig.mEndPoint;
-    }
-    return *this;
+  if(&orig!=this)
+  {
+    this->SBase::operator=(orig);
+    this->mId = orig.mId;
+    this->mStartPoint=orig.mStartPoint;
+    this->mEndPoint=orig.mEndPoint;
+  }
+  
+  return *this;
 }
 
 
@@ -185,6 +188,50 @@ LineSegment::~LineSegment ()
  */ 
 void LineSegment::initDefaults ()
 {
+}
+
+
+/**
+  * Returns the value of the "id" attribute of this BoundingBox.
+  */
+const std::string& LineSegment::getId () const
+{
+  return mId;
+}
+
+
+/**
+  * Predicate returning @c true or @c false depending on whether this
+  * BoundingBox's "id" attribute has been set.
+  */
+bool LineSegment::isSetId () const
+{
+  return (mId.empty() == false);
+}
+
+/**
+  * Sets the value of the "id" attribute of this BoundingBox.
+  */
+int LineSegment::setId (std::string id)
+{
+  if (!(SyntaxChecker::isValidSBMLSId(id)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mId = id;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/**
+  * Unsets the value of the "id" attribute of this BoundingBox.
+  */
+void LineSegment::unsetId ()
+{
+  mId.erase();
 }
 
 
@@ -534,4 +581,45 @@ LineSegment_clone (const LineSegment_t *m)
   return static_cast<LineSegment*>( m->clone() );
 }
 
+/**
+ * Returns non-zero if the id is set
+ */
+LIBSBML_EXTERN
+int
+LineSegment_isSetId (const LineSegment_t *ls)
+{
+  return static_cast <int> (ls->isSetId());
+}
+
+/**
+ * Returns the id
+ */
+LIBSBML_EXTERN
+const char *
+LineSegment_getId (const LineSegment_t *ls)
+{
+  return ls->isSetId() ? ls->getId().c_str() : NULL;
+}
+
+/**
+ * Sets the id
+ */
+LIBSBML_EXTERN
+int
+LineSegment_setId (LineSegment_t *ls, const char *sid)
+{
+  return (sid == NULL) ? ls->setId("") : ls->setId(sid);
+}
+
+/**
+ * Unsets the id
+ */
+LIBSBML_EXTERN
+void
+LineSegment_unsetId (LineSegment_t *ls)
+{
+  ls->unsetId();
+}
+
+LIBSBML_CPP_NAMESPACE_END
 

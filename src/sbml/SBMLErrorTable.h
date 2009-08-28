@@ -29,6 +29,8 @@
 #include <sbml/SBMLError.h>
 
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 /** @cond doxygen-libsbml-internal */
 
 typedef struct {
@@ -1792,9 +1794,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_SCHEMA_ERROR,
-    LIBSBML_SEV_SCHEMA_ERROR,
-    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
     "The predefined unit 'Celsius', previously available in SBML Level 1 and "
     "Level 2 Version 1, has been removed as of SBML Level 2 Version 2. "
     "(References: L2V2 Section 4.4.)"
@@ -4768,5 +4770,7 @@ static const sbmlErrorTableEntry errorTable[] =
 
 
 };
+
+LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond doxygen-libsbml-internal */

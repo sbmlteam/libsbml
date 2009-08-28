@@ -26,6 +26,7 @@
 
 #include <sbml/xml/XMLExtern.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygen-libsbml-internal */
 
@@ -63,5 +64,7 @@ protected:
 };
 
 /** @endcond doxygen-libsbml-internal */
+
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* XMLBuffer_h */

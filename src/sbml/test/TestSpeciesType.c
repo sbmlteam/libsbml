@@ -65,7 +65,7 @@ static SpeciesType_t *CT;
 void
 SpeciesTypeTest_setup (void)
 {
-  CT = SpeciesType_create();
+  CT = SpeciesType_create(2, 4);
 
   if (CT == NULL)
   {
@@ -97,26 +97,26 @@ START_TEST (test_SpeciesType_create)
 END_TEST
 
 
-START_TEST (test_SpeciesType_createWith)
-{
-  SpeciesType_t *c = SpeciesType_createWith("A", "");
-
-
-  fail_unless( SBase_getTypeCode  ((SBase_t *) c) == SBML_SPECIES_TYPE );
-  fail_unless( SBase_getMetaId    ((SBase_t *) c) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) c) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) c) == NULL );
-
-  fail_unless( SpeciesType_getName(c)              == NULL );
-
-  fail_unless( !strcmp( SpeciesType_getId     (c), "A"     ) );
-
-  fail_unless( SpeciesType_isSetId     (c) );
-  fail_unless( !SpeciesType_isSetName  (c) );
-
-  SpeciesType_free(c);
-}
-END_TEST
+//START_TEST (test_SpeciesType_createWith)
+//{
+//  SpeciesType_t *c = SpeciesType_createWith("A", "");
+//
+//
+//  fail_unless( SBase_getTypeCode  ((SBase_t *) c) == SBML_SPECIES_TYPE );
+//  fail_unless( SBase_getMetaId    ((SBase_t *) c) == NULL );
+//  fail_unless( SBase_getNotes     ((SBase_t *) c) == NULL );
+//  fail_unless( SBase_getAnnotation((SBase_t *) c) == NULL );
+//
+//  fail_unless( SpeciesType_getName(c)              == NULL );
+//
+//  fail_unless( !strcmp( SpeciesType_getId     (c), "A"     ) );
+//
+//  fail_unless( SpeciesType_isSetId     (c) );
+//  fail_unless( !SpeciesType_isSetName  (c) );
+//
+//  SpeciesType_free(c);
+//}
+//END_TEST
 
 
 START_TEST (test_SpeciesType_free_NULL)
@@ -158,7 +158,7 @@ END_TEST
 
 START_TEST (test_SpeciesType_setName)
 {
-  char *name = "My Favorite Factory";
+  char *name = "My_Favorite_Factory";
 
 
   SpeciesType_setName(CT, name);
@@ -200,13 +200,15 @@ START_TEST (test_SpeciesType_unsetName)
 END_TEST
 
 
-START_TEST (test_SpeciesType_createWithLevelVersionAndNamespace)
+START_TEST (test_SpeciesType_createWithNS )
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
-  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "testsbml");
+  SBMLNamespaces_t *sbmlns = SBMLNamespaces_create(2,2);
+  SBMLNamespaces_addNamespaces(sbmlns,xmlns);
 
   SpeciesType_t *object = 
-    SpeciesType_createWithLevelVersionAndNamespaces(2, 2, xmlns);
+    SpeciesType_createWithNS (sbmlns);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_SPECIES_TYPE );
@@ -218,7 +220,7 @@ START_TEST (test_SpeciesType_createWithLevelVersionAndNamespace)
   fail_unless( SBase_getVersion     ((SBase_t *) object) == 2 );
 
   fail_unless( SpeciesType_getNamespaces     (object) != NULL );
-  fail_unless( XMLNamespaces_getLength(SpeciesType_getNamespaces(object)) == 1 );
+  fail_unless( XMLNamespaces_getLength(SpeciesType_getNamespaces(object)) == 2 );
 
   SpeciesType_free(object);
 }
@@ -237,12 +239,12 @@ create_suite_SpeciesType (void)
                              SpeciesTypeTest_teardown );
 
   tcase_add_test( tcase, test_SpeciesType_create      );
-  tcase_add_test( tcase, test_SpeciesType_createWith  );
+  //tcase_add_test( tcase, test_SpeciesType_createWith  );
   tcase_add_test( tcase, test_SpeciesType_free_NULL   );
   tcase_add_test( tcase, test_SpeciesType_setId       );
   tcase_add_test( tcase, test_SpeciesType_setName     );
   tcase_add_test( tcase, test_SpeciesType_unsetName   );
-  tcase_add_test( tcase, test_SpeciesType_createWithLevelVersionAndNamespace        );
+  tcase_add_test( tcase, test_SpeciesType_createWithNS         );
 
   suite_add_tcase(suite, tcase);
 

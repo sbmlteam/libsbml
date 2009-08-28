@@ -33,6 +33,8 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 /** @cond doxygen-libsbml-internal **/
 
 static const xmlErrorTableEntry errorTable[] =
@@ -593,20 +595,22 @@ XMLError::isInternal () const
 /*
  * Sets the line number where this XMLError occurred.
  */
-void
+int
 XMLError::setLine (unsigned int line)
 {
   mLine = line;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
 /*
  * Sets the column number where this XMLError occurred.
  */
-void
+int
 XMLError::setColumn (unsigned int column)
 {
   mColumn = column;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -1010,5 +1014,7 @@ XMLError_print (const XMLError_t *error, FILE *stream)
   fprintf(stream, "%s", os.str().c_str());
 
 }
+
+LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond doxygen-c-only */

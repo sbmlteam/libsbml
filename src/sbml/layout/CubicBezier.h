@@ -60,6 +60,7 @@
 #include <sbml/layout/LineSegment.h>
 #include <sbml/layout/Point.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN CubicBezier : public LineSegment
 {
@@ -273,13 +274,14 @@ protected:
 
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif /* __cplusplus */
 
 
 #ifndef SWIG
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
@@ -398,7 +400,27 @@ CubicBezier_t *
 CubicBezier_clone (const CubicBezier_t *m);
 
 
+LIBSBML_EXTERN
+int
+CubicBezier_isSetId (const CubicBezier_t *cb);
+
+LIBSBML_EXTERN
+const char *
+CubicBezier_getId (const CubicBezier_t *cb);
+
+
+LIBSBML_EXTERN
+int
+CubicBezier_setId (CubicBezier_t *cb, const char *sid);
+
+
+LIBSBML_EXTERN
+void
+CubicBezier_unsetId (CubicBezier_t *cb);
+
+
 END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 
 #endif  /* !SWIG */

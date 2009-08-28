@@ -348,13 +348,16 @@
 #include <sbml/annotation/CVTerm.h>
 #include <sbml/util/List.h>
 #include <sbml/SBMLNamespaces.h>
+#include <sbml/SyntaxChecker.h>
 
 
 #ifdef __cplusplus
 
 
 #include <string>
+#include <stdexcept>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class SBMLErrorLog;
 class SBMLVisitor;
@@ -369,6 +372,17 @@ class XMLNode;
 class XMLNamespaces;
 class XMLOutputStream;
 class XMLToken;
+
+/** @cond doxygen-libsbml-internal */
+class SBMLConstructorException : public std::invalid_argument
+{
+public:
+
+  /* constructor */
+  SBMLConstructorException ();
+
+};
+/** @endcond doxygen-libsbml-internal */
 
 
 class LIBSBML_EXTERN SBase
@@ -457,7 +471,10 @@ public:
   std::string& getMetaId ();
 
 
-  /**
+  /** @cond doxygen-libsbml-internal */
+  /*
+   * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
+   *
    * Returns the value of the "id" attribute of this object, if it has one.
    * 
    * Most (but not all) objects in SBML include two common attributes: "id"
@@ -498,9 +515,13 @@ public:
    * @see unsetId()
    */
   const std::string& getId () const;
+  /** @endcond doxygen-libsbml-internal */
 
 
-  /**
+  /** @cond doxygen-libsbml-internal */
+  /*
+   * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
+   *
    * Returns the value of the "name" attribute of this object, if it has one.
    * 
    * Most (but not all) objects in SBML include two common attributes: "id"
@@ -554,6 +575,7 @@ public:
    * @see unsetName()
    */
   const std::string& getName () const;
+  /** @endcond doxygen-libsbml-internal */
 
 
   /**
@@ -865,7 +887,9 @@ public:
   bool isSetMetaId () const;
 
 
-  /**
+  /** @cond doxygen-libsbml-internal */
+  /*
+   * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
    * Predicate returning @c true or @c false depending on whether this
    * object's "id" attribute has been set.
    *
@@ -910,9 +934,12 @@ public:
    * @see unsetId()
    */
   bool isSetId () const;
+  /** @endcond doxygen-libsbml-internal */
 
 
-  /**
+  /** @cond doxygen-libsbml-internal */
+  /*
+   * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
    * Predicate returning @c true or @c false depending on whether this
    * object's "name" attribute has been set.
    * 
@@ -970,6 +997,7 @@ public:
    * @see unsetName()
    */
   bool isSetName () const;
+  /** @endcond doxygen-libsbml-internal */
 
 
   /**
@@ -1067,14 +1095,25 @@ public:
    *
    * @param metaid the identifier string to use as the value of the
    * "metaid" attribute
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
    * 
    * @see getMetaId()
    * @see isSetMetaId()
    */
-  void setMetaId (const std::string& metaid);
+  int setMetaId (const std::string& metaid);
 
 
-  /**
+  /** @cond doxygen-libsbml-internal */
+  /*
+   * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
+   *
    * Sets the value of the "id" attribute of this SBML object to a copy
    * of @p id.
    *
@@ -1097,26 +1136,21 @@ public:
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param sid the string to use as the identifier of this object
-   * 
-   * @note The fact that the value of attribute "id" is defined on the
-   * SBase parent class object is a convenience provided by libSBML, and
-   * <b>does not strictly follow SBML specifications</b>.  This libSBML
-   * implementation of SBase allows client applications to use more
-   * generalized code in some situations (for instance, when manipulating
-   * objects that are all known to have identifiers), but beware that not
-   * all SBML object classes provide an "id" attribute.  LibSBML will allow
-   * the identifier to be set, but it will not read nor write "id"
-   * attributes for objects that do not possess them according to the SBML
-   * specification for the Level and Version in use.
    *
-   * @see isSetId()
-   * @see getId()
-   * @see unsetId()
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  void setId (const std::string& sid);
+   int setId (const std::string& sid);
+  /** @endcond doxygen-libsbml-internal */
 
 
-  /**
+  /** @cond doxygen-libsbml-internal */
+  /*
+   * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
    * Sets the value of the "name" attribute of this SBML object to a copy
    * of @p name.
    * 
@@ -1171,8 +1205,17 @@ public:
    * @see getName()
    * @see isSetName()
    * @see unsetName()
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  void setName (const std::string& name);
+  int setName (const std::string& name);
+  /** @endcond doxygen-libsbml-internal */
+
 
 
   /**
@@ -1212,8 +1255,21 @@ public:
    * @see appendAnnotation(const XMLNode* annotation)
    * @see appendAnnotation(const std::string& annotation)
    * @see unsetAnnotation()
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   *
+   * @see getAnnotationString()
+   * @see isSetAnnotation()
+   * @see setAnnotation(const std::string& annotation)
+   * @see appendAnnotation(const XMLNode* annotation)
+   * @see appendAnnotation(const std::string& annotation)
+   * @see unsetAnnotation()
    */
-  virtual void setAnnotation (const XMLNode* annotation);
+  virtual int setAnnotation (const XMLNode* annotation);
 
 
   /**
@@ -1247,6 +1303,13 @@ public:
    * @param annotation an XML string that is to be used as the content
    * of the "annotation" subelement of this object
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   *
    * @see getAnnotationString()
    * @see isSetAnnotation()
    * @see setAnnotation(const XMLNode* annotation)
@@ -1254,7 +1317,7 @@ public:
    * @see appendAnnotation(const std::string& annotation)
    * @see unsetAnnotation()
    */
-  virtual void setAnnotation (const std::string& annotation);
+  virtual int setAnnotation (const std::string& annotation);
 
 
   /**
@@ -1284,6 +1347,13 @@ public:
    * @param annotation an XML structure that is to be copied and appended
    * to the content of the "annotation" subelement of this object
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   *
    * @see getAnnotationString()
    * @see isSetAnnotation()
    * @see setAnnotation(const XMLNode* annotation)
@@ -1291,7 +1361,7 @@ public:
    * @see appendAnnotation(const std::string& annotation)
    * @see unsetAnnotation()
    */
-  virtual void appendAnnotation (const XMLNode* annotation);
+  virtual int appendAnnotation (const XMLNode* annotation);
 
 
   /**
@@ -1321,6 +1391,13 @@ public:
    * @param annotation an XML string that is to be copied and appended
    * to the content of the "annotation" subelement of this object
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   *
    * @see getAnnotationString()
    * @see isSetAnnotation()
    * @see setAnnotation(const XMLNode* annotation)
@@ -1328,7 +1405,7 @@ public:
    * @see appendAnnotation(const XMLNode* annotation)
    * @see unsetAnnotation()
    */
-  virtual void appendAnnotation (const std::string& annotation);
+  virtual int appendAnnotation (const std::string& annotation);
 
 
   /**
@@ -1355,6 +1432,13 @@ public:
    * @param notes an XML structure that is to be used as the content of the
    * "notes" subelement of this object
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_OBJECT
+   *
    * @see getNotesString()
    * @see isSetNotes()
    * @see setNotes(const std::string& notes)
@@ -1362,7 +1446,7 @@ public:
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
    */
-  void setNotes(const XMLNode* notes);
+  int setNotes(const XMLNode* notes);
 
 
   /**
@@ -1389,6 +1473,14 @@ public:
    * @param notes an XML string that is to be used as the content of the
    * "notes" subelement of this object
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_OBJECT
+   * @li LIBSBML_OPERATION_FAILED
+   *
    * @see getNotesString()
    * @see isSetNotes()
    * @see setNotes(const XMLNode* notes)
@@ -1396,7 +1488,7 @@ public:
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
    */
-  void setNotes(const std::string& notes);
+  int setNotes(const std::string& notes);
 
 
   /**
@@ -1421,6 +1513,14 @@ public:
    * @param notes an XML node structure that is to appended to the content
    * of the "notes" subelement of this object
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_OBJECT
+   * @li LIBSBML_OPERATION_FAILED
+   *
    * @see getNotesString()
    * @see isSetNotes()
    * @see setNotes(const XMLNode* notes)
@@ -1428,7 +1528,7 @@ public:
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
    */
-  void appendNotes(const XMLNode* notes);
+  int appendNotes(const XMLNode* notes);
 
 
   /**
@@ -1453,6 +1553,14 @@ public:
    * @param notes an XML string that is to appended to the content of
    * the "notes" subelement of this object
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_OBJECT
+   * @li LIBSBML_OPERATION_FAILED
+   *
    * @see getNotesString()
    * @see isSetNotes()
    * @see setNotes(const XMLNode* notes)
@@ -1460,26 +1568,26 @@ public:
    * @see appendNotes(const XMLNode* notes)
    * @see unsetNotes()
    */
-  void appendNotes(const std::string& notes);
+  int appendNotes(const std::string& notes);
 
 
   /** @cond doxygen-libsbml-internal */
-
   /**
    * Sets the parent SBMLDocument of this SBML object.
    *
    * @param d the SBMLDocument object to use
    */
   virtual void setSBMLDocument (SBMLDocument* d);
+  /** @endcond doxygen-libsbml-internal */
 
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Sets the parent SBML object of this SBML object.
    *
    * @param sb the SBML object to use
    */
   virtual void setParentSBMLObject (SBase* sb);
-
   /** @endcond doxygen-libsbml-internal */
 
 
@@ -1500,16 +1608,57 @@ public:
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param value the NNNNNNN integer portion of the SBO identifier
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
    */
-  void setSBOTerm (int value);
+  virtual int setSBOTerm (int value);
 
+  /*
+   * Sets the value of the "sboTerm" attribute by string.
+   *
+   * In SBML Level 2 Versions 2, 3 and 4, the data type of the SBML "sboTerm"
+   * attribute is a string of the form SBO:NNNNNNN, where NNNNNNN is a
+   * seven digit integer number; libSBML simplifies the representation by
+   * only storing the NNNNNNN integer portion converted from the given string.  
+   * Thus, in libSBML, the "sboTerm" attribute on SBase has data type @c int, 
+   * and SBO identifiers are stored simply as integers.  SBO terms are a type
+   * of optional annotation, and each different class of SBML object derived 
+   * from SBase imposes its own requirements about the values permitted for 
+   * "sboTerm".  Please consult the SBML Level 2 Version 4 specification for 
+   * more information about the use of SBO and the "sboTerm" attribute.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @param value the SBO identifier string of the form SBO:NNNNNNN
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   */
+  virtual int setSBOTerm (const std::string &sboid);
 
   /**
    * Sets the namespaces relevant of this SBML object.
    *
    * @param xmlns the namespaces to set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
-  void setNamespaces(XMLNamespaces* xmlns);
+  int setNamespaces(XMLNamespaces* xmlns);
 
 
   /**
@@ -1531,10 +1680,18 @@ public:
    * metadata placed within "annotation" subelements.
    *  
    * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  void unsetMetaId ();
+  int unsetMetaId ();
 
 
+#if 0
   /**
    * Unsets the value of the "id" attribute of this SBML object.
    *
@@ -1560,22 +1717,15 @@ public:
    *
    * @htmlinclude libsbml-comment-set-methods.html
    *
-   * @note The fact that the value of attribute "id" is defined on the
-   * SBase parent class object is a convenience provided by libSBML, and
-   * <b>does not strictly follow SBML specifications</b>.  This libSBML
-   * implementation of SBase allows client applications to use more
-   * generalized code in some situations (for instance, when manipulating
-   * objects that are all known to have identifiers), but beware that not
-   * all SBML object classes provide an "id" attribute.  LibSBML will allow
-   * the identifier to be set, but it will not read nor write "id"
-   * attributes for objects that do not possess them according to the SBML
-   * specification for the Level and Version in use.
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
    *
-   * @see setId(const std::string& sid)
-   * @see getId()
-   * @see isSetId()
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  void unsetId ();
+  int unsetId ();
 
 
   /**
@@ -1616,22 +1766,16 @@ public:
    * 
    * @htmlinclude libsbml-comment-set-methods.html
    *
-   * @note The fact that the "name" attribute is defined on the SBase parent
-   * class object is a convenience provided by libSBML, and <b>does not
-   * strictly follow SBML specifications</b>.  This libSBML implementation
-   * of SBase allows client applications to use more generalized code in
-   * some situations (for instance, when manipulating objects that are all
-   * known to have identifiers), but beware that not all SBML object
-   * classes provide an "id" attribute.  LibSBML will allow the identifier
-   * to be set, but it will not read nor write "id" attributes for objects
-   * that do not possess them according to the SBML specification for the
-   * Level and Version in use.
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
    *
-   * @see isSetName()
-   * @see setName(const std::string& name)
-   * @see getName()
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  void unsetName ();
+  int unsetName ();
+#endif
 
 
   /**
@@ -1651,6 +1795,12 @@ public:
    * specifications.
    *
    * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    * 
    * @see getNotesString()
    * @see isSetNotes()
@@ -1659,7 +1809,7 @@ public:
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    */
-  void unsetNotes ();
+  int unsetNotes ();
 
 
   /**
@@ -1680,6 +1830,12 @@ public:
    *
    * @htmlinclude libsbml-comment-set-methods.html
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   *
    * @see getAnnotation()
    * @see getAnnotationString()
    * @see isSetAnnotation()
@@ -1688,21 +1844,37 @@ public:
    * @see appendAnnotation(const XMLNode* annotation)
    * @see appendAnnotation(const std::string& annotation)
    */
-  void unsetAnnotation ();
+  int unsetAnnotation ();
 
 
   /**
    * Unsets the value of the "sboTerm" attribute of this SBML object.
    *
    * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
    */
-  void unsetSBOTerm ();
+  int unsetSBOTerm ();
 
 
   /**
    * Adds a copy of the given CVTerm to this SBML object.
    *
    * @param term the CVTerm to assign
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   * @li LIBSBML_INVALID_OBJECT
    *
    * @note Since the CV Term uses the metaid of the object as a 
    * reference, if the object has no metaid set the CVTerm will
@@ -1716,7 +1888,7 @@ public:
    * addition, the caller should make sure to free the original object if
    * it is no longer being used, or else a memory leak will result.
    */
-  void addCVTerm(CVTerm * term);
+  int addCVTerm(CVTerm * term);
 
 
   /**
@@ -1760,8 +1932,15 @@ public:
   /**
    * Clears the list of CVTerms of this SBML
    * object.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  void unsetCVTerms();
+  int unsetCVTerms();
 
 
   /**
@@ -1833,7 +2012,27 @@ public:
   virtual SBMLTypeCode_t getTypeCode () const;
 
 
-  //bool isValidLevelVersionNamespaceCombination();
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * object's level/version and namespace values correspond to a valid
+   * SBML specification.
+   *
+   * The valid combinations of SBML Level, Version and Namespace as of this release
+   * of libSBML are the following: 
+   * <ul>
+   * <li> Level&nbsp;1 Version&nbsp;2 "http://www.sbml.org/sbml/level1"
+   * <li> Level&nbsp;2 Version&nbsp;1 "http://www.sbml.org/sbml/level2"
+   * <li> Level&nbsp;2 Version&nbsp;2 "http://www.sbml.org/sbml/level2/version2"
+   * <li> Level&nbsp;2 Version&nbsp;3 "http://www.sbml.org/sbml/level2/version3"
+   * <li> Level&nbsp;2 Version&nbsp;4 "http://www.sbml.org/sbml/level2/version4"
+   * </ul>
+   *
+   * @return @c true if the level, version and namespace values of this 
+   * SBML object correspond to a valid set of values, @c false otherwise.
+   */
+  bool hasValidLevelVersionNamespaceCombination();
+
+  
   /**
    * Returns the XML element name of this object.
    *
@@ -1855,19 +2054,22 @@ public:
 
 
   /** @cond doxygen-libsbml-internal */
-
   /**
    * Reads (initializes) this SBML object by reading from XMLInputStream.
    */
   void read (XMLInputStream& stream);
+  /** @endcond doxygen-libsbml-internal */
 
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Writes (serializes) this SBML object by writing it to XMLOutputStream.
    */
   void write (XMLOutputStream& stream) const;
+  /** @endcond doxygen-libsbml-internal */
 
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
@@ -1879,16 +2081,45 @@ public:
    *   ...
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-
   /** @endcond doxygen-libsbml-internal */
 
 
   /** @cond doxygen-libsbml-internal */
-
-  /*removes duplicate top level annotations*/
-  void removeDuplicateAnnotations();
-
+  /* function returns true if component has all the required
+   * attributes
+   * needs to be overloaded for each component
+   */
+  virtual bool hasRequiredAttributes() const ;
   /** @endcond doxygen-libsbml-internal */
+
+
+  /** @cond doxygen-libsbml-internal */
+  /* function returns true if component has all the required
+   * elements
+   * needs to be overloaded for each component
+   */
+  virtual bool hasRequiredElements() const ;
+  /** @endcond doxygen-libsbml-internal */
+
+
+  /** @cond doxygen-libsbml-internal */
+  /* sets the SBMLnamespaces - internal use only*/
+  void setSBMLNamespaces(SBMLNamespaces * sbmlns);
+  /** @endcond doxygen-libsbml-internal */
+
+
+  /** @cond doxygen-libsbml-internal */
+  /* gets the SBMLnamespaces - internal use only*/
+  SBMLNamespaces * getSBMLNamespaces() const;
+  /** @endcond doxygen-libsbml-internal */
+
+
+  /** @cond doxygen-libsbml-internal */
+  /* removes duplicate top level annotations*/
+  void removeDuplicateAnnotations();
+  /** @endcond doxygen-libsbml-internal */
+
+
 protected:
   /** @cond doxygen-libsbml-internal */
 
@@ -1909,12 +2140,19 @@ protected:
    */
   SBase (const std::string& id = "", const std::string& name = "", int sboTerm = -1);
 
-
+  
   /**
    * Creates a new SBase object with the given sboTerm.
    * Only subclasses may create SBase objects.
    */
-  SBase (int sboTerm);
+  SBase (unsigned int level, unsigned int version);
+
+
+  /**
+   * Creates a new SBase object with the given SBMLNamespaces.
+   * Only subclasses may create SBase objects.
+   */
+  SBase (SBMLNamespaces* sbmlns);
 
 
   /**
@@ -2041,9 +2279,7 @@ protected:
    * current CVTerm objects (List* mCVTerm).
    * Currently, this method is called in getAnnotation, isSetAnnotation,
    * and writeElements methods.
-   * 
    */
-
   virtual void syncAnnotation();
 
 
@@ -2062,45 +2298,7 @@ protected:
   void checkListOfPopulated(SBase* object);
 
 
-  /**
-   * Checks the syntax of a metaid attribute.
-   * 
-   * The optional attribute named "metaid", present on every major SBML
-   * component type, is for supporting metadata annotations using RDF
-   * (Resource Description Format). The attribute value has the data type
-   * <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, the XML
-   * identifier type, which means each "metaid" value must be globally
-   * unique within an SBML file.  (Importantly, this uniqueness criterion
-   * applies across any attribute with type <a
-   * href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, not just the
-   * "metaid" attribute used by SBML&mdash;something to be aware of if your
-   * application-specific XML content inside the "annotation" subelement
-   * happens to use <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>.)
-   * The "metaid" value serves to identify a model
-   * component for purposes such as referencing that component from
-   * metadata placed within "annotation" subelements.
-   *  
-   * If the syntax of the metaid attribute of this object is incorrect, 
-   * this method logs an error in the SBMLDocument's error log.
-   */
-  void checkMetaIdSyntax();
-
-
-  /**
-   * Checks the syntax of the id attribute.
-   * The syntax of an id is of type SId which is defined as:
-   *
-   *  - letter ::= 'a'..'z','A'..'Z'
-   *  - digit  ::= '0'..'9'
-   *  - idChar ::= letter | digit | '_'
-   *  - SId    ::= ( letter | '_' ) idChar*
-   *
-   * If the syntax of the id attribute of this object is incorrect, 
-   * an error is logged
-   */
-  void checkIdSyntax();
-
-
+#if 0
   /**
    * Checks the syntax of the unit attribute.
    * The syntax of an unit is of type UnitSId which is defined as:
@@ -2124,8 +2322,9 @@ protected:
    * argument even though one is described, please look for descriptions of
    * other variants of this method near where this one appears in the
    * documentation.
-    */
+   */
   void checkUnitSyntax(unsigned int flag = 0);
+#endif
 
 
   /**
@@ -2143,46 +2342,21 @@ protected:
   void checkXHTML(const XMLNode *);
 
 
-  /**
-   * Checks if a character is part of the Unicode Letter set.
-   * @return true if the character is a part of the set, false otherwise.
-   */
-  bool isUnicodeLetter(std::string::iterator, unsigned int);
-
-
-  /**
-   * Checks if a character is part of the Unicode Digit set.
-   * @return true if the character is a part of the set, false otherwise.
-   */
-  bool isUnicodeDigit(std::string::iterator, unsigned int);
-
-
-  /**
-   * Checks if a character is part of the Unicode CombiningChar set.
-   * @return true if the character is a part of the set, false otherwise.
-   */
-  bool isCombiningChar(std::string::iterator, unsigned int);
-
-
-  /**
-   * Checks if a character is part of the Unicode Extender set.
-   * @return true if the character is a part of the set, false otherwise.
-   */
-  bool isExtender(std::string::iterator, unsigned int);
-
   std::string mMetaId;
-  std::string mId;
-  std::string mName;
+  //std::string mId;
+  //std::string mName;
 
   XMLNode* mNotes;
   XMLNode* mAnnotation;
 
-  XMLNamespaces* mNamespaces;
+  //XMLNamespaces* mNamespaces;
 
   SBMLDocument* mSBML;
 
-  int mObjectLevel;
-  int mObjectVersion;
+  //int mObjectLevel;
+  //int mObjectVersion;
+
+  SBMLNamespaces *mSBMLNamespaces;
 
   int mSBOTerm;
 
@@ -2199,6 +2373,8 @@ protected:
    * for OS where the memory is still readable after a delete
    */
   bool mHasBeenDeleted;
+
+  std::string mEmptyString;
 
   /** @endcond doxygen-libsbml-internal */
 
@@ -2229,13 +2405,15 @@ private:
   /** @endcond doxygen-libsbml-internal */
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
 
+
 #ifndef SWIG
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /*-----------------------------------------------------------------------------
@@ -2248,14 +2426,6 @@ const char *
 SBase_getMetaId (SBase_t *sb);
 
 
-LIBSBML_EXTERN
-const char *
-SBase_getId (const SBase_t *sb);
-
-
-LIBSBML_EXTERN
-const char *
-SBase_getName (const SBase_t *sb);
 
 
 LIBSBML_EXTERN
@@ -2275,6 +2445,11 @@ SBase_getAncestorOfType (SBase_t *sb, SBMLTypeCode_t type);
 LIBSBML_EXTERN
 int
 SBase_getSBOTerm (const SBase_t *sb);
+
+
+LIBSBML_EXTERN
+char*
+SBase_getSBOTermID (const SBase_t *sb);
 
 
 LIBSBML_EXTERN
@@ -2312,14 +2487,6 @@ int
 SBase_isSetMetaId (const SBase_t *sb);
 
 
-LIBSBML_EXTERN
-int
-SBase_isSetId (const SBase_t *sb);
-
-
-LIBSBML_EXTERN
-int
-SBase_isSetName (const SBase_t *sb);
 
 
 LIBSBML_EXTERN
@@ -2338,102 +2505,91 @@ SBase_isSetSBOTerm(const SBase_t *sb);
 
 
 LIBSBML_EXTERN
-void
+int
 SBase_setMetaId (SBase_t *sb, const char *metaid);
 
 
-LIBSBML_EXTERN
-void
-SBase_setId (SBase_t *sb, const char *sid);
 
 
 LIBSBML_EXTERN
-void
-SBase_setName (SBase_t *sb, const char *name);
-
-
-LIBSBML_EXTERN
-void
+int
 SBase_setSBOTerm (SBase_t *sb, int value);
 
 
 LIBSBML_EXTERN
-void
+int
+SBase_setSBOTermID (SBase_t *sb, const char* sboid);
+
+
+LIBSBML_EXTERN
+int
 SBase_setNamespaces (SBase_t *sb, XMLNamespaces_t *xmlns);
 
 
 LIBSBML_EXTERN
-void
+int
 SBase_setNotes (SBase_t *sb, XMLNode_t *notes);
 
 
 LIBSBML_EXTERN
-void
+int
 SBase_setNotesString (SBase_t *sb, char *notes);
 
 
 LIBSBML_EXTERN
-void
+int
 SBase_appendNotes (SBase_t *sb, XMLNode_t *notes);
 
 
 LIBSBML_EXTERN
-void
+int
 SBase_appendNotesString (SBase_t *sb, char *notes);
 
 
 LIBSBML_EXTERN
-void
+int
 SBase_setAnnotation (SBase_t *sb, XMLNode_t *annotation);
 
 
 LIBSBML_EXTERN
-void
+int
 SBase_setAnnotationString (SBase_t *sb, char *annotation);
 
 
 LIBSBML_EXTERN
-void
+int
 SBase_appendAnnotation (SBase_t *sb, XMLNode_t *annotation);
 
 
 LIBSBML_EXTERN
-void
+int
 SBase_appendAnnotationString (SBase_t *sb, char *annotation);
 
 
 LIBSBML_EXTERN
-void
+int
 SBase_unsetMetaId (SBase_t *sb);
 
 
-LIBSBML_EXTERN
-void
-SBase_unsetId (SBase_t *sb);
 
 
 LIBSBML_EXTERN
-void
-SBase_unsetName (SBase_t *sb);
-
-
-LIBSBML_EXTERN
-void
+int
 SBase_unsetNotes (SBase_t *sb);
 
 
 LIBSBML_EXTERN
-void
+int
 SBase_unsetAnnotation (SBase_t *sb);
 
 
 LIBSBML_EXTERN
-void
+int
 SBase_unsetSBOTerm (SBase_t *sb);
 
 
 LIBSBML_EXTERN
-void 
+int 
 SBase_addCVTerm(SBase_t *sb, CVTerm_t *term);
 
 
@@ -2453,7 +2609,7 @@ SBase_getCVTerm(SBase_t *sb, unsigned int n);
 
 
 LIBSBML_EXTERN
-void 
+int 
 SBase_unsetCVTerms(SBase_t *sb);
 
 
@@ -2491,8 +2647,14 @@ LIBSBML_EXTERN
 const char *
 SBase_getElementName (const SBase_t *sb);
 
-END_C_DECLS
 
+LIBSBML_EXTERN
+int
+SBase_hasValidLevelVersionNamespaceCombination(SBase_t *sb);
+
+
+END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG   */
 #endif  /* SBase_h */

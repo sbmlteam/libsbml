@@ -60,6 +60,7 @@
 #include <sbml/layout/SpeciesReferenceRole.h>
 #include <sbml/layout/Curve.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN SpeciesReferenceGlyph : public GraphicalObject
 {
@@ -319,13 +320,14 @@ protected:
 
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif /* __cplusplus */
 
 
 #ifndef SWIG
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
@@ -495,8 +497,27 @@ LIBSBML_EXTERN
 SpeciesReferenceGlyph_t *
 SpeciesReferenceGlyph_clone (const SpeciesReferenceGlyph_t *m);
 
+LIBSBML_EXTERN
+int
+SpeciesReferenceGlyph_isSetId (const SpeciesReferenceGlyph_t *srg);
+
+LIBSBML_EXTERN
+const char *
+SpeciesReferenceGlyph_getId (const SpeciesReferenceGlyph_t *srg);
+
+
+LIBSBML_EXTERN
+int
+SpeciesReferenceGlyph_setId (SpeciesReferenceGlyph_t *srg, const char *sid);
+
+
+LIBSBML_EXTERN
+void
+SpeciesReferenceGlyph_unsetId (SpeciesReferenceGlyph_t *srg);
+
 
 END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 
 #endif /* !SWIG */

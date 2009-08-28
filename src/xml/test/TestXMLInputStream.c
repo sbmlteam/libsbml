@@ -78,11 +78,11 @@ START_TEST (test_XMLInputStream_next_peek)
     "</sbml>";
 
   XMLInputStream_t *stream = XMLInputStream_create(text, 0, "");;
-  const XMLToken_t  *next = XMLInputStream_peek(stream);
+  const XMLToken_t  *next0 = XMLInputStream_peek(stream);
   
   fail_unless(stream != NULL);
   
-  fail_unless(strcmp(XMLToken_getName(next), "sbml") == 0);
+  fail_unless(strcmp(XMLToken_getName(next0), "sbml") == 0);
   
   XMLToken_t * next1 = XMLInputStream_next(stream);
   
@@ -116,16 +116,16 @@ START_TEST (test_XMLInputStream_skip)
 
   fail_unless(stream != NULL);
   
-  XMLToken_t * next = XMLInputStream_next(stream);
+  XMLToken_t * next0 = XMLInputStream_next(stream);
   XMLInputStream_skipText (stream);
 
   /* skip past listOfFunctionDefinitions */
   XMLInputStream_skipPastEnd(stream, XMLInputStream_next(stream)); 
   XMLInputStream_skipText (stream);
 
-  next = XMLInputStream_next(stream);
+  next0= XMLInputStream_next(stream);
 
-  fail_unless(strcmp(XMLToken_getName(next), "listOfUnitDefinitions") == 0);
+  fail_unless(strcmp(XMLToken_getName(next0), "listOfUnitDefinitions") == 0);
  
   XMLInputStream_free(stream);
 
@@ -157,10 +157,14 @@ START_TEST (test_XMLInputStream_setErrorLog)
 
   XMLErrorLog_t *log = XMLErrorLog_create();
 
-  XMLInputStream_setErrorLog(stream, log);
+  int i = XMLInputStream_setErrorLog(stream, log);
 
+  fail_unless(i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(XMLInputStream_getErrorLog(stream) == log);
   
+  i = XMLInputStream_setErrorLog(stream, NULL);
+  fail_unless(i == LIBSBML_OPERATION_FAILED);
+
 }
 END_TEST 
 

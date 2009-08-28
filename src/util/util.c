@@ -38,6 +38,7 @@
 
 /** @cond doxygen-libsbml-internal */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Identical to snprintf except printing always occurs according to the
@@ -510,3 +511,5 @@ util_isNegZero (double d)
   return b[7] == 0x80;
 #endif
 }
+
+LIBSBML_CPP_NAMESPACE_END

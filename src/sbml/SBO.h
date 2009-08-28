@@ -45,14 +45,17 @@
 #include <deque>
 #include <map>
 
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 class XMLAttributes;
 class XMLOutputStream;
 class SBMLErrorLog;
 
 /* create a map of parent-child sbo terms */
-typedef std::multimap<int, int>            ParentMap;
-typedef ParentMap::iterator                ParentIter;
-typedef std::pair<ParentIter, ParentIter>  ParentRange;
+typedef std::multimap<int, int>           ParentMap;
+typedef ParentMap::iterator               ParentIter;
+typedef std::pair<ParentIter, ParentIter> ParentRange;
 
 static ParentMap mParent;
 
@@ -248,7 +251,32 @@ public:
    */
   static std::string intToString (int sboTerm);
 
-protected:
+  /**
+   * Returns the string as a correctly formatted SBO integer portion.
+   *
+   * @return the given string sboTerm as an integer.  If the sboTerm is not
+   * in the correct format (a zero-padded, seven digit string), -1 is
+   * returned.
+   */
+  static int stringToInt (const std::string& sboTerm);
+
+  /**
+   * Checks the format of the given SBO string.
+   *
+   * @return true if sboTerm is in the correct format (a zero-padded, seven
+   * digit string), false otherwise.
+   */
+  static bool checkTerm (const std::string& sboTerm);
+
+  /**
+   * Checks the format of the given SBO integer portion.
+   *
+   * @return true if sboTerm is in the range [0 -- 9999999], false
+   * otherwise.
+   */
+  static bool checkTerm (int sboTerm);
+
+protected:  
   /** @cond doxygen-libsbml-internal */
 
  /**
@@ -262,28 +290,11 @@ protected:
    * populates the parent-child map
    */
   static void populateSBOTree();
-  /**
-   * @return true if sboTerm is in the correct format (a zero-padded, seven
-   * digit string), false otherwise.
-   */
-  static bool checkTerm (const std::string& sboTerm);
-
-  /**
-   * @return true if sboTerm is in the range [0 -- 9999999], false
-   * otherwise.
-   */
-  static bool checkTerm (int sboTerm);
-
-  /**
-   * @return the given string sboTerm as an integer.  If the sboTerm is not
-   * in the correct format (a zero-padded, seven digit string), -1 is
-   * returned.
-   */
-  static int stringToInt (const std::string& sboTerm);
 
   /** @endcond doxygen-libsbml-internal */
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 

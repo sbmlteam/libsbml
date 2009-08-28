@@ -581,8 +581,10 @@
 
 #include <sbml/common/extern.h>
 #include <sbml/xml/XMLError.h>
+#include <sbml/SBMLNamespaces.h>
 
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /**
@@ -1044,9 +1046,11 @@ typedef enum
 } SBMLErrorSeverity_t;
 
 END_C_DECLS
-
+LIBSBML_CPP_NAMESPACE_END
 
 #ifdef __cplusplus
+
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN SBMLError : public XMLError
 {
@@ -1165,8 +1169,8 @@ public:
   SBMLError
   (
      const unsigned int errorId  = 0
-   , const unsigned int level    = 2
-   , const unsigned int version  = 4
+   , const unsigned int level    = SBML_DEFAULT_LEVEL
+   , const unsigned int version  = SBML_DEFAULT_VERSION
    , const std::string& details  = ""
    , const unsigned int line     = 0
    , const unsigned int column   = 0
@@ -1213,7 +1217,7 @@ protected:
   /** @endcond doxygen-libsbml-internal **/
 };
 
+LIBSBML_CPP_NAMESPACE_END
+
 #endif  /* __cplusplus */
-
-
 #endif /* SBMLError_h */

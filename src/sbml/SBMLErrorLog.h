@@ -70,6 +70,8 @@
 
 #ifdef __cplusplus
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 class LIBSBML_EXTERN SBMLErrorLog : public XMLErrorLog
 {
 public:
@@ -165,8 +167,8 @@ public:
   void logError
   (
       const unsigned int errorId  = 0
-    , const unsigned int level    = 2
-    , const unsigned int version  = 4
+    , const unsigned int level    = SBML_DEFAULT_LEVEL
+    , const unsigned int version  = SBML_DEFAULT_VERSION
     , const std::string& details  = ""
     , const unsigned int line     = 0
     , const unsigned int column   = 0
@@ -206,6 +208,7 @@ public:
   /** @endcond doxygen-libsbml-internal */
 };
 
-#endif  /* __cplusplus */
+LIBSBML_CPP_NAMESPACE_END
 
+#endif  /* __cplusplus */
 #endif  /* SBMLErrorLog_h */

@@ -24,6 +24,7 @@
 #ifndef XMLExtern_h
 #define XMLExtern_h
 
+#include <sbml/common/libsbml-namespace.h>
 
 /**
  * The following ifdef block is the standard way of creating macros which

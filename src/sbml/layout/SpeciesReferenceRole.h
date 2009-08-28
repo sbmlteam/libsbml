@@ -50,7 +50,7 @@
 #ifndef SpeciesReferenceRole_H__
 #define SpeciesReferenceRole_H__
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
@@ -69,6 +69,7 @@ typedef enum
 
 
 END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 
 #endif  /* SpeciesReferenceRole_H__ */

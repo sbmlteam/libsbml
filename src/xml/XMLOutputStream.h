@@ -42,6 +42,7 @@
 
 #include <sbml/xml/XMLExtern.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class XMLTriple;
 
@@ -417,12 +418,15 @@ public:
 /** @endcond doxygen-libsbml-internal */
 
 
+LIBSBML_CPP_NAMESPACE_END
+
 #endif  /* __cplusplus */
 
 
 
 #ifndef SWIG
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /*-----------------------------------------------------------------------------
@@ -590,8 +594,7 @@ const char *
 XMLOutputStream_getString(XMLOutputStream_t* stream);
 
 END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
-
-
 #endif  /* XMLOutputStream_h */

@@ -270,6 +270,7 @@
 #include <sbml/SBase.h>
 #include <sbml/ListOf.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class SBMLVisitor;
 
@@ -279,37 +280,36 @@ class LIBSBML_EXTERN Species : public SBase
 public:
 
   /**
-   * Creates a new Species, optionally with the given @p id and @p name
-   * attribute values.
+   * Creates a new Species using the given SBML @p level and @p version
+   * values.
    *
-   * @param id a string, the identifier to assign to this Species
-   * @param name a string, the optional name to assign to this Species
+   * @param level an unsigned int, the SBML Level to assign to this Species
    *
-   * @note It is worth emphasizing that although the identifier is optional
-   * for this constructor, in SBML Level&nbsp;2 and beyond, the "id"
-   * (identifier) attribute of a Species is required to have a value.
-   * Thus, callers are cautioned to assign a value after calling this
-   * constructor if no identifier is provided as an argument.
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
+   * @param version an unsigned int, the SBML Version to assign to this
+   * Species
+   * 
+   * @note Once a Species has been added to an SBMLDocument, the @p level,
+   * @p version for the document @em override those used
+   * to create the Species.  Despite this, the ability to supply the values
+   * at creation time is an important aid to creating valid SBML.  Knowledge of
+   * the intented SBML Level and Version determine whether it is valid to
+   * assign a particular value to an attribute, or whether it is valid to add
+   * an object to an existing SBMLDocument.
    */
-  Species (const std::string& id = "", const std::string& name = "");
+  Species (unsigned int level, unsigned int version);
 
 
   /**
-   * Creates a new Species using the given SBML @p level and @p version
-   * values and optionally a set of XMLNamespaces.
-   * 
+   * Creates a new Species using the given SBMLNamespaces object
+   * @p sbmlns.
+   *
+   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
+   * information.  It is used to communicate the SBML Level, Version, and
+   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp; Core.
+   * A common approach to using this class constructor is to create an
+   * SBMLNamespaces object somewhere in a program, once, then pass it to
+   * object constructors such as this one when needed.
+   *
    * It is worth emphasizing that although this constructor does not take
    * an identifier argument, in SBML Level&nbsp;2 and beyond, the "id"
    * (identifier) attribute of a Species is required to have a value.
@@ -317,13 +317,7 @@ public:
    * constructor.  Setting the identifier can be accomplished using the
    * method @if clike SBase::setId() @endif@if java SBase::setId(String id) @endif.
    *
-   * @param level an unsigned int, the SBML Level to assign to this Species
-   *
-   * @param version an unsigned int, the SBML Version to assign to this
-   * Species
-   * 
-   * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
-   * assign to this Species
+   * @param sbmlns an SBMLNamespaces object.
    *
    * @note Once a Species has been added to an SBMLDocument, the @p level,
    * @p version and @p xmlns namespaces for the document @em override those used
@@ -332,21 +326,8 @@ public:
    * the intented SBML Level and Version determine whether it is valid to
    * assign a particular value to an attribute, or whether it is valid to add
    * an object to an existing SBMLDocument.
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
    */
-  Species (unsigned int level, unsigned int version, 
-               XMLNamespaces* xmlns = 0);
+  Species (SBMLNamespaces* sbmlns);
 
 
   /**
@@ -438,6 +419,22 @@ public:
    * </ul>
    */
   void initDefaults ();
+
+
+  /**
+   * Returns the value of the "id" attribute of this Species.
+   * 
+   * @return the id of this Species.
+   */
+  const std::string& getId () const;
+
+
+  /**
+   * Returns the value of the "name" attribute of this Species.
+   * 
+   * @return the name of this Species.
+   */
+  const std::string& getName () const;
 
 
   /**
@@ -553,6 +550,30 @@ public:
    * nonzero, @c false otherwise.
    */
   bool getConstant () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Species's "id" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "id" attribute of this Species has been
+   * set, @c false otherwise.
+   */
+  bool isSetId () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Species's "name" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "name" attribute of this Species has been
+   * set, @c false otherwise.
+   */
+  bool isSetName () const;
 
 
   /**
@@ -678,14 +699,74 @@ public:
 
 
   /**
+   * Sets the value of the "id" attribute of this Species.
+   *
+   * The string @p sid is copied.  Note that SBML has strict requirements
+   * for the syntax of identifiers.  The following is summary of the
+   * definition of the SBML identifier type @c SId (here expressed in an
+   * extended form of BNF notation):
+   * @code
+   *   letter ::= 'a'..'z','A'..'Z'
+   *   digit  ::= '0'..'9'
+   *   idChar ::= letter | digit | '_'
+   *   SId    ::= ( letter | '_' ) idChar*
+   * @endcode
+   * The equality of SBML identifiers is determined by an exact character
+   * sequence match; i.e., comparisons must be performed in a
+   * case-sensitive manner.  In addition, there are a few conditions for
+   * the uniqueness of identifiers in an SBML model.  Please consult the
+   * SBML specifications for the exact formulations.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @param sid the string to use as the identifier of this Species
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int setId (const std::string& sid);
+
+
+  /**
+   * Sets the value of the "name" attribute of this Species.
+   *
+   * The string in @p name is copied.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @param name the new name for the Species
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int setName (const std::string& name);
+
+
+  /**
    * Sets the "speciesType" attribute of this Species.
    *
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param sid the identifier of a SpeciesType object defined elsewhere
    * in this Model.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
    */
-  void setSpeciesType (const std::string& sid);
+  int setSpeciesType (const std::string& sid);
 
 
   /**
@@ -695,8 +776,15 @@ public:
    *
    * @param sid the identifier of a Compartment object defined elsewhere
    * in this Model.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  void setCompartment (const std::string& sid);
+  int setCompartment (const std::string& sid);
 
 
   /**
@@ -709,8 +797,14 @@ public:
    *
    * @param value the value to which the "initialAmount" attribute should
    * be set.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
-  void setInitialAmount (double value);
+  int setInitialAmount (double value);
 
 
   /**
@@ -723,8 +817,15 @@ public:
    *
    * @param value the value to which the "initialConcentration" attribute
    * should be set.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
    */
-  void setInitialConcentration (double value);
+  int setInitialConcentration (double value);
 
 
   /**
@@ -733,8 +834,15 @@ public:
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param sid the identifier of the unit to use.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  void setSubstanceUnits (const std::string& sid);
+  int setSubstanceUnits (const std::string& sid);
 
 
   /**
@@ -751,8 +859,16 @@ public:
    * retains this attribute for compatibility with older definitions of
    * Level&nbsp;2, but its use is strongly discouraged because it is
    * incompatible with Level&nbsp;2 Version&nbsp;3 and Level&nbsp;2 Version&nbsp;4.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
    */
-  void setSpatialSizeUnits (const std::string& sid);
+  int setSpatialSizeUnits (const std::string& sid);
 
 
   /**
@@ -761,8 +877,15 @@ public:
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param sname the identifier of the unit to use.
-   */
-  void setUnits (const std::string& sname);
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+  */
+  int setUnits (const std::string& sname);
 
 
   /**
@@ -771,8 +894,15 @@ public:
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param value boolean value for the "hasOnlySubstanceUnits" attribute.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
    */
-  void setHasOnlySubstanceUnits (bool value);
+  int setHasOnlySubstanceUnits (bool value);
 
 
   /**
@@ -781,8 +911,14 @@ public:
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param value boolean value for the "boundaryCondition" attribute.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
-  void setBoundaryCondition (bool value);
+  int setBoundaryCondition (bool value);
 
 
   /**
@@ -803,8 +939,15 @@ public:
    * species.  This allows the condition to affect model mathematics
    * directly.  LibSBML retains this method for easier compatibility with
    * SBML Level&nbsp;1.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
    */
-  void setCharge (int value);
+  int setCharge (int value);
 
 
   /**
@@ -813,46 +956,101 @@ public:
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param value a boolean value for the "constant" attribute
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
    */
-  void setConstant (bool value);
+  int setConstant (bool value);
+
+
+  /**
+   * Unsets the value of the "name" attribute of this Species.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  int unsetName ();
 
 
   /**
    * Unsets the "speciesType" attribute value of this Species.
    *
    * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  void unsetSpeciesType ();
+  int unsetSpeciesType ();
 
 
   /**
    * Unsets the "initialAmount" attribute value of this Species.
    *
    * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
-  void unsetInitialAmount ();
+  int unsetInitialAmount ();
 
 
   /**
    * Unsets the "initialConcentration" attribute value of this Species.
    *
    * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
-  void unsetInitialConcentration ();
+  int unsetInitialConcentration ();
 
 
   /**
    * Unsets the "substanceUnits" attribute value of this Species.
    *
    * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  void unsetSubstanceUnits ();
+  int unsetSubstanceUnits ();
 
 
   /**
    * Unsets the "spatialSizeUnits" attribute value of this Species.
    *
    * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    * 
    * @warning In versions of SBML Level~2 before Version&nbsp;3, the class
    * Species included an attribute called "spatialSizeUnits", which allowed
@@ -862,21 +1060,35 @@ public:
    * Level&nbsp;2, but its use is strongly discouraged because it is
    * incompatible with Level&nbsp;2 Version&nbsp;3 and Level&nbsp;2 Version&nbsp;4.
    */
-  void unsetSpatialSizeUnits ();
+  int unsetSpatialSizeUnits ();
 
 
   /**
    * (SBML Level&nbsp;1 only) Unsets the "units" attribute value of this Species.
    *
    * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  void unsetUnits ();
+  int unsetUnits ();
 
 
   /**
    * Unsets the "charge" attribute value of this Species.
    *
    * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    *
    * @note Beginning in SBML Level&nbsp;2 Version&nbsp;2, the "charge"
    * attribute on Species in SBML is deprecated and its use strongly
@@ -890,7 +1102,7 @@ public:
    * directly.  LibSBML retains this method for easier compatibility with
    * SBML Level&nbsp;1.
    */
-  void unsetCharge ();
+  int unsetCharge ();
 
 
   /**
@@ -1006,8 +1218,28 @@ public:
   virtual const std::string& getElementName () const;
 
 
+  /**
+   * Predicate returning @c true or @c false depending on whether
+   * all the required attributes for this Species object
+   * have been set.
+   *
+   * @note The required attributes for a Species object are:
+   * id (name L1); compartment; initialAmount (L1 only)
+   *
+   * @return a boolean value indicating whether all the required
+   * attributes for this object have been defined.
+   */
+  virtual bool hasRequiredAttributes() const ;
+
+
 protected:
   /** @cond doxygen-libsbml-internal */
+
+  /* this is a constructor that takes no arguments and 
+   * only exists because the validator code needs it
+   */
+  Species ();
+
 
   /**
    * Subclasses should override this method to read values from the given
@@ -1025,6 +1257,8 @@ protected:
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
+  std::string  mId;
+  std::string  mName;
   std::string  mSpeciesType;
   std::string  mCompartment;
 
@@ -1042,6 +1276,24 @@ protected:
   bool  mIsSetInitialAmount;
   bool  mIsSetInitialConcentration;
   bool  mIsSetCharge;
+
+  /* the validator classes need to be friends to access the 
+   * protected constructor that takes no arguments
+   */
+  friend class Validator;
+  friend class ConsistencyValidator;
+  friend class IdentifierConsistencyValidator;
+  friend class InternalConsistencyValidator;
+  friend class L1CompatibilityValidator;
+  friend class L2v1CompatibilityValidator;
+  friend class L2v2CompatibilityValidator;
+  friend class L2v3CompatibilityValidator;
+  friend class L2v4CompatibilityValidator;
+  friend class MathMLConsistencyValidator;
+  friend class ModelingPracticeValidator;
+  friend class OverdeterminedValidator;
+  friend class SBOConsistencyValidator;
+  friend class UnitConsistencyValidator;
 
   /** @endcond doxygen-libsbml-internal */
 };
@@ -1234,13 +1486,14 @@ protected:
   /** @endcond doxygen-libsbml-internal */
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
 
 #ifndef SWIG
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /*-----------------------------------------------------------------------------
@@ -1250,20 +1503,12 @@ BEGIN_C_DECLS
 
 LIBSBML_EXTERN
 Species_t *
-Species_create (void);
+Species_create (unsigned int level, unsigned int version);
 
 
 LIBSBML_EXTERN
 Species_t *
-Species_createWith (const char *sid, const char *name);
-
-
-/** @cond doxygen-libsbml-internal */
-LIBSBML_EXTERN
-Species_t *
-Species_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns);
-/** @endcond doxygen-libsbml-internal */
+Species_createWithNS (SBMLNamespaces_t *sbmlns);
 
 
 LIBSBML_EXTERN
@@ -1402,115 +1647,126 @@ Species_isSetCharge (const Species_t *s);
 
 
 LIBSBML_EXTERN
-void
+int
 Species_setId (Species_t *s, const char *sid);
 
 
 LIBSBML_EXTERN
-void
+int
 Species_setName (Species_t *s, const char *string);
 
 
 LIBSBML_EXTERN
-void
+int
 Species_setSpeciesType (Species_t *s, const char *sid);
 
 
 LIBSBML_EXTERN
-void
+int
 Species_setCompartment (Species_t *s, const char *sid);
 
 
 LIBSBML_EXTERN
-void
+int
 Species_setInitialAmount (Species_t *s, double value);
 
 
 LIBSBML_EXTERN
-void
+int
 Species_setInitialConcentration (Species_t *s, double value);
 
 
 LIBSBML_EXTERN
-void
+int
 Species_setSubstanceUnits (Species_t *s, const char *sid);
 
 
 LIBSBML_EXTERN
-void
+int
 Species_setSpatialSizeUnits (Species_t *s, const char *sid);
 
 
 LIBSBML_EXTERN
-void
+int
 Species_setUnits (Species_t *s, const char *sname);
 
 
 LIBSBML_EXTERN
-void
+int
 Species_setHasOnlySubstanceUnits (Species_t *s, int value);
 
 
 LIBSBML_EXTERN
-void
+int
 Species_setBoundaryCondition (Species_t *s, int value);
 
 
 LIBSBML_EXTERN
-void
+int
 Species_setCharge (Species_t *s, int value);
 
 
 LIBSBML_EXTERN
-void
+int
 Species_setConstant (Species_t *s, int value);
 
 
 LIBSBML_EXTERN
-void
+int
 Species_unsetName (Species_t *s);
 
 
 LIBSBML_EXTERN
-void
+int
 Species_unsetSpeciesType (Species_t *s);
 
 
 LIBSBML_EXTERN
-void
+int
 Species_unsetInitialAmount (Species_t *s);
 
 
 LIBSBML_EXTERN
-void
+int
 Species_unsetInitialConcentration (Species_t *s);
 
 
 LIBSBML_EXTERN
-void
+int
 Species_unsetSubstanceUnits (Species_t *s);
 
 
 LIBSBML_EXTERN
-void
+int
 Species_unsetSpatialSizeUnits (Species_t *s);
 
 
 LIBSBML_EXTERN
-void
+int
 Species_unsetUnits (Species_t *s);
 
 
 LIBSBML_EXTERN
-void
+int
 Species_unsetCharge (Species_t *s);
 
 LIBSBML_EXTERN
 UnitDefinition_t * 
 Species_getDerivedUnitDefinition(Species_t *s);
 
-END_C_DECLS
 
+LIBSBML_EXTERN
+Species_t *
+ListOfSpecies_getById (ListOf_t *lo, const char *sid);
+
+
+LIBSBML_EXTERN
+Species_t *
+ListOfSpecies_removeById (ListOf_t *lo, const char *sid);
+
+
+END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
 #endif  /* Species_h */

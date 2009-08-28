@@ -47,6 +47,8 @@
 using namespace std;
 using namespace xercesc;
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 /** @endcond doxygen-ignored */
 
 
@@ -678,7 +680,7 @@ XercesParser::parseReset ()
   mSource = 0;
 }
 
-
+LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond doxygen-libsbml-internal */
 

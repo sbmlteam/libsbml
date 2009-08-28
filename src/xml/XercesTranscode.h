@@ -28,6 +28,9 @@
 
 #include <string>
 #include <xercesc/util/XMLString.hpp>
+#include <sbml/common/libsbml-namespace.h>
+
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 #if XERCES_VERSION_MAJOR <= 2
 typedef unsigned int XercesSize_t;
@@ -71,6 +74,8 @@ private:
 };
 
 /** @endcond doxygen-libsbml-internal */
+
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* XercesTranscode_h */

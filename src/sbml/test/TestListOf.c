@@ -86,7 +86,7 @@ START_TEST (test_ListOf_remove)
 {
   ListOf_t *lo = (ListOf_t*) ListOf_create();
 
-  SBase_t *sp = (SBase_t*)Species_create();
+  SBase_t *sp = (SBase_t*)Species_create(2, 4);
 
   fail_unless( ListOf_size(lo) == 0 );
 
@@ -124,7 +124,7 @@ START_TEST (test_ListOf_clear)
 {
   ListOf_t *lo = (ListOf_t*) ListOf_create();
 
-  SBase_t *sp = (SBase_t*)Species_create(); 
+  SBase_t *sp = (SBase_t*)Species_create(2, 4); 
 
   ListOf_append(lo, sp);
   ListOf_append(lo, sp);

@@ -29,6 +29,8 @@
 using namespace std;
 using namespace xercesc;
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 /** @endcond doxygen-ignored */
 
 
@@ -76,5 +78,7 @@ XercesAttributes::XercesAttributes (const Attributes& attrs,
 XercesAttributes::~XercesAttributes ()
 {
 }
+
+LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond doxygen-libsbml-internal */

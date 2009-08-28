@@ -61,11 +61,13 @@
 #include <sbml/SBase.h>
 #include <sbml/layout/Point.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN LineSegment : public SBase
 {
 protected:
 
+  std::string mId;
   Point mStartPoint;
   Point mEndPoint;
 
@@ -117,6 +119,31 @@ public:
    * Assignment operator
    */
   virtual LineSegment& operator=(const LineSegment& orig);
+
+
+  /**
+   * Returns the value of the "id" attribute of this BoundingBox.
+   */
+  const std::string& getId () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * BoundingBox's "id" attribute has been set.
+   */
+  bool isSetId () const;
+
+  
+  /**
+   * Sets the value of the "id" attribute of this BoundingBox.
+   */
+  int setId (std::string id);
+
+
+  /**
+   * Unsets the value of the "id" attribute of this BoundingBox.
+   */
+  void unsetId ();
 
 
   /**
@@ -251,13 +278,14 @@ protected:
 
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif /* __cplusplus */
 
 
 #ifndef SWIG
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
@@ -345,7 +373,27 @@ LineSegment_t *
 LineSegment_clone (const LineSegment_t *m);
 
 
+LIBSBML_EXTERN
+int
+LineSegment_isSetId (const LineSegment_t *ls);
+
+LIBSBML_EXTERN
+const char *
+LineSegment_getId (const LineSegment_t *ls);
+
+
+LIBSBML_EXTERN
+int
+LineSegment_setId (LineSegment_t *ls, const char *sid);
+
+
+LIBSBML_EXTERN
+void
+LineSegment_unsetId (LineSegment_t *ls);
+
+
 END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 
 #endif  /* !SWIG */

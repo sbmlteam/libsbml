@@ -52,7 +52,7 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Creates a new TextGlyph the ids of the associated GraphicalObject and
@@ -130,14 +130,15 @@ TextGlyph::TextGlyph(const TextGlyph& source):GraphicalObject(source)
  */
 TextGlyph& TextGlyph::operator=(const TextGlyph& source)
 {
-    if(&source!=this)
-    {
-      GraphicalObject::operator=(source);
-      this->mText=source.getText();
-      this->mOriginOfText=source.getOriginOfTextId();
-      this->mGraphicalObject=source.getGraphicalObjectId();
-    }
-    return *this;
+  if(&source!=this)
+  {
+    GraphicalObject::operator=(source);
+    this->mText=source.getText();
+    this->mOriginOfText=source.getOriginOfTextId();
+    this->mGraphicalObject=source.getGraphicalObjectId();    
+  }
+  
+  return *this;
 }
 
 /**
@@ -561,4 +562,5 @@ TextGlyph_clone (const TextGlyph_t *m)
   return static_cast<TextGlyph*>( m->clone() );
 }
 
+LIBSBML_CPP_NAMESPACE_END
 

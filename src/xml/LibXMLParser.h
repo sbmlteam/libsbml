@@ -33,6 +33,7 @@
 #include <sbml/xml/LibXMLHandler.h>
 #include <sbml/xml/XMLErrorLog.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygen-libsbml-internal */
 
@@ -156,6 +157,8 @@ private:
 };
 
 /** @endcond doxygen-libsbml-internal */
+
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* LibXMLParser_h */

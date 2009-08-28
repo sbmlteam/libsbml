@@ -63,12 +63,12 @@ static Rule_t *PR;
 void
 ParameterRuleTest_setup (void)
 {
-  PR = Rule_createAssignment();
+  PR = Rule_createAssignment(1, 2);
   Rule_setL1TypeCode(PR, SBML_PARAMETER_RULE);
 
   if (PR == NULL)
   {
-    fail("ParameterRule_create() returned a NULL pointer.");
+    fail("Rule_createAssignment() returned a NULL pointer.");
   }
 }
 
@@ -102,34 +102,34 @@ START_TEST (test_ParameterRule_create)
 END_TEST
 
 
-START_TEST (test_ParameterRule_createWith)
-{
-  Rule_t *pr;
-
-
-  pr = Rule_createRateWithVariableAndFormula("c", "v + 1");
-  Rule_setL1TypeCode(pr, SBML_PARAMETER_RULE);
-
-  fail_unless( SBase_getTypeCode((SBase_t *) pr) ==
-               SBML_RATE_RULE );
-  fail_unless( Rule_getL1TypeCode((Rule_t *) pr) ==
-               SBML_PARAMETER_RULE );
-  fail_unless( SBase_getNotes     ((SBase_t *) pr) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) pr) == NULL );
-
-  fail_unless( Rule_getUnits(pr) == NULL );
-
-  fail_unless( !strcmp(Rule_getFormula(pr), "v + 1") );
-  fail_unless( !strcmp(Rule_getVariable(pr), "c") );
-
-  fail_unless( Rule_getType( pr) ==  RULE_TYPE_RATE );
-
-  fail_unless( Rule_isSetVariable(pr) );
-  fail_unless( !Rule_isSetUnits(pr) );
-
-  Rule_free(pr);
-}
-END_TEST
+//START_TEST (test_ParameterRule_createWith)
+//{
+//  Rule_t *pr;
+//
+//
+//  pr = Rule_createRateWithVariableAndFormula("c", "v + 1");
+//  Rule_setL1TypeCode(pr, SBML_PARAMETER_RULE);
+//
+//  fail_unless( SBase_getTypeCode((SBase_t *) pr) ==
+//               SBML_RATE_RULE );
+//  fail_unless( Rule_getL1TypeCode((Rule_t *) pr) ==
+//               SBML_PARAMETER_RULE );
+//  fail_unless( SBase_getNotes     ((SBase_t *) pr) == NULL );
+//  fail_unless( SBase_getAnnotation((SBase_t *) pr) == NULL );
+//
+//  fail_unless( Rule_getUnits(pr) == NULL );
+//
+//  fail_unless( !strcmp(Rule_getFormula(pr), "v + 1") );
+//  fail_unless( !strcmp(Rule_getVariable(pr), "c") );
+//
+//  fail_unless( Rule_getType( pr) ==  RULE_TYPE_RATE );
+//
+//  fail_unless( Rule_isSetVariable(pr) );
+//  fail_unless( !Rule_isSetUnits(pr) );
+//
+//  Rule_free(pr);
+//}
+//END_TEST
 
 
 START_TEST (test_ParameterRule_free_NULL)
@@ -216,7 +216,7 @@ create_suite_ParameterRule (void)
                              ParameterRuleTest_teardown );
 
   tcase_add_test( tcase, test_ParameterRule_create     );
-  tcase_add_test( tcase, test_ParameterRule_createWith );
+  //tcase_add_test( tcase, test_ParameterRule_createWith );
   tcase_add_test( tcase, test_ParameterRule_free_NULL  );
   tcase_add_test( tcase, test_ParameterRule_setName    );
   tcase_add_test( tcase, test_ParameterRule_setUnits   );

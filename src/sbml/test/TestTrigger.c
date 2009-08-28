@@ -67,7 +67,7 @@ static Trigger_t *D;
 void
 TriggerTest_setup (void)
 {
-  D = Trigger_create();
+  D = Trigger_create(2, 4);
 
   if (D == NULL)
   {
@@ -95,33 +95,33 @@ START_TEST (test_Trigger_create)
 END_TEST
 
 
-START_TEST (test_Trigger_createWithMath)
-{
-  ASTNode_t            *math = SBML_parseFormula("x^3");
-  Trigger_t *fd   = Trigger_createWithMath(math);
-
-  const ASTNode_t * math1;
-  char * formula;
-
-  fail_unless( SBase_getTypeCode((SBase_t *) fd) == SBML_TRIGGER );
-  fail_unless( SBase_getMetaId    ((SBase_t *) fd) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) fd) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) fd) == NULL );
-
-
-  math1 = Trigger_getMath(fd);
-  fail_unless( math1 != NULL );
-
-  formula = SBML_formulaToString(math1);
-  fail_unless( formula != NULL );
-  fail_unless( !strcmp(formula, "x^3") );
-  fail_unless( Trigger_getMath(fd) != math );
-  fail_unless( Trigger_isSetMath(fd) );
-
-
-  Trigger_free(fd);
-}
-END_TEST
+//START_TEST (test_Trigger_createWithMath)
+//{
+//  ASTNode_t            *math = SBML_parseFormula("x^3");
+//  Trigger_t *fd   = Trigger_createWithMath(math);
+//
+//  const ASTNode_t * math1;
+//  char * formula;
+//
+//  fail_unless( SBase_getTypeCode((SBase_t *) fd) == SBML_TRIGGER );
+//  fail_unless( SBase_getMetaId    ((SBase_t *) fd) == NULL );
+//  fail_unless( SBase_getNotes     ((SBase_t *) fd) == NULL );
+//  fail_unless( SBase_getAnnotation((SBase_t *) fd) == NULL );
+//
+//
+//  math1 = Trigger_getMath(fd);
+//  fail_unless( math1 != NULL );
+//
+//  formula = SBML_formulaToString(math1);
+//  fail_unless( formula != NULL );
+//  fail_unless( !strcmp(formula, "x^3") );
+//  fail_unless( Trigger_getMath(fd) != math );
+//  fail_unless( Trigger_isSetMath(fd) );
+//
+//
+//  Trigger_free(fd);
+//}
+//END_TEST
 
 
 START_TEST (test_Trigger_free_NULL)
@@ -169,13 +169,50 @@ START_TEST (test_Trigger_setMath)
 END_TEST
 
 
-START_TEST (test_Trigger_createWithLevelVersionAndNamespace)
+START_TEST (test_Trigger_setMath1)
+{
+  ASTNode_t *math = SBML_parseFormula("2 * k");
+
+  int i = Trigger_setMath(D, math);
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( Trigger_getMath(D) != math );
+  fail_unless( Trigger_isSetMath(D) );
+
+  i = Trigger_setMath(D, NULL);
+  
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( Trigger_getMath(D) == NULL );
+  fail_unless( !Trigger_isSetMath(D) );
+
+  ASTNode_free(math);
+}
+END_TEST
+
+
+START_TEST (test_Trigger_setMath2)
+{
+  ASTNode_t *math = ASTNode_createWithType(AST_TIMES);
+
+  int i = Trigger_setMath(D, math);
+
+  fail_unless( i == LIBSBML_INVALID_OBJECT);
+  fail_unless( !Trigger_isSetMath(D) );
+
+  ASTNode_free(math);
+}
+END_TEST
+
+
+START_TEST (test_Trigger_createWithNS )
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
-  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "testsbml");
+  SBMLNamespaces_t *sbmlns = SBMLNamespaces_create(2,1);
+  SBMLNamespaces_addNamespaces(sbmlns,xmlns);
 
   Trigger_t *object = 
-    Trigger_createWithLevelVersionAndNamespaces(2, 1, xmlns);
+    Trigger_createWithNS (sbmlns);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_TRIGGER );
@@ -187,7 +224,7 @@ START_TEST (test_Trigger_createWithLevelVersionAndNamespace)
   fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
 
   fail_unless( Trigger_getNamespaces     (object) != NULL );
-  fail_unless( XMLNamespaces_getLength(Trigger_getNamespaces(object)) == 1 );
+  fail_unless( XMLNamespaces_getLength(Trigger_getNamespaces(object)) == 2 );
 
   Trigger_free(object);
 }
@@ -206,10 +243,12 @@ create_suite_Trigger (void)
                              TriggerTest_teardown );
 
   tcase_add_test( tcase, test_Trigger_create       );
-  tcase_add_test( tcase, test_Trigger_createWithMath   );
+  ////tcase_add_test( tcase, test_Trigger_createWithMath   );
   tcase_add_test( tcase, test_Trigger_setMath      );
+  tcase_add_test( tcase, test_Trigger_setMath1     );
+  tcase_add_test( tcase, test_Trigger_setMath2     );
   tcase_add_test( tcase, test_Trigger_free_NULL );
-  tcase_add_test( tcase, test_Trigger_createWithLevelVersionAndNamespace        );
+  tcase_add_test( tcase, test_Trigger_createWithNS         );
 
   suite_add_tcase(suite, tcase);
 

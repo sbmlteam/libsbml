@@ -60,6 +60,8 @@
 #include <sbml/SBase.h>
 #include <sbml/ListOf.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 class LIBSBML_EXTERN ListOfLineSegments : public ListOf
 {
  public:
@@ -283,8 +285,7 @@ protected:
 };
   
 
-
-
+LIBSBML_CPP_NAMESPACE_END
 
 
 
@@ -293,7 +294,7 @@ protected:
 
 #ifndef SWIG
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
@@ -388,6 +389,7 @@ Curve_clone (const Curve_t *m);
 
 
 END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 
 #endif  /* !SWIG */

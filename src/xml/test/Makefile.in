@@ -54,8 +54,10 @@ test_sources =          \
   TestXMLInputStream.c  \
   TestXMLNamespaces.c   \
   TestXMLNode.c         \
+  TestXMLNode_newSetters.c         \
   TestXMLOutputStream.c \
   TestXMLToken.c        \
+  TestXMLToken_newSetters.c        \
   TestXMLTriple.c       \
   TestRunner.c
 
@@ -127,11 +129,11 @@ all: Makefile
 # dependencies on other subdirectoris of the source tree, we do some rummaging
 # around in .. and ../../subdirs.
 
-tmp           = $(test_sources:.cpp=.$(OBJEXT)) $(test_sources:.c=.$(OBJEXT))
-localobjfiles = $(filter %.$(OBJEXT),$(tmp))
+tmp           = $(test_sources:.cpp=.lo) $(test_sources:.c=.lo)
+localobjfiles = $(filter %.lo,$(tmp))
 
 otherdirs     = .. ../../util ../../compress ../../common
-otherobjfiles = $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
+otherobjfiles = $(wildcard $(addsuffix /*.lo,$(otherdirs)))
 
 test_objfiles = $(localobjfiles) $(otherobjfiles)
 

@@ -54,6 +54,7 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Creates a new GraphicalObject.
@@ -67,7 +68,8 @@ GraphicalObject::GraphicalObject() : SBase ()
  * Creates a new GraphicalObject with the given id.
  */
 GraphicalObject::GraphicalObject (const std::string& id) : 
-    SBase(id)
+        SBase()
+      , mId (id)
 {
 }
 
@@ -78,7 +80,8 @@ GraphicalObject::GraphicalObject (const std::string& id) :
  */
 GraphicalObject::GraphicalObject (const std::string& id,
                                   double x, double y, double w, double h) :
-    SBase      (id)
+    SBase()
+  , mId (id)
   , mBoundingBox( BoundingBox("", x, y, 0.0, w, h, 0.0) )
 {
 }
@@ -91,7 +94,8 @@ GraphicalObject::GraphicalObject (const std::string& id,
 GraphicalObject::GraphicalObject (const std::string& id,
                                   double x, double y, double z,
                                   double w, double h, double d) :
-    SBase      (id)
+    SBase()
+  , mId (id)
   , mBoundingBox( BoundingBox("", x, y, z, w, h, d) )
 {
 }
@@ -104,7 +108,8 @@ GraphicalObject::GraphicalObject (const std::string& id,
 GraphicalObject::GraphicalObject (const std::string& id,
                                   const Point*       p,
                                   const Dimensions*  d) : 
-    SBase      (id)
+    SBase()
+  , mId (id)
   , mBoundingBox( BoundingBox("", p, d) )
 {
 }
@@ -115,7 +120,8 @@ GraphicalObject::GraphicalObject (const std::string& id,
  * the bounding box.
  */
 GraphicalObject::GraphicalObject (const std::string& id, const BoundingBox* bb)
-  : SBase      (id)
+  :     SBase()
+  , mId (id)
 {
     if(bb)
     {
@@ -160,6 +166,7 @@ GraphicalObject::GraphicalObject(const XMLNode& node)
  */
 GraphicalObject::GraphicalObject(const GraphicalObject& source):SBase(source)
 {
+    this->mId = source.mId;
     this->mBoundingBox=*source.getBoundingBox();
 }
 
@@ -168,12 +175,14 @@ GraphicalObject::GraphicalObject(const GraphicalObject& source):SBase(source)
  */
 GraphicalObject& GraphicalObject::operator=(const GraphicalObject& source)
 {
-    if(&source!=this)
-    {
-      this->SBase::operator=(source);
-      this->mBoundingBox=*source.getBoundingBox();
-    }   
-    return *this;
+  if(&source!=this)
+  {
+    this->SBase::operator=(source);
+    this->mId = source.mId;
+    this->mBoundingBox=*source.getBoundingBox();
+  }
+
+  return *this;
 }
 
 /**
@@ -183,6 +192,49 @@ GraphicalObject::~GraphicalObject ()
 {
 }
 
+
+/**
+  * Returns the value of the "id" attribute of this GraphicalObject.
+  */
+const std::string& GraphicalObject::getId () const
+{
+  return mId;
+}
+
+
+/**
+  * Predicate returning @c true or @c false depending on whether this
+  * GraphicalObject's "id" attribute has been set.
+  */
+bool GraphicalObject::isSetId () const
+{
+  return (mId.empty() == false);
+}
+
+/**
+  * Sets the value of the "id" attribute of this GraphicalObject.
+  */
+int GraphicalObject::setId (std::string id)
+{
+  if (!(SyntaxChecker::isValidSBMLSId(id)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mId = id;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/**
+  * Unsets the value of the "id" attribute of this GraphicalObject.
+  */
+void GraphicalObject::unsetId ()
+{
+  mId.erase();
+}
 
 /**
  * Sets the boundingbox for the GraphicalObject.
@@ -434,4 +486,46 @@ GraphicalObject_clone (const GraphicalObject_t *m)
   return static_cast<GraphicalObject*>( m->clone() );
 }
 
+
+/**
+ * Returns non-zero if the id is set
+ */
+LIBSBML_EXTERN
+int
+GraphicalObject_isSetId (const GraphicalObject_t *go)
+{
+  return static_cast <int> (go->isSetId());
+}
+
+/**
+ * Returns the id
+ */
+LIBSBML_EXTERN
+const char *
+GraphicalObject_getId (const GraphicalObject_t *go)
+{
+  return go->isSetId() ? go->getId().c_str() : NULL;
+}
+
+/**
+ * Sets the id
+ */
+LIBSBML_EXTERN
+int
+GraphicalObject_setId (GraphicalObject_t *go, const char *sid)
+{
+  return (sid == NULL) ? go->setId("") : go->setId(sid);
+}
+
+/**
+ * Unsets the id
+ */
+LIBSBML_EXTERN
+void
+GraphicalObject_unsetId (GraphicalObject_t *go)
+{
+  go->unsetId();
+}
+
+LIBSBML_CPP_NAMESPACE_END
 

@@ -50,22 +50,38 @@ test_sources =                   \
   TestWriteSBML.cpp              \
   TestRunner.c                   \
   TestCompartment.c              \
+  TestCompartment_newSetters.c   \
   TestCompartmentType.c          \
+  TestCompartmentType_newSetters.c   \
   TestConstraint.c               \
+  TestConstraint_newSetters.c    \
   TestEvent.c                    \
+  TestEvent_newSetters.c         \
   TestEventAssignment.c          \
+  TestEventAssignment_newSetters.c          \
   TestFunctionDefinition.c       \
+  TestFunctionDefinition_newSetters.c       \
   TestInitialAssignment.c        \
+  TestInitialAssignment_newSetters.c        \
   TestKineticLaw.c               \
+  TestKineticLaw_newSetters.c    \
   TestListOf.c                   \
   TestParameter.c                \
+  TestParameter_newSetters.c     \
   TestReaction.c                 \
+  TestReaction_newSetters.c      \
   TestRule.c                     \
+  TestRule_newSetters.c          \
   TestSpecies.c                  \
+  TestSpecies_newSetters.c       \
   TestSpeciesReference.c         \
+  TestSpeciesReference_newSetters.c         \
   TestSpeciesType.c              \
+  TestSpeciesType_newSetters.c   \
   TestUnit.c                     \
+  TestUnit_newSetters.c          \
   TestUnitDefinition.c           \
+  TestUnitDefinition_newSetters.c           \
   TestUnitKind.c                 \
   TestAssignmentRule.c           \
   TestCopyAndClone.cpp           \
@@ -74,14 +90,18 @@ test_sources =                   \
   TestDelay.c                    \
   TestTrigger.c                  \
   TestModel.c                    \
+  TestModel_newSetters.c         \
   TestSBase.cpp                  \
+  TestSBase_newSetters.cpp       \
   TestStoichiometryMath.c        \
   TestModifierSpeciesReference.c \
   TestCompartmentVolumeRule.c    \
   TestParameterRule.c            \
   TestSpeciesConcentrationRule.c \
   TestSBMLConvert.c              \
+  TestSBMLConvertStrict.c        \
   TestSBMLDocument.c             \
+  TestSyntaxChecker.c            \
   TestReadFromFile1.c            \
   TestReadFromFile2.c            \
   TestReadFromFile3.c            \
@@ -93,9 +113,12 @@ test_sources =                   \
   TestSBMLParentObject.cpp       \
   TestSBMLError.cpp              \
   TestAncestor.cpp               \
+  TestRequiredAttributes.cpp               \
+  TestRequiredElements.cpp               \
   TestSBMLNamespaces.cpp         \
   TestInternalConsistencyChecks.cpp               \
-  TestConsistencyChecks.cpp
+  TestConsistencyChecks.cpp      \
+  TestSBMLConstructorException.cpp
 
 
 extra_CPPFLAGS = -I.. -I../..
@@ -165,8 +188,8 @@ all: Makefile
 # dependencies on other subdirectoris of the source tree, we do some rummaging
 # around in .. and ../../subdirs.
 
-tmp           = $(test_sources:.cpp=.$(OBJEXT)) $(test_sources:.c=.$(OBJEXT))
-localobjfiles = $(filter %.$(OBJEXT),$(tmp))
+tmp           = $(test_sources:.cpp=.lo) $(test_sources:.c=.lo)
+localobjfiles = $(filter %.lo,$(tmp))
 
 otherdirs     = ..  ../../util ../../xml ../../math ../../units \
                 ../../validator ../../validator/constraints ../../annotation \
@@ -176,7 +199,7 @@ ifdef USE_LAYOUT
   otherdirs += ../layout
 endif
 
-otherobjfiles = $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
+otherobjfiles = $(wildcard $(addsuffix /*.lo,$(otherdirs)))
 
 test_objfiles = $(localobjfiles) $(otherobjfiles)
 

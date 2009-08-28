@@ -63,7 +63,7 @@ static Model_t *M;
 void
 ModelTest_setup (void)
 {
-  M = Model_create();
+  M = Model_create(2, 4);
 
   if (M == NULL)
   {
@@ -108,37 +108,37 @@ START_TEST (test_Model_free_NULL)
 END_TEST
 
 
-START_TEST (test_Model_createWith)
-{
-  Model_t *m = Model_createWith("repressilator", "");
-
-
-  fail_unless( SBase_getTypeCode  ((SBase_t *) m) == SBML_MODEL );  
-  fail_unless( SBase_getMetaId    ((SBase_t *) m) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) m) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) m) == NULL );
-
-  fail_unless( Model_getName(m) == NULL );
-
-  fail_unless( !strcmp(Model_getId(m), "repressilator") );
-  fail_unless( Model_isSetId(m) );
-
-  fail_unless( Model_getNumUnitDefinitions(m) == 0 );
-  fail_unless( Model_getNumFunctionDefinitions(m) == 0 );
-  fail_unless( Model_getNumCompartments   (m) == 0 );
-  fail_unless( Model_getNumSpecies        (m) == 0 );
-  fail_unless( Model_getNumParameters     (m) == 0 );
-  fail_unless( Model_getNumReactions      (m) == 0 );
-  fail_unless( Model_getNumRules          (m) == 0 );
-  fail_unless( Model_getNumConstraints    (m) == 0 );
-  fail_unless( Model_getNumEvents         (m) == 0 );
-  fail_unless( Model_getNumCompartmentTypes(m) == 0 );
-  fail_unless( Model_getNumSpeciesTypes    (m) == 0 );
-  fail_unless( Model_getNumInitialAssignments (m) == 0 );
-
-  Model_free(m);
-}
-END_TEST
+//START_TEST (test_Model_createWith)
+//{
+//  Model_t *m = Model_createWith("repressilator", "");
+//
+//
+//  fail_unless( SBase_getTypeCode  ((SBase_t *) m) == SBML_MODEL );  
+//  fail_unless( SBase_getMetaId    ((SBase_t *) m) == NULL );
+//  fail_unless( SBase_getNotes     ((SBase_t *) m) == NULL );
+//  fail_unless( SBase_getAnnotation((SBase_t *) m) == NULL );
+//
+//  fail_unless( Model_getName(m) == NULL );
+//
+//  fail_unless( !strcmp(Model_getId(m), "repressilator") );
+//  fail_unless( Model_isSetId(m) );
+//
+//  fail_unless( Model_getNumUnitDefinitions(m) == 0 );
+//  fail_unless( Model_getNumFunctionDefinitions(m) == 0 );
+//  fail_unless( Model_getNumCompartments   (m) == 0 );
+//  fail_unless( Model_getNumSpecies        (m) == 0 );
+//  fail_unless( Model_getNumParameters     (m) == 0 );
+//  fail_unless( Model_getNumReactions      (m) == 0 );
+//  fail_unless( Model_getNumRules          (m) == 0 );
+//  fail_unless( Model_getNumConstraints    (m) == 0 );
+//  fail_unless( Model_getNumEvents         (m) == 0 );
+//  fail_unless( Model_getNumCompartmentTypes(m) == 0 );
+//  fail_unless( Model_getNumSpeciesTypes    (m) == 0 );
+//  fail_unless( Model_getNumInitialAssignments (m) == 0 );
+//
+//  Model_free(m);
+//}
+//END_TEST
 
 
 START_TEST (test_Model_setId)
@@ -178,7 +178,7 @@ END_TEST
 
 START_TEST (test_Model_setName)
 {
-  char *name = "My Branch Model";
+  char *name = "My_Branch_Model";
 
 
   Model_setName(M, name);
@@ -209,6 +209,8 @@ START_TEST(test_Model_setgetModelHistory)
 {
   ModelHistory_t * history = ModelHistory_create();
   ModelCreator_t * mc = ModelCreator_create();
+  Date_t * date = 
+    Date_createFromValues(2005, 12, 30, 12, 15, 45, 1, 2, 0);
 
   ModelCreator_setFamilyName(mc, "Keating");
   ModelCreator_setGivenName(mc, "Sarah");
@@ -216,6 +218,8 @@ START_TEST(test_Model_setgetModelHistory)
   ModelCreator_setOrganisation(mc, "UH");
 
   ModelHistory_addCreator(history, mc);
+  ModelHistory_setCreatedDate(history, date);
+  ModelHistory_setModifiedDate(history, date);
 
   fail_unless(Model_isSetModelHistory(M) == 0);
 
@@ -660,9 +664,14 @@ END_TEST
  */
 START_TEST (test_Model_add_get_FunctionDefinitions)
 {
-  FunctionDefinition_t *fd1 = FunctionDefinition_create();
-  FunctionDefinition_t *fd2 = FunctionDefinition_create();
+  FunctionDefinition_t *fd1 = FunctionDefinition_create(2, 4);
+  FunctionDefinition_t *fd2 = FunctionDefinition_create(2, 4);
 
+  FunctionDefinition_setId(fd1, "fd1");
+  FunctionDefinition_setId(fd2, "fd2");
+
+  FunctionDefinition_setMath(fd1, SBML_parseFormula("2"));
+  FunctionDefinition_setMath(fd2, SBML_parseFormula("2"));
 
   Model_addFunctionDefinition(M, fd1);
   Model_addFunctionDefinition(M, fd2);
@@ -678,9 +687,14 @@ END_TEST
 
 START_TEST (test_Model_add_get_UnitDefinitions)
 {
-  UnitDefinition_t *ud1 = UnitDefinition_create();
-  UnitDefinition_t *ud2 = UnitDefinition_create();
+  UnitDefinition_t *ud1 = UnitDefinition_create(2, 4);
+  UnitDefinition_t *ud2 = UnitDefinition_create(2, 4);
 
+  UnitDefinition_setId(ud1, "ud1");
+  UnitDefinition_setId(ud2, "ud2");
+
+  UnitDefinition_createUnit(ud1);
+  UnitDefinition_createUnit(ud2);
 
   Model_addUnitDefinition(M, ud1);
   Model_addUnitDefinition(M, ud2);
@@ -696,7 +710,9 @@ END_TEST
 
 START_TEST (test_Model_addCompartment)
 {
-  Model_addCompartment(M, Compartment_create());
+  Compartment_t *c = Compartment_create(2, 4);
+  Compartment_setId(c, "c");
+  Model_addCompartment(M, c);
 
   fail_unless( Model_getNumCompartments(M) == 1 );
 }
@@ -705,7 +721,10 @@ END_TEST
 
 START_TEST (test_Model_addSpecies)
 {
-  Model_addSpecies(M, Species_create());
+  Species_t * s = Species_create(2, 4);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Model_addSpecies(M, s);
 
   fail_unless( Model_getNumSpecies(M) == 1 );
 }
@@ -714,7 +733,9 @@ END_TEST
 
 START_TEST (test_Model_addParameter)
 {
-  Model_addParameter(M, Parameter_create());
+  Parameter_t * p = Parameter_create(2, 4);
+  Parameter_setId(p, "p");
+  Model_addParameter(M, p);
 
   fail_unless( Model_getNumParameters(M) == 1 );
 }
@@ -723,9 +744,20 @@ END_TEST
 
 START_TEST (test_Model_addRules)
 {
-  Model_addRule( M, (Rule_t *) Rule_createAlgebraic()            );
-  Model_addRule( M, (Rule_t *) Rule_createAssignment()            );
-  Model_addRule( M, (Rule_t *) Rule_createRate()            );
+  Rule_t *r1 = Rule_createAlgebraic(2, 4);
+  Rule_t *r2 = Rule_createAssignment(2, 4);
+  Rule_t *r3 = Rule_createRate(2, 4);
+
+  Rule_setVariable(r2, "r2");
+  Rule_setVariable(r3, "r3");
+ 
+  Rule_setMath(r1, SBML_parseFormula("2"));
+  Rule_setMath(r2, SBML_parseFormula("2"));
+  Rule_setMath(r3, SBML_parseFormula("2"));
+  
+  Model_addRule( M, r1);
+  Model_addRule( M, r2);
+  Model_addRule( M, r3);
 
   fail_unless( Model_getNumRules(M) == 3 );
 }
@@ -734,7 +766,9 @@ END_TEST
 
 START_TEST (test_Model_addReaction)
 {
-  Model_addReaction(M, Reaction_create());
+  Reaction_t *r = Reaction_create(2, 4);
+  Reaction_setId(r, "r");
+  Model_addReaction(M, r);
 
   fail_unless( Model_getNumReactions(M) == 1 );
 }
@@ -743,9 +777,13 @@ END_TEST
 
 START_TEST (test_Model_add_get_Event)
 {
-  Event_t *e1 = Event_create();
-  Event_t *e2 = Event_create();
-
+  Event_t *e1 = Event_create(2, 4);
+  Event_t *e2 = Event_create(2, 4);
+  Trigger_t *t = Trigger_create(2, 4);
+  Event_setTrigger(e1, t);
+  Event_setTrigger(e2, t);
+  Event_createEventAssignment(e1);
+  Event_createEventAssignment(e2);
 
   Model_addEvent(M, e1);
   Model_addEvent(M, e2);
@@ -761,11 +799,14 @@ END_TEST
 
 START_TEST (test_Model_getFunctionDefinitionById)
 {
-  FunctionDefinition_t *fd1 = FunctionDefinition_create();
-  FunctionDefinition_t *fd2 = FunctionDefinition_create();
+  FunctionDefinition_t *fd1 = FunctionDefinition_create(2, 4);
+  FunctionDefinition_t *fd2 = FunctionDefinition_create(2, 4);
 
   FunctionDefinition_setId( fd1, "sin" );
   FunctionDefinition_setId( fd2, "cos" );
+
+  FunctionDefinition_setMath(fd1, SBML_parseFormula("2"));
+  FunctionDefinition_setMath(fd2, SBML_parseFormula("2"));
 
   Model_addFunctionDefinition(M, fd1);
   Model_addFunctionDefinition(M, fd2);
@@ -781,11 +822,14 @@ END_TEST
 
 START_TEST (test_Model_getUnitDefinition)
 {
-  UnitDefinition_t *ud1 = UnitDefinition_create();
-  UnitDefinition_t *ud2 = UnitDefinition_create();
+  UnitDefinition_t *ud1 = UnitDefinition_create(2, 4);
+  UnitDefinition_t *ud2 = UnitDefinition_create(2, 4);
 
-  UnitDefinition_setName( ud1, "mmls"   );
-  UnitDefinition_setName( ud2, "volume" );
+  UnitDefinition_setId( ud1, "mmls"   );
+  UnitDefinition_setId( ud2, "volume" );
+
+  UnitDefinition_createUnit(ud1);
+  UnitDefinition_createUnit(ud2);
 
   Model_addUnitDefinition(M, ud1);
   Model_addUnitDefinition(M, ud2);
@@ -795,19 +839,22 @@ START_TEST (test_Model_getUnitDefinition)
   ud1 = Model_getUnitDefinition(M, 0);
   ud2 = Model_getUnitDefinition(M, 1);
 
-  fail_unless( !strcmp( UnitDefinition_getName(ud1), "mmls"   ) );
-  fail_unless( !strcmp( UnitDefinition_getName(ud2), "volume" ) );
+  fail_unless( !strcmp( UnitDefinition_getId(ud1), "mmls"   ) );
+  fail_unless( !strcmp( UnitDefinition_getId(ud2), "volume" ) );
 }
 END_TEST
 
 
 START_TEST (test_Model_getUnitDefinitionById)
 {
-  UnitDefinition_t *ud1 = UnitDefinition_create();
-  UnitDefinition_t *ud2 = UnitDefinition_create();
+  UnitDefinition_t *ud1 = UnitDefinition_create(2, 4);
+  UnitDefinition_t *ud2 = UnitDefinition_create(2, 4);
 
   UnitDefinition_setId( ud1, "mmls"   );
   UnitDefinition_setId( ud2, "volume" );
+
+  UnitDefinition_createUnit(ud1);
+  UnitDefinition_createUnit(ud2);
 
   Model_addUnitDefinition(M, ud1);
   Model_addUnitDefinition(M, ud2);
@@ -823,11 +870,11 @@ END_TEST
 
 START_TEST (test_Model_getCompartment)
 {
-  Compartment_t *c1 = Compartment_create();
-  Compartment_t *c2 = Compartment_create();
+  Compartment_t *c1 = Compartment_create(2, 4);
+  Compartment_t *c2 = Compartment_create(2, 4);
 
-  Compartment_setName(c1, "A");
-  Compartment_setName(c2, "B");
+  Compartment_setId(c1, "A");
+  Compartment_setId(c2, "B");
 
   Model_addCompartment(M, c1);
   Model_addCompartment(M, c2);
@@ -837,8 +884,8 @@ START_TEST (test_Model_getCompartment)
   c1 = Model_getCompartment(M, 0);
   c2 = Model_getCompartment(M, 1);
 
-  fail_unless( !strcmp(Compartment_getName(c1), "A") );
-  fail_unless( !strcmp(Compartment_getName(c2), "B") );
+  fail_unless( !strcmp(Compartment_getId(c1), "A") );
+  fail_unless( !strcmp(Compartment_getId(c2), "B") );
 
 }
 END_TEST
@@ -846,8 +893,8 @@ END_TEST
 
 START_TEST (test_Model_getCompartmentById)
 {
-  Compartment_t *c1 = Compartment_create();
-  Compartment_t *c2 = Compartment_create();
+  Compartment_t *c1 = Compartment_create(2, 4);
+  Compartment_t *c2 = Compartment_create(2, 4);
 
   Compartment_setId( c1, "A" );
   Compartment_setId( c2, "B" );
@@ -866,11 +913,14 @@ END_TEST
 
 START_TEST (test_Model_getSpecies)
 {
-  Species_t *s1 = Species_create();
-  Species_t *s2 = Species_create();
+  Species_t *s1 = Species_create(2, 4);
+  Species_t *s2 = Species_create(2, 4);
 
-  Species_setName( s1, "Glucose"     );
-  Species_setName( s2, "Glucose_6_P" );
+  Species_setId( s1, "Glucose"     );
+  Species_setId( s2, "Glucose_6_P" );
+
+  Species_setCompartment( s1, "c");
+  Species_setCompartment( s2, "c");
 
   Model_addSpecies(M, s1);
   Model_addSpecies(M, s2);
@@ -880,19 +930,22 @@ START_TEST (test_Model_getSpecies)
   s1 = Model_getSpecies(M, 0);
   s2 = Model_getSpecies(M, 1);
 
-  fail_unless( !strcmp( Species_getName(s1), "Glucose"     ) );
-  fail_unless( !strcmp( Species_getName(s2), "Glucose_6_P" ) );
+  fail_unless( !strcmp( Species_getId(s1), "Glucose"     ) );
+  fail_unless( !strcmp( Species_getId(s2), "Glucose_6_P" ) );
 }
 END_TEST
 
 
 START_TEST (test_Model_getSpeciesById)
 {
-  Species_t *s1 = Species_create();
-  Species_t *s2 = Species_create();
+  Species_t *s1 = Species_create(2, 4);
+  Species_t *s2 = Species_create(2, 4);
 
   Species_setId( s1, "Glucose"     );
   Species_setId( s2, "Glucose_6_P" );
+
+  Species_setCompartment( s1, "c");
+  Species_setCompartment( s2, "c");
 
   Model_addSpecies(M, s1);
   Model_addSpecies(M, s2);
@@ -908,11 +961,11 @@ END_TEST
 
 START_TEST (test_Model_getParameter)
 {
-  Parameter_t *p1 = Parameter_create();
-  Parameter_t *p2 = Parameter_create();
+  Parameter_t *p1 = Parameter_create(2, 4);
+  Parameter_t *p2 = Parameter_create(2, 4);
 
-  Parameter_setName(p1, "Km1");
-  Parameter_setName(p2, "Km2");
+  Parameter_setId(p1, "Km1");
+  Parameter_setId(p2, "Km2");
 
   Model_addParameter(M, p1);
   Model_addParameter(M, p2);
@@ -922,16 +975,16 @@ START_TEST (test_Model_getParameter)
   p1 = Model_getParameter(M, 0);
   p2 = Model_getParameter(M, 1);
 
-  fail_unless( !strcmp(Parameter_getName(p1), "Km1") );
-  fail_unless( !strcmp(Parameter_getName(p2), "Km2") );
+  fail_unless( !strcmp(Parameter_getId(p1), "Km1") );
+  fail_unless( !strcmp(Parameter_getId(p2), "Km2") );
 }
 END_TEST
 
 
 START_TEST (test_Model_getParameterById)
 {
-  Parameter_t *p1 = Parameter_create();
-  Parameter_t *p2 = Parameter_create();
+  Parameter_t *p1 = Parameter_create(2, 4);
+  Parameter_t *p2 = Parameter_create(2, 4);
 
   Parameter_setId( p1, "Km1" );
   Parameter_setId( p2, "Km2" );
@@ -950,10 +1003,14 @@ END_TEST
 
 START_TEST (test_Model_getRules)
 {
-  Rule_t *ar  = Rule_createAlgebraic();
-  Rule_t *scr = Rule_createAssignment();
-  Rule_t *cvr = Rule_createAssignment();
-  Rule_t *pr  = Rule_createAssignment();
+  Rule_t *ar  = Rule_createAlgebraic(2, 4);
+  Rule_t *scr = Rule_createAssignment(2, 4);
+  Rule_t *cvr = Rule_createAssignment(2, 4);
+  Rule_t *pr  = Rule_createAssignment(2, 4);
+
+  Rule_setVariable(scr, "r2");
+  Rule_setVariable(cvr, "r3");
+  Rule_setVariable(pr, "r4");
 
 
   Rule_setFormula(  ar , "x + 1"         );
@@ -983,11 +1040,11 @@ END_TEST
 
 START_TEST (test_Model_getReaction)
 {
-  Reaction_t *r1 = Reaction_create();
-  Reaction_t *r2 = Reaction_create();
+  Reaction_t *r1 = Reaction_create(2, 4);
+  Reaction_t *r2 = Reaction_create(2, 4);
 
-  Reaction_setName(r1, "reaction_1");
-  Reaction_setName(r2, "reaction_2");
+  Reaction_setId(r1, "reaction_1");
+  Reaction_setId(r2, "reaction_2");
 
   Model_addReaction(M, r1);
   Model_addReaction(M, r2);
@@ -997,16 +1054,16 @@ START_TEST (test_Model_getReaction)
   r1 = Model_getReaction(M, 0);
   r2 = Model_getReaction(M, 1);
 
-  fail_unless( !strcmp(Reaction_getName(r1), "reaction_1") );
-  fail_unless( !strcmp(Reaction_getName(r2), "reaction_2") );
+  fail_unless( !strcmp(Reaction_getId(r1), "reaction_1") );
+  fail_unless( !strcmp(Reaction_getId(r2), "reaction_2") );
 }
 END_TEST
 
 
 START_TEST (test_Model_getReactionById)
 {
-  Reaction_t *r1 = Reaction_create();
-  Reaction_t *r2 = Reaction_create();
+  Reaction_t *r1 = Reaction_create(2, 4);
+  Reaction_t *r2 = Reaction_create(2, 4);
 
   Reaction_setId( r1, "reaction_1" );
   Reaction_setId( r2, "reaction_2" );
@@ -1025,8 +1082,8 @@ END_TEST
 /* THIS IS NOT LOGICAL BUT NEEDS A WHOLE MODEL TO TEST */
 START_TEST (test_KineticLaw_getParameterById)
 {
-  Parameter_t *k1 = Parameter_create();
-  Parameter_t *k2 = Parameter_create();
+  Parameter_t *k1 = Parameter_create(2, 4);
+  Parameter_t *k2 = Parameter_create(2, 4);
 
   Parameter_setId(k1, "k1");
   Parameter_setId(k2, "k2");
@@ -1037,14 +1094,15 @@ START_TEST (test_KineticLaw_getParameterById)
   Model_addParameter(M, k1);
   Model_addParameter(M, k2);
 
-  Reaction_t *r1 = Reaction_create();
+  Reaction_t *r1 = Reaction_create(2, 4);
 
   Reaction_setId( r1, "reaction_1" );
 
-  KineticLaw_t *kl = KineticLaw_createWithFormula("k1 * X0");
+  KineticLaw_t *kl = KineticLaw_create(2, 4);
+  KineticLaw_setFormula(kl, "k1 * X0");
   
-  Parameter_t *k3 = Parameter_create();
-  Parameter_t *k4 = Parameter_create();
+  Parameter_t *k3 = Parameter_create(2, 4);
+  Parameter_t *k4 = Parameter_create(2, 4);
 
   Parameter_setId(k3, "k1");
   Parameter_setId(k4, "k2");
@@ -1070,8 +1128,13 @@ END_TEST
 
 START_TEST (test_Model_getEventById)
 {
-  Event_t *e1 = Event_create();
-  Event_t *e2 = Event_create();
+  Event_t *e1 = Event_create(2, 4);
+  Event_t *e2 = Event_create(2, 4);
+  Trigger_t *t = Trigger_create(2, 4);
+  Event_setTrigger(e1, t);
+  Event_setTrigger(e2, t);
+  Event_createEventAssignment(e1);
+  Event_createEventAssignment(e2);
 
   Event_setId( e1, "e1" );
   Event_setId( e2, "e2" );
@@ -1090,9 +1153,17 @@ END_TEST
 
 START_TEST (test_Model_getNumSpeciesWithBoundaryCondition)
 {
-  Species_t *s1 = Species_createWith("s1", "c");
-  Species_t *s2 = Species_createWith("s2", "c");
-  Species_t *s3 = Species_createWith("s3", "c");
+  Species_t *s1 = Species_create(2, 4);
+  Species_t *s2 = Species_create(2, 4);
+  Species_t *s3 = Species_create(2, 4);
+
+  Species_setId(s1, "s1");
+  Species_setId(s2, "s2");
+  Species_setId(s3, "s3");
+
+  Species_setCompartment(s1, "c1");
+  Species_setCompartment(s2, "c2");
+  Species_setCompartment(s3, "c3");
 
   Species_setBoundaryCondition(s1, 1);
   Species_setBoundaryCondition(s2, 0);
@@ -1120,13 +1191,15 @@ START_TEST (test_Model_getNumSpeciesWithBoundaryCondition)
 END_TEST
 
 
-START_TEST (test_Model_createWithLevelVersionAndNamespace)
+START_TEST (test_Model_createWithNS )
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
-  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "testsbml");
+  SBMLNamespaces_t *sbmlns = SBMLNamespaces_create(2,1);
+  SBMLNamespaces_addNamespaces(sbmlns,xmlns);
 
   Model_t *object = 
-    Model_createWithLevelVersionAndNamespaces(2, 1, xmlns);
+    Model_createWithNS (sbmlns);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_MODEL );
@@ -1138,9 +1211,283 @@ START_TEST (test_Model_createWithLevelVersionAndNamespace)
   fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
 
   fail_unless( Model_getNamespaces     (object) != NULL );
-  fail_unless( XMLNamespaces_getLength(Model_getNamespaces(object)) == 1 );
+  fail_unless( XMLNamespaces_getLength(Model_getNamespaces(object)) == 2 );
 
   Model_free(object);
+}
+END_TEST
+
+START_TEST (test_Model_removeFunctionDefinition)
+{
+  FunctionDefinition_t *o1, *o2, *o3; 
+
+  o1 = Model_createFunctionDefinition(M);
+  o2 = Model_createFunctionDefinition(M);
+  o3 = Model_createFunctionDefinition(M);
+  FunctionDefinition_setId(o3,"test");
+
+  fail_unless( Model_removeFunctionDefinition(M,0) == o1 );
+  fail_unless( Model_getNumFunctionDefinitions(M)  == 2  );
+  fail_unless( Model_removeFunctionDefinition(M,0) == o2 );
+  fail_unless( Model_getNumFunctionDefinitions(M)  == 1  );
+  fail_unless( Model_removeFunctionDefinitionById(M,"test") == o3 );
+  fail_unless( Model_getNumFunctionDefinitions(M)  == 0  );
+
+  FunctionDefinition_free(o1);
+  FunctionDefinition_free(o2);
+  FunctionDefinition_free(o3);
+}
+END_TEST
+
+
+START_TEST (test_Model_removeUnitDefinition)
+{
+  UnitDefinition_t *o1, *o2, *o3;
+
+  o1 = Model_createUnitDefinition(M);
+  o2 = Model_createUnitDefinition(M);
+  o3 = Model_createUnitDefinition(M);
+  UnitDefinition_setId(o3,"test");
+
+  fail_unless( Model_removeUnitDefinition(M,0) == o1 );
+  fail_unless( Model_getNumUnitDefinitions(M)  == 2  );
+  fail_unless( Model_removeUnitDefinition(M,0) == o2 );
+  fail_unless( Model_getNumUnitDefinitions(M)  == 1  );
+  fail_unless( Model_removeUnitDefinitionById(M,"test") == o3 );
+  fail_unless( Model_getNumUnitDefinitions(M)  == 0  );
+
+  UnitDefinition_free(o1);
+  UnitDefinition_free(o2);
+  UnitDefinition_free(o3);
+}
+END_TEST
+
+
+START_TEST (test_Model_removeCompartmentType)
+{
+  CompartmentType_t *o1, *o2, *o3;
+
+  o1 = Model_createCompartmentType(M);
+  o2 = Model_createCompartmentType(M);
+  o3 = Model_createCompartmentType(M);
+  CompartmentType_setId(o3,"test");
+
+  fail_unless( Model_removeCompartmentType(M,0) == o1 );
+  fail_unless( Model_getNumCompartmentTypes(M)  == 2  );
+  fail_unless( Model_removeCompartmentType(M,0) == o2 );
+  fail_unless( Model_getNumCompartmentTypes(M)  == 1  );
+  fail_unless( Model_removeCompartmentTypeById(M,"test") == o3 );
+  fail_unless( Model_getNumCompartmentTypes(M)  == 0  );
+
+  CompartmentType_free(o1);
+  CompartmentType_free(o2);
+  CompartmentType_free(o3);
+}
+END_TEST
+
+
+START_TEST (test_Model_removeSpeciesType)
+{
+  SpeciesType_t *o1, *o2, *o3;
+
+  o1 = Model_createSpeciesType(M);
+  o2 = Model_createSpeciesType(M);
+  o3 = Model_createSpeciesType(M);
+  SpeciesType_setId(o3,"test");
+
+  fail_unless( Model_removeSpeciesType(M,0) == o1 );
+  fail_unless( Model_getNumSpeciesTypes(M)  == 2  );
+  fail_unless( Model_removeSpeciesType(M,0) == o2 );
+  fail_unless( Model_getNumSpeciesTypes(M)  == 1  );
+  fail_unless( Model_removeSpeciesTypeById(M,"test") == o3 );
+  fail_unless( Model_getNumSpeciesTypes(M)  == 0  );
+
+  SpeciesType_free(o1);
+  SpeciesType_free(o2);
+  SpeciesType_free(o3);
+}
+END_TEST
+
+
+START_TEST (test_Model_removeCompartment)
+{
+  Compartment_t *o1, *o2, *o3;
+
+  o1 = Model_createCompartment(M);
+  o2 = Model_createCompartment(M);
+  o3 = Model_createCompartment(M);
+  Compartment_setId(o3,"test");
+
+  fail_unless( Model_removeCompartment(M,0) == o1 );
+  fail_unless( Model_getNumCompartments(M)  == 2  );
+  fail_unless( Model_removeCompartment(M,0) == o2 );
+  fail_unless( Model_getNumCompartments(M)  == 1  );
+  fail_unless( Model_removeCompartmentById(M,"test") == o3 );
+  fail_unless( Model_getNumCompartments(M)  == 0  );
+
+  Compartment_free(o1);
+  Compartment_free(o2);
+  Compartment_free(o3);
+}
+END_TEST
+
+
+START_TEST (test_Model_removeSpecies)
+{
+  Species_t *o1, *o2, *o3;
+
+  o1 = Model_createSpecies(M);
+  o2 = Model_createSpecies(M);
+  o3 = Model_createSpecies(M);
+  Species_setId(o3,"test");
+
+  fail_unless( Model_removeSpecies(M,0) == o1 );
+  fail_unless( Model_getNumSpecies(M)  == 2  );
+  fail_unless( Model_removeSpecies(M,0) == o2 );
+  fail_unless( Model_getNumSpecies(M)  == 1  );
+  fail_unless( Model_removeSpeciesById(M,"test") == o3 );
+  fail_unless( Model_getNumSpecies(M)  == 0  );
+
+  Species_free(o1);
+  Species_free(o2);
+  Species_free(o3);
+}
+END_TEST
+
+
+START_TEST (test_Model_removeParameter)
+{
+  Parameter_t *o1, *o2, *o3;
+
+  o1 = Model_createParameter(M);
+  o2 = Model_createParameter(M);
+  o3 = Model_createParameter(M);
+  Parameter_setId(o3,"test");
+
+  fail_unless( Model_removeParameter(M,0) == o1 );
+  fail_unless( Model_getNumParameters(M)  == 2  );
+  fail_unless( Model_removeParameter(M,0) == o2 );
+  fail_unless( Model_getNumParameters(M)  == 1  );
+  fail_unless( Model_removeParameterById(M,"test") == o3 );
+  fail_unless( Model_getNumParameters(M)  == 0  );
+
+  Parameter_free(o1);
+  Parameter_free(o2);
+  Parameter_free(o3);
+}
+END_TEST
+
+
+START_TEST (test_Model_removeInitialAssignment)
+{
+  InitialAssignment_t *o1, *o2, *o3;
+
+  o1 = Model_createInitialAssignment(M);
+  o2 = Model_createInitialAssignment(M);
+  o3 = Model_createInitialAssignment(M);
+  InitialAssignment_setSymbol(o3,"test");
+
+  fail_unless( Model_removeInitialAssignment(M,0) == o1 );
+  fail_unless( Model_getNumInitialAssignments(M)  == 2  );
+  fail_unless( Model_removeInitialAssignment(M,0) == o2 );
+  fail_unless( Model_getNumInitialAssignments(M)  == 1  );
+  fail_unless( Model_removeInitialAssignmentBySym(M,"test") == o3 );
+  fail_unless( Model_getNumInitialAssignments(M)  == 0  );
+
+  InitialAssignment_free(o1);
+  InitialAssignment_free(o2);
+  InitialAssignment_free(o3);
+}
+END_TEST
+
+
+START_TEST (test_Model_removeRule)
+{
+  Rule_t *o1, *o2, *o3;
+
+  o1 = Model_createAssignmentRule(M);
+  o2 = Model_createAlgebraicRule(M);
+  o3 = Model_createRateRule(M);
+  Rule_setVariable(o3,"test");
+
+  fail_unless( Model_removeRule(M,0) == o1 );
+  fail_unless( Model_getNumRules(M)  == 2  );
+  fail_unless( Model_removeRule(M,0) == o2 );
+  fail_unless( Model_getNumRules(M)  == 1  );
+  fail_unless( Model_removeRuleByVar(M,"test") == o3 );
+  fail_unless( Model_getNumRules(M)  == 0  );
+
+  Rule_free(o1);
+  Rule_free(o2);
+  Rule_free(o3);
+}
+END_TEST
+
+
+START_TEST (test_Model_removeConstraint)
+{
+  Constraint_t *o1, *o2, *o3;
+
+  o1 = Model_createConstraint(M);
+  o2 = Model_createConstraint(M);
+  o3 = Model_createConstraint(M);
+
+  fail_unless( Model_removeConstraint(M,0) == o1 );
+  fail_unless( Model_getNumConstraints(M)  == 2  );
+  fail_unless( Model_removeConstraint(M,0) == o2 );
+  fail_unless( Model_getNumConstraints(M)  == 1  );
+  fail_unless( Model_removeConstraint(M,0) == o3 );
+  fail_unless( Model_getNumConstraints(M)  == 0  );
+
+  Constraint_free(o1);
+  Constraint_free(o2);
+  Constraint_free(o3);
+}
+END_TEST
+
+
+START_TEST (test_Model_removeReaction)
+{
+  Reaction_t *o1, *o2, *o3;
+
+  o1 = Model_createReaction(M);
+  o2 = Model_createReaction(M);
+  o3 = Model_createReaction(M);
+  Reaction_setId(o3,"test");
+
+  fail_unless( Model_removeReaction(M,0) == o1 );
+  fail_unless( Model_getNumReactions(M)  == 2  );
+  fail_unless( Model_removeReaction(M,0) == o2 );
+  fail_unless( Model_getNumReactions(M)  == 1  );
+  fail_unless( Model_removeReactionById(M,"test") == o3 );
+  fail_unless( Model_getNumReactions(M)  == 0  );
+
+  Reaction_free(o1);
+  Reaction_free(o2);
+  Reaction_free(o3);
+}
+END_TEST
+
+
+START_TEST (test_Model_removeEvent)
+{
+  Event_t *o1, *o2, *o3;
+
+  o1 = Model_createEvent(M);
+  o2 = Model_createEvent(M);
+  o3 = Model_createEvent(M);
+  Event_setId(o3,"test");
+
+  fail_unless( Model_removeEvent(M,0) == o1 );
+  fail_unless( Model_getNumEvents(M)  == 2  );
+  fail_unless( Model_removeEvent(M,0) == o2 );
+  fail_unless( Model_getNumEvents(M)  == 1  );
+  fail_unless( Model_removeEventById(M,"test") == o3 );
+  fail_unless( Model_getNumEvents(M)  == 0  );
+
+  Event_free(o1);
+  Event_free(o2);
+  Event_free(o3);
 }
 END_TEST
 
@@ -1156,7 +1503,7 @@ create_suite_Model (void)
 
   tcase_add_test( t, test_Model_create         );
   tcase_add_test( t, test_Model_free_NULL      );
-  tcase_add_test( t, test_Model_createWith     );
+  //tcase_add_test( t, test_Model_createWith     );
   tcase_add_test( t, test_Model_setId          );
   tcase_add_test( t, test_Model_setName        );
 
@@ -1229,7 +1576,24 @@ create_suite_Model (void)
 
   tcase_add_test( t, test_Model_getNumSpeciesWithBoundaryCondition );
 
-  tcase_add_test( t, test_Model_createWithLevelVersionAndNamespace        );
+  tcase_add_test( t, test_Model_createWithNS         );
+
+  /**
+   * Model_removeXXX() methods
+   */
+  tcase_add_test( t, test_Model_removeFunctionDefinition  );
+  tcase_add_test( t, test_Model_removeUnitDefinition      );
+  tcase_add_test( t, test_Model_removeCompartmentType      );
+  tcase_add_test( t, test_Model_removeSpeciesType         );
+  tcase_add_test( t, test_Model_removeCompartment         );
+  tcase_add_test( t, test_Model_removeSpecies             );
+  tcase_add_test( t, test_Model_removeParameter           );
+  tcase_add_test( t, test_Model_removeInitialAssignment   );
+  tcase_add_test( t, test_Model_removeRule                );
+  tcase_add_test( t, test_Model_removeConstraint          );
+  tcase_add_test( t, test_Model_removeReaction            );
+  tcase_add_test( t, test_Model_removeEvent               );
+
   suite_add_tcase(s, t);
 
   return s;

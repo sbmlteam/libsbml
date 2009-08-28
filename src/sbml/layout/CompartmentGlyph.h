@@ -57,6 +57,7 @@
 #include <string>
 #include <sbml/layout/GraphicalObject.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN CompartmentGlyph : public GraphicalObject
 {
@@ -290,6 +291,7 @@ CompartmentGlyph_clone (const CompartmentGlyph_t *m);
 
 
 END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 
 #endif  /* !SWIG */

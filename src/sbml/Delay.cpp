@@ -45,38 +45,38 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
-/*
- * Creates a new Delay, optionally with the given "math".
- */
-Delay::Delay (   const ASTNode* math ) :
-   SBase		  (  -1 )
+Delay::Delay (unsigned int level, unsigned int version) :
+   SBase ( level, version )
  , mMath      ( 0              )
+ , mInternalId ( "" )
 {
-  if (math) mMath = math->deepCopy();
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
 
-Delay::Delay (unsigned int level, unsigned int version,
-                          XMLNamespaces *xmlns) :
-   SBase		  (  -1 )
+Delay::Delay (SBMLNamespaces * sbmlns) :
+   SBase ( sbmlns )
  , mMath      ( 0              )
+ , mInternalId ( "" )
 {
-  mObjectLevel = level;
-  mObjectVersion = version;
-  if (xmlns) setNamespaces(xmlns);;
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
+
+/** @cond doxygen-libsbml-internal */
+
+/* constructor for validators */
+Delay::Delay() :
+  SBase()
+{
+}
+
+/** @endcond doxygen-libsbml-internal */
                           
-Delay::Delay (SBMLNamespaces *sbmlns) :
-   SBase		  (  -1 )
- , mMath      ( 0              )
-{
-  mObjectLevel = sbmlns->getLevel();
-  mObjectVersion = sbmlns->getVersion();
-  setNamespaces(sbmlns->getNamespaces());
-}
-
 
 /*
  * Destroys this Delay.
@@ -93,8 +93,13 @@ Delay::~Delay ()
 Delay::Delay (const Delay& orig) :
    SBase          ( orig                 )
  , mMath          ( 0                   )
+ , mInternalId    (orig.mInternalId  )
 {
-  if (orig.mMath) mMath = orig.mMath->deepCopy();
+  if (orig.mMath) 
+  {
+    mMath = orig.mMath->deepCopy();
+    mMath->setParentSBMLObject(this);
+  }
 }
 
 
@@ -106,12 +111,18 @@ Delay& Delay::operator=(const Delay& rhs)
   if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
+    this->mInternalId = rhs.mInternalId;
 
     delete mMath;
     if (rhs.mMath) 
+    {
       mMath = rhs.mMath->deepCopy();
+      mMath->setParentSBMLObject(this);
+    }
     else
+    {
       mMath = 0;
+    }
   }
 
   return *this;
@@ -163,17 +174,31 @@ Delay::isSetMath () const
 /*
  * Sets the math of this Delay to a copy of the given ASTNode.
  */
-void
+int
 Delay::setMath (const ASTNode* math)
 {
-  if (mMath == math) return;
-
-
-  delete mMath;
-  mMath = (math != 0) ? math->deepCopy() : 0;
-  if (mMath) mMath->setParentSBMLObject(this);
+  if (mMath == math) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (math == NULL)
+  {
+    delete mMath;
+    mMath = 0;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (!(math->isWellFormedASTNode()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else
+  {
+    delete mMath;
+    mMath = (math != 0) ? math->deepCopy() : 0;
+    if (mMath) mMath->setParentSBMLObject(this);
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
-
 
 /*
   * Calculates and returns a UnitDefinition that expresses the units
@@ -335,6 +360,20 @@ Delay::getElementPosition () const
   return 1;
 }
 /** @endcond doxygen-libsbml-internal */
+
+
+bool 
+Delay::hasRequiredElements() const
+{
+  bool allPresent = true;
+
+  /* required attributes for delay: math */
+
+  if (!isSetMath())
+    allPresent = false;
+
+  return allPresent;
+}
 
 
 /** @cond doxygen-libsbml-internal */
@@ -509,73 +548,72 @@ Delay::writeElements (XMLOutputStream& stream) const
 
 
 /**
- * Creates a new, empty Delay_t structure.
+ * Creates a new Delay_t structure using the given SBML @p level
+ * and @p version values.
  *
- * @return the new Delay_t structure.
- */
-LIBSBML_EXTERN
-Delay_t *
-Delay_create (void)
-{
-  return new(nothrow) Delay;
-}
-
-
-/**
- * Creates a new Delay_t structure with the given math.
- *
- * This is functionally equivalent to
- * @code
- *   Delay_t *t = Delay_create();
- *   Delay_setMath(math);
- * @endcode.
- *
- * @param math an ASTNode_t structure representing the mathematical 
- * formula for the delay expressions.
- *
- * @return the newly constructed Delay_t structure.
- */
-LIBSBML_EXTERN
-Delay_t *
-Delay_createWithMath (const ASTNode_t *math)
-{
-  return new(nothrow) Delay(math);
-}
-
-
-/** @cond doxygen-libsbml-internal */
-/**
- * Creates a new Delay_t structure using the given SBML @p 
- * level and @p version values and a set of XMLNamespaces.
- *
- * @param level an unsigned int, the SBML Level to assign to this 
+ * @param level an unsigned int, the SBML Level to assign to this
  * Delay
  *
  * @param version an unsigned int, the SBML Version to assign to this
  * Delay
- * 
- * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
- * assign to this Delay
  *
  * @return a pointer to the newly created Delay_t structure.
  *
- * @note Once a Delay has been added to an SBMLDocument, the @p 
- * level, @p version and @p xmlns namespaces for the document @em override 
- * those used to create the Delay.  Despite this, the ability 
- * to supply the values at creation time is an important aid to creating 
- * valid SBML.  Knowledge of the intended SBML Level and Version 
- * determine whether it is valid to assign a particular value to an 
- * attribute, or whether it is valid to add an object to an existing 
+ * @note Once a Delay has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the Delay.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
+ */
+LIBSBML_EXTERN
+Delay_t *
+Delay_create (unsigned int level, unsigned int version)
+{
+  try
+  {
+    Delay* obj = new Delay(level,version);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
+
+
+/**
+ * Creates a new Delay_t structure using the given
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this Delay
+ *
+ * @return a pointer to the newly created Delay_t structure.
+ *
+ * @note Once a Delay has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the Delay.  Despite this, the ability to supply the values at creation time
+ * is an important aid to creating valid SBML.  Knowledge of the intended SBML
+ * Level and Version determine whether it is valid to assign a particular value
+ * to an attribute, or whether it is valid to add an object to an existing
  * SBMLDocument.
  */
 LIBSBML_EXTERN
 Delay_t *
-Delay_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns)
+Delay_createWithNS (SBMLNamespaces_t* sbmlns)
 {
-  return new(nothrow) Delay(level, version, xmlns);
+  try
+  {
+    Delay* obj = new Delay(sbmlns);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
 }
-/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -661,12 +699,19 @@ Delay_isSetMath (const Delay_t *t)
  *
  * @param t the Delay_t structure to set.
  * @param math an ASTNode representing a formula tree.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
-void
+int
 Delay_setMath (Delay_t *t, const ASTNode_t *math)
 {
-  t->setMath(math);
+  return t->setMath(math);
 }
 
 /**
@@ -719,5 +764,6 @@ Delay_containsUndeclaredUnits(Delay_t *d)
   return static_cast<int>(d->containsUndeclaredUnits());
 }
 
-
 /** @endcond doxygen-c-only */
+
+LIBSBML_CPP_NAMESPACE_END

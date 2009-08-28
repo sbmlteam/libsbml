@@ -42,9 +42,15 @@
 #include <sbml/ListOf.h>
 #include <sbml/SBase.h>
 
+#ifdef USE_LAYOUT
+ #include <sbml/layout/LineSegment.h>
+#endif
+
 /** @cond doxygen-ignored */
 
 using namespace std;
+
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @endcond doxygen-ignored */
 
@@ -52,95 +58,34 @@ using namespace std;
  * elements permitted on the body element of xhtml
  */
 
-static const char * XHTML_ELEMENTS[] =
-{
-      "a"
-    , "abbr"
-    , "acronym"
-    , "address"
-    , "applet"
-    , "b"
-    , "basefont"
-    , "bdo"
-    , "big"
-    , "blockquote"
-    , "br"
-    , "button"
-    , "center"
-    , "cite"
-    , "code"
-    , "del"
-    , "dfn"
-    , "dir"
-    , "div"
-    , "dl"
-    , "em"
-    , "fieldset"
-    , "font"
-    , "form"
-    , "h1"
-    , "h2"
-    , "h3"
-    , "h4"
-    , "h5"
-    , "h6"
-    , "hr"
-    , "i"
-    , "iframe"
-    , "img"
-    , "input"
-    , "ins"
-    , "isindex"
-    , "kbd"
-    , "label"
-    , "map"
-    , "menu"
-    , "noframes"
-    , "noscript"
-    , "object"
-    , "ol"
-    , "p"
-    , "pre"
-    , "q"
-    , "s"
-    , "samp"
-    , "script"
-    , "select"
-    , "small"
-    , "span"
-    , "strike"
-    , "strong"
-    , "sub"
-    , "sup"
-    , "table"
-    , "textarea"
-    , "tt"
-    , "u"
-    , "ul"
-    , "var"
-};
+/** @cond doxygen-libsbml-internal */
 
+SBMLConstructorException::SBMLConstructorException() :
+      std::invalid_argument("Level/version/namespaces combination is invalid")
+{
+}
+
+
+/** @endcond doxygen-libsbml-internal */
 
 /** @cond doxygen-libsbml-internal */
 /*
  * Only subclasses may create SBase objects.
  */
 SBase::SBase (const std::string& id, const std::string& name, int sbo) :
-   mId        ( id   )
- , mName      ( name )
- , mNotes     ( 0 )
+   mNotes     ( 0 )
  , mAnnotation( 0 )
- , mNamespaces( 0 )
  , mSBML      ( 0 )
- , mObjectLevel (0)
- , mObjectVersion(0)
+ , mSBMLNamespaces (0)
  , mSBOTerm   ( sbo )
  , mLine      ( 0 )
  , mColumn    ( 0 )
  , mParentSBMLObject (0)
  , mCVTerms   ( 0 )
  , mHasBeenDeleted (false)
+ , mEmptyString ("")
 {
+  mSBMLNamespaces = new SBMLNamespaces();
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -150,22 +95,40 @@ SBase::SBase (const std::string& id, const std::string& name, int sbo) :
  * Creates a new SBase object with the given sboTerm.
  * Only subclasses may create SBase objects.
  */
-SBase::SBase (int sbo) :
-   mId        ( ""   )
- , mName      ( "" )
- , mNotes     ( 0 )
+SBase::SBase (unsigned int level, unsigned int version) :
+   mNotes     ( 0 )
  , mAnnotation( 0 )
- , mNamespaces( 0 )
  , mSBML      ( 0 )
- , mObjectLevel (0)
- , mObjectVersion(0)
- , mSBOTerm   ( sbo )
+ , mSBMLNamespaces (0)
+ , mSBOTerm   ( -1 )
  , mLine      ( 0 )
  , mColumn    ( 0 )
  , mParentSBMLObject (0)
  , mCVTerms   ( 0 )
  , mHasBeenDeleted (false)
+ , mEmptyString ("")
 {
+  mSBMLNamespaces = new SBMLNamespaces(level, version);
+}
+/*
+ * Creates a new SBase object with the given SBMLNamespaces.
+ * Only subclasses may create SBase objects.
+ */
+SBase::SBase (SBMLNamespaces *sbmlns) :
+   mNotes     ( 0 )
+ , mAnnotation( 0 )
+ , mSBML      ( 0 )
+ , mSBMLNamespaces (0)
+ , mSBOTerm   ( -1 )
+ , mLine      ( 0 )
+ , mColumn    ( 0 )
+ , mParentSBMLObject (0)
+ , mCVTerms   ( 0 )
+ , mHasBeenDeleted (false)
+ , mEmptyString ("")
+{
+  if (!sbmlns) throw SBMLConstructorException();
+  mSBMLNamespaces = sbmlns->clone();
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -176,8 +139,6 @@ SBase::SBase (int sbo) :
  */
 SBase::SBase(const SBase& orig)
 {
-  this->mId     = orig.mId;
-  this->mName   = orig.mName;
   this->mMetaId = orig.mMetaId;
 
   if(orig.mNotes) 
@@ -190,18 +151,17 @@ SBase::SBase(const SBase& orig)
   else
     this->mAnnotation = 0;
   
-  this->mObjectLevel       = orig.mObjectLevel;
-  this->mObjectVersion       = orig.mObjectVersion;
-  this->mSBML       = orig.mSBML;
+  this->mSBML       = NULL;
   this->mSBOTerm    = orig.mSBOTerm;
   this->mLine       = orig.mLine;
   this->mColumn     = orig.mColumn;
-  this->mParentSBMLObject = orig.mParentSBMLObject;
+  this->mParentSBMLObject = NULL;
 
-  if(orig.mNamespaces)
-    this->mNamespaces = new XMLNamespaces(*const_cast<SBase&>(orig).mNamespaces);
+  if(orig.mSBMLNamespaces)
+    this->mSBMLNamespaces = 
+    new SBMLNamespaces(*const_cast<SBase&>(orig).mSBMLNamespaces);
   else
-    this->mNamespaces = 0;
+    this->mSBMLNamespaces = 0;
 
   if(orig.mCVTerms)
   {
@@ -231,7 +191,7 @@ SBase::~SBase ()
 {
   if (mNotes)       delete mNotes;
   if (mAnnotation)  delete mAnnotation;
-  if (mNamespaces)  delete mNamespaces;
+  if (mSBMLNamespaces)  delete mSBMLNamespaces;
   if (mCVTerms)
   {  
     unsigned int size = mCVTerms->getSize();
@@ -248,8 +208,6 @@ SBase& SBase::operator=(const SBase& orig)
 {
   if(&orig!=this)
   {
-    this->mId     = orig.mId;
-    this->mName   = orig.mName;
     this->mMetaId = orig.mMetaId;
 
     delete this->mNotes;
@@ -266,22 +224,22 @@ SBase& SBase::operator=(const SBase& orig)
     else
       this->mAnnotation = 0;
 
-    this->mObjectLevel       = orig.mObjectLevel;
-    this->mObjectVersion       = orig.mObjectVersion;
     this->mSBML       = orig.mSBML;
     this->mSBOTerm    = orig.mSBOTerm;
     this->mLine       = orig.mLine;
     this->mColumn     = orig.mColumn;
     this->mParentSBMLObject = orig.mParentSBMLObject;
 
-    delete this->mNamespaces;
+    delete this->mSBMLNamespaces;
 
-    if(orig.mNamespaces)
-      this->mNamespaces = new XMLNamespaces(*const_cast<SBase&>(orig).mNamespaces);
+    if(orig.mSBMLNamespaces)
+      this->mSBMLNamespaces = 
+      new SBMLNamespaces(*const_cast<SBase&>(orig).mSBMLNamespaces);
     else
-      this->mNamespaces = 0;
+      this->mSBMLNamespaces = 0;
 
-    if (this->mCVTerms)
+
+    if(this->mCVTerms)
     {  
       unsigned int size = this->mCVTerms->getSize();
       while (size--) delete static_cast<CVTerm*>( this->mCVTerms->remove(0) );
@@ -305,7 +263,7 @@ SBase& SBase::operator=(const SBase& orig)
 
     this->mHasBeenDeleted = orig.mHasBeenDeleted;
   }
-  
+
   return *this;
 }
 
@@ -330,25 +288,247 @@ SBase::getMetaId ()
 }
 
 
+/** @cond doxygen-libsbml-internal */
+
 /*
+ * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
+ *
  * @return the id of this SBML object.
  */
 const string&
 SBase::getId () const
 {
-  return mId;
+  SBMLTypeCode_t type = this->getTypeCode();
+
+  switch(type)
+  {
+  case SBML_COMPARTMENT:
+    return static_cast <const Compartment *> (this)->getId();
+    break;
+
+  case SBML_COMPARTMENT_TYPE:
+    return static_cast <const CompartmentType *> (this)->getId();
+    break;
+
+  case SBML_EVENT:
+    return static_cast <const Event *> (this)->getId();
+    break;
+
+  case SBML_EVENT_ASSIGNMENT:
+    return static_cast <const EventAssignment *> (this)->getVariable();
+    break;
+
+  case SBML_FUNCTION_DEFINITION:
+    return static_cast <const FunctionDefinition *> (this)->getId();
+    break;
+
+  case SBML_INITIAL_ASSIGNMENT:
+    return static_cast <const InitialAssignment *> (this)->getSymbol();
+    break;
+
+  case SBML_MODEL:
+    return static_cast <const Model *> (this)->getId();
+    break;
+
+  case SBML_PARAMETER:
+    return static_cast <const Parameter *> (this)->getId();
+    break;
+
+  case SBML_REACTION:
+    return static_cast <const Reaction *> (this)->getId();
+    break;
+
+  case SBML_SPECIES:
+    return static_cast <const Species *> (this)->getId();
+    break;
+
+  case SBML_SPECIES_REFERENCE:
+    return static_cast <const SpeciesReference *> (this)->getId();
+    break;
+
+  case SBML_SPECIES_TYPE:
+    return static_cast <const SpeciesType *> (this)->getId();
+    break;
+
+  case SBML_MODIFIER_SPECIES_REFERENCE:
+    return static_cast <const ModifierSpeciesReference *> (this)->getId();
+    break;
+
+  case SBML_UNIT_DEFINITION:
+    return static_cast <const UnitDefinition *> (this)->getId();
+    break;
+
+  case SBML_ASSIGNMENT_RULE:
+    return static_cast <const AssignmentRule *> (this)->getVariable();
+    break;
+
+  case SBML_RATE_RULE:
+    return static_cast <const RateRule *> (this)->getVariable();
+    break;
+
+#ifdef USE_LAYOUT
+
+  case SBML_LAYOUT_BOUNDINGBOX:
+    return static_cast <const BoundingBox *> (this)->getId();
+    break;
+
+  case SBML_LAYOUT_GRAPHICALOBJECT:
+    return static_cast <const GraphicalObject *> (this)->getId();
+    break;
+
+  case SBML_LAYOUT_LAYOUT:
+    return static_cast <const Layout *> (this)->getId();
+    break;
+
+  case SBML_LAYOUT_LINESEGMENT:
+    return static_cast <const LineSegment *> (this)->getId();
+    break;
+#endif  /* USE_LAYOUT */
+
+  default:
+    return mEmptyString;
+    break;
+  }
+
+  return mEmptyString;
 }
 
 
+
 /*
+ * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
+ *
  * @return the name of this SBML object.
  */
 const string&
 SBase::getName () const
 {
-  return (getLevel() == 1) ? mId : mName;
+  SBMLTypeCode_t type = this->getTypeCode();
+
+  if (getLevel() == 1)
+  {
+    switch(type)
+    {
+      case SBML_COMPARTMENT:
+        return static_cast <const Compartment *> (this)->getId();
+        break;
+
+      case SBML_MODEL:
+        return static_cast <const Model *> (this)->getId();
+        break;
+
+      case SBML_PARAMETER:
+        return static_cast <const Parameter *> (this)->getId();
+        break;
+
+      case SBML_REACTION:
+        return static_cast <const Reaction *> (this)->getId();
+        break;
+
+      case SBML_SPECIES:
+        return static_cast <const Species *> (this)->getId();
+        break;
+
+      case SBML_UNIT_DEFINITION:
+        return static_cast <const UnitDefinition *> (this)->getId();
+        break;
+
+      case SBML_ASSIGNMENT_RULE:
+        return static_cast <const AssignmentRule *> (this)->getVariable();
+        break;
+
+      case SBML_RATE_RULE:
+        return static_cast <const RateRule *> (this)->getVariable();
+        break;
+
+    #ifdef USE_LAYOUT
+
+      case SBML_LAYOUT_BOUNDINGBOX:
+        return static_cast <const BoundingBox *> (this)->getId();
+        break;
+
+      case SBML_LAYOUT_GRAPHICALOBJECT:
+        return static_cast <const GraphicalObject *> (this)->getId();
+        break;
+
+      case SBML_LAYOUT_LAYOUT:
+        return static_cast <const Layout *> (this)->getId();
+        break;
+
+      case SBML_LAYOUT_LINESEGMENT:
+        return static_cast <const LineSegment *> (this)->getId();
+        break;
+    #endif  /* USE_LAYOUT */
+
+      default:
+        return mEmptyString;
+        break;
+    }
+
+    return mEmptyString;
+  }
+  else
+  {
+    switch(type)
+    {
+    case SBML_COMPARTMENT:
+      return static_cast <const Compartment *> (this)->getName();
+      break;
+
+    case SBML_COMPARTMENT_TYPE:
+      return static_cast <const CompartmentType *> (this)->getName();
+      break;
+
+    case SBML_EVENT:
+      return static_cast <const Event *> (this)->getName();
+      break;
+
+    case SBML_FUNCTION_DEFINITION:
+      return static_cast <const FunctionDefinition *> (this)->getName();
+      break;
+
+    case SBML_MODEL:
+      return static_cast <const Model *> (this)->getName();
+      break;
+
+    case SBML_PARAMETER:
+      return static_cast <const Parameter *> (this)->getName();
+      break;
+
+    case SBML_REACTION:
+      return static_cast <const Reaction *> (this)->getName();
+      break;
+
+    case SBML_SPECIES:
+      return static_cast <const Species *> (this)->getName();
+      break;
+
+    case SBML_SPECIES_REFERENCE:
+      return static_cast <const SpeciesReference *> (this)->getName();
+      break;
+
+    case SBML_SPECIES_TYPE:
+      return static_cast <const SpeciesType *> (this)->getName();
+      break;
+
+    case SBML_MODIFIER_SPECIES_REFERENCE:
+      return static_cast <const ModifierSpeciesReference *> (this)->getName();
+      break;
+
+    case SBML_UNIT_DEFINITION:
+      return static_cast <const UnitDefinition *> (this)->getName();
+      break;
+
+    default:
+      return mEmptyString;
+      break;
+    }
+
+    return mEmptyString;
+  }
 }
 
+/** @endcond doxygen-libsbml-internal */
 
 /*
  * @return the notes of this SBML object.
@@ -398,7 +578,10 @@ SBase::getAnnotationString ()
 XMLNamespaces*
 SBase::getNamespaces() const
 {
-  return mNamespaces;
+  if (mSBML)
+    return mSBML->getSBMLNamespaces()->getNamespaces();
+  else
+    return mSBMLNamespaces->getNamespaces();
 }
 
 
@@ -499,7 +682,7 @@ SBase::getSBOTerm () const
 
 /*
  * @return the sboTerm as a string.  If not set,
- * return NULL. 
+ * return an empty string.
  */
 std::string
 SBase::getSBOTermID () const
@@ -539,27 +722,35 @@ SBase::isSetMetaId () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
+
 /*
+ * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
+ *
  * @return true if the id of this SBML object has been set, false
  * otherwise.
  */
 bool
 SBase::isSetId () const
 {
-  return (mId.empty() == false);
+  return (getId().empty() == false);
 }
 
 
 /*
+ * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
+ *
  * @return true if the name of this SBML object has been set, false
  * otherwise.
  */
 bool
 SBase::isSetName () const
 {
-  return (getLevel() == 1) ? (mId.empty() == false) : 
-                            (mName.empty() == false);
+  return (getName().empty() == false);
 }
+
+
+/** @endcond doxygen-libsbml-internal */
 
 
 /*
@@ -599,105 +790,330 @@ SBase::isSetSBOTerm () const
 /*
  * Sets the metaid field of the given SBML object to a copy of metaid.
  */
-void
+int
 SBase::setMetaId (const std::string& metaid)
 {
-  mMetaId = metaid;
+  if (getLevel() == 1)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else if (metaid.empty())
+  {
+    mMetaId.erase();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (!(SyntaxChecker::isValidXMLID(metaid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mMetaId = metaid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
+/** @cond doxygen-libsbml-internal */
+
 /*
+ * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
+ *
  * Sets the id of this SBML object to a copy of sid.
  */
-void
+int
 SBase::setId (const std::string& sid)
 {
-  mId = sid;
+  SBMLTypeCode_t type = this->getTypeCode();
+
+  switch(type)
+  {
+  case SBML_COMPARTMENT:
+    return static_cast <Compartment *> (this)->setId(sid);
+    break;
+
+  case SBML_COMPARTMENT_TYPE:
+    return static_cast <CompartmentType *> (this)->setId(sid);
+    break;
+
+  case SBML_EVENT:
+    return static_cast <Event *> (this)->setId(sid);
+    break;
+
+  case SBML_EVENT_ASSIGNMENT:
+    return static_cast <EventAssignment *> (this)->setVariable(sid);
+    break;
+
+  case SBML_FUNCTION_DEFINITION:
+    return static_cast <FunctionDefinition *> (this)->setId(sid);
+    break;
+
+  case SBML_INITIAL_ASSIGNMENT:
+    return static_cast <InitialAssignment *> (this)->setSymbol(sid);
+    break;
+
+  case SBML_MODEL:
+    return static_cast <Model *> (this)->setId(sid);
+    break;
+
+  case SBML_PARAMETER:
+    return static_cast <Parameter *> (this)->setId(sid);
+    break;
+
+  case SBML_REACTION:
+    return static_cast <Reaction *> (this)->setId(sid);
+    break;
+
+  case SBML_SPECIES:
+    return static_cast <Species *> (this)->setId(sid);
+    break;
+
+  case SBML_SPECIES_REFERENCE:
+    return static_cast <SpeciesReference *> (this)->setId(sid);
+    break;
+
+  case SBML_SPECIES_TYPE:
+    return static_cast <SpeciesType *> (this)->setId(sid);
+    break;
+
+  case SBML_MODIFIER_SPECIES_REFERENCE:
+    return static_cast <ModifierSpeciesReference *> (this)->setId(sid);
+    break;
+
+  case SBML_UNIT_DEFINITION:
+    return static_cast <UnitDefinition *> (this)->setId(sid);
+    break;
+
+  case SBML_ASSIGNMENT_RULE:
+    return static_cast <AssignmentRule *> (this)->setVariable(sid);
+    break;
+
+  case SBML_RATE_RULE:
+    return static_cast <RateRule *> (this)->setVariable(sid);
+    break;
+
+#ifdef USE_LAYOUT
+
+  case SBML_LAYOUT_BOUNDINGBOX:
+    return static_cast <BoundingBox *> (this)->setId(sid);
+    break;
+
+  case SBML_LAYOUT_GRAPHICALOBJECT:
+    return static_cast <GraphicalObject *> (this)->setId(sid);
+    break;
+
+  case SBML_LAYOUT_LAYOUT:
+    return static_cast <Layout *> (this)->setId(sid);
+    break;
+
+  case SBML_LAYOUT_LINESEGMENT:
+    return static_cast <LineSegment *> (this)->setId(sid);
+    break;
+#endif  /* USE_LAYOUT */
+
+  default:
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+    break;
+  }
 }
 
 
 /*
+ * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
  * Sets the name of this SBML object to a copy of name.
  */
-void
+int
 SBase::setName (const std::string& name)
 {
-  if (getLevel() == 1) mId = name;
-  else mName = name;
+  SBMLTypeCode_t type = this->getTypeCode();
+
+  /* if this is setting an L2 name the type is string
+   * whereas if it is setting an L1 name its type is SId
+   */
+  if (getLevel() == 1)
+  {
+    if (!(SyntaxChecker::isValidSBMLSId(name)))
+    {
+      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    }
+    else
+    {
+      switch(type)
+      {
+      case SBML_COMPARTMENT:
+        return static_cast <Compartment *> (this)->setId(name);
+        break;
+
+      case SBML_MODEL:
+        return static_cast <Model *> (this)->setId(name);
+        break;
+
+      case SBML_PARAMETER:
+        return static_cast <Parameter *> (this)->setId(name);
+        break;
+
+      case SBML_REACTION:
+        return static_cast <Reaction *> (this)->setId(name);
+        break;
+
+      case SBML_SPECIES:
+        return static_cast <Species *> (this)->setId(name);
+        break;
+
+      case SBML_SPECIES_REFERENCE:
+        return static_cast <SpeciesReference *> (this)->setId(name);
+        break;
+
+      case SBML_UNIT_DEFINITION:
+        return static_cast <UnitDefinition *> (this)->setId(name);
+        break;
+
+      case SBML_ASSIGNMENT_RULE:
+        return static_cast <AssignmentRule *> (this)->setVariable(name);
+        break;
+
+      case SBML_RATE_RULE:
+        return static_cast <RateRule *> (this)->setVariable(name);
+        break;
+
+    #ifdef USE_LAYOUT
+
+      case SBML_LAYOUT_BOUNDINGBOX:
+        static_cast <BoundingBox *> (this)->setId(name);
+        return LIBSBML_OPERATION_SUCCESS;
+        break;
+
+      case SBML_LAYOUT_GRAPHICALOBJECT:
+        static_cast <GraphicalObject *> (this)->setId(name);
+        return LIBSBML_OPERATION_SUCCESS;
+        break;
+
+      case SBML_LAYOUT_LAYOUT:
+        static_cast <Layout *> (this)->setId(name);
+        return LIBSBML_OPERATION_SUCCESS;
+        break;
+
+      case SBML_LAYOUT_LINESEGMENT:
+        static_cast <LineSegment *> (this)->setId(name);
+        return LIBSBML_OPERATION_SUCCESS;
+        break;
+    #endif  /* USE_LAYOUT */
+
+      default:
+        return LIBSBML_UNEXPECTED_ATTRIBUTE;
+        break;
+      }
+    }
+  }
+  else
+  {
+    switch(type)
+    {
+    case SBML_COMPARTMENT:
+      return static_cast <Compartment *> (this)->setName(name);
+      break;
+
+    case SBML_COMPARTMENT_TYPE:
+      return static_cast <CompartmentType *> (this)->setName(name);
+      break;
+
+    case SBML_EVENT:
+      return static_cast <Event *> (this)->setName(name);
+      break;
+
+    case SBML_FUNCTION_DEFINITION:
+      return static_cast <FunctionDefinition *> (this)->setName(name);
+      break;
+
+    case SBML_MODEL:
+      return static_cast <Model *> (this)->setName(name);
+      break;
+
+    case SBML_PARAMETER:
+      return static_cast <Parameter *> (this)->setName(name);
+      break;
+
+    case SBML_REACTION:
+      return static_cast <Reaction *> (this)->setName(name);
+      break;
+
+    case SBML_SPECIES:
+      return static_cast <Species *> (this)->setName(name);
+      break;
+
+    case SBML_SPECIES_REFERENCE:
+      return static_cast <SpeciesReference *> (this)->setName(name);
+      break;
+
+    case SBML_SPECIES_TYPE:
+      return static_cast <SpeciesType *> (this)->setName(name);
+      break;
+
+    case SBML_MODIFIER_SPECIES_REFERENCE:
+      return static_cast <ModifierSpeciesReference *> (this)->setName(name);
+      break;
+
+    case SBML_UNIT_DEFINITION:
+      return static_cast <UnitDefinition *> (this)->setName(name);
+      break;
+
+    default:
+      return LIBSBML_UNEXPECTED_ATTRIBUTE;
+      break;
+    }
+  }
 }
+
+
+/** @endcond doxygen-libsbml-internal */
+
 
 /*
  * Sets the annotation of this SBML object to a copy of annotation.
  */
-void 
+int 
 SBase::setAnnotation (const XMLNode* annotation)
 {
   syncAnnotation();
-  if ( (mAnnotation != annotation) || !annotation)
+  if (annotation == NULL)
+  {
+    delete mAnnotation;
+    mAnnotation = 0;
+  }
+  //else if (!(math->isWellFormedASTNode()))
+  //{
+  //  return LIBSBML_INVALID_OBJECT;
+  //}
+  else if (mAnnotation != annotation)
   { 
     delete mAnnotation;
-    if (annotation)
+    // check for annotation tags and add if necessary
+    const string&  name = annotation->getName();
+    if (name != "annotation")
     {
-      // check for annotation tags and add if necessary
-      const string&  name = annotation->getName();
-      if (name != "annotation")
-      {
-        XMLToken ann_t = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
-        mAnnotation = new XMLNode(ann_t);
+      XMLToken ann_t = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
+      mAnnotation = new XMLNode(ann_t);
 
-        // The root node of the given XMLNode tree can be an empty XMLNode 
-        // (i.e. neither start, end, nor text XMLNode) if the given annotation was 
-        // converted from an XML string whose top level elements are neither 
-        // "html" nor "body" and not enclosed with <annotation>..</annotation> tags
-        // (e.g. <foo xmlns:foo="...">..</foo><bar xmlns:bar="...">..</bar> ) 
-        if (!annotation->isStart() && !annotation->isEnd() && !annotation->isText()) 
+      // The root node of the given XMLNode tree can be an empty XMLNode 
+      // (i.e. neither start, end, nor text XMLNode) if the given annotation was 
+      // converted from an XML string whose top level elements are neither 
+      // "html" nor "body" and not enclosed with <annotation>..</annotation> tags
+      // (e.g. <foo xmlns:foo="...">..</foo><bar xmlns:bar="...">..</bar> ) 
+      if (!annotation->isStart() && !annotation->isEnd() && !annotation->isText()) 
+      {
+        for (unsigned int i=0; i < annotation->getNumChildren(); i++)
         {
-          for (unsigned int i=0; i < annotation->getNumChildren(); i++)
-          {
-            mAnnotation->addChild(annotation->getChild(i));
-          }
-        }
-        else
-        {
-          mAnnotation->addChild(*annotation);
+          mAnnotation->addChild(annotation->getChild(i));
         }
       }
       else
       {
-        //
-        // (NOTES)
-        //
-        // If the given XMLNode is not a start element of annotaiton (e.g. </annotation>),
-        // fixes the element to an start element (i.e. <annotation> ).
-        //
-        // This fix had been performed in syncAnnotation() function in libSBML 3.3.2
-        // or before. 
-        // However, in libSBML 3.4.0, syncAnnotation() function has been modified to 
-        // fix tracker issue #2787352 (Additional RDF not handled) and the fix is no 
-        // longer performed in syncAnnotation(). Thus, the fix code is now implemented
-        // here for backward compatibility.
-        //
-        // This fix code will not be required in libSBML 4 or later.
-        //
-        if ( !annotation->isStart() )
-        {
-          XMLToken ann_t = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
-          mAnnotation = new XMLNode(ann_t);
-          for (unsigned int i=0; i < annotation->getNumChildren(); i++)
-          {
-            mAnnotation->addChild(annotation->getChild(i));
-          }
-        }
-        else
-        {
-          mAnnotation = annotation->clone();
-        }	  
+        mAnnotation->addChild(*annotation);
       }
     }
     else
     {
-      // unset annotation if annotation is NULL, 
-      mAnnotation = 0;
+      mAnnotation = annotation->clone();
     }
   }
 
@@ -717,25 +1133,29 @@ SBase::setAnnotation (const XMLNode* annotation)
     mCVTerms = NULL;
   }
 
+
   if(mAnnotation && RDFAnnotationParser::hasCVTermRDFAnnotation(mAnnotation))
   {
     // parse mAnnotation (if any) and set mCVTerms 
     mCVTerms = new List();
     RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
   }
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 /*
  * Sets the annotation (by string) of this SBML object to a copy of annotation.
  */
-void
+int
 SBase::setAnnotation (const std::string& annotation)
 {
+  int success = LIBSBML_OPERATION_FAILED;
+
   syncAnnotation();
   if(annotation.empty()) 
   {
     unsetAnnotation();
-    return;
+    return LIBSBML_OPERATION_SUCCESS;
   }
 
   XMLNode* annt_xmln;
@@ -750,11 +1170,13 @@ SBase::setAnnotation (const std::string& annotation)
   {
     annt_xmln = XMLNode::convertStringToXMLNode(annotation);
   }
+
   if(annt_xmln)
   {
-    setAnnotation(annt_xmln);
+    success = setAnnotation(annt_xmln);
     delete annt_xmln;
   }
+  return success;
 }
 
 
@@ -763,11 +1185,12 @@ SBase::setAnnotation (const std::string& annotation)
  * This allows other annotations to be preserved whilst
  * adding additional information.
  */
-void 
+int 
 SBase::appendAnnotation (const XMLNode* annotation)
 {
+  int success = LIBSBML_OPERATION_FAILED;
   syncAnnotation();
-  if(!annotation) return;
+  if(!annotation) return LIBSBML_OPERATION_SUCCESS;
 
   XMLNode* new_annotation = NULL;
   const string&  name = annotation->getName();
@@ -819,25 +1242,28 @@ SBase::appendAnnotation (const XMLNode* annotation)
             }
             n++;
           }
-          mAnnotation->getChild(n).addChild(new_annotation->getChild(i).getChild(0));
+          success = mAnnotation->getChild(n).addChild(
+                                    new_annotation->getChild(i).getChild(0));
         }
         else
         {
-          mAnnotation->addChild(new_annotation->getChild(i));
+          success = mAnnotation->addChild(new_annotation->getChild(i));
         }
       }
       else
       {
-        mAnnotation->addChild(new_annotation->getChild(i));
+        success = mAnnotation->addChild(new_annotation->getChild(i));
       }
     }
   }
   else
   {
-    setAnnotation(new_annotation);
+    success = setAnnotation(new_annotation);
   }
 
   delete new_annotation;
+
+  return success;
 }
 
 /*
@@ -845,9 +1271,10 @@ SBase::appendAnnotation (const XMLNode* annotation)
  * This allows other annotations to be preserved whilst
  * adding additional information.
  */
-void
+int
 SBase::appendAnnotation (const std::string& annotation)
 {
+  int success = LIBSBML_OPERATION_FAILED;
   XMLNode* annt_xmln;
   if (getSBMLDocument())
   {
@@ -861,9 +1288,11 @@ SBase::appendAnnotation (const std::string& annotation)
   
   if(annt_xmln)
   {
-    appendAnnotation(annt_xmln);
+    success = appendAnnotation(annt_xmln);
     delete annt_xmln;
   }
+
+  return success;
 }
 
 
@@ -871,75 +1300,108 @@ SBase::appendAnnotation (const std::string& annotation)
 /*
  * Sets the notes of this SBML object to a copy of notes.
  */
-void 
+int 
 SBase::setNotes(const XMLNode* notes)
 {
-  if (mNotes == notes) return;
-   
+  if (mNotes == notes) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (notes == NULL)
+  {
+    delete mNotes;
+    mNotes = 0;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+
   delete mNotes;
   const string&  name = notes->getName();
 
-  if (notes != 0)
+  /* check for notes tags and add if necessary */
+
+  if (name == "notes")
   {
-    /* check for notes tags and add if necessary */
-
-    if (name == "notes")
-    {
-      mNotes = static_cast<XMLNode*>( notes->clone() );
-    }
-    else
-    {
-    XMLToken notes_t = XMLToken(XMLTriple("notes", "", ""), 
-                                XMLAttributes());
-      mNotes = new XMLNode(notes_t);
-
-      // The root node of the given XMLNode tree can be an empty XMLNode 
-      // (i.e. neither start, end, nor text XMLNode) if the given notes was 
-      // converted from an XML string whose top level elements are neither 
-      // "html" nor "body" and not enclosed with <notes>..</notes> tag 
-      // (e.g. <p ...>..</p><br/>).
-      if (!notes->isStart() && !notes->isEnd() && !notes->isText() ) 
-      {
-        for (unsigned int i=0; i < notes->getNumChildren(); i++)
-        {
-          mNotes->addChild(notes->getChild(i));
-        }
-      }
-      else
-      {
-        mNotes->addChild(*notes);
-      }
-    }
+    mNotes = static_cast<XMLNode*>( notes->clone() );
   }
   else
   {
-    mNotes = 0;
+    XMLToken notes_t = XMLToken(XMLTriple("notes", "", ""), 
+                                XMLAttributes());
+    mNotes = new XMLNode(notes_t);
+  
+    // The root node of the given XMLNode tree can be an empty XMLNode 
+    // (i.e. neither start, end, nor text XMLNode) if the given notes was 
+    // converted from an XML string whose top level elements are neither 
+    // "html" nor "body" and not enclosed with <notes>..</notes> tag 
+    // (e.g. <p ...>..</p><br/>).
+    if (!notes->isStart() && !notes->isEnd() && !notes->isText() ) 
+    {
+      for (unsigned int i=0; i < notes->getNumChildren(); i++)
+      {
+        if (mNotes->addChild(notes->getChild(0)) < 0)
+        {
+          return LIBSBML_OPERATION_FAILED;
+        }
+      }
+    }
+    else
+    {
+      if (mNotes->addChild(*notes) < 0)
+        return LIBSBML_OPERATION_FAILED;
+    }
   }
+  
+  // in L2v2 and beyond the XHTML content of notes is restricted
+  // but I need the notes tag to use the function
+  // so I havent tested it until now
+  if (getLevel() > 2 
+    || (getLevel() == 2 && getVersion() > 1))
+  {
+    if (!SyntaxChecker::hasExpectedXHTMLSyntax(mNotes, getSBMLNamespaces()))
+    {
+      delete mNotes;
+      mNotes = 0;
+      return LIBSBML_INVALID_OBJECT;
+    }
+  }
+
+  return LIBSBML_OPERATION_SUCCESS;
+
 }
 
 /*
  * Sets the notes (by std::string) of this SBML object to a copy of notes.
  */
-void
+int
 SBase::setNotes(const std::string& notes)
 {
+  int success = LIBSBML_OPERATION_FAILED;
   if (notes.empty())
   {
-    unsetNotes();
-    return;
+    success = unsetNotes();
   }
+  else
+  {
+    XMLNode* notes_xmln;
 
-  XMLNamespaces* xmlns = 0;
-  if (getSBMLDocument())
-  {
-    xmlns = getSBMLDocument()->getNamespaces(); 
+    // you might not have a document !!
+    if (getSBMLDocument())
+    {
+      XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+      notes_xmln = XMLNode::convertStringToXMLNode(notes,xmlns); 
+    }
+    else
+    {
+      notes_xmln = XMLNode::convertStringToXMLNode(notes);
+    }
+
+    if(notes_xmln)
+    {
+      success = setNotes(notes_xmln);
+      delete notes_xmln;
+    }
   }
-  XMLNode* notes_xmln = XMLNode::convertStringToXMLNode(notes, xmlns);
-  if(notes_xmln)
-  {
-    setNotes(notes_xmln);
-    delete notes_xmln;
-  }
+  return success;
 }
 
 
@@ -948,10 +1410,14 @@ SBase::setNotes(const std::string& notes)
  * This allows other notes to be preserved whilst
  * adding additional information.
  */
-void 
+int 
 SBase::appendNotes(const XMLNode* notes)
 {
-  if(!notes) return;
+  int success = LIBSBML_OPERATION_FAILED;
+  if(!notes) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 
   if (mNotes && mNotes->getNumChildren() > 0)
   {
@@ -970,133 +1436,173 @@ SBase::appendNotes(const XMLNode* notes)
     //     element, each one must declare the XML namespace separately.
     //     (_NotesType is _ANotesAny.) 
 
-    typedef enum { _ANotesHTML, _ANotesBody, _ANotesAny } _NotesType;
+  // The content of notes in SBML can consist only of the following 
+  // possibilities:
+  //
+  //  1. A complete XHTML document (minus the XML and DOCTYPE 
+  //     declarations), that is, XHTML content beginning with the 
+  //     html tag.
+  //     (_NotesType is _ANotesHTML.)
+  //
+  //  2. The body element from an XHTML document.
+  //     (_NotesType is _ANotesBody.) 
+  //
+  //  3. Any XHTML content that would be permitted within a body 
+  //     element, each one must declare the XML namespace separately.
+  //     (_NotesType is _ANotesAny.) 
+  //
 
-    _NotesType curNotesType   = _ANotesAny; 
-    _NotesType addedNotesType = _ANotesAny; 
+  typedef enum { _ANotesHTML, _ANotesBody, _ANotesAny } _NotesType;
 
-    XMLNode&  curNotes = *mNotes;
-    XMLNode   addedNotes;
+  _NotesType addedNotesType = _ANotesAny; 
+  XMLNode   addedNotes;
 
-    //------------------------------------------------------------
-    //
-    // STEP1 : identifies the type of the given notes
-    //
-    //------------------------------------------------------------
+  //------------------------------------------------------------
+  //
+  // STEP1 : identifies the type of the given notes
+  //
+  //------------------------------------------------------------
 
-    const string&  name = notes->getName();
+  if (name == "notes")
+  {
+    /* check for notes tags on the added notes and strip if present and
+       the notes tag has "html" or "body" element */
 
-    if (name == "notes")
-    {
-      /* check for notes tags on the added notes and strip if present and
-         the notes tag has "html" or "body" element */
+    if (notes->getNumChildren() > 0)  
+    { 
+      // notes->getChild(0) must be "html", "body", or any XHTML
+      // element that would be permitted within a "body" element 
+      // (e.g. <p>..</p>,  <br>..</br> and so forth).
 
-      if (notes->getNumChildren() > 0)  
-      { 
-        // notes->getChild(0) must be "html", "body", or any XHTML
-        // element that would be permitted within a "body" element 
-        // (e.g. <p>..</p>,  <br>..</br> and so forth).
+      const string& cname = notes->getChild(0).getName();
 
-        const string& cname = notes->getChild(0).getName();
-
-        if (cname == "html")
-        {
-          addedNotes = notes->getChild(0);
-          addedNotesType = _ANotesHTML;
-        }
-        else if (cname == "body") 
-        {
-          addedNotes = notes->getChild(0);
-          addedNotesType = _ANotesBody;
-        }
-        else
-        {
-          // the notes tag must NOT be stripped if notes->getChild(0) node 
-          // is neither "html" nor "body" element because the children of 
-          // the addedNotes will be added to the curNotes later if the node 
-          // is neither "html" nor "body".
-          addedNotes = *notes;
-          addedNotesType = _ANotesAny;
-        }
+      if (cname == "html")
+      {
+        addedNotes = notes->getChild(0);
+        addedNotesType = _ANotesHTML;
+      }
+      else if (cname == "body") 
+      {
+        addedNotes = notes->getChild(0);
+        addedNotesType = _ANotesBody;
       }
       else
       {
-        // the given notes is empty 
-        return;
+        // the notes tag must NOT be stripped if notes->getChild(0) node 
+        // is neither "html" nor "body" element because the children of 
+        // the addedNotes will be added to the curNotes later if the node 
+        // is neither "html" nor "body".
+        addedNotes = *notes;
+        addedNotesType = _ANotesAny;
       }
     }
     else
     {
-      // if the XMLNode argument notes has been created from a string and 
-      // it is a set of subelements there may be a single empty node
-      // as parent - leaving this in doesnt affect the writing out of notes
-      // but messes up the check for correct syntax
-      if (!notes->isStart() && !notes->isEnd() && !notes->isText() ) 
-      {
-        if (notes->getNumChildren() > 0)
-        { 
-          addedNotes = *notes;
-          addedNotesType = _ANotesAny;
-        }
-        else
-        {
-          // the given notes is empty 
-          return;
-        }
+      // the given notes is empty 
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+  else
+  {
+    // if the XMLNode argument notes has been created from a string and 
+    // it is a set of subelements there may be a single empty node
+    // as parent - leaving this in doesnt affect the writing out of notes
+    // but messes up the check for correct syntax
+    if (!notes->isStart() && !notes->isEnd() && !notes->isText() ) 
+    {
+      if (notes->getNumChildren() > 0)
+      { 
+        addedNotes = *notes;
+        addedNotesType = _ANotesAny;
       }
       else
       {
-        if (name == "html")
-        {
-          addedNotes = *notes;
-          addedNotesType = _ANotesHTML;
-        }
-        else if (name == "body")
-        {
-          addedNotes = *notes;
-          addedNotesType = _ANotesBody;
-        }
-        else
-        {
-          // The given notes node needs to be added to a parent node
-          // if the node is neither "html" nor "body" element because the 
-          // children of addedNotes will be added to the curNotes later if the 
-          // node is neither "html" nor "body" (i.e. any XHTML element that 
-          // would be permitted within a "body" element)
-          addedNotes.addChild(*notes);
-          addedNotesType = _ANotesAny;
-        }
+        // the given notes is empty 
+        return LIBSBML_OPERATION_SUCCESS;
       }
     }
-
-    //
-    // checks the addedNotes of "html" if the html tag contains "head" and 
-    // "body" tags which must be located in this order, otherwise nothing will
-    // be done.
-    //
-    if (addedNotesType == _ANotesHTML)
+    else
     {
-      if ((addedNotes.getNumChildren() != 2) ||
-          ( (addedNotes.getChild(0).getName() != "head") ||
-            (addedNotes.getChild(1).getName() != "body")
-          )
-         )
+      if (name == "html")
       {
-        return;
+        addedNotes = *notes;
+        addedNotesType = _ANotesHTML;
+      }
+      else if (name == "body")
+      {
+        addedNotes = *notes;
+        addedNotesType = _ANotesBody;
+      }
+      else
+      {
+        // The given notes node needs to be added to a parent node
+        // if the node is neither "html" nor "body" element because the 
+        // children of addedNotes will be added to the curNotes later if the 
+        // node is neither "html" nor "body" (i.e. any XHTML element that 
+        // would be permitted within a "body" element)
+        addedNotes.addChild(*notes);
+        addedNotesType = _ANotesAny;
       }
     }
+  }
 
+  //
+  // checks the addedNotes of "html" if the html tag contains "head" and 
+  // "body" tags which must be located in this order.
+  //
+  if (addedNotesType == _ANotesHTML)
+  {
+    if ((addedNotes.getNumChildren() != 2) ||
+        ( (addedNotes.getChild(0).getName() != "head") ||
+          (addedNotes.getChild(1).getName() != "body")
+        )
+       )
+    {
+      return LIBSBML_INVALID_OBJECT;
+    }
+  }
+
+  // check whether notes is valid xhtml
+  if (getLevel() > 2 
+    || (getLevel() == 2 && getVersion() > 1))
+  {
+    XMLNode tmpNotes(XMLTriple("notes","",""), XMLAttributes());
+
+    if (addedNotesType == _ANotesAny)
+    {
+      for (unsigned int i=0; i < addedNotes.getNumChildren(); i++)
+      {
+        tmpNotes.addChild(addedNotes.getChild(i));
+      }
+    }
+    else
+    {
+      tmpNotes.addChild(addedNotes);
+    }
+
+    if (!SyntaxChecker::hasExpectedXHTMLSyntax(&tmpNotes, getSBMLNamespaces()))
+    {
+      return LIBSBML_INVALID_OBJECT;
+    }
+  }
+
+
+  if ( mNotes )
+  {
     //------------------------------------------------------------
     //
     //  STEP2: identifies the type of the existing notes 
     //
     //------------------------------------------------------------
 
+    _NotesType curNotesType   = _ANotesAny; 
+    XMLNode&  curNotes = *mNotes;
+
     // curNotes.getChild(0) must be "html", "body", or any XHTML
     // element that would be permitted within a "body" element .
 
     const string& cname = curNotes.getChild(0).getName();
-
+  
     if (cname == "html")
     {
       XMLNode& curHTML = curNotes.getChild(0);
@@ -1110,7 +1616,7 @@ SBase::appendNotes(const XMLNode* notes)
           )
          )
       {
-        return;
+        return LIBSBML_INVALID_OBJECT;
       }
       curNotesType = _ANotesHTML;
     }
@@ -1122,7 +1628,7 @@ SBase::appendNotes(const XMLNode* notes)
     {
       curNotesType = _ANotesAny;
     }
-
+  
     /*
      * BUT we also have the issue of the rules relating to notes
      * contents and where to add them ie we cannot add a second body element
@@ -1134,116 +1640,127 @@ SBase::appendNotes(const XMLNode* notes)
     //  STEP3: appends the given notes to the current notes
     //
     //------------------------------------------------------------
-
+  
     unsigned int i;
-
+  
     if (curNotesType == _ANotesHTML)
     {
       XMLNode& curHTML = curNotes.getChild(0); 
       XMLNode& curBody = curHTML.getChild(1);
-
+      
       if (addedNotesType == _ANotesHTML)
       {
         // adds the given html tag to the current html tag
-
+  
         XMLNode& addedBody = addedNotes.getChild(1);   
-
+  
         for (i=0; i < addedBody.getNumChildren(); i++)
         {
-          curBody.addChild(addedBody.getChild(i));
+          if (curBody.addChild(addedBody.getChild(i)) < 0 )
+            return LIBSBML_OPERATION_FAILED;          
         }
       }
       else if ((addedNotesType == _ANotesBody) || (addedNotesType == _ANotesAny))
       {
         // adds the given body or other tag (permitted in the body) to the current 
         // html tag
-
+  
         for (i=0; i < addedNotes.getNumChildren(); i++)
         {
-          curBody.addChild(addedNotes.getChild(i));
+          if (curBody.addChild(addedNotes.getChild(i)) < 0 )
+            return LIBSBML_OPERATION_FAILED;
         }
       }
+      success = LIBSBML_OPERATION_SUCCESS;
     }
     else if (curNotesType == _ANotesBody)
     {
       if (addedNotesType == _ANotesHTML)
       {
         // adds the given html tag to the current body tag
-
+  
         XMLNode  addedHTML(addedNotes);
         XMLNode& addedBody = addedHTML.getChild(1);
         XMLNode& curBody   = curNotes.getChild(0);
-
+  
         for (i=0; i < curBody.getNumChildren(); i++)
         {
           addedBody.insertChild(i,curBody.getChild(i));
         }
         
         curNotes.removeChildren();
-        curNotes.addChild(addedHTML);
+        if (curNotes.addChild(addedHTML) < 0)
+          return LIBSBML_OPERATION_FAILED;
       }
       else if ((addedNotesType == _ANotesBody) || (addedNotesType == _ANotesAny))
       {
         // adds the given body or other tag (permitted in the body) to the current 
         // body tag
-
+  
         XMLNode& curBody = curNotes.getChild(0);
-
+  
         for (i=0; i < addedNotes.getNumChildren(); i++)
         {
-          curBody.addChild(addedNotes.getChild(i));
+          if (curBody.addChild(addedNotes.getChild(i)) < 0)
+            return LIBSBML_OPERATION_FAILED;
         }
       }
+      success = LIBSBML_OPERATION_SUCCESS;
     }
     else if (curNotesType == _ANotesAny)
     {
       if (addedNotesType == _ANotesHTML)
       {
         // adds the given html tag to the current any tag permitted in the body.
-
+  
         XMLNode  addedHTML(addedNotes);
         XMLNode& addedBody = addedHTML.getChild(1);
-
+  
         for (i=0; i < curNotes.getNumChildren(); i++)
         {
           addedBody.insertChild(i,curNotes.getChild(i));
         }
-
+  
         curNotes.removeChildren();
-        curNotes.addChild(addedHTML);
+        if (curNotes.addChild(addedHTML) < 0)
+          return LIBSBML_OPERATION_FAILED;
       }
       else if (addedNotesType == _ANotesBody)
       {
         // adds the given body tag to the current any tag permitted in the body.
-
+  
         XMLNode addedBody(addedNotes);
-
+  
         for (i=0; i < curNotes.getNumChildren(); i++)
         {
           addedBody.insertChild(i,curNotes.getChild(i));
         }
-
+  
         curNotes.removeChildren();
-        curNotes.addChild(addedBody);
+        if (curNotes.addChild(addedBody) < 0)
+          return LIBSBML_OPERATION_FAILED;
       }
       else if (addedNotesType == _ANotesAny)
       {
         // adds the given any tag permitted in the boy to that of the current 
         // any tag.
-
+  
         for (i=0; i < addedNotes.getNumChildren(); i++)
         {
-          curNotes.addChild(addedNotes.getChild(i));
+          if (curNotes.addChild(addedNotes.getChild(i)) < 0)
+            return LIBSBML_OPERATION_FAILED;
         }
       }
+      success = LIBSBML_OPERATION_SUCCESS;
     }
   }
   else // if (mNotes == NULL)
   {
     // setNotes accepts XMLNode with/without top level notes tags.
-    setNotes(notes);
+    success = setNotes(notes);
   }
 
+  return success;
 }
 
 /*
@@ -1251,15 +1768,22 @@ SBase::appendNotes(const XMLNode* notes)
  * This allows other notes to be preserved whilst
  * adding additional information.
  */
-void
+int
 SBase::appendNotes(const std::string& notes)
 {
+  int success = LIBSBML_OPERATION_FAILED;
+  if (notes.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+
   XMLNode* notes_xmln = XMLNode::convertStringToXMLNode(notes);
   if(notes_xmln)
   {
-    appendNotes(notes_xmln);
+    success = appendNotes(notes_xmln);
     delete notes_xmln;
   }
+  return success;
 }
 
 /** @cond doxygen-libsbml-internal */
@@ -1315,10 +1839,33 @@ SBase::getAncestorOfType(SBMLTypeCode_t type)
 /*
  * Sets the sboTerm field to value.
  */
-void
+int
 SBase::setSBOTerm (int value)
 {
-  mSBOTerm = value;
+  if (getLevel() < 2 || (getLevel() == 2 && getVersion() < 2))
+  {
+    mSBOTerm = -1;
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else
+  {
+    if ( !SBO::checkTerm(value) )
+    {
+      mSBOTerm = -1;
+      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    }
+    mSBOTerm = value;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+/*
+ * Sets the sboTerm field to value converted from the given string.
+ */
+int
+SBase::setSBOTerm (const string &sboid)
+{
+  return setSBOTerm(SBO::stringToInt(sboid));
 }
 
 
@@ -1327,93 +1874,160 @@ SBase::setSBOTerm (int value)
  *
  * @param xmlns the namespaces to set
  */
-void 
+int 
 SBase::setNamespaces(XMLNamespaces* xmlns)
 {
-  mNamespaces = xmlns->clone();
+  if (xmlns == NULL)
+  {
+    mSBMLNamespaces->setNamespaces(NULL);
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    mSBMLNamespaces->setNamespaces(xmlns);
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
+
 
 
 /*
  * Unsets the metaid of this SBML object.
  */
-void
+int
 SBase::unsetMetaId ()
 {
+  /* only in L2 onwards */
+  if (getLevel() < 2)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+
   mMetaId.erase();
+
+  if (mMetaId.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
-/*
- * Unsets the id of this SBML object.
- */
-void
-SBase::unsetId ()
-{
-  mId.erase();
-}
-
-
-/*
- * Unsets the name of this SBML object.
- */
-void
-SBase::unsetName ()
-{
-  if (getLevel() == 1) mId.erase();
-  else mName.erase();
-}
-
-
+///*
+// * Unsets the id of this SBML object.
+// */
+//int
+//SBase::unsetId ()
+//{
+//  mId.erase();
+//
+//  if (mId.empty())
+//  {
+//    return LIBSBML_OPERATION_SUCCESS;
+//  }
+//  else
+//  {
+//    return LIBSBML_OPERATION_FAILED;
+//  }
+//}
+//
+//
+///*
+// * Unsets the name of this SBML object.
+// */
+//int
+//SBase::unsetName ()
+//{
+//  if (getLevel() == 1) 
+//  {
+//    mId.erase();
+//  }
+//  else 
+//  {
+//    mName.erase();
+//  }
+//
+//  if (getLevel() == 1 && mId.empty())
+//  {
+//    return LIBSBML_OPERATION_SUCCESS;
+//  }
+//  else if (mName.empty())
+//  {
+//    return LIBSBML_OPERATION_SUCCESS;
+//  }
+//  else
+//  {
+//    return LIBSBML_OPERATION_FAILED;
+//  }
+//}
+//
+//
 /*
  * Unsets the notes of this SBML object.
  */
-void
+int
 SBase::unsetNotes ()
 {
   delete mNotes;
   mNotes = 0;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 /*
  * Unsets the annotation of this SBML object.
  */
-void
+int
 SBase::unsetAnnotation ()
 {
   XMLNode* empty = NULL;
-  setAnnotation(empty);
+  return setAnnotation(empty);
 }
 
 
 /*
  * Unsets the sboTerm of this SBML object.
  */
-void
+int
 SBase::unsetSBOTerm ()
 {
-  mSBOTerm = -1;
+  if (getLevel() < 2 || (getLevel() == 2 && getVersion() < 2))
+  {
+    mSBOTerm = -1;
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else
+  {
+    mSBOTerm = -1;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Adds a copy of the given CVTerm to this SBML object.
  */
-void
+int
 SBase::addCVTerm(CVTerm * term)
 {
-  if (term == NULL)
-  {
-    return;
-  }
-
-  // a CVTerm relies on the metaid 
-  // if the object has no metaid do not add
+  unsigned int added = 0;
+  // shouldnt add a CVTerm to an object with no metaid 
   if (!isSetMetaId())
   {
-    return;
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
-  unsigned int added = 0;
+
+  if (term == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (!term->hasRequiredAttributes())
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  
   /* clone the term to be added so that I can adjust 
    * which resources are actually added
    */
@@ -1509,6 +2123,7 @@ SBase::addCVTerm(CVTerm * term)
   }
 
   delete copyTerm;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -1570,7 +2185,7 @@ SBase::getCVTerm(unsigned int n)
  * Clears the list of CVTerms of this SBML
  * object.
  */
-void 
+int 
 SBase::unsetCVTerms()
 {
   if (mCVTerms)
@@ -1580,6 +2195,11 @@ SBase::unsetCVTerms()
     delete mCVTerms;
   }
   mCVTerms = 0;
+  
+  if (mCVTerms)
+    return LIBSBML_OPERATION_FAILED;
+  else
+    return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -1676,8 +2296,8 @@ SBase::getLevel () const
 {
   if (mSBML)
     return mSBML->mLevel;
-  else if (mObjectLevel != 0)
-    return mObjectLevel;
+  else if (mSBMLNamespaces != 0)
+    return mSBMLNamespaces->getLevel();
   else
     return SBMLDocument::getDefaultLevel();
 }
@@ -1691,8 +2311,8 @@ SBase::getVersion () const
 {
   if (mSBML)
     return mSBML->mVersion;
-  else if (mObjectVersion != 0)
-    return mObjectVersion;
+  else if (mSBMLNamespaces != 0)
+    return mSBMLNamespaces->getVersion();
   else
     return SBMLDocument::getDefaultVersion();
 }
@@ -1716,128 +2336,206 @@ SBase::getTypeCode () const
   return SBML_UNKNOWN;
 }
 
-//bool 
-//SBase::isValidLevelVersionNamespaceCombination()
-//{
-//  bool valid = true;
-//  bool sbmlDeclared = false;
-//  unsigned int index = 0;
-//  unsigned int version = getVersion();
-//  XMLNamespaces * xmlns = getNamespaces();
-//  if (xmlns)
-//  {
-//    sbmlDeclared = xmlns->hasPrefix("sbml");
-//    if (sbmlDeclared)
-//      index = xmlns->getIndexByPrefix("sbml");
-//  }
-//  SBMLTypeCode_t typecode = getTypeCode();
-//
-//  switch (getLevel())
-//  {
-//    case 1:
-//      // some components didnt exist in level 1
-//      if ( typecode == SBML_COMPARTMENT_TYPE
-//        || typecode == SBML_CONSTRAINT
-//        || typecode == SBML_EVENT
-//        || typecode == SBML_EVENT_ASSIGNMENT
-//        || typecode == SBML_FUNCTION_DEFINITION
-//        || typecode == SBML_INITIAL_ASSIGNMENT
-//        || typecode == SBML_SPECIES_TYPE
-//        || typecode == SBML_MODIFIER_SPECIES_REFERENCE
-//        || typecode == SBML_TRIGGER
-//        || typecode == SBML_DELAY
-//        || typecode == SBML_STOICHIOMETRY_MATH)
-//        valid = false;
-//     switch (version)
-//      {
-//        case 1:
-//        case 2:
-//          // the namespaces contains the sbml namespaces
-//          // check it is the correct ns for the level/version
-//          if (sbmlDeclared)
-//          {
-//            if (strcmp(xmlns->getURI(index).c_str(), 
-//                     "http://www.sbml.org/sbml/level1"))
-//            {
-//              valid = false;
-//            }
-//          }
-//          break;
-//        default:
-//          valid = false;
-//          break;
-//        }
-//      break;
-//    case 2:
-//      switch (version)
-//      {
-//        case 1:
-//          // some components didnt exist in l2v1
-//          if ( typecode == SBML_COMPARTMENT_TYPE
-//            || typecode == SBML_CONSTRAINT
-//            || typecode == SBML_INITIAL_ASSIGNMENT
-//            || typecode == SBML_SPECIES_TYPE)
-//            valid = false;
-//         // the namespaces contains the sbml namespaces
-//          // check it is the correct ns for the level/version
-//          if (sbmlDeclared)
-//          {
-//            if (strcmp(xmlns->getURI(index).c_str(), 
-//                     "http://www.sbml.org/sbml/level2"))
-//            {
-//              valid = false;
-//            }
-//          }
-//          break;
-//        case 2:
-//          // the namespaces contains the sbml namespaces
-//          // check it is the correct ns for the level/version
-//          if (sbmlDeclared)
-//          {
-//            if (strcmp(xmlns->getURI(index).c_str(), 
-//                     "http://www.sbml.org/sbml/level2/version2"))
-//            {
-//              valid = false;
-//            }
-//          }
-//          break;
-//        case 3:
-//          // the namespaces contains the sbml namespaces
-//          // check it is the correct ns for the level/version
-//          if (sbmlDeclared)
-//          {
-//            if (strcmp(xmlns->getURI(index).c_str(), 
-//                     "http://www.sbml.org/sbml/level2/version3"))
-//            {
-//              valid = false;
-//            }
-//          }
-//          break;
-//        case 4:
-//          // the namespaces contains the sbml namespaces
-//          // check it is the correct ns for the level/version
-//          if (sbmlDeclared)
-//          {
-//            if (strcmp(xmlns->getURI(index).c_str(), 
-//                     "http://www.sbml.org/sbml/level2/version4"))
-//            {
-//              valid = false;
-//            }
-//          }
-//          break;
-//        default:
-//          valid = false;
-//          break;
-//        }
-//      break;
-//    default:
-//      valid = false;
-//      break;
-//  }
-//
-//  return valid;
-//}
-//
+bool 
+SBase::hasValidLevelVersionNamespaceCombination()
+{
+  bool valid = true;
+  bool sbmlDeclared = false;
+  std::string declaredURI("");
+  unsigned int index = 0;
+  unsigned int version = getVersion();
+  XMLNamespaces *xmlns = getNamespaces();
+  if (xmlns)
+  {
+    // 
+    // checks defined SBML XMLNamespace
+    // returns false if different SBML XMLNamespaces 
+    // (e.g. SBML_XMLNS_L2V1 and SBML_XMLNS_L2V3) are defined.
+    //
+    int numNS = 0;
+
+    if (xmlns->hasURI(SBML_XMLNS_L2V4))
+    {
+      ++numNS;
+      declaredURI.assign(SBML_XMLNS_L2V4);
+    }
+
+    if (xmlns->hasURI(SBML_XMLNS_L2V3))
+    {
+      // checks different SBML XMLNamespaces
+      if (numNS > 0) return false;
+      ++numNS;
+      declaredURI.assign(SBML_XMLNS_L2V3);
+    }
+
+    if (xmlns->hasURI(SBML_XMLNS_L2V2))
+    {
+      // checks different SBML XMLNamespaces
+      if (numNS > 0) return false;
+      ++numNS;
+      declaredURI.assign(SBML_XMLNS_L2V2);
+    }
+
+    if (xmlns->hasURI(SBML_XMLNS_L2V1))
+    {
+      // checks different SBML XMLNamespaces
+      if (numNS > 0) return false;
+      ++numNS;
+      declaredURI.assign(SBML_XMLNS_L2V1);
+    }
+
+    if (xmlns->hasURI(SBML_XMLNS_L1))
+    {
+      // checks different SBML XMLNamespaces
+      if (numNS > 0) return false;
+      ++numNS;
+      declaredURI.assign(SBML_XMLNS_L1);
+    }
+
+    // checks if the SBML Namespace is explicitly defined.
+    for (int i=0; i < xmlns->getLength(); i++)
+    {
+      if (!xmlns->getPrefix(i).empty() && 
+                      xmlns->getURI(i) == declaredURI)
+      {
+        sbmlDeclared = true;
+        break;
+      }
+    }
+
+  }
+
+  SBMLTypeCode_t typecode = getTypeCode();
+
+  switch (getLevel())
+  {
+    case 1:
+      // some components didnt exist in level 1
+      if ( typecode == SBML_COMPARTMENT_TYPE
+        || typecode == SBML_CONSTRAINT
+        || typecode == SBML_EVENT
+        || typecode == SBML_EVENT_ASSIGNMENT
+        || typecode == SBML_FUNCTION_DEFINITION
+        || typecode == SBML_INITIAL_ASSIGNMENT
+        || typecode == SBML_SPECIES_TYPE
+        || typecode == SBML_MODIFIER_SPECIES_REFERENCE
+        || typecode == SBML_TRIGGER
+        || typecode == SBML_DELAY
+        || typecode == SBML_STOICHIOMETRY_MATH)
+        valid = false;
+     switch (version)
+      {
+        case 1:
+        case 2:
+          // the namespaces contains the sbml namespaces
+          // check it is the correct ns for the level/version
+          if (sbmlDeclared)
+          {
+            if (declaredURI != string(SBML_XMLNS_L1))
+            {
+              valid = false;
+            }
+          }
+          break;
+        default:
+          valid = false;
+          break;
+        }
+      break;
+    case 2:
+      switch (version)
+      {
+        case 1:
+          // some components didnt exist in l2v1
+          if ( typecode == SBML_COMPARTMENT_TYPE
+            || typecode == SBML_CONSTRAINT
+            || typecode == SBML_INITIAL_ASSIGNMENT
+            || typecode == SBML_SPECIES_TYPE)
+            valid = false;
+         // the namespaces contains the sbml namespaces
+          // check it is the correct ns for the level/version
+          if (sbmlDeclared)
+          {
+            if (declaredURI != string(SBML_XMLNS_L2V1))
+            {
+              valid = false;
+            }
+          }
+          break;
+        case 2:
+          // the namespaces contains the sbml namespaces
+          // check it is the correct ns for the level/version
+          if (sbmlDeclared)
+          {
+            if (declaredURI != string(SBML_XMLNS_L2V2))
+            {
+              valid = false;
+            }
+          }
+          break;
+        case 3:
+          // the namespaces contains the sbml namespaces
+          // check it is the correct ns for the level/version
+          if (sbmlDeclared)
+          {
+            if (declaredURI != string(SBML_XMLNS_L2V3))
+            {
+              valid = false;
+            }
+          }
+          break;
+        case 4:
+          // the namespaces contains the sbml namespaces
+          // check it is the correct ns for the level/version
+          if (sbmlDeclared)
+          {
+            if (declaredURI != string(SBML_XMLNS_L2V4))
+            {
+              valid = false;
+            }
+          }
+          break;
+        default:
+          valid = false;
+          break;
+        }
+      break;
+    default:
+      valid = false;
+      break;
+  }
+
+  return valid;
+}
+
+/** @cond doxygen-libsbml-internal */
+
+/* sets the SBMLnamespaces - internal use only*/
+void 
+SBase::setSBMLNamespaces(SBMLNamespaces * sbmlns)
+{
+  delete mSBMLNamespaces;
+  if (sbmlns)
+    mSBMLNamespaces = sbmlns->clone();
+  else
+    mSBMLNamespaces = 0;
+}
+
+/* gets the SBMLnamespaces - internal use only*/
+SBMLNamespaces *
+SBase::getSBMLNamespaces() const
+{
+  if (mSBML)
+    return mSBML->mSBMLNamespaces;
+  else if (mSBMLNamespaces != 0)
+    return mSBMLNamespaces;
+  else
+    return new SBMLNamespaces();
+}
+
+/** @endcond doxygen-libsbml-internal */
+
+
 
 /*
  * @return the partial SBML that describes this SBML object.
@@ -2227,14 +2925,19 @@ SBase::readAttributes (const XMLAttributes& attributes)
 {
   const_cast<XMLAttributes&>(attributes).setErrorLog(getErrorLog());
 
-  attributes.readInto("metaid", mMetaId);
-  /*
-   * at present Xerces on Windows does not correctly read multibyte characters
-   * so we exclude this check
-   */
-  if (isSetMetaId())
-    checkMetaIdSyntax();
+  bool assigned = attributes.readInto("metaid", mMetaId);
 
+  if (assigned && mMetaId.empty())
+  {
+    logEmptyString("metaid", getLevel(), getVersion(), 
+      SBMLTypeCode_toString(getTypeCode()));
+  }
+
+  if (isSetMetaId())
+  {
+    if (!SyntaxChecker::isValidXMLID(mMetaId))
+      logError(InvalidMetaidSyntax, getLevel(), getVersion());
+  }
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -2249,8 +2952,9 @@ void
 SBase::writeAttributes (XMLOutputStream& stream) const
 {
   if (getTypeCode() == SBML_DOCUMENT)
-    if (mNamespaces) stream << *mNamespaces;
-
+  {
+    if (this->getNamespaces()) stream << *(this->getNamespaces());
+  }
   if ( getLevel() > 1 && !mMetaId.empty() )
   {
     stream.writeAttribute("metaid", mMetaId);
@@ -2439,218 +3143,6 @@ SBase::checkListOfPopulated(SBase* object)
 
 /** @cond doxygen-libsbml-internal */
 /**
-  * Checks the syntax of a metaid attribute.
-  * The syntax of a metaid is XML 1.0 type ID. The literal representation of 
-  * this type consists of strings of characters restricted to:
-  *
-  *  - NCNameChar ::= letter | digit | '.' | '-' | '_' | ':' | CombiningChar | Extender
-  *  - ID ::= ( letter | '_' | ':' ) NCNameChar*
-  *
-  * If the syntax of the metaid attribute of this object is incorrect, 
-  * an error is logged
-  */
-void 
-SBase::checkMetaIdSyntax()
-{
-  string& metaid = getMetaId();
-  string::iterator it = metaid.begin();
- 
-  // first character must be a letter or '_' or ':'
-  unsigned char c = *it;
-  bool okay;
-
-  if (c < 0x80)
-  {
-    okay = (isUnicodeLetter(it, 1) || c == '_' || c == ':');
-    it++;
-  }
-  else if (c >> 5 == 0x6)
-  {
-    okay = (isUnicodeLetter(it, 2));
-    it++;
-    it++;
-  }
-  else if (c >> 4 == 0xe)
-  {
-    okay = (isUnicodeLetter(it, 3));
-    it++;
-    it++;
-    it++;
-  }
-  else
-  {
-    okay = false;
-    it++;
-  }
-
-
-  // remaining chars must be 
-  // letter | digit | '.' | '-' | ' ' | ':' | CombiningChar | Extender
-  while (okay && it < metaid.end())
-  {
-    c = *it;
-    
-    // need to find multibyte sequences
-    if (c < 0x80)
-    {
-      okay = (
-          isUnicodeLetter(it, 1)  ||
-          isUnicodeDigit(it, 1)   ||
-            c == '.'              ||
-            c == '-'              ||
-            c == '_'              ||
-            c == ':'              );
-    }
-    else if (c >> 5 == 0x6)
-    {
-      okay = (
-          isUnicodeLetter(it, 2)  ||
-          isUnicodeDigit(it, 2)   ||
-          isCombiningChar(it, 2)  ||
-          isExtender(it, 2)       );
-      it++;
-    }
-    else if (c >> 4 == 0xe)
-    {
-      okay = (
-          isUnicodeLetter(it, 3)  ||
-          isUnicodeDigit(it, 3)   ||
-          isCombiningChar(it, 3)  ||
-          isExtender(it, 3)       );
-      it++;
-      it++;
-    }
-    else if (c >> 3 == 0x1e)
-    {
-      okay = (
-          isUnicodeLetter(it, 4)  ||
-          isUnicodeDigit(it, 4)   ||
-          isCombiningChar(it, 4)  ||
-          isExtender(it, 4)       );
-      it += 3;
-    }
-
-    it++;
-
-  }
-
-  if (!okay) logError(InvalidMetaidSyntax, getLevel(), getVersion());
-}
-/** @endcond doxygen-libsbml-internal */
-
-  
-/** @cond doxygen-libsbml-internal */
-/**
-  * Checks the syntax of the id attribute.
-  * The syntax of an id is of type SId which is defined as:
-  *
-  *  - letter ::= 'a'..'z','A'..'Z'
-  *  - digit  ::= '0'..'9'
-  *  - idChar ::= letter | digit | '_'
-  *  - SId    ::= ( letter | '_' ) idChar*
-  *
-  * If the syntax of the id attribute of this object is incorrect, 
-  * an error is logged
-  */
-void 
-SBase::checkIdSyntax()
-{
-  string& id        = const_cast<string &> (getId());
-  unsigned int size = id.size();
-
-  if (size == 0)
-  {
-    return;
-  }
-
-  unsigned int n = 0;
-
-  char c = id[n];
-  bool okay = (isalpha(c) || (c == '_'));
-  n++;
-
-  while (okay && n < size)
-  {
-    c = id[n];
-    okay = (isalnum(c) || c == '_');
-    n++;
-  }
-
-  if (!okay) logError(InvalidIdSyntax);
-}
-
-
-/**
-  * Checks the syntax of the unit attribute.
-  * The syntax of an unit is of type UnitSId which is defined as:
-  *
-  *  - letter ::= 'a'..'z','A'..'Z'
-  *  - digit  ::= '0'..'9'
-  *  - idChar ::= letter | digit | '_'
-  *  - UnitSId    ::= ( letter | '_' ) idChar*
-  *
-  * If the syntax of the unit attribute of this object is incorrect, 
-  * an error is logged
-  */
-void 
-SBase::checkUnitSyntax(unsigned int flag)
-{
-  std::string units = "";
-  if (getTypeCode() == SBML_SPECIES)
-  {
-    if (flag != 0)
-      units = static_cast <Species*> (this)->getSpatialSizeUnits();
-    else
-      units = static_cast <Species*> (this)->getUnits();
-  }
-
-  else if (getTypeCode() == SBML_EVENT)
-  {
-    units = static_cast <Event*> (this)->getTimeUnits();
-  }
-  else if (getTypeCode() == SBML_COMPARTMENT)
-  {
-    units = static_cast <Compartment*> (this)->getUnits();
-  }
-  else if (getTypeCode() == SBML_PARAMETER)
-  {
-    units = static_cast <Parameter*> (this)->getUnits();
-  }
-  else
-  {
-    units  = "";
-  }
-
-  unsigned int size = units.size();
-
-  if (size == 0)
-  {
-      return;
-  }
-
-  unsigned int n = 0;
-
-  char c = units[n];
-  bool okay = (isalpha(c) || (c == '_'));
-  n++;
-
-  while (okay && n < size)
-  {
-    c = units[n];
-    okay = (isalnum(c) || c == '_');
-    n++;
-  }
-
-  if (!okay) logError(InvalidUnitIdSyntax);
-
-}
-
-
-/** @endcond doxygen-libsbml-internal */
-
-
-/** @cond doxygen-libsbml-internal */
-/**
   * Checks the annotation does not declare an sbml namespace.
   * If the annotation declares an sbml namespace an error is logged.
   */
@@ -2789,78 +3281,31 @@ SBase::checkXHTML(const XMLNode * xhtml)
     }
   }
 
+  XMLNamespaces* toplevelNS = (mSBML) ? mSBML->getNamespaces() : 0;
+
   /*
   * namespace declaration is variable
   * A whole html tag, a whole body tag, or one or more elements permitted in
   * a body tag can be used without XHTML namespace declaration if XHTML namespace
   * is declared in a sbml element.
-  *
   */
-  bool   implicitNSdecl         = false;
-  string implicitXhtmlPrefixStr = "";
-
-  if( mSBML->getNamespaces() != NULL)
-  /* check for implicit declaration */
-  {
-    const XMLNamespaces* xmlns = mSBML->getNamespaces();
-    for (n = 0; n < xmlns->getLength(); n++)
-    {
-      if (xmlns->getURI(n) == "http://www.w3.org/1999/xhtml")
-      {
-        implicitNSdecl         = true;
-        implicitXhtmlPrefixStr = xmlns->getPrefix(n);
-        break;
-      }
-    }
-  }
-
   unsigned int children = xhtml->getNumChildren();
-  static const int size = sizeof(XHTML_ELEMENTS) / sizeof(XHTML_ELEMENTS[0]);
 
-  int index;
-  bool found;
-  bool match;
   if (children > 1)
   {
-    /* each element must declare namespace or implicit declaration required */
     for (i=0; i < children; i++)
     {
-      const char * top = xhtml->getChild(i).getName().c_str();
-
-      index = util_bsearchStringsI(XHTML_ELEMENTS, top, 0, size - 1);
-      found = (index < size);
-
-      if (!found)
+      if (SyntaxChecker::isAllowedElement(xhtml->getChild(i)))
       {
-        logError(errorELEM);
+        if (!SyntaxChecker::hasDeclaredNS(xhtml->getChild(i),
+                                                  toplevelNS))
+        {
+          logError(errorNS);
+        }
       }
       else
       {
-        const XMLToken&      elem  = xhtml->getChild(i);
-        const XMLNamespaces& xmlns = elem.getNamespaces();
-        match = false;
-        string nsprefix = "";
-        for (n = 0; n < xmlns.getLength(); n++)
-        {
-          if (xmlns.getURI(n) == "http://www.w3.org/1999/xhtml")
-          {
-            match    = true;
-            nsprefix = xmlns.getPrefix(n);
-            break;
-          }
-        }
-
-        if (!match)
-        {
-          // xmlns attribute for XHTML is not declared in this elem.
-          if ( !implicitNSdecl || (elem.getPrefix() != implicitXhtmlPrefixStr) )
-          {
-            // xmlns attribute for XHTML is not declared in <sbml> element
-            // or the prefix of this element is not equal to the prefix of
-            // xmlns attribute for XHTML declared in <sbml> element.
-            logError(errorELEM);
-          }
-        }
+        logError(errorELEM);
         else
         {
           // xmlns attribute for XHTML is declared in this elem.
@@ -2880,7 +3325,6 @@ SBase::checkXHTML(const XMLNode * xhtml)
 
       }
     }
-
   }
   else
   {
@@ -2889,42 +3333,23 @@ SBase::checkXHTML(const XMLNode * xhtml)
     * OR could be one of the listed elements.
     */
 
-    const XMLToken& top_elem = xhtml->getChild(0);
-    const string& top_name = top_elem.getName();
-    const char* top_name_c = top_name.c_str();
-    index = util_bsearchStringsI(XHTML_ELEMENTS, top_name_c, 0, size - 1);
-    found = (index < size);
-  
+    const string& top_name = xhtml->getChild(0).getName();
 
-    if (top_name != "html" && top_name != "body" && !found)
+    if (top_name != "html" && top_name != "body"
+      && !SyntaxChecker::isAllowedElement(xhtml->getChild(0)))
     {
       logError(errorELEM);
     }
     else
     {
-      const XMLNamespaces& xmlns = top_elem.getNamespaces();
-      match = false;
-      string nsprefix = "";
-      for (n = 0; n < xmlns.getLength(); n++)
+      if (!SyntaxChecker::hasDeclaredNS(xhtml->getChild(0), toplevelNS))
       {
-        if (xmlns.getURI(n) == "http://www.w3.org/1999/xhtml")
-        {
-          match    = true;
-          nsprefix = xmlns.getPrefix(n);
-          break;
-        }
+        logError(errorNS);
       }
-
-      if (!match)
+      if (top_name == "html" 
+        && !SyntaxChecker::isCorrectHTMLNode(xhtml->getChild(0)))
       {
-        // xmlns attribute for XHTML is not declared in this top elem.
-        if ( !implicitNSdecl || (top_elem.getPrefix() != implicitXhtmlPrefixStr) )
-        {
-          // xmlns attribute for XHTML is not declared in <sbml> element
-          // or the prefix of this top element is not equal to the prefix of
-          // xmlns attribute for XHTML declared in <sbml> element.
-          logError(errorNS);
-        }
+        logError(errorELEM);
       }
       else
       {
@@ -2946,1477 +3371,79 @@ SBase::checkXHTML(const XMLNode * xhtml)
     }
   }
 }
+
 /** @endcond doxygen-libsbml-internal */
-
-
 /** @cond doxygen-libsbml-internal */
-/**
-  * Checks if a character is part of the Unicode Letter set.
-  * @return true if the character is a part of the set, false otherwise.
-  */
-bool 
-SBase::isUnicodeLetter(std::string::iterator it, unsigned int numBytes)
+/* default for components that have no required attributes */
+bool
+SBase::hasRequiredAttributes() const
 {
-  /*
-  * Letter ::=  BaseChar | Ideographic 
-  * BaseChar ::=  [#x0041-#x005A] | [#x0061-#x007A] | [#x00C0-#x00D6] | 
-  * [#x00D8-#x00F6] | [#x00F8-#x00FF] | [#x0100-#x0131] | [#x0134-#x013E] | 
-  * [#x0141-#x0148] | [#x014A-#x017E] | [#x0180-#x01C3] | [#x01CD-#x01F0] | 
-  * [#x01F4-#x01F5] | [#x01FA-#x0217] | [#x0250-#x02A8] | [#x02BB-#x02C1] | 
-  * #x0386 | [#x0388-#x038A] | #x038C | [#x038E-#x03A1] | [#x03A3-#x03CE] | 
-  * [#x03D0-#x03D6] | #x03DA | #x03DC | #x03DE | #x03E0 | [#x03E2-#x03F3] | 
-  * [#x0401-#x040C] | [#x040E-#x044F] | [#x0451-#x045C] | [#x045E-#x0481] | 
-  * [#x0490-#x04C4] | [#x04C7-#x04C8] | [#x04CB-#x04CC] | [#x04D0-#x04EB] | 
-  * [#x04EE-#x04F5] | [#x04F8-#x04F9] | [#x0531-#x0556] | #x0559 | 
-  * [#x0561-#x0586] | [#x05D0-#x05EA] | [#x05F0-#x05F2] | [#x0621-#x063A] | 
-  * [#x0641-#x064A] | [#x0671-#x06B7] | [#x06BA-#x06BE] | [#x06C0-#x06CE] | 
-  * [#x06D0-#x06D3] | #x06D5 | [#x06E5-#x06E6] | [#x0905-#x0939] | #x093D | 
-  * [#x0958-#x0961] | [#x0985-#x098C] | [#x098F-#x0990] | [#x0993-#x09A8] | 
-  * [#x09AA-#x09B0] | #x09B2 | [#x09B6-#x09B9] | [#x09DC-#x09DD] | 
-  * [#x09DF-#x09E1] | [#x09F0-#x09F1] | [#x0A05-#x0A0A] | [#x0A0F-#x0A10] | 
-  * [#x0A13-#x0A28] | [#x0A2A-#x0A30] | [#x0A32-#x0A33] | [#x0A35-#x0A36] | 
-  * [#x0A38-#x0A39] | [#x0A59-#x0A5C] | #x0A5E | [#x0A72-#x0A74] | 
-  * [#x0A85-#x0A8B] | #x0A8D | [#x0A8F-#x0A91] | [#x0A93-#x0AA8] | 
-  * [#x0AAA-#x0AB0] | [#x0AB2-#x0AB3] | [#x0AB5-#x0AB9] | #x0ABD | #x0AE0 | 
-  * [#x0B05-#x0B0C] | [#x0B0F-#x0B10] | [#x0B13-#x0B28] | [#x0B2A-#x0B30] | 
-  * [#x0B32-#x0B33] | [#x0B36-#x0B39] | #x0B3D | [#x0B5C-#x0B5D] | 
-  * [#x0B5F-#x0B61] | [#x0B85-#x0B8A] | [#x0B8E-#x0B90] | [#x0B92-#x0B95] | 
-  * [#x0B99-#x0B9A] | #x0B9C | [#x0B9E-#x0B9F] | [#x0BA3-#x0BA4] | 
-  * [#x0BA8-#x0BAA] | [#x0BAE-#x0BB5] | [#x0BB7-#x0BB9] | [#x0C05-#x0C0C] | 
-  * [#x0C0E-#x0C10] | [#x0C12-#x0C28] | [#x0C2A-#x0C33] | [#x0C35-#x0C39] | 
-  * [#x0C60-#x0C61] | [#x0C85-#x0C8C] | [#x0C8E-#x0C90] | [#x0C92-#x0CA8] | 
-  * [#x0CAA-#x0CB3] | [#x0CB5-#x0CB9] | #x0CDE | [#x0CE0-#x0CE1] | 
-  * [#x0D05-#x0D0C] | [#x0D0E-#x0D10] | [#x0D12-#x0D28] | [#x0D2A-#x0D39] | 
-  * [#x0D60-#x0D61] | [#x0E01-#x0E2E] | #x0E30 | [#x0E32-#x0E33] | 
-  * [#x0E40-#x0E45] | [#x0E81-#x0E82] | #x0E84 | [#x0E87-#x0E88] | #x0E8A | 
-  * #x0E8D | [#x0E94-#x0E97] | [#x0E99-#x0E9F] | [#x0EA1-#x0EA3] | #x0EA5 | 
-  * #x0EA7 | [#x0EAA-#x0EAB] | [#x0EAD-#x0EAE] | #x0EB0 | [#x0EB2-#x0EB3] | 
-  * #x0EBD | [#x0EC0-#x0EC4] | [#x0F40-#x0F47] | [#x0F49-#x0F69] | 
-  * [#x10A0-#x10C5] | [#x10D0-#x10F6] | #x1100 | [#x1102-#x1103] | 
-  * [#x1105-#x1107] | #x1109 | [#x110B-#x110C] | [#x110E-#x1112] | #x113C | 
-  * #x113E | #x1140 | #x114C | #x114E | #x1150 | [#x1154-#x1155] | #x1159 | 
-  * [#x115F-#x1161] | #x1163 | #x1165 | #x1167 | #x1169 | [#x116D-#x116E] | 
-  * [#x1172-#x1173] | #x1175 | #x119E | #x11A8 | #x11AB | [#x11AE-#x11AF] | 
-  * [#x11B7-#x11B8] | #x11BA | [#x11BC-#x11C2] | #x11EB | #x11F0 | #x11F9 | 
-  * [#x1E00-#x1E9B] | [#x1EA0-#x1EF9] | [#x1F00-#x1F15] | [#x1F18-#x1F1D] | 
-  * [#x1F20-#x1F45] | [#x1F48-#x1F4D] | [#x1F50-#x1F57] | #x1F59 | #x1F5B | 
-  * #x1F5D | [#x1F5F-#x1F7D] | [#x1F80-#x1FB4] | [#x1FB6-#x1FBC] | #x1FBE | 
-  * [#x1FC2-#x1FC4] | [#x1FC6-#x1FCC] | [#x1FD0-#x1FD3] | [#x1FD6-#x1FDB] | 
-  * [#x1FE0-#x1FEC] | [#x1FF2-#x1FF4] | [#x1FF6-#x1FFC] | #x2126 | 
-  * [#x212A-#x212B] | #x212E | [#x2180-#x2182] | [#x3041-#x3094] | 
-  * [#x30A1-#x30FA] | [#x3105-#x312C] | [#xAC00-#xD7A3]  
-  * Ideographic ::=  [#x4E00-#x9FA5] | #x3007 | [#x3021-#x3029]
-  */
-  bool letter = false;
-
-
-  unsigned char c1 = *it;
-  unsigned char c2 ;/* = *(it+1); */
-  unsigned char c3 ;/* = *(it+2); */
-  
-  switch (numBytes)
-  {
-  case 1:
-    if (c1 >= 65 && c1 <= 90)
-    {
-      letter = true;
-    }
-    else if (c1 >= 97 && c1 <= 122)
-    {
-      letter = true;
-    }
-  break;
-  case 2:
-    c2 = *(it+1);
-    switch (c1)
-    {
-      case 224:
-        if ((128 <= c2 && 150 >= c2)
-        ||  (152 <= c2 && 182 >= c2)
-        ||  (184 <= c2 && 191 >= c2))
-        {
-          letter = true;
-        }
-      break;
-      case 196:
-        if ((128 <= c2 && 177 >= c2)
-        ||  (180 <= c2 && 190 >= c2))
-        {
-          letter = true;
-        }
-      break;
-      case 197:
-        if ((129 <= c2 && 136 >= c2)
-        ||  (138 <= c2 && 190 >= c2))
-        {
-          letter = true;
-        }
-      break;
-      case 198:
-        if ((128 <= c2 && 191 >= c2))
-        {
-          letter = true;
-        }
-      break;
-      case 199:
-        if ((128 <= c2 && 131 >= c2)
-        ||  (141 <= c2 && 176 >= c2)
-        ||  (180 <= c2 && 181 >= c2)
-        ||  (186 <= c2 && 191 >= c2))
-        {
-          letter = true;
-        }
-      break;
-      case 200:
-        if ((128 <= c2 && 151 >= c2))
-        {
-          letter = true;
-        }
-      break;
-      case 201:
-        if ((144 <= c2 && 191 >= c2))
-        {
-          letter = true;
-        }
-      break;
-      case 202:
-        if ((128 <= c2 && 168 >= c2)
-        ||  (187 <= c2 && 191 >= c2))
-        {
-          letter = true;
-        }
-      break;
-      case 203:
-        if ((128 <= c2 && 129 >= c2))
-        {
-          letter = true;
-        }
-      break;
-      case 206:
-        if ((c2 == 134)
-        ||  (136 <= c2 && 138 >= c2)
-        ||  (c2 == 140)
-        ||  (142 <= c2 && 161 >= c2)
-        ||  (163 <= c2 && 191 >= c2))
-        {
-          letter = true;
-        }
-      break;
-      case 207:
-        if ((128 <= c2 && 142 >= c2)
-        ||  (144 <= c2 && 150 >= c2)
-        ||  (c2 == 154)
-        ||  (c2 == 158)
-        ||  (c2 == 160)
-        ||  (162 <= c2 && 179 >= c2))
-        {
-          letter = true;
-        }
-      break;
-      case 208:
-        if ((129 <= c2 && 140 >= c2)
-        ||  (142 <= c2 && 191 >= c2))
-        {
-          letter = true;
-        }
-      break;
-      case 209:
-        if ((128 <= c2 && 143 >= c2)
-        ||  (145 <= c2 && 156 >= c2)
-        ||  (158 <= c2 && 191 >= c2))
-        {
-          letter = true;
-        }
-      break;
-      case 210:
-        if ((128 <= c2 && 129 >= c2)
-        ||  (144 <= c2 && 191 >= c2))
-        {
-          letter = true;
-        }
-      break;
-      case 211:
-        if ((128 <= c2 && 132 >= c2)
-        ||  (135 <= c2 && 136 >= c2)
-        ||  (139 <= c2 && 140 >= c2)
-        ||  (144 <= c2 && 171 >= c2)
-        ||  (174 <= c2 && 181 >= c2)
-        ||  (184 <= c2 && 185 >= c2))
-        {
-          letter = true;
-        }
-      break;
-      case 212:
-        if ((177 <= c2 && 191 >= c2))
-        {
-          letter = true;
-        }
-      break;
-      case 213:
-        if ((128 <= c2 && 150 >= c2)
-        ||  (c2 == 153)
-        ||  (161 <= c2 && 191 >= c2))
-        {
-          letter = true;
-        }
-      break;
-      case 214:
-        if ((128 <= c2 && 134 >= c2))
-        {
-          letter = true;
-        }
-      break;
-      case 215:
-        if ((144 <= c2 && 170 >= c2)
-        ||  (176 <= c2 && 178 >= c2))
-        {
-          letter = true;
-        }
-      break;
-      case 216:
-        if ((161 <= c2 && 186 >= c2))
-        {
-          letter = true;
-        }
-      break;
-      case 217:
-        if ((129 <= c2 && 138 >= c2)
-        ||  (177 <= c2 && 191 >= c2))
-        {
-          letter = true;
-        }
-      break;
-      case 218:
-        if ((128 <= c2 && 183 >= c2)
-        ||  (186 <= c2 && 190 >= c2))
-        {
-          letter = true;
-        }
-      break;
-      case 219:
-        if ((128 <= c2 && 142 >= c2)
-        ||  (144 <= c2 && 147 >= c2)
-        ||  (c2 == 149)
-        ||  (165 <= c2 && 166 >= c2))
-        {
-          letter = true;
-        }
-        break;
-    }
-    break;
-case 3:
-  c2 = *(it+1);
-  c3 = *(it+2);
-  switch (c1)
-  {
-    case 224:
-      switch (c2)
-      {
-        case 164:
-          if ((133 <= c3 && 185 >= c3)
-          ||  (c3 == 189))
-          {
-            letter = true;
-          }
-          break;
-        case 165:
-          if ((152 <= c3 && 161 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 166:
-          if ((133 <= c3 && 140 >= c3)
-          ||  (143 <= c3 && 144 >= c3)
-          ||  (147 <= c3 && 168 >= c3)
-          ||  (170 <= c3 && 176 >= c3)
-          ||  (c3 == 178)
-          ||  (182 <= c3 && 185 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 167:
-          if ((156 <= c3 && 157 >= c3)
-          ||  (159 <= c3 && 161 >= c3)
-          ||  (176 <= c3 && 177 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 168:
-          if ((133 <= c3 && 138 >= c3)
-          ||  (143 <= c3 && 144 >= c3)
-          ||  (147 <= c3 && 168 >= c3)
-          ||  (170 <= c3 && 176 >= c3)
-          ||  (178 <= c3 && 179 >= c3)
-          ||  (181 <= c3 && 182 >= c3)
-          ||  (184 <= c3 && 185 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 169:
-          if ((153 <= c3 && 156 >= c3)
-          ||  (c3 == 158)
-          ||  (178 <= c3 && 180 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 170:
-          if ((133 <= c3 && 139 >= c3)
-          ||  (c3 == 141)
-          ||  (143 <= c3 && 145 >= c3)
-          ||  (147 <= c3 && 168 >= c3)
-          ||  (170 <= c3 && 176 >= c3)
-          ||  (178 <= c3 && 179 >= c3)
-          ||  (181 <= c3 && 185 >= c3)
-          ||  (c3 == 189))
-          {
-            letter = true;
-          }
-          break;
-        case 171:
-          if ((c3 == 160))
-          {
-            letter = true;
-          }
-          break;
-        case 172:
-          if ((133 <= c3 && 140 >= c3)
-          ||  (143 <= c3 && 144 >= c3)
-          ||  (147 <= c3 && 168 >= c3)
-          ||  (170 <= c3 && 176 >= c3)
-          ||  (178 <= c3 && 179 >= c3)
-          ||  (182 <= c3 && 185 >= c3)
-          ||  (c3 == 189))
-          {
-            letter = true;
-          }
-          break;
-        case 173:
-          if ((156 <= c3 && 157 >= c3)
-          ||  (159 <= c3 && 161 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 174:
-          if ((133 <= c3 && 138 >= c3)
-          ||  (142 <= c3 && 144 >= c3)
-          ||  (146 <= c3 && 149 >= c3)
-          ||  (153 <= c3 && 154 >= c3)
-          ||  (c3 == 156)
-          ||  (158 <= c3 && 159 >= c3)
-          ||  (163 <= c3 && 164 >= c3)
-          ||  (168 <= c3 && 170 >= c3)
-          ||  (174 <= c3 && 181 >= c3)
-          ||  (183 <= c3 && 185 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 176:
-          if ((133 <= c3 && 140 >= c3)
-          ||  (142 <= c3 && 144 >= c3)
-          ||  (146 <= c3 && 168 >= c3)
-          ||  (170 <= c3 && 179 >= c3)
-          ||  (181 <= c3 && 185 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 177:
-          if ((160 <= c3 && 161 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 178:
-          if ((133 <= c3 && 140 >= c3)
-          ||  (142 <= c3 && 144 >= c3)
-          ||  (146 <= c3 && 168 >= c3)
-          ||  (170 <= c3 && 179 >= c3)
-          ||  (181 <= c3 && 185 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 179:
-          if ((c3 == 158)
-          ||  (160 <= c3 && 161 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 180:
-          if ((133 <= c3 && 140 >= c3)
-          ||  (142 <= c3 && 144 >= c3)
-          ||  (146 <= c3 && 168 >= c3)
-          ||  (170 <= c3 && 185 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 181:
-          if ((160 <= c3 && 161 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 184:
-          if ((129 <= c3 && 174 >= c3)
-          ||  (c3 == 176)
-          ||  (178 <= c3 && 179 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 185:
-          if ((128 <= c3 && 133 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 186:
-          if ((129 <= c3 && 130 >= c3)
-          ||  (c3 == 132)
-          ||  (135 <= c3 && 136 >= c3)
-          ||  (c3 == 138)
-          ||  (c3 == 141)
-          ||  (148 <= c3 && 151 >= c3)
-          ||  (153 <= c3 && 159 >= c3)
-          ||  (161 <= c3 && 163 >= c3)
-          ||  (c3 == 165)
-          ||  (c3 == 167)
-          ||  (170 <= c3 && 171 >= c3)
-          ||  (173 <= c3 && 174 >= c3)
-          ||  (c3 == 176)
-          ||  (178 <= c3 && 179 >= c3)
-          ||  (c3 == 189))
-          {
-            letter = true;
-          }
-          break;
-        case 187:
-          if ((128 <= c3 && 132 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 189:
-          if ((128 <= c3 && 135 >= c3)
-          ||  (137 <= c3 && 169 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        default:
-          break;
-        }
-    break;
-    case 225:
-      switch (c2)
-      {
-        case 130:
-          if ((160 <= c3 && 191 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 131:
-          if ((128 <= c3 && 133 >= c3)
-          ||  (144 <= c3 && 182 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 132:
-          if ((c3 == 128)
-          ||  (130 <= c3 && 131 >= c3)
-          ||  (133 <= c3 && 135 >= c3)
-          ||  (c3 == 137)
-          ||  (139 <= c3 && 140 >= c3)
-          ||  (142 <= c3 && 146 >= c3)
-          ||  (c3 == 188)
-          ||  (c3 == 190))
-          {
-            letter = true;
-          }
-          break;
-        case 133:
-          if ((c3 == 128)
-          ||  (c3 == 140)
-          ||  (c3 == 142)
-          ||  (c3 == 144)
-          ||  (148 <= c3 && 149 >= c3)
-          ||  (c3 == 153)
-          ||  (159 <= c3 && 161 >= c3)
-          ||  (c3 == 163)
-          ||  (c3 == 165)
-          ||  (c3 == 167)
-          ||  (c3 == 169)
-          ||  (173 <= c3 && 174 >= c3)
-          ||  (178 <= c3 && 179 >= c3)
-          ||  (c3 == 181))
-          {
-            letter = true;
-          }
-          break;
-        case 134:
-          if ((c3 == 158)
-          ||  (c3 == 168)
-          ||  (c3 == 171)
-          ||  (174 <= c3 && 175 >= c3)
-          ||  (183 <= c3 && 184 >= c3)
-          ||  (c3 == 186)
-          ||  (188 <= c3 && 191 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 135:
-          if ((128 <= c3 && 130 >= c3)
-          ||  (c3 == 171)
-          ||  (c3 == 176)
-          ||  (c3 == 185))
-          {
-            letter = true;
-          }
-          break;
-        case 184:
-          if ((128 <= c3 && 191 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 185:
-          if ((128 <= c3 && 191 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 186:
-          if ((128 <= c3 && 155 >= c3)
-          ||  (160 <= c3 && 191 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 187:
-          if ((128 <= c3 && 185 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 188:
-          if ((128 <= c3 && 149 >= c3)
-          ||  (152 <= c3 && 157 >= c3)
-          ||  (160 <= c3 && 191 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 189:
-          if ((128 <= c3 && 133 >= c3)
-          ||  (136 <= c3 && 141 >= c3)
-          ||  (144 <= c3 && 151 >= c3)
-          ||  (c3 == 153)
-          ||  (c3 == 155)
-          ||  (c3 == 157)
-          ||  (159 <= c3 && 189 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 190:
-          if ((128 <= c3 && 180 >= c3)
-          ||  (182 <= c3 && 188 >= c3)
-          ||  (c3 == 190))
-          {
-            letter = true;
-          }
-          break;
-        case 191:
-          if ((134 <= c3 && 140 >= c3)
-          ||  (144 <= c3 && 147 >= c3)
-          ||  (150 <= c3 && 155 >= c3)
-          ||  (160 <= c3 && 172 >= c3)
-          ||  (178 <= c3 && 180 >= c3)
-          ||  (182 <= c3 && 188 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        default:
-          break;
-        }
-    break;
-    case 212:
-      switch (c2)
-      {
-        case 191:
-          if ((130 <= c3 && 132 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        default:
-          break;
-        }
-    break;
-    case 226:
-      switch (c2)
-      {
-        case 132:
-          if ((c3 == 166)
-          ||  (170 <= c3 && 171 >= c3)
-          ||  (c3 == 174))
-          {
-            letter = true;
-          }
-          break;
-        case 134:
-          if ((128 <= c3 && 130 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        default:
-          break;
-        }
-    break;
-    case 227:
-      switch (c2)
-      {
-        case 128:
-          if ((c3 == 135)
-          ||  (161 <= c3 && 169 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 129:
-          if ((129 <= c3 && 191 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 130:
-          if ((128 <= c3 && 148 >= c3)
-          ||  (161 <= c3 && 191 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 131:
-          if ((128 <= c3 && 186 >= c3))
-          {
-            letter = true;
-          }
-          break;
-        case 132:
-          if ((133 <= c3 && 172 >= c3))
-          {
-            letter = true;
-          }
-          break;
-       default:
-          break;
-        }
-    break;
-    case 228:
-      if (c2 >= 184)
-      {
-        letter = true;
-      }
-    break;
-    case 233:
-      if (128 <= c2 && 189 >= c2)
-      {
-        letter = true;
-      }
-      else if (c2 == 190)
-      {
-        if (128 <= c3 && 165 >= c3)
-        {
-          letter = true;
-        }
-      }
-    break;
-    case 234:
-      if (c2 >= 176)
-      {
-        letter = true;
-      }
-    break;
-    case 229:
-    case 230:
-    case 231:
-    case 232:
-    case 235:
-    case 236:
-      {
-        letter = true;
-      }
-    break;
-    case 237:
-      if (128 <= c2 && 157 >= c2)
-      {
-        letter = true;
-      }
-      else if (c2 == 158)
-      {
-        if (128 <= c3 && 163 >= c3)
-        {
-          letter = true;
-        }
-      }
-    break;
-
-    }
-    break;
-  default:
-    break;
-  }
-      
-  return letter; 
+  return true;
 }
-/** @endcond doxygen-libsbml-internal */
 
-
-/** @cond doxygen-libsbml-internal */
-/**
-  * Checks if a character is part of the Unicode Digit set.
-  * @return true if the character is a part of the set, false otherwise.
-  */
-bool 
-SBase::isUnicodeDigit(std::string::iterator it, unsigned int numBytes)
+/* default for components that have no required elements */
+bool
+SBase::hasRequiredElements() const
 {
-  /*
-  * Digit ::=  [#x0030-#x0039] | [#x0660-#x0669] | [#x06F0-#x06F9] | 
-  * [#x0966-#x096F] | [#x09E6-#x09EF] | [#x0A66-#x0A6F] | [#x0AE6-#x0AEF] | 
-  * [#x0B66-#x0B6F] | [#x0BE7-#x0BEF] | [#x0C66-#x0C6F] | [#x0CE6-#x0CEF] | 
-  * [#x0D66-#x0D6F] | [#x0E50-#x0E59] | [#x0ED0-#x0ED9] | [#x0F20-#x0F29]    
-  */
-  bool digit = false;
-
-
-  unsigned char c1 = *it;
-  unsigned char c2 ;/* = *(it+1); */
-  unsigned char c3 ;/* = *(it+2); */
-  
-  switch (numBytes)
-  {
-  case 1:
-    if (48 <= c1 && 57 >= c1)
-    {
-      digit = true;
-    }
-    break;
-  case 2:
-    c2 = *(it+1);
-    switch (c1)
-    {
-      case 217:
-        if ((160 <= c2 && 169 >= c2))
-        {
-          digit = true;
-        }
-      break;
-      case 219:
-        if ((176 <= c2 && 185 >= c2))
-        {
-          digit = true;
-        }
-      break;
-    }
-    break;
-  case 3:
-  c2 = *(it+1);
-  c3 = *(it+2);
-  switch (c1)
-  {
-    case 224:
-      switch (c2)
-      {
-        case 165:
-          if ((166 <= c3 && 175 >= c3))
-          {
-            digit = true;
-          }
-          break;
-        case 167:
-          if ((166 <= c3 && 175 >= c3))
-          {
-            digit = true;
-          }
-          break;
-        case 169:
-          if ((166 <= c3 && 175 >= c3))
-          {
-            digit = true;
-          }
-          break;
-        case 171:
-          if ((166 <= c3 && 175 >= c3))
-          {
-            digit = true;
-          }
-          break;
-        case 173:
-          if ((166 <= c3 && 175 >= c3))
-          {
-            digit = true;
-          }
-          break;
-        case 175:
-          if ((167 <= c3 && 175 >= c3))
-          {
-            digit = true;
-          }
-          break;
-        case 177:
-          if ((166 <= c3 && 175 >= c3))
-          {
-            digit = true;
-          }
-          break;
-        case 179:
-          if ((166 <= c3 && 175 >= c3))
-          {
-            digit = true;
-          }
-          break;
-        case 181:
-          if ((166 <= c3 && 175 >= c3))
-          {
-            digit = true;
-          }
-          break;
-        case 185:
-          if ((144 <= c3 && 153 >= c3))
-          {
-            digit = true;
-          }
-          break;
-        case 187:
-          if ((144 <= c3 && 153 >= c3))
-          {
-            digit = true;
-          }
-          break;
-        case 188:
-          if ((160 <= c3 && 169 >= c3))
-          {
-            digit = true;
-          }
-          break;
-      }
-
-      break;
-    default:
-      break;
-  }
-
-  break;
-  }
-      
-  return digit; 
+  return true;
 }
-/** @endcond doxygen-libsbml-internal */
 
-
-/** @cond doxygen-libsbml-internal */
-/**
-  * Checks if a character is part of the Unicode CombiningChar set.
-  * @return true if the character is a part of the set, false otherwise.
-  */
-bool 
-SBase::isCombiningChar(std::string::iterator it, unsigned int numBytes)
+void
+SBase::removeDuplicateAnnotations()
 {
-  bool combiningChar = false;
+  bool resetNecessary = false;
+  XMLNamespaces xmlns = XMLNamespaces();
+  xmlns.add("http://www.sbml.org/libsbml/annotation", "");
+  XMLTriple triple = XMLTriple("duplicateTopLevelElements",
+    "http://www.sbml.org/libsbml/annotation", "");
+  XMLAttributes att = XMLAttributes();
+  XMLToken token = XMLToken(triple, att, xmlns);
+  XMLNode * newNode = NULL;
+  if (isSetAnnotation())
+  { 
+    //make a copy to work with
+    XMLNode * newAnnotation = mAnnotation->clone();
 
-  /* combiningChar unicodes in UTF-8 decimal form
+    unsigned int numChildren = newAnnotation->getNumChildren();
+    if (numChildren == 1)
+      return;
 
-  UNICODE    UTF-8(1)  UTF-8(2)   UTF-8(3)
-  #x0300 -    204      128 - 191
-    #x0345    205      128 - 133
-  #x0360 - 1  205      160 - 161
-  #x0483 - 6  210      131 - 134
-  #x0591 - A1 214      145 - 161
-  #x05A3 - B9 214      163 - 185
-  #x05BB - D  214      187 - 189
-  #x05BF      214      191
-  #x05C1 - 2  215      129 - 130
-  #x05C4      215      132
-  #x064B - 52 217      139 - 146
-  #x0670      217      176
-  #x06D6 - F  219      150 - 159
-  #x06E0 - 4  219      160 - 164
-  #x06E7 - 8  219      167 - 168
-  #x06EA - D  219      170 - 173
-  #x0901 - 3  224      164        129 - 131
-  #x093C      224      164        188
-  #x093E      224      164        190 - 191
-        - 4C  224      165        128 - 140
-  #x094D      224      165        141
-  #x0951 - 4  224      165        145 - 148
-  #x0962 - 3  224      165        162 - 163
-  #x0981 - 3  224      166        129 - 131
-  #x09BC      224      166        188
-  #x09BE - F  224      166        190 - 191
-  #x09C0 - 4  224      167        128 - 132
-  #x09C7 - 8  224      167        135 - 136
-  #x09CB - D  224      167        139 - 141
-  #x09D7      224      167        151
-  #x09E2 - 3  224      167        162 - 163
-  #x0A02      224      168        130
-  #x0A3C      224      168        188
-  #x0A3E - F  224      168        190 - 191
-  #x0A40 - 2  224      169        128 - 130
-  #x0A47 - 8  224      169        135 - 136
-  #x0A4B - D  224      169        139 - 141
-  #x0A70 - 1  224      169        176 - 177
-  #x0A81 - 3  224      170        129 - 131
-  #x0ABC      224      170        188
-  #x0ABE      224      170        190 - 191
-     -    C5  224      171        128 - 133
-  #x0AC7 - 9  224      171        135 - 137
-  #x0ACB - D  224      171        139 - 141
-  #x0B01 - 3  224      172        129 - 131
-  #x0B3C      224      172        188
-  #x0B3E      224      172        190 - 191
-     -    43  224      173        128 - 131
-  #x0B47 - 8  224      173        135 - 136
-  #x0B4B - D  224      173        139 - 141
-  #x0B56 - 7  224      173        150 - 151
-  #x0B82 - 3  224      174        130 - 131
-  #x0BBE      224      174        190 - 191
-     -    C2  224      175        128 - 130
-  #x0BC6 - 8  224      175        134 - 136
-  #x0BCA - D  224      175        138 - 141
-  #x0BD7      224      175        151
-  #x0C01 - 3  224      176        129 - 131
-  #x0C3E      224      176        190 - 191
-     -    44  224      177        128 - 132
-  #x0C46 - 8  224      177        134 - 136
-  #x0C4A - D  224      177        138 - 141
-  #x0C55 - 6  224      177        149 - 150
-  #x0C82 - 3  224      178        130 - 131
-  #x0CBE      224      178        190 - 191
-     -    C4  224      179        128 - 132
-  #x0CC6 - 8  224      179        134 - 136
-  #x0CCA - D  224      179        138 - 141
-  #x0CD5 - 6  224      179        149 - 150 
-  #x0D02 - 3  224      180        130 - 131
-  #x0D3E      224      180        190 - 191
-     -    43  224      181        128 - 131
-  #x0D46 - 8  224      181        134 - 136
-  #x0D4A - D  224      181        138 - 141
-  #x0D57      224      181        151
-  #x0E31      224      184        177
-  #x0E34 - A  224      184        180 - 186
-  #x0E47 - E  224      185        135 - 142
-  #x0EB1      224      186        177
-  #x0EB4 - 9  224      186        180 - 185
-  #x0EBB - C  224      186        187 - 188
-  #x0EC8 - D  224      187        136 - 141
-  #x0F18 - 9  224      188        152 - 153
-  #x0F35      224      188        181
-  #x0F37      224      188        183
-  #x0F39      224      188        185
-  #x0F3E - F  224      188        190 - 191
-  #x0F71      224      189        177 - 191
-     -    84  224      190        128 - 132
-  #x0F86 - B  224      190        134 - 139
-  #x0F90 - 5  224      190        144 - 149
-  #x0F97      224      190        151
-  #x0F99      224      190        153 - 
-     -    AD  224      190              173
-  #x0FB1 - 7  224      190        177 - 183
-  #x0FB9      224      190        185
-  #x20D0 - C  226      131        144 - 156
-  #x20E1      226      131        161
-  #x302A - F  227      128        170 - 175
-  #x3099 - A  227      130        153 - 154
-
-  */
-
-  unsigned char c1 = *it;
-  unsigned char c2 ;/* = *(it+1); */
-  unsigned char c3 ;/* = *(it+2); */
-  
-  switch (numBytes)
-  {
-  case 2:
-   c2 = *(it+1);
-   if (c1 == 204)
+    bool duplicate = false;
+    for (unsigned int i = 0; i < numChildren; i++)
     {
-      if (c2 >= 128 && c2 <= 191)
+      duplicate = false;
+      std::string name = newAnnotation->getChild(i).getName();
+      for (unsigned int j = numChildren-1; j > i; j--)
       {
-        combiningChar = true;
+        if (name == newAnnotation->getChild(j).getName())
+        {
+          resetNecessary = true;
+          duplicate = true;
+          if (!newNode)
+          {
+            // need to  create the new node
+            newNode = new XMLNode(token);
+          }
+          newNode->addChild(static_cast <XMLNode> 
+                            (*(newAnnotation->removeChild(j))));
+        }
       }
+      if (duplicate)
+        newNode->addChild(static_cast <XMLNode>
+                          (*(newAnnotation->removeChild(i))));
+      numChildren = newAnnotation->getNumChildren();
     }
-    else if (c1 == 205)
+    if (resetNecessary)
     {
-      if (c2 >= 128 && c2 <= 133)
-      {
-        combiningChar = true;
-      }
-      else if ( c2 == 160 || c2 == 161)
-      {
-        combiningChar = true;
-      }
+      newAnnotation->addChild(*(newNode));
+      setAnnotation(newAnnotation);
     }
-    else if (c1 == 210)
-    {
-      if (c2 >= 131 && c2 <= 134)
-      {
-        combiningChar = true;
-      }
-    }
-    else if (c1 == 214)
-    {
-      if (c2 >= 145 && c2 <= 161)
-      {
-        combiningChar = true;
-      }
-      else if (c2 >= 163 && c2 <= 185)
-      {
-        combiningChar = true;
-      }
-      else if (c2 >= 187 && c2 <= 189)
-      {
-        combiningChar = true;
-      }
-      else if (c2 == 191)
-      {
-        combiningChar = true;
-      }
-    }
-    else if (c1 == 215)
-    {
-      if (c2 >= 129 && c2 <= 130)
-      {
-        combiningChar = true;
-      }
-      else if (c2 == 132)
-      {
-        combiningChar = true;
-      }
-    }
-    else if (c1 == 217)
-    {
-      if (c2 >= 139 && c2 <= 146)
-      {
-        combiningChar = true;
-      }
-      else if (c2 == 176)
-      {
-        combiningChar = true;
-      }
-    }
-    else if (c1 == 219)
-    {
-      if (c2 >= 150 && c2 <= 159)
-      {
-        combiningChar = true;
-      }
-      else if (c2 >= 160 && c2 <= 164)
-      {
-        combiningChar = true;
-      }
-      else if (c2 >= 167 && c2 <= 168)
-      {
-        combiningChar = true;
-      }
-      else if (c2 >= 170 && c2 <= 173)
-      {
-        combiningChar = true;
-      }
-    }
-    break;
-  case 3:
-    c2 = *(it+1);
-    c3 = *(it+2);
-    if (c1 == 226)
-    { 
-      if (c2 == 131)
-      {
-        if (c3 == 161
-          || (144 <= c3 && 156 >= c3))
-        {
-          combiningChar = true;
-        }
-      }
-    }
-    else if (c1 == 227)
-    {
-      if (c2 == 128)
-      {
-        if (170 <= c3 && 175 >= c3)
-        {
-          combiningChar = true;
-        }
-      }
-      else if (c2 == 130)
-      {
-        if (153 <= c3 && 154 >= c3)
-        {
-          combiningChar = true;
-        }
-      }
-    }
-    else if (c1 == 224)
-    {
-      switch (c2)
-      {
-      case 164:
-        if (  (129 <= c3 && 131 >= c3)  ||
-              (c3 == 188)               ||
-              (190 <= c3 && 191 >= c3)  )
-        {
-          combiningChar = true;
-        }
-
-        break;
-      case 165:
-        if (  (128 <= c3 && 140 >= c3)  ||
-              (c3 == 141)               ||
-              (145 <= c3 && 148 >= c3)  ||
-              (162 <= c3 && 163 >= c3)  )
-        {
-          combiningChar = true;
-        }
-
-        break;
-      case 166:
-        if (  (129 <= c3 && 131 >= c3)  ||
-              (c3 == 188)               ||
-              (190 <= c3 && 191 >= c3)  )
-        {
-          combiningChar = true;
-        }
-
-        break;
-      case 167:
-        if (  (128 <= c3 && 132 >= c3)  ||
-              (135 <= c3 && 136 >= c3)  ||
-              (139 <= c3 && 141 >= c3)  ||
-              (c3 == 151)               ||
-              (162 <= c3 && 163 >= c3)  )
-        {
-          combiningChar = true;
-        }
-
-        break;
-      case 168:
-        if (  (c3 == 130)               ||
-              (c3 == 188)               ||
-              (190 <= c3 && 191 >= c3)  )
-        {
-          combiningChar = true;
-        }
-
-        break;
-      case 169:
-        if (  (128 <= c3 && 130 >= c3)  ||
-              (135 <= c3 && 136 >= c3)  ||
-              (139 <= c3 && 141 >= c3)  ||
-              (176 <= c3 && 177 >= c3)  )
-        {
-          combiningChar = true;
-        }
-
-        break;
-      case 170:
-        if (  (129 <= c3 && 131 >= c3)  ||
-              (c3 == 188)               ||
-              (190 <= c3 && 191 >= c3)  )
-        {
-          combiningChar = true;
-        }
-
-        break;
-      case 171:
-        if (  (128 <= c3 && 130 >= c3)  ||
-              (135 <= c3 && 137 >= c3)  ||
-              (139 <= c3 && 141 >= c3)  )
-        {
-          combiningChar = true;
-        }
-
-        break;
-      case 172:
-        if (  (129 <= c3 && 131 >= c3)  ||
-              (c3 == 188)               ||
-              (190 <= c3 && 191 >= c3)  )
-        {
-          combiningChar = true;
-        }
-
-        break;
-      case 173:
-        if (  (128 <= c3 && 131 >= c3)  ||
-              (135 <= c3 && 136 >= c3)  ||
-              (139 <= c3 && 141 >= c3)  ||
-              (150 <= c3 && 151 >= c3)  )
-        {
-          combiningChar = true;
-        }
-
-        break;
-      case 174:
-        if (  (130 <= c3 && 131 >= c3)  ||
-              (190 <= c3 && 191 >= c3)  )
-        {
-          combiningChar = true;
-        }
-
-        break;
-      case 175:
-        if (  (128 <= c3 && 130 >= c3)  ||
-              (134 <= c3 && 136 >= c3)  ||
-              (138 <= c3 && 141 >= c3)  ||
-              (c3 == 151)               )
-        {
-          combiningChar = true;
-        }
-
-        break;
-      case 176:
-        if (  (129 <= c3 && 131 >= c3)  ||
-              (190 <= c3 && 191 >= c3)  )
-        {
-          combiningChar = true;
-        }
-
-        break;
-      case 177:
-        if (  (128 <= c3 && 132 >= c3)  ||
-              (134 <= c3 && 136 >= c3)  ||
-              (138 <= c3 && 141 >= c3)  ||
-              (149 <= c3 && 150 >= c3)  )
-        {
-          combiningChar = true;
-        }
-
-        break;
-      case 178:
-        if (  (130 <= c3 && 131 >= c3)  ||
-              (190 <= c3 && 191 >= c3)  )
-        {
-          combiningChar = true;
-        }
-
-        break;
-      case 179:
-        if (  (128 <= c3 && 132 >= c3)  ||
-              (134 <= c3 && 136 >= c3)  ||
-              (138 <= c3 && 141 >= c3)  ||
-              (149 <= c3 && 150 >= c3)  )
-        {
-          combiningChar = true;
-        }
-
-        break;
-      case 180:
-        if (  (130 <= c3 && 131 >= c3)  ||
-              (190 <= c3 && 191 >= c3)  )
-        {
-          combiningChar = true;
-        }
-
-        break;
-      case 181:
-        if (  (128 <= c3 && 131 >= c3)  ||
-              (134 <= c3 && 136 >= c3)  ||
-              (138 <= c3 && 141 >= c3)  ||
-              (c3 == 151)               )
-        {
-          combiningChar = true;
-        }
-
-        break;
-      case 184:
-        if (  (c3 == 170)               ||
-              (180 <= c3 && 186 >= c3)  )
-        {
-          combiningChar = true;
-        }
-
-        break;
-      case 185:
-        if (  (135 <= c3 && 142 >= c3)  )
-        {
-          combiningChar = true;
-        }
-
-        break;
-      case 186:
-        if (  (c3 == 177)               ||
-              (180 <= c3 && 185 >= c3)  ||
-              (187 <= c3 && 188 >= c3)  )
-        {
-          combiningChar = true;
-        }
-
-        break;
-      case 187:
-        if (  (136 <= c3 && 141 >= c3)  )
-        {
-          combiningChar = true;
-        }
-
-        break;
-      case 188:
-        if (  (152 <= c3 && 153 >= c3)  ||
-              (c3 == 181)               ||
-              (c3 == 183)               ||
-              (c3 == 185)               ||
-              (190 <= c3 && 191 >= c3)  )
-        {
-          combiningChar = true;
-        }
-
-        break;
-      case 189:
-        if (  (177 <= c3 && 191 >= c3)  )
-        {
-          combiningChar = true;
-        }
-
-        break;
-      case 190:
-        if (  (128 <= c3 && 132 >= c3)  ||
-              (134 <= c3 && 139 >= c3)  ||
-              (144 <= c3 && 149 >= c3)  ||
-              (c3 == 151)               ||
-              (153 <= c3 && 173 >= c3)  ||
-              (177 <= c3 && 183 >= c3)  ||
-              (c3 == 185)               )
-        {
-          combiningChar = true;
-        }
-
-        break;
-      default:
-        break;
-      }
-
-    }
-  default:
-    break;
   }
-      
-  return combiningChar; 
+
+
 }
-/** @endcond doxygen-libsbml-internal */
 
 
-/** @cond doxygen-libsbml-internal */
-/**
-  * Checks if a character is part of the Unicode Extender set.
-  * @return true if the character is a part of the set, false otherwise.
-  */
-bool 
-SBase::isExtender(std::string::iterator it, unsigned int numBytes)
-{
-  bool extender = false;
-
-  /* extender unicodes in UTF-8 decimal form
-
-  UNICODE UTF-8(1)  UTF-8(2)  UTF-8(3)
-  #x00B7  194       183
-  #x02D0  203       144
-  #x02D1  203       145
-  #x0387  206       135
-  #x0640  217       128
-  #x0E46  224       185       134
-  #x0EC6  224       187       134
-  #x3005  227       128       133
-  #x3031- 227       128       177-
-  #x3035                      181
-  #x309D  227       130       157
-  #x309E  227       130       158
-  #x30FC- 227       131       188-
-  #x30FE                      190
-
-  */
-
-  unsigned char c1 = *it;
-  unsigned char c2 ;/* = *(it+1); */
-  unsigned char c3 ;/* = *(it+2); */
-  
-  switch (numBytes)
-  {
-  case 2:
-    c2 = *(it+1);
-    if (c1 == 194 && c2 == 183)
-    {
-      extender = true;
-    }
-    else if (c1 == 203)
-    {
-      if (c2 == 144 || c2 == 145)
-      {
-        extender = true;
-      }
-    }
-    else if (c1 == 206 && c2 == 135)
-    {
-      extender = true;
-    }
-    else if (c1 == 217 && c2 == 128)
-    {
-      extender = true;
-    }
-    break;
-  case 3:
-    c2 = *(it+1);
-    c3 = *(it+2);
-    if (c1 == 224)
-    {
-      if (c2 == 185 || c2 == 187)
-      {
-        if (c3 == 134)
-        {
-          extender = true;
-        }
-      }
-    }
-    else if (c1 == 227)
-    {
-      if (c2 == 128)
-      {
-        if (c3 == 133 || (c3 >= 177 && c3 <= 181))
-        {
-          extender = true;
-        }
-      }
-      else if (c2 == 130)
-      {
-        if (c3 == 157 || c3 == 158)
-        {
-          extender = true;
-        }
-      }
-      else if (c2 == 131)
-      {
-         if (c3 >= 188 && c3 <= 190)
-        {
-          extender = true;
-        }
-     }
-    }
-  default:
-    break;
-  }
-      
-  return extender; 
-}
 
 
 void
@@ -4477,7 +3504,6 @@ SBase::removeDuplicateAnnotations()
 
 /** @endcond doxygen-libsbml-internal */
 
-
 /** @cond doxygen-libsbml-internal */
 /*
  * Stores the location (line and column) and any XML namespaces (for
@@ -4491,7 +3517,12 @@ SBase::setSBaseFields (const XMLToken& element)
 
   if (element.getNamespaces().getLength() > 0)
   {
-    mNamespaces = new XMLNamespaces( element.getNamespaces() );
+    XMLNamespaces tmpxmlns(element.getNamespaces());
+    setNamespaces(&tmpxmlns);
+  }
+  else
+  {
+    setNamespaces(NULL);
   }
 }
 /** @endcond doxygen-libsbml-internal */
@@ -4506,15 +3537,25 @@ SBase::setSBaseFields (const XMLToken& element)
  * @param sb the object to add the CVTerm to
  * @param term the CVTerm_t to assign
  *
- * @note Since the CV Term uses the metaid of the object as a 
- * reference, if the object has no metaid set the CVTerm will
- * not be added.
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @note The annotation constructed from a CVTerm uses the metaid
+ * of the object to identify it.  Adding a CVTerm to an object
+ * where the 'metaId' attribute has not been set will fail with the
+ * return value LIBSBML_UNEXPECTED_ATTRIBUTE.
  */
 LIBSBML_EXTERN
-void 
+int 
 SBase_addCVTerm(SBase_t *sb, CVTerm_t *term)
 {
-  sb->addCVTerm(term);
+  return sb->addCVTerm(term);
 }
 
 
@@ -4570,12 +3611,19 @@ SBase_getCVTerm(SBase_t *sb, unsigned int n)
  * object.
  *
  * @param sb the object to clear CVTerms from
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void 
+int 
 SBase_unsetCVTerms(SBase_t *sb)
 {
-  sb->unsetCVTerms();
+  return sb->unsetCVTerms();
 }
 
 
@@ -4633,36 +3681,36 @@ SBase_getMetaId (SBase_t *sb)
 }
 
 
-/**
- * Returns the value of the "id" attribute of the given SBase_t
- * structure.
- *
- * @param sb the SBase_t structure
- * 
- * @return the value of the "id" attribute of @p sb
- */
-LIBSBML_EXTERN
-const char *
-SBase_getId (const SBase_t *sb)
-{
-  return sb->isSetId() ? sb->getId().c_str() : NULL;
-}
-
-
-/**
- * Returns the value of the "name" attribute of the given SBase_t
- * structure.
- *
- * @param sb the SBase_t structure
- * 
- * @return the value of the "name" attribute of @p sb
- */
-LIBSBML_EXTERN
-const char *
-SBase_getName (const SBase_t *sb)
-{
-  return sb->isSetName() ? sb->getName().c_str() : NULL;
-}
+///**
+// * Returns the value of the "id" attribute of the given SBase_t
+// * structure.
+// *
+// * @param sb the SBase_t structure
+// * 
+// * @return the value of the "id" attribute of @p sb
+// */
+//LIBSBML_EXTERN
+//const char *
+//SBase_getId (const SBase_t *sb)
+//{
+//  return sb->isSetId() ? sb->getId().c_str() : NULL;
+//}
+//
+//
+///**
+// * Returns the value of the "name" attribute of the given SBase_t
+// * structure.
+// *
+// * @param sb the SBase_t structure
+// * 
+// * @return the value of the "name" attribute of @p sb
+// */
+//LIBSBML_EXTERN
+//const char *
+//SBase_getName (const SBase_t *sb)
+//{
+//  return sb->isSetName() ? sb->getName().c_str() : NULL;
+//}
 
 
 /**
@@ -4747,6 +3795,33 @@ int
 SBase_getSBOTerm (const SBase_t *sb)
 {
   return sb->getSBOTerm();
+}
+
+
+/**
+ * Returns the string representation of the "sboTerm" attribute of
+ * this object.
+ *
+ * In SBML Level 2 Versions 2, 3 and 4, the data type of the attribute is a
+ * string of the form SBO:NNNNNNN, where NNNNNNN is a seven digit integer
+ * number; libSBML simplifies the representation by only storing the
+ * NNNNNNN integer portion.  Thus, in libSBML, the "sboTerm" attribute on
+ * SBase has data type @c int, and SBO identifiers are stored simply as
+ * integers.  This function recreates the string representation from the
+ * stored value.  SBO terms are a type of optional annotation, and each
+ * different class of SBML object derived from SBase imposes its own
+ * requirements about the values permitted for "sboTerm".  Please consult
+ * the SBML Level 2 Version 4 specification for more information about
+ * the use of SBO and the "sboTerm" attribute.
+ *
+ * @return the value of the "sboTerm" attribute as a string of the form
+ * SBO:NNNNNNN, or NULL if the value is not set.
+ */
+LIBSBML_EXTERN
+char*
+SBase_getSBOTermID (const SBase_t *sb)
+{
+  return sb->isSetSBOTerm() ? safe_strdup(sb->getSBOTermID().c_str()) : NULL;
 }
 
 
@@ -4865,38 +3940,38 @@ SBase_isSetMetaId (const SBase_t *sb)
 }
 
 
-/**
- * Predicate returning nonzero true or false depending on whether the given
- * structure's "id" attribute has been set.
- *
- * @param sb the SBase_t structure to query
- * 
- * @return nonzero (for true) if the "id" attribute of this SBML object
- * has been set, zero (for false) otherwise.
- */
-LIBSBML_EXTERN
-int
-SBase_isSetId (const SBase_t *sb)
-{
-  return static_cast<int>( sb->isSetId() );
-}
-
-
-/**
- * Predicate returning nonzero true or false depending on whether the given
- * structure's "name" attribute has been set.
- *
- * @param sb the SBase_t structure to query
- * 
- * @return nonzero (for true) if the "name" attribute of this SBML object
- * has been set, zero (for false) otherwise.
- */
-LIBSBML_EXTERN
-int
-SBase_isSetName (const SBase_t *sb)
-{
-  return static_cast<int>( sb->isSetName() );
-}
+///**
+// * Predicate returning nonzero true or false depending on whether the given
+// * structure's "id" attribute has been set.
+// *
+// * @param sb the SBase_t structure to query
+// * 
+// * @return nonzero (for true) if the "id" attribute of this SBML object
+// * has been set, zero (for false) otherwise.
+// */
+//LIBSBML_EXTERN
+//int
+//SBase_isSetId (const SBase_t *sb)
+//{
+//  return static_cast<int>( sb->isSetId() );
+//}
+//
+//
+///**
+// * Predicate returning nonzero true or false depending on whether the given
+// * structure's "name" attribute has been set.
+// *
+// * @param sb the SBase_t structure to query
+// * 
+// * @return nonzero (for true) if the "name" attribute of this SBML object
+// * has been set, zero (for false) otherwise.
+// */
+//LIBSBML_EXTERN
+//int
+//SBase_isSetName (const SBase_t *sb)
+//{
+//  return static_cast<int>( sb->isSetName() );
+//}
 
 
 /**
@@ -4966,61 +4041,94 @@ SBase_isSetSBOTerm (const SBase_t *sb)
  *
  * @param metaid the identifier string to use as the value of the
  * "metaid" attribute
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ *
+ * @note Using this function with the metaid set to NULL is equivalent to
+ * unsetting the "metaid" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 SBase_setMetaId (SBase_t *sb, const char *metaid)
 {
-  (metaid == NULL) ? sb->unsetMetaId() : sb->setMetaId(metaid);
+  return (metaid == NULL) ? sb->unsetMetaId() : sb->setMetaId(metaid);
 }
 
 
-/**
- * Sets the value of the "id" attribute of this SBML object.
- *
- * The string @p sid is copied.  Note that SBML has strict requirements
- * for the syntax of identifiers.  The following is summary of the
- * definition of the SBML identifier type @c SId (here expressed in an
- * extended form of BNF notation):
- * @code
- *   letter ::= 'a'..'z','A'..'Z'
- *   digit  ::= '0'..'9'
- *   idChar ::= letter | digit | '_'
- *   SId    ::= ( letter | '_' ) idChar*
- * @endcode
- * The equality of SBML identifiers is determined by an exact character
- * sequence match; i.e., comparisons must be performed in a
- * case-sensitive manner.  In addition, there are a few conditions for
- * the uniqueness of identifiers in an SBML model.  Please consult the
- * SBML specifications for the exact formulations.
- *
- * @param sb the SBase_t structure
- *
- * @param sid the string to use as the identifier of this object
- */
-LIBSBML_EXTERN
-void
-SBase_setId (SBase_t *sb, const char *sid)
-{
-  (sid == NULL) ? sb->unsetId() : sb->setId(sid);
-}
-
-
-/**
- * Sets the value of the "name" attribute of this SBML object.
- *
- * The string in @p name is copied.
- *
- * @param sb the SBase_t structure
- *
- * @param name the new name for the object
- */
-LIBSBML_EXTERN
-void
-SBase_setName (SBase_t *sb, const char *name)
-{
-  (name == NULL) ? sb->unsetName() : sb->setName(name);
-}
+///**
+// * Sets the value of the "id" attribute of this SBML object.
+// *
+// * The string @p sid is copied.  Note that SBML has strict requirements
+// * for the syntax of identifiers.  The following is summary of the
+// * definition of the SBML identifier type @c SId (here expressed in an
+// * extended form of BNF notation):
+// * @code
+// *   letter ::= 'a'..'z','A'..'Z'
+// *   digit  ::= '0'..'9'
+// *   idChar ::= letter | digit | '_'
+// *   SId    ::= ( letter | '_' ) idChar*
+// * @endcode
+// * The equality of SBML identifiers is determined by an exact character
+// * sequence match; i.e., comparisons must be performed in a
+// * case-sensitive manner.  In addition, there are a few conditions for
+// * the uniqueness of identifiers in an SBML model.  Please consult the
+// * SBML specifications for the exact formulations.
+// *
+// * @param sb the SBase_t structure
+// *
+// * @param sid the string to use as the identifier of this object
+// *
+// * @return integer value indicating success/failure of the
+// * function.  @if clike The value is drawn from the
+// * enumeration #OperationReturnValues_t. @endif The possible values
+// * returned by this function are:
+// *
+// * @li LIBSBML_OPERATION_SUCCESS
+// * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+// *
+// * @note Using this function with an id of NULL is equivalent to
+// * unsetting the "id" attribute.
+// */
+//LIBSBML_EXTERN
+//int
+//SBase_setId (SBase_t *sb, const char *sid)
+//{
+//  return (sid == NULL) ? sb->unsetId() : sb->setId(sid);
+//}
+//
+//
+///**
+// * Sets the value of the "name" attribute of this SBML object.
+// *
+// * The string in @p name is copied.
+// *
+// * @param sb the SBase_t structure
+// *
+// * @param name the new name for the object
+// *
+// * @return integer value indicating success/failure of the
+// * function.  @if clike The value is drawn from the
+// * enumeration #OperationReturnValues_t. @endif The possible values
+// * returned by this function are:
+// *
+// * @li LIBSBML_OPERATION_SUCCESS
+// * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+// *
+// * @note Using this function with the name set to NULL is equivalent to
+// * unsetting the "name" attribute.
+// */
+//LIBSBML_EXTERN
+//int
+//SBase_setName (SBase_t *sb, const char *name)
+//{
+//  return (name == NULL) ? sb->unsetName() : sb->setName(name);
+//}
 
 
 /**
@@ -5040,12 +4148,54 @@ SBase_setName (SBase_t *sb, const char *name)
  * @param sb the SBase_t structure
  *
  * @param value the NNNNNNN integer portion of the SBO identifier
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
  */
 LIBSBML_EXTERN
-void
+int
 SBase_setSBOTerm (SBase_t *sb, int value)
 {
-  sb->setSBOTerm(value);
+  return sb->setSBOTerm(value);
+}
+
+
+/*
+ * Sets the value of the "sboTerm" attribute by string.
+ *
+ * In SBML Level 2 Versions 2, 3 and 4, the data type of the SBML "sboTerm"
+ * attribute is a string of the form SBO:NNNNNNN, where NNNNNNN is a
+ * seven digit integer number; libSBML simplifies the representation by
+ * only storing the NNNNNNN integer portion converted from the given string.
+ * Thus, in libSBML, the "sboTerm" attribute on SBase has data type @c int,
+ * and SBO identifiers are stored simply as integers.  SBO terms are a type
+ * of optional annotation, and each different class of SBML object derived
+ * from SBase imposes its own requirements about the values permitted for
+ * "sboTerm".  Please consult the SBML Level 2 Version 4 specification for
+ * more information about the use of SBO and the "sboTerm" attribute.
+ *
+ * @param sb the SBase_t structure
+ *
+ * @param value the SBO identifier string of the form SBO:NNNNNNN 
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ */
+LIBSBML_EXTERN
+int
+SBase_setSBOTermID (SBase_t *sb, const char* sboid)
+{
+  return sb->setSBOTerm(sboid);
 }
 
 
@@ -5055,12 +4205,18 @@ SBase_setSBOTerm (SBase_t *sb, int value)
  * @param sb the SBase_t structure
  *
  * @param xmlns the namespaces to set
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void
+int
 SBase_setNamespaces (SBase_t *sb, XMLNamespaces_t *xmlns)
 {
-  sb->setNamespaces(xmlns);
+  return sb->setNamespaces(xmlns);
 }
 
 
@@ -5069,12 +4225,19 @@ SBase_setNamespaces (SBase_t *sb, XMLNamespaces_t *xmlns)
  *
  * @param sb the given SBML object.
  * @param notes the XMLNode_t structure respresenting the notes.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
-void
+int
 SBase_setNotes (SBase_t *sb, XMLNode_t *notes)
 {
-  sb->setNotes(notes);
+  return sb->setNotes(notes);
 }
 
 
@@ -5083,18 +4246,26 @@ SBase_setNotes (SBase_t *sb, XMLNode_t *notes)
  *
  * @param sb the given SBML object.
  * @param notes the string (const char*) respresenting the notes.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 SBase_setNotesString (SBase_t *sb, char *notes)
 {
   if(notes == NULL)
   {
-    sb->unsetNotes();
+    return sb->unsetNotes();
   }
   else
   {
-    sb->setNotes(notes);
+    return sb->setNotes(notes);
   }
 }
 
@@ -5104,12 +4275,20 @@ SBase_setNotesString (SBase_t *sb, char *notes)
  *
  * @param sb the given SBML object.
  * @param notes the XMLNode_t structure respresenting the notes.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 SBase_appendNotes (SBase_t *sb, XMLNode_t *notes)
 {
-  sb->appendNotes(notes);
+  return sb->appendNotes(notes);
 }
 
 
@@ -5118,15 +4297,20 @@ SBase_appendNotes (SBase_t *sb, XMLNode_t *notes)
  *
  * @param sb the given SBML object.
  * @param notes the string (const char*) respresenting the notes.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 SBase_appendNotesString (SBase_t *sb, char *notes)
 {
-  if(notes != NULL)
-  {
-    sb->appendNotes(notes);
-  }
+  return sb->appendNotes(notes);
 }
 
 
@@ -5135,12 +4319,18 @@ SBase_appendNotesString (SBase_t *sb, char *notes)
  *
  * @param sb the given SBML object.
  * @param annotation the XMLNode_t structure respresenting the annotation.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void
+int
 SBase_setAnnotation (SBase_t *sb, XMLNode_t *annotation)
 {
-  sb->setAnnotation(annotation);
+  return sb->setAnnotation(annotation);
 }
 
 
@@ -5149,18 +4339,25 @@ SBase_setAnnotation (SBase_t *sb, XMLNode_t *annotation)
  *
  * @param sb the given SBML object.
  * @param annotation the string (const char*) respresenting the annotation.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 SBase_setAnnotationString (SBase_t *sb, char *annotation)
 {
   if(annotation == NULL)
   {
-    sb->unsetAnnotation();
+    return sb->unsetAnnotation();
   }
   else
   {
-    sb->setAnnotation(annotation);
+    return sb->setAnnotation(annotation);
   }
 }
 
@@ -5170,12 +4367,19 @@ SBase_setAnnotationString (SBase_t *sb, char *annotation)
  *
  * @param sb the given SBML object.
  * @param annotation the XMLNode_t structure respresenting the annotation.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 SBase_appendAnnotation (SBase_t *sb, XMLNode_t *annotation)
 {
-  sb->appendAnnotation(annotation);
+  return sb->appendAnnotation(annotation);
 }
 
 
@@ -5184,15 +4388,19 @@ SBase_appendAnnotation (SBase_t *sb, XMLNode_t *annotation)
  *
  * @param sb the given SBML object.
  * @param annotation the string (const char*) respresenting the annotation.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 SBase_appendAnnotationString (SBase_t *sb, char *annotation)
 {
-  if(annotation != NULL)
-  {
-    sb->appendAnnotation(annotation);
-  }
+  return sb->appendAnnotation(annotation);
 }
 
 
@@ -5200,51 +4408,80 @@ SBase_appendAnnotationString (SBase_t *sb, char *annotation)
  * Unsets the "metaid" attribute of the given object.
  *
  * @param sb the SBase_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 SBase_unsetMetaId (SBase_t *sb)
 {
-  sb->unsetMetaId();
+  return sb->unsetMetaId();
 }
 
 
-/**
- * Unsets the "id" attribute of the given object.
- *
- * @param sb the SBase_t structure
- */
-LIBSBML_EXTERN
-void
-SBase_unsetId (SBase_t *sb)
-{
-  sb->unsetId();
-}
-
-
-/**
- * Unsets the "name" attribute of the given object.
- *
- * @param sb the SBase_t structure
- */
-LIBSBML_EXTERN
-void
-SBase_unsetName (SBase_t *sb)
-{
-  sb->unsetName();
-}
+///**
+// * Unsets the "id" attribute of the given object.
+// *
+// * @param sb the SBase_t structure
+// *
+// * @return integer value indicating success/failure of the
+// * function.  @if clike The value is drawn from the
+// * enumeration #OperationReturnValues_t. @endif The possible values
+// * returned by this function are:
+// *
+// * @li LIBSBML_OPERATION_SUCCESS
+// * @li LIBSBML_OPERATION_FAILED
+// */
+//LIBSBML_EXTERN
+//int
+//SBase_unsetId (SBase_t *sb)
+//{
+//  return sb->unsetId();
+//}
+//
+//
+///**
+// * Unsets the "name" attribute of the given object.
+// *
+// * @param sb the SBase_t structure
+// *
+// * @return integer value indicating success/failure of the
+// * function.  @if clike The value is drawn from the
+// * enumeration #OperationReturnValues_t. @endif The possible values
+// * returned by this function are:
+// *
+// * @li LIBSBML_OPERATION_SUCCESS
+// * @li LIBSBML_OPERATION_FAILED
+// */
+//LIBSBML_EXTERN
+//int
+//SBase_unsetName (SBase_t *sb)
+//{
+//  return sb->unsetName();
+//}
 
 
 /**
  * Unsets the "notes" subelement of the given object.
  *
  * @param sb the SBase_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void
+int
 SBase_unsetNotes (SBase_t *sb)
 {
-  sb->unsetNotes();
+  return sb->unsetNotes();
 }
 
 
@@ -5252,12 +4489,18 @@ SBase_unsetNotes (SBase_t *sb)
  * Unsets the "annotation" subelement of the given object.
  *
  * @param sb the SBase_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void
+int
 SBase_unsetAnnotation (SBase_t *sb)
 {
-  sb->unsetAnnotation();
+  return sb->unsetAnnotation();
 }
 
 
@@ -5265,12 +4508,19 @@ SBase_unsetAnnotation (SBase_t *sb)
  * Unsets the "sboTerm" attribute of the given object.
  *
  * @param sb the SBase_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
  */
 LIBSBML_EXTERN
-void
+int
 SBase_unsetSBOTerm (SBase_t *sb)
 {
-  sb->unsetSBOTerm();
+  return sb->unsetSBOTerm();
 }
 
 
@@ -5366,5 +4616,36 @@ SBase_getColumn (const SBase_t *sb)
 }
 
 
+/**
+  * Predicate returning nonzero true or false depending on whether the
+  * object's level/version and namespace values correspond to a valid
+  * SBML specification.
+  *
+  * The valid combinations of SBML Level, Version and Namespace as of this release
+  * of libSBML are the following: 
+  * <ul>
+  * <li> Level&nbsp;1 Version&nbsp;2 "http://www.sbml.org/sbml/level1"
+  * <li> Level&nbsp;2 Version&nbsp;1 "http://www.sbml.org/sbml/level2"
+  * <li> Level&nbsp;2 Version&nbsp;2 "http://www.sbml.org/sbml/level2/version2"
+  * <li> Level&nbsp;2 Version&nbsp;3 "http://www.sbml.org/sbml/level2/version3"
+  * <li> Level&nbsp;2 Version&nbsp;4 "http://www.sbml.org/sbml/level2/version4"
+  * </ul>
+  *
+  * @param sb the SBase_t structure
+  *
+  * @return nonzero (true) if the level, version and namespace values of this 
+  * SBML object correspond to a valid set of values, zero (false) otherwise.
+  */
+LIBSBML_EXTERN
+int
+SBase_hasValidLevelVersionNamespaceCombination(SBase_t *sb)
+{
+  return static_cast <int> (sb->hasValidLevelVersionNamespaceCombination());
+}
+
+
+
 
 /** @endcond doxygen-c-only */
+
+LIBSBML_CPP_NAMESPACE_END

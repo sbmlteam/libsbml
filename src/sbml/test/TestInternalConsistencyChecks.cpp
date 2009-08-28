@@ -59,6 +59,7 @@
 
 #include <check.h>
 
+LIBSBML_CPP_NAMESPACE_USE
 
 BEGIN_C_DECLS
 
@@ -68,7 +69,7 @@ START_TEST (test_internal_consistency_check_99901)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Compartment *c = new Compartment();
+  Compartment *c = new Compartment(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
 
@@ -78,8 +79,17 @@ START_TEST (test_internal_consistency_check_99901)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99901);
+  */
+  /* this will give schema error as level 1 models
+   * required a compartment
+   * which wont have been added
+   */
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 10103);
 
   delete d;
 }
@@ -90,7 +100,7 @@ START_TEST (test_internal_consistency_check_99902)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Compartment *c = new Compartment();
+  Compartment *c = new Compartment(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
 
@@ -100,8 +110,17 @@ START_TEST (test_internal_consistency_check_99902)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99902);
+  */
+  /* this will give schema error as level 1 models
+   * required a compartment
+   * which wont have been added
+   */
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 10103);
 
   delete d;
 }
@@ -112,7 +131,7 @@ START_TEST (test_internal_consistency_check_99903)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Compartment *c = new Compartment();
+  Compartment *c = new Compartment(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
 
@@ -127,8 +146,17 @@ START_TEST (test_internal_consistency_check_99903)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99903);
+  */
+  /* this will give several errors as level 1 models
+   * required a compartment
+   * which wont have been added
+   * which means the rule cant work out what type of rule
+   */
+  fail_unless(errors == 3);
 
   delete d;
 }
@@ -139,7 +167,7 @@ START_TEST (test_internal_consistency_check_99903_param)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Parameter *p = new Parameter();
+  Parameter *p = new Parameter(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
@@ -155,8 +183,16 @@ START_TEST (test_internal_consistency_check_99903_param)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99903);
+  */
+  /* this will give several errors
+   * parameter wont have been added
+   * the rule cant work out what type of rule
+   */
+  fail_unless(errors == 2);
 
   delete d;
 }
@@ -167,7 +203,7 @@ START_TEST (test_internal_consistency_check_99903_localparam)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Parameter *p = new Parameter();
+  Parameter *p = new Parameter(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
@@ -183,8 +219,12 @@ START_TEST (test_internal_consistency_check_99903_localparam)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99903);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -195,7 +235,7 @@ START_TEST (test_internal_consistency_check_99904)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Compartment *c = new Compartment();
+  Compartment *c = new Compartment(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
 
@@ -205,8 +245,17 @@ START_TEST (test_internal_consistency_check_99904)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99904);
+  */
+  /* this will give schema error as level 1 models
+   * required a compartment
+   * which wont have been added
+   */
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 10103);
 
   delete d;
 }
@@ -217,7 +266,7 @@ START_TEST (test_internal_consistency_check_99904_kl)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  KineticLaw *kl = new KineticLaw();
+  KineticLaw *kl = new KineticLaw(2, 4);
   Model *m = d->createModel();
   d->setLevelAndVersion(1, 2);
   Compartment *c = m->createCompartment();
@@ -231,8 +280,12 @@ START_TEST (test_internal_consistency_check_99904_kl)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99904);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -244,7 +297,7 @@ START_TEST (test_internal_consistency_check_99904_model)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   d->setLevelAndVersion(1, 2);
-  Model * m = new Model();
+  Model * m = new Model(2, 4);
   Compartment *c = m->createCompartment();
   c->setId("cc");
 
@@ -253,8 +306,15 @@ START_TEST (test_internal_consistency_check_99904_model)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99904);
+  */
+  /* this will have error because the model is not added
+  */
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 20201);
 
   delete d;
 }
@@ -265,7 +325,7 @@ START_TEST (test_internal_consistency_check_99904_param)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Parameter *p = new Parameter();
+  Parameter *p = new Parameter(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
@@ -277,8 +337,12 @@ START_TEST (test_internal_consistency_check_99904_param)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99904);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -289,7 +353,7 @@ START_TEST (test_internal_consistency_check_99904_react)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Reaction *r = new Reaction();
+  Reaction *r = new Reaction(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
@@ -301,8 +365,12 @@ START_TEST (test_internal_consistency_check_99904_react)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99904);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -313,7 +381,7 @@ START_TEST (test_internal_consistency_check_99904_rule_assign)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Rule *r = new AssignmentRule();
+  Rule *r = new AssignmentRule(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
@@ -327,8 +395,12 @@ START_TEST (test_internal_consistency_check_99904_rule_assign)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99904);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -339,7 +411,7 @@ START_TEST (test_internal_consistency_check_99904_rule_rate)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Rule *r = new RateRule();
+  Rule *r = new RateRule(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
@@ -353,8 +425,12 @@ START_TEST (test_internal_consistency_check_99904_rule_rate)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99904);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -365,7 +441,7 @@ START_TEST (test_internal_consistency_check_99904_rule_alg)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Rule *r = new AlgebraicRule();
+  Rule *r = new AlgebraicRule(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
@@ -377,8 +453,12 @@ START_TEST (test_internal_consistency_check_99904_rule_alg)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99904);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -389,7 +469,7 @@ START_TEST (test_internal_consistency_check_99904_species)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Species *s = new Species();
+  Species *s = new Species(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
@@ -402,8 +482,12 @@ START_TEST (test_internal_consistency_check_99904_species)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99904);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -414,7 +498,7 @@ START_TEST (test_internal_consistency_check_99904_speciesRef)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  SpeciesReference *sr = new SpeciesReference();
+  SpeciesReference *sr = new SpeciesReference(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
@@ -431,8 +515,12 @@ START_TEST (test_internal_consistency_check_99904_speciesRef)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99904);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -443,7 +531,7 @@ START_TEST (test_internal_consistency_check_99904_unit)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Unit *u = new Unit();
+  Unit *u = new Unit(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
@@ -457,8 +545,12 @@ START_TEST (test_internal_consistency_check_99904_unit)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99904);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -469,7 +561,7 @@ START_TEST (test_internal_consistency_check_99904_unitdef)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  UnitDefinition *u = new UnitDefinition();
+  UnitDefinition *u = new UnitDefinition(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
@@ -477,12 +569,17 @@ START_TEST (test_internal_consistency_check_99904_unitdef)
 
   u->setId("ud");
   u->setMetaId("mmm");
+  u->createUnit();
   m->addUnitDefinition(u);
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99904);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -493,7 +590,7 @@ START_TEST (test_internal_consistency_check_99905)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Compartment *c = new Compartment();
+  Compartment *c = new Compartment(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
 
@@ -503,8 +600,17 @@ START_TEST (test_internal_consistency_check_99905)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99905);
+  */
+  /* this will give schema error as level 1 models
+   * required a compartment
+   * which wont have been added
+   */
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 10103);
 
   delete d;
 }
@@ -515,7 +621,7 @@ START_TEST (test_internal_consistency_check_99905_ct)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  CompartmentType *ct = new CompartmentType();
+  CompartmentType *ct = new CompartmentType(2, 4);
   Model *m = d->createModel();
   d->setLevelAndVersion(2, 2);
   
@@ -525,8 +631,12 @@ START_TEST (test_internal_consistency_check_99905_ct)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99905);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -537,8 +647,8 @@ START_TEST (test_internal_consistency_check_99905_delay)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Delay *delay = new Delay();
-  Event *e = new Event();
+  Delay *delay = new Delay(2, 4);
+  Event *e = new Event(2, 4);
   Model *m = d->createModel();
   d->setLevelAndVersion(2, 2);
   delay->setSBOTerm(5);
@@ -547,8 +657,12 @@ START_TEST (test_internal_consistency_check_99905_delay)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99905);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -559,7 +673,7 @@ START_TEST (test_internal_consistency_check_99905_species)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Species *s = new Species();
+  Species *s = new Species(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
@@ -572,8 +686,12 @@ START_TEST (test_internal_consistency_check_99905_species)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99905);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -584,7 +702,7 @@ START_TEST (test_internal_consistency_check_99905_st)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  SpeciesType *ct = new SpeciesType();
+  SpeciesType *ct = new SpeciesType(2, 4);
   Model *m = d->createModel();
   d->setLevelAndVersion(2, 2);
   
@@ -594,8 +712,12 @@ START_TEST (test_internal_consistency_check_99905_st)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99905);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -606,7 +728,7 @@ START_TEST (test_internal_consistency_check_99905_stoichmath)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  StoichiometryMath *sm = new StoichiometryMath();
+  StoichiometryMath *sm = new StoichiometryMath(2, 4);
   Model *m = d->createModel();
   d->setLevelAndVersion(2, 2);
   Species *s = m->createSpecies();
@@ -624,8 +746,12 @@ START_TEST (test_internal_consistency_check_99905_stoichmath)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99905);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -636,8 +762,8 @@ START_TEST (test_internal_consistency_check_99905_trigger)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Trigger *trigger = new Trigger();
-  Event *e = new Event();
+  Trigger *trigger = new Trigger(2, 4);
+  Event *e = new Event(2, 4);
   Model *m = d->createModel();
   d->setLevelAndVersion(2, 2);
   trigger->setSBOTerm(5);
@@ -646,8 +772,12 @@ START_TEST (test_internal_consistency_check_99905_trigger)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99905);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -658,7 +788,7 @@ START_TEST (test_internal_consistency_check_99905_unit)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Unit *u = new Unit();
+  Unit *u = new Unit(2, 4);
   d->setLevelAndVersion(2, 2);
   Model *m = d->createModel();
   UnitDefinition *ud = m->createUnitDefinition();
@@ -670,8 +800,12 @@ START_TEST (test_internal_consistency_check_99905_unit)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99905);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -682,18 +816,23 @@ START_TEST (test_internal_consistency_check_99905_unitdef)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  UnitDefinition *u = new UnitDefinition();
+  UnitDefinition *u = new UnitDefinition(2, 4);
   d->setLevelAndVersion(2, 2);
   Model *m = d->createModel();
 
   u->setId("ud");
   u->setSBOTerm(9);
+  u->createUnit();
   m->addUnitDefinition(u);
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99905);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -704,7 +843,7 @@ START_TEST (test_internal_consistency_check_99906)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Compartment *c = new Compartment();
+  Compartment *c = new Compartment(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
 
@@ -714,8 +853,17 @@ START_TEST (test_internal_consistency_check_99906)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99906);
+  */
+  /* this will give schema error as level 1 models
+   * required a compartment
+   * which wont have been added
+   */
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 10103);
 
   delete d;
 }
@@ -726,7 +874,7 @@ START_TEST (test_internal_consistency_check_99907)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Compartment *c = new Compartment();
+  Compartment *c = new Compartment(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
 
@@ -740,7 +888,12 @@ START_TEST (test_internal_consistency_check_99907)
 
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors == 0);
+  /* this will give schema error as level 1 models
+   * required a compartment
+   * which wont have been added
+   */
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 10103);
 
   delete d;
 }
@@ -751,7 +904,7 @@ START_TEST (test_internal_consistency_check_99908)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  CompartmentType *ct = new CompartmentType();
+  CompartmentType *ct = new CompartmentType(2, 4);
   Model *m = d->createModel();
   d->setLevelAndVersion(2, 1);
 
@@ -760,8 +913,12 @@ START_TEST (test_internal_consistency_check_99908)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99908);
+  */
+  fail_unless(errors == 0);
 
 
   delete d;
@@ -773,7 +930,7 @@ START_TEST (test_internal_consistency_check_99909)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Constraint *ct = new Constraint();
+  Constraint *ct = new Constraint(2, 4);
   Model *m = d->createModel();
 
   d->setLevelAndVersion(2, 1);
@@ -781,8 +938,12 @@ START_TEST (test_internal_consistency_check_99909)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99909);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -793,7 +954,7 @@ START_TEST (test_internal_consistency_check_99910)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Event *e = new Event();
+  Event *e = new Event(2, 4);
   Model *m = d->createModel();
   d->setLevelAndVersion(1, 2);
   Compartment *c = m->createCompartment();
@@ -803,8 +964,12 @@ START_TEST (test_internal_consistency_check_99910)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99910);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -815,7 +980,7 @@ START_TEST (test_internal_consistency_check_99911_event)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Event *e = new Event();
+  Event *e = new Event(2, 4);
   Model *m = d->createModel();
   d->setLevelAndVersion(2, 1);
 
@@ -824,8 +989,12 @@ START_TEST (test_internal_consistency_check_99911_event)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99911);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -841,7 +1010,7 @@ START_TEST (test_internal_consistency_check_99911_ea)
   c->setId("c");
   c->setConstant(false);
   Event *e = m->createEvent();
-  EventAssignment *ea = new EventAssignment();
+  EventAssignment *ea = new EventAssignment(2, 4);
   d->setLevelAndVersion(2, 1);
 
   ea->setVariable("c");
@@ -850,8 +1019,12 @@ START_TEST (test_internal_consistency_check_99911_ea)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99911);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -863,7 +1036,7 @@ START_TEST (test_internal_consistency_check_99911_fd)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Model *m = d->createModel();
-  FunctionDefinition *fd = new FunctionDefinition();
+  FunctionDefinition *fd = new FunctionDefinition(2, 4);
   d->setLevelAndVersion(2, 1);
 
   fd->setId("fd");
@@ -872,8 +1045,12 @@ START_TEST (test_internal_consistency_check_99911_fd)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99911);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -887,7 +1064,7 @@ START_TEST (test_internal_consistency_check_99911_kl)
   Model *m = d->createModel();
   Reaction *r = m->createReaction();
   r->setId("r");
-  KineticLaw *kl = new KineticLaw();
+  KineticLaw *kl = new KineticLaw(2, 4);
   d->setLevelAndVersion(2, 1);
 
   kl->setSBOTerm(2);
@@ -897,8 +1074,12 @@ START_TEST (test_internal_consistency_check_99911_kl)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99911);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -910,15 +1091,22 @@ START_TEST (test_internal_consistency_check_99911_model)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   d->setLevelAndVersion(2, 1);
-  Model * m = new Model();
+  Model * m = new Model(2, 4);
 
   m->setSBOTerm(2);
   d->setModel(m );
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99911);
+  */
+  /* this will have error as model wont have been added
+   */
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 20201);
 
   delete d;
 }
@@ -930,7 +1118,7 @@ START_TEST (test_internal_consistency_check_99911_param)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Model *m = d->createModel();
-  Parameter *p = new Parameter();
+  Parameter *p = new Parameter(2, 4);
   d->setLevelAndVersion(2, 1);
 
   p->setId("p");
@@ -939,8 +1127,12 @@ START_TEST (test_internal_consistency_check_99911_param)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99911);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -952,7 +1144,7 @@ START_TEST (test_internal_consistency_check_99911_react)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Model *m = d->createModel();
-  Reaction *r = new Reaction();
+  Reaction *r = new Reaction(2, 4);
   d->setLevelAndVersion(2, 1);
 
   r->setId("r");
@@ -961,8 +1153,12 @@ START_TEST (test_internal_consistency_check_99911_react)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99911);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -977,7 +1173,7 @@ START_TEST (test_internal_consistency_check_99911_rule_assign)
   Parameter *p = m->createParameter();
   p->setId("p");
   p->setConstant(false);
-  Rule *r = new AssignmentRule();
+  Rule *r = new AssignmentRule(2, 4);
   d->setLevelAndVersion(2, 1);
 
   r->setVariable("p");
@@ -986,8 +1182,12 @@ START_TEST (test_internal_consistency_check_99911_rule_assign)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99911);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -1002,7 +1202,7 @@ START_TEST (test_internal_consistency_check_99911_rule_rate)
   Parameter *p = m->createParameter();
   p->setId("p");
   p->setConstant(false);
-  Rule *r = new RateRule();
+  Rule *r = new RateRule(2, 4);
   d->setLevelAndVersion(2, 1);
 
   r->setVariable("p");
@@ -1011,8 +1211,12 @@ START_TEST (test_internal_consistency_check_99911_rule_rate)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99911);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -1024,7 +1228,7 @@ START_TEST (test_internal_consistency_check_99911_rule_alg)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Model *m = d->createModel();
-  Rule *r = new AlgebraicRule();
+  Rule *r = new AlgebraicRule(2, 4);
   d->setLevelAndVersion(2, 1);
 
   r->setSBOTerm(2);
@@ -1032,8 +1236,12 @@ START_TEST (test_internal_consistency_check_99911_rule_alg)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99911);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -1044,7 +1252,7 @@ START_TEST (test_internal_consistency_check_99911_speciesRef)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  SpeciesReference *sr = new SpeciesReference();
+  SpeciesReference *sr = new SpeciesReference(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
@@ -1061,8 +1269,12 @@ START_TEST (test_internal_consistency_check_99911_speciesRef)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99911);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -1073,7 +1285,7 @@ START_TEST (test_internal_consistency_check_99912)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  FunctionDefinition *fd = new FunctionDefinition();
+  FunctionDefinition *fd = new FunctionDefinition(2, 4);
   Model *m = d->createModel();
   d->setLevelAndVersion(1, 2);
   Compartment *c = m->createCompartment();
@@ -1084,8 +1296,12 @@ START_TEST (test_internal_consistency_check_99912)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99912);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -1096,7 +1312,7 @@ START_TEST (test_internal_consistency_check_99913)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  InitialAssignment *ia = new InitialAssignment();
+  InitialAssignment *ia = new InitialAssignment(2, 4);
   Model *m = d->createModel();
   d->setLevelAndVersion(1, 2);
   Compartment *c = m->createCompartment();
@@ -1106,8 +1322,12 @@ START_TEST (test_internal_consistency_check_99913)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99913);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -1119,7 +1339,7 @@ START_TEST (test_internal_consistency_check_99914)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Model *m = d->createModel();
-  Rule *r = new AlgebraicRule();
+  Rule *r = new AlgebraicRule(2, 4);
   d->setLevelAndVersion(2, 1);
 
   r->setVariable("kk");
@@ -1127,8 +1347,13 @@ START_TEST (test_internal_consistency_check_99914)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99914);
+  */
+
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -1140,7 +1365,7 @@ START_TEST (test_internal_consistency_check_99915_alg)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Model *m = d->createModel();
-  Rule *r = new AlgebraicRule();
+  Rule *r = new AlgebraicRule(2, 4);
   d->setLevelAndVersion(2, 1);
 
   r->setUnits("kk");
@@ -1148,8 +1373,13 @@ START_TEST (test_internal_consistency_check_99915_alg)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99915);
+  */
+
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -1174,8 +1404,13 @@ START_TEST (test_internal_consistency_check_99915_assign)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99915);
+  */
+
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -1200,8 +1435,13 @@ START_TEST (test_internal_consistency_check_99915_rate)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99915);
+  */
+
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -1212,7 +1452,7 @@ START_TEST (test_internal_consistency_check_99916_rule)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Species *s = new Species();
+  Species *s = new Species(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
   Compartment * c = m->createCompartment();
@@ -1230,8 +1470,16 @@ START_TEST (test_internal_consistency_check_99916_rule)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99916);
+  */
+  /* this will give several errors
+   * species wont have been added
+   * the rule cant work out what type of rule
+   */
+  fail_unless(errors == 2);
 
   delete d;
 }
@@ -1242,7 +1490,7 @@ START_TEST (test_internal_consistency_check_99916_reaction)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Species *s = new Species();
+  Species *s = new Species(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
   Compartment * c = m->createCompartment();
@@ -1259,8 +1507,12 @@ START_TEST (test_internal_consistency_check_99916_reaction)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99916);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -1271,7 +1523,7 @@ START_TEST (test_internal_consistency_check_99917)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Species *s = new Species();
+  Species *s = new Species(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
   Compartment * c = m->createCompartment();
@@ -1284,8 +1536,12 @@ START_TEST (test_internal_consistency_check_99917)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99917);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -1296,7 +1552,7 @@ START_TEST (test_internal_consistency_check_99918)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Species *s = new Species();
+  Species *s = new Species(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
   Compartment * c = m->createCompartment();
@@ -1309,8 +1565,12 @@ START_TEST (test_internal_consistency_check_99918)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99918);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -1321,7 +1581,7 @@ START_TEST (test_internal_consistency_check_99919)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Species *s = new Species();
+  Species *s = new Species(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
   Compartment * c = m->createCompartment();
@@ -1334,8 +1594,12 @@ START_TEST (test_internal_consistency_check_99919)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99919);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -1346,7 +1610,7 @@ START_TEST (test_internal_consistency_check_99920)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  SpeciesReference *sr = new SpeciesReference();
+  SpeciesReference *sr = new SpeciesReference(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
@@ -1363,9 +1627,13 @@ START_TEST (test_internal_consistency_check_99920)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 2);
   fail_unless(d->getError(0)->getErrorId() == 99920);
   fail_unless(d->getError(1)->getErrorId() == 99921);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -1376,7 +1644,7 @@ START_TEST (test_internal_consistency_check_99921)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  SpeciesReference *sr = new SpeciesReference();
+  SpeciesReference *sr = new SpeciesReference(2, 4);
   d->setLevelAndVersion(2, 1);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
@@ -1393,8 +1661,12 @@ START_TEST (test_internal_consistency_check_99921)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
-  fail_unless(d->getError(0)->getErrorId() == 99921);
+  fail_unless(d->getError(1)->getErrorId() == 99921);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -1405,7 +1677,7 @@ START_TEST (test_internal_consistency_check_99922)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  SpeciesType *ct = new SpeciesType();
+  SpeciesType *ct = new SpeciesType(2, 4);
   Model *m = d->createModel();
 
   ct->setId("st");
@@ -1414,8 +1686,12 @@ START_TEST (test_internal_consistency_check_99922)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
-  fail_unless(d->getError(0)->getErrorId() == 99922);
+  fail_unless(d->getError(1)->getErrorId() == 99922);
+  */
+  fail_unless(errors == 0);
 
 
   delete d;
@@ -1427,7 +1703,7 @@ START_TEST (test_internal_consistency_check_99923)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  StoichiometryMath *sm = new StoichiometryMath();
+  StoichiometryMath *sm = new StoichiometryMath(2, 4);
   Model *m = d->createModel();
   d->setLevelAndVersion(1, 2);
   Species *s = m->createSpecies();
@@ -1444,8 +1720,12 @@ START_TEST (test_internal_consistency_check_99923)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99923);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -1456,7 +1736,7 @@ START_TEST (test_internal_consistency_check_99924)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Unit *u = new Unit();
+  Unit *u = new Unit(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
@@ -1470,8 +1750,12 @@ START_TEST (test_internal_consistency_check_99924)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
-  fail_unless(d->getError(0)->getErrorId() == 99924);
+  fail_unless(d->getError(1)->getErrorId() == 99924);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }
@@ -1482,7 +1766,7 @@ START_TEST (test_internal_consistency_check_99925)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  Unit *u = new Unit();
+  Unit *u = new Unit(2, 4);
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
@@ -1496,8 +1780,12 @@ START_TEST (test_internal_consistency_check_99925)
 
   errors = d->checkInternalConsistency();
 
+  /* as I change the set functions these should become 
+   * impossible to create
   fail_unless(errors == 1);
   fail_unless(d->getError(0)->getErrorId() == 99925);
+  */
+  fail_unless(errors == 0);
 
   delete d;
 }

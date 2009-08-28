@@ -44,7 +44,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /*
  * Creates a new XMLParser.  The parser will notify the given XMLHandler
@@ -108,10 +108,19 @@ XMLParser::getErrorLog ()
 /*
  * Sets the XMLErrorLog this parser will use to log errors.
  */
-void
+int
 XMLParser::setErrorLog (XMLErrorLog* log)
 {
   mErrorLog = log;
-  if (mErrorLog) mErrorLog->setParser(this);
+  if (mErrorLog) 
+  {
+    return mErrorLog->setParser(this);
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
+
+LIBSBML_CPP_NAMESPACE_END
 

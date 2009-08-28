@@ -61,6 +61,8 @@
 
 #include <cstring>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 class   LIBSBML_EXTERN UnitFormulaFormatter
 {
 public:
@@ -293,17 +295,19 @@ private:
   int depthRecursiveCall;
 
   std::map<const ASTNode*, UnitDefinition*> unitDefinitionMap;
-  std::map<const ASTNode*, bool>    undeclaredUnitsMap;
+  std::map<const ASTNode*, bool>            undeclaredUnitsMap;
   std::map<const ASTNode*, unsigned int>    canIgnoreUndeclaredUnitsMap;  
 
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !cplusplus */
 
 /* NOT YET NECESSARY
 #ifndef SWIG
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 -----------------------------------------------------------------------------
@@ -355,7 +359,7 @@ void
 UnitFormulaFormatter_resetFlags(UnitFormulaFormatter_t * uff);
 
 END_C_DECLS
-
+LIBSBML_CPP_NAMESPACE_END
 
 #endif   !SWIG   */
 

@@ -25,6 +25,7 @@
  *----------------------------------------------------------------------- -->*/
 
 #include <sbml/Model.h>
+#include <sbml/SBMLDocument.h>
 #include <sbml/units/FormulaUnitsData.h>
 
 /** @cond doxygen-ignored */
@@ -33,6 +34,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 FormulaUnitsData::FormulaUnitsData()
 {
@@ -40,9 +42,15 @@ FormulaUnitsData::FormulaUnitsData()
   mContainsUndeclaredUnits = false;
   mCanIgnoreUndeclaredUnits = true;
   mTypeOfElement = SBML_UNKNOWN;
-  mUnitDefinition = new UnitDefinition();
-  mPerTimeUnitDefinition = new UnitDefinition();
-  mEventTimeUnitDefinition = new UnitDefinition();
+  mUnitDefinition = 
+    new UnitDefinition(SBMLDocument::getDefaultLevel(), 
+                       SBMLDocument::getDefaultVersion());
+  mPerTimeUnitDefinition = 
+    new UnitDefinition(SBMLDocument::getDefaultLevel(),
+                       SBMLDocument::getDefaultVersion());
+  mEventTimeUnitDefinition = 
+    new UnitDefinition(SBMLDocument::getDefaultLevel(),
+                       SBMLDocument::getDefaultVersion());
 }
 
 FormulaUnitsData::FormulaUnitsData(const FormulaUnitsData& orig)
@@ -115,7 +123,6 @@ FormulaUnitsData& FormulaUnitsData::operator=(const FormulaUnitsData& rhs)
     {
       mPerTimeUnitDefinition = NULL;
     }
-
 
     delete mEventTimeUnitDefinition;
     if (rhs.mEventTimeUnitDefinition)
@@ -561,4 +568,7 @@ FormulaUnitsData_setEventTimeUnitDefinition(FormulaUnitsData_t* fud,
 }
 
 */
+
 /** @endcond doxygen-libsbml-internal */
+
+LIBSBML_CPP_NAMESPACE_END

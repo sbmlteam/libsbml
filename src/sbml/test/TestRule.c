@@ -66,7 +66,7 @@ static Rule_t *R;
 void
 RuleTest_setup (void)
 {
-  R = Rule_createAlgebraic();
+  R = Rule_createAlgebraic(2, 4);
 
   if (R == NULL)
   {

@@ -55,6 +55,7 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Creates a new point with x,y and z set  to 0.0.
@@ -74,8 +75,8 @@ Point::Point(const Point& orig):SBase()
     this->mElementName=orig.mElementName;
 
     // attributes of SBase
-    this->mId=orig.mId;
-    this->mName=orig.mName;
+    //this->mId=orig.mId;
+    //this->mName=orig.mName;
     this->mMetaId=orig.mMetaId;
     if(orig.mNotes) this->mNotes=new XMLNode(*const_cast<Point&>(orig).getNotes());
     if(orig.mAnnotation) this->mAnnotation=new XMLNode(*const_cast<Point&>(orig).mAnnotation);
@@ -97,7 +98,17 @@ Point::Point(const Point& orig):SBase()
 
 Point& Point::operator=(const Point& orig)
 {
-    if(&orig!=this)
+  if(&orig!=this)
+  {
+    this->mXOffset=orig.mXOffset;
+    this->mYOffset=orig.mYOffset;
+    this->mZOffset=orig.mZOffset;
+    this->mElementName=orig.mElementName;
+
+    this->mMetaId=orig.mMetaId;
+    delete this->mNotes;
+    this->mNotes=NULL;
+    if(orig.mNotes)
     {
         this->SBase::operator=(orig);
         this->mXOffset=orig.mXOffset;
@@ -105,7 +116,9 @@ Point& Point::operator=(const Point& orig)
         this->mZOffset=orig.mZOffset;
         this->mElementName=orig.mElementName;
     }
-    return *this;
+  }
+  
+  return *this;
 }
 
 
@@ -662,4 +675,5 @@ Point_clone (const Point_t *m)
   return static_cast<Point*>( m->clone() );
 }
 
+LIBSBML_CPP_NAMESPACE_END
 

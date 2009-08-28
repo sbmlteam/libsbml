@@ -29,6 +29,7 @@
 
 #include <check.h>
 using namespace std;
+LIBSBML_CPP_NAMESPACE_USE
 
 CK_CPPSTART
 START_TEST ( test_NS_copyConstructor )
@@ -249,8 +250,9 @@ END_TEST
 
 START_TEST (test_Node_copyConstructor)
 {
+  XMLAttributes *att = new XMLAttributes();
   XMLTriple *t = new XMLTriple("sarah", "http://foo.org/", "bar");
-  XMLToken *token = new XMLToken(*t, 3, 4);
+  XMLToken *token = new XMLToken(*t, *att, 3, 4);
   XMLNode *node = new XMLNode(*token);
   XMLNode *child = new XMLNode();
   node->addChild(*child);
@@ -260,7 +262,7 @@ START_TEST (test_Node_copyConstructor)
   fail_unless(node->getURI() == "http://foo.org/");
   fail_unless(node->getPrefix() == "bar");
   fail_unless(node->isEnd() == 0);
-  fail_unless(node->isEOF() == 1);
+  fail_unless(node->isEOF() == 0);
   fail_unless(node->getLine() == 3);
   fail_unless(node->getColumn() == 4);
 
@@ -271,7 +273,7 @@ START_TEST (test_Node_copyConstructor)
   fail_unless(node2->getURI() == "http://foo.org/");
   fail_unless(node2->getPrefix() == "bar");
   fail_unless(node2->isEnd() == 0);
-  fail_unless(node2->isEOF() == 1);
+  fail_unless(node2->isEOF() == 0);
   fail_unless(node2->getLine() == 3);
   fail_unless(node2->getColumn() == 4);
 
@@ -285,8 +287,9 @@ END_TEST
   
 START_TEST (test_Node_assignmentOperator)
 {
+  XMLAttributes *att = new XMLAttributes();
   XMLTriple *t = new XMLTriple("sarah", "http://foo.org/", "bar");
-  XMLToken *token = new XMLToken(*t, 3, 4);
+  XMLToken *token = new XMLToken(*t, *att, 3, 4);
   XMLNode *node = new XMLNode(*token);
   XMLNode *child = new XMLNode();
   node->addChild(*child);
@@ -296,7 +299,7 @@ START_TEST (test_Node_assignmentOperator)
   fail_unless(node->getURI() == "http://foo.org/");
   fail_unless(node->getPrefix() == "bar");
   fail_unless(node->isEnd() == 0);
-  fail_unless(node->isEOF() == 1);
+  fail_unless(node->isEOF() == 0);
   fail_unless(node->getLine() == 3);
   fail_unless(node->getColumn() == 4);
 
@@ -308,7 +311,7 @@ START_TEST (test_Node_assignmentOperator)
   fail_unless(node2->getURI() == "http://foo.org/");
   fail_unless(node2->getPrefix() == "bar");
   fail_unless(node2->isEnd() == 0);
-  fail_unless(node2->isEOF() == 1);
+  fail_unless(node2->isEOF() == 0);
   fail_unless(node2->getLine() == 3);
   fail_unless(node2->getColumn() == 4);
 
@@ -321,8 +324,9 @@ START_TEST (test_Node_assignmentOperator)
 END_TEST
 START_TEST (test_Node_clone)
 {
+  XMLAttributes *att = new XMLAttributes();
   XMLTriple *t = new XMLTriple("sarah", "http://foo.org/", "bar");
-  XMLToken *token = new XMLToken(*t, 3, 4);
+  XMLToken *token = new XMLToken(*t, *att, 3, 4);
   XMLNode *node = new XMLNode(*token);
   XMLNode *child = new XMLNode();
   node->addChild(*child);
@@ -332,7 +336,7 @@ START_TEST (test_Node_clone)
   fail_unless(node->getURI() == "http://foo.org/");
   fail_unless(node->getPrefix() == "bar");
   fail_unless(node->isEnd() == 0);
-  fail_unless(node->isEOF() == 1);
+  fail_unless(node->isEOF() == 0);
   fail_unless(node->getLine() == 3);
   fail_unless(node->getColumn() == 4);
 
@@ -343,7 +347,7 @@ START_TEST (test_Node_clone)
   fail_unless(node2->getURI() == "http://foo.org/");
   fail_unless(node2->getPrefix() == "bar");
   fail_unless(node2->isEnd() == 0);
-  fail_unless(node2->isEOF() == 1);
+  fail_unless(node2->isEOF() == 0);
   fail_unless(node2->getLine() == 3);
   fail_unless(node2->getColumn() == 4);
 

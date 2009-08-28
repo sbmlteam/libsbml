@@ -43,40 +43,38 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
-/*
- * Creates a new EventAssignment with its variable and math attributes
- * set.
- */
-EventAssignment::EventAssignment (const std::string& variable, const ASTNode* math)
- :
-   SBase   ( variable, "", -1 )
- , mMath   ( 0        )
+EventAssignment::EventAssignment (unsigned int level, unsigned int version) :
+   SBase ( level, version )
+ , mVariable ( "" )
+ , mMath     ( 0  )
 {
-  if (math) mMath = math->deepCopy();
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
 
-EventAssignment::EventAssignment (unsigned int level, unsigned int version,
-                          XMLNamespaces *xmlns) :
-   SBase ("", "", -1)
- , mMath   ( 0        )
+EventAssignment::EventAssignment (SBMLNamespaces * sbmlns) :
+   SBase ( sbmlns )
+ , mVariable ( "" )
+ , mMath     ( 0  )
 {
-  mObjectLevel = level;
-  mObjectVersion = version;
-  if (xmlns) setNamespaces(xmlns);;
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
+
+/** @cond doxygen-libsbml-internal */
+
+/* constructor for validators */
+EventAssignment::EventAssignment() :
+  SBase()
+{
+}
+
+/** @endcond doxygen-libsbml-internal */
                           
-EventAssignment::EventAssignment (SBMLNamespaces *sbmlns) :
-   SBase ("", "", -1)
- , mMath   ( 0        )
-{
-  mObjectLevel = sbmlns->getLevel();
-  mObjectVersion = sbmlns->getVersion();
-  setNamespaces(sbmlns->getNamespaces());
-}
-
 
 /*
  * Destroys this EventAssignment.
@@ -92,9 +90,14 @@ EventAssignment::~EventAssignment ()
  */
 EventAssignment::EventAssignment (const EventAssignment& orig) :
    SBase   ( orig )
- , mMath   ( 0    )
+  , mVariable (orig.mVariable)
+  , mMath   ( 0    )
 {
-  if (orig.mMath) mMath = orig.mMath->deepCopy();
+  if (orig.mMath) 
+  {
+    mMath = orig.mMath->deepCopy();
+    mMath->setParentSBMLObject(this);
+  }
 }
 
 
@@ -106,12 +109,18 @@ EventAssignment& EventAssignment::operator=(const EventAssignment& rhs)
   if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
+    this->mVariable = rhs.mVariable;
 
     delete mMath;
     if (rhs.mMath) 
+    {
       mMath = rhs.mMath->deepCopy();
+      mMath->setParentSBMLObject(this);
+    }
     else
+    {
       mMath = 0;
+    }
   }
 
   return *this;
@@ -148,7 +157,7 @@ EventAssignment::clone () const
 const string&
 EventAssignment::getVariable () const
 {
-  return getId();
+  return mVariable;
 }
 
 
@@ -169,7 +178,7 @@ EventAssignment::getMath () const
 bool
 EventAssignment::isSetVariable () const
 {
-  return isSetId();
+  return (mVariable.empty() == false);
 }
 
 
@@ -187,25 +196,48 @@ EventAssignment::isSetMath () const
 /*
  * Sets the variable of this EventAssignment to a copy of sid.
  */
-void
+int
 EventAssignment::setVariable (const std::string& sid)
 {
-  setId(sid);
+  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mVariable = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Sets the math of this EventAssignment to a copy of the given ASTNode.
  */
-void
+int
 EventAssignment::setMath (const ASTNode* math)
 {
-  if (mMath == math) return;
-
-
-  delete mMath;
-  mMath = (math != 0) ? math->deepCopy() : 0;
-  if (mMath) mMath->setParentSBMLObject(this);
+  if (mMath == math) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (math == NULL)
+  {
+    delete mMath;
+    mMath = 0;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (!(math->isWellFormedASTNode()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else
+  {
+    delete mMath;
+    mMath = (math != 0) ? math->deepCopy() : 0;
+    if (mMath) mMath->setParentSBMLObject(this);
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -327,6 +359,34 @@ EventAssignment::getElementName () const
 {
   static const string name = "eventAssignment";
   return name;
+}
+
+
+bool 
+EventAssignment::hasRequiredAttributes() const
+{
+  bool allPresent = true;
+
+  /* required attributes for eventAssignment: variable */
+
+  if (!isSetVariable())
+    allPresent = false;
+
+  return allPresent;
+}
+
+
+bool 
+EventAssignment::hasRequiredElements() const
+{
+  bool allPresent = true;
+
+  /* required attributes for eventAssignment: math */
+
+  if (!isSetMath())
+    allPresent = false;
+
+  return allPresent;
 }
 
 
@@ -465,12 +525,12 @@ EventAssignment::readAttributes (const XMLAttributes& attributes)
   //
   // variable: SId  { use="required" }  (L2v1 ->)
   //
-  bool assigned = attributes.readInto("variable", mId, getErrorLog(), true);
-  if (assigned && mId.size() == 0)
+  bool assigned = attributes.readInto("variable", mVariable, getErrorLog(), true);
+  if (assigned && mVariable.size() == 0)
   {
     logEmptyString("variable", level, version, "<eventAssignment>");
   }
-  SBase::checkIdSyntax();
+  if (!SyntaxChecker::isValidSBMLSId(mVariable)) logError(InvalidIdSyntax);
 
 
   //
@@ -505,7 +565,7 @@ EventAssignment::writeAttributes (XMLOutputStream& stream) const
   //
   // variable: SId  { use="required" }  (L2v1 ->)
   //
-  stream.writeAttribute("variable", mId);
+  stream.writeAttribute("variable", mVariable);
 
 
   //
@@ -565,11 +625,25 @@ ListOfEventAssignments::get(unsigned int n) const
 }
 
 
+/**
+ * Used by ListOf::get() to lookup an SBase based by its id.
+ */
+struct IdEqEA : public unary_function<SBase*, bool>
+{
+  const string& id;
+
+  IdEqEA (const string& id) : id(id) { }
+  bool operator() (SBase* sb) 
+       { return static_cast <EventAssignment *> (sb)->getId() == id; }
+};
+
+
 /* return item by id */
 EventAssignment*
 ListOfEventAssignments::get (const std::string& sid)
 {
-  return static_cast<EventAssignment*>(ListOf::get(sid));
+  return const_cast<EventAssignment*>( 
+    static_cast<const ListOfEventAssignments&>(*this).get(sid) );
 }
 
 
@@ -577,7 +651,11 @@ ListOfEventAssignments::get (const std::string& sid)
 const EventAssignment*
 ListOfEventAssignments::get (const std::string& sid) const
 {
-  return static_cast<const EventAssignment*>(ListOf::get(sid));
+  vector<SBase*>::const_iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqEA(sid) );
+  return (result == mItems.end()) ? 0 : 
+                     static_cast <EventAssignment*> (*result);
 }
 
 
@@ -593,7 +671,18 @@ ListOfEventAssignments::remove (unsigned int n)
 EventAssignment*
 ListOfEventAssignments::remove (const std::string& sid)
 {
-   return static_cast<EventAssignment*>(ListOf::remove(sid));
+  SBase* item = 0;
+  vector<SBase*>::iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqEA(sid) );
+
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
+  }
+
+  return static_cast <EventAssignment*> (item);
 }
 
 
@@ -624,8 +713,22 @@ ListOfEventAssignments::createObject (XMLInputStream& stream)
 
   if (name == "eventAssignment")
   {
-    object = new EventAssignment();
-    mItems.push_back(object);
+    try
+    {
+      object = new EventAssignment(getSBMLNamespaces());
+    }
+    catch (SBMLConstructorException*)
+    {
+      object = new EventAssignment(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    catch ( ... )
+    {
+      object = new EventAssignment(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    
+    if (object) mItems.push_back(object);
   }
 
   return object;
@@ -638,79 +741,72 @@ ListOfEventAssignments::createObject (XMLInputStream& stream)
 
 
 /**
- * Creates a new, empty EventAssignment_t structure and returns a pointer
- * to it.
- * 
- * @return the freshly-created EventAssignment_t structure
+ * Creates a new EventAssignment_t structure using the given SBML @p level
+ * and @p version values.
  *
- * @note It is worth emphasizing that valid EventAssignment definitions
- * must have a value for the "variable".  If no variable is provided at the
- * time of an EventAssignment_t's creation, the value is left as the empty
- * string.  Callers are cautioned to set the value using
- * EventAssignment_setVariable() soon after invoking this constructor.
- */
-LIBSBML_EXTERN
-EventAssignment_t *
-EventAssignment_create (void)
-{
-  return new(nothrow) EventAssignment;
-}
-
-
-/**
- * Creates a new EventAssignment_t with the given values for the "variable"
- * attribute and "math" subelement, and returns a pointer to it.
- *
- * This convenience function is functionally equivalent to:
- * @code
- *   eventassign = EventAssignment_create();
- *   EventAssignment_setVariable(eventassign, variable);
- *   EventAssignment_setMath(eventassign, math);
- * @endcode
- * 
- * @return the freshly-created EventAssignment_t structure
- */
-LIBSBML_EXTERN
-EventAssignment_t *
-EventAssignment_createWithVarAndMath (const char *variable, ASTNode_t* math)
-{
-  return new(nothrow) EventAssignment(variable ? variable : "", math);
-}
-
-
-/** @cond doxygen-libsbml-internal */
-/**
- * Creates a new EventAssignment_t structure using the given SBML @p 
- * level and @p version values and a set of XMLNamespaces.
- *
- * @param level an unsigned int, the SBML Level to assign to this 
+ * @param level an unsigned int, the SBML Level to assign to this
  * EventAssignment
  *
  * @param version an unsigned int, the SBML Version to assign to this
  * EventAssignment
- * 
- * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
- * assign to this EventAssignment
  *
  * @return a pointer to the newly created EventAssignment_t structure.
  *
- * @note Once a EventAssignment has been added to an SBMLDocument, the @p 
- * level, @p version and @p xmlns namespaces for the document @em override 
- * those used to create the EventAssignment.  Despite this, the ability 
- * to supply the values at creation time is an important aid to creating 
- * valid SBML.  Knowledge of the intended SBML Level and Version 
- * determine whether it is valid to assign a particular value to an 
- * attribute, or whether it is valid to add an object to an existing 
- * SBMLDocument.
+ * @note Once a EventAssignment has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the EventAssignment.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
  */
 LIBSBML_EXTERN
 EventAssignment_t *
-EventAssignment_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns)
+EventAssignment_create (unsigned int level, unsigned int version)
 {
-  return new(nothrow) EventAssignment(level, version, xmlns);
+  try
+  {
+    EventAssignment* obj = new EventAssignment(level,version);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
 }
-/** @endcond doxygen-libsbml-internal */
+
+
+/**
+ * Creates a new EventAssignment_t structure using the given
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this EventAssignment
+ *
+ * @return a pointer to the newly created EventAssignment_t structure.
+ *
+ * @note Once a EventAssignment has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the EventAssignment.  Despite this, the ability to supply the values at 
+ * creation time is an important aid to creating valid SBML.  Knowledge of the 
+ * intended SBML Level and Version determine whether it is valid to assign a 
+ * particular value to an attribute, or whether it is valid to add an object to 
+ * an existing SBMLDocument.
+ */
+LIBSBML_EXTERN
+EventAssignment_t *
+EventAssignment_createWithNS (SBMLNamespaces_t* sbmlns)
+{
+  try
+  {
+    EventAssignment* obj = new EventAssignment(sbmlns);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
 
 
 /**
@@ -831,12 +927,22 @@ EventAssignment_isSetMath (const EventAssignment_t *ea)
  * @param ea the EventAssignment_t to set.
  * @param sid the identifier of a Compartment, Species or (global)
  * Parameter defined in this model.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "variable" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 EventAssignment_setVariable (EventAssignment_t *ea, const char *sid)
 {
-  ea->setVariable(sid ? sid : "");
+  return ea->setVariable(sid ? sid : "");
 }
 
 
@@ -848,12 +954,19 @@ EventAssignment_setVariable (EventAssignment_t *ea, const char *sid)
  *
  * @param ea the EventAssignment_t to set.
  * @param math the ASTNode to copy into @p ea
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
-void
+int
 EventAssignment_setMath (EventAssignment_t *ea, const ASTNode_t *math)
 {
-  ea->setMath(math);
+  return ea->setMath(math);
 }
 
 /**
@@ -907,4 +1020,33 @@ EventAssignment_containsUndeclaredUnits(EventAssignment_t *ea)
 }
 
 
+/**
+ * @return item in this ListOfEventAssignment with the given id or NULL if no such
+ * item exists.
+ */
+LIBSBML_EXTERN
+EventAssignment_t *
+ListOfEventAssignments_getById (ListOf_t *lo, const char *sid)
+{
+  return (sid != NULL) ? 
+    static_cast <ListOfEventAssignments *> (lo)->get(sid) : NULL;
+}
+
+
+/**
+ * Removes item in this ListOf items with the given id or NULL if no such
+ * item exists.  The caller owns the returned item and is responsible for
+ * deleting it.
+ */
+LIBSBML_EXTERN
+EventAssignment_t *
+ListOfEventAssignments_removeById (ListOf_t *lo, const char *sid)
+{
+  return (sid != NULL) ? 
+    static_cast <ListOfEventAssignments *> (lo)->remove(sid) : NULL;
+}
+
 /** @endcond doxygen-c-only */
+
+LIBSBML_CPP_NAMESPACE_END
+

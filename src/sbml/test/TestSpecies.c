@@ -65,7 +65,7 @@ static Species_t *S;
 void
 SpeciesTest_setup (void)
 {
-  S = Species_create();
+  S = Species_create(2, 4);
 
   if (S == NULL)
   {
@@ -113,36 +113,36 @@ START_TEST (test_Species_create)
 END_TEST
 
 
-START_TEST (test_Species_createWith)
-{
-  Species_t *s = Species_createWith("Ca", "Calcium");
-
-
-  fail_unless( SBase_getTypeCode  ((SBase_t *) s) == SBML_SPECIES );
-  fail_unless( SBase_getMetaId    ((SBase_t *) s) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) s) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) s) == NULL );
-
-  fail_unless( !strcmp(Species_getName            (s), "Calcium"  ) );
-  fail_unless( Species_getSpatialSizeUnits     (s) == NULL );
-  fail_unless( Species_getHasOnlySubstanceUnits(s) == 0 );
-  fail_unless( Species_getConstant             (s) == 0 );
-
-  fail_unless( !strcmp(Species_getId            (s), "Ca"  ) );
-
-  fail_unless(   Species_isSetId                   (s) );
-  fail_unless(   Species_isSetName                 (s) );
-  fail_unless( ! Species_isSetCompartment          (s) );
-  fail_unless( ! Species_isSetSubstanceUnits       (s) );
-  fail_unless( ! Species_isSetSpatialSizeUnits     (s) );
-  fail_unless( ! Species_isSetUnits                (s) );
-  fail_unless( ! Species_isSetInitialAmount        (s) );
-  fail_unless( ! Species_isSetInitialConcentration (s) );
-  fail_unless( ! Species_isSetCharge               (s) );
-
-  Species_free(s);
-}
-END_TEST
+//START_TEST (test_Species_createWith)
+//{
+//  Species_t *s = Species_createWith("Ca", "Calcium");
+//
+//
+//  fail_unless( SBase_getTypeCode  ((SBase_t *) s) == SBML_SPECIES );
+//  fail_unless( SBase_getMetaId    ((SBase_t *) s) == NULL );
+//  fail_unless( SBase_getNotes     ((SBase_t *) s) == NULL );
+//  fail_unless( SBase_getAnnotation((SBase_t *) s) == NULL );
+//
+//  fail_unless( !strcmp(Species_getName            (s), "Calcium"  ) );
+//  fail_unless( Species_getSpatialSizeUnits     (s) == NULL );
+//  fail_unless( Species_getHasOnlySubstanceUnits(s) == 0 );
+//  fail_unless( Species_getConstant             (s) == 0 );
+//
+//  fail_unless( !strcmp(Species_getId            (s), "Ca"  ) );
+//
+//  fail_unless(   Species_isSetId                   (s) );
+//  fail_unless(   Species_isSetName                 (s) );
+//  fail_unless( ! Species_isSetCompartment          (s) );
+//  fail_unless( ! Species_isSetSubstanceUnits       (s) );
+//  fail_unless( ! Species_isSetSpatialSizeUnits     (s) );
+//  fail_unless( ! Species_isSetUnits                (s) );
+//  fail_unless( ! Species_isSetInitialAmount        (s) );
+//  fail_unless( ! Species_isSetInitialConcentration (s) );
+//  fail_unless( ! Species_isSetCharge               (s) );
+//
+//  Species_free(s);
+//}
+//END_TEST
 
 
 START_TEST (test_Species_free_NULL)
@@ -184,7 +184,7 @@ END_TEST
 
 START_TEST (test_Species_setName)
 {
-  char *name = "So Sweet";
+  char *name = "So_Sweet";
 
 
   Species_setName(S, name);
@@ -304,30 +304,34 @@ END_TEST
 
 START_TEST (test_Species_setSpatialSizeUnits)
 {
+  Species_t *s = 
+    Species_create(2, 1);
   char *units = "volume";
 
 
-  Species_setSpatialSizeUnits(S, units);
+  Species_setSpatialSizeUnits(s, units);
 
-  fail_unless( !strcmp(Species_getSpatialSizeUnits(S), units) );
-  fail_unless( Species_isSetSpatialSizeUnits(S) );
+  fail_unless( !strcmp(Species_getSpatialSizeUnits(s), units) );
+  fail_unless( Species_isSetSpatialSizeUnits(s) );
 
-  if (Species_getSpatialSizeUnits(S) == units)
+  if (Species_getSpatialSizeUnits(s) == units)
   {
     fail("Species_setSpatialSizeUnits(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  Species_setSpatialSizeUnits(S, Species_getSpatialSizeUnits(S));
-  fail_unless( !strcmp(Species_getSpatialSizeUnits(S), units) );
+  Species_setSpatialSizeUnits(s, Species_getSpatialSizeUnits(s));
+  fail_unless( !strcmp(Species_getSpatialSizeUnits(s), units) );
 
-  Species_setSpatialSizeUnits(S, NULL);
-  fail_unless( !Species_isSetSpatialSizeUnits(S) );
+  Species_setSpatialSizeUnits(s, NULL);
+  fail_unless( !Species_isSetSpatialSizeUnits(s) );
 
-  if (Species_getSpatialSizeUnits(S) != NULL)
+  if (Species_getSpatialSizeUnits(s) != NULL)
   {
     fail("Species_setSpatialSizeUnits(S, NULL) did not clear string.");
   }
+
+  Species_free(s);
 }
 END_TEST
 
@@ -362,13 +366,15 @@ START_TEST (test_Species_setUnits)
 END_TEST
 
 
-START_TEST (test_Species_createWithLevelVersionAndNamespace)
+START_TEST (test_Species_createWithNS )
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
-  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "testsbml");
+  SBMLNamespaces_t *sbmlns = SBMLNamespaces_create(2,1);
+  SBMLNamespaces_addNamespaces(sbmlns,xmlns);
 
   Species_t *object = 
-    Species_createWithLevelVersionAndNamespaces(2, 1, xmlns);
+    Species_createWithNS (sbmlns);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_SPECIES );
@@ -380,7 +386,7 @@ START_TEST (test_Species_createWithLevelVersionAndNamespace)
   fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
 
   fail_unless( Species_getNamespaces     (object) != NULL );
-  fail_unless( XMLNamespaces_getLength(Species_getNamespaces(object)) == 1 );
+  fail_unless( XMLNamespaces_getLength(Species_getNamespaces(object)) == 2 );
 
   Species_free(object);
 }
@@ -399,7 +405,7 @@ create_suite_Species (void)
                              SpeciesTest_teardown );
 
   tcase_add_test( tcase, test_Species_create                  );
-  tcase_add_test( tcase, test_Species_createWith              );
+  //tcase_add_test( tcase, test_Species_createWith              );
   tcase_add_test( tcase, test_Species_free_NULL               );
   tcase_add_test( tcase, test_Species_setId                   );
   tcase_add_test( tcase, test_Species_setName                 );
@@ -409,7 +415,7 @@ create_suite_Species (void)
   tcase_add_test( tcase, test_Species_setSubstanceUnits       );
   tcase_add_test( tcase, test_Species_setSpatialSizeUnits     );
   tcase_add_test( tcase, test_Species_setUnits                );
-  tcase_add_test( tcase, test_Species_createWithLevelVersionAndNamespace        );
+  tcase_add_test( tcase, test_Species_createWithNS         );
 
   suite_add_tcase(suite, tcase);
 

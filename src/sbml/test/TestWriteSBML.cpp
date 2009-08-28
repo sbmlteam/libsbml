@@ -37,6 +37,7 @@
 /** @cond doxygen-ignored */
 
 using namespace std;
+LIBSBML_CPP_NAMESPACE_USE
 
 /** @endcond doxygen-ignored */
 
@@ -68,18 +69,12 @@ using namespace std;
 static SBMLDocument* D;
 static char*         S;
 
-ostringstream*   OSS;
-XMLOutputStream* XOS;
-
 
 static void
 WriteSBML_setup ()
 {
   D = new SBMLDocument;
   S = 0;
-
-  OSS = new ostringstream;
-  XOS = new XMLOutputStream(*OSS);
 }
 
 
@@ -88,9 +83,6 @@ WriteSBML_teardown ()
 {
   delete D;
   free(S);
-
-  delete OSS;
-  delete XOS;
 }
 
 
@@ -104,13 +96,6 @@ equals (const char* expected, const char* actual)
   printf( "Actual:\n[%s]\n"  , actual   );
 
   return false;
-}
-
-
-static bool
-equals (const char* expected)
-{
-  return equals(expected, OSS->str().c_str());
 }
 
 
@@ -131,6 +116,54 @@ START_TEST (test_WriteSBML_error)
 }
 END_TEST
 
+
+START_TEST (test_SBMLWriter_create)
+{
+  SBMLWriter_t   *w = SBMLWriter_create();
+
+  fail_unless( w != NULL );
+
+  SBMLWriter_free(w);
+}
+END_TEST
+
+
+START_TEST (test_SBMLWriter_setProgramName)
+{
+  SBMLWriter_t   *w = SBMLWriter_create();
+
+  fail_unless( w != NULL );
+
+  int i = SBMLWriter_setProgramName(w, "sss");
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+
+  i = SBMLWriter_setProgramName(w, NULL);
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  
+  SBMLWriter_free(w);
+}
+END_TEST
+
+
+START_TEST (test_SBMLWriter_setProgramVersion)
+{
+  SBMLWriter_t   *w = SBMLWriter_create();
+
+  fail_unless( w != NULL );
+
+  int i = SBMLWriter_setProgramVersion(w, "sss");
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+
+  i = SBMLWriter_setProgramVersion(w, NULL);
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  
+  SBMLWriter_free(w);
+}
+END_TEST
 
 
 START_TEST (test_WriteSBML_SBMLDocument_L1v1)
@@ -284,8 +317,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_FunctionDefinition)
 {
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<functionDefinition id=\"pow3\">\n"
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
     "    <lambda>\n"
@@ -299,21 +331,20 @@ START_TEST (test_WriteSBML_FunctionDefinition)
     "      </apply>\n"
     "    </lambda>\n"
     "  </math>\n"
-    "</functionDefinition>"
-  );
+    "</functionDefinition>";
 
-  FunctionDefinition fd("pow3", "lambda(x, x^3)");
-  fd.write(*XOS);
+  FunctionDefinition fd(2, 4);
+  fd.setId("pow3");
+  fd.setMath(SBML_parseFormula("lambda(x, x^3)"));
 
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,fd.toSBML()) );
 }
 END_TEST
 
 
 START_TEST (test_WriteSBML_FunctionDefinition_withSBO)
 {
-  const char* expected = wrapXML
-  (
+  const char* expected = 
   "<functionDefinition id=\"pow3\" sboTerm=\"SBO:0000064\">\n"
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
     "    <lambda>\n"
@@ -327,35 +358,31 @@ START_TEST (test_WriteSBML_FunctionDefinition_withSBO)
     "      </apply>\n"
     "    </lambda>\n"
     "  </math>\n"
-    "</functionDefinition>"
-  );
+    "</functionDefinition>";
 
-  FunctionDefinition fd("pow3", "lambda(x, x^3)");
+  FunctionDefinition fd(2, 4);
+  fd.setId("pow3");
+  fd.setMath(SBML_parseFormula("lambda(x, x^3)"));
   fd.setSBOTerm(64);
-  fd.write(*XOS);
 
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,fd.toSBML()) );
 }
 END_TEST
 
 
 START_TEST (test_WriteSBML_Unit)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2, 4);
 
-  const char* expected = wrapXML
-  (
-    "<unit kind=\"kilogram\" exponent=\"2\" scale=\"-3\"/>"
-  );
+  const char* expected = "<unit kind=\"kilogram\" exponent=\"2\" scale=\"-3\"/>";
 
 
+  Unit* u = D->createModel()->createUnitDefinition()->createUnit();
+  u->setKind(UNIT_KIND_KILOGRAM);
+  u->setExponent(2);
+  u->setScale(-3);
 
-  Unit u("kilogram", 2, -3);
-
-  u.setSBMLDocument(D);
-  u.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected, u->toSBML()) );
 }
 END_TEST
 
@@ -364,20 +391,16 @@ START_TEST (test_WriteSBML_Unit_l2v3)
 {
   D->setLevelAndVersion(2, 3);
 
-  const char* expected = wrapXML
-  (
-    "<unit kind=\"kilogram\" exponent=\"2\" scale=\"-3\"/>"
-  );
+  const char* expected = "<unit kind=\"kilogram\" exponent=\"2\" scale=\"-3\"/>";
 
 
+  Unit* u = D->createModel()->createUnitDefinition()->createUnit();
+  u->setKind(UNIT_KIND_KILOGRAM);
+  u->setExponent(2);
+  u->setScale(-3);
+  u->setOffset(32);
 
-  Unit u("kilogram", 2, -3);
-  u.setOffset(32);
-
-  u.setSBMLDocument(D);
-  u.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,u->toSBML()) );
 }
 END_TEST
 
@@ -386,15 +409,13 @@ START_TEST (test_WriteSBML_Unit_defaults)
 {
   D->setLevelAndVersion(1, 2);
 
-  const char* expected = wrapXML("<unit kind=\"kilogram\"/>");
+  const char* expected = "<unit kind=\"kilogram\"/>";
 
 
-  Unit u("kilogram", 1, 0);
+  Unit* u = D->createModel()->createUnitDefinition()->createUnit();
+  u->setKind(UNIT_KIND_KILOGRAM);
 
-  u.setSBMLDocument(D);
-  u.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,u->toSBML()) );
 }
 END_TEST
 
@@ -403,20 +424,14 @@ START_TEST (test_WriteSBML_Unit_L2v1)
 {
   D->setLevelAndVersion(2, 1);
 
-  const char* expected = wrapXML
-  (
-    "<unit kind=\"Celsius\" multiplier=\"1.8\" offset=\"32\"/>"
-  );
+  const char* expected = "<unit kind=\"Celsius\" multiplier=\"1.8\" offset=\"32\"/>";
 
+  Unit* u = D->createModel()->createUnitDefinition()->createUnit();
+  u->setKind(UnitKind_forName("Celsius"));
+  u->setMultiplier(1.8);
+  u->setOffset(32);
 
-
-  Unit u("Celsius", 1, 0, 1.8);
-  u.setOffset(32);
-
-  u.setSBMLDocument(D);
-  u.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,u->toSBML()) );
 }
 END_TEST
 
@@ -425,16 +440,13 @@ START_TEST (test_WriteSBML_UnitDefinition)
 {
   D->setLevelAndVersion(1, 2);
 
-  const char* expected = wrapXML("<unitDefinition name=\"mmls\"/>");
+  const char* expected = "<unitDefinition name=\"mmls\"/>";
 
 
+  UnitDefinition* ud = D->createModel()->createUnitDefinition();
+  ud->setId("mmls");
 
-  UnitDefinition ud("mmls");
-
-  ud.setSBMLDocument(D);
-  ud.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,ud->toSBML()) );
 }
 END_TEST
 
@@ -443,33 +455,30 @@ START_TEST (test_WriteSBML_UnitDefinition_full)
 {
   D->setLevelAndVersion(1, 2);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<unitDefinition name=\"mmls\">\n"
     "  <listOfUnits>\n"
     "    <unit kind=\"mole\" scale=\"-3\"/>\n"
     "    <unit kind=\"liter\" exponent=\"-1\"/>\n"
     "    <unit kind=\"second\" exponent=\"-1\"/>\n"
     "  </listOfUnits>\n"
-    "</unitDefinition>"
-  );
+    "</unitDefinition>";
 
 
+  UnitDefinition* ud = D->createModel()->createUnitDefinition();
+  ud->setId("mmls");
 
-  UnitDefinition ud("mmls");
+  Unit* u1 = ud->createUnit();
+  u1->setKind(UNIT_KIND_MOLE);
+  u1->setScale(-3);
+  Unit* u2 = ud->createUnit();
+  u2->setKind(UNIT_KIND_LITER);
+  u2->setExponent(-1);
+  Unit* u3 = ud->createUnit();
+  u3->setKind(UNIT_KIND_SECOND);
+  u3->setExponent(-1);
 
-  Unit u1("mole"  ,  1, -3);
-  Unit u2("liter" , -1);
-  Unit u3("second", -1);
-
-  ud.addUnit( &u1 );
-  ud.addUnit( &u2 );
-  ud.addUnit( &u3 );
-
-  ud.setSBMLDocument(D);
-  ud.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,ud->toSBML()) );
 }
 END_TEST
 
@@ -478,15 +487,12 @@ START_TEST (test_WriteSBML_UnitDefinition_L2v1)
 {
   D->setLevelAndVersion(2, 1);
 
-  const char* expected = wrapXML("<unitDefinition id=\"mmls\"/>");
+  const char* expected = "<unitDefinition id=\"mmls\"/>";
 
+  UnitDefinition* ud = D->createModel()->createUnitDefinition();
+  ud->setId("mmls");
 
-  UnitDefinition ud("mmls");
-
-  ud.setSBMLDocument(D);
-  ud.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected, ud->toSBML()) );
 }
 END_TEST
 
@@ -496,25 +502,22 @@ START_TEST (test_WriteSBML_UnitDefinition_L2v1_full)
 {
   D->setLevelAndVersion(2, 1);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<unitDefinition id=\"Fahrenheit\">\n"
     "  <listOfUnits>\n"
     "    <unit kind=\"Celsius\" multiplier=\"1.8\" offset=\"32\"/>\n"
     "  </listOfUnits>\n"
-    "</unitDefinition>"
-  );
+    "</unitDefinition>";
 
-  Unit           u1("Celsius", 1, 0, 1.8);
-  u1.setOffset(32);
-  UnitDefinition ud("Fahrenheit");
+  UnitDefinition* ud = D->createModel()->createUnitDefinition();
+  ud->setId("Fahrenheit");
 
-  ud.addUnit(&u1);
+  Unit* u1 = ud->createUnit();
+  u1->setKind(UnitKind_forName("Celsius"));
+  u1->setMultiplier(1.8);
+  u1->setOffset(32);
 
-  ud.setSBMLDocument(D);
-  ud.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,ud->toSBML()) );
 }
 END_TEST
 
@@ -523,21 +526,15 @@ START_TEST (test_WriteSBML_Compartment)
 {
   D->setLevelAndVersion(1, 2);
 
-  const char* expected = wrapXML
-  (
-    "<compartment name=\"A\" volume=\"2.1\" outside=\"B\"/>"
-  );
+  const char* expected = "<compartment name=\"A\" volume=\"2.1\" outside=\"B\"/>";
 
+  Compartment *c = D->createModel()->createCompartment();
+  c->setId("A");
 
-  Compartment c("A");
+  c->setSize(2.1);
+  c->setOutside("B");
 
-  c.setSize(2.1);
-  c.setOutside("B");
-
-  c.setSBMLDocument(D);
-  c.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,c->toSBML()) );
 }
 END_TEST
 
@@ -546,19 +543,14 @@ START_TEST (test_WriteSBML_Compartment_unsetVolume)
 {
   D->setLevelAndVersion(1, 2);
 
-  const char* expected = wrapXML("<compartment name=\"A\"/>");
+  const char* expected = "<compartment name=\"A\"/>";
 
+  Compartment *c = D->createModel()->createCompartment();
 
-  Compartment c;
+  c->setId("A");
+  c->unsetVolume();
 
-
-  c.setId("A");
-  c.unsetVolume();
-
-  c.setSBMLDocument(D);
-  c.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,c->toSBML()) );
 }
 END_TEST
 
@@ -567,22 +559,15 @@ START_TEST (test_WriteSBML_Compartment_L2v1)
 {
   D->setLevelAndVersion(2, 1);
 
-  const char* expected = wrapXML
-  (
-    "<compartment id=\"M\" spatialDimensions=\"2\" size=\"2.5\"/>"
-  );
+  const char* expected = "<compartment id=\"M\" spatialDimensions=\"2\" size=\"2.5\"/>";
 
 
-  Compartment c("M");
+  Compartment *c = D->createModel()->createCompartment(); 
+  c->setId("M");
+  c->setSize(2.5);
+  c->setSpatialDimensions(2);
 
-
-  c.setSize(2.5);
-  c.setSpatialDimensions(2);
-
-  c.setSBMLDocument(D);
-  c.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,c->toSBML()) );
 }
 END_TEST
 
@@ -591,20 +576,14 @@ START_TEST (test_WriteSBML_Compartment_L2v1_constant)
 {
   D->setLevelAndVersion(2, 1);
 
-  const char* expected = wrapXML
-  (
-    "<compartment id=\"cell\" size=\"1.2\" constant=\"false\"/>"
-  );
+  const char* expected = "<compartment id=\"cell\" size=\"1.2\" constant=\"false\"/>";
 
-  Compartment c("cell");
+  Compartment *c = D->createModel()->createCompartment(); 
+  c->setId("cell");
+  c->setSize(1.2);
+  c->setConstant(false);
 
-  c.setSize(1.2);
-  c.setConstant(false);
-
-  c.setSBMLDocument(D);
-  c.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,c->toSBML()) );
 }
 END_TEST
 
@@ -613,18 +592,14 @@ START_TEST (test_WriteSBML_Compartment_L2v1_unsetSize)
 {
   D->setLevelAndVersion(2, 1);
 
-  const char* expected = wrapXML("<compartment id=\"A\"/>");
+  const char* expected = "<compartment id=\"A\"/>";
 
 
-  Compartment c;
+  Compartment *c = D->createModel()->createCompartment();
+  c->setId("A");
+  c->unsetSize();
 
-  c.setId("A");
-  c.unsetSize();
-
-  c.setSBMLDocument(D);
-  c.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,c->toSBML()) );
 }
 END_TEST
 
@@ -633,19 +608,13 @@ START_TEST (test_WriteSBML_Compartment_L2v2_compartmentType)
 {
   D->setLevelAndVersion(2, 2);
 
-  const char* expected = wrapXML
-  (
-    "<compartment id=\"cell\" compartmentType=\"ct\"/>"
-  );
+  const char* expected = "<compartment id=\"cell\" compartmentType=\"ct\"/>";
 
-  Compartment c("cell");
+  Compartment *c = D->createModel()->createCompartment(); 
+  c->setId("cell");
+  c->setCompartmentType("ct");
 
-  c.setCompartmentType("ct");
-
-  c.setSBMLDocument(D);
-  c.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected, c->toSBML()) );
 }
 END_TEST
 
@@ -654,19 +623,13 @@ START_TEST (test_WriteSBML_Compartment_L2v3_SBO)
 {
   D->setLevelAndVersion(2, 3);
 
-  const char* expected = wrapXML
-  (
-  "<compartment id=\"cell\" sboTerm=\"SBO:0000005\"/>"
-  );
+  const char* expected = "<compartment id=\"cell\" sboTerm=\"SBO:0000005\"/>";
 
-  Compartment c("cell");
+  Compartment *c = D->createModel()->createCompartment(); 
+  c->setId("cell");
+  c->setSBOTerm(5);
 
-  c.setSBOTerm(5);
-
-  c.setSBMLDocument(D);
-  c.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,c->toSBML()) );
 }
 END_TEST
 
@@ -675,25 +638,20 @@ START_TEST (test_WriteSBML_Species)
 {
   D->setLevelAndVersion(1, 2);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\""
-    " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>"
-  );
+    " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>";
 
 
-  Species s("Ca2");
+  Species *s = D->createModel()->createSpecies();
+  s->setName("Ca2");
+  s->setCompartment("cell");
+  s->setInitialAmount(0.7);
+  s->setUnits("mole");
+  s->setBoundaryCondition(true);
+  s->setCharge(2);
 
-  s.setCompartment("cell");
-  s.setInitialAmount(0.7);
-  s.setUnits("mole");
-  s.setBoundaryCondition(true);
-  s.setCharge(2);
-
-  s.setSBMLDocument(D);
-  s.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected, s->toSBML()) );
 }
 END_TEST
 
@@ -702,25 +660,21 @@ START_TEST (test_WriteSBML_Species_L1v1)
 {
   D->setLevelAndVersion(1, 1);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<specie name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\""
-    " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>"
-  );
+    " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>";
 
 
-  Species s("Ca2");
+  Species *s = D->createModel()->createSpecies();
+  s->setName("Ca2");
 
-  s.setCompartment("cell");
-  s.setInitialAmount(0.7);
-  s.setUnits("mole");
-  s.setBoundaryCondition(true);
-  s.setCharge(2);
+  s->setCompartment("cell");
+  s->setInitialAmount(0.7);
+  s->setUnits("mole");
+  s->setBoundaryCondition(true);
+  s->setCharge(2);
 
-  s.setSBMLDocument(D);
-  s.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,s->toSBML()) );
 }
 END_TEST
 
@@ -729,24 +683,21 @@ START_TEST (test_WriteSBML_Species_defaults)
 {
   D->setLevelAndVersion(1, 2);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\""
-    " units=\"mole\" charge=\"2\"/>"
-  );
+    " units=\"mole\" charge=\"2\"/>";
 
 
-  Species s("Ca2");
+  Species *s = D->createModel()->createSpecies();
 
-  s.setCompartment("cell");
-  s.setInitialAmount(0.7);
-  s.setUnits("mole");
-  s.setCharge(2);
+  s->setName("Ca2");
 
-  s.setSBMLDocument(D);
-  s.write(*XOS);
+  s->setCompartment("cell");
+  s->setInitialAmount(0.7);
+  s->setUnits("mole");
+  s->setCharge(2);
 
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,s->toSBML()) );
 }
 END_TEST
 
@@ -755,21 +706,16 @@ START_TEST (test_WriteSBML_Species_skipOptional)
 {
   D->setLevelAndVersion(1, 2);
 
-  const char* expected = wrapXML
-  (
-    "<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"/>"
-  );
+  const char* expected = "<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"/>";
 
 
-  Species s("Ca2");
+  Species *s = D->createModel()->createSpecies();
+  s->setId("Ca2");
 
-  s.setCompartment("cell");
-  s.setInitialAmount(0.7);
+  s->setCompartment("cell");
+  s->setInitialAmount(0.7);
 
-  s.setSBMLDocument(D);
-  s.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,s->toSBML()) );
 }
 END_TEST
 
@@ -778,23 +724,19 @@ START_TEST (test_WriteSBML_Species_L2v1)
 {
   D->setLevelAndVersion(2, 1);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<species id=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\" "
-    "substanceUnits=\"mole\" constant=\"true\"/>"
-  );
+    "substanceUnits=\"mole\" constant=\"true\"/>";
 
-  Species s("Ca2");
+  Species *s = D->createModel()->createSpecies();
+  s->setId("Ca2");
 
-  s.setCompartment("cell");
-  s.setInitialAmount(0.7);
-  s.setSubstanceUnits("mole");
-  s.setConstant(true);
+  s->setCompartment("cell");
+  s->setInitialAmount(0.7);
+  s->setSubstanceUnits("mole");
+  s->setConstant(true);
 
-  s.setSBMLDocument(D);
-  s.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,s->toSBML()) );
 }
 END_TEST
 
@@ -803,18 +745,13 @@ START_TEST (test_WriteSBML_Species_L2v1_skipOptional)
 {
   D->setLevelAndVersion(2, 1);
 
-  const char* expected = wrapXML
-  (
-    "<species id=\"Ca2\" compartment=\"cell\"/>"
-  );
+  const char* expected = "<species id=\"Ca2\" compartment=\"cell\"/>";
 
-  Species s("Ca2");
-  s.setCompartment("cell");
+  Species *s = D->createModel()->createSpecies();
+  s->setId("Ca2");
+  s->setCompartment("cell");
 
-  s.setSBMLDocument(D);
-  s.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,s->toSBML()) );
 }
 END_TEST
 
@@ -823,24 +760,20 @@ START_TEST (test_WriteSBML_Species_L2v2)
 {
   D->setLevelAndVersion(2, 2);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<species id=\"Ca2\" speciesType=\"st\" compartment=\"cell\" initialAmount=\"0.7\" "
-    "substanceUnits=\"mole\" constant=\"true\"/>"
-  );
+    "substanceUnits=\"mole\" constant=\"true\"/>";
 
-  Species s("Ca2");
+  Species *s = D->createModel()->createSpecies();
+  s->setId("Ca2");
 
-  s.setCompartment("cell");
-  s.setInitialAmount(0.7);
-  s.setSubstanceUnits("mole");
-  s.setConstant(true);
-  s.setSpeciesType("st");
+  s->setCompartment("cell");
+  s->setInitialAmount(0.7);
+  s->setSubstanceUnits("mole");
+  s->setConstant(true);
+  s->setSpeciesType("st");
 
-  s.setSBMLDocument(D);
-  s.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,s->toSBML()) );
 }
 END_TEST
 
@@ -849,20 +782,15 @@ START_TEST (test_WriteSBML_Species_L2v3)
 {
   D->setLevelAndVersion(2, 3);
 
-  const char* expected = wrapXML
-  (
-  "<species id=\"Ca2\" compartment=\"cell\" sboTerm=\"SBO:0000007\"/>"
-  );
+  const char* expected = "<species id=\"Ca2\" compartment=\"cell\" sboTerm=\"SBO:0000007\"/>";
 
-  Species s("Ca2");
+  Species *s = D->createModel()->createSpecies();
+  s->setId("Ca2");
 
-  s.setCompartment("cell");
-  s.setSBOTerm(7);
+  s->setCompartment("cell");
+  s->setSBOTerm(7);
 
-  s.setSBMLDocument(D);
-  s.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,s->toSBML()) );
 }
 END_TEST
 
@@ -871,18 +799,15 @@ START_TEST (test_WriteSBML_Parameter)
 {
   D->setLevelAndVersion(1, 2);
 
-  const char* expected = wrapXML
-  (
-    "<parameter name=\"Km1\" value=\"2.3\" units=\"second\"/>"
-  );
+  const char* expected = "<parameter name=\"Km1\" value=\"2.3\" units=\"second\"/>";
 
 
-  Parameter p("Km1", 2.3, "second");
+  Parameter *p = D->createModel()->createParameter();
+  p->setId("Km1");
+  p->setValue(2.3);
+  p->setUnits("second");
 
-  p.setSBMLDocument(D);
-  p.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,p->toSBML()) );
 }
 END_TEST
 
@@ -891,20 +816,14 @@ START_TEST (test_WriteSBML_Parameter_L1v1_required)
 {
   D->setLevelAndVersion(1, 1);
 
-  const char* expected = wrapXML
-  (
-    "<parameter name=\"Km1\" value=\"NaN\"/>"
-  );
+  const char* expected = "<parameter name=\"Km1\" value=\"NaN\"/>";
 
-  Parameter p;
+  Parameter *p = D->createModel()->createParameter();
 
-  p.setId("Km1");
-  p.unsetValue();
+  p->setId("Km1");
+  p->unsetValue();
 
-  p.setSBMLDocument(D);
-  p.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,p->toSBML()) );
 }
 END_TEST
 
@@ -913,18 +832,15 @@ START_TEST (test_WriteSBML_Parameter_L1v2_skipOptional)
 {
   D->setLevelAndVersion(1, 2);
 
-  const char* expected = wrapXML("<parameter name=\"Km1\"/>");
+  const char* expected = "<parameter name=\"Km1\"/>";
 
 
-  Parameter p;
+  Parameter *p = D->createModel()->createParameter();
 
-  p.setId("Km1");
-  p.unsetValue();
+  p->setId("Km1");
+  p->unsetValue();
 
-  p.setSBMLDocument(D);
-  p.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,p->toSBML()) );
 }
 END_TEST
 
@@ -933,18 +849,15 @@ START_TEST (test_WriteSBML_Parameter_L2v1)
 {
   D->setLevelAndVersion(2, 1);
 
-  const char* expected = wrapXML
-  (
-    "<parameter id=\"Km1\" value=\"2.3\" units=\"second\"/>"
-  );
+  const char* expected = "<parameter id=\"Km1\" value=\"2.3\" units=\"second\"/>";
 
 
-  Parameter p("Km1", 2.3, "second");
+  Parameter *p = D->createModel()->createParameter();
+  p->setId("Km1");
+  p->setValue(2.3);
+  p->setUnits("second");
 
-  p.setSBMLDocument(D);
-  p.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,p->toSBML()) );
 }
 END_TEST
 
@@ -953,15 +866,13 @@ START_TEST (test_WriteSBML_Parameter_L2v1_skipOptional)
 {
   D->setLevelAndVersion(2, 1);
 
-  const char* expected = wrapXML("<parameter id=\"Km1\"/>");
+  const char* expected = "<parameter id=\"Km1\"/>";
 
 
-  Parameter p("Km1");
+  Parameter *p = D->createModel()->createParameter();
+  p->setId("Km1");
 
-  p.setSBMLDocument(D);
-  p.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,p->toSBML()) );
 }
 END_TEST
 
@@ -970,17 +881,15 @@ START_TEST (test_WriteSBML_Parameter_L2v1_constant)
 {
   D->setLevelAndVersion(2, 1);
 
-  const char* expected = wrapXML("<parameter id=\"x\" constant=\"false\"/>");
+  const char* expected = "<parameter id=\"x\" constant=\"false\"/>";
 
 
-  Parameter p("x");
+  Parameter *p = D->createModel()->createParameter();
+  p->setId("x");
 
-  p.setConstant(false);
+  p->setConstant(false);
 
-  p.setSBMLDocument(D);
-  p.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,p->toSBML()) );
 }
 END_TEST
 
@@ -989,19 +898,16 @@ START_TEST (test_WriteSBML_Parameter_L2v2)
 {
   D->setLevelAndVersion(2, 2);
 
-  const char* expected = wrapXML
-  (
-  "<parameter id=\"Km1\" value=\"2.3\" units=\"second\" sboTerm=\"SBO:0000002\"/>"
-  );
+  const char* expected = "<parameter id=\"Km1\" value=\"2.3\" units=\"second\" sboTerm=\"SBO:0000002\"/>";
 
 
-  Parameter p("Km1", 2.3, "second");
-  p.setSBOTerm(2);
+  Parameter *p = D->createModel()->createParameter();
+  p->setId("Km1");
+  p->setValue(2.3);
+  p->setUnits("second");
+  p->setSBOTerm(2);
 
-  p.setSBMLDocument(D);
-  p.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,p->toSBML()) );
 }
 END_TEST
 
@@ -1010,15 +916,13 @@ START_TEST (test_WriteSBML_AlgebraicRule)
 {
   D->setLevelAndVersion(1, 1);
 
-  const char* expected = wrapXML("<algebraicRule formula=\"x + 1\"/>");
+  const char* expected = "<algebraicRule formula=\"x + 1\"/>";
 
 
-  AlgebraicRule r("x + 1");
+  AlgebraicRule *r = D->createModel()->createAlgebraicRule();
+  r->setFormula("x + 1");
 
-  r.setSBMLDocument(D);
-  r.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,r->toSBML()) );
 }
 END_TEST
 
@@ -1027,8 +931,7 @@ START_TEST (test_WriteSBML_AlgebraicRule_L2v1)
 {
   D->setLevelAndVersion(2, 1);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<algebraicRule>\n"
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
     "    <apply>\n"
@@ -1037,16 +940,13 @@ START_TEST (test_WriteSBML_AlgebraicRule_L2v1)
     "      <cn type=\"integer\"> 1 </cn>\n"
     "    </apply>\n"
     "  </math>\n"
-    "</algebraicRule>"
-  );
+    "</algebraicRule>";
 
 
-  AlgebraicRule r("x + 1");
+  AlgebraicRule *r = D->createModel()->createAlgebraicRule();
+  r->setFormula("x + 1");
 
-  r.setSBMLDocument(D);
-  r.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,r->toSBML()) );
 }
 END_TEST
 
@@ -1055,8 +955,7 @@ START_TEST (test_WriteSBML_AlgebraicRule_L2v2)
 {
   D->setLevelAndVersion(2, 2);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<algebraicRule sboTerm=\"SBO:0000004\">\n"
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
     "    <apply>\n"
@@ -1065,17 +964,14 @@ START_TEST (test_WriteSBML_AlgebraicRule_L2v2)
     "      <cn type=\"integer\"> 1 </cn>\n"
     "    </apply>\n"
     "  </math>\n"
-    "</algebraicRule>"
-  );
+    "</algebraicRule>";
 
 
-  AlgebraicRule r("x + 1");
-  r.setSBOTerm(4);
+  AlgebraicRule *r = D->createModel()->createAlgebraicRule();
+  r->setFormula("x + 1");
+  r->setSBOTerm(4);
 
-  r.setSBMLDocument(D);
-  r.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,r->toSBML()) );
 }
 END_TEST
 
@@ -1084,11 +980,9 @@ START_TEST (test_WriteSBML_SpeciesConcentrationRule)
 {
   D->setLevelAndVersion(1, 2);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<speciesConcentrationRule "
-    "formula=\"t * s\" type=\"rate\" species=\"s\"/>"
-  );
+    "formula=\"t * s\" type=\"rate\" species=\"s\"/>";
 
 
   D->createModel();
@@ -1098,9 +992,8 @@ START_TEST (test_WriteSBML_SpeciesConcentrationRule)
 
   r->setVariable("s");
   r->setFormula("t * s");
-  r->write(*XOS);
 
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,r->toSBML()) );
 }
 END_TEST
 
@@ -1109,12 +1002,7 @@ START_TEST (test_WriteSBML_SpeciesConcentrationRule_defaults)
 {
   D->setLevelAndVersion(1, 2);
 
-  const char* expected = wrapXML
-  (
-    "<speciesConcentrationRule formula=\"t * s\" species=\"s\"/>"
-    
-  );
-
+  const char* expected = "<speciesConcentrationRule formula=\"t * s\" species=\"s\"/>";
 
   D->createModel();
   D->getModel()->createSpecies()->setId("s");
@@ -1123,9 +1011,8 @@ START_TEST (test_WriteSBML_SpeciesConcentrationRule_defaults)
 
   r->setVariable("s");
   r->setFormula("t * s");
-  r->write(*XOS);
 
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,r->toSBML()) );
 }
 END_TEST
 
@@ -1134,10 +1021,7 @@ START_TEST (test_WriteSBML_SpeciesConcentrationRule_L1v1)
 {
   D->setLevelAndVersion(1, 1);
 
-  const char* expected = wrapXML
-  (
-    "<specieConcentrationRule formula=\"t * s\" specie=\"s\"/>"
-  );
+  const char* expected = "<specieConcentrationRule formula=\"t * s\" specie=\"s\"/>";
 
 
   D->createModel();
@@ -1147,9 +1031,8 @@ START_TEST (test_WriteSBML_SpeciesConcentrationRule_L1v1)
 
   r->setVariable("s");
   r->setFormula("t * s");
-  r->write(*XOS);
 
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,r->toSBML()) );
 }
 END_TEST
 
@@ -1158,8 +1041,7 @@ START_TEST (test_WriteSBML_SpeciesConcentrationRule_L2v1)
 {
   D->setLevelAndVersion(2, 1);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<assignmentRule variable=\"s\">\n"
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
     "    <apply>\n"
@@ -1168,8 +1050,7 @@ START_TEST (test_WriteSBML_SpeciesConcentrationRule_L2v1)
     "      <ci> s </ci>\n"
     "    </apply>\n"
     "  </math>\n"
-    "</assignmentRule>"
-  );
+    "</assignmentRule>";
 
 
   D->createModel();
@@ -1179,9 +1060,8 @@ START_TEST (test_WriteSBML_SpeciesConcentrationRule_L2v1)
 
   r->setVariable("s");
   r->setFormula("t * s");
-  r->write(*XOS);
 
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,r->toSBML()) );
 }
 END_TEST
 
@@ -1190,8 +1070,7 @@ START_TEST (test_WriteSBML_SpeciesConcentrationRule_L2v2)
 {
   D->setLevelAndVersion(2, 2);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
   "<assignmentRule variable=\"s\" sboTerm=\"SBO:0000006\">\n"
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
     "    <apply>\n"
@@ -1200,8 +1079,7 @@ START_TEST (test_WriteSBML_SpeciesConcentrationRule_L2v2)
     "      <ci> s </ci>\n"
     "    </apply>\n"
     "  </math>\n"
-    "</assignmentRule>"
-  );
+    "</assignmentRule>";
 
 
   D->createModel();
@@ -1212,9 +1090,8 @@ START_TEST (test_WriteSBML_SpeciesConcentrationRule_L2v2)
   r->setVariable("s");
   r->setFormula("t * s");
   r->setSBOTerm(6);
-  r->write(*XOS);
 
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,r->toSBML()) );
 }
 END_TEST
 
@@ -1223,11 +1100,9 @@ START_TEST (test_WriteSBML_CompartmentVolumeRule)
 {
   D->setLevelAndVersion(1, 1);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<compartmentVolumeRule "
-    "formula=\"v + c\" type=\"rate\" compartment=\"c\"/>"
-  );
+    "formula=\"v + c\" type=\"rate\" compartment=\"c\"/>";
 
 
   D->createModel();
@@ -1237,9 +1112,8 @@ START_TEST (test_WriteSBML_CompartmentVolumeRule)
 
   r->setVariable("c");
   r->setFormula("v + c");
-  r->write(*XOS);
 
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,r->toSBML()) );
 }
 END_TEST
 
@@ -1248,10 +1122,7 @@ START_TEST (test_WriteSBML_CompartmentVolumeRule_defaults)
 {
   D->setLevelAndVersion(1, 1);
 
-  const char* expected = wrapXML
-  (
-    "<compartmentVolumeRule formula=\"v + c\" compartment=\"c\"/>"
-  );
+  const char* expected = "<compartmentVolumeRule formula=\"v + c\" compartment=\"c\"/>";
 
 
   D->createModel();
@@ -1261,9 +1132,8 @@ START_TEST (test_WriteSBML_CompartmentVolumeRule_defaults)
 
   r->setVariable("c");
   r->setFormula("v + c");
-  r->write(*XOS);
 
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,r->toSBML()) );
 }
 END_TEST
 
@@ -1272,8 +1142,7 @@ START_TEST (test_WriteSBML_CompartmentVolumeRule_L2v1)
 {
   D->setLevelAndVersion(2, 1);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<assignmentRule variable=\"c\">\n"
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
     "    <apply>\n"
@@ -1282,8 +1151,7 @@ START_TEST (test_WriteSBML_CompartmentVolumeRule_L2v1)
     "      <ci> c </ci>\n"
     "    </apply>\n"
     "  </math>\n"
-    "</assignmentRule>"
-  );
+    "</assignmentRule>";
 
 
   D->createModel();
@@ -1293,9 +1161,8 @@ START_TEST (test_WriteSBML_CompartmentVolumeRule_L2v1)
 
   r->setVariable("c");
   r->setFormula("v + c");
-  r->write(*XOS);
 
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,r->toSBML()) );
 }
 END_TEST
 
@@ -1304,8 +1171,7 @@ START_TEST (test_WriteSBML_CompartmentVolumeRule_L2v2)
 {
   D->setLevelAndVersion(2, 2);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
   "<assignmentRule variable=\"c\" sboTerm=\"SBO:0000005\">\n"
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
     "    <apply>\n"
@@ -1314,8 +1180,7 @@ START_TEST (test_WriteSBML_CompartmentVolumeRule_L2v2)
     "      <ci> c </ci>\n"
     "    </apply>\n"
     "  </math>\n"
-    "</assignmentRule>"
-  );
+    "</assignmentRule>";
 
 
   D->createModel();
@@ -1326,9 +1191,8 @@ START_TEST (test_WriteSBML_CompartmentVolumeRule_L2v2)
   r->setVariable("c");
   r->setFormula("v + c");
   r->setSBOTerm(5);
-  r->write(*XOS);
 
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,r->toSBML()) );
 }
 END_TEST
 
@@ -1337,11 +1201,9 @@ START_TEST (test_WriteSBML_ParameterRule)
 {
   D->setLevelAndVersion(1, 1);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<parameterRule "
-    "formula=\"p * t\" type=\"rate\" name=\"p\"/>"
-  );
+    "formula=\"p * t\" type=\"rate\" name=\"p\"/>";
 
 
   D->createModel();
@@ -1351,9 +1213,8 @@ START_TEST (test_WriteSBML_ParameterRule)
 
   r->setVariable("p");
   r->setFormula("p * t");
-  r->write(*XOS);
 
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,r->toSBML()) );
 }
 END_TEST
 
@@ -1362,10 +1223,7 @@ START_TEST (test_WriteSBML_ParameterRule_defaults)
 {
   D->setLevelAndVersion(1, 1);
 
-  const char* expected = wrapXML
-  (
-    "<parameterRule formula=\"p * t\" name=\"p\"/>"
-  );
+  const char* expected = "<parameterRule formula=\"p * t\" name=\"p\"/>";
 
 
   D->createModel();
@@ -1375,9 +1233,8 @@ START_TEST (test_WriteSBML_ParameterRule_defaults)
 
   r->setVariable("p");
   r->setFormula("p * t");
-  r->write(*XOS);
 
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,r->toSBML()) );
 }
 END_TEST
 
@@ -1386,8 +1243,7 @@ START_TEST (test_WriteSBML_ParameterRule_L2v1)
 {
   D->setLevelAndVersion(2, 1);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<rateRule variable=\"p\">\n"
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
     "    <apply>\n"
@@ -1396,8 +1252,7 @@ START_TEST (test_WriteSBML_ParameterRule_L2v1)
     "      <ci> t </ci>\n"
     "    </apply>\n"
     "  </math>\n"
-    "</rateRule>"
-  );
+    "</rateRule>";
 
 
   D->createModel();
@@ -1407,9 +1262,8 @@ START_TEST (test_WriteSBML_ParameterRule_L2v1)
 
   r->setVariable("p");
   r->setFormula("p * t");
-  r->write(*XOS);
 
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,r->toSBML()) );
 }
 END_TEST
 
@@ -1418,8 +1272,7 @@ START_TEST (test_WriteSBML_ParameterRule_L2v2)
 {
   D->setLevelAndVersion(2, 2);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
   "<rateRule variable=\"p\" sboTerm=\"SBO:0000007\">\n"
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
     "    <apply>\n"
@@ -1428,8 +1281,7 @@ START_TEST (test_WriteSBML_ParameterRule_L2v2)
     "      <ci> t </ci>\n"
     "    </apply>\n"
     "  </math>\n"
-    "</rateRule>"
-  );
+    "</rateRule>";
 
 
   D->createModel();
@@ -1440,9 +1292,8 @@ START_TEST (test_WriteSBML_ParameterRule_L2v2)
   r->setVariable("p");
   r->setFormula("p * t");
   r->setSBOTerm(7);
-  r->write(*XOS);
 
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,r->toSBML()) );
 }
 END_TEST
 
@@ -1451,19 +1302,15 @@ START_TEST (test_WriteSBML_Reaction)
 {
   D->setLevelAndVersion(1, 2);
 
-  const char* expected = wrapXML
-  (
-    "<reaction name=\"r\" reversible=\"false\" fast=\"true\"/>"
-  );
+  const char* expected = "<reaction name=\"r\" reversible=\"false\" fast=\"true\"/>";
 
 
-  Reaction r("r", "", NULL, false);
-  r.setFast(true);
+  Reaction *r = D->createModel()->createReaction();
+  r->setId("r");
+  r->setReversible(false);
+  r->setFast(true);
 
-  r.setSBMLDocument(D);
-  r.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,r->toSBML()) );
 }
 END_TEST
 
@@ -1472,16 +1319,13 @@ START_TEST (test_WriteSBML_Reaction_defaults)
 {
   D->setLevelAndVersion(1, 2);
 
-  const char* expected = wrapXML("<reaction name=\"r\"/>");
+  const char* expected = "<reaction name=\"r\"/>";
 
 
-  Reaction r;
-  r.setId("r");
+  Reaction *r = D->createModel()->createReaction();
+  r->setId("r");
 
-  r.setSBMLDocument(D);
-  r.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,r->toSBML()) );
 }
 END_TEST
 
@@ -1490,8 +1334,7 @@ START_TEST (test_WriteSBML_Reaction_full)
 {
   D->setLevelAndVersion(1, 2);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<reaction name=\"v1\">\n"
     "  <listOfReactants>\n"
     "    <speciesReference species=\"x0\"/>\n"
@@ -1500,8 +1343,7 @@ START_TEST (test_WriteSBML_Reaction_full)
     "    <speciesReference species=\"s1\"/>\n"
     "  </listOfProducts>\n"
     "  <kineticLaw formula=\"(vm * s1)/(km + s1)\"/>\n"
-    "</reaction>"
-  );
+    "</reaction>";
 
 
   D->createModel();
@@ -1516,9 +1358,7 @@ START_TEST (test_WriteSBML_Reaction_full)
 
   r->createKineticLaw()->setFormula("(vm * s1)/(km + s1)");
 
-  r->write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,r->toSBML()) );
 }
 END_TEST
 
@@ -1527,18 +1367,14 @@ START_TEST (test_WriteSBML_Reaction_L2v1)
 {
   D->setLevelAndVersion(2, 1);
 
-  const char* expected = wrapXML
-  (
-    "<reaction id=\"r\" reversible=\"false\"/>"
-  );
+  const char* expected = "<reaction id=\"r\" reversible=\"false\"/>";
 
 
-  Reaction r("r", "", NULL, false);
+  Reaction *r = D->createModel()->createReaction();
+  r->setId("r");
+  r->setReversible(false);
 
-  r.setSBMLDocument(D);
-  r.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,r->toSBML()) );
 }
 END_TEST
 
@@ -1547,8 +1383,7 @@ START_TEST (test_WriteSBML_Reaction_L2v1_full)
 {
   D->setLevelAndVersion(2, 1);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<reaction id=\"v1\">\n"
     "  <listOfReactants>\n"
     "    <speciesReference species=\"x0\"/>\n"
@@ -1576,8 +1411,7 @@ START_TEST (test_WriteSBML_Reaction_L2v1_full)
     "      </apply>\n"
     "    </math>\n"
     "  </kineticLaw>\n"
-    "</reaction>"
-  );
+    "</reaction>";
 
 
   D->createModel();
@@ -1593,9 +1427,7 @@ START_TEST (test_WriteSBML_Reaction_L2v1_full)
 
   r->createKineticLaw()->setFormula("(vm * s1)/(km + s1)");
 
-  r->write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,r->toSBML()) );
 }
 END_TEST
 
@@ -1604,20 +1436,17 @@ START_TEST (test_WriteSBML_Reaction_L2v2)
 {
   D->setLevelAndVersion(2, 2);
 
-  const char* expected = wrapXML
-  (
-  "<reaction id=\"r\" name=\"r1\" reversible=\"false\" fast=\"true\" sboTerm=\"SBO:0000064\"/>"
-  );
+  const char* expected = "<reaction id=\"r\" name=\"r1\" reversible=\"false\" fast=\"true\" sboTerm=\"SBO:0000064\"/>";
 
 
-  Reaction r("r", "r1", NULL, false);
-  r.setFast(true);
-  r.setSBOTerm(64);
+  Reaction* r = D->createModel()->createReaction();
+  r->setId("r");
+  r->setName("r1");
+  r->setReversible(false);
+  r->setFast(true);
+  r->setSBOTerm(64);
 
-  r.setSBMLDocument(D);
-  r.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,r->toSBML()) );
 }
 END_TEST
 
@@ -1626,18 +1455,15 @@ START_TEST (test_WriteSBML_SpeciesReference)
 {
   D->setLevelAndVersion(1, 2);
 
-  const char* expected = wrapXML
-  (
-    "<speciesReference species=\"s\" stoichiometry=\"3\" denominator=\"2\"/>"
-  );
+  const char* expected = "<speciesReference species=\"s\" stoichiometry=\"3\" denominator=\"2\"/>";
 
 
-  SpeciesReference sr("s", 3, 2);
+  SpeciesReference *sr = D->createModel()->createReaction()->createReactant();
+  sr->setSpecies("s");
+  sr->setStoichiometry(3);
+  sr->setDenominator(2);
 
-  sr.setSBMLDocument(D);
-  sr.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,sr->toSBML()) );
 }
 END_TEST
 
@@ -1646,18 +1472,15 @@ START_TEST (test_WriteSBML_SpeciesReference_L1v1)
 {
   D->setLevelAndVersion(1, 1);
 
-  const char* expected = wrapXML
-  (
-    "<specieReference specie=\"s\" stoichiometry=\"3\" denominator=\"2\"/>"
-  );
+  const char* expected = "<specieReference specie=\"s\" stoichiometry=\"3\" denominator=\"2\"/>";
 
 
-  SpeciesReference sr("s", 3, 2);
+  SpeciesReference *sr = D->createModel()->createReaction()->createReactant();
+  sr->setSpecies("s");
+  sr->setStoichiometry(3);
+  sr->setDenominator(2);
 
-  sr.setSBMLDocument(D);
-  sr.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,sr->toSBML()) );
 }
 END_TEST
 
@@ -1666,15 +1489,13 @@ START_TEST (test_WriteSBML_SpeciesReference_defaults)
 {
   D->setLevelAndVersion(1, 2);
 
-  const char* expected = wrapXML("<speciesReference species=\"s\"/>");
+  const char* expected = "<speciesReference species=\"s\"/>";
 
 
-  SpeciesReference sr("s");
+  SpeciesReference *sr = D->createModel()->createReaction()->createReactant();
+  sr->setSpecies("s");
 
-  sr.setSBMLDocument(D);
-  sr.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,sr->toSBML()) );
 }
 END_TEST
 
@@ -1683,24 +1504,22 @@ START_TEST (test_WriteSBML_SpeciesReference_L2v1_1)
 {
   D->setLevelAndVersion(2, 1);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<speciesReference species=\"s\">\n"
     "  <stoichiometryMath>\n"
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
     "      <cn type=\"rational\"> 3 <sep/> 2 </cn>\n"
     "    </math>\n"
     "  </stoichiometryMath>\n"
-    "</speciesReference>"
-  );
+    "</speciesReference>";
 
 
-  SpeciesReference sr("s", 3, 2);
+  SpeciesReference *sr = D->createModel()->createReaction()->createReactant();
+  sr->setSpecies("s");
+  sr->setStoichiometry(3);
+  sr->setDenominator(2);
 
-  sr.setSBMLDocument(D);
-  sr.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,sr->toSBML()) );
 
 }
 END_TEST
@@ -1710,18 +1529,14 @@ START_TEST (test_WriteSBML_SpeciesReference_L2v1_2)
 {
   D->setLevelAndVersion(2, 1);
 
-  const char* expected = wrapXML
-  (
-    "<speciesReference species=\"s\" stoichiometry=\"3.2\"/>"
-  );
+  const char* expected = "<speciesReference species=\"s\" stoichiometry=\"3.2\"/>";
 
 
-  SpeciesReference sr("s", 3.2);
+  SpeciesReference *sr = D->createModel()->createReaction()->createReactant();
+  sr->setSpecies("s");
+  sr->setStoichiometry(3.2);
 
-  sr.setSBMLDocument(D);
-  sr.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,sr->toSBML()) );
 
 }
 END_TEST
@@ -1731,8 +1546,7 @@ START_TEST (test_WriteSBML_SpeciesReference_L2v1_3)
 {
   D->setLevelAndVersion(2, 1);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<speciesReference species=\"s\">\n"
     "  <stoichiometryMath>\n"
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
@@ -1743,20 +1557,17 @@ START_TEST (test_WriteSBML_SpeciesReference_L2v1_3)
     "      </apply>\n"
     "    </math>\n"
     "  </stoichiometryMath>\n"
-    "</speciesReference>"
-  );
+    "</speciesReference>";
 
 
-  SpeciesReference sr("s");
+  SpeciesReference *sr = D->createModel()->createReaction()->createReactant();
+  sr->setSpecies("s");
   ASTNode *math = SBML_parseFormula("1/d");
-  StoichiometryMath *stoich = new StoichiometryMath();
+  StoichiometryMath *stoich = sr->createStoichiometryMath();
   stoich->setMath(math);
-  sr.setStoichiometryMath(stoich);
+  sr->setStoichiometryMath(stoich);
 
-  sr.setSBMLDocument(D);
-  sr.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,sr->toSBML()) );
 }
 END_TEST
 
@@ -1765,27 +1576,28 @@ START_TEST (test_WriteSBML_SpeciesReference_L2v2_1)
 {
   D->setLevelAndVersion(2, 2);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
   "<speciesReference id=\"ss\" name=\"odd\" sboTerm=\"SBO:0000009\" species=\"s\">\n"
     "  <stoichiometryMath>\n"
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
     "      <cn type=\"rational\"> 3 <sep/> 2 </cn>\n"
     "    </math>\n"
     "  </stoichiometryMath>\n"
-    "</speciesReference>"
-  );
+    "</speciesReference>";
 
 
-  SpeciesReference sr("s", 3, 2);
-  sr.setId("ss");
-  sr.setName("odd");
-  sr.setSBOTerm(9);
+  SpeciesReference *sr = D->createModel()->createReaction()->createReactant();
+  sr->setSpecies("s");
+  sr->setStoichiometry(3);
+  sr->setDenominator(2);
+  sr->setId("ss");
+  sr->setName("odd");
+  sr->setSBOTerm(9);
 
-  sr.setSBMLDocument(D);
-  sr.write(*XOS);
-
-  fail_unless( equals(expected) );
+  sr->setId("ss");
+  sr->setName("odd");
+  sr->setSBOTerm(9);
+  fail_unless( equals(expected,sr->toSBML()) );
 
 }
 END_TEST
@@ -1795,21 +1607,17 @@ START_TEST (test_WriteSBML_SpeciesReference_L2v3_1)
 {
   D->setLevelAndVersion(2, 3);
 
-  const char* expected = wrapXML
-  (
-    "<speciesReference id=\"ss\" name=\"odd\" sboTerm=\"SBO:0000009\" species=\"s\" stoichiometry=\"3.2\"/>"
-  );
+  const char* expected = "<speciesReference id=\"ss\" name=\"odd\" sboTerm=\"SBO:0000009\" species=\"s\" stoichiometry=\"3.2\"/>";
 
 
-  SpeciesReference sr("s", 3.2);
-  sr.setId("ss");
-  sr.setName("odd");
-  sr.setSBOTerm(9);
+  SpeciesReference *sr = D->createModel()->createReaction()->createReactant();
+  sr->setSpecies("s");
+  sr->setStoichiometry(3.2);
+  sr->setId("ss");
+  sr->setName("odd");
+  sr->setSBOTerm(9);
 
-  sr.setSBMLDocument(D);
-  sr.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,sr->toSBML()) );
 
 }
 END_TEST
@@ -1819,8 +1627,7 @@ START_TEST (test_WriteSBML_StoichiometryMath)
 {
   D->setLevelAndVersion(2, 1);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<stoichiometryMath>\n"
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
     "    <apply>\n"
@@ -1829,16 +1636,13 @@ START_TEST (test_WriteSBML_StoichiometryMath)
     "      <ci> d </ci>\n"
     "    </apply>\n"
     "  </math>\n"
-    "</stoichiometryMath>"
-  );
+    "</stoichiometryMath>";
 
   ASTNode *math = SBML_parseFormula("1/d");
-  StoichiometryMath stoich = StoichiometryMath(math);
+  StoichiometryMath* stoich = D->createModel()->createReaction()->createReactant()->createStoichiometryMath();
+  stoich->setMath(math);
 
-  stoich.setSBMLDocument(D);
-  stoich.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,stoich->toSBML()) );
 }
 END_TEST
 
@@ -1847,8 +1651,7 @@ START_TEST (test_WriteSBML_StoichiometryMath_withSBO)
 {
   D->setLevelAndVersion(2, 3);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
   "<stoichiometryMath sboTerm=\"SBO:0000333\">\n"
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
     "    <apply>\n"
@@ -1857,17 +1660,14 @@ START_TEST (test_WriteSBML_StoichiometryMath_withSBO)
     "      <ci> d </ci>\n"
     "    </apply>\n"
     "  </math>\n"
-    "</stoichiometryMath>"
-  );
+    "</stoichiometryMath>";
 
   ASTNode *math = SBML_parseFormula("1/d");
-  StoichiometryMath stoich = StoichiometryMath(math);
-  stoich.setSBOTerm(333);
+  StoichiometryMath* stoich = D->createModel()->createReaction()->createReactant()->createStoichiometryMath();
+  stoich->setMath(math);
+  stoich->setSBOTerm(333);
 
-  stoich.setSBMLDocument(D);
-  stoich.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,stoich->toSBML()) );
 }
 END_TEST
 
@@ -1876,19 +1676,17 @@ START_TEST (test_WriteSBML_KineticLaw)
 {
   D->setLevelAndVersion(1, 2);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<kineticLaw formula=\"k * e\" timeUnits=\"second\" "
-    "substanceUnits=\"item\"/>"
-  );
+    "substanceUnits=\"item\"/>";
 
 
-  KineticLaw kl("k * e", "second", "item");
+  KineticLaw *kl = D->createModel()->createReaction()->createKineticLaw();
+  kl->setFormula("k * e");
+  kl->setTimeUnits("second");
+  kl->setSubstanceUnits("item");
 
-  kl.setSBMLDocument(D);
-  kl.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,kl->toSBML()) );
 }
 END_TEST
 
@@ -1897,15 +1695,13 @@ START_TEST (test_WriteSBML_KineticLaw_skipOptional)
 {
   D->setLevelAndVersion(1, 2);
 
-  const char* expected = wrapXML("<kineticLaw formula=\"k * e\"/>");
+  const char* expected = "<kineticLaw formula=\"k * e\"/>";
 
 
-  KineticLaw kl("k * e");
+  KineticLaw *kl = D->createModel()->createReaction()->createKineticLaw();
+  kl->setFormula("k * e");
 
-  kl.setSBMLDocument(D);
-  kl.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,kl->toSBML()) );
 }
 END_TEST
 
@@ -1914,26 +1710,25 @@ START_TEST (test_WriteSBML_KineticLaw_ListOfParameters)
 {
   D->setLevelAndVersion(1, 2);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<kineticLaw formula=\"nk * e\" timeUnits=\"second\" "
     "substanceUnits=\"item\">\n"
     "  <listOfParameters>\n"
     "    <parameter name=\"n\" value=\"1.2\"/>\n"
     "  </listOfParameters>\n"
-    "</kineticLaw>"
-  );
+    "</kineticLaw>";
 
+  KineticLaw *kl = D->createModel()->createReaction()->createKineticLaw();
+  kl->setFormula("nk * e");
+  kl->setTimeUnits("second");
+  kl->setSubstanceUnits("item");
 
-  KineticLaw kl("nk * e", "second", "item");
-  kl.setSBMLDocument(D);
+  Parameter *p = kl->createParameter();
+  p->setName("n");
+  p->setValue(1.2);
+  kl->addParameter( p );
 
-  Parameter p("n", 1.2);
-  kl.addParameter( &p );
-
-  kl.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,kl->toSBML()) );
 }
 END_TEST
 
@@ -1942,8 +1737,7 @@ START_TEST (test_WriteSBML_KineticLaw_l2v1)
 {
   D->setLevelAndVersion(2, 1);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<kineticLaw timeUnits=\"second\" substanceUnits=\"item\">\n"
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
     "    <apply>\n"
@@ -1960,19 +1754,15 @@ START_TEST (test_WriteSBML_KineticLaw_l2v1)
     "      </apply>\n"
     "    </apply>\n"
     "  </math>\n"
-    "</kineticLaw>"
-  );
+    "</kineticLaw>";
 
 
-  KineticLaw kl;
-  kl.setTimeUnits("second");
-  kl.setSubstanceUnits("item");
-  kl.setFormula("(vm * s1)/(km + s1)");
+  KineticLaw *kl = D->createModel()->createReaction()->createKineticLaw();
+  kl->setTimeUnits("second");
+  kl->setSubstanceUnits("item");
+  kl->setFormula("(vm * s1)/(km + s1)");
 
-  kl.setSBMLDocument(D);
-  kl.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,kl->toSBML()) );
 }
 END_TEST
 
@@ -1981,8 +1771,7 @@ START_TEST (test_WriteSBML_KineticLaw_withSBO)
 {
   D->setLevelAndVersion(2, 2);
 
-  const char* expected = wrapXML
-  (
+  const char* expected = 
   "<kineticLaw sboTerm=\"SBO:0000001\">\n"
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
     "    <apply>\n"
@@ -1999,76 +1788,64 @@ START_TEST (test_WriteSBML_KineticLaw_withSBO)
     "      </apply>\n"
     "    </apply>\n"
     "  </math>\n"
-    "</kineticLaw>"
-  );
+    "</kineticLaw>";
 
 
-  KineticLaw kl;
-  kl.setFormula("(vm * s1)/(km + s1)");
-  kl.setSBOTerm(1);
+  KineticLaw *kl = D->createModel()->createReaction()->createKineticLaw();
+  kl->setFormula("(vm * s1)/(km + s1)");
+  kl->setSBOTerm(1);
 
-  kl.setSBMLDocument(D);
-  kl.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,kl->toSBML()) );
 }
 END_TEST
 
 
 START_TEST (test_WriteSBML_Event)
 {
-  const char* expected = wrapXML("<event id=\"e\"/>");
+  D->setLevelAndVersion(2, 1);
+  const char* expected = "<event id=\"e\"/>";
 
-
-  Event e;
-  e.setId("e");
+  Event *e = D->createModel()->createEvent();
+  e->setId("e");
   
-  e.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,e->toSBML()) );
 }
 END_TEST
 
 
 START_TEST (test_WriteSBML_Event_WithSBO)
 {
-  const char* expected = wrapXML("<event id=\"e\" sboTerm=\"SBO:0000076\"/>");
+  D->setLevelAndVersion(2, 3);
+  const char* expected = "<event id=\"e\" sboTerm=\"SBO:0000076\"/>";
 
 
-  Event e;
-  e.setId("e");
-  e.setSBOTerm(76);
+  Event *e = D->createModel()->createEvent();
+  e->setId("e");
+  e->setSBOTerm(76);
   
-  e.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,e->toSBML()) );
 }
 END_TEST
 
 
 START_TEST (test_WriteSBML_Event_WithUseValuesFromTriggerTime)
 {
-  const char* expected = wrapXML("<event id=\"e\" useValuesFromTriggerTime=\"false\"/>");
+  const char* expected = "<event id=\"e\" useValuesFromTriggerTime=\"false\"/>";
   D->setLevelAndVersion(2, 4);
 
 
-  Event e;
-  e.setId("e");
-  e.setUseValuesFromTriggerTime(false);
+  Event *e = D->createModel()->createEvent();
+  e->setId("e");
+  e->setUseValuesFromTriggerTime(false);
   
-  e.setSBMLDocument(D);
-
-  e.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,e->toSBML()) );
 }
 END_TEST
 
 
 START_TEST (test_WriteSBML_Event_trigger)
 {
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<event id=\"e\">\n"
     "  <trigger>\n"
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
@@ -2079,77 +1856,73 @@ START_TEST (test_WriteSBML_Event_trigger)
     "      </apply>\n"
     "    </math>\n"
     "  </trigger>\n"
-    "</event>"
-  );
+    "</event>";
+  D->setLevelAndVersion(2, 1);
 
-  Event e("e");
+  Event *e = D->createModel()->createEvent();
+  e->setId("e");
   ASTNode *node = SBML_parseFormula("leq(P1,t)");
-  Trigger t(node);
-  e.setTrigger(&t);
-  e.setTimeUnits("second");
+  Trigger t(2, 1);
+  t.setMath(node);
+  e->setTrigger(&t);
 
-  e.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,e->toSBML()) );
 }
 END_TEST
 
 
 START_TEST (test_WriteSBML_Event_delay)
 {
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<event id=\"e\">\n"
     "  <delay>\n"
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
     "      <cn type=\"integer\"> 5 </cn>\n"
     "    </math>\n"
     "  </delay>\n"
-    "</event>"
-  );
+    "</event>";
+  D->setLevelAndVersion(2, 1);
 
-  Event e("e");
+  Event *e = D->createModel()->createEvent();
+  e->setId("e");
   ASTNode *node = SBML_parseFormula("5");
-  Delay d(node);
-  e.setDelay(&d);
+  Delay d(2, 1);
+  d.setMath(node);
+  e->setDelay(&d);
 
-  e.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,e->toSBML()) );
 }
 END_TEST
 
 
 START_TEST (test_WriteSBML_Event_delayWithSBO)
 {
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<event id=\"e\">\n"
     "  <delay sboTerm=\"SBO:0000064\">\n"
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
     "      <cn type=\"integer\"> 5 </cn>\n"
     "    </math>\n"
     "  </delay>\n"
-    "</event>"
-  );
+    "</event>";
+  D->setLevelAndVersion(2, 3);
 
-  Event e("e");
+  Event *e = D->createModel()->createEvent();
+  e->setId("e");
   ASTNode *node = SBML_parseFormula("5");
-  Delay d(node);
+  Delay d(2, 3);
+  d.setMath(node);
   d.setSBOTerm(64);
-  e.setDelay(&d);
+  e->setDelay(&d);
 
-  e.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,e->toSBML()) );
 }
 END_TEST
 
 
 START_TEST (test_WriteSBML_Event_trigger_withSBO)
 {
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<event id=\"e\">\n"
     "  <trigger sboTerm=\"SBO:0000064\">\n"
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
@@ -2160,26 +1933,25 @@ START_TEST (test_WriteSBML_Event_trigger_withSBO)
     "      </apply>\n"
     "    </math>\n"
     "  </trigger>\n"
-    "</event>"
-  );
+    "</event>";
+  D->setLevelAndVersion(2, 3);
 
-  Event e("e");
+  Event *e = D->createModel()->createEvent();
+  e->setId("e");
   ASTNode *node = SBML_parseFormula("leq(P1,t)");
-  Trigger t(node);
+  Trigger t(2, 3);
+  t.setMath(node);
   t.setSBOTerm(64);
 
-  e.setTrigger(&t);
-  e.write(*XOS);
-
-  fail_unless( equals(expected) );
+  e->setTrigger(&t);
+  fail_unless( equals(expected,e->toSBML()) );
 }
 END_TEST
 
 
 START_TEST (test_WriteSBML_Event_both)
 {
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<event id=\"e\">\n"
     "  <trigger>\n"
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
@@ -2195,29 +1967,28 @@ START_TEST (test_WriteSBML_Event_both)
     "      <cn type=\"integer\"> 5 </cn>\n"
     "    </math>\n"
     "  </delay>\n"
-    "</event>"
-  );
+    "</event>";
+  D->setLevelAndVersion(2, 1);
 
-  Event e("e");
+  Event *e = D->createModel()->createEvent();
+  e->setId("e");
   ASTNode *node1 = SBML_parseFormula("leq(P1,t)");
-  Trigger t(node1);
+  Trigger t(2, 1);
+  t.setMath(node1);
   ASTNode *node = SBML_parseFormula("5");
-  Delay d(node);
-  e.setDelay(&d);
-  e.setTrigger(&t);
-  e.setTimeUnits("second");
+  Delay d(2, 1);
+  d.setMath(node);
+  e->setDelay(&d);
+  e->setTrigger(&t);
 
-  e.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,e->toSBML()) );
 }
 END_TEST
 
 
 START_TEST (test_WriteSBML_Event_full)
 {
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<event id=\"e\">\n"
     "  <trigger>\n"
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
@@ -2235,22 +2006,24 @@ START_TEST (test_WriteSBML_Event_full)
     "      </math>\n"
     "    </eventAssignment>\n"
     "  </listOfEventAssignments>\n"
-    "</event>"
-  );
+    "</event>";
+  D->setLevelAndVersion(2, 3);
 
-  Event e("e");
+  Event *e = D->createModel()->createEvent();
+  e->setId("e");
   ASTNode *node = SBML_parseFormula("leq(P1,t)");
-  Trigger t(node);
+  Trigger t(2, 3);
+  t.setMath(node);
   ASTNode *math = SBML_parseFormula("0");
-  EventAssignment ea("k2", math);
+  EventAssignment ea(2, 3);
+  ea.setVariable("k2");
+  ea.setMath(math);
   ea.setSBOTerm(64);
 
-  e.setTrigger(&t);
-  e.addEventAssignment( &ea );
+  e->setTrigger(&t);
+  e->addEventAssignment( &ea );
 
-  e.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,e->toSBML()) );
 }
 END_TEST
 
@@ -2259,17 +2032,14 @@ START_TEST (test_WriteSBML_CompartmentType)
 {
   D->setLevelAndVersion(2, 2);
 
-  const char* expected = wrapXML("<compartmentType id=\"ct\"/>");
+  const char* expected = "<compartmentType id=\"ct\"/>";
 
 
-  CompartmentType ct;
-  ct.setId("ct");
-  ct.setSBOTerm(4);
-  ct.setSBMLDocument(D);
+  CompartmentType *ct = D->createModel()->createCompartmentType();
+  ct->setId("ct");
+  ct->setSBOTerm(4);
   
-  ct.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,ct->toSBML()) );
 }
 END_TEST
 
@@ -2278,17 +2048,14 @@ START_TEST (test_WriteSBML_CompartmentType_withSBO)
 {
   D->setLevelAndVersion(2, 3);
 
-  const char* expected = wrapXML("<compartmentType id=\"ct\" sboTerm=\"SBO:0000004\"/>");
+  const char* expected = "<compartmentType id=\"ct\" sboTerm=\"SBO:0000004\"/>";
 
 
-  CompartmentType ct;
-  ct.setId("ct");
-  ct.setSBOTerm(4);
-  ct.setSBMLDocument(D);
+  CompartmentType *ct = D->createModel()->createCompartmentType();
+  ct->setId("ct");
+  ct->setSBOTerm(4);
   
-  ct.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,ct->toSBML()) );
 }
 END_TEST
 
@@ -2297,17 +2064,14 @@ START_TEST (test_WriteSBML_SpeciesType)
 {
   D->setLevelAndVersion(2, 2);
 
-  const char* expected = wrapXML("<speciesType id=\"st\"/>");
+  const char* expected = "<speciesType id=\"st\"/>";
 
 
-  SpeciesType st;
-  st.setId("st");
-  st.setSBOTerm(4);
-  st.setSBMLDocument(D);
+  SpeciesType *st = D->createModel()->createSpeciesType();
+  st->setId("st");
+  st->setSBOTerm(4);
   
-  st.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,st->toSBML()) );
 }
 END_TEST
 
@@ -2316,17 +2080,14 @@ START_TEST (test_WriteSBML_SpeciesType_withSBO)
 {
   D->setLevelAndVersion(2, 3);
 
-  const char* expected = wrapXML("<speciesType id=\"st\" sboTerm=\"SBO:0000004\"/>");
+  const char* expected = "<speciesType id=\"st\" sboTerm=\"SBO:0000004\"/>";
 
 
-  SpeciesType st;
-  st.setId("st");
-  st.setSBOTerm(4);
-  st.setSBMLDocument(D);
+  SpeciesType *st = D->createModel()->createSpeciesType();
+  st->setId("st");
+  st->setSBOTerm(4);
   
-  st.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,st->toSBML()) );
 }
 END_TEST
 
@@ -2335,24 +2096,22 @@ START_TEST (test_WriteSBML_Constraint)
 {
   D->setLevelAndVersion(2, 2);
 
-  const char* expected = wrapXML("<constraint sboTerm=\"SBO:0000064\"/>");
+  const char* expected = "<constraint sboTerm=\"SBO:0000064\"/>";
 
 
-  Constraint ct;
-  ct.setSBOTerm(64);
-  ct.setSBMLDocument(D);
+  Constraint *ct = D->createModel()->createConstraint();
+  ct->setSBOTerm(64);
   
-  ct.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,ct->toSBML()) );
 }
 END_TEST
 
 
 START_TEST (test_WriteSBML_Constraint_math)
 {
-  const char* expected = wrapXML
-  (
+  D->setLevelAndVersion(2, 2);
+
+  const char* expected = 
     "<constraint>\n"
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
     "    <apply>\n"
@@ -2361,24 +2120,22 @@ START_TEST (test_WriteSBML_Constraint_math)
     "      <ci> t </ci>\n"
     "    </apply>\n"
     "  </math>\n"
-    "</constraint>"
-  );
+    "</constraint>";
 
-  Constraint c;
+  Constraint *c = D->createModel()->createConstraint();
   ASTNode *node = SBML_parseFormula("leq(P1,t)");
-  c.setMath(node);
+  c->setMath(node);
 
-  c.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,c->toSBML()) );
 }
 END_TEST
 
 
 START_TEST (test_WriteSBML_Constraint_full)
 {
-  const char* expected = wrapXML
-  (
+  D->setLevelAndVersion(2, 2);
+
+  const char* expected = 
   "<constraint sboTerm=\"SBO:0000064\">\n"
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
     "    <apply>\n"
@@ -2390,20 +2147,20 @@ START_TEST (test_WriteSBML_Constraint_full)
     "  <message>\n"
     "    <p xmlns=\"http://www.w3.org/1999/xhtml\"> Species P1 is out of range </p>\n"
     "  </message>\n"
-    "</constraint>"
-  );
+    "</constraint>";
 
-  Constraint c;
+  Constraint *c = D->createModel()->createConstraint();
   ASTNode *node = SBML_parseFormula("leq(P1,t)");
-  c.setMath(node);
-  c.setSBOTerm(64);
+  c->setMath(node);
+  c->setSBOTerm(64);
 
   const XMLNode *text = XMLNode::convertStringToXMLNode(" Species P1 is out of range ");
   XMLTriple triple = XMLTriple("p", "http://www.w3.org/1999/xhtml", "");
   XMLAttributes att = XMLAttributes();
-  att.add("xmlns", "http://www.w3.org/1999/xhtml");
+  XMLNamespaces xmlns = XMLNamespaces();
+  xmlns.add("http://www.w3.org/1999/xhtml");
   
-  XMLNode *p = new XMLNode(triple, att);
+  XMLNode *p = new XMLNode(triple, att, xmlns);
   p->addChild(*(text));
   
   XMLTriple triple1 = XMLTriple("message", "", "");
@@ -2412,11 +2169,9 @@ START_TEST (test_WriteSBML_Constraint_full)
 
   message->addChild(*(p));
 
-  c.setMessage(message);
+  c->setMessage(message);
 
-  c.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,c->toSBML()) );
 }
 END_TEST
 
@@ -2425,25 +2180,21 @@ START_TEST (test_WriteSBML_InitialAssignment)
 {
   D->setLevelAndVersion(2, 2);
 
-  const char* expected = wrapXML("<initialAssignment symbol=\"c\" sboTerm=\"SBO:0000064\"/>");
+  const char* expected = "<initialAssignment symbol=\"c\" sboTerm=\"SBO:0000064\"/>";
 
 
-  InitialAssignment ia;
-  ia.setSBOTerm(64);
-  ia.setSymbol("c");
-  ia.setSBMLDocument(D);
+  InitialAssignment *ia = D->createModel()->createInitialAssignment();
+  ia->setSBOTerm(64);
+  ia->setSymbol("c");
   
-  ia.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,ia->toSBML()) );
 }
 END_TEST
 
 
 START_TEST (test_WriteSBML_InitialAssignment_math)
 {
-  const char* expected = wrapXML
-  (
+  const char* expected = 
     "<initialAssignment symbol=\"c\">\n"
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
     "    <apply>\n"
@@ -2452,44 +2203,41 @@ START_TEST (test_WriteSBML_InitialAssignment_math)
     "      <ci> b </ci>\n"
     "    </apply>\n"
     "  </math>\n"
-    "</initialAssignment>"
-  );
+    "</initialAssignment>";
 
-  InitialAssignment ia;
+  InitialAssignment *ia = D->createModel()->createInitialAssignment();
   ASTNode *node = SBML_parseFormula("a + b");
-  ia.setMath(node);
-  ia.setSymbol("c");
+  ia->setMath(node);
+  ia->setSymbol("c");
 
-  ia.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,ia->toSBML()) );
 }
 END_TEST
 
 
 START_TEST (test_WriteSBML_NaN)
 {
-  const char* expected = wrapXML("<parameter id=\"p\" value=\"NaN\"/>");
+  const char* expected = "<parameter id=\"p\" value=\"NaN\"/>";
 
-  Parameter p("p", util_NaN());
+  Parameter *p = D->createModel()->createParameter();
+  p->setId("p");
+  p->setValue(util_NaN());
 
 
-  p.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,p->toSBML()) );
 }
 END_TEST
 
 
 START_TEST (test_WriteSBML_INF)
 {
-  const char* expected = wrapXML("<parameter id=\"p\" value=\"INF\"/>");
+  const char* expected = "<parameter id=\"p\" value=\"INF\"/>";
 
-  Parameter p ("p", util_PosInf());
+  Parameter *p = D->createModel()->createParameter();
+  p->setId("p");
+  p->setValue(util_PosInf());
 
-  p.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,p->toSBML()) );
 
 }
 END_TEST
@@ -2497,30 +2245,30 @@ END_TEST
 
 START_TEST (test_WriteSBML_NegINF)
 {
-  const char* expected = wrapXML("<parameter id=\"p\" value=\"-INF\"/>");
+  const char* expected = "<parameter id=\"p\" value=\"-INF\"/>";
 
 
-  Parameter p("p", util_NegInf());
+  Parameter *p = D->createModel()->createParameter();
+  p->setId("p");
+  p->setValue(util_NegInf());
 
-  p.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,p->toSBML()) );
 }
 END_TEST
 
 
 START_TEST (test_WriteSBML_locale)
 {
-  const char* expected = wrapXML("<parameter id=\"p\" value=\"3.31\"/>");
+  const char* expected = "<parameter id=\"p\" value=\"3.31\"/>";
 
-  Parameter p = Parameter("p", 3.31);
+  Parameter *p = D->createModel()->createParameter();
+  p->setId("p");
+  p->setValue(3.31);
 
 
   setlocale(LC_NUMERIC, "de_DE");
 
-  p.write(*XOS);
-
-  fail_unless( equals(expected) );
+  fail_unless( equals(expected,p->toSBML()) );
 
   setlocale(LC_NUMERIC, "C");
 }
@@ -2674,6 +2422,11 @@ create_suite_WriteSBML ()
 
   tcase_add_checked_fixture(tcase, WriteSBML_setup, WriteSBML_teardown);
  
+  // create/setProgramName/setProgramVersion
+  tcase_add_test( tcase, test_SBMLWriter_create );  
+  tcase_add_test( tcase, test_SBMLWriter_setProgramName );  
+  tcase_add_test( tcase, test_SBMLWriter_setProgramVersion );  
+
   // Basic writing capability
   tcase_add_test( tcase, test_WriteSBML_error );  
 

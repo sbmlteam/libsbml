@@ -45,6 +45,7 @@
 
 #include <sbml/SBase.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class SBMLVisitor;
 
@@ -149,6 +150,7 @@ public:
   virtual SBase* get (unsigned int n);
 
 
+#if 0
   /**
    * Get an item from the list based on its identifier.
    *
@@ -161,8 +163,10 @@ public:
    * @see size()
    */
   virtual const SBase* get (const std::string& sid) const;
+#endif
 
 
+#if 0
   /**
    * Get an item from the list based on its identifier.
    *
@@ -175,6 +179,7 @@ public:
    * @see size()
    */
   virtual SBase* get (const std::string& sid);
+#endif
 
 
   /**
@@ -205,6 +210,7 @@ public:
   virtual SBase* remove (unsigned int n);
 
 
+#if 0
   /**
    * Removes item in this ListOf items with the given identifier.
    *
@@ -218,6 +224,7 @@ public:
    * returned item.
    */
   virtual SBase* remove (const std::string& sid);
+#endif
 
 
   /**
@@ -338,13 +345,14 @@ protected:
   /** @endcond doxygen-libsbml-internal */
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
 
 #ifndef SWIG
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
@@ -399,9 +407,9 @@ ListOf_get (ListOf_t *lo, unsigned int n);
  * @return item in this ListOf items with the given id or NULL if no such
  * item exists.
  */
-LIBSBML_EXTERN
-SBase_t *
-ListOf_getById (ListOf_t *lo, const char *sid);
+//LIBSBML_EXTERN
+//SBase_t *
+//ListOf_getById (ListOf_t *lo, const char *sid);
 
 /**
  * Removes all items in this ListOf object.
@@ -424,9 +432,9 @@ ListOf_remove (ListOf_t *lo, unsigned int n);
  * item exists.  The caller owns the returned item and is repsonsible for
  * deleting it.
  */
-LIBSBML_EXTERN
-SBase_t *
-ListOf_removeById (ListOf_t *lo, const char *sid);
+//LIBSBML_EXTERN
+//SBase_t *
+//ListOf_removeById (ListOf_t *lo, const char *sid);
 
 /**
  * Returns the number of items in this ListOf items.
@@ -445,9 +453,7 @@ ListOf_getItemTypeCode (const ListOf_t *lo);
 
 
 END_C_DECLS
-
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
-
-
 #endif  /* ListOf_h */

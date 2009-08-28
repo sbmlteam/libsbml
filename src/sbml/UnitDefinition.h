@@ -254,6 +254,7 @@
 #include <sbml/ListOf.h>
 #include <sbml/Unit.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class SBMLVisitor;
 
@@ -263,65 +264,37 @@ class LIBSBML_EXTERN UnitDefinition : public SBase
 public:
 
   /**
-   * Creates a new UnitDefinition instance, optionally with specific values
-   * of @p id and @p name.
-   *
-   * The permitted values of the identifier @p id @em exclude the
-   * predefined base units in SBML and two spelling variants @c "meter" and
-   * @c "liter".  More specifically, the following is the set of base unit
-   * names which are @em excluded from being used as a value of @p id:
-   *
-   * @htmlinclude libsbml-base-units.html
-   * 
-   * In addition, there is a set of reserved identifiers for the predefined
-   * default units in SBML.  These identifiers are @c substance, @c volume,
-   * @c area, @c length, and @c time.  Using one of these values for the
-   * attribute @p id of a UnitDefinition has the special meaning of @em
-   * redefining the model-wide default units for the corresponding
-   * quantities.  The list of reserved unit names is given in the table below:
-   *
-   * @htmlinclude libsbml-predefined-units.html
-   * 
-   * Finally, note that SBML imposes two limitations on redefining the
-   * predefined units listed above:
-   * <ul>
-   * <li> The UnitDefinition of a predefined SBML unit can only
-   *      contain a single Unit object within it.
-   * <li> The value of the "kind" attribute in 
-   *      a Unit instance must be drawn from one of the values
-   *      in the second column of the table above.
-   * </ul>
-   * 
-   * @param id the identifier to assign to the new unit definition.
-   * 
-   * @param name an optional name to assign to the new unit definition.
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
-   */
-  UnitDefinition (const std::string& id = "", const std::string& name = "");
-
-
-  /**
    * Creates a new UnitDefinition using the given SBML @p level and @p version
-   * values and optionally a set of XMLNamespaces.
+   * values.
    *
    * @param level an unsigned int, the SBML Level to assign to this UnitDefinition
    *
    * @param version an unsigned int, the SBML Version to assign to this
    * UnitDefinition
    * 
-   * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
-   * assign to this UnitDefinition
+   * @note Once a UnitDefinition has been added to an SBMLDocument, the @p level,
+   * @p version for the document @em override those used
+   * to create the UnitDefinition.  Despite this, the ability to supply the values
+   * at creation time is an important aid to creating valid SBML.  Knowledge of
+   * the intented SBML Level and Version determine whether it is valid to
+   * assign a particular value to an attribute, or whether it is valid to add
+   * an object to an existing SBMLDocument.
+   */
+  UnitDefinition (unsigned int level, unsigned int version);
+
+
+  /**
+   * Creates a new UnitDefinition using the given SBMLNamespaces object
+   * @p sbmlns.
+   *
+   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
+   * information.  It is used to communicate the SBML Level, Version, and
+   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp; Core.
+   * A common approach to using this class constructor is to create an
+   * SBMLNamespaces object somewhere in a program, once, then pass it to
+   * object constructors such as this one when needed.
+   *
+   * @param sbmlns an SBMLNamespaces object.
    *
    * @note Once a UnitDefinition has been added to an SBMLDocument, the @p level,
    * @p version and @p xmlns namespaces for the document @em override those used
@@ -330,21 +303,8 @@ public:
    * the intented SBML Level and Version determine whether it is valid to
    * assign a particular value to an attribute, or whether it is valid to add
    * an object to an existing SBMLDocument.
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
    */
-  UnitDefinition (unsigned int level, unsigned int version, 
-               XMLNamespaces* xmlns = 0);
+  UnitDefinition (SBMLNamespaces* sbmlns);
 
 
   /**
@@ -420,6 +380,113 @@ public:
    * @return a (deep) copy of this UnitDefinition.
    */
   virtual UnitDefinition* clone () const;
+
+
+  /**
+   * Returns the value of the "id" attribute of this UnitDefinition.
+   * 
+   * @return the id of this UnitDefinition.
+   */
+  const std::string& getId () const;
+
+
+  /**
+   * Returns the value of the "name" attribute of this UnitDefinition.
+   * 
+   * @return the name of this UnitDefinition.
+   */
+  const std::string& getName () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * UnitDefinition's "id" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "id" attribute of this UnitDefinition has been
+   * set, @c false otherwise.
+   */
+  bool isSetId () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * UnitDefinition's "name" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "name" attribute of this UnitDefinition has been
+   * set, @c false otherwise.
+   */
+  bool isSetName () const;
+
+
+  /**
+   * Sets the value of the "id" attribute of this UnitDefinition.
+   *
+   * The string @p sid is copied.  Note that SBML has strict requirements
+   * for the syntax of identifiers.  The following is summary of the
+   * definition of the SBML identifier type @c SId (here expressed in an
+   * extended form of BNF notation):
+   * @code
+   *   letter ::= 'a'..'z','A'..'Z'
+   *   digit  ::= '0'..'9'
+   *   idChar ::= letter | digit | '_'
+   *   SId    ::= ( letter | '_' ) idChar*
+   * @endcode
+   * The equality of SBML identifiers is determined by an exact character
+   * sequence match; i.e., comparisons must be performed in a
+   * case-sensitive manner.  In addition, there are a few conditions for
+   * the uniqueness of identifiers in an SBML model.  Please consult the
+   * SBML specifications for the exact formulations.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @param sid the string to use as the identifier of this UnitDefinition
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int setId (const std::string& sid);
+
+
+  /**
+   * Sets the value of the "name" attribute of this UnitDefinition.
+   *
+   * The string in @p name is copied.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @param name the new name for the UnitDefinition
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int setName (const std::string& name);
+
+
+  /**
+   * Unsets the value of the "name" attribute of this UnitDefinition.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  int unsetName ();
 
 
   /**
@@ -517,6 +584,16 @@ public:
    * Adds a copy of the given Unit to this UnitDefinition.
    *
    * @param u the Unit instance to add to this UnitDefinition.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_LEVEL_MISMATCH
+   * @li LIBSBML_VERSION_MISMATCH
+   * @li LIBSBML_DUPLICATE_OBJECT_ID
+   * @li LIBSBML_OPERATION_FAILED
    * 
    * @note This method should be used with some caution.  The fact that
    * this method @em copies the object passed to it means that the caller
@@ -531,7 +608,7 @@ public:
    *
    * @see createUnit()
    */
-  void addUnit (const Unit* u);
+  int addUnit (const Unit* u);
 
 
   /**
@@ -596,6 +673,23 @@ public:
    * UnitDefinition.
    */
   unsigned int getNumUnits () const;
+
+
+  /**
+   * Removes the nth Unit object from this UnitDefinition object and
+   * returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   *
+   * @param n the index of the Unit object to remove
+   *
+   * @return the Unit object removed.  As mentioned above, 
+   * the caller owns the returned item. NULL is returned if the given index 
+   * is out of range.
+   *
+   */
+  Unit* removeUnit (unsigned int n);
+
 
   /** @cond doxygen-libsbml-internal */
 
@@ -790,19 +884,51 @@ public:
 
 
   /** @cond doxygen-libsbml-internal */
-
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-
   /** @endcond doxygen-libsbml-internal */
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether
+   * all the required attributes for this UnitDefinition object
+   * have been set.
+   *
+   * @note The required attributes for a UnitDefinition object are:
+   * id (name in L1)
+   *
+   * @return a boolean value indicating whether all the required
+   * attributes for this object have been defined.
+   */
+  virtual bool hasRequiredAttributes() const ;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether
+   * all the required elements for this UnitDefinition object
+   * have been set.
+   *
+   * @note The required elements for a Constraint object are:
+   * listOfUnits (L2 only)
+   *
+   * @return a boolean value indicating whether all the required
+   * elements for this object have been defined.
+   */
+  virtual bool hasRequiredElements() const ;
 
 
 protected:
   /** @cond doxygen-libsbml-internal */
+
+  /* this is a constructor that takes no arguments and 
+   * only exists because the validator code needs it
+   */
+  UnitDefinition ();
+
 
   /**
    * @return the SBML object corresponding to next XMLToken in the
@@ -827,7 +953,28 @@ protected:
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
+  std::string mId;
+  std::string mName;
   ListOfUnits mUnits;
+
+  /* the validator classes need to be friends to access the 
+   * protected constructor that takes no arguments
+   */
+  friend class Validator;
+  friend class ConsistencyValidator;
+  friend class IdentifierConsistencyValidator;
+  friend class InternalConsistencyValidator;
+  friend class L1CompatibilityValidator;
+  friend class L2v1CompatibilityValidator;
+  friend class L2v2CompatibilityValidator;
+  friend class L2v3CompatibilityValidator;
+  friend class L2v4CompatibilityValidator;
+  friend class MathMLConsistencyValidator;
+  friend class ModelingPracticeValidator;
+  friend class OverdeterminedValidator;
+  friend class SBOConsistencyValidator;
+  friend class UnitConsistencyValidator;
+
 
   /** @endcond doxygen-libsbml-internal */
 };
@@ -1021,12 +1168,14 @@ protected:
   /** @endcond doxygen-libsbml-internal */
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
 
 #ifndef SWIG
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
@@ -1037,20 +1186,12 @@ BEGIN_C_DECLS
 
 LIBSBML_EXTERN
 UnitDefinition_t *
-UnitDefinition_create (void);
+UnitDefinition_create (unsigned int level, unsigned int version);
 
 
 LIBSBML_EXTERN
 UnitDefinition_t *
-UnitDefinition_createWith (const char *sid, const char *name);
-
-
-/** @cond doxygen-libsbml-internal */
-LIBSBML_EXTERN
-UnitDefinition_t *
-UnitDefinition_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns);
-/** @endcond doxygen-libsbml-internal */
+UnitDefinition_createWithNS (SBMLNamespaces_t *sbmlns);
 
 
 LIBSBML_EXTERN
@@ -1129,22 +1270,22 @@ UnitDefinition_isVariantOfSubstancePerTime (const UnitDefinition_t *ud);
 
 
 LIBSBML_EXTERN
-void
+int
 UnitDefinition_setId (UnitDefinition_t *ud, const char *sid);
 
 
 LIBSBML_EXTERN
-void
+int
 UnitDefinition_setName (UnitDefinition_t *ud, const char *name);
 
 
 LIBSBML_EXTERN
-void
+int
 UnitDefinition_unsetName (UnitDefinition_t *ud);
 
 
 LIBSBML_EXTERN
-void
+int
 UnitDefinition_addUnit (UnitDefinition_t *ud, const Unit_t *u);
 
 
@@ -1161,6 +1302,11 @@ UnitDefinition_getListOfUnits (UnitDefinition_t *ud);
 LIBSBML_EXTERN
 Unit_t *
 UnitDefinition_getUnit (UnitDefinition_t *ud, unsigned int n);
+
+
+LIBSBML_EXTERN
+Unit_t *
+UnitDefinition_removeUnit (UnitDefinition_t *ud, unsigned int n);
 
 
 LIBSBML_EXTERN
@@ -1197,8 +1343,18 @@ const char *
 UnitDefinition_printUnits(UnitDefinition_t * ud, int compact);
 
 
-END_C_DECLS
+LIBSBML_EXTERN
+UnitDefinition_t *
+ListOfUnitDefinitions_getById (ListOf_t *lo, const char *sid);
 
+
+LIBSBML_EXTERN
+UnitDefinition_t *
+ListOfUnitDefinitions_removeById (ListOf_t *lo, const char *sid);
+
+
+END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
 #endif  /* UnitDefinition_h */

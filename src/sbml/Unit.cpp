@@ -41,71 +41,43 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
-/*
- * Creates a new Unit, optionally with its kind, exponent, scale,
- * and multiplier attributes set.
- */
-Unit::Unit (   UnitKind_t  kind
-             , int         exponent
-             , int         scale
-             , double      multiplier ) :
-    SBase      ()
-  , mKind      ( kind       )
-  , mExponent  ( exponent   )
-  , mScale     ( scale      )
-  , mMultiplier( multiplier )
-  , mOffset    ( 0.0     )
-{
-}
-
-
-/*
- * Creates a new Unit, optionally with its kind (via string), exponent,
- * scale and multiplier attributes set.
- */
-Unit::Unit (   const std::string&  kind
-             , int            exponent 
-             , int            scale
-             , double         multiplier ) :
-    SBase      ()
-  , mKind      ( UnitKind_forName( kind.c_str() ) )
-  , mExponent  ( exponent   )
-  , mScale     ( scale      )
-  , mMultiplier( multiplier )
-  , mOffset    ( 0.0     )
-{
-}
-
-
-Unit::Unit (unsigned int level, unsigned int version,
-                          XMLNamespaces *xmlns) :
-    SBase      ( -1 )
+Unit::Unit (unsigned int level, unsigned int version) :
+   SBase ( level, version )
   , mKind      ( UNIT_KIND_INVALID )
   , mExponent  ( 1   )
   , mScale     ( 0      )
   , mMultiplier( 1.0 )
   , mOffset    ( 0.0     )
 {
-  mObjectLevel = level;
-  mObjectVersion = version;
-  if (xmlns) setNamespaces(xmlns);;
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
+
+Unit::Unit (SBMLNamespaces * sbmlns) :
+   SBase ( sbmlns )
+  , mKind      ( UNIT_KIND_INVALID )
+  , mExponent  ( 1   )
+  , mScale     ( 0      )
+  , mMultiplier( 1.0 )
+  , mOffset    ( 0.0     )
+{
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
+}
+
+
+
+/* constructor for validators */
+Unit::Unit() :
+  SBase()
+{
+}
+
+/** @endcond doxygen-libsbml-internal */
                           
-Unit::Unit (SBMLNamespaces *sbmlns) :
-    SBase      ( -1 )
-  , mKind      ( UNIT_KIND_INVALID )
-  , mExponent  ( 1   )
-  , mScale     ( 0      )
-  , mMultiplier( 1.0 )
-  , mOffset    ( 0.0     )
-{
-  mObjectLevel = sbmlns->getLevel();
-  mObjectVersion = sbmlns->getVersion();
-  setNamespaces(sbmlns->getNamespaces());
-}
-
 
 /*
  * Destroys the given Unit.
@@ -599,50 +571,79 @@ Unit::isSetKind () const
 /*
  * Sets the kind of this Unit to the given UnitKind.
  */
-void
+int
 Unit::setKind (UnitKind_t kind)
 {
-  mKind = kind;
+  if (!UnitKind_isValidUnitKindString(UnitKind_toString(kind),
+                 getLevel(), getVersion()))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mKind = kind;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Sets the exponent of this Unit to the given value.
  */
-void
+int
 Unit::setExponent (int value)
 {
   mExponent = value;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
 /*
  * Sets the scale of this Unit to the given value.
  */
-void
+int
 Unit::setScale (int value)
 {
   mScale = value;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
 /*
  * Sets the multiplier of this Unit to the given value.
  */
-void
+int
 Unit::setMultiplier (double value)
 {
-  mMultiplier = value;
+  if (getLevel() < 2)
+  {
+    mMultiplier = value;
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else
+  {
+    mMultiplier = value;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Sets the offset of this Unit to the given value.
  */
-void
+int
 Unit::setOffset (double value)
 {
-  mOffset = value;
+  if (!(getLevel() == 2 && getVersion() == 1))
+  {
+    mOffset = 0;
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else
+  {
+    mOffset = value;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -667,6 +668,20 @@ Unit::getElementName () const
 {
   static const string name = "unit";
   return name;
+}
+
+
+bool 
+Unit::hasRequiredAttributes() const
+{
+  bool allPresent = true;
+
+  /* required attributes for unit: kind */
+
+  if (!isSetKind())
+    allPresent = false;
+
+  return allPresent;
 }
 
 
@@ -798,7 +813,7 @@ Unit::areEquivalent(Unit * unit1, Unit * unit2)
  *
  * @param unit the Unit object to manipulate.
  */
-void 
+int 
 Unit::removeScale(Unit * unit)
 {
   double scaleFactor = pow(10.0, unit->getScale());
@@ -810,6 +825,7 @@ Unit::removeScale(Unit * unit)
   newMultiplier = strtod(ossMultiplier.str().c_str(), NULL);
   unit->setMultiplier(newMultiplier);
   unit->setScale(0);
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 /** 
@@ -881,9 +897,12 @@ Unit::convertToSI(const Unit * unit)
   double newMultiplier;
   std::ostringstream ossMultiplier;
   UnitKind_t uKind = unit->getKind();
-  Unit * newUnit = new Unit(uKind, unit->getExponent(), 
-                                    unit->getScale(), unit->getMultiplier());
-  UnitDefinition * ud = new UnitDefinition();
+  Unit * newUnit = new Unit(unit->getSBMLNamespaces());
+  newUnit->setKind(uKind);
+  newUnit->setExponent(unit->getExponent());
+  newUnit->setScale(unit->getScale());
+  newUnit->setMultiplier(unit->getMultiplier());
+  UnitDefinition * ud = new UnitDefinition(unit->getSBMLNamespaces());
 
   Unit::removeScale(newUnit);
   ossMultiplier.precision(15);
@@ -927,9 +946,9 @@ Unit::convertToSI(const Unit * unit)
       /* 1 coulomb = 1 Ampere second */
       newUnit->setKind(UNIT_KIND_AMPERE);
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+ //     newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
+      newUnit->setExponent(unit->getExponent());
       newUnit->setMultiplier(1);
       ud->addUnit(newUnit);
       break;
@@ -955,23 +974,20 @@ Unit::convertToSI(const Unit * unit)
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(2*newUnit->getExponent());  
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-1*newUnit->getExponent());  
+      newUnit->setExponent(-1*unit->getExponent());  
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-2*newUnit->getExponent());  
+      newUnit->setExponent(-2*unit->getExponent());  
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(4*newUnit->getExponent());  
+      newUnit->setExponent(4*unit->getExponent());  
       ud->addUnit(newUnit);
       break;
 
@@ -996,11 +1012,10 @@ Unit::convertToSI(const Unit * unit)
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(2*newUnit->getExponent());  
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+ //     newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-2*newUnit->getExponent());  
+      newUnit->setExponent(-2*unit->getExponent());  
       ud->addUnit(newUnit);
       break;
 
@@ -1016,22 +1031,20 @@ Unit::convertToSI(const Unit * unit)
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(-2*newUnit->getExponent());  
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       newUnit->setMultiplier(1.0);
+      newUnit->setExponent(unit->getExponent());
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(2*newUnit->getExponent());  
+      newUnit->setExponent(2*unit->getExponent());  
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+ //     newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-2*newUnit->getExponent());  
+      newUnit->setExponent(-2*unit->getExponent());  
       ud->addUnit(newUnit);
       break;
 
@@ -1039,17 +1052,15 @@ Unit::convertToSI(const Unit * unit)
       /* 1 joule = 1 m^2 kg s^-2 */
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(2*newUnit->getExponent());  
+      newUnit->setExponent(2*unit->getExponent());  
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-2*newUnit->getExponent());  
+      newUnit->setExponent(-2*unit->getExponent());  
       ud->addUnit(newUnit);
       break;
 
@@ -1057,11 +1068,10 @@ Unit::convertToSI(const Unit * unit)
       /* 1 katal = 1 mol s^-1 */
       newUnit->setKind(UNIT_KIND_MOLE);
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-1*newUnit->getExponent());  
+      newUnit->setExponent(-1*unit->getExponent());  
       ud->addUnit(newUnit);
      break;
 
@@ -1100,11 +1110,10 @@ Unit::convertToSI(const Unit * unit)
       /* 1 lux = 1 candela m^-2*/ 
       newUnit->setKind(UNIT_KIND_CANDELA);
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-2*newUnit->getExponent());  
+      newUnit->setExponent(-2*unit->getExponent());  
       ud->addUnit(newUnit);
       break;
 
@@ -1124,16 +1133,15 @@ Unit::convertToSI(const Unit * unit)
       /* 1 newton = 1 m kg s^-2 */
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
+      newUnit->setExponent(unit->getExponent());
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-2*newUnit->getExponent());  
+      newUnit->setExponent(-2*unit->getExponent());  
       ud->addUnit(newUnit);
       break;
 
@@ -1149,22 +1157,20 @@ Unit::convertToSI(const Unit * unit)
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(-2*newUnit->getExponent());  
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       newUnit->setMultiplier(1.0);
+      newUnit->setExponent(unit->getExponent());
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(2*newUnit->getExponent());  
+      newUnit->setExponent(2*unit->getExponent());  
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-3*newUnit->getExponent());  
+      newUnit->setExponent(-3*unit->getExponent());  
       ud->addUnit(newUnit);
       break;
 
@@ -1172,17 +1178,15 @@ Unit::convertToSI(const Unit * unit)
       /* 1 pascal = 1 m^-1 kg s^-2 */
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-1*newUnit->getExponent());  
+      newUnit->setExponent(-1*unit->getExponent());  
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-2*newUnit->getExponent());  
+      newUnit->setExponent(-2*unit->getExponent());  
       ud->addUnit(newUnit);
       break;
 
@@ -1203,23 +1207,20 @@ Unit::convertToSI(const Unit * unit)
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(2*newUnit->getExponent());  
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-1*newUnit->getExponent());  
+      newUnit->setExponent(-1*unit->getExponent());  
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-2*newUnit->getExponent());  
+      newUnit->setExponent(-2*unit->getExponent());  
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(3*newUnit->getExponent());  
+      newUnit->setExponent(3*unit->getExponent());  
       ud->addUnit(newUnit);
       break;
 
@@ -1235,16 +1236,15 @@ Unit::convertToSI(const Unit * unit)
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(-1*newUnit->getExponent());  
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       newUnit->setMultiplier(1.0);
+      newUnit->setExponent(unit->getExponent());
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-2*newUnit->getExponent());  
+      newUnit->setExponent(-2*unit->getExponent());  
       ud->addUnit(newUnit);
       break;
 
@@ -1260,22 +1260,20 @@ Unit::convertToSI(const Unit * unit)
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(-1*newUnit->getExponent());  
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       newUnit->setMultiplier(1.0);
+      newUnit->setExponent(unit->getExponent());
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(2*newUnit->getExponent());  
+      newUnit->setExponent(2*unit->getExponent());  
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-3*newUnit->getExponent());  
+      newUnit->setExponent(-3*unit->getExponent());  
       ud->addUnit(newUnit);
       break;
 
@@ -1283,17 +1281,15 @@ Unit::convertToSI(const Unit * unit)
       /* 1 watt = 1 m^2 kg s^-3 */
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(2*newUnit->getExponent());  
+      newUnit->setExponent(2*unit->getExponent());  
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-3*newUnit->getExponent());  
+      newUnit->setExponent(-3*unit->getExponent());  
       ud->addUnit(newUnit);
       break;
 
@@ -1309,22 +1305,20 @@ Unit::convertToSI(const Unit * unit)
       newUnit->setMultiplier(newMultiplier); 
       newUnit->setExponent(-1*newUnit->getExponent());  
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       newUnit->setMultiplier(1.0);
+      newUnit->setExponent(unit->getExponent());
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(2*newUnit->getExponent());  
+      newUnit->setExponent(2*unit->getExponent());  
       ud->addUnit(newUnit);
-      delete newUnit;
-      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
+//      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-2*newUnit->getExponent());  
+      newUnit->setExponent(-2*unit->getExponent());  
       ud->addUnit(newUnit);
       break;
 
@@ -1425,6 +1419,15 @@ Unit::readAttributes (const XMLAttributes& attributes)
   if ( attributes.readInto("kind", kind, getErrorLog(), true) )
   {
     mKind = UnitKind_forName( kind.c_str() );
+    if (mKind == UNIT_KIND_CELSIUS)
+    {
+      if (!(level == 1) && !(level == 2 && version == 1))
+      {
+        SBMLError * err = new SBMLError(CelsiusNoLongerValid);
+        logError(NotSchemaConformant, level, version, err->getMessage());
+        delete err;
+      }
+    }
   }
 
   //
@@ -1597,8 +1600,22 @@ ListOfUnits::createObject (XMLInputStream& stream)
 
   if (name == "unit")
   {
-    object = new Unit();
-    mItems.push_back(object);
+    try
+    {
+      object = new Unit(getSBMLNamespaces());
+    }
+    catch (SBMLConstructorException*)
+    {
+      object = new Unit(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    catch ( ... )
+    {
+      object = new Unit(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    
+    if (object) mItems.push_back(object);
   }
 
   return object;
@@ -1608,119 +1625,73 @@ ListOfUnits::createObject (XMLInputStream& stream)
 
 /** @cond doxygen-c-only */
 
-
 /**
- * Creates a new, empty Unit_t structure and returns a pointer to it.
+ * Creates a new Unit_t structure using the given SBML @p level
+ * and @p version values.
  *
- * It is worth emphasizing that the structure returned by this constructor
- * has no attribute values set, and that the "kind" attribute is
- * initialized to UNIT_KIND_INVALID.  Callers must set the value to
- * something appropriate using the Unit::setKind() method.
- *
- * @return a pointer to the new Unit_t structure.
- */
-LIBSBML_EXTERN
-Unit_t *
-Unit_create (void)
-{
-  return new(nothrow) Unit;
-}
-
-
-/**
- * Creates a new Unit with the given @p kind, @p exponent and @p scale
- * values and returns a pointer to it.  This convenience function is
- * functionally equivalent to:
- * @code
- *   Unit_t *u = Unit_create();
- *   Unit_setKind(kind);
- *   Unit_setExponent(exponent);
- *   Unit_setScale(scale);
- * @endcode
- *
- * @param kind a value from the UnitKind_t enumeration naming the base
- * unit serving as the basis of this particular unit definition
- * 
- * @param exponent an integer, the "exponent" attribute of the unit
- * definition 
- * 
- * @param scale an integer, the "scale" attribute of the unit definition
- *
- * @return a pointer to the new Unit_t structure.
- */
-LIBSBML_EXTERN
-Unit_t *
-Unit_createWithKindExponentScale (UnitKind_t kind, int exponent, int scale)
-{
-  return new(nothrow) Unit(kind, exponent, scale);
-}
-
-
-/**
- * Creates a new Unit with the given @p kind, @p exponent, @p scale and
- * @p multiplier values and returns a pointer to it.  This convenience function is
- * functionally equivalent to:
- * @code
- *   Unit_t *u = Unit_create();
- *   Unit_setKind(kind);
- *   Unit_setExponent(exponent);
- *   Unit_setScale(scale);
- *   Unit_setMultiplier(multiplier);
- * @endcode
- *
- * @param kind a value from the UnitKind_t enumeration naming the base
- * unit serving as the basis of this particular unit definition
- * 
- * @param exponent an integer, the "exponent" attribute of the unit
- * definition 
- * 
- * @param scale an integer, the "scale" attribute of the unit definition
- * @param multiplier an integer, the "multiplier" attribute of the unit
- *
- * @return a pointer to the new Unit_t structure.
- */
-LIBSBML_EXTERN
-Unit_t *
-Unit_createWithKindExponentScaleMultiplier (UnitKind_t kind, int exponent, int scale, double multiplier)
-{
-  return new(nothrow) Unit(kind, exponent, scale, multiplier);
-}
-
-
-/** @cond doxygen-libsbml-internal */
-/**
- * Creates a new Unit_t structure using the given SBML @p 
- * level and @p version values and a set of XMLNamespaces.
- *
- * @param level an unsigned int, the SBML Level to assign to this 
+ * @param level an unsigned int, the SBML Level to assign to this
  * Unit
  *
  * @param version an unsigned int, the SBML Version to assign to this
  * Unit
- * 
- * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
- * assign to this Unit
  *
  * @return a pointer to the newly created Unit_t structure.
  *
- * @note Once a Unit has been added to an SBMLDocument, the @p 
- * level, @p version and @p xmlns namespaces for the document @em override 
- * those used to create the Unit.  Despite this, the ability 
- * to supply the values at creation time is an important aid to creating 
- * valid SBML.  Knowledge of the intended SBML Level and Version 
- * determine whether it is valid to assign a particular value to an 
- * attribute, or whether it is valid to add an object to an existing 
+ * @note Once a Unit has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the Unit.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
+ */
+LIBSBML_EXTERN
+Unit_t *
+Unit_create (unsigned int level, unsigned int version)
+{
+  try
+  {
+    Unit* obj = new Unit(level,version);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
+
+
+/**
+ * Creates a new Unit_t structure using the given
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this Unit
+ *
+ * @return a pointer to the newly created Unit_t structure.
+ *
+ * @note Once a Unit has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the Unit.  Despite this, the ability to supply the values at creation time
+ * is an important aid to creating valid SBML.  Knowledge of the intended SBML
+ * Level and Version determine whether it is valid to assign a particular value
+ * to an attribute, or whether it is valid to add an object to an existing
  * SBMLDocument.
  */
 LIBSBML_EXTERN
 Unit_t *
-Unit_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns)
+Unit_createWithNS (SBMLNamespaces_t* sbmlns)
 {
-  return new(nothrow) Unit(level, version, xmlns);
+  try
+  {
+    Unit* obj = new Unit(sbmlns);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
 }
-/** @endcond doxygen-libsbml-internal */
-
 
 /**
  * Frees the given Unit_t structure.
@@ -2464,12 +2435,19 @@ Unit_isSetKind (const Unit_t *u)
  *
  * @param u the Unit_t structure whose value is to be set
  * @param kind a value from the UnitKind_t enumeration 
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
  */
 LIBSBML_EXTERN
-void
+int
 Unit_setKind (Unit_t *u, UnitKind_t kind)
 {
-  u->setKind(kind);
+  return u->setKind(kind);
 }
 
 
@@ -2478,12 +2456,18 @@ Unit_setKind (Unit_t *u, UnitKind_t kind)
  *
  * @param u the Unit_t structure whose value is to be set
  * @param value the integer to which the attribute "exponent" should be set
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void
+int
 Unit_setExponent (Unit_t *u, int value)
 {
-  u->setExponent(value);
+  return u->setExponent(value);
 }
 
 
@@ -2492,12 +2476,18 @@ Unit_setExponent (Unit_t *u, int value)
  *
  * @param u the Unit_t structure whose value is to be set
  * @param value the integer to which the attribute "scale" should be set
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void
+int
 Unit_setScale (Unit_t *u, int value)
 {
-  u->setScale(value);
+  return u->setScale(value);
 }
 
 
@@ -2506,12 +2496,19 @@ Unit_setScale (Unit_t *u, int value)
  *
  * @param u the Unit_t structure whose value is to be set
  * @param value the integer to which the attribute "multiplier" should be set
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
  */
 LIBSBML_EXTERN
-void
+int
 Unit_setMultiplier (Unit_t *u, double value)
 {
-  u->setMultiplier(value);
+  return u->setMultiplier(value);
 }
 
 
@@ -2520,6 +2517,13 @@ Unit_setMultiplier (Unit_t *u, double value)
  * 
  * @param u the Unit_t structure whose value is to be set
  * @param value the integer to which the attribute "offset" should be set
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
  *
  * @warning The "offset" attribute is only available in SBML Level 2
  * Version 1.  This attribute is not present in SBML Level 2 Version 2 or
@@ -2531,10 +2535,10 @@ Unit_setMultiplier (Unit_t *u, double value)
  * but their use is strongly discouraged.
  */
 LIBSBML_EXTERN
-void
+int
 Unit_setOffset (Unit_t *u, double value)
 {
-  u->setOffset(value);
+  return u->setOffset(value);
 }
 
 
@@ -2574,10 +2578,10 @@ Unit_areEquivalent(Unit_t * unit1, Unit_t * unit2)
 }
 
 LIBSBML_EXTERN
-void 
+int 
 Unit_removeScale(Unit_t * unit)
 {
-  Unit::removeScale(static_cast<Unit*>(unit));
+  return Unit::removeScale(static_cast<Unit*>(unit));
 }
 
 LIBSBML_EXTERN
@@ -2596,3 +2600,5 @@ Unit_convertToSI(Unit_t * unit)
 }
 
 /** @endcond doxygen-c-only */
+
+LIBSBML_CPP_NAMESPACE_END

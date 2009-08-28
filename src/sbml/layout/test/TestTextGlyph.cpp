@@ -48,6 +48,8 @@
 
 #include <check.h>
 
+LIBSBML_CPP_NAMESPACE_USE
+
 static TextGlyph * TG;
 
 void

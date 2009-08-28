@@ -39,24 +39,25 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
-/*
- * Creates a new CompartmentType, optionally with its id and name
- * attributes set.
- */
-CompartmentType::CompartmentType (const std::string& id, const std::string& name) :
-  SBase(id, name)
+CompartmentType::CompartmentType (unsigned int level, unsigned int version) :
+   SBase ( level, version )
+ , mId   ( "" )
+ , mName ( "" )
 {
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
 
-CompartmentType::CompartmentType (unsigned int level, unsigned int version,
-                          XMLNamespaces *xmlns) :
-   SBase ("", "", -1)
+CompartmentType::CompartmentType (SBMLNamespaces* sbmlns) :
+   SBase ( sbmlns )
+ , mId   ( "" )
+ , mName ( "" )
 {
-  mObjectLevel = level;
-  mObjectVersion = version;
-  if (xmlns) setNamespaces(xmlns);;
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
                           
@@ -68,7 +69,16 @@ CompartmentType::CompartmentType (SBMLNamespaces *sbmlns) :
   setNamespaces(sbmlns->getNamespaces());
 }
 
+/** @cond doxygen-libsbml-internal */
 
+/* constructor for validators */
+CompartmentType::CompartmentType() :
+  SBase()
+{
+}
+
+/** @endcond doxygen-libsbml-internal */
+                          
 /*
  * Destroys this CompartmentType.
  */
@@ -81,7 +91,9 @@ CompartmentType::~CompartmentType ()
  * Copy constructor. Creates a copy of this CompartmentType.
  */
 CompartmentType::CompartmentType(const CompartmentType& orig) :
-      SBase(orig)
+   SBase             ( orig                    )
+ , mId               ( orig.mId                )  
+ , mName             ( orig.mName              )
 {
 }
 
@@ -94,6 +106,8 @@ CompartmentType& CompartmentType::operator=(const CompartmentType& rhs)
   if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
+    mId = rhs.mId;
+    mName = rhs.mName;
   }
 
   return *this;
@@ -125,6 +139,135 @@ CompartmentType::clone () const
 
 
 /*
+ * @return the id of this SBML object.
+ */
+const string&
+CompartmentType::getId () const
+{
+  return mId;
+}
+
+
+/*
+ * @return the name of this SBML object.
+ */
+const string&
+CompartmentType::getName () const
+{
+  return (getLevel() == 1) ? mId : mName;
+}
+
+
+/*
+ * @return true if the id of this SBML object has been set, false
+ * otherwise.
+ */
+bool
+CompartmentType::isSetId () const
+{
+  return (mId.empty() == false);
+}
+
+
+/*
+ * @return true if the name of this SBML object has been set, false
+ * otherwise.
+ */
+bool
+CompartmentType::isSetName () const
+{
+  return (getLevel() == 1) ? (mId.empty() == false) : 
+                            (mName.empty() == false);
+}
+
+
+/*
+ * Sets the id of this SBML object to a copy of sid.
+ */
+int
+CompartmentType::setId (const std::string& sid)
+{
+  /* since the setId function has been used as an
+   * alias for setName we cant require it to only
+   * be used on a L2 model
+   */
+/*  if (getLevel() == 1)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+*/
+  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mId = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Sets the name of this SBML object to a copy of name.
+ */
+int
+CompartmentType::setName (const std::string& name)
+{
+  /* if this is setting an L2 name the type is string
+   * whereas if it is setting an L1 name its type is SId
+   */
+  if (getLevel() == 1)
+  {
+    if (!(SyntaxChecker::isValidSBMLSId(name)))
+    {
+      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    }
+    else
+    {
+      mId = name;
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+  else
+  {
+    mName = name;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Unsets the name of this SBML object.
+ */
+int
+CompartmentType::unsetName ()
+{
+  if (getLevel() == 1) 
+  {
+    mId.erase();
+  }
+  else 
+  {
+    mName.erase();
+  }
+
+  if (getLevel() == 1 && mId.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (mName.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -145,6 +288,20 @@ CompartmentType::getElementName () const
 {
   static const string name = "compartmentType";
   return name;
+}
+
+
+bool 
+CompartmentType::hasRequiredAttributes() const
+{
+  bool allPresent = true;
+
+  /* required attributes for compartmentType: id */
+
+  if (!isSetId())
+    allPresent = false;
+
+  return allPresent;
 }
 
 
@@ -201,7 +358,7 @@ CompartmentType::readAttributes (const XMLAttributes& attributes)
   {
     logEmptyString("id", level, version, "<compartmentType>");
   }
-  SBase::checkIdSyntax();
+  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
 
   //
   // name: string  { use="optional" }  (L2v2 ->)
@@ -307,11 +464,25 @@ ListOfCompartmentTypes::get(unsigned int n) const
 }
 
 
+/**
+ * Used by ListOf::get() to lookup an SBase based by its id.
+ */
+struct IdEqCT : public unary_function<SBase*, bool>
+{
+  const string& id;
+
+  IdEqCT (const string& id) : id(id) { }
+  bool operator() (SBase* sb) 
+       { return static_cast <CompartmentType *> (sb)->getId() == id; }
+};
+
+
 /* return item by id */
 CompartmentType*
 ListOfCompartmentTypes::get (const std::string& sid)
 {
-  return static_cast<CompartmentType*>(ListOf::get(sid));
+  return const_cast<CompartmentType*>( 
+    static_cast<const ListOfCompartmentTypes&>(*this).get(sid) );
 }
 
 
@@ -319,7 +490,11 @@ ListOfCompartmentTypes::get (const std::string& sid)
 const CompartmentType*
 ListOfCompartmentTypes::get (const std::string& sid) const
 {
-  return static_cast<const CompartmentType*>(ListOf::get(sid));
+  vector<SBase*>::const_iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqCT(sid) );
+  return (result == mItems.end()) ? 0 : 
+                     static_cast <CompartmentType*> (*result);
 }
 
 
@@ -335,7 +510,18 @@ ListOfCompartmentTypes::remove (unsigned int n)
 CompartmentType*
 ListOfCompartmentTypes::remove (const std::string& sid)
 {
-   return static_cast<CompartmentType*>(ListOf::remove(sid));
+  SBase* item = 0;
+  vector<SBase*>::iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqCT(sid) );
+
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
+  }
+
+  return static_cast <CompartmentType*> (item);
 }
 
 
@@ -366,8 +552,22 @@ ListOfCompartmentTypes::createObject (XMLInputStream& stream)
 
   if (name == "compartmentType")
   {
-    object = new CompartmentType();
-    mItems.push_back(object);
+    try
+    {
+      object = new CompartmentType(getSBMLNamespaces());
+    }
+    catch (SBMLConstructorException*)
+    {
+      object = new CompartmentType(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    catch ( ... )
+    {
+      object = new CompartmentType(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    
+    if (object) mItems.push_back(object);
   }
 
   return object;
@@ -379,80 +579,72 @@ ListOfCompartmentTypes::createObject (XMLInputStream& stream)
 
 
 /**
- * Creates a new, empty CompartmentType and returns a pointer to it.
+ * Creates a new CompartmentType_t structure using the given SBML @p level
+ * and @p version values.
  *
- * It is worth emphasizing that the structure returned by this constructor
- * is empty and that there are no default values assigned to such things as
- * identifiers and names.  Note that in SBML Level 2 and beyond, the
- * "id" (identifier) attribute of a CompartmentType is required to have a
- * value.  Thus, callers are cautioned to assign a value after calling this
- * constructor, for example using CompartmentType_setName().
- *
- * @return a pointer to the newly created CompartmentType structure.
- */
-LIBSBML_EXTERN
-CompartmentType_t *
-CompartmentType_create ()
-{
-  return new(nothrow) CompartmentType;
-}
-
-
-/**
- * Creates a new CompartmentType with the given @p id and @p name attribute
- * values.
- *
- * In SBML Level 2 and beyond, the identifier attribute of a
- * CompartmentType is required to have a value, but the name is optional.
- * Programs calling this function can legitimately use an empty string for
- * the @p name argument.
- *
- * @param sid the value to assign as the identifier of this CompartmentType
- * @param name the value to assign as the name of this CompartmentType
- *
- * @return a pointer to the newly created CompartmentType_t structure.
- */
-LIBSBML_EXTERN
-CompartmentType_t *
-CompartmentType_createWith (const char *sid, const char *name)
-{
-  return new(nothrow) CompartmentType(sid ? sid : "", name ? name : "");
-}
-
-
-/** @cond doxygen-libsbml-internal */
-/**
- * Creates a new CompartmentType_t structure using the given SBML @p 
- * level and @p version values and a set of XMLNamespaces.
- *
- * @param level an unsigned int, the SBML Level to assign to this 
+ * @param level an unsigned int, the SBML Level to assign to this
  * CompartmentType
  *
  * @param version an unsigned int, the SBML Version to assign to this
  * CompartmentType
- * 
- * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
- * assign to this CompartmentType
  *
  * @return a pointer to the newly created CompartmentType_t structure.
  *
- * @note Once a CompartmentType has been added to an SBMLDocument, the @p 
- * level, @p version and @p xmlns namespaces for the document @em override 
- * those used to create the CompartmentType.  Despite this, the ability 
- * to supply the values at creation time is an important aid to creating 
- * valid SBML.  Knowledge of the intended SBML Level and Version 
- * determine whether it is valid to assign a particular value to an 
- * attribute, or whether it is valid to add an object to an existing 
- * SBMLDocument.
+ * @note Once a CompartmentType has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the CompartmentType.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
  */
 LIBSBML_EXTERN
 CompartmentType_t *
-CompartmentType_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns)
+CompartmentType_create (unsigned int level, unsigned int version)
 {
-  return new(nothrow) CompartmentType(level, version, xmlns);
+  try
+  {
+    CompartmentType* obj = new CompartmentType(level,version);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
 }
-/** @endcond doxygen-libsbml-internal */
+
+
+/**
+ * Creates a new CompartmentType_t structure using the given
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this CompartmentType
+ *
+ * @return a pointer to the newly created CompartmentType_t structure.
+ *
+ * @note Once a CompartmentType has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the CompartmentType.  Despite this, the ability to supply the values at 
+ * creation time is an important aid to creating valid SBML.  Knowledge of the 
+ * intended SBML Level and Version determine whether it is valid to assign a 
+ * particular value to an attribute, or whether it is valid to add an object 
+ * to an existing SBMLDocument.
+ */
+LIBSBML_EXTERN
+CompartmentType_t *
+CompartmentType_createWithNS (SBMLNamespaces_t* sbmlns)
+{
+  try
+  {
+    CompartmentType* obj = new CompartmentType(sbmlns);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
 
 
 /**
@@ -571,12 +763,22 @@ CompartmentType_isSetName (const CompartmentType_t *ct)
  *
  * @param ct the CompartmentType_t structure to set.
  * @param sid the string to use as the identifier.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "id" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 CompartmentType_setId (CompartmentType_t *ct, const char *sid)
 {
-  (sid == NULL) ? ct->unsetId() : ct->setId(sid);
+  return (sid == NULL) ? ct->setId("") : ct->setId(sid);
 }
 
 
@@ -587,12 +789,22 @@ CompartmentType_setId (CompartmentType_t *ct, const char *sid)
  *
  * @param ct the CompartmentType_t structure to set.
  * @param name the string to use as the name.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "name" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 CompartmentType_setName (CompartmentType_t *ct, const char *name)
 {
-  (name == NULL) ? ct->unsetName() : ct->setName(name);
+  return (name == NULL) ? ct->unsetName() : ct->setName(name);
 }
 
 
@@ -600,13 +812,48 @@ CompartmentType_setName (CompartmentType_t *ct, const char *name)
  * Unsets the name of a CompartmentType.
  * 
  * @param ct the CompartmentType_t structure whose name is to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 CompartmentType_unsetName (CompartmentType_t *ct)
 {
-  ct->unsetName();
+  return ct->unsetName();
 }
 
 
+/**
+ * @return item in this ListOfCompartmentType with the given id or NULL if no such
+ * item exists.
+ */
+LIBSBML_EXTERN
+CompartmentType_t *
+ListOfCompartmentTypes_getById (ListOf_t *lo, const char *sid)
+{
+  return (sid != NULL) ? 
+    static_cast <ListOfCompartmentTypes *> (lo)->get(sid) : NULL;
+}
+
+
+/**
+ * Removes item in this ListOf items with the given id or NULL if no such
+ * item exists.  The caller owns the returned item and is responsible for
+ * deleting it.
+ */
+LIBSBML_EXTERN
+CompartmentType_t *
+ListOfCompartmentTypes_removeById (ListOf_t *lo, const char *sid)
+{
+  return (sid != NULL) ? 
+    static_cast <ListOfCompartmentTypes *> (lo)->remove(sid) : NULL;
+}
+
 /** @endcond doxygen-c-only */
+
+LIBSBML_CPP_NAMESPACE_END

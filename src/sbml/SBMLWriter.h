@@ -47,6 +47,7 @@
 #include <iosfwd>
 #include <string>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class SBMLDocument;
 
@@ -81,10 +82,16 @@ public:
    *
    * @param name the name of this program (where "this program" refers to
    * program in which libSBML is embedded, not libSBML itself!)
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    * 
    * @see setProgramVersion(const std::string& version)
    */
-  void setProgramName (const std::string& name);
+  int setProgramName (const std::string& name);
 
 
   /**
@@ -102,9 +109,15 @@ public:
    * @param version the version of this program (where "this program"
    * refers to program in which libSBML is embedded, not libSBML itself!)
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   *
    * @see setProgramName(const std::string& name)
    */
-  void setProgramVersion (const std::string& version);
+  int setProgramVersion (const std::string& version);
 
 
   /**
@@ -214,11 +227,12 @@ public:
   /** @endcond doxygen-libsbml-internal */
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
@@ -249,7 +263,7 @@ SBMLWriter_free (SBMLWriter_t *sw);
  *   on yyyy-MM-dd HH:mm with libsbml version <libsbml version>. -->
  */
 LIBSBML_EXTERN
-void
+int
 SBMLWriter_setProgramName (SBMLWriter_t *sw, const char *name);
 
 /**
@@ -262,7 +276,7 @@ SBMLWriter_setProgramName (SBMLWriter_t *sw, const char *name);
  *   on yyyy-MM-dd HH:mm with libsbml version <libsbml version>. -->
  */
 LIBSBML_EXTERN
-void
+int
 SBMLWriter_setProgramVersion (SBMLWriter_t *sw, const char *version);
 
 /**
@@ -371,6 +385,6 @@ writeSBMLToString (const SBMLDocument_t *d);
 
 
 END_C_DECLS
-
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* SBMLWriter_h */

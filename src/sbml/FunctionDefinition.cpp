@@ -45,52 +45,39 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
-/*
- * Creates a new FunctionDefinition, optionally with its id and math (via
- * an infix formula string) attributes set.
- */
-FunctionDefinition::FunctionDefinition (  const std::string& id
-                                        , const std::string& formula ) :
-    SBase( id, "", -1 )
-  , mMath( SBML_parseFormula( formula.c_str() ) )
+FunctionDefinition::FunctionDefinition (unsigned int level, unsigned int version) :
+   SBase ( level, version )
+ , mId   ( "" )
+ , mName ( "" )
+ , mMath ( 0  )
 {
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
 
-/*
- * Creates a new FunctionDefinition, optionally with its id and math
- * attributes set.
- */
-FunctionDefinition::FunctionDefinition (  const std::string&  id
-                                        , const ASTNode* math ) :
-   SBase( id )
- , mMath( 0  )
+FunctionDefinition::FunctionDefinition (SBMLNamespaces * sbmlns) :
+   SBase ( sbmlns )
+ , mId   ( "" )
+ , mName ( "" )
+ , mMath ( 0  )
 {
-  if (math) mMath = math->deepCopy();
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
 
-FunctionDefinition::FunctionDefinition (unsigned int level, unsigned int version,
-                          XMLNamespaces *xmlns) :
-   SBase ("", "", -1)
- , mMath( 0  )
+
+/* constructor for validators */
+FunctionDefinition::FunctionDefinition() :
+  SBase()
 {
-  mObjectLevel = level;
-  mObjectVersion = version;
-  if (xmlns) setNamespaces(xmlns);;
 }
 
+/** @endcond doxygen-libsbml-internal */
                           
-FunctionDefinition::FunctionDefinition (SBMLNamespaces *sbmlns) :
-   SBase ("", "", -1)
- , mMath( 0  )
-{
-  mObjectLevel = sbmlns->getLevel();
-  mObjectVersion = sbmlns->getVersion();
-  setNamespaces(sbmlns->getNamespaces());
-}
-
 
 /*
  * Destroys this FunctionDefinition.
@@ -105,10 +92,16 @@ FunctionDefinition::~FunctionDefinition ()
  * Copy constructor. Creates a copy of this FunctionDefinition.
  */
 FunctionDefinition::FunctionDefinition (const FunctionDefinition& orig) :
-   SBase( orig )
- , mMath( 0    )
+   SBase             ( orig         )
+ , mId               ( orig.mId     )  
+ , mName             ( orig.mName   )
+ , mMath             ( 0            )
 {
-  if (orig.mMath) mMath = orig.mMath->deepCopy();
+  if (orig.mMath) 
+  {
+    mMath = orig.mMath->deepCopy();
+    mMath->setParentSBMLObject(this);
+  }
 }
 
 
@@ -120,12 +113,19 @@ FunctionDefinition& FunctionDefinition::operator=(const FunctionDefinition& rhs)
   if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
+    mId = rhs.mId;
+    mName = rhs.mName;
 
     delete mMath;
     if (rhs.mMath) 
+    {
       mMath = rhs.mMath->deepCopy();
+      mMath->setParentSBMLObject(this);
+    }
     else
+    {
       mMath = 0;
+    }
   }
 
   return *this;
@@ -157,12 +157,55 @@ FunctionDefinition::clone () const
 
 
 /*
+ * @return the id of this SBML object.
+ */
+const string&
+FunctionDefinition::getId () const
+{
+  return mId;
+}
+
+
+/*
+ * @return the name of this SBML object.
+ */
+const string&
+FunctionDefinition::getName () const
+{
+  return (getLevel() == 1) ? mId : mName;
+}
+
+
+/*
  * @return the math of this FunctionDefinition.
  */
 const ASTNode*
 FunctionDefinition::getMath () const
 {
   return mMath;
+}
+
+
+/*
+ * @return true if the id of this SBML object has been set, false
+ * otherwise.
+ */
+bool
+FunctionDefinition::isSetId () const
+{
+  return (mId.empty() == false);
+}
+
+
+/*
+ * @return true if the name of this SBML object has been set, false
+ * otherwise.
+ */
+bool
+FunctionDefinition::isSetName () const
+{
+  return (getLevel() == 1) ? (mId.empty() == false) : 
+                            (mName.empty() == false);
 }
 
 
@@ -177,17 +220,120 @@ FunctionDefinition::isSetMath () const
 }
 
 /*
+ * Sets the id of this SBML object to a copy of sid.
+ */
+int
+FunctionDefinition::setId (const std::string& sid)
+{
+  /* since the setId function has been used as an
+   * alias for setName we cant require it to only
+   * be used on a L2 model
+   */
+/*  if (getLevel() == 1)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+*/
+  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mId = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Sets the name of this SBML object to a copy of name.
+ */
+int
+FunctionDefinition::setName (const std::string& name)
+{
+  /* if this is setting an L2 name the type is string
+   * whereas if it is setting an L1 name its type is SId
+   */
+  if (getLevel() == 1)
+  {
+    if (!(SyntaxChecker::isValidSBMLSId(name)))
+    {
+      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    }
+    else
+    {
+      mId = name;
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+  else
+  {
+    mName = name;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
  * Sets the math of this FunctionDefinition to the given ASTNode.
  */
-void
+int
 FunctionDefinition::setMath (const ASTNode* math)
 {
-  if (mMath == math) return;
-
-  delete mMath;
-  mMath = (math != 0) ? math->deepCopy() : 0;
-  if (mMath) mMath->setParentSBMLObject(this);
+  if (mMath == math) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (math == NULL)
+  {
+    delete mMath;
+    mMath = 0;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (!(math->isWellFormedASTNode()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else
+  {
+    delete mMath;
+    mMath = (math != 0) ? math->deepCopy() : 0;
+    if (mMath) mMath->setParentSBMLObject(this);
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
+
+
+/*
+ * Unsets the name of this SBML object.
+ */
+int
+FunctionDefinition::unsetName ()
+{
+  if (getLevel() == 1) 
+  {
+    mId.erase();
+  }
+  else 
+  {
+    mName.erase();
+  }
+
+  if (getLevel() == 1 && mId.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (mName.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
 
 /*
  * @return the nth argument (bound variable) passed to this
@@ -234,7 +380,6 @@ const ASTNode*
 FunctionDefinition::getBody () const
 {
   if (!mMath) return NULL;
-
   /* if the math is not a lambda this function can cause issues
    * elsewhere, technically if the math is not a lambda
    * function the body is NULL
@@ -317,6 +462,34 @@ FunctionDefinition::getElementName () const
 {
   static const string name = "functionDefinition";
   return name;
+}
+
+
+bool 
+FunctionDefinition::hasRequiredAttributes() const
+{
+  bool allPresent = true;
+
+  /* required attributes for functionDefinition: id */
+
+  if (!isSetId())
+    allPresent = false;
+
+  return allPresent;
+}
+
+
+bool 
+FunctionDefinition::hasRequiredElements() const
+{
+  bool allPresent = true;
+
+  /* required attributes for functionDefinition: math */
+
+  if (!isSetMath())
+    allPresent = false;
+
+  return allPresent;
 }
 
 
@@ -445,7 +618,7 @@ FunctionDefinition::readAttributes (const XMLAttributes& attributes)
   {
     logEmptyString("id", level, version, "<functionDefinition>");
   }
-  SBase::checkIdSyntax();
+  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
 
   //
   // name: string  { use="optional" }  (L2v1 ->)
@@ -566,11 +739,25 @@ ListOfFunctionDefinitions::get(unsigned int n) const
 }
 
 
+/**
+ * Used by ListOf::get() to lookup an SBase based by its id.
+ */
+struct IdEqFD : public unary_function<SBase*, bool>
+{
+  const string& id;
+
+  IdEqFD (const string& id) : id(id) { }
+  bool operator() (SBase* sb) 
+       { return static_cast <FunctionDefinition *> (sb)->getId() == id; }
+};
+
+
 /* return item by id */
 FunctionDefinition*
 ListOfFunctionDefinitions::get (const std::string& sid)
 {
-  return static_cast<FunctionDefinition*>(ListOf::get(sid));
+  return const_cast<FunctionDefinition*>( 
+    static_cast<const ListOfFunctionDefinitions&>(*this).get(sid) );
 }
 
 
@@ -578,7 +765,10 @@ ListOfFunctionDefinitions::get (const std::string& sid)
 const FunctionDefinition*
 ListOfFunctionDefinitions::get (const std::string& sid) const
 {
-  return static_cast<const FunctionDefinition*>(ListOf::get(sid));
+  vector<SBase*>::const_iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqFD(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <FunctionDefinition*> (*result);
 }
 
 
@@ -594,7 +784,18 @@ ListOfFunctionDefinitions::remove (unsigned int n)
 FunctionDefinition*
 ListOfFunctionDefinitions::remove (const std::string& sid)
 {
-   return static_cast<FunctionDefinition*>(ListOf::remove(sid));
+  SBase* item = 0;
+  vector<SBase*>::iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqFD(sid) );
+
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
+  }
+
+  return static_cast <FunctionDefinition*> (item);
 }
 
 
@@ -625,8 +826,22 @@ ListOfFunctionDefinitions::createObject (XMLInputStream& stream)
 
   if (name == "functionDefinition")
   {
-    object = new FunctionDefinition();
-    mItems.push_back(object);
+    try
+    {
+      object = new FunctionDefinition(getSBMLNamespaces());
+    }
+    catch (SBMLConstructorException*)
+    {
+      object = new FunctionDefinition(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    catch ( ... )
+    {
+      object = new FunctionDefinition(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    
+    if (object) mItems.push_back(object);
   }
 
   return object;
@@ -637,87 +852,73 @@ ListOfFunctionDefinitions::createObject (XMLInputStream& stream)
 /** @cond doxygen-c-only */
 
 
-
 /**
- * Creates a new, empty FunctionDefinition_t structure and returns a
- * pointer to it.
- * 
- * @return a pointer to the freshly-created FunctionDefinition_t structure
+ * Creates a new FunctionDefinition_t structure using the given SBML @p level
+ * and @p version values.
  *
- * @note It is worth emphasizing that although no identifier is supplied in
- * this constructor and no default identifier is provided, the "id"
- * (identifier) attribute of a FunctionDefinition_t structure is required
- * to have a value.  Thus, callers are cautioned to assign a value after
- * calling this constructor using FunctionDefinition_setId().
- */
-LIBSBML_EXTERN
-FunctionDefinition_t *
-FunctionDefinition_create (void)
-{
-  return new(nothrow) FunctionDefinition("", "");
-}
-
-
-/**
- * Creates a new FunctionDefinition_t structure with the given identifier
- * and mathematical formula.
- *
- * This convenience function is functionally equivalent to:
- * @code
- *   fd = FunctionDefinition_create();
- *   FunctionDefinition_setId(fd, id);
- *   FunctionDefinition_setMath(fd, math);
- * @endcode
- *
- * @param sid the identifier to be assigned to the FunctionDefinition_t
- * structure
- *
- * @param math an ASTNode_t tree structure defining the mathematical
- * formula implemented by this function
- *
- * @return a pointer to the new FunctionDefinition_t structure.
- */
-LIBSBML_EXTERN
-FunctionDefinition_t *
-FunctionDefinition_createWithIdAndMath (const char *sid, ASTNode_t *math)
-{
-  return new(nothrow) FunctionDefinition(sid ? sid : "", math);
-}
-
-
-/** @cond doxygen-libsbml-internal */
-/**
- * Creates a new FunctionDefinition_t structure using the given SBML @p 
- * level and @p version values and a set of XMLNamespaces.
- *
- * @param level an unsigned int, the SBML Level to assign to this 
+ * @param level an unsigned int, the SBML Level to assign to this
  * FunctionDefinition
  *
  * @param version an unsigned int, the SBML Version to assign to this
  * FunctionDefinition
- * 
- * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
- * assign to this FunctionDefinition
  *
  * @return a pointer to the newly created FunctionDefinition_t structure.
  *
- * @note Once a FunctionDefinition has been added to an SBMLDocument, the @p 
- * level, @p version and @p xmlns namespaces for the document @em override 
- * those used to create the FunctionDefinition.  Despite this, the ability 
- * to supply the values at creation time is an important aid to creating 
- * valid SBML.  Knowledge of the intended SBML Level and Version 
- * determine whether it is valid to assign a particular value to an 
- * attribute, or whether it is valid to add an object to an existing 
- * SBMLDocument.
+ * @note Once a FunctionDefinition has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the FunctionDefinition.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
  */
 LIBSBML_EXTERN
 FunctionDefinition_t *
-FunctionDefinition_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns)
+FunctionDefinition_create (unsigned int level, unsigned int version)
 {
-  return new(nothrow) FunctionDefinition(level, version, xmlns);
+  try
+  {
+    FunctionDefinition* obj = new FunctionDefinition(level,version);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
 }
-/** @endcond doxygen-libsbml-internal */
+
+
+/**
+ * Creates a new FunctionDefinition_t structure using the given
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this FunctionDefinition
+ *
+ * @return a pointer to the newly created FunctionDefinition_t structure.
+ *
+ * @note Once a FunctionDefinition has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the FunctionDefinition.  Despite this, the ability to supply the values at 
+ * creation time is an important aid to creating valid SBML.  Knowledge of the 
+ * intended SBML Level and Version determine whether it is valid to assign a 
+ * particular value to an attribute, or whether it is valid to add an object to 
+ * an existing SBMLDocument.
+ */
+LIBSBML_EXTERN
+FunctionDefinition_t *
+FunctionDefinition_createWithNS (SBMLNamespaces_t* sbmlns)
+{
+  try
+  {
+    FunctionDefinition* obj = new FunctionDefinition(sbmlns);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
 
 
 /**
@@ -869,12 +1070,22 @@ FunctionDefinition_isSetMath (const FunctionDefinition_t *fd)
  * @param fd the FunctionDefinition_t structure to set.
  *
  * @param sid the identifier to assign to the "id" attribute of @p fd
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "id" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 FunctionDefinition_setId (FunctionDefinition_t *fd, const char *sid)
 {
-  fd->setId(sid ? sid : "");
+  return (sid == NULL) ? fd->setId("") : fd->setId(sid);
 }
 
 
@@ -884,12 +1095,22 @@ FunctionDefinition_setId (FunctionDefinition_t *fd, const char *sid)
  * @param fd the FunctionDefinition_t structure to set.
  *
  * @param name the identifier to assign to the "name" attribute of @p fd
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "name" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 FunctionDefinition_setName (FunctionDefinition_t *fd, const char *name)
 {
-  (name == NULL) ? fd->unsetName() : fd->setName(name);
+  return (name == NULL) ? fd->unsetName() : fd->setName(name);
 }
 
 
@@ -902,12 +1123,19 @@ FunctionDefinition_setName (FunctionDefinition_t *fd, const char *name)
  *
  * @param math the ASTNode_t structure to copy and assign to the "math"
  * subelement of the given FunctionDefinition_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
-void
+int
 FunctionDefinition_setMath (FunctionDefinition_t *fd, const ASTNode_t *math)
 {
-  fd->setMath(math);
+  return fd->setMath(math);
 }
 
 
@@ -915,12 +1143,19 @@ FunctionDefinition_setMath (FunctionDefinition_t *fd, const ASTNode_t *math)
  * Unsets the "name" attribute of the given FunctionDefinition_t structure.
  * 
  * @param fd the FunctionDefinition_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 FunctionDefinition_unsetName (FunctionDefinition_t *fd)
 {
-  fd->unsetName();
+  return fd->unsetName();
 }
 
 
@@ -995,4 +1230,33 @@ FunctionDefinition_getNumArguments (const FunctionDefinition_t *fd)
 
 
 
+/**
+ * @return item in this ListOfFunctionDefinition with the given id or NULL if no such
+ * item exists.
+ */
+LIBSBML_EXTERN
+FunctionDefinition_t *
+ListOfFunctionDefinitions_getById (ListOf_t *lo, const char *sid)
+{
+  return (sid != NULL) ? 
+    static_cast <ListOfFunctionDefinitions *> (lo)->get(sid) : NULL;
+}
+
+
+/**
+ * Removes item in this ListOf items with the given id or NULL if no such
+ * item exists.  The caller owns the returned item and is responsible for
+ * deleting it.
+ */
+LIBSBML_EXTERN
+FunctionDefinition_t *
+ListOfFunctionDefinitions_removeById (ListOf_t *lo, const char *sid)
+{
+  return (sid != NULL) ? 
+    static_cast <ListOfFunctionDefinitions *> (lo)->remove(sid) : NULL;
+}
+
 /** @endcond doxygen-c-only */
+
+LIBSBML_CPP_NAMESPACE_END
+

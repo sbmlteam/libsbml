@@ -383,7 +383,7 @@ START_TEST (test_create_l1v1_units)
    * <sbml level="1" version="1">
    */
   d = SBMLDocument_create();
-  m = Model_create();
+  m = Model_create(2, 4);
 
   SBMLDocument_setModel(d, m);
 

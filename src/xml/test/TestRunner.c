@@ -15,8 +15,10 @@
 Suite *create_suite_XMLAttributes (void);
 Suite *create_suite_XMLNamespaces (void);
 Suite *create_suite_XMLNode (void);
+Suite *create_suite_XMLNode_newSetters (void);
 Suite *create_suite_XMLTriple (void);
 Suite *create_suite_XMLToken (void);
+Suite *create_suite_XMLToken_newSetters (void);
 Suite *create_suite_CopyAndClone (void);
 Suite *create_suite_XMLError (void);
 Suite *create_suite_XMLError_C (void);
@@ -35,7 +37,9 @@ main (int argc, char* argv[])
   srunner_add_suite(runner, create_suite_XMLNamespaces());
   srunner_add_suite(runner, create_suite_XMLTriple());
   srunner_add_suite(runner, create_suite_XMLToken());
+  srunner_add_suite(runner, create_suite_XMLToken_newSetters());
   srunner_add_suite(runner, create_suite_XMLNode());
+  srunner_add_suite(runner, create_suite_XMLNode_newSetters());
   srunner_add_suite(runner, create_suite_XMLError());
   srunner_add_suite(runner, create_suite_XMLError_C());
   srunner_add_suite(runner, create_suite_XMLErrorLog());

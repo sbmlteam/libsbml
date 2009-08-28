@@ -68,6 +68,8 @@
 #include <sbml/layout/GraphicalObject.h>
 #include <sbml/layout/SpeciesReferenceGlyph.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 class LIBSBML_EXTERN ListOfLayouts : public ListOf
 {
 public:
@@ -381,6 +383,8 @@ class LIBSBML_EXTERN Layout : public SBase
 {
 protected:
 
+  std::string mId;
+
   Dimensions mDimensions;
   ListOfCompartmentGlyphs mCompartmentGlyphs;
   ListOfSpeciesGlyphs mSpeciesGlyphs;
@@ -445,6 +449,31 @@ public:
   void initDefaults ();    
 
         
+  /**
+   * Returns the value of the "id" attribute of this Layout.
+   */
+  const std::string& getId () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Layout's "id" attribute has been set.
+   */
+  bool isSetId () const;
+
+  
+  /**
+   * Sets the value of the "id" attribute of this Layout.
+   */
+  int setId (std::string id);
+
+
+  /**
+   * Unsets the value of the "id" attribute of this Layout.
+   */
+  void unsetId ();
+
+
   /**
    * Returns the dimensions of the layout.
    */ 
@@ -960,13 +989,14 @@ protected:
 
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif /* __cplusplus */
 
 
 #ifndef SWIG
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
@@ -1335,8 +1365,28 @@ Layout_t *
 Layout_clone (const Layout_t *m);
 
 
+LIBSBML_EXTERN
+int
+Layout_isSetId (const Layout_t *l);
+
+LIBSBML_EXTERN
+const char *
+Layout_getId (const Layout_t *l);
+
+
+LIBSBML_EXTERN
+int
+Layout_setId (Layout_t *l, const char *sid);
+
+
+LIBSBML_EXTERN
+void
+Layout_unsetId (Layout_t *l);
+
+
 
 END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 
 #endif  /* !SWIG */

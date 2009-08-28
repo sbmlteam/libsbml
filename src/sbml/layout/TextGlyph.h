@@ -59,6 +59,7 @@
 #include <string>
 #include <sbml/layout/GraphicalObject.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN TextGlyph : public GraphicalObject
 {
@@ -245,13 +246,14 @@ protected:
 
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif /* __cplusplus */
 
 
 #ifndef SWIG
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
@@ -380,7 +382,7 @@ TextGlyph_clone (const TextGlyph_t *m);
 
 
 END_C_DECLS
-
+LIBSBML_CPP_NAMESPACE_END
 
 #endif /* !SWIG */
 #endif /* TextGlyph_H__ */

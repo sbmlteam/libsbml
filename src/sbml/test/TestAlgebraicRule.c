@@ -68,11 +68,11 @@ static Rule_t *AR;
 void
 AlgebraicRuleTest_setup (void)
 {
-  AR = Rule_createAlgebraic();
+  AR = Rule_createAlgebraic(2, 4);
 
   if (AR == NULL)
   {
-    fail("AlgebraicRule_create() returned a NULL pointer.");
+    fail("AlgebraicRule_createAlgebraic() returned a NULL pointer.");
   }
 }
 
@@ -102,7 +102,8 @@ START_TEST (test_AlgebraicRule_createWithFormula)
   const ASTNode_t *math;
   char *formula;
 
-  Rule_t *ar = Rule_createAlgebraicWithFormula("1 + 1");
+  Rule_t *ar = Rule_createAlgebraic(2, 4);
+  Rule_setFormula(ar, "1 + 1");
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) ar) == SBML_ALGEBRAIC_RULE );
@@ -126,7 +127,8 @@ END_TEST
 START_TEST (test_AlgebraicRule_createWithMath)
 {
   ASTNode_t       *math = SBML_parseFormula("1 + 1");
-  Rule_t *ar   = Rule_createAlgebraicWithMath(math);
+  Rule_t *ar   = Rule_createAlgebraic(2, 4);
+  Rule_setMath(ar, math);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) ar) == SBML_ALGEBRAIC_RULE );
@@ -147,13 +149,15 @@ START_TEST (test_AlgebraicRule_free_NULL)
 END_TEST
 
 
-START_TEST (test_AlgebraicRule_createWithLevelVersionAndNamespace)
+START_TEST (test_AlgebraicRule_createWithNS )
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
-  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "testsbml");
+  SBMLNamespaces_t *sbmlns = SBMLNamespaces_create(2,3);
+  SBMLNamespaces_addNamespaces(sbmlns,xmlns);
 
   Rule_t *r = 
-    Rule_createAlgebraicWithLevelVersionAndNamespaces(2, 3, xmlns);
+    Rule_createAlgebraicWithNS(sbmlns);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) r) == SBML_ALGEBRAIC_RULE );
@@ -165,7 +169,7 @@ START_TEST (test_AlgebraicRule_createWithLevelVersionAndNamespace)
   fail_unless( SBase_getVersion     ((SBase_t *) r) == 3 );
 
   fail_unless( Rule_getNamespaces     (r) != NULL );
-  fail_unless( XMLNamespaces_getLength(Rule_getNamespaces(r)) == 1 );
+  fail_unless( XMLNamespaces_getLength(Rule_getNamespaces(r)) == 2 );
 
 
   Rule_free(r);
@@ -188,7 +192,7 @@ create_suite_AlgebraicRule (void)
   tcase_add_test( tcase, test_AlgebraicRule_createWithFormula     );
   tcase_add_test( tcase, test_AlgebraicRule_createWithMath );
   tcase_add_test( tcase, test_AlgebraicRule_free_NULL      );
-  tcase_add_test( tcase, test_AlgebraicRule_createWithLevelVersionAndNamespace        );
+  tcase_add_test( tcase, test_AlgebraicRule_createWithNS         );
 
   suite_add_tcase(suite, tcase);
 

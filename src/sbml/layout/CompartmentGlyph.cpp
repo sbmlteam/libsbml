@@ -53,6 +53,7 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Default Constructor which creates a new CompartmentGlyph.  Id and
@@ -127,12 +128,13 @@ CompartmentGlyph::CompartmentGlyph(const CompartmentGlyph& source):GraphicalObje
  */
 CompartmentGlyph& CompartmentGlyph::operator=(const CompartmentGlyph& source)
 {
-    if(&source!=this)
-    {
-        GraphicalObject::operator=(source);
-        this->mCompartment=source.getCompartmentId();
-    }
-    return *this;
+  if(&source!=this)
+  {
+    GraphicalObject::operator=(source);
+    this->mCompartment=source.getCompartmentId();    
+  }
+  
+  return *this;
 }
 
 /**
@@ -409,4 +411,4 @@ CompartmentGlyph_clone (const CompartmentGlyph_t *m)
   return static_cast<CompartmentGlyph*>( m->clone() );
 }
 
-
+LIBSBML_CPP_NAMESPACE_END

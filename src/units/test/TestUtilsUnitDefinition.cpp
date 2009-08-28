@@ -57,16 +57,24 @@
 
 #include <check.h>
 
+LIBSBML_CPP_NAMESPACE_USE
+
 BEGIN_C_DECLS
 
 START_TEST(test_unitdefinition_simplify)
 {
-  UnitDefinition* ud = new UnitDefinition();
+  UnitDefinition* ud = new UnitDefinition(2, 4);
 
-  Unit* u  = new Unit(UNIT_KIND_METRE);
-  Unit* u1 = new Unit(UNIT_KIND_DIMENSIONLESS);
-  Unit* u2 = new Unit(UNIT_KIND_METRE, 2);
-  Unit* u3 = new Unit(UNIT_KIND_METRE, -3);
+  Unit* u  = new Unit(2, 4);
+  u->setKind(UNIT_KIND_METRE);
+  Unit* u1 = new Unit(2, 4);
+  u1->setKind(UNIT_KIND_DIMENSIONLESS);
+  Unit* u2 = new Unit(2, 4);
+  u2->setKind(UNIT_KIND_METRE);
+  u2->setExponent(2);
+  Unit* u3 = new Unit(2, 4);
+  u3->setKind(UNIT_KIND_METRE);
+  u3->setExponent(-3);
 
   /* case with only one unit */
   ud->addUnit(u);
@@ -116,13 +124,38 @@ START_TEST(test_unitdefinition_simplify)
  }
 END_TEST
 
+
+START_TEST (test_unitdefinition_simplify1)
+{
+  UnitDefinition *ud = new UnitDefinition(2, 1);
+  
+  Unit * u = ud->createUnit();
+  u->setKind(UNIT_KIND_MOLE);
+
+  Unit * u1 = ud->createUnit();
+  u1->setKind(UNIT_KIND_MOLE);
+  u1->setExponent(-1);
+
+  UnitDefinition::simplify(ud);
+
+  fail_unless( ud->getNumUnits() == 1);
+  fail_unless( ud->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS );
+
+  delete ud;
+}
+END_TEST
+
+
 START_TEST(test_unitdefinition_order)
 {
-  UnitDefinition* ud = new UnitDefinition();
+  UnitDefinition* ud = new UnitDefinition(2, 4);
 
-  Unit* u  = new Unit(UNIT_KIND_METRE);
-  Unit* u1 = new Unit(UNIT_KIND_AMPERE);
-  Unit* u2 = new Unit(UNIT_KIND_HERTZ);
+  Unit* u  = new Unit(2, 4);
+  u->setKind(UNIT_KIND_METRE);
+  Unit* u1 = new Unit(2, 4);
+  u1->setKind(UNIT_KIND_AMPERE);
+  Unit* u2 = new Unit(2, 4);
+  u2->setKind(UNIT_KIND_HERTZ);
 
   ud->addUnit(u);
   ud->addUnit(u1);
@@ -151,11 +184,13 @@ END_TEST
 
 START_TEST(test_unitdefinition_convert_SI)
 {
-  UnitDefinition* ud  = new UnitDefinition();
-  UnitDefinition* ud1 = new UnitDefinition();
+  UnitDefinition* ud  = new UnitDefinition(2, 4);
+  UnitDefinition* ud1 = new UnitDefinition(2, 4);
 
-  Unit* u  = new Unit(UNIT_KIND_JOULE);
-  Unit* u1 = new Unit(UNIT_KIND_NEWTON);
+  Unit* u  = new Unit(2, 4);
+  u->setKind(UNIT_KIND_JOULE);
+  Unit* u1 = new Unit(2, 4);
+  u1->setKind(UNIT_KIND_NEWTON);
 
   u1->setExponent(-1);
 
@@ -181,14 +216,68 @@ START_TEST(test_unitdefinition_convert_SI)
 }
 END_TEST
 
+
+START_TEST (test_unitdefinition_convert_SI1)
+{
+  UnitDefinition *ud = new UnitDefinition(2, 1);
+  UnitDefinition *ud1;
+  
+  Unit * u = ud->createUnit();
+  u->setKind(UNIT_KIND_HERTZ);
+
+  ud1 = UnitDefinition::convertToSI(ud);
+
+  fail_unless( ud1->getNumUnits() == 1);
+  fail_unless( ud1->getUnit(0)->getKind() == UNIT_KIND_SECOND );
+  fail_unless( ud1->getUnit(0)->getExponent() == -1);
+  fail_unless( ud1->getLevel() == 2);
+  fail_unless( ud1->getVersion() == 1);
+
+
+  UnitDefinition_free(ud);
+}
+END_TEST
+
+
+START_TEST (test_unitdefinition_convert_SI2)
+{
+  UnitDefinition *ud = new UnitDefinition(1, 1);
+  UnitDefinition *ud1;
+  
+  Unit * u = ud->createUnit();
+  u->setKind(UNIT_KIND_FARAD);
+
+  ud1 = UnitDefinition::convertToSI(ud);
+
+  fail_unless( ud1->getNumUnits() == 4);
+  fail_unless( ud1->getLevel() == 1);
+  fail_unless( ud1->getVersion() == 1);
+  fail_unless( ud1->getUnit(0)->getKind() == UNIT_KIND_AMPERE );
+  fail_unless( ud1->getUnit(0)->getExponent() == 2);
+  fail_unless( ud1->getUnit(1)->getKind() == UNIT_KIND_KILOGRAM );
+  fail_unless( ud1->getUnit(1)->getExponent() == -1);
+  fail_unless( ud1->getUnit(2)->getKind() == UNIT_KIND_METRE );
+  fail_unless( ud1->getUnit(2)->getExponent() == -2);
+  fail_unless( ud1->getUnit(3)->getKind() == UNIT_KIND_SECOND );
+  fail_unless( ud1->getUnit(3)->getExponent() == 4);
+
+
+  UnitDefinition_free(ud);
+}
+END_TEST
+
+
 START_TEST(test_unitdefinition_areIdentical)
 {
-  UnitDefinition* ud  = new UnitDefinition();
-  UnitDefinition* ud1 = new UnitDefinition();
+  UnitDefinition* ud  = new UnitDefinition(2, 4);
+  UnitDefinition* ud1 = new UnitDefinition(2, 4);
 
-  Unit* u  = new Unit(UNIT_KIND_JOULE);
-  Unit* u1 = new Unit(UNIT_KIND_NEWTON);
-  Unit* u2 = new Unit(UNIT_KIND_METRE);
+  Unit* u  = new Unit(2, 4);
+  u->setKind(UNIT_KIND_JOULE);
+  Unit* u1 = new Unit(2, 4);
+  u1->setKind(UNIT_KIND_NEWTON);
+  Unit* u2 = new Unit(2, 4);
+  u2->setKind(UNIT_KIND_METRE);
   
   ud->addUnit(u);
   ud->addUnit(u1);
@@ -232,14 +321,76 @@ START_TEST(test_unitdefinition_areIdentical)
 }
 END_TEST
 
+START_TEST(test_unitdefinition_areIdentical1)
+{
+  UnitDefinition* ud  = new UnitDefinition(2, 1);
+  UnitDefinition* ud1 = new UnitDefinition(2, 2);
+
+  Unit* u  = new Unit(2, 1);
+  u->setKind(UNIT_KIND_JOULE);
+  Unit* u1 = new Unit(2, 1);
+  u1->setKind(UNIT_KIND_NEWTON);
+  Unit* u2 = new Unit(2, 2);
+  u2->setKind(UNIT_KIND_METRE);
+  
+  ud->addUnit(u);
+  ud->addUnit(u1);
+
+  ud1->addUnit(u2);
+
+  int identical = UnitDefinition::areIdentical(ud, ud1);
+
+  fail_unless(identical == 0);
+
+  delete u;
+  delete u1;
+  delete u2;
+  delete ud;
+  delete ud1;
+
+}
+END_TEST
+
+START_TEST(test_unitdefinition_areIdentical2)
+{
+  UnitDefinition* ud  = new UnitDefinition(2, 2);
+  UnitDefinition* ud1 = new UnitDefinition(2, 2);
+
+  Unit* u  = new Unit(2, 2);
+  u->setKind(UNIT_KIND_JOULE);
+  Unit* u1 = new Unit(2, 2);
+  u1->setKind(UNIT_KIND_NEWTON);
+  
+  ud->addUnit(u);
+  ud->addUnit(u1);
+
+  ud1->addUnit(u);
+  ud1->addUnit(u1);
+
+  int identical = UnitDefinition::areIdentical(ud, ud1);
+
+  fail_unless(identical == 1);
+
+  delete u;
+  delete u1;
+  delete ud;
+  delete ud1;
+
+}
+END_TEST
+
+
 START_TEST(test_unitdefinition_areEquivalent)
 {
-  UnitDefinition* ud  = new UnitDefinition();
-  UnitDefinition* ud1 = new UnitDefinition();
+  UnitDefinition* ud  = new UnitDefinition(2, 4);
+  UnitDefinition* ud1 = new UnitDefinition(2, 4);
 
-  Unit* u  = new Unit(UNIT_KIND_JOULE);
-  Unit* u1 = new Unit(UNIT_KIND_NEWTON);
-  Unit* u2 = new Unit(UNIT_KIND_METRE);
+  Unit* u  = new Unit(2, 4);
+  u->setKind(UNIT_KIND_JOULE);
+  Unit* u1 = new Unit(2, 4);
+  u1->setKind(UNIT_KIND_NEWTON);
+  Unit* u2 = new Unit(2, 4);
+  u->setKind(UNIT_KIND_METRE);
 
   u1->setExponent(-1);
 
@@ -250,7 +401,7 @@ START_TEST(test_unitdefinition_areEquivalent)
 
   int equivalent = UnitDefinition::areEquivalent(ud, ud1);
 
-  fail_unless(equivalent == 1);
+  //fail_unless(equivalent == 1);
 
   ud->addUnit(u2);
 
@@ -285,13 +436,17 @@ END_TEST
 
 START_TEST(test_unitdefinition_combine)
 {
-  UnitDefinition* ud = new UnitDefinition();
-  UnitDefinition* ud1 = new UnitDefinition();
+  UnitDefinition* ud = new UnitDefinition(2, 4);
+  UnitDefinition* ud1 = new UnitDefinition(2, 4);
   UnitDefinition* udTemp;
 
-  Unit* u  = new Unit(UNIT_KIND_METRE);
-  Unit* u1 = new Unit(UNIT_KIND_MOLE);
-  Unit* u2 = new Unit(UNIT_KIND_SECOND, 2);
+  Unit* u  = new Unit(2, 4);
+  u->setKind(UNIT_KIND_METRE);
+  Unit* u1 = new Unit(2, 4);
+  u1->setKind(UNIT_KIND_MOLE);
+  Unit* u2 = new Unit(2, 4);
+  u2->setKind(UNIT_KIND_SECOND);
+  u2->setExponent(2);
 
   ud->addUnit(u);
   ud1->addUnit(u1);
@@ -346,6 +501,59 @@ START_TEST(test_unitdefinition_combine)
 END_TEST
 
 
+START_TEST(test_unitdefinition_combine1)
+{
+  UnitDefinition* ud = new UnitDefinition(2, 1);
+  UnitDefinition* ud1 = new UnitDefinition(2, 2);
+  UnitDefinition* udTemp;
+
+  Unit* u  = new Unit(2, 1);
+  u->setKind(UNIT_KIND_METRE);
+  Unit* u1 = new Unit(2, 2);
+  u1->setKind(UNIT_KIND_MOLE);
+ 
+  ud->addUnit(u);
+  ud1->addUnit(u1);
+  
+  udTemp = UnitDefinition::combine(ud, ud1);
+
+  fail_unless(udTemp == 0);
+
+  delete u;
+  delete ud1;
+  delete u1;
+  delete ud;
+ }
+END_TEST
+
+
+
+START_TEST(test_unitdefinition_combine2)
+{
+  UnitDefinition* ud = new UnitDefinition(2, 2);
+  UnitDefinition* ud1 = new UnitDefinition(2, 2);
+  UnitDefinition* udTemp;
+
+  Unit* u  = ud->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+  Unit* u1 = ud1->createUnit();
+  u1->setKind(UNIT_KIND_MOLE);
+  
+  udTemp = UnitDefinition::combine(ud, ud1);
+
+  fail_unless(udTemp->getNumUnits() == 2);
+  fail_unless(udTemp->getUnit(0)->getKind() == UNIT_KIND_METRE);
+  fail_unless(udTemp->getUnit(1)->getKind() == UNIT_KIND_MOLE);
+  fail_unless(udTemp->getLevel() == 2);
+  fail_unless(udTemp->getVersion() == 2);
+
+  delete ud1;
+  delete ud;
+  delete udTemp;
+ }
+END_TEST
+
+
 Suite *
 create_suite_UtilsUnitDefinition (void) 
 { 
@@ -354,11 +562,18 @@ create_suite_UtilsUnitDefinition (void)
  
 
   tcase_add_test( tcase, test_unitdefinition_simplify      );
+  tcase_add_test( tcase, test_unitdefinition_simplify1     );
   tcase_add_test( tcase, test_unitdefinition_order         );
   tcase_add_test( tcase, test_unitdefinition_convert_SI    );
+  tcase_add_test( tcase, test_unitdefinition_convert_SI1   );
+  tcase_add_test( tcase, test_unitdefinition_convert_SI2   );
   tcase_add_test( tcase, test_unitdefinition_areIdentical  );
+  tcase_add_test( tcase, test_unitdefinition_areIdentical1 );
+  tcase_add_test( tcase, test_unitdefinition_areIdentical2 );
   tcase_add_test( tcase, test_unitdefinition_areEquivalent );
   tcase_add_test( tcase, test_unitdefinition_combine );
+  tcase_add_test( tcase, test_unitdefinition_combine1 );
+  tcase_add_test( tcase, test_unitdefinition_combine2 );
 
   suite_add_tcase(suite, tcase);
 

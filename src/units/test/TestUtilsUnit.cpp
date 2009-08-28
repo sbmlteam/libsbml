@@ -57,11 +57,15 @@
 
 #include <check.h>
 
+LIBSBML_CPP_NAMESPACE_USE
+
 BEGIN_C_DECLS
 
 START_TEST(test_unit_remove_scale)
 {
-    Unit * u = new Unit(UNIT_KIND_LITRE, 1, -3);
+    Unit * u = new Unit(2, 4);
+    u->setKind(UNIT_KIND_LITRE);
+    u->setScale(-3);
     
     Unit::removeScale(u);
 
@@ -77,8 +81,14 @@ END_TEST
 
 START_TEST(test_unit_merge_units)
 {
-    Unit * u = new Unit(UNIT_KIND_LITRE, 1, -3, 2);
-    Unit * u1 = new Unit(UNIT_KIND_LITRE, 2, 0, 2); 
+    Unit * u = new Unit(2, 4);
+    u->setKind(UNIT_KIND_LITRE);
+    u->setScale(-3);
+    u->setMultiplier(2);
+    Unit * u1 = new Unit(2, 4);
+    u1->setKind(UNIT_KIND_LITRE);
+    u1->setExponent(2);
+    u1->setMultiplier(2); 
     
     Unit::merge(u, u1);
 
@@ -104,7 +114,10 @@ START_TEST(test_unit_convert_SI)
     UnitDefinition * ud;
 
     /* Ampere */
-    Unit * u = new Unit(UNIT_KIND_AMPERE, 1, -3, 2);
+    Unit * u = new Unit(2, 4);
+    u->setKind(UNIT_KIND_AMPERE);
+    u->setScale(-3);
+    u->setMultiplier(2);
     
     ud = Unit::convertToSI(u);
 
@@ -925,8 +938,12 @@ END_TEST
 
 START_TEST(test_unit_areIdentical)
 {
-    Unit * u = new Unit(UNIT_KIND_LITRE, 1, -3);
-    Unit * u1 = new Unit(UNIT_KIND_LITRE, 1, -3);
+    Unit * u = new Unit(2, 4);
+    u->setKind(UNIT_KIND_LITRE);
+    u->setScale(-3);
+    Unit * u1 = new Unit(2, 4);
+    u1->setKind(UNIT_KIND_LITRE);
+    u1->setScale(-3);
     
     int identical = Unit::areIdentical(u, u1);
 
@@ -949,8 +966,11 @@ END_TEST
 
 START_TEST(test_unit_areEquivalent)
 {
-    Unit * u = new Unit(UNIT_KIND_LITRE, 1, 0);
-    Unit * u1 = new Unit(UNIT_KIND_LITRE, 1, -3);
+    Unit * u = new Unit(2, 4);
+    u->setKind(UNIT_KIND_LITRE);
+    Unit * u1 = new Unit(2, 4);
+    u1->setKind(UNIT_KIND_LITRE);
+    u1->setScale(-3);
     
     int equivalent = Unit::areEquivalent(u, u1);
 

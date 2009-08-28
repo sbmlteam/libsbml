@@ -33,6 +33,7 @@
 #include <sbml/xml/XercesHandler.h>
 #include <sbml/xml/XMLError.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygen-libsbml-internal */
 
@@ -167,6 +168,8 @@ private:
 };
 
 /** @endcond doxygen-libsbml-internal */
+
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* XercesParser_h */

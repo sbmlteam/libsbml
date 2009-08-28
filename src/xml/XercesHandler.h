@@ -31,6 +31,7 @@
 #include <sbml/xml/XercesTranscode.h>
 #include <xercesc/sax2/DefaultHandler.hpp>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygen-libsbml-internal */
 
@@ -132,6 +133,8 @@ protected:
 };
 
 /** @endcond doxygen-libsbml-internal */
+
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* XercesHandler_h */

@@ -53,6 +53,7 @@
 
 #include <check.h>
 
+LIBSBML_CPP_NAMESPACE_USE
 
 BEGIN_C_DECLS
 
@@ -82,7 +83,7 @@ START_TEST ( test_LineSegment_create )
 //   fail_unless( SBase_getNotes      ((SBase_t*) LS) == NULL );
 //   fail_unless( SBase_getAnnotation ((SBase_t*) LS) == NULL );
 
-   fail_unless( SBase_isSetId(LS) == 0 );
+   fail_unless( LineSegment_isSetId(LS) == 0 );
    
    Point_t *pos=LineSegment_getStart(LS);
    fail_unless(pos != NULL);
@@ -102,17 +103,17 @@ END_TEST
 START_TEST ( test_SBase_setId )
 {
     const char* id="LineSegment";
-    SBase_setId(LS,id);
-    fail_unless(SBase_isSetId(LS) != 0 );
-    fail_unless(strncmp(id,SBase_getId(LS),strlen(id)) == 0);
+    LineSegment_setId(LS,id);
+    fail_unless(LineSegment_isSetId(LS) != 0 );
+    fail_unless(strncmp(id,LineSegment_getId(LS),strlen(id)) == 0);
 }
 END_TEST
 
 START_TEST ( test_SBase_setId_NULL )
 {
-    SBase_setId(LS,NULL);
-    fail_unless(SBase_isSetId(LS) == 0 );
-    fail_unless(SBase_getId(LS) == NULL);
+    LineSegment_setId(LS,NULL);
+    fail_unless(LineSegment_isSetId(LS) == 0 );
+    fail_unless(LineSegment_getId(LS) == NULL);
 }
 END_TEST
 
@@ -129,7 +130,7 @@ START_TEST ( test_LineSegment_createWithPoints )
 //   fail_unless( SBase_getNotes      ((SBase_t*) ls) == NULL );
 //   fail_unless( SBase_getAnnotation ((SBase_t*) ls) == NULL );
 
-   fail_unless( SBase_isSetId(ls) == 0 );
+   fail_unless( LineSegment_isSetId(ls) == 0 );
    
    Point_t *pos=LineSegment_getStart(ls);
    fail_unless(pos != NULL);
@@ -160,7 +161,7 @@ START_TEST ( test_LineSegment_createWithPoints_NULL )
 //   fail_unless( SBase_getNotes      ((SBase_t*) ls) == NULL );
 //   fail_unless( SBase_getAnnotation ((SBase_t*) ls) == NULL );
 
-   fail_unless( SBase_isSetId(ls) == 0 );
+   fail_unless( LineSegment_isSetId(ls) == 0 );
    
    Point_t *pos=LineSegment_getStart(ls);
    fail_unless(pos != NULL);
@@ -187,7 +188,7 @@ START_TEST ( test_LineSegment_createWithCoordinates )
 //   fail_unless( SBase_getNotes      ((SBase_t*) ls) == NULL );
 //   fail_unless( SBase_getAnnotation ((SBase_t*) ls) == NULL );
 
-   fail_unless( SBase_isSetId(ls) == 0 );
+   fail_unless( LineSegment_isSetId(ls) == 0 );
    
    Point_t *pos=LineSegment_getStart(ls);
    fail_unless(pos != NULL);
@@ -243,7 +244,7 @@ START_TEST ( test_LineSegment_createFrom )
    Point_t* end=Point_createWithCoordinates(-4.4,5.5,-6.6); 
    LineSegment_setStart(LS,start);
    LineSegment_setEnd(LS,end);
-   SBase_setId(LS,"TestID");
+   LineSegment_setId(LS,"TestID");
    LineSegment_t* ls=LineSegment_createFrom(LS);
    
    
@@ -282,11 +283,11 @@ START_TEST ( test_LineSegment_createFrom )
 //     fail_unless(!(c1 || c2));
 //   }
    
-   fail_unless( SBase_isSetId(ls) == SBase_isSetId(LS) );
-   if( SBase_isSetId(ls) )
+   fail_unless( LineSegment_isSetId(ls) == LineSegment_isSetId(LS) );
+   if( LineSegment_isSetId(ls) )
    {
-       c1=SBase_getId(LS);
-       c2=SBase_getId(ls);
+       c1=LineSegment_getId(LS);
+       c2=LineSegment_getId(ls);
        fail_unless( strncmp(c1 , c2 ,strlen( c1 ) + 1 ) == 0);
      
    }

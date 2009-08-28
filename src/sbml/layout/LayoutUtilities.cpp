@@ -46,6 +46,8 @@
 #include "LayoutUtilities.h"
 #include <sbml/xml/XMLAttributes.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 void addSBaseAttributes(const SBase& object,XMLAttributes& att)
 {
    if(object.isSetMetaId())
@@ -66,8 +68,8 @@ void addGraphicalObjectAttributes(const GraphicalObject& object,XMLAttributes& a
 void copySBaseAttributes(const SBase& source,SBase& target)
 {
     target.setMetaId(source.getMetaId());
-    target.setId(source.getId());
-    target.setName(source.getName());
+//    target.setId(source.getId());
+//    target.setName(source.getName());
     target.setSBMLDocument(const_cast<SBMLDocument*>(source.getSBMLDocument()));
     target.setSBOTerm(source.getSBOTerm());
     if(source.isSetAnnotation())
@@ -77,6 +79,10 @@ void copySBaseAttributes(const SBase& source,SBase& target)
     if(source.isSetNotes())
     {
       target.setNotes(new XMLNode(*const_cast<SBase&>(source).getNotes()));
+    }
+    if (source.getSBMLNamespaces())
+    {
+      target.setSBMLNamespaces(source.getSBMLNamespaces());
     }
     List* pCVTerms=target.getCVTerms();
     // first delete all the old CVTerms
@@ -100,3 +106,4 @@ void copySBaseAttributes(const SBase& source,SBase& target)
     }
 }
 
+LIBSBML_CPP_NAMESPACE_END

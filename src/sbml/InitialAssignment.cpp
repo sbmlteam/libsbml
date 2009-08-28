@@ -42,38 +42,38 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
-/*
- * Creates a new InitialAssignment, optionally with its symbol attribute
- * set.
- */
-InitialAssignment::InitialAssignment (const std::string& symbol) :
-   SBase   ( symbol, "", -1 )
+InitialAssignment::InitialAssignment (unsigned int level, unsigned int version) :
+   SBase ( level, version )
+ , mSymbol ( "" )
  , mMath   ( 0      )
 {
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
 
-InitialAssignment::InitialAssignment (unsigned int level, unsigned int version,
-                          XMLNamespaces *xmlns) :
-   SBase ("", "", -1)
+InitialAssignment::InitialAssignment (SBMLNamespaces * sbmlns) :
+   SBase ( sbmlns )
+ , mSymbol ( "" )
  , mMath   ( 0      )
 {
-  mObjectLevel = level;
-  mObjectVersion = version;
-  if (xmlns) setNamespaces(xmlns);;
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
+
+/** @cond doxygen-libsbml-internal */
+
+/* constructor for validators */
+InitialAssignment::InitialAssignment() :
+  SBase()
+{
+}
+
+/** @endcond doxygen-libsbml-internal */
                           
-InitialAssignment::InitialAssignment (SBMLNamespaces *sbmlns) :
-   SBase ("", "", -1)
- , mMath   ( 0      )
-{
-  mObjectLevel = sbmlns->getLevel();
-  mObjectVersion = sbmlns->getVersion();
-  setNamespaces(sbmlns->getNamespaces());
-}
-
 
 /*
  * Destroys this InitialAssignment.
@@ -89,9 +89,14 @@ InitialAssignment::~InitialAssignment ()
  */
 InitialAssignment::InitialAssignment (const InitialAssignment& orig) :
    SBase   ( orig )
+ , mSymbol ( orig.mSymbol)
  , mMath   ( 0    )
 {
-  if (orig.mMath) mMath = orig.mMath->deepCopy();
+  if (orig.mMath) 
+  {
+    mMath = orig.mMath->deepCopy();
+    mMath->setParentSBMLObject(this);
+  }
 }
 
 
@@ -103,12 +108,18 @@ InitialAssignment& InitialAssignment::operator=(const InitialAssignment& rhs)
   if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
+    this->mSymbol = rhs.mSymbol;
 
     delete mMath;
     if (rhs.mMath) 
+    {
       mMath = rhs.mMath->deepCopy();
+      mMath->setParentSBMLObject(this);
+    }
     else
+    {
       mMath = 0;
+    }
   }
 
   return *this;
@@ -145,7 +156,7 @@ InitialAssignment::clone () const
 const string&
 InitialAssignment::getSymbol () const
 {
-  return getId();
+  return mSymbol;
 }
 
 
@@ -166,7 +177,7 @@ InitialAssignment::getMath () const
 bool
 InitialAssignment::isSetSymbol () const
 {
-  return isSetId();
+  return (mSymbol.empty() == false);
 }
 
 
@@ -184,10 +195,18 @@ InitialAssignment::isSetMath () const
 /*
  * Sets the symbol of this InitialAssignment to a copy of sid.
  */
-void
+int
 InitialAssignment::setSymbol (const std::string& sid)
 {
-  setId(sid);
+  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mSymbol = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -195,15 +214,30 @@ InitialAssignment::setSymbol (const std::string& sid)
  * Sets the math of this InitialAssignment to a copy of the given
  * ASTNode.
  */
-void
+int
 InitialAssignment::setMath (const ASTNode* math)
 {
-  if (mMath == math) return;
-
-
-  delete mMath;
-  mMath = (math != 0) ? math->deepCopy() : 0;
-  if (mMath) mMath->setParentSBMLObject(this);
+  if (mMath == math) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (math == NULL)
+  {
+    delete mMath;
+    mMath = 0;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (!(math->isWellFormedASTNode()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else
+  {
+    delete mMath;
+    mMath = (math != 0) ? math->deepCopy() : 0;
+    if (mMath) mMath->setParentSBMLObject(this);
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -323,6 +357,34 @@ InitialAssignment::getElementName () const
 {
   static const string name = "initialAssignment";
   return name;
+}
+
+
+bool 
+InitialAssignment::hasRequiredAttributes() const
+{
+  bool allPresent = true;
+
+  /* required attributes for initialAssignment: symbol */
+
+  if (!isSetSymbol())
+    allPresent = false;
+
+  return allPresent;
+}
+
+
+bool 
+InitialAssignment::hasRequiredElements() const
+{
+  bool allPresent = true;
+
+  /* required attributes for initialAssignment: math */
+
+  if (!isSetMath())
+    allPresent = false;
+
+  return allPresent;
 }
 
 
@@ -457,12 +519,12 @@ InitialAssignment::readAttributes (const XMLAttributes& attributes)
   //
   // symbol: SId  { use="required" }  (L2v2 -> )
   //
-  bool assigned = attributes.readInto("symbol", mId, getErrorLog(), true);
-  if (assigned && mId.size() == 0)
+  bool assigned = attributes.readInto("symbol", mSymbol, getErrorLog(), true);
+  if (assigned && mSymbol.size() == 0)
   {
     logEmptyString("symbol", level, version, "<initialAssignment>");
   }
-  SBase::checkIdSyntax();
+  if (!SyntaxChecker::isValidSBMLSId(mSymbol)) logError(InvalidIdSyntax);
 
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
@@ -489,7 +551,7 @@ InitialAssignment::writeAttributes (XMLOutputStream& stream) const
   //
   // symbol: SId  { use="required" }  (L2v2)
   //
-  stream.writeAttribute("symbol", mId);
+  stream.writeAttribute("symbol", mSymbol);
 
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
@@ -548,11 +610,25 @@ ListOfInitialAssignments::get(unsigned int n) const
 }
 
 
+/**
+ * Used by ListOf::get() to lookup an SBase based by its id.
+ */
+struct IdEqIA : public unary_function<SBase*, bool>
+{
+  const string& id;
+
+  IdEqIA (const string& id) : id(id) { }
+  bool operator() (SBase* sb) 
+       { return static_cast <InitialAssignment *> (sb)->getId() == id; }
+};
+
+
 /* return item by id */
 InitialAssignment*
 ListOfInitialAssignments::get (const std::string& sid)
 {
-  return static_cast<InitialAssignment*>(ListOf::get(sid));
+  return const_cast<InitialAssignment*>( 
+    static_cast<const ListOfInitialAssignments&>(*this).get(sid) );
 }
 
 
@@ -560,7 +636,10 @@ ListOfInitialAssignments::get (const std::string& sid)
 const InitialAssignment*
 ListOfInitialAssignments::get (const std::string& sid) const
 {
-  return static_cast<const InitialAssignment*>(ListOf::get(sid));
+  vector<SBase*>::const_iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqIA(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <InitialAssignment*> (*result);
 }
 
 
@@ -576,7 +655,18 @@ ListOfInitialAssignments::remove (unsigned int n)
 InitialAssignment*
 ListOfInitialAssignments::remove (const std::string& sid)
 {
-   return static_cast<InitialAssignment*>(ListOf::remove(sid));
+  SBase* item = 0;
+  vector<SBase*>::iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqIA(sid) );
+
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
+  }
+
+  return static_cast <InitialAssignment*> (item);
 }
 
 
@@ -607,8 +697,22 @@ ListOfInitialAssignments::createObject (XMLInputStream& stream)
 
   if (name == "initialAssignment")
   {
-    object = new InitialAssignment();
-    mItems.push_back(object);
+    try
+    {
+      object = new InitialAssignment(getSBMLNamespaces());
+    }
+    catch (SBMLConstructorException*)
+    {
+      object = new InitialAssignment(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    catch ( ... )
+    {
+      object = new InitialAssignment(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    
+    if (object) mItems.push_back(object);
   }
 
   return object;
@@ -620,69 +724,73 @@ ListOfInitialAssignments::createObject (XMLInputStream& stream)
 /** @cond doxygen-c-only */
 
 
-
 /**
- * Creates a new, empty InitialAssignment_t structure and returns a pointer
- * to it.
- */
-LIBSBML_EXTERN
-InitialAssignment_t *
-InitialAssignment_create ()
-{
-  return new(nothrow) InitialAssignment;
-}
-
-
-/**
- * Creates a new InitialAssignment_t structure, optionally with its "symbol"
- * attribute value set.
+ * Creates a new InitialAssignment_t structure using the given SBML @p level
+ * and @p version values.
  *
- * @param symbol an identifier to assign as the value of the "symbol"
- * attribute of this InitialAssignment_t structure
- *
- * @return the newly-created InitialAssignment_t structure
- */
-LIBSBML_EXTERN
-InitialAssignment_t *
-InitialAssignment_createWithSymbol (const char *symbol)
-{
-  return new(nothrow) InitialAssignment(symbol ? symbol : "");
-}
-
-
-/** @cond doxygen-libsbml-internal */
-/**
- * Creates a new InitialAssignment_t structure using the given SBML @p 
- * level and @p version values and a set of XMLNamespaces.
- *
- * @param level an unsigned int, the SBML Level to assign to this 
+ * @param level an unsigned int, the SBML Level to assign to this
  * InitialAssignment
  *
  * @param version an unsigned int, the SBML Version to assign to this
  * InitialAssignment
- * 
- * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
- * assign to this InitialAssignment
  *
  * @return a pointer to the newly created InitialAssignment_t structure.
  *
- * @note Once a InitialAssignment has been added to an SBMLDocument, the @p 
- * level, @p version and @p xmlns namespaces for the document @em override 
- * those used to create the InitialAssignment.  Despite this, the ability 
- * to supply the values at creation time is an important aid to creating 
- * valid SBML.  Knowledge of the intended SBML Level and Version 
- * determine whether it is valid to assign a particular value to an 
- * attribute, or whether it is valid to add an object to an existing 
- * SBMLDocument.
+ * @note Once a InitialAssignment has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the InitialAssignment.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
  */
 LIBSBML_EXTERN
 InitialAssignment_t *
-InitialAssignment_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns)
+InitialAssignment_create (unsigned int level, unsigned int version)
 {
-  return new(nothrow) InitialAssignment(level, version, xmlns);
+  try
+  {
+    InitialAssignment* obj = new InitialAssignment(level,version);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
 }
-/** @endcond doxygen-libsbml-internal */
+
+
+/**
+ * Creates a new InitialAssignment_t structure using the given
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this InitialAssignment
+ *
+ * @return a pointer to the newly created InitialAssignment_t structure.
+ *
+ * @note Once a InitialAssignment has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the InitialAssignment.  Despite this, the ability to supply the values at 
+ * creation time is an important aid to creating valid SBML.  Knowledge of the 
+ * intended SBML Level and Version determine whether it is valid to assign a 
+ * particular value to an attribute, or whether it is valid to add an object to 
+ * an existing SBMLDocument.
+ */
+LIBSBML_EXTERN
+InitialAssignment_t *
+InitialAssignment_createWithNS (SBMLNamespaces_t* sbmlns)
+{
+  try
+  {
+    InitialAssignment* obj = new InitialAssignment(sbmlns);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
 
 
 /**
@@ -803,12 +911,22 @@ InitialAssignment_isSetMath (const InitialAssignment_t *ia)
  *
  * @param sid, the identifier of a Species, Compartment or Parameter
  * object defined elsewhere in this Model.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "symbol" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 InitialAssignment_setSymbol (InitialAssignment_t *ia, const char *sid)
 {
-  ia->setSymbol(sid ? sid : "");
+  return ia->setSymbol(sid ? sid : "");
 }
 
 
@@ -821,12 +939,19 @@ InitialAssignment_setSymbol (InitialAssignment_t *ia, const char *sid)
  *
  * @param math an ASTNode tree containing the mathematical expression to
  * be used as the formula for this InitialAssignment.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
-void
+int
 InitialAssignment_setMath (InitialAssignment_t *ia, const ASTNode_t *math)
 {
-  ia->setMath(math);
+  return ia->setMath(math);
 }
 
 /**
@@ -880,4 +1005,32 @@ InitialAssignment_containsUndeclaredUnits(InitialAssignment_t *ia)
 }
 
 
+/**
+ * @return item in this ListOfInitialAssignment with the given id or NULL if no such
+ * item exists.
+ */
+LIBSBML_EXTERN
+InitialAssignment_t *
+ListOfInitialAssignments_getById (ListOf_t *lo, const char *sid)
+{
+  return (sid != NULL) ? 
+    static_cast <ListOfInitialAssignments *> (lo)->get(sid) : NULL;
+}
+
+
+/**
+ * Removes item in this ListOf items with the given id or NULL if no such
+ * item exists.  The caller owns the returned item and is responsible for
+ * deleting it.
+ */
+LIBSBML_EXTERN
+InitialAssignment_t *
+ListOfInitialAssignments_removeById (ListOf_t *lo, const char *sid)
+{
+  return (sid != NULL) ? 
+    static_cast <ListOfInitialAssignments *> (lo)->remove(sid) : NULL;
+}
+
 /** @endcond doxygen-c-only */
+
+LIBSBML_CPP_NAMESPACE_END

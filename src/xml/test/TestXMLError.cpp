@@ -29,6 +29,7 @@
 /** @cond doxygen-ignored */
 
 using namespace std;
+LIBSBML_CPP_NAMESPACE_USE
 
 /** @endcond doxygen-ignored */
 
@@ -89,6 +90,26 @@ START_TEST (test_XMLError_create)
 END_TEST
 
 
+START_TEST (test_XMLError_setters)
+{
+  XMLError* error = new XMLError;
+  fail_unless( error != 0 );
+
+  int i = error->setLine(23);
+
+  fail_unless(i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( error->getLine() == 23);
+
+  i = error->setColumn(45);
+
+  fail_unless(i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( error->getColumn() == 45);
+
+  delete error;
+}
+END_TEST
+
+
 Suite *
 create_suite_XMLError (void)
 {
@@ -96,6 +117,7 @@ create_suite_XMLError (void)
   TCase *tcase = tcase_create("XMLError");
 
   tcase_add_test( tcase, test_XMLError_create  );
+  tcase_add_test( tcase, test_XMLError_setters  );
   suite_add_tcase(suite, tcase);
 
   return suite;

@@ -70,7 +70,7 @@ static Event_t *E;
 void
 EventTest_setup (void)
 {
-  E = Event_create();
+  E = Event_create(2, 4);
 
   if (E == NULL)
   {
@@ -104,30 +104,30 @@ START_TEST (test_Event_create)
 END_TEST
 
 
-START_TEST (test_Event_createWith)
-{
-  Event_t   *e       = Event_createWith("e1", "");
-
-
-  fail_unless( SBase_getTypeCode  ((SBase_t *) e) == SBML_EVENT );
-  fail_unless( SBase_getMetaId    ((SBase_t *) e) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) e) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) e) == NULL );
-
-  fail_unless( Event_getName      (e) == NULL );
-  fail_unless( Event_getDelay     (e) == NULL );
-  fail_unless( Event_getTimeUnits (e) == NULL );
-
-  fail_unless( Event_getNumEventAssignments(e) == 0 );
-
-  fail_unless( !Event_isSetTrigger(e) );
-
-  fail_unless( !strcmp(Event_getId(e), "e1") );
-  fail_unless( Event_isSetId(e) );
-
-  Event_free(e);
-}
-END_TEST
+//START_TEST (test_Event_createWith)
+//{
+//  Event_t   *e       = Event_createWith("e1", "");
+//
+//
+//  fail_unless( SBase_getTypeCode  ((SBase_t *) e) == SBML_EVENT );
+//  fail_unless( SBase_getMetaId    ((SBase_t *) e) == NULL );
+//  fail_unless( SBase_getNotes     ((SBase_t *) e) == NULL );
+//  fail_unless( SBase_getAnnotation((SBase_t *) e) == NULL );
+//
+//  fail_unless( Event_getName      (e) == NULL );
+//  fail_unless( Event_getDelay     (e) == NULL );
+//  fail_unless( Event_getTimeUnits (e) == NULL );
+//
+//  fail_unless( Event_getNumEventAssignments(e) == 0 );
+//
+//  fail_unless( !Event_isSetTrigger(e) );
+//
+//  fail_unless( !strcmp(Event_getId(e), "e1") );
+//  fail_unless( Event_isSetId(e) );
+//
+//  Event_free(e);
+//}
+//END_TEST
 
 
 START_TEST (test_Event_free_NULL)
@@ -169,7 +169,7 @@ END_TEST
 
 START_TEST (test_Event_setName)
 {
-  char *name = "Set k2 to zero when P1 <= t";
+  char *name = "Set_k2";
 
 
   Event_setName(E, name);
@@ -200,7 +200,8 @@ END_TEST
 START_TEST (test_Event_setTrigger)
 {
   ASTNode_t         *math1   = SBML_parseFormula("0");
-  const Trigger_t   *trigger = Trigger_createWithMath(math1);
+  Trigger_t   *trigger = Trigger_create(2, 4);
+  Trigger_setMath(trigger, math1);
 
 
   Event_setTrigger(E, trigger);
@@ -231,7 +232,8 @@ END_TEST
 START_TEST (test_Event_setDelay)
 {
   ASTNode_t         *math1   = SBML_parseFormula("0");
-  const Delay_t   *Delay = Delay_createWithMath(math1);
+  Delay_t   *Delay = Delay_create(2, 4);
+  Delay_setMath(Delay, math1);
 
 
   Event_setDelay(E, Delay);
@@ -261,30 +263,33 @@ END_TEST
 
 START_TEST (test_Event_setTimeUnits)
 {
+  Event_t *E1 = Event_create(2, 1);
   char *units = "second";
 
 
-  Event_setTimeUnits(E, units);
+  Event_setTimeUnits(E1, units);
 
-  fail_unless( !strcmp(Event_getTimeUnits(E), units) );
-  fail_unless( Event_isSetTimeUnits(E) );
+  fail_unless( !strcmp(Event_getTimeUnits(E1), units) );
+  fail_unless( Event_isSetTimeUnits(E1) );
 
-  if (Event_getTimeUnits(E) == units)
+  if (Event_getTimeUnits(E1) == units)
   {
     fail("Event_setTimeUnits(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  Event_setTimeUnits(E, Event_getTimeUnits(E));
-  fail_unless( !strcmp(Event_getTimeUnits(E), units) );
+  Event_setTimeUnits(E1, Event_getTimeUnits(E1));
+  fail_unless( !strcmp(Event_getTimeUnits(E1), units) );
 
-  Event_setTimeUnits(E, NULL);
-  fail_unless( !Event_isSetTimeUnits(E) );
+  Event_setTimeUnits(E1, NULL);
+  fail_unless( !Event_isSetTimeUnits(E1) );
 
-  if (Event_getTimeUnits(E) != NULL)
+  if (Event_getTimeUnits(E1) != NULL)
   {
     fail("Event_setTimeUnits(E, NULL) did not clear string.");
   }
+
+  Event_free(E1);
 }
 END_TEST
 
@@ -292,12 +297,18 @@ END_TEST
 START_TEST (test_Event_full)
 {
   ASTNode_t         *math1   = SBML_parseFormula("0");
-  const Trigger_t   *trigger = Trigger_createWithMath(math1);
+  Trigger_t   *trigger = Trigger_create(2, 4);
   ASTNode_t         *math    = SBML_parseFormula("0");
-  Event_t           *e       = Event_createWith("e1", "");
-  EventAssignment_t *ea      = EventAssignment_createWithVarAndMath("k", math);
+  Event_t           *e       = Event_create(2, 4);
+  EventAssignment_t *ea      = EventAssignment_create(2, 4);
+  EventAssignment_setVariable(ea, "k");
+  EventAssignment_setMath(ea, math);
+  
+  Trigger_setMath(trigger, math1);
+  
   Event_setTrigger(e, trigger);
 
+  Event_setId(e, "e1");
   Event_setName(e, "Set k2 to zero when P1 <= t");
   Event_addEventAssignment(e, ea);
 
@@ -312,24 +323,31 @@ END_TEST
 
 START_TEST (test_Event_setUseValuesFromTriggerTime)
 {
-  Event_setUseValuesFromTriggerTime(E, 0);
+  Event_t *object = 
+    Event_create(2, 4);
 
-  fail_unless( Event_getUseValuesFromTriggerTime(E) == 0 );
+  Event_setUseValuesFromTriggerTime(object, 0);
 
-  Event_setUseValuesFromTriggerTime(E, 1);
+  fail_unless( Event_getUseValuesFromTriggerTime(object) == 0 );
 
-  fail_unless( Event_getUseValuesFromTriggerTime(E) == 1 );
+  Event_setUseValuesFromTriggerTime(object, 1);
+
+  fail_unless( Event_getUseValuesFromTriggerTime(object) == 1 );
+
+  Event_free(object);
 }
 END_TEST
 
 
-START_TEST (test_Event_createWithLevelVersionAndNamespace)
+START_TEST (test_Event_createWithNS )
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
-  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "testsbml");
+  SBMLNamespaces_t *sbmlns = SBMLNamespaces_create(2,4);
+  SBMLNamespaces_addNamespaces(sbmlns,xmlns);
 
   Event_t *object = 
-    Event_createWithLevelVersionAndNamespaces(2, 4, xmlns);
+    Event_createWithNS (sbmlns);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_EVENT );
@@ -341,12 +359,35 @@ START_TEST (test_Event_createWithLevelVersionAndNamespace)
   fail_unless( SBase_getVersion     ((SBase_t *) object) == 4 );
 
   fail_unless( Event_getNamespaces     (object) != NULL );
-  fail_unless( XMLNamespaces_getLength(Event_getNamespaces(object)) == 1 );
+  fail_unless( XMLNamespaces_getLength(Event_getNamespaces(object)) == 2 );
 
   Event_free(object);
 }
 END_TEST
 
+
+START_TEST (test_Event_removeEventAssignment)
+{
+  EventAssignment_t *o1, *o2, *o3;
+
+  o1 = Event_createEventAssignment(E);
+  o2 = Event_createEventAssignment(E);
+  o3 = Event_createEventAssignment(E);
+  EventAssignment_setVariable(o3,"test");
+
+  fail_unless( Event_removeEventAssignment(E,0) == o1 );
+  fail_unless( Event_getNumEventAssignments(E)  == 2  );
+  fail_unless( Event_removeEventAssignment(E,0) == o2 );
+  fail_unless( Event_getNumEventAssignments(E)  == 1  );
+  fail_unless( Event_removeEventAssignmentByVar(E,"test") == o3 );
+  fail_unless( Event_getNumEventAssignments(E)  == 0  );
+
+  EventAssignment_free(o1);
+  EventAssignment_free(o2);
+  EventAssignment_free(o3);
+
+}
+END_TEST
 
 Suite *
 create_suite_Event (void)
@@ -360,7 +401,7 @@ create_suite_Event (void)
                              EventTest_teardown );
 
   tcase_add_test( tcase, test_Event_create       );
-  tcase_add_test( tcase, test_Event_createWith   );
+  //tcase_add_test( tcase, test_Event_createWith   );
   tcase_add_test( tcase, test_Event_free_NULL    );
   tcase_add_test( tcase, test_Event_setId        );
   tcase_add_test( tcase, test_Event_setName      );
@@ -369,7 +410,8 @@ create_suite_Event (void)
   tcase_add_test( tcase, test_Event_setTimeUnits );
   tcase_add_test( tcase, test_Event_full         );
   tcase_add_test( tcase, test_Event_setUseValuesFromTriggerTime );
-  tcase_add_test( tcase, test_Event_createWithLevelVersionAndNamespace        );
+  tcase_add_test( tcase, test_Event_createWithNS         );
+  tcase_add_test( tcase, test_Event_removeEventAssignment  );
 
   suite_add_tcase(suite, tcase);
 

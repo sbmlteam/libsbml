@@ -58,6 +58,7 @@
 
 #include <string>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class SBMLDocument;
 
@@ -230,10 +231,11 @@ protected:
   /** @endcond doxygen-libsbml-internal */
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif /* __cplusplus */
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
@@ -404,6 +406,6 @@ readSBMLFromString (const char *xml);
 
 
 END_C_DECLS
-
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* SBMLReader_h */

@@ -61,10 +61,13 @@
 #include <sbml/SBase.h>
 #include <sbml/layout/BoundingBox.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN GraphicalObject : public SBase
 {
 protected:
+
+  std::string mId;
 
   BoundingBox mBoundingBox;
         
@@ -144,8 +147,30 @@ public:
   void initDefaults ();
 
   /**
-   * Gets the id for the GraphicalObject.
+   * Returns the value of the "id" attribute of this GraphicalObject.
    */
+  const std::string& getId () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * GraphicalObject's "id" attribute has been set.
+   */
+  bool isSetId () const;
+
+  
+  /**
+   * Sets the value of the "id" attribute of this GraphicalObject.
+   */
+  int setId (std::string id);
+
+
+  /**
+   * Unsets the value of the "id" attribute of this GraphicalObject.
+   */
+  void unsetId ();
+
+
   
   /**
    * Sets the boundingbox for the GraphicalObject.
@@ -243,13 +268,14 @@ protected:
 
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif /* __cplusplus */
 
 
 #ifndef SWIG
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
@@ -306,8 +332,27 @@ GraphicalObject_t *
 GraphicalObject_clone (const GraphicalObject_t *m);
 
 
-END_C_DECLS
+LIBSBML_EXTERN
+int
+GraphicalObject_isSetId (const GraphicalObject_t *go);
 
+LIBSBML_EXTERN
+const char *
+GraphicalObject_getId (const GraphicalObject_t *go);
+
+
+LIBSBML_EXTERN
+int
+GraphicalObject_setId (GraphicalObject_t *go, const char *sid);
+
+
+LIBSBML_EXTERN
+void
+GraphicalObject_unsetId (GraphicalObject_t *go);
+
+
+END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
 #endif  /* GraphicalObject_H__ */

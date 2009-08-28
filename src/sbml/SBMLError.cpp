@@ -37,6 +37,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygen-libsbml-internal **/
 /** 
@@ -331,3 +332,4 @@ SBMLError::print(ostream& s) const
 }
 
 /** @endcond doxygen-libsbml-internal **/
+LIBSBML_CPP_NAMESPACE_END

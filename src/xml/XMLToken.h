@@ -46,6 +46,7 @@
 
 #include <string>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygen-libsbml-internal */
 class XMLOutputStream;
@@ -205,9 +206,16 @@ public:
    *
    * @param attributes XMLAttributes to be set to this XMLToken.
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_XML_OPERATION
+   *
    * @note This function replaces the existing XMLAttributes with the new one.
    */
-  void setAttributes(const XMLAttributes& attributes);
+  int setAttributes(const XMLAttributes& attributes);
 
 
   /**
@@ -219,6 +227,13 @@ public:
    * @param value a string, the value of the attribute.
    * @param namespaceURI a string, the namespace URI of the attribute.
    * @param prefix a string, the prefix of the namespace
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_XML_OPERATION
    *
    * @note if local name with the same namespace URI already exists in the
    * attribute set, its value and prefix will be replaced.
@@ -235,7 +250,7 @@ public:
    * other variants of this method near where this one appears in the
    * documentation.
    */
-  void addAttr (  const std::string& name
+  int addAttr (  const std::string& name
 	        , const std::string& value
 	        , const std::string& namespaceURI = ""
 	        , const std::string& prefix = "");
@@ -250,8 +265,15 @@ public:
    *
    * @param triple an XMLTriple, the XML triple of the attribute.
    * @param value a string, the value of the attribute.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_XML_OPERATION
    */
-   void addAttr ( const XMLTriple& triple, const std::string& value);
+   int addAttr ( const XMLTriple& triple, const std::string& value);
 
 
   /**
@@ -260,8 +282,16 @@ public:
    * Nothing will be done if this XMLToken is not a start element.
    *
    * @param n an integer the index of the resource to be deleted
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_XML_OPERATION
+   * @li LIBSBML_INDEX_EXCEEDS_SIZE
    */
-  void removeAttr (int n);
+  int removeAttr (int n);
 
 
   /**
@@ -271,8 +301,16 @@ public:
    *
    * @param name   a string, the local name of the attribute.
    * @param uri    a string, the namespace URI of the attribute.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_XML_OPERATION
+   * @li LIBSBML_INDEX_EXCEEDS_SIZE
    */
-  void removeAttr (const std::string& name, const std::string& uri = "");
+  int removeAttr (const std::string& name, const std::string& uri = "");
 
 
   /**
@@ -281,15 +319,30 @@ public:
    * Nothing will be done if this XMLToken is not a start element.
    *
    * @param triple an XMLTriple, the XML triple of the attribute.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_XML_OPERATION
+   * @li LIBSBML_INDEX_EXCEEDS_SIZE
    */
-  void removeAttr (const XMLTriple& triple); 
+  int removeAttr (const XMLTriple& triple); 
 
 
   /**
    * Clears (deletes) all attributes in this XMLToken.
    * Nothing will be done if this XMLToken is not a start element.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_XML_OPERATION
    */
-  void clearAttributes();
+  int clearAttributes();
 
 
   /**
@@ -535,9 +588,16 @@ public:
    *
    * @param namespaces XMLNamespaces to be set to this XMLToken.
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_XML_OPERATION
+   *
    * @note This function replaces the existing XMLNamespaces with the new one.
    */
-  void setNamespaces(const XMLNamespaces& namespaces);
+  int setNamespaces(const XMLNamespaces& namespaces);
 
 
   /**
@@ -549,6 +609,13 @@ public:
    *
    * @param uri a string, the uri for the namespace
    * @param prefix a string, the prefix for the namespace
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_XML_OPERATION
    *
    * @docnote The native C++ implementation of this method defines a
    * default argument value.  In the documentation generated for different
@@ -562,7 +629,7 @@ public:
    * other variants of this method near where this one appears in the
    * documentation.
    */
-  void addNamespace (const std::string& uri, const std::string& prefix = "");
+  int addNamespace (const std::string& uri, const std::string& prefix = "");
 
 
   /**
@@ -571,8 +638,16 @@ public:
    * Nothing will be done if this XMLToken is not a start element.
    *
    * @param index an integer, position of the removed namespace.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_XML_OPERATION
+   * @li LIBSBML_INDEX_EXCEEDS_SIZE
    */
-  void removeNamespace (int index);
+  int removeNamespace (int index);
 
 
   /**
@@ -580,16 +655,31 @@ public:
    * Nothing will be done if this XMLToken is not a start element.
    *
    * @param prefix a string, prefix of the required namespace.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_XML_OPERATION
+   * @li LIBSBML_INDEX_EXCEEDS_SIZE
    */
-  void removeNamespace (const std::string& prefix);
+  int removeNamespace (const std::string& prefix);
 
 
   /**
    * Clears (deletes) all XML namespace declarations in the XMLNamespaces of
    * this XMLToken.
    * Nothing will be done if this XMLToken is not a start element.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_XML_OPERATION
    */
-  void clearNamespaces ();
+  int clearNamespaces ();
 
 
   /**
@@ -747,8 +837,15 @@ public:
    * Nothing will be done if this XML element is a text node.
    *
    * @param triple XMLTriple to be added to this XML element.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_XML_OPERATION
    */
-  void setTriple(const XMLTriple& triple);
+  int setTriple(const XMLTriple& triple);
 
 
   /**
@@ -790,8 +887,15 @@ public:
    * Appends characters to this XML text content.
    *
    * @param chars string, characters to append
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  void append (const std::string& chars);
+  int append (const std::string& chars);
 
   
   /**
@@ -872,20 +976,41 @@ public:
 
   /**
    * Declares this XML start element is also an end element.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  void setEnd ();
+  int setEnd ();
 
 
   /**
    * Declares this XMLToken is an end-of-file (input) marker.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  void setEOF ();
+  int setEOF ();
 
 
   /**
    * Declares this XML start/end element is no longer an end element.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  void unsetEnd ();
+  int unsetEnd ();
 
 
   /** @cond doxygen-libsbml-internal */
@@ -946,10 +1071,13 @@ protected:
   /** @endcond doxygen-libsbml-internal */
 };
 
+LIBSBML_CPP_NAMESPACE_END
+
 #endif  /* __cplusplus */
 
 #ifndef SWIG
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /*-----------------------------------------------------------------------------
@@ -995,7 +1123,7 @@ XMLToken_clone (const XMLToken_t* c);
 
 
 LIBLAX_EXTERN
-void
+int
 XMLToken_append (XMLToken_t *token, const char *text);
 
 
@@ -1021,17 +1149,17 @@ XMLToken_getLine (const XMLToken_t *token);
 
 
 LIBLAX_EXTERN
-void 
+int 
 XMLToken_setAttributes (XMLToken_t *token, const XMLAttributes_t* attributes);
 
 
 LIBLAX_EXTERN
-void 
+int 
 XMLToken_addAttr ( XMLToken_t *token,  const char* name, const char* value );
 		   
 
 LIBLAX_EXTERN
-void 
+int 
 XMLToken_addAttrWithNS ( XMLToken_t *token,  const char* name
 	                , const char* value
     	                , const char* namespaceURI
@@ -1039,32 +1167,32 @@ XMLToken_addAttrWithNS ( XMLToken_t *token,  const char* name
 
 
 LIBLAX_EXTERN
-void 
+int 
 XMLToken_addAttrWithTriple (XMLToken_t *token, const XMLTriple_t *triple, const char* value);
 
 
 LIBLAX_EXTERN
-void 
+int 
 XMLToken_removeAttr (XMLToken_t *token, int n);
 
 
 LIBLAX_EXTERN
-void 
+int 
 XMLToken_removeAttrByName (XMLToken_t *token, const char* name);
 
 
 LIBLAX_EXTERN
-void 
+int 
 XMLToken_removeAttrByNS (XMLToken_t *token, const char* name, const char* uri);
 
 
 LIBLAX_EXTERN
-void 
+int 
 XMLToken_removeAttrByTriple (XMLToken_t *token, const XMLTriple_t *triple);
 
 
 LIBLAX_EXTERN
-void 
+int 
 XMLToken_clearAttributes(XMLToken_t *token);
 
 
@@ -1154,27 +1282,27 @@ XMLToken_getNamespaces (const XMLToken_t *token);
 
 
 LIBLAX_EXTERN
-void 
+int 
 XMLToken_setNamespaces(XMLToken_t *token, const XMLNamespaces_t* namespaces);
 
 
 LIBLAX_EXTERN
-void 
+int 
 XMLToken_addNamespace (XMLToken_t *token, const char* uri, const char* prefix);
 
 
 LIBLAX_EXTERN
-void 
+int 
 XMLToken_removeNamespace (XMLToken_t *token, int index);
 
 
 LIBLAX_EXTERN
-void 
+int 
 XMLToken_removeNamespaceByPrefix (XMLToken_t *token, const char* prefix);
 
 
 LIBLAX_EXTERN
-void 
+int 
 XMLToken_clearNamespaces (XMLToken_t *token);
 
 
@@ -1234,7 +1362,7 @@ XMLToken_hasNamespaceNS(const XMLToken_t *token, const char* uri, const char* pr
                         
 
 LIBLAX_EXTERN
-void 
+int 
 XMLToken_setTriple(XMLToken_t *token, const XMLTriple_t *triple);
 
 
@@ -1284,21 +1412,22 @@ XMLToken_isText (const XMLToken_t *token);
 
 
 LIBLAX_EXTERN
-void
+int
 XMLToken_setEnd (XMLToken_t *token);
 
 
 LIBLAX_EXTERN
-void
+int
 XMLToken_setEOF (XMLToken_t *token);
 
 
 LIBLAX_EXTERN
-void
+int
 XMLToken_unsetEnd (XMLToken_t *token);
 
 
 END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
 #endif  /* XMLToken_h */

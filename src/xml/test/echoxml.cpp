@@ -36,6 +36,7 @@
 /** @cond doxygen-ignored */
 
 using namespace std;
+LIBSBML_CPP_NAMESPACE_USE
 
 /** @endcond doxygen-ignored */
 

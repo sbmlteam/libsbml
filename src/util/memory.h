@@ -26,10 +26,10 @@
 #ifndef memory_h
 #define memory_h
 
+#include <sbml/common/extern.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+LIBSBML_CPP_NAMESPACE_BEGIN
+BEGIN_C_DECLS
 
 
 /**
@@ -270,10 +270,9 @@ MemTrace_MemInfoList_remove (MemInfoList_t *list, const void *address);
 
 #endif  /** TRACE_MEMORY **/
 
+END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif  /** memory_h **/
 

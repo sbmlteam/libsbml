@@ -282,6 +282,165 @@ START_TEST (test_XMLNode_convert)
 }
 END_TEST
 
+START_TEST (test_XMLNode_convert_dummyroot)
+{
+  const char* xmlstr_nodummy1 = "<notes>\n"
+                                "  <p>test</p>\n"
+                                "</notes>";
+  const char* xmlstr_nodummy2 = "<html>\n"
+                                "  <p>test</p>\n"
+                                "</html>";
+  const char* xmlstr_nodummy3 = "<body>\n"
+                                "  <p>test</p>\n"
+                                "</body>";
+  const char* xmlstr_nodummy4 = "<p>test</p>";
+  const char* xmlstr_nodummy5 = "<test1>\n"
+                                "  <test2>test</test2>\n"
+                                "</test1>";
+
+  const char* xmlstr_dummy1 = "<p>test1</p><p>test2</p>";
+  const char* xmlstr_dummy2 = "<test1>test1</test1><test2>test2</test2>";
+
+  XMLNode_t       *rootnode;
+  const XMLNode_t *child, *gchild;
+  const XMLAttributes_t *attr;
+  const XMLNamespaces_t *ns;
+  char *toxmlstring;
+
+  // xmlstr_nodummy1 
+
+  rootnode   = XMLNode_convertStringToXMLNode(xmlstr_nodummy1, NULL);
+  fail_unless(XMLNode_getNumChildren(rootnode) == 1);
+
+  child  = XMLNode_getChild(rootnode,0);
+  gchild = XMLNode_getChild(child,0);
+
+  fail_unless(strcmp(XMLNode_getName(rootnode), "notes") == 0);
+  fail_unless(strcmp(XMLNode_getName(child),"p" ) == 0);
+  fail_unless(strcmp(XMLNode_getCharacters(gchild),"test" ) == 0);
+
+  toxmlstring = XMLNode_toXMLString(rootnode);
+  fail_unless( strcmp(toxmlstring, xmlstr_nodummy1) == 0);
+
+  XMLNode_free(rootnode);
+  safe_free(toxmlstring);
+
+  // xmlstr_nodummy2 
+
+  rootnode   = XMLNode_convertStringToXMLNode(xmlstr_nodummy2, NULL);
+  fail_unless(XMLNode_getNumChildren(rootnode) == 1);
+
+  child  = XMLNode_getChild(rootnode,0);
+  gchild = XMLNode_getChild(child,0);
+
+  fail_unless(strcmp(XMLNode_getName(rootnode), "html") == 0);
+  fail_unless(strcmp(XMLNode_getName(child),"p" ) == 0);
+  fail_unless(strcmp(XMLNode_getCharacters(gchild),"test" ) == 0);
+
+  toxmlstring = XMLNode_toXMLString(rootnode);
+  fail_unless( strcmp(toxmlstring, xmlstr_nodummy2) == 0);
+
+  XMLNode_free(rootnode);
+  safe_free(toxmlstring);
+
+  // xmlstr_nodummy3
+
+  rootnode   = XMLNode_convertStringToXMLNode(xmlstr_nodummy3, NULL);
+  fail_unless(XMLNode_getNumChildren(rootnode) == 1);
+
+  child  = XMLNode_getChild(rootnode,0);
+  gchild = XMLNode_getChild(child,0);
+
+  fail_unless(strcmp(XMLNode_getName(rootnode), "body") == 0);
+  fail_unless(strcmp(XMLNode_getName(child),"p" ) == 0);
+  fail_unless(strcmp(XMLNode_getCharacters(gchild),"test" ) == 0);
+
+  toxmlstring = XMLNode_toXMLString(rootnode);
+  fail_unless( strcmp(toxmlstring, xmlstr_nodummy3) == 0);
+
+  XMLNode_free(rootnode);
+  safe_free(toxmlstring);
+
+  // xmlstr_nodummy4
+
+  rootnode   = XMLNode_convertStringToXMLNode(xmlstr_nodummy4, NULL);
+  fail_unless(XMLNode_getNumChildren(rootnode) == 1);
+
+  child  = XMLNode_getChild(rootnode,0);
+  fail_unless(strcmp(XMLNode_getName(rootnode), "p") == 0);
+  fail_unless(strcmp(XMLNode_getCharacters(child),"test" ) == 0);
+
+  toxmlstring = XMLNode_toXMLString(rootnode);
+  fail_unless( strcmp(toxmlstring, xmlstr_nodummy4) == 0);
+
+  XMLNode_free(rootnode);
+  safe_free(toxmlstring);
+
+  // xmlstr_nodummy5
+
+  rootnode   = XMLNode_convertStringToXMLNode(xmlstr_nodummy5, NULL);
+  fail_unless(XMLNode_getNumChildren(rootnode) == 1);
+
+  child  = XMLNode_getChild(rootnode,0);
+  gchild = XMLNode_getChild(child,0);
+
+  fail_unless(strcmp(XMLNode_getName(rootnode), "test1") == 0);
+  fail_unless(strcmp(XMLNode_getName(child),"test2" ) == 0);
+  fail_unless(strcmp(XMLNode_getCharacters(gchild),"test" ) == 0);
+
+  toxmlstring = XMLNode_toXMLString(rootnode);
+  fail_unless( strcmp(toxmlstring, xmlstr_nodummy5) == 0);
+
+  XMLNode_free(rootnode);
+  safe_free(toxmlstring);
+
+  // xmlstr_dummy1
+
+  rootnode    = XMLNode_convertStringToXMLNode(xmlstr_dummy1, NULL);
+  fail_unless(XMLNode_isEOF(rootnode)          == 1);
+  fail_unless(XMLNode_getNumChildren(rootnode) == 2);
+
+  child   = XMLNode_getChild(rootnode,0);
+  gchild  = XMLNode_getChild(child,0);
+  fail_unless(strcmp(XMLNode_getName(child), "p") == 0);
+  fail_unless(strcmp(XMLNode_getCharacters(gchild),"test1" ) == 0);
+
+  child   = XMLNode_getChild(rootnode,1);
+  gchild  = XMLNode_getChild(child,0);
+  fail_unless(strcmp(XMLNode_getName(child), "p") == 0);
+  fail_unless(strcmp(XMLNode_getCharacters(gchild),"test2" ) == 0);
+
+  toxmlstring = XMLNode_toXMLString(rootnode);
+  fail_unless( strcmp(toxmlstring, xmlstr_dummy1) == 0);
+
+  XMLNode_free(rootnode);
+  safe_free(toxmlstring);
+
+  // xmlstr_dummy2
+
+  rootnode    = XMLNode_convertStringToXMLNode(xmlstr_dummy2, NULL);
+  fail_unless(XMLNode_isEOF(rootnode)          == 1);
+  fail_unless(XMLNode_getNumChildren(rootnode) == 2);
+
+  child   = XMLNode_getChild(rootnode,0);
+  gchild  = XMLNode_getChild(child,0);
+  fail_unless(strcmp(XMLNode_getName(child), "test1") == 0);
+  fail_unless(strcmp(XMLNode_getCharacters(gchild),"test1" ) == 0);
+
+  child   = XMLNode_getChild(rootnode,1);
+  gchild  = XMLNode_getChild(child,0);
+  fail_unless(strcmp(XMLNode_getName(child), "test2") == 0);
+  fail_unless(strcmp(XMLNode_getCharacters(gchild),"test2" ) == 0);
+
+  toxmlstring = XMLNode_toXMLString(rootnode);
+  fail_unless( strcmp(toxmlstring, xmlstr_dummy2) == 0);
+
+  XMLNode_free(rootnode);
+  safe_free(toxmlstring);
+
+}
+END_TEST
+
 
 START_TEST (test_XMLNode_insert)
 {
@@ -1090,6 +1249,7 @@ create_suite_XMLNode (void)
   tcase_add_test( tcase, test_XMLNode_createElement  );
   tcase_add_test( tcase, test_XMLNode_getters  );
   tcase_add_test( tcase, test_XMLNode_convert  );
+  tcase_add_test( tcase, test_XMLNode_convert_dummyroot  );
   tcase_add_test( tcase, test_XMLNode_insert  );
   tcase_add_test( tcase, test_XMLNode_remove  );
   tcase_add_test( tcase, test_XMLNode_namespace_add );

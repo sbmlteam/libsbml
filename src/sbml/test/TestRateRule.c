@@ -67,11 +67,11 @@ static Rule_t *RR;
 void
 RateRuleTest_setup (void)
 {
-  RR = Rule_createRate();
+  RR = Rule_createRate(1, 2);
 
   if (RR == NULL)
   {
-    fail("RateRule_create() returned a NULL pointer.");
+    fail("RateRule_createRate() returned a NULL pointer.");
   }
 }
 
@@ -134,58 +134,60 @@ START_TEST (test_RateRule_setVariable)
 END_TEST
 
 
-START_TEST (test_RateRule_createWithFormula)
-{
-  const ASTNode_t *math;
-  char *formula;
-
-  Rule_t *ar = Rule_createRateWithVariableAndFormula("s", "1 + 1");
-
-
-  fail_unless( SBase_getTypeCode  ((SBase_t *) ar) == SBML_RATE_RULE );
-  fail_unless( SBase_getMetaId    ((SBase_t *) ar) == NULL );
-  fail_unless( !strcmp(Rule_getVariable(ar), "s") );
-
-  math = Rule_getMath((Rule_t *) ar);
-  fail_unless(math != NULL);
-
-  formula = SBML_formulaToString(math);
-  fail_unless( formula != NULL );
-  fail_unless( !strcmp(formula, "1 + 1") );
-
-  fail_unless( !strcmp(Rule_getFormula((Rule_t *) ar), formula) );
-
-  Rule_free(ar);
-  safe_free(formula);
-}
-END_TEST
-
-
-START_TEST (test_RateRule_createWithMath)
-{
-  ASTNode_t       *math = SBML_parseFormula("1 + 1");
-
-  Rule_t *ar = Rule_createRateWithVariableAndMath("s", math);
+//START_TEST (test_RateRule_createWithFormula)
+//{
+//  const ASTNode_t *math;
+//  char *formula;
+//
+//  Rule_t *ar = Rule_createRateWithVariableAndFormula("s", "1 + 1");
+//
+//
+//  fail_unless( SBase_getTypeCode  ((SBase_t *) ar) == SBML_RATE_RULE );
+//  fail_unless( SBase_getMetaId    ((SBase_t *) ar) == NULL );
+//  fail_unless( !strcmp(Rule_getVariable(ar), "s") );
+//
+//  math = Rule_getMath((Rule_t *) ar);
+//  fail_unless(math != NULL);
+//
+//  formula = SBML_formulaToString(math);
+//  fail_unless( formula != NULL );
+//  fail_unless( !strcmp(formula, "1 + 1") );
+//
+//  fail_unless( !strcmp(Rule_getFormula((Rule_t *) ar), formula) );
+//
+//  Rule_free(ar);
+//  safe_free(formula);
+//}
+//END_TEST
 
 
-  fail_unless( SBase_getTypeCode  ((SBase_t *) ar) == SBML_RATE_RULE );
-  fail_unless( SBase_getMetaId    ((SBase_t *) ar) == NULL );
-  fail_unless( !strcmp(Rule_getVariable(ar), "s") );
-  fail_unless( !strcmp(Rule_getFormula((Rule_t *) ar), "1 + 1") );
-  fail_unless( Rule_getMath((Rule_t *) ar) != math );
+//START_TEST (test_RateRule_createWithMath)
+//{
+//  ASTNode_t       *math = SBML_parseFormula("1 + 1");
+//
+//  Rule_t *ar = Rule_createRateWithVariableAndMath("s", math);
+//
+//
+//  fail_unless( SBase_getTypeCode  ((SBase_t *) ar) == SBML_RATE_RULE );
+//  fail_unless( SBase_getMetaId    ((SBase_t *) ar) == NULL );
+//  fail_unless( !strcmp(Rule_getVariable(ar), "s") );
+//  fail_unless( !strcmp(Rule_getFormula((Rule_t *) ar), "1 + 1") );
+//  fail_unless( Rule_getMath((Rule_t *) ar) != math );
+//
+//  Rule_free(ar);
+//}
+//END_TEST
 
-  Rule_free(ar);
-}
-END_TEST
 
-
-START_TEST (test_RateRule_createWithLevelVersionAndNamespace)
+START_TEST (test_RateRule_createWithNS )
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
-  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "testsbml");
+  SBMLNamespaces_t *sbmlns = SBMLNamespaces_create(2,1);
+  SBMLNamespaces_addNamespaces(sbmlns,xmlns);
 
   Rule_t *object = 
-    Rule_createRateWithLevelVersionAndNamespaces(2, 1, xmlns);
+    Rule_createRateWithNS(sbmlns);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_RATE_RULE );
@@ -197,7 +199,7 @@ START_TEST (test_RateRule_createWithLevelVersionAndNamespace)
   fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
 
   fail_unless( Rule_getNamespaces     (object) != NULL );
-  fail_unless( XMLNamespaces_getLength(Rule_getNamespaces(object)) == 1 );
+  fail_unless( XMLNamespaces_getLength(Rule_getNamespaces(object)) == 2 );
 
   Rule_free(object);
 }
@@ -218,9 +220,9 @@ create_suite_RateRule (void)
   tcase_add_test( tcase, test_RateRule_create      );
   tcase_add_test( tcase, test_RateRule_free_NULL   );
   tcase_add_test( tcase, test_RateRule_setVariable );
-  tcase_add_test( tcase, test_RateRule_createWithFormula   );
-  tcase_add_test( tcase, test_RateRule_createWithMath   );
-  tcase_add_test( tcase, test_RateRule_createWithLevelVersionAndNamespace        );
+  //tcase_add_test( tcase, test_RateRule_createWithFormula   );
+  //tcase_add_test( tcase, test_RateRule_createWithMath   );
+  tcase_add_test( tcase, test_RateRule_createWithNS         );
 
   suite_add_tcase(suite, tcase);
 

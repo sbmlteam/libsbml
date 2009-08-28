@@ -36,7 +36,7 @@
 
 #include <sbml/common/extern.h>
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /**
@@ -159,6 +159,6 @@ UnitKind_isValidUnitKindString (const char *string, unsigned int level, unsigned
 
 
 END_C_DECLS
-
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /** UnitKind_h **/

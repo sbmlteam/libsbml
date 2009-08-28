@@ -47,18 +47,30 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygen-libsbml-internal */
 /*
  * Only subclasses may create Rules.
  */
-Rule::Rule (SBMLTypeCode_t type, const std::string& variable, const std::string& formula)
+Rule::Rule (SBMLTypeCode_t type, unsigned int level, unsigned int version)
  :
-   SBase   ( variable , "", -1)
- , mFormula( formula  )
+   SBase   ( level, version)
+ , mFormula( ""  )
  , mMath   (  0       )
  , mType   ( type     )
  , mL1Type ( SBML_UNKNOWN )
+ , mInternalId ( "" )
+{
+}
+
+Rule::Rule (SBMLTypeCode_t type, SBMLNamespaces * sbmlns) :
+   SBase   ( sbmlns )
+ , mFormula( ""       )
+ , mMath   (  0       )
+ , mType   ( type     )
+ , mL1Type ( SBML_UNKNOWN )
+ , mInternalId ( "" )
 {
 }
 /** @endcond doxygen-libsbml-internal */
@@ -68,15 +80,20 @@ Rule::Rule (SBMLTypeCode_t type, const std::string& variable, const std::string&
 /*
  * Only subclasses may create Rules.
  */
-Rule::Rule (SBMLTypeCode_t type, const std::string& variable, const ASTNode* math)
- :
-   SBase   ( variable  , "", -1       )
- , mMath   ( 0                )
- , mType   ( type             )
- , mL1Type ( SBML_UNKNOWN     )
-{
-  if (math) mMath = math->deepCopy();
-}
+//Rule::Rule (SBMLTypeCode_t type, const std::string& variable, const ASTNode* math)
+// :
+//   SBase   ( variable  , "", -1       )
+// , mMath   ( 0                )
+// , mType   ( type             )
+// , mL1Type ( SBML_UNKNOWN     )
+// , mInternalId ( "" )
+//{
+//  if (math) 
+//  {
+//    mMath = math->deepCopy();
+//    mMath->setParentSBMLObject(this);
+//  }
+//}
 /** @endcond doxygen-libsbml-internal */
 
 
@@ -94,13 +111,19 @@ Rule::~Rule ()
  */
 Rule::Rule (const Rule& orig) :
    SBase   ( orig          )
+ , mVariable (orig.mVariable)
  , mFormula( orig.mFormula )
  , mMath   ( 0            )
  , mUnits  ( orig.mUnits   )
  , mType   ( orig.mType    )
  , mL1Type ( orig.mL1Type  )
+ , mInternalId (orig.mInternalId )
 {
-  if (orig.mMath) mMath = orig.mMath->deepCopy();
+  if (orig.mMath) 
+  {
+    mMath = orig.mMath->deepCopy();
+    mMath->setParentSBMLObject(this);
+  }
 }
 
 
@@ -112,16 +135,24 @@ Rule& Rule::operator=(const Rule& rhs)
   if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
+    mVariable = rhs.mVariable;
     mFormula = rhs.mFormula ;
     mUnits   = rhs.mUnits   ;
     mType    = rhs.mType    ;
     mL1Type  = rhs.mL1Type  ;
+    mInternalId = rhs.mInternalId;
 
     delete mMath;
     if (rhs.mMath) 
+    {
       mMath = rhs.mMath->deepCopy();
+      mMath->setParentSBMLObject(this);
+    }
     else
+    {
       mMath = 0;
+    }
+   
   }
 
   return *this;
@@ -191,7 +222,7 @@ Rule::getMath () const
 const string&
 Rule::getVariable () const
 {
-  return getId();
+  return mVariable;
 }
 
 
@@ -249,7 +280,7 @@ Rule::isSetMath () const
 bool
 Rule::isSetVariable () const
 {
-  return isSetId();
+  return (mVariable.empty() == false);
 }
 
 
@@ -267,15 +298,31 @@ Rule::isSetUnits () const
 /*
  * Sets the formula of this Rule to a copy of string.
  */
-void
+int
 Rule::setFormula (const std::string& formula)
 {
-  mFormula = formula;
-
-  if (mMath)
+  ASTNode * math = SBML_parseFormula(formula.c_str());
+  if (formula == "")
   {
+    mFormula.erase();
     delete mMath;
     mMath = 0;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (math == NULL || !(math->isWellFormedASTNode()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else
+  {
+    mFormula = formula;
+
+    if (mMath)
+    {
+      delete mMath;
+      mMath = 0;
+    }
+    return LIBSBML_OPERATION_SUCCESS;
   }
 }
 
@@ -283,27 +330,54 @@ Rule::setFormula (const std::string& formula)
 /*
  * Sets the math of this Rule to a copy of the given ASTNode.
  */
-void
+int
 Rule::setMath (const ASTNode* math)
 {
-  if (mMath == math) return;
-
-
-  delete mMath;
-  mMath = (math != 0) ? math->deepCopy() : 0;
-  if (mMath) mMath->setParentSBMLObject(this);
-
-  mFormula.erase();
+  if (mMath == math) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (math == NULL)
+  {
+    delete mMath;
+    mMath = 0;
+    mFormula.erase();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (!(math->isWellFormedASTNode()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else
+  {
+    delete mMath;
+    mMath = (math != 0) ? math->deepCopy() : 0;
+    if (mMath) mMath->setParentSBMLObject(this);
+    mFormula.erase();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Sets the variable of this Rule to a copy of sid.
  */
-void
+int
 Rule::setVariable (const std::string& sid)
 {
-  setId(sid);
+  if (isAlgebraic())
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mVariable = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -311,20 +385,56 @@ Rule::setVariable (const std::string& sid)
  * Sets the units for this Rule to a copy of sname (L1 ParameterRules
  * only).
  */
-void
+int
 Rule::setUnits (const std::string& sname)
 {
-  mUnits = sname;
+  /* only in L1 ParameterRule */
+  if (getLevel() > 1)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else if ( !isParameter())
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else if (!(SyntaxChecker::isValidUnitSId(sname)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mUnits = sname;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Unsets the units for this Rule (L1 ParameterRules only).
  */
-void
+int
 Rule::unsetUnits ()
 {
+  /* only in L1 Parameter rule */
+  if (getLevel() > 1)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else if ( !isParameter())
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+
   mUnits.erase();
+
+  if (mUnits.empty()) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -349,19 +459,30 @@ Rule::getDerivedUnitDefinition()
       m->populateListFormulaUnitsData();
     }
     
-    if (m->getFormulaUnitsData(getId(), getTypeCode()))
+    if (isAlgebraic())
     {
-      return m->getFormulaUnitsData(getId(), getTypeCode())
-                                             ->getUnitDefinition();
+      if (m->getFormulaUnitsData(getInternalId(), getTypeCode()))
+      {
+        return m->getFormulaUnitsData(getInternalId(), getTypeCode())
+                                               ->getUnitDefinition();
+      }
+      else
+      {
+        return NULL;
+      }
     }
     else
     {
-      return NULL;
-    }  
-  }
-  else
-  {
-    return NULL;
+      if (m->getFormulaUnitsData(getVariable(), getTypeCode()))
+      {
+        return m->getFormulaUnitsData(getVariable(), getTypeCode())
+                                              ->getUnitDefinition();
+      }
+      else
+      {
+        return NULL;
+      }
+    }
   }
 }
 
@@ -399,22 +520,44 @@ Rule::containsUndeclaredUnits()
       m->populateListFormulaUnitsData();
     }
     
-    if (m->getFormulaUnitsData(getId(), getTypeCode()))
+    if (isAlgebraic())
     {
-      return m->getFormulaUnitsData(getId(), getTypeCode())
-      ->getContainsUndeclaredUnits();
+      if (m->getFormulaUnitsData(getInternalId(), getTypeCode()))
+      {
+        return m->getFormulaUnitsData(getInternalId(), getTypeCode())
+          ->getContainsUndeclaredUnits();
+      }
+      else
+      {
+        return false;
+      }
+    }
+    else
+    {
+      if (m->getFormulaUnitsData(getVariable(), getTypeCode()))
+      {
+        return m->getFormulaUnitsData(getVariable(), getTypeCode())
+          ->getContainsUndeclaredUnits();
+      }
+      else
+      {
+        return false;
+      }
+    }
     }
     else
     {
       return false;
     }  
   }
-  else
-  {
-    return false;
-  }
 }
 
+
+bool 
+Rule::containsUndeclaredUnits() const
+{
+  return const_cast<Rule *> (this)->containsUndeclaredUnits();
+}
 
 bool 
 Rule::containsUndeclaredUnits() const
@@ -608,7 +751,35 @@ Rule::getElementName () const
 }
 
 
+bool 
+Rule::hasRequiredElements() const
+{
+  bool allPresent = true;
+
+  /* required attributes for rule: math */
+
+  if (!isSetMath())
+    allPresent = false;
+
+  return allPresent;
+}
+
+
 /** @cond doxygen-libsbml-internal */
+bool 
+Rule::hasRequiredAttributes() const
+{
+  bool allPresent = true;
+
+  /* required attributes for rules:(formula in L1) */
+
+  if (getLevel() == 1 && !isSetFormula())
+    allPresent = false;
+
+  return allPresent;
+}
+
+
 /*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
@@ -766,36 +937,39 @@ Rule::readAttributes (const XMLAttributes& attributes)
       // species: SName   { use="required" }  (L1v2)
       //
       const string s = (level == 1 && version == 1) ? "specie" : "species";
-      bool assigned = attributes.readInto(s, mId, getErrorLog(), true);
-      if (assigned && mId.size() == 0)
+      bool assigned = attributes.readInto(s, mVariable, getErrorLog(), true);
+      if (assigned && mVariable.size() == 0)
       {
         logEmptyString(s, level, version, "<rule>");
       }
-      SBase::checkIdSyntax();
+      if (!SyntaxChecker::isValidSBMLSId(mVariable)) 
+        logError(InvalidIdSyntax);
     }
     else if ( isCompartmentVolume() )
     {
       //
       // compartment: SName  { use="required" }  (L1v1, L1v2)
       //
-      bool assigned = attributes.readInto("compartment", mId, getErrorLog(), true);
-      if (assigned && mId.size() == 0)
+      bool assigned = attributes.readInto("compartment", mVariable, getErrorLog(), true);
+      if (assigned && mVariable.size() == 0)
       {
         logEmptyString("compartment", level, version, "<rule>");
       }
-      SBase::checkIdSyntax();
+      if (!SyntaxChecker::isValidSBMLSId(mVariable)) 
+        logError(InvalidIdSyntax);
     }
     else if ( isParameter() )
     {
       //
       // name: SName  { use="required" } (L1v1, L1v2)
       //
-      bool assigned = attributes.readInto("name", mId, getErrorLog(), true);
-      if (assigned && mId.size() == 0)
+      bool assigned = attributes.readInto("name", mVariable, getErrorLog(), true);
+      if (assigned && mVariable.size() == 0)
       {
         logEmptyString("name", level, version, "<rule>");
       }
-      SBase::checkIdSyntax();
+      if (!SyntaxChecker::isValidSBMLSId(mVariable)) 
+        logError(InvalidIdSyntax);
 
       //
       // units  { use="optional" }  (L1v1, L1v2);
@@ -811,12 +985,13 @@ Rule::readAttributes (const XMLAttributes& attributes)
       //
       // variable: SId  { use="required" }  (L2v1 ->)
       //
-      bool assigned = attributes.readInto("variable", mId, getErrorLog(), true);
-      if (assigned && mId.size() == 0)
+      bool assigned = attributes.readInto("variable", mVariable, getErrorLog(), true);
+      if (assigned && mVariable.size() == 0)
       {
         logEmptyString("variable", level, version, "<rule>");
       }
-      SBase::checkIdSyntax();
+      if (!SyntaxChecker::isValidSBMLSId(mVariable)) 
+        logError(InvalidIdSyntax);
     }
 
     //
@@ -867,7 +1042,7 @@ Rule::writeAttributes (XMLOutputStream& stream) const
     if ( isSpeciesConcentration() )
     {
       const string species = (version == 1) ? "specie" : "species";
-      stream.writeAttribute(species, mId);
+      stream.writeAttribute(species, mVariable);
     }
 
     //
@@ -875,7 +1050,7 @@ Rule::writeAttributes (XMLOutputStream& stream) const
     //
     else if ( isCompartmentVolume() )
     {
-      stream.writeAttribute("compartment", mId);
+      stream.writeAttribute("compartment", mVariable);
     }
 
     else if ( isParameter() )
@@ -883,7 +1058,7 @@ Rule::writeAttributes (XMLOutputStream& stream) const
       //
       // name: SName  { use="required" } (L1v1, L1v2)
       //
-      stream.writeAttribute("name", mId);
+      stream.writeAttribute("name", mVariable);
 
       //
       // units  { use="optional" }  (L1v1, L1v2);
@@ -897,7 +1072,7 @@ Rule::writeAttributes (XMLOutputStream& stream) const
     // variable: SId  { use="required" }  (L2v1-> )
     //
     if(!isAlgebraic())
-      stream.writeAttribute("variable", mId);
+      stream.writeAttribute("variable", mVariable);
 
     //
     // sboTerm: SBOTerm { use="optional" }  (L2v2->)
@@ -909,57 +1084,59 @@ Rule::writeAttributes (XMLOutputStream& stream) const
 /** @endcond doxygen-libsbml-internal */
 
 
-/** @cond doxygen-libsbml-internal */
 /*
  * Sets the SBML Level 1 typecode for this Rule.
  */
-void
+int
 Rule::setL1TypeCode (SBMLTypeCode_t type)
 {
-  mL1Type = type;
+  if (    (type == SBML_PARAMETER_RULE) 
+       || (type == SBML_COMPARTMENT_VOLUME_RULE) 
+       || (type == SBML_SPECIES_CONCENTRATION_RULE) 
+     )
+  {
+    mSBMLNamespaces->setLevel(1);
+    mL1Type = type;
+  }
+  else
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  return LIBSBML_OPERATION_SUCCESS;
 }
+
+
+
+AlgebraicRule::AlgebraicRule (unsigned int level, unsigned int version) :
+  Rule(SBML_ALGEBRAIC_RULE, level, version)
+{
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
+
+  mInternalIdOnly = false;
+}
+
+
+AlgebraicRule::AlgebraicRule (SBMLNamespaces * sbmlns) :
+  Rule(SBML_ALGEBRAIC_RULE, sbmlns)
+{
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
+
+  mInternalIdOnly = false;
+}
+
+
+
+/* constructor for validators */
+AlgebraicRule::AlgebraicRule() :
+  Rule(SBML_ALGEBRAIC_RULE, 0)
+{
+}
+
 /** @endcond doxygen-libsbml-internal */
-
-
-
-/*
- * Creates a new AlgebraicRule and optionally sets its formula.
- */
-AlgebraicRule::AlgebraicRule (const std::string& formula) :
-  Rule(SBML_ALGEBRAIC_RULE, "", formula)
-{
-  mInternalIdOnly = false;
-}
-
-/*
- * Creates a new AlgebraicRule and optionally sets its math.
- */
-AlgebraicRule::AlgebraicRule (const ASTNode* math) :
-  Rule(SBML_ALGEBRAIC_RULE, "", math)
-{
-  mInternalIdOnly = false;
-}
-
-
-AlgebraicRule::AlgebraicRule (unsigned int level, unsigned int version,
-                          XMLNamespaces *xmlns) :
-  Rule(SBML_ALGEBRAIC_RULE, "", 0)
-{
-  mObjectLevel = level;
-  mObjectVersion = version;
-  if (xmlns) setNamespaces(xmlns);;
-  mInternalIdOnly = false;
-}
-
                           
-AlgebraicRule::AlgebraicRule (SBMLNamespaces *sbmlns) :
-  Rule(SBML_ALGEBRAIC_RULE, "", 0)
-{
-  mObjectLevel = sbmlns->getLevel();
-  mObjectVersion = sbmlns->getVersion();
-  setNamespaces(sbmlns->getNamespaces());
-  mInternalIdOnly = false;
-}
+                          
 
 
 /*
@@ -992,6 +1169,16 @@ AlgebraicRule::accept (SBMLVisitor& v) const
   return v.visit(*this);
 }
 
+bool 
+AlgebraicRule::hasRequiredAttributes() const
+{
+  bool allPresent = Rule::hasRequiredAttributes();
+
+  return allPresent;
+}
+
+
+
 /** @cond doxygen-libsbml-internal */
 
 /*
@@ -1016,36 +1203,28 @@ AlgebraicRule::getInternalIdOnly() const
 
 
 
-/*
- * Creates a new AssignmentRule and optionally sets its variable and
- * formula.
- */
-AssignmentRule::AssignmentRule (const std::string& variable, const std::string& formula)
-  : Rule(SBML_ASSIGNMENT_RULE, variable, formula)
+AssignmentRule::AssignmentRule (unsigned int level, unsigned int version) :
+  Rule(SBML_ASSIGNMENT_RULE, level, version)
+{
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
+}
+
+AssignmentRule::AssignmentRule (SBMLNamespaces *sbmlns) :
+  Rule(SBML_ASSIGNMENT_RULE, sbmlns)
+{
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
+}
+/** @cond doxygen-libsbml-internal */
+
+/* constructor for validators */
+AssignmentRule::AssignmentRule() :
+  Rule(SBML_ASSIGNMENT_RULE, 0)
 {
 }
 
-
-/*
- * Creates a new AssignmentRule and optionally sets its variable and
- * math.
- */
-AssignmentRule::AssignmentRule (const std::string& variable, const ASTNode* math)
-  : Rule(SBML_ASSIGNMENT_RULE, variable, math)
-{
-}
-
-
-AssignmentRule::AssignmentRule (unsigned int level, unsigned int version,
-                          XMLNamespaces *xmlns) :
-  Rule(SBML_ASSIGNMENT_RULE, "", 0)
-{
-  mObjectLevel = level;
-  mObjectVersion = version;
-  if (xmlns) setNamespaces(xmlns);;
-}
-
-                          
+/** @endcond doxygen-libsbml-internal */                    
 AssignmentRule::AssignmentRule (SBMLNamespaces *sbmlns) :
   Rule(SBML_ASSIGNMENT_RULE, "", 0)
 {
@@ -1086,36 +1265,42 @@ AssignmentRule::accept (SBMLVisitor& v) const
 }
 
 
-
-
-/*
- * Creates a new RateRule and optionally sets its variable and formula.
- */
-RateRule::RateRule (const std::string& variable, const std::string& formula) :
-  Rule(SBML_RATE_RULE, variable, formula)
+bool 
+AssignmentRule::hasRequiredAttributes() const
 {
+  bool allPresent = Rule::hasRequiredAttributes();
+
+  /* required attributes for assignment: variable (comp/species/name in L1) */
+
+  if (!isSetVariable())
+    allPresent = false;
+
+  return allPresent;
 }
 
 
-/*
- * Creates a new RateRule and optionally sets its variable and math.
- */
-RateRule::RateRule (const std::string& variable, const ASTNode* math) :
-  Rule(SBML_RATE_RULE, variable, math)
+RateRule::RateRule (unsigned int level, unsigned int version) :
+  Rule(SBML_RATE_RULE, level, version)
 {
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
+}
+
+RateRule::RateRule (SBMLNamespaces *sbmlns) :
+  Rule(SBML_RATE_RULE, sbmlns)
+{
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
 
-RateRule::RateRule (unsigned int level, unsigned int version,
-                          XMLNamespaces *xmlns) :
-  Rule(SBML_RATE_RULE, "", 0)
+/* constructor for validators */
+RateRule::RateRule() :
+  Rule(SBML_RATE_RULE, 0)
 {
-  mObjectLevel = level;
-  mObjectVersion = version;
-  if (xmlns) setNamespaces(xmlns);;
 }
 
-                          
+/** @endcond doxygen-libsbml-internal */                          
 RateRule::RateRule (SBMLNamespaces *sbmlns) :
   Rule(SBML_RATE_RULE, "", 0)
 {
@@ -1139,6 +1324,20 @@ RateRule*
 RateRule::clone () const
 {
   return new RateRule(*this);
+}
+
+
+bool 
+RateRule::hasRequiredAttributes() const
+{
+  bool allPresent = Rule::hasRequiredAttributes();
+
+  /* required attributes for rateRule: variable (comp/species/name in L1) */
+
+  if (!isSetVariable())
+    allPresent = false;
+
+  return allPresent;
 }
 
 
@@ -1205,12 +1404,25 @@ ListOfRules::get(unsigned int n) const
   return static_cast<const Rule*>(ListOf::get(n));
 }
 
+/**
+ * Used by ListOf::get() to lookup an SBase based by its id.
+ */
+struct IdEqRule : public unary_function<SBase*, bool>
+{
+  const string& id;
+
+  IdEqRule (const string& id) : id(id) { }
+  bool operator() (SBase* sb) 
+       { return static_cast <Rule *> (sb)->getVariable() == id; }
+};
+
 
 /* return item by id */
 Rule*
 ListOfRules::get (const std::string& sid)
 {
-  return static_cast<Rule*>(ListOf::get(sid));
+  return const_cast<Rule*>( 
+    static_cast<const ListOfRules&>(*this).get(sid) );
 }
 
 
@@ -1218,7 +1430,10 @@ ListOfRules::get (const std::string& sid)
 const Rule*
 ListOfRules::get (const std::string& sid) const
 {
-  return static_cast<const Rule*>(ListOf::get(sid));
+  vector<SBase*>::const_iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqRule(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <Rule*> (*result);
 }
 
 
@@ -1234,7 +1449,18 @@ ListOfRules::remove (unsigned int n)
 Rule*
 ListOfRules::remove (const std::string& sid)
 {
-   return static_cast<Rule*>(ListOf::remove(sid));
+  SBase* item = 0;
+  vector<SBase*>::iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqRule(sid) );
+
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
+  }
+
+  return static_cast <Rule*> (item);
 }
 
 
@@ -1266,7 +1492,20 @@ ListOfRules::createObject (XMLInputStream& stream)
 
   if (name == "algebraicRule")
   {
-    object = new AlgebraicRule();
+    try
+    {
+      object = new AlgebraicRule(getSBMLNamespaces());
+    }
+    catch (SBMLConstructorException*)
+    {
+      object = new AlgebraicRule(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    catch ( ... )
+    {
+      object = new AlgebraicRule(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
   }
   else if (level == 1)
   {
@@ -1275,11 +1514,33 @@ ListOfRules::createObject (XMLInputStream& stream)
 
     if (type == "scalar")
     {
-      object = new AssignmentRule();
+      try
+      {
+        object = new AssignmentRule(getSBMLNamespaces());
+      }
+      catch (SBMLConstructorException*)
+      {
+        object = new AssignmentRule(1, 2);
+      }
+      catch ( ... )
+      {
+        object = new AssignmentRule(1, 2);
+      }
     }
     else if (type == "rate")
     {
-      object = new RateRule();
+      try
+      {
+        object = new RateRule(getSBMLNamespaces());
+      }
+      catch (SBMLConstructorException*)
+      {
+        object = new RateRule(1, 2);
+      }
+      catch ( ... )
+      {
+        object = new RateRule(1, 2);
+      }
     }
 
     if (object)
@@ -1308,11 +1569,37 @@ ListOfRules::createObject (XMLInputStream& stream)
   {
     if (name == "assignmentRule")
     {
-      object = new AssignmentRule();
+      try
+      {
+        object = new AssignmentRule(getSBMLNamespaces());
+      }
+      catch (SBMLConstructorException*)
+      {
+        object = new AssignmentRule(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+      }
+      catch ( ... )
+      {
+        object = new AssignmentRule(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+      }
     }
     else if (name == "rateRule")
     {
-      object = new RateRule();
+      try
+      {
+        object = new RateRule(getSBMLNamespaces());
+      }
+      catch (SBMLConstructorException*)
+      {
+        object = new RateRule(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+      }
+      catch ( ... )
+      {
+        object = new RateRule(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+      }
     }
   }
 
@@ -1327,276 +1614,210 @@ ListOfRules::createObject (XMLInputStream& stream)
 
 
 /**
- * Creates a new AlgebraicRule and returns a pointer to it.
- */
-LIBSBML_EXTERN
-Rule_t *
-Rule_createAlgebraic ()
-{
-  return new(nothrow) AlgebraicRule;
-}
-
-
-/**
- * Creates a new AssignmentRule and returns a pointer to it
- */
-LIBSBML_EXTERN
-Rule_t *
-Rule_createAssignment ()
-{
-  return new(nothrow) AssignmentRule;
-}
-
-
-/**
- * Creates a new RateRule and returns a pointer to it
- */
-LIBSBML_EXTERN
-Rule_t *
-Rule_createRate ()
-{
-  return new(nothrow) RateRule;
-}
-
-
-/**
- * Creates a new AlgebraicRule with the given formula 
- * and returns a pointer to it.
+ * Creates a new AlgebraicRule (Rule_t) structure using the given SBML 
+ * @p level and @p version values.
  *
- * @return pointer to the newly created Algebraic Rule_t structure.
- *
- * @note SBML Level 1 uses a text-string format for mathematical formulas.
- * SBML Level 2 uses MathML, an XML format for representing mathematical
- * expressions.  LibSBML provides an Abstract Syntax Tree API for working
- * with mathematical expressions; this API is more powerful than working
- * with formulas directly in text form, and ASTs can be translated into
- * either MathML or the text-string syntax.  The libSBML methods that
- * accept text-string formulas directly (such as this one) are
- * provided for SBML Level 1 compatibility, but developers are encouraged
- * to use the AST mechanisms.  
- */
-LIBSBML_EXTERN
-Rule_t *
-Rule_createAlgebraicWithFormula (const char *formula)
-{
-  return new(nothrow) AlgebraicRule(formula);
-}
-
-
-/**
- * Creates a new AssignmentRule with the given formula 
- * and returns a pointer to it.
- *
- * @param variable string representing the variable to be assigned by
- * the Rule_t structure.
- * @param formula string representing the formula of the Rule_t structure.
- *
- * @return pointer to the newly created Assignment Rule_t structure.
- *
- * @note SBML Level 1 uses a text-string format for mathematical formulas.
- * SBML Level 2 uses MathML, an XML format for representing mathematical
- * expressions.  LibSBML provides an Abstract Syntax Tree API for working
- * with mathematical expressions; this API is more powerful than working
- * with formulas directly in text form, and ASTs can be translated into
- * either MathML or the text-string syntax.  The libSBML methods that
- * accept text-string formulas directly (such as this one) are
- * provided for SBML Level 1 compatibility, but developers are encouraged
- * to use the AST mechanisms.  
- */
-LIBSBML_EXTERN
-Rule_t *
-Rule_createAssignmentWithVariableAndFormula (const char * variable, 
-                                             const char *formula)
-{
-  return new(nothrow) AssignmentRule(variable, formula);
-}
-
-
-/**
- * Creates a new RateRule with the given formula 
- * and returns a pointer to it.
- *
- * @param variable string representing the variable to be assigned by
- * the Rule_t structure.
- * @param formula string representing the formula of the Rule_t structure.
- *
- * @return pointer to the newly created Rate Rule_t structure.
- *
- * @note SBML Level 1 uses a text-string format for mathematical formulas.
- * SBML Level 2 uses MathML, an XML format for representing mathematical
- * expressions.  LibSBML provides an Abstract Syntax Tree API for working
- * with mathematical expressions; this API is more powerful than working
- * with formulas directly in text form, and ASTs can be translated into
- * either MathML or the text-string syntax.  The libSBML methods that
- * accept text-string formulas directly (such as this one) are
- * provided for SBML Level 1 compatibility, but developers are encouraged
- * to use the AST mechanisms.  
- */
-LIBSBML_EXTERN
-Rule_t *
-Rule_createRateWithVariableAndFormula (const char * variable, 
-                                       const char *formula)
-{
-  return new(nothrow) RateRule(variable, formula);
-}
-
-
-/**
- * Creates a new AlgebraicRule with the given math 
- * and returns a pointer to it.
- *
- * @return pointer to the newly created Algebraic Rule_t structure.
- */
-LIBSBML_EXTERN
-Rule_t *
-Rule_createAlgebraicWithMath (ASTNode *math)
-{
-  return new(nothrow) AlgebraicRule(math);
-}
-
-
-/**
- * Creates a new AssignmentRule with the given math 
- * and returns a pointer to it.
- *
- * @param variable string representing the variable to be assigned by
- * the Rule_t structure.
- * @param math ASTNode_t structure representing the math of the rule.
- *
- * @return pointer to the newly created Assignment Rule_t structure.
- */
-LIBSBML_EXTERN
-Rule_t *
-Rule_createAssignmentWithVariableAndMath (const char * variable, 
-                                             ASTNode *math)
-{
-  return new(nothrow) AssignmentRule(variable, math);
-}
-
-
-/**
- * Creates a new RateRule with the given math 
- * and returns a pointer to it.
- *
- * @param variable string representing the variable to be assigned by
- * the Rule_t structure.
- * @param math ASTNode_t structure representing the math of the rule.
- *
- * @return pointer to the newly created Rate Rule_t structure.
- */
-LIBSBML_EXTERN
-Rule_t *
-Rule_createRateWithVariableAndMath (const char * variable, 
-                                       ASTNode *math)
-{
-  return new(nothrow) RateRule (variable, math);
-}
-
-
-/** @cond doxygen-libsbml-internal */
-/**
- * Creates a new AlgebraicRule using the given SBML @p 
- * level and @p version values and a set of XMLNamespaces.
- *
- * @param level an unsigned int, the SBML Level to assign to this 
- * Rule
+ * @param level an unsigned int, the SBML Level to assign to this
+ * AlgebraicRule
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * Rule
- * 
- * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
- * assign to this Rule
+ * AlgebraicRule
  *
  * @return a pointer to the newly created Rule_t structure.
  *
- * @note Once a Rule has been added to an SBMLDocument, the @p 
- * level, @p version and @p xmlns namespaces for the document @em override 
- * those used to create the Rule.  Despite this, the ability 
- * to supply the values at creation time is an important aid to creating 
- * valid SBML.  Knowledge of the intended SBML Level and Version 
- * determine whether it is valid to assign a particular value to an 
- * attribute, or whether it is valid to add an object to an existing 
+ * @note Once a AlgebraicRule has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the AlgebraicRule.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
+ */
+LIBSBML_EXTERN
+Rule_t *
+Rule_createAlgebraic (unsigned int level, unsigned int version)
+{
+  try
+  {
+    AlgebraicRule* obj = new AlgebraicRule(level,version);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
+
+
+/**
+ * Creates a new AlgebraicRule (Rule_t) structure using the given
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this AlgebraicRule
+ *
+ * @return a pointer to the newly created Rule_t structure.
+ *
+ * @note Once a AlgebraicRule has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the AlgebraicRule.  Despite this, the ability to supply the values at creation 
+ * time is an important aid to creating valid SBML.  Knowledge of the intended 
+ * SBML Level and Version determine whether it is valid to assign a particular 
+ * value to an attribute, or whether it is valid to add an object to an existing
  * SBMLDocument.
  */
 LIBSBML_EXTERN
 Rule_t *
-Rule_createAlgebraicWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns)
+Rule_createAlgebraicWithNS (SBMLNamespaces_t* sbmlns)
 {
-  return new(nothrow) AlgebraicRule (level, version, xmlns);
+  try
+  {
+    AlgebraicRule* obj = new AlgebraicRule(sbmlns);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
 }
-/** @endcond doxygen-libsbml-internal */
 
 
-/** @cond doxygen-libsbml-internal */
 /**
- * Creates a new AssignmentRule using the given SBML @p 
- * level and @p version values and a set of XMLNamespaces.
+ * Creates a new AssignmentRule (Rule_t) structure using the given SBML
+ * @p level and @p version values.
  *
- * @param level an unsigned int, the SBML Level to assign to this 
- * Rule
+ * @param level an unsigned int, the SBML Level to assign to this
+ * AssignmentRule
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * Rule
- * 
- * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
- * assign to this Rule
+ * AssignmentRule
  *
  * @return a pointer to the newly created Rule_t structure.
  *
- * @note Once a Rule has been added to an SBMLDocument, the @p 
- * level, @p version and @p xmlns namespaces for the document @em override 
- * those used to create the Rule.  Despite this, the ability 
- * to supply the values at creation time is an important aid to creating 
- * valid SBML.  Knowledge of the intended SBML Level and Version 
- * determine whether it is valid to assign a particular value to an 
- * attribute, or whether it is valid to add an object to an existing 
+ * @note Once a AssignmentRule has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the AssignmentRule.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
+ */
+LIBSBML_EXTERN
+Rule_t *
+Rule_createAssignment (unsigned int level, unsigned int version)
+{
+  try
+  {
+    AssignmentRule* obj = new AssignmentRule(level,version);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
+
+
+/**
+ * Creates a new AssignmentRule (Rule_t) structure using the given
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this AssignmentRule
+ *
+ * @return a pointer to the newly created Rule_t structure.
+ *
+ * @note Once a AssignmentRule has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the AssignmentRule.  Despite this, the ability to supply the values at creation
+ * time is an important aid to creating valid SBML.  Knowledge of the intended
+ * SBML Level and Version determine whether it is valid to assign a particular
+ * value to an attribute, or whether it is valid to add an object to an existing
  * SBMLDocument.
  */
 LIBSBML_EXTERN
 Rule_t *
-Rule_createAssignmentWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns)
+Rule_createAssignmentWithNS (SBMLNamespaces_t* sbmlns)
 {
-  return new(nothrow) AssignmentRule (level, version, xmlns);
+  try
+  {
+    AssignmentRule* obj = new AssignmentRule(sbmlns);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
 }
-/** @endcond doxygen-libsbml-internal */
 
 
-
-/** @cond doxygen-libsbml-internal */
 /**
- * Creates a new RateRule using the given SBML @p 
- * level and @p version values and a set of XMLNamespaces.
+ * Creates a new RateRule (Rule_t) structure using the given SBML
+ * @p level and @p version values.
  *
- * @param level an unsigned int, the SBML Level to assign to this 
- * Rule
+ * @param level an unsigned int, the SBML Level to assign to this
+ * RateRule
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * Rule
- * 
- * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
- * assign to this Rule
+ * RateRule
  *
  * @return a pointer to the newly created Rule_t structure.
  *
- * @note Once a Rule has been added to an SBMLDocument, the @p 
- * level, @p version and @p xmlns namespaces for the document @em override 
- * those used to create the Rule.  Despite this, the ability 
- * to supply the values at creation time is an important aid to creating 
- * valid SBML.  Knowledge of the intended SBML Level and Version 
- * determine whether it is valid to assign a particular value to an 
- * attribute, or whether it is valid to add an object to an existing 
+ * @note Once a RateRule has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the RateRule.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
+ */
+LIBSBML_EXTERN
+Rule_t *
+Rule_createRate (unsigned int level, unsigned int version)
+{
+  try
+  {
+    RateRule* obj = new RateRule(level,version);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
+
+
+/**
+ * Creates a new RateRule (Rule_t) structure using the given
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this RateRule
+ *
+ * @return a pointer to the newly created Rule_t structure.
+ *
+ * @note Once a RateRule has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the RateRule.  Despite this, the ability to supply the values at creation
+ * time is an important aid to creating valid SBML.  Knowledge of the intended
+ * SBML Level and Version determine whether it is valid to assign a particular
+ * value to an attribute, or whether it is valid to add an object to an existing
  * SBMLDocument.
  */
 LIBSBML_EXTERN
 Rule_t *
-Rule_createRateWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns)
+Rule_createRateWithNS (SBMLNamespaces_t* sbmlns)
 {
-  return new(nothrow) RateRule (level, version, xmlns);
+  try
+  {
+    RateRule* obj = new RateRule(sbmlns);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
 }
-/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -1764,6 +1985,13 @@ Rule_isSetUnits (const Rule_t *r)
 /**
  * Sets the formula of this Rule to a copy of string.
  *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
+ *
  * @note SBML Level 1 uses a text-string format for mathematical formulas.
  * SBML Level 2 uses MathML, an XML format for representing mathematical
  * expressions.  LibSBML provides an Abstract Syntax Tree API for working
@@ -1775,55 +2003,91 @@ Rule_isSetUnits (const Rule_t *r)
  * to use the AST mechanisms.
  */
 LIBSBML_EXTERN
-void
+int
 Rule_setFormula (Rule_t *r, const char *formula)
 {
-  (formula == NULL) ? r->setMath(0) : r->setFormula(formula);
+  return (formula == NULL) ? r->setMath(0) : r->setFormula(formula);
 }
 
 
 /**
  * Sets the math of this Rule to a copy of the given ASTNode.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
-void
+int
 Rule_setMath (Rule_t *r, const ASTNode_t *math)
 {
-  r->setMath(math);
+  return r->setMath(math);
 }
 
 
 /**
  * Sets the variable of this RateRule to a copy of sid.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "variable" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 Rule_setVariable (Rule_t *r, const char *sid)
 {
-  (sid == NULL) ? r->setVariable("") : r->setVariable(sid);
+  return (sid == NULL) ? r->setVariable("") : r->setVariable(sid);
 }
 
 
 /**
  * Sets the units for this Rule to a copy of sname (L1 ParameterRules
  * only).
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "units" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 Rule_setUnits (Rule_t *r, const char *sname)
 {
-  (sname == NULL) ? r->unsetUnits() : r->setUnits(sname);
+  return (sname == NULL) ? r->unsetUnits() : r->setUnits(sname);
 }
 
 
 /**
  * Unsets the units for this Rule (L1 ParameterRules only).
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Rule_unsetUnits (Rule_t *r)
 {
-  r->unsetUnits();
+  return r->unsetUnits();
 }
 
 
@@ -1943,11 +2207,27 @@ Rule_getL1TypeCode (const Rule_t *r)
   return r->getL1TypeCode();
 }
 
+/**
+ * Sets the SBML Level&nbsp;1 typecode for this Rule.
+ *
+ * @param r the Rule_t structure
+ * @param type the SBML Level&nbsp;1 typecode for this Rule
+ * (@c SBML_COMPARTMENT_VOLUME_RULE, @c SBML_PARAMETER_RULE,
+ * or @c SBML_SPECIES_CONCENTRATION_RULE).
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ */
 LIBSBML_EXTERN
-void
+int
 Rule_setL1TypeCode (Rule_t *r, SBMLTypeCode_t L1Type)
 {
-  r->setL1TypeCode(L1Type);
+  return r->setL1TypeCode(L1Type);
 }
 
 /**
@@ -2001,4 +2281,31 @@ Rule_containsUndeclaredUnits(Rule_t *r)
 }
 
 
+/**
+ * @return item in this ListOfRule with the given id or NULL if no such
+ * item exists.
+ */
+LIBSBML_EXTERN
+Rule_t *
+ListOfRules_getById (ListOf_t *lo, const char *sid)
+{
+  return (sid != NULL) ? 
+    static_cast <ListOfRules *> (lo)->get(sid) : NULL;
+}
+
+
+/**
+ * Removes item in this ListOf items with the given id or NULL if no such
+ * item exists.  The caller owns the returned item and is responsible for
+ * deleting it.
+ */
+LIBSBML_EXTERN
+Rule_t *
+ListOfRules_removeById (ListOf_t *lo, const char *sid)
+{
+  return (sid != NULL) ? 
+    static_cast <ListOfRules *> (lo)->remove(sid) : NULL;
+}
+
 /** @endcond doxygen-c-only */
+LIBSBML_CPP_NAMESPACE_END

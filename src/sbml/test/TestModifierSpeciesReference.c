@@ -66,7 +66,7 @@ static SpeciesReference_t *MSR;
 void
 ModifierSpeciesReferenceTest_setup (void)
 {
-  MSR = SpeciesReference_createModifier();
+  MSR = SpeciesReference_createModifier(2, 4);
 
   if (MSR == NULL)
   {
@@ -145,13 +145,15 @@ START_TEST (test_ModifierSpeciesReference_setSpecies)
 END_TEST
 
 
-START_TEST (test_ModifierSpeciesReference_createWithLevelVersionAndNamespace)
+START_TEST (test_ModifierSpeciesReference_createWithNS )
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
-  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "testsbml");
+  SBMLNamespaces_t *sbmlns = SBMLNamespaces_create(2,1);
+  SBMLNamespaces_addNamespaces(sbmlns,xmlns);
 
   SpeciesReference_t *object = 
-    SpeciesReference_createModifierWithLevelVersionAndNamespaces(2, 1, xmlns);
+    SpeciesReference_createModifierWithNS(sbmlns);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_MODIFIER_SPECIES_REFERENCE );
@@ -163,7 +165,8 @@ START_TEST (test_ModifierSpeciesReference_createWithLevelVersionAndNamespace)
   fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
 
   fail_unless( SpeciesReference_getNamespaces     (object) != NULL );
-  fail_unless( XMLNamespaces_getLength(SpeciesReference_getNamespaces(object)) == 1 );
+  fail_unless( XMLNamespaces_getLength(
+    SpeciesReference_getNamespaces(object)) == 2 );
 
   SpeciesReference_free(object);
 }
@@ -184,7 +187,7 @@ create_suite_ModifierSpeciesReference (void)
   tcase_add_test( tcase, test_ModifierSpeciesReference_create     );
   tcase_add_test( tcase, test_ModifierSpeciesReference_free_NULL  );
   tcase_add_test( tcase, test_ModifierSpeciesReference_setSpecies );
-  tcase_add_test( tcase, test_ModifierSpeciesReference_createWithLevelVersionAndNamespace        );
+  tcase_add_test( tcase, test_ModifierSpeciesReference_createWithNS         );
 
   suite_add_tcase(suite, tcase);
 

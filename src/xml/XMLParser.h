@@ -36,7 +36,9 @@
 
 #include <string>
 #include <sbml/xml/XMLExtern.h>
+#include <sbml/common/operationReturnValues.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class XMLErrorLog;
 class XMLHandler;
@@ -172,8 +174,15 @@ public:
 
   /**
    * Sets the XMLErrorLog this parser will use to log errors.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  void setErrorLog (XMLErrorLog* log);
+  int setErrorLog (XMLErrorLog* log);
 
 
 protected:
@@ -194,6 +203,7 @@ protected:
   /** @endcond doxygen-libsbml-internal */
 };
 
-#endif  /* __cplusplus */
+LIBSBML_CPP_NAMESPACE_END
 
+#endif  /* __cplusplus */
 #endif  /* XMLParser_h */

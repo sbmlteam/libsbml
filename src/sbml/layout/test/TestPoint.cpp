@@ -50,6 +50,7 @@
 
 #include <check.h>
 
+LIBSBML_CPP_NAMESPACE_USE
 
 BEGIN_C_DECLS
 

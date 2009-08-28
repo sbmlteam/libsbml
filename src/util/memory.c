@@ -26,6 +26,9 @@
 #include <sbml/common/common.h>
 #include <sbml/util/memory.h>
 
+#include <sbml/common/extern.h>
+
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * PACKAGE_NAME is defined (as part of the autoconf process) in
@@ -573,6 +576,8 @@ MemTrace_MemInfoList_remove (MemInfoList_t *list, const void *address)
 
   return curr;
 }
+
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /** TRACE_MEMORY **/
 

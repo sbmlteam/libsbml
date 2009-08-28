@@ -45,35 +45,44 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
-/*
- * Creates a new Model, optionally with its id and name attributes set.
- */
-Model::Model (const std::string& id, const std::string& name) :
-   SBase   ( id, name, -1 )
- , mHistory (0)
- , mFormulaUnitsData (0)
+Model::Model (unsigned int level, unsigned int version) :
+   SBase ( level, version )
+ , mId               ( "" )
+ , mName             ( "" )
+ , mHistory          ( 0  )
+ , mFormulaUnitsData ( 0  )
 {
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
 
-Model::Model (unsigned int level, unsigned int version,
-                          XMLNamespaces *xmlns) :
-   SBase ("", "", -1)
- , mHistory (0)
- , mFormulaUnitsData (0)
+Model::Model (SBMLNamespaces * sbmlns) :
+   SBase             ( sbmlns )
+ , mId               ( "" )
+ , mName             ( "" )
+ , mHistory          ( 0  )
+ , mFormulaUnitsData ( 0  )
 {
-  mObjectLevel = level;
-  mObjectVersion = version;
-  if (xmlns) setNamespaces(xmlns);;
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
+
+  /* set the SBMLNamespace */
 }
 
+
+/** @cond doxygen-libsbml-internal */
+
+/* constructor for validators */
+Model::Model() :
+  SBase()
+{
+}
+
+/** @endcond doxygen-libsbml-internal */
                           
-Model::Model (SBMLNamespaces *sbmlns) :
-   SBase ("", "", -1)
- , mHistory (0)
- , mFormulaUnitsData (0)
-
 {
   mObjectLevel = sbmlns->getLevel();
   mObjectVersion = sbmlns->getVersion();
@@ -101,7 +110,9 @@ Model::~Model ()
  * Copy constructor.
  */
 Model::Model(const Model& orig) :
-       SBase   ( orig )
+       SBase                (orig                    )
+     , mId                  (orig.mId                )  
+     , mName                (orig.mName              )
      , mFunctionDefinitions (orig.mFunctionDefinitions)
      , mUnitDefinitions     (orig.mUnitDefinitions)
      , mCompartmentTypes    (orig.mCompartmentTypes)
@@ -118,6 +129,56 @@ Model::Model(const Model& orig) :
      , mLayouts             (orig.mLayouts)
 #endif
 {
+  /* reassign parentage */
+  if (orig.getNumFunctionDefinitions() > 0)
+  {
+    mFunctionDefinitions.setParentSBMLObject(this);
+  }
+  if (orig.getNumUnitDefinitions() > 0)
+  {
+    mUnitDefinitions.setParentSBMLObject(this);
+  }
+  if (orig.getNumCompartmentTypes() > 0)
+  {
+    mCompartmentTypes.setParentSBMLObject(this);
+  }
+  if (orig.getNumSpeciesTypes() > 0)
+  {
+    mSpeciesTypes.setParentSBMLObject(this);
+  }
+  if (orig.getNumCompartments() > 0)
+  {
+    mCompartments.setParentSBMLObject(this);
+  }
+  if (orig.getNumSpecies() > 0)
+  {
+    mSpecies.setParentSBMLObject(this);
+  }
+  if (orig.getNumParameters() > 0)
+  {
+    mParameters.setParentSBMLObject(this);
+  }
+  if (orig.getNumInitialAssignments() > 0)
+  {
+    mInitialAssignments.setParentSBMLObject(this);
+  }
+  if (orig.getNumRules() > 0)
+  {
+    mRules.setParentSBMLObject(this);
+  }
+  if (orig.getNumConstraints() > 0)
+  {
+    mConstraints.setParentSBMLObject(this);
+  }
+  if (orig.getNumReactions() > 0)
+  {
+    mReactions.setParentSBMLObject(this);
+  }
+  if (orig.getNumEvents() > 0)
+  {
+    mEvents.setParentSBMLObject(this);
+  }
+
   if (orig.mHistory)
   {
     this->mHistory = orig.mHistory->clone();
@@ -153,6 +214,8 @@ Model& Model::operator=(const Model& rhs)
   if(&rhs!=this)
   {
     this->SBase::operator = (rhs);
+    mId = rhs.mId;
+    mName = rhs.mName;
     mFunctionDefinitions  = rhs.mFunctionDefinitions;
     mUnitDefinitions      = rhs.mUnitDefinitions;
     mCompartmentTypes     = rhs.mCompartmentTypes;
@@ -169,8 +232,57 @@ Model& Model::operator=(const Model& rhs)
     mLayouts              = rhs.mLayouts;
   #endif
 
-    delete this->mHistory;
 
+    if (rhs.getNumFunctionDefinitions() > 0)
+    {
+      mFunctionDefinitions.setParentSBMLObject(this);
+    }
+    if (rhs.getNumUnitDefinitions() > 0)
+    {
+      mUnitDefinitions.setParentSBMLObject(this);
+    }
+    if (rhs.getNumCompartmentTypes() > 0)
+    {
+      mCompartmentTypes.setParentSBMLObject(this);
+    }
+    if (rhs.getNumSpeciesTypes() > 0)
+    {
+      mSpeciesTypes.setParentSBMLObject(this);
+    }
+    if (rhs.getNumCompartments() > 0)
+    {
+      mCompartments.setParentSBMLObject(this);
+    }
+    if (rhs.getNumSpecies() > 0)
+    {
+      mSpecies.setParentSBMLObject(this);
+    }
+    if (rhs.getNumParameters() > 0)
+    {
+      mParameters.setParentSBMLObject(this);
+    }
+    if (rhs.getNumInitialAssignments() > 0)
+    {
+      mInitialAssignments.setParentSBMLObject(this);
+    }
+    if (rhs.getNumRules() > 0)
+    {
+      mRules.setParentSBMLObject(this);
+    }
+    if (rhs.getNumConstraints() > 0)
+    {
+      mConstraints.setParentSBMLObject(this);
+    }
+    if (rhs.getNumReactions() > 0)
+    {
+      mReactions.setParentSBMLObject(this);
+    }
+    if (rhs.getNumEvents() > 0)
+    {
+      mEvents.setParentSBMLObject(this);
+    }
+
+    delete this->mHistory;
     if (rhs.mHistory)
     {
       this->mHistory = rhs.mHistory->clone();
@@ -181,9 +293,9 @@ Model& Model::operator=(const Model& rhs)
     }
 
     if (this->mFormulaUnitsData)
-    {  
+    {
       unsigned int size = this->mFormulaUnitsData->getSize();
-      while (size--) 
+      while (size--)
         delete static_cast<FormulaUnitsData*>( this->mFormulaUnitsData->remove(0) );
       delete this->mFormulaUnitsData;
     }
@@ -245,6 +357,26 @@ Model::clone () const
   return new Model(*this);
 }
 
+/*
+ * @return the id of this SBML object.
+ */
+const string&
+Model::getId () const
+{
+  return mId;
+}
+
+
+/*
+ * @return the name of this SBML object.
+ */
+const string&
+Model::getName () const
+{
+  return (getLevel() == 1) ? mId : mName;
+}
+
+
 ModelHistory* 
 Model::getModelHistory() const
 {
@@ -257,231 +389,692 @@ Model::getModelHistory()
   return mHistory;
 }
 
+/*
+ * @return true if the id of this SBML object has been set, false
+ * otherwise.
+ */
+bool
+Model::isSetId () const
+{
+  return (mId.empty() == false);
+}
+
+
+/*
+ * @return true if the name of this SBML object has been set, false
+ * otherwise.
+ */
+bool
+Model::isSetName () const
+{
+  return (getLevel() == 1) ? (mId.empty() == false) : 
+                            (mName.empty() == false);
+}
+
+
 bool
 Model::isSetModelHistory()
 {
   return (mHistory != 0);
 }
 
-void
-Model::setModelHistory(ModelHistory * history)
+/*
+ * Sets the id of this SBML object to a copy of sid.
+ */
+int
+Model::setId (const std::string& sid)
 {
-  if (mHistory == history) return;
-
-  delete mHistory;
-  mHistory = (history != 0) ? static_cast<ModelHistory*>( history->clone() ) : 0;
+  /* since the setId function has been used as an
+   * alias for setName we cant require it to only
+   * be used on a L2 model
+   */
+/*  if (getLevel() == 1)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+*/
+  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mId = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
-void 
+/*
+ * Sets the name of this SBML object to a copy of name.
+ */
+int
+Model::setName (const std::string& name)
+{
+  /* if this is setting an L2 name the type is string
+   * whereas if it is setting an L1 name its type is SId
+   */
+  if (getLevel() == 1)
+  {
+    if (!(SyntaxChecker::isValidSBMLSId(name)))
+    {
+      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    }
+    else
+    {
+      mId = name;
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+  else
+  {
+    mName = name;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+int
+Model::setModelHistory(ModelHistory * history)
+{
+  if (mHistory == history) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (history == NULL)
+  {
+    delete mHistory;
+    mHistory = 0;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (!(history->hasRequiredAttributes()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else
+  {
+    delete mHistory;
+    mHistory = static_cast<ModelHistory*>( history->clone() );
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Unsets the id of this SBML object.
+ */
+int
+Model::unsetId ()
+{
+  mId.erase();
+
+  if (mId.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the name of this SBML object.
+ */
+int
+Model::unsetName ()
+{
+  if (getLevel() == 1) 
+  {
+    mId.erase();
+  }
+  else 
+  {
+    mName.erase();
+  }
+
+  if (getLevel() == 1 && mId.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (mName.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+int 
 Model::unsetModelHistory()
 {
   delete mHistory;
   mHistory = 0;
+
+  if (mHistory)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Adds a copy of the given FunctionDefinition to this Model.
  */
-void
+int
 Model::addFunctionDefinition (const FunctionDefinition* fd)
 {
-  /* if the ListOf is empty it doesnt know its parent */
-  if (mFunctionDefinitions.size() == 0)
+  if (fd == NULL)
   {
-    mFunctionDefinitions.setSBMLDocument(this->getSBMLDocument());
-    mFunctionDefinitions.setParentSBMLObject(this);
+    return LIBSBML_OPERATION_FAILED;
   }
+  else if (!(fd->hasRequiredAttributes()) || !(fd->hasRequiredElements()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != fd->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != fd->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (getFunctionDefinition(fd->getId()) != NULL)
+  {
+    // an object with this id already exists
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
+  else
+  {
+    /* if the ListOf is empty it doesnt know its parent */
+    if (mFunctionDefinitions.size() == 0)
+    {
+      mFunctionDefinitions.setSBMLDocument(this->getSBMLDocument());
+      mFunctionDefinitions.setParentSBMLObject(this);
+    }
 
-  mFunctionDefinitions.append(fd);
+    mFunctionDefinitions.append(fd);
+   
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Adds a copy of the given UnitDefinition to this Model.
  */
-void
+int
 Model::addUnitDefinition (const UnitDefinition* ud)
 {
-  /* if the ListOf is empty it doesnt know its parent */
-  if (mUnitDefinitions.size() == 0)
+  if (ud == NULL)
   {
-    mUnitDefinitions.setSBMLDocument(this->getSBMLDocument());
-    mUnitDefinitions.setParentSBMLObject(this);
+    return LIBSBML_OPERATION_FAILED;
   }
+  else if (!(ud->hasRequiredAttributes()) || !(ud->hasRequiredElements()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != ud->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != ud->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (getUnitDefinition(ud->getId()) != NULL)
+  {
+    // an object with this id already exists
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
+  else
+  {
+    /* if the ListOf is empty it doesnt know its parent */
+    if (mUnitDefinitions.size() == 0)
+    {
+      mUnitDefinitions.setSBMLDocument(this->getSBMLDocument());
+      mUnitDefinitions.setParentSBMLObject(this);
+    }
 
-  mUnitDefinitions.append(ud);
+    mUnitDefinitions.append(ud);
+
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Adds a copy of the given CompartmentType to this Model.
  */
-void
+int
 Model::addCompartmentType (const CompartmentType* ct)
 {
-  /* if the ListOf is empty it doesnt know its parent */
-  if (mCompartmentTypes.size() == 0)
+  if (ct == NULL)
   {
-    mCompartmentTypes.setSBMLDocument(this->getSBMLDocument());
-    mCompartmentTypes.setParentSBMLObject(this);
+    return LIBSBML_OPERATION_FAILED;
   }
+  else if (!(ct->hasRequiredAttributes()) || !(ct->hasRequiredElements()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != ct->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != ct->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (getCompartmentType(ct->getId()) != NULL)
+  {
+    // an object with this id already exists
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
+  else
+  {
+    /* if the ListOf is empty it doesnt know its parent */
+    if (mCompartmentTypes.size() == 0)
+    {
+      mCompartmentTypes.setSBMLDocument(this->getSBMLDocument());
+      mCompartmentTypes.setParentSBMLObject(this);
+    }
 
-  mCompartmentTypes.append(ct);
+    mCompartmentTypes.append(ct);
+
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Adds a copy of the given SpeciesType to this Model.
  */
-void
+int
 Model::addSpeciesType (const SpeciesType* st)
 {
-  /* if the ListOf is empty it doesnt know its parent */
-  if (mSpeciesTypes.size() == 0)
+  if (st == NULL)
   {
-    mSpeciesTypes.setSBMLDocument(this->getSBMLDocument());
-    mSpeciesTypes.setParentSBMLObject(this);
+    return LIBSBML_OPERATION_FAILED;
   }
+  else if (!(st->hasRequiredAttributes()) || !(st->hasRequiredElements()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != st->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != st->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (getSpeciesType(st->getId()) != NULL)
+  {
+    // an object with this id already exists
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
+  else
+  {
+    /* if the ListOf is empty it doesnt know its parent */
+    if (mSpeciesTypes.size() == 0)
+    {
+      mSpeciesTypes.setSBMLDocument(this->getSBMLDocument());
+      mSpeciesTypes.setParentSBMLObject(this);
+    }
 
-  mSpeciesTypes.append(st);
+    mSpeciesTypes.append(st);
+
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Adds a copy of the given Compartment to this Model.
  */
-void
+int
 Model::addCompartment (const Compartment* c)
 {
-  /* if the ListOf is empty it doesnt know its parent */
-  if (mCompartments.size() == 0)
+  if (c == NULL)
   {
-    mCompartments.setSBMLDocument(this->getSBMLDocument());
-    mCompartments.setParentSBMLObject(this);
+    return LIBSBML_OPERATION_FAILED;
   }
+  else if (!(c->hasRequiredAttributes()) || !(c->hasRequiredElements()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != c->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != c->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (getCompartment(c->getId()) != NULL)
+  {
+    // an object with this id already exists
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
+  else
+  {
+    /* if the ListOf is empty it doesnt know its parent */
+    if (mCompartments.size() == 0)
+    {
+      mCompartments.setSBMLDocument(this->getSBMLDocument());
+      mCompartments.setParentSBMLObject(this);
+    }
 
-  mCompartments.append(c);
+    mCompartments.append(c);
+
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Adds a copy of the given Species to this Model.
  */
-void
+int
 Model::addSpecies (const Species* s)
 {
-  /* if the ListOf is empty it doesnt know its parent */
-  if (mSpecies.size() == 0)
+  if (s == NULL)
   {
-    mSpecies.setSBMLDocument(this->getSBMLDocument());
-    mSpecies.setParentSBMLObject(this);
+    return LIBSBML_OPERATION_FAILED;
   }
+  else if (!(s->hasRequiredAttributes()) || !(s->hasRequiredElements()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != s->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != s->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (getSpecies(s->getId()) != NULL)
+  {
+    // an object with this id already exists
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
+  else
+  {
+    /* if the ListOf is empty it doesnt know its parent */
+    if (mSpecies.size() == 0)
+    {
+      mSpecies.setSBMLDocument(this->getSBMLDocument());
+      mSpecies.setParentSBMLObject(this);
+    }
 
-  mSpecies.append(s);
+    mSpecies.append(s);
+
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Adds a copy of the given Parameter to this Model.
  */
-void
+int
 Model::addParameter (const Parameter* p)
 {
-  /* if the ListOf is empty it doesnt know its parent */
-  if (mParameters.size() == 0)
+  if (p == NULL)
   {
-    mParameters.setSBMLDocument(this->getSBMLDocument());
-    mParameters.setParentSBMLObject(this);
+    return LIBSBML_OPERATION_FAILED;
   }
+  else if (!(p->hasRequiredAttributes()) || !(p->hasRequiredElements()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != p->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != p->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (getParameter(p->getId()) != NULL)
+  {
+    // an object with this id already exists
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
+  else
+  {
+    /* if the ListOf is empty it doesnt know its parent */
+    if (mParameters.size() == 0)
+    {
+      mParameters.setSBMLDocument(this->getSBMLDocument());
+      mParameters.setParentSBMLObject(this);
+    }
 
-  mParameters.append(p);
+    mParameters.append(p);
+
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Adds a copy of the given InitialAssignment to this Model.
  */
-void
+int
 Model::addInitialAssignment (const InitialAssignment* ia)
 {
-  /* if the ListOf is empty it doesnt know its parent */
-  if (mInitialAssignments.size() == 0)
+  if (ia == NULL)
   {
-    mInitialAssignments.setSBMLDocument(this->getSBMLDocument());
-    mInitialAssignments.setParentSBMLObject(this);
+    return LIBSBML_OPERATION_FAILED;
   }
+  else if (!(ia->hasRequiredAttributes()) || !(ia->hasRequiredElements()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != ia->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != ia->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (getInitialAssignment(ia->getSymbol()) != NULL)
+  {
+    // an object with this id already exists
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
+  else
+  {
+    /* if the ListOf is empty it doesnt know its parent */
+    if (mInitialAssignments.size() == 0)
+    {
+      mInitialAssignments.setSBMLDocument(this->getSBMLDocument());
+      mInitialAssignments.setParentSBMLObject(this);
+    }
 
-  mInitialAssignments.append(ia);
+    mInitialAssignments.append(ia);
+
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Adds a copy of the given Rule to this Model.
  */
-void
+int
 Model::addRule (const Rule* r)
 {
-  /* if the ListOf is empty it doesnt know its parent */
-  if (mRules.size() == 0)
+  if (r == NULL)
   {
-    mRules.setSBMLDocument(this->getSBMLDocument());
-    mRules.setParentSBMLObject(this);
+    return LIBSBML_OPERATION_FAILED;
   }
+  else if (!(r->hasRequiredAttributes()) || !(r->hasRequiredElements()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != r->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != r->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (!r->isAlgebraic() 
+         && getRule(r->getVariable()) != NULL)
+  {
+    // an object with this id already exists
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
+  else
+  {
+    /* if the ListOf is empty it doesnt know its parent */
+    if (mRules.size() == 0)
+    {
+      mRules.setSBMLDocument(this->getSBMLDocument());
+      mRules.setParentSBMLObject(this);
+    }
 
-  mRules.append(r);
+    mRules.append(r);
+
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Adds a copy of the given Constraint to this Model.
  */
-void
+int
 Model::addConstraint (const Constraint* c)
 {
-  /* if the ListOf is empty it doesnt know its parent */
-  if (mConstraints.size() == 0)
+  if (c == NULL)
   {
-    mConstraints.setSBMLDocument(this->getSBMLDocument());
-    mConstraints.setParentSBMLObject(this);
+    return LIBSBML_OPERATION_FAILED;
   }
+  else if (!(c->hasRequiredAttributes()) || !(c->hasRequiredElements()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != c->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != c->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else
+  {
+    /* if the ListOf is empty it doesnt know its parent */
+    if (mConstraints.size() == 0)
+    {
+      mConstraints.setSBMLDocument(this->getSBMLDocument());
+      mConstraints.setParentSBMLObject(this);
+    }
 
-  mConstraints.append(c);
+    mConstraints.append(c);
+
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Adds a copy of the given Reaction to this Model.
  */
-void
+int
 Model::addReaction (const Reaction* r)
 {
-  /* if the ListOf is empty it doesnt know its parent */
-  if (mReactions.size() == 0)
+  if (r == NULL)
   {
-    mReactions.setSBMLDocument(this->getSBMLDocument());
-    mReactions.setParentSBMLObject(this);
+    return LIBSBML_OPERATION_FAILED;
   }
+  else if (!(r->hasRequiredAttributes()) || !(r->hasRequiredElements()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != r->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != r->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (getReaction(r->getId()) != NULL)
+  {
+    // an object with this id already exists
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
+  else
+  {
+    /* if the ListOf is empty it doesnt know its parent */
+    if (mReactions.size() == 0)
+    {
+      mReactions.setSBMLDocument(this->getSBMLDocument());
+      mReactions.setParentSBMLObject(this);
+    }
 
-  mReactions.append(r);
+    mReactions.append(r);
+
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Adds a copy of the given Event to this Model.
  */
-void
+int
 Model::addEvent (const Event* e)
 {
-  /* if the ListOf is empty it doesnt know its parent */
-  if (mEvents.size() == 0)
+  if (e == NULL)
   {
-    mEvents.setSBMLDocument(this->getSBMLDocument());
-    mEvents.setParentSBMLObject(this);
+    return LIBSBML_OPERATION_FAILED;
   }
+  else if (!(e->hasRequiredAttributes()) || !(e->hasRequiredElements()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != e->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != e->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (e->isSetId() && getEvent(e->getId()) != NULL)
+  {
+    // an object with this id already exists
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
+  else
+  {
+    /* if the ListOf is empty it doesnt know its parent */
+    if (mEvents.size() == 0)
+    {
+      mEvents.setSBMLDocument(this->getSBMLDocument());
+      mEvents.setParentSBMLObject(this);
+    }
 
-  mEvents.append(e);
+    mEvents.append(e);
+
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -491,7 +1084,20 @@ Model::addEvent (const Event* e)
 FunctionDefinition*
 Model::createFunctionDefinition ()
 {
-  FunctionDefinition* fd = new FunctionDefinition;
+  FunctionDefinition* fd = 0;
+
+  try
+  {
+    fd = new FunctionDefinition(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mFunctionDefinitions.size() == 0)
@@ -500,7 +1106,7 @@ Model::createFunctionDefinition ()
     mFunctionDefinitions.setParentSBMLObject(this);
   }
   
-  mFunctionDefinitions.appendAndOwn(fd);
+  if (fd) mFunctionDefinitions.appendAndOwn(fd);
 
   return fd;
 }
@@ -512,7 +1118,20 @@ Model::createFunctionDefinition ()
 UnitDefinition*
 Model::createUnitDefinition ()
 {
-  UnitDefinition* ud = new UnitDefinition;
+  UnitDefinition* ud = 0;
+
+  try
+  {
+    ud = new UnitDefinition(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mUnitDefinitions.size() == 0)
@@ -521,7 +1140,7 @@ Model::createUnitDefinition ()
     mUnitDefinitions.setParentSBMLObject(this);
   }
   
-  mUnitDefinitions.appendAndOwn(ud);
+  if (ud) mUnitDefinitions.appendAndOwn(ud);
 
   return ud;
 }
@@ -548,7 +1167,20 @@ Model::createUnit ()
 CompartmentType*
 Model::createCompartmentType ()
 {
-  CompartmentType* ct = new CompartmentType;
+  CompartmentType* ct = 0;
+
+  try
+  {
+    ct = new CompartmentType(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mCompartmentTypes.size() == 0)
@@ -557,7 +1189,7 @@ Model::createCompartmentType ()
     mCompartmentTypes.setParentSBMLObject(this);
   }
   
-  mCompartmentTypes.appendAndOwn(ct);
+  if (ct) mCompartmentTypes.appendAndOwn(ct);
 
   return ct;
 }
@@ -569,7 +1201,20 @@ Model::createCompartmentType ()
 SpeciesType*
 Model::createSpeciesType ()
 {
-  SpeciesType* st = new SpeciesType;
+  SpeciesType* st = 0;
+
+  try
+  {
+    st = new SpeciesType(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mSpeciesTypes.size() == 0)
@@ -578,7 +1223,7 @@ Model::createSpeciesType ()
     mSpeciesTypes.setParentSBMLObject(this);
   }
 
-  mSpeciesTypes.appendAndOwn(st);
+  if (st) mSpeciesTypes.appendAndOwn(st);
 
   return st;
 }
@@ -590,7 +1235,20 @@ Model::createSpeciesType ()
 Compartment*
 Model::createCompartment ()
 {
-  Compartment* c = new Compartment;
+  Compartment* c = 0;
+
+  try
+  {
+    c = new Compartment(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mCompartments.size() == 0)
@@ -599,7 +1257,7 @@ Model::createCompartment ()
     mCompartments.setParentSBMLObject(this);
   }
   
-  mCompartments.appendAndOwn(c);
+  if (c) mCompartments.appendAndOwn(c);
 
   return c;
 }
@@ -611,7 +1269,20 @@ Model::createCompartment ()
 Species*
 Model::createSpecies ()
 {
-  Species* s = new Species;
+  Species* s = 0;
+
+  try
+  {
+    s = new Species(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mSpecies.size() == 0)
@@ -620,7 +1291,7 @@ Model::createSpecies ()
     mSpecies.setParentSBMLObject(this);
   }
   
-  mSpecies.appendAndOwn(s);
+  if (s) mSpecies.appendAndOwn(s);
 
   return s;
 }
@@ -632,7 +1303,20 @@ Model::createSpecies ()
 Parameter*
 Model::createParameter ()
 {
-  Parameter* p = new Parameter;
+  Parameter* p = 0;
+
+  try
+  {
+    p = new Parameter(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mParameters.size() == 0)
@@ -641,7 +1325,7 @@ Model::createParameter ()
     mParameters.setParentSBMLObject(this);
   }
   
-  mParameters.appendAndOwn(p);
+  if (p) mParameters.appendAndOwn(p);
 
   return p;
 }
@@ -653,7 +1337,20 @@ Model::createParameter ()
 InitialAssignment*
 Model::createInitialAssignment ()
 {
-  InitialAssignment* ia = new InitialAssignment;
+  InitialAssignment* ia = 0;
+
+  try
+  {
+    ia = new InitialAssignment(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mInitialAssignments.size() == 0)
@@ -662,7 +1359,7 @@ Model::createInitialAssignment ()
     mInitialAssignments.setParentSBMLObject(this);
   }
   
-  mInitialAssignments.appendAndOwn(ia);
+  if (ia) mInitialAssignments.appendAndOwn(ia);
 
   return ia;
 }
@@ -674,7 +1371,20 @@ Model::createInitialAssignment ()
 AlgebraicRule*
 Model::createAlgebraicRule ()
 {
-  AlgebraicRule* ar = new AlgebraicRule;
+  AlgebraicRule* ar = 0;
+
+  try
+  {
+    ar = new AlgebraicRule(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mRules.size() == 0)
@@ -683,7 +1393,7 @@ Model::createAlgebraicRule ()
     mRules.setParentSBMLObject(this);
   }
   
-  mRules.appendAndOwn(ar);
+  if (ar) mRules.appendAndOwn(ar);
 
   return ar;
 }
@@ -695,7 +1405,20 @@ Model::createAlgebraicRule ()
 AssignmentRule*
 Model::createAssignmentRule ()
 {
-  AssignmentRule* ar = new AssignmentRule;
+  AssignmentRule* ar = 0;
+
+  try
+  {
+    ar = new AssignmentRule(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mRules.size() == 0)
@@ -704,7 +1427,7 @@ Model::createAssignmentRule ()
     mRules.setParentSBMLObject(this);
   }
   
-  mRules.appendAndOwn(ar);
+  if (ar) mRules.appendAndOwn(ar);
 
   return ar;
 }
@@ -716,7 +1439,20 @@ Model::createAssignmentRule ()
 RateRule*
 Model::createRateRule ()
 {
-  RateRule* rr = new RateRule();
+  RateRule* rr = 0;
+
+  try
+  {
+    rr = new RateRule(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mRules.size() == 0)
@@ -725,7 +1461,7 @@ Model::createRateRule ()
     mRules.setParentSBMLObject(this);
   }
   
-  mRules.appendAndOwn(rr);
+  if (rr) mRules.appendAndOwn(rr);
 
   return rr;
 }
@@ -737,7 +1473,20 @@ Model::createRateRule ()
 Constraint*
 Model::createConstraint ()
 {
-  Constraint* c = new Constraint;
+  Constraint* c = 0;
+
+  try
+  {
+    c = new Constraint(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mConstraints.size() == 0)
@@ -746,7 +1495,7 @@ Model::createConstraint ()
     mConstraints.setParentSBMLObject(this);
   }
   
-  mConstraints.appendAndOwn(c);
+  if (c) mConstraints.appendAndOwn(c);
 
   return c;
 }
@@ -758,7 +1507,20 @@ Model::createConstraint ()
 Reaction*
 Model::createReaction ()
 {
-  Reaction* r = new Reaction;
+  Reaction* r = 0;
+
+  try
+  {
+    r = new Reaction(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mReactions.size() == 0)
@@ -767,7 +1529,7 @@ Model::createReaction ()
     mReactions.setParentSBMLObject(this);
   }
   
-  mReactions.appendAndOwn(r);
+  if (r) mReactions.appendAndOwn(r);
 
   return r;
 }
@@ -866,7 +1628,20 @@ Model::createKineticLawParameter ()
 Event*
 Model::createEvent ()
 {
-  Event* e = new Event;
+  Event* e = 0;
+
+  try
+  {
+    e = new Event(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mEvents.size() == 0)
@@ -875,7 +1650,7 @@ Model::createEvent ()
     mEvents.setParentSBMLObject(this);
   }
   
-  mEvents.appendAndOwn(e);
+  if (e) mEvents.appendAndOwn(e);
 
   return e;
 }
@@ -929,53 +1704,60 @@ Model::createDelay ()
 /*
  * Sets the annotation of this SBML object to a copy of annotation.
  */
-void
+int
 Model::setAnnotation (const XMLNode* annotation)
 {
-  SBase::setAnnotation(annotation);
+  int success = SBase::setAnnotation(annotation);
 	
   //
-  // delete existing mHistory 
-  //
-  // existing mHistory (if any) needs to be deleted at any rate, otherwise
-  // unsetAnnotation() ( setAnnotation(NULL) ) doesn't work as expected.
-  // (These functions must clear all elements in an annotation.)
-  //
-  delete mHistory;
-  mHistory = NULL;
-
-  if(mAnnotation && RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation))
+  if (success == 0)
   {
-    // parse mAnnotation (if any) and set mHistory
-    mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation);
-  }
+    //
+    // delete existing mHistory
+    //
+    // existing mHistory (if any) needs to be deleted at any rate, otherwise
+    // unsetAnnotation() ( setAnnotation(NULL) ) doesn't work as expected.
+    // (These functions must clear all elements in an annotation.)
+    //
+    delete mHistory;
+    mHistory = NULL;
+
+    if(mAnnotation && RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation))
+    {
+      // parse mAnnotation (if any) and set mHistory
+      mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation);
+    }
 #ifdef USE_LAYOUT
-  // delete existing mLayouts 
-  for(unsigned int i=0; i < mLayouts.size(); i++)
-  {
-    Layout* lo = static_cast<Layout*>(mLayouts.remove(0));
-    delete lo;
+    // delete existing mLayouts 
+    for(unsigned int i=0; i < mLayouts.size(); i++)
+    {
+      Layout* lo = static_cast<Layout*>(mLayouts.remove(0));
+      delete lo;
+    }
+
+    if(mAnnotation)
+    {
+      // parse mAnnotation (if any) and set mLayouts 
+      parseLayoutAnnotation(mAnnotation,mLayouts);
+    }
+#endif // USE_LAYOUT
   }
 
-  if(mAnnotation)
-  {
-    // parse mAnnotation (if any) and set mLayouts 
-    parseLayoutAnnotation(mAnnotation,mLayouts);
-  }
-#endif // USE_LAYOUT
+  return success;
 }
 
 
 /*
  * Sets the annotation (by string) of this SBML object to a copy of annotation.
  */
-void
+int
 Model::setAnnotation (const std::string& annotation)
 {
+  int success = LIBSBML_OPERATION_FAILED;
   if(annotation.empty())
   {
     unsetAnnotation();
-    return;
+    return LIBSBML_OPERATION_SUCCESS;
   }
 
   XMLNode* annt_xmln;
@@ -991,9 +1773,10 @@ Model::setAnnotation (const std::string& annotation)
 
   if(annt_xmln)
   {
-    setAnnotation(annt_xmln);
+    success = setAnnotation(annt_xmln);
     delete annt_xmln;
   }
+  return success;
 }
 
 
@@ -1002,10 +1785,11 @@ Model::setAnnotation (const std::string& annotation)
  * This allows other annotations to be preserved whilst
  * adding additional information.
  */
-void
+int
 Model::appendAnnotation (const XMLNode* annotation)
 {
-  if(!annotation) return;
+  int success = LIBSBML_OPERATION_FAILED;
+  if(!annotation) return LIBSBML_OPERATION_SUCCESS;
 
   XMLNode* new_annotation = NULL;
   const string&  name = annotation->getName();
@@ -1042,9 +1826,11 @@ Model::appendAnnotation (const XMLNode* annotation)
   //new_annotation = tmp_annotation;
 #endif // USE_LAYOUT
 
-  SBase::appendAnnotation(new_annotation);
+  success = SBase::appendAnnotation(new_annotation);
 
   delete new_annotation;
+
+  return success;
 }
 
 
@@ -1053,9 +1839,10 @@ Model::appendAnnotation (const XMLNode* annotation)
  * This allows other annotations to be preserved whilst
  * adding additional information.
  */
-void
+int
 Model::appendAnnotation (const std::string& annotation)
 {
+  int success = LIBSBML_OPERATION_FAILED;
   XMLNode* annt_xmln;
   if (getSBMLDocument())
   {
@@ -1069,9 +1856,11 @@ Model::appendAnnotation (const std::string& annotation)
 
   if(annt_xmln)
   {
-    appendAnnotation(annt_xmln);
+    success = appendAnnotation(annt_xmln);
     delete annt_xmln;
   }
+
+  return success;
 }
 
 
@@ -2173,6 +2962,285 @@ Model::getElementName () const
 }
 
 
+bool 
+Model::hasRequiredElements() const
+{
+  bool allPresent = true;
+
+  /* required attributes for model: compart(L1); species (L1V1)
+   * reaction (L1V1)
+   */
+
+  if (getLevel() == 1)
+  {
+    if (getNumCompartments() == 0)
+      allPresent = false;
+
+    if (getVersion() == 1)
+    {
+      if (getNumSpecies() == 0)
+        allPresent = false;
+      if (getNumReactions() == 0)
+        allPresent = false;
+    }
+  }
+  return allPresent;
+}
+
+
+/**
+ * Removes the nth FunctionDefinition object from this Model object and
+ * returns a pointer to it.
+ */
+FunctionDefinition* 
+Model::removeFunctionDefinition (unsigned int n)
+{
+  return mFunctionDefinitions.remove(n);
+}
+
+
+/**
+ * Removes the FunctionDefinition object with the given identifier from this Model
+ * object and returns a pointer to it.
+ */
+FunctionDefinition* 
+Model::removeFunctionDefinition (const std::string& sid)
+{
+  return mFunctionDefinitions.remove(sid);
+}
+
+
+/**
+ * Removes the nth UnitDefinition object from this Model object and
+ * returns a pointer to it.
+ */
+UnitDefinition*
+Model::removeUnitDefinition (unsigned int n)
+{
+  return mUnitDefinitions.remove(n);
+}
+
+
+/**
+ * Removes the UnitDefinition object with the given identifier from this Model
+ * object and returns a pointer to it.
+ */
+UnitDefinition*
+Model::removeUnitDefinition (const std::string& sid)
+{
+  return mUnitDefinitions.remove(sid);
+}
+
+
+/**
+ * Removes the nth CompartmentType object from this Model object and
+ * returns a pointer to it.
+ */
+CompartmentType*
+Model::removeCompartmentType (unsigned int n)
+{
+  return mCompartmentTypes.remove(n);
+}
+
+
+/**
+ * Removes the CompartmentType object with the given identifier from this Model
+ * object and returns a pointer to it.
+ */
+CompartmentType*
+Model::removeCompartmentType (const std::string& sid)
+{
+  return mCompartmentTypes.remove(sid);
+}
+
+
+/**
+ * Removes the nth SpeciesType object from this Model object and
+ * returns a pointer to it.
+ */
+SpeciesType*
+Model::removeSpeciesType (unsigned int n)
+{
+  return mSpeciesTypes.remove(n);
+}
+
+
+/**
+ * Removes the SpeciesType object with the given identifier from this Model
+ * object and returns a pointer to it.
+ */
+SpeciesType*
+Model::removeSpeciesType (const std::string& sid)
+{
+  return mSpeciesTypes.remove(sid);
+}
+
+
+/**
+ * Removes the nth Compartment object from this Model object and
+ * returns a pointer to it.
+ */
+Compartment*
+Model::removeCompartment (unsigned int n)
+{
+  return mCompartments.remove(n);
+}
+
+
+/**
+ * Removes the Compartment object with the given identifier from this Model
+ * object and returns a pointer to it.
+ */
+Compartment*
+Model::removeCompartment (const std::string& sid)
+{
+  return mCompartments.remove(sid);
+}
+
+
+/**
+ * Removes the nth Species object from this Model object and
+ * returns a pointer to it.
+ */
+Species*
+Model::removeSpecies (unsigned int n)
+{
+  return mSpecies.remove(n);
+}
+
+
+/**
+ * Removes the Species object with the given identifier from this Model
+ * object and returns a pointer to it.
+ */
+Species*
+Model::removeSpecies (const std::string& sid)
+{
+  return mSpecies.remove(sid);
+}
+
+
+/**
+ * Removes the nth Parameter object from this Model object and
+ * returns a pointer to it.
+ */
+Parameter*
+Model::removeParameter (unsigned int n)
+{
+  return mParameters.remove(n);
+}
+
+
+/**
+ * Removes the Parameter object with the given identifier from this Model
+ * object and returns a pointer to it.
+ */
+Parameter*
+Model::removeParameter (const std::string& sid)
+{
+  return mParameters.remove(sid);
+}
+
+
+/**
+ * Removes the nth InitialAssignment object from this Model object and
+ * returns a pointer to it.
+ */
+InitialAssignment*
+Model::removeInitialAssignment (unsigned int n)
+{
+  return mInitialAssignments.remove(n);
+}
+
+
+/**
+ * Removes the InitialAssignment object with the given identifier from this Model
+ * object and returns a pointer to it.
+ */
+InitialAssignment*
+Model::removeInitialAssignment (const std::string& sid)
+{
+  return mInitialAssignments.remove(sid);
+}
+
+
+/**
+ * Removes the nth Rule object from this Model object and
+ * returns a pointer to it.
+ */
+Rule*
+Model::removeRule (unsigned int n)
+{
+  return mRules.remove(n);
+}
+
+
+/**
+ * Removes the Rule object with the given identifier from this Model
+ * object and returns a pointer to it.
+ */
+Rule*
+Model::removeRule (const std::string& sid)
+{
+  return mRules.remove(sid);
+}
+
+
+/**
+ * Removes the nth Constraint object from this Model object and
+ * returns a pointer to it.
+ */
+Constraint*
+Model::removeConstraint (unsigned int n)
+{
+  return mConstraints.remove(n);
+}
+
+
+/**
+ * Removes the nth Reaction object from this Model object and
+ * returns a pointer to it.
+ */
+Reaction*
+Model::removeReaction (unsigned int n)
+{
+  return mReactions.remove(n);
+}
+
+
+/**
+ * Removes the Reaction object with the given identifier from this Model
+ * object and returns a pointer to it.
+ */
+Reaction*
+Model::removeReaction (const std::string& sid)
+{
+  return mReactions.remove(sid);
+}
+
+
+/**
+ * Removes the nth Event object from this Model object and
+ * returns a pointer to it.
+ */
+Event*
+Model::removeEvent (unsigned int n)
+{
+  return mEvents.remove(n);
+}
+
+
+/**
+ * Removes the Event object with the given identifier from this Model
+ * object and returns a pointer to it.
+ */
+Event*
+Model::removeEvent (const std::string& sid)
+{
+  return mEvents.remove(sid);
+}
+
+
 /** @cond doxygen-libsbml-internal */
 /*
  * Subclasses should override this method to read (and store) XHTML,
@@ -2452,7 +3520,7 @@ Model::readAttributes (const XMLAttributes& attributes)
   {
     logEmptyString(id, level, version, "<model>");
   }
-  SBase::checkIdSyntax();
+  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
 
   if (level > 1)
   {
@@ -2627,10 +3695,11 @@ Model::getLayout (unsigned int index)
 /*
  * Adds a copy of the layout object to the list of layouts.
  */ 
-void
+int
 Model::addLayout (const Layout* layout)
 {
   mLayouts.append(layout);
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -2650,6 +3719,17 @@ Model::createLayout ()
   mLayouts.appendAndOwn(l);
 
   return l;
+}
+
+
+/**
+ * Removes the nth Layout object from this Model object and
+ * returns a pointer to it.
+ */
+Layout* 
+Model::removeLayout (unsigned int n)
+{
+  return static_cast<Layout*>(mLayouts.remove(n));
 }
 
 
@@ -2691,8 +3771,9 @@ Model::populateListFormulaUnitsData()
 
   UnitFormulaFormatter *unitFormatter = new UnitFormulaFormatter(this);
   FormulaUnitsData *fud;
-  UnitDefinition *ud = new UnitDefinition();
+  UnitDefinition *ud = new UnitDefinition(getSBMLNamespaces());
   Unit *u;
+  Unit *uFromModel;
 
   /* put in the dafult units of substance per time */
   fud = createFormulaUnitsData();
@@ -2703,12 +3784,22 @@ Model::populateListFormulaUnitsData()
   {
     for (n = 0; n < getUnitDefinition("substance")->getNumUnits(); n++)
     {
-      ud->addUnit(getUnitDefinition("substance")->getUnit(n));
+      // need to prevent level/version mismatches
+      // ud will have default level and veersion
+      uFromModel = getUnitDefinition("substance")->getUnit(n);
+      u = new Unit(uFromModel->getSBMLNamespaces());
+      u->setKind(uFromModel->getKind());
+      u->setExponent(uFromModel->getExponent());
+      u->setScale(uFromModel->getScale());
+      u->setMultiplier(uFromModel->getMultiplier());
+      ud->addUnit(u);
+      delete u;
     }
   }
   else
   {
-    u = new Unit("mole", 1);
+    u = new Unit(getSBMLNamespaces());
+    u->setKind(UNIT_KIND_MOLE);
     ud->addUnit(u);
     delete u;
   }
@@ -2717,7 +3808,12 @@ Model::populateListFormulaUnitsData()
   {
     for (n = 0; n < getUnitDefinition("time")->getNumUnits(); n++)
     {
-      u = (Unit *) (getUnitDefinition("time")->getUnit(n))->clone();
+      uFromModel = getUnitDefinition("time")->getUnit(n);
+      u = new Unit(uFromModel->getSBMLNamespaces());
+      u->setKind(uFromModel->getKind());
+      u->setExponent(uFromModel->getExponent());
+      u->setScale(uFromModel->getScale());
+      u->setMultiplier(uFromModel->getMultiplier());
       u->setExponent(u->getExponent() * -1);
       ud->addUnit(u);
       delete u;
@@ -2725,7 +3821,9 @@ Model::populateListFormulaUnitsData()
   }
   else
   {
-    u = new Unit("second", -1);
+    u = new Unit(getSBMLNamespaces());
+    u->setKind(UNIT_KIND_SECOND);
+    u->setExponent(-1);
     ud->addUnit(u);
     delete u;
   }
@@ -2743,10 +3841,12 @@ Model::populateListFormulaUnitsData()
     ud = unitFormatter->getUnitDefinitionFromCompartment(c);
     fud->setUnitDefinition(ud);
 
-    ud = new UnitDefinition();
+    ud = new UnitDefinition(getSBMLNamespaces());
     for (j = 0; j < fud->getUnitDefinition()->getNumUnits(); j++)
       ud->addUnit(fud->getUnitDefinition()->getUnit(j));
-    u = new Unit("second", -1);
+    u = new Unit(getSBMLNamespaces());
+    u->setKind(UNIT_KIND_SECOND);
+    u->setExponent(-1);
     ud->addUnit(u);
     delete u;
     fud->setPerTimeUnitDefinition(ud);
@@ -2772,10 +3872,12 @@ Model::populateListFormulaUnitsData()
     
     if (ud != NULL)
     {
-      ud = new UnitDefinition();
+      ud = new UnitDefinition(getSBMLNamespaces());
       for (j = 0; j < fud->getUnitDefinition()->getNumUnits(); j++)
         ud->addUnit(fud->getUnitDefinition()->getUnit(j));
-      u = new Unit("second", -1);
+      u = new Unit(getSBMLNamespaces());
+      u->setKind(UNIT_KIND_SECOND);
+      u->setExponent(-1);
       ud->addUnit(u);
       delete u;
       fud->setPerTimeUnitDefinition(ud);
@@ -2799,10 +3901,12 @@ Model::populateListFormulaUnitsData()
 
     if (ud != NULL)
     {
-      ud = new UnitDefinition();
+      ud = new UnitDefinition(getSBMLNamespaces());
       for (j = 0; j < fud->getUnitDefinition()->getNumUnits(); j++)
         ud->addUnit(fud->getUnitDefinition()->getUnit(j));
-      u = new Unit("second", -1);
+      u = new Unit(getSBMLNamespaces());
+      u->setKind(UNIT_KIND_SECOND);
+      u->setExponent(-1);
       ud->addUnit(u);
       UnitDefinition::simplify(ud);
       delete u;
@@ -2845,7 +3949,7 @@ Model::populateListFormulaUnitsData()
       sprintf(newId, "alg_rule_%u", countAlg);
       newID.assign(newId);
       fud->setUnitReferenceId(newID);
-      r->setId(newID);
+      r->setInternalId(newID);
       static_cast <AlgebraicRule *> (r)->setInternalIdOnly();
       countAlg++;
     }
@@ -2892,7 +3996,7 @@ Model::populateListFormulaUnitsData()
        * so we set it to be the reaction id so 
        * that searching the listFormulaUnitsData can find it
        */
-      react->getKineticLaw()->setId(react->getId());
+      react->getKineticLaw()->setInternalId(react->getId());
 
       fud->setComponentTypecode(SBML_KINETIC_LAW);
       unitFormatter->resetFlags();
@@ -2922,7 +4026,7 @@ Model::populateListFormulaUnitsData()
       {
         fud = createFormulaUnitsData();
         fud->setUnitReferenceId(sr->getSpecies());
-        sr->getStoichiometryMath()->setId(sr->getSpecies());
+        sr->getStoichiometryMath()->setInternalId(sr->getSpecies());
         fud->setComponentTypecode(SBML_STOICHIOMETRY_MATH);
         unitFormatter->resetFlags();
         ud = unitFormatter->getUnitDefinition
@@ -2942,7 +4046,7 @@ Model::populateListFormulaUnitsData()
       if (sr->isSetStoichiometryMath())
       {
         fud = createFormulaUnitsData();
-        sr->getStoichiometryMath()->setId(sr->getSpecies());
+        sr->getStoichiometryMath()->setInternalId(sr->getSpecies());
         fud->setComponentTypecode(SBML_STOICHIOMETRY_MATH);
         unitFormatter->resetFlags();
         ud = unitFormatter->getUnitDefinition
@@ -2991,7 +4095,7 @@ Model::populateListFormulaUnitsData()
       fud = createFormulaUnitsData();
         
       fud->setUnitReferenceId(newID);
-      d->setId(newID);
+      d->setInternalId(newID);
 
       fud->setComponentTypecode(SBML_EVENT);
       unitFormatter->resetFlags();
@@ -3211,68 +4315,72 @@ Model::isPopulatedListFormulaUnitsData()
 
 
 /**
- * Creates a new Model_t structure and returns a pointer to it.
+ * Creates a new Model_t structure using the given SBML @p level
+ * and @p version values.
  *
- * @return the freshly-created Model_t structure.
- */
-LIBSBML_EXTERN
-Model_t *
-Model_create ()
-{
-  return new(nothrow) Model;
-}
-
-
-/**
- * Creates a new Model_t structure with the given identifier and returns a
- * pointer to it.
- *
- * @param sid a string, the identifier to assign to this Model_t structure
- * @param name a string, the name to give this Model_t structure
- *
- * @return the Model_t structure created
- */
-LIBSBML_EXTERN
-Model_t *
-Model_createWith (const char *sid, const char * name)
-{
-  return new(nothrow) Model(sid ? sid : "", name ? name : "");
-}
-
-
-/** @cond doxygen-libsbml-internal */
-/**
- * Creates a new Model_t structure using the given SBML @p 
- * level and @p version values and a set of XMLNamespaces.
- *
- * @param level an unsigned int, the SBML Level to assign to this 
+ * @param level an unsigned int, the SBML Level to assign to this
  * Model
  *
  * @param version an unsigned int, the SBML Version to assign to this
  * Model
- * 
- * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
- * assign to this Model
  *
  * @return a pointer to the newly created Model_t structure.
  *
- * @note Once a Model has been added to an SBMLDocument, the @p 
- * level, @p version and @p xmlns namespaces for the document @em override 
- * those used to create the Model.  Despite this, the ability 
- * to supply the values at creation time is an important aid to creating 
- * valid SBML.  Knowledge of the intended SBML Level and Version 
- * determine whether it is valid to assign a particular value to an 
- * attribute, or whether it is valid to add an object to an existing 
+ * @note Once a Model has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the Model.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
+ */
+LIBSBML_EXTERN
+Model_t *
+Model_create (unsigned int level, unsigned int version)
+{
+  try
+  {
+    Model* obj = new Model(level,version);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
+
+
+/**
+ * Creates a new Model_t structure using the given
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this Model
+ *
+ * @return a pointer to the newly created Model_t structure.
+ *
+ * @note Once a Model has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the Model.  Despite this, the ability to supply the values at creation time
+ * is an important aid to creating valid SBML.  Knowledge of the intended SBML
+ * Level and Version determine whether it is valid to assign a particular value
+ * to an attribute, or whether it is valid to add an object to an existing
  * SBMLDocument.
  */
 LIBSBML_EXTERN
 Model_t *
-Model_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns)
+Model_createWithNS (SBMLNamespaces_t* sbmlns)
 {
-  return new(nothrow) Model(level, version, xmlns);
+  try
+  {
+    Model* obj = new Model(sbmlns);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
 }
-/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -3391,12 +4499,22 @@ Model_isSetName (const Model_t *m)
  * 
  * @param m the Model_t structure
  * @param sid the identifier string
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "id" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 Model_setId (Model_t *m, const char *sid)
 {
-  (sid == NULL) ? m->unsetId() : m->setId(sid);
+  return (sid == NULL) ? m->unsetId() : m->setId(sid);
 }
 
 
@@ -3407,12 +4525,22 @@ Model_setId (Model_t *m, const char *sid)
  *
  * @param m the Model_t structure
  * @param name the name string
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "name" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 Model_setName (Model_t *m, const char *name)
 {
-  (name == NULL) ? m->unsetName() : m->setName(name);
+  return (name == NULL) ? m->unsetName() : m->setName(name);
 }
 
 
@@ -3420,12 +4548,19 @@ Model_setName (Model_t *m, const char *name)
  * Unsets the "id" attribute of the given Model_t structure.
  *
  * @param m the Model_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Model_unsetId (Model_t *m)
 {
-  m->unsetId();
+  return m->unsetId();
 }
 
 
@@ -3433,12 +4568,19 @@ Model_unsetId (Model_t *m)
  * Unsets the "name" attribute of the given Model_t structure.
  *
  * @param m the Model_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Model_unsetName (Model_t *m)
 {
-  m->unsetName();
+  return m->unsetName();
 }
 
 
@@ -3477,24 +4619,38 @@ Model_isSetModelHistory(Model_t *m)
  * 
  * @param m the Model_t structure
  * @param history the ModelHistory_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
-void 
+int 
 Model_setModelHistory(Model_t *m, ModelHistory_t *history)
 {
-  m->setModelHistory(history);
+  return m->setModelHistory(history);
 }
 
 /**
  * Unsets the ModelHistory of the given Model_t structure.
  * 
  * @param m the Model_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void 
+int 
 Model_unsetModelHistory(Model_t *m)
 {
-  m->unsetModelHistory();
+  return m->unsetModelHistory();
 }
 
 
@@ -3504,12 +4660,22 @@ Model_unsetModelHistory(Model_t *m)
  *
  * @param m the Model_t structure
  * @param fd the FunctionDefinition_t structure to copy and add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
+ * @li LIBSBML_DUPLICATE_OBJECT_ID
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Model_addFunctionDefinition (Model_t *m, const FunctionDefinition_t *fd)
 {
-  if (fd != NULL) m->addFunctionDefinition(fd);
+  return  m->addFunctionDefinition(fd);
 }
 
 
@@ -3518,12 +4684,22 @@ Model_addFunctionDefinition (Model_t *m, const FunctionDefinition_t *fd)
  *
  * @param m the Model_t structure
  * @param ud the UnitDefinition_t structure to copy and add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
+ * @li LIBSBML_DUPLICATE_OBJECT_ID
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Model_addUnitDefinition (Model_t *m, const UnitDefinition_t *ud)
 {
-  if (ud != NULL) m->addUnitDefinition(ud);
+  return m->addUnitDefinition(ud);
 }
 
 
@@ -3532,12 +4708,22 @@ Model_addUnitDefinition (Model_t *m, const UnitDefinition_t *ud)
  *
  * @param m the Model_t structure
  * @param ct the CompartmentType_t structure to copy and add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
+ * @li LIBSBML_DUPLICATE_OBJECT_ID
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Model_addCompartmentType (Model_t *m, const CompartmentType_t *ct)
 {
-  if (ct != NULL) m->addCompartmentType(ct);
+  return m->addCompartmentType(ct);
 }
 
 
@@ -3546,12 +4732,22 @@ Model_addCompartmentType (Model_t *m, const CompartmentType_t *ct)
  *
  * @param m the Model_t structure
  * @param st the SpeciesType_t structure to copy and add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
+ * @li LIBSBML_DUPLICATE_OBJECT_ID
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Model_addSpeciesType (Model_t *m, const SpeciesType_t *st)
 {
-  if (st != NULL) m->addSpeciesType(st);
+  return m->addSpeciesType(st);
 }
 
 
@@ -3560,12 +4756,22 @@ Model_addSpeciesType (Model_t *m, const SpeciesType_t *st)
  *
  * @param m the Model_t structure
  * @param c the Compartment_t structure to copy and add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
+ * @li LIBSBML_DUPLICATE_OBJECT_ID
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Model_addCompartment (Model_t *m, const Compartment_t *c)
 {
-  if (c != NULL) m->addCompartment(c);
+  return m->addCompartment(c);
 }
 
 
@@ -3574,12 +4780,22 @@ Model_addCompartment (Model_t *m, const Compartment_t *c)
  *
  * @param m the Model_t structure
  * @param s the Species_t structure to copy and add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
+ * @li LIBSBML_DUPLICATE_OBJECT_ID
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Model_addSpecies (Model_t *m, const Species_t *s)
 {
-  if (s != NULL) m->addSpecies(s);
+  return m->addSpecies(s);
 }
 
 
@@ -3588,12 +4804,22 @@ Model_addSpecies (Model_t *m, const Species_t *s)
  *
  * @param m the Model_t structure
  * @param p the Parameter_t structure to copy and add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
+ * @li LIBSBML_DUPLICATE_OBJECT_ID
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Model_addParameter (Model_t *m, const Parameter_t *p)
 {
-  if (p != NULL) m->addParameter(p);
+  return m->addParameter(p);
 }
 
 
@@ -3602,12 +4828,22 @@ Model_addParameter (Model_t *m, const Parameter_t *p)
  *
  * @param m the Model_t structure
  * @param ia the InitialAssignment_t structure to copy and add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
+ * @li LIBSBML_DUPLICATE_OBJECT_ID
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Model_addInitialAssignment (Model_t *m, const InitialAssignment_t *ia)
 {
-  if (ia != NULL) m->addInitialAssignment(ia);
+  return m->addInitialAssignment(ia);
 }
 
 
@@ -3616,12 +4852,22 @@ Model_addInitialAssignment (Model_t *m, const InitialAssignment_t *ia)
  *
  * @param m the Model_t structure
  * @param r the Rule_t structure to copy and add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
+ * @li LIBSBML_DUPLICATE_OBJECT_ID
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Model_addRule (Model_t *m, const Rule_t *r)
 {
-  if (r != NULL) m->addRule(r);
+  return m->addRule(r);
 }
 
 
@@ -3630,12 +4876,21 @@ Model_addRule (Model_t *m, const Rule_t *r)
  *
  * @param m the Model_t structure
  * @param c the Constraint_t structure to copy and add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Model_addConstraint (Model_t *m, const Constraint_t *c)
 {
-  if (c != NULL) m->addConstraint(c);
+  return m->addConstraint(c);
 }
 
 
@@ -3644,12 +4899,22 @@ Model_addConstraint (Model_t *m, const Constraint_t *c)
  *
  * @param m the Model_t structure
  * @param r the Reaction_t structure to copy and add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
+ * @li LIBSBML_DUPLICATE_OBJECT_ID
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Model_addReaction (Model_t *m, const Reaction_t *r)
 {
-  if (r != NULL) m->addReaction(r);
+  return m->addReaction(r);
 }
 
 
@@ -3658,12 +4923,22 @@ Model_addReaction (Model_t *m, const Reaction_t *r)
  *
  * @param m the Model_t structure
  * @param e the Event_t structure to copy and add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
+ * @li LIBSBML_DUPLICATE_OBJECT_ID
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Model_addEvent (Model_t *m, const Event_t *e)
 {
-  if (e != NULL) m->addEvent(e);
+  return m->addEvent(e);
 }
 
 
@@ -4931,12 +6206,18 @@ Model_getLayout (Model_t *m, unsigned int index)
  *
  * @param m the Model_t structure
  * @param layout the Layout_t structure to copy and add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void 
+int 
 Model_addLayout (Model_t *m, const Layout_t *layout)
 {
-  m->addLayout(layout);
+  return m->addLayout(layout);
 }
 
 
@@ -4951,6 +6232,28 @@ Layout_t *
 Model_createLayout (Model_t *m)
 {
   return m->createLayout();
+}
+
+
+/**
+ * Removes the nth Layout_t object from this Model_t object and
+ * returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Model_t structure
+ * @param n the integer index of the Layout_t sought
+ *
+ * @return the Layout_t object removed.  As mentioned above, 
+ * the caller owns the returned item. NULL is returned if the given index 
+ * is out of range.
+ */
+LIBSBML_EXTERN
+Layout_t*
+Model_removeLayout (Model_t *m, unsigned int n)
+{
+  if(!m) return 0;
+  return m->removeLayout(n);
 }
 
 
@@ -5005,6 +6308,514 @@ Model_isPopulatedListFormulaUnitsData(Model_t *m)
 {
   return static_cast<int>( m->isPopulatedListFormulaUnitsData());
 }
+
+
+/**
+ * Removes the nth FunctionDefinition_t object from this Model_t object and
+ * returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Model_t structure
+ * @param n the integer index of the FunctionDefinition_t sought
+ *
+ * @return the FunctionDefinition_t object removed.  As mentioned above, 
+ * the caller owns the returned item. NULL is returned if the given index 
+ * is out of range.
+ */
+LIBSBML_EXTERN
+FunctionDefinition_t*
+Model_removeFunctionDefinition (Model_t *m, unsigned int n)
+{
+  if (!m) return 0;
+  return m->removeFunctionDefinition(n);
+}
+
+
+/**
+ * Removes the FunctionDefinition_t object with the given "id" attribute
+ * from this Model_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Model_t structure
+ * @param sid the string of the "id" attribute of the FunctionDefinition_t sought
+ *
+ * @return the FunctionDefinition_t object removed.  As mentioned above, the 
+ * caller owns the returned object. NULL is returned if no FunctionDefinition_t
+ * object with the identifier exists in this Model_t object.
+ *
+ */
+LIBSBML_EXTERN
+FunctionDefinition_t*
+Model_removeFunctionDefinitionById (Model_t *m, const char* sid)
+{
+  if (!m) return 0;
+  return m->removeFunctionDefinition(sid);
+}
+
+
+/**
+ * Removes the nth UnitDefinition_t object from this Model_t object and
+ * returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Model_t structure
+ * @param n the integer index of the UnitDefinition_t sought
+ *
+ * @return the UnitDefinition_t object removed.  As mentioned above, 
+ * the caller owns the returned item. NULL is returned if the given index 
+ * is out of range.
+ */
+LIBSBML_EXTERN
+UnitDefinition_t*
+Model_removeUnitDefinition (Model_t *m, unsigned int n)
+{
+  if (!m) return 0;
+  return m->removeUnitDefinition(n);
+}
+
+
+/**
+ * Removes the UnitDefinition_t object with the given "id" attribute
+ * from this Model_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Model_t structure
+ * @param sid the string of the "id" attribute of the UnitDefinition_t sought
+ *
+ * @return the UnitDefinition_t object removed.  As mentioned above, the 
+ * caller owns the returned object. NULL is returned if no UnitDefinition_t
+ * object with the identifier exists in this Model_t object.
+ */
+LIBSBML_EXTERN
+UnitDefinition_t*
+Model_removeUnitDefinitionById (Model_t *m, const char* sid)
+{
+  if (!m) return 0;
+  return m->removeUnitDefinition(sid);
+}
+
+
+/**
+ * Removes the nth CompartmentType_t object from this Model_t object and
+ * returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Model_t structure
+ * @param n the integer index of the CompartmentType_t sought
+ *
+ * @return the CompartmentType_t object removed.  As mentioned above, 
+ * the caller owns the returned item. NULL is returned if the given index 
+ * is out of range.
+ */
+LIBSBML_EXTERN
+CompartmentType_t*
+Model_removeCompartmentType (Model_t *m, unsigned int n)
+{
+  if (!m) return 0;
+  return m->removeCompartmentType(n);
+}
+
+
+/**
+ * Removes the CompartmentType_t object with the given "id" attribute
+ * from this Model_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Model_t structure
+ * @param sid the string of the "id" attribute of the CompartmentType_t sought
+ *
+ * @return the CompartmentType_t object removed.  As mentioned above, the 
+ * caller owns the returned object. NULL is returned if no CompartmentType_t
+ * object with the identifier exists in this Model_t object.
+ */
+LIBSBML_EXTERN
+CompartmentType_t*
+Model_removeCompartmentTypeById (Model_t *m, const char* sid)
+{
+  if (!m) return 0;
+  return m->removeCompartmentType(sid);
+}
+
+
+/**
+ * Removes the nth SpeciesType_t object from this Model_t object and
+ * returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Model_t structure
+ * @param n the integer index of the SpeciesType_t sought
+ *
+ * @return the SpeciesType_t object removed.  As mentioned above, 
+ * the caller owns the returned item. NULL is returned if the given index 
+ * is out of range.
+ */
+LIBSBML_EXTERN
+SpeciesType_t*
+Model_removeSpeciesType (Model_t *m, unsigned int n)
+{
+  if (!m) return 0;
+  return m->removeSpeciesType(n);
+}
+
+
+/**
+ * Removes the SpeciesType_t object with the given "id" attribute
+ * from this Model_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Model_t structure
+ * @param sid the string of the "id" attribute of the SpeciesType_t sought
+ *
+ * @return the SpeciesType_t object removed.  As mentioned above, the 
+ * caller owns the returned object. NULL is returned if no SpeciesType_t
+ * object with the identifier exists in this Model_t object.
+ */
+LIBSBML_EXTERN
+SpeciesType_t*
+Model_removeSpeciesTypeById (Model_t *m, const char* sid)
+{
+  if (!m) return 0;
+  return m->removeSpeciesType(sid);
+}
+
+
+/**
+ * Removes the nth Compartment_t object from this Model_t object and
+ * returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Model_t structure
+ * @param n the integer index of the Compartment_t sought
+ *
+ * @return the Compartment_t object removed.  As mentioned above, 
+ * the caller owns the returned item. NULL is returned if the given index 
+ * is out of range.
+ */
+LIBSBML_EXTERN
+Compartment_t*
+Model_removeCompartment (Model_t *m, unsigned int n)
+{
+  if (!m) return 0;
+  return m->removeCompartment(n);
+}
+
+
+/**
+ * Removes the Compartment_t object with the given "id" attribute
+ * from this Model_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Model_t structure
+ * @param sid the string of the "id" attribute of the Compartment_t sought
+ *
+ * @return the Compartment_t object removed.  As mentioned above, the 
+ * caller owns the returned object. NULL is returned if no Compartment_t
+ * object with the identifier exists in this Model_t object.
+ */
+LIBSBML_EXTERN
+Compartment_t*
+Model_removeCompartmentById (Model_t *m, const char* sid)
+{
+  if (!m) return 0;
+  return m->removeCompartment(sid);
+}
+
+
+/**
+ * Removes the nth Species_t object from this Model_t object and
+ * returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Model_t structure
+ * @param n the integer index of the Species_t sought
+ *
+ * @return the Species_t object removed.  As mentioned above, 
+ * the caller owns the returned item. NULL is returned if the given index 
+ * is out of range.
+ */
+LIBSBML_EXTERN
+Species_t*
+Model_removeSpecies (Model_t *m, unsigned int n)
+{
+  if (!m) return 0;
+  return m->removeSpecies(n);
+}
+
+
+/**
+ * Removes the Species_t object with the given "id" attribute
+ * from this Model_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Model_t structure
+ * @param sid the string of the "id" attribute of the Species_t sought
+ *
+ * @return the Species_t object removed.  As mentioned above, the 
+ * caller owns the returned object. NULL is returned if no Species_t
+ * object with the identifier exists in this Model_t object.
+ */
+LIBSBML_EXTERN
+Species_t*
+Model_removeSpeciesById (Model_t *m, const char* sid)
+{
+  if (!m) return 0;
+  return m->removeSpecies(sid);
+}
+
+
+/**
+ * Removes the nth Parameter_t object from this Model_t object and
+ * returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Model_t structure
+ * @param n the integer index of the Parameter_t sought
+ *
+ * @return the Parameter_t object removed.  As mentioned above, 
+ * the caller owns the returned item. NULL is returned if the given index 
+ * is out of range.
+ */
+LIBSBML_EXTERN
+Parameter_t*
+Model_removeParameter (Model_t *m, unsigned int n)
+{
+  if (!m) return 0;
+  return m->removeParameter(n);
+}
+
+
+/**
+ * Removes the Parameter_t object with the given "id" attribute
+ * from this Model_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Model_t structure
+ * @param sid the string of the "id" attribute of the Parameter_t sought
+ *
+ * @return the Parameter_t object removed.  As mentioned above, the 
+ * caller owns the returned object. NULL is returned if no Parameter_t
+ * object with the identifier exists in this Model_t object.
+ */
+LIBSBML_EXTERN
+Parameter_t*
+Model_removeParameterById (Model_t *m, const char* sid)
+{
+  if (!m) return 0;
+  return m->removeParameter(sid);
+}
+
+
+/**
+ * Removes the nth InitialAssignment_t object from this Model_t object and
+ * returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Model_t structure
+ * @param n the integer index of the InitialAssignment_t sought
+ *
+ * @return the InitialAssignment_t object removed.  As mentioned above, 
+ * the caller owns the returned item. NULL is returned if the given index 
+ * is out of range.
+ */
+LIBSBML_EXTERN
+InitialAssignment_t*
+Model_removeInitialAssignment (Model_t *m, unsigned int n)
+{
+  if (!m) return 0;
+  return m->removeInitialAssignment(n);
+}
+
+
+/**
+ * Removes the InitialAssignment_t object with the given "symbol" attribute
+ * from this Model_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Model_t structure
+ * @param sid the string of the "symbol" attribute of the InitialAssignment_t sought
+ *
+ * @return the InitialAssignment_t object removed.  As mentioned above, the 
+ * caller owns the returned object. NULL is returned if no InitialAssignment_t
+ * object with the "symbol" attribute exists in this Model_t object.
+ */
+LIBSBML_EXTERN
+InitialAssignment_t*
+Model_removeInitialAssignmentBySym (Model_t *m, const char* symbol)
+{
+  if (!m) return 0;
+  return m->removeInitialAssignment(symbol);
+}
+
+
+/**
+ * Removes the nth Rule_t object from this Model_t object and
+ * returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Model_t structure
+ * @param n the integer index of the Rule_t sought
+ *
+ * @return the Rule_t object removed.  As mentioned above, 
+ * the caller owns the returned item. NULL is returned if the given index 
+ * is out of range.
+ */
+LIBSBML_EXTERN
+Rule_t*
+Model_removeRule (Model_t *m, unsigned int n)
+{
+  if (!m) return 0;
+  return m->removeRule(n);
+}
+
+
+/**
+ * Removes the Rule_t object with the given "variable" attribute
+ * from this Model_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Model_t structure
+ * @param sid the string of the "variable" attribute of the Rule_t sought
+ *
+ * @return the Rule_t object removed.  As mentioned above, the 
+ * caller owns the returned object. NULL is returned if no Rule_t
+ * object with the "variable" attribute exists in this Model_t object.
+ */
+LIBSBML_EXTERN
+Rule_t*
+Model_removeRuleByVar (Model_t *m, const char* variable)
+{
+  if (!m) return 0;
+  return m->removeRule(variable);
+}
+
+
+/**
+ * Removes the nth Constraint_t object from this Model_t object and
+ * returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Model_t structure
+ * @param n the integer index of the Constraint_t sought
+ *
+ * @return the Constraint_t object removed.  As mentioned above, 
+ * the caller owns the returned item. NULL is returned if the given index 
+ * is out of range.
+ */
+LIBSBML_EXTERN
+Constraint_t*
+Model_removeConstraint (Model_t *m, unsigned int n)
+{
+  if (!m) return 0;
+  return m->removeConstraint(n);
+}
+
+
+/**
+ * Removes the nth Reaction_t object from this Model_t object and
+ * returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Model_t structure
+ * @param n the integer index of the Reaction_t sought
+ *
+ * @return the Reaction_t object removed.  As mentioned above, 
+ * the caller owns the returned item. NULL is returned if the given index 
+ * is out of range.
+ */
+LIBSBML_EXTERN
+Reaction_t*
+Model_removeReaction (Model_t *m, unsigned int n)
+{
+  if (!m) return 0;
+  return m->removeReaction(n);
+}
+
+
+/**
+ * Removes the Reaction_t object with the given "id" attribute
+ * from this Model_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Model_t structure
+ * @param sid the string of the "id" attribute of the Reaction_t sought
+ *
+ * @return the Reaction_t object removed.  As mentioned above, the 
+ * caller owns the returned object. NULL is returned if no Reaction_t
+ * object with the identifier exists in this Model_t object.
+ */
+LIBSBML_EXTERN
+Reaction_t*
+Model_removeReactionById (Model_t *m, const char* sid)
+{
+  if (!m) return 0;
+  return m->removeReaction(sid);
+}
+
+
+/**
+ * Removes the nth Event_t object from this Model_t object and
+ * returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Model_t structure
+ * @param n the integer index of the Event_t sought
+ *
+ * @return the Event_t object removed.  As mentioned above, 
+ * the caller owns the returned item. NULL is returned if the given index 
+ * is out of range.
+ */
+LIBSBML_EXTERN
+Event_t*
+Model_removeEvent (Model_t *m, unsigned int n)
+{
+  if (!m) return 0;
+  return m->removeEvent(n);
+}
+
+
+/**
+ * Removes the Event_t object with the given "id" attribute
+ * from this Model_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Model_t structure
+ * @param sid the string of the "id" attribute of the Event_t sought
+ *
+ * @return the Event_t object removed.  As mentioned above, the 
+ * caller owns the returned object. NULL is returned if no Event_t
+ * object with the identifier exists in this Model_t object.
+ */
+LIBSBML_EXTERN
+Event_t*
+Model_removeEventById (Model_t *m, const char* sid)
+{
+  if (!m) return 0;
+  return m->removeEvent(sid);
+}
+
 
 /* NOT YET USED but leave in case of future need 
 
@@ -5108,5 +6919,5 @@ Model_getListFormulaUnitsData (Model_t *m)
 
 */
 
-
 /** @endcond doxygen-c-only */
+LIBSBML_CPP_NAMESPACE_END

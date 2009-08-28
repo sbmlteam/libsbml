@@ -66,7 +66,7 @@ static UnitDefinition_t *UD;
 void
 UnitDefinitionTest_setup (void)
 {
-  UD = UnitDefinition_create();
+  UD = UnitDefinition_create(2, 4);
 
   if (UD == NULL)
   {
@@ -100,31 +100,32 @@ START_TEST (test_UnitDefinition_create)
 END_TEST
 
 
-START_TEST (test_UnitDefinition_createWith)
-{
-  UnitDefinition_t *ud = UnitDefinition_createWith("mmls", "");
-
-
-  fail_unless( SBase_getTypeCode  ((SBase_t *) ud) == SBML_UNIT_DEFINITION );
-  fail_unless( SBase_getMetaId    ((SBase_t *) ud) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) ud) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) ud) == NULL );
-
-  fail_unless( UnitDefinition_getName(ud) == NULL );
-
-  fail_unless( !strcmp(UnitDefinition_getId(ud), "mmls") );
-  fail_unless(UnitDefinition_isSetId(ud));
-
-  fail_unless(UnitDefinition_getNumUnits(ud) == 0);
-
-  UnitDefinition_free(ud);
-}
-END_TEST
+//START_TEST (test_UnitDefinition_createWith)
+//{
+//  UnitDefinition_t *ud = UnitDefinition_createWith("mmls", "");
+//
+//
+//  fail_unless( SBase_getTypeCode  ((SBase_t *) ud) == SBML_UNIT_DEFINITION );
+//  fail_unless( SBase_getMetaId    ((SBase_t *) ud) == NULL );
+//  fail_unless( SBase_getNotes     ((SBase_t *) ud) == NULL );
+//  fail_unless( SBase_getAnnotation((SBase_t *) ud) == NULL );
+//
+//  fail_unless( UnitDefinition_getName(ud) == NULL );
+//
+//  fail_unless( !strcmp(UnitDefinition_getId(ud), "mmls") );
+//  fail_unless(UnitDefinition_isSetId(ud));
+//
+//  fail_unless(UnitDefinition_getNumUnits(ud) == 0);
+//
+//  UnitDefinition_free(ud);
+//}
+//END_TEST
 
 
 START_TEST (test_UnitDefinition_createWithName)
 {
-  UnitDefinition_t *ud = UnitDefinition_createWith("", "mmol liter^-1 sec^-1");
+  UnitDefinition_t *ud = UnitDefinition_create(2, 4);
+  UnitDefinition_setName(ud, "mmol_per_liter_per_sec");
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) ud) == SBML_UNIT_DEFINITION );
@@ -134,7 +135,7 @@ START_TEST (test_UnitDefinition_createWithName)
 
   fail_unless( UnitDefinition_getId(ud) == NULL );
 
-  fail_unless( !strcmp(UnitDefinition_getName(ud), "mmol liter^-1 sec^-1"),
+  fail_unless( !strcmp(UnitDefinition_getName(ud), "mmol_per_liter_per_sec"),
                NULL );
 
   fail_unless(UnitDefinition_isSetName(ud));
@@ -185,7 +186,7 @@ END_TEST
 
 START_TEST (test_UnitDefinition_setName)
 {
-  char *name = "mmol liter^-1 sec^-1";
+  char *name = "mmol_per_liter_per_sec";
 
 
   UnitDefinition_setName(UD, name);
@@ -215,7 +216,8 @@ END_TEST
 
 START_TEST (test_UnitDefinition_addUnit)
 {
-  Unit_t *u   = Unit_create();
+  Unit_t *u   = Unit_create(2, 4);
+  Unit_setKind(u, UNIT_KIND_MOLE);
   UnitDefinition_addUnit(UD, u);
 
   fail_unless( UnitDefinition_getNumUnits(UD) == 1 );
@@ -227,9 +229,9 @@ END_TEST
 
 START_TEST (test_UnitDefinition_getUnit)
 {
-  Unit_t *mole   = Unit_create();
-  Unit_t *litre  = Unit_create();
-  Unit_t *second = Unit_create();
+  Unit_t *mole   = Unit_create(2, 4);
+  Unit_t *litre  = Unit_create(2, 4);
+  Unit_t *second = Unit_create(2, 4);
 
 
   Unit_setKind( mole  , UnitKind_forName("mole")   );
@@ -269,7 +271,7 @@ END_TEST
 START_TEST (test_UnitDefinition_isVariantOfArea)
 {
   
-  Unit_t *dim   = Unit_create();
+  Unit_t *dim   = Unit_create(2, 4);
   Unit_setKind( dim  , UnitKind_forName("dimensionless")   );
   
   Unit_t *u = UnitDefinition_createUnit(UD);
@@ -302,7 +304,7 @@ END_TEST
 
 START_TEST (test_UnitDefinition_isVariantOfLength)
 {
-  Unit_t *dim   = Unit_create();
+  Unit_t *dim   = Unit_create(2, 4);
   Unit_setKind( dim  , UnitKind_forName("dimensionless")   );
   
   Unit_t *u = UnitDefinition_createUnit(UD);
@@ -336,7 +338,7 @@ END_TEST
 
 START_TEST (test_UnitDefinition_isVariantOfSubstance_1)
 {
-  Unit_t *dim   = Unit_create();
+  Unit_t *dim   = Unit_create(2, 4);
   Unit_setKind( dim  , UnitKind_forName("dimensionless")   );
 
   Unit_t *u = UnitDefinition_createUnit(UD);
@@ -370,7 +372,7 @@ END_TEST
 
 START_TEST (test_UnitDefinition_isVariantOfSubstance_2)
 {
-  Unit_t *dim   = Unit_create();
+  Unit_t *dim   = Unit_create(2, 4);
   Unit_setKind( dim  , UnitKind_forName("dimensionless")   );
   
   Unit_t *u = UnitDefinition_createUnit(UD);
@@ -403,7 +405,7 @@ END_TEST
 
 START_TEST (test_UnitDefinition_isVariantOfTime)
 {
-  Unit_t *dim   = Unit_create();
+  Unit_t *dim   = Unit_create(2, 4);
   Unit_setKind( dim  , UnitKind_forName("dimensionless")   );
   
   Unit_t *u = UnitDefinition_createUnit(UD);
@@ -436,7 +438,7 @@ END_TEST
 
 START_TEST (test_UnitDefinition_isVariantOfVolume_1)
 {
-  Unit_t *dim   = Unit_create();
+  Unit_t *dim   = Unit_create(2, 4);
   Unit_setKind( dim  , UnitKind_forName("dimensionless")   );
   
   Unit_t *u = UnitDefinition_createUnit(UD);
@@ -469,7 +471,7 @@ END_TEST
 
 START_TEST (test_UnitDefinition_isVariantOfVolume_2)
 {
-  Unit_t *dim   = Unit_create();
+  Unit_t *dim   = Unit_create(2, 4);
   Unit_setKind( dim  , UnitKind_forName("dimensionless")   );
   
   Unit_t *u = UnitDefinition_createUnit(UD);
@@ -503,7 +505,7 @@ END_TEST
 
 START_TEST (test_UnitDefinition_isVariantOfSubstancePerTime_1)
 {
-  Unit_t *dim   = Unit_create();
+  Unit_t *dim   = Unit_create(2, 4);
   Unit_setKind( dim  , UnitKind_forName("dimensionless")   );
 
   Unit_t *perTime = UnitDefinition_createUnit(UD);
@@ -540,13 +542,14 @@ START_TEST (test_UnitDefinition_isVariantOfSubstancePerTime_1)
   UnitDefinition_addUnit( UD, dim   );
   fail_unless(  UnitDefinition_isVariantOfSubstancePerTime(UD) );
 
+  Unit_free(dim);
 }
 END_TEST
 
 
 START_TEST (test_UnitDefinition_isVariantOfSubstancePerTime_2)
 {
-  Unit_t *dim   = Unit_create();
+  Unit_t *dim   = Unit_create(2, 4);
   Unit_setKind( dim  , UnitKind_forName("dimensionless")   );
 
   Unit_t *perTime = UnitDefinition_createUnit(UD);
@@ -583,14 +586,16 @@ START_TEST (test_UnitDefinition_isVariantOfSubstancePerTime_2)
   UnitDefinition_addUnit( UD, dim   );
   fail_unless(  UnitDefinition_isVariantOfSubstancePerTime(UD) );
 
+  Unit_free(dim);
 }
 END_TEST
 
 
 START_TEST (test_UnitDefinition_isVariantOfSubstancePerTime_3)
 {
-  UnitDefinition_t *ud = UnitDefinition_createWithLevelVersionAndNamespaces(2, 2, NULL);
-  Unit_t *dim   = Unit_create();
+  UnitDefinition_t *ud = 
+    UnitDefinition_create(2, 2);
+  Unit_t *dim   = Unit_create(2, 2);
   Unit_setKind( dim  , UnitKind_forName("dimensionless")   );
 
   Unit_t *perTime = UnitDefinition_createUnit(ud);
@@ -627,14 +632,16 @@ START_TEST (test_UnitDefinition_isVariantOfSubstancePerTime_3)
   UnitDefinition_addUnit( ud, dim   );
   fail_unless(  UnitDefinition_isVariantOfSubstancePerTime(ud) );
 
+  UnitDefinition_free(ud);
+  Unit_free(dim);
 }
 END_TEST
 
 
 START_TEST (test_UnitDefinition_isVariantOfSubstancePerTime_4)
 {
-  UnitDefinition_t *ud = UnitDefinition_createWithLevelVersionAndNamespaces(2, 2, NULL);
-  Unit_t *dim   = Unit_create();
+  UnitDefinition_t *ud = UnitDefinition_create(2, 2);
+  Unit_t *dim   = UnitDefinition_createUnit(ud);
   Unit_setKind( dim  , UnitKind_forName("dimensionless")   );
 
   Unit_t *perTime = UnitDefinition_createUnit(ud);
@@ -671,17 +678,20 @@ START_TEST (test_UnitDefinition_isVariantOfSubstancePerTime_4)
   UnitDefinition_addUnit( ud, dim   );
   fail_unless(  UnitDefinition_isVariantOfSubstancePerTime(ud) );
 
+  UnitDefinition_free(ud);
 }
 END_TEST
 
 
-START_TEST (test_UnitDefinition_createWithLevelVersionAndNamespace)
+START_TEST (test_UnitDefinition_createWithNS )
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
-  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "testsbml");
+  SBMLNamespaces_t *sbmlns = SBMLNamespaces_create(2,1);
+  SBMLNamespaces_addNamespaces(sbmlns,xmlns);
 
   UnitDefinition_t *object = 
-    UnitDefinition_createWithLevelVersionAndNamespaces(2, 1, xmlns);
+    UnitDefinition_createWithNS (sbmlns);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_UNIT_DEFINITION );
@@ -693,7 +703,8 @@ START_TEST (test_UnitDefinition_createWithLevelVersionAndNamespace)
   fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
 
   fail_unless( UnitDefinition_getNamespaces     (object) != NULL );
-  fail_unless( XMLNamespaces_getLength(UnitDefinition_getNamespaces(object)) == 1 );
+  fail_unless( XMLNamespaces_getLength(
+                        UnitDefinition_getNamespaces(object)) == 2 );
 
   UnitDefinition_free(object);
 }
@@ -702,7 +713,8 @@ END_TEST
 
 START_TEST (test_UnitDefinition_printUnits)
 {
-  UnitDefinition_t *ud = UnitDefinition_createWith("mmls", "");
+  UnitDefinition_t *ud = UnitDefinition_create(2, 4);
+  UnitDefinition_setId(ud, "mmls");
 
   Unit_t *perTime = UnitDefinition_createUnit(ud);
   Unit_setKind( perTime  , UnitKind_forName("second")   );
@@ -715,7 +727,8 @@ START_TEST (test_UnitDefinition_printUnits)
   const char * ud_str1 = UnitDefinition_printUnits(ud, 1);
   fail_unless(!strcmp(ud_str1, "(1 second)^-1"));
 
-  UnitDefinition_t *ud1 = UnitDefinition_createWith("mmls", "");
+  UnitDefinition_t *ud1 = UnitDefinition_create(2, 4);
+  UnitDefinition_setId(ud1, "mmls");
   Unit_t *u = UnitDefinition_createUnit(ud1);
 
   Unit_setKind(u, UNIT_KIND_KILOGRAM);
@@ -734,6 +747,26 @@ START_TEST (test_UnitDefinition_printUnits)
 END_TEST
 
 
+START_TEST (test_UnitDefinition_removeUnit)
+{
+  Unit_t *o1, *o2, *o3;
+
+  o1 = UnitDefinition_createUnit(UD);
+  o2 = UnitDefinition_createUnit(UD);
+  o3 = UnitDefinition_createUnit(UD);
+
+  fail_unless( UnitDefinition_removeUnit(UD,0) == o1 );
+  fail_unless( UnitDefinition_getNumUnits(UD)  == 2  );
+  fail_unless( UnitDefinition_removeUnit(UD,0) == o2 );
+  fail_unless( UnitDefinition_getNumUnits(UD)  == 1  );
+  fail_unless( UnitDefinition_removeUnit(UD,0) == o3 );
+  fail_unless( UnitDefinition_getNumUnits(UD)  == 0  );
+
+  Unit_free(o1);
+  Unit_free(o2);
+  Unit_free(o3);
+}
+END_TEST
 
 
 Suite *
@@ -748,7 +781,7 @@ create_suite_UnitDefinition (void)
                              UnitDefinitionTest_teardown );
 
   tcase_add_test( tcase, test_UnitDefinition_create                 );
-  tcase_add_test( tcase, test_UnitDefinition_createWith             );
+  //tcase_add_test( tcase, test_UnitDefinition_createWith             );
   tcase_add_test( tcase, test_UnitDefinition_createWithName         );
   tcase_add_test( tcase, test_UnitDefinition_free_NULL              );
   tcase_add_test( tcase, test_UnitDefinition_setId                  );
@@ -766,8 +799,9 @@ create_suite_UnitDefinition (void)
   tcase_add_test( tcase, test_UnitDefinition_isVariantOfSubstancePerTime_2 );
   tcase_add_test( tcase, test_UnitDefinition_isVariantOfSubstancePerTime_3 );
   tcase_add_test( tcase, test_UnitDefinition_isVariantOfSubstancePerTime_4 );
-  tcase_add_test( tcase, test_UnitDefinition_createWithLevelVersionAndNamespace        );
+  tcase_add_test( tcase, test_UnitDefinition_createWithNS         );
   tcase_add_test( tcase, test_UnitDefinition_printUnits        );
+  tcase_add_test( tcase, test_UnitDefinition_removeUnit        );
 
   suite_add_tcase(suite, tcase);
 

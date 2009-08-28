@@ -40,33 +40,43 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
-/*
- * Creates a new Compartment, optionally with its id attribute set.
- */
-Compartment::Compartment (const std::string& id, const std::string& name) :
-   SBase             ( id, name )
+Compartment::Compartment (unsigned int level, unsigned int version) :
+   SBase             ( level, version )
+ , mId               ( ""       )
+ , mName             ( ""       )
  , mSpatialDimensions( 3        )
  , mSize             ( 1.0      )
  , mConstant         ( true     )
  , mIsSetSize        ( false    )
 {
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
-
-Compartment::Compartment (unsigned int level, unsigned int version,
-                          XMLNamespaces *xmlns) :
-   SBase ("", "", -1)
+Compartment::Compartment(SBMLNamespaces * sbmlns) :
+   SBase             ( sbmlns   )
+ , mId               ( ""       )
+ , mName             ( ""       )
  , mSpatialDimensions( 3        )
  , mSize             ( 1.0      )
  , mConstant         ( true     )
  , mIsSetSize        ( false    )
 {
-  mObjectLevel = level;
-  mObjectVersion = version;
-  if (xmlns) setNamespaces(xmlns);;
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
+/** @cond doxygen-libsbml-internal */
+
+/* constructor for validators */
+Compartment::Compartment() :
+  SBase()
+{
+}
+
+/** @endcond doxygen-libsbml-internal */
                           
 Compartment::Compartment (SBMLNamespaces *sbmlns) :
    SBase ("", "", -1)
@@ -93,14 +103,16 @@ Compartment::~Compartment ()
  * Copy constructor. Creates a copy of this compartment.
  */
 Compartment::Compartment(const Compartment& orig) :
-   SBase             ( orig )
- , mCompartmentType  ( orig.mCompartmentType)
- , mSpatialDimensions( orig.mSpatialDimensions  )
- , mSize             ( orig.mSize      )
- , mUnits            ( orig.mUnits )
- , mOutside          ( orig.mOutside )
- , mConstant         ( orig.mConstant     )
- , mIsSetSize        ( orig.mIsSetSize    )
+   SBase             ( orig                    )
+ , mId               ( orig.mId                )  
+ , mName             ( orig.mName              )
+ , mCompartmentType  ( orig.mCompartmentType   )
+ , mSpatialDimensions( orig.mSpatialDimensions )
+ , mSize             ( orig.mSize              )
+ , mUnits            ( orig.mUnits             )
+ , mOutside          ( orig.mOutside           )
+ , mConstant         ( orig.mConstant          )
+ , mIsSetSize        ( orig.mIsSetSize         )
 {
 }
 
@@ -120,6 +132,8 @@ Compartment& Compartment::operator=(const Compartment& rhs)
     mCompartmentType  = rhs.mCompartmentType;
     mUnits            = rhs.mUnits ;
     mOutside          = rhs.mOutside ;
+    mId = rhs.mId;
+    mName = rhs.mName;
   }
 
   return *this;
@@ -167,6 +181,26 @@ Compartment::initDefaults ()
 
   setSpatialDimensions(3);
   setConstant(1);
+}
+
+
+/*
+ * @return the id of this SBML object.
+ */
+const string&
+Compartment::getId () const
+{
+  return mId;
+}
+
+
+/*
+ * @return the name of this SBML object.
+ */
+const string&
+Compartment::getName () const
+{
+  return (getLevel() == 1) ? mId : mName;
 }
 
 
@@ -241,6 +275,29 @@ Compartment::getConstant () const
 
 
 /*
+ * @return true if the id of this SBML object has been set, false
+ * otherwise.
+ */
+bool
+Compartment::isSetId () const
+{
+  return (mId.empty() == false);
+}
+
+
+/*
+ * @return true if the name of this SBML object has been set, false
+ * otherwise.
+ */
+bool
+Compartment::isSetName () const
+{
+  return (getLevel() == 1) ? (mId.empty() == false) : 
+                            (mName.empty() == false);
+}
+
+
+/*
  * @return true if the compartmentType of this Compartment has been set,
  * false otherwise. 
  */
@@ -300,12 +357,81 @@ Compartment::isSetOutside () const
 
 
 /*
+ * Sets the id of this SBML object to a copy of sid.
+ */
+int
+Compartment::setId (const std::string& sid)
+{
+  /* since the setId function has been used as an
+   * alias for setName we cant require it to only
+   * be used on a L2 model
+   */
+/*  if (getLevel() == 1)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+*/
+  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mId = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Sets the name of this SBML object to a copy of name.
+ */
+int
+Compartment::setName (const std::string& name)
+{
+  /* if this is setting an L2 name the type is string
+   * whereas if it is setting an L1 name its type is SId
+   */
+  if (getLevel() == 1)
+  {
+    if (!(SyntaxChecker::isValidSBMLSId(name)))
+    {
+      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    }
+    else
+    {
+      mId = name;
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+  else
+  {
+    mName = name;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
  * Sets the compartmentType field of this Compartment to a copy of sid.
  */
-void
+int
 Compartment::setCompartmentType (const std::string& sid)
 {
-  mCompartmentType = sid;
+  if ( (getLevel() < 2)
+    || (getLevel() == 2 && getVersion() == 1))
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mCompartmentType = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -315,82 +441,203 @@ Compartment::setCompartmentType (const std::string& sid)
  * If value is not one of [0, 1, 2, 3] the function will have no effect
  * (i.e. spatialDimensions will not be set).
  */
-void
+int
 Compartment::setSpatialDimensions (unsigned int value)
 {
-  if (value >= 0 && value <= 3) mSpatialDimensions = value;
+  if (getLevel() < 2)
+  {
+    // spatialDimensions must always be 3 in a level 1 compartment
+    mSpatialDimensions = 3;
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else if (value < 0 || value > 3)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mSpatialDimensions = value;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Sets the size (volume in L1) of this Compartment to value.
  */
-void
+int
 Compartment::setSize (double value)
 {
+  /* since the setSize function has been used as an
+   * alias for setVolume we cant require it to only
+   * be used on a L2 model
+   */
+/*  if ( getLevel() < 2 )
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+*/
   mSize      = value;
   mIsSetSize = true;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
 /*
  * Sets the volume (size in L2) of this Compartment to value.
  */
-void
+int
 Compartment::setVolume (double value)
 {
-  setSize(value);
+  /* since the setVolume function has been used as an
+   * alias for setSize we cant require it to only
+   * be used on a L1 model
+   */
+/*  if ( getLevel() != 1 )
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+*/
+  return setSize(value);
 }
 
 
 /*
  * Sets the units of this Compartment to a copy of sid.
  */
-void
+int
 Compartment::setUnits (const std::string& sid)
 {
-  mUnits = sid;
+  if (!(SyntaxChecker::isValidUnitSId(sid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mUnits = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Sets the outside of this Compartment to a copy of sid.
  */
-void
+int
 Compartment::setOutside (const std::string& sid)
 {
-  mOutside = sid;
+  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mOutside = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Sets the constant field of this Compartment to value.
  */
-void
+int
 Compartment::setConstant (bool value)
 {
-  mConstant = value;
+  if ( getLevel() < 2 )
+  {
+    mConstant = value;
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else
+  {
+    mConstant = value;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Unsets the name of this SBML object.
+ */
+int
+Compartment::unsetName ()
+{
+  if (getLevel() == 1) 
+  {
+    mId.erase();
+  }
+  else 
+  {
+    mName.erase();
+  }
+
+  if (getLevel() == 1 && mId.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (mName.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
 /*
  * Unsets the compartmentType of this Compartment.
  */
-void
+int
 Compartment::unsetCompartmentType ()
 {
+  if ( (getLevel() < 2)
+    || (getLevel() == 2 && getVersion() == 1))
+  {
+    mCompartmentType.erase();
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+
   mCompartmentType.erase();
+
+  if (mCompartmentType.empty()) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
 /*
  * Unsets the size (volume in L1) of this Compartment.
  */
-void
+int
 Compartment::unsetSize ()
 {
-  mSize      = numeric_limits<double>::quiet_NaN();
+  if (getLevel() == 1) 
+  {
+    mSize = 1.0;
+  }
+  else
+  {
+    mSize = numeric_limits<double>::quiet_NaN();
+  }
+
   mIsSetSize = false;
+  
+  if (!isSetSize())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -401,37 +648,48 @@ Compartment::unsetSize ()
  * <b>should always be set</b>.  In L2, volume is optional with no default
  * value and as such may or may not be set.
  */
-void
+int
 Compartment::unsetVolume ()
 {
-  if (getLevel() == 1)
-  {
-    setSize(1.0);
-  }
-  else
-  {
-    unsetSize();
-  }
+  return unsetSize();
 }
 
 
 /*
  * Unsets the units of this Compartment.
  */
-void
+int
 Compartment::unsetUnits ()
 {
   mUnits.erase();
+
+  if (mUnits.empty()) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
 /*
  * Unsets the outside of this Compartment.
  */
-void
+int
 Compartment::unsetOutside ()
 {
   mOutside.erase();
+
+  if (mOutside.empty()) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 /*
@@ -505,6 +763,20 @@ Compartment::getElementName () const
 }
 
 
+bool 
+Compartment::hasRequiredAttributes() const
+{
+  bool allPresent = true;
+
+  /* required attributes for compartment: id (name in L1) */
+
+  if (!isSetId())
+    allPresent = false;
+
+  return allPresent;
+}
+
+
 /** @cond doxygen-libsbml-internal */
 /*
  * Subclasses should override this method to read values from the given
@@ -571,7 +843,7 @@ Compartment::readAttributes (const XMLAttributes& attributes)
   {
     logEmptyString(id, level, version, "<compartment>");
   }
-  SBase::checkIdSyntax();
+  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
 
   //
   // volume  { use="optional" default="1" }  (L1v1, L1v2)
@@ -583,8 +855,15 @@ Compartment::readAttributes (const XMLAttributes& attributes)
   //
   // units  { use="optional" }  (L1v1 ->)
   //
-  attributes.readInto("units", mUnits, getErrorLog(), false);
-  SBase::checkUnitSyntax();
+  assigned = attributes.readInto("units", mUnits, getErrorLog(), false);
+  if (assigned && mUnits.size() == 0)
+  {
+    logEmptyString("units", level, version, "<compartment>");
+  }
+  if (!SyntaxChecker::isValidUnitSId(mUnits))
+  {
+    logError(InvalidUnitIdSyntax);
+  }
 
   //
   // outside  { use="optional" }  (L1v1 ->)
@@ -773,11 +1052,25 @@ ListOfCompartments::get(unsigned int n) const
 }
 
 
+/**
+ * Used by ListOf::get() to lookup an SBase based by its id.
+ */
+struct IdEqComp : public unary_function<SBase*, bool>
+{
+  const string& id;
+
+  IdEqComp (const string& id) : id(id) { }
+  bool operator() (SBase* sb) 
+       { return static_cast <Compartment *> (sb)->getId() == id; }
+};
+
+
 /* return item by id */
 Compartment*
 ListOfCompartments::get (const std::string& sid)
 {
-  return static_cast<Compartment*>(ListOf::get(sid));
+  return const_cast<Compartment*>( 
+    static_cast<const ListOfCompartments&>(*this).get(sid) );
 }
 
 
@@ -785,7 +1078,10 @@ ListOfCompartments::get (const std::string& sid)
 const Compartment*
 ListOfCompartments::get (const std::string& sid) const
 {
-  return static_cast<const Compartment*>(ListOf::get(sid));
+  vector<SBase*>::const_iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqComp(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <Compartment*> (*result);
 }
 
 
@@ -801,7 +1097,18 @@ ListOfCompartments::remove (unsigned int n)
 Compartment*
 ListOfCompartments::remove (const std::string& sid)
 {
-  return static_cast<Compartment*>(ListOf::remove(sid));
+  SBase* item = 0;
+  vector<SBase*>::iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqComp(sid) );
+
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
+  }
+
+  return static_cast <Compartment*> (item);
 }
 
 
@@ -832,8 +1139,22 @@ ListOfCompartments::createObject (XMLInputStream& stream)
 
   if (name == "compartment")
   {
-    object = new Compartment();
-    mItems.push_back(object);
+    try
+    {
+      object = new Compartment(getSBMLNamespaces());
+    }
+    catch (SBMLConstructorException*)
+    {
+      object = new Compartment(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    catch ( ... )
+    {
+      object = new Compartment(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+
+    if (object) mItems.push_back(object);
   }
 
   return object;
@@ -845,90 +1166,72 @@ ListOfCompartments::createObject (XMLInputStream& stream)
 
 
 /**
- * Creates a new, empty Compartment_t structure and returns a pointer to
- * it.
+ * Creates a new Compartment_t structure using the given SBML @p level
+ * and @p version values.
  *
- * It is worth emphasizing that the structure returned by this constructor
- * has no attribute values set and that there are no default values
- * assigned to such things as identifiers and names.  (Exception: in SBML
- * Level 1, the "volume" of a compartment has a default.)  In SBML Level 2
- * and beyond, the "id" (identifier) attribute of a Compartment_t is
- * required to have a value.  Thus, callers are cautioned to assign a value
- * after calling this constructor, for example using Compartment_setName().
- *
- * @return a pointer to the newly created Compartment_t structure.
- */
-LIBSBML_EXTERN
-Compartment_t *
-Compartment_create (void)
-{
-  return new(nothrow) Compartment;
-}
-
-
-/**
- * Creates a new Compartment_t structure with identifier @p sid and
- * name @p name.
- *
- * In SBML Level 2 and beyond, the identifier attribute of a Compartment_t
- * structure is required to have a value, but the name is optional.
- * Programs calling this function can legitimately use an empty string for
- * the @p name argument.
- *
- * This convenience function is functionally equivalent to:
- * @code
- *   Compartment_t *c = Compartment_create();
- *   Compartment_setId(c, id);
- *   Compartment_setName(c, name);
- * @endcode
- *
- * @param sid the value to assign as the identifier of this compartment
- *
- * @param name the value to assign as the name of this compartment
- * 
- * @return a pointer to the newly created Compartment_t structure.
- */
-LIBSBML_EXTERN
-Compartment_t *
-Compartment_createWith (const char *sid, const char *name)
-{
-  return new(nothrow) Compartment(sid ? sid : "", name ? name : "");
-}
-
-
-/** @cond doxygen-libsbml-internal */
-/**
- * Creates a new Compartment_t structure using the given SBML @p 
- * level and @p version values and a set of XMLNamespaces.
- *
- * @param level an unsigned int, the SBML Level to assign to this 
+ * @param level an unsigned int, the SBML Level to assign to this
  * Compartment
  *
  * @param version an unsigned int, the SBML Version to assign to this
  * Compartment
- * 
- * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
- * assign to this Compartment
  *
  * @return a pointer to the newly created Compartment_t structure.
  *
- * @note Once a Compartment has been added to an SBMLDocument, the @p 
- * level, @p version and @p xmlns namespaces for the document @em override 
- * those used to create the Compartment.  Despite this, the ability 
- * to supply the values at creation time is an important aid to creating 
- * valid SBML.  Knowledge of the intended SBML Level and Version 
- * determine whether it is valid to assign a particular value to an 
- * attribute, or whether it is valid to add an object to an existing 
+ * @note Once a Compartment has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the Compartment.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
+ */
+LIBSBML_EXTERN
+Compartment_t *
+Compartment_create (unsigned int level, unsigned int version)
+{
+  try
+  {
+    Compartment* obj = new Compartment(level,version);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
+
+
+/**
+ * Creates a new Compartment_t structure using the given
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this Compartment
+ *
+ * @return a pointer to the newly created Compartment_t structure.
+ *
+ * @note Once a Compartment has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the Compartment.  Despite this, the ability to supply the values at creation 
+ * time is an important aid to creating valid SBML.  Knowledge of the intended 
+ * SBML Level and Version determine whether it is valid to assign a particular 
+ * value to an attribute, or whether it is valid to add an object to an existing
  * SBMLDocument.
  */
 LIBSBML_EXTERN
 Compartment_t *
-Compartment_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns)
+Compartment_createWithNS (SBMLNamespaces_t* sbmlns)
 {
-  return new(nothrow) Compartment(level, version, xmlns);
+  try
+  {
+    Compartment* obj = new Compartment(sbmlns);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
 }
-/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -1310,12 +1613,22 @@ Compartment_isSetOutside (const Compartment_t *c)
  * @param c the Compartment_t structure.
  * @param sid the identifier to which the structures "id" attribute should
  * be set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "id" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 Compartment_setId (Compartment_t *c, const char *sid)
 {
-  (sid == NULL) ? c->unsetId() : c->setId(sid);
+  return (sid == NULL) ? c->setId("") : c->setId(sid);
 }
 
 
@@ -1329,12 +1642,22 @@ Compartment_setId (Compartment_t *c, const char *sid)
  *
  * @param string the identifier to which the structures "id" attribute
  * should be set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "name" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 Compartment_setName (Compartment_t *c, const char *name)
 {
-  (name == NULL) ? c->unsetName() : c->setName(name);
+  return (name == NULL) ? c->unsetName() : c->setName(name);
 }
 
 
@@ -1348,12 +1671,24 @@ Compartment_setName (Compartment_t *c, const char *name)
  * @param c the Compartment_t structure
  * @param sid, the identifier of a CompartmentType object defined
  * elsewhere in the enclosing Model_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "compartmentType" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 Compartment_setCompartmentType (Compartment_t *c, const char *sid)
 {
-  (sid == NULL) ? c->unsetCompartmentType() : c->setCompartmentType(sid);
+  return (sid == NULL) ? 
+             c->unsetCompartmentType() : c->setCompartmentType(sid);
 }
 
 
@@ -1369,12 +1704,20 @@ Compartment_setCompartmentType (Compartment_t *c, const char *sid)
  * @param c the Compartment_t structure
  * @param value an unsigned integer indicating the number of dimensions
  * of the given compartment.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
  */
 LIBSBML_EXTERN
-void
+int
 Compartment_setSpatialDimensions (Compartment_t *c, unsigned int value)
 {
-  c->setSpatialDimensions(value);
+  return c->setSpatialDimensions(value);
 }
 
 
@@ -1388,12 +1731,18 @@ Compartment_setSpatialDimensions (Compartment_t *c, unsigned int value)
  * @param c the Compartment_t structure
  * @param value a @c double representing the size of the given
  * Compartment_t structure in whatever units are in effect
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void
+int
 Compartment_setSize (Compartment_t *c, double value)
 {
-  c->setSize(value);
+  return c->setSize(value);
 }
 
 
@@ -1408,12 +1757,18 @@ Compartment_setSize (Compartment_t *c, double value)
  * 
  * @param value a @c double representing the volume of the given
  * Compartment_t structure in whatever units are in effect
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void
+int
 Compartment_setVolume (Compartment_t *c, double value)
 {
-  c->setVolume(value);
+  return c->setVolume(value);
 }
 
 
@@ -1424,12 +1779,22 @@ Compartment_setVolume (Compartment_t *c, double value)
  * 
  * @param sid the identifier of the defined units to use.  The string will
  * be copied.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "units" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 Compartment_setUnits (Compartment_t *c, const char *sid)
 {
-  (sid == NULL) ? c->unsetUnits() : c->setUnits(sid);
+  return (sid == NULL) ? c->unsetUnits() : c->setUnits(sid);
 }
 
 
@@ -1440,12 +1805,22 @@ Compartment_setUnits (Compartment_t *c, const char *sid)
  * 
  * @param sid the identifier of a compartment that encloses this one.  The
  * string will be copied.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "outside" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 Compartment_setOutside (Compartment_t *c, const char *sid)
 {
-  (sid == NULL) ? c->unsetOutside() : c->setOutside(sid);
+  return (sid == NULL) ? c->unsetOutside() : c->setOutside(sid);
 }
 
 
@@ -1456,12 +1831,19 @@ Compartment_setOutside (Compartment_t *c, const char *sid)
  * @param c the Compartment_t structure
  * @param value an integer indicating whether the size/volume of the
  * compartment @p c should be considered constant (nonzero) or variable (zero).
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
  */
 LIBSBML_EXTERN
-void
+int
 Compartment_setConstant (Compartment_t *c, int value)
 {
-  c->setConstant( static_cast<bool>(value) );
+  return c->setConstant( static_cast<bool>(value) );
 }
 
 
@@ -1469,12 +1851,19 @@ Compartment_setConstant (Compartment_t *c, int value)
  * Unsets the name of the given Compartment_t structure.
  *
  * @param c the Compartment_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Compartment_unsetName (Compartment_t *c)
 {
-  c->unsetName();
+  return c->unsetName();
 }
 
 
@@ -1483,12 +1872,19 @@ Compartment_unsetName (Compartment_t *c)
  * Compartment_t structure.
  *
  * @param c the Compartment_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int 
 Compartment_unsetCompartmentType (Compartment_t *c)
 {
-  c->unsetCompartmentType();
+  return c->unsetCompartmentType();
 }
 
 
@@ -1497,12 +1893,18 @@ Compartment_unsetCompartmentType (Compartment_t *c)
  * structure. 
  *
  * @param c the Compartment_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void
+int
 Compartment_unsetSize (Compartment_t *c)
 {
-  c->unsetSize();
+  return c->unsetSize();
 }
 
 
@@ -1516,12 +1918,18 @@ Compartment_unsetSize (Compartment_t *c)
  * not be set.
  *
  * @param c the Compartment_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void
+int
 Compartment_unsetVolume (Compartment_t *c)
 {
-  c->unsetVolume();
+  return c->unsetVolume();
 }
 
 
@@ -1530,12 +1938,19 @@ Compartment_unsetVolume (Compartment_t *c)
  * structure.
  *
  * @param c the Compartment_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Compartment_unsetUnits (Compartment_t *c)
 {
-  c->unsetUnits();
+  return c->unsetUnits();
 }
 
 
@@ -1544,12 +1959,19 @@ Compartment_unsetUnits (Compartment_t *c)
  * structure.
  *
  * @param c the Compartment_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Compartment_unsetOutside (Compartment_t *c)
 {
-  c->unsetOutside();
+  return c->unsetOutside();
 }
 
 
@@ -1580,4 +2002,33 @@ Compartment_getDerivedUnitDefinition(Compartment_t *c)
   return c->getDerivedUnitDefinition();
 }
 
+
+/**
+ * @return item in this ListOfCompartment with the given id or NULL if no such
+ * item exists.
+ */
+LIBSBML_EXTERN
+Compartment_t *
+ListOfCompartments_getById (ListOf_t *lo, const char *sid)
+{
+  return (sid != NULL) ? 
+    static_cast <ListOfCompartments *> (lo)->get(sid) : NULL;
+}
+
+
+/**
+ * Removes item in this ListOf items with the given id or NULL if no such
+ * item exists.  The caller owns the returned item and is responsible for
+ * deleting it.
+ */
+LIBSBML_EXTERN
+Compartment_t *
+ListOfCompartments_removeById (ListOf_t *lo, const char *sid)
+{
+  return (sid != NULL) ? 
+    static_cast <ListOfCompartments *> (lo)->remove(sid) : NULL;
+}
+
 /** @endcond doxygen-c-only */
+
+LIBSBML_CPP_NAMESPACE_END

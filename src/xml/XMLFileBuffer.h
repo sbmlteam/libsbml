@@ -34,6 +34,7 @@
 
 #include <sbml/xml/XMLBuffer.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygen-libsbml-internal */
 
@@ -87,6 +88,7 @@ private:
 
 /** @endcond doxygen-libsbml-internal */
 
-#endif  /* __cplusplus */
+LIBSBML_CPP_NAMESPACE_END
 
+#endif  /* __cplusplus */
 #endif  /* XMLFileBuffer_h */

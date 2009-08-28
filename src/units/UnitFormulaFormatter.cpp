@@ -25,6 +25,7 @@
 
 #include <sbml/units/UnitFormulaFormatter.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /*
  *  constructs a UnitFormulaFormatter
@@ -219,13 +220,13 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
     case AST_UNKNOWN:
     default:
     
-      ud = new UnitDefinition();
+      ud = new UnitDefinition(model->getSBMLNamespaces());
       break;
   }
   // as a safety catch 
   if (ud == NULL)
   {
-    ud = new UnitDefinition();
+    ud = new UnitDefinition(model->getSBMLNamespaces());
   }
 
   // dont simplify an empty ud
@@ -304,7 +305,7 @@ UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node,
       for (i = 0, nodeCount = 0; i < noBvars; i++, nodeCount++)
       {
         if (nodeCount < node->getNumChildren())
-          fdMath->ReplaceArgument(fd->getArgument(i)->getName(), 
+          fdMath->replaceArgument(fd->getArgument(i)->getName(), 
                                             node->getChild(nodeCount));
       }
       ud = getUnitDefinition(fdMath, inKL, reactNo);
@@ -312,7 +313,7 @@ UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node,
     }
     else
     {
-      ud = new UnitDefinition();
+      ud = new UnitDefinition(model->getSBMLNamespaces());
     }
   }
   else
@@ -320,8 +321,9 @@ UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node,
     /**
      * function is a lambda function - which wont have any units
      */
-    unit = new Unit("dimensionless");
-    ud   = new UnitDefinition();
+    unit = new Unit(model->getSBMLNamespaces());
+    unit->setKind(UNIT_KIND_DIMENSIONLESS);
+    ud   = new UnitDefinition(model->getSBMLNamespaces());
     
     ud->addUnit(unit);
 
@@ -366,7 +368,7 @@ UnitFormulaFormatter::getUnitDefinitionFromTimes(const ASTNode * node,
   }
   else
   {
-    ud = new UnitDefinition();
+    ud = new UnitDefinition(model->getSBMLNamespaces());
   }
 
   mCanIgnoreUndeclaredUnits = currentIgnore;
@@ -432,7 +434,7 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
   unsigned int found = 0;
 
   tempUD = getUnitDefinition(node->getLeftChild(), inKL, reactNo);
-  ud = new UnitDefinition();
+  ud = new UnitDefinition(model->getSBMLNamespaces());
   
   if (node->getNumChildren() == 1)
     return ud;
@@ -570,7 +572,7 @@ UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node,
   ASTNode * child;
 
   tempUD = getUnitDefinition(node->getRightChild(), inKL, reactNo);
-  ud = new UnitDefinition();
+  ud = new UnitDefinition(model->getSBMLNamespaces());
 
   if (node->getNumChildren() == 1)
     return ud;
@@ -648,8 +650,9 @@ UnitFormulaFormatter::getUnitDefinitionFromDimensionlessReturnFunction(
   UnitDefinition * ud;
   Unit *unit;
     
-  unit = new Unit("dimensionless");
-  ud   = new UnitDefinition();
+  unit = new Unit(model->getSBMLNamespaces());
+  unit->setKind(UNIT_KIND_DIMENSIONLESS);
+  ud   = new UnitDefinition(model->getSBMLNamespaces());
     
   ud->addUnit(unit);
 
@@ -762,14 +765,15 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
 
   if ((node->isNumber()) || (node->getType() == AST_CONSTANT_E))
   {
-    ud   = new UnitDefinition();
+    ud   = new UnitDefinition(model->getSBMLNamespaces());
     mContainsUndeclaredUnits = true;
     mCanIgnoreUndeclaredUnits = 0;
   }
   else if (node->getType() == AST_CONSTANT_PI)
   {
-    unit = new Unit("radian");
-    ud   = new UnitDefinition();
+    unit = new Unit(model->getSBMLNamespaces());
+    unit->setKind(UNIT_KIND_RADIAN);
+    ud   = new UnitDefinition(model->getSBMLNamespaces());
     
     ud->addUnit(unit);
     delete unit;
@@ -782,8 +786,9 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
 
       if (tempUd == NULL) 
       {
-        unit = new Unit("second");
-        ud   = new UnitDefinition();
+        unit = new Unit(model->getSBMLNamespaces());
+        unit->setKind(UnitKind_forName("second"));
+        ud   = new UnitDefinition(model->getSBMLNamespaces());
         
         ud->addUnit(unit);
 
@@ -791,7 +796,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
       }
       else
       {
-        ud   = new UnitDefinition();
+        ud   = new UnitDefinition(model->getSBMLNamespaces());
 
         for (n = 0; n < tempUd->getNumUnits(); n++)
         {
@@ -859,15 +864,16 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
           tempUd = model->getUnitDefinition("substance");
           if (!tempUd) 
           {
-            unit = new Unit("mole");
-            ud   = new UnitDefinition();
+            unit = new Unit(model->getSBMLNamespaces());
+            unit->setKind(UnitKind_forName("mole"));
+            ud   = new UnitDefinition(model->getSBMLNamespaces());
 
             ud->addUnit(unit);
             delete unit;
           }
           else
           {
-            ud   = new UnitDefinition();
+            ud   = new UnitDefinition(model->getSBMLNamespaces());
 
             for (n = 0; n < tempUd->getNumUnits(); n++)
             {
@@ -881,7 +887,8 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
 
           if (tempUd == NULL) 
           {
-            unit = new Unit("second");
+            unit = new Unit(model->getSBMLNamespaces());
+            unit->setKind(UnitKind_forName("second"));
             unit->setExponent(-1);
         
             ud->addUnit(unit);
@@ -910,7 +917,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
    */
   if (ud == NULL)
   {
-    ud = new UnitDefinition();
+    ud = new UnitDefinition(model->getSBMLNamespaces());
   }
   return ud;
 }
@@ -946,8 +953,9 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment
     switch (compartment->getSpatialDimensions())
     {
       case 0:
-        unit = new Unit("dimensionless");
-        ud   = new UnitDefinition();
+        unit = new Unit(model->getSBMLNamespaces());
+        unit->setKind(UNIT_KIND_DIMENSIONLESS);
+        ud   = new UnitDefinition(model->getSBMLNamespaces());
       
         ud->addUnit(unit);
         break;
@@ -956,16 +964,18 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment
         tempUD = model->getUnitDefinition("length");
         if (!tempUD) 
         {
-          unit = new Unit("metre");
-          ud   = new UnitDefinition();
+          unit = new Unit(model->getSBMLNamespaces());
+          unit->setKind(UnitKind_forName("metre"));
+          ud   = new UnitDefinition(model->getSBMLNamespaces());
         
           ud->addUnit(unit);
         }
         else
         {
-          ud   = new UnitDefinition();
+          ud   = new UnitDefinition(model->getSBMLNamespaces());
 
-          unit = new Unit(tempUD->getUnit(0)->getKind());
+          unit = new Unit(model->getSBMLNamespaces());
+          unit->setKind(tempUD->getUnit(0)->getKind());
           unit->setMultiplier(tempUD->getUnit(0)->getMultiplier());
           unit->setScale(tempUD->getUnit(0)->getScale());
           unit->setExponent(tempUD->getUnit(0)->getExponent());
@@ -979,16 +989,19 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment
         tempUD = model->getUnitDefinition("area");
         if (!tempUD) 
         {
-          unit = new Unit("metre", 2);
-          ud   = new UnitDefinition();
+          unit = new Unit(model->getSBMLNamespaces());
+          unit->setKind(UnitKind_forName("metre"));
+          unit->setExponent(2);
+          ud   = new UnitDefinition(model->getSBMLNamespaces());
           
           ud->addUnit(unit);
         }
         else
         {
-          ud   = new UnitDefinition();
+          ud   = new UnitDefinition(model->getSBMLNamespaces());
 
-          unit = new Unit(tempUD->getUnit(0)->getKind());
+          unit = new Unit(model->getSBMLNamespaces());
+          unit->setKind(tempUD->getUnit(0)->getKind());
           unit->setMultiplier(tempUD->getUnit(0)->getMultiplier());
           unit->setScale(tempUD->getUnit(0)->getScale());
           unit->setExponent(tempUD->getUnit(0)->getExponent());
@@ -1002,16 +1015,18 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment
         tempUD = model->getUnitDefinition("volume");
         if (!tempUD) 
         {
-          unit = new Unit("litre");
-          ud   = new UnitDefinition();
+          unit = new Unit(model->getSBMLNamespaces());
+          unit->setKind(UnitKind_forName("litre"));
+          ud   = new UnitDefinition(model->getSBMLNamespaces());
         
           ud->addUnit(unit);
         }
         else
         {
-          ud   = new UnitDefinition();
+          ud   = new UnitDefinition(model->getSBMLNamespaces());
 
-          unit = new Unit(tempUD->getUnit(0)->getKind());
+          unit = new Unit(model->getSBMLNamespaces());
+          unit->setKind(tempUD->getUnit(0)->getKind());
           unit->setMultiplier(tempUD->getUnit(0)->getMultiplier());
           unit->setScale(tempUD->getUnit(0)->getScale());
           unit->setExponent(tempUD->getUnit(0)->getExponent());
@@ -1032,8 +1047,9 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment
     if (UnitKind_isValidUnitKindString(units, 
                           compartment->getLevel(), compartment->getVersion()))
     {
-      unit = new Unit(units);
-      ud   = new UnitDefinition();
+      unit = new Unit(model->getSBMLNamespaces());
+      unit->setKind(UnitKind_forName(units));
+      ud   = new UnitDefinition(model->getSBMLNamespaces());
       
       ud->addUnit(unit);
 
@@ -1045,12 +1061,12 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment
       {
         if (!strcmp(units, model->getUnitDefinition(n)->getId().c_str()))
         {
-          ud = new UnitDefinition();
+          ud = new UnitDefinition(model->getSBMLNamespaces());
           
           for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
           {
-            unit = new Unit(
-                         model->getUnitDefinition(n)->getUnit(p)->getKind());
+            unit = new Unit(model->getSBMLNamespaces());
+            unit->setKind(model->getUnitDefinition(n)->getUnit(p)->getKind());
             unit->setMultiplier(
                    model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
             unit->setScale(
@@ -1074,21 +1090,25 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment
      */
     if (Unit_isBuiltIn(units, model->getLevel()) && ud == NULL)
     {
-      ud   = new UnitDefinition();
+      ud   = new UnitDefinition(model->getSBMLNamespaces());
 
       if (!strcmp(units, "volume"))
       {
-        unit = new Unit("litre");
+        unit = new Unit(model->getSBMLNamespaces());
+        unit->setKind(UNIT_KIND_LITRE);
         ud->addUnit(unit);
       }
       else if (!strcmp(units, "area"))
       {
-        unit = new Unit("metre", 2);
+        unit = new Unit(model->getSBMLNamespaces());
+        unit->setKind(UnitKind_forName("metre"));
+        unit->setExponent(2);
         ud->addUnit(unit);
       }
       else if (!strcmp(units, "length"))
       {
-        unit = new Unit("metre");
+        unit = new Unit(model->getSBMLNamespaces());
+        unit->setKind(UnitKind_forName("metre"));
         ud->addUnit(unit);
       }
 
@@ -1099,7 +1119,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment
   // as a safety catch 
   if (ud == NULL)
   {
-    ud = new UnitDefinition();
+    ud = new UnitDefinition(model->getSBMLNamespaces());
   }
 
   return ud;
@@ -1137,16 +1157,18 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
     tempUd = model->getUnitDefinition("substance");
     if (!tempUd) 
     {
-      unit = new Unit("mole");
-      subsUD   = new UnitDefinition();
+      unit = new Unit(model->getSBMLNamespaces());
+      unit->setKind(UnitKind_forName("mole"));
+      subsUD   = new UnitDefinition(model->getSBMLNamespaces());
 
       subsUD->addUnit(unit);
     }
     else
     {
-      subsUD   = new UnitDefinition();
+      subsUD   = new UnitDefinition(model->getSBMLNamespaces());
 
-      unit = new Unit(tempUd->getUnit(0)->getKind());
+      unit = new Unit(model->getSBMLNamespaces());
+      unit->setKind(tempUd->getUnit(0)->getKind());
       unit->setMultiplier(tempUd->getUnit(0)->getMultiplier());
       unit->setScale(tempUd->getUnit(0)->getScale());
       unit->setExponent(tempUd->getUnit(0)->getExponent());
@@ -1166,8 +1188,9 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
     if (UnitKind_isValidUnitKindString(units, 
                                  species->getLevel(), species->getVersion()))
     {
-      unit = new Unit(units);
-      subsUD   = new UnitDefinition();
+      unit = new Unit(model->getSBMLNamespaces());
+      unit->setKind(UnitKind_forName(units));
+      subsUD   = new UnitDefinition(model->getSBMLNamespaces());
       
       subsUD->addUnit(unit);
 
@@ -1179,12 +1202,12 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
       {
         if (!strcmp(units, model->getUnitDefinition(n)->getId().c_str()))
         {
-          subsUD = new UnitDefinition();
+          subsUD = new UnitDefinition(model->getSBMLNamespaces());
           
           for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
           {
-            unit = new Unit(
-                         model->getUnitDefinition(n)->getUnit(p)->getKind());
+            unit = new Unit(model->getSBMLNamespaces());
+            unit->setKind(model->getUnitDefinition(n)->getUnit(p)->getKind());
             unit->setMultiplier(
                    model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
             unit->setScale(
@@ -1208,11 +1231,12 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
      */
     if (Unit_isBuiltIn(units, model->getLevel()) && subsUD == NULL)
     {
-      subsUD   = new UnitDefinition();
+      subsUD   = new UnitDefinition(model->getSBMLNamespaces());
 
       if (!strcmp(units, "substance"))
       {
-        unit = new Unit("mole");
+        unit = new Unit(model->getSBMLNamespaces());
+        unit->setKind(UNIT_KIND_MOLE);
         subsUD->addUnit(unit);
 
         delete unit;
@@ -1223,7 +1247,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
       // units is undefined 
 
       // as a safety catch
-      return new UnitDefinition();
+      return new UnitDefinition(model->getSBMLNamespaces());
     }
 
   }
@@ -1254,8 +1278,9 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
     if (UnitKind_isValidUnitKindString(spatialUnits, species->getLevel(), 
                                                      species->getVersion()))
     {
-      unit = new Unit(spatialUnits);
-      sizeUD   = new UnitDefinition();
+      unit = new Unit(model->getSBMLNamespaces());
+      unit->setKind(UnitKind_forName(spatialUnits));
+      sizeUD   = new UnitDefinition(model->getSBMLNamespaces());
       
       sizeUD->addUnit(unit);
 
@@ -1267,12 +1292,12 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
       {
         if (!strcmp(spatialUnits, model->getUnitDefinition(n)->getId().c_str()))
         {
-          sizeUD = new UnitDefinition();
+          sizeUD = new UnitDefinition(model->getSBMLNamespaces());
           
           for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
           {
-            unit = new Unit(
-                          model->getUnitDefinition(n)->getUnit(p)->getKind());
+            unit = new Unit(model->getSBMLNamespaces());
+            unit->setKind(model->getUnitDefinition(n)->getUnit(p)->getKind());
             unit->setMultiplier(
                     model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
             unit->setScale(
@@ -1296,21 +1321,25 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
      */
     if (Unit_isBuiltIn(spatialUnits, model->getLevel()) && sizeUD == NULL)
     {
-      sizeUD   = new UnitDefinition();
+      sizeUD   = new UnitDefinition(model->getSBMLNamespaces());
 
       if (!strcmp(spatialUnits, "volume"))
       {
-        unit = new Unit("litre");
+        unit = new Unit(model->getSBMLNamespaces());
+        unit->setKind(UNIT_KIND_LITRE);
         sizeUD->addUnit(unit);
       }
       else if (!strcmp(spatialUnits, "area"))
       {
-        unit = new Unit("metre", 2);
+        unit = new Unit(model->getSBMLNamespaces());
+        unit->setKind(UNIT_KIND_METRE);
+        unit->setExponent(2);
         sizeUD->addUnit(unit);
       }
       else if (!strcmp(spatialUnits, "length"))
       {
-        unit = new Unit("metre");
+        unit = new Unit(model->getSBMLNamespaces());
+        unit->setKind(UNIT_KIND_METRE);
         sizeUD->addUnit(unit);
       }
 
@@ -1337,7 +1366,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
   // as a safety catch 
   if (ud == NULL)
   {
-    ud = new UnitDefinition();
+    ud = new UnitDefinition(model->getSBMLNamespaces());
   }
 
   delete sizeUD;
@@ -1366,7 +1395,7 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter
  /* no units declared */
   if (!strcmp(units, ""))
   {
-    ud   = new UnitDefinition();
+    ud   = new UnitDefinition(model->getSBMLNamespaces());
     mContainsUndeclaredUnits = true;
     mCanIgnoreUndeclaredUnits = 0;
   }
@@ -1379,8 +1408,9 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter
     if (UnitKind_isValidUnitKindString(units, 
                               parameter->getLevel(), parameter->getVersion()))
     {
-      unit = new Unit(units);
-      ud   = new UnitDefinition();
+      unit = new Unit(model->getSBMLNamespaces());
+      unit->setKind(UnitKind_forName(units));
+      ud   = new UnitDefinition(model->getSBMLNamespaces());
       
       ud->addUnit(unit);
 
@@ -1392,12 +1422,12 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter
       {
         if (!strcmp(units, model->getUnitDefinition(n)->getId().c_str()))
         {
-          ud = new UnitDefinition();
+          ud = new UnitDefinition(model->getSBMLNamespaces());
           
           for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
           {
-            unit = new Unit(
-                         model->getUnitDefinition(n)->getUnit(p)->getKind());
+            unit = new Unit(model->getSBMLNamespaces());
+            unit->setKind(model->getUnitDefinition(n)->getUnit(p)->getKind());
             unit->setMultiplier(
                    model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
             unit->setScale(
@@ -1421,31 +1451,37 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter
      */
     if (Unit_isBuiltIn(units, model->getLevel()) && ud == NULL)
     {
-      ud   = new UnitDefinition();
+      ud   = new UnitDefinition(model->getSBMLNamespaces());
 
       if (!strcmp(units, "substance"))
       {
-        unit = new Unit("mole");
+        unit = new Unit(model->getSBMLNamespaces());
+        unit->setKind(UNIT_KIND_MOLE);
         ud->addUnit(unit);
       }
       else if (!strcmp(units, "volume"))
       {
-        unit = new Unit("litre");
+        unit = new Unit(model->getSBMLNamespaces());
+        unit->setKind(UNIT_KIND_LITRE);
         ud->addUnit(unit);
       }
       else if (!strcmp(units, "area"))
       {
-        unit = new Unit("metre", 2);
+        unit = new Unit(model->getSBMLNamespaces());
+        unit->setKind(UNIT_KIND_METRE);
+        unit->setExponent(2);
         ud->addUnit(unit);
       }
       else if (!strcmp(units, "length"))
       {
-        unit = new Unit("metre");
+        unit = new Unit(model->getSBMLNamespaces());
+        unit->setKind(UNIT_KIND_METRE);
         ud->addUnit(unit);
       }
       else if (!strcmp(units, "time"))
       {
-        unit = new Unit("second");
+        unit = new Unit(model->getSBMLNamespaces());
+        unit->setKind(UNIT_KIND_SECOND);
         ud->addUnit(unit);
       }
 
@@ -1456,7 +1492,7 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter
   // as a safety catch 
   if (ud == NULL)
   {
-    ud = new UnitDefinition();
+    ud = new UnitDefinition(model->getSBMLNamespaces());
   }
 
   return ud;
@@ -1488,8 +1524,9 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
     tempUd = model->getUnitDefinition("time");
 
     if (tempUd == NULL) {
-      unit = new Unit("second");
-      ud   = new UnitDefinition();
+        unit = new Unit(model->getSBMLNamespaces());
+        unit->setKind(UNIT_KIND_SECOND);
+      ud   = new UnitDefinition(model->getSBMLNamespaces());
       
       ud->addUnit(unit);
 
@@ -1497,7 +1534,7 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
     }
     else
     {
-      ud   = new UnitDefinition();
+      ud   = new UnitDefinition(model->getSBMLNamespaces());
 
       for (n = 0; n < tempUd->getNumUnits(); n++)
       {
@@ -1515,8 +1552,9 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
     if (UnitKind_isValidUnitKindString(units, 
                                      event->getLevel(), event->getVersion()))
     {
-      unit = new Unit(units);
-      ud   = new UnitDefinition();
+      unit = new Unit(model->getSBMLNamespaces());
+      unit->setKind(UnitKind_forName(units));
+      ud   = new UnitDefinition(model->getSBMLNamespaces());
       
       ud->addUnit(unit);
 
@@ -1528,12 +1566,12 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
       {
         if (!strcmp(units, model->getUnitDefinition(n)->getId().c_str()))
         {
-          ud = new UnitDefinition();
+          ud = new UnitDefinition(model->getSBMLNamespaces());
           
           for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
           {
-            unit = new Unit(
-                         model->getUnitDefinition(n)->getUnit(p)->getKind());
+            unit = new Unit(model->getSBMLNamespaces());
+            unit->setKind(model->getUnitDefinition(n)->getUnit(p)->getKind());
             unit->setMultiplier(
                    model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
             unit->setScale(
@@ -1557,11 +1595,12 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
      */
     if (Unit_isBuiltIn(units, model->getLevel()) && ud == NULL)
     {
-      ud   = new UnitDefinition();
+      ud   = new UnitDefinition(model->getSBMLNamespaces());
 
       if (!strcmp(units, "time"))
       {
-        unit = new Unit("second");
+        unit = new Unit(model->getSBMLNamespaces());
+        unit->setKind(UNIT_KIND_SECOND);
         ud->addUnit(unit);
 
         delete unit;
@@ -1572,7 +1611,7 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
   // as a safety catch 
   if (ud == NULL)
   {
-    ud = new UnitDefinition();
+    ud = new UnitDefinition(model->getSBMLNamespaces());
   }
 
   return ud;
@@ -1687,5 +1726,10 @@ UnitFormulaFormatter_resetFlags(UnitFormulaFormatter_t * uff)
   uff->resetFlags();
 }
 
+
+
 */
+
 /** @endcond doxygen-libsbml-internal */
+
+LIBSBML_CPP_NAMESPACE_END

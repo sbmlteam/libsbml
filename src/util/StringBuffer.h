@@ -29,7 +29,7 @@
 
 #include <sbml/common/extern.h>
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
@@ -190,6 +190,7 @@ StringBuffer_toString (const StringBuffer_t *sb);
 
 
 END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /** StringBuffer_h **/
 

@@ -67,7 +67,7 @@ static EventAssignment_t *EA;
 void
 EventAssignmentTest_setup (void)
 {
-  EA = EventAssignment_create();
+  EA = EventAssignment_create(2, 4);
 
   if (EA == NULL)
   {
@@ -96,26 +96,26 @@ START_TEST (test_EventAssignment_create)
 END_TEST
 
 
-START_TEST (test_EventAssignment_createWith)
-{
-  ASTNode_t         *math = SBML_parseFormula("0");
-  EventAssignment_t *ea   = EventAssignment_createWithVarAndMath("k", math);
-
-  fail_unless( SBase_getTypeCode  ((SBase_t *) ea) == SBML_EVENT_ASSIGNMENT );
-  fail_unless( SBase_getMetaId    ((SBase_t *) ea) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) ea) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) ea) == NULL );
-
-  fail_unless( EventAssignment_getMath(ea) != math );
-  fail_unless( EventAssignment_isSetMath(ea) );
-
-  fail_unless( !strcmp(EventAssignment_getVariable(ea), "k") );
-  fail_unless( EventAssignment_isSetVariable(ea) );
-
-  ASTNode_free(math);
-  EventAssignment_free(ea);
-}
-END_TEST
+//START_TEST (test_EventAssignment_createWith)
+//{
+//  ASTNode_t         *math = SBML_parseFormula("0");
+//  EventAssignment_t *ea   = EventAssignment_createWithVarAndMath("k", math);
+//
+//  fail_unless( SBase_getTypeCode  ((SBase_t *) ea) == SBML_EVENT_ASSIGNMENT );
+//  fail_unless( SBase_getMetaId    ((SBase_t *) ea) == NULL );
+//  fail_unless( SBase_getNotes     ((SBase_t *) ea) == NULL );
+//  fail_unless( SBase_getAnnotation((SBase_t *) ea) == NULL );
+//
+//  fail_unless( EventAssignment_getMath(ea) != math );
+//  fail_unless( EventAssignment_isSetMath(ea) );
+//
+//  fail_unless( !strcmp(EventAssignment_getVariable(ea), "k") );
+//  fail_unless( EventAssignment_isSetVariable(ea) );
+//
+//  ASTNode_free(math);
+//  EventAssignment_free(ea);
+//}
+//END_TEST
 
 
 START_TEST (test_EventAssignment_free_NULL)
@@ -197,13 +197,15 @@ START_TEST (test_EventAssignment_setMath)
 END_TEST
 
 
-START_TEST (test_EventAssignment_createWithLevelVersionAndNamespace)
+START_TEST (test_EventAssignment_createWithNS )
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
-  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "testsbml");
+  SBMLNamespaces_t *sbmlns = SBMLNamespaces_create(2,1);
+  SBMLNamespaces_addNamespaces(sbmlns,xmlns);
 
   EventAssignment_t *object = 
-    EventAssignment_createWithLevelVersionAndNamespaces(2, 1, xmlns);
+    EventAssignment_createWithNS (sbmlns);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_EVENT_ASSIGNMENT );
@@ -215,7 +217,8 @@ START_TEST (test_EventAssignment_createWithLevelVersionAndNamespace)
   fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
 
   fail_unless( EventAssignment_getNamespaces     (object) != NULL );
-  fail_unless( XMLNamespaces_getLength(EventAssignment_getNamespaces(object)) == 1 );
+  fail_unless( XMLNamespaces_getLength(
+                        EventAssignment_getNamespaces(object)) == 2 );
 
   EventAssignment_free(object);
 }
@@ -234,11 +237,11 @@ create_suite_EventAssignment (void)
                              EventAssignmentTest_teardown );
 
   tcase_add_test( tcase, test_EventAssignment_create      );
-  tcase_add_test( tcase, test_EventAssignment_createWith  );
+  //tcase_add_test( tcase, test_EventAssignment_createWith  );
   tcase_add_test( tcase, test_EventAssignment_free_NULL   );
   tcase_add_test( tcase, test_EventAssignment_setVariable );
   tcase_add_test( tcase, test_EventAssignment_setMath     );
-  tcase_add_test( tcase, test_EventAssignment_createWithLevelVersionAndNamespace        );
+  tcase_add_test( tcase, test_EventAssignment_createWithNS         );
 
   suite_add_tcase(suite, tcase);
 

@@ -57,10 +57,10 @@
  * </ul>
  *
  * The returned XMLNode object by XMLNode::convertStringToXMLNode() is a dummy root 
- * (container) XMLNode if the top-level element in the given XML string is NOT @p html, 
- * @p body, @p annotation, or @p notes element. In the dummy root node, each top-level element 
- * in the given XML string is contained as a child XMLNode. XMLToken::isEOF() can be used to 
- * identify if the returned XMLNode object is a dummy node or not. 
+ * (container) XMLNode if the given XML string has two or more top-level elements 
+ * (e.g., "&lt;p&gt;...&lt;/p&gt;&lt;p&gt;...&lt;/p&gt;"). In the dummy root node, each top-level element in 
+ * the given XML string is contained as a child XMLNode. XMLToken::isEOF() can be used 
+ * to identify if the returned XMLNode object is a dummy node or not. 
  * Here is an example:
  * @if clike @verbatim
 // Checks if the returned XMLNode object by XMLNode::convertStringToXMLNode() is a dummy root node:
@@ -128,6 +128,8 @@ else
 
 #include <vector>
 #include <cstdlib>
+
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygen-libsbml-internal */
 class XMLInputStream;
@@ -303,8 +305,17 @@ public:
    * The given @p node is added at the end of the list of children.
    *
    * @param node the XMLNode to be added as child.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_XML_OPERATION
+   *
+   * @note The given node is added at the end of the children list.
    */
-  void addChild (const XMLNode& node);
+  int addChild (const XMLNode& node);
 
 
   /**
@@ -345,8 +356,13 @@ public:
 
   /**
    * Removes all children from this node.
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
-  void removeChildren() { mChildren.clear(); }
+  int removeChildren();
 
 
   /**
@@ -478,11 +494,14 @@ protected:
   /** @endcond doxygen-libsbml-internal */
 };
 
+LIBSBML_CPP_NAMESPACE_END
+
 #endif  /* __cplusplus */
 
 
 #ifndef SWIG
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /*-----------------------------------------------------------------------------
@@ -534,7 +553,7 @@ XMLNode_clone (const XMLNode_t* c);
 
 
 LIBLAX_EXTERN
-void
+int
 XMLNode_addChild (XMLNode_t *node, const XMLNode_t *child);
 
 
@@ -549,7 +568,7 @@ XMLNode_removeChild(XMLNode_t *node, unsigned int n);
 
 
 LIBLAX_EXTERN
-void
+int
 XMLNode_removeChildren (XMLNode_t *node);
 
 
@@ -564,7 +583,7 @@ XMLNode_getName (const XMLNode_t *node);
 
 
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_setTriple(XMLNode_t *node, const XMLTriple_t *triple);
 
 
@@ -585,17 +604,17 @@ XMLNode_getAttributes (const XMLNode_t *node);
 
 
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_setAttributes (XMLNode_t *node, const XMLAttributes_t* attributes);
 
 
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_addAttr ( XMLNode_t *node,  const char* name, const char* value );
 		   
 
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_addAttrWithNS ( XMLNode_t *node,  const char* name
 	                , const char* value
     	                , const char* namespaceURI
@@ -603,32 +622,32 @@ XMLNode_addAttrWithNS ( XMLNode_t *node,  const char* name
 
 
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_addAttrWithTriple (XMLNode_t *node, const XMLTriple_t *triple, const char* value);
 
 
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_removeAttr (XMLNode_t *node, int n);
 
 
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_removeAttrByName (XMLNode_t *node, const char* name);
 
 
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_removeAttrByNS (XMLNode_t *node, const char* name, const char* uri);
 
 
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_removeAttrByTriple (XMLNode_t *node, const XMLTriple_t *triple);
 
 
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_clearAttributes(XMLNode_t *node);
 
 
@@ -718,27 +737,27 @@ XMLNode_getNamespaces (const XMLNode_t *node);
 
 
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_setNamespaces(XMLNode_t *node, const XMLNamespaces_t* namespaces);
 
 
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_addNamespace (XMLNode_t *node, const char* uri, const char* prefix);
 
 
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_removeNamespace (XMLNode_t *node, int index);
 
 
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_removeNamespaceByPrefix (XMLNode_t *node, const char* prefix);
 
 
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_clearNamespaces (XMLNode_t *node);
 
 
@@ -829,17 +848,17 @@ XMLNode_isText (const XMLNode_t *node);
 
 
 LIBLAX_EXTERN
-void
+int
 XMLNode_setEnd (XMLNode_t *node);
 
 
 LIBLAX_EXTERN
-void
+int
 XMLNode_setEOF (XMLNode_t *node);
 
 
 LIBLAX_EXTERN
-void
+int
 XMLNode_unsetEnd (XMLNode_t *node);
 
 
@@ -873,6 +892,7 @@ XMLNode_t *
 XMLNode_convertStringToXMLNode(const char * xml, const XMLNamespaces_t* xmlns);
 
 END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
 #endif  /* XMLNode_h */

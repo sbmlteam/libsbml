@@ -42,35 +42,38 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
-/*
- * Creates a new UnitDefinition, optionally with its id and name
- * attributes set.
- */
-UnitDefinition::UnitDefinition (const std::string& sid, const std::string& name) :
-  SBase(sid, name)
+UnitDefinition::UnitDefinition (unsigned int level, unsigned int version) :
+   SBase ( level, version )
+ , mId               ( ""       )
+ , mName             ( ""       )
 {
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
 
-UnitDefinition::UnitDefinition (unsigned int level, unsigned int version,
-                          XMLNamespaces *xmlns) :
-   SBase ("", "", -1)
+UnitDefinition::UnitDefinition (SBMLNamespaces * sbmlns) :
+   SBase ( sbmlns )
+ , mId               ( ""       )
+ , mName             ( ""       )
 {
-  mObjectLevel = level;
-  mObjectVersion = version;
-  if (xmlns) setNamespaces(xmlns);;
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
+
+/** @cond doxygen-libsbml-internal */
+
+/* constructor for validators */
+UnitDefinition::UnitDefinition() :
+  SBase()
+{
+}
+
+/** @endcond doxygen-libsbml-internal */
                           
-UnitDefinition::UnitDefinition (SBMLNamespaces *sbmlns) :
-   SBase ("", "", -1)
-{
-  mObjectLevel = sbmlns->getLevel();
-  mObjectVersion = sbmlns->getVersion();
-  setNamespaces(sbmlns->getNamespaces());
-}
-
 
 /*
  * Destroys this UnitDefinition.
@@ -84,9 +87,18 @@ UnitDefinition::~UnitDefinition ()
  * Copy constructor. Creates a copy of this UnitDefinition.
  */
 UnitDefinition::UnitDefinition(const UnitDefinition& orig) :
-          SBase     (orig)
-        , mUnits    (orig.mUnits)
+    SBase     ( orig                    )
+  , mId       ( orig.mId                )  
+  , mName     ( orig.mName              )
+  , mUnits    ( orig.mUnits             )
 {
+  /* since a unit definition has children we need to re-establish the
+   * parentage of these children
+   */
+  if (orig.getNumUnits() > 0)
+  {
+    mUnits.setParentSBMLObject(this);
+  }
 }
 
 
@@ -98,7 +110,13 @@ UnitDefinition& UnitDefinition::operator=(const UnitDefinition& rhs)
   if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
+    mId = rhs.mId;
+    mName = rhs.mName;
     mUnits = rhs.mUnits;
+    if (rhs.getNumUnits() > 0)
+    {
+      mUnits.setParentSBMLObject(this);
+    }
   }
 
   return *this;
@@ -129,6 +147,135 @@ UnitDefinition*
 UnitDefinition::clone () const
 {
   return new UnitDefinition(*this);
+}
+
+
+/*
+ * @return the id of this SBML object.
+ */
+const string&
+UnitDefinition::getId () const
+{
+  return mId;
+}
+
+
+/*
+ * @return the name of this SBML object.
+ */
+const string&
+UnitDefinition::getName () const
+{
+  return (getLevel() == 1) ? mId : mName;
+}
+
+
+/*
+ * @return true if the id of this SBML object has been set, false
+ * otherwise.
+ */
+bool
+UnitDefinition::isSetId () const
+{
+  return (mId.empty() == false);
+}
+
+
+/*
+ * @return true if the name of this SBML object has been set, false
+ * otherwise.
+ */
+bool
+UnitDefinition::isSetName () const
+{
+  return (getLevel() == 1) ? (mId.empty() == false) : 
+                            (mName.empty() == false);
+}
+
+
+/*
+ * Sets the id of this SBML object to a copy of sid.
+ */
+int
+UnitDefinition::setId (const std::string& sid)
+{
+  /* since the setId function has been used as an
+   * alias for setName we cant require it to only
+   * be used on a L2 model
+   */
+/*  if (getLevel() == 1)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+*/
+  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mId = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Sets the name of this SBML object to a copy of name.
+ */
+int
+UnitDefinition::setName (const std::string& name)
+{
+  /* if this is setting an L2 name the type is string
+   * whereas if it is setting an L1 name its type is SId
+   */
+  if (getLevel() == 1)
+  {
+    if (!(SyntaxChecker::isValidSBMLSId(name)))
+    {
+      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    }
+    else
+    {
+      mId = name;
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+  else
+  {
+    mName = name;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Unsets the name of this SBML object.
+ */
+int
+UnitDefinition::unsetName ()
+{
+  if (getLevel() == 1) 
+  {
+    mId.erase();
+  }
+  else 
+  {
+    mName.erase();
+  }
+
+  if (getLevel() == 1 && mId.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (mName.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -320,7 +467,9 @@ UnitDefinition::isVariantOfSubstancePerTime () const
   // this unitDefinition times second^1 should be a variant
   // of substance
   UnitDefinition *ud = static_cast<UnitDefinition*>(this->clone());
-  Unit *u = new Unit(UNIT_KIND_SECOND);
+  //Unit *u = new Unit(UNIT_KIND_SECOND);
+  Unit *u = new Unit(ud->getSBMLNamespaces());
+  u->setKind(UNIT_KIND_SECOND);
   ud->addUnit(u);
 
   UnitDefinition::simplify(ud);
@@ -328,6 +477,7 @@ UnitDefinition::isVariantOfSubstancePerTime () const
   result = ud->isVariantOfSubstance();
 
   delete ud;
+  delete u;
   return result;
 }
 
@@ -335,17 +485,38 @@ UnitDefinition::isVariantOfSubstancePerTime () const
 /*
  * Adds a copy of the given Unit to this UnitDefinition.
  */
-void
+int
 UnitDefinition::addUnit (const Unit* u)
 {
-  /* if the ListOf is empty it doesnt know its parent */
-  if (mUnits.size() == 0)
+  if (u == NULL)
   {
-    mUnits.setSBMLDocument(this->getSBMLDocument());
-    mUnits.setParentSBMLObject(this);
+    return LIBSBML_OPERATION_FAILED;
   }
-  
-  mUnits.append(u);
+  else if (!(u->hasRequiredAttributes()) || !(u->hasRequiredElements()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != u->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != u->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else
+  {
+    /* if the ListOf is empty it doesnt know its parent */
+    if (mUnits.size() == 0)
+    {
+      mUnits.setSBMLDocument(this->getSBMLDocument());
+      mUnits.setParentSBMLObject(this);
+    }
+    
+    mUnits.append(u);
+
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -356,7 +527,20 @@ UnitDefinition::addUnit (const Unit* u)
 Unit*
 UnitDefinition::createUnit ()
 {
-  Unit* u = new Unit;
+  Unit* u = 0;
+
+  try
+  {
+    u = new Unit(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mUnits.size() == 0)
@@ -365,7 +549,7 @@ UnitDefinition::createUnit ()
     mUnits.setParentSBMLObject(this);
   }
   
-  mUnits.appendAndOwn(u);
+  if (u) mUnits.appendAndOwn(u);
 
   return u;
 }
@@ -420,6 +604,18 @@ UnitDefinition::getNumUnits () const
   return mUnits.size();
 }
 
+
+/**
+ * Removes the nth Unit object from this UnitDefinition object and
+ * returns a pointer to it.
+ */
+Unit* 
+UnitDefinition::removeUnit (unsigned int n)
+{
+  return mUnits.remove(n);  
+}
+
+
 /** @cond doxygen-libsbml-internal */
 
 /*
@@ -469,6 +665,34 @@ UnitDefinition::getElementName () const
   return name;
 
 }
+
+bool 
+UnitDefinition::hasRequiredAttributes() const
+{
+  bool allPresent = true;
+
+  /* required attributes for unitDefinition: id (name in L1) */
+
+  if (!isSetId())
+    allPresent = false;
+
+  return allPresent;
+}
+
+
+bool 
+UnitDefinition::hasRequiredElements() const
+{
+  bool allPresent = true;
+
+  /* required attributes for unitDefinition: listOfUnits (L2 only) */
+
+  if (getLevel() > 1 && getNumUnits() == 0)
+    allPresent = false;
+
+  return allPresent;
+}
+
 
 /* utility functions originally in Utils_UnitDefinition
  * declared as static
@@ -549,7 +773,8 @@ UnitDefinition::simplify(UnitDefinition * ud)
   /* if all units have been cancelled need to add dimensionless */
   if (units->size() == 0 && cancelFlag == 1)
   {
-    Unit tmpunit("dimensionless");
+    Unit tmpunit(ud->getSBMLNamespaces());
+    tmpunit.setKind(UNIT_KIND_DIMENSIONLESS);
     ud->addUnit(&tmpunit);
   }
 }
@@ -629,8 +854,9 @@ UnitDefinition::convertToSI(const UnitDefinition * ud)
   if (ud == NULL) return NULL;
 
   unsigned int n, p;
-  UnitDefinition * newUd = new UnitDefinition();
+  UnitDefinition * newUd = new UnitDefinition(ud->getSBMLNamespaces());
   UnitDefinition * tempUd;
+  Unit * tempUnit;
 
   newUd->setId(ud->getId());
   newUd->setName(ud->getName());
@@ -640,7 +866,13 @@ UnitDefinition::convertToSI(const UnitDefinition * ud)
     tempUd = Unit::convertToSI(ud->getUnit(n));
     for (p = 0; p < tempUd->getNumUnits(); p++)
     {
-      newUd->addUnit(tempUd->getUnit(p));
+      tempUnit = new Unit(ud->getSBMLNamespaces());
+      tempUnit->setKind(tempUd->getUnit(p)->getKind());
+      tempUnit->setExponent(tempUd->getUnit(p)->getExponent());
+      tempUnit->setScale(tempUd->getUnit(p)->getScale());
+      tempUnit->setMultiplier(tempUd->getUnit(p)->getMultiplier());
+      newUd->addUnit(tempUnit);
+      delete tempUnit;
     }
     delete tempUd;
   }
@@ -688,13 +920,20 @@ UnitDefinition::areIdentical(const UnitDefinition * ud1, const UnitDefinition * 
     return identical;
   }
 
+  /* must be same level/version/ namespace
+   */
+  if ( (ud1->getLevel() != ud2->getLevel()) ||
+       (ud1->getVersion() != ud2->getVersion()))
+  {
+    return identical;
+  }
   unsigned int n;
 
   /* need to order the unitDefinitions so must make copies
    * since the arguments are const
    */
-  UnitDefinition * ud1Temp = new UnitDefinition();//(UnitDefinition*) ud1->clone();
-  UnitDefinition * ud2Temp = new UnitDefinition();//(UnitDefinition*) ud2->clone();
+  UnitDefinition * ud1Temp = new UnitDefinition(ud1->getSBMLNamespaces());
+  UnitDefinition * ud2Temp = new UnitDefinition(ud2->getSBMLNamespaces());
 
   for ( n = 0; n < ud1->getNumUnits(); n++)
     ud1Temp->addUnit(ud1->getUnit(n));
@@ -883,6 +1122,7 @@ UnitDefinition::combine(UnitDefinition *ud1, UnitDefinition *ud2)
   bool B = (ud2 == NULL);
 
   UnitDefinition * ud;
+
   if (A && B)
   {
     ud = NULL;
@@ -894,6 +1134,11 @@ UnitDefinition::combine(UnitDefinition *ud1, UnitDefinition *ud2)
   else if (B && !A)
   {
     ud = new UnitDefinition(*ud1);
+  }
+  else  if ( (ud1->getLevel() != ud2->getLevel()) ||
+       (ud1->getVersion() != ud2->getVersion()))
+  {
+    ud = NULL;
   }
   else
   {
@@ -1055,7 +1300,7 @@ UnitDefinition::readAttributes (const XMLAttributes& attributes)
   {
     logEmptyString(id, level, version, "<unitDefinition>");
   }
-  SBase::checkIdSyntax();
+  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
 
   //
   // name: string  { use="optional" }  (L2v1->)
@@ -1168,11 +1413,25 @@ ListOfUnitDefinitions::get(unsigned int n) const
 }
 
 
+/**
+ * Used by ListOf::get() to lookup an SBase based by its id.
+ */
+struct IdEqUD : public unary_function<SBase*, bool>
+{
+  const string& id;
+
+  IdEqUD (const string& id) : id(id) { }
+  bool operator() (SBase* sb) 
+       { return static_cast <UnitDefinition *> (sb)->getId() == id; }
+};
+
+
 /* return item by id */
 UnitDefinition*
 ListOfUnitDefinitions::get (const std::string& sid)
 {
-  return static_cast<UnitDefinition*>(ListOf::get(sid));
+  return const_cast<UnitDefinition*>( 
+    static_cast<const ListOfUnitDefinitions&>(*this).get(sid) );
 }
 
 
@@ -1180,7 +1439,10 @@ ListOfUnitDefinitions::get (const std::string& sid)
 const UnitDefinition*
 ListOfUnitDefinitions::get (const std::string& sid) const
 {
-  return static_cast<const UnitDefinition*>(ListOf::get(sid));
+  vector<SBase*>::const_iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqUD(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <UnitDefinition*> (*result);
 }
 
 
@@ -1196,7 +1458,18 @@ ListOfUnitDefinitions::remove (unsigned int n)
 UnitDefinition*
 ListOfUnitDefinitions::remove (const std::string& sid)
 {
-   return static_cast<UnitDefinition*>(ListOf::remove(sid));
+  SBase* item = 0;
+  vector<SBase*>::iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqUD(sid) );
+
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
+  }
+
+  return static_cast <UnitDefinition*> (item);
 }
 
 
@@ -1227,8 +1500,22 @@ ListOfUnitDefinitions::createObject (XMLInputStream& stream)
 
   if (name == "unitDefinition")
   {
-    object = new UnitDefinition();
-    mItems.push_back(object);
+    try
+    {
+      object = new UnitDefinition(getSBMLNamespaces());
+    }
+    catch (SBMLConstructorException*)
+    {
+      object = new UnitDefinition(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    catch ( ... )
+    {
+      object = new UnitDefinition(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    
+    if (object) mItems.push_back(object);
   }
 
   return object;
@@ -1240,82 +1527,8 @@ ListOfUnitDefinitions::createObject (XMLInputStream& stream)
 
 
 /**
- * Creates a new, empty UnitDefinition_t structure.
- *
- * @return the new UnitDefinition_t structure
- *
- * @note It is worth emphasizing that the attribute "id" value of a
- * UnitDefinition_t is a required attribute.  UnitDefinition_create() does
- * not assign a valid "id" to the constructed unit; instead, it leaves it
- * as the empty string.  Callers are cautioned to set the newly-constructed
- * UnitDefinition_t's "id" using UnitDefinition_setId() soon after calling
- * this function.
- */
-LIBSBML_EXTERN
-UnitDefinition_t *
-UnitDefinition_create (void)
-{
-  return new(nothrow) UnitDefinition;
-}
-
-
-/**
- * Creates a new UnitDefinition_t structure with the given identifier @p id
- * and returns a pointer to the structure.
- * 
- * The permitted values of the identifier @p id @em exclude the predefined
- * base units in SBML and two spelling variants @c "meter" and @c "liter".
- * The following is the set of base unit names which may @em not be used as
- * a value of @p id:
- *
- * <table align="center" style="font-family: Courier, fixed; font-weight: bold; font-size: 12px;" cellspacing="7" border="0">
- * <tr><td>ampere</td><td>gram</td><td>katal</td><td>metre</td><td>second</td><td>watt</td></tr>
- * <tr><td>becquerel</td><td>gray</td><td>kelvin</td><td>mole</td><td>siemens</td><td>weber</td></tr>
- * <tr><td>candela</td><td>henry</td><td>kilogram</td><td>newton</td><td>sievert</td><td>Celsius</td></tr>
- * <tr><td>coulomb</td><td>hertz</td><td>litre</td><td>ohm</td><td>steradian</td><td>meter</td></tr>
- * <tr><td>dimensionless</td><td>item</td><td>lumen</td><td>pascal</td><td>tesla</td><td>liter</td></tr>
- * <tr><td>farad</td><td>joule</td><td>lux</td><td>radian</td><td>volt</td></tr>
- * </table>
- *
- * In addition, there is a set of predefined identifiers for the built-in
- * default units in SBML.  These identifiers are @c substance, @c volume,
- * @c area, @c length, and @c time.  Using one of these values for the
- * attribute @p id of a UnitDefinition_t has the effect of redefining the
- * model-wide default units for the corresponding quantities.  The list
- * of built-in units is given in the table below:
- * @image html built-in-units.jpg "SBML's built-in units"
- * @image latex built-in-units.jpg "SBML's built-in units"
- * 
- * Finally, note that SBML imposes two limitations on redefining the
- * built-in units listed above:
- * 
- * - The UnitDefinition_t of a redefined built-in unit can only
- *   contain a single Unit object within it.
- * 
- * - The value of the "kind" attribute in a Unit instance must be drawn
- *   from one of the values in the second column of the table above.
- *
- * This convenience function is functionally equivalent to:
- * @code
- *   UnitDefinition_setId(UnitDefinition_create(), id);
- * @endcode
- *
- * @param id the identifier to assign to the new unit definition.
- *
- * @return the new UnitDefinition_t structure.
- */
-LIBSBML_EXTERN
-UnitDefinition_t *
-UnitDefinition_createWith (const char *id, const char *name)
-{
-  return new(nothrow) UnitDefinition(id ? id : "", name ? name : "");
-}
-
-
-/** @cond doxygen-libsbml-internal */
-/**
  * Creates a new UnitDefinition_t structure using the given SBML @p level 
- * and @p version values and a set of XMLNamespaces.
+ * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this 
  * UnitDefinition
@@ -1323,28 +1536,63 @@ UnitDefinition_createWith (const char *id, const char *name)
  * @param version an unsigned int, the SBML Version to assign to this
  * UnitDefinition
  * 
- * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
- * assign to this UnitDefinition
- *
  * @return a pointer to the newly created UnitDefinition_t structure.
  *
  * @note Once a UnitDefinition has been added to an SBMLDocument, the @p 
- * level, @p version and @p xmlns namespaces for the document @em override 
- * those used to create the UnitDefinition.  Despite this, the ability 
- * to supply the values at creation time is an important aid to creating 
- * valid SBML.  Knowledge of the intended SBML Level and Version 
- * determine whether it is valid to assign a particular value to an 
- * attribute, or whether it is valid to add an object to an existing 
- * SBMLDocument.
+ * level and @p version for the document @em override those used to create 
+ * the UnitDefinition.  Despite this, the ability to supply the values at 
+ * creation time is an important aid to creating valid SBML.  Knowledge of 
+ * the intended SBML Level and Version  determine whether it is valid to 
+ * assign a particular value to an attribute, or whether it is valid to add 
+ * an object to an existing SBMLDocument.
  */
 LIBSBML_EXTERN
 UnitDefinition_t *
-UnitDefinition_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns)
+UnitDefinition_create (unsigned int level, unsigned int version)
 {
-  return new(nothrow) UnitDefinition(level, version, xmlns);
+  try
+  {
+    UnitDefinition* obj = new UnitDefinition(level,version);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
 }
-/** @endcond doxygen-libsbml-internal */
+
+
+/**
+ * Creates a new UnitDefinition_t structure using the given 
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this UnitDefinition
+ *
+ * @return a pointer to the newly created UnitDefinition_t structure.
+ *
+ * @note Once a UnitDefinition has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the UnitDefinition.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version determine whether it is valid to assign
+ * a particular value to an attribute, or whether it is valid to add an object
+ * to an existing SBMLDocument.
+ */
+LIBSBML_EXTERN
+UnitDefinition_t *
+UnitDefinition_createWithNS (SBMLNamespaces_t* sbmlns)
+{
+  try
+  {
+    UnitDefinition* obj = new UnitDefinition(sbmlns);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
 
 
 /**
@@ -1605,12 +1853,22 @@ UnitDefinition_isVariantOfSubstancePerTime (const UnitDefinition_t *ud)
  *
  * @param ud the UnitDefinition_t structure whose id is to be set
  * @param id a string, the new identifier for the UnitDefinition_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "id" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 UnitDefinition_setId (UnitDefinition_t *ud, const char *id)
 {
-  (id == NULL) ? ud->unsetId() : ud->setId(id);
+  return (id == NULL) ? ud->setId("") : ud->setId(id);
 }
 
 
@@ -1620,12 +1878,22 @@ UnitDefinition_setId (UnitDefinition_t *ud, const char *id)
  *
  * @param ud the UnitDefinition_t structure whose name is to be set
  * @param name a string, the new name for the UnitDefinition_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "name" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 UnitDefinition_setName (UnitDefinition_t *ud, const char *name)
 {
-  (name == NULL) ? ud->unsetName() : ud->setName(name);
+  return (name == NULL) ? ud->unsetName() : ud->setName(name);
 }
 
 
@@ -1633,12 +1901,19 @@ UnitDefinition_setName (UnitDefinition_t *ud, const char *name)
  * Unsets the name of the given UnitDefinition_t structure.
  *
  * @param ud the UnitDefinition_t whose name is to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 UnitDefinition_unsetName (UnitDefinition_t *ud)
 {
-  ud->unsetName();
+  return ud->unsetName();
 }
 
 
@@ -1647,12 +1922,22 @@ UnitDefinition_unsetName (UnitDefinition_t *ud)
  *
  * @param ud the UnitDefinition_t structure.
  * @param u the Unit instance to add.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
+ * @li LIBSBML_DUPLICATE_OBJECT_ID
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 UnitDefinition_addUnit (UnitDefinition_t *ud, const Unit_t *u)
 {
-  if (u != NULL) ud->addUnit(u);
+  return ud->addUnit(u);
 }
 
 
@@ -1728,6 +2013,29 @@ UnitDefinition_getNumUnits (const UnitDefinition_t *ud)
   return ud->getNumUnits();
 }
 
+
+/**
+ * Removes the nth Unit_t object from this UnitDefinition_t object and
+ * returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the UnitDefinition_t structure
+ * @param n the integer index of the Unit_t sought
+ *
+ * @return the Unit_t object removed.  As mentioned above, 
+ * the caller owns the returned item. NULL is returned if the given index 
+ * is out of range.
+ */
+LIBSBML_EXTERN
+Unit_t *
+UnitDefinition_removeUnit (UnitDefinition_t *ud, unsigned int n)
+{
+  if (!ud) return 0;
+  return ud->removeUnit(n);
+}
+
+
 LIBSBML_EXTERN
 void 
 UnitDefinition_simplify(UnitDefinition_t * ud)
@@ -1782,4 +2090,33 @@ UnitDefinition_printUnits(UnitDefinition_t * ud, int compact)
     , compact).c_str());
 }
 
+/**
+ * @return item in this ListOfUnitDefinition with the given id or NULL if no such
+ * item exists.
+ */
+LIBSBML_EXTERN
+UnitDefinition_t *
+ListOfUnitDefinitions_getById (ListOf_t *lo, const char *sid)
+{
+  return (sid != NULL) ? 
+    static_cast <ListOfUnitDefinitions *> (lo)->get(sid) : NULL;
+}
+
+
+/**
+ * Removes item in this ListOf items with the given id or NULL if no such
+ * item exists.  The caller owns the returned item and is responsible for
+ * deleting it.
+ */
+LIBSBML_EXTERN
+UnitDefinition_t *
+ListOfUnitDefinitions_removeById (ListOf_t *lo, const char *sid)
+{
+  return (sid != NULL) ? 
+    static_cast <ListOfUnitDefinitions *> (lo)->remove(sid) : NULL;
+}
+
+
 /** @endcond doxygen-c-only */
+
+LIBSBML_CPP_NAMESPACE_END

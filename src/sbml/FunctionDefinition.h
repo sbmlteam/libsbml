@@ -143,6 +143,7 @@
 #include <sbml/SBase.h>
 #include <sbml/ListOf.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class ASTNode;
 class SBMLVisitor;
@@ -151,30 +152,6 @@ class SBMLVisitor;
 class LIBSBML_EXTERN FunctionDefinition : public SBase
 {
 public:
-
-  /**
-   * Creates a new FunctionDefinition, optionally with a given identifier
-   * and mathematical formula.
-   *
-   * @param id a string, the identifier of this FunctionDefinition instance
-   * @param formula the formula of the function definition expressed as a
-   * string in infix notation 
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
-   */
-  FunctionDefinition (  const std::string& id      = ""
-                      , const std::string& formula = "" );
-
 
   /**
    * Creates a new FunctionDefinition, optionally with a given identifier
@@ -190,38 +167,22 @@ public:
 
   /**
    * Creates a new FunctionDefinition using the given SBML @p level and @p version
-   * values and optionally a set of XMLNamespaces.
+   * values.
    *
    * @param level an unsigned int, the SBML Level to assign to this FunctionDefinition
    *
    * @param version an unsigned int, the SBML Version to assign to this
    * FunctionDefinition
    * 
-   * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
-   * assign to this FunctionDefinition
-   *
    * @note Once a FunctionDefinition has been added to an SBMLDocument, the @p level,
-   * @p version and @p xmlns namespaces for the document @em override those used
+   * @p version for the document @em override those used
    * to create the FunctionDefinition.  Despite this, the ability to supply the values
    * at creation time is an important aid to creating valid SBML.  Knowledge of
    * the intented SBML Level and Version determine whether it is valid to
    * assign a particular value to an attribute, or whether it is valid to add
    * an object to an existing SBMLDocument.
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
    */
-  FunctionDefinition (unsigned int level, unsigned int version, 
-               XMLNamespaces* xmlns = 0);
+  FunctionDefinition (unsigned int level, unsigned int version);
 
 
   /**
@@ -244,18 +205,6 @@ public:
    * the intented SBML Level and Version determine whether it is valid to
    * assign a particular value to an attribute, or whether it is valid to add
    * an object to an existing SBMLDocument.
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
    */
   FunctionDefinition (SBMLNamespaces* sbmlns);
 
@@ -299,12 +248,52 @@ public:
 
 
   /**
+   * Returns the value of the "id" attribute of this FunctionDefinition.
+   * 
+   * @return the id of this FunctionDefinition.
+   */
+  const std::string& getId () const;
+
+
+  /**
+   * Returns the value of the "name" attribute of this FunctionDefinition.
+   * 
+   * @return the name of this FunctionDefinition.
+   */
+  const std::string& getName () const;
+
+
+  /**
    * Get the mathematical formula of this FunctionDefinition.
    *
    * @return an ASTNode, the value of the "math" subelement of this
    * FunctionDefinition
    */
   const ASTNode* getMath () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * FunctionDefinition's "id" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "id" attribute of this FunctionDefinition has been
+   * set, @c false otherwise.
+   */
+  bool isSetId () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * FunctionDefinition's "name" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "name" attribute of this FunctionDefinition has been
+   * set, @c false otherwise.
+   */
+  bool isSetName () const;
 
 
   /**
@@ -318,13 +307,87 @@ public:
 
 
   /**
+   * Sets the value of the "id" attribute of this FunctionDefinition.
+   *
+   * The string @p sid is copied.  Note that SBML has strict requirements
+   * for the syntax of identifiers.  The following is summary of the
+   * definition of the SBML identifier type @c SId (here expressed in an
+   * extended form of BNF notation):
+   * @code
+   *   letter ::= 'a'..'z','A'..'Z'
+   *   digit  ::= '0'..'9'
+   *   idChar ::= letter | digit | '_'
+   *   SId    ::= ( letter | '_' ) idChar*
+   * @endcode
+   * The equality of SBML identifiers is determined by an exact character
+   * sequence match; i.e., comparisons must be performed in a
+   * case-sensitive manner.  In addition, there are a few conditions for
+   * the uniqueness of identifiers in an SBML model.  Please consult the
+   * SBML specifications for the exact formulations.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @param sid the string to use as the identifier of this FunctionDefinition
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int setId (const std::string& sid);
+
+
+  /**
+   * Sets the value of the "name" attribute of this FunctionDefinition.
+   *
+   * The string in @p name is copied.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @param name the new name for the FunctionDefinition
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int setName (const std::string& name);
+
+
+  /**
    * Sets the "math" subelement of this FunctionDefinition to the Abstract
    * Syntax Tree given in @p math.
    *
    * @param math an AST containing the mathematical expression to
    * be used as the formula for this FunctionDefinition.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_OBJECT
    */
-  void setMath (const ASTNode* math);
+  int setMath (const ASTNode* math);
+
+
+  /**
+   * Unsets the value of the "name" attribute of this FunctionDefinition.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  int unsetName ();
 
 
   /**
@@ -417,19 +480,50 @@ public:
 
 
   /** @cond doxygen-libsbml-internal */
-
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-
   /** @endcond doxygen-libsbml-internal */
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether
+   * all the required attributes for this FunctionDefinition object
+   * have been set.
+   *
+   * @note The required attributes for a FunctionDefinition object are:
+   * id
+   *
+   * @return a boolean value indicating whether all the required
+   * attributes for this object have been defined.
+   */
+  virtual bool hasRequiredAttributes() const ;
+
+  /**
+   * Predicate returning @c true or @c false depending on whether
+   * all the required elements for this FunctionDefinition object
+   * have been set.
+   *
+   * @note The required elements for a FunctionDefinition object are:
+   * math
+   *
+   * @return a boolean value indicating whether all the required
+   * elements for this object have been defined.
+   */
+  virtual bool hasRequiredElements() const ;
 
 
 protected:
   /** @cond doxygen-libsbml-internal */
+
+  /* this is a constructor that takes no arguments and 
+   * only exists because the validator code needs it
+   */
+  FunctionDefinition ();
+
 
   /**
    * Subclasses should override this method to read (and store) XHTML,
@@ -454,7 +548,27 @@ protected:
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
-  ASTNode* mMath;
+  std::string   mId;
+  std::string   mName;
+  ASTNode*      mMath;
+
+  /* the validator classes need to be friends to access the 
+   * protected constructor that takes no arguments
+   */
+  friend class Validator;
+  friend class ConsistencyValidator;
+  friend class IdentifierConsistencyValidator;
+  friend class InternalConsistencyValidator;
+  friend class L1CompatibilityValidator;
+  friend class L2v1CompatibilityValidator;
+  friend class L2v2CompatibilityValidator;
+  friend class L2v3CompatibilityValidator;
+  friend class L2v4CompatibilityValidator;
+  friend class MathMLConsistencyValidator;
+  friend class ModelingPracticeValidator;
+  friend class OverdeterminedValidator;
+  friend class SBOConsistencyValidator;
+  friend class UnitConsistencyValidator;
 
   /** @endcond doxygen-libsbml-internal */
 };
@@ -648,36 +762,35 @@ protected:
   /** @endcond doxygen-libsbml-internal */
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
 
 #ifndef SWIG
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /*-----------------------------------------------------------------------------
  * See the .cpp file for the documentation of the following functions.
  *---------------------------------------------------------------------------*/
 
-
-LIBSBML_EXTERN
-FunctionDefinition_t *
-FunctionDefinition_create (void);
-
-
-LIBSBML_EXTERN
-FunctionDefinition_t *
-FunctionDefinition_createWithIdAndMath (const char *sid, ASTNode_t *math);
-
-
-/** @cond doxygen-libsbml-internal */
+/*
 LIBSBML_EXTERN
 FunctionDefinition_t *
 FunctionDefinition_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
-/** @endcond doxygen-libsbml-internal */
+*/
+
+LIBSBML_EXTERN
+FunctionDefinition_t *
+FunctionDefinition_create (unsigned int level, unsigned int version);
+
+
+LIBSBML_EXTERN
+FunctionDefinition_t *
+FunctionDefinition_createWithNS (SBMLNamespaces_t *sbmlns);
 
 
 LIBSBML_EXTERN
@@ -726,22 +839,22 @@ FunctionDefinition_isSetMath (const FunctionDefinition_t *fd);
 
 
 LIBSBML_EXTERN
-void
+int
 FunctionDefinition_setId (FunctionDefinition_t *fd, const char *sid);
 
 
 LIBSBML_EXTERN
-void
+int
 FunctionDefinition_setName (FunctionDefinition_t *fd, const char *name);
 
 
 LIBSBML_EXTERN
-void
+int
 FunctionDefinition_setMath (FunctionDefinition_t *fd, const ASTNode_t *math);
 
 
 LIBSBML_EXTERN
-void
+int
 FunctionDefinition_unsetName (FunctionDefinition_t *fd);
 
 
@@ -766,8 +879,18 @@ unsigned int
 FunctionDefinition_getNumArguments (const FunctionDefinition_t *fd);
 
 
-END_C_DECLS
+LIBSBML_EXTERN
+FunctionDefinition_t *
+ListOfFunctionDefinitions_getById (ListOf_t *lo, const char *sid);
 
+
+LIBSBML_EXTERN
+FunctionDefinition_t *
+ListOfFunctionDefinitions_removeById (ListOf_t *lo, const char *sid);
+
+
+END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
 #endif  /* FunctionDefinition_h */

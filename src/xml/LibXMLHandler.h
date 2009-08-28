@@ -26,6 +26,7 @@
 
 #include <libxml/parser.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class XMLHandler;
 class LibXMLAttributes;
@@ -155,5 +156,7 @@ protected:
 
 
 /** @endcond doxygen-libsbml-internal */
+
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* LibXMLHandler_h */

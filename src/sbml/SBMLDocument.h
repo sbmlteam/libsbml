@@ -244,6 +244,8 @@
 
 #include <iosfwd>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 class Model;
 class SBMLVisitor;
 class XMLError;
@@ -446,6 +448,10 @@ public:
    *  
    * @param version the desired Version within the SBML Level
    *
+   * @param strict boolean indicating whether to check consistency
+   * of both the source and target model when performing
+   * conversion (defaults to <code> true <\code>)
+   *
    * @note Calling this method will not @em necessarily lead to a successful
    * conversion.  If the conversion fails, it will be logged in the error
    * list associated with this SBMLDocument.  Callers should consult
@@ -460,8 +466,20 @@ public:
    * @see checkL2v2Compatibility()
    * @see checkL2v3Compatibility()
    * @see checkL2v4Compatibility()
+   *
+   * Strict conversion applies the additional criteria that both the source
+   * and the target model must be consistent SBML.  Users can control the
+   * consistency checks that are applied using the 
+   * SBMLDocument::setConsistencyChecksForConversion function.  If either 
+   * the source
+   * or the potential target model have validation errors, the conversion
+   * is not performed.  When a strict conversion is successful, the
+   * underlying SBML object model is altered to reflect the new level
+   * and version.  Thus information that cannot be converted (e.g. sboTerms)
+   * will be lost.   
    */
-  bool setLevelAndVersion (unsigned int level, unsigned int version);
+  bool setLevelAndVersion (unsigned int level, unsigned int version,
+                           bool strict = true);
 
 
   /**
@@ -469,10 +487,18 @@ public:
    *
    * @param m the new Model to use.
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_LEVEL_MISMATCH
+   * @li LIBSBML_VERSION_MISMATCH
+   *
    * @see createModel()
    * @see getModel()
    */
-  void setModel (const Model* m);
+  int setModel (const Model* m);
 
 
   /**
@@ -583,6 +609,89 @@ public:
    * @see SBMLDocument::checkConsistency()
    */
   void setConsistencyChecks(SBMLErrorCategory_t category, bool apply);
+
+
+  /**
+   * Controls the consistency checks that are performed when
+   * SBMLDocument::setLevelAndVersion(level, version) is called.
+   *
+   * This method works by adding or subtracting consistency checks from the
+   * set of all possible checks that may be performed to avoid conversion
+   * to or from an invalid document.  This method may need to be called 
+   * multiple times in
+   * order to achieve the desired combination of checks.  The first
+   * argument (@p category) in a call to this method indicates the category
+   * of consistency/error checks that are to be turned on or off, and the
+   * second argument (@p apply, a boolean) indicates whether to turn it on
+   * (value of @c true) or off (value of @c false).
+   *
+   * The possible categories (values to the argument @p category) are the
+   * set of values from the enumeration #SBMLErrorCategory_t.  The
+   * following are the possible choices in libSBML version&nbsp;4.x.x:
+   *
+   * @li @c LIBSBML_CAT_GENERAL_CONSISTENCY: Correctness and consistency of
+   * specific SBML language constructs.  Performing this set of checks is
+   * highly recommended.  With respect to the SBML specification, these
+   * concern failures in applying the validation rules numbered 2xxxx in
+   * the Level&nbsp;2 Versions&nbsp;2, 3 and&nbsp;4 specifications.
+   * 
+   * @li @c LIBSBML_CAT_IDENTIFIER_CONSISTENCY: Correctness and consistency
+   * of identifiers used for model entities.  An example of inconsistency
+   * would be using a species identifier in a reaction rate formula without
+   * first having declared the species.  With respect to the SBML
+   * specification, these concern failures in applying the validation rules
+   * numbered 103xx in the Level&nbsp;2 Versions&nbsp;2, 3 and&nbsp;4
+   * specifications.
+   * 
+   * @li @c LIBSBML_CAT_UNITS_CONSISTENCY: Consistency of measurement units
+   * associated with quantities in a model.  With respect to the SBML
+   * specification, these concern failures in applying the validation rules
+   * numbered 105xx in the Level&nbsp;2 Versions&nbsp;2, 3 and&nbsp;4
+   * specifications.
+   * 
+   * @li @c LIBSBML_CAT_MATHML_CONSISTENCY: Syntax of MathML constructs.
+   * With respect to the SBML specification, these concern failures in
+   * applying the validation rules numbered 102xx in the Level&nbsp;2
+   * Versions&nbsp;2, 3 and&nbsp;4 specifications.
+   * 
+   * @li @c LIBSBML_CAT_SBO_CONSISTENCY: Consistency and validity of SBO
+   * identifiers (if any) used in the model.  With respect to the SBML
+   * specification, these concern failures in applying the validation rules
+   * numbered 107xx in the Level&nbsp;2 Versions&nbsp;2, 3 and&nbsp;4
+   * specifications.
+   * 
+   * @li @c LIBSBML_CAT_OVERDETERMINED_MODEL: Static analysis of
+   * whether the system of equations implied by a model is mathematically
+   * overdetermined.  With respect to the SBML specification, this is
+   * validation rule #10601 in the SBML Level&nbsp;2 Versions&nbsp;2, 3
+   * and&nbsp;4 specifications.
+   * 
+   * @li @c LIBSBML_CAT_MODELING_PRACTICE: Additional checks for
+   * recommended good modeling practice. (These are tests performed by
+   * libSBML and do not have equivalent SBML validation rules.)
+   * 
+   * <em>By default, all validation checks are applied</em> to the model in
+   * an SBMLDocument object @em unless @if clike SBMLDocument::setConsistencyChecks() @endif@if java SBMLDocument::setConsistencyChecks(int categ, boolean onoff) @endif is called to
+   * indicate that only a subset should be applied.  Further, this default
+   * (i.e., performing all checks) applies separately to <em>each new
+   * SBMLDocument object</em> created.  In other words, each time a model
+   * is read using @if clike SBMLReader::readSBML() @endif@if java SBMLReader::readSBML(String filename) @endif, @if clike SBMLReader::readSBMLFromString() @endif@if java SBMLReader::readSBMLFromString(String xml) @endif,
+   * or the global functions readSBML() and readSBMLFromString(), a new
+   * SBMLDocument is created and for that document, a call to
+   * SBMLDocument::checkConsistency() will default to applying all possible checks.
+   * Calling programs must invoke @if clike SBMLDocument::setConsistencyChecks() @endif@if java SBMLDocument::setConsistencyChecks(int categ, boolean onoff) @endif for each such new
+   * model if they wish to change the consistency checks applied.
+   * 
+   * @param category a value drawn from #SBMLErrorCategory_t indicating the
+   * consistency checking/validation to be turned on or off
+   *
+   * @param apply a boolean indicating whether the checks indicated by
+   * @p category should be applied or not.
+   *
+   * @see SBMLDocument::setLevelAndVersion()
+   */
+  void setConsistencyChecksForConversion(SBMLErrorCategory_t category, 
+                                         bool apply);
 
 
   /**
@@ -872,22 +981,26 @@ protected:
   SBMLErrorLog mErrorLog;
 
   unsigned char mApplicableValidators;
+  unsigned char mApplicableValidatorsForConversion;
 
 
   friend class SBase;
   friend class SBMLReader;
+
   /** @endcond doxygen-libsbml-internal */
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
 
 #ifndef SWIG
 
-BEGIN_C_DECLS
-
 #include <stdio.h>
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+BEGIN_C_DECLS
 
 /*-----------------------------------------------------------------------------
  * See the .cpp file for the documentation of the following functions.
@@ -937,7 +1050,14 @@ SBMLDocument_setLevelAndVersion (  SBMLDocument_t *d
 
 
 LIBSBML_EXTERN
-void
+int
+SBMLDocument_setLevelAndVersionStrict (  SBMLDocument_t *d
+                                       , unsigned int    level
+                                       , unsigned int    version );
+
+
+LIBSBML_EXTERN
+int
 SBMLDocument_setModel (SBMLDocument_t *d, const Model_t *m);
 
 
@@ -948,6 +1068,12 @@ SBMLDocument_createModel (SBMLDocument_t *d);
 LIBSBML_EXTERN
 void
 SBMLDocument_setConsistencyChecks(SBMLDocument_t *d, 
+                                     int validator,
+                                     int apply);
+
+LIBSBML_EXTERN
+void
+SBMLDocument_setConsistencyChecksForConversion(SBMLDocument_t *d, 
                                      int validator,
                                      int apply);
 
@@ -1015,6 +1141,7 @@ const XMLNamespaces_t *
 SBMLDocument_getNamespaces(SBMLDocument_t *d);
 
 END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 
 #endif  /* !SWIG */

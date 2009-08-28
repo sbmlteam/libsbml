@@ -41,6 +41,8 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 /**
  * Used by getReactant(species), getProduct(species), and
  * getModifier(species).
@@ -75,19 +77,17 @@ GetSpeciesRef (const ListOf& items, const std::string& species)
 
 
 
-/*
- * Creates a new Reaction, optionally with its id, KineticLaw, and
- * reversible attributes set.
- */
-Reaction::Reaction (const std::string& id, const std::string& name, 
-                    const KineticLaw* kl, bool reversible) :
-    SBase      ( id , name, -1        )
-  , mKineticLaw( 0          )
-  , mReversible( reversible )
-  , mFast      ( false      )
-  , mIsSetFast ( false      )
+Reaction::Reaction (unsigned int level, unsigned int version) :
+   SBase ( level, version )
+ , mId        ( ""       )
+ , mName      ( ""       )
+ , mKineticLaw( 0        )
+ , mReversible( true     )
+ , mFast      ( false    )
+ , mIsSetFast ( false    )
 {
-  if (kl) mKineticLaw = static_cast<KineticLaw*>( kl->clone() );
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 
   mReactants.setType( ListOfSpeciesReferences::Reactant );
   mProducts .setType( ListOfSpeciesReferences::Product  );
@@ -95,23 +95,33 @@ Reaction::Reaction (const std::string& id, const std::string& name,
 }
 
 
-Reaction::Reaction (unsigned int level, unsigned int version,
-                          XMLNamespaces *xmlns) :
-   SBase ("", "", -1)
-  , mKineticLaw( 0          )
-  , mReversible( true       )
-  , mFast      ( false      )
-  , mIsSetFast ( false      )
+Reaction::Reaction (SBMLNamespaces * sbmlns) :
+   SBase      ( sbmlns   )
+ , mId        ( ""       )
+ , mName      ( ""       )
+ , mKineticLaw( 0        )
+ , mReversible( true     )
+ , mFast      ( false    )
+ , mIsSetFast ( false    )
 {
-  mObjectLevel = level;
-  mObjectVersion = version;
-  if (xmlns) setNamespaces(xmlns);;
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 
   mReactants.setType( ListOfSpeciesReferences::Reactant );
   mProducts .setType( ListOfSpeciesReferences::Product  );
   mModifiers.setType( ListOfSpeciesReferences::Modifier );
 }
 
+
+/** @cond doxygen-libsbml-internal */
+
+/* constructor for validators */
+Reaction::Reaction() :
+  SBase()
+{
+}
+
+/** @endcond doxygen-libsbml-internal */
                           
 Reaction::Reaction (SBMLNamespaces *sbmlns) :
    SBase ("", "", -1)
@@ -144,6 +154,8 @@ Reaction::~Reaction ()
  */
 Reaction::Reaction (const Reaction& orig) :
     SBase      ( orig             )
+  , mId        ( orig.mId         )  
+  , mName      ( orig.mName       )
   , mReactants ( orig.mReactants  )
   , mProducts  ( orig.mProducts   )
   , mModifiers ( orig.mModifiers  )
@@ -152,9 +164,26 @@ Reaction::Reaction (const Reaction& orig) :
   , mFast      ( orig.mFast       )
   , mIsSetFast ( orig.mIsSetFast  )
 {
+  /* since a reaction has children we need to re-establish the
+   * parentage of these children
+   */
+  if (orig.getNumReactants() > 0)
+  {
+    mReactants.setParentSBMLObject(this);
+  }
+  if (orig.getNumProducts() > 0)
+  {
+    mProducts.setParentSBMLObject(this);
+  }
+  if (orig.getNumModifiers() > 0)
+  {
+    mModifiers.setParentSBMLObject(this);
+  }
+
   if (orig.mKineticLaw)
   {
     mKineticLaw = static_cast<KineticLaw*>( orig.mKineticLaw->clone() );
+    mKineticLaw->setParentSBMLObject(this);
   }
 }
 
@@ -173,13 +202,31 @@ Reaction& Reaction::operator=(const Reaction& rhs)
     mReactants  = rhs.mReactants  ;
     mProducts   = rhs.mProducts   ;
     mModifiers  = rhs.mModifiers  ;
+    mId = rhs.mId;
+    mName = rhs.mName;
+    if (rhs.getNumReactants() > 0)
+    {
+      mReactants.setParentSBMLObject(this);
+    }
+    if (rhs.getNumProducts() > 0)
+    {
+      mProducts.setParentSBMLObject(this);
+    }
+    if (rhs.getNumModifiers() > 0)
+    {
+      mModifiers.setParentSBMLObject(this);
+    }
 
     delete mKineticLaw;
     if (rhs.mKineticLaw)
+    {
       mKineticLaw = static_cast<KineticLaw*>( rhs.mKineticLaw->clone() );
+      mKineticLaw->setParentSBMLObject(this);
+    }
     else
+    {
       mKineticLaw = 0;
-
+    }
   }
 
   return *this;
@@ -248,6 +295,26 @@ Reaction::initDefaults ()
 
 
 /*
+ * @return the id of this SBML object.
+ */
+const string&
+Reaction::getId () const
+{
+  return mId;
+}
+
+
+/*
+ * @return the name of this SBML object.
+ */
+const string&
+Reaction::getName () const
+{
+  return (getLevel() == 1) ? mId : mName;
+}
+
+
+/*
  * @return the KineticLaw of this Reaction.
  */
 const KineticLaw*
@@ -288,6 +355,29 @@ Reaction::getFast () const
 
 
 /*
+ * @return true if the id of this SBML object has been set, false
+ * otherwise.
+ */
+bool
+Reaction::isSetId () const
+{
+  return (mId.empty() == false);
+}
+
+
+/*
+ * @return true if the name of this SBML object has been set, false
+ * otherwise.
+ */
+bool
+Reaction::isSetName () const
+{
+  return (getLevel() == 1) ? (mId.empty() == false) : 
+                            (mName.empty() == false);
+}
+
+
+/*
  * @return true if the KineticLaw of this Reaction has been set, false
  * otherwise.
  */
@@ -314,50 +404,168 @@ Reaction::isSetFast () const
 
 
 /*
+ * Sets the id of this SBML object to a copy of sid.
+ */
+int
+Reaction::setId (const std::string& sid)
+{
+  /* since the setId function has been used as an
+   * alias for setName we cant require it to only
+   * be used on a L2 model
+   */
+/*  if (getLevel() == 1)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+*/
+  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mId = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Sets the name of this SBML object to a copy of name.
+ */
+int
+Reaction::setName (const std::string& name)
+{
+  /* if this is setting an L2 name the type is string
+   * whereas if it is setting an L1 name its type is SId
+   */
+  if (getLevel() == 1)
+  {
+    if (!(SyntaxChecker::isValidSBMLSId(name)))
+    {
+      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    }
+    else
+    {
+      mId = name;
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+  else
+  {
+    mName = name;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
  * Sets the KineticLaw of this Reaction to a copy of the given KineticLaw.
  */
-void
+int
 Reaction::setKineticLaw (const KineticLaw* kl)
 {
-  if (mKineticLaw == kl) return;
+  if (mKineticLaw == kl)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (kl == NULL)
+  {
+    delete mKineticLaw;
+    mKineticLaw = 0;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (getLevel() != kl->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != kl->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else
+  {
+    delete mKineticLaw;
+    mKineticLaw = static_cast<KineticLaw*>( kl->clone() );
 
-  delete mKineticLaw;
-  mKineticLaw = (kl != 0) ? static_cast<KineticLaw*>( kl->clone() ) : 0;
-
-  if (mKineticLaw) mKineticLaw->setSBMLDocument(mSBML);
-  if (mKineticLaw) mKineticLaw->setParentSBMLObject(this);
+    if (mKineticLaw) mKineticLaw->setSBMLDocument(mSBML);
+    if (mKineticLaw) mKineticLaw->setParentSBMLObject(this);
+    
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Sets the reversible status of this Reaction to value.
  */
-void
+int
 Reaction::setReversible (bool value)
 {
   mReversible = value;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
 /*
  * Sets the fast status of this Reaction to value.
  */
-void
+int
 Reaction::setFast (bool value)
 {
   mFast      = value;
   mIsSetFast = true;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Unsets the name of this SBML object.
+ */
+int
+Reaction::unsetName ()
+{
+  if (getLevel() == 1) 
+  {
+    mId.erase();
+  }
+  else 
+  {
+    mName.erase();
+  }
+
+  if (getLevel() == 1 && mId.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (mName.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
 /*
  * Unsets the KineticLaw of this Reaction.
  */
-void
+int
 Reaction::unsetKineticLaw ()
 {
   delete mKineticLaw;
   mKineticLaw = 0;
+
+  if (mKineticLaw == NULL) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -368,44 +576,107 @@ Reaction::unsetKineticLaw ()
  * effectively always set.  In L2, however, fast is optional with no
  * default value, so it may or may not be set to a specific value.
  */
-void
+int
 Reaction::unsetFast ()
 {
   mIsSetFast = false;
+
+  if (!mIsSetFast)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
 /*
  * Adds a copy of the given reactant (SpeciesReference) to this Reaction.
  */
-void
+int
 Reaction::addReactant (const SpeciesReference* sr)
 {
-  /* if the ListOf is empty it doesnt know its parent */
-  if (mReactants.size() == 0)
+  if (sr == NULL)
   {
-    mReactants.setSBMLDocument(this->getSBMLDocument());
-    mReactants.setParentSBMLObject(this);
+    return LIBSBML_OPERATION_FAILED;
   }
+  else if (!(sr->hasRequiredAttributes()) || !(sr->hasRequiredElements()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != sr->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != sr->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (sr->isSetId() 
+       && (getListOfReactants()->get(sr->getId())) != NULL)
+  {
+    // an object with this id already exists
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
+  else
+  {
+    /* if the ListOf is empty it doesnt know its parent */
+    if (mReactants.size() == 0)
+    {
+      mReactants.setSBMLDocument(this->getSBMLDocument());
+      mReactants.setParentSBMLObject(this);
+    }
 
-  mReactants.append(sr);
+    mReactants.append(sr);
+
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Adds a copy of the given product (SpeciesReference) to this Reaction.
  */
-void
+int
 Reaction::addProduct (const SpeciesReference* sr)
 {
-  /* if the ListOf is empty it doesnt know its parent */
-  if (mProducts.size() == 0)
+  if (sr == NULL)
   {
-    mProducts.setSBMLDocument(this->getSBMLDocument());
-    mProducts.setParentSBMLObject(this);
+    return LIBSBML_OPERATION_FAILED;
   }
+  else if (!(sr->hasRequiredAttributes()) || !(sr->hasRequiredElements()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != sr->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != sr->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (sr->isSetId() 
+       && (getListOfProducts()->get(sr->getId())) != NULL)
+  {
+    // an object with this id already exists
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
+  else
+  {
+    /* if the ListOf is empty it doesnt know its parent */
+    if (mProducts.size() == 0)
+    {
+      mProducts.setSBMLDocument(this->getSBMLDocument());
+      mProducts.setParentSBMLObject(this);
+    }
 
-  mProducts.append(sr);
+    mProducts.append(sr);
+
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -413,17 +684,48 @@ Reaction::addProduct (const SpeciesReference* sr)
  * Adds a copy of the given modifier (ModifierSpeciesReference) to this
  * Reaction.
  */
-void
+int
 Reaction::addModifier (const ModifierSpeciesReference* msr)
 {
-  /* if the ListOf is empty it doesnt know its parent */
-  if (mModifiers.size() == 0)
+  if (msr == NULL)
   {
-    mModifiers.setSBMLDocument(this->getSBMLDocument());
-    mModifiers.setParentSBMLObject(this);
+    return LIBSBML_OPERATION_FAILED;
   }
+  else if (!(msr->hasRequiredAttributes()) || !(msr->hasRequiredElements()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (msr->getLevel() < 2)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else if (getLevel() != msr->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != msr->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (msr->isSetId() 
+       && (getListOfModifiers()->get(msr->getId())) != NULL)
+  {
+    // an object with this id already exists
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
+  else
+  {
+    /* if the ListOf is empty it doesnt know its parent */
+    if (mModifiers.size() == 0)
+    {
+      mModifiers.setSBMLDocument(this->getSBMLDocument());
+      mModifiers.setParentSBMLObject(this);
+    }
 
-  mModifiers.append(msr);
+    mModifiers.append(msr);
+
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -434,7 +736,20 @@ Reaction::addModifier (const ModifierSpeciesReference* msr)
 SpeciesReference*
 Reaction::createReactant ()
 {
-  SpeciesReference* species = new SpeciesReference;
+  SpeciesReference* sr = 0;
+
+  try
+  {
+    sr = new SpeciesReference(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mReactants.size() == 0)
@@ -443,9 +758,9 @@ Reaction::createReactant ()
     mReactants.setParentSBMLObject(this);
   }
 
-  mReactants.appendAndOwn(species);
+  if (sr) mReactants.appendAndOwn(sr);
 
-  return species;
+  return sr;
 }
 
 
@@ -456,8 +771,21 @@ Reaction::createReactant ()
 SpeciesReference*
 Reaction::createProduct ()
 {
-  SpeciesReference* species = new SpeciesReference;
-  
+  SpeciesReference* sr = 0;
+
+  try
+  {
+    sr = new SpeciesReference(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
+
   /* if the ListOf is empty it doesnt know its parent */
   if (mProducts.size() == 0)
   {
@@ -465,9 +793,9 @@ Reaction::createProduct ()
     mProducts.setParentSBMLObject(this);
   }
   
-  mProducts.appendAndOwn(species);
+  if (sr) mProducts.appendAndOwn(sr);
 
-  return species;
+  return sr;
 }
 
 
@@ -478,7 +806,20 @@ Reaction::createProduct ()
 ModifierSpeciesReference*
 Reaction::createModifier ()
 {
-  ModifierSpeciesReference* species = new ModifierSpeciesReference;
+  ModifierSpeciesReference* sr = 0;
+
+  try
+  {
+    sr = new ModifierSpeciesReference(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
   
   /* if the ListOf is empty it doesnt know its parent */
   if (mModifiers.size() == 0)
@@ -487,9 +828,9 @@ Reaction::createModifier ()
     mModifiers.setParentSBMLObject(this);
   }
   
-  mModifiers.appendAndOwn(species);
+  if (sr) mModifiers.appendAndOwn(sr);
 
-  return species;
+  return sr;
 }
 
 
@@ -501,10 +842,26 @@ KineticLaw*
 Reaction::createKineticLaw ()
 {
   delete mKineticLaw;
-  mKineticLaw = new KineticLaw;
+  mKineticLaw = 0;
 
-  mKineticLaw->setSBMLDocument(mSBML);
-  mKineticLaw->setParentSBMLObject(this);
+  try
+  {
+    mKineticLaw = new KineticLaw(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
+
+  if (mKineticLaw)
+  {
+    mKineticLaw->setSBMLDocument(mSBML);
+    mKineticLaw->setParentSBMLObject(this);
+  }
 
   return mKineticLaw;
 }
@@ -734,6 +1091,97 @@ Reaction::getNumModifiers () const
   return mModifiers.size();
 }
 
+
+/**
+ * Removes the nth reactant species (SpeciesReference object) in the list of 
+ * reactants in this Reaction and returns a pointer to it.
+ */
+SpeciesReference* 
+Reaction::removeReactant (unsigned int n)
+{
+  return static_cast<SpeciesReference*>(mReactants.remove(n));
+}
+
+
+/**
+ * Removes the reactant species (SpeciesReference object) having the given  
+ * "species" attribute in this Reaction and returns a pointer to it.
+ */
+SpeciesReference* 
+Reaction::removeReactant (const std::string& species)
+{
+  unsigned int size = mReactants.size();
+
+  for (unsigned int n = 0; n < size; ++n)
+  {
+    SpeciesReference* sr = static_cast<SpeciesReference*>( mReactants.get(n) );
+    if (sr->getSpecies() == species) 
+      return static_cast<SpeciesReference*>(mReactants.remove(n));
+  }
+  return 0;
+}
+
+
+/**
+ * Removes the nth product species (SpeciesReference object) in the list of 
+ * products in this Reaction and returns a pointer to it.
+ */
+SpeciesReference* 
+Reaction::removeProduct (unsigned int n)
+{
+  return static_cast<SpeciesReference*>(mProducts.remove(n));
+}
+
+
+/**
+ * Removes the product species (SpeciesReference object) having the given  
+ * "species" attribute in this Reaction and returns a pointer to it.
+ */
+SpeciesReference* 
+Reaction::removeProduct (const std::string& species)
+{
+  unsigned int size = mProducts.size();
+
+  for (unsigned int n = 0; n < size; ++n)
+  {
+    SpeciesReference* sr = static_cast<SpeciesReference*>( mProducts.get(n) );
+    if (sr->getSpecies() == species) 
+      return static_cast<SpeciesReference*>(mProducts.remove(n));
+  }
+  return 0;
+}
+
+
+/**
+ * Removes the nth modifier species (ModifierSpeciesReference object) in 
+ * the list of  modifiers in this Reaction and returns a pointer to it.
+ */
+ModifierSpeciesReference* 
+Reaction::removeModifier (unsigned int n)
+{
+  return static_cast<ModifierSpeciesReference*>(mModifiers.remove(n));
+}
+
+
+/**
+ * Removes the modifier species (ModifierSpeciesReference object) having 
+ * the given "species" attribute in this Reaction and returns a pointer to it.
+ */
+ModifierSpeciesReference* 
+Reaction::removeModifier (const std::string& species)
+{
+  unsigned int size = mModifiers.size();
+
+  for (unsigned int n = 0; n < size; ++n)
+  {
+    SpeciesReference* sr = static_cast<SpeciesReference*>( mModifiers.get(n) );
+    if (sr->getSpecies() == species) 
+      return static_cast<ModifierSpeciesReference*>(mModifiers.remove(n));
+  }
+  return 0;
+}
+
+
 /** @cond doxygen-libsbml-internal */
 
 /*
@@ -789,6 +1237,20 @@ Reaction::getElementName () const
 }
 
 
+bool 
+Reaction::hasRequiredAttributes() const
+{
+  bool allPresent = true;
+
+  /* required attributes for reaction: id (name in L1) */
+
+  if (!isSetId())
+    allPresent = false;
+
+  return allPresent;
+}
+
+
 /** @cond doxygen-libsbml-internal */
 /*
  * @return the SBML object corresponding to next XMLToken in the
@@ -838,7 +1300,21 @@ Reaction::createObject (XMLInputStream& stream)
     }
     delete mKineticLaw;
 
-    mKineticLaw = new KineticLaw();
+    try
+    {
+      mKineticLaw = new KineticLaw(getSBMLNamespaces());
+    }
+    catch (SBMLConstructorException*)
+    {
+      mKineticLaw = new KineticLaw(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    catch ( ... )
+    {
+      mKineticLaw = new KineticLaw(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+
     object      = mKineticLaw;
   }
 
@@ -900,7 +1376,7 @@ Reaction::readAttributes (const XMLAttributes& attributes)
   {
     logEmptyString(id, level, version, "<rule>");
   }
-  SBase::checkIdSyntax();
+  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
 
   //
   // reversible: boolean  { use="optional"  default="true" }
@@ -1055,11 +1531,25 @@ ListOfReactions::get(unsigned int n) const
 }
 
 
+/**
+ * Used by ListOf::get() to lookup an SBase based by its id.
+ */
+struct IdEqR : public unary_function<SBase*, bool>
+{
+  const string& id;
+
+  IdEqR (const string& id) : id(id) { }
+  bool operator() (SBase* sb) 
+       { return static_cast <Reaction *> (sb)->getId() == id; }
+};
+
+
 /* return item by id */
 Reaction*
 ListOfReactions::get (const std::string& sid)
 {
-  return static_cast<Reaction*>(ListOf::get(sid));
+  return const_cast<Reaction*>( 
+    static_cast<const ListOfReactions&>(*this).get(sid) );
 }
 
 
@@ -1067,7 +1557,10 @@ ListOfReactions::get (const std::string& sid)
 const Reaction*
 ListOfReactions::get (const std::string& sid) const
 {
-  return static_cast<const Reaction*>(ListOf::get(sid));
+  vector<SBase*>::const_iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqR(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <Reaction*> (*result);
 }
 
 
@@ -1083,7 +1576,18 @@ ListOfReactions::remove (unsigned int n)
 Reaction*
 ListOfReactions::remove (const std::string& sid)
 {
-   return static_cast<Reaction*>(ListOf::remove(sid));
+  SBase* item = 0;
+  vector<SBase*>::iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqR(sid) );
+
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
+  }
+
+  return static_cast <Reaction*> (item);
 }
 
 
@@ -1113,8 +1617,22 @@ ListOfReactions::createObject (XMLInputStream& stream)
 
   if (name == "reaction")
   {
-    object = new Reaction();
-    mItems.push_back(object);
+    try
+    {
+      object = new Reaction(getSBMLNamespaces());
+    }
+    catch (SBMLConstructorException*)
+    {
+      object = new Reaction(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    catch ( ... )
+    {
+      object = new Reaction(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    
+    if (object) mItems.push_back(object);
   }
 
   return object;
@@ -1122,96 +1640,73 @@ ListOfReactions::createObject (XMLInputStream& stream)
 /** @endcond doxygen-libsbml-internal */
 
 
-
 /**
- * Creates a new Reaction and returns a pointer to it.
- */
-LIBSBML_EXTERN
-Reaction_t *
-Reaction_create ()
-{
-  return new(nothrow) Reaction;
-}
-
-
-/**
- * Creates a new Reaction_t structure with the given identifier and returns a
- * pointer to it.
+ * Creates a new Reaction_t structure using the given SBML @p level
+ * and @p version values.
  *
- * @param sid a string, the identifier to assign to this Reaction_t structure
- * @param name a string, the name to give this Reaction_t structure
- *
- * @return the Reaction_t structure created
- */
-LIBSBML_EXTERN
-Reaction_t *
-Reaction_createWith (const char *sid, const char * name)
-{
-  return new(nothrow) Reaction(sid ? sid : "", name ? name : "");
-}
-
-
-/**
- * Creates a new Reaction with the given id, KineticLaw, reversible and
- * fast and returns a pointer to it.  This convenience function is
- * functionally equivalent to:
- *
- *   Reaction_t *r = Reaction_create();
- *   Reaction_setId(r, sid); Reaction_setKineticLaw(r, kl); ...;
- */
-LIBSBML_EXTERN
-Reaction_t *
-Reaction_createWithKineticLaw ( const char   *sid,
-                               const char *name,
-                      KineticLaw_t *kl,
-                      int          reversible,
-                      int          fast )
-{
-  KineticLaw* k = static_cast<KineticLaw*>(kl);
-  Reaction*   r = new(nothrow) Reaction(sid ? sid : "", name ? name : "", k, reversible);
-
-
-  r->setFast(fast);
-
-
-  return r;
-}
-
-
-/** @cond doxygen-libsbml-internal */
-/**
- * Creates a new Reaction_t structure using the given SBML @p 
- * level and @p version values and a set of XMLNamespaces.
- *
- * @param level an unsigned int, the SBML Level to assign to this 
+ * @param level an unsigned int, the SBML Level to assign to this
  * Reaction
  *
  * @param version an unsigned int, the SBML Version to assign to this
  * Reaction
- * 
- * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
- * assign to this Reaction
  *
  * @return a pointer to the newly created Reaction_t structure.
  *
- * @note Once a Reaction has been added to an SBMLDocument, the @p 
- * level, @p version and @p xmlns namespaces for the document @em override 
- * those used to create the Reaction.  Despite this, the ability 
- * to supply the values at creation time is an important aid to creating 
- * valid SBML.  Knowledge of the intended SBML Level and Version 
- * determine whether it is valid to assign a particular value to an 
- * attribute, or whether it is valid to add an object to an existing 
- * SBMLDocument.
+ * @note Once a Reaction has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the Reaction.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
  */
 LIBSBML_EXTERN
 Reaction_t *
-Reaction_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns)
+Reaction_create (unsigned int level, unsigned int version)
 {
-  return new(nothrow) Reaction(level, version, xmlns);
+  try
+  {
+    Reaction* obj = new Reaction(level,version);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
 }
-/** @endcond doxygen-libsbml-internal */
 
+
+/**
+ * Creates a new Reaction_t structure using the given
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this Reaction
+ *
+ * @return a pointer to the newly created Reaction_t structure.
+ *
+ * @note Once a Reaction has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the Reaction.  Despite this, the ability to supply the values at creation 
+ * time is an important aid to creating valid SBML.  Knowledge of the intended 
+ * SBML Level and Version determine whether it is valid to assign a particular 
+ * value to an attribute, or whether it is valid to add an object to an 
+ * existing SBMLDocument.
+ */
+LIBSBML_EXTERN
+Reaction_t *
+Reaction_createWithNS (SBMLNamespaces_t* sbmlns)
+{
+  try
+  {
+    Reaction* obj = new Reaction(sbmlns);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
 
 /**
  * Frees the given Reaction.
@@ -1375,135 +1870,222 @@ Reaction_isSetFast (const Reaction_t *r)
 
 /**
  * Sets the id of this Reaction to a copy of sid.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "id" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 Reaction_setId (Reaction_t *r, const char *sid)
 {
-  (sid == NULL) ? r->unsetId() : r->setId(sid);
+  return (sid == NULL) ? r->setId("") : r->setId(sid);
 }
 
 
 /**
  * Sets the name of this Reaction to a copy of name.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "name" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 Reaction_setName (Reaction_t *r, const char *name)
 {
-  (name == NULL) ? r->unsetName() : r->setName(name);
+  return (name == NULL) ? r->unsetName() : r->setName(name);
 }
 
 
 /**
  * Sets the KineticLaw of this Reaction to a copy of the given KineticLaw.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
  */
 LIBSBML_EXTERN
-void
+int
 Reaction_setKineticLaw (Reaction_t *r, const KineticLaw_t *kl)
 {
-  (kl == NULL) ? r->unsetKineticLaw() : r->setKineticLaw(kl);
+  return (kl == NULL) ? r->unsetKineticLaw() : r->setKineticLaw(kl);
 }
 
 
 /**
  * Sets the reversible status of this Reaction to value (boolean).
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void
+int
 Reaction_setReversible (Reaction_t *r, int value)
 {
-  r->setReversible( static_cast<bool>(value) );
+  return r->setReversible( static_cast<bool>(value) );
 }
 
 
 /**
  * Sets the fast status of this Reaction to value (boolean).
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void
+int
 Reaction_setFast (Reaction_t *r, int value)
 {
-  r->setFast( static_cast<bool>(value) );
+  return r->setFast( static_cast<bool>(value) );
 }
 
 
 /**
  * Unsets the name of this Reaction.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Reaction_unsetName (Reaction_t *r)
 {
-  r->unsetName();
+  return r->unsetName();
 }
 
 
 /**
  * Unsets the KineticLaw of this Reaction.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Reaction_unsetKineticLaw (Reaction_t *r)
 {
-  r->unsetKineticLaw();
+  return r->unsetKineticLaw();
 }
 
 
 /**
  * Unsets the fast status of this Reation.
  *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ *
  * In L1, fast is optional with a default of false, which means it is
  * effectively always set.  In L2, however, fast is optional with no
  * default value, so it may or may not be set to a specific value.
  */
 LIBSBML_EXTERN
-void
+int
 Reaction_unsetFast (Reaction_t *r)
 {
-  r->unsetFast();
+  return r->unsetFast();
 }
 
 
 /**
  * Adds a copy of the given reactant (SpeciesReference) to this Reaction.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Reaction_addReactant (Reaction_t *r, const SpeciesReference_t *sr)
 {
-  if (sr != NULL)
-  {
-    r->addReactant( static_cast<const SpeciesReference*>(sr) );
-  }
+  return r->addReactant( static_cast<const SpeciesReference*>(sr) );
 }
 
 
 /**
  * Adds a copy of the given product (SpeciesReference) to this Reaction.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Reaction_addProduct (Reaction_t *r, const SpeciesReference_t *sr)
 {
-  if (sr != NULL)
-  {
-    r->addProduct( static_cast<const SpeciesReference*>(sr) );
-  }
+  return r->addProduct( static_cast<const SpeciesReference*>(sr) );
 }
 
 
 /**
  * Adds a copy of the given modifier (ModifierSpeciesReference) to this
  * Reaction.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Reaction_addModifier (Reaction_t *r, const SpeciesReference_t *msr)
 {
-  if (msr != NULL && msr->isModifier())
+  if (msr == NULL || msr->isModifier())
   {
-    r->addModifier( static_cast<const ModifierSpeciesReference*>(msr) );
+    return r->addModifier(static_cast<const ModifierSpeciesReference*>(msr) );
+  }
+  else
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
 }
 
@@ -1691,3 +2273,171 @@ Reaction_getNumModifiers (const Reaction_t *r)
 }
 
 
+/**
+ * Removes the nth reactant SpeciesReference_t object from this 
+ * Reaction_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Reaction_t structure
+ * @param n the integer index of the reactant SpeciesReference_t to remove
+ *
+ * @return the reactant SpeciesReference_t object removed.  As mentioned 
+ * above, the caller owns the returned object. NULL is returned if the 
+ * given index is out of range.
+ */
+LIBSBML_EXTERN
+SpeciesReference_t *
+Reaction_removeReactant (Reaction_t *r, unsigned int n)
+{
+  if (!r) return 0;
+  return r->removeReactant(n);
+}
+
+
+/**
+ * Removes the reactant SpeciesReference_t object with the given 
+ * "species" attribute from this Reaction_t object and returns a pointer
+ * to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Reaction_t structure
+ * @param species the "species" attribute of the reactant SpeciesReference_t 
+ * to remove
+ *
+ * @return the reactant SpeciesReference_t object removed.  As mentioned 
+ * above, the caller owns the returned object. NULL is returned if no 
+ * reactant SpeciesReference_t object with the "species" attribute exists 
+ * in this Reaction.
+ */
+LIBSBML_EXTERN
+SpeciesReference_t *
+Reaction_removeReactantBySpecies (Reaction_t *r, const char *species)
+{
+  if (!r) return 0;
+  return r->removeReactant(species);
+}
+
+
+/**
+ * Removes the nth product SpeciesReference_t object from this 
+ * Reaction_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Reaction_t structure
+ * @param n the integer index of the product SpeciesReference_t to remove
+ *
+ * @return the product SpeciesReference_t object removed.  As mentioned 
+ * above, the caller owns the returned object. NULL is returned if the 
+ * given index is out of range.
+ */
+LIBSBML_EXTERN
+SpeciesReference_t *
+Reaction_removeProduct (Reaction_t *r, unsigned int n)
+{
+  if (!r) return 0;
+  return r->removeProduct(n);
+}
+
+
+/**
+ * Removes the product SpeciesReference_t object with the given 
+ * "species" attribute from this Reaction_t object and returns a pointer
+ * to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Reaction_t structure
+ * @param species the "species" attribute of the product SpeciesReference_t 
+ * to remove
+ *
+ * @return the product SpeciesReference_t object removed.  As mentioned 
+ * above, the caller owns the returned object. NULL is returned if no 
+ * product SpeciesReference_t object with the "species" attribute exists 
+ * in this Reaction.
+ */
+LIBSBML_EXTERN
+SpeciesReference_t *
+Reaction_removeProductBySpecies (Reaction_t *r, const char *species)
+{
+  if (!r) return 0;
+  return r->removeProduct(species);
+}
+
+
+/**
+ * Removes the nth modifier SpeciesReference_t object from this 
+ * Reaction_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Reaction_t structure
+ * @param n the integer index of the modifier SpeciesReference_t to remove
+ *
+ * @return the modifier SpeciesReference_t object removed.  As mentioned 
+ * above, the caller owns the returned object. NULL is returned if the 
+ * given index is out of range.
+ */
+LIBSBML_EXTERN
+SpeciesReference_t *
+Reaction_removeModifier (Reaction_t *r, unsigned int n)
+{
+  if (!r) return 0;
+  return r->removeModifier(n);
+}
+
+
+/**
+ * Removes the modifier SpeciesReference_t object with the given 
+ * "species" attribute from this Reaction_t object and returns a pointer
+ * to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Reaction_t structure
+ * @param species the "species" attribute of the modifier SpeciesReference_t 
+ * to remove
+ *
+ * @return the modifier SpeciesReference_t object removed.  As mentioned 
+ * above, the caller owns the returned object. NULL is returned if no 
+ * modifier SpeciesReference_t object with the "species" attribute exists 
+ * in this Reaction.
+ */
+LIBSBML_EXTERN
+SpeciesReference_t *
+Reaction_removeModifierBySpecies (Reaction_t *r, const char *species)
+{
+  if (!r) return 0;
+  return r->removeModifier(species);
+}
+
+
+/**
+ * @return item in this ListOfReaction with the given id or NULL if no such
+ * item exists.
+ */
+LIBSBML_EXTERN
+Reaction_t *
+ListOfReactions_getById (ListOf_t *lo, const char *sid)
+{
+  return (sid != NULL) ? 
+    static_cast <ListOfReactions *> (lo)->get(sid) : NULL;
+}
+
+
+/**
+ * Removes item in this ListOf items with the given id or NULL if no such
+ * item exists.  The caller owns the returned item and is responsible for
+ * deleting it.
+ */
+LIBSBML_EXTERN
+Reaction_t *
+ListOfReactions_removeById (ListOf_t *lo, const char *sid)
+{
+  return (sid != NULL) ? 
+    static_cast <ListOfReactions *> (lo)->remove(sid) : NULL;
+}
+
+LIBSBML_CPP_NAMESPACE_END

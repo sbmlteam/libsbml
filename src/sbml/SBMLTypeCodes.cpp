@@ -24,6 +24,7 @@
 #include <sbml/common/common.h>
 #include <sbml/SBMLTypeCodes.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 static
 const char* SBML_TYPE_CODE_STRINGS[] =
@@ -101,3 +102,5 @@ SBMLTypeCode_toString (SBMLTypeCode_t tc)
 
   return SBML_TYPE_CODE_STRINGS[tc];
 }
+
+LIBSBML_CPP_NAMESPACE_END

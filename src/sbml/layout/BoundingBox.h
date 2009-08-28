@@ -61,10 +61,13 @@
 #include <sbml/layout/Point.h>
 #include <sbml/layout/Dimensions.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN BoundingBox : public SBase
 {
 protected:
+
+  std::string mId;
 
   Point mPosition;
   Dimensions mDimensions;
@@ -129,6 +132,31 @@ public:
    * Assignment operator
    */
   BoundingBox& operator=(const BoundingBox& orig);
+
+  /**
+   * Returns the value of the "id" attribute of this BoundingBox.
+   */
+  const std::string& getId () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * BoundingBox's "id" attribute has been set.
+   */
+  bool isSetId () const;
+
+  
+  /**
+   * Sets the value of the "id" attribute of this BoundingBox.
+   */
+  int setId (std::string id);
+
+
+  /**
+   * Unsets the value of the "id" attribute of this BoundingBox.
+   */
+  void unsetId ();
+
 
   /**
    * Returns the position of the BoundingBox as const referece to a Point
@@ -327,13 +355,14 @@ protected:
   
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif /* __cplusplus */
 
 
 #ifndef SWIG
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
@@ -506,7 +535,27 @@ BoundingBox_t *
 BoundingBox_clone (const BoundingBox_t *m);
 
 
+LIBSBML_EXTERN
+int
+BoundingBox_isSetId (const BoundingBox_t *bb);
+
+LIBSBML_EXTERN
+const char *
+BoundingBox_getId (const BoundingBox_t *bb);
+
+
+LIBSBML_EXTERN
+int
+BoundingBox_setId (BoundingBox_t *bb, const char *sid);
+
+
+LIBSBML_EXTERN
+void
+BoundingBox_unsetId (BoundingBox_t *bb);
+
+
 END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 
 #endif  /* !SWIG */

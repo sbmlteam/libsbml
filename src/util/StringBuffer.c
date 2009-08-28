@@ -26,6 +26,7 @@
 #include <sbml/common/common.h>
 #include <sbml/util/StringBuffer.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Creates a new StringBuffer and returns a pointer to it.
@@ -296,5 +297,6 @@ StringBuffer_toString (const StringBuffer_t *sb)
   return s;
 }
 
+LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond doxygen-libsbml-internal */

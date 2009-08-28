@@ -83,24 +83,32 @@ START_TEST (test_SBMLConvert_addModifiersToReaction)
 {
   SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
   Model_t        *m = SBMLDocument_createModel(d);
-  KineticLaw_t *kl = KineticLaw_createWithFormula("k1*S1*S2*S3*S4*S5");
-  Reaction_t   *r  = Reaction_createWithKineticLaw("R", "", kl, 1, 0);
+  Reaction_t     *r = Model_createReaction(m);
+  KineticLaw_t  *kl = Reaction_createKineticLaw(r);
+  KineticLaw_setFormula(kl, "k1*S1*S2*S3*S4*S5");
 
   SpeciesReference_t *ssr1;
   SpeciesReference_t *ssr2;
 
 
-  Model_addSpecies( m, Species_createWith("S1", ""));
-  Model_addSpecies( m, Species_createWith("S2", "") );
-  Model_addSpecies( m, Species_createWith("S3", "") );
-  Model_addSpecies( m, Species_createWith("S4", "") );
-  Model_addSpecies( m, Species_createWith("S5", "") );
+  Species_t *s1 = Model_createSpecies( m ); 
+  Species_setId( s1, "S1" );
+  Species_t *s2 = Model_createSpecies( m ); 
+  Species_setId( s2, "S2");
+  Species_t *s3 = Model_createSpecies( m ); 
+  Species_setId( s3, "S3");
+  Species_t *s4 = Model_createSpecies( m ); 
+  Species_setId( s4, "S4");
+  Species_t *s5 = Model_createSpecies( m ); 
+  Species_setId( s5, "S5");
 
-  Reaction_addReactant( r, SpeciesReference_createWithSpeciesAndStoichiometry("S1", 1, 1) );
-  Reaction_addReactant( r, SpeciesReference_createWithSpeciesAndStoichiometry("S2", 1, 1) );
-  Reaction_addProduct ( r, SpeciesReference_createWithSpeciesAndStoichiometry("S5", 1, 1) );
+  SpeciesReference_t *sr1 = Reaction_createReactant( r );
+  SpeciesReference_t *sr2 = Reaction_createReactant( r );
+  SpeciesReference_t *sr3 = Reaction_createProduct ( r );
 
-  Model_addReaction(m, r);
+  SpeciesReference_setSpecies(sr1, "S1");
+  SpeciesReference_setSpecies(sr2, "S2");
+  SpeciesReference_setSpecies(sr3, "S5");
 
   fail_unless( Reaction_getNumModifiers(r) == 0, NULL );
 
@@ -142,8 +150,8 @@ START_TEST (test_SBMLConvert_convertToL1_Species_Amount)
   SBMLDocument_t *d   = SBMLDocument_createWithLevelAndVersion(2, 1);
   Model_t        *m   = SBMLDocument_createModel(d);
   const char     *sid = "C";
-  Compartment_t  *c   = Compartment_create();
-  Species_t      *s   = Species_create();
+  Compartment_t  *c   = Compartment_create(2, 4);
+  Species_t      *s   = Species_create(2, 4);
 
 
   Compartment_setId   ( c, sid );
@@ -167,14 +175,17 @@ START_TEST (test_SBMLConvert_convertToL1_Species_Concentration)
   SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 1);
   Model_t        *m = SBMLDocument_createModel(d);
   const char   *sid = "C";
-  Compartment_t  *c = Compartment_create();
-  Species_t      *s = Species_create();
+  Compartment_t  *c = 
+    Compartment_create(2, 1);
+  Species_t      *s = 
+    Species_create(2, 1);
 
 
   Compartment_setId   ( c, sid );
   Compartment_setSize ( c, 1.2 ); 
   Model_addCompartment( m, c   );
 
+  Species_setId                  ( s, "s"  );
   Species_setCompartment         ( s, sid  ); 
   Species_setInitialConcentration( s, 2.34 );
   Model_addSpecies               ( m, s    );
@@ -206,19 +217,19 @@ START_TEST (test_SBMLConvert_convertToL2v4_DuplicateAnnotations_doc)
   SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 1);
   SBMLDocument_createModel(d);
 
-  char * annotation = "<layout/>\n<layout/>";
+  char * annotation = "<rdf/>\n<rdf/>";
 
-  SBase_setAnnotationString((SBase_t *)(d), annotation);
+  int i = SBase_setAnnotationString((SBase_t *) (d), annotation);
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 1, NULL );
-  fail_unless( XMLNode_getNumChildren(SBase_getAnnotation((SBase_t *)(d))) == 2);
+  fail_unless( XMLNode_getNumChildren(SBase_getAnnotation((SBase_t *) (d))) == 2);
 
   SBMLDocument_setLevelAndVersion(d, 2, 4);
 
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 4, NULL );
 
-  fail_unless( XMLNode_getNumChildren(SBase_getAnnotation((SBase_t *)(d))) == 1);
+  fail_unless( XMLNode_getNumChildren(SBase_getAnnotation((SBase_t *) (d))) == 1);
 
 
   SBMLDocument_free(d);
@@ -233,10 +244,10 @@ START_TEST (test_SBMLConvert_convertToL2v4_DuplicateAnnotations_model)
 
   char * annotation = "<rdf/>\n<rdf/>";
 
-  SBase_setAnnotationString((SBase_t *)(m), annotation);
+  int i = SBase_setAnnotationString((SBase_t *) (m), annotation);
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 1, NULL );
-  fail_unless( XMLNode_getNumChildren(SBase_getAnnotation((SBase_t *)(m))) == 2);
+  fail_unless( XMLNode_getNumChildren(SBase_getAnnotation((SBase_t *) (m))) == 2);
 
   SBMLDocument_setLevelAndVersion(d, 2, 4);
 
@@ -244,7 +255,7 @@ START_TEST (test_SBMLConvert_convertToL2v4_DuplicateAnnotations_model)
   fail_unless( SBMLDocument_getVersion(d) == 4, NULL );
 
   m = SBMLDocument_getModel(d);
-  fail_unless( XMLNode_getNumChildren(SBase_getAnnotation((SBase_t *)(m))) == 1);
+  fail_unless( XMLNode_getNumChildren(SBase_getAnnotation((SBase_t *) (m))) == 1);
 
 
   SBMLDocument_free(d);

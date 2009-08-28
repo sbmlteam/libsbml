@@ -112,8 +112,8 @@ END_TEST
 START_TEST (test_SBMLDocument_setModel)
 {
   SBMLDocument_t *d  = SBMLDocument_create();
-  Model_t        *m1 = Model_create();
-  Model_t        *m2 = Model_create();
+  Model_t        *m1 = Model_create(2, 4);
+  Model_t        *m2 = Model_create(2, 4);
 
 
   fail_unless(SBMLDocument_getModel(d) == NULL);
@@ -139,7 +139,7 @@ START_TEST (test_SBMLDocument_setLevelAndVersion)
   SBMLDocument_t *d  = SBMLDocument_create();
   SBMLDocument_setLevelAndVersion(d, 2, 2);
   
-  Model_t        *m1 = Model_create();
+  Model_t        *m1 = Model_create(2, 2);
 
   SBMLDocument_setModel(d, m1);
 
@@ -158,7 +158,7 @@ START_TEST (test_SBMLDocument_setLevelAndVersion_Warning)
   SBMLDocument_t *d  = SBMLDocument_create();
   SBMLDocument_setLevelAndVersion(d, 2, 2);
   
-  Model_t        *m1 = Model_create();
+  Model_t        *m1 = Model_create(2, 2);
   SBase_setSBOTerm((SBase_t*)(m1), 2);
 
   SBMLDocument_setModel(d, m1);
@@ -178,14 +178,16 @@ START_TEST (test_SBMLDocument_setLevelAndVersion_Error)
   SBMLDocument_t *d  = SBMLDocument_create();
   SBMLDocument_setLevelAndVersion(d, 2, 1);
   
-  Model_t        *m1 = Model_create();
+  Model_t        *m1 = Model_create(2, 1);
 
   /* add unitDefinition */
-  Unit_t * u = Unit_create();
+  Unit_t * u = Unit_create(2, 1);
   Unit_setKind(u, UnitKind_forName("mole"));
   Unit_setOffset(u, 3.2);
 
-  UnitDefinition_t *ud = UnitDefinition_create();
+  UnitDefinition_t *ud = 
+    UnitDefinition_create(2, 1);
+  UnitDefinition_setId(ud, "ud");
   UnitDefinition_addUnit(ud, u);
 
   Model_addUnitDefinition(m1, ud);
@@ -195,6 +197,57 @@ START_TEST (test_SBMLDocument_setLevelAndVersion_Error)
   fail_unless(SBMLDocument_setLevelAndVersion(d,2,3) == 0);
   fail_unless(SBMLDocument_setLevelAndVersion(d,1,2) == 0);
   fail_unless(SBMLDocument_setLevelAndVersion(d,1,1) == 0);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLDocument_setModel1)
+{
+  SBMLDocument_t *d  = SBMLDocument_create();
+  SBMLDocument_setLevelAndVersion(d, 2, 2);
+  
+  Model_t        *m1 = Model_create(2, 1);
+
+  int i = SBMLDocument_setModel(d, m1);
+
+  fail_unless ( i == LIBSBML_VERSION_MISMATCH);
+  fail_unless (SBMLDocument_getModel(d) == 0);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLDocument_setModel2)
+{
+  SBMLDocument_t *d  = SBMLDocument_create();
+  SBMLDocument_setLevelAndVersion(d, 2, 2);
+  
+  Model_t        *m1 = Model_create(1, 2);
+
+  int i = SBMLDocument_setModel(d, m1);
+
+  fail_unless ( i == LIBSBML_LEVEL_MISMATCH);
+  fail_unless (SBMLDocument_getModel(d) == 0);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLDocument_setModel3)
+{
+  SBMLDocument_t *d  = SBMLDocument_create();
+  SBMLDocument_setLevelAndVersion(d, 2, 2);
+  
+  Model_t        *m1 = Model_create(2, 2);
+
+  int i = SBMLDocument_setModel(d, m1);
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (SBMLDocument_getModel(d) != 0);
 
   SBMLDocument_free(d);
 }
@@ -244,6 +297,11 @@ create_suite_SBMLDocument (void)
   tcase_add_test(tcase, test_SBMLDocument_setLevelAndVersion         );
   tcase_add_test(tcase, test_SBMLDocument_setLevelAndVersion_Warning );
   tcase_add_test(tcase, test_SBMLDocument_setLevelAndVersion_Error   );
+
+  tcase_add_test(tcase, test_SBMLDocument_setModel1   );
+  tcase_add_test(tcase, test_SBMLDocument_setModel2   );
+  tcase_add_test(tcase, test_SBMLDocument_setModel3   );
+
   tcase_add_test(tcase, test_SBMLDocument_setLevelAndVersion_UnitsError   );
 
   suite_add_tcase(suite, tcase);

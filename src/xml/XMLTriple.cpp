@@ -30,6 +30,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /*
  * Creates a new empty XMLTriple.
@@ -386,3 +387,5 @@ XMLTriple_notEqualTo(const XMLTriple_t *lhs, const XMLTriple_t* rhs)
 
 
 /** @endcond doxygen-c-only */
+
+LIBSBML_CPP_NAMESPACE_END

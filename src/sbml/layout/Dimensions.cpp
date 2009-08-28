@@ -56,7 +56,7 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Creates a new Dimensions object with all sizes set to 0.0.
@@ -80,8 +80,8 @@ Dimensions::Dimensions(const Dimensions& orig):SBase()
     this->mW=orig.mW;
     this->mD=orig.mD;
     // attributes of SBase
-    this->mId=orig.mId;
-    this->mName=orig.mName;
+//    this->mId=orig.mId;
+//    this->mName=orig.mName;
     this->mMetaId=orig.mMetaId;
     if(orig.mNotes) this->mNotes=new XMLNode(*const_cast<Dimensions&>(orig).getNotes());
     if(orig.mAnnotation) this->mAnnotation=new XMLNode(*const_cast<Dimensions&>(orig).mAnnotation);
@@ -103,14 +103,34 @@ Dimensions::Dimensions(const Dimensions& orig):SBase()
 
 Dimensions& Dimensions::operator=(const Dimensions& orig)
 {
-    if(&orig!=this)
+  if(&orig!=this)
+  {
+    this->mH=orig.mH;
+    this->mW=orig.mW;
+    this->mD=orig.mD;
+    this->mMetaId=orig.mMetaId;
+    delete this->mNotes;
+    this->mNotes=NULL;
+    if(orig.mNotes) this->mNotes=new XMLNode(*const_cast<Dimensions&>(orig).getNotes());
+    delete this->mAnnotation;
+    this->mAnnotation=NULL;
+    if(orig.mAnnotation) this->mAnnotation=new XMLNode(*const_cast<Dimensions&>(orig).mAnnotation);
+    this->mSBML=orig.mSBML;
+    this->mSBOTerm=orig.mSBOTerm;
+    this->mLine=orig.mLine;
+    this->mColumn=orig.mColumn;
+    delete this->mCVTerms;
+    this->mCVTerms=NULL;
+    if(orig.mCVTerms)
     {
         this->SBase::operator=(orig);
         this->mH=orig.mH;
         this->mW=orig.mW;
         this->mD=orig.mD;
     }
-    return *this;
+  }
+  
+  return *this;
 }
 
 /**
@@ -577,4 +597,5 @@ Dimensions_clone (const Dimensions_t *m)
   return static_cast<Dimensions*>( m->clone() );
 }
 
+LIBSBML_CPP_NAMESPACE_END
 

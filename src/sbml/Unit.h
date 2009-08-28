@@ -154,7 +154,9 @@
 
 #include <sbml/SBase.h>
 #include <sbml/ListOf.h>
+#include <sbml/common/operationReturnValues.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class SBMLVisitor;
 
@@ -164,132 +166,37 @@ class LIBSBML_EXTERN Unit : public SBase
 public:
 
   /**
-   * Creates a new Unit, optionally with specific values of @p kind,
-   * @p exponent, @p scale and @p multipler.
-   *
-   * @if clike If no arguments are passed to this constructor,
-   * the value of @p kind defaults to @c UNIT_KIND_INVALID.  Callers must
-   * reset the value to something appropriate using the Unit::setKind()
-   * method.  The use of arguments to this constructor is functionally
-   * equivalent to the following: @endif@if java If no
-   * arguments are passed to this constructor, the value of @p kind
-   * defaults to @c UNIT_KIND_INVALID.  Callers must reset the value to
-   * something appropriate using the method Unit::setKind(int kind). 
-   * The use of arguments to this constructor is functionally
-   * equivalent to the following: @endif
-   * @code
-   *   Unit u = new Unit();
-   *   u.setKind(kind);
-   *   u.setExponent(exponent);
-   *   u.setScale(scale);
-   *   u.setMultiplier(multipler);
-   * @endcode
-   *
-   * Readers are urged to read the description of the Unit class (both the
-   * beginning of this page, and in the SBML specification documents) for
-   * more information about the meaning of the arguments to this
-   * constructor.
-   *
-   * @if clike @param kind a value from the <a class="el"
-   * href="#UnitKind_t">UnitKind_t</a> enumeration naming the base unit
-   * serving as the basis of this particular unit
-   * definition @endif@if java @param kind a value from the
-   * set of static integer constants having names beginning with the
-   * characters @c UNIT_KIND_ in <code><a
-   * href="libsbmlConstants.java">libsbmlConstants</a></code> @endif
-   * 
-   * @param exponent an integer, the "exponent" attribute of the unit
-   * definition 
-   * 
-   * @param scale an integer, the "scale" attribute of the unit definition
-   * 
-   * @param multiplier a double, the "multiplier" attribute of the unit
-   * definition 
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
-   */
-  Unit (   UnitKind_t  kind       = UNIT_KIND_INVALID
-         , int         exponent   = 1
-         , int         scale      = 0
-         , double      multiplier = 1.0 );
-
-
-  /**
-   * Creates a new Unit of a specific @p kind (given as a string), and
-   * optionally with @p exponent, @p scale and @p multipler.
-   *
-   * @if clike This method accepts a base unit name as a
-   * string, and internally converts it to a value from the <a class="el"
-   * href="#UnitKind_t">UnitKind_t</a> enumeration.  If the string passed
-   * as the value of @p kind is not recognized as a valid unit name, this
-   * method sets the value to @c UNIT_KIND_INVALID.  The following table
-   * lists the valid unit kind names: @endif@if java This
-   * method accepts a unit kind name as a string, and internally converts
-   * it to the appropriate @c UNIT_KIND_ constants from <code><a
-   * href="libsbmlConstants.java">libsbmlConstants</a></code>.  If the
-   * string passed as the value of @p kind is not recognized as a valid
-   * unit name, this method sets the value to @c UNIT_KIND_INVALID.  The
-   * following table lists the valid unit kind names: @endif
-   * 
-   * @htmlinclude libsbml-base-units.html
-   * 
-   * In addition to the strings above, the string <code>Celsius</code> is
-   * accepted for models in SBML Level&nbsp;2 Version&nbsp;1 format.
-   *
-   * Readers are urged to read the description of the Unit class (both the
-   * beginning of this page, and in the SBML specification documents) for
-   * more information about the meaning of the arguments to this
-   * constructor.
-   *
-   * @param kind a string whose value is a valid unit name
-   * 
-   * @param exponent an integer, the "exponent" attribute of the unit
-   * definition 
-   * 
-   * @param scale an integer, the "scale" attribute of the unit definition
-   * 
-   * @param multiplier a double, the "multiplier" attribute of the unit
-   * definition 
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
-   */
-  Unit (   const std::string&  kind
-         , int                 exponent   = 1
-         , int                 scale      = 0
-         , double              multiplier = 1.0 );
-
-
-  /**
    * Creates a new Unit using the given SBML @p level and @p version
-   * values and optionally a set of XMLNamespaces.
+   * values.
    *
    * @param level an unsigned int, the SBML Level to assign to this Unit
    *
    * @param version an unsigned int, the SBML Version to assign to this
    * Unit
    * 
-   * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
-   * assign to this Unit
+   * @note Once a Unit has been added to an SBMLDocument, the @p level,
+   * @p version for the document @em override those used
+   * to create the Unit.  Despite this, the ability to supply the values
+   * at creation time is an important aid to creating valid SBML.  Knowledge of
+   * the intented SBML Level and Version determine whether it is valid to
+   * assign a particular value to an attribute, or whether it is valid to add
+   * an object to an existing SBMLDocument.
+   */
+  Unit (unsigned int level, unsigned int version);
+
+
+  /**
+   * Creates a new Unit using the given SBMLNamespaces object
+   * @p sbmlns.
+   *
+   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
+   * information.  It is used to communicate the SBML Level, Version, and
+   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp; Core.
+   * A common approach to using this class constructor is to create an
+   * SBMLNamespaces object somewhere in a program, once, then pass it to
+   * object constructors such as this one when needed.
+   *
+   * @param sbmlns an SBMLNamespaces object.
    *
    * @note Once a Unit has been added to an SBMLDocument, the @p level,
    * @p version and @p xmlns namespaces for the document @em override those used
@@ -298,21 +205,8 @@ public:
    * the intented SBML Level and Version determine whether it is valid to
    * assign a particular value to an attribute, or whether it is valid to add
    * an object to an existing SBMLDocument.
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
    */
-  Unit (unsigned int level, unsigned int version, 
-               XMLNamespaces* xmlns = 0);
+  Unit (SBMLNamespaces* sbmlns);
 
 
   /**
@@ -778,24 +672,43 @@ public:
    *
    * @param kind a value from the <a class="el"
    * href="#UnitKind_t">UnitKind_t</a> enumeration
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  void setKind (UnitKind_t kind);
+  int setKind (UnitKind_t kind);
 
 
   /**
    * Sets the "exponent" attribute value of this Unit.
    *
    * @param value the integer to which the attribute "exponent" should be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
-  void setExponent (int value);
+  int setExponent (int value);
 
 
   /**
    * Sets the "scale" attribute value of this Unit.
    *
    * @param value the integer to which the attribute "scale" should be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
-  void setScale (int value);
+  int setScale (int value);
 
 
   /**
@@ -803,8 +716,15 @@ public:
    *
    * @param value the floating-point value to which the attribute
    * "multiplier" should be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
    */
-  void setMultiplier (double value);
+  int setMultiplier (double value);
 
 
   /**
@@ -812,6 +732,13 @@ public:
    *
    * @param value the float-point value to which the attribute "offset"
    * should set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
    *
    * @warning The "offset" attribute is only available in SBML Level&nbsp;2
    * Version&nbsp;1.  This attribute is not present in SBML Level&nbsp;2
@@ -823,7 +750,7 @@ public:
    * earlier versions of SBML Level&nbsp;2, but their use is strongly
    * discouraged.
    */
-  void setOffset (double value);
+  int setOffset (double value);
 
 
   /**
@@ -960,8 +887,14 @@ public:
   * multiplier=<code>"0.001"</code> scale=@c "0" exponent=@c "1".
   *
   * @param unit the Unit object to manipulate.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
   */
-  static void removeScale(Unit * unit);
+  static int removeScale(Unit * unit);
 
 
   /** 
@@ -997,8 +930,28 @@ public:
   static UnitDefinition * convertToSI(const Unit * unit);
 
 
+  /**
+   * Predicate returning @c true or @c false depending on whether
+   * all the required attributes for this Unit object
+   * have been set.
+   *
+   * @note The required attributes for a Unit object are:
+   * kind
+   *
+   * @return a boolean value indicating whether all the required
+   * elements for this object have been defined.
+   */
+  virtual bool hasRequiredAttributes() const ;
+
+
 protected:
   /** @cond doxygen-libsbml-internal */
+
+  /* this is a constructor that takes no arguments and 
+   * only exists because the validator code needs it
+   */
+  Unit ();
+
 
   /**
    * Subclasses should override this method to read values from the given
@@ -1053,6 +1006,25 @@ protected:
   int         mScale;
   double      mMultiplier;
   double      mOffset;  
+
+  /* the validator classes need to be friends to access the 
+   * protected constructor that takes no arguments
+   */
+  friend class Validator;
+  friend class ConsistencyValidator;
+  friend class IdentifierConsistencyValidator;
+  friend class InternalConsistencyValidator;
+  friend class L1CompatibilityValidator;
+  friend class L2v1CompatibilityValidator;
+  friend class L2v2CompatibilityValidator;
+  friend class L2v3CompatibilityValidator;
+  friend class L2v4CompatibilityValidator;
+  friend class MathMLConsistencyValidator;
+  friend class ModelingPracticeValidator;
+  friend class OverdeterminedValidator;
+  friend class SBOConsistencyValidator;
+  friend class UnitConsistencyValidator;
+
 
   /** @endcond doxygen-libsbml-internal */
 };
@@ -1192,12 +1164,14 @@ protected:
   /** @endcond doxygen-libsbml-internal */
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
 
 #ifndef SWIG
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /*-----------------------------------------------------------------------------
@@ -1207,25 +1181,12 @@ BEGIN_C_DECLS
 
 LIBSBML_EXTERN
 Unit_t *
-Unit_create (void);
+Unit_create (unsigned int level, unsigned int version);
 
 
 LIBSBML_EXTERN
 Unit_t *
-Unit_createWithKindExponentScale (UnitKind_t kind, int exponent, int scale);
-
-
-LIBSBML_EXTERN
-Unit_t *
-Unit_createWithKindExponentScaleMultiplier (UnitKind_t kind, int exponent, int scale, double multiplier);
-
-
-/** @cond doxygen-libsbml-internal */
-LIBSBML_EXTERN
-Unit_t *
-Unit_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns);
-/** @endcond doxygen-libsbml-internal */
+Unit_createWithNS (SBMLNamespaces_t *sbmlns);
 
 
 LIBSBML_EXTERN
@@ -1444,27 +1405,27 @@ Unit_isSetKind (const Unit_t *u);
 
 
 LIBSBML_EXTERN
-void
+int
 Unit_setKind (Unit_t *u, UnitKind_t kind);
 
 
 LIBSBML_EXTERN
-void
+int
 Unit_setExponent (Unit_t *u, int value);
 
 
 LIBSBML_EXTERN
-void
+int
 Unit_setScale (Unit_t *u, int value);
 
 
 LIBSBML_EXTERN
-void
+int
 Unit_setMultiplier (Unit_t *u, double value);
 
 
 LIBSBML_EXTERN
-void
+int
 Unit_setOffset (Unit_t *u, double value);
 
 
@@ -1481,7 +1442,7 @@ int
 Unit_areEquivalent(Unit_t * unit1, Unit_t * unit2);
 
 LIBSBML_EXTERN
-void 
+int 
 Unit_removeScale(Unit_t * unit);
 
 LIBSBML_EXTERN
@@ -1493,7 +1454,7 @@ UnitDefinition_t *
 Unit_convertToSI(Unit_t * unit);
 
 END_C_DECLS
-
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG  */
 #endif  /* Unit_h */

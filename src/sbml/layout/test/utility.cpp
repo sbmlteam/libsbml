@@ -3,6 +3,8 @@
 
 #include "xml/XMLAttributes.h"
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 /**
  * This function compares two XMLNodes if they have identical content.
  * If the two nodes are identical, the function returns true.
@@ -37,3 +39,5 @@ bool compareXMLNodes(const XMLNode& node1,const XMLNode& node2)
    }
    return equal; 
 }
+
+LIBSBML_CPP_NAMESPACE_END

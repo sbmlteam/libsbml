@@ -53,6 +53,7 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Creates a CubicBezier and returns the pointer.
@@ -97,14 +98,14 @@ CubicBezier::CubicBezier (double x1, double y1, double z1,
  */
 CubicBezier::CubicBezier(const CubicBezier& orig):LineSegment()
 {
-    this->mId=orig.mId;
+//    this->mId=orig.mId;
     this->mStartPoint=orig.mStartPoint;
     this->mEndPoint=orig.mEndPoint;
     this->mBasePoint1=orig.mBasePoint1;
     this->mBasePoint2=orig.mBasePoint2;
     // attributes of SBase
-    this->mId=orig.mId;
-    this->mName=orig.mName;
+//    this->mId=orig.mId;
+//    this->mName=orig.mName;
     this->mMetaId=orig.mMetaId;
     if(orig.mNotes) this->mNotes=new XMLNode(*const_cast<CubicBezier&>(orig).getNotes());
     if(orig.mAnnotation) this->mAnnotation=new XMLNode(*const_cast<CubicBezier&>(orig).mAnnotation);
@@ -130,13 +131,34 @@ CubicBezier::CubicBezier(const CubicBezier& orig):LineSegment()
  */
 CubicBezier& CubicBezier::operator=(const CubicBezier& orig)
 {
-    if(&orig!=this)
+  if(&orig!=this)
+  {
+    this->mStartPoint=orig.mStartPoint;
+    this->mEndPoint=orig.mEndPoint;
+    this->mBasePoint1=orig.mBasePoint1;
+    this->mBasePoint2=orig.mBasePoint2;
+    this->mMetaId=orig.mMetaId;
+    delete this->mNotes;
+    this->mNotes=NULL;
+    if(orig.mNotes) this->mNotes=new XMLNode(*const_cast<CubicBezier&>(orig).getNotes());
+    delete this->mAnnotation;
+    this->mAnnotation=NULL;
+    if(orig.mAnnotation) this->mAnnotation=new XMLNode(*const_cast<CubicBezier&>(orig).mAnnotation);
+    this->mSBML=orig.mSBML;
+    this->mSBOTerm=orig.mSBOTerm;
+    this->mLine=orig.mLine;
+    this->mColumn=orig.mColumn;
+    delete this->mCVTerms;
+    this->mCVTerms=NULL;
+    if(orig.mCVTerms)
     {
         this->LineSegment::operator=(orig);
         this->mBasePoint1=orig.mBasePoint1;
         this->mBasePoint2=orig.mBasePoint2;
     }
-    return *this;
+  }
+  
+  return *this;
 }
 
 
@@ -669,4 +691,46 @@ CubicBezier_clone (const CubicBezier_t *m)
   return static_cast<CubicBezier*>( m->clone() );
 }
 
+
+/**
+ * Returns non-zero if the id is set
+ */
+LIBSBML_EXTERN
+int
+CubicBezier_isSetId (const CubicBezier_t *cb)
+{
+  return static_cast <int> (cb->isSetId());
+}
+
+/**
+ * Returns the id
+ */
+LIBSBML_EXTERN
+const char *
+CubicBezier_getId (const CubicBezier_t *cb)
+{
+  return cb->isSetId() ? cb->getId().c_str() : NULL;
+}
+
+/**
+ * Sets the id
+ */
+LIBSBML_EXTERN
+int
+CubicBezier_setId (CubicBezier_t *cb, const char *sid)
+{
+  return (sid == NULL) ? cb->setId("") : cb->setId(sid);
+}
+
+/**
+ * Unsets the id
+ */
+LIBSBML_EXTERN
+void
+CubicBezier_unsetId (CubicBezier_t *cb)
+{
+  cb->unsetId();
+}
+
+LIBSBML_CPP_NAMESPACE_END
 

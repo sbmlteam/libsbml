@@ -42,6 +42,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /*
  * Creates a new SBMLWriter.
@@ -68,10 +69,11 @@ SBMLWriter::~SBMLWriter ()
  *   <!-- Created by <program name> version <program version>
  *   on yyyy-MM-dd HH:mm with libsbml version <libsbml version>. -->
  */
-void
+int
 SBMLWriter::setProgramName (const std::string& name)
 {
   mProgramName = name;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -84,10 +86,11 @@ SBMLWriter::setProgramName (const std::string& name)
  *   <!-- Created by <program name> version <program version>
  *   on yyyy-MM-dd HH:mm with libsbml version <libsbml version>. -->
  */
-void
+int
 SBMLWriter::setProgramVersion (const std::string& version)
 {
   mProgramVersion = version;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -266,7 +269,7 @@ SBMLWriter::writeToString (const SBMLDocument* d)
 bool 
 SBMLWriter::hasZlib() 
 {
-  return ::hasZlib();
+  return LIBSBML_CPP_NAMESPACE ::hasZlib();
 }
 
 
@@ -279,7 +282,7 @@ SBMLWriter::hasZlib()
 bool 
 SBMLWriter::hasBzip2() 
 {
-  return ::hasBzip2();
+  return LIBSBML_CPP_NAMESPACE ::hasBzip2();
 }
 
 
@@ -314,12 +317,18 @@ SBMLWriter_free (SBMLWriter_t *sw)
  *
  *   <!-- Created by <program name> version <program version>
  *   on yyyy-MM-dd HH:mm with libsbml version <libsbml version>. -->
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void
+int
 SBMLWriter_setProgramName (SBMLWriter_t *sw, const char *name)
 {
-  (name == NULL) ? sw->setProgramName("") : sw->setProgramName(name);
+  return (name == NULL) ? sw->setProgramName("") : sw->setProgramName(name);
 }
 
 
@@ -331,12 +340,18 @@ SBMLWriter_setProgramName (SBMLWriter_t *sw, const char *name)
  *
  *   <!-- Created by <program name> version <program version>
  *   on yyyy-MM-dd HH:mm with libsbml version <libsbml version>. -->
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void
+int
 SBMLWriter_setProgramVersion (SBMLWriter_t *sw, const char *version)
 {
-  (version == NULL) ? sw->setProgramVersion("") :
+  return (version == NULL) ? sw->setProgramVersion("") :
                              sw->setProgramVersion(version);
 }
 
@@ -454,3 +469,5 @@ writeSBMLToString (const SBMLDocument_t *d)
   SBMLWriter sw;
   return sw.writeToString(d);
 }
+
+LIBSBML_CPP_NAMESPACE_END

@@ -181,6 +181,8 @@
 #include <sbml/ListOf.h>
 #include <sbml/SpeciesReference.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 class KineticLaw;
 class SBMLVisitor;
 
@@ -190,46 +192,37 @@ class LIBSBML_EXTERN Reaction : public SBase
 public:
 
   /**
-   * Creates a new Reaction, optionally with the given identifier,
-   * KineticLaw object and value of the "reversible" attribute.
-   *
-   * @param sid an identifier string for the Reaction
-   *
-   * @param name a name string for the Reaction
-   *
-   * @param kl a KineticLaw object
-   *
-   * @param reversible a boolean value for the "reversible" flag
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
-   */
-  Reaction (  const std::string&  sid        = ""
-            , const std::string& name        = ""
-            , const KineticLaw*   kl         = 0
-            , bool                reversible = true );
-
-
-  /**
    * Creates a new Reaction using the given SBML @p level and @p version
-   * values and optionally a set of XMLNamespaces.
+   * values.
    *
    * @param level an unsigned int, the SBML Level to assign to this Reaction
    *
    * @param version an unsigned int, the SBML Version to assign to this
    * Reaction
    * 
-   * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
-   * assign to this Reaction
+   * @note Once a Reaction has been added to an SBMLDocument, the @p level,
+   * @p version for the document @em override those used
+   * to create the Reaction.  Despite this, the ability to supply the values
+   * at creation time is an important aid to creating valid SBML.  Knowledge of
+   * the intented SBML Level and Version determine whether it is valid to
+   * assign a particular value to an attribute, or whether it is valid to add
+   * an object to an existing SBMLDocument.
+   */
+  Reaction (unsigned int level, unsigned int version);
+
+
+  /**
+   * Creates a new Reaction using the given SBMLNamespaces object
+   * @p  sbmlns.
+   *
+   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
+   * information.  It is used to communicate the SBML Level, Version, and
+   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp; Core.
+   * A common approach to using this class constructor is to create an
+   * SBMLNamespaces object somewhere in a program, once, then pass it to
+   * object constructors such as this one when needed.
+   *
+   * @param sbmlns an SBMLNamespaces object.
    *
    * @note Once a Reaction has been added to an SBMLDocument, the @p level,
    * @p version and @p xmlns namespaces for the document @em override those used
@@ -238,21 +231,8 @@ public:
    * the intented SBML Level and Version determine whether it is valid to
    * assign a particular value to an attribute, or whether it is valid to add
    * an object to an existing SBMLDocument.
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
    */
-  Reaction (unsigned int level, unsigned int version, 
-               XMLNamespaces* xmlns = 0);
+  Reaction (SBMLNamespaces* sbmlns);
 
 
   /**
@@ -352,6 +332,22 @@ public:
 
 
   /**
+   * Returns the value of the "id" attribute of this Reaction.
+   * 
+   * @return the id of this Reaction.
+   */
+  const std::string& getId () const;
+
+
+  /**
+   * Returns the value of the "name" attribute of this Reaction.
+   * 
+   * @return the name of this Reaction.
+   */
+  const std::string& getName () const;
+
+
+  /**
    * Returns the KineticLaw object contained in this Reaction.
    * 
    * @return the KineticLaw instance.
@@ -398,6 +394,30 @@ public:
 
   /**
    * Predicate returning @c true or @c false depending on whether this
+   * Reaction's "id" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "id" attribute of this Reaction has been
+   * set, @c false otherwise.
+   */
+  bool isSetId () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Reaction's "name" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "name" attribute of this Reaction has been
+   * set, @c false otherwise.
+   */
+  bool isSetName () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
    * Reaction contains a kinetic law object.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -434,14 +454,74 @@ public:
 
 
   /**
+   * Sets the value of the "id" attribute of this Reaction.
+   *
+   * The string @p sid is copied.  Note that SBML has strict requirements
+   * for the syntax of identifiers.  The following is summary of the
+   * definition of the SBML identifier type @c SId (here expressed in an
+   * extended form of BNF notation):
+   * @code
+   *   letter ::= 'a'..'z','A'..'Z'
+   *   digit  ::= '0'..'9'
+   *   idChar ::= letter | digit | '_'
+   *   SId    ::= ( letter | '_' ) idChar*
+   * @endcode
+   * The equality of SBML identifiers is determined by an exact character
+   * sequence match; i.e., comparisons must be performed in a
+   * case-sensitive manner.  In addition, there are a few conditions for
+   * the uniqueness of identifiers in an SBML model.  Please consult the
+   * SBML specifications for the exact formulations.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @param sid the string to use as the identifier of this Reaction
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int setId (const std::string& sid);
+
+
+  /**
+   * Sets the value of the "name" attribute of this Reaction.
+   *
+   * The string in @p name is copied.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @param name the new name for the Reaction
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int setName (const std::string& name);
+
+
+  /**
    * Sets the "kineticLaw" subelement of this Reaction to a copy of the
    * given KineticLaw object.
    *
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param kl the KineticLaw object to use.
-   */
-  void setKineticLaw (const KineticLaw* kl);
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_LEVEL_MISMATCH
+   * @li LIBSBML_VERSION_MISMATCH
+  */
+  int setKineticLaw (const KineticLaw* kl);
 
 
   /**
@@ -450,8 +530,14 @@ public:
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param value the value of the "reversible" attribute.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
-  void setReversible (bool value);
+  int setReversible (bool value);
 
 
   /**
@@ -460,6 +546,12 @@ public:
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param value the value of the "fast" attribute.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    * 
    * @warning SBML definitions before SBML Level 2 Version 2 incorrectly
    * indicated that software tools could ignore this attribute if they did
@@ -473,21 +565,50 @@ public:
    * 4 specification, which provides more detail about the conditions under
    * which a reaction can be considered to be fast in this sense.
    */
-  void setFast (bool value);
+  int setFast (bool value);
+
+
+  /**
+   * Unsets the value of the "name" attribute of this Reaction.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  int unsetName ();
 
 
   /**
    * Unsets the "kineticLaw" subelement of this Reaction.
    *
    * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  void unsetKineticLaw ();
+  int unsetKineticLaw ();
 
 
   /**
    * Unsets the value of the "fast" attribute of this Reaction.
    *
    * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    *
    * @warning In SBML Level 1, "fast" is optional with a default of @c
    * false, which means it is effectively always set (and reset to @c false
@@ -504,7 +625,7 @@ public:
    * more detail about the conditions under which a reaction can be
    * considered to be fast in this sense.
    */
-  void unsetFast ();
+  int unsetFast ();
 
 
   /**
@@ -514,6 +635,15 @@ public:
    *
    * @param sr a SpeciesReference object referring to a Species in the
    * enclosing Model
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_LEVEL_MISMATCH
+   * @li LIBSBML_VERSION_MISMATCH
+   * @li LIBSBML_OPERATION_FAILED
    *
    * @note This method should be used with some caution.  The fact that
    * this method @em copies the object passed to it means that the caller
@@ -527,7 +657,7 @@ public:
    *
    * @see createReactant()
    */
-  void addReactant (const SpeciesReference* sr);
+  int addReactant (const SpeciesReference* sr);
 
 
   /**
@@ -537,6 +667,15 @@ public:
    *
    * @param sr a SpeciesReference object referring to a Species in the
    * enclosing Model
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_LEVEL_MISMATCH
+   * @li LIBSBML_VERSION_MISMATCH
+   * @li LIBSBML_OPERATION_FAILED
    *
    * @note This method should be used with some caution.  The fact that
    * this method @em copies the object passed to it means that the caller
@@ -550,7 +689,7 @@ public:
    *
    * @see createProduct()
    */
-  void addProduct (const SpeciesReference* sr);
+  int addProduct (const SpeciesReference* sr);
 
 
   /**
@@ -561,6 +700,16 @@ public:
    *
    * @param msr a ModifierSpeciesReference object referring to a Species in
    * the enclosing Model
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   * @li LIBSBML_LEVEL_MISMATCH
+   * @li LIBSBML_VERSION_MISMATCH
+   * @li LIBSBML_OPERATION_FAILED
    *
    * @note This method should be used with some caution.  The fact that
    * this method @em copies the object passed to it means that the caller
@@ -574,7 +723,7 @@ public:
    *
    * @see createModifier()
    */
-  void addModifier (const ModifierSpeciesReference* msr);
+  int addModifier (const ModifierSpeciesReference* msr);
 
 
   /**
@@ -670,8 +819,8 @@ public:
 
 
   /**
-   * Returns the nth reactant species in the list of reactants in this
-   * Reaction.
+   * Returns the nth reactant species (as a SpeciesReference object) in 
+   * the list of reactants in this Reaction.
    *
    * Callers should first call getNumReactants() to find out how many
    * reactants there are, to avoid using an invalid index number.
@@ -685,8 +834,8 @@ public:
 
 
   /**
-   * Returns the nth reactant species in the list of reactants in this
-   * Reaction.
+   * Returns the nth reactant species (as a SpeciesReference object) 
+   * in the list of reactants in this Reaction.
    *
    * Callers should first call getNumReactants() to find out how many
    * reactants there are, to avoid using an invalid index number.
@@ -700,10 +849,11 @@ public:
 
 
   /**
-   * Returns the reactant species having a specific identifier in this
-   * Reaction.
+   * Returns the reactant species (as a SpeciesReference object) having 
+   * a specific identifier in this Reaction.
    *
-   * @param species the identifier of the reactant Species
+   * @param species the identifier of the reactant Species ("species" 
+   * attribute of the reactant SpeciesReference object)
    *
    * @return a SpeciesReference object, or NULL if no species with the
    * given identifier @p species appears as a reactant in this Reaction.
@@ -712,10 +862,11 @@ public:
 
 
   /**
-   * Returns the reactant species having a specific identifier in this
-   * Reaction.
+   * Returns the reactant species (as a SpeciesReference object) having 
+   * a specific identifier in this Reaction.
    *
-   * @param species the identifier of the reactant Species
+   * @param species the identifier of the reactant Species ("species" 
+   * attribute of the reactant SpeciesReference object)
    *
    * @return a SpeciesReference object, or NULL if no species with the
    * given identifier @p species appears as a reactant in this Reaction.
@@ -724,7 +875,8 @@ public:
 
 
   /**
-   * Returns the nth product species in the list of products in this Reaction.
+   * Returns the nth product species (as a SpeciesReference object) in 
+   * the list of products in this Reaction.
    *
    * Callers should first call getNumProducts() to find out how many
    * products there are, to avoid using an invalid index number.
@@ -738,8 +890,8 @@ public:
 
 
   /**
-   * Returns the nth product species in the list of products in this
-   * Reaction.
+   * Returns the nth product species (as a SpeciesReference object) 
+   * in the list of products in this Reaction.
    *
    * Callers should first call getNumProducts() to find out how many
    * products there are, to avoid using an invalid index number.
@@ -753,10 +905,11 @@ public:
 
 
   /**
-   * Returns the product species having a specific identifier in this
-   * Reaction.
+   * Returns the product species (as a SpeciesReference object) having 
+   * a specific identifier in this Reaction.
    *
-   * @param species the identifier of the product Species
+   * @param species the identifier of the product Species ("species"
+   * attribute of the product SpeciesReference object)
    *
    * @return a SpeciesReference object, or NULL if no species with the
    * given identifier @p species appears as a product in this Reaction.
@@ -765,10 +918,11 @@ public:
 
 
   /**
-   * Returns the product species having a specific identifier in this
-   * Reaction.
+   * Returns the product species (as a SpeciesReference object) having 
+   * a specific identifier in this Reaction.
    *
-   * @param species the identifier of the product Species
+   * @param species the identifier of the product Species ("species"
+   * attribute of the product SpeciesReference object)
    *
    * @return a SpeciesReference object, or NULL if no species with the
    * given identifier @p species appears as a product in this Reaction.
@@ -777,7 +931,8 @@ public:
 
 
   /**
-   * Returns the nth modifier species in the list of modifiers of this Reaction.
+   * Returns the nth modifier species (as a ModifierSpeciesReference object) 
+   * in the list of modifiers of this Reaction.
    *
    * Callers should first call getNumModifiers() to find out how many
    * modifiers there are, to avoid using an invalid index number.
@@ -791,7 +946,8 @@ public:
 
 
   /**
-   * Returns the nth modifier species in the list of modifiers of this Reaction.
+   * Returns the nth modifier species (as a ModifierSpeciesReference object) 
+   * in the list of modifiers of this Reaction.
    *
    * Callers should first call getNumModifiers() to find out how many
    * modifiers there are, to avoid using an invalid index number.
@@ -805,10 +961,11 @@ public:
 
 
   /**
-   * Returns the modifier species having a specific identifier in this
-   * Reaction.
+   * Returns the modifier species (as a ModifierSpeciesReference object) 
+   * having a specific identifier in this Reaction.
    *
-   * @param species the identifier of the modifier Species
+   * @param species the identifier of the modifier Species ("species" 
+   * attribute of the ModifierSpeciesReference object)
    *
    * @return a ModifierSpeciesReference object, or NULL if no species with
    * the given identifier @p species appears as a modifier in this
@@ -819,10 +976,11 @@ public:
 
 
   /**
-   * Returns the modifier species having a specific identifier in this
-   * Reaction.
+   * Returns the modifier species (as a ModifierSpeciesReference object) 
+   * having a specific identifier in this Reaction.
    *
-   * @param species the identifier of the modifier Species
+   * @param species the identifier of the modifier Species ("species" 
+   * attribute of the ModifierSpeciesReference object)
    *
    * @return a ModifierSpeciesReference object, or NULL if no species with
    * the given identifier @p species appears as a modifier in this
@@ -853,6 +1011,103 @@ public:
    * @return the number of modifiers in this Reaction.
    */
   unsigned int getNumModifiers () const;
+
+
+  /**
+   * Removes the nth reactant species (SpeciesReference object) in the list of 
+   * reactants in this Reaction and returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   * The caller should first call getNumReactants() to find out how many
+   * reactants there are, to avoid using an invalid index number.
+   *
+   * @param n the index of the reactant SpeciesReference object to remove
+   *
+   * @return the removed reactant SpeciesReference object, or NULL if the 
+   * given index is out of range.
+   */
+  SpeciesReference* removeReactant (unsigned int n);
+
+
+  /**
+   * Removes the reactant species (SpeciesReference object) having the given  
+   * "species" attribute in this Reaction and returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   *
+   * @param species the "species" attribute of the reactant SpeciesReference 
+   * object
+   *
+   * @return the removed reactant SpeciesReference object, or NULL if no 
+   * reactant SpeciesReference object with the given "species" attribute 
+   * @p species exists in this Reaction.
+   */
+  SpeciesReference* removeReactant (const std::string& species);
+
+
+  /**
+   * Removes the nth product species (SpeciesReference object) in the list of 
+   * products in this Reaction and returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   * The caller should first call getNumProducts() to find out how many
+   * products there are, to avoid using an invalid index number.
+   *
+   * @param n the index of the product SpeciesReference object to remove
+   *
+   * @return the removed product SpeciesReference object, or NULL if the 
+   * given index is out of range.
+   */
+  SpeciesReference* removeProduct (unsigned int n);
+
+
+  /**
+   * Removes the product species (SpeciesReference object) having the given  
+   * "species" attribute in this Reaction and returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   *
+   * @param species the "species" attribute of the product SpeciesReference 
+   * object
+   *
+   * @return the removed product SpeciesReference object, or NULL if no 
+   * product SpeciesReference object with the given "species" attribute 
+   * @p species exists in this Reaction.
+   */
+  SpeciesReference* removeProduct (const std::string& species);
+
+
+  /**
+   * Removes the nth modifier species (ModifierSpeciesReference object) in 
+   * the list of  modifiers in this Reaction and returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   * The caller should first call getNumModifiers() to find out how many
+   * modifiers there are, to avoid using an invalid index number.
+   *
+   * @param n the index of the ModifierSpeciesReference object to remove
+   *
+   * @return the removed ModifierSpeciesReference object, or NULL if the 
+   * given index is out of range.
+   */
+  ModifierSpeciesReference* removeModifier (unsigned int n);
+
+
+  /**
+   * Removes the modifier species (ModifierSpeciesReference object) having 
+   * the given "species" attribute in this Reaction and returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   *
+   * @param species the "species" attribute of the ModifierSpeciesReference 
+   * object
+   *
+   * @return the removed ModifierSpeciesReference object, or NULL if no 
+   * ModifierSpeciesReference object with the given "species" attribute @p 
+   * species exists in this Reaction.
+   */
+  ModifierSpeciesReference* removeModifier (const std::string& species);
+
 
   /** @cond doxygen-libsbml-internal */
 
@@ -903,19 +1158,37 @@ public:
 
 
   /** @cond doxygen-libsbml-internal */
-
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-
   /** @endcond doxygen-libsbml-internal */
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether
+   * all the required attributes for this Reaction object
+   * have been set.
+   *
+   * @note The required attributes for a Reaction object are:
+   * id
+   *
+   * @return a boolean value indicating whether all the required
+   * attributes for this object have been defined.
+   */
+  virtual bool hasRequiredAttributes() const ;
 
 
 protected:
   /** @cond doxygen-libsbml-internal */
+
+  /* this is a constructor that takes no arguments and 
+   * only exists because the validator code needs it
+   */
+  Reaction ();
+
 
   /**
    * @return the SBML object corresponding to next XMLToken in the
@@ -940,6 +1213,9 @@ protected:
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
+  std::string mId;
+  std::string mName;
+ 
   ListOfSpeciesReferences  mReactants;
   ListOfSpeciesReferences  mProducts;
   ListOfSpeciesReferences  mModifiers;
@@ -949,6 +1225,24 @@ protected:
   bool        mFast;
 
   bool mIsSetFast;
+
+  /* the validator classes need to be friends to access the 
+   * protected constructor that takes no arguments
+   */
+  friend class Validator;
+  friend class ConsistencyValidator;
+  friend class IdentifierConsistencyValidator;
+  friend class InternalConsistencyValidator;
+  friend class L1CompatibilityValidator;
+  friend class L2v1CompatibilityValidator;
+  friend class L2v2CompatibilityValidator;
+  friend class L2v3CompatibilityValidator;
+  friend class L2v4CompatibilityValidator;
+  friend class MathMLConsistencyValidator;
+  friend class ModelingPracticeValidator;
+  friend class OverdeterminedValidator;
+  friend class SBOConsistencyValidator;
+  friend class UnitConsistencyValidator;
 
   /** @endcond doxygen-libsbml-internal */
 };
@@ -1130,13 +1424,14 @@ protected:
   /** @endcond doxygen-libsbml-internal */
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
 
 #ifndef SWIG
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /*-----------------------------------------------------------------------------
@@ -1146,28 +1441,12 @@ BEGIN_C_DECLS
 
 LIBSBML_EXTERN
 Reaction_t *
-Reaction_create (void);
-
-LIBSBML_EXTERN
-Reaction_t *
-Reaction_createWith (const char *sid, const char *name);
+Reaction_create (unsigned int level, unsigned int version);
 
 
 LIBSBML_EXTERN
 Reaction_t *
-Reaction_createWithKineticLaw ( const char   *sid,
-                      const char   *name,
-                      KineticLaw_t *kl,
-                      int          reversible,
-                      int          fast );
-
-
-/** @cond doxygen-libsbml-internal */
-LIBSBML_EXTERN
-Reaction_t *
-Reaction_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns);
-/** @endcond doxygen-libsbml-internal */
+Reaction_createWithNS (SBMLNamespaces_t *sbmlns);
 
 
 LIBSBML_EXTERN
@@ -1236,57 +1515,57 @@ Reaction_isSetFast (const Reaction_t *r);
 
 
 LIBSBML_EXTERN
-void
+int
 Reaction_setId (Reaction_t *r, const char *sid);
 
 
 LIBSBML_EXTERN
-void
+int
 Reaction_setName (Reaction_t *r, const char *name);
 
 
 LIBSBML_EXTERN
-void
+int
 Reaction_setKineticLaw (Reaction_t *r, const KineticLaw_t *kl);
 
 
 LIBSBML_EXTERN
-void
+int
 Reaction_setReversible (Reaction_t *r, int value);
 
 
 LIBSBML_EXTERN
-void
+int
 Reaction_setFast (Reaction_t *r, int value);
 
 
 LIBSBML_EXTERN
-void
+int
 Reaction_unsetName (Reaction_t *r);
 
 
 LIBSBML_EXTERN
-void
+int
 Reaction_unsetKineticLaw (Reaction_t *r);
 
 
 LIBSBML_EXTERN
-void
+int
 Reaction_unsetFast (Reaction_t *r);
 
 
 LIBSBML_EXTERN
-void
+int
 Reaction_addReactant (Reaction_t *r, const SpeciesReference_t *sr);
 
 
 LIBSBML_EXTERN
-void
+int
 Reaction_addProduct (Reaction_t *r, const SpeciesReference_t *sr);
 
 
 LIBSBML_EXTERN
-void
+int
 Reaction_addModifier (Reaction_t *r, const SpeciesReference_t *msr);
 
 
@@ -1370,8 +1649,48 @@ unsigned int
 Reaction_getNumModifiers (const Reaction_t *r);
 
 
-END_C_DECLS
+LIBSBML_EXTERN
+SpeciesReference_t *
+Reaction_removeReactant (Reaction_t *r, unsigned int n);
 
+
+LIBSBML_EXTERN
+SpeciesReference_t *
+Reaction_removeReactantBySpecies (Reaction_t *r, const char *species);
+
+
+LIBSBML_EXTERN
+SpeciesReference_t *
+Reaction_removeProduct (Reaction_t *r, unsigned int n);
+
+
+LIBSBML_EXTERN
+SpeciesReference_t *
+Reaction_removeProductBySpecies (Reaction_t *r, const char *species);
+
+
+LIBSBML_EXTERN
+SpeciesReference_t *
+Reaction_removeModifier (Reaction_t *r, unsigned int n);
+
+
+LIBSBML_EXTERN
+SpeciesReference_t *
+Reaction_removeModifierBySpecies (Reaction_t *r, const char *species);
+
+
+LIBSBML_EXTERN
+Reaction_t *
+ListOfReactions_getById (ListOf_t *lo, const char *sid);
+
+
+LIBSBML_EXTERN
+Reaction_t *
+ListOfReactions_removeById (ListOf_t *lo, const char *sid);
+
+
+END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
 #endif  /* Reaction_h */

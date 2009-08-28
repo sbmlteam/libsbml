@@ -41,6 +41,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /*
  * Creates a new SBMLReader and returns it. 
@@ -128,7 +129,7 @@ SBMLReader::readSBMLFromString (const std::string& xml)
 bool 
 SBMLReader::hasZlib() 
 {
-  return ::hasZlib();
+  return LIBSBML_CPP_NAMESPACE ::hasZlib();
 }
 
 
@@ -141,7 +142,7 @@ SBMLReader::hasZlib()
 bool 
 SBMLReader::hasBzip2() 
 {
-  return ::hasBzip2();
+  return LIBSBML_CPP_NAMESPACE ::hasBzip2();
 }
 
 
@@ -466,5 +467,6 @@ readSBMLFromString (const char *xml)
   return sr.readSBMLFromString(xml);
 }
 
+LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond doxygen-c-only */

@@ -29,6 +29,8 @@
 #include <sbml/Compartment.h>
 #include <sbml/SpeciesReference.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+/** @cond doxygen-libsbml-internal **/
 
 /** @cond doxygen-libsbml-internal **/
 
@@ -43,7 +45,7 @@ static const char* ASSIGNED_COMPARTMENT = "AssignedName";
  * Model to be changed.
  */
 void 
-Model::convertToL1 ()
+Model::convertToL1 (bool strict)
 {
   //
   // Level 2 allows a model to be specified without a Compartment.  However
@@ -58,6 +60,14 @@ Model::convertToL1 ()
     {
       getSpecies(n)->setCompartment(ASSIGNED_COMPARTMENT);
     }
+  }
+
+  /* make sure underlying model is correct */
+  if (strict)
+  {
+    removeMetaId();
+    removeSBOTerms();
+    removeHasOnlySubstanceUnits();
   }
 }
 
@@ -142,8 +152,303 @@ Model::convertToL2 ()
       getCompartment(n)->setConstant(false);
     }
   }
+}
+
+/* the new strict setters mean that for a conversion to L2 to
+ * take place the model needs to think it still l1 for
+ * some actions and think it is already L2 for others
+ */
+void 
+Model::convertToL2Strict ()
+{
+  /* in L1 a parameterRule coulkd specify units
+   * for a strict conversion this attribute should be unset
+   */
+  for (unsigned int n = 0; n < getNumParameters(); n++)
+  {
+    if (getRule(getParameter(n)->getId()) != NULL)
+    {
+      getRule(getParameter(n)->getId())->unsetUnits();
+    }
+  }
 
 }
+
+/*
+ * Converts the model to a from SBML L2V? to L2V1. 
+ */
+void 
+Model::convertToL2V1 (bool strict)
+{
+  /* make sure underlying model is correct */
+  if (strict)
+  {
+    removeSBOTerms();
+  }
+}
+
+/*
+ * Converts the model to a from SBML L2V? to L2V2. 
+ */
+void 
+Model::convertToL2V2 (bool strict)
+{
+  /* make sure underlying model is correct */
+  if (strict)
+  {
+    removeSBOTermsNotInL2V2();
+  }
+}
+
+
+/* converting to l1 any metaid attributes should be removed */
+void
+Model::removeMetaId()
+{
+  unsigned int n, i;
+
+  unsetMetaId();
+  
+  for (n = 0; n < getNumUnitDefinitions(); n++)
+  {
+    getUnitDefinition(n)->unsetMetaId();
+    for (i = 0; i < getUnitDefinition(n)->getNumUnits(); i++)
+    {
+      getUnitDefinition(n)->getUnit(i)->unsetMetaId();
+    }
+  }
+
+  for (n = 0; n < getNumCompartments(); n++)
+  {
+    getCompartment(n)->unsetMetaId();
+  }
+
+  for (n = 0; n < getNumSpecies(); n++)
+  {
+    getSpecies(n)->unsetMetaId();
+  }
+
+  for (n = 0; n < getNumParameters(); n++)
+  {
+    getParameter(n)->unsetMetaId();
+  }
+
+  for (n = 0; n < getNumRules(); n++)
+  {
+    getRule(n)->unsetMetaId();
+  }
+
+  for (n = 0; n < getNumReactions(); n++)
+  {
+    getReaction(n)->unsetMetaId();
+    for (i = 0; i < getReaction(n)->getNumReactants(); i++)
+    {
+      getReaction(n)->getReactant(i)->unsetMetaId();
+    }
+    for (i = 0; i < getReaction(n)->getNumReactants(); i++)
+    {
+      getReaction(n)->getProduct(i)->unsetMetaId();
+    }
+    if (getReaction(n)->isSetKineticLaw())
+    {
+      getReaction(n)->getKineticLaw()->unsetMetaId();
+    }
+  }
+}
+
+
+/* converting to l1 or l2v1 any sboTerm attributes should be removed */
+
+void
+Model::removeSBOTerms()
+{
+  unsigned int n, i;
+
+  unsetSBOTerm();
+  
+  for (n = 0; n < getNumUnitDefinitions(); n++)
+  {
+    getUnitDefinition(n)->unsetSBOTerm();
+    for (i = 0; i < getUnitDefinition(n)->getNumUnits(); i++)
+    {
+      getUnitDefinition(n)->getUnit(i)->unsetSBOTerm();
+    }
+  }
+
+  for (n = 0; n < getNumCompartments(); n++)
+  {
+    getCompartment(n)->unsetSBOTerm();
+  }
+
+  for (n = 0; n < getNumSpecies(); n++)
+  {
+    getSpecies(n)->unsetSBOTerm();
+  }
+
+  for (n = 0; n < getNumParameters(); n++)
+  {
+    getParameter(n)->unsetSBOTerm();
+  }
+
+  for (n = 0; n < getNumRules(); n++)
+  {
+    getRule(n)->unsetSBOTerm();
+  }
+
+  for (n = 0; n < getNumReactions(); n++)
+  {
+    getReaction(n)->unsetSBOTerm();
+    for (i = 0; i < getReaction(n)->getNumReactants(); i++)
+    {
+      getReaction(n)->getReactant(i)->unsetSBOTerm();
+      if (getReaction(n)->getReactant(i)->isSetStoichiometryMath())
+      {
+        getReaction(n)->getReactant(i)->getStoichiometryMath()->unsetSBOTerm();
+      }
+    }
+    for (i = 0; i < getReaction(n)->getNumProducts(); i++)
+    {
+      getReaction(n)->getProduct(i)->unsetSBOTerm();
+      if (getReaction(n)->getProduct(i)->isSetStoichiometryMath())
+      {
+        getReaction(n)->getProduct(i)->getStoichiometryMath()->unsetSBOTerm();
+      }
+    }
+    for (i = 0; i < getReaction(n)->getNumModifiers(); i++)
+    {
+      getReaction(n)->getModifier(i)->unsetSBOTerm();
+    }
+    if (getReaction(n)->isSetKineticLaw())
+    {
+      getReaction(n)->getKineticLaw()->unsetSBOTerm();
+    }
+  }
+
+  for (n = 0; n < getNumFunctionDefinitions(); n++)
+  {
+    getFunctionDefinition(n)->unsetSBOTerm();
+  }
+
+  for (n = 0; n < getNumEvents(); n++)
+  {
+    getEvent(n)->unsetSBOTerm();
+    for (i = 0; i < getEvent(n)->getNumEventAssignments(); i++)
+    {
+      getEvent(n)->getEventAssignment(i)->unsetSBOTerm();
+    }
+    if (getEvent(n)->isSetTrigger())
+    {
+      getEvent(n)->getTrigger()->unsetSBOTerm();
+    }
+    if (getEvent(n)->isSetDelay())
+    {
+      getEvent(n)->getDelay()->unsetSBOTerm();
+    }
+  }
+
+}
+
+/* converting to l1 any hasOnlySubstanceUnits attributes should be removed */
+void
+Model::removeHasOnlySubstanceUnits()
+{
+  for (unsigned int i = 0; i < getNumSpecies(); i++)
+  {
+    getSpecies(i)->setHasOnlySubstanceUnits(false);
+  }
+}
+
+/* converting to l2v2 some sboTerm attributes should be removed */
+
+void
+Model::removeSBOTermsNotInL2V2()
+{
+  unsigned int n, i;
+
+  for (n = 0; n < getNumUnitDefinitions(); n++)
+  {
+    getUnitDefinition(n)->unsetSBOTerm();
+    for (i = 0; i < getUnitDefinition(n)->getNumUnits(); i++)
+    {
+      getUnitDefinition(n)->getUnit(i)->unsetSBOTerm();
+    }
+  }
+
+  for (n = 0; n < getNumCompartments(); n++)
+  {
+    getCompartment(n)->unsetSBOTerm();
+  }
+
+  for (n = 0; n < getNumSpecies(); n++)
+  {
+    getSpecies(n)->unsetSBOTerm();
+  }
+
+  for (n = 0; n < getNumCompartmentTypes(); n++)
+  {
+    getCompartmentType(n)->unsetSBOTerm();
+  }
+
+  for (n = 0; n < getNumSpeciesTypes(); n++)
+  {
+    getSpeciesType(n)->unsetSBOTerm();
+  }
+
+
+  for (n = 0; n < getNumReactions(); n++)
+  {
+    for (i = 0; i < getReaction(n)->getNumReactants(); i++)
+    {
+      if (getReaction(n)->getReactant(i)->isSetStoichiometryMath())
+      {
+        getReaction(n)->getReactant(i)->getStoichiometryMath()->unsetSBOTerm();
+      }
+    }
+    for (i = 0; i < getReaction(n)->getNumProducts(); i++)
+    {
+      if (getReaction(n)->getProduct(i)->isSetStoichiometryMath())
+      {
+        getReaction(n)->getProduct(i)->getStoichiometryMath()->unsetSBOTerm();
+      }
+    }
+  }
+
+  for (n = 0; n < getNumEvents(); n++)
+  {
+    if (getEvent(n)->isSetTrigger())
+    {
+      getEvent(n)->getTrigger()->unsetSBOTerm();
+    }
+    if (getEvent(n)->isSetDelay())
+    {
+      getEvent(n)->getDelay()->unsetSBOTerm();
+    }
+  }
+
+}
+
+//bool
+//Model::remove(XMLNode& ann)
+//{
+//  bool resetNecessary = false;
+//  //make a copy to work with
+//  XMLNode * newAnnotation = ann->clone();
+//
+//  unsigned int numChildren = newAnnotation->getNumChildren();
+//  if (numChildren == 1)
+//    return resetNecessary;
+//  for (unsigned int i = 0; i < numChildren; i++)
+//  {
+//    std::string name = newAnnotation->getChild(i).getName();
+//    for (unsigned int j = i+1; j < numChildren; j++)
+//    {
+//      if (name == newAnnotation->getChild(j).getName())
+//      {
+//        resetNecessary = true;
+//      }
+//    }
+//  }
+//}
 void
 Model::removeDuplicateTopLevelAnnotations()
 {
@@ -299,5 +604,7 @@ Model::removeDuplicateTopLevelAnnotations()
   }
 }
 
-
 /** @endcond doxygen-libsbml-internal **/
+
+LIBSBML_CPP_NAMESPACE_END
+

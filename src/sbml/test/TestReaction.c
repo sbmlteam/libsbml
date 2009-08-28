@@ -63,7 +63,7 @@ static Reaction_t *R;
 void
 ReactionTest_setup (void)
 {
-  R = Reaction_create();
+  R = Reaction_create(2, 4);
 
   if (R == NULL)
   {
@@ -103,37 +103,37 @@ START_TEST (test_Reaction_create)
 END_TEST
 
 
-START_TEST (test_Reaction_createWith)
-{
-  KineticLaw_t *kl = KineticLaw_create();
-  Reaction_t   *r  = Reaction_createWithKineticLaw("r1", "", kl, 0, 1);
-
-
-  fail_unless( SBase_getTypeCode  ((SBase_t *) r) == SBML_REACTION );
-  fail_unless( SBase_getMetaId    ((SBase_t *) r) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) r) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) r) == NULL );
-
-  fail_unless( Reaction_getName(r) == NULL );
-
-  fail_unless( !strcmp(Reaction_getId(r), "r1") );
-
-  //fail_unless( Reaction_getKineticLaw(r) == kl );
-  fail_unless( Reaction_getReversible(r) ==  0 );
-  fail_unless( Reaction_getFast      (r) ==  1 );
-
-  fail_unless( Reaction_isSetId        (r) );
-  fail_unless( !Reaction_isSetName     (r) );
-  fail_unless( Reaction_isSetKineticLaw(r) );
-
-  fail_unless( Reaction_getNumReactants(r) == 0 );
-  fail_unless( Reaction_getNumProducts (r) == 0 );
-  fail_unless( Reaction_getNumModifiers(r) == 0 );
-
-  KineticLaw_free(kl);
-  Reaction_free(r);
-}
-END_TEST
+//START_TEST (test_Reaction_createWith)
+//{
+//  KineticLaw_t *kl = KineticLaw_create(2, 4);
+//  Reaction_t   *r  = Reaction_createWithKineticLaw("r1", "", kl, 0, 1);
+//
+//
+//  fail_unless( SBase_getTypeCode  ((SBase_t *) r) == SBML_REACTION );
+//  fail_unless( SBase_getMetaId    ((SBase_t *) r) == NULL );
+//  fail_unless( SBase_getNotes     ((SBase_t *) r) == NULL );
+//  fail_unless( SBase_getAnnotation((SBase_t *) r) == NULL );
+//
+//  fail_unless( Reaction_getName(r) == NULL );
+//
+//  fail_unless( !strcmp(Reaction_getId(r), "r1") );
+//
+//  //fail_unless( Reaction_getKineticLaw(r) == kl );
+//  fail_unless( Reaction_getReversible(r) ==  0 );
+//  fail_unless( Reaction_getFast      (r) ==  1 );
+//
+//  fail_unless( Reaction_isSetId        (r) );
+//  fail_unless( !Reaction_isSetName     (r) );
+//  fail_unless( Reaction_isSetKineticLaw(r) );
+//
+//  fail_unless( Reaction_getNumReactants(r) == 0 );
+//  fail_unless( Reaction_getNumProducts (r) == 0 );
+//  fail_unless( Reaction_getNumModifiers(r) == 0 );
+//
+//  KineticLaw_free(kl);
+//  Reaction_free(r);
+//}
+//END_TEST
 
 
 START_TEST (test_Reaction_free_NULL)
@@ -175,7 +175,7 @@ END_TEST
 
 START_TEST (test_Reaction_setName)
 {
-  char *name = "MapK Cascade";
+  char *name = "MapK_Cascade";
 
 
   Reaction_setName(R, name);
@@ -205,7 +205,8 @@ END_TEST
 
 START_TEST (test_Reaction_addReactant)
 {
-  SpeciesReference_t *sr = SpeciesReference_create();
+  SpeciesReference_t *sr = SpeciesReference_create(2, 4);
+  SpeciesReference_setSpecies(sr, "s");
   Reaction_addReactant(R, sr);
 
   fail_unless( Reaction_getNumReactants(R) == 1 );
@@ -219,7 +220,9 @@ END_TEST
 
 START_TEST (test_Reaction_addProduct)
 {
-  SpeciesReference_t *sr = SpeciesReference_create();
+  SpeciesReference_t *sr = SpeciesReference_create(2, 4);
+  SpeciesReference_setSpecies(sr, "s");
+  
   Reaction_addProduct(R, sr);
 
   fail_unless( Reaction_getNumReactants(R) == 0 );
@@ -233,7 +236,9 @@ END_TEST
 
 START_TEST (test_Reaction_addModifier)
 {
-  Reaction_addModifier(R, SpeciesReference_createModifier());
+  SpeciesReference_t * msr = SpeciesReference_createModifier(2, 4);
+  SpeciesReference_setSpecies(msr, "s");
+  Reaction_addModifier(R, msr);
 
   fail_unless( Reaction_getNumReactants(R) == 0 );
   fail_unless( Reaction_getNumProducts (R) == 0 );
@@ -244,8 +249,8 @@ END_TEST
 
 START_TEST (test_Reaction_getReactant)
 {
-  SpeciesReference_t *sr1 = SpeciesReference_create();
-  SpeciesReference_t *sr2 = SpeciesReference_create();
+  SpeciesReference_t *sr1 = SpeciesReference_create(2, 4);
+  SpeciesReference_t *sr2 = SpeciesReference_create(2, 4);
 
 
   SpeciesReference_setSpecies(sr1, "R1");
@@ -274,8 +279,10 @@ END_TEST
 
 START_TEST (test_Reaction_getReactantById)
 {
-  SpeciesReference_t *sr1 = SpeciesReference_createWithSpeciesAndStoichiometry("R1", 1, 1);
-  SpeciesReference_t *sr2 = SpeciesReference_createWithSpeciesAndStoichiometry("R2", 1, 1);
+  SpeciesReference_t *sr1 = SpeciesReference_create(2, 4);
+  SpeciesReference_setSpecies(sr1, "R1");
+  SpeciesReference_t *sr2 = SpeciesReference_create(2, 4);
+  SpeciesReference_setSpecies(sr2, "R2");
 
 
   Reaction_addReactant(R, sr1);
@@ -297,8 +304,8 @@ END_TEST
 
 START_TEST (test_Reaction_getProduct)
 {
-  SpeciesReference_t *sr1 = SpeciesReference_create();
-  SpeciesReference_t *sr2 = SpeciesReference_create();
+  SpeciesReference_t *sr1 = SpeciesReference_create(2, 4);
+  SpeciesReference_t *sr2 = SpeciesReference_create(2, 4);
 
 
   SpeciesReference_setSpecies(sr1, "P1");
@@ -326,8 +333,10 @@ END_TEST
 
 START_TEST (test_Reaction_getProductById)
 {
-  SpeciesReference_t *sr1 = SpeciesReference_createWithSpeciesAndStoichiometry("P1", 1, 1);
-  SpeciesReference_t *sr2 = SpeciesReference_createWithSpeciesAndStoichiometry("P2", 1, 1);
+  SpeciesReference_t *sr1 = SpeciesReference_create(2, 4);
+  SpeciesReference_setSpecies(sr1, "P1");
+  SpeciesReference_t *sr2 = SpeciesReference_create(2, 4);
+  SpeciesReference_setSpecies(sr2, "P1");
 
 
   Reaction_addProduct(R, sr1);
@@ -349,8 +358,8 @@ END_TEST
 
 START_TEST (test_Reaction_getModifier)
 {
-  SpeciesReference_t *msr1 = SpeciesReference_createModifier();
-  SpeciesReference_t *msr2 = SpeciesReference_createModifier();
+  SpeciesReference_t *msr1 = SpeciesReference_createModifier(2, 4);
+  SpeciesReference_t *msr2 = SpeciesReference_createModifier(2, 4);
 
 
   SpeciesReference_setSpecies(msr1, "M1");
@@ -377,8 +386,8 @@ END_TEST
 
 START_TEST (test_Reaction_getModifierById)
 {
-  SpeciesReference_t *msr1 = SpeciesReference_createModifier();
-  SpeciesReference_t *msr2 = SpeciesReference_createModifier();
+  SpeciesReference_t *msr1 = SpeciesReference_createModifier(2, 4);
+  SpeciesReference_t *msr2 = SpeciesReference_createModifier(2, 4);
 
 
   SpeciesReference_setSpecies(msr1, "M1");
@@ -402,13 +411,15 @@ START_TEST (test_Reaction_getModifierById)
 END_TEST
 
 
-START_TEST (test_Reaction_createWithLevelVersionAndNamespace)
+START_TEST (test_Reaction_createWithNS )
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
-  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "testsbml");
+  SBMLNamespaces_t *sbmlns = SBMLNamespaces_create(2,1);
+  SBMLNamespaces_addNamespaces(sbmlns,xmlns);
 
   Reaction_t *object = 
-    Reaction_createWithLevelVersionAndNamespaces(2, 1, xmlns);
+    Reaction_createWithNS (sbmlns);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_REACTION );
@@ -420,9 +431,78 @@ START_TEST (test_Reaction_createWithLevelVersionAndNamespace)
   fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
 
   fail_unless( Reaction_getNamespaces     (object) != NULL );
-  fail_unless( XMLNamespaces_getLength(Reaction_getNamespaces(object)) == 1 );
+  fail_unless( XMLNamespaces_getLength(Reaction_getNamespaces(object)) == 2 );
 
   Reaction_free(object);
+}
+END_TEST
+
+
+START_TEST (test_Reaction_removeReactant)
+{
+  SpeciesReference_t *o1, *o2, *o3;
+
+  o1 = Reaction_createReactant(R);
+  o2 = Reaction_createReactant(R);
+  o3 = Reaction_createReactant(R);
+  SpeciesReference_setSpecies(o3,"test");
+
+  fail_unless( Reaction_removeReactant(R,0) == o1 );
+  fail_unless( Reaction_getNumReactants(R)  == 2  );
+  fail_unless( Reaction_removeReactant(R,0) == o2 );
+  fail_unless( Reaction_getNumReactants(R)  == 1  );
+  fail_unless( Reaction_removeReactantBySpecies(R,"test") == o3 );
+  fail_unless( Reaction_getNumReactants(R)  == 0  );
+
+  SpeciesReference_free(o1);
+  SpeciesReference_free(o2);
+  SpeciesReference_free(o3);
+}
+END_TEST
+
+
+START_TEST (test_Reaction_removeProduct)
+{
+  SpeciesReference_t *o1, *o2, *o3;
+
+  o1 = Reaction_createProduct(R);
+  o2 = Reaction_createProduct(R);
+  o3 = Reaction_createProduct(R);
+  SpeciesReference_setSpecies(o3,"test");
+
+  fail_unless( Reaction_removeProduct(R,0) == o1 );
+  fail_unless( Reaction_getNumProducts(R)  == 2  );
+  fail_unless( Reaction_removeProduct(R,0) == o2 );
+  fail_unless( Reaction_getNumProducts(R)  == 1  );
+  fail_unless( Reaction_removeProductBySpecies(R,"test") == o3 );
+  fail_unless( Reaction_getNumProducts(R)  == 0  );
+
+  SpeciesReference_free(o1);
+  SpeciesReference_free(o2);
+  SpeciesReference_free(o3);
+}
+END_TEST
+
+
+START_TEST (test_Reaction_removeModifier)
+{
+  SpeciesReference_t *o1, *o2, *o3;
+
+  o1 = Reaction_createModifier(R);
+  o2 = Reaction_createModifier(R);
+  o3 = Reaction_createModifier(R);
+  SpeciesReference_setSpecies(o3,"test");
+
+  fail_unless( Reaction_removeModifier(R,0) == o1 );
+  fail_unless( Reaction_getNumModifiers(R)  == 2  );
+  fail_unless( Reaction_removeModifier(R,0) == o2 );
+  fail_unless( Reaction_getNumModifiers(R)  == 1  );
+  fail_unless( Reaction_removeModifierBySpecies(R,"test") == o3 );
+  fail_unless( Reaction_getNumModifiers(R)  == 0  );
+
+  SpeciesReference_free(o1);
+  SpeciesReference_free(o2);
+  SpeciesReference_free(o3);
 }
 END_TEST
 
@@ -437,7 +517,7 @@ create_suite_Reaction (void)
   tcase_add_checked_fixture(tcase, ReactionTest_setup, ReactionTest_teardown);
 
   tcase_add_test( tcase, test_Reaction_create          );
-  tcase_add_test( tcase, test_Reaction_createWith      );
+  //tcase_add_test( tcase, test_Reaction_createWith      );
   tcase_add_test( tcase, test_Reaction_free_NULL       );
   tcase_add_test( tcase, test_Reaction_setId           );
   tcase_add_test( tcase, test_Reaction_setName         );
@@ -450,7 +530,10 @@ create_suite_Reaction (void)
   tcase_add_test( tcase, test_Reaction_getProductById  );
   tcase_add_test( tcase, test_Reaction_getModifier     );
   tcase_add_test( tcase, test_Reaction_getModifierById );
-  tcase_add_test( tcase, test_Reaction_createWithLevelVersionAndNamespace        );
+  tcase_add_test( tcase, test_Reaction_createWithNS         );
+  tcase_add_test( tcase, test_Reaction_removeReactant  );
+  tcase_add_test( tcase, test_Reaction_removeProduct   );
+  tcase_add_test( tcase, test_Reaction_removeModifier  );
 
   suite_add_tcase(suite, tcase);
 

@@ -53,6 +53,7 @@
 /** @cond doxygen-ignored */
 
 using namespace std;
+LIBSBML_CPP_NAMESPACE_USE
 
 /** @endcond doxygen-ignored */
 
@@ -60,8 +61,9 @@ using namespace std;
 CK_CPPSTART
 START_TEST ( test_Compartment_ancestor_add )
 {
-  Compartment *c = new Compartment();
-  Model *m = new Model();
+  Compartment *c = new Compartment(2, 4);
+  c->setId("C");
+  Model *m = new Model(2, 4);
 
   m->addCompartment(c);
 
@@ -81,9 +83,10 @@ END_TEST
 
 START_TEST ( test_CompartmentType_ancestor_add )
 {
-  CompartmentType *ct = new CompartmentType();
-  Model *m = new Model();
+  CompartmentType *ct = new CompartmentType(2, 4);
+  Model *m = new Model(2, 4);
 
+  ct->setId("ct");
   m->addCompartmentType(ct);
 
   delete ct;
@@ -101,9 +104,10 @@ END_TEST
 
 START_TEST ( test_Constraint_ancestor_add )
 {
-  Constraint *ct = new Constraint();
-  Model *m = new Model();
+  Constraint *ct = new Constraint(2, 4);
+  Model *m = new Model(2, 4);
 
+  ct->setMath(SBML_parseFormula("k+k"));
   m->addConstraint(ct);
 
   delete ct;
@@ -121,8 +125,8 @@ END_TEST
 
 START_TEST ( test_Delay_ancestor_add )
 {
-  Delay *d = new Delay();
-  Event *e = new Event();
+  Delay *d = new Delay(2, 4);
+  Event *e = new Event(2, 4);
 
   e->setDelay(d);
 
@@ -141,8 +145,11 @@ END_TEST
 
 START_TEST ( test_Event_ancestor_add )
 {
-  Event *e = new Event();
-  Model *m = new Model();
+  Event *e = new Event(2, 4);
+  Model *m = new Model(2, 4);
+  Trigger *t = new Trigger(2, 4);
+  e->setTrigger(t);
+  e->createEventAssignment();
 
   m->addEvent(e);
 
@@ -161,8 +168,10 @@ END_TEST
 
 START_TEST ( test_EventAssignment_ancestor_add )
 {
-  Event *e = new Event();
-  EventAssignment *ea = new EventAssignment();
+  Event *e = new Event(2, 4);
+  EventAssignment *ea = new EventAssignment(2, 4);
+  ea->setVariable("c");
+  ea->setMath(SBML_parseFormula("K+L"));
 
   e->addEventAssignment(ea);
 
@@ -182,8 +191,10 @@ END_TEST
 
 START_TEST ( test_FunctionDefinition_ancestor_add )
 {
-  FunctionDefinition *fd = new FunctionDefinition();
-  Model *m = new Model();
+  FunctionDefinition *fd = new FunctionDefinition(2, 4);
+  Model *m = new Model(2, 4);
+  fd->setId("fd");
+  fd->setMath(SBML_parseFormula("l"));
 
   m->addFunctionDefinition(fd);
 
@@ -202,8 +213,10 @@ END_TEST
 
 START_TEST ( test_InitialAssignment_ancestor_add )
 {
-  InitialAssignment *ia = new InitialAssignment();
-  Model *m = new Model();
+  InitialAssignment *ia = new InitialAssignment(2, 4);
+  Model *m = new Model(2, 4);
+  ia->setSymbol("c");
+  ia->setMath(SBML_parseFormula("9"));
 
   m->addInitialAssignment(ia);
 
@@ -222,9 +235,9 @@ END_TEST
 
 START_TEST ( test_KineticLaw_ancestor_add )
 {
-  KineticLaw* kl=new KineticLaw();
+  KineticLaw* kl=new KineticLaw(2, 4);
   
-  Reaction * r = new Reaction();
+  Reaction * r = new Reaction(2, 4);
 
   r->setKineticLaw(kl);
   KineticLaw *obj = r->getKineticLaw();
@@ -240,9 +253,10 @@ END_TEST
 
 START_TEST ( test_KineticLaw_Parameter_ancestor_add )
 {
-  KineticLaw* kl=new KineticLaw();
+  KineticLaw* kl=new KineticLaw(2, 4);
   
-  Parameter * p = new Parameter("jake");
+  Parameter *p = new Parameter(2, 4);
+  p->setId("jake");
   kl->addParameter(p);
   delete p;
 
@@ -261,8 +275,8 @@ END_TEST
 
 START_TEST ( test_Model_ancestor_add )
 {
-  SBMLDocument *d = new SBMLDocument();
-  Model *m = new Model();
+  SBMLDocument *d = new SBMLDocument(2, 4);
+  Model *m = new Model(2, 4);
 
   d->setModel(m);
 
@@ -275,8 +289,9 @@ END_TEST
 
 START_TEST ( test_Parameter_ancestor_add )
 {
-  Parameter *ia = new Parameter();
-  Model *m = new Model();
+  Parameter *ia = new Parameter(2, 4);
+  Model *m = new Model(2, 4);
+  ia->setId("p");
 
   m->addParameter(ia);
 
@@ -295,8 +310,9 @@ END_TEST
 
 START_TEST ( test_Reaction_ancestor_add )
 {
-  Reaction *ia = new Reaction();
-  Model *m = new Model();
+  Reaction *ia = new Reaction(2, 4);
+  Model *m = new Model(2, 4);
+  ia->setId("k");
 
   m->addReaction(ia);
 
@@ -316,8 +332,11 @@ END_TEST
 
 START_TEST ( test_Rule_ancestor_add )
 {
-  Rule *ia = new RateRule("a");
-  Model *m = new Model();
+  Rule *ia = new RateRule(2, 4);
+  ia->setVariable("a");
+  ia->setMath(SBML_parseFormula("9"));
+
+  Model *m = new Model(2, 4);
 
   m->addRule(ia);
 
@@ -337,8 +356,10 @@ END_TEST
 
 START_TEST ( test_Species_ancestor_add )
 {
-  Species *ia = new Species();
-  Model *m = new Model();
+  Species *ia = new Species(2, 4);
+  Model *m = new Model(2, 4);
+  ia->setId("s");
+  ia->setCompartment("c");
 
   m->addSpecies(ia);
 
@@ -358,8 +379,9 @@ END_TEST
 
 START_TEST ( test_SpeciesReference_Product_ancestor_add )
 {
-  SpeciesReference *sr = new SpeciesReference();
-  Reaction *r = new Reaction();
+  SpeciesReference *sr = new SpeciesReference(2, 4);
+  Reaction *r = new Reaction(2, 4);
+  sr->setSpecies("p");
 
   r->addProduct(sr);
 
@@ -378,8 +400,9 @@ END_TEST
 
 START_TEST ( test_SpeciesReference_Reactant_ancestor_add )
 {
-  SpeciesReference *sr = new SpeciesReference();
-  Reaction *r = new Reaction();
+  SpeciesReference *sr = new SpeciesReference(2, 4);
+  Reaction *r = new Reaction(2, 4);
+  sr->setSpecies("s");
 
   r->addReactant(sr);
 
@@ -398,8 +421,9 @@ END_TEST
 
 START_TEST ( test_SpeciesReference_Modifier_ancestor_add )
 {
-  ModifierSpeciesReference *sr = new ModifierSpeciesReference();
-  Reaction *r = new Reaction();
+  ModifierSpeciesReference *sr = new ModifierSpeciesReference(2, 4);
+  sr->setSpecies("s");
+  Reaction *r = new Reaction(2, 4);
 
   r->addModifier(sr);
 
@@ -418,8 +442,9 @@ END_TEST
 
 START_TEST ( test_SpeciesType_ancestor_add )
 {
-  SpeciesType *ia = new SpeciesType();
-  Model *m = new Model();
+  SpeciesType *ia = new SpeciesType(2, 4);
+  Model *m = new Model(2, 4);
+  ia->setId("s");
 
   m->addSpeciesType(ia);
 
@@ -438,8 +463,8 @@ END_TEST
 
 START_TEST ( test_StoichiometryMath_ancestor_add )
 {
-  StoichiometryMath *m = new StoichiometryMath();
-  SpeciesReference *sr = new SpeciesReference();
+  StoichiometryMath *m = new StoichiometryMath(2, 4);
+  SpeciesReference *sr = new SpeciesReference(2, 4);
 
   sr->setStoichiometryMath(m);
 
@@ -458,8 +483,8 @@ END_TEST
 
 START_TEST ( test_Trigger_ancestor_add )
 {
-  Trigger *d = new Trigger();
-  Event *e = new Event();
+  Trigger *d = new Trigger(2, 4);
+  Event *e = new Event(2, 4);
 
   e->setTrigger(d);
 
@@ -478,9 +503,10 @@ END_TEST
 
 START_TEST ( test_Unit_ancestor_add )
 {
-  UnitDefinition* ud=new UnitDefinition();
+  UnitDefinition* ud=new UnitDefinition(2, 4);
   
-  Unit * u = new Unit();
+  Unit * u = new Unit(2, 4);
+  u->setKind(UNIT_KIND_MOLE);
   ud->addUnit(u);
   delete u;
 
@@ -501,8 +527,10 @@ END_TEST
 
 START_TEST ( test_UnitDefinition_ancestor_add )
 {
-  UnitDefinition *ia = new UnitDefinition();
-  Model *m = new Model();
+  UnitDefinition *ia = new UnitDefinition(2, 4);
+  Model *m = new Model(2, 4);
+  ia->setId("u");
+  ia->createUnit();
 
   m->addUnitDefinition(ia);
 
@@ -521,7 +549,7 @@ END_TEST
 
 START_TEST ( test_Compartment_ancestor_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   Compartment *c = m->createCompartment();
 
   ListOf *lo = m->getListOfCompartments();
@@ -543,7 +571,7 @@ END_TEST
 
 START_TEST ( test_CompartmentType_ancestor_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   CompartmentType *ct = m->createCompartmentType();
 
   ListOf *lo = m->getListOfCompartmentTypes();
@@ -565,7 +593,7 @@ END_TEST
 
 START_TEST ( test_Constraint_ancestor_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   Constraint *ct = m->createConstraint();
 
   ListOf *lo = m->getListOfConstraints();
@@ -587,7 +615,7 @@ END_TEST
 
 START_TEST ( test_Delay_ancestor_create )
 {
-  Event *e = new Event();
+  Event *e = new Event(2, 4);
 
   Delay *ea = e->createDelay();
 
@@ -606,7 +634,7 @@ END_TEST
 
 START_TEST ( test_Delay_ancestor_create_model )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   Event *e = m->createEvent();
 
   Delay *ea = m->createDelay();
@@ -628,7 +656,7 @@ END_TEST
 
 START_TEST ( test_Event_ancestor_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   Event *e = m->createEvent();
 
   ListOf *lo = m->getListOfEvents();
@@ -650,7 +678,7 @@ END_TEST
 
 START_TEST ( test_EventAssignment_ancestor_create )
 {
-  Event *e = new Event();
+  Event *e = new Event(2, 4);
 
   EventAssignment *ea = e->createEventAssignment();
 
@@ -673,7 +701,7 @@ END_TEST
 
 START_TEST ( test_EventAssignment_ancestor_create_model )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   Event *e = m->createEvent();
 
   EventAssignment *ea = m->createEventAssignment();
@@ -699,7 +727,7 @@ END_TEST
 
 START_TEST ( test_FunctionDefinition_ancestor_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   FunctionDefinition *fd = m->createFunctionDefinition();
 
   ListOf *lo = m->getListOfFunctionDefinitions();
@@ -721,7 +749,7 @@ END_TEST
 
 START_TEST ( test_InitialAssignment_ancestor_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   InitialAssignment *ia = m->createInitialAssignment();
 
   ListOf *lo = m->getListOfInitialAssignments();
@@ -743,7 +771,7 @@ END_TEST
 
 START_TEST ( test_KineticLaw_ancestor_create )
 {
-  Reaction * r = new Reaction();
+  Reaction * r = new Reaction(2, 4);
   KineticLaw* kl = r->createKineticLaw();
 
   fail_unless(kl->getAncestorOfType(SBML_REACTION) == r);
@@ -765,7 +793,7 @@ END_TEST
 
 START_TEST ( test_KineticLaw_ancestor_create_model )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   Reaction * r = m->createReaction();
   KineticLaw* kl = r->createKineticLaw();
 
@@ -789,7 +817,7 @@ END_TEST
 
 START_TEST ( test_KineticLaw_Parameter_ancestor_create )
 {
-  KineticLaw* kl=new KineticLaw();
+  KineticLaw* kl=new KineticLaw(2, 4);
   Parameter * p = kl->createParameter();
 
   fail_unless(kl->getNumParameters() == 1);
@@ -815,7 +843,7 @@ END_TEST
 
 START_TEST ( test_KineticLaw_Parameter_ancestor_create_model )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   Reaction *r = m->createReaction();
   KineticLaw* kl = m->createKineticLaw();
   Parameter * p = m->createKineticLawParameter();
@@ -863,7 +891,7 @@ END_TEST
 
 START_TEST ( test_Parameter_ancestor_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   Parameter *p = m->createParameter();
 
   ListOf *lo = m->getListOfParameters();
@@ -885,7 +913,7 @@ END_TEST
 
 START_TEST ( test_Reaction_ancestor_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   Reaction *r = m->createReaction();
 
   ListOf *lo = m->getListOfReactions();
@@ -907,7 +935,7 @@ END_TEST
 
 START_TEST ( test_AlgebraicRule_ancestor_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   AlgebraicRule *r = m->createAlgebraicRule();
 
   ListOf *lo = m->getListOfRules();
@@ -929,7 +957,7 @@ END_TEST
 
 START_TEST ( test_AssignmentRule_ancestor_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   AssignmentRule *r = m->createAssignmentRule();
 
   ListOf *lo = m->getListOfRules();
@@ -951,7 +979,7 @@ END_TEST
 
 START_TEST ( test_RateRule_ancestor_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   RateRule *r = m->createRateRule();
 
   ListOf *lo = m->getListOfRules();
@@ -973,7 +1001,7 @@ END_TEST
 
 START_TEST ( test_Species_ancestor_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   Species *s = m->createSpecies();
 
   ListOf *lo = m->getListOfSpecies();
@@ -995,7 +1023,7 @@ END_TEST
 
 START_TEST ( test_SpeciesReference_Product_ancestor_create )
 {
-  Reaction *r = new Reaction();
+  Reaction *r = new Reaction(2, 4);
   SpeciesReference *sr = r->createProduct();
 
   ListOf *lo = r->getListOfProducts();
@@ -1018,7 +1046,7 @@ END_TEST
 
 START_TEST ( test_SpeciesReference_Product_ancestor_create_model )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   Reaction *r = m->createReaction();
   SpeciesReference *sr = m->createProduct();
 
@@ -1043,7 +1071,7 @@ END_TEST
 
 START_TEST ( test_SpeciesReference_Reactant_ancestor_create )
 {
-  Reaction *r = new Reaction();
+  Reaction *r = new Reaction(2, 4);
   SpeciesReference *sr = r->createReactant();
 
   ListOf *lo = r->getListOfReactants();
@@ -1065,7 +1093,7 @@ END_TEST
 
 START_TEST ( test_SpeciesReference_Reactant_ancestor_create_model )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   Reaction *r = m->createReaction();
   SpeciesReference *sr = m->createReactant();
 
@@ -1090,7 +1118,7 @@ END_TEST
 
 START_TEST ( test_SpeciesReference_Modifier_ancestor_create )
 {
-  Reaction *r = new Reaction();
+  Reaction *r = new Reaction(2, 4);
   ModifierSpeciesReference *sr = r->createModifier();
 
   ListOf *lo = r->getListOfModifiers();
@@ -1112,7 +1140,7 @@ END_TEST
 
 START_TEST ( test_SpeciesReference_Modifier_ancestor_create_model )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   Reaction *r = m->createReaction();
   ModifierSpeciesReference *sr = m->createModifier();
 
@@ -1137,7 +1165,7 @@ END_TEST
 
 START_TEST ( test_SpeciesType_ancestor_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   SpeciesType *st = m->createSpeciesType();
 
   ListOf *lo = m->getListOfSpeciesTypes();
@@ -1159,7 +1187,7 @@ END_TEST
 
 START_TEST ( test_StoichiometryMath_ancestor_create )
 {
-  SpeciesReference *sr = new SpeciesReference();
+  SpeciesReference *sr = new SpeciesReference(2, 4);
   StoichiometryMath *sm = sr->createStoichiometryMath();
 
   fail_unless(sm->getAncestorOfType(SBML_SPECIES_REFERENCE) == sr);
@@ -1178,7 +1206,7 @@ END_TEST
 
 START_TEST ( test_Trigger_ancestor_create )
 {
-  Event *e = new Event();
+  Event *e = new Event(2, 4);
 
   Trigger *ea = e->createTrigger();
 
@@ -1197,7 +1225,7 @@ END_TEST
 
 START_TEST ( test_Trigger_ancestor_create_model )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   Event *e = m->createEvent();
 
   Trigger *ea = m->createTrigger();
@@ -1219,7 +1247,7 @@ END_TEST
 
 START_TEST ( test_Unit_ancestor_create )
 {
-  UnitDefinition* ud = new UnitDefinition();
+  UnitDefinition* ud = new UnitDefinition(2, 4);
   Unit * u = ud->createUnit();
 
   fail_unless(ud->getNumUnits() == 1);
@@ -1245,7 +1273,7 @@ END_TEST
 
 START_TEST ( test_Unit_ancestor_create_model )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   UnitDefinition* ud = m->createUnitDefinition();
   Unit * u = m->createUnit();
 
@@ -1274,7 +1302,7 @@ END_TEST
 
 START_TEST ( test_UnitDefinition_ancestor_create )
 {
-  Model *m = new Model();
+  Model *m = new Model(2, 4);
   UnitDefinition *ud = m->createUnitDefinition();
 
   ListOf *lo = m->getListOfUnitDefinitions();

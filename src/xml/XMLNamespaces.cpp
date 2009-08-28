@@ -36,6 +36,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /*
  * Creates a new empty list of XML namespace declarations.
@@ -94,7 +95,7 @@ XMLNamespaces::clone () const
  * If there is an XML namespace with the given prefix in this list,
  * then the existing XML namespace will be overwritten by the new one.
  */
-void
+int
 XMLNamespaces::add (const std::string& uri, const std::string& prefix)
 {
   //
@@ -104,20 +105,24 @@ XMLNamespaces::add (const std::string& uri, const std::string& prefix)
   if ( hasPrefix(prefix) ) remove(prefix);
 
   mNamespaces.push_back( make_pair(prefix, uri) );
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
 /*
  * @param index an integer, position of the removed namespace.
  */
-void XMLNamespaces::remove (int index)
+int XMLNamespaces::remove (int index)
 {
-  if (index < 0 || index >= getLength()) return;
+  if (index < 0 || index >= getLength()) 
+  {
+    return LIBSBML_INDEX_EXCEEDS_SIZE;
+  }
 
   vector<PrefixURIPair>::iterator it = mNamespaces.begin() + index;
   mNamespaces.erase(it);
 
-  return;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -125,23 +130,36 @@ void XMLNamespaces::remove (int index)
 /*
  * @param prefix a string, prefix of the required namespace.
  */
-void XMLNamespaces::remove (const std::string& prefix)
+int XMLNamespaces::remove (const std::string& prefix)
 {
   int index = getIndexByPrefix(prefix);
-  if(index == -1) return;
+  if(index == -1) 
+  {
+    return LIBSBML_INDEX_EXCEEDS_SIZE;
+  }
 
   vector<PrefixURIPair>::iterator it = mNamespaces.begin() + index;
   mNamespaces.erase(it);
+
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
 /*
  * Clears (deletes) all XML namespace declarations.
  */
-void
+int
 XMLNamespaces::clear ()
 {
   mNamespaces.clear();
+  if (mNamespaces.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -396,13 +414,19 @@ XMLNamespaces_clone (const XMLNamespaces_t* ns)
  * @param ns XMLNamespaces structure.
  * @param uri a string, the uri for the namespace.
  * @param prefix a string, the prefix for the namespace.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBLAX_EXTERN
-void
+int
 XMLNamespaces_add (XMLNamespaces_t *ns, 
 		   const char *uri, const char *prefix)
 {
-  ns->add(uri, prefix);
+  return ns->add(uri, prefix);
 }
 
 
@@ -410,11 +434,18 @@ XMLNamespaces_add (XMLNamespaces_t *ns,
  * Removes an XML Namespace stored in the given position of this list.
  *
  * @param index an integer, position of the removed namespace.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INDEX_EXCEEDS_SIZE
  */
 LIBLAX_EXTERN
-void XMLNamespaces_remove (XMLNamespaces_t *ns, int index)
+int XMLNamespaces_remove (XMLNamespaces_t *ns, int index)
 {
-  ns->remove(index);
+  return ns->remove(index);
 }
 
 
@@ -422,11 +453,18 @@ void XMLNamespaces_remove (XMLNamespaces_t *ns, int index)
  * Removes an XML Namespace with the given Prefix.
  *
  * @param prefix a string, prefix of the required namespace.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INDEX_EXCEEDS_SIZE
  */
 LIBLAX_EXTERN
-void XMLNamespaces_removeByPrefix (XMLNamespaces_t *ns, const char* prefix)
+int XMLNamespaces_removeByPrefix (XMLNamespaces_t *ns, const char* prefix)
 {
-  ns->remove(prefix);
+  return ns->remove(prefix);
 }
 
 
@@ -435,12 +473,19 @@ void XMLNamespaces_removeByPrefix (XMLNamespaces_t *ns, const char* prefix)
  * Clears this XMLNamespaces_t structure.
  *
  * @param ns XMLNamespaces structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  **/
 LIBLAX_EXTERN
-void
+int
 XMLNamespaces_clear (XMLNamespaces_t *ns)
 {
-  ns->clear();
+  return ns->clear();
 }
 
 
@@ -618,3 +663,5 @@ XMLNamespaces_hasNS(const XMLNamespaces_t *ns, const char* uri, const char* pref
 
 
 /** @endcond doxygen-c-only */
+
+LIBSBML_CPP_NAMESPACE_END

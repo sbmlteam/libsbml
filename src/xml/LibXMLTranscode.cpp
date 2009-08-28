@@ -29,6 +29,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygen-libsbml-internal */
 
@@ -77,7 +78,7 @@ LibXMLTranscode::operator string ()
       // replaces &#38; (numeric character reference of '&') with '&'
       // 
       if ( str.length() >= NCRAmp.length() ) 
-        ::replaceAll(str, NCRAmp,"&");
+        LIBSBML_CPP_NAMESPACE ::replaceAll(str, NCRAmp,"&");
     }
 
     return str;
@@ -86,4 +87,6 @@ LibXMLTranscode::operator string ()
 
 
 /** @endcond doxygen-libsbml-internal */
+
+LIBSBML_CPP_NAMESPACE_END
 

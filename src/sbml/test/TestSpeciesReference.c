@@ -69,7 +69,7 @@ static SpeciesReference_t *SR;
 void
 SpeciesReferenceTest_setup (void)
 {
-  SR = SpeciesReference_create();
+  SR = SpeciesReference_create(2, 4);
 
   if (SR == NULL)
   {
@@ -103,31 +103,32 @@ START_TEST (test_SpeciesReference_create)
 END_TEST
 
 
-START_TEST (test_SpeciesReference_createWith)
-{
-  SpeciesReference_t *sr = SpeciesReference_createWithSpeciesAndStoichiometry("s3", 4, 2);
-
-
-  fail_unless( SBase_getTypeCode  ((SBase_t *) sr) == SBML_SPECIES_REFERENCE );
-  fail_unless( SBase_getMetaId    ((SBase_t *) sr) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) sr) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) sr) == NULL );
-
-  fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "s3") );
-
-  fail_unless( SpeciesReference_getStoichiometry(sr) == 4    );
-  fail_unless( SpeciesReference_getDenominator  (sr) == 2    );
-
-  fail_unless( SpeciesReference_isSetSpecies(sr) );
-
-  SpeciesReference_free(sr);
-}
-END_TEST
+//START_TEST (test_SpeciesReference_createWith)
+//{
+//  SpeciesReference_t *sr = SpeciesReference_createWithSpeciesAndStoichiometry("s3", 4, 2);
+//
+//
+//  fail_unless( SBase_getTypeCode  ((SBase_t *) sr) == SBML_SPECIES_REFERENCE );
+//  fail_unless( SBase_getMetaId    ((SBase_t *) sr) == NULL );
+//  fail_unless( SBase_getNotes     ((SBase_t *) sr) == NULL );
+//  fail_unless( SBase_getAnnotation((SBase_t *) sr) == NULL );
+//
+//  fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "s3") );
+//
+//  fail_unless( SpeciesReference_getStoichiometry(sr) == 4    );
+//  fail_unless( SpeciesReference_getDenominator  (sr) == 2    );
+//
+//  fail_unless( SpeciesReference_isSetSpecies(sr) );
+//
+//  SpeciesReference_free(sr);
+//}
+//END_TEST
 
 
 START_TEST (test_SpeciesReference_createModifier)
 {
-  SpeciesReference_t *sr = SpeciesReference_createModifier();
+  SpeciesReference_t *sr = 
+    SpeciesReference_createModifier(2, 4);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) sr) == SBML_MODIFIER_SPECIES_REFERENCE );
@@ -212,7 +213,8 @@ START_TEST (test_SpeciesReference_setStoichiometryMath)
 {
   const ASTNode_t *math = SBML_parseFormula("k3 / k2");
 
-  StoichiometryMath_t *stoich = StoichiometryMath_createWithMath(math);
+  StoichiometryMath_t *stoich = StoichiometryMath_create(2, 4);
+  StoichiometryMath_setMath(stoich, math);
   const StoichiometryMath_t * math1;
   char * formula;
 
@@ -234,13 +236,15 @@ START_TEST (test_SpeciesReference_setStoichiometryMath)
 END_TEST
 
 
-START_TEST (test_SpeciesReference_createWithLevelVersionAndNamespace)
+START_TEST (test_SpeciesReference_createWithNS )
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
-  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "testsbml");
+  SBMLNamespaces_t *sbmlns = SBMLNamespaces_create(2,1);
+  SBMLNamespaces_addNamespaces(sbmlns,xmlns);
 
   SpeciesReference_t *object = 
-    SpeciesReference_createWithLevelVersionAndNamespaces(2, 1, xmlns);
+    SpeciesReference_createWithNS (sbmlns);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_SPECIES_REFERENCE );
@@ -252,7 +256,8 @@ START_TEST (test_SpeciesReference_createWithLevelVersionAndNamespace)
   fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
 
   fail_unless( SpeciesReference_getNamespaces     (object) != NULL );
-  fail_unless( XMLNamespaces_getLength(SpeciesReference_getNamespaces(object)) == 1 );
+  fail_unless( XMLNamespaces_getLength(
+                      SpeciesReference_getNamespaces(object)) == 2 );
 
   SpeciesReference_free(object);
 }
@@ -271,13 +276,13 @@ create_suite_SpeciesReference (void)
                              SpeciesReferenceTest_teardown );
 
   tcase_add_test( tcase, test_SpeciesReference_create               );
-  tcase_add_test( tcase, test_SpeciesReference_createWith           );
+  //tcase_add_test( tcase, test_SpeciesReference_createWith           );
   tcase_add_test( tcase, test_SpeciesReference_createModifier           );
   tcase_add_test( tcase, test_SpeciesReference_free_NULL            );
   tcase_add_test( tcase, test_SpeciesReference_setSpecies           );
   tcase_add_test( tcase, test_SpeciesReference_setId           );
   tcase_add_test( tcase, test_SpeciesReference_setStoichiometryMath );
-  tcase_add_test( tcase, test_SpeciesReference_createWithLevelVersionAndNamespace        );
+  tcase_add_test( tcase, test_SpeciesReference_createWithNS         );
 
   suite_add_tcase(suite, tcase);
 

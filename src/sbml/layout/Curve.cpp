@@ -58,6 +58,8 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 /**
  * Creates a curve with an empty list of segments.
  */ 
@@ -285,13 +287,15 @@ Curve::Curve(const Curve& source):SBase(source)
  */
 Curve& Curve::operator=(const Curve& source)
 {
-    if(&source!=this)
-    {
-        this->SBase::operator=(source);
-        // copy the line segments
-        this->mCurveSegments=*source.getListOfCurveSegments();
-    }
-    return *this;
+  if(&source!=this)
+  {
+    this->SBase::operator=(source);
+    // copy the line segments
+    this->mCurveSegments=*source.getListOfCurveSegments();
+    
+  }
+  
+  return *this;
 }
 
 
@@ -394,11 +398,38 @@ XMLNode Curve::toXML() const
 
 ListOfLineSegments& ListOfLineSegments::operator=(const ListOfLineSegments& source)
 {
-    if(&source!=this)
+  if(&source!=this)
+  {
+    copySBaseAttributes(source,*this);
+    this->mLine=source.getLine();
+    this->mColumn=source.getColumn();
+    //if(this->mNamespaces!=NULL)
+    //{
+    //    delete this->mNamespaces;
+    //    this->mNamespaces=NULL;
+    //}
+    //if(source.getNamespaces()!=NULL)
+    //{
+    //  this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
+    //}
+    // clear the old list
+    unsigned int i=0,iMax=this->size();
+    while(i<iMax)
     {
-        this->ListOf::operator=(source);
+        LineSegment* ls=static_cast<LineSegment*>(this->remove(0));
+        delete ls;
+        ++i;
     }
-    return *this;
+    i=0;
+    iMax=source.size();
+    while(i<iMax)
+    {
+      this->append(source.get(i));
+      ++i;
+    }
+  }
+  
+  return *this;
 }
 
 ListOfLineSegments::ListOfLineSegments(const ListOfLineSegments& source)
@@ -663,4 +694,5 @@ Curve_clone (const Curve_t *m)
   return static_cast<Curve*>( m->clone() );
 }
 
+LIBSBML_CPP_NAMESPACE_END
 

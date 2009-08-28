@@ -43,6 +43,7 @@
 
 #include <sbml/common/extern.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * ListItemComparator
@@ -68,7 +69,6 @@ typedef int (*ListItemComparator) (const void *item1, const void *item2);
  * @see List_countIf()
  */
 typedef int (*ListItemPredicate) (const void *item);
-
 
 #ifdef __cplusplus
 
@@ -275,10 +275,11 @@ protected:
   while (size--) free_item( (type *) List_remove(list, 0) ); \
 }
 
+LIBSBML_CPP_NAMESPACE_END
+
 
 #ifndef SWIG
-
-BEGIN_C_DECLS
+//BEGIN_C_DECLS
 
 /*-----------------------------------------------------------------------------
  * See the .cpp file for the documentation of the following functions.
@@ -286,6 +287,11 @@ BEGIN_C_DECLS
 
 #include <sbml/common/sbmlfwd.h>
 
+//END_C_DECLS
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+BEGIN_C_DECLS
 
 LIBSBML_EXTERN
 List_t *
@@ -350,7 +356,7 @@ List_size (const List_t *lst);
 
 
 END_C_DECLS
-
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG  */
 #endif  /* List_h */

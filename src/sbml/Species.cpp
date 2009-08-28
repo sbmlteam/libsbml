@@ -40,12 +40,12 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
-/*
- * Creates a new Species, optionally with its id and name attributes set.
- */
-Species::Species (const std::string& id, const std::string& name) :
-    SBase                     ( id, name )
+Species::Species (unsigned int level, unsigned int version) :
+   SBase ( level, version )
+  , mId                       ( ""    )
+  , mName                     ( ""    )
   , mInitialAmount            ( 0.0   )
   , mInitialConcentration     ( 0.0   )
   , mHasOnlySubstanceUnits    ( false )
@@ -56,30 +56,15 @@ Species::Species (const std::string& id, const std::string& name) :
   , mIsSetInitialConcentration( false )
   , mIsSetCharge              ( false )
 {
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
 
-Species::Species (unsigned int level, unsigned int version,
-                          XMLNamespaces *xmlns) :
-   SBase ("", "", -1)
-  , mInitialAmount            ( 0.0   )
-  , mInitialConcentration     ( 0.0   )
-  , mHasOnlySubstanceUnits    ( false )
-  , mBoundaryCondition        ( false )
-  , mCharge                   ( 0     )
-  , mConstant                 ( false )
-  , mIsSetInitialAmount       ( false )
-  , mIsSetInitialConcentration( false )
-  , mIsSetCharge              ( false )
-{
-  mObjectLevel = level;
-  mObjectVersion = version;
-  if (xmlns) setNamespaces(xmlns);;
-}
-
-                          
 Species::Species (SBMLNamespaces *sbmlns) :
-   SBase ("", "", -1)
+    SBase                     ( sbmlns    )
+  , mId                       ( ""    )
+  , mName                     ( ""    )
   , mInitialAmount            ( 0.0   )
   , mInitialConcentration     ( 0.0   )
   , mHasOnlySubstanceUnits    ( false )
@@ -90,11 +75,21 @@ Species::Species (SBMLNamespaces *sbmlns) :
   , mIsSetInitialConcentration( false )
   , mIsSetCharge              ( false )
 {
-  mObjectLevel = sbmlns->getLevel();
-  mObjectVersion = sbmlns->getVersion();
-  setNamespaces(sbmlns->getNamespaces());
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
+
+/** @cond doxygen-libsbml-internal */
+
+/* constructor for validators */
+Species::Species() :
+  SBase()
+{
+}
+
+/** @endcond doxygen-libsbml-internal */
+                          
 
 /*
  * Destroys this Species.
@@ -108,7 +103,9 @@ Species::~Species ()
  * Copy constructor. Creates a copy of this Species.
  */
 Species::Species(const Species& orig) :
-      SBase(orig)
+   SBase             ( orig                    )
+ , mId               ( orig.mId                )  
+ , mName             ( orig.mName              )
 {
     this->mSpeciesType = orig.mSpeciesType;
     this->mCompartment = orig.mCompartment;
@@ -138,6 +135,8 @@ Species& Species::operator=(const Species& orig)
   if(&orig!=this)
   {
     this->SBase::operator =(orig);
+    this->mId = orig.mId;
+    this->mName = orig.mName;
     this->mSpeciesType = orig.mSpeciesType;
     this->mCompartment = orig.mCompartment;
 
@@ -198,6 +197,26 @@ Species::initDefaults ()
   setBoundaryCondition     (false);
   setConstant              (false);
   setHasOnlySubstanceUnits (false);
+}
+
+
+/*
+ * @return the id of this SBML object.
+ */
+const string&
+Species::getId () const
+{
+  return mId;
+}
+
+
+/*
+ * @return the name of this SBML object.
+ */
+const string&
+Species::getName () const
+{
+  return (getLevel() == 1) ? mId : mName;
 }
 
 
@@ -326,6 +345,29 @@ Species::getConstant () const
 
 
 /*
+ * @return true if the id of this SBML object has been set, false
+ * otherwise.
+ */
+bool
+Species::isSetId () const
+{
+  return (mId.empty() == false);
+}
+
+
+/*
+ * @return true if the name of this SBML object has been set, false
+ * otherwise.
+ */
+bool
+Species::isSetName () const
+{
+  return (getLevel() == 1) ? (mId.empty() == false) : 
+                            (mName.empty() == false);
+}
+
+
+/*
  * @return true if the speciesType of this Species has been set, false
  * otherwise.
  */
@@ -418,22 +460,99 @@ Species::isSetCharge () const
 
 
 /*
+ * Sets the id of this SBML object to a copy of sid.
+ */
+int
+Species::setId (const std::string& sid)
+{
+  /* since the setId function has been used as an
+   * alias for setName we cant require it to only
+   * be used on a L2 model
+   */
+/*  if (getLevel() == 1)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+*/
+  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mId = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Sets the name of this SBML object to a copy of name.
+ */
+int
+Species::setName (const std::string& name)
+{
+  /* if this is setting an L2 name the type is string
+   * whereas if it is setting an L1 name its type is SId
+   */
+  if (getLevel() == 1)
+  {
+    if (!(SyntaxChecker::isValidSBMLSId(name)))
+    {
+      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    }
+    else
+    {
+      mId = name;
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+  else
+  {
+    mName = name;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
  * Sets the speciesType field of this Species to a copy of sid.
  */
-void
+int
 Species::setSpeciesType (const std::string& sid)
 {
-  mSpeciesType = sid;
+  if ( (getLevel() < 2)
+    || (getLevel() == 2 && getVersion() == 1))
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mSpeciesType = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Sets the compartment of this Species to a copy of sid.
  */
-void
+int
 Species::setCompartment (const std::string& sid)
 {
-  mCompartment = sid;
+  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mCompartment = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -441,13 +560,14 @@ Species::setCompartment (const std::string& sid)
  * Sets the initialAmount of this Species to value and marks the field as
  * set.  This method also unsets the initialConcentration field.
  */
-void
+int
 Species::setInitialAmount (double value)
 {
   mInitialAmount      = value;
   mIsSetInitialAmount = true;
 
   unsetInitialConcentration();
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -455,157 +575,303 @@ Species::setInitialAmount (double value)
  * Sets the initialConcentration of this Species to value and marks the
  * field as set.  This method also unsets the initialAmount field.
  */
-void
+int
 Species::setInitialConcentration (double value)
 {
-  mInitialConcentration      = value;
-  mIsSetInitialConcentration = true;
+  if ( getLevel() < 2)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else
+  {
+    mInitialConcentration      = value;
+    mIsSetInitialConcentration = true;
 
-  unsetInitialAmount();
+    unsetInitialAmount();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Sets the substanceUnits of this Species to a copy of sid.
  */
-void
+int
 Species::setSubstanceUnits (const std::string& sid)
 {
-  mSubstanceUnits = sid;
+  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mSubstanceUnits = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Sets the spatialSizeUnits of this Species to a copy of sid.
  */
-void
+int
 Species::setSpatialSizeUnits (const std::string& sid)
 {
-  mSpatialSizeUnits = sid;
+  if ( (getLevel() != 2)
+    || (getLevel() == 2 && getVersion() > 2))
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mSpatialSizeUnits = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Sets the units of this Species to a copy of sname (L1 only).
  */
-void
+int
 Species::setUnits (const std::string& sname)
 {
-  setSubstanceUnits(sname);
+  return setSubstanceUnits(sname);
 }
 
 
 /*
  * Sets the hasOnlySubstanceUnits field of this Species to value.
  */
-void
+int
 Species::setHasOnlySubstanceUnits (bool value)
 {
-  mHasOnlySubstanceUnits = value;
+  if (getLevel() < 2)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else
+  {
+    mHasOnlySubstanceUnits = value;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Sets the boundaryCondition of this Species to value.
  */
-void
+int
 Species::setBoundaryCondition (bool value)
 {
   mBoundaryCondition = value;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
 /*
  * Sets the charge of this Species to value and marks the field as set.
  */
-void
+int
 Species::setCharge (int value)
 {
-  mCharge      = value;
-  mIsSetCharge = true;
+  if ( !((getLevel() == 1)
+    || (getLevel() == 2 && getVersion() == 1)))
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else
+  {
+    mCharge      = value;
+    mIsSetCharge = true;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Sets the constant field of this Species to value.
  */
-void
+int
 Species::setConstant (bool value)
 {
-  mConstant = value;
+  if ( getLevel() < 2 )
+  {
+    mConstant = value;
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else
+  {
+    mConstant = value;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Unsets the name of this SBML object.
+ */
+int
+Species::unsetName ()
+{
+  if (getLevel() == 1) 
+  {
+    mId.erase();
+  }
+  else 
+  {
+    mName.erase();
+  }
+
+  if (getLevel() == 1 && mId.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (mName.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
 /*
  * Unsets the speciesType of this Species.
  */
-void
+int
 Species::unsetSpeciesType ()
 {
   mSpeciesType.erase();
+
+  if (mSpeciesType.empty()) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
 /*
  * Unsets the initialAmount of this Species.
  */
-void
+int
 Species::unsetInitialAmount ()
 {
   mInitialAmount      = numeric_limits<double>::quiet_NaN();
   mIsSetInitialAmount = false;
+  
+  if (!isSetInitialAmount())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
 /*
  * Unsets the initialConcentration of this Species.
  */
-void
+int
 Species::unsetInitialConcentration ()
 {
   mInitialConcentration      = numeric_limits<double>::quiet_NaN();
   mIsSetInitialConcentration = false;
+
+  if (!isSetInitialConcentration())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
 /*
  * Unsets the substanceUnits of this Species.
  */
-void
+int
 Species::unsetSubstanceUnits ()
 {
   mSubstanceUnits.erase();
+  
+  if (mSubstanceUnits.empty()) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
 /*
  * Unsets the spatialSizeUnits of this Species.
  */
-void
+int
 Species::unsetSpatialSizeUnits ()
 {
   mSpatialSizeUnits.erase();
+
+  if (mSpatialSizeUnits.empty()) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
 /*
  * Unsets the units of this Species (L1 only).
  */
-void
+int
 Species::unsetUnits ()
 {
-  unsetSubstanceUnits();
+  return unsetSubstanceUnits();
 }
 
 
 /*
  * Unsets the charge of this Species.
  */
-void
+int
 Species::unsetCharge ()
 {
+  if ( !((getLevel() == 1)
+    || (getLevel() == 2 && getVersion() == 1)))
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+
   mCharge      = 0;
   mIsSetCharge = false;
+
+  if (!isSetCharge())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }    
 }
 
 /*
@@ -681,6 +947,27 @@ Species::getElementName () const
 }
 
 
+bool 
+Species::hasRequiredAttributes() const
+{
+  bool allPresent = true;
+
+  /* required attributes for species: id (name in L1); comp
+   * initialAmount (L1 only)*/
+
+  if (!isSetId())
+    allPresent = false;
+
+  if (!isSetCompartment())
+    allPresent = false;
+
+  if (getLevel() == 1 && !isSetInitialAmount())
+    allPresent = false;
+
+  return allPresent;
+}
+
+
 /** @cond doxygen-libsbml-internal */
 /*
  * Subclasses should override this method to read values from the given
@@ -753,7 +1040,7 @@ Species::readAttributes (const XMLAttributes& attributes)
   {
     logEmptyString(id, level, version, "<species>");
   }
-  SBase::checkIdSyntax();
+  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
 
   //
   // compartment: SName  { use="required" }  (L1v1, L2v1)
@@ -780,8 +1067,15 @@ Species::readAttributes (const XMLAttributes& attributes)
   // substanceUntis: SId    { use="optional" }  (L2v1->)
   //
   const string units = (level == 1) ? "units" : "substanceUnits";
-  attributes.readInto(units, mSubstanceUnits);
-  SBase::checkUnitSyntax();
+  assigned = attributes.readInto(units, mSubstanceUnits);
+  if (assigned && mSubstanceUnits.size() == 0)
+  {
+    logEmptyString("substanceUnits", level, version, "<species>");
+  }
+  if (!SyntaxChecker::isValidUnitSId(mSubstanceUnits))
+  {
+    logError(InvalidUnitIdSyntax);
+  }
 
   //
   // boundaryCondition: boolean
@@ -821,8 +1115,15 @@ Species::readAttributes (const XMLAttributes& attributes)
     //
     if (level == 2 && version < 3)
     {
-      attributes.readInto("spatialSizeUnits", mSpatialSizeUnits);
-      SBase::checkUnitSyntax(1);
+      assigned = attributes.readInto("spatialSizeUnits", mSpatialSizeUnits);
+      if (assigned && mSpatialSizeUnits.size() == 0)
+      {
+        logEmptyString("spatialSizeUnits", level, version, "<species>");
+      }
+      if (!SyntaxChecker::isValidUnitSId(mSpatialSizeUnits))
+      {
+        logError(InvalidUnitIdSyntax);
+      }
     }
 
     //
@@ -1053,11 +1354,25 @@ ListOfSpecies::get(unsigned int n) const
 }
 
 
+/**
+ * Used by ListOf::get() to lookup an SBase based by its id.
+ */
+struct IdEqS : public unary_function<SBase*, bool>
+{
+  const string& id;
+
+  IdEqS (const string& id) : id(id) { }
+  bool operator() (SBase* sb) 
+       { return static_cast <Species *> (sb)->getId() == id; }
+};
+
+
 /* return item by id */
 Species*
 ListOfSpecies::get (const std::string& sid)
 {
-  return static_cast<Species*>(ListOf::get(sid));
+  return const_cast<Species*>( 
+    static_cast<const ListOfSpecies&>(*this).get(sid) );
 }
 
 
@@ -1065,7 +1380,10 @@ ListOfSpecies::get (const std::string& sid)
 const Species*
 ListOfSpecies::get (const std::string& sid) const
 {
-  return static_cast<const Species*>(ListOf::get(sid));
+  vector<SBase*>::const_iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqS(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <Species*> (*result);
 }
 
 
@@ -1081,7 +1399,18 @@ ListOfSpecies::remove (unsigned int n)
 Species*
 ListOfSpecies::remove (const std::string& sid)
 {
-   return static_cast<Species*>(ListOf::remove(sid));
+  SBase* item = 0;
+  vector<SBase*>::iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqS(sid) );
+
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
+  }
+
+  return static_cast <Species*> (item);
 }
 
 
@@ -1112,8 +1441,22 @@ ListOfSpecies::createObject (XMLInputStream& stream)
 
   if (name == "species" || name == "specie")
   {
-    object = new Species();
-    mItems.push_back(object);
+    try
+    {
+      object = new Species(getSBMLNamespaces());
+    }
+    catch (SBMLConstructorException*)
+    {
+      object = new Species(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    catch ( ... )
+    {
+      object = new Species(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    
+    if (object) mItems.push_back(object);
   }
 
   return object;
@@ -1125,89 +1468,72 @@ ListOfSpecies::createObject (XMLInputStream& stream)
 
 
 /**
- * Creates a new, empty Species_t structure and returns a pointer to
- * it.
+ * Creates a new Species_t structure using the given SBML @p level
+ * and @p version values.
  *
- * It is worth emphasizing that the structure returned by this constructor
- * has no attribute values set and that there are no default values
- * assigned to such things as identifiers and names.  In SBML Level 2
- * and beyond, the "id" (identifier) attribute of a Species_t is
- * required to have a value.  Thus, callers are cautioned to assign a value
- * after calling this constructor, for example using Species_setName().
- *
- * @return a pointer to the newly created Species_t structure.
- */
-LIBSBML_EXTERN
-Species_t *
-Species_create ()
-{
-  return new(nothrow) Species;
-}
-
-
-/**
- * Creates a new Species_t structure with identifier @p sid and
- * name @p name.
- *
- * In SBML Level 2 and beyond, the identifier attribute of a Species_t
- * structure is required to have a value, but the name is optional.
- * Programs calling this function can legitimately use an empty string for
- * the @p name argument.
- *
- * This convenience function is functionally equivalent to:
- * @code
- *   Species_t *c = Species_create();
- *   Species_setId(c, id);
- *   Species_setName(c, name);
- * @endcode
- *
- * @param sid the value to assign as the identifier of this species
- * 
- * @param name the value to assign as the name of this species
- * 
- * @return a pointer to the newly created Species_t structure.
- */
-LIBSBML_EXTERN
-Species_t *
-Species_createWith (const char *sid, const char *name)
-{
-  return new(nothrow) Species(sid ? sid : "", name ? name : "");
-}
-
-
-/** @cond doxygen-libsbml-internal */
-/**
- * Creates a new Species_t structure using the given SBML @p 
- * level and @p version values and a set of XMLNamespaces.
- *
- * @param level an unsigned int, the SBML Level to assign to this 
+ * @param level an unsigned int, the SBML Level to assign to this
  * Species
  *
  * @param version an unsigned int, the SBML Version to assign to this
  * Species
- * 
- * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
- * assign to this Species
  *
  * @return a pointer to the newly created Species_t structure.
  *
- * @note Once a Species has been added to an SBMLDocument, the @p 
- * level, @p version and @p xmlns namespaces for the document @em override 
- * those used to create the Species.  Despite this, the ability 
- * to supply the values at creation time is an important aid to creating 
- * valid SBML.  Knowledge of the intended SBML Level and Version 
- * determine whether it is valid to assign a particular value to an 
- * attribute, or whether it is valid to add an object to an existing 
+ * @note Once a Species has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the Species.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
+ */
+LIBSBML_EXTERN
+Species_t *
+Species_create (unsigned int level, unsigned int version)
+{
+  try
+  {
+    Species* obj = new Species(level,version);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
+
+
+/**
+ * Creates a new Species_t structure using the given
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this Species
+ *
+ * @return a pointer to the newly created Species_t structure.
+ *
+ * @note Once a Species has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the Species.  Despite this, the ability to supply the values at creation time
+ * is an important aid to creating valid SBML.  Knowledge of the intended SBML
+ * Level and Version determine whether it is valid to assign a particular value
+ * to an attribute, or whether it is valid to add an object to an existing
  * SBMLDocument.
  */
 LIBSBML_EXTERN
 Species_t *
-Species_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns)
+Species_createWithNS (SBMLNamespaces_t* sbmlns)
 {
-  return new(nothrow) Species(level, version, xmlns);
+  try
+  {
+    Species* obj = new Species(sbmlns);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
 }
-/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -1704,12 +2030,22 @@ Species_isSetCharge (const Species_t *s)
  * 
  * @param sid the identifier string to which the "id" attribute should be
  * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "id" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 Species_setId (Species_t *s, const char *sid)
 {
-  (sid == NULL) ? s->unsetId() : s->setId(sid);
+  return (sid == NULL) ? s->setId("") : s->setId(sid);
 }
 
 
@@ -1722,12 +2058,22 @@ Species_setId (Species_t *s, const char *sid)
  * @param s the Species_t structure
  * 
  * @param name the name string to which the "name" attribute should be set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "name" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 Species_setName (Species_t *s, const char *name)
 {
-  (name == NULL) ? s->unsetName() : s->setName(name);
+  return (name == NULL) ? s->unsetName() : s->setName(name);
 }
 
 
@@ -1741,12 +2087,23 @@ Species_setName (Species_t *s, const char *name)
  * 
  * @param speciesType the identifer to which the "speciesType" attribute
  * should be set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "speciesType" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 Species_setSpeciesType (Species_t *s, const char *sid)
 {
-  (sid == NULL) ? s->unsetSpeciesType() : s->setSpeciesType(sid);
+  return (sid == NULL) ? s->unsetSpeciesType() : s->setSpeciesType(sid);
 }
 
 
@@ -1760,12 +2117,22 @@ Species_setSpeciesType (Species_t *s, const char *sid)
  * 
  * @param sid the identifer to which the "compartment" attribute
  * should be set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "compartment" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 Species_setCompartment (Species_t *s, const char *sid)
 {
-  (sid == NULL) ? s->setCompartment("") : s->setCompartment(sid);
+  return (sid == NULL) ? s->setCompartment("") : s->setCompartment(sid);
 }
 
 
@@ -1779,12 +2146,18 @@ Species_setCompartment (Species_t *s, const char *sid)
  * @param s the Species_t structure
  *
  * @param value the numerical value for the "initialAmount" attribute
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void
+int
 Species_setInitialAmount (Species_t *s, double value)
 {
-  s->setInitialAmount(value);
+  return s->setInitialAmount(value);
 }
 
 
@@ -1799,12 +2172,19 @@ Species_setInitialAmount (Species_t *s, double value)
  *
  * @param value the numerical value for the "initialConcentration"
  * attribute
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
  */
 LIBSBML_EXTERN
-void
+int
 Species_setInitialConcentration (Species_t *s, double value)
 {
-  s->setInitialConcentration(value);
+  return s->setInitialConcentration(value);
 }
 
 
@@ -1818,12 +2198,22 @@ Species_setInitialConcentration (Species_t *s, double value)
  * 
  * @param substanceUnits the identifer to which the "substanceUnits"
  * attribute should be set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "substanceUnits" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 Species_setSubstanceUnits (Species_t *s, const char *sid)
 {
-  (sid == NULL) ? s->unsetSubstanceUnits() : s->setSubstanceUnits(sid);
+  return (sid == NULL) ? s->unsetSubstanceUnits() : s->setSubstanceUnits(sid);
 }
 
 
@@ -1837,6 +2227,17 @@ Species_setSubstanceUnits (Species_t *s, const char *sid)
  * 
  * @param spatialSizeUnits the identifer to which the "spatialSizeUnits"
  * attribute should be set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "spatialSizeUnits" attribute.
  * 
  * @warning In versions of SBML Level~2 before Version 3, the class
  * Species included an attribute called "spatialSizeUnits", which allowed
@@ -1847,10 +2248,10 @@ Species_setSubstanceUnits (Species_t *s, const char *sid)
  * Versions 3 and 4.
  */
 LIBSBML_EXTERN
-void
+int
 Species_setSpatialSizeUnits (Species_t *s, const char *sid)
 {
-  (sid == NULL) ? s->unsetSpatialSizeUnits() : s->setSpatialSizeUnits(sid);
+  return (sid == NULL) ? s->unsetSpatialSizeUnits() : s->setSpatialSizeUnits(sid);
 }
 
 
@@ -1865,12 +2266,22 @@ Species_setSpatialSizeUnits (Species_t *s, const char *sid)
  * 
  * @param units the identifer to which the "units" attribute
  * should be set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "units" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 Species_setUnits (Species_t *s, const char *sname)
 {
-  (sname == NULL) ? s->unsetUnits() : s->setUnits(sname);
+  return (sname == NULL) ? s->unsetUnits() : s->setUnits(sname);
 }
 
 
@@ -1881,12 +2292,19 @@ Species_setUnits (Species_t *s, const char *sname)
  * @param s the Species_t structure
  * 
  * @param value nonzero to indicate true, zero to indicate false.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
  */
 LIBSBML_EXTERN
-void
+int
 Species_setHasOnlySubstanceUnits (Species_t *s, int value)
 {
-  s->setHasOnlySubstanceUnits( static_cast<bool>(value) );
+  return s->setHasOnlySubstanceUnits( static_cast<bool>(value) );
 }
 
 
@@ -1897,12 +2315,18 @@ Species_setHasOnlySubstanceUnits (Species_t *s, int value)
  * @param s the Species_t structure
  * 
  * @param value nonzero to indicate true, zero to indicate false.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void
+int
 Species_setBoundaryCondition (Species_t *s, int value)
 {
-  s->setBoundaryCondition( static_cast<bool>(value) );
+  return s->setBoundaryCondition( static_cast<bool>(value) );
 }
 
 
@@ -1914,6 +2338,13 @@ Species_setBoundaryCondition (Species_t *s, int value)
  * 
  * @param value the value of charge to assign to the "charge" attribute
  *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ *
  * @note Beginning in SBML Level 2 Version 2, the "charge" attribute on
  * Species in SBML is deprecated and its use strongly discouraged.  Its
  * presence is considered a misfeature in earlier definitions of SBML
@@ -1926,10 +2357,10 @@ Species_setBoundaryCondition (Species_t *s, int value)
  * LibSBML retains this method for easier compatibility with SBML Level 1.
  */
 LIBSBML_EXTERN
-void
+int
 Species_setCharge (Species_t *s, int value)
 {
-  s->setCharge(value);
+  return s->setCharge(value);
 }
 
 
@@ -1940,23 +2371,37 @@ Species_setCharge (Species_t *s, int value)
  * @param s the Species_t structure
  * 
  * @param value nonzero to indicate true, zero to indicate false.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
  */
 LIBSBML_EXTERN
-void
+int
 Species_setConstant (Species_t *s, int value)
 {
-  s->setConstant( static_cast<bool>(value) );
+  return s->setConstant( static_cast<bool>(value) );
 }
 
 
 /**
  * Unsets the "name" attribute of the given Species_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Species_unsetName (Species_t *s)
 {
-  s->unsetName();
+  return s->unsetName();
 }
 
 
@@ -1964,12 +2409,19 @@ Species_unsetName (Species_t *s)
  * Unsets the "speciesType" attribute of the given Species_t structure.
  *
  * @param s the Species_t structure whose attribute is to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Species_unsetSpeciesType (Species_t *s)
 {
-  s->unsetSpeciesType();
+  return s->unsetSpeciesType();
 }
 
 
@@ -1977,12 +2429,18 @@ Species_unsetSpeciesType (Species_t *s)
  * Unsets the "initialAmount" attribute of the given Species_t structure.
  *
  * @param s the Species_t structure whose attribute is to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void
+int
 Species_unsetInitialAmount (Species_t *s)
 {
-  s->unsetInitialAmount();
+  return s->unsetInitialAmount();
 }
 
 
@@ -1991,12 +2449,18 @@ Species_unsetInitialAmount (Species_t *s)
  * Species_t structure.
  *
  * @param s the Species_t structure whose attribute is to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void
+int
 Species_unsetInitialConcentration (Species_t *s)
 {
-  s->unsetInitialConcentration();
+  return s->unsetInitialConcentration();
 }
 
 
@@ -2005,12 +2469,19 @@ Species_unsetInitialConcentration (Species_t *s)
  * Species_t structure.
  *
  * @param s the Species_t structure whose attribute is to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Species_unsetSubstanceUnits (Species_t *s)
 {
-  s->unsetSubstanceUnits();
+  return s->unsetSubstanceUnits();
 }
 
 
@@ -2019,6 +2490,13 @@ Species_unsetSubstanceUnits (Species_t *s)
  * Species_t structure.
  *
  * @param s the Species_t structure whose attribute is to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  * 
  * @warning In versions of SBML Level~2 before Version 3, the class
  * Species included an attribute called "spatialSizeUnits", which allowed
@@ -2029,10 +2507,10 @@ Species_unsetSubstanceUnits (Species_t *s)
  * Versions 3 and 4.
  */
 LIBSBML_EXTERN
-void
+int
 Species_unsetSpatialSizeUnits (Species_t *s)
 {
-  s->unsetSpatialSizeUnits();
+  return s->unsetSpatialSizeUnits();
 }
 
 
@@ -2041,12 +2519,19 @@ Species_unsetSpatialSizeUnits (Species_t *s)
  * Species_t structure.
  *
  * @param s the Species_t structure whose attribute is to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Species_unsetUnits (Species_t *s)
 {
-  s->unsetUnits();
+  return s->unsetUnits();
 }
 
 
@@ -2055,6 +2540,13 @@ Species_unsetUnits (Species_t *s)
  * Species_t structure.
  *
  * @param s the Species_t structure whose attribute is to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  *
  * @note Beginning in SBML Level 2 Version 2, the "charge" attribute on
  * Species in SBML is deprecated and its use strongly discouraged.  Its
@@ -2068,10 +2560,10 @@ Species_unsetUnits (Species_t *s)
  * LibSBML retains this method for easier compatibility with SBML Level 1.
  */
 LIBSBML_EXTERN
-void
+int
 Species_unsetCharge (Species_t *s)
 {
-  s->unsetCharge();
+  return s->unsetCharge();
 }
 
 
@@ -2103,4 +2595,33 @@ Species_getDerivedUnitDefinition(Species_t *s)
 }
 
 
+/**
+ * @return item in this ListOfSpecies with the given id or NULL if no such
+ * item exists.
+ */
+LIBSBML_EXTERN
+Species_t *
+ListOfSpecies_getById (ListOf_t *lo, const char *sid)
+{
+  return (sid != NULL) ? 
+    static_cast <ListOfSpecies *> (lo)->get(sid) : NULL;
+}
+
+
+/**
+ * Removes item in this ListOf items with the given id or NULL if no such
+ * item exists.  The caller owns the returned item and is responsible for
+ * deleting it.
+ */
+LIBSBML_EXTERN
+Species_t *
+ListOfSpecies_removeById (ListOf_t *lo, const char *sid)
+{
+  return (sid != NULL) ? 
+    static_cast <ListOfSpecies *> (lo)->remove(sid) : NULL;
+}
+
+
 /** @endcond doxygen-c-only */
+
+LIBSBML_CPP_NAMESPACE_END

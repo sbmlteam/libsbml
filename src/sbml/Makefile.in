@@ -76,6 +76,7 @@ headers =              \
   SpeciesReference.h   \
   SpeciesType.h        \
   StoichiometryMath.h  \
+  SyntaxChecker.h      \
   Trigger.h            \
   Unit.h               \
   UnitDefinition.h     \
@@ -111,6 +112,7 @@ sources =                \
   SpeciesReference.cpp   \
   SpeciesType.cpp        \
   StoichiometryMath.cpp  \
+  SyntaxChecker.cpp      \
   Trigger.cpp            \
   Unit.cpp               \
   UnitDefinition.cpp     \
@@ -186,19 +188,7 @@ objfiles  = $(objects) $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
 
 # The libraries are actually placed in the parent directory.
 
-ifeq "$(HOST_TYPE)" "aix"
-# The nutty thing about AIX is that it uses the same extension (.a) for both
-# shared and static libraries.  You have to pick whether you want one or
-# the other; you can't provide both at the same time.  I'd like to know why
-# they thought this was a good idea.
-
-libraries = ../$(PACKAGE).$(SHAREDLIBEXT)
-
-else
-
-libraries = ../$(PACKAGE).a ../$(PACKAGE).$(SHAREDLIBEXT)
-
-endif
+libraries = ../$(PACKAGE).la
 
 # `distfiles' determines the files and directories included in a distribution.
 # `distfiles_exclude' is used to filter out specific items, so that even if
@@ -245,7 +235,20 @@ install: all install-libraries install-headers
 
 installcheck: all installcheck-libraries installcheck-headers
 
-uninstall: uninstall-headers uninstall-libraries uninstall-recursive
+uninstall: uninstall-headers uninstall-libtoolized-libraries uninstall-libraries uninstall-recursive
+
+# uninstall library files listed in the libsbml.la file.
+uninstall-libtoolized-libraries:
+	for i in `grep library_names $(DESTDIR)$(LIBDIR)/libsbml.la | \
+	awk -F"'" '{print $$2}'`; do \
+	  f=$(DESTDIR)$(LIBDIR)/$$i; \
+	  if test -f $$f -o -h $$f; then echo rm -f $$f ; rm -f $$f; fi; \
+	done ;\
+	for i in `grep old_library $(DESTDIR)$(LIBDIR)/libsbml.la | \
+	awk -F"'" '{print $$2}'`; do \
+	  f=$(DESTDIR)$(LIBDIR)/$$i; \
+	  if test -f $$f ; then echo rm -f $$f ; rm -f $$f; fi; \
+	done ;\
 
 
 # -----------------------------------------------------------------------------

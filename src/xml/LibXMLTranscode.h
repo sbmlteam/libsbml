@@ -28,7 +28,9 @@
 
 #include <string>
 #include <libxml/parser.h>
+#include <sbml/xml/XMLExtern.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygen-libsbml-internal */
 
@@ -63,6 +65,8 @@ private:
 };
 
 /** @endcond doxygen-libsbml-internal */
+
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* LibXMLTranscode_h */

@@ -199,52 +199,55 @@ delete newsp;
 
 #include <sbml/annotation/ModelHistory.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class SBMLVisitor;
 class FormulaUnitsData;
+
+LIBSBML_CPP_NAMESPACE_END
 
 #ifdef USE_LAYOUT
 #include <sbml/layout/Layout.h>
 #endif  /* USE_LAYOUT */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN Model : public SBase
 {
 public:
 
   /**
-   * Creates a new Model, optionally with a given identifier and
-   * name.
-   *
-   * @param id a string, the optional identifier of this Model
-   * @param name a string, the optional name of this Model.
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
-   */
-  Model (const std::string& id = "", const std::string& name = "");
-
-
-  /**
    * Creates a new Model using the given SBML @p level and @p version
-   * values and optionally a set of XMLNamespaces.
+   * values.
    *
    * @param level an unsigned int, the SBML Level to assign to this Model
    *
    * @param version an unsigned int, the SBML Version to assign to this
    * Model
    * 
-   * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
-   * assign to this Model
+   * @note Once a Model has been added to an SBMLDocument, the @p level,
+   * @p version for the document @em override those used
+   * to create the Model.  Despite this, the ability to supply the values
+   * at creation time is an important aid to creating valid SBML.  Knowledge of
+   * the intented SBML Level and Version determine whether it is valid to
+   * assign a particular value to an attribute, or whether it is valid to add
+   * an object to an existing SBMLDocument.
+   */
+  Model (unsigned int level, unsigned int version);
+
+
+  /**
+   * Creates a new Model using the given SBMLNamespaces object
+   * @p sbmlns.
+   *
+   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
+   * information.  It is used to communicate the SBML Level, Version, and
+   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp; Core.
+   * A common approach to using this class constructor is to create an
+   * SBMLNamespaces object somewhere in a program, once, then pass it to
+   * object constructors such as this one when needed.
+   *
+   * @param sbmlns an SBMLNamespaces object.
    *
    * @note Once a Model has been added to an SBMLDocument, the @p level,
    * @p version and @p xmlns namespaces for the document @em override those used
@@ -253,21 +256,8 @@ public:
    * the intented SBML Level and Version determine whether it is valid to
    * assign a particular value to an attribute, or whether it is valid to add
    * an object to an existing SBMLDocument.
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
    */
-  Model (unsigned int level, unsigned int version, 
-               XMLNamespaces* xmlns = 0);
+  Model (SBMLNamespaces* sbmlns);
 
 
   /**
@@ -343,6 +333,22 @@ public:
 
 
   /**
+   * Returns the value of the "id" attribute of this Model.
+   * 
+   * @return the id of this Model.
+   */
+  const std::string& getId () const;
+
+
+  /**
+   * Returns the value of the "name" attribute of this Model.
+   * 
+   * @return the name of this Model.
+   */
+  const std::string& getName () const;
+
+
+  /**
    * Returns the ModelHistory of this Model.
    * 
    * @return ModelHistory of this Model.
@@ -360,6 +366,30 @@ public:
 
   /**
    * Predicate returning @c true or @c false depending on whether this
+   * Model's "id" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "id" attribute of this Model has been
+   * set, @c false otherwise.
+   */
+  bool isSetId () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Model's "name" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "name" attribute of this Model has been
+   * set, @c false otherwise.
+   */
+  bool isSetName () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
    * Model's ModelHistory has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -371,27 +401,133 @@ public:
 
 
   /**
+   * Sets the value of the "id" attribute of this Model.
+   *
+   * The string @p sid is copied.  Note that SBML has strict requirements
+   * for the syntax of identifiers.  The following is summary of the
+   * definition of the SBML identifier type @c SId (here expressed in an
+   * extended form of BNF notation):
+   * @code
+   *   letter ::= 'a'..'z','A'..'Z'
+   *   digit  ::= '0'..'9'
+   *   idChar ::= letter | digit | '_'
+   *   SId    ::= ( letter | '_' ) idChar*
+   * @endcode
+   * The equality of SBML identifiers is determined by an exact character
+   * sequence match; i.e., comparisons must be performed in a
+   * case-sensitive manner.  In addition, there are a few conditions for
+   * the uniqueness of identifiers in an SBML model.  Please consult the
+   * SBML specifications for the exact formulations.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @param sid the string to use as the identifier of this Model
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int setId (const std::string& sid);
+
+
+  /**
+   * Sets the value of the "name" attribute of this Model.
+   *
+   * The string in @p name is copied.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @param name the new name for the Model
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int setName (const std::string& name);
+
+
+  /**
    * Sets the ModelHistory of this Model.
    *
    * @htmlinclude libsbml-comment-set-methods.html
    * 
    * @param history ModelHistory of this Model.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_OBJECT
    */
-  void setModelHistory(ModelHistory * history);
+  int setModelHistory(ModelHistory * history);
+
+
+  /**
+   * Unsets the value of the "id" attribute of this Model.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  int unsetId ();
+
+
+  /**
+   * Unsets the value of the "name" attribute of this Model.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  int unsetName ();
 
 
   /**
    * Unsets the ModelHistory of this Model.
    *
    * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  void unsetModelHistory();
+  int unsetModelHistory();
 
 
   /**
    * Adds a copy of the given FunctionDefinition object to this Model.
    *
    * @param fd the FunctionDefinition to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_LEVEL_MISMATCH
+   * @li LIBSBML_VERSION_MISMATCH
+   * @li LIBSBML_DUPLICATE_OBJECT_ID
+   * @li LIBSBML_OPERATION_FAILED
    * 
    * @note This method should be used with some caution.  The fact that
    * this method @em copies the object passed to it means that the caller
@@ -405,13 +541,23 @@ public:
    *
    * @see createFunctionDefinition()
    */
-  void addFunctionDefinition (const FunctionDefinition* fd);
+  int addFunctionDefinition (const FunctionDefinition* fd);
 
 
   /**
    * Adds a copy of the given UnitDefinition object to this Model.
    *
    * @param ud the UnitDefinition object to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_LEVEL_MISMATCH
+   * @li LIBSBML_VERSION_MISMATCH
+   * @li LIBSBML_DUPLICATE_OBJECT_ID
+   * @li LIBSBML_OPERATION_FAILED
    * 
    * @note This method should be used with some caution.  The fact that
    * this method @em copies the object passed to it means that the caller
@@ -425,13 +571,23 @@ public:
    *
    * @see createUnitDefinition()
    */
-  void addUnitDefinition (const UnitDefinition* ud);
+  int addUnitDefinition (const UnitDefinition* ud);
 
 
   /**
    * Adds a copy of the given CompartmentType object to this Model.
    *
    * @param ct the CompartmentType object to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_LEVEL_MISMATCH
+   * @li LIBSBML_VERSION_MISMATCH
+   * @li LIBSBML_DUPLICATE_OBJECT_ID
+   * @li LIBSBML_OPERATION_FAILED
    * 
    * @note This method should be used with some caution.  The fact that
    * this method @em copies the object passed to it means that the caller
@@ -445,13 +601,23 @@ public:
    *
    * @see createCompartmentType()
    */
-  void addCompartmentType (const CompartmentType* ct);
+  int addCompartmentType (const CompartmentType* ct);
 
 
   /**
    * Adds a copy of the given SpeciesType object to this Model.
    *
    * @param st the SpeciesType object to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_LEVEL_MISMATCH
+   * @li LIBSBML_VERSION_MISMATCH
+   * @li LIBSBML_DUPLICATE_OBJECT_ID
+   * @li LIBSBML_OPERATION_FAILED
    * 
    * @note This method should be used with some caution.  The fact that
    * this method @em copies the object passed to it means that the caller
@@ -465,13 +631,23 @@ public:
    *
    * @see createSpeciesType()
    */
-  void addSpeciesType (const SpeciesType* st);
+  int addSpeciesType (const SpeciesType* st);
 
 
   /**
    * Adds a copy of the given Compartment object to this Model.
    *
    * @param c the Compartment object to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_LEVEL_MISMATCH
+   * @li LIBSBML_VERSION_MISMATCH
+   * @li LIBSBML_DUPLICATE_OBJECT_ID
+   * @li LIBSBML_OPERATION_FAILED
    *
    * @note This method should be used with some caution.  The fact that
    * this method @em copies the object passed to it means that the caller
@@ -485,13 +661,23 @@ public:
    *
    * @see createCompartment()
    */
-  void addCompartment (const Compartment* c);
+  int addCompartment (const Compartment* c);
 
 
   /**
    * Adds a copy of the given Species object to this Model.
    *
    * @param s the Species object to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_LEVEL_MISMATCH
+   * @li LIBSBML_VERSION_MISMATCH
+   * @li LIBSBML_DUPLICATE_OBJECT_ID
+   * @li LIBSBML_OPERATION_FAILED
    * 
    * @note This method should be used with some caution.  The fact that
    * this method @em copies the object passed to it means that the caller
@@ -505,13 +691,23 @@ public:
    *
    * @see createSpecies()
    */
-  void addSpecies (const Species* s);
+  int addSpecies (const Species* s);
 
 
   /**
    * Adds a copy of the given Parameter object to this Model.
    *
    * @param p the Parameter object to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_LEVEL_MISMATCH
+   * @li LIBSBML_VERSION_MISMATCH
+   * @li LIBSBML_DUPLICATE_OBJECT_ID
+   * @li LIBSBML_OPERATION_FAILED
    * 
    * @note This method should be used with some caution.  The fact that
    * this method @em copies the object passed to it means that the caller
@@ -525,13 +721,23 @@ public:
    *
    * @see createParameter()
    */
-  void addParameter (const Parameter* p);
+  int addParameter (const Parameter* p);
 
 
   /**
    * Adds a copy of the given InitialAssignment object to this Model.
    *
    * @param ia the InitialAssignment object to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_LEVEL_MISMATCH
+   * @li LIBSBML_VERSION_MISMATCH
+   * @li LIBSBML_DUPLICATE_OBJECT_ID
+   * @li LIBSBML_OPERATION_FAILED
    * 
    * @note This method should be used with some caution.  The fact that
    * this method @em copies the object passed to it means that the caller
@@ -545,13 +751,23 @@ public:
    *
    * @see createInitialAssignment()
    */
-  void addInitialAssignment (const InitialAssignment* ia);
+  int addInitialAssignment (const InitialAssignment* ia);
 
 
   /**
    * Adds a copy of the given Rule object to this Model.
    *
    * @param r the Rule object to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_LEVEL_MISMATCH
+   * @li LIBSBML_VERSION_MISMATCH
+   * @li LIBSBML_DUPLICATE_OBJECT_ID
+   * @li LIBSBML_OPERATION_FAILED
    * 
    * @note This method should be used with some caution.  The fact that
    * this method @em copies the object passed to it means that the caller
@@ -568,13 +784,22 @@ public:
    * @see createAssignmentRule()
    * @see createRateRule()
    */
-  void addRule (const Rule* r);
+  int addRule (const Rule* r);
 
 
   /**
    * Adds a copy of the given Constraint object to this Model.
    *
    * @param c the Constraint object to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_LEVEL_MISMATCH
+   * @li LIBSBML_VERSION_MISMATCH
+   * @li LIBSBML_OPERATION_FAILED
    * 
    * @note This method should be used with some caution.  The fact that
    * this method @em copies the object passed to it means that the caller
@@ -588,13 +813,23 @@ public:
    *
    * @see createConstraint()
    */
-  void addConstraint (const Constraint* c);
+  int addConstraint (const Constraint* c);
 
 
   /**
    * Adds a copy of the given Reaction object to this Model.
    *
    * @param r the Reaction object to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_LEVEL_MISMATCH
+   * @li LIBSBML_VERSION_MISMATCH
+   * @li LIBSBML_DUPLICATE_OBJECT_ID
+   * @li LIBSBML_OPERATION_FAILED
    * 
    * @note This method should be used with some caution.  The fact that
    * this method @em copies the object passed to it means that the caller
@@ -608,13 +843,23 @@ public:
    *
    * @see createReaction()
    */
-  void addReaction (const Reaction* r);
+  int addReaction (const Reaction* r);
 
 
   /**
    * Adds a copy of the given Event object to this Model.
    *
    * @param e the Event object to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_LEVEL_MISMATCH
+   * @li LIBSBML_VERSION_MISMATCH
+   * @li LIBSBML_DUPLICATE_OBJECT_ID
+   * @li LIBSBML_OPERATION_FAILED
    * 
    * @note This method should be used with some caution.  The fact that
    * this method @em copies the object passed to it means that the caller
@@ -628,7 +873,7 @@ public:
    *
    * @see createEvent()
    */
-  void addEvent (const Event* e);
+  int addEvent (const Event* e);
 
 
   /**
@@ -922,9 +1167,15 @@ public:
    * @param annotation an XML structure that is to be used as the content
    * of the "annotation" subelement of this object
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   *
    * @see appendAnnotation(const XMLNode* annotation)
    */
-  virtual void setAnnotation (const XMLNode* annotation);
+  virtual int setAnnotation (const XMLNode* annotation);
 
 
   /**
@@ -941,9 +1192,16 @@ public:
    * @param annotation an XML string that is to be used as the content
    * of the "annotation" subelement of this object
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   *
    * @see appendAnnotation(const std::string& annotation)
    */
-  virtual void setAnnotation (const std::string& annotation);
+  virtual int setAnnotation (const std::string& annotation);
 
 
   /**
@@ -957,9 +1215,16 @@ public:
    * @param annotation an XML structure that is to be copied and appended
    * to the content of the "annotation" subelement of this object
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   *
    * @see setAnnotation(const XMLNode* annotation)
    */
-  virtual void appendAnnotation (const XMLNode* annotation);
+  virtual int appendAnnotation (const XMLNode* annotation);
 
 
   /**
@@ -973,9 +1238,16 @@ public:
    * @param annotation an XML string that is to be copied and appended
    * to the content of the "annotation" subelement of this object
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   *
    * @see setAnnotation(const std::string& annotation)
    */
-  virtual void appendAnnotation (const std::string& annotation);
+  virtual int appendAnnotation (const std::string& annotation);
 
 
   /**
@@ -1671,17 +1943,23 @@ public:
   unsigned int getNumEvents () const;
 
 
-  /**
+  /** @cond doxygen-libsbml-internal */
+  
+  /*
    * Converts the model to a from SBML Level 2 to Level 1.
    *
    * Most of the necessary changes occur during the various
    * writeAttributes() methods, however there are some difference between
    * L1 and L2 that require the underlying Model to be changed.
    */
-  void convertToL1 ();
+  void convertToL1 (bool strict = false);
+
+  /** @endcond doxygen-libsbml-internal */
 
 
-  /**
+  /** @cond doxygen-libsbml-internal */
+
+  /*
    * Converts the model to a from SBML Level 1 to Level 2.
    *
    * Most of the necessary changes occur during the various
@@ -1689,6 +1967,11 @@ public:
    * L1 and L2 that require the underlying Model to be changed.
    */
   void convertToL2 ();
+
+  /** @endcond doxygen-libsbml-internal */
+
+
+  /** @cond doxygen-libsbml-internal */
 
 
   /**
@@ -1704,21 +1987,88 @@ public:
    */
   bool isBoolean (const ASTNode* node) const;
 
+  /** @endcond doxygen-libsbml-internal */
+
+
   /** @cond doxygen-libsbml-internal */
 
+  /* new functions for strict conversion */
+  void removeMetaId();
+
+  /** @endcond doxygen-libsbml-internal */
+
+
+  /** @cond doxygen-libsbml-internal */
+
+  void removeSBOTerms();
+
+  /** @endcond doxygen-libsbml-internal */
+
+
+  /** @cond doxygen-libsbml-internal */
+
+  void removeHasOnlySubstanceUnits();
+
+  /** @endcond doxygen-libsbml-internal */
+
+
+  /** @cond doxygen-libsbml-internal */
+
+  void removeSBOTermsNotInL2V2();
+
+  /** @endcond doxygen-libsbml-internal */
+
+
+  /** @cond doxygen-libsbml-internal */
+
+  void convertToL2V1 (bool strict = false);
+
+  /** @endcond doxygen-libsbml-internal */
+
+
+  /** @cond doxygen-libsbml-internal */
+
+  void convertToL2V2 (bool strict = false);
+
+  /** @endcond doxygen-libsbml-internal */
+
+
+  /** @cond doxygen-libsbml-internal */
 
   void removeDuplicateTopLevelAnnotations();
 
+  /** @endcond doxygen-libsbml-internal */
 
-  /**
+  
+  /** @cond doxygen-libsbml-internal */
+
+  /*
+   * Converts the model to a from SBML Level 1 to Level 2.
+   *
+   * Most of the necessary changes occur during the various
+   * writeAttributes() methods, however there are some difference between
+   * L1 and L2 that require the underlying Model to be changed.
+   */
+  void convertToL2Strict ();
+
+  /** @endcond doxygen-libsbml-internal */
+
+
+  /** @cond doxygen-libsbml-internal */
+  
+  /*
    * Sets the parent SBMLDocument of this SBML object.
    *
    * @param d the SBMLDocument object to set
    */
   virtual void setSBMLDocument (SBMLDocument* d);
 
+  /** @endcond doxygen-libsbml-internal */
 
-  /**
+
+  /** @cond doxygen-libsbml-internal */
+
+  /*
    * Sets the parent SBML object of this SBML object.
    *
    * @param sb the SBML object to use
@@ -1807,8 +2157,14 @@ public:
 
   /**
    * Adds a copy of the layout object to the list of layouts.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */ 
-  void addLayout (const Layout* layout);
+  int addLayout (const Layout* layout);
 
 
   /**
@@ -1816,6 +2172,21 @@ public:
    * and returns it.
    */
   Layout* createLayout();
+
+
+  /**
+   * Removes the nth Layout object from this Model object and
+   * returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   *
+   * @param n the index of the Layout object to remove
+   *
+   * @return the Layout object removed.  As mentioned above, the caller owns the
+   * returned object. NULL is returned if the given index is out of range.
+   */
+  Layout* removeLayout (unsigned int n);
+
 
 #endif  /* USE_LAYOUT */  
 
@@ -1952,12 +2323,415 @@ public:
    */
   const List* getListFormulaUnitsData () const;
 
-
   /** @endcond doxygen-libsbml-internal */
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether
+   * all the required elements for this Model object
+   * have been set.
+   *
+   * @note The required elements for a Model object are:
+   * listOfCompartments (L1 only); listOfSpecies (L1V1 only);
+   * listOfReactions(L1V1 only)
+   *
+   * @return a boolean value indicating whether all the required
+   * elements for this object have been defined.
+   */
+  virtual bool hasRequiredElements() const ;
+
+
+  /**
+   * Removes the nth FunctionDefinition object from this Model object and 
+   * returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   *
+   * @param n the index of the FunctionDefinition object to remove
+   *
+   * @return the FunctionDefinition object removed.  As mentioned above, 
+   * the caller owns the returned item. NULL is returned if the given index 
+   * is out of range.
+   *
+   */
+  FunctionDefinition* removeFunctionDefinition (unsigned int n);
+
+
+  /**
+   * Removes the FunctionDefinition object with the given identifier from this Model 
+   * object and returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   * If none of the FunctionDefinition objects in this Model object have the identifier 
+   * @p sid, then @c NULL is returned.
+   *
+   * @param sid the identifier of the FunctionDefinition object to remove
+   *
+   * @return the FunctionDefinition object removed.  As mentioned above, the 
+   * caller owns the returned object. NULL is returned if no FunctionDefinition
+   * object with the identifier exists in this Model object.
+   */
+  FunctionDefinition* removeFunctionDefinition (const std::string& sid);
+
+
+  /**
+   * Removes the nth UnitDefinition object from this Model object and
+   * returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   *
+   * @param n the index of the UnitDefinition object to remove
+   *
+   * @return the UnitDefinition object removed.  As mentioned above, 
+   * the caller owns the returned item. NULL is returned if the given index 
+   * is out of range.
+   *
+   */
+  UnitDefinition* removeUnitDefinition (unsigned int n);
+
+
+  /**
+   * Removes the UnitDefinition object with the given identifier from this Model
+   * object and returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   * If none of the UnitDefinition objects in this Model object have the identifier 
+   * @p sid, then @c NULL is returned.
+   *
+   * @param sid the identifier of the UnitDefinition object to remove
+   *
+   * @return the UnitDefinition object removed.  As mentioned above, the 
+   * caller owns the returned object. NULL is returned if no UnitDefinition
+   * object with the identifier exists in this Model object.
+   */
+  UnitDefinition* removeUnitDefinition (const std::string& sid);
+
+
+  /**
+   * Removes the nth CompartmentType object from this Model object and
+   * returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   *
+   * @param n the index of the CompartmentType object to remove
+   *
+   * @return the ComapartmentType object removed.  As mentioned above, 
+   * the caller owns the returned item. NULL is returned if the given index 
+   * is out of range.
+   *
+   */
+  CompartmentType* removeCompartmentType (unsigned int n);
+
+
+  /**
+   * Removes the CompartmentType object with the given identifier from this Model
+   * object and returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   * If none of the CompartmentType objects in this Model object have the identifier 
+   * @p sid, then @c NULL is returned.
+   *
+   * @param sid the identifier of the object to remove
+   *
+   * @return the CompartmentType object removed.  As mentioned above, the 
+   * caller owns the returned object. NULL is returned if no CompartmentType
+   * object with the identifier exists in this Model object.
+   */
+  CompartmentType* removeCompartmentType (const std::string& sid);
+
+
+  /**
+   * Removes the nth SpeciesType object from this Model object and
+   * returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   *
+   * @param n the index of the SpeciesType object to remove
+   *
+   * @return the SpeciesType object removed.  As mentioned above, 
+   * the caller owns the returned item. NULL is returned if the given index 
+   * is out of range.
+   *
+   */
+  SpeciesType* removeSpeciesType (unsigned int n);
+
+
+  /**
+   * Removes the SpeciesType object with the given identifier from this Model
+   * object and returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   * If none of the SpeciesType objects in this Model object have the identifier 
+   * @p sid, then @c NULL is returned.
+   *
+   * @param sid the identifier of the SpeciesType object to remove
+   *
+   * @return the SpeciesType object removed.  As mentioned above, the 
+   * caller owns the returned object. NULL is returned if no SpeciesType
+   * object with the identifier exists in this Model object.
+   *
+   */
+  SpeciesType* removeSpeciesType (const std::string& sid);
+
+
+  /**
+   * Removes the nth Compartment object from this Model object and
+   * returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   *
+   * @param n the index of the Compartment object to remove
+   *
+   * @return the Compartment object removed.  As mentioned above, 
+   * the caller owns the returned item. NULL is returned if the given index 
+   * is out of range.
+   *
+   */
+  Compartment* removeCompartment (unsigned int n);
+
+
+  /**
+   * Removes the Compartment object with the given identifier from this Model
+   * object and returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   * If none of the Compartment objects in this Model object have the identifier 
+   * @p sid, then @c NULL is returned.
+   *
+   * @param sid the identifier of the Compartment object to remove
+   *
+   * @return the Compartment object removed.  As mentioned above, the 
+   * caller owns the returned object. NULL is returned if no Compartment
+   * object with the identifier exists in this Model object.
+   */
+  Compartment* removeCompartment (const std::string& sid);
+
+
+  /**
+   * Removes the nth Species object from this Model object and
+   * returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   *
+   * @param n the index of the Species object to remove
+   *
+   * @return the Species object removed.  As mentioned above, 
+   * the caller owns the returned item. NULL is returned if the given index 
+   * is out of range.
+   *
+   */
+  Species* removeSpecies (unsigned int n);
+
+
+  /**
+   * Removes the Species object with the given identifier from this Model
+   * object and returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   * If none of the Species objects in this Model object have the identifier 
+   * @p sid, then @c NULL is returned.
+   *
+   * @param sid the identifier of the Species object to remove
+   *
+   * @return the Species object removed.  As mentioned above, the 
+   * caller owns the returned object. NULL is returned if no Species
+   * object with the identifier exists in this Model object.
+   *
+   */
+  Species* removeSpecies (const std::string& sid);
+
+
+  /**
+   * Removes the nth Parameter object from this Model object and
+   * returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   *
+   * @param n the index of the Parameter object to remove
+   *
+   * @return the Parameter object removed.  As mentioned above, 
+   * the caller owns the returned item. NULL is returned if the given index 
+   * is out of range.
+   *
+   */
+  Parameter* removeParameter (unsigned int n);
+
+
+  /**
+   * Removes the Parameter object with the given identifier from this Model
+   * object and returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   * If none of the Parameter objects in this Model object have the identifier 
+   * @p sid, then @c NULL is returned.
+   *
+   * @param sid the identifier of the Parameter object to remove
+   *
+   * @return the Parameter object removed.  As mentioned above, the 
+   * caller owns the returned object. NULL is returned if no Parameter
+   * object with the identifier exists in this Model object.
+   */
+  Parameter* removeParameter (const std::string& sid);
+
+
+  /**
+   * Removes the nth InitialAssignment object from this Model object and
+   * returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   *
+   * @param n the index of the InitialAssignment object to remove
+   *
+   * @return the InitialAssignment object removed.  As mentioned above, 
+   * the caller owns the returned item. NULL is returned if the given index 
+   * is out of range.
+   *
+   */
+  InitialAssignment* removeInitialAssignment (unsigned int n);
+
+
+  /**
+   * Removes the InitialAssignment object with the given "symbol" attribute 
+   * from this Model object and returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   * If none of the InitialAssignment objects in this Model object have the
+   * "symbol" attribute @p symbol, then @c NULL is returned.
+   *
+   * @param symbol the "symbol" attribute of the InitialAssignment object to remove
+   *
+   * @return the InitialAssignment object removed.  As mentioned above, the 
+   * caller owns the returned object. NULL is returned if no InitialAssignment
+   * object with the "symbol" attribute exists in this Model object.
+   */
+  InitialAssignment* removeInitialAssignment (const std::string& symbol);
+
+
+  /**
+   * Removes the nth Rule object from this Model object and
+   * returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   *
+   * @param n the index of the Rule object to remove
+   *
+   * @return the Rule object removed.  As mentioned above, 
+   * the caller owns the returned item. NULL is returned if the given index 
+   * is out of range.
+   *
+   */
+  Rule* removeRule (unsigned int n);
+
+
+  /**
+   * Removes the Rule object with the given "variable" attribute from this Model 
+   * object and returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   * If none of the Rule objects in this Model object have the "variable" attribute
+   * @p variable, then @c NULL is returned.
+   *
+   * @param variable the "variable" attribute of the Rule object to remove
+   *
+   * @return the Rule object removed.  As mentioned above, the 
+   * caller owns the returned object. NULL is returned if no Rule
+   * object with the "variable" attribute exists in this Model object.
+   */
+  Rule* removeRule (const std::string& variable);
+
+
+  /**
+   * Removes the nth Constraint object from this Model object and
+   * returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   *
+   * @param n the index of the Constraint object to remove
+   *
+   * @return the Constraint object removed.  As mentioned above, 
+   * the caller owns the returned item. NULL is returned if the given index 
+   * is out of range.
+   *
+   */
+  Constraint* removeConstraint (unsigned int n);
+
+
+  /**
+   * Removes the nth Reaction object from this Model object and
+   * returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   *
+   * @param n the index of the Reaction object to remove
+   *
+   * @return the Reaction object removed.  As mentioned above, 
+   * the caller owns the returned item. NULL is returned if the given index 
+   * is out of range.
+   *
+   */
+  Reaction* removeReaction (unsigned int n);
+
+
+  /**
+   * Removes the Reaction object with the given identifier from this Model
+   * object and returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   * If none of the Reaction objects in this Model object have the identifier 
+   * @p sid, then @c NULL is returned.
+   *
+   * @param sid the identifier of the Reaction object to remove
+   *
+   * @return the Reaction object removed.  As mentioned above, the 
+   * caller owns the returned object. NULL is returned if no Reaction
+   * object with the identifier exists in this Model object.
+   *
+   */
+  Reaction* removeReaction (const std::string& sid);
+
+
+  /**
+   * Removes the nth Event object from this Model object and
+   * returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   *
+   * @param n the index of the Event object to remove
+   *
+   * @return the Event object removed.  As mentioned above, 
+   * the caller owns the returned item. NULL is returned if the given index 
+   * is out of range.
+   *
+   */
+  Event* removeEvent (unsigned int n);
+
+
+  /**
+   * Removes the Event object with the given identifier from this Model
+   * object and returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   * If none of the Event objects in this Model object have the identifier 
+   * @p sid, then @c NULL is returned.
+   *
+   * @param sid the identifier of the Event object to remove
+   *
+   * @return the Event object removed.  As mentioned above, the 
+   * caller owns the returned object. NULL is returned if no Event
+   * object with the identifier exists in this Model object.
+   *
+   */
+  Event* removeEvent (const std::string& sid);
 
 
 protected:
   /** @cond doxygen-libsbml-internal */
+
+  /* this is a constructor that takes no arguments and 
+   * only exists because the validator code needs it
+   */
+  Model ();
+
 
   /**
    * Subclasses should override this method to read (and store) XHTML,
@@ -2001,6 +2775,8 @@ protected:
    */
   virtual void syncAnnotation();
 
+  std::string     mId;
+  std::string     mName;
   ModelHistory*   mHistory;
 
 
@@ -2024,15 +2800,35 @@ protected:
   ListOfLayouts mLayouts;
 #endif  /* USE_LAYOUT */
 
+  /* the validator classes need to be friends to access the 
+   * protected constructor that takes no arguments
+   */
+  friend class Validator;
+  friend class ConsistencyValidator;
+  friend class IdentifierConsistencyValidator;
+  friend class InternalConsistencyValidator;
+  friend class L1CompatibilityValidator;
+  friend class L2v1CompatibilityValidator;
+  friend class L2v2CompatibilityValidator;
+  friend class L2v3CompatibilityValidator;
+  friend class L2v4CompatibilityValidator;
+  friend class MathMLConsistencyValidator;
+  friend class ModelingPracticeValidator;
+  friend class OverdeterminedValidator;
+  friend class SBOConsistencyValidator;
+  friend class UnitConsistencyValidator;
+
   /** @endcond doxygen-libsbml-internal */
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
 
 #ifndef SWIG
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /*-----------------------------------------------------------------------------
@@ -2040,23 +2836,14 @@ BEGIN_C_DECLS
  *---------------------------------------------------------------------------*/
 
 
+LIBSBML_EXTERN
+Model_t *
+Model_create (unsigned int level, unsigned int version);
+
 
 LIBSBML_EXTERN
 Model_t *
-Model_create (void);
-
-
-LIBSBML_EXTERN
-Model_t *
-Model_createWith (const char *sid, const char *name);
-
-
-/** @cond doxygen-libsbml-internal */
-LIBSBML_EXTERN
-Model_t *
-Model_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns);
-/** @endcond doxygen-libsbml-internal */
+Model_createWithNS (SBMLNamespaces_t *sbmlns);
 
 
 LIBSBML_EXTERN
@@ -2095,22 +2882,22 @@ Model_isSetName (const Model_t *m);
 
 
 LIBSBML_EXTERN
-void
+int
 Model_setId (Model_t *m, const char *sid);
 
 
 LIBSBML_EXTERN
-void
+int
 Model_setName (Model_t *m, const char *name);
 
 
 LIBSBML_EXTERN
-void
+int
 Model_unsetId (Model_t *m);
 
 
 LIBSBML_EXTERN
-void
+int
 Model_unsetName (Model_t *m);
 
 LIBSBML_EXTERN
@@ -2123,72 +2910,72 @@ Model_isSetModelHistory(Model_t *m);
 
 
 LIBSBML_EXTERN
-void 
+int 
 Model_setModelHistory(Model_t *m, ModelHistory_t *history);
 
 LIBSBML_EXTERN
-void 
+int 
 Model_unsetModelHistory(Model_t *m);
 
 
 
 LIBSBML_EXTERN
-void
+int
 Model_addFunctionDefinition (Model_t *m, const FunctionDefinition_t *fd);
 
 
 LIBSBML_EXTERN
-void
+int
 Model_addUnitDefinition (Model_t *m, const UnitDefinition_t *ud);
 
 
 LIBSBML_EXTERN
-void
+int
 Model_addCompartmentType (Model_t *m, const CompartmentType_t *ct);
 
 
 LIBSBML_EXTERN
-void
+int
 Model_addSpeciesType (Model_t *m, const SpeciesType_t *st);
 
 
 LIBSBML_EXTERN
-void
+int
 Model_addCompartment (Model_t *m, const Compartment_t *c);
 
 
 LIBSBML_EXTERN
-void
+int
 Model_addSpecies (Model_t *m, const Species_t *s);
 
 
 LIBSBML_EXTERN
-void
+int
 Model_addParameter (Model_t *m, const Parameter_t *p);
 
 
 LIBSBML_EXTERN
-void
+int
 Model_addInitialAssignment (Model_t *m, const InitialAssignment_t *ia);
 
 
 LIBSBML_EXTERN
-void
+int
 Model_addRule (Model_t *m, const Rule_t *r);
 
 
 LIBSBML_EXTERN
-void
+int
 Model_addConstraint (Model_t *m, const Constraint_t *c);
 
 
 LIBSBML_EXTERN
-void
+int
 Model_addReaction (Model_t *m, const Reaction_t *r);
 
 
 LIBSBML_EXTERN
-void
+int
 Model_addEvent (Model_t *m, const Event_t *e);
 
 
@@ -2565,13 +3352,18 @@ Model_getLayout (Model_t *m, unsigned int index);
 
  
 LIBSBML_EXTERN
-void 
+int 
 Model_addLayout (Model_t *m, const Layout_t *layout);
 
 
 LIBSBML_EXTERN
 Layout_t *
 Model_createLayout (Model_t *m);
+
+
+LIBSBML_EXTERN
+Layout_t*
+Model_removeLayout (Model_t *m, unsigned int n);
 
 
 #endif /* USE_LAYOUT */
@@ -2583,6 +3375,121 @@ Model_populateListFormulaUnitsData(Model_t *m);
 LIBSBML_EXTERN
 int 
 Model_isPopulatedListFormulaUnitsData(Model_t *m);
+
+
+LIBSBML_EXTERN
+FunctionDefinition_t*
+Model_removeFunctionDefinition (Model_t *m, unsigned int n);
+
+
+LIBSBML_EXTERN
+FunctionDefinition_t*
+Model_removeFunctionDefinitionById (Model_t *m, const char* sid);
+
+
+LIBSBML_EXTERN
+UnitDefinition_t*
+Model_removeUnitDefinition (Model_t *m, unsigned int n);
+
+
+LIBSBML_EXTERN
+UnitDefinition_t*
+Model_removeUnitDefinitionById (Model_t *m, const char* sid);
+
+
+LIBSBML_EXTERN
+CompartmentType_t*
+Model_removeCompartmentType (Model_t *m, unsigned int n);
+
+
+LIBSBML_EXTERN
+CompartmentType_t*
+Model_removeCompartmentTypeById (Model_t *m, const char* sid);
+
+
+LIBSBML_EXTERN
+SpeciesType_t*
+Model_removeSpeciesType (Model_t *m, unsigned int n);
+
+
+LIBSBML_EXTERN
+SpeciesType_t*
+Model_removeSpeciesTypeById (Model_t *m, const char* sid);
+
+
+LIBSBML_EXTERN
+Compartment_t*
+Model_removeCompartment (Model_t *m, unsigned int n);
+
+
+LIBSBML_EXTERN
+Compartment_t*
+Model_removeCompartmentById (Model_t *m, const char* sid);
+
+
+LIBSBML_EXTERN
+Species_t*
+Model_removeSpecies (Model_t *m, unsigned int n);
+
+
+LIBSBML_EXTERN
+Species_t*
+Model_removeSpeciesById (Model_t *m, const char* sid);
+
+
+LIBSBML_EXTERN
+Parameter_t*
+Model_removeParameter (Model_t *m, unsigned int n);
+
+
+LIBSBML_EXTERN
+Parameter_t*
+Model_removeParameterById (Model_t *m, const char* sid);
+
+
+LIBSBML_EXTERN
+InitialAssignment_t*
+Model_removeInitialAssignment (Model_t *m, unsigned int n);
+
+
+LIBSBML_EXTERN
+InitialAssignment_t*
+Model_removeInitialAssignmentBySym (Model_t *m, const char* symbol);
+
+
+LIBSBML_EXTERN
+Rule_t*
+Model_removeRule (Model_t *m, unsigned int n);
+
+
+LIBSBML_EXTERN
+Rule_t*
+Model_removeRuleByVar (Model_t *m, const char* variable);
+
+
+LIBSBML_EXTERN
+Constraint_t*
+Model_removeConstraint (Model_t *m, unsigned int n);
+
+
+LIBSBML_EXTERN
+Reaction_t*
+Model_removeReaction (Model_t *m, unsigned int n);
+
+
+LIBSBML_EXTERN
+Reaction_t*
+Model_removeReactionById (Model_t *m, const char* sid);
+
+
+LIBSBML_EXTERN
+Event_t*
+Model_removeEvent (Model_t *m, unsigned int n);
+
+
+LIBSBML_EXTERN
+Event_t*
+Model_removeEventById (Model_t *m, const char* sid);
 
 /* not yet exposed but leave in case we need them
 
@@ -2615,13 +3522,11 @@ LIBSBML_EXTERN
 List_t* 
 Model_getListFormulaUnitsData (Model_t *m);
 
-
-
 */
 
 
 END_C_DECLS
-
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG   */
 #endif  /* Model_h */

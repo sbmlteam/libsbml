@@ -121,6 +121,7 @@
 #include <sbml/SBase.h>
 #include <sbml/Parameter.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class ASTNode;
 class Parameter;
@@ -132,107 +133,37 @@ class LIBSBML_EXTERN KineticLaw : public SBase
 public:
 
   /**
-   * Creates a new KineticLaw object, optionally with values for its "formula",
-   * "timeUnits" and/or "substanceUnits" attributes.
-   *
-   * This will copy the strings handed in @p formula, @p timeUnits and
-   * @p substanceUnits.  This method is functionally equivalent to the following:
-   * @code
-   *   KineticLaw k = new KineticLaw();
-   *   k.setFormula(formula);
-   *   k.setTimeUnits(timeUnits);
-   *   k.setSubstanceUnits(substanceUnits);
-   * @endcode
-   * 
-   * @param formula a mathematical expression in text-string form
-   * representing the rate of the reaction.
-   *
-   * @param timeUnits the identifier of the time units
-   *
-   * @param substanceUnits the identifier of the substance units
-   *
-   * @note SBML Level&nbsp;1 uses a text-string format for mathematical
-   * formulas.  SBML Level&nbsp;2 uses MathML, an XML format for representing
-   * mathematical expressions.  LibSBML provides an Abstract Syntax Tree
-   * API for working with mathematical expressions; this API is more
-   * powerful than working with formulas directly in text form, and ASTs
-   * can be translated into either MathML or the text-string syntax.  The
-   * libSBML methods that accept text-string formulas directly (such as
-   * this constructor) are provided for SBML Level&nbsp;1 compatibility, but
-   * developers are encouraged to use the AST mechanisms.  See the other
-   * KineticLaw constructor for a version that takes an ASTNode.
-   *
-   * @warning In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
-   * "substanceUnits" attributes were removed.  For compatibility with new
-   * versions of SBML, users are cautioned to avoid these attributes.
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
-   */
-  KineticLaw (   const std::string& formula        = ""
-               , const std::string& timeUnits      = ""
-               , const std::string& substanceUnits = "" );
-
-  /**
-   * Creates a new KineticLaw object, optionally with values for the "math"
-   * subelement and the "timeUnits" and/or "substanceUnits" attributes.
-   *
-   * This will copy the strings handed in @p timeUnits and
-   * @p substanceUnits.  This method is functionally equivalent to the following:
-   * @code
-   *   KineticLaw k = new KineticLaw();
-   *   k.setMath(math);
-   *   k.setTimeUnits(timeUnits);
-   *   k.setSubstanceUnits(substanceUnits);
-   * @endcode
-   *
-   * @param math an ASTNode representing the rate of the reaction.
-   *
-   * @param timeUnits the identifier of the time units
-   *
-   * @param substanceUnits the identifier of the substance units
-   *
-   * @warning In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
-   * "substanceUnits" attributes were removed.  For compatibility with new
-   * versions of SBML, users are cautioned to avoid these attributes.
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
-   */
-  KineticLaw (   const ASTNode* math
-               , const std::string& timeUnits      = ""
-               , const std::string& substanceUnits = "" );
-
-
-  /**
    * Creates a new KineticLaw using the given SBML @p level and @p version
-   * values and optionally a set of XMLNamespaces.
+   * values.
    *
    * @param level an unsigned int, the SBML Level to assign to this KineticLaw
    *
    * @param version an unsigned int, the SBML Version to assign to this
    * KineticLaw
    * 
-   * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
-   * assign to this KineticLaw
+   * @note Once a KineticLaw has been added to an SBMLDocument, the @p level,
+   * @p version for the document @em override those used
+   * to create the KineticLaw.  Despite this, the ability to supply the values
+   * at creation time is an important aid to creating valid SBML.  Knowledge of
+   * the intented SBML Level and Version determine whether it is valid to
+   * assign a particular value to an attribute, or whether it is valid to add
+   * an object to an existing SBMLDocument.
+   */
+  KineticLaw (unsigned int level, unsigned int version);
+
+
+  /**
+   * Creates a new KineticLaw using the given SBMLNamespaces object
+   * @p sbmlns.
+   *
+   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
+   * information.  It is used to communicate the SBML Level, Version, and
+   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp; Core.
+   * A common approach to using this class constructor is to create an
+   * SBMLNamespaces object somewhere in a program, once, then pass it to
+   * object constructors such as this one when needed.
+   *
+   * @param sbmlns an SBMLNamespaces object.
    *
    * @note Once a KineticLaw has been added to an SBMLDocument, the @p level,
    * @p version and @p xmlns namespaces for the document @em override those used
@@ -241,21 +172,8 @@ public:
    * the intented SBML Level and Version determine whether it is valid to
    * assign a particular value to an attribute, or whether it is valid to add
    * an object to an existing SBMLDocument.
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
    */
-  KineticLaw (unsigned int level, unsigned int version, 
-               XMLNamespaces* xmlns = 0);
+  KineticLaw (SBMLNamespaces* sbmlns);
 
 
   /**
@@ -481,6 +399,13 @@ public:
    * @param formula the mathematical expression to use, represented in
    * text-string form.
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_OBJECT
+   *
    * @note SBML Level&nbsp;1 uses a text-string format for mathematical
    * formulas.  SBML Level&nbsp;2 uses MathML, an XML format for representing
    * mathematical expressions.  LibSBML provides an Abstract Syntax Tree
@@ -491,7 +416,7 @@ public:
    * this constructor) are provided for SBML Level&nbsp;1 compatibility, but
    * developers are encouraged to use the AST mechanisms.
    */
-  void setFormula (const std::string& formula);
+  int setFormula (const std::string& formula);
 
 
   /**
@@ -505,8 +430,15 @@ public:
    * 1, which represented mathematical formulas in text-string form.
    *
    * @param math an ASTNode representing a formula tree.
-   */
-  void setMath (const ASTNode* math);
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_OBJECT
+  */
+  int setMath (const ASTNode* math);
 
 
   /**
@@ -520,8 +452,16 @@ public:
    * @warning In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
    * "substanceUnits" attributes were removed.  For compatibility with new
    * versions of SBML, users are cautioned to avoid these attributes.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
    */
-  void setTimeUnits (const std::string& sid);
+  int setTimeUnits (const std::string& sid);
 
 
   /**
@@ -535,8 +475,16 @@ public:
    * @warning In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
    * "substanceUnits" attributes were removed.  For compatibility with new
    * versions of SBML, users are cautioned to avoid these attributes.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
    */
-  void setSubstanceUnits (const std::string& sid);
+  int setSubstanceUnits (const std::string& sid);
 
 
   /**
@@ -544,11 +492,18 @@ public:
    *
    * @htmlinclude libsbml-comment-set-methods.html
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   *
    * @warning In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
    * "substanceUnits" attributes were removed.  For compatibility with new
    * versions of SBML, users are cautioned to avoid these attributes.
    */
-  void unsetTimeUnits ();
+  int unsetTimeUnits ();
 
 
   /**
@@ -556,11 +511,18 @@ public:
    *
    * @htmlinclude libsbml-comment-set-methods.html
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   *
    * @warning In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
    * "substanceUnits" attributes were removed.  For compatibility with new
    * versions of SBML, users are cautioned to avoid these attributes.
    */
-  void unsetSubstanceUnits ();
+  int unsetSubstanceUnits ();
 
 
   /**
@@ -568,6 +530,16 @@ public:
    * parameters in this KineticLaw.
    *
    * @param p the Parameter to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_LEVEL_MISMATCH
+   * @li LIBSBML_VERSION_MISMATCH
+   * @li LIBSBML_DUPLICATE_OBJECT_ID
+   * @li LIBSBML_OPERATION_FAILED
    *
    * @note This method should be used with some caution.  The fact that
    * this method @em copies the object passed to it means that the caller
@@ -582,7 +554,7 @@ public:
    *
    * @see createParameter()
    */
-  void addParameter (const Parameter* p);
+  int addParameter (const Parameter* p);
 
 
   /**
@@ -771,24 +743,56 @@ public:
    */
   bool containsUndeclaredUnits() const;
 
-  /** @cond doxygen-libsbml-internal */
 
+  /**
+   * Removes the nth Parameter object in the list of local parameters 
+   * in this KineticLaw instance and returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   *
+   * @param n the index of the Parameter object to remove
+   * 
+   * @return the Parameter object removed.  As mentioned above, 
+   * the caller owns the returned item. NULL is returned if the given index 
+   * is out of range.
+   */
+  Parameter* removeParameter (unsigned int n);
+
+
+  /**
+   * Removes a Parameter object with the given identifier in the list of
+   * local parameters in this KineticLaw instance and returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   *
+   * @param sid the identifier of the Parameter to remove
+   * 
+   * @return the Parameter object removed.  As mentioned above, the 
+   * caller owns the returned object. NULL is returned if no Parameter
+   * object with the identifier exists in this KineticLaw instance.
+   */
+  Parameter* removeParameter (const std::string& sid);
+
+
+  /** @cond doxygen-libsbml-internal */
   /**
    * Sets the parent SBMLDocument of this SBML object.
    *
    * @param d the SBMLDocument to use.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
+  /** @endcond doxygen-libsbml-internal */
 
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Sets the parent SBML object of this SBML object.
    *
    * @param sb the SBML object to use
    */
   virtual void setParentSBMLObject (SBase* sb);
-
   /** @endcond doxygen-libsbml-internal */
+
 
   /**
    * Returns the libSBML type code for this %SBML object.
@@ -822,26 +826,69 @@ public:
 
 
   /** @cond doxygen-libsbml-internal */
-
   /**
    * @return the ordinal position of the element with respect to its
    * siblings or -1 (default) to indicate the position is not significant.
    */
   virtual int getElementPosition () const;
+  /** @endcond doxygen-libsbml-internal */
 
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
+  /** @endcond doxygen-libsbml-internal */
 
+
+  /**
+   * Predicate returning @c true or @c false depending on whether
+   * all the required attributes for this KineticLaw object
+   * have been set.
+   *
+   * @note The required attributes for a KineticLaw object are:
+   * formula (L1 only)
+   *
+   * @return a boolean value indicating whether all the required
+   * attributes for this object have been defined.
+   */
+  virtual bool hasRequiredAttributes() const ;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether
+   * all the required elements for this KineticLaw object
+   * have been set.
+   *
+   * @note The required elements for a KineticLaw object are:
+   * math
+   *
+   * @return a boolean value indicating whether all the required
+   * elements for this object have been defined.
+   */
+  virtual bool hasRequiredElements() const ;
+
+
+  /** @cond doxygen-libsbml-internal */
+  /*
+   * Function to set/get an identifier for unit checking.
+   * */
+  std::string getInternalId() const { return mInternalId; };
+  void setInternalId(std::string id) { mInternalId = id; };
   /** @endcond doxygen-libsbml-internal */
 
 
 protected:
   /** @cond doxygen-libsbml-internal */
+
+  /* this is a constructor that takes no arguments and 
+   * only exists because the validator code needs it
+   */
+  KineticLaw ();
+
 
   /**
    * @return the SBML object corresponding to next XMLToken in the
@@ -882,15 +929,38 @@ protected:
   std::string       mTimeUnits;
   std::string       mSubstanceUnits;
 
+  /* internal id used by unit checking */
+  std::string mInternalId;
+
+  /* the validator classes need to be friends to access the 
+   * protected constructor that takes no arguments
+   */
+  friend class Validator;
+  friend class ConsistencyValidator;
+  friend class IdentifierConsistencyValidator;
+  friend class InternalConsistencyValidator;
+  friend class L1CompatibilityValidator;
+  friend class L2v1CompatibilityValidator;
+  friend class L2v2CompatibilityValidator;
+  friend class L2v3CompatibilityValidator;
+  friend class L2v4CompatibilityValidator;
+  friend class MathMLConsistencyValidator;
+  friend class ModelingPracticeValidator;
+  friend class OverdeterminedValidator;
+  friend class SBOConsistencyValidator;
+  friend class UnitConsistencyValidator;
+
   /** @endcond doxygen-libsbml-internal */
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
 
 #ifndef SWIG
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /*-----------------------------------------------------------------------------
@@ -900,24 +970,12 @@ BEGIN_C_DECLS
 
 LIBSBML_EXTERN
 KineticLaw_t *
-KineticLaw_create (void);
+KineticLaw_create (unsigned int level, unsigned int version);
 
 
 LIBSBML_EXTERN
 KineticLaw_t *
-KineticLaw_createWithFormula ( const char *formula );
-
-LIBSBML_EXTERN
-KineticLaw_t *
-KineticLaw_createWithMath ( ASTNode_t *math);
-
-
-/** @cond doxygen-libsbml-internal */
-LIBSBML_EXTERN
-KineticLaw_t *
-KineticLaw_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns);
-/** @endcond doxygen-libsbml-internal */
+KineticLaw_createWithNS (SBMLNamespaces_t *sbmlns);
 
 
 LIBSBML_EXTERN
@@ -976,37 +1034,37 @@ KineticLaw_isSetSubstanceUnits (const KineticLaw_t *kl);
 
 
 LIBSBML_EXTERN
-void
+int
 KineticLaw_setFormula (KineticLaw_t *kl, const char *formula);
 
 
 LIBSBML_EXTERN
-void
+int
 KineticLaw_setMath (KineticLaw_t *kl, const ASTNode_t *math);
 
 
 LIBSBML_EXTERN
-void
+int
 KineticLaw_setTimeUnits (KineticLaw_t *kl, const char *sid);
 
 
 LIBSBML_EXTERN
-void
+int
 KineticLaw_setSubstanceUnits (KineticLaw_t *kl, const char *sid);
 
 
 LIBSBML_EXTERN
-void
+int
 KineticLaw_unsetTimeUnits (KineticLaw_t *kl);
 
 
 LIBSBML_EXTERN
-void
+int
 KineticLaw_unsetSubstanceUnits (KineticLaw_t *kl);
 
 
 LIBSBML_EXTERN
-void
+int
 KineticLaw_addParameter (KineticLaw_t *kl, const Parameter_t *p);
 
 
@@ -1044,8 +1102,19 @@ LIBSBML_EXTERN
 int 
 KineticLaw_containsUndeclaredUnits(KineticLaw_t *kl);
 
-END_C_DECLS
 
+LIBSBML_EXTERN
+Parameter_t *
+KineticLaw_removeParameter (KineticLaw_t *kl, unsigned int n);
+
+
+LIBSBML_EXTERN
+Parameter_t *
+KineticLaw_removeParameterById (KineticLaw_t *kl, const char *sid);
+
+
+END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
 #endif  /* KineticLaw_h */

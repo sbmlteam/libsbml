@@ -32,6 +32,9 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+/** @cond doxygen-libsbml-internal */
 
 class XMLParser;
 
@@ -165,7 +168,6 @@ XMLInputStream::peek ()
 }
 
 
-/** @cond doxygen-libsbml-internal */
 /*
  * Runs mParser until mTokenizer is ready to deliver at least one XMLToken
  * or a fatal error occurs.
@@ -187,16 +189,15 @@ XMLInputStream::queueToken ()
     mIsError = true;
   }
 }
-/** @endcond doxygen-libsbml-internal */
 
 
 /*
  * Sets the XMLErrorLog this stream will use to log errors.
  */
-void
+int
 XMLInputStream::setErrorLog (XMLErrorLog* log)
 {
-  mParser->setErrorLog(log);
+  return mParser->setErrorLog(log);
 }
 
 
@@ -234,10 +235,6 @@ XMLInputStream::toString ()
 {
   return mTokenizer.toString();
 }
-
-
-
-/** @cond doxygen-c-only */
 
 /**
  * 
@@ -365,11 +362,13 @@ XMLInputStream_skipText (XMLInputStream_t *stream)
  * 
  **/
 LIBLAX_EXTERN
-void
+int
 XMLInputStream_setErrorLog (XMLInputStream_t *stream, XMLErrorLog_t *log)
 {
-  stream->setErrorLog(log);
+  return stream->setErrorLog(log);
 }
 
-/** @endcond doxygen-c-only */
+/** @endcond doxygen-libsbml-internal */
+
+LIBSBML_CPP_NAMESPACE_END
 

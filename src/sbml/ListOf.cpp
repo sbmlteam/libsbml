@@ -34,6 +34,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /*
  * Creates a new ListOf items.
@@ -93,7 +94,7 @@ ListOf& ListOf::operator=(const ListOf& rhs)
     mItems.resize( rhs.size() );
     transform( rhs.mItems.begin(), rhs.mItems.end(), mItems.begin(), Clone() );
   }
-  
+
   return *this;
 }
 
@@ -168,38 +169,38 @@ ListOf::get (unsigned int n)
 /**
  * Used by ListOf::get() to lookup an SBase based by its id.
  */
-struct IdEq : public unary_function<SBase*, bool>
-{
-  const string& id;
-
-  IdEq (const string& id) : id(id) { }
-  bool operator() (SBase* sb) { return sb->getId() == id; }
-};
-
-
-/*
- * @return item in this ListOf items with the given id or NULL if no such
- * item exists.
- */
-const SBase*
-ListOf::get (const std::string& sid) const
-{
-  vector<SBase*>::const_iterator result;
-
-  result = find_if( mItems.begin(), mItems.end(), IdEq(sid) );
-  return (result == mItems.end()) ? 0 : *result;
-}
+//struct IdEq : public unary_function<SBase*, bool>
+//{
+//  const string& id;
+//
+//  IdEq (const string& id) : id(id) { }
+//  bool operator() (SBase* sb) { return sb->getId() == id; }
+//};
 
 
 /*
  * @return item in this ListOf items with the given id or NULL if no such
  * item exists.
  */
-SBase*
-ListOf::get (const std::string& sid)
-{
-  return const_cast<SBase*>( static_cast<const ListOf&>(*this).get(sid) );
-}
+//const SBase*
+//ListOf::get (const std::string& sid) const
+//{
+//  vector<SBase*>::const_iterator result;
+//
+//  result = find_if( mItems.begin(), mItems.end(), IdEq(sid) );
+//  return (result == mItems.end()) ? 0 : *result;
+//}
+
+
+/*
+ * @return item in this ListOf items with the given id or NULL if no such
+ * item exists.
+ */
+//SBase*
+//ListOf::get (const std::string& sid)
+//{
+//  return const_cast<SBase*>( static_cast<const ListOf&>(*this).get(sid) );
+//}
 
 
 /*
@@ -239,23 +240,23 @@ ListOf::remove (unsigned int n)
  * item exists.  The caller owns the returned item and is repsonsible for
  * deleting it.
  */
-SBase*
-ListOf::remove (const std::string& sid)
-{
-  SBase* item = 0;
-  vector<SBase*>::iterator result;
-
-  result = find_if( mItems.begin(), mItems.end(), IdEq(sid) );
-
-  if (result != mItems.end())
-  {
-    item = *result;
-    mItems.erase(result);
-  }
-
-  return item;
-}
-
+//SBase*
+//ListOf::remove (const std::string& sid)
+//{
+//  SBase* item = 0;
+//  vector<SBase*>::iterator result;
+//
+//  result = find_if( mItems.begin(), mItems.end(), IdEq(sid) );
+//
+//  if (result != mItems.end())
+//  {
+//    item = *result;
+//    mItems.erase(result);
+//  }
+//
+//  return item;
+//}
+//
 
 /*
  * @return the number of items in this ListOf items.
@@ -523,17 +524,17 @@ ListOf_get (ListOf_t *lo, unsigned int n)
 }
 
 
-/**
+/*
  * @return item in this ListOf items with the given id or NULL if no such
  * item exists.
  */
-LIBSBML_EXTERN
-SBase *
-ListOf_getById (ListOf_t *lo, const char *sid)
-{
-  return (sid != NULL) ? lo->get(sid) : NULL;
-}
-
+//LIBSBML_EXTERN
+//SBase *
+//ListOf_getById (ListOf_t *lo, const char *sid)
+//{
+//  return (sid != NULL) ? lo->get(sid) : NULL;
+//}
+//
 
 /**
  * Removes all items in this ListOf object.
@@ -565,17 +566,17 @@ ListOf_remove (ListOf_t *lo, unsigned int n)
 }
 
 
-/**
+/*
  * Removes item in this ListOf items with the given id or NULL if no such
  * item exists.  The caller owns the returned item and is repsonsible for
  * deleting it.
  */
-LIBSBML_EXTERN
-SBase *
-ListOf_removeById (ListOf_t *lo, const char *sid)
-{
-  return (sid != NULL) ? lo->remove(sid) : NULL;
-}
+//LIBSBML_EXTERN
+//SBase *
+//ListOf_removeById (ListOf_t *lo, const char *sid)
+//{
+//  return (sid != NULL) ? lo->remove(sid) : NULL;
+//}
 
 
 /**
@@ -600,6 +601,6 @@ ListOf_getItemTypeCode (const ListOf_t *lo)
   return lo->getItemTypeCode();
 }
 
-
-
 /** @endcond doxygen-c-only */
+
+LIBSBML_CPP_NAMESPACE_END

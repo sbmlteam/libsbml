@@ -32,7 +32,9 @@
 
 #include <string>
 #include <vector>
+#include <sbml/common/libsbml-namespace.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class UnitKindList
 {
@@ -83,6 +85,7 @@ private:
   std::vector<std::string> mKinds;
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* UnitKindList_h */

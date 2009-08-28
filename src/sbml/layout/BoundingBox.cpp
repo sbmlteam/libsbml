@@ -54,7 +54,7 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Default Constructor set position and dimensions to (0.0,0.0,0.0) and the
@@ -69,6 +69,7 @@ BoundingBox::BoundingBox() : SBase()
  */
 BoundingBox::BoundingBox(const BoundingBox& orig):SBase(orig)
 {
+  this->mId = orig.mId;
     this->mPosition=orig.mPosition;
     this->mDimensions=orig.mDimensions;
 }
@@ -79,13 +80,16 @@ BoundingBox::BoundingBox(const BoundingBox& orig):SBase(orig)
  */
 BoundingBox& BoundingBox::operator=(const BoundingBox& orig)
 {
-    if(&orig!=this)
-    {
-      this->SBase::operator=(orig);
-      this->mPosition=orig.mPosition;
-      this->mDimensions=orig.mDimensions;
-    }
-    return *this;
+  if(&orig!=this)
+  {
+    this->SBase::operator=(orig);
+  
+    this->mId = orig.mId;
+    this->mPosition=orig.mPosition;
+    this->mDimensions=orig.mDimensions;
+  }
+  
+  return *this;
 }
 
 
@@ -93,7 +97,9 @@ BoundingBox& BoundingBox::operator=(const BoundingBox& orig)
  * Constructor set position and dimensions to (0.0,0.0,0.0) and the id to a
  * copy of the given string.
  */ 
-BoundingBox::BoundingBox (const std::string id) : SBase(id)
+BoundingBox::BoundingBox (const std::string id) : 
+      SBase()
+    , mId (id)
 {
 }
 
@@ -105,7 +111,8 @@ BoundingBox::BoundingBox (const std::string id) : SBase(id)
 BoundingBox::BoundingBox (const std::string id,
                           double x, double y,
                           double width, double height)
-  : SBase     (id)
+  : SBase     ()
+  , mId (id)
   , mPosition  ( x, y, 0.0               )
   , mDimensions( width, height, 0.0 )
 {
@@ -119,7 +126,8 @@ BoundingBox::BoundingBox (const std::string id,
 BoundingBox::BoundingBox (const std::string id,
                           double x, double y, double z,
                           double width, double height, double depth)
-  : SBase(id)
+  : SBase     ()
+  , mId (id)
   , mPosition  (x, y, z)                   
   , mDimensions( width, height, depth )
 {
@@ -133,7 +141,8 @@ BoundingBox::BoundingBox (const std::string id,
 BoundingBox::BoundingBox (const std::string id,
                           const Point*      p,
                           const Dimensions* d)
-  : SBase     (id)
+  : SBase     ()
+  , mId (id)
 {
     if(p)
     {
@@ -196,6 +205,50 @@ BoundingBox::~BoundingBox ()
  */ 
 void BoundingBox::initDefaults ()
 {
+}
+
+
+/**
+  * Returns the value of the "id" attribute of this BoundingBox.
+  */
+const std::string& BoundingBox::getId () const
+{
+  return mId;
+}
+
+
+/**
+  * Predicate returning @c true or @c false depending on whether this
+  * BoundingBox's "id" attribute has been set.
+  */
+bool BoundingBox::isSetId () const
+{
+  return (mId.empty() == false);
+}
+
+/**
+  * Sets the value of the "id" attribute of this BoundingBox.
+  */
+int BoundingBox::setId (std::string id)
+{
+  if (!(SyntaxChecker::isValidSBMLSId(id)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mId = id;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/**
+  * Unsets the value of the "id" attribute of this BoundingBox.
+  */
+void BoundingBox::unsetId ()
+{
+  mId.erase();
 }
 
 
@@ -759,6 +812,48 @@ BoundingBox_clone (const BoundingBox_t *m)
 {
   return static_cast<BoundingBox*>( m->clone() );
 }
+
+/**
+ * Returns non-zero if the id is set
+ */
+LIBSBML_EXTERN
+int
+BoundingBox_isSetId (const BoundingBox_t *bb)
+{
+  return static_cast <int> (bb->isSetId());
+}
+
+/**
+ * Returns the id
+ */
+LIBSBML_EXTERN
+const char *
+BoundingBox_getId (const BoundingBox_t *bb)
+{
+  return bb->isSetId() ? bb->getId().c_str() : NULL;
+}
+
+/**
+ * Sets the id
+ */
+LIBSBML_EXTERN
+int
+BoundingBox_setId (BoundingBox_t *bb, const char *sid)
+{
+  return (sid == NULL) ? bb->setId("") : bb->setId(sid);
+}
+
+/**
+ * Unsets the id
+ */
+LIBSBML_EXTERN
+void
+BoundingBox_unsetId (BoundingBox_t *bb)
+{
+  bb->unsetId();
+}
+
+LIBSBML_CPP_NAMESPACE_END
 
 
 

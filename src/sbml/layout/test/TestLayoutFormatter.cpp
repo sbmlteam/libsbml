@@ -69,6 +69,8 @@
 #include "sbml/xml/XMLNode.h"
 #include "utility.h"
 
+LIBSBML_CPP_NAMESPACE_USE
+
 BEGIN_C_DECLS
 
 
@@ -161,7 +163,7 @@ START_TEST (test_LayoutFormatter_Layout_notes)
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<layout id=\"layout_1\">\n"
       "  <notes>\n"
-      "    <body>Test note.</body>\n"
+      "    <body xmlns=\"http://www.w3.org/1999/xhtml\">Test note.</body>\n"
       "</notes>\n"
       "  <dimensions width=\"200\" height=\"400\"/>\n"
       "</layout>\n"     
@@ -173,7 +175,7 @@ START_TEST (test_LayoutFormatter_Layout_notes)
 
     Dimensions dim=Dimensions(200.0,400.0);
     Layout l("layout_1",&dim);
-    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body>Test note.</body>",false);
+    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body xmlns=\"http://www.w3.org/1999/xhtml\">Test note.</body>",false);
     XMLNode notes(stream2);
     l.appendNotes(&notes);
 
@@ -275,7 +277,7 @@ START_TEST (test_LayoutFormatter_CompartmentGlyph_notes)
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<compartmentGlyph id=\"compartmentGlyph_1\">\n"
       "  <notes>\n"
-      "    <body>Test note.</body>\n"
+      "    <body xmlns=\"http://www.w3.org/1999/xhtml\">Test note.</body>\n"
       "</notes>\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
@@ -291,7 +293,7 @@ START_TEST (test_LayoutFormatter_CompartmentGlyph_notes)
     
     CompartmentGlyph cg=CompartmentGlyph();
     cg.setId("compartmentGlyph_1");
-    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body>Test note.</body>",false);
+    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body xmlns=\"http://www.w3.org/1999/xhtml\">Test note.</body>",false);
     XMLNode notes(stream2);
     cg.appendNotes(&notes);
 
@@ -413,7 +415,7 @@ START_TEST (test_LayoutFormatter_SpeciesGlyph_notes)
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<speciesGlyph id=\"speciesGlyph_1\">\n"
       "  <notes>\n"
-      "    <body>Test note.</body>\n"
+      "    <body xmlns=\"http://www.w3.org/1999/xhtml\">Test note.</body>\n"
       "</notes>\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
@@ -429,7 +431,7 @@ START_TEST (test_LayoutFormatter_SpeciesGlyph_notes)
     
     SpeciesGlyph sg=SpeciesGlyph();
     sg.setId("speciesGlyph_1");
-    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body>Test note.</body>",false);
+    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body xmlns=\"http://www.w3.org/1999/xhtml\">Test note.</body>",false);
     XMLNode notes(stream2);
     sg.appendNotes(&notes);
 
@@ -586,7 +588,7 @@ START_TEST (test_LayoutFormatter_ReactionGlyph_notes)
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
       "  <notes>\n"
-      "    <body>Test note.</body>\n"
+      "    <body xmlns=\"http://www.w3.org/1999/xhtml\">Test note.</body>\n"
       "</notes>\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
@@ -602,7 +604,7 @@ START_TEST (test_LayoutFormatter_ReactionGlyph_notes)
     
     ReactionGlyph rg=ReactionGlyph();
     rg.setId("reactionGlyph_1");
-    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body>Test note.</body>",false);
+    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body xmlns=\"http://www.w3.org/1999/xhtml\">Test note.</body>",false);
     XMLNode notes(stream2);
     rg.appendNotes(&notes);
 
@@ -766,7 +768,7 @@ START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_notes)
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" role=\"modifier\">\n"
       "  <notes>\n"
-      "    <body>Test note.</body>\n"
+      "    <body xmlns=\"http://www.w3.org/1999/xhtml\">Test note.</body>\n"
       "</notes>\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
@@ -781,7 +783,7 @@ START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_notes)
 
     
     SpeciesReferenceGlyph srg=SpeciesReferenceGlyph();
-    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body>Test note.</body>",false);
+    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body xmlns=\"http://www.w3.org/1999/xhtml\">Test note.</body>",false);
     XMLNode notes(stream2);
     srg.appendNotes(&notes);
 
@@ -939,7 +941,7 @@ START_TEST (test_LayoutFormatter_TextGlyph_notes)
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" originOfText=\"reactionGlyph_1\">\n"
       "  <notes>\n"
-      "    <body>Test note.</body>\n"
+      "    <body xmlns=\"http://www.w3.org/1999/xhtml\">Test note.</body>\n"
       "</notes>\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
@@ -955,7 +957,7 @@ START_TEST (test_LayoutFormatter_TextGlyph_notes)
     
     TextGlyph tg=TextGlyph();
     tg.setId("textGlyph_1");
-    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body>Test note.</body>",false);
+    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body xmlns=\"http://www.w3.org/1999/xhtml\">Test note.</body>",false);
     XMLNode notes(stream2);
     tg.appendNotes(&notes);
 
@@ -1083,7 +1085,7 @@ START_TEST (test_LayoutFormatter_GraphicalObject_notes)
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<graphicalObject id=\"graphicalObject_1\">\n"
       "  <notes>\n"
-      "    <body>Test note.</body>\n"
+      "    <body xmlns=\"http://www.w3.org/1999/xhtml\">Test note.</body>\n"
       "</notes>\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
@@ -1098,7 +1100,7 @@ START_TEST (test_LayoutFormatter_GraphicalObject_notes)
 
     
     GraphicalObject go=GraphicalObject();
-    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body>Test note.</body>",false);
+    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body xmlns=\"http://www.w3.org/1999/xhtml\">Test note.</body>",false);
     XMLNode notes(stream2);
     go.appendNotes(&notes);
 
@@ -1195,7 +1197,7 @@ START_TEST (test_LayoutFormatter_Curve_notes)
       "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curve>\n"
       "  <notes>\n"
-      "    <body>Test note.</body>\n"
+      "    <body xmlns=\"http://www.w3.org/1999/xhtml\">Test note.</body>\n"
       "</notes>\n"
       "  <listOfCurveSegments>\n"
       "    <curveSegment xsi:type=\"LineSegment\">\n" 
@@ -1212,7 +1214,7 @@ START_TEST (test_LayoutFormatter_Curve_notes)
 
 
     Curve c=Curve();
-    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body>Test note.</body>",false);
+    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body xmlns=\"http://www.w3.org/1999/xhtml\">Test note.</body>",false);
     XMLNode notes(stream2);
     c.appendNotes(&notes);
 
@@ -1320,7 +1322,7 @@ START_TEST (test_LayoutFormatter_LineSegment_notes)
       "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curveSegment xsi:type=\"LineSegment\">\n" 
       "  <notes>\n"
-      "    <body>Test note.</body>\n"
+      "    <body xmlns=\"http://www.w3.org/1999/xhtml\">Test note.</body>\n"
       "</notes>\n"
       "  <start x=\"10\" y=\"10\"/>\n" 
       "  <end x=\"20\" y=\"10\"/>\n" 
@@ -1335,7 +1337,7 @@ START_TEST (test_LayoutFormatter_LineSegment_notes)
     LineSegment ls=LineSegment();
     ls.setStart(10.0,10.0);
     ls.setEnd(20.0,10.0);
-    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body>Test note.</body>",false);
+    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body xmlns=\"http://www.w3.org/1999/xhtml\">Test note.</body>",false);
     XMLNode notes(stream2);
     ls.appendNotes(&notes);
 
@@ -1419,7 +1421,7 @@ START_TEST (test_LayoutFormatter_CubicBezier_notes)
       "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curveSegment xsi:type=\"CubicBezier\">\n" 
       "  <notes>\n"
-      "    <body>Test note.</body>\n"
+      "    <body xmlns=\"http://www.w3.org/1999/xhtml\">Test note.</body>\n"
       "</notes>\n"
       "  <start x=\"10\" y=\"10\"/>\n" 
       "  <end x=\"20\" y=\"10\"/>\n" 
@@ -1438,7 +1440,7 @@ START_TEST (test_LayoutFormatter_CubicBezier_notes)
     cb.setEnd(20.0,10.0);
     cb.setBasePoint1(15.0,5.0);
     cb.setBasePoint2(15.0,15.0);
-    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body>Test note.</body>",false);
+    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body xmlns=\"http://www.w3.org/1999/xhtml\">Test note.</body>",false);
     XMLNode notes(stream2);
     cb.appendNotes(&notes);
 
@@ -1514,7 +1516,7 @@ START_TEST (test_LayoutFormatter_Point_notes)
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<point x=\"200.5\" y=\"400.5\" z=\"455.2\">\n" 
       "  <notes>\n"
-      "    <body>Test note.</body>\n"
+      "    <body xmlns=\"http://www.w3.org/1999/xhtml\">Test note.</body>\n"
       "</notes>\n"
       "</point>\n"
     ;
@@ -1524,7 +1526,7 @@ START_TEST (test_LayoutFormatter_Point_notes)
     XMLNode node(stream);
 
     Point p=Point(200.5,400.5,455.2);
-    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body>Test note.</body>",false);
+    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body xmlns=\"http://www.w3.org/1999/xhtml\">Test note.</body>",false);
     XMLNode notes(stream2);
     p.appendNotes(&notes);
 
@@ -1608,7 +1610,7 @@ START_TEST (test_LayoutFormatter_Dimensions_notes)
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<dimensions width=\"200.5\" height=\"400.5\" depth=\"455.2\">\n" 
       "  <notes>\n"
-      "    <body>Test note.</body>\n"
+      "    <body xmlns=\"http://www.w3.org/1999/xhtml\">Test note.</body>\n"
       "</notes>\n"
       "</dimensions>\n"
     ;
@@ -1618,7 +1620,7 @@ START_TEST (test_LayoutFormatter_Dimensions_notes)
     XMLNode node(stream);
 
     Dimensions dim=Dimensions(200.5,400.5,455.2);
-    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body>Test note.</body>",false);
+    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body xmlns=\"http://www.w3.org/1999/xhtml\">Test note.</body>",false);
     XMLNode notes(stream2);
     dim.appendNotes(&notes);
 
@@ -1709,7 +1711,7 @@ START_TEST (test_LayoutFormatter_BoundingBox_notes)
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<boundingBox>\n"
       "  <notes>\n"
-      "    <body>Test note.</body>\n"
+      "    <body xmlns=\"http://www.w3.org/1999/xhtml\">Test note.</body>\n"
       "</notes>\n"
       "  <position x=\"10.3\" y=\"20\"/>\n"
       "  <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
@@ -1723,7 +1725,7 @@ START_TEST (test_LayoutFormatter_BoundingBox_notes)
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
     BoundingBox box=BoundingBox("",&pos,&dim);
-    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body>Test note.</body>",false);
+    XMLInputStream stream2("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<body xmlns=\"http://www.w3.org/1999/xhtml\">Test note.</body>",false);
     XMLNode notes(stream2);
     box.appendNotes(&notes);
 

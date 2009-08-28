@@ -49,38 +49,39 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
-/*
- * Creates a new SimpleSpeciesReference, optionally with its species
- * attribute set.
- */
-SimpleSpeciesReference::SimpleSpeciesReference (const std::string& species) :
-   SBase (-1)
- , mSpecies( species )
-{
-}
-
-
-SimpleSpeciesReference::SimpleSpeciesReference (unsigned int level, unsigned int version,
-                          XMLNamespaces *xmlns) :
-   SBase (-1)
+SimpleSpeciesReference::SimpleSpeciesReference (unsigned int level, 
+                                                unsigned int version) :
+   SBase ( level, version )
+ , mId     ( "" )
+ , mName   ( "" )
  , mSpecies( "" )
 {
-  mObjectLevel = level;
-  mObjectVersion = version;
-  if (xmlns) setNamespaces(xmlns);;
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
-                          
+
 SimpleSpeciesReference::SimpleSpeciesReference (SBMLNamespaces *sbmlns) :
-   SBase (-1)
+   SBase   (sbmlns  )
+ , mId     ( "" )
+ , mName   ( "" )
  , mSpecies( "" )
 {
-  mObjectLevel = sbmlns->getLevel();
-  mObjectVersion = sbmlns->getVersion();
-  setNamespaces(sbmlns->getNamespaces());
 }
 
+
+/** @cond doxygen-libsbml-internal */
+
+/* constructor for validators */
+SimpleSpeciesReference::SimpleSpeciesReference() :
+  SBase ()
+{
+}
+
+/** @endcond doxygen-libsbml-internal */
+                          
 
 /*
  * Destroys this SimpleSpeciesReference.
@@ -94,8 +95,10 @@ SimpleSpeciesReference::~SimpleSpeciesReference ()
  * Copy constructor. Creates a copy of this SimpleSpeciesReference.
  */
 SimpleSpeciesReference::SimpleSpeciesReference(const SimpleSpeciesReference& orig) :
-  SBase     (orig)
-, mSpecies  (orig.mSpecies)
+   SBase     ( orig                    )
+ , mId       ( orig.mId                )  
+ , mName     ( orig.mName              )
+ , mSpecies  ( orig.mSpecies           )
 {
 }
 
@@ -108,6 +111,8 @@ SimpleSpeciesReference& SimpleSpeciesReference::operator=(const SimpleSpeciesRef
   if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
+    mId = rhs.mId;
+    mName = rhs.mName;
     mSpecies = rhs.mSpecies;
   }
 
@@ -130,12 +135,55 @@ SimpleSpeciesReference::accept (SBMLVisitor& v) const
 
 
 /*
+ * @return the id of this SBML object.
+ */
+const string&
+SimpleSpeciesReference::getId () const
+{
+  return mId;
+}
+
+
+/*
+ * @return the name of this SBML object.
+ */
+const string&
+SimpleSpeciesReference::getName () const
+{
+  return (getLevel() == 1) ? mId : mName;
+}
+
+
+/*
  * @return the species for this SimpleSpeciesReference.
  */
 const string&
 SimpleSpeciesReference::getSpecies () const
 {
   return mSpecies;
+}
+
+
+/*
+ * @return true if the id of this SBML object has been set, false
+ * otherwise.
+ */
+bool
+SimpleSpeciesReference::isSetId () const
+{
+  return (mId.empty() == false);
+}
+
+
+/*
+ * @return true if the name of this SBML object has been set, false
+ * otherwise.
+ */
+bool
+SimpleSpeciesReference::isSetName () const
+{
+  return (getLevel() == 1) ? (mId.empty() == false) : 
+                            (mName.empty() == false);
 }
 
 
@@ -153,10 +201,118 @@ SimpleSpeciesReference::isSetSpecies () const
 /*
  * Sets the species of this SimpleSpeciesReference to a copy of sid.
  */
-void
+int
 SimpleSpeciesReference::setSpecies (const std::string& sid)
 {
-  mSpecies = sid;
+  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mSpecies = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Sets the id of this SBML object to a copy of sid.
+ */
+int
+SimpleSpeciesReference::setId (const std::string& sid)
+{
+  if (getLevel() == 1 ||
+    (getLevel() == 2 && getVersion() == 1))
+  {
+#ifdef USE_LAYOUT
+    mId = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+#else
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+#endif
+  }
+  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mId = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Sets the name of this SBML object to a copy of name.
+ */
+int
+SimpleSpeciesReference::setName (const std::string& name)
+{
+  if (getLevel() == 1 ||
+    (getLevel() == 2 && getVersion() == 1))
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else if (!(SyntaxChecker::isValidSBMLSId(name)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    if (getLevel() == 1) mId = name;
+    else mName = name;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+/*
+ * Unsets the id of this SBML object.
+ */
+int
+SimpleSpeciesReference::unsetId ()
+{
+  mId.erase();
+
+  if (mId.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the name of this SBML object.
+ */
+int
+SimpleSpeciesReference::unsetName ()
+{
+  if (getLevel() == 1) 
+  {
+    mId.erase();
+  }
+  else 
+  {
+    mName.erase();
+  }
+
+  if (getLevel() == 1 && mId.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (mName.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -172,6 +328,18 @@ SimpleSpeciesReference::isModifier () const
 
 
 /** @cond doxygen-libsbml-internal */
+bool 
+SimpleSpeciesReference::hasRequiredAttributes() const
+{
+  bool allPresent = true;
+
+  if (!isSetSpecies())
+    allPresent = false;
+
+  return allPresent;
+}
+
+
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -231,7 +399,7 @@ SimpleSpeciesReference::readAttributes (const XMLAttributes& attributes)
       {
         logEmptyString("id", level, version, "<speciesReference>");
       }
-      SBase::checkIdSyntax();
+      if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
 
       //
       // name: string  { use="optional" }  (L2v2->)
@@ -302,30 +470,35 @@ SimpleSpeciesReference::writeAttributes (XMLOutputStream& stream) const
 
 
 
-/*
- * Creates a new SpeciesReference, optionally with its species,
- * stoichiometry, and denominator attributes set.
- */
-SpeciesReference::SpeciesReference (  const std::string& species
-                                    , double        stoichiometry
-                                    , int           denominator ) :
-   SimpleSpeciesReference( species       )
- , mStoichiometry        ( stoichiometry )
- , mDenominator          ( denominator   )
- , mStoichiometryMath    ( 0             )
-{
-}
-
-
-SpeciesReference::SpeciesReference (unsigned int level, unsigned int version,
-                          XMLNamespaces *xmlns) :
-   SimpleSpeciesReference( level, version, xmlns )
+SpeciesReference::SpeciesReference (unsigned int level, unsigned int version) :
+   SimpleSpeciesReference( level, version)
  , mStoichiometry        ( 1.0 )
  , mDenominator          ( 1   )
  , mStoichiometryMath    ( 0             )
 {
 }
 
+SpeciesReference::SpeciesReference (SBMLNamespaces *sbmlns) :
+   SimpleSpeciesReference( sbmlns )
+ , mStoichiometry        ( 1.0 )
+ , mDenominator          ( 1   )
+ , mStoichiometryMath    ( 0             )
+{
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
+}
+
+/** @cond doxygen-libsbml-internal */
+
+/* constructor for validators */
+SpeciesReference::SpeciesReference() :
+  SimpleSpeciesReference()
+{
+}
+
+
+/** @endcond doxygen-libsbml-internal */
+ 
                           
 SpeciesReference::SpeciesReference (SBMLNamespaces *sbmlns) :
    SimpleSpeciesReference( sbmlns )
@@ -357,6 +530,7 @@ SpeciesReference::SpeciesReference (const SpeciesReference& orig) :
   if (orig.mStoichiometryMath)
   {
     mStoichiometryMath = new StoichiometryMath(*orig.getStoichiometryMath());
+    mStoichiometryMath->setParentSBMLObject(this);
   }
 }
 
@@ -375,9 +549,14 @@ SpeciesReference& SpeciesReference::operator=(const SpeciesReference& rhs)
 
     delete mStoichiometryMath;
     if (rhs.mStoichiometryMath)
+    {
       mStoichiometryMath = new StoichiometryMath(*rhs.getStoichiometryMath());
+      mStoichiometryMath->setParentSBMLObject(this);
+    }
     else
+    {
       mStoichiometryMath = 0;
+    }
   }
 
   return *this;
@@ -480,12 +659,13 @@ SpeciesReference::isSetStoichiometryMath () const
 /*
  * Sets the stoichiometry of this SpeciesReference to value.
  */
-void
+int
 SpeciesReference::setStoichiometry (double value)
 {
    unsetStoichiometryMath();
 
    mStoichiometry = value;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -493,39 +673,74 @@ SpeciesReference::setStoichiometry (double value)
  * Sets the stoichiometryMath of this SpeciesReference to a copy of the
  * given ASTNode.
  */
-void
+int
 SpeciesReference::setStoichiometryMath (const StoichiometryMath* math)
 {
-  mStoichiometry = 1;
-  if (mStoichiometryMath == math) return;
-
-
-  delete mStoichiometryMath;
-  mStoichiometryMath = (math != 0) ? static_cast<StoichiometryMath*>(math->clone()) : 0;
-
-  if (mStoichiometryMath) mStoichiometryMath->setSBMLDocument(mSBML);
-  if (mStoichiometryMath) mStoichiometryMath->setParentSBMLObject(this);
+  if ( (getLevel() < 2))
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else if (mStoichiometryMath == math) 
+  {
+    mStoichiometry = 1;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (math == NULL)
+  {
+    mStoichiometry = 1;
+    delete mStoichiometryMath;
+    mStoichiometryMath = 0;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (getLevel() != math->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != math->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else
+  {
+    mStoichiometry = 1;
+    delete mStoichiometryMath;
+    mStoichiometryMath = static_cast<StoichiometryMath*>(math->clone());
+    if (mStoichiometryMath) mStoichiometryMath->setSBMLDocument(mSBML);
+    if (mStoichiometryMath) mStoichiometryMath->setParentSBMLObject(this);
+    
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Sets the denominator of this SpeciesReference to value.
  */
-void
+int
 SpeciesReference::setDenominator (int value)
 {
   mDenominator = value;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
 /*
  * Unsets the "stoichiometryMath" subelement of this SpeciesReference.
  */
-void 
+int 
 SpeciesReference::unsetStoichiometryMath ()
 {
   delete mStoichiometryMath;
   mStoichiometryMath = 0;
+
+  if (mStoichiometryMath == NULL)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -537,10 +752,26 @@ StoichiometryMath*
 SpeciesReference::createStoichiometryMath ()
 {
   delete mStoichiometryMath;
-  mStoichiometryMath = new StoichiometryMath;
+  mStoichiometryMath = 0;
 
-  mStoichiometryMath->setSBMLDocument(mSBML);
-  mStoichiometryMath->setParentSBMLObject(this);
+  try
+  {
+    mStoichiometryMath = new StoichiometryMath(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
+
+  if (mStoichiometryMath)
+  {
+    mStoichiometryMath->setSBMLDocument(mSBML);
+    mStoichiometryMath->setParentSBMLObject(this);
+  }
 
   return mStoichiometryMath;
 }
@@ -559,40 +790,56 @@ SpeciesReference::getTypeCode () const
 }
 
 
+bool 
+SpeciesReference::hasRequiredAttributes() const
+{
+  bool allPresent = SimpleSpeciesReference::hasRequiredAttributes();
+
+  return allPresent;
+}
+
+
 /*
  * Sets the annotation of this SBML object to a copy of annotation.
  */
-void
+int
 SpeciesReference::setAnnotation (const XMLNode* annotation)
 {
-  SBase::setAnnotation(annotation);
+  int success = SBase::setAnnotation(annotation);
 
-#ifdef USE_LAYOUT
-  if(this->getLevel()==1 || (this->getLevel()==2 && this->getVersion()==1))
+  if (success == 0)
   {
-    // clear existing SBase::mID 
-    setId("");
-
-    if(mAnnotation)
+#ifdef USE_LAYOUT
+    if(this->getLevel()==1 || (this->getLevel()==2 && this->getVersion()==1))
     {
-      // parse mAnnotation (if any) and set mId 
-      parseSpeciesReferenceAnnotation(mAnnotation,*this);
+      // clear existing SBase::mID 
+      setId("");
+
+      if(mAnnotation)
+      {
+        // parse mAnnotation (if any) and set mId 
+        parseSpeciesReferenceAnnotation(mAnnotation,*this);
+      }
     }
-  }
 #endif // USE_LAYOUT
+  }
+
+  return success;
 }
 
 
 /*
  * Sets the annotation (by string) of this SBML object to a copy of annotation.
  */
-void
+int
 SpeciesReference::setAnnotation (const std::string& annotation)
 {
+  int success = LIBSBML_OPERATION_FAILED;
+
   if(annotation.empty())
   {
     unsetAnnotation();
-    return;
+    return LIBSBML_OPERATION_SUCCESS;
   }
 
   XMLNode* annt_xmln;
@@ -608,9 +855,10 @@ SpeciesReference::setAnnotation (const std::string& annotation)
 
   if(annt_xmln)
   {
-    setAnnotation(annt_xmln);
+    success = setAnnotation(annt_xmln);
     delete annt_xmln;
   }
+  return success;
 }
 
 
@@ -619,10 +867,11 @@ SpeciesReference::setAnnotation (const std::string& annotation)
  * This allows other annotations to be preserved whilst
  * adding additional information.
  */
-void
+int
 SpeciesReference::appendAnnotation (const XMLNode* annotation)
 {
-  if(!annotation) return;
+  int success = LIBSBML_OPERATION_FAILED;
+  if(!annotation) return LIBSBML_OPERATION_SUCCESS;
 
   XMLNode* new_annotation = NULL;
 
@@ -653,9 +902,11 @@ SpeciesReference::appendAnnotation (const XMLNode* annotation)
 //    new_annotation = tmp_annotation;
   }
 #endif // USE_LAYOUT
-  SBase::appendAnnotation(new_annotation);
+  success = SBase::appendAnnotation(new_annotation);
 
   delete new_annotation;
+
+  return success;
 }
 
 /*
@@ -663,9 +914,10 @@ SpeciesReference::appendAnnotation (const XMLNode* annotation)
  * This allows other annotations to be preserved whilst
  * adding additional information.
  */
-void
+int
 SpeciesReference::appendAnnotation (const std::string& annotation)
 {
+  int success = LIBSBML_OPERATION_FAILED;
   XMLNode* annt_xmln;
   if (getSBMLDocument())
   {
@@ -679,9 +931,11 @@ SpeciesReference::appendAnnotation (const std::string& annotation)
 
   if(annt_xmln)
   {
-    appendAnnotation(annt_xmln);
+    success = appendAnnotation(annt_xmln);
     delete annt_xmln;
   }
+
+  return success;
 }
 
 
@@ -735,7 +989,22 @@ SpeciesReference::createObject (XMLInputStream& stream)
     }
     delete mStoichiometryMath;
 
-    mStoichiometryMath = new StoichiometryMath();
+    try
+    {
+      mStoichiometryMath = new StoichiometryMath(getSBMLNamespaces());
+    }
+    catch (SBMLConstructorException*)
+    {
+      mStoichiometryMath = new StoichiometryMath(
+                                           SBMLDocument::getDefaultLevel(),
+                                           SBMLDocument::getDefaultVersion());
+    }
+    catch ( ... )
+    {
+      mStoichiometryMath = new StoichiometryMath(
+                                           SBMLDocument::getDefaultLevel(),
+                                           SBMLDocument::getDefaultVersion());
+    }
     return mStoichiometryMath;
   }
   else
@@ -1026,22 +1295,32 @@ SpeciesReference::syncAnnotation ()
 /** @endcond doxygen-libsbml-internal */
 
 
-/*
- * Creates a new ModifierSpeciesReference, optionally with its species
- * attribute set.
- */
-ModifierSpeciesReference::ModifierSpeciesReference (const std::string& species) :
-  SimpleSpeciesReference(species)
-{
-}
-
-
 ModifierSpeciesReference::ModifierSpeciesReference (unsigned int level, 
-                          unsigned int version, XMLNamespaces *xmlns) :
-  SimpleSpeciesReference(level, version, xmlns)
+                          unsigned int version) :
+  SimpleSpeciesReference(level, version)
+{
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
+}
+
+
+ModifierSpeciesReference::ModifierSpeciesReference (SBMLNamespaces *sbmlns) :
+  SimpleSpeciesReference(sbmlns)
+{
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
+}
+
+/** @cond doxygen-libsbml-internal */
+
+/* constructor for validators */
+ModifierSpeciesReference::ModifierSpeciesReference() :
+  SimpleSpeciesReference()
 {
 }
 
+/** @endcond doxygen-libsbml-internal */
+ 
                           
 ModifierSpeciesReference::ModifierSpeciesReference (SBMLNamespaces *sbmlns) :
   SimpleSpeciesReference(sbmlns)
@@ -1103,6 +1382,15 @@ ModifierSpeciesReference::getElementName () const
 {
   static const string name = "modifierSpeciesReference";
   return name;
+}
+
+
+bool 
+ModifierSpeciesReference::hasRequiredAttributes() const
+{
+  bool allPresent = SimpleSpeciesReference::hasRequiredAttributes();
+
+  return allPresent;
 }
 
 
@@ -1267,11 +1555,25 @@ ListOfSpeciesReferences::get(unsigned int n) const
 }
 
 
+/**
+ * Used by ListOf::get() to lookup an SBase based by its id.
+ */
+struct IdEqSR : public unary_function<SBase*, bool>
+{
+  const string& id;
+
+  IdEqSR (const string& id) : id(id) { }
+  bool operator() (SBase* sb) 
+       { return static_cast <SimpleSpeciesReference *> (sb)->getId() == id; }
+};
+
+
 /* return item by id */
 SimpleSpeciesReference*
 ListOfSpeciesReferences::get (const std::string& sid)
 {
-  return static_cast<SimpleSpeciesReference*>(ListOf::get(sid));
+  return const_cast<SimpleSpeciesReference*>( 
+    static_cast<const ListOfSpeciesReferences&>(*this).get(sid) );
 }
 
 
@@ -1279,7 +1581,10 @@ ListOfSpeciesReferences::get (const std::string& sid)
 const SimpleSpeciesReference*
 ListOfSpeciesReferences::get (const std::string& sid) const
 {
-  return static_cast<const SimpleSpeciesReference*>(ListOf::get(sid));
+  vector<SBase*>::const_iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqSR(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <SimpleSpeciesReference*> (*result);
 }
 
 
@@ -1295,7 +1600,18 @@ ListOfSpeciesReferences::remove (unsigned int n)
 SimpleSpeciesReference*
 ListOfSpeciesReferences::remove (const std::string& sid)
 {
-   return static_cast<SimpleSpeciesReference*>(ListOf::remove(sid));
+  SBase* item = 0;
+  vector<SBase*>::iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqSR(sid) );
+
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
+  }
+
+  return static_cast <SimpleSpeciesReference*> (item);
 }
 
 
@@ -1350,7 +1666,20 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
   {
     if (name == "speciesReference" || name == "specieReference")
     {
-      object = new SpeciesReference();
+      try
+      {
+        object = new SpeciesReference(getSBMLNamespaces());
+      }
+      catch (SBMLConstructorException*)
+      {
+        object = new SpeciesReference(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+      }
+      catch ( ... )
+      {
+        object = new SpeciesReference(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+      }
     }
     else if (name == "annotation" || name == "notes")
     {
@@ -1361,7 +1690,20 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
       /* create the object anyway - or will also get unrecognized element message 
        * which is confusion if user has merely reversed modifierSpeciesReference
        * and speciesReference */
-      object = new SpeciesReference();
+      try
+      {
+        object = new SpeciesReference(getSBMLNamespaces());
+      }
+      catch (SBMLConstructorException*)
+      {
+        object = new SpeciesReference(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+      }
+      catch ( ... )
+      {
+        object = new SpeciesReference(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+      }
       logError(InvalidReactantsProductsList);
     }
   }
@@ -1369,11 +1711,41 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
   {
     if (name == "modifierSpeciesReference")
     {
-      object = new ModifierSpeciesReference();
+      try
+      {
+        object = new ModifierSpeciesReference(getSBMLNamespaces());
+      }
+      catch (SBMLConstructorException*)
+      {
+        object = new ModifierSpeciesReference(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+      }
+      catch ( ... )
+      {
+        object = new ModifierSpeciesReference(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+      }
+    }
+    else if (name == "annotation" || name == "notes")
+    {
+      // do nothing
     }
     else
     {
-      object = new ModifierSpeciesReference();
+      try
+      {
+        object = new ModifierSpeciesReference(getSBMLNamespaces());
+      }
+      catch (SBMLConstructorException*)
+      {
+        object = new ModifierSpeciesReference(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+      }
+      catch ( ... )
+      {
+        object = new ModifierSpeciesReference(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+      }
       logError(InvalidModifiersList);
     }
   }
@@ -1387,153 +1759,142 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
 
 /** @cond doxygen-c-only */
 
-
-
 /**
- * Creates a new, empty SpeciesReference_t structure and returns a pointer
- * to it.
+ * Creates a new SpeciesReference_t structure using the given SBML @p level
+ * and @p version values.
  *
- * Note that the "species" attribute on SpeciesReference and
- * ModifierSpeciesReference is required to have a value in SBML.  Although
- * the attribute is optional in this constructor, callers should provide a
- * value or use SpeciesReference_setSpecies() shortly after creating the
- * structure.
- *
- * @return the SpeciesReference_t structure created.
- */
-LIBSBML_EXTERN
-SpeciesReference_t *
-SpeciesReference_create (void)
-{
-  return new(nothrow) SpeciesReference;
-}
-
-
-/**
- * Creates a new, empty ModifierSpeciesReference_t structure and returns a
- * pointer to it.
- *
- * Note that the "species" attribute on ModifierSpeciesReference and
- * ModifierModifierSpeciesReference is required to have a value in SBML.
- * Although the attribute is optional in this constructor, callers should
- * provide a value or use ModifierSpeciesReference_setModifierSpecies()
- * shortly after creating the structure.
- *
- * @return the ModifierSpeciesReference_t structure created.
- */
-LIBSBML_EXTERN
-SpeciesReference_t *
-SpeciesReference_createModifier (void)
-{
-  return new(nothrow) ModifierSpeciesReference;
-}
-
-
-/**
- * Creates a new, empty SpeciesReference_t structure with values for the
- * "species", "stoichiometry" and "denominator" attributes.
- *
- * The "denominator" attribute is only actually written out in the case of
- * an SBML Level 1 model.  In SBML Level 2, rational-number stoichiometries
- * are written as MathML elements in the "stoichiometryMath" subelement.
- * However, as a convenience to users, libSBML allows the creation and
- * manipulation of rational-number stoichiometries by supplying the
- * numerator and denominator directly rather than having to manually create
- * an ASTNode structure.  LibSBML will write out the appropriate constructs
- * (either a combination of "stoichiometry" and "denominator" in the case
- * of SBML Level 1, or a "stoichiometryMath" subelement in the case of SBML
- * Level 2).
- *
- * @param species the identifier of a Species_t structure defined in the
- * enclosing Model_t structure
- *
- * @param stoichiometry a floating-point number for the stoichiometry, or
- * in the case of SBML Level 1, for the numerator of the stoichiometry
- *
- * @param denominator the denominator of a rational-numbered stoichiometry.
- *
- * @return the SpeciesReference_t structure created.
- */
-LIBSBML_EXTERN
-SpeciesReference_t *
-SpeciesReference_createWithSpeciesAndStoichiometry ( const char *species,
-                              double      stoichiometry,
-                              int         denominator )
-{
-  const char *s = species ? species : "";
-  return new(nothrow) SpeciesReference(s, stoichiometry, denominator);
-}
-
-
-/** @cond doxygen-libsbml-internal */
-/**
- * Creates a new SpeciesReference_t structure using the given SBML @p 
- * level and @p version values and a set of XMLNamespaces.
- *
- * @param level an unsigned int, the SBML Level to assign to this 
+ * @param level an unsigned int, the SBML Level to assign to this
  * SpeciesReference
  *
  * @param version an unsigned int, the SBML Version to assign to this
  * SpeciesReference
- * 
- * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
- * assign to this SpeciesReference
  *
  * @return a pointer to the newly created SpeciesReference_t structure.
  *
- * @note Once a SpeciesReference has been added to an SBMLDocument, the @p 
- * level, @p version and @p xmlns namespaces for the document @em override 
- * those used to create the SpeciesReference.  Despite this, the ability 
- * to supply the values at creation time is an important aid to creating 
- * valid SBML.  Knowledge of the intended SBML Level and Version 
- * determine whether it is valid to assign a particular value to an 
- * attribute, or whether it is valid to add an object to an existing 
- * SBMLDocument.
+ * @note Once a SpeciesReference has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the SpeciesReference.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
  */
 LIBSBML_EXTERN
 SpeciesReference_t *
-SpeciesReference_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns)
+SpeciesReference_create (unsigned int level, unsigned int version)
 {
-  return new(nothrow) SpeciesReference(level, version, xmlns);
+  try
+  {
+    SpeciesReference* obj = new SpeciesReference(level,version);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
 }
-/** @endcond doxygen-libsbml-internal */
 
 
-/** @cond doxygen-libsbml-internal */
 /**
- * Creates a new ModifierSpeciesReference_t structure using the given SBML @p 
- * level and @p version values and a set of XMLNamespaces.
+ * Creates a new SpeciesReference_t structure using the given
+ * SBMLNamespaces_t structure.
  *
- * @param level an unsigned int, the SBML Level to assign to this 
- * ModifierSpeciesReference
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this SpeciesReference
+ *
+ * @return a pointer to the newly created SpeciesReference_t structure.
+ *
+ * @note Once a SpeciesReference has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the SpeciesReference.  Despite this, the ability to supply the values at 
+ * creation time is an important aid to creating valid SBML.  Knowledge of the 
+ * intended SBML Level and Version determine whether it is valid to assign a 
+ * particular value to an attribute, or whether it is valid to add an object 
+ * to an existing SBMLDocument.
+ */
+LIBSBML_EXTERN
+SpeciesReference_t *
+SpeciesReference_createWithNS (SBMLNamespaces_t* sbmlns)
+{
+  try
+  {
+    SpeciesReference* obj = new SpeciesReference(sbmlns);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
+
+
+/**
+ * Creates a new ModifierSpeciesReference (SpeciesReference_t) structure 
+ * using the given SBMLNamespaces_t structure.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * SpeciesReference
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * ModifierSpeciesReference
- * 
- * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
- * assign to this ModifierSpeciesReference
+ * SpeciesReference
  *
- * @return a pointer to the newly created ModifierSpeciesReference_t structure.
+ * @return a pointer to the newly created SpeciesReference_t structure.
  *
- * @note Once a ModifierSpeciesReference has been added to an SBMLDocument, the @p 
- * level, @p version and @p xmlns namespaces for the document @em override 
- * those used to create the ModifierSpeciesReference.  Despite this, the ability 
- * to supply the values at creation time is an important aid to creating 
- * valid SBML.  Knowledge of the intended SBML Level and Version 
- * determine whether it is valid to assign a particular value to an 
- * attribute, or whether it is valid to add an object to an existing 
- * SBMLDocument.
+ * @note Once a ModifierSpeciesReference has been added to an SBMLDocument, 
+ * the @p level and @p version for the document @em override those used to 
+ * create the ModifierSpeciesReference.  Despite this, the ability to supply 
+ * the values at creation time is an important aid to creating valid SBML.  
+ * Knowledge of the intended SBML Level and Version determine whether it is
+ * valid to assign a particular value to an attribute, or whether it is valid 
+ * to add an object to an existing SBMLDocument.
  */
 LIBSBML_EXTERN
 SpeciesReference_t *
-SpeciesReference_createModifierWithLevelVersionAndNamespaces 
-                           (unsigned int level,
-                            unsigned int version, XMLNamespaces_t *xmlns)
+SpeciesReference_createModifier (unsigned int level, unsigned int version)
 {
-  return new(nothrow) ModifierSpeciesReference(level, version, xmlns);
+  try
+  {
+    ModifierSpeciesReference* obj = new ModifierSpeciesReference(level,version);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
 }
-/** @endcond doxygen-libsbml-internal */
+
+
+/**
+ * Creates a new ModifierSpeciesReference (SpeciesReference_t) structure 
+ * using the given SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this ModifierSpeciesReference
+ *
+ * @return a pointer to the newly created SpeciesReference_t structure.
+ *
+ * @note Once a ModifierSpeciesReference has been added to an SBMLDocument, 
+ * the @p sbmlns namespaces for the document @em override those used to create
+ * the ModifierSpeciesReference. Despite this, the ability to supply the values 
+ * at creation time is an important aid to creating valid SBML.  Knowledge of 
+ * the intended SBML Level and Version determine whether it is valid to assign a 
+ * particular value to an attribute, or whether it is valid to add an object to 
+ * an existing SBMLDocument.
+ */
+LIBSBML_EXTERN
+SpeciesReference_t *
+SpeciesReference_createModifierWithNS (SBMLNamespaces_t* sbmlns)
+{
+  try
+  {
+    ModifierSpeciesReference* obj = new ModifierSpeciesReference(sbmlns);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
 
 
 /**
@@ -1828,12 +2189,23 @@ SpeciesReference_isSetStoichiometryMath (const SpeciesReference_t *sr)
  *
  * @param sid The identifier string that will be copied and assigned as the
  * "id" attribute value.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "id" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 SpeciesReference_setId (SpeciesReference_t *sr, const char *sid)
 {
-  (sid == NULL) ? sr->unsetId() : sr->setId(sid);
+  return (sid == NULL) ? sr->unsetId() : sr->setId(sid);
 }
 
 
@@ -1847,12 +2219,23 @@ SpeciesReference_setId (SpeciesReference_t *sr, const char *sid)
  *
  * @param sid The identifier string that will be copied and assigned as the
  * "name" attribute value.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "name" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 SpeciesReference_setName (SpeciesReference_t *sr, const char *name)
 {
-  (name == NULL) ? sr->unsetName() : sr->setName(name);
+  return (name == NULL) ? sr->unsetName() : sr->setName(name);
 }
 
 
@@ -1866,12 +2249,22 @@ SpeciesReference_setName (SpeciesReference_t *sr, const char *name)
  *
  * @param sid The identifier string that will be copied and assigned as the
  * "species" attribute value.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "species" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 SpeciesReference_setSpecies (SpeciesReference_t *sr, const char *sid)
 {
-  sr->setSpecies(sid ? sid : "");
+  return sr->setSpecies(sid ? sid : "");
 }
 
 
@@ -1885,13 +2278,19 @@ SpeciesReference_setSpecies (SpeciesReference_t *sr, const char *sid)
  * @param sr The SpeciesReference_t structure to use.
  *
  * @param value The value to assign to the "stoichiometry" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void
+int
 SpeciesReference_setStoichiometry (SpeciesReference_t *sr, double value)
 {
-  if (sr->isModifier()) return;
-  static_cast<SpeciesReference*>(sr)->setStoichiometry(value);
+  if (sr->isModifier()) return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  return static_cast<SpeciesReference*>(sr)->setStoichiometry(value);
 }
 
 
@@ -1906,14 +2305,23 @@ SpeciesReference_setStoichiometry (SpeciesReference_t *sr, double value)
  *
  * @param math An ASTNode expression tree to use as the content of the
  * "stoichiometryMath" subelement.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
  */
 LIBSBML_EXTERN
-void
+int
 SpeciesReference_setStoichiometryMath (  SpeciesReference_t *sr
                                        , const StoichiometryMath_t    *math )
 {
-  if (sr->isModifier()) return;
-  static_cast<SpeciesReference*>(sr)->setStoichiometryMath(math);
+  if (sr->isModifier()) return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  return static_cast<SpeciesReference*>(sr)->setStoichiometryMath(math);
 }
 
 
@@ -1938,13 +2346,19 @@ SpeciesReference_setStoichiometryMath (  SpeciesReference_t *sr
  * @param sr The SpeciesReference_t structure to use.
  *
  * @param value The value to assign to the "denominator" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void
+int
 SpeciesReference_setDenominator (SpeciesReference_t *sr, int value)
 {
-  if (sr->isModifier()) return;
-  static_cast<SpeciesReference*>(sr)->setDenominator(value);
+  if (sr->isModifier()) return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  return static_cast<SpeciesReference*>(sr)->setDenominator(value);
 }
 
 
@@ -1954,12 +2368,19 @@ SpeciesReference_setDenominator (SpeciesReference_t *sr, int value)
  * structure.
  *
  * @param sr The SpeciesReference_t structure to use.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 SpeciesReference_unsetId (SpeciesReference_t *sr)
 {
-  sr->unsetId();
+  return sr->unsetId();
 }
 
 
@@ -1968,28 +2389,72 @@ SpeciesReference_unsetId (SpeciesReference_t *sr)
  * structure.
  *
  * @param sr The SpeciesReference_t structure to use.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 SpeciesReference_unsetName (SpeciesReference_t *sr)
 {
-  sr->unsetName();
+  return sr->unsetName();
+}
+
+/**
+ * Unsets the content of the "stoichiometryMath" subelement of the given
+ * SpeciesReference_t structure.
+ *
+ * This function has no effect if the SpeciesReference_t structure is a
+ * Modifer (see SpeciesReference_isModifier()).
+ *
+ * @param sr The SpeciesReference_t structure to use.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ */
+LIBSBML_EXTERN
+int
+SpeciesReference_unsetStoichiometryMath (SpeciesReference_t *sr)
+{
+  if (sr->isModifier()) return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  return static_cast<SpeciesReference*>(sr)->unsetStoichiometryMath();
+}
+
+/**
+ * @return item in this ListOfSpeciesReference with the given id or NULL if no such
+ * item exists.
+ */
+LIBSBML_EXTERN
+SpeciesReference_t *
+ListOfSpeciesReferences_getById (ListOf_t *lo, const char *sid)
+{
+  return (sid != NULL) ? 
+    static_cast <ListOfSpeciesReferences *> (lo)->get(sid) : NULL;
 }
 
 
 /**
- * Creates a new, empty StoichiometryMath_t structure, adds it to this
- * SpeciesReference, and returns the StoichiometryMath_t.
- *
- * @param e the SpeciesReference_t structure to which the StoichiometryMath should be
- * added
+ * Removes item in this ListOf items with the given id or NULL if no such
+ * item exists.  The caller owns the returned item and is responsible for
+ * deleting it.
  */
 LIBSBML_EXTERN
-StoichiometryMath_t *
-SpeciesReference_createStoichiometryMath (SpeciesReference_t *sr)
+SpeciesReference_t *
+ListOfSpeciesReferences_removeById (ListOf_t *lo, const char *sid)
 {
-  return static_cast<SpeciesReference*>(sr)->createStoichiometryMath();
+  return (sid != NULL) ? 
+    static_cast <ListOfSpeciesReferences *> (lo)->remove(sid) : NULL;
 }
 
 
 /** @endcond doxygen-c-only */
+
+LIBSBML_CPP_NAMESPACE_END

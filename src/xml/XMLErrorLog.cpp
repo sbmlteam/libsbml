@@ -36,6 +36,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygen-libsbml-internal */
 /*
@@ -173,10 +174,15 @@ XMLErrorLog::clearLog()
  * number as XMLErrors are logged (if they have a line and column number
  * of zero).
  */
-void
+int
 XMLErrorLog::setParser (const XMLParser* p)
 {
   mParser = p;
+
+  if (mParser)
+    return LIBSBML_OPERATION_SUCCESS;
+  else
+    return LIBSBML_OPERATION_FAILED;
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -266,6 +272,6 @@ XMLErrorLog_clearLog (XMLErrorLog_t *log)
   log->clearLog();
 }
 
-
+LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond doxygen-c-only */

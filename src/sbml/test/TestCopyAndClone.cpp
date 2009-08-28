@@ -53,6 +53,7 @@
 /** @cond doxygen-ignored */
 
 using namespace std;
+LIBSBML_CPP_NAMESPACE_USE
 
 /** @endcond doxygen-ignored */
 
@@ -60,7 +61,7 @@ using namespace std;
 CK_CPPSTART
 START_TEST ( test_Compartment_copyConstructor )
 {
-    Compartment* o1=new Compartment();
+    Compartment* o1=new Compartment(2, 4);
     o1->setId("c");
     o1->setOutside("c2");
     
@@ -81,14 +82,14 @@ END_TEST
 
 START_TEST ( test_Compartment_assignmentOperator )
 {
-    Compartment* o1=new Compartment();
+    Compartment* o1=new Compartment(2, 4);
     o1->setId("c");
     o1->setOutside("c2");
     
     fail_unless(o1->getId() == "c");
     fail_unless(o1->getOutside() == "c2");
     
-    Compartment* o2 = new Compartment();;
+    Compartment* o2 = new Compartment(2, 4);;
     (*o2)=*o1;
 
     fail_unless(o2->getId() == "c");
@@ -104,7 +105,7 @@ END_TEST
 
 START_TEST ( test_Compartment_clone )
 {
-    Compartment* o1=new Compartment();
+    Compartment* o1=new Compartment(2, 4);
     o1->setId("c");
     o1->setOutside("c2");
     
@@ -126,7 +127,7 @@ END_TEST
 
 START_TEST ( test_CompartmentType_copyConstructor )
 {
-    CompartmentType* o1=new CompartmentType();
+    CompartmentType* o1=new CompartmentType(2, 4);
     o1->setId("c");
     
     fail_unless(o1->getId() == "c");
@@ -144,12 +145,12 @@ END_TEST
 
 START_TEST ( test_CompartmentType_assignmentOperator )
 {
-    CompartmentType* o1=new CompartmentType();
+    CompartmentType* o1=new CompartmentType(2, 4);
     o1->setId("c");
     
     fail_unless(o1->getId() == "c");
     
-    CompartmentType* o2 = new CompartmentType();;
+    CompartmentType* o2 = new CompartmentType(2, 4);;
     (*o2)=*o1;
 
     fail_unless(o2->getId() == "c");
@@ -164,7 +165,7 @@ END_TEST
 
 START_TEST ( test_CompartmentType_clone )
 {
-    CompartmentType* o1=new CompartmentType();
+    CompartmentType* o1=new CompartmentType(2, 4);
     o1->setId("c");
     
     fail_unless(o1->getId() == "c");
@@ -183,13 +184,27 @@ END_TEST
 
 START_TEST ( test_Constraint_copyConstructor )
 {
-    Constraint* o1=new Constraint();
+    Constraint* o1=new Constraint(2, 4);
     o1->setMetaId("c");
     
     fail_unless(o1->getMetaId() == "c");
 
+    const XMLNode *text = XMLNode::convertStringToXMLNode(" Some text ");
+    XMLTriple triple = XMLTriple("p", "http://www.w3.org/1999/xhtml", "");
+    XMLAttributes att = XMLAttributes();
+    XMLNamespaces xmlns = XMLNamespaces();
+    xmlns.add("http://www.w3.org/1999/xhtml");
+    
+    XMLNode *p = new XMLNode(triple, att, xmlns);
+    p->addChild(*(text));
+    
+    XMLTriple triple1 = XMLTriple("message", "", "");
+    XMLAttributes att1 = XMLAttributes();
+    XMLNode *message = new XMLNode(triple1, att1);
+
+    message->addChild(*(p));
+
     ASTNode * math = new ASTNode (AST_CONSTANT_PI);
-    XMLNode * message = new XMLNode();
 
     o1->setMath(math);
     o1->setMessage(message);
@@ -215,13 +230,27 @@ END_TEST
 
 START_TEST ( test_Constraint_assignmentOperator )
 {
-    Constraint* o1=new Constraint();
+    Constraint* o1=new Constraint(2, 4);
     o1->setMetaId("c");
     
     fail_unless(o1->getMetaId() == "c");
     
+    const XMLNode *text = XMLNode::convertStringToXMLNode(" Some text ");
+    XMLTriple triple = XMLTriple("p", "http://www.w3.org/1999/xhtml", "");
+    XMLAttributes att = XMLAttributes();
+    XMLNamespaces xmlns = XMLNamespaces();
+    xmlns.add("http://www.w3.org/1999/xhtml");
+    
+    XMLNode *p = new XMLNode(triple, att, xmlns);
+    p->addChild(*(text));
+    
+    XMLTriple triple1 = XMLTriple("message", "", "");
+    XMLAttributes att1 = XMLAttributes();
+    XMLNode *message = new XMLNode(triple1, att1);
+
+    message->addChild(*(p));
+
     ASTNode * math = new ASTNode (AST_CONSTANT_PI);
-    XMLNode * message = new XMLNode();
 
     o1->setMath(math);
     o1->setMessage(message);
@@ -232,7 +261,7 @@ START_TEST ( test_Constraint_assignmentOperator )
     fail_unless(o1->getMath() != NULL);
     fail_unless(o1->getMessage() != NULL);
 
-    Constraint* o2 = new Constraint();;
+    Constraint* o2 = new Constraint(2, 4);;
     (*o2)=*o1;
 
     fail_unless(o2->getMetaId() == "c");
@@ -249,13 +278,27 @@ END_TEST
 
 START_TEST ( test_Constraint_clone )
 {
-    Constraint* o1=new Constraint();
+    Constraint* o1=new Constraint(2, 4);
     o1->setMetaId("c");
     
     fail_unless(o1->getMetaId() == "c");
 
+    const XMLNode *text = XMLNode::convertStringToXMLNode(" Some text ");
+    XMLTriple triple = XMLTriple("p", "http://www.w3.org/1999/xhtml", "");
+    XMLAttributes att = XMLAttributes();
+    XMLNamespaces xmlns = XMLNamespaces();
+    xmlns.add("http://www.w3.org/1999/xhtml");
+    
+    XMLNode *p = new XMLNode(triple, att, xmlns);
+    p->addChild(*(text));
+    
+    XMLTriple triple1 = XMLTriple("message", "", "");
+    XMLAttributes att1 = XMLAttributes();
+    XMLNode *message = new XMLNode(triple1, att1);
+
+    message->addChild(*(p));
+
     ASTNode * math = new ASTNode (AST_CONSTANT_PI);
-    XMLNode * message = new XMLNode();
 
     o1->setMath(math);
     o1->setMessage(message);
@@ -282,7 +325,7 @@ END_TEST
 
 START_TEST ( test_Delay_copyConstructor )
 {
-    Delay* o1=new Delay();
+    Delay* o1=new Delay(2, 4);
     ASTNode* node=new ASTNode(AST_CONSTANT_PI);
     o1->setMath(node);
     delete node;
@@ -302,14 +345,14 @@ END_TEST
 
 START_TEST ( test_Delay_assignmentOperator )
 {
-    Delay* o1=new Delay();
+    Delay* o1=new Delay(2, 4);
     ASTNode* node=new ASTNode(AST_CONSTANT_PI);
     o1->setMath(node);
     delete node;
 
     fail_unless(o1->getMath() != NULL);
 
-    Delay* o2 = new Delay();
+    Delay* o2 = new Delay(2, 4);
     (*o2)=*o1;
 
     fail_unless(o1->getMath() != NULL);
@@ -324,7 +367,7 @@ END_TEST
 
 START_TEST ( test_Delay_clone )
 {
-    Delay* o1=new Delay();
+    Delay* o1=new Delay(2, 4);
     ASTNode* node=new ASTNode(AST_CONSTANT_PI);
     o1->setMath(node);
     delete node;
@@ -345,7 +388,7 @@ END_TEST
 
 START_TEST ( test_Event_copyConstructor )
 {
-    Event* o1=new Event();
+    Event* o1=new Event(2, 4);
     o1->setId("c");
     
     fail_unless(o1->getId() == "c");
@@ -363,12 +406,12 @@ END_TEST
 
 START_TEST ( test_Event_assignmentOperator )
 {
-    Event* o1=new Event();
+    Event* o1=new Event(2, 4);
     o1->setId("c");
     
     fail_unless(o1->getId() == "c");
     
-    Event* o2 = new Event();;
+    Event* o2 = new Event(2, 4);;
     (*o2)=*o1;
 
     fail_unless(o2->getId() == "c");
@@ -383,7 +426,7 @@ END_TEST
 
 START_TEST ( test_Event_clone )
 {
-    Event* o1=new Event();
+    Event* o1=new Event(2, 4);
     o1->setId("c");
     
     fail_unless(o1->getId() == "c");
@@ -402,7 +445,7 @@ END_TEST
 
 START_TEST ( test_EventAssignment_copyConstructor )
 {
-    EventAssignment* o1=new EventAssignment();
+    EventAssignment* o1=new EventAssignment(2, 4);
     o1->setVariable("c2");
     
     fail_unless(o1->getVariable() == "c2");
@@ -427,7 +470,7 @@ END_TEST
 
 START_TEST ( test_EventAssignment_assignmentOperator )
 {
-    EventAssignment* o1=new EventAssignment();
+    EventAssignment* o1=new EventAssignment(2, 4);
     o1->setVariable("c2");
     
     fail_unless(o1->getVariable() == "c2");
@@ -438,7 +481,7 @@ START_TEST ( test_EventAssignment_assignmentOperator )
 
     fail_unless(o1->getMath() != NULL);
 
-    EventAssignment* o2 = new EventAssignment();;
+    EventAssignment* o2 = new EventAssignment(2, 4);;
     (*o2)=*o1;
 
     fail_unless(o2->getVariable() == "c2");
@@ -454,7 +497,7 @@ END_TEST
 
 START_TEST ( test_EventAssignment_clone )
 {
-    EventAssignment* o1=new EventAssignment();
+    EventAssignment* o1=new EventAssignment(2, 4);
     o1->setVariable("c2");
     
     fail_unless(o1->getVariable() == "c2");
@@ -480,7 +523,7 @@ END_TEST
 
 START_TEST ( test_FunctionDefinition_copyConstructor )
 {
-    FunctionDefinition* o1=new FunctionDefinition();
+    FunctionDefinition* o1=new FunctionDefinition(2, 4);
     o1->setId("c");
     
     fail_unless(o1->getId() == "c");
@@ -505,7 +548,7 @@ END_TEST
 
 START_TEST ( test_FunctionDefinition_assignmentOperator )
 {
-    FunctionDefinition* o1=new FunctionDefinition();
+    FunctionDefinition* o1=new FunctionDefinition(2, 4);
     o1->setId("c");
     
     fail_unless(o1->getId() == "c");
@@ -516,7 +559,7 @@ START_TEST ( test_FunctionDefinition_assignmentOperator )
 
     fail_unless(o1->getMath() != NULL);
 
-    FunctionDefinition* o2 = new FunctionDefinition();;
+    FunctionDefinition* o2 = new FunctionDefinition(2, 4);;
     (*o2)=*o1;
 
     fail_unless(o2->getId() == "c");
@@ -532,7 +575,7 @@ END_TEST
 
 START_TEST ( test_FunctionDefinition_clone )
 {
-    FunctionDefinition* o1=new FunctionDefinition();
+    FunctionDefinition* o1=new FunctionDefinition(2, 4);
     o1->setId("c");
     
     fail_unless(o1->getId() == "c");
@@ -558,8 +601,8 @@ END_TEST
 
 START_TEST ( test_InitialAssignment_copyConstructor )
 {
-    InitialAssignment* o1=new InitialAssignment();
-    o1->setId("c");
+    InitialAssignment* o1=new InitialAssignment(2, 4);
+    o1->setSymbol("c");
     
     fail_unless(o1->getId() == "c");
 
@@ -576,12 +619,12 @@ END_TEST
 
 START_TEST ( test_InitialAssignment_assignmentOperator )
 {
-    InitialAssignment* o1=new InitialAssignment();
-    o1->setId("c");
+    InitialAssignment* o1=new InitialAssignment(2, 4);
+    o1->setSymbol("c");
     
     fail_unless(o1->getId() == "c");
     
-    InitialAssignment* o2 = new InitialAssignment();;
+    InitialAssignment* o2 = new InitialAssignment(2, 4);;
     (*o2)=*o1;
 
     fail_unless(o2->getId() == "c");
@@ -596,8 +639,8 @@ END_TEST
 
 START_TEST ( test_InitialAssignment_clone )
 {
-    InitialAssignment* o1=new InitialAssignment();
-    o1->setId("c");
+    InitialAssignment* o1=new InitialAssignment(2, 4);
+    o1->setSymbol("c");
     
     fail_unless(o1->getId() == "c");
 
@@ -615,22 +658,23 @@ END_TEST
 
 START_TEST ( test_KineticLaw_copyConstructor )
 {
-    KineticLaw* o1=new KineticLaw();
-    o1->setId("c");
+    KineticLaw* o1=new KineticLaw(2, 4);
+    o1->setInternalId("c");
     
-    Parameter * p = new Parameter("jake");
+    Parameter * p = new Parameter(2, 4);
+    p->setId("jake");
     o1->addParameter(p);
     delete p;
 
     fail_unless(o1->getNumParameters() == 1);
     fail_unless(o1->getParameter(0)->getId() == "jake");
-    fail_unless(o1->getId() == "c");
+    fail_unless(o1->getInternalId() == "c");
 
     KineticLaw* o2=new KineticLaw(*o1);
 
     fail_unless(o2->getNumParameters() == 1);
     fail_unless(o2->getParameter(0)->getId() == "jake");
-    fail_unless(o2->getId() == "c");
+    fail_unless(o2->getInternalId() == "c");
 
     fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
@@ -641,23 +685,24 @@ END_TEST
 
 START_TEST ( test_KineticLaw_assignmentOperator )
 {
-    KineticLaw* o1=new KineticLaw();
-    o1->setId("c");
+    KineticLaw* o1=new KineticLaw(2, 4);
+    o1->setInternalId("c");
     
-    Parameter * p = new Parameter("jake");
+    Parameter * p = new Parameter(2, 4);
+    p->setId("jake");
     o1->addParameter(p);
     delete p;
 
     fail_unless(o1->getNumParameters() == 1);
     fail_unless(o1->getParameter(0)->getId() == "jake");
-    fail_unless(o1->getId() == "c");
+    fail_unless(o1->getInternalId() == "c");
 
-    KineticLaw* o2 = new KineticLaw();;
+    KineticLaw* o2 = new KineticLaw(2, 4);;
     (*o2)=*o1;
 
     fail_unless(o2->getNumParameters() == 1);
     fail_unless(o2->getParameter(0)->getId() == "jake");
-    fail_unless(o2->getId() == "c");
+    fail_unless(o2->getInternalId() == "c");
 
     fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
@@ -669,22 +714,23 @@ END_TEST
 
 START_TEST ( test_KineticLaw_clone )
 {
-    KineticLaw* o1=new KineticLaw();
-    o1->setId("c");
+    KineticLaw* o1=new KineticLaw(2, 4);
+    o1->setInternalId("c");
     
-    Parameter * p = new Parameter("jake");
+    Parameter * p = new Parameter(2, 4);
+    p->setId("jake");
     o1->addParameter(p);
     delete p;
 
     fail_unless(o1->getNumParameters() == 1);
     fail_unless(o1->getParameter(0)->getId() == "jake");
-    fail_unless(o1->getId() == "c");
+    fail_unless(o1->getInternalId() == "c");
 
     KineticLaw* o2=o1->clone();
 
     fail_unless(o2->getNumParameters() == 1);
     fail_unless(o2->getParameter(0)->getId() == "jake");
-    fail_unless(o2->getId() == "c");
+    fail_unless(o2->getInternalId() == "c");
 
     fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
@@ -698,18 +744,15 @@ START_TEST ( test_ListOf_copyConstructor )
 {
     ListOf* o1=new ListOf();
     
-    o1->setId("c");
-    fail_unless(o1->getId() == "c");
-    
-    Species * s = new Species("species_1");
+    Species * s = new Species(2, 1);
+    s->setId("species_1");
     o1->append(s);
 
     delete s;
     
     ListOf* o2=new ListOf(*o1);
     fail_unless(o2->size() == 1);
-    fail_unless(o2->getId() == "c");
-    fail_unless(o2->get(0)->getId()
+    fail_unless(static_cast <Species *> (o2->get(0))->getId()
       == "species_1");
     fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
@@ -722,10 +765,8 @@ START_TEST ( test_ListOf_assignmentOperator )
 {
     ListOf* o1=new ListOf();
     
-    o1->setId("c");  
-    fail_unless(o1->getId() == "c");
-    
-    Species * s = new Species("species_1");
+    Species * s = new Species(2, 1);
+    s->setId("species_1");
     o1->append(s);
 
     delete s;
@@ -734,8 +775,7 @@ START_TEST ( test_ListOf_assignmentOperator )
     (*o2)=*o1;
 
     fail_unless(o2->size() == 1);
-    fail_unless(o2->getId() == "c");
-    fail_unless(o2->get(0)->getId()
+    fail_unless(static_cast <Species *> (o2->get(0))->getId()
       == "species_1");
 
     fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
@@ -749,10 +789,9 @@ END_TEST
 START_TEST ( test_ListOf_clone )
 {
     ListOf* o1=new ListOf();
-    o1->setId("c");
-    
-    fail_unless(o1->getId() == "c");
-    Species * s = new Species("species_1");
+
+    Species * s = new Species(2, 1);
+    s->setId("species_1");
     o1->append(s);
 
     delete s;
@@ -761,8 +800,7 @@ START_TEST ( test_ListOf_clone )
     ListOf* o2=static_cast<ListOf*>(o1->clone());
    
     fail_unless(o2->size() == 1);
-    fail_unless(o2->getId() == "c");
-    fail_unless(o2->get(0)->getId()
+    fail_unless(static_cast <Species *> (o2->get(0))->getId()
       == "species_1");
 
     fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
@@ -775,10 +813,11 @@ END_TEST
 
 START_TEST ( test_Model_copyConstructor )
 {
-    Model* o1=new Model();
+    Model* o1=new Model(2, 4);
     o1->setId("c");
 
-    Parameter *p = new Parameter("alex");
+    Parameter *p = new Parameter(2, 4);
+    p->setId("alex");
     o1->addParameter(p);
     delete p;
     FormulaUnitsData *fud = new FormulaUnitsData();
@@ -806,10 +845,11 @@ END_TEST
 
 START_TEST ( test_Model_assignmentOperator )
 {
-    Model* o1=new Model();
+    Model* o1=new Model(2, 4);
     o1->setId("c");
 
-    Parameter *p = new Parameter("alex");
+    Parameter *p = new Parameter(2, 4);
+    p->setId("alex");
     o1->addParameter(p);
     delete p;
 
@@ -822,7 +862,7 @@ START_TEST ( test_Model_assignmentOperator )
     fail_unless(o1->getNumFormulaUnitsData() == 1);
     fail_unless(o1->getParameter(0)->getId() == "alex");
 
-    Model* o2=new Model();
+    Model* o2=new Model(2, 4);
     (*o2) = *o1;
 
     fail_unless(o2->getId() == "c");
@@ -840,10 +880,11 @@ END_TEST
 
 START_TEST ( test_Model_clone )
 {
-    Model* o1=new Model();
+    Model* o1=new Model(2, 4);
     o1->setId("c");
 
-    Parameter *p = new Parameter("alex");
+    Parameter *p = new Parameter(2, 4);
+    p->setId("alex");
     o1->addParameter(p);
     delete p;
 
@@ -873,7 +914,7 @@ END_TEST
 
 START_TEST ( test_Parameter_copyConstructor )
 {
-    Parameter* o1=new Parameter();
+    Parameter* o1=new Parameter(2, 4);
     o1->setId("c");
     
     fail_unless(o1->getId() == "c");
@@ -891,12 +932,12 @@ END_TEST
 
 START_TEST ( test_Parameter_assignmentOperator )
 {
-    Parameter* o1=new Parameter();
+    Parameter* o1=new Parameter(2, 4);
     o1->setId("c");
     
     fail_unless(o1->getId() == "c");
     
-    Parameter* o2 = new Parameter();;
+    Parameter* o2 = new Parameter(2, 4);;
     (*o2)=*o1;
 
     fail_unless(o2->getId() == "c");
@@ -911,7 +952,7 @@ END_TEST
 
 START_TEST ( test_Parameter_clone )
 {
-    Parameter* o1=new Parameter();
+    Parameter* o1=new Parameter(2, 4);
     o1->setId("c");
     
     fail_unless(o1->getId() == "c");
@@ -930,12 +971,12 @@ END_TEST
 
 START_TEST ( test_Reaction_copyConstructor )
 {
-    Reaction* o1=new Reaction();
+    Reaction* o1=new Reaction(2, 4);
     o1->setId("c");
     
     fail_unless(o1->getId() == "c");
 
-    KineticLaw *kl = new KineticLaw();
+    KineticLaw *kl = new KineticLaw(2, 4);
     o1->setKineticLaw(kl);
     delete kl;
 
@@ -957,19 +998,19 @@ END_TEST
 
 START_TEST ( test_Reaction_assignmentOperator )
 {
-    Reaction* o1=new Reaction();
+    Reaction* o1=new Reaction(2, 4);
     o1->setId("c");
     
     fail_unless(o1->getId() == "c");
     
-    KineticLaw *kl = new KineticLaw();
+    KineticLaw *kl = new KineticLaw(2, 4);
     o1->setKineticLaw(kl);
     delete kl;
 
     fail_unless(o1->isSetKineticLaw() == 1);
     fail_unless (o1->getKineticLaw() != NULL);
 
-    Reaction* o2 = new Reaction();;
+    Reaction* o2 = new Reaction(2, 4);;
     (*o2)=*o1;
 
     fail_unless(o2->getId() == "c");
@@ -986,12 +1027,12 @@ END_TEST
 
 START_TEST ( test_Reaction_clone )
 {
-    Reaction* o1=new Reaction();
+    Reaction* o1=new Reaction(2, 4);
     o1->setId("c");
     
     fail_unless(o1->getId() == "c");
 
-    KineticLaw *kl = new KineticLaw();
+    KineticLaw *kl = new KineticLaw(2, 4);
     o1->setKineticLaw(kl);
     delete kl;
 
@@ -1014,9 +1055,10 @@ END_TEST
 
 START_TEST ( test_Rule_copyConstructor )
 {
-    Rule* o1=new RateRule("a");
+    Rule* o1=new RateRule(2, 1);
+    o1->setVariable("a");
     
-    fail_unless(o1->getId() == "a");
+    fail_unless(o1->getVariable() == "a");
     
     ASTNode* node=new ASTNode(AST_CONSTANT_PI);
     o1->setMath(node);
@@ -1026,7 +1068,7 @@ START_TEST ( test_Rule_copyConstructor )
     
     Rule* o2=new Rule(*o1);
     
-    fail_unless(o2->getId() == "a");
+    fail_unless(o2->getVariable() == "a");
     fail_unless(o2->isSetMath() == 1);
     
     fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
@@ -1038,9 +1080,10 @@ END_TEST
 
 START_TEST ( test_Rule_assignmentOperator )
 {
-    Rule* o1=new RateRule("a");
+    Rule* o1=new RateRule(2, 4);
+    o1->setVariable("a");
     
-    fail_unless(o1->getId() == "a");
+    fail_unless(o1->getVariable() == "a");
     
     ASTNode* node=new ASTNode(AST_CONSTANT_PI);
     o1->setMath(node);
@@ -1048,10 +1091,10 @@ START_TEST ( test_Rule_assignmentOperator )
 
     fail_unless(o1->isSetMath() == 1);
     
-    Rule* o2 = new RateRule();
+    Rule* o2 = new RateRule(2, 4);
     (*o2)=*o1;
     
-    fail_unless(o2->getId() == "a");
+    fail_unless(o2->getVariable() == "a");
     fail_unless(o2->isSetMath() == 1);
     
     fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
@@ -1064,9 +1107,10 @@ END_TEST
 
 START_TEST ( test_Rule_clone )
 {
-    Rule* o1=new RateRule("a");
+    Rule* o1=new RateRule(2, 1);
+    o1->setVariable("a");
     
-    fail_unless(o1->getId() == "a");
+    fail_unless(o1->getVariable() == "a");
     
     ASTNode* node=new ASTNode(AST_CONSTANT_PI);
     o1->setMath(node);
@@ -1076,7 +1120,7 @@ START_TEST ( test_Rule_clone )
     
     Rule* o2= o1->clone();
     
-    fail_unless(o2->getId() == "a");
+    fail_unless(o2->getVariable() == "a");
     fail_unless(o2->isSetMath() == 1);
     
     fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
@@ -1089,7 +1133,7 @@ END_TEST
 
 START_TEST ( test_Species_copyConstructor )
 {
-    Species* o1=new Species();
+    Species* o1=new Species(2, 4);
     o1->setId("c");
     o1->setSpeciesType("c1");
     
@@ -1110,14 +1154,14 @@ END_TEST
 
 START_TEST ( test_Species_assignmentOperator )
 {
-    Species* o1=new Species();
+    Species* o1=new Species(2, 4);
     o1->setId("c");
     o1->setSpeciesType("c1");
     
     fail_unless(o1->getId() == "c");
     fail_unless(o1->getSpeciesType() == "c1");
     
-    Species* o2 = new Species();;
+    Species* o2 = new Species(2, 4);;
     (*o2)=*o1;
 
     fail_unless(o2->getId() == "c");
@@ -1133,7 +1177,7 @@ END_TEST
 
 START_TEST ( test_Species_clone )
 {
-    Species* o1=new Species();
+    Species* o1=new Species(2, 4);
     o1->setId("c");
     o1->setSpeciesType("c1");
     
@@ -1155,7 +1199,7 @@ END_TEST
 
 START_TEST ( test_SpeciesReference_copyConstructor )
 {
-    SpeciesReference* o1=new SpeciesReference();
+    SpeciesReference* o1=new SpeciesReference(2, 4);
     o1->setId("c");
     
     fail_unless(o1->getId() == "c");
@@ -1173,12 +1217,12 @@ END_TEST
 
 START_TEST ( test_SpeciesReference_assignmentOperator )
 {
-    SpeciesReference* o1=new SpeciesReference();
+    SpeciesReference* o1=new SpeciesReference(2, 4);
     o1->setId("c");
     
     fail_unless(o1->getId() == "c");
     
-    SpeciesReference* o2 = new SpeciesReference();;
+    SpeciesReference* o2 = new SpeciesReference(2, 4);;
     (*o2)=*o1;
 
     fail_unless(o2->getId() == "c");
@@ -1193,7 +1237,7 @@ END_TEST
 
 START_TEST ( test_SpeciesReference_clone )
 {
-    SpeciesReference* o1=new SpeciesReference();
+    SpeciesReference* o1=new SpeciesReference(2, 4);
     o1->setId("c");
     
     fail_unless(o1->getId() == "c");
@@ -1212,7 +1256,7 @@ END_TEST
 
 START_TEST ( test_SpeciesType_copyConstructor )
 {
-    SpeciesType* o1=new SpeciesType();
+    SpeciesType* o1=new SpeciesType(2, 4);
     o1->setId("c");
     
     fail_unless(o1->getId() == "c");
@@ -1230,12 +1274,12 @@ END_TEST
 
 START_TEST ( test_SpeciesType_assignmentOperator )
 {
-    SpeciesType* o1=new SpeciesType();
+    SpeciesType* o1=new SpeciesType(2, 4);
     o1->setId("c");
     
     fail_unless(o1->getId() == "c");
     
-    SpeciesType* o2 = new SpeciesType();;
+    SpeciesType* o2 = new SpeciesType(2, 4);;
     (*o2)=*o1;
 
     fail_unless(o2->getId() == "c");
@@ -1250,7 +1294,7 @@ END_TEST
 
 START_TEST ( test_SpeciesType_clone )
 {
-    SpeciesType* o1=new SpeciesType();
+    SpeciesType* o1=new SpeciesType(2, 4);
     o1->setId("c");
     
     fail_unless(o1->getId() == "c");
@@ -1269,7 +1313,7 @@ END_TEST
 
 START_TEST ( test_Trigger_copyConstructor )
 {
-    Trigger* o1=new Trigger();
+    Trigger* o1=new Trigger(2, 4);
     ASTNode* node=new ASTNode(AST_CONSTANT_PI);
     o1->setMath(node);
     delete node;
@@ -1289,14 +1333,14 @@ END_TEST
 
 START_TEST ( test_Trigger_assignmentOperator )
 {
-    Trigger* o1=new Trigger();
+    Trigger* o1=new Trigger(2, 4);
     ASTNode* node=new ASTNode(AST_CONSTANT_PI);
     o1->setMath(node);
     delete node;
 
     fail_unless(o1->getMath() != NULL);
 
-    Trigger* o2 = new Trigger();
+    Trigger* o2 = new Trigger(2, 4);
     (*o2)=*o1;
 
     fail_unless(o1->getMath() != NULL);
@@ -1311,7 +1355,7 @@ END_TEST
 
 START_TEST ( test_Trigger_clone )
 {
-    Trigger* o1=new Trigger();
+    Trigger* o1=new Trigger(2, 4);
     ASTNode* node=new ASTNode(AST_CONSTANT_PI);
     o1->setMath(node);
     delete node;
@@ -1332,14 +1376,14 @@ END_TEST
 
 START_TEST ( test_Unit_copyConstructor )
 {
-    Unit* o1=new Unit();
-    o1->setId("c");
+    Unit* o1=new Unit(2, 4);
+    o1->setKind(UNIT_KIND_MOLE);
     
-    fail_unless(o1->getId() == "c");
+    fail_unless(o1->getKind() == UNIT_KIND_MOLE);
 
     Unit* o2=new Unit(*o1);
 
-    fail_unless(o2->getId() == "c");
+    fail_unless(o2->getKind() == UNIT_KIND_MOLE);
 
     fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
@@ -1350,15 +1394,15 @@ END_TEST
 
 START_TEST ( test_Unit_assignmentOperator )
 {
-    Unit* o1=new Unit();
-    o1->setId("c");
+    Unit* o1=new Unit(2, 4);
+    o1->setKind(UNIT_KIND_MOLE);
     
-    fail_unless(o1->getId() == "c");
+    fail_unless(o1->getKind() == UNIT_KIND_MOLE);
     
-    Unit* o2 = new Unit();;
+    Unit* o2 = new Unit(2, 4);;
     (*o2)=*o1;
 
-    fail_unless(o2->getId() == "c");
+    fail_unless(o2->getKind() == UNIT_KIND_MOLE);
 
     fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
@@ -1370,14 +1414,14 @@ END_TEST
 
 START_TEST ( test_Unit_clone )
 {
-    Unit* o1=new Unit();
-    o1->setId("c");
+    Unit* o1=new Unit(2, 4);
+    o1->setKind(UNIT_KIND_MOLE);
     
-    fail_unless(o1->getId() == "c");
+    fail_unless(o1->getKind() == UNIT_KIND_MOLE);
 
     Unit* o2=o1->clone();
    
-    fail_unless(o2->getId() == "c");
+    fail_unless(o2->getKind() == UNIT_KIND_MOLE);
 
     fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
@@ -1389,7 +1433,7 @@ END_TEST
 
 START_TEST ( test_UnitDefinition_copyConstructor )
 {
-    UnitDefinition* o1=new UnitDefinition();
+    UnitDefinition* o1=new UnitDefinition(2, 4);
     o1->setId("c");
     
     fail_unless(o1->getId() == "c");
@@ -1407,12 +1451,12 @@ END_TEST
 
 START_TEST ( test_UnitDefinition_assignmentOperator )
 {
-    UnitDefinition* o1=new UnitDefinition();
+    UnitDefinition* o1=new UnitDefinition(2, 4);
     o1->setId("c");
     
     fail_unless(o1->getId() == "c");
     
-    UnitDefinition* o2 = new UnitDefinition();;
+    UnitDefinition* o2 = new UnitDefinition(2, 4);;
     (*o2)=*o1;
 
     fail_unless(o2->getId() == "c");
@@ -1427,7 +1471,7 @@ END_TEST
 
 START_TEST ( test_UnitDefinition_clone )
 {
-    UnitDefinition* o1=new UnitDefinition();
+    UnitDefinition* o1=new UnitDefinition(2, 4);
     o1->setId("c");
     
     fail_unless(o1->getId() == "c");
@@ -1486,7 +1530,7 @@ START_TEST ( test_SBMLDocument_clone )
 {
     SBMLDocument* o1=new SBMLDocument();
     o1->setLevelAndVersion(1, 1);
-    Model *m = new Model();
+    Model *m = new Model(1, 1);
     m->setId("foo");
     o1->setModel(m);
 

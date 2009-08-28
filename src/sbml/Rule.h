@@ -306,6 +306,7 @@ END_C_DECLS
 #include <sbml/SBase.h>
 #include <sbml/ListOf.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class ASTNode;
 class ListOfRules;
@@ -447,8 +448,15 @@ public:
    * formula is converted to an ASTNode internally.
    *
    * @param formula a mathematical formula in text-string form.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_OBJECT
    */
-  void setFormula (const std::string& formula);
+  int setFormula (const std::string& formula);
 
 
   /**
@@ -456,8 +464,15 @@ public:
    * ASTNode.
    *
    * @param math the ASTNode structure of the mathematical formula.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_OBJECT
    */
-  void setMath (const ASTNode* math);
+  int setMath (const ASTNode* math);
 
 
   /**
@@ -465,8 +480,16 @@ public:
    *
    * @param sid the identifier of a Compartment, Species or Parameter
    * elsewhere in the enclosing Model object.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
    */
-  void setVariable (const std::string& sid);
+  int setVariable (const std::string& sid);
 
 
   /**
@@ -475,16 +498,31 @@ public:
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param sname the identifier of the units
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
    */
-  void setUnits (const std::string& sname);
+  int setUnits (const std::string& sname);
 
 
   /**
    * (SBML Level&nbsp;1 ParameterRule only) Unsets the "units" for this Rule.
    *
    * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  void unsetUnits ();
+  int unsetUnits ();
 
 
   /**
@@ -698,7 +736,8 @@ public:
   /**
    * Returns  the SBML Level&nbsp;1 type code for this Rule, or @c SBML_UNNOWN.
    * 
-   * @return the SBML Level&nbsp;1 typecode for this Rule or @c SBML_UNKNOWN
+   * @return the SBML Level&nbsp;1 typecode for this Rule (@c SBML_COMPARTMENT_VOLUME_RULE,
+   * @c SBML_PARAMETER_RULE, or @c SBML_SPECIES_CONCENTRATION_RULE) or @c SBML_UNKNOWN
    * (default).
    */
   SBMLTypeCode_t getL1TypeCode () const;
@@ -727,18 +766,68 @@ public:
 
 
   /** @cond doxygen-libsbml-internal */
-
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
+  /** @endcond doxygen-libsbml-internal */
+
 
   /**
    * Sets the SBML Level&nbsp;1 typecode for this Rule.
+   *
+   * @param type the SBML Level&nbsp;1 typecode for this Rule 
+   * (@c SBML_COMPARTMENT_VOLUME_RULE, @c SBML_PARAMETER_RULE, 
+   * or @c SBML_SPECIES_CONCENTRATION_RULE).
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   *
    */
-  void setL1TypeCode (SBMLTypeCode_t type);
+  int setL1TypeCode (SBMLTypeCode_t type);
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether all the
+   * required elements for this Rule object have been set.
+   *
+   * @note The required elements for a Rule object are: math
+   *
+   * @return a boolean value indicating whether all the required
+   * elements for this object have been defined.
+   */
+  virtual bool hasRequiredElements() const ;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether all the
+   * required attributes for this Rule object have been set.
+   *
+   * @note The required elements for a Rule object are: math
+   *
+   * @return a boolean value indicating whether all the required
+   * elements for this object have been defined.
+   */
+  virtual bool hasRequiredAttributes() const ;
+
+
+
+  /** @cond doxygen-libsbml-internal */
+
+  /* function to set/get an identifier for unit checking */
+  std::string getInternalId() const { return mInternalId; };
+  void setInternalId(std::string id) { mInternalId = id; };
+  /** @endcond doxygen-libsbml-internal */
+  /** @cond doxygen-libsbml-internal */
+  
+  /* overload use of getId to retrieve variable */
+  std::string getId() const { return mVariable; };
   /** @endcond doxygen-libsbml-internal */
 
 
@@ -748,16 +837,19 @@ protected:
   /**
    * Only subclasses may create Rules.
    */
-  Rule (  SBMLTypeCode_t      type
-        , const std::string&  variable
-        , const std::string&  formula );
+  //Rule (  SBMLTypeCode_t      type
+  //      , const std::string&  variable
+  //      , const std::string&  formula );
 
-  /**
-   * Only subclasses may create Rules.
-   */
+  ///**
+  // * Only subclasses may create Rules.
+  // */
   Rule (  SBMLTypeCode_t      type
-        , const std::string&  variable
-        , const ASTNode*      math );
+        , unsigned int        level
+        , unsigned int        version );
+
+  Rule (  SBMLTypeCode_t      type
+        , SBMLNamespaces *    sbmlns );
 
 
   /**
@@ -787,6 +879,7 @@ protected:
 
 
 
+  std::string mVariable;
   mutable std::string  mFormula;
   mutable ASTNode*     mMath;
   std::string          mUnits;
@@ -794,6 +887,9 @@ protected:
   SBMLTypeCode_t mType;
   SBMLTypeCode_t mL1Type;
 
+
+  /* internal id used by unit checking */
+  std::string mInternalId;
 
   friend class ListOfRules;
 
@@ -807,57 +903,37 @@ class LIBSBML_EXTERN AlgebraicRule : public Rule
 public:
 
   /**
-   * Creates a new AlgebraicRule, optionally with the given mathematical
-   * formula expressed in text-string form.
-   *
-   * This is equivalent to the constructor that takes an ASTNode.  It is
-   * provided for convenience.
-   *
-   * There exists another form of this method that allows you to use an
-   * ASTNode as the the formula instead of the text string used by this
-   * variant.
-   *
-   * @param formula The algebraic expression to be placed in the rule
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
-   */
-  AlgebraicRule (const std::string& formula = "");
-
-
-  /**
-   * Creates a new AlgebraicRule and optionally sets its "math" subelement.
-   *
-   * There exists another form of this method that allows you to use a text
-   * string to express the formula instead of the ASTNode used by this
-   * variant.
-   *
-   * @param math an ASTNode containing the mathematical formula expressing
-   * the right-hand side of the algebraic equation
-   */
-  AlgebraicRule (const ASTNode* math);
-
-
-  /**
    * Creates a new AlgebraicRule using the given SBML @p level and @p version
-   * values and optionally a set of XMLNamespaces.
+   * values.
    *
    * @param level an unsigned int, the SBML Level to assign to this AlgebraicRule
    *
    * @param version an unsigned int, the SBML Version to assign to this
    * AlgebraicRule
    * 
-   * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
-   * assign to this AlgebraicRule
+   * @note Once a AlgebraicRule has been added to an SBMLDocument, the @p level,
+   * @p version for the document @em override those used
+   * to create the AlgebraicRule.  Despite this, the ability to supply the values
+   * at creation time is an important aid to creating valid SBML.  Knowledge of
+   * the intented SBML Level and Version determine whether it is valid to
+   * assign a particular value to an attribute, or whether it is valid to add
+   * an object to an existing SBMLDocument.
+   */
+  AlgebraicRule (unsigned int level, unsigned int version);
+
+
+  /**
+   * Creates a new AlgebraicRule using the given SBMLNamespaces object
+   * @p sbmlns.
+   *
+   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
+   * information.  It is used to communicate the SBML Level, Version, and
+   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp; Core.
+   * A common approach to using this class constructor is to create an
+   * SBMLNamespaces object somewhere in a program, once, then pass it to
+   * object constructors such as this one when needed.
+   *
+   * @param sbmlns an SBMLNamespaces object.
    *
    * @note Once a AlgebraicRule has been added to an SBMLDocument, the @p level,
    * @p version and @p xmlns namespaces for the document @em override those used
@@ -866,21 +942,8 @@ public:
    * the intented SBML Level and Version determine whether it is valid to
    * assign a particular value to an attribute, or whether it is valid to add
    * an object to an existing SBMLDocument.
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
    */
-  AlgebraicRule (unsigned int level, unsigned int version, 
-               XMLNamespaces* xmlns = 0);
+  AlgebraicRule (SBMLNamespaces* sbmlns);
 
 
   /**
@@ -954,10 +1017,44 @@ public:
   
   /** @endcond doxygen-libsbml-internal */
 
+  /**
+   * Predicate returning @c true or @c false depending on whether
+   * all the required attributes for this AlgebraicRule object
+   * have been set.
+   *
+   * @note The required attributes for a AlgebraicRule object are:
+   * formula (L1 only)
+   */
+  virtual bool hasRequiredAttributes() const ;
+
 protected:
   /** @cond doxygen-libsbml-internal */
 
+  /* this is a constructor that takes no arguments and 
+   * only exists because the validator code needs it
+   */
+  AlgebraicRule ();
+
+
   bool mInternalIdOnly;
+
+  /* the validator classes need to be friends to access the 
+   * protected constructor that takes no arguments
+   */
+  friend class Validator;
+  friend class ConsistencyValidator;
+  friend class IdentifierConsistencyValidator;
+  friend class InternalConsistencyValidator;
+  friend class L1CompatibilityValidator;
+  friend class L2v1CompatibilityValidator;
+  friend class L2v2CompatibilityValidator;
+  friend class L2v3CompatibilityValidator;
+  friend class L2v4CompatibilityValidator;
+  friend class MathMLConsistencyValidator;
+  friend class ModelingPracticeValidator;
+  friend class OverdeterminedValidator;
+  friend class SBOConsistencyValidator;
+  friend class UnitConsistencyValidator;
 
   /** @endcond doxygen-libsbml-internal */
 
@@ -970,62 +1067,37 @@ class LIBSBML_EXTERN AssignmentRule : public Rule
 public:
 
   /**
-   * Creates a new AssignmentRule and optionally sets its variable and
-   * math.
-   *
-   * There exists another form of this method that allows you to use an
-   * ASTNode as the the formula instead of the text string used by this
-   * variant.
-   *
-   * @param variable the identifier of the variable (a Compartment, Species
-   * or Parameter elsewhere in this Model object) that is being assigned
-   *
-   * @param formula the mathematical formula placed in the assignment rule,
-   * written as a text string.
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
-   */
-  AssignmentRule (  const std::string& variable = ""
-                  , const std::string& formula  = "" );
-
-  /**
-   * Creates a new AssignmentRule with a given @p variable and mathematical
-   * expression.
-   *
-   * There exists another form of this method that allows you to use a text
-   * string to express the formula instead of the ASTNode used by this
-   * variant.
-   *
-   * @param variable the identifier of the variable (a Compartment, Species
-   * or Parameter elsewhere in this Model object) that is being assigned
-   *
-   * @param math an ASTNode containing the mathematical formula
-   * expressing the right-hand side of the assignment equation
-   */
-  AssignmentRule (const std::string& variable, const ASTNode* math);
-
-
-  /**
    * Creates a new AssignmentRule using the given SBML @p level and @p version
-   * values and optionally a set of XMLNamespaces.
+   * values.
    *
    * @param level an unsigned int, the SBML Level to assign to this AssignmentRule
    *
    * @param version an unsigned int, the SBML Version to assign to this
    * AssignmentRule
    * 
-   * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
-   * assign to this AssignmentRule
+   * @note Once a AssignmentRule has been added to an SBMLDocument, the @p level,
+   * @p version for the document @em override those used
+   * to create the AssignmentRule.  Despite this, the ability to supply the values
+   * at creation time is an important aid to creating valid SBML.  Knowledge of
+   * the intented SBML Level and Version determine whether it is valid to
+   * assign a particular value to an attribute, or whether it is valid to add
+   * an object to an existing SBMLDocument.
+   */
+  AssignmentRule (unsigned int level, unsigned int version);
+
+
+  /**
+   * Creates a new AssignmentRule using the given SBMLNamespaces object
+   * @p sbmlns.
+   *
+   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
+   * information.  It is used to communicate the SBML Level, Version, and
+   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp; Core.
+   * A common approach to using this class constructor is to create an
+   * SBMLNamespaces object somewhere in a program, once, then pass it to
+   * object constructors such as this one when needed.
+   *
+   * @param sbmlns an SBMLNamespaces object.
    *
    * @note Once a AssignmentRule has been added to an SBMLDocument, the @p level,
    * @p version and @p xmlns namespaces for the document @em override those used
@@ -1034,21 +1106,8 @@ public:
    * the intented SBML Level and Version determine whether it is valid to
    * assign a particular value to an attribute, or whether it is valid to add
    * an object to an existing SBMLDocument.
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
    */
-  AssignmentRule (unsigned int level, unsigned int version, 
-               XMLNamespaces* xmlns = 0);
+  AssignmentRule (SBMLNamespaces* sbmlns);
 
 
   /**
@@ -1109,6 +1168,48 @@ public:
    * @return the result of calling <code>v.visit()</code>.
    */
   virtual bool accept (SBMLVisitor& v) const;
+
+  /**
+   * Predicate returning @c true or @c false depending on whether
+   * all the required attributes for this AssignmentRule object
+   * have been set.
+   *
+   * @note The required attributes for a AssignmentRule object are:
+   * variable (compartment/species/name in L1); formula (L1 only)
+   */
+  virtual bool hasRequiredAttributes() const ;
+
+protected:
+  /** @cond doxygen-libsbml-internal */
+
+  /* this is a constructor that takes no arguments and 
+   * only exists because the validator code needs it
+   */
+  AssignmentRule ();
+
+
+  //std::string mVariable;
+  //std::string mName;
+
+  /* the validator classes need to be friends to access the 
+   * protected constructor that takes no arguments
+   */
+  friend class Validator;
+  friend class ConsistencyValidator;
+  friend class IdentifierConsistencyValidator;
+  friend class InternalConsistencyValidator;
+  friend class L1CompatibilityValidator;
+  friend class L2v1CompatibilityValidator;
+  friend class L2v2CompatibilityValidator;
+  friend class L2v3CompatibilityValidator;
+  friend class L2v4CompatibilityValidator;
+  friend class MathMLConsistencyValidator;
+  friend class ModelingPracticeValidator;
+  friend class OverdeterminedValidator;
+  friend class SBOConsistencyValidator;
+  friend class UnitConsistencyValidator;
+
+  /** @endcond doxygen-libsbml-internal */
 };
 
 
@@ -1118,84 +1219,23 @@ class LIBSBML_EXTERN RateRule : public Rule
 public:
 
   /**
-   * Creates a new RateRule and optionally sets its variable and formula.
-   *
-   * There exists another form of this method that allows you to use an
-   * ASTNode as the the formula instead of the text string used by this
-   * variant.
-   *
-   * @param variable the identifier of the variable (a Compartment, Species
-   * or Parameter elsewhere in this Model object) that is being assigned
-   *
-   * @param formula the mathematical formula placed in the assignment rule,
-   * written as a text string.
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
-   */
-  RateRule (const std::string& variable = "", const std::string& formula = "");
-
-
-  /**
-   * Creates a new RateRule with a given @p variable and mathematical
-   * expression.
-   *
-   * There exists another form of this method that allows you to use a text
-   * string to express the formula instead of the ASTNode used by this
-   * variant.
-   *
-   * @param variable the identifier of the variable (a Compartment, Species
-   * or Parameter elsewhere in this Model object)
-   *
-   * @param math an ASTNode containing the mathematical formula
-   * expressing the right-hand side of the rate equation
-   */
-  RateRule (const std::string& variable, const ASTNode* math);
-
-
-  /**
    * Creates a new RateRule using the given SBML @p level and @p version
-   * values and optionally a set of XMLNamespaces.
+   * values.
    *
    * @param level an unsigned int, the SBML Level to assign to this RateRule
    *
    * @param version an unsigned int, the SBML Version to assign to this
    * RateRule
    * 
-   * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
-   * assign to this RateRule
-   *
    * @note Once a RateRule has been added to an SBMLDocument, the @p level,
-   * @p version and @p xmlns namespaces for the document @em override those used
+   * @p version for the document @em override those used
    * to create the RateRule.  Despite this, the ability to supply the values
    * at creation time is an important aid to creating valid SBML.  Knowledge of
    * the intented SBML Level and Version determine whether it is valid to
    * assign a particular value to an attribute, or whether it is valid to add
    * an object to an existing SBMLDocument.
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
    */
-  RateRule (unsigned int level, unsigned int version, 
-               XMLNamespaces* xmlns = 0);
+  RateRule (unsigned int level, unsigned int version);
 
 
   /**
@@ -1218,20 +1258,9 @@ public:
    * the intented SBML Level and Version determine whether it is valid to
    * assign a particular value to an attribute, or whether it is valid to add
    * an object to an existing SBMLDocument.
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
    */
   RateRule (SBMLNamespaces* sbmlns);
+
 
 
   /**
@@ -1255,6 +1284,48 @@ public:
    * (if available).
    */
   virtual bool accept (SBMLVisitor& v) const;
+
+  /**
+   * Predicate returning @c true or @c false depending on whether
+   * all the required attributes for this RateRule object
+   * have been set.
+   *
+   * @note The required attributes for a RateRule object are:
+   * variable (compartment/species/name in L1); formula (L1 only)
+   */
+  virtual bool hasRequiredAttributes() const ;
+
+protected:
+  /** @cond doxygen-libsbml-internal */
+
+  /* this is a constructor that takes no arguments and 
+   * only exists because the validator code needs it
+   */
+  RateRule ();
+
+
+  //std::string mVariable;
+  //std::string mName;
+
+  /* the validator classes need to be friends to access the 
+   * protected constructor that takes no arguments
+   */
+  friend class Validator;
+  friend class ConsistencyValidator;
+  friend class IdentifierConsistencyValidator;
+  friend class InternalConsistencyValidator;
+  friend class L1CompatibilityValidator;
+  friend class L2v1CompatibilityValidator;
+  friend class L2v2CompatibilityValidator;
+  friend class L2v3CompatibilityValidator;
+  friend class L2v4CompatibilityValidator;
+  friend class MathMLConsistencyValidator;
+  friend class ModelingPracticeValidator;
+  friend class OverdeterminedValidator;
+  friend class SBOConsistencyValidator;
+  friend class UnitConsistencyValidator;
+
+  /** @endcond doxygen-libsbml-internal */
 };
 
 
@@ -1442,91 +1513,48 @@ protected:
   /** @endcond doxygen-libsbml-internal */
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
 
 #ifndef SWIG
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /*-----------------------------------------------------------------------------
  * See the .cpp file for the documentation of the following functions.
  *---------------------------------------------------------------------------*/
 
-
 LIBSBML_EXTERN
 Rule_t *
-Rule_createAlgebraic ();
-
-
-LIBSBML_EXTERN
-Rule_t *
-Rule_createAssignment ();
+Rule_createAlgebraic (unsigned int level, unsigned int version);
 
 
 LIBSBML_EXTERN
 Rule_t *
-Rule_createRate ();
+Rule_createAlgebraicWithNS (SBMLNamespaces_t *sbmlns);
 
 
 LIBSBML_EXTERN
 Rule_t *
-Rule_createAlgebraicWithFormula (const char *formula);
+Rule_createAssignment (unsigned int level, unsigned int version);
 
 
 LIBSBML_EXTERN
 Rule_t *
-Rule_createAssignmentWithVariableAndFormula (const char *variable,
-                                             const char *formula);
+Rule_createAssignmentWithNS (SBMLNamespaces_t *sbmlns);
 
 
 LIBSBML_EXTERN
 Rule_t *
-Rule_createRateWithVariableAndFormula (const char * variable, 
-                                       const char *formula);
+Rule_createRate (unsigned int level, unsigned int version);
 
 
 LIBSBML_EXTERN
 Rule_t *
-Rule_createAlgebraicWithMath (ASTNode_t *math);
-
-
-LIBSBML_EXTERN
-Rule_t *
-Rule_createAssignmentWithVariableAndMath (const char * variable, 
-                                          ASTNode_t *math);
-
-
-LIBSBML_EXTERN
-Rule_t *
-Rule_createRateWithVariableAndMath (const char * variable, 
-                                    ASTNode_t *math);
-
-
-/** @cond doxygen-libsbml-internal */
-LIBSBML_EXTERN
-Rule_t *
-Rule_createAlgebraicWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns);
-/** @endcond doxygen-libsbml-internal */
-
-
-/** @cond doxygen-libsbml-internal */
-LIBSBML_EXTERN
-Rule_t *
-Rule_createAssignmentWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns);
-/** @endcond doxygen-libsbml-internal */
-
-
-/** @cond doxygen-libsbml-internal */
-LIBSBML_EXTERN
-Rule_t *
-Rule_createRateWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns);
-/** @endcond doxygen-libsbml-internal */
+Rule_createRateWithNS (SBMLNamespaces_t *sbmlns);
 
 
 LIBSBML_EXTERN
@@ -1590,27 +1618,27 @@ Rule_isSetUnits (const Rule_t *r);
 
 
 LIBSBML_EXTERN
-void
+int
 Rule_setFormula (Rule_t *r, const char *formula);
 
 
 LIBSBML_EXTERN
-void
+int
 Rule_setMath (Rule_t *r, const ASTNode_t *math);
 
 
 LIBSBML_EXTERN
-void
+int
 Rule_setVariable (Rule_t *r, const char *sid);
 
 
 LIBSBML_EXTERN
-void
+int
 Rule_setUnits (Rule_t *r, const char *sname);
 
 
 LIBSBML_EXTERN
-void
+int
 Rule_unsetUnits (Rule_t *r);
 
 
@@ -1660,7 +1688,7 @@ Rule_getL1TypeCode (const Rule_t *r);
 
 
 LIBSBML_EXTERN
-void
+int
 Rule_setL1TypeCode (Rule_t *r, SBMLTypeCode_t L1Type);
 
 
@@ -1673,8 +1701,18 @@ LIBSBML_EXTERN
 int 
 Rule_containsUndeclaredUnits(Rule_t *ia);
 
-END_C_DECLS
+LIBSBML_EXTERN
+Rule_t *
+ListOfRules_getById (ListOf_t *lo, const char *sid);
 
+
+LIBSBML_EXTERN
+Rule_t *
+ListOfRules_removeById (ListOf_t *lo, const char *sid);
+
+
+END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG  */
 #endif  /* Rule_h */

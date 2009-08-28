@@ -65,7 +65,7 @@ static Parameter_t *P;
 void
 ParameterTest_setup (void)
 {
-  P = Parameter_create();
+  P = Parameter_create(2, 4);
 
   if (P == NULL)
   {
@@ -100,31 +100,31 @@ START_TEST (test_Parameter_create)
 END_TEST
 
 
-START_TEST (test_Parameter_createWith)
-{
-  Parameter_t *p = Parameter_createWithValueAndUnits("delay", 6.2, "second");
-
-
-  fail_unless( SBase_getTypeCode  ((SBase_t *) p) == SBML_PARAMETER );
-  fail_unless( SBase_getMetaId    ((SBase_t *) p) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) p) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) p) == NULL );
-
-  fail_unless( !strcmp(Parameter_getId   (p), "delay" ) );
-  fail_unless( !strcmp(Parameter_getUnits(p), "second") );
-
-  fail_unless( Parameter_getName    (p) == NULL );
-  fail_unless( Parameter_getValue   (p) == 6.2 );
-  fail_unless( Parameter_getConstant(p) == 1   );
-
-  fail_unless(   Parameter_isSetId   (p) );
-  fail_unless( ! Parameter_isSetName (p) );
-  fail_unless(   Parameter_isSetValue(p) );
-  fail_unless(   Parameter_isSetUnits(p) );
-
-  Parameter_free(p);
-}
-END_TEST
+//START_TEST (test_Parameter_createWith)
+//{
+//  Parameter_t *p = Parameter_createWithValueAndUnits("delay", 6.2, "second");
+//
+//
+//  fail_unless( SBase_getTypeCode  ((SBase_t *) p) == SBML_PARAMETER );
+//  fail_unless( SBase_getMetaId    ((SBase_t *) p) == NULL );
+//  fail_unless( SBase_getNotes     ((SBase_t *) p) == NULL );
+//  fail_unless( SBase_getAnnotation((SBase_t *) p) == NULL );
+//
+//  fail_unless( !strcmp(Parameter_getId   (p), "delay" ) );
+//  fail_unless( !strcmp(Parameter_getUnits(p), "second") );
+//
+//  fail_unless( Parameter_getName    (p) == NULL );
+//  fail_unless( Parameter_getValue   (p) == 6.2 );
+//  fail_unless( Parameter_getConstant(p) == 1   );
+//
+//  fail_unless(   Parameter_isSetId   (p) );
+//  fail_unless( ! Parameter_isSetName (p) );
+//  fail_unless(   Parameter_isSetValue(p) );
+//  fail_unless(   Parameter_isSetUnits(p) );
+//
+//  Parameter_free(p);
+//}
+//END_TEST
 
 
 START_TEST (test_Parameter_free_NULL)
@@ -166,7 +166,7 @@ END_TEST
 
 START_TEST (test_Parameter_setName)
 {
-  char *name = "Forward Michaelis-Menten Constant";
+  char *name = "Forward_Michaelis_Menten_Constant";
 
 
   Parameter_setName(P, name);
@@ -224,13 +224,15 @@ START_TEST (test_Parameter_setUnits)
 END_TEST
 
 
-START_TEST (test_Parameter_createWithLevelVersionAndNamespace)
+START_TEST (test_Parameter_createWithNS )
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
-  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "testsbml");
+  SBMLNamespaces_t *sbmlns = SBMLNamespaces_create(2,1);
+  SBMLNamespaces_addNamespaces(sbmlns,xmlns);
 
   Parameter_t *object = 
-    Parameter_createWithLevelVersionAndNamespaces(2, 1, xmlns);
+    Parameter_createWithNS (sbmlns);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_PARAMETER );
@@ -242,7 +244,8 @@ START_TEST (test_Parameter_createWithLevelVersionAndNamespace)
   fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
 
   fail_unless( Parameter_getNamespaces     (object) != NULL );
-  fail_unless( XMLNamespaces_getLength(Parameter_getNamespaces(object)) == 1 );
+  fail_unless( XMLNamespaces_getLength(
+                        Parameter_getNamespaces(object)) == 2 );
 
   Parameter_free(object);
 }
@@ -261,12 +264,12 @@ create_suite_Parameter (void)
                              ParameterTest_teardown );
 
   tcase_add_test( tcase, test_Parameter_create     );
-  tcase_add_test( tcase, test_Parameter_createWith );
+  ////tcase_add_test( tcase, test_Parameter_createWith );
   tcase_add_test( tcase, test_Parameter_free_NULL  );
   tcase_add_test( tcase, test_Parameter_setId      );
   tcase_add_test( tcase, test_Parameter_setName    );
   tcase_add_test( tcase, test_Parameter_setUnits   );
-  tcase_add_test( tcase, test_Parameter_createWithLevelVersionAndNamespace        );
+  tcase_add_test( tcase, test_Parameter_createWithNS         );
 
   suite_add_tcase(suite, tcase);
 

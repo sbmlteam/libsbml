@@ -297,6 +297,7 @@
 #include <sbml/common/sbmlfwd.h>
 #include <sbml/util/util.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 BEGIN_C_DECLS
 
@@ -522,13 +523,17 @@ typedef enum
 END_C_DECLS
 
 
+LIBSBML_CPP_NAMESPACE_END
+
 
 #ifdef __cplusplus
 
 
 #include <iosfwd>
 #include <string>
+#include <sbml/common/operationReturnValues.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBLAX_EXTERN XMLError
 {
@@ -981,9 +986,15 @@ public:
    * 
    * @param line an unsigned int, the line number to set.
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   *
    * @see setColumn(unsigned int column)
    */
-  void setLine (unsigned int line);
+  int setLine (unsigned int line);
 
 
   /**
@@ -991,9 +1002,15 @@ public:
    * 
    * @param column an unsigned int, the column number to set.
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   *
    * @see setLine(unsigned int line)
    */
-  void setColumn (unsigned int column);
+  int setColumn (unsigned int column);
 
   
   /**
@@ -1088,12 +1105,15 @@ typedef struct {
 
 #endif  /* !SWIG */
 
+LIBSBML_CPP_NAMESPACE_END
+
 #endif  /* __cplusplus */
 
 
 
 #ifndef SWIG
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /*-----------------------------------------------------------------------------
@@ -1194,7 +1214,7 @@ XMLError_print (const XMLError_t *error, FILE *stream);
 
 
 END_C_DECLS
-
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
 #endif  /* XMLError_h */

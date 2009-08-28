@@ -58,6 +58,8 @@
 
 #include <sbml/SBase.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 class LIBSBML_EXTERN Dimensions : public SBase
 {
 protected:
@@ -246,13 +248,14 @@ protected:
 
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif /* __cplusplus */
 
 
 #ifndef SWIG
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
@@ -364,6 +367,7 @@ Dimensions_clone (const Dimensions_t *m);
 
 
 END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 
 #endif  /* !SWIG */

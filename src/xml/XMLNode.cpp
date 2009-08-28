@@ -39,6 +39,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /*
  * @return s with whitespace removed from the beginning and end.
@@ -206,22 +207,36 @@ XMLNode::clone () const
 /*
  * Adds a copy of child node to this XMLNode.
  */
-void
+int
 XMLNode::addChild (const XMLNode& node)
 {
   /* catch case where node is NULL
    */
   if (&(node) == NULL)
   {
-    return;
+    return LIBSBML_OPERATION_FAILED;
   }
 
-  mChildren.push_back(node);
-
-  /* need to catch the case where this node is both a start and
-   * an end element
-   */
-  if (isEnd()) unsetEnd();
+  if (isStart())
+  {
+    mChildren.push_back(node);
+    /* need to catch the case where this node is both a start and
+    * an end element
+    */
+    if (isEnd()) unsetEnd();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (isEOF())
+  {
+    mChildren.push_back(node);
+    // this causes strange things to happen when node is written out
+    //   this->mIsStart = true;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_INVALID_XML_OPERATION;
+  }
 
 }
 
@@ -269,6 +284,16 @@ XMLNode::removeChild(unsigned int n)
   }
   
   return rval;
+}
+
+/* 
+ * remove all children
+ */
+int
+XMLNode::removeChildren()
+{
+  mChildren.clear(); 
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -420,16 +445,9 @@ XMLNode* XMLNode::convertStringToXMLNode(const std::string& xmlstr, const XMLNam
    *  <p xmlns="http://www.w3.org/1999/xhtml"> Test2 </p>
    */
 
-  if (xmlnode_tmp->getChild(0).getName() == "html"
-    || xmlnode_tmp->getChild(0).getName() == "body"
-    || xmlnode_tmp->getChild(0).getName() == "annotation"
-    || xmlnode_tmp->getChild(0).getName() == "notes")
+  if (xmlnode_tmp->getNumChildren() == 1)
   {
     xmlnode = new XMLNode(xmlnode_tmp->getChild(0));
-    for(unsigned int i=1; i < xmlnode_tmp->getNumChildren(); i++)
-    {
-      xmlnode->addChild(xmlnode_tmp->getChild(i));
-    }
   }
   else
   {
@@ -611,12 +629,19 @@ XMLNode_free (XMLNode_t *node)
  *
  * @param node XMLNode_t structure to which child is to be added.
  * @param child XMLNode_t structure to be added as child.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
  */
 LIBLAX_EXTERN
-void
+int
 XMLNode_addChild (XMLNode_t *node, const XMLNode_t *child)
 {
-  node->addChild(*child);
+  return node->addChild(*child);
 }
 
 
@@ -664,12 +689,19 @@ XMLNode_removeChild(XMLNode_t *node, unsigned int n)
 
 /**
  * Removes all children from this node.
+ *
+ * @param n an integer the index of the resource to be deleted
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBLAX_EXTERN
-void
+int
 XMLNode_removeChildren (XMLNode_t *node)
 {
-  node->removeChildren();
+  return node->removeChildren();
 }
 
 
@@ -694,12 +726,19 @@ XMLNode_getCharacters (const XMLNode_t *node)
  *
  * @param node XMLNode_t structure to which the triple to be added.
  * @param triple an XMLTriple, the XML triple to be set to this XML element.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
  */
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_setTriple(XMLNode_t *node, const XMLTriple_t *triple)
 {
-  if(triple) node->setTriple(*triple);
+  return node->setTriple(*triple);
 }
 
 
@@ -821,18 +860,20 @@ XMLNode_getAttributes (const XMLNode_t *node)
  * @param node XMLNode_t structure to which attributes to be set.
  * @param attributes XMLAttributes to be set to this XMLNode.
  *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
+ *
  * @note This function replaces the existing XMLAttributes with the new one.
  */
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_setAttributes(XMLNode_t *node, const XMLAttributes_t* attributes)
 {
-  if(!attributes)
-  {
-    return;
-  }
-
-  node->setAttributes(*attributes);
+  return node->setAttributes(*attributes);
 }
 
 
@@ -845,15 +886,22 @@ XMLNode_setAttributes(XMLNode_t *node, const XMLAttributes_t* attributes)
  * @param name a string, the local name of the attribute.
  * @param value a string, the value of the attribute.
  *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
+ *
  * @note if the local name without namespace URI already exists in the
  * attribute set, its value will be replaced.
  *
  */
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_addAttr ( XMLNode_t *node,  const char* name, const char* value )
 {
-  node->addAttr(name, value, "", "");
+  return node->addAttr(name, value, "", "");
 }
 
 
@@ -868,18 +916,25 @@ XMLNode_addAttr ( XMLNode_t *node,  const char* name, const char* value )
  * @param namespaceURI a string, the namespace URI of the attribute.
  * @param prefix a string, the prefix of the namespace
  *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
+ *
  * @note if local name with the same namespace URI already exists in the
  * attribute set, its value and prefix will be replaced.
  *
  */
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_addAttrWithNS ( XMLNode_t *node,  const char* name
 	                , const char* value
     	                , const char* namespaceURI
 	                , const char* prefix      )
 {
-  node->addAttr(name, value, namespaceURI, prefix);
+  return node->addAttr(name, value, namespaceURI, prefix);
 }
 
 
@@ -895,12 +950,19 @@ XMLNode_addAttrWithNS ( XMLNode_t *node,  const char* name
  * @param node XMLNode_t structure to which an attribute to be added.
  * @param triple an XMLTriple, the XML triple of the attribute.
  * @param value a string, the value of the attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
  */
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_addAttrWithTriple (XMLNode_t *node, const XMLTriple_t *triple, const char* value)
 {
-  node->addAttr(*triple, value);
+  return node->addAttr(*triple, value);
 }
 
 
@@ -911,12 +973,20 @@ XMLNode_addAttrWithTriple (XMLNode_t *node, const XMLTriple_t *triple, const cha
  *
  * @param node XMLNode_t structure from which an attribute to be removed.
  * @param n an integer the index of the resource to be deleted
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INDEX_EXCEEDS_SIZE
  */
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_removeAttr (XMLNode_t *node, int n)
 {
-  node->removeAttr(n);
+  return node->removeAttr(n);
 }
 
 
@@ -928,12 +998,20 @@ XMLNode_removeAttr (XMLNode_t *node, int n)
  * @param node XMLNode_t structure from which an attribute to be removed.
  * @param name   a string, the local name of the attribute.
  * @param uri    a string, the namespace URI of the attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INDEX_EXCEEDS_SIZE
  */
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_removeAttrByName (XMLNode_t *node, const char* name)
 {
-  node->removeAttr(name, "");
+  return node->removeAttr(name, "");
 }
 
 
@@ -945,12 +1023,20 @@ XMLNode_removeAttrByName (XMLNode_t *node, const char* name)
  * @param node XMLNode_t structure from which an attribute to be removed.
  * @param name   a string, the local name of the attribute.
  * @param uri    a string, the namespace URI of the attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INDEX_EXCEEDS_SIZE
  */
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_removeAttrByNS (XMLNode_t *node, const char* name, const char* uri)
 {
-  node->removeAttr(name, uri);
+  return node->removeAttr(name, uri);
 }
 
 
@@ -961,12 +1047,20 @@ XMLNode_removeAttrByNS (XMLNode_t *node, const char* name, const char* uri)
  *
  * @param node XMLNode_t structure from which an attribute to be removed.
  * @param triple an XMLTriple, the XML triple of the attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INDEX_EXCEEDS_SIZE
  */
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_removeAttrByTriple (XMLNode_t *node, const XMLTriple_t *triple)
 {
-  node->removeAttr(*triple);
+  return node->removeAttr(*triple);
 }
 
 
@@ -975,12 +1069,19 @@ XMLNode_removeAttrByTriple (XMLNode_t *node, const XMLTriple_t *triple)
  * Nothing will be done if this XMLNode is not a start element.
  *
  * @param node XMLNode_t structure from which attributes to be cleared.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
  */
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_clearAttributes(XMLNode_t *node)
 {
-  node->clearAttributes();
+  return node->clearAttributes();
 }
 
 
@@ -1369,18 +1470,20 @@ XMLNode_getNamespaces (const XMLNode_t *node)
  * @param node XMLNode_t structure to be queried.
  * @param namespaces XMLNamespaces to be set to this XMLNode.
  *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
+ *
  * @note This function replaces the existing XMLNamespaces with the new one.
  */
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_setNamespaces(XMLNode_t *node, const XMLNamespaces_t* namespaces)
 {
-  if(!namespaces)
-  {
-    return;
-  }
-
-  node->setNamespaces(*namespaces);
+  return node->setNamespaces(*namespaces);
 }
 
 
@@ -1393,12 +1496,19 @@ XMLNode_setNamespaces(XMLNode_t *node, const XMLNamespaces_t* namespaces)
  * @param node XMLNode_t structure to be queried.
  * @param uri a string, the uri for the namespace
  * @param prefix a string, the prefix for the namespace
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
  */
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_addNamespace (XMLNode_t *node, const char* uri, const char* prefix)
 {
-  node->addNamespace(uri, prefix);
+  return node->addNamespace(uri, prefix);
 }
 
 
@@ -1409,12 +1519,20 @@ XMLNode_addNamespace (XMLNode_t *node, const char* uri, const char* prefix)
  *
  * @param node XMLNode_t structure to be queried.
  * @param index an integer, position of the removed namespace.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INDEX_EXCEEDS_SIZE
  */
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_removeNamespace (XMLNode_t *node, int index)
 {
-  node->removeNamespace(index);
+  return node->removeNamespace(index);
 }
 
 
@@ -1424,12 +1542,20 @@ XMLNode_removeNamespace (XMLNode_t *node, int index)
  *
  * @param node XMLNode_t structure to be queried.
  * @param prefix a string, prefix of the required namespace.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INDEX_EXCEEDS_SIZE
  */
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_removeNamespaceByPrefix (XMLNode_t *node, const char* prefix)
 {
-  node->removeNamespace(prefix);
+  return node->removeNamespace(prefix);
 }
 
 
@@ -1439,12 +1565,19 @@ XMLNode_removeNamespaceByPrefix (XMLNode_t *node, const char* prefix)
  * Nothing will be done if this XMLNode is not a start element.
  *
  * @param node XMLNode_t structure to be queried.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
  */
 LIBLAX_EXTERN
-void 
+int 
 XMLNode_clearNamespaces (XMLNode_t *node)
 {
-  node->clearNamespaces();
+  return node->clearNamespaces();
 }
 
 
@@ -1827,12 +1960,18 @@ XMLNode_isText (const XMLNode_t *node)
  *
  * @param node XMLNode_t structure to be set.
  *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBLAX_EXTERN
-void
+int
 XMLNode_setEnd (XMLNode_t *node)
 {
-  node->setEnd();
+  return node->setEnd();
 }
 
 
@@ -1841,12 +1980,18 @@ XMLNode_setEnd (XMLNode_t *node)
  *
  * @param node XMLNode_t structure to be set.
  *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBLAX_EXTERN
-void
+int
 XMLNode_setEOF (XMLNode_t *node)
 {
-  node->setEOF();
+  return node->setEOF();
 }
 
 
@@ -1855,13 +2000,21 @@ XMLNode_setEOF (XMLNode_t *node)
  *
  * @param node XMLNode_t structure to be set.
  *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBLAX_EXTERN
-void
+int
 XMLNode_unsetEnd (XMLNode_t *node)
 {
-  node->unsetEnd();
+  return node->unsetEnd();
 }
 
 
 /** @endcond doxygen-c-only */
+
+LIBSBML_CPP_NAMESPACE_END

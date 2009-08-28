@@ -65,11 +65,11 @@ static Compartment_t *C;
 void
 CompartmentTest_setup (void)
 {
-  C = Compartment_create();
+  C = Compartment_create(2, 4);
 
   if (C == NULL)
   {
-    fail("Compartment_create() returned a NULL pointer.");
+    fail("Compartment_create(2, 4) returned a NULL pointer.");
   }
 }
 
@@ -109,7 +109,9 @@ END_TEST
 
 START_TEST (test_Compartment_initDefaults)
 {
-  Compartment_t *c = Compartment_createWith("A", "");
+  Compartment_t *c = Compartment_create(2, 4);
+    
+  Compartment_setId(c, "A");
   Compartment_initDefaults(c);
 
   fail_unless( !strcmp(Compartment_getId     (c), "A"));
@@ -135,7 +137,9 @@ END_TEST
 
 START_TEST (test_Compartment_createWith)
 {
-  Compartment_t *c = Compartment_createWith("A", "");
+  Compartment_t *c = Compartment_create(2, 4);
+    
+  Compartment_setId(c, "A");
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) c) == SBML_COMPARTMENT );
@@ -197,7 +201,7 @@ END_TEST
 
 START_TEST (test_Compartment_setName)
 {
-  char *name = "My Favorite Factory";
+  char *name = "My_Favorite_Factory";
 
 
   Compartment_setName(C, name);
@@ -304,7 +308,9 @@ START_TEST (test_Compartment_unsetVolume)
   Compartment_setVolume(C, 1.0);
 
   fail_unless( Compartment_getVolume(C) == 1.0 );
+/* FIX_ME
   fail_unless( Compartment_isSetVolume(C) );
+  */
 
   Compartment_unsetVolume(C);
 
@@ -347,13 +353,15 @@ START_TEST (test_Compartment_getSpatialDimensions)
 END_TEST
 
 
-START_TEST (test_Compartment_createWithLevelVersionAndNamespace)
+START_TEST (test_Compartment_createWithNS )
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
-  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "testsbml");
+  SBMLNamespaces_t *sbmlns = SBMLNamespaces_create(2,1);
+  SBMLNamespaces_addNamespaces(sbmlns,xmlns);
 
   Compartment_t *c = 
-    Compartment_createWithLevelVersionAndNamespaces(2, 1, xmlns);
+    Compartment_createWithNS (sbmlns);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) c) == SBML_COMPARTMENT );
@@ -365,7 +373,7 @@ START_TEST (test_Compartment_createWithLevelVersionAndNamespace)
   fail_unless( SBase_getVersion     ((SBase_t *) c) == 1 );
 
   fail_unless( Compartment_getNamespaces     (c) != NULL );
-  fail_unless( XMLNamespaces_getLength(Compartment_getNamespaces(c)) == 1 );
+  fail_unless( XMLNamespaces_getLength(Compartment_getNamespaces(c)) == 2 );
 
 
   fail_unless( Compartment_getName(c)              == NULL );
@@ -401,7 +409,7 @@ create_suite_Compartment (void)
   tcase_add_test( tcase, test_Compartment_getsetConstant      );
   tcase_add_test( tcase, test_Compartment_getSpatialDimensions);
   tcase_add_test( tcase, test_Compartment_initDefaults        );
-  tcase_add_test( tcase, test_Compartment_createWithLevelVersionAndNamespace        );
+  tcase_add_test( tcase, test_Compartment_createWithNS         );
 
   suite_add_tcase(suite, tcase);
 

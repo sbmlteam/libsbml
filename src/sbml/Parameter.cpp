@@ -42,62 +42,43 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
-/*
- * Creates a new Parameter, optionally with its id and name attributes
- * set.
- */
-Parameter::Parameter (const std::string& id, const std::string& name) :
-    SBase      ( id, name, -1 )
-  , mValue     ( 0.0      )
-  , mConstant  ( true     )
-  , mIsSetValue( false    )
+Parameter::Parameter (unsigned int level, unsigned int version) :
+   SBase ( level, version )
+ , mId        ( ""       )
+ , mName      ( ""       )
+ , mValue     ( 0.0      )
+ , mConstant  ( true     )
+ , mIsSetValue( false    )
 {
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
 
-/*
- * Creates a new Parameter, with its id and value attributes set and
- * optionally its units and constant attributes.
- */
-Parameter::Parameter (   const std::string&  id
-                       , double         value
-                       , const std::string&  units
-                       , bool           constant ) :
-    SBase      ( id  ,"", -1     )
-  , mValue     ( value    )
-  , mUnits     ( units    )
-  , mConstant  ( constant )
-  , mIsSetValue( true     )
-
+Parameter::Parameter (SBMLNamespaces * sbmlns) :
+   SBase      ( sbmlns   )
+ , mId        ( ""       )
+ , mName      ( ""       )
+ , mValue     ( 0.0      )
+ , mConstant  ( true     )
+ , mIsSetValue( false    )
 {
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
 
-Parameter::Parameter (unsigned int level, unsigned int version,
-                          XMLNamespaces *xmlns) :
-   SBase ("", "", -1)
-  , mValue     ( 0.0      )
-  , mConstant  ( true     )
-  , mIsSetValue( false    )
+
+/* constructor for validators */
+Parameter::Parameter() :
+  SBase()
 {
-  mObjectLevel = level;
-  mObjectVersion = version;
-  if (xmlns) setNamespaces(xmlns);;
 }
 
+/** @endcond doxygen-libsbml-internal */
                           
-Parameter::Parameter (SBMLNamespaces *sbmlns) :
-   SBase ("", "", -1)
-  , mValue     ( 0.0      )
-  , mConstant  ( true     )
-  , mIsSetValue( false    )
-{
-  mObjectLevel = sbmlns->getLevel();
-  mObjectVersion = sbmlns->getVersion();
-  setNamespaces(sbmlns->getNamespaces());
-}
-
 
 /*
  * Destroys this Parameter.
@@ -111,11 +92,13 @@ Parameter::~Parameter ()
  * Copy constructor. Creates a copy of this Parameter.
  */
 Parameter::Parameter(const Parameter& orig) :
-        SBase      ( orig             )
-      , mValue     ( orig.mValue      )
-      , mUnits     ( orig.mUnits      )
-      , mConstant  ( orig.mConstant   )
-      , mIsSetValue( orig.mIsSetValue )
+    SBase      ( orig             )
+  , mId        ( orig.mId         )  
+  , mName      ( orig.mName       )
+  , mValue     ( orig.mValue      )
+  , mUnits     ( orig.mUnits      )
+  , mConstant  ( orig.mConstant   )
+  , mIsSetValue( orig.mIsSetValue )
 {
 }
 
@@ -132,6 +115,8 @@ Parameter& Parameter::operator=(const Parameter& rhs)
     mUnits      = rhs.mUnits    ;
     mConstant   = rhs.mConstant ;
     mIsSetValue = rhs.mIsSetValue;
+    mId = rhs.mId;
+    mName = rhs.mName;
   }
 
   return *this;
@@ -175,6 +160,26 @@ Parameter::initDefaults ()
 
 
 /*
+ * @return the id of this SBML object.
+ */
+const string&
+Parameter::getId () const
+{
+  return mId;
+}
+
+
+/*
+ * @return the name of this SBML object.
+ */
+const string&
+Parameter::getName () const
+{
+  return (getLevel() == 1) ? mId : mName;
+}
+
+
+/*
  * @return the value of this Parameter.
  */
 double
@@ -205,6 +210,29 @@ Parameter::getConstant () const
 
 
 /*
+ * @return true if the id of this SBML object has been set, false
+ * otherwise.
+ */
+bool
+Parameter::isSetId () const
+{
+  return (mId.empty() == false);
+}
+
+
+/*
+ * @return true if the name of this SBML object has been set, false
+ * otherwise.
+ */
+bool
+Parameter::isSetName () const
+{
+  return (getLevel() == 1) ? (mId.empty() == false) : 
+                            (mName.empty() == false);
+}
+
+
+/*
  * @return true if the value of this Parameter has been set, false
  * otherwise.
  *
@@ -231,33 +259,137 @@ Parameter::isSetUnits () const
 
 
 /*
+ * Sets the id of this SBML object to a copy of sid.
+ */
+int
+Parameter::setId (const std::string& sid)
+{
+  /* since the setId function has been used as an
+   * alias for setName we cant require it to only
+   * be used on a L2 model
+   */
+/*  if (getLevel() == 1)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+*/
+  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mId = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Sets the name of this SBML object to a copy of name.
+ */
+int
+Parameter::setName (const std::string& name)
+{
+  /* if this is setting an L2 name the type is string
+   * whereas if it is setting an L1 name its type is SId
+   */
+  if (getLevel() == 1)
+  {
+    if (!(SyntaxChecker::isValidSBMLSId(name)))
+    {
+      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    }
+    else
+    {
+      mId = name;
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+  else
+  {
+    mName = name;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
  * Sets the value of this Parameter to value and marks the field as set.
  */
-void
+int
 Parameter::setValue (double value)
 {
   mValue      = value;
   mIsSetValue = true;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
 /*
  * Sets the units of this Parameter to a copy of sid.
  */
-void
+int
 Parameter::setUnits (const std::string& units)
 {
-  mUnits = units;
+  if (!(SyntaxChecker::isValidUnitSId(units)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mUnits = units;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
  * Sets the constant field of this Parameter to value.
  */
-void
+int
 Parameter::setConstant (bool flag)
 {
-  mConstant = flag;
+  if ( getLevel() < 2 )
+  {
+    mConstant = flag;
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else
+  {
+    mConstant = flag;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Unsets the name of this SBML object.
+ */
+int
+Parameter::unsetName ()
+{
+  if (getLevel() == 1) 
+  {
+    mId.erase();
+  }
+  else 
+  {
+    mName.erase();
+  }
+
+  if (getLevel() == 1 && mId.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (mName.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -268,21 +400,38 @@ Parameter::setConstant (bool flag)
  * always be set</b>.  In L1v2 and beyond, a value is optional and as such
  * may or may not be set.
  */
-void
+int
 Parameter::unsetValue ()
 {
   mValue      = numeric_limits<double>::quiet_NaN();
   mIsSetValue = false;
+  if (!isSetValue())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
 /*
  * Unsets the units of this Parameter.
  */
-void
+int
 Parameter::unsetUnits ()
 {
   mUnits.erase();
+
+  if (mUnits.empty()) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -318,11 +467,28 @@ Parameter::getDerivedUnitDefinition()
       {
         return m->getFormulaUnitsData(getId(), getTypeCode())
                                               ->getUnitDefinition();
+    }
+    else
+    {
+      if (m->getFormulaUnitsData(getId(), getTypeCode()))
+      {
+        return m->getFormulaUnitsData(getId(), getTypeCode())
+                                              ->getUnitDefinition();
       }
       else
       {
         return NULL;
       } 
+    }
+  }
+  else
+  {
+    UnitDefinition *ud = NULL;
+    const char * units = getUnits().c_str();
+    if (!strcmp(units, ""))
+    {
+      ud   = new UnitDefinition(getSBMLNamespaces());
+      return ud;
     }
     else
     {
@@ -330,7 +496,9 @@ Parameter::getDerivedUnitDefinition()
       const char * units = getUnits().c_str();
       if (!strcmp(units, ""))
       {
-        ud   = new UnitDefinition();
+        Unit * unit = new Unit(getSBMLNamespaces());
+        unit->setKind(UnitKind_forName(units));
+        ud   = new UnitDefinition(getSBMLNamespaces());
         return ud;
       }
       else
@@ -351,6 +519,7 @@ Parameter::getDerivedUnitDefinition()
           ud = static_cast <Model *> (getAncestorOfType(SBML_MODEL))->getUnitDefinition(units);
         }
         return ud;
+      }
       }
     }
   }
@@ -393,6 +562,26 @@ Parameter::getElementName () const
 {
   static const string name = "parameter";
   return name;
+}
+
+
+bool 
+Parameter::hasRequiredAttributes() const
+{
+  bool allPresent = true;
+
+  /* required attributes for parameter: id (name in L1)
+   * and value (in L1V1 only)*/
+
+  if (!isSetId())
+    allPresent = false;
+
+  if (getLevel() == 1
+    && getVersion() == 1
+    && !isSetValue())
+    allPresent = false;
+
+  return allPresent;
 }
 
 
@@ -452,7 +641,7 @@ Parameter::readAttributes (const XMLAttributes& attributes)
   {
     logEmptyString(id, level, version, "<parameter>");
   }
-  SBase::checkIdSyntax();
+  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
 
   //
   // value: double  { use="required" }  (L1v2)
@@ -471,8 +660,15 @@ Parameter::readAttributes (const XMLAttributes& attributes)
   // units: SName  { use="optional" }  (L1v1, L1v2)
   // units: SId    { use="optional" }  (L2v1, L2v2)
   //
-  attributes.readInto("units", mUnits);
-  SBase::checkUnitSyntax();
+  assigned = attributes.readInto("units", mUnits);
+  if (assigned && mUnits.size() == 0)
+  {
+    logEmptyString("units", level, version, "<parameter>");
+  }
+  if (!SyntaxChecker::isValidUnitSId(mUnits))
+  {
+    logError(InvalidUnitIdSyntax);
+  }
 
   if (level > 1)
   {
@@ -610,11 +806,25 @@ ListOfParameters::get(unsigned int n) const
 }
 
 
+/**
+ * Used by ListOf::get() to lookup an SBase based by its id.
+ */
+struct IdEqP : public unary_function<SBase*, bool>
+{
+  const string& id;
+
+  IdEqP (const string& id) : id(id) { }
+  bool operator() (SBase* sb) 
+       { return static_cast <Parameter *> (sb)->getId() == id; }
+};
+
+
 /* return item by id */
 Parameter*
 ListOfParameters::get (const std::string& sid)
 {
-  return static_cast<Parameter*>(ListOf::get(sid));
+  return const_cast<Parameter*>( 
+    static_cast<const ListOfParameters&>(*this).get(sid) );
 }
 
 
@@ -622,7 +832,10 @@ ListOfParameters::get (const std::string& sid)
 const Parameter*
 ListOfParameters::get (const std::string& sid) const
 {
-  return static_cast<const Parameter*>(ListOf::get(sid));
+  vector<SBase*>::const_iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqP(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <Parameter*> (*result);
 }
 
 
@@ -638,7 +851,18 @@ ListOfParameters::remove (unsigned int n)
 Parameter*
 ListOfParameters::remove (const std::string& sid)
 {
-   return static_cast<Parameter*>(ListOf::remove(sid));
+  SBase* item = 0;
+  vector<SBase*>::iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqP(sid) );
+
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
+  }
+
+  return static_cast <Parameter*> (item);
 }
 
 
@@ -671,8 +895,22 @@ ListOfParameters::createObject (XMLInputStream& stream)
 
   if (name == "parameter")
   {
-    object = new Parameter();
-    mItems.push_back(object);
+    try
+    {
+      object = new Parameter(getSBMLNamespaces());
+    }
+    catch (SBMLConstructorException*)
+    {
+      object = new Parameter(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    catch ( ... )
+    {
+      object = new Parameter(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    
+    if (object) mItems.push_back(object);
   }
 
   return object;
@@ -684,109 +922,72 @@ ListOfParameters::createObject (XMLInputStream& stream)
 
 
 /**
- * Creates a new, empty Parameter_t structure and returns a pointer to it.
+ * Creates a new Parameter_t structure using the given SBML @p level
+ * and @p version values.
  *
- * It is worth emphasizing that the structure returned by this constructor
- * has no attribute values set and that there are no default values
- * assigned to such things as identifiers and names.  Note that in SBML
- * Level 2 and beyond, the "id" (identifier) attribute of a Parameter is
- * required to have a value.  Thus, callers are cautioned to assign a value
- * after calling this constructor, for example using Parameter_setName().
- *
- * @return a pointer to the newly created Parameter_t structure.
- */
-LIBSBML_EXTERN
-Parameter_t *
-Parameter_create (void)
-{
-  return new(nothrow) Parameter;
-}
-
-
-/**
- * Creates a new Parameter_t structure with the given identifier and returns a
- * pointer to it.
- *
- * @param sid a string, the identifier to assign to this Parameter_t structure
- * @param name a string, the name to give this Parameter_t structure
- *
- * @return the Parameter_t structure created
- */
-LIBSBML_EXTERN
-Parameter_t *
-Parameter_createWith (const char *sid, const char * name)
-{
-  return new(nothrow) Parameter(sid ? sid : "", name ? name : "");
-}
-
-
-/**
- * Creates a new Parameter_t structure with the given @p id and @p name
- * attribute values.
- *
- * In SBML Level 2 and beyond, the identifier attribute of a Parameter is
- * required to have a value, but the name is optional.  Programs calling
- * this function can legitimately use an empty string for the @p name
- * argument.  Likewise, the units of parameters are also optional, and
- * therefore the @p units argument legitimately can be an empty string in
- * an invocation.
- *
- * This convenience function is functionally equivalent to:
- * @code
- *   Parameter_t *p = Parameter_create();
- *   Parameter_setId(p, id);
- *   Parameter_setValue(p, value);
- *   Parameter_setUnits(p, units);
- * @endcode
- *
- * @param sid the value to assign as the identifier of this Parameter
- * @param value the value to assign as the value of this Parameter
- * @param units the value to assign as the units of this Parameter's value
- *
- * @return a pointer to the newly created Parameter_t structure.
- */
-LIBSBML_EXTERN
-Parameter_t *
-Parameter_createWithValueAndUnits (const char *id, double value, const char *units)
-{
-  return
-    new(nothrow) Parameter(id ? id : "", value, units ? units : "");
-}
-
-
-/** @cond doxygen-libsbml-internal */
-/**
- * Creates a new Parameter_t structure using the given SBML @p 
- * level and @p version values and a set of XMLNamespaces.
- *
- * @param level an unsigned int, the SBML Level to assign to this 
+ * @param level an unsigned int, the SBML Level to assign to this
  * Parameter
  *
  * @param version an unsigned int, the SBML Version to assign to this
  * Parameter
- * 
- * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
- * assign to this Parameter
  *
  * @return a pointer to the newly created Parameter_t structure.
  *
- * @note Once a Parameter has been added to an SBMLDocument, the @p 
- * level, @p version and @p xmlns namespaces for the document @em override 
- * those used to create the Parameter.  Despite this, the ability 
- * to supply the values at creation time is an important aid to creating 
- * valid SBML.  Knowledge of the intended SBML Level and Version 
- * determine whether it is valid to assign a particular value to an 
- * attribute, or whether it is valid to add an object to an existing 
+ * @note Once a Parameter has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the Parameter.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
+ */
+LIBSBML_EXTERN
+Parameter_t *
+Parameter_create (unsigned int level, unsigned int version)
+{
+  try
+  {
+    Parameter* obj = new Parameter(level,version);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
+
+
+/**
+ * Creates a new Parameter_t structure using the given
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this Parameter
+ *
+ * @return a pointer to the newly created Parameter_t structure.
+ *
+ * @note Once a Parameter has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the Parameter.  Despite this, the ability to supply the values at creation time
+ * is an important aid to creating valid SBML.  Knowledge of the intended SBML
+ * Level and Version determine whether it is valid to assign a particular value
+ * to an attribute, or whether it is valid to add an object to an existing
  * SBMLDocument.
  */
 LIBSBML_EXTERN
 Parameter_t *
-Parameter_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns)
+Parameter_createWithNS (SBMLNamespaces_t* sbmlns)
 {
-  return new(nothrow) Parameter(level, version, xmlns);
+  try
+  {
+    Parameter* obj = new Parameter(sbmlns);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
 }
-/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -1008,12 +1209,22 @@ Parameter_isSetUnits (const Parameter_t *p)
  *
  * @param p the Parameter_t structure to set.
  * @param sid the string to use as the identifier.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "id" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 Parameter_setId (Parameter_t *p, const char *sid)
 {
-  (sid == NULL) ? p->unsetId() : p->setId(sid);
+  return (sid == NULL) ? p->setId("") : p->setId(sid);
 }
 
 
@@ -1024,12 +1235,22 @@ Parameter_setId (Parameter_t *p, const char *sid)
  *
  * @param p the Parameter_t structure to set.
  * @param name the string to use as the name.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "name" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 Parameter_setName (Parameter_t *p, const char *name)
 {
-  (name == NULL) ? p->unsetName() : p->setName(name);
+  return (name == NULL) ? p->unsetName() : p->setName(name);
 }
 
 
@@ -1038,12 +1259,18 @@ Parameter_setName (Parameter_t *p, const char *name)
  *
  * @param p the Parameter_t structure to set.
  * @param value the @c double value to use.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void
+int
 Parameter_setValue (Parameter_t *p, double value)
 {
-  p->setValue(value);
+  return p->setValue(value);
 }
 
 
@@ -1054,12 +1281,22 @@ Parameter_setValue (Parameter_t *p, double value)
  *
  * @param p the Parameter_t structure to set.
  * @param units the string to use as the identifier of the units to assign.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with units set to NULL is equivalent to
+ * unsetting the "units" attribute.
  */
 LIBSBML_EXTERN
-void
+int
 Parameter_setUnits (Parameter_t *p, const char *units)
 {
-  (units == NULL) ? p->unsetUnits() : p->setUnits(units);
+  return (units == NULL) ? p->unsetUnits() : p->setUnits(units);
 }
 
 
@@ -1069,12 +1306,19 @@ Parameter_setUnits (Parameter_t *p, const char *units)
  * @param p the Parameter_t structure to set.
  * @param value the value to assign as the "constant" attribute
  * of the parameter, either zero for false or nonzero for true.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
  */
 LIBSBML_EXTERN
-void
+int
 Parameter_setConstant (Parameter_t *p, int value)
 {
-  p->setConstant( static_cast<bool>(value) );
+  return p->setConstant( static_cast<bool>(value) );
 }
 
 
@@ -1082,12 +1326,19 @@ Parameter_setConstant (Parameter_t *p, int value)
  * Unsets the name of this Parameter_t structure.
  * 
  * @param p the Parameter_t structure whose name is to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Parameter_unsetName (Parameter_t *p)
 {
-  p->unsetName();
+  return p->unsetName();
 }
 
 
@@ -1100,12 +1351,18 @@ Parameter_unsetName (Parameter_t *p)
  * set.
  *
  * @param p the Parameter_t structure whose value is to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
  */
 LIBSBML_EXTERN
-void
+int
 Parameter_unsetValue (Parameter_t *p)
 {
-  p->unsetValue();
+  return p->unsetValue();
 }
 
 
@@ -1113,12 +1370,19 @@ Parameter_unsetValue (Parameter_t *p)
  * Unsets the units of this Parameter_t structure.
  * 
  * @param p the Parameter_t structure whose units are to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBSBML_EXTERN
-void
+int
 Parameter_unsetUnits (Parameter_t *p)
 {
-  p->unsetUnits();
+  return p->unsetUnits();
 }
 
 
@@ -1143,4 +1407,31 @@ Parameter_getDerivedUnitDefinition(Parameter_t *p)
 }
 
 
+/**
+ * @return item in this ListOfParameter with the given id or NULL if no such
+ * item exists.
+ */
+LIBSBML_EXTERN
+Parameter_t *
+ListOfParameters_getById (ListOf_t *lo, const char *sid)
+{
+  return (sid != NULL) ? 
+    static_cast <ListOfParameters *> (lo)->get(sid) : NULL;
+}
+
+
+/**
+ * Removes item in this ListOf items with the given id or NULL if no such
+ * item exists.  The caller owns the returned item and is responsible for
+ * deleting it.
+ */
+LIBSBML_EXTERN
+Parameter_t *
+ListOfParameters_removeById (ListOf_t *lo, const char *sid)
+{
+  return (sid != NULL) ? 
+    static_cast <ListOfParameters *> (lo)->remove(sid) : NULL;
+}
+
 /** @endcond doxygen-c-only */
+LIBSBML_CPP_NAMESPACE_END

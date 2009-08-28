@@ -24,7 +24,8 @@
 #include <cstring>
 #include <sbml/xml/XMLMemoryBuffer.h>
 
-/** @cond doxygen-ignored */
+using namespace std;
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 using namespace std;
 
@@ -90,3 +91,5 @@ XMLMemoryBuffer::error ()
 }
 
 /** @endcond doxygen-libsbml-internal */
+
+LIBSBML_CPP_NAMESPACE_END

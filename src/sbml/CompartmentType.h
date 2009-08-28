@@ -117,6 +117,7 @@
 
 #include <string>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class SBMLVisitor;
 
@@ -126,35 +127,35 @@ class LIBSBML_EXTERN CompartmentType : public SBase
 public:
 
   /**
-   * Creates a new CompartmentType, optionally with the given @p id and
-   * @p name attribute values.
+   * Creates a new CompartmentType using the given SBML @p level and @p version
+   * values.
    *
-   * In %SBML, identifiers are required for CompartmentType objects;
-   * however, the identifier does not have to be set at the time of
-   * creation of the object, and instead can be set using the setId()
-   * method on the SBase parent class.
+   * @param level an unsigned int, the SBML Level to assign to this CompartmentType
    *
-   * @param id a %string, the identifier of this CompartmentType instance
-   * @param name a %string, the optional name of this CompartmentType instance
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
+   * @param version an unsigned int, the SBML Version to assign to this
+   * CompartmentType
+   * 
+   * @note Once a CompartmentType has been added to an SBMLDocument, the @p level,
+   * @p version for the document @em override those used
+   * to create the CompartmentType.  Despite this, the ability to supply the values
+   * at creation time is an important aid to creating valid SBML.  Knowledge of
+   * the intented SBML Level and Version determine whether it is valid to
+   * assign a particular value to an attribute, or whether it is valid to add
+   * an object to an existing SBMLDocument.
    */
-  CompartmentType (const std::string& id = "", const std::string& name = "");
+  CompartmentType (unsigned int level, unsigned int version);
 
 
   /**
-   * Creates a new CompartmentType using the given SBML @p level and @p version
-   * values and optionally a set of XMLNamespaces.
+   * Creates a new CompartmentType using the given SBMLNamespaces object
+   * @p sbmlns.
+   *
+   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
+   * information.  It is used to communicate the SBML Level, Version, and
+   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp; Core.
+   * A common approach to using this class constructor is to create an
+   * SBMLNamespaces object somewhere in a program, once, then pass it to
+   * object constructors such as this one when needed.
    *
    * It is worth emphasizing that although this constructor does not take
    * an identifier argument, in SBML Level&nbsp;2 and beyond, the "id"
@@ -163,13 +164,7 @@ public:
    * constructor.  Setting the identifier can be accomplished using the
    * method @if clike SBase::setId() @endif@if java SBase::setId(String id) @endif.
    *
-   * @param level an unsigned int, the SBML Level to assign to this CompartmentType
-   *
-   * @param version an unsigned int, the SBML Version to assign to this
-   * CompartmentType
-   * 
-   * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
-   * assign to this CompartmentType
+   * @param sbmlns an SBMLNamespaces object.
    *
    * @note Once a CompartmentType has been added to an SBMLDocument, the @p level,
    * @p version and @p xmlns namespaces for the document @em override those used
@@ -178,21 +173,8 @@ public:
    * the intented SBML Level and Version determine whether it is valid to
    * assign a particular value to an attribute, or whether it is valid to add
    * an object to an existing SBMLDocument.
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
    */
-  CompartmentType (unsigned int level, unsigned int version, 
-               XMLNamespaces* xmlns = 0);
+  CompartmentType (SBMLNamespaces* sbmlns);
 
 
   /**
@@ -277,6 +259,113 @@ public:
 
 
   /**
+   * Returns the value of the "id" attribute of this CompartmentType.
+   * 
+   * @return the id of this CompartmentType.
+   */
+  const std::string& getId () const;
+
+
+  /**
+   * Returns the value of the "name" attribute of this CompartmentType.
+   * 
+   * @return the name of this CompartmentType.
+   */
+  const std::string& getName () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * CompartmentType's "id" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "id" attribute of this CompartmentType has been
+   * set, @c false otherwise.
+   */
+  bool isSetId () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * CompartmentType's "name" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "name" attribute of this CompartmentTypeType has been
+   * set, @c false otherwise.
+   */
+  bool isSetName () const;
+
+
+  /**
+   * Sets the value of the "id" attribute of this CompartmentType.
+   *
+   * The string @p sid is copied.  Note that SBML has strict requirements
+   * for the syntax of identifiers.  The following is summary of the
+   * definition of the SBML identifier type @c SId (here expressed in an
+   * extended form of BNF notation):
+   * @code
+   *   letter ::= 'a'..'z','A'..'Z'
+   *   digit  ::= '0'..'9'
+   *   idChar ::= letter | digit | '_'
+   *   SId    ::= ( letter | '_' ) idChar*
+   * @endcode
+   * The equality of SBML identifiers is determined by an exact character
+   * sequence match; i.e., comparisons must be performed in a
+   * case-sensitive manner.  In addition, there are a few conditions for
+   * the uniqueness of identifiers in an SBML model.  Please consult the
+   * SBML specifications for the exact formulations.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @param sid the string to use as the identifier of this CompartmentType
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int setId (const std::string& sid);
+
+
+  /**
+   * Sets the value of the "name" attribute of this CompartmentType.
+   *
+   * The string in @p name is copied.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @param name the new name for the CompartmentType
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int setName (const std::string& name);
+
+
+  /**
+   * Unsets the value of the "name" attribute of this CompartmentType.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  int unsetName ();
+
+
+  /**
    * Returns the libSBML type code for this %SBML object.
    * 
    * @if clike LibSBML attaches an identifying code to every
@@ -306,9 +395,28 @@ public:
    */
   virtual const std::string& getElementName () const;
 
+  /**
+   * Predicate returning @c true or @c false depending on whether
+   * all the required attributes for this CompartmentType object
+   * have been set.
+   *
+   * @note The required attributes for a CompartmentType object are:
+   * id
+   *
+   * @return a boolean value indicating whether all the required
+   * attributes for this object have been defined.
+   */
+  virtual bool hasRequiredAttributes() const;
+
 
 protected:
   /** @cond doxygen-libsbml-internal */
+
+  /* this is a constructor that takes no arguments and 
+   * only exists because the validator code needs it
+   */
+  CompartmentType ();
+
 
   /**
    * Subclasses should override this method to read values from the given
@@ -328,6 +436,27 @@ protected:
    * @param stream the XMLOutputStream to use.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
+
+  std::string mId;
+  std::string mName;
+
+  /* the validator classes need to be friends to access the 
+   * protected constructor that takes no arguments
+   */
+  friend class Validator;
+  friend class ConsistencyValidator;
+  friend class IdentifierConsistencyValidator;
+  friend class InternalConsistencyValidator;
+  friend class L1CompatibilityValidator;
+  friend class L2v1CompatibilityValidator;
+  friend class L2v2CompatibilityValidator;
+  friend class L2v3CompatibilityValidator;
+  friend class L2v4CompatibilityValidator;
+  friend class MathMLConsistencyValidator;
+  friend class ModelingPracticeValidator;
+  friend class OverdeterminedValidator;
+  friend class SBOConsistencyValidator;
+  friend class UnitConsistencyValidator;
 
   /** @endcond doxygen-libsbml-internal */
 };
@@ -522,12 +651,14 @@ protected:
   /** @endcond doxygen-libsbml-internal */
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
 
 #ifndef SWIG
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
@@ -535,23 +666,21 @@ BEGIN_C_DECLS
  * See the .cpp file for the documentation of the following functions.
  *---------------------------------------------------------------------------*/
 
-
-LIBSBML_EXTERN
-CompartmentType_t *
-CompartmentType_create (void);
-
-
-LIBSBML_EXTERN
-CompartmentType_t *
-CompartmentType_createWith (const char *sid, const char *name);
-
-
-/** @cond doxygen-libsbml-internal */
+/*
 LIBSBML_EXTERN
 CompartmentType_t *
 CompartmentType_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
-/** @endcond doxygen-libsbml-internal */
+*/
+
+LIBSBML_EXTERN
+CompartmentType_t *
+CompartmentType_create (unsigned int level, unsigned int version);
+
+
+LIBSBML_EXTERN
+CompartmentType_t *
+CompartmentType_createWithNS (SBMLNamespaces_t *sbmlns);
 
 
 LIBSBML_EXTERN
@@ -590,22 +719,32 @@ CompartmentType_isSetName (const CompartmentType_t *ct);
 
 
 LIBSBML_EXTERN
-void
+int
 CompartmentType_setId (CompartmentType_t *ct, const char *sid);
 
 
 LIBSBML_EXTERN
-void
+int
 CompartmentType_setName (CompartmentType_t *ct, const char *name);
 
 
 LIBSBML_EXTERN
-void
+int
 CompartmentType_unsetName (CompartmentType_t *ct);
 
 
-END_C_DECLS
+LIBSBML_EXTERN
+CompartmentType_t *
+ListOfCompartmentTypes_getById (ListOf_t *lo, const char *sid);
 
+
+LIBSBML_EXTERN
+CompartmentType_t *
+ListOfCompartmentTypes_removeById (ListOf_t *lo, const char *sid);
+
+
+END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
 #endif  /* CompartmentType_h */

@@ -40,6 +40,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygen-libsbml-internal */
 
@@ -108,10 +109,11 @@ ExpatHandler::ExpatHandler (XML_Parser parser, XMLHandler& handler) :
    mParser ( parser  )
  , mHandler( handler )
 {
-  XML_SetXmlDeclHandler      ( mParser, ::XMLDeclHandler             );
-  XML_SetElementHandler      ( mParser, ::startElement, ::endElement );
-  XML_SetCharacterDataHandler( mParser, ::characters                 );
-  XML_SetNamespaceDeclHandler( mParser, ::startNamespace, 0          );
+  XML_SetXmlDeclHandler      ( mParser, LIBSBML_CPP_NAMESPACE ::XMLDeclHandler    );
+  XML_SetElementHandler      ( mParser, LIBSBML_CPP_NAMESPACE ::startElement, 
+                                        LIBSBML_CPP_NAMESPACE ::endElement        );
+  XML_SetCharacterDataHandler( mParser, LIBSBML_CPP_NAMESPACE ::characters        );
+  XML_SetNamespaceDeclHandler( mParser, LIBSBML_CPP_NAMESPACE ::startNamespace, 0 );
   XML_SetUserData            ( mParser, static_cast<void*>(this)     );
   XML_SetReturnNSTriplet     ( mParser, 1                            );
   mHandlerError = 0;
@@ -276,3 +278,5 @@ ExpatHandler::getLine () const
 
 
 /** @endcond doxygen-libsbml-internal */
+
+LIBSBML_CPP_NAMESPACE_END

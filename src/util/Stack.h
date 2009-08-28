@@ -26,10 +26,10 @@
 #ifndef Stack_h
 #define Stack_h
 
+#include <sbml/common/extern.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+LIBSBML_CPP_NAMESPACE_BEGIN
+BEGIN_C_DECLS
 
 
 typedef struct
@@ -126,9 +126,8 @@ int
 Stack_capacity (Stack_t *s);
 
 
-#ifdef __cplusplus
-}
-#endif
+END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /** Stack_h **/
 

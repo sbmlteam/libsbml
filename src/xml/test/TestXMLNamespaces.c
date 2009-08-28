@@ -81,6 +81,20 @@ START_TEST (test_XMLNamespaces_add)
 END_TEST
 
 
+START_TEST (test_XMLNamespaces_add1)
+{
+  fail_unless( XMLNamespaces_getLength(NS) == 0 );
+  fail_unless( XMLNamespaces_isEmpty(NS) == 1 );
+
+  int i = XMLNamespaces_add(NS, "http://test1.org/", "test1");
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( XMLNamespaces_getLength(NS) == 1 );
+  fail_unless( XMLNamespaces_isEmpty(NS) == 0 );
+}
+END_TEST
+
+
 START_TEST (test_XMLNamespaces_get)
 {
   XMLNamespaces_add(NS, "http://test1.org/", "test1");    /* index 0 */
@@ -235,6 +249,54 @@ START_TEST (test_XMLNamespaces_remove_by_prefix)
 END_TEST
 
 
+START_TEST (test_XMLNamespaces_remove1)
+{
+  XMLNamespaces_add(NS, "http://test1.org/", "test1"); 
+  XMLNamespaces_add(NS, "http://test2.org/", "test2");
+
+  fail_unless( XMLNamespaces_getLength(NS) == 2 );
+  
+  int i = XMLNamespaces_remove(NS, 4);
+  
+  fail_unless (i == LIBSBML_INDEX_EXCEEDS_SIZE );
+  fail_unless( XMLNamespaces_getLength(NS) == 2 );
+  
+  i = XMLNamespaces_removeByPrefix(NS, "test4");
+
+  fail_unless (i == LIBSBML_INDEX_EXCEEDS_SIZE );
+  fail_unless( XMLNamespaces_getLength(NS) == 2 );
+
+  i = XMLNamespaces_remove(NS, 1);
+
+  fail_unless (i == LIBSBML_OPERATION_SUCCESS );
+  fail_unless( XMLNamespaces_getLength(NS) == 1 );
+
+  i = XMLNamespaces_removeByPrefix(NS, "test1");
+
+  fail_unless (i == LIBSBML_OPERATION_SUCCESS );
+  fail_unless( XMLNamespaces_getLength(NS) == 0 );
+}
+END_TEST
+
+
+START_TEST (test_XMLNamespaces_clear)
+{
+  XMLNamespaces_add(NS, "http://test1.org/", "test1"); 
+  XMLNamespaces_add(NS, "http://test2.org/", "test2");
+  XMLNamespaces_add(NS, "http://test3.org/", "test3"); 
+  XMLNamespaces_add(NS, "http://test4.org/", "test4");
+  XMLNamespaces_add(NS, "http://test5.org/", "test5");
+
+  fail_unless( XMLNamespaces_getLength(NS) == 5 );
+
+  int i = XMLNamespaces_clear(NS);
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( XMLNamespaces_getLength(NS) == 0 );
+}
+END_TEST
+
+
 Suite *
 create_suite_XMLNamespaces (void)
 {
@@ -247,9 +309,13 @@ create_suite_XMLNamespaces (void)
 
   tcase_add_test( tcase, test_XMLNamespaces_baseline         );
   tcase_add_test( tcase, test_XMLNamespaces_add              );
+  tcase_add_test( tcase, test_XMLNamespaces_add1             );
   tcase_add_test( tcase, test_XMLNamespaces_get              );
   tcase_add_test( tcase, test_XMLNamespaces_remove           );
   tcase_add_test( tcase, test_XMLNamespaces_remove_by_prefix );
+  tcase_add_test( tcase, test_XMLNamespaces_remove1          );
+  tcase_add_test( tcase, test_XMLNamespaces_clear            );
+  
   suite_add_tcase(suite, tcase);
 
   return suite;

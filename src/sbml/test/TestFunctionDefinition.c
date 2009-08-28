@@ -67,7 +67,7 @@ static FunctionDefinition_t *FD;
 void
 FunctionDefinitionTest_setup (void)
 {
-  FD = FunctionDefinition_create();
+  FD = FunctionDefinition_create(2, 4);
 
   if (FD == NULL)
   {
@@ -100,7 +100,10 @@ END_TEST
 START_TEST (test_FunctionDefinition_createWith)
 {
   ASTNode_t            *math = SBML_parseFormula("lambda(x, x^3)");
-  FunctionDefinition_t *fd   = FunctionDefinition_createWithIdAndMath("pow3", math);
+  FunctionDefinition_t *fd   = 
+    FunctionDefinition_create(2, 4);
+  FunctionDefinition_setId(fd, "pow3");
+  FunctionDefinition_setMath(fd, math);
 
   const ASTNode_t * math1;
   char * formula;
@@ -221,7 +224,7 @@ END_TEST
 
 START_TEST (test_FunctionDefinition_setName)
 {
-  char *name = "Cube Me";
+  char *name = "Cube_Me";
 
 
   FunctionDefinition_setName(FD, name);
@@ -288,13 +291,15 @@ START_TEST (test_FunctionDefinition_setMath)
 END_TEST
 
 
-START_TEST (test_FunctionDefinition_createWithLevelVersionAndNamespace)
+START_TEST (test_FunctionDefinition_createWithNS )
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
-  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "testsbml");
+  SBMLNamespaces_t *sbmlns = SBMLNamespaces_create(2,1);
+  SBMLNamespaces_addNamespaces(sbmlns,xmlns);
 
   FunctionDefinition_t *object = 
-    FunctionDefinition_createWithLevelVersionAndNamespaces(2, 1, xmlns);
+    FunctionDefinition_createWithNS (sbmlns);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_FUNCTION_DEFINITION );
@@ -306,7 +311,8 @@ START_TEST (test_FunctionDefinition_createWithLevelVersionAndNamespace)
   fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
 
   fail_unless( FunctionDefinition_getNamespaces     (object) != NULL );
-  fail_unless( XMLNamespaces_getLength(FunctionDefinition_getNamespaces(object)) == 1 );
+  fail_unless( XMLNamespaces_getLength(
+                       FunctionDefinition_getNamespaces(object)) == 2 );
 
   FunctionDefinition_free(object);
 }
@@ -332,7 +338,7 @@ create_suite_FunctionDefinition (void)
   tcase_add_test( tcase, test_FunctionDefinition_setId        );
   tcase_add_test( tcase, test_FunctionDefinition_setName      );
   tcase_add_test( tcase, test_FunctionDefinition_setMath      );
-  tcase_add_test( tcase, test_FunctionDefinition_createWithLevelVersionAndNamespace        );
+  tcase_add_test( tcase, test_FunctionDefinition_createWithNS         );
 
   suite_add_tcase(suite, tcase);
 

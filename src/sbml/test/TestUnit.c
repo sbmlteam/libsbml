@@ -65,7 +65,7 @@ static Unit_t *U;
 void
 UnitTest_setup (void)
 {
-  U = Unit_create();
+  U = Unit_create(2, 4);
 
   if (U == NULL)
   {
@@ -98,27 +98,27 @@ START_TEST (test_Unit_create)
 END_TEST
 
 
-START_TEST (test_Unit_createWith)
-{
-  Unit_t *u = Unit_createWithKindExponentScale(UNIT_KIND_SECOND, -2, 1);
-
-
-  fail_unless( SBase_getTypeCode  ((SBase_t *) u) == SBML_UNIT );
-  fail_unless( SBase_getMetaId    ((SBase_t *) u) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) u) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) u) == NULL );
-
-  fail_unless( Unit_getKind      (u) == UNIT_KIND_SECOND );
-  fail_unless( Unit_getExponent  (u) == -2   );
-  fail_unless( Unit_getScale     (u) ==  1   );
-  fail_unless( Unit_getMultiplier(u) ==  1.0 );
-  fail_unless( Unit_getOffset    (u) ==  0.0 );
-
-  fail_unless( Unit_isSetKind(u) );
-
-  Unit_free(u);
-}
-END_TEST
+//START_TEST (test_Unit_createWith)
+//{
+//  Unit_t *u = Unit_createWithKindExponentScale(UNIT_KIND_SECOND, -2, 1);
+//
+//
+//  fail_unless( SBase_getTypeCode  ((SBase_t *) u) == SBML_UNIT );
+//  fail_unless( SBase_getMetaId    ((SBase_t *) u) == NULL );
+//  fail_unless( SBase_getNotes     ((SBase_t *) u) == NULL );
+//  fail_unless( SBase_getAnnotation((SBase_t *) u) == NULL );
+//
+//  fail_unless( Unit_getKind      (u) == UNIT_KIND_SECOND );
+//  fail_unless( Unit_getExponent  (u) == -2   );
+//  fail_unless( Unit_getScale     (u) ==  1   );
+//  fail_unless( Unit_getMultiplier(u) ==  1.0 );
+//  fail_unless( Unit_getOffset    (u) ==  0.0 );
+//
+//  fail_unless( Unit_isSetKind(u) );
+//
+//  Unit_free(u);
+//}
+//END_TEST
 
 
 START_TEST (test_Unit_free_NULL)
@@ -141,9 +141,13 @@ START_TEST (test_Unit_isXXX)
   Unit_setKind(U, UNIT_KIND_CANDELA);
   fail_unless( Unit_isCandela(U) );
 
-  Unit_setKind(U, UNIT_KIND_CELSIUS);
+  /* since the Unit is the default level and version
+   * celsius is no longer a valid unit
+   * and setKind will fail
+   */
+/*  Unit_setKind(U, UNIT_KIND_CELSIUS);
   fail_unless( Unit_isCelsius(U) );
-
+*/
   Unit_setKind(U, UNIT_KIND_COULOMB);
   fail_unless( Unit_isCoulomb(U) );
 
@@ -262,7 +266,7 @@ END_TEST
 
 START_TEST (test_Unit_set_get)
 {
-  Unit_t *u = Unit_create();
+  Unit_t *u = Unit_create(2, 4);
 
 
   fail_unless( Unit_getKind      (u) == UNIT_KIND_INVALID );
@@ -288,13 +292,15 @@ START_TEST (test_Unit_set_get)
 END_TEST
 
 
-START_TEST (test_Unit_createWithLevelVersionAndNamespace)
+START_TEST (test_Unit_createWithNS )
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
-  XMLNamespaces_add(xmlns, "http://www.sbml.org", "sbml");
+  XMLNamespaces_add(xmlns, "http://www.sbml.org", "testsbml");
+  SBMLNamespaces_t *sbmlns = SBMLNamespaces_create(2,1);
+  SBMLNamespaces_addNamespaces(sbmlns,xmlns);
 
   Unit_t *object = 
-    Unit_createWithLevelVersionAndNamespaces(2, 1, xmlns);
+    Unit_createWithNS (sbmlns);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_UNIT );
@@ -306,7 +312,7 @@ START_TEST (test_Unit_createWithLevelVersionAndNamespace)
   fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
 
   fail_unless( Unit_getNamespaces     (object) != NULL );
-  fail_unless( XMLNamespaces_getLength(Unit_getNamespaces(object)) == 1 );
+  fail_unless( XMLNamespaces_getLength(Unit_getNamespaces(object)) == 2 );
 
   Unit_free(object);
 }
@@ -323,12 +329,12 @@ create_suite_Unit (void)
   tcase_add_checked_fixture( tcase, UnitTest_setup, UnitTest_teardown );
 
   tcase_add_test( tcase, test_Unit_create     );
-  tcase_add_test( tcase, test_Unit_createWith );
+  //tcase_add_test( tcase, test_Unit_createWith );
   tcase_add_test( tcase, test_Unit_free_NULL  );
   tcase_add_test( tcase, test_Unit_isXXX      );
   tcase_add_test( tcase, test_Unit_isBuiltIn  );
   tcase_add_test( tcase, test_Unit_set_get    );
-  tcase_add_test( tcase, test_Unit_createWithLevelVersionAndNamespace        );
+  tcase_add_test( tcase, test_Unit_createWithNS         );
 
   suite_add_tcase(suite, tcase);
 

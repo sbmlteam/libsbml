@@ -30,6 +30,7 @@
 
 #include <sbml/SBMLTypeCodes.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Forward class name declarations avoid cyclic dependencies.
@@ -124,6 +125,7 @@ public:
   virtual void leave (const ListOf &x, SBMLTypeCode_t type);
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* SBMLVisitor_h */

@@ -30,6 +30,7 @@
 using std::string;
 using std::vector;
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * @return true if UnitKind is already in this UnitKindList, false otherwise.
@@ -56,5 +57,6 @@ UnitKindList::removeUnitKind (const std::string UnitKind)
   if (pos != end) mKinds.erase(pos, pos+1);
 }
 
+LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond doxygen-libsbml-internal */

@@ -53,6 +53,7 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 const std::string SpeciesReferenceGlyph::SPECIES_REFERENCE_ROLE_STRING[]={
     "undefined" 
@@ -160,7 +161,8 @@ SpeciesReferenceGlyph::SpeciesReferenceGlyph(const XMLNode& node)
 /**
  * Copy constructor.
  */
-SpeciesReferenceGlyph::SpeciesReferenceGlyph(const SpeciesReferenceGlyph& source):GraphicalObject(source)
+SpeciesReferenceGlyph::SpeciesReferenceGlyph(const SpeciesReferenceGlyph& source) :
+    GraphicalObject(source)
 {
     this->mSpeciesReference=source.getSpeciesReferenceId();
     this->mSpeciesGlyph=source.getSpeciesGlyphId();
@@ -173,15 +175,16 @@ SpeciesReferenceGlyph::SpeciesReferenceGlyph(const SpeciesReferenceGlyph& source
  */
 SpeciesReferenceGlyph& SpeciesReferenceGlyph::operator=(const SpeciesReferenceGlyph& source)
 {
-    if(&source!=this)
-    {
-      GraphicalObject::operator=(source);
-      this->mSpeciesReference=source.getSpeciesReferenceId();
-      this->mSpeciesGlyph=source.getSpeciesGlyphId();
-      this->mRole=source.getRole();
-      this->mCurve=*source.getCurve();
-    }
-    return *this;
+  if(&source!=this)
+  {
+    GraphicalObject::operator=(source);
+    this->mSpeciesReference=source.getSpeciesReferenceId();
+    this->mSpeciesGlyph=source.getSpeciesGlyphId();
+    this->mRole=source.getRole();
+    this->mCurve=*source.getCurve();
+  }
+  
+  return *this;
 }
 
 /**
@@ -821,4 +824,45 @@ SpeciesReferenceGlyph_clone (const SpeciesReferenceGlyph_t *m)
   return static_cast<SpeciesReferenceGlyph*>( m->clone() );
 }
 
+/**
+ * Returns non-zero if the id is set
+ */
+LIBSBML_EXTERN
+int
+SpeciesReferenceGlyph_isSetId (const SpeciesReferenceGlyph_t *srg)
+{
+  return static_cast <int> (srg->isSetId());
+}
+
+/**
+ * Returns the id
+ */
+LIBSBML_EXTERN
+const char *
+SpeciesReferenceGlyph_getId (const SpeciesReferenceGlyph_t *srg)
+{
+  return srg->isSetId() ? srg->getId().c_str() : NULL;
+}
+
+/**
+ * Sets the id
+ */
+LIBSBML_EXTERN
+int
+SpeciesReferenceGlyph_setId (SpeciesReferenceGlyph_t *srg, const char *sid)
+{
+  return (sid == NULL) ? srg->setId("") : srg->setId(sid);
+}
+
+/**
+ * Unsets the id
+ */
+LIBSBML_EXTERN
+void
+SpeciesReferenceGlyph_unsetId (SpeciesReferenceGlyph_t *srg)
+{
+  srg->unsetId();
+}
+
+LIBSBML_CPP_NAMESPACE_END
 

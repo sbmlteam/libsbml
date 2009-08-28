@@ -58,6 +58,7 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Creates a new Layout.
@@ -71,7 +72,8 @@ Layout::Layout () : SBase ()
  * Creates a new Layout with the given id and dimensions.
  */
 Layout::Layout (const std::string& id, const Dimensions* dimensions) :
-    SBase      (id)
+    SBase      ()
+  , mId (id)
 {
     if(dimensions)
     {
@@ -273,17 +275,19 @@ Layout::Layout(const Layout& source):SBase(source)
  */
 Layout& Layout::operator=(const Layout& source)
 {
-    if(&source!=this)
-    {
-        this->SBase::operator=(source);
-        this->mDimensions=*source.getDimensions();
-        this->mCompartmentGlyphs=*source.getListOfCompartmentGlyphs();
-        this->mSpeciesGlyphs=*source.getListOfSpeciesGlyphs();
-        this->mReactionGlyphs=*source.getListOfReactionGlyphs();
-        this->mTextGlyphs=*source.getListOfTextGlyphs();
-        this->mAdditionalGraphicalObjects=*source.getListOfAdditionalGraphicalObjects();
-    }   
-    return *this;
+  if(&source!=this)
+  {
+    this->SBase::operator=(source);
+    this->mId = source.mId;
+    this->mDimensions=*source.getDimensions();
+    this->mCompartmentGlyphs=*source.getListOfCompartmentGlyphs();
+    this->mSpeciesGlyphs=*source.getListOfSpeciesGlyphs();
+    this->mReactionGlyphs=*source.getListOfReactionGlyphs();
+    this->mTextGlyphs=*source.getListOfTextGlyphs();
+    this->mAdditionalGraphicalObjects=*source.getListOfAdditionalGraphicalObjects();
+  }
+  
+  return *this;
 }
 
 
@@ -303,6 +307,49 @@ Layout::initDefaults ()
 {
 }
 
+
+/**
+  * Returns the value of the "id" attribute of this Layout.
+  */
+const std::string& Layout::getId () const
+{
+  return mId;
+}
+
+
+/**
+  * Predicate returning @c true or @c false depending on whether this
+  * Layout's "id" attribute has been set.
+  */
+bool Layout::isSetId () const
+{
+  return (mId.empty() == false);
+}
+
+/**
+  * Sets the value of the "id" attribute of this Layout.
+  */
+int Layout::setId (std::string id)
+{
+  if (!(SyntaxChecker::isValidSBMLSId(id)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mId = id;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/**
+  * Unsets the value of the "id" attribute of this Layout.
+  */
+void Layout::unsetId ()
+{
+  mId.erase();
+}
 
 /**
  * Returns the dimensions of the layout.
@@ -1293,11 +1340,38 @@ ListOfLayouts::clone () const
 
 ListOfLayouts& ListOfLayouts::operator=(const ListOfLayouts& source)
 {
-    if(&source!=this)
+  if(&source!=this)
+  {
+    copySBaseAttributes(source,*this);
+    this->mLine=source.getLine();
+    this->mColumn=source.getColumn();
+    //if(this->mNamespaces!=NULL)
+    //{
+    //    delete this->mNamespaces;
+    //    this->mNamespaces=NULL;
+    //}
+    //if(source.getNamespaces()!=NULL)
+    //{
+    //  this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
+    //}
+    // clear the old list
+    unsigned int i=0,iMax=this->size();
+    while(i<iMax)
     {
-        this->ListOf::operator=(source);
+        SBase* o=static_cast<SBase*>(this->remove(0));
+        delete o;
+        ++i;
     }
-    return *this;
+    i=0;
+    iMax=source.size();
+    while(i<iMax)
+    {
+      this->append(source.get(i));
+      ++i;
+    }
+  }
+  
+  return *this;
 }
 
 ListOfLayouts::ListOfLayouts(const ListOfLayouts& source)
@@ -1396,11 +1470,38 @@ ListOfCompartmentGlyphs::clone () const
 
 ListOfCompartmentGlyphs& ListOfCompartmentGlyphs::operator=(const ListOfCompartmentGlyphs& source)
 {
-    if(&source!=this)
+  if(&source!=this)
+  {
+    copySBaseAttributes(source,*this);
+    // clear the old list
+    this->mLine=source.getLine();
+    this->mColumn=source.getColumn();
+    //if(this->mNamespaces!=NULL)
+    //{
+    //    delete this->mNamespaces;
+    //    this->mNamespaces=NULL;
+    //}
+    //if(source.getNamespaces()!=NULL)
+    //{
+    //  this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
+    //}
+    unsigned int i=0,iMax=this->size();
+    while(i<iMax)
     {
-        this->ListOf::operator=(source);
+        SBase* o=static_cast<SBase*>(this->remove(0));
+        delete o;
+        ++i;
     }
-    return *this;
+    i=0;
+    iMax=source.size();
+    while(i<iMax)
+    {
+      this->append(source.get(i));
+      ++i;
+    }
+  }
+  
+  return *this;
 }
 
 ListOfCompartmentGlyphs::ListOfCompartmentGlyphs(const ListOfCompartmentGlyphs& source)
@@ -1503,11 +1604,38 @@ ListOfSpeciesGlyphs::clone () const
 
 ListOfSpeciesGlyphs& ListOfSpeciesGlyphs::operator=(const ListOfSpeciesGlyphs& source)
 {
-    if(&source!=this)
+  if(&source!=this)
+  {
+    copySBaseAttributes(source,*this);
+    this->mLine=source.getLine();
+    this->mColumn=source.getColumn();
+    //if(this->mNamespaces!=NULL)
+    //{
+    //    delete this->mNamespaces;
+    //    this->mNamespaces=NULL;
+    //}
+    //if(source.getNamespaces()!=NULL)
+    //{
+    //  this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
+    //}
+    // clear the old list
+    unsigned int i=0,iMax=this->size();
+    while(i<iMax)
     {
-        this->ListOf::operator=(source);
+        SBase* o=static_cast<SBase*>(this->remove(0));
+        delete o;
+        ++i;
     }
-    return *this;
+    i=0;
+    iMax=source.size();
+    while(i<iMax)
+    {
+      this->append(source.get(i));
+      ++i;
+    }
+  }
+  
+  return *this;
 }
 
 
@@ -1609,11 +1737,38 @@ ListOfReactionGlyphs::clone () const
 
 ListOfReactionGlyphs& ListOfReactionGlyphs::operator=(const ListOfReactionGlyphs& source)
 {
-    if(&source!=this)
+  if(&source!=this)
+  {
+    copySBaseAttributes(source,*this);
+    this->mLine=source.getLine();
+    this->mColumn=source.getColumn();
+    //if(this->mNamespaces!=NULL)
+    //{
+    //    delete this->mNamespaces;
+    //    this->mNamespaces=NULL;
+    //}
+    //if(source.getNamespaces()!=NULL)
+    //{
+    //  this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
+    //}
+    // clear the old list
+    unsigned int i=0,iMax=this->size();
+    while(i<iMax)
     {
-        this->ListOf::operator=(source);
+        SBase* o=static_cast<SBase*>(this->remove(0));
+        delete o;
+        ++i;
     }
-    return *this;
+    i=0;
+    iMax=source.size();
+    while(i<iMax)
+    {
+      this->append(source.get(i));
+      ++i;
+    }
+  }
+  
+  return *this;
 }
 
 ListOfReactionGlyphs::ListOfReactionGlyphs(const ListOfReactionGlyphs& source)
@@ -1715,11 +1870,37 @@ ListOfTextGlyphs::clone () const
 
 ListOfTextGlyphs& ListOfTextGlyphs::operator=(const ListOfTextGlyphs& source)
 {
-    if(&source!=this)
+  if(&source!=this)
+  {
+    copySBaseAttributes(source,*this);
+    this->mLine=source.getLine();
+    this->mColumn=source.getColumn();
+    //if(this->mNamespaces!=NULL)
+    //{
+    //    delete this->mNamespaces;
+    //    this->mNamespaces=NULL;
+    //}
+    //if(source.getNamespaces()!=NULL)
+    //{
+    //  this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
+    //}
+    // clear the old list
+    unsigned int i=0,iMax=this->size();
+    while(i<iMax)
     {
-        this->ListOf::operator=(source);
+        SBase* o=static_cast<SBase*>(this->remove(0));
+        delete o;
+        ++i;
     }
-    return *this;
+    i=0;iMax=source.size();
+    while(i<iMax)
+    {
+      this->append(source.get(i));
+      ++i;
+    }
+  }
+  
+  return *this;
 }
 
 ListOfTextGlyphs::ListOfTextGlyphs(const ListOfTextGlyphs& source)
@@ -1820,11 +2001,38 @@ ListOfGraphicalObjects::clone () const
 
 ListOfGraphicalObjects& ListOfGraphicalObjects::operator=(const ListOfGraphicalObjects& source)
 {
-    if(&source!=this)
+  if(&source!=this)
+  {
+    copySBaseAttributes(source,*this);
+    this->mLine=source.getLine();
+    this->mColumn=source.getColumn();
+    //if(this->mNamespaces!=NULL)
+    //{
+    //    delete this->mNamespaces;
+    //    this->mNamespaces=NULL;
+    //}
+    //if(source.getNamespaces()!=NULL)
+    //{
+    //  this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
+    //}
+    // clear the old list
+    unsigned int i=0,iMax=this->size();
+    while(i<iMax)
     {
-        this->ListOf::operator=(source);
+        SBase* o=static_cast<SBase*>(this->remove(0));
+        delete o;
+        ++i;
     }
-    return *this;
+    i=0;
+    iMax=source.size();
+    while(i<iMax)
+    {
+      this->append(source.get(i));
+      ++i;
+    }
+  }
+  
+  return *this;
 }
 
 ListOfGraphicalObjects::ListOfGraphicalObjects(const ListOfGraphicalObjects& source)
@@ -2463,4 +2671,46 @@ Layout_clone (const Layout_t *m)
   return static_cast<Layout*>( m->clone() );
 }
 
+
+/**
+ * Returns non-zero if the id is set
+ */
+LIBSBML_EXTERN
+int
+Layout_isSetId (const Layout_t *l)
+{
+  return static_cast <int> (l->isSetId());
+}
+
+/**
+ * Returns the id
+ */
+LIBSBML_EXTERN
+const char *
+Layout_getId (const Layout_t *l)
+{
+  return l->isSetId() ? l->getId().c_str() : NULL;
+}
+
+/**
+ * Sets the id
+ */
+LIBSBML_EXTERN
+int
+Layout_setId (Layout_t *l, const char *sid)
+{
+  return (sid == NULL) ? l->setId("") : l->setId(sid);
+}
+
+/**
+ * Unsets the id
+ */
+LIBSBML_EXTERN
+void
+Layout_unsetId (Layout_t *l)
+{
+  l->unsetId();
+}
+
+LIBSBML_CPP_NAMESPACE_END
 

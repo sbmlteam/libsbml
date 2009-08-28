@@ -24,6 +24,7 @@
 #include <sbml/SBMLTypes.h>
 #include <sbml/SBMLVisitor.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 SBMLVisitor::~SBMLVisitor ()
 {
@@ -247,3 +248,5 @@ void
 SBMLVisitor::leave (const ListOf& x, SBMLTypeCode_t type)
 {
 }
+
+LIBSBML_CPP_NAMESPACE_END

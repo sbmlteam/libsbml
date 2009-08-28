@@ -237,6 +237,8 @@
 #include <sbml/StoichiometryMath.h>
 #include <sbml/ListOf.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 class StoichiometryMath;
 class ASTNode;
 class SBMLVisitor;
@@ -247,42 +249,37 @@ class LIBSBML_EXTERN SimpleSpeciesReference : public SBase
 public:
 
   /**
-   * Creates a new SimpleSpeciesReference, optionally with its "species"
-   * attribute set.
-   *
-   * The "species" attribute on SpeciesReference and
-   * ModifierSpeciesReference is required to have a value in SBML.
-   * Although the attribute is optional in this constructor, callers should
-   * provide a value or use setSpecies() shortly after creating the object.
-   *
-   * @param species the identifier of the species to be referenced
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
-   */
-  SimpleSpeciesReference (const std::string& species = "");
-
-
-  /**
    * Creates a new SimpleSpeciesReference using the given SBML @p level and @p version
-   * values and optionally a set of XMLNamespaces.
+   * values.
    *
    * @param level an unsigned int, the SBML Level to assign to this SimpleSpeciesReference
    *
    * @param version an unsigned int, the SBML Version to assign to this
    * SimpleSpeciesReference
    * 
-   * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
-   * assign to this SimpleSpeciesReference
+   * @note Once a SimpleSpeciesReference has been added to an SBMLDocument, the @p level,
+   * @p version for the document @em override those used
+   * to create the SimpleSpeciesReference.  Despite this, the ability to supply the values
+   * at creation time is an important aid to creating valid SBML.  Knowledge of
+   * the intented SBML Level and Version determine whether it is valid to
+   * assign a particular value to an attribute, or whether it is valid to add
+   * an object to an existing SBMLDocument.
+   */
+  SimpleSpeciesReference (unsigned int level, unsigned int version);
+
+
+  /**
+   * Creates a new SimpleSpeciesReference using the given SBMLNamespaces object
+   * @p sbmlns.
+   *
+   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
+   * information.  It is used to communicate the SBML Level, Version, and
+   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp; Core.
+   * A common approach to using this class constructor is to create an
+   * SBMLNamespaces object somewhere in a program, once, then pass it to
+   * object constructors such as this one when needed.
+   *
+   * @param sbmlns an SBMLNamespaces object.
    *
    * @note Once a SimpleSpeciesReference has been added to an SBMLDocument, the @p level,
    * @p version and @p xmlns namespaces for the document @em override those used
@@ -291,21 +288,8 @@ public:
    * the intented SBML Level and Version determine whether it is valid to
    * assign a particular value to an attribute, or whether it is valid to add
    * an object to an existing SBMLDocument.
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
    */
-  SimpleSpeciesReference (unsigned int level, unsigned int version, 
-               XMLNamespaces* xmlns = 0);
+  SimpleSpeciesReference (SBMLNamespaces* sbmlns);
 
 
   /**
@@ -373,12 +357,52 @@ public:
 
 
   /**
+   * Returns the value of the "id" attribute of this SimpleSpeciesReference.
+   * 
+   * @return the id of this SimpleSpeciesReference.
+   */
+  const std::string& getId () const;
+
+
+  /**
+   * Returns the value of the "name" attribute of this SimpleSpeciesReference.
+   * 
+   * @return the name of this SimpleSpeciesReference.
+   */
+  const std::string& getName () const;
+
+
+  /**
    * Get the value of the "species" attribute.
    * 
    * @return the value of the attribute "species" for this
    * SimpleSpeciesReference.
    */
   const std::string& getSpecies () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * SimpleSpeciesReference's "id" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "id" attribute of this SimpleSpeciesReference has been
+   * set, @c false otherwise.
+   */
+  bool isSetId () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * SimpleSpeciesReference's "name" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "name" attribute of this SimpleSpeciesReference has been
+   * set, @c false otherwise.
+   */
+  bool isSetName () const;
 
 
   /**
@@ -398,8 +422,95 @@ public:
    *
    * @param sid the identifier of a species defined in the enclosing
    * Model's ListOfSpecies.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  void setSpecies (const std::string& sid);
+  int setSpecies (const std::string& sid);
+
+
+  /**
+   * Sets the value of the "id" attribute of this SimpleSpeciesReference.
+   *
+   * The string @p sid is copied.  Note that SBML has strict requirements
+   * for the syntax of identifiers.  The following is summary of the
+   * definition of the SBML identifier type @c SId (here expressed in an
+   * extended form of BNF notation):
+   * @code
+   *   letter ::= 'a'..'z','A'..'Z'
+   *   digit  ::= '0'..'9'
+   *   idChar ::= letter | digit | '_'
+   *   SId    ::= ( letter | '_' ) idChar*
+   * @endcode
+   * The equality of SBML identifiers is determined by an exact character
+   * sequence match; i.e., comparisons must be performed in a
+   * case-sensitive manner.  In addition, there are a few conditions for
+   * the uniqueness of identifiers in an SBML model.  Please consult the
+   * SBML specifications for the exact formulations.
+   *
+   * @param sid the string to use as the identifier of this SimpleSpeciesReference
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   */
+  int setId (const std::string& sid);
+
+
+  /**
+   * Sets the value of the "name" attribute of this SimpleSpeciesReference.
+   *
+   * The string in @p name is copied.
+   *
+   * @param name the new name for the SimpleSpeciesReference
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   */
+  int setName (const std::string& name);
+
+
+  /**
+   * Unsets the value of the "id" attribute of this SimpleSpeciesReference.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  int unsetId ();
+
+
+  /**
+   * Unsets the value of the "name" attribute of this SimpleSpeciesReference.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  int unsetName ();
 
 
   /**
@@ -412,8 +523,17 @@ public:
   bool isModifier () const;
 
 
+
 protected:
   /** @cond doxygen-libsbml-internal */
+
+  virtual bool hasRequiredAttributes() const ;
+
+  /* this is a constructor that takes no arguments and 
+   * only exists because the validator code needs it
+   */
+  SimpleSpeciesReference ();
+
 
   /**
    * Subclasses should override this method to read values from the given
@@ -429,6 +549,8 @@ protected:
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
+  std::string  mId;
+  std::string  mName;
   std::string  mSpecies;
 
   /** @endcond doxygen-libsbml-internal */
@@ -441,60 +563,30 @@ class LIBSBML_EXTERN SpeciesReference : public SimpleSpeciesReference
 public:
 
   /**
-   * Creates a new SpeciesReference, optionally setting its "species",
-   * "stoichiometry" and "denominator" attribute values.
-   *
-   * The "denominator" attribute is only actually written out in the case
-   * of an SBML Level 1 model.  In SBML Level 2, rational-number
-   * stoichiometries are written as MathML elements in the
-   * "stoichiometryMath" subelement.  However, as a convenience to users,
-   * libSBML allows the creation and manipulation of rational-number
-   * stoichiometries by supplying the numerator and denominator directly
-   * rather than having to manually create an ASTNode structure.  LibSBML
-   * will write out the appropriate constructs (either a combination of
-   * "stoichiometry" and "denominator" in the case of SBML Level 1, or a
-   * "stoichiometryMath" subelement in the case of SBML Level 2).
-   *
-   * @param species the identifier of the species to be referenced
-   *
-   * @param stoichiometry the (simple) stoichoiometry
-   *
-   * @param denominator the denominator, in the case where the stoichoiometry
-   * is a rational number
-   *
-   * @note The "species" attribute on SpeciesReference is required to have
-   * a value in SBML.  Although the attribute is optional in this
-   * constructor, callers should provide a value or use setSpecies()
-   * shortly after creating the object.
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
-   */
-  SpeciesReference (   const std::string& species       = ""
-                     , double             stoichiometry = 1.0
-                     , int                denominator   = 1   );
-
-
-  /**
    * Creates a new SpeciesReference using the given SBML @p level and @p version
-   * values and optionally a set of XMLNamespaces.
+   * values.
    *
    * @param level an unsigned int, the SBML Level to assign to this SpeciesReference
    *
    * @param version an unsigned int, the SBML Version to assign to this
    * SpeciesReference
    * 
-   * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
-   * assign to this SpeciesReference
+   * @note Once a SpeciesReference has been added to an SBMLDocument, the @p level,
+   * @p version for the document @em override those used
+   * to create the SpeciesReference.  Despite this, the ability to supply the values
+   * at creation time is an important aid to creating valid SBML.  Knowledge of
+   * the intented SBML Level and Version determine whether it is valid to
+   * assign a particular value to an attribute, or whether it is valid to add
+   * an object to an existing SBMLDocument.
+   */
+  SpeciesReference (unsigned int level, unsigned int version);
+
+
+  /**
+   * Creates a new SpeciesReference using the given SBMLNamespaces object
+   * @p sbmlns.
+   *
+   * @param sbmlns an SBMLNamespaces object.
    *
    * @note Once a SpeciesReference has been added to an SBMLDocument, the @p level,
    * @p version and @p xmlns namespaces for the document @em override those used
@@ -503,21 +595,8 @@ public:
    * the intented SBML Level and Version determine whether it is valid to
    * assign a particular value to an attribute, or whether it is valid to add
    * an object to an existing SBMLDocument.
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
    */
-  SpeciesReference (unsigned int level, unsigned int version, 
-               XMLNamespaces* xmlns = 0);
+  SpeciesReference (SBMLNamespaces* sbmlns);
 
 
   /**
@@ -741,8 +820,14 @@ public:
    * decimal).
    * 
    * @param value the new value of the "stoichiometry" attribute
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
-  void setStoichiometry (double value);
+  int setStoichiometry (double value);
 
 
   /**
@@ -770,8 +855,17 @@ public:
    * 
    * @param math the StoichiometryMath expression that is to be copied as the
    * content of the "stoichiometryMath" subelement.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   * @li LIBSBML_LEVEL_MISMATCH
+   * @li LIBSBML_VERSION_MISMATCH
    */
-  void setStoichiometryMath (const StoichiometryMath* math);
+  int setStoichiometryMath (const StoichiometryMath* math);
 
 
 
@@ -791,12 +885,25 @@ public:
    * "stoichiometryMath" subelement in the case of SBML Level 2).
    *
    * @param value the scalar value 
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
-  void setDenominator (int value);
+  int setDenominator (int value);
 
 
   /**
    * Unsets the "stoichiometryMath" subelement of this SpeciesReference.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    *
    * In SBML Level 2, Product and reactant stoichiometries can be specified
    * using <em>either</em> "stoichiometry" or "stoichiometryMath" in a
@@ -817,7 +924,7 @@ public:
    * decimal).
    * 
    */
-  void unsetStoichiometryMath ();
+  int unsetStoichiometryMath ();
 
 
   /**
@@ -846,10 +953,16 @@ public:
    * @param annotation an XML structure that is to be used as the content
    * of the "annotation" subelement of this object
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   *
    * @see appendAnnotation(const XMLNode* annotation)
    * @see appendAnnotation(const std::string& annotation)
    */
-  virtual void setAnnotation (const XMLNode* annotation);
+  virtual int setAnnotation (const XMLNode* annotation);
 
 
   /**
@@ -866,10 +979,17 @@ public:
    * @param annotation an XML string that is to be used as the content
    * of the "annotation" subelement of this object
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   *
    * @see appendAnnotation(const XMLNode* annotation)
    * @see appendAnnotation(const std::string& annotation)
    */
-  virtual void setAnnotation (const std::string& annotation);
+  virtual int setAnnotation (const std::string& annotation);
 
 
   /**
@@ -883,10 +1003,17 @@ public:
    * @param annotation an XML structure that is to be copied and appended
    * to the content of the "annotation" subelement of this object
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   *
    * @see setAnnotation(const std::string& annotation)
    * @see setAnnotation(const XMLNode* annotation)
    */
-  virtual void appendAnnotation (const XMLNode* annotation);
+  virtual int appendAnnotation (const XMLNode* annotation);
 
 
   /**
@@ -900,10 +1027,17 @@ public:
    * @param annotation an XML string that is to be copied and appended
    * to the content of the "annotation" subelement of this object
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   *
    * @see setAnnotation(const std::string& annotation)
    * @see setAnnotation(const XMLNode* annotation)
    */
-  virtual void appendAnnotation (const std::string& annotation);
+  virtual int appendAnnotation (const std::string& annotation);
 
 
   /**
@@ -938,14 +1072,16 @@ public:
 
 
   /** @cond doxygen-libsbml-internal */
-
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
+  /** @endcond doxygen-libsbml-internal */
 
+
+  /** @cond doxygen-libsbml-internal */
   /*
    * This functional checks whether a math expression equates to 
    * a rational and produces values for stoichiometry and denominator
@@ -954,8 +1090,28 @@ public:
   /** @endcond doxygen-libsbml-internal */
 
 
+  /**
+   * Predicate returning @c true or @c false depending on whether
+   * all the required attributes for this SpeciesReference object
+   * have been set.
+   *
+   * @note The required attributes for a SpeciesReference object are:
+   * species
+   *
+   * @return a boolean value indicating whether all the required
+   * attributes for this object have been defined.
+   */
+  virtual bool hasRequiredAttributes() const ;
+
+
 protected:
   /** @cond doxygen-libsbml-internal */
+
+  /* this is a constructor that takes no arguments and 
+   * only exists because the validator code needs it
+   */
+  SpeciesReference ();
+
 
   /**
    * @return the SBML object corresponding to next XMLToken in the
@@ -1001,6 +1157,24 @@ protected:
   int       mDenominator;
   StoichiometryMath*  mStoichiometryMath;
 
+  /* the validator classes need to be friends to access the 
+   * protected constructor that takes no arguments
+   */
+  friend class Validator;
+  friend class ConsistencyValidator;
+  friend class IdentifierConsistencyValidator;
+  friend class InternalConsistencyValidator;
+  friend class L1CompatibilityValidator;
+  friend class L2v1CompatibilityValidator;
+  friend class L2v2CompatibilityValidator;
+  friend class L2v3CompatibilityValidator;
+  friend class L2v4CompatibilityValidator;
+  friend class MathMLConsistencyValidator;
+  friend class ModelingPracticeValidator;
+  friend class OverdeterminedValidator;
+  friend class SBOConsistencyValidator;
+  friend class UnitConsistencyValidator;
+
   /** @endcond doxygen-libsbml-internal */
 };
 
@@ -1011,42 +1185,30 @@ class LIBSBML_EXTERN ModifierSpeciesReference : public SimpleSpeciesReference
 public:
 
   /**
-   * Creates a new ModiferSpeciesReference, optionally with its "species"
-   * attribute set.
-   *
-   * The "species" attribute on SpeciesReference and
-   * ModifierSpeciesReference is required to have a value in SBML.
-   * Although the attribute is optional in this constructor, callers should
-   * provide a value or use setSpecies() shortly after creating the object.
-   *
-   * @param species the identifier of the species to be referenced
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
-   */
-  ModifierSpeciesReference (const std::string& species = "");
-
-
-  /**
    * Creates a new ModifierSpeciesReference using the given SBML @p level and @p version
-   * values and optionally a set of XMLNamespaces.
+   * values.
    *
    * @param level an unsigned int, the SBML Level to assign to this ModifierSpeciesReference
    *
    * @param version an unsigned int, the SBML Version to assign to this
    * ModifierSpeciesReference
    * 
-   * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
-   * assign to this ModifierSpeciesReference
+   * @note Once a ModifierSpeciesReference has been added to an SBMLDocument, the @p level,
+   * @p version for the document @em override those used
+   * to create the ModifierSpeciesReference.  Despite this, the ability to supply the values
+   * at creation time is an important aid to creating valid SBML.  Knowledge of
+   * the intented SBML Level and Version determine whether it is valid to
+   * assign a particular value to an attribute, or whether it is valid to add
+   * an object to an existing SBMLDocument.
+   */
+  ModifierSpeciesReference (unsigned int level, unsigned int version);
+
+
+  /**
+   * Creates a new ModifierSpeciesReference using the given SBMLNamespaces object
+   * @p sbmlns.
+   *
+   * @param sbmlns an SBMLNamespaces object.
    *
    * @note Once a ModifierSpeciesReference has been added to an SBMLDocument, the @p level,
    * @p version and @p xmlns namespaces for the document @em override those used
@@ -1055,21 +1217,8 @@ public:
    * the intented SBML Level and Version determine whether it is valid to
    * assign a particular value to an attribute, or whether it is valid to add
    * an object to an existing SBMLDocument.
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
    */
-  ModifierSpeciesReference (unsigned int level, unsigned int version, 
-               XMLNamespaces* xmlns = 0);
+  ModifierSpeciesReference (SBMLNamespaces* sbmlns);
 
 
   /**
@@ -1170,7 +1319,21 @@ public:
 
   /** @endcond doxygen-libsbml-internal */
 
+#endif // USE_LAYOUT
+
+  /**
+   * Predicate returning @c true or @c false depending on whether
+   * all the required attributes for this ModifierSpeciesReference object
+   * have been set.
+   *
+   * @note The required attributes for a ModifierSpeciesReference object are:
+   * species
+   */
+  virtual bool hasRequiredAttributes() const ;
+
 protected:
+
+#ifdef USE_LAYOUT
   /** @cond doxygen-libsbml-internal */
 
   /**
@@ -1184,6 +1347,31 @@ protected:
   /** @endcond doxygen-libsbml-internal */
 
 #endif // USE_LAYOUT
+
+  /* this is a constructor that takes no arguments and 
+   * only exists because the validator code needs it
+   */
+  ModifierSpeciesReference ();
+
+
+  /* the validator classes need to be friends to access the 
+   * protected constructor that takes no arguments
+   */
+  friend class Validator;
+  friend class ConsistencyValidator;
+  friend class IdentifierConsistencyValidator;
+  friend class InternalConsistencyValidator;
+  friend class L1CompatibilityValidator;
+  friend class L2v1CompatibilityValidator;
+  friend class L2v2CompatibilityValidator;
+  friend class L2v3CompatibilityValidator;
+  friend class L2v4CompatibilityValidator;
+  friend class MathMLConsistencyValidator;
+  friend class ModelingPracticeValidator;
+  friend class OverdeterminedValidator;
+  friend class SBOConsistencyValidator;
+  friend class UnitConsistencyValidator;
+
 };
 
 
@@ -1391,13 +1579,14 @@ protected:
   /** @endcond doxygen-libsbml-internal */
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
 
 #ifndef SWIG
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /*-----------------------------------------------------------------------------
@@ -1407,36 +1596,22 @@ BEGIN_C_DECLS
 
 LIBSBML_EXTERN
 SpeciesReference_t *
-SpeciesReference_create (void);
+SpeciesReference_create (unsigned int level, unsigned int version);
 
 
 LIBSBML_EXTERN
 SpeciesReference_t *
-SpeciesReference_createModifier (void);
+SpeciesReference_createWithNS (SBMLNamespaces_t *sbmlns);
 
 
 LIBSBML_EXTERN
 SpeciesReference_t *
-SpeciesReference_createWithSpeciesAndStoichiometry ( const char *species,
-                              double      stoichiometry,
-                              int         denominator );
+SpeciesReference_createModifier (unsigned int level, unsigned int version);
 
 
-/** @cond doxygen-libsbml-internal */
 LIBSBML_EXTERN
 SpeciesReference_t *
-SpeciesReference_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns);
-/** @endcond doxygen-libsbml-internal */
-
-
-/** @cond doxygen-libsbml-internal */
-LIBSBML_EXTERN
-SpeciesReference_t *
-SpeciesReference_createModifierWithLevelVersionAndNamespaces 
-                           (unsigned int level,
-                            unsigned int version, XMLNamespaces_t *xmlns);
-/** @endcond doxygen-libsbml-internal */
+SpeciesReference_createModifierWithNS (SBMLNamespaces_t *sbmlns);
 
 
 LIBSBML_EXTERN
@@ -1515,52 +1690,68 @@ SpeciesReference_isSetStoichiometryMath (const SpeciesReference_t *sr);
 
 
 LIBSBML_EXTERN
-void
+int
 SpeciesReference_setId (SpeciesReference_t *sr, const char *sid);
 
 
 LIBSBML_EXTERN
-void
+int
 SpeciesReference_setName (SpeciesReference_t *sr, const char *name);
 
 
 LIBSBML_EXTERN
-void
+int
 SpeciesReference_setSpecies (SpeciesReference_t *sr, const char *sid);
 
 
 LIBSBML_EXTERN
-void
+int
 SpeciesReference_setStoichiometry (SpeciesReference_t *sr, double value);
 
 
 LIBSBML_EXTERN
-void
+int
 SpeciesReference_setStoichiometryMath (  SpeciesReference_t *sr
                                        , const StoichiometryMath_t    *math );
 
 
 LIBSBML_EXTERN
-void
+int
 SpeciesReference_setDenominator (SpeciesReference_t *sr, int value);
 
 
 LIBSBML_EXTERN
-void
+int
 SpeciesReference_unsetId (SpeciesReference_t *sr);
 
 
 LIBSBML_EXTERN
-void
+int
 SpeciesReference_unsetName (SpeciesReference_t *sr);
+
+
+LIBSBML_EXTERN
+int
+SpeciesReference_unsetStoichiometryMath (SpeciesReference_t *sr);
 
 
 LIBSBML_EXTERN
 StoichiometryMath_t *
 SpeciesReference_createStoichiometryMath (SpeciesReference_t *sr);
 
-END_C_DECLS
 
+LIBSBML_EXTERN
+SpeciesReference_t *
+ListOfSpeciesReferences_getById (ListOf_t *lo, const char *sid);
+
+
+LIBSBML_EXTERN
+SpeciesReference_t *
+ListOfSpeciesReferences_removeById (ListOf_t *lo, const char *sid);
+
+
+END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
 #endif  /* SpeciesReference_h */
