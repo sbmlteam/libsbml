@@ -42,6 +42,7 @@
 
 using namespace std;
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Opens the given gzip file as a gzofstream (subclass of std::ofstream class) object
@@ -99,5 +100,7 @@ OutputCompressor::openZipOStream(const std::string& filename, const std::string&
   return NULL; // never reached
 #endif
 }
+
+LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond doxygen-libsbml-internal */

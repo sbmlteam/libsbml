@@ -45,6 +45,7 @@
 
 using namespace std;
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Opens the given gzip file as a gzifstream (subclass of std::ifstream class) object
@@ -182,5 +183,7 @@ InputDecompressor::getStringFromZip (const std::string& filename)
   return NULL; // never reached
 #endif
 }
+
+LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond doxygen-libsbml-internal */

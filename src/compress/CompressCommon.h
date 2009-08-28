@@ -30,6 +30,9 @@
 #include <exception>
 #include <sbml/common/extern.h>
 
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 /**
  *
  *  This exception will be thrown if a function which depends on
@@ -93,6 +96,7 @@ bool hasZlib();
 LIBSBML_EXTERN
 bool hasBzip2();
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif //CompressCommon_h
 

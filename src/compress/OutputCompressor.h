@@ -31,6 +31,7 @@
 #include <sbml/common/extern.h>
 #include <sbml/compress/CompressCommon.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN OutputCompressor
 {
@@ -80,6 +81,8 @@ public:
   static std::ostream* openZipOStream(const std::string& filename, const std::string& filenameinzip);
 
 };
+
+LIBSBML_CPP_NAMESPACE_END
 
 #endif // OutputCompressor_h
 

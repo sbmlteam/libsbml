@@ -32,6 +32,8 @@
 #include <sbml/compress/CompressCommon.h>
 
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 class LIBSBML_EXTERN InputDecompressor
 {
 public:
@@ -120,6 +122,8 @@ public:
   static char* getStringFromZip (const std::string& filename);
 
 };
+
+LIBSBML_CPP_NAMESPACE_END
 
 #endif // InputDecompressor_h
 

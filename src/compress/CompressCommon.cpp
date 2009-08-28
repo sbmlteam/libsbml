@@ -28,6 +28,8 @@
 
 using namespace std;
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 /**
  * Predicate returning @c true or @c false depending on whether
  * libSBML is linked with zlib at compile time.
@@ -59,5 +61,7 @@ bool hasBzip2()
   return false;
 #endif // USE_BZ2
 }
+
+LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond doxygen-libsbml-internal */
