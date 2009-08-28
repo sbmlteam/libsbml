@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Pass: (3400) When a delay is specified within an event the units
-    of the delay formula must correspond to the timeUnits
-    specified within the event or, if no timeUnits are
-    specified, be a variation of 'time'.
--->
-<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+<sbml xmlns="http://www.sbml.org/sbml/level2/version3" level="2" version="3">
 	<model>
 		<notes>
 			<center xmlns="http://www.w3.org/1999/xhtml"/>
-			<invalidTag>A Simple Mitotic Oscillator</invalidTag>
+			<h2>A Simple Mitotic Oscillator</h2>
 		</notes>
 		<listOfUnitDefinitions>
 			<unitDefinition id="minutes">

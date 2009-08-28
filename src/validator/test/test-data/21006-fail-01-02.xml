@@ -20,7 +20,7 @@ present, must follow the math element. (References: L2V2 Section 4.12.)
 				</math>
 				<message>
 					<center xmlns="http://www.w3.org/1999/xhtml"/>
-					<p> "Hello"</p>
+					<invalidTag> "Hello"</invalidTag>
 				</message>
 			</constraint>
 		</listOfConstraints>

@@ -9,7 +9,7 @@ Pass: (3400) When a delay is specified within an event the units
 	<model>
 		<notes>
 			<center xmlns="http://www.w3.org/1999/xhtml"/>
-			<invalidTag>A Simple Mitotic Oscillator</invalidTag>
+			<h2>A Simple Mitotic Oscillator</h2>
 		</notes>
 		<listOfUnitDefinitions>
 			<unitDefinition id="minutes">
