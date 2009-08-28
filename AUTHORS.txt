@@ -1,11 +1,11 @@
 		 LibSBML was primarily developed by:
  
-		   Ben Bornstein and Sarah Keating
+	      Sarah Keating, Ben Bornstein and Akiya Jouraku
 
 	   with contributions from (in alphabetical order):
       Frank Bergmann, Bill Denney, Christoph Flamm, Akira Funahashi,
 	 Mike Hucka, Ralph Gauges, Martin Ginkel, Alex Gutteridge,
-	  Stefan Hoops, Akiya Jouraku, Ben Kovitz, Rainer Machne,
+	Stefan Hoops, Moriyoshi Koizumi, Ben Kovitz, Rainer Machne,
 		    Nicolas Rodriguez, and many others.
 
          For more information about SBML or libSBML, contact:

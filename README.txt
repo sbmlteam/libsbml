@@ -1,11 +1,11 @@
 
                             l i b S B M L
 
-                   Ben Bornstein and Sarah Keating
+	    Sarah Keating, Ben Bornstein and Akiya Jouraku
            with contributions from (in alphabetical order):
     Frank Bergmann, Bill Denney, Christoph Flamm, Akira Funahashi,
       Mike Hucka, Ralph Gauges, Martin Ginkel, Alex Gutteridge,
-       Stefan Hoops, Akiya Jouraku, Ben Kovitz, Rainer Machne,
+     Stefan Hoops, Moriyoshi Koizumi, Ben Kovitz, Rainer Machne,
                  Nicolas Rodriguez, and many others.
 
   Please see the file NEWS.txt for a log of recent changes in libSBML
@@ -53,11 +53,11 @@ please cite the libSBML paper:
 1. QUICK START
 --------------
 
-1.1 Linux, MacOS X, FreeBSD and Solaris
----------------------------------------
+1.1 Linux, MacOS X, FreeBSD, and Solaris
+----------------------------------------
 
 At the Unix command prompt, untar the distribution, cd into it (e.g.,
-libsbml-3.4.1/), and first type:
+libsbml-4.0.0/), and first type:
 
   ./configure
 
@@ -114,8 +114,8 @@ documentation for more information on this and related matters.
 Documentation for libSBML is available as a separate download from the
 same locations as the libSBML distribution (namely, the SBML project
 SourceForge and the http://sbml.org/Software/libSBML web page).  You
-may also regenerate the documentation from the source code
-distribution if you have Doxygen version 1.5.4 installed and have
+may also regenerate the documentation from the source code distribution 
+if you have Doxygen version 1.5.8 or later installed and have
 configured libSBML with the --with-doxygen flag.  Then you can execute
 the following to generate and install the libSBML documentation files:
 
@@ -229,8 +229,8 @@ Feature Highlights:
       
 * Interfaces for C, C++, C#, Java, Python, Perl, MATLAB, Ruby
   and Octave.  The C and C++ interfaces are implemented natively; the
-  Java, Perl, Python, and Ruby interfaces are implemented using SWIG,
-  the Simplified Wrapper Interface Generator; and the rest are
+  C#, Java, Perl, Python, and Ruby interfaces are implemented using 
+  SWIG, the Simplified Wrapper Interface Generator; and the rest are
   implemented using custom hand-written interface code.
 
 * Well tested: version 3.0.0 has over 1280 unit tests and 5800

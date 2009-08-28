@@ -28,7 +28,7 @@ dnl Bug reports are sent to sbml-team@cds.caltech.edu
 dnl ---------------------------------------------------------------------------
 
 m4_define(LIBSBML_VERSION, 
-  m4_esyscmd(cat VERSION.txt  | sed 's/\-.*$//' | tr -d '\n\r'))
+  m4_esyscmd(cat VERSION.txt  |  tr -d '\n\r'))
 
 AC_INIT([libSBML], LIBSBML_VERSION, [libsbml-team@caltech.edu], [libsbml])
 AC_CONFIG_AUX_DIR(config)
@@ -41,6 +41,7 @@ AC_CONFIG_SRCDIR(src/Makefile.in)
 
 AC_CONFIG_HEADERS(src/common/libsbml-config-unix.h)
 AC_CONFIG_HEADERS(src/common/libsbml-package.h)
+AC_CONFIG_HEADERS(src/common/libsbml-namespace.h)
 
 LIBSBML_VERSION_NUMERIC=m4_esyscmd(cat VERSION.txt |\
   awk -F'.' '{ printf("%d%02d%02d\n", $1, $2, $3) }')
@@ -53,6 +54,14 @@ AC_SUBST(LIBSBML_MAJOR_VERSION)
 LIBSBML_MINOR_VERSION=m4_esyscmd(cat VERSION.txt |\
   awk -F'.' '{ printf("%d\n", $2) }')
 AC_SUBST(LIBSBML_MINOR_VERSION)
+
+LIBSBML_REVISION_VERSION=m4_esyscmd(cat VERSION.txt |\
+  awk -F'.' '{ printf("%d\n", $3) }')
+AC_SUBST(LIBSBML_REVISION_VERSION)
+
+LIBSBML_BETA_VERSION=m4_esyscmd(cat VERSION.txt |\
+  awk -F'\\-' '{ printf("%s\n", $2) }')
+AC_SUBST(LIBSBML_BETA_VERSION)
 
 
 dnl ---------------------------------------------------------------------------
@@ -72,9 +81,18 @@ dnl   AC_DEFINE([TRACE_MEMORY], 1,
 dnl             [Define to 1 to enable primitive memory tracing.])
 dnl fi
 
+AC_ARG_ENABLE([cpp-namespace],
+  AC_HELP_STRING([--enable-cpp-namespace@<:@=ARG@:>@],
+                 [Enable C++ namespace for libsbml (default=no)]),
+  [enable_cpp_namespace=$enableval],
+  [enable_cpp_namespace=no])
+
+if test "$enable_cpp_namespace" != no; then
+  AC_DEFINE([LIBSBML_USE_CPP_NAMESPACE], 1, [Define to 1 to enable C++ namespace.])
+fi
 
 AC_ARG_ENABLE([layout],
-  AC_HELP_STRING([--enable-layout=[ARG]],
+  AC_HELP_STRING([--enable-layout@<:@=ARG@:>@],
                  [Build the SBML layout extension (default=no)]),
   [enable_layout=$enableval],
   [enable_layout=no])
@@ -85,7 +103,7 @@ if test "$enable_layout" != no; then
 fi
 
 AC_ARG_ENABLE([compression],
-  AC_HELP_STRING([--enable-compression=[ARG]],
+  AC_HELP_STRING([--enable-compression@<:@=ARG@:>@],
                  [Enable zlib/bzip2 compression if required libs detected, otherwise disabled (default=yes)]),
   [enable_compression=$enableval],
   [enable_compression=yes])
@@ -158,18 +176,21 @@ dnl ---------------------------------------------------------------------------
 AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_CPP
-AC_PROG_RANLIB
+AC_LIBTOOL_WIN32_DLL
+AC_PROG_LIBTOOL
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 
+AC_SUBST(LIBTOOL)
+DOLT
+
 AC_PATH_PROG([AUTOCONF],[autoconf],[autoconf])
 AC_PATH_PROG([ACLOCAL],[aclocal],[aclocal])
-AC_PATH_PROG([AR],[ar],[ar])
 
 # The Lisp language binding has been removed for the time being, because it
 # no longer works in recent versions of libSBML.
 
-CONFIG_PROG_SWIG(1.3.33)
+CONFIG_PROG_SWIG(1.3.39)
 CONFIG_PROG_PYTHON
 CONFIG_PROG_PERL
 CONFIG_PROG_JAVA(1.5.0)
@@ -267,7 +288,9 @@ dnl ---------------------------------------------------------------------------
 dnl Output
 dnl ---------------------------------------------------------------------------
 
+AC_CONFIG_FILES([config/lt_link_helper.sh], [chmod a+x config/lt_link_helper.sh])
 AC_CONFIG_FILES([config/makefile-common-vars.mk])
+AC_CONFIG_FILES([config/mkoctfile_wrapper.sh], [chmod a+x config/mkoctfile_wrapper.sh])
 AC_CONFIG_FILES([./Makefile])
 
 AC_CONFIG_FILES([libsbml.spec])
@@ -335,10 +358,29 @@ AC_CONFIG_FILES([docs/src/doxygen-config-python.txt])
 AC_CONFIG_FILES([docs/src/doxygen-config-perl.txt])
 AC_CONFIG_FILES([docs/src/Makefile])
 
-AC_CONFIG_FILES([win32/Makefile])
-AC_CONFIG_FILES([win32/MSVC7/Makefile])
-AC_CONFIG_FILES([win32/MSVC8/Makefile])
-AC_CONFIG_FILES([win32/MSVC9/Makefile])
+AC_CONFIG_FILES([win/Makefile])
+AC_CONFIG_FILES([win/batch-files/Makefile])
+AC_CONFIG_FILES([win/msvc7/Makefile])
+AC_CONFIG_FILES([win/msvc7/common/Makefile])
+AC_CONFIG_FILES([win/msvc7/common/csharp/Makefile])
+AC_CONFIG_FILES([win/msvc7/common/examples/Makefile])
+AC_CONFIG_FILES([win/msvc7/expat/Makefile])
+AC_CONFIG_FILES([win/msvc7/libxml2/Makefile])
+AC_CONFIG_FILES([win/msvc7/xerces/Makefile])
+AC_CONFIG_FILES([win/msvc8/Makefile])
+AC_CONFIG_FILES([win/msvc8/common/Makefile])
+AC_CONFIG_FILES([win/msvc8/common/csharp/Makefile])
+AC_CONFIG_FILES([win/msvc8/common/examples/Makefile])
+AC_CONFIG_FILES([win/msvc8/expat/Makefile])
+AC_CONFIG_FILES([win/msvc8/libxml2/Makefile])
+AC_CONFIG_FILES([win/msvc8/xerces/Makefile])
+AC_CONFIG_FILES([win/msvc9/Makefile])
+AC_CONFIG_FILES([win/msvc9/common/Makefile])
+AC_CONFIG_FILES([win/msvc9/common/csharp/Makefile])
+AC_CONFIG_FILES([win/msvc9/common/examples/Makefile])
+AC_CONFIG_FILES([win/msvc9/expat/Makefile])
+AC_CONFIG_FILES([win/msvc9/libxml2/Makefile])
+AC_CONFIG_FILES([win/msvc9/xerces/Makefile])
 
 AC_CONFIG_FILES([examples/c/Makefile])
 AC_CONFIG_FILES([examples/c++/Makefile])
@@ -468,6 +510,10 @@ print_flag "CSharp"     $with_csharp    $CSHARP_CILINTERPRETER
 print_flag "zlib"       $with_zlib      $with_zlib
 print_flag "bzip2"      $with_bzip2     $with_bzip2
 
+if test "$enable_cpp_namespace" != "no" ; then
+  echo "  Using C++ namespace for libSBML (libsbml) = yes"
+fi
+
 if test "$enable_layout" != "no" ; then
   echo "  Using layout extension  = yes"
 fi
@@ -475,7 +521,7 @@ fi
 echo ""
 echo "Other potentially important settings:"
 if test "$enable_univbinary" != "no"; then
-  echo "  Building libSBML as MacSO universal binary."
+  echo "  Building libSBML as MacOS universal binary."
 fi
 
 if test "$with_zlib" != no; then

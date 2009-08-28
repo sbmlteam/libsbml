@@ -10,3 +10,6 @@ libsbml.pc
 libsbml.spec
 *.o
 a.out.dSYM
+libtool
+doltlibtool
+doltcompile
