@@ -57,11 +57,11 @@
 
 
 #include <vector>
+#include <sbml/validator/Validator.h>
 
+LIBSBML_CPP_NAMESPACE_USE
 
 class TestFile;
-class Validator;
-
 
 class TestValidator
 {

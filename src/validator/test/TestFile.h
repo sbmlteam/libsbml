@@ -58,6 +58,7 @@
 
 #include <set>
 #include <string>
+#include <sbml/common/libsbml-namespace.h>
 
 
 /**
