@@ -11,11 +11,11 @@ AppPublisher=SBML Team
 AppPublisherURL=http://sbml.org
 AppSupportURL=http://sbml.org
 AppUpdatesURL=http://sbml.org
-DefaultDirName={pf}\SBML\libSBML-4.0.0-expat-vc71
+DefaultDirName={pf}\SBML\libSBML-4.0.0-xerces-vc71
 DefaultGroupName=libSBML
 DisableProgramGroupPage=yes
 OutputDir=..\..\..\libsbml-4\win32\installer\Output
-OutputBaseFilename=libSBML-4.0.0-win-expat-vc71
+OutputBaseFilename=libSBML-4.0.0-win-xerces-vc71
 WizardSmallImageFile=libsbml-installer-mini-logo.bmp
 WizardImageFile=libsbml-installer-graphic.bmp
 UsePreviousAppDir=no
@@ -37,8 +37,8 @@ Source: C:\libsbml-4\win32\installer\libsbml\bindings\python\python26\libsbml.py
 Source: C:\libsbml-4\win32\installer\libsbml\bindings\python\python26\_libsbml.pyd; DestDir: {code:GetPython26Dir}; Check: GetPython26
 Source: C:\libsbml-4\win32\installer\libsbml\win32\bin\libsbml.dll; DestDir: {sys}; Check: GetLibrary
 Source: C:\libsbml-4\win32\installer\libsbml\win32\lib\libsbml.lib; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml-4\win32\installer\libsbml\win32\lib\libexpat.lib; DestDir: {sys}; Check: GetLibrary
-Source: C:\libsbml-4\win32\installer\libsbml\win32\bin\libexpat.dll; DestDir: {sys}; Check: GetLibrary
+Source: C:\libsbml-4\win32\installer\libsbml\win32\lib\xerces-c_3.lib; DestDir: {sys}; Check: GetLibrary
+Source: C:\libsbml-4\win32\installer\libsbml\win32\bin\xerces-c_3_0.dll; DestDir: {sys}; Check: GetLibrary
 Source: C:\libsbml-4\win32\installer\libsbml\win32\lib\bzip2.lib; DestDir: {sys}; Check: GetLibrary
 Source: C:\libsbml-4\win32\installer\libsbml\win32\bin\bzip2.dll; DestDir: {sys}; Check: GetLibrary
 Source: C:\libsbml-4\win32\installer\libsbml\win32\lib\zdll.lib; DestDir: {sys}; Check: GetLibrary
@@ -64,6 +64,7 @@ var
   AboutButton, CancelButton: TButton;
 
   MatlabPresent: Boolean;
+  MatlabVersion: String;
   MatlabRoot: String;
   CSharpRoot: String;
   JavaRoot: String;
@@ -111,6 +112,7 @@ begin
     Key := Key + Names[Number-1];
     RegQueryStringValue(HKLM, Key, 'MATLABROOT', Root);
     MatlabPresent := True;
+    MatlabVersion := Names[Number-1];
   end;
 
   Result := Root;
@@ -148,8 +150,8 @@ end;
 
 function GetJavaDir(Param: String): String;
 begin
- { Return the selected DataDir }
-  Result := JavaPage.Values[0];
+  { Return the selected DataDir }
+    Result := JavaPage.Values[0];
 end;
 
 {function to check whether a preinstalled version number is later than the
@@ -207,8 +209,8 @@ begin
 
   Note: it includes a version number
 **********************************************************************************************************}
-  MsgBox('This setup installs the Windows version of libSBML 4.0.0 built using the Expat XML Parser library version 2.0.1. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);
- { MsgBox('This setup installs the Windows release of libSBML 2.3.4 built using the Expat XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);  }
+  MsgBox('This setup installs the Windows version of libSBML 4.0.0 built using the Xerces 3.0 XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);
+ { MsgBox('This setup installs the Windows release of libSBML 3.0.2 built using the Expat XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);  }
 end;
 
 
@@ -267,7 +269,7 @@ begin
   InstallOptionsPage.Add('Copy libraries to systems directories');
   InstallOptionsPage.Add('Install Java binding');
   InstallOptionsPage.Add('Copy Python binding libraries to site-packages directory');
-  {InstallOptionsPage.Add('Install C# binding');}
+  InstallOptionsPage.Add('Install C# binding');
   InstallOptionsPage.Add('Install Octave binding');
   if (MatlabPresent) then begin
     InstallOptionsPage.Add('Install MATLAB binding');
@@ -331,23 +333,22 @@ begin
 
   if (MatlabPresent) then begin
     if GetPreviousData('Matlab', '') = '0' then begin
-      InstallOptionsPage.Values[4] := False;
+      InstallOptionsPage.Values[5] := False;
     end else begin
-      InstallOptionsPage.Values[4] := True;
+      InstallOptionsPage.Values[5] := True;
     end;
   end;
-  {take out c# as an option for vc7 builds
+
   if GetPreviousData('CSharp', '') = '0' then begin
     InstallOptionsPage.Values[3] := False;
   end else begin
     InstallOptionsPage.Values[3] := True;
   end;
-  InstallOptionsPage.Values[3] := False;  }
-
+  
   if GetPreviousData('Octave', '') = '0' then begin
-    InstallOptionsPage.Values[3] := False;
+    InstallOptionsPage.Values[4] := False;
   end else begin
-    InstallOptionsPage.Values[3] := True;
+    InstallOptionsPage.Values[4] := True;
   end;
 
   {python page}
@@ -361,9 +362,9 @@ begin
   {matlab page}
   MatlabPage.Values[0] := GetPreviousData('MatlabDir', MatlabRoot);
 
-  {csharp page
+  {csharp page}
   CSharpPage.Values[0] := GetPreviousData('CSharpDir', CSharpRoot);
-  }
+  
   {java page}
   JavaPage.Values[0] := GetPreviousData('JavaDir', JavaRoot);
 
@@ -407,22 +408,27 @@ begin
     InstallOptions[3] := '0';
   end;
 
+  if InstallOptionsPage.Values[4] then begin
+    InstallOptions[4] := '1';
+  end else begin
+    InstallOptions[4] := '0';
+  end;
 
   if (MatlabPresent) then begin
-    if InstallOptionsPage.Values[4] then begin
-      InstallOptions[4] := '1';
+    if InstallOptionsPage.Values[5] then begin
+      InstallOptions[5] := '1';
     end else begin
-      InstallOptions[4] := '0';
+      InstallOptions[5] := '0';
     end;
   end;
 
   SetPreviousData(PreviousDataKey, 'Libraries', InstallOptions[0]);
   SetPreviousData(PreviousDataKey, 'Java',      InstallOptions[1]);
   SetPreviousData(PreviousDataKey, 'Python',    InstallOptions[2]);
-{  SetPreviousData(PreviousDataKey, 'CSharp',    InstallOptions[3]);   }
-  SetPreviousData(PreviousDataKey, 'Octave',    InstallOptions[3]);
+  SetPreviousData(PreviousDataKey, 'CSharp',    InstallOptions[3]);
+  SetPreviousData(PreviousDataKey, 'Octave',    InstallOptions[4]);
   if (MatlabPresent) then begin
-    SetPreviousData(PreviousDataKey, 'Matlab',    InstallOptions[4]);
+    SetPreviousData(PreviousDataKey, 'Matlab',    InstallOptions[5]);
   end;
 
   {python page}
@@ -435,9 +441,9 @@ begin
   {matlab page}
   SetPreviousData(PreviousDataKey, 'MatlabDir', MatlabPage.Values[0]);
 
-  {csharp page
+  {csharp page}
   SetPreviousData(PreviousDataKey, 'CSharpDir', CSharpPage.Values[0]);
-  }
+
   {java page}
   SetPreviousData(PreviousDataKey, 'JavaDir', JavaPage.Values[0]);
 
@@ -453,11 +459,13 @@ begin
     Result := True
   else if (PageID = PythonPage.ID) and (InstallOptionsPage.Values[2] = False) then
     Result := True
-  else if (PageID = CSharpPage.ID) then
+  else if (PageID = CSharpPage.ID) and (InstallOptionsPage.Values[3] = False) then
+    Result := True
+  else if (PageID = OctavePage.ID) and (InstallOptionsPage.Values[4] = False) then
     Result := True
   else if (PageID = MatlabPage.ID) and (MatlabPresent = False) then
     Result := True
-  else if (PageID = MatlabPage.ID) and (InstallOptionsPage.Values[4] = False) then
+  else if (PageID = MatlabPage.ID) and (InstallOptionsPage.Values[5] = False) then
     Result := True
   else
     Result := False;
@@ -481,12 +489,22 @@ begin
       end;
     end;
     Result := True;
+  end else if CurPageID = MatlabPage.ID then begin
+    Later := LaterVersion(MatlabVersion, '7.5.0');
+    if (Later > -1) then begin
+      if MsgBox('The Xerces version of the libSBML MATLAB binding conflicts with MATLAB Version 2007b and will not work. Install anyway?', mbConfirmation, MB_YESNO or MB_DEFBUTTON2) = IDNO then
+        begin
+          InstallOptionsPage.Values[4] := False;
+      end;
+    end;
+    Result := True;
    end else if CurPageID = CSharpPage.ID then begin
       if MsgBox('The VC7.1 builds of the libSBML C# binding are not stable due to the .NET version. Install anyway?', mbConfirmation, MB_YESNO or MB_DEFBUTTON2) = IDNO then
         begin
           InstallOptionsPage.Values[3] := False;
       end;
     Result := True;
+
   end else begin
     Result := True;
   end;
@@ -622,7 +640,7 @@ end;
 function GetMatlab() : Boolean;
 begin
   if (MatlabPresent) then begin
-    if (InstallOptionsPage.Values[4] = True) then
+    if (InstallOptionsPage.Values[5] = True) then
       Result := True
     else
       Result := False;
@@ -653,7 +671,7 @@ end;
 
 function GetOctave() : Boolean;
 begin
-  if (InstallOptionsPage.Values[3] = True) then
+  if (InstallOptionsPage.Values[4] = True) then
     Result := True
   else
     Result := False;
