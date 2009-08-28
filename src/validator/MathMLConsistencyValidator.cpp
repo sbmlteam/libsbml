@@ -34,6 +34,7 @@
  */
 #include "constraints/MathMLConsistencyConstraints.cpp"
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /*
  * Initializes this Validator with a set of Constraints.
@@ -45,5 +46,6 @@ MathMLConsistencyValidator::init ()
 #include "constraints/MathMLConsistencyConstraints.cpp"
 }
 
+LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond doxygen-libsbml-internal */

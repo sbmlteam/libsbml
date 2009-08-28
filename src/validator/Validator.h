@@ -40,6 +40,7 @@
 
 #include <sbml/SBMLError.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class VConstraint;
 class ValidatorConstraints;
@@ -137,6 +138,7 @@ protected:
   /** @endcond doxygen-libsbml-internal */
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* Validator_h */

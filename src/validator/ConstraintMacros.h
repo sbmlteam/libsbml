@@ -48,6 +48,7 @@
 
 
 #define START_CONSTRAINT(Id, Typename, Varname)                   \
+LIBSBML_CPP_NAMESPACE_BEGIN \
 struct VConstraint ## Typename ## Id: public TConstraint<Typename> \
 {                                                                 \
   VConstraint ## Typename ## Id (Validator& V) :                   \
@@ -55,7 +56,8 @@ struct VConstraint ## Typename ## Id: public TConstraint<Typename> \
 protected:                                                        \
   void check_ (const Model& m, const Typename& Varname)
 
-#define END_CONSTRAINT };
+#define END_CONSTRAINT }; \
+LIBSBML_CPP_NAMESPACE_END
 
 #define EXTERN_CONSTRAINT(Id, Name)
 
@@ -75,7 +77,7 @@ protected:                                                        \
 #define END_CONSTRAINT }
 
 #define EXTERN_CONSTRAINT(Id, Name) \
-  addConstraint( new Name(Id, *this) );
+  addConstraint( new Name(Id, *this) ); \
 
 #define pre(expr)
 #define inv(expr)

@@ -33,6 +33,7 @@
 #include <sbml/validator/Validator.h>
 #include <sbml/SBMLError.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class InternalConsistencyValidator: public Validator
 {
@@ -48,6 +49,7 @@ public:
   virtual void init ();
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* InternalConsistencyValidator_h */

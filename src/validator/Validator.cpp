@@ -40,6 +40,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 //
 // NOTE: ConstraintSet, ValidatorConstraints, and ValidatingVisitor used to
@@ -751,13 +752,13 @@ Validator::validate (const SBMLDocument& d)
      */
     bool unrecognisedTerm = false;
 
-   int n = 0;
+    int n = 0;
 
 #if defined(__SUNPRO_CC)
-  // Workaround for Sun cc which is missing:
-  count_if(mFailures.begin(), mFailures.end(), MatchId(99701), n);
+    // Workaround for Sun cc which is missing:
+    count_if(mFailures.begin(), mFailures.end(), MatchId(99701), n);
 #else
-  n = count_if(mFailures.begin(), mFailures.end(), MatchId(99701));
+    n = count_if(mFailures.begin(), mFailures.end(), MatchId(99701));
 #endif
 
     if (n)
@@ -797,6 +798,8 @@ Validator::validate (const std::string& filename)
 
   return validate(d);
 }
+
+LIBSBML_CPP_NAMESPACE_END
 
 // ----------------------------------------------------------------------
 

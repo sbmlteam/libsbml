@@ -29,6 +29,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 VConstraint::VConstraint (unsigned int id, Validator& v) :
     mId       ( id   )
@@ -97,3 +98,5 @@ VConstraint::logFailure (const SBase& object, const std::string& message)
 
 }
 /** @endcond doxygen-libsbml-internal */
+
+LIBSBML_CPP_NAMESPACE_END

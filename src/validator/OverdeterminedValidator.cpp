@@ -34,6 +34,7 @@
  */
 #include "constraints/OverdeterminedConstraints.cpp"
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /*
  * Initializes this Validator with a set of Constraints.
@@ -45,5 +46,6 @@ OverdeterminedValidator::init ()
 #include "constraints/OverdeterminedConstraints.cpp"
 }
 
+LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond doxygen-libsbml-internal */

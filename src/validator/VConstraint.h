@@ -41,6 +41,7 @@
 #include <sbml/validator/Validator.h>
 #include <sbml/units/UnitFormulaFormatter.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class Model;
 
@@ -148,6 +149,7 @@ protected:
 
 /** @endcond doxygen-libsbml-internal */
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus  */
 #endif  /* Validator_Constraint_h */

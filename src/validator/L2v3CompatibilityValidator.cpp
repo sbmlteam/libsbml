@@ -32,6 +32,7 @@
  */
 #include "constraints/L2v3CompatibilityConstraints.cpp"
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /*
  * Initializes this Validator with a set of Constraints.
@@ -43,5 +44,6 @@ L2v3CompatibilityValidator::init ()
 #include "constraints/L2v3CompatibilityConstraints.cpp"
 }
 
+LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond doxygen-libsbml-internal */
