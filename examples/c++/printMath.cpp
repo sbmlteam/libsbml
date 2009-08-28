@@ -17,7 +17,7 @@
 
 
 using namespace std;
-
+LIBSBML_CPP_NAMESPACE_USE
 
 void
 printFunctionDefinition (unsigned int n, const FunctionDefinition* fd)

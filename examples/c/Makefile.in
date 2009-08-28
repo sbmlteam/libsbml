@@ -54,7 +54,9 @@
 SRCDIR     = ../../src
 INCLUDEDIR = ../../include
 
-CC         = @CC@
+top_builddir = @top_builddir@
+LIBTOOL    = @LIBTOOL@
+CC         = $(LIBTOOL) --mode=link @CC@
 CFLAGS     = @CFLAGS@ -Wall
 
 LIBS       = -lsbml

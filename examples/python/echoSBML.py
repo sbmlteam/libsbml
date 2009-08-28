@@ -21,14 +21,14 @@ def main (args):
   """usage: echoSBML.py input-filename output-filename
   """
   if len(args) != 3:
-    print main.__doc__
+    print(main.__doc__)
     sys.exit(1)
 
   infile  = args[1]
   outfile = args[2]
 
   if not os.path.exists(infile):
-    print "[Error] %s : No such file." % (infile)
+    print("[Error] %s : No such file." % (infile))
     sys.exit(1)
 
   reader  = libsbml.SBMLReader()
@@ -37,11 +37,11 @@ def main (args):
 
   if sbmldoc.getNumErrors() > 0:
     sbmldoc.printErrors()
-    print "[Error] Cannot read %s" % (infile)    
+    print("[Error] Cannot read %s" % (infile))    
     sys.exit(1)
     
   writer.writeSBML(sbmldoc, outfile)
-  print "[OK] Echoed %s to %s" % (infile, outfile)
+  print("[OK] Echoed %s to %s" % (infile, outfile))
 
 if __name__ == '__main__':
   main(sys.argv)  

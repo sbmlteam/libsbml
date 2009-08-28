@@ -4,6 +4,7 @@
  * @author  Sarah Keating
  * @author  Ben Bornstein
  * @author  Michael Hucka
+ * @author  Akiya Jouraku
  *
  * $Id$
  * $HeadURL$
@@ -14,24 +15,70 @@
 
 
 #include <iostream>
+#include <sstream>
 
 #include <sbml/SBMLTypes.h>
 #include "util.h"
 
 
 using namespace std;
+LIBSBML_CPP_NAMESPACE_USE
 
+bool validateSBML(const string& filename, bool enableUnitCheck=true);
+
+const string usage = "Usage: validateSBML [-u] filename [...]\n"
+                     " -u : disable unit consistency check";
 
 int
 main (int argc, char* argv[])
 {
-  if (argc != 2)
+  bool enableUnitCheck = true;
+   
+  if (argc < 2)
   {
-    cout << endl << "Usage: validateSBML filename" << endl << endl;
+    cout << usage << endl;
     return 1;
   }
+  else if (argc == 2)
+  {
+    if ( string("-u") == string(argv[1]) )
+    {
+      cout << usage << endl;
+      return 1;
+    }       
+  }
 
-  const char* filename = argv[1];
+  int  argIndex = 1;
+  
+  if ( string("-u") == string(argv[1]) )
+  {
+    enableUnitCheck = false;
+    ++argIndex;
+  }     
+  
+  int numInvalidFiles = 0;
+
+  for (int i=argIndex; i < argc; i++)
+  {
+    if (!validateSBML(argv[i], enableUnitCheck))
+      ++numInvalidFiles;
+
+    cout << "---------------------------------------------------------------------------\n";
+  }
+  
+  int numFiles = (enableUnitCheck) ? argc - 1 : argc - 2;
+ 
+  cout << "Validated " << numFiles << " files, " << (numFiles - numInvalidFiles) << " valid files, " 
+       << numInvalidFiles << " invalid files" << endl;
+  if (!enableUnitCheck)
+    cout << "(Unit consistency checks skipped)" << endl;
+
+  return numInvalidFiles;
+}
+
+
+bool validateSBML(const string& filename, bool enableUnitCheck)
+{
   SBMLDocument* document;
   SBMLReader reader;
   unsigned long long start, stop;
@@ -39,14 +86,14 @@ main (int argc, char* argv[])
   start    = getCurrentMillis();
   document = reader.readSBML(filename);
   stop     = getCurrentMillis();
-
-  cout << endl;
-  cout << "             filename: " << filename              << endl;
-  cout << "            file size: " << getFileSize(filename) << endl;
-  cout << "       read time (ms): " << stop - start          << endl;
-
+  
+  double     timeRead = (stop - start);
   unsigned int errors = document->getNumErrors();
-  bool seriousErrors  = false;
+  bool  seriousErrors = false;
+
+  unsigned int numReadErrors   = 0;
+  unsigned int numReadWarnings = 0;
+  string       errMsgRead      = "";
 
   if (errors > 0)
   {
@@ -55,44 +102,109 @@ main (int argc, char* argv[])
       if (document->getError(i)->isFatal() || document->getError(i)->isError())
       {
         seriousErrors = true;
+	++numReadErrors;
         break;
       }
+      else
+        ++numReadWarnings;
     }
 
-    cerr << endl << "Encountered " << errors << " "
-         << (seriousErrors ? "error" : "warning") << (errors == 1 ? "" : "s")
-         << " in this file:" << endl;
-    document->printErrors(cerr);
+    ostringstream oss;
+    document->printErrors(oss);
+    errMsgRead = oss.str();
   }
 
   // If serious errors are encountered while reading an SBML document, it
   // does not make sense to go on and do full consistency checking because
   // the model may be nonsense in the first place.
 
+  unsigned int numCCErrors   = 0;
+  unsigned int numCCWarnings = 0;
+  string       errMsgCC      = "";
+  bool   skipCC = false;
+  double timeCC = 0.0;
+  bool  isValid = true;
+
   if (seriousErrors)
   {
-    cerr << endl << "Further consistency checking aborted." << endl;
+    skipCC = true;
+    isValid = false;
+    errMsgRead += "Further consistency checking and validation aborted.";
   }
   else
   {
-    unsigned int failures = document->checkConsistency();
+    unsigned int failures = 0;
+
+    document->setConsistencyChecks(LIBSBML_CAT_UNITS_CONSISTENCY, enableUnitCheck);
+    
+    start    = getCurrentMillis();
+    failures = document->checkConsistency();
+    stop     = getCurrentMillis();
+    timeCC   = stop - start;
 
     if (failures > 0)
     {
-      cout << endl << "Encountered " << failures
-	   << " consistency failure"
-           << (failures == 1 ? "" : "s") 
-	   << " and/or warning"
-           << (failures == 1 ? "" : "s") 
-	   << " in this file:" << endl;
-      document->printErrors(cerr);
-    }
-    else
-    {
-      cout << "               errors: 0" << endl;
+
+      for (unsigned int i = 0; i < failures; i++)
+      {
+        if (document->getError(i)->isFatal() || document->getError(i)->isError())
+        {
+          ++numCCErrors;
+	  isValid = false;
+        }
+        else
+          ++numCCWarnings;
+      }
+
+      ostringstream oss;
+      document->printErrors(oss);
+      errMsgCC = oss.str();
+
     }
   }
 
+  //
+  // Print Results
+  //
+  cout << "                 filename : " << filename << endl;
+  cout << "         file size (byte) : " << getFileSize(filename.c_str()) << endl;
+  cout << "           read time (ms) : " << timeRead << endl;
+
+  if (!skipCC)
+  {
+    cout << "        c-check time (ms) : " << timeCC << endl;
+  }	 
+  else
+  {     
+    cout << "        c-check time (ms) : skipped" << endl;
+  }      
+
+  cout << "      validation error(s) : " << numReadErrors  + numCCErrors << endl;
+  if (!skipCC)
+    cout << "    (consistency error(s)): " << numCCErrors << endl;
+  else
+    cout << "    (consistency error(s)): skipped" << endl;
+
+  cout << "    validation warning(s) : " << numReadWarnings + numCCWarnings << endl;
+  if (!skipCC)
+    cout << "  (consistency warning(s)): " << numCCWarnings << endl;
+  else
+    cout << "  (consistency warning(s)): skipped" << endl;
+
+  if ( !errMsgRead.empty() || !errMsgCC.empty() )
+  {
+    cout << "\n===== validation error/warning messages =====\n";
+    if (!errMsgRead.empty())
+      cout << errMsgRead << endl;
+
+    if (!errMsgCC.empty())
+    {
+      cout << "\n*** consistency check ***\n";
+      cout << errMsgCC << endl;
+    }	 
+  }
+
   delete document;
-  return errors;
+
+  return (isValid) ? true: false;
 }

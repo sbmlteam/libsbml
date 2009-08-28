@@ -16,7 +16,7 @@
 #include <sbml/xml/XMLNode.h>
 #include <sbml/annotation/CVTerm.h>
 using namespace std;
-
+LIBSBML_CPP_NAMESPACE_USE
 
 int
 main (int argc, char *argv[])

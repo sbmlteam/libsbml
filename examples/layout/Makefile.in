@@ -64,7 +64,9 @@ include ../../config/makefile-common-vars.mk
 SRCDIR     = ../../src
 INCLUDEDIR = ../../include
 
-CXX        = @CXX@
+top_builddir = @top_builddir@
+LIBTOOL    = @LIBTOOL@
+CXX        = $(LIBTOOL) --mode=link @CXX@
 CXXFLAGS   = @CXXFLAGS@ -Wall
 extra_CPPFLAGS = -I.. -DPACKAGE_VERSION=\"$(PACKAGE_VERSION)\" -I$(INCLUDEDIR)
 LIBS=-lsbml -L$(SRCDIR)

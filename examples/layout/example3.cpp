@@ -65,6 +65,8 @@
 #include "sbml/layout/CubicBezier.h"
 #include "sbml/SBMLWriter.h"
 
+LIBSBML_CPP_NAMESPACE_USE
+
 int main(int argc,char** argv){
 
 // create the document

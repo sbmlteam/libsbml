@@ -25,7 +25,7 @@
 
 
 using namespace std;
-
+LIBSBML_CPP_NAMESPACE_USE
 
 char *translateInfix  (const char *formula);
 char *translateMathML (const char *xml);

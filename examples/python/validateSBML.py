@@ -26,7 +26,7 @@ class validateSBML:
 
   def validate(self, file):
     if not os.path.exists(file):
-      print "[Error] %s : No such file." % (infile)
+      print("[Error] %s : No such file." % (infile))
       self.numinvalid += 1
       return
 
@@ -100,35 +100,35 @@ class validateSBML:
     # print results
     #
         
-    print "                 filename : %s" % (file)
-    print "         file size (byte) : %d" % (os.path.getsize(file))
-    print "           read time (ms) : %f" % (timeRead)
+    print("                 filename : %s" % (file))
+    print("         file size (byte) : %d" % (os.path.getsize(file)))
+    print("           read time (ms) : %f" % (timeRead))
 
     if not skipCC :
-      print "        c-check time (ms) : %f" % (timeCC)
+      print( "        c-check time (ms) : %f" % (timeCC))
     else:
-      print "        c-check time (ms) : skipped"
+      print( "        c-check time (ms) : skipped")
 
-    print "      validation error(s) : %d" % (numReadErr  + numCCErr)
+    print( "      validation error(s) : %d" % (numReadErr  + numCCErr))
     if not skipCC :
-      print "    (consistency error(s)): %d" % (numCCErr)
+      print( "    (consistency error(s)): %d" % (numCCErr))
     else:
-      print "    (consistency error(s)): skipped"
+      print( "    (consistency error(s)): skipped")
 
-    print "    validation warning(s) : %d" % (numReadWarn + numCCWarn)
+    print( "    validation warning(s) : %d" % (numReadWarn + numCCWarn))
     if not skipCC :
-      print "  (consistency warning(s)): %d" % (numCCWarn)
+      print( "  (consistency warning(s)): %d" % (numCCWarn))
     else:
-      print "  (consistency warning(s)): skipped"
+      print( "  (consistency warning(s)): skipped")
 
     if errMsgRead or errMsgCC: 
-      print
-      print "===== validation error/warning messages =====\n"
+      print()
+      print( "===== validation error/warning messages =====\n")
       if errMsgRead : 
-        print errMsgRead
+        print( errMsgRead)
       if errMsgCC : 
-        print "*** consistency check ***\n"
-        print errMsgCC
+        print( "*** consistency check ***\n")
+        print( errMsgCC)
 
 
 def main (args):
@@ -136,10 +136,10 @@ def main (args):
   -u  skips unit consistency check
   """
   if len(args) < 2:
-    print main.__doc__
+    print( main.__doc__)
     sys.exit(1)
   elif (len(args) == 1) and (args[1] == "-u"):
-    print main.__doc__
+    print( main.__doc__)
     sys.exit(1)
 
   enableUnitCCheck = True
@@ -154,16 +154,16 @@ def main (args):
   for i in range(1,len(args)):
     if args[i] == "-u":
       continue
-    print "---------------------------------------------------------------------------"
+    print( "---------------------------------------------------------------------------")
     validator.validate(args[i])
     fnum += 1
 
   numinvalid = validator.numinvalid
 
-  print "---------------------------------------------------------------------------"
-  print "Validated %d files, %d valid files, %d invalid files" % (fnum, fnum - numinvalid, numinvalid)
+  print( "---------------------------------------------------------------------------")
+  print( "Validated %d files, %d valid files, %d invalid files" % (fnum, fnum - numinvalid, numinvalid))
   if not enableUnitCCheck:
-    print "(Unit consistency checks skipped)"
+    print( "(Unit consistency checks skipped)")
 
   if numinvalid > 0:
     sys.exit(1)

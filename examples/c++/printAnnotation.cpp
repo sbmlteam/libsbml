@@ -18,7 +18,7 @@
 
 
 using namespace std;
-
+LIBSBML_CPP_NAMESPACE_USE
 
 void printAnnotation(SBase *sb, const string& id = "")
 {

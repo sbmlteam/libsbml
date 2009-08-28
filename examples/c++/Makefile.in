@@ -17,7 +17,9 @@ INCLUDEDIR = ../../include
 # The values of the following variables are obtained using the libSBML
 # configuration program.
 
-CXX        = @CXX@
+top_builddir = @top_builddir@
+LIBTOOL    = @LIBTOOL@
+CXX        = $(LIBTOOL) --mode=link @CXX@
 CXXFLAGS   = @CXXFLAGS@ -Wall
 
 LIBS       = -lsbml

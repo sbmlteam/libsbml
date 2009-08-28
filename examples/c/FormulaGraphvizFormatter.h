@@ -13,15 +13,9 @@
 #ifndef FormulaGraphvizFormatter_h
 #define FormulaGraphvizFormatter_h
 
-#ifdef _MSC_VER
-  #include "common/extern.h"
-  #include "util/StringBuffer.h"
-  #include "math/ASTNode.h"
-#else
-  #include "sbml/common/extern.h"
-  #include "sbml/util/StringBuffer.h"
-  #include "sbml/math/ASTNode.h"
-#endif
+#include "sbml/common/extern.h"
+#include "sbml/util/StringBuffer.h"
+#include "sbml/math/ASTNode.h"
 
 
 

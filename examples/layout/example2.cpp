@@ -66,6 +66,7 @@
 #include "sbml/layout/CubicBezier.h"
 #include "sbml/SBMLWriter.h"
 
+LIBSBML_CPP_NAMESPACE_USE
 
 Species* createSpecies(const char* id, const char* name, const char* compartmentId,Model* model){
 	Species* species=model->createSpecies();

@@ -16,6 +16,7 @@
 #include <sbml/SBMLTypes.h>
 
 using namespace std;
+LIBSBML_CPP_NAMESPACE_USE
 
 //
 // Functions for creating the Example SBML documents.
