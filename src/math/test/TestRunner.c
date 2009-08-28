@@ -48,6 +48,8 @@ Suite *create_suite_WriteMathML      (void);
 
 Suite *create_suite_TestReadFromFile1      (void);
 Suite *create_suite_TestReadFromFile2      (void);
+
+Suite *create_suite_TestValidASTNode  (void);
 END_C_DECLS
 
 
@@ -103,6 +105,9 @@ main (void)
 
   srunner_add_suite( runner, create_suite_TestReadFromFile1() );
   srunner_add_suite( runner, create_suite_TestReadFromFile2() );
+ 
+  srunner_add_suite( runner, create_suite_TestValidASTNode() );
+
   setTestDataDirectory();
 
 

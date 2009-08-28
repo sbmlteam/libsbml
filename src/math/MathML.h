@@ -38,8 +38,9 @@
 
 #include <cstdlib>
 
-/** @cond doxygen-libsbml-internal */
+LIBSBML_CPP_NAMESPACE_BEGIN
 
+/** @cond doxygen-libsbml-internal */
 
 class ASTNode;
 class XMLInputStream;
@@ -66,9 +67,11 @@ writeMathML (const ASTNode* node, XMLOutputStream& stream);
 
 /** @endcond doxygen-libsbml-internal */
 
+LIBSBML_CPP_NAMESPACE_END
+
 #endif  /* __cplusplus */
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
@@ -79,7 +82,8 @@ BEGIN_C_DECLS
  * @param xml a string containing a full MathML expression
  *
  * @return the root of an AST corresponding to the given mathematical
- * expression
+ * expression, otherwise NULL is returned if the given string is NULL
+ * or invalid.
  */
 LIBSBML_EXTERN
 ASTNode_t *
@@ -96,7 +100,8 @@ readMathMLFromString (const char *xml);
  * of the given AST
  *
  * @note The string is owned by the caller and should be freed (with
- * free()) when no longer needed.
+ * free()) when no longer needed. NULL is returned if the given argument
+ * is NULL.
  */
 LIBSBML_EXTERN
 char *
@@ -104,6 +109,6 @@ writeMathMLToString (const ASTNode_t* node);
 
 
 END_C_DECLS
-
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /** MathML_h **/

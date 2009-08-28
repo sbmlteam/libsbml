@@ -57,12 +57,14 @@
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/FormulaParser.h>
 #include <sbml/EventAssignment.h>
+#include <sbml/xml/XMLNode.h>
 
 
 START_TEST (test_ASTNode_create)
 {
   ASTNode_t *n = ASTNode_create();
-  EventAssignment_t *ea = EventAssignment_create(); 
+  EventAssignment_t *ea = 
+    EventAssignment_create(2, 4);
 
 
   fail_unless( ASTNode_getType(n) == AST_UNKNOWN );
@@ -97,7 +99,8 @@ START_TEST (test_ASTNode_createFromToken)
 
   Token_t   *t;
   ASTNode_t *n;
-  EventAssignment_t *ea = EventAssignment_create(); 
+  EventAssignment_t *ea = 
+    EventAssignment_create(2, 4);
 
 
   /** "foo" **/
@@ -1808,17 +1811,17 @@ START_TEST (test_ASTNode_removeChild)
 
   i = ASTNode_removeChild(node, 0);
 
-  fail_unless( i == 0);
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless( ASTNode_getNumChildren(node) == 1); 
 
   i = ASTNode_removeChild(node, 1);
 
-  fail_unless( i == -1);
+  fail_unless( i == LIBSBML_INDEX_EXCEEDS_SIZE);
   fail_unless( ASTNode_getNumChildren(node) == 1); 
 
   i = ASTNode_removeChild(node, 0);
 
-  fail_unless( i == 0);
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless( ASTNode_getNumChildren(node) == 0); 
 
   ASTNode_free(node);
@@ -1850,19 +1853,19 @@ START_TEST (test_ASTNode_replaceChild)
 
   i = ASTNode_replaceChild(node, 0, newc);
 
-  fail_unless( i == 0);
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless( ASTNode_getNumChildren(node) == 3); 
   fail_unless( !strcmp(SBML_formulaToString(node), "and(d, b, c)"));
 
   i = ASTNode_replaceChild(node, 3, newc);
 
-  fail_unless( i == -1);
+  fail_unless( i == LIBSBML_INDEX_EXCEEDS_SIZE);
   fail_unless( ASTNode_getNumChildren(node) == 3); 
   fail_unless( !strcmp(SBML_formulaToString(node), "and(d, b, c)"));
 
   i = ASTNode_replaceChild(node, 1, c1);
 
-  fail_unless( i == 0);
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless( ASTNode_getNumChildren(node) == 3); 
   fail_unless( !strcmp(SBML_formulaToString(node), "and(d, a, c)"));
 
@@ -1897,21 +1900,183 @@ START_TEST (test_ASTNode_insertChild)
 
   i = ASTNode_insertChild(node, 1, newc);
 
-  fail_unless( i == 0);
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless( ASTNode_getNumChildren(node) == 4); 
   fail_unless( !strcmp(SBML_formulaToString(node), "and(a, d, b, c)"));
 
   i = ASTNode_insertChild(node, 5, newc);
 
-  fail_unless( i == -1);
+  fail_unless( i == LIBSBML_INDEX_EXCEEDS_SIZE);
   fail_unless( ASTNode_getNumChildren(node) == 4); 
   fail_unless( !strcmp(SBML_formulaToString(node), "and(a, d, b, c)"));
 
   i = ASTNode_insertChild(node, 2, newc1);
 
-  fail_unless( i == 0);
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless( ASTNode_getNumChildren(node) == 5); 
   fail_unless( !strcmp(SBML_formulaToString(node), "and(a, d, e, b, c)"));
+
+  ASTNode_free(node);
+}
+END_TEST
+
+
+START_TEST (test_ASTNode_swapChildren)
+{
+  ASTNode_t *node = ASTNode_create();
+  ASTNode_t *c1 = ASTNode_create();
+  ASTNode_t *c2 = ASTNode_create();
+  ASTNode_t *node_1 = ASTNode_create();
+  ASTNode_t *c1_1 = ASTNode_create();
+  ASTNode_t *c2_1 = ASTNode_create();
+  int i = 0;
+
+  ASTNode_setType(node, AST_LOGICAL_AND);
+  ASTNode_setName(c1, "a");
+  ASTNode_setName(c2, "b");
+  ASTNode_addChild(node, c1);
+  ASTNode_addChild(node, c2);
+
+  fail_unless( ASTNode_getNumChildren(node) == 2); 
+  fail_unless( !strcmp(SBML_formulaToString(node), "and(a, b)"));
+
+  ASTNode_setType(node_1, AST_LOGICAL_AND);
+  ASTNode_setName(c1_1, "d");
+  ASTNode_setName(c2_1, "f");
+  ASTNode_addChild(node_1, c1_1);
+  ASTNode_addChild(node_1, c2_1);
+
+  fail_unless( ASTNode_getNumChildren(node_1) == 2); 
+  fail_unless( !strcmp(SBML_formulaToString(node_1), "and(d, f)"));
+
+  i = ASTNode_swapChildren(node, node_1);
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( ASTNode_getNumChildren(node) == 2); 
+  fail_unless( !strcmp(SBML_formulaToString(node), "and(d, f)"));
+  fail_unless( ASTNode_getNumChildren(node_1) == 2); 
+  fail_unless( !strcmp(SBML_formulaToString(node_1), "and(a, b)"));
+
+  ASTNode_free(node_1);
+  ASTNode_free(node);
+}
+END_TEST
+
+
+START_TEST (test_ASTNode_addChild1)
+{
+  ASTNode_t *node = ASTNode_create();
+  ASTNode_t *c1 = ASTNode_create();
+  ASTNode_t *c2 = ASTNode_create();
+  ASTNode_t *c1_1 = ASTNode_create();
+  int i = 0;
+
+  ASTNode_setType(node, AST_LOGICAL_AND);
+  ASTNode_setName(c1, "a");
+  ASTNode_setName(c2, "b");
+  ASTNode_addChild(node, c1);
+  ASTNode_addChild(node, c2);
+
+  fail_unless( ASTNode_getNumChildren(node) == 2); 
+  fail_unless( !strcmp(SBML_formulaToString(node), "and(a, b)"));
+
+  ASTNode_setName(c1_1, "d");
+
+  i = ASTNode_addChild(node, c1_1);
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( ASTNode_getNumChildren(node) == 3); 
+  fail_unless( !strcmp(SBML_formulaToString(node), "and(a, b, d)"));
+  fail_unless( !strcmp(ASTNode_getName(ASTNode_getChild(node, 0)), "a") );
+  fail_unless( !strcmp(ASTNode_getName(ASTNode_getChild(node, 1)), "b") );
+  fail_unless( !strcmp(ASTNode_getName(ASTNode_getChild(node, 2)), "d") );
+
+  ASTNode_free(node);
+}
+END_TEST
+
+
+START_TEST (test_ASTNode_prependChild1)
+{
+  ASTNode_t *node = ASTNode_create();
+  ASTNode_t *c1 = ASTNode_create();
+  ASTNode_t *c2 = ASTNode_create();
+  ASTNode_t *c1_1 = ASTNode_create();
+  int i = 0;
+
+  ASTNode_setType(node, AST_LOGICAL_AND);
+  ASTNode_setName(c1, "a");
+  ASTNode_setName(c2, "b");
+  ASTNode_addChild(node, c1);
+  ASTNode_addChild(node, c2);
+
+  fail_unless( ASTNode_getNumChildren(node) == 2); 
+  fail_unless( !strcmp(SBML_formulaToString(node), "and(a, b)"));
+
+  ASTNode_setName(c1_1, "d");
+
+  i = ASTNode_prependChild(node, c1_1);
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( ASTNode_getNumChildren(node) == 3); 
+  fail_unless( !strcmp(SBML_formulaToString(node), "and(d, a, b)"));
+  fail_unless( !strcmp(ASTNode_getName(ASTNode_getChild(node, 0)), "d") );
+  fail_unless( !strcmp(ASTNode_getName(ASTNode_getChild(node, 1)), "a") );
+  fail_unless( !strcmp(ASTNode_getName(ASTNode_getChild(node, 2)), "b") );
+
+  ASTNode_free(node);
+}
+END_TEST
+
+
+START_TEST (test_ASTNode_freeName)
+{
+  ASTNode_t *node = ASTNode_create();
+  int i = 0;
+
+  i = ASTNode_setName(node, "a");
+
+  fail_unless(i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( !strcmp(SBML_formulaToString(node), "a"));
+  fail_unless( !strcmp(ASTNode_getName(node), "a") );
+
+  i = ASTNode_freeName(node);
+
+  fail_unless(i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( ASTNode_getName(node) == NULL );
+
+  i = ASTNode_freeName(node);
+
+  fail_unless(i == LIBSBML_UNEXPECTED_ATTRIBUTE);
+  fail_unless( ASTNode_getName(node) == NULL );
+
+  ASTNode_setType(node, AST_UNKNOWN);
+
+  i = ASTNode_freeName(node);
+
+  fail_unless(i == LIBSBML_UNEXPECTED_ATTRIBUTE);
+  fail_unless( ASTNode_getName(node) == NULL );
+
+  ASTNode_free(node);
+}
+END_TEST
+
+
+START_TEST (test_ASTNode_addSemanticsAnnotation)
+{
+  XMLNode_t *ann = XMLNode_create();
+  ASTNode_t *node = ASTNode_create();
+  int i = 0;
+
+  i = ASTNode_addSemanticsAnnotation(node, ann);
+
+  fail_unless(i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( ASTNode_getNumSemanticsAnnotations(node) == 1);
+
+  i = ASTNode_addSemanticsAnnotation(node, NULL);
+
+  fail_unless(i == LIBSBML_OPERATION_FAILED);
+  fail_unless( ASTNode_getNumSemanticsAnnotations(node) == 1);
 
   ASTNode_free(node);
 }
@@ -1957,6 +2122,11 @@ create_suite_ASTNode (void)
   tcase_add_test( tcase, test_ASTNode_removeChild             );
   tcase_add_test( tcase, test_ASTNode_replaceChild            );
   tcase_add_test( tcase, test_ASTNode_insertChild             );
+  tcase_add_test( tcase, test_ASTNode_swapChildren            );
+  tcase_add_test( tcase, test_ASTNode_addChild1               );
+  tcase_add_test( tcase, test_ASTNode_prependChild1           );
+  tcase_add_test( tcase, test_ASTNode_freeName                );
+  tcase_add_test( tcase, test_ASTNode_addSemanticsAnnotation  );
 
   suite_add_tcase(suite, tcase);
 

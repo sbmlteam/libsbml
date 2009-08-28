@@ -41,6 +41,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygen-libsbml-internal */
 
@@ -715,7 +716,11 @@ readMathML (ASTNode& node, XMLInputStream& stream)
        * dont want to add the child since this makes it look like
        * it has a bvar
        */
-      if (stream.peek().getName() == "math") break;
+      if (stream.peek().getName() == "math") 
+      {
+        delete child;
+        break;
+      }
       node.addChild(child);
 
       if (stream.peek().getName() == "piece" && stream.isGood()) 
@@ -1376,7 +1381,8 @@ writeMathML (const ASTNode* node, XMLOutputStream& stream)
  * @param xml the MathML to be converted, stored in a character string.
  *
  * @return an ASTnode (the root of the AST representing the mathematical
- * formula in the given XML string).
+ * formula in the given XML string), otherwise NULL is returned if the 
+ * given string is NULL or invalid.
  */
 LIBSBML_EXTERN
 ASTNode_t *
@@ -1407,7 +1413,14 @@ readMathMLFromString (const char *xml)
 
   stream.setErrorLog(&log);
 
-  return readMathML(stream);
+  ASTNode_t* ast = readMathML(stream);
+  if (log.getNumErrors() > 0)
+  {
+    delete ast;
+    return 0;
+  }
+
+  return ast;
 }
 
 
@@ -1439,3 +1452,4 @@ writeMathMLToString (const ASTNode* node)
   return result;
 }
 
+LIBSBML_CPP_NAMESPACE_END

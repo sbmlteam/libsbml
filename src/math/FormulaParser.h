@@ -31,7 +31,7 @@
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/FormulaTokenizer.h>
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
@@ -118,6 +118,7 @@ FormulaParser_reduceStackByRule (Stack_t *stack, long rule);
 #endif  /* !SWIG */
 
 END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond doxygen-libsbml-internal */
 

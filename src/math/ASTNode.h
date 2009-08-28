@@ -219,13 +219,9 @@
 #include <sbml/math/FormulaParser.h>
 #include <sbml/xml/XMLAttributes.h>
 
+#include <sbml/common/operationReturnValues.h>
 
-typedef enum
-{
-    LIBSBML_AST_NODE_OPERATION_SUCCESS = 0
-  , LIBSBML_AST_NODE_INDEX_EXCEEDS_SIZE = -1
-} OperationReturnCodes_t;
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * @enum  ASTNodeType_t
@@ -354,9 +350,11 @@ typedef enum
  */
 typedef int (*ASTNodePredicate) (const ASTNode_t *node);
 
+LIBSBML_CPP_NAMESPACE_END
 
 #ifdef __cplusplus
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class List;
 
@@ -419,10 +417,16 @@ public:
    * This operation is only applicable to ASTNodes corresponding to
    * operators, numbers, or @c AST_UNKNOWN.  This method will have no
    * effect on other types of nodes.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
    */
   LIBSBML_EXTERN
-  void
-  freeName ();
+  int  freeName ();
 
 
   /**
@@ -470,9 +474,16 @@ public:
    * in-order from left to right.
    *
    * @param child the ASTNode instance to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
   LIBSBML_EXTERN
-  void addChild (ASTNode* child);
+  int addChild (ASTNode* child);
 
 
   /**
@@ -480,9 +491,16 @@ public:
    * child nodes from right to left.
    *
    * @param child the ASTNode instance to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
   LIBSBML_EXTERN
-  void prependChild (ASTNode* child);
+  int prependChild (ASTNode* child);
 
 
   /**
@@ -490,7 +508,12 @@ public:
    *
    * @param n unsigned int the index of the child to remove
    *
-   * @return int indicating the success or failure of the operation
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INDEX_EXCEEDS_SIZE
    *
    * @note removing a child from an ASTNode may result in an
    * inaccurate representation.
@@ -505,7 +528,12 @@ public:
    * @param n unsigned int the index of the child to replace
    * @param newChild ASTNode to replace the nth child
    *
-   * @return int indicating the success or failure of the operation
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INDEX_EXCEEDS_SIZE
    *
    * @note replacing a child within an ASTNode may result in an
    * inaccurate representation.
@@ -521,7 +549,12 @@ public:
    * @param n unsigned int the index of the ASTNode being added
    * @param newChild ASTNode to insert as the nth child
    *
-   * @return int indicating the success or failure of the operation
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INDEX_EXCEEDS_SIZE
    *
    * @note inserting a child within an ASTNode may result in an
    * inaccurate representation.
@@ -590,9 +623,16 @@ public:
    * Adds the given XMLNode as a semantic annotation of this ASTNode.
    *
    * @param sAnnotation the annotation to add.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
   LIBSBML_EXTERN
-  void addSemanticsAnnotation (XMLNode* sAnnotation);
+  int addSemanticsAnnotation (XMLNode* sAnnotation);
 
 
   /**
@@ -998,9 +1038,15 @@ public:
    *
    * @param value the character value to which the node's value should be
    * set.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
   LIBSBML_EXTERN
-  void setCharacter (char value);
+  int setCharacter (char value);
 
 
   /**
@@ -1013,9 +1059,15 @@ public:
    *
    * @param name the string containing the name to which this node's value
    * should be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
   LIBSBML_EXTERN
-  void setName (const char *name);
+  int setName (const char *name);
 
 
   /**
@@ -1023,9 +1075,15 @@ public:
    * type to @c AST_INTEGER.
    *
    * @param value the integer to which this node's value should be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
   LIBSBML_EXTERN
-  void
+  int
   setValue (int value);
 
 
@@ -1034,9 +1092,15 @@ public:
    * the node type to @c AST_INTEGER.
    *
    * @param value the integer to which this node's value should be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
   LIBSBML_EXTERN
-  void setValue (long value);
+  int setValue (long value);
 
 
   /**
@@ -1045,9 +1109,15 @@ public:
    *
    * @param numerator the numerator value of the rational
    * @param denominator the denominator value of the rational
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
   LIBSBML_EXTERN
-  void setValue (long numerator, long denominator);
+  int setValue (long numerator, long denominator);
 
 
   /**
@@ -1061,9 +1131,15 @@ public:
    *
    * @param value the @c double format number to which this node's value
    * should be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
   LIBSBML_EXTERN
-  void setValue (double value);
+  int setValue (double value);
 
 
   /**
@@ -1073,9 +1149,15 @@ public:
    *
    * @param mantissa the mantissa of this node's real-numbered value
    * @param exponent the exponent of this node's real-numbered value
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
   LIBSBML_EXTERN
-  void setValue (double mantissa, long exponent);
+  int setValue (double mantissa, long exponent);
 
 
   /**
@@ -1085,9 +1167,16 @@ public:
    * to zero.
    *
    * @param type the type to which this node should be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
   LIBSBML_EXTERN
-  void setType (ASTNodeType_t type);
+  int setType (ASTNodeType_t type);
 
 
   /**
@@ -1096,24 +1185,42 @@ public:
    *
    * @param that the other node whose children should be used to replace
    * <em>this</em> node's children
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
   LIBSBML_EXTERN
-  void swapChildren (ASTNode *that);
+  int swapChildren (ASTNode *that);
 
 
   /** @cond doxygen-libsbml-internal */
 
   /**
    * Sets the flag indicating that this ASTNode has semantics attached
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
   LIBSBML_EXTERN
-  void setSemanticsFlag();
+  int setSemanticsFlag();
 
   /**
    * Unsets the flag indicating that this ASTNode has semantics attached
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
   LIBSBML_EXTERN
-  void unsetSemanticsFlag();
+  int unsetSemanticsFlag();
 
   /**
    * gets the flag indicating that this ASTNode has semantics attached
@@ -1123,9 +1230,15 @@ public:
 
   /**
    * sets the definitionURL attributes
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
    */
   LIBSBML_EXTERN
-  void setDefinitionURL(XMLAttributes url);
+  int setDefinitionURL(XMLAttributes url);
 
   /** @endcond doxygen-libsbml-internal */
 
@@ -1141,7 +1254,7 @@ public:
    * Replaces occurences of a name within this ASTNode with the name/value/formula
    * represented by the second argument ASTNode
    * e.g. if the formula in this ASTNode is x + y; bvar is x and arg is an 
-   * ASTNode representing the real value 3 ReplaceArgument substitutes 3 for
+   * ASTNode representing the real value 3 replaceArgument substitutes 3 for
    * x within this ASTNode
    *
    * @param bvar a string representing the variable name to be substituted
@@ -1185,17 +1298,6 @@ public:
   LIBSBML_EXTERN
   SBase * getParentSBMLObject() const;
 
-  /** @cond doxygen-libsbml-internal */
- /*
-  * Reduces this ASTNode to a binary tree
-  * e.g. if the formula in this ASTNode is and(x, y, z) then the 
-  * formula of the reduced node would be and(and(x, y), z)
-  */
-  LIBSBML_EXTERN
-  void ReduceToBinary();
-  /** @endcond doxygen-libsbml-internal */
-
-
  /**
   * Reduces this ASTNode to a binary tree
   * e.g. if the formula in this ASTNode is and(x, y, z) then the 
@@ -1203,6 +1305,7 @@ public:
   */
   LIBSBML_EXTERN
   void reduceToBinary();
+  /** @endcond doxygen-libsbml-internal */
 
   
  /**
@@ -1212,9 +1315,17 @@ public:
   * interpreted by this class.
   * 
   * @param userData specifies the new user data. 
+  *
+  * @return integer value indicating success/failure of the
+  * function.  @if clike The value is drawn from the
+  * enumeration #OperationReturnValues_t. @endif The possible values
+  * returned by this function are:
+  * @li LIBSBML_OPERATION_SUCCESS
+  * @li LIBSBML_OPERATION_FAILED
   */
   LIBSBML_EXTERN
-  void setUserData(void *userData);
+  int
+  setUserData(void *userData);
 
  /**
   * Returns the user data that has been previously set via setUserData().
@@ -1224,6 +1335,38 @@ public:
   */
   LIBSBML_EXTERN
   void *getUserData() const;
+
+ /**
+  * Predicate returning @c true or @c false depending on whether this
+  * ASTNode is well-formed.
+  *
+  * @note An ASTNode may be well-formed, i.e. each node and it's children
+  * have the appropriate number of children for the given type, but may still
+  * be invalid in the context of an SBML model.
+  *
+  * @see hasCorrectNumberArguments()
+  *
+  * @return @c true if this ASTNode is well-formed, @c false otherwise.
+  */
+  bool isWellFormedASTNode() const;
+
+
+ /**
+  * Predicate returning @c true or @c false depending on whether this
+  * ASTNode has the correct number of children for it's type.
+  *
+  * For example, an ASTNode with type AST_PLUS expects 2 child nodes.
+  *
+  * @note This function performs a check on the toplevel node only.
+  * Child nodes are not checked.
+  *
+  * @see isWellFormedASTNode()
+  *
+  * @return @c true if this ASTNode is has appropriate number of children
+  * for it's type, @c false otherwise.
+  */
+  bool hasCorrectNumberArguments() const;
+
 
 
 protected:
@@ -1267,12 +1410,14 @@ protected:
   /** @endcond doxygen-libsbml-internal */
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif /* __cplusplus */
 
 
 #ifndef SWIG
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
@@ -1316,7 +1461,7 @@ ASTNode_free (ASTNode_t *node);
  * effect on other types of nodes.
  */
 LIBSBML_EXTERN
-void
+int
 ASTNode_freeName (ASTNode_t *node);
 
 
@@ -1357,7 +1502,7 @@ ASTNode_canonicalize (ASTNode_t *node);
  * in-order from "left-to-right".
  */
 LIBSBML_EXTERN
-void
+int
 ASTNode_addChild (ASTNode_t *node, ASTNode_t *child);
 
 /**
@@ -1365,7 +1510,7 @@ ASTNode_addChild (ASTNode_t *node, ASTNode_t *child);
  * nodes from "right-to-left".
  */
 LIBSBML_EXTERN
-void
+int
 ASTNode_prependChild (ASTNode_t *node, ASTNode_t *child);
 
 /**
@@ -1723,7 +1868,7 @@ ASTNode_isUnknown (const ASTNode_t *node);
  * For all other characters, the node type will be set to @c AST_UNKNOWN.
  */
 LIBSBML_EXTERN
-void
+int
 ASTNode_setCharacter (ASTNode_t *node, char value);
 
 /**
@@ -1735,7 +1880,7 @@ ASTNode_setCharacter (ASTNode_t *node, char value);
  * @c AST_FUNCTIONs and the like.
  */
 LIBSBML_EXTERN
-void
+int
 ASTNode_setName (ASTNode_t *node, const char *name);
 
 /**
@@ -1743,7 +1888,7 @@ ASTNode_setName (ASTNode_t *node, const char *name);
  * node type to @c AST_INTEGER.
  */
 LIBSBML_EXTERN
-void
+int
 ASTNode_setInteger (ASTNode_t *node, long value);
 
 /**
@@ -1751,7 +1896,7 @@ ASTNode_setInteger (ASTNode_t *node, long value);
  * the numerator and denominator.  The node type is set to @c AST_RATIONAL.
  */
 LIBSBML_EXTERN
-void
+int
 ASTNode_setRational (ASTNode_t *node, long numerator, long denominator);
 
 /**
@@ -1764,7 +1909,7 @@ ASTNode_setRational (ASTNode_t *node, long numerator, long denominator);
  * @endcode
  */
 LIBSBML_EXTERN
-void
+int
 ASTNode_setReal (ASTNode_t *node, double value);
 
 /**
@@ -1772,14 +1917,14 @@ ASTNode_setReal (ASTNode_t *node, double value);
  * the mantissa and the exponent.  The node type is set to @c AST_REAL_E.
  */
 LIBSBML_EXTERN
-void
+int
 ASTNode_setRealWithExponent (ASTNode_t *node, double mantissa, long exponent);
 
 /**
  * Sets the type of this ASTNode to the given ASTNodeType_t value.
  */
 LIBSBML_EXTERN
-void
+int
 ASTNode_setType (ASTNode_t *node, ASTNodeType_t type);
 
 
@@ -1787,7 +1932,7 @@ ASTNode_setType (ASTNode_t *node, ASTNodeType_t type);
  * Swap the children of this ASTNode with the children of that ASTNode.
  */
 LIBSBML_EXTERN
-void
+int
 ASTNode_swapChildren (ASTNode_t *node, ASTNode_t *that);
 
 LIBSBML_EXTERN
@@ -1816,7 +1961,7 @@ int
 ASTNode_insertChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild);
 
 LIBSBML_EXTERN
-void
+int
 ASTNode_addSemanticsAnnotation(ASTNode_t* node, XMLNode_t * annotation);
 
 LIBSBML_EXTERN
@@ -1828,15 +1973,23 @@ XMLNode_t *
 ASTNode_getSemanticsAnnotation(ASTNode_t* node, unsigned int n);
 
 LIBSBML_EXTERN
-void 
+int 
 ASTNode_setUserData(ASTNode_t* node, void *userData);
 
 LIBSBML_EXTERN
 void *
 ASTNode_getUserData(ASTNode_t* node);
 
+LIBSBML_EXTERN
+int
+ASTNode_hasCorrectNumberArguments(ASTNode_t* node);
+
+LIBSBML_EXTERN
+int
+ASTNode_isWellFormedASTNode(ASTNode_t* node);
 
 END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
 #endif  /* ASTNode_h */

@@ -54,6 +54,7 @@ test_sources =           \
   TestWriteMathML.cpp    \
   TestReadFromFile1.cpp  \
   TestReadFromFile2.cpp  \
+  TestValidASTNode.cpp   \
   TestRunner.c
 
 extra_CPPFLAGS = -I.. -I../..
@@ -119,8 +120,8 @@ all: Makefile
 # dependencies on other subdirectoris of the source tree, we do some rummaging
 # around in .. and ../../subdirs.
 
-tmp           = $(test_sources:.cpp=.$(OBJEXT)) $(test_sources:.c=.$(OBJEXT))
-localobjfiles = $(filter %.$(OBJEXT),$(tmp))
+tmp           = $(test_sources:.cpp=.lo) $(test_sources:.c=.lo)
+localobjfiles = $(filter %.lo,$(tmp))
 otherdirs     = .. ../../util ../../xml ../../sbml ../../annotation \
 	 ../../validator ../../validator/constraints ../../units ../../compress \
 	 ../../common
@@ -128,7 +129,7 @@ otherdirs     = .. ../../util ../../xml ../../sbml ../../annotation \
 ifdef USE_LAYOUT
   otherdirs +=	../../sbml/layout
 endif
-otherobjfiles = $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
+otherobjfiles = $(wildcard $(addsuffix /*.lo,$(otherdirs)))
 
 
 test_objfiles = $(localobjfiles) $(otherobjfiles)

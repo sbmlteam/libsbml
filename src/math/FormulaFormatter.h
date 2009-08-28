@@ -30,7 +30,7 @@
 
 #include <sbml/math/ASTNode.h>
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
@@ -61,6 +61,8 @@ BEGIN_C_DECLS
  * @return the formula from the given AST as an SBML Level 1 text-string
  * mathematical formula.  The caller owns the returned string and is
  * responsible for freeing it when it is no longer needed.
+ * NULL is returned if the given argument is NULL. 
+ * 
  */
 LIBSBML_EXTERN
 char *
@@ -202,6 +204,7 @@ FormulaFormatter_visitOther ( const ASTNode_t *parent,
 #endif  /* !SWIG */
 
 END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond doxygen-libsbml-internal */
 

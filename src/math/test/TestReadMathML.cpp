@@ -34,6 +34,7 @@
 
 #include <sbml/xml/XMLNode.h>
 
+LIBSBML_CPP_NAMESPACE_USE
 
 /**
  * Wraps the string s in the appropriate XML or MathML boilerplate.
@@ -1764,6 +1765,29 @@ START_TEST (test_element_bug_csymbol_delay_1)
 END_TEST
 
 
+START_TEST (test_element_invalid_mathml)
+{
+  const char* invalid = wrapMathML
+  (
+    "<lambda>"
+    "<bvar>"
+    "<ci definitionURL=\"http://biomodels.net/SBO/#SBO:0000065\">c</ci>"
+    "</bvar>"
+    "<apply>"
+    "  <ci>c</ci>"
+    "</apply>"
+    "</lambda>\n"
+  );
+
+  N = readMathMLFromString(NULL);
+  fail_unless( N == 0 );
+
+  N = readMathMLFromString(invalid);
+  fail_unless( N == 0 );
+}
+END_TEST
+
+
 Suite *
 create_suite_ReadMathML ()
 {
@@ -1865,6 +1889,8 @@ create_suite_ReadMathML ()
   tcase_add_test( tcase, test_element_bug_cn_e_notation_2       );
   tcase_add_test( tcase, test_element_bug_cn_e_notation_3       );
   tcase_add_test( tcase, test_element_bug_csymbol_delay_1       );
+
+  tcase_add_test( tcase, test_element_invalid_mathml       );
 
   suite_add_tcase(suite, tcase);
 
