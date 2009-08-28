@@ -1,5 +1,5 @@
 /**
- * @file    UniqueIdBase.cpp
+ * @file    UniqueIdBase.h
  * @brief   Base class for unique id constraints
  * @author  Ben Bornstein
  *
@@ -35,6 +35,7 @@
 
 #include "IdBase.h"
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class SBase;
 class Validator;
@@ -90,6 +91,7 @@ protected:
   IdObjectMap mIdObjectMap;
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* UniqueIdBase_h */

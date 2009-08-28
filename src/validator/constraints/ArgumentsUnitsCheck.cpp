@@ -50,6 +50,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Creates a new Constraint with the given id.
@@ -152,9 +153,10 @@ ArgumentsUnitsCheck::checkUnitsFromDelay (const Model& m,
    * no restrictions on units of x
    * but t must have units of time
    */
-  UnitDefinition * time = new UnitDefinition();
+  UnitDefinition *time = new UnitDefinition(m.getSBMLNamespaces());
+  Unit *unit = new Unit(m.getSBMLNamespaces());
+  unit->setKind(UNIT_KIND_SECOND);
   UnitDefinition * tempUD;
-  Unit * unit = new Unit("second");
   time->addUnit(unit);
   
   UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
@@ -197,10 +199,11 @@ ArgumentsUnitsCheck::checkUnitsFromPiecewise (const Model& m,
    * a1, a3, a(n_odd) must be dimensionless
    */
   unsigned int n;
-  UnitDefinition * dim = new UnitDefinition();
+  UnitDefinition *dim = new UnitDefinition(m.getSBMLNamespaces());
+  Unit *unit = new Unit(m.getSBMLNamespaces());
+  unit->setKind(UNIT_KIND_DIMENSIONLESS);
   UnitDefinition * tempUD;
   UnitDefinition * tempUD1 = NULL;
-  Unit * unit = new Unit("dimensionless");
   dim->addUnit(unit);
   
   UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
@@ -412,3 +415,5 @@ ArgumentsUnitsCheck::logInconsistentPiecewiseCondition (const ASTNode & node,
   logFailure(sb, msg);
 
 }
+
+LIBSBML_CPP_NAMESPACE_END

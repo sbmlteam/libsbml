@@ -41,8 +41,9 @@
 #include <sbml/validator/VConstraint.h>
 #include "IdList.h"
 
-typedef std::map< std::string, IdList> graph;
+LIBSBML_CPP_NAMESPACE_BEGIN
 
+typedef std::map< std::string, IdList> graph;
 
 class Model;
 class Validator;
@@ -132,6 +133,7 @@ protected:
 
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* OverDeterminedCheck_h */

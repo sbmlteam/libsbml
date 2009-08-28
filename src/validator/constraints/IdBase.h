@@ -32,6 +32,7 @@
 #include <string>
 #include <sbml/validator/VConstraint.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class SBase;
 class Validator;
@@ -153,7 +154,12 @@ protected:
   void checkId (const Reaction&           x);
   void checkId (const Event&              x);
   void checkId (const EventAssignment&    x);
-  void checkId (const SBase&    x);
+  void checkId (const CompartmentType&    x);
+  void checkId (const SpeciesType&        x);
+  void checkId (const SpeciesReference&   x);
+  void checkId (const ModifierSpeciesReference&              x);
+  void checkId (const InitialAssignment&  x);
+//  void checkId (const SBase&    x);
 
   /**
    * @return the typename of the given SBase object.
@@ -167,6 +173,7 @@ protected:
   void logIdConflict (const std::string& id, const SBase& object);
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* IdBase_h */

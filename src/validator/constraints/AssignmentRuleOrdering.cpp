@@ -39,7 +39,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Creates a new Constraint with the given constraint id.
@@ -197,3 +197,5 @@ AssignmentRuleOrdering::logForwardReference (const ASTNode & node,
   logFailure(object);
 
 }
+
+LIBSBML_CPP_NAMESPACE_END

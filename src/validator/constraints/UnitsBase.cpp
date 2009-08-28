@@ -45,6 +45,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Creates a new Constraint with the given id.
@@ -233,7 +234,7 @@ UnitsBase::checkFunction (const Model& m,
     for (i = 0, nodeCount = 0; i < noBvars; i++, nodeCount++)
     {
       if (nodeCount < node.getNumChildren())
-        fdMath->ReplaceArgument(fd->getArgument(i)->getName(), 
+        fdMath->replaceArgument(fd->getArgument(i)->getName(), 
                                           node.getChild(nodeCount));
     }
     /* check the math of the new function */
@@ -262,3 +263,5 @@ UnitsBase::logUnitConflict (const ASTNode& node, const SBase& object)
 {
   logFailure(object, getMessage(node, object));
 }
+
+LIBSBML_CPP_NAMESPACE_END

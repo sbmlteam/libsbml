@@ -193,9 +193,9 @@ START_CONSTRAINT (20303, FunctionDefinition, fd)
 
   std::list<ASTNode*>::iterator it = astlist.begin();
 
-  while(it != astlist.end())
+  while (it != astlist.end())
   {
-    const char *   name = (*it)->getName() ? (*it)->getName() : "";
+    const char* name = (*it)->getName() ? (*it)->getName() : "";
 
     inv(strcmp(name, id.c_str()));
 
@@ -246,10 +246,14 @@ START_CONSTRAINT (20305, FunctionDefinition, fd)
   {
     for (unsigned int n = 0; n < fd.getNumArguments(); n++)
     {
-      if (!strcmp(fd.getArgument(n)->getName(), fd.getBody()->getName()))
+      const ASTNode *fdArg = fd.getArgument(n);
+      if (fdArg && fdArg->getName() && fd.getBody()->getName())
       {
-        specialCase = true;
-        break;
+        if (!strcmp(fdArg->getName(), fd.getBody()->getName()))
+        {
+          specialCase = true;
+          break;
+        }
       }
     }
     if (fd.getNumArguments() == 0)
@@ -293,7 +297,7 @@ START_CONSTRAINT (99301, FunctionDefinition, fd)
 
   std::list<ASTNode*>::iterator it = astlist.begin();
 
-  while(it != astlist.end())
+  while (it != astlist.end())
   {
     ASTNodeType_t type = (*it)->getType();
 
@@ -699,8 +703,14 @@ START_CONSTRAINT (20410, UnitDefinition, ud)
 
   for (unsigned int n = 0; n < ud.getNumUnits(); ++n)
   {
-    inv( Unit::isUnitKind( UnitKind_toString(ud.getUnit(n)->getKind()), 
-      ud.getLevel(), ud.getVersion()));
+    /* if the unit kind is Celsius and invalid we dont want to report
+     * this as it is caught by another constraint
+     */
+    if (!(ud.getUnit(n)->isCelsius()))
+    {
+      inv( Unit::isUnitKind( UnitKind_toString(ud.getUnit(n)->getKind()), 
+        ud.getLevel(), ud.getVersion()));
+    }
   }
 }
 END_CONSTRAINT

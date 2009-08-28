@@ -29,6 +29,7 @@
 using std::string;
 using std::vector;
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * @return true if id is already in this IdList, false otherwise.
@@ -54,3 +55,5 @@ IdList::removeIdsBefore (const std::string id)
 
   if (pos != end) mIds.erase(mIds.begin(), pos);
 }
+
+LIBSBML_CPP_NAMESPACE_END

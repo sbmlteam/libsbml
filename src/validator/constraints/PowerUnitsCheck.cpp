@@ -40,14 +40,16 @@
 
 #include "PowerUnitsCheck.h"
 
-static const char* PREAMBLE =
-  "A math expression using power with non-integer units may result in incorrect units.";
-
 /** @cond doxygen-ignored */
 
 using namespace std;
 
 /** @endcond doxygen-ignored */
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+static const char* PREAMBLE =
+  "A math expression using power with non-integer units may result in incorrect units.";
 
 
 /**
@@ -142,8 +144,9 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
   }
 
   double value;
-  UnitDefinition dim;
-  Unit unit("dimensionless");
+  UnitDefinition dim(m.getSBMLNamespaces());
+  Unit unit(m.getSBMLNamespaces());
+  unit.setKind(UNIT_KIND_DIMENSIONLESS);
   dim.addUnit(&unit);
 
   UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
@@ -524,3 +527,5 @@ PowerUnitsCheck::logRationalPowerConflict (const ASTNode & node,
 
 }
 
+
+LIBSBML_CPP_NAMESPACE_END

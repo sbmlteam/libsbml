@@ -33,6 +33,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 static const char* PREAMBLE =
     "The value of the 'id' field of every <unitDefinition> must be unique "
@@ -80,3 +81,5 @@ UniqueIdsForUnitDefinitions::doCheck (const Model& m)
   size = m.getNumUnitDefinitions();
   for (n = 0; n < size; ++n) checkId( *m.getUnitDefinition(n) );
 }
+
+LIBSBML_CPP_NAMESPACE_END

@@ -34,6 +34,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 static const char* PREAMBLE =
     "In each <event>, the value of the 'variable' field within every "
@@ -99,3 +100,5 @@ UniqueVarsInEventAssignments::doCheck (const Model& m)
     mIdObjectMap.clear();
   }
 }
+
+LIBSBML_CPP_NAMESPACE_END

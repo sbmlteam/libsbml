@@ -39,18 +39,20 @@
 
 #include "LambdaMathCheck.h"
 
+/** @cond doxygen-ignored */
+
+using namespace std;
+
+/** @endcond doxygen-ignored */
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 static const char* PREAMBLE =
     "MathML 'lambda' elements are only permitted as the first element inside "
     "the 'math' element of a <functionDefinition> or as the first element "
     "of a semantics element immediately inside inside the math element "
     "of a <functionDefinition>; they may not be used "
     "elsewhere in an SBML model. (References: L2V2 Section 4.3.2.)";
-
-/** @cond doxygen-ignored */
-
-using namespace std;
-
-/** @endcond doxygen-ignored */
 
 
 /**
@@ -129,3 +131,5 @@ LambdaMathCheck::getMessage (const ASTNode& node, const SBase& object)
 
   return msg.str();
 }
+
+LIBSBML_CPP_NAMESPACE_END

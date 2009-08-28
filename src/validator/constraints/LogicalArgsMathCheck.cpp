@@ -38,15 +38,17 @@
 
 #include "LogicalArgsMathCheck.h"
 
-static const char* PREAMBLE =
-    "The arguments of the MathML logical operators 'and', 'or', 'xor', and "
-    "'not' must have boolean values. (References: L2V2 Section 3.5.8.)";
-
 /** @cond doxygen-ignored */
 
 using namespace std;
 
 /** @endcond doxygen-ignored */
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+static const char* PREAMBLE =
+    "The arguments of the MathML logical operators 'and', 'or', 'xor', and "
+    "'not' must have boolean values. (References: L2V2 Section 3.5.8.)";
 
 
 /**
@@ -156,3 +158,5 @@ LogicalArgsMathCheck::getMessage (const ASTNode& node, const SBase& object)
 
   return msg.str();
 }
+
+LIBSBML_CPP_NAMESPACE_END

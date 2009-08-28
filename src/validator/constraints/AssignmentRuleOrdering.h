@@ -33,6 +33,7 @@
 
 #include "IdList.h"
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class AssignmentRuleOrdering: public TConstraint<Model>
 {
@@ -74,6 +75,7 @@ void logForwardReference (const ASTNode & node,
 
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* AssignmentRuleOrdering_h */

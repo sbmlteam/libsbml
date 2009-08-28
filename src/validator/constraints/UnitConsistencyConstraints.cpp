@@ -162,7 +162,7 @@ START_CONSTRAINT (99505, KineticLaw, kl)
   pre ( kl.isSetMath() == 1 );
 
   const FormulaUnitsData * formulaUnits = 
-                            m.getFormulaUnitsData(kl.getId(), SBML_KINETIC_LAW);
+                            m.getFormulaUnitsData(kl.getInternalId(), SBML_KINETIC_LAW);
   pre ( formulaUnits != 0 );
 
   char * formula = SBML_formulaToString(kl.getMath());
@@ -201,7 +201,8 @@ END_CONSTRAINT
 START_CONSTRAINT (99505, EventAssignment, ea)
 {
   EventAssignment *pEa = const_cast<EventAssignment *> (&ea);
-  std::string eId = pEa->getAncestorOfType(SBML_EVENT)->getId();
+  std::string eId = 
+    static_cast <Event *> (pEa->getAncestorOfType(SBML_EVENT))->getId();
   const string& variable = ea.getVariable() + eId;
 
   pre ( ea.isSetMath() == 1 );
@@ -814,7 +815,7 @@ START_CONSTRAINT (10541, KineticLaw, kl)
   pre ( kl.isSetMath() == 1 );
 
   const FormulaUnitsData * formulaUnits = 
-                            m.getFormulaUnitsData(kl.getId(), SBML_KINETIC_LAW);
+                            m.getFormulaUnitsData(kl.getInternalId(), SBML_KINETIC_LAW);
   const FormulaUnitsData * variableUnits = 
                            m.getFormulaUnitsData("subs_per_time", SBML_UNKNOWN);
 
@@ -883,7 +884,8 @@ START_CONSTRAINT (10561, EventAssignment, ea)
   //  "4.14.2; L2V3 Section 4.14.4.)";
 
   EventAssignment *pEa = const_cast<EventAssignment *> (&ea);
-  std::string eId = pEa->getAncestorOfType(SBML_EVENT)->getId();
+  std::string eId = 
+    static_cast <Event *> (pEa->getAncestorOfType(SBML_EVENT))->getId();
   const string& variable = ea.getVariable();
   const Compartment* c = m.getCompartment(variable);
 
@@ -926,7 +928,8 @@ START_CONSTRAINT (10562, EventAssignment, ea)
   //  "4.14.2; L2V3 Section 4.14.4.)";
    
   EventAssignment *pEa = const_cast<EventAssignment *> (&ea);
-  std::string eId = pEa->getAncestorOfType(SBML_EVENT)->getId();
+  std::string eId = 
+    static_cast <Event *> (pEa->getAncestorOfType(SBML_EVENT))->getId();
   const string& variable = ea.getVariable();
   const Species * s = m.getSpecies(variable);
 
@@ -968,7 +971,8 @@ START_CONSTRAINT (10563, EventAssignment, ea)
   //  "4.14.2; L2V3 Section 4.14.4)";
    
   EventAssignment *pEa = const_cast<EventAssignment *> (&ea);
-  std::string eId = pEa->getAncestorOfType(SBML_EVENT)->getId();
+  std::string eId = 
+    static_cast <Event *> (pEa->getAncestorOfType(SBML_EVENT))->getId();
   const string& variable = ea.getVariable();
   const Parameter* p = m.getParameter(variable);
 
@@ -1579,3 +1583,4 @@ END_CONSTRAINT
 //}
 //END_CONSTRAINT
 //
+

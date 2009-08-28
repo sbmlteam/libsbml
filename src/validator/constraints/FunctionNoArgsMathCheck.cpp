@@ -37,18 +37,20 @@
 
 #include "FunctionNoArgsMathCheck.h"
 
+/** @cond doxygen-ignored */
+
+using namespace std;
+
+/** @endcond doxygen-ignored */
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 static const char* PREAMBLE =
     "The number of arguments used in a call to a function defined by a "
     "<functionDefinition> must equal the number of arguments accepted by "
     "that function, or in other words, the number of <bvar> elements "
     "inside the <lambda> element of the function definition.  "
     "(References: L2V4 Section 4.3.4.)";
-
-/** @cond doxygen-ignored */
-
-using namespace std;
-
-/** @endcond doxygen-ignored */
 
 
 /**
@@ -161,3 +163,5 @@ FunctionNoArgsMathCheck::getMessage (const ASTNode& node, const SBase& object)
 
   return msg.str();
 }
+
+LIBSBML_CPP_NAMESPACE_END

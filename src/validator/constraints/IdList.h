@@ -31,7 +31,9 @@
 
 #include <string>
 #include <vector>
+#include <sbml/common/libsbml-namespace.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class IdList
 {
@@ -86,6 +88,7 @@ private:
   std::vector<std::string> mIds;
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* IdList_h */

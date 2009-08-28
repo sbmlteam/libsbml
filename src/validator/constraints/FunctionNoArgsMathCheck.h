@@ -37,6 +37,7 @@
 
 #include "MathMLBase.h"
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class ASTNode;
 
@@ -94,6 +95,7 @@ protected:
 
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* FunctionNoArgsMathCheck_h */

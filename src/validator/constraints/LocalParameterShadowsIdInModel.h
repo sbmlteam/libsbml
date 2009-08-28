@@ -34,6 +34,7 @@
 
 #include "IdList.h"
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LocalParameterShadowsIdInModel: public TConstraint<Model>
 {
@@ -67,6 +68,7 @@ protected:
 
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* LocalParameterShadowsIdInModel_h */

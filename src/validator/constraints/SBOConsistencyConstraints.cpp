@@ -86,8 +86,6 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
-
-
 // General SBO validation
 
 START_CONSTRAINT(99701, Model, m1)
@@ -1184,3 +1182,4 @@ START_CONSTRAINT(99702, Delay, d)
 
 }
 END_CONSTRAINT
+

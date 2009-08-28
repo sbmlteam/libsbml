@@ -35,6 +35,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Creates a new Constraint with the given id.
@@ -93,7 +94,7 @@ FunctionDefinitionVars::check_ (const Model& m, const FunctionDefinition& fd)
       }
     }
   }
-
+  
   delete variables;
 }
 
@@ -123,3 +124,5 @@ FunctionDefinitionVars::logUndefined ( const FunctionDefinition& fd,
   
   logFailure(fd);
 }
+
+LIBSBML_CPP_NAMESPACE_END

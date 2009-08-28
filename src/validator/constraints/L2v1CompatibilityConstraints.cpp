@@ -39,7 +39,6 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-
 START_CONSTRAINT (92001, Model, x)
 {
   //msg =
@@ -270,3 +269,4 @@ START_CONSTRAINT (92007, Event, e)
   inv( e.getUseValuesFromTriggerTime() == true);
 }
 END_CONSTRAINT
+

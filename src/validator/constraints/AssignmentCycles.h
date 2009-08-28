@@ -33,6 +33,8 @@
 
 #include "IdList.h"
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 typedef std::multimap<const std::string, std::string> IdMap;
 typedef IdMap::iterator                               IdIter;
 typedef std::pair<IdIter, IdIter>                     IdRange;
@@ -115,6 +117,7 @@ protected:
 
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* AssignmentCycles_h */

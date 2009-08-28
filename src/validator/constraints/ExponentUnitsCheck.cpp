@@ -38,14 +38,16 @@
 
 #include "ExponentUnitsCheck.h"
 
-static const char* PREAMBLE =
-  "The use of non-integral exponents may result in incorrect units.";
-
 /** @cond doxygen-ignored */
 
 using namespace std;
 
 /** @endcond doxygen-ignored */
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+static const char* PREAMBLE =
+  "The use of non-integral exponents may result in incorrect units.";
 
 
 /**
@@ -134,8 +136,9 @@ ExponentUnitsCheck::checkUnitsFromRoot (const Model& m,
     return;
   }
 
-  UnitDefinition dim;
-  Unit unit("dimensionless");
+  UnitDefinition dim(m.getSBMLNamespaces());
+  Unit unit(m.getSBMLNamespaces());
+  unit.setKind(UNIT_KIND_DIMENSIONLESS);
   dim.addUnit(&unit);
   /* root (v, n) = v^1/n 
    * the exponent of the resulting unit must be integral
@@ -315,3 +318,5 @@ ExponentUnitsCheck::logNonIntegerPowerConflict (const ASTNode & node,
   logFailure(sb, msg);
 
 }
+
+LIBSBML_CPP_NAMESPACE_END

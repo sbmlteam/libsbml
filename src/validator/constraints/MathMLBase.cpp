@@ -33,6 +33,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Creates a new Constraint with the given id.
@@ -274,7 +275,7 @@ MathMLBase::checkFunction (const Model& m,
     for (i = 0, nodeCount = 0; i < noBvars; i++, nodeCount++)
     {
       if (nodeCount < node.getNumChildren())
-        fdMath->ReplaceArgument(fd->getArgument(i)->getName(), 
+        fdMath->replaceArgument(fd->getArgument(i)->getName(), 
                                           node.getChild(nodeCount));
     }
     /* check the math of the new function */
@@ -429,7 +430,7 @@ MathMLBase::checkNumericFunction (const Model& m, const ASTNode* node)
     for (i = 0, nodeCount = 0; i < noBvars; i++, nodeCount++)
     {
       if (nodeCount < node->getNumChildren())
-        fdMath->ReplaceArgument(fd->getArgument(i)->getName(), 
+        fdMath->replaceArgument(fd->getArgument(i)->getName(), 
                                           node->getChild(nodeCount));
     //}
   ///* check this function definition exists */
@@ -484,3 +485,5 @@ MathMLBase::checkNumericFunction (const Model& m, const ASTNode* node)
     return true;
   }
 }
+
+LIBSBML_CPP_NAMESPACE_END

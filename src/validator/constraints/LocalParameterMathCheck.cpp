@@ -39,17 +39,19 @@
 
 #include "LocalParameterMathCheck.h"
 
-static const char* PREAMBLE =
-    "The 'id' value of a <parameter> defined within a <kineticLaw> can only "
-    "be used in 'ci' elements within the MathML content of that same "
-    "<kineticLaw>; the identifier is not visible to other parts of the "
-    "model. (References: L2V2 Section 3.5.3.)";
-
 /** @cond doxygen-ignored */
 
 using namespace std;
 
 /** @endcond doxygen-ignored */
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+static const char* PREAMBLE =
+    "The 'id' value of a <parameter> defined within a <kineticLaw> can only "
+    "be used in 'ci' elements within the MathML content of that same "
+    "<kineticLaw>; the identifier is not visible to other parts of the "
+    "model. (References: L2V2 Section 3.5.3.)";
 
 
 /**
@@ -171,3 +173,5 @@ LocalParameterMathCheck::getMessage (const ASTNode& node, const SBase& object)
 
   return msg.str();
 }
+
+LIBSBML_CPP_NAMESPACE_END

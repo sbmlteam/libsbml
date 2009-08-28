@@ -32,6 +32,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Creates a new UniqueIdBase with the given constraint id.
@@ -123,3 +124,5 @@ UniqueIdBase::getMessage (const string& id, const SBase& object)
 
   return msg.str();
 }
+
+LIBSBML_CPP_NAMESPACE_END

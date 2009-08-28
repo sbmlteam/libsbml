@@ -39,6 +39,7 @@
 #include <sbml/validator/VConstraint.h>
 #include "IdList.h"
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class Model;
 class Compartment;
@@ -91,6 +92,7 @@ protected:
   std::vector<IdList> mCycles;
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* CompartmentOutsideCycles_h */

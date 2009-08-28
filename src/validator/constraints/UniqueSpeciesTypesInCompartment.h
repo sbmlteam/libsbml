@@ -34,6 +34,7 @@
 
 #include "IdList.h"
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class UniqueSpeciesTypesInCompartment: public TConstraint<Model>
 {
@@ -69,6 +70,7 @@ protected:
 
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* UniqueSpeciesTypesInCompartment_h */

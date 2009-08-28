@@ -35,6 +35,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 static const char* PREAMBLE =
     "The value of the 'id' field of each parameter defined locally within a "
@@ -89,3 +90,5 @@ UniqueIdsInKineticLaw::doCheck (const Model& m)
     reset();
   }
 }
+
+LIBSBML_CPP_NAMESPACE_END

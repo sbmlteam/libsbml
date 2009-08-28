@@ -35,6 +35,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 static const char* PREAMBLE =
     "An identifier used as the value of 'variable' in an <eventAssignment> "
@@ -104,3 +105,5 @@ UniqueVarsInEventsAndRules::doCheck (const Model& m)
     }
   }  
 }
+
+LIBSBML_CPP_NAMESPACE_END

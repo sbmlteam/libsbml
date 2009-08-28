@@ -48,8 +48,6 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
-
-
 // Compartment validation
 
 START_CONSTRAINT (99901, Compartment, c)
@@ -695,6 +693,5 @@ START_CONSTRAINT (99925, Unit, u)
   inv( u.getOffset() == 0 );
 }
 END_CONSTRAINT
-
 
 

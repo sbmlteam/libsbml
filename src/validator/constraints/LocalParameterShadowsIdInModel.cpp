@@ -35,7 +35,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 /**
@@ -180,3 +180,5 @@ LocalParameterShadowsIdInModel::logConflict (const Parameter& p,
   
   logFailure(p);
 }
+
+LIBSBML_CPP_NAMESPACE_END

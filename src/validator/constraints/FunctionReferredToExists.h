@@ -34,6 +34,7 @@
 
 #include "IdList.h"
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class FunctionReferredToExists: public TConstraint<Model>
 {
@@ -77,6 +78,7 @@ protected:
 
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* FunctionReferredToExists_h */

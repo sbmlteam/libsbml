@@ -52,7 +52,6 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
-
 // General XML validation
 
 // 10101: utf-8 - caught at read
@@ -81,5 +80,4 @@ EXTERN_CONSTRAINT( 10216, LocalParameterMathCheck)
 EXTERN_CONSTRAINT( 10217, NumericReturnMathCheck )
 EXTERN_CONSTRAINT( 10218, NumberArgsMathCheck )
 EXTERN_CONSTRAINT( 10219, FunctionNoArgsMathCheck )
-
 

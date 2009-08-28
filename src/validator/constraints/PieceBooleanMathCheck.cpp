@@ -38,15 +38,17 @@
 
 #include "PieceBooleanMathCheck.h"
 
-static const char* PREAMBLE =
-    "The second argument of a MathML 'piece' operator must have a boolean "
-    "value. (References: L2V2 Section 3.5.8.)";
-
 /** @cond doxygen-ignored */
 
 using namespace std;
 
 /** @endcond doxygen-ignored */
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+static const char* PREAMBLE =
+    "The second argument of a MathML 'piece' operator must have a boolean "
+    "value. (References: L2V2 Section 3.5.8.)";
 
 
 /**
@@ -156,3 +158,5 @@ PieceBooleanMathCheck::getMessage (const ASTNode& node, const SBase& object)
 
   return msg.str();
 }
+
+LIBSBML_CPP_NAMESPACE_END

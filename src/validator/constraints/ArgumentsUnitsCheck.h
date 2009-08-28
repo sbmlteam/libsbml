@@ -37,6 +37,7 @@
 
 #include "UnitsBase.h"
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class ASTNode;
 
@@ -135,6 +136,8 @@ protected:
 
 };
 
+
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* ArgumentsUnitsCheck_h */

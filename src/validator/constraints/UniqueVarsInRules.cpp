@@ -33,6 +33,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 static const char* PREAMBLE =
     "The value of the 'variable' field in all <assignmentRule> and "
@@ -87,3 +88,5 @@ UniqueVarsInRules::doCheck (const Model& m)
 {
   for (unsigned int n = 0; n < m.getNumRules(); ++n) checkId( *m.getRule(n) );
 }
+
+LIBSBML_CPP_NAMESPACE_END

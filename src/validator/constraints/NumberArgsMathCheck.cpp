@@ -38,15 +38,17 @@
 
 #include "NumberArgsMathCheck.h"
 
-static const char* PREAMBLE =
-    "A MathML operator must be supplied the number of arguments "
-    "appropriate for that operator. (References: SBML L2v3 Section 3.4.1.)";
-
 /** @cond doxygen-ignored */
 
 using namespace std;
 
 /** @endcond doxygen-ignored */
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+static const char* PREAMBLE =
+    "A MathML operator must be supplied the number of arguments "
+    "appropriate for that operator. (References: SBML L2v3 Section 3.4.1.)";
 
 
 /**
@@ -281,3 +283,5 @@ NumberArgsMathCheck::getMessage (const ASTNode& node, const SBase& object)
 
   return msg.str();
 }
+
+LIBSBML_CPP_NAMESPACE_END

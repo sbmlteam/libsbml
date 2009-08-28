@@ -33,6 +33,7 @@
 #include <sbml/validator/VConstraint.h>
 #include "IdList.h"
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class FunctionDefinition;
 
@@ -69,6 +70,7 @@ protected:
   IdList mSpecies;
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* KineticLawVars_h */

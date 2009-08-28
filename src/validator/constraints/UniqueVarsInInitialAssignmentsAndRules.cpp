@@ -35,6 +35,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 static const char* PREAMBLE =
     "The value of a 'symbol' field in any <initialAssignment> definition "
@@ -95,3 +96,5 @@ UniqueVarsInInitialAssignmentsAndRules::doCheck (const Model& m)
     
   }  
 }
+
+LIBSBML_CPP_NAMESPACE_END

@@ -36,7 +36,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 /**
@@ -140,3 +140,5 @@ FunctionReferredToExists::logUndefined ( const FunctionDefinition& fd,
   
   logFailure(fd);
 }
+
+LIBSBML_CPP_NAMESPACE_END

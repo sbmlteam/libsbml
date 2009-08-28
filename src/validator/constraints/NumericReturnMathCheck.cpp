@@ -38,18 +38,20 @@
 
 #include "NumericReturnMathCheck.h"
 
+/** @cond doxygen-ignored */
+
+using namespace std;
+
+/** @endcond doxygen-ignored */
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 static const char* PREAMBLE =
     "The MathML formulas in the following elements must yield numeric "
     "expressions: 'math' in <kineticLaw>, 'stoichiometryMath' in "
     "<speciesReference>, 'math' in <initialAssignment>, 'math' in "
     "<assignmentRule>, 'math' in <rateRule>, 'math' in <algebraicRule>, and "
     "'delay' in <event>, and 'math' in <eventAssignment>.";
-
-/** @cond doxygen-ignored */
-
-using namespace std;
-
-/** @endcond doxygen-ignored */
 
 
 /**
@@ -155,3 +157,5 @@ NumericReturnMathCheck::getMessage (const ASTNode& node, const SBase& object)
 
   return msg.str();
 }
+
+LIBSBML_CPP_NAMESPACE_END

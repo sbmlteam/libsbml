@@ -33,6 +33,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 static const char* PREAMBLE =
     "A given identifier cannot appear as the value of more than one 'symbol' "
@@ -80,3 +81,5 @@ UniqueSymbolsInInitialAssignments::doCheck (const Model& m)
   size = m.getNumInitialAssignments();
   for (n = 0; n < size; ++n) checkId( *m.getInitialAssignment(n) );
 }
+
+LIBSBML_CPP_NAMESPACE_END

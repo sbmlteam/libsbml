@@ -39,19 +39,20 @@
 
 #include "CiElementMathCheck.h"
 
-static const char* PREAMBLE =
-    "Outside of a <functionDefinition>, if a 'ci' element is not the first "
-    "element within a MathML 'apply', then the 'ci''s value can only be "
-    "chosen from the set of identifiers of <species>, <compartment>, "
-    "<parameter> or <reaction> objects defined in the SBML model. "
-    "(References: L2V2 Section 3.5.3.)";
-
 /** @cond doxygen-ignored */
 
 using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+static const char* PREAMBLE =
+    "Outside of a <functionDefinition>, if a 'ci' element is not the first "
+    "element within a MathML 'apply', then the 'ci''s value can only be "
+    "chosen from the set of identifiers of <species>, <compartment>, "
+    "<parameter> or <reaction> objects defined in the SBML model. "
+    "(References: L2V2 Section 3.5.3.)";
 
 /**
  * Creates a new Constraint with the given id.
@@ -185,3 +186,5 @@ CiElementMathCheck::getMessage (const ASTNode& node, const SBase& object)
 
   return msg.str();
 }
+
+LIBSBML_CPP_NAMESPACE_END

@@ -31,6 +31,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 static const char* PREAMBLE =
     "Every 'metaid' attribute value must be unique across the set of all "
@@ -237,3 +238,5 @@ UniqueMetaId::doCheck (const Model& m)
 
   reset();
 }
+
+LIBSBML_CPP_NAMESPACE_END

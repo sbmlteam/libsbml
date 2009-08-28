@@ -38,6 +38,14 @@
 
 #include "NumericArgsMathCheck.h"
 
+/** @cond doxygen-ignored */
+
+using namespace std;
+
+/** @endcond doxygen-ignored */
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 static const char* PREAMBLE =
     "The arguments to the following MathML constructs must have a numeric "
     "type: 'plus', 'minus', 'times', 'divide', 'power', 'root', 'abs', "
@@ -46,12 +54,6 @@ static const char* PREAMBLE =
     "'coth', 'arcsin', 'arccos', 'arctan', 'arcsec', 'arccsc', 'arccot', "
     "'arcsinh', 'arccosh', 'arctanh', 'arcsech', 'arccsch', 'arccoth'. "
     "(References: L2V2 Section 3.5.8.)";
-
-/** @cond doxygen-ignored */
-
-using namespace std;
-
-/** @endcond doxygen-ignored */
 
 
 /**
@@ -195,3 +197,5 @@ NumericArgsMathCheck::getMessage (const ASTNode& node, const SBase& object)
 
   return msg.str();
 }
+
+LIBSBML_CPP_NAMESPACE_END

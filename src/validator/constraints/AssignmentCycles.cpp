@@ -39,7 +39,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Creates a new Constraint with the given constraint id.
@@ -517,7 +517,7 @@ void
 AssignmentCycles::logMathRefersToSelf (const ASTNode * node,
                                              const SBase* object)
 {
-  char * formula = SBML_formulaToString(node);
+  char * formula = SBML_formulaToString(node);   
   msg = "The ";
 
   msg += SBMLTypeCode_toString( object->getTypeCode());
@@ -569,4 +569,6 @@ AssignmentCycles::logImplicitReference (const SBase* object,
   
   logFailure(*object);
 }
+
+LIBSBML_CPP_NAMESPACE_END
 

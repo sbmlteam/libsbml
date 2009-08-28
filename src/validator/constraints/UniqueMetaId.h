@@ -35,6 +35,7 @@
 
 #include <sbml/validator/VConstraint.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class SBase;
 class Validator;
@@ -165,6 +166,7 @@ protected:
   IdObjectMap mMetaIdObjectMap;
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* UniqueMetaId_h */

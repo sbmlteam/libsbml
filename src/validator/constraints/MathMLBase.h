@@ -36,6 +36,7 @@
 #include <sbml/util/memory.h>
 #include "IdList.h"
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class ASTNode;
 
@@ -166,6 +167,7 @@ protected:
 //void
 //ReplaceArgument(ASTNode * math, const ASTNode * bvar, ASTNode * arg);
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* MathMLBase_h */

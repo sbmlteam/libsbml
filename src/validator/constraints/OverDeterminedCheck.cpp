@@ -37,6 +37,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Creates a new Constraint with the given id.
@@ -423,8 +424,8 @@ OverDeterminedCheck::createGraph(const Model& m)
           }
         }
 
-        delete names;
-
+	delete names;
+	
       }
       mGraph[mEquations.at(eqnCount)] = joined;
       joined.clear();
@@ -649,3 +650,5 @@ OverDeterminedCheck::logOverDetermined (const Model& m, const IdList& unmatch)
 
   logFailure(m);
 }
+
+LIBSBML_CPP_NAMESPACE_END

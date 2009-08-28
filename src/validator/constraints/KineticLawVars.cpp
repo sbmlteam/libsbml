@@ -35,6 +35,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Creates a new Constraint with the given id.
@@ -121,3 +122,5 @@ KineticLawVars::logUndefined ( const Reaction& r,
   
   logFailure(r);
 }
+
+LIBSBML_CPP_NAMESPACE_END

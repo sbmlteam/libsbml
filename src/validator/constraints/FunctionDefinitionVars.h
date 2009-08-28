@@ -32,6 +32,7 @@
 #include <string>
 #include <sbml/validator/VConstraint.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class FunctionDefinition;
 
@@ -66,6 +67,7 @@ protected:
   void logUndefined (const FunctionDefinition& fd, const std::string& varname);
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* FunctionDefinitionVars_h */

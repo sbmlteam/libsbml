@@ -33,6 +33,7 @@
 
 #include "UniqueIdBase.h"
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class UniqueVarsInEventAssignments: public UniqueIdBase
 {
@@ -68,6 +69,7 @@ protected:
   virtual void doCheck (const Model& m);
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* UniqueVarsInEventAssignments_h */

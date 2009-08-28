@@ -46,7 +46,6 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-
 // General Identifier validation 
 EXTERN_CONSTRAINT( 10301, UniqueIdsInModel             )
 EXTERN_CONSTRAINT( 10302, UniqueIdsForUnitDefinitions  )

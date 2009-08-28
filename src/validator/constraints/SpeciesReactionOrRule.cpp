@@ -38,7 +38,7 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Creates a new Constraint with the given constraint id.
@@ -151,3 +151,5 @@ SpeciesReactionOrRule::logConflict (const Species& s, const Reaction& r)
   
   logFailure(s);
 }
+
+LIBSBML_CPP_NAMESPACE_END

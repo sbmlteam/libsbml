@@ -37,8 +37,6 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
-
-
 // Compartment validation
 
 START_CONSTRAINT (80501, Compartment, c)
@@ -62,6 +60,5 @@ START_CONSTRAINT (80701, Parameter, p)
   inv(p.isSetUnits() == true);
 }
 END_CONSTRAINT
-
 
 

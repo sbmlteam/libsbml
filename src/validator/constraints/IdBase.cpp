@@ -31,6 +31,8 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 
 /**
  * Creates a new IdBase with the given constraint id.
@@ -90,12 +92,12 @@ IdBase::check_ (const Model& m, const Model& object)
  * For Rules and EventAssignments, it calls getVariable() instead.
  */
 
-
-void
-IdBase::checkId (const SBase& x)
-{
-  if (x.isSetId()) doCheckId(x.getId(), x);
-}
+/* id is no longer on SBase */
+//void
+//IdBase::checkId (const SBase& x)
+//{
+////  if (x.isSetId()) doCheckId(x.getId(), x);
+//}
 
 
 void
@@ -180,6 +182,36 @@ IdBase::checkId (const EventAssignment& x)
 }
 
 
+void
+IdBase::checkId (const CompartmentType& x)
+{
+  if (x.isSetId()) doCheckId(x.getId(), x);
+}
+
+void
+IdBase::checkId (const SpeciesType& x)
+{
+  if (x.isSetId()) doCheckId(x.getId(), x);
+}
+
+void
+IdBase::checkId (const SpeciesReference& x)
+{
+  if (x.isSetId()) doCheckId(x.getId(), x);
+}
+
+void
+IdBase::checkId (const ModifierSpeciesReference& x)
+{
+  if (x.isSetId()) doCheckId(x.getId(), x);
+}
+
+void
+IdBase::checkId (const InitialAssignment& x)
+{
+  if (x.isSetSymbol()) doCheckId(x.getSymbol(), x);
+}
+
 /**
  * @return the typename of the given SBase object.
  */
@@ -199,3 +231,5 @@ IdBase::logIdConflict (const std::string& id, const SBase& object)
 {
   logFailure(object, getMessage(id, object));
 }
+
+LIBSBML_CPP_NAMESPACE_END

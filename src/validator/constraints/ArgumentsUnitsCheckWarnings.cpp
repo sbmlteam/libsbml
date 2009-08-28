@@ -50,6 +50,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Creates a new Constraint with the given id.
@@ -169,9 +170,10 @@ ArgumentsUnitsCheckWarnings::checkDimensionlessArgs (const Model& m,
     return;
   }
 
-  UnitDefinition * dim = new UnitDefinition();
+  UnitDefinition *dim = new UnitDefinition(m.getSBMLNamespaces());
+  Unit *unit = new Unit(m.getSBMLNamespaces());
+  unit->setKind(UNIT_KIND_DIMENSIONLESS);
   UnitDefinition * tempUD;
-  Unit * unit = new Unit("dimensionless");
   dim->addUnit(unit);
   
   UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
@@ -237,3 +239,5 @@ ArgumentsUnitsCheckWarnings::logInconsistentDimensionless (const ASTNode & node,
 
 }
 
+
+LIBSBML_CPP_NAMESPACE_END
