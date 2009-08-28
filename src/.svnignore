@@ -11,3 +11,4 @@ libsbml.pc
 *.a
 *.so
 *.dylib
+.libs
