@@ -2,6 +2,7 @@
 #include <sbml/SBMLTypes.h>
 
 using namespace std;
+LIBSBML_CPP_NAMESPACE_USE
 
 int
 main (int argc, char* argv[])

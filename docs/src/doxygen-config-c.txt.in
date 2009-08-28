@@ -63,6 +63,8 @@ TYPEDEF_HIDES_STRUCT   = YES
 
 PREDEFINED             = LIBSBML_EXTERN:="" \
 			 BEGIN_C_DECLS:="" \
-			 END_C_DECLS:=""
+			 END_C_DECLS:="" \
+			 LIBSBML_CPP_NAMESPACE_BEGIN:="" \
+			 LIBSBML_CPP_NAMESPACE_END:="" 
 
 #			 __cplusplus 
