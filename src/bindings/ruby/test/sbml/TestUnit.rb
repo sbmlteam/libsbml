@@ -31,7 +31,7 @@ require 'libSBML'
 class TestUnit < Test::Unit::TestCase
 
   def setup
-    @@u = LibSBML::Unit.new()
+    @@u = LibSBML::Unit.new(2,4)
     if (@@u == nil)
     end
   end
@@ -52,33 +52,20 @@ class TestUnit < Test::Unit::TestCase
     assert_equal false, @@u.isSetKind()
   end
 
-  def test_Unit_createWith
-    u = LibSBML::Unit.new(LibSBML::UNIT_KIND_SECOND,-2,1)
-    assert( u.getTypeCode() == LibSBML::SBML_UNIT )
-    assert( u.getMetaId() == "" )
-    assert( u.getNotes() == nil )
-    assert( u.getAnnotation() == nil )
-    assert( u.getKind() == LibSBML::UNIT_KIND_SECOND )
-    assert( u.getExponent() == -2 )
-    assert( u.getScale() == 1 )
-    assert( u.getMultiplier() == 1.0 )
-    assert( u.getOffset() == 0.0 )
-    assert_equal true, u.isSetKind()
-    u = nil
-  end
-
-  def test_Unit_createWithLevelVersionAndNamespace
+  def test_Unit_createWithNS
     xmlns = LibSBML::XMLNamespaces.new()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = LibSBML::Unit.new(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = LibSBML::SBMLNamespaces.new(2,1)
+    sbmlns.addNamespaces(xmlns)
+    object = LibSBML::Unit.new(sbmlns)
     assert( object.getTypeCode() == LibSBML::SBML_UNIT )
     assert( object.getMetaId() == "" )
     assert( object.getNotes() == nil )
     assert( object.getAnnotation() == nil )
     assert( object.getLevel() == 2 )
     assert( object.getVersion() == 1 )
-    assert( object.getNamespaces() != "" )
-    assert( object.getNamespaces().getLength() == 1 )
+    assert( object.getNamespaces() != nil )
+    assert( object.getNamespaces().getLength() == 2 )
     object = nil
   end
 
@@ -114,8 +101,6 @@ class TestUnit < Test::Unit::TestCase
     assert_equal true, @@u.isBecquerel()
     @@u.setKind(LibSBML::UNIT_KIND_CANDELA)
     assert_equal true, @@u.isCandela()
-    @@u.setKind(LibSBML::UNIT_KIND_CELSIUS)
-    assert_equal true, @@u.isCelsius()
     @@u.setKind(LibSBML::UNIT_KIND_COULOMB)
     assert_equal true, @@u.isCoulomb()
     @@u.setKind(LibSBML::UNIT_KIND_DIMENSIONLESS)
@@ -177,7 +162,7 @@ class TestUnit < Test::Unit::TestCase
   end
 
   def test_Unit_set_get
-    u = LibSBML::Unit.new()
+    u = LibSBML::Unit.new(2,4)
     assert( u.getKind() == LibSBML::UNIT_KIND_INVALID )
     assert( u.getExponent() == 1 )
     assert( u.getScale() == 0 )

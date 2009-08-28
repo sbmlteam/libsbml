@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Ben Bornstein 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestWriteMathML.cpp
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -159,6 +159,7 @@ namespace LibSBMLCSTest {
     double z = 0.0;
     return -1.0/z;
   }
+
 
   public bool equals(string s1, string s2)
   {

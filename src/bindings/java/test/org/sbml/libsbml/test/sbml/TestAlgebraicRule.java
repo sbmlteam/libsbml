@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestAlgebraicRule.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -52,6 +52,10 @@ public class TestAlgebraicRule {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestAlgebraicRule {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -111,7 +119,7 @@ public class TestAlgebraicRule {
 
   protected void setUp() throws Exception
   {
-    AR = new  AlgebraicRule();
+    AR = new  AlgebraicRule(2,4);
     if (AR == null);
     {
     }
@@ -136,7 +144,8 @@ public class TestAlgebraicRule {
   {
     ASTNode math;
     String formula;
-    Rule ar = new  AlgebraicRule("1 + 1");
+    Rule ar = new  AlgebraicRule(2,4);
+    ar.setFormula( "1 + 1");
     assertTrue( ar.getTypeCode() == libsbml.SBML_ALGEBRAIC_RULE );
     assertTrue( ar.getMetaId().equals("") == true );
     math = ar.getMath();
@@ -148,11 +157,25 @@ public class TestAlgebraicRule {
     ar = null;
   }
 
-  public void test_AlgebraicRule_createWithLevelVersionAndNamespace()
+  public void test_AlgebraicRule_createWithMath()
+  {
+    ASTNode math = libsbml.parseFormula("1 + 1");
+    Rule ar = new  AlgebraicRule(2,4);
+    ar.setMath(math);
+    assertTrue( ar.getTypeCode() == libsbml.SBML_ALGEBRAIC_RULE );
+    assertTrue( ar.getMetaId().equals("") == true );
+    assertTrue(ar.getFormula().equals( "1 + 1"));
+    assertTrue( !ar.getMath().equals(math) );
+    ar = null;
+  }
+
+  public void test_AlgebraicRule_createWithNS()
   {
     XMLNamespaces xmlns = new  XMLNamespaces();
-    xmlns.add( "http://www.sbml.org", "sbml");
-    Rule r = new  AlgebraicRule(2,3,xmlns);
+    xmlns.add( "http://www.sbml.org", "testsbml");
+    SBMLNamespaces sbmlns = new  SBMLNamespaces(2,3);
+    sbmlns.addNamespaces(xmlns);
+    Rule r = new  AlgebraicRule(sbmlns);
     assertTrue( r.getTypeCode() == libsbml.SBML_ALGEBRAIC_RULE );
     assertTrue( r.getMetaId().equals("") == true );
     assertTrue( r.getNotes() == null );
@@ -160,19 +183,8 @@ public class TestAlgebraicRule {
     assertTrue( r.getLevel() == 2 );
     assertTrue( r.getVersion() == 3 );
     assertTrue( r.getNamespaces() != null );
-    assertTrue( r.getNamespaces().getLength() == 1 );
+    assertTrue( r.getNamespaces().getLength() == 2 );
     r = null;
-  }
-
-  public void test_AlgebraicRule_createWithMath()
-  {
-    ASTNode math = libsbml.parseFormula("1 + 1");
-    Rule ar = new  AlgebraicRule(math);
-    assertTrue( ar.getTypeCode() == libsbml.SBML_ALGEBRAIC_RULE );
-    assertTrue( ar.getMetaId().equals("") == true );
-    assertTrue(ar.getFormula().equals( "1 + 1"));
-    assertTrue( !ar.getMath().equals(math) );
-    ar = null;
   }
 
   public void test_AlgebraicRule_free_NULL()

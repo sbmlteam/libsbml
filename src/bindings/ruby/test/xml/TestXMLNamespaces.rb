@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Michael Hucka <mhucka@caltech.edu> 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestXMLNamespaces.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -58,9 +58,30 @@ class TestXMLNamespaces < Test::Unit::TestCase
     assert( !( @@ns.getIndex( "http://test1.org/") == -1) )
   end
 
+  def test_XMLNamespaces_add1
+    assert( @@ns.getLength() == 0 )
+    assert( @@ns.isEmpty() == true )
+    i = @@ns.add( "http://test1.org/", "test1")
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( @@ns.getLength() == 1 )
+    assert( @@ns.isEmpty() == false )
+  end
+
   def test_XMLNamespaces_baseline
     assert( @@ns.getLength() == 0 )
     assert( @@ns.isEmpty() == true )
+  end
+
+  def test_XMLNamespaces_clear
+    @@ns.add( "http://test1.org/", "test1")
+    @@ns.add( "http://test2.org/", "test2")
+    @@ns.add( "http://test3.org/", "test3")
+    @@ns.add( "http://test4.org/", "test4")
+    @@ns.add( "http://test5.org/", "test5")
+    assert( @@ns.getLength() == 5 )
+    i = @@ns.clear()
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( @@ns.getLength() == 0 )
   end
 
   def test_XMLNamespaces_get
@@ -135,6 +156,24 @@ class TestXMLNamespaces < Test::Unit::TestCase
     @@ns.remove(0)
     assert( @@ns.getLength() == 1 )
     @@ns.remove(0)
+    assert( @@ns.getLength() == 0 )
+  end
+
+  def test_XMLNamespaces_remove1
+    @@ns.add( "http://test1.org/", "test1")
+    @@ns.add( "http://test2.org/", "test2")
+    assert( @@ns.getLength() == 2 )
+    i = @@ns.remove(4)
+    assert( i == LibSBML::LIBSBML_INDEX_EXCEEDS_SIZE )
+    assert( @@ns.getLength() == 2 )
+    i = @@ns.remove( "test4")
+    assert( i == LibSBML::LIBSBML_INDEX_EXCEEDS_SIZE )
+    assert( @@ns.getLength() == 2 )
+    i = @@ns.remove(1)
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( @@ns.getLength() == 1 )
+    i = @@ns.remove( "test1")
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
     assert( @@ns.getLength() == 0 )
   end
 

@@ -56,6 +56,8 @@ libraries = _libsbml.$(PYTHON_EXT)
 ifeq "$(HOST_TYPE)" "darwin"
   macosx_version=$(shell sw_vers -productVersion | cut -d"." -f1,2)
   export MACOSX_DEPLOYMENT_TARGET=${macosx_version}
+%.so: $(patsubst %.cpp, %.lo, $(patsubst %.c, %.lo, $(sources)))
+	$(call link_dl_lib,$@)
 endif
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
@@ -76,12 +78,8 @@ ifeq "$(HOST_TYPE)" "darwin"
   extra_CPPFLAGS += -Wno-long-double
 endif
 
-#
-# -L../../ option appears first in command-line to always link
-# with the libSBML's shared library file in the relative path.
-#
-extra_LDFLAGS  = -L../../ $(PYTHON_LDFLAGS)
-extra_LIBS     = -lsbml $(PYTHON_LIBS)
+extra_LDFLAGS  = $(PYTHON_LDFLAGS) 
+extra_LIBS     = ../../libsbml.la $(PYTHON_LIBS)
 
 ifdef USE_EXPAT
   extra_CPPFLAGS += @EXPAT_CPPFLAGS@ 
@@ -126,10 +124,7 @@ endif
 
 distfiles =                                     \
             Makefile.in                         \
-            Python_binding_Win32_expat.vcproj   \
-            Python_binding_Win32.vcproj         \
             test.py                             \
-            createInclude.bat                   \
             layout_local.i                      \
             libsbml.i                           \
             libsbml.py                          \
@@ -152,9 +147,9 @@ extra_distclean = libsbml.pyc setup.py
 # -----------------------------------------------------------------------------
 
 .SUFFIXES:
-.SUFFIXES: .i .cpp .py .pyc .pyo .o .obj
+.SUFFIXES: .i .cpp .py .pyc .pyo .o .obj .lo .la
 
-objfiles = libsbml_wrap.$(OBJEXT)
+objfiles = libsbml_wrap.lo
 test_objfiles = $(objfiles)
 
 # The default action is to remake everything.
@@ -220,6 +215,19 @@ endif # USE_SWIG
 
 # The next target is for forcing re-swigging.
 
+#
+# (NOTE: 2009-08-15) 
+#
+# In SWIG 1.3.39, a compilation error can happen in SWIG-generated code 
+# (libsbml_wrap.cpp) when built with Python 3.x on 64bit platform.
+# To avoid this problem, a cast code (int* -> Py_ssize_t*) is added
+# to the 3rd argument of PyBytes_AsStringAndSize() function call
+# in the file by using sed command in the following ifdef USE_SWIG
+# block.
+#
+# (2009-08-18: The above problem has been fixed in SWIG 1.3.40)
+#
+
 swigfiles:
 ifdef USE_SWIG
 	../swig/swigdoc.py python -I../.. -D../../../docs/src ../swig/libsbml.i pydoc.i
@@ -229,6 +237,12 @@ ifdef USE_SWIG
 	mv libsbml.py libsbml.pyc
 	echo 'from __future__ import generators' > libsbml.py
 	cat libsbml.pyc >> libsbml.py
+	if $(SWIG) -version | grep -q '1.3.39' ; then \
+	mv libsbml_wrap.cpp libsbml_wrap.cpp.org; \
+	sed -e \
+	's/PyBytes_AsStringAndSize(str, \&cstr, \&len);/PyBytes_AsStringAndSize(str, \&cstr, (Py_ssize_t*)\&len);/' \
+	libsbml_wrap.cpp.org > libsbml_wrap.cpp; \
+	fi 	
 else
 	echo "Reconfigure --with-swig in order to rebuild libsbml_wrap.cpp"
 	exit 1

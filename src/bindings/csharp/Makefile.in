@@ -102,13 +102,9 @@ extra_CPPFLAGS    = $(CSHARP_CPPFLAGS) -I../swig
 SWIGFLAGS        += $(CSHARP_SWIGFLAGS) -I../swig 
 SWIGFLAGS_WIN     = -DSWIGWIN -DSWIG_CSHARP_NO_WSTRING_HELPER
 
-#
-# -L../../ option appears first in command-line to always link
-# with the libSBML's shared library file in the relative path.
-#
-extra_LDFLAGS     = -L../../ $(CSHARP_LDFLAGS)
+extra_LDFLAGS     = $(CSHARP_LDFLAGS)
 
-extra_LIBS        = -lsbml 
+extra_LIBS        = ../../libsbml.la
 
 ifdef USE_EXPAT
   extra_CPPFLAGS += @EXPAT_CPPFLAGS@
@@ -167,20 +163,7 @@ csharp_files_win = $(wildcard $(outpath_win)/*.cs)
 csharp_files_win += libsbml_wrap-win.cpp
 
 vs2005_files = \
-  CSharp_binding_win32-xerces.sln  CSharp_binding_win32-xerces.vcproj \
-  CSharp_binding_win32-expat.sln CSharp_binding_win32-expat.vcproj \
-  CSharp_binding_win32-libxml.sln CSharp_binding_win32-libxml.vcproj \
-  CSharp_binding_TestRW.csproj CSharp_binding_cspDLL.csproj \
-  LibSBMLCSTestRunner-vs2005.csproj  LibSBMLCSTestRunner-vs2005.sln \
   $(assembly_info_source) $(assembly_info_source_tr)
-
-vs2003_files = \
-  CSharp_binding_win32-xerces-vs2003.sln  CSharp_binding_win32-xerces-vs2003.vcproj \
-  CSharp_binding_win32-expat-vs2003.sln CSharp_binding_win32-expat-vs2003.vcproj \
-  CSharp_binding_win32-libxml-vs2003.sln CSharp_binding_win32-libxml-vs2003.vcproj \
-  CSharp_binding_TestRW-vs2003.csproj CSharp_binding_cspDLL-vs2003.csproj 
-
-win_bat_files = createInclude.bat runTestRunner.bat runTestRW.bat
 
 # `distfiles' determines the files and directories included in a
 # distribution.  The strategy here is that we include the output of SWIG
@@ -189,7 +172,7 @@ win_bat_files = createInclude.bat runTestRunner.bat runTestRW.bat
 
 distfiles   = $(sources) $(extra_sources) $(check_sources) \
   00README.txt Makefile.in $(csharp_files) $(csharp_files_win) \
-  $(vs2003_files) $(vs2005_files) $(win_bat_files)
+  $(vs2005_files)
 
 tmpfiles = $(wildcard test*.xml*)
 
@@ -221,6 +204,12 @@ main_sources = \
 
 ifeq "$(HOST_TYPE)" "darwin"
   platform_link_flags = -bundle
+  # environment variable MACOSX_DEPLOYMENT_TARGET must be set to 10.3 or later
+  # to use -undefined dynamic_lookup.
+  macosx_version=$(shell sw_vers -productVersion | cut -d"." -f1,2)
+  export MACOSX_DEPLOYMENT_TARGET=${macosx_version}
+%.$(CSHARP_EXT): $(patsubst %.cpp, %.lo, $(patsubst %.c, %.lo, $(sources)))
+	$(call link_dl_lib,$@)
 endif
 
 # 
@@ -262,7 +251,7 @@ endif
 # build directives of `makefile-common-actions.mk'.
 
 .SUFFIXES:
-.SUFFIXES: .i .cpp .h .cs .dll .o .obj .so .dylib
+.SUFFIXES: .i .cpp .h .cs .dll .o .obj .so .dylib .lo .la
 
 # The default action is to remake everything.
 

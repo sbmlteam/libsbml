@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestParameterRule.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -52,6 +52,10 @@ public class TestParameterRule {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestParameterRule {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -111,7 +119,7 @@ public class TestParameterRule {
 
   protected void setUp() throws Exception
   {
-    PR = new  AssignmentRule();
+    PR = new  AssignmentRule(1,2);
     PR.setL1TypeCode(libsbml.SBML_PARAMETER_RULE);
     if (PR == null);
     {
@@ -135,24 +143,6 @@ public class TestParameterRule {
     assertTrue( PR.getType() == libsbml.RULE_TYPE_SCALAR );
     assertEquals( false, PR.isSetVariable() );
     assertEquals( false, PR.isSetUnits() );
-  }
-
-  public void test_ParameterRule_createWith()
-  {
-    Rule pr;
-    pr = new  RateRule("c", "v + 1");
-    pr.setL1TypeCode(libsbml.SBML_PARAMETER_RULE);
-    assertTrue( pr.getTypeCode() == libsbml.SBML_RATE_RULE );
-    assertTrue( pr.getL1TypeCode() == libsbml.SBML_PARAMETER_RULE );
-    assertTrue( pr.getNotes() == null );
-    assertTrue( pr.getAnnotation() == null );
-    assertTrue( pr.getUnits().equals("") == true );
-    assertTrue(pr.getFormula().equals( "v + 1"));
-    assertTrue(pr.getVariable().equals( "c"));
-    assertTrue( pr.getType() == libsbml.RULE_TYPE_RATE );
-    assertEquals( true, pr.isSetVariable() );
-    assertEquals( false, pr.isSetUnits() );
-    pr = null;
   }
 
   public void test_ParameterRule_free_NULL()

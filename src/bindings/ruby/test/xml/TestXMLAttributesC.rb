@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Sarah Keating 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestXMLAttributesC.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -29,6 +29,23 @@ require 'test/unit'
 require 'libSBML'
 
 class TestXMLAttributesC < Test::Unit::TestCase
+
+  def test_XMLAttributes_add1
+    xa = LibSBML::XMLAttributes.new()
+    xt2 = LibSBML::XMLTriple.new("name2", "http://name2.org/", "p2")
+    i = xa.add( "name1", "val1", "http://name1.org/", "p1")
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    i = xa.add(xt2, "val2")
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( xa.getLength() == 2 )
+    assert( xa.isEmpty() == false )
+    i = xa.add( "noprefix", "val3")
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( xa.getLength() == 3 )
+    assert( xa.isEmpty() == false )
+    xa = nil
+    xt2 = nil
+  end
 
   def test_XMLAttributes_add_remove_qname_C
     xa = LibSBML::XMLAttributes.new()
@@ -146,6 +163,52 @@ class TestXMLAttributesC < Test::Unit::TestCase
     xt3 = nil
     xt1a = nil
     xt2a = nil
+  end
+
+  def test_XMLAttributes_clear1
+    xa = LibSBML::XMLAttributes.new()
+    xt2 = LibSBML::XMLTriple.new("name2", "http://name2.org/", "p2")
+    i = xa.add( "name1", "val1", "http://name1.org/", "p1")
+    i = xa.add(xt2, "val2")
+    i = xa.add( "noprefix", "val3")
+    assert( xa.getLength() == 3 )
+    assert( xa.isEmpty() == false )
+    i = xa.clear()
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( xa.getLength() == 0 )
+    assert( xa.isEmpty() == true )
+    xa = nil
+    xt2 = nil
+  end
+
+  def test_XMLAttributes_remove1
+    xa = LibSBML::XMLAttributes.new()
+    xt2 = LibSBML::XMLTriple.new("name2", "http://name2.org/", "p2")
+    i = xa.add( "name1", "val1", "http://name1.org/", "p1")
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    i = xa.add(xt2, "val2")
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    i = xa.add( "noprefix", "val3")
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    i = xa.add( "name4", "val4", "http://name4.org/", "p1")
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( xa.getLength() == 4 )
+    i = xa.remove(4)
+    assert( i == LibSBML::LIBSBML_INDEX_EXCEEDS_SIZE )
+    i = xa.remove(3)
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( xa.getLength() == 3 )
+    i = xa.remove( "noprefix")
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( xa.getLength() == 2 )
+    i = xa.remove(xt2)
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( xa.getLength() == 1 )
+    i = xa.remove( "name1", "http://name1.org/")
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( xa.getLength() == 0 )
+    xa = nil
+    xt2 = nil
   end
 
 end

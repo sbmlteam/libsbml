@@ -803,14 +803,13 @@ SWIGCS_EQUALS(Date)
 SWIGCS_EQUALS(ModelHistory)
 SWIGCS_EQUALS(ModelCreator)
 SWIGCS_EQUALS(XMLNamespaces)
+SWIGCS_EQUALS(SBMLNamespaces)
 SWIGCS_EQUALS(XMLAttributes)
 SWIGCS_EQUALS(XMLToken)
 SWIGCS_EQUALS(XMLNode)
 SWIGCS_EQUALS(XMLError)
 SWIGCS_EQUALS(XMLErrorLog)
-SWIGCS_EQUALS(XMLHandler)
 SWIGCS_EQUALS(XMLOutputStream)
-SWIGCS_EQUALS(XMLInputStream)
 
 
 /**
@@ -946,6 +945,126 @@ COVARIANT_RTYPE_LISTOF_GET_REMOVE(SpeciesReferenceGlyph)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(TextGlyph)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(CompartmentGlyph)
 #endif
+
+
+/**
+ * Wraps the SBMLConstructorException
+ *
+ * The SBMLConstructorException (C++ class) is wrapped as the 
+ * SBMLConsturctorException (C# class) which is derived from
+ * the built-in ArgumentException class.
+ *
+ * For example, the exception can be catched in C# code as follows:
+ *
+ * ---------------------------------------------
+ *  try
+ *  {
+ *    Model m = new Model(level,version);
+ *  }
+ *  catch (SBMLConstructorException e)
+ *  {
+ *     string errmsg = e.Message;
+ *  }
+ * ---------------------------------------------
+ */
+
+%typemap(csbase) SBMLConstructorException "System.ArgumentException";
+%typemap(cscode) SBMLConstructorException 
+%{
+  internal SBMLConstructorException(IntPtr cPtr, bool cMemoryOwn, string v) : base(v)
+  {
+    swigCMemOwn = cMemoryOwn;
+    swigCPtr    = new HandleRef(this, cPtr);
+  }
+
+  public SBMLConstructorException(string v) : 
+   this(libsbmlPINVOKE.new_SBMLConstructorException(), true, v) 
+  {}
+%}
+
+//
+// cited from SWIG and C# manual ("18.4.4 Custom C# ApplicationException example")
+// in http://www.swig.org/
+// 
+%insert(runtime) %{
+  // Code to handle throwing of C# CustomApplicationException from C/C++ code.
+  // The equivalent delegate to the callback, CSharpExceptionCallback_t, is CustomExceptionDelegate
+  // and the equivalent customExceptionCallback instance is customDelegate
+  typedef void (SWIGSTDCALL* CSharpExceptionCallback_t)(const char *);
+  CSharpExceptionCallback_t customExceptionCallback = NULL;
+
+  extern "C" SWIGEXPORT
+  void SWIGSTDCALL CustomExceptionRegisterCallback(CSharpExceptionCallback_t customCallback) {
+    customExceptionCallback = customCallback;
+  }
+
+  // Note that SWIG detects any method calls named starting with
+  // SWIG_CSharpSetPendingException for warning 845
+  static void SWIG_CSharpSetPendingExceptionCustom(const char *msg) {
+    customExceptionCallback(msg);
+  }
+%}
+
+%pragma(csharp) imclasscode=%{
+  class CustomExceptionHelper {
+    // C# delegate for the C/C++ customExceptionCallback
+    public delegate void CustomExceptionDelegate(string message);
+    static CustomExceptionDelegate customDelegate =
+                                   new CustomExceptionDelegate(SetPendingCustomException);
+
+    [DllImport("$dllimport", EntryPoint="CustomExceptionRegisterCallback")]
+    public static extern
+           void CustomExceptionRegisterCallback(CustomExceptionDelegate customCallback);
+
+    static void SetPendingCustomException(string message) {
+      SWIGPendingException.Set(new SBMLConstructorException(message));
+    }
+
+    static CustomExceptionHelper() {
+      CustomExceptionRegisterCallback(customDelegate);
+    }
+  }
+  static CustomExceptionHelper exceptionHelper = new CustomExceptionHelper();
+%}
+
+
+%define SBMLCONSTRUCTOR_EXCEPTION(SBASE_CLASS_NAME)
+%exception SBASE_CLASS_NAME
+%{
+  try {
+    $action
+  }
+  catch (const SBMLConstructorException &e) {
+    SWIG_CSharpSetPendingExceptionCustom(e.what());
+  }
+%}
+%enddef
+
+
+SBMLCONSTRUCTOR_EXCEPTION(Compartment)
+SBMLCONSTRUCTOR_EXCEPTION(CompartmentType)
+SBMLCONSTRUCTOR_EXCEPTION(Constraint)
+SBMLCONSTRUCTOR_EXCEPTION(Delay)
+SBMLCONSTRUCTOR_EXCEPTION(Event)
+SBMLCONSTRUCTOR_EXCEPTION(EventAssignment)
+SBMLCONSTRUCTOR_EXCEPTION(FunctionDefinition)
+SBMLCONSTRUCTOR_EXCEPTION(InitialAssignment)
+SBMLCONSTRUCTOR_EXCEPTION(KineticLaw)
+SBMLCONSTRUCTOR_EXCEPTION(Model)
+SBMLCONSTRUCTOR_EXCEPTION(Parameter)
+SBMLCONSTRUCTOR_EXCEPTION(Reaction)
+SBMLCONSTRUCTOR_EXCEPTION(AssignmentRule)
+SBMLCONSTRUCTOR_EXCEPTION(AlgebraicRule)
+SBMLCONSTRUCTOR_EXCEPTION(RateRule)
+SBMLCONSTRUCTOR_EXCEPTION(Species)
+SBMLCONSTRUCTOR_EXCEPTION(SpeciesReference)
+SBMLCONSTRUCTOR_EXCEPTION(ModifierSpeciesReference)
+SBMLCONSTRUCTOR_EXCEPTION(SpeciesType)
+SBMLCONSTRUCTOR_EXCEPTION(StoichiometryMath)
+SBMLCONSTRUCTOR_EXCEPTION(Trigger)
+SBMLCONSTRUCTOR_EXCEPTION(Unit)
+SBMLCONSTRUCTOR_EXCEPTION(UnitDefinition)
+
 
 
 /**
@@ -1150,6 +1269,7 @@ COVARIANT_RTYPE_LISTOF_GET_REMOVE(CompartmentGlyph)
   public static readonly OStream cerr = new OStream(OStream.CERR); 
   public static readonly OStream clog = new OStream(OStream.CLOG); 
 %}
+
 
 /**
  *  Wraps the following functions by using the corresponding

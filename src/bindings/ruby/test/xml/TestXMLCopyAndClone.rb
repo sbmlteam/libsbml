@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Ben Bornstein 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestCopyAndClone.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -80,8 +80,9 @@ class TestXMLCopyAndClone < Test::Unit::TestCase
   end
 
   def test_Node_assignmentOperator
+    att = LibSBML::XMLAttributes.new()
     t = LibSBML::XMLTriple.new("sarah", "http://foo.org/", "bar")
-    token = LibSBML::XMLToken.new(t,3,4)
+    token = LibSBML::XMLToken.new(t,att,3,4)
     node = LibSBML::XMLNode.new(token)
     child = LibSBML::XMLNode.new()
     node.addChild(child)
@@ -90,7 +91,7 @@ class TestXMLCopyAndClone < Test::Unit::TestCase
     assert( node.getURI() ==  "http://foo.org/" )
     assert( node.getPrefix() ==  "bar" )
     assert( node.isEnd() == false )
-    assert( node.isEOF() == true )
+    assert( node.isEOF() == false )
     assert( node.getLine() == 3 )
     assert( node.getColumn() == 4 )
     node2 = LibSBML::XMLNode.new()
@@ -100,7 +101,7 @@ class TestXMLCopyAndClone < Test::Unit::TestCase
     assert( node2.getURI() ==  "http://foo.org/" )
     assert( node2.getPrefix() ==  "bar" )
     assert( node2.isEnd() == false )
-    assert( node2.isEOF() == true )
+    assert( node2.isEOF() == false )
     assert( node2.getLine() == 3 )
     assert( node2.getColumn() == 4 )
     t = nil
@@ -110,8 +111,9 @@ class TestXMLCopyAndClone < Test::Unit::TestCase
   end
 
   def test_Node_clone
+    att = LibSBML::XMLAttributes.new()
     t = LibSBML::XMLTriple.new("sarah", "http://foo.org/", "bar")
-    token = LibSBML::XMLToken.new(t,3,4)
+    token = LibSBML::XMLToken.new(t,att,3,4)
     node = LibSBML::XMLNode.new(token)
     child = LibSBML::XMLNode.new()
     node.addChild(child)
@@ -120,7 +122,7 @@ class TestXMLCopyAndClone < Test::Unit::TestCase
     assert( node.getURI() ==  "http://foo.org/" )
     assert( node.getPrefix() ==  "bar" )
     assert( node.isEnd() == false )
-    assert( node.isEOF() == true )
+    assert( node.isEOF() == false )
     assert( node.getLine() == 3 )
     assert( node.getColumn() == 4 )
     node2 = node.clone()
@@ -129,7 +131,7 @@ class TestXMLCopyAndClone < Test::Unit::TestCase
     assert( node2.getURI() ==  "http://foo.org/" )
     assert( node2.getPrefix() ==  "bar" )
     assert( node2.isEnd() == false )
-    assert( node2.isEOF() == true )
+    assert( node2.isEOF() == false )
     assert( node2.getLine() == 3 )
     assert( node2.getColumn() == 4 )
     t = nil
@@ -139,8 +141,9 @@ class TestXMLCopyAndClone < Test::Unit::TestCase
   end
 
   def test_Node_copyConstructor
+    att = LibSBML::XMLAttributes.new()
     t = LibSBML::XMLTriple.new("sarah", "http://foo.org/", "bar")
-    token = LibSBML::XMLToken.new(t,3,4)
+    token = LibSBML::XMLToken.new(t,att,3,4)
     node = LibSBML::XMLNode.new(token)
     child = LibSBML::XMLNode.new()
     node.addChild(child)
@@ -149,7 +152,7 @@ class TestXMLCopyAndClone < Test::Unit::TestCase
     assert( node.getURI() ==  "http://foo.org/" )
     assert( node.getPrefix() ==  "bar" )
     assert( node.isEnd() == false )
-    assert( node.isEOF() == true )
+    assert( node.isEOF() == false )
     assert( node.getLine() == 3 )
     assert( node.getColumn() == 4 )
     node2 = LibSBML::XMLNode.new(node)
@@ -158,7 +161,7 @@ class TestXMLCopyAndClone < Test::Unit::TestCase
     assert( node2.getURI() ==  "http://foo.org/" )
     assert( node2.getPrefix() ==  "bar" )
     assert( node2.isEnd() == false )
-    assert( node2.isEOF() == true )
+    assert( node2.isEOF() == false )
     assert( node2.getLine() == 3 )
     assert( node2.getColumn() == 4 )
     t = nil

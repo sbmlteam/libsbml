@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Ben Bornstein 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestModifierSpeciesReference.c
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -58,6 +58,10 @@ namespace LibSBMLCSTest {
       {
         return;
       }
+      else if ( (a == null) || (b == null) )
+      {
+        throw new AssertionError();
+      }
       else if (a.Equals(b))
       {
         return;
@@ -71,6 +75,10 @@ namespace LibSBMLCSTest {
       if ( (a == null) && (b == null) )
       {
         throw new AssertionError();
+      }
+      else if ( (a == null) || (b == null) )
+      {
+        return;
       }
       else if (a.Equals(b))
       {
@@ -118,7 +126,7 @@ namespace LibSBMLCSTest {
 
     public void setUp()
     {
-      MSR = new  ModifierSpeciesReference();
+      MSR = new  ModifierSpeciesReference(2,4);
       if (MSR == null);
       {
       }
@@ -140,11 +148,13 @@ namespace LibSBMLCSTest {
       assertEquals( true, MSR.isModifier() );
     }
 
-    public void test_ModifierSpeciesReference_createWithLevelVersionAndNamespace()
+    public void test_ModifierSpeciesReference_createWithNS()
     {
       XMLNamespaces xmlns = new  XMLNamespaces();
-      xmlns.add( "http://www.sbml.org", "sbml");
-      SimpleSpeciesReference object1 = new  ModifierSpeciesReference(2,1,xmlns);
+      xmlns.add( "http://www.sbml.org", "testsbml");
+      SBMLNamespaces sbmlns = new  SBMLNamespaces(2,1);
+      sbmlns.addNamespaces(xmlns);
+      ModifierSpeciesReference object1 = new  ModifierSpeciesReference(sbmlns);
       assertTrue( object1.getTypeCode() == libsbml.SBML_MODIFIER_SPECIES_REFERENCE );
       assertTrue( object1.getMetaId() == "" );
       assertTrue( object1.getNotes() == null );
@@ -152,7 +162,7 @@ namespace LibSBMLCSTest {
       assertTrue( object1.getLevel() == 2 );
       assertTrue( object1.getVersion() == 1 );
       assertTrue( object1.getNamespaces() != null );
-      assertTrue( object1.getNamespaces().getLength() == 1 );
+      assertTrue( object1.getNamespaces().getLength() == 2 );
       object1 = null;
     }
 

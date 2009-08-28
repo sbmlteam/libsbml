@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Sarah Keating 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestCVTerms.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -56,9 +56,10 @@ class TestCVTerms < Test::Unit::TestCase
     li_triple = LibSBML::XMLTriple.new()
     att = LibSBML::XMLAttributes.new()
     att.add( "", "This is my resource")
+    att1 = LibSBML::XMLAttributes.new()
     li_token = LibSBML::XMLToken.new(li_triple,att)
-    bag_token = LibSBML::XMLToken.new(bag_triple)
-    qual_token = LibSBML::XMLToken.new(qual_triple)
+    bag_token = LibSBML::XMLToken.new(bag_triple,att1)
+    qual_token = LibSBML::XMLToken.new(qual_triple,att1)
     li = LibSBML::XMLNode.new(li_token)
     bag = LibSBML::XMLNode.new(bag_token)
     node = LibSBML::XMLNode.new(qual_token)
@@ -79,6 +80,7 @@ class TestCVTerms < Test::Unit::TestCase
     bag_token = nil
     qual_token = nil
     att = nil
+    att1 = nil
     term = nil
     node = nil
     bag = nil

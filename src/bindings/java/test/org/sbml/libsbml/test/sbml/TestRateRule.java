@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestRateRule.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -52,6 +52,10 @@ public class TestRateRule {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestRateRule {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -111,7 +119,7 @@ public class TestRateRule {
 
   protected void setUp() throws Exception
   {
-    RR = new  RateRule();
+    RR = new  RateRule(1,2);
     if (RR == null);
     {
     }
@@ -134,28 +142,13 @@ public class TestRateRule {
     assertTrue( RR.getType() == libsbml.RULE_TYPE_RATE );
   }
 
-  public void test_RateRule_createWithFormula()
-  {
-    ASTNode math;
-    String formula;
-    Rule ar = new  RateRule("s", "1 + 1");
-    assertTrue( ar.getTypeCode() == libsbml.SBML_RATE_RULE );
-    assertTrue( ar.getMetaId().equals("") == true );
-    assertTrue(ar.getVariable().equals( "s"));
-    math = ar.getMath();
-    assertTrue( math != null );
-    formula = libsbml.formulaToString(math);
-    assertTrue( formula != null );
-    assertTrue(formula.equals( "1 + 1"));
-    assertTrue(ar.getFormula().equals(formula));
-    ar = null;
-  }
-
-  public void test_RateRule_createWithLevelVersionAndNamespace()
+  public void test_RateRule_createWithNS()
   {
     XMLNamespaces xmlns = new  XMLNamespaces();
-    xmlns.add( "http://www.sbml.org", "sbml");
-    Rule object = new  RateRule(2,1,xmlns);
+    xmlns.add( "http://www.sbml.org", "testsbml");
+    SBMLNamespaces sbmlns = new  SBMLNamespaces(2,1);
+    sbmlns.addNamespaces(xmlns);
+    Rule object = new  RateRule(sbmlns);
     assertTrue( object.getTypeCode() == libsbml.SBML_RATE_RULE );
     assertTrue( object.getMetaId().equals("") == true );
     assertTrue( object.getNotes() == null );
@@ -163,20 +156,8 @@ public class TestRateRule {
     assertTrue( object.getLevel() == 2 );
     assertTrue( object.getVersion() == 1 );
     assertTrue( object.getNamespaces() != null );
-    assertTrue( object.getNamespaces().getLength() == 1 );
+    assertTrue( object.getNamespaces().getLength() == 2 );
     object = null;
-  }
-
-  public void test_RateRule_createWithMath()
-  {
-    ASTNode math = libsbml.parseFormula("1 + 1");
-    Rule ar = new  RateRule("s",math);
-    assertTrue( ar.getTypeCode() == libsbml.SBML_RATE_RULE );
-    assertTrue( ar.getMetaId().equals("") == true );
-    assertTrue(ar.getVariable().equals( "s"));
-    assertTrue(ar.getFormula().equals( "1 + 1"));
-    assertTrue( !ar.getMath().equals(math) );
-    ar = null;
   }
 
   public void test_RateRule_free_NULL()

@@ -74,9 +74,12 @@ my @MiscClassList = (
 
 my $lo = new LibSBML::ListOf;
 
+my $level   = LibSBML::SBMLDocument::getDefaultLevel();
+my $version = LibSBML::SBMLDocument::getDefaultVersion();
+
 foreach my $class ( map { "LibSBML::" . $_ } @SBaseClassList )
 {
-   my $obj = new $class;
+   my $obj = ($class !~ /ListOf/) ? new $class($level,$version) : new $class;
    ok(&isOwned($obj), 1);
    ok(ref $obj, $class);
    my $clone = &checkClone($obj,ref($obj));

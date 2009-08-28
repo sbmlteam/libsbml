@@ -1,12 +1,12 @@
 #
 # @file    TestAnnotationCopyAndClone.rb
-# @brief   Read SBML unit tests
+# @brief   Test the copy and clone methods for annotation classes
 #
 # @author  Akiya Jouraku (Ruby conversion)
-# @author  Ben Bornstein 
+# @author  Sarah Keating 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestCopyAndClone.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -150,6 +150,7 @@ class TestAnnotationCopyAndClone < Test::Unit::TestCase
   def test_ModelHistory_assignmentOperator
     mh = LibSBML::ModelHistory.new()
     mc = LibSBML::ModelCreator.new()
+    mc.setGivenName("Sarah")
     mc.setFamilyName("Keating")
     mc.setEmail("sbml-team@caltech.edu")
     mh.addCreator(mc)
@@ -173,6 +174,7 @@ class TestAnnotationCopyAndClone < Test::Unit::TestCase
     mh = LibSBML::ModelHistory.new()
     mc = LibSBML::ModelCreator.new()
     mc.setFamilyName("Keating")
+    mc.setGivenName("Sarah")
     mc.setEmail("sbml-team@caltech.edu")
     mh.addCreator(mc)
     mc = nil
@@ -194,6 +196,7 @@ class TestAnnotationCopyAndClone < Test::Unit::TestCase
     mh = LibSBML::ModelHistory.new()
     mc = LibSBML::ModelCreator.new()
     mc.setFamilyName("Keating")
+    mc.setGivenName("Sarah")
     mc.setEmail("sbml-team@caltech.edu")
     mh.addCreator(mc)
     mc = nil

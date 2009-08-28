@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Ben Bornstein 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestSpeciesConcentrationRule.c
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -58,6 +58,10 @@ namespace LibSBMLCSTest {
       {
         return;
       }
+      else if ( (a == null) || (b == null) )
+      {
+        throw new AssertionError();
+      }
       else if (a.Equals(b))
       {
         return;
@@ -71,6 +75,10 @@ namespace LibSBMLCSTest {
       if ( (a == null) && (b == null) )
       {
         throw new AssertionError();
+      }
+      else if ( (a == null) || (b == null) )
+      {
+        return;
       }
       else if (a.Equals(b))
       {
@@ -118,7 +126,7 @@ namespace LibSBMLCSTest {
 
     public void setUp()
     {
-      SCR = new  AssignmentRule();
+      SCR = new  AssignmentRule(1,2);
       SCR.setL1TypeCode(libsbml.SBML_SPECIES_CONCENTRATION_RULE);
       if (SCR == null);
       {
@@ -140,22 +148,6 @@ namespace LibSBMLCSTest {
       assertTrue( SCR.getType() == libsbml.RULE_TYPE_SCALAR );
       assertTrue( SCR.getVariable() == "" );
       assertEquals( false, SCR.isSetVariable() );
-    }
-
-    public void test_SpeciesConcentrationRule_createWith()
-    {
-      Rule scr;
-      scr = new  RateRule("c", "v + 1");
-      scr.setL1TypeCode(libsbml.SBML_SPECIES_CONCENTRATION_RULE);
-      assertTrue( scr.getTypeCode() == libsbml.SBML_RATE_RULE );
-      assertTrue( scr.getL1TypeCode() == libsbml.SBML_SPECIES_CONCENTRATION_RULE );
-      assertTrue( scr.getNotes() == null );
-      assertTrue( scr.getAnnotation() == null );
-      assertTrue((  "v + 1" == scr.getFormula() ));
-      assertTrue((  "c" == scr.getVariable() ));
-      assertTrue( scr.getType() == libsbml.RULE_TYPE_RATE );
-      assertEquals( true, scr.isSetVariable() );
-      scr = null;
     }
 
     public void test_SpeciesConcentrationRule_free_NULL()

@@ -50,6 +50,10 @@ def util_NegInf():
 
   return -z 
 
+def wrapString(s):
+  return s
+  pass
+
 def MATHML_FOOTER():
   return "</math>"
   pass
@@ -62,11 +66,7 @@ def XML_HEADER():
   return "<?xml version='1.0' encoding='UTF-8'?>\n"
   pass
 
-def test_isnan(x):
-  # for Python 2.3.x
-  if x == util_NaN():
-    return True
-  # for Python 2.4.x or later
+def isnan(x):
   return (x != x)
   pass
 
@@ -440,7 +440,7 @@ class TestReadMathML(unittest.TestCase):
     self.N = libsbml.readMathMLFromString(s)
     self.assert_( self.N != 0 )
     self.assert_( self.N.getType() == libsbml.AST_REAL )
-    self.assert_( util_isInf(self.N.getReal()) == 1 )
+    self.assert_( util_isInf(self.N.getReal()) == True )
     self.assert_( self.N.getNumChildren() == 0 )
     pass  
 
@@ -449,7 +449,7 @@ class TestReadMathML(unittest.TestCase):
     self.N = libsbml.readMathMLFromString(s)
     self.assert_( self.N != 0 )
     self.assert_( self.N.getType() == libsbml.AST_REAL )
-    self.assertEqual( True, test_isnan(self.N.getReal()) )
+    self.assertEqual( True, isnan(self.N.getReal()) )
     self.assert_( self.N.getNumChildren() == 0 )
     pass  
 
@@ -518,8 +518,7 @@ class TestReadMathML(unittest.TestCase):
     pass  
 
   def test_element_csymbol_delay_1(self):
-    s = wrapMathML("<csymbol encoding='text' " + 
-    "definitionURL='http://www.sbml.org/sbml/symbols/delay'> delay </csymbol>")
+    s = wrapMathML("<csymbol encoding='text' " + "definitionURL='http://www.sbml.org/sbml/symbols/delay'> delay </csymbol>")
     self.N = libsbml.readMathMLFromString(s)
     self.assert_( self.N != 0 )
     self.assert_( self.N.getType() == libsbml.AST_FUNCTION_DELAY )
@@ -558,8 +557,7 @@ class TestReadMathML(unittest.TestCase):
     pass  
 
   def test_element_csymbol_time(self):
-    s = wrapMathML("<csymbol encoding='text' " + 
-    "definitionURL='http://www.sbml.org/sbml/symbols/time'> t </csymbol>")
+    s = wrapMathML("<csymbol encoding='text' " + "definitionURL='http://www.sbml.org/sbml/symbols/time'> t </csymbol>")
     self.N = libsbml.readMathMLFromString(s)
     self.assert_( self.N != 0 )
     self.assert_( self.N.getType() == libsbml.AST_NAME_TIME )
@@ -635,6 +633,21 @@ class TestReadMathML(unittest.TestCase):
     self.assert_( self.N != 0 )
     self.F = libsbml.formulaToString(self.N)
     self.assert_((  "gt(INF, INF - 1)" == self.F ))
+    pass  
+
+  def test_element_invalid_mathml(self):
+    invalid = wrapMathML("<lambda>" + 
+    "<bvar>" + 
+    "<ci definitionURL=\"http://biomodels.net/SBO/#SBO:0000065\">c</ci>" + 
+    "</bvar>" + 
+    "<apply>" + 
+    "  <ci>c</ci>" + 
+    "</apply>" + 
+    "</lambda>\n")
+    self.N = libsbml.readMathMLFromString(None)
+    self.assert_( self.N == None )
+    self.N = libsbml.readMathMLFromString(invalid)
+    self.assert_( self.N == None )
     pass  
 
   def test_element_lambda(self):

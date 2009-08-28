@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Ben Bornstein 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestXMLAttributes.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -75,30 +75,6 @@ class TestXMLAttributes < Test::Unit::TestCase
     assert( attrs.getName(0) ==  "xmlns"  )
     assert( attrs.getName(1) ==  "foo"    )
     assert( attrs.getName(2) ==  ""       )
-  end
-
-  def test_XMLAttributes_add_removeResource
-    att1 = LibSBML::XMLAttributes.new()
-    att1.addResource("rdf", "http://foo.org/")
-    att1.addResource("rdf", "http://foo1.org/")
-    assert( att1.getLength() == 2 )
-    assert( att1.isEmpty() == false )
-    assert( att1.getName(0) ==   "rdf"  )
-    assert( att1.getValue(0) ==  "http://foo.org/"  )
-    assert( att1.getName(1) ==   "rdf"  )
-    assert( att1.getValue(1) ==  "http://foo1.org/"  )
-    att1.addResource("rdf", "http://foo2.org/")
-    assert( att1.getLength() == 3 )
-    assert( att1.isEmpty() == false )
-    assert( att1.getName(2) ==   "rdf"  )
-    assert( att1.getValue(2) ==  "http://foo2.org/"  )
-    att1.removeResource(1)
-    assert( att1.getLength() == 2 )
-    assert( att1.isEmpty() == false )
-    assert( att1.getName(0) ==   "rdf"  )
-    assert( att1.getValue(0) ==  "http://foo.org/"  )
-    assert( att1.getName(1) ==   "rdf"  )
-    assert( att1.getValue(1) ==  "http://foo2.org/"  )
   end
 
   def test_XMLAttributes_assignment

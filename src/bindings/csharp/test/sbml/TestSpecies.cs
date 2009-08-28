@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Ben Bornstein 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestSpecies.c
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -58,6 +58,10 @@ namespace LibSBMLCSTest {
       {
         return;
       }
+      else if ( (a == null) || (b == null) )
+      {
+        throw new AssertionError();
+      }
       else if (a.Equals(b))
       {
         return;
@@ -71,6 +75,10 @@ namespace LibSBMLCSTest {
       if ( (a == null) && (b == null) )
       {
         throw new AssertionError();
+      }
+      else if ( (a == null) || (b == null) )
+      {
+        return;
       }
       else if (a.Equals(b))
       {
@@ -118,7 +126,7 @@ namespace LibSBMLCSTest {
 
     public void setUp()
     {
-      S = new  Species();
+      S = new  Species(2,4);
       if (S == null);
       {
       }
@@ -157,35 +165,13 @@ namespace LibSBMLCSTest {
       assertEquals( false, S.isSetCharge() );
     }
 
-    public void test_Species_createWith()
-    {
-      Species s = new  Species("Ca", "Calcium");
-      assertTrue( s.getTypeCode() == libsbml.SBML_SPECIES );
-      assertTrue( s.getMetaId() == "" );
-      assertTrue( s.getNotes() == null );
-      assertTrue( s.getAnnotation() == null );
-      assertTrue((  "Calcium"   == s.getName() ));
-      assertTrue( s.getSpatialSizeUnits() == "" );
-      assertTrue( s.getHasOnlySubstanceUnits() == false );
-      assertTrue( s.getConstant() == false );
-      assertTrue((  "Ca"   == s.getId() ));
-      assertEquals( true, s.isSetId() );
-      assertEquals( true, s.isSetName() );
-      assertEquals( false, s.isSetCompartment() );
-      assertEquals( false, s.isSetSubstanceUnits() );
-      assertEquals( false, s.isSetSpatialSizeUnits() );
-      assertEquals( false, s.isSetUnits() );
-      assertEquals( false, s.isSetInitialAmount() );
-      assertEquals( false, s.isSetInitialConcentration() );
-      assertEquals( false, s.isSetCharge() );
-      s = null;
-    }
-
-    public void test_Species_createWithLevelVersionAndNamespace()
+    public void test_Species_createWithNS()
     {
       XMLNamespaces xmlns = new  XMLNamespaces();
-      xmlns.add( "http://www.sbml.org", "sbml");
-      Species object1 = new  Species(2,1,xmlns);
+      xmlns.add( "http://www.sbml.org", "testsbml");
+      SBMLNamespaces sbmlns = new  SBMLNamespaces(2,1);
+      sbmlns.addNamespaces(xmlns);
+      Species object1 = new  Species(sbmlns);
       assertTrue( object1.getTypeCode() == libsbml.SBML_SPECIES );
       assertTrue( object1.getMetaId() == "" );
       assertTrue( object1.getNotes() == null );
@@ -193,7 +179,7 @@ namespace LibSBMLCSTest {
       assertTrue( object1.getLevel() == 2 );
       assertTrue( object1.getVersion() == 1 );
       assertTrue( object1.getNamespaces() != null );
-      assertTrue( object1.getNamespaces().getLength() == 1 );
+      assertTrue( object1.getNamespaces().getLength() == 2 );
       object1 = null;
     }
 
@@ -259,7 +245,7 @@ namespace LibSBMLCSTest {
 
     public void test_Species_setName()
     {
-      string name =  "So Sweet";;
+      string name =  "So_Sweet";;
       S.setName(name);
       assertTrue(( name == S.getName() ));
       assertEquals( true, S.isSetName() );
@@ -277,20 +263,22 @@ namespace LibSBMLCSTest {
 
     public void test_Species_setSpatialSizeUnits()
     {
+      Species s = new  Species(2,1);
       string units =  "volume";;
-      S.setSpatialSizeUnits(units);
-      assertTrue(( units == S.getSpatialSizeUnits() ));
-      assertEquals( true, S.isSetSpatialSizeUnits() );
-      if (S.getSpatialSizeUnits() == units);
+      s.setSpatialSizeUnits(units);
+      assertTrue(( units == s.getSpatialSizeUnits() ));
+      assertEquals( true, s.isSetSpatialSizeUnits() );
+      if (s.getSpatialSizeUnits() == units);
       {
       }
-      S.setSpatialSizeUnits(S.getSpatialSizeUnits());
-      assertTrue(( units == S.getSpatialSizeUnits() ));
-      S.setSpatialSizeUnits("");
-      assertEquals( false, S.isSetSpatialSizeUnits() );
-      if (S.getSpatialSizeUnits() != null);
+      s.setSpatialSizeUnits(s.getSpatialSizeUnits());
+      assertTrue(( units == s.getSpatialSizeUnits() ));
+      s.setSpatialSizeUnits("");
+      assertEquals( false, s.isSetSpatialSizeUnits() );
+      if (s.getSpatialSizeUnits() != null);
       {
       }
+      s = null;
     }
 
     public void test_Species_setSubstanceUnits()

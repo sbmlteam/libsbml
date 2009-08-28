@@ -31,7 +31,7 @@ require 'libSBML'
 class TestUnitDefinition < Test::Unit::TestCase
 
   def setup
-    @@ud = LibSBML::UnitDefinition.new()
+    @@ud = LibSBML::UnitDefinition.new(2,4)
     if (@@ud == nil)
     end
   end
@@ -41,7 +41,8 @@ class TestUnitDefinition < Test::Unit::TestCase
   end
 
   def test_UnitDefinition_addUnit
-    u = LibSBML::Unit.new()
+    u = LibSBML::Unit.new(2,4)
+    u.setKind(LibSBML::UNIT_KIND_MOLE)
     @@ud.addUnit(u)
     assert( @@ud.getNumUnits() == 1 )
     u = nil
@@ -59,42 +60,32 @@ class TestUnitDefinition < Test::Unit::TestCase
     assert( @@ud.getNumUnits() == 0 )
   end
 
-  def test_UnitDefinition_createWith
-    ud = LibSBML::UnitDefinition.new("mmls", "")
-    assert( ud.getTypeCode() == LibSBML::SBML_UNIT_DEFINITION )
-    assert( ud.getMetaId() == "" )
-    assert( ud.getNotes() == nil )
-    assert( ud.getAnnotation() == nil )
-    assert( ud.getName() == "" )
-    assert ((  "mmls" == ud.getId() ))
-    assert_equal true, ud.isSetId()
-    assert( ud.getNumUnits() == 0 )
-    ud = nil
-  end
-
-  def test_UnitDefinition_createWithLevelVersionAndNamespace
+  def test_UnitDefinition_createWithNS
     xmlns = LibSBML::XMLNamespaces.new()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = LibSBML::UnitDefinition.new(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = LibSBML::SBMLNamespaces.new(2,1)
+    sbmlns.addNamespaces(xmlns)
+    object = LibSBML::UnitDefinition.new(sbmlns)
     assert( object.getTypeCode() == LibSBML::SBML_UNIT_DEFINITION )
     assert( object.getMetaId() == "" )
     assert( object.getNotes() == nil )
     assert( object.getAnnotation() == nil )
     assert( object.getLevel() == 2 )
     assert( object.getVersion() == 1 )
-    assert( object.getNamespaces() != "" )
-    assert( object.getNamespaces().getLength() == 1 )
+    assert( object.getNamespaces() != nil )
+    assert( object.getNamespaces().getLength() == 2 )
     object = nil
   end
 
   def test_UnitDefinition_createWithName
-    ud = LibSBML::UnitDefinition.new("", "mmol liter^-1 sec^-1")
+    ud = LibSBML::UnitDefinition.new(2,4)
+    ud.setName( "mmol_per_liter_per_sec")
     assert( ud.getTypeCode() == LibSBML::SBML_UNIT_DEFINITION )
     assert( ud.getMetaId() == "" )
     assert( ud.getNotes() == nil )
     assert( ud.getAnnotation() == nil )
     assert( ud.getId() == "" )
-    assert ((  "mmol liter^-1 sec^-1" == ud.getName() ))
+    assert ((  "mmol_per_liter_per_sec" == ud.getName() ))
     assert_equal true, ud.isSetName()
     assert( ud.getNumUnits() == 0 )
     ud = nil
@@ -104,9 +95,9 @@ class TestUnitDefinition < Test::Unit::TestCase
   end
 
   def test_UnitDefinition_getUnit
-    mole = LibSBML::Unit.new()
-    litre = LibSBML::Unit.new()
-    second = LibSBML::Unit.new()
+    mole = LibSBML::Unit.new(2,4)
+    litre = LibSBML::Unit.new(2,4)
+    second = LibSBML::Unit.new(2,4)
     mole.setKind(LibSBML::UnitKind_forName("mole"))
     litre.setKind(LibSBML::UnitKind_forName("litre"))
     second.setKind(LibSBML::UnitKind_forName("second"))
@@ -132,7 +123,7 @@ class TestUnitDefinition < Test::Unit::TestCase
   end
 
   def test_UnitDefinition_isVariantOfArea
-    dim = LibSBML::Unit.new()
+    dim = LibSBML::Unit.new(2,4)
     dim.setKind(LibSBML::UnitKind_forName("dimensionless"))
     u = @@ud.createUnit()
     assert_equal false, @@ud.isVariantOfArea()
@@ -153,7 +144,7 @@ class TestUnitDefinition < Test::Unit::TestCase
   end
 
   def test_UnitDefinition_isVariantOfLength
-    dim = LibSBML::Unit.new()
+    dim = LibSBML::Unit.new(2,4)
     dim.setKind(LibSBML::UnitKind_forName("dimensionless"))
     u = @@ud.createUnit()
     assert_equal false, @@ud.isVariantOfLength()
@@ -174,7 +165,7 @@ class TestUnitDefinition < Test::Unit::TestCase
   end
 
   def test_UnitDefinition_isVariantOfSubstancePerTime_1
-    dim = LibSBML::Unit.new()
+    dim = LibSBML::Unit.new(2,4)
     dim.setKind(LibSBML::UnitKind_forName("dimensionless"))
     perTime = @@ud.createUnit()
     perTime.setKind(LibSBML::UnitKind_forName("second"))
@@ -199,10 +190,11 @@ class TestUnitDefinition < Test::Unit::TestCase
     perTime.setExponent(-1)
     @@ud.addUnit(dim)
     assert_equal true, @@ud.isVariantOfSubstancePerTime()
+    dim = nil
   end
 
   def test_UnitDefinition_isVariantOfSubstancePerTime_2
-    dim = LibSBML::Unit.new()
+    dim = LibSBML::Unit.new(2,4)
     dim.setKind(LibSBML::UnitKind_forName("dimensionless"))
     perTime = @@ud.createUnit()
     perTime.setKind(LibSBML::UnitKind_forName("second"))
@@ -227,11 +219,12 @@ class TestUnitDefinition < Test::Unit::TestCase
     perTime.setExponent(-1)
     @@ud.addUnit(dim)
     assert_equal true, @@ud.isVariantOfSubstancePerTime()
+    dim = nil
   end
 
   def test_UnitDefinition_isVariantOfSubstancePerTime_3
-    ud = LibSBML::UnitDefinition.new(2,2,nil)
-    dim = LibSBML::Unit.new()
+    ud = LibSBML::UnitDefinition.new(2,2)
+    dim = LibSBML::Unit.new(2,2)
     dim.setKind(LibSBML::UnitKind_forName("dimensionless"))
     perTime = ud.createUnit()
     perTime.setKind(LibSBML::UnitKind_forName("second"))
@@ -256,11 +249,13 @@ class TestUnitDefinition < Test::Unit::TestCase
     perTime.setExponent(-1)
     ud.addUnit(dim)
     assert_equal true, ud.isVariantOfSubstancePerTime()
+    ud = nil
+    dim = nil
   end
 
   def test_UnitDefinition_isVariantOfSubstancePerTime_4
-    ud = LibSBML::UnitDefinition.new(2,2,nil)
-    dim = LibSBML::Unit.new()
+    ud = LibSBML::UnitDefinition.new(2,2)
+    dim = ud.createUnit()
     dim.setKind(LibSBML::UnitKind_forName("dimensionless"))
     perTime = ud.createUnit()
     perTime.setKind(LibSBML::UnitKind_forName("second"))
@@ -285,10 +280,11 @@ class TestUnitDefinition < Test::Unit::TestCase
     perTime.setExponent(-1)
     ud.addUnit(dim)
     assert_equal true, ud.isVariantOfSubstancePerTime()
+    ud = nil
   end
 
   def test_UnitDefinition_isVariantOfSubstance_1
-    dim = LibSBML::Unit.new()
+    dim = LibSBML::Unit.new(2,4)
     dim.setKind(LibSBML::UnitKind_forName("dimensionless"))
     u = @@ud.createUnit()
     assert_equal false, @@ud.isVariantOfSubstance()
@@ -309,7 +305,7 @@ class TestUnitDefinition < Test::Unit::TestCase
   end
 
   def test_UnitDefinition_isVariantOfSubstance_2
-    dim = LibSBML::Unit.new()
+    dim = LibSBML::Unit.new(2,4)
     dim.setKind(LibSBML::UnitKind_forName("dimensionless"))
     u = @@ud.createUnit()
     assert_equal false, @@ud.isVariantOfSubstance()
@@ -330,7 +326,7 @@ class TestUnitDefinition < Test::Unit::TestCase
   end
 
   def test_UnitDefinition_isVariantOfTime
-    dim = LibSBML::Unit.new()
+    dim = LibSBML::Unit.new(2,4)
     dim.setKind(LibSBML::UnitKind_forName("dimensionless"))
     u = @@ud.createUnit()
     assert_equal false, @@ud.isVariantOfTime()
@@ -351,7 +347,7 @@ class TestUnitDefinition < Test::Unit::TestCase
   end
 
   def test_UnitDefinition_isVariantOfVolume_1
-    dim = LibSBML::Unit.new()
+    dim = LibSBML::Unit.new(2,4)
     dim.setKind(LibSBML::UnitKind_forName("dimensionless"))
     u = @@ud.createUnit()
     assert_equal false, @@ud.isVariantOfVolume()
@@ -372,7 +368,7 @@ class TestUnitDefinition < Test::Unit::TestCase
   end
 
   def test_UnitDefinition_isVariantOfVolume_2
-    dim = LibSBML::Unit.new()
+    dim = LibSBML::Unit.new(2,4)
     dim.setKind(LibSBML::UnitKind_forName("dimensionless"))
     u = @@ud.createUnit()
     assert_equal false, @@ud.isVariantOfVolume()
@@ -393,7 +389,8 @@ class TestUnitDefinition < Test::Unit::TestCase
   end
 
   def test_UnitDefinition_printUnits
-    ud = LibSBML::UnitDefinition.new("mmls", "")
+    ud = LibSBML::UnitDefinition.new(2,4)
+    ud.setId( "mmls")
     perTime = ud.createUnit()
     perTime.setKind(LibSBML::UnitKind_forName("second"))
     perTime.setExponent(-1)
@@ -401,7 +398,8 @@ class TestUnitDefinition < Test::Unit::TestCase
     assert ((                 "second (exponent = -1, multiplier = 1, scale = 0)" == ud_str ))
     ud_str1 = LibSBML::UnitDefinition.printUnits(ud,true)
     assert ((  "(1 second)^-1" == ud_str1 ))
-    ud1 = LibSBML::UnitDefinition.new("mmls", "")
+    ud1 = LibSBML::UnitDefinition.new(2,4)
+    ud1.setId( "mmls")
     u = ud1.createUnit()
     u.setKind(LibSBML::UNIT_KIND_KILOGRAM)
     u.setExponent(1)
@@ -411,6 +409,21 @@ class TestUnitDefinition < Test::Unit::TestCase
     assert ((                 "kilogram (exponent = 1, multiplier = 3, scale = 2)" == ud_str2 ))
     ud_str3 = LibSBML::UnitDefinition.printUnits(ud1,true)
     assert ((  "(300 kilogram)^1" == ud_str3 ))
+  end
+
+  def test_UnitDefinition_removeUnit
+    o1 = @@ud.createUnit()
+    o2 = @@ud.createUnit()
+    o3 = @@ud.createUnit()
+    assert( @@ud.removeUnit(0) == o1 )
+    assert( @@ud.getNumUnits() == 2 )
+    assert( @@ud.removeUnit(0) == o2 )
+    assert( @@ud.getNumUnits() == 1 )
+    assert( @@ud.removeUnit(0) == o3 )
+    assert( @@ud.getNumUnits() == 0 )
+    o1 = nil
+    o2 = nil
+    o3 = nil
   end
 
   def test_UnitDefinition_setId
@@ -429,7 +442,7 @@ class TestUnitDefinition < Test::Unit::TestCase
   end
 
   def test_UnitDefinition_setName
-    name =  "mmol liter^-1 sec^-1";
+    name =  "mmol_per_liter_per_sec";
     @@ud.setName(name)
     assert (( name == @@ud.getName() ))
     assert_equal true, @@ud.isSetName()

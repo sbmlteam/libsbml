@@ -34,7 +34,7 @@ class TestEventAssignment(unittest.TestCase):
   EA = None
 
   def setUp(self):
-    self.EA = libsbml.EventAssignment()
+    self.EA = libsbml.EventAssignment(2,4)
     if (self.EA == None):
       pass    
     pass  
@@ -52,33 +52,20 @@ class TestEventAssignment(unittest.TestCase):
     self.assert_( self.EA.getMath() == None )
     pass  
 
-  def test_EventAssignment_createWith(self):
-    math = libsbml.parseFormula("0")
-    ea = libsbml.EventAssignment("k",math)
-    self.assert_( ea.getTypeCode() == libsbml.SBML_EVENT_ASSIGNMENT )
-    self.assert_( ea.getMetaId() == "" )
-    self.assert_( ea.getNotes() == None )
-    self.assert_( ea.getAnnotation() == None )
-    self.assert_( ea.getMath() != math )
-    self.assertEqual( True, ea.isSetMath() )
-    self.assert_((  "k" == ea.getVariable() ))
-    self.assertEqual( True, ea.isSetVariable() )
-    math = None
-    ea = None
-    pass  
-
-  def test_EventAssignment_createWithLevelVersionAndNamespace(self):
+  def test_EventAssignment_createWithNS(self):
     xmlns = libsbml.XMLNamespaces()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = libsbml.EventAssignment(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = libsbml.SBMLNamespaces(2,1)
+    sbmlns.addNamespaces(xmlns)
+    object = libsbml.EventAssignment(sbmlns)
     self.assert_( object.getTypeCode() == libsbml.SBML_EVENT_ASSIGNMENT )
     self.assert_( object.getMetaId() == "" )
     self.assert_( object.getNotes() == None )
     self.assert_( object.getAnnotation() == None )
     self.assert_( object.getLevel() == 2 )
     self.assert_( object.getVersion() == 1 )
-    self.assert_( object.getNamespaces() != "" )
-    self.assert_( object.getNamespaces().getLength() == 1 )
+    self.assert_( object.getNamespaces() != None )
+    self.assert_( object.getNamespaces().getLength() == 2 )
     object = None
     pass  
 

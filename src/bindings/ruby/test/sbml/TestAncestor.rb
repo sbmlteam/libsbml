@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Sarah Keating 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestAncestor.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -31,7 +31,7 @@ require 'libSBML'
 class TestAncestor < Test::Unit::TestCase
 
   def test_AlgebraicRule_ancestor_create
-    m = LibSBML::Model.new()
+    m = LibSBML::Model.new(2,4)
     r = m.createAlgebraicRule()
     lo = m.getListOfRules()
     assert( r.getAncestorOfType(LibSBML::SBML_MODEL) == m )
@@ -46,7 +46,7 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_AssignmentRule_ancestor_create
-    m = LibSBML::Model.new()
+    m = LibSBML::Model.new(2,4)
     r = m.createAssignmentRule()
     lo = m.getListOfRules()
     assert( r.getAncestorOfType(LibSBML::SBML_MODEL) == m )
@@ -61,8 +61,9 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_CompartmentType_ancestor_add
-    ct = LibSBML::CompartmentType.new()
-    m = LibSBML::Model.new()
+    ct = LibSBML::CompartmentType.new(2,4)
+    m = LibSBML::Model.new(2,4)
+    ct.setId("ct")
     m.addCompartmentType(ct)
     ct = nil
     lo = m.getListOfCompartmentTypes()
@@ -74,7 +75,7 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_CompartmentType_ancestor_create
-    m = LibSBML::Model.new()
+    m = LibSBML::Model.new(2,4)
     ct = m.createCompartmentType()
     lo = m.getListOfCompartmentTypes()
     assert( ct.getAncestorOfType(LibSBML::SBML_MODEL) == m )
@@ -89,8 +90,9 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_Compartment_ancestor_add
-    c = LibSBML::Compartment.new()
-    m = LibSBML::Model.new()
+    c = LibSBML::Compartment.new(2,4)
+    c.setId("C")
+    m = LibSBML::Model.new(2,4)
     m.addCompartment(c)
     c = nil
     lo = m.getListOfCompartments()
@@ -102,7 +104,7 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_Compartment_ancestor_create
-    m = LibSBML::Model.new()
+    m = LibSBML::Model.new(2,4)
     c = m.createCompartment()
     lo = m.getListOfCompartments()
     assert( c.getAncestorOfType(LibSBML::SBML_MODEL) == m )
@@ -117,8 +119,9 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_Constraint_ancestor_add
-    ct = LibSBML::Constraint.new()
-    m = LibSBML::Model.new()
+    ct = LibSBML::Constraint.new(2,4)
+    m = LibSBML::Model.new(2,4)
+    ct.setMath(LibSBML::parseFormula("k+k"))
     m.addConstraint(ct)
     ct = nil
     lo = m.getListOfConstraints()
@@ -130,7 +133,7 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_Constraint_ancestor_create
-    m = LibSBML::Model.new()
+    m = LibSBML::Model.new(2,4)
     ct = m.createConstraint()
     lo = m.getListOfConstraints()
     assert( ct.getAncestorOfType(LibSBML::SBML_MODEL) == m )
@@ -145,8 +148,8 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_Delay_ancestor_add
-    d = LibSBML::Delay.new()
-    e = LibSBML::Event.new()
+    d = LibSBML::Delay.new(2,4)
+    e = LibSBML::Event.new(2,4)
     e.setDelay(d)
     d = nil
     obj = e.getDelay()
@@ -156,9 +159,38 @@ class TestAncestor < Test::Unit::TestCase
     e = nil
   end
 
+  def test_Delay_ancestor_create
+    e = LibSBML::Event.new(2,4)
+    ea = e.createDelay()
+    assert( ea.getAncestorOfType(LibSBML::SBML_EVENT) == e )
+    assert( ea.getAncestorOfType(LibSBML::SBML_DOCUMENT) == nil )
+    assert( ea.getAncestorOfType(LibSBML::SBML_COMPARTMENT) == nil )
+    obj = e.getDelay()
+    assert( obj.getAncestorOfType(LibSBML::SBML_EVENT) == e )
+    assert( obj.getAncestorOfType(LibSBML::SBML_DOCUMENT) == nil )
+    assert( obj.getAncestorOfType(LibSBML::SBML_COMPARTMENT) == nil )
+  end
+
+  def test_Delay_ancestor_create_model
+    m = LibSBML::Model.new(2,4)
+    e = m.createEvent()
+    ea = m.createDelay()
+    assert( ea.getAncestorOfType(LibSBML::SBML_EVENT) == e )
+    assert( ea.getAncestorOfType(LibSBML::SBML_MODEL) == m )
+    assert( ea.getAncestorOfType(LibSBML::SBML_DOCUMENT) == nil )
+    assert( ea.getAncestorOfType(LibSBML::SBML_COMPARTMENT) == nil )
+    obj = e.getDelay()
+    assert( obj.getAncestorOfType(LibSBML::SBML_EVENT) == e )
+    assert( obj.getAncestorOfType(LibSBML::SBML_MODEL) == m )
+    assert( obj.getAncestorOfType(LibSBML::SBML_DOCUMENT) == nil )
+    assert( obj.getAncestorOfType(LibSBML::SBML_COMPARTMENT) == nil )
+  end
+
   def test_EventAssignment_ancestor_add
-    e = LibSBML::Event.new()
-    ea = LibSBML::EventAssignment.new()
+    e = LibSBML::Event.new(2,4)
+    ea = LibSBML::EventAssignment.new(2,4)
+    ea.setVariable("c")
+    ea.setMath(LibSBML::parseFormula("K+L"))
     e.addEventAssignment(ea)
     ea = nil
     lo = e.getListOfEventAssignments()
@@ -170,7 +202,7 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_EventAssignment_ancestor_create
-    e = LibSBML::Event.new()
+    e = LibSBML::Event.new(2,4)
     ea = e.createEventAssignment()
     lo = e.getListOfEventAssignments()
     assert( ea.getAncestorOfType(LibSBML::SBML_EVENT) == e )
@@ -185,7 +217,7 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_EventAssignment_ancestor_create_model
-    m = LibSBML::Model.new()
+    m = LibSBML::Model.new(2,4)
     e = m.createEvent()
     ea = m.createEventAssignment()
     lo = e.getListOfEventAssignments()
@@ -203,8 +235,11 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_Event_ancestor_add
-    e = LibSBML::Event.new()
-    m = LibSBML::Model.new()
+    e = LibSBML::Event.new(2,4)
+    m = LibSBML::Model.new(2,4)
+    t = LibSBML::Trigger.new(2,4)
+    e.setTrigger(t)
+    e.createEventAssignment()
     m.addEvent(e)
     e = nil
     lo = m.getListOfEvents()
@@ -216,7 +251,7 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_Event_ancestor_create
-    m = LibSBML::Model.new()
+    m = LibSBML::Model.new(2,4)
     e = m.createEvent()
     lo = m.getListOfEvents()
     assert( e.getAncestorOfType(LibSBML::SBML_MODEL) == m )
@@ -231,8 +266,10 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_FunctionDefinition_ancestor_add
-    fd = LibSBML::FunctionDefinition.new()
-    m = LibSBML::Model.new()
+    fd = LibSBML::FunctionDefinition.new(2,4)
+    m = LibSBML::Model.new(2,4)
+    fd.setId("fd")
+    fd.setMath(LibSBML::parseFormula("l"))
     m.addFunctionDefinition(fd)
     fd = nil
     lo = m.getListOfFunctionDefinitions()
@@ -244,7 +281,7 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_FunctionDefinition_ancestor_create
-    m = LibSBML::Model.new()
+    m = LibSBML::Model.new(2,4)
     fd = m.createFunctionDefinition()
     lo = m.getListOfFunctionDefinitions()
     assert( fd.getAncestorOfType(LibSBML::SBML_MODEL) == m )
@@ -259,8 +296,10 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_InitialAssignment_ancestor_add
-    ia = LibSBML::InitialAssignment.new()
-    m = LibSBML::Model.new()
+    ia = LibSBML::InitialAssignment.new(2,4)
+    m = LibSBML::Model.new(2,4)
+    ia.setSymbol("c")
+    ia.setMath(LibSBML::parseFormula("9"))
     m.addInitialAssignment(ia)
     ia = nil
     lo = m.getListOfInitialAssignments()
@@ -272,7 +311,7 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_InitialAssignment_ancestor_create
-    m = LibSBML::Model.new()
+    m = LibSBML::Model.new(2,4)
     ia = m.createInitialAssignment()
     lo = m.getListOfInitialAssignments()
     assert( ia.getAncestorOfType(LibSBML::SBML_MODEL) == m )
@@ -287,8 +326,9 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_KineticLaw_Parameter_ancestor_add
-    kl = LibSBML::KineticLaw.new()
-    p = LibSBML::Parameter.new("jake")
+    kl = LibSBML::KineticLaw.new(2,4)
+    p = LibSBML::Parameter.new(2,4)
+    p.setId("jake")
     kl.addParameter(p)
     p = nil
     lop = kl.getListOfParameters()
@@ -301,7 +341,7 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_KineticLaw_Parameter_ancestor_create
-    kl = LibSBML::KineticLaw.new()
+    kl = LibSBML::KineticLaw.new(2,4)
     p = kl.createParameter()
     assert( kl.getNumParameters() == 1 )
     lop = kl.getListOfParameters()
@@ -318,7 +358,7 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_KineticLaw_Parameter_ancestor_create_model
-    m = LibSBML::Model.new()
+    m = LibSBML::Model.new(2,4)
     r = m.createReaction()
     kl = m.createKineticLaw()
     p = m.createKineticLawParameter()
@@ -341,8 +381,8 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_KineticLaw_ancestor_add
-    kl = LibSBML::KineticLaw.new()
-    r = LibSBML::Reaction.new()
+    kl = LibSBML::KineticLaw.new(2,4)
+    r = LibSBML::Reaction.new(2,4)
     r.setKineticLaw(kl)
     obj = r.getKineticLaw()
     assert( obj.getAncestorOfType(LibSBML::SBML_REACTION) == r )
@@ -352,7 +392,7 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_KineticLaw_ancestor_create
-    r = LibSBML::Reaction.new()
+    r = LibSBML::Reaction.new(2,4)
     kl = r.createKineticLaw()
     assert( kl.getAncestorOfType(LibSBML::SBML_REACTION) == r )
     assert( kl.getAncestorOfType(LibSBML::SBML_DELAY) == nil )
@@ -367,7 +407,7 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_KineticLaw_ancestor_create_model
-    m = LibSBML::Model.new()
+    m = LibSBML::Model.new(2,4)
     r = m.createReaction()
     kl = r.createKineticLaw()
     assert( kl.getAncestorOfType(LibSBML::SBML_REACTION) == r )
@@ -383,8 +423,8 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_Model_ancestor_add
-    d = LibSBML::SBMLDocument.new()
-    m = LibSBML::Model.new()
+    d = LibSBML::SBMLDocument.new(2,4)
+    m = LibSBML::Model.new(2,4)
     d.setModel(m)
     assert( d == d.getModel().getAncestorOfType(LibSBML::SBML_DOCUMENT) )
     d = nil
@@ -400,8 +440,9 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_Parameter_ancestor_add
-    ia = LibSBML::Parameter.new()
-    m = LibSBML::Model.new()
+    ia = LibSBML::Parameter.new(2,4)
+    m = LibSBML::Model.new(2,4)
+    ia.setId("p")
     m.addParameter(ia)
     ia = nil
     lo = m.getListOfParameters()
@@ -413,7 +454,7 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_Parameter_ancestor_create
-    m = LibSBML::Model.new()
+    m = LibSBML::Model.new(2,4)
     p = m.createParameter()
     lo = m.getListOfParameters()
     assert( p.getAncestorOfType(LibSBML::SBML_MODEL) == m )
@@ -428,7 +469,7 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_RateRule_ancestor_create
-    m = LibSBML::Model.new()
+    m = LibSBML::Model.new(2,4)
     r = m.createRateRule()
     lo = m.getListOfRules()
     assert( r.getAncestorOfType(LibSBML::SBML_MODEL) == m )
@@ -443,8 +484,9 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_Reaction_ancestor_add
-    ia = LibSBML::Reaction.new()
-    m = LibSBML::Model.new()
+    ia = LibSBML::Reaction.new(2,4)
+    m = LibSBML::Model.new(2,4)
+    ia.setId("k")
     m.addReaction(ia)
     ia = nil
     lo = m.getListOfReactions()
@@ -456,7 +498,7 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_Reaction_ancestor_create
-    m = LibSBML::Model.new()
+    m = LibSBML::Model.new(2,4)
     r = m.createReaction()
     lo = m.getListOfReactions()
     assert( r.getAncestorOfType(LibSBML::SBML_MODEL) == m )
@@ -471,8 +513,10 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_Rule_ancestor_add
-    ia = LibSBML::RateRule.new("a")
-    m = LibSBML::Model.new()
+    ia = LibSBML::RateRule.new(2,4)
+    ia.setVariable("a")
+    ia.setMath(LibSBML::parseFormula("9"))
+    m = LibSBML::Model.new(2,4)
     m.addRule(ia)
     ia = nil
     lo = m.getListOfRules()
@@ -484,8 +528,9 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_SpeciesReference_Modifier_ancestor_add
-    sr = LibSBML::ModifierSpeciesReference.new()
-    r = LibSBML::Reaction.new()
+    sr = LibSBML::ModifierSpeciesReference.new(2,4)
+    sr.setSpecies("s")
+    r = LibSBML::Reaction.new(2,4)
     r.addModifier(sr)
     sr = nil
     lo = r.getListOfModifiers()
@@ -497,7 +542,7 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_SpeciesReference_Modifier_ancestor_create
-    r = LibSBML::Reaction.new()
+    r = LibSBML::Reaction.new(2,4)
     sr = r.createModifier()
     lo = r.getListOfModifiers()
     assert( sr.getAncestorOfType(LibSBML::SBML_REACTION) == r )
@@ -512,7 +557,7 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_SpeciesReference_Modifier_ancestor_create_model
-    m = LibSBML::Model.new()
+    m = LibSBML::Model.new(2,4)
     r = m.createReaction()
     sr = m.createModifier()
     lo = r.getListOfModifiers()
@@ -530,8 +575,9 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_SpeciesReference_Product_ancestor_add
-    sr = LibSBML::SpeciesReference.new()
-    r = LibSBML::Reaction.new()
+    sr = LibSBML::SpeciesReference.new(2,4)
+    r = LibSBML::Reaction.new(2,4)
+    sr.setSpecies("p")
     r.addProduct(sr)
     sr = nil
     lo = r.getListOfProducts()
@@ -543,7 +589,7 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_SpeciesReference_Product_ancestor_create
-    r = LibSBML::Reaction.new()
+    r = LibSBML::Reaction.new(2,4)
     sr = r.createProduct()
     lo = r.getListOfProducts()
     assert( sr.getAncestorOfType(LibSBML::SBML_REACTION) == r )
@@ -558,7 +604,7 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_SpeciesReference_Product_ancestor_create_model
-    m = LibSBML::Model.new()
+    m = LibSBML::Model.new(2,4)
     r = m.createReaction()
     sr = m.createProduct()
     lo = r.getListOfProducts()
@@ -576,8 +622,9 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_SpeciesReference_Reactant_ancestor_add
-    sr = LibSBML::SpeciesReference.new()
-    r = LibSBML::Reaction.new()
+    sr = LibSBML::SpeciesReference.new(2,4)
+    r = LibSBML::Reaction.new(2,4)
+    sr.setSpecies("s")
     r.addReactant(sr)
     sr = nil
     lo = r.getListOfReactants()
@@ -589,7 +636,7 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_SpeciesReference_Reactant_ancestor_create
-    r = LibSBML::Reaction.new()
+    r = LibSBML::Reaction.new(2,4)
     sr = r.createReactant()
     lo = r.getListOfReactants()
     assert( sr.getAncestorOfType(LibSBML::SBML_REACTION) == r )
@@ -604,7 +651,7 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_SpeciesReference_Reactant_ancestor_create_model
-    m = LibSBML::Model.new()
+    m = LibSBML::Model.new(2,4)
     r = m.createReaction()
     sr = m.createReactant()
     lo = r.getListOfReactants()
@@ -622,8 +669,9 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_SpeciesType_ancestor_add
-    ia = LibSBML::SpeciesType.new()
-    m = LibSBML::Model.new()
+    ia = LibSBML::SpeciesType.new(2,4)
+    m = LibSBML::Model.new(2,4)
+    ia.setId("s")
     m.addSpeciesType(ia)
     ia = nil
     lo = m.getListOfSpeciesTypes()
@@ -635,7 +683,7 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_SpeciesType_ancestor_create
-    m = LibSBML::Model.new()
+    m = LibSBML::Model.new(2,4)
     st = m.createSpeciesType()
     lo = m.getListOfSpeciesTypes()
     assert( st.getAncestorOfType(LibSBML::SBML_MODEL) == m )
@@ -650,8 +698,10 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_Species_ancestor_add
-    ia = LibSBML::Species.new()
-    m = LibSBML::Model.new()
+    ia = LibSBML::Species.new(2,4)
+    m = LibSBML::Model.new(2,4)
+    ia.setId("s")
+    ia.setCompartment("c")
     m.addSpecies(ia)
     ia = nil
     lo = m.getListOfSpecies()
@@ -663,7 +713,7 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_Species_ancestor_create
-    m = LibSBML::Model.new()
+    m = LibSBML::Model.new(2,4)
     s = m.createSpecies()
     lo = m.getListOfSpecies()
     assert( s.getAncestorOfType(LibSBML::SBML_MODEL) == m )
@@ -678,8 +728,8 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_StoichiometryMath_ancestor_add
-    m = LibSBML::StoichiometryMath.new()
-    sr = LibSBML::SpeciesReference.new()
+    m = LibSBML::StoichiometryMath.new(2,4)
+    sr = LibSBML::SpeciesReference.new(2,4)
     sr.setStoichiometryMath(m)
     m = nil
     obj = sr.getStoichiometryMath()
@@ -689,9 +739,21 @@ class TestAncestor < Test::Unit::TestCase
     sr = nil
   end
 
+  def test_StoichiometryMath_ancestor_create
+    sr = LibSBML::SpeciesReference.new(2,4)
+    sm = sr.createStoichiometryMath()
+    assert( sm.getAncestorOfType(LibSBML::SBML_SPECIES_REFERENCE) == sr )
+    assert( sm.getAncestorOfType(LibSBML::SBML_DOCUMENT) == nil )
+    assert( sm.getAncestorOfType(LibSBML::SBML_COMPARTMENT) == nil )
+    obj = sr.getStoichiometryMath()
+    assert( obj.getAncestorOfType(LibSBML::SBML_SPECIES_REFERENCE) == sr )
+    assert( obj.getAncestorOfType(LibSBML::SBML_DOCUMENT) == nil )
+    assert( obj.getAncestorOfType(LibSBML::SBML_COMPARTMENT) == nil )
+  end
+
   def test_Trigger_ancestor_add
-    d = LibSBML::Trigger.new()
-    e = LibSBML::Event.new()
+    d = LibSBML::Trigger.new(2,4)
+    e = LibSBML::Event.new(2,4)
     e.setTrigger(d)
     d = nil
     obj = e.getTrigger()
@@ -701,9 +763,38 @@ class TestAncestor < Test::Unit::TestCase
     e = nil
   end
 
+  def test_Trigger_ancestor_create
+    e = LibSBML::Event.new(2,4)
+    ea = e.createTrigger()
+    assert( ea.getAncestorOfType(LibSBML::SBML_EVENT) == e )
+    assert( ea.getAncestorOfType(LibSBML::SBML_DOCUMENT) == nil )
+    assert( ea.getAncestorOfType(LibSBML::SBML_COMPARTMENT) == nil )
+    obj = e.getTrigger()
+    assert( obj.getAncestorOfType(LibSBML::SBML_EVENT) == e )
+    assert( obj.getAncestorOfType(LibSBML::SBML_DOCUMENT) == nil )
+    assert( obj.getAncestorOfType(LibSBML::SBML_COMPARTMENT) == nil )
+  end
+
+  def test_Trigger_ancestor_create_model
+    m = LibSBML::Model.new(2,4)
+    e = m.createEvent()
+    ea = m.createTrigger()
+    assert( ea.getAncestorOfType(LibSBML::SBML_EVENT) == e )
+    assert( ea.getAncestorOfType(LibSBML::SBML_MODEL) == m )
+    assert( ea.getAncestorOfType(LibSBML::SBML_DOCUMENT) == nil )
+    assert( ea.getAncestorOfType(LibSBML::SBML_COMPARTMENT) == nil )
+    obj = e.getTrigger()
+    assert( obj.getAncestorOfType(LibSBML::SBML_EVENT) == e )
+    assert( obj.getAncestorOfType(LibSBML::SBML_MODEL) == m )
+    assert( obj.getAncestorOfType(LibSBML::SBML_DOCUMENT) == nil )
+    assert( obj.getAncestorOfType(LibSBML::SBML_COMPARTMENT) == nil )
+  end
+
   def test_UnitDefinition_ancestor_add
-    ia = LibSBML::UnitDefinition.new()
-    m = LibSBML::Model.new()
+    ia = LibSBML::UnitDefinition.new(2,4)
+    m = LibSBML::Model.new(2,4)
+    ia.setId("u")
+    ia.createUnit()
     m.addUnitDefinition(ia)
     ia = nil
     lo = m.getListOfUnitDefinitions()
@@ -715,7 +806,7 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_UnitDefinition_ancestor_create
-    m = LibSBML::Model.new()
+    m = LibSBML::Model.new(2,4)
     ud = m.createUnitDefinition()
     lo = m.getListOfUnitDefinitions()
     assert( ud.getAncestorOfType(LibSBML::SBML_MODEL) == m )
@@ -730,8 +821,9 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_Unit_ancestor_add
-    ud = LibSBML::UnitDefinition.new()
-    u = LibSBML::Unit.new()
+    ud = LibSBML::UnitDefinition.new(2,4)
+    u = LibSBML::Unit.new(2,4)
+    u.setKind(LibSBML::UNIT_KIND_MOLE)
     ud.addUnit(u)
     u = nil
     assert( ud.getNumUnits() == 1 )
@@ -745,7 +837,7 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_Unit_ancestor_create
-    ud = LibSBML::UnitDefinition.new()
+    ud = LibSBML::UnitDefinition.new(2,4)
     u = ud.createUnit()
     assert( ud.getNumUnits() == 1 )
     lo = ud.getListOfUnits()
@@ -762,7 +854,7 @@ class TestAncestor < Test::Unit::TestCase
   end
 
   def test_Unit_ancestor_create_model
-    m = LibSBML::Model.new()
+    m = LibSBML::Model.new(2,4)
     ud = m.createUnitDefinition()
     u = m.createUnit()
     assert( ud.getNumUnits() == 1 )

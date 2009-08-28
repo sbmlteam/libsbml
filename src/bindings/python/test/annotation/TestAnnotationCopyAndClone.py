@@ -1,12 +1,12 @@
 #
 # @file    TestAnnotationCopyAndClone.py
-# @brief   Read SBML unit tests
+# @brief   Test the copy and clone methods for annotation classes
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Ben Bornstein 
+# @author  Sarah Keating 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestCopyAndClone.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -152,6 +152,7 @@ class TestAnnotationCopyAndClone(unittest.TestCase):
   def test_ModelHistory_assignmentOperator(self):
     mh = libsbml.ModelHistory()
     mc = libsbml.ModelCreator()
+    mc.setGivenName("Sarah")
     mc.setFamilyName("Keating")
     mc.setEmail("sbml-team@caltech.edu")
     mh.addCreator(mc)
@@ -161,7 +162,6 @@ class TestAnnotationCopyAndClone(unittest.TestCase):
     date = None
     self.assert_( mh.getCreatedDate().getMonth() == 12 )
     self.assert_( mh.getCreatedDate().getSecond() == 45 )
-#    self.assert_( mh.getListCreators().get(0).getFamilyName() ==  "Keating" )
     self.assert_( mh.getCreator(0).getFamilyName() ==  "Keating" )
     mh2 = libsbml.ModelHistory()
     mh2 = mh
@@ -176,6 +176,7 @@ class TestAnnotationCopyAndClone(unittest.TestCase):
     mh = libsbml.ModelHistory()
     mc = libsbml.ModelCreator()
     mc.setFamilyName("Keating")
+    mc.setGivenName("Sarah")
     mc.setEmail("sbml-team@caltech.edu")
     mh.addCreator(mc)
     mc = None
@@ -197,6 +198,7 @@ class TestAnnotationCopyAndClone(unittest.TestCase):
     mh = libsbml.ModelHistory()
     mc = libsbml.ModelCreator()
     mc.setFamilyName("Keating")
+    mc.setGivenName("Sarah")
     mc.setEmail("sbml-team@caltech.edu")
     mh.addCreator(mc)
     mc = None
@@ -216,7 +218,7 @@ class TestAnnotationCopyAndClone(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestCopyAndClone))
+  suite.addTest(unittest.makeSuite(TestAnnotationCopyAndClone))
 
   return suite
 

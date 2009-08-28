@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Python conversion)
 # @author  Sarah Keating 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestCVTerms.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -58,9 +58,10 @@ class TestCVTerms(unittest.TestCase):
     li_triple = libsbml.XMLTriple()
     att = libsbml.XMLAttributes()
     att.add( "", "This is my resource")
+    att1 = libsbml.XMLAttributes()
     li_token = libsbml.XMLToken(li_triple,att)
-    bag_token = libsbml.XMLToken(bag_triple)
-    qual_token = libsbml.XMLToken(qual_triple)
+    bag_token = libsbml.XMLToken(bag_triple,att1)
+    qual_token = libsbml.XMLToken(qual_triple,att1)
     li = libsbml.XMLNode(li_token)
     bag = libsbml.XMLNode(bag_token)
     node = libsbml.XMLNode(qual_token)
@@ -81,6 +82,7 @@ class TestCVTerms(unittest.TestCase):
     bag_token = None
     qual_token = None
     att = None
+    att1 = None
     term = None
     node = None
     bag = None

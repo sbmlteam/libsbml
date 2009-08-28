@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Sarah Keating 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestXMLErrorC.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -41,6 +41,16 @@ class TestXMLErrorC < Test::Unit::TestCase
     error = LibSBML::XMLError.new(12345, "My message")
     assert( (  "My message" != error.getMessage() ) == false )
     assert( error.getErrorId() == 12345 )
+    error = nil
+  end
+
+  def test_XMLError_variablesAsStrings
+    error = LibSBML::XMLError.new(1003, "")
+    assert( error.getErrorId() == 1003 )
+    assert( error.getSeverity() == LibSBML::LIBSBML_SEV_ERROR )
+    assert ((  "Error" == error.getSeverityAsString() ))
+    assert( error.getCategory() == LibSBML::LIBSBML_CAT_XML )
+    assert ((  "XML content" == error.getCategoryAsString() ))
     error = nil
   end
 

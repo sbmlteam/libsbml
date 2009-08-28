@@ -167,6 +167,85 @@ COVARIANT_RTYPE_LISTOF_GET_REMOVE(CompartmentGlyph)
 #endif
 
 /**
+ * Wraps the SBMLConstructorException
+ *
+ * The SBMLConstructorException (C++ class) is wrapped as the 
+ * SBMLConsturctorException (Java class) which is derived from
+ * the built-in IllegalArgumentException class which is a subclass
+ * of RunTimeException.
+ *
+ * For example, the exception can be catched in Java code as follows:
+ *
+ * ---------------------------------------------
+ *  try
+ *  {
+ *    Model s = new Model(level,version);
+ *  }
+ *  catch (SBMLConstructorException e)
+ *  {
+ *     String errmsg = e.getMessage();
+ *  }
+ * ---------------------------------------------
+ */
+
+%typemap(javabase) SBMLConstructorException "java.lang.IllegalArgumentException";
+%typemap(javacode) SBMLConstructorException 
+%{
+  protected SBMLConstructorException(long cPtr, boolean cMemoryOwn, String v)
+  {
+    super(v);
+    swigCMemOwn = cMemoryOwn;
+    swigCPtr    = cPtr;
+  }
+
+  public SBMLConstructorException(String v)
+  {
+    this(libsbmlJNI.new_SBMLConstructorException(), true, v);
+  }
+%}
+
+%define SBMLCONSTRUCTOR_EXCEPTION(SBASE_CLASS_NAME)
+%javaexception("org.sbml.libsbml.SBMLConstructorException") SBASE_CLASS_NAME
+%{
+  try {
+    $action
+  }
+  catch (const SBMLConstructorException &e) {
+    jenv->ExceptionClear();
+    jclass clazz = jenv->FindClass("org/sbml/libsbml/SBMLConstructorException");
+    if (clazz)
+      jenv->ThrowNew(clazz, e.what());
+    return $null;
+  }
+%}
+%enddef
+
+
+SBMLCONSTRUCTOR_EXCEPTION(Compartment)
+SBMLCONSTRUCTOR_EXCEPTION(CompartmentType)
+SBMLCONSTRUCTOR_EXCEPTION(Constraint)
+SBMLCONSTRUCTOR_EXCEPTION(Delay)
+SBMLCONSTRUCTOR_EXCEPTION(Event)
+SBMLCONSTRUCTOR_EXCEPTION(EventAssignment)
+SBMLCONSTRUCTOR_EXCEPTION(FunctionDefinition)
+SBMLCONSTRUCTOR_EXCEPTION(InitialAssignment)
+SBMLCONSTRUCTOR_EXCEPTION(KineticLaw)
+SBMLCONSTRUCTOR_EXCEPTION(Model)
+SBMLCONSTRUCTOR_EXCEPTION(Parameter)
+SBMLCONSTRUCTOR_EXCEPTION(Reaction)
+SBMLCONSTRUCTOR_EXCEPTION(AssignmentRule)
+SBMLCONSTRUCTOR_EXCEPTION(AlgebraicRule)
+SBMLCONSTRUCTOR_EXCEPTION(RateRule)
+SBMLCONSTRUCTOR_EXCEPTION(Species)
+SBMLCONSTRUCTOR_EXCEPTION(SpeciesReference)
+SBMLCONSTRUCTOR_EXCEPTION(ModifierSpeciesReference)
+SBMLCONSTRUCTOR_EXCEPTION(SpeciesType)
+SBMLCONSTRUCTOR_EXCEPTION(StoichiometryMath)
+SBMLCONSTRUCTOR_EXCEPTION(Trigger)
+SBMLCONSTRUCTOR_EXCEPTION(Unit)
+SBMLCONSTRUCTOR_EXCEPTION(UnitDefinition)
+
+/**
  * Ignores XMLToken::clone() in order to use XMLNode::clone().
  * (XMLNode is a derived class of XMLToken)
  * In JDK 1.4.2, "XMLNode XMLNode::clone()" can't override 
@@ -847,15 +926,14 @@ SWIGJAVA_EQUALS(Date)
 SWIGJAVA_EQUALS(ModelHistory)
 SWIGJAVA_EQUALS(ModelCreator)
 SWIGJAVA_EQUALS(XMLNamespaces)
+SWIGJAVA_EQUALS(SBMLNamespaces)
 SWIGJAVA_EQUALS(XMLAttributes)
 SWIGJAVA_EQUALS(XMLToken)
 SWIGJAVA_EQUALS(XMLNode)
 SWIGJAVA_EQUALS(XMLTriple)
 SWIGJAVA_EQUALS(XMLError)
 SWIGJAVA_EQUALS(XMLErrorLog)
-SWIGJAVA_EQUALS(XMLHandler)
 SWIGJAVA_EQUALS(XMLOutputStream)
-SWIGJAVA_EQUALS(XMLInputStream)
 
 /**
  * Part of libSBML methods takeover ownership of passed-in objects, so we need
@@ -1166,6 +1244,8 @@ SWIGJAVA_EQUALS(XMLInputStream)
   private libsbml() {}
 
 %}
+
+
 
 /**
  *  Wraps the following functions by using the corresponding

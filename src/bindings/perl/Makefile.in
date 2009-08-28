@@ -134,22 +134,23 @@ all: Makefile-perl
 
 # The Perl-created Makefile is named 'Makefile-perl'.
 
+#
+# Currently, libtool doesn't work for building Perl bindings on Cygwin.
+# So, for the time being, libtool is not used on Cygwin.
+#
 Makefile-perl: Makefile.PL
 ifndef USE_PERL
 	@ echo "Reconfigure --with-perl in order to build the perl-bindings"
 	exit 1
 else
-	$(PERL) Makefile.PL $(if $(LIB),LIB=$(LIB),)
-# The following perl commands add missing -lstdc++ option to EXTRALIBS and
-# LDLOADLIBS in Makefile-perl.
-# ExtUtil::Makemaker may ignore -lstdc++ option in some environments (e.g. MacOSX, cygwin)
-# even if corresponding standard c++ library exists.
-ifdef USE_SUN_CC
-	perl -pi -e 's|(^EXTRALIBS.*)|\1 -lCstd|  if (/^EXTRALIBS/  and !/\-lCstd/)'  Makefile-perl
-	perl -pi -e 's|(^LDLOADLIBS.*)|\1 -lCstd| if (/^LDLOADLIBS/ and !/\-lCstd/);' Makefile-perl
+ifeq "$(HOST_TYPE)" "cygwin"
+	$(PERL) Makefile.PL $(if $(LIB),LIB=$(LIB),) \
+	CC="$(CXX)" LD="$(CXX)" MYEXTLIB="../../.libs/libsbml.a"
 else
-	perl -pi -e 's|(^EXTRALIBS.*)|\1 -lstdc++|  if (/^EXTRALIBS/  and !/\-lstdc\+\+/)'  Makefile-perl
-	perl -pi -e 's|(^LDLOADLIBS.*)|\1 -lstdc++| if (/^LDLOADLIBS/ and !/\-lstdc\+\+/);' Makefile-perl
+	$(PERL) Makefile.PL $(if $(LIB),LIB=$(LIB),) \
+	CC="$(LIBTOOL) --mode=compile $(CXX)" \
+	LD="$(TOP_SRCDIR)/config/lt_link_helper.sh $(CXX) --libdir $(LIBDIR)" \
+	MYEXTLIB="../../libsbml.la"
 endif
 endif
 

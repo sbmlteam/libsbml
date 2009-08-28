@@ -58,6 +58,10 @@ namespace LibSBMLCSTest {
       {
         return;
       }
+      else if ( (a == null) || (b == null) )
+      {
+        throw new AssertionError();
+      }
       else if (a.Equals(b))
       {
         return;
@@ -71,6 +75,10 @@ namespace LibSBMLCSTest {
       if ( (a == null) && (b == null) )
       {
         throw new AssertionError();
+      }
+      else if ( (a == null) || (b == null) )
+      {
+        return;
       }
       else if (a.Equals(b))
       {
@@ -118,7 +126,7 @@ namespace LibSBMLCSTest {
 
     public void setUp()
     {
-      UD = new  UnitDefinition();
+      UD = new  UnitDefinition(2,4);
       if (UD == null);
       {
       }
@@ -131,7 +139,8 @@ namespace LibSBMLCSTest {
 
     public void test_UnitDefinition_addUnit()
     {
-      Unit u = new  Unit();
+      Unit u = new  Unit(2,4);
+      u.setKind(libsbml.UNIT_KIND_MOLE);
       UD.addUnit(u);
       assertTrue( UD.getNumUnits() == 1 );
       u = null;
@@ -150,25 +159,13 @@ namespace LibSBMLCSTest {
       assertTrue( UD.getNumUnits() == 0 );
     }
 
-    public void test_UnitDefinition_createWith()
-    {
-      UnitDefinition ud = new  UnitDefinition("mmls", "");
-      assertTrue( ud.getTypeCode() == libsbml.SBML_UNIT_DEFINITION );
-      assertTrue( ud.getMetaId() == "" );
-      assertTrue( ud.getNotes() == null );
-      assertTrue( ud.getAnnotation() == null );
-      assertTrue( ud.getName() == "" );
-      assertTrue((  "mmls" == ud.getId() ));
-      assertEquals( true, ud.isSetId() );
-      assertTrue( ud.getNumUnits() == 0 );
-      ud = null;
-    }
-
-    public void test_UnitDefinition_createWithLevelVersionAndNamespace()
+    public void test_UnitDefinition_createWithNS()
     {
       XMLNamespaces xmlns = new  XMLNamespaces();
-      xmlns.add( "http://www.sbml.org", "sbml");
-      UnitDefinition object1 = new  UnitDefinition(2,1,xmlns);
+      xmlns.add( "http://www.sbml.org", "testsbml");
+      SBMLNamespaces sbmlns = new  SBMLNamespaces(2,1);
+      sbmlns.addNamespaces(xmlns);
+      UnitDefinition object1 = new  UnitDefinition(sbmlns);
       assertTrue( object1.getTypeCode() == libsbml.SBML_UNIT_DEFINITION );
       assertTrue( object1.getMetaId() == "" );
       assertTrue( object1.getNotes() == null );
@@ -176,19 +173,20 @@ namespace LibSBMLCSTest {
       assertTrue( object1.getLevel() == 2 );
       assertTrue( object1.getVersion() == 1 );
       assertTrue( object1.getNamespaces() != null );
-      assertTrue( object1.getNamespaces().getLength() == 1 );
+      assertTrue( object1.getNamespaces().getLength() == 2 );
       object1 = null;
     }
 
     public void test_UnitDefinition_createWithName()
     {
-      UnitDefinition ud = new  UnitDefinition("", "mmol liter^-1 sec^-1");
+      UnitDefinition ud = new  UnitDefinition(2,4);
+      ud.setName( "mmol_per_liter_per_sec");
       assertTrue( ud.getTypeCode() == libsbml.SBML_UNIT_DEFINITION );
       assertTrue( ud.getMetaId() == "" );
       assertTrue( ud.getNotes() == null );
       assertTrue( ud.getAnnotation() == null );
       assertTrue( ud.getId() == "" );
-      assertTrue((  "mmol liter^-1 sec^-1" == ud.getName() ));
+      assertTrue((  "mmol_per_liter_per_sec" == ud.getName() ));
       assertEquals( true, ud.isSetName() );
       assertTrue( ud.getNumUnits() == 0 );
       ud = null;
@@ -200,9 +198,9 @@ namespace LibSBMLCSTest {
 
     public void test_UnitDefinition_getUnit()
     {
-      Unit mole = new  Unit();
-      Unit litre = new  Unit();
-      Unit second = new  Unit();
+      Unit mole = new  Unit(2,4);
+      Unit litre = new  Unit(2,4);
+      Unit second = new  Unit(2,4);
       mole.setKind(libsbml.UnitKind_forName("mole"));
       litre.setKind(libsbml.UnitKind_forName("litre"));
       second.setKind(libsbml.UnitKind_forName("second"));
@@ -229,7 +227,7 @@ namespace LibSBMLCSTest {
 
     public void test_UnitDefinition_isVariantOfArea()
     {
-      Unit dim = new  Unit();
+      Unit dim = new  Unit(2,4);
       dim.setKind(libsbml.UnitKind_forName("dimensionless"));
       Unit u = UD.createUnit();
       assertEquals( false, UD.isVariantOfArea() );
@@ -251,7 +249,7 @@ namespace LibSBMLCSTest {
 
     public void test_UnitDefinition_isVariantOfLength()
     {
-      Unit dim = new  Unit();
+      Unit dim = new  Unit(2,4);
       dim.setKind(libsbml.UnitKind_forName("dimensionless"));
       Unit u = UD.createUnit();
       assertEquals( false, UD.isVariantOfLength() );
@@ -273,7 +271,7 @@ namespace LibSBMLCSTest {
 
     public void test_UnitDefinition_isVariantOfSubstancePerTime_1()
     {
-      Unit dim = new  Unit();
+      Unit dim = new  Unit(2,4);
       dim.setKind(libsbml.UnitKind_forName("dimensionless"));
       Unit perTime = UD.createUnit();
       perTime.setKind(libsbml.UnitKind_forName("second"));
@@ -298,11 +296,12 @@ namespace LibSBMLCSTest {
       perTime.setExponent(-1);
       UD.addUnit(dim);
       assertEquals( true, UD.isVariantOfSubstancePerTime() );
+      dim = null;
     }
 
     public void test_UnitDefinition_isVariantOfSubstancePerTime_2()
     {
-      Unit dim = new  Unit();
+      Unit dim = new  Unit(2,4);
       dim.setKind(libsbml.UnitKind_forName("dimensionless"));
       Unit perTime = UD.createUnit();
       perTime.setKind(libsbml.UnitKind_forName("second"));
@@ -327,12 +326,13 @@ namespace LibSBMLCSTest {
       perTime.setExponent(-1);
       UD.addUnit(dim);
       assertEquals( true, UD.isVariantOfSubstancePerTime() );
+      dim = null;
     }
 
     public void test_UnitDefinition_isVariantOfSubstancePerTime_3()
     {
-      UnitDefinition ud = new  UnitDefinition(2,2,null);
-      Unit dim = new  Unit();
+      UnitDefinition ud = new  UnitDefinition(2,2);
+      Unit dim = new  Unit(2,2);
       dim.setKind(libsbml.UnitKind_forName("dimensionless"));
       Unit perTime = ud.createUnit();
       perTime.setKind(libsbml.UnitKind_forName("second"));
@@ -357,12 +357,14 @@ namespace LibSBMLCSTest {
       perTime.setExponent(-1);
       ud.addUnit(dim);
       assertEquals( true, ud.isVariantOfSubstancePerTime() );
+      ud = null;
+      dim = null;
     }
 
     public void test_UnitDefinition_isVariantOfSubstancePerTime_4()
     {
-      UnitDefinition ud = new  UnitDefinition(2,2,null);
-      Unit dim = new  Unit();
+      UnitDefinition ud = new  UnitDefinition(2,2);
+      Unit dim = ud.createUnit();
       dim.setKind(libsbml.UnitKind_forName("dimensionless"));
       Unit perTime = ud.createUnit();
       perTime.setKind(libsbml.UnitKind_forName("second"));
@@ -387,11 +389,12 @@ namespace LibSBMLCSTest {
       perTime.setExponent(-1);
       ud.addUnit(dim);
       assertEquals( true, ud.isVariantOfSubstancePerTime() );
+      ud = null;
     }
 
     public void test_UnitDefinition_isVariantOfSubstance_1()
     {
-      Unit dim = new  Unit();
+      Unit dim = new  Unit(2,4);
       dim.setKind(libsbml.UnitKind_forName("dimensionless"));
       Unit u = UD.createUnit();
       assertEquals( false, UD.isVariantOfSubstance() );
@@ -413,7 +416,7 @@ namespace LibSBMLCSTest {
 
     public void test_UnitDefinition_isVariantOfSubstance_2()
     {
-      Unit dim = new  Unit();
+      Unit dim = new  Unit(2,4);
       dim.setKind(libsbml.UnitKind_forName("dimensionless"));
       Unit u = UD.createUnit();
       assertEquals( false, UD.isVariantOfSubstance() );
@@ -435,7 +438,7 @@ namespace LibSBMLCSTest {
 
     public void test_UnitDefinition_isVariantOfTime()
     {
-      Unit dim = new  Unit();
+      Unit dim = new  Unit(2,4);
       dim.setKind(libsbml.UnitKind_forName("dimensionless"));
       Unit u = UD.createUnit();
       assertEquals( false, UD.isVariantOfTime() );
@@ -457,7 +460,7 @@ namespace LibSBMLCSTest {
 
     public void test_UnitDefinition_isVariantOfVolume_1()
     {
-      Unit dim = new  Unit();
+      Unit dim = new  Unit(2,4);
       dim.setKind(libsbml.UnitKind_forName("dimensionless"));
       Unit u = UD.createUnit();
       assertEquals( false, UD.isVariantOfVolume() );
@@ -479,7 +482,7 @@ namespace LibSBMLCSTest {
 
     public void test_UnitDefinition_isVariantOfVolume_2()
     {
-      Unit dim = new  Unit();
+      Unit dim = new  Unit(2,4);
       dim.setKind(libsbml.UnitKind_forName("dimensionless"));
       Unit u = UD.createUnit();
       assertEquals( false, UD.isVariantOfVolume() );
@@ -501,7 +504,8 @@ namespace LibSBMLCSTest {
 
     public void test_UnitDefinition_printUnits()
     {
-      UnitDefinition ud = new  UnitDefinition("mmls", "");
+      UnitDefinition ud = new  UnitDefinition(2,4);
+      ud.setId( "mmls");
       Unit perTime = ud.createUnit();
       perTime.setKind(libsbml.UnitKind_forName("second"));
       perTime.setExponent(-1);
@@ -509,7 +513,8 @@ namespace LibSBMLCSTest {
       assertTrue((                 "second (exponent = -1, multiplier = 1, scale = 0)" == ud_str ));
       string ud_str1 = UnitDefinition.printUnits(ud,true);
       assertTrue((  "(1 second)^-1" == ud_str1 ));
-      UnitDefinition ud1 = new  UnitDefinition("mmls", "");
+      UnitDefinition ud1 = new  UnitDefinition(2,4);
+      ud1.setId( "mmls");
       Unit u = ud1.createUnit();
       u.setKind(libsbml.UNIT_KIND_KILOGRAM);
       u.setExponent(1);
@@ -519,6 +524,23 @@ namespace LibSBMLCSTest {
       assertTrue((                 "kilogram (exponent = 1, multiplier = 3, scale = 2)" == ud_str2 ));
       string ud_str3 = UnitDefinition.printUnits(ud1,true);
       assertTrue((  "(300 kilogram)^1" == ud_str3 ));
+    }
+
+    public void test_UnitDefinition_removeUnit()
+    {
+      Unit o1,o2,o3;
+      o1 = UD.createUnit();
+      o2 = UD.createUnit();
+      o3 = UD.createUnit();
+      assertTrue( UD.removeUnit(0) == o1 );
+      assertTrue( UD.getNumUnits() == 2 );
+      assertTrue( UD.removeUnit(0) == o2 );
+      assertTrue( UD.getNumUnits() == 1 );
+      assertTrue( UD.removeUnit(0) == o3 );
+      assertTrue( UD.getNumUnits() == 0 );
+      o1 = null;
+      o2 = null;
+      o3 = null;
     }
 
     public void test_UnitDefinition_setId()
@@ -541,7 +563,7 @@ namespace LibSBMLCSTest {
 
     public void test_UnitDefinition_setName()
     {
-      string name =  "mmol liter^-1 sec^-1";;
+      string name =  "mmol_per_liter_per_sec";;
       UD.setName(name);
       assertTrue(( name == UD.getName() ));
       assertEquals( true, UD.isSetName() );

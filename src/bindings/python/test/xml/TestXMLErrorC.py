@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Python conversion)
 # @author  Sarah Keating 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestXMLErrorC.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -43,6 +43,16 @@ class TestXMLErrorC(unittest.TestCase):
     error = libsbml.XMLError(12345, "My message")
     self.assert_( (  "My message" != error.getMessage() ) == False )
     self.assert_( error.getErrorId() == 12345 )
+    error = None
+    pass  
+
+  def test_XMLError_variablesAsStrings(self):
+    error = libsbml.XMLError(1003, "")
+    self.assert_( error.getErrorId() == 1003 )
+    self.assert_( error.getSeverity() == libsbml.LIBSBML_SEV_ERROR )
+    self.assert_((  "Error" == error.getSeverityAsString() ))
+    self.assert_( error.getCategory() == libsbml.LIBSBML_CAT_XML )
+    self.assert_((  "XML content" == error.getCategoryAsString() ))
     error = None
     pass  
 

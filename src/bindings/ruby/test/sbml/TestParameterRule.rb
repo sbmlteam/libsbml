@@ -31,7 +31,7 @@ require 'libSBML'
 class TestParameterRule < Test::Unit::TestCase
 
   def setup
-    @@pr = LibSBML::AssignmentRule.new()
+    @@pr = LibSBML::AssignmentRule.new(1,2)
     @@pr.setL1TypeCode(LibSBML::SBML_PARAMETER_RULE)
     if (@@pr == nil)
     end
@@ -52,22 +52,6 @@ class TestParameterRule < Test::Unit::TestCase
     assert( @@pr.getType() == LibSBML::RULE_TYPE_SCALAR )
     assert_equal false, @@pr.isSetVariable()
     assert_equal false, @@pr.isSetUnits()
-  end
-
-  def test_ParameterRule_createWith
-    pr = LibSBML::RateRule.new("c", "v + 1")
-    pr.setL1TypeCode(LibSBML::SBML_PARAMETER_RULE)
-    assert( pr.getTypeCode() == LibSBML::SBML_RATE_RULE )
-    assert( pr.getL1TypeCode() == LibSBML::SBML_PARAMETER_RULE )
-    assert( pr.getNotes() == nil )
-    assert( pr.getAnnotation() == nil )
-    assert( pr.getUnits() == "" )
-    assert ((  "v + 1" == pr.getFormula() ))
-    assert ((  "c" == pr.getVariable() ))
-    assert( pr.getType() == LibSBML::RULE_TYPE_RATE )
-    assert_equal true, pr.isSetVariable()
-    assert_equal false, pr.isSetUnits()
-    pr = nil
   end
 
   def test_ParameterRule_free_NULL

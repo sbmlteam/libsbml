@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestEventAssignment.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -52,6 +52,10 @@ public class TestEventAssignment {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestEventAssignment {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -111,7 +119,7 @@ public class TestEventAssignment {
 
   protected void setUp() throws Exception
   {
-    EA = new  EventAssignment();
+    EA = new  EventAssignment(2,4);
     if (EA == null);
     {
     }
@@ -132,27 +140,13 @@ public class TestEventAssignment {
     assertTrue( EA.getMath() == null );
   }
 
-  public void test_EventAssignment_createWith()
-  {
-    ASTNode math = libsbml.parseFormula("0");
-    EventAssignment ea = new  EventAssignment("k",math);
-    assertTrue( ea.getTypeCode() == libsbml.SBML_EVENT_ASSIGNMENT );
-    assertTrue( ea.getMetaId().equals("") == true );
-    assertTrue( ea.getNotes() == null );
-    assertTrue( ea.getAnnotation() == null );
-    assertTrue( !ea.getMath().equals(math) );
-    assertEquals( true, ea.isSetMath() );
-    assertTrue(ea.getVariable().equals( "k"));
-    assertEquals( true, ea.isSetVariable() );
-    math = null;
-    ea = null;
-  }
-
-  public void test_EventAssignment_createWithLevelVersionAndNamespace()
+  public void test_EventAssignment_createWithNS()
   {
     XMLNamespaces xmlns = new  XMLNamespaces();
-    xmlns.add( "http://www.sbml.org", "sbml");
-    EventAssignment object = new  EventAssignment(2,1,xmlns);
+    xmlns.add( "http://www.sbml.org", "testsbml");
+    SBMLNamespaces sbmlns = new  SBMLNamespaces(2,1);
+    sbmlns.addNamespaces(xmlns);
+    EventAssignment object = new  EventAssignment(sbmlns);
     assertTrue( object.getTypeCode() == libsbml.SBML_EVENT_ASSIGNMENT );
     assertTrue( object.getMetaId().equals("") == true );
     assertTrue( object.getNotes() == null );
@@ -160,7 +154,7 @@ public class TestEventAssignment {
     assertTrue( object.getLevel() == 2 );
     assertTrue( object.getVersion() == 1 );
     assertTrue( object.getNamespaces() != null );
-    assertTrue( object.getNamespaces().getLength() == 1 );
+    assertTrue( object.getNamespaces().getLength() == 2 );
     object = null;
   }
 

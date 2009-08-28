@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Sarah Keating 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestXMLAttributesC.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -106,6 +106,24 @@ public class TestXMLAttributesC {
       return;
     }
     throw new AssertionError();
+  }
+
+  public void test_XMLAttributes_add1()
+  {
+    XMLAttributes xa = new  XMLAttributes();
+    XMLTriple xt2 = new  XMLTriple("name2", "http://name2.org/", "p2");
+    long i = xa.add( "name1", "val1", "http://name1.org/", "p1");
+    assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+    i = xa.add(xt2, "val2");
+    assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+    assertTrue( xa.getLength() == 2 );
+    assertTrue( xa.isEmpty() == false );
+    i = xa.add( "noprefix", "val3");
+    assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+    assertTrue( xa.getLength() == 3 );
+    assertTrue( xa.isEmpty() == false );
+    xa = null;
+    xt2 = null;
   }
 
   public void test_XMLAttributes_add_remove_qname_C()
@@ -225,6 +243,54 @@ public class TestXMLAttributesC {
     xt3 = null;
     xt1a = null;
     xt2a = null;
+  }
+
+  public void test_XMLAttributes_clear1()
+  {
+    XMLAttributes xa = new  XMLAttributes();
+    XMLTriple xt2 = new  XMLTriple("name2", "http://name2.org/", "p2");
+    long i = xa.add( "name1", "val1", "http://name1.org/", "p1");
+    i = xa.add(xt2, "val2");
+    i = xa.add( "noprefix", "val3");
+    assertTrue( xa.getLength() == 3 );
+    assertTrue( xa.isEmpty() == false );
+    i = xa.clear();
+    assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+    assertTrue( xa.getLength() == 0 );
+    assertTrue( xa.isEmpty() == true );
+    xa = null;
+    xt2 = null;
+  }
+
+  public void test_XMLAttributes_remove1()
+  {
+    XMLAttributes xa = new  XMLAttributes();
+    XMLTriple xt2 = new  XMLTriple("name2", "http://name2.org/", "p2");
+    long i = xa.add( "name1", "val1", "http://name1.org/", "p1");
+    assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+    i = xa.add(xt2, "val2");
+    assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+    i = xa.add( "noprefix", "val3");
+    assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+    i = xa.add( "name4", "val4", "http://name4.org/", "p1");
+    assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+    assertTrue( xa.getLength() == 4 );
+    i = xa.remove(4);
+    assertTrue( i == libsbml.LIBSBML_INDEX_EXCEEDS_SIZE );
+    i = xa.remove(3);
+    assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+    assertTrue( xa.getLength() == 3 );
+    i = xa.remove( "noprefix");
+    assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+    assertTrue( xa.getLength() == 2 );
+    i = xa.remove(xt2);
+    assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+    assertTrue( xa.getLength() == 1 );
+    i = xa.remove( "name1", "http://name1.org/");
+    assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+    assertTrue( xa.getLength() == 0 );
+    xa = null;
+    xt2 = null;
   }
 
   /**

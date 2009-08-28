@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Sarah Keating 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestReadFromFile1.cpp
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -111,12 +111,12 @@ public class TestReadFromFile1 {
   public void test_read_MathML_1()
   {
     SBMLReader reader = new SBMLReader();
-    SBMLDocument d = new SBMLDocument();
-    Model m = new Model();
-    FunctionDefinition fd = new FunctionDefinition();
-    InitialAssignment ia = new InitialAssignment();
+    SBMLDocument d;
+    Model m;
+    FunctionDefinition fd;
+    InitialAssignment ia;
     Rule r;
-    KineticLaw kl = new KineticLaw();
+    KineticLaw kl;
     String filename = new String( "../../math/test/test-data/" );
     filename += "mathML_1.xml";
     d = reader.readSBML(filename);

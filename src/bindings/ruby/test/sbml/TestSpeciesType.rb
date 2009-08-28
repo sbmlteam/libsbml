@@ -31,7 +31,7 @@ require 'libSBML'
 class TestSpeciesType < Test::Unit::TestCase
 
   def setup
-    @@ct = LibSBML::SpeciesType.new()
+    @@ct = LibSBML::SpeciesType.new(2,4)
     if (@@ct == nil)
     end
   end
@@ -51,31 +51,20 @@ class TestSpeciesType < Test::Unit::TestCase
     assert_equal false, @@ct.isSetName()
   end
 
-  def test_SpeciesType_createWith
-    c = LibSBML::SpeciesType.new("A", "")
-    assert( c.getTypeCode() == LibSBML::SBML_SPECIES_TYPE )
-    assert( c.getMetaId() == "" )
-    assert( c.getNotes() == nil )
-    assert( c.getAnnotation() == nil )
-    assert( c.getName() == "" )
-    assert ((  "A"      == c.getId() ))
-    assert_equal true, c.isSetId()
-    assert_equal false, c.isSetName()
-    c = nil
-  end
-
-  def test_SpeciesType_createWithLevelVersionAndNamespace
+  def test_SpeciesType_createWithNS
     xmlns = LibSBML::XMLNamespaces.new()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = LibSBML::SpeciesType.new(2,2,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = LibSBML::SBMLNamespaces.new(2,2)
+    sbmlns.addNamespaces(xmlns)
+    object = LibSBML::SpeciesType.new(sbmlns)
     assert( object.getTypeCode() == LibSBML::SBML_SPECIES_TYPE )
     assert( object.getMetaId() == "" )
     assert( object.getNotes() == nil )
     assert( object.getAnnotation() == nil )
     assert( object.getLevel() == 2 )
     assert( object.getVersion() == 2 )
-    assert( object.getNamespaces() != "" )
-    assert( object.getNamespaces().getLength() == 1 )
+    assert( object.getNamespaces() != nil )
+    assert( object.getNamespaces().getLength() == 2 )
     object = nil
   end
 
@@ -98,7 +87,7 @@ class TestSpeciesType < Test::Unit::TestCase
   end
 
   def test_SpeciesType_setName
-    name =  "My Favorite Factory";
+    name =  "My_Favorite_Factory";
     @@ct.setName(name)
     assert (( name == @@ct.getName() ))
     assert_equal true, @@ct.isSetName()

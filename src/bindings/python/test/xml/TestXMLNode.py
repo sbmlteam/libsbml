@@ -237,6 +237,92 @@ class TestXMLNode(unittest.TestCase):
     node = None
     pass  
 
+  def test_XMLNode_convert_dummyroot(self):
+    xmlstr_nodummy1 = wrapString("<notes>\n" + "  <p>test</p>\n" + "</notes>")
+    xmlstr_nodummy2 = wrapString("<html>\n" + "  <p>test</p>\n" + "</html>")
+    xmlstr_nodummy3 = wrapString("<body>\n" + "  <p>test</p>\n" + "</body>")
+    xmlstr_nodummy4 =  "<p>test</p>";
+    xmlstr_nodummy5 = wrapString("<test1>\n" + "  <test2>test</test2>\n" + "</test1>")
+    xmlstr_dummy1 =  "<p>test1</p><p>test2</p>";
+    xmlstr_dummy2 =  "<test1>test1</test1><test2>test2</test2>";
+    rootnode = libsbml.XMLNode.convertStringToXMLNode(xmlstr_nodummy1,None)
+    self.assert_( rootnode.getNumChildren() == 1 )
+    child = rootnode.getChild(0)
+    gchild = child.getChild(0)
+    self.assert_( (  "notes" != rootnode.getName() ) == False )
+    self.assert_( ( "p"  != child.getName() ) == False )
+    self.assert_( ( "test"  != gchild.getCharacters() ) == False )
+    toxmlstring = rootnode.toXMLString()
+    self.assert_( ( xmlstr_nodummy1 != toxmlstring ) == False )
+    rootnode = None
+    rootnode = libsbml.XMLNode.convertStringToXMLNode(xmlstr_nodummy2,None)
+    self.assert_( rootnode.getNumChildren() == 1 )
+    child = rootnode.getChild(0)
+    gchild = child.getChild(0)
+    self.assert_( (  "html" != rootnode.getName() ) == False )
+    self.assert_( ( "p"  != child.getName() ) == False )
+    self.assert_( ( "test"  != gchild.getCharacters() ) == False )
+    toxmlstring = rootnode.toXMLString()
+    self.assert_( ( xmlstr_nodummy2 != toxmlstring ) == False )
+    rootnode = None
+    rootnode = libsbml.XMLNode.convertStringToXMLNode(xmlstr_nodummy3,None)
+    self.assert_( rootnode.getNumChildren() == 1 )
+    child = rootnode.getChild(0)
+    gchild = child.getChild(0)
+    self.assert_( (  "body" != rootnode.getName() ) == False )
+    self.assert_( ( "p"  != child.getName() ) == False )
+    self.assert_( ( "test"  != gchild.getCharacters() ) == False )
+    toxmlstring = rootnode.toXMLString()
+    self.assert_( ( xmlstr_nodummy3 != toxmlstring ) == False )
+    rootnode = None
+    rootnode = libsbml.XMLNode.convertStringToXMLNode(xmlstr_nodummy4,None)
+    self.assert_( rootnode.getNumChildren() == 1 )
+    child = rootnode.getChild(0)
+    self.assert_( (  "p" != rootnode.getName() ) == False )
+    self.assert_( ( "test"  != child.getCharacters() ) == False )
+    toxmlstring = rootnode.toXMLString()
+    self.assert_( ( xmlstr_nodummy4 != toxmlstring ) == False )
+    rootnode = None
+    rootnode = libsbml.XMLNode.convertStringToXMLNode(xmlstr_nodummy5,None)
+    self.assert_( rootnode.getNumChildren() == 1 )
+    child = rootnode.getChild(0)
+    gchild = child.getChild(0)
+    self.assert_( (  "test1" != rootnode.getName() ) == False )
+    self.assert_( ( "test2"  != child.getName() ) == False )
+    self.assert_( ( "test"  != gchild.getCharacters() ) == False )
+    toxmlstring = rootnode.toXMLString()
+    self.assert_( ( xmlstr_nodummy5 != toxmlstring ) == False )
+    rootnode = None
+    rootnode = libsbml.XMLNode.convertStringToXMLNode(xmlstr_dummy1,None)
+    self.assert_( rootnode.isEOF() == True )
+    self.assert_( rootnode.getNumChildren() == 2 )
+    child = rootnode.getChild(0)
+    gchild = child.getChild(0)
+    self.assert_( (  "p" != child.getName() ) == False )
+    self.assert_( ( "test1"  != gchild.getCharacters() ) == False )
+    child = rootnode.getChild(1)
+    gchild = child.getChild(0)
+    self.assert_( (  "p" != child.getName() ) == False )
+    self.assert_( ( "test2"  != gchild.getCharacters() ) == False )
+    toxmlstring = rootnode.toXMLString()
+    self.assert_( ( xmlstr_dummy1 != toxmlstring ) == False )
+    rootnode = None
+    rootnode = libsbml.XMLNode.convertStringToXMLNode(xmlstr_dummy2,None)
+    self.assert_( rootnode.isEOF() == True )
+    self.assert_( rootnode.getNumChildren() == 2 )
+    child = rootnode.getChild(0)
+    gchild = child.getChild(0)
+    self.assert_( (  "test1" != child.getName() ) == False )
+    self.assert_( ( "test1"  != gchild.getCharacters() ) == False )
+    child = rootnode.getChild(1)
+    gchild = child.getChild(0)
+    self.assert_( (  "test2" != child.getName() ) == False )
+    self.assert_( ( "test2"  != gchild.getCharacters() ) == False )
+    toxmlstring = rootnode.toXMLString()
+    self.assert_( ( xmlstr_dummy2 != toxmlstring ) == False )
+    rootnode = None
+    pass  
+
   def test_XMLNode_create(self):
     node = libsbml.XMLNode()
     self.assert_( node != None )
@@ -354,8 +440,8 @@ class TestXMLNode(unittest.TestCase):
     pass  
 
   def test_XMLNode_getters(self):
-    ns = libsbml.XMLNamespaces()
-    ns.add( "http://test1.org/", "test1")
+    NS = libsbml.XMLNamespaces()
+    NS.add( "http://test1.org/", "test1")
     token = libsbml.XMLToken("This is a test")
     node = libsbml.XMLNode(token)
     self.assert_( node != None )
@@ -375,7 +461,7 @@ class TestXMLNode(unittest.TestCase):
     returnattr = node.getAttributes()
     self.assert_( (  "attr2" != returnattr.getName(0) ) == False )
     self.assert_( (  "value" != returnattr.getValue(0) ) == False )
-    token = libsbml.XMLToken(triple,attr,ns)
+    token = libsbml.XMLToken(triple,attr,NS)
     node = libsbml.XMLNode(token)
     returnNS = node.getNamespaces()
     self.assert_( returnNS.getLength() == 1 )
@@ -489,7 +575,7 @@ class TestXMLNode(unittest.TestCase):
     node.addNamespace( "http://test1.org/", "test1a")
     self.assert_( node.getNamespacesLength() == 3 )
     self.assert_( node.isNamespacesEmpty() == False )
-    self.assert_( (node.getNamespaceIndex( "http://test1.org/") == -1) == False)
+    self.assert_( (node.getNamespaceIndex( "http://test1.org/") == -1) == False )
     node = None
     triple = None
     attr = None

@@ -53,11 +53,11 @@ WriteMakefile(
               INSTALLDIRS => "site",
               LIBS        => "@XERCES_LDFLAGS@ @EXPAT_LDFLAGS@ @LIBXML_LDFLAGS@ @XERCES_LIBS@ @EXPAT_LIBS@ @LIBXML_LIBS@ @ZLIB_LIBS@ @BZ2_LIBS@ @LIBS@ -lm",
               LDDLFLAGS   => "@LDFLAGS@ $Config{lddlflags}",
-	      CC          => "@CXX@",
+              CC          => "@CXX@",
               LD          => "@CXX@",
 	      CCFLAGS     => "@PERL_CPPFLAGS@ @CXXFLAGS@",
               INC         => "-I../swig -I../.. -I../../../include",
-              MYEXTLIB    => "../../libsbml.a",
+              MYEXTLIB    => "../../libsbml.la",
               macro       => {USE_SWIG => q[@USE_SWIG@]},
               OBJECT      => "LibSBML_wrap.o",
 	      MAN1PODS    => {},
@@ -73,9 +73,9 @@ sub postamble {
 extra_sources  = \
   LibSBML.i \
   local.cpp \
-  local.i   \
-  list_of_fix.i \
-  list_get_fix.i
+  local.i \
+  list_get_fix.i \
+  list_of_fix.i
 
 swig_sources =      \
   $(extra_sources)  \

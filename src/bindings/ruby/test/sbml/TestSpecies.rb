@@ -31,7 +31,7 @@ require 'libSBML'
 class TestSpecies < Test::Unit::TestCase
 
   def setup
-    @@s = LibSBML::Species.new()
+    @@s = LibSBML::Species.new(2,4)
     if (@@s == nil)
     end
   end
@@ -67,41 +67,20 @@ class TestSpecies < Test::Unit::TestCase
     assert_equal false, @@s.isSetCharge()
   end
 
-  def test_Species_createWith
-    s = LibSBML::Species.new("Ca", "Calcium")
-    assert( s.getTypeCode() == LibSBML::SBML_SPECIES )
-    assert( s.getMetaId() == "" )
-    assert( s.getNotes() == nil )
-    assert( s.getAnnotation() == nil )
-    assert ((  "Calcium"   == s.getName() ))
-    assert( s.getSpatialSizeUnits() == "" )
-    assert( s.getHasOnlySubstanceUnits() == false )
-    assert( s.getConstant() == false )
-    assert ((  "Ca"   == s.getId() ))
-    assert_equal true, s.isSetId()
-    assert_equal true, s.isSetName()
-    assert_equal false, s.isSetCompartment()
-    assert_equal false, s.isSetSubstanceUnits()
-    assert_equal false, s.isSetSpatialSizeUnits()
-    assert_equal false, s.isSetUnits()
-    assert_equal false, s.isSetInitialAmount()
-    assert_equal false, s.isSetInitialConcentration()
-    assert_equal false, s.isSetCharge()
-    s = nil
-  end
-
-  def test_Species_createWithLevelVersionAndNamespace
+  def test_Species_createWithNS
     xmlns = LibSBML::XMLNamespaces.new()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = LibSBML::Species.new(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = LibSBML::SBMLNamespaces.new(2,1)
+    sbmlns.addNamespaces(xmlns)
+    object = LibSBML::Species.new(sbmlns)
     assert( object.getTypeCode() == LibSBML::SBML_SPECIES )
     assert( object.getMetaId() == "" )
     assert( object.getNotes() == nil )
     assert( object.getAnnotation() == nil )
     assert( object.getLevel() == 2 )
     assert( object.getVersion() == 1 )
-    assert( object.getNamespaces() != "" )
-    assert( object.getNamespaces().getLength() == 1 )
+    assert( object.getNamespaces() != nil )
+    assert( object.getNamespaces().getLength() == 2 )
     object = nil
   end
 
@@ -157,7 +136,7 @@ class TestSpecies < Test::Unit::TestCase
   end
 
   def test_Species_setName
-    name =  "So Sweet";
+    name =  "So_Sweet";
     @@s.setName(name)
     assert (( name == @@s.getName() ))
     assert_equal true, @@s.isSetName()
@@ -172,18 +151,20 @@ class TestSpecies < Test::Unit::TestCase
   end
 
   def test_Species_setSpatialSizeUnits
+    s = LibSBML::Species.new(2,1)
     units =  "volume";
-    @@s.setSpatialSizeUnits(units)
-    assert (( units == @@s.getSpatialSizeUnits() ))
-    assert_equal true, @@s.isSetSpatialSizeUnits()
-    if (@@s.getSpatialSizeUnits() == units)
+    s.setSpatialSizeUnits(units)
+    assert (( units == s.getSpatialSizeUnits() ))
+    assert_equal true, s.isSetSpatialSizeUnits()
+    if (s.getSpatialSizeUnits() == units)
     end
-    @@s.setSpatialSizeUnits(@@s.getSpatialSizeUnits())
-    assert (( units == @@s.getSpatialSizeUnits() ))
-    @@s.setSpatialSizeUnits("")
-    assert_equal false, @@s.isSetSpatialSizeUnits()
-    if (@@s.getSpatialSizeUnits() != nil)
+    s.setSpatialSizeUnits(s.getSpatialSizeUnits())
+    assert (( units == s.getSpatialSizeUnits() ))
+    s.setSpatialSizeUnits("")
+    assert_equal false, s.isSetSpatialSizeUnits()
+    if (s.getSpatialSizeUnits() != nil)
     end
+    s = nil
   end
 
   def test_Species_setSubstanceUnits

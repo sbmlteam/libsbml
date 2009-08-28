@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Python conversion)
 # @author  Sarah Keating 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestReadFromFile8.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -34,14 +34,7 @@ class TestReadFromFile8(unittest.TestCase):
 
   def test_read_l2v4_new(self):
     reader = libsbml.SBMLReader()
-    d = libsbml.SBMLDocument()
-    m = libsbml.Model()
-    c = libsbml.Compartment()
-    e = libsbml.Event()
-    trigger = libsbml.Trigger()
-    ea = libsbml.EventAssignment()
-    ast = libsbml.ASTNode()
-    filename = "../../sbml/test/test-data/" 
+    filename = "../../sbml/test/test-data/"
     filename += "l2v4-new.xml"
     d = reader.readSBML(filename)
     if (d == None):

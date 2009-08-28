@@ -34,7 +34,7 @@ class TestReaction(unittest.TestCase):
   R = None
 
   def setUp(self):
-    self.R = libsbml.Reaction()
+    self.R = libsbml.Reaction(2,4)
     if (self.R == None):
       pass    
     pass  
@@ -44,14 +44,17 @@ class TestReaction(unittest.TestCase):
     pass  
 
   def test_Reaction_addModifier(self):
-    self.R.addModifier(libsbml.ModifierSpeciesReference())
+    msr = libsbml.ModifierSpeciesReference(2,4)
+    msr.setSpecies( "s")
+    self.R.addModifier(msr)
     self.assert_( self.R.getNumReactants() == 0 )
     self.assert_( self.R.getNumProducts() == 0 )
     self.assert_( self.R.getNumModifiers() == 1 )
     pass  
 
   def test_Reaction_addProduct(self):
-    sr = libsbml.SpeciesReference()
+    sr = libsbml.SpeciesReference(2,4)
+    sr.setSpecies( "s")
     self.R.addProduct(sr)
     self.assert_( self.R.getNumReactants() == 0 )
     self.assert_( self.R.getNumProducts() == 1 )
@@ -60,7 +63,8 @@ class TestReaction(unittest.TestCase):
     pass  
 
   def test_Reaction_addReactant(self):
-    sr = libsbml.SpeciesReference()
+    sr = libsbml.SpeciesReference(2,4)
+    sr.setSpecies( "s")
     self.R.addReactant(sr)
     self.assert_( self.R.getNumReactants() == 1 )
     self.assert_( self.R.getNumProducts() == 0 )
@@ -86,40 +90,20 @@ class TestReaction(unittest.TestCase):
     self.assert_( self.R.getNumModifiers() == 0 )
     pass  
 
-  def test_Reaction_createWith(self):
-    kl = libsbml.KineticLaw()
-    r = libsbml.Reaction("r1", "",kl,False)
-    r.setFast(True)
-    self.assert_( r.getTypeCode() == libsbml.SBML_REACTION )
-    self.assert_( r.getMetaId() == "" )
-    self.assert_( r.getNotes() == None )
-    self.assert_( r.getAnnotation() == None )
-    self.assert_( r.getName() == "" )
-    self.assert_((  "r1" == r.getId() ))
-    self.assert_( r.getReversible() == False )
-    self.assert_( r.getFast() == True )
-    self.assertEqual( True, r.isSetId() )
-    self.assertEqual( False, r.isSetName() )
-    self.assertEqual( True, r.isSetKineticLaw() )
-    self.assert_( r.getNumReactants() == 0 )
-    self.assert_( r.getNumProducts() == 0 )
-    self.assert_( r.getNumModifiers() == 0 )
-    kl = None
-    r = None
-    pass  
-
-  def test_Reaction_createWithLevelVersionAndNamespace(self):
+  def test_Reaction_createWithNS(self):
     xmlns = libsbml.XMLNamespaces()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = libsbml.Reaction(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = libsbml.SBMLNamespaces(2,1)
+    sbmlns.addNamespaces(xmlns)
+    object = libsbml.Reaction(sbmlns)
     self.assert_( object.getTypeCode() == libsbml.SBML_REACTION )
     self.assert_( object.getMetaId() == "" )
     self.assert_( object.getNotes() == None )
     self.assert_( object.getAnnotation() == None )
     self.assert_( object.getLevel() == 2 )
     self.assert_( object.getVersion() == 1 )
-    self.assert_( object.getNamespaces() != "" )
-    self.assert_( object.getNamespaces().getLength() == 1 )
+    self.assert_( object.getNamespaces() != None )
+    self.assert_( object.getNamespaces().getLength() == 2 )
     object = None
     pass  
 
@@ -127,8 +111,8 @@ class TestReaction(unittest.TestCase):
     pass  
 
   def test_Reaction_getModifier(self):
-    msr1 = libsbml.ModifierSpeciesReference()
-    msr2 = libsbml.ModifierSpeciesReference()
+    msr1 = libsbml.ModifierSpeciesReference(2,4)
+    msr2 = libsbml.ModifierSpeciesReference(2,4)
     msr1.setSpecies( "M1")
     msr2.setSpecies( "M2")
     self.R.addModifier(msr1)
@@ -145,8 +129,8 @@ class TestReaction(unittest.TestCase):
     pass  
 
   def test_Reaction_getModifierById(self):
-    msr1 = libsbml.ModifierSpeciesReference()
-    msr2 = libsbml.ModifierSpeciesReference()
+    msr1 = libsbml.ModifierSpeciesReference(2,4)
+    msr2 = libsbml.ModifierSpeciesReference(2,4)
     msr1.setSpecies( "M1")
     msr2.setSpecies( "M2")
     self.R.addModifier(msr1)
@@ -162,8 +146,8 @@ class TestReaction(unittest.TestCase):
     pass  
 
   def test_Reaction_getProduct(self):
-    sr1 = libsbml.SpeciesReference()
-    sr2 = libsbml.SpeciesReference()
+    sr1 = libsbml.SpeciesReference(2,4)
+    sr2 = libsbml.SpeciesReference(2,4)
     sr1.setSpecies( "P1")
     sr2.setSpecies( "P2")
     self.R.addProduct(sr1)
@@ -180,8 +164,10 @@ class TestReaction(unittest.TestCase):
     pass  
 
   def test_Reaction_getProductById(self):
-    sr1 = libsbml.SpeciesReference("P1",1,1)
-    sr2 = libsbml.SpeciesReference("P2",1,1)
+    sr1 = libsbml.SpeciesReference(2,4)
+    sr1.setSpecies( "P1")
+    sr2 = libsbml.SpeciesReference(2,4)
+    sr2.setSpecies( "P1")
     self.R.addProduct(sr1)
     self.R.addProduct(sr2)
     self.assert_( self.R.getNumReactants() == 0 )
@@ -195,8 +181,8 @@ class TestReaction(unittest.TestCase):
     pass  
 
   def test_Reaction_getReactant(self):
-    sr1 = libsbml.SpeciesReference()
-    sr2 = libsbml.SpeciesReference()
+    sr1 = libsbml.SpeciesReference(2,4)
+    sr2 = libsbml.SpeciesReference(2,4)
     sr1.setSpecies( "R1")
     sr2.setSpecies( "R2")
     self.R.addReactant(sr1)
@@ -213,8 +199,10 @@ class TestReaction(unittest.TestCase):
     pass  
 
   def test_Reaction_getReactantById(self):
-    sr1 = libsbml.SpeciesReference("R1",1,1)
-    sr2 = libsbml.SpeciesReference("R2",1,1)
+    sr1 = libsbml.SpeciesReference(2,4)
+    sr1.setSpecies( "R1")
+    sr2 = libsbml.SpeciesReference(2,4)
+    sr2.setSpecies( "R2")
     self.R.addReactant(sr1)
     self.R.addReactant(sr2)
     self.assert_( self.R.getNumReactants() == 2 )
@@ -225,6 +213,54 @@ class TestReaction(unittest.TestCase):
     self.assert_( self.R.getReactant( "R3") == None )
     sr1 = None
     sr2 = None
+    pass  
+
+  def test_Reaction_removeModifier(self):
+    o1 = self.R.createModifier()
+    o2 = self.R.createModifier()
+    o3 = self.R.createModifier()
+    o3.setSpecies("test")
+    self.assert_( self.R.removeModifier(0) == o1 )
+    self.assert_( self.R.getNumModifiers() == 2 )
+    self.assert_( self.R.removeModifier(0) == o2 )
+    self.assert_( self.R.getNumModifiers() == 1 )
+    self.assert_( self.R.removeModifier("test") == o3 )
+    self.assert_( self.R.getNumModifiers() == 0 )
+    o1 = None
+    o2 = None
+    o3 = None
+    pass  
+
+  def test_Reaction_removeProduct(self):
+    o1 = self.R.createProduct()
+    o2 = self.R.createProduct()
+    o3 = self.R.createProduct()
+    o3.setSpecies("test")
+    self.assert_( self.R.removeProduct(0) == o1 )
+    self.assert_( self.R.getNumProducts() == 2 )
+    self.assert_( self.R.removeProduct(0) == o2 )
+    self.assert_( self.R.getNumProducts() == 1 )
+    self.assert_( self.R.removeProduct("test") == o3 )
+    self.assert_( self.R.getNumProducts() == 0 )
+    o1 = None
+    o2 = None
+    o3 = None
+    pass  
+
+  def test_Reaction_removeReactant(self):
+    o1 = self.R.createReactant()
+    o2 = self.R.createReactant()
+    o3 = self.R.createReactant()
+    o3.setSpecies("test")
+    self.assert_( self.R.removeReactant(0) == o1 )
+    self.assert_( self.R.getNumReactants() == 2 )
+    self.assert_( self.R.removeReactant(0) == o2 )
+    self.assert_( self.R.getNumReactants() == 1 )
+    self.assert_( self.R.removeReactant("test") == o3 )
+    self.assert_( self.R.getNumReactants() == 0 )
+    o1 = None
+    o2 = None
+    o3 = None
     pass  
 
   def test_Reaction_setId(self):
@@ -243,7 +279,7 @@ class TestReaction(unittest.TestCase):
     pass  
 
   def test_Reaction_setName(self):
-    name =  "MapK Cascade";
+    name =  "MapK_Cascade";
     self.R.setName(name)
     self.assert_(( name == self.R.getName() ))
     self.assertEqual( True, self.R.isSetName() )

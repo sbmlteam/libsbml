@@ -31,7 +31,7 @@ require 'libSBML'
 class TestSpeciesConcentrationRule < Test::Unit::TestCase
 
   def setup
-    @@scr = LibSBML::AssignmentRule.new()
+    @@scr = LibSBML::AssignmentRule.new(1,2)
     @@scr.setL1TypeCode(LibSBML::SBML_SPECIES_CONCENTRATION_RULE)
     if (@@scr == nil)
     end
@@ -50,20 +50,6 @@ class TestSpeciesConcentrationRule < Test::Unit::TestCase
     assert( @@scr.getType() == LibSBML::RULE_TYPE_SCALAR )
     assert( @@scr.getVariable() == "" )
     assert_equal false, @@scr.isSetVariable()
-  end
-
-  def test_SpeciesConcentrationRule_createWith
-    scr = LibSBML::RateRule.new("c", "v + 1")
-    scr.setL1TypeCode(LibSBML::SBML_SPECIES_CONCENTRATION_RULE)
-    assert( scr.getTypeCode() == LibSBML::SBML_RATE_RULE )
-    assert( scr.getL1TypeCode() == LibSBML::SBML_SPECIES_CONCENTRATION_RULE )
-    assert( scr.getNotes() == nil )
-    assert( scr.getAnnotation() == nil )
-    assert ((  "v + 1" == scr.getFormula() ))
-    assert ((  "c" == scr.getVariable() ))
-    assert( scr.getType() == LibSBML::RULE_TYPE_RATE )
-    assert_equal true, scr.isSetVariable()
-    scr = nil
   end
 
   def test_SpeciesConcentrationRule_free_NULL

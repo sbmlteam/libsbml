@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Michael Hucka <mhucka@caltech.edu> 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestXMLNode.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -52,6 +52,10 @@ public class TestXMLNode {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestXMLNode {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -316,6 +324,98 @@ public class TestXMLNode {
     node = null;
   }
 
+  public void test_XMLNode_convert_dummyroot()
+  {
+    String xmlstr_nodummy1 = "<notes>\n" + "  <p>test</p>\n" + "</notes>";;
+    String xmlstr_nodummy2 = "<html>\n" + "  <p>test</p>\n" + "</html>";;
+    String xmlstr_nodummy3 = "<body>\n" + "  <p>test</p>\n" + "</body>";;
+    String xmlstr_nodummy4 =  "<p>test</p>";;
+    String xmlstr_nodummy5 = "<test1>\n" + "  <test2>test</test2>\n" + "</test1>";;
+    String xmlstr_dummy1 =  "<p>test1</p><p>test2</p>";;
+    String xmlstr_dummy2 =  "<test1>test1</test1><test2>test2</test2>";;
+    XMLNode rootnode;
+    XMLNode child,gchild;
+    XMLAttributes attr;
+    XMLNamespaces ns;
+    String toxmlstring;
+    rootnode = XMLNode.convertStringToXMLNode(xmlstr_nodummy1,null);
+    assertTrue( rootnode.getNumChildren() == 1 );
+    child = rootnode.getChild(0);
+    gchild = child.getChild(0);
+    assertTrue( !rootnode.getName().equals( "notes") == false );
+    assertTrue( !child.getName().equals("p" ) == false );
+    assertTrue( !gchild.getCharacters().equals("test" ) == false );
+    toxmlstring = rootnode.toXMLString();
+    assertTrue( !toxmlstring.equals(xmlstr_nodummy1) == false );
+    rootnode = null;
+    rootnode = XMLNode.convertStringToXMLNode(xmlstr_nodummy2,null);
+    assertTrue( rootnode.getNumChildren() == 1 );
+    child = rootnode.getChild(0);
+    gchild = child.getChild(0);
+    assertTrue( !rootnode.getName().equals( "html") == false );
+    assertTrue( !child.getName().equals("p" ) == false );
+    assertTrue( !gchild.getCharacters().equals("test" ) == false );
+    toxmlstring = rootnode.toXMLString();
+    assertTrue( !toxmlstring.equals(xmlstr_nodummy2) == false );
+    rootnode = null;
+    rootnode = XMLNode.convertStringToXMLNode(xmlstr_nodummy3,null);
+    assertTrue( rootnode.getNumChildren() == 1 );
+    child = rootnode.getChild(0);
+    gchild = child.getChild(0);
+    assertTrue( !rootnode.getName().equals( "body") == false );
+    assertTrue( !child.getName().equals("p" ) == false );
+    assertTrue( !gchild.getCharacters().equals("test" ) == false );
+    toxmlstring = rootnode.toXMLString();
+    assertTrue( !toxmlstring.equals(xmlstr_nodummy3) == false );
+    rootnode = null;
+    rootnode = XMLNode.convertStringToXMLNode(xmlstr_nodummy4,null);
+    assertTrue( rootnode.getNumChildren() == 1 );
+    child = rootnode.getChild(0);
+    assertTrue( !rootnode.getName().equals( "p") == false );
+    assertTrue( !child.getCharacters().equals("test" ) == false );
+    toxmlstring = rootnode.toXMLString();
+    assertTrue( !toxmlstring.equals(xmlstr_nodummy4) == false );
+    rootnode = null;
+    rootnode = XMLNode.convertStringToXMLNode(xmlstr_nodummy5,null);
+    assertTrue( rootnode.getNumChildren() == 1 );
+    child = rootnode.getChild(0);
+    gchild = child.getChild(0);
+    assertTrue( !rootnode.getName().equals( "test1") == false );
+    assertTrue( !child.getName().equals("test2" ) == false );
+    assertTrue( !gchild.getCharacters().equals("test" ) == false );
+    toxmlstring = rootnode.toXMLString();
+    assertTrue( !toxmlstring.equals(xmlstr_nodummy5) == false );
+    rootnode = null;
+    rootnode = XMLNode.convertStringToXMLNode(xmlstr_dummy1,null);
+    assertTrue( rootnode.isEOF() == true );
+    assertTrue( rootnode.getNumChildren() == 2 );
+    child = rootnode.getChild(0);
+    gchild = child.getChild(0);
+    assertTrue( !child.getName().equals( "p") == false );
+    assertTrue( !gchild.getCharacters().equals("test1" ) == false );
+    child = rootnode.getChild(1);
+    gchild = child.getChild(0);
+    assertTrue( !child.getName().equals( "p") == false );
+    assertTrue( !gchild.getCharacters().equals("test2" ) == false );
+    toxmlstring = rootnode.toXMLString();
+    assertTrue( !toxmlstring.equals(xmlstr_dummy1) == false );
+    rootnode = null;
+    rootnode = XMLNode.convertStringToXMLNode(xmlstr_dummy2,null);
+    assertTrue( rootnode.isEOF() == true );
+    assertTrue( rootnode.getNumChildren() == 2 );
+    child = rootnode.getChild(0);
+    gchild = child.getChild(0);
+    assertTrue( !child.getName().equals( "test1") == false );
+    assertTrue( !gchild.getCharacters().equals("test1" ) == false );
+    child = rootnode.getChild(1);
+    gchild = child.getChild(0);
+    assertTrue( !child.getName().equals( "test2") == false );
+    assertTrue( !gchild.getCharacters().equals("test2" ) == false );
+    toxmlstring = rootnode.toXMLString();
+    assertTrue( !toxmlstring.equals(xmlstr_dummy2) == false );
+    rootnode = null;
+  }
+
   public void test_XMLNode_create()
   {
     XMLNode node = new XMLNode();
@@ -449,9 +549,9 @@ public class TestXMLNode {
     XMLNode node;
     XMLTriple triple;
     XMLAttributes attr;
-    XMLNamespaces ns;
-    ns = new  XMLNamespaces();
-    ns.add( "http://test1.org/", "test1");
+    XMLNamespaces NS;
+    NS = new  XMLNamespaces();
+    NS.add( "http://test1.org/", "test1");
     token = new  XMLToken("This is a test");
     node = new XMLNode(token);
     assertTrue( node != null );
@@ -471,7 +571,7 @@ public class TestXMLNode {
     XMLAttributes returnattr = node.getAttributes();
     assertTrue( !returnattr.getName(0).equals( "attr2") == false );
     assertTrue( !returnattr.getValue(0).equals( "value") == false );
-    token = new  XMLToken(triple,attr,ns);
+    token = new  XMLToken(triple,attr,NS);
     node = new XMLNode(token);
     XMLNamespaces returnNS = node.getNamespaces();
     assertTrue( returnNS.getLength() == 1 );

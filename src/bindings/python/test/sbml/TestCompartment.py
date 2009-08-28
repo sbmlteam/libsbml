@@ -34,7 +34,7 @@ class TestCompartment(unittest.TestCase):
   C = None
 
   def setUp(self):
-    self.C = libsbml.Compartment()
+    self.C = libsbml.Compartment(2,4)
     if (self.C == None):
       pass    
     pass  
@@ -64,7 +64,8 @@ class TestCompartment(unittest.TestCase):
     pass  
 
   def test_Compartment_createWith(self):
-    c = libsbml.Compartment("A", "")
+    c = libsbml.Compartment(2,4)
+    c.setId( "A")
     self.assert_( c.getTypeCode() == libsbml.SBML_COMPARTMENT )
     self.assert_( c.getMetaId() == "" )
     self.assert_( c.getNotes() == None )
@@ -78,18 +79,20 @@ class TestCompartment(unittest.TestCase):
     c = None
     pass  
 
-  def test_Compartment_createWithLevelVersionAndNamespace(self):
+  def test_Compartment_createWithNS(self):
     xmlns = libsbml.XMLNamespaces()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    c = libsbml.Compartment(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = libsbml.SBMLNamespaces(2,1)
+    sbmlns.addNamespaces(xmlns)
+    c = libsbml.Compartment(sbmlns)
     self.assert_( c.getTypeCode() == libsbml.SBML_COMPARTMENT )
     self.assert_( c.getMetaId() == "" )
     self.assert_( c.getNotes() == None )
     self.assert_( c.getAnnotation() == None )
     self.assert_( c.getLevel() == 2 )
     self.assert_( c.getVersion() == 1 )
-    self.assert_( c.getNamespaces() != "" )
-    self.assert_( c.getNamespaces().getLength() == 1 )
+    self.assert_( c.getNamespaces() != None )
+    self.assert_( c.getNamespaces().getLength() == 2 )
     self.assert_( c.getName() == "" )
     self.assert_( c.getSpatialDimensions() == 3 )
     self.assert_( c.getConstant() == True )
@@ -118,7 +121,8 @@ class TestCompartment(unittest.TestCase):
     pass  
 
   def test_Compartment_initDefaults(self):
-    c = libsbml.Compartment("A", "")
+    c = libsbml.Compartment(2,4)
+    c.setId( "A")
     c.initDefaults()
     self.assert_((  "A" == c.getId() ))
     self.assert_( c.getName() == "" )
@@ -152,7 +156,7 @@ class TestCompartment(unittest.TestCase):
     pass  
 
   def test_Compartment_setName(self):
-    name =  "My Favorite Factory";
+    name =  "My_Favorite_Factory";
     self.C.setName(name)
     self.assert_(( name == self.C.getName() ))
     self.assertEqual( True, self.C.isSetName() )
@@ -207,7 +211,6 @@ class TestCompartment(unittest.TestCase):
   def test_Compartment_unsetVolume(self):
     self.C.setVolume(1.0)
     self.assert_( self.C.getVolume() == 1.0 )
-    self.assertEqual( True, self.C.isSetVolume() )
     self.C.unsetVolume()
     self.assertEqual( False, self.C.isSetVolume() )
     pass  

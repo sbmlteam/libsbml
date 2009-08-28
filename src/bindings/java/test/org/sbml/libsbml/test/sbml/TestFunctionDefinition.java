@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestFunctionDefinition.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -52,6 +52,10 @@ public class TestFunctionDefinition {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestFunctionDefinition {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -111,7 +119,7 @@ public class TestFunctionDefinition {
 
   protected void setUp() throws Exception
   {
-    FD = new  FunctionDefinition();
+    FD = new  FunctionDefinition(2,4);
     if (FD == null);
     {
     }
@@ -136,7 +144,9 @@ public class TestFunctionDefinition {
   public void test_FunctionDefinition_createWith()
   {
     ASTNode math = libsbml.parseFormula("lambda(x, x^3)");
-    FunctionDefinition fd = new  FunctionDefinition("pow3",math);
+    FunctionDefinition fd = new  FunctionDefinition(2,4);
+    fd.setId( "pow3");
+    fd.setMath(math);
     ASTNode math1;
     String formula;
     assertTrue( fd.getTypeCode() == libsbml.SBML_FUNCTION_DEFINITION );
@@ -157,11 +167,13 @@ public class TestFunctionDefinition {
     fd = null;
   }
 
-  public void test_FunctionDefinition_createWithLevelVersionAndNamespace()
+  public void test_FunctionDefinition_createWithNS()
   {
     XMLNamespaces xmlns = new  XMLNamespaces();
-    xmlns.add( "http://www.sbml.org", "sbml");
-    FunctionDefinition object = new  FunctionDefinition(2,1,xmlns);
+    xmlns.add( "http://www.sbml.org", "testsbml");
+    SBMLNamespaces sbmlns = new  SBMLNamespaces(2,1);
+    sbmlns.addNamespaces(xmlns);
+    FunctionDefinition object = new  FunctionDefinition(sbmlns);
     assertTrue( object.getTypeCode() == libsbml.SBML_FUNCTION_DEFINITION );
     assertTrue( object.getMetaId().equals("") == true );
     assertTrue( object.getNotes() == null );
@@ -169,7 +181,7 @@ public class TestFunctionDefinition {
     assertTrue( object.getLevel() == 2 );
     assertTrue( object.getVersion() == 1 );
     assertTrue( object.getNamespaces() != null );
-    assertTrue( object.getNamespaces().getLength() == 1 );
+    assertTrue( object.getNamespaces().getLength() == 2 );
     object = null;
   }
 
@@ -256,7 +268,7 @@ public class TestFunctionDefinition {
 
   public void test_FunctionDefinition_setName()
   {
-    String name =  "Cube Me";;
+    String name =  "Cube_Me";;
     FD.setName(name);
     assertTrue(FD.getName().equals(name));
     assertEquals( true, FD.isSetName() );

@@ -60,13 +60,9 @@ libraries         = $(jarfile) $(jnifile)
 extra_CPPFLAGS    = $(JAVA_CPPFLAGS) -I../swig
 SWIGFLAGS        += $(JAVA_CPPFLAGS) -I../swig
 
-#
-# -L../../ option appears first in command-line to always link
-# with the libSBML's shared library file in the relative path.
-#
-extra_LDFLAGS     = -L../../ $(JAVA_LDFLAGS)
+extra_LDFLAGS     = $(JAVA_LDFLAGS)
 
-extra_LIBS        = -lsbml
+extra_LIBS        = ../../libsbml.la $(JAVA_LIBS)
 
 ifdef USE_EXPAT
   extra_CPPFLAGS += @EXPAT_CPPFLAGS@ 
@@ -140,8 +136,7 @@ class_files = $(java_files:.java=.class)
 # files.
 
 distfiles   = $(sources) $(extra_sources) $(check_sources) \
-  Makefile.in $(java_files) Java_binding_win32_expat.vcproj Java_binding_win32.vcproj \
-  createInclude.bat
+  Makefile.in $(java_files)
 
 # `extra_clean' and `extra_distclean' determine the files and directories
 # removed during "make clean" and "make distclean".
@@ -160,7 +155,7 @@ extra_distclean =
 # build directives of `makefile-common-actions.mk'.
 
 .SUFFIXES:
-.SUFFIXES: .i .cpp .h .java .class .jar .o .obj .so .dylib
+.SUFFIXES: .i .cpp .h .java .class .jar .o .obj .so .dylib .lo .la
 
 # The default action is to remake everything.
 
@@ -336,17 +331,18 @@ tags: etags ctags
 # Installation.
 # -----------------------------------------------------------------------------
 
+JNI_INSTPATH=$(DESTDIR)$(LIBDIR)/$(jnifile)
+JAR_INSTPATH=$(DESTDIR)$(DATADIR)/java/$(jarfile)
+
 install: check_swigfile_consistency $(libraries)
-	@list='$(libraries)'; for lib in $$list; do \
-	  echo "$(INSTALL) $$lib $(DESTDIR)$(LIBDIR)"; \
-	  $(INSTALL) $$lib $(DESTDIR)$(LIBDIR); \
-	done;
+	$(INSTALL_SH) $(jnifile) $(JNI_INSTPATH)
+	$(INSTALL_SH) $(jarfile) $(JAR_INSTPATH)
 
 uninstall:
-	@list='$(libraries)'; for lib in $$list; do \
-	  if test -f "$(DESTDIR)$(LIBDIR)/$$lib"; then \
-	    echo rm "$(DESTDIR)$(LIBDIR)/$$lib"; \
-	    rm $(DESTDIR)$(LIBDIR)/$$lib; \
+	@list='$(JNI_INSTPATH) $(JAR_INSTPATH)'; for lib in $$list; do \
+	  if test -f "$$lib"; then \
+	    echo rm "$$lib"; \
+	    rm $$lib; \
           fi; \
 	done;
 

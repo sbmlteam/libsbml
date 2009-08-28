@@ -17,7 +17,7 @@ use strict;
 # Insert your test code below, the Test::More module is use()ed here so read
 # its man page ( perldoc Test::More ) for help writing this test script.
 
-my $d = new LibSBML::SBMLDocument(2,3);
+my $d = new LibSBML::SBMLDocument(2,4);
 my $m = $d->createModel();
 $m->setId('xtof');
 my $s = $m->createSpecies();
@@ -34,7 +34,7 @@ unlink($file);
 
 __DATA__
 <?xml version="1.0" encoding="UTF-8"?>
-<sbml xmlns="http://www.sbml.org/sbml/level2/version3" level="2" version="3">
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
   <model id="xtof">
     <listOfSpecies>
       <species id="rainer"/>

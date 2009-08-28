@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Ben Bornstein 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestFunctionDefinition.c
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -58,6 +58,10 @@ namespace LibSBMLCSTest {
       {
         return;
       }
+      else if ( (a == null) || (b == null) )
+      {
+        throw new AssertionError();
+      }
       else if (a.Equals(b))
       {
         return;
@@ -71,6 +75,10 @@ namespace LibSBMLCSTest {
       if ( (a == null) && (b == null) )
       {
         throw new AssertionError();
+      }
+      else if ( (a == null) || (b == null) )
+      {
+        return;
       }
       else if (a.Equals(b))
       {
@@ -118,7 +126,7 @@ namespace LibSBMLCSTest {
 
     public void setUp()
     {
-      FD = new  FunctionDefinition();
+      FD = new  FunctionDefinition(2,4);
       if (FD == null);
       {
       }
@@ -143,7 +151,9 @@ namespace LibSBMLCSTest {
     public void test_FunctionDefinition_createWith()
     {
       ASTNode math = libsbml.parseFormula("lambda(x, x^3)");
-      FunctionDefinition fd = new  FunctionDefinition("pow3",math);
+      FunctionDefinition fd = new  FunctionDefinition(2,4);
+      fd.setId( "pow3");
+      fd.setMath(math);
       ASTNode math1;
       string formula;
       assertTrue( fd.getTypeCode() == libsbml.SBML_FUNCTION_DEFINITION );
@@ -164,11 +174,13 @@ namespace LibSBMLCSTest {
       fd = null;
     }
 
-    public void test_FunctionDefinition_createWithLevelVersionAndNamespace()
+    public void test_FunctionDefinition_createWithNS()
     {
       XMLNamespaces xmlns = new  XMLNamespaces();
-      xmlns.add( "http://www.sbml.org", "sbml");
-      FunctionDefinition object1 = new  FunctionDefinition(2,1,xmlns);
+      xmlns.add( "http://www.sbml.org", "testsbml");
+      SBMLNamespaces sbmlns = new  SBMLNamespaces(2,1);
+      sbmlns.addNamespaces(xmlns);
+      FunctionDefinition object1 = new  FunctionDefinition(sbmlns);
       assertTrue( object1.getTypeCode() == libsbml.SBML_FUNCTION_DEFINITION );
       assertTrue( object1.getMetaId() == "" );
       assertTrue( object1.getNotes() == null );
@@ -176,7 +188,7 @@ namespace LibSBMLCSTest {
       assertTrue( object1.getLevel() == 2 );
       assertTrue( object1.getVersion() == 1 );
       assertTrue( object1.getNamespaces() != null );
-      assertTrue( object1.getNamespaces().getLength() == 1 );
+      assertTrue( object1.getNamespaces().getLength() == 2 );
       object1 = null;
     }
 
@@ -263,7 +275,7 @@ namespace LibSBMLCSTest {
 
     public void test_FunctionDefinition_setName()
     {
-      string name =  "Cube Me";;
+      string name =  "Cube_Me";;
       FD.setName(name);
       assertTrue(( name == FD.getName() ));
       assertEquals( true, FD.isSetName() );

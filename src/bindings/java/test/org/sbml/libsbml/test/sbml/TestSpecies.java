@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestSpecies.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -52,6 +52,10 @@ public class TestSpecies {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestSpecies {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -111,7 +119,7 @@ public class TestSpecies {
 
   protected void setUp() throws Exception
   {
-    S = new  Species();
+    S = new  Species(2,4);
     if (S == null);
     {
     }
@@ -150,35 +158,13 @@ public class TestSpecies {
     assertEquals( false, S.isSetCharge() );
   }
 
-  public void test_Species_createWith()
-  {
-    Species s = new  Species("Ca", "Calcium");
-    assertTrue( s.getTypeCode() == libsbml.SBML_SPECIES );
-    assertTrue( s.getMetaId().equals("") == true );
-    assertTrue( s.getNotes() == null );
-    assertTrue( s.getAnnotation() == null );
-    assertTrue(s.getName().equals( "Calcium"  ));
-    assertTrue( s.getSpatialSizeUnits().equals("") == true );
-    assertTrue( s.getHasOnlySubstanceUnits() == false );
-    assertTrue( s.getConstant() == false );
-    assertTrue(s.getId().equals( "Ca"  ));
-    assertEquals( true, s.isSetId() );
-    assertEquals( true, s.isSetName() );
-    assertEquals( false, s.isSetCompartment() );
-    assertEquals( false, s.isSetSubstanceUnits() );
-    assertEquals( false, s.isSetSpatialSizeUnits() );
-    assertEquals( false, s.isSetUnits() );
-    assertEquals( false, s.isSetInitialAmount() );
-    assertEquals( false, s.isSetInitialConcentration() );
-    assertEquals( false, s.isSetCharge() );
-    s = null;
-  }
-
-  public void test_Species_createWithLevelVersionAndNamespace()
+  public void test_Species_createWithNS()
   {
     XMLNamespaces xmlns = new  XMLNamespaces();
-    xmlns.add( "http://www.sbml.org", "sbml");
-    Species object = new  Species(2,1,xmlns);
+    xmlns.add( "http://www.sbml.org", "testsbml");
+    SBMLNamespaces sbmlns = new  SBMLNamespaces(2,1);
+    sbmlns.addNamespaces(xmlns);
+    Species object = new  Species(sbmlns);
     assertTrue( object.getTypeCode() == libsbml.SBML_SPECIES );
     assertTrue( object.getMetaId().equals("") == true );
     assertTrue( object.getNotes() == null );
@@ -186,7 +172,7 @@ public class TestSpecies {
     assertTrue( object.getLevel() == 2 );
     assertTrue( object.getVersion() == 1 );
     assertTrue( object.getNamespaces() != null );
-    assertTrue( object.getNamespaces().getLength() == 1 );
+    assertTrue( object.getNamespaces().getLength() == 2 );
     object = null;
   }
 
@@ -252,7 +238,7 @@ public class TestSpecies {
 
   public void test_Species_setName()
   {
-    String name =  "So Sweet";;
+    String name =  "So_Sweet";;
     S.setName(name);
     assertTrue(S.getName().equals(name));
     assertEquals( true, S.isSetName() );
@@ -270,20 +256,22 @@ public class TestSpecies {
 
   public void test_Species_setSpatialSizeUnits()
   {
+    Species s = new  Species(2,1);
     String units =  "volume";;
-    S.setSpatialSizeUnits(units);
-    assertTrue(S.getSpatialSizeUnits().equals(units));
-    assertEquals( true, S.isSetSpatialSizeUnits() );
-    if (S.getSpatialSizeUnits() == units);
+    s.setSpatialSizeUnits(units);
+    assertTrue(s.getSpatialSizeUnits().equals(units));
+    assertEquals( true, s.isSetSpatialSizeUnits() );
+    if (s.getSpatialSizeUnits() == units);
     {
     }
-    S.setSpatialSizeUnits(S.getSpatialSizeUnits());
-    assertTrue(S.getSpatialSizeUnits().equals(units));
-    S.setSpatialSizeUnits("");
-    assertEquals( false, S.isSetSpatialSizeUnits() );
-    if (S.getSpatialSizeUnits() != null);
+    s.setSpatialSizeUnits(s.getSpatialSizeUnits());
+    assertTrue(s.getSpatialSizeUnits().equals(units));
+    s.setSpatialSizeUnits("");
+    assertEquals( false, s.isSetSpatialSizeUnits() );
+    if (s.getSpatialSizeUnits() != null);
     {
     }
+    s = null;
   }
 
   public void test_Species_setSubstanceUnits()

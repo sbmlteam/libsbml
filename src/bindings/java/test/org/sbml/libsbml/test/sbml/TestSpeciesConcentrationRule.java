@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestSpeciesConcentrationRule.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -52,6 +52,10 @@ public class TestSpeciesConcentrationRule {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestSpeciesConcentrationRule {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -111,7 +119,7 @@ public class TestSpeciesConcentrationRule {
 
   protected void setUp() throws Exception
   {
-    SCR = new  AssignmentRule();
+    SCR = new  AssignmentRule(1,2);
     SCR.setL1TypeCode(libsbml.SBML_SPECIES_CONCENTRATION_RULE);
     if (SCR == null);
     {
@@ -133,22 +141,6 @@ public class TestSpeciesConcentrationRule {
     assertTrue( SCR.getType() == libsbml.RULE_TYPE_SCALAR );
     assertTrue( SCR.getVariable().equals("") == true );
     assertEquals( false, SCR.isSetVariable() );
-  }
-
-  public void test_SpeciesConcentrationRule_createWith()
-  {
-    Rule scr;
-    scr = new  RateRule("c", "v + 1");
-    scr.setL1TypeCode(libsbml.SBML_SPECIES_CONCENTRATION_RULE);
-    assertTrue( scr.getTypeCode() == libsbml.SBML_RATE_RULE );
-    assertTrue( scr.getL1TypeCode() == libsbml.SBML_SPECIES_CONCENTRATION_RULE );
-    assertTrue( scr.getNotes() == null );
-    assertTrue( scr.getAnnotation() == null );
-    assertTrue(scr.getFormula().equals( "v + 1"));
-    assertTrue(scr.getVariable().equals( "c"));
-    assertTrue( scr.getType() == libsbml.RULE_TYPE_RATE );
-    assertEquals( true, scr.isSetVariable() );
-    scr = null;
   }
 
   public void test_SpeciesConcentrationRule_free_NULL()

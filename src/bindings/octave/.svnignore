@@ -11,3 +11,4 @@ TranslateSBML.m
 .deps
 Makefile
 TranslateSBML.mex
+.libs

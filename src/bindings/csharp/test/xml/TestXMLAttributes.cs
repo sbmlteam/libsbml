@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Ben Bornstein 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestXMLAttributes.cpp
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -58,6 +58,10 @@ namespace LibSBMLCSTest {
       {
         return;
       }
+      else if ( (a == null) || (b == null) )
+      {
+        throw new AssertionError();
+      }
       else if (a.Equals(b))
       {
         return;
@@ -71,6 +75,10 @@ namespace LibSBMLCSTest {
       if ( (a == null) && (b == null) )
       {
         throw new AssertionError();
+      }
+      else if ( (a == null) || (b == null) )
+      {
+        return;
       }
       else if (a.Equals(b))
       {
@@ -156,31 +164,6 @@ namespace LibSBMLCSTest {
       assertTrue( attrs.getName(2) ==  ""       );
     }
 
-    public void test_XMLAttributes_add_removeResource()
-    {
-      XMLAttributes att1 = new XMLAttributes();
-      att1.addResource("rdf", "http://foo.org/");
-      att1.addResource("rdf", "http://foo1.org/");
-      assertTrue( att1.getLength() == 2 );
-      assertTrue( att1.isEmpty() == false );
-      assertTrue( att1.getName(0) ==   "rdf"  );
-      assertTrue( att1.getValue(0) ==  "http://foo.org/"  );
-      assertTrue( att1.getName(1) ==   "rdf"  );
-      assertTrue( att1.getValue(1) ==  "http://foo1.org/"  );
-      att1.addResource("rdf", "http://foo2.org/");
-      assertTrue( att1.getLength() == 3 );
-      assertTrue( att1.isEmpty() == false );
-      assertTrue( att1.getName(2) ==   "rdf"  );
-      assertTrue( att1.getValue(2) ==  "http://foo2.org/"  );
-      att1.removeResource(1);
-      assertTrue( att1.getLength() == 2 );
-      assertTrue( att1.isEmpty() == false );
-      assertTrue( att1.getName(0) ==   "rdf"  );
-      assertTrue( att1.getValue(0) ==  "http://foo.org/"  );
-      assertTrue( att1.getName(1) ==   "rdf"  );
-      assertTrue( att1.getValue(1) ==  "http://foo2.org/"  );
-    }
-
     public void test_XMLAttributes_assignment()
     {
       XMLAttributes att1 = new XMLAttributes();
@@ -210,7 +193,7 @@ namespace LibSBMLCSTest {
       assertTrue( att1.getIndex("xmlns") == 0 );
       assertTrue( att1.getName(0) ==   "xmlns"  );
       assertTrue( att1.getValue("xmlns") ==  "http://foo.org/"  );
-      XMLAttributes att2 = ((XMLAttributes) att1.clone());
+      XMLAttributes att2 = (XMLAttributes) att1.clone();
       assertTrue( att2.getLength() == 1 );
       assertTrue( att2.isEmpty() == false );
       assertTrue( att2.getIndex("xmlns") == 0 );

@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Ben Bornstein 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestCopyAndClone.cpp
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -141,7 +141,7 @@ namespace LibSBMLCSTest {
       assertTrue( ns.isEmpty() == false );
       assertTrue( ns.getPrefix(0) ==  "test1" );
       assertTrue( ns.getURI("test1") ==  "http://test1.org/" );
-      XMLNamespaces ns2 = ((XMLNamespaces) ns.clone());
+      XMLNamespaces ns2 = (XMLNamespaces) ns.clone();
       assertTrue( ns2.getLength() == 1 );
       assertTrue( ns2.isEmpty() == false );
       assertTrue( ns2.getPrefix(0) ==  "test1" );
@@ -169,8 +169,9 @@ namespace LibSBMLCSTest {
 
     public void test_Node_assignmentOperator()
     {
+      XMLAttributes att = new XMLAttributes();
       XMLTriple t = new XMLTriple("sarah", "http://foo.org/", "bar");
-      XMLToken token = new XMLToken(t,3,4);
+      XMLToken token = new XMLToken(t,att,3,4);
       XMLNode node = new XMLNode(token);
       XMLNode child = new XMLNode();
       node.addChild(child);
@@ -179,7 +180,7 @@ namespace LibSBMLCSTest {
       assertTrue( node.getURI() ==  "http://foo.org/" );
       assertTrue( node.getPrefix() ==  "bar" );
       assertTrue( node.isEnd() == false );
-      assertTrue( node.isEOF() == true );
+      assertTrue( node.isEOF() == false );
       assertTrue( node.getLine() == 3 );
       assertTrue( node.getColumn() == 4 );
       XMLNode node2 = new XMLNode();
@@ -189,7 +190,7 @@ namespace LibSBMLCSTest {
       assertTrue( node2.getURI() ==  "http://foo.org/" );
       assertTrue( node2.getPrefix() ==  "bar" );
       assertTrue( node2.isEnd() == false );
-      assertTrue( node2.isEOF() == true );
+      assertTrue( node2.isEOF() == false );
       assertTrue( node2.getLine() == 3 );
       assertTrue( node2.getColumn() == 4 );
       t = null;
@@ -200,8 +201,9 @@ namespace LibSBMLCSTest {
 
     public void test_Node_clone()
     {
+      XMLAttributes att = new XMLAttributes();
       XMLTriple t = new XMLTriple("sarah", "http://foo.org/", "bar");
-      XMLToken token = new XMLToken(t,3,4);
+      XMLToken token = new XMLToken(t,att,3,4);
       XMLNode node = new XMLNode(token);
       XMLNode child = new XMLNode();
       node.addChild(child);
@@ -210,16 +212,16 @@ namespace LibSBMLCSTest {
       assertTrue( node.getURI() ==  "http://foo.org/" );
       assertTrue( node.getPrefix() ==  "bar" );
       assertTrue( node.isEnd() == false );
-      assertTrue( node.isEOF() == true );
+      assertTrue( node.isEOF() == false );
       assertTrue( node.getLine() == 3 );
       assertTrue( node.getColumn() == 4 );
-      XMLNode node2 = ((XMLNode) node.clone());
+      XMLNode node2 = (XMLNode) node.clone();
       assertTrue( node2.getNumChildren() == 1 );
       assertTrue( node2.getName() ==  "sarah" );
       assertTrue( node2.getURI() ==  "http://foo.org/" );
       assertTrue( node2.getPrefix() ==  "bar" );
       assertTrue( node2.isEnd() == false );
-      assertTrue( node2.isEOF() == true );
+      assertTrue( node2.isEOF() == false );
       assertTrue( node2.getLine() == 3 );
       assertTrue( node2.getColumn() == 4 );
       t = null;
@@ -230,8 +232,9 @@ namespace LibSBMLCSTest {
 
     public void test_Node_copyConstructor()
     {
+      XMLAttributes att = new XMLAttributes();
       XMLTriple t = new XMLTriple("sarah", "http://foo.org/", "bar");
-      XMLToken token = new XMLToken(t,3,4);
+      XMLToken token = new XMLToken(t,att,3,4);
       XMLNode node = new XMLNode(token);
       XMLNode child = new XMLNode();
       node.addChild(child);
@@ -240,7 +243,7 @@ namespace LibSBMLCSTest {
       assertTrue( node.getURI() ==  "http://foo.org/" );
       assertTrue( node.getPrefix() ==  "bar" );
       assertTrue( node.isEnd() == false );
-      assertTrue( node.isEOF() == true );
+      assertTrue( node.isEOF() == false );
       assertTrue( node.getLine() == 3 );
       assertTrue( node.getColumn() == 4 );
       XMLNode node2 = new XMLNode(node);
@@ -249,7 +252,7 @@ namespace LibSBMLCSTest {
       assertTrue( node2.getURI() ==  "http://foo.org/" );
       assertTrue( node2.getPrefix() ==  "bar" );
       assertTrue( node2.isEnd() == false );
-      assertTrue( node2.isEOF() == true );
+      assertTrue( node2.isEOF() == false );
       assertTrue( node2.getLine() == 3 );
       assertTrue( node2.getColumn() == 4 );
       t = null;
@@ -294,7 +297,7 @@ namespace LibSBMLCSTest {
       assertTrue( token.isEOF() == false );
       assertTrue( token.getLine() == 3 );
       assertTrue( token.getColumn() == 4 );
-      XMLToken token2 = ((XMLToken) token.clone());
+      XMLToken token2 = (XMLToken) token.clone();
       assertTrue( token2.getName() ==  "sarah" );
       assertTrue( token2.getURI() ==  "http://foo.org/" );
       assertTrue( token2.getPrefix() ==  "bar" );
@@ -352,7 +355,7 @@ namespace LibSBMLCSTest {
       assertTrue( t.getName() ==  "sarah" );
       assertTrue( t.getURI() ==  "http://foo.org/" );
       assertTrue( t.getPrefix() ==  "bar" );
-      XMLTriple t2 = ((XMLTriple) t.clone());
+      XMLTriple t2 = (XMLTriple) t.clone();
       assertTrue( t2.getName() ==  "sarah" );
       assertTrue( t2.getURI() ==  "http://foo.org/" );
       assertTrue( t2.getPrefix() ==  "bar" );

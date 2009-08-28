@@ -4,3 +4,4 @@ csharp-files
 csharp-files-win
 libsbml_wrap-win.cpp
 libsbml_wrap.cpp
+.libs

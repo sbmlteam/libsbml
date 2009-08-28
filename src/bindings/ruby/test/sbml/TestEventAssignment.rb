@@ -31,7 +31,7 @@ require 'libSBML'
 class TestEventAssignment < Test::Unit::TestCase
 
   def setup
-    @@ea = LibSBML::EventAssignment.new()
+    @@ea = LibSBML::EventAssignment.new(2,4)
     if (@@ea == nil)
     end
   end
@@ -49,33 +49,20 @@ class TestEventAssignment < Test::Unit::TestCase
     assert( @@ea.getMath() == nil )
   end
 
-  def test_EventAssignment_createWith
-    math = LibSBML::parseFormula("0")
-    ea = LibSBML::EventAssignment.new("k",math)
-    assert( ea.getTypeCode() == LibSBML::SBML_EVENT_ASSIGNMENT )
-    assert( ea.getMetaId() == "" )
-    assert( ea.getNotes() == nil )
-    assert( ea.getAnnotation() == nil )
-    assert( ea.getMath() != math )
-    assert_equal true, ea.isSetMath()
-    assert ((  "k" == ea.getVariable() ))
-    assert_equal true, ea.isSetVariable()
-    math = nil
-    ea = nil
-  end
-
-  def test_EventAssignment_createWithLevelVersionAndNamespace
+  def test_EventAssignment_createWithNS
     xmlns = LibSBML::XMLNamespaces.new()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = LibSBML::EventAssignment.new(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = LibSBML::SBMLNamespaces.new(2,1)
+    sbmlns.addNamespaces(xmlns)
+    object = LibSBML::EventAssignment.new(sbmlns)
     assert( object.getTypeCode() == LibSBML::SBML_EVENT_ASSIGNMENT )
     assert( object.getMetaId() == "" )
     assert( object.getNotes() == nil )
     assert( object.getAnnotation() == nil )
     assert( object.getLevel() == 2 )
     assert( object.getVersion() == 1 )
-    assert( object.getNamespaces() != "" )
-    assert( object.getNamespaces().getLength() == 1 )
+    assert( object.getNamespaces() != nil )
+    assert( object.getNamespaces().getLength() == 2 )
     object = nil
   end
 

@@ -6,10 +6,14 @@ use strict;
 
 #########################
 
+my $level   = LibSBML::SBMLDocument::getDefaultLevel();
+my $version = LibSBML::SBMLDocument::getDefaultVersion();
+
 my $species = 's5';
 
 # create w/ species
-my $msr = new LibSBML::ModifierSpeciesReference($species);
+my $msr = new LibSBML::ModifierSpeciesReference($level,$version);
+$msr->setSpecies($species);
 ok($msr->getTypeCode() == $LibSBML::SBML_MODIFIER_SPECIES_REFERENCE);
 ok($msr->getMetaId(), '');
 ok($msr->getNotes(), undef);
@@ -19,7 +23,7 @@ ok($msr->getSpecies(), $species);
 
 
 # create w/o arguments
-$msr = new LibSBML::ModifierSpeciesReference();
+$msr = new LibSBML::ModifierSpeciesReference($level,$version);
 ok($msr->getTypeCode() == $LibSBML::SBML_MODIFIER_SPECIES_REFERENCE);
 ok($msr->getMetaId(), '');
 ok($msr->getNotes(), undef);

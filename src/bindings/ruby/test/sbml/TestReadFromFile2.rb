@@ -32,7 +32,7 @@ class TestReadFromFile2 < Test::Unit::TestCase
 
   def test_create_l1v1_units
     d = LibSBML::SBMLDocument.new()
-    m = LibSBML::Model.new()
+    m = LibSBML::Model.new(2,4)
     d.setModel(m)
     ud = m.createUnitDefinition()
     ud.setName( "substance")

@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Python conversion)
 # @author  Ben Bornstein 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestWriteMathML.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -255,8 +255,7 @@ class TestWriteMathML(unittest.TestCase):
     pass  
 
   def test_MathMLFormatter_csymbol_time(self):
-    expected = wrapMathML("  <csymbol encoding=\"text\" " + 
-    "definitionURL=\"http://www.sbml.org/sbml/symbols/time\"> t </csymbol>\n")
+    expected = wrapMathML("  <csymbol encoding=\"text\" " + "definitionURL=\"http://www.sbml.org/sbml/symbols/time\"> t </csymbol>\n")
     self.N = libsbml.ASTNode(libsbml.AST_NAME_TIME)
     self.N.setName("t")
     self.S = libsbml.writeMathMLToString(self.N)

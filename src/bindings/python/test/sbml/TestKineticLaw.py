@@ -31,203 +31,183 @@ import libsbml
 
 class TestKineticLaw(unittest.TestCase):
 
-  KL = None
+  kl = None
 
   def setUp(self):
-    self.KL = libsbml.KineticLaw()
-    if (self.KL == None):
+    self.kl = libsbml.KineticLaw(2,4)
+    if (self.kl == None):
       pass    
     pass  
 
   def tearDown(self):
-    self.KL = None
+    self.kl = None
     pass  
 
   def test_KineticLaw_addParameter(self):
-    p = libsbml.Parameter()
-    self.KL.addParameter(p)
-    self.assert_( self.KL.getNumParameters() == 1 )
+    p = libsbml.Parameter(2,4)
+    p.setId( "p")
+    self.kl.addParameter(p)
+    self.assert_( self.kl.getNumParameters() == 1 )
     p = None
     pass  
 
   def test_KineticLaw_create(self):
-    self.assert_( self.KL.getTypeCode() == libsbml.SBML_KINETIC_LAW )
-    self.assert_( self.KL.getMetaId() == "" )
-    self.assert_( self.KL.getNotes() == None )
-    self.assert_( self.KL.getAnnotation() == None )
-    self.assert_( self.KL.getFormula() == "" )
-    self.assert_( self.KL.getMath() == None )
-    self.assert_( self.KL.getTimeUnits() == "" )
-    self.assert_( self.KL.getSubstanceUnits() == "" )
-    self.assertEqual( False, self.KL.isSetFormula() )
-    self.assertEqual( False, self.KL.isSetMath() )
-    self.assertEqual( False, self.KL.isSetTimeUnits() )
-    self.assertEqual( False, self.KL.isSetSubstanceUnits() )
-    self.assert_( self.KL.getNumParameters() == 0 )
+    self.assert_( self.kl.getTypeCode() == libsbml.SBML_KINETIC_LAW )
+    self.assert_( self.kl.getMetaId() == "" )
+    self.assert_( self.kl.getNotes() == None )
+    self.assert_( self.kl.getAnnotation() == None )
+    self.assert_( self.kl.getFormula() == "" )
+    self.assert_( self.kl.getMath() == None )
+    self.assert_( self.kl.getTimeUnits() == "" )
+    self.assert_( self.kl.getSubstanceUnits() == "" )
+    self.assertEqual( False, self.kl.isSetFormula() )
+    self.assertEqual( False, self.kl.isSetMath() )
+    self.assertEqual( False, self.kl.isSetTimeUnits() )
+    self.assertEqual( False, self.kl.isSetSubstanceUnits() )
+    self.assert_( self.kl.getNumParameters() == 0 )
     pass  
 
-  def test_KineticLaw_createWith(self):
-    kl = libsbml.KineticLaw("k1 * X0")
-    self.assert_( kl.getTypeCode() == libsbml.SBML_KINETIC_LAW )
-    self.assert_( kl.getMetaId() == "" )
-    self.assert_( kl.getNotes() == None )
-    self.assert_( kl.getAnnotation() == None )
-    math = kl.getMath()
-    self.assert_( math != None )
-    formula = libsbml.formulaToString(math)
-    self.assert_( formula != None )
-    self.assert_((  "k1 * X0" == formula ))
-    self.assert_(( formula == kl.getFormula() ))
-    self.assertEqual( True, kl.isSetMath() )
-    self.assertEqual( True, kl.isSetFormula() )
-    self.assert_( kl.getNumParameters() == 0 )
-    kl = None
-    pass  
-
-  def test_KineticLaw_createWithLevelVersionAndNamespace(self):
+  def test_KineticLaw_createWithNS(self):
     xmlns = libsbml.XMLNamespaces()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = libsbml.KineticLaw(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = libsbml.SBMLNamespaces(2,1)
+    sbmlns.addNamespaces(xmlns)
+    object = libsbml.KineticLaw(sbmlns)
     self.assert_( object.getTypeCode() == libsbml.SBML_KINETIC_LAW )
     self.assert_( object.getMetaId() == "" )
     self.assert_( object.getNotes() == None )
     self.assert_( object.getAnnotation() == None )
     self.assert_( object.getLevel() == 2 )
     self.assert_( object.getVersion() == 1 )
-    self.assert_( object.getNamespaces() != "" )
-    self.assert_( object.getNamespaces().getLength() == 1 )
+    self.assert_( object.getNamespaces() != None )
+    self.assert_( object.getNamespaces().getLength() == 2 )
     object = None
-    pass  
-
-  def test_KineticLaw_createWithMath(self):
-    math1 = libsbml.parseFormula("k3 / k2")
-    kl = libsbml.KineticLaw(math1)
-    self.assert_( kl.getTypeCode() == libsbml.SBML_KINETIC_LAW )
-    self.assert_( kl.getMetaId() == "" )
-    self.assert_( kl.getNotes() == None )
-    self.assert_( kl.getAnnotation() == None )
-    math = kl.getMath()
-    self.assert_( math != None )
-    formula = libsbml.formulaToString(math)
-    self.assert_( formula != None )
-    self.assert_((  "k3 / k2" == formula ))
-    self.assert_(( formula == kl.getFormula() ))
-    self.assertEqual( True, kl.isSetMath() )
-    self.assertEqual( True, kl.isSetFormula() )
-    self.assertEqual( False, kl.isSetTimeUnits() )
-    self.assertEqual( False, kl.isSetSubstanceUnits() )
-    self.assert_( kl.getNumParameters() == 0 )
-    kl = None
     pass  
 
   def test_KineticLaw_free_NULL(self):
     pass  
 
   def test_KineticLaw_getParameter(self):
-    k1 = libsbml.Parameter()
-    k2 = libsbml.Parameter()
-    k1.setName( "k1")
-    k2.setName( "k2")
-    k1.setValue(3.14)
-    k2.setValue(2.72)
-    self.KL.addParameter(k1)
-    self.KL.addParameter(k2)
-    k1 = None
-    k2 = None
-    self.assert_( self.KL.getNumParameters() == 2 )
-    k1 = self.KL.getParameter(0)
-    k2 = self.KL.getParameter(1)
-    self.assert_((  "k1" == k1.getName() ))
-    self.assert_((  "k2" == k2.getName() ))
-    self.assert_( k1.getValue() == 3.14 )
-    self.assert_( k2.getValue() == 2.72 )
-    pass  
-
-  def test_KineticLaw_getParameterById(self):
-    k1 = libsbml.Parameter()
-    k2 = libsbml.Parameter()
+    k1 = libsbml.Parameter(2,4)
+    k2 = libsbml.Parameter(2,4)
     k1.setId( "k1")
     k2.setId( "k2")
     k1.setValue(3.14)
     k2.setValue(2.72)
-    self.KL.addParameter(k1)
-    self.KL.addParameter(k2)
+    self.kl.addParameter(k1)
+    self.kl.addParameter(k2)
     k1 = None
     k2 = None
-    self.assert_( self.KL.getNumParameters() == 2 )
-    k1 = self.KL.getParameter( "k1")
-    k2 = self.KL.getParameter( "k2")
+    self.assert_( self.kl.getNumParameters() == 2 )
+    k1 = self.kl.getParameter(0)
+    k2 = self.kl.getParameter(1)
     self.assert_((  "k1" == k1.getId() ))
     self.assert_((  "k2" == k2.getId() ))
     self.assert_( k1.getValue() == 3.14 )
     self.assert_( k2.getValue() == 2.72 )
     pass  
 
+  def test_KineticLaw_getParameterById(self):
+    k1 = libsbml.Parameter(2,4)
+    k2 = libsbml.Parameter(2,4)
+    k1.setId( "k1")
+    k2.setId( "k2")
+    k1.setValue(3.14)
+    k2.setValue(2.72)
+    self.kl.addParameter(k1)
+    self.kl.addParameter(k2)
+    k1 = None
+    k2 = None
+    self.assert_( self.kl.getNumParameters() == 2 )
+    k1 = self.kl.getParameter( "k1")
+    k2 = self.kl.getParameter( "k2")
+    self.assert_((  "k1" == k1.getId() ))
+    self.assert_((  "k2" == k2.getId() ))
+    self.assert_( k1.getValue() == 3.14 )
+    self.assert_( k2.getValue() == 2.72 )
+    pass  
+
+  def test_KineticLaw_removeParameter(self):
+    o1 = self.kl.createParameter()
+    o2 = self.kl.createParameter()
+    o3 = self.kl.createParameter()
+    o3.setId("test")
+    self.assert_( self.kl.removeParameter(0) == o1 )
+    self.assert_( self.kl.getNumParameters() == 2 )
+    self.assert_( self.kl.removeParameter(0) == o2 )
+    self.assert_( self.kl.getNumParameters() == 1 )
+    self.assert_( self.kl.removeParameter("test") == o3 )
+    self.assert_( self.kl.getNumParameters() == 0 )
+    o1 = None
+    o2 = None
+    o3 = None
+    pass  
+
   def test_KineticLaw_setBadFormula(self):
     formula =  "k1 X0";
-    self.KL.setFormula(formula)
-    self.assertEqual( True, self.KL.isSetFormula() )
-    self.assertEqual( False, self.KL.isSetMath() )
+    self.kl.setFormula(formula)
+    self.assertEqual( False, self.kl.isSetFormula() )
+    self.assertEqual( False, self.kl.isSetMath() )
     pass  
 
   def test_KineticLaw_setFormula(self):
     formula =  "k1*X0";
-    self.KL.setFormula(formula)
-    self.assert_(( formula == self.KL.getFormula() ))
-    self.assertEqual( True, self.KL.isSetFormula() )
-    if (self.KL.getFormula() == formula):
+    self.kl.setFormula(formula)
+    self.assert_(( formula == self.kl.getFormula() ))
+    self.assertEqual( True, self.kl.isSetFormula() )
+    if (self.kl.getFormula() == formula):
       pass    
-    self.KL.setFormula(self.KL.getFormula())
-    self.assert_(( formula == self.KL.getFormula() ))
-    self.KL.setFormula("")
-    self.assertEqual( False, self.KL.isSetFormula() )
-    if (self.KL.getFormula() != None):
+    self.kl.setFormula(self.kl.getFormula())
+    self.assert_(( formula == self.kl.getFormula() ))
+    self.kl.setFormula("")
+    self.assertEqual( False, self.kl.isSetFormula() )
+    if (self.kl.getFormula() != None):
       pass    
     pass  
 
   def test_KineticLaw_setFormulaFromMath(self):
     math = libsbml.parseFormula("k1 * X0")
-    self.assertEqual( False, self.KL.isSetMath() )
-    self.assertEqual( False, self.KL.isSetFormula() )
-    self.KL.setMath(math)
-    self.assertEqual( True, self.KL.isSetMath() )
-    self.assertEqual( True, self.KL.isSetFormula() )
-    self.assert_((  "k1 * X0" == self.KL.getFormula() ))
+    self.assertEqual( False, self.kl.isSetMath() )
+    self.assertEqual( False, self.kl.isSetFormula() )
+    self.kl.setMath(math)
+    self.assertEqual( True, self.kl.isSetMath() )
+    self.assertEqual( True, self.kl.isSetFormula() )
+    self.assert_((  "k1 * X0" == self.kl.getFormula() ))
     math = None
     pass  
 
   def test_KineticLaw_setMath(self):
     math = libsbml.parseFormula("k3 / k2")
-    self.KL.setMath(math)
-    math1 = self.KL.getMath()
+    self.kl.setMath(math)
+    math1 = self.kl.getMath()
     self.assert_( math1 != None )
     formula = libsbml.formulaToString(math1)
     self.assert_( formula != None )
     self.assert_((  "k3 / k2" == formula ))
-    self.assert_( self.KL.getMath() != math )
-    self.assertEqual( True, self.KL.isSetMath() )
-    self.KL.setMath(self.KL.getMath())
-    math1 = self.KL.getMath()
+    self.assert_( self.kl.getMath() != math )
+    self.assertEqual( True, self.kl.isSetMath() )
+    self.kl.setMath(self.kl.getMath())
+    math1 = self.kl.getMath()
     self.assert_( math1 != None )
     formula = libsbml.formulaToString(math1)
     self.assert_( formula != None )
     self.assert_((  "k3 / k2" == formula ))
-    self.assert_( self.KL.getMath() != math )
-    self.KL.setMath(None)
-    self.assertEqual( False, self.KL.isSetMath() )
-    if (self.KL.getMath() != None):
+    self.assert_( self.kl.getMath() != math )
+    self.kl.setMath(None)
+    self.assertEqual( False, self.kl.isSetMath() )
+    if (self.kl.getMath() != None):
       pass    
     math = None
     pass  
 
   def test_KineticLaw_setMathFromFormula(self):
     formula =  "k3 / k2";
-    self.assertEqual( False, self.KL.isSetMath() )
-    self.assertEqual( False, self.KL.isSetFormula() )
-    self.KL.setFormula(formula)
-    self.assertEqual( True, self.KL.isSetMath() )
-    self.assertEqual( True, self.KL.isSetFormula() )
-    formula = libsbml.formulaToString(self.KL.getMath())
+    self.assertEqual( False, self.kl.isSetMath() )
+    self.assertEqual( False, self.kl.isSetFormula() )
+    self.kl.setFormula(formula)
+    self.assertEqual( True, self.kl.isSetMath() )
+    self.assertEqual( True, self.kl.isSetFormula() )
+    formula = libsbml.formulaToString(self.kl.getMath())
     self.assert_((  "k3 / k2" == formula ))
     pass  
 

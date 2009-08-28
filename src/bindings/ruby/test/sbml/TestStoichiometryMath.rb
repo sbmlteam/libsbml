@@ -31,7 +31,7 @@ require 'libSBML'
 class TestStoichiometryMath < Test::Unit::TestCase
 
   def setup
-    @@d = LibSBML::StoichiometryMath.new()
+    @@d = LibSBML::StoichiometryMath.new(2,4)
     if (@@d == nil)
     end
   end
@@ -48,36 +48,21 @@ class TestStoichiometryMath < Test::Unit::TestCase
     assert( @@d.getMath() == nil )
   end
 
-  def test_StoichiometryMath_createWithLevelVersionAndNamespace
+  def test_StoichiometryMath_createWithNS
     xmlns = LibSBML::XMLNamespaces.new()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = LibSBML::StoichiometryMath.new(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = LibSBML::SBMLNamespaces.new(2,1)
+    sbmlns.addNamespaces(xmlns)
+    object = LibSBML::StoichiometryMath.new(sbmlns)
     assert( object.getTypeCode() == LibSBML::SBML_STOICHIOMETRY_MATH )
     assert( object.getMetaId() == "" )
     assert( object.getNotes() == nil )
     assert( object.getAnnotation() == nil )
     assert( object.getLevel() == 2 )
     assert( object.getVersion() == 1 )
-    assert( object.getNamespaces() != "" )
-    assert( object.getNamespaces().getLength() == 1 )
+    assert( object.getNamespaces() != nil )
+    assert( object.getNamespaces().getLength() == 2 )
     object = nil
-  end
-
-  def test_StoichiometryMath_createWithMath
-    math = LibSBML::parseFormula("x^3")
-    fd = LibSBML::StoichiometryMath.new(math)
-    assert( fd.getTypeCode() == LibSBML::SBML_STOICHIOMETRY_MATH )
-    assert( fd.getMetaId() == "" )
-    assert( fd.getNotes() == nil )
-    assert( fd.getAnnotation() == nil )
-    math1 = fd.getMath()
-    assert( math1 != nil )
-    formula = LibSBML::formulaToString(math1)
-    assert( formula != nil )
-    assert ((  "x^3" == formula ))
-    assert( fd.getMath() != math )
-    assert_equal true, fd.isSetMath()
-    fd = nil
   end
 
   def test_StoichiometryMath_free_NULL
@@ -103,6 +88,27 @@ class TestStoichiometryMath < Test::Unit::TestCase
     assert_equal false, @@d.isSetMath()
     if (@@d.getMath() != nil)
     end
+  end
+
+  def test_StoichiometryMath_setMath1
+    math = LibSBML::parseFormula("2 * k")
+    i = @@d.setMath(math)
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( @@d.getMath() != math )
+    assert_equal true, @@d.isSetMath()
+    i = @@d.setMath(nil)
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( @@d.getMath() == nil )
+    assert_equal false, @@d.isSetMath()
+    math = nil
+  end
+
+  def test_StoichiometryMath_setMath2
+    math = LibSBML::ASTNode.new(LibSBML::AST_TIMES)
+    i = @@d.setMath(math)
+    assert( i == LibSBML::LIBSBML_INVALID_OBJECT )
+    assert_equal false, @@d.isSetMath()
+    math = nil
   end
 
 end

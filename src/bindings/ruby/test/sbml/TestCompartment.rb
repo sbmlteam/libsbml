@@ -31,7 +31,7 @@ require 'libSBML'
 class TestCompartment < Test::Unit::TestCase
 
   def setup
-    @@c = LibSBML::Compartment.new()
+    @@c = LibSBML::Compartment.new(2,4)
     if (@@c == nil)
     end
   end
@@ -61,7 +61,8 @@ class TestCompartment < Test::Unit::TestCase
   end
 
   def test_Compartment_createWith
-    c = LibSBML::Compartment.new("A", "")
+    c = LibSBML::Compartment.new(2,4)
+    c.setId( "A")
     assert( c.getTypeCode() == LibSBML::SBML_COMPARTMENT )
     assert( c.getMetaId() == "" )
     assert( c.getNotes() == nil )
@@ -75,18 +76,20 @@ class TestCompartment < Test::Unit::TestCase
     c = nil
   end
 
-  def test_Compartment_createWithLevelVersionAndNamespace
+  def test_Compartment_createWithNS
     xmlns = LibSBML::XMLNamespaces.new()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    c = LibSBML::Compartment.new(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = LibSBML::SBMLNamespaces.new(2,1)
+    sbmlns.addNamespaces(xmlns)
+    c = LibSBML::Compartment.new(sbmlns)
     assert( c.getTypeCode() == LibSBML::SBML_COMPARTMENT )
     assert( c.getMetaId() == "" )
     assert( c.getNotes() == nil )
     assert( c.getAnnotation() == nil )
     assert( c.getLevel() == 2 )
     assert( c.getVersion() == 1 )
-    assert( c.getNamespaces() != "" )
-    assert( c.getNamespaces().getLength() == 1 )
+    assert( c.getNamespaces() != nil )
+    assert( c.getNamespaces().getLength() == 2 )
     assert( c.getName() == "" )
     assert( c.getSpatialDimensions() == 3 )
     assert( c.getConstant() == true )
@@ -115,7 +118,8 @@ class TestCompartment < Test::Unit::TestCase
   end
 
   def test_Compartment_initDefaults
-    c = LibSBML::Compartment.new("A", "")
+    c = LibSBML::Compartment.new(2,4)
+    c.setId( "A")
     c.initDefaults()
     assert ((  "A" == c.getId() ))
     assert( c.getName() == "" )
@@ -149,7 +153,7 @@ class TestCompartment < Test::Unit::TestCase
   end
 
   def test_Compartment_setName
-    name =  "My Favorite Factory";
+    name =  "My_Favorite_Factory";
     @@c.setName(name)
     assert (( name == @@c.getName() ))
     assert_equal true, @@c.isSetName()
@@ -204,7 +208,6 @@ class TestCompartment < Test::Unit::TestCase
   def test_Compartment_unsetVolume
     @@c.setVolume(1.0)
     assert( @@c.getVolume() == 1.0 )
-    assert_equal true, @@c.isSetVolume()
     @@c.unsetVolume()
     assert_equal false, @@c.isSetVolume()
   end

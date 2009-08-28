@@ -7,12 +7,15 @@ use vars qw/$formula $f $var/;
 
 #########################
 
+my $level   = LibSBML::SBMLDocument::getDefaultLevel();
+my $version = LibSBML::SBMLDocument::getDefaultVersion();
+
 $formula = 'X^n/(1+X^n)';
 $f = '';
 $var = 'k2';
 
 # creation w/o arguments
-my $ae = new LibSBML::EventAssignment();
+my $ae = new LibSBML::EventAssignment($level,$version);
 ok($ae->getTypeCode() == $LibSBML::SBML_EVENT_ASSIGNMENT);
 ok($ae->getMetaId(), '');
 ok($ae->getNotes(), undef);
@@ -23,7 +26,9 @@ ok($ae->isSetMath(), 0);
 ok($ae->getMath(), undef);
 
 # creation w/ AST
-$ae = new LibSBML::EventAssignment('k', LibSBML::parseFormula($formula));
+$ae = new LibSBML::EventAssignment($level,$version);
+$ae->setVariable('k');
+$ae->setMath(LibSBML::parseFormula($formula));
 ok($ae->getTypeCode() == $LibSBML::SBML_EVENT_ASSIGNMENT);
 ok($ae->getMetaId(), '');
 ok($ae->getNotes(), undef);
@@ -37,7 +42,7 @@ ok($f, $formula);
 # set/get fields
 
 # field variable
-$ae = new LibSBML::EventAssignment();
+$ae = new LibSBML::EventAssignment($level,$version);
 ok($ae->getTypeCode() == $LibSBML::SBML_EVENT_ASSIGNMENT);
 $ae->setVariable($var);
 ok($ae->isSetVariable(), 1);

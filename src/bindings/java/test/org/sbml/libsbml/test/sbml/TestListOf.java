@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestListOf.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -52,6 +52,10 @@ public class TestListOf {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestListOf {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -111,7 +119,7 @@ public class TestListOf {
   public void test_ListOf_clear()
   {
     ListOf lo = new  ListOf();
-    SBase sp = new  Species();
+    SBase sp = new  Species(2,4);
     lo.append(sp);
     lo.append(sp);
     lo.append(sp);
@@ -154,7 +162,7 @@ public class TestListOf {
   public void test_ListOf_remove()
   {
     ListOf lo = new  ListOf();
-    SBase sp = new  Species();
+    SBase sp = new  Species(2,4);
     assertTrue( lo.size() == 0 );
     lo.append(sp);
     lo.append(sp);

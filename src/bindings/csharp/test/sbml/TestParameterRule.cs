@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Ben Bornstein 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestParameterRule.c
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -58,6 +58,10 @@ namespace LibSBMLCSTest {
       {
         return;
       }
+      else if ( (a == null) || (b == null) )
+      {
+        throw new AssertionError();
+      }
       else if (a.Equals(b))
       {
         return;
@@ -71,6 +75,10 @@ namespace LibSBMLCSTest {
       if ( (a == null) && (b == null) )
       {
         throw new AssertionError();
+      }
+      else if ( (a == null) || (b == null) )
+      {
+        return;
       }
       else if (a.Equals(b))
       {
@@ -118,7 +126,7 @@ namespace LibSBMLCSTest {
 
     public void setUp()
     {
-      PR = new  AssignmentRule();
+      PR = new  AssignmentRule(1,2);
       PR.setL1TypeCode(libsbml.SBML_PARAMETER_RULE);
       if (PR == null);
       {
@@ -142,24 +150,6 @@ namespace LibSBMLCSTest {
       assertTrue( PR.getType() == libsbml.RULE_TYPE_SCALAR );
       assertEquals( false, PR.isSetVariable() );
       assertEquals( false, PR.isSetUnits() );
-    }
-
-    public void test_ParameterRule_createWith()
-    {
-      Rule pr;
-      pr = new  RateRule("c", "v + 1");
-      pr.setL1TypeCode(libsbml.SBML_PARAMETER_RULE);
-      assertTrue( pr.getTypeCode() == libsbml.SBML_RATE_RULE );
-      assertTrue( pr.getL1TypeCode() == libsbml.SBML_PARAMETER_RULE );
-      assertTrue( pr.getNotes() == null );
-      assertTrue( pr.getAnnotation() == null );
-      assertTrue( pr.getUnits() == "" );
-      assertTrue((  "v + 1" == pr.getFormula() ));
-      assertTrue((  "c" == pr.getVariable() ));
-      assertTrue( pr.getType() == libsbml.RULE_TYPE_RATE );
-      assertEquals( true, pr.isSetVariable() );
-      assertEquals( false, pr.isSetUnits() );
-      pr = null;
     }
 
     public void test_ParameterRule_free_NULL()

@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestXMLAttributes.cpp
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -144,35 +144,37 @@ public class TestXMLAttributes {
     assertTrue( attrs.getValue("xmlns").equals( "http://foo.org/" ) );
     assertTrue( attrs.getValue("foo"  ).equals( "bar"             ) );
     assertTrue( attrs.getValue("bar"  ).equals( ""                ) );
-    assertTrue( attrs.getName(0).equals( "xmlns" ) == true );
-    assertTrue( attrs.getName(1).equals( "foo"   ) == true );
-    assertTrue( attrs.getName(2).equals( ""      ) == true );
+    assertTrue( attrs.getName(0).equals( "xmlns" ) );
+    assertTrue( attrs.getName(1).equals( "foo"   ) );
+    assertTrue( attrs.getName(2).equals( ""      ) );
   }
 
+/*
   public void test_XMLAttributes_add_removeResource()
   {
     XMLAttributes att1 = new XMLAttributes();
-    att1.addResource("rdf", "http://foo.org/");
-    att1.addResource("rdf", "http://foo1.org/");
+    att1.add("rdf", "http://foo.org/");
+    att1.add("rdf", "http://foo1.org/");
     assertTrue( att1.getLength() == 2 );
     assertTrue( att1.isEmpty() == false );
-    assertTrue( att1.getName(0).equals(  "rdf" ) == true );
+    assertTrue( att1.getName(0).equals(  "rdf" ) );
     assertTrue( att1.getValue(0).equals( "http://foo.org/" ) );
-    assertTrue( att1.getName(1).equals(  "rdf" ) == true );
+    assertTrue( att1.getName(1).equals(  "rdf" ) );
     assertTrue( att1.getValue(1).equals( "http://foo1.org/" ) );
-    att1.addResource("rdf", "http://foo2.org/");
+    att1.add("rdf", "http://foo2.org/");
     assertTrue( att1.getLength() == 3 );
     assertTrue( att1.isEmpty() == false );
-    assertTrue( att1.getName(2).equals(  "rdf" ) == true );
+    assertTrue( att1.getName(2).equals(  "rdf" ) );
     assertTrue( att1.getValue(2).equals( "http://foo2.org/" ) );
     att1.removeResource(1);
     assertTrue( att1.getLength() == 2 );
     assertTrue( att1.isEmpty() == false );
-    assertTrue( att1.getName(0).equals(  "rdf" ) == true );
+    assertTrue( att1.getName(0).equals(  "rdf" ) );
     assertTrue( att1.getValue(0).equals( "http://foo.org/" ) );
-    assertTrue( att1.getName(1).equals(  "rdf" ) == true );
+    assertTrue( att1.getName(1).equals(  "rdf" ) );
     assertTrue( att1.getValue(1).equals( "http://foo2.org/" ) );
   }
+*/
 
   public void test_XMLAttributes_assignment()
   {
@@ -181,14 +183,14 @@ public class TestXMLAttributes {
     assertTrue( att1.getLength() == 1 );
     assertTrue( att1.isEmpty() == false );
     assertTrue( att1.getIndex("xmlns") == 0 );
-    assertTrue( att1.getName(0).equals(  "xmlns" ) == true );
+    assertTrue( att1.getName(0).equals(  "xmlns" ) );
     assertTrue( att1.getValue("xmlns").equals( "http://foo.org/" ) );
     XMLAttributes att2 = new XMLAttributes();
     att2 = att1;
     assertTrue( att2.getLength() == 1 );
     assertTrue( att2.isEmpty() == false );
     assertTrue( att2.getIndex("xmlns") == 0 );
-    assertTrue( att2.getName(0).equals(  "xmlns" ) == true );
+    assertTrue( att2.getName(0).equals(  "xmlns" ) );
     assertTrue( att2.getValue("xmlns").equals( "http://foo.org/" ) );
     att2 = null;
     att1 = null;
@@ -201,13 +203,13 @@ public class TestXMLAttributes {
     assertTrue( att1.getLength() == 1 );
     assertTrue( att1.isEmpty() == false );
     assertTrue( att1.getIndex("xmlns") == 0 );
-    assertTrue( att1.getName(0).equals(  "xmlns" ) == true );
+    assertTrue( att1.getName(0).equals(  "xmlns" ) );
     assertTrue( att1.getValue("xmlns").equals( "http://foo.org/" ) );
-    XMLAttributes att2 = ((XMLAttributes) att1.cloneObject());
+    XMLAttributes att2 = (XMLAttributes) att1.cloneObject();
     assertTrue( att2.getLength() == 1 );
     assertTrue( att2.isEmpty() == false );
     assertTrue( att2.getIndex("xmlns") == 0 );
-    assertTrue( att2.getName(0).equals(  "xmlns" ) == true );
+    assertTrue( att2.getName(0).equals(  "xmlns" ) );
     assertTrue( att2.getValue("xmlns").equals( "http://foo.org/" ) );
     att2 = null;
     att1 = null;
@@ -220,13 +222,13 @@ public class TestXMLAttributes {
     assertTrue( att1.getLength() == 1 );
     assertTrue( att1.isEmpty() == false );
     assertTrue( att1.getIndex("xmlns") == 0 );
-    assertTrue( att1.getName(0).equals(  "xmlns" ) == true );
+    assertTrue( att1.getName(0).equals(  "xmlns" ) );
     assertTrue( att1.getValue("xmlns").equals( "http://foo.org/" ) );
     XMLAttributes att2 = new XMLAttributes(att1);
     assertTrue( att2.getLength() == 1 );
     assertTrue( att2.isEmpty() == false );
     assertTrue( att2.getIndex("xmlns") == 0 );
-    assertTrue( att2.getName(0).equals(  "xmlns" ) == true );
+    assertTrue( att2.getName(0).equals(  "xmlns" ) );
     assertTrue( att2.getValue("xmlns").equals( "http://foo.org/" ) );
     att2 = null;
     att1 = null;

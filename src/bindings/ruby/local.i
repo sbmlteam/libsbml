@@ -254,6 +254,63 @@ namespace std
 
 
 /**
+ * Wraps the SBMLConstructorException
+ *
+ * The SBMLConstructorException (C++ class) is wrapped as the 
+ * SBMLConsturctorException (Ruby class) which is derived from
+ * the built-in ArgumentError class (Ruby class).
+ *
+ * For example, the exception can be catched in Ruby code as follows:
+ *
+ * -------------------------------------------------
+ *  begin
+ *    s = LibSBML::Compartment.new(level,version)
+ *  rescue SBMLConstructorException
+ *    errmsg = $! 
+ *  end
+ * -------------------------------------------------
+ */
+
+%exceptionclass SBMLConstructorException;
+
+%define SBMLCONSTRUCTOR_EXCEPTION(SBASE_CLASS_NAME)
+%exception SBASE_CLASS_NAME{
+  try {
+    $action
+  }
+  catch (const SBMLConstructorException &e){
+    static VALUE cpperror = rb_define_class("SBMLConstructorException", rb_eArgError);
+    rb_raise(cpperror, e.what());    
+  }
+}
+%enddef
+
+SBMLCONSTRUCTOR_EXCEPTION(Compartment)
+SBMLCONSTRUCTOR_EXCEPTION(CompartmentType)
+SBMLCONSTRUCTOR_EXCEPTION(Constraint)
+SBMLCONSTRUCTOR_EXCEPTION(Delay)
+SBMLCONSTRUCTOR_EXCEPTION(Event)
+SBMLCONSTRUCTOR_EXCEPTION(EventAssignment)
+SBMLCONSTRUCTOR_EXCEPTION(FunctionDefinition)
+SBMLCONSTRUCTOR_EXCEPTION(InitialAssignment)
+SBMLCONSTRUCTOR_EXCEPTION(KineticLaw)
+SBMLCONSTRUCTOR_EXCEPTION(Model)
+SBMLCONSTRUCTOR_EXCEPTION(Parameter)
+SBMLCONSTRUCTOR_EXCEPTION(Reaction)
+SBMLCONSTRUCTOR_EXCEPTION(AssignmentRule)
+SBMLCONSTRUCTOR_EXCEPTION(AlgebraicRule)
+SBMLCONSTRUCTOR_EXCEPTION(RateRule)
+SBMLCONSTRUCTOR_EXCEPTION(Species)
+SBMLCONSTRUCTOR_EXCEPTION(SpeciesReference)
+SBMLCONSTRUCTOR_EXCEPTION(ModifierSpeciesReference)
+SBMLCONSTRUCTOR_EXCEPTION(SpeciesType)
+SBMLCONSTRUCTOR_EXCEPTION(StoichiometryMath)
+SBMLCONSTRUCTOR_EXCEPTION(Trigger)
+SBMLCONSTRUCTOR_EXCEPTION(Unit)
+SBMLCONSTRUCTOR_EXCEPTION(UnitDefinition)
+
+
+/**
  *  Wraps the following functions by using the corresponding 
  *  ListWrapper<TYPENAME> class.
  *
@@ -305,7 +362,6 @@ namespace std
 #endif
                                SWIG_POINTER_OWN |  0 );
 }
-
 
 // ----------------------------------------------------------------------
 // Layout Extension

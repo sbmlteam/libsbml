@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Sarah Keating 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestReadFromFile8.cpp
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -111,13 +111,13 @@ public class TestReadFromFile8 {
   public void test_read_l2v4_new()
   {
     SBMLReader reader = new SBMLReader();
-    SBMLDocument d = new SBMLDocument();
-    Model m = new Model();
-    Compartment c = new Compartment();
-    Event e = new Event();
-    Trigger trigger = new Trigger();
-    EventAssignment ea = new EventAssignment();
-    ASTNode ast = new ASTNode();
+    SBMLDocument d;
+    Model m;
+    Compartment c;
+    Event e;
+    Trigger trigger;
+    EventAssignment ea;
+    ASTNode ast;
     String filename = new String( "../../sbml/test/test-data/" );
     filename += "l2v4-new.xml";
     d = reader.readSBML(filename);
@@ -128,11 +128,11 @@ public class TestReadFromFile8 {
     assertTrue( d.getVersion() == 4 );
     m = d.getModel();
     assertTrue( m != null );
-    assertTrue( m.getId().equals( "l2v4_all") == true );
+    assertTrue( m.getId().equals( "l2v4_all") );
     assertTrue( m.getNumCompartments() == 1 );
     c = m.getCompartment(0);
     assertTrue( c != null );
-    assertTrue( c.getId().equals( "a") == true );
+    assertTrue( c.getId().equals( "a") );
     assertTrue( c.getSize() == 1 );
     assertEquals( false, c.getConstant() );
     assertTrue( m.getNumEvents() == 1 );
@@ -147,7 +147,7 @@ public class TestReadFromFile8 {
     assertTrue( e.getNumEventAssignments() == 1 );
     ea = e.getEventAssignment(0);
     assertTrue( ea != null );
-    assertTrue( ea.getVariable().equals( "a") == true );
+    assertTrue( ea.getVariable().equals( "a") );
     ast = ea.getMath();
     assertTrue(libsbml.formulaToString(ast).equals( "x * p3"));
     d = null;

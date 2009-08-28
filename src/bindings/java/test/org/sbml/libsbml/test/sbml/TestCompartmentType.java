@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Sarah Keating 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestCompartmentType.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -52,6 +52,10 @@ public class TestCompartmentType {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestCompartmentType {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -111,7 +119,7 @@ public class TestCompartmentType {
 
   protected void setUp() throws Exception
   {
-    CT = new  CompartmentType();
+    CT = new  CompartmentType(2,4);
     if (CT == null);
     {
     }
@@ -134,33 +142,21 @@ public class TestCompartmentType {
     assertEquals( false, CT.isSetName() );
   }
 
-  public void test_CompartmentType_createWith()
-  {
-    CompartmentType c = new  CompartmentType("A", "");
-    assertTrue( c.getTypeCode() == libsbml.SBML_COMPARTMENT_TYPE );
-    assertTrue( c.getMetaId().equals("") == true );
-    assertTrue( c.getNotes() == null );
-    assertTrue( c.getAnnotation() == null );
-    assertTrue( c.getName().equals("") == true );
-    assertTrue(c.getId().equals( "A"     ));
-    assertEquals( true, c.isSetId() );
-    assertEquals( false, c.isSetName() );
-    c = null;
-  }
-
-  public void test_CompartmentType_createWithLevelVersionAndNamespace()
+  public void test_CompartmentType_createWithNS()
   {
     XMLNamespaces xmlns = new  XMLNamespaces();
-    xmlns.add( "http://www.sbml.org", "sbml");
-    CompartmentType object = new  CompartmentType(1,1,xmlns);
+    xmlns.add( "http://www.sbml.org", "testsbml");
+    SBMLNamespaces sbmlns = new  SBMLNamespaces(2,2);
+    sbmlns.addNamespaces(xmlns);
+    CompartmentType object = new  CompartmentType(sbmlns);
     assertTrue( object.getTypeCode() == libsbml.SBML_COMPARTMENT_TYPE );
     assertTrue( object.getMetaId().equals("") == true );
     assertTrue( object.getNotes() == null );
     assertTrue( object.getAnnotation() == null );
-    assertTrue( object.getLevel() == 1 );
-    assertTrue( object.getVersion() == 1 );
+    assertTrue( object.getLevel() == 2 );
+    assertTrue( object.getVersion() == 2 );
     assertTrue( object.getNamespaces() != null );
-    assertTrue( object.getNamespaces().getLength() == 1 );
+    assertTrue( object.getNamespaces().getLength() == 2 );
     object = null;
   }
 
@@ -188,7 +184,7 @@ public class TestCompartmentType {
 
   public void test_CompartmentType_setName()
   {
-    String name =  "My Favorite Factory";;
+    String name =  "My_Favorite_Factory";;
     CT.setName(name);
     assertTrue(CT.getName().equals(name));
     assertEquals( true, CT.isSetName() );

@@ -34,7 +34,7 @@ class TestParameterRule(unittest.TestCase):
   PR = None
 
   def setUp(self):
-    self.PR = libsbml.AssignmentRule()
+    self.PR = libsbml.AssignmentRule(1,2)
     self.PR.setL1TypeCode(libsbml.SBML_PARAMETER_RULE)
     if (self.PR == None):
       pass    
@@ -55,22 +55,6 @@ class TestParameterRule(unittest.TestCase):
     self.assert_( self.PR.getType() == libsbml.RULE_TYPE_SCALAR )
     self.assertEqual( False, self.PR.isSetVariable() )
     self.assertEqual( False, self.PR.isSetUnits() )
-    pass  
-
-  def test_ParameterRule_createWith(self):
-    pr = libsbml.RateRule("c", "v + 1")
-    pr.setL1TypeCode(libsbml.SBML_PARAMETER_RULE)
-    self.assert_( pr.getTypeCode() == libsbml.SBML_RATE_RULE )
-    self.assert_( pr.getL1TypeCode() == libsbml.SBML_PARAMETER_RULE )
-    self.assert_( pr.getNotes() == None )
-    self.assert_( pr.getAnnotation() == None )
-    self.assert_( pr.getUnits() == "" )
-    self.assert_((  "v + 1" == pr.getFormula() ))
-    self.assert_((  "c" == pr.getVariable() ))
-    self.assert_( pr.getType() == libsbml.RULE_TYPE_RATE )
-    self.assertEqual( True, pr.isSetVariable() )
-    self.assertEqual( False, pr.isSetUnits() )
-    pr = None
     pass  
 
   def test_ParameterRule_free_NULL(self):

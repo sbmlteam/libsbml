@@ -34,7 +34,7 @@ class TestSpecies(unittest.TestCase):
   S = None
 
   def setUp(self):
-    self.S = libsbml.Species()
+    self.S = libsbml.Species(2,4)
     if (self.S == None):
       pass    
     pass  
@@ -70,41 +70,20 @@ class TestSpecies(unittest.TestCase):
     self.assertEqual( False, self.S.isSetCharge() )
     pass  
 
-  def test_Species_createWith(self):
-    s = libsbml.Species("Ca", "Calcium")
-    self.assert_( s.getTypeCode() == libsbml.SBML_SPECIES )
-    self.assert_( s.getMetaId() == "" )
-    self.assert_( s.getNotes() == None )
-    self.assert_( s.getAnnotation() == None )
-    self.assert_((  "Calcium"   == s.getName() ))
-    self.assert_( s.getSpatialSizeUnits() == "" )
-    self.assert_( s.getHasOnlySubstanceUnits() == False )
-    self.assert_( s.getConstant() == False )
-    self.assert_((  "Ca"   == s.getId() ))
-    self.assertEqual( True, s.isSetId() )
-    self.assertEqual( True, s.isSetName() )
-    self.assertEqual( False, s.isSetCompartment() )
-    self.assertEqual( False, s.isSetSubstanceUnits() )
-    self.assertEqual( False, s.isSetSpatialSizeUnits() )
-    self.assertEqual( False, s.isSetUnits() )
-    self.assertEqual( False, s.isSetInitialAmount() )
-    self.assertEqual( False, s.isSetInitialConcentration() )
-    self.assertEqual( False, s.isSetCharge() )
-    s = None
-    pass  
-
-  def test_Species_createWithLevelVersionAndNamespace(self):
+  def test_Species_createWithNS(self):
     xmlns = libsbml.XMLNamespaces()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = libsbml.Species(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = libsbml.SBMLNamespaces(2,1)
+    sbmlns.addNamespaces(xmlns)
+    object = libsbml.Species(sbmlns)
     self.assert_( object.getTypeCode() == libsbml.SBML_SPECIES )
     self.assert_( object.getMetaId() == "" )
     self.assert_( object.getNotes() == None )
     self.assert_( object.getAnnotation() == None )
     self.assert_( object.getLevel() == 2 )
     self.assert_( object.getVersion() == 1 )
-    self.assert_( object.getNamespaces() != "" )
-    self.assert_( object.getNamespaces().getLength() == 1 )
+    self.assert_( object.getNamespaces() != None )
+    self.assert_( object.getNamespaces().getLength() == 2 )
     object = None
     pass  
 
@@ -160,7 +139,7 @@ class TestSpecies(unittest.TestCase):
     pass  
 
   def test_Species_setName(self):
-    name =  "So Sweet";
+    name =  "So_Sweet";
     self.S.setName(name)
     self.assert_(( name == self.S.getName() ))
     self.assertEqual( True, self.S.isSetName() )
@@ -175,18 +154,20 @@ class TestSpecies(unittest.TestCase):
     pass  
 
   def test_Species_setSpatialSizeUnits(self):
+    s = libsbml.Species(2,1)
     units =  "volume";
-    self.S.setSpatialSizeUnits(units)
-    self.assert_(( units == self.S.getSpatialSizeUnits() ))
-    self.assertEqual( True, self.S.isSetSpatialSizeUnits() )
-    if (self.S.getSpatialSizeUnits() == units):
+    s.setSpatialSizeUnits(units)
+    self.assert_(( units == s.getSpatialSizeUnits() ))
+    self.assertEqual( True, s.isSetSpatialSizeUnits() )
+    if (s.getSpatialSizeUnits() == units):
       pass    
-    self.S.setSpatialSizeUnits(self.S.getSpatialSizeUnits())
-    self.assert_(( units == self.S.getSpatialSizeUnits() ))
-    self.S.setSpatialSizeUnits("")
-    self.assertEqual( False, self.S.isSetSpatialSizeUnits() )
-    if (self.S.getSpatialSizeUnits() != None):
+    s.setSpatialSizeUnits(s.getSpatialSizeUnits())
+    self.assert_(( units == s.getSpatialSizeUnits() ))
+    s.setSpatialSizeUnits("")
+    self.assertEqual( False, s.isSetSpatialSizeUnits() )
+    if (s.getSpatialSizeUnits() != None):
       pass    
+    s = None
     pass  
 
   def test_Species_setSubstanceUnits(self):

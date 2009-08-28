@@ -47,12 +47,16 @@ public class"
 
 %{
 #include "libsbml.h"
+
+LIBSBML_CPP_NAMESPACE_USE
+
 #ifdef USE_LAYOUT
 #include "../swig/layout.h"
 #endif /* USE_LAYOUT */
 #include "local.cpp"
 %}
 
+%import  sbml/common/libsbml-namespace.h
 %import  sbml/common/extern.h
 %import  sbml/common/sbmlfwd.h
 %import  sbml/xml/XMLExtern.h
@@ -103,13 +107,13 @@ public class"
 %ignore ASTNode(Token_t*);
 %ignore ASTNode::getListOfNodes(ASTNodePredicate predicate) const;
 %ignore ASTNode::fillListOfNodes;
-%ignore ASTNode::freeName;
 %ignore ASTNode::setSemanticsFlag;
 %ignore ASTNode::unsetSemanticsFlag;
 %ignore ASTNode::getSemanticsFlag;
 %ignore ASTNode::setDefinitionURL;
 %ignore ASTNode::setUserData;
 %ignore ASTNode::getUserData;
+%ignore ASTNode::setParentSBMLObject;
 
 /**
  * SWIG makes no distinction between int and long arguments.
@@ -130,6 +134,10 @@ public class"
  */
 %ignore *::writeElements;
 %ignore *::getElementPosition;
+%ignore *::setSBMLDocument;
+%ignore *::setParentSBMLObject;
+%ignore *::setInternalId;
+%ignore *::getInternalId;
 
 /**
  * Ignore internal implementation methods in MathML.h
@@ -173,6 +181,15 @@ public class"
 %ignore SBase::getMetaId();
 
 /**
+ * Ignore internal FormulaUnitsData methods on SBase
+ */
+%ignore SBase::removeDuplicateAnnotations;
+%ignore SBase::setSBMLNamespaces;
+%ignore SBase::getSBMLNamespaces;
+%ignore SBase::read;
+%ignore SBase::write;
+
+/**
  * Ignore internal FormulaUnitsData methods on Model
  */
 %ignore Model::addFormulaUnitsData;
@@ -180,6 +197,111 @@ public class"
 %ignore Model::getFormulaUnitsData;
 %ignore Model::getListFormulaUnitsData;
 %ignore Model::getNumFormulaUnitsData;
+%ignore Model::isBoolean;
+%ignore Model::removeMetaId;
+%ignore Model::removeSBOTerms;
+%ignore Model::removeHasOnlySubstanceUnits;
+%ignore Model::removeSBOTermsNotInL2V2;
+%ignore Model::removeDuplicateTopLevelAnnotations;
+%ignore Model::convertToL1;
+%ignore Model::convertToL2;
+%ignore Model::convertToL2V1;
+%ignore Model::convertToL2V2;
+%ignore Model::convertToL2Strict;
+
+/**
+ * Ignore internal implementation methods in Rule
+ */
+%ignore Rule::setInternalIdOnly;
+%ignore Rule::getInternalIdOnly;
+
+/**
+ * Ignore internal implementation methods in SpeciesReference
+ */
+%ignore SpeciesReference::sortMath;
+
+/**
+ * Ignore internal implementation methods in UnitDefinition
+ */
+%ignore UnitDefinition::areIdenticalSIUnits;
+
+/**
+ * Ignore internal implementation methods in XMLAttributes
+ */
+%ignore XMLAttributes::addResource;
+%ignore XMLAttributes::write;
+%ignore XMLAttributes::setErrorLog;
+
+/**
+ * Ignore internal implementation methods in Event
+ */
+%ignore Event::setInternalIdOnly;
+
+/**
+ * Ignore internal implementation methods in SBO
+ */
+%ignore SBO::readTerm;
+%ignore SBO::writeTerm;
+
+
+/**
+ * Ignore internal implementation methods in SBMLErrorLog
+ */
+%ignore SBMLErrorLog::logError;
+%ignore SBMLErrorLog::add;
+%ignore SBMLErrorLog::remove;
+%ignore SBMLErrorLog::SBMLErrorLog;
+
+/**
+ * Ignore internal implementation methods in XMLErrorLog
+ */
+%ignore XMLErrorLog::XMLErrorLog;
+%ignore XMLErrorLog::add;
+%ignore XMLErrorLog::setParser;
+
+
+/**
+ * Ignore internal implementation methods in ModelCreator
+ */
+%ignore ModelCreator::getAdditionalRDF;
+
+/**
+ * Ignore internal implementation methods in RDFAnnotationParser
+ */
+%ignore RDFAnnotationParser::hasRDFAnnotation;
+%ignore RDFAnnotationParser::hasAdditionalRDFAnnotation;
+%ignore RDFAnnotationParser::hasCVTermRDFAnnotation;
+%ignore RDFAnnotationParser::hasHistoryRDFAnnotation;
+
+/**
+ * Ignore internal implementation methods in SyntaxChecer
+ */
+%ignore SyntaxChecker::isAllowedElement;
+%ignore SyntaxChecker::hasDeclaredNS;
+%ignore SyntaxChecker::isCorrectHTMLNode;
+
+/**
+ * Ignore internal implementation methods in SBMLNamespces
+ */
+%ignore SBMLNamespaces::setLevel;
+%ignore SBMLNamespaces::setVersion;
+%ignore SBMLNamespaces::setNamespaces;
+
+/**
+ * Ignore internal implementation methods in XMLToken
+ */
+%ignore XMLToken::write;
+
+/**
+ * Ignore internal implementation methods in XMLNode
+ */
+%ignore XMLNode::XMLNode(XMLInputStream&);
+%ignore XMLNode::write;
+
+/**
+ * Ignore internal implementation methods in XMLOutputStream
+ */
+%ignore XMLOutputStream::getStringStream;
 
 /**
  * Ignore internal implementation classes
@@ -217,6 +339,24 @@ public class"
 %newobject ASTNode::deepCopy;
 %newobject ASTNode::getListOfNodes();
 %newobject *::remove;
+%newobject Model::removeFunctionDefinition;
+%newobject Model::removeUnitDefinition;
+%newobject Model::removeCompartmentType;
+%newobject Model::removeSpeciesType;
+%newobject Model::removeSpecies;
+%newobject Model::removeCompartment;
+%newobject Model::removeParameter;
+%newobject Model::removeInitialAssignment;
+%newobject Model::removeRule;
+%newobject Model::removeConstraint;
+%newobject Model::removeReaction;
+%newobject Model::removeEvent;
+%newobject Reaction::removeReactant;
+%newobject Reaction::removeProduct;
+%newobject Reaction::removeModifier;
+%newobject Event::removeEventAssignment;
+%newobject UnitDefinition::removeUnit;
+%newobject KineticLaw::removeParameter;
 %newobject RDFAnnotationParser::parseRDFAnnotation(XMLNode *);
 %newobject RDFAnnotationParser::deleteRDFAnnotation;
 %newobject RDFAnnotationParser::parseCVTerms;
@@ -231,6 +371,10 @@ public class"
 %newobject UnitDefinition::convertToSI;
 %newobject UnitDefinition::combine;
 
+#ifdef USE_LAYOUT
+%newobject Model::removeLayout;
+#endif /* USE_LAYOUT */
+
 /**
  * In the wrapped languages, these methods will appear as:
  *
@@ -239,6 +383,53 @@ public class"
  */
 %rename(formulaToString) SBML_formulaToString;
 %rename(parseFormula)    SBML_parseFormula;
+
+/**
+ * 
+ * wraps "List* ASTNode::getListOfNodes(ASTNodePredicate)" function
+ * as "ListWrapper<ASTNode>* ASTNode::getListOfNodes()" function 
+ * which returns a list of all ASTNodes. 
+ *
+ */
+
+
+%inline
+%{
+  int ASTNode_true(const ASTNode *node)
+  {
+    return 1;
+  }
+%}
+
+%extend ASTNode
+{
+  ListWrapper<ASTNode>* getListOfNodes()
+  {
+    List *list = $self->getListOfNodes(ASTNode_true);
+    return new ListWrapper<ASTNode>(list);
+  }
+}
+
+/*
+ * Wraps "static void RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, 
+ * List *CVTerms)" function as 
+ * "static void RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, 
+ *  ListWrapper<CVTerm> *CVTerms);
+ *
+ */
+
+%extend RDFAnnotationParser
+{
+  static void RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, 
+                                                      ListWrapper<CVTerm> *CVTerms)
+  {
+    if (!CVTerms) return;
+
+    List *list = CVTerms->getList();
+    RDFAnnotationParser::parseRDFAnnotation(annotation,list);
+  }
+}
+
 
 
 /**
@@ -295,6 +486,7 @@ public class"
 %include "std_string.i"
 
 %include sbml/common/libsbml-version.h
+%include sbml/common/operationReturnValues.h
 
 %include sbml/SBMLReader.h
 %include sbml/SBMLWriter.h
@@ -323,6 +515,7 @@ public class"
 %include sbml/Trigger.h
 %include sbml/Delay.h
 %include sbml/SBO.h
+%include sbml/SyntaxChecker.h
 %include sbml/StoichiometryMath.h
 %include sbml/SBMLNamespaces.h
 
@@ -330,18 +523,15 @@ public class"
 %include sbml/math/ASTNode.h
 %include sbml/math/FormulaParser.h
 %include sbml/math/FormulaFormatter.h
+
 %include sbml/xml/XMLAttributes.h
 %include sbml/xml/XMLNamespaces.h
 %include sbml/xml/XMLToken.h
 %include sbml/xml/XMLNode.h
 %include sbml/xml/XMLTriple.h
-%include sbml/xml/XMLInputStream.h
 %include sbml/xml/XMLOutputStream.h
 %include sbml/xml/XMLError.h
 %include sbml/xml/XMLErrorLog.h
-%include sbml/xml/XMLHandler.h
-%include sbml/xml/XMLParser.h
-%include sbml/xml/XMLTokenizer.h
 
 %include sbml/SBMLErrorLog.h
 %include sbml/SBMLError.h

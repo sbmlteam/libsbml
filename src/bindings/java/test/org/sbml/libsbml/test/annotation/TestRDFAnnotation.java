@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestRDFAnnotation.cpp
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -52,6 +52,10 @@ public class TestRDFAnnotation {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestRDFAnnotation {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -108,9 +116,7 @@ public class TestRDFAnnotation {
     throw new AssertionError();
   }
   private SBMLDocument d;
-  private OStringStream OSS;
   private Model m;
-  private XMLOutputStream XOS;
 
 
   public double util_NaN()
@@ -131,10 +137,10 @@ public class TestRDFAnnotation {
     return -1.0/z;
   }
 
-  public boolean equals(String s)
-  {
-    return s.equals(OSS.str());
-  }
+//  public boolean equals(String s)
+//  {
+//    return s.equals(OSS.str());
+//  }
 
   public boolean equals(String s1, String s2)
   {
@@ -143,8 +149,6 @@ public class TestRDFAnnotation {
 
   protected void setUp() throws Exception
   {
-    OSS = new OStringStream();
-    XOS = new XMLOutputStream(OSS);
     String filename = "../../annotation/test/test-data/annotation.xml";
     d = libsbml.readSBML(filename);
     m = d.getModel();
@@ -158,11 +162,10 @@ public class TestRDFAnnotation {
   {
     XMLNode node = RDFAnnotationParser.parseCVTerms(m.getCompartment(0));
     XMLNode n1 = RDFAnnotationParser.deleteRDFAnnotation(node);
-    String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<annotation/>";;
+    String expected =  "<annotation/>";;
     assertTrue( n1.getNumChildren() == 0 );
     assertTrue( n1.getName().equals( "annotation") );
-    n1.write(XOS);
-    assertEquals( true, equals(expected) );
+    assertEquals( true, equals(expected,n1.toXMLString()) );
     node = null;
   }
 
@@ -170,9 +173,7 @@ public class TestRDFAnnotation {
   {
     Compartment c = m.getCompartment(1);
     XMLNode node = RDFAnnotationParser.deleteRDFAnnotation(c.getAnnotation());
-    String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "<annotation>\n" + 
-    "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
+    String expected = "<annotation>\n" + "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
     "    <jd2:header>\n" + 
     "      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n" + 
     "      <jd2:ModelHeader Author=\"Mr Untitled\" ModelVersion=\"0.0\" ModelTitle=\"untitled\"/>\n" + 
@@ -180,17 +181,14 @@ public class TestRDFAnnotation {
     "    </jd2:header>\n" + 
     "  </jd2:JDesignerLayout>\n" + 
     "</annotation>";
-    node.write(XOS);
-    assertEquals( true, equals(expected) );
+    assertEquals( true, equals(expected,node.toXMLString()) );
   }
 
   public void test_RDFAnnotation_deleteWithOutOther()
   {
     Compartment c = m.getCompartment(2);
     XMLNode node = c.getAnnotation();
-    String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "<annotation>\n" + 
-    "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
+    String expected = "<annotation>\n" + "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
     "    <jd2:header>\n" + 
     "      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n" + 
     "      <jd2:ModelHeader Author=\"Mr Untitled\" ModelVersion=\"0.0\" ModelTitle=\"untitled\"/>\n" + 
@@ -198,8 +196,7 @@ public class TestRDFAnnotation {
     "    </jd2:header>\n" + 
     "  </jd2:JDesignerLayout>\n" + 
     "</annotation>";
-    node.write(XOS);
-    assertEquals( true, equals(expected) );
+    assertEquals( true, equals(expected,node.toXMLString()) );
   }
 
   public void test_RDFAnnotation_getModelHistory()
@@ -207,7 +204,7 @@ public class TestRDFAnnotation {
     assertTrue( ! (m == null) );
     ModelHistory history = m.getModelHistory();
     assertTrue( history != null );
-    ModelCreator mc = (history.getCreator(0));
+    ModelCreator mc = history.getCreator(0);
     assertTrue(mc.getFamilyName().equals( "Le Novere"));
     assertTrue(mc.getGivenName().equals( "Nicolas"));
     assertTrue(mc.getEmail().equals( "lenov@ebi.ac.uk"));
@@ -367,8 +364,7 @@ public class TestRDFAnnotation {
   public void test_RDFAnnotation_recreate()
   {
     Compartment c = m.getCompartment(1);
-    String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "<compartment id=\"A\">\n" + 
+    String expected = "<compartment id=\"A\">\n" + 
     "  <annotation>\n" + 
     "    <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
     "      <jd2:header>\n" + 
@@ -388,15 +384,13 @@ public class TestRDFAnnotation {
     "    </rdf:RDF>\n" + 
     "  </annotation>\n" + 
     "</compartment>";
-    c.write(XOS);
-    assertEquals( true, equals(expected) );
+    assertEquals( true, equals(expected,c.toSBML()) );
   }
 
   public void test_RDFAnnotation_recreateFromEmpty()
   {
     Compartment c = m.getCompartment(3);
-    String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "<compartment id=\"C\">\n" + 
+    String expected = "<compartment id=\"C\">\n" + 
     "  <annotation>\n" + 
     "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
     "      <rdf:Description rdf:about=\"#\">\n" + 
@@ -409,15 +403,13 @@ public class TestRDFAnnotation {
     "    </rdf:RDF>\n" + 
     "  </annotation>\n" + 
     "</compartment>";
-    c.write(XOS);
-    assertEquals( true, equals(expected) );
+    assertEquals( true, equals(expected,c.toSBML()) );
   }
 
   public void test_RDFAnnotation_recreateWithOutOther()
   {
     Compartment c = m.getCompartment(2);
-    String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "<compartment id=\"B\">\n" + 
+    String expected = "<compartment id=\"B\">\n" + 
     "  <annotation>\n" + 
     "    <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
     "      <jd2:header>\n" + 
@@ -428,8 +420,7 @@ public class TestRDFAnnotation {
     "    </jd2:JDesignerLayout>\n" + 
     "  </annotation>\n" + 
     "</compartment>";
-    c.write(XOS);
-    assertEquals( true, equals(expected) );
+    assertEquals( true, equals(expected,c.toSBML()) );
   }
 
   /**

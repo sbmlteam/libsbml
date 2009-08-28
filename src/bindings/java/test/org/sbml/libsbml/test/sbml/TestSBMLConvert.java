@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestSBMLConvert.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -52,6 +52,10 @@ public class TestSBMLConvert {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestSBMLConvert {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -112,21 +120,29 @@ public class TestSBMLConvert {
   {
     SBMLDocument d = new  SBMLDocument(1,2);
     Model m = d.createModel();
-    KineticLaw kl = new  KineticLaw("k1*S1*S2*S3*S4*S5");
-    Reaction r = new  Reaction("R", "",kl,true);
+    Reaction r = m.createReaction();
+    KineticLaw kl = r.createKineticLaw();
+    kl.setFormula( "k1*S1*S2*S3*S4*S5");
     SimpleSpeciesReference ssr1;
     SimpleSpeciesReference ssr2;
-    m.addSpecies(new  Species("S1", ""));
-    m.addSpecies(new  Species("S2", ""));
-    m.addSpecies(new  Species("S3", ""));
-    m.addSpecies(new  Species("S4", ""));
-    m.addSpecies(new  Species("S5", ""));
-    r.addReactant(new  SpeciesReference("S1",1,1));
-    r.addReactant(new  SpeciesReference("S2",1,1));
-    r.addProduct(new  SpeciesReference("S5",1,1));
-    m.addReaction(r);
+    Species s1 = m.createSpecies();
+    s1.setId( "S1" );
+    Species s2 = m.createSpecies();
+    s2.setId( "S2");
+    Species s3 = m.createSpecies();
+    s3.setId( "S3");
+    Species s4 = m.createSpecies();
+    s4.setId( "S4");
+    Species s5 = m.createSpecies();
+    s5.setId( "S5");
+    SpeciesReference sr1 = r.createReactant();
+    SpeciesReference sr2 = r.createReactant();
+    SpeciesReference sr3 = r.createProduct();
+    sr1.setSpecies( "S1");
+    sr2.setSpecies( "S2");
+    sr3.setSpecies( "S5");
     assertTrue( r.getNumModifiers() == 0 );
-    d.setLevelAndVersion(2,1);
+    d.setLevelAndVersion(2,1,false);
     assertTrue( d.getLevel() == 2 );
     assertTrue( d.getVersion() == 1 );
     assertTrue( m.getReaction(0).getNumModifiers() == 2 );
@@ -140,7 +156,7 @@ public class TestSBMLConvert {
   public void test_SBMLConvert_convertToL1_SBMLDocument()
   {
     SBMLDocument d = new  SBMLDocument(2,1);
-    d.setLevelAndVersion(1,2);
+    d.setLevelAndVersion(1,2,false);
     assertTrue( d.getLevel() == 1 );
     assertTrue( d.getVersion() == 2 );
     d = null;
@@ -151,14 +167,14 @@ public class TestSBMLConvert {
     SBMLDocument d = new  SBMLDocument(2,1);
     Model m = d.createModel();
     String sid =  "C";;
-    Compartment c = new  Compartment();
-    Species s = new  Species();
+    Compartment c = new  Compartment(2,4);
+    Species s = new  Species(2,4);
     c.setId(sid);
     m.addCompartment(c);
     s.setCompartment(sid);
     s.setInitialAmount(2.34);
     m.addSpecies(s);
-    d.setLevelAndVersion(1,2);
+    d.setLevelAndVersion(1,2,false);
     assertTrue( s.getInitialAmount() == 2.34 );
     d = null;
   }
@@ -168,15 +184,16 @@ public class TestSBMLConvert {
     SBMLDocument d = new  SBMLDocument(2,1);
     Model m = d.createModel();
     String sid =  "C";;
-    Compartment c = new  Compartment();
-    Species s = new  Species();
+    Compartment c = new  Compartment(2,1);
+    Species s = new  Species(2,1);
     c.setId(sid);
     c.setSize(1.2);
     m.addCompartment(c);
+    s.setId( "s"  );
     s.setCompartment(sid);
     s.setInitialConcentration(2.34);
     m.addSpecies(s);
-    d.setLevelAndVersion(1,2);
+    d.setLevelAndVersion(1,2,false);
     Species s1 = m.getSpecies(0);
     assertTrue( s1 != null );
     assertTrue(s1.getCompartment().equals( "C"));
@@ -189,15 +206,48 @@ public class TestSBMLConvert {
   public void test_SBMLConvert_convertToL2_SBMLDocument()
   {
     SBMLDocument d = new  SBMLDocument(1,2);
-    d.setLevelAndVersion(2,1);
+    d.setLevelAndVersion(2,1,false);
     assertTrue( d.getLevel() == 2 );
     assertTrue( d.getVersion() == 1 );
-    d.setLevelAndVersion(2,2);
+    d.setLevelAndVersion(2,2,false);
     assertTrue( d.getLevel() == 2 );
     assertTrue( d.getVersion() == 2 );
-    d.setLevelAndVersion(2,3);
+    d.setLevelAndVersion(2,3,false);
     assertTrue( d.getLevel() == 2 );
     assertTrue( d.getVersion() == 3 );
+    d = null;
+  }
+
+  public void test_SBMLConvert_convertToL2v4_DuplicateAnnotations_doc()
+  {
+    SBMLDocument d = new  SBMLDocument(2,1);
+    d.createModel();
+    String annotation =  "<rdf/>\n<rdf/>";;
+    long i = (d).setAnnotation(annotation);
+    assertTrue( d.getLevel() == 2 );
+    assertTrue( d.getVersion() == 1 );
+    assertTrue( (d).getAnnotation().getNumChildren() == 2 );
+    d.setLevelAndVersion(2,4,false);
+    assertTrue( d.getLevel() == 2 );
+    assertTrue( d.getVersion() == 4 );
+    assertTrue( (d).getAnnotation().getNumChildren() == 1 );
+    d = null;
+  }
+
+  public void test_SBMLConvert_convertToL2v4_DuplicateAnnotations_model()
+  {
+    SBMLDocument d = new  SBMLDocument(2,1);
+    Model m = d.createModel();
+    String annotation =  "<rdf/>\n<rdf/>";;
+    long i = (m).setAnnotation(annotation);
+    assertTrue( d.getLevel() == 2 );
+    assertTrue( d.getVersion() == 1 );
+    assertTrue( (m).getAnnotation().getNumChildren() == 2 );
+    d.setLevelAndVersion(2,4,false);
+    assertTrue( d.getLevel() == 2 );
+    assertTrue( d.getVersion() == 4 );
+    m = d.getModel();
+    assertTrue( (m).getAnnotation().getNumChildren() == 1 );
     d = null;
   }
 

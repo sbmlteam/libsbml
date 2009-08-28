@@ -50,7 +50,7 @@ class TestRDFAnnotationC < Test::Unit::TestCase
   end
 
   def test_RDFAnnotation_C_getModelHistory
-    assert( !( @@m == nil) )
+    assert( !( @@m == 0) )
     history = @@m.getModelHistory()
     assert( history != nil )
     mc = history.getCreator(0)

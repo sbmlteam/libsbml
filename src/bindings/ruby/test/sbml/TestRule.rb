@@ -31,7 +31,7 @@ require 'libSBML'
 class TestRule < Test::Unit::TestCase
 
   def setup
-    @@r = LibSBML::AlgebraicRule.new()
+    @@r = LibSBML::AlgebraicRule.new(2,4)
     if (@@r == nil)
     end
   end

@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Sarah Keating 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestTrigger.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -52,6 +52,10 @@ public class TestTrigger {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestTrigger {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -111,7 +119,7 @@ public class TestTrigger {
 
   protected void setUp() throws Exception
   {
-    D = new  Trigger();
+    D = new  Trigger(2,4);
     if (D == null);
     {
     }
@@ -131,11 +139,13 @@ public class TestTrigger {
     assertTrue( D.getMath() == null );
   }
 
-  public void test_Trigger_createWithLevelVersionAndNamespace()
+  public void test_Trigger_createWithNS()
   {
     XMLNamespaces xmlns = new  XMLNamespaces();
-    xmlns.add( "http://www.sbml.org", "sbml");
-    Trigger object = new  Trigger(2,1,xmlns);
+    xmlns.add( "http://www.sbml.org", "testsbml");
+    SBMLNamespaces sbmlns = new  SBMLNamespaces(2,1);
+    sbmlns.addNamespaces(xmlns);
+    Trigger object = new  Trigger(sbmlns);
     assertTrue( object.getTypeCode() == libsbml.SBML_TRIGGER );
     assertTrue( object.getMetaId().equals("") == true );
     assertTrue( object.getNotes() == null );
@@ -143,28 +153,8 @@ public class TestTrigger {
     assertTrue( object.getLevel() == 2 );
     assertTrue( object.getVersion() == 1 );
     assertTrue( object.getNamespaces() != null );
-    assertTrue( object.getNamespaces().getLength() == 1 );
+    assertTrue( object.getNamespaces().getLength() == 2 );
     object = null;
-  }
-
-  public void test_Trigger_createWithMath()
-  {
-    ASTNode math = libsbml.parseFormula("x^3");
-    Trigger fd = new  Trigger(math);
-    ASTNode math1;
-    String formula;
-    assertTrue( fd.getTypeCode() == libsbml.SBML_TRIGGER );
-    assertTrue( fd.getMetaId().equals("") == true );
-    assertTrue( fd.getNotes() == null );
-    assertTrue( fd.getAnnotation() == null );
-    math1 = fd.getMath();
-    assertTrue( math1 != null );
-    formula = libsbml.formulaToString(math1);
-    assertTrue( formula != null );
-    assertTrue(formula.equals( "x^3"));
-    assertTrue( !fd.getMath().equals(math) );
-    assertEquals( true, fd.isSetMath() );
-    fd = null;
   }
 
   public void test_Trigger_free_NULL()
@@ -195,6 +185,29 @@ public class TestTrigger {
     if (D.getMath() != null);
     {
     }
+  }
+
+  public void test_Trigger_setMath1()
+  {
+    ASTNode math = libsbml.parseFormula("2 * k");
+    long i = D.setMath(math);
+    assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+    assertTrue( !D.getMath().equals(math) );
+    assertEquals( true, D.isSetMath() );
+    i = D.setMath(null);
+    assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+    assertTrue( D.getMath() == null );
+    assertEquals( false, D.isSetMath() );
+    math = null;
+  }
+
+  public void test_Trigger_setMath2()
+  {
+    ASTNode math = new  ASTNode(libsbml.AST_TIMES);
+    long i = D.setMath(math);
+    assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT );
+    assertEquals( false, D.isSetMath() );
+    math = null;
   }
 
   /**

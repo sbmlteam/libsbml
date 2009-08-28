@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Sarah Keating 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestConstraint.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -52,6 +52,10 @@ public class TestConstraint {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestConstraint {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -111,7 +119,7 @@ public class TestConstraint {
 
   protected void setUp() throws Exception
   {
-    C = new  Constraint();
+    C = new  Constraint(2,4);
     if (C == null);
     {
     }
@@ -132,32 +140,22 @@ public class TestConstraint {
     assertEquals( false, C.isSetMath() );
   }
 
-  public void test_Constraint_createWithLevelVersionAndNamespace()
+  public void test_Constraint_createWithNS()
   {
     XMLNamespaces xmlns = new  XMLNamespaces();
-    xmlns.add( "http://www.sbml.org", "sbml");
-    Constraint object = new  Constraint(2,1,xmlns);
+    xmlns.add( "http://www.sbml.org", "testsbml");
+    SBMLNamespaces sbmlns = new  SBMLNamespaces(2,2);
+    sbmlns.addNamespaces(xmlns);
+    Constraint object = new  Constraint(sbmlns);
     assertTrue( object.getTypeCode() == libsbml.SBML_CONSTRAINT );
     assertTrue( object.getMetaId().equals("") == true );
     assertTrue( object.getNotes() == null );
     assertTrue( object.getAnnotation() == null );
     assertTrue( object.getLevel() == 2 );
-    assertTrue( object.getVersion() == 1 );
+    assertTrue( object.getVersion() == 2 );
     assertTrue( object.getNamespaces() != null );
-    assertTrue( object.getNamespaces().getLength() == 1 );
+    assertTrue( object.getNamespaces().getLength() == 2 );
     object = null;
-  }
-
-  public void test_Constraint_createWithMath()
-  {
-    ASTNode math = libsbml.parseFormula("1 + 1");
-    Constraint c = new  Constraint(math);
-    assertTrue( c.getTypeCode() == libsbml.SBML_CONSTRAINT );
-    assertTrue( c.getMetaId().equals("") == true );
-    assertTrue( !c.getMath().equals(math) );
-    assertEquals( false, c.isSetMessage() );
-    assertEquals( true, c.isSetMath() );
-    c = null;
   }
 
   public void test_Constraint_free_NULL()
@@ -182,14 +180,23 @@ public class TestConstraint {
 
   public void test_Constraint_setMessage()
   {
-    XMLNode node = new XMLNode();
+    XMLNode text = XMLNode.convertStringToXMLNode(" Some text ",null);
+    XMLTriple triple = new  XMLTriple("p", "http://www.w3.org/1999/xhtml", "");
+    XMLAttributes att = new  XMLAttributes();
+    XMLNamespaces xmlns = new  XMLNamespaces();
+    xmlns.add( "http://www.w3.org/1999/xhtml", "");
+    XMLNode p = new XMLNode(triple,att,xmlns);
+    p.addChild(text);
+    XMLTriple triple1 = new  XMLTriple("message", "", "");
+    XMLAttributes att1 = new  XMLAttributes();
+    XMLNode node = new XMLNode(triple1,att1);
+    node.addChild(p);
     C.setMessage(node);
     assertTrue( !C.getMessage().equals(node) );
     assertTrue( C.isSetMessage() == true );
     C.setMessage(C.getMessage());
     assertTrue( !C.getMessage().equals(node) );
     assertTrue( C.getMessageString() != null );
-    assertTrue( !C.getMessageString().equals("") == false );
     C.unsetMessage();
     assertEquals( false, C.isSetMessage() );
     if (C.getMessage() != null);

@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Sarah Keating 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestReadFromFile6.cpp
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -118,29 +118,29 @@ namespace LibSBMLCSTest {
     public void test_read_l2v2_newComponents()
     {
       SBMLReader reader = new SBMLReader();
-      SBMLDocument d = new SBMLDocument();
-      Model m = new Model();
-      Compartment c = new Compartment();
-      CompartmentType ct = new CompartmentType();
-      Species s = new Species();
-      Parameter p = new Parameter();
-      Reaction r = new Reaction();
-      SpeciesReference sr = new SpeciesReference();
-      KineticLaw kl = new KineticLaw();
-      Constraint con = new Constraint();
-      InitialAssignment ia = new InitialAssignment();
-      SpeciesType st = new SpeciesType();
-      ListOfCompartmentTypes loct = new ListOfCompartmentTypes();
-      CompartmentType ct1 = new CompartmentType();
-      ListOfConstraints locon = new ListOfConstraints();
-      Constraint con1 = new Constraint();
-      ListOfInitialAssignments loia = new ListOfInitialAssignments();
-      InitialAssignment ia1 = new InitialAssignment();
-      ListOfReactions lor = new ListOfReactions();
-      Reaction r1 = new Reaction();
-      ListOfSpeciesReferences losr = new ListOfSpeciesReferences();
-      SpeciesReference sr1 = new SpeciesReference();
-      ASTNode ast = new ASTNode();
+      SBMLDocument d;
+      Model m;
+      Compartment c;
+      CompartmentType ct;
+      Species s;
+      Parameter p;
+      Reaction r;
+      SpeciesReference sr;
+      KineticLaw kl;
+      Constraint con;
+      InitialAssignment ia;
+      SpeciesType st;
+      ListOfCompartmentTypes loct;
+      CompartmentType ct1;
+      ListOfConstraints locon;
+      Constraint con1;
+      ListOfInitialAssignments loia;
+      InitialAssignment ia1;
+      ListOfReactions lor;
+      Reaction r1;
+      ListOfSpeciesReferences losr;
+      SpeciesReference sr1;
+      ASTNode ast;
       string filename =  "../../sbml/test/test-data/";
       filename += "l2v2-newComponents.xml";
       d = reader.readSBML(filename);
@@ -160,6 +160,8 @@ namespace LibSBMLCSTest {
       assertTrue( c.getId() ==  "cell" );
       assertEquals(c.getCompartmentType(), "mitochondria");
       assertTrue( c.getOutside() ==  "m" );
+      assertTrue( c.getSBOTerm() == -1 );
+      assertTrue( c.getSBOTermID() ==  "" );
       c = m.getCompartment(1);
       assertTrue( c != null );
       assertTrue( c.getId() ==  "m" );
@@ -260,9 +262,9 @@ namespace LibSBMLCSTest {
       assertTrue( sr.getId() ==  "me" );
       assertTrue( sr.getSpecies() ==  "X0" );
       losr = r.getListOfReactants();
-      sr1 = ((SpeciesReference) losr.get(0));
+      sr1 = (SpeciesReference) losr.get(0);
       assertTrue( sr1 == sr );
-      sr1 = ((SpeciesReference) losr.get("me"));
+      sr1 = (SpeciesReference) losr.get("me");
       assertTrue( sr1 == sr );
       d = null;
     }

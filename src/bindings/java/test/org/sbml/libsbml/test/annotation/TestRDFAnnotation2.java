@@ -52,6 +52,10 @@ public class TestRDFAnnotation2 {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestRDFAnnotation2 {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -108,18 +116,39 @@ public class TestRDFAnnotation2 {
     throw new AssertionError();
   }
   private Model m2;
-  private XMLOutputStream XOS2;
-  private OStringStream OSS2;
   private SBMLDocument d2;
 
-  public boolean equals(String s)
+
+  public double util_NaN()
   {
-    return s.equals(OSS2.str());
+    double z = 0.0;
+    return 0.0/z;
   }
+
+  public double util_PosInf()
+  {
+    double z = 0.0;
+    return 1.0/z;
+  }
+
+  public double util_NegInf()
+  {
+    double z = 0.0;
+    return -1.0/z;
+  }
+
+//  public boolean equals(String s)
+//  {
+//    return s.equals(OSS.str());
+//  }
+
+  public boolean equals(String s1, String s2)
+  {
+    return s1.equals(s2);
+  }
+
   protected void setUp() throws Exception
   {
-    OSS2 = new OStringStream();
-    XOS2 = new XMLOutputStream(OSS2);
     String filename = "../../annotation/test/test-data/annotation2.xml";
     d2 = libsbml.readSBML(filename);
     m2 = d2.getModel();
@@ -185,6 +214,9 @@ public class TestRDFAnnotation2 {
     c.setFamilyName("Keating");
     c.setGivenName("Sarah");
     h.addCreator(c);
+    Date d = new Date(2008,11,17,18,37,0,0,0,0);
+    h.setCreatedDate(d);
+    h.setModifiedDate(d);
     m2.unsetModelHistory();
     m2.setModelHistory(h);
     CVTerm cv = new CVTerm();
@@ -193,8 +225,7 @@ public class TestRDFAnnotation2 {
     cv.addResource("http://www.geneontology.org/#GO:0005892");
     m2.addCVTerm(cv);
     XMLNode Ann = RDFAnnotationParser.parseModelHistory(m2);
-    String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "<annotation>\n" + 
+    String expected = "<annotation>\n" + 
     "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
     "    <rdf:Description rdf:about=\"#_000001\">\n" + 
     "      <dc:creator rdf:parseType=\"Resource\">\n" + 
@@ -207,6 +238,12 @@ public class TestRDFAnnotation2 {
     "          </rdf:li>\n" + 
     "        </rdf:Bag>\n" + 
     "      </dc:creator>\n" + 
+    "      <dcterms:created rdf:parseType=\"Resource\">\n" + 
+    "        <dcterms:W3CDTF>2008-11-17T18:37:00Z</dcterms:W3CDTF>\n" + 
+    "      </dcterms:created>\n" + 
+    "      <dcterms:modified rdf:parseType=\"Resource\">\n" + 
+    "        <dcterms:W3CDTF>2008-11-17T18:37:00Z</dcterms:W3CDTF>\n" + 
+    "      </dcterms:modified>\n" + 
     "      <bqbiol:isVersionOf>\n" + 
     "        <rdf:Bag>\n" + 
     "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0005892\"/>\n" + 
@@ -215,8 +252,12 @@ public class TestRDFAnnotation2 {
     "    </rdf:Description>\n" + 
     "  </rdf:RDF>\n" + 
     "</annotation>";
-    Ann.write(XOS2);
-    assertEquals( true, equals(expected) );
+    if (Ann != null);
+    {
+      assertEquals( true, equals(expected,Ann.toXMLString()) );
+    }
+    {
+    }
   }
 
   public void test_RDFAnnotation2_modelWithHistoryAndMultipleModifiedDates()
@@ -233,8 +274,7 @@ public class TestRDFAnnotation2 {
     m2.unsetModelHistory();
     m2.setModelHistory(h);
     XMLNode Ann = RDFAnnotationParser.parseModelHistory(m2);
-    String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "<annotation>\n" + 
+    String expected = "<annotation>\n" + 
     "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
     "    <rdf:Description rdf:about=\"#_000001\">\n" + 
     "      <dc:creator rdf:parseType=\"Resource\">\n" + 
@@ -259,8 +299,7 @@ public class TestRDFAnnotation2 {
     "    </rdf:Description>\n" + 
     "  </rdf:RDF>\n" + 
     "</annotation>";
-    Ann.write(XOS2);
-    assertEquals( true, equals(expected) );
+    assertEquals( true, equals(expected,Ann.toXMLString()) );
   }
 
   public void test_RDFAnnotation2_modelWithHistoryWithCharacterReference()

@@ -34,7 +34,7 @@ class TestConstraint(unittest.TestCase):
   C = None
 
   def setUp(self):
-    self.C = libsbml.Constraint()
+    self.C = libsbml.Constraint(2,4)
     if (self.C == None):
       pass    
     pass  
@@ -52,30 +52,21 @@ class TestConstraint(unittest.TestCase):
     self.assertEqual( False, self.C.isSetMath() )
     pass  
 
-  def test_Constraint_createWithLevelVersionAndNamespace(self):
+  def test_Constraint_createWithNS(self):
     xmlns = libsbml.XMLNamespaces()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = libsbml.Constraint(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = libsbml.SBMLNamespaces(2,2)
+    sbmlns.addNamespaces(xmlns)
+    object = libsbml.Constraint(sbmlns)
     self.assert_( object.getTypeCode() == libsbml.SBML_CONSTRAINT )
     self.assert_( object.getMetaId() == "" )
     self.assert_( object.getNotes() == None )
     self.assert_( object.getAnnotation() == None )
     self.assert_( object.getLevel() == 2 )
-    self.assert_( object.getVersion() == 1 )
-    self.assert_( object.getNamespaces() != "" )
-    self.assert_( object.getNamespaces().getLength() == 1 )
+    self.assert_( object.getVersion() == 2 )
+    self.assert_( object.getNamespaces() != None )
+    self.assert_( object.getNamespaces().getLength() == 2 )
     object = None
-    pass  
-
-  def test_Constraint_createWithMath(self):
-    math = libsbml.parseFormula("1 + 1")
-    c = libsbml.Constraint(math)
-    self.assert_( c.getTypeCode() == libsbml.SBML_CONSTRAINT )
-    self.assert_( c.getMetaId() == "" )
-    self.assert_( c.getMath() != math )
-    self.assertEqual( False, c.isSetMessage() )
-    self.assertEqual( True, c.isSetMath() )
-    c = None
     pass  
 
   def test_Constraint_free_NULL(self):
@@ -96,14 +87,23 @@ class TestConstraint(unittest.TestCase):
     pass  
 
   def test_Constraint_setMessage(self):
-    node = libsbml.XMLNode()
+    text = libsbml.XMLNode.convertStringToXMLNode(" Some text ",None)
+    triple = libsbml.XMLTriple("p", "http://www.w3.org/1999/xhtml", "")
+    att = libsbml.XMLAttributes()
+    xmlns = libsbml.XMLNamespaces()
+    xmlns.add( "http://www.w3.org/1999/xhtml", "")
+    p = libsbml.XMLNode(triple,att,xmlns)
+    p.addChild(text)
+    triple1 = libsbml.XMLTriple("message", "", "")
+    att1 = libsbml.XMLAttributes()
+    node = libsbml.XMLNode(triple1,att1)
+    node.addChild(p)
     self.C.setMessage(node)
     self.assert_( self.C.getMessage() != node )
     self.assert_( self.C.isSetMessage() == True )
     self.C.setMessage(self.C.getMessage())
     self.assert_( self.C.getMessage() != node )
     self.assert_( self.C.getMessageString() != None )
-    self.assert_( ( "" != self.C.getMessageString() ) == False )
     self.C.unsetMessage()
     self.assertEqual( False, self.C.isSetMessage() )
     if (self.C.getMessage() != None):

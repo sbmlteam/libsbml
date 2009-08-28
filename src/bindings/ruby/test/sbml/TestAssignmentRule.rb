@@ -31,7 +31,7 @@ require 'libSBML'
 class TestAssignmentRule < Test::Unit::TestCase
 
   def setup
-    @@ar = LibSBML::AssignmentRule.new()
+    @@ar = LibSBML::AssignmentRule.new(2,4)
     if (@@ar == nil)
     end
   end
@@ -52,7 +52,9 @@ class TestAssignmentRule < Test::Unit::TestCase
   end
 
   def test_AssignmentRule_createWithFormula
-    ar = LibSBML::AssignmentRule.new("s", "1 + 1")
+    ar = LibSBML::AssignmentRule.new(2,4)
+    ar.setVariable( "s")
+    ar.setFormula( "1 + 1")
     assert( ar.getTypeCode() == LibSBML::SBML_ASSIGNMENT_RULE )
     assert( ar.getMetaId() == "" )
     assert ((  "s" == ar.getVariable() ))
@@ -65,30 +67,34 @@ class TestAssignmentRule < Test::Unit::TestCase
     ar = nil
   end
 
-  def test_AssignmentRule_createWithLevelVersionAndNamespace
-    xmlns = LibSBML::XMLNamespaces.new()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = LibSBML::AssignmentRule.new(2,1,xmlns)
-    assert( object.getTypeCode() == LibSBML::SBML_ASSIGNMENT_RULE )
-    assert( object.getMetaId() == "" )
-    assert( object.getNotes() == nil )
-    assert( object.getAnnotation() == nil )
-    assert( object.getLevel() == 2 )
-    assert( object.getVersion() == 1 )
-    assert( object.getNamespaces() != "" )
-    assert( object.getNamespaces().getLength() == 1 )
-    object = nil
-  end
-
   def test_AssignmentRule_createWithMath
     math = LibSBML::parseFormula("1 + 1")
-    ar = LibSBML::AssignmentRule.new("s",math)
+    ar = LibSBML::AssignmentRule.new(2,4)
+    ar.setVariable( "s")
+    ar.setMath(math)
     assert( ar.getTypeCode() == LibSBML::SBML_ASSIGNMENT_RULE )
     assert( ar.getMetaId() == "" )
     assert ((  "s" == ar.getVariable() ))
     assert ((  "1 + 1" == ar.getFormula() ))
     assert( ar.getMath() != math )
     ar = nil
+  end
+
+  def test_AssignmentRule_createWithNS
+    xmlns = LibSBML::XMLNamespaces.new()
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = LibSBML::SBMLNamespaces.new(2,1)
+    sbmlns.addNamespaces(xmlns)
+    object = LibSBML::AssignmentRule.new(sbmlns)
+    assert( object.getTypeCode() == LibSBML::SBML_ASSIGNMENT_RULE )
+    assert( object.getMetaId() == "" )
+    assert( object.getNotes() == nil )
+    assert( object.getAnnotation() == nil )
+    assert( object.getLevel() == 2 )
+    assert( object.getVersion() == 1 )
+    assert( object.getNamespaces() != nil )
+    assert( object.getNamespaces().getLength() == 2 )
+    object = nil
   end
 
   def test_AssignmentRule_free_NULL

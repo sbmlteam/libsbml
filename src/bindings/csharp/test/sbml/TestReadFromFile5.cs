@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Ben Bornstein 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestReadFromFile5.cpp
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -118,25 +118,25 @@ namespace LibSBMLCSTest {
     public void test_read_l2v1_assignment()
     {
       SBMLReader reader = new SBMLReader();
-      SBMLDocument d = new SBMLDocument();
-      Model m = new Model();
-      Compartment c = new Compartment();
-      Species s = new Species();
-      Parameter p = new Parameter();
-      AssignmentRule ar = new AssignmentRule();
-      Reaction r = new Reaction();
-      SpeciesReference sr = new SpeciesReference();
-      KineticLaw kl = new KineticLaw();
-      UnitDefinition ud = new UnitDefinition();
-      Reaction r1 = new Reaction();
-      ListOfCompartments loc = new ListOfCompartments();
-      Compartment c1 = new Compartment();
-      ListOfRules lor = new ListOfRules();
-      AssignmentRule ar1 = new AssignmentRule();
-      ListOfParameters lop = new ListOfParameters();
-      Parameter p1 = new Parameter();
-      ListOfSpecies los = new ListOfSpecies();
-      Species s1 = new Species();
+      SBMLDocument d;
+      Model m;
+      Compartment c;
+      Species s;
+      Parameter p;
+      AssignmentRule ar;
+      Reaction r;
+      SpeciesReference sr;
+      KineticLaw kl;
+      UnitDefinition ud;
+      Reaction r1;
+      ListOfCompartments loc;
+      Compartment c1;
+      ListOfRules lor;
+      AssignmentRule ar1;
+      ListOfParameters lop;
+      Parameter p1;
+      ListOfSpecies los;
+      Species s1;
       string filename =  "../../sbml/test/test-data/";
       filename += "l2v1-assignment.xml";
       d = reader.readSBML(filename);
@@ -203,7 +203,7 @@ namespace LibSBMLCSTest {
       ud = p.getDerivedUnitDefinition();
       assertTrue( ud.getNumUnits() == 0 );
       assertTrue( m.getNumRules() == 2 );
-      ar = ((AssignmentRule)  m.getRule(0) );
+      ar = (AssignmentRule)  m.getRule(0);
       assertTrue( ar != null );
       assertTrue( ar.getVariable() ==  "S1"            );
       assertTrue( ar.getFormula() ==  "T / (1 + Keq)" );
@@ -215,11 +215,11 @@ namespace LibSBMLCSTest {
       assertTrue( ud.getUnit(1).getExponent() == -1 );
       assertTrue( ar.containsUndeclaredUnits() == true );
       lor = m.getListOfRules();
-      ar1 = ((AssignmentRule) lor.get(0));
+      ar1 = (AssignmentRule) lor.get(0);
       assertTrue( ar1 == ar );
-      ar1 = ((AssignmentRule) lor.get("S1"));
+      ar1 = (AssignmentRule) lor.get("S1");
       assertTrue( ar1 == ar );
-      ar = ((AssignmentRule)  m.getRule(1) );
+      ar = (AssignmentRule)  m.getRule(1);
       assertTrue( ar != null );
       assertTrue( ar.getVariable() ==  "S2"       );
       assertTrue( ar.getFormula() ==  "Keq * S1" );
@@ -239,7 +239,7 @@ namespace LibSBMLCSTest {
       assertTrue( kl != null );
       assertTrue( kl.getFormula() ==  "k1 * X0" );
       assertTrue( kl.getNumParameters() == 1 );
-      r1 = ((Reaction) kl.getParentSBMLObject());
+      r1 = (Reaction) kl.getParentSBMLObject();
       assertTrue( r1 != null );
       assertTrue( r1.getId() ==  "in" );
       assertTrue( r1.getNumReactants() == 1 );
@@ -248,7 +248,7 @@ namespace LibSBMLCSTest {
       assertTrue( p != null );
       assertTrue( p.getId() ==  "k1" );
       assertTrue( p.getValue() == 0.1 );
-      kl = ((KineticLaw) p.getParentSBMLObject().getParentSBMLObject());
+      kl = (KineticLaw) p.getParentSBMLObject().getParentSBMLObject();
       assertTrue( kl != null );
       assertTrue( kl.getFormula() ==  "k1 * X0" );
       assertTrue( kl.getNumParameters() == 1 );

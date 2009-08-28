@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Ben Bornstein 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestRateRule.c
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -58,6 +58,10 @@ namespace LibSBMLCSTest {
       {
         return;
       }
+      else if ( (a == null) || (b == null) )
+      {
+        throw new AssertionError();
+      }
       else if (a.Equals(b))
       {
         return;
@@ -71,6 +75,10 @@ namespace LibSBMLCSTest {
       if ( (a == null) && (b == null) )
       {
         throw new AssertionError();
+      }
+      else if ( (a == null) || (b == null) )
+      {
+        return;
       }
       else if (a.Equals(b))
       {
@@ -118,7 +126,7 @@ namespace LibSBMLCSTest {
 
     public void setUp()
     {
-      RR = new  RateRule();
+      RR = new  RateRule(1,2);
       if (RR == null);
       {
       }
@@ -141,28 +149,13 @@ namespace LibSBMLCSTest {
       assertTrue( RR.getType() == libsbml.RULE_TYPE_RATE );
     }
 
-    public void test_RateRule_createWithFormula()
-    {
-      ASTNode math;
-      string formula;
-      Rule ar = new  RateRule("s", "1 + 1");
-      assertTrue( ar.getTypeCode() == libsbml.SBML_RATE_RULE );
-      assertTrue( ar.getMetaId() == "" );
-      assertTrue((  "s" == ar.getVariable() ));
-      math = ar.getMath();
-      assertTrue( math != null );
-      formula = libsbml.formulaToString(math);
-      assertTrue( formula != null );
-      assertTrue((  "1 + 1" == formula ));
-      assertTrue(( formula == ar.getFormula() ));
-      ar = null;
-    }
-
-    public void test_RateRule_createWithLevelVersionAndNamespace()
+    public void test_RateRule_createWithNS()
     {
       XMLNamespaces xmlns = new  XMLNamespaces();
-      xmlns.add( "http://www.sbml.org", "sbml");
-      Rule object1 = new  RateRule(2,1,xmlns);
+      xmlns.add( "http://www.sbml.org", "testsbml");
+      SBMLNamespaces sbmlns = new  SBMLNamespaces(2,1);
+      sbmlns.addNamespaces(xmlns);
+      Rule object1 = new  RateRule(sbmlns);
       assertTrue( object1.getTypeCode() == libsbml.SBML_RATE_RULE );
       assertTrue( object1.getMetaId() == "" );
       assertTrue( object1.getNotes() == null );
@@ -170,20 +163,8 @@ namespace LibSBMLCSTest {
       assertTrue( object1.getLevel() == 2 );
       assertTrue( object1.getVersion() == 1 );
       assertTrue( object1.getNamespaces() != null );
-      assertTrue( object1.getNamespaces().getLength() == 1 );
+      assertTrue( object1.getNamespaces().getLength() == 2 );
       object1 = null;
-    }
-
-    public void test_RateRule_createWithMath()
-    {
-      ASTNode math = libsbml.parseFormula("1 + 1");
-      Rule ar = new  RateRule("s",math);
-      assertTrue( ar.getTypeCode() == libsbml.SBML_RATE_RULE );
-      assertTrue( ar.getMetaId() == "" );
-      assertTrue((  "s" == ar.getVariable() ));
-      assertTrue((  "1 + 1" == ar.getFormula() ));
-      assertTrue( ar.getMath() != math );
-      ar = null;
     }
 
     public void test_RateRule_free_NULL()

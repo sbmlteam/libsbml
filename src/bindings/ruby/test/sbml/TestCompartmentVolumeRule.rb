@@ -31,7 +31,7 @@ require 'libSBML'
 class TestCompartmentVolumeRule < Test::Unit::TestCase
 
   def setup
-    @@cvr = LibSBML::AssignmentRule.new()
+    @@cvr = LibSBML::AssignmentRule.new(1,2)
     @@cvr.setL1TypeCode(LibSBML::SBML_COMPARTMENT_VOLUME_RULE)
     if (@@cvr == nil)
     end
@@ -50,20 +50,6 @@ class TestCompartmentVolumeRule < Test::Unit::TestCase
     assert( @@cvr.getType() == LibSBML::RULE_TYPE_SCALAR )
     assert( @@cvr.getVariable() == "" )
     assert_equal false, @@cvr.isSetVariable()
-  end
-
-  def test_CompartmentVolumeRule_createWith
-    cvr = LibSBML::RateRule.new("c", "v + 1")
-    cvr.setL1TypeCode(LibSBML::SBML_COMPARTMENT_VOLUME_RULE)
-    assert( cvr.getTypeCode() == LibSBML::SBML_RATE_RULE )
-    assert( cvr.getL1TypeCode() == LibSBML::SBML_COMPARTMENT_VOLUME_RULE )
-    assert( cvr.getNotes() == nil )
-    assert( cvr.getAnnotation() == nil )
-    assert ((  "v + 1" == cvr.getFormula() ))
-    assert ((  "c" == cvr.getVariable() ))
-    assert( cvr.getType() == LibSBML::RULE_TYPE_RATE )
-    assert_equal true, cvr.isSetVariable()
-    cvr = nil
   end
 
   def test_CompartmentVolumeRule_free_NULL

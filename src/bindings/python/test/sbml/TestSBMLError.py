@@ -34,7 +34,7 @@ class TestSBMLError(unittest.TestCase):
 
   def test_SBMLError_create(self):
     error = libsbml.SBMLError()
-    self.assert_( error != None )
+    self.assert_( error != 0 )
     error = None
     error = libsbml.SBMLError(libsbml.EmptyListInReaction)
     self.assert_( error.getErrorId() == libsbml.EmptyListInReaction )

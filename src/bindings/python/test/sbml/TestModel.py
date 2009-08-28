@@ -34,7 +34,7 @@ class TestModel(unittest.TestCase):
   M = None
 
   def setUp(self):
-    self.M = libsbml.Model()
+    self.M = libsbml.Model(2,4)
     if (self.M == None):
       pass    
     pass  
@@ -44,19 +44,20 @@ class TestModel(unittest.TestCase):
     pass  
 
   def test_KineticLaw_getParameterById(self):
-    k1 = libsbml.Parameter()
-    k2 = libsbml.Parameter()
+    k1 = libsbml.Parameter(2,4)
+    k2 = libsbml.Parameter(2,4)
     k1.setId( "k1")
     k2.setId( "k2")
     k1.setValue(3.14)
     k2.setValue(2.72)
     self.M.addParameter(k1)
     self.M.addParameter(k2)
-    r1 = libsbml.Reaction()
+    r1 = libsbml.Reaction(2,4)
     r1.setId( "reaction_1" )
-    kl = libsbml.KineticLaw("k1 * X0")
-    k3 = libsbml.Parameter()
-    k4 = libsbml.Parameter()
+    kl = libsbml.KineticLaw(2,4)
+    kl.setFormula( "k1 * X0")
+    k3 = libsbml.Parameter(2,4)
+    k4 = libsbml.Parameter(2,4)
     k3.setId( "k1")
     k4.setId( "k2")
     k3.setValue(2.72)
@@ -73,35 +74,57 @@ class TestModel(unittest.TestCase):
     pass  
 
   def test_Model_addCompartment(self):
-    self.M.addCompartment(libsbml.Compartment())
+    c = libsbml.Compartment(2,4)
+    c.setId( "c")
+    self.M.addCompartment(c)
     self.assert_( self.M.getNumCompartments() == 1 )
     pass  
 
   def test_Model_addParameter(self):
-    self.M.addParameter(libsbml.Parameter())
+    p = libsbml.Parameter(2,4)
+    p.setId( "p")
+    self.M.addParameter(p)
     self.assert_( self.M.getNumParameters() == 1 )
     pass  
 
   def test_Model_addReaction(self):
-    self.M.addReaction(libsbml.Reaction())
+    r = libsbml.Reaction(2,4)
+    r.setId( "r")
+    self.M.addReaction(r)
     self.assert_( self.M.getNumReactions() == 1 )
     pass  
 
   def test_Model_addRules(self):
-    self.M.addRule(libsbml.AlgebraicRule())
-    self.M.addRule(libsbml.AssignmentRule())
-    self.M.addRule(libsbml.RateRule())
+    r1 = libsbml.AlgebraicRule(2,4)
+    r2 = libsbml.AssignmentRule(2,4)
+    r3 = libsbml.RateRule(2,4)
+    r2.setVariable( "r2")
+    r3.setVariable( "r3")
+    r1.setMath(libsbml.parseFormula("2"))
+    r2.setMath(libsbml.parseFormula("2"))
+    r3.setMath(libsbml.parseFormula("2"))
+    self.M.addRule(r1)
+    self.M.addRule(r2)
+    self.M.addRule(r3)
     self.assert_( self.M.getNumRules() == 3 )
     pass  
 
   def test_Model_addSpecies(self):
-    self.M.addSpecies(libsbml.Species())
+    s = libsbml.Species(2,4)
+    s.setId( "s")
+    s.setCompartment( "c")
+    self.M.addSpecies(s)
     self.assert_( self.M.getNumSpecies() == 1 )
     pass  
 
   def test_Model_add_get_Event(self):
-    e1 = libsbml.Event()
-    e2 = libsbml.Event()
+    e1 = libsbml.Event(2,4)
+    e2 = libsbml.Event(2,4)
+    t = libsbml.Trigger(2,4)
+    e1.setTrigger(t)
+    e2.setTrigger(t)
+    e1.createEventAssignment()
+    e2.createEventAssignment()
     self.M.addEvent(e1)
     self.M.addEvent(e2)
     self.assert_( self.M.getNumEvents() == 2 )
@@ -112,8 +135,12 @@ class TestModel(unittest.TestCase):
     pass  
 
   def test_Model_add_get_FunctionDefinitions(self):
-    fd1 = libsbml.FunctionDefinition()
-    fd2 = libsbml.FunctionDefinition()
+    fd1 = libsbml.FunctionDefinition(2,4)
+    fd2 = libsbml.FunctionDefinition(2,4)
+    fd1.setId( "fd1")
+    fd2.setId( "fd2")
+    fd1.setMath(libsbml.parseFormula("2"))
+    fd2.setMath(libsbml.parseFormula("2"))
     self.M.addFunctionDefinition(fd1)
     self.M.addFunctionDefinition(fd2)
     self.assert_( self.M.getNumFunctionDefinitions() == 2 )
@@ -124,8 +151,12 @@ class TestModel(unittest.TestCase):
     pass  
 
   def test_Model_add_get_UnitDefinitions(self):
-    ud1 = libsbml.UnitDefinition()
-    ud2 = libsbml.UnitDefinition()
+    ud1 = libsbml.UnitDefinition(2,4)
+    ud2 = libsbml.UnitDefinition(2,4)
+    ud1.setId( "ud1")
+    ud2.setId( "ud2")
+    ud1.createUnit()
+    ud2.createUnit()
     self.M.addUnitDefinition(ud1)
     self.M.addUnitDefinition(ud2)
     self.assert_( self.M.getNumUnitDefinitions() == 2 )
@@ -378,42 +409,20 @@ class TestModel(unittest.TestCase):
     self.assert_( self.M.createUnit() == None )
     pass  
 
-  def test_Model_createWith(self):
-    m = libsbml.Model("repressilator", "")
-    self.assert_( m.getTypeCode() == libsbml.SBML_MODEL )
-    self.assert_( m.getMetaId() == "" )
-    self.assert_( m.getNotes() == None )
-    self.assert_( m.getAnnotation() == None )
-    self.assert_( m.getName() == "" )
-    self.assert_((  "repressilator" == m.getId() ))
-    self.assertEqual( True, m.isSetId() )
-    self.assert_( m.getNumUnitDefinitions() == 0 )
-    self.assert_( m.getNumFunctionDefinitions() == 0 )
-    self.assert_( m.getNumCompartments() == 0 )
-    self.assert_( m.getNumSpecies() == 0 )
-    self.assert_( m.getNumParameters() == 0 )
-    self.assert_( m.getNumReactions() == 0 )
-    self.assert_( m.getNumRules() == 0 )
-    self.assert_( m.getNumConstraints() == 0 )
-    self.assert_( m.getNumEvents() == 0 )
-    self.assert_( m.getNumCompartmentTypes() == 0 )
-    self.assert_( m.getNumSpeciesTypes() == 0 )
-    self.assert_( m.getNumInitialAssignments() == 0 )
-    m = None
-    pass  
-
-  def test_Model_createWithLevelVersionAndNamespace(self):
+  def test_Model_createWithNS(self):
     xmlns = libsbml.XMLNamespaces()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = libsbml.Model(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = libsbml.SBMLNamespaces(2,1)
+    sbmlns.addNamespaces(xmlns)
+    object = libsbml.Model(sbmlns)
     self.assert_( object.getTypeCode() == libsbml.SBML_MODEL )
     self.assert_( object.getMetaId() == "" )
     self.assert_( object.getNotes() == None )
     self.assert_( object.getAnnotation() == None )
     self.assert_( object.getLevel() == 2 )
     self.assert_( object.getVersion() == 1 )
-    self.assert_( object.getNamespaces() != "" )
-    self.assert_( object.getNamespaces().getLength() == 1 )
+    self.assert_( object.getNamespaces() != None )
+    self.assert_( object.getNamespaces().getLength() == 2 )
     object = None
     pass  
 
@@ -421,22 +430,22 @@ class TestModel(unittest.TestCase):
     pass  
 
   def test_Model_getCompartment(self):
-    c1 = libsbml.Compartment()
-    c2 = libsbml.Compartment()
-    c1.setName( "A")
-    c2.setName( "B")
+    c1 = libsbml.Compartment(2,4)
+    c2 = libsbml.Compartment(2,4)
+    c1.setId( "A")
+    c2.setId( "B")
     self.M.addCompartment(c1)
     self.M.addCompartment(c2)
     self.assert_( self.M.getNumCompartments() == 2 )
     c1 = self.M.getCompartment(0)
     c2 = self.M.getCompartment(1)
-    self.assert_((  "A" == c1.getName() ))
-    self.assert_((  "B" == c2.getName() ))
+    self.assert_((  "A" == c1.getId() ))
+    self.assert_((  "B" == c2.getId() ))
     pass  
 
   def test_Model_getCompartmentById(self):
-    c1 = libsbml.Compartment()
-    c2 = libsbml.Compartment()
+    c1 = libsbml.Compartment(2,4)
+    c2 = libsbml.Compartment(2,4)
     c1.setId( "A" )
     c2.setId( "B" )
     self.M.addCompartment(c1)
@@ -448,8 +457,13 @@ class TestModel(unittest.TestCase):
     pass  
 
   def test_Model_getEventById(self):
-    e1 = libsbml.Event()
-    e2 = libsbml.Event()
+    e1 = libsbml.Event(2,4)
+    e2 = libsbml.Event(2,4)
+    t = libsbml.Trigger(2,4)
+    e1.setTrigger(t)
+    e2.setTrigger(t)
+    e1.createEventAssignment()
+    e2.createEventAssignment()
     e1.setId( "e1" )
     e2.setId( "e2" )
     self.M.addEvent(e1)
@@ -461,10 +475,12 @@ class TestModel(unittest.TestCase):
     pass  
 
   def test_Model_getFunctionDefinitionById(self):
-    fd1 = libsbml.FunctionDefinition()
-    fd2 = libsbml.FunctionDefinition()
+    fd1 = libsbml.FunctionDefinition(2,4)
+    fd2 = libsbml.FunctionDefinition(2,4)
     fd1.setId( "sin" )
     fd2.setId( "cos" )
+    fd1.setMath(libsbml.parseFormula("2"))
+    fd2.setMath(libsbml.parseFormula("2"))
     self.M.addFunctionDefinition(fd1)
     self.M.addFunctionDefinition(fd2)
     self.assert_( self.M.getNumFunctionDefinitions() == 2 )
@@ -474,9 +490,15 @@ class TestModel(unittest.TestCase):
     pass  
 
   def test_Model_getNumSpeciesWithBoundaryCondition(self):
-    s1 = libsbml.Species("s1", "c")
-    s2 = libsbml.Species("s2", "c")
-    s3 = libsbml.Species("s3", "c")
+    s1 = libsbml.Species(2,4)
+    s2 = libsbml.Species(2,4)
+    s3 = libsbml.Species(2,4)
+    s1.setId( "s1")
+    s2.setId( "s2")
+    s3.setId( "s3")
+    s1.setCompartment( "c1")
+    s2.setCompartment( "c2")
+    s3.setCompartment( "c3")
     s1.setBoundaryCondition(True)
     s2.setBoundaryCondition(False)
     s3.setBoundaryCondition(True)
@@ -494,22 +516,22 @@ class TestModel(unittest.TestCase):
     pass  
 
   def test_Model_getParameter(self):
-    p1 = libsbml.Parameter()
-    p2 = libsbml.Parameter()
-    p1.setName( "Km1")
-    p2.setName( "Km2")
+    p1 = libsbml.Parameter(2,4)
+    p2 = libsbml.Parameter(2,4)
+    p1.setId( "Km1")
+    p2.setId( "Km2")
     self.M.addParameter(p1)
     self.M.addParameter(p2)
     self.assert_( self.M.getNumParameters() == 2 )
     p1 = self.M.getParameter(0)
     p2 = self.M.getParameter(1)
-    self.assert_((  "Km1" == p1.getName() ))
-    self.assert_((  "Km2" == p2.getName() ))
+    self.assert_((  "Km1" == p1.getId() ))
+    self.assert_((  "Km2" == p2.getId() ))
     pass  
 
   def test_Model_getParameterById(self):
-    p1 = libsbml.Parameter()
-    p2 = libsbml.Parameter()
+    p1 = libsbml.Parameter(2,4)
+    p2 = libsbml.Parameter(2,4)
     p1.setId( "Km1" )
     p2.setId( "Km2" )
     self.M.addParameter(p1)
@@ -521,22 +543,22 @@ class TestModel(unittest.TestCase):
     pass  
 
   def test_Model_getReaction(self):
-    r1 = libsbml.Reaction()
-    r2 = libsbml.Reaction()
-    r1.setName( "reaction_1")
-    r2.setName( "reaction_2")
+    r1 = libsbml.Reaction(2,4)
+    r2 = libsbml.Reaction(2,4)
+    r1.setId( "reaction_1")
+    r2.setId( "reaction_2")
     self.M.addReaction(r1)
     self.M.addReaction(r2)
     self.assert_( self.M.getNumReactions() == 2 )
     r1 = self.M.getReaction(0)
     r2 = self.M.getReaction(1)
-    self.assert_((  "reaction_1" == r1.getName() ))
-    self.assert_((  "reaction_2" == r2.getName() ))
+    self.assert_((  "reaction_1" == r1.getId() ))
+    self.assert_((  "reaction_2" == r2.getId() ))
     pass  
 
   def test_Model_getReactionById(self):
-    r1 = libsbml.Reaction()
-    r2 = libsbml.Reaction()
+    r1 = libsbml.Reaction(2,4)
+    r2 = libsbml.Reaction(2,4)
     r1.setId( "reaction_1" )
     r2.setId( "reaction_2" )
     self.M.addReaction(r1)
@@ -548,10 +570,13 @@ class TestModel(unittest.TestCase):
     pass  
 
   def test_Model_getRules(self):
-    ar = libsbml.AlgebraicRule()
-    scr = libsbml.AssignmentRule()
-    cvr = libsbml.AssignmentRule()
-    pr = libsbml.AssignmentRule()
+    ar = libsbml.AlgebraicRule(2,4)
+    scr = libsbml.AssignmentRule(2,4)
+    cvr = libsbml.AssignmentRule(2,4)
+    pr = libsbml.AssignmentRule(2,4)
+    scr.setVariable( "r2")
+    cvr.setVariable( "r3")
+    pr.setVariable( "r4")
     ar.setFormula( "x + 1"         )
     scr.setFormula( "k * t/(1 + k)" )
     cvr.setFormula( "0.10 * t"      )
@@ -572,24 +597,28 @@ class TestModel(unittest.TestCase):
     pass  
 
   def test_Model_getSpecies(self):
-    s1 = libsbml.Species()
-    s2 = libsbml.Species()
-    s1.setName( "Glucose"     )
-    s2.setName( "Glucose_6_P" )
+    s1 = libsbml.Species(2,4)
+    s2 = libsbml.Species(2,4)
+    s1.setId( "Glucose"     )
+    s2.setId( "Glucose_6_P" )
+    s1.setCompartment( "c")
+    s2.setCompartment( "c")
     self.M.addSpecies(s1)
     self.M.addSpecies(s2)
     self.assert_( self.M.getNumSpecies() == 2 )
     s1 = self.M.getSpecies(0)
     s2 = self.M.getSpecies(1)
-    self.assert_((  "Glucose"      == s1.getName() ))
-    self.assert_((  "Glucose_6_P"  == s2.getName() ))
+    self.assert_((  "Glucose"      == s1.getId() ))
+    self.assert_((  "Glucose_6_P"  == s2.getId() ))
     pass  
 
   def test_Model_getSpeciesById(self):
-    s1 = libsbml.Species()
-    s2 = libsbml.Species()
+    s1 = libsbml.Species(2,4)
+    s2 = libsbml.Species(2,4)
     s1.setId( "Glucose"     )
     s2.setId( "Glucose_6_P" )
+    s1.setCompartment( "c")
+    s2.setCompartment( "c")
     self.M.addSpecies(s1)
     self.M.addSpecies(s2)
     self.assert_( self.M.getNumSpecies() == 2 )
@@ -599,30 +628,225 @@ class TestModel(unittest.TestCase):
     pass  
 
   def test_Model_getUnitDefinition(self):
-    ud1 = libsbml.UnitDefinition()
-    ud2 = libsbml.UnitDefinition()
-    ud1.setName( "mmls"   )
-    ud2.setName( "volume" )
+    ud1 = libsbml.UnitDefinition(2,4)
+    ud2 = libsbml.UnitDefinition(2,4)
+    ud1.setId( "mmls"   )
+    ud2.setId( "volume" )
+    ud1.createUnit()
+    ud2.createUnit()
     self.M.addUnitDefinition(ud1)
     self.M.addUnitDefinition(ud2)
     self.assert_( self.M.getNumUnitDefinitions() == 2 )
     ud1 = self.M.getUnitDefinition(0)
     ud2 = self.M.getUnitDefinition(1)
-    self.assert_((  "mmls"    == ud1.getName() ))
-    self.assert_((  "volume"  == ud2.getName() ))
+    self.assert_((  "mmls"    == ud1.getId() ))
+    self.assert_((  "volume"  == ud2.getId() ))
     pass  
 
   def test_Model_getUnitDefinitionById(self):
-    ud1 = libsbml.UnitDefinition()
-    ud2 = libsbml.UnitDefinition()
+    ud1 = libsbml.UnitDefinition(2,4)
+    ud2 = libsbml.UnitDefinition(2,4)
     ud1.setId( "mmls"   )
     ud2.setId( "volume" )
+    ud1.createUnit()
+    ud2.createUnit()
     self.M.addUnitDefinition(ud1)
     self.M.addUnitDefinition(ud2)
     self.assert_( self.M.getNumUnitDefinitions() == 2 )
     self.assert_( self.M.getUnitDefinition( "mmls"       ) != ud1 )
     self.assert_( self.M.getUnitDefinition( "volume"     ) != ud2 )
     self.assert_( self.M.getUnitDefinition( "rototillers") == None )
+    pass  
+
+  def test_Model_removeCompartment(self):
+    o1 = self.M.createCompartment()
+    o2 = self.M.createCompartment()
+    o3 = self.M.createCompartment()
+    o3.setId("test")
+    self.assert_( self.M.removeCompartment(0) == o1 )
+    self.assert_( self.M.getNumCompartments() == 2 )
+    self.assert_( self.M.removeCompartment(0) == o2 )
+    self.assert_( self.M.getNumCompartments() == 1 )
+    self.assert_( self.M.removeCompartment("test") == o3 )
+    self.assert_( self.M.getNumCompartments() == 0 )
+    o1 = None
+    o2 = None
+    o3 = None
+    pass  
+
+  def test_Model_removeCompartmentType(self):
+    o1 = self.M.createCompartmentType()
+    o2 = self.M.createCompartmentType()
+    o3 = self.M.createCompartmentType()
+    o3.setId("test")
+    self.assert_( self.M.removeCompartmentType(0) == o1 )
+    self.assert_( self.M.getNumCompartmentTypes() == 2 )
+    self.assert_( self.M.removeCompartmentType(0) == o2 )
+    self.assert_( self.M.getNumCompartmentTypes() == 1 )
+    self.assert_( self.M.removeCompartmentType("test") == o3 )
+    self.assert_( self.M.getNumCompartmentTypes() == 0 )
+    o1 = None
+    o2 = None
+    o3 = None
+    pass  
+
+  def test_Model_removeConstraint(self):
+    o1 = self.M.createConstraint()
+    o2 = self.M.createConstraint()
+    o3 = self.M.createConstraint()
+    self.assert_( self.M.removeConstraint(0) == o1 )
+    self.assert_( self.M.getNumConstraints() == 2 )
+    self.assert_( self.M.removeConstraint(0) == o2 )
+    self.assert_( self.M.getNumConstraints() == 1 )
+    self.assert_( self.M.removeConstraint(0) == o3 )
+    self.assert_( self.M.getNumConstraints() == 0 )
+    o1 = None
+    o2 = None
+    o3 = None
+    pass  
+
+  def test_Model_removeEvent(self):
+    o1 = self.M.createEvent()
+    o2 = self.M.createEvent()
+    o3 = self.M.createEvent()
+    o3.setId("test")
+    self.assert_( self.M.removeEvent(0) == o1 )
+    self.assert_( self.M.getNumEvents() == 2 )
+    self.assert_( self.M.removeEvent(0) == o2 )
+    self.assert_( self.M.getNumEvents() == 1 )
+    self.assert_( self.M.removeEvent("test") == o3 )
+    self.assert_( self.M.getNumEvents() == 0 )
+    o1 = None
+    o2 = None
+    o3 = None
+    pass  
+
+  def test_Model_removeFunctionDefinition(self):
+    o1 = self.M.createFunctionDefinition()
+    o2 = self.M.createFunctionDefinition()
+    o3 = self.M.createFunctionDefinition()
+    o3.setId("test")
+    self.assert_( self.M.removeFunctionDefinition(0) == o1 )
+    self.assert_( self.M.getNumFunctionDefinitions() == 2 )
+    self.assert_( self.M.removeFunctionDefinition(0) == o2 )
+    self.assert_( self.M.getNumFunctionDefinitions() == 1 )
+    self.assert_( self.M.removeFunctionDefinition("test") == o3 )
+    self.assert_( self.M.getNumFunctionDefinitions() == 0 )
+    o1 = None
+    o2 = None
+    o3 = None
+    pass  
+
+  def test_Model_removeInitialAssignment(self):
+    o1 = self.M.createInitialAssignment()
+    o2 = self.M.createInitialAssignment()
+    o3 = self.M.createInitialAssignment()
+    o3.setSymbol("test")
+    self.assert_( self.M.removeInitialAssignment(0) == o1 )
+    self.assert_( self.M.getNumInitialAssignments() == 2 )
+    self.assert_( self.M.removeInitialAssignment(0) == o2 )
+    self.assert_( self.M.getNumInitialAssignments() == 1 )
+    self.assert_( self.M.removeInitialAssignment("test") == o3 )
+    self.assert_( self.M.getNumInitialAssignments() == 0 )
+    o1 = None
+    o2 = None
+    o3 = None
+    pass  
+
+  def test_Model_removeParameter(self):
+    o1 = self.M.createParameter()
+    o2 = self.M.createParameter()
+    o3 = self.M.createParameter()
+    o3.setId("test")
+    self.assert_( self.M.removeParameter(0) == o1 )
+    self.assert_( self.M.getNumParameters() == 2 )
+    self.assert_( self.M.removeParameter(0) == o2 )
+    self.assert_( self.M.getNumParameters() == 1 )
+    self.assert_( self.M.removeParameter("test") == o3 )
+    self.assert_( self.M.getNumParameters() == 0 )
+    o1 = None
+    o2 = None
+    o3 = None
+    pass  
+
+  def test_Model_removeReaction(self):
+    o1 = self.M.createReaction()
+    o2 = self.M.createReaction()
+    o3 = self.M.createReaction()
+    o3.setId("test")
+    self.assert_( self.M.removeReaction(0) == o1 )
+    self.assert_( self.M.getNumReactions() == 2 )
+    self.assert_( self.M.removeReaction(0) == o2 )
+    self.assert_( self.M.getNumReactions() == 1 )
+    self.assert_( self.M.removeReaction("test") == o3 )
+    self.assert_( self.M.getNumReactions() == 0 )
+    o1 = None
+    o2 = None
+    o3 = None
+    pass  
+
+  def test_Model_removeRule(self):
+    o1 = self.M.createAssignmentRule()
+    o2 = self.M.createAlgebraicRule()
+    o3 = self.M.createRateRule()
+    o3.setVariable("test")
+    self.assert_( self.M.removeRule(0) == o1 )
+    self.assert_( self.M.getNumRules() == 2 )
+    self.assert_( self.M.removeRule(0) == o2 )
+    self.assert_( self.M.getNumRules() == 1 )
+    self.assert_( self.M.removeRule("test") == o3 )
+    self.assert_( self.M.getNumRules() == 0 )
+    o1 = None
+    o2 = None
+    o3 = None
+    pass  
+
+  def test_Model_removeSpecies(self):
+    o1 = self.M.createSpecies()
+    o2 = self.M.createSpecies()
+    o3 = self.M.createSpecies()
+    o3.setId("test")
+    self.assert_( self.M.removeSpecies(0) == o1 )
+    self.assert_( self.M.getNumSpecies() == 2 )
+    self.assert_( self.M.removeSpecies(0) == o2 )
+    self.assert_( self.M.getNumSpecies() == 1 )
+    self.assert_( self.M.removeSpecies("test") == o3 )
+    self.assert_( self.M.getNumSpecies() == 0 )
+    o1 = None
+    o2 = None
+    o3 = None
+    pass  
+
+  def test_Model_removeSpeciesType(self):
+    o1 = self.M.createSpeciesType()
+    o2 = self.M.createSpeciesType()
+    o3 = self.M.createSpeciesType()
+    o3.setId("test")
+    self.assert_( self.M.removeSpeciesType(0) == o1 )
+    self.assert_( self.M.getNumSpeciesTypes() == 2 )
+    self.assert_( self.M.removeSpeciesType(0) == o2 )
+    self.assert_( self.M.getNumSpeciesTypes() == 1 )
+    self.assert_( self.M.removeSpeciesType("test") == o3 )
+    self.assert_( self.M.getNumSpeciesTypes() == 0 )
+    o1 = None
+    o2 = None
+    o3 = None
+    pass  
+
+  def test_Model_removeUnitDefinition(self):
+    o1 = self.M.createUnitDefinition()
+    o2 = self.M.createUnitDefinition()
+    o3 = self.M.createUnitDefinition()
+    o3.setId("test")
+    self.assert_( self.M.removeUnitDefinition(0) == o1 )
+    self.assert_( self.M.getNumUnitDefinitions() == 2 )
+    self.assert_( self.M.removeUnitDefinition(0) == o2 )
+    self.assert_( self.M.getNumUnitDefinitions() == 1 )
+    self.assert_( self.M.removeUnitDefinition("test") == o3 )
+    self.assert_( self.M.getNumUnitDefinitions() == 0 )
+    o1 = None
+    o2 = None
+    o3 = None
     pass  
 
   def test_Model_setId(self):
@@ -644,7 +868,7 @@ class TestModel(unittest.TestCase):
     pass  
 
   def test_Model_setName(self):
-    name =  "My Branch Model";
+    name =  "My_Branch_Model";
     self.M.setName(name)
     self.assert_(( name == self.M.getName() ))
     self.assertEqual( True, self.M.isSetName() )
@@ -661,11 +885,14 @@ class TestModel(unittest.TestCase):
   def test_Model_setgetModelHistory(self):
     history = libsbml.ModelHistory()
     mc = libsbml.ModelCreator()
+    date = libsbml.Date(2005,12,30,12,15,45,1,2,0)
     mc.setFamilyName( "Keating")
     mc.setGivenName( "Sarah")
     mc.setEmail( "sbml-team@caltech.edu")
     mc.setOrganisation( "UH")
     history.addCreator(mc)
+    history.setCreatedDate(date)
+    history.setModifiedDate(date)
     self.assert_( self.M.isSetModelHistory() == False )
     self.M.setModelHistory(history)
     self.assert_( self.M.isSetModelHistory() == True )

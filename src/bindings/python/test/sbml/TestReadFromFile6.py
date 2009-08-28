@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Python conversion)
 # @author  Sarah Keating 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestReadFromFile6.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -34,30 +34,7 @@ class TestReadFromFile6(unittest.TestCase):
 
   def test_read_l2v2_newComponents(self):
     reader = libsbml.SBMLReader()
-    d = libsbml.SBMLDocument()
-    m = libsbml.Model()
-    c = libsbml.Compartment()
-    ct = libsbml.CompartmentType()
-    s = libsbml.Species()
-    p = libsbml.Parameter()
-    r = libsbml.Reaction()
-    sr = libsbml.SpeciesReference()
-    kl = libsbml.KineticLaw()
-    con = libsbml.Constraint()
-    ia = libsbml.InitialAssignment()
-    st = libsbml.SpeciesType()
-    loct = libsbml.ListOfCompartmentTypes()
-    ct1 = libsbml.CompartmentType()
-    locon = libsbml.ListOfConstraints()
-    con1 = libsbml.Constraint()
-    loia = libsbml.ListOfInitialAssignments()
-    ia1 = libsbml.InitialAssignment()
-    lor = libsbml.ListOfReactions()
-    r1 = libsbml.Reaction()
-    losr = libsbml.ListOfSpeciesReferences()
-    sr1 = libsbml.SpeciesReference()
-    ast = libsbml.ASTNode()
-    filename = "../../sbml/test/test-data/" 
+    filename = "../../sbml/test/test-data/"
     filename += "l2v2-newComponents.xml"
     d = reader.readSBML(filename)
     if (d == None):
@@ -75,6 +52,8 @@ class TestReadFromFile6(unittest.TestCase):
     self.assert_( c.getId() ==  "cell" )
     self.assert_( c.getCompartmentType() ==  "mitochondria" )
     self.assert_( c.getOutside() ==  "m" )
+    self.assert_( c.getSBOTerm() == -1 )
+    self.assert_( c.getSBOTermID() ==  "" )
     c = m.getCompartment(1)
     self.assert_( c != None )
     self.assert_( c.getId() ==  "m" )

@@ -1,12 +1,15 @@
 use Test;
-BEGIN { plan tests => 48 };
+BEGIN { plan tests => 49 };
 
 use LibSBML;
 
 #########################
 
+my $level   = LibSBML::SBMLDocument::getDefaultLevel();
+my $version = LibSBML::SBMLDocument::getDefaultVersion();
+
 # creation w/o arguments
-my $c = new LibSBML::Compartment();
+my $c = new LibSBML::Compartment($level,$version);
 ok($c->getTypeCode() == $LibSBML::SBML_COMPARTMENT);
 ok($c->getMetaId(), '');
 ok($c->getNotes(), undef);
@@ -51,7 +54,8 @@ ok($c->isSetOutside() == 0);
 
 # set/get fields
 my $id = 'mitochondria';
-$c = new LibSBML::Compartment($id);
+$c = new LibSBML::Compartment($level,$version);
+ok($c->setId($id), $LibSBML::LIBSBML_OPERATION_SUCCESS);
 ok($c->getTypeCode() == $LibSBML::SBML_COMPARTMENT);
 
 # id
@@ -126,10 +130,10 @@ ok($c->isSetVolume() == 0);
 # move fields
 my $before = 'I am an Id';
 my $after  = 'I am a Name';
-$c = new LibSBML::Compartment($before);
+$c = new LibSBML::Compartment($level,$version);
+ok($c->setId($before),$LibSBML::LIBSBML_INVALID_ATTRIBUTE_VALUE);
 $c->initDefaults();
 ok($c->getTypeCode() == $LibSBML::SBML_COMPARTMENT);
-ok($c->isSetId() == 1);
+ok($c->isSetId() == 0);
 ok($c->isSetName() == 0);
-ok($c->getId() eq $before);
 

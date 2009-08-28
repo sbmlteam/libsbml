@@ -44,7 +44,7 @@
  */
 %typemap(out) SBase*, SimpleSpeciesReference*, Rule*
 {
-  ST(argvi) = SWIG_NewPointerObj(SWIG_as_voidptr($1), GetDowncastSwigType($1), 
+  ST(argvi) = SWIG_NewPointerObj(SWIG_as_voidptr($1), GetDowncastSwigType($1),
                                  $owner | %newpointer_flags);
   argvi++;
 }
@@ -218,8 +218,62 @@ extern std::ostream clog;
  *
  */
 
-%rename(nextToken) XMLInputStream::next;
-%rename(nextToken) XMLTokenizer::next;
-
 %include list_of_fix.i
 %include list_get_fix.i
+
+/**
+ * Wraps the SBMLConstructorException
+ *
+ * The SBMLConstructorException (C++ class) is converted into
+ * Perl exception.
+ *
+ * For example, the exception can be catched in Perl as follows:
+ *
+ *  -----------------------------------------------------------------
+ *  eval
+ *  {
+ *    $m = new LibSBML::Model($level,$version);
+ *  };
+ *  if ($@) 
+ *  {
+ *    warn $@; # print error message
+ *    $m = new LibSBML::Model(2,4);
+ *  }
+ *  -----------------------------------------------------------------
+ */
+
+%define SBMLCONSTRUCTOR_EXCEPTION(SBASE_CLASS_NAME)
+%exception SBASE_CLASS_NAME {
+  try {
+    $action
+  }
+  catch (SBMLConstructorException &e){
+    croak(e.what());
+  }
+}
+%enddef
+
+SBMLCONSTRUCTOR_EXCEPTION(Compartment)
+SBMLCONSTRUCTOR_EXCEPTION(CompartmentType)
+SBMLCONSTRUCTOR_EXCEPTION(Constraint)
+SBMLCONSTRUCTOR_EXCEPTION(Delay)
+SBMLCONSTRUCTOR_EXCEPTION(Event)
+SBMLCONSTRUCTOR_EXCEPTION(EventAssignment)
+SBMLCONSTRUCTOR_EXCEPTION(FunctionDefinition)
+SBMLCONSTRUCTOR_EXCEPTION(InitialAssignment)
+SBMLCONSTRUCTOR_EXCEPTION(KineticLaw)
+SBMLCONSTRUCTOR_EXCEPTION(Model)
+SBMLCONSTRUCTOR_EXCEPTION(Parameter)
+SBMLCONSTRUCTOR_EXCEPTION(Reaction)
+SBMLCONSTRUCTOR_EXCEPTION(AssignmentRule)
+SBMLCONSTRUCTOR_EXCEPTION(AlgebraicRule)
+SBMLCONSTRUCTOR_EXCEPTION(RateRule)
+SBMLCONSTRUCTOR_EXCEPTION(Species)
+SBMLCONSTRUCTOR_EXCEPTION(SpeciesReference)
+SBMLCONSTRUCTOR_EXCEPTION(ModifierSpeciesReference)
+SBMLCONSTRUCTOR_EXCEPTION(SpeciesType)
+SBMLCONSTRUCTOR_EXCEPTION(StoichiometryMath)
+SBMLCONSTRUCTOR_EXCEPTION(Trigger)
+SBMLCONSTRUCTOR_EXCEPTION(Unit)
+SBMLCONSTRUCTOR_EXCEPTION(UnitDefinition)
+

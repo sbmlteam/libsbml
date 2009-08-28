@@ -52,6 +52,10 @@ public class TestSBase {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestSBase {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -111,7 +119,7 @@ public class TestSBase {
 
   protected void setUp() throws Exception
   {
-    S = new Model();
+    S = new Model(2,4);
     if (S == null);
     {
     }
@@ -124,9 +132,11 @@ public class TestSBase {
   public void test_SBase_CVTerms()
   {
     CVTerm cv = new  CVTerm(libsbml.BIOLOGICAL_QUALIFIER);
+    cv.setBiologicalQualifierType(libsbml.BQB_IS);
+    cv.addResource( "foo");
     assertTrue( S.getNumCVTerms() == 0 );
     assertTrue( S.getCVTerms() == null );
-    S.setMetaId( "sbase1");
+    S.setMetaId( "_id");
     S.addCVTerm(cv);
     assertTrue( S.getNumCVTerms() == 1 );
     assertTrue( S.getCVTerms() != null );
@@ -229,21 +239,25 @@ public class TestSBase {
     ns.add( "http://www.w3.org/1999/xhtml", "");
     XMLTriple html_triple = new  XMLTriple("html", "", "");
     XMLTriple head_triple = new  XMLTriple("head", "", "");
+    XMLTriple title_triple = new  XMLTriple("title", "", "");
     XMLTriple body_triple = new  XMLTriple("body", "", "");
     XMLTriple p_triple = new  XMLTriple("p", "", "");
     XMLToken html_token = new  XMLToken(html_triple,att,ns);
     XMLToken head_token = new  XMLToken(head_triple,att);
+    XMLToken title_token = new  XMLToken(title_triple,att);
     XMLToken body_token = new  XMLToken(body_triple,att);
     XMLToken p_token = new  XMLToken(p_triple,att);
     XMLToken text_token = new  XMLToken("This is my text");
     XMLNode html_node = new XMLNode(html_token);
     XMLNode head_node = new XMLNode(head_token);
+    XMLNode title_node = new XMLNode(title_token);
     XMLNode body_node = new XMLNode(body_token);
     XMLNode p_node = new XMLNode(p_token);
     XMLNode text_node = new XMLNode(text_token);
     XMLToken text_token1 = new  XMLToken("This is more text");
     XMLNode html_node1 = new XMLNode(html_token);
     XMLNode head_node1 = new XMLNode(head_token);
+    XMLNode title_node1 = new XMLNode(title_token);
     XMLNode body_node1 = new XMLNode(body_token);
     XMLNode p_node1 = new XMLNode(p_token);
     XMLNode text_node1 = new XMLNode(text_token1);
@@ -251,10 +265,12 @@ public class TestSBase {
     XMLNode child,child1;
     p_node.addChild(text_node);
     body_node.addChild(p_node);
+    head_node.addChild(title_node);
     html_node.addChild(head_node);
     html_node.addChild(body_node);
     p_node1.addChild(text_node1);
     body_node1.addChild(p_node1);
+    head_node1.addChild(title_node1);
     html_node1.addChild(head_node1);
     html_node1.addChild(body_node1);
     S.setNotes(html_node);
@@ -311,15 +327,18 @@ public class TestSBase {
     ns.add( "http://www.w3.org/1999/xhtml", "");
     XMLTriple html_triple = new  XMLTriple("html", "", "");
     XMLTriple head_triple = new  XMLTriple("head", "", "");
+    XMLTriple title_triple = new  XMLTriple("title", "", "");
     XMLTriple body_triple = new  XMLTriple("body", "", "");
     XMLTriple p_triple = new  XMLTriple("p", "", "");
     XMLToken html_token = new  XMLToken(html_triple,att,ns);
     XMLToken head_token = new  XMLToken(head_triple,att);
+    XMLToken title_token = new  XMLToken(title_triple,att);
     XMLToken body_token = new  XMLToken(body_triple,att);
     XMLToken p_token = new  XMLToken(p_triple,att);
     XMLToken text_token = new  XMLToken("This is my text");
     XMLNode html_node = new XMLNode(html_token);
     XMLNode head_node = new XMLNode(head_token);
+    XMLNode title_node = new XMLNode(title_token);
     XMLNode body_node = new XMLNode(body_token);
     XMLNode p_node = new XMLNode(p_token);
     XMLNode text_node = new XMLNode(text_token);
@@ -332,6 +351,7 @@ public class TestSBase {
     XMLNode child,child1;
     p_node.addChild(text_node);
     body_node.addChild(p_node);
+    head_node.addChild(title_node);
     html_node.addChild(head_node);
     html_node.addChild(body_node);
     p_node1.addChild(text_node1);
@@ -389,15 +409,18 @@ public class TestSBase {
     ns.add( "http://www.w3.org/1999/xhtml", "");
     XMLTriple html_triple = new  XMLTriple("html", "", "");
     XMLTriple head_triple = new  XMLTriple("head", "", "");
+    XMLTriple title_triple = new  XMLTriple("title", "", "");
     XMLTriple body_triple = new  XMLTriple("body", "", "");
     XMLTriple p_triple = new  XMLTriple("p", "", "");
     XMLToken html_token = new  XMLToken(html_triple,att,ns);
     XMLToken head_token = new  XMLToken(head_triple,att);
+    XMLToken title_token = new  XMLToken(title_triple,att);
     XMLToken body_token = new  XMLToken(body_triple,att);
     XMLToken p_token = new  XMLToken(p_triple,att);
     XMLToken text_token = new  XMLToken("This is my text");
     XMLNode html_node = new XMLNode(html_token);
     XMLNode head_node = new XMLNode(head_token);
+    XMLNode title_node = new XMLNode(title_token);
     XMLNode body_node = new XMLNode(body_token);
     XMLNode p_node = new XMLNode(p_token);
     XMLNode text_node = new XMLNode(text_token);
@@ -409,6 +432,7 @@ public class TestSBase {
     XMLNode child,child1;
     p_node.addChild(text_node);
     body_node.addChild(p_node);
+    head_node.addChild(title_node);
     html_node.addChild(head_node);
     html_node.addChild(body_node);
     p_node1.addChild(text_node1);
@@ -464,10 +488,12 @@ public class TestSBase {
     ns.add( "http://www.w3.org/1999/xhtml", "");
     XMLTriple html_triple = new  XMLTriple("html", "", "");
     XMLTriple head_triple = new  XMLTriple("head", "", "");
+    XMLTriple title_triple = new  XMLTriple("title", "", "");
     XMLTriple body_triple = new  XMLTriple("body", "", "");
     XMLTriple p_triple = new  XMLTriple("p", "", "");
     XMLToken html_token = new  XMLToken(html_triple,att,ns);
     XMLToken head_token = new  XMLToken(head_triple,att);
+    XMLToken title_token = new  XMLToken(title_triple,att);
     XMLToken body_token = new  XMLToken(body_triple,att);
     XMLToken p_token = new  XMLToken(p_triple,att);
     XMLToken body_token1 = new  XMLToken(body_triple,att,ns);
@@ -478,6 +504,7 @@ public class TestSBase {
     XMLToken text_token1 = new  XMLToken("This is more text");
     XMLNode html_node1 = new XMLNode(html_token);
     XMLNode head_node1 = new XMLNode(head_token);
+    XMLNode title_node1 = new XMLNode(title_token);
     XMLNode body_node1 = new XMLNode(body_token);
     XMLNode p_node1 = new XMLNode(p_token);
     XMLNode text_node1 = new XMLNode(text_token1);
@@ -487,6 +514,7 @@ public class TestSBase {
     body_node.addChild(p_node);
     p_node1.addChild(text_node1);
     body_node1.addChild(p_node1);
+    head_node1.addChild(title_node1);
     html_node1.addChild(head_node1);
     html_node1.addChild(body_node1);
     S.setNotes(body_node);
@@ -540,10 +568,12 @@ public class TestSBase {
     ns.add( "http://www.w3.org/1999/xhtml", "");
     XMLTriple html_triple = new  XMLTriple("html", "", "");
     XMLTriple head_triple = new  XMLTriple("head", "", "");
+    XMLTriple title_triple = new  XMLTriple("title", "", "");
     XMLTriple body_triple = new  XMLTriple("body", "", "");
     XMLTriple p_triple = new  XMLTriple("p", "", "");
     XMLToken html_token = new  XMLToken(html_triple,att,ns);
     XMLToken head_token = new  XMLToken(head_triple,att);
+    XMLToken title_token = new  XMLToken(title_triple,att);
     XMLToken body_token = new  XMLToken(body_triple,att);
     XMLToken p_token = new  XMLToken(p_triple,att);
     XMLToken p_token1 = new  XMLToken(p_triple,att,ns);
@@ -553,6 +583,7 @@ public class TestSBase {
     XMLToken text_token1 = new  XMLToken("This is more text");
     XMLNode html_node1 = new XMLNode(html_token);
     XMLNode head_node1 = new XMLNode(head_token);
+    XMLNode title_node1 = new XMLNode(title_token);
     XMLNode body_node1 = new XMLNode(body_token);
     XMLNode p_node1 = new XMLNode(p_token);
     XMLNode text_node1 = new XMLNode(text_token1);
@@ -561,6 +592,7 @@ public class TestSBase {
     p_node.addChild(text_node);
     p_node1.addChild(text_node1);
     body_node1.addChild(p_node1);
+    head_node1.addChild(title_node1);
     html_node1.addChild(head_node1);
     html_node1.addChild(body_node1);
     S.setNotes(p_node);
@@ -1289,30 +1321,31 @@ public class TestSBase {
 
   public void test_SBase_setNotes()
   {
+    SBase c = new Model(1,2);
     XMLToken token;
     XMLNode node;
     token = new  XMLToken("This is a test note");
     node = new XMLNode(token);
-    S.setNotes(node);
-    assertTrue( S.isSetNotes() == true );
-    if (S.getNotes() == node);
+    c.setNotes(node);
+    assertTrue( c.isSetNotes() == true );
+    if (c.getNotes() == node);
     {
     }
-    XMLNode t1 = S.getNotes();
+    XMLNode t1 = c.getNotes();
     assertTrue( t1.getNumChildren() == 1 );
     assertTrue(t1.getChild(0).getCharacters().equals( "This is a test note"));
-    S.setNotes(S.getNotes());
-    t1 = S.getNotes();
+    c.setNotes(c.getNotes());
+    t1 = c.getNotes();
     assertTrue( t1.getNumChildren() == 1 );
     String chars = t1.getChild(0).getCharacters();
     assertTrue(chars.equals( "This is a test note"));
-    S.setNotes((XMLNode)null);
-    assertTrue( S.isSetNotes() == false );
-    if (S.getNotes() != null);
+    c.setNotes((XMLNode)null);
+    assertTrue( c.isSetNotes() == false );
+    if (c.getNotes() != null);
     {
     }
-    S.setNotes(node);
-    assertTrue( S.isSetNotes() == true );
+    c.setNotes(node);
+    assertTrue( c.isSetNotes() == true );
     token = null;
     node = null;
     token = new  XMLToken("(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &#; &#x; &#00a8; &#0168 &#x00a8");
@@ -1337,32 +1370,34 @@ public class TestSBase {
 
   public void test_SBase_setNotesString()
   {
+    SBase c = new Model(1,2);
     String notes =  "This is a test note";;
     String taggednotes =  "<notes>This is a test note</notes>";;
-    S.setNotes(notes);
-    assertTrue( S.isSetNotes() == true );
-    if (!S.getNotesString().equals(taggednotes));
+    c.setNotes(notes);
+    assertTrue( c.isSetNotes() == true );
+    if (!c.getNotesString().equals(taggednotes));
     {
     }
-    XMLNode t1 = S.getNotes();
+    XMLNode t1 = c.getNotes();
     assertTrue( t1.getNumChildren() == 1 );
-    assertTrue(t1.getChild(0).getCharacters().equals( "This is a test note"));
-    S.setNotes(S.getNotesString());
-    t1 = S.getNotes();
+    XMLNode t2 = t1.getChild(0);
+    assertTrue(t2.getCharacters().equals( "This is a test note"));
+    c.setNotes(c.getNotesString());
+    t1 = c.getNotes();
     assertTrue( t1.getNumChildren() == 1 );
-    String chars = S.getNotesString();
+    String chars = c.getNotesString();
     assertTrue(chars.equals(taggednotes));
-    S.setNotes( "");
-    assertTrue( S.isSetNotes() == false );
-    if (S.getNotesString() != null);
+    c.setNotes( "");
+    assertTrue( c.isSetNotes() == false );
+    if (c.getNotesString() != null);
     {
     }
-    S.setNotes(taggednotes);
-    assertTrue( S.isSetNotes() == true );
-    if (!S.getNotesString().equals(taggednotes));
+    c.setNotes(taggednotes);
+    assertTrue( c.isSetNotes() == true );
+    if (!c.getNotesString().equals(taggednotes));
     {
     }
-    t1 = S.getNotes();
+    t1 = c.getNotes();
     assertTrue( t1.getNumChildren() == 1 );
     XMLNode t2 = t1.getChild(0);
     assertTrue(t2.getCharacters().equals( "This is a test note"));
@@ -1415,6 +1450,8 @@ public class TestSBase {
   {
     ModelHistory h = new  ModelHistory();
     ModelCreator c = new  ModelCreator();
+    Date dc;
+    Date dm;
     String annt = "<annotation>\n" + 
     "  <test:test xmlns:test=\"http://test.org/test\">this is a test node</test:test>\n" + 
     "</annotation>";
@@ -1438,6 +1475,12 @@ public class TestSBase {
     "          </rdf:li>\n" + 
     "        </rdf:Bag>\n" + 
     "      </dc:creator>\n" + 
+    "      <dcterms:created rdf:parseType=\"Resource\">\n" + 
+    "        <dcterms:W3CDTF>2005-12-29T12:15:45+02:00</dcterms:W3CDTF>\n" + 
+    "      </dcterms:created>\n" + 
+    "      <dcterms:modified rdf:parseType=\"Resource\">\n" + 
+    "        <dcterms:W3CDTF>2005-12-30T12:15:45+02:00</dcterms:W3CDTF>\n" + 
+    "      </dcterms:modified>\n" + 
     "    </rdf:Description>\n" + 
     "  </rdf:RDF>\n" + 
     "</annotation>";
@@ -1453,6 +1496,10 @@ public class TestSBase {
     c.setGivenName("Sarah");
     c.setEmail("sbml-team@caltech.edu");
     h.addCreator(c);
+    dc = new  Date(2005,12,29,12,15,45,1,2,0);
+    h.setCreatedDate(dc);
+    dm = new  Date(2005,12,30,12,15,45,1,2,0);
+    h.setModifiedDate(dm);
     ((Model)S).setModelHistory(h);
     assertTrue( S.isSetAnnotation() == true );
     assertTrue(S.getAnnotationString().equals(annt_with_modelhistory));

@@ -34,7 +34,7 @@ class TestAlgebraicRule(unittest.TestCase):
   AR = None
 
   def setUp(self):
-    self.AR = libsbml.AlgebraicRule()
+    self.AR = libsbml.AlgebraicRule(2,4)
     if (self.AR == None):
       pass    
     pass  
@@ -53,7 +53,8 @@ class TestAlgebraicRule(unittest.TestCase):
     pass  
 
   def test_AlgebraicRule_createWithFormula(self):
-    ar = libsbml.AlgebraicRule("1 + 1")
+    ar = libsbml.AlgebraicRule(2,4)
+    ar.setFormula( "1 + 1")
     self.assert_( ar.getTypeCode() == libsbml.SBML_ALGEBRAIC_RULE )
     self.assert_( ar.getMetaId() == "" )
     math = ar.getMath()
@@ -65,29 +66,32 @@ class TestAlgebraicRule(unittest.TestCase):
     ar = None
     pass  
 
-  def test_AlgebraicRule_createWithLevelVersionAndNamespace(self):
+  def test_AlgebraicRule_createWithMath(self):
+    math = libsbml.parseFormula("1 + 1")
+    ar = libsbml.AlgebraicRule(2,4)
+    ar.setMath(math)
+    self.assert_( ar.getTypeCode() == libsbml.SBML_ALGEBRAIC_RULE )
+    self.assert_( ar.getMetaId() == "" )
+    self.assert_((  "1 + 1" == ar.getFormula() ))
+    self.assert_( ar.getMath() != math )
+    ar = None
+    pass  
+
+  def test_AlgebraicRule_createWithNS(self):
     xmlns = libsbml.XMLNamespaces()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    r = libsbml.AlgebraicRule(2,3,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = libsbml.SBMLNamespaces(2,3)
+    sbmlns.addNamespaces(xmlns)
+    r = libsbml.AlgebraicRule(sbmlns)
     self.assert_( r.getTypeCode() == libsbml.SBML_ALGEBRAIC_RULE )
     self.assert_( r.getMetaId() == "" )
     self.assert_( r.getNotes() == None )
     self.assert_( r.getAnnotation() == None )
     self.assert_( r.getLevel() == 2 )
     self.assert_( r.getVersion() == 3 )
-    self.assert_( r.getNamespaces() != "" )
-    self.assert_( r.getNamespaces().getLength() == 1 )
+    self.assert_( r.getNamespaces() != None )
+    self.assert_( r.getNamespaces().getLength() == 2 )
     r = None
-    pass  
-
-  def test_AlgebraicRule_createWithMath(self):
-    math = libsbml.parseFormula("1 + 1")
-    ar = libsbml.AlgebraicRule(math)
-    self.assert_( ar.getTypeCode() == libsbml.SBML_ALGEBRAIC_RULE )
-    self.assert_( ar.getMetaId() == "" )
-    self.assert_((  "1 + 1" == ar.getFormula() ))
-    self.assert_( ar.getMath() != math )
-    ar = None
     pass  
 
   def test_AlgebraicRule_free_NULL(self):

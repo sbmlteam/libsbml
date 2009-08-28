@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Ben Bornstein 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestASTNode.c
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -33,9 +33,7 @@ namespace LibSBMLCSTest {
 
   using  System.IO;
 
-
   public class TestASTNode {
-
     private const double DBL_EPSILON =  2.2204460492503131e-016;
 
     public class AssertionError : System.Exception 
@@ -118,6 +116,45 @@ namespace LibSBMLCSTest {
       throw new AssertionError();
     }
 
+
+    public void test_ASTNode_addChild1()
+    {
+      ASTNode node = new  ASTNode();
+      ASTNode c1 = new  ASTNode();
+      ASTNode c2 = new  ASTNode();
+      ASTNode c1_1 = new  ASTNode();
+      long i = 0;
+      node.setType(libsbml.AST_LOGICAL_AND);
+      c1.setName( "a");
+      c2.setName( "b");
+      node.addChild(c1);
+      node.addChild(c2);
+      assertTrue( node.getNumChildren() == 2 );
+      assertTrue((  "and(a, b)" == libsbml.formulaToString(node) ));
+      c1_1.setName( "d");
+      i = node.addChild(c1_1);
+      assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+      assertTrue( node.getNumChildren() == 3 );
+      assertTrue((  "and(a, b, d)" == libsbml.formulaToString(node) ));
+      assertTrue((  "a" == node.getChild(0).getName() ));
+      assertTrue((  "b" == node.getChild(1).getName() ));
+      assertTrue((  "d" == node.getChild(2).getName() ));
+      node = null;
+    }
+
+    public void test_ASTNode_addSemanticsAnnotation()
+    {
+      XMLNode ann = new XMLNode();
+      ASTNode node = new  ASTNode();
+      long i = 0;
+      i = node.addSemanticsAnnotation(ann);
+      assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+      assertTrue( node.getNumSemanticsAnnotations() == 1 );
+      i = node.addSemanticsAnnotation(null);
+      assertTrue( i == libsbml.LIBSBML_OPERATION_FAILED );
+      assertTrue( node.getNumSemanticsAnnotations() == 1 );
+      node = null;
+    }
 
     public void test_ASTNode_canonicalizeConstants()
     {
@@ -534,7 +571,10 @@ namespace LibSBMLCSTest {
     public void test_ASTNode_create()
     {
       ASTNode n = new  ASTNode();
-      EventAssignment ea = new  EventAssignment();
+      SBMLNamespaces sbmlns = null;
+      sbmlns = new SBMLNamespaces(2,4);
+      sbmlns.addNamespaces(null);
+      EventAssignment ea = new  EventAssignment(sbmlns);
       assertTrue( n.getType() == libsbml.AST_UNKNOWN );
       assertTrue( n.getCharacter() ==  '\0'  );
       assertTrue( n.getName() == null );
@@ -634,6 +674,27 @@ namespace LibSBMLCSTest {
       assertTrue( copy.getNumChildren() == 0 );
       node = null;
       copy = null;
+    }
+
+    public void test_ASTNode_freeName()
+    {
+      ASTNode node = new  ASTNode();
+      long i = 0;
+      i = node.setName( "a");
+      assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+      assertTrue((  "a" == libsbml.formulaToString(node) ));
+      assertTrue((  "a" == node.getName() ));
+      i = node.freeName();
+      assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+      assertTrue( node.getName() == null );
+      i = node.freeName();
+      assertTrue( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE );
+      assertTrue( node.getName() == null );
+      node.setType(libsbml.AST_UNKNOWN);
+      i = node.freeName();
+      assertTrue( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE );
+      assertTrue( node.getName() == null );
+      node = null;
     }
 
     public void test_ASTNode_free_NULL()
@@ -755,15 +816,15 @@ namespace LibSBMLCSTest {
       newc.setName( "d");
       newc1.setName( "e");
       i = node.insertChild(1,newc);
-      assertTrue( i == 0 );
+      assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
       assertTrue( node.getNumChildren() == 4 );
       assertTrue((  "and(a, d, b, c)" == libsbml.formulaToString(node) ));
       i = node.insertChild(5,newc);
-      assertTrue( i == -1 );
+      assertTrue( i == libsbml.LIBSBML_INDEX_EXCEEDS_SIZE );
       assertTrue( node.getNumChildren() == 4 );
       assertTrue((  "and(a, d, b, c)" == libsbml.formulaToString(node) ));
       i = node.insertChild(2,newc1);
-      assertTrue( i == 0 );
+      assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
       assertTrue( node.getNumChildren() == 5 );
       assertTrue((  "and(a, d, e, b, c)" == libsbml.formulaToString(node) ));
       node = null;
@@ -840,6 +901,31 @@ namespace LibSBMLCSTest {
       node = null;
     }
 
+    public void test_ASTNode_prependChild1()
+    {
+      ASTNode node = new  ASTNode();
+      ASTNode c1 = new  ASTNode();
+      ASTNode c2 = new  ASTNode();
+      ASTNode c1_1 = new  ASTNode();
+      long i = 0;
+      node.setType(libsbml.AST_LOGICAL_AND);
+      c1.setName( "a");
+      c2.setName( "b");
+      node.addChild(c1);
+      node.addChild(c2);
+      assertTrue( node.getNumChildren() == 2 );
+      assertTrue((  "and(a, b)" == libsbml.formulaToString(node) ));
+      c1_1.setName( "d");
+      i = node.prependChild(c1_1);
+      assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+      assertTrue( node.getNumChildren() == 3 );
+      assertTrue((  "and(d, a, b)" == libsbml.formulaToString(node) ));
+      assertTrue((  "d" == node.getChild(0).getName() ));
+      assertTrue((  "a" == node.getChild(1).getName() ));
+      assertTrue((  "b" == node.getChild(2).getName() ));
+      node = null;
+    }
+
     public void test_ASTNode_removeChild()
     {
       ASTNode node = new  ASTNode();
@@ -853,13 +939,13 @@ namespace LibSBMLCSTest {
       node.addChild(c2);
       assertTrue( node.getNumChildren() == 2 );
       i = node.removeChild(0);
-      assertTrue( i == 0 );
+      assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
       assertTrue( node.getNumChildren() == 1 );
       i = node.removeChild(1);
-      assertTrue( i == -1 );
+      assertTrue( i == libsbml.LIBSBML_INDEX_EXCEEDS_SIZE );
       assertTrue( node.getNumChildren() == 1 );
       i = node.removeChild(0);
-      assertTrue( i == 0 );
+      assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
       assertTrue( node.getNumChildren() == 0 );
       node = null;
     }
@@ -883,15 +969,15 @@ namespace LibSBMLCSTest {
       assertTrue((  "and(a, b, c)" == libsbml.formulaToString(node) ));
       newc.setName( "d");
       i = node.replaceChild(0,newc);
-      assertTrue( i == 0 );
+      assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
       assertTrue( node.getNumChildren() == 3 );
       assertTrue((  "and(d, b, c)" == libsbml.formulaToString(node) ));
       i = node.replaceChild(3,newc);
-      assertTrue( i == -1 );
+      assertTrue( i == libsbml.LIBSBML_INDEX_EXCEEDS_SIZE );
       assertTrue( node.getNumChildren() == 3 );
       assertTrue((  "and(d, b, c)" == libsbml.formulaToString(node) ));
       i = node.replaceChild(1,c1);
-      assertTrue( i == 0 );
+      assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
       assertTrue( node.getNumChildren() == 3 );
       assertTrue((  "and(d, a, c)" == libsbml.formulaToString(node) ));
       node = null;
@@ -1111,6 +1197,39 @@ namespace LibSBMLCSTest {
       node.setType(libsbml.AST_POWER);
       assertTrue( node.getType() == libsbml.AST_POWER );
       assertTrue( node.getCharacter() ==  '^'        );
+      node = null;
+    }
+
+    public void test_ASTNode_swapChildren()
+    {
+      ASTNode node = new  ASTNode();
+      ASTNode c1 = new  ASTNode();
+      ASTNode c2 = new  ASTNode();
+      ASTNode node_1 = new  ASTNode();
+      ASTNode c1_1 = new  ASTNode();
+      ASTNode c2_1 = new  ASTNode();
+      long i = 0;
+      node.setType(libsbml.AST_LOGICAL_AND);
+      c1.setName( "a");
+      c2.setName( "b");
+      node.addChild(c1);
+      node.addChild(c2);
+      assertTrue( node.getNumChildren() == 2 );
+      assertTrue((  "and(a, b)" == libsbml.formulaToString(node) ));
+      node_1.setType(libsbml.AST_LOGICAL_AND);
+      c1_1.setName( "d");
+      c2_1.setName( "f");
+      node_1.addChild(c1_1);
+      node_1.addChild(c2_1);
+      assertTrue( node_1.getNumChildren() == 2 );
+      assertTrue((  "and(d, f)" == libsbml.formulaToString(node_1) ));
+      i = node.swapChildren(node_1);
+      assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+      assertTrue( node.getNumChildren() == 2 );
+      assertTrue((  "and(d, f)" == libsbml.formulaToString(node) ));
+      assertTrue( node_1.getNumChildren() == 2 );
+      assertTrue((  "and(a, b)" == libsbml.formulaToString(node_1) ));
+      node_1 = null;
       node = null;
     }
 

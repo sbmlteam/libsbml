@@ -31,7 +31,7 @@ require 'libSBML'
 class TestKineticLaw < Test::Unit::TestCase
 
   def setup
-    @@kl = LibSBML::KineticLaw.new()
+    @@kl = LibSBML::KineticLaw.new(2,4)
     if (@@kl == nil)
     end
   end
@@ -41,7 +41,8 @@ class TestKineticLaw < Test::Unit::TestCase
   end
 
   def test_KineticLaw_addParameter
-    p = LibSBML::Parameter.new()
+    p = LibSBML::Parameter.new(2,4)
+    p.setId( "p")
     @@kl.addParameter(p)
     assert( @@kl.getNumParameters() == 1 )
     p = nil
@@ -63,68 +64,31 @@ class TestKineticLaw < Test::Unit::TestCase
     assert( @@kl.getNumParameters() == 0 )
   end
 
-  def test_KineticLaw_createWith
-    kl = LibSBML::KineticLaw.new("k1 * X0")
-    assert( kl.getTypeCode() == LibSBML::SBML_KINETIC_LAW )
-    assert( kl.getMetaId() == "" )
-    assert( kl.getNotes() == nil )
-    assert( kl.getAnnotation() == nil )
-    math = kl.getMath()
-    assert( math != nil )
-    formula = LibSBML::formulaToString(math)
-    assert( formula != nil )
-    assert ((  "k1 * X0" == formula ))
-    assert (( formula == kl.getFormula() ))
-    assert_equal true, kl.isSetMath()
-    assert_equal true, kl.isSetFormula()
-    assert( kl.getNumParameters() == 0 )
-    kl = nil
-  end
-
-  def test_KineticLaw_createWithLevelVersionAndNamespace
+  def test_KineticLaw_createWithNS
     xmlns = LibSBML::XMLNamespaces.new()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = LibSBML::KineticLaw.new(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = LibSBML::SBMLNamespaces.new(2,1)
+    sbmlns.addNamespaces(xmlns)
+    object = LibSBML::KineticLaw.new(sbmlns)
     assert( object.getTypeCode() == LibSBML::SBML_KINETIC_LAW )
     assert( object.getMetaId() == "" )
     assert( object.getNotes() == nil )
     assert( object.getAnnotation() == nil )
     assert( object.getLevel() == 2 )
     assert( object.getVersion() == 1 )
-    assert( object.getNamespaces() != "" )
-    assert( object.getNamespaces().getLength() == 1 )
+    assert( object.getNamespaces() != nil )
+    assert( object.getNamespaces().getLength() == 2 )
     object = nil
-  end
-
-  def test_KineticLaw_createWithMath
-    math1 = LibSBML::parseFormula("k3 / k2")
-    kl = LibSBML::KineticLaw.new(math1)
-    assert( kl.getTypeCode() == LibSBML::SBML_KINETIC_LAW )
-    assert( kl.getMetaId() == "" )
-    assert( kl.getNotes() == nil )
-    assert( kl.getAnnotation() == nil )
-    math = kl.getMath()
-    assert( math != nil )
-    formula = LibSBML::formulaToString(math)
-    assert( formula != nil )
-    assert ((  "k3 / k2" == formula ))
-    assert (( formula == kl.getFormula() ))
-    assert_equal true, kl.isSetMath()
-    assert_equal true, kl.isSetFormula()
-    assert_equal false, kl.isSetTimeUnits()
-    assert_equal false, kl.isSetSubstanceUnits()
-    assert( kl.getNumParameters() == 0 )
-    kl = nil
   end
 
   def test_KineticLaw_free_NULL
   end
 
   def test_KineticLaw_getParameter
-    k1 = LibSBML::Parameter.new()
-    k2 = LibSBML::Parameter.new()
-    k1.setName( "k1")
-    k2.setName( "k2")
+    k1 = LibSBML::Parameter.new(2,4)
+    k2 = LibSBML::Parameter.new(2,4)
+    k1.setId( "k1")
+    k2.setId( "k2")
     k1.setValue(3.14)
     k2.setValue(2.72)
     @@kl.addParameter(k1)
@@ -134,15 +98,15 @@ class TestKineticLaw < Test::Unit::TestCase
     assert( @@kl.getNumParameters() == 2 )
     k1 = @@kl.getParameter(0)
     k2 = @@kl.getParameter(1)
-    assert ((  "k1" == k1.getName() ))
-    assert ((  "k2" == k2.getName() ))
+    assert ((  "k1" == k1.getId() ))
+    assert ((  "k2" == k2.getId() ))
     assert( k1.getValue() == 3.14 )
     assert( k2.getValue() == 2.72 )
   end
 
   def test_KineticLaw_getParameterById
-    k1 = LibSBML::Parameter.new()
-    k2 = LibSBML::Parameter.new()
+    k1 = LibSBML::Parameter.new(2,4)
+    k2 = LibSBML::Parameter.new(2,4)
     k1.setId( "k1")
     k2.setId( "k2")
     k1.setValue(3.14)
@@ -160,10 +124,26 @@ class TestKineticLaw < Test::Unit::TestCase
     assert( k2.getValue() == 2.72 )
   end
 
+  def test_KineticLaw_removeParameter
+    o1 = @@kl.createParameter()
+    o2 = @@kl.createParameter()
+    o3 = @@kl.createParameter()
+    o3.setId("test")
+    assert( @@kl.removeParameter(0) == o1 )
+    assert( @@kl.getNumParameters() == 2 )
+    assert( @@kl.removeParameter(0) == o2 )
+    assert( @@kl.getNumParameters() == 1 )
+    assert( @@kl.removeParameter("test") == o3 )
+    assert( @@kl.getNumParameters() == 0 )
+    o1 = nil
+    o2 = nil
+    o3 = nil
+  end
+
   def test_KineticLaw_setBadFormula
     formula =  "k1 X0";
     @@kl.setFormula(formula)
-    assert_equal true, @@kl.isSetFormula()
+    assert_equal false, @@kl.isSetFormula()
     assert_equal false, @@kl.isSetMath()
   end
 

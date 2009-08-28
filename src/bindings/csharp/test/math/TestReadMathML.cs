@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Ben Bornstein 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestReadMathML.cpp
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -58,6 +58,10 @@ namespace LibSBMLCSTest {
       {
         return;
       }
+      else if ( (a == null) || (b == null) )
+      {
+        throw new AssertionError();
+      }
       else if (a.Equals(b))
       {
         return;
@@ -71,6 +75,10 @@ namespace LibSBMLCSTest {
       if ( (a == null) && (b == null) )
       {
         throw new AssertionError();
+      }
+      else if ( (a == null) || (b == null) )
+      {
+        return;
       }
       else if (a.Equals(b))
       {
@@ -114,29 +122,6 @@ namespace LibSBMLCSTest {
       throw new AssertionError();
     }
 
-    public double util_NaN()
-    {
-      double z = 0.0;
-      return 0.0/z;
-    }
-
-    public double util_PosInf()
-    {
-      double z = 0.0;
-      return 1.0/z;
-    }
-
-    public double util_NegInf()
-    {
-      double z = 0.0;
-      return -1.0/z;
-    }
-
-    public bool util_isInf(double x)
-    {
-      return ( (x == util_PosInf()) ||  (x == util_NegInf()) );
-    }
-
     private string F;
     private ASTNode N;
 
@@ -155,9 +140,9 @@ namespace LibSBMLCSTest {
       return "<?xml version='1.0' encoding='UTF-8'?>\n";
     }
 
-    public bool isNan(double x)
+    public bool isnan(double x)
     {
-      return x != x;
+      return (x != x);
     }
 
     public string wrapMathML(string s)
@@ -175,6 +160,30 @@ namespace LibSBMLCSTest {
       r += s;
       return r;
     }
+
+  public bool util_isInf(double x)
+  {
+    return ( (x == util_PosInf()) ||  (x == util_NegInf()) );
+  }
+
+
+  public double util_NaN()
+  {
+    double z = 0.0;
+    return 0.0/z;
+  }
+
+  public double util_PosInf()
+  {
+    double z = 0.0;
+    return 1.0/z;
+  }
+
+  public double util_NegInf()
+  {
+    double z = 0.0;
+    return -1.0/z;
+  }
 
     public void setUp()
     {
@@ -572,7 +581,7 @@ namespace LibSBMLCSTest {
       N = libsbml.readMathMLFromString(s);
       assertTrue( N != null );
       assertTrue( N.getType() == libsbml.AST_REAL );
-      assertEquals( true, isNan(N.getReal()) );
+      assertEquals( true, isnan(N.getReal()) );
       assertTrue( N.getNumChildren() == 0 );
     }
 
@@ -776,6 +785,22 @@ namespace LibSBMLCSTest {
       assertTrue( N != null );
       F = libsbml.formulaToString(N);
       assertTrue((  "gt(INF, INF - 1)" == F ));
+    }
+
+    public void test_element_invalid_mathml()
+    {
+      string invalid = wrapMathML("<lambda>" + 
+    "<bvar>" + 
+    "<ci definitionURL=\"http://biomodels.net/SBO/#SBO:0000065\">c</ci>" + 
+    "</bvar>" + 
+    "<apply>" + 
+    "  <ci>c</ci>" + 
+    "</apply>" + 
+    "</lambda>\n");
+      N = libsbml.readMathMLFromString(null);
+      assertTrue( N == null );
+      N = libsbml.readMathMLFromString(invalid);
+      assertTrue( N == null );
     }
 
     public void test_element_lambda()

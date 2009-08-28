@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Sarah Keating 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestInternalConsistencyChecks.cpp
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -119,7 +119,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Compartment c = new Compartment();
+      Compartment c = new Compartment(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       c.setSpatialDimensions(2);
@@ -127,7 +127,7 @@ namespace LibSBMLCSTest {
       m.addCompartment(c);
       errors = d.checkInternalConsistency();
       assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99901 );
+      assertTrue( d.getError(0).getErrorId() == 10103 );
       d = null;
     }
 
@@ -135,7 +135,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Compartment c = new Compartment();
+      Compartment c = new Compartment(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       c.setCompartmentType("hh");
@@ -143,7 +143,7 @@ namespace LibSBMLCSTest {
       m.addCompartment(c);
       errors = d.checkInternalConsistency();
       assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99902 );
+      assertTrue( d.getError(0).getErrorId() == 10103 );
       d = null;
     }
 
@@ -151,7 +151,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Compartment c = new Compartment();
+      Compartment c = new Compartment(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       c.setConstant(true);
@@ -161,8 +161,7 @@ namespace LibSBMLCSTest {
       r.setVariable("c");
       r.setFormula("2*3");
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99903 );
+      assertTrue( errors == 3 );
       d = null;
     }
 
@@ -170,7 +169,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Parameter p = new Parameter();
+      Parameter p = new Parameter(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       Compartment c = m.createCompartment();
@@ -183,8 +182,7 @@ namespace LibSBMLCSTest {
       p.setConstant(false);
       kl.addParameter(p);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99903 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -192,7 +190,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Parameter p = new Parameter();
+      Parameter p = new Parameter(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       Compartment c = m.createCompartment();
@@ -204,8 +202,7 @@ namespace LibSBMLCSTest {
       r.setVariable("c");
       r.setFormula("2*3");
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99903 );
+      assertTrue( errors == 2 );
       d = null;
     }
 
@@ -213,7 +210,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Compartment c = new Compartment();
+      Compartment c = new Compartment(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       c.setId("c");
@@ -221,7 +218,7 @@ namespace LibSBMLCSTest {
       m.addCompartment(c);
       errors = d.checkInternalConsistency();
       assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99904 );
+      assertTrue( d.getError(0).getErrorId() == 10103 );
       d = null;
     }
 
@@ -229,7 +226,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      KineticLaw kl = new KineticLaw();
+      KineticLaw kl = new KineticLaw(2,4);
       Model m = d.createModel();
       d.setLevelAndVersion(1,2);
       Compartment c = m.createCompartment();
@@ -240,8 +237,7 @@ namespace LibSBMLCSTest {
       kl.setMetaId("mmm");
       r.setKineticLaw(kl);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99904 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -250,14 +246,14 @@ namespace LibSBMLCSTest {
       SBMLDocument d = new SBMLDocument();
       long errors;
       d.setLevelAndVersion(1,2);
-      Model m = new Model();
+      Model m = new Model(2,4);
       Compartment c = m.createCompartment();
       c.setId("cc");
       m.setMetaId("mmm");
       d.setModel(m);
       errors = d.checkInternalConsistency();
       assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99904 );
+      assertTrue( d.getError(0).getErrorId() == 20201 );
       d = null;
     }
 
@@ -265,7 +261,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Parameter p = new Parameter();
+      Parameter p = new Parameter(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       Compartment c = m.createCompartment();
@@ -274,8 +270,7 @@ namespace LibSBMLCSTest {
       p.setMetaId("mmm");
       m.addParameter(p);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99904 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -283,7 +278,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Reaction r = new Reaction();
+      Reaction r = new Reaction(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       Compartment c = m.createCompartment();
@@ -292,8 +287,7 @@ namespace LibSBMLCSTest {
       r.setMetaId("mmm");
       m.addReaction(r);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99904 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -301,7 +295,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Rule r = new AlgebraicRule();
+      Rule r = new AlgebraicRule(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       Compartment c = m.createCompartment();
@@ -310,8 +304,7 @@ namespace LibSBMLCSTest {
       r.setFormula("2");
       m.addRule(r);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99904 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -319,7 +312,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Rule r = new AssignmentRule();
+      Rule r = new AssignmentRule(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       Compartment c = m.createCompartment();
@@ -330,8 +323,7 @@ namespace LibSBMLCSTest {
       r.setMetaId("mmm");
       m.addRule(r);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99904 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -339,7 +331,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Rule r = new RateRule();
+      Rule r = new RateRule(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       Compartment c = m.createCompartment();
@@ -350,8 +342,7 @@ namespace LibSBMLCSTest {
       r.setMetaId("mmm");
       m.addRule(r);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99904 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -359,7 +350,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Species s = new Species();
+      Species s = new Species(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       Compartment c = m.createCompartment();
@@ -369,8 +360,7 @@ namespace LibSBMLCSTest {
       s.setMetaId("mmm");
       m.addSpecies(s);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99904 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -378,7 +368,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      SpeciesReference sr = new SpeciesReference();
+      SpeciesReference sr = new SpeciesReference(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       Compartment c = m.createCompartment();
@@ -392,8 +382,7 @@ namespace LibSBMLCSTest {
       sr.setMetaId("mmm");
       r.addProduct(sr);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99904 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -401,7 +390,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Unit u = new Unit();
+      Unit u = new Unit(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       Compartment c = m.createCompartment();
@@ -412,8 +401,7 @@ namespace LibSBMLCSTest {
       u.setKind(libsbml.UNIT_KIND_MOLE);
       ud.addUnit(u);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99904 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -421,17 +409,17 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      UnitDefinition u = new UnitDefinition();
+      UnitDefinition u = new UnitDefinition(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       Compartment c = m.createCompartment();
       c.setId("cc");
       u.setId("ud");
       u.setMetaId("mmm");
+      u.createUnit();
       m.addUnitDefinition(u);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99904 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -439,7 +427,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Compartment c = new Compartment();
+      Compartment c = new Compartment(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       c.setId("c");
@@ -447,7 +435,7 @@ namespace LibSBMLCSTest {
       m.addCompartment(c);
       errors = d.checkInternalConsistency();
       assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99905 );
+      assertTrue( d.getError(0).getErrorId() == 10103 );
       d = null;
     }
 
@@ -455,15 +443,14 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      CompartmentType ct = new CompartmentType();
+      CompartmentType ct = new CompartmentType(2,4);
       Model m = d.createModel();
       d.setLevelAndVersion(2,2);
       ct.setId("ct");
       ct.setSBOTerm(5);
       m.addCompartmentType(ct);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99905 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -471,16 +458,15 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Delay delay = new Delay();
-      Event e = new Event();
+      Delay delay = new Delay(2,4);
+      Event e = new Event(2,4);
       Model m = d.createModel();
       d.setLevelAndVersion(2,2);
       delay.setSBOTerm(5);
       e.setDelay(delay);
       m.addEvent(e);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99905 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -488,7 +474,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Species s = new Species();
+      Species s = new Species(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       Compartment c = m.createCompartment();
@@ -498,8 +484,7 @@ namespace LibSBMLCSTest {
       s.setSBOTerm(2);
       m.addSpecies(s);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99905 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -507,15 +492,14 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      SpeciesType ct = new SpeciesType();
+      SpeciesType ct = new SpeciesType(2,4);
       Model m = d.createModel();
       d.setLevelAndVersion(2,2);
       ct.setId("st");
       ct.setSBOTerm(5);
       m.addSpeciesType(ct);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99905 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -523,7 +507,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      StoichiometryMath sm = new StoichiometryMath();
+      StoichiometryMath sm = new StoichiometryMath(2,4);
       Model m = d.createModel();
       d.setLevelAndVersion(2,2);
       Species s = m.createSpecies();
@@ -538,8 +522,7 @@ namespace LibSBMLCSTest {
       sm.setSBOTerm(5);
       sr.setStoichiometryMath(sm);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99905 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -547,16 +530,15 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Trigger trigger = new Trigger();
-      Event e = new Event();
+      Trigger trigger = new Trigger(2,4);
+      Event e = new Event(2,4);
       Model m = d.createModel();
       d.setLevelAndVersion(2,2);
       trigger.setSBOTerm(5);
       e.setTrigger(trigger);
       m.addEvent(e);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99905 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -564,7 +546,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Unit u = new Unit();
+      Unit u = new Unit(2,4);
       d.setLevelAndVersion(2,2);
       Model m = d.createModel();
       UnitDefinition ud = m.createUnitDefinition();
@@ -573,8 +555,7 @@ namespace LibSBMLCSTest {
       u.setSBOTerm(9);
       ud.addUnit(u);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99905 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -582,15 +563,15 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      UnitDefinition u = new UnitDefinition();
+      UnitDefinition u = new UnitDefinition(2,4);
       d.setLevelAndVersion(2,2);
       Model m = d.createModel();
       u.setId("ud");
       u.setSBOTerm(9);
+      u.createUnit();
       m.addUnitDefinition(u);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99905 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -598,7 +579,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Compartment c = new Compartment();
+      Compartment c = new Compartment(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       c.setId("c");
@@ -606,7 +587,7 @@ namespace LibSBMLCSTest {
       m.addCompartment(c);
       errors = d.checkInternalConsistency();
       assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99906 );
+      assertTrue( d.getError(0).getErrorId() == 10103 );
       d = null;
     }
 
@@ -614,14 +595,15 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Compartment c = new Compartment();
+      Compartment c = new Compartment(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       c.setId("c");
       c.unsetVolume();
       m.addCompartment(c);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 0 );
+      assertTrue( errors == 1 );
+      assertTrue( d.getError(0).getErrorId() == 10103 );
       d = null;
     }
 
@@ -629,14 +611,13 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      CompartmentType ct = new CompartmentType();
+      CompartmentType ct = new CompartmentType(2,4);
       Model m = d.createModel();
       d.setLevelAndVersion(2,1);
       ct.setId("ct");
       m.addCompartmentType(ct);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99908 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -644,13 +625,12 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Constraint ct = new Constraint();
+      Constraint ct = new Constraint(2,4);
       Model m = d.createModel();
       d.setLevelAndVersion(2,1);
       m.addConstraint(ct);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99909 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -658,7 +638,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Event e = new Event();
+      Event e = new Event(2,4);
       Model m = d.createModel();
       d.setLevelAndVersion(1,2);
       Compartment c = m.createCompartment();
@@ -666,8 +646,7 @@ namespace LibSBMLCSTest {
       c.setConstant(false);
       m.addEvent(e);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99910 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -680,14 +659,13 @@ namespace LibSBMLCSTest {
       c.setId("c");
       c.setConstant(false);
       Event e = m.createEvent();
-      EventAssignment ea = new EventAssignment();
+      EventAssignment ea = new EventAssignment(2,4);
       d.setLevelAndVersion(2,1);
       ea.setVariable("c");
       ea.setSBOTerm(2);
       e.addEventAssignment(ea);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99911 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -695,14 +673,13 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Event e = new Event();
+      Event e = new Event(2,4);
       Model m = d.createModel();
       d.setLevelAndVersion(2,1);
       e.setSBOTerm(2);
       m.addEvent(e);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99911 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -711,14 +688,13 @@ namespace LibSBMLCSTest {
       SBMLDocument d = new SBMLDocument();
       long errors;
       Model m = d.createModel();
-      FunctionDefinition fd = new FunctionDefinition();
+      FunctionDefinition fd = new FunctionDefinition(2,4);
       d.setLevelAndVersion(2,1);
       fd.setId("fd");
       fd.setSBOTerm(2);
       m.addFunctionDefinition(fd);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99911 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -729,15 +705,14 @@ namespace LibSBMLCSTest {
       Model m = d.createModel();
       Reaction r = m.createReaction();
       r.setId("r");
-      KineticLaw kl = new KineticLaw();
+      KineticLaw kl = new KineticLaw(2,4);
       d.setLevelAndVersion(2,1);
       kl.setSBOTerm(2);
       Parameter p = kl.createParameter();
       p.setId("p");
       r.setKineticLaw(kl);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99911 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -746,12 +721,12 @@ namespace LibSBMLCSTest {
       SBMLDocument d = new SBMLDocument();
       long errors;
       d.setLevelAndVersion(2,1);
-      Model m = new Model();
+      Model m = new Model(2,4);
       m.setSBOTerm(2);
       d.setModel(m);
       errors = d.checkInternalConsistency();
       assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99911 );
+      assertTrue( d.getError(0).getErrorId() == 20201 );
       d = null;
     }
 
@@ -760,14 +735,13 @@ namespace LibSBMLCSTest {
       SBMLDocument d = new SBMLDocument();
       long errors;
       Model m = d.createModel();
-      Parameter p = new Parameter();
+      Parameter p = new Parameter(2,4);
       d.setLevelAndVersion(2,1);
       p.setId("p");
       p.setSBOTerm(2);
       m.addParameter(p);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99911 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -776,14 +750,13 @@ namespace LibSBMLCSTest {
       SBMLDocument d = new SBMLDocument();
       long errors;
       Model m = d.createModel();
-      Reaction r = new Reaction();
+      Reaction r = new Reaction(2,4);
       d.setLevelAndVersion(2,1);
       r.setId("r");
       r.setSBOTerm(2);
       m.addReaction(r);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99911 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -792,13 +765,12 @@ namespace LibSBMLCSTest {
       SBMLDocument d = new SBMLDocument();
       long errors;
       Model m = d.createModel();
-      Rule r = new AlgebraicRule();
+      Rule r = new AlgebraicRule(2,4);
       d.setLevelAndVersion(2,1);
       r.setSBOTerm(2);
       m.addRule(r);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99911 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -810,14 +782,13 @@ namespace LibSBMLCSTest {
       Parameter p = m.createParameter();
       p.setId("p");
       p.setConstant(false);
-      Rule r = new AssignmentRule();
+      Rule r = new AssignmentRule(2,4);
       d.setLevelAndVersion(2,1);
       r.setVariable("p");
       r.setSBOTerm(2);
       m.addRule(r);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99911 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -829,14 +800,13 @@ namespace LibSBMLCSTest {
       Parameter p = m.createParameter();
       p.setId("p");
       p.setConstant(false);
-      Rule r = new RateRule();
+      Rule r = new RateRule(2,4);
       d.setLevelAndVersion(2,1);
       r.setVariable("p");
       r.setSBOTerm(2);
       m.addRule(r);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99911 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -844,7 +814,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      SpeciesReference sr = new SpeciesReference();
+      SpeciesReference sr = new SpeciesReference(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       Compartment c = m.createCompartment();
@@ -858,8 +828,7 @@ namespace LibSBMLCSTest {
       sr.setSBOTerm(4);
       r.addReactant(sr);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99911 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -867,7 +836,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      FunctionDefinition fd = new FunctionDefinition();
+      FunctionDefinition fd = new FunctionDefinition(2,4);
       Model m = d.createModel();
       d.setLevelAndVersion(1,2);
       Compartment c = m.createCompartment();
@@ -875,8 +844,7 @@ namespace LibSBMLCSTest {
       c.setConstant(false);
       m.addFunctionDefinition(fd);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99912 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -884,7 +852,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      InitialAssignment ia = new InitialAssignment();
+      InitialAssignment ia = new InitialAssignment(2,4);
       Model m = d.createModel();
       d.setLevelAndVersion(1,2);
       Compartment c = m.createCompartment();
@@ -892,8 +860,7 @@ namespace LibSBMLCSTest {
       c.setConstant(false);
       m.addInitialAssignment(ia);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99913 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -902,13 +869,12 @@ namespace LibSBMLCSTest {
       SBMLDocument d = new SBMLDocument();
       long errors;
       Model m = d.createModel();
-      Rule r = new AlgebraicRule();
+      Rule r = new AlgebraicRule(2,4);
       d.setLevelAndVersion(2,1);
       r.setVariable("kk");
       m.addRule(r);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99914 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -917,13 +883,12 @@ namespace LibSBMLCSTest {
       SBMLDocument d = new SBMLDocument();
       long errors;
       Model m = d.createModel();
-      Rule r = new AlgebraicRule();
+      Rule r = new AlgebraicRule(2,4);
       d.setLevelAndVersion(2,1);
       r.setUnits("kk");
       m.addRule(r);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99915 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -942,8 +907,7 @@ namespace LibSBMLCSTest {
       r.setFormula("2");
       r.setUnits("mmm");
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99915 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -962,8 +926,7 @@ namespace LibSBMLCSTest {
       r.setVariable("c");
       r.setUnits("mmm");
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99915 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -971,7 +934,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Species s = new Species();
+      Species s = new Species(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       Compartment c = m.createCompartment();
@@ -985,8 +948,7 @@ namespace LibSBMLCSTest {
       sr.setSpecies("s");
       m.addSpecies(s);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99916 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -994,7 +956,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Species s = new Species();
+      Species s = new Species(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       Compartment c = m.createCompartment();
@@ -1007,8 +969,7 @@ namespace LibSBMLCSTest {
       r.setVariable("s");
       r.setFormula("2");
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99916 );
+      assertTrue( errors == 2 );
       d = null;
     }
 
@@ -1016,7 +977,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Species s = new Species();
+      Species s = new Species(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       Compartment c = m.createCompartment();
@@ -1026,8 +987,7 @@ namespace LibSBMLCSTest {
       s.setSpatialSizeUnits("kkk");
       m.addSpecies(s);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99917 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -1035,7 +995,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Species s = new Species();
+      Species s = new Species(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       Compartment c = m.createCompartment();
@@ -1045,8 +1005,7 @@ namespace LibSBMLCSTest {
       s.setSpeciesType("kkk");
       m.addSpecies(s);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99918 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -1054,7 +1013,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Species s = new Species();
+      Species s = new Species(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       Compartment c = m.createCompartment();
@@ -1064,8 +1023,7 @@ namespace LibSBMLCSTest {
       s.setHasOnlySubstanceUnits(true);
       m.addSpecies(s);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99919 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -1073,7 +1031,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      SpeciesReference sr = new SpeciesReference();
+      SpeciesReference sr = new SpeciesReference(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       Compartment c = m.createCompartment();
@@ -1087,9 +1045,7 @@ namespace LibSBMLCSTest {
       sr.setId("mmm");
       r.addProduct(sr);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 2 );
-      assertTrue( d.getError(0).getErrorId() == 99920 );
-      assertTrue( d.getError(1).getErrorId() == 99921 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -1097,7 +1053,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      SpeciesReference sr = new SpeciesReference();
+      SpeciesReference sr = new SpeciesReference(2,4);
       d.setLevelAndVersion(2,1);
       Model m = d.createModel();
       Compartment c = m.createCompartment();
@@ -1111,8 +1067,7 @@ namespace LibSBMLCSTest {
       sr.setName("mmm");
       r.addReactant(sr);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99921 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -1120,14 +1075,13 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      SpeciesType ct = new SpeciesType();
+      SpeciesType ct = new SpeciesType(2,4);
       Model m = d.createModel();
       ct.setId("st");
       d.setLevelAndVersion(2,1);
       m.addSpeciesType(ct);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99922 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -1135,7 +1089,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      StoichiometryMath sm = new StoichiometryMath();
+      StoichiometryMath sm = new StoichiometryMath(2,4);
       Model m = d.createModel();
       d.setLevelAndVersion(1,2);
       Species s = m.createSpecies();
@@ -1149,8 +1103,7 @@ namespace LibSBMLCSTest {
       sr.setSpecies("s");
       sr.setStoichiometryMath(sm);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99923 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -1158,7 +1111,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Unit u = new Unit();
+      Unit u = new Unit(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       Compartment c = m.createCompartment();
@@ -1169,8 +1122,7 @@ namespace LibSBMLCSTest {
       u.setMultiplier(9);
       ud.addUnit(u);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99924 );
+      assertTrue( errors == 0 );
       d = null;
     }
 
@@ -1178,7 +1130,7 @@ namespace LibSBMLCSTest {
     {
       SBMLDocument d = new SBMLDocument();
       long errors;
-      Unit u = new Unit();
+      Unit u = new Unit(2,4);
       d.setLevelAndVersion(1,2);
       Model m = d.createModel();
       Compartment c = m.createCompartment();
@@ -1189,8 +1141,7 @@ namespace LibSBMLCSTest {
       u.setOffset(9);
       ud.addUnit(u);
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 99925 );
+      assertTrue( errors == 0 );
       d = null;
     }
 

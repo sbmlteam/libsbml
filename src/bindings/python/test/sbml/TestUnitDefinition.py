@@ -34,7 +34,7 @@ class TestUnitDefinition(unittest.TestCase):
   UD = None
 
   def setUp(self):
-    self.UD = libsbml.UnitDefinition()
+    self.UD = libsbml.UnitDefinition(2,4)
     if (self.UD == None):
       pass    
     pass  
@@ -44,7 +44,8 @@ class TestUnitDefinition(unittest.TestCase):
     pass  
 
   def test_UnitDefinition_addUnit(self):
-    u = libsbml.Unit()
+    u = libsbml.Unit(2,4)
+    u.setKind(libsbml.UNIT_KIND_MOLE)
     self.UD.addUnit(u)
     self.assert_( self.UD.getNumUnits() == 1 )
     u = None
@@ -62,42 +63,32 @@ class TestUnitDefinition(unittest.TestCase):
     self.assert_( self.UD.getNumUnits() == 0 )
     pass  
 
-  def test_UnitDefinition_createWith(self):
-    ud = libsbml.UnitDefinition("mmls", "")
-    self.assert_( ud.getTypeCode() == libsbml.SBML_UNIT_DEFINITION )
-    self.assert_( ud.getMetaId() == "" )
-    self.assert_( ud.getNotes() == None )
-    self.assert_( ud.getAnnotation() == None )
-    self.assert_( ud.getName() == "" )
-    self.assert_((  "mmls" == ud.getId() ))
-    self.assertEqual( True, ud.isSetId() )
-    self.assert_( ud.getNumUnits() == 0 )
-    ud = None
-    pass  
-
-  def test_UnitDefinition_createWithLevelVersionAndNamespace(self):
+  def test_UnitDefinition_createWithNS(self):
     xmlns = libsbml.XMLNamespaces()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = libsbml.UnitDefinition(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = libsbml.SBMLNamespaces(2,1)
+    sbmlns.addNamespaces(xmlns)
+    object = libsbml.UnitDefinition(sbmlns)
     self.assert_( object.getTypeCode() == libsbml.SBML_UNIT_DEFINITION )
     self.assert_( object.getMetaId() == "" )
     self.assert_( object.getNotes() == None )
     self.assert_( object.getAnnotation() == None )
     self.assert_( object.getLevel() == 2 )
     self.assert_( object.getVersion() == 1 )
-    self.assert_( object.getNamespaces() != "" )
-    self.assert_( object.getNamespaces().getLength() == 1 )
+    self.assert_( object.getNamespaces() != None )
+    self.assert_( object.getNamespaces().getLength() == 2 )
     object = None
     pass  
 
   def test_UnitDefinition_createWithName(self):
-    ud = libsbml.UnitDefinition("", "mmol liter^-1 sec^-1")
+    ud = libsbml.UnitDefinition(2,4)
+    ud.setName( "mmol_per_liter_per_sec")
     self.assert_( ud.getTypeCode() == libsbml.SBML_UNIT_DEFINITION )
     self.assert_( ud.getMetaId() == "" )
     self.assert_( ud.getNotes() == None )
     self.assert_( ud.getAnnotation() == None )
     self.assert_( ud.getId() == "" )
-    self.assert_((  "mmol liter^-1 sec^-1" == ud.getName() ))
+    self.assert_((  "mmol_per_liter_per_sec" == ud.getName() ))
     self.assertEqual( True, ud.isSetName() )
     self.assert_( ud.getNumUnits() == 0 )
     ud = None
@@ -107,9 +98,9 @@ class TestUnitDefinition(unittest.TestCase):
     pass  
 
   def test_UnitDefinition_getUnit(self):
-    mole = libsbml.Unit()
-    litre = libsbml.Unit()
-    second = libsbml.Unit()
+    mole = libsbml.Unit(2,4)
+    litre = libsbml.Unit(2,4)
+    second = libsbml.Unit(2,4)
     mole.setKind(libsbml.UnitKind_forName("mole"))
     litre.setKind(libsbml.UnitKind_forName("litre"))
     second.setKind(libsbml.UnitKind_forName("second"))
@@ -135,7 +126,7 @@ class TestUnitDefinition(unittest.TestCase):
     pass  
 
   def test_UnitDefinition_isVariantOfArea(self):
-    dim = libsbml.Unit()
+    dim = libsbml.Unit(2,4)
     dim.setKind(libsbml.UnitKind_forName("dimensionless"))
     u = self.UD.createUnit()
     self.assertEqual( False, self.UD.isVariantOfArea() )
@@ -156,7 +147,7 @@ class TestUnitDefinition(unittest.TestCase):
     pass  
 
   def test_UnitDefinition_isVariantOfLength(self):
-    dim = libsbml.Unit()
+    dim = libsbml.Unit(2,4)
     dim.setKind(libsbml.UnitKind_forName("dimensionless"))
     u = self.UD.createUnit()
     self.assertEqual( False, self.UD.isVariantOfLength() )
@@ -177,7 +168,7 @@ class TestUnitDefinition(unittest.TestCase):
     pass  
 
   def test_UnitDefinition_isVariantOfSubstancePerTime_1(self):
-    dim = libsbml.Unit()
+    dim = libsbml.Unit(2,4)
     dim.setKind(libsbml.UnitKind_forName("dimensionless"))
     perTime = self.UD.createUnit()
     perTime.setKind(libsbml.UnitKind_forName("second"))
@@ -202,10 +193,11 @@ class TestUnitDefinition(unittest.TestCase):
     perTime.setExponent(-1)
     self.UD.addUnit(dim)
     self.assertEqual( True, self.UD.isVariantOfSubstancePerTime() )
+    dim = None
     pass  
 
   def test_UnitDefinition_isVariantOfSubstancePerTime_2(self):
-    dim = libsbml.Unit()
+    dim = libsbml.Unit(2,4)
     dim.setKind(libsbml.UnitKind_forName("dimensionless"))
     perTime = self.UD.createUnit()
     perTime.setKind(libsbml.UnitKind_forName("second"))
@@ -230,11 +222,12 @@ class TestUnitDefinition(unittest.TestCase):
     perTime.setExponent(-1)
     self.UD.addUnit(dim)
     self.assertEqual( True, self.UD.isVariantOfSubstancePerTime() )
+    dim = None
     pass  
 
   def test_UnitDefinition_isVariantOfSubstancePerTime_3(self):
-    ud = libsbml.UnitDefinition(2,2,None)
-    dim = libsbml.Unit()
+    ud = libsbml.UnitDefinition(2,2)
+    dim = libsbml.Unit(2,2)
     dim.setKind(libsbml.UnitKind_forName("dimensionless"))
     perTime = ud.createUnit()
     perTime.setKind(libsbml.UnitKind_forName("second"))
@@ -259,11 +252,13 @@ class TestUnitDefinition(unittest.TestCase):
     perTime.setExponent(-1)
     ud.addUnit(dim)
     self.assertEqual( True, ud.isVariantOfSubstancePerTime() )
+    ud = None
+    dim = None
     pass  
 
   def test_UnitDefinition_isVariantOfSubstancePerTime_4(self):
-    ud = libsbml.UnitDefinition(2,2,None)
-    dim = libsbml.Unit()
+    ud = libsbml.UnitDefinition(2,2)
+    dim = ud.createUnit()
     dim.setKind(libsbml.UnitKind_forName("dimensionless"))
     perTime = ud.createUnit()
     perTime.setKind(libsbml.UnitKind_forName("second"))
@@ -288,10 +283,11 @@ class TestUnitDefinition(unittest.TestCase):
     perTime.setExponent(-1)
     ud.addUnit(dim)
     self.assertEqual( True, ud.isVariantOfSubstancePerTime() )
+    ud = None
     pass  
 
   def test_UnitDefinition_isVariantOfSubstance_1(self):
-    dim = libsbml.Unit()
+    dim = libsbml.Unit(2,4)
     dim.setKind(libsbml.UnitKind_forName("dimensionless"))
     u = self.UD.createUnit()
     self.assertEqual( False, self.UD.isVariantOfSubstance() )
@@ -312,7 +308,7 @@ class TestUnitDefinition(unittest.TestCase):
     pass  
 
   def test_UnitDefinition_isVariantOfSubstance_2(self):
-    dim = libsbml.Unit()
+    dim = libsbml.Unit(2,4)
     dim.setKind(libsbml.UnitKind_forName("dimensionless"))
     u = self.UD.createUnit()
     self.assertEqual( False, self.UD.isVariantOfSubstance() )
@@ -333,7 +329,7 @@ class TestUnitDefinition(unittest.TestCase):
     pass  
 
   def test_UnitDefinition_isVariantOfTime(self):
-    dim = libsbml.Unit()
+    dim = libsbml.Unit(2,4)
     dim.setKind(libsbml.UnitKind_forName("dimensionless"))
     u = self.UD.createUnit()
     self.assertEqual( False, self.UD.isVariantOfTime() )
@@ -354,7 +350,7 @@ class TestUnitDefinition(unittest.TestCase):
     pass  
 
   def test_UnitDefinition_isVariantOfVolume_1(self):
-    dim = libsbml.Unit()
+    dim = libsbml.Unit(2,4)
     dim.setKind(libsbml.UnitKind_forName("dimensionless"))
     u = self.UD.createUnit()
     self.assertEqual( False, self.UD.isVariantOfVolume() )
@@ -375,7 +371,7 @@ class TestUnitDefinition(unittest.TestCase):
     pass  
 
   def test_UnitDefinition_isVariantOfVolume_2(self):
-    dim = libsbml.Unit()
+    dim = libsbml.Unit(2,4)
     dim.setKind(libsbml.UnitKind_forName("dimensionless"))
     u = self.UD.createUnit()
     self.assertEqual( False, self.UD.isVariantOfVolume() )
@@ -396,7 +392,8 @@ class TestUnitDefinition(unittest.TestCase):
     pass  
 
   def test_UnitDefinition_printUnits(self):
-    ud = libsbml.UnitDefinition("mmls", "")
+    ud = libsbml.UnitDefinition(2,4)
+    ud.setId( "mmls")
     perTime = ud.createUnit()
     perTime.setKind(libsbml.UnitKind_forName("second"))
     perTime.setExponent(-1)
@@ -404,7 +401,8 @@ class TestUnitDefinition(unittest.TestCase):
     self.assert_((                 "second (exponent = -1, multiplier = 1, scale = 0)" == ud_str ))
     ud_str1 = libsbml.UnitDefinition.printUnits(ud,True)
     self.assert_((  "(1 second)^-1" == ud_str1 ))
-    ud1 = libsbml.UnitDefinition("mmls", "")
+    ud1 = libsbml.UnitDefinition(2,4)
+    ud1.setId( "mmls")
     u = ud1.createUnit()
     u.setKind(libsbml.UNIT_KIND_KILOGRAM)
     u.setExponent(1)
@@ -414,6 +412,21 @@ class TestUnitDefinition(unittest.TestCase):
     self.assert_((                 "kilogram (exponent = 1, multiplier = 3, scale = 2)" == ud_str2 ))
     ud_str3 = libsbml.UnitDefinition.printUnits(ud1,True)
     self.assert_((  "(300 kilogram)^1" == ud_str3 ))
+    pass  
+
+  def test_UnitDefinition_removeUnit(self):
+    o1 = self.UD.createUnit()
+    o2 = self.UD.createUnit()
+    o3 = self.UD.createUnit()
+    self.assert_( self.UD.removeUnit(0) == o1 )
+    self.assert_( self.UD.getNumUnits() == 2 )
+    self.assert_( self.UD.removeUnit(0) == o2 )
+    self.assert_( self.UD.getNumUnits() == 1 )
+    self.assert_( self.UD.removeUnit(0) == o3 )
+    self.assert_( self.UD.getNumUnits() == 0 )
+    o1 = None
+    o2 = None
+    o3 = None
     pass  
 
   def test_UnitDefinition_setId(self):
@@ -432,7 +445,7 @@ class TestUnitDefinition(unittest.TestCase):
     pass  
 
   def test_UnitDefinition_setName(self):
-    name =  "mmol liter^-1 sec^-1";
+    name =  "mmol_per_liter_per_sec";
     self.UD.setName(name)
     self.assert_(( name == self.UD.getName() ))
     self.assertEqual( True, self.UD.isSetName() )

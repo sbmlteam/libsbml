@@ -34,7 +34,7 @@ class TestAssignmentRule(unittest.TestCase):
   AR = None
 
   def setUp(self):
-    self.AR = libsbml.AssignmentRule()
+    self.AR = libsbml.AssignmentRule(2,4)
     if (self.AR == None):
       pass    
     pass  
@@ -55,7 +55,9 @@ class TestAssignmentRule(unittest.TestCase):
     pass  
 
   def test_AssignmentRule_createWithFormula(self):
-    ar = libsbml.AssignmentRule("s", "1 + 1")
+    ar = libsbml.AssignmentRule(2,4)
+    ar.setVariable( "s")
+    ar.setFormula( "1 + 1")
     self.assert_( ar.getTypeCode() == libsbml.SBML_ASSIGNMENT_RULE )
     self.assert_( ar.getMetaId() == "" )
     self.assert_((  "s" == ar.getVariable() ))
@@ -68,30 +70,34 @@ class TestAssignmentRule(unittest.TestCase):
     ar = None
     pass  
 
-  def test_AssignmentRule_createWithLevelVersionAndNamespace(self):
-    xmlns = libsbml.XMLNamespaces()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = libsbml.AssignmentRule(2,1,xmlns)
-    self.assert_( object.getTypeCode() == libsbml.SBML_ASSIGNMENT_RULE )
-    self.assert_( object.getMetaId() == "" )
-    self.assert_( object.getNotes() == None )
-    self.assert_( object.getAnnotation() == None )
-    self.assert_( object.getLevel() == 2 )
-    self.assert_( object.getVersion() == 1 )
-    self.assert_( object.getNamespaces() != "" )
-    self.assert_( object.getNamespaces().getLength() == 1 )
-    object = None
-    pass  
-
   def test_AssignmentRule_createWithMath(self):
     math = libsbml.parseFormula("1 + 1")
-    ar = libsbml.AssignmentRule("s",math)
+    ar = libsbml.AssignmentRule(2,4)
+    ar.setVariable( "s")
+    ar.setMath(math)
     self.assert_( ar.getTypeCode() == libsbml.SBML_ASSIGNMENT_RULE )
     self.assert_( ar.getMetaId() == "" )
     self.assert_((  "s" == ar.getVariable() ))
     self.assert_((  "1 + 1" == ar.getFormula() ))
     self.assert_( ar.getMath() != math )
     ar = None
+    pass  
+
+  def test_AssignmentRule_createWithNS(self):
+    xmlns = libsbml.XMLNamespaces()
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = libsbml.SBMLNamespaces(2,1)
+    sbmlns.addNamespaces(xmlns)
+    object = libsbml.AssignmentRule(sbmlns)
+    self.assert_( object.getTypeCode() == libsbml.SBML_ASSIGNMENT_RULE )
+    self.assert_( object.getMetaId() == "" )
+    self.assert_( object.getNotes() == None )
+    self.assert_( object.getAnnotation() == None )
+    self.assert_( object.getLevel() == 2 )
+    self.assert_( object.getVersion() == 1 )
+    self.assert_( object.getNamespaces() != None )
+    self.assert_( object.getNamespaces().getLength() == 2 )
+    object = None
     pass  
 
   def test_AssignmentRule_free_NULL(self):

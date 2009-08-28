@@ -73,4 +73,16 @@ class TestXMLError < Test::Unit::TestCase
     error = nil
   end
 
+  def test_XMLError_setters
+    error = LibSBML::XMLError.new()
+    assert( error != 0 )
+    i = error.setLine(23)
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( error.getLine() == 23 )
+    i = error.setColumn(45)
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( error.getColumn() == 45 )
+    error = nil
+  end
+
 end

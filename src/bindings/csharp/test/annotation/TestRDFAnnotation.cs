@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Ben Bornstein 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestRDFAnnotation.cpp
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -58,6 +58,10 @@ namespace LibSBMLCSTest {
       {
         return;
       }
+      else if ( (a == null) || (b == null) )
+      {
+        throw new AssertionError();
+      }
       else if (a.Equals(b))
       {
         return;
@@ -71,6 +75,10 @@ namespace LibSBMLCSTest {
       if ( (a == null) && (b == null) )
       {
         throw new AssertionError();
+      }
+      else if ( (a == null) || (b == null) )
+      {
+        return;
       }
       else if (a.Equals(b))
       {
@@ -115,9 +123,7 @@ namespace LibSBMLCSTest {
     }
 
     private SBMLDocument d;
-    private OStringStream OSS;
     private Model m;
-    private XMLOutputStream XOS;
 
 
   public double util_NaN()
@@ -138,10 +144,10 @@ namespace LibSBMLCSTest {
     return -1.0/z;
   }
 
-  public bool equals(string s)
-  {
-    return s == OSS.str();
-  }
+//  public bool equals(string s)
+//  {
+//    return s == OSS.str();
+//  }
 
   public bool equals(string s1, string s2)
   {
@@ -150,8 +156,6 @@ namespace LibSBMLCSTest {
 
     public void setUp()
     {
-      OSS = new OStringStream();
-      XOS = new XMLOutputStream(OSS);
       string filename = "../../annotation/test/test-data/annotation.xml";
       d = libsbml.readSBML(filename);
       m = d.getModel();
@@ -165,11 +169,10 @@ namespace LibSBMLCSTest {
     {
       XMLNode node = RDFAnnotationParser.parseCVTerms(m.getCompartment(0));
       XMLNode n1 = RDFAnnotationParser.deleteRDFAnnotation(node);
-      string expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<annotation/>";;
+      string expected =  "<annotation/>";;
       assertTrue( n1.getNumChildren() == 0 );
       assertTrue( n1.getName() ==  "annotation" );
-      n1.write(XOS);
-      assertEquals( true, equals(expected) );
+      assertEquals( true, equals(expected,n1.toXMLString()) );
       node = null;
     }
 
@@ -177,9 +180,7 @@ namespace LibSBMLCSTest {
     {
       Compartment c = m.getCompartment(1);
       XMLNode node = RDFAnnotationParser.deleteRDFAnnotation(c.getAnnotation());
-      string expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "<annotation>\n" + 
-    "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
+      string expected = "<annotation>\n" + "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
     "    <jd2:header>\n" + 
     "      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n" + 
     "      <jd2:ModelHeader Author=\"Mr Untitled\" ModelVersion=\"0.0\" ModelTitle=\"untitled\"/>\n" + 
@@ -187,17 +188,14 @@ namespace LibSBMLCSTest {
     "    </jd2:header>\n" + 
     "  </jd2:JDesignerLayout>\n" + 
     "</annotation>";
-      node.write(XOS);
-      assertEquals( true, equals(expected) );
+      assertEquals( true, equals(expected,node.toXMLString()) );
     }
 
     public void test_RDFAnnotation_deleteWithOutOther()
     {
       Compartment c = m.getCompartment(2);
       XMLNode node = c.getAnnotation();
-      string expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "<annotation>\n" + 
-    "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
+      string expected = "<annotation>\n" + "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
     "    <jd2:header>\n" + 
     "      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n" + 
     "      <jd2:ModelHeader Author=\"Mr Untitled\" ModelVersion=\"0.0\" ModelTitle=\"untitled\"/>\n" + 
@@ -205,8 +203,7 @@ namespace LibSBMLCSTest {
     "    </jd2:header>\n" + 
     "  </jd2:JDesignerLayout>\n" + 
     "</annotation>";
-      node.write(XOS);
-      assertEquals( true, equals(expected) );
+      assertEquals( true, equals(expected,node.toXMLString()) );
     }
 
     public void test_RDFAnnotation_getModelHistory()
@@ -214,7 +211,7 @@ namespace LibSBMLCSTest {
       assertTrue( ! (m == null) );
       ModelHistory history = m.getModelHistory();
       assertTrue( history != null );
-      ModelCreator mc = (history.getCreator(0));
+      ModelCreator mc = history.getCreator(0);
       assertTrue((  "Le Novere" == mc.getFamilyName() ));
       assertTrue((  "Nicolas" == mc.getGivenName() ));
       assertTrue((  "lenov@ebi.ac.uk" == mc.getEmail() ));
@@ -374,8 +371,7 @@ namespace LibSBMLCSTest {
     public void test_RDFAnnotation_recreate()
     {
       Compartment c = m.getCompartment(1);
-      string expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "<compartment id=\"A\">\n" + 
+      string expected = "<compartment id=\"A\">\n" + 
     "  <annotation>\n" + 
     "    <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
     "      <jd2:header>\n" + 
@@ -395,15 +391,13 @@ namespace LibSBMLCSTest {
     "    </rdf:RDF>\n" + 
     "  </annotation>\n" + 
     "</compartment>";
-      c.write(XOS);
-      assertEquals( true, equals(expected) );
+      assertEquals( true, equals(expected,c.toSBML()) );
     }
 
     public void test_RDFAnnotation_recreateFromEmpty()
     {
       Compartment c = m.getCompartment(3);
-      string expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "<compartment id=\"C\">\n" + 
+      string expected = "<compartment id=\"C\">\n" + 
     "  <annotation>\n" + 
     "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
     "      <rdf:Description rdf:about=\"#\">\n" + 
@@ -416,15 +410,13 @@ namespace LibSBMLCSTest {
     "    </rdf:RDF>\n" + 
     "  </annotation>\n" + 
     "</compartment>";
-      c.write(XOS);
-      assertEquals( true, equals(expected) );
+      assertEquals( true, equals(expected,c.toSBML()) );
     }
 
     public void test_RDFAnnotation_recreateWithOutOther()
     {
       Compartment c = m.getCompartment(2);
-      string expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "<compartment id=\"B\">\n" + 
+      string expected = "<compartment id=\"B\">\n" + 
     "  <annotation>\n" + 
     "    <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
     "      <jd2:header>\n" + 
@@ -435,8 +427,7 @@ namespace LibSBMLCSTest {
     "    </jd2:JDesignerLayout>\n" + 
     "  </annotation>\n" + 
     "</compartment>";
-      c.write(XOS);
-      assertEquals( true, equals(expected) );
+      assertEquals( true, equals(expected,c.toSBML()) );
     }
 
   }

@@ -1,11 +1,14 @@
 use Test;
-BEGIN { plan tests => 64 };
+BEGIN { plan tests => 66 };
 
 use LibSBML;
 use strict;
 use vars qw/$id $name $t_formula $trigger $t $d_formula $delay $d $units/;
 
 #########################
+
+my $level   = LibSBML::SBMLDocument::getDefaultLevel();
+my $version = LibSBML::SBMLDocument::getDefaultVersion();
 
 $id = 'e1';
 $t_formula = 'leq(P1,t)';
@@ -18,8 +21,10 @@ $units = 'second';
 $name = 'Set k2 to zero when P1 <= t';
 
 # create w/ AST
-my $e = new LibSBML::Event('e1');
-$trigger = new LibSBML::Trigger(LibSBML::parseFormula($t_formula));
+my $e = new LibSBML::Event($level,$version);
+$e->setId($id);
+$trigger = new LibSBML::Trigger($level,$version);
+$trigger->setMath(LibSBML::parseFormula($t_formula));
 $e->setTrigger($trigger);
 ok($e->getTypeCode() == $LibSBML::SBML_EVENT);
 ok($e->getMetaId(), '');
@@ -34,7 +39,7 @@ ok($e->isSetTrigger(), 1);
 ok($t, $t_formula);
 
 # creation w/o arguments
-$e = new LibSBML::Event();
+$e = new LibSBML::Event($level,$version);
 ok($e->getTypeCode() == $LibSBML::SBML_EVENT);
 ok($e->getMetaId(), '');
 ok($e->getNotes(), undef);
@@ -75,7 +80,8 @@ ok($e->isSetName(), 0);
 ok($e->getName(), '');
 
 # set/get trigger
-$trigger = new LibSBML::Trigger(LibSBML::parseFormula($t_formula));
+$trigger = new LibSBML::Trigger($level,$version);
+$trigger->setMath(LibSBML::parseFormula($t_formula));
 $e->setTrigger($trigger);
 ok($e->isSetTrigger(), 1);
 ($t = LibSBML::formulaToString($e->getTrigger()->getMath())) =~ s/\s+//g;
@@ -90,7 +96,8 @@ ok($e->isSetTrigger(), 0);
 ok($e->getTrigger(), undef);
 
 # set/get delay
-$delay = new LibSBML::Delay(LibSBML::parseFormula($d_formula));
+$delay = new LibSBML::Delay($level,$version);
+$delay->setMath(LibSBML::parseFormula($d_formula));
 $e->setDelay($delay);
 ok($e->isSetDelay(), 1);
 ($d = LibSBML::formulaToString($e->getDelay()->getMath())) =~ s/\s+//g;
@@ -105,18 +112,21 @@ ok($e->isSetDelay(), 0);
 ok($e->getDelay(), undef);
 
 # set/get timeunits
-$e->setTimeUnits($units);
-ok($e->isSetTimeUnits(), 1);
-ok($e->getTimeUnits(), $units);
+ok($e->setTimeUnits($units),$LibSBML::LIBSBML_UNEXPECTED_ATTRIBUTE);
+ok($e->isSetTimeUnits(), 0);
+ok($e->getTimeUnits(), "");
 # reflexive case
 $e->setTimeUnits($e->getTimeUnits());
-ok($e->isSetTimeUnits(), 1);
-ok($e->getTimeUnits(), $units);
+ok($e->isSetTimeUnits(), 0);
+ok($e->getTimeUnits(), "");
 
 # add/get EventAssignments
-$e = new LibSBML::Event($id);
+$e = new LibSBML::Event($level,$version);
+$e->setId($id);
 ok($e->getTypeCode(), $LibSBML::SBML_EVENT);
-my $ea = new LibSBML::EventAssignment('k', LibSBML::parseFormula('0'));
+my $ea = new LibSBML::EventAssignment($level,$version);
+$ea->setVariable('k');
+$ea->setMath(LibSBML::parseFormula('0'));
 ok($ea->getTypeCode(), $LibSBML::SBML_EVENT_ASSIGNMENT);
 
 ok($e->isSetId(), 1);
@@ -124,7 +134,7 @@ ok($e->getId(), $id);
 $e->setName($name);
 ok($e->isSetName(), 1);
 ok($e->getName(), $name);
-$e->addEventAssignment($ea);
+ok($e->addEventAssignment($ea),$LibSBML::LIBSBML_OPERATION_SUCCESS);
 ok($e->getNumEventAssignments(), 1);
 $ea = $e->getEventAssignment($e->getNumEventAssignments()-1);
 ok($ea->getTypeCode(), $LibSBML::SBML_EVENT_ASSIGNMENT);

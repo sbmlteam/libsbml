@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Ben Bornstein 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestRDFAnnotation.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -57,8 +57,6 @@ class TestRDFAnnotation < Test::Unit::TestCase
   end
 
   def setup
-    @@oss = LibSBML::Ostringstream.new()
-    @@xos = LibSBML::XMLOutputStream.new(@@oss)
     filename = "../../annotation/test/test-data/annotation.xml"
     @@d = LibSBML::readSBML(filename)
     @@m = @@d.getModel()
@@ -66,27 +64,22 @@ class TestRDFAnnotation < Test::Unit::TestCase
 
   def teardown
     @@d = nil
-    @@oss = nil
-    @@xos = nil
   end
 
   def test_RDFAnnotation_delete
     node = LibSBML::RDFAnnotationParser.parseCVTerms(@@m.getCompartment(0))
     n1 = LibSBML::RDFAnnotationParser.deleteRDFAnnotation(node)
-    expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<annotation/>";
+    expected =  "<annotation/>";
     assert( n1.getNumChildren() == 0 )
     assert( n1.getName() ==  "annotation" )
-    n1.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,n1.toXMLString())
     node = nil
   end
 
   def test_RDFAnnotation_deleteWithOther
     c = @@m.getCompartment(1)
     node = LibSBML::RDFAnnotationParser.deleteRDFAnnotation(c.getAnnotation())
-    expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "<annotation>\n" + 
-    "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
+    expected = "<annotation>\n" + "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
     "    <jd2:header>\n" + 
     "      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n" + 
     "      <jd2:ModelHeader Author=\"Mr Untitled\" ModelVersion=\"0.0\" ModelTitle=\"untitled\"/>\n" + 
@@ -94,16 +87,13 @@ class TestRDFAnnotation < Test::Unit::TestCase
     "    </jd2:header>\n" + 
     "  </jd2:JDesignerLayout>\n" + 
     "</annotation>"
-    node.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,node.toXMLString())
   end
 
   def test_RDFAnnotation_deleteWithOutOther
     c = @@m.getCompartment(2)
     node = c.getAnnotation()
-    expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "<annotation>\n" + 
-    "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
+    expected = "<annotation>\n" + "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
     "    <jd2:header>\n" + 
     "      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n" + 
     "      <jd2:ModelHeader Author=\"Mr Untitled\" ModelVersion=\"0.0\" ModelTitle=\"untitled\"/>\n" + 
@@ -111,15 +101,14 @@ class TestRDFAnnotation < Test::Unit::TestCase
     "    </jd2:header>\n" + 
     "  </jd2:JDesignerLayout>\n" + 
     "</annotation>"
-    node.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,node.toXMLString())
   end
 
   def test_RDFAnnotation_getModelHistory
     assert( !( @@m == 0) )
     history = @@m.getModelHistory()
     assert( history != nil )
-    mc = (history.getCreator(0))
+    mc = history.getCreator(0)
     assert ((  "Le Novere" == mc.getFamilyName() ))
     assert ((  "Nicolas" == mc.getGivenName() ))
     assert ((  "lenov@ebi.ac.uk" == mc.getEmail() ))
@@ -276,8 +265,7 @@ class TestRDFAnnotation < Test::Unit::TestCase
 
   def test_RDFAnnotation_recreate
     c = @@m.getCompartment(1)
-    expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "<compartment id=\"A\">\n" + 
+    expected = "<compartment id=\"A\">\n" + 
     "  <annotation>\n" + 
     "    <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
     "      <jd2:header>\n" + 
@@ -297,14 +285,12 @@ class TestRDFAnnotation < Test::Unit::TestCase
     "    </rdf:RDF>\n" + 
     "  </annotation>\n" + 
     "</compartment>"
-    c.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,c.toSBML())
   end
 
   def test_RDFAnnotation_recreateFromEmpty
     c = @@m.getCompartment(3)
-    expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "<compartment id=\"C\">\n" + 
+    expected = "<compartment id=\"C\">\n" + 
     "  <annotation>\n" + 
     "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
     "      <rdf:Description rdf:about=\"#\">\n" + 
@@ -317,14 +303,12 @@ class TestRDFAnnotation < Test::Unit::TestCase
     "    </rdf:RDF>\n" + 
     "  </annotation>\n" + 
     "</compartment>"
-    c.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,c.toSBML())
   end
 
   def test_RDFAnnotation_recreateWithOutOther
     c = @@m.getCompartment(2)
-    expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "<compartment id=\"B\">\n" + 
+    expected = "<compartment id=\"B\">\n" + 
     "  <annotation>\n" + 
     "    <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
     "      <jd2:header>\n" + 
@@ -335,8 +319,7 @@ class TestRDFAnnotation < Test::Unit::TestCase
     "    </jd2:JDesignerLayout>\n" + 
     "  </annotation>\n" + 
     "</compartment>"
-    c.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,c.toSBML())
   end
 
 end

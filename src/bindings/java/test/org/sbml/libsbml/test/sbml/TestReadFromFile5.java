@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestReadFromFile5.cpp
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -111,25 +111,25 @@ public class TestReadFromFile5 {
   public void test_read_l2v1_assignment()
   {
     SBMLReader reader = new SBMLReader();
-    SBMLDocument d = new SBMLDocument();
-    Model m = new Model();
-    Compartment c = new Compartment();
-    Species s = new Species();
-    Parameter p = new Parameter();
-    AssignmentRule ar = new AssignmentRule();
-    Reaction r = new Reaction();
-    SpeciesReference sr = new SpeciesReference();
-    KineticLaw kl = new KineticLaw();
-    UnitDefinition ud = new UnitDefinition();
-    Reaction r1 = new Reaction();
-    ListOfCompartments loc = new ListOfCompartments();
-    Compartment c1 = new Compartment();
-    ListOfRules lor = new ListOfRules();
-    AssignmentRule ar1 = new AssignmentRule();
-    ListOfParameters lop = new ListOfParameters();
-    Parameter p1 = new Parameter();
-    ListOfSpecies los = new ListOfSpecies();
-    Species s1 = new Species();
+    SBMLDocument d;
+    Model m;
+    Compartment c;
+    Species s;
+    Parameter p;
+    AssignmentRule ar;
+    Reaction r;
+    SpeciesReference sr;
+    KineticLaw kl;
+    UnitDefinition ud;
+    Reaction r1;
+    ListOfCompartments loc;
+    Compartment c1;
+    ListOfRules lor;
+    AssignmentRule ar1;
+    ListOfParameters lop;
+    Parameter p1;
+    ListOfSpecies los;
+    Species s1;
     String filename = new String( "../../sbml/test/test-data/" );
     filename += "l2v1-assignment.xml";
     d = reader.readSBML(filename);
@@ -143,7 +143,7 @@ public class TestReadFromFile5 {
     assertTrue( m.getNumCompartments() == 1 );
     c = m.getCompartment(0);
     assertTrue( c != null );
-    assertTrue( c.getId().equals( "cell") == true );
+    assertTrue( c.getId().equals( "cell") );
     ud = c.getDerivedUnitDefinition();
     assertTrue( ud.getNumUnits() == 1 );
     assertTrue( ud.getUnit(0).getKind() == libsbml.UNIT_KIND_LITRE );
@@ -155,8 +155,8 @@ public class TestReadFromFile5 {
     assertTrue( m.getNumSpecies() == 5 );
     s = m.getSpecies(0);
     assertTrue( s != null );
-    assertTrue( s.getId().equals( "X0"  ) == true );
-    assertTrue( s.getCompartment().equals( "cell") == true );
+    assertTrue( s.getId().equals( "X0"  ) );
+    assertTrue( s.getCompartment().equals( "cell") );
     assertTrue( s.getInitialConcentration() == 1.0 );
     los = m.getListOfSpecies();
     s1 = los.get(0);
@@ -165,28 +165,28 @@ public class TestReadFromFile5 {
     assertTrue( s1.equals(s) );
     s = m.getSpecies(1);
     assertTrue( s != null );
-    assertTrue( s.getId().equals( "X1"  ) == true );
-    assertTrue( s.getCompartment().equals( "cell") == true );
+    assertTrue( s.getId().equals( "X1"  ) );
+    assertTrue( s.getCompartment().equals( "cell") );
     assertTrue( s.getInitialConcentration() == 0.0 );
     s = m.getSpecies(2);
     assertTrue( s != null );
-    assertTrue( s.getId().equals( "T"   ) == true );
-    assertTrue( s.getCompartment().equals( "cell") == true );
+    assertTrue( s.getId().equals( "T"   ) );
+    assertTrue( s.getCompartment().equals( "cell") );
     assertTrue( s.getInitialConcentration() == 0.0 );
     s = m.getSpecies(3);
     assertTrue( s != null );
-    assertTrue( s.getId().equals( "S1"  ) == true );
-    assertTrue( s.getCompartment().equals( "cell") == true );
+    assertTrue( s.getId().equals( "S1"  ) );
+    assertTrue( s.getCompartment().equals( "cell") );
     assertTrue( s.getInitialConcentration() == 0.0 );
     s = m.getSpecies(4);
     assertTrue( s != null );
-    assertTrue( s.getId().equals( "S2"  ) == true );
-    assertTrue( s.getCompartment().equals( "cell") == true );
+    assertTrue( s.getId().equals( "S2"  ) );
+    assertTrue( s.getCompartment().equals( "cell") );
     assertTrue( s.getInitialConcentration() == 0.0 );
     assertTrue( m.getNumParameters() == 1 );
     p = m.getParameter(0);
     assertTrue( p != null );
-    assertTrue( p.getId().equals( "Keq") == true );
+    assertTrue( p.getId().equals( "Keq") );
     assertTrue( p.getValue() == 2.5 );
     lop = m.getListOfParameters();
     p1 = lop.get(0);
@@ -196,10 +196,10 @@ public class TestReadFromFile5 {
     ud = p.getDerivedUnitDefinition();
     assertTrue( ud.getNumUnits() == 0 );
     assertTrue( m.getNumRules() == 2 );
-    ar = ((AssignmentRule)  m.getRule(0) );
+    ar = (AssignmentRule)  m.getRule(0);
     assertTrue( ar != null );
-    assertTrue( ar.getVariable().equals( "S1"           ) == true );
-    assertTrue( ar.getFormula().equals( "T / (1 + Keq)") == true );
+    assertTrue( ar.getVariable().equals( "S1"           ) );
+    assertTrue( ar.getFormula().equals( "T / (1 + Keq)") );
     ud = ar.getDerivedUnitDefinition();
     assertTrue( ud.getNumUnits() == 2 );
     assertTrue( ud.getUnit(0).getKind() == libsbml.UNIT_KIND_MOLE );
@@ -208,61 +208,61 @@ public class TestReadFromFile5 {
     assertTrue( ud.getUnit(1).getExponent() == -1 );
     assertTrue( ar.containsUndeclaredUnits() == true );
     lor = m.getListOfRules();
-    ar1 = ((AssignmentRule) lor.get(0));
+    ar1 = (AssignmentRule) lor.get(0);
     assertTrue( ar1.equals(ar) );
-    ar1 = ((AssignmentRule) lor.get("S1"));
+    ar1 = (AssignmentRule) lor.get("S1");
     assertTrue( ar1.equals(ar) );
-    ar = ((AssignmentRule)  m.getRule(1) );
+    ar = (AssignmentRule)  m.getRule(1);
     assertTrue( ar != null );
-    assertTrue( ar.getVariable().equals( "S2"      ) == true );
-    assertTrue( ar.getFormula().equals( "Keq * S1") == true );
+    assertTrue( ar.getVariable().equals( "S2"      ) );
+    assertTrue( ar.getFormula().equals( "Keq * S1") );
     assertTrue( m.getNumReactions() == 2 );
     r = m.getReaction(0);
     assertTrue( r != null );
-    assertTrue( r.getId().equals( "in") == true );
+    assertTrue( r.getId().equals( "in") );
     assertTrue( r.getNumReactants() == 1 );
     assertTrue( r.getNumProducts() == 1 );
     sr = r.getReactant(0);
     assertTrue( sr != null );
-    assertTrue( sr.getSpecies().equals( "X0") == true );
+    assertTrue( sr.getSpecies().equals( "X0") );
     sr = r.getProduct(0);
     assertTrue( sr != null );
-    assertTrue( sr.getSpecies().equals( "T" ) == true );
+    assertTrue( sr.getSpecies().equals( "T" ) );
     kl = r.getKineticLaw();
     assertTrue( kl != null );
-    assertTrue( kl.getFormula().equals( "k1 * X0") == true );
+    assertTrue( kl.getFormula().equals( "k1 * X0") );
     assertTrue( kl.getNumParameters() == 1 );
-    r1 = ((Reaction) kl.getParentSBMLObject());
+    r1 = (Reaction) kl.getParentSBMLObject();
     assertTrue( r1 != null );
-    assertTrue( r1.getId().equals( "in") == true );
+    assertTrue( r1.getId().equals( "in") );
     assertTrue( r1.getNumReactants() == 1 );
     assertTrue( r1.getNumProducts() == 1 );
     p = kl.getParameter(0);
     assertTrue( p != null );
-    assertTrue( p.getId().equals( "k1") == true );
+    assertTrue( p.getId().equals( "k1") );
     assertTrue( p.getValue() == 0.1 );
-    kl = ((KineticLaw) p.getParentSBMLObject().getParentSBMLObject());
+    kl = (KineticLaw) p.getParentSBMLObject().getParentSBMLObject();
     assertTrue( kl != null );
-    assertTrue( kl.getFormula().equals( "k1 * X0") == true );
+    assertTrue( kl.getFormula().equals( "k1 * X0") );
     assertTrue( kl.getNumParameters() == 1 );
     r = m.getReaction(1);
     assertTrue( r != null );
-    assertTrue( r.getId().equals( "out") == true );
+    assertTrue( r.getId().equals( "out") );
     assertTrue( r.getNumReactants() == 1 );
     assertTrue( r.getNumProducts() == 1 );
     sr = r.getReactant(0);
     assertTrue( sr != null );
-    assertTrue( sr.getSpecies().equals( "T" ) == true );
+    assertTrue( sr.getSpecies().equals( "T" ) );
     sr = r.getProduct(0);
     assertTrue( sr != null );
-    assertTrue( sr.getSpecies().equals( "X1") == true );
+    assertTrue( sr.getSpecies().equals( "X1") );
     kl = r.getKineticLaw();
     assertTrue( kl != null );
-    assertTrue( kl.getFormula().equals( "k2 * T") == true );
+    assertTrue( kl.getFormula().equals( "k2 * T") );
     assertTrue( kl.getNumParameters() == 1 );
     p = kl.getParameter(0);
     assertTrue( p != null );
-    assertTrue( p.getId().equals( "k2") == true );
+    assertTrue( p.getId().equals( "k2") );
     assertTrue( p.getValue() == 0.15 );
     d = null;
   }

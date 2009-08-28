@@ -1,12 +1,12 @@
 #
-# @file    TestReadFromFile2.py
+# @file    TestMathReadFromFile2.py
 # @brief   Tests for reading MathML from files into ASTNodes.
 #
 # @author  Akiya Jouraku (Python conversion)
 # @author  Sarah Keating 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestReadFromFile2.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -34,11 +34,7 @@ class TestMathReadFromFile2(unittest.TestCase):
 
   def test_read_MathML_2(self):
     reader = libsbml.SBMLReader()
-    d = libsbml.SBMLDocument()
-    m = libsbml.Model()
-    fd = libsbml.FunctionDefinition()
-    ia = libsbml.InitialAssignment()
-    filename = "../../math/test/test-data/" 
+    filename = "../../math/test/test-data/"
     filename += "mathML_2.xml"
     d = reader.readSBML(filename)
     if (d == None):
@@ -118,7 +114,7 @@ class TestMathReadFromFile2(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestReadFromFile2))
+  suite.addTest(unittest.makeSuite(TestMathReadFromFile2))
 
   return suite
 

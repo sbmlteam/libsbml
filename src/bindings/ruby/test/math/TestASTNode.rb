@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Ben Bornstein 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestASTNode.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -31,6 +31,43 @@ require 'libSBML'
 class TestASTNode < Test::Unit::TestCase
 
   @@DBL_EPSILON =  2.2204460492503131e-16
+  def test_ASTNode_addChild1
+    node = LibSBML::ASTNode.new()
+    c1 = LibSBML::ASTNode.new()
+    c2 = LibSBML::ASTNode.new()
+    c1_1 = LibSBML::ASTNode.new()
+    i = 0
+    node.setType(LibSBML::AST_LOGICAL_AND)
+    c1.setName( "a")
+    c2.setName( "b")
+    node.addChild(c1)
+    node.addChild(c2)
+    assert( node.getNumChildren() == 2 )
+    assert ((  "and(a, b)" == LibSBML::formulaToString(node) ))
+    c1_1.setName( "d")
+    i = node.addChild(c1_1)
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( node.getNumChildren() == 3 )
+    assert ((  "and(a, b, d)" == LibSBML::formulaToString(node) ))
+    assert ((  "a" == node.getChild(0).getName() ))
+    assert ((  "b" == node.getChild(1).getName() ))
+    assert ((  "d" == node.getChild(2).getName() ))
+    node = nil
+  end
+
+  def test_ASTNode_addSemanticsAnnotation
+    ann = LibSBML::XMLNode.new()
+    node = LibSBML::ASTNode.new()
+    i = 0
+    i = node.addSemanticsAnnotation(ann)
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( node.getNumSemanticsAnnotations() == 1 )
+    i = node.addSemanticsAnnotation(nil)
+    assert( i == LibSBML::LIBSBML_OPERATION_FAILED )
+    assert( node.getNumSemanticsAnnotations() == 1 )
+    node = nil
+  end
+
   def test_ASTNode_canonicalizeConstants
     n = LibSBML::ASTNode.new()
     n.setName( "ExponentialE")
@@ -438,9 +475,11 @@ class TestASTNode < Test::Unit::TestCase
 
   def test_ASTNode_create
     n = LibSBML::ASTNode.new()
-    ea = LibSBML::EventAssignment.new()
+    sbmlns = LibSBML::SBMLNamespaces.new(2,4)
+    sbmlns.addNamespaces(nil)
+    ea = LibSBML::EventAssignment.new(sbmlns)
     assert( n.getType() == LibSBML::AST_UNKNOWN )
-    assert( n.getCharacter() == "\0"  )
+    assert( n.getCharacter() ==  "\0"  )
     assert( n.getName() == nil )
     assert( n.getInteger() == 0 )
     assert( n.getExponent() == 0 )
@@ -530,6 +569,26 @@ class TestASTNode < Test::Unit::TestCase
     assert( copy.getNumChildren() == 0 )
     node = nil
     copy = nil
+  end
+
+  def test_ASTNode_freeName
+    node = LibSBML::ASTNode.new()
+    i = 0
+    i = node.setName( "a")
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert ((  "a" == LibSBML::formulaToString(node) ))
+    assert ((  "a" == node.getName() ))
+    i = node.freeName()
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( node.getName() == nil )
+    i = node.freeName()
+    assert( i == LibSBML::LIBSBML_UNEXPECTED_ATTRIBUTE )
+    assert( node.getName() == nil )
+    node.setType(LibSBML::AST_UNKNOWN)
+    i = node.freeName()
+    assert( i == LibSBML::LIBSBML_UNEXPECTED_ATTRIBUTE )
+    assert( node.getName() == nil )
+    node = nil
   end
 
   def test_ASTNode_free_NULL
@@ -646,15 +705,15 @@ class TestASTNode < Test::Unit::TestCase
     newc.setName( "d")
     newc1.setName( "e")
     i = node.insertChild(1,newc)
-    assert( i == 0 )
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
     assert( node.getNumChildren() == 4 )
     assert ((  "and(a, d, b, c)" == LibSBML::formulaToString(node) ))
     i = node.insertChild(5,newc)
-    assert( i == -1 )
+    assert( i == LibSBML::LIBSBML_INDEX_EXCEEDS_SIZE )
     assert( node.getNumChildren() == 4 )
     assert ((  "and(a, d, b, c)" == LibSBML::formulaToString(node) ))
     i = node.insertChild(2,newc1)
-    assert( i == 0 )
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
     assert( node.getNumChildren() == 5 )
     assert ((  "and(a, d, e, b, c)" == LibSBML::formulaToString(node) ))
     node = nil
@@ -724,6 +783,30 @@ class TestASTNode < Test::Unit::TestCase
     node = nil
   end
 
+  def test_ASTNode_prependChild1
+    node = LibSBML::ASTNode.new()
+    c1 = LibSBML::ASTNode.new()
+    c2 = LibSBML::ASTNode.new()
+    c1_1 = LibSBML::ASTNode.new()
+    i = 0
+    node.setType(LibSBML::AST_LOGICAL_AND)
+    c1.setName( "a")
+    c2.setName( "b")
+    node.addChild(c1)
+    node.addChild(c2)
+    assert( node.getNumChildren() == 2 )
+    assert ((  "and(a, b)" == LibSBML::formulaToString(node) ))
+    c1_1.setName( "d")
+    i = node.prependChild(c1_1)
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( node.getNumChildren() == 3 )
+    assert ((  "and(d, a, b)" == LibSBML::formulaToString(node) ))
+    assert ((  "d" == node.getChild(0).getName() ))
+    assert ((  "a" == node.getChild(1).getName() ))
+    assert ((  "b" == node.getChild(2).getName() ))
+    node = nil
+  end
+
   def test_ASTNode_removeChild
     node = LibSBML::ASTNode.new()
     c1 = LibSBML::ASTNode.new()
@@ -736,13 +819,13 @@ class TestASTNode < Test::Unit::TestCase
     node.addChild(c2)
     assert( node.getNumChildren() == 2 )
     i = node.removeChild(0)
-    assert( i == 0 )
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
     assert( node.getNumChildren() == 1 )
     i = node.removeChild(1)
-    assert( i == -1 )
+    assert( i == LibSBML::LIBSBML_INDEX_EXCEEDS_SIZE )
     assert( node.getNumChildren() == 1 )
     i = node.removeChild(0)
-    assert( i == 0 )
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
     assert( node.getNumChildren() == 0 )
     node = nil
   end
@@ -765,15 +848,15 @@ class TestASTNode < Test::Unit::TestCase
     assert ((  "and(a, b, c)" == LibSBML::formulaToString(node) ))
     newc.setName( "d")
     i = node.replaceChild(0,newc)
-    assert( i == 0 )
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
     assert( node.getNumChildren() == 3 )
     assert ((  "and(d, b, c)" == LibSBML::formulaToString(node) ))
     i = node.replaceChild(3,newc)
-    assert( i == -1 )
+    assert( i == LibSBML::LIBSBML_INDEX_EXCEEDS_SIZE )
     assert( node.getNumChildren() == 3 )
     assert ((  "and(d, b, c)" == LibSBML::formulaToString(node) ))
     i = node.replaceChild(1,c1)
-    assert( i == 0 )
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
     assert( node.getNumChildren() == 3 )
     assert ((  "and(d, a, c)" == LibSBML::formulaToString(node) ))
     node = nil
@@ -985,6 +1068,38 @@ class TestASTNode < Test::Unit::TestCase
     node.setType(LibSBML::AST_POWER)
     assert( node.getType() == LibSBML::AST_POWER )
     assert( node.getCharacter() ==  '^'        )
+    node = nil
+  end
+
+  def test_ASTNode_swapChildren
+    node = LibSBML::ASTNode.new()
+    c1 = LibSBML::ASTNode.new()
+    c2 = LibSBML::ASTNode.new()
+    node_1 = LibSBML::ASTNode.new()
+    c1_1 = LibSBML::ASTNode.new()
+    c2_1 = LibSBML::ASTNode.new()
+    i = 0
+    node.setType(LibSBML::AST_LOGICAL_AND)
+    c1.setName( "a")
+    c2.setName( "b")
+    node.addChild(c1)
+    node.addChild(c2)
+    assert( node.getNumChildren() == 2 )
+    assert ((  "and(a, b)" == LibSBML::formulaToString(node) ))
+    node_1.setType(LibSBML::AST_LOGICAL_AND)
+    c1_1.setName( "d")
+    c2_1.setName( "f")
+    node_1.addChild(c1_1)
+    node_1.addChild(c2_1)
+    assert( node_1.getNumChildren() == 2 )
+    assert ((  "and(d, f)" == LibSBML::formulaToString(node_1) ))
+    i = node.swapChildren(node_1)
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( node.getNumChildren() == 2 )
+    assert ((  "and(d, f)" == LibSBML::formulaToString(node) ))
+    assert( node_1.getNumChildren() == 2 )
+    assert ((  "and(a, b)" == LibSBML::formulaToString(node_1) ))
+    node_1 = nil
     node = nil
   end
 

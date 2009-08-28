@@ -30,7 +30,9 @@ namespace TestLibSBMLCSharp
 
     class ReadAndWriteSBML
     {
-        static int numErrors = 0;
+        static int numErrors  = 0;
+        static int defLevel   = 2;
+        static int defVersion = 4;
 
         static void Main(string[] args)
         {
@@ -95,29 +97,29 @@ namespace TestLibSBMLCSharp
           //
           // test clone() methods 
           //
-          testClone(new Compartment());
-          testClone(new CompartmentType());
-          testClone(new Constraint());
-          testClone(new Delay());
-          testClone(new Event());
-          testClone(new EventAssignment());
-          testClone(new FunctionDefinition());
-          testClone(new InitialAssignment());
-          testClone(new KineticLaw());
-          testClone(new Model());
-          testClone(new Parameter());
-          testClone(new Reaction());
-          testClone(new AlgebraicRule());
-          testClone(new AssignmentRule());
-          testClone(new RateRule());
-          testClone(new SBMLDocument());
-          testClone(new Species());
-          testClone(new SpeciesReference());
-          testClone(new SpeciesType());
-          testClone(new StoichiometryMath());
-          testClone(new Trigger());
-          testClone(new Unit());
-          testClone(new UnitDefinition());
+          testClone(new Compartment(defLevel,defVersion));
+          testClone(new CompartmentType(defLevel,defVersion));
+          testClone(new Constraint(defLevel,defVersion));
+          testClone(new Delay(defLevel,defVersion));
+          testClone(new Event(defLevel,defVersion));
+          testClone(new EventAssignment(defLevel,defVersion));
+          testClone(new FunctionDefinition(defLevel,defVersion));
+          testClone(new InitialAssignment(defLevel,defVersion));
+          testClone(new KineticLaw(defLevel,defVersion));
+          testClone(new Model(defLevel,defVersion));
+          testClone(new Parameter(defLevel,defVersion));
+          testClone(new Reaction(defLevel,defVersion));
+          testClone(new AlgebraicRule(defLevel,defVersion));
+          testClone(new AssignmentRule(defLevel,defVersion));
+          testClone(new RateRule(defLevel,defVersion));
+          testClone(new SBMLDocument(defLevel,defVersion));
+          testClone(new Species(defLevel,defVersion));
+          testClone(new SpeciesReference(defLevel,defVersion));
+          testClone(new SpeciesType(defLevel,defVersion));
+          testClone(new StoichiometryMath(defLevel,defVersion));
+          testClone(new Trigger(defLevel,defVersion));
+          testClone(new Unit(defLevel,defVersion));
+          testClone(new UnitDefinition(defLevel,defVersion));
           testClone(new ListOf());
           testClone(new ListOfCompartmentTypes());
           testClone(new ListOfCompartments());
@@ -138,44 +140,44 @@ namespace TestLibSBMLCSharp
           //
           // test ListOfXXX:get() methods 
           //
-          testListOfGet(new ListOfCompartmentTypes(), new CompartmentType());
-          testListOfGet(new ListOfCompartments(), new Compartment());
-          testListOfGet(new ListOfConstraints(), new Constraint());
-          testListOfGet(new ListOfEventAssignments(), new EventAssignment());
-          testListOfGet(new ListOfEvents(), new Event());
-          testListOfGet(new ListOfFunctionDefinitions(), new FunctionDefinition());
-          testListOfGet(new ListOfInitialAssignments(), new InitialAssignment());
-          testListOfGet(new ListOfParameters(), new Parameter());
-          testListOfGet(new ListOfReactions(), new Reaction());
-          testListOfGet(new ListOfRules(), new AssignmentRule());
-          testListOfGet(new ListOfRules(), new AlgebraicRule());
-          testListOfGet(new ListOfRules(), new RateRule());
-          testListOfGet(new ListOfSpecies(), new Species());
-          testListOfGet(new ListOfSpeciesReferences(), new SpeciesReference());
-          testListOfGet(new ListOfSpeciesTypes(), new SpeciesType());
-          testListOfGet(new ListOfUnitDefinitions(), new UnitDefinition());
-          testListOfGet(new ListOfUnits(), new Unit());
+          testListOfGet(new ListOfCompartmentTypes(), new CompartmentType(defLevel,defVersion));
+          testListOfGet(new ListOfCompartments(), new Compartment(defLevel,defVersion));
+          testListOfGet(new ListOfConstraints(), new Constraint(defLevel,defVersion));
+          testListOfGet(new ListOfEventAssignments(), new EventAssignment(defLevel,defVersion));
+          testListOfGet(new ListOfEvents(), new Event(defLevel,defVersion));
+          testListOfGet(new ListOfFunctionDefinitions(), new FunctionDefinition(defLevel,defVersion));
+          testListOfGet(new ListOfInitialAssignments(), new InitialAssignment(defLevel,defVersion));
+          testListOfGet(new ListOfParameters(), new Parameter(defLevel,defVersion));
+          testListOfGet(new ListOfReactions(), new Reaction(defLevel,defVersion));
+          testListOfGet(new ListOfRules(), new AssignmentRule(defLevel,defVersion));
+          testListOfGet(new ListOfRules(), new AlgebraicRule(defLevel,defVersion));
+          testListOfGet(new ListOfRules(), new RateRule(defLevel,defVersion));
+          testListOfGet(new ListOfSpecies(), new Species(defLevel,defVersion));
+          testListOfGet(new ListOfSpeciesReferences(), new SpeciesReference(defLevel,defVersion));
+          testListOfGet(new ListOfSpeciesTypes(), new SpeciesType(defLevel,defVersion));
+          testListOfGet(new ListOfUnitDefinitions(), new UnitDefinition(defLevel,defVersion));
+          testListOfGet(new ListOfUnits(), new Unit(defLevel,defVersion));
 
           //
           // test ListOfXXX:remove() methods 
           //
-          testListOfRemove(new ListOfCompartmentTypes(), new CompartmentType());
-          testListOfRemove(new ListOfCompartments(), new Compartment());
-          testListOfRemove(new ListOfConstraints(), new Constraint());
-          testListOfRemove(new ListOfEventAssignments(), new EventAssignment());
-          testListOfRemove(new ListOfEvents(), new Event());
-          testListOfRemove(new ListOfFunctionDefinitions(), new FunctionDefinition());
-          testListOfRemove(new ListOfInitialAssignments(), new InitialAssignment());
-          testListOfRemove(new ListOfParameters(), new Parameter());
-          testListOfRemove(new ListOfReactions(), new Reaction());
-          testListOfRemove(new ListOfRules(), new AssignmentRule());
-          testListOfRemove(new ListOfRules(), new AlgebraicRule());
-          testListOfRemove(new ListOfRules(), new RateRule());
-          testListOfRemove(new ListOfSpecies(), new Species());
-          testListOfRemove(new ListOfSpeciesReferences(), new SpeciesReference());
-          testListOfRemove(new ListOfSpeciesTypes(), new SpeciesType());
-          testListOfRemove(new ListOfUnitDefinitions(), new UnitDefinition());
-          testListOfRemove(new ListOfUnits(), new Unit());
+          testListOfRemove(new ListOfCompartmentTypes(), new CompartmentType(defLevel,defVersion));
+          testListOfRemove(new ListOfCompartments(), new Compartment(defLevel,defVersion));
+          testListOfRemove(new ListOfConstraints(), new Constraint(defLevel,defVersion));
+          testListOfRemove(new ListOfEventAssignments(), new EventAssignment(defLevel,defVersion));
+          testListOfRemove(new ListOfEvents(), new Event(defLevel,defVersion));
+          testListOfRemove(new ListOfFunctionDefinitions(), new FunctionDefinition(defLevel,defVersion));
+          testListOfRemove(new ListOfInitialAssignments(), new InitialAssignment(defLevel,defVersion));
+          testListOfRemove(new ListOfParameters(), new Parameter(defLevel,defVersion));
+          testListOfRemove(new ListOfReactions(), new Reaction(defLevel,defVersion));
+          testListOfRemove(new ListOfRules(), new AssignmentRule(defLevel,defVersion));
+          testListOfRemove(new ListOfRules(), new AlgebraicRule(defLevel,defVersion));
+          testListOfRemove(new ListOfRules(), new RateRule(defLevel,defVersion));
+          testListOfRemove(new ListOfSpecies(), new Species(defLevel,defVersion));
+          testListOfRemove(new ListOfSpeciesReferences(), new SpeciesReference(defLevel,defVersion));
+          testListOfRemove(new ListOfSpeciesTypes(), new SpeciesType(defLevel,defVersion));
+          testListOfRemove(new ListOfUnitDefinitions(), new UnitDefinition(defLevel,defVersion));
+          testListOfRemove(new ListOfUnits(), new Unit(defLevel,defVersion));
         }
 
         static void testClone(SBase s)
@@ -502,8 +504,7 @@ namespace TestLibSBMLCSharp
 
         static void testCreateSBML()
         {
-            SBMLDocument d = new SBMLDocument();
-            d.setLevelAndVersion(2, 4);
+            SBMLDocument d = new SBMLDocument(defLevel,defVersion);
 
             Model m = d.createModel();
             m.setId("testmodel");

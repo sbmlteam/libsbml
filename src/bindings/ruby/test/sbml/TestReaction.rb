@@ -31,7 +31,7 @@ require 'libSBML'
 class TestReaction < Test::Unit::TestCase
 
   def setup
-    @@r = LibSBML::Reaction.new()
+    @@r = LibSBML::Reaction.new(2,4)
     if (@@r == nil)
     end
   end
@@ -41,14 +41,17 @@ class TestReaction < Test::Unit::TestCase
   end
 
   def test_Reaction_addModifier
-    @@r.addModifier(LibSBML::ModifierSpeciesReference.new())
+    msr = LibSBML::ModifierSpeciesReference.new(2,4)
+    msr.setSpecies( "s")
+    @@r.addModifier(msr)
     assert( @@r.getNumReactants() == 0 )
     assert( @@r.getNumProducts() == 0 )
     assert( @@r.getNumModifiers() == 1 )
   end
 
   def test_Reaction_addProduct
-    sr = LibSBML::SpeciesReference.new()
+    sr = LibSBML::SpeciesReference.new(2,4)
+    sr.setSpecies( "s")
     @@r.addProduct(sr)
     assert( @@r.getNumReactants() == 0 )
     assert( @@r.getNumProducts() == 1 )
@@ -57,7 +60,8 @@ class TestReaction < Test::Unit::TestCase
   end
 
   def test_Reaction_addReactant
-    sr = LibSBML::SpeciesReference.new()
+    sr = LibSBML::SpeciesReference.new(2,4)
+    sr.setSpecies( "s")
     @@r.addReactant(sr)
     assert( @@r.getNumReactants() == 1 )
     assert( @@r.getNumProducts() == 0 )
@@ -83,40 +87,20 @@ class TestReaction < Test::Unit::TestCase
     assert( @@r.getNumModifiers() == 0 )
   end
 
-  def test_Reaction_createWith
-    kl = LibSBML::KineticLaw.new()
-    r = LibSBML::Reaction.new("r1", "",kl,false)
-    r.setFast(true)
-    assert( r.getTypeCode() == LibSBML::SBML_REACTION )
-    assert( r.getMetaId() == "" )
-    assert( r.getNotes() == nil )
-    assert( r.getAnnotation() == nil )
-    assert( r.getName() == "" )
-    assert ((  "r1" == r.getId() ))
-    assert( r.getReversible() == false )
-    assert( r.getFast() == true )
-    assert_equal true, r.isSetId()
-    assert_equal false, r.isSetName()
-    assert_equal true, r.isSetKineticLaw()
-    assert( r.getNumReactants() == 0 )
-    assert( r.getNumProducts() == 0 )
-    assert( r.getNumModifiers() == 0 )
-    kl = nil
-    r = nil
-  end
-
-  def test_Reaction_createWithLevelVersionAndNamespace
+  def test_Reaction_createWithNS
     xmlns = LibSBML::XMLNamespaces.new()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = LibSBML::Reaction.new(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = LibSBML::SBMLNamespaces.new(2,1)
+    sbmlns.addNamespaces(xmlns)
+    object = LibSBML::Reaction.new(sbmlns)
     assert( object.getTypeCode() == LibSBML::SBML_REACTION )
     assert( object.getMetaId() == "" )
     assert( object.getNotes() == nil )
     assert( object.getAnnotation() == nil )
     assert( object.getLevel() == 2 )
     assert( object.getVersion() == 1 )
-    assert( object.getNamespaces() != "" )
-    assert( object.getNamespaces().getLength() == 1 )
+    assert( object.getNamespaces() != nil )
+    assert( object.getNamespaces().getLength() == 2 )
     object = nil
   end
 
@@ -124,8 +108,8 @@ class TestReaction < Test::Unit::TestCase
   end
 
   def test_Reaction_getModifier
-    msr1 = LibSBML::ModifierSpeciesReference.new()
-    msr2 = LibSBML::ModifierSpeciesReference.new()
+    msr1 = LibSBML::ModifierSpeciesReference.new(2,4)
+    msr2 = LibSBML::ModifierSpeciesReference.new(2,4)
     msr1.setSpecies( "M1")
     msr2.setSpecies( "M2")
     @@r.addModifier(msr1)
@@ -142,8 +126,8 @@ class TestReaction < Test::Unit::TestCase
   end
 
   def test_Reaction_getModifierById
-    msr1 = LibSBML::ModifierSpeciesReference.new()
-    msr2 = LibSBML::ModifierSpeciesReference.new()
+    msr1 = LibSBML::ModifierSpeciesReference.new(2,4)
+    msr2 = LibSBML::ModifierSpeciesReference.new(2,4)
     msr1.setSpecies( "M1")
     msr2.setSpecies( "M2")
     @@r.addModifier(msr1)
@@ -159,8 +143,8 @@ class TestReaction < Test::Unit::TestCase
   end
 
   def test_Reaction_getProduct
-    sr1 = LibSBML::SpeciesReference.new()
-    sr2 = LibSBML::SpeciesReference.new()
+    sr1 = LibSBML::SpeciesReference.new(2,4)
+    sr2 = LibSBML::SpeciesReference.new(2,4)
     sr1.setSpecies( "P1")
     sr2.setSpecies( "P2")
     @@r.addProduct(sr1)
@@ -177,8 +161,10 @@ class TestReaction < Test::Unit::TestCase
   end
 
   def test_Reaction_getProductById
-    sr1 = LibSBML::SpeciesReference.new("P1",1,1)
-    sr2 = LibSBML::SpeciesReference.new("P2",1,1)
+    sr1 = LibSBML::SpeciesReference.new(2,4)
+    sr1.setSpecies( "P1")
+    sr2 = LibSBML::SpeciesReference.new(2,4)
+    sr2.setSpecies( "P1")
     @@r.addProduct(sr1)
     @@r.addProduct(sr2)
     assert( @@r.getNumReactants() == 0 )
@@ -192,8 +178,8 @@ class TestReaction < Test::Unit::TestCase
   end
 
   def test_Reaction_getReactant
-    sr1 = LibSBML::SpeciesReference.new()
-    sr2 = LibSBML::SpeciesReference.new()
+    sr1 = LibSBML::SpeciesReference.new(2,4)
+    sr2 = LibSBML::SpeciesReference.new(2,4)
     sr1.setSpecies( "R1")
     sr2.setSpecies( "R2")
     @@r.addReactant(sr1)
@@ -210,8 +196,10 @@ class TestReaction < Test::Unit::TestCase
   end
 
   def test_Reaction_getReactantById
-    sr1 = LibSBML::SpeciesReference.new("R1",1,1)
-    sr2 = LibSBML::SpeciesReference.new("R2",1,1)
+    sr1 = LibSBML::SpeciesReference.new(2,4)
+    sr1.setSpecies( "R1")
+    sr2 = LibSBML::SpeciesReference.new(2,4)
+    sr2.setSpecies( "R2")
     @@r.addReactant(sr1)
     @@r.addReactant(sr2)
     assert( @@r.getNumReactants() == 2 )
@@ -222,6 +210,54 @@ class TestReaction < Test::Unit::TestCase
     assert( @@r.getReactant( "R3") == nil )
     sr1 = nil
     sr2 = nil
+  end
+
+  def test_Reaction_removeModifier
+    o1 = @@r.createModifier()
+    o2 = @@r.createModifier()
+    o3 = @@r.createModifier()
+    o3.setSpecies("test")
+    assert( @@r.removeModifier(0) == o1 )
+    assert( @@r.getNumModifiers() == 2 )
+    assert( @@r.removeModifier(0) == o2 )
+    assert( @@r.getNumModifiers() == 1 )
+    assert( @@r.removeModifier("test") == o3 )
+    assert( @@r.getNumModifiers() == 0 )
+    o1 = nil
+    o2 = nil
+    o3 = nil
+  end
+
+  def test_Reaction_removeProduct
+    o1 = @@r.createProduct()
+    o2 = @@r.createProduct()
+    o3 = @@r.createProduct()
+    o3.setSpecies("test")
+    assert( @@r.removeProduct(0) == o1 )
+    assert( @@r.getNumProducts() == 2 )
+    assert( @@r.removeProduct(0) == o2 )
+    assert( @@r.getNumProducts() == 1 )
+    assert( @@r.removeProduct("test") == o3 )
+    assert( @@r.getNumProducts() == 0 )
+    o1 = nil
+    o2 = nil
+    o3 = nil
+  end
+
+  def test_Reaction_removeReactant
+    o1 = @@r.createReactant()
+    o2 = @@r.createReactant()
+    o3 = @@r.createReactant()
+    o3.setSpecies("test")
+    assert( @@r.removeReactant(0) == o1 )
+    assert( @@r.getNumReactants() == 2 )
+    assert( @@r.removeReactant(0) == o2 )
+    assert( @@r.getNumReactants() == 1 )
+    assert( @@r.removeReactant("test") == o3 )
+    assert( @@r.getNumReactants() == 0 )
+    o1 = nil
+    o2 = nil
+    o3 = nil
   end
 
   def test_Reaction_setId
@@ -240,7 +276,7 @@ class TestReaction < Test::Unit::TestCase
   end
 
   def test_Reaction_setName
-    name =  "MapK Cascade";
+    name =  "MapK_Cascade";
     @@r.setName(name)
     assert (( name == @@r.getName() ))
     assert_equal true, @@r.isSetName()

@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Ben Bornstein 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestCompartmentVolumeRule.c
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -58,6 +58,10 @@ namespace LibSBMLCSTest {
       {
         return;
       }
+      else if ( (a == null) || (b == null) )
+      {
+        throw new AssertionError();
+      }
       else if (a.Equals(b))
       {
         return;
@@ -71,6 +75,10 @@ namespace LibSBMLCSTest {
       if ( (a == null) && (b == null) )
       {
         throw new AssertionError();
+      }
+      else if ( (a == null) || (b == null) )
+      {
+        return;
       }
       else if (a.Equals(b))
       {
@@ -118,7 +126,7 @@ namespace LibSBMLCSTest {
 
     public void setUp()
     {
-      CVR = new  AssignmentRule();
+      CVR = new  AssignmentRule(1,2);
       CVR.setL1TypeCode(libsbml.SBML_COMPARTMENT_VOLUME_RULE);
       if (CVR == null);
       {
@@ -140,22 +148,6 @@ namespace LibSBMLCSTest {
       assertTrue( CVR.getType() == libsbml.RULE_TYPE_SCALAR );
       assertTrue( CVR.getVariable() == "" );
       assertEquals( false, CVR.isSetVariable() );
-    }
-
-    public void test_CompartmentVolumeRule_createWith()
-    {
-      Rule cvr;
-      cvr = new  RateRule("c", "v + 1");
-      cvr.setL1TypeCode(libsbml.SBML_COMPARTMENT_VOLUME_RULE);
-      assertTrue( cvr.getTypeCode() == libsbml.SBML_RATE_RULE );
-      assertTrue( cvr.getL1TypeCode() == libsbml.SBML_COMPARTMENT_VOLUME_RULE );
-      assertTrue( cvr.getNotes() == null );
-      assertTrue( cvr.getAnnotation() == null );
-      assertTrue((  "v + 1" == cvr.getFormula() ));
-      assertTrue((  "c" == cvr.getVariable() ));
-      assertTrue( cvr.getType() == libsbml.RULE_TYPE_RATE );
-      assertEquals( true, cvr.isSetVariable() );
-      cvr = null;
     }
 
     public void test_CompartmentVolumeRule_free_NULL()

@@ -281,7 +281,7 @@ class TestXMLToken(unittest.TestCase):
     token.addNamespace( "http://test1.org/", "test1a")
     self.assert_( token.getNamespacesLength() == 3 )
     self.assert_( token.isNamespacesEmpty() == False )
-    self.assert_( token.getNamespaceIndex( "http://test1.org/") != -1 )
+    self.assert_( (token.getNamespaceIndex( "http://test1.org/") == -1) == False )
     token = None
     triple = None
     attr = None

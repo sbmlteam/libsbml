@@ -31,7 +31,7 @@ require 'libSBML'
 class TestModel < Test::Unit::TestCase
 
   def setup
-    @@m = LibSBML::Model.new()
+    @@m = LibSBML::Model.new(2,4)
     if (@@m == nil)
     end
   end
@@ -41,19 +41,20 @@ class TestModel < Test::Unit::TestCase
   end
 
   def test_KineticLaw_getParameterById
-    k1 = LibSBML::Parameter.new()
-    k2 = LibSBML::Parameter.new()
+    k1 = LibSBML::Parameter.new(2,4)
+    k2 = LibSBML::Parameter.new(2,4)
     k1.setId( "k1")
     k2.setId( "k2")
     k1.setValue(3.14)
     k2.setValue(2.72)
     @@m.addParameter(k1)
     @@m.addParameter(k2)
-    r1 = LibSBML::Reaction.new()
+    r1 = LibSBML::Reaction.new(2,4)
     r1.setId( "reaction_1" )
-    kl = LibSBML::KineticLaw.new("k1 * X0")
-    k3 = LibSBML::Parameter.new()
-    k4 = LibSBML::Parameter.new()
+    kl = LibSBML::KineticLaw.new(2,4)
+    kl.setFormula( "k1 * X0")
+    k3 = LibSBML::Parameter.new(2,4)
+    k4 = LibSBML::Parameter.new(2,4)
     k3.setId( "k1")
     k4.setId( "k2")
     k3.setValue(2.72)
@@ -70,35 +71,57 @@ class TestModel < Test::Unit::TestCase
   end
 
   def test_Model_addCompartment
-    @@m.addCompartment(LibSBML::Compartment.new())
+    c = LibSBML::Compartment.new(2,4)
+    c.setId( "c")
+    @@m.addCompartment(c)
     assert( @@m.getNumCompartments() == 1 )
   end
 
   def test_Model_addParameter
-    @@m.addParameter(LibSBML::Parameter.new())
+    p = LibSBML::Parameter.new(2,4)
+    p.setId( "p")
+    @@m.addParameter(p)
     assert( @@m.getNumParameters() == 1 )
   end
 
   def test_Model_addReaction
-    @@m.addReaction(LibSBML::Reaction.new())
+    r = LibSBML::Reaction.new(2,4)
+    r.setId( "r")
+    @@m.addReaction(r)
     assert( @@m.getNumReactions() == 1 )
   end
 
   def test_Model_addRules
-    @@m.addRule(LibSBML::AlgebraicRule.new())
-    @@m.addRule(LibSBML::AssignmentRule.new())
-    @@m.addRule(LibSBML::RateRule.new())
+    r1 = LibSBML::AlgebraicRule.new(2,4)
+    r2 = LibSBML::AssignmentRule.new(2,4)
+    r3 = LibSBML::RateRule.new(2,4)
+    r2.setVariable( "r2")
+    r3.setVariable( "r3")
+    r1.setMath(LibSBML::parseFormula("2"))
+    r2.setMath(LibSBML::parseFormula("2"))
+    r3.setMath(LibSBML::parseFormula("2"))
+    @@m.addRule(r1)
+    @@m.addRule(r2)
+    @@m.addRule(r3)
     assert( @@m.getNumRules() == 3 )
   end
 
   def test_Model_addSpecies
-    @@m.addSpecies(LibSBML::Species.new())
+    s = LibSBML::Species.new(2,4)
+    s.setId( "s")
+    s.setCompartment( "c")
+    @@m.addSpecies(s)
     assert( @@m.getNumSpecies() == 1 )
   end
 
   def test_Model_add_get_Event
-    e1 = LibSBML::Event.new()
-    e2 = LibSBML::Event.new()
+    e1 = LibSBML::Event.new(2,4)
+    e2 = LibSBML::Event.new(2,4)
+    t = LibSBML::Trigger.new(2,4)
+    e1.setTrigger(t)
+    e2.setTrigger(t)
+    e1.createEventAssignment()
+    e2.createEventAssignment()
     @@m.addEvent(e1)
     @@m.addEvent(e2)
     assert( @@m.getNumEvents() == 2 )
@@ -108,8 +131,12 @@ class TestModel < Test::Unit::TestCase
   end
 
   def test_Model_add_get_FunctionDefinitions
-    fd1 = LibSBML::FunctionDefinition.new()
-    fd2 = LibSBML::FunctionDefinition.new()
+    fd1 = LibSBML::FunctionDefinition.new(2,4)
+    fd2 = LibSBML::FunctionDefinition.new(2,4)
+    fd1.setId( "fd1")
+    fd2.setId( "fd2")
+    fd1.setMath(LibSBML::parseFormula("2"))
+    fd2.setMath(LibSBML::parseFormula("2"))
     @@m.addFunctionDefinition(fd1)
     @@m.addFunctionDefinition(fd2)
     assert( @@m.getNumFunctionDefinitions() == 2 )
@@ -119,8 +146,12 @@ class TestModel < Test::Unit::TestCase
   end
 
   def test_Model_add_get_UnitDefinitions
-    ud1 = LibSBML::UnitDefinition.new()
-    ud2 = LibSBML::UnitDefinition.new()
+    ud1 = LibSBML::UnitDefinition.new(2,4)
+    ud2 = LibSBML::UnitDefinition.new(2,4)
+    ud1.setId( "ud1")
+    ud2.setId( "ud2")
+    ud1.createUnit()
+    ud2.createUnit()
     @@m.addUnitDefinition(ud1)
     @@m.addUnitDefinition(ud2)
     assert( @@m.getNumUnitDefinitions() == 2 )
@@ -372,42 +403,20 @@ class TestModel < Test::Unit::TestCase
     assert( @@m.createUnit() == nil )
   end
 
-  def test_Model_createWith
-    m = LibSBML::Model.new("repressilator", "")
-    assert( m.getTypeCode() == LibSBML::SBML_MODEL )
-    assert( m.getMetaId() == "" )
-    assert( m.getNotes() == nil )
-    assert( m.getAnnotation() == nil )
-    assert( m.getName() == "" )
-    assert ((  "repressilator" == m.getId() ))
-    assert_equal true, m.isSetId()
-    assert( m.getNumUnitDefinitions() == 0 )
-    assert( m.getNumFunctionDefinitions() == 0 )
-    assert( m.getNumCompartments() == 0 )
-    assert( m.getNumSpecies() == 0 )
-    assert( m.getNumParameters() == 0 )
-    assert( m.getNumReactions() == 0 )
-    assert( m.getNumRules() == 0 )
-    assert( m.getNumConstraints() == 0 )
-    assert( m.getNumEvents() == 0 )
-    assert( m.getNumCompartmentTypes() == 0 )
-    assert( m.getNumSpeciesTypes() == 0 )
-    assert( m.getNumInitialAssignments() == 0 )
-    m = nil
-  end
-
-  def test_Model_createWithLevelVersionAndNamespace
+  def test_Model_createWithNS
     xmlns = LibSBML::XMLNamespaces.new()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = LibSBML::Model.new(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = LibSBML::SBMLNamespaces.new(2,1)
+    sbmlns.addNamespaces(xmlns)
+    object = LibSBML::Model.new(sbmlns)
     assert( object.getTypeCode() == LibSBML::SBML_MODEL )
     assert( object.getMetaId() == "" )
     assert( object.getNotes() == nil )
     assert( object.getAnnotation() == nil )
     assert( object.getLevel() == 2 )
     assert( object.getVersion() == 1 )
-    assert( object.getNamespaces() != "" )
-    assert( object.getNamespaces().getLength() == 1 )
+    assert( object.getNamespaces() != nil )
+    assert( object.getNamespaces().getLength() == 2 )
     object = nil
   end
 
@@ -415,22 +424,22 @@ class TestModel < Test::Unit::TestCase
   end
 
   def test_Model_getCompartment
-    c1 = LibSBML::Compartment.new()
-    c2 = LibSBML::Compartment.new()
-    c1.setName( "A")
-    c2.setName( "B")
+    c1 = LibSBML::Compartment.new(2,4)
+    c2 = LibSBML::Compartment.new(2,4)
+    c1.setId( "A")
+    c2.setId( "B")
     @@m.addCompartment(c1)
     @@m.addCompartment(c2)
     assert( @@m.getNumCompartments() == 2 )
     c1 = @@m.getCompartment(0)
     c2 = @@m.getCompartment(1)
-    assert ((  "A" == c1.getName() ))
-    assert ((  "B" == c2.getName() ))
+    assert ((  "A" == c1.getId() ))
+    assert ((  "B" == c2.getId() ))
   end
 
   def test_Model_getCompartmentById
-    c1 = LibSBML::Compartment.new()
-    c2 = LibSBML::Compartment.new()
+    c1 = LibSBML::Compartment.new(2,4)
+    c2 = LibSBML::Compartment.new(2,4)
     c1.setId( "A" )
     c2.setId( "B" )
     @@m.addCompartment(c1)
@@ -442,8 +451,13 @@ class TestModel < Test::Unit::TestCase
   end
 
   def test_Model_getEventById
-    e1 = LibSBML::Event.new()
-    e2 = LibSBML::Event.new()
+    e1 = LibSBML::Event.new(2,4)
+    e2 = LibSBML::Event.new(2,4)
+    t = LibSBML::Trigger.new(2,4)
+    e1.setTrigger(t)
+    e2.setTrigger(t)
+    e1.createEventAssignment()
+    e2.createEventAssignment()
     e1.setId( "e1" )
     e2.setId( "e2" )
     @@m.addEvent(e1)
@@ -455,10 +469,12 @@ class TestModel < Test::Unit::TestCase
   end
 
   def test_Model_getFunctionDefinitionById
-    fd1 = LibSBML::FunctionDefinition.new()
-    fd2 = LibSBML::FunctionDefinition.new()
+    fd1 = LibSBML::FunctionDefinition.new(2,4)
+    fd2 = LibSBML::FunctionDefinition.new(2,4)
     fd1.setId( "sin" )
     fd2.setId( "cos" )
+    fd1.setMath(LibSBML::parseFormula("2"))
+    fd2.setMath(LibSBML::parseFormula("2"))
     @@m.addFunctionDefinition(fd1)
     @@m.addFunctionDefinition(fd2)
     assert( @@m.getNumFunctionDefinitions() == 2 )
@@ -468,9 +484,15 @@ class TestModel < Test::Unit::TestCase
   end
 
   def test_Model_getNumSpeciesWithBoundaryCondition
-    s1 = LibSBML::Species.new("s1", "c")
-    s2 = LibSBML::Species.new("s2", "c")
-    s3 = LibSBML::Species.new("s3", "c")
+    s1 = LibSBML::Species.new(2,4)
+    s2 = LibSBML::Species.new(2,4)
+    s3 = LibSBML::Species.new(2,4)
+    s1.setId( "s1")
+    s2.setId( "s2")
+    s3.setId( "s3")
+    s1.setCompartment( "c1")
+    s2.setCompartment( "c2")
+    s3.setCompartment( "c3")
     s1.setBoundaryCondition(true)
     s2.setBoundaryCondition(false)
     s3.setBoundaryCondition(true)
@@ -488,22 +510,22 @@ class TestModel < Test::Unit::TestCase
   end
 
   def test_Model_getParameter
-    p1 = LibSBML::Parameter.new()
-    p2 = LibSBML::Parameter.new()
-    p1.setName( "Km1")
-    p2.setName( "Km2")
+    p1 = LibSBML::Parameter.new(2,4)
+    p2 = LibSBML::Parameter.new(2,4)
+    p1.setId( "Km1")
+    p2.setId( "Km2")
     @@m.addParameter(p1)
     @@m.addParameter(p2)
     assert( @@m.getNumParameters() == 2 )
     p1 = @@m.getParameter(0)
     p2 = @@m.getParameter(1)
-    assert ((  "Km1" == p1.getName() ))
-    assert ((  "Km2" == p2.getName() ))
+    assert ((  "Km1" == p1.getId() ))
+    assert ((  "Km2" == p2.getId() ))
   end
 
   def test_Model_getParameterById
-    p1 = LibSBML::Parameter.new()
-    p2 = LibSBML::Parameter.new()
+    p1 = LibSBML::Parameter.new(2,4)
+    p2 = LibSBML::Parameter.new(2,4)
     p1.setId( "Km1" )
     p2.setId( "Km2" )
     @@m.addParameter(p1)
@@ -515,22 +537,22 @@ class TestModel < Test::Unit::TestCase
   end
 
   def test_Model_getReaction
-    r1 = LibSBML::Reaction.new()
-    r2 = LibSBML::Reaction.new()
-    r1.setName( "reaction_1")
-    r2.setName( "reaction_2")
+    r1 = LibSBML::Reaction.new(2,4)
+    r2 = LibSBML::Reaction.new(2,4)
+    r1.setId( "reaction_1")
+    r2.setId( "reaction_2")
     @@m.addReaction(r1)
     @@m.addReaction(r2)
     assert( @@m.getNumReactions() == 2 )
     r1 = @@m.getReaction(0)
     r2 = @@m.getReaction(1)
-    assert ((  "reaction_1" == r1.getName() ))
-    assert ((  "reaction_2" == r2.getName() ))
+    assert ((  "reaction_1" == r1.getId() ))
+    assert ((  "reaction_2" == r2.getId() ))
   end
 
   def test_Model_getReactionById
-    r1 = LibSBML::Reaction.new()
-    r2 = LibSBML::Reaction.new()
+    r1 = LibSBML::Reaction.new(2,4)
+    r2 = LibSBML::Reaction.new(2,4)
     r1.setId( "reaction_1" )
     r2.setId( "reaction_2" )
     @@m.addReaction(r1)
@@ -542,10 +564,13 @@ class TestModel < Test::Unit::TestCase
   end
 
   def test_Model_getRules
-    ar = LibSBML::AlgebraicRule.new()
-    scr = LibSBML::AssignmentRule.new()
-    cvr = LibSBML::AssignmentRule.new()
-    pr = LibSBML::AssignmentRule.new()
+    ar = LibSBML::AlgebraicRule.new(2,4)
+    scr = LibSBML::AssignmentRule.new(2,4)
+    cvr = LibSBML::AssignmentRule.new(2,4)
+    pr = LibSBML::AssignmentRule.new(2,4)
+    scr.setVariable( "r2")
+    cvr.setVariable( "r3")
+    pr.setVariable( "r4")
     ar.setFormula( "x + 1"         )
     scr.setFormula( "k * t/(1 + k)" )
     cvr.setFormula( "0.10 * t"      )
@@ -566,24 +591,28 @@ class TestModel < Test::Unit::TestCase
   end
 
   def test_Model_getSpecies
-    s1 = LibSBML::Species.new()
-    s2 = LibSBML::Species.new()
-    s1.setName( "Glucose"     )
-    s2.setName( "Glucose_6_P" )
+    s1 = LibSBML::Species.new(2,4)
+    s2 = LibSBML::Species.new(2,4)
+    s1.setId( "Glucose"     )
+    s2.setId( "Glucose_6_P" )
+    s1.setCompartment( "c")
+    s2.setCompartment( "c")
     @@m.addSpecies(s1)
     @@m.addSpecies(s2)
     assert( @@m.getNumSpecies() == 2 )
     s1 = @@m.getSpecies(0)
     s2 = @@m.getSpecies(1)
-    assert ((  "Glucose"      == s1.getName() ))
-    assert ((  "Glucose_6_P"  == s2.getName() ))
+    assert ((  "Glucose"      == s1.getId() ))
+    assert ((  "Glucose_6_P"  == s2.getId() ))
   end
 
   def test_Model_getSpeciesById
-    s1 = LibSBML::Species.new()
-    s2 = LibSBML::Species.new()
+    s1 = LibSBML::Species.new(2,4)
+    s2 = LibSBML::Species.new(2,4)
     s1.setId( "Glucose"     )
     s2.setId( "Glucose_6_P" )
+    s1.setCompartment( "c")
+    s2.setCompartment( "c")
     @@m.addSpecies(s1)
     @@m.addSpecies(s2)
     assert( @@m.getNumSpecies() == 2 )
@@ -593,30 +622,225 @@ class TestModel < Test::Unit::TestCase
   end
 
   def test_Model_getUnitDefinition
-    ud1 = LibSBML::UnitDefinition.new()
-    ud2 = LibSBML::UnitDefinition.new()
-    ud1.setName( "mmls"   )
-    ud2.setName( "volume" )
+    ud1 = LibSBML::UnitDefinition.new(2,4)
+    ud2 = LibSBML::UnitDefinition.new(2,4)
+    ud1.setId( "mmls"   )
+    ud2.setId( "volume" )
+    ud1.createUnit()
+    ud2.createUnit()
     @@m.addUnitDefinition(ud1)
     @@m.addUnitDefinition(ud2)
     assert( @@m.getNumUnitDefinitions() == 2 )
     ud1 = @@m.getUnitDefinition(0)
     ud2 = @@m.getUnitDefinition(1)
-    assert ((  "mmls"    == ud1.getName() ))
-    assert ((  "volume"  == ud2.getName() ))
+    assert ((  "mmls"    == ud1.getId() ))
+    assert ((  "volume"  == ud2.getId() ))
   end
 
   def test_Model_getUnitDefinitionById
-    ud1 = LibSBML::UnitDefinition.new()
-    ud2 = LibSBML::UnitDefinition.new()
+    ud1 = LibSBML::UnitDefinition.new(2,4)
+    ud2 = LibSBML::UnitDefinition.new(2,4)
     ud1.setId( "mmls"   )
     ud2.setId( "volume" )
+    ud1.createUnit()
+    ud2.createUnit()
     @@m.addUnitDefinition(ud1)
     @@m.addUnitDefinition(ud2)
     assert( @@m.getNumUnitDefinitions() == 2 )
     assert( @@m.getUnitDefinition( "mmls"       ) != ud1 )
     assert( @@m.getUnitDefinition( "volume"     ) != ud2 )
     assert( @@m.getUnitDefinition( "rototillers") == nil )
+  end
+
+  def test_Model_removeCompartment
+    o1 = @@m.createCompartment()
+    o2 = @@m.createCompartment()
+    o3 = @@m.createCompartment()
+    o3.setId("test")
+    assert( @@m.removeCompartment(0) == o1 )
+    assert( @@m.getNumCompartments() == 2 )
+    assert( @@m.removeCompartment(0) == o2 )
+    assert( @@m.getNumCompartments() == 1 )
+    assert( @@m.removeCompartment("test") == o3 )
+    assert( @@m.getNumCompartments() == 0 )
+    o1 = nil
+    o2 = nil
+    o3 = nil
+  end
+
+  def test_Model_removeCompartmentType
+    o1 = @@m.createCompartmentType()
+    o2 = @@m.createCompartmentType()
+    o3 = @@m.createCompartmentType()
+    o3.setId("test")
+    assert( @@m.removeCompartmentType(0) == o1 )
+    assert( @@m.getNumCompartmentTypes() == 2 )
+    assert( @@m.removeCompartmentType(0) == o2 )
+    assert( @@m.getNumCompartmentTypes() == 1 )
+    assert( @@m.removeCompartmentType("test") == o3 )
+    assert( @@m.getNumCompartmentTypes() == 0 )
+    o1 = nil
+    o2 = nil
+    o3 = nil
+  end
+
+  def test_Model_removeConstraint
+    o1 = @@m.createConstraint()
+    o2 = @@m.createConstraint()
+    o3 = @@m.createConstraint()
+    assert( @@m.removeConstraint(0) == o1 )
+    assert( @@m.getNumConstraints() == 2 )
+    assert( @@m.removeConstraint(0) == o2 )
+    assert( @@m.getNumConstraints() == 1 )
+    assert( @@m.removeConstraint(0) == o3 )
+    assert( @@m.getNumConstraints() == 0 )
+    o1 = nil
+    o2 = nil
+    o3 = nil
+  end
+
+  def test_Model_removeEvent
+    o1 = @@m.createEvent()
+    o2 = @@m.createEvent()
+    o3 = @@m.createEvent()
+    o3.setId("test")
+    assert( @@m.removeEvent(0) == o1 )
+    assert( @@m.getNumEvents() == 2 )
+    assert( @@m.removeEvent(0) == o2 )
+    assert( @@m.getNumEvents() == 1 )
+    assert( @@m.removeEvent("test") == o3 )
+    assert( @@m.getNumEvents() == 0 )
+    o1 = nil
+    o2 = nil
+    o3 = nil
+  end
+
+  def test_Model_removeFunctionDefinition
+    o1 = @@m.createFunctionDefinition()
+    o2 = @@m.createFunctionDefinition()
+    o3 = @@m.createFunctionDefinition()
+    o3.setId("test")
+    assert( @@m.removeFunctionDefinition(0) == o1 )
+    assert( @@m.getNumFunctionDefinitions() == 2 )
+    assert( @@m.removeFunctionDefinition(0) == o2 )
+    assert( @@m.getNumFunctionDefinitions() == 1 )
+    assert( @@m.removeFunctionDefinition("test") == o3 )
+    assert( @@m.getNumFunctionDefinitions() == 0 )
+    o1 = nil
+    o2 = nil
+    o3 = nil
+  end
+
+  def test_Model_removeInitialAssignment
+    o1 = @@m.createInitialAssignment()
+    o2 = @@m.createInitialAssignment()
+    o3 = @@m.createInitialAssignment()
+    o3.setSymbol("test")
+    assert( @@m.removeInitialAssignment(0) == o1 )
+    assert( @@m.getNumInitialAssignments() == 2 )
+    assert( @@m.removeInitialAssignment(0) == o2 )
+    assert( @@m.getNumInitialAssignments() == 1 )
+    assert( @@m.removeInitialAssignment("test") == o3 )
+    assert( @@m.getNumInitialAssignments() == 0 )
+    o1 = nil
+    o2 = nil
+    o3 = nil
+  end
+
+  def test_Model_removeParameter
+    o1 = @@m.createParameter()
+    o2 = @@m.createParameter()
+    o3 = @@m.createParameter()
+    o3.setId("test")
+    assert( @@m.removeParameter(0) == o1 )
+    assert( @@m.getNumParameters() == 2 )
+    assert( @@m.removeParameter(0) == o2 )
+    assert( @@m.getNumParameters() == 1 )
+    assert( @@m.removeParameter("test") == o3 )
+    assert( @@m.getNumParameters() == 0 )
+    o1 = nil
+    o2 = nil
+    o3 = nil
+  end
+
+  def test_Model_removeReaction
+    o1 = @@m.createReaction()
+    o2 = @@m.createReaction()
+    o3 = @@m.createReaction()
+    o3.setId("test")
+    assert( @@m.removeReaction(0) == o1 )
+    assert( @@m.getNumReactions() == 2 )
+    assert( @@m.removeReaction(0) == o2 )
+    assert( @@m.getNumReactions() == 1 )
+    assert( @@m.removeReaction("test") == o3 )
+    assert( @@m.getNumReactions() == 0 )
+    o1 = nil
+    o2 = nil
+    o3 = nil
+  end
+
+  def test_Model_removeRule
+    o1 = @@m.createAssignmentRule()
+    o2 = @@m.createAlgebraicRule()
+    o3 = @@m.createRateRule()
+    o3.setVariable("test")
+    assert( @@m.removeRule(0) == o1 )
+    assert( @@m.getNumRules() == 2 )
+    assert( @@m.removeRule(0) == o2 )
+    assert( @@m.getNumRules() == 1 )
+    assert( @@m.removeRule("test") == o3 )
+    assert( @@m.getNumRules() == 0 )
+    o1 = nil
+    o2 = nil
+    o3 = nil
+  end
+
+  def test_Model_removeSpecies
+    o1 = @@m.createSpecies()
+    o2 = @@m.createSpecies()
+    o3 = @@m.createSpecies()
+    o3.setId("test")
+    assert( @@m.removeSpecies(0) == o1 )
+    assert( @@m.getNumSpecies() == 2 )
+    assert( @@m.removeSpecies(0) == o2 )
+    assert( @@m.getNumSpecies() == 1 )
+    assert( @@m.removeSpecies("test") == o3 )
+    assert( @@m.getNumSpecies() == 0 )
+    o1 = nil
+    o2 = nil
+    o3 = nil
+  end
+
+  def test_Model_removeSpeciesType
+    o1 = @@m.createSpeciesType()
+    o2 = @@m.createSpeciesType()
+    o3 = @@m.createSpeciesType()
+    o3.setId("test")
+    assert( @@m.removeSpeciesType(0) == o1 )
+    assert( @@m.getNumSpeciesTypes() == 2 )
+    assert( @@m.removeSpeciesType(0) == o2 )
+    assert( @@m.getNumSpeciesTypes() == 1 )
+    assert( @@m.removeSpeciesType("test") == o3 )
+    assert( @@m.getNumSpeciesTypes() == 0 )
+    o1 = nil
+    o2 = nil
+    o3 = nil
+  end
+
+  def test_Model_removeUnitDefinition
+    o1 = @@m.createUnitDefinition()
+    o2 = @@m.createUnitDefinition()
+    o3 = @@m.createUnitDefinition()
+    o3.setId("test")
+    assert( @@m.removeUnitDefinition(0) == o1 )
+    assert( @@m.getNumUnitDefinitions() == 2 )
+    assert( @@m.removeUnitDefinition(0) == o2 )
+    assert( @@m.getNumUnitDefinitions() == 1 )
+    assert( @@m.removeUnitDefinition("test") == o3 )
+    assert( @@m.getNumUnitDefinitions() == 0 )
+    o1 = nil
+    o2 = nil
+    o3 = nil
   end
 
   def test_Model_setId
@@ -638,7 +862,7 @@ class TestModel < Test::Unit::TestCase
   end
 
   def test_Model_setName
-    name =  "My Branch Model";
+    name =  "My_Branch_Model";
     @@m.setName(name)
     assert (( name == @@m.getName() ))
     assert_equal true, @@m.isSetName()
@@ -655,11 +879,14 @@ class TestModel < Test::Unit::TestCase
   def test_Model_setgetModelHistory
     history = LibSBML::ModelHistory.new()
     mc = LibSBML::ModelCreator.new()
+    date = LibSBML::Date.new(2005,12,30,12,15,45,1,2,0)
     mc.setFamilyName( "Keating")
     mc.setGivenName( "Sarah")
     mc.setEmail( "sbml-team@caltech.edu")
     mc.setOrganisation( "UH")
     history.addCreator(mc)
+    history.setCreatedDate(date)
+    history.setModifiedDate(date)
     assert( @@m.isSetModelHistory() == false )
     @@m.setModelHistory(history)
     assert( @@m.isSetModelHistory() == true )

@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestReadMathML.cpp
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -52,6 +52,10 @@ public class TestReadMathML {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestReadMathML {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -125,9 +133,9 @@ public class TestReadMathML {
     return "<?xml version='1.0' encoding='UTF-8'?>\n";
   }
 
-  public boolean isNan(double x)
+  public boolean isnan(double x)
   {
-    return x != x;
+    return (x != x);
   }
 
   public String wrapMathML(String s)
@@ -146,10 +154,11 @@ public class TestReadMathML {
     return r;
   }
 
-  boolean util_isInf(double x)
+  public boolean util_isInf(double x)
   {
     return ( (x == util_PosInf()) ||  (x == util_NegInf()) );
   }
+
 
   public double util_NaN()
   {
@@ -565,7 +574,7 @@ public class TestReadMathML {
     N = libsbml.readMathMLFromString(s);
     assertTrue( N != null );
     assertTrue( N.getType() == libsbml.AST_REAL );
-    assertEquals( true, isNan(N.getReal()) );
+    assertEquals( true, isnan(N.getReal()) );
     assertTrue( N.getNumChildren() == 0 );
   }
 
@@ -769,6 +778,22 @@ public class TestReadMathML {
     assertTrue( N != null );
     F = libsbml.formulaToString(N);
     assertTrue(F.equals( "gt(INF, INF - 1)"));
+  }
+
+  public void test_element_invalid_mathml()
+  {
+    String invalid = wrapMathML("<lambda>" + 
+    "<bvar>" + 
+    "<ci definitionURL=\"http://biomodels.net/SBO/#SBO:0000065\">c</ci>" + 
+    "</bvar>" + 
+    "<apply>" + 
+    "  <ci>c</ci>" + 
+    "</apply>" + 
+    "</lambda>\n");
+    N = libsbml.readMathMLFromString(null);
+    assertTrue( N == null );
+    N = libsbml.readMathMLFromString(invalid);
+    assertTrue( N == null );
   }
 
   public void test_element_lambda()

@@ -1,5 +1,5 @@
 use Test;
-BEGIN { plan tests => 18 };
+BEGIN { plan tests => 22 };
 
 use LibSBML;
 use strict;
@@ -7,11 +7,16 @@ use vars qw/$formula $f/;
 
 #########################
 
+my $level   = LibSBML::SBMLDocument::getDefaultLevel();
+my $version = LibSBML::SBMLDocument::getDefaultVersion();
+
 $formula = 'X^n/(1+X^n)';
 $f = '';
 
 # creation with formula
-my $r = new LibSBML::AssignmentRule('Y', $formula);
+my $r = new LibSBML::AssignmentRule($level,$version);
+ok($r->setVariable('Y'), $LibSBML::LIBSBML_OPERATION_SUCCESS);
+ok($r->setFormula($formula), $LibSBML::LIBSBML_OPERATION_SUCCESS);
 ok($r->getTypeCode() == $LibSBML::SBML_ASSIGNMENT_RULE);
 ok($r->isSetVariable(), 1);
 ok($r->isSetMath(), 1);
@@ -20,7 +25,9 @@ ok($r->getType(), $LibSBML::RULE_TYPE_SCALAR);
 ok($f, $formula);
 
 # creation with AST
-$r = new LibSBML::AssignmentRule('Y', LibSBML::parseFormula($formula));
+$r = new LibSBML::AssignmentRule($level,$version);
+ok($r->setVariable('Y'), $LibSBML::LIBSBML_OPERATION_SUCCESS);
+ok($r->setMath(LibSBML::parseFormula($formula)), $LibSBML::LIBSBML_OPERATION_SUCCESS);
 ok($r->getTypeCode() == $LibSBML::SBML_ASSIGNMENT_RULE);
 ok($r->isSetVariable(), 1);
 ok($r->isSetMath(), 1);
@@ -28,8 +35,8 @@ ok($r->getType(), $LibSBML::RULE_TYPE_SCALAR);
 ($f = LibSBML::formulaToString($r->getMath())) =~ s/\s+//g;
 ok($f, $formula);
 
-# creation w/o arguments
-$r = new LibSBML::AssignmentRule();
+# creation w/o formula
+$r = new LibSBML::AssignmentRule($level,$version);
 ok($r->getTypeCode() == $LibSBML::SBML_ASSIGNMENT_RULE);
 ok($r->isSetVariable(), 0);
 ok($r->isSetMath(), 0);
@@ -46,7 +53,7 @@ $r->setMath(LibSBML::parseFormula($formula));
 ok($f, $formula);
 
 # creat a document and a model
-my $d = new LibSBML::SBMLDocument(2,3);
+my $d = new LibSBML::SBMLDocument($level,$version);
 my $m = $d->createModel();
 $m->setId('assignment_rule');
 
@@ -68,7 +75,7 @@ ok($doc, $ref);
 
 __DATA__
 <?xml version="1.0" encoding="UTF-8"?>
-<sbml xmlns="http://www.sbml.org/sbml/level2/version3" level="2" version="3">
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
   <model id="assignment_rule">
     <listOfSpecies>
       <species id="X"/>

@@ -21,6 +21,8 @@
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
  */
 
+#include <sbml/common/libsbml-version.h>
+#include <sbml/common/operationReturnValues.h>
 
 #include <sbml/SBMLReader.h>
 #include <sbml/SBMLWriter.h>
@@ -32,6 +34,7 @@
 #include <sbml/SBMLDocument.h>
 #include <sbml/SBMLError.h>
 #include <sbml/SBMLErrorLog.h>
+#include <sbml/SBMLNamespaces.h>
 #include <sbml/FunctionDefinition.h>
 #include <sbml/Unit.h>
 #include <sbml/UnitDefinition.h>
@@ -55,6 +58,7 @@
 #include <sbml/InitialAssignment.h>
 #include <sbml/SpeciesType.h>
 #include <sbml/SBO.h>
+#include <sbml/SyntaxChecker.h>
 #include <sbml/StoichiometryMath.h>
 #include <sbml/SBMLNamespaces.h>
 

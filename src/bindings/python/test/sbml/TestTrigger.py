@@ -34,7 +34,7 @@ class TestTrigger(unittest.TestCase):
   D = None
 
   def setUp(self):
-    self.D = libsbml.Trigger()
+    self.D = libsbml.Trigger(2,4)
     if (self.D == None):
       pass    
     pass  
@@ -51,36 +51,21 @@ class TestTrigger(unittest.TestCase):
     self.assert_( self.D.getMath() == None )
     pass  
 
-  def test_Trigger_createWithLevelVersionAndNamespace(self):
+  def test_Trigger_createWithNS(self):
     xmlns = libsbml.XMLNamespaces()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = libsbml.Trigger(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = libsbml.SBMLNamespaces(2,1)
+    sbmlns.addNamespaces(xmlns)
+    object = libsbml.Trigger(sbmlns)
     self.assert_( object.getTypeCode() == libsbml.SBML_TRIGGER )
     self.assert_( object.getMetaId() == "" )
     self.assert_( object.getNotes() == None )
     self.assert_( object.getAnnotation() == None )
     self.assert_( object.getLevel() == 2 )
     self.assert_( object.getVersion() == 1 )
-    self.assert_( object.getNamespaces() != "" )
-    self.assert_( object.getNamespaces().getLength() == 1 )
+    self.assert_( object.getNamespaces() != None )
+    self.assert_( object.getNamespaces().getLength() == 2 )
     object = None
-    pass  
-
-  def test_Trigger_createWithMath(self):
-    math = libsbml.parseFormula("x^3")
-    fd = libsbml.Trigger(math)
-    self.assert_( fd.getTypeCode() == libsbml.SBML_TRIGGER )
-    self.assert_( fd.getMetaId() == "" )
-    self.assert_( fd.getNotes() == None )
-    self.assert_( fd.getAnnotation() == None )
-    math1 = fd.getMath()
-    self.assert_( math1 != None )
-    formula = libsbml.formulaToString(math1)
-    self.assert_( formula != None )
-    self.assert_((  "x^3" == formula ))
-    self.assert_( fd.getMath() != math )
-    self.assertEqual( True, fd.isSetMath() )
-    fd = None
     pass  
 
   def test_Trigger_free_NULL(self):
@@ -106,6 +91,27 @@ class TestTrigger(unittest.TestCase):
     self.assertEqual( False, self.D.isSetMath() )
     if (self.D.getMath() != None):
       pass    
+    pass  
+
+  def test_Trigger_setMath1(self):
+    math = libsbml.parseFormula("2 * k")
+    i = self.D.setMath(math)
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( self.D.getMath() != math )
+    self.assertEqual( True, self.D.isSetMath() )
+    i = self.D.setMath(None)
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( self.D.getMath() == None )
+    self.assertEqual( False, self.D.isSetMath() )
+    math = None
+    pass  
+
+  def test_Trigger_setMath2(self):
+    math = libsbml.ASTNode(libsbml.AST_TIMES)
+    i = self.D.setMath(math)
+    self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
+    self.assertEqual( False, self.D.isSetMath() )
+    math = None
     pass  
 
 def suite():

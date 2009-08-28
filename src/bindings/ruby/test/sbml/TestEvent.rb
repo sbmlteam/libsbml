@@ -31,7 +31,7 @@ require 'libSBML'
 class TestEvent < Test::Unit::TestCase
 
   def setup
-    @@e = LibSBML::Event.new()
+    @@e = LibSBML::Event.new(2,4)
     if (@@e == nil)
     end
   end
@@ -53,34 +53,20 @@ class TestEvent < Test::Unit::TestCase
     assert( @@e.getNumEventAssignments() == 0 )
   end
 
-  def test_Event_createWith
-    e = LibSBML::Event.new("e1", "")
-    assert( e.getTypeCode() == LibSBML::SBML_EVENT )
-    assert( e.getMetaId() == "" )
-    assert( e.getNotes() == nil )
-    assert( e.getAnnotation() == nil )
-    assert( e.getName() == "" )
-    assert( e.getDelay() == nil )
-    assert( e.getTimeUnits() == "" )
-    assert( e.getNumEventAssignments() == 0 )
-    assert_equal false, e.isSetTrigger()
-    assert ((  "e1" == e.getId() ))
-    assert_equal true, e.isSetId()
-    e = nil
-  end
-
-  def test_Event_createWithLevelVersionAndNamespace
+  def test_Event_createWithNS
     xmlns = LibSBML::XMLNamespaces.new()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = LibSBML::Event.new(2,4,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = LibSBML::SBMLNamespaces.new(2,4)
+    sbmlns.addNamespaces(xmlns)
+    object = LibSBML::Event.new(sbmlns)
     assert( object.getTypeCode() == LibSBML::SBML_EVENT )
     assert( object.getMetaId() == "" )
     assert( object.getNotes() == nil )
     assert( object.getAnnotation() == nil )
     assert( object.getLevel() == 2 )
     assert( object.getVersion() == 4 )
-    assert( object.getNamespaces() != "" )
-    assert( object.getNamespaces().getLength() == 1 )
+    assert( object.getNamespaces() != nil )
+    assert( object.getNamespaces().getLength() == 2 )
     object = nil
   end
 
@@ -89,11 +75,15 @@ class TestEvent < Test::Unit::TestCase
 
   def test_Event_full
     math1 = LibSBML::parseFormula("0")
-    trigger = LibSBML::Trigger.new(math1)
+    trigger = LibSBML::Trigger.new(2,4)
     math = LibSBML::parseFormula("0")
-    e = LibSBML::Event.new("e1", "")
-    ea = LibSBML::EventAssignment.new("k",math)
+    e = LibSBML::Event.new(2,4)
+    ea = LibSBML::EventAssignment.new(2,4)
+    ea.setVariable( "k")
+    ea.setMath(math)
+    trigger.setMath(math1)
     e.setTrigger(trigger)
+    e.setId( "e1")
     e.setName( "Set k2 to zero when P1 <= t")
     e.addEventAssignment(ea)
     assert( e.getNumEventAssignments() == 1 )
@@ -102,9 +92,26 @@ class TestEvent < Test::Unit::TestCase
     e = nil
   end
 
+  def test_Event_removeEventAssignment
+    o1 = @@e.createEventAssignment()
+    o2 = @@e.createEventAssignment()
+    o3 = @@e.createEventAssignment()
+    o3.setVariable("test")
+    assert( @@e.removeEventAssignment(0) == o1 )
+    assert( @@e.getNumEventAssignments() == 2 )
+    assert( @@e.removeEventAssignment(0) == o2 )
+    assert( @@e.getNumEventAssignments() == 1 )
+    assert( @@e.removeEventAssignment("test") == o3 )
+    assert( @@e.getNumEventAssignments() == 0 )
+    o1 = nil
+    o2 = nil
+    o3 = nil
+  end
+
   def test_Event_setDelay
     math1 = LibSBML::parseFormula("0")
-    delay = LibSBML::Delay.new(math1)
+    delay = LibSBML::Delay.new(2,4)
+    delay.setMath(math1)
     @@e.setDelay(delay)
     assert( @@e.getDelay() != nil )
     assert_equal true, @@e.isSetDelay()
@@ -134,7 +141,7 @@ class TestEvent < Test::Unit::TestCase
   end
 
   def test_Event_setName
-    name =  "Set k2 to zero when P1 <= t";
+    name =  "Set_k2";
     @@e.setName(name)
     assert (( name == @@e.getName() ))
     assert_equal true, @@e.isSetName()
@@ -149,23 +156,26 @@ class TestEvent < Test::Unit::TestCase
   end
 
   def test_Event_setTimeUnits
+    e1 = LibSBML::Event.new(2,1)
     units =  "second";
-    @@e.setTimeUnits(units)
-    assert (( units == @@e.getTimeUnits() ))
-    assert_equal true, @@e.isSetTimeUnits()
-    if (@@e.getTimeUnits() == units)
+    e1.setTimeUnits(units)
+    assert (( units == e1.getTimeUnits() ))
+    assert_equal true, e1.isSetTimeUnits()
+    if (e1.getTimeUnits() == units)
     end
-    @@e.setTimeUnits(@@e.getTimeUnits())
-    assert (( units == @@e.getTimeUnits() ))
-    @@e.setTimeUnits("")
-    assert_equal false, @@e.isSetTimeUnits()
-    if (@@e.getTimeUnits() != nil)
+    e1.setTimeUnits(e1.getTimeUnits())
+    assert (( units == e1.getTimeUnits() ))
+    e1.setTimeUnits("")
+    assert_equal false, e1.isSetTimeUnits()
+    if (e1.getTimeUnits() != nil)
     end
+    e1 = nil
   end
 
   def test_Event_setTrigger
     math1 = LibSBML::parseFormula("0")
-    trigger = LibSBML::Trigger.new(math1)
+    trigger = LibSBML::Trigger.new(2,4)
+    trigger.setMath(math1)
     @@e.setTrigger(trigger)
     assert( @@e.getTrigger() != nil )
     assert_equal true, @@e.isSetTrigger()
@@ -180,10 +190,12 @@ class TestEvent < Test::Unit::TestCase
   end
 
   def test_Event_setUseValuesFromTriggerTime
-    @@e.setUseValuesFromTriggerTime(false)
-    assert( @@e.getUseValuesFromTriggerTime() == false )
-    @@e.setUseValuesFromTriggerTime(true)
-    assert( @@e.getUseValuesFromTriggerTime() == true )
+    object = LibSBML::Event.new(2,4)
+    object.setUseValuesFromTriggerTime(false)
+    assert( object.getUseValuesFromTriggerTime() == false )
+    object.setUseValuesFromTriggerTime(true)
+    assert( object.getUseValuesFromTriggerTime() == true )
+    object = nil
   end
 
 end

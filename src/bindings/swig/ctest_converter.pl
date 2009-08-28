@@ -39,7 +39,7 @@ EOF
 my %opts;
 getopts('d:hrpjc',\%opts) or die $usage;
 
-my $version = "2009-01-02";
+my $version = "2009-08-22";
 
 ######################################################################
 
@@ -107,15 +107,20 @@ my %MiscClass = (
    Date            => 0,
    RDFAnnotationParser => 0,
    SBMLNamespaces  => 0,
+   SyntaxChecker   => 0,
 );
 
 my %IgnoredClass = (
   FormulaUnitsData => 0,
+  XMLInputStream   => 0,
+  XMLErrorLog      => 0,
 );
 
 my %IgnoredFunc = (
   getNumFormulaUnitsData => 0,
   addFormulaUnitsData    => 0,
+  getInternalId => 0,
+  setInternalId => 0,
 );
 
 my %IgnoreTestFunc = (
@@ -130,6 +135,7 @@ my %IgnoreTestFunc = (
   test_XMLAttributes_create_C        => 0,
   test_XMLAttributes_readInto_uint_C => 0,
   test_XMLTriple_comparison => 0,
+  test_XMLAttributes_add_removeResource => 0,
   test_XMLAttributes_readInto_boolean_C => 0,
   test_XMLAttributes_readInto_double_C => 0,
   test_XMLAttributes_readInto_long_C => 0,
@@ -250,6 +256,7 @@ my %MacroDef;
 my %FileProp;
 my %GlobalVariable;
 my %LocalVariable;
+my %TmpLocalVariable;
 
 my %pStatus;
 my $CurFunc;
@@ -322,6 +329,7 @@ sub reset
   %pStatus   = undef;
   %GlobalVariable = undef;
   %LocalVariable  = undef;
+  %TmpLocalVariable  = undef;
   $CurFunc     = "";
   $CurLine     = "";
   $FlagIfdef   = 0;
@@ -334,12 +342,42 @@ sub getCreateObjString
   my ($cname, $arg) = @_;
 
   my $fcall = "";
+
+  my $useXMLNS = 0;
+  my $levelversion = 0;
+
+  # skips the third argument in SBMLDocument(level,version,xmlns)
+  if ( defined($SBaseClass{$cname}) )
+  {
+    my @args = split(",", $arg);
+    if ( scalar(@args) == 3  )
+    {
+      if ( $args[2] eq "NULL" )
+      {
+        pop @args if scalar(@args) == 3; 
+        $arg = join(",",@args);
+      }
+      else
+      {
+        $useXMLNS = $args[2]; 
+        $levelversion = "$args[0],$args[1]";
+      }
+    }
+
+  }
      
   ######################################################################
   # Ruby 
   ######################################################################
   if ( $Target eq 'ruby' )
   {
+    if ($useXMLNS)
+    {
+      push (@{$FuncDef{$CurFunc}}, "sbmlns = LibSBML::SBMLNamespaces.new($levelversion)");
+      push (@{$FuncDef{$CurFunc}}, "sbmlns.addNamespaces($useXMLNS)");
+      $arg = "sbmlns";
+    }
+
     $fcall = "$Prefix{$Target}" . $cname . ".new";
   }
   ######################################################################
@@ -347,15 +385,35 @@ sub getCreateObjString
   ######################################################################
   if ( $Target eq 'python' )
   {
-      $fcall = "$Prefix{$Target}" . $cname;
+    if ($useXMLNS)
+    {
+      push (@{$FuncDef{$CurFunc}}, "sbmlns = libsbml.SBMLNamespaces($levelversion)");
+      push (@{$FuncDef{$CurFunc}}, "sbmlns.addNamespaces($useXMLNS)");
+      $arg = "sbmlns";
+    }
+
+    $fcall = "$Prefix{$Target}" . $cname;
   }
   ######################################################################
   # Java/C# 
   ######################################################################
   if ( ($Target eq 'java') || ($Target eq 'csharp') )
   {
-      $fcall = "new  $cname";
+    if ($useXMLNS)
+    {
+      unless ( $TmpLocalVariable{$CurFunc}{"sbmlns"} )
+      {
+        push (@{$FuncDef{$CurFunc}}, "SBMLNamespaces sbmlns = null;");
+        $TmpLocalVariable{$CurFunc}{"sbmlns"} = 1; 
+      }
+      push (@{$FuncDef{$CurFunc}}, "sbmlns = new SBMLNamespaces($levelversion);");
+      push (@{$FuncDef{$CurFunc}}, "sbmlns.addNamespaces($useXMLNS);");
+      $arg = "sbmlns";
+    }
+
+    $fcall = "new  $cname";
   }
+
   
   $fcall .= "(" . $arg . ")";
 
@@ -934,6 +992,10 @@ sub parseAssertion
     {
       $right = $IdNULLChar{$Target} if $right eq '0';
     }
+    elsif ( $left =~ / (?: getModel | getNamespaces ) \s* $re_np /x )
+    {
+      $right = $IdNULL{$Target} if $right eq '0';
+    }
     elsif (  $CurLine =~ /ASTNode_getName \s* $re_np /x 
           && $left =~ /getName /x )
     {
@@ -964,6 +1026,7 @@ sub parseAssertion
                           |Message
                           |SeverityAsString
                           |CategoryAsString
+                          |SBOTermID
                         ) $prexp
                      /x 
     )
@@ -1748,6 +1811,15 @@ sub addAssertion2
 
   my $assertion;
 
+  if ( $CurLine =~ /SyntaxChecker_ (isValid(XMLID|SBMLSId|UnitSId) | 
+                                    hasExpectedXHTMLSyntax )/x)
+  {
+    $left  = $IdFALSE{$Target} if ($left  eq '0');
+    $left  = $IdTRUE{$Target}  if ($left  eq '1');
+    $right = $IdFALSE{$Target} if ($right eq '0');
+    $right = $IdTRUE{$Target}  if ($right eq '1');
+  }
+
   ##################################################
   # Ruby 
   ##################################################
@@ -1769,7 +1841,15 @@ sub addAssertion2
   {
     if ( $CurLine =~ /fail_unless/ )
     {
-      $assertion = "self.assert_( " . $left . " " . $op . " " . $right . " )";
+      #if ( $CurLine =~ / \s+ \! \s+ /x )
+      if ( $CurLine =~ / \( \s* \! \s* \w /x )
+      {
+        $assertion = "self.assert_( (" . $left . " " . $op . " " . $right . ") == False )";
+      }
+      else
+      {
+        $assertion = "self.assert_( " . $left . " " . $op . " " . $right . " )";
+      }
     }
     elsif ( $CurLine =~ /fail_if/ )
     {
@@ -1818,7 +1898,14 @@ sub addAssertion2
 
     if ( $CurLine =~ /fail_unless/ )
     {
-      $assertion = "assertTrue( ". $equation . " );";
+      if ( $CurLine =~ / \( \s* \! \s* \w /x )
+      {
+        $assertion = "assertTrue( ! (". $equation . ") );";
+      }
+      else
+      {
+        $assertion = "assertTrue( ". $equation . " );";
+      }
     }
     elsif ( $CurLine =~ /fail_if/ )
     {
@@ -2141,6 +2228,9 @@ sub convertSBaseCFuncCall
   $fname =~ s/^ set( Integer$ | Real$ | RealWithExponent | Rational)/setValue/x;
   $fname =~ s/( addAttr ) With (?:NS|Triple)/$1/x;
   $fname =~ s/( add ) With (?:Triple)/$1/x;
+  $fname =~ s/( setSBOTerm ) ID /$1/x;
+
+  push (@arg, $IdTRUE{$Target} ) if ($fname =~ s/ (setLevelAndVersion) Strict/$1/x );
 
   #
   # Removes the last argument because the constructer of Reaction 
@@ -2217,7 +2307,8 @@ sub convertSBaseCFuncCall
     }
   }
 
-  if ( $cname eq 'RDFAnnotationParser' )
+  if ( $cname eq 'RDFAnnotationParser' ||
+       $cname eq 'SyntaxChecker' )
   {
     if ( ($Target eq 'java') || ($Target eq 'csharp') )
     {
@@ -2264,6 +2355,7 @@ sub convertSBaseCFuncCall
   }
   elsif($fname =~ /^create(With|From)/)
   {
+#print "$cname @arg\n";
     return &getCreateObjString($cname, join(",",@arg));
   }
   elsif ( $cname eq 'XMLOutputStream' )  
@@ -2388,6 +2480,13 @@ sub convertSBaseCFuncCall
       return $fcall;
     }
   }
+  elsif ( $cname eq 'SBMLDocument') 
+  {
+    if ($fname =~ /^setLevelAndVersion$/)
+    {
+      push(@arg, $IdFALSE{$Target});
+    }
+  }
 
   if(defined($arg[0]))
   {
@@ -2407,8 +2506,13 @@ sub convertSBaseCFuncCall
                                 |SpatialSizeUnits
                                 |SubstanceUnits
                                 |Compartment
+                                |CompartmentType
                                 |Species
+                                |SpeciesType
                                 |Symbol
+                                |ProgramName
+                                |ProgramVersion
+                                |DateAsString
                               ) \s* $
                       /x 
           )
@@ -3330,6 +3434,10 @@ EOF
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -3343,6 +3451,10 @@ EOF
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -3443,6 +3555,10 @@ EOF
       {
         return;
       }
+      else if ( (a == null) || (b == null) )
+      {
+        throw new AssertionError();
+      }
       else if (a.Equals(b))
       {
         return;
@@ -3456,6 +3572,10 @@ EOF
       if ( (a == null) && (b == null) )
       {
         throw new AssertionError();
+      }
+      else if ( (a == null) || (b == null) )
+      {
+        return;
       }
       else if (a.Equals(b))
       {
@@ -3697,18 +3817,7 @@ $patchClassTop{'ruby'}{'TestXMLAttributes'} = $patchClassTop{'ruby'}{'TestWriteS
 $patchClassTop{'ruby'}{'TestWriteMathML'} = $patchClassTop{'ruby'}{'TestWriteSBML'}; 
 
 $patchClassTop{'ruby'}{'TestRDFAnnotation'}  = $patchClassTop{'ruby'}{'TestWriteSBML'}; 
-$patchClassTop{'ruby'}{'TestRDFAnnotation2'} = <<'EOF';
-  def equals(*x)
-    case x.size
-    when 2
-      e, s = x
-      return e == s
-    when 1
-      e, = x
-      return e == @@oss2.str()
-    end
-  end
-EOF
+$patchClassTop{'ruby'}{'TestRDFAnnotation2'} = $patchClassTop{'ruby'}{'TestWriteSBML'}; 
 
 #--------------------------------------------------
 
@@ -3839,6 +3948,10 @@ def util_NegInf():
 
   return -z 
 
+def wrapString(s):
+  return s
+  pass
+
 EOF
 
 $patchGlobal{'python'}{'TestXMLAttributes'} = $patchGlobal{'python'}{'TestWriteSBML'}; 
@@ -3856,14 +3969,7 @@ EOF
 
 $patchClassTop{'python'}{'TestWriteMathML'}  = $patchClassTop{'python'}{'TestWriteSBML'}; 
 $patchClassTop{'python'}{'TestRDFAnnotation'}  = $patchClassTop{'python'}{'TestWriteSBML'}; 
-$patchClassTop{'python'}{'TestRDFAnnotation2'} = <<'EOF';
-  def equals(self, *x):
-    if len(x) == 2:
-      return x[0] == x[1]
-    elif len(x) == 1:
-      return x[0] == self.OSS2.str()
-
-EOF
+$patchClassTop{'python'}{'TestRDFAnnotation2'} = $patchClassTop{'python'}{'TestWriteSBML'}; 
 
 #--------------------------------------------------
 
@@ -3888,6 +3994,7 @@ $patchGlobal{'python'}{'TestXMLOutputStream'} = $patchGlobal{'python'}{'TestSBas
 $patchGlobal{'python'}{'TestXMLNode'} = $patchGlobal{'python'}{'TestSBase'};
 $patchGlobal{'python'}{'TestRDFAnnotation'} = $patchGlobal{'python'}{'TestSBase'};
 $patchGlobal{'python'}{'TestRDFAnnotation2'} = $patchGlobal{'python'}{'TestSBase'};
+$patchGlobal{'python'}{'TestSBase_newSetters'} = $patchGlobal{'python'}{'TestSBase'};
 
 #--------------------------------------------------
 
@@ -4039,10 +4146,10 @@ $patchClassTop{'java'}{'TestWriteSBML'} = <<'EOF';
     return -1.0/z;
   }
 
-  public boolean equals(String s)
-  {
-    return s.equals(OSS.str());
-  }
+//  public boolean equals(String s)
+//  {
+//    return s.equals(OSS.str());
+//  }
 
   public boolean equals(String s1, String s2)
   {
@@ -4076,12 +4183,7 @@ EOF
 $patchClassTop{'java'}{'TestWriteMathML'} = $patchClassTop{'java'}{'TestWriteSBML'}; 
 
 $patchClassTop{'java'}{'TestRDFAnnotation'}  = $patchClassTop{'java'}{'TestWriteSBML'}; 
-$patchClassTop{'java'}{'TestRDFAnnotation2'} = <<'EOF';
-  public boolean equals(String s)
-  {
-    return s.equals(OSS2.str());
-  }
-EOF
+$patchClassTop{'java'}{'TestRDFAnnotation2'} = $patchClassTop{'java'}{'TestWriteSBML'}; 
 
 $patchClassTop{'java'}{'TestReadMathML'} = <<'EOF';
   public boolean util_isInf(double x)
@@ -4199,10 +4301,10 @@ $patchClassTop{'csharp'}{'TestWriteSBML'} = <<'EOF';
     return -1.0/z;
   }
 
-  public bool equals(string s)
-  {
-    return s == OSS.str();
-  }
+//  public bool equals(string s)
+//  {
+//    return s == OSS.str();
+//  }
 
   public bool equals(string s1, string s2)
   {
@@ -4238,12 +4340,7 @@ EOF
 $patchClassTop{'csharp'}{'TestWriteMathML'}   = $patchClassTop{'csharp'}{'TestWriteSBML'}; 
 
 $patchClassTop{'csharp'}{'TestRDFAnnotation'}  = $patchClassTop{'csharp'}{'TestWriteSBML'};
-$patchClassTop{'csharp'}{'TestRDFAnnotation2'} = <<'EOF';
-  public bool equals(string s)
-  {
-    return s == OSS2.str();
-  }
-EOF
+$patchClassTop{'csharp'}{'TestRDFAnnotation2'} = $patchClassTop{'csharp'}{'TestWriteSBML'};
 
 $patchClassTop{'csharp'}{'TestReadMathML'} = <<'EOF';
   public bool util_isInf(double x)

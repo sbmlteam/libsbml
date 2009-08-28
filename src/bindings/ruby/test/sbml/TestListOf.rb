@@ -32,7 +32,7 @@ class TestListOf < Test::Unit::TestCase
 
   def test_ListOf_clear
     lo = LibSBML::ListOf.new()
-    sp = LibSBML::Species.new()
+    sp = LibSBML::Species.new(2,4)
     lo.append(sp)
     lo.append(sp)
     lo.append(sp)
@@ -72,7 +72,7 @@ class TestListOf < Test::Unit::TestCase
 
   def test_ListOf_remove
     lo = LibSBML::ListOf.new()
-    sp = LibSBML::Species.new()
+    sp = LibSBML::Species.new(2,4)
     assert( lo.size() == 0 )
     lo.append(sp)
     lo.append(sp)

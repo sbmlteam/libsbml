@@ -31,7 +31,7 @@ require 'libSBML'
 class TestInitialAssignment < Test::Unit::TestCase
 
   def setup
-    @@ia = LibSBML::InitialAssignment.new()
+    @@ia = LibSBML::InitialAssignment.new(2,4)
     if (@@ia == nil)
     end
   end
@@ -49,30 +49,20 @@ class TestInitialAssignment < Test::Unit::TestCase
     assert( @@ia.getMath() == nil )
   end
 
-  def test_InitialAssignment_createWith
-    ia = LibSBML::InitialAssignment.new("k")
-    assert( ia.getTypeCode() == LibSBML::SBML_INITIAL_ASSIGNMENT )
-    assert( ia.getMetaId() == "" )
-    assert( ia.getNotes() == nil )
-    assert( ia.getAnnotation() == nil )
-    assert_equal false, ia.isSetMath()
-    assert ((  "k" == ia.getSymbol() ))
-    assert_equal true, ia.isSetSymbol()
-    ia = nil
-  end
-
-  def test_InitialAssignment_createWithLevelVersionAndNamespace
+  def test_InitialAssignment_createWithNS
     xmlns = LibSBML::XMLNamespaces.new()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = LibSBML::InitialAssignment.new(2,3,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = LibSBML::SBMLNamespaces.new(2,3)
+    sbmlns.addNamespaces(xmlns)
+    object = LibSBML::InitialAssignment.new(sbmlns)
     assert( object.getTypeCode() == LibSBML::SBML_INITIAL_ASSIGNMENT )
     assert( object.getMetaId() == "" )
     assert( object.getNotes() == nil )
     assert( object.getAnnotation() == nil )
     assert( object.getLevel() == 2 )
     assert( object.getVersion() == 3 )
-    assert( object.getNamespaces() != "" )
-    assert( object.getNamespaces().getLength() == 1 )
+    assert( object.getNamespaces() != nil )
+    assert( object.getNamespaces().getLength() == 2 )
     object = nil
   end
 

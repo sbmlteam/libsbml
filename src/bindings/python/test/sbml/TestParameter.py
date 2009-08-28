@@ -34,7 +34,7 @@ class TestParameter(unittest.TestCase):
   P = None
 
   def setUp(self):
-    self.P = libsbml.Parameter()
+    self.P = libsbml.Parameter(2,4)
     if (self.P == None):
       pass    
     pass  
@@ -58,36 +58,20 @@ class TestParameter(unittest.TestCase):
     self.assertEqual( False, self.P.isSetUnits() )
     pass  
 
-  def test_Parameter_createWith(self):
-    p = libsbml.Parameter("delay",6.2, "second")
-    self.assert_( p.getTypeCode() == libsbml.SBML_PARAMETER )
-    self.assert_( p.getMetaId() == "" )
-    self.assert_( p.getNotes() == None )
-    self.assert_( p.getAnnotation() == None )
-    self.assert_((  "delay"  == p.getId() ))
-    self.assert_((  "second" == p.getUnits() ))
-    self.assert_( p.getName() == "" )
-    self.assert_( p.getValue() == 6.2 )
-    self.assert_( p.getConstant() == True )
-    self.assertEqual( True, p.isSetId() )
-    self.assertEqual( False, p.isSetName() )
-    self.assertEqual( True, p.isSetValue() )
-    self.assertEqual( True, p.isSetUnits() )
-    p = None
-    pass  
-
-  def test_Parameter_createWithLevelVersionAndNamespace(self):
+  def test_Parameter_createWithNS(self):
     xmlns = libsbml.XMLNamespaces()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = libsbml.Parameter(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = libsbml.SBMLNamespaces(2,1)
+    sbmlns.addNamespaces(xmlns)
+    object = libsbml.Parameter(sbmlns)
     self.assert_( object.getTypeCode() == libsbml.SBML_PARAMETER )
     self.assert_( object.getMetaId() == "" )
     self.assert_( object.getNotes() == None )
     self.assert_( object.getAnnotation() == None )
     self.assert_( object.getLevel() == 2 )
     self.assert_( object.getVersion() == 1 )
-    self.assert_( object.getNamespaces() != "" )
-    self.assert_( object.getNamespaces().getLength() == 1 )
+    self.assert_( object.getNamespaces() != None )
+    self.assert_( object.getNamespaces().getLength() == 2 )
     object = None
     pass  
 
@@ -110,7 +94,7 @@ class TestParameter(unittest.TestCase):
     pass  
 
   def test_Parameter_setName(self):
-    name =  "Forward Michaelis-Menten Constant";
+    name =  "Forward_Michaelis_Menten_Constant";
     self.P.setName(name)
     self.assert_(( name == self.P.getName() ))
     self.assertEqual( True, self.P.isSetName() )

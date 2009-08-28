@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Sarah Keating 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestSpeciesType.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -52,6 +52,10 @@ public class TestSpeciesType {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestSpeciesType {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -111,7 +119,7 @@ public class TestSpeciesType {
 
   protected void setUp() throws Exception
   {
-    CT = new  SpeciesType();
+    CT = new  SpeciesType(2,4);
     if (CT == null);
     {
     }
@@ -134,25 +142,13 @@ public class TestSpeciesType {
     assertEquals( false, CT.isSetName() );
   }
 
-  public void test_SpeciesType_createWith()
-  {
-    SpeciesType c = new  SpeciesType("A", "");
-    assertTrue( c.getTypeCode() == libsbml.SBML_SPECIES_TYPE );
-    assertTrue( c.getMetaId().equals("") == true );
-    assertTrue( c.getNotes() == null );
-    assertTrue( c.getAnnotation() == null );
-    assertTrue( c.getName().equals("") == true );
-    assertTrue(c.getId().equals( "A"     ));
-    assertEquals( true, c.isSetId() );
-    assertEquals( false, c.isSetName() );
-    c = null;
-  }
-
-  public void test_SpeciesType_createWithLevelVersionAndNamespace()
+  public void test_SpeciesType_createWithNS()
   {
     XMLNamespaces xmlns = new  XMLNamespaces();
-    xmlns.add( "http://www.sbml.org", "sbml");
-    SpeciesType object = new  SpeciesType(2,2,xmlns);
+    xmlns.add( "http://www.sbml.org", "testsbml");
+    SBMLNamespaces sbmlns = new  SBMLNamespaces(2,2);
+    sbmlns.addNamespaces(xmlns);
+    SpeciesType object = new  SpeciesType(sbmlns);
     assertTrue( object.getTypeCode() == libsbml.SBML_SPECIES_TYPE );
     assertTrue( object.getMetaId().equals("") == true );
     assertTrue( object.getNotes() == null );
@@ -160,7 +156,7 @@ public class TestSpeciesType {
     assertTrue( object.getLevel() == 2 );
     assertTrue( object.getVersion() == 2 );
     assertTrue( object.getNamespaces() != null );
-    assertTrue( object.getNamespaces().getLength() == 1 );
+    assertTrue( object.getNamespaces().getLength() == 2 );
     object = null;
   }
 
@@ -188,7 +184,7 @@ public class TestSpeciesType {
 
   public void test_SpeciesType_setName()
   {
-    String name =  "My Favorite Factory";;
+    String name =  "My_Favorite_Factory";;
     CT.setName(name);
     assertTrue(CT.getName().equals(name));
     assertEquals( true, CT.isSetName() );

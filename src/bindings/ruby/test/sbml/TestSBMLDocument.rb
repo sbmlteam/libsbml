@@ -57,37 +57,38 @@ class TestSBMLDocument < Test::Unit::TestCase
 
   def test_SBMLDocument_setLevelAndVersion
     d = LibSBML::SBMLDocument.new()
-    d.setLevelAndVersion(2,2)
-    m1 = LibSBML::Model.new()
+    d.setLevelAndVersion(2,2,false)
+    m1 = LibSBML::Model.new(2,2)
     d.setModel(m1)
-    assert( d.setLevelAndVersion(2,3) == true )
-    assert( d.setLevelAndVersion(2,1) == true )
-    assert( d.setLevelAndVersion(1,2) == true )
-    assert( d.setLevelAndVersion(1,1) == false )
+    assert( d.setLevelAndVersion(2,3,false) == true )
+    assert( d.setLevelAndVersion(2,1,false) == true )
+    assert( d.setLevelAndVersion(1,2,false) == true )
+    assert( d.setLevelAndVersion(1,1,false) == false )
     d = nil
   end
 
   def test_SBMLDocument_setLevelAndVersion_Error
     d = LibSBML::SBMLDocument.new()
-    d.setLevelAndVersion(2,1)
-    m1 = LibSBML::Model.new()
-    u = LibSBML::Unit.new()
+    d.setLevelAndVersion(2,1,false)
+    m1 = LibSBML::Model.new(2,1)
+    u = LibSBML::Unit.new(2,1)
     u.setKind(LibSBML::UnitKind_forName("mole"))
     u.setOffset(3.2)
-    ud = LibSBML::UnitDefinition.new()
+    ud = LibSBML::UnitDefinition.new(2,1)
+    ud.setId( "ud")
     ud.addUnit(u)
     m1.addUnitDefinition(ud)
     d.setModel(m1)
-    assert( d.setLevelAndVersion(2,2) == false )
-    assert( d.setLevelAndVersion(2,3) == false )
-    assert( d.setLevelAndVersion(1,2) == false )
-    assert( d.setLevelAndVersion(1,1) == false )
+    assert( d.setLevelAndVersion(2,2,false) == false )
+    assert( d.setLevelAndVersion(2,3,false) == false )
+    assert( d.setLevelAndVersion(1,2,false) == false )
+    assert( d.setLevelAndVersion(1,1,false) == false )
     d = nil
   end
 
   def test_SBMLDocument_setLevelAndVersion_UnitsError
     d = LibSBML::SBMLDocument.new()
-    d.setLevelAndVersion(2,4)
+    d.setLevelAndVersion(2,4,false)
     m1 = d.createModel()
     c = m1.createCompartment()
     c.setId( "c")
@@ -97,30 +98,30 @@ class TestSBMLDocument < Test::Unit::TestCase
     r = m1.createAssignmentRule()
     r.setVariable( "c")
     r.setFormula( "p*p")
-    assert( d.setLevelAndVersion(2,2) == true )
-    assert( d.setLevelAndVersion(2,3) == true )
-    assert( d.setLevelAndVersion(1,2) == true )
-    assert( d.setLevelAndVersion(1,1) == false )
+    assert( d.setLevelAndVersion(2,2,false) == true )
+    assert( d.setLevelAndVersion(2,3,false) == true )
+    assert( d.setLevelAndVersion(1,2,false) == true )
+    assert( d.setLevelAndVersion(1,1,false) == false )
     d = nil
   end
 
   def test_SBMLDocument_setLevelAndVersion_Warning
     d = LibSBML::SBMLDocument.new()
-    d.setLevelAndVersion(2,2)
-    m1 = LibSBML::Model.new()
+    d.setLevelAndVersion(2,2,false)
+    m1 = LibSBML::Model.new(2,2)
     (m1).setSBOTerm(2)
     d.setModel(m1)
-    assert( d.setLevelAndVersion(2,3) == true )
-    assert( d.setLevelAndVersion(2,1) == true )
-    assert( d.setLevelAndVersion(1,2) == true )
-    assert( d.setLevelAndVersion(1,1) == false )
+    assert( d.setLevelAndVersion(2,3,false) == true )
+    assert( d.setLevelAndVersion(2,1,false) == true )
+    assert( d.setLevelAndVersion(1,2,false) == true )
+    assert( d.setLevelAndVersion(1,1,false) == false )
     d = nil
   end
 
   def test_SBMLDocument_setModel
     d = LibSBML::SBMLDocument.new()
-    m1 = LibSBML::Model.new()
-    m2 = LibSBML::Model.new()
+    m1 = LibSBML::Model.new(2,4)
+    m2 = LibSBML::Model.new(2,4)
     assert( d.getModel() == nil )
     d.setModel(m1)
     assert( d.getModel() != m1 )
@@ -128,6 +129,36 @@ class TestSBMLDocument < Test::Unit::TestCase
     assert( d.getModel() != m1 )
     d.setModel(m2)
     assert( d.getModel() != m2 )
+    d = nil
+  end
+
+  def test_SBMLDocument_setModel1
+    d = LibSBML::SBMLDocument.new()
+    d.setLevelAndVersion(2,2,false)
+    m1 = LibSBML::Model.new(2,1)
+    i = d.setModel(m1)
+    assert( i == LibSBML::LIBSBML_VERSION_MISMATCH )
+    assert( d.getModel() == nil )
+    d = nil
+  end
+
+  def test_SBMLDocument_setModel2
+    d = LibSBML::SBMLDocument.new()
+    d.setLevelAndVersion(2,2,false)
+    m1 = LibSBML::Model.new(1,2)
+    i = d.setModel(m1)
+    assert( i == LibSBML::LIBSBML_LEVEL_MISMATCH )
+    assert( d.getModel() == nil )
+    d = nil
+  end
+
+  def test_SBMLDocument_setModel3
+    d = LibSBML::SBMLDocument.new()
+    d.setLevelAndVersion(2,2,false)
+    m1 = LibSBML::Model.new(2,2)
+    i = d.setModel(m1)
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( d.getModel() != nil )
     d = nil
   end
 

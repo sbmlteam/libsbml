@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Sarah Keating 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestReadFromFile7.cpp
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -111,44 +111,44 @@ public class TestReadFromFile7 {
   public void test_read_l2v3_all()
   {
     SBMLReader reader = new SBMLReader();
-    SBMLDocument d = new SBMLDocument();
-    Model m = new Model();
-    Compartment c = new Compartment();
-    CompartmentType ct = new CompartmentType();
-    Species s = new Species();
-    Parameter p = new Parameter();
-    AssignmentRule ar = new AssignmentRule();
-    Reaction r = new Reaction();
-    SpeciesReference sr = new SpeciesReference();
-    KineticLaw kl = new KineticLaw();
-    UnitDefinition ud = new UnitDefinition();
-    Constraint con = new Constraint();
-    Event e = new Event();
-    Delay delay = new Delay();
-    Trigger trigger = new Trigger();
-    EventAssignment ea = new EventAssignment();
-    FunctionDefinition fd = new FunctionDefinition();
-    InitialAssignment ia = new InitialAssignment();
-    AlgebraicRule alg = new AlgebraicRule();
-    RateRule rr = new RateRule();
-    SpeciesType st = new SpeciesType();
-    StoichiometryMath stoich = new StoichiometryMath();
-    Unit u = new Unit();
-    ListOfEvents loe = new ListOfEvents();
-    Event e1 = new Event();
-    ListOfEventAssignments loea = new ListOfEventAssignments();
-    EventAssignment ea1 = new EventAssignment();
-    ListOfFunctionDefinitions lofd = new ListOfFunctionDefinitions();
-    FunctionDefinition fd1 = new FunctionDefinition();
-    ListOfParameters lop = new ListOfParameters();
-    Parameter p1 = new Parameter();
-    ListOfSpeciesTypes lost = new ListOfSpeciesTypes();
-    SpeciesType st1 = new SpeciesType();
-    ListOfUnitDefinitions loud = new ListOfUnitDefinitions();
-    UnitDefinition ud1 = new UnitDefinition();
-    ListOfUnits lou = new ListOfUnits();
-    Unit u1 = new Unit();
-    ASTNode ast = new ASTNode();
+    SBMLDocument d;
+    Model m;
+    Compartment c;
+    CompartmentType ct;
+    Species s;
+    Parameter p;
+    AssignmentRule ar;
+    Reaction r;
+    SpeciesReference sr;
+    KineticLaw kl;
+    UnitDefinition ud;
+    Constraint con;
+    Event e;
+    Delay delay;
+    Trigger trigger;
+    EventAssignment ea;
+    FunctionDefinition fd;
+    InitialAssignment ia;
+    AlgebraicRule alg;
+    RateRule rr;
+    SpeciesType st;
+    StoichiometryMath stoich;
+    Unit u;
+    ListOfEvents loe;
+    Event e1;
+    ListOfEventAssignments loea;
+    EventAssignment ea1;
+    ListOfFunctionDefinitions lofd;
+    FunctionDefinition fd1;
+    ListOfParameters lop;
+    Parameter p1;
+    ListOfSpeciesTypes lost;
+    SpeciesType st1;
+    ListOfUnitDefinitions loud;
+    UnitDefinition ud1;
+    ListOfUnits lou;
+    Unit u1;
+    ASTNode ast;
     String filename = new String( "../../sbml/test/test-data/" );
     filename += "l2v3-all.xml";
     d = reader.readSBML(filename);
@@ -159,11 +159,11 @@ public class TestReadFromFile7 {
     assertTrue( d.getVersion() == 3 );
     m = d.getModel();
     assertTrue( m != null );
-    assertTrue( m.getId().equals( "l2v3_all") == true );
+    assertTrue( m.getId().equals( "l2v3_all") );
     assertTrue( m.getNumCompartments() == 1 );
     c = m.getCompartment(0);
     assertTrue( c != null );
-    assertTrue( c.getId().equals( "a") == true );
+    assertTrue( c.getId().equals( "a") );
     assertEquals(c.getCompartmentType(), "hh");
     assertTrue( c.getSBOTerm() == 236 );
     assertTrue( c.getSBOTermID().equals( "SBO:0000236") );
@@ -171,14 +171,14 @@ public class TestReadFromFile7 {
     assertTrue( m.getNumCompartmentTypes() == 1 );
     ct = m.getCompartmentType(0);
     assertTrue( ct != null );
-    assertTrue( ct.getId().equals( "hh") == true );
+    assertTrue( ct.getId().equals( "hh") );
     assertTrue( ct.getSBOTerm() == 236 );
     assertTrue( ct.getSBOTermID().equals( "SBO:0000236") );
     assertTrue( m.getNumSpeciesTypes() == 1 );
     st = m.getSpeciesType(0);
     assertTrue( st != null );
-    assertTrue( st.getId().equals( "gg") == true );
-    assertTrue( st.getName().equals( "dd") == true );
+    assertTrue( st.getId().equals( "gg") );
+    assertTrue( st.getName().equals( "dd") );
     assertTrue( st.getSBOTerm() == 236 );
     assertTrue( st.getSBOTermID().equals( "SBO:0000236") );
     lost = m.getListOfSpeciesTypes();
@@ -194,7 +194,7 @@ public class TestReadFromFile7 {
     assertTrue( m.getNumEvents() == 1 );
     e = m.getEvent(0);
     assertTrue( e != null );
-    assertTrue( e.getId().equals( "e1") == true );
+    assertTrue( e.getId().equals( "e1") );
     assertTrue( e.getSBOTerm() == 231 );
     assertTrue( e.getSBOTermID().equals( "SBO:0000231") );
     assertEquals( true, e.isSetDelay() );
@@ -219,7 +219,7 @@ public class TestReadFromFile7 {
     assertTrue( e.getNumEventAssignments() == 1 );
     ea = e.getEventAssignment(0);
     assertTrue( ea != null );
-    assertTrue( ea.getVariable().equals( "a") == true );
+    assertTrue( ea.getVariable().equals( "a") );
     assertTrue( ea.getSBOTerm() == 64 );
     assertTrue( ea.getSBOTermID().equals( "SBO:0000064") );
     ast = ea.getMath();
@@ -232,7 +232,7 @@ public class TestReadFromFile7 {
     assertTrue( m.getNumFunctionDefinitions() == 1 );
     fd = m.getFunctionDefinition(0);
     assertTrue( fd != null );
-    assertTrue( fd.getId().equals( "fd") == true );
+    assertTrue( fd.getId().equals( "fd") );
     assertTrue( fd.getSBOTerm() == 64 );
     assertTrue( fd.getSBOTermID().equals( "SBO:0000064") );
     ast = fd.getMath();
@@ -245,26 +245,26 @@ public class TestReadFromFile7 {
     assertTrue( m.getNumInitialAssignments() == 1 );
     ia = m.getInitialAssignment(0);
     assertTrue( ia != null );
-    assertTrue( ia.getSymbol().equals( "p1") == true );
+    assertTrue( ia.getSymbol().equals( "p1") );
     ast = ia.getMath();
     assertTrue(libsbml.formulaToString(ast).equals( "x * p3"));
     assertTrue( m.getNumRules() == 3 );
-    alg = ((AlgebraicRule)  m.getRule(0));
+    alg = (AlgebraicRule)  m.getRule(0);
     assertTrue( alg != null );
     assertTrue( alg.getSBOTerm() == 64 );
     assertTrue( alg.getSBOTermID().equals( "SBO:0000064") );
     ast = alg.getMath();
     assertTrue(libsbml.formulaToString(ast).equals( "pow(x, 3)"));
-    ar = ((AssignmentRule) m.getRule(1));
+    ar = (AssignmentRule) m.getRule(1);
     assertTrue( ar != null );
-    assertTrue( ar.getVariable().equals( "p2") == true );
+    assertTrue( ar.getVariable().equals( "p2") );
     assertTrue( ar.getSBOTerm() == 64 );
     assertTrue( ar.getSBOTermID().equals( "SBO:0000064") );
     ast = ar.getMath();
     assertTrue(libsbml.formulaToString(ast).equals( "x * p3"));
-    rr = ((RateRule) m.getRule(2));
+    rr = (RateRule) m.getRule(2);
     assertTrue( rr != null );
-    assertTrue( rr.getVariable().equals( "p3") == true );
+    assertTrue( rr.getVariable().equals( "p3") );
     assertTrue( rr.getSBOTerm() == 64 );
     assertTrue( rr.getSBOTermID().equals( "SBO:0000064") );
     ast = rr.getMath();
@@ -272,9 +272,9 @@ public class TestReadFromFile7 {
     assertTrue( m.getNumSpecies() == 1 );
     s = m.getSpecies(0);
     assertTrue( s != null );
-    assertTrue( s.getId().equals( "s") == true );
+    assertTrue( s.getId().equals( "s") );
     assertEquals(s.getSpeciesType(), "gg");
-    assertTrue( s.getCompartment().equals( "a") == true );
+    assertTrue( s.getCompartment().equals( "a") );
     assertTrue( s.getSBOTerm() == 236 );
     assertTrue( s.getSBOTermID().equals( "SBO:0000236") );
     assertEquals( true, s.isSetInitialAmount() );
@@ -283,7 +283,7 @@ public class TestReadFromFile7 {
     assertTrue( m.getNumReactions() == 1 );
     r = m.getReaction(0);
     assertTrue( r != null );
-    assertTrue( r.getId().equals( "r") == true );
+    assertTrue( r.getId().equals( "r") );
     assertEquals( false, r.getReversible() );
     assertEquals( true, r.getFast() );
     assertEquals( true, r.isSetKineticLaw() );
@@ -295,8 +295,8 @@ public class TestReadFromFile7 {
     assertTrue( kl.getNumParameters() == 2 );
     p = kl.getParameter(0);
     assertTrue( p != null );
-    assertTrue( p.getId().equals( "k") == true );
-    assertTrue( p.getUnits().equals( "litre") == true );
+    assertTrue( p.getId().equals( "k") );
+    assertTrue( p.getUnits().equals( "litre") );
     assertTrue( p.getValue() == 9 );
     ud = p.getDerivedUnitDefinition();
     assertTrue( ud.getNumUnits() == 1 );
@@ -309,8 +309,8 @@ public class TestReadFromFile7 {
     assertTrue( p1.equals(p) );
     p = kl.getParameter(1);
     assertTrue( p != null );
-    assertTrue( p.getId().equals( "k1") == true );
-    assertTrue( p.getUnits().equals( "ud1") == true );
+    assertTrue( p.getId().equals( "k1") );
+    assertTrue( p.getUnits().equals( "ud1") );
     assertTrue( p.getValue() == 9 );
     ud = p.getDerivedUnitDefinition();
     assertTrue( ud.getNumUnits() == 1 );
@@ -321,7 +321,7 @@ public class TestReadFromFile7 {
     assertTrue( r.getNumModifiers() == 0 );
     sr = r.getReactant(0);
     assertTrue( sr != null );
-    assertTrue( sr.getSpecies().equals( "s") == true );
+    assertTrue( sr.getSpecies().equals( "s") );
     assertTrue( sr.getSBOTerm() == 11 );
     assertTrue( sr.getSBOTermID().equals( "SBO:0000011") );
     stoich = sr.getStoichiometryMath();
@@ -333,7 +333,7 @@ public class TestReadFromFile7 {
     assertTrue( m.getNumUnitDefinitions() == 1 );
     ud = m.getUnitDefinition(0);
     assertTrue( ud != null );
-    assertTrue( ud.getId().equals( "ud1") == true );
+    assertTrue( ud.getId().equals( "ud1") );
     loud = m.getListOfUnitDefinitions();
     ud1 = loud.get(0);
     assertTrue( ud1.equals(ud) );

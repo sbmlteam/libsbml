@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Michael Hucka <mhucka@caltech.edu> 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestXMLNamespaces.c
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -148,10 +148,33 @@ namespace LibSBMLCSTest {
       assertTrue( ! (NS.getIndex( "http://test1.org/") == -1) );
     }
 
+    public void test_XMLNamespaces_add1()
+    {
+      assertTrue( NS.getLength() == 0 );
+      assertTrue( NS.isEmpty() == true );
+      long i = NS.add( "http://test1.org/", "test1");
+      assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+      assertTrue( NS.getLength() == 1 );
+      assertTrue( NS.isEmpty() == false );
+    }
+
     public void test_XMLNamespaces_baseline()
     {
       assertTrue( NS.getLength() == 0 );
       assertTrue( NS.isEmpty() == true );
+    }
+
+    public void test_XMLNamespaces_clear()
+    {
+      NS.add( "http://test1.org/", "test1");
+      NS.add( "http://test2.org/", "test2");
+      NS.add( "http://test3.org/", "test3");
+      NS.add( "http://test4.org/", "test4");
+      NS.add( "http://test5.org/", "test5");
+      assertTrue( NS.getLength() == 5 );
+      long i = NS.clear();
+      assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+      assertTrue( NS.getLength() == 0 );
     }
 
     public void test_XMLNamespaces_get()
@@ -228,6 +251,25 @@ namespace LibSBMLCSTest {
       NS.remove(0);
       assertTrue( NS.getLength() == 1 );
       NS.remove(0);
+      assertTrue( NS.getLength() == 0 );
+    }
+
+    public void test_XMLNamespaces_remove1()
+    {
+      NS.add( "http://test1.org/", "test1");
+      NS.add( "http://test2.org/", "test2");
+      assertTrue( NS.getLength() == 2 );
+      long i = NS.remove(4);
+      assertTrue( i == libsbml.LIBSBML_INDEX_EXCEEDS_SIZE );
+      assertTrue( NS.getLength() == 2 );
+      i = NS.remove( "test4");
+      assertTrue( i == libsbml.LIBSBML_INDEX_EXCEEDS_SIZE );
+      assertTrue( NS.getLength() == 2 );
+      i = NS.remove(1);
+      assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+      assertTrue( NS.getLength() == 1 );
+      i = NS.remove( "test1");
+      assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
       assertTrue( NS.getLength() == 0 );
     }
 

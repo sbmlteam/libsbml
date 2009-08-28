@@ -31,7 +31,7 @@ require 'libSBML'
 class TestParameter < Test::Unit::TestCase
 
   def setup
-    @@p = LibSBML::Parameter.new()
+    @@p = LibSBML::Parameter.new(2,4)
     if (@@p == nil)
     end
   end
@@ -55,36 +55,20 @@ class TestParameter < Test::Unit::TestCase
     assert_equal false, @@p.isSetUnits()
   end
 
-  def test_Parameter_createWith
-    p = LibSBML::Parameter.new("delay",6.2, "second")
-    assert( p.getTypeCode() == LibSBML::SBML_PARAMETER )
-    assert( p.getMetaId() == "" )
-    assert( p.getNotes() == nil )
-    assert( p.getAnnotation() == nil )
-    assert ((  "delay"  == p.getId() ))
-    assert ((  "second" == p.getUnits() ))
-    assert( p.getName() == "" )
-    assert( p.getValue() == 6.2 )
-    assert( p.getConstant() == true )
-    assert_equal true, p.isSetId()
-    assert_equal false, p.isSetName()
-    assert_equal true, p.isSetValue()
-    assert_equal true, p.isSetUnits()
-    p = nil
-  end
-
-  def test_Parameter_createWithLevelVersionAndNamespace
+  def test_Parameter_createWithNS
     xmlns = LibSBML::XMLNamespaces.new()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = LibSBML::Parameter.new(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = LibSBML::SBMLNamespaces.new(2,1)
+    sbmlns.addNamespaces(xmlns)
+    object = LibSBML::Parameter.new(sbmlns)
     assert( object.getTypeCode() == LibSBML::SBML_PARAMETER )
     assert( object.getMetaId() == "" )
     assert( object.getNotes() == nil )
     assert( object.getAnnotation() == nil )
     assert( object.getLevel() == 2 )
     assert( object.getVersion() == 1 )
-    assert( object.getNamespaces() != "" )
-    assert( object.getNamespaces().getLength() == 1 )
+    assert( object.getNamespaces() != nil )
+    assert( object.getNamespaces().getLength() == 2 )
     object = nil
   end
 
@@ -107,7 +91,7 @@ class TestParameter < Test::Unit::TestCase
   end
 
   def test_Parameter_setName
-    name =  "Forward Michaelis-Menten Constant";
+    name =  "Forward_Michaelis_Menten_Constant";
     @@p.setName(name)
     assert (( name == @@p.getName() ))
     assert_equal true, @@p.isSetName()

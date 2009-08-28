@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Python conversion)
 # @author  Sarah Keating 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestReadFromFile7.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -34,45 +34,7 @@ class TestReadFromFile7(unittest.TestCase):
 
   def test_read_l2v3_all(self):
     reader = libsbml.SBMLReader()
-    d = libsbml.SBMLDocument()
-    m = libsbml.Model()
-    c = libsbml.Compartment()
-    ct = libsbml.CompartmentType()
-    s = libsbml.Species()
-    p = libsbml.Parameter()
-    ar = libsbml.AssignmentRule()
-    r = libsbml.Reaction()
-    sr = libsbml.SpeciesReference()
-    kl = libsbml.KineticLaw()
-    ud = libsbml.UnitDefinition()
-    con = libsbml.Constraint()
-    e = libsbml.Event()
-    delay = libsbml.Delay()
-    trigger = libsbml.Trigger()
-    ea = libsbml.EventAssignment()
-    fd = libsbml.FunctionDefinition()
-    ia = libsbml.InitialAssignment()
-    alg = libsbml.AlgebraicRule()
-    rr = libsbml.RateRule()
-    st = libsbml.SpeciesType()
-    stoich = libsbml.StoichiometryMath()
-    u = libsbml.Unit()
-    loe = libsbml.ListOfEvents()
-    e1 = libsbml.Event()
-    loea = libsbml.ListOfEventAssignments()
-    ea1 = libsbml.EventAssignment()
-    lofd = libsbml.ListOfFunctionDefinitions()
-    fd1 = libsbml.FunctionDefinition()
-    lop = libsbml.ListOfParameters()
-    p1 = libsbml.Parameter()
-    lost = libsbml.ListOfSpeciesTypes()
-    st1 = libsbml.SpeciesType()
-    loud = libsbml.ListOfUnitDefinitions()
-    ud1 = libsbml.UnitDefinition()
-    lou = libsbml.ListOfUnits()
-    u1 = libsbml.Unit()
-    ast = libsbml.ASTNode()
-    filename = "../../sbml/test/test-data/" 
+    filename = "../../sbml/test/test-data/"
     filename += "l2v3-all.xml"
     d = reader.readSBML(filename)
     if (d == None):

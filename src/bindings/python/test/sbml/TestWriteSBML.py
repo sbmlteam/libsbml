@@ -47,6 +47,10 @@ def util_NegInf():
 
   return -z 
 
+def wrapString(s):
+  return s
+  pass
+
 def LV_L1v1():
   return "level=\"1\" version=\"1\">\n"
   pass
@@ -155,8 +159,6 @@ class TestWriteSBML(unittest.TestCase):
 
   S = None
   D = None
-  XOS = None
-  OSS = None
 
   def equals(self, *x):
     if len(x) == 2:
@@ -167,29 +169,50 @@ class TestWriteSBML(unittest.TestCase):
   def setUp(self):
     self.D = libsbml.SBMLDocument()
     self.S = 0
-    self.OSS = libsbml.ostringstream()
-    self.XOS = libsbml.XMLOutputStream(self.OSS)
     pass  
 
   def tearDown(self):
     self.D = None
     self.S = None
-    self.OSS = None
-    self.XOS = None
+    pass  
+
+  def test_SBMLWriter_create(self):
+    w = libsbml.SBMLWriter()
+    self.assert_( w != None )
+    w = None
+    pass  
+
+  def test_SBMLWriter_setProgramName(self):
+    w = libsbml.SBMLWriter()
+    self.assert_( w != None )
+    i = w.setProgramName( "sss")
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    i = w.setProgramName("")
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    w = None
+    pass  
+
+  def test_SBMLWriter_setProgramVersion(self):
+    w = libsbml.SBMLWriter()
+    self.assert_( w != None )
+    i = w.setProgramVersion( "sss")
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    i = w.setProgramVersion("")
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    w = None
     pass  
 
   def test_WriteSBML_AlgebraicRule(self):
     self.D.setLevelAndVersion(1,1)
-    expected = wrapXML("<algebraicRule formula=\"x + 1\"/>")
-    r = libsbml.AlgebraicRule( "x + 1" )
-    r.setSBMLDocument(self.D)
-    r.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    expected =  "<algebraicRule formula=\"x + 1\"/>";
+    r = self.D.createModel().createAlgebraicRule()
+    r.setFormula("x + 1")
+    self.assertEqual( True, self.equals(expected,r.toSBML()) )
     pass  
 
   def test_WriteSBML_AlgebraicRule_L2v1(self):
     self.D.setLevelAndVersion(2,1)
-    expected = wrapXML("<algebraicRule>\n" + 
+    expected = wrapString("<algebraicRule>\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <plus/>\n" + 
@@ -198,15 +221,14 @@ class TestWriteSBML(unittest.TestCase):
     "    </apply>\n" + 
     "  </math>\n" + 
     "</algebraicRule>")
-    r = libsbml.AlgebraicRule( "x + 1" )
-    r.setSBMLDocument(self.D)
-    r.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    r = self.D.createModel().createAlgebraicRule()
+    r.setFormula("x + 1")
+    self.assertEqual( True, self.equals(expected,r.toSBML()) )
     pass  
 
   def test_WriteSBML_AlgebraicRule_L2v2(self):
     self.D.setLevelAndVersion(2,2)
-    expected = wrapXML("<algebraicRule sboTerm=\"SBO:0000004\">\n" + 
+    expected = wrapString("<algebraicRule sboTerm=\"SBO:0000004\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <plus/>\n" + 
@@ -215,62 +237,54 @@ class TestWriteSBML(unittest.TestCase):
     "    </apply>\n" + 
     "  </math>\n" + 
     "</algebraicRule>")
-    r = libsbml.AlgebraicRule( "x + 1" )
+    r = self.D.createModel().createAlgebraicRule()
+    r.setFormula("x + 1")
     r.setSBOTerm(4)
-    r.setSBMLDocument(self.D)
-    r.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,r.toSBML()) )
     pass  
 
   def test_WriteSBML_Compartment(self):
     self.D.setLevelAndVersion(1,2)
-    expected = wrapXML("<compartment name=\"A\" volume=\"2.1\" outside=\"B\"/>"  
-    )
-    c = libsbml.Compartment( "A" )
+    expected =  "<compartment name=\"A\" volume=\"2.1\" outside=\"B\"/>";
+    c = self.D.createModel().createCompartment()
+    c.setId("A")
     c.setSize(2.1)
     c.setOutside("B")
-    c.setSBMLDocument(self.D)
-    c.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,c.toSBML()) )
     pass  
 
   def test_WriteSBML_CompartmentType(self):
     self.D.setLevelAndVersion(2,2)
-    expected = wrapXML("<compartmentType id=\"ct\"/>")
-    ct = libsbml.CompartmentType()
+    expected =  "<compartmentType id=\"ct\"/>";
+    ct = self.D.createModel().createCompartmentType()
     ct.setId("ct")
     ct.setSBOTerm(4)
-    ct.setSBMLDocument(self.D)
-    ct.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,ct.toSBML()) )
     pass  
 
   def test_WriteSBML_CompartmentType_withSBO(self):
     self.D.setLevelAndVersion(2,3)
-    expected = wrapXML("<compartmentType id=\"ct\" sboTerm=\"SBO:0000004\"/>")
-    ct = libsbml.CompartmentType()
+    expected =  "<compartmentType id=\"ct\" sboTerm=\"SBO:0000004\"/>";
+    ct = self.D.createModel().createCompartmentType()
     ct.setId("ct")
     ct.setSBOTerm(4)
-    ct.setSBMLDocument(self.D)
-    ct.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,ct.toSBML()) )
     pass  
 
   def test_WriteSBML_CompartmentVolumeRule(self):
     self.D.setLevelAndVersion(1,1)
-    expected = wrapXML("<compartmentVolumeRule " + "formula=\"v + c\" type=\"rate\" compartment=\"c\"/>")
+    expected = wrapString("<compartmentVolumeRule " + "formula=\"v + c\" type=\"rate\" compartment=\"c\"/>")
     self.D.createModel()
     self.D.getModel().createCompartment().setId("c")
     r = self.D.getModel().createRateRule()
     r.setVariable("c")
     r.setFormula("v + c")
-    r.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,r.toSBML()) )
     pass  
 
   def test_WriteSBML_CompartmentVolumeRule_L2v1(self):
     self.D.setLevelAndVersion(2,1)
-    expected = wrapXML("<assignmentRule variable=\"c\">\n" + 
+    expected = wrapString("<assignmentRule variable=\"c\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <plus/>\n" + 
@@ -284,13 +298,12 @@ class TestWriteSBML(unittest.TestCase):
     r = self.D.getModel().createAssignmentRule()
     r.setVariable("c")
     r.setFormula("v + c")
-    r.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,r.toSBML()) )
     pass  
 
   def test_WriteSBML_CompartmentVolumeRule_L2v2(self):
     self.D.setLevelAndVersion(2,2)
-    expected = wrapXML("<assignmentRule variable=\"c\" sboTerm=\"SBO:0000005\">\n" + 
+    expected = wrapString("<assignmentRule variable=\"c\" sboTerm=\"SBO:0000005\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <plus/>\n" + 
@@ -305,103 +318,87 @@ class TestWriteSBML(unittest.TestCase):
     r.setVariable("c")
     r.setFormula("v + c")
     r.setSBOTerm(5)
-    r.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,r.toSBML()) )
     pass  
 
   def test_WriteSBML_CompartmentVolumeRule_defaults(self):
     self.D.setLevelAndVersion(1,1)
-    expected = wrapXML("<compartmentVolumeRule formula=\"v + c\" compartment=\"c\"/>"  
-    )
+    expected =  "<compartmentVolumeRule formula=\"v + c\" compartment=\"c\"/>";
     self.D.createModel()
     self.D.getModel().createCompartment().setId("c")
     r = self.D.getModel().createAssignmentRule()
     r.setVariable("c")
     r.setFormula("v + c")
-    r.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,r.toSBML()) )
     pass  
 
   def test_WriteSBML_Compartment_L2v1(self):
     self.D.setLevelAndVersion(2,1)
-    expected = wrapXML("<compartment id=\"M\" spatialDimensions=\"2\" size=\"2.5\"/>"  
-    )
-    c = libsbml.Compartment( "M" )
+    expected =  "<compartment id=\"M\" spatialDimensions=\"2\" size=\"2.5\"/>";
+    c = self.D.createModel().createCompartment()
+    c.setId("M")
     c.setSize(2.5)
     c.setSpatialDimensions(2)
-    c.setSBMLDocument(self.D)
-    c.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,c.toSBML()) )
     pass  
 
   def test_WriteSBML_Compartment_L2v1_constant(self):
     self.D.setLevelAndVersion(2,1)
-    expected = wrapXML("<compartment id=\"cell\" size=\"1.2\" constant=\"false\"/>"  
-    )
-    c = libsbml.Compartment( "cell" )
+    expected =  "<compartment id=\"cell\" size=\"1.2\" constant=\"false\"/>";
+    c = self.D.createModel().createCompartment()
+    c.setId("cell")
     c.setSize(1.2)
     c.setConstant(False)
-    c.setSBMLDocument(self.D)
-    c.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,c.toSBML()) )
     pass  
 
   def test_WriteSBML_Compartment_L2v1_unsetSize(self):
     self.D.setLevelAndVersion(2,1)
-    expected = wrapXML("<compartment id=\"A\"/>")
-    c = libsbml.Compartment()
+    expected =  "<compartment id=\"A\"/>";
+    c = self.D.createModel().createCompartment()
     c.setId("A")
     c.unsetSize()
-    c.setSBMLDocument(self.D)
-    c.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,c.toSBML()) )
     pass  
 
   def test_WriteSBML_Compartment_L2v2_compartmentType(self):
     self.D.setLevelAndVersion(2,2)
-    expected = wrapXML("<compartment id=\"cell\" compartmentType=\"ct\"/>"  
-    )
-    c = libsbml.Compartment( "cell" )
+    expected =  "<compartment id=\"cell\" compartmentType=\"ct\"/>";
+    c = self.D.createModel().createCompartment()
+    c.setId("cell")
     c.setCompartmentType("ct")
-    c.setSBMLDocument(self.D)
-    c.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,c.toSBML()) )
     pass  
 
   def test_WriteSBML_Compartment_L2v3_SBO(self):
     self.D.setLevelAndVersion(2,3)
-    expected = wrapXML("<compartment id=\"cell\" sboTerm=\"SBO:0000005\"/>"  
-    )
-    c = libsbml.Compartment( "cell" )
+    expected =  "<compartment id=\"cell\" sboTerm=\"SBO:0000005\"/>";
+    c = self.D.createModel().createCompartment()
+    c.setId("cell")
     c.setSBOTerm(5)
-    c.setSBMLDocument(self.D)
-    c.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,c.toSBML()) )
     pass  
 
   def test_WriteSBML_Compartment_unsetVolume(self):
     self.D.setLevelAndVersion(1,2)
-    expected = wrapXML("<compartment name=\"A\"/>")
-    c = libsbml.Compartment()
+    expected =  "<compartment name=\"A\"/>";
+    c = self.D.createModel().createCompartment()
     c.setId("A")
     c.unsetVolume()
-    c.setSBMLDocument(self.D)
-    c.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,c.toSBML()) )
     pass  
 
   def test_WriteSBML_Constraint(self):
     self.D.setLevelAndVersion(2,2)
-    expected = wrapXML("<constraint sboTerm=\"SBO:0000064\"/>")
-    ct = libsbml.Constraint()
+    expected =  "<constraint sboTerm=\"SBO:0000064\"/>";
+    ct = self.D.createModel().createConstraint()
     ct.setSBOTerm(64)
-    ct.setSBMLDocument(self.D)
-    ct.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,ct.toSBML()) )
     pass  
 
   def test_WriteSBML_Constraint_full(self):
-    expected = wrapXML("<constraint sboTerm=\"SBO:0000064\">\n" + 
+    self.D.setLevelAndVersion(2,2)
+    expected = wrapString("<constraint sboTerm=\"SBO:0000064\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <leq/>\n" + 
@@ -413,27 +410,28 @@ class TestWriteSBML(unittest.TestCase):
     "    <p xmlns=\"http://www.w3.org/1999/xhtml\"> Species P1 is out of range </p>\n" + 
     "  </message>\n" + 
     "</constraint>")
-    c = libsbml.Constraint()
+    c = self.D.createModel().createConstraint()
     node = libsbml.parseFormula("leq(P1,t)")
     c.setMath(node)
     c.setSBOTerm(64)
     text = libsbml.XMLNode.convertStringToXMLNode(" Species P1 is out of range ")
     triple = libsbml.XMLTriple("p", "http://www.w3.org/1999/xhtml", "")
     att = libsbml.XMLAttributes()
-    att.add("xmlns", "http://www.w3.org/1999/xhtml")
-    p = libsbml.XMLNode(triple,att)
+    xmlns = libsbml.XMLNamespaces()
+    xmlns.add("http://www.w3.org/1999/xhtml")
+    p = libsbml.XMLNode(triple,att,xmlns)
     p.addChild(text)
     triple1 = libsbml.XMLTriple("message", "", "")
     att1 = libsbml.XMLAttributes()
     message = libsbml.XMLNode(triple1,att1)
     message.addChild(p)
     c.setMessage(message)
-    c.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,c.toSBML()) )
     pass  
 
   def test_WriteSBML_Constraint_math(self):
-    expected = wrapXML("<constraint>\n" + 
+    self.D.setLevelAndVersion(2,2)
+    expected = wrapString("<constraint>\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <leq/>\n" + 
@@ -442,43 +440,40 @@ class TestWriteSBML(unittest.TestCase):
     "    </apply>\n" + 
     "  </math>\n" + 
     "</constraint>")
-    c = libsbml.Constraint()
+    c = self.D.createModel().createConstraint()
     node = libsbml.parseFormula("leq(P1,t)")
     c.setMath(node)
-    c.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,c.toSBML()) )
     pass  
 
   def test_WriteSBML_Event(self):
-    expected = wrapXML("<event id=\"e\"/>")
-    e = libsbml.Event()
+    self.D.setLevelAndVersion(2,1)
+    expected =  "<event id=\"e\"/>";
+    e = self.D.createModel().createEvent()
     e.setId("e")
-    e.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,e.toSBML()) )
     pass  
 
   def test_WriteSBML_Event_WithSBO(self):
-    expected = wrapXML("<event id=\"e\" sboTerm=\"SBO:0000076\"/>")
-    e = libsbml.Event()
+    self.D.setLevelAndVersion(2,3)
+    expected =  "<event id=\"e\" sboTerm=\"SBO:0000076\"/>";
+    e = self.D.createModel().createEvent()
     e.setId("e")
     e.setSBOTerm(76)
-    e.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,e.toSBML()) )
     pass  
 
   def test_WriteSBML_Event_WithUseValuesFromTriggerTime(self):
-    expected = wrapXML("<event id=\"e\" useValuesFromTriggerTime=\"false\"/>")
+    expected =  "<event id=\"e\" useValuesFromTriggerTime=\"false\"/>";
     self.D.setLevelAndVersion(2,4)
-    e = libsbml.Event()
+    e = self.D.createModel().createEvent()
     e.setId("e")
     e.setUseValuesFromTriggerTime(False)
-    e.setSBMLDocument(self.D)
-    e.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,e.toSBML()) )
     pass  
 
   def test_WriteSBML_Event_both(self):
-    expected = wrapXML("<event id=\"e\">\n" + 
+    expected = wrapString("<event id=\"e\">\n" + 
     "  <trigger>\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "      <apply>\n" + 
@@ -494,53 +489,59 @@ class TestWriteSBML(unittest.TestCase):
     "    </math>\n" + 
     "  </delay>\n" + 
     "</event>")
-    e = libsbml.Event( "e" )
+    self.D.setLevelAndVersion(2,1)
+    e = self.D.createModel().createEvent()
+    e.setId("e")
     node1 = libsbml.parseFormula("leq(P1,t)")
-    t = libsbml.Trigger( node1 )
+    t = libsbml.Trigger( 2,1 )
+    t.setMath(node1)
     node = libsbml.parseFormula("5")
-    d = libsbml.Delay( node )
+    d = libsbml.Delay( 2,1 )
+    d.setMath(node)
     e.setDelay(d)
     e.setTrigger(t)
-    e.setTimeUnits("second")
-    e.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,e.toSBML()) )
     pass  
 
   def test_WriteSBML_Event_delay(self):
-    expected = wrapXML("<event id=\"e\">\n" + 
+    expected = wrapString("<event id=\"e\">\n" + 
     "  <delay>\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "      <cn type=\"integer\"> 5 </cn>\n" + 
     "    </math>\n" + 
     "  </delay>\n" + 
     "</event>")
-    e = libsbml.Event( "e" )
+    self.D.setLevelAndVersion(2,1)
+    e = self.D.createModel().createEvent()
+    e.setId("e")
     node = libsbml.parseFormula("5")
-    d = libsbml.Delay( node )
+    d = libsbml.Delay( 2,1 )
+    d.setMath(node)
     e.setDelay(d)
-    e.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,e.toSBML()) )
     pass  
 
   def test_WriteSBML_Event_delayWithSBO(self):
-    expected = wrapXML("<event id=\"e\">\n" + 
+    expected = wrapString("<event id=\"e\">\n" + 
     "  <delay sboTerm=\"SBO:0000064\">\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "      <cn type=\"integer\"> 5 </cn>\n" + 
     "    </math>\n" + 
     "  </delay>\n" + 
     "</event>")
-    e = libsbml.Event( "e" )
+    self.D.setLevelAndVersion(2,3)
+    e = self.D.createModel().createEvent()
+    e.setId("e")
     node = libsbml.parseFormula("5")
-    d = libsbml.Delay( node )
+    d = libsbml.Delay( 2,3 )
+    d.setMath(node)
     d.setSBOTerm(64)
     e.setDelay(d)
-    e.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,e.toSBML()) )
     pass  
 
   def test_WriteSBML_Event_full(self):
-    expected = wrapXML("<event id=\"e\">\n" + 
+    expected = wrapString("<event id=\"e\">\n" + 
     "  <trigger>\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "      <apply>\n" + 
@@ -558,20 +559,24 @@ class TestWriteSBML(unittest.TestCase):
     "    </eventAssignment>\n" + 
     "  </listOfEventAssignments>\n" + 
     "</event>")
-    e = libsbml.Event( "e" )
+    self.D.setLevelAndVersion(2,3)
+    e = self.D.createModel().createEvent()
+    e.setId("e")
     node = libsbml.parseFormula("leq(P1,t)")
-    t = libsbml.Trigger( node )
+    t = libsbml.Trigger( 2,3 )
+    t.setMath(node)
     math = libsbml.parseFormula("0")
-    ea = libsbml.EventAssignment( "k2",math )
+    ea = libsbml.EventAssignment( 2,3 )
+    ea.setVariable("k2")
+    ea.setMath(math)
     ea.setSBOTerm(64)
     e.setTrigger(t)
     e.addEventAssignment(ea)
-    e.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,e.toSBML()) )
     pass  
 
   def test_WriteSBML_Event_trigger(self):
-    expected = wrapXML("<event id=\"e\">\n" + 
+    expected = wrapString("<event id=\"e\">\n" + 
     "  <trigger>\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "      <apply>\n" + 
@@ -582,17 +587,18 @@ class TestWriteSBML(unittest.TestCase):
     "    </math>\n" + 
     "  </trigger>\n" + 
     "</event>")
-    e = libsbml.Event( "e" )
+    self.D.setLevelAndVersion(2,1)
+    e = self.D.createModel().createEvent()
+    e.setId("e")
     node = libsbml.parseFormula("leq(P1,t)")
-    t = libsbml.Trigger( node )
+    t = libsbml.Trigger( 2,1 )
+    t.setMath(node)
     e.setTrigger(t)
-    e.setTimeUnits("second")
-    e.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,e.toSBML()) )
     pass  
 
   def test_WriteSBML_Event_trigger_withSBO(self):
-    expected = wrapXML("<event id=\"e\">\n" + 
+    expected = wrapString("<event id=\"e\">\n" + 
     "  <trigger sboTerm=\"SBO:0000064\">\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "      <apply>\n" + 
@@ -603,17 +609,19 @@ class TestWriteSBML(unittest.TestCase):
     "    </math>\n" + 
     "  </trigger>\n" + 
     "</event>")
-    e = libsbml.Event( "e" )
+    self.D.setLevelAndVersion(2,3)
+    e = self.D.createModel().createEvent()
+    e.setId("e")
     node = libsbml.parseFormula("leq(P1,t)")
-    t = libsbml.Trigger( node )
+    t = libsbml.Trigger( 2,3 )
+    t.setMath(node)
     t.setSBOTerm(64)
     e.setTrigger(t)
-    e.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,e.toSBML()) )
     pass  
 
   def test_WriteSBML_FunctionDefinition(self):
-    expected = wrapXML("<functionDefinition id=\"pow3\">\n" + 
+    expected = wrapString("<functionDefinition id=\"pow3\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <lambda>\n" + 
     "      <bvar>\n" + 
@@ -627,13 +635,14 @@ class TestWriteSBML(unittest.TestCase):
     "    </lambda>\n" + 
     "  </math>\n" + 
     "</functionDefinition>")
-    fd = libsbml.FunctionDefinition( "pow3", "lambda(x, x^3)" )
-    fd.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    fd = libsbml.FunctionDefinition( 2,4 )
+    fd.setId("pow3")
+    fd.setMath(libsbml.parseFormula("lambda(x, x^3)"))
+    self.assertEqual( True, self.equals(expected,fd.toSBML()) )
     pass  
 
   def test_WriteSBML_FunctionDefinition_withSBO(self):
-    expected = wrapXML("<functionDefinition id=\"pow3\" sboTerm=\"SBO:0000064\">\n" + 
+    expected = wrapString("<functionDefinition id=\"pow3\" sboTerm=\"SBO:0000064\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <lambda>\n" + 
     "      <bvar>\n" + 
@@ -647,32 +656,32 @@ class TestWriteSBML(unittest.TestCase):
     "    </lambda>\n" + 
     "  </math>\n" + 
     "</functionDefinition>")
-    fd = libsbml.FunctionDefinition( "pow3", "lambda(x, x^3)" )
+    fd = libsbml.FunctionDefinition( 2,4 )
+    fd.setId("pow3")
+    fd.setMath(libsbml.parseFormula("lambda(x, x^3)"))
     fd.setSBOTerm(64)
-    fd.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,fd.toSBML()) )
     pass  
 
   def test_WriteSBML_INF(self):
-    expected = wrapXML("<parameter id=\"p\" value=\"INF\"/>")
-    p = libsbml.Parameter( "p", util_PosInf() )
-    p.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    expected =  "<parameter id=\"p\" value=\"INF\"/>";
+    p = self.D.createModel().createParameter()
+    p.setId("p")
+    p.setValue(util_PosInf())
+    self.assertEqual( True, self.equals(expected,p.toSBML()) )
     pass  
 
   def test_WriteSBML_InitialAssignment(self):
     self.D.setLevelAndVersion(2,2)
-    expected = wrapXML("<initialAssignment symbol=\"c\" sboTerm=\"SBO:0000064\"/>")
-    ia = libsbml.InitialAssignment()
+    expected =  "<initialAssignment symbol=\"c\" sboTerm=\"SBO:0000064\"/>";
+    ia = self.D.createModel().createInitialAssignment()
     ia.setSBOTerm(64)
     ia.setSymbol("c")
-    ia.setSBMLDocument(self.D)
-    ia.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,ia.toSBML()) )
     pass  
 
   def test_WriteSBML_InitialAssignment_math(self):
-    expected = wrapXML("<initialAssignment symbol=\"c\">\n" + 
+    expected = wrapString("<initialAssignment symbol=\"c\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <plus/>\n" + 
@@ -681,42 +690,45 @@ class TestWriteSBML(unittest.TestCase):
     "    </apply>\n" + 
     "  </math>\n" + 
     "</initialAssignment>")
-    ia = libsbml.InitialAssignment()
+    ia = self.D.createModel().createInitialAssignment()
     node = libsbml.parseFormula("a + b")
     ia.setMath(node)
     ia.setSymbol("c")
-    ia.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,ia.toSBML()) )
     pass  
 
   def test_WriteSBML_KineticLaw(self):
     self.D.setLevelAndVersion(1,2)
-    expected = wrapXML("<kineticLaw formula=\"k * e\" timeUnits=\"second\" " + "substanceUnits=\"item\"/>")
-    kl = libsbml.KineticLaw( "k * e", "second", "item" )
-    kl.setSBMLDocument(self.D)
-    kl.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    expected = wrapString("<kineticLaw formula=\"k * e\" timeUnits=\"second\" " + "substanceUnits=\"item\"/>")
+    kl = self.D.createModel().createReaction().createKineticLaw()
+    kl.setFormula("k * e")
+    kl.setTimeUnits("second")
+    kl.setSubstanceUnits("item")
+    self.assertEqual( True, self.equals(expected,kl.toSBML()) )
     pass  
 
   def test_WriteSBML_KineticLaw_ListOfParameters(self):
     self.D.setLevelAndVersion(1,2)
-    expected = wrapXML("<kineticLaw formula=\"nk * e\" timeUnits=\"second\" " + 
+    expected = wrapString("<kineticLaw formula=\"nk * e\" timeUnits=\"second\" " + 
     "substanceUnits=\"item\">\n" + 
     "  <listOfParameters>\n" + 
     "    <parameter name=\"n\" value=\"1.2\"/>\n" + 
     "  </listOfParameters>\n" + 
     "</kineticLaw>")
-    kl = libsbml.KineticLaw( "nk * e", "second", "item" )
-    kl.setSBMLDocument(self.D)
-    p = libsbml.Parameter( "n",1.2 )
+    kl = self.D.createModel().createReaction().createKineticLaw()
+    kl.setFormula("nk * e")
+    kl.setTimeUnits("second")
+    kl.setSubstanceUnits("item")
+    p = kl.createParameter()
+    p.setName("n")
+    p.setValue(1.2)
     kl.addParameter(p)
-    kl.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,kl.toSBML()) )
     pass  
 
   def test_WriteSBML_KineticLaw_l2v1(self):
     self.D.setLevelAndVersion(2,1)
-    expected = wrapXML("<kineticLaw timeUnits=\"second\" substanceUnits=\"item\">\n" + 
+    expected = wrapString("<kineticLaw timeUnits=\"second\" substanceUnits=\"item\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <divide/>\n" + 
@@ -733,27 +745,24 @@ class TestWriteSBML(unittest.TestCase):
     "    </apply>\n" + 
     "  </math>\n" + 
     "</kineticLaw>")
-    kl = libsbml.KineticLaw()
+    kl = self.D.createModel().createReaction().createKineticLaw()
     kl.setTimeUnits("second")
     kl.setSubstanceUnits("item")
     kl.setFormula("(vm * s1)/(km + s1)")
-    kl.setSBMLDocument(self.D)
-    kl.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,kl.toSBML()) )
     pass  
 
   def test_WriteSBML_KineticLaw_skipOptional(self):
     self.D.setLevelAndVersion(1,2)
-    expected = wrapXML("<kineticLaw formula=\"k * e\"/>")
-    kl = libsbml.KineticLaw( "k * e" )
-    kl.setSBMLDocument(self.D)
-    kl.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    expected =  "<kineticLaw formula=\"k * e\"/>";
+    kl = self.D.createModel().createReaction().createKineticLaw()
+    kl.setFormula("k * e")
+    self.assertEqual( True, self.equals(expected,kl.toSBML()) )
     pass  
 
   def test_WriteSBML_KineticLaw_withSBO(self):
     self.D.setLevelAndVersion(2,2)
-    expected = wrapXML("<kineticLaw sboTerm=\"SBO:0000001\">\n" + 
+    expected = wrapString("<kineticLaw sboTerm=\"SBO:0000001\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <divide/>\n" + 
@@ -770,12 +779,10 @@ class TestWriteSBML(unittest.TestCase):
     "    </apply>\n" + 
     "  </math>\n" + 
     "</kineticLaw>")
-    kl = libsbml.KineticLaw()
+    kl = self.D.createModel().createReaction().createKineticLaw()
     kl.setFormula("(vm * s1)/(km + s1)")
     kl.setSBOTerm(1)
-    kl.setSBMLDocument(self.D)
-    kl.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,kl.toSBML()) )
     pass  
 
   def test_WriteSBML_Model(self):
@@ -820,44 +827,45 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_NaN(self):
-    expected = wrapXML("<parameter id=\"p\" value=\"NaN\"/>")
-    p = libsbml.Parameter( "p", util_NaN() )
-    p.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    expected =  "<parameter id=\"p\" value=\"NaN\"/>";
+    p = self.D.createModel().createParameter()
+    p.setId("p")
+    p.setValue(util_NaN())
+    self.assertEqual( True, self.equals(expected,p.toSBML()) )
     pass  
 
   def test_WriteSBML_NegINF(self):
-    expected = wrapXML("<parameter id=\"p\" value=\"-INF\"/>")
-    p = libsbml.Parameter( "p", util_NegInf() )
-    p.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    expected =  "<parameter id=\"p\" value=\"-INF\"/>";
+    p = self.D.createModel().createParameter()
+    p.setId("p")
+    p.setValue(util_NegInf())
+    self.assertEqual( True, self.equals(expected,p.toSBML()) )
     pass  
 
   def test_WriteSBML_Parameter(self):
     self.D.setLevelAndVersion(1,2)
-    expected = wrapXML("<parameter name=\"Km1\" value=\"2.3\" units=\"second\"/>"  
-    )
-    p = libsbml.Parameter( "Km1",2.3, "second" )
-    p.setSBMLDocument(self.D)
-    p.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    expected =  "<parameter name=\"Km1\" value=\"2.3\" units=\"second\"/>";
+    p = self.D.createModel().createParameter()
+    p.setId("Km1")
+    p.setValue(2.3)
+    p.setUnits("second")
+    self.assertEqual( True, self.equals(expected,p.toSBML()) )
     pass  
 
   def test_WriteSBML_ParameterRule(self):
     self.D.setLevelAndVersion(1,1)
-    expected = wrapXML("<parameterRule " + "formula=\"p * t\" type=\"rate\" name=\"p\"/>")
+    expected = wrapString("<parameterRule " + "formula=\"p * t\" type=\"rate\" name=\"p\"/>")
     self.D.createModel()
     self.D.getModel().createParameter().setId("p")
     r = self.D.getModel().createRateRule()
     r.setVariable("p")
     r.setFormula("p * t")
-    r.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,r.toSBML()) )
     pass  
 
   def test_WriteSBML_ParameterRule_L2v1(self):
     self.D.setLevelAndVersion(2,1)
-    expected = wrapXML("<rateRule variable=\"p\">\n" + 
+    expected = wrapString("<rateRule variable=\"p\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <times/>\n" + 
@@ -871,13 +879,12 @@ class TestWriteSBML(unittest.TestCase):
     r = self.D.getModel().createRateRule()
     r.setVariable("p")
     r.setFormula("p * t")
-    r.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,r.toSBML()) )
     pass  
 
   def test_WriteSBML_ParameterRule_L2v2(self):
     self.D.setLevelAndVersion(2,2)
-    expected = wrapXML("<rateRule variable=\"p\" sboTerm=\"SBO:0000007\">\n" + 
+    expected = wrapString("<rateRule variable=\"p\" sboTerm=\"SBO:0000007\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <times/>\n" + 
@@ -892,110 +899,98 @@ class TestWriteSBML(unittest.TestCase):
     r.setVariable("p")
     r.setFormula("p * t")
     r.setSBOTerm(7)
-    r.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,r.toSBML()) )
     pass  
 
   def test_WriteSBML_ParameterRule_defaults(self):
     self.D.setLevelAndVersion(1,1)
-    expected = wrapXML("<parameterRule formula=\"p * t\" name=\"p\"/>"  
-    )
+    expected =  "<parameterRule formula=\"p * t\" name=\"p\"/>";
     self.D.createModel()
     self.D.getModel().createParameter().setId("p")
     r = self.D.getModel().createAssignmentRule()
     r.setVariable("p")
     r.setFormula("p * t")
-    r.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,r.toSBML()) )
     pass  
 
   def test_WriteSBML_Parameter_L1v1_required(self):
     self.D.setLevelAndVersion(1,1)
-    expected = wrapXML("<parameter name=\"Km1\" value=\"NaN\"/>"  
-    )
-    p = libsbml.Parameter()
+    expected =  "<parameter name=\"Km1\" value=\"NaN\"/>";
+    p = self.D.createModel().createParameter()
     p.setId("Km1")
     p.unsetValue()
-    p.setSBMLDocument(self.D)
-    p.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,p.toSBML()) )
     pass  
 
   def test_WriteSBML_Parameter_L1v2_skipOptional(self):
     self.D.setLevelAndVersion(1,2)
-    expected = wrapXML("<parameter name=\"Km1\"/>")
-    p = libsbml.Parameter()
+    expected =  "<parameter name=\"Km1\"/>";
+    p = self.D.createModel().createParameter()
     p.setId("Km1")
     p.unsetValue()
-    p.setSBMLDocument(self.D)
-    p.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,p.toSBML()) )
     pass  
 
   def test_WriteSBML_Parameter_L2v1(self):
     self.D.setLevelAndVersion(2,1)
-    expected = wrapXML("<parameter id=\"Km1\" value=\"2.3\" units=\"second\"/>"  
-    )
-    p = libsbml.Parameter( "Km1",2.3, "second" )
-    p.setSBMLDocument(self.D)
-    p.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    expected =  "<parameter id=\"Km1\" value=\"2.3\" units=\"second\"/>";
+    p = self.D.createModel().createParameter()
+    p.setId("Km1")
+    p.setValue(2.3)
+    p.setUnits("second")
+    self.assertEqual( True, self.equals(expected,p.toSBML()) )
     pass  
 
   def test_WriteSBML_Parameter_L2v1_constant(self):
     self.D.setLevelAndVersion(2,1)
-    expected = wrapXML("<parameter id=\"x\" constant=\"false\"/>")
-    p = libsbml.Parameter( "x" )
+    expected =  "<parameter id=\"x\" constant=\"false\"/>";
+    p = self.D.createModel().createParameter()
+    p.setId("x")
     p.setConstant(False)
-    p.setSBMLDocument(self.D)
-    p.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,p.toSBML()) )
     pass  
 
   def test_WriteSBML_Parameter_L2v1_skipOptional(self):
     self.D.setLevelAndVersion(2,1)
-    expected = wrapXML("<parameter id=\"Km1\"/>")
-    p = libsbml.Parameter( "Km1" )
-    p.setSBMLDocument(self.D)
-    p.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    expected =  "<parameter id=\"Km1\"/>";
+    p = self.D.createModel().createParameter()
+    p.setId("Km1")
+    self.assertEqual( True, self.equals(expected,p.toSBML()) )
     pass  
 
   def test_WriteSBML_Parameter_L2v2(self):
     self.D.setLevelAndVersion(2,2)
-    expected = wrapXML("<parameter id=\"Km1\" value=\"2.3\" units=\"second\" sboTerm=\"SBO:0000002\"/>"  
-    )
-    p = libsbml.Parameter( "Km1",2.3, "second" )
+    expected =  "<parameter id=\"Km1\" value=\"2.3\" units=\"second\" sboTerm=\"SBO:0000002\"/>";
+    p = self.D.createModel().createParameter()
+    p.setId("Km1")
+    p.setValue(2.3)
+    p.setUnits("second")
     p.setSBOTerm(2)
-    p.setSBMLDocument(self.D)
-    p.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,p.toSBML()) )
     pass  
 
   def test_WriteSBML_Reaction(self):
     self.D.setLevelAndVersion(1,2)
-    expected = wrapXML("<reaction name=\"r\" reversible=\"false\" fast=\"true\"/>"  
-    )
-    r = libsbml.Reaction( "r", "",None,False )
+    expected =  "<reaction name=\"r\" reversible=\"false\" fast=\"true\"/>";
+    r = self.D.createModel().createReaction()
+    r.setId("r")
+    r.setReversible(False)
     r.setFast(True)
-    r.setSBMLDocument(self.D)
-    r.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,r.toSBML()) )
     pass  
 
   def test_WriteSBML_Reaction_L2v1(self):
     self.D.setLevelAndVersion(2,1)
-    expected = wrapXML("<reaction id=\"r\" reversible=\"false\"/>"  
-    )
-    r = libsbml.Reaction( "r", "",None,False )
-    r.setSBMLDocument(self.D)
-    r.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    expected =  "<reaction id=\"r\" reversible=\"false\"/>";
+    r = self.D.createModel().createReaction()
+    r.setId("r")
+    r.setReversible(False)
+    self.assertEqual( True, self.equals(expected,r.toSBML()) )
     pass  
 
   def test_WriteSBML_Reaction_L2v1_full(self):
     self.D.setLevelAndVersion(2,1)
-    expected = wrapXML("<reaction id=\"v1\">\n" + 
+    expected = wrapString("<reaction id=\"v1\">\n" + 
     "  <listOfReactants>\n" + 
     "    <speciesReference species=\"x0\"/>\n" + 
     "  </listOfReactants>\n" + 
@@ -1031,35 +1026,32 @@ class TestWriteSBML(unittest.TestCase):
     r.createProduct().setSpecies("s1")
     r.createModifier().setSpecies("m1")
     r.createKineticLaw().setFormula("(vm * s1)/(km + s1)")
-    r.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,r.toSBML()) )
     pass  
 
   def test_WriteSBML_Reaction_L2v2(self):
     self.D.setLevelAndVersion(2,2)
-    expected = wrapXML("<reaction id=\"r\" name=\"r1\" reversible=\"false\" fast=\"true\" sboTerm=\"SBO:0000064\"/>"  
-    )
-    r = libsbml.Reaction( "r", "r1",None,False )
+    expected =  "<reaction id=\"r\" name=\"r1\" reversible=\"false\" fast=\"true\" sboTerm=\"SBO:0000064\"/>";
+    r = self.D.createModel().createReaction()
+    r.setId("r")
+    r.setName("r1")
+    r.setReversible(False)
     r.setFast(True)
     r.setSBOTerm(64)
-    r.setSBMLDocument(self.D)
-    r.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,r.toSBML()) )
     pass  
 
   def test_WriteSBML_Reaction_defaults(self):
     self.D.setLevelAndVersion(1,2)
-    expected = wrapXML("<reaction name=\"r\"/>")
-    r = libsbml.Reaction()
+    expected =  "<reaction name=\"r\"/>";
+    r = self.D.createModel().createReaction()
     r.setId("r")
-    r.setSBMLDocument(self.D)
-    r.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,r.toSBML()) )
     pass  
 
   def test_WriteSBML_Reaction_full(self):
     self.D.setLevelAndVersion(1,2)
-    expected = wrapXML("<reaction name=\"v1\">\n" + 
+    expected = wrapString("<reaction name=\"v1\">\n" + 
     "  <listOfReactants>\n" + 
     "    <speciesReference species=\"x0\"/>\n" + 
     "  </listOfReactants>\n" + 
@@ -1075,8 +1067,7 @@ class TestWriteSBML(unittest.TestCase):
     r.createReactant().setSpecies("x0")
     r.createProduct().setSpecies("s1")
     r.createKineticLaw().setFormula("(vm * s1)/(km + s1)")
-    r.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,r.toSBML()) )
     pass  
 
   def test_WriteSBML_SBMLDocument_L1v1(self):
@@ -1109,46 +1100,42 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_Species(self):
     self.D.setLevelAndVersion(1,2)
-    expected = wrapXML("<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" + " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>")
-    s = libsbml.Species( "Ca2" )
+    expected = wrapString("<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" + " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>")
+    s = self.D.createModel().createSpecies()
+    s.setName("Ca2")
     s.setCompartment("cell")
     s.setInitialAmount(0.7)
     s.setUnits("mole")
     s.setBoundaryCondition(True)
     s.setCharge(2)
-    s.setSBMLDocument(self.D)
-    s.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,s.toSBML()) )
     pass  
 
   def test_WriteSBML_SpeciesConcentrationRule(self):
     self.D.setLevelAndVersion(1,2)
-    expected = wrapXML("<speciesConcentrationRule " + "formula=\"t * s\" type=\"rate\" species=\"s\"/>")
+    expected = wrapString("<speciesConcentrationRule " + "formula=\"t * s\" type=\"rate\" species=\"s\"/>")
     self.D.createModel()
     self.D.getModel().createSpecies().setId("s")
     r = self.D.getModel().createRateRule()
     r.setVariable("s")
     r.setFormula("t * s")
-    r.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,r.toSBML()) )
     pass  
 
   def test_WriteSBML_SpeciesConcentrationRule_L1v1(self):
     self.D.setLevelAndVersion(1,1)
-    expected = wrapXML("<specieConcentrationRule formula=\"t * s\" specie=\"s\"/>"  
-    )
+    expected =  "<specieConcentrationRule formula=\"t * s\" specie=\"s\"/>";
     self.D.createModel()
     self.D.getModel().createSpecies().setId("s")
     r = self.D.getModel().createAssignmentRule()
     r.setVariable("s")
     r.setFormula("t * s")
-    r.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,r.toSBML()) )
     pass  
 
   def test_WriteSBML_SpeciesConcentrationRule_L2v1(self):
     self.D.setLevelAndVersion(2,1)
-    expected = wrapXML("<assignmentRule variable=\"s\">\n" + 
+    expected = wrapString("<assignmentRule variable=\"s\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <times/>\n" + 
@@ -1162,13 +1149,12 @@ class TestWriteSBML(unittest.TestCase):
     r = self.D.getModel().createAssignmentRule()
     r.setVariable("s")
     r.setFormula("t * s")
-    r.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,r.toSBML()) )
     pass  
 
   def test_WriteSBML_SpeciesConcentrationRule_L2v2(self):
     self.D.setLevelAndVersion(2,2)
-    expected = wrapXML("<assignmentRule variable=\"s\" sboTerm=\"SBO:0000006\">\n" + 
+    expected = wrapString("<assignmentRule variable=\"s\" sboTerm=\"SBO:0000006\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <times/>\n" + 
@@ -1183,71 +1169,68 @@ class TestWriteSBML(unittest.TestCase):
     r.setVariable("s")
     r.setFormula("t * s")
     r.setSBOTerm(6)
-    r.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,r.toSBML()) )
     pass  
 
   def test_WriteSBML_SpeciesConcentrationRule_defaults(self):
     self.D.setLevelAndVersion(1,2)
-    expected = wrapXML("<speciesConcentrationRule formula=\"t * s\" species=\"s\"/>"  
-    )
+    expected =  "<speciesConcentrationRule formula=\"t * s\" species=\"s\"/>";
     self.D.createModel()
     self.D.getModel().createSpecies().setId("s")
     r = self.D.getModel().createAssignmentRule()
     r.setVariable("s")
     r.setFormula("t * s")
-    r.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,r.toSBML()) )
     pass  
 
   def test_WriteSBML_SpeciesReference(self):
     self.D.setLevelAndVersion(1,2)
-    expected = wrapXML("<speciesReference species=\"s\" stoichiometry=\"3\" denominator=\"2\"/>"  
-    )
-    sr = libsbml.SpeciesReference( "s",3,2 )
-    sr.setSBMLDocument(self.D)
-    sr.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    expected =  "<speciesReference species=\"s\" stoichiometry=\"3\" denominator=\"2\"/>";
+    sr = self.D.createModel().createReaction().createReactant()
+    sr.setSpecies("s")
+    sr.setStoichiometry(3)
+    sr.setDenominator(2)
+    self.assertEqual( True, self.equals(expected,sr.toSBML()) )
     pass  
 
   def test_WriteSBML_SpeciesReference_L1v1(self):
     self.D.setLevelAndVersion(1,1)
-    expected = wrapXML("<specieReference specie=\"s\" stoichiometry=\"3\" denominator=\"2\"/>"  
-    )
-    sr = libsbml.SpeciesReference( "s",3,2 )
-    sr.setSBMLDocument(self.D)
-    sr.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    expected =  "<specieReference specie=\"s\" stoichiometry=\"3\" denominator=\"2\"/>";
+    sr = self.D.createModel().createReaction().createReactant()
+    sr.setSpecies("s")
+    sr.setStoichiometry(3)
+    sr.setDenominator(2)
+    self.assertEqual( True, self.equals(expected,sr.toSBML()) )
     pass  
 
   def test_WriteSBML_SpeciesReference_L2v1_1(self):
     self.D.setLevelAndVersion(2,1)
-    expected = wrapXML("<speciesReference species=\"s\">\n" + 
+    expected = wrapString("<speciesReference species=\"s\">\n" + 
     "  <stoichiometryMath>\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "      <cn type=\"rational\"> 3 <sep/> 2 </cn>\n" + 
     "    </math>\n" + 
     "  </stoichiometryMath>\n" + 
     "</speciesReference>")
-    sr = libsbml.SpeciesReference( "s",3,2 )
-    sr.setSBMLDocument(self.D)
-    sr.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    sr = self.D.createModel().createReaction().createReactant()
+    sr.setSpecies("s")
+    sr.setStoichiometry(3)
+    sr.setDenominator(2)
+    self.assertEqual( True, self.equals(expected,sr.toSBML()) )
     pass  
 
   def test_WriteSBML_SpeciesReference_L2v1_2(self):
     self.D.setLevelAndVersion(2,1)
-    expected = wrapXML("<speciesReference species=\"s\" stoichiometry=\"3.2\"/>"  
-    )
-    sr = libsbml.SpeciesReference( "s",3.2 )
-    sr.setSBMLDocument(self.D)
-    sr.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    expected =  "<speciesReference species=\"s\" stoichiometry=\"3.2\"/>";
+    sr = self.D.createModel().createReaction().createReactant()
+    sr.setSpecies("s")
+    sr.setStoichiometry(3.2)
+    self.assertEqual( True, self.equals(expected,sr.toSBML()) )
     pass  
 
   def test_WriteSBML_SpeciesReference_L2v1_3(self):
     self.D.setLevelAndVersion(2,1)
-    expected = wrapXML("<speciesReference species=\"s\">\n" + 
+    expected = wrapString("<speciesReference species=\"s\">\n" + 
     "  <stoichiometryMath>\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "      <apply>\n" + 
@@ -1258,170 +1241,157 @@ class TestWriteSBML(unittest.TestCase):
     "    </math>\n" + 
     "  </stoichiometryMath>\n" + 
     "</speciesReference>")
-    sr = libsbml.SpeciesReference( "s" )
+    sr = self.D.createModel().createReaction().createReactant()
+    sr.setSpecies("s")
     math = libsbml.parseFormula("1/d")
-    stoich = libsbml.StoichiometryMath()
+    stoich = sr.createStoichiometryMath()
     stoich.setMath(math)
     sr.setStoichiometryMath(stoich)
-    sr.setSBMLDocument(self.D)
-    sr.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,sr.toSBML()) )
     pass  
 
   def test_WriteSBML_SpeciesReference_L2v2_1(self):
     self.D.setLevelAndVersion(2,2)
-    expected = wrapXML("<speciesReference id=\"ss\" name=\"odd\" sboTerm=\"SBO:0000009\" species=\"s\">\n" + 
+    expected = wrapString("<speciesReference id=\"ss\" name=\"odd\" sboTerm=\"SBO:0000009\" species=\"s\">\n" + 
     "  <stoichiometryMath>\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "      <cn type=\"rational\"> 3 <sep/> 2 </cn>\n" + 
     "    </math>\n" + 
     "  </stoichiometryMath>\n" + 
     "</speciesReference>")
-    sr = libsbml.SpeciesReference( "s",3,2 )
+    sr = self.D.createModel().createReaction().createReactant()
+    sr.setSpecies("s")
+    sr.setStoichiometry(3)
+    sr.setDenominator(2)
     sr.setId("ss")
     sr.setName("odd")
     sr.setSBOTerm(9)
-    sr.setSBMLDocument(self.D)
-    sr.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    sr.setId("ss")
+    sr.setName("odd")
+    sr.setSBOTerm(9)
+    self.assertEqual( True, self.equals(expected,sr.toSBML()) )
     pass  
 
   def test_WriteSBML_SpeciesReference_L2v3_1(self):
     self.D.setLevelAndVersion(2,3)
-    expected = wrapXML("<speciesReference id=\"ss\" name=\"odd\" sboTerm=\"SBO:0000009\" species=\"s\" stoichiometry=\"3.2\"/>"  
-    )
-    sr = libsbml.SpeciesReference( "s",3.2 )
+    expected =  "<speciesReference id=\"ss\" name=\"odd\" sboTerm=\"SBO:0000009\" species=\"s\" stoichiometry=\"3.2\"/>";
+    sr = self.D.createModel().createReaction().createReactant()
+    sr.setSpecies("s")
+    sr.setStoichiometry(3.2)
     sr.setId("ss")
     sr.setName("odd")
     sr.setSBOTerm(9)
-    sr.setSBMLDocument(self.D)
-    sr.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,sr.toSBML()) )
     pass  
 
   def test_WriteSBML_SpeciesReference_defaults(self):
     self.D.setLevelAndVersion(1,2)
-    expected = wrapXML("<speciesReference species=\"s\"/>")
-    sr = libsbml.SpeciesReference( "s" )
-    sr.setSBMLDocument(self.D)
-    sr.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    expected =  "<speciesReference species=\"s\"/>";
+    sr = self.D.createModel().createReaction().createReactant()
+    sr.setSpecies("s")
+    self.assertEqual( True, self.equals(expected,sr.toSBML()) )
     pass  
 
   def test_WriteSBML_SpeciesType(self):
     self.D.setLevelAndVersion(2,2)
-    expected = wrapXML("<speciesType id=\"st\"/>")
-    st = libsbml.SpeciesType()
+    expected =  "<speciesType id=\"st\"/>";
+    st = self.D.createModel().createSpeciesType()
     st.setId("st")
     st.setSBOTerm(4)
-    st.setSBMLDocument(self.D)
-    st.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,st.toSBML()) )
     pass  
 
   def test_WriteSBML_SpeciesType_withSBO(self):
     self.D.setLevelAndVersion(2,3)
-    expected = wrapXML("<speciesType id=\"st\" sboTerm=\"SBO:0000004\"/>")
-    st = libsbml.SpeciesType()
+    expected =  "<speciesType id=\"st\" sboTerm=\"SBO:0000004\"/>";
+    st = self.D.createModel().createSpeciesType()
     st.setId("st")
     st.setSBOTerm(4)
-    st.setSBMLDocument(self.D)
-    st.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,st.toSBML()) )
     pass  
 
   def test_WriteSBML_Species_L1v1(self):
     self.D.setLevelAndVersion(1,1)
-    expected = wrapXML("<specie name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" + " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>")
-    s = libsbml.Species( "Ca2" )
+    expected = wrapString("<specie name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" + " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>")
+    s = self.D.createModel().createSpecies()
+    s.setName("Ca2")
     s.setCompartment("cell")
     s.setInitialAmount(0.7)
     s.setUnits("mole")
     s.setBoundaryCondition(True)
     s.setCharge(2)
-    s.setSBMLDocument(self.D)
-    s.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,s.toSBML()) )
     pass  
 
   def test_WriteSBML_Species_L2v1(self):
     self.D.setLevelAndVersion(2,1)
-    expected = wrapXML("<species id=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\" " + "substanceUnits=\"mole\" constant=\"true\"/>")
-    s = libsbml.Species( "Ca2" )
+    expected = wrapString("<species id=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\" " + "substanceUnits=\"mole\" constant=\"true\"/>")
+    s = self.D.createModel().createSpecies()
+    s.setId("Ca2")
     s.setCompartment("cell")
     s.setInitialAmount(0.7)
     s.setSubstanceUnits("mole")
     s.setConstant(True)
-    s.setSBMLDocument(self.D)
-    s.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,s.toSBML()) )
     pass  
 
   def test_WriteSBML_Species_L2v1_skipOptional(self):
     self.D.setLevelAndVersion(2,1)
-    expected = wrapXML("<species id=\"Ca2\" compartment=\"cell\"/>"  
-    )
-    s = libsbml.Species( "Ca2" )
+    expected =  "<species id=\"Ca2\" compartment=\"cell\"/>";
+    s = self.D.createModel().createSpecies()
+    s.setId("Ca2")
     s.setCompartment("cell")
-    s.setSBMLDocument(self.D)
-    s.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,s.toSBML()) )
     pass  
 
   def test_WriteSBML_Species_L2v2(self):
     self.D.setLevelAndVersion(2,2)
-    expected = wrapXML("<species id=\"Ca2\" speciesType=\"st\" compartment=\"cell\" initialAmount=\"0.7\" " + "substanceUnits=\"mole\" constant=\"true\"/>")
-    s = libsbml.Species( "Ca2" )
+    expected = wrapString("<species id=\"Ca2\" speciesType=\"st\" compartment=\"cell\" initialAmount=\"0.7\" " + "substanceUnits=\"mole\" constant=\"true\"/>")
+    s = self.D.createModel().createSpecies()
+    s.setId("Ca2")
     s.setCompartment("cell")
     s.setInitialAmount(0.7)
     s.setSubstanceUnits("mole")
     s.setConstant(True)
     s.setSpeciesType("st")
-    s.setSBMLDocument(self.D)
-    s.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,s.toSBML()) )
     pass  
 
   def test_WriteSBML_Species_L2v3(self):
     self.D.setLevelAndVersion(2,3)
-    expected = wrapXML("<species id=\"Ca2\" compartment=\"cell\" sboTerm=\"SBO:0000007\"/>"  
-    )
-    s = libsbml.Species( "Ca2" )
+    expected =  "<species id=\"Ca2\" compartment=\"cell\" sboTerm=\"SBO:0000007\"/>";
+    s = self.D.createModel().createSpecies()
+    s.setId("Ca2")
     s.setCompartment("cell")
     s.setSBOTerm(7)
-    s.setSBMLDocument(self.D)
-    s.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,s.toSBML()) )
     pass  
 
   def test_WriteSBML_Species_defaults(self):
     self.D.setLevelAndVersion(1,2)
-    expected = wrapXML("<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" + " units=\"mole\" charge=\"2\"/>")
-    s = libsbml.Species( "Ca2" )
+    expected = wrapString("<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" + " units=\"mole\" charge=\"2\"/>")
+    s = self.D.createModel().createSpecies()
+    s.setName("Ca2")
     s.setCompartment("cell")
     s.setInitialAmount(0.7)
     s.setUnits("mole")
     s.setCharge(2)
-    s.setSBMLDocument(self.D)
-    s.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,s.toSBML()) )
     pass  
 
   def test_WriteSBML_Species_skipOptional(self):
     self.D.setLevelAndVersion(1,2)
-    expected = wrapXML("<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"/>"  
-    )
-    s = libsbml.Species( "Ca2" )
+    expected =  "<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"/>";
+    s = self.D.createModel().createSpecies()
+    s.setId("Ca2")
     s.setCompartment("cell")
     s.setInitialAmount(0.7)
-    s.setSBMLDocument(self.D)
-    s.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,s.toSBML()) )
     pass  
 
   def test_WriteSBML_StoichiometryMath(self):
     self.D.setLevelAndVersion(2,1)
-    expected = wrapXML("<stoichiometryMath>\n" + 
+    expected = wrapString("<stoichiometryMath>\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <divide/>\n" + 
@@ -1431,15 +1401,14 @@ class TestWriteSBML(unittest.TestCase):
     "  </math>\n" + 
     "</stoichiometryMath>")
     math = libsbml.parseFormula("1/d")
-    stoich = libsbml.StoichiometryMath(math)
-    stoich.setSBMLDocument(self.D)
-    stoich.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    stoich = self.D.createModel().createReaction().createReactant().createStoichiometryMath()
+    stoich.setMath(math)
+    self.assertEqual( True, self.equals(expected,stoich.toSBML()) )
     pass  
 
   def test_WriteSBML_StoichiometryMath_withSBO(self):
     self.D.setLevelAndVersion(2,3)
-    expected = wrapXML("<stoichiometryMath sboTerm=\"SBO:0000333\">\n" + 
+    expected = wrapString("<stoichiometryMath sboTerm=\"SBO:0000333\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <divide/>\n" + 
@@ -1449,107 +1418,104 @@ class TestWriteSBML(unittest.TestCase):
     "  </math>\n" + 
     "</stoichiometryMath>")
     math = libsbml.parseFormula("1/d")
-    stoich = libsbml.StoichiometryMath(math)
+    stoich = self.D.createModel().createReaction().createReactant().createStoichiometryMath()
+    stoich.setMath(math)
     stoich.setSBOTerm(333)
-    stoich.setSBMLDocument(self.D)
-    stoich.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,stoich.toSBML()) )
     pass  
 
   def test_WriteSBML_Unit(self):
-    self.D.setLevelAndVersion(2,1)
-    expected = wrapXML("<unit kind=\"kilogram\" exponent=\"2\" scale=\"-3\"/>"  
-    )
-    u = libsbml.Unit( "kilogram",2,-3 )
-    u.setSBMLDocument(self.D)
-    u.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.D.setLevelAndVersion(2,4)
+    expected =  "<unit kind=\"kilogram\" exponent=\"2\" scale=\"-3\"/>";
+    u = self.D.createModel().createUnitDefinition().createUnit()
+    u.setKind(libsbml.UNIT_KIND_KILOGRAM)
+    u.setExponent(2)
+    u.setScale(-3)
+    self.assertEqual( True, self.equals(expected,u.toSBML()) )
     pass  
 
   def test_WriteSBML_UnitDefinition(self):
     self.D.setLevelAndVersion(1,2)
-    expected = wrapXML("<unitDefinition name=\"mmls\"/>")
-    ud = libsbml.UnitDefinition( "mmls" )
-    ud.setSBMLDocument(self.D)
-    ud.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    expected =  "<unitDefinition name=\"mmls\"/>";
+    ud = self.D.createModel().createUnitDefinition()
+    ud.setId("mmls")
+    self.assertEqual( True, self.equals(expected,ud.toSBML()) )
     pass  
 
   def test_WriteSBML_UnitDefinition_L2v1(self):
     self.D.setLevelAndVersion(2,1)
-    expected = wrapXML("<unitDefinition id=\"mmls\"/>")
-    ud = libsbml.UnitDefinition( "mmls" )
-    ud.setSBMLDocument(self.D)
-    ud.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    expected =  "<unitDefinition id=\"mmls\"/>";
+    ud = self.D.createModel().createUnitDefinition()
+    ud.setId("mmls")
+    self.assertEqual( True, self.equals(expected,ud.toSBML()) )
     pass  
 
   def test_WriteSBML_UnitDefinition_L2v1_full(self):
     self.D.setLevelAndVersion(2,1)
-    expected = wrapXML("<unitDefinition id=\"Fahrenheit\">\n" + 
+    expected = wrapString("<unitDefinition id=\"Fahrenheit\">\n" + 
     "  <listOfUnits>\n" + 
     "    <unit kind=\"Celsius\" multiplier=\"1.8\" offset=\"32\"/>\n" + 
     "  </listOfUnits>\n" + 
     "</unitDefinition>")
-    u1 = libsbml.Unit( "Celsius",1,0,1.8 )
+    ud = self.D.createModel().createUnitDefinition()
+    ud.setId("Fahrenheit")
+    u1 = ud.createUnit()
+    u1.setKind(libsbml.UnitKind_forName("Celsius"))
+    u1.setMultiplier(1.8)
     u1.setOffset(32)
-    ud = libsbml.UnitDefinition( "Fahrenheit" )
-    ud.addUnit(u1)
-    ud.setSBMLDocument(self.D)
-    ud.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,ud.toSBML()) )
     pass  
 
   def test_WriteSBML_UnitDefinition_full(self):
     self.D.setLevelAndVersion(1,2)
-    expected = wrapXML("<unitDefinition name=\"mmls\">\n" + 
+    expected = wrapString("<unitDefinition name=\"mmls\">\n" + 
     "  <listOfUnits>\n" + 
     "    <unit kind=\"mole\" scale=\"-3\"/>\n" + 
     "    <unit kind=\"liter\" exponent=\"-1\"/>\n" + 
     "    <unit kind=\"second\" exponent=\"-1\"/>\n" + 
     "  </listOfUnits>\n" + 
     "</unitDefinition>")
-    ud = libsbml.UnitDefinition( "mmls" )
-    u1 = libsbml.Unit( "mole"  ,1,-3 )
-    u2 = libsbml.Unit( "liter" ,-1 )
-    u3 = libsbml.Unit( "second",-1 )
-    ud.addUnit(u1)
-    ud.addUnit(u2)
-    ud.addUnit(u3)
-    ud.setSBMLDocument(self.D)
-    ud.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    ud = self.D.createModel().createUnitDefinition()
+    ud.setId("mmls")
+    u1 = ud.createUnit()
+    u1.setKind(libsbml.UNIT_KIND_MOLE)
+    u1.setScale(-3)
+    u2 = ud.createUnit()
+    u2.setKind(libsbml.UNIT_KIND_LITER)
+    u2.setExponent(-1)
+    u3 = ud.createUnit()
+    u3.setKind(libsbml.UNIT_KIND_SECOND)
+    u3.setExponent(-1)
+    self.assertEqual( True, self.equals(expected,ud.toSBML()) )
     pass  
 
   def test_WriteSBML_Unit_L2v1(self):
     self.D.setLevelAndVersion(2,1)
-    expected = wrapXML("<unit kind=\"Celsius\" multiplier=\"1.8\" offset=\"32\"/>"  
-    )
-    u = libsbml.Unit( "Celsius",1,0,1.8 )
+    expected =  "<unit kind=\"Celsius\" multiplier=\"1.8\" offset=\"32\"/>";
+    u = self.D.createModel().createUnitDefinition().createUnit()
+    u.setKind(libsbml.UnitKind_forName("Celsius"))
+    u.setMultiplier(1.8)
     u.setOffset(32)
-    u.setSBMLDocument(self.D)
-    u.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,u.toSBML()) )
     pass  
 
   def test_WriteSBML_Unit_defaults(self):
     self.D.setLevelAndVersion(1,2)
-    expected = wrapXML("<unit kind=\"kilogram\"/>")
-    u = libsbml.Unit( "kilogram",1,0 )
-    u.setSBMLDocument(self.D)
-    u.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    expected =  "<unit kind=\"kilogram\"/>";
+    u = self.D.createModel().createUnitDefinition().createUnit()
+    u.setKind(libsbml.UNIT_KIND_KILOGRAM)
+    self.assertEqual( True, self.equals(expected,u.toSBML()) )
     pass  
 
   def test_WriteSBML_Unit_l2v3(self):
     self.D.setLevelAndVersion(2,3)
-    expected = wrapXML("<unit kind=\"kilogram\" exponent=\"2\" scale=\"-3\"/>"  
-    )
-    u = libsbml.Unit( "kilogram",2,-3 )
+    expected =  "<unit kind=\"kilogram\" exponent=\"2\" scale=\"-3\"/>";
+    u = self.D.createModel().createUnitDefinition().createUnit()
+    u.setKind(libsbml.UNIT_KIND_KILOGRAM)
+    u.setExponent(2)
+    u.setScale(-3)
     u.setOffset(32)
-    u.setSBMLDocument(self.D)
-    u.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,u.toSBML()) )
     pass  
 
   def test_WriteSBML_bzip2(self):
@@ -1567,17 +1533,17 @@ class TestWriteSBML(unittest.TestCase):
     file.append("../../../examples/sample-models/from-spec/level-2/twodimensional.xml")
     file.append("../../../examples/sample-models/from-spec/level-2/units.xml")
 
-    bzfile = "test.xml.bz2"
+    bz2file = "test.xml.bz2"
     for f in file:
       d = libsbml.readSBML(f)
       self.assert_( d != None )
       if not libsbml.SBMLWriter.hasBzip2():
-        self.assert_( libsbml.writeSBML(d,bzfile) == 0 )
+        self.assert_( libsbml.writeSBML(d,bz2file) == 0 )
         d = None
         continue
-      result = libsbml.writeSBML(d,bzfile)
+      result = libsbml.writeSBML(d,bz2file)
       self.assertEqual( 1, result )
-      dg = libsbml.readSBML(bzfile)
+      dg = libsbml.readSBML(bz2file)
       self.assert_( dg != None )
       self.assert_( ( dg.toSBML() != d.toSBML() ) == False )
       d = None
@@ -1629,10 +1595,11 @@ class TestWriteSBML(unittest.TestCase):
 
 
   def test_WriteSBML_locale(self):
-    expected = wrapXML("<parameter id=\"p\" value=\"3.31\"/>")
-    p = libsbml.Parameter("p",3.31)
-    p.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    expected =  "<parameter id=\"p\" value=\"3.31\"/>";
+    p = self.D.createModel().createParameter()
+    p.setId("p")
+    p.setValue(3.31)
+    self.assertEqual( True, self.equals(expected,p.toSBML()) )
     pass  
 
   def test_WriteSBML_zip(self):

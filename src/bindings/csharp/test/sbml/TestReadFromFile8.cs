@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Sarah Keating 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestReadFromFile8.cpp
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -118,13 +118,13 @@ namespace LibSBMLCSTest {
     public void test_read_l2v4_new()
     {
       SBMLReader reader = new SBMLReader();
-      SBMLDocument d = new SBMLDocument();
-      Model m = new Model();
-      Compartment c = new Compartment();
-      Event e = new Event();
-      Trigger trigger = new Trigger();
-      EventAssignment ea = new EventAssignment();
-      ASTNode ast = new ASTNode();
+      SBMLDocument d;
+      Model m;
+      Compartment c;
+      Event e;
+      Trigger trigger;
+      EventAssignment ea;
+      ASTNode ast;
       string filename =  "../../sbml/test/test-data/";
       filename += "l2v4-new.xml";
       d = reader.readSBML(filename);

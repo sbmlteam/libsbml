@@ -34,7 +34,7 @@ class TestUnit(unittest.TestCase):
   U = None
 
   def setUp(self):
-    self.U = libsbml.Unit()
+    self.U = libsbml.Unit(2,4)
     if (self.U == None):
       pass    
     pass  
@@ -55,33 +55,20 @@ class TestUnit(unittest.TestCase):
     self.assertEqual( False, self.U.isSetKind() )
     pass  
 
-  def test_Unit_createWith(self):
-    u = libsbml.Unit(libsbml.UNIT_KIND_SECOND,-2,1)
-    self.assert_( u.getTypeCode() == libsbml.SBML_UNIT )
-    self.assert_( u.getMetaId() == "" )
-    self.assert_( u.getNotes() == None )
-    self.assert_( u.getAnnotation() == None )
-    self.assert_( u.getKind() == libsbml.UNIT_KIND_SECOND )
-    self.assert_( u.getExponent() == -2 )
-    self.assert_( u.getScale() == 1 )
-    self.assert_( u.getMultiplier() == 1.0 )
-    self.assert_( u.getOffset() == 0.0 )
-    self.assertEqual( True, u.isSetKind() )
-    u = None
-    pass  
-
-  def test_Unit_createWithLevelVersionAndNamespace(self):
+  def test_Unit_createWithNS(self):
     xmlns = libsbml.XMLNamespaces()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = libsbml.Unit(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = libsbml.SBMLNamespaces(2,1)
+    sbmlns.addNamespaces(xmlns)
+    object = libsbml.Unit(sbmlns)
     self.assert_( object.getTypeCode() == libsbml.SBML_UNIT )
     self.assert_( object.getMetaId() == "" )
     self.assert_( object.getNotes() == None )
     self.assert_( object.getAnnotation() == None )
     self.assert_( object.getLevel() == 2 )
     self.assert_( object.getVersion() == 1 )
-    self.assert_( object.getNamespaces() != "" )
-    self.assert_( object.getNamespaces().getLength() == 1 )
+    self.assert_( object.getNamespaces() != None )
+    self.assert_( object.getNamespaces().getLength() == 2 )
     object = None
     pass  
 
@@ -117,8 +104,6 @@ class TestUnit(unittest.TestCase):
     self.assertEqual( True, self.U.isBecquerel() )
     self.U.setKind(libsbml.UNIT_KIND_CANDELA)
     self.assertEqual( True, self.U.isCandela() )
-    self.U.setKind(libsbml.UNIT_KIND_CELSIUS)
-    self.assertEqual( True, self.U.isCelsius() )
     self.U.setKind(libsbml.UNIT_KIND_COULOMB)
     self.assertEqual( True, self.U.isCoulomb() )
     self.U.setKind(libsbml.UNIT_KIND_DIMENSIONLESS)
@@ -180,7 +165,7 @@ class TestUnit(unittest.TestCase):
     pass  
 
   def test_Unit_set_get(self):
-    u = libsbml.Unit()
+    u = libsbml.Unit(2,4)
     self.assert_( u.getKind() == libsbml.UNIT_KIND_INVALID )
     self.assert_( u.getExponent() == 1 )
     self.assert_( u.getScale() == 0 )

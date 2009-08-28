@@ -31,7 +31,7 @@ require 'libSBML'
 class TestAlgebraicRule < Test::Unit::TestCase
 
   def setup
-    @@ar = LibSBML::AlgebraicRule.new()
+    @@ar = LibSBML::AlgebraicRule.new(2,4)
     if (@@ar == nil)
     end
   end
@@ -50,7 +50,8 @@ class TestAlgebraicRule < Test::Unit::TestCase
   end
 
   def test_AlgebraicRule_createWithFormula
-    ar = LibSBML::AlgebraicRule.new("1 + 1")
+    ar = LibSBML::AlgebraicRule.new(2,4)
+    ar.setFormula( "1 + 1")
     assert( ar.getTypeCode() == LibSBML::SBML_ALGEBRAIC_RULE )
     assert( ar.getMetaId() == "" )
     math = ar.getMath()
@@ -62,29 +63,32 @@ class TestAlgebraicRule < Test::Unit::TestCase
     ar = nil
   end
 
-  def test_AlgebraicRule_createWithLevelVersionAndNamespace
+  def test_AlgebraicRule_createWithMath
+    math = LibSBML::parseFormula("1 + 1")
+    ar = LibSBML::AlgebraicRule.new(2,4)
+    ar.setMath(math)
+    assert( ar.getTypeCode() == LibSBML::SBML_ALGEBRAIC_RULE )
+    assert( ar.getMetaId() == "" )
+    assert ((  "1 + 1" == ar.getFormula() ))
+    assert( ar.getMath() != math )
+    ar = nil
+  end
+
+  def test_AlgebraicRule_createWithNS
     xmlns = LibSBML::XMLNamespaces.new()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    r = LibSBML::AlgebraicRule.new(2,3,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = LibSBML::SBMLNamespaces.new(2,3)
+    sbmlns.addNamespaces(xmlns)
+    r = LibSBML::AlgebraicRule.new(sbmlns)
     assert( r.getTypeCode() == LibSBML::SBML_ALGEBRAIC_RULE )
     assert( r.getMetaId() == "" )
     assert( r.getNotes() == nil )
     assert( r.getAnnotation() == nil )
     assert( r.getLevel() == 2 )
     assert( r.getVersion() == 3 )
-    assert( r.getNamespaces() != "" )
-    assert( r.getNamespaces().getLength() == 1 )
+    assert( r.getNamespaces() != nil )
+    assert( r.getNamespaces().getLength() == 2 )
     r = nil
-  end
-
-  def test_AlgebraicRule_createWithMath
-    math = LibSBML::parseFormula("1 + 1")
-    ar = LibSBML::AlgebraicRule.new(math)
-    assert( ar.getTypeCode() == LibSBML::SBML_ALGEBRAIC_RULE )
-    assert( ar.getMetaId() == "" )
-    assert ((  "1 + 1" == ar.getFormula() ))
-    assert( ar.getMath() != math )
-    ar = nil
   end
 
   def test_AlgebraicRule_free_NULL

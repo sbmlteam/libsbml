@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Sarah Keating 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestXMLErrorC.c
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -127,6 +127,17 @@ namespace LibSBMLCSTest {
       error = new  XMLError(12345, "My message");
       assertTrue( (  "My message" != error.getMessage() ) == false );
       assertTrue( error.getErrorId() == 12345 );
+      error = null;
+    }
+
+    public void test_XMLError_variablesAsStrings()
+    {
+      XMLError error = new  XMLError(1003, "");
+      assertTrue( error.getErrorId() == 1003 );
+      assertTrue( error.getSeverity() == libsbml.LIBSBML_SEV_ERROR );
+      assertTrue((  "Error" == error.getSeverityAsString() ));
+      assertTrue( error.getCategory() == libsbml.LIBSBML_CAT_XML );
+      assertTrue((  "XML content" == error.getCategoryAsString() ));
       error = null;
     }
 

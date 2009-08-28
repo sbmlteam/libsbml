@@ -9,3 +9,4 @@ CTAGS
 libsbml.pc
 *.o
 libsbml_wrap.cpp
+.libs

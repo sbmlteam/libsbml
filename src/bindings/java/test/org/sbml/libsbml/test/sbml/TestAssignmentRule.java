@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestAssignmentRule.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -52,6 +52,10 @@ public class TestAssignmentRule {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestAssignmentRule {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -111,7 +119,7 @@ public class TestAssignmentRule {
 
   protected void setUp() throws Exception
   {
-    AR = new  AssignmentRule();
+    AR = new  AssignmentRule(2,4);
     if (AR == null);
     {
     }
@@ -138,7 +146,9 @@ public class TestAssignmentRule {
   {
     ASTNode math;
     String formula;
-    Rule ar = new  AssignmentRule("s", "1 + 1");
+    Rule ar = new  AssignmentRule(2,4);
+    ar.setVariable( "s");
+    ar.setFormula( "1 + 1");
     assertTrue( ar.getTypeCode() == libsbml.SBML_ASSIGNMENT_RULE );
     assertTrue( ar.getMetaId().equals("") == true );
     assertTrue(ar.getVariable().equals( "s"));
@@ -151,11 +161,27 @@ public class TestAssignmentRule {
     ar = null;
   }
 
-  public void test_AssignmentRule_createWithLevelVersionAndNamespace()
+  public void test_AssignmentRule_createWithMath()
+  {
+    ASTNode math = libsbml.parseFormula("1 + 1");
+    Rule ar = new  AssignmentRule(2,4);
+    ar.setVariable( "s");
+    ar.setMath(math);
+    assertTrue( ar.getTypeCode() == libsbml.SBML_ASSIGNMENT_RULE );
+    assertTrue( ar.getMetaId().equals("") == true );
+    assertTrue(ar.getVariable().equals( "s"));
+    assertTrue(ar.getFormula().equals( "1 + 1"));
+    assertTrue( !ar.getMath().equals(math) );
+    ar = null;
+  }
+
+  public void test_AssignmentRule_createWithNS()
   {
     XMLNamespaces xmlns = new  XMLNamespaces();
-    xmlns.add( "http://www.sbml.org", "sbml");
-    Rule object = new  AssignmentRule(2,1,xmlns);
+    xmlns.add( "http://www.sbml.org", "testsbml");
+    SBMLNamespaces sbmlns = new  SBMLNamespaces(2,1);
+    sbmlns.addNamespaces(xmlns);
+    Rule object = new  AssignmentRule(sbmlns);
     assertTrue( object.getTypeCode() == libsbml.SBML_ASSIGNMENT_RULE );
     assertTrue( object.getMetaId().equals("") == true );
     assertTrue( object.getNotes() == null );
@@ -163,20 +189,8 @@ public class TestAssignmentRule {
     assertTrue( object.getLevel() == 2 );
     assertTrue( object.getVersion() == 1 );
     assertTrue( object.getNamespaces() != null );
-    assertTrue( object.getNamespaces().getLength() == 1 );
+    assertTrue( object.getNamespaces().getLength() == 2 );
     object = null;
-  }
-
-  public void test_AssignmentRule_createWithMath()
-  {
-    ASTNode math = libsbml.parseFormula("1 + 1");
-    Rule ar = new  AssignmentRule("s",math);
-    assertTrue( ar.getTypeCode() == libsbml.SBML_ASSIGNMENT_RULE );
-    assertTrue( ar.getMetaId().equals("") == true );
-    assertTrue(ar.getVariable().equals( "s"));
-    assertTrue(ar.getFormula().equals( "1 + 1"));
-    assertTrue( !ar.getMath().equals(math) );
-    ar = null;
   }
 
   public void test_AssignmentRule_free_NULL()

@@ -38,7 +38,7 @@ class TestSBase(unittest.TestCase):
   S = None
 
   def setUp(self):
-    self.S = libsbml.Model()
+    self.S = libsbml.Model(2,4)
     if (self.S == None):
       pass    
     pass  
@@ -49,9 +49,11 @@ class TestSBase(unittest.TestCase):
 
   def test_SBase_CVTerms(self):
     cv = libsbml.CVTerm(libsbml.BIOLOGICAL_QUALIFIER)
+    cv.setBiologicalQualifierType(libsbml.BQB_IS)
+    cv.addResource( "foo")
     self.assert_( self.S.getNumCVTerms() == 0 )
     self.assert_( self.S.getCVTerms() == None )
-    self.S.setMetaId( "sbase1")
+    self.S.setMetaId( "_id")
     self.S.addCVTerm(cv)
     self.assert_( self.S.getNumCVTerms() == 1 )
     self.assert_( self.S.getCVTerms() != None )
@@ -146,30 +148,36 @@ class TestSBase(unittest.TestCase):
     ns.add( "http://www.w3.org/1999/xhtml", "")
     html_triple = libsbml.XMLTriple("html", "", "")
     head_triple = libsbml.XMLTriple("head", "", "")
+    title_triple = libsbml.XMLTriple("title", "", "")
     body_triple = libsbml.XMLTriple("body", "", "")
     p_triple = libsbml.XMLTriple("p", "", "")
     html_token = libsbml.XMLToken(html_triple,att,ns)
     head_token = libsbml.XMLToken(head_triple,att)
+    title_token = libsbml.XMLToken(title_triple,att)
     body_token = libsbml.XMLToken(body_triple,att)
     p_token = libsbml.XMLToken(p_triple,att)
     text_token = libsbml.XMLToken("This is my text")
     html_node = libsbml.XMLNode(html_token)
     head_node = libsbml.XMLNode(head_token)
+    title_node = libsbml.XMLNode(title_token)
     body_node = libsbml.XMLNode(body_token)
     p_node = libsbml.XMLNode(p_token)
     text_node = libsbml.XMLNode(text_token)
     text_token1 = libsbml.XMLToken("This is more text")
     html_node1 = libsbml.XMLNode(html_token)
     head_node1 = libsbml.XMLNode(head_token)
+    title_node1 = libsbml.XMLNode(title_token)
     body_node1 = libsbml.XMLNode(body_token)
     p_node1 = libsbml.XMLNode(p_token)
     text_node1 = libsbml.XMLNode(text_token1)
     p_node.addChild(text_node)
     body_node.addChild(p_node)
+    head_node.addChild(title_node)
     html_node.addChild(head_node)
     html_node.addChild(body_node)
     p_node1.addChild(text_node1)
     body_node1.addChild(p_node1)
+    head_node1.addChild(title_node1)
     html_node1.addChild(head_node1)
     html_node1.addChild(body_node1)
     self.S.setNotes(html_node)
@@ -225,15 +233,18 @@ class TestSBase(unittest.TestCase):
     ns.add( "http://www.w3.org/1999/xhtml", "")
     html_triple = libsbml.XMLTriple("html", "", "")
     head_triple = libsbml.XMLTriple("head", "", "")
+    title_triple = libsbml.XMLTriple("title", "", "")
     body_triple = libsbml.XMLTriple("body", "", "")
     p_triple = libsbml.XMLTriple("p", "", "")
     html_token = libsbml.XMLToken(html_triple,att,ns)
     head_token = libsbml.XMLToken(head_triple,att)
+    title_token = libsbml.XMLToken(title_triple,att)
     body_token = libsbml.XMLToken(body_triple,att)
     p_token = libsbml.XMLToken(p_triple,att)
     text_token = libsbml.XMLToken("This is my text")
     html_node = libsbml.XMLNode(html_token)
     head_node = libsbml.XMLNode(head_token)
+    title_node = libsbml.XMLNode(title_token)
     body_node = libsbml.XMLNode(body_token)
     p_node = libsbml.XMLNode(p_token)
     text_node = libsbml.XMLNode(text_token)
@@ -244,6 +255,7 @@ class TestSBase(unittest.TestCase):
     text_node1 = libsbml.XMLNode(text_token1)
     p_node.addChild(text_node)
     body_node.addChild(p_node)
+    head_node.addChild(title_node)
     html_node.addChild(head_node)
     html_node.addChild(body_node)
     p_node1.addChild(text_node1)
@@ -300,15 +312,18 @@ class TestSBase(unittest.TestCase):
     ns.add( "http://www.w3.org/1999/xhtml", "")
     html_triple = libsbml.XMLTriple("html", "", "")
     head_triple = libsbml.XMLTriple("head", "", "")
+    title_triple = libsbml.XMLTriple("title", "", "")
     body_triple = libsbml.XMLTriple("body", "", "")
     p_triple = libsbml.XMLTriple("p", "", "")
     html_token = libsbml.XMLToken(html_triple,att,ns)
     head_token = libsbml.XMLToken(head_triple,att)
+    title_token = libsbml.XMLToken(title_triple,att)
     body_token = libsbml.XMLToken(body_triple,att)
     p_token = libsbml.XMLToken(p_triple,att)
     text_token = libsbml.XMLToken("This is my text")
     html_node = libsbml.XMLNode(html_token)
     head_node = libsbml.XMLNode(head_token)
+    title_node = libsbml.XMLNode(title_token)
     body_node = libsbml.XMLNode(body_token)
     p_node = libsbml.XMLNode(p_token)
     text_node = libsbml.XMLNode(text_token)
@@ -318,6 +333,7 @@ class TestSBase(unittest.TestCase):
     text_node1 = libsbml.XMLNode(text_token1)
     p_node.addChild(text_node)
     body_node.addChild(p_node)
+    head_node.addChild(title_node)
     html_node.addChild(head_node)
     html_node.addChild(body_node)
     p_node1.addChild(text_node1)
@@ -372,10 +388,12 @@ class TestSBase(unittest.TestCase):
     ns.add( "http://www.w3.org/1999/xhtml", "")
     html_triple = libsbml.XMLTriple("html", "", "")
     head_triple = libsbml.XMLTriple("head", "", "")
+    title_triple = libsbml.XMLTriple("title", "", "")
     body_triple = libsbml.XMLTriple("body", "", "")
     p_triple = libsbml.XMLTriple("p", "", "")
     html_token = libsbml.XMLToken(html_triple,att,ns)
     head_token = libsbml.XMLToken(head_triple,att)
+    title_token = libsbml.XMLToken(title_triple,att)
     body_token = libsbml.XMLToken(body_triple,att)
     p_token = libsbml.XMLToken(p_triple,att)
     body_token1 = libsbml.XMLToken(body_triple,att,ns)
@@ -386,6 +404,7 @@ class TestSBase(unittest.TestCase):
     text_token1 = libsbml.XMLToken("This is more text")
     html_node1 = libsbml.XMLNode(html_token)
     head_node1 = libsbml.XMLNode(head_token)
+    title_node1 = libsbml.XMLNode(title_token)
     body_node1 = libsbml.XMLNode(body_token)
     p_node1 = libsbml.XMLNode(p_token)
     text_node1 = libsbml.XMLNode(text_token1)
@@ -393,6 +412,7 @@ class TestSBase(unittest.TestCase):
     body_node.addChild(p_node)
     p_node1.addChild(text_node1)
     body_node1.addChild(p_node1)
+    head_node1.addChild(title_node1)
     html_node1.addChild(head_node1)
     html_node1.addChild(body_node1)
     self.S.setNotes(body_node)
@@ -445,10 +465,12 @@ class TestSBase(unittest.TestCase):
     ns.add( "http://www.w3.org/1999/xhtml", "")
     html_triple = libsbml.XMLTriple("html", "", "")
     head_triple = libsbml.XMLTriple("head", "", "")
+    title_triple = libsbml.XMLTriple("title", "", "")
     body_triple = libsbml.XMLTriple("body", "", "")
     p_triple = libsbml.XMLTriple("p", "", "")
     html_token = libsbml.XMLToken(html_triple,att,ns)
     head_token = libsbml.XMLToken(head_triple,att)
+    title_token = libsbml.XMLToken(title_triple,att)
     body_token = libsbml.XMLToken(body_triple,att)
     p_token = libsbml.XMLToken(p_triple,att)
     p_token1 = libsbml.XMLToken(p_triple,att,ns)
@@ -458,12 +480,14 @@ class TestSBase(unittest.TestCase):
     text_token1 = libsbml.XMLToken("This is more text")
     html_node1 = libsbml.XMLNode(html_token)
     head_node1 = libsbml.XMLNode(head_token)
+    title_node1 = libsbml.XMLNode(title_token)
     body_node1 = libsbml.XMLNode(body_token)
     p_node1 = libsbml.XMLNode(p_token)
     text_node1 = libsbml.XMLNode(text_token1)
     p_node.addChild(text_node)
     p_node1.addChild(text_node1)
     body_node1.addChild(p_node1)
+    head_node1.addChild(title_node1)
     html_node1.addChild(head_node1)
     html_node1.addChild(body_node1)
     self.S.setNotes(p_node)
@@ -1157,26 +1181,27 @@ class TestSBase(unittest.TestCase):
     pass  
 
   def test_SBase_setNotes(self):
+    c = libsbml.Model(1,2)
     token = libsbml.XMLToken("This is a test note")
     node = libsbml.XMLNode(token)
-    self.S.setNotes(node)
-    self.assert_( self.S.isSetNotes() == True )
-    if (self.S.getNotes() == node):
+    c.setNotes(node)
+    self.assert_( c.isSetNotes() == True )
+    if (c.getNotes() == node):
       pass    
-    t1 = self.S.getNotes()
+    t1 = c.getNotes()
     self.assert_( t1.getNumChildren() == 1 )
     self.assert_((  "This is a test note" == t1.getChild(0).getCharacters() ))
-    self.S.setNotes(self.S.getNotes())
-    t1 = self.S.getNotes()
+    c.setNotes(c.getNotes())
+    t1 = c.getNotes()
     self.assert_( t1.getNumChildren() == 1 )
     chars = t1.getChild(0).getCharacters()
     self.assert_((  "This is a test note" == chars ))
-    self.S.setNotes(None)
-    self.assert_( self.S.isSetNotes() == False )
-    if (self.S.getNotes() != None):
+    c.setNotes(None)
+    self.assert_( c.isSetNotes() == False )
+    if (c.getNotes() != None):
       pass    
-    self.S.setNotes(node)
-    self.assert_( self.S.isSetNotes() == True )
+    c.setNotes(node)
+    self.assert_( c.isSetNotes() == True )
     token = None
     node = None
     token = libsbml.XMLToken("(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &#; &#x; &#00a8; &#0168 &#x00a8")
@@ -1200,29 +1225,31 @@ class TestSBase(unittest.TestCase):
     pass  
 
   def test_SBase_setNotesString(self):
+    c = libsbml.Model(1,2)
     notes =  "This is a test note";
     taggednotes =  "<notes>This is a test note</notes>";
-    self.S.setNotes(notes)
-    self.assert_( self.S.isSetNotes() == True )
-    if (( taggednotes != self.S.getNotesString() )):
+    c.setNotes(notes)
+    self.assert_( c.isSetNotes() == True )
+    if (( taggednotes != c.getNotesString() )):
       pass    
-    t1 = self.S.getNotes()
+    t1 = c.getNotes()
     self.assert_( t1.getNumChildren() == 1 )
-    self.assert_((  "This is a test note" == t1.getChild(0).getCharacters() ))
-    self.S.setNotes(self.S.getNotesString())
-    t1 = self.S.getNotes()
+    t2 = t1.getChild(0)
+    self.assert_((  "This is a test note" == t2.getCharacters() ))
+    c.setNotes(c.getNotesString())
+    t1 = c.getNotes()
     self.assert_( t1.getNumChildren() == 1 )
-    chars = self.S.getNotesString()
+    chars = c.getNotesString()
     self.assert_(( taggednotes == chars ))
-    self.S.setNotes( "")
-    self.assert_( self.S.isSetNotes() == False )
-    if (self.S.getNotesString() != None):
+    c.setNotes( "")
+    self.assert_( c.isSetNotes() == False )
+    if (c.getNotesString() != None):
       pass    
-    self.S.setNotes(taggednotes)
-    self.assert_( self.S.isSetNotes() == True )
-    if (( taggednotes != self.S.getNotesString() )):
+    c.setNotes(taggednotes)
+    self.assert_( c.isSetNotes() == True )
+    if (( taggednotes != c.getNotesString() )):
       pass    
-    t1 = self.S.getNotes()
+    t1 = c.getNotes()
     self.assert_( t1.getNumChildren() == 1 )
     t2 = t1.getChild(0)
     self.assert_((  "This is a test note" == t2.getCharacters() ))
@@ -1295,6 +1322,12 @@ class TestSBase(unittest.TestCase):
     "          </rdf:li>\n" + 
     "        </rdf:Bag>\n" + 
     "      </dc:creator>\n" + 
+    "      <dcterms:created rdf:parseType=\"Resource\">\n" + 
+    "        <dcterms:W3CDTF>2005-12-29T12:15:45+02:00</dcterms:W3CDTF>\n" + 
+    "      </dcterms:created>\n" + 
+    "      <dcterms:modified rdf:parseType=\"Resource\">\n" + 
+    "        <dcterms:W3CDTF>2005-12-30T12:15:45+02:00</dcterms:W3CDTF>\n" + 
+    "      </dcterms:modified>\n" + 
     "    </rdf:Description>\n" + 
     "  </rdf:RDF>\n" + 
     "</annotation>")
@@ -1310,6 +1343,10 @@ class TestSBase(unittest.TestCase):
     c.setGivenName("Sarah")
     c.setEmail("sbml-team@caltech.edu")
     h.addCreator(c)
+    dc = libsbml.Date(2005,12,29,12,15,45,1,2,0)
+    h.setCreatedDate(dc)
+    dm = libsbml.Date(2005,12,30,12,15,45,1,2,0)
+    h.setModifiedDate(dm)
     self.S.setModelHistory(h)
     self.assert_( self.S.isSetAnnotation() == True )
     self.assert_(( annt_with_modelhistory == self.S.getAnnotationString() ))

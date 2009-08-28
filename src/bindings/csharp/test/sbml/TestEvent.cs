@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Ben Bornstein 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestEvent.c
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -58,6 +58,10 @@ namespace LibSBMLCSTest {
       {
         return;
       }
+      else if ( (a == null) || (b == null) )
+      {
+        throw new AssertionError();
+      }
       else if (a.Equals(b))
       {
         return;
@@ -71,6 +75,10 @@ namespace LibSBMLCSTest {
       if ( (a == null) && (b == null) )
       {
         throw new AssertionError();
+      }
+      else if ( (a == null) || (b == null) )
+      {
+        return;
       }
       else if (a.Equals(b))
       {
@@ -118,7 +126,7 @@ namespace LibSBMLCSTest {
 
     public void setUp()
     {
-      E = new  Event();
+      E = new  Event(2,4);
       if (E == null);
       {
       }
@@ -143,28 +151,13 @@ namespace LibSBMLCSTest {
       assertTrue( E.getNumEventAssignments() == 0 );
     }
 
-    public void test_Event_createWith()
-    {
-      Event e = new  Event("e1", "");
-      assertTrue( e.getTypeCode() == libsbml.SBML_EVENT );
-      assertTrue( e.getMetaId() == "" );
-      assertTrue( e.getNotes() == null );
-      assertTrue( e.getAnnotation() == null );
-      assertTrue( e.getName() == "" );
-      assertEquals(e.getDelay(),null);
-      assertTrue( e.getTimeUnits() == "" );
-      assertTrue( e.getNumEventAssignments() == 0 );
-      assertEquals( false, e.isSetTrigger() );
-      assertTrue((  "e1" == e.getId() ));
-      assertEquals( true, e.isSetId() );
-      e = null;
-    }
-
-    public void test_Event_createWithLevelVersionAndNamespace()
+    public void test_Event_createWithNS()
     {
       XMLNamespaces xmlns = new  XMLNamespaces();
-      xmlns.add( "http://www.sbml.org", "sbml");
-      Event object1 = new  Event(2,4,xmlns);
+      xmlns.add( "http://www.sbml.org", "testsbml");
+      SBMLNamespaces sbmlns = new  SBMLNamespaces(2,4);
+      sbmlns.addNamespaces(xmlns);
+      Event object1 = new  Event(sbmlns);
       assertTrue( object1.getTypeCode() == libsbml.SBML_EVENT );
       assertTrue( object1.getMetaId() == "" );
       assertTrue( object1.getNotes() == null );
@@ -172,7 +165,7 @@ namespace LibSBMLCSTest {
       assertTrue( object1.getLevel() == 2 );
       assertTrue( object1.getVersion() == 4 );
       assertTrue( object1.getNamespaces() != null );
-      assertTrue( object1.getNamespaces().getLength() == 1 );
+      assertTrue( object1.getNamespaces().getLength() == 2 );
       object1 = null;
     }
 
@@ -183,11 +176,15 @@ namespace LibSBMLCSTest {
     public void test_Event_full()
     {
       ASTNode math1 = libsbml.parseFormula("0");
-      Trigger trigger = new  Trigger(math1);
+      Trigger trigger = new  Trigger(2,4);
       ASTNode math = libsbml.parseFormula("0");
-      Event e = new  Event("e1", "");
-      EventAssignment ea = new  EventAssignment("k",math);
+      Event e = new  Event(2,4);
+      EventAssignment ea = new  EventAssignment(2,4);
+      ea.setVariable( "k");
+      ea.setMath(math);
+      trigger.setMath(math1);
       e.setTrigger(trigger);
+      e.setId( "e1");
       e.setName( "Set k2 to zero when P1 <= t");
       e.addEventAssignment(ea);
       assertTrue( e.getNumEventAssignments() == 1 );
@@ -196,10 +193,29 @@ namespace LibSBMLCSTest {
       e = null;
     }
 
+    public void test_Event_removeEventAssignment()
+    {
+      EventAssignment o1,o2,o3;
+      o1 = E.createEventAssignment();
+      o2 = E.createEventAssignment();
+      o3 = E.createEventAssignment();
+      o3.setVariable("test");
+      assertTrue( E.removeEventAssignment(0) == o1 );
+      assertTrue( E.getNumEventAssignments() == 2 );
+      assertTrue( E.removeEventAssignment(0) == o2 );
+      assertTrue( E.getNumEventAssignments() == 1 );
+      assertTrue( E.removeEventAssignment("test") == o3 );
+      assertTrue( E.getNumEventAssignments() == 0 );
+      o1 = null;
+      o2 = null;
+      o3 = null;
+    }
+
     public void test_Event_setDelay()
     {
       ASTNode math1 = libsbml.parseFormula("0");
-      Delay Delay = new  Delay(math1);
+      Delay Delay = new  Delay(2,4);
+      Delay.setMath(math1);
       E.setDelay(Delay);
       assertNotEquals(E.getDelay(),null);
       assertEquals( true, E.isSetDelay() );
@@ -235,7 +251,7 @@ namespace LibSBMLCSTest {
 
     public void test_Event_setName()
     {
-      string name =  "Set k2 to zero when P1 <= t";;
+      string name =  "Set_k2";;
       E.setName(name);
       assertTrue(( name == E.getName() ));
       assertEquals( true, E.isSetName() );
@@ -253,26 +269,29 @@ namespace LibSBMLCSTest {
 
     public void test_Event_setTimeUnits()
     {
+      Event E1 = new  Event(2,1);
       string units =  "second";;
-      E.setTimeUnits(units);
-      assertTrue(( units == E.getTimeUnits() ));
-      assertEquals( true, E.isSetTimeUnits() );
-      if (E.getTimeUnits() == units);
+      E1.setTimeUnits(units);
+      assertTrue(( units == E1.getTimeUnits() ));
+      assertEquals( true, E1.isSetTimeUnits() );
+      if (E1.getTimeUnits() == units);
       {
       }
-      E.setTimeUnits(E.getTimeUnits());
-      assertTrue(( units == E.getTimeUnits() ));
-      E.setTimeUnits("");
-      assertEquals( false, E.isSetTimeUnits() );
-      if (E.getTimeUnits() != null);
+      E1.setTimeUnits(E1.getTimeUnits());
+      assertTrue(( units == E1.getTimeUnits() ));
+      E1.setTimeUnits("");
+      assertEquals( false, E1.isSetTimeUnits() );
+      if (E1.getTimeUnits() != null);
       {
       }
+      E1 = null;
     }
 
     public void test_Event_setTrigger()
     {
       ASTNode math1 = libsbml.parseFormula("0");
-      Trigger trigger = new  Trigger(math1);
+      Trigger trigger = new  Trigger(2,4);
+      trigger.setMath(math1);
       E.setTrigger(trigger);
       assertNotEquals(E.getTrigger(),null);
       assertEquals( true, E.isSetTrigger() );
@@ -290,10 +309,12 @@ namespace LibSBMLCSTest {
 
     public void test_Event_setUseValuesFromTriggerTime()
     {
-      E.setUseValuesFromTriggerTime(false);
-      assertTrue( E.getUseValuesFromTriggerTime() == false );
-      E.setUseValuesFromTriggerTime(true);
-      assertTrue( E.getUseValuesFromTriggerTime() == true );
+      Event object1 = new  Event(2,4);
+      object1.setUseValuesFromTriggerTime(false);
+      assertTrue( object1.getUseValuesFromTriggerTime() == false );
+      object1.setUseValuesFromTriggerTime(true);
+      assertTrue( object1.getUseValuesFromTriggerTime() == true );
+      object1 = null;
     }
 
   }

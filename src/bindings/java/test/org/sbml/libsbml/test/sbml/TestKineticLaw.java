@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestKineticLaw.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -52,6 +52,10 @@ public class TestKineticLaw {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestKineticLaw {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -107,72 +115,54 @@ public class TestKineticLaw {
     }
     throw new AssertionError();
   }
-  private KineticLaw KL;
+  private KineticLaw kl;
 
   protected void setUp() throws Exception
   {
-    KL = new  KineticLaw();
-    if (KL == null);
+    kl = new  KineticLaw(2,4);
+    if (kl == null);
     {
     }
   }
 
   protected void tearDown() throws Exception
   {
-    KL = null;
+    kl = null;
   }
 
   public void test_KineticLaw_addParameter()
   {
-    Parameter p = new  Parameter();
-    KL.addParameter(p);
-    assertTrue( KL.getNumParameters() == 1 );
+    Parameter p = new  Parameter(2,4);
+    p.setId( "p");
+    kl.addParameter(p);
+    assertTrue( kl.getNumParameters() == 1 );
     p = null;
   }
 
   public void test_KineticLaw_create()
   {
-    assertTrue( KL.getTypeCode() == libsbml.SBML_KINETIC_LAW );
-    assertTrue( KL.getMetaId().equals("") == true );
-    assertTrue( KL.getNotes() == null );
-    assertTrue( KL.getAnnotation() == null );
-    assertTrue( KL.getFormula().equals("") == true );
-    assertTrue( KL.getMath() == null );
-    assertTrue( KL.getTimeUnits().equals("") == true );
-    assertTrue( KL.getSubstanceUnits().equals("") == true );
-    assertEquals( false, KL.isSetFormula() );
-    assertEquals( false, KL.isSetMath() );
-    assertEquals( false, KL.isSetTimeUnits() );
-    assertEquals( false, KL.isSetSubstanceUnits() );
-    assertTrue( KL.getNumParameters() == 0 );
-  }
-
-  public void test_KineticLaw_createWith()
-  {
-    ASTNode math;
-    String formula;
-    KineticLaw kl = new  KineticLaw("k1 * X0");
     assertTrue( kl.getTypeCode() == libsbml.SBML_KINETIC_LAW );
     assertTrue( kl.getMetaId().equals("") == true );
     assertTrue( kl.getNotes() == null );
     assertTrue( kl.getAnnotation() == null );
-    math = kl.getMath();
-    assertTrue( math != null );
-    formula = libsbml.formulaToString(math);
-    assertTrue( formula != null );
-    assertTrue(formula.equals( "k1 * X0"));
-    assertTrue(kl.getFormula().equals(formula));
-    assertEquals( true, kl.isSetMath() );
-    assertEquals( true, kl.isSetFormula() );
+    assertTrue( kl.getFormula().equals("") == true );
+    assertTrue( kl.getMath() == null );
+    assertTrue( kl.getTimeUnits().equals("") == true );
+    assertTrue( kl.getSubstanceUnits().equals("") == true );
+    assertEquals( false, kl.isSetFormula() );
+    assertEquals( false, kl.isSetMath() );
+    assertEquals( false, kl.isSetTimeUnits() );
+    assertEquals( false, kl.isSetSubstanceUnits() );
     assertTrue( kl.getNumParameters() == 0 );
-    kl = null;
   }
 
-  public void test_KineticLaw_createWithLevelVersionAndNamespace()
+  public void test_KineticLaw_createWithNS()
   {
     XMLNamespaces xmlns = new  XMLNamespaces();
-    xmlns.add( "http://www.sbml.org", "sbml");
-    KineticLaw object = new  KineticLaw(2,1,xmlns);
+    xmlns.add( "http://www.sbml.org", "testsbml");
+    SBMLNamespaces sbmlns = new  SBMLNamespaces(2,1);
+    sbmlns.addNamespaces(xmlns);
+    KineticLaw object = new  KineticLaw(sbmlns);
     assertTrue( object.getTypeCode() == libsbml.SBML_KINETIC_LAW );
     assertTrue( object.getMetaId().equals("") == true );
     assertTrue( object.getNotes() == null );
@@ -180,32 +170,8 @@ public class TestKineticLaw {
     assertTrue( object.getLevel() == 2 );
     assertTrue( object.getVersion() == 1 );
     assertTrue( object.getNamespaces() != null );
-    assertTrue( object.getNamespaces().getLength() == 1 );
+    assertTrue( object.getNamespaces().getLength() == 2 );
     object = null;
-  }
-
-  public void test_KineticLaw_createWithMath()
-  {
-    ASTNode math1 = libsbml.parseFormula("k3 / k2");
-    ASTNode math;
-    String formula;
-    KineticLaw kl = new  KineticLaw(math1);
-    assertTrue( kl.getTypeCode() == libsbml.SBML_KINETIC_LAW );
-    assertTrue( kl.getMetaId().equals("") == true );
-    assertTrue( kl.getNotes() == null );
-    assertTrue( kl.getAnnotation() == null );
-    math = kl.getMath();
-    assertTrue( math != null );
-    formula = libsbml.formulaToString(math);
-    assertTrue( formula != null );
-    assertTrue(formula.equals( "k3 / k2"));
-    assertTrue(kl.getFormula().equals(formula));
-    assertEquals( true, kl.isSetMath() );
-    assertEquals( true, kl.isSetFormula() );
-    assertEquals( false, kl.isSetTimeUnits() );
-    assertEquals( false, kl.isSetSubstanceUnits() );
-    assertTrue( kl.getNumParameters() == 0 );
-    kl = null;
   }
 
   public void test_KineticLaw_free_NULL()
@@ -214,68 +180,86 @@ public class TestKineticLaw {
 
   public void test_KineticLaw_getParameter()
   {
-    Parameter k1 = new  Parameter();
-    Parameter k2 = new  Parameter();
-    k1.setName( "k1");
-    k2.setName( "k2");
-    k1.setValue(3.14);
-    k2.setValue(2.72);
-    KL.addParameter(k1);
-    KL.addParameter(k2);
-    k1 = null;
-    k2 = null;
-    assertTrue( KL.getNumParameters() == 2 );
-    k1 = KL.getParameter(0);
-    k2 = KL.getParameter(1);
-    assertTrue(k1.getName().equals( "k1"));
-    assertTrue(k2.getName().equals( "k2"));
-    assertTrue( k1.getValue() == 3.14 );
-    assertTrue( k2.getValue() == 2.72 );
-  }
-
-  public void test_KineticLaw_getParameterById()
-  {
-    Parameter k1 = new  Parameter();
-    Parameter k2 = new  Parameter();
+    Parameter k1 = new  Parameter(2,4);
+    Parameter k2 = new  Parameter(2,4);
     k1.setId( "k1");
     k2.setId( "k2");
     k1.setValue(3.14);
     k2.setValue(2.72);
-    KL.addParameter(k1);
-    KL.addParameter(k2);
+    kl.addParameter(k1);
+    kl.addParameter(k2);
     k1 = null;
     k2 = null;
-    assertTrue( KL.getNumParameters() == 2 );
-    k1 = KL.getParameter( "k1");
-    k2 = KL.getParameter( "k2");
+    assertTrue( kl.getNumParameters() == 2 );
+    k1 = kl.getParameter(0);
+    k2 = kl.getParameter(1);
     assertTrue(k1.getId().equals( "k1"));
     assertTrue(k2.getId().equals( "k2"));
     assertTrue( k1.getValue() == 3.14 );
     assertTrue( k2.getValue() == 2.72 );
   }
 
+  public void test_KineticLaw_getParameterById()
+  {
+    Parameter k1 = new  Parameter(2,4);
+    Parameter k2 = new  Parameter(2,4);
+    k1.setId( "k1");
+    k2.setId( "k2");
+    k1.setValue(3.14);
+    k2.setValue(2.72);
+    kl.addParameter(k1);
+    kl.addParameter(k2);
+    k1 = null;
+    k2 = null;
+    assertTrue( kl.getNumParameters() == 2 );
+    k1 = kl.getParameter( "k1");
+    k2 = kl.getParameter( "k2");
+    assertTrue(k1.getId().equals( "k1"));
+    assertTrue(k2.getId().equals( "k2"));
+    assertTrue( k1.getValue() == 3.14 );
+    assertTrue( k2.getValue() == 2.72 );
+  }
+
+  public void test_KineticLaw_removeParameter()
+  {
+    Parameter o1,o2,o3;
+    o1 = kl.createParameter();
+    o2 = kl.createParameter();
+    o3 = kl.createParameter();
+    o3.setId("test");
+    assertTrue( kl.removeParameter(0).equals(o1) );
+    assertTrue( kl.getNumParameters() == 2 );
+    assertTrue( kl.removeParameter(0).equals(o2) );
+    assertTrue( kl.getNumParameters() == 1 );
+    assertTrue( kl.removeParameter("test").equals(o3) );
+    assertTrue( kl.getNumParameters() == 0 );
+    o1 = null;
+    o2 = null;
+    o3 = null;
+  }
+
   public void test_KineticLaw_setBadFormula()
   {
     String formula =  "k1 X0";;
-    KL.setFormula(formula);
-    assertEquals( true, KL.isSetFormula() );
-    assertEquals( false, KL.isSetMath() );
+    kl.setFormula(formula);
+    assertEquals( false, kl.isSetFormula() );
+    assertEquals( false, kl.isSetMath() );
   }
 
   public void test_KineticLaw_setFormula()
   {
     String formula =  "k1*X0";;
-    KL.setFormula(formula);
-    assertTrue(KL.getFormula().equals(formula));
-    assertEquals( true, KL.isSetFormula() );
-    if (KL.getFormula() == formula);
+    kl.setFormula(formula);
+    assertTrue(kl.getFormula().equals(formula));
+    assertEquals( true, kl.isSetFormula() );
+    if (kl.getFormula() == formula);
     {
     }
-    KL.setFormula(KL.getFormula());
-    assertTrue(KL.getFormula().equals(formula));
-    KL.setFormula("");
-    assertEquals( false, KL.isSetFormula() );
-    if (KL.getFormula() != null);
+    kl.setFormula(kl.getFormula());
+    assertTrue(kl.getFormula().equals(formula));
+    kl.setFormula("");
+    assertEquals( false, kl.isSetFormula() );
+    if (kl.getFormula() != null);
     {
     }
   }
@@ -283,12 +267,12 @@ public class TestKineticLaw {
   public void test_KineticLaw_setFormulaFromMath()
   {
     ASTNode math = libsbml.parseFormula("k1 * X0");
-    assertEquals( false, KL.isSetMath() );
-    assertEquals( false, KL.isSetFormula() );
-    KL.setMath(math);
-    assertEquals( true, KL.isSetMath() );
-    assertEquals( true, KL.isSetFormula() );
-    assertTrue(KL.getFormula().equals( "k1 * X0"));
+    assertEquals( false, kl.isSetMath() );
+    assertEquals( false, kl.isSetFormula() );
+    kl.setMath(math);
+    assertEquals( true, kl.isSetMath() );
+    assertEquals( true, kl.isSetFormula() );
+    assertTrue(kl.getFormula().equals( "k1 * X0"));
     math = null;
   }
 
@@ -297,24 +281,24 @@ public class TestKineticLaw {
     ASTNode math = libsbml.parseFormula("k3 / k2");
     String formula;
     ASTNode math1;
-    KL.setMath(math);
-    math1 = KL.getMath();
+    kl.setMath(math);
+    math1 = kl.getMath();
     assertTrue( math1 != null );
     formula = libsbml.formulaToString(math1);
     assertTrue( formula != null );
     assertTrue(formula.equals( "k3 / k2"));
-    assertTrue( !KL.getMath().equals(math) );
-    assertEquals( true, KL.isSetMath() );
-    KL.setMath(KL.getMath());
-    math1 = KL.getMath();
+    assertTrue( !kl.getMath().equals(math) );
+    assertEquals( true, kl.isSetMath() );
+    kl.setMath(kl.getMath());
+    math1 = kl.getMath();
     assertTrue( math1 != null );
     formula = libsbml.formulaToString(math1);
     assertTrue( formula != null );
     assertTrue(formula.equals( "k3 / k2"));
-    assertTrue( !KL.getMath().equals(math) );
-    KL.setMath(null);
-    assertEquals( false, KL.isSetMath() );
-    if (KL.getMath() != null);
+    assertTrue( !kl.getMath().equals(math) );
+    kl.setMath(null);
+    assertEquals( false, kl.isSetMath() );
+    if (kl.getMath() != null);
     {
     }
     math = null;
@@ -323,12 +307,12 @@ public class TestKineticLaw {
   public void test_KineticLaw_setMathFromFormula()
   {
     String formula =  "k3 / k2";;
-    assertEquals( false, KL.isSetMath() );
-    assertEquals( false, KL.isSetFormula() );
-    KL.setFormula(formula);
-    assertEquals( true, KL.isSetMath() );
-    assertEquals( true, KL.isSetFormula() );
-    formula = libsbml.formulaToString(KL.getMath());
+    assertEquals( false, kl.isSetMath() );
+    assertEquals( false, kl.isSetFormula() );
+    kl.setFormula(formula);
+    assertEquals( true, kl.isSetMath() );
+    assertEquals( true, kl.isSetFormula() );
+    formula = libsbml.formulaToString(kl.getMath());
     assertTrue(formula.equals( "k3 / k2"));
   }
 

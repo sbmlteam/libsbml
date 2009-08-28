@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Ben Bornstein 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestListOf.c
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -58,6 +58,10 @@ namespace LibSBMLCSTest {
       {
         return;
       }
+      else if ( (a == null) || (b == null) )
+      {
+        throw new AssertionError();
+      }
       else if (a.Equals(b))
       {
         return;
@@ -71,6 +75,10 @@ namespace LibSBMLCSTest {
       if ( (a == null) && (b == null) )
       {
         throw new AssertionError();
+      }
+      else if ( (a == null) || (b == null) )
+      {
+        return;
       }
       else if (a.Equals(b))
       {
@@ -118,7 +126,7 @@ namespace LibSBMLCSTest {
     public void test_ListOf_clear()
     {
       ListOf lo = new  ListOf();
-      SBase sp = new  Species();
+      SBase sp = new  Species(2,4);
       lo.append(sp);
       lo.append(sp);
       lo.append(sp);
@@ -161,7 +169,7 @@ namespace LibSBMLCSTest {
     public void test_ListOf_remove()
     {
       ListOf lo = new  ListOf();
-      SBase sp = new  Species();
+      SBase sp = new  Species(2,4);
       assertTrue( lo.size() == 0 );
       lo.append(sp);
       lo.append(sp);

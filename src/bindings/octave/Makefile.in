@@ -124,10 +124,16 @@ link-sources:
 	  fi; \
 	done
 
-flags = $(MKOCTFILE_FLAGS) -DUSE_OCTAVE -I../.. -I../../../include -L../..
+flags = $(MKOCTFILE_FLAGS) -DUSE_OCTAVE -I../.. -I../../../include 
 
-%.$(OCTAVEEXT): %.c
-	$(MKOCTFILE) $(flags) $^ -lsbml $(MKOCTFILE_LIBS)
+TranslateSBML.lo: TranslateSBML.c
+	$(LIBTOOL) --tag=CC --mode=compile $(MKOCTFILE_WRAPPER) $(MKOCTFILE) -c -o $@ $(flags) $<
+
+%.$(OCTAVEEXT): %.lo
+	$(TOP_SRCDIR)/config/lt_link_helper.sh $(MKOCTFILE_WRAPPER) --libdir $(LIBDIR) $(MKOCTFILE) -o $@ $(flags) $^ ../../libsbml.la $(MKOCTFILE_LIBS)
+
+#%.$(OCTAVEEXT): %.c
+#	$(MKOCTFILE) $(flags) $^ -lsbml $(MKOCTFILE_LIBS)
 
 
 # -----------------------------------------------------------------------------
@@ -165,7 +171,7 @@ uninstall: uninstall-libraries
 	  f=$(DESTDIR)$(prefix)$(LOCALOCTFILEDIR)/$$i; \
 	  if test -e $$f; then \
 	    rm $(DESTDIR)$(prefix)$(LOCALOCTFILEDIR)/$$i; \
-          fi; \
+	  fi; \
 	done
 
 
@@ -173,9 +179,9 @@ uninstall: uninstall-libraries
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-dist: all dist-normal dist-recursive
+dist: dist-normal dist-recursive
 
-distcheck: all distcheck-normal distcheck-recursive
+distcheck: distcheck-normal distcheck-recursive
 
 
 # -----------------------------------------------------------------------------

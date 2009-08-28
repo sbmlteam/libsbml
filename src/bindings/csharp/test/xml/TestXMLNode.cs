@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Michael Hucka <mhucka@caltech.edu> 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestXMLNode.c
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -58,6 +58,10 @@ namespace LibSBMLCSTest {
       {
         return;
       }
+      else if ( (a == null) || (b == null) )
+      {
+        throw new AssertionError();
+      }
       else if (a.Equals(b))
       {
         return;
@@ -71,6 +75,10 @@ namespace LibSBMLCSTest {
       if ( (a == null) && (b == null) )
       {
         throw new AssertionError();
+      }
+      else if ( (a == null) || (b == null) )
+      {
+        return;
       }
       else if (a.Equals(b))
       {
@@ -321,6 +329,98 @@ namespace LibSBMLCSTest {
       string toxmlstring = node.toXMLString();
       assertTrue( ( xmlstr != toxmlstring ) == false );
       node = null;
+    }
+
+    public void test_XMLNode_convert_dummyroot()
+    {
+      string xmlstr_nodummy1 = "<notes>\n" + "  <p>test</p>\n" + "</notes>";;
+      string xmlstr_nodummy2 = "<html>\n" + "  <p>test</p>\n" + "</html>";;
+      string xmlstr_nodummy3 = "<body>\n" + "  <p>test</p>\n" + "</body>";;
+      string xmlstr_nodummy4 =  "<p>test</p>";;
+      string xmlstr_nodummy5 = "<test1>\n" + "  <test2>test</test2>\n" + "</test1>";;
+      string xmlstr_dummy1 =  "<p>test1</p><p>test2</p>";;
+      string xmlstr_dummy2 =  "<test1>test1</test1><test2>test2</test2>";;
+      XMLNode rootnode;
+      XMLNode child,gchild;
+      XMLAttributes attr;
+      XMLNamespaces ns;
+      string toxmlstring;
+      rootnode = XMLNode.convertStringToXMLNode(xmlstr_nodummy1,null);
+      assertTrue( rootnode.getNumChildren() == 1 );
+      child = rootnode.getChild(0);
+      gchild = child.getChild(0);
+      assertTrue( (  "notes" != rootnode.getName() ) == false );
+      assertTrue( ( "p"  != child.getName() ) == false );
+      assertTrue( ( "test"  != gchild.getCharacters() ) == false );
+      toxmlstring = rootnode.toXMLString();
+      assertTrue( ( xmlstr_nodummy1 != toxmlstring ) == false );
+      rootnode = null;
+      rootnode = XMLNode.convertStringToXMLNode(xmlstr_nodummy2,null);
+      assertTrue( rootnode.getNumChildren() == 1 );
+      child = rootnode.getChild(0);
+      gchild = child.getChild(0);
+      assertTrue( (  "html" != rootnode.getName() ) == false );
+      assertTrue( ( "p"  != child.getName() ) == false );
+      assertTrue( ( "test"  != gchild.getCharacters() ) == false );
+      toxmlstring = rootnode.toXMLString();
+      assertTrue( ( xmlstr_nodummy2 != toxmlstring ) == false );
+      rootnode = null;
+      rootnode = XMLNode.convertStringToXMLNode(xmlstr_nodummy3,null);
+      assertTrue( rootnode.getNumChildren() == 1 );
+      child = rootnode.getChild(0);
+      gchild = child.getChild(0);
+      assertTrue( (  "body" != rootnode.getName() ) == false );
+      assertTrue( ( "p"  != child.getName() ) == false );
+      assertTrue( ( "test"  != gchild.getCharacters() ) == false );
+      toxmlstring = rootnode.toXMLString();
+      assertTrue( ( xmlstr_nodummy3 != toxmlstring ) == false );
+      rootnode = null;
+      rootnode = XMLNode.convertStringToXMLNode(xmlstr_nodummy4,null);
+      assertTrue( rootnode.getNumChildren() == 1 );
+      child = rootnode.getChild(0);
+      assertTrue( (  "p" != rootnode.getName() ) == false );
+      assertTrue( ( "test"  != child.getCharacters() ) == false );
+      toxmlstring = rootnode.toXMLString();
+      assertTrue( ( xmlstr_nodummy4 != toxmlstring ) == false );
+      rootnode = null;
+      rootnode = XMLNode.convertStringToXMLNode(xmlstr_nodummy5,null);
+      assertTrue( rootnode.getNumChildren() == 1 );
+      child = rootnode.getChild(0);
+      gchild = child.getChild(0);
+      assertTrue( (  "test1" != rootnode.getName() ) == false );
+      assertTrue( ( "test2"  != child.getName() ) == false );
+      assertTrue( ( "test"  != gchild.getCharacters() ) == false );
+      toxmlstring = rootnode.toXMLString();
+      assertTrue( ( xmlstr_nodummy5 != toxmlstring ) == false );
+      rootnode = null;
+      rootnode = XMLNode.convertStringToXMLNode(xmlstr_dummy1,null);
+      assertTrue( rootnode.isEOF() == true );
+      assertTrue( rootnode.getNumChildren() == 2 );
+      child = rootnode.getChild(0);
+      gchild = child.getChild(0);
+      assertTrue( (  "p" != child.getName() ) == false );
+      assertTrue( ( "test1"  != gchild.getCharacters() ) == false );
+      child = rootnode.getChild(1);
+      gchild = child.getChild(0);
+      assertTrue( (  "p" != child.getName() ) == false );
+      assertTrue( ( "test2"  != gchild.getCharacters() ) == false );
+      toxmlstring = rootnode.toXMLString();
+      assertTrue( ( xmlstr_dummy1 != toxmlstring ) == false );
+      rootnode = null;
+      rootnode = XMLNode.convertStringToXMLNode(xmlstr_dummy2,null);
+      assertTrue( rootnode.isEOF() == true );
+      assertTrue( rootnode.getNumChildren() == 2 );
+      child = rootnode.getChild(0);
+      gchild = child.getChild(0);
+      assertTrue( (  "test1" != child.getName() ) == false );
+      assertTrue( ( "test1"  != gchild.getCharacters() ) == false );
+      child = rootnode.getChild(1);
+      gchild = child.getChild(0);
+      assertTrue( (  "test2" != child.getName() ) == false );
+      assertTrue( ( "test2"  != gchild.getCharacters() ) == false );
+      toxmlstring = rootnode.toXMLString();
+      assertTrue( ( xmlstr_dummy2 != toxmlstring ) == false );
+      rootnode = null;
     }
 
     public void test_XMLNode_create()

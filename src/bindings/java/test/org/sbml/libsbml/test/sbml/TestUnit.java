@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestUnit.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -52,6 +52,10 @@ public class TestUnit {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestUnit {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -111,7 +119,7 @@ public class TestUnit {
 
   protected void setUp() throws Exception
   {
-    U = new  Unit();
+    U = new  Unit(2,4);
     if (U == null);
     {
     }
@@ -135,27 +143,13 @@ public class TestUnit {
     assertEquals( false, U.isSetKind() );
   }
 
-  public void test_Unit_createWith()
-  {
-    Unit u = new  Unit(libsbml.UNIT_KIND_SECOND,-2,1);
-    assertTrue( u.getTypeCode() == libsbml.SBML_UNIT );
-    assertTrue( u.getMetaId().equals("") == true );
-    assertTrue( u.getNotes() == null );
-    assertTrue( u.getAnnotation() == null );
-    assertTrue( u.getKind() == libsbml.UNIT_KIND_SECOND );
-    assertTrue( u.getExponent() == -2 );
-    assertTrue( u.getScale() == 1 );
-    assertTrue( u.getMultiplier() == 1.0 );
-    assertTrue( u.getOffset() == 0.0 );
-    assertEquals( true, u.isSetKind() );
-    u = null;
-  }
-
-  public void test_Unit_createWithLevelVersionAndNamespace()
+  public void test_Unit_createWithNS()
   {
     XMLNamespaces xmlns = new  XMLNamespaces();
-    xmlns.add( "http://www.sbml.org", "sbml");
-    Unit object = new  Unit(2,1,xmlns);
+    xmlns.add( "http://www.sbml.org", "testsbml");
+    SBMLNamespaces sbmlns = new  SBMLNamespaces(2,1);
+    sbmlns.addNamespaces(xmlns);
+    Unit object = new  Unit(sbmlns);
     assertTrue( object.getTypeCode() == libsbml.SBML_UNIT );
     assertTrue( object.getMetaId().equals("") == true );
     assertTrue( object.getNotes() == null );
@@ -163,7 +157,7 @@ public class TestUnit {
     assertTrue( object.getLevel() == 2 );
     assertTrue( object.getVersion() == 1 );
     assertTrue( object.getNamespaces() != null );
-    assertTrue( object.getNamespaces().getLength() == 1 );
+    assertTrue( object.getNamespaces().getLength() == 2 );
     object = null;
   }
 
@@ -202,8 +196,6 @@ public class TestUnit {
     assertEquals( true, U.isBecquerel() );
     U.setKind(libsbml.UNIT_KIND_CANDELA);
     assertEquals( true, U.isCandela() );
-    U.setKind(libsbml.UNIT_KIND_CELSIUS);
-    assertEquals( true, U.isCelsius() );
     U.setKind(libsbml.UNIT_KIND_COULOMB);
     assertEquals( true, U.isCoulomb() );
     U.setKind(libsbml.UNIT_KIND_DIMENSIONLESS);
@@ -266,7 +258,7 @@ public class TestUnit {
 
   public void test_Unit_set_get()
   {
-    Unit u = new  Unit();
+    Unit u = new  Unit(2,4);
     assertTrue( u.getKind() == libsbml.UNIT_KIND_INVALID );
     assertTrue( u.getExponent() == 1 );
     assertTrue( u.getScale() == 0 );

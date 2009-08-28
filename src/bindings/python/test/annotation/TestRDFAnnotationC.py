@@ -54,7 +54,7 @@ class TestRDFAnnotationC(unittest.TestCase):
     pass  
 
   def test_RDFAnnotation_C_getModelHistory(self):
-    self.assert_( (self.m == None) == False )
+    self.assert_( (self.m == 0) == False )
     history = self.m.getModelHistory()
     self.assert_( history != None )
     mc = history.getCreator(0)

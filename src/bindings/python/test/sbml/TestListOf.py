@@ -31,10 +31,9 @@ import libsbml
 
 class TestListOf(unittest.TestCase):
 
-
   def test_ListOf_clear(self):
     lo = libsbml.ListOf()
-    sp = libsbml.Species()
+    sp = libsbml.Species(2,4)
     lo.append(sp)
     lo.append(sp)
     lo.append(sp)
@@ -74,7 +73,7 @@ class TestListOf(unittest.TestCase):
 
   def test_ListOf_remove(self):
     lo = libsbml.ListOf()
-    sp = libsbml.Species()
+    sp = libsbml.Species(2,4)
     self.assert_( lo.size() == 0 )
     lo.append(sp)
     lo.append(sp)
@@ -82,8 +81,8 @@ class TestListOf(unittest.TestCase):
     lo.append(sp)
     lo.append(sp)
     self.assert_( lo.size() == 5 )
-    lo.remove(0) 
-    lo.remove(0) 
+    lo.remove(0)
+    lo.remove(0)
     lo.remove(0)
     lo.remove(0)
     lo.remove(0)

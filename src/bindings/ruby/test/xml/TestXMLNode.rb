@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Michael Hucka <mhucka@caltech.edu> 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestXMLNode.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -213,7 +213,7 @@ class TestXMLNode < Test::Unit::TestCase
   end
 
   def test_XMLNode_convert
-    xmlstr = "<annotation>\n""  <test xmlns=\"http://test.org/\" id=\"test\">test</test>\n" + "</annotation>";
+    xmlstr = "<annotation>\n" + "  <test xmlns=\"http://test.org/\" id=\"test\">test</test>\n" + "</annotation>";
     node = LibSBML::XMLNode.convertStringToXMLNode(xmlstr,nil)
     child = node.getChild(0)
     gchild = child.getChild(0)
@@ -229,6 +229,92 @@ class TestXMLNode < Test::Unit::TestCase
     toxmlstring = node.toXMLString()
     assert( ( xmlstr != toxmlstring ) == false )
     node = nil
+  end
+
+  def test_XMLNode_convert_dummyroot
+    xmlstr_nodummy1 = "<notes>\n" + "  <p>test</p>\n" + "</notes>";
+    xmlstr_nodummy2 = "<html>\n" + "  <p>test</p>\n" + "</html>";
+    xmlstr_nodummy3 = "<body>\n" + "  <p>test</p>\n" + "</body>";
+    xmlstr_nodummy4 =  "<p>test</p>";
+    xmlstr_nodummy5 = "<test1>\n" + "  <test2>test</test2>\n" + "</test1>";
+    xmlstr_dummy1 =  "<p>test1</p><p>test2</p>";
+    xmlstr_dummy2 =  "<test1>test1</test1><test2>test2</test2>";
+    rootnode = LibSBML::XMLNode.convertStringToXMLNode(xmlstr_nodummy1,nil)
+    assert( rootnode.getNumChildren() == 1 )
+    child = rootnode.getChild(0)
+    gchild = child.getChild(0)
+    assert( (  "notes" != rootnode.getName() ) == false )
+    assert( ( "p"  != child.getName() ) == false )
+    assert( ( "test"  != gchild.getCharacters() ) == false )
+    toxmlstring = rootnode.toXMLString()
+    assert( ( xmlstr_nodummy1 != toxmlstring ) == false )
+    rootnode = nil
+    rootnode = LibSBML::XMLNode.convertStringToXMLNode(xmlstr_nodummy2,nil)
+    assert( rootnode.getNumChildren() == 1 )
+    child = rootnode.getChild(0)
+    gchild = child.getChild(0)
+    assert( (  "html" != rootnode.getName() ) == false )
+    assert( ( "p"  != child.getName() ) == false )
+    assert( ( "test"  != gchild.getCharacters() ) == false )
+    toxmlstring = rootnode.toXMLString()
+    assert( ( xmlstr_nodummy2 != toxmlstring ) == false )
+    rootnode = nil
+    rootnode = LibSBML::XMLNode.convertStringToXMLNode(xmlstr_nodummy3,nil)
+    assert( rootnode.getNumChildren() == 1 )
+    child = rootnode.getChild(0)
+    gchild = child.getChild(0)
+    assert( (  "body" != rootnode.getName() ) == false )
+    assert( ( "p"  != child.getName() ) == false )
+    assert( ( "test"  != gchild.getCharacters() ) == false )
+    toxmlstring = rootnode.toXMLString()
+    assert( ( xmlstr_nodummy3 != toxmlstring ) == false )
+    rootnode = nil
+    rootnode = LibSBML::XMLNode.convertStringToXMLNode(xmlstr_nodummy4,nil)
+    assert( rootnode.getNumChildren() == 1 )
+    child = rootnode.getChild(0)
+    assert( (  "p" != rootnode.getName() ) == false )
+    assert( ( "test"  != child.getCharacters() ) == false )
+    toxmlstring = rootnode.toXMLString()
+    assert( ( xmlstr_nodummy4 != toxmlstring ) == false )
+    rootnode = nil
+    rootnode = LibSBML::XMLNode.convertStringToXMLNode(xmlstr_nodummy5,nil)
+    assert( rootnode.getNumChildren() == 1 )
+    child = rootnode.getChild(0)
+    gchild = child.getChild(0)
+    assert( (  "test1" != rootnode.getName() ) == false )
+    assert( ( "test2"  != child.getName() ) == false )
+    assert( ( "test"  != gchild.getCharacters() ) == false )
+    toxmlstring = rootnode.toXMLString()
+    assert( ( xmlstr_nodummy5 != toxmlstring ) == false )
+    rootnode = nil
+    rootnode = LibSBML::XMLNode.convertStringToXMLNode(xmlstr_dummy1,nil)
+    assert( rootnode.isEOF() == true )
+    assert( rootnode.getNumChildren() == 2 )
+    child = rootnode.getChild(0)
+    gchild = child.getChild(0)
+    assert( (  "p" != child.getName() ) == false )
+    assert( ( "test1"  != gchild.getCharacters() ) == false )
+    child = rootnode.getChild(1)
+    gchild = child.getChild(0)
+    assert( (  "p" != child.getName() ) == false )
+    assert( ( "test2"  != gchild.getCharacters() ) == false )
+    toxmlstring = rootnode.toXMLString()
+    assert( ( xmlstr_dummy1 != toxmlstring ) == false )
+    rootnode = nil
+    rootnode = LibSBML::XMLNode.convertStringToXMLNode(xmlstr_dummy2,nil)
+    assert( rootnode.isEOF() == true )
+    assert( rootnode.getNumChildren() == 2 )
+    child = rootnode.getChild(0)
+    gchild = child.getChild(0)
+    assert( (  "test1" != child.getName() ) == false )
+    assert( ( "test1"  != gchild.getCharacters() ) == false )
+    child = rootnode.getChild(1)
+    gchild = child.getChild(0)
+    assert( (  "test2" != child.getName() ) == false )
+    assert( ( "test2"  != gchild.getCharacters() ) == false )
+    toxmlstring = rootnode.toXMLString()
+    assert( ( xmlstr_dummy2 != toxmlstring ) == false )
+    rootnode = nil
   end
 
   def test_XMLNode_create

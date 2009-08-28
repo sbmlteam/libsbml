@@ -34,7 +34,7 @@ class TestReadFromFile2(unittest.TestCase):
 
   def test_create_l1v1_units(self):
     d = libsbml.SBMLDocument()
-    m = libsbml.Model()
+    m = libsbml.Model(2,4)
     d.setModel(m)
     ud = m.createUnitDefinition()
     ud.setName( "substance")

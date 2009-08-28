@@ -9,11 +9,11 @@ use LibSBML;
 use strict;
 #########################
 
+my $level   = LibSBML::SBMLDocument::getDefaultLevel();
+my $version = LibSBML::SBMLDocument::getDefaultVersion();
 
 # some global(s)
-my $D = new LibSBML::SBMLDocument();
-my $OSS = new LibSBML::OStringStream();
-my $XOS = new LibSBML::XMLOutputStream($OSS->get_ostream());
+my $D = new LibSBML::SBMLDocument($level,$version);
 
 test_WriteSBML_error();
 test_WriteSBML_SBMLDocument_L1v1();
@@ -90,8 +90,6 @@ test_WriteSBML_locale();
 #---
 sub setUp {
  $D   = new LibSBML::SBMLDocument();
- $OSS = new LibSBML::OStringStream();
- $XOS = new LibSBML::XMLOutputStream($OSS->get_ostream());
 }
 
 #---
@@ -187,7 +185,7 @@ sub wrapSBML_L2v1 {
 
 #---
 sub test_WriteSBML_error {
- my $d = new LibSBML::SBMLDocument();
+ my $d = new LibSBML::SBMLDocument($level,$version);
  my $w = new LibSBML::SBMLWriter();
  ok( ! $w->writeSBML($d, "/tmp/impossible/path/should/fail") );
  ok( $d->getNumErrors() == 1 );
@@ -277,7 +275,7 @@ sub test_WriteSBML_Model_L2v1_skipOptional {
 #---
 sub test_WriteSBML_FunctionDefinition {
  setUp();
- my $expected = wrapXML("<functionDefinition id=\"pow3\">\n" . 
+ my $expected = "<functionDefinition id=\"pow3\">\n" . 
                         "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" . 
                         "    <lambda>\n" . 
                         "      <bvar>\n" . 
@@ -290,361 +288,352 @@ sub test_WriteSBML_FunctionDefinition {
                         "      </apply>\n" . 
                         "    </lambda>\n" . 
                         "  </math>\n" . 
-                        "</functionDefinition>");
- my $fd = new LibSBML::FunctionDefinition("pow3", "lambda(x, x^3)");
- $fd->write($XOS);
- ok( $expected eq $OSS->str() );
+                        "</functionDefinition>";
+ my $fd = new LibSBML::FunctionDefinition($level,$version);
+ $fd->setId("pow3");
+ $fd->setMath(LibSBML::parseFormula("lambda(x, x^3)"));
+ ok( $expected eq $fd->toSBML() );
 }
 
 #---
 sub test_WriteSBML_Unit {
  setUp();
  $D->setLevelAndVersion(2, 1);
- my $expected = wrapXML("<unit kind=\"kilogram\" exponent=\"2\" scale=\"-3\"/>");
- my $u = new LibSBML::Unit("kilogram", 2, -3);
- $u->setSBMLDocument($D);
- $u->write($XOS);
- ok( $expected eq $OSS->str() );
+ my $expected = "<unit kind=\"kilogram\" exponent=\"2\" scale=\"-3\"/>";
+ my $u = new LibSBML::Unit(2,1);
+ $u->setKind($LibSBML::UNIT_KIND_KILOGRAM);
+ $u->setExponent(2);
+ $u->setScale(-3);
+ ok( $expected eq $u->toSBML() );
 }
 
 #---
 sub test_WriteSBML_Unit_l2v3 {
  setUp();
  $D->setLevelAndVersion(2, 3);
- my $expected = wrapXML("<unit kind=\"kilogram\" exponent=\"2\" scale=\"-3\"/>");
- my $u = new LibSBML::Unit("kilogram", 2, -3);
+ my $expected = "<unit kind=\"kilogram\" exponent=\"2\" scale=\"-3\"/>";
+ my $u = new LibSBML::Unit(2,3);
+ $u->setKind($LibSBML::UNIT_KIND_KILOGRAM);
+ $u->setExponent(2);
+ $u->setScale(-3);
  $u->setOffset(32);
- $u->setSBMLDocument($D);
- $u->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $u->toSBML());
 }
 
 #---
 sub test_WriteSBML_Unit_defaults {
  setUp();
  $D->setLevelAndVersion(1, 2);
- my $expected = wrapXML("<unit kind=\"kilogram\"/>");
- my $u = new LibSBML::Unit("kilogram", 1, 0);
- $u->setSBMLDocument($D);
- $u->write($XOS);
- ok( $expected eq $OSS->str() );
+ my $expected = "<unit kind=\"kilogram\"/>";
+ my $u = new LibSBML::Unit(1,2);
+ $u->setKind($LibSBML::UNIT_KIND_KILOGRAM);
+ $u->setExponent(1);
+ $u->setScale(0);
+ ok( $expected eq $u->toSBML() );
 }
 
 #---
 sub test_WriteSBML_Unit_L2v1 {
  setUp();
  $D->setLevelAndVersion(2, 1);
- my $expected = wrapXML("<unit kind=\"Celsius\" multiplier=\"1.8\" offset=\"32\"/>");
- my $u = new LibSBML::Unit("Celsius", 1, 0, 1.8);
+ my $expected = "<unit kind=\"Celsius\" multiplier=\"1.8\" offset=\"32\"/>";
+ my $u = new LibSBML::Unit(2,1);
+ $u->setKind($LibSBML::UNIT_KIND_CELSIUS);
+ $u->setMultiplier(1.8);
  $u->setOffset(32);
- $u->setSBMLDocument($D);
- $u->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $u->toSBML());
 }
 
 #---
 sub test_WriteSBML_UnitDefinition {
  setUp();
  $D->setLevelAndVersion(1, 2);
- my $expected = wrapXML("<unitDefinition name=\"mmls\"/>");
- my $ud = new LibSBML::UnitDefinition("mmls");
- $ud->setSBMLDocument($D);
- $ud->write($XOS);
- ok( $expected eq $OSS->str() );
+ my $expected = "<unitDefinition name=\"mmls\"/>";
+ my $ud = new LibSBML::UnitDefinition(1,2);
+ $ud->setId("mmls");
+ ok( $expected eq $ud->toSBML());
 }
 
 #---
 sub test_WriteSBML_UnitDefinition_full {
  setUp();
  $D->setLevelAndVersion(1, 2);
- my $expected = wrapXML("<unitDefinition name=\"mmls\">\n" . 
+ my $expected = "<unitDefinition name=\"mmls\">\n" . 
                         "  <listOfUnits>\n" . 
                         "    <unit kind=\"mole\" scale=\"-3\"/>\n" . 
-                        "    <unit kind=\"liter\" exponent=\"-1\"/>\n" . 
+                        "    <unit kind=\"litre\" exponent=\"-1\"/>\n" . 
                         "    <unit kind=\"second\" exponent=\"-1\"/>\n" . 
                         "  </listOfUnits>\n" . 
-                        "</unitDefinition>");
- my $ud = new LibSBML::UnitDefinition("mmls");
- my $u1 = new LibSBML::Unit("mole", 1, -3);
- my $u2 = new LibSBML::Unit("liter", -1);
- my $u3 = new LibSBML::Unit("second", -1);
+                        "</unitDefinition>";
+ my $ud = new LibSBML::UnitDefinition(1,2);
+ $ud->setId("mmls");
+ my $u1 = new LibSBML::Unit(1,2);
+ $u1->setKind($LibSBML::UNIT_KIND_MOLE);
+ $u1->setScale(-3);
+ my $u2 = new LibSBML::Unit(1,2);
+ $u2->setKind($LibSBML::UNIT_KIND_LITRE);
+ $u2->setExponent(-1);
+ my $u3 = new LibSBML::Unit(1,2);
+ $u3->setKind($LibSBML::UNIT_KIND_SECOND);
+ $u3->setExponent(-1);
+
  $ud->addUnit($u1);
  $ud->addUnit($u2);
  $ud->addUnit($u3);
- $ud->setSBMLDocument($D);
- $ud->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $ud->toSBML());
 }
 
 #---
 sub test_WriteSBML_UnitDefinition_L2v1 {
  setUp();
  $D->setLevelAndVersion(2, 1);
- my $expected = wrapXML("<unitDefinition id=\"mmls\"/>");
- my $ud = new LibSBML::UnitDefinition("mmls");
- $ud->setSBMLDocument($D);
- $ud->write($XOS);
- ok( $expected eq $OSS->str() );
+ my $expected = "<unitDefinition id=\"mmls\"/>";
+ my $ud = new LibSBML::UnitDefinition(2,1);
+ $ud->setId("mmls");
+ ok( $expected eq $ud->toSBML());
 }
 
 #---
 sub test_WriteSBML_UnitDefinition_L2v1_full {
  setUp();
  $D->setLevelAndVersion(2, 1);
- my $expected = wrapXML("<unitDefinition id=\"Fahrenheit\">\n" . 
+ my $expected = "<unitDefinition id=\"Fahrenheit\">\n" . 
                         "  <listOfUnits>\n" . 
                         "    <unit kind=\"Celsius\" multiplier=\"1.8\" offset=\"32\"/>\n" . 
                         "  </listOfUnits>\n" . 
-                        "</unitDefinition>");
- my $u1 = new LibSBML::Unit("Celsius", 1, 0, 1.8);
+                        "</unitDefinition>";
+ my $u1 = new LibSBML::Unit(2,1);
+ $u1->setKind($LibSBML::UNIT_KIND_CELSIUS);
+ $u1->setMultiplier(1.8);
  $u1->setOffset(32);
- my $ud = new LibSBML::UnitDefinition("Fahrenheit");
+ my $ud = new LibSBML::UnitDefinition(2,1);
+ $ud->setId("Fahrenheit");
  $ud->addUnit($u1);
- $ud->setSBMLDocument($D);
- $ud->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $ud->toSBML());
 }
 
 #---
 sub test_WriteSBML_Compartment {
  setUp();
  $D->setLevelAndVersion(1, 2);
- my $expected = wrapXML("<compartment name=\"A\" volume=\"2.1\" outside=\"B\"/>");
- my $c = new LibSBML::Compartment("A");
+ my $expected = "<compartment name=\"A\" volume=\"2.1\" outside=\"B\"/>";
+ my $c = new LibSBML::Compartment(1,2);
+ $c->setId("A");
  $c->setSize(2.1);
  $c->setOutside("B");
- $c->setSBMLDocument($D);
- $c->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $c->toSBML());
 }
 
 #---
 sub test_WriteSBML_Compartment_unsetVolume {
  setUp();
  $D->setLevelAndVersion(1, 2);
- my $expected = wrapXML("<compartment name=\"A\"/>");
- my $c = new LibSBML::Compartment();
+ my $expected = "<compartment name=\"A\"/>";
+ my $c = new LibSBML::Compartment(1,2);
  $c->setId("A");
- $c->setSBMLDocument($D);
- $c->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $c->toSBML());
 }
 
 #---
 sub test_WriteSBML_Compartment_L2v1 {
  setUp();
  $D->setLevelAndVersion(2, 1);
- my $expected = wrapXML("<compartment id=\"M\" spatialDimensions=\"2\" size=\"2.5\"/>");
- my $c = new LibSBML::Compartment("M");
+ my $expected = "<compartment id=\"M\" spatialDimensions=\"2\" size=\"2.5\"/>";
+ my $c = new LibSBML::Compartment(2,1);
+ $c->setId("M");
  $c->setSize(2.5);
  $c->setSpatialDimensions(2);
- $c->setSBMLDocument($D);
- $c->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $c->toSBML());
 }
 
 #---
 sub test_WriteSBML_Compartment_L2v1_constant {
  setUp();
  $D->setLevelAndVersion(2, 1);
- my $expected = wrapXML("<compartment id=\"cell\" size=\"1.2\" constant=\"false\"/>");
- my $c = new LibSBML::Compartment("cell");
+ my $expected = "<compartment id=\"cell\" size=\"1.2\" constant=\"false\"/>";
+ my $c = new LibSBML::Compartment(2,1);
+ $c->setId("cell");
  $c->setSize(1.2);
  $c->setConstant(0);
- $c->setSBMLDocument($D);
- $c->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $c->toSBML());
 }
 
 #---
 sub test_WriteSBML_Compartment_L2v1_unsetSize {
  setUp();
  $D->setLevelAndVersion(2, 1);
- my $expected = wrapXML("<compartment id=\"A\"/>");
- my $c = new LibSBML::Compartment();
+ my $expected = "<compartment id=\"A\"/>";
+ my $c = new LibSBML::Compartment(2,1);
  $c->setId("A");
- $c->setSBMLDocument($D);
- $c->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $c->toSBML());
 }
 
 #---
 sub test_WriteSBML_Species {
  setUp();
  $D->setLevelAndVersion(1, 2);
- my $expected = wrapXML("<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" . 
-                        " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>");
- my $s = new LibSBML::Species("Ca2");
+ my $expected = "<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" . 
+                        " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>";
+ my $s = new LibSBML::Species(1,2);
+ $s->setId("Ca2");
  $s->setCompartment("cell");
  $s->setInitialAmount(0.7);
  $s->setUnits("mole");
  $s->setBoundaryCondition(1);
  $s->setCharge(2);
- $s->setSBMLDocument($D);
- $s->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $s->toSBML());
 }
 
 #---
 sub test_WriteSBML_Species_L1v1 {
  setUp();
  $D->setLevelAndVersion(1, 1);
- my $expected = wrapXML("<specie name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" . 
-                        " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>");
- my $s = new LibSBML::Species("Ca2");
+ my $expected = "<specie name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" . 
+                        " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>";
+ my $s = new LibSBML::Species(1,1);
+ $s->setId("Ca2");
  $s->setCompartment("cell");
  $s->setInitialAmount(0.7);
  $s->setUnits("mole");
  $s->setBoundaryCondition(1);
  $s->setCharge(2);
- $s->setSBMLDocument($D);
- $s->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $s->toSBML());
 }
 
 #---
 sub test_WriteSBML_Species_defaults {
  setUp();
  $D->setLevelAndVersion(1, 2);
- my $expected = wrapXML("<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" . 
-                        " units=\"mole\" charge=\"2\"/>");
- my $s = new LibSBML::Species("Ca2");
+ my $expected = "<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" . 
+                        " units=\"mole\" charge=\"2\"/>";
+ my $s = new LibSBML::Species(1,2);
+ $s->setId("Ca2");
  $s->setCompartment("cell");
  $s->setInitialAmount(0.7);
  $s->setUnits("mole");
  $s->setCharge(2);
- $s->setSBMLDocument($D);
- $s->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $s->toSBML());
 }
 
 #---
 sub test_WriteSBML_Species_skipOptional {
  setUp();
  $D->setLevelAndVersion(1, 2);
- my $expected = wrapXML("<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"/>");
- my $s = new LibSBML::Species("Ca2");
+ my $expected = "<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"/>";
+ my $s = new LibSBML::Species(1,2);
+ $s->setId("Ca2");
  $s->setCompartment("cell");
  $s->setInitialAmount(0.7);
- $s->setSBMLDocument($D);
- $s->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $s->toSBML());
 }
 
 #---
 sub test_WriteSBML_Species_L2v1 {
  setUp();
  $D->setLevelAndVersion(2, 1);
- my $expected = wrapXML("<species id=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\" " . 
-                        "substanceUnits=\"mole\" constant=\"true\"/>");
- my $s = new LibSBML::Species("Ca2");
+ my $expected = "<species id=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\" " . 
+                        "substanceUnits=\"mole\" constant=\"true\"/>";
+ my $s = new LibSBML::Species(2,1);
+ $s->setId("Ca2");
  $s->setCompartment("cell");
  $s->setInitialAmount(0.7);
  $s->setSubstanceUnits("mole");
  $s->setConstant(1);
- $s->setSBMLDocument($D);
- $s->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $s->toSBML());
 }
 
 #---
 sub test_WriteSBML_Species_L2v1_skipOptional {
  setUp();
  $D->setLevelAndVersion(2, 1);
- my $expected = wrapXML("<species id=\"Ca2\" compartment=\"cell\"/>");
- my $s = new LibSBML::Species("Ca2");
+ my $expected = "<species id=\"Ca2\" compartment=\"cell\"/>";
+ my $s = new LibSBML::Species(2,1);
+ $s->setId("Ca2");
  $s->setCompartment("cell");
- $s->setSBMLDocument($D);
- $s->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $s->toSBML());
 }
 
 #---
 sub test_WriteSBML_Parameter {
  setUp();
  $D->setLevelAndVersion(1, 2);
- my $expected = wrapXML("<parameter name=\"Km1\" value=\"2.3\" units=\"second\"/>");
- my $p = new LibSBML::Parameter("Km1", 2.3, "second");
- $p->setSBMLDocument($D);
- $p->write($XOS);
- ok( $expected eq $OSS->str() );
+ my $expected = "<parameter name=\"Km1\" value=\"2.3\" units=\"second\"/>";
+ my $p = new LibSBML::Parameter(1,2);
+ $p->setId("Km1");
+ $p->setValue(2.3);
+ $p->setUnits("second");
+ ok( $expected eq $p->toSBML());
 }
 
 #---
 sub test_WriteSBML_Parameter_L1v1_required {
  setUp();
  $D->setLevelAndVersion(1, 1);
- my $expected = wrapXML("<parameter name=\"Km1\" value=\"NaN\"/>");
- my $p = new LibSBML::Parameter();
+ my $expected = "<parameter name=\"Km1\" value=\"NaN\"/>";
+ my $p = new LibSBML::Parameter(1,1);
  $p->setId("Km1");
  $p->unsetValue();
- $p->setSBMLDocument($D);
- $p->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $p->toSBML());
 }
 
 #---
 sub test_WriteSBML_Parameter_L1v2_skipOptional {
  setUp();
  $D->setLevelAndVersion(1, 2);
- my $expected = wrapXML("<parameter name=\"Km1\"/>");
- my $p = new LibSBML::Parameter();
+ my $expected = "<parameter name=\"Km1\"/>";
+ my $p = new LibSBML::Parameter(1,2);
  $p->setId("Km1");
- $p->setSBMLDocument($D);
- $p->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $p->toSBML());
 }
 
 #---
 sub test_WriteSBML_Parameter_L2v1 {
  setUp();
  $D->setLevelAndVersion(2, 1);
- my $expected = wrapXML("<parameter id=\"Km1\" value=\"2.3\" units=\"second\"/>");
- my $p = new LibSBML::Parameter("Km1", 2.3, "second");
- $p->setSBMLDocument($D);
- $p->write($XOS);
- ok( $expected eq $OSS->str() );
+ my $expected = "<parameter id=\"Km1\" value=\"2.3\" units=\"second\"/>";
+ my $p = new LibSBML::Parameter(2,1);
+ $p->setId('Km1');
+ $p->setValue(2.3);
+ $p->setUnits("second");
+ ok( $expected eq $p->toSBML());
 }
 
 #---
 sub test_WriteSBML_Parameter_L2v1_skipOptional {
  setUp();
  $D->setLevelAndVersion(2, 1);
- my $expected = wrapXML("<parameter id=\"Km1\"/>");
- my $p = new LibSBML::Parameter("Km1");
- $p->setSBMLDocument($D);
- $p->write($XOS);
- ok( $expected eq $OSS->str() );
+ my $expected = "<parameter id=\"Km1\"/>";
+ my $p = new LibSBML::Parameter(2,1);
+ $p->setId("Km1");
+ ok( $expected eq $p->toSBML());
 }
 
 #---
 sub test_WriteSBML_Parameter_L2v1_constant {
  setUp();
  $D->setLevelAndVersion(2, 1);
- my $expected = wrapXML("<parameter id=\"x\" constant=\"false\"/>");
- my $p = new LibSBML::Parameter("x");
+ my $expected = "<parameter id=\"x\" constant=\"false\"/>";
+ my $p = new LibSBML::Parameter(2,1);
+ $p->setId("x");
  $p->setConstant(0);
- $p->setSBMLDocument($D);
- $p->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $p->toSBML());
 }
 
 #---
 sub test_WriteSBML_AlgebraicRule {
  setUp();
  $D->setLevelAndVersion(1, 1);
- my $expected = wrapXML("<algebraicRule formula=\"x + 1\"/>");
- my $r = new LibSBML::AlgebraicRule("x + 1");
- $r->setSBMLDocument($D);
- $r->write($XOS);
- ok( $expected eq $OSS->str() );
+ my $expected = "<algebraicRule formula=\"x + 1\"/>";
+ my $r = new LibSBML::AlgebraicRule(1,1);
+ $r->setFormula("x + 1");
+ ok( $expected eq $r->toSBML());
 }
 
 #---
 sub test_WriteSBML_AlgebraicRule_L2v1 {
  setUp();
  $D->setLevelAndVersion(2, 1);
- my $expected = wrapXML("<algebraicRule>\n" . 
+ my $expected = "<algebraicRule>\n" . 
                         "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" . 
                         "    <apply>\n" . 
                         "      <plus/>\n" . 
@@ -652,61 +641,57 @@ sub test_WriteSBML_AlgebraicRule_L2v1 {
                         "      <cn type=\"integer\"> 1 </cn>\n" . 
                         "    </apply>\n" . 
                         "  </math>\n" . 
-                        "</algebraicRule>");
- my $r = new LibSBML::AlgebraicRule("x + 1");
- $r->setSBMLDocument($D);
- $r->write($XOS);
- ok( $expected eq $OSS->str() );
+                        "</algebraicRule>";
+ my $r = new LibSBML::AlgebraicRule(2,1);
+ $r->setFormula("x + 1");
+ ok( $expected eq $r->toSBML());
 }
 
 #---
 sub test_WriteSBML_SpeciesConcentrationRule {
  setUp();
  $D->setLevelAndVersion(1, 2);
- my $expected = wrapXML("<speciesConcentrationRule " . 
-                        "formula=\"t * s\" type=\"rate\" species=\"s\"/>");
+ my $expected = "<speciesConcentrationRule " . 
+                        "formula=\"t * s\" type=\"rate\" species=\"s\"/>";
  $D->createModel();
  $D->getModel()->createSpecies()->setId("s");
  my $r = $D->getModel()->createRateRule();
  $r->setVariable("s");
  $r->setFormula("t * s");
- $r->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $r->toSBML());
 }
 
 #---
 sub test_WriteSBML_SpeciesConcentrationRule_defaults {
  setUp();
  $D->setLevelAndVersion(1, 2);
- my $expected = wrapXML("<speciesConcentrationRule formula=\"t * s\" species=\"s\"/>");
+ my $expected = "<speciesConcentrationRule formula=\"t * s\" species=\"s\"/>";
  $D->createModel();
  $D->getModel()->createSpecies()->setId("s");
  my $r = $D->getModel()->createAssignmentRule();
  $r->setVariable("s");
  $r->setFormula("t * s");
- $r->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $r->toSBML());
 }
 
 #---
 sub test_WriteSBML_SpeciesConcentrationRule_L1v1 {
  setUp();
  $D->setLevelAndVersion(1, 1);
- my $expected = wrapXML("<specieConcentrationRule formula=\"t * s\" specie=\"s\"/>");
+ my $expected = "<specieConcentrationRule formula=\"t * s\" specie=\"s\"/>";
  $D->createModel();
  $D->getModel()->createSpecies()->setId("s");
  my $r = $D->getModel()->createAssignmentRule();
  $r->setVariable("s");
  $r->setFormula("t * s");
- $r->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $r->toSBML());
 }
 
 #---
 sub test_WriteSBML_SpeciesConcentrationRule_L2v1 {
  setUp();
  $D->setLevelAndVersion(2, 1);
- my $expected = wrapXML("<assignmentRule variable=\"s\">\n" . 
+ my $expected = "<assignmentRule variable=\"s\">\n" . 
                         "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" . 
                         "    <apply>\n" . 
                         "      <times/>\n" . 
@@ -714,50 +699,47 @@ sub test_WriteSBML_SpeciesConcentrationRule_L2v1 {
                         "      <ci> s </ci>\n" . 
                         "    </apply>\n" . 
                         "  </math>\n" . 
-                        "</assignmentRule>");
+                        "</assignmentRule>";
  $D->createModel();
  $D->getModel()->createSpecies()->setId("s");
  my $r = $D->getModel()->createAssignmentRule();
  $r->setVariable("s");
  $r->setFormula("t * s");
- $r->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $r->toSBML());
 }
 
 #---
 sub test_WriteSBML_CompartmentVolumeRule {
  setUp();
  $D->setLevelAndVersion(1, 1);
- my $expected = wrapXML("<compartmentVolumeRule " . 
-                        "formula=\"v + c\" type=\"rate\" compartment=\"c\"/>");
+ my $expected = "<compartmentVolumeRule " . 
+                        "formula=\"v + c\" type=\"rate\" compartment=\"c\"/>";
  $D->createModel();
  $D->getModel()->createCompartment()->setId("c");
  my $r = $D->getModel()->createRateRule();
  $r->setVariable("c");
  $r->setFormula("v + c");
- $r->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $r->toSBML());
 }
 
 #---
 sub test_WriteSBML_CompartmentVolumeRule_defaults {
  setUp();
  $D->setLevelAndVersion(1, 1);
- my $expected = wrapXML("<compartmentVolumeRule formula=\"v + c\" compartment=\"c\"/>");
+ my $expected = "<compartmentVolumeRule formula=\"v + c\" compartment=\"c\"/>";
  $D->createModel();
  $D->getModel()->createCompartment()->setId("c");
  my $r = $D->getModel()->createAssignmentRule();
  $r->setVariable("c");
  $r->setFormula("v + c");
- $r->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $r->toSBML());
 }
 
 #---
 sub test_WriteSBML_CompartmentVolumeRule_L2v1 {
  setUp();
  $D->setLevelAndVersion(2, 1);
- my $expected = wrapXML("<assignmentRule variable=\"c\">\n" . 
+ my $expected = "<assignmentRule variable=\"c\">\n" . 
                         "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" . 
                         "    <apply>\n" . 
                         "      <plus/>\n" . 
@@ -765,50 +747,47 @@ sub test_WriteSBML_CompartmentVolumeRule_L2v1 {
                         "      <ci> c </ci>\n" . 
                         "    </apply>\n" . 
                         "  </math>\n" . 
-                        "</assignmentRule>");
+                        "</assignmentRule>";
  $D->createModel();
  $D->getModel()->createCompartment()->setId("c");
  my $r = $D->getModel()->createAssignmentRule();
  $r->setVariable("c");
  $r->setFormula("v + c");
- $r->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $r->toSBML());
 }
 
 #---
 sub test_WriteSBML_ParameterRule {
  setUp();
  $D->setLevelAndVersion(1, 1);
- my $expected = wrapXML("<parameterRule " . 
-                        "formula=\"p * t\" type=\"rate\" name=\"p\"/>");
+ my $expected = "<parameterRule " . 
+                        "formula=\"p * t\" type=\"rate\" name=\"p\"/>";
  $D->createModel();
  $D->getModel()->createParameter()->setId("p");
  my $r = $D->getModel()->createRateRule();
  $r->setVariable("p");
  $r->setFormula("p * t");
- $r->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $r->toSBML());
 }
 
 #---
 sub test_WriteSBML_ParameterRule_defaults {
  setUp();
  $D->setLevelAndVersion(1, 1);
- my $expected = wrapXML("<parameterRule formula=\"p * t\" name=\"p\"/>");
+ my $expected = "<parameterRule formula=\"p * t\" name=\"p\"/>";
  $D->createModel();
  $D->getModel()->createParameter()->setId("p");
  my $r = $D->getModel()->createAssignmentRule();
  $r->setVariable("p");
  $r->setFormula("p * t");
- $r->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $r->toSBML());
 }
 
 #---
 sub test_WriteSBML_ParameterRule_L2v1 {
  setUp();
  $D->setLevelAndVersion(2, 1);
- my $expected = wrapXML("<rateRule variable=\"p\">\n" . 
+ my $expected = "<rateRule variable=\"p\">\n" . 
                         "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" . 
                         "    <apply>\n" . 
                         "      <times/>\n" . 
@@ -816,45 +795,42 @@ sub test_WriteSBML_ParameterRule_L2v1 {
                         "      <ci> t </ci>\n" . 
                         "    </apply>\n" . 
                         "  </math>\n" . 
-                        "</rateRule>");
+                        "</rateRule>";
  $D->createModel();
  $D->getModel()->createParameter()->setId("p");
  my $r = $D->getModel()->createRateRule();
  $r->setVariable("p");
  $r->setFormula("p * t");
- $r->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $r->toSBML());
 }
 
 #---
 sub test_WriteSBML_Reaction {
  setUp();
  $D->setLevelAndVersion(1, 2);
- my $expected = wrapXML("<reaction name=\"r\" reversible=\"false\" fast=\"true\"/>");
- my $r = new LibSBML::Reaction("r", "", undef, 0);
+ my $expected = "<reaction name=\"r\" reversible=\"false\" fast=\"true\"/>";
+ my $r = new LibSBML::Reaction(1,2);
+ $r->setId("r");
+ $r->setReversible(0);
  $r->setFast(1);
- $r->setSBMLDocument($D);
- $r->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $r->toSBML());
 }
 
 #---
 sub test_WriteSBML_Reaction_defaults {
  setUp();
  $D->setLevelAndVersion(1, 2);
- my $expected = wrapXML("<reaction name=\"r\"/>");
- my $r = new LibSBML::Reaction();
+ my $expected = "<reaction name=\"r\"/>";
+ my $r = new LibSBML::Reaction(1,2);
  $r->setId("r");
- $r->setSBMLDocument($D);
- $r->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $r->toSBML());
 }
 
 #---
 sub test_WriteSBML_Reaction_full {
  setUp();
  $D->setLevelAndVersion(1, 2);
- my $expected = wrapXML("<reaction name=\"v1\">\n" . 
+ my $expected = "<reaction name=\"v1\">\n" . 
                         "  <listOfReactants>\n" . 
                         "    <speciesReference species=\"x0\"/>\n" . 
                         "  </listOfReactants>\n" . 
@@ -862,7 +838,7 @@ sub test_WriteSBML_Reaction_full {
                         "    <speciesReference species=\"s1\"/>\n" . 
                         "  </listOfProducts>\n" . 
                         "  <kineticLaw formula=\"(vm * s1)/(km + s1)\"/>\n" . 
-                        "</reaction>");
+                        "</reaction>";
  $D->createModel();
  my $r = $D->getModel()->createReaction();
  $r->setId("v1");
@@ -870,26 +846,25 @@ sub test_WriteSBML_Reaction_full {
  $r->createReactant()->setSpecies("x0");
  $r->createProduct()->setSpecies("s1");
  $r->createKineticLaw()->setFormula("(vm * s1)/(km + s1)");
- $r->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $r->toSBML());
 }
 
 #---
 sub test_WriteSBML_Reaction_L2v1 {
  setUp();
  $D->setLevelAndVersion(2, 1);
- my $expected = wrapXML("<reaction id=\"r\" reversible=\"false\"/>");
- my $r = new LibSBML::Reaction("r", "", undef, 0);
- $r->setSBMLDocument($D);
- $r->write($XOS);
- ok( $expected eq $OSS->str() );
+ my $expected = "<reaction id=\"r\" reversible=\"false\"/>";
+ my $r = new LibSBML::Reaction(2,1);
+ $r->setId("r");
+ $r->setReversible(0);
+ ok( $expected eq $r->toSBML());
 }
 
 #---
 sub test_WriteSBML_Reaction_L2v1_full {
  setUp();
  $D->setLevelAndVersion(2, 1);
- my $expected = wrapXML("<reaction id=\"v1\">\n" . 
+ my $expected = "<reaction id=\"v1\">\n" . 
                         "  <listOfReactants>\n" . 
                         "    <speciesReference species=\"x0\"/>\n" . 
                         "  </listOfReactants>\n" . 
@@ -916,7 +891,7 @@ sub test_WriteSBML_Reaction_L2v1_full {
                         "      </apply>\n" . 
                         "    </math>\n" . 
                         "  </kineticLaw>\n" . 
-                        "</reaction>");
+                        "</reaction>";
  $D->createModel();
  my $r = $D->getModel()->createReaction();
  $r->setId("v1");
@@ -925,76 +900,77 @@ sub test_WriteSBML_Reaction_L2v1_full {
  $r->createProduct()->setSpecies("s1");;
  $r->createModifier()->setSpecies("m1");
  $r->createKineticLaw()->setFormula("(vm * s1)/(km + s1)");
- $r->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $r->toSBML());
 }
 
 #---
 sub test_WriteSBML_SpeciesReference {
  setUp();
  $D->setLevelAndVersion(1, 2);
- my $expected = wrapXML("<speciesReference species=\"s\" stoichiometry=\"3\" denominator=\"2\"/>");
- my $sr = new LibSBML::SpeciesReference("s", 3, 2);
- $sr->setSBMLDocument($D);
- $sr->write($XOS);
- ok( $expected eq $OSS->str() );
+ my $expected = "<speciesReference species=\"s\" stoichiometry=\"3\" denominator=\"2\"/>";
+ my $sr = new LibSBML::SpeciesReference(1,2);
+ $sr->setSpecies("s");
+ $sr->setStoichiometry(3);
+ $sr->setDenominator(2);
+ ok( $expected eq $sr->toSBML());
 }
 
 #---
 sub test_WriteSBML_SpeciesReference_L1v1 {
  setUp();
  $D->setLevelAndVersion(1, 1);
- my $expected = wrapXML("<specieReference specie=\"s\" stoichiometry=\"3\" denominator=\"2\"/>");
- my $sr = new LibSBML::SpeciesReference("s", 3, 2);
- $sr->setSBMLDocument($D);
- $sr->write($XOS);
- ok( $expected eq $OSS->str() );
+ my $expected = "<specieReference specie=\"s\" stoichiometry=\"3\" denominator=\"2\"/>";
+ my $sr = new LibSBML::SpeciesReference(1,1);
+ $sr->setSpecies("s");
+ $sr->setStoichiometry(3);
+ $sr->setDenominator(2);
+ ok( $expected eq $sr->toSBML());
 }
 
 #---
 sub test_WriteSBML_SpeciesReference_defaults {
  setUp();
  $D->setLevelAndVersion(1, 2);
- my $expected = wrapXML("<speciesReference species=\"s\"/>");
- my $sr = new LibSBML::SpeciesReference("s");
- $sr->setSBMLDocument($D);
- $sr->write($XOS);
- ok( $expected eq $OSS->str() );
+ my $expected = "<speciesReference species=\"s\"/>";
+ my $sr = new LibSBML::SpeciesReference(1,2);
+ $sr->setSpecies("s");
+ ok( $expected eq $sr->toSBML());
 }
 
 #---
 sub test_WriteSBML_SpeciesReference_L2v1_1 {
  setUp();
  $D->setLevelAndVersion(2, 1);
- my $expected = wrapXML("<speciesReference species=\"s\">\n" . 
+ my $expected = "<speciesReference species=\"s\">\n" . 
                         "  <stoichiometryMath>\n" . 
                         "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" . 
                         "      <cn type=\"rational\"> 3 <sep/> 2 </cn>\n" . 
                         "    </math>\n" . 
                         "  </stoichiometryMath>\n" . 
-                        "</speciesReference>");
- my $sr = new LibSBML::SpeciesReference("s", 3, 2);
- $sr->setSBMLDocument($D);
- $sr->write($XOS);
- ok( $expected eq $OSS->str() );
+                        "</speciesReference>";
+ my $sr = new LibSBML::SpeciesReference(2,1);
+ $sr->setSpecies("s");
+ $sr->setStoichiometry(3);
+ $sr->setDenominator(2);
+ ok( $expected eq $sr->toSBML());
 }
 
 #---
 sub test_WriteSBML_SpeciesReference_L2v1_2 {
  setUp();
  $D->setLevelAndVersion(2, 1);
- my $expected = wrapXML("<speciesReference species=\"s\" stoichiometry=\"3.2\"/>");
- my $sr = new LibSBML::SpeciesReference("s", 3.2);
- $sr->setSBMLDocument($D);
- $sr->write($XOS);
- ok( $expected eq $OSS->str() );
+ my $expected = "<speciesReference species=\"s\" stoichiometry=\"3.2\"/>";
+ my $sr = new LibSBML::SpeciesReference(2,1);
+ $sr->setSpecies("s");
+ $sr->setStoichiometry(3.2);
+ ok( $expected eq $sr->toSBML());
 }
 
 #---
 sub test_WriteSBML_SpeciesReference_L2v1_3 {
  setUp();
  $D->setLevelAndVersion(2, 1);
- my $expected = wrapXML("<speciesReference species=\"s\">\n" . 
+ my $expected = "<speciesReference species=\"s\">\n" . 
                         "  <stoichiometryMath>\n" . 
                         "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" . 
                         "      <apply>\n" . 
@@ -1004,72 +980,73 @@ sub test_WriteSBML_SpeciesReference_L2v1_3 {
                         "      </apply>\n" . 
                         "    </math>\n" . 
                         "  </stoichiometryMath>\n" . 
-                        "</speciesReference>");
- my $sr = new LibSBML::SpeciesReference("s");
+                        "</speciesReference>";
+ my $sr = new LibSBML::SpeciesReference(2,1);
+ $sr->setSpecies("s");
  my $math = LibSBML::parseFormula("1/d");
- my $stoich = new LibSBML::StoichiometryMath();
+ my $stoich = new LibSBML::StoichiometryMath(2,1);
  $stoich->setMath($math);
  $sr->setStoichiometryMath($stoich);
- $sr->setSBMLDocument($D);
- $sr->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $sr->toSBML());
 }
 
 #---
 sub test_WriteSBML_KineticLaw {
  setUp();
  $D->setLevelAndVersion(1, 2);
- my $expected = wrapXML("<kineticLaw formula=\"k * e\" timeUnits=\"second\" " . 
-                        "substanceUnits=\"item\"/>");
- my $kl = new LibSBML::KineticLaw("k * e", "second", "item");
- $kl->setSBMLDocument($D);
- $kl->write($XOS);
- ok( $expected eq $OSS->str() );
+ my $expected = "<kineticLaw formula=\"k * e\" timeUnits=\"second\" " . 
+                        "substanceUnits=\"item\"/>";
+ my $kl = new LibSBML::KineticLaw(1,2);
+ $kl->setFormula("k * e");
+ $kl->setTimeUnits("second");
+ $kl->setSubstanceUnits("item");
+ ok( $expected eq $kl->toSBML());
 }
 
 #---
 sub test_WriteSBML_KineticLaw_skipOptional {
  setUp();
  $D->setLevelAndVersion(1, 2);
- my $expected = wrapXML("<kineticLaw formula=\"k * e\"/>");
- my $kl = new LibSBML::KineticLaw("k * e");
- $kl->setSBMLDocument($D);
- $kl->write($XOS);
- ok( $expected eq $OSS->str() );
+ my $expected = "<kineticLaw formula=\"k * e\"/>";
+ my $kl = new LibSBML::KineticLaw(1,2);
+ $kl->setFormula("k * e");
+ ok( $expected eq $kl->toSBML());
 }
 
 #---
 sub test_WriteSBML_KineticLaw_ListOfParameters {
  setUp();
  $D->setLevelAndVersion(1, 2);
- my $expected = wrapXML("<kineticLaw formula=\"nk * e\" timeUnits=\"second\" " . 
+ my $expected = "<kineticLaw formula=\"nk * e\" timeUnits=\"second\" " . 
                         "substanceUnits=\"item\">\n" . 
                         "  <listOfParameters>\n" . 
                         "    <parameter name=\"n\" value=\"1.2\"/>\n" . 
                         "  </listOfParameters>\n" . 
-                        "</kineticLaw>");
- my $kl = new LibSBML::KineticLaw("nk * e", "second", "item");
- $kl->setSBMLDocument($D);
- my $p = new LibSBML::Parameter("n", 1.2);
+                        "</kineticLaw>";
+ my $kl = new LibSBML::KineticLaw(1,2);
+ $kl->setFormula("nk * e");
+ $kl->setTimeUnits("second");
+ $kl->setSubstanceUnits("item");
+ my $p = new LibSBML::Parameter(1,2);
+ $p->setId("n");
+ $p->setValue(1.2);
  $kl->addParameter($p);
- $kl->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $kl->toSBML());
 }
 
 #---
 sub test_WriteSBML_Event {
  setUp();
- my $expected = wrapXML("<event id=\"e\"/>");
- my $e = new LibSBML::Event();
+ my $expected = "<event id=\"e\"/>";
+ my $e = new LibSBML::Event($level,$version);
  $e->setId("e");
- $e->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $e->toSBML());
 }
 
 #---
 sub test_WriteSBML_Event_trigger {
  setUp();
- my $expected = wrapXML("<event id=\"e\">\n" . 
+ my $expected = "<event id=\"e\">\n" . 
                         "  <trigger>\n" . 
                         "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" . 
                         "      <apply>\n" . 
@@ -1079,38 +1056,40 @@ sub test_WriteSBML_Event_trigger {
                         "      </apply>\n" . 
                         "    </math>\n" . 
                         "  </trigger>\n" . 
-                        "</event>");
- my $e = new LibSBML::Event("e");
+                        "</event>";
+ my $e = new LibSBML::Event($level,$version);
+ $e->setId("e");
  my $node = LibSBML::parseFormula("leq(P1,t)");
- my $t = new LibSBML::Trigger($node);
+ my $t = new LibSBML::Trigger($level,$version);
+ $t->setMath($node);
  $e->setTrigger($t);
  $e->setTimeUnits("second");
- $e->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $e->toSBML());
 }
 
 #---
 sub test_WriteSBML_Event_delay {
  setUp();
- my $expected = wrapXML("<event id=\"e\">\n" . 
+ my $expected = "<event id=\"e\">\n" . 
                         "  <delay>\n" . 
                         "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" . 
                         "      <cn type=\"integer\"> 5 </cn>\n" . 
                         "    </math>\n" . 
                         "  </delay>\n" . 
-                        "</event>");
- my $e = new LibSBML::Event("e");
+                        "</event>";
+ my $e = new LibSBML::Event($level,$version);
+ $e->setId("e");
  my $node = LibSBML::parseFormula("5");
- my $d = new LibSBML::Delay($node);
+ my $d = new LibSBML::Delay($level,$version);
+ $d->setMath($node);
  $e->setDelay($d);
- $e->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $e->toSBML());
 }
 
 #---
 sub test_WriteSBML_Event_both {
  setUp();
- my $expected = wrapXML("<event id=\"e\">\n" . 
+ my $expected = "<event id=\"e\">\n" . 
                         "  <trigger>\n" . 
                         "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" . 
                         "      <apply>\n" . 
@@ -1125,23 +1104,25 @@ sub test_WriteSBML_Event_both {
                         "      <cn type=\"integer\"> 5 </cn>\n" . 
                         "    </math>\n" . 
                         "  </delay>\n" . 
-                        "</event>");
- my $e = new LibSBML::Event("e");
+                        "</event>";
+ my $e = new LibSBML::Event($level,$version);
+ $e->setId("e");
  my $node1 = LibSBML::parseFormula("leq(P1,t)");
- my $t = new LibSBML::Trigger($node1);
+ my $t = new LibSBML::Trigger($level,$version);
+ $t->setMath($node1);
  my $node = LibSBML::parseFormula("5");
- my $d = new LibSBML::Delay($node);
+ my $d = new LibSBML::Delay($level,$version);
+ $d->setMath($node);
  $e->setDelay($d);
  $e->setTrigger($t);
  $e->setTimeUnits("second");
- $e->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $e->toSBML());
 }
 
 #---
 sub test_WriteSBML_Event_full {
  setUp();
- my $expected = wrapXML("<event id=\"e\">\n" . 
+ my $expected = "<event id=\"e\">\n" . 
                         "  <trigger>\n" . 
                         "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" . 
                         "      <apply>\n" . 
@@ -1158,50 +1139,57 @@ sub test_WriteSBML_Event_full {
                         "      </math>\n" . 
                         "    </eventAssignment>\n" . 
                         "  </listOfEventAssignments>\n" . 
-                        "</event>");
- my $e = new LibSBML::Event("e");
+                        "</event>";
+ my $e = new LibSBML::Event($level,$version);
+ $e->setId("e");
  my $node = LibSBML::parseFormula("leq(P1,t)");
- my $t = new LibSBML::Trigger($node);
+ my $t = new LibSBML::Trigger($level,$version);
+ $t->setMath($node);
  my $math = LibSBML::parseFormula("0");
- my $ea = new LibSBML::EventAssignment("k2", $math);
+ my $ea = new LibSBML::EventAssignment($level,$version);
+ $ea->setVariable("k2");
+ $ea->setMath($math);
  $e->setTrigger($t);
  $e->addEventAssignment($ea);
- $e->write($XOS);
- ok( $expected eq $OSS->str() );
+ ok( $expected eq $e->toSBML());
 }
 
 #---
 sub test_WriteSBML_NaN {
  setUp();
- my $expected = wrapXML("<parameter id=\"p\" value=\"NaN\"/>");
- my $p = new LibSBML::Parameter("p", util_NaN());
- $p->write($XOS);
- ok( $expected eq $OSS->str() );
+ my $expected = "<parameter id=\"p\" value=\"NaN\"/>";
+ my $p = new LibSBML::Parameter($level,$version);
+ $p->setId("p");
+ $p->setValue(util_NaN());
+ ok( $expected eq $p->toSBML());
 }
 
 #---
 sub test_WriteSBML_INF {
  setUp();
- my $expected = wrapXML("<parameter id=\"p\" value=\"INF\"/>");
- my $p = new LibSBML::Parameter("p", util_PosInf());
- $p->write($XOS);
- ok( $expected eq $OSS->str() );
+ my $expected = "<parameter id=\"p\" value=\"INF\"/>";
+ my $p = new LibSBML::Parameter($level,$version);
+ $p->setId("p");
+ $p->setValue(util_PosInf());
+ ok( $expected eq $p->toSBML());
 }
 
 #---
 sub test_WriteSBML_NegINF {
  setUp();
- my $expected = wrapXML("<parameter id=\"p\" value=\"-INF\"/>");
- my $p = new LibSBML::Parameter("p", util_NegInf());
- $p->write($XOS);
- ok( $expected eq $OSS->str() );
+ my $expected = "<parameter id=\"p\" value=\"-INF\"/>";
+ my $p = new LibSBML::Parameter($level,$version);
+ $p->setId("p");
+ $p->setValue(util_NegInf());
+ ok( $expected eq $p->toSBML());
 }
 
 #---
 sub test_WriteSBML_locale {
  setUp();
- my $expected = wrapXML("<parameter id=\"p\" value=\"3.31\"/>");
- my $p = new LibSBML::Parameter("p", 3.31);
- $p->write($XOS);
- ok( $expected eq $OSS->str() );
+ my $expected = "<parameter id=\"p\" value=\"3.31\"/>";
+ my $p = new LibSBML::Parameter($level,$version);
+ $p->setId("p");
+ $p->setValue(3.31);
+ ok( $expected eq $p->toSBML());
 }

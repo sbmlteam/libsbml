@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Sarah Keating 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestReadFromFile7.cpp
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -118,44 +118,44 @@ namespace LibSBMLCSTest {
     public void test_read_l2v3_all()
     {
       SBMLReader reader = new SBMLReader();
-      SBMLDocument d = new SBMLDocument();
-      Model m = new Model();
-      Compartment c = new Compartment();
-      CompartmentType ct = new CompartmentType();
-      Species s = new Species();
-      Parameter p = new Parameter();
-      AssignmentRule ar = new AssignmentRule();
-      Reaction r = new Reaction();
-      SpeciesReference sr = new SpeciesReference();
-      KineticLaw kl = new KineticLaw();
-      UnitDefinition ud = new UnitDefinition();
-      Constraint con = new Constraint();
-      Event e = new Event();
-      Delay delay = new Delay();
-      Trigger trigger = new Trigger();
-      EventAssignment ea = new EventAssignment();
-      FunctionDefinition fd = new FunctionDefinition();
-      InitialAssignment ia = new InitialAssignment();
-      AlgebraicRule alg = new AlgebraicRule();
-      RateRule rr = new RateRule();
-      SpeciesType st = new SpeciesType();
-      StoichiometryMath stoich = new StoichiometryMath();
-      Unit u = new Unit();
-      ListOfEvents loe = new ListOfEvents();
-      Event e1 = new Event();
-      ListOfEventAssignments loea = new ListOfEventAssignments();
-      EventAssignment ea1 = new EventAssignment();
-      ListOfFunctionDefinitions lofd = new ListOfFunctionDefinitions();
-      FunctionDefinition fd1 = new FunctionDefinition();
-      ListOfParameters lop = new ListOfParameters();
-      Parameter p1 = new Parameter();
-      ListOfSpeciesTypes lost = new ListOfSpeciesTypes();
-      SpeciesType st1 = new SpeciesType();
-      ListOfUnitDefinitions loud = new ListOfUnitDefinitions();
-      UnitDefinition ud1 = new UnitDefinition();
-      ListOfUnits lou = new ListOfUnits();
-      Unit u1 = new Unit();
-      ASTNode ast = new ASTNode();
+      SBMLDocument d;
+      Model m;
+      Compartment c;
+      CompartmentType ct;
+      Species s;
+      Parameter p;
+      AssignmentRule ar;
+      Reaction r;
+      SpeciesReference sr;
+      KineticLaw kl;
+      UnitDefinition ud;
+      Constraint con;
+      Event e;
+      Delay delay;
+      Trigger trigger;
+      EventAssignment ea;
+      FunctionDefinition fd;
+      InitialAssignment ia;
+      AlgebraicRule alg;
+      RateRule rr;
+      SpeciesType st;
+      StoichiometryMath stoich;
+      Unit u;
+      ListOfEvents loe;
+      Event e1;
+      ListOfEventAssignments loea;
+      EventAssignment ea1;
+      ListOfFunctionDefinitions lofd;
+      FunctionDefinition fd1;
+      ListOfParameters lop;
+      Parameter p1;
+      ListOfSpeciesTypes lost;
+      SpeciesType st1;
+      ListOfUnitDefinitions loud;
+      UnitDefinition ud1;
+      ListOfUnits lou;
+      Unit u1;
+      ASTNode ast;
       string filename =  "../../sbml/test/test-data/";
       filename += "l2v3-all.xml";
       d = reader.readSBML(filename);
@@ -256,20 +256,20 @@ namespace LibSBMLCSTest {
       ast = ia.getMath();
       assertTrue((  "x * p3" == libsbml.formulaToString(ast) ));
       assertTrue( m.getNumRules() == 3 );
-      alg = ((AlgebraicRule)  m.getRule(0));
+      alg = (AlgebraicRule)  m.getRule(0);
       assertTrue( alg != null );
       assertTrue( alg.getSBOTerm() == 64 );
       assertTrue( alg.getSBOTermID() ==  "SBO:0000064" );
       ast = alg.getMath();
       assertTrue((  "pow(x, 3)" == libsbml.formulaToString(ast) ));
-      ar = ((AssignmentRule) m.getRule(1));
+      ar = (AssignmentRule) m.getRule(1);
       assertTrue( ar != null );
       assertTrue( ar.getVariable() ==  "p2" );
       assertTrue( ar.getSBOTerm() == 64 );
       assertTrue( ar.getSBOTermID() ==  "SBO:0000064" );
       ast = ar.getMath();
       assertTrue((  "x * p3" == libsbml.formulaToString(ast) ));
-      rr = ((RateRule) m.getRule(2));
+      rr = (RateRule) m.getRule(2);
       assertTrue( rr != null );
       assertTrue( rr.getVariable() ==  "p3" );
       assertTrue( rr.getSBOTerm() == 64 );

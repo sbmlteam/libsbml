@@ -113,8 +113,8 @@ class TestXMLOutputStream < Test::Unit::TestCase
     oss = LibSBML::Ostringstream.new
     stream = LibSBML::XMLOutputStream.new(oss,"UTF-8",true)
     assert( stream != nil )
-    string = oss.str()
-    assert (( expected == string ))
+    str = oss.str()
+    assert (( expected == str ))
     stream = nil
   end
 
@@ -123,8 +123,8 @@ class TestXMLOutputStream < Test::Unit::TestCase
     oss = LibSBML::Ostringstream.new
     stream = LibSBML::XMLOutputStream.new(oss,"UTF-8",true, "", "")
     assert( stream != nil )
-    string = oss.str()
-    assert (( expected == string ))
+    str = oss.str()
+    assert (( expected == str ))
     stream = nil
   end
 
@@ -133,8 +133,8 @@ class TestXMLOutputStream < Test::Unit::TestCase
     stream = LibSBML::XMLOutputStream.new(oss,"",false)
     assert( stream != nil )
     stream.startEndElement( "id")
-    string = oss.str()
-    assert ((  "<id/>" == string ))
+    str = oss.str()
+    assert ((  "<id/>" == str ))
     stream = nil
   end
 

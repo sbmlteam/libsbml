@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Sarah Keating 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestInitialAssignment.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -52,6 +52,10 @@ public class TestInitialAssignment {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestInitialAssignment {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -111,7 +119,7 @@ public class TestInitialAssignment {
 
   protected void setUp() throws Exception
   {
-    IA = new  InitialAssignment();
+    IA = new  InitialAssignment(2,4);
     if (IA == null);
     {
     }
@@ -132,24 +140,13 @@ public class TestInitialAssignment {
     assertTrue( IA.getMath() == null );
   }
 
-  public void test_InitialAssignment_createWith()
-  {
-    InitialAssignment ia = new  InitialAssignment("k");
-    assertTrue( ia.getTypeCode() == libsbml.SBML_INITIAL_ASSIGNMENT );
-    assertTrue( ia.getMetaId().equals("") == true );
-    assertTrue( ia.getNotes() == null );
-    assertTrue( ia.getAnnotation() == null );
-    assertEquals( false, ia.isSetMath() );
-    assertTrue(ia.getSymbol().equals( "k"));
-    assertEquals( true, ia.isSetSymbol() );
-    ia = null;
-  }
-
-  public void test_InitialAssignment_createWithLevelVersionAndNamespace()
+  public void test_InitialAssignment_createWithNS()
   {
     XMLNamespaces xmlns = new  XMLNamespaces();
-    xmlns.add( "http://www.sbml.org", "sbml");
-    InitialAssignment object = new  InitialAssignment(2,3,xmlns);
+    xmlns.add( "http://www.sbml.org", "testsbml");
+    SBMLNamespaces sbmlns = new  SBMLNamespaces(2,3);
+    sbmlns.addNamespaces(xmlns);
+    InitialAssignment object = new  InitialAssignment(sbmlns);
     assertTrue( object.getTypeCode() == libsbml.SBML_INITIAL_ASSIGNMENT );
     assertTrue( object.getMetaId().equals("") == true );
     assertTrue( object.getNotes() == null );
@@ -157,7 +154,7 @@ public class TestInitialAssignment {
     assertTrue( object.getLevel() == 2 );
     assertTrue( object.getVersion() == 3 );
     assertTrue( object.getNamespaces() != null );
-    assertTrue( object.getNamespaces().getLength() == 1 );
+    assertTrue( object.getNamespaces().getLength() == 2 );
     object = null;
   }
 

@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Ben Bornstein 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestParameter.c
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -58,6 +58,10 @@ namespace LibSBMLCSTest {
       {
         return;
       }
+      else if ( (a == null) || (b == null) )
+      {
+        throw new AssertionError();
+      }
       else if (a.Equals(b))
       {
         return;
@@ -71,6 +75,10 @@ namespace LibSBMLCSTest {
       if ( (a == null) && (b == null) )
       {
         throw new AssertionError();
+      }
+      else if ( (a == null) || (b == null) )
+      {
+        return;
       }
       else if (a.Equals(b))
       {
@@ -118,7 +126,7 @@ namespace LibSBMLCSTest {
 
     public void setUp()
     {
-      P = new  Parameter();
+      P = new  Parameter(2,4);
       if (P == null);
       {
       }
@@ -145,30 +153,13 @@ namespace LibSBMLCSTest {
       assertEquals( false, P.isSetUnits() );
     }
 
-    public void test_Parameter_createWith()
-    {
-      Parameter p = new  Parameter("delay",6.2, "second");
-      assertTrue( p.getTypeCode() == libsbml.SBML_PARAMETER );
-      assertTrue( p.getMetaId() == "" );
-      assertTrue( p.getNotes() == null );
-      assertTrue( p.getAnnotation() == null );
-      assertTrue((  "delay"  == p.getId() ));
-      assertTrue((  "second" == p.getUnits() ));
-      assertTrue( p.getName() == "" );
-      assertTrue( p.getValue() == 6.2 );
-      assertTrue( p.getConstant() == true );
-      assertEquals( true, p.isSetId() );
-      assertEquals( false, p.isSetName() );
-      assertEquals( true, p.isSetValue() );
-      assertEquals( true, p.isSetUnits() );
-      p = null;
-    }
-
-    public void test_Parameter_createWithLevelVersionAndNamespace()
+    public void test_Parameter_createWithNS()
     {
       XMLNamespaces xmlns = new  XMLNamespaces();
-      xmlns.add( "http://www.sbml.org", "sbml");
-      Parameter object1 = new  Parameter(2,1,xmlns);
+      xmlns.add( "http://www.sbml.org", "testsbml");
+      SBMLNamespaces sbmlns = new  SBMLNamespaces(2,1);
+      sbmlns.addNamespaces(xmlns);
+      Parameter object1 = new  Parameter(sbmlns);
       assertTrue( object1.getTypeCode() == libsbml.SBML_PARAMETER );
       assertTrue( object1.getMetaId() == "" );
       assertTrue( object1.getNotes() == null );
@@ -176,7 +167,7 @@ namespace LibSBMLCSTest {
       assertTrue( object1.getLevel() == 2 );
       assertTrue( object1.getVersion() == 1 );
       assertTrue( object1.getNamespaces() != null );
-      assertTrue( object1.getNamespaces().getLength() == 1 );
+      assertTrue( object1.getNamespaces().getLength() == 2 );
       object1 = null;
     }
 
@@ -204,7 +195,7 @@ namespace LibSBMLCSTest {
 
     public void test_Parameter_setName()
     {
-      string name =  "Forward Michaelis-Menten Constant";;
+      string name =  "Forward_Michaelis_Menten_Constant";;
       P.setName(name);
       assertTrue(( name == P.getName() ));
       assertEquals( true, P.isSetName() );

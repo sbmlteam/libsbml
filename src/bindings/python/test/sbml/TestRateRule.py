@@ -34,7 +34,7 @@ class TestRateRule(unittest.TestCase):
   RR = None
 
   def setUp(self):
-    self.RR = libsbml.RateRule()
+    self.RR = libsbml.RateRule(1,2)
     if (self.RR == None):
       pass    
     pass  
@@ -54,44 +54,21 @@ class TestRateRule(unittest.TestCase):
     self.assert_( self.RR.getType() == libsbml.RULE_TYPE_RATE )
     pass  
 
-  def test_RateRule_createWithFormula(self):
-    ar = libsbml.RateRule("s", "1 + 1")
-    self.assert_( ar.getTypeCode() == libsbml.SBML_RATE_RULE )
-    self.assert_( ar.getMetaId() == "" )
-    self.assert_((  "s" == ar.getVariable() ))
-    math = ar.getMath()
-    self.assert_( math != None )
-    formula = libsbml.formulaToString(math)
-    self.assert_( formula != None )
-    self.assert_((  "1 + 1" == formula ))
-    self.assert_(( formula == ar.getFormula() ))
-    ar = None
-    pass  
-
-  def test_RateRule_createWithLevelVersionAndNamespace(self):
+  def test_RateRule_createWithNS(self):
     xmlns = libsbml.XMLNamespaces()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = libsbml.RateRule(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = libsbml.SBMLNamespaces(2,1)
+    sbmlns.addNamespaces(xmlns)
+    object = libsbml.RateRule(sbmlns)
     self.assert_( object.getTypeCode() == libsbml.SBML_RATE_RULE )
     self.assert_( object.getMetaId() == "" )
     self.assert_( object.getNotes() == None )
     self.assert_( object.getAnnotation() == None )
     self.assert_( object.getLevel() == 2 )
     self.assert_( object.getVersion() == 1 )
-    self.assert_( object.getNamespaces() != "" )
-    self.assert_( object.getNamespaces().getLength() == 1 )
+    self.assert_( object.getNamespaces() != None )
+    self.assert_( object.getNamespaces().getLength() == 2 )
     object = None
-    pass  
-
-  def test_RateRule_createWithMath(self):
-    math = libsbml.parseFormula("1 + 1")
-    ar = libsbml.RateRule("s",math)
-    self.assert_( ar.getTypeCode() == libsbml.SBML_RATE_RULE )
-    self.assert_( ar.getMetaId() == "" )
-    self.assert_((  "s" == ar.getVariable() ))
-    self.assert_((  "1 + 1" == ar.getFormula() ))
-    self.assert_( ar.getMath() != math )
-    ar = None
     pass  
 
   def test_RateRule_free_NULL(self):

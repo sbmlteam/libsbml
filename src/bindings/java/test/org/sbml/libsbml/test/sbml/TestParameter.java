@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestParameter.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -52,6 +52,10 @@ public class TestParameter {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestParameter {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -111,7 +119,7 @@ public class TestParameter {
 
   protected void setUp() throws Exception
   {
-    P = new  Parameter();
+    P = new  Parameter(2,4);
     if (P == null);
     {
     }
@@ -138,30 +146,13 @@ public class TestParameter {
     assertEquals( false, P.isSetUnits() );
   }
 
-  public void test_Parameter_createWith()
-  {
-    Parameter p = new  Parameter("delay",6.2, "second");
-    assertTrue( p.getTypeCode() == libsbml.SBML_PARAMETER );
-    assertTrue( p.getMetaId().equals("") == true );
-    assertTrue( p.getNotes() == null );
-    assertTrue( p.getAnnotation() == null );
-    assertTrue(p.getId().equals( "delay" ));
-    assertTrue(p.getUnits().equals( "second"));
-    assertTrue( p.getName().equals("") == true );
-    assertTrue( p.getValue() == 6.2 );
-    assertTrue( p.getConstant() == true );
-    assertEquals( true, p.isSetId() );
-    assertEquals( false, p.isSetName() );
-    assertEquals( true, p.isSetValue() );
-    assertEquals( true, p.isSetUnits() );
-    p = null;
-  }
-
-  public void test_Parameter_createWithLevelVersionAndNamespace()
+  public void test_Parameter_createWithNS()
   {
     XMLNamespaces xmlns = new  XMLNamespaces();
-    xmlns.add( "http://www.sbml.org", "sbml");
-    Parameter object = new  Parameter(2,1,xmlns);
+    xmlns.add( "http://www.sbml.org", "testsbml");
+    SBMLNamespaces sbmlns = new  SBMLNamespaces(2,1);
+    sbmlns.addNamespaces(xmlns);
+    Parameter object = new  Parameter(sbmlns);
     assertTrue( object.getTypeCode() == libsbml.SBML_PARAMETER );
     assertTrue( object.getMetaId().equals("") == true );
     assertTrue( object.getNotes() == null );
@@ -169,7 +160,7 @@ public class TestParameter {
     assertTrue( object.getLevel() == 2 );
     assertTrue( object.getVersion() == 1 );
     assertTrue( object.getNamespaces() != null );
-    assertTrue( object.getNamespaces().getLength() == 1 );
+    assertTrue( object.getNamespaces().getLength() == 2 );
     object = null;
   }
 
@@ -197,7 +188,7 @@ public class TestParameter {
 
   public void test_Parameter_setName()
   {
-    String name =  "Forward Michaelis-Menten Constant";;
+    String name =  "Forward_Michaelis_Menten_Constant";;
     P.setName(name);
     assertTrue(P.getName().equals(name));
     assertEquals( true, P.isSetName() );

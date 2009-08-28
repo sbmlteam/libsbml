@@ -141,7 +141,7 @@ class CHeader:
     docstring   = ''
     lines       = ''
 
-    for line in stream.xreadlines():
+    for line in stream.readlines():
       stripped = line.strip()
 
       if stripped == '#ifndef SWIG':
@@ -367,7 +367,7 @@ def fixUpIncludePath(line):
   # All our paths start with 'sbml/...'.  Look to see if there's any other
   # slash, as an indication the path is 'sbml/xml/foo.h' and not 'sbml/foo.h'.
 
-  if string.find(line[5:], '/') > 0:
+  if line[5:].find('/') > 0:
     return line[5:]
   else:
     return line
@@ -383,9 +383,9 @@ def getHeadersFromSWIG (filename):
   stream = open(filename)
   lines  = stream.readlines()
 
-  lines  = filter(lambda line: line.strip().startswith('%include'), lines)
-  lines  = filter(lambda line: line.strip().endswith('.h')        , lines)
-  lines  = map(lambda line: line.replace('%include', '').strip(), lines)
+  lines  = [line for line in lines if line.strip().startswith('%include')]
+  lines  = [line for line in lines if line.strip().endswith('.h')]
+  lines  = [line.replace('%include', '').strip() for line in lines]
 
   # We have a weird source setup.  The following accounts for it so that we
   # use the source tree directly rather than the "include" copy as was
@@ -396,7 +396,7 @@ def getHeadersFromSWIG (filename):
   # occasions, only to realize I forgot to run 'make' or 'make include' in
   # the source tree after a change.)
 
-  lines  = map(fixUpIncludePath, lines)
+  lines  = list(map(fixUpIncludePath, lines))
 
   stream.close()
 
@@ -872,14 +872,14 @@ def main (args):
   """
 
   if len(args) != 6:
-    print main.__doc__
+    print(main.__doc__)
     sys.exit(1)
 
   global docincpath
 
   language    = args[1]
-  includepath = string.replace(args[2], '-I', '')
-  docincpath  = string.replace(args[3], '-D', '')
+  includepath = args[2].replace('-I', '')
+  docincpath  = args[3].replace('-D', '')
   headers     = getHeadersFromSWIG(args[4])
   stream      = open(args[5], 'w')
 

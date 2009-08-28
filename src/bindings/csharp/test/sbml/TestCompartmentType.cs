@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Sarah Keating 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestCompartmentType.c
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -58,6 +58,10 @@ namespace LibSBMLCSTest {
       {
         return;
       }
+      else if ( (a == null) || (b == null) )
+      {
+        throw new AssertionError();
+      }
       else if (a.Equals(b))
       {
         return;
@@ -71,6 +75,10 @@ namespace LibSBMLCSTest {
       if ( (a == null) && (b == null) )
       {
         throw new AssertionError();
+      }
+      else if ( (a == null) || (b == null) )
+      {
+        return;
       }
       else if (a.Equals(b))
       {
@@ -118,7 +126,7 @@ namespace LibSBMLCSTest {
 
     public void setUp()
     {
-      CT = new  CompartmentType();
+      CT = new  CompartmentType(2,4);
       if (CT == null);
       {
       }
@@ -141,33 +149,21 @@ namespace LibSBMLCSTest {
       assertEquals( false, CT.isSetName() );
     }
 
-    public void test_CompartmentType_createWith()
-    {
-      CompartmentType c = new  CompartmentType("A", "");
-      assertTrue( c.getTypeCode() == libsbml.SBML_COMPARTMENT_TYPE );
-      assertTrue( c.getMetaId() == "" );
-      assertTrue( c.getNotes() == null );
-      assertTrue( c.getAnnotation() == null );
-      assertTrue( c.getName() == "" );
-      assertTrue((  "A"      == c.getId() ));
-      assertEquals( true, c.isSetId() );
-      assertEquals( false, c.isSetName() );
-      c = null;
-    }
-
-    public void test_CompartmentType_createWithLevelVersionAndNamespace()
+    public void test_CompartmentType_createWithNS()
     {
       XMLNamespaces xmlns = new  XMLNamespaces();
-      xmlns.add( "http://www.sbml.org", "sbml");
-      CompartmentType object1 = new  CompartmentType(1,1,xmlns);
+      xmlns.add( "http://www.sbml.org", "testsbml");
+      SBMLNamespaces sbmlns = new  SBMLNamespaces(2,2);
+      sbmlns.addNamespaces(xmlns);
+      CompartmentType object1 = new  CompartmentType(sbmlns);
       assertTrue( object1.getTypeCode() == libsbml.SBML_COMPARTMENT_TYPE );
       assertTrue( object1.getMetaId() == "" );
       assertTrue( object1.getNotes() == null );
       assertTrue( object1.getAnnotation() == null );
-      assertTrue( object1.getLevel() == 1 );
-      assertTrue( object1.getVersion() == 1 );
+      assertTrue( object1.getLevel() == 2 );
+      assertTrue( object1.getVersion() == 2 );
       assertTrue( object1.getNamespaces() != null );
-      assertTrue( object1.getNamespaces().getLength() == 1 );
+      assertTrue( object1.getNamespaces().getLength() == 2 );
       object1 = null;
     }
 
@@ -195,7 +191,7 @@ namespace LibSBMLCSTest {
 
     public void test_CompartmentType_setName()
     {
-      string name =  "My Favorite Factory";;
+      string name =  "My_Favorite_Factory";;
       CT.setName(name);
       assertTrue(( name == CT.getName() ));
       assertEquals( true, CT.isSetName() );

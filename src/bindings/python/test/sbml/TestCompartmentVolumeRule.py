@@ -34,7 +34,7 @@ class TestCompartmentVolumeRule(unittest.TestCase):
   CVR = None
 
   def setUp(self):
-    self.CVR = libsbml.AssignmentRule()
+    self.CVR = libsbml.AssignmentRule(1,2)
     self.CVR.setL1TypeCode(libsbml.SBML_COMPARTMENT_VOLUME_RULE)
     if (self.CVR == None):
       pass    
@@ -53,20 +53,6 @@ class TestCompartmentVolumeRule(unittest.TestCase):
     self.assert_( self.CVR.getType() == libsbml.RULE_TYPE_SCALAR )
     self.assert_( self.CVR.getVariable() == "" )
     self.assertEqual( False, self.CVR.isSetVariable() )
-    pass  
-
-  def test_CompartmentVolumeRule_createWith(self):
-    cvr = libsbml.RateRule("c", "v + 1")
-    cvr.setL1TypeCode(libsbml.SBML_COMPARTMENT_VOLUME_RULE)
-    self.assert_( cvr.getTypeCode() == libsbml.SBML_RATE_RULE )
-    self.assert_( cvr.getL1TypeCode() == libsbml.SBML_COMPARTMENT_VOLUME_RULE )
-    self.assert_( cvr.getNotes() == None )
-    self.assert_( cvr.getAnnotation() == None )
-    self.assert_((  "v + 1" == cvr.getFormula() ))
-    self.assert_((  "c" == cvr.getVariable() ))
-    self.assert_( cvr.getType() == libsbml.RULE_TYPE_RATE )
-    self.assertEqual( True, cvr.isSetVariable() )
-    cvr = None
     pass  
 
   def test_CompartmentVolumeRule_free_NULL(self):

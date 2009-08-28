@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Sarah Keating 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestCVTerms.c
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -146,9 +146,10 @@ namespace LibSBMLCSTest {
       XMLTriple li_triple = new  XMLTriple();
       XMLAttributes att = new  XMLAttributes();
       att.add( "", "This is my resource");
+      XMLAttributes att1 = new  XMLAttributes();
       XMLToken li_token = new  XMLToken(li_triple,att);
-      XMLToken bag_token = new  XMLToken(bag_triple);
-      XMLToken qual_token = new  XMLToken(qual_triple);
+      XMLToken bag_token = new  XMLToken(bag_triple,att1);
+      XMLToken qual_token = new  XMLToken(qual_triple,att1);
       XMLNode li = new XMLNode(li_token);
       XMLNode bag = new XMLNode(bag_token);
       XMLNode node = new XMLNode(qual_token);
@@ -169,6 +170,7 @@ namespace LibSBMLCSTest {
       bag_token = null;
       qual_token = null;
       att = null;
+      att1 = null;
       term = null;
       node = null;
       bag = null;

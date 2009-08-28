@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Sarah Keating 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestReadFromFile2.cpp
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -118,10 +118,10 @@ namespace LibSBMLCSTest {
     public void test_read_MathML_2()
     {
       SBMLReader reader = new SBMLReader();
-      SBMLDocument d = new SBMLDocument();
-      Model m = new Model();
-      FunctionDefinition fd = new FunctionDefinition();
-      InitialAssignment ia = new InitialAssignment();
+      SBMLDocument d;
+      Model m;
+      FunctionDefinition fd;
+      InitialAssignment ia;
       Rule r;
       string filename =  "../../math/test/test-data/";
       filename += "mathML_2.xml";

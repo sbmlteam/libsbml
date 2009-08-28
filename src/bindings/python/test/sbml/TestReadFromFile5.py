@@ -34,26 +34,7 @@ class TestReadFromFile5(unittest.TestCase):
 
   def test_read_l2v1_assignment(self):
     reader = libsbml.SBMLReader()
-    d = libsbml.SBMLDocument()
-    m = libsbml.Model()
-    c = libsbml.Compartment()
-    s = libsbml.Species()
-    p = libsbml.Parameter()
-    ar = libsbml.AssignmentRule()
-    r = libsbml.Reaction()
-    sr = libsbml.SpeciesReference()
-    kl = libsbml.KineticLaw()
-    ud = libsbml.UnitDefinition()
-    r1 = libsbml.Reaction()
-    loc = libsbml.ListOfCompartments()
-    c1 = libsbml.Compartment()
-    lor = libsbml.ListOfRules()
-    ar1 = libsbml.AssignmentRule()
-    lop = libsbml.ListOfParameters()
-    p1 = libsbml.Parameter()
-    los = libsbml.ListOfSpecies()
-    s1 = libsbml.Species()
-    filename = "../../sbml/test/test-data/" 
+    filename = "../../sbml/test/test-data/"
     filename += "l2v1-assignment.xml"
     d = reader.readSBML(filename)
     if (d == None):

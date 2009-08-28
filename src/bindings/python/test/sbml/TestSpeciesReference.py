@@ -34,7 +34,7 @@ class TestSpeciesReference(unittest.TestCase):
   SR = None
 
   def setUp(self):
-    self.SR = libsbml.SpeciesReference()
+    self.SR = libsbml.SpeciesReference(2,4)
     if (self.SR == None):
       pass    
     pass  
@@ -57,7 +57,7 @@ class TestSpeciesReference(unittest.TestCase):
     pass  
 
   def test_SpeciesReference_createModifier(self):
-    sr = libsbml.ModifierSpeciesReference()
+    sr = libsbml.ModifierSpeciesReference(2,4)
     self.assert_( sr.getTypeCode() == libsbml.SBML_MODIFIER_SPECIES_REFERENCE )
     self.assert_( sr.getMetaId() == "" )
     self.assert_( sr.getNotes() == None )
@@ -66,31 +66,20 @@ class TestSpeciesReference(unittest.TestCase):
     sr = None
     pass  
 
-  def test_SpeciesReference_createWith(self):
-    sr = libsbml.SpeciesReference("s3",4,2)
-    self.assert_( sr.getTypeCode() == libsbml.SBML_SPECIES_REFERENCE )
-    self.assert_( sr.getMetaId() == "" )
-    self.assert_( sr.getNotes() == None )
-    self.assert_( sr.getAnnotation() == None )
-    self.assert_((  "s3" == sr.getSpecies() ))
-    self.assert_( sr.getStoichiometry() == 4 )
-    self.assert_( sr.getDenominator() == 2 )
-    self.assertEqual( True, sr.isSetSpecies() )
-    sr = None
-    pass  
-
-  def test_SpeciesReference_createWithLevelVersionAndNamespace(self):
+  def test_SpeciesReference_createWithNS(self):
     xmlns = libsbml.XMLNamespaces()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = libsbml.SpeciesReference(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = libsbml.SBMLNamespaces(2,1)
+    sbmlns.addNamespaces(xmlns)
+    object = libsbml.SpeciesReference(sbmlns)
     self.assert_( object.getTypeCode() == libsbml.SBML_SPECIES_REFERENCE )
     self.assert_( object.getMetaId() == "" )
     self.assert_( object.getNotes() == None )
     self.assert_( object.getAnnotation() == None )
     self.assert_( object.getLevel() == 2 )
     self.assert_( object.getVersion() == 1 )
-    self.assert_( object.getNamespaces() != "" )
-    self.assert_( object.getNamespaces().getLength() == 1 )
+    self.assert_( object.getNamespaces() != None )
+    self.assert_( object.getNamespaces().getLength() == 2 )
     object = None
     pass  
 
@@ -129,7 +118,8 @@ class TestSpeciesReference(unittest.TestCase):
 
   def test_SpeciesReference_setStoichiometryMath(self):
     math = libsbml.parseFormula("k3 / k2")
-    stoich = libsbml.StoichiometryMath(math)
+    stoich = libsbml.StoichiometryMath(2,4)
+    stoich.setMath(math)
     self.SR.setStoichiometryMath(stoich)
     math1 = self.SR.getStoichiometryMath()
     self.assert_( math1 != None )

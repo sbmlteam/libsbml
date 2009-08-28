@@ -75,6 +75,18 @@ class TestXMLError(unittest.TestCase):
     error = None
     pass  
 
+  def test_XMLError_setters(self):
+    error = libsbml.XMLError()
+    self.assert_( error != 0 )
+    i = error.setLine(23)
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( error.getLine() == 23 )
+    i = error.setColumn(45)
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( error.getColumn() == 45 )
+    error = None
+    pass  
+
 def suite():
   suite = unittest.TestSuite()
   suite.addTest(unittest.makeSuite(TestXMLError))

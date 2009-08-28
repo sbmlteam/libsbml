@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Python conversion)
 # @author  Ben Bornstein 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestXMLAttributes.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -47,6 +47,10 @@ def util_NegInf():
 
   return -z 
 
+def wrapString(s):
+  return s
+  pass
+
 class TestXMLAttributes(unittest.TestCase):
 
 
@@ -69,30 +73,6 @@ class TestXMLAttributes(unittest.TestCase):
     self.assert_( attrs.getName(0) ==  "xmlns"  )
     self.assert_( attrs.getName(1) ==  "foo"    )
     self.assert_( attrs.getName(2) ==  ""       )
-    pass  
-
-  def test_XMLAttributes_add_removeResource(self):
-    att1 = libsbml.XMLAttributes()
-    att1.addResource("rdf", "http://foo.org/")
-    att1.addResource("rdf", "http://foo1.org/")
-    self.assert_( att1.getLength() == 2 )
-    self.assert_( att1.isEmpty() == False )
-    self.assert_( att1.getName(0) ==   "rdf"  )
-    self.assert_( att1.getValue(0) ==  "http://foo.org/"  )
-    self.assert_( att1.getName(1) ==   "rdf"  )
-    self.assert_( att1.getValue(1) ==  "http://foo1.org/"  )
-    att1.addResource("rdf", "http://foo2.org/")
-    self.assert_( att1.getLength() == 3 )
-    self.assert_( att1.isEmpty() == False )
-    self.assert_( att1.getName(2) ==   "rdf"  )
-    self.assert_( att1.getValue(2) ==  "http://foo2.org/"  )
-    att1.removeResource(1)
-    self.assert_( att1.getLength() == 2 )
-    self.assert_( att1.isEmpty() == False )
-    self.assert_( att1.getName(0) ==   "rdf"  )
-    self.assert_( att1.getValue(0) ==  "http://foo.org/"  )
-    self.assert_( att1.getName(1) ==   "rdf"  )
-    self.assert_( att1.getValue(1) ==  "http://foo2.org/"  )
     pass  
 
   def test_XMLAttributes_assignment(self):

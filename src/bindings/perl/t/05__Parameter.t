@@ -6,13 +6,19 @@ use strict;
 
 #########################
 
+my $level   = LibSBML::SBMLDocument::getDefaultLevel();
+my $version = LibSBML::SBMLDocument::getDefaultVersion();
+
 my $id    = 'delay';
 my $value = 6.2;
 my $unit  = 'second';
 my $name  = 'Forward Michaelis-Menten Constant';
 
 # create w/ arguments
-my $p = new LibSBML::Parameter($id, $value, $unit);
+my $p = new LibSBML::Parameter($level,$version);
+$p->setId($id);
+$p->setValue($value);
+$p->setUnits($unit);
 ok($p->getTypeCode() == $LibSBML::SBML_PARAMETER);
 ok($p->getMetaId(), '');
 ok($p->getNotes(), undef);
@@ -28,7 +34,7 @@ ok($p->getUnits(), $unit);
 ok($p->getConstant(), 1);
 
 # create w/o arguments
-$p = new LibSBML::Parameter();
+$p = new LibSBML::Parameter($level,$version);
 ok($p->getTypeCode() == $LibSBML::SBML_PARAMETER);
 ok($p->getMetaId(), '');
 ok($p->getNotes(), undef);

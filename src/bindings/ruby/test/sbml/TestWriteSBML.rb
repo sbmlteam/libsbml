@@ -163,29 +163,50 @@ class TestWriteSBML < Test::Unit::TestCase
   def setup
     @@d = LibSBML::SBMLDocument.new()
     @@s = 0
-    @@oss = LibSBML::Ostringstream.new()
-    @@xos = LibSBML::XMLOutputStream.new(@@oss)
   end
 
   def teardown
     @@d = nil
     @@s = nil
-    @@oss = nil
-    @@xos = nil
+  end
+
+  def test_SBMLWriter_create
+    w = LibSBML::SBMLWriter.new()
+    assert( w != nil )
+    w = nil
+  end
+
+  def test_SBMLWriter_setProgramName
+    w = LibSBML::SBMLWriter.new()
+    assert( w != nil )
+    i = w.setProgramName( "sss")
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    i = w.setProgramName("")
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    w = nil
+  end
+
+  def test_SBMLWriter_setProgramVersion
+    w = LibSBML::SBMLWriter.new()
+    assert( w != nil )
+    i = w.setProgramVersion( "sss")
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    i = w.setProgramVersion("")
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    w = nil
   end
 
   def test_WriteSBML_AlgebraicRule
     @@d.setLevelAndVersion(1,1)
-    expected = wrapXML("<algebraicRule formula=\"x + 1\"/>")
-    r = LibSBML::AlgebraicRule.new( "x + 1" )
-    r.setSBMLDocument(@@d)
-    r.write(@@xos)
-    assert_equal true, equals(expected)
+    expected =  "<algebraicRule formula=\"x + 1\"/>";
+    r = @@d.createModel().createAlgebraicRule()
+    r.setFormula("x + 1")
+    assert_equal true, equals(expected,r.toSBML())
   end
 
   def test_WriteSBML_AlgebraicRule_L2v1
     @@d.setLevelAndVersion(2,1)
-    expected = wrapXML("<algebraicRule>\n" + 
+    expected = "<algebraicRule>\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <plus/>\n" + 
@@ -193,16 +214,15 @@ class TestWriteSBML < Test::Unit::TestCase
     "      <cn type=\"integer\"> 1 </cn>\n" + 
     "    </apply>\n" + 
     "  </math>\n" + 
-    "</algebraicRule>")
-    r = LibSBML::AlgebraicRule.new( "x + 1" )
-    r.setSBMLDocument(@@d)
-    r.write(@@xos)
-    assert_equal true, equals(expected)
+    "</algebraicRule>"
+    r = @@d.createModel().createAlgebraicRule()
+    r.setFormula("x + 1")
+    assert_equal true, equals(expected,r.toSBML())
   end
 
   def test_WriteSBML_AlgebraicRule_L2v2
     @@d.setLevelAndVersion(2,2)
-    expected = wrapXML("<algebraicRule sboTerm=\"SBO:0000004\">\n" + 
+    expected = "<algebraicRule sboTerm=\"SBO:0000004\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <plus/>\n" + 
@@ -210,63 +230,55 @@ class TestWriteSBML < Test::Unit::TestCase
     "      <cn type=\"integer\"> 1 </cn>\n" + 
     "    </apply>\n" + 
     "  </math>\n" + 
-    "</algebraicRule>")
-    r = LibSBML::AlgebraicRule.new( "x + 1" )
+    "</algebraicRule>"
+    r = @@d.createModel().createAlgebraicRule()
+    r.setFormula("x + 1")
     r.setSBOTerm(4)
-    r.setSBMLDocument(@@d)
-    r.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,r.toSBML())
   end
 
   def test_WriteSBML_Compartment
     @@d.setLevelAndVersion(1,2)
-    expected = wrapXML("<compartment name=\"A\" volume=\"2.1\" outside=\"B\"/>"  
-    )
-    c = LibSBML::Compartment.new( "A" )
+    expected =  "<compartment name=\"A\" volume=\"2.1\" outside=\"B\"/>";
+    c = @@d.createModel().createCompartment()
+    c.setId("A")
     c.setSize(2.1)
     c.setOutside("B")
-    c.setSBMLDocument(@@d)
-    c.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,c.toSBML())
   end
 
   def test_WriteSBML_CompartmentType
     @@d.setLevelAndVersion(2,2)
-    expected = wrapXML("<compartmentType id=\"ct\"/>")
-    ct = LibSBML::CompartmentType.new()
+    expected =  "<compartmentType id=\"ct\"/>";
+    ct = @@d.createModel().createCompartmentType()
     ct.setId("ct")
     ct.setSBOTerm(4)
-    ct.setSBMLDocument(@@d)
-    ct.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,ct.toSBML())
   end
 
   def test_WriteSBML_CompartmentType_withSBO
     @@d.setLevelAndVersion(2,3)
-    expected = wrapXML("<compartmentType id=\"ct\" sboTerm=\"SBO:0000004\"/>")
-    ct = LibSBML::CompartmentType.new()
+    expected =  "<compartmentType id=\"ct\" sboTerm=\"SBO:0000004\"/>";
+    ct = @@d.createModel().createCompartmentType()
     ct.setId("ct")
     ct.setSBOTerm(4)
-    ct.setSBMLDocument(@@d)
-    ct.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,ct.toSBML())
   end
 
   def test_WriteSBML_CompartmentVolumeRule
     @@d.setLevelAndVersion(1,1)
-    expected = wrapXML("<compartmentVolumeRule " + "formula=\"v + c\" type=\"rate\" compartment=\"c\"/>")
+    expected = "<compartmentVolumeRule " + "formula=\"v + c\" type=\"rate\" compartment=\"c\"/>";
     @@d.createModel()
     @@d.getModel().createCompartment().setId("c")
     r = @@d.getModel().createRateRule()
     r.setVariable("c")
     r.setFormula("v + c")
-    r.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,r.toSBML())
   end
 
   def test_WriteSBML_CompartmentVolumeRule_L2v1
     @@d.setLevelAndVersion(2,1)
-    expected = wrapXML("<assignmentRule variable=\"c\">\n" + 
+    expected = "<assignmentRule variable=\"c\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <plus/>\n" + 
@@ -274,19 +286,18 @@ class TestWriteSBML < Test::Unit::TestCase
     "      <ci> c </ci>\n" + 
     "    </apply>\n" + 
     "  </math>\n" + 
-    "</assignmentRule>")
+    "</assignmentRule>"
     @@d.createModel()
     @@d.getModel().createCompartment().setId("c")
     r = @@d.getModel().createAssignmentRule()
     r.setVariable("c")
     r.setFormula("v + c")
-    r.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,r.toSBML())
   end
 
   def test_WriteSBML_CompartmentVolumeRule_L2v2
     @@d.setLevelAndVersion(2,2)
-    expected = wrapXML("<assignmentRule variable=\"c\" sboTerm=\"SBO:0000005\">\n" + 
+    expected = "<assignmentRule variable=\"c\" sboTerm=\"SBO:0000005\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <plus/>\n" + 
@@ -294,110 +305,94 @@ class TestWriteSBML < Test::Unit::TestCase
     "      <ci> c </ci>\n" + 
     "    </apply>\n" + 
     "  </math>\n" + 
-    "</assignmentRule>")
+    "</assignmentRule>"
     @@d.createModel()
     @@d.getModel().createCompartment().setId("c")
     r = @@d.getModel().createAssignmentRule()
     r.setVariable("c")
     r.setFormula("v + c")
     r.setSBOTerm(5)
-    r.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,r.toSBML())
   end
 
   def test_WriteSBML_CompartmentVolumeRule_defaults
     @@d.setLevelAndVersion(1,1)
-    expected = wrapXML("<compartmentVolumeRule formula=\"v + c\" compartment=\"c\"/>"  
-    )
+    expected =  "<compartmentVolumeRule formula=\"v + c\" compartment=\"c\"/>";
     @@d.createModel()
     @@d.getModel().createCompartment().setId("c")
     r = @@d.getModel().createAssignmentRule()
     r.setVariable("c")
     r.setFormula("v + c")
-    r.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,r.toSBML())
   end
 
   def test_WriteSBML_Compartment_L2v1
     @@d.setLevelAndVersion(2,1)
-    expected = wrapXML("<compartment id=\"M\" spatialDimensions=\"2\" size=\"2.5\"/>"  
-    )
-    c = LibSBML::Compartment.new( "M" )
+    expected =  "<compartment id=\"M\" spatialDimensions=\"2\" size=\"2.5\"/>";
+    c = @@d.createModel().createCompartment()
+    c.setId("M")
     c.setSize(2.5)
     c.setSpatialDimensions(2)
-    c.setSBMLDocument(@@d)
-    c.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,c.toSBML())
   end
 
   def test_WriteSBML_Compartment_L2v1_constant
     @@d.setLevelAndVersion(2,1)
-    expected = wrapXML("<compartment id=\"cell\" size=\"1.2\" constant=\"false\"/>"  
-    )
-    c = LibSBML::Compartment.new( "cell" )
+    expected =  "<compartment id=\"cell\" size=\"1.2\" constant=\"false\"/>";
+    c = @@d.createModel().createCompartment()
+    c.setId("cell")
     c.setSize(1.2)
     c.setConstant(false)
-    c.setSBMLDocument(@@d)
-    c.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,c.toSBML())
   end
 
   def test_WriteSBML_Compartment_L2v1_unsetSize
     @@d.setLevelAndVersion(2,1)
-    expected = wrapXML("<compartment id=\"A\"/>")
-    c = LibSBML::Compartment.new()
+    expected =  "<compartment id=\"A\"/>";
+    c = @@d.createModel().createCompartment()
     c.setId("A")
     c.unsetSize()
-    c.setSBMLDocument(@@d)
-    c.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,c.toSBML())
   end
 
   def test_WriteSBML_Compartment_L2v2_compartmentType
     @@d.setLevelAndVersion(2,2)
-    expected = wrapXML("<compartment id=\"cell\" compartmentType=\"ct\"/>"  
-    )
-    c = LibSBML::Compartment.new( "cell" )
+    expected =  "<compartment id=\"cell\" compartmentType=\"ct\"/>";
+    c = @@d.createModel().createCompartment()
+    c.setId("cell")
     c.setCompartmentType("ct")
-    c.setSBMLDocument(@@d)
-    c.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,c.toSBML())
   end
 
   def test_WriteSBML_Compartment_L2v3_SBO
     @@d.setLevelAndVersion(2,3)
-    expected = wrapXML("<compartment id=\"cell\" sboTerm=\"SBO:0000005\"/>"  
-    )
-    c = LibSBML::Compartment.new( "cell" )
+    expected =  "<compartment id=\"cell\" sboTerm=\"SBO:0000005\"/>";
+    c = @@d.createModel().createCompartment()
+    c.setId("cell")
     c.setSBOTerm(5)
-    c.setSBMLDocument(@@d)
-    c.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,c.toSBML())
   end
 
   def test_WriteSBML_Compartment_unsetVolume
     @@d.setLevelAndVersion(1,2)
-    expected = wrapXML("<compartment name=\"A\"/>")
-    c = LibSBML::Compartment.new()
+    expected =  "<compartment name=\"A\"/>";
+    c = @@d.createModel().createCompartment()
     c.setId("A")
     c.unsetVolume()
-    c.setSBMLDocument(@@d)
-    c.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,c.toSBML())
   end
 
   def test_WriteSBML_Constraint
     @@d.setLevelAndVersion(2,2)
-    expected = wrapXML("<constraint sboTerm=\"SBO:0000064\"/>")
-    ct = LibSBML::Constraint.new()
+    expected =  "<constraint sboTerm=\"SBO:0000064\"/>";
+    ct = @@d.createModel().createConstraint()
     ct.setSBOTerm(64)
-    ct.setSBMLDocument(@@d)
-    ct.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,ct.toSBML())
   end
 
   def test_WriteSBML_Constraint_full
-    expected = wrapXML("<constraint sboTerm=\"SBO:0000064\">\n" + 
+    @@d.setLevelAndVersion(2,2)
+    expected = "<constraint sboTerm=\"SBO:0000064\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <leq/>\n" + 
@@ -408,28 +403,29 @@ class TestWriteSBML < Test::Unit::TestCase
     "  <message>\n" + 
     "    <p xmlns=\"http://www.w3.org/1999/xhtml\"> Species P1 is out of range </p>\n" + 
     "  </message>\n" + 
-    "</constraint>")
-    c = LibSBML::Constraint.new()
+    "</constraint>"
+    c = @@d.createModel().createConstraint()
     node = LibSBML::parseFormula("leq(P1,t)")
     c.setMath(node)
     c.setSBOTerm(64)
     text = LibSBML::XMLNode.convertStringToXMLNode(" Species P1 is out of range ")
     triple = LibSBML::XMLTriple.new("p", "http://www.w3.org/1999/xhtml", "")
     att = LibSBML::XMLAttributes.new()
-    att.add("xmlns", "http://www.w3.org/1999/xhtml")
-    p = LibSBML::XMLNode.new(triple,att)
+    xmlns = LibSBML::XMLNamespaces.new()
+    xmlns.add("http://www.w3.org/1999/xhtml")
+    p = LibSBML::XMLNode.new(triple,att,xmlns)
     p.addChild(text)
     triple1 = LibSBML::XMLTriple.new("message", "", "")
     att1 = LibSBML::XMLAttributes.new()
     message = LibSBML::XMLNode.new(triple1,att1)
     message.addChild(p)
     c.setMessage(message)
-    c.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,c.toSBML())
   end
 
   def test_WriteSBML_Constraint_math
-    expected = wrapXML("<constraint>\n" + 
+    @@d.setLevelAndVersion(2,2)
+    expected = "<constraint>\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <leq/>\n" + 
@@ -437,44 +433,41 @@ class TestWriteSBML < Test::Unit::TestCase
     "      <ci> t </ci>\n" + 
     "    </apply>\n" + 
     "  </math>\n" + 
-    "</constraint>")
-    c = LibSBML::Constraint.new()
+    "</constraint>"
+    c = @@d.createModel().createConstraint()
     node = LibSBML::parseFormula("leq(P1,t)")
     c.setMath(node)
-    c.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,c.toSBML())
   end
 
   def test_WriteSBML_Event
-    expected = wrapXML("<event id=\"e\"/>")
-    e = LibSBML::Event.new()
+    @@d.setLevelAndVersion(2,1)
+    expected =  "<event id=\"e\"/>";
+    e = @@d.createModel().createEvent()
     e.setId("e")
-    e.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,e.toSBML())
   end
 
   def test_WriteSBML_Event_WithSBO
-    expected = wrapXML("<event id=\"e\" sboTerm=\"SBO:0000076\"/>")
-    e = LibSBML::Event.new()
+    @@d.setLevelAndVersion(2,3)
+    expected =  "<event id=\"e\" sboTerm=\"SBO:0000076\"/>";
+    e = @@d.createModel().createEvent()
     e.setId("e")
     e.setSBOTerm(76)
-    e.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,e.toSBML())
   end
 
   def test_WriteSBML_Event_WithUseValuesFromTriggerTime
-    expected = wrapXML("<event id=\"e\" useValuesFromTriggerTime=\"false\"/>")
+    expected =  "<event id=\"e\" useValuesFromTriggerTime=\"false\"/>";
     @@d.setLevelAndVersion(2,4)
-    e = LibSBML::Event.new()
+    e = @@d.createModel().createEvent()
     e.setId("e")
     e.setUseValuesFromTriggerTime(false)
-    e.setSBMLDocument(@@d)
-    e.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,e.toSBML())
   end
 
   def test_WriteSBML_Event_both
-    expected = wrapXML("<event id=\"e\">\n" + 
+    expected = "<event id=\"e\">\n" + 
     "  <trigger>\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "      <apply>\n" + 
@@ -489,54 +482,60 @@ class TestWriteSBML < Test::Unit::TestCase
     "      <cn type=\"integer\"> 5 </cn>\n" + 
     "    </math>\n" + 
     "  </delay>\n" + 
-    "</event>")
-    e = LibSBML::Event.new( "e" )
+    "</event>"
+    @@d.setLevelAndVersion(2,1)
+    e = @@d.createModel().createEvent()
+    e.setId("e")
     node1 = LibSBML::parseFormula("leq(P1,t)")
-    t = LibSBML::Trigger.new( node1 )
+    t = LibSBML::Trigger.new( 2,1 )
+    t.setMath(node1)
     node = LibSBML::parseFormula("5")
-    d = LibSBML::Delay.new( node )
+    d = LibSBML::Delay.new( 2,1 )
+    d.setMath(node)
     e.setDelay(d)
     e.setTrigger(t)
-    e.setTimeUnits("second")
-    e.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,e.toSBML())
   end
 
   def test_WriteSBML_Event_delay
-    expected = wrapXML("<event id=\"e\">\n" + 
+    expected = "<event id=\"e\">\n" + 
     "  <delay>\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "      <cn type=\"integer\"> 5 </cn>\n" + 
     "    </math>\n" + 
     "  </delay>\n" + 
-    "</event>")
-    e = LibSBML::Event.new( "e" )
+    "</event>"
+    @@d.setLevelAndVersion(2,1)
+    e = @@d.createModel().createEvent()
+    e.setId("e")
     node = LibSBML::parseFormula("5")
-    d = LibSBML::Delay.new( node )
+    d = LibSBML::Delay.new( 2,1 )
+    d.setMath(node)
     e.setDelay(d)
-    e.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,e.toSBML())
   end
 
   def test_WriteSBML_Event_delayWithSBO
-    expected = wrapXML("<event id=\"e\">\n" + 
+    expected = "<event id=\"e\">\n" + 
     "  <delay sboTerm=\"SBO:0000064\">\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "      <cn type=\"integer\"> 5 </cn>\n" + 
     "    </math>\n" + 
     "  </delay>\n" + 
-    "</event>")
-    e = LibSBML::Event.new( "e" )
+    "</event>"
+    @@d.setLevelAndVersion(2,3)
+    e = @@d.createModel().createEvent()
+    e.setId("e")
     node = LibSBML::parseFormula("5")
-    d = LibSBML::Delay.new( node )
+    d = LibSBML::Delay.new( 2,3 )
+    d.setMath(node)
     d.setSBOTerm(64)
     e.setDelay(d)
-    e.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,e.toSBML())
   end
 
   def test_WriteSBML_Event_full
-    expected = wrapXML("<event id=\"e\">\n" + 
+    expected = "<event id=\"e\">\n" + 
     "  <trigger>\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "      <apply>\n" + 
@@ -553,21 +552,25 @@ class TestWriteSBML < Test::Unit::TestCase
     "      </math>\n" + 
     "    </eventAssignment>\n" + 
     "  </listOfEventAssignments>\n" + 
-    "</event>")
-    e = LibSBML::Event.new( "e" )
+    "</event>"
+    @@d.setLevelAndVersion(2,3)
+    e = @@d.createModel().createEvent()
+    e.setId("e")
     node = LibSBML::parseFormula("leq(P1,t)")
-    t = LibSBML::Trigger.new( node )
+    t = LibSBML::Trigger.new( 2,3 )
+    t.setMath(node)
     math = LibSBML::parseFormula("0")
-    ea = LibSBML::EventAssignment.new( "k2",math )
+    ea = LibSBML::EventAssignment.new( 2,3 )
+    ea.setVariable("k2")
+    ea.setMath(math)
     ea.setSBOTerm(64)
     e.setTrigger(t)
     e.addEventAssignment(ea)
-    e.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,e.toSBML())
   end
 
   def test_WriteSBML_Event_trigger
-    expected = wrapXML("<event id=\"e\">\n" + 
+    expected = "<event id=\"e\">\n" + 
     "  <trigger>\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "      <apply>\n" + 
@@ -577,18 +580,19 @@ class TestWriteSBML < Test::Unit::TestCase
     "      </apply>\n" + 
     "    </math>\n" + 
     "  </trigger>\n" + 
-    "</event>")
-    e = LibSBML::Event.new( "e" )
+    "</event>"
+    @@d.setLevelAndVersion(2,1)
+    e = @@d.createModel().createEvent()
+    e.setId("e")
     node = LibSBML::parseFormula("leq(P1,t)")
-    t = LibSBML::Trigger.new( node )
+    t = LibSBML::Trigger.new( 2,1 )
+    t.setMath(node)
     e.setTrigger(t)
-    e.setTimeUnits("second")
-    e.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,e.toSBML())
   end
 
   def test_WriteSBML_Event_trigger_withSBO
-    expected = wrapXML("<event id=\"e\">\n" + 
+    expected = "<event id=\"e\">\n" + 
     "  <trigger sboTerm=\"SBO:0000064\">\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "      <apply>\n" + 
@@ -598,18 +602,20 @@ class TestWriteSBML < Test::Unit::TestCase
     "      </apply>\n" + 
     "    </math>\n" + 
     "  </trigger>\n" + 
-    "</event>")
-    e = LibSBML::Event.new( "e" )
+    "</event>"
+    @@d.setLevelAndVersion(2,3)
+    e = @@d.createModel().createEvent()
+    e.setId("e")
     node = LibSBML::parseFormula("leq(P1,t)")
-    t = LibSBML::Trigger.new( node )
+    t = LibSBML::Trigger.new( 2,3 )
+    t.setMath(node)
     t.setSBOTerm(64)
     e.setTrigger(t)
-    e.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,e.toSBML())
   end
 
   def test_WriteSBML_FunctionDefinition
-    expected = wrapXML("<functionDefinition id=\"pow3\">\n" + 
+    expected = "<functionDefinition id=\"pow3\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <lambda>\n" + 
     "      <bvar>\n" + 
@@ -622,14 +628,15 @@ class TestWriteSBML < Test::Unit::TestCase
     "      </apply>\n" + 
     "    </lambda>\n" + 
     "  </math>\n" + 
-    "</functionDefinition>")
-    fd = LibSBML::FunctionDefinition.new( "pow3", "lambda(x, x^3)" )
-    fd.write(@@xos)
-    assert_equal true, equals(expected)
+    "</functionDefinition>"
+    fd = LibSBML::FunctionDefinition.new( 2,4 )
+    fd.setId("pow3")
+    fd.setMath(LibSBML::parseFormula("lambda(x, x^3)"))
+    assert_equal true, equals(expected,fd.toSBML())
   end
 
   def test_WriteSBML_FunctionDefinition_withSBO
-    expected = wrapXML("<functionDefinition id=\"pow3\" sboTerm=\"SBO:0000064\">\n" + 
+    expected = "<functionDefinition id=\"pow3\" sboTerm=\"SBO:0000064\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <lambda>\n" + 
     "      <bvar>\n" + 
@@ -642,33 +649,33 @@ class TestWriteSBML < Test::Unit::TestCase
     "      </apply>\n" + 
     "    </lambda>\n" + 
     "  </math>\n" + 
-    "</functionDefinition>")
-    fd = LibSBML::FunctionDefinition.new( "pow3", "lambda(x, x^3)" )
+    "</functionDefinition>"
+    fd = LibSBML::FunctionDefinition.new( 2,4 )
+    fd.setId("pow3")
+    fd.setMath(LibSBML::parseFormula("lambda(x, x^3)"))
     fd.setSBOTerm(64)
-    fd.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,fd.toSBML())
   end
 
   def test_WriteSBML_INF
-    expected = wrapXML("<parameter id=\"p\" value=\"INF\"/>")
-    p = LibSBML::Parameter.new( "p", util_PosInf() )
-    p.write(@@xos)
-    assert_equal true, equals(expected)
+    expected =  "<parameter id=\"p\" value=\"INF\"/>";
+    p = @@d.createModel().createParameter()
+    p.setId("p")
+    p.setValue(util_PosInf())
+    assert_equal true, equals(expected,p.toSBML())
   end
 
   def test_WriteSBML_InitialAssignment
     @@d.setLevelAndVersion(2,2)
-    expected = wrapXML("<initialAssignment symbol=\"c\" sboTerm=\"SBO:0000064\"/>")
-    ia = LibSBML::InitialAssignment.new()
+    expected =  "<initialAssignment symbol=\"c\" sboTerm=\"SBO:0000064\"/>";
+    ia = @@d.createModel().createInitialAssignment()
     ia.setSBOTerm(64)
     ia.setSymbol("c")
-    ia.setSBMLDocument(@@d)
-    ia.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,ia.toSBML())
   end
 
   def test_WriteSBML_InitialAssignment_math
-    expected = wrapXML("<initialAssignment symbol=\"c\">\n" + 
+    expected = "<initialAssignment symbol=\"c\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <plus/>\n" + 
@@ -676,43 +683,46 @@ class TestWriteSBML < Test::Unit::TestCase
     "      <ci> b </ci>\n" + 
     "    </apply>\n" + 
     "  </math>\n" + 
-    "</initialAssignment>")
-    ia = LibSBML::InitialAssignment.new()
+    "</initialAssignment>"
+    ia = @@d.createModel().createInitialAssignment()
     node = LibSBML::parseFormula("a + b")
     ia.setMath(node)
     ia.setSymbol("c")
-    ia.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,ia.toSBML())
   end
 
   def test_WriteSBML_KineticLaw
     @@d.setLevelAndVersion(1,2)
-    expected = wrapXML("<kineticLaw formula=\"k * e\" timeUnits=\"second\" " + "substanceUnits=\"item\"/>")
-    kl = LibSBML::KineticLaw.new( "k * e", "second", "item" )
-    kl.setSBMLDocument(@@d)
-    kl.write(@@xos)
-    assert_equal true, equals(expected)
+    expected = "<kineticLaw formula=\"k * e\" timeUnits=\"second\" " + "substanceUnits=\"item\"/>";
+    kl = @@d.createModel().createReaction().createKineticLaw()
+    kl.setFormula("k * e")
+    kl.setTimeUnits("second")
+    kl.setSubstanceUnits("item")
+    assert_equal true, equals(expected,kl.toSBML())
   end
 
   def test_WriteSBML_KineticLaw_ListOfParameters
     @@d.setLevelAndVersion(1,2)
-    expected = wrapXML("<kineticLaw formula=\"nk * e\" timeUnits=\"second\" " + 
+    expected = "<kineticLaw formula=\"nk * e\" timeUnits=\"second\" " + 
     "substanceUnits=\"item\">\n" + 
     "  <listOfParameters>\n" + 
     "    <parameter name=\"n\" value=\"1.2\"/>\n" + 
     "  </listOfParameters>\n" + 
-    "</kineticLaw>")
-    kl = LibSBML::KineticLaw.new( "nk * e", "second", "item" )
-    kl.setSBMLDocument(@@d)
-    p = LibSBML::Parameter.new( "n",1.2 )
+    "</kineticLaw>"
+    kl = @@d.createModel().createReaction().createKineticLaw()
+    kl.setFormula("nk * e")
+    kl.setTimeUnits("second")
+    kl.setSubstanceUnits("item")
+    p = kl.createParameter()
+    p.setName("n")
+    p.setValue(1.2)
     kl.addParameter(p)
-    kl.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,kl.toSBML())
   end
 
   def test_WriteSBML_KineticLaw_l2v1
     @@d.setLevelAndVersion(2,1)
-    expected = wrapXML("<kineticLaw timeUnits=\"second\" substanceUnits=\"item\">\n" + 
+    expected = "<kineticLaw timeUnits=\"second\" substanceUnits=\"item\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <divide/>\n" + 
@@ -728,28 +738,25 @@ class TestWriteSBML < Test::Unit::TestCase
     "      </apply>\n" + 
     "    </apply>\n" + 
     "  </math>\n" + 
-    "</kineticLaw>")
-    kl = LibSBML::KineticLaw.new()
+    "</kineticLaw>"
+    kl = @@d.createModel().createReaction().createKineticLaw()
     kl.setTimeUnits("second")
     kl.setSubstanceUnits("item")
     kl.setFormula("(vm * s1)/(km + s1)")
-    kl.setSBMLDocument(@@d)
-    kl.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,kl.toSBML())
   end
 
   def test_WriteSBML_KineticLaw_skipOptional
     @@d.setLevelAndVersion(1,2)
-    expected = wrapXML("<kineticLaw formula=\"k * e\"/>")
-    kl = LibSBML::KineticLaw.new( "k * e" )
-    kl.setSBMLDocument(@@d)
-    kl.write(@@xos)
-    assert_equal true, equals(expected)
+    expected =  "<kineticLaw formula=\"k * e\"/>";
+    kl = @@d.createModel().createReaction().createKineticLaw()
+    kl.setFormula("k * e")
+    assert_equal true, equals(expected,kl.toSBML())
   end
 
   def test_WriteSBML_KineticLaw_withSBO
     @@d.setLevelAndVersion(2,2)
-    expected = wrapXML("<kineticLaw sboTerm=\"SBO:0000001\">\n" + 
+    expected = "<kineticLaw sboTerm=\"SBO:0000001\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <divide/>\n" + 
@@ -765,13 +772,11 @@ class TestWriteSBML < Test::Unit::TestCase
     "      </apply>\n" + 
     "    </apply>\n" + 
     "  </math>\n" + 
-    "</kineticLaw>")
-    kl = LibSBML::KineticLaw.new()
+    "</kineticLaw>"
+    kl = @@d.createModel().createReaction().createKineticLaw()
     kl.setFormula("(vm * s1)/(km + s1)")
     kl.setSBOTerm(1)
-    kl.setSBMLDocument(@@d)
-    kl.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,kl.toSBML())
   end
 
   def test_WriteSBML_Model
@@ -816,44 +821,45 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_NaN
-    expected = wrapXML("<parameter id=\"p\" value=\"NaN\"/>")
-    p = LibSBML::Parameter.new( "p", util_NaN() )
-    p.write(@@xos)
-    assert_equal true, equals(expected)
+    expected =  "<parameter id=\"p\" value=\"NaN\"/>";
+    p = @@d.createModel().createParameter()
+    p.setId("p")
+    p.setValue(util_NaN())
+    assert_equal true, equals(expected,p.toSBML())
   end
 
   def test_WriteSBML_NegINF
-    expected = wrapXML("<parameter id=\"p\" value=\"-INF\"/>")
-    p = LibSBML::Parameter.new( "p", util_NegInf() )
-    p.write(@@xos)
-    assert_equal true, equals(expected)
+    expected =  "<parameter id=\"p\" value=\"-INF\"/>";
+    p = @@d.createModel().createParameter()
+    p.setId("p")
+    p.setValue(util_NegInf())
+    assert_equal true, equals(expected,p.toSBML())
   end
 
   def test_WriteSBML_Parameter
     @@d.setLevelAndVersion(1,2)
-    expected = wrapXML("<parameter name=\"Km1\" value=\"2.3\" units=\"second\"/>"  
-    )
-    p = LibSBML::Parameter.new( "Km1",2.3, "second" )
-    p.setSBMLDocument(@@d)
-    p.write(@@xos)
-    assert_equal true, equals(expected)
+    expected =  "<parameter name=\"Km1\" value=\"2.3\" units=\"second\"/>";
+    p = @@d.createModel().createParameter()
+    p.setId("Km1")
+    p.setValue(2.3)
+    p.setUnits("second")
+    assert_equal true, equals(expected,p.toSBML())
   end
 
   def test_WriteSBML_ParameterRule
     @@d.setLevelAndVersion(1,1)
-    expected = wrapXML("<parameterRule " + "formula=\"p * t\" type=\"rate\" name=\"p\"/>")
+    expected = "<parameterRule " + "formula=\"p * t\" type=\"rate\" name=\"p\"/>";
     @@d.createModel()
     @@d.getModel().createParameter().setId("p")
     r = @@d.getModel().createRateRule()
     r.setVariable("p")
     r.setFormula("p * t")
-    r.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,r.toSBML())
   end
 
   def test_WriteSBML_ParameterRule_L2v1
     @@d.setLevelAndVersion(2,1)
-    expected = wrapXML("<rateRule variable=\"p\">\n" + 
+    expected = "<rateRule variable=\"p\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <times/>\n" + 
@@ -861,19 +867,18 @@ class TestWriteSBML < Test::Unit::TestCase
     "      <ci> t </ci>\n" + 
     "    </apply>\n" + 
     "  </math>\n" + 
-    "</rateRule>")
+    "</rateRule>"
     @@d.createModel()
     @@d.getModel().createParameter().setId("p")
     r = @@d.getModel().createRateRule()
     r.setVariable("p")
     r.setFormula("p * t")
-    r.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,r.toSBML())
   end
 
   def test_WriteSBML_ParameterRule_L2v2
     @@d.setLevelAndVersion(2,2)
-    expected = wrapXML("<rateRule variable=\"p\" sboTerm=\"SBO:0000007\">\n" + 
+    expected = "<rateRule variable=\"p\" sboTerm=\"SBO:0000007\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <times/>\n" + 
@@ -881,117 +886,105 @@ class TestWriteSBML < Test::Unit::TestCase
     "      <ci> t </ci>\n" + 
     "    </apply>\n" + 
     "  </math>\n" + 
-    "</rateRule>")
+    "</rateRule>"
     @@d.createModel()
     @@d.getModel().createParameter().setId("p")
     r = @@d.getModel().createRateRule()
     r.setVariable("p")
     r.setFormula("p * t")
     r.setSBOTerm(7)
-    r.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,r.toSBML())
   end
 
   def test_WriteSBML_ParameterRule_defaults
     @@d.setLevelAndVersion(1,1)
-    expected = wrapXML("<parameterRule formula=\"p * t\" name=\"p\"/>"  
-    )
+    expected =  "<parameterRule formula=\"p * t\" name=\"p\"/>";
     @@d.createModel()
     @@d.getModel().createParameter().setId("p")
     r = @@d.getModel().createAssignmentRule()
     r.setVariable("p")
     r.setFormula("p * t")
-    r.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,r.toSBML())
   end
 
   def test_WriteSBML_Parameter_L1v1_required
     @@d.setLevelAndVersion(1,1)
-    expected = wrapXML("<parameter name=\"Km1\" value=\"NaN\"/>"  
-    )
-    p = LibSBML::Parameter.new()
+    expected =  "<parameter name=\"Km1\" value=\"NaN\"/>";
+    p = @@d.createModel().createParameter()
     p.setId("Km1")
     p.unsetValue()
-    p.setSBMLDocument(@@d)
-    p.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,p.toSBML())
   end
 
   def test_WriteSBML_Parameter_L1v2_skipOptional
     @@d.setLevelAndVersion(1,2)
-    expected = wrapXML("<parameter name=\"Km1\"/>")
-    p = LibSBML::Parameter.new()
+    expected =  "<parameter name=\"Km1\"/>";
+    p = @@d.createModel().createParameter()
     p.setId("Km1")
     p.unsetValue()
-    p.setSBMLDocument(@@d)
-    p.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,p.toSBML())
   end
 
   def test_WriteSBML_Parameter_L2v1
     @@d.setLevelAndVersion(2,1)
-    expected = wrapXML("<parameter id=\"Km1\" value=\"2.3\" units=\"second\"/>"  
-    )
-    p = LibSBML::Parameter.new( "Km1",2.3, "second" )
-    p.setSBMLDocument(@@d)
-    p.write(@@xos)
-    assert_equal true, equals(expected)
+    expected =  "<parameter id=\"Km1\" value=\"2.3\" units=\"second\"/>";
+    p = @@d.createModel().createParameter()
+    p.setId("Km1")
+    p.setValue(2.3)
+    p.setUnits("second")
+    assert_equal true, equals(expected,p.toSBML())
   end
 
   def test_WriteSBML_Parameter_L2v1_constant
     @@d.setLevelAndVersion(2,1)
-    expected = wrapXML("<parameter id=\"x\" constant=\"false\"/>")
-    p = LibSBML::Parameter.new( "x" )
+    expected =  "<parameter id=\"x\" constant=\"false\"/>";
+    p = @@d.createModel().createParameter()
+    p.setId("x")
     p.setConstant(false)
-    p.setSBMLDocument(@@d)
-    p.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,p.toSBML())
   end
 
   def test_WriteSBML_Parameter_L2v1_skipOptional
     @@d.setLevelAndVersion(2,1)
-    expected = wrapXML("<parameter id=\"Km1\"/>")
-    p = LibSBML::Parameter.new( "Km1" )
-    p.setSBMLDocument(@@d)
-    p.write(@@xos)
-    assert_equal true, equals(expected)
+    expected =  "<parameter id=\"Km1\"/>";
+    p = @@d.createModel().createParameter()
+    p.setId("Km1")
+    assert_equal true, equals(expected,p.toSBML())
   end
 
   def test_WriteSBML_Parameter_L2v2
     @@d.setLevelAndVersion(2,2)
-    expected = wrapXML("<parameter id=\"Km1\" value=\"2.3\" units=\"second\" sboTerm=\"SBO:0000002\"/>"  
-    )
-    p = LibSBML::Parameter.new( "Km1",2.3, "second" )
+    expected =  "<parameter id=\"Km1\" value=\"2.3\" units=\"second\" sboTerm=\"SBO:0000002\"/>";
+    p = @@d.createModel().createParameter()
+    p.setId("Km1")
+    p.setValue(2.3)
+    p.setUnits("second")
     p.setSBOTerm(2)
-    p.setSBMLDocument(@@d)
-    p.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,p.toSBML())
   end
 
   def test_WriteSBML_Reaction
     @@d.setLevelAndVersion(1,2)
-    expected = wrapXML("<reaction name=\"r\" reversible=\"false\" fast=\"true\"/>"  
-    )
-    r = LibSBML::Reaction.new( "r", "",nil,false )
+    expected =  "<reaction name=\"r\" reversible=\"false\" fast=\"true\"/>";
+    r = @@d.createModel().createReaction()
+    r.setId("r")
+    r.setReversible(false)
     r.setFast(true)
-    r.setSBMLDocument(@@d)
-    r.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,r.toSBML())
   end
 
   def test_WriteSBML_Reaction_L2v1
     @@d.setLevelAndVersion(2,1)
-    expected = wrapXML("<reaction id=\"r\" reversible=\"false\"/>"  
-    )
-    r = LibSBML::Reaction.new( "r", "",nil,false )
-    r.setSBMLDocument(@@d)
-    r.write(@@xos)
-    assert_equal true, equals(expected)
+    expected =  "<reaction id=\"r\" reversible=\"false\"/>";
+    r = @@d.createModel().createReaction()
+    r.setId("r")
+    r.setReversible(false)
+    assert_equal true, equals(expected,r.toSBML())
   end
 
   def test_WriteSBML_Reaction_L2v1_full
     @@d.setLevelAndVersion(2,1)
-    expected = wrapXML("<reaction id=\"v1\">\n" + 
+    expected = "<reaction id=\"v1\">\n" + 
     "  <listOfReactants>\n" + 
     "    <speciesReference species=\"x0\"/>\n" + 
     "  </listOfReactants>\n" + 
@@ -1018,7 +1011,7 @@ class TestWriteSBML < Test::Unit::TestCase
     "      </apply>\n" + 
     "    </math>\n" + 
     "  </kineticLaw>\n" + 
-    "</reaction>")
+    "</reaction>"
     @@d.createModel()
     r = @@d.getModel().createReaction()
     r.setId("v1")
@@ -1027,35 +1020,32 @@ class TestWriteSBML < Test::Unit::TestCase
     r.createProduct().setSpecies("s1")
     r.createModifier().setSpecies("m1")
     r.createKineticLaw().setFormula("(vm * s1)/(km + s1)")
-    r.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,r.toSBML())
   end
 
   def test_WriteSBML_Reaction_L2v2
     @@d.setLevelAndVersion(2,2)
-    expected = wrapXML("<reaction id=\"r\" name=\"r1\" reversible=\"false\" fast=\"true\" sboTerm=\"SBO:0000064\"/>"  
-    )
-    r = LibSBML::Reaction.new( "r", "r1",nil,false )
+    expected =  "<reaction id=\"r\" name=\"r1\" reversible=\"false\" fast=\"true\" sboTerm=\"SBO:0000064\"/>";
+    r = @@d.createModel().createReaction()
+    r.setId("r")
+    r.setName("r1")
+    r.setReversible(false)
     r.setFast(true)
     r.setSBOTerm(64)
-    r.setSBMLDocument(@@d)
-    r.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,r.toSBML())
   end
 
   def test_WriteSBML_Reaction_defaults
     @@d.setLevelAndVersion(1,2)
-    expected = wrapXML("<reaction name=\"r\"/>")
-    r = LibSBML::Reaction.new()
+    expected =  "<reaction name=\"r\"/>";
+    r = @@d.createModel().createReaction()
     r.setId("r")
-    r.setSBMLDocument(@@d)
-    r.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,r.toSBML())
   end
 
   def test_WriteSBML_Reaction_full
     @@d.setLevelAndVersion(1,2)
-    expected = wrapXML("<reaction name=\"v1\">\n" + 
+    expected = "<reaction name=\"v1\">\n" + 
     "  <listOfReactants>\n" + 
     "    <speciesReference species=\"x0\"/>\n" + 
     "  </listOfReactants>\n" + 
@@ -1063,7 +1053,7 @@ class TestWriteSBML < Test::Unit::TestCase
     "    <speciesReference species=\"s1\"/>\n" + 
     "  </listOfProducts>\n" + 
     "  <kineticLaw formula=\"(vm * s1)/(km + s1)\"/>\n" + 
-    "</reaction>")
+    "</reaction>"
     @@d.createModel()
     r = @@d.getModel().createReaction()
     r.setId("v1")
@@ -1071,8 +1061,7 @@ class TestWriteSBML < Test::Unit::TestCase
     r.createReactant().setSpecies("x0")
     r.createProduct().setSpecies("s1")
     r.createKineticLaw().setFormula("(vm * s1)/(km + s1)")
-    r.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,r.toSBML())
   end
 
   def test_WriteSBML_SBMLDocument_L1v1
@@ -1105,46 +1094,42 @@ class TestWriteSBML < Test::Unit::TestCase
 
   def test_WriteSBML_Species
     @@d.setLevelAndVersion(1,2)
-    expected = wrapXML("<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" + " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>")
-    s = LibSBML::Species.new( "Ca2" )
+    expected = "<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" + " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>";
+    s = @@d.createModel().createSpecies()
+    s.setName("Ca2")
     s.setCompartment("cell")
     s.setInitialAmount(0.7)
     s.setUnits("mole")
     s.setBoundaryCondition(true)
     s.setCharge(2)
-    s.setSBMLDocument(@@d)
-    s.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,s.toSBML())
   end
 
   def test_WriteSBML_SpeciesConcentrationRule
     @@d.setLevelAndVersion(1,2)
-    expected = wrapXML("<speciesConcentrationRule " + "formula=\"t * s\" type=\"rate\" species=\"s\"/>")
+    expected = "<speciesConcentrationRule " + "formula=\"t * s\" type=\"rate\" species=\"s\"/>";
     @@d.createModel()
     @@d.getModel().createSpecies().setId("s")
     r = @@d.getModel().createRateRule()
     r.setVariable("s")
     r.setFormula("t * s")
-    r.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,r.toSBML())
   end
 
   def test_WriteSBML_SpeciesConcentrationRule_L1v1
     @@d.setLevelAndVersion(1,1)
-    expected = wrapXML("<specieConcentrationRule formula=\"t * s\" specie=\"s\"/>"  
-    )
+    expected =  "<specieConcentrationRule formula=\"t * s\" specie=\"s\"/>";
     @@d.createModel()
     @@d.getModel().createSpecies().setId("s")
     r = @@d.getModel().createAssignmentRule()
     r.setVariable("s")
     r.setFormula("t * s")
-    r.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,r.toSBML())
   end
 
   def test_WriteSBML_SpeciesConcentrationRule_L2v1
     @@d.setLevelAndVersion(2,1)
-    expected = wrapXML("<assignmentRule variable=\"s\">\n" + 
+    expected = "<assignmentRule variable=\"s\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <times/>\n" + 
@@ -1152,19 +1137,18 @@ class TestWriteSBML < Test::Unit::TestCase
     "      <ci> s </ci>\n" + 
     "    </apply>\n" + 
     "  </math>\n" + 
-    "</assignmentRule>")
+    "</assignmentRule>"
     @@d.createModel()
     @@d.getModel().createSpecies().setId("s")
     r = @@d.getModel().createAssignmentRule()
     r.setVariable("s")
     r.setFormula("t * s")
-    r.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,r.toSBML())
   end
 
   def test_WriteSBML_SpeciesConcentrationRule_L2v2
     @@d.setLevelAndVersion(2,2)
-    expected = wrapXML("<assignmentRule variable=\"s\" sboTerm=\"SBO:0000006\">\n" + 
+    expected = "<assignmentRule variable=\"s\" sboTerm=\"SBO:0000006\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <times/>\n" + 
@@ -1172,78 +1156,75 @@ class TestWriteSBML < Test::Unit::TestCase
     "      <ci> s </ci>\n" + 
     "    </apply>\n" + 
     "  </math>\n" + 
-    "</assignmentRule>")
+    "</assignmentRule>"
     @@d.createModel()
     @@d.getModel().createSpecies().setId("s")
     r = @@d.getModel().createAssignmentRule()
     r.setVariable("s")
     r.setFormula("t * s")
     r.setSBOTerm(6)
-    r.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,r.toSBML())
   end
 
   def test_WriteSBML_SpeciesConcentrationRule_defaults
     @@d.setLevelAndVersion(1,2)
-    expected = wrapXML("<speciesConcentrationRule formula=\"t * s\" species=\"s\"/>"  
-    )
+    expected =  "<speciesConcentrationRule formula=\"t * s\" species=\"s\"/>";
     @@d.createModel()
     @@d.getModel().createSpecies().setId("s")
     r = @@d.getModel().createAssignmentRule()
     r.setVariable("s")
     r.setFormula("t * s")
-    r.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,r.toSBML())
   end
 
   def test_WriteSBML_SpeciesReference
     @@d.setLevelAndVersion(1,2)
-    expected = wrapXML("<speciesReference species=\"s\" stoichiometry=\"3\" denominator=\"2\"/>"  
-    )
-    sr = LibSBML::SpeciesReference.new( "s",3,2 )
-    sr.setSBMLDocument(@@d)
-    sr.write(@@xos)
-    assert_equal true, equals(expected)
+    expected =  "<speciesReference species=\"s\" stoichiometry=\"3\" denominator=\"2\"/>";
+    sr = @@d.createModel().createReaction().createReactant()
+    sr.setSpecies("s")
+    sr.setStoichiometry(3)
+    sr.setDenominator(2)
+    assert_equal true, equals(expected,sr.toSBML())
   end
 
   def test_WriteSBML_SpeciesReference_L1v1
     @@d.setLevelAndVersion(1,1)
-    expected = wrapXML("<specieReference specie=\"s\" stoichiometry=\"3\" denominator=\"2\"/>"  
-    )
-    sr = LibSBML::SpeciesReference.new( "s",3,2 )
-    sr.setSBMLDocument(@@d)
-    sr.write(@@xos)
-    assert_equal true, equals(expected)
+    expected =  "<specieReference specie=\"s\" stoichiometry=\"3\" denominator=\"2\"/>";
+    sr = @@d.createModel().createReaction().createReactant()
+    sr.setSpecies("s")
+    sr.setStoichiometry(3)
+    sr.setDenominator(2)
+    assert_equal true, equals(expected,sr.toSBML())
   end
 
   def test_WriteSBML_SpeciesReference_L2v1_1
     @@d.setLevelAndVersion(2,1)
-    expected = wrapXML("<speciesReference species=\"s\">\n" + 
+    expected = "<speciesReference species=\"s\">\n" + 
     "  <stoichiometryMath>\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "      <cn type=\"rational\"> 3 <sep/> 2 </cn>\n" + 
     "    </math>\n" + 
     "  </stoichiometryMath>\n" + 
-    "</speciesReference>")
-    sr = LibSBML::SpeciesReference.new( "s",3,2 )
-    sr.setSBMLDocument(@@d)
-    sr.write(@@xos)
-    assert_equal true, equals(expected)
+    "</speciesReference>"
+    sr = @@d.createModel().createReaction().createReactant()
+    sr.setSpecies("s")
+    sr.setStoichiometry(3)
+    sr.setDenominator(2)
+    assert_equal true, equals(expected,sr.toSBML())
   end
 
   def test_WriteSBML_SpeciesReference_L2v1_2
     @@d.setLevelAndVersion(2,1)
-    expected = wrapXML("<speciesReference species=\"s\" stoichiometry=\"3.2\"/>"  
-    )
-    sr = LibSBML::SpeciesReference.new( "s",3.2 )
-    sr.setSBMLDocument(@@d)
-    sr.write(@@xos)
-    assert_equal true, equals(expected)
+    expected =  "<speciesReference species=\"s\" stoichiometry=\"3.2\"/>";
+    sr = @@d.createModel().createReaction().createReactant()
+    sr.setSpecies("s")
+    sr.setStoichiometry(3.2)
+    assert_equal true, equals(expected,sr.toSBML())
   end
 
   def test_WriteSBML_SpeciesReference_L2v1_3
     @@d.setLevelAndVersion(2,1)
-    expected = wrapXML("<speciesReference species=\"s\">\n" + 
+    expected = "<speciesReference species=\"s\">\n" + 
     "  <stoichiometryMath>\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "      <apply>\n" + 
@@ -1253,171 +1234,158 @@ class TestWriteSBML < Test::Unit::TestCase
     "      </apply>\n" + 
     "    </math>\n" + 
     "  </stoichiometryMath>\n" + 
-    "</speciesReference>")
-    sr = LibSBML::SpeciesReference.new( "s" )
+    "</speciesReference>"
+    sr = @@d.createModel().createReaction().createReactant()
+    sr.setSpecies("s")
     math = LibSBML::parseFormula("1/d")
-    stoich = LibSBML::StoichiometryMath.new()
+    stoich = sr.createStoichiometryMath()
     stoich.setMath(math)
     sr.setStoichiometryMath(stoich)
-    sr.setSBMLDocument(@@d)
-    sr.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,sr.toSBML())
   end
 
   def test_WriteSBML_SpeciesReference_L2v2_1
     @@d.setLevelAndVersion(2,2)
-    expected = wrapXML("<speciesReference id=\"ss\" name=\"odd\" sboTerm=\"SBO:0000009\" species=\"s\">\n" + 
+    expected = "<speciesReference id=\"ss\" name=\"odd\" sboTerm=\"SBO:0000009\" species=\"s\">\n" + 
     "  <stoichiometryMath>\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "      <cn type=\"rational\"> 3 <sep/> 2 </cn>\n" + 
     "    </math>\n" + 
     "  </stoichiometryMath>\n" + 
-    "</speciesReference>")
-    sr = LibSBML::SpeciesReference.new( "s",3,2 )
+    "</speciesReference>"
+    sr = @@d.createModel().createReaction().createReactant()
+    sr.setSpecies("s")
+    sr.setStoichiometry(3)
+    sr.setDenominator(2)
     sr.setId("ss")
     sr.setName("odd")
     sr.setSBOTerm(9)
-    sr.setSBMLDocument(@@d)
-    sr.write(@@xos)
-    assert_equal true, equals(expected)
+    sr.setId("ss")
+    sr.setName("odd")
+    sr.setSBOTerm(9)
+    assert_equal true, equals(expected,sr.toSBML())
   end
 
   def test_WriteSBML_SpeciesReference_L2v3_1
     @@d.setLevelAndVersion(2,3)
-    expected = wrapXML("<speciesReference id=\"ss\" name=\"odd\" sboTerm=\"SBO:0000009\" species=\"s\" stoichiometry=\"3.2\"/>"  
-    )
-    sr = LibSBML::SpeciesReference.new( "s",3.2 )
+    expected =  "<speciesReference id=\"ss\" name=\"odd\" sboTerm=\"SBO:0000009\" species=\"s\" stoichiometry=\"3.2\"/>";
+    sr = @@d.createModel().createReaction().createReactant()
+    sr.setSpecies("s")
+    sr.setStoichiometry(3.2)
     sr.setId("ss")
     sr.setName("odd")
     sr.setSBOTerm(9)
-    sr.setSBMLDocument(@@d)
-    sr.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,sr.toSBML())
   end
 
   def test_WriteSBML_SpeciesReference_defaults
     @@d.setLevelAndVersion(1,2)
-    expected = wrapXML("<speciesReference species=\"s\"/>")
-    sr = LibSBML::SpeciesReference.new( "s" )
-    sr.setSBMLDocument(@@d)
-    sr.write(@@xos)
-    assert_equal true, equals(expected)
+    expected =  "<speciesReference species=\"s\"/>";
+    sr = @@d.createModel().createReaction().createReactant()
+    sr.setSpecies("s")
+    assert_equal true, equals(expected,sr.toSBML())
   end
 
   def test_WriteSBML_SpeciesType
     @@d.setLevelAndVersion(2,2)
-    expected = wrapXML("<speciesType id=\"st\"/>")
-    st = LibSBML::SpeciesType.new()
+    expected =  "<speciesType id=\"st\"/>";
+    st = @@d.createModel().createSpeciesType()
     st.setId("st")
     st.setSBOTerm(4)
-    st.setSBMLDocument(@@d)
-    st.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,st.toSBML())
   end
 
   def test_WriteSBML_SpeciesType_withSBO
     @@d.setLevelAndVersion(2,3)
-    expected = wrapXML("<speciesType id=\"st\" sboTerm=\"SBO:0000004\"/>")
-    st = LibSBML::SpeciesType.new()
+    expected =  "<speciesType id=\"st\" sboTerm=\"SBO:0000004\"/>";
+    st = @@d.createModel().createSpeciesType()
     st.setId("st")
     st.setSBOTerm(4)
-    st.setSBMLDocument(@@d)
-    st.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,st.toSBML())
   end
 
   def test_WriteSBML_Species_L1v1
     @@d.setLevelAndVersion(1,1)
-    expected = wrapXML("<specie name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" + " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>")
-    s = LibSBML::Species.new( "Ca2" )
+    expected = "<specie name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" + " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>";
+    s = @@d.createModel().createSpecies()
+    s.setName("Ca2")
     s.setCompartment("cell")
     s.setInitialAmount(0.7)
     s.setUnits("mole")
     s.setBoundaryCondition(true)
     s.setCharge(2)
-    s.setSBMLDocument(@@d)
-    s.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,s.toSBML())
   end
 
   def test_WriteSBML_Species_L2v1
     @@d.setLevelAndVersion(2,1)
-    expected = wrapXML("<species id=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\" " + "substanceUnits=\"mole\" constant=\"true\"/>")
-    s = LibSBML::Species.new( "Ca2" )
+    expected = "<species id=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\" " + "substanceUnits=\"mole\" constant=\"true\"/>";
+    s = @@d.createModel().createSpecies()
+    s.setId("Ca2")
     s.setCompartment("cell")
     s.setInitialAmount(0.7)
     s.setSubstanceUnits("mole")
     s.setConstant(true)
-    s.setSBMLDocument(@@d)
-    s.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,s.toSBML())
   end
 
   def test_WriteSBML_Species_L2v1_skipOptional
     @@d.setLevelAndVersion(2,1)
-    expected = wrapXML("<species id=\"Ca2\" compartment=\"cell\"/>"  
-    )
-    s = LibSBML::Species.new( "Ca2" )
+    expected =  "<species id=\"Ca2\" compartment=\"cell\"/>";
+    s = @@d.createModel().createSpecies()
+    s.setId("Ca2")
     s.setCompartment("cell")
-    s.setSBMLDocument(@@d)
-    s.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,s.toSBML())
   end
 
   def test_WriteSBML_Species_L2v2
     @@d.setLevelAndVersion(2,2)
-    expected = wrapXML("<species id=\"Ca2\" speciesType=\"st\" compartment=\"cell\" initialAmount=\"0.7\" " + "substanceUnits=\"mole\" constant=\"true\"/>")
-    s = LibSBML::Species.new( "Ca2" )
+    expected = "<species id=\"Ca2\" speciesType=\"st\" compartment=\"cell\" initialAmount=\"0.7\" " + "substanceUnits=\"mole\" constant=\"true\"/>";
+    s = @@d.createModel().createSpecies()
+    s.setId("Ca2")
     s.setCompartment("cell")
     s.setInitialAmount(0.7)
     s.setSubstanceUnits("mole")
     s.setConstant(true)
     s.setSpeciesType("st")
-    s.setSBMLDocument(@@d)
-    s.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,s.toSBML())
   end
 
   def test_WriteSBML_Species_L2v3
     @@d.setLevelAndVersion(2,3)
-    expected = wrapXML("<species id=\"Ca2\" compartment=\"cell\" sboTerm=\"SBO:0000007\"/>"  
-    )
-    s = LibSBML::Species.new( "Ca2" )
+    expected =  "<species id=\"Ca2\" compartment=\"cell\" sboTerm=\"SBO:0000007\"/>";
+    s = @@d.createModel().createSpecies()
+    s.setId("Ca2")
     s.setCompartment("cell")
     s.setSBOTerm(7)
-    s.setSBMLDocument(@@d)
-    s.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,s.toSBML())
   end
 
   def test_WriteSBML_Species_defaults
     @@d.setLevelAndVersion(1,2)
-    expected = wrapXML("<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" + " units=\"mole\" charge=\"2\"/>")
-    s = LibSBML::Species.new( "Ca2" )
+    expected = "<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" + " units=\"mole\" charge=\"2\"/>";
+    s = @@d.createModel().createSpecies()
+    s.setName("Ca2")
     s.setCompartment("cell")
     s.setInitialAmount(0.7)
     s.setUnits("mole")
     s.setCharge(2)
-    s.setSBMLDocument(@@d)
-    s.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,s.toSBML())
   end
 
   def test_WriteSBML_Species_skipOptional
     @@d.setLevelAndVersion(1,2)
-    expected = wrapXML("<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"/>"  
-    )
-    s = LibSBML::Species.new( "Ca2" )
+    expected =  "<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"/>";
+    s = @@d.createModel().createSpecies()
+    s.setId("Ca2")
     s.setCompartment("cell")
     s.setInitialAmount(0.7)
-    s.setSBMLDocument(@@d)
-    s.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,s.toSBML())
   end
 
   def test_WriteSBML_StoichiometryMath
     @@d.setLevelAndVersion(2,1)
-    expected = wrapXML("<stoichiometryMath>\n" + 
+    expected = "<stoichiometryMath>\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <divide/>\n" + 
@@ -1425,17 +1393,16 @@ class TestWriteSBML < Test::Unit::TestCase
     "      <ci> d </ci>\n" + 
     "    </apply>\n" + 
     "  </math>\n" + 
-    "</stoichiometryMath>")
+    "</stoichiometryMath>"
     math = LibSBML::parseFormula("1/d")
-    stoich = LibSBML::StoichiometryMath.new(math)
-    stoich.setSBMLDocument(@@d)
-    stoich.write(@@xos)
-    assert_equal true, equals(expected)
+    stoich = @@d.createModel().createReaction().createReactant().createStoichiometryMath()
+    stoich.setMath(math)
+    assert_equal true, equals(expected,stoich.toSBML())
   end
 
   def test_WriteSBML_StoichiometryMath_withSBO
     @@d.setLevelAndVersion(2,3)
-    expected = wrapXML("<stoichiometryMath sboTerm=\"SBO:0000333\">\n" + 
+    expected = "<stoichiometryMath sboTerm=\"SBO:0000333\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
     "      <divide/>\n" + 
@@ -1443,109 +1410,106 @@ class TestWriteSBML < Test::Unit::TestCase
     "      <ci> d </ci>\n" + 
     "    </apply>\n" + 
     "  </math>\n" + 
-    "</stoichiometryMath>")
+    "</stoichiometryMath>"
     math = LibSBML::parseFormula("1/d")
-    stoich = LibSBML::StoichiometryMath.new(math)
+    stoich = @@d.createModel().createReaction().createReactant().createStoichiometryMath()
+    stoich.setMath(math)
     stoich.setSBOTerm(333)
-    stoich.setSBMLDocument(@@d)
-    stoich.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,stoich.toSBML())
   end
 
   def test_WriteSBML_Unit
-    @@d.setLevelAndVersion(2,1)
-    expected = wrapXML("<unit kind=\"kilogram\" exponent=\"2\" scale=\"-3\"/>"  
-    )
-    u = LibSBML::Unit.new( "kilogram",2,-3 )
-    u.setSBMLDocument(@@d)
-    u.write(@@xos)
-    assert_equal true, equals(expected)
+    @@d.setLevelAndVersion(2,4)
+    expected =  "<unit kind=\"kilogram\" exponent=\"2\" scale=\"-3\"/>";
+    u = @@d.createModel().createUnitDefinition().createUnit()
+    u.setKind(LibSBML::UNIT_KIND_KILOGRAM)
+    u.setExponent(2)
+    u.setScale(-3)
+    assert_equal true, equals(expected,u.toSBML())
   end
 
   def test_WriteSBML_UnitDefinition
     @@d.setLevelAndVersion(1,2)
-    expected = wrapXML("<unitDefinition name=\"mmls\"/>")
-    ud = LibSBML::UnitDefinition.new( "mmls" )
-    ud.setSBMLDocument(@@d)
-    ud.write(@@xos)
-    assert_equal true, equals(expected)
+    expected =  "<unitDefinition name=\"mmls\"/>";
+    ud = @@d.createModel().createUnitDefinition()
+    ud.setId("mmls")
+    assert_equal true, equals(expected,ud.toSBML())
   end
 
   def test_WriteSBML_UnitDefinition_L2v1
     @@d.setLevelAndVersion(2,1)
-    expected = wrapXML("<unitDefinition id=\"mmls\"/>")
-    ud = LibSBML::UnitDefinition.new( "mmls" )
-    ud.setSBMLDocument(@@d)
-    ud.write(@@xos)
-    assert_equal true, equals(expected)
+    expected =  "<unitDefinition id=\"mmls\"/>";
+    ud = @@d.createModel().createUnitDefinition()
+    ud.setId("mmls")
+    assert_equal true, equals(expected,ud.toSBML())
   end
 
   def test_WriteSBML_UnitDefinition_L2v1_full
     @@d.setLevelAndVersion(2,1)
-    expected = wrapXML("<unitDefinition id=\"Fahrenheit\">\n" + 
+    expected = "<unitDefinition id=\"Fahrenheit\">\n" + 
     "  <listOfUnits>\n" + 
     "    <unit kind=\"Celsius\" multiplier=\"1.8\" offset=\"32\"/>\n" + 
     "  </listOfUnits>\n" + 
-    "</unitDefinition>")
-    u1 = LibSBML::Unit.new( "Celsius",1,0,1.8 )
+    "</unitDefinition>"
+    ud = @@d.createModel().createUnitDefinition()
+    ud.setId("Fahrenheit")
+    u1 = ud.createUnit()
+    u1.setKind(LibSBML::UnitKind_forName("Celsius"))
+    u1.setMultiplier(1.8)
     u1.setOffset(32)
-    ud = LibSBML::UnitDefinition.new( "Fahrenheit" )
-    ud.addUnit(u1)
-    ud.setSBMLDocument(@@d)
-    ud.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,ud.toSBML())
   end
 
   def test_WriteSBML_UnitDefinition_full
     @@d.setLevelAndVersion(1,2)
-    expected = wrapXML("<unitDefinition name=\"mmls\">\n" + 
+    expected = "<unitDefinition name=\"mmls\">\n" + 
     "  <listOfUnits>\n" + 
     "    <unit kind=\"mole\" scale=\"-3\"/>\n" + 
     "    <unit kind=\"liter\" exponent=\"-1\"/>\n" + 
     "    <unit kind=\"second\" exponent=\"-1\"/>\n" + 
     "  </listOfUnits>\n" + 
-    "</unitDefinition>")
-    ud = LibSBML::UnitDefinition.new( "mmls" )
-    u1 = LibSBML::Unit.new( "mole"  ,1,-3 )
-    u2 = LibSBML::Unit.new( "liter" ,-1 )
-    u3 = LibSBML::Unit.new( "second",-1 )
-    ud.addUnit(u1)
-    ud.addUnit(u2)
-    ud.addUnit(u3)
-    ud.setSBMLDocument(@@d)
-    ud.write(@@xos)
-    assert_equal true, equals(expected)
+    "</unitDefinition>"
+    ud = @@d.createModel().createUnitDefinition()
+    ud.setId("mmls")
+    u1 = ud.createUnit()
+    u1.setKind(LibSBML::UNIT_KIND_MOLE)
+    u1.setScale(-3)
+    u2 = ud.createUnit()
+    u2.setKind(LibSBML::UNIT_KIND_LITER)
+    u2.setExponent(-1)
+    u3 = ud.createUnit()
+    u3.setKind(LibSBML::UNIT_KIND_SECOND)
+    u3.setExponent(-1)
+    assert_equal true, equals(expected,ud.toSBML())
   end
 
   def test_WriteSBML_Unit_L2v1
     @@d.setLevelAndVersion(2,1)
-    expected = wrapXML("<unit kind=\"Celsius\" multiplier=\"1.8\" offset=\"32\"/>"  
-    )
-    u = LibSBML::Unit.new( "Celsius",1,0,1.8 )
+    expected =  "<unit kind=\"Celsius\" multiplier=\"1.8\" offset=\"32\"/>";
+    u = @@d.createModel().createUnitDefinition().createUnit()
+    u.setKind(LibSBML::UnitKind_forName("Celsius"))
+    u.setMultiplier(1.8)
     u.setOffset(32)
-    u.setSBMLDocument(@@d)
-    u.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,u.toSBML())
   end
 
   def test_WriteSBML_Unit_defaults
     @@d.setLevelAndVersion(1,2)
-    expected = wrapXML("<unit kind=\"kilogram\"/>")
-    u = LibSBML::Unit.new( "kilogram",1,0 )
-    u.setSBMLDocument(@@d)
-    u.write(@@xos)
-    assert_equal true, equals(expected)
+    expected =  "<unit kind=\"kilogram\"/>";
+    u = @@d.createModel().createUnitDefinition().createUnit()
+    u.setKind(LibSBML::UNIT_KIND_KILOGRAM)
+    assert_equal true, equals(expected,u.toSBML())
   end
 
   def test_WriteSBML_Unit_l2v3
     @@d.setLevelAndVersion(2,3)
-    expected = wrapXML("<unit kind=\"kilogram\" exponent=\"2\" scale=\"-3\"/>"  
-    )
-    u = LibSBML::Unit.new( "kilogram",2,-3 )
+    expected =  "<unit kind=\"kilogram\" exponent=\"2\" scale=\"-3\"/>";
+    u = @@d.createModel().createUnitDefinition().createUnit()
+    u.setKind(LibSBML::UNIT_KIND_KILOGRAM)
+    u.setExponent(2)
+    u.setScale(-3)
     u.setOffset(32)
-    u.setSBMLDocument(@@d)
-    u.write(@@xos)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,u.toSBML())
   end
 
   def test_WriteSBML_bzip2
@@ -1563,18 +1527,18 @@ class TestWriteSBML < Test::Unit::TestCase
                         "../../../examples/sample-models/from-spec/level-2/twodimensional.xml",
                         "../../../examples/sample-models/from-spec/level-2/units.xml"
     ]
-    bzfile = "test.xml.bz2"
+    bz2file = "test.xml.bz2"
     file.each do |f|
       d = LibSBML::readSBML(f)
       assert( d != nil )
       if not LibSBML::SBMLWriter::hasBzip2()
-        assert( LibSBML::writeSBML(d,bzfile) == 0 )
+        assert( LibSBML::writeSBML(d,bz2file) == 0 )
         d = nil
         next
       end
-      result = LibSBML::writeSBML(d,bzfile)
+      result = LibSBML::writeSBML(d,bz2file)
       assert_equal 1, result
-      dg = LibSBML::readSBML(bzfile)
+      dg = LibSBML::readSBML(bz2file)
       assert( dg != nil )
       assert( ( dg.toSBML() != d.toSBML() ) == false )
       d = nil
@@ -1629,10 +1593,11 @@ class TestWriteSBML < Test::Unit::TestCase
 
 
   def test_WriteSBML_locale
-    expected = wrapXML("<parameter id=\"p\" value=\"3.31\"/>")
-    p = LibSBML::Parameter.new("p",3.31)
-    p.write(@@xos)
-    assert_equal true, equals(expected)
+    expected =  "<parameter id=\"p\" value=\"3.31\"/>";
+    p = @@d.createModel().createParameter()
+    p.setId("p")
+    p.setValue(3.31)
+    assert_equal true, equals(expected,p.toSBML())
   end
 
   def test_WriteSBML_zip

@@ -34,7 +34,7 @@ class TestRule(unittest.TestCase):
   R = None
 
   def setUp(self):
-    self.R = libsbml.AlgebraicRule()
+    self.R = libsbml.AlgebraicRule(2,4)
     if (self.R == None):
       pass    
     pass  

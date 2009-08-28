@@ -37,8 +37,6 @@ class TestRDFAnnotation(unittest.TestCase):
 
   d = None
   m = None
-  XOS = None
-  OSS = None
 
   def equals(self, *x):
     if len(x) == 2:
@@ -47,8 +45,6 @@ class TestRDFAnnotation(unittest.TestCase):
       return x[0] == self.OSS.str()
 
   def setUp(self):
-    self.OSS = libsbml.ostringstream()
-    self.XOS = libsbml.XMLOutputStream(self.OSS)
     filename = "../../annotation/test/test-data/annotation.xml"
     self.d = libsbml.readSBML(filename)
     self.m = self.d.getModel()
@@ -56,28 +52,22 @@ class TestRDFAnnotation(unittest.TestCase):
 
   def tearDown(self):
     self.d = None
-    self.OSS = None
-    self.XOS = None
     pass  
 
   def test_RDFAnnotation_delete(self):
     node = libsbml.RDFAnnotationParser.parseCVTerms(self.m.getCompartment(0))
     n1 = libsbml.RDFAnnotationParser.deleteRDFAnnotation(node)
-    expected = wrapString("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "<annotation/>")
+    expected =  "<annotation/>";
     self.assert_( n1.getNumChildren() == 0 )
     self.assert_( n1.getName() ==  "annotation" )
-    n1.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,n1.toXMLString()) )
     node = None
     pass  
 
   def test_RDFAnnotation_deleteWithOther(self):
     c = self.m.getCompartment(1)
     node = libsbml.RDFAnnotationParser.deleteRDFAnnotation(c.getAnnotation())
-    expected = wrapString("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "<annotation>\n" + 
-    "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
+    expected = wrapString("<annotation>\n" + "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
     "    <jd2:header>\n" + 
     "      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n" + 
     "      <jd2:ModelHeader Author=\"Mr Untitled\" ModelVersion=\"0.0\" ModelTitle=\"untitled\"/>\n" + 
@@ -85,16 +75,13 @@ class TestRDFAnnotation(unittest.TestCase):
     "    </jd2:header>\n" + 
     "  </jd2:JDesignerLayout>\n" + 
     "</annotation>")
-    node.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,node.toXMLString()) )
     pass  
 
   def test_RDFAnnotation_deleteWithOutOther(self):
     c = self.m.getCompartment(2)
     node = c.getAnnotation()
-    expected = wrapString("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "<annotation>\n" + 
-    "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
+    expected = wrapString("<annotation>\n" + "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
     "    <jd2:header>\n" + 
     "      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n" + 
     "      <jd2:ModelHeader Author=\"Mr Untitled\" ModelVersion=\"0.0\" ModelTitle=\"untitled\"/>\n" + 
@@ -102,15 +89,14 @@ class TestRDFAnnotation(unittest.TestCase):
     "    </jd2:header>\n" + 
     "  </jd2:JDesignerLayout>\n" + 
     "</annotation>")
-    node.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,node.toXMLString()) )
     pass  
 
   def test_RDFAnnotation_getModelHistory(self):
-    self.assert_( self.m != 0 )
+    self.assert_( (self.m == 0) == False )
     history = self.m.getModelHistory()
     self.assert_( history != None )
-    mc = (history.getCreator(0))
+    mc = history.getCreator(0)
     self.assert_((  "Le Novere" == mc.getFamilyName() ))
     self.assert_((  "Nicolas" == mc.getGivenName() ))
     self.assert_((  "lenov@ebi.ac.uk" == mc.getEmail() ))
@@ -267,8 +253,7 @@ class TestRDFAnnotation(unittest.TestCase):
 
   def test_RDFAnnotation_recreate(self):
     c = self.m.getCompartment(1)
-    expected = wrapString("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "<compartment id=\"A\">\n" + 
+    expected = wrapString("<compartment id=\"A\">\n" + 
     "  <annotation>\n" + 
     "    <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
     "      <jd2:header>\n" + 
@@ -288,14 +273,12 @@ class TestRDFAnnotation(unittest.TestCase):
     "    </rdf:RDF>\n" + 
     "  </annotation>\n" + 
     "</compartment>")
-    c.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,c.toSBML()) )
     pass  
 
   def test_RDFAnnotation_recreateFromEmpty(self):
     c = self.m.getCompartment(3)
-    expected = wrapString("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "<compartment id=\"C\">\n" + 
+    expected = wrapString("<compartment id=\"C\">\n" + 
     "  <annotation>\n" + 
     "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
     "      <rdf:Description rdf:about=\"#\">\n" + 
@@ -308,14 +291,12 @@ class TestRDFAnnotation(unittest.TestCase):
     "    </rdf:RDF>\n" + 
     "  </annotation>\n" + 
     "</compartment>")
-    c.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,c.toSBML()) )
     pass  
 
   def test_RDFAnnotation_recreateWithOutOther(self):
     c = self.m.getCompartment(2)
-    expected = wrapString("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "<compartment id=\"B\">\n" + 
+    expected = wrapString("<compartment id=\"B\">\n" + 
     "  <annotation>\n" + 
     "    <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
     "      <jd2:header>\n" + 
@@ -326,8 +307,7 @@ class TestRDFAnnotation(unittest.TestCase):
     "    </jd2:JDesignerLayout>\n" + 
     "  </annotation>\n" + 
     "</compartment>")
-    c.write(self.XOS)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,c.toSBML()) )
     pass  
 
 def suite():

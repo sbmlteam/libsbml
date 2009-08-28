@@ -33,7 +33,7 @@ class TestConsistencyChecks < Test::Unit::TestCase
   def test_consistency_checks
     reader = LibSBML::SBMLReader.new()
     d = LibSBML::SBMLDocument.new()
-    filename = "../../sbml/test/test-data/" 
+    filename = "../../sbml/test/test-data/"
     filename += "inconsistent.xml"
     d = reader.readSBML(filename)
     if (d == nil)

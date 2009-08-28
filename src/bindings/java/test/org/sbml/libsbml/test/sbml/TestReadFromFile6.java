@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Sarah Keating 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestReadFromFile6.cpp
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -111,29 +111,29 @@ public class TestReadFromFile6 {
   public void test_read_l2v2_newComponents()
   {
     SBMLReader reader = new SBMLReader();
-    SBMLDocument d = new SBMLDocument();
-    Model m = new Model();
-    Compartment c = new Compartment();
-    CompartmentType ct = new CompartmentType();
-    Species s = new Species();
-    Parameter p = new Parameter();
-    Reaction r = new Reaction();
-    SpeciesReference sr = new SpeciesReference();
-    KineticLaw kl = new KineticLaw();
-    Constraint con = new Constraint();
-    InitialAssignment ia = new InitialAssignment();
-    SpeciesType st = new SpeciesType();
-    ListOfCompartmentTypes loct = new ListOfCompartmentTypes();
-    CompartmentType ct1 = new CompartmentType();
-    ListOfConstraints locon = new ListOfConstraints();
-    Constraint con1 = new Constraint();
-    ListOfInitialAssignments loia = new ListOfInitialAssignments();
-    InitialAssignment ia1 = new InitialAssignment();
-    ListOfReactions lor = new ListOfReactions();
-    Reaction r1 = new Reaction();
-    ListOfSpeciesReferences losr = new ListOfSpeciesReferences();
-    SpeciesReference sr1 = new SpeciesReference();
-    ASTNode ast = new ASTNode();
+    SBMLDocument d;
+    Model m;
+    Compartment c;
+    CompartmentType ct;
+    Species s;
+    Parameter p;
+    Reaction r;
+    SpeciesReference sr;
+    KineticLaw kl;
+    Constraint con;
+    InitialAssignment ia;
+    SpeciesType st;
+    ListOfCompartmentTypes loct;
+    CompartmentType ct1;
+    ListOfConstraints locon;
+    Constraint con1;
+    ListOfInitialAssignments loia;
+    InitialAssignment ia1;
+    ListOfReactions lor;
+    Reaction r1;
+    ListOfSpeciesReferences losr;
+    SpeciesReference sr1;
+    ASTNode ast;
     String filename = new String( "../../sbml/test/test-data/" );
     filename += "l2v2-newComponents.xml";
     d = reader.readSBML(filename);
@@ -144,23 +144,25 @@ public class TestReadFromFile6 {
     assertTrue( d.getVersion() == 2 );
     m = d.getModel();
     assertTrue( m != null );
-    assertTrue( m.getId().equals( "l2v2_newComponents") == true );
+    assertTrue( m.getId().equals( "l2v2_newComponents") );
     assertTrue( m.getSBOTerm() == 4 );
     assertTrue( m.getSBOTermID().equals( "SBO:0000004") );
     assertTrue( m.getNumCompartments() == 2 );
     c = m.getCompartment(0);
     assertTrue( c != null );
-    assertTrue( c.getId().equals( "cell") == true );
+    assertTrue( c.getId().equals( "cell") );
     assertEquals(c.getCompartmentType(), "mitochondria");
-    assertTrue( c.getOutside().equals( "m") == true );
+    assertTrue( c.getOutside().equals( "m") );
+    assertTrue( c.getSBOTerm() == -1 );
+    assertTrue( c.getSBOTermID().equals( "") );
     c = m.getCompartment(1);
     assertTrue( c != null );
-    assertTrue( c.getId().equals( "m") == true );
+    assertTrue( c.getId().equals( "m") );
     assertEquals(c.getCompartmentType(), "mitochondria");
     assertTrue( m.getNumCompartmentTypes() == 1 );
     ct = m.getCompartmentType(0);
     assertTrue( ct != null );
-    assertTrue( ct.getId().equals( "mitochondria") == true );
+    assertTrue( ct.getId().equals( "mitochondria") );
     loct = m.getListOfCompartmentTypes();
     ct1 = loct.get(0);
     assertTrue( ct1.equals(ct) );
@@ -169,30 +171,30 @@ public class TestReadFromFile6 {
     assertTrue( m.getNumSpeciesTypes() == 1 );
     st = m.getSpeciesType(0);
     assertTrue( st != null );
-    assertTrue( st.getId().equals( "Glucose") == true );
+    assertTrue( st.getId().equals( "Glucose") );
     assertTrue( m.getNumSpecies() == 2 );
     s = m.getSpecies(0);
     assertTrue( s != null );
-    assertTrue( s.getId().equals( "X0") == true );
+    assertTrue( s.getId().equals( "X0") );
     assertEquals(s.getSpeciesType(), "Glucose");
-    assertTrue( s.getCompartment().equals( "cell") == true );
+    assertTrue( s.getCompartment().equals( "cell") );
     assertEquals( false, s.isSetInitialAmount() );
     assertEquals( false, s.isSetInitialConcentration() );
     s = m.getSpecies(1);
     assertTrue( s != null );
-    assertTrue( s.getId().equals( "X1") == true );
+    assertTrue( s.getId().equals( "X1") );
     assertEquals( false, s.isSetSpeciesType() );
-    assertTrue( s.getCompartment().equals( "cell") == true );
+    assertTrue( s.getCompartment().equals( "cell") );
     assertTrue( s.getInitialConcentration() == 0.013 );
     assertEquals( false, s.isSetInitialAmount() );
     assertEquals( true, s.isSetInitialConcentration() );
     assertTrue( m.getNumParameters() == 1 );
     p = m.getParameter(0);
     assertTrue( p != null );
-    assertTrue( p.getId().equals( "y") == true );
+    assertTrue( p.getId().equals( "y") );
     assertTrue( p.getValue() == 2 );
-    assertTrue( p.getUnits().equals( "dimensionless") == true );
-    assertTrue( p.getId().equals( "y") == true );
+    assertTrue( p.getUnits().equals( "dimensionless") );
+    assertTrue( p.getId().equals( "y") );
     assertTrue( p.getSBOTerm() == 2 );
     assertTrue( p.getSBOTermID().equals( "SBO:0000002") );
     assertTrue( m.getNumConstraints() == 1 );
@@ -210,7 +212,7 @@ public class TestReadFromFile6 {
     assertTrue( ia != null );
     assertTrue( ia.getSBOTerm() == 64 );
     assertTrue( ia.getSBOTermID().equals( "SBO:0000064") );
-    assertTrue( ia.getSymbol().equals( "X0") == true );
+    assertTrue( ia.getSymbol().equals( "X0") );
     ast = ia.getMath();
     assertTrue(libsbml.formulaToString(ast).equals( "y * X1"));
     loia = m.getListOfInitialAssignments();
@@ -223,7 +225,7 @@ public class TestReadFromFile6 {
     assertTrue( r != null );
     assertTrue( r.getSBOTerm() == 231 );
     assertTrue( r.getSBOTermID().equals( "SBO:0000231") );
-    assertTrue( r.getId().equals( "in") == true );
+    assertTrue( r.getId().equals( "in") );
     lor = m.getListOfReactions();
     r1 = lor.get(0);
     assertTrue( r1.equals(r) );
@@ -242,20 +244,20 @@ public class TestReadFromFile6 {
     assertTrue( p != null );
     assertTrue( p.getSBOTerm() == 2 );
     assertTrue( p.getSBOTermID().equals( "SBO:0000002") );
-    assertTrue( p.getId().equals( "v") == true );
-    assertTrue( p.getUnits().equals( "litre") == true );
+    assertTrue( p.getId().equals( "v") );
+    assertTrue( p.getUnits().equals( "litre") );
     assertTrue( r.getNumReactants() == 1 );
     assertTrue( r.getNumProducts() == 0 );
     assertTrue( r.getNumModifiers() == 0 );
     sr = r.getReactant(0);
     assertTrue( sr != null );
-    assertTrue( sr.getName().equals( "sarah") == true );
-    assertTrue( sr.getId().equals( "me") == true );
-    assertTrue( sr.getSpecies().equals( "X0") == true );
+    assertTrue( sr.getName().equals( "sarah") );
+    assertTrue( sr.getId().equals( "me") );
+    assertTrue( sr.getSpecies().equals( "X0") );
     losr = r.getListOfReactants();
-    sr1 = ((SpeciesReference) losr.get(0));
+    sr1 = (SpeciesReference) losr.get(0);
     assertTrue( sr1.equals(sr) );
-    sr1 = ((SpeciesReference) losr.get("me"));
+    sr1 = (SpeciesReference) losr.get("me");
     assertTrue( sr1.equals(sr) );
     d = null;
   }

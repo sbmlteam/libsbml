@@ -31,7 +31,7 @@ require 'libSBML'
 class TestFunctionDefinition < Test::Unit::TestCase
 
   def setup
-    @@fd = LibSBML::FunctionDefinition.new()
+    @@fd = LibSBML::FunctionDefinition.new(2,4)
     if (@@fd == nil)
     end
   end
@@ -52,7 +52,9 @@ class TestFunctionDefinition < Test::Unit::TestCase
 
   def test_FunctionDefinition_createWith
     math = LibSBML::parseFormula("lambda(x, x^3)")
-    fd = LibSBML::FunctionDefinition.new("pow3",math)
+    fd = LibSBML::FunctionDefinition.new(2,4)
+    fd.setId( "pow3")
+    fd.setMath(math)
     assert( fd.getTypeCode() == LibSBML::SBML_FUNCTION_DEFINITION )
     assert( fd.getMetaId() == "" )
     assert( fd.getNotes() == nil )
@@ -71,18 +73,20 @@ class TestFunctionDefinition < Test::Unit::TestCase
     fd = nil
   end
 
-  def test_FunctionDefinition_createWithLevelVersionAndNamespace
+  def test_FunctionDefinition_createWithNS
     xmlns = LibSBML::XMLNamespaces.new()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = LibSBML::FunctionDefinition.new(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = LibSBML::SBMLNamespaces.new(2,1)
+    sbmlns.addNamespaces(xmlns)
+    object = LibSBML::FunctionDefinition.new(sbmlns)
     assert( object.getTypeCode() == LibSBML::SBML_FUNCTION_DEFINITION )
     assert( object.getMetaId() == "" )
     assert( object.getNotes() == nil )
     assert( object.getAnnotation() == nil )
     assert( object.getLevel() == 2 )
     assert( object.getVersion() == 1 )
-    assert( object.getNamespaces() != "" )
-    assert( object.getNamespaces().getLength() == 1 )
+    assert( object.getNamespaces() != nil )
+    assert( object.getNamespaces().getLength() == 2 )
     object = nil
   end
 
@@ -156,7 +160,7 @@ class TestFunctionDefinition < Test::Unit::TestCase
   end
 
   def test_FunctionDefinition_setName
-    name =  "Cube Me";
+    name =  "Cube_Me";
     @@fd.setName(name)
     assert (( name == @@fd.getName() ))
     assert_equal true, @@fd.isSetName()

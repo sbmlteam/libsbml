@@ -31,7 +31,7 @@ require 'libSBML'
 class TestRateRule < Test::Unit::TestCase
 
   def setup
-    @@rr = LibSBML::RateRule.new()
+    @@rr = LibSBML::RateRule.new(1,2)
     if (@@rr == nil)
     end
   end
@@ -51,44 +51,21 @@ class TestRateRule < Test::Unit::TestCase
     assert( @@rr.getType() == LibSBML::RULE_TYPE_RATE )
   end
 
-  def test_RateRule_createWithFormula
-    ar = LibSBML::RateRule.new("s", "1 + 1")
-    assert( ar.getTypeCode() == LibSBML::SBML_RATE_RULE )
-    assert( ar.getMetaId() == "" )
-    assert ((  "s" == ar.getVariable() ))
-    math = ar.getMath()
-    assert( math != nil )
-    formula = LibSBML::formulaToString(math)
-    assert( formula != nil )
-    assert ((  "1 + 1" == formula ))
-    assert (( formula == ar.getFormula() ))
-    ar = nil
-  end
-
-  def test_RateRule_createWithLevelVersionAndNamespace
+  def test_RateRule_createWithNS
     xmlns = LibSBML::XMLNamespaces.new()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = LibSBML::RateRule.new(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = LibSBML::SBMLNamespaces.new(2,1)
+    sbmlns.addNamespaces(xmlns)
+    object = LibSBML::RateRule.new(sbmlns)
     assert( object.getTypeCode() == LibSBML::SBML_RATE_RULE )
     assert( object.getMetaId() == "" )
     assert( object.getNotes() == nil )
     assert( object.getAnnotation() == nil )
     assert( object.getLevel() == 2 )
     assert( object.getVersion() == 1 )
-    assert( object.getNamespaces() != "" )
-    assert( object.getNamespaces().getLength() == 1 )
+    assert( object.getNamespaces() != nil )
+    assert( object.getNamespaces().getLength() == 2 )
     object = nil
-  end
-
-  def test_RateRule_createWithMath
-    math = LibSBML::parseFormula("1 + 1")
-    ar = LibSBML::RateRule.new("s",math)
-    assert( ar.getTypeCode() == LibSBML::SBML_RATE_RULE )
-    assert( ar.getMetaId() == "" )
-    assert ((  "s" == ar.getVariable() ))
-    assert ((  "1 + 1" == ar.getFormula() ))
-    assert( ar.getMath() != math )
-    ar = nil
   end
 
   def test_RateRule_free_NULL

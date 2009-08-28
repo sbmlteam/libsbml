@@ -119,8 +119,8 @@ class TestXMLOutputStream(unittest.TestCase):
     oss = libsbml.ostringstream()
     stream = libsbml.XMLOutputStream(oss,"UTF-8",True)
     self.assert_( stream != None )
-    string = oss.str()
-    self.assert_(( expected == string ))
+    str = oss.str()
+    self.assert_(( expected == str ))
     stream = None
     pass  
 
@@ -129,8 +129,8 @@ class TestXMLOutputStream(unittest.TestCase):
     oss = libsbml.ostringstream()
     stream = libsbml.XMLOutputStream(oss,"UTF-8",True, "", "")
     self.assert_( stream != None )
-    string = oss.str()
-    self.assert_(( expected == string ))
+    str = oss.str()
+    self.assert_(( expected == str ))
     stream = None
     pass  
 
@@ -139,8 +139,8 @@ class TestXMLOutputStream(unittest.TestCase):
     stream = libsbml.XMLOutputStream(oss,"",False)
     self.assert_( stream != None )
     stream.startEndElement( "id")
-    string = oss.str()
-    self.assert_((  "<id/>" == string ))
+    str = oss.str()
+    self.assert_((  "<id/>" == str ))
     stream = None
     pass  
 

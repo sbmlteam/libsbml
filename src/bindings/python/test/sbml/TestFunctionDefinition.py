@@ -34,7 +34,7 @@ class TestFunctionDefinition(unittest.TestCase):
   FD = None
 
   def setUp(self):
-    self.FD = libsbml.FunctionDefinition()
+    self.FD = libsbml.FunctionDefinition(2,4)
     if (self.FD == None):
       pass    
     pass  
@@ -55,7 +55,9 @@ class TestFunctionDefinition(unittest.TestCase):
 
   def test_FunctionDefinition_createWith(self):
     math = libsbml.parseFormula("lambda(x, x^3)")
-    fd = libsbml.FunctionDefinition("pow3",math)
+    fd = libsbml.FunctionDefinition(2,4)
+    fd.setId( "pow3")
+    fd.setMath(math)
     self.assert_( fd.getTypeCode() == libsbml.SBML_FUNCTION_DEFINITION )
     self.assert_( fd.getMetaId() == "" )
     self.assert_( fd.getNotes() == None )
@@ -74,18 +76,20 @@ class TestFunctionDefinition(unittest.TestCase):
     fd = None
     pass  
 
-  def test_FunctionDefinition_createWithLevelVersionAndNamespace(self):
+  def test_FunctionDefinition_createWithNS(self):
     xmlns = libsbml.XMLNamespaces()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = libsbml.FunctionDefinition(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = libsbml.SBMLNamespaces(2,1)
+    sbmlns.addNamespaces(xmlns)
+    object = libsbml.FunctionDefinition(sbmlns)
     self.assert_( object.getTypeCode() == libsbml.SBML_FUNCTION_DEFINITION )
     self.assert_( object.getMetaId() == "" )
     self.assert_( object.getNotes() == None )
     self.assert_( object.getAnnotation() == None )
     self.assert_( object.getLevel() == 2 )
     self.assert_( object.getVersion() == 1 )
-    self.assert_( object.getNamespaces() != "" )
-    self.assert_( object.getNamespaces().getLength() == 1 )
+    self.assert_( object.getNamespaces() != None )
+    self.assert_( object.getNamespaces().getLength() == 2 )
     object = None
     pass  
 
@@ -159,7 +163,7 @@ class TestFunctionDefinition(unittest.TestCase):
     pass  
 
   def test_FunctionDefinition_setName(self):
-    name =  "Cube Me";
+    name =  "Cube_Me";
     self.FD.setName(name)
     self.assert_(( name == self.FD.getName() ))
     self.assertEqual( True, self.FD.isSetName() )

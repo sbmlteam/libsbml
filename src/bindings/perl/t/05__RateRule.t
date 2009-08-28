@@ -7,13 +7,17 @@ use vars qw/$formula1 $formula2 $f/;
 
 #########################
 
+my $level   = LibSBML::SBMLDocument::getDefaultLevel();
+my $version = LibSBML::SBMLDocument::getDefaultVersion();
+
 $formula1 = 'X^n/(1+X^n)';
 $formula2 = 'Y^n/(1+Y^n)';
 $f = '';
 
 # creation with formula
-my $rr = new LibSBML::RateRule('Y',
-			       $formula1);
+my $rr = new LibSBML::RateRule($level,$version);
+$rr->setVariable('Y');
+$rr->setFormula($formula1);
 ok($rr->getTypeCode() == $LibSBML::SBML_RATE_RULE);
 ok($rr->getMetaId(), '');
 ok($rr->getNotes(), undef);
@@ -27,8 +31,9 @@ ok($rr->isSetMath(), 1);
 ok($f, $formula1);
 
 # creation with AST
-$rr = new LibSBML::RateRule('Z',
-			    LibSBML::parseFormula($formula2));
+$rr = new LibSBML::RateRule($level,$version);
+$rr->setVariable('Z');
+$rr->setFormula($formula2);
 ok($rr->getTypeCode() == $LibSBML::SBML_RATE_RULE);
 ok($rr->getMetaId(), '');
 ok($rr->getNotes(), undef);
@@ -42,8 +47,8 @@ ok($rr->isSetMath(), 1);
 ($f = LibSBML::formulaToString($rr->getMath())) =~ s/\s+//g;
 ok($f, $formula2);
 
-# creation w/o arguments
-$rr = new LibSBML::RateRule();
+# creation w/o variable and formula
+$rr = new LibSBML::RateRule($level,$version);
 ok($rr->getTypeCode() == $LibSBML::SBML_RATE_RULE);
 ok($rr->getMetaId(), '');
 ok($rr->getNotes(), undef);

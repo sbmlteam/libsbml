@@ -31,7 +31,7 @@ require 'libSBML'
 class TestSpeciesReference < Test::Unit::TestCase
 
   def setup
-    @@sr = LibSBML::SpeciesReference.new()
+    @@sr = LibSBML::SpeciesReference.new(2,4)
     if (@@sr == nil)
     end
   end
@@ -54,7 +54,7 @@ class TestSpeciesReference < Test::Unit::TestCase
   end
 
   def test_SpeciesReference_createModifier
-    sr = LibSBML::ModifierSpeciesReference.new()
+    sr = LibSBML::ModifierSpeciesReference.new(2,4)
     assert( sr.getTypeCode() == LibSBML::SBML_MODIFIER_SPECIES_REFERENCE )
     assert( sr.getMetaId() == "" )
     assert( sr.getNotes() == nil )
@@ -63,31 +63,20 @@ class TestSpeciesReference < Test::Unit::TestCase
     sr = nil
   end
 
-  def test_SpeciesReference_createWith
-    sr = LibSBML::SpeciesReference.new("s3",4,2)
-    assert( sr.getTypeCode() == LibSBML::SBML_SPECIES_REFERENCE )
-    assert( sr.getMetaId() == "" )
-    assert( sr.getNotes() == nil )
-    assert( sr.getAnnotation() == nil )
-    assert ((  "s3" == sr.getSpecies() ))
-    assert( sr.getStoichiometry() == 4 )
-    assert( sr.getDenominator() == 2 )
-    assert_equal true, sr.isSetSpecies()
-    sr = nil
-  end
-
-  def test_SpeciesReference_createWithLevelVersionAndNamespace
+  def test_SpeciesReference_createWithNS
     xmlns = LibSBML::XMLNamespaces.new()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = LibSBML::SpeciesReference.new(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = LibSBML::SBMLNamespaces.new(2,1)
+    sbmlns.addNamespaces(xmlns)
+    object = LibSBML::SpeciesReference.new(sbmlns)
     assert( object.getTypeCode() == LibSBML::SBML_SPECIES_REFERENCE )
     assert( object.getMetaId() == "" )
     assert( object.getNotes() == nil )
     assert( object.getAnnotation() == nil )
     assert( object.getLevel() == 2 )
     assert( object.getVersion() == 1 )
-    assert( object.getNamespaces() != "" )
-    assert( object.getNamespaces().getLength() == 1 )
+    assert( object.getNamespaces() != nil )
+    assert( object.getNamespaces().getLength() == 2 )
     object = nil
   end
 
@@ -126,7 +115,8 @@ class TestSpeciesReference < Test::Unit::TestCase
 
   def test_SpeciesReference_setStoichiometryMath
     math = LibSBML::parseFormula("k3 / k2")
-    stoich = LibSBML::StoichiometryMath.new(math)
+    stoich = LibSBML::StoichiometryMath.new(2,4)
+    stoich.setMath(math)
     @@sr.setStoichiometryMath(stoich)
     math1 = @@sr.getStoichiometryMath()
     assert( math1 != nil )

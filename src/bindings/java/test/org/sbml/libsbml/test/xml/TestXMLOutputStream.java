@@ -52,6 +52,10 @@ public class TestXMLOutputStream {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestXMLOutputStream {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -172,7 +180,7 @@ public class TestXMLOutputStream {
     stream.writeAttribute( "pdelt",   "&lt;"  );
     stream.writeAttribute( "pdequot", "&quot;");
     stream.endElement( "testpde");
-    String expected = "<testpde amp=\"&amp;\" apos=\"&apos;\" gt=\"&gt;\" lt=\"&lt;\" " + 
+    String expected = "<testpde amp=\"&amp;\" apos=\"&apos;\" gt=\"&gt;\" lt=\"&lt;\" " +
                       "quot=\"&quot;\" pdeamp=\"&amp;\" pdeapos=\"&apos;\" pdegt=\"&gt;\" " + 
                       "pdelt=\"&lt;\" pdequot=\"&quot;\"/>";
     String s = oss.str();
@@ -200,8 +208,8 @@ public class TestXMLOutputStream {
     OStringStream oss = new OStringStream();
     XMLOutputStream stream = new  XMLOutputStream(oss,"UTF-8",true);
     assertTrue( stream != null );
-    String string = oss.str();
-    assertTrue(string.equals(expected));
+    String str = oss.str();
+    assertTrue(str.equals(expected));
     stream = null;
   }
 
@@ -211,8 +219,8 @@ public class TestXMLOutputStream {
     OStringStream oss = new OStringStream();
     XMLOutputStream stream = new  XMLOutputStream(oss,"UTF-8",true, "", "");
     assertTrue( stream != null );
-    String string = oss.str();
-    assertTrue(string.equals(expected));
+    String str = oss.str();
+    assertTrue(str.equals(expected));
     stream = null;
   }
 
@@ -222,8 +230,8 @@ public class TestXMLOutputStream {
     XMLOutputStream stream = new  XMLOutputStream(oss,"",false);
     assertTrue( stream != null );
     stream.startEndElement( "id");
-    String string = oss.str();
-    assertTrue(string.equals( "<id/>"));
+    String str = oss.str();
+    assertTrue(str.equals( "<id/>"));
     stream = null;
   }
 

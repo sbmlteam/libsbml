@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Ben Bornstein 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestReaction.c
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -58,6 +58,10 @@ namespace LibSBMLCSTest {
       {
         return;
       }
+      else if ( (a == null) || (b == null) )
+      {
+        throw new AssertionError();
+      }
       else if (a.Equals(b))
       {
         return;
@@ -71,6 +75,10 @@ namespace LibSBMLCSTest {
       if ( (a == null) && (b == null) )
       {
         throw new AssertionError();
+      }
+      else if ( (a == null) || (b == null) )
+      {
+        return;
       }
       else if (a.Equals(b))
       {
@@ -118,7 +126,7 @@ namespace LibSBMLCSTest {
 
     public void setUp()
     {
-      R = new  Reaction();
+      R = new  Reaction(2,4);
       if (R == null);
       {
       }
@@ -131,7 +139,9 @@ namespace LibSBMLCSTest {
 
     public void test_Reaction_addModifier()
     {
-      R.addModifier(new  ModifierSpeciesReference());
+      ModifierSpeciesReference msr = new  ModifierSpeciesReference(2,4);
+      msr.setSpecies( "s");
+      R.addModifier(msr);
       assertTrue( R.getNumReactants() == 0 );
       assertTrue( R.getNumProducts() == 0 );
       assertTrue( R.getNumModifiers() == 1 );
@@ -139,7 +149,8 @@ namespace LibSBMLCSTest {
 
     public void test_Reaction_addProduct()
     {
-      SpeciesReference sr = new  SpeciesReference();
+      SpeciesReference sr = new  SpeciesReference(2,4);
+      sr.setSpecies( "s");
       R.addProduct(sr);
       assertTrue( R.getNumReactants() == 0 );
       assertTrue( R.getNumProducts() == 1 );
@@ -149,7 +160,8 @@ namespace LibSBMLCSTest {
 
     public void test_Reaction_addReactant()
     {
-      SpeciesReference sr = new  SpeciesReference();
+      SpeciesReference sr = new  SpeciesReference(2,4);
+      sr.setSpecies( "s");
       R.addReactant(sr);
       assertTrue( R.getNumReactants() == 1 );
       assertTrue( R.getNumProducts() == 0 );
@@ -176,34 +188,13 @@ namespace LibSBMLCSTest {
       assertTrue( R.getNumModifiers() == 0 );
     }
 
-    public void test_Reaction_createWith()
-    {
-      KineticLaw kl = new  KineticLaw();
-      Reaction r = new  Reaction("r1", "",kl,false);
-      r.setFast(true);
-      assertTrue( r.getTypeCode() == libsbml.SBML_REACTION );
-      assertTrue( r.getMetaId() == "" );
-      assertTrue( r.getNotes() == null );
-      assertTrue( r.getAnnotation() == null );
-      assertTrue( r.getName() == "" );
-      assertTrue((  "r1" == r.getId() ));
-      assertTrue( r.getReversible() == false );
-      assertTrue( r.getFast() == true );
-      assertEquals( true, r.isSetId() );
-      assertEquals( false, r.isSetName() );
-      assertEquals( true, r.isSetKineticLaw() );
-      assertTrue( r.getNumReactants() == 0 );
-      assertTrue( r.getNumProducts() == 0 );
-      assertTrue( r.getNumModifiers() == 0 );
-      kl = null;
-      r = null;
-    }
-
-    public void test_Reaction_createWithLevelVersionAndNamespace()
+    public void test_Reaction_createWithNS()
     {
       XMLNamespaces xmlns = new  XMLNamespaces();
-      xmlns.add( "http://www.sbml.org", "sbml");
-      Reaction object1 = new  Reaction(2,1,xmlns);
+      xmlns.add( "http://www.sbml.org", "testsbml");
+      SBMLNamespaces sbmlns = new  SBMLNamespaces(2,1);
+      sbmlns.addNamespaces(xmlns);
+      Reaction object1 = new  Reaction(sbmlns);
       assertTrue( object1.getTypeCode() == libsbml.SBML_REACTION );
       assertTrue( object1.getMetaId() == "" );
       assertTrue( object1.getNotes() == null );
@@ -211,7 +202,7 @@ namespace LibSBMLCSTest {
       assertTrue( object1.getLevel() == 2 );
       assertTrue( object1.getVersion() == 1 );
       assertTrue( object1.getNamespaces() != null );
-      assertTrue( object1.getNamespaces().getLength() == 1 );
+      assertTrue( object1.getNamespaces().getLength() == 2 );
       object1 = null;
     }
 
@@ -221,8 +212,8 @@ namespace LibSBMLCSTest {
 
     public void test_Reaction_getModifier()
     {
-      ModifierSpeciesReference msr1 = new  ModifierSpeciesReference();
-      ModifierSpeciesReference msr2 = new  ModifierSpeciesReference();
+      ModifierSpeciesReference msr1 = new  ModifierSpeciesReference(2,4);
+      ModifierSpeciesReference msr2 = new  ModifierSpeciesReference(2,4);
       msr1.setSpecies( "M1");
       msr2.setSpecies( "M2");
       R.addModifier(msr1);
@@ -240,8 +231,8 @@ namespace LibSBMLCSTest {
 
     public void test_Reaction_getModifierById()
     {
-      ModifierSpeciesReference msr1 = new  ModifierSpeciesReference();
-      ModifierSpeciesReference msr2 = new  ModifierSpeciesReference();
+      ModifierSpeciesReference msr1 = new  ModifierSpeciesReference(2,4);
+      ModifierSpeciesReference msr2 = new  ModifierSpeciesReference(2,4);
       msr1.setSpecies( "M1");
       msr2.setSpecies( "M2");
       R.addModifier(msr1);
@@ -258,8 +249,8 @@ namespace LibSBMLCSTest {
 
     public void test_Reaction_getProduct()
     {
-      SpeciesReference sr1 = new  SpeciesReference();
-      SpeciesReference sr2 = new  SpeciesReference();
+      SpeciesReference sr1 = new  SpeciesReference(2,4);
+      SpeciesReference sr2 = new  SpeciesReference(2,4);
       sr1.setSpecies( "P1");
       sr2.setSpecies( "P2");
       R.addProduct(sr1);
@@ -277,8 +268,10 @@ namespace LibSBMLCSTest {
 
     public void test_Reaction_getProductById()
     {
-      SpeciesReference sr1 = new  SpeciesReference("P1",1,1);
-      SpeciesReference sr2 = new  SpeciesReference("P2",1,1);
+      SpeciesReference sr1 = new  SpeciesReference(2,4);
+      sr1.setSpecies( "P1");
+      SpeciesReference sr2 = new  SpeciesReference(2,4);
+      sr2.setSpecies( "P1");
       R.addProduct(sr1);
       R.addProduct(sr2);
       assertTrue( R.getNumReactants() == 0 );
@@ -293,8 +286,8 @@ namespace LibSBMLCSTest {
 
     public void test_Reaction_getReactant()
     {
-      SpeciesReference sr1 = new  SpeciesReference();
-      SpeciesReference sr2 = new  SpeciesReference();
+      SpeciesReference sr1 = new  SpeciesReference(2,4);
+      SpeciesReference sr2 = new  SpeciesReference(2,4);
       sr1.setSpecies( "R1");
       sr2.setSpecies( "R2");
       R.addReactant(sr1);
@@ -312,8 +305,10 @@ namespace LibSBMLCSTest {
 
     public void test_Reaction_getReactantById()
     {
-      SpeciesReference sr1 = new  SpeciesReference("R1",1,1);
-      SpeciesReference sr2 = new  SpeciesReference("R2",1,1);
+      SpeciesReference sr1 = new  SpeciesReference(2,4);
+      sr1.setSpecies( "R1");
+      SpeciesReference sr2 = new  SpeciesReference(2,4);
+      sr2.setSpecies( "R2");
       R.addReactant(sr1);
       R.addReactant(sr2);
       assertTrue( R.getNumReactants() == 2 );
@@ -324,6 +319,60 @@ namespace LibSBMLCSTest {
       assertEquals(R.getReactant( "R3"),null);
       sr1 = null;
       sr2 = null;
+    }
+
+    public void test_Reaction_removeModifier()
+    {
+      ModifierSpeciesReference o1,o2,o3;
+      o1 = R.createModifier();
+      o2 = R.createModifier();
+      o3 = R.createModifier();
+      o3.setSpecies("test");
+      assertTrue( R.removeModifier(0) == o1 );
+      assertTrue( R.getNumModifiers() == 2 );
+      assertTrue( R.removeModifier(0) == o2 );
+      assertTrue( R.getNumModifiers() == 1 );
+      assertTrue( R.removeModifier("test") == o3 );
+      assertTrue( R.getNumModifiers() == 0 );
+      o1 = null;
+      o2 = null;
+      o3 = null;
+    }
+
+    public void test_Reaction_removeProduct()
+    {
+      SpeciesReference o1,o2,o3;
+      o1 = R.createProduct();
+      o2 = R.createProduct();
+      o3 = R.createProduct();
+      o3.setSpecies("test");
+      assertTrue( R.removeProduct(0) == o1 );
+      assertTrue( R.getNumProducts() == 2 );
+      assertTrue( R.removeProduct(0) == o2 );
+      assertTrue( R.getNumProducts() == 1 );
+      assertTrue( R.removeProduct("test") == o3 );
+      assertTrue( R.getNumProducts() == 0 );
+      o1 = null;
+      o2 = null;
+      o3 = null;
+    }
+
+    public void test_Reaction_removeReactant()
+    {
+      SpeciesReference o1,o2,o3;
+      o1 = R.createReactant();
+      o2 = R.createReactant();
+      o3 = R.createReactant();
+      o3.setSpecies("test");
+      assertTrue( R.removeReactant(0) == o1 );
+      assertTrue( R.getNumReactants() == 2 );
+      assertTrue( R.removeReactant(0) == o2 );
+      assertTrue( R.getNumReactants() == 1 );
+      assertTrue( R.removeReactant("test") == o3 );
+      assertTrue( R.getNumReactants() == 0 );
+      o1 = null;
+      o2 = null;
+      o3 = null;
     }
 
     public void test_Reaction_setId()
@@ -346,7 +395,7 @@ namespace LibSBMLCSTest {
 
     public void test_Reaction_setName()
     {
-      string name =  "MapK Cascade";;
+      string name =  "MapK_Cascade";;
       R.setName(name);
       assertTrue(( name == R.getName() ));
       assertEquals( true, R.isSetName() );

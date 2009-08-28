@@ -52,6 +52,10 @@ public class TestSBMLDocument {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestSBMLDocument {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -139,39 +147,40 @@ public class TestSBMLDocument {
   public void test_SBMLDocument_setLevelAndVersion()
   {
     SBMLDocument d = new  SBMLDocument();
-    d.setLevelAndVersion(2,2);
-    Model m1 = new  Model();
+    d.setLevelAndVersion(2,2,false);
+    Model m1 = new  Model(2,2);
     d.setModel(m1);
-    assertTrue( d.setLevelAndVersion(2,3) == true );
-    assertTrue( d.setLevelAndVersion(2,1) == true );
-    assertTrue( d.setLevelAndVersion(1,2) == true );
-    assertTrue( d.setLevelAndVersion(1,1) == false );
+    assertTrue( d.setLevelAndVersion(2,3,false) == true );
+    assertTrue( d.setLevelAndVersion(2,1,false) == true );
+    assertTrue( d.setLevelAndVersion(1,2,false) == true );
+    assertTrue( d.setLevelAndVersion(1,1,false) == false );
     d = null;
   }
 
   public void test_SBMLDocument_setLevelAndVersion_Error()
   {
     SBMLDocument d = new  SBMLDocument();
-    d.setLevelAndVersion(2,1);
-    Model m1 = new  Model();
-    Unit u = new  Unit();
+    d.setLevelAndVersion(2,1,false);
+    Model m1 = new  Model(2,1);
+    Unit u = new  Unit(2,1);
     u.setKind(libsbml.UnitKind_forName("mole"));
     u.setOffset(3.2);
-    UnitDefinition ud = new  UnitDefinition();
+    UnitDefinition ud = new  UnitDefinition(2,1);
+    ud.setId( "ud");
     ud.addUnit(u);
     m1.addUnitDefinition(ud);
     d.setModel(m1);
-    assertTrue( d.setLevelAndVersion(2,2) == false );
-    assertTrue( d.setLevelAndVersion(2,3) == false );
-    assertTrue( d.setLevelAndVersion(1,2) == false );
-    assertTrue( d.setLevelAndVersion(1,1) == false );
+    assertTrue( d.setLevelAndVersion(2,2,false) == false );
+    assertTrue( d.setLevelAndVersion(2,3,false) == false );
+    assertTrue( d.setLevelAndVersion(1,2,false) == false );
+    assertTrue( d.setLevelAndVersion(1,1,false) == false );
     d = null;
   }
 
   public void test_SBMLDocument_setLevelAndVersion_UnitsError()
   {
     SBMLDocument d = new  SBMLDocument();
-    d.setLevelAndVersion(2,4);
+    d.setLevelAndVersion(2,4,false);
     Model m1 = d.createModel();
     Compartment c = m1.createCompartment();
     c.setId( "c");
@@ -181,39 +190,72 @@ public class TestSBMLDocument {
     Rule r = m1.createAssignmentRule();
     r.setVariable( "c");
     r.setFormula( "p*p");
-    assertTrue( d.setLevelAndVersion(2,2) == true );
-    assertTrue( d.setLevelAndVersion(2,3) == true );
-    assertTrue( d.setLevelAndVersion(1,2) == true );
-    assertTrue( d.setLevelAndVersion(1,1) == false );
+    assertTrue( d.setLevelAndVersion(2,2,false) == true );
+    assertTrue( d.setLevelAndVersion(2,3,false) == true );
+    assertTrue( d.setLevelAndVersion(1,2,false) == true );
+    assertTrue( d.setLevelAndVersion(1,1,false) == false );
     d = null;
   }
 
   public void test_SBMLDocument_setLevelAndVersion_Warning()
   {
     SBMLDocument d = new  SBMLDocument();
-    d.setLevelAndVersion(2,2);
-    Model m1 = new  Model();
+    d.setLevelAndVersion(2,2,false);
+    Model m1 = new  Model(2,2);
     (m1).setSBOTerm(2);
     d.setModel(m1);
-    assertTrue( d.setLevelAndVersion(2,3) == true );
-    assertTrue( d.setLevelAndVersion(2,1) == true );
-    assertTrue( d.setLevelAndVersion(1,2) == true );
-    assertTrue( d.setLevelAndVersion(1,1) == false );
+    assertTrue( d.setLevelAndVersion(2,3,false) == true );
+    assertTrue( d.setLevelAndVersion(2,1,false) == true );
+    assertTrue( d.setLevelAndVersion(1,2,false) == true );
+    assertTrue( d.setLevelAndVersion(1,1,false) == false );
     d = null;
   }
 
   public void test_SBMLDocument_setModel()
   {
     SBMLDocument d = new  SBMLDocument();
-    Model m1 = new  Model();
-    Model m2 = new  Model();
-    assertEquals(d.getModel(),null);
+    Model m1 = new  Model(2,4);
+    Model m2 = new  Model(2,4);
+    assertTrue( d.getModel() == null );
     d.setModel(m1);
-    assertNotEquals(d.getModel(),m1);
+    assertTrue( !d.getModel().equals(m1) );
     d.setModel(d.getModel());
-    assertNotEquals(d.getModel(),m1);
+    assertTrue( !d.getModel().equals(m1) );
     d.setModel(m2);
-    assertNotEquals(d.getModel(),m2);
+    assertTrue( !d.getModel().equals(m2) );
+    d = null;
+  }
+
+  public void test_SBMLDocument_setModel1()
+  {
+    SBMLDocument d = new  SBMLDocument();
+    d.setLevelAndVersion(2,2,false);
+    Model m1 = new  Model(2,1);
+    long i = d.setModel(m1);
+    assertTrue( i == libsbml.LIBSBML_VERSION_MISMATCH );
+    assertTrue( d.getModel() == null );
+    d = null;
+  }
+
+  public void test_SBMLDocument_setModel2()
+  {
+    SBMLDocument d = new  SBMLDocument();
+    d.setLevelAndVersion(2,2,false);
+    Model m1 = new  Model(1,2);
+    long i = d.setModel(m1);
+    assertTrue( i == libsbml.LIBSBML_LEVEL_MISMATCH );
+    assertTrue( d.getModel() == null );
+    d = null;
+  }
+
+  public void test_SBMLDocument_setModel3()
+  {
+    SBMLDocument d = new  SBMLDocument();
+    d.setLevelAndVersion(2,2,false);
+    Model m1 = new  Model(2,2);
+    long i = d.setModel(m1);
+    assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+    assertTrue( d.getModel() != null );
     d = null;
   }
 

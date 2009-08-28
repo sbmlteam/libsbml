@@ -30,6 +30,21 @@ require 'libSBML'
 
 class TestRDFAnnotation2 < Test::Unit::TestCase
 
+  def util_NaN
+    z = 0.0
+    return 0.0/z
+  end
+
+  def util_PosInf
+    z = 0.0
+    return 1.0/z
+  end
+
+  def util_NegInf
+    z = 0.0
+    return -1.0/z
+  end
+
   def equals(*x)
     case x.size
     when 2
@@ -37,12 +52,11 @@ class TestRDFAnnotation2 < Test::Unit::TestCase
       return e == s
     when 1
       e, = x
-      return e == @@oss2.str()
+      return e == @@oss.str()
     end
   end
+
   def setup
-    @@oss2 = LibSBML::Ostringstream.new()
-    @@xos2 = LibSBML::XMLOutputStream.new(@@oss2)
     filename = "../../annotation/test/test-data/annotation2.xml"
     @@d2 = LibSBML::readSBML(filename)
     @@m2 = @@d2.getModel()
@@ -50,8 +64,6 @@ class TestRDFAnnotation2 < Test::Unit::TestCase
 
   def teardown
     @@d2 = nil
-    @@oss2 = nil
-    @@xos2 = nil
   end
 
   def test_RDFAnnotation2_getModelHistory
@@ -108,6 +120,9 @@ class TestRDFAnnotation2 < Test::Unit::TestCase
     c.setFamilyName("Keating")
     c.setGivenName("Sarah")
     h.addCreator(c)
+    d = LibSBML::Date.new(2008,11,17,18,37,0,0,0,0)
+    h.setCreatedDate(d)
+    h.setModifiedDate(d)
     @@m2.unsetModelHistory()
     @@m2.setModelHistory(h)
     cv = LibSBML::CVTerm.new()
@@ -116,8 +131,7 @@ class TestRDFAnnotation2 < Test::Unit::TestCase
     cv.addResource("http://www.geneontology.org/#GO:0005892")
     @@m2.addCVTerm(cv)
     ann = LibSBML::RDFAnnotationParser.parseModelHistory(@@m2)
-    expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "<annotation>\n" + 
+    expected = "<annotation>\n" + 
     "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
     "    <rdf:Description rdf:about=\"#_000001\">\n" + 
     "      <dc:creator rdf:parseType=\"Resource\">\n" + 
@@ -130,6 +144,12 @@ class TestRDFAnnotation2 < Test::Unit::TestCase
     "          </rdf:li>\n" + 
     "        </rdf:Bag>\n" + 
     "      </dc:creator>\n" + 
+    "      <dcterms:created rdf:parseType=\"Resource\">\n" + 
+    "        <dcterms:W3CDTF>2008-11-17T18:37:00Z</dcterms:W3CDTF>\n" + 
+    "      </dcterms:created>\n" + 
+    "      <dcterms:modified rdf:parseType=\"Resource\">\n" + 
+    "        <dcterms:W3CDTF>2008-11-17T18:37:00Z</dcterms:W3CDTF>\n" + 
+    "      </dcterms:modified>\n" + 
     "      <bqbiol:isVersionOf>\n" + 
     "        <rdf:Bag>\n" + 
     "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0005892\"/>\n" + 
@@ -138,8 +158,9 @@ class TestRDFAnnotation2 < Test::Unit::TestCase
     "    </rdf:Description>\n" + 
     "  </rdf:RDF>\n" + 
     "</annotation>"
-    ann.write(@@xos2)
-    assert_equal true, equals(expected)
+    if (ann)
+      assert_equal true, equals(expected,ann.toXMLString())
+    end
   end
 
   def test_RDFAnnotation2_modelWithHistoryAndMultipleModifiedDates
@@ -155,8 +176,7 @@ class TestRDFAnnotation2 < Test::Unit::TestCase
     @@m2.unsetModelHistory()
     @@m2.setModelHistory(h)
     ann = LibSBML::RDFAnnotationParser.parseModelHistory(@@m2)
-    expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "<annotation>\n" + 
+    expected = "<annotation>\n" + 
     "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
     "    <rdf:Description rdf:about=\"#_000001\">\n" + 
     "      <dc:creator rdf:parseType=\"Resource\">\n" + 
@@ -181,8 +201,7 @@ class TestRDFAnnotation2 < Test::Unit::TestCase
     "    </rdf:Description>\n" + 
     "  </rdf:RDF>\n" + 
     "</annotation>"
-    ann.write(@@xos2)
-    assert_equal true, equals(expected)
+    assert_equal true, equals(expected,ann.toXMLString())
   end
 
   def test_RDFAnnotation2_modelWithHistoryWithCharacterReference

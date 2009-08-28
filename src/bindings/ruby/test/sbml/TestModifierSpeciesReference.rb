@@ -31,7 +31,7 @@ require 'libSBML'
 class TestModifierSpeciesReference < Test::Unit::TestCase
 
   def setup
-    @@msr = LibSBML::ModifierSpeciesReference.new()
+    @@msr = LibSBML::ModifierSpeciesReference.new(2,4)
     if (@@msr == nil)
     end
   end
@@ -50,18 +50,20 @@ class TestModifierSpeciesReference < Test::Unit::TestCase
     assert_equal true, @@msr.isModifier()
   end
 
-  def test_ModifierSpeciesReference_createWithLevelVersionAndNamespace
+  def test_ModifierSpeciesReference_createWithNS
     xmlns = LibSBML::XMLNamespaces.new()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = LibSBML::ModifierSpeciesReference.new(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = LibSBML::SBMLNamespaces.new(2,1)
+    sbmlns.addNamespaces(xmlns)
+    object = LibSBML::ModifierSpeciesReference.new(sbmlns)
     assert( object.getTypeCode() == LibSBML::SBML_MODIFIER_SPECIES_REFERENCE )
     assert( object.getMetaId() == "" )
     assert( object.getNotes() == nil )
     assert( object.getAnnotation() == nil )
     assert( object.getLevel() == 2 )
     assert( object.getVersion() == 1 )
-    assert( object.getNamespaces() != "" )
-    assert( object.getNamespaces().getLength() == 1 )
+    assert( object.getNamespaces() != nil )
+    assert( object.getNamespaces().getLength() == 2 )
     object = nil
   end
 

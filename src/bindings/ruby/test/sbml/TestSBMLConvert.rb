@@ -33,19 +33,27 @@ class TestSBMLConvert < Test::Unit::TestCase
   def test_SBMLConvert_addModifiersToReaction
     d = LibSBML::SBMLDocument.new(1,2)
     m = d.createModel()
-    kl = LibSBML::KineticLaw.new("k1*S1*S2*S3*S4*S5")
-    r = LibSBML::Reaction.new("R", "",kl,true)
-    m.addSpecies(LibSBML::Species.new("S1", ""))
-    m.addSpecies(LibSBML::Species.new("S2", ""))
-    m.addSpecies(LibSBML::Species.new("S3", ""))
-    m.addSpecies(LibSBML::Species.new("S4", ""))
-    m.addSpecies(LibSBML::Species.new("S5", ""))
-    r.addReactant(LibSBML::SpeciesReference.new("S1",1,1))
-    r.addReactant(LibSBML::SpeciesReference.new("S2",1,1))
-    r.addProduct(LibSBML::SpeciesReference.new("S5",1,1))
-    m.addReaction(r)
+    r = m.createReaction()
+    kl = r.createKineticLaw()
+    kl.setFormula( "k1*S1*S2*S3*S4*S5")
+    s1 = m.createSpecies()
+    s1.setId( "S1" )
+    s2 = m.createSpecies()
+    s2.setId( "S2")
+    s3 = m.createSpecies()
+    s3.setId( "S3")
+    s4 = m.createSpecies()
+    s4.setId( "S4")
+    s5 = m.createSpecies()
+    s5.setId( "S5")
+    sr1 = r.createReactant()
+    sr2 = r.createReactant()
+    sr3 = r.createProduct()
+    sr1.setSpecies( "S1")
+    sr2.setSpecies( "S2")
+    sr3.setSpecies( "S5")
     assert( r.getNumModifiers() == 0 )
-    d.setLevelAndVersion(2,1)
+    d.setLevelAndVersion(2,1,false)
     assert( d.getLevel() == 2 )
     assert( d.getVersion() == 1 )
     assert( m.getReaction(0).getNumModifiers() == 2 )
@@ -58,7 +66,7 @@ class TestSBMLConvert < Test::Unit::TestCase
 
   def test_SBMLConvert_convertToL1_SBMLDocument
     d = LibSBML::SBMLDocument.new(2,1)
-    d.setLevelAndVersion(1,2)
+    d.setLevelAndVersion(1,2,false)
     assert( d.getLevel() == 1 )
     assert( d.getVersion() == 2 )
     d = nil
@@ -68,14 +76,14 @@ class TestSBMLConvert < Test::Unit::TestCase
     d = LibSBML::SBMLDocument.new(2,1)
     m = d.createModel()
     sid =  "C";
-    c = LibSBML::Compartment.new()
-    s = LibSBML::Species.new()
+    c = LibSBML::Compartment.new(2,4)
+    s = LibSBML::Species.new(2,4)
     c.setId(sid)
     m.addCompartment(c)
     s.setCompartment(sid)
     s.setInitialAmount(2.34)
     m.addSpecies(s)
-    d.setLevelAndVersion(1,2)
+    d.setLevelAndVersion(1,2,false)
     assert( s.getInitialAmount() == 2.34 )
     d = nil
   end
@@ -84,15 +92,16 @@ class TestSBMLConvert < Test::Unit::TestCase
     d = LibSBML::SBMLDocument.new(2,1)
     m = d.createModel()
     sid =  "C";
-    c = LibSBML::Compartment.new()
-    s = LibSBML::Species.new()
+    c = LibSBML::Compartment.new(2,1)
+    s = LibSBML::Species.new(2,1)
     c.setId(sid)
     c.setSize(1.2)
     m.addCompartment(c)
+    s.setId( "s"  )
     s.setCompartment(sid)
     s.setInitialConcentration(2.34)
     m.addSpecies(s)
-    d.setLevelAndVersion(1,2)
+    d.setLevelAndVersion(1,2,false)
     s1 = m.getSpecies(0)
     assert( s1 != nil )
     assert ((  "C" == s1.getCompartment() ))
@@ -104,15 +113,46 @@ class TestSBMLConvert < Test::Unit::TestCase
 
   def test_SBMLConvert_convertToL2_SBMLDocument
     d = LibSBML::SBMLDocument.new(1,2)
-    d.setLevelAndVersion(2,1)
+    d.setLevelAndVersion(2,1,false)
     assert( d.getLevel() == 2 )
     assert( d.getVersion() == 1 )
-    d.setLevelAndVersion(2,2)
+    d.setLevelAndVersion(2,2,false)
     assert( d.getLevel() == 2 )
     assert( d.getVersion() == 2 )
-    d.setLevelAndVersion(2,3)
+    d.setLevelAndVersion(2,3,false)
     assert( d.getLevel() == 2 )
     assert( d.getVersion() == 3 )
+    d = nil
+  end
+
+  def test_SBMLConvert_convertToL2v4_DuplicateAnnotations_doc
+    d = LibSBML::SBMLDocument.new(2,1)
+    d.createModel()
+    annotation =  "<rdf/>\n<rdf/>";
+    i = (d).setAnnotation(annotation)
+    assert( d.getLevel() == 2 )
+    assert( d.getVersion() == 1 )
+    assert( (d).getAnnotation().getNumChildren() == 2 )
+    d.setLevelAndVersion(2,4,false)
+    assert( d.getLevel() == 2 )
+    assert( d.getVersion() == 4 )
+    assert( (d).getAnnotation().getNumChildren() == 1 )
+    d = nil
+  end
+
+  def test_SBMLConvert_convertToL2v4_DuplicateAnnotations_model
+    d = LibSBML::SBMLDocument.new(2,1)
+    m = d.createModel()
+    annotation =  "<rdf/>\n<rdf/>";
+    i = (m).setAnnotation(annotation)
+    assert( d.getLevel() == 2 )
+    assert( d.getVersion() == 1 )
+    assert( (m).getAnnotation().getNumChildren() == 2 )
+    d.setLevelAndVersion(2,4,false)
+    assert( d.getLevel() == 2 )
+    assert( d.getVersion() == 4 )
+    m = d.getModel()
+    assert( (m).getAnnotation().getNumChildren() == 1 )
     d = nil
   end
 

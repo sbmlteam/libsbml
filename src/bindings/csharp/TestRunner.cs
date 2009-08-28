@@ -120,7 +120,7 @@ namespace LibSBMLCSTestRunner
 
                 foreach (string testFile in testFiles)
                 {
-                    RunTestFile(testFile, sData);
+                    RunTestFile(testFile, testDir, sData);
                 }
             }
 
@@ -140,9 +140,9 @@ namespace LibSBMLCSTestRunner
         static int nFailureSum;
         static int nTestFunc;
 
-        private static void RunTestFile(string testFile, string sData)
+        private static void RunTestFile(string testFile, string testDir, string sData)
         {
-            Console.WriteLine("Runing test file: '" + new FileInfo(testFile).Name + "'");
+            Console.WriteLine("Runing test file: '" + new FileInfo(testFile).Name + "' in " + testDir);
             Console.WriteLine("----------------------------------------------------------------");
 
             // read C# code

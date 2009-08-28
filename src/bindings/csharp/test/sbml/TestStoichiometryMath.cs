@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Sarah Keating 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestStoichiometryMath.c
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -58,6 +58,10 @@ namespace LibSBMLCSTest {
       {
         return;
       }
+      else if ( (a == null) || (b == null) )
+      {
+        throw new AssertionError();
+      }
       else if (a.Equals(b))
       {
         return;
@@ -71,6 +75,10 @@ namespace LibSBMLCSTest {
       if ( (a == null) && (b == null) )
       {
         throw new AssertionError();
+      }
+      else if ( (a == null) || (b == null) )
+      {
+        return;
       }
       else if (a.Equals(b))
       {
@@ -118,7 +126,7 @@ namespace LibSBMLCSTest {
 
     public void setUp()
     {
-      D = new  StoichiometryMath();
+      D = new  StoichiometryMath(2,4);
       if (D == null);
       {
       }
@@ -138,11 +146,13 @@ namespace LibSBMLCSTest {
       assertTrue( D.getMath() == null );
     }
 
-    public void test_StoichiometryMath_createWithLevelVersionAndNamespace()
+    public void test_StoichiometryMath_createWithNS()
     {
       XMLNamespaces xmlns = new  XMLNamespaces();
-      xmlns.add( "http://www.sbml.org", "sbml");
-      StoichiometryMath object1 = new  StoichiometryMath(2,1,xmlns);
+      xmlns.add( "http://www.sbml.org", "testsbml");
+      SBMLNamespaces sbmlns = new  SBMLNamespaces(2,1);
+      sbmlns.addNamespaces(xmlns);
+      StoichiometryMath object1 = new  StoichiometryMath(sbmlns);
       assertTrue( object1.getTypeCode() == libsbml.SBML_STOICHIOMETRY_MATH );
       assertTrue( object1.getMetaId() == "" );
       assertTrue( object1.getNotes() == null );
@@ -150,28 +160,8 @@ namespace LibSBMLCSTest {
       assertTrue( object1.getLevel() == 2 );
       assertTrue( object1.getVersion() == 1 );
       assertTrue( object1.getNamespaces() != null );
-      assertTrue( object1.getNamespaces().getLength() == 1 );
+      assertTrue( object1.getNamespaces().getLength() == 2 );
       object1 = null;
-    }
-
-    public void test_StoichiometryMath_createWithMath()
-    {
-      ASTNode math = libsbml.parseFormula("x^3");
-      StoichiometryMath fd = new  StoichiometryMath(math);
-      ASTNode math1;
-      string formula;
-      assertTrue( fd.getTypeCode() == libsbml.SBML_STOICHIOMETRY_MATH );
-      assertTrue( fd.getMetaId() == "" );
-      assertTrue( fd.getNotes() == null );
-      assertTrue( fd.getAnnotation() == null );
-      math1 = fd.getMath();
-      assertTrue( math1 != null );
-      formula = libsbml.formulaToString(math1);
-      assertTrue( formula != null );
-      assertTrue((  "x^3" == formula ));
-      assertTrue( fd.getMath() != math );
-      assertEquals( true, fd.isSetMath() );
-      fd = null;
     }
 
     public void test_StoichiometryMath_free_NULL()
@@ -202,6 +192,29 @@ namespace LibSBMLCSTest {
       if (D.getMath() != null);
       {
       }
+    }
+
+    public void test_StoichiometryMath_setMath1()
+    {
+      ASTNode math = libsbml.parseFormula("2 * k");
+      long i = D.setMath(math);
+      assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+      assertTrue( D.getMath() != math );
+      assertEquals( true, D.isSetMath() );
+      i = D.setMath(null);
+      assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+      assertTrue( D.getMath() == null );
+      assertEquals( false, D.isSetMath() );
+      math = null;
+    }
+
+    public void test_StoichiometryMath_setMath2()
+    {
+      ASTNode math = new  ASTNode(libsbml.AST_TIMES);
+      long i = D.setMath(math);
+      assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT );
+      assertEquals( false, D.isSetMath() );
+      math = null;
     }
 
   }

@@ -21,3 +21,4 @@ TestFilenameFilter.class
 test.xml.gz
 out.xml
 AutoTestRunner.class
+.libs

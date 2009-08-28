@@ -1,12 +1,12 @@
 #
-# @file    TestReadFromFile1.rb
+# @file    TestMathReadFromFile1.rb
 # @brief   Tests for reading MathML from files into ASTNodes.
 #
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Sarah Keating 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestReadFromFile1.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -32,13 +32,7 @@ class TestMathReadFromFile1 < Test::Unit::TestCase
 
   def test_read_MathML_1
     reader = LibSBML::SBMLReader.new()
-    d = LibSBML::SBMLDocument.new()
-    m = LibSBML::Model.new()
-    fd = LibSBML::FunctionDefinition.new()
-    ia = LibSBML::InitialAssignment.new()
-    r = 
-    kl = LibSBML::KineticLaw.new()
-    filename = "../../math/test/test-data/" 
+    filename = "../../math/test/test-data/"
     filename += "mathML_1.xml"
     d = reader.readSBML(filename)
     if (d == nil)

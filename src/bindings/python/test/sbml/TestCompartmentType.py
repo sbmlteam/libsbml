@@ -34,7 +34,7 @@ class TestCompartmentType(unittest.TestCase):
   CT = None
 
   def setUp(self):
-    self.CT = libsbml.CompartmentType()
+    self.CT = libsbml.CompartmentType(2,4)
     if (self.CT == None):
       pass    
     pass  
@@ -54,31 +54,20 @@ class TestCompartmentType(unittest.TestCase):
     self.assertEqual( False, self.CT.isSetName() )
     pass  
 
-  def test_CompartmentType_createWith(self):
-    c = libsbml.CompartmentType("A", "")
-    self.assert_( c.getTypeCode() == libsbml.SBML_COMPARTMENT_TYPE )
-    self.assert_( c.getMetaId() == "" )
-    self.assert_( c.getNotes() == None )
-    self.assert_( c.getAnnotation() == None )
-    self.assert_( c.getName() == "" )
-    self.assert_((  "A"      == c.getId() ))
-    self.assertEqual( True, c.isSetId() )
-    self.assertEqual( False, c.isSetName() )
-    c = None
-    pass  
-
-  def test_CompartmentType_createWithLevelVersionAndNamespace(self):
+  def test_CompartmentType_createWithNS(self):
     xmlns = libsbml.XMLNamespaces()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = libsbml.CompartmentType(1,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = libsbml.SBMLNamespaces(2,2)
+    sbmlns.addNamespaces(xmlns)
+    object = libsbml.CompartmentType(sbmlns)
     self.assert_( object.getTypeCode() == libsbml.SBML_COMPARTMENT_TYPE )
     self.assert_( object.getMetaId() == "" )
     self.assert_( object.getNotes() == None )
     self.assert_( object.getAnnotation() == None )
-    self.assert_( object.getLevel() == 1 )
-    self.assert_( object.getVersion() == 1 )
-    self.assert_( object.getNamespaces() != "" )
-    self.assert_( object.getNamespaces().getLength() == 1 )
+    self.assert_( object.getLevel() == 2 )
+    self.assert_( object.getVersion() == 2 )
+    self.assert_( object.getNamespaces() != None )
+    self.assert_( object.getNamespaces().getLength() == 2 )
     object = None
     pass  
 
@@ -101,7 +90,7 @@ class TestCompartmentType(unittest.TestCase):
     pass  
 
   def test_CompartmentType_setName(self):
-    name =  "My Favorite Factory";
+    name =  "My_Favorite_Factory";
     self.CT.setName(name)
     self.assert_(( name == self.CT.getName() ))
     self.assertEqual( True, self.CT.isSetName() )

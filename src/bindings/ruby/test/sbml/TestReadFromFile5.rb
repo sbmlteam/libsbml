@@ -32,26 +32,7 @@ class TestReadFromFile5 < Test::Unit::TestCase
 
   def test_read_l2v1_assignment
     reader = LibSBML::SBMLReader.new()
-    d = LibSBML::SBMLDocument.new()
-    m = LibSBML::Model.new()
-    c = LibSBML::Compartment.new()
-    s = LibSBML::Species.new()
-    p = LibSBML::Parameter.new()
-    ar = LibSBML::AssignmentRule.new()
-    r = LibSBML::Reaction.new()
-    sr = LibSBML::SpeciesReference.new()
-    kl = LibSBML::KineticLaw.new()
-    ud = LibSBML::UnitDefinition.new()
-    r1 = LibSBML::Reaction.new()
-    loc = LibSBML::ListOfCompartments.new()
-    c1 = LibSBML::Compartment.new()
-    lor = LibSBML::ListOfRules.new()
-    ar1 = LibSBML::AssignmentRule.new()
-    lop = LibSBML::ListOfParameters.new()
-    p1 = LibSBML::Parameter.new()
-    los = LibSBML::ListOfSpecies.new()
-    s1 = LibSBML::Species.new()
-    filename = "../../sbml/test/test-data/" 
+    filename = "../../sbml/test/test-data/"
     filename += "l2v1-assignment.xml"
     d = reader.readSBML(filename)
     if (d == nil)

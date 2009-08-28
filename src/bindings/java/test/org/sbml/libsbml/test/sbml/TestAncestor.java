@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Sarah Keating 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestAncestor.cpp
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -110,7 +110,7 @@ public class TestAncestor {
 
   public void test_AlgebraicRule_ancestor_create()
   {
-    Model m = new Model();
+    Model m = new Model(2,4);
     AlgebraicRule r = m.createAlgebraicRule();
     ListOf lo = m.getListOfRules();
     assertTrue( r.getAncestorOfType(libsbml.SBML_MODEL).equals(m) );
@@ -126,7 +126,7 @@ public class TestAncestor {
 
   public void test_AssignmentRule_ancestor_create()
   {
-    Model m = new Model();
+    Model m = new Model(2,4);
     AssignmentRule r = m.createAssignmentRule();
     ListOf lo = m.getListOfRules();
     assertTrue( r.getAncestorOfType(libsbml.SBML_MODEL).equals(m) );
@@ -142,8 +142,9 @@ public class TestAncestor {
 
   public void test_CompartmentType_ancestor_add()
   {
-    CompartmentType ct = new CompartmentType();
-    Model m = new Model();
+    CompartmentType ct = new CompartmentType(2,4);
+    Model m = new Model(2,4);
+    ct.setId("ct");
     m.addCompartmentType(ct);
     ct = null;
     ListOf lo = m.getListOfCompartmentTypes();
@@ -156,7 +157,7 @@ public class TestAncestor {
 
   public void test_CompartmentType_ancestor_create()
   {
-    Model m = new Model();
+    Model m = new Model(2,4);
     CompartmentType ct = m.createCompartmentType();
     ListOf lo = m.getListOfCompartmentTypes();
     assertTrue( ct.getAncestorOfType(libsbml.SBML_MODEL).equals(m) );
@@ -172,8 +173,9 @@ public class TestAncestor {
 
   public void test_Compartment_ancestor_add()
   {
-    Compartment c = new Compartment();
-    Model m = new Model();
+    Compartment c = new Compartment(2,4);
+    c.setId("C");
+    Model m = new Model(2,4);
     m.addCompartment(c);
     c = null;
     ListOf lo = m.getListOfCompartments();
@@ -186,7 +188,7 @@ public class TestAncestor {
 
   public void test_Compartment_ancestor_create()
   {
-    Model m = new Model();
+    Model m = new Model(2,4);
     Compartment c = m.createCompartment();
     ListOf lo = m.getListOfCompartments();
     assertTrue( c.getAncestorOfType(libsbml.SBML_MODEL).equals(m) );
@@ -202,8 +204,9 @@ public class TestAncestor {
 
   public void test_Constraint_ancestor_add()
   {
-    Constraint ct = new Constraint();
-    Model m = new Model();
+    Constraint ct = new Constraint(2,4);
+    Model m = new Model(2,4);
+    ct.setMath(libsbml.parseFormula("k+k"));
     m.addConstraint(ct);
     ct = null;
     ListOf lo = m.getListOfConstraints();
@@ -216,7 +219,7 @@ public class TestAncestor {
 
   public void test_Constraint_ancestor_create()
   {
-    Model m = new Model();
+    Model m = new Model(2,4);
     Constraint ct = m.createConstraint();
     ListOf lo = m.getListOfConstraints();
     assertTrue( ct.getAncestorOfType(libsbml.SBML_MODEL).equals(m) );
@@ -232,8 +235,8 @@ public class TestAncestor {
 
   public void test_Delay_ancestor_add()
   {
-    Delay d = new Delay();
-    Event e = new Event();
+    Delay d = new Delay(2,4);
+    Event e = new Event(2,4);
     e.setDelay(d);
     d = null;
     Delay obj = e.getDelay();
@@ -243,10 +246,41 @@ public class TestAncestor {
     e = null;
   }
 
+  public void test_Delay_ancestor_create()
+  {
+    Event e = new Event(2,4);
+    Delay ea = e.createDelay();
+    assertTrue( ea.getAncestorOfType(libsbml.SBML_EVENT).equals(e) );
+    assertTrue( ea.getAncestorOfType(libsbml.SBML_DOCUMENT) == null );
+    assertTrue( ea.getAncestorOfType(libsbml.SBML_COMPARTMENT) == null );
+    Delay obj = e.getDelay();
+    assertTrue( obj.getAncestorOfType(libsbml.SBML_EVENT).equals(e) );
+    assertTrue( obj.getAncestorOfType(libsbml.SBML_DOCUMENT) == null );
+    assertTrue( obj.getAncestorOfType(libsbml.SBML_COMPARTMENT) == null );
+  }
+
+  public void test_Delay_ancestor_create_model()
+  {
+    Model m = new Model(2,4);
+    Event e = m.createEvent();
+    Delay ea = m.createDelay();
+    assertTrue( ea.getAncestorOfType(libsbml.SBML_EVENT).equals(e) );
+    assertTrue( ea.getAncestorOfType(libsbml.SBML_MODEL).equals(m) );
+    assertTrue( ea.getAncestorOfType(libsbml.SBML_DOCUMENT) == null );
+    assertTrue( ea.getAncestorOfType(libsbml.SBML_COMPARTMENT) == null );
+    Delay obj = e.getDelay();
+    assertTrue( obj.getAncestorOfType(libsbml.SBML_EVENT).equals(e) );
+    assertTrue( obj.getAncestorOfType(libsbml.SBML_MODEL).equals(m) );
+    assertTrue( obj.getAncestorOfType(libsbml.SBML_DOCUMENT) == null );
+    assertTrue( obj.getAncestorOfType(libsbml.SBML_COMPARTMENT) == null );
+  }
+
   public void test_EventAssignment_ancestor_add()
   {
-    Event e = new Event();
-    EventAssignment ea = new EventAssignment();
+    Event e = new Event(2,4);
+    EventAssignment ea = new EventAssignment(2,4);
+    ea.setVariable("c");
+    ea.setMath(libsbml.parseFormula("K+L"));
     e.addEventAssignment(ea);
     ea = null;
     ListOf lo = e.getListOfEventAssignments();
@@ -259,7 +293,7 @@ public class TestAncestor {
 
   public void test_EventAssignment_ancestor_create()
   {
-    Event e = new Event();
+    Event e = new Event(2,4);
     EventAssignment ea = e.createEventAssignment();
     ListOf lo = e.getListOfEventAssignments();
     assertTrue( ea.getAncestorOfType(libsbml.SBML_EVENT).equals(e) );
@@ -275,7 +309,7 @@ public class TestAncestor {
 
   public void test_EventAssignment_ancestor_create_model()
   {
-    Model m = new Model();
+    Model m = new Model(2,4);
     Event e = m.createEvent();
     EventAssignment ea = m.createEventAssignment();
     ListOf lo = e.getListOfEventAssignments();
@@ -294,8 +328,11 @@ public class TestAncestor {
 
   public void test_Event_ancestor_add()
   {
-    Event e = new Event();
-    Model m = new Model();
+    Event e = new Event(2,4);
+    Model m = new Model(2,4);
+    Trigger t = new Trigger(2,4);
+    e.setTrigger(t);
+    e.createEventAssignment();
     m.addEvent(e);
     e = null;
     ListOf lo = m.getListOfEvents();
@@ -308,7 +345,7 @@ public class TestAncestor {
 
   public void test_Event_ancestor_create()
   {
-    Model m = new Model();
+    Model m = new Model(2,4);
     Event e = m.createEvent();
     ListOf lo = m.getListOfEvents();
     assertTrue( e.getAncestorOfType(libsbml.SBML_MODEL).equals(m) );
@@ -324,8 +361,10 @@ public class TestAncestor {
 
   public void test_FunctionDefinition_ancestor_add()
   {
-    FunctionDefinition fd = new FunctionDefinition();
-    Model m = new Model();
+    FunctionDefinition fd = new FunctionDefinition(2,4);
+    Model m = new Model(2,4);
+    fd.setId("fd");
+    fd.setMath(libsbml.parseFormula("l"));
     m.addFunctionDefinition(fd);
     fd = null;
     ListOf lo = m.getListOfFunctionDefinitions();
@@ -338,7 +377,7 @@ public class TestAncestor {
 
   public void test_FunctionDefinition_ancestor_create()
   {
-    Model m = new Model();
+    Model m = new Model(2,4);
     FunctionDefinition fd = m.createFunctionDefinition();
     ListOf lo = m.getListOfFunctionDefinitions();
     assertTrue( fd.getAncestorOfType(libsbml.SBML_MODEL).equals(m) );
@@ -354,8 +393,10 @@ public class TestAncestor {
 
   public void test_InitialAssignment_ancestor_add()
   {
-    InitialAssignment ia = new InitialAssignment();
-    Model m = new Model();
+    InitialAssignment ia = new InitialAssignment(2,4);
+    Model m = new Model(2,4);
+    ia.setSymbol("c");
+    ia.setMath(libsbml.parseFormula("9"));
     m.addInitialAssignment(ia);
     ia = null;
     ListOf lo = m.getListOfInitialAssignments();
@@ -368,7 +409,7 @@ public class TestAncestor {
 
   public void test_InitialAssignment_ancestor_create()
   {
-    Model m = new Model();
+    Model m = new Model(2,4);
     InitialAssignment ia = m.createInitialAssignment();
     ListOf lo = m.getListOfInitialAssignments();
     assertTrue( ia.getAncestorOfType(libsbml.SBML_MODEL).equals(m) );
@@ -384,8 +425,9 @@ public class TestAncestor {
 
   public void test_KineticLaw_Parameter_ancestor_add()
   {
-    KineticLaw kl = new KineticLaw();
-    Parameter p = new Parameter("jake");
+    KineticLaw kl = new KineticLaw(2,4);
+    Parameter p = new Parameter(2,4);
+    p.setId("jake");
     kl.addParameter(p);
     p = null;
     ListOfParameters lop = kl.getListOfParameters();
@@ -399,7 +441,7 @@ public class TestAncestor {
 
   public void test_KineticLaw_Parameter_ancestor_create()
   {
-    KineticLaw kl = new KineticLaw();
+    KineticLaw kl = new KineticLaw(2,4);
     Parameter p = kl.createParameter();
     assertTrue( kl.getNumParameters() == 1 );
     ListOfParameters lop = kl.getListOfParameters();
@@ -417,7 +459,7 @@ public class TestAncestor {
 
   public void test_KineticLaw_Parameter_ancestor_create_model()
   {
-    Model m = new Model();
+    Model m = new Model(2,4);
     Reaction r = m.createReaction();
     KineticLaw kl = m.createKineticLaw();
     Parameter p = m.createKineticLawParameter();
@@ -441,8 +483,8 @@ public class TestAncestor {
 
   public void test_KineticLaw_ancestor_add()
   {
-    KineticLaw kl = new KineticLaw();
-    Reaction r = new Reaction();
+    KineticLaw kl = new KineticLaw(2,4);
+    Reaction r = new Reaction(2,4);
     r.setKineticLaw(kl);
     KineticLaw obj = r.getKineticLaw();
     assertTrue( obj.getAncestorOfType(libsbml.SBML_REACTION).equals(r) );
@@ -453,7 +495,7 @@ public class TestAncestor {
 
   public void test_KineticLaw_ancestor_create()
   {
-    Reaction r = new Reaction();
+    Reaction r = new Reaction(2,4);
     KineticLaw kl = r.createKineticLaw();
     assertTrue( kl.getAncestorOfType(libsbml.SBML_REACTION).equals(r) );
     assertTrue( kl.getAncestorOfType(libsbml.SBML_DELAY) == null );
@@ -469,7 +511,7 @@ public class TestAncestor {
 
   public void test_KineticLaw_ancestor_create_model()
   {
-    Model m = new Model();
+    Model m = new Model(2,4);
     Reaction r = m.createReaction();
     KineticLaw kl = r.createKineticLaw();
     assertTrue( kl.getAncestorOfType(libsbml.SBML_REACTION).equals(r) );
@@ -486,8 +528,8 @@ public class TestAncestor {
 
   public void test_Model_ancestor_add()
   {
-    SBMLDocument d = new SBMLDocument();
-    Model m = new Model();
+    SBMLDocument d = new SBMLDocument(2,4);
+    Model m = new Model(2,4);
     d.setModel(m);
     assertTrue( d.equals(d.getModel().getAncestorOfType(libsbml.SBML_DOCUMENT)) );
     d = null;
@@ -505,8 +547,9 @@ public class TestAncestor {
 
   public void test_Parameter_ancestor_add()
   {
-    Parameter ia = new Parameter();
-    Model m = new Model();
+    Parameter ia = new Parameter(2,4);
+    Model m = new Model(2,4);
+    ia.setId("p");
     m.addParameter(ia);
     ia = null;
     ListOf lo = m.getListOfParameters();
@@ -519,7 +562,7 @@ public class TestAncestor {
 
   public void test_Parameter_ancestor_create()
   {
-    Model m = new Model();
+    Model m = new Model(2,4);
     Parameter p = m.createParameter();
     ListOf lo = m.getListOfParameters();
     assertTrue( p.getAncestorOfType(libsbml.SBML_MODEL).equals(m) );
@@ -535,7 +578,7 @@ public class TestAncestor {
 
   public void test_RateRule_ancestor_create()
   {
-    Model m = new Model();
+    Model m = new Model(2,4);
     RateRule r = m.createRateRule();
     ListOf lo = m.getListOfRules();
     assertTrue( r.getAncestorOfType(libsbml.SBML_MODEL).equals(m) );
@@ -551,8 +594,9 @@ public class TestAncestor {
 
   public void test_Reaction_ancestor_add()
   {
-    Reaction ia = new Reaction();
-    Model m = new Model();
+    Reaction ia = new Reaction(2,4);
+    Model m = new Model(2,4);
+    ia.setId("k");
     m.addReaction(ia);
     ia = null;
     ListOf lo = m.getListOfReactions();
@@ -565,7 +609,7 @@ public class TestAncestor {
 
   public void test_Reaction_ancestor_create()
   {
-    Model m = new Model();
+    Model m = new Model(2,4);
     Reaction r = m.createReaction();
     ListOf lo = m.getListOfReactions();
     assertTrue( r.getAncestorOfType(libsbml.SBML_MODEL).equals(m) );
@@ -581,8 +625,10 @@ public class TestAncestor {
 
   public void test_Rule_ancestor_add()
   {
-    Rule ia = new RateRule("a");
-    Model m = new Model();
+    Rule ia = new RateRule(2,4);
+    ia.setVariable("a");
+    ia.setMath(libsbml.parseFormula("9"));
+    Model m = new Model(2,4);
     m.addRule(ia);
     ia = null;
     ListOf lo = m.getListOfRules();
@@ -595,8 +641,9 @@ public class TestAncestor {
 
   public void test_SpeciesReference_Modifier_ancestor_add()
   {
-    ModifierSpeciesReference sr = new ModifierSpeciesReference();
-    Reaction r = new Reaction();
+    ModifierSpeciesReference sr = new ModifierSpeciesReference(2,4);
+    sr.setSpecies("s");
+    Reaction r = new Reaction(2,4);
     r.addModifier(sr);
     sr = null;
     ListOf lo = r.getListOfModifiers();
@@ -609,7 +656,7 @@ public class TestAncestor {
 
   public void test_SpeciesReference_Modifier_ancestor_create()
   {
-    Reaction r = new Reaction();
+    Reaction r = new Reaction(2,4);
     ModifierSpeciesReference sr = r.createModifier();
     ListOf lo = r.getListOfModifiers();
     assertTrue( sr.getAncestorOfType(libsbml.SBML_REACTION).equals(r) );
@@ -625,7 +672,7 @@ public class TestAncestor {
 
   public void test_SpeciesReference_Modifier_ancestor_create_model()
   {
-    Model m = new Model();
+    Model m = new Model(2,4);
     Reaction r = m.createReaction();
     ModifierSpeciesReference sr = m.createModifier();
     ListOf lo = r.getListOfModifiers();
@@ -644,8 +691,9 @@ public class TestAncestor {
 
   public void test_SpeciesReference_Product_ancestor_add()
   {
-    SpeciesReference sr = new SpeciesReference();
-    Reaction r = new Reaction();
+    SpeciesReference sr = new SpeciesReference(2,4);
+    Reaction r = new Reaction(2,4);
+    sr.setSpecies("p");
     r.addProduct(sr);
     sr = null;
     ListOf lo = r.getListOfProducts();
@@ -658,7 +706,7 @@ public class TestAncestor {
 
   public void test_SpeciesReference_Product_ancestor_create()
   {
-    Reaction r = new Reaction();
+    Reaction r = new Reaction(2,4);
     SpeciesReference sr = r.createProduct();
     ListOf lo = r.getListOfProducts();
     assertTrue( sr.getAncestorOfType(libsbml.SBML_REACTION).equals(r) );
@@ -674,7 +722,7 @@ public class TestAncestor {
 
   public void test_SpeciesReference_Product_ancestor_create_model()
   {
-    Model m = new Model();
+    Model m = new Model(2,4);
     Reaction r = m.createReaction();
     SpeciesReference sr = m.createProduct();
     ListOf lo = r.getListOfProducts();
@@ -693,8 +741,9 @@ public class TestAncestor {
 
   public void test_SpeciesReference_Reactant_ancestor_add()
   {
-    SpeciesReference sr = new SpeciesReference();
-    Reaction r = new Reaction();
+    SpeciesReference sr = new SpeciesReference(2,4);
+    Reaction r = new Reaction(2,4);
+    sr.setSpecies("s");
     r.addReactant(sr);
     sr = null;
     ListOf lo = r.getListOfReactants();
@@ -707,7 +756,7 @@ public class TestAncestor {
 
   public void test_SpeciesReference_Reactant_ancestor_create()
   {
-    Reaction r = new Reaction();
+    Reaction r = new Reaction(2,4);
     SpeciesReference sr = r.createReactant();
     ListOf lo = r.getListOfReactants();
     assertTrue( sr.getAncestorOfType(libsbml.SBML_REACTION).equals(r) );
@@ -723,7 +772,7 @@ public class TestAncestor {
 
   public void test_SpeciesReference_Reactant_ancestor_create_model()
   {
-    Model m = new Model();
+    Model m = new Model(2,4);
     Reaction r = m.createReaction();
     SpeciesReference sr = m.createReactant();
     ListOf lo = r.getListOfReactants();
@@ -742,8 +791,9 @@ public class TestAncestor {
 
   public void test_SpeciesType_ancestor_add()
   {
-    SpeciesType ia = new SpeciesType();
-    Model m = new Model();
+    SpeciesType ia = new SpeciesType(2,4);
+    Model m = new Model(2,4);
+    ia.setId("s");
     m.addSpeciesType(ia);
     ia = null;
     ListOf lo = m.getListOfSpeciesTypes();
@@ -756,7 +806,7 @@ public class TestAncestor {
 
   public void test_SpeciesType_ancestor_create()
   {
-    Model m = new Model();
+    Model m = new Model(2,4);
     SpeciesType st = m.createSpeciesType();
     ListOf lo = m.getListOfSpeciesTypes();
     assertTrue( st.getAncestorOfType(libsbml.SBML_MODEL).equals(m) );
@@ -772,8 +822,10 @@ public class TestAncestor {
 
   public void test_Species_ancestor_add()
   {
-    Species ia = new Species();
-    Model m = new Model();
+    Species ia = new Species(2,4);
+    Model m = new Model(2,4);
+    ia.setId("s");
+    ia.setCompartment("c");
     m.addSpecies(ia);
     ia = null;
     ListOf lo = m.getListOfSpecies();
@@ -786,7 +838,7 @@ public class TestAncestor {
 
   public void test_Species_ancestor_create()
   {
-    Model m = new Model();
+    Model m = new Model(2,4);
     Species s = m.createSpecies();
     ListOf lo = m.getListOfSpecies();
     assertTrue( s.getAncestorOfType(libsbml.SBML_MODEL).equals(m) );
@@ -802,8 +854,8 @@ public class TestAncestor {
 
   public void test_StoichiometryMath_ancestor_add()
   {
-    StoichiometryMath m = new StoichiometryMath();
-    SpeciesReference sr = new SpeciesReference();
+    StoichiometryMath m = new StoichiometryMath(2,4);
+    SpeciesReference sr = new SpeciesReference(2,4);
     sr.setStoichiometryMath(m);
     m = null;
     StoichiometryMath obj = sr.getStoichiometryMath();
@@ -813,10 +865,23 @@ public class TestAncestor {
     sr = null;
   }
 
+  public void test_StoichiometryMath_ancestor_create()
+  {
+    SpeciesReference sr = new SpeciesReference(2,4);
+    StoichiometryMath sm = sr.createStoichiometryMath();
+    assertTrue( sm.getAncestorOfType(libsbml.SBML_SPECIES_REFERENCE).equals(sr) );
+    assertTrue( sm.getAncestorOfType(libsbml.SBML_DOCUMENT) == null );
+    assertTrue( sm.getAncestorOfType(libsbml.SBML_COMPARTMENT) == null );
+    StoichiometryMath obj = sr.getStoichiometryMath();
+    assertTrue( obj.getAncestorOfType(libsbml.SBML_SPECIES_REFERENCE).equals(sr) );
+    assertTrue( obj.getAncestorOfType(libsbml.SBML_DOCUMENT) == null );
+    assertTrue( obj.getAncestorOfType(libsbml.SBML_COMPARTMENT) == null );
+  }
+
   public void test_Trigger_ancestor_add()
   {
-    Trigger d = new Trigger();
-    Event e = new Event();
+    Trigger d = new Trigger(2,4);
+    Event e = new Event(2,4);
     e.setTrigger(d);
     d = null;
     Trigger obj = e.getTrigger();
@@ -826,10 +891,41 @@ public class TestAncestor {
     e = null;
   }
 
+  public void test_Trigger_ancestor_create()
+  {
+    Event e = new Event(2,4);
+    Trigger ea = e.createTrigger();
+    assertTrue( ea.getAncestorOfType(libsbml.SBML_EVENT).equals(e) );
+    assertTrue( ea.getAncestorOfType(libsbml.SBML_DOCUMENT) == null );
+    assertTrue( ea.getAncestorOfType(libsbml.SBML_COMPARTMENT) == null );
+    Trigger obj = e.getTrigger();
+    assertTrue( obj.getAncestorOfType(libsbml.SBML_EVENT).equals(e) );
+    assertTrue( obj.getAncestorOfType(libsbml.SBML_DOCUMENT) == null );
+    assertTrue( obj.getAncestorOfType(libsbml.SBML_COMPARTMENT) == null );
+  }
+
+  public void test_Trigger_ancestor_create_model()
+  {
+    Model m = new Model(2,4);
+    Event e = m.createEvent();
+    Trigger ea = m.createTrigger();
+    assertTrue( ea.getAncestorOfType(libsbml.SBML_EVENT).equals(e) );
+    assertTrue( ea.getAncestorOfType(libsbml.SBML_MODEL).equals(m) );
+    assertTrue( ea.getAncestorOfType(libsbml.SBML_DOCUMENT) == null );
+    assertTrue( ea.getAncestorOfType(libsbml.SBML_COMPARTMENT) == null );
+    Trigger obj = e.getTrigger();
+    assertTrue( obj.getAncestorOfType(libsbml.SBML_EVENT).equals(e) );
+    assertTrue( obj.getAncestorOfType(libsbml.SBML_MODEL).equals(m) );
+    assertTrue( obj.getAncestorOfType(libsbml.SBML_DOCUMENT) == null );
+    assertTrue( obj.getAncestorOfType(libsbml.SBML_COMPARTMENT) == null );
+  }
+
   public void test_UnitDefinition_ancestor_add()
   {
-    UnitDefinition ia = new UnitDefinition();
-    Model m = new Model();
+    UnitDefinition ia = new UnitDefinition(2,4);
+    Model m = new Model(2,4);
+    ia.setId("u");
+    ia.createUnit();
     m.addUnitDefinition(ia);
     ia = null;
     ListOf lo = m.getListOfUnitDefinitions();
@@ -842,7 +938,7 @@ public class TestAncestor {
 
   public void test_UnitDefinition_ancestor_create()
   {
-    Model m = new Model();
+    Model m = new Model(2,4);
     UnitDefinition ud = m.createUnitDefinition();
     ListOf lo = m.getListOfUnitDefinitions();
     assertTrue( ud.getAncestorOfType(libsbml.SBML_MODEL).equals(m) );
@@ -858,8 +954,9 @@ public class TestAncestor {
 
   public void test_Unit_ancestor_add()
   {
-    UnitDefinition ud = new UnitDefinition();
-    Unit u = new Unit();
+    UnitDefinition ud = new UnitDefinition(2,4);
+    Unit u = new Unit(2,4);
+    u.setKind(libsbml.UNIT_KIND_MOLE);
     ud.addUnit(u);
     u = null;
     assertTrue( ud.getNumUnits() == 1 );
@@ -874,7 +971,7 @@ public class TestAncestor {
 
   public void test_Unit_ancestor_create()
   {
-    UnitDefinition ud = new UnitDefinition();
+    UnitDefinition ud = new UnitDefinition(2,4);
     Unit u = ud.createUnit();
     assertTrue( ud.getNumUnits() == 1 );
     ListOf lo = ud.getListOfUnits();
@@ -892,7 +989,7 @@ public class TestAncestor {
 
   public void test_Unit_ancestor_create_model()
   {
-    Model m = new Model();
+    Model m = new Model(2,4);
     UnitDefinition ud = m.createUnitDefinition();
     Unit u = m.createUnit();
     assertTrue( ud.getNumUnits() == 1 );

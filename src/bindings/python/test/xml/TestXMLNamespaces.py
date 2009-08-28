@@ -61,9 +61,30 @@ class TestXMLNamespaces(unittest.TestCase):
     self.assert_( (self.NS.getIndex( "http://test1.org/") == -1) == False )
     pass  
 
+  def test_XMLNamespaces_add1(self):
+    self.assert_( self.NS.getLength() == 0 )
+    self.assert_( self.NS.isEmpty() == True )
+    i = self.NS.add( "http://test1.org/", "test1")
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( self.NS.getLength() == 1 )
+    self.assert_( self.NS.isEmpty() == False )
+    pass  
+
   def test_XMLNamespaces_baseline(self):
     self.assert_( self.NS.getLength() == 0 )
     self.assert_( self.NS.isEmpty() == True )
+    pass  
+
+  def test_XMLNamespaces_clear(self):
+    self.NS.add( "http://test1.org/", "test1")
+    self.NS.add( "http://test2.org/", "test2")
+    self.NS.add( "http://test3.org/", "test3")
+    self.NS.add( "http://test4.org/", "test4")
+    self.NS.add( "http://test5.org/", "test5")
+    self.assert_( self.NS.getLength() == 5 )
+    i = self.NS.clear()
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( self.NS.getLength() == 0 )
     pass  
 
   def test_XMLNamespaces_get(self):
@@ -138,6 +159,24 @@ class TestXMLNamespaces(unittest.TestCase):
     self.NS.remove(0)
     self.assert_( self.NS.getLength() == 1 )
     self.NS.remove(0)
+    self.assert_( self.NS.getLength() == 0 )
+    pass  
+
+  def test_XMLNamespaces_remove1(self):
+    self.NS.add( "http://test1.org/", "test1")
+    self.NS.add( "http://test2.org/", "test2")
+    self.assert_( self.NS.getLength() == 2 )
+    i = self.NS.remove(4)
+    self.assert_( i == libsbml.LIBSBML_INDEX_EXCEEDS_SIZE )
+    self.assert_( self.NS.getLength() == 2 )
+    i = self.NS.remove( "test4")
+    self.assert_( i == libsbml.LIBSBML_INDEX_EXCEEDS_SIZE )
+    self.assert_( self.NS.getLength() == 2 )
+    i = self.NS.remove(1)
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( self.NS.getLength() == 1 )
+    i = self.NS.remove( "test1")
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( self.NS.getLength() == 0 )
     pass  
 

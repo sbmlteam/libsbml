@@ -152,6 +152,19 @@ public class TestXMLError {
     error = null;
   }
 
+  public void test_XMLError_setters()
+  {
+    XMLError error = new XMLError();
+    assertTrue( error != null );
+    long i = error.setLine(23);
+    assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+    assertTrue( error.getLine() == 23 );
+    i = error.setColumn(45);
+    assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+    assertTrue( error.getColumn() == 45 );
+    error = null;
+  }
+
   /**
    * Loads the SWIG-generated libSBML Java module when this class is
    * loaded, or reports a sensible diagnostic message about why it failed.

@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Python conversion)
 # @author  Ben Bornstein 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestCopyAndClone.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -82,8 +82,9 @@ class TestXMLCopyAndClone(unittest.TestCase):
     pass  
 
   def test_Node_assignmentOperator(self):
+    att = libsbml.XMLAttributes()
     t = libsbml.XMLTriple("sarah", "http://foo.org/", "bar")
-    token = libsbml.XMLToken(t,3,4)
+    token = libsbml.XMLToken(t,att,3,4)
     node = libsbml.XMLNode(token)
     child = libsbml.XMLNode()
     node.addChild(child)
@@ -92,7 +93,7 @@ class TestXMLCopyAndClone(unittest.TestCase):
     self.assert_( node.getURI() ==  "http://foo.org/" )
     self.assert_( node.getPrefix() ==  "bar" )
     self.assert_( node.isEnd() == False )
-    self.assert_( node.isEOF() == True )
+    self.assert_( node.isEOF() == False )
     self.assert_( node.getLine() == 3 )
     self.assert_( node.getColumn() == 4 )
     node2 = libsbml.XMLNode()
@@ -102,7 +103,7 @@ class TestXMLCopyAndClone(unittest.TestCase):
     self.assert_( node2.getURI() ==  "http://foo.org/" )
     self.assert_( node2.getPrefix() ==  "bar" )
     self.assert_( node2.isEnd() == False )
-    self.assert_( node2.isEOF() == True )
+    self.assert_( node2.isEOF() == False )
     self.assert_( node2.getLine() == 3 )
     self.assert_( node2.getColumn() == 4 )
     t = None
@@ -112,8 +113,9 @@ class TestXMLCopyAndClone(unittest.TestCase):
     pass  
 
   def test_Node_clone(self):
+    att = libsbml.XMLAttributes()
     t = libsbml.XMLTriple("sarah", "http://foo.org/", "bar")
-    token = libsbml.XMLToken(t,3,4)
+    token = libsbml.XMLToken(t,att,3,4)
     node = libsbml.XMLNode(token)
     child = libsbml.XMLNode()
     node.addChild(child)
@@ -122,7 +124,7 @@ class TestXMLCopyAndClone(unittest.TestCase):
     self.assert_( node.getURI() ==  "http://foo.org/" )
     self.assert_( node.getPrefix() ==  "bar" )
     self.assert_( node.isEnd() == False )
-    self.assert_( node.isEOF() == True )
+    self.assert_( node.isEOF() == False )
     self.assert_( node.getLine() == 3 )
     self.assert_( node.getColumn() == 4 )
     node2 = node.clone()
@@ -131,7 +133,7 @@ class TestXMLCopyAndClone(unittest.TestCase):
     self.assert_( node2.getURI() ==  "http://foo.org/" )
     self.assert_( node2.getPrefix() ==  "bar" )
     self.assert_( node2.isEnd() == False )
-    self.assert_( node2.isEOF() == True )
+    self.assert_( node2.isEOF() == False )
     self.assert_( node2.getLine() == 3 )
     self.assert_( node2.getColumn() == 4 )
     t = None
@@ -141,8 +143,9 @@ class TestXMLCopyAndClone(unittest.TestCase):
     pass  
 
   def test_Node_copyConstructor(self):
+    att = libsbml.XMLAttributes()
     t = libsbml.XMLTriple("sarah", "http://foo.org/", "bar")
-    token = libsbml.XMLToken(t,3,4)
+    token = libsbml.XMLToken(t,att,3,4)
     node = libsbml.XMLNode(token)
     child = libsbml.XMLNode()
     node.addChild(child)
@@ -151,7 +154,7 @@ class TestXMLCopyAndClone(unittest.TestCase):
     self.assert_( node.getURI() ==  "http://foo.org/" )
     self.assert_( node.getPrefix() ==  "bar" )
     self.assert_( node.isEnd() == False )
-    self.assert_( node.isEOF() == True )
+    self.assert_( node.isEOF() == False )
     self.assert_( node.getLine() == 3 )
     self.assert_( node.getColumn() == 4 )
     node2 = libsbml.XMLNode(node)
@@ -160,7 +163,7 @@ class TestXMLCopyAndClone(unittest.TestCase):
     self.assert_( node2.getURI() ==  "http://foo.org/" )
     self.assert_( node2.getPrefix() ==  "bar" )
     self.assert_( node2.isEnd() == False )
-    self.assert_( node2.isEOF() == True )
+    self.assert_( node2.isEOF() == False )
     self.assert_( node2.getLine() == 3 )
     self.assert_( node2.getColumn() == 4 )
     t = None
@@ -281,7 +284,7 @@ class TestXMLCopyAndClone(unittest.TestCase):
 
 def suite():
   suite = unittest.TestSuite()
-  suite.addTest(unittest.makeSuite(TestCopyAndClone))
+  suite.addTest(unittest.makeSuite(TestXMLCopyAndClone))
 
   return suite
 

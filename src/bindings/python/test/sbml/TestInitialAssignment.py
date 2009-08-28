@@ -34,7 +34,7 @@ class TestInitialAssignment(unittest.TestCase):
   IA = None
 
   def setUp(self):
-    self.IA = libsbml.InitialAssignment()
+    self.IA = libsbml.InitialAssignment(2,4)
     if (self.IA == None):
       pass    
     pass  
@@ -52,30 +52,20 @@ class TestInitialAssignment(unittest.TestCase):
     self.assert_( self.IA.getMath() == None )
     pass  
 
-  def test_InitialAssignment_createWith(self):
-    ia = libsbml.InitialAssignment("k")
-    self.assert_( ia.getTypeCode() == libsbml.SBML_INITIAL_ASSIGNMENT )
-    self.assert_( ia.getMetaId() == "" )
-    self.assert_( ia.getNotes() == None )
-    self.assert_( ia.getAnnotation() == None )
-    self.assertEqual( False, ia.isSetMath() )
-    self.assert_((  "k" == ia.getSymbol() ))
-    self.assertEqual( True, ia.isSetSymbol() )
-    ia = None
-    pass  
-
-  def test_InitialAssignment_createWithLevelVersionAndNamespace(self):
+  def test_InitialAssignment_createWithNS(self):
     xmlns = libsbml.XMLNamespaces()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = libsbml.InitialAssignment(2,3,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = libsbml.SBMLNamespaces(2,3)
+    sbmlns.addNamespaces(xmlns)
+    object = libsbml.InitialAssignment(sbmlns)
     self.assert_( object.getTypeCode() == libsbml.SBML_INITIAL_ASSIGNMENT )
     self.assert_( object.getMetaId() == "" )
     self.assert_( object.getNotes() == None )
     self.assert_( object.getAnnotation() == None )
     self.assert_( object.getLevel() == 2 )
     self.assert_( object.getVersion() == 3 )
-    self.assert_( object.getNamespaces() != "" )
-    self.assert_( object.getNamespaces().getLength() == 1 )
+    self.assert_( object.getNamespaces() != None )
+    self.assert_( object.getNamespaces().getLength() == 2 )
     object = None
     pass  
 

@@ -5,8 +5,8 @@
 ///  @author  Akiya Jouraku (Csharp conversion)
 ///  @author  Ben Bornstein 
 /// 
-///  $Id:$
-///  $HeadURL:$
+///  $Id$
+///  $HeadURL$
 /// 
 ///  This test file was converted from src/sbml/test/TestSpeciesReference.c
 ///  with the help of conversion sciprt (ctest_converter.pl).
@@ -58,6 +58,10 @@ namespace LibSBMLCSTest {
       {
         return;
       }
+      else if ( (a == null) || (b == null) )
+      {
+        throw new AssertionError();
+      }
       else if (a.Equals(b))
       {
         return;
@@ -71,6 +75,10 @@ namespace LibSBMLCSTest {
       if ( (a == null) && (b == null) )
       {
         throw new AssertionError();
+      }
+      else if ( (a == null) || (b == null) )
+      {
+        return;
       }
       else if (a.Equals(b))
       {
@@ -118,7 +126,7 @@ namespace LibSBMLCSTest {
 
     public void setUp()
     {
-      SR = new  SpeciesReference();
+      SR = new  SpeciesReference(2,4);
       if (SR == null);
       {
       }
@@ -145,7 +153,7 @@ namespace LibSBMLCSTest {
 
     public void test_SpeciesReference_createModifier()
     {
-      ModifierSpeciesReference sr = new  ModifierSpeciesReference();
+      ModifierSpeciesReference sr = new  ModifierSpeciesReference(2,4);
       assertTrue( sr.getTypeCode() == libsbml.SBML_MODIFIER_SPECIES_REFERENCE );
       assertTrue( sr.getMetaId() == "" );
       assertTrue( sr.getNotes() == null );
@@ -154,25 +162,13 @@ namespace LibSBMLCSTest {
       sr = null;
     }
 
-    public void test_SpeciesReference_createWith()
-    {
-      SpeciesReference sr = new  SpeciesReference("s3",4,2);
-      assertTrue( sr.getTypeCode() == libsbml.SBML_SPECIES_REFERENCE );
-      assertTrue( sr.getMetaId() == "" );
-      assertTrue( sr.getNotes() == null );
-      assertTrue( sr.getAnnotation() == null );
-      assertTrue((  "s3" == sr.getSpecies() ));
-      assertTrue( sr.getStoichiometry() == 4 );
-      assertTrue( sr.getDenominator() == 2 );
-      assertEquals( true, sr.isSetSpecies() );
-      sr = null;
-    }
-
-    public void test_SpeciesReference_createWithLevelVersionAndNamespace()
+    public void test_SpeciesReference_createWithNS()
     {
       XMLNamespaces xmlns = new  XMLNamespaces();
-      xmlns.add( "http://www.sbml.org", "sbml");
-      SpeciesReference object1 = new  SpeciesReference(2,1,xmlns);
+      xmlns.add( "http://www.sbml.org", "testsbml");
+      SBMLNamespaces sbmlns = new  SBMLNamespaces(2,1);
+      sbmlns.addNamespaces(xmlns);
+      SpeciesReference object1 = new  SpeciesReference(sbmlns);
       assertTrue( object1.getTypeCode() == libsbml.SBML_SPECIES_REFERENCE );
       assertTrue( object1.getMetaId() == "" );
       assertTrue( object1.getNotes() == null );
@@ -180,7 +176,7 @@ namespace LibSBMLCSTest {
       assertTrue( object1.getLevel() == 2 );
       assertTrue( object1.getVersion() == 1 );
       assertTrue( object1.getNamespaces() != null );
-      assertTrue( object1.getNamespaces().getLength() == 1 );
+      assertTrue( object1.getNamespaces().getLength() == 2 );
       object1 = null;
     }
 
@@ -227,7 +223,8 @@ namespace LibSBMLCSTest {
     public void test_SpeciesReference_setStoichiometryMath()
     {
       ASTNode math = libsbml.parseFormula("k3 / k2");
-      StoichiometryMath stoich = new  StoichiometryMath(math);
+      StoichiometryMath stoich = new  StoichiometryMath(2,4);
+      stoich.setMath(math);
       StoichiometryMath math1;
       string formula;
       SR.setStoichiometryMath(stoich);

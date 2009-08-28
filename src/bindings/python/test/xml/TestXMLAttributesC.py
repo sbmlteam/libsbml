@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Python conversion)
 # @author  Sarah Keating 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestXMLAttributesC.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -31,6 +31,23 @@ import libsbml
 
 class TestXMLAttributesC(unittest.TestCase):
 
+
+  def test_XMLAttributes_add1(self):
+    xa = libsbml.XMLAttributes()
+    xt2 = libsbml.XMLTriple("name2", "http://name2.org/", "p2")
+    i = xa.add( "name1", "val1", "http://name1.org/", "p1")
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    i = xa.add(xt2, "val2")
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( xa.getLength() == 2 )
+    self.assert_( xa.isEmpty() == False )
+    i = xa.add( "noprefix", "val3")
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( xa.getLength() == 3 )
+    self.assert_( xa.isEmpty() == False )
+    xa = None
+    xt2 = None
+    pass  
 
   def test_XMLAttributes_add_remove_qname_C(self):
     xa = libsbml.XMLAttributes()
@@ -148,6 +165,52 @@ class TestXMLAttributesC(unittest.TestCase):
     xt3 = None
     xt1a = None
     xt2a = None
+    pass  
+
+  def test_XMLAttributes_clear1(self):
+    xa = libsbml.XMLAttributes()
+    xt2 = libsbml.XMLTriple("name2", "http://name2.org/", "p2")
+    i = xa.add( "name1", "val1", "http://name1.org/", "p1")
+    i = xa.add(xt2, "val2")
+    i = xa.add( "noprefix", "val3")
+    self.assert_( xa.getLength() == 3 )
+    self.assert_( xa.isEmpty() == False )
+    i = xa.clear()
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( xa.getLength() == 0 )
+    self.assert_( xa.isEmpty() == True )
+    xa = None
+    xt2 = None
+    pass  
+
+  def test_XMLAttributes_remove1(self):
+    xa = libsbml.XMLAttributes()
+    xt2 = libsbml.XMLTriple("name2", "http://name2.org/", "p2")
+    i = xa.add( "name1", "val1", "http://name1.org/", "p1")
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    i = xa.add(xt2, "val2")
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    i = xa.add( "noprefix", "val3")
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    i = xa.add( "name4", "val4", "http://name4.org/", "p1")
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( xa.getLength() == 4 )
+    i = xa.remove(4)
+    self.assert_( i == libsbml.LIBSBML_INDEX_EXCEEDS_SIZE )
+    i = xa.remove(3)
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( xa.getLength() == 3 )
+    i = xa.remove( "noprefix")
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( xa.getLength() == 2 )
+    i = xa.remove(xt2)
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( xa.getLength() == 1 )
+    i = xa.remove( "name1", "http://name1.org/")
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( xa.getLength() == 0 )
+    xa = None
+    xt2 = None
     pass  
 
 def suite():

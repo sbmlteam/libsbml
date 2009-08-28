@@ -35,19 +35,27 @@ class TestSBMLConvert(unittest.TestCase):
   def test_SBMLConvert_addModifiersToReaction(self):
     d = libsbml.SBMLDocument(1,2)
     m = d.createModel()
-    kl = libsbml.KineticLaw("k1*S1*S2*S3*S4*S5")
-    r = libsbml.Reaction("R", "",kl,True)
-    m.addSpecies(libsbml.Species("S1", ""))
-    m.addSpecies(libsbml.Species("S2", ""))
-    m.addSpecies(libsbml.Species("S3", ""))
-    m.addSpecies(libsbml.Species("S4", ""))
-    m.addSpecies(libsbml.Species("S5", ""))
-    r.addReactant(libsbml.SpeciesReference("S1",1,1))
-    r.addReactant(libsbml.SpeciesReference("S2",1,1))
-    r.addProduct(libsbml.SpeciesReference("S5",1,1))
-    m.addReaction(r)
+    r = m.createReaction()
+    kl = r.createKineticLaw()
+    kl.setFormula( "k1*S1*S2*S3*S4*S5")
+    s1 = m.createSpecies()
+    s1.setId( "S1" )
+    s2 = m.createSpecies()
+    s2.setId( "S2")
+    s3 = m.createSpecies()
+    s3.setId( "S3")
+    s4 = m.createSpecies()
+    s4.setId( "S4")
+    s5 = m.createSpecies()
+    s5.setId( "S5")
+    sr1 = r.createReactant()
+    sr2 = r.createReactant()
+    sr3 = r.createProduct()
+    sr1.setSpecies( "S1")
+    sr2.setSpecies( "S2")
+    sr3.setSpecies( "S5")
     self.assert_( r.getNumModifiers() == 0 )
-    d.setLevelAndVersion(2,1)
+    d.setLevelAndVersion(2,1,False)
     self.assert_( d.getLevel() == 2 )
     self.assert_( d.getVersion() == 1 )
     self.assert_( m.getReaction(0).getNumModifiers() == 2 )
@@ -60,7 +68,7 @@ class TestSBMLConvert(unittest.TestCase):
 
   def test_SBMLConvert_convertToL1_SBMLDocument(self):
     d = libsbml.SBMLDocument(2,1)
-    d.setLevelAndVersion(1,2)
+    d.setLevelAndVersion(1,2,False)
     self.assert_( d.getLevel() == 1 )
     self.assert_( d.getVersion() == 2 )
     d = None
@@ -70,14 +78,14 @@ class TestSBMLConvert(unittest.TestCase):
     d = libsbml.SBMLDocument(2,1)
     m = d.createModel()
     sid =  "C";
-    c = libsbml.Compartment()
-    s = libsbml.Species()
+    c = libsbml.Compartment(2,4)
+    s = libsbml.Species(2,4)
     c.setId(sid)
     m.addCompartment(c)
     s.setCompartment(sid)
     s.setInitialAmount(2.34)
     m.addSpecies(s)
-    d.setLevelAndVersion(1,2)
+    d.setLevelAndVersion(1,2,False)
     self.assert_( s.getInitialAmount() == 2.34 )
     d = None
     pass  
@@ -86,15 +94,16 @@ class TestSBMLConvert(unittest.TestCase):
     d = libsbml.SBMLDocument(2,1)
     m = d.createModel()
     sid =  "C";
-    c = libsbml.Compartment()
-    s = libsbml.Species()
+    c = libsbml.Compartment(2,1)
+    s = libsbml.Species(2,1)
     c.setId(sid)
     c.setSize(1.2)
     m.addCompartment(c)
+    s.setId( "s"  )
     s.setCompartment(sid)
     s.setInitialConcentration(2.34)
     m.addSpecies(s)
-    d.setLevelAndVersion(1,2)
+    d.setLevelAndVersion(1,2,False)
     s1 = m.getSpecies(0)
     self.assert_( s1 != None )
     self.assert_((  "C" == s1.getCompartment() ))
@@ -106,15 +115,46 @@ class TestSBMLConvert(unittest.TestCase):
 
   def test_SBMLConvert_convertToL2_SBMLDocument(self):
     d = libsbml.SBMLDocument(1,2)
-    d.setLevelAndVersion(2,1)
+    d.setLevelAndVersion(2,1,False)
     self.assert_( d.getLevel() == 2 )
     self.assert_( d.getVersion() == 1 )
-    d.setLevelAndVersion(2,2)
+    d.setLevelAndVersion(2,2,False)
     self.assert_( d.getLevel() == 2 )
     self.assert_( d.getVersion() == 2 )
-    d.setLevelAndVersion(2,3)
+    d.setLevelAndVersion(2,3,False)
     self.assert_( d.getLevel() == 2 )
     self.assert_( d.getVersion() == 3 )
+    d = None
+    pass  
+
+  def test_SBMLConvert_convertToL2v4_DuplicateAnnotations_doc(self):
+    d = libsbml.SBMLDocument(2,1)
+    d.createModel()
+    annotation =  "<rdf/>\n<rdf/>";
+    i = (d).setAnnotation(annotation)
+    self.assert_( d.getLevel() == 2 )
+    self.assert_( d.getVersion() == 1 )
+    self.assert_( (d).getAnnotation().getNumChildren() == 2 )
+    d.setLevelAndVersion(2,4,False)
+    self.assert_( d.getLevel() == 2 )
+    self.assert_( d.getVersion() == 4 )
+    self.assert_( (d).getAnnotation().getNumChildren() == 1 )
+    d = None
+    pass  
+
+  def test_SBMLConvert_convertToL2v4_DuplicateAnnotations_model(self):
+    d = libsbml.SBMLDocument(2,1)
+    m = d.createModel()
+    annotation =  "<rdf/>\n<rdf/>";
+    i = (m).setAnnotation(annotation)
+    self.assert_( d.getLevel() == 2 )
+    self.assert_( d.getVersion() == 1 )
+    self.assert_( (m).getAnnotation().getNumChildren() == 2 )
+    d.setLevelAndVersion(2,4,False)
+    self.assert_( d.getLevel() == 2 )
+    self.assert_( d.getVersion() == 4 )
+    m = d.getModel()
+    self.assert_( (m).getAnnotation().getNumChildren() == 1 )
     d = None
     pass  
 

@@ -1,19 +1,24 @@
 use Test;
-BEGIN { plan tests => 24 };
+BEGIN { plan tests => 18 };
 
 use LibSBML;
 
 #########################
 
+my $level   = LibSBML::SBMLDocument::getDefaultLevel();
+my $version = LibSBML::SBMLDocument::getDefaultVersion();
+
 my $formula = 'X^n/(1+X^n)';
 
-# creation with formula
-my $fd = new LibSBML::FunctionDefinition('Y', $formula);
-ok($fd->isSetName(), 0);
+# creation with AST
+$fd = new LibSBML::FunctionDefinition($level,$version);
+$fd->setId('Y');
+$fd->setMath(LibSBML::parseFormula($formula));
 ok($fd->isSetId(), 1);
 ok($fd->getId(), 'Y');
+ok($fd->isSetName(), 0);
 ok($fd->isSetMath(), 1);
-(my $f = LibSBML::formulaToString($fd->getMath())) =~ s/\s+//g;
+($f = LibSBML::formulaToString($fd->getMath())) =~ s/\s+//g;
 ok($f, $formula);
 $fd->setName('hill function');
 ok($fd->isSetName(), 1);
@@ -21,20 +26,8 @@ ok($fd->getName(), 'hill function');
 $fd->unsetName();
 ok($fd->isSetName(), 0);
 
-# creation with AST
-$fd = new LibSBML::FunctionDefinition('Y', LibSBML::parseFormula($formula));
-ok($fd->isSetId(), 1);
-ok($fd->isSetMath(), 1);
-ok($fd->isSetMath(), 1);
-($f = LibSBML::formulaToString($fd->getMath())) =~ s/\s+//g;
-ok($f, $formula);
-$fd->setName('hill function');
-ok($fd->isSetName(), 1);
-$fd->unsetName();
-ok($fd->isSetName(), 0);
-
-# creation w/o arguments
-$fd = new LibSBML::FunctionDefinition;
+# creation w/o AST
+$fd = new LibSBML::FunctionDefinition($level,$version);
 ok($fd->isSetName(), 0);
 ok($fd->isSetId(), 0);
 ok($fd->isSetMath(), 0);

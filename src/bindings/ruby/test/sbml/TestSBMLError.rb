@@ -32,7 +32,7 @@ class TestSBMLError < Test::Unit::TestCase
 
   def test_SBMLError_create
     error = LibSBML::SBMLError.new()
-    assert( error != nil )
+    assert( error != 0 )
     error = nil
     error = LibSBML::SBMLError.new(LibSBML::EmptyListInReaction)
     assert( error.getErrorId() == LibSBML::EmptyListInReaction )

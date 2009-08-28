@@ -31,7 +31,7 @@ require 'libSBML'
 class TestConstraint < Test::Unit::TestCase
 
   def setup
-    @@c = LibSBML::Constraint.new()
+    @@c = LibSBML::Constraint.new(2,4)
     if (@@c == nil)
     end
   end
@@ -49,30 +49,21 @@ class TestConstraint < Test::Unit::TestCase
     assert_equal false, @@c.isSetMath()
   end
 
-  def test_Constraint_createWithLevelVersionAndNamespace
+  def test_Constraint_createWithNS
     xmlns = LibSBML::XMLNamespaces.new()
-    xmlns.add( "http://www.sbml.org", "sbml")
-    object = LibSBML::Constraint.new(2,1,xmlns)
+    xmlns.add( "http://www.sbml.org", "testsbml")
+    sbmlns = LibSBML::SBMLNamespaces.new(2,2)
+    sbmlns.addNamespaces(xmlns)
+    object = LibSBML::Constraint.new(sbmlns)
     assert( object.getTypeCode() == LibSBML::SBML_CONSTRAINT )
     assert( object.getMetaId() == "" )
     assert( object.getNotes() == nil )
     assert( object.getAnnotation() == nil )
     assert( object.getLevel() == 2 )
-    assert( object.getVersion() == 1 )
-    assert( object.getNamespaces() != "" )
-    assert( object.getNamespaces().getLength() == 1 )
+    assert( object.getVersion() == 2 )
+    assert( object.getNamespaces() != nil )
+    assert( object.getNamespaces().getLength() == 2 )
     object = nil
-  end
-
-  def test_Constraint_createWithMath
-    math = LibSBML::parseFormula("1 + 1")
-    c = LibSBML::Constraint.new(math)
-    assert( c.getTypeCode() == LibSBML::SBML_CONSTRAINT )
-    assert( c.getMetaId() == "" )
-    assert( c.getMath() != math )
-    assert_equal false, c.isSetMessage()
-    assert_equal true, c.isSetMath()
-    c = nil
   end
 
   def test_Constraint_free_NULL
@@ -93,14 +84,23 @@ class TestConstraint < Test::Unit::TestCase
   end
 
   def test_Constraint_setMessage
-    node = LibSBML::XMLNode.new()
+    text = LibSBML::XMLNode.convertStringToXMLNode(" Some text ",nil)
+    triple = LibSBML::XMLTriple.new("p", "http://www.w3.org/1999/xhtml", "")
+    att = LibSBML::XMLAttributes.new()
+    xmlns = LibSBML::XMLNamespaces.new()
+    xmlns.add( "http://www.w3.org/1999/xhtml", "")
+    p = LibSBML::XMLNode.new(triple,att,xmlns)
+    p.addChild(text)
+    triple1 = LibSBML::XMLTriple.new("message", "", "")
+    att1 = LibSBML::XMLAttributes.new()
+    node = LibSBML::XMLNode.new(triple1,att1)
+    node.addChild(p)
     @@c.setMessage(node)
     assert( @@c.getMessage() != node )
     assert( @@c.isSetMessage() == true )
     @@c.setMessage(@@c.getMessage())
     assert( @@c.getMessage() != node )
     assert( @@c.getMessageString() != nil )
-    assert( ( "" != @@c.getMessageString() ) == false )
     @@c.unsetMessage()
     assert_equal false, @@c.isSetMessage()
     if (@@c.getMessage() != nil)

@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Ruby conversion)
 # @author  Ben Bornstein 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestReadMathML.cpp
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -42,7 +42,7 @@ class TestReadMathML < Test::Unit::TestCase
     return "<?xml version='1.0' encoding='UTF-8'?>\n"
   end
 
-  def test_isnan(x)
+  def isnan(x)
     return (x != x)
   end
 
@@ -450,7 +450,7 @@ class TestReadMathML < Test::Unit::TestCase
     @@n = LibSBML::readMathMLFromString(s)
     assert( @@n != 0 )
     assert( @@n.getType() == LibSBML::AST_REAL )
-    assert_equal true, test_isnan(@@n.getReal())
+    assert_equal true, isnan(@@n.getReal())
     assert( @@n.getNumChildren() == 0 )
   end
 
@@ -634,6 +634,21 @@ class TestReadMathML < Test::Unit::TestCase
     assert( @@n != 0 )
     @@f = LibSBML::formulaToString(@@n)
     assert ((  "gt(INF, INF - 1)" == @@f ))
+  end
+
+  def test_element_invalid_mathml
+    invalid = wrapMathML("<lambda>" + 
+    "<bvar>" + 
+    "<ci definitionURL=\"http://biomodels.net/SBO/#SBO:0000065\">c</ci>" + 
+    "</bvar>" + 
+    "<apply>" + 
+    "  <ci>c</ci>" + 
+    "</apply>" + 
+    "</lambda>\n")
+    @@n = LibSBML::readMathMLFromString(nil)
+    assert( @@n == nil )
+    @@n = LibSBML::readMathMLFromString(invalid)
+    assert( @@n == nil )
   end
 
   def test_element_lambda

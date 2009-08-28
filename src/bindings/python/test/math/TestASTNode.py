@@ -5,8 +5,8 @@
 # @author  Akiya Jouraku (Python conversion)
 # @author  Ben Bornstein 
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 # This test file was converted from src/sbml/test/TestASTNode.c
 # with the help of conversion sciprt (ctest_converter.pl).
@@ -33,6 +33,43 @@ DBL_EPSILON =  2.2204460492503131e-16
 
 class TestASTNode(unittest.TestCase):
 
+
+  def test_ASTNode_addChild1(self):
+    node = libsbml.ASTNode()
+    c1 = libsbml.ASTNode()
+    c2 = libsbml.ASTNode()
+    c1_1 = libsbml.ASTNode()
+    i = 0
+    node.setType(libsbml.AST_LOGICAL_AND)
+    c1.setName( "a")
+    c2.setName( "b")
+    node.addChild(c1)
+    node.addChild(c2)
+    self.assert_( node.getNumChildren() == 2 )
+    self.assert_((  "and(a, b)" == libsbml.formulaToString(node) ))
+    c1_1.setName( "d")
+    i = node.addChild(c1_1)
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( node.getNumChildren() == 3 )
+    self.assert_((  "and(a, b, d)" == libsbml.formulaToString(node) ))
+    self.assert_((  "a" == node.getChild(0).getName() ))
+    self.assert_((  "b" == node.getChild(1).getName() ))
+    self.assert_((  "d" == node.getChild(2).getName() ))
+    node = None
+    pass  
+
+  def test_ASTNode_addSemanticsAnnotation(self):
+    ann = libsbml.XMLNode()
+    node = libsbml.ASTNode()
+    i = 0
+    i = node.addSemanticsAnnotation(ann)
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( node.getNumSemanticsAnnotations() == 1 )
+    i = node.addSemanticsAnnotation(None)
+    self.assert_( i == libsbml.LIBSBML_OPERATION_FAILED )
+    self.assert_( node.getNumSemanticsAnnotations() == 1 )
+    node = None
+    pass  
 
   def test_ASTNode_canonicalizeConstants(self):
     n = libsbml.ASTNode()
@@ -441,7 +478,9 @@ class TestASTNode(unittest.TestCase):
 
   def test_ASTNode_create(self):
     n = libsbml.ASTNode()
-    ea = libsbml.EventAssignment()
+    sbmlns = libsbml.SBMLNamespaces(2,4)
+    sbmlns.addNamespaces(None)
+    ea = libsbml.EventAssignment(sbmlns)
     self.assert_( n.getType() == libsbml.AST_UNKNOWN )
     self.assert_( n.getCharacter() ==  '\0'  )
     self.assert_( n.getName() == None )
@@ -533,6 +572,26 @@ class TestASTNode(unittest.TestCase):
     self.assert_( copy.getNumChildren() == 0 )
     node = None
     copy = None
+    pass  
+
+  def test_ASTNode_freeName(self):
+    node = libsbml.ASTNode()
+    i = 0
+    i = node.setName( "a")
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_((  "a" == libsbml.formulaToString(node) ))
+    self.assert_((  "a" == node.getName() ))
+    i = node.freeName()
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( node.getName() == None )
+    i = node.freeName()
+    self.assert_( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
+    self.assert_( node.getName() == None )
+    node.setType(libsbml.AST_UNKNOWN)
+    i = node.freeName()
+    self.assert_( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
+    self.assert_( node.getName() == None )
+    node = None
     pass  
 
   def test_ASTNode_free_NULL(self):
@@ -649,15 +708,15 @@ class TestASTNode(unittest.TestCase):
     newc.setName( "d")
     newc1.setName( "e")
     i = node.insertChild(1,newc)
-    self.assert_( i == 0 )
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( node.getNumChildren() == 4 )
     self.assert_((  "and(a, d, b, c)" == libsbml.formulaToString(node) ))
     i = node.insertChild(5,newc)
-    self.assert_( i ==  - 1 )
+    self.assert_( i == libsbml.LIBSBML_INDEX_EXCEEDS_SIZE )
     self.assert_( node.getNumChildren() == 4 )
     self.assert_((  "and(a, d, b, c)" == libsbml.formulaToString(node) ))
     i = node.insertChild(2,newc1)
-    self.assert_( i == 0 )
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( node.getNumChildren() == 5 )
     self.assert_((  "and(a, d, e, b, c)" == libsbml.formulaToString(node) ))
     node = None
@@ -727,6 +786,30 @@ class TestASTNode(unittest.TestCase):
     node = None
     pass  
 
+  def test_ASTNode_prependChild1(self):
+    node = libsbml.ASTNode()
+    c1 = libsbml.ASTNode()
+    c2 = libsbml.ASTNode()
+    c1_1 = libsbml.ASTNode()
+    i = 0
+    node.setType(libsbml.AST_LOGICAL_AND)
+    c1.setName( "a")
+    c2.setName( "b")
+    node.addChild(c1)
+    node.addChild(c2)
+    self.assert_( node.getNumChildren() == 2 )
+    self.assert_((  "and(a, b)" == libsbml.formulaToString(node) ))
+    c1_1.setName( "d")
+    i = node.prependChild(c1_1)
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( node.getNumChildren() == 3 )
+    self.assert_((  "and(d, a, b)" == libsbml.formulaToString(node) ))
+    self.assert_((  "d" == node.getChild(0).getName() ))
+    self.assert_((  "a" == node.getChild(1).getName() ))
+    self.assert_((  "b" == node.getChild(2).getName() ))
+    node = None
+    pass  
+
   def test_ASTNode_removeChild(self):
     node = libsbml.ASTNode()
     c1 = libsbml.ASTNode()
@@ -739,13 +822,13 @@ class TestASTNode(unittest.TestCase):
     node.addChild(c2)
     self.assert_( node.getNumChildren() == 2 )
     i = node.removeChild(0)
-    self.assert_( i == 0 )
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( node.getNumChildren() == 1 )
     i = node.removeChild(1)
-    self.assert_( i ==  - 1 )
+    self.assert_( i == libsbml.LIBSBML_INDEX_EXCEEDS_SIZE )
     self.assert_( node.getNumChildren() == 1 )
     i = node.removeChild(0)
-    self.assert_( i == 0 )
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( node.getNumChildren() == 0 )
     node = None
     pass  
@@ -768,15 +851,15 @@ class TestASTNode(unittest.TestCase):
     self.assert_((  "and(a, b, c)" == libsbml.formulaToString(node) ))
     newc.setName( "d")
     i = node.replaceChild(0,newc)
-    self.assert_( i == 0 )
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( node.getNumChildren() == 3 )
     self.assert_((  "and(d, b, c)" == libsbml.formulaToString(node) ))
     i = node.replaceChild(3,newc)
-    self.assert_( i ==  - 1 )
+    self.assert_( i == libsbml.LIBSBML_INDEX_EXCEEDS_SIZE )
     self.assert_( node.getNumChildren() == 3 )
     self.assert_((  "and(d, b, c)" == libsbml.formulaToString(node) ))
     i = node.replaceChild(1,c1)
-    self.assert_( i == 0 )
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( node.getNumChildren() == 3 )
     self.assert_((  "and(d, a, c)" == libsbml.formulaToString(node) ))
     node = None
@@ -786,7 +869,7 @@ class TestASTNode(unittest.TestCase):
     node = libsbml.ASTNode()
     node.setName( "foo")
     self.assert_( node.getType() == libsbml.AST_NAME )
-    self.assert_( node.getCharacter() == '\0' )
+    self.assert_( node.getCharacter() == "\0" )
     self.assert_((  "foo" == node.getName() ))
     self.assert_( node.getInteger() == 0 )
     self.assert_( node.getReal() == 0 )
@@ -848,7 +931,7 @@ class TestASTNode(unittest.TestCase):
     node.setName( "foo")
     self.assert_( node.getType() == libsbml.AST_NAME )
     self.assert_((  "foo" == node.getName() ))
-    self.assert_( node.getCharacter() == '\0' )
+    self.assert_( node.getCharacter() == "\0" )
     self.assert_( node.getInteger() == 0 )
     self.assert_( node.getReal() == 0 )
     self.assert_( node.getExponent() == 0 )
@@ -857,7 +940,7 @@ class TestASTNode(unittest.TestCase):
     self.assert_( node.getType() == libsbml.AST_REAL )
     self.assert_( node.getInteger() == 0 )
     self.assert_( node.getName() == None )
-    self.assert_( node.getCharacter() == '\0' )
+    self.assert_( node.getCharacter() == "\0" )
     self.assert_( node.getReal() == 3.2 )
     self.assert_( node.getExponent() == 0 )
     self.assert_( node.getDenominator() == 1 )
@@ -865,7 +948,7 @@ class TestASTNode(unittest.TestCase):
     self.assert_( node.getType() == libsbml.AST_INTEGER )
     self.assert_( node.getInteger() == 321 )
     self.assert_( node.getName() == None )
-    self.assert_( node.getCharacter() == '\0' )
+    self.assert_( node.getCharacter() == "\0" )
     self.assert_( node.getReal() == 0 )
     self.assert_( node.getExponent() == 0 )
     self.assert_( node.getDenominator() == 1 )
@@ -879,7 +962,7 @@ class TestASTNode(unittest.TestCase):
     node.setName(name)
     self.assert_( node.getType() == libsbml.AST_NAME )
     self.assert_(( name == node.getName() ))
-    self.assert_( node.getCharacter() == '\0' )
+    self.assert_( node.getCharacter() == "\0" )
     self.assert_( node.getInteger() == 0 )
     self.assert_( node.getReal() == 0 )
     self.assert_( node.getExponent() == 0 )
@@ -893,7 +976,7 @@ class TestASTNode(unittest.TestCase):
     node.setType(libsbml.AST_FUNCTION_COS)
     self.assert_( node.getType() == libsbml.AST_FUNCTION_COS )
     self.assert_((  "cos" == node.getName() ))
-    self.assert_( node.getCharacter() == '\0' )
+    self.assert_( node.getCharacter() == "\0" )
     self.assert_( node.getInteger() == 0 )
     self.assert_( node.getReal() == 0 )
     self.assert_( node.getExponent() == 0 )
@@ -931,7 +1014,7 @@ class TestASTNode(unittest.TestCase):
     self.assert_( node.getType() == libsbml.AST_REAL )
     self.assert_( node.getInteger() == 0 )
     self.assert_( node.getName() == None )
-    self.assert_( node.getCharacter() == '\0' )
+    self.assert_( node.getCharacter() == "\0" )
     self.assert_( node.getReal() == 32.1 )
     self.assert_( node.getExponent() == 0 )
     self.assert_( node.getDenominator() == 1 )
@@ -940,7 +1023,7 @@ class TestASTNode(unittest.TestCase):
     self.assert_( node.getType() == libsbml.AST_RATIONAL )
     self.assert_( node.getInteger() == 45 )
     self.assert_( node.getName() == None )
-    self.assert_( node.getCharacter() == '\0' )
+    self.assert_( node.getCharacter() == "\0" )
     self.assert_( node.getReal() == 0.5 )
     self.assert_( node.getExponent() == 0 )
     self.assert_( node.getDenominator() == 90 )
@@ -949,7 +1032,7 @@ class TestASTNode(unittest.TestCase):
     self.assert_( node.getType() == libsbml.AST_REAL_E )
     self.assert_( node.getInteger() == 0 )
     self.assert_( node.getName() == None )
-    self.assert_( node.getCharacter() == '\0' )
+    self.assert_( node.getCharacter() == "\0" )
     self.assert_( node.getReal() == 320000 )
     self.assert_( node.getExponent() == 4 )
     self.assert_( node.getDenominator() == 1 )
@@ -988,6 +1071,38 @@ class TestASTNode(unittest.TestCase):
     node.setType(libsbml.AST_POWER)
     self.assert_( node.getType() == libsbml.AST_POWER )
     self.assert_( node.getCharacter() ==  '^'        )
+    node = None
+    pass  
+
+  def test_ASTNode_swapChildren(self):
+    node = libsbml.ASTNode()
+    c1 = libsbml.ASTNode()
+    c2 = libsbml.ASTNode()
+    node_1 = libsbml.ASTNode()
+    c1_1 = libsbml.ASTNode()
+    c2_1 = libsbml.ASTNode()
+    i = 0
+    node.setType(libsbml.AST_LOGICAL_AND)
+    c1.setName( "a")
+    c2.setName( "b")
+    node.addChild(c1)
+    node.addChild(c2)
+    self.assert_( node.getNumChildren() == 2 )
+    self.assert_((  "and(a, b)" == libsbml.formulaToString(node) ))
+    node_1.setType(libsbml.AST_LOGICAL_AND)
+    c1_1.setName( "d")
+    c2_1.setName( "f")
+    node_1.addChild(c1_1)
+    node_1.addChild(c2_1)
+    self.assert_( node_1.getNumChildren() == 2 )
+    self.assert_((  "and(d, f)" == libsbml.formulaToString(node_1) ))
+    i = node.swapChildren(node_1)
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( node.getNumChildren() == 2 )
+    self.assert_((  "and(d, f)" == libsbml.formulaToString(node) ))
+    self.assert_( node_1.getNumChildren() == 2 )
+    self.assert_((  "and(a, b)" == libsbml.formulaToString(node_1) ))
+    node_1 = None
     node = None
     pass  
 

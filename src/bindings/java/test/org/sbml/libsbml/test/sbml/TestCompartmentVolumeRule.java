@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Ben Bornstein 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestCompartmentVolumeRule.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -52,6 +52,10 @@ public class TestCompartmentVolumeRule {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestCompartmentVolumeRule {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -111,7 +119,7 @@ public class TestCompartmentVolumeRule {
 
   protected void setUp() throws Exception
   {
-    CVR = new  AssignmentRule();
+    CVR = new  AssignmentRule(1,2);
     CVR.setL1TypeCode(libsbml.SBML_COMPARTMENT_VOLUME_RULE);
     if (CVR == null);
     {
@@ -133,22 +141,6 @@ public class TestCompartmentVolumeRule {
     assertTrue( CVR.getType() == libsbml.RULE_TYPE_SCALAR );
     assertTrue( CVR.getVariable().equals("") == true );
     assertEquals( false, CVR.isSetVariable() );
-  }
-
-  public void test_CompartmentVolumeRule_createWith()
-  {
-    Rule cvr;
-    cvr = new  RateRule("c", "v + 1");
-    cvr.setL1TypeCode(libsbml.SBML_COMPARTMENT_VOLUME_RULE);
-    assertTrue( cvr.getTypeCode() == libsbml.SBML_RATE_RULE );
-    assertTrue( cvr.getL1TypeCode() == libsbml.SBML_COMPARTMENT_VOLUME_RULE );
-    assertTrue( cvr.getNotes() == null );
-    assertTrue( cvr.getAnnotation() == null );
-    assertTrue(cvr.getFormula().equals( "v + 1"));
-    assertTrue(cvr.getVariable().equals( "c"));
-    assertTrue( cvr.getType() == libsbml.RULE_TYPE_RATE );
-    assertEquals( true, cvr.isSetVariable() );
-    cvr = null;
   }
 
   public void test_CompartmentVolumeRule_free_NULL()

@@ -6,8 +6,8 @@
  * @author  Akiya Jouraku (Java conversion)
  * @author  Sarah Keating 
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  *
  * This test file was converted from src/sbml/test/TestXMLErrorC.c
  * with the help of conversion sciprt (ctest_converter.pl).
@@ -16,7 +16,7 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2008 California Institute of Technology.
+ * Copyright 2005-2009 California Institute of Technology.
  * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
@@ -120,6 +120,17 @@ public class TestXMLErrorC {
     error = new  XMLError(12345, "My message");
     assertTrue( !error.getMessage().equals( "My message") == false );
     assertTrue( error.getErrorId() == 12345 );
+    error = null;
+  }
+
+  public void test_XMLError_variablesAsStrings()
+  {
+    XMLError error = new  XMLError(1003, "");
+    assertTrue( error.getErrorId() == 1003 );
+    assertTrue( error.getSeverity() == libsbml.LIBSBML_SEV_ERROR );
+    assertTrue(error.getSeverityAsString().equals( "Error"));
+    assertTrue( error.getCategory() == libsbml.LIBSBML_CAT_XML );
+    assertTrue(error.getCategoryAsString().equals( "XML content"));
     error = null;
   }
 

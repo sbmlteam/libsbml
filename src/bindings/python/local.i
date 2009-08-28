@@ -225,7 +225,7 @@ namespace std
  */
 %typemap(out) SBase*, SimpleSpeciesReference*, Rule*
 {
-  $result = SWIG_NewPointerObj(SWIG_as_voidptr($1), GetDowncastSwigType($1), 
+  $result = SWIG_NewPointerObj(SWIG_as_voidptr($1), GetDowncastSwigType($1),
                                $owner | %newpointer_flags);
 }
 
@@ -292,10 +292,19 @@ XMLOutputStream::writeAttribute
 {
   %pythoncode
   {
-    def __cmp__(self, rhs):
-      if hasattr(self, 'this') and hasattr(rhs, 'this'):
-        if self.this == rhs.this: return 0
-      return 1
+    def __eq__(self, rhs):
+      if ((self is None) and (rhs is None)): return True
+      if ((self is None) or  (rhs is None)): return False
+      if (hasattr(self, 'this') and hasattr(rhs, 'this')):
+        if (self.this == rhs.this): return True
+      return False
+
+    def __ne__(self, rhs):
+      if ((self is None) and (rhs is None)): return False
+      if ((self is None) or  (rhs is None)): return True
+      if (hasattr(self, 'this') and hasattr(rhs, 'this')):
+        if (self.this == rhs.this): return False
+      return True
   }
 }
 %enddef
@@ -309,14 +318,13 @@ SWIGPYTHON__CMP__(Date)
 SWIGPYTHON__CMP__(ModelHistory)
 SWIGPYTHON__CMP__(ModelCreator)
 SWIGPYTHON__CMP__(XMLNamespaces)
+SWIGPYTHON__CMP__(SBMLNamespaces)
 SWIGPYTHON__CMP__(XMLAttributes)
 SWIGPYTHON__CMP__(XMLToken)
 SWIGPYTHON__CMP__(XMLTriple)
 SWIGPYTHON__CMP__(XMLError)
 SWIGPYTHON__CMP__(XMLErrorLog)
-SWIGPYTHON__CMP__(XMLHandler)
 SWIGPYTHON__CMP__(XMLOutputStream)
-SWIGPYTHON__CMP__(XMLInputStream)
 
 /**
  * The features directives below override the default SWIG generated
@@ -364,9 +372,63 @@ TAKEOVER_OWNERSHIP(ASTNode::replaceChild(unsigned int, ASTNode*),2)
 TAKEOVER_OWNERSHIP(ASTNode::addSemanticsAnnotation(XMLNode*),1)
 #endif
 
+/**
+ *
+ * Wraps the SBMLConstructorException class (C++ exception defined by libSBML) 
+ * as the VaueError class (Python built-in exception).
+ *
+ * For example, the exception can be catched in Python code as follows:
+ *
+ * --------------------------------------
+ *  try:
+ *    s = libsbml.CompartmentType(level,version)
+ *  except ValueError, inst:
+ *    errmsg = inst.args[0]
+ * --------------------------------------
+ */
+
+%ignore SBMLConstructorException;
+
+%define SBMLCONSTRUCTOR_EXCEPTION(SBASE_CLASS_NAME)
+%exception SBASE_CLASS_NAME {
+  try {
+    $action
+  }
+  catch (SBMLConstructorException &e) {
+    PyErr_SetString(PyExc_ValueError, const_cast<char*>(e.what()));
+    return NULL;
+  }
+}
+%enddef
+
+SBMLCONSTRUCTOR_EXCEPTION(Compartment)
+SBMLCONSTRUCTOR_EXCEPTION(CompartmentType)
+SBMLCONSTRUCTOR_EXCEPTION(Constraint)
+SBMLCONSTRUCTOR_EXCEPTION(Delay)
+SBMLCONSTRUCTOR_EXCEPTION(Event)
+SBMLCONSTRUCTOR_EXCEPTION(EventAssignment)
+SBMLCONSTRUCTOR_EXCEPTION(FunctionDefinition)
+SBMLCONSTRUCTOR_EXCEPTION(InitialAssignment)
+SBMLCONSTRUCTOR_EXCEPTION(KineticLaw)
+SBMLCONSTRUCTOR_EXCEPTION(Model)
+SBMLCONSTRUCTOR_EXCEPTION(Parameter)
+SBMLCONSTRUCTOR_EXCEPTION(Reaction)
+SBMLCONSTRUCTOR_EXCEPTION(AssignmentRule)
+SBMLCONSTRUCTOR_EXCEPTION(AlgebraicRule)
+SBMLCONSTRUCTOR_EXCEPTION(RateRule)
+SBMLCONSTRUCTOR_EXCEPTION(Species)
+SBMLCONSTRUCTOR_EXCEPTION(SpeciesReference)
+SBMLCONSTRUCTOR_EXCEPTION(ModifierSpeciesReference)
+SBMLCONSTRUCTOR_EXCEPTION(SpeciesType)
+SBMLCONSTRUCTOR_EXCEPTION(StoichiometryMath)
+SBMLCONSTRUCTOR_EXCEPTION(Trigger)
+SBMLCONSTRUCTOR_EXCEPTION(Unit)
+SBMLCONSTRUCTOR_EXCEPTION(UnitDefinition)
+
 // ----------------------------------------------------------------------
 // SBMLReader
 // ----------------------------------------------------------------------
+
 
 %pythoncode
 %{
