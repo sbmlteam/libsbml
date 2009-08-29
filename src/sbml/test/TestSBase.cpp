@@ -191,51 +191,14 @@ START_TEST (test_SBase_setNotes)
 
   XMLToken_free(token);
   XMLNode_free(node);
-
-  /* test notes with character reference */
-
-  token = XMLToken_createWithText("(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &#; &#x; &#00a8; &#0168 &#x00a8");
-  node  = XMLNode_createFromToken(token);
-
-  SBase_setNotes(S, node);
-  t1 = SBase_getNotes(S);
-
-  fail_unless(XMLNode_getNumChildren(t1) == 1);
-
-  const char * s = XMLNode_toXMLString(XMLNode_getChild(t1,0));
-  const char * expected = "(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &amp;#; &amp;#x; &amp;#00a8; &amp;#0168 &amp;#x00a8";
-
-  fail_unless(!strcmp(s,expected));
-
-  /* test notes with predefined entity */
-
-  token = XMLToken_createWithText("& ' > < \" &amp; &apos; &gt; &lt; &quot;");
-  node  = XMLNode_createFromToken(token);
-
-  SBase_setNotes(S, node);
-  t1 = SBase_getNotes(S);
-
-  fail_unless(XMLNode_getNumChildren(t1) == 1);
-
-  const char * s2 = XMLNode_toXMLString(XMLNode_getChild(t1,0));
-  const char * expected2 = "&amp; &apos; &gt; &lt; &quot; &amp; &apos; &gt; &lt; &quot;";
-
-  fail_unless(!strcmp(s2,expected2));
-
-  XMLToken_free(token);
-  XMLNode_free(node);
 }
 END_TEST
 
 
 START_TEST (test_SBase_setAnnotation)
 {
-  XMLToken_t  *token;
-  XMLNode_t   *node;
-  XMLTriple_t *triple;
-  XMLNode_t   *node2;
-  Species_t   *sp;
-  char *taggedannt = "<annotation>This is a test note</annotation>";
+  XMLToken_t *token;
+  XMLNode_t *node;
 
   token = XMLToken_createWithText("This is a test note");
   node = XMLNode_createFromToken(token);
@@ -490,7 +453,7 @@ START_TEST (test_SBase_setNotesString)
   t1 = SBase_getNotes(c);
   fail_unless(XMLNode_getNumChildren(t1) == 1);
 
-  const XMLNode_t *t2 = XMLNode_getChild(t1,0);
+  t2 = XMLNode_getChild(t1,0);
   fail_unless(!strcmp(XMLNode_getCharacters(t2), "This is a test note"));
 
 }

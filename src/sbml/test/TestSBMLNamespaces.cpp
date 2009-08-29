@@ -48,7 +48,7 @@ START_TEST (test_SBMLNamespaces_L1V1)
 
   fail_unless(ns->getLength() == 1);
   fail_unless(ns->getURI(0) == "http://www.sbml.org/sbml/level1");
-  fail_unless(ns->getPrefix(0) == "sbml");
+  fail_unless(ns->getPrefix(0) == "");
 
   delete sbml;
 }
@@ -66,7 +66,7 @@ START_TEST (test_SBMLNamespaces_L1V2)
 
   fail_unless(ns->getLength() == 1);
   fail_unless(ns->getURI(0) == "http://www.sbml.org/sbml/level1");
-  fail_unless(ns->getPrefix(0) == "sbml");
+  fail_unless(ns->getPrefix(0) == "");
 
   delete sbml;
 }
@@ -84,7 +84,7 @@ START_TEST (test_SBMLNamespaces_L2V1)
 
   fail_unless(ns->getLength() == 1);
   fail_unless(ns->getURI(0) == "http://www.sbml.org/sbml/level2");
-  fail_unless(ns->getPrefix(0) == "sbml");
+  fail_unless(ns->getPrefix(0) == "");
 
   delete sbml;
 }
@@ -102,7 +102,7 @@ START_TEST (test_SBMLNamespaces_L2V2)
 
   fail_unless(ns->getLength() == 1);
   fail_unless(ns->getURI(0) == "http://www.sbml.org/sbml/level2/version2");
-  fail_unless(ns->getPrefix(0) == "sbml");
+  fail_unless(ns->getPrefix(0) == "");
 
   delete sbml;
 }
@@ -120,7 +120,7 @@ START_TEST (test_SBMLNamespaces_L2V3)
 
   fail_unless(ns->getLength() == 1);
   fail_unless(ns->getURI(0) == "http://www.sbml.org/sbml/level2/version3");
-  fail_unless(ns->getPrefix(0) == "sbml");
+  fail_unless(ns->getPrefix(0) == "");
 
   delete sbml;
 }
@@ -138,7 +138,7 @@ START_TEST (test_SBMLNamespaces_L2V4)
 
   fail_unless(ns->getLength() == 1);
   fail_unless(ns->getURI(0) == "http://www.sbml.org/sbml/level2/version4");
-  fail_unless(ns->getPrefix(0) == "sbml");
+  fail_unless(ns->getPrefix(0) == "");
 
   delete sbml;
 }
