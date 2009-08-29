@@ -123,23 +123,6 @@ Reaction::Reaction() :
 
 /** @endcond doxygen-libsbml-internal */
                           
-Reaction::Reaction (SBMLNamespaces *sbmlns) :
-   SBase ("", "", -1)
-  , mKineticLaw( 0          )
-  , mReversible( true       )
-  , mFast      ( false      )
-  , mIsSetFast ( false      )
-{
-  mObjectLevel = sbmlns->getLevel();
-  mObjectVersion = sbmlns->getVersion();
-  setNamespaces(sbmlns->getNamespaces());
-
-  mReactants.setType( ListOfSpeciesReferences::Reactant );
-  mProducts .setType( ListOfSpeciesReferences::Product  );
-  mModifiers.setType( ListOfSpeciesReferences::Modifier );
-}
-                          
-
 /*
  * Destroys this Reaction.
  */

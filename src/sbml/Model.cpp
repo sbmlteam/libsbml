@@ -83,13 +83,6 @@ Model::Model() :
 
 /** @endcond doxygen-libsbml-internal */
                           
-{
-  mObjectLevel = sbmlns->getLevel();
-  mObjectVersion = sbmlns->getVersion();
-  setNamespaces(sbmlns->getNamespaces());
-}
-
-
 /*
  * Destroys this Model.
  */

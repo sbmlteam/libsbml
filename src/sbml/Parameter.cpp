@@ -70,6 +70,7 @@ Parameter::Parameter (SBMLNamespaces * sbmlns) :
 }
 
 
+/** @cond doxygen-libsbml-internal */
 
 /* constructor for validators */
 Parameter::Parameter() :
@@ -79,7 +80,6 @@ Parameter::Parameter() :
 
 /** @endcond doxygen-libsbml-internal */
                           
-
 /*
  * Destroys this Parameter.
  */
@@ -470,15 +470,7 @@ Parameter::getDerivedUnitDefinition()
     }
     else
     {
-      if (m->getFormulaUnitsData(getId(), getTypeCode()))
-      {
-        return m->getFormulaUnitsData(getId(), getTypeCode())
-                                              ->getUnitDefinition();
-      }
-      else
-      {
-        return NULL;
-      } 
+      return NULL;
     }
   }
   else
@@ -492,34 +484,23 @@ Parameter::getDerivedUnitDefinition()
     }
     else
     {
-      UnitDefinition *ud = NULL;
-      const char * units = getUnits().c_str();
-      if (!strcmp(units, ""))
+      if (UnitKind_isValidUnitKindString(units, 
+                                getLevel(), getVersion()))
       {
         Unit * unit = new Unit(getSBMLNamespaces());
         unit->setKind(UnitKind_forName(units));
         ud   = new UnitDefinition(getSBMLNamespaces());
-        return ud;
+        
+        ud->addUnit(unit);
+
+        delete unit;
       }
       else
       {
-        if (UnitKind_isValidUnitKindString(units, 
-                                  getLevel(), getVersion()))
-        {
-          Unit * unit = new Unit(units);
-          ud   = new UnitDefinition();
-          
-          ud->addUnit(unit);
-
-          delete unit;
-        }
-        else
-        {
-          /* must be a unit definition */
-          ud = static_cast <Model *> (getAncestorOfType(SBML_MODEL))->getUnitDefinition(units);
-        }
-        return ud;
+        /* must be a unit definition */
+        ud = static_cast <Model *> (getAncestorOfType(SBML_MODEL))->getUnitDefinition(units);
       }
+      return ud;
       }
     }
   }

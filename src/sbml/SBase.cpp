@@ -1419,22 +1419,7 @@ SBase::appendNotes(const XMLNode* notes)
     return LIBSBML_OPERATION_SUCCESS;
   }
 
-  if (mNotes && mNotes->getNumChildren() > 0)
-  {
-    // The content of notes in SBML can consist only of the following 
-    // possibilities:
-    //
-    //  1. A complete XHTML document (minus the XML and DOCTYPE 
-    //     declarations), that is, XHTML content beginning with the 
-    //     html tag.
-    //     (_NotesType is _ANotesHTML.)
-    //
-    //  2. The body element from an XHTML document.
-    //     (_NotesType is _ANotesBody.) 
-    //
-    //  3. Any XHTML content that would be permitted within a body 
-    //     element, each one must declare the XML namespace separately.
-    //     (_NotesType is _ANotesAny.) 
+  const string&  name = notes->getName();
 
   // The content of notes in SBML can consist only of the following 
   // possibilities:
@@ -3285,9 +3270,8 @@ SBase::checkXHTML(const XMLNode * xhtml)
 
   /*
   * namespace declaration is variable
-  * A whole html tag, a whole body tag, or one or more elements permitted in
-  * a body tag can be used without XHTML namespace declaration if XHTML namespace
-  * is declared in a sbml element.
+  * if a whole html tag has been used
+  * or a whole body tag then namespace can be implicitly declared
   */
   unsigned int children = xhtml->getNumChildren();
 
@@ -3306,23 +3290,6 @@ SBase::checkXHTML(const XMLNode * xhtml)
       else
       {
         logError(errorELEM);
-        else
-        {
-          // xmlns attribute for XHTML is declared in this elem.
-          if (elem.getPrefix() != nsprefix)
-          {
-            // the prefix of this element is not equal to the prefix of
-            // xmlns attribute for XHTML declared in this element.
-            if ( !implicitNSdecl || (elem.getPrefix() != implicitXhtmlPrefixStr) )
-            {
-              // xmlns attribute for XHTML is not declared in <sbml> element
-              // or the prefix of this element is not equal to the prefix of
-              // xmlns attribute for XHTML declared in <sbml> element.
-              logError(errorELEM);
-            }
-          }
-        }
-
       }
     }
   }
@@ -3351,23 +3318,6 @@ SBase::checkXHTML(const XMLNode * xhtml)
       {
         logError(errorELEM);
       }
-      else
-      {
-        // xmlns attribute for XHTML is declared in this top elem.
-        if (top_elem.getPrefix() != nsprefix)
-        {
-          // the prefix of this top element is not equal to the prefix of
-          // xmlns attribute for XHTML declared in this element.
-          if ( !implicitNSdecl || (top_elem.getPrefix() != implicitXhtmlPrefixStr) )
-          {
-            // xmlns attribute for XHTML is not declared in <sbml> element
-            // or the prefix of this top element is not equal to the prefix of
-            // xmlns attribute for XHTML declared in <sbml> element.
-            logError(errorNS);
-          }
-        }
-      }
-
     }
   }
 }
@@ -3387,64 +3337,6 @@ SBase::hasRequiredElements() const
 {
   return true;
 }
-
-void
-SBase::removeDuplicateAnnotations()
-{
-  bool resetNecessary = false;
-  XMLNamespaces xmlns = XMLNamespaces();
-  xmlns.add("http://www.sbml.org/libsbml/annotation", "");
-  XMLTriple triple = XMLTriple("duplicateTopLevelElements",
-    "http://www.sbml.org/libsbml/annotation", "");
-  XMLAttributes att = XMLAttributes();
-  XMLToken token = XMLToken(triple, att, xmlns);
-  XMLNode * newNode = NULL;
-  if (isSetAnnotation())
-  { 
-    //make a copy to work with
-    XMLNode * newAnnotation = mAnnotation->clone();
-
-    unsigned int numChildren = newAnnotation->getNumChildren();
-    if (numChildren == 1)
-      return;
-
-    bool duplicate = false;
-    for (unsigned int i = 0; i < numChildren; i++)
-    {
-      duplicate = false;
-      std::string name = newAnnotation->getChild(i).getName();
-      for (unsigned int j = numChildren-1; j > i; j--)
-      {
-        if (name == newAnnotation->getChild(j).getName())
-        {
-          resetNecessary = true;
-          duplicate = true;
-          if (!newNode)
-          {
-            // need to  create the new node
-            newNode = new XMLNode(token);
-          }
-          newNode->addChild(static_cast <XMLNode> 
-                            (*(newAnnotation->removeChild(j))));
-        }
-      }
-      if (duplicate)
-        newNode->addChild(static_cast <XMLNode>
-                          (*(newAnnotation->removeChild(i))));
-      numChildren = newAnnotation->getNumChildren();
-    }
-    if (resetNecessary)
-    {
-      newAnnotation->addChild(*(newNode));
-      setAnnotation(newAnnotation);
-    }
-  }
-
-
-}
-
-
-
 
 void
 SBase::removeDuplicateAnnotations()

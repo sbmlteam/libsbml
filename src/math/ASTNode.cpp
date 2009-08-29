@@ -1779,13 +1779,6 @@ ASTNode::isWellFormedASTNode() const
 
 /** @endcond doxygen-libsbml-internal */
 
-LIBSBML_EXTERN
-void
-ASTNode::replaceArgument(const std::string bvar, ASTNode * arg)
-{
-  this->ReplaceArgument(bvar, arg);
-}
-
 
 LIBSBML_EXTERN
 void
@@ -1888,7 +1881,6 @@ ASTNode::reduceToBinary()
 
   reduceToBinary();
 }
-/** @endcond doxygen-libsbml-internal */
 
 
 /** @cond doxygen-libsbml-internal */

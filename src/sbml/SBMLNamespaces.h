@@ -61,6 +61,7 @@
 
 
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 #define SBML_DEFAULT_LEVEL   2
 #define SBML_DEFAULT_VERSION 4
@@ -119,6 +120,28 @@ public:
 
   
   /**
+   * Copy constructor; creates a copy of a SBMLNamespaces.
+   * 
+   * @param orig the SBMLNamespaces instance to copy.
+   */
+  SBMLNamespaces(const SBMLNamespaces& orig);
+
+
+  /**
+   * Assignment operator for SBMLNamespaces.
+   */
+  SBMLNamespaces& operator=(const SBMLNamespaces& orig);
+
+
+  /**
+   * Creates and returns a deep copy of this SBMLNamespaces.
+   * 
+   * @return a (deep) copy of this SBMLNamespaces.
+   */
+  SBMLNamespaces* clone () const;
+
+
+  /**
    * Returns a string representing the SBML XML namespace for the 
    * given @p level and @p version of SBML.
    *
@@ -166,6 +189,25 @@ public:
   XMLNamespaces * getNamespaces();
 
 
+  /**
+   * Add the XML namespaces list to the set of namespaces
+   * within this SBMLNamespaces object.
+   * 
+   * @param xmlns the XML namespaces to be added.
+   */
+  void addNamespaces(XMLNamespaces * xmlns);
+
+
+  /** @cond doxygen-libsbml-internal */
+  void setLevel(unsigned int level);
+
+
+  void setVersion(unsigned int version);
+
+
+  void setNamespaces(XMLNamespaces * xmlns);
+  /** @endcond doxygen-libsbml-internal */
+
 protected:  
   /** @cond doxygen-libsbml-internal */
 
@@ -176,18 +218,53 @@ protected:
   /** @endcond doxygen-libsbml-internal */
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
 
 #ifndef SWIG
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
+
+/*-----------------------------------------------------------------------------
+ * See the .cpp file for the documentation of the following functions.
+ *---------------------------------------------------------------------------*/
+
+LIBSBML_EXTERN
+SBMLNamespaces_t *
+SBMLNamespaces_create(unsigned int level, unsigned int version);
+
+
+LIBSBML_EXTERN
+unsigned int
+SBMLNamespaces_getLevel(SBMLNamespaces_t *sbmlns);
+
+
+LIBSBML_EXTERN
+unsigned int
+SBMLNamespaces_getVersion(SBMLNamespaces_t *sbmlns);
+
+
+LIBSBML_EXTERN
+XMLNamespaces_t *
+SBMLNamespaces_getNamespaces(SBMLNamespaces_t *sbmlns);
+
+
+LIBSBML_EXTERN
+const char *
+SBMLNamespaces_getSBMLNamespaceURI(unsigned int level, unsigned int version);
+
+
+LIBSBML_EXTERN
+void
+SBMLNamespaces_addNamespaces(SBMLNamespaces_t *sbmlns,
+                             XMLNamespaces_t * xmlns);
 
 
 END_C_DECLS
-
+LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
 #endif  /* SBMLNamespaces_h */

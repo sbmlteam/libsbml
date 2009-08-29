@@ -177,42 +177,6 @@ public:
 
 
   /**
-   * Creates a new KineticLaw using the given SBMLNamespaces object
-   * @p sbmlns.
-   *
-   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
-   * information.  It is used to communicate the SBML Level, Version, and
-   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp; Core.
-   * A common approach to using this class constructor is to create an
-   * SBMLNamespaces object somewhere in a program, once, then pass it to
-   * object constructors such as this one when needed.
-   *
-   * @param sbmlns an SBMLNamespaces object.
-   *
-   * @note Once a KineticLaw has been added to an SBMLDocument, the @p level,
-   * @p version and @p xmlns namespaces for the document @em override those used
-   * to create the KineticLaw.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
-   *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
-   */
-  KineticLaw (SBMLNamespaces* sbmlns);
-
-
-  /**
    * Destroys this KineticLaw.
    */
   virtual ~KineticLaw ();

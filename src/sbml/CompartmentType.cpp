@@ -61,14 +61,6 @@ CompartmentType::CompartmentType (SBMLNamespaces* sbmlns) :
 }
 
                           
-CompartmentType::CompartmentType (SBMLNamespaces *sbmlns) :
-   SBase ("", "", -1)
-{
-  mObjectLevel = sbmlns->getLevel();
-  mObjectVersion = sbmlns->getVersion();
-  setNamespaces(sbmlns->getNamespaces());
-}
-
 /** @cond doxygen-libsbml-internal */
 
 /* constructor for validators */

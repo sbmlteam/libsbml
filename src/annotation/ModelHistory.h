@@ -683,9 +683,6 @@ public:
 
   /** @cond doxygen-libsbml-internal */
   XMLNode * getAdditionalRDF();
-
-
-  XMLNode * getAdditionalRDF();
   /** @endcond doxygen-libsbml-internal */
 
   /* The required attributes for a ModelCreator are:

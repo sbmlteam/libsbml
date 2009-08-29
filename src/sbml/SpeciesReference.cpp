@@ -500,14 +500,6 @@ SpeciesReference::SpeciesReference() :
 /** @endcond doxygen-libsbml-internal */
  
                           
-SpeciesReference::SpeciesReference (SBMLNamespaces *sbmlns) :
-   SimpleSpeciesReference( sbmlns )
- , mStoichiometry        ( 1.0 )
- , mDenominator          ( 1   )
- , mStoichiometryMath    ( 0             )
-{
-}
-
 
 /*
  * Destroys this SpeciesReference.
@@ -1322,11 +1314,6 @@ ModifierSpeciesReference::ModifierSpeciesReference() :
 /** @endcond doxygen-libsbml-internal */
  
                           
-ModifierSpeciesReference::ModifierSpeciesReference (SBMLNamespaces *sbmlns) :
-  SimpleSpeciesReference(sbmlns)
-{
-}
-
 
 /*
  * Destroys this ModifierSpeciesReference.

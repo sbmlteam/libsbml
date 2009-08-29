@@ -544,20 +544,10 @@ Rule::containsUndeclaredUnits()
         return false;
       }
     }
-    }
-    else
-    {
-      return false;
-    }  
   }
 }
 
 
-bool 
-Rule::containsUndeclaredUnits() const
-{
-  return const_cast<Rule *> (this)->containsUndeclaredUnits();
-}
 
 bool 
 Rule::containsUndeclaredUnits() const
@@ -1127,6 +1117,7 @@ AlgebraicRule::AlgebraicRule (SBMLNamespaces * sbmlns) :
 }
 
 
+/** @cond doxygen-libsbml-internal */
 
 /* constructor for validators */
 AlgebraicRule::AlgebraicRule() :
@@ -1137,7 +1128,6 @@ AlgebraicRule::AlgebraicRule() :
 /** @endcond doxygen-libsbml-internal */
                           
                           
-
 
 /*
  * Destroys this AlgebraicRule.
@@ -1225,14 +1215,6 @@ AssignmentRule::AssignmentRule() :
 }
 
 /** @endcond doxygen-libsbml-internal */                    
-AssignmentRule::AssignmentRule (SBMLNamespaces *sbmlns) :
-  Rule(SBML_ASSIGNMENT_RULE, "", 0)
-{
-  mObjectLevel = sbmlns->getLevel();
-  mObjectVersion = sbmlns->getVersion();
-  setNamespaces(sbmlns->getNamespaces());
-}
-
 
 /*
  * Destroys this AssignmentRule.
@@ -1293,6 +1275,7 @@ RateRule::RateRule (SBMLNamespaces *sbmlns) :
     throw SBMLConstructorException();
 }
 
+/** @cond doxygen-libsbml-internal */
 
 /* constructor for validators */
 RateRule::RateRule() :
@@ -1301,14 +1284,6 @@ RateRule::RateRule() :
 }
 
 /** @endcond doxygen-libsbml-internal */                          
-RateRule::RateRule (SBMLNamespaces *sbmlns) :
-  Rule(SBML_RATE_RULE, "", 0)
-{
-  mObjectLevel = sbmlns->getLevel();
-  mObjectVersion = sbmlns->getVersion();
-  setNamespaces(sbmlns->getNamespaces());
-}
-
 
 /*
  * Destroys this RateRule.

@@ -85,19 +85,6 @@ Event::Event() :
 
 /** @endcond doxygen-libsbml-internal */
                           
-Event::Event (SBMLNamespaces *sbmlns) :
-   SBase ("", "", -1)
- , mTrigger ( 0          )
- , mDelay   ( 0          )
- , mUseValuesFromTriggerTime ( true )
-{
-  mInternalIdOnly = false;
-  mObjectLevel = sbmlns->getLevel();
-  mObjectVersion = sbmlns->getVersion();
-  setNamespaces(sbmlns->getNamespaces());
-}
-
-
 /*
  * Destroys this Event.
  */
