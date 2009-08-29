@@ -110,11 +110,28 @@ Point& Point::operator=(const Point& orig)
     this->mNotes=NULL;
     if(orig.mNotes)
     {
-        this->SBase::operator=(orig);
-        this->mXOffset=orig.mXOffset;
-        this->mYOffset=orig.mYOffset;
-        this->mZOffset=orig.mZOffset;
-        this->mElementName=orig.mElementName;
+        this->mNotes=new XMLNode(*const_cast<Point&>(orig).getNotes());
+    }
+    delete this->mAnnotation;
+    this->mAnnotation=NULL;
+    if(orig.mAnnotation)
+    {
+        this->mAnnotation=new XMLNode(*const_cast<Point&>(orig).mAnnotation);
+    }
+    this->mSBML=orig.mSBML;
+    this->mSBOTerm=orig.mSBOTerm;
+    this->mLine=orig.mLine;
+    this->mColumn=orig.mColumn;
+    delete this->mCVTerms;
+    this->mCVTerms=NULL;
+    if(orig.mCVTerms)
+    {
+      this->mCVTerms=new List();
+      unsigned int i,iMax=orig.mCVTerms->getSize();
+      for(i=0;i<iMax;++i)
+      {
+        this->mCVTerms->add(static_cast<CVTerm*>(orig.mCVTerms->get(i))->clone());
+      }
     }
   }
   

@@ -123,10 +123,12 @@ Dimensions& Dimensions::operator=(const Dimensions& orig)
     this->mCVTerms=NULL;
     if(orig.mCVTerms)
     {
-        this->SBase::operator=(orig);
-        this->mH=orig.mH;
-        this->mW=orig.mW;
-        this->mD=orig.mD;
+      this->mCVTerms=new List();
+      unsigned int i,iMax=orig.mCVTerms->getSize();
+      for(i=0;i<iMax;++i)
+      {
+        this->mCVTerms->add(static_cast<CVTerm*>(orig.mCVTerms->get(i))->clone());
+      }
     }
   }
   

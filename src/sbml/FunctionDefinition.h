@@ -154,18 +154,6 @@ class LIBSBML_EXTERN FunctionDefinition : public SBase
 public:
 
   /**
-   * Creates a new FunctionDefinition, optionally with a given identifier
-   * and mathematical formula.
-   *
-   * @param id a string, the identifier of this FunctionDefinition instance
-   *
-   * @param math the formula of the function definition expressed as an
-   * AST.
-   */
-  FunctionDefinition (const std::string& id, const ASTNode* math);
-
-
-  /**
    * Creates a new FunctionDefinition using the given SBML @p level and @p version
    * values.
    *

@@ -34,6 +34,7 @@
 
 #include "IdList.h"
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class DuplicateTopLevelAnnotation: public TConstraint<Model>
 {
@@ -72,5 +73,6 @@ protected:
 
 };
 
+LIBSBML_CPP_NAMESPACE_END
 #endif  /* __cplusplus */
 #endif  /* DuplicateTopLevelAnnotation_h */

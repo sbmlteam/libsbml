@@ -152,9 +152,12 @@ CubicBezier& CubicBezier::operator=(const CubicBezier& orig)
     this->mCVTerms=NULL;
     if(orig.mCVTerms)
     {
-        this->LineSegment::operator=(orig);
-        this->mBasePoint1=orig.mBasePoint1;
-        this->mBasePoint2=orig.mBasePoint2;
+      this->mCVTerms=new List();
+      unsigned int i,iMax=orig.mCVTerms->getSize();
+      for(i=0;i<iMax;++i)
+      {
+        this->mCVTerms->add(static_cast<CVTerm*>(orig.mCVTerms->get(i))->clone());
+      }
     }
   }
   

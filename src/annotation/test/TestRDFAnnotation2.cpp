@@ -305,45 +305,6 @@ START_TEST (test_RDFAnnotation2_modelWithHistoryWithCharacterReference)
 }
 END_TEST
 
-{
-  ModelHistory * h = new ModelHistory();
-
-  ModelCreator *c = new ModelCreator();
-  c->setFamilyName("Dr&#228;ger");
-  c->setGivenName("Andreas");
-
-  h->addCreator(c);
-  m2->unsetModelHistory();
-
-  m2->setModelHistory(h);
-
-  XMLNode *Ann = RDFAnnotationParser::parseModelHistory(m2);
-
-  const char * expected =
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<annotation>\n"
-		"  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
-		"    <rdf:Description rdf:about=\"#_000001\">\n"
-		"      <dc:creator rdf:parseType=\"Resource\">\n"
-		"        <rdf:Bag>\n"
-		"          <rdf:li rdf:parseType=\"Resource\">\n"
-		"            <vCard:N rdf:parseType=\"Resource\">\n"
-		"              <vCard:Family>Dr&#228;ger</vCard:Family>\n"
-		"              <vCard:Given>Andreas</vCard:Given>\n"
-		"            </vCard:N>\n"
-		"          </rdf:li>\n"
-		"        </rdf:Bag>\n"
-		"      </dc:creator>\n"
-		"    </rdf:Description>\n"
-		"  </rdf:RDF>\n"
-    "</annotation>";
-
-  Ann->write(*XOS2);
-
-  fail_unless( equals(expected) );
-}
-END_TEST
-
 Suite *
 create_suite_RDFAnnotation2 (void)
 {

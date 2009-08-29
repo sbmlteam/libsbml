@@ -1266,20 +1266,6 @@ public:
   /** @cond doxygen-libsbml-internal */
 
   /**
-   * Replaces occurences of a name within this ASTNode with the name/value/formula
-   * represented by the second argument ASTNode
-   * e.g. if the formula in this ASTNode is x + y; bvar is x and arg is an 
-   * ASTNode representing the real value 3 ReplaceArgument substitutes 3 for
-   * x within this ASTNode
-   *
-   * @param bvar a string representing the variable name to be substituted
-   * @param arg an ASTNode representing the name/value/formula to substitute
-   */
-
-  LIBSBML_EXTERN
-  void ReplaceArgument(const std::string bvar, ASTNode * arg);
-
-  /**
    * Sets the parent SBML object.
    * 
    * @param sb the parent SBML object of this ASTNode.
@@ -1305,7 +1291,6 @@ public:
   */
   LIBSBML_EXTERN
   void reduceToBinary();
-  /** @endcond doxygen-libsbml-internal */
 
   
  /**

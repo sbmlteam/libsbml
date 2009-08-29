@@ -35,6 +35,7 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 /**
@@ -296,3 +297,4 @@ DuplicateTopLevelAnnotation::logDuplicate (std::string name, const SBase& object
   logFailure(object);
 }
 
+LIBSBML_CPP_NAMESPACE_END

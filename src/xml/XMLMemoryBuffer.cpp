@@ -27,10 +27,6 @@
 using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-using namespace std;
-
-/** @endcond doxygen-ignored */
-
 /** @cond doxygen-libsbml-internal */
 
 /*

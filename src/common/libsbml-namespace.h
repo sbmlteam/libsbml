@@ -33,7 +33,7 @@
  */
 
 /* Define to enable libSBML C++ namespace */
-/* #undef LIBSBML_USE_CPP_NAMESPACE */
+/* #undef LIBSBML_USE_CPP_NAMESPACE  */
 
 
 #if defined(__cplusplus) && defined(LIBSBML_USE_CPP_NAMESPACE) && !defined(SWIG)
