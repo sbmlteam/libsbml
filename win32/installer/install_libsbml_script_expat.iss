@@ -267,7 +267,7 @@ begin
   InstallOptionsPage.Add('Copy libraries to systems directories');
   InstallOptionsPage.Add('Install Java binding');
   InstallOptionsPage.Add('Copy Python binding libraries to site-packages directory');
-  {InstallOptionsPage.Add('Install C# binding');}
+  InstallOptionsPage.Add('Install C# binding');
   InstallOptionsPage.Add('Install Octave binding');
   if (MatlabPresent) then begin
     InstallOptionsPage.Add('Install MATLAB binding');
@@ -331,23 +331,22 @@ begin
 
   if (MatlabPresent) then begin
     if GetPreviousData('Matlab', '') = '0' then begin
-      InstallOptionsPage.Values[4] := False;
+      InstallOptionsPage.Values[5] := False;
     end else begin
-      InstallOptionsPage.Values[4] := True;
+      InstallOptionsPage.Values[5] := True;
     end;
   end;
-  {take out c# as an option for vc7 builds
+
   if GetPreviousData('CSharp', '') = '0' then begin
     InstallOptionsPage.Values[3] := False;
   end else begin
     InstallOptionsPage.Values[3] := True;
   end;
-  InstallOptionsPage.Values[3] := False;  }
-
+  
   if GetPreviousData('Octave', '') = '0' then begin
-    InstallOptionsPage.Values[3] := False;
+    InstallOptionsPage.Values[4] := False;
   end else begin
-    InstallOptionsPage.Values[3] := True;
+    InstallOptionsPage.Values[4] := True;
   end;
 
   {python page}
@@ -361,9 +360,9 @@ begin
   {matlab page}
   MatlabPage.Values[0] := GetPreviousData('MatlabDir', MatlabRoot);
 
-  {csharp page
+  {csharp page}
   CSharpPage.Values[0] := GetPreviousData('CSharpDir', CSharpRoot);
-  }
+  
   {java page}
   JavaPage.Values[0] := GetPreviousData('JavaDir', JavaRoot);
 
@@ -407,22 +406,27 @@ begin
     InstallOptions[3] := '0';
   end;
 
+  if InstallOptionsPage.Values[4] then begin
+    InstallOptions[4] := '1';
+  end else begin
+    InstallOptions[4] := '0';
+  end;
 
   if (MatlabPresent) then begin
-    if InstallOptionsPage.Values[4] then begin
-      InstallOptions[4] := '1';
+    if InstallOptionsPage.Values[5] then begin
+      InstallOptions[5] := '1';
     end else begin
-      InstallOptions[4] := '0';
+      InstallOptions[5] := '0';
     end;
   end;
 
   SetPreviousData(PreviousDataKey, 'Libraries', InstallOptions[0]);
   SetPreviousData(PreviousDataKey, 'Java',      InstallOptions[1]);
   SetPreviousData(PreviousDataKey, 'Python',    InstallOptions[2]);
-{  SetPreviousData(PreviousDataKey, 'CSharp',    InstallOptions[3]);   }
-  SetPreviousData(PreviousDataKey, 'Octave',    InstallOptions[3]);
+  SetPreviousData(PreviousDataKey, 'CSharp',    InstallOptions[3]);
+  SetPreviousData(PreviousDataKey, 'Octave',    InstallOptions[4]);
   if (MatlabPresent) then begin
-    SetPreviousData(PreviousDataKey, 'Matlab',    InstallOptions[4]);
+    SetPreviousData(PreviousDataKey, 'Matlab',    InstallOptions[5]);
   end;
 
   {python page}
@@ -435,9 +439,9 @@ begin
   {matlab page}
   SetPreviousData(PreviousDataKey, 'MatlabDir', MatlabPage.Values[0]);
 
-  {csharp page
+  {csharp page}
   SetPreviousData(PreviousDataKey, 'CSharpDir', CSharpPage.Values[0]);
-  }
+
   {java page}
   SetPreviousData(PreviousDataKey, 'JavaDir', JavaPage.Values[0]);
 
@@ -453,11 +457,13 @@ begin
     Result := True
   else if (PageID = PythonPage.ID) and (InstallOptionsPage.Values[2] = False) then
     Result := True
-  else if (PageID = CSharpPage.ID) then
+  else if (PageID = CSharpPage.ID) and (InstallOptionsPage.Values[3] = False) then
+    Result := True
+  else if (PageID = OctavePage.ID) and (InstallOptionsPage.Values[4] = False) then
     Result := True
   else if (PageID = MatlabPage.ID) and (MatlabPresent = False) then
     Result := True
-  else if (PageID = MatlabPage.ID) and (InstallOptionsPage.Values[4] = False) then
+  else if (PageID = MatlabPage.ID) and (InstallOptionsPage.Values[5] = False) then
     Result := True
   else
     Result := False;
@@ -622,7 +628,7 @@ end;
 function GetMatlab() : Boolean;
 begin
   if (MatlabPresent) then begin
-    if (InstallOptionsPage.Values[4] = True) then
+    if (InstallOptionsPage.Values[5] = True) then
       Result := True
     else
       Result := False;
@@ -653,7 +659,7 @@ end;
 
 function GetOctave() : Boolean;
 begin
-  if (InstallOptionsPage.Values[3] = True) then
+  if (InstallOptionsPage.Values[4] = True) then
     Result := True
   else
     Result := False;
