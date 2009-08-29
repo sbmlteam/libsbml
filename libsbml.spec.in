@@ -39,16 +39,23 @@
 %define xmlparser  @XML_PARSER@
 %define @XML_PARSER@ 1
 %define name       libsbml-%{xmlparser}
-%define version    @PACKAGE_VERSION@
+%define major_version    @LIBSBML_MAJOR_VERSION@
+%define minor_version    @LIBSBML_MINOR_VERSION@
+%define revision_version @LIBSBML_REVISION_VERSION@
+%define version          %{major_version}.%{minor_version}.%{revision_version}
+%define package_version  @PACKAGE_VERSION@
 %define release    1
-%define docdir     doc/libsbml-%{version}
+%if @LIBSBML_BETA_VERSION@0
+%define release    0.@LIBSBML_BETA_VERSION@
+%endif
+%define docdir     doc/libsbml-%{package_version}
 
 Summary: libSBML: An API Library for SBML
 Name: %{name}
 Version: %{version}
 Release: %{release}
 Group: Development/Libraries
-Source: http://downloads.sourceforge.net/sbml/libsbml-%{version}-src.zip
+Source: http://downloads.sourceforge.net/sbml/libsbml-%{package_version}-src.zip
 URL: http://sbml.org/Software/libSBML
 Packager: libSBML Team <libsbml-team@caltech.edu>
 License: LGPL
@@ -196,7 +203,7 @@ libSBML Octave bindings.
 ###########################################################################
 
 %prep
-%setup -q -n libsbml-%{version}
+%setup -q -n libsbml-%{package_version}
 
 %build
 rm -rf $RPM_BUILD_ROOT
@@ -215,10 +222,6 @@ rm -rf ${RPM_BUILD_ROOT}
 make install DESTDIR=$RPM_BUILD_ROOT
 make install-docs DESTDIR=$RPM_BUILD_ROOT
 
-rm ${RPM_BUILD_ROOT}/%{_libdir}/libsbml.so
-cp ${RPM_BUILD_ROOT}/%{_libdir}/libsbml.%{version}.so \
-   ${RPM_BUILD_ROOT}/%{_libdir}/libsbml.so
-
 %clean
 rm -rf ${RPM_BUILD_ROOT}
 
@@ -230,13 +233,15 @@ rm -rf ${RPM_BUILD_ROOT}
 %files
 %defattr(-,root,root)
 %doc AUTHORS.txt README.txt COPYING.txt NEWS.txt
-%{_libdir}/libsbml.%{version}.so
-%{_libdir}/libsbml.so
+%{_libdir}/libsbml.la
+%{_libdir}/libsbml.so.4
+%{_libdir}/libsbml.so.%{version}
 
 %files devel
 %defattr(-,root,root)
 %{_datadir}/%{docdir}/cpp-api/*
 %{_datadir}/%{docdir}/c-api/*
+%{_libdir}/libsbml.so
 %{_libdir}/libsbml.a
 %{_includedir}/*
 %{_libdir}/pkgconfig/libsbml.pc
@@ -244,7 +249,7 @@ rm -rf ${RPM_BUILD_ROOT}
 %{?_with_java:%files java }
 %{?_with_java:%{_datadir}/%{docdir}/java-api/* }
 %{?_with_java:%{_libdir}/libsbmlj.so }
-%{?_with_java:%{_libdir}/libsbmlj.jar} 
+%{?_with_java:%{_datadir}/java/libsbmlj.jar} 
 
 %{?_with_csharp:%files csharp }
 %{?_with_csharp:%{_libdir}/mono/* }
@@ -265,5 +270,5 @@ rm -rf ${RPM_BUILD_ROOT}
 
 %changelog
 
-* Tue May 26 2009 Akiya Jouraku <jouraku@bio.keio.ac.jp>
-- Initial import.
+* Wed Jul 22 2009 Akiya Jouraku <jouraku@bio.keio.ac.jp>
+- Initial import for libsbml-4 branch.
