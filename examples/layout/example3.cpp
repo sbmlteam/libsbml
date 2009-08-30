@@ -317,6 +317,8 @@ ModifierSpeciesReference* reference_G6P_2=reaction_Hexokinase->createModifier();
 reference_G6P_2->setSpecies(species_G6P->getId());
 reference_G6P_2->setId("ModifierSpeciesReference_G6P");
 
+reaction_Hexokinase->addModifier(reference_G6P_2);
+
 // create species reference glyph for G6P as a modifier
 
 speciesReferenceGlyph=glyph_Hexokinase->createSpeciesReferenceGlyph();
@@ -340,6 +342,8 @@ cb->setEnd(&p);
 ModifierSpeciesReference* reference_Pi=reaction_Hexokinase->createModifier();
 reference_Pi->setSpecies(species_Pi->getId());
 reference_Pi->setId("ModifierSpeciesReference_Pi");
+
+reaction_Hexokinase->addModifier(reference_Pi);
 
 // create the species reference glyph for Phosphate
 speciesReferenceGlyph=glyph_Hexokinase->createSpeciesReferenceGlyph();

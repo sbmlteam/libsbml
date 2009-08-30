@@ -3,7 +3,7 @@
 ///  @brief   SBMLNamespaces unit tests
 ///  @author  Frank Bergmann (Csharp conversion)
 ///  @author  Akiya Jouraku (Csharp conversion)
-///  @author  Sarah Keating 
+///  @author  Sarah Keating 
 /// 
 ///  $Id$
 ///  $HeadURL$
@@ -123,7 +123,7 @@ namespace LibSBMLCSTest {
       XMLNamespaces ns = sbml.getNamespaces();
       assertTrue( ns.getLength() == 1 );
       assertTrue( ns.getURI(0) ==  "http://www.sbml.org/sbml/level1" );
-      assertTrue( ns.getPrefix(0) ==  "sbml" );
+      assertTrue( ns.getPrefix(0) ==  "" );
       sbml = null;
     }
 
@@ -135,7 +135,7 @@ namespace LibSBMLCSTest {
       XMLNamespaces ns = sbml.getNamespaces();
       assertTrue( ns.getLength() == 1 );
       assertTrue( ns.getURI(0) ==  "http://www.sbml.org/sbml/level1" );
-      assertTrue( ns.getPrefix(0) ==  "sbml" );
+      assertTrue( ns.getPrefix(0) ==  "" );
       sbml = null;
     }
 
@@ -147,7 +147,7 @@ namespace LibSBMLCSTest {
       XMLNamespaces ns = sbml.getNamespaces();
       assertTrue( ns.getLength() == 1 );
       assertTrue( ns.getURI(0) ==  "http://www.sbml.org/sbml/level2" );
-      assertTrue( ns.getPrefix(0) ==  "sbml" );
+      assertTrue( ns.getPrefix(0) ==  "" );
       sbml = null;
     }
 
@@ -159,7 +159,7 @@ namespace LibSBMLCSTest {
       XMLNamespaces ns = sbml.getNamespaces();
       assertTrue( ns.getLength() == 1 );
       assertTrue( ns.getURI(0) ==  "http://www.sbml.org/sbml/level2/version2" );
-      assertTrue( ns.getPrefix(0) ==  "sbml" );
+      assertTrue( ns.getPrefix(0) ==  "" );
       sbml = null;
     }
 
@@ -171,7 +171,7 @@ namespace LibSBMLCSTest {
       XMLNamespaces ns = sbml.getNamespaces();
       assertTrue( ns.getLength() == 1 );
       assertTrue( ns.getURI(0) ==  "http://www.sbml.org/sbml/level2/version3" );
-      assertTrue( ns.getPrefix(0) ==  "sbml" );
+      assertTrue( ns.getPrefix(0) ==  "" );
       sbml = null;
     }
 
@@ -183,18 +183,18 @@ namespace LibSBMLCSTest {
       XMLNamespaces ns = sbml.getNamespaces();
       assertTrue( ns.getLength() == 1 );
       assertTrue( ns.getURI(0) ==  "http://www.sbml.org/sbml/level2/version4" );
-      assertTrue( ns.getPrefix(0) ==  "sbml" );
+      assertTrue( ns.getPrefix(0) ==  "" );
       sbml = null;
     }
 
     public void test_SBMLNamespaces_getURI()
     {
-      assertTrue( SBMLNamespaces.getSBMLNamespaceURI(1,1) ==                              "http://www.sbml.org/sbml/level1" );
-      assertTrue( SBMLNamespaces.getSBMLNamespaceURI(1,2) ==                              "http://www.sbml.org/sbml/level1" );
-      assertTrue( SBMLNamespaces.getSBMLNamespaceURI(2,1) ==                              "http://www.sbml.org/sbml/level2" );
-      assertTrue( SBMLNamespaces.getSBMLNamespaceURI(2,2) ==                              "http://www.sbml.org/sbml/level2/version2" );
-      assertTrue( SBMLNamespaces.getSBMLNamespaceURI(2,3) ==                              "http://www.sbml.org/sbml/level2/version3" );
-      assertTrue( SBMLNamespaces.getSBMLNamespaceURI(2,4) ==                              "http://www.sbml.org/sbml/level2/version4" );
+      assertTrue( SBMLNamespaces.getSBMLNamespaceURI(1,1) ==                              "http://www.sbml.org/sbml/level1" );
+      assertTrue( SBMLNamespaces.getSBMLNamespaceURI(1,2) ==                              "http://www.sbml.org/sbml/level1" );
+      assertTrue( SBMLNamespaces.getSBMLNamespaceURI(2,1) ==                              "http://www.sbml.org/sbml/level2" );
+      assertTrue( SBMLNamespaces.getSBMLNamespaceURI(2,2) ==                              "http://www.sbml.org/sbml/level2/version2" );
+      assertTrue( SBMLNamespaces.getSBMLNamespaceURI(2,3) ==                              "http://www.sbml.org/sbml/level2/version3" );
+      assertTrue( SBMLNamespaces.getSBMLNamespaceURI(2,4) ==                              "http://www.sbml.org/sbml/level2/version4" );
     }
 
   }

@@ -1207,10 +1207,6 @@ public class TestSBase {
   {
     XMLToken token;
     XMLNode node;
-    XMLTriple triple;
-    XMLNode node2;
-    Species sp;
-    String taggedannt =  "<annotation>This is a test note</annotation>";;
     token = new  XMLToken("This is a test note");
     node = new XMLNode(token);
     S.setAnnotation(node);
@@ -1232,20 +1228,6 @@ public class TestSBase {
     assertTrue( S.isSetAnnotation() == true );
     S.unsetAnnotation();
     assertTrue( S.isSetAnnotation() == false );
-    triple = new  XMLTriple("annotation", "", "");
-    node2 = new XMLNode(triple);
-    node2.addChild(node);
-    sp = ((Model)S).createSpecies();
-    sp.setAnnotation(node2);
-    assertTrue( sp.isSetAnnotation() == true );
-    assertTrue(sp.getAnnotationString().equals(taggedannt));
-    sp.unsetAnnotation();
-    assertTrue( sp.isSetAnnotation() == false );
-    S.setAnnotation(node2);
-    assertTrue( S.isSetAnnotation() == true );
-    assertTrue(S.getAnnotationString().equals(taggedannt));
-    S.unsetAnnotation();
-    assertTrue( S.isSetAnnotation() == false );
     token = new  XMLToken("(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &#; &#x; &#00a8; &#0168 &#x00a8");
     node = new XMLNode(token);
     S.setAnnotation(node);
@@ -1264,8 +1246,6 @@ public class TestSBase {
     assertTrue(s2.equals(expected2));
     token = null;
     node = null;
-    node2 = null;
-    triple = null;
   }
 
   public void test_SBase_setAnnotationString()
@@ -1346,20 +1326,18 @@ public class TestSBase {
     }
     c.setNotes(node);
     assertTrue( c.isSetNotes() == true );
-    token = null;
-    node = null;
     token = new  XMLToken("(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &#; &#x; &#00a8; &#0168 &#x00a8");
     node = new XMLNode(token);
-    S.setNotes(node);
-    t1 = S.getNotes();
+    c.setNotes(node);
+    t1 = c.getNotes();
     assertTrue( t1.getNumChildren() == 1 );
     String s = t1.getChild(0).toXMLString();
     String expected =  "(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &amp;#; &amp;#x; &amp;#00a8; &amp;#0168 &amp;#x00a8";;
     assertTrue(s.equals(expected));
     token = new  XMLToken("& ' > < \" &amp; &apos; &gt; &lt; &quot;");
     node = new XMLNode(token);
-    S.setNotes(node);
-    t1 = S.getNotes();
+    c.setNotes(node);
+    t1 = c.getNotes();
     assertTrue( t1.getNumChildren() == 1 );
     String s2 = t1.getChild(0).toXMLString();
     String expected2 =  "&amp; &apos; &gt; &lt; &quot; &amp; &apos; &gt; &lt; &quot;";;
@@ -1399,7 +1377,7 @@ public class TestSBase {
     }
     t1 = c.getNotes();
     assertTrue( t1.getNumChildren() == 1 );
-    XMLNode t2 = t1.getChild(0);
+    t2 = t1.getChild(0);
     assertTrue(t2.getCharacters().equals( "This is a test note"));
   }
 

@@ -263,8 +263,6 @@ namespace LibSBMLCSTest {
       {
         assertEquals( true, equals(expected,ann.toXMLString()) );
       }
-      {
-      }
     }
 
     public void test_RDFAnnotation2_modelWithHistoryAndMultipleModifiedDates()
@@ -316,11 +314,13 @@ namespace LibSBMLCSTest {
       c.setFamilyName("Dr&#228;ger");
       c.setGivenName("Andreas");
       h.addCreator(c);
+      Date d = new Date(2005,2,2,14,56,11);
+      h.setCreatedDate(d);
+      h.addModifiedDate(d);
       m2.unsetModelHistory();
       m2.setModelHistory(h);
-      XMLNode Ann = RDFAnnotationParser.parseModelHistory(m2);
-      string expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "<annotation>\n" + 
+      XMLNode ann = RDFAnnotationParser.parseModelHistory(m2);
+      string expected = "<annotation>\n" + 
     "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
     "    <rdf:Description rdf:about=\"#_000001\">\n" + 
     "      <dc:creator rdf:parseType=\"Resource\">\n" + 
@@ -333,11 +333,16 @@ namespace LibSBMLCSTest {
     "          </rdf:li>\n" + 
     "        </rdf:Bag>\n" + 
     "      </dc:creator>\n" + 
+    "      <dcterms:created rdf:parseType=\"Resource\">\n" + 
+    "        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n" + 
+    "      </dcterms:created>\n" + 
+    "      <dcterms:modified rdf:parseType=\"Resource\">\n" + 
+    "        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n" + 
+    "      </dcterms:modified>\n" + 
     "    </rdf:Description>\n" + 
     "  </rdf:RDF>\n" + 
     "</annotation>";
-      Ann.write(XOS2);
-      assertEquals( true, equals(expected) );
+      assertEquals( true, equals(expected,ann.toXMLString()) );
     }
 
   }

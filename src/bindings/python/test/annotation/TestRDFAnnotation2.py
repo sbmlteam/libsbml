@@ -118,7 +118,7 @@ class TestRDFAnnotation2(unittest.TestCase):
     cv.setBiologicalQualifierType(libsbml.BQB_IS_VERSION_OF)
     cv.addResource("http://www.geneontology.org/#GO:0005892")
     self.m2.addCVTerm(cv)
-    Ann = libsbml.RDFAnnotationParser.parseModelHistory(self.m2)
+    ann = libsbml.RDFAnnotationParser.parseModelHistory(self.m2)
     expected = wrapString("<annotation>\n" + 
     "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
     "    <rdf:Description rdf:about=\"#_000001\">\n" + 
@@ -146,8 +146,8 @@ class TestRDFAnnotation2(unittest.TestCase):
     "    </rdf:Description>\n" + 
     "  </rdf:RDF>\n" + 
     "</annotation>")
-    if (Ann):
-      self.assertEqual( True, self.equals(expected,Ann.toXMLString()) )
+    if (ann):
+      self.assertEqual( True, self.equals(expected,ann.toXMLString()) )
       pass    
       pass    
     pass  
@@ -164,7 +164,7 @@ class TestRDFAnnotation2(unittest.TestCase):
     h.addModifiedDate(d)
     self.m2.unsetModelHistory()
     self.m2.setModelHistory(h)
-    Ann = libsbml.RDFAnnotationParser.parseModelHistory(self.m2)
+    ann = libsbml.RDFAnnotationParser.parseModelHistory(self.m2)
     expected = wrapString("<annotation>\n" + 
     "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
     "    <rdf:Description rdf:about=\"#_000001\">\n" + 
@@ -190,7 +190,7 @@ class TestRDFAnnotation2(unittest.TestCase):
     "    </rdf:Description>\n" + 
     "  </rdf:RDF>\n" + 
     "</annotation>")
-    self.assertEqual( True, self.equals(expected,Ann.toXMLString()) )
+    self.assertEqual( True, self.equals(expected,ann.toXMLString()) )
     pass  
 
   def test_RDFAnnotation2_modelWithHistoryWithCharacterReference(self):
@@ -199,11 +199,13 @@ class TestRDFAnnotation2(unittest.TestCase):
     c.setFamilyName("Dr&#228;ger")
     c.setGivenName("Andreas")
     h.addCreator(c)
+    d = libsbml.Date(2005,2,2,14,56,11)
+    h.setCreatedDate(d)
+    h.addModifiedDate(d)
     self.m2.unsetModelHistory()
     self.m2.setModelHistory(h)
-    Ann = libsbml.RDFAnnotationParser.parseModelHistory(self.m2)
-    expected = wrapString("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "<annotation>\n" + 
+    ann = libsbml.RDFAnnotationParser.parseModelHistory(self.m2)
+    expected = wrapString("<annotation>\n" + 
     "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
     "    <rdf:Description rdf:about=\"#_000001\">\n" + 
     "      <dc:creator rdf:parseType=\"Resource\">\n" + 
@@ -216,11 +218,16 @@ class TestRDFAnnotation2(unittest.TestCase):
     "          </rdf:li>\n" + 
     "        </rdf:Bag>\n" + 
     "      </dc:creator>\n" + 
+    "      <dcterms:created rdf:parseType=\"Resource\">\n" + 
+    "        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n" + 
+    "      </dcterms:created>\n" + 
+    "      <dcterms:modified rdf:parseType=\"Resource\">\n" + 
+    "        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n" + 
+    "      </dcterms:modified>\n" + 
     "    </rdf:Description>\n" + 
     "  </rdf:RDF>\n" + 
     "</annotation>")
-    Ann.write(self.XOS2)
-    self.assertEqual( True, self.equals(expected) )
+    self.assertEqual( True, self.equals(expected,ann.toXMLString()) )
     pass  
 
 def suite():

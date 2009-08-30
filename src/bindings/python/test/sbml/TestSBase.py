@@ -1080,7 +1080,6 @@ class TestSBase(unittest.TestCase):
     pass  
 
   def test_SBase_setAnnotation(self):
-    taggedannt =  "<annotation>This is a test note</annotation>";
     token = libsbml.XMLToken("This is a test note")
     node = libsbml.XMLNode(token)
     self.S.setAnnotation(node)
@@ -1098,20 +1097,6 @@ class TestSBase(unittest.TestCase):
       pass    
     self.S.setAnnotation(node)
     self.assert_( self.S.isSetAnnotation() == True )
-    self.S.unsetAnnotation()
-    self.assert_( self.S.isSetAnnotation() == False )
-    triple = libsbml.XMLTriple("annotation", "", "")
-    node2 = libsbml.XMLNode(triple)
-    node2.addChild(node)
-    sp = self.S.createSpecies()
-    sp.setAnnotation(node2)
-    self.assert_( sp.isSetAnnotation() == True )
-    self.assert_(( taggedannt == sp.getAnnotationString() ))
-    sp.unsetAnnotation()
-    self.assert_( sp.isSetAnnotation() == False )
-    self.S.setAnnotation(node2)
-    self.assert_( self.S.isSetAnnotation() == True )
-    self.assert_(( taggedannt == self.S.getAnnotationString() ))
     self.S.unsetAnnotation()
     self.assert_( self.S.isSetAnnotation() == False )
     token = libsbml.XMLToken("(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &#; &#x; &#00a8; &#0168 &#x00a8")
@@ -1132,8 +1117,6 @@ class TestSBase(unittest.TestCase):
     self.assert_(( expected2 == s2 ))
     token = None
     node = None
-    node2 = None
-    triple = None
     pass  
 
   def test_SBase_setAnnotationString(self):
@@ -1202,20 +1185,18 @@ class TestSBase(unittest.TestCase):
       pass    
     c.setNotes(node)
     self.assert_( c.isSetNotes() == True )
-    token = None
-    node = None
     token = libsbml.XMLToken("(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &#; &#x; &#00a8; &#0168 &#x00a8")
     node = libsbml.XMLNode(token)
-    self.S.setNotes(node)
-    t1 = self.S.getNotes()
+    c.setNotes(node)
+    t1 = c.getNotes()
     self.assert_( t1.getNumChildren() == 1 )
     s = t1.getChild(0).toXMLString()
     expected =  "(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &amp;#; &amp;#x; &amp;#00a8; &amp;#0168 &amp;#x00a8";
     self.assert_(( expected == s ))
     token = libsbml.XMLToken("& ' > < \" &amp; &apos; &gt; &lt; &quot;")
     node = libsbml.XMLNode(token)
-    self.S.setNotes(node)
-    t1 = self.S.getNotes()
+    c.setNotes(node)
+    t1 = c.getNotes()
     self.assert_( t1.getNumChildren() == 1 )
     s2 = t1.getChild(0).toXMLString()
     expected2 =  "&amp; &apos; &gt; &lt; &quot; &amp; &apos; &gt; &lt; &quot;";

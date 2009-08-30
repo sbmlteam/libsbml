@@ -82,10 +82,6 @@ ifdef USE_LIBXML
   extra_LIBS     += @LIBXML_LIBS@
 endif
 
-ifdef USE_SUN_CC
-  extra_LIBS      += -lCstd
-endif
-
 ifdef USE_LAYOUT
   SWIGFLAGS      += -DUSE_LAYOUT
   extra_CPPFLAGS += -DUSE_LAYOUT

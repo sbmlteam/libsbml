@@ -1214,10 +1214,6 @@ namespace LibSBMLCSTest {
     {
       XMLToken token;
       XMLNode node;
-      XMLTriple triple;
-      XMLNode node2;
-      Species sp;
-      string taggedannt =  "<annotation>This is a test note</annotation>";;
       token = new  XMLToken("This is a test note");
       node = new XMLNode(token);
       S.setAnnotation(node);
@@ -1239,20 +1235,6 @@ namespace LibSBMLCSTest {
       assertTrue( S.isSetAnnotation() == true );
       S.unsetAnnotation();
       assertTrue( S.isSetAnnotation() == false );
-      triple = new  XMLTriple("annotation", "", "");
-      node2 = new XMLNode(triple);
-      node2.addChild(node);
-      sp = ((Model)S).createSpecies();
-      sp.setAnnotation(node2);
-      assertTrue( sp.isSetAnnotation() == true );
-      assertTrue(( taggedannt == sp.getAnnotationString() ));
-      sp.unsetAnnotation();
-      assertTrue( sp.isSetAnnotation() == false );
-      S.setAnnotation(node2);
-      assertTrue( S.isSetAnnotation() == true );
-      assertTrue(( taggedannt == S.getAnnotationString() ));
-      S.unsetAnnotation();
-      assertTrue( S.isSetAnnotation() == false );
       token = new  XMLToken("(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &#; &#x; &#00a8; &#0168 &#x00a8");
       node = new XMLNode(token);
       S.setAnnotation(node);
@@ -1271,8 +1253,6 @@ namespace LibSBMLCSTest {
       assertTrue(( expected2 == s2 ));
       token = null;
       node = null;
-      node2 = null;
-      triple = null;
     }
 
     public void test_SBase_setAnnotationString()
@@ -1353,20 +1333,18 @@ namespace LibSBMLCSTest {
       }
       c.setNotes(node);
       assertTrue( c.isSetNotes() == true );
-      token = null;
-      node = null;
       token = new  XMLToken("(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &#; &#x; &#00a8; &#0168 &#x00a8");
       node = new XMLNode(token);
-      S.setNotes(node);
-      t1 = S.getNotes();
+      c.setNotes(node);
+      t1 = c.getNotes();
       assertTrue( t1.getNumChildren() == 1 );
       string s = t1.getChild(0).toXMLString();
       string expected =  "(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &amp;#; &amp;#x; &amp;#00a8; &amp;#0168 &amp;#x00a8";;
       assertTrue(( expected == s ));
       token = new  XMLToken("& ' > < \" &amp; &apos; &gt; &lt; &quot;");
       node = new XMLNode(token);
-      S.setNotes(node);
-      t1 = S.getNotes();
+      c.setNotes(node);
+      t1 = c.getNotes();
       assertTrue( t1.getNumChildren() == 1 );
       string s2 = t1.getChild(0).toXMLString();
       string expected2 =  "&amp; &apos; &gt; &lt; &quot; &amp; &apos; &gt; &lt; &quot;";;
@@ -1406,7 +1384,7 @@ namespace LibSBMLCSTest {
       }
       t1 = c.getNotes();
       assertTrue( t1.getNumChildren() == 1 );
-      XMLNode t2 = t1.getChild(0);
+      t2 = t1.getChild(0);
       assertTrue((  "This is a test note" == t2.getCharacters() ));
     }
 

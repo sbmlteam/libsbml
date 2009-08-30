@@ -21,6 +21,7 @@
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
  */
 
+
 %module libsbml
 
 %pragma(java) moduleclassmodifiers="
@@ -430,53 +431,6 @@ LIBSBML_CPP_NAMESPACE_USE
   }
 }
 
-
-
-/**
- * 
- * wraps "List* ASTNode::getListOfNodes(ASTNodePredicate)" function
- * as "ListWrapper<ASTNode>* ASTNode::getListOfNodes()" function 
- * which returns a list of all ASTNodes. 
- *
- */
-
-
-%inline
-%{
-  int ASTNode_true(const ASTNode *node)
-  {
-    return 1;
-  }
-%}
-
-%extend ASTNode
-{
-  ListWrapper<ASTNode>* getListOfNodes()
-  {
-    List *list = $self->getListOfNodes(ASTNode_true);
-    return new ListWrapper<ASTNode>(list);
-  }
-}
-
-/*
- * Wraps "static void RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, 
- * List *CVTerms)" function as 
- * "static void RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, 
- *  ListWrapper<CVTerm> *CVTerms);
- *
- */
-
-%extend RDFAnnotationParser
-{
-  static void RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, 
-                                                      ListWrapper<CVTerm> *CVTerms)
-  {
-    if (!CVTerms) return;
-
-    List *list = CVTerms->getList();
-    RDFAnnotationParser::parseRDFAnnotation(annotation,list);
-  }
-}
 
 
 /**

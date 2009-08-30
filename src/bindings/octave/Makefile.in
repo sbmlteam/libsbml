@@ -96,10 +96,6 @@ ifdef USE_LIBXML
   MKOCTFILE_LIBS     += @LIBXML_LIBS@
 endif
 
-ifdef USE_SUN_CC
-  MKOCTFILE_LIBS     += -lCstd
-endif
-
 ifdef USE_ZLIB
  MKOCTFILE_LIBS += @ZLIB_LIBS@
 endif

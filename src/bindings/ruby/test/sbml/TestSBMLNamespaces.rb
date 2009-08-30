@@ -3,7 +3,7 @@
 # @brief   SBMLNamespaces unit tests
 #
 # @author  Akiya Jouraku (Ruby conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -37,7 +37,7 @@ class TestSBMLNamespaces < Test::Unit::TestCase
     ns = sbml.getNamespaces()
     assert( ns.getLength() == 1 )
     assert( ns.getURI(0) ==  "http://www.sbml.org/sbml/level1" )
-    assert( ns.getPrefix(0) ==  "sbml" )
+    assert( ns.getPrefix(0) ==  "" )
     sbml = nil
   end
 
@@ -48,7 +48,7 @@ class TestSBMLNamespaces < Test::Unit::TestCase
     ns = sbml.getNamespaces()
     assert( ns.getLength() == 1 )
     assert( ns.getURI(0) ==  "http://www.sbml.org/sbml/level1" )
-    assert( ns.getPrefix(0) ==  "sbml" )
+    assert( ns.getPrefix(0) ==  "" )
     sbml = nil
   end
 
@@ -59,7 +59,7 @@ class TestSBMLNamespaces < Test::Unit::TestCase
     ns = sbml.getNamespaces()
     assert( ns.getLength() == 1 )
     assert( ns.getURI(0) ==  "http://www.sbml.org/sbml/level2" )
-    assert( ns.getPrefix(0) ==  "sbml" )
+    assert( ns.getPrefix(0) ==  "" )
     sbml = nil
   end
 
@@ -70,7 +70,7 @@ class TestSBMLNamespaces < Test::Unit::TestCase
     ns = sbml.getNamespaces()
     assert( ns.getLength() == 1 )
     assert( ns.getURI(0) ==  "http://www.sbml.org/sbml/level2/version2" )
-    assert( ns.getPrefix(0) ==  "sbml" )
+    assert( ns.getPrefix(0) ==  "" )
     sbml = nil
   end
 
@@ -81,7 +81,7 @@ class TestSBMLNamespaces < Test::Unit::TestCase
     ns = sbml.getNamespaces()
     assert( ns.getLength() == 1 )
     assert( ns.getURI(0) ==  "http://www.sbml.org/sbml/level2/version3" )
-    assert( ns.getPrefix(0) ==  "sbml" )
+    assert( ns.getPrefix(0) ==  "" )
     sbml = nil
   end
 
@@ -92,17 +92,17 @@ class TestSBMLNamespaces < Test::Unit::TestCase
     ns = sbml.getNamespaces()
     assert( ns.getLength() == 1 )
     assert( ns.getURI(0) ==  "http://www.sbml.org/sbml/level2/version4" )
-    assert( ns.getPrefix(0) ==  "sbml" )
+    assert( ns.getPrefix(0) ==  "" )
     sbml = nil
   end
 
   def test_SBMLNamespaces_getURI
-    assert( LibSBML::SBMLNamespaces.getSBMLNamespaceURI(1,1) ==                              "http://www.sbml.org/sbml/level1" )
-    assert( LibSBML::SBMLNamespaces.getSBMLNamespaceURI(1,2) ==                              "http://www.sbml.org/sbml/level1" )
-    assert( LibSBML::SBMLNamespaces.getSBMLNamespaceURI(2,1) ==                              "http://www.sbml.org/sbml/level2" )
-    assert( LibSBML::SBMLNamespaces.getSBMLNamespaceURI(2,2) ==                              "http://www.sbml.org/sbml/level2/version2" )
-    assert( LibSBML::SBMLNamespaces.getSBMLNamespaceURI(2,3) ==                              "http://www.sbml.org/sbml/level2/version3" )
-    assert( LibSBML::SBMLNamespaces.getSBMLNamespaceURI(2,4) ==                              "http://www.sbml.org/sbml/level2/version4" )
+    assert( LibSBML::SBMLNamespaces.getSBMLNamespaceURI(1,1) ==                              "http://www.sbml.org/sbml/level1" )
+    assert( LibSBML::SBMLNamespaces.getSBMLNamespaceURI(1,2) ==                              "http://www.sbml.org/sbml/level1" )
+    assert( LibSBML::SBMLNamespaces.getSBMLNamespaceURI(2,1) ==                              "http://www.sbml.org/sbml/level2" )
+    assert( LibSBML::SBMLNamespaces.getSBMLNamespaceURI(2,2) ==                              "http://www.sbml.org/sbml/level2/version2" )
+    assert( LibSBML::SBMLNamespaces.getSBMLNamespaceURI(2,3) ==                              "http://www.sbml.org/sbml/level2/version3" )
+    assert( LibSBML::SBMLNamespaces.getSBMLNamespaceURI(2,4) ==                              "http://www.sbml.org/sbml/level2/version4" )
   end
 
 end

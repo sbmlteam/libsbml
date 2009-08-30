@@ -67,10 +67,6 @@ else
   extra_LIBS      += $(XERCES_LIBS)
 endif
 
-ifdef USE_SUN_CC
-  extra_LIBS      += -lCstd
-endif
-
 # `distfiles' determines the files and directories included in a distribution.
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.

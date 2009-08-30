@@ -4,7 +4,7 @@
  * @brief   SBMLNamespaces unit tests
  *
  * @author  Akiya Jouraku (Java conversion)
- * @author  Sarah Keating 
+ * @author  Sarah Keating 
  *
  * $Id$
  * $HeadURL$
@@ -116,7 +116,7 @@ public class TestSBMLNamespaces {
     XMLNamespaces ns = sbml.getNamespaces();
     assertTrue( ns.getLength() == 1 );
     assertTrue( ns.getURI(0).equals( "http://www.sbml.org/sbml/level1") );
-    assertTrue( ns.getPrefix(0).equals( "sbml") );
+    assertTrue( ns.getPrefix(0).equals( "") );
     sbml = null;
   }
 
@@ -128,7 +128,7 @@ public class TestSBMLNamespaces {
     XMLNamespaces ns = sbml.getNamespaces();
     assertTrue( ns.getLength() == 1 );
     assertTrue( ns.getURI(0).equals( "http://www.sbml.org/sbml/level1") );
-    assertTrue( ns.getPrefix(0).equals( "sbml") );
+    assertTrue( ns.getPrefix(0).equals( "") );
     sbml = null;
   }
 
@@ -140,7 +140,7 @@ public class TestSBMLNamespaces {
     XMLNamespaces ns = sbml.getNamespaces();
     assertTrue( ns.getLength() == 1 );
     assertTrue( ns.getURI(0).equals( "http://www.sbml.org/sbml/level2") );
-    assertTrue( ns.getPrefix(0).equals( "sbml") );
+    assertTrue( ns.getPrefix(0).equals( "") );
     sbml = null;
   }
 
@@ -152,7 +152,7 @@ public class TestSBMLNamespaces {
     XMLNamespaces ns = sbml.getNamespaces();
     assertTrue( ns.getLength() == 1 );
     assertTrue( ns.getURI(0).equals( "http://www.sbml.org/sbml/level2/version2") );
-    assertTrue( ns.getPrefix(0).equals( "sbml") );
+    assertTrue( ns.getPrefix(0).equals( "") );
     sbml = null;
   }
 
@@ -164,7 +164,7 @@ public class TestSBMLNamespaces {
     XMLNamespaces ns = sbml.getNamespaces();
     assertTrue( ns.getLength() == 1 );
     assertTrue( ns.getURI(0).equals( "http://www.sbml.org/sbml/level2/version3") );
-    assertTrue( ns.getPrefix(0).equals( "sbml") );
+    assertTrue( ns.getPrefix(0).equals( "") );
     sbml = null;
   }
 
@@ -176,18 +176,18 @@ public class TestSBMLNamespaces {
     XMLNamespaces ns = sbml.getNamespaces();
     assertTrue( ns.getLength() == 1 );
     assertTrue( ns.getURI(0).equals( "http://www.sbml.org/sbml/level2/version4") );
-    assertTrue( ns.getPrefix(0).equals( "sbml") );
+    assertTrue( ns.getPrefix(0).equals( "") );
     sbml = null;
   }
 
   public void test_SBMLNamespaces_getURI()
   {
-    assertTrue( SBMLNamespaces.getSBMLNamespaceURI(1,1).equals(                             "http://www.sbml.org/sbml/level1") );
-    assertTrue( SBMLNamespaces.getSBMLNamespaceURI(1,2).equals(                             "http://www.sbml.org/sbml/level1") );
-    assertTrue( SBMLNamespaces.getSBMLNamespaceURI(2,1).equals(                             "http://www.sbml.org/sbml/level2") );
-    assertTrue( SBMLNamespaces.getSBMLNamespaceURI(2,2).equals(                             "http://www.sbml.org/sbml/level2/version2") );
-    assertTrue( SBMLNamespaces.getSBMLNamespaceURI(2,3).equals(                             "http://www.sbml.org/sbml/level2/version3") );
-    assertTrue( SBMLNamespaces.getSBMLNamespaceURI(2,4).equals(                             "http://www.sbml.org/sbml/level2/version4") );
+    assertTrue( SBMLNamespaces.getSBMLNamespaceURI(1,1).equals(                             "http://www.sbml.org/sbml/level1") );
+    assertTrue( SBMLNamespaces.getSBMLNamespaceURI(1,2).equals(                             "http://www.sbml.org/sbml/level1") );
+    assertTrue( SBMLNamespaces.getSBMLNamespaceURI(2,1).equals(                             "http://www.sbml.org/sbml/level2") );
+    assertTrue( SBMLNamespaces.getSBMLNamespaceURI(2,2).equals(                             "http://www.sbml.org/sbml/level2/version2") );
+    assertTrue( SBMLNamespaces.getSBMLNamespaceURI(2,3).equals(                             "http://www.sbml.org/sbml/level2/version3") );
+    assertTrue( SBMLNamespaces.getSBMLNamespaceURI(2,4).equals(                             "http://www.sbml.org/sbml/level2/version4") );
   }
 
   /**

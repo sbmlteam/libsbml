@@ -51,10 +51,11 @@ sub test_CVTerm_createFromNode {
   my $li_triple   = new LibSBML::XMLTriple();
   my $att         = new LibSBML::XMLAttributes();
   $att->add('', 'This is my resource');
+  my $att1        = new LibSBML::XMLAttributes();
 
   my $li_token   = new LibSBML::XMLToken($li_triple, $att);
-  my $bag_token  = new LibSBML::XMLToken($bag_triple);
-  my $qual_token = new LibSBML::XMLToken($qual_triple);
+  my $bag_token  = new LibSBML::XMLToken($bag_triple,$att1);
+  my $qual_token = new LibSBML::XMLToken($qual_triple,$att1);
 
   my $li   = new LibSBML::XMLNode($li_token);
   my $bag  = new LibSBML::XMLNode($bag_token);

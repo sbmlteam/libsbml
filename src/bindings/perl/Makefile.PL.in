@@ -54,7 +54,6 @@ WriteMakefile(
               LIBS        => "@XERCES_LDFLAGS@ @EXPAT_LDFLAGS@ @LIBXML_LDFLAGS@ @XERCES_LIBS@ @EXPAT_LIBS@ @LIBXML_LIBS@ @ZLIB_LIBS@ @BZ2_LIBS@ @LIBS@ -lm",
               LDDLFLAGS   => "@LDFLAGS@ $Config{lddlflags}",
               CC          => "@CXX@",
-              LD          => "@CXX@",
 	      CCFLAGS     => "@PERL_CPPFLAGS@ @CXXFLAGS@",
               INC         => "-I../swig -I../.. -I../../../include",
               MYEXTLIB    => "../../libsbml.la",

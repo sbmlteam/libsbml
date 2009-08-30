@@ -98,6 +98,10 @@ sub test_RDFAnnotation2_modelWithHistoryAndCVTerms {
  $c->setFamilyName('Keating');
  $c->setGivenName('Sarah');
  $h->addCreator($c);
+
+ my $d = new LibSBML::Date(2008,11,17,18,37,0,0,0,0);
+ $h->setCreatedDate($d);
+ $h->setModifiedDate($d);
  $m2->unsetModelHistory();
  $m2->setModelHistory($h);
  my $cv = new LibSBML::CVTerm();
@@ -107,8 +111,7 @@ sub test_RDFAnnotation2_modelWithHistoryAndCVTerms {
  $m2->addCVTerm($cv);
  my $result = LibSBML::RDFAnnotationParser::parseModelHistory($m2);
  my $expected =
-       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-     . "<annotation>\n"
+     "<annotation>\n"
      . "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
      . "    <rdf:Description rdf:about=\"#_000001\">\n"
      . "      <dc:creator rdf:parseType=\"Resource\">\n"
@@ -121,6 +124,12 @@ sub test_RDFAnnotation2_modelWithHistoryAndCVTerms {
      . "          </rdf:li>\n"
      . "        </rdf:Bag>\n"
      . "      </dc:creator>\n"
+     . "      <dcterms:created rdf:parseType=\"Resource\">\n"
+     . "        <dcterms:W3CDTF>2008-11-17T18:37:00Z</dcterms:W3CDTF>\n"
+     . "      </dcterms:created>\n"
+     . "      <dcterms:modified rdf:parseType=\"Resource\">\n"
+     . "        <dcterms:W3CDTF>2008-11-17T18:37:00Z</dcterms:W3CDTF>\n"
+     . "      </dcterms:modified>\n"
      . "      <bqbiol:isVersionOf>\n"
      . "        <rdf:Bag>\n"
      . "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0005892\"/>\n"
@@ -129,8 +138,7 @@ sub test_RDFAnnotation2_modelWithHistoryAndCVTerms {
      . "    </rdf:Description>\n"
      . "  </rdf:RDF>\n"
      . "</annotation>";
- $result->write($XOS2);
- ok( $expected eq $OSS2->str() );
+ ok( $expected eq $result->toXMLString() );
  $OSS2->str("");
 }
 
@@ -179,7 +187,6 @@ sub test_RDFAnnotation2_modelWithHistoryAndMultipleModifiedDates {
      . "    </rdf:Description>\n"
      . "  </rdf:RDF>\n"
      . "</annotation>";
- $result->write($XOS2);
-  ok( $expected eq $OSS2->str() );
+  ok( $expected eq $result->toXMLString() );
 }
 

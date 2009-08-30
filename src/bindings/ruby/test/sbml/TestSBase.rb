@@ -1073,7 +1073,6 @@ class TestSBase < Test::Unit::TestCase
   end
 
   def test_SBase_setAnnotation
-    taggedannt =  "<annotation>This is a test note</annotation>";
     token = LibSBML::XMLToken.new("This is a test note")
     node = LibSBML::XMLNode.new(token)
     @@s.setAnnotation(node)
@@ -1091,20 +1090,6 @@ class TestSBase < Test::Unit::TestCase
     end
     @@s.setAnnotation(node)
     assert( @@s.isSetAnnotation() == true )
-    @@s.unsetAnnotation()
-    assert( @@s.isSetAnnotation() == false )
-    triple = LibSBML::XMLTriple.new("annotation", "", "")
-    node2 = LibSBML::XMLNode.new(triple)
-    node2.addChild(node)
-    sp = @@s.createSpecies()
-    sp.setAnnotation(node2)
-    assert( sp.isSetAnnotation() == true )
-    assert (( taggedannt == sp.getAnnotationString() ))
-    sp.unsetAnnotation()
-    assert( sp.isSetAnnotation() == false )
-    @@s.setAnnotation(node2)
-    assert( @@s.isSetAnnotation() == true )
-    assert (( taggedannt == @@s.getAnnotationString() ))
     @@s.unsetAnnotation()
     assert( @@s.isSetAnnotation() == false )
     token = LibSBML::XMLToken.new("(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &#; &#x; &#00a8; &#0168 &#x00a8")
@@ -1125,8 +1110,6 @@ class TestSBase < Test::Unit::TestCase
     assert (( expected2 == s2 ))
     token = nil
     node = nil
-    node2 = nil
-    triple = nil
   end
 
   def test_SBase_setAnnotationString
@@ -1195,20 +1178,18 @@ class TestSBase < Test::Unit::TestCase
     end
     c.setNotes(node)
     assert( c.isSetNotes() == true )
-    token = nil
-    node = nil
     token = LibSBML::XMLToken.new("(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &#; &#x; &#00a8; &#0168 &#x00a8")
     node = LibSBML::XMLNode.new(token)
-    @@s.setNotes(node)
-    t1 = @@s.getNotes()
+    c.setNotes(node)
+    t1 = c.getNotes()
     assert( t1.getNumChildren() == 1 )
     s = t1.getChild(0).toXMLString()
     expected =  "(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &amp;#; &amp;#x; &amp;#00a8; &amp;#0168 &amp;#x00a8";
     assert (( expected == s ))
     token = LibSBML::XMLToken.new("& ' > < \" &amp; &apos; &gt; &lt; &quot;")
     node = LibSBML::XMLNode.new(token)
-    @@s.setNotes(node)
-    t1 = @@s.getNotes()
+    c.setNotes(node)
+    t1 = c.getNotes()
     assert( t1.getNumChildren() == 1 )
     s2 = t1.getChild(0).toXMLString()
     expected2 =  "&amp; &apos; &gt; &lt; &quot; &amp; &apos; &gt; &lt; &quot;";

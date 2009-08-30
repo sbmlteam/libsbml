@@ -26,6 +26,8 @@
 #include <sbml/util/List.h>
 #include <sbml/common/extern.h>
 
+LIBSBML_CPP_NAMESPACE_USE
+
 /**
  *
  * ListWrapper : a wrapper template class for List class.
@@ -68,7 +70,6 @@ class LIBSBML_EXTERN ListWrapper
     ListWrapper(List* list, bool memown = false) : mList(list), mMemOwn(memown) {}
 
     List* getList() { return mList; }
-
 #endif
 
 
