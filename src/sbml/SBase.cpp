@@ -2339,6 +2339,12 @@ SBase::hasValidLevelVersionNamespaceCombination()
     //
     int numNS = 0;
 
+    if (xmlns->hasURI(SBML_XMLNS_L3V1))
+    {
+      ++numNS;
+      declaredURI.assign(SBML_XMLNS_L3V1);
+    }
+
     if (xmlns->hasURI(SBML_XMLNS_L2V4))
     {
       ++numNS;
@@ -2406,6 +2412,7 @@ SBase::hasValidLevelVersionNamespaceCombination()
         || typecode == SBML_MODIFIER_SPECIES_REFERENCE
         || typecode == SBML_TRIGGER
         || typecode == SBML_DELAY
+        || typecode == SBML_LOCAL_PARAMETER
         || typecode == SBML_STOICHIOMETRY_MATH)
         valid = false;
      switch (version)
@@ -2428,6 +2435,8 @@ SBase::hasValidLevelVersionNamespaceCombination()
         }
       break;
     case 2:
+      if (typecode == SBML_LOCAL_PARAMETER)
+        valid = false;
       switch (version)
       {
         case 1:
@@ -2484,6 +2493,30 @@ SBase::hasValidLevelVersionNamespaceCombination()
           valid = false;
           break;
         }
+      break;
+    case 3:
+      // some components no longer exist in level 3
+      if ( typecode == SBML_COMPARTMENT_TYPE
+        || typecode == SBML_SPECIES_TYPE
+        || typecode == SBML_STOICHIOMETRY_MATH)
+        valid = false;
+      switch (version)
+      {
+        case 1:
+         // the namespaces contains the sbml namespaces
+          // check it is the correct ns for the level/version
+          if (sbmlDeclared)
+          {
+            if (declaredURI != string(SBML_XMLNS_L3V1))
+            {
+              valid = false;
+            }
+          }
+          break;
+        default:
+          valid = false;
+          break;
+      }
       break;
     default:
       valid = false;

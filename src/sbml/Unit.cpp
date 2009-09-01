@@ -74,6 +74,7 @@ Unit::Unit (SBMLNamespaces * sbmlns) :
     throw SBMLConstructorException();
 }
 
+/** @cond doxygen-libsbml-internal */
 
 /* constructor for validators */
 Unit::Unit() :
@@ -184,7 +185,7 @@ Unit::getKind () const
 /*
  * @return the exponent of this Unit.
  */
-int
+double
 Unit::getExponent () const
 {
   return mExponent;
@@ -633,7 +634,7 @@ Unit::setKind (UnitKind_t kind)
  * Sets the exponent of this Unit to the given value.
  */
 int
-Unit::setExponent (int value)
+Unit::setExponent (double value)
 {
   mExponent = value;
   mIsSetExponent = true;
@@ -889,7 +890,7 @@ Unit::removeScale(Unit * unit)
 void
 Unit::merge(Unit * unit1, Unit * unit2)
 {
-  int newExponent;
+  double newExponent;
   double newMultiplier;
 
   /* only applies if units have same kind */
@@ -1560,7 +1561,8 @@ Unit::writeAttributes (XMLOutputStream& stream) const
   //
   if (level < 3)
   {
-    if (mExponent != 1) stream.writeAttribute("exponent", mExponent);
+    int e = static_cast<int>( mExponent );
+    if (e != 1) stream.writeAttribute("exponent", e);
   }
   else
   {
@@ -1875,7 +1877,7 @@ Unit_getKind (const Unit_t *u)
  * @return the "exponent" value of this Unit_t structure, as an integer.
  */
 LIBSBML_EXTERN
-int
+double
 Unit_getExponent (const Unit_t *u)
 {
   return u->getExponent();
@@ -2561,7 +2563,7 @@ Unit_setKind (Unit_t *u, UnitKind_t kind)
  */
 LIBSBML_EXTERN
 int
-Unit_setExponent (Unit_t *u, int value)
+Unit_setExponent (Unit_t *u, double value)
 {
   return u->setExponent(value);
 }

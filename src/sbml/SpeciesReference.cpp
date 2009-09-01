@@ -491,6 +491,7 @@ SpeciesReference::SpeciesReference (SBMLNamespaces *sbmlns) :
  , mStoichiometryMath    ( 0             )
  , mConstant             (false)
  , mIsSetConstant        (false)
+ , mIsSetStoichiometry   (false)
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -528,6 +529,7 @@ SpeciesReference::SpeciesReference (const SpeciesReference& orig) :
  , mStoichiometryMath    ( 0                   )
  , mConstant             ( orig.mConstant      )
  , mIsSetConstant        ( orig.mIsSetConstant )
+ , mIsSetStoichiometry   ( orig.mIsSetStoichiometry )
 {
   if (orig.mStoichiometryMath)
   {
@@ -550,6 +552,7 @@ SpeciesReference& SpeciesReference::operator=(const SpeciesReference& rhs)
     mDenominator = rhs.mDenominator   ;
     mConstant = rhs.mConstant;
     mIsSetConstant = rhs.mIsSetConstant;
+    mIsSetStoichiometry = rhs.mIsSetStoichiometry;
 
     delete mStoichiometryMath;
     if (rhs.mStoichiometryMath)
@@ -682,6 +685,17 @@ SpeciesReference::isSetConstant () const
 
 
 /*
+ * @return true if the stoichiometry of this SpeciesReference has been
+ * set, false otherwise.
+ */
+bool
+SpeciesReference::isSetStoichiometry () const
+{
+  return mIsSetStoichiometry;
+}
+
+
+/*
  * Sets the stoichiometry of this SpeciesReference to value.
  */
 int
@@ -690,6 +704,7 @@ SpeciesReference::setStoichiometry (double value)
    unsetStoichiometryMath();
 
    mStoichiometry = value;
+   mIsSetStoichiometry = true;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -1185,7 +1200,15 @@ SpeciesReference::readAttributes (const XMLAttributes& attributes)
   // stoichiometry: integer  { use="optional" default="1" }  (L1v1, L1v2)
   // stoichiometry: double   { use="optional" default="1" }  (L2v1->)
   //
-  attributes.readInto("stoichiometry", mStoichiometry);
+  if (getLevel() < 3)
+  {
+    attributes.readInto("stoichiometry", mStoichiometry);
+  }
+  else
+  {
+    mIsSetStoichiometry = attributes.readInto("stoichiometry", 
+                                               mStoichiometry);
+  }
 
   //
   // denominator: integer  { use="optional" default="1" }  (L1v1, L1v2)
@@ -1228,7 +1251,7 @@ SpeciesReference::writeAttributes (XMLOutputStream& stream) const
     //
     if (mDenominator != 1) stream.writeAttribute("denominator", mDenominator);
   }
-  else
+  else if (getLevel() == 2)
   {
     //
     // stoichiometry: double   { use="optional" default="1" }  (L2v1, L2v2)
@@ -1237,6 +1260,11 @@ SpeciesReference::writeAttributes (XMLOutputStream& stream) const
     {
       stream.writeAttribute("stoichiometry", mStoichiometry);
     }
+  }
+  else
+  {
+    if (isSetStoichiometry())
+      stream.writeAttribute("stoichiometry", mStoichiometry);
   }
   //
   // constant: bool { use="required" } (L3v1 -> )

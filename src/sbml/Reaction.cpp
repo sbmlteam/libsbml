@@ -1512,6 +1512,11 @@ Reaction::writeAttributes (XMLOutputStream& stream) const
     stream.writeAttribute("fast", mFast);
   }
 
+  if (level > 2)
+  {
+    stream.writeAttribute("compartment", mCompartment);
+  }
+
   if (level > 1)
   {
     //

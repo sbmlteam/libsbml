@@ -70,6 +70,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 #define SBML_XMLNS_L2V2      "http://www.sbml.org/sbml/level2/version2"
 #define SBML_XMLNS_L2V3      "http://www.sbml.org/sbml/level2/version3"
 #define SBML_XMLNS_L2V4      "http://www.sbml.org/sbml/level2/version4"
+#define SBML_XMLNS_L3V1      "http://www.sbml.org/sbml/level3/version1/core"
 
 class LIBSBML_EXTERN SBMLNamespaces
 {

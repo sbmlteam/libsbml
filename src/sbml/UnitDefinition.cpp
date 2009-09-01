@@ -1185,12 +1185,12 @@ UnitDefinition::printUnits(const UnitDefinition * ud, bool compact)
       for (unsigned int p = 0; p < ud->getNumUnits(); p++)
       {
 	      UnitKind_t kind = ud->getUnit(p)->getKind();
-	      int exp = ud->getUnit(p)->getExponent();
+	      double exp = ud->getUnit(p)->getExponent();
         int scale = ud->getUnit(p)->getScale();
         double mult = ud->getUnit(p)->getMultiplier();
 
         char unit[80];
-        sprintf(unit, "%s (exponent = %i, multiplier = %.6g, scale = %i)", 
+        sprintf(unit, "%s (exponent = %g, multiplier = %.6g, scale = %i)", 
           UnitKind_toString(kind), exp, mult, scale);
         unitDef += unit;
 
@@ -1205,13 +1205,13 @@ UnitDefinition::printUnits(const UnitDefinition * ud, bool compact)
       for (unsigned int p = 0; p < ud->getNumUnits(); p++)
       {
 	      UnitKind_t kind = ud->getUnit(p)->getKind();
-	      int exp = ud->getUnit(p)->getExponent();
+	      double exp = ud->getUnit(p)->getExponent();
         int scale = ud->getUnit(p)->getScale();
         double mult = ud->getUnit(p)->getMultiplier();
         mult = mult * pow(10.0, scale);
 
         char unit[40];
-        sprintf(unit, "(%.6g %s)^%i", mult,  
+        sprintf(unit, "(%.6g %s)^%g", mult,  
           UnitKind_toString(kind), exp);
         unitDef += unit;
 

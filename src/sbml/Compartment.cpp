@@ -212,7 +212,7 @@ Compartment::getCompartmentType () const
 /*
  * @return the spatialDimensions of this Compartment.
  */
-unsigned int
+double
 Compartment::getSpatialDimensions () const
 {
   return mSpatialDimensions;
@@ -459,7 +459,7 @@ Compartment::setCompartmentType (const std::string& sid)
  * (i.e. spatialDimensions will not be set).
  */
 int
-Compartment::setSpatialDimensions (unsigned int value)
+Compartment::setSpatialDimensions (double value)
 {
   if (getLevel() < 2)
   {
@@ -467,9 +467,24 @@ Compartment::setSpatialDimensions (unsigned int value)
     mSpatialDimensions = 3;
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
-  else if (value < 0 || value > 3)
+
+  if (getLevel() == 2)
   {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    //must be an int eith 0, 1, 2, 3
+    if (floor(value) != value && ceil(value) != value)
+    {
+      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    }
+    else if (value < 0 || value > 3)
+    {
+      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    }
+    else
+    {
+      mSpatialDimensions = value;
+      mIsSetSpatialDimensions = true;
+      return LIBSBML_OPERATION_SUCCESS;
+    }
   }
   else
   {
@@ -1000,9 +1015,10 @@ Compartment::writeAttributes (XMLOutputStream& stream) const
     //
     if (level == 2)
     {
-      if (mSpatialDimensions >= 0 && mSpatialDimensions <= 2)
+      unsigned int sd = static_cast<int>( mSpatialDimensions);
+      if (sd >= 0 && sd <= 2)
       {
-        stream.writeAttribute("spatialDimensions", mSpatialDimensions);
+        stream.writeAttribute("spatialDimensions", sd);
       }
     }
     else
@@ -1417,7 +1433,7 @@ Compartment_getCompartmentType (const Compartment_t *c)
  * Compartment_t structure @p c as an unsigned integer
  */
 LIBSBML_EXTERN
-unsigned int
+double
 Compartment_getSpatialDimensions (const Compartment_t *c)
 {
   return c->getSpatialDimensions();
@@ -1810,7 +1826,7 @@ Compartment_setCompartmentType (Compartment_t *c, const char *sid)
  */
 LIBSBML_EXTERN
 int
-Compartment_setSpatialDimensions (Compartment_t *c, unsigned int value)
+Compartment_setSpatialDimensions (Compartment_t *c, double value)
 {
   return c->setSpatialDimensions(value);
 }

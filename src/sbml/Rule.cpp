@@ -484,6 +484,11 @@ Rule::getDerivedUnitDefinition()
       }
     }
   }
+  else
+  {
+    return NULL;
+  }
+
 }
 
 
@@ -544,6 +549,10 @@ Rule::containsUndeclaredUnits()
         return false;
       }
     }
+  }
+  else
+  {
+    return false;
   }
 }
 
@@ -779,7 +788,7 @@ void
 Rule::writeElements (XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
-  if ( getLevel() == 2 && isSetMath() ) writeMathML(getMath(), stream);
+  if ( getLevel() > 1 && isSetMath() ) writeMathML(getMath(), stream);
 }
 /** @endcond doxygen-libsbml-internal */
 

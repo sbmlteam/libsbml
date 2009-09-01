@@ -254,13 +254,15 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
 
     if (isRational == 1)
     {
+      //FIX-ME will need sorting for double exponents
+
       //* (2) if the second argument b is a rational number n/m, 
       //* it must be possible to derive the m-th root of (a{unit})n,
       //* where {unit} signifies the units associated with a; 
       unsigned int impossible = 0;
       for (unsigned int n = 0; impossible == 0 && n < unitsArg1->getNumUnits(); n++)
       {
-        if (unitsArg1->getUnit(n)->getExponent() * child->getInteger() %
+        if ((int)(unitsArg1->getUnit(n)->getExponent()) * child->getInteger() %
           child->getDenominator() != 0)
           impossible = 1;
       }

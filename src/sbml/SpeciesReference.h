@@ -752,6 +752,16 @@ public:
 
 
   /**
+   * Predicate returning @c true or @c false depending on whether this
+   * SpeciesReference's "stoichiometry" attribute has been set.
+   * 
+   * @return @c true if the "stoichiometry" attribute of this
+   * SpeciesReference has been set, @c false otherwise.
+   */
+  bool isSetStoichiometry () const;
+
+
+  /**
    * Sets the value of the "stoichiometry" attribute of this
    * SpeciesReference.
    *
@@ -1112,6 +1122,7 @@ protected:
   StoichiometryMath*  mStoichiometryMath;
   bool      mConstant;
   bool      mIsSetConstant;
+  bool      mIsSetStoichiometry;
 
   /* the validator classes need to be friends to access the 
    * protected constructor that takes no arguments

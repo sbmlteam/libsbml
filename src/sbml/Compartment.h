@@ -402,7 +402,7 @@ public:
    * @return the value of the "spatialDimensions" attribute of this
    * Compartment as an unsigned integer
    */
-  unsigned int getSpatialDimensions () const;
+  double getSpatialDimensions () const;
 
 
   /**
@@ -695,7 +695,7 @@ public:
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    * @li LIBSBML_UNEXPECTED_ATTRIBUTE
    */
-  int setSpatialDimensions (unsigned int value);
+  int setSpatialDimensions (double value);
 
 
   /**
@@ -1031,7 +1031,7 @@ protected:
   std::string   mId;
   std::string   mName;
   std::string   mCompartmentType;
-  unsigned int  mSpatialDimensions;
+  double        mSpatialDimensions;
   double        mSize;
   std::string   mUnits;
   std::string   mOutside;
@@ -1315,7 +1315,7 @@ Compartment_getCompartmentType (const Compartment_t *c);
 
 
 LIBSBML_EXTERN
-unsigned int
+double
 Compartment_getSpatialDimensions (const Compartment_t *c);
 
 
@@ -1406,7 +1406,7 @@ Compartment_setCompartmentType (Compartment_t *c, const char *sid);
 
 LIBSBML_EXTERN
 int
-Compartment_setSpatialDimensions (Compartment_t *c, unsigned int value);
+Compartment_setSpatialDimensions (Compartment_t *c, double value);
 
 
 LIBSBML_EXTERN

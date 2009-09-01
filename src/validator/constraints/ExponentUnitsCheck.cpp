@@ -196,7 +196,7 @@ ExponentUnitsCheck::checkUnitsFromRoot (const Model& m,
       unsigned int impossible = 0;
       for (unsigned int n = 0; impossible == 0 && n < unitsArg1->getNumUnits(); n++)
       {
-        if (unitsArg1->getUnit(n)->getExponent() * child->getInteger() %
+        if ((int)(unitsArg1->getUnit(n)->getExponent()) * child->getInteger() %
           child->getDenominator() != 0)
           impossible = 1;
       }
@@ -210,7 +210,7 @@ ExponentUnitsCheck::checkUnitsFromRoot (const Model& m,
       unsigned int impossible = 0;
       for (unsigned int n = 0; impossible == 0 && n < unitsArg1->getNumUnits(); n++)
       {
-        if (unitsArg1->getUnit(n)->getExponent() % root != 0)
+        if ((int)(unitsArg1->getUnit(n)->getExponent()) % root != 0)
           impossible = 1;
       }
 

@@ -754,7 +754,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
   Unit * unit;
 
   unsigned int n, found;
-  int exponent;
+  double exponent;
 
   const KineticLaw * kl;
 
@@ -950,7 +950,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment
    */
   if (!strcmp(units, ""))
   {
-    switch (compartment->getSpatialDimensions())
+    switch ((int)(compartment->getSpatialDimensions()))
     {
       case 0:
         unit = new Unit(model->getSBMLNamespaces());
