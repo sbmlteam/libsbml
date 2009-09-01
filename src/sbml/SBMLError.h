@@ -903,6 +903,7 @@ typedef enum
  , MultiplierNotValidAttribute           = 99924 /*!< Attribute <code>multiplier</code> on units not supported in SBML Level&nbsp;1 */
  , OffsetNotValidAttribute               = 99925 /*!< Attribute <code>offset</code> on units only available in SBML Level&nbsp;2 Version&nbsp;1 */
 
+ , L3NotSupported              = 99998
   /* Bounds */
 
   , SBMLCodesUpperBound                  = 99999 /*!< 99999, the upper bound of

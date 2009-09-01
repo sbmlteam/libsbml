@@ -363,6 +363,12 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
    */
   getErrorLog()->clearLog();
 
+  if (this->getLevel() == 3 || level == 3)
+  {
+    logError(L3NotSupported);
+    return false;
+  }
+
   bool conversionSuccess = false;
 
   unsigned char origValidators = mApplicableValidators;
@@ -1150,6 +1156,11 @@ SBMLDocument::checkConsistency ()
   unsigned int nerrors = 0;
   unsigned int total_errors = 0;
 
+  if (getLevel() == 3)
+  {
+    logError(L3NotSupported);
+    return 1;
+  }
   /* determine which validators to run */
   bool id    = ((mApplicableValidators & 0x01) == 0x01);
   bool sbml  = ((mApplicableValidators & 0x02) == 0x02);

@@ -4768,6 +4768,20 @@ static const sbmlErrorTableEntry errorTable[] =
     "be correct, the value for the offset member variable should be '0'."
   } 
 
+  //99998
+  {   
+    L3NotSupported,   
+    "Attribute 'offset' on units only available in SBML Level 2 Version 1",
+    LIBSBML_CAT_INTERNAL_CONSISTENCY,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,
+    "Validation or conversion to or from L3 documents/models is not yet "
+    "supported."
+  } 
 
 };
 
