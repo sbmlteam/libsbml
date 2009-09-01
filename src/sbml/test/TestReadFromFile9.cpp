@@ -28,6 +28,7 @@
 #include <sbml/SBMLTypes.h>
 
 #include <string>
+#include <limits>
 
 #include <check.h>
 
@@ -125,9 +126,9 @@ START_TEST (test_read_l3v1_new)
   fail_unless(!u->isSetExponent());
   fail_unless(!u->isSetScale());
   fail_unless(!u->isSetMultiplier());
-  //fail_unless(u->getExponent() == -1);
-  //fail_unless(u->getScale() == 0);
-  //fail_unless(u->getMultiplier() == 1);
+  fail_unless(isnan(u->getExponent()));
+//  fail_unless(isnan(u->getScale()));
+  fail_unless(isnan(u->getMultiplier()));
 
   
   ud = m->getUnitDefinition(1);
@@ -148,7 +149,7 @@ START_TEST (test_read_l3v1_new)
   fail_unless(u->isSetExponent());
   fail_unless(u->isSetScale());
   fail_unless(u->isSetMultiplier());
-//  fail_unless(u->getExponent() == 1.5);
+  fail_unless(u->getExponent() == 1.5);
   fail_unless(u->getScale() == 10);
   fail_unless(u->getMultiplier() == 0.5);
 
@@ -186,16 +187,17 @@ START_TEST (test_read_l3v1_new)
   fail_unless(!c->isSetSpatialDimensions());
   fail_unless(c->isSetConstant());
   fail_unless(c->getId() == "comp1");
-  //fail_unless(c->getSpatialDimensions() == 3);
+  fail_unless(isnan(c->getSize()));
+  fail_unless(isnan(c->getSpatialDimensions()));
   fail_unless(c->getConstant() == false);
 
   c = m->getCompartment(2);
 
   fail_unless(!c->isSetSize());
-//  fail_unless(c->isSetSpatialDimensions());
+  fail_unless(c->isSetSpatialDimensions());
   fail_unless(!c->isSetConstant());
   fail_unless(c->getId() == "comp2");
-//  fail_unless(c->getSpatialDimensions() == 4.6);
+  fail_unless(c->getSpatialDimensions() == 4.6);
 //  fail_unless(c->getConstant() == false);
 
 
@@ -219,6 +221,10 @@ START_TEST (test_read_l3v1_new)
   fail_unless(s->getSubstanceUnits() == "mole");
   fail_unless(s->isSetConstant());
   fail_unless(s->getConstant() == false);
+  fail_unless(s->isSetInitialAmount());
+  fail_unless(s->getInitialAmount() == 0);
+  fail_unless(!s->isSetInitialConcentration());
+  fail_unless(isnan(s->getInitialConcentration()));
 
   s = m->getSpecies(1);
 
@@ -234,6 +240,10 @@ START_TEST (test_read_l3v1_new)
   fail_unless(s->getSubstanceUnits() == "");
   fail_unless(!s->isSetConstant());
 //  fail_unless(s->getConstant() == false);
+  fail_unless(!s->isSetInitialAmount());
+  fail_unless(isnan(s->getInitialAmount()));
+  fail_unless(!s->isSetInitialConcentration());
+  fail_unless(isnan(s->getInitialConcentration()));
 
      //<listOfParameters>
      //   <parameter id="Keq" value="2.5" units="dimensionless" constant="true"/>
@@ -257,7 +267,7 @@ START_TEST (test_read_l3v1_new)
 
   fail_unless(p->getId() == "Keq1");
   fail_unless(!p->isSetValue());
- // fail_unless(p->getValue() == 2.5);
+  fail_unless(isnan(p->getValue()));
   fail_unless(!p->isSetUnits());
   fail_unless(p->getUnits() == "");
   fail_unless(p->isSetConstant());
@@ -267,7 +277,7 @@ START_TEST (test_read_l3v1_new)
 
   fail_unless(p->getId() == "Keq2");
   fail_unless(!p->isSetValue());
- // fail_unless(p->getValue() == 2.5);
+  fail_unless(isnan(p->getValue()));
   fail_unless(!p->isSetUnits());
   fail_unless(p->getUnits() == "");
   fail_unless(!p->isSetConstant());
@@ -290,16 +300,20 @@ START_TEST (test_read_l3v1_new)
 
   fail_unless(sr->isSetConstant());
   fail_unless(sr->getConstant() == true);
+  fail_unless(sr->isSetStoichiometry());
+  fail_unless(sr->getStoichiometry() == 1);
 
   sr = r->getProduct(0);
 
   fail_unless(sr->isSetConstant());
   fail_unless(sr->getConstant() == false);
+  fail_unless(!sr->isSetStoichiometry());
+  fail_unless(isnan(sr->getStoichiometry()));
 
 
   kl = r->getKineticLaw();
 
-  fail_unless(kl->getNumLocalParameters() == 1);
+  fail_unless(kl->getNumLocalParameters() == 2);
   fail_unless(kl->getNumParameters() == 0);
 
   p = kl->getParameter(0);
@@ -312,6 +326,13 @@ START_TEST (test_read_l3v1_new)
   fail_unless(lp->getUnits() == "per_second");
   fail_unless(lp->isSetValue());
   fail_unless(lp->getValue() == 0.1);
+
+  lp = kl->getLocalParameter(1);
+
+  fail_unless(!lp->isSetUnits());
+  fail_unless(lp->getUnits() == "");
+  fail_unless(!lp->isSetValue());
+  fail_unless(isnan(lp->getValue()));
 
 
   r = m->getReaction(1);

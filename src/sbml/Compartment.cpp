@@ -55,6 +55,13 @@ Compartment::Compartment (unsigned int level, unsigned int version) :
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
+
+  // if level 3 values have no defaults
+  if (level == 3)
+  {
+    mSize = numeric_limits<double>::quiet_NaN();
+    mSpatialDimensions = numeric_limits<double>::quiet_NaN();
+  }
 }
 
 Compartment::Compartment(SBMLNamespaces * sbmlns) :
@@ -70,6 +77,13 @@ Compartment::Compartment(SBMLNamespaces * sbmlns) :
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
+ 
+  // if level 3 values have no defaults
+  if (sbmlns->getLevel() == 3)
+  {
+    mSize = numeric_limits<double>::quiet_NaN();
+    mSpatialDimensions = numeric_limits<double>::quiet_NaN();
+  }
 }
 
 /** @cond doxygen-libsbml-internal */
@@ -171,11 +185,15 @@ LIBSBML_EXTERN
 void
 Compartment::initDefaults ()
 {
-  mSize      = 1.0;    // Actually, setting L1 volume not
-  mIsSetSize = false;  // L2 size.
+  // level 3 has no defaults
+  if (getLevel() < 3)
+  {
+    mSize      = 1.0;    // Actually, setting L1 volume not
+    mIsSetSize = false;  // L2 size.
 
-  setSpatialDimensions(3);
-  setConstant(1);
+    setSpatialDimensions(3);
+    setConstant(1);
+  }
 }
 
 

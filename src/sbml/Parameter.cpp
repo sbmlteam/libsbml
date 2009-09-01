@@ -55,6 +55,12 @@ Parameter::Parameter (unsigned int level, unsigned int version) :
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
+
+  // if level 3 values have no defaults
+  if (level == 3)
+  {
+    mValue = numeric_limits<double>::quiet_NaN();
+  }
 }
 
 
@@ -69,6 +75,12 @@ Parameter::Parameter (SBMLNamespaces * sbmlns) :
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
+
+  // if level 3 values have no defaults
+  if (sbmlns->getLevel() == 3)
+  {
+    mValue = numeric_limits<double>::quiet_NaN();
+  }
 }
 
 
@@ -159,7 +171,11 @@ Parameter::clone () const
 void
 Parameter::initDefaults ()
 {
-  setConstant(true);
+  // level 3 has no defaults
+  if (getLevel() < 3)
+  {
+    setConstant(true);
+  }
 }
 
 

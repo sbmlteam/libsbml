@@ -62,6 +62,13 @@ Species::Species (unsigned int level, unsigned int version) :
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
+
+  // if level 3 values have no defaults
+  if (level == 3)
+  {
+    mInitialAmount = numeric_limits<double>::quiet_NaN();
+    mInitialConcentration = numeric_limits<double>::quiet_NaN();
+  }
 }
 
 
@@ -85,6 +92,13 @@ Species::Species (SBMLNamespaces *sbmlns) :
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
+
+  // if level 3 values have no defaults
+  if (sbmlns->getLevel() == 3)
+  {
+    mInitialAmount = numeric_limits<double>::quiet_NaN();
+    mInitialConcentration = numeric_limits<double>::quiet_NaN();
+  }
 }
 
 
@@ -210,9 +224,13 @@ Species::clone () const
 void
 Species::initDefaults ()
 {
-  setBoundaryCondition     (false);
-  setConstant              (false);
-  setHasOnlySubstanceUnits (false);
+  //level 3 has no defaults
+  if (getLevel() < 3) 
+  {
+    setBoundaryCondition     (false);
+    setConstant              (false);
+    setHasOnlySubstanceUnits (false);
+  }
 }
 
 

@@ -38,7 +38,7 @@
                 <speciesReference species="X0" stoichiometry="1" constant="true"/>
             </listOfReactants>
             <listOfProducts>
-                <speciesReference species="T" stoichiometry="1" constant="false"/>
+                <speciesReference species="T" constant="false"/>
             </listOfProducts>
             <kineticLaw>
                 <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -51,6 +51,7 @@
                 </math>
                 <listOfLocalParameters>
                     <localParameter id="k1" value="0.1" units="per_second"/>
+                    <localParameter id="k2"/>
                 </listOfLocalParameters>
             </kineticLaw>
         </reaction>

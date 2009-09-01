@@ -482,6 +482,12 @@ SpeciesReference::SpeciesReference (unsigned int level, unsigned int version) :
  , mConstant             (false)
  , mIsSetConstant        (false)
 {
+
+  // if level 3 values have no defaults
+  if (level == 3)
+  {
+    mStoichiometry = numeric_limits<double>::quiet_NaN();
+  }
 }
 
 SpeciesReference::SpeciesReference (SBMLNamespaces *sbmlns) :
@@ -495,6 +501,12 @@ SpeciesReference::SpeciesReference (SBMLNamespaces *sbmlns) :
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
+
+  // if level 3 values have no defaults
+  if (sbmlns->getLevel() == 3)
+  {
+    mStoichiometry = numeric_limits<double>::quiet_NaN();
+  }
 }
 
 /** @cond doxygen-libsbml-internal */
@@ -607,8 +619,12 @@ SpeciesReference::clone () const
 void
 SpeciesReference::initDefaults ()
 {
-  mStoichiometry = 1.0;
-  mDenominator   = 1;
+  // level 3 has no defaults
+  if (getLevel() < 3)
+  {
+    mStoichiometry = 1.0;
+    mDenominator   = 1;
+  }
 }
 
 

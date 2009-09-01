@@ -56,13 +56,21 @@ Unit::Unit (unsigned int level, unsigned int version) :
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
+
+  // if level 3 values have no defaults
+  if (level == 3)
+  {
+    mExponent = numeric_limits<double>::quiet_NaN();
+    mScale = numeric_limits<int>::quiet_NaN();
+    mMultiplier = numeric_limits<double>::quiet_NaN();
+  }
 }
 
 
 Unit::Unit (SBMLNamespaces * sbmlns) :
    SBase ( sbmlns )
   , mKind      ( UNIT_KIND_INVALID )
-  , mExponent  ( 1   )
+  , mExponent  ( 1  )
   , mScale     ( 0      )
   , mMultiplier( 1.0 )
   , mOffset    ( 0.0     )
@@ -72,6 +80,14 @@ Unit::Unit (SBMLNamespaces * sbmlns) :
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
+
+  // if level 3 values have no defaults
+  if (sbmlns->getLevel() == 3)
+  {
+    mExponent = numeric_limits<double>::quiet_NaN();
+    mScale = numeric_limits<double>::quiet_NaN();
+    mMultiplier = numeric_limits<double>::quiet_NaN();
+  }
 }
 
 /** @cond doxygen-libsbml-internal */
@@ -165,10 +181,14 @@ Unit::clone () const
 void
 Unit::initDefaults ()
 {
-  setExponent  ( 1   );
-  setScale     ( 0   );
-  setMultiplier( 1.0 );
-  setOffset    ( 0.0 );
+  // level 3 has no defaults
+  if (getLevel() < 3)
+  {
+    setExponent  ( 1   );
+    setScale     ( 0   );
+    setMultiplier( 1.0 );
+    setOffset    ( 0.0 );
+  }
 }
 
 
