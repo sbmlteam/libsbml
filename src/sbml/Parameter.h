@@ -400,6 +400,18 @@ public:
 
 
   /**
+   * Predicate returning @c true or @c false depending on whether the
+   * "constant" attribute of this Parameter has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "constant" attribute of this Parameter has been
+   * set, @c false otherwise.
+   */
+  bool isSetConstant () const;
+
+
+  /**
    * Sets the value of the "id" attribute of this Parameter.
    *
    * The string @p sid is copied.  Note that SBML has strict requirements
@@ -692,6 +704,7 @@ protected:
   bool         mConstant;
 
   bool mIsSetValue;
+  bool mIsSetConstant;
 
   /* the validator classes need to be friends to access the 
    * protected constructor that takes no arguments
@@ -993,6 +1006,11 @@ Parameter_isSetValue (const Parameter_t *p);
 LIBSBML_EXTERN
 int
 Parameter_isSetUnits (const Parameter_t *p);
+
+
+LIBSBML_EXTERN
+int
+Parameter_isSetConstant (const Parameter_t *p);
 
 
 LIBSBML_EXTERN

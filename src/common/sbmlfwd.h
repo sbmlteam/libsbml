@@ -119,6 +119,12 @@ typedef CLASS_OR_STRUCT Species                   Species_t;
 typedef CLASS_OR_STRUCT Parameter                 Parameter_t;
 
 /**
+ * @var typedef class LocalParameter LocalParameter_t
+ * @copydoc LocalParameter
+ */
+typedef CLASS_OR_STRUCT LocalParameter             LocalParameter_t;
+
+/**
  * @var typedef class InitialAssignment InitialAssignment_t
  * @copydoc InitialAssignment
  */

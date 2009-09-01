@@ -357,6 +357,14 @@ public:
 
 
   /**
+   * Returns the value of the "compartment" attribute on the Reaction.
+   * 
+   * @return the compartment of this Reaction.
+   */
+  const std::string& getCompartment () const;
+
+
+  /**
    * Predicate returning @c true or @c false depending on whether this
    * Reaction's "id" attribute has been set.
    *
@@ -415,6 +423,30 @@ public:
    * default of @c false, which means it is effectively always set.
    */
   bool isSetFast () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Reaction's "compartment" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "compartment" attribute of this Reaction has been
+   * set, @c false otherwise.
+   */
+  bool isSetCompartment () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Reaction's "reversible" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "reversible" attribute of this Reaction has been
+   * set, @c false otherwise.
+   */
+  bool isSetReversible () const;
 
 
   /**
@@ -1189,6 +1221,8 @@ protected:
   bool        mFast;
 
   bool mIsSetFast;
+  std::string mCompartment;
+  bool mIsSetReversible;
 
   /* the validator classes need to be friends to access the 
    * protected constructor that takes no arguments

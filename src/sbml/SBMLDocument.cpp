@@ -1655,6 +1655,13 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
       logError(InvalidSBMLLevelVersion);
     }
   }
+  else if (mLevel == 3)
+  {
+    if (mVersion > 1)
+    {
+      logError(InvalidSBMLLevelVersion);
+    }
+  }
   else
   {
     logError(InvalidSBMLLevelVersion);
@@ -1671,7 +1678,8 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
   {
     for (int n = 0; n < mSBMLNamespaces->getNamespaces()->getLength(); n++)
     {
-      if (!strcmp(mSBMLNamespaces->getNamespaces()->getURI(n).c_str(), "http://www.sbml.org/sbml/level1"))
+      if (!strcmp(mSBMLNamespaces->getNamespaces()->getURI(n).c_str(), 
+                  "http://www.sbml.org/sbml/level1"))
       {
         match = 1;
         if (mLevel != 1)
@@ -1684,7 +1692,8 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
         }
        break;
       }
-      else if (!strcmp(mSBMLNamespaces->getNamespaces()->getURI(n).c_str(), "http://www.sbml.org/sbml/level2"))
+      else if (!strcmp(mSBMLNamespaces->getNamespaces()->getURI(n).c_str(), 
+                "http://www.sbml.org/sbml/level2"))
       {
         match = 1;
         if (mLevel != 2)
@@ -1697,7 +1706,8 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
         }
         break;
       }
-      else if (!strcmp(mSBMLNamespaces->getNamespaces()->getURI(n).c_str(), "http://www.sbml.org/sbml/level2/version2"))
+      else if (!strcmp(mSBMLNamespaces->getNamespaces()->getURI(n).c_str(), 
+                "http://www.sbml.org/sbml/level2/version2"))
       {
         match = 1;
         if (mLevel != 2)
@@ -1710,7 +1720,8 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
         }
         break;
       }
-      else if (!strcmp(mSBMLNamespaces->getNamespaces()->getURI(n).c_str(), "http://www.sbml.org/sbml/level2/version3"))
+      else if (!strcmp(mSBMLNamespaces->getNamespaces()->getURI(n).c_str(), 
+                "http://www.sbml.org/sbml/level2/version3"))
       {
         match = 1;
         if (mLevel != 2)
@@ -1723,7 +1734,8 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
         }
         break;
       }
-      else if (!strcmp(mSBMLNamespaces->getNamespaces()->getURI(n).c_str(), "http://www.sbml.org/sbml/level2/version4"))
+      else if (!strcmp(mSBMLNamespaces->getNamespaces()->getURI(n).c_str(), 
+                "http://www.sbml.org/sbml/level2/version4"))
       {
         match = 1;
         if (mLevel != 2)
@@ -1731,6 +1743,20 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
           logError(MissingOrInconsistentLevel);
         }
         if (mVersion != 4)
+        {
+          logError(MissingOrInconsistentVersion);
+        }
+        break;
+      }
+      else if (!strcmp(mSBMLNamespaces->getNamespaces()->getURI(n).c_str(), 
+                "http://www.sbml.org/sbml/level3/version1/core"))
+      {
+        match = 1;
+        if (mLevel != 3)
+        {
+          logError(MissingOrInconsistentLevel);
+        }
+        if (mVersion != 1)
         {
           logError(MissingOrInconsistentVersion);
         }
@@ -1784,6 +1810,10 @@ SBMLDocument::writeAttributes (XMLOutputStream& stream) const
      else if (mLevel == 2 && mVersion == 4)
      {
        xmlns.add("http://www.sbml.org/sbml/level2/version4");
+     }
+     else if (mLevel == 3 && mVersion == 1)
+     {
+       xmlns.add("http://www.sbml.org/sbml/level3/version1/core");
      }
      stream << xmlns;
 

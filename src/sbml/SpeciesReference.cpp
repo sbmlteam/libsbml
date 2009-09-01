@@ -372,6 +372,10 @@ SimpleSpeciesReference::readAttributes (const XMLAttributes& attributes)
       expectedAttributes.push_back("name");
       expectedAttributes.push_back("sboTerm");
     }
+    if (level > 2)
+    {
+      expectedAttributes.push_back("constant");
+    }
   }
 
   // check that all attributes are expected
@@ -474,7 +478,9 @@ SpeciesReference::SpeciesReference (unsigned int level, unsigned int version) :
    SimpleSpeciesReference( level, version)
  , mStoichiometry        ( 1.0 )
  , mDenominator          ( 1   )
- , mStoichiometryMath    ( 0             )
+ , mStoichiometryMath    ( 0   )
+ , mConstant             (false)
+ , mIsSetConstant        (false)
 {
 }
 
@@ -483,6 +489,8 @@ SpeciesReference::SpeciesReference (SBMLNamespaces *sbmlns) :
  , mStoichiometry        ( 1.0 )
  , mDenominator          ( 1   )
  , mStoichiometryMath    ( 0             )
+ , mConstant             (false)
+ , mIsSetConstant        (false)
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -518,6 +526,8 @@ SpeciesReference::SpeciesReference (const SpeciesReference& orig) :
  , mStoichiometry        ( orig.mStoichiometry )
  , mDenominator          ( orig.mDenominator   )
  , mStoichiometryMath    ( 0                   )
+ , mConstant             ( orig.mConstant      )
+ , mIsSetConstant        ( orig.mIsSetConstant )
 {
   if (orig.mStoichiometryMath)
   {
@@ -538,6 +548,8 @@ SpeciesReference& SpeciesReference::operator=(const SpeciesReference& rhs)
     this->SimpleSpeciesReference::operator = ( rhs );
     mStoichiometry = rhs.mStoichiometry ;
     mDenominator = rhs.mDenominator   ;
+    mConstant = rhs.mConstant;
+    mIsSetConstant = rhs.mIsSetConstant;
 
     delete mStoichiometryMath;
     if (rhs.mStoichiometryMath)
@@ -638,6 +650,16 @@ SpeciesReference::getDenominator () const
 
 
 /*
+ * Get the value of the "constant" attribute.
+ */
+bool 
+SpeciesReference::getConstant () const
+{
+  return mConstant;
+}
+
+
+/*
  * @return true if the stoichiometryMath of this SpeciesReference has been
  * set, false otherwise.
  */
@@ -645,6 +667,17 @@ bool
 SpeciesReference::isSetStoichiometryMath () const
 {
   return (mStoichiometryMath != NULL);
+}
+
+
+/*
+ * @return true if the constant of this SpeciesReference has been
+ * set, false otherwise.
+ */
+bool
+SpeciesReference::isSetConstant () const
+{
+  return mIsSetConstant;
 }
 
 
@@ -975,7 +1008,7 @@ SpeciesReference::createObject (XMLInputStream& stream)
   
   if (name == "stoichiometryMath")
   {
-    if (getLevel() == 1)
+    if (getLevel() != 2)
     {
       return NULL;
     }
@@ -1158,6 +1191,15 @@ SpeciesReference::readAttributes (const XMLAttributes& attributes)
   // denominator: integer  { use="optional" default="1" }  (L1v1, L1v2)
   //
   if (getLevel() == 1) attributes.readInto("denominator", mDenominator);
+
+  //
+  // constant: bool { use="required" } (L3v1 -> )
+  //
+  if (getLevel() > 2)
+  {
+    mIsSetConstant = attributes.readInto("constant", mConstant,
+                                          getErrorLog(), true);
+  }
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -1195,6 +1237,13 @@ SpeciesReference::writeAttributes (XMLOutputStream& stream) const
     {
       stream.writeAttribute("stoichiometry", mStoichiometry);
     }
+  }
+  //
+  // constant: bool { use="required" } (L3v1 -> )
+  //
+  if (getLevel() > 2)
+  {
+    stream.writeAttribute("constant", mConstant);
   }
 }
 /** @endcond doxygen-libsbml-internal */

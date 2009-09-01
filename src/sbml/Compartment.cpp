@@ -50,6 +50,8 @@ Compartment::Compartment (unsigned int level, unsigned int version) :
  , mSize             ( 1.0      )
  , mConstant         ( true     )
  , mIsSetSize        ( false    )
+ , mIsSetSpatialDimensions ( false    )
+ , mIsSetConstant          ( false    )
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -63,6 +65,8 @@ Compartment::Compartment(SBMLNamespaces * sbmlns) :
  , mSize             ( 1.0      )
  , mConstant         ( true     )
  , mIsSetSize        ( false    )
+ , mIsSetSpatialDimensions ( false    )
+ , mIsSetConstant          ( false    )
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -100,6 +104,8 @@ Compartment::Compartment(const Compartment& orig) :
  , mOutside          ( orig.mOutside           )
  , mConstant         ( orig.mConstant          )
  , mIsSetSize        ( orig.mIsSetSize         )
+ , mIsSetSpatialDimensions ( orig.mIsSetSpatialDimensions    )
+ , mIsSetConstant          ( orig.mIsSetConstant    )
 {
 }
 
@@ -119,8 +125,10 @@ Compartment& Compartment::operator=(const Compartment& rhs)
     mCompartmentType  = rhs.mCompartmentType;
     mUnits            = rhs.mUnits ;
     mOutside          = rhs.mOutside ;
-    mId = rhs.mId;
-    mName = rhs.mName;
+    mId               = rhs.mId;
+    mName             = rhs.mName;
+    mIsSetSpatialDimensions = rhs.mIsSetSpatialDimensions;
+    mIsSetConstant          = rhs.mIsSetConstant;
   }
 
   return *this;
@@ -344,6 +352,28 @@ Compartment::isSetOutside () const
 
 
 /*
+ * @return true if the spatialDimenions of this Compartment has been set, false
+ * otherwise.
+ */
+bool
+Compartment::isSetSpatialDimensions () const
+{
+  return mIsSetSpatialDimensions;
+}
+
+
+/*
+ * @return true if the constant of this Compartment has been set, false
+ * otherwise.
+ */
+bool
+Compartment::isSetConstant () const
+{
+  return mIsSetConstant;
+}
+
+
+/*
  * Sets the id of this SBML object to a copy of sid.
  */
 int
@@ -444,6 +474,7 @@ Compartment::setSpatialDimensions (unsigned int value)
   else
   {
     mSpatialDimensions = value;
+    mIsSetSpatialDimensions = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -539,6 +570,7 @@ Compartment::setConstant (bool value)
   else
   {
     mConstant = value;
+    mIsSetConstant = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -782,11 +814,11 @@ Compartment::readAttributes (const XMLAttributes& attributes)
   expectedAttributes.clear();
   expectedAttributes.push_back("name");
   expectedAttributes.push_back("units");
-  expectedAttributes.push_back("outside");
 
   if (level == 1)
   {
     expectedAttributes.push_back("volume");
+    expectedAttributes.push_back("outside");
   }
   else
   {
@@ -796,14 +828,19 @@ Compartment::readAttributes (const XMLAttributes& attributes)
     expectedAttributes.push_back("spatialDimensions");
     expectedAttributes.push_back("constant");
 
-    if (!(level == 2 && version == 1))
-    {
-      expectedAttributes.push_back("compartmentType");
-    }
-
     if (!(level == 2 && version < 3))
     {
       expectedAttributes.push_back("sboTerm");
+    }
+
+    if (level == 2)
+    {
+      expectedAttributes.push_back("outside");
+      
+      if (version > 1)
+      {
+        expectedAttributes.push_back("compartmentType");
+      }
     }
   }
 
@@ -853,9 +890,12 @@ Compartment::readAttributes (const XMLAttributes& attributes)
   }
 
   //
-  // outside  { use="optional" }  (L1v1 ->)
+  // outside  { use="optional" }  (L1v1 -> L2v4)
   //
-  attributes.readInto("outside", mOutside, getErrorLog(), false);
+  if (level < 3)
+  {
+    attributes.readInto("outside", mOutside, getErrorLog(), false);
+  }
 
   if (level > 1)
   {
@@ -867,26 +907,39 @@ Compartment::readAttributes (const XMLAttributes& attributes)
     //
     // spatialDimensions { maxInclusive="3" minInclusive="0" use="optional"
     //                     default="3" }  (L2v1 ->)
+    // spatialDimensions { use="optional"}  (L3v1 ->)
     //
-    attributes.readInto("spatialDimensions", mSpatialDimensions, 
-                                                      getErrorLog(), false);
-    if (mSpatialDimensions < 0 || mSpatialDimensions > 3)
+    mIsSetSpatialDimensions = attributes.readInto("spatialDimensions", 
+                              mSpatialDimensions, getErrorLog(), false);
+    if (level < 3)
     {
-      std::string message = "The spatialDimensions attribute on ";
-      message += "a <compartment> may only have values 0, 1, 2 or 3.";
-      getErrorLog()->logError(NotSchemaConformant, level, version,
-                                                            message);
+      if (mSpatialDimensions < 0 || mSpatialDimensions > 3)
+      {
+        std::string message = "The spatialDimensions attribute on ";
+        message += "a <compartment> may only have values 0, 1, 2 or 3.";
+        getErrorLog()->logError(NotSchemaConformant, level, version,
+                                                              message);
+      }
     }
     
     //
     // constant  { use="optional" default="true" }  (L2v1 ->)
+    // constant  { use="required" }  (L3v1 ->)
     //
-    attributes.readInto("constant", mConstant, getErrorLog(), false);
+    if (level < 3)
+    {
+      attributes.readInto("constant", mConstant, getErrorLog(), false);
+    }
+    else
+    {
+      mIsSetConstant = attributes.readInto("constant", mConstant, 
+                                            getErrorLog(), true);
+    }
 
     //
-    // compartmentType: SId  { use="optional" }  (L2v2 -> )
+    // compartmentType: SId  { use="optional" }  (L2v2 -> L2v4)
     //
-    if (!(level == 2 && version == 1))
+    if ( level == 2 && version != 1)
     {
       attributes.readInto("compartmentType", mCompartmentType, 
                                          getErrorLog(), false);
@@ -933,26 +986,37 @@ Compartment::writeAttributes (XMLOutputStream& stream) const
     stream.writeAttribute("name", mName);
 
     //
-    // compartmentType: SId  { use="optional" }  (L2v2 -> )
+    // compartmentType: SId  { use="optional" }  (L2v2 -> L2v4)
     //
-    if (!(level == 2 && version == 1))
+    if (level == 2 && version > 1)
     {
       stream.writeAttribute("compartmentType", mCompartmentType);
     }
 
     //
     // spatialDimensions { maxInclusive="3" minInclusive="0" use="optional"
-    //                     default="3" }  (L2v1->)
+    //                     default="3" }  (L2v1->L2v4)
+    // spatialDimensions { use="optional"}  (L3v1 ->)
     //
-    if (mSpatialDimensions >= 0 && mSpatialDimensions <= 2)
+    if (level == 2)
     {
-      stream.writeAttribute("spatialDimensions", mSpatialDimensions);
+      if (mSpatialDimensions >= 0 && mSpatialDimensions <= 2)
+      {
+        stream.writeAttribute("spatialDimensions", mSpatialDimensions);
+      }
+    }
+    else
+    {
+      if (isSetSpatialDimensions())
+      {
+        stream.writeAttribute("spatialDimensions", mSpatialDimensions);
+      }
     }
   }
 
   //
   // volume  { use="optional" default="1" }  (L1v1, L1v2)
-  // size    { use="optional" }              (L2v1, L2v2)
+  // size    { use="optional" }              (L2v1->)
   //
   if (mIsSetSize)
   {
@@ -961,25 +1025,35 @@ Compartment::writeAttributes (XMLOutputStream& stream) const
   }
 
   //
-  // units  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
+  // units  { use="optional" }  (L1v1, L1v2, L2v1->)
   //
   stream.writeAttribute("units", mUnits);
 
   //
-  // outside  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
+  // outside  { use="optional" }  (L1v1-> L2v4)
   //
-  stream.writeAttribute("outside", mOutside);
+  if (level < 3)
+  {
+    stream.writeAttribute("outside", mOutside);
+  }
 
   if (level > 1)
   {
     //
     // constant  { use="optional" default="true" }  (L2v1->)
+    // constant  { use="required" }  (L3v1 ->)
     //
-    if (mConstant != true)
+    if (level == 2)
+    {
+      if (mConstant != true)
+      {
+        stream.writeAttribute("constant", mConstant);
+      }
+    }
+    else
     {
       stream.writeAttribute("constant", mConstant);
     }
-
     //
     // sboTerm: SBOTerm { use="optional" }  (L2v3 ->)
     //
@@ -1588,6 +1662,40 @@ int
 Compartment_isSetOutside (const Compartment_t *c)
 {
   return static_cast<int>( c->isSetOutside() );
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Compartment_t structure's "spatialDimensions" attribute has been set.
+ *
+ * @param c the Compartment_t structure
+ * 
+ * @return @c true if the "spatialDimensions" attribute of the Compartment_t
+ * structure @p c has been set, @c false otherwise.
+ */
+LIBSBML_EXTERN
+int
+Compartment_isSetSpatialDimensions (const Compartment_t *c)
+{
+  return static_cast<int>( c->isSetSpatialDimensions() );
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Compartment_t structure's "constant" attribute has been set.
+ *
+ * @param c the Compartment_t structure
+ * 
+ * @return @c true if the "constant" attribute of the Compartment_t
+ * structure @p c has been set, @c false otherwise.
+ */
+LIBSBML_EXTERN
+int
+Compartment_isSetConstant (const Compartment_t *c)
+{
+  return static_cast<int>( c->isSetConstant() );
 }
 
 

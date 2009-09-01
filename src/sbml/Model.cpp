@@ -52,6 +52,13 @@ Model::Model (unsigned int level, unsigned int version) :
  , mId               ( "" )
  , mName             ( "" )
  , mHistory          ( 0  )
+ , mSubstanceUnits   ( "" )
+ , mTimeUnits        ( "" )
+ , mVolumeUnits      ( "" )
+ , mAreaUnits        ( "" )
+ , mLengthUnits      ( "" )
+ , mExtentUnits      ( "" )
+ , mConversionFactor ( "" )
  , mFormulaUnitsData ( 0  )
 {
   if (!hasValidLevelVersionNamespaceCombination())
@@ -64,6 +71,13 @@ Model::Model (SBMLNamespaces * sbmlns) :
  , mId               ( "" )
  , mName             ( "" )
  , mHistory          ( 0  )
+ , mSubstanceUnits   ( "" )
+ , mTimeUnits        ( "" )
+ , mVolumeUnits      ( "" )
+ , mAreaUnits        ( "" )
+ , mLengthUnits      ( "" )
+ , mExtentUnits      ( "" )
+ , mConversionFactor ( "" )
  , mFormulaUnitsData ( 0  )
 {
   if (!hasValidLevelVersionNamespaceCombination())
@@ -106,6 +120,13 @@ Model::Model(const Model& orig) :
        SBase                (orig                    )
      , mId                  (orig.mId                )  
      , mName                (orig.mName              )
+     , mSubstanceUnits      (orig.mSubstanceUnits )
+     , mTimeUnits           (orig.mTimeUnits )
+     , mVolumeUnits         (orig.mVolumeUnits )
+     , mAreaUnits           (orig.mAreaUnits )
+     , mLengthUnits         (orig.mLengthUnits )
+     , mExtentUnits         (orig.mExtentUnits )
+     , mConversionFactor    (orig.mConversionFactor )
      , mFunctionDefinitions (orig.mFunctionDefinitions)
      , mUnitDefinitions     (orig.mUnitDefinitions)
      , mCompartmentTypes    (orig.mCompartmentTypes)
@@ -209,6 +230,13 @@ Model& Model::operator=(const Model& rhs)
     this->SBase::operator = (rhs);
     mId = rhs.mId;
     mName = rhs.mName;
+    mSubstanceUnits       = rhs.mSubstanceUnits ;
+    mTimeUnits            = rhs.mTimeUnits ;
+    mVolumeUnits          = rhs.mVolumeUnits ;
+    mAreaUnits            = rhs.mAreaUnits ;
+    mLengthUnits          = rhs.mLengthUnits ;
+    mExtentUnits          = rhs.mExtentUnits ;
+    mConversionFactor     = rhs.mConversionFactor ;
     mFunctionDefinitions  = rhs.mFunctionDefinitions;
     mUnitDefinitions      = rhs.mUnitDefinitions;
     mCompartmentTypes     = rhs.mCompartmentTypes;
@@ -370,6 +398,75 @@ Model::getName () const
 }
 
 
+/*
+ * Returns the value of the "substanceUnits" attribute of this Model.
+ */
+const std::string& 
+Model::getSubstanceUnits () const
+{
+  return mSubstanceUnits;
+}
+
+
+/*
+ * Returns the value of the "timeUnits" attribute of this Model.
+ */
+const std::string& 
+Model::getTimeUnits () const
+{
+  return mTimeUnits;
+}
+
+/*
+ * Returns the value of the "volumeUnits" attribute of this Model.
+ */
+const std::string& 
+Model::getVolumeUnits () const
+{
+  return mVolumeUnits;
+}
+
+
+/*
+ * Returns the value of the "areaUnits" attribute of this Model.
+ */
+const std::string& 
+Model::getAreaUnits () const
+{
+  return mAreaUnits;
+}
+
+
+/*
+ * Returns the value of the "lengthUnits" attribute of this Model.
+ */
+const std::string& 
+Model::getLengthUnits () const
+{
+  return mLengthUnits;
+}
+
+
+/*
+ * Returns the value of the "extentUnits" attribute of this Model.
+ */
+const std::string& 
+Model::getExtentUnits () const
+{
+  return mExtentUnits;
+}
+
+
+/*
+ * Returns the value of the "conversionFactor" attribute of this Model.
+ */
+const std::string& 
+Model::getConversionFactor () const
+{
+  return mConversionFactor;
+}
+
+
 ModelHistory* 
 Model::getModelHistory() const
 {
@@ -410,6 +507,83 @@ Model::isSetModelHistory()
 {
   return (mHistory != 0);
 }
+
+/*
+ * Predicate returning @c true or @c false depending on whether this
+ * Model's "substanceUnits" attribute has been set.
+ */
+bool 
+Model::isSetSubstanceUnits () const
+{
+  return (mSubstanceUnits.empty() == false);
+}
+
+
+/*
+ * Predicate returning @c true or @c false depending on whether this
+ * Model's "timeUnits" attribute has been set.
+ */
+bool 
+Model::isSetTimeUnits () const
+{
+  return (mTimeUnits.empty() == false);
+}
+
+
+/*
+ * Predicate returning @c true or @c false depending on whether this
+ * Model's "volumeUnits" attribute has been set.
+ */
+bool 
+Model::isSetVolumeUnits () const
+{
+  return (mVolumeUnits.empty() == false);
+}
+
+
+/*
+ * Predicate returning @c true or @c false depending on whether this
+ * Model's "areaUnits" attribute has been set.
+ */
+bool 
+Model::isSetAreaUnits () const
+{
+  return (mAreaUnits.empty() == false);
+}
+
+
+/*
+ * Predicate returning @c true or @c false depending on whether this
+ * Model's "lengthUnits" attribute has been set.
+ */
+bool 
+Model::isSetLengthUnits () const
+{
+  return (mLengthUnits.empty() == false);
+}
+
+
+/*
+ * Predicate returning @c true or @c false depending on whether this
+ * Model's "extentUnits" attribute has been set.
+ */
+bool 
+Model::isSetExtentUnits () const
+{
+  return (mExtentUnits.empty() == false);
+}
+
+
+/*
+ * Predicate returning @c true or @c false depending on whether this
+ * Model's "conversionFactor" attribute has been set.
+ */
+bool 
+Model::isSetConversionFactor () const
+{
+  return (mConversionFactor.empty() == false);
+}
+
 
 /*
  * Sets the id of this SBML object to a copy of sid.
@@ -1701,8 +1875,7 @@ int
 Model::setAnnotation (const XMLNode* annotation)
 {
   int success = SBase::setAnnotation(annotation);
-	
-  //
+
   if (success == 0)
   {
     //
@@ -3335,7 +3508,9 @@ Model::createObject (XMLInputStream& stream)
 
   else if ( name == "listOfCompartmentTypes"   ) 
   {
-    if (level == 1  || (level == 2 && version == 1))
+    if (level == 1  
+      || (level == 2 && version == 1)
+      || level == 3)
     {
       return NULL;
     }
@@ -3348,7 +3523,9 @@ Model::createObject (XMLInputStream& stream)
 
   else if ( name == "listOfSpeciesTypes"       ) 
   {
-    if (level == 1  || (level == 2 && version == 1))
+    if (level == 1  
+      || (level == 2 && version == 1)
+      || level == 3)
     {
       return NULL;
     }
@@ -3490,7 +3667,16 @@ Model::readAttributes (const XMLAttributes& attributes)
       expectedAttributes.push_back("sboTerm");
     }
   }
-
+  if (level > 2)
+  {
+    expectedAttributes.push_back("substanceUnits");
+    expectedAttributes.push_back("timeUnits");
+    expectedAttributes.push_back("volumeUnits");
+    expectedAttributes.push_back("areaUnits");
+    expectedAttributes.push_back("lengthUnits");
+    expectedAttributes.push_back("extentUnits");
+    expectedAttributes.push_back("conversionFactor");
+  }
   // check that all attributes are expected
   for (int i = 0; i < attributes.getLength(); i++)
   {
@@ -3527,6 +3713,93 @@ Model::readAttributes (const XMLAttributes& attributes)
     //
     if (!(level == 2 && version == 1)) 
       mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
+  }
+
+  if (level > 2)
+  {
+    //
+    // substanceUnits: string  { use="optional" }  (L3v1 ->)
+    //
+    assigned = attributes.readInto("substanceUnits", mSubstanceUnits);
+    if (assigned && mSubstanceUnits.size() == 0)
+    {
+      logEmptyString("substanceUnits", level, version, "<model>");
+    }
+    if (!SyntaxChecker::isValidUnitSId(mSubstanceUnits))
+    {
+      logError(InvalidUnitIdSyntax);
+    }
+
+    //
+    // timeUnits: string  { use="optional" }  (L3v1 ->)
+    //
+    assigned = attributes.readInto("timeUnits", mTimeUnits);
+    if (assigned && mTimeUnits.size() == 0)
+    {
+      logEmptyString("timeUnits", level, version, "<model>");
+    }
+    if (!SyntaxChecker::isValidUnitSId(mTimeUnits))
+    {
+      logError(InvalidUnitIdSyntax);
+    }
+
+    //
+    // volumeUnits: string  { use="optional" }  (L3v1 ->)
+    //
+    assigned = attributes.readInto("volumeUnits", mVolumeUnits);
+    if (assigned && mVolumeUnits.size() == 0)
+    {
+      logEmptyString("volumeUnits", level, version, "<model>");
+    }
+    if (!SyntaxChecker::isValidUnitSId(mVolumeUnits))
+    {
+      logError(InvalidUnitIdSyntax);
+    }
+
+    //
+    // areaUnits: string  { use="optional" }  (L3v1 ->)
+    //
+    assigned = attributes.readInto("areaUnits", mAreaUnits);
+    if (assigned && mAreaUnits.size() == 0)
+    {
+      logEmptyString("areaUnits", level, version, "<model>");
+    }
+    if (!SyntaxChecker::isValidUnitSId(mAreaUnits))
+    {
+      logError(InvalidUnitIdSyntax);
+    }
+
+    //
+    // lengthUnits: string  { use="optional" }  (L3v1 ->)
+    //
+    assigned = attributes.readInto("lengthUnits", mLengthUnits);
+    if (assigned && mLengthUnits.size() == 0)
+    {
+      logEmptyString("lengthUnits", level, version, "<model>");
+    }
+    if (!SyntaxChecker::isValidUnitSId(mLengthUnits))
+    {
+      logError(InvalidUnitIdSyntax);
+    }
+
+    //
+    // extentUnits: string  { use="optional" }  (L3v1 ->)
+    //
+    assigned = attributes.readInto("extentUnits", mExtentUnits);
+    if (assigned && mExtentUnits.size() == 0)
+    {
+      logEmptyString("extentUnits", level, version, "<model>");
+    }
+    if (!SyntaxChecker::isValidUnitSId(mExtentUnits))
+    {
+      logError(InvalidUnitIdSyntax);
+    }
+
+    //
+    // conversionFactor: string  { use="optional" }  (L3v1 ->)
+    //
+    attributes.readInto("conversionFactor", mConversionFactor);
+
   }
 }
 /** @endcond doxygen-libsbml-internal */
@@ -3565,6 +3838,45 @@ Model::writeAttributes (XMLOutputStream& stream) const
     //
     if (!(level == 2 && version == 1)) 
       SBO::writeTerm(stream, mSBOTerm);
+  }
+
+  if (level > 2)
+  {
+    //
+    // substanceUnits: string  { use="optional" }  (L3v1 ->)
+    //
+    stream.writeAttribute("substanceUnits", mSubstanceUnits);
+
+    //
+    // timeUnits: string  { use="optional" }  (L3v1 ->)
+    //
+    stream.writeAttribute("timeUnits", mTimeUnits);
+
+    //
+    // volumeUnits: string  { use="optional" }  (L3v1 ->)
+    //
+    stream.writeAttribute("volumeUnits", mVolumeUnits);
+
+    //
+    // areaUnits: string  { use="optional" }  (L3v1 ->)
+    //
+    stream.writeAttribute("areaUnits", mAreaUnits);
+
+    //
+    // lengthUnits: string  { use="optional" }  (L3v1 ->)
+    //
+    stream.writeAttribute("lengthUnits", mLengthUnits);
+
+    //
+    // extentUnits: string  { use="optional" }  (L3v1 ->)
+    //
+    stream.writeAttribute("extentUnits", mExtentUnits);
+
+    //
+    // conversionFactor: string  { use="optional" }  (L3v1 ->)
+    //
+    stream.writeAttribute("conversionFactor", mConversionFactor);
+
   }
 }
 /** @endcond doxygen-libsbml-internal */

@@ -51,6 +51,7 @@ Parameter::Parameter (unsigned int level, unsigned int version) :
  , mValue     ( 0.0      )
  , mConstant  ( true     )
  , mIsSetValue( false    )
+ , mIsSetConstant (false )
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -64,6 +65,7 @@ Parameter::Parameter (SBMLNamespaces * sbmlns) :
  , mValue     ( 0.0      )
  , mConstant  ( true     )
  , mIsSetValue( false    )
+ , mIsSetConstant (false )
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -99,6 +101,7 @@ Parameter::Parameter(const Parameter& orig) :
   , mUnits     ( orig.mUnits      )
   , mConstant  ( orig.mConstant   )
   , mIsSetValue( orig.mIsSetValue )
+  , mIsSetConstant (orig.mIsSetConstant )
 {
 }
 
@@ -117,6 +120,7 @@ Parameter& Parameter::operator=(const Parameter& rhs)
     mIsSetValue = rhs.mIsSetValue;
     mId = rhs.mId;
     mName = rhs.mName;
+    mIsSetConstant = rhs.mIsSetConstant;
   }
 
   return *this;
@@ -259,6 +263,17 @@ Parameter::isSetUnits () const
 
 
 /*
+ * @return true if the constant of this Parameter has been set, false
+ * otherwise.
+ */
+bool
+Parameter::isSetConstant () const
+{
+  return mIsSetConstant;
+}
+
+
+/*
  * Sets the id of this SBML object to a copy of sid.
  */
 int
@@ -358,6 +373,7 @@ Parameter::setConstant (bool flag)
   else
   {
     mConstant = flag;
+    mIsSetConstant = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -660,8 +676,17 @@ Parameter::readAttributes (const XMLAttributes& attributes)
 
     //
     // constant: boolean  { use="optional" default="true" }  (L2v1->)
+    // constant: boolean  { use="required" }  (L3v1->)
     //
-    attributes.readInto("constant", mConstant);
+    if (level == 2)
+    {
+      attributes.readInto("constant", mConstant);
+    }
+    else
+    {
+      mIsSetConstant = attributes.readInto("constant", mConstant,
+                                           getErrorLog(), true);
+    }
 
     //
     // sboTerm: SBOTerm { use="optional" }  (L2v2->)
@@ -723,8 +748,16 @@ Parameter::writeAttributes (XMLOutputStream& stream) const
   {
     //
     // constant: boolean  { use="optional" default="true" }  (L2v1->)
+    // constant: boolean  { use="required" }  (L3v1->)
     //
-    if (mConstant != true)
+    if (level == 2)
+    {
+      if (mConstant != true)
+      {
+        stream.writeAttribute("constant", mConstant);
+      }
+    }
+    else
     {
       stream.writeAttribute("constant", mConstant);
     }
@@ -1180,6 +1213,23 @@ int
 Parameter_isSetUnits (const Parameter_t *p)
 {
   return static_cast<int>( p->isSetUnits() );
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Parameter_t structure's constant attribute have been set.
+ *
+ * @param p the Parameter_t structure to query
+ * 
+ * @return @c non-zero (true) if the "constant" attribute of the given
+ * Parameter_t structure has been set, zero (false) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Parameter_isSetConstant (const Parameter_t *p)
+{
+  return static_cast<int>( p->isSetConstant() );
 }
 
 

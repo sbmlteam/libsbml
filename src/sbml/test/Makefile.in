@@ -110,6 +110,7 @@ test_sources =                   \
   TestReadFromFile6.cpp          \
   TestReadFromFile7.cpp          \
   TestReadFromFile8.cpp          \
+  TestReadFromFile9.cpp          \
   TestSBMLParentObject.cpp       \
   TestSBMLError.cpp              \
   TestAncestor.cpp               \

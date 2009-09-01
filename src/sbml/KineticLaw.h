@@ -120,12 +120,14 @@
 
 #include <sbml/SBase.h>
 #include <sbml/Parameter.h>
+#include <sbml/LocalParameter.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 class ASTNode;
 class Parameter;
 class SBMLVisitor;
+class LocalParameter;
 
 
 class LIBSBML_EXTERN KineticLaw : public SBase
@@ -522,6 +524,38 @@ public:
 
 
   /**
+   * Adds a copy of the given LocalParameter object to the list of local
+   * parameters in this KineticLaw.
+   *
+   * @param p the LocalParameter to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_LEVEL_MISMATCH
+   * @li LIBSBML_VERSION_MISMATCH
+   * @li LIBSBML_DUPLICATE_OBJECT_ID
+   * @li LIBSBML_OPERATION_FAILED
+   *
+   * @note This method should be used with some caution.  The fact that
+   * this method @em copies the object passed to it means that the caller
+   * will be left holding a physically different object instance than the
+   * one contained in this KineticLaw.  Changes made to the original object
+   * instance (such as resetting attribute values) will <em>not affect the
+   * instance in the KineticLaw</em>.  In addition, the caller should make
+   * sure to free the original object if it is no longer being used, or
+   * else a memory leak will result.  Please see
+   * KineticLaw::createParameter() for ab method that does not lead to
+   * these issues.
+   *
+   * @see createLocalParameter()
+   */
+  int addLocalParameter (const LocalParameter* p);
+
+
+  /**
    * Creates a new Parameter object, adds it to this KineticLaw's list of
    * local parameters, and returns the Parameter object created.
    *
@@ -530,6 +564,17 @@ public:
    * @see addParameter(const Parameter* p)
    */
   Parameter* createParameter ();
+
+
+  /**
+   * Creates a new LocalParameter object, adds it to this KineticLaw's list of
+   * local parameters, and returns the LocalParameter object created.
+   *
+   * @return a new LocalParameter object instance
+   *
+   * @see addLocalParameter(const LocalParameter* p)
+   */
+  LocalParameter* createLocalParameter ();
 
 
   /**
@@ -546,6 +591,22 @@ public:
    * @return the list of Parameters for this KineticLaw.
    */
   ListOfParameters* getListOfParameters ();
+
+
+  /**
+   * Returns the list of local parameters in this KineticLaw object.
+   * 
+   * @return the list of LocalParameters for this KineticLaw.
+   */
+  const ListOfLocalParameters* getListOfLocalParameters () const;
+
+
+  /**
+   * Returns the list of local parameters in this KineticLaw object.
+   * 
+   * @return the list of LocalParameters for this KineticLaw.
+   */
+  ListOfLocalParameters* getListOfLocalParameters ();
 
 
   /**
@@ -571,6 +632,28 @@ public:
 
 
   /**
+   * Returns the nth LocalParameter object in the list of local parameters in
+   * this KineticLaw instance.
+   *
+   * @param n the index of the LocalParameter object sought
+   * 
+   * @return the nth LocalParameter of this KineticLaw.
+   */
+  const LocalParameter* getLocalParameter (unsigned int n) const;
+
+
+  /**
+   * Returns the nth LocalParameter object in the list of local parameters in
+   * this KineticLaw instance.
+   *
+   * @param n the index of the LocalParameter object sought
+   * 
+   * @return the nth LocalParameter of this KineticLaw.
+   */
+  LocalParameter* getLocalParameter (unsigned int n);
+
+
+  /**
    * Returns a local parameter based on its identifier.
    *
    * @param sid the identifier of the Parameter being sought.
@@ -593,11 +676,41 @@ public:
 
 
   /**
+   * Returns a local parameter based on its identifier.
+   *
+   * @param sid the identifier of the LocalParameter being sought.
+   * 
+   * @return the LocalParameter object in this KineticLaw instace having the
+   * given "id", or @c NULL if no such LocalParameter exists.
+   */
+  const LocalParameter* getLocalParameter (const std::string& sid) const;
+
+
+  /**
+   * Returns a local parameter based on its identifier.
+   *
+   * @param sid the identifier of the LocalParameter being sought.
+   * 
+   * @return the LocalParameter object in this KineticLaw instace having the
+   * given "id", or @c NULL if no such LocalParameter exists.
+   */
+  LocalParameter* getLocalParameter (const std::string& sid);
+
+
+  /**
    * Returns the number of local parameters in this KineticLaw instance.
    * 
    * @return the number of Parameters in this KineticLaw.
    */
   unsigned int getNumParameters () const;
+
+
+  /**
+   * Returns the number of local parameters in this KineticLaw instance.
+   * 
+   * @return the number of LocalParameters in this KineticLaw.
+   */
+  unsigned int getNumLocalParameters () const;
 
 
   /**
@@ -724,6 +837,21 @@ public:
 
 
   /**
+   * Removes the nth LocalParameter object in the list of local parameters 
+   * in this KineticLaw instance and returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   *
+   * @param n the index of the LocalParameter object to remove
+   * 
+   * @return the LocalParameter object removed.  As mentioned above, 
+   * the caller owns the returned item. NULL is returned if the given index 
+   * is out of range.
+   */
+  LocalParameter* removeLocalParameter (unsigned int n);
+
+
+  /**
    * Removes a Parameter object with the given identifier in the list of
    * local parameters in this KineticLaw instance and returns a pointer to it.
    *
@@ -736,6 +864,21 @@ public:
    * object with the identifier exists in this KineticLaw instance.
    */
   Parameter* removeParameter (const std::string& sid);
+
+
+  /**
+   * Removes a LocalParameter object with the given identifier in the list of
+   * local parameters in this KineticLaw instance and returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   *
+   * @param sid the identifier of the LocalParameter to remove
+   * 
+   * @return the LocalParameter object removed.  As mentioned above, the 
+   * caller owns the returned object. NULL is returned if no LocalParameter
+   * object with the identifier exists in this KineticLaw instance.
+   */
+  LocalParameter* removeLocalParameter (const std::string& sid);
 
 
   /** @cond doxygen-libsbml-internal */
@@ -890,6 +1033,7 @@ protected:
   mutable ASTNode*     mMath;
 
   ListOfParameters  mParameters;
+  ListOfLocalParameters  mLocalParameters;
   std::string       mTimeUnits;
   std::string       mSubstanceUnits;
 

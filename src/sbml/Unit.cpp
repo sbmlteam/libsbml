@@ -50,6 +50,9 @@ Unit::Unit (unsigned int level, unsigned int version) :
   , mScale     ( 0      )
   , mMultiplier( 1.0 )
   , mOffset    ( 0.0     )
+  , mIsSetExponent    ( false )
+  , mIsSetScale       ( false )
+  , mIsSetMultiplier  ( false )
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -63,12 +66,14 @@ Unit::Unit (SBMLNamespaces * sbmlns) :
   , mScale     ( 0      )
   , mMultiplier( 1.0 )
   , mOffset    ( 0.0     )
+  , mIsSetExponent    ( false )
+  , mIsSetScale       ( false )
+  , mIsSetMultiplier  ( false )
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
 }
 
-/** @cond doxygen-libsbml-internal */
 
 /* constructor for validators */
 Unit::Unit() :
@@ -78,7 +83,6 @@ Unit::Unit() :
 
 /** @endcond doxygen-libsbml-internal */
                           
-
 /*
  * Destroys the given Unit.
  */
@@ -97,6 +101,9 @@ Unit::Unit(const Unit& orig) :
   , mScale     ( orig.mScale      )
   , mMultiplier( orig.mMultiplier )
   , mOffset    ( orig.mOffset     )
+  , mIsSetExponent    ( orig.mIsSetExponent )
+  , mIsSetScale       ( orig.mIsSetScale )
+  , mIsSetMultiplier  ( orig.mIsSetMultiplier )
 {
 }
 
@@ -114,6 +121,9 @@ Unit& Unit::operator=(const Unit& rhs)
     mScale      = rhs.mScale      ;
     mMultiplier = rhs.mMultiplier ;
     mOffset     = rhs.mOffset     ;
+    mIsSetExponent    = rhs.mIsSetExponent;
+    mIsSetScale       = rhs.mIsSetScale;
+    mIsSetMultiplier  = rhs.mIsSetMultiplier;
   }
 
   return *this;
@@ -569,6 +579,38 @@ Unit::isSetKind () const
 
 
 /*
+ * @return @c true if the "exponent" attribute of this Unit has been set, 
+ * @c false otherwise.
+ */
+bool 
+Unit::isSetExponent () const
+{
+  return mIsSetExponent;
+}
+
+/*
+ * @return @c true if the "scale" attribute of this Unit has been set, 
+ * @c false otherwise.
+ */
+bool 
+Unit::isSetScale () const
+{
+  return mIsSetScale;
+}
+
+
+/*
+ * @return @c true if the "multiplier" attribute of this Unit has been set, 
+ * @c false otherwise.
+ */
+bool 
+Unit::isSetMultiplier () const
+{
+  return mIsSetMultiplier;
+}
+
+  
+/*
  * Sets the kind of this Unit to the given UnitKind.
  */
 int
@@ -594,6 +636,7 @@ int
 Unit::setExponent (int value)
 {
   mExponent = value;
+  mIsSetExponent = true;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -605,6 +648,7 @@ int
 Unit::setScale (int value)
 {
   mScale = value;
+  mIsSetScale = true;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -623,6 +667,7 @@ Unit::setMultiplier (double value)
   else
   {
     mMultiplier = value;
+    mIsSetMultiplier = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -1432,21 +1477,46 @@ Unit::readAttributes (const XMLAttributes& attributes)
 
   //
   // exponent  { use="optional" default="1" }  (L1v1, L1v2, L2v1->)
+  // exponent  { use="required" }  (L3v1 ->)
   //
-  attributes.readInto("exponent", mExponent, getErrorLog());
-
+  if (level < 3)
+  {
+    attributes.readInto("exponent", mExponent, 
+                                         getErrorLog());
+  }
+  else
+  {
+    mIsSetExponent = attributes.readInto("exponent", mExponent, 
+                                          getErrorLog(), true);
+  }
   //
   // scale  { use="optional" default="0" }  (L1v1, L1v2, L2v1->)
+  // scale  { use="required" }  (L3v1->)
   //
-  attributes.readInto("scale", mScale, getErrorLog());
+  if (level < 3)
+  {
+    attributes.readInto("scale", mScale, getErrorLog());
+  }
+  else
+  {
+    mIsSetScale = attributes.readInto("scale", mScale, getErrorLog(), true);
+  }
 
   if (level > 1)
   {
     //
     // multiplier  { use="optional" default="1" }  (L2v1-> )
+    // multiplier  { use="required" }  (L3v1-> )
     //
-    attributes.readInto("multiplier", mMultiplier, getErrorLog());
-
+    if (level < 3)
+    {
+      attributes.readInto("multiplier", mMultiplier, getErrorLog());
+    }
+    else
+    {
+      mIsSetMultiplier = attributes.readInto("multiplier", mMultiplier, 
+                                              getErrorLog(), true);
+    }
     //
     // offset  { use="optional" default="0" }  (L2v1)
     //
@@ -1486,25 +1556,51 @@ Unit::writeAttributes (XMLOutputStream& stream) const
 
   //
   // exponent  { use="optional" default="1" }  (L1v1, L1v2, L2v1->)
+  // exponent  { use="required" }  (L3v1 ->)
   //
-  if (mExponent != 1) stream.writeAttribute("exponent", mExponent);
-
+  if (level < 3)
+  {
+    if (mExponent != 1) stream.writeAttribute("exponent", mExponent);
+  }
+  else
+  {
+    stream.writeAttribute("exponent", mExponent);
+  }
+ 
   //
   // scale  { use="optional" default="0" }  (L1v1, L1v2, L2v1->)
+  // scale  { use="required" }  (L3v1->)
   //
-  if (mScale != 0) stream.writeAttribute("scale", mScale);
+  if (level < 3)
+  {
+    if (mScale != 0) stream.writeAttribute("scale", mScale);
+  }
+  else
+  {
+    stream.writeAttribute("scale", mScale);
+  }
 
   if (level > 1)
   {
     //
     // multiplier  { use="optional" default="1" }  (L2v1->)
+    // multiplier  { use="required" }  (L3v1-> )
     //
-    if (mMultiplier != 1) stream.writeAttribute("multiplier", mMultiplier);
-
+    if (level < 3)
+    {
+      if (mMultiplier != 1) stream.writeAttribute("multiplier", mMultiplier);
+    }
+    else
+    {
+      stream.writeAttribute("multiplier", mMultiplier);
+    }
     //
     // offset  { use="optional" default="0" }  (L2v1)
     //
-    if (level == 2 && version == 1 && mOffset != 0) stream.writeAttribute("offset", mOffset);
+    if (level == 2 && version == 1 && mOffset != 0) 
+    {
+      stream.writeAttribute("offset", mOffset);
+    }
 
     //
     // sboTerm: SBOTerm { use="optional" }  (L2v3->)

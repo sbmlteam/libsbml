@@ -56,6 +56,7 @@ headers =              \
   InitialAssignment.h  \
   KineticLaw.h         \
   ListOf.h             \
+  LocalParameter.h     \
   Model.h              \
   Parameter.h          \
   Reaction.h           \
@@ -93,6 +94,7 @@ sources =                \
   InitialAssignment.cpp  \
   KineticLaw.cpp         \
   ListOf.cpp             \
+  LocalParameter.cpp     \
   Model.cpp              \
   Parameter.cpp          \
   Reaction.cpp           \

@@ -59,6 +59,7 @@ const char* SBML_TYPE_CODE_STRINGS[] =
   , "Trigger"
   , "Delay"
   , "StoichiometryMath"
+  , "LocalParameter"
 
 #ifdef USE_LAYOUT
   , "BoundingBox"

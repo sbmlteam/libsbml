@@ -101,6 +101,7 @@ KineticLaw::KineticLaw (const KineticLaw& orig) :
  , mFormula       ( orig.mFormula        )
  , mMath          ( 0                    )
  , mParameters    ( orig.mParameters     )
+ , mLocalParameters    ( orig.mLocalParameters     )
  , mTimeUnits     ( orig.mTimeUnits      )
  , mSubstanceUnits( orig.mSubstanceUnits )
  , mInternalId    ( orig.mInternalId     )
@@ -118,6 +119,10 @@ KineticLaw::KineticLaw (const KineticLaw& orig) :
   {
     mParameters.setParentSBMLObject(this);
   }
+  if (orig.getNumLocalParameters() > 0)
+  {
+    mLocalParameters.setParentSBMLObject(this);
+  }
 }
 
 
@@ -133,11 +138,17 @@ KineticLaw& KineticLaw::operator=(const KineticLaw& rhs)
     mTimeUnits      = rhs.mTimeUnits      ;
     mSubstanceUnits = rhs.mSubstanceUnits ;
     mParameters     = rhs.mParameters     ;
+    mLocalParameters     = rhs.mLocalParameters     ;
     mInternalId     = rhs.mInternalId     ;
     
     if (rhs.getNumParameters() > 0)
     {
       mParameters.setParentSBMLObject(this);
+    }
+    
+    if (rhs.getNumLocalParameters() > 0)
+    {
+      mLocalParameters.setParentSBMLObject(this);
     }
     
     delete mMath;
@@ -500,6 +511,49 @@ KineticLaw::addParameter (const Parameter* p)
 
 
 /*
+ * Adds a copy of the given LocalParameter to this KineticLaw.
+ */
+int
+KineticLaw::addLocalParameter (const LocalParameter* p)
+{
+  if (p == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (!(p->hasRequiredAttributes()) || !(p->hasRequiredElements()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != p->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != p->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (getLocalParameter(p->getId()) != NULL)
+  {
+    // an parameter with this id already exists
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
+  else
+  {
+    /* if the ListOf is empty it doesnt know its parent */
+    if (mLocalParameters.size() == 0)
+    {
+      mLocalParameters.setSBMLDocument(this->getSBMLDocument());
+      mLocalParameters.setParentSBMLObject(this);
+    }
+    
+    mLocalParameters.append(p);
+
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
  * Creates a new Parameter, adds it to this KineticLaw's list of
  * parameters and returns it.
  */
@@ -535,6 +589,41 @@ KineticLaw::createParameter ()
 
 
 /*
+ * Creates a new LocalParameter, adds it to this KineticLaw's list of
+ * parameters and returns it.
+ */
+LocalParameter*
+KineticLaw::createLocalParameter ()
+{
+  LocalParameter* p = 0;
+
+  try
+  {
+    p = new LocalParameter(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
+  
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mLocalParameters.size() == 0)
+  {
+    mLocalParameters.setSBMLDocument(this->getSBMLDocument());
+    mLocalParameters.setParentSBMLObject(this);
+  }
+  
+  if (p) mLocalParameters.appendAndOwn(p);
+
+  return p;
+}
+
+
+/*
  * @return the list of Parameters for this KineticLaw.
  */
 const ListOfParameters*
@@ -555,6 +644,26 @@ KineticLaw::getListOfParameters ()
 
 
 /*
+ * @return the list of LocalParameters for this KineticLaw.
+ */
+const ListOfLocalParameters*
+KineticLaw::getListOfLocalParameters () const
+{
+  return &mLocalParameters;
+}
+
+
+/*
+ * @return the list of LocalParameters for this KineticLaw.
+ */
+ListOfLocalParameters*
+KineticLaw::getListOfLocalParameters ()
+{
+  return &mLocalParameters;
+}
+
+
+/*
  * @return the nth Parameter of this KineticLaw.
  */
 const Parameter*
@@ -571,6 +680,26 @@ Parameter*
 KineticLaw::getParameter (unsigned int n)
 {
   return static_cast<Parameter*>( mParameters.get(n) );
+}
+
+
+/*
+ * @return the nth LocalParameter of this KineticLaw.
+ */
+const LocalParameter*
+KineticLaw::getLocalParameter (unsigned int n) const
+{
+  return static_cast<const LocalParameter*>( mLocalParameters.get(n) );
+}
+
+
+/*
+ * @return the nth LocalParameter of this KineticLaw.
+ */
+LocalParameter*
+KineticLaw::getLocalParameter (unsigned int n)
+{
+  return static_cast<LocalParameter*>( mLocalParameters.get(n) );
 }
 
 
@@ -597,12 +726,43 @@ KineticLaw::getParameter (const std::string& sid)
 
 
 /*
+ * @return the LocalParameter in this kineticLaw with the given id or NULL if
+ * no such LocalParameter exists.
+ */
+const LocalParameter*
+KineticLaw::getLocalParameter (const std::string& sid) const
+{
+  return static_cast<const LocalParameter*>( mLocalParameters.get(sid) );
+}
+
+
+/*
+ * @return the LocalParameter in this kineticLaw with the given id or NULL if
+ * no such LocalParameter exists.
+ */
+LocalParameter*
+KineticLaw::getLocalParameter (const std::string& sid)
+{
+  return static_cast<LocalParameter*>( mLocalParameters.get(sid) );
+}
+
+
+/*
  * @return the number of Parameters in this KineticLaw.
  */
 unsigned int
 KineticLaw::getNumParameters () const
 {
   return mParameters.size();
+}
+
+/*
+ * @return the number of LocalParameters in this KineticLaw.
+ */
+unsigned int
+KineticLaw::getNumLocalParameters () const
+{
+  return mLocalParameters.size();
 }
 
 /*
@@ -711,6 +871,17 @@ KineticLaw::removeParameter (unsigned int n)
 
 
 /**
+ * Removes the nth LocalParameter object in the list of local parameters 
+ * in this KineticLaw instance.
+ */
+LocalParameter* 
+KineticLaw::removeLocalParameter (unsigned int n)
+{
+  return mLocalParameters.remove(n);  
+}
+
+
+/**
  * Removes a Parameter object with the given identifier in the list of
  * local parameters in this KineticLaw instance.
  */
@@ -718,6 +889,17 @@ Parameter*
 KineticLaw::removeParameter (const std::string& sid)
 {
   return mParameters.remove(sid);
+}
+
+
+/**
+ * Removes a LocalParameter object with the given identifier in the list of
+ * local parameters in this KineticLaw instance.
+ */
+LocalParameter* 
+KineticLaw::removeLocalParameter (const std::string& sid)
+{
+  return mLocalParameters.remove(sid);
 }
 
 
@@ -824,7 +1006,9 @@ KineticLaw::writeElements (XMLOutputStream& stream) const
   SBase::writeElements(stream);
 
   if ( getLevel() == 2 && isSetMath() ) writeMathML(getMath(), stream);
-  if ( getNumParameters() > 0 ) mParameters.write(stream);
+  if ( getLevel() < 3 && getNumParameters() > 0 ) mParameters.write(stream);
+  if ( getLevel() > 2 && getNumLocalParameters() > 0 ) 
+    mLocalParameters.write(stream);
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -850,6 +1034,16 @@ KineticLaw::createObject (XMLInputStream& stream)
     return &mParameters;
   }
   
+  if (name == "listOfLocalParameters")
+  {
+    if (mLocalParameters.size() != 0)
+    {
+      logError(NotSchemaConformant, getLevel(), getVersion(),
+	       "Only one <listOfLocalParameters> elements is permitted "
+	       "in a given <kineticLaw> element.");
+    }
+    return &mLocalParameters;
+  }
   return 0;
 }
 /** @endcond doxygen-libsbml-internal */

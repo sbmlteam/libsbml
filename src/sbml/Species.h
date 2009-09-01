@@ -510,6 +510,14 @@ public:
 
 
   /**
+   * Get the value of the "conversionFactor" attribute.
+   * 
+   * @return the conversionFactor of this Species, as a string.
+   */
+  const std::string& getConversionFactor () const;
+
+
+  /**
    * Predicate returning @c true or @c false depending on whether this
    * Species's "id" attribute has been set.
    *
@@ -653,6 +661,54 @@ public:
    * SBML Level&nbsp;1.
    */
   bool isSetCharge () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Species's "conversionFactor" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "conversionFactor" attribute of this Species has
+   * been set, @c false otherwise.
+   */
+  bool isSetConversionFactor () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Species's "boundaryCondition" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "boundaryCondition" attribute of this Species has
+   * been set, @c false otherwise.
+   */
+  bool isSetBoundaryCondition () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Species's "hasOnlySubstanceUnits" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "hasOnlySubstanceUnits" attribute of this Species has
+   * been set, @c false otherwise.
+   */
+  bool isSetHasOnlySubstanceUnits () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Species's "constant" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "constant" attribute of this Species has
+   * been set, @c false otherwise.
+   */
+  bool isSetConstant () const;
 
 
   /**
@@ -1233,6 +1289,11 @@ protected:
   bool  mIsSetInitialAmount;
   bool  mIsSetInitialConcentration;
   bool  mIsSetCharge;
+  
+  std::string  mConversionFactor;
+  bool         mIsSetBoundaryCondition;
+  bool         mIsSetHasOnlySubstanceUnits;
+  bool         mIsSetConstant;
 
   /* the validator classes need to be friends to access the 
    * protected constructor that takes no arguments

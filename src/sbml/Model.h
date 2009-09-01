@@ -313,6 +313,83 @@ public:
 
 
   /**
+   * Returns the value of the "substanceUnits" attribute of this Model.
+   * 
+   * @return the substanceUnits of this Model.
+   *
+   * @warning The "substanceUnits" attribute was introduced in 
+   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   */
+  const std::string& getSubstanceUnits () const;
+
+
+  /**
+   * Returns the value of the "timeUnits" attribute of this Model.
+   * 
+   * @return the timeUnits of this Model.
+   *
+   * @warning The "timeUnits" attribute was introduced in 
+   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   */
+  const std::string& getTimeUnits () const;
+
+
+  /**
+   * Returns the value of the "volumeUnits" attribute of this Model.
+   * 
+   * @return the volumeUnits of this Model.
+   *
+   * @warning The "volumeUnits" attribute was introduced in 
+   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   */
+  const std::string& getVolumeUnits () const;
+
+
+  /**
+   * Returns the value of the "areaUnits" attribute of this Model.
+   * 
+   * @return the areaUnits of this Model.
+   *
+   * @warning The "areaUnits" attribute was introduced in 
+   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   */
+  const std::string& getAreaUnits () const;
+
+
+  /**
+   * Returns the value of the "lengthUnits" attribute of this Model.
+   * 
+   * @return the lengthUnits of this Model.
+   *
+   * @warning The "lengthUnits" attribute was introduced in 
+   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   */
+  const std::string& getLengthUnits () const;
+
+
+  /**
+   * Returns the value of the "extentUnits" attribute of this Model.
+   * 
+   * @return the extentUnits of this Model.
+   *
+   * @warning The "extentUnits" attribute was introduced in 
+   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   */
+  const std::string& getExtentUnits () const;
+
+
+  /**
+   * Returns the value of the "conversionFactor" attribute of this Model.
+   * 
+   * @return the conversionFactor of this Model.
+   *
+   * @warning The "conversionFactor" attribute was introduced in 
+   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   */
+  const std::string& getConversionFactor () const;
+
+
+  /**
    * Returns the ModelHistory of this Model.
    * 
    * @return ModelHistory of this Model.
@@ -362,6 +439,111 @@ public:
    * has been set, @c false otherwise.
    */
   bool isSetModelHistory();
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Model's "substanceUnits" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "substanceUnits" attribute of this Model has been
+   * set, @c false otherwise.
+   *
+   * @warning The "substanceUnits" attribute was introduced in 
+   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   */
+  bool isSetSubstanceUnits () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Model's "timeUnits" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "timeUnits" attribute of this Model has been
+   * set, @c false otherwise.
+   *
+   * @warning The "substanceUnits" attribute was introduced in 
+   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   */
+  bool isSetTimeUnits () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Model's "volumeUnits" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "volumeUnits" attribute of this Model has been
+   * set, @c false otherwise.
+   *
+   * @warning The "volumeUnits" attribute was introduced in 
+   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   */
+  bool isSetVolumeUnits () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Model's "areaUnits" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "areaUnits" attribute of this Model has been
+   * set, @c false otherwise.
+   *
+   * @warning The "areaUnits" attribute was introduced in 
+   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   */
+  bool isSetAreaUnits () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Model's "lengthUnits" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "lengthUnits" attribute of this Model has been
+   * set, @c false otherwise.
+   *
+   * @warning The "lengthUnits" attribute was introduced in 
+   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   */
+  bool isSetLengthUnits () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Model's "extentUnits" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "extentUnits" attribute of this Model has been
+   * set, @c false otherwise.
+   *
+   * @warning The "extentUnits" attribute was introduced in 
+   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   */
+  bool isSetExtentUnits () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Model's "conversionFactor" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "conversionFactor" attribute of this Model has been
+   * set, @c false otherwise.
+   *
+   * @warning The "conversionFactor" attribute was introduced in 
+   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   */
+  bool isSetConversionFactor () const;
 
 
   /**
@@ -2742,6 +2924,13 @@ protected:
   std::string     mId;
   std::string     mName;
   ModelHistory*   mHistory;
+  std::string     mSubstanceUnits;
+  std::string     mTimeUnits;
+  std::string     mVolumeUnits;
+  std::string     mAreaUnits;
+  std::string     mLengthUnits;
+  std::string     mExtentUnits;
+  std::string     mConversionFactor;
 
 
   ListOfFunctionDefinitions  mFunctionDefinitions;

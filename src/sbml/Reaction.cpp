@@ -85,6 +85,8 @@ Reaction::Reaction (unsigned int level, unsigned int version) :
  , mReversible( true     )
  , mFast      ( false    )
  , mIsSetFast ( false    )
+ , mCompartment ( "" )
+ , mIsSetReversible (false)
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -103,6 +105,8 @@ Reaction::Reaction (SBMLNamespaces * sbmlns) :
  , mReversible( true     )
  , mFast      ( false    )
  , mIsSetFast ( false    )
+ , mCompartment ( "" )
+ , mIsSetReversible (false)
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -146,6 +150,8 @@ Reaction::Reaction (const Reaction& orig) :
   , mReversible( orig.mReversible )
   , mFast      ( orig.mFast       )
   , mIsSetFast ( orig.mIsSetFast  )
+  , mCompartment ( orig.mCompartment )
+  , mIsSetReversible (orig.mIsSetReversible )
 {
   /* since a reaction has children we need to re-establish the
    * parentage of these children
@@ -187,6 +193,9 @@ Reaction& Reaction::operator=(const Reaction& rhs)
     mModifiers  = rhs.mModifiers  ;
     mId = rhs.mId;
     mName = rhs.mName;
+    mCompartment = rhs.mCompartment;
+    mIsSetReversible = rhs.mIsSetReversible;
+
     if (rhs.getNumReactants() > 0)
     {
       mReactants.setParentSBMLObject(this);
@@ -338,6 +347,16 @@ Reaction::getFast () const
 
 
 /*
+ * @return the compartment of this SBML object.
+ */
+const string&
+Reaction::getCompartment () const
+{
+  return mCompartment;
+}
+
+
+/*
  * @return true if the id of this SBML object has been set, false
  * otherwise.
  */
@@ -383,6 +402,28 @@ bool
 Reaction::isSetFast () const
 {
   return mIsSetFast;
+}
+
+
+/*
+ * @return true if the compartment of this SBML object has been set, false
+ * otherwise.
+ */
+bool
+Reaction::isSetCompartment () const
+{
+  return (mCompartment.empty() == false);
+}
+
+
+/*
+ * @return true if the fast status of this Reaction has been set, false
+ * otherwise.
+ */
+bool
+Reaction::isSetReversible () const
+{
+  return mIsSetReversible;
 }
 
 
@@ -1336,6 +1377,10 @@ Reaction::readAttributes (const XMLAttributes& attributes)
       expectedAttributes.push_back("sboTerm");
     }
   }
+  if (level > 2)
+  {
+    expectedAttributes.push_back("compartment");
+  }
 
   // check that all attributes are expected
   for (int i = 0; i < attributes.getLength(); i++)
@@ -1357,16 +1402,23 @@ Reaction::readAttributes (const XMLAttributes& attributes)
   bool assigned = attributes.readInto(id, mId, getErrorLog(), true);
   if (assigned && mId.size() == 0)
   {
-    logEmptyString(id, level, version, "<rule>");
+    logEmptyString(id, level, version, "<reaction>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
 
   //
   // reversible: boolean  { use="optional"  default="true" }
   // (L1v1, L1v2, L2v1->)
+  // reversible: boolean  { use="required"} (L3v1->)
   //
-  attributes.readInto("reversible", mReversible);
-
+  if (level < 3)
+  {
+    attributes.readInto("reversible", mReversible);
+  }
+  else
+  {
+    mIsSetReversible = attributes.readInto("reversible", mReversible);
+  }
   //
   // fast: boolean  { use="optional" default="false" }  (L1v1, L1v2)
   // fast: boolean  { use="optional" }                  (L2v1 ->)
@@ -1385,6 +1437,19 @@ Reaction::readAttributes (const XMLAttributes& attributes)
     //
     if (!(level == 2 && version == 1)) 
       mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
+  }
+
+  //
+  // compartment: string { use="optional" } (L3v1 -> )
+  //
+  if (level > 2)
+  {
+    assigned = attributes.readInto("compartment", mCompartment);
+    if (assigned && mCompartment.size() == 0)
+    {
+      logEmptyString("compartment", level, version, "<reaction>");
+    }
+    if (!SyntaxChecker::isValidSBMLSId(mCompartment)) logError(InvalidIdSyntax);
   }
 }
 /** @endcond doxygen-libsbml-internal */
@@ -1419,16 +1484,32 @@ Reaction::writeAttributes (XMLOutputStream& stream) const
   //
   // reversible: boolean  { use="optional"  default="true" }
   // (L1v1, L1v2, L2v1-> )
+  // reversible: boolean  { use="required"} (L3v1->)
   //
-  if (mReversible != true) stream.writeAttribute("reversible", mReversible);
+  if (level < 3)
+  {
+    if (mReversible != true) 
+      stream.writeAttribute("reversible", mReversible);
+  }
+  else
+  {
+    stream.writeAttribute("reversible", mReversible);
+  }
 
   //
-  // fast: boolean  { use="optional" default="false" }  (L1v1, L1v2)
-  // fast: boolean  { use="optional" }                  (L2v1-> )
+  // fast: boolean  { use="optional" default="false" }  (L1v1, L1v2, L2v1 ->)
+  // fast: boolean  { use="required" }                  (L3v1-> )
   //
-  if (mIsSetFast)
+  if (level < 3)
   {
-    if (level != 1 || mFast != false) stream.writeAttribute("fast", mFast);
+    if (mIsSetFast)
+    {
+      if (level != 1 || mFast != false) stream.writeAttribute("fast", mFast);
+    }
+  }
+  else
+  {
+    stream.writeAttribute("fast", mFast);
   }
 
   if (level > 1)

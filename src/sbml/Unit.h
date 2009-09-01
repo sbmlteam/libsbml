@@ -632,6 +632,36 @@ public:
 
 
   /**
+   * Predicate to test whether the "exponent" attribute of this Unit 
+   * has been set.
+   * 
+   * @return @c true if the "exponent" attribute of this Unit has been set, 
+   * @c false otherwise.
+   */
+  bool isSetExponent () const;
+
+
+  /**
+   * Predicate to test whether the "scale" attribute of this Unit 
+   * has been set.
+   * 
+   * @return @c true if the "scale" attribute of this Unit has been set, 
+   * @c false otherwise.
+   */
+  bool isSetScale () const;
+
+
+  /**
+   * Predicate to test whether the "multiplier" attribute of this Unit 
+   * has been set.
+   * 
+   * @return @c true if the "multiplier" attribute of this Unit has been set, 
+   * @c false otherwise.
+   */
+  bool isSetMultiplier () const;
+
+
+  /**
    * Sets the "kind" attribute value of this Unit.
    *
    * @param kind a value from the <a class="el"
@@ -966,10 +996,15 @@ protected:
   static bool isL2UnitKind (const std::string& name);
 
   UnitKind_t  mKind;
-  int         mExponent;
+  double      mExponent;
   int         mScale;
   double      mMultiplier;
-  double      mOffset;  
+  double      mOffset; 
+
+  bool        mIsSetExponent;
+  bool        mIsSetScale;
+  bool        mIsSetMultiplier;
+
 
   /* the validator classes need to be friends to access the 
    * protected constructor that takes no arguments

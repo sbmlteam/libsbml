@@ -47,6 +47,7 @@
 #include <sbml/Compartment.h>
 #include <sbml/Species.h>
 #include <sbml/Parameter.h>
+#include <sbml/LocalParameter.h>
 
 #include <sbml/InitialAssignment.h>
 

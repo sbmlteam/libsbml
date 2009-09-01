@@ -723,6 +723,15 @@ public:
 
 
   /**
+   * Get the value of the "constant" attribute.
+   * 
+   * @return the value of the "constant" attribute of this
+   * SpeciesReference.
+   */
+  bool getConstant () const;
+
+
+  /**
    * Predicate returning @c true or @c false depending on whether this
    * SpeciesReference's "stoichiometryMath" subelement has been set
    * 
@@ -730,6 +739,16 @@ public:
    * SpeciesReference has been set, @c false otherwise.
    */
   bool isSetStoichiometryMath () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * SpeciesReference's "constant" attribute has been set
+   * 
+   * @return @c true if the "constant" attribute of this
+   * SpeciesReference has been set, @c false otherwise.
+   */
+  bool isSetConstant () const;
 
 
   /**
@@ -1091,6 +1110,8 @@ protected:
   double    mStoichiometry;
   int       mDenominator;
   StoichiometryMath*  mStoichiometryMath;
+  bool      mConstant;
+  bool      mIsSetConstant;
 
   /* the validator classes need to be friends to access the 
    * protected constructor that takes no arguments

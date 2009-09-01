@@ -575,6 +575,36 @@ public:
 
 
   /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Compartment's "spatialDimensions" attribute has been set.
+   * 
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @note This function only applies to SBML L3 where there are no
+   * default values.
+   *
+   * @return @c true if the "spatialDimensions" attribute of this Compartment has
+   * been set, @c false otherwise.
+   */
+  bool isSetSpatialDimensions () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Compartment's "constant" attribute has been set.
+   * 
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @note This function only applies to SBML L3 where there are no
+   * default values.
+   *
+   * @return @c true if the "constant" attribute of this Compartment has
+   * been set, @c false otherwise.
+   */
+  bool isSetConstant () const;
+
+
+  /**
    * Sets the value of the "id" attribute of this Compartment.
    *
    * The string @p sid is copied.  Note that SBML has strict requirements
@@ -1008,6 +1038,8 @@ protected:
   bool          mConstant;
 
   bool  mIsSetSize;
+  bool  mIsSetSpatialDimensions;
+  bool  mIsSetConstant;
 
   /* the validator classes need to be friends to access the 
    * protected constructor that takes no arguments
@@ -1345,6 +1377,16 @@ Compartment_isSetUnits (const Compartment_t *c);
 LIBSBML_EXTERN
 int
 Compartment_isSetOutside (const Compartment_t *c);
+
+
+LIBSBML_EXTERN
+int
+Compartment_isSetSpatialDimensions (const Compartment_t *c);
+
+
+LIBSBML_EXTERN
+int
+Compartment_isSetConstant (const Compartment_t *c);
 
 
 LIBSBML_EXTERN

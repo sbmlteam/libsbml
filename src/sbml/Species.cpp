@@ -55,6 +55,10 @@ Species::Species (unsigned int level, unsigned int version) :
   , mIsSetInitialAmount       ( false )
   , mIsSetInitialConcentration( false )
   , mIsSetCharge              ( false )
+  , mConversionFactor         ( ""    )
+  , mIsSetBoundaryCondition   ( false )
+  , mIsSetHasOnlySubstanceUnits (false )
+  , mIsSetConstant             ( false )
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -74,6 +78,10 @@ Species::Species (SBMLNamespaces *sbmlns) :
   , mIsSetInitialAmount       ( false )
   , mIsSetInitialConcentration( false )
   , mIsSetCharge              ( false )
+  , mConversionFactor         ( ""    )
+  , mIsSetBoundaryCondition   ( false )
+  , mIsSetHasOnlySubstanceUnits (false )
+  , mIsSetConstant             ( false )
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -124,6 +132,10 @@ Species::Species(const Species& orig) :
     this->mIsSetInitialAmount = orig.mIsSetInitialAmount;
     this->mIsSetInitialConcentration = orig.mIsSetInitialConcentration;
     this->mIsSetCharge = orig.mIsSetCharge;
+    this->mConversionFactor         = orig.mConversionFactor;
+    this->mIsSetBoundaryCondition   = orig.mIsSetBoundaryCondition;
+    this->mIsSetHasOnlySubstanceUnits = orig.mIsSetHasOnlySubstanceUnits;
+    this->mIsSetConstant             = orig.mIsSetConstant;
 }
 
 
@@ -154,6 +166,10 @@ Species& Species::operator=(const Species& orig)
     this->mIsSetInitialAmount = orig.mIsSetInitialAmount;
     this->mIsSetInitialConcentration = orig.mIsSetInitialConcentration;
     this->mIsSetCharge = orig.mIsSetCharge;
+    this->mConversionFactor         = orig.mConversionFactor;
+    this->mIsSetBoundaryCondition   = orig.mIsSetBoundaryCondition;
+    this->mIsSetHasOnlySubstanceUnits = orig.mIsSetHasOnlySubstanceUnits;
+    this->mIsSetConstant             = orig.mIsSetConstant;
   }
 
   return *this;
@@ -345,6 +361,16 @@ Species::getConstant () const
 
 
 /*
+ * @return the conversionFactor of this Species, as a string.
+ */
+const std::string& 
+Species::getConversionFactor () const
+{
+  return mConversionFactor;
+}
+
+
+/*
  * @return true if the id of this SBML object has been set, false
  * otherwise.
  */
@@ -456,6 +482,50 @@ bool
 Species::isSetCharge () const
 {
   return mIsSetCharge;
+}
+
+
+/*
+ * @return true if the conversionFactor of this Species has been set, false
+ * otherwise.
+ */
+bool
+Species::isSetConversionFactor () const
+{
+  return (mConversionFactor.empty() == false);
+}
+
+
+/*
+ * Predicate returning @c true or @c false depending on whether this
+ * Species's "boundaryCondition" attribute has been set.
+ */
+bool 
+Species::isSetBoundaryCondition () const
+{
+  return mIsSetBoundaryCondition;
+}
+
+
+/*
+ * Predicate returning @c true or @c false depending on whether this
+ * Species's "hasOnlySubstanceUnits" attribute has been set.
+ */
+bool 
+Species::isSetHasOnlySubstanceUnits () const
+{
+  return mIsSetHasOnlySubstanceUnits;
+}
+
+
+/*
+ * Predicate returning @c true or @c false depending on whether this
+ * Species's "constant" attribute has been set.
+ */
+bool 
+Species::isSetConstant () const
+{
+  return mIsSetConstant;
 }
 
 
@@ -657,6 +727,7 @@ Species::setHasOnlySubstanceUnits (bool value)
   else
   {
     mHasOnlySubstanceUnits = value;
+    mIsSetHasOnlySubstanceUnits = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -669,6 +740,7 @@ int
 Species::setBoundaryCondition (bool value)
 {
   mBoundaryCondition = value;
+  mIsSetBoundaryCondition = true;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -707,6 +779,7 @@ Species::setConstant (bool value)
   else
   {
     mConstant = value;
+    mIsSetConstant = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -1001,7 +1074,7 @@ Species::readAttributes (const XMLAttributes& attributes)
     expectedAttributes.push_back("hasOnlySubstanceUnits");
     expectedAttributes.push_back("constant");
 
-    if (!(level == 2 && version == 1))
+    if (level == 2 && version > 1)
     {
       expectedAttributes.push_back("speciesType");
     }
@@ -1014,6 +1087,11 @@ Species::readAttributes (const XMLAttributes& attributes)
     if (!(level == 2 && version < 3))
     {
       expectedAttributes.push_back("sboTerm");
+    }
+
+    if (level > 2)
+    {
+      expectedAttributes.push_back("conversionFactor");
     }
   }
 
@@ -1032,7 +1110,7 @@ Species::readAttributes (const XMLAttributes& attributes)
 
   //
   // name: SName   { use="required" }  (L1v1, L1v2)
-  //   id: SId     { use="required" }  (L2v1, L2v2)
+  //   id: SId     { use="required" }  (L2v1->)
   //
   const string id = (level == 1) ? "name" : "id";
   bool assigned = attributes.readInto(id, mId, getErrorLog(), true);
@@ -1080,8 +1158,17 @@ Species::readAttributes (const XMLAttributes& attributes)
   //
   // boundaryCondition: boolean
   // { use="optional" default="false" }  (L1v1, L1v2, L2v1->)
+  // { use="required" }  (L3v1->)
   //
-  attributes.readInto("boundaryCondition", mBoundaryCondition);
+  if (level < 3)
+  {
+    attributes.readInto("boundaryCondition", mBoundaryCondition);
+  }
+  else
+  {
+    mIsSetBoundaryCondition = attributes.readInto("boundaryCondition", 
+                               mBoundaryCondition, getErrorLog(), true);
+  }
 
   //
   // charge: integer  { use="optional" }  (L1v1, L1v2, L2v1)
@@ -1097,9 +1184,9 @@ Species::readAttributes (const XMLAttributes& attributes)
     attributes.readInto("name", mName);
 
     //
-    // speciesType: SId  { use="optional" }  (L2v2->)
+    // speciesType: SId  { use="optional" }  (L2v2-> L2v4)
     //
-    if (!(level == 2 && version == 1))
+    if (level == 2 && version > 1)
     {
       attributes.readInto("speciesType", mSpeciesType);
     }
@@ -1129,19 +1216,53 @@ Species::readAttributes (const XMLAttributes& attributes)
     //
     // hasOnlySubstanceUnits: boolean
     // { use="optional" default="false" }  (L2v1->)
+    // { use="required" } (L3v1 -> )
     //
-    attributes.readInto("hasOnlySubstanceUnits", mHasOnlySubstanceUnits);
+    if (level == 2)
+    {
+      attributes.readInto("hasOnlySubstanceUnits", mHasOnlySubstanceUnits);
+    }
+    else
+    {
+      mIsSetHasOnlySubstanceUnits = attributes.readInto(
+                         "hasOnlySubstanceUnits", mHasOnlySubstanceUnits,
+                          getErrorLog(), true);
+    }
 
     //
     // constant: boolean  { use="optional" default="false" }  (L2v1->)
+    // constant: boolean  { use="required" }  (L3v1->)
     //
-    attributes.readInto("constant", mConstant);
+    if (level == 2)
+    {
+      attributes.readInto("constant", mConstant);
+    }
+    else
+    {
+      mIsSetConstant = attributes.readInto("constant", mConstant, getErrorLog(), true);
+    }
 
     //
     // sboTerm: SBOTerm { use="optional" }  (L2v3->)
     //
     if (!(level == 2 && version < 3)) 
       mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
+
+    //
+    // conversionFactor: SIdRef {use="optional" } (L3v1 ->)
+    //
+    if (level > 2)
+    {
+      assigned = attributes.readInto("conversionFactor", mConversionFactor);
+      if (assigned && mConversionFactor.size() == 0)
+      {
+        logEmptyString("conversionFactor", level, version, "<species>");
+      }
+      if (!SyntaxChecker::isValidSBMLSId(mConversionFactor))
+      {
+        logError(InvalidIdSyntax);
+      }
+    }
   }
 }
 /** @endcond doxygen-libsbml-internal */
@@ -1178,7 +1299,7 @@ Species::writeAttributes (XMLOutputStream& stream) const
     //
     // speciesType: SId  { use="optional" }  (L2v2->)
     //
-    if (!(level == 2 && version == 1))
+    if (level == 2 && version > 1)
     {
       stream.writeAttribute("speciesType", mSpeciesType);
     }
@@ -1260,21 +1381,35 @@ Species::writeAttributes (XMLOutputStream& stream) const
     //
     // hasOnlySubstanceUnits: boolean
     // { use="optional" default="false" }  (L2v1->)
+    // { use="required" }  (L3v1->)
     //
-    if (mHasOnlySubstanceUnits)
+    if (level == 2 && mHasOnlySubstanceUnits)
     {
-      stream.writeAttribute( "hasOnlySubstanceUnits", mHasOnlySubstanceUnits );
+      stream.writeAttribute( "hasOnlySubstanceUnits", 
+                              mHasOnlySubstanceUnits );
+    }
+    else if (level > 2)
+    {
+      stream.writeAttribute( "hasOnlySubstanceUnits", 
+                              mHasOnlySubstanceUnits );
     }
   }
 
   //
   // boundaryCondition: boolean
   // { use="optional" default="false" }  (L1v1, L1v2, L2v1->)
+  // { use="required" }  (L3v1->)
   //
-  if (mBoundaryCondition)
+  if (level < 3)
+  {
+    if (mBoundaryCondition)
+      stream.writeAttribute("boundaryCondition", mBoundaryCondition);
+  }
+  else
   {
     stream.writeAttribute("boundaryCondition", mBoundaryCondition);
   }
+
 
   //
   // charge: integer  { use="optional" }  (L1v1, L1v2, L2v1)
@@ -1289,8 +1424,13 @@ Species::writeAttributes (XMLOutputStream& stream) const
   {
     //
     // constant: boolean  { use="optional" default="false" }  (L2v1->)
+    // constant: boolean  { use="required" }  (L3v1->)
     //
-    if (mConstant != false)
+    if (level == 2 && mConstant != false)
+    {
+      stream.writeAttribute("constant", mConstant);
+    }
+    else if (level > 2)
     {
       stream.writeAttribute("constant", mConstant);
     }
@@ -1300,6 +1440,11 @@ Species::writeAttributes (XMLOutputStream& stream) const
     //
     if (!(level == 2 && version < 3)) 
       SBO::writeTerm(stream, mSBOTerm);
+  }
+
+  if (level > 2)
+  {
+    stream.writeAttribute("conversionFactor", mConversionFactor);
   }
 }
 /** @endcond doxygen-libsbml-internal */
