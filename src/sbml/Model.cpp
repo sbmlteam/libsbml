@@ -4764,6 +4764,111 @@ Model_getName (const Model_t *m)
 
 
 /**
+ * Get the substanceUnits of the given Model_t structure.
+ * 
+ * @param m the Model_t structure
+ * 
+ * @return the substanceUnits of this Model_t structure.
+ */
+LIBSBML_EXTERN
+const char *
+Model_getSubstanceUnits (const Model_t *m)
+{
+  return m->isSetSubstanceUnits() ? m->getSubstanceUnits().c_str() : NULL;
+}
+
+
+/**
+ * Get the timeUnits of the given Model_t structure.
+ * 
+ * @param m the Model_t structure
+ * 
+ * @return the timeUnits of this Model_t structure.
+ */
+LIBSBML_EXTERN
+const char *
+Model_getTimeUnits (const Model_t *m)
+{
+  return m->isSetTimeUnits() ? m->getTimeUnits().c_str() : NULL;
+}
+
+
+/**
+ * Get the volumeUnits of the given Model_t structure.
+ * 
+ * @param m the Model_t structure
+ * 
+ * @return the volumeUnits of this Model_t structure.
+ */
+LIBSBML_EXTERN
+const char *
+Model_getVolumeUnits (const Model_t *m)
+{
+  return m->isSetVolumeUnits() ? m->getVolumeUnits().c_str() : NULL;
+}
+
+
+/**
+ * Get the areaUnits of the given Model_t structure.
+ * 
+ * @param m the Model_t structure
+ * 
+ * @return the areaUnits of this Model_t structure.
+ */
+LIBSBML_EXTERN
+const char *
+Model_getAreaUnits (const Model_t *m)
+{
+  return m->isSetAreaUnits() ? m->getAreaUnits().c_str() : NULL;
+}
+
+
+/**
+ * Get the lengthUnits of the given Model_t structure.
+ * 
+ * @param m the Model_t structure
+ * 
+ * @return the lengthUnits of this Model_t structure.
+ */
+LIBSBML_EXTERN
+const char *
+Model_getLengthUnits (const Model_t *m)
+{
+  return m->isSetLengthUnits() ? m->getLengthUnits().c_str() : NULL;
+}
+
+
+/**
+ * Get the extentUnits of the given Model_t structure.
+ * 
+ * @param m the Model_t structure
+ * 
+ * @return the extentUnits of this Model_t structure.
+ */
+LIBSBML_EXTERN
+const char *
+Model_getExtentUnits (const Model_t *m)
+{
+  return m->isSetExtentUnits() ? m->getExtentUnits().c_str() : NULL;
+}
+
+
+/**
+ * Get the conversionFactor of the given Model_t structure.
+ * 
+ * @param m the Model_t structure
+ * 
+ * @return the conversionFactor of this Model_t structure.
+ */
+LIBSBML_EXTERN
+const char *
+Model_getConversionFactor (const Model_t *m)
+{
+  return m->isSetConversionFactor() ? m->getConversionFactor().c_str() : NULL;
+}
+
+
+/**
  * Predicate for testing whether the identifier of a given Model_t
  * structure has been assigned.
  * 
@@ -4794,6 +4899,125 @@ int
 Model_isSetName (const Model_t *m)
 {
   return static_cast<int>( m->isSetName() );
+}
+
+
+/**
+ * Predicate for testing whether the substanceUnits of a given Model_t structure has
+ * been assigned.
+ * 
+ * @param m the Model_t structure
+ * 
+ * @return nonzero if the "substanceUnits" attribute of this Model_t structure has
+ * been set, zero (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Model_isSetSubstanceUnits (const Model_t *m)
+{
+  return static_cast<int>( m->isSetSubstanceUnits() );
+}
+
+
+/**
+ * Predicate for testing whether the timeUnits of a given Model_t structure has
+ * been assigned.
+ * 
+ * @param m the Model_t structure
+ * 
+ * @return nonzero if the "timeUnits" attribute of this Model_t structure has
+ * been set, zero (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Model_isSetTimeUnits (const Model_t *m)
+{
+  return static_cast<int>( m->isSetTimeUnits() );
+}
+
+
+/**
+ * Predicate for testing whether the volumeUnits of a given Model_t structure has
+ * been assigned.
+ * 
+ * @param m the Model_t structure
+ * 
+ * @return nonzero if the "volumeUnits" attribute of this Model_t structure has
+ * been set, zero (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Model_isSetVolumeUnits (const Model_t *m)
+{
+  return static_cast<int>( m->isSetVolumeUnits() );
+}
+
+
+/**
+ * Predicate for testing whether the areaUnits of a given Model_t structure has
+ * been assigned.
+ * 
+ * @param m the Model_t structure
+ * 
+ * @return nonzero if the "areaUnits" attribute of this Model_t structure has
+ * been set, zero (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Model_isSetAreaUnits (const Model_t *m)
+{
+  return static_cast<int>( m->isSetAreaUnits() );
+}
+
+
+/**
+ * Predicate for testing whether the lengthUnits of a given Model_t structure has
+ * been assigned.
+ * 
+ * @param m the Model_t structure
+ * 
+ * @return nonzero if the "lengthUnits" attribute of this Model_t structure has
+ * been set, zero (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Model_isSetLengthUnits (const Model_t *m)
+{
+  return static_cast<int>( m->isSetLengthUnits() );
+}
+
+
+/**
+ * Predicate for testing whether the extentUnits of a given Model_t structure has
+ * been assigned.
+ * 
+ * @param m the Model_t structure
+ * 
+ * @return nonzero if the "extentUnits" attribute of this Model_t structure has
+ * been set, zero (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Model_isSetExtentUnits (const Model_t *m)
+{
+  return static_cast<int>( m->isSetExtentUnits() );
+}
+
+
+/**
+ * Predicate for testing whether the conversionFactor of a given Model_t structure has
+ * been assigned.
+ * 
+ * @param m the Model_t structure
+ * 
+ * @return nonzero if the "conversionFactor" attribute of this Model_t structure has
+ * been set, zero (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Model_isSetConversionFactor (const Model_t *m)
+{
+  return static_cast<int>( m->isSetConversionFactor() );
 }
 
 

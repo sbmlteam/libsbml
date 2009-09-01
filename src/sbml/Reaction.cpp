@@ -1888,6 +1888,16 @@ Reaction_getFast (const Reaction_t *r)
 }
 
 
+/**
+ * @return the compartment of this Reaction.
+ */
+LIBSBML_EXTERN
+const char *
+Reaction_getCompartment (const Reaction_t *r)
+{
+  return r->isSetCompartment() ? r->getCompartment().c_str() : NULL;
+}
+
 
 /**
  * @return true (non-zero) if the id of this Reaction has been set, false
@@ -1938,6 +1948,30 @@ int
 Reaction_isSetFast (const Reaction_t *r)
 {
   return static_cast<int>( r->isSetFast() );
+}
+
+
+/**
+ * @return true (non-zero) if the KineticLaw of this Reaction has been set,
+ * false (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Reaction_isSetCompartment (const Reaction_t *r)
+{
+  return static_cast<int>( r->isSetCompartment() );
+}
+
+
+/**
+ * @return true (non-zero) if the reversible attribute of this Reaction has been set,
+ * false (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Reaction_isSetReversible (const Reaction_t *r)
+{
+  return static_cast<int>( r->isSetReversible() );
 }
 
 

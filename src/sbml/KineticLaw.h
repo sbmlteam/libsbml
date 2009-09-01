@@ -1177,8 +1177,18 @@ KineticLaw_addParameter (KineticLaw_t *kl, const Parameter_t *p);
 
 
 LIBSBML_EXTERN
+int
+KineticLaw_addLocalParameter (KineticLaw_t *kl, const LocalParameter_t *p);
+
+
+LIBSBML_EXTERN
 Parameter_t *
 KineticLaw_createParameter (KineticLaw_t *kl);
+
+
+LIBSBML_EXTERN
+LocalParameter_t *
+KineticLaw_createLocalParameter (KineticLaw_t *kl);
 
 
 LIBSBML_EXTERN
@@ -1187,8 +1197,18 @@ KineticLaw_getListOfParameters (KineticLaw_t *kl);
 
 
 LIBSBML_EXTERN
+ListOf_t *
+KineticLaw_getListOfLocalParameters (KineticLaw_t *kl);
+
+
+LIBSBML_EXTERN
 Parameter_t *
 KineticLaw_getParameter (KineticLaw_t *kl, unsigned int n);
+
+
+LIBSBML_EXTERN
+LocalParameter_t *
+KineticLaw_getLocalParameter (KineticLaw_t *kl, unsigned int n);
 
 
 LIBSBML_EXTERN
@@ -1197,8 +1217,18 @@ KineticLaw_getParameterById (KineticLaw_t *kl, const char *sid);
 
 
 LIBSBML_EXTERN
+LocalParameter_t *
+KineticLaw_getLocalParameterById (KineticLaw_t *kl, const char *sid);
+
+
+LIBSBML_EXTERN
 unsigned int
 KineticLaw_getNumParameters (const KineticLaw_t *kl);
+
+
+LIBSBML_EXTERN
+unsigned int
+KineticLaw_getNumLocalParameters (const KineticLaw_t *kl);
 
 
 LIBSBML_EXTERN
@@ -1217,8 +1247,18 @@ KineticLaw_removeParameter (KineticLaw_t *kl, unsigned int n);
 
 
 LIBSBML_EXTERN
+LocalParameter_t *
+KineticLaw_removeLocalParameter (KineticLaw_t *kl, unsigned int n);
+
+
+LIBSBML_EXTERN
 Parameter_t *
 KineticLaw_removeParameterById (KineticLaw_t *kl, const char *sid);
+
+
+LIBSBML_EXTERN
+LocalParameter_t *
+KineticLaw_removeLocalParameterById (KineticLaw_t *kl, const char *sid);
 
 
 END_C_DECLS

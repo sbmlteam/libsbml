@@ -1609,6 +1609,11 @@ SpeciesReference_getDenominator (const SpeciesReference_t *sr);
 
 LIBSBML_EXTERN
 int
+SpeciesReference_getConstant (const SpeciesReference_t *sr);
+
+
+LIBSBML_EXTERN
+int
 SpeciesReference_isSetId (const SpeciesReference_t *sr);
 
 
@@ -1625,6 +1630,16 @@ SpeciesReference_isSetSpecies (const SpeciesReference_t *sr);
 LIBSBML_EXTERN
 int
 SpeciesReference_isSetStoichiometryMath (const SpeciesReference_t *sr);
+
+
+LIBSBML_EXTERN
+int
+SpeciesReference_isSetStoichiometry (const SpeciesReference_t *sr);
+
+
+LIBSBML_EXTERN
+int
+SpeciesReference_isSetConstant (const SpeciesReference_t *sr);
 
 
 LIBSBML_EXTERN

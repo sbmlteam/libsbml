@@ -1493,6 +1493,11 @@ Reaction_getFast (const Reaction_t *r);
 
 
 LIBSBML_EXTERN
+const char *
+Reaction_getCompartment (const Reaction_t *r);
+
+
+LIBSBML_EXTERN
 int
 Reaction_isSetId (const Reaction_t *r);
 
@@ -1505,6 +1510,16 @@ Reaction_isSetName (const Reaction_t *r);
 LIBSBML_EXTERN
 int
 Reaction_isSetKineticLaw (const Reaction_t *r);
+
+
+LIBSBML_EXTERN
+int
+Reaction_isSetCompartment (const Reaction_t *r);
+
+
+LIBSBML_EXTERN
+int
+Reaction_isSetReversible (const Reaction_t *r);
 
 
 LIBSBML_EXTERN

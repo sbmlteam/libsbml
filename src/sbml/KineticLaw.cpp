@@ -1793,6 +1793,32 @@ KineticLaw_addParameter (KineticLaw_t *kl, const Parameter_t *p)
 
 
 /**
+ * Adds a copy of the given LocalParameter_t structure to the list of local
+ * parameters in the given KineticLaw_t structure.
+ *
+ * @param kl the KineticLaw_t structure.
+ *
+ * @param p a pointer to a LocalParameter_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
+ * @li LIBSBML_OPERATION_FAILED
+ * @li LIBSBML_DUPLICATE_OBJECT_ID
+ */
+LIBSBML_EXTERN
+int
+KineticLaw_addLocalParameter (KineticLaw_t *kl, const LocalParameter_t *p)
+{
+  return kl->addLocalParameter(p);
+}
+
+
+/**
  * Creates a new Parameter_t structure, adds it to the given KineticLaw_t
  * structures's list of local parameters, and returns a pointer to the
  * Parameter_t created.
@@ -1810,6 +1836,23 @@ KineticLaw_createParameter (KineticLaw_t *kl)
 
 
 /**
+ * Creates a new LocalParameter_t structure, adds it to the given KineticLaw_t
+ * structures's list of local parameters, and returns a pointer to the
+ * Parameter_t created.
+ *
+ * @param kl the KineticLaw_t structure.
+ *
+ * @return a pointer to a LocalParameter_t structure
+ */
+LIBSBML_EXTERN
+LocalParameter_t *
+KineticLaw_createLocalParameter (KineticLaw_t *kl)
+{
+  return kl->createLocalParameter();
+}
+
+
+/**
  * Get the list of local parameters defined for the given KineticLaw_t
  * structure.
  *
@@ -1822,6 +1865,22 @@ ListOf_t *
 KineticLaw_getListOfParameters (KineticLaw_t *kl)
 {
   return kl->getListOfParameters();
+}
+
+
+/**
+ * Get the list of local parameters defined for the given KineticLaw_t
+ * structure.
+ *
+ * @param kl the KineticLaw_t structure.
+ * 
+ * @return a list of LocalParameters
+ */
+LIBSBML_EXTERN
+ListOf_t *
+KineticLaw_getListOfLocalParameters (KineticLaw_t *kl)
+{
+  return kl->getListOfLocalParameters();
 }
 
 
@@ -1849,6 +1908,29 @@ KineticLaw_getParameter (KineticLaw_t *kl, unsigned int n)
 
 
 /**
+ * Get the nth parameter in the list of local parameters in the
+ * given KineticLaw_t structure.
+ *
+ * Callers should first find out how many parameters are in the list by
+ * calling KineticLaw_getNumLocalParameters().
+ *
+ * @param kl the KineticLaw_t structure.
+ *
+ * @param n the index of the LocalParameter_t structure sought
+ * 
+ * @return a pointer to the LocalParameter_t structure
+ *
+ * @see KineticLaw_getNumLocalParameters().
+ */
+LIBSBML_EXTERN
+LocalParameter_t *
+KineticLaw_getLocalParameter (KineticLaw_t *kl, unsigned int n)
+{
+  return kl->getLocalParameter(n);
+}
+
+
+/**
  * Get a parameter with identifier "id" out of the list of local
  * parameters defined for the given KineticLaw_t structure.
  *
@@ -1868,6 +1950,25 @@ KineticLaw_getParameterById (KineticLaw_t *kl, const char *sid)
 
 
 /**
+ * Get a parameter with identifier "id" out of the list of local
+ * parameters defined for the given KineticLaw_t structure.
+ *
+ * @param kl the KineticLaw_t structure.
+ *
+ * @param sid the identifier of the LocalParameter_t structure sought
+ * 
+ * @return the LocalParameter_t structure with the given id, or NULL if no such
+ * LocalParameter_t exists in the given KineticLaw_t structure.
+ */
+LIBSBML_EXTERN
+LocalParameter_t *
+KineticLaw_getLocalParameterById (KineticLaw_t *kl, const char *sid)
+{
+  return (sid != NULL) ? kl->getLocalParameter(sid) : 0;
+}
+
+
+/**
  * Get the number of local parameters defined in the given KineticLaw_t
  * structure.
  *
@@ -1881,6 +1982,23 @@ unsigned int
 KineticLaw_getNumParameters (const KineticLaw_t *kl)
 {
   return kl->getNumParameters();
+}
+
+
+/**
+ * Get the number of local parameters defined in the given KineticLaw_t
+ * structure.
+ *
+ * @param kl the KineticLaw_t structure.
+ * 
+ * @return the number of LocalParameter_t structures in the given KineticLaw_t
+ * structure.
+ */
+LIBSBML_EXTERN
+unsigned int
+KineticLaw_getNumLocalParameters (const KineticLaw_t *kl)
+{
+  return kl->getNumLocalParameters();
 }
 
 /**
@@ -1957,6 +2075,28 @@ KineticLaw_removeParameter (KineticLaw_t *kl, unsigned int n)
 
 
 /**
+ * Removes the nth LocalParameter_t object from the list of local parameters
+ * in this KineticLaw_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the Model_t structure
+ * @param n the integer index of the LocalParameter_t sought
+ *
+ * @return the LocalParameter_t object removed.  As mentioned above, 
+ * the caller owns the returned item. NULL is returned if the given index 
+ * is out of range.
+ */
+LIBSBML_EXTERN
+LocalParameter_t *
+KineticLaw_removeLocalParameter (KineticLaw_t *kl, unsigned int n)
+{
+  if (!kl) return 0;
+  return kl->removeLocalParameter(n);
+}
+
+
+/**
  * Removes the Parameter_t object with the given "id" attribute
  * from the list of local parameters in this KineticLaw_t object and 
  * returns a pointer to it.
@@ -1976,6 +2116,29 @@ KineticLaw_removeParameterById (KineticLaw_t *kl, const char *sid)
 {
   if (!kl) return 0;
   return kl->removeParameter(sid);
+}
+
+
+/**
+ * Removes the LocalParameter_t object with the given "id" attribute
+ * from the list of local parameters in this KineticLaw_t object and 
+ * returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param m the KineticLaw_t structure
+ * @param sid the string of the "id" attribute of the LocalParameter_t sought
+ *
+ * @return the LocalParameter_t object removed.  As mentioned above, the 
+ * caller owns the returned object. NULL is returned if no KineticLaw_t
+ * object with the identifier exists in this KineticLaw_t object.
+ */
+LIBSBML_EXTERN
+LocalParameter_t *
+KineticLaw_removeLocalParameterById (KineticLaw_t *kl, const char *sid)
+{
+  if (!kl) return 0;
+  return kl->removeLocalParameter(sid);
 }
 
 

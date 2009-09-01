@@ -1988,6 +1988,22 @@ Species_getConstant (const Species_t *s)
 
 
 /**
+ * Get the value of the "conversionFactor" attribute.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return the "conversionFactor" attribute of the given Species_t structure,
+ * as a string.
+ */
+LIBSBML_EXTERN
+const char *
+Species_getConversionFactor (const Species_t *s)
+{
+  return s->isSetConversionFactor() ? s->getConversionFactor().c_str() : NULL;
+}
+
+
+/**
  * Predicate returning true or false depending on whether the attribute
  * "id" of the given Species_t structure has been set.
  *
@@ -2180,6 +2196,74 @@ int
 Species_isSetCharge (const Species_t *s)
 {
   return static_cast<int>( s->isSetCharge() );
+}
+
+
+/**
+ * Predicate returning true or false depending on whether the attribute
+ * "conversionFactor" of the given Species_t structure has been set.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return true (nonzero) if the "conversionFactor" attribute of the given Species_t
+ * structure has been set, false (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Species_isSetConversionFactor (const Species_t *s)
+{
+  return static_cast<int>( s->isSetConversionFactor() );
+}
+
+
+/**
+ * Predicate returning true or false depending on whether the attribute
+ * "constant" of the given Species_t structure has been set.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return true (nonzero) if the "constant" attribute of the given Species_t
+ * structure has been set, false (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Species_isSetConstant (const Species_t *s)
+{
+  return static_cast<int>( s->isSetConstant() );
+}
+
+
+/**
+ * Predicate returning true or false depending on whether the attribute
+ * "boundaryCondition" of the given Species_t structure has been set.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return true (nonzero) if the "boundaryCondition" attribute of the given Species_t
+ * structure has been set, false (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Species_isSetBoundaryCondition (const Species_t *s)
+{
+  return static_cast<int>( s->isSetBoundaryCondition() );
+}
+
+
+/**
+ * Predicate returning true or false depending on whether the attribute
+ * "hasOnlySubstanceUnits" of the given Species_t structure has been set.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return true (nonzero) if the "hasOnlySubstanceUnits" attribute of the given Species_t
+ * structure has been set, false (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Species_isSetHasOnlySubstanceUnits (const Species_t *s)
+{
+  return static_cast<int>( s->isSetHasOnlySubstanceUnits() );
 }
 
 

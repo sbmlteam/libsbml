@@ -2180,6 +2180,22 @@ SpeciesReference_getDenominator (const SpeciesReference_t *sr)
 
 
 /**
+ * Get the value of the "constant" attribute.
+ *
+ * @param sr The SpeciesReference_t structure to use.
+ * 
+ * @return the constant attribute of this SpeciesReference.
+ */
+LIBSBML_EXTERN
+int
+SpeciesReference_getConstant (const SpeciesReference_t *sr)
+{
+  if (sr->isModifier()) return 0;
+  return static_cast<const SpeciesReference*>(sr)->getConstant();
+}
+
+
+/**
  * Predicate returning nonzero (for true) or zero (for false) depending on
  * whether the "id" attribute of the given SpeciesReference_t structure is
  * set.
@@ -2256,6 +2272,48 @@ SpeciesReference_isSetStoichiometryMath (const SpeciesReference_t *sr)
   (
     static_cast<const SpeciesReference*>(sr)->isSetStoichiometryMath()
   );
+}
+
+
+/**
+ * Predicate returning nonzero (for true) or zero (for false) depending on
+ * whether the "stoichiometry" attribute of the given SpeciesReference_t structure is
+ * set.
+ *
+ * @param sr The SpeciesReference_t structure to use.
+ * 
+ * @return nonzero if the "stoichiometry" attribute of given SpeciesReference_t
+ * structure has been set, zero (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+SpeciesReference_isSetStoichiometry (const SpeciesReference_t *sr)
+{
+  if (sr->isModifier()) return 0;
+
+  return static_cast<int>( 
+    static_cast<const SpeciesReference*>(sr)->isSetStoichiometry() );
+}
+
+
+/**
+ * Predicate returning nonzero (for true) or zero (for false) depending on
+ * whether the "constant" attribute of the given SpeciesReference_t structure is
+ * set.
+ *
+ * @param sr The SpeciesReference_t structure to use.
+ * 
+ * @return nonzero if the "constant" attribute of given SpeciesReference_t
+ * structure has been set, zero (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+SpeciesReference_isSetConstant (const SpeciesReference_t *sr)
+{
+  if (sr->isModifier()) return 0;
+
+  return static_cast<int>
+    (static_cast<const SpeciesReference*>(sr)->isSetConstant() );
 }
 
 

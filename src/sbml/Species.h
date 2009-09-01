@@ -1615,6 +1615,11 @@ Species_getConstant (const Species_t *s);
 
 
 LIBSBML_EXTERN
+const char *
+Species_getConversionFactor (const Species_t *s);
+
+
+LIBSBML_EXTERN
 int
 Species_isSetId (const Species_t *s);
 
@@ -1662,6 +1667,26 @@ Species_isSetUnits (const Species_t *s);
 LIBSBML_EXTERN
 int
 Species_isSetCharge (const Species_t *s);
+
+
+LIBSBML_EXTERN
+int
+Species_isSetConversionFactor (const Species_t *s);
+
+
+LIBSBML_EXTERN
+int
+Species_isSetConstant (const Species_t *s);
+
+
+LIBSBML_EXTERN
+int
+Species_isSetBoundaryCondition (const Species_t *s);
+
+
+LIBSBML_EXTERN
+int
+Species_isSetHasOnlySubstanceUnits (const Species_t *s);
 
 
 LIBSBML_EXTERN

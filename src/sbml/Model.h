@@ -3025,6 +3025,41 @@ Model_getName (const Model_t *m);
 
 
 LIBSBML_EXTERN
+const char *
+Model_getSubstanceUnits (const Model_t *m);
+
+
+LIBSBML_EXTERN
+const char *
+Model_getTimeUnits (const Model_t *m);
+
+
+LIBSBML_EXTERN
+const char *
+Model_getVolumeUnits (const Model_t *m);
+
+
+LIBSBML_EXTERN
+const char *
+Model_getAreaUnits (const Model_t *m);
+
+
+LIBSBML_EXTERN
+const char *
+Model_getLengthUnits (const Model_t *m);
+
+
+LIBSBML_EXTERN
+const char *
+Model_getExtentUnits (const Model_t *m);
+
+
+LIBSBML_EXTERN
+const char *
+Model_getConversionFactor (const Model_t *m);
+
+
+LIBSBML_EXTERN
 int
 Model_isSetId (const Model_t *m);
 
@@ -3032,6 +3067,41 @@ Model_isSetId (const Model_t *m);
 LIBSBML_EXTERN
 int
 Model_isSetName (const Model_t *m);
+
+
+LIBSBML_EXTERN
+int
+Model_isSetSubstanceUnits (const Model_t *m);
+
+
+LIBSBML_EXTERN
+int
+Model_isSetTimeUnits (const Model_t *m);
+
+
+LIBSBML_EXTERN
+int
+Model_isSetVolumeUnits (const Model_t *m);
+
+
+LIBSBML_EXTERN
+int
+Model_isSetAreaUnits (const Model_t *m);
+
+
+LIBSBML_EXTERN
+int
+Model_isSetLengthUnits (const Model_t *m);
+
+
+LIBSBML_EXTERN
+int
+Model_isSetExtentUnits (const Model_t *m);
+
+
+LIBSBML_EXTERN
+int
+Model_isSetConversionFactor (const Model_t *m);
 
 
 LIBSBML_EXTERN
