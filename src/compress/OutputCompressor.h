@@ -1,5 +1,5 @@
 /**
- *@endcond doxygen-libsbml-internal 
+ *@cond doxygen-libsbml-internal 
  **
  *
  * @file    OutputCompressor.h

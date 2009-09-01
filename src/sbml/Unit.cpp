@@ -68,7 +68,7 @@ Unit::Unit (SBMLNamespaces * sbmlns) :
     throw SBMLConstructorException();
 }
 
-
+/** @cond doxygen-libsbml-internal */
 
 /* constructor for validators */
 Unit::Unit() :

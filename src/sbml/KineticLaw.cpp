@@ -73,6 +73,7 @@ KineticLaw::KineticLaw (SBMLNamespaces * sbmlns) :
 }
 
 
+/** @cond doxygen-libsbml-internal */
 
 /* constructor for validators */
 KineticLaw::KineticLaw() :

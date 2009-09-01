@@ -32,9 +32,6 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 /** @cond doxygen-libsbml-internal **/
 
-/** @cond doxygen-libsbml-internal **/
-
-
 static const char* ASSIGNED_COMPARTMENT = "AssignedName";
 
 
