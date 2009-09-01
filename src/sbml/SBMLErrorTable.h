@@ -4766,7 +4766,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "The 'offset' attribute on <unit> was only available in SBML Level 2 "
     "Version 1. In order for the internal respresentation of a <unit> to "
     "be correct, the value for the offset member variable should be '0'."
-  } 
+  }, 
 
   //99998
   {   
