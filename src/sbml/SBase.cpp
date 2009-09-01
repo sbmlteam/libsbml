@@ -3258,7 +3258,6 @@ SBase::checkXHTML(const XMLNode * xhtml)
 {
   const string&  name = xhtml->getName();
   unsigned int i, errorNS, errorXML, errorDOC, errorELEM;
-  int n;
 
   if (name == "notes")
   {
