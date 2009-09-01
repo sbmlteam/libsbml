@@ -358,6 +358,7 @@ LIBSBML_CPP_NAMESPACE_USE
 %newobject Event::removeEventAssignment;
 %newobject UnitDefinition::removeUnit;
 %newobject KineticLaw::removeParameter;
+%newobject KineticLaw::removeLocalParameter;
 %newobject RDFAnnotationParser::parseRDFAnnotation(XMLNode *);
 %newobject RDFAnnotationParser::deleteRDFAnnotation;
 %newobject RDFAnnotationParser::parseCVTerms;
@@ -458,6 +459,7 @@ LIBSBML_CPP_NAMESPACE_USE
 %include sbml/Compartment.h
 %include sbml/Species.h
 %include sbml/Parameter.h
+%include sbml/LocalParameter.h
 %include sbml/InitialAssignment.h
 %include sbml/Rule.h
 %include sbml/Constraint.h
