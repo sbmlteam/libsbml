@@ -497,6 +497,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\sbml\LocalParameter.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\validator\constraints\LocalParameterMathCheck.cpp"
 				>
 			</File>
@@ -1138,6 +1142,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\sbml\ListOf.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\sbml\LocalParameter.h"
 				>
 			</File>
 			<File
