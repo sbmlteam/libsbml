@@ -1,6 +1,37 @@
            libSBML NEWS -- History of user-visible changes
 
 ======================================================================
+Version 4.1.0-b1 (released 2009-09-04)
+======================================================================
+
+This is a beta version that includes support for reading
+SBML L3 core as currently defined in the L3 specification 
+Public Review Draft published 2009-08-22.
+
+Features that are supported:
+
+- reading an L3V1 SBML file
+
+- getFoo() functions for all new attributes
+
+- isSetFoo() functions for all newly required attributes
+ 
+Features that are not yet implemented:
+
+- the "required" attribute for packages on the sbml element
+
+- the "sbml:units" attribute on the cn element
+
+- the setFoo() functions
+
+- validation
+
+- conversion to or from L3
+
+The implementation works for all language bindings except
+MATLAB and Octave.
+
+======================================================================
 Version 4.0.0 (released 2009-08-26)
 ======================================================================
 
