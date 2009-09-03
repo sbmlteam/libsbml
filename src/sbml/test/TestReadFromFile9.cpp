@@ -178,6 +178,7 @@ START_TEST (test_read_l3v1_new)
   fail_unless(c->getId() == "comp");
   fail_unless(c->getSize() == 1e-14);
   fail_unless(c->getSpatialDimensions() == 3);
+  fail_unless(c->getSpatialDimensionsAsDouble() == 3);
   fail_unless(c->getUnits() == "litre");
   fail_unless(c->getConstant() == true);
 
@@ -188,7 +189,8 @@ START_TEST (test_read_l3v1_new)
   fail_unless(c->isSetConstant());
   fail_unless(c->getId() == "comp1");
   fail_unless(isnan(c->getSize()));
-  fail_unless(isnan(c->getSpatialDimensions()));
+  fail_unless(isnan(c->getSpatialDimensionsAsDouble()));
+  //fail_unless(isnan(c->getSpatialDimensions()));
   fail_unless(c->getConstant() == false);
 
   c = m->getCompartment(2);
@@ -197,7 +199,8 @@ START_TEST (test_read_l3v1_new)
   fail_unless(c->isSetSpatialDimensions());
   fail_unless(!c->isSetConstant());
   fail_unless(c->getId() == "comp2");
-  fail_unless(c->getSpatialDimensions() == 4.6);
+  fail_unless(c->getSpatialDimensionsAsDouble() == 4.6);
+  //fail_unless(isnan(c->getSpatialDimensions()));
 //  fail_unless(c->getConstant() == false);
 
 

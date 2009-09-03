@@ -47,6 +47,7 @@ Compartment::Compartment (unsigned int level, unsigned int version) :
  , mId               ( ""       )
  , mName             ( ""       )
  , mSpatialDimensions( 3        )
+ , mSpatialDimensionsDouble( 3        )
  , mSize             ( 1.0      )
  , mConstant         ( true     )
  , mIsSetSize        ( false    )
@@ -60,7 +61,7 @@ Compartment::Compartment (unsigned int level, unsigned int version) :
   if (level == 3)
   {
     mSize = numeric_limits<double>::quiet_NaN();
-    mSpatialDimensions = numeric_limits<double>::quiet_NaN();
+    mSpatialDimensionsDouble = numeric_limits<double>::quiet_NaN();
   }
 }
 
@@ -69,6 +70,7 @@ Compartment::Compartment(SBMLNamespaces * sbmlns) :
  , mId               ( ""       )
  , mName             ( ""       )
  , mSpatialDimensions( 3        )
+ , mSpatialDimensionsDouble( 3        )
  , mSize             ( 1.0      )
  , mConstant         ( true     )
  , mIsSetSize        ( false    )
@@ -82,7 +84,7 @@ Compartment::Compartment(SBMLNamespaces * sbmlns) :
   if (sbmlns->getLevel() == 3)
   {
     mSize = numeric_limits<double>::quiet_NaN();
-    mSpatialDimensions = numeric_limits<double>::quiet_NaN();
+    mSpatialDimensionsDouble = numeric_limits<double>::quiet_NaN();
   }
 }
 
@@ -113,6 +115,7 @@ Compartment::Compartment(const Compartment& orig) :
  , mName             ( orig.mName              )
  , mCompartmentType  ( orig.mCompartmentType   )
  , mSpatialDimensions( orig.mSpatialDimensions )
+ , mSpatialDimensionsDouble( orig.mSpatialDimensionsDouble )
  , mSize             ( orig.mSize              )
  , mUnits            ( orig.mUnits             )
  , mOutside          ( orig.mOutside           )
@@ -133,6 +136,7 @@ Compartment& Compartment::operator=(const Compartment& rhs)
   {
     this->SBase::operator =(rhs);
     mSpatialDimensions= rhs.mSpatialDimensions  ;
+    mSpatialDimensionsDouble= rhs.mSpatialDimensions  ;
     mSize             = rhs.mSize      ;
     mConstant         = rhs.mConstant     ;
     mIsSetSize        = rhs.mIsSetSize    ;
@@ -230,10 +234,45 @@ Compartment::getCompartmentType () const
 /*
  * @return the spatialDimensions of this Compartment.
  */
-double
+unsigned int
 Compartment::getSpatialDimensions () const
 {
-  return mSpatialDimensions;
+  if (getLevel() < 3)
+  {
+    return mSpatialDimensions;
+  }
+  else
+  {
+    if (isSetSpatialDimensions())
+    {
+      if (ceil(mSpatialDimensionsDouble) == 
+          floor(mSpatialDimensionsDouble))
+      {
+        return static_cast<int>(mSpatialDimensionsDouble);
+      }
+      else
+      {
+        return numeric_limits<int>::quiet_NaN();
+      }
+    }
+    else
+    {
+      return static_cast<int>(mSpatialDimensionsDouble);
+    }
+  }
+}
+
+
+/*
+ * @return the spatialDimensions of this Compartment.
+ */
+double
+Compartment::getSpatialDimensionsAsDouble () const
+{
+  if (getLevel() > 2)
+    return mSpatialDimensionsDouble;
+  else
+    return static_cast<double>(mSpatialDimensions);
 }
 
 
@@ -477,7 +516,7 @@ Compartment::setCompartmentType (const std::string& sid)
  * (i.e. spatialDimensions will not be set).
  */
 int
-Compartment::setSpatialDimensions (double value)
+Compartment::setSpatialDimensions (unsigned int value)
 {
   if (getLevel() < 2)
   {
@@ -485,29 +524,14 @@ Compartment::setSpatialDimensions (double value)
     mSpatialDimensions = 3;
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
-
-  if (getLevel() == 2)
+  else if (value < 0 || value > 3)
   {
-    //must be an int eith 0, 1, 2, 3
-    if (floor(value) != value && ceil(value) != value)
-    {
-      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-    }
-    else if (value < 0 || value > 3)
-    {
-      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-    }
-    else
-    {
-      mSpatialDimensions = value;
-      mIsSetSpatialDimensions = true;
-      return LIBSBML_OPERATION_SUCCESS;
-    }
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
   {
     mSpatialDimensions = value;
-    mIsSetSpatialDimensions = true;
+    mIsSetSpatialDimensions  = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -942,10 +966,10 @@ Compartment::readAttributes (const XMLAttributes& attributes)
     //                     default="3" }  (L2v1 ->)
     // spatialDimensions { use="optional"}  (L3v1 ->)
     //
-    mIsSetSpatialDimensions = attributes.readInto("spatialDimensions", 
-                              mSpatialDimensions, getErrorLog(), false);
     if (level < 3)
     {
+      attributes.readInto("spatialDimensions", mSpatialDimensions, 
+                                                      getErrorLog(), false);
       if (mSpatialDimensions < 0 || mSpatialDimensions > 3)
       {
         std::string message = "The spatialDimensions attribute on ";
@@ -953,6 +977,11 @@ Compartment::readAttributes (const XMLAttributes& attributes)
         getErrorLog()->logError(NotSchemaConformant, level, version,
                                                               message);
       }
+    }
+    else
+    {
+      mIsSetSpatialDimensions = attributes.readInto("spatialDimensions", 
+                          mSpatialDimensionsDouble, getErrorLog(), false);
     }
     
     //
@@ -1033,7 +1062,7 @@ Compartment::writeAttributes (XMLOutputStream& stream) const
     //
     if (level == 2)
     {
-      unsigned int sd = static_cast<int>( mSpatialDimensions);
+      unsigned int sd = mSpatialDimensions;
       if (sd >= 0 && sd <= 2)
       {
         stream.writeAttribute("spatialDimensions", sd);
@@ -1043,7 +1072,7 @@ Compartment::writeAttributes (XMLOutputStream& stream) const
     {
       if (isSetSpatialDimensions())
       {
-        stream.writeAttribute("spatialDimensions", mSpatialDimensions);
+        stream.writeAttribute("spatialDimensions", mSpatialDimensionsDouble);
       }
     }
   }

@@ -402,7 +402,21 @@ public:
    * @return the value of the "spatialDimensions" attribute of this
    * Compartment as an unsigned integer
    */
-  double getSpatialDimensions () const;
+  unsigned int getSpatialDimensions () const;
+
+
+  /**
+   * Get the number of spatial dimensions of this Compartment object
+   * as a double.
+   *
+   * @note SBML L3 changed the type of the spatialDimensions attribute
+   * to double. To avoid backward compatibility issues this new function
+   * was implemented.
+   *
+   * @return the value of the "spatialDimensions" attribute of this
+   * Compartment as a double or NaN if the model is not SBML L3
+   */
+  double getSpatialDimensionsAsDouble () const;
 
 
   /**
@@ -695,7 +709,7 @@ public:
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    * @li LIBSBML_UNEXPECTED_ATTRIBUTE
    */
-  int setSpatialDimensions (double value);
+  int setSpatialDimensions (unsigned int value);
 
 
   /**
@@ -1031,7 +1045,8 @@ protected:
   std::string   mId;
   std::string   mName;
   std::string   mCompartmentType;
-  double        mSpatialDimensions;
+  unsigned int  mSpatialDimensions;
+  double        mSpatialDimensionsDouble;
   double        mSize;
   std::string   mUnits;
   std::string   mOutside;
