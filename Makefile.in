@@ -134,7 +134,22 @@ examples =                                                       \
   examples/sample-models/from-spec/level-2/multicomp.xml         \
   examples/sample-models/from-spec/level-2/overdetermined.xml    \
   examples/sample-models/from-spec/level-2/twodimensional.xml    \
-  examples/sample-models/from-spec/level-2/units.xml
+  examples/sample-models/from-spec/level-2/units.xml             \
+  examples/sample-models/from-spec/level-3/README.txt            \
+  examples/sample-models/from-spec/level-3/algebraicrules.xml    \
+  examples/sample-models/from-spec/level-3/assignmentrules.xml   \
+  examples/sample-models/from-spec/level-3/boundarycondition.xml \
+  examples/sample-models/from-spec/level-3/delay.xml             \
+  examples/sample-models/from-spec/level-3/dimerization.xml      \
+  examples/sample-models/from-spec/level-3/enzymekinetics.xml    \
+  examples/sample-models/from-spec/level-3/events.xml            \
+  examples/sample-models/from-spec/level-3/fullydeterminedevent.xml       \
+  examples/sample-models/from-spec/level-3/functiondef.xml       \
+  examples/sample-models/from-spec/level-3/membrane.xml          \
+  examples/sample-models/from-spec/level-3/multicomp.xml         \
+  examples/sample-models/from-spec/level-3/overdetermined.xml    \
+  examples/sample-models/from-spec/level-3/twoalgebraicrules.xml \
+  examples/sample-models/from-spec/level-3/twodimensional.xml    
 
 
 # The files listed in `docs' are copied to the documentation directory
