@@ -696,7 +696,7 @@ public:
    * returned by this function are:
    * @li LIBSBML_OPERATION_SUCCESS
    */
-  int setExponent (double value);
+  int setExponent (int value);
 
 
   /**
@@ -1223,8 +1223,13 @@ Unit_getKind (const Unit_t *u);
 
 
 LIBSBML_EXTERN
-double
+int
 Unit_getExponent (const Unit_t *u);
+
+
+LIBSBML_EXTERN
+double
+Unit_getExponentAsDouble (const Unit_t *u);
 
 
 LIBSBML_EXTERN
@@ -1419,7 +1424,7 @@ Unit_setKind (Unit_t *u, UnitKind_t kind);
 
 LIBSBML_EXTERN
 int
-Unit_setExponent (Unit_t *u, double value);
+Unit_setExponent (Unit_t *u, int value);
 
 
 LIBSBML_EXTERN

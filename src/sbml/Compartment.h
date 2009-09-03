@@ -1330,8 +1330,13 @@ Compartment_getCompartmentType (const Compartment_t *c);
 
 
 LIBSBML_EXTERN
-double
+unsigned int
 Compartment_getSpatialDimensions (const Compartment_t *c);
+
+
+LIBSBML_EXTERN
+double
+Compartment_getSpatialDimensionsAsDouble (const Compartment_t *c);
 
 
 LIBSBML_EXTERN
@@ -1421,7 +1426,7 @@ Compartment_setCompartmentType (Compartment_t *c, const char *sid);
 
 LIBSBML_EXTERN
 int
-Compartment_setSpatialDimensions (Compartment_t *c, double value);
+Compartment_setSpatialDimensions (Compartment_t *c, unsigned int value);
 
 
 LIBSBML_EXTERN

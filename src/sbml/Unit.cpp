@@ -690,7 +690,7 @@ Unit::setKind (UnitKind_t kind)
  * Sets the exponent of this Unit to the given value.
  */
 int
-Unit::setExponent (double value)
+Unit::setExponent (int value)
 {
   mExponent = value;
   mIsSetExponent = true;
@@ -1543,7 +1543,7 @@ Unit::readAttributes (const XMLAttributes& attributes)
   }
   else
   {
-    mIsSetExponent = attributes.readInto("exponent", mExponent, 
+    mIsSetExponent = attributes.readInto("exponent", mExponentDouble, 
                                           getErrorLog(), true);
   }
   //
@@ -1933,10 +1933,26 @@ Unit_getKind (const Unit_t *u)
  * @return the "exponent" value of this Unit_t structure, as an integer.
  */
 LIBSBML_EXTERN
-double
+int
 Unit_getExponent (const Unit_t *u)
 {
   return u->getExponent();
+}
+
+
+/**
+ * Returns the value of the "exponent" attribute of the given Unit_t
+ * structure @p u.
+ *
+ * @param u a Unit_t structure
+ *
+ * @return the "exponent" value of this Unit_t structure, as an integer.
+ */
+LIBSBML_EXTERN
+double
+Unit_getExponentAsDouble (const Unit_t *u)
+{
+  return u->getExponentAsDouble();
 }
 
 
@@ -2619,7 +2635,7 @@ Unit_setKind (Unit_t *u, UnitKind_t kind)
  */
 LIBSBML_EXTERN
 int
-Unit_setExponent (Unit_t *u, double value)
+Unit_setExponent (Unit_t *u, int value)
 {
   return u->setExponent(value);
 }

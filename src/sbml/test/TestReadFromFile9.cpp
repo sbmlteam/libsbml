@@ -126,7 +126,7 @@ START_TEST (test_read_l3v1_new)
   fail_unless(!u->isSetExponent());
   fail_unless(!u->isSetScale());
   fail_unless(!u->isSetMultiplier());
-  fail_unless(isnan(u->getExponent()));
+  fail_unless(isnan(u->getExponentAsDouble()));
 //  fail_unless(isnan(u->getScale()));
   fail_unless(isnan(u->getMultiplier()));
 
@@ -141,6 +141,7 @@ START_TEST (test_read_l3v1_new)
   fail_unless(u->isSetScale());
   fail_unless(u->isSetMultiplier());
   fail_unless(u->getExponent() == -1);
+  fail_unless(u->getExponentAsDouble() == -1);
   fail_unless(u->getScale() == 2);
   fail_unless(u->getMultiplier() == 1.3);
 
@@ -149,7 +150,7 @@ START_TEST (test_read_l3v1_new)
   fail_unless(u->isSetExponent());
   fail_unless(u->isSetScale());
   fail_unless(u->isSetMultiplier());
-  fail_unless(u->getExponent() == 1.5);
+  fail_unless(u->getExponentAsDouble() == 1.5);
   fail_unless(u->getScale() == 10);
   fail_unless(u->getMultiplier() == 0.5);
 

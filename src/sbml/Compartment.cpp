@@ -1480,10 +1480,26 @@ Compartment_getCompartmentType (const Compartment_t *c)
  * Compartment_t structure @p c as an unsigned integer
  */
 LIBSBML_EXTERN
-double
+unsigned int
 Compartment_getSpatialDimensions (const Compartment_t *c)
 {
   return c->getSpatialDimensions();
+}
+
+
+/**
+ * Get the number of spatial dimensions of this Compartment_t structure.
+ *
+ * @param c the Compartment_t structure
+ * 
+ * @return the value of the "spatialDimensions" attribute of the
+ * Compartment_t structure @p c as a double
+ */
+LIBSBML_EXTERN
+double
+Compartment_getSpatialDimensionsAsDouble (const Compartment_t *c)
+{
+  return c->getSpatialDimensionsAsDouble();
 }
 
 
@@ -1873,7 +1889,7 @@ Compartment_setCompartmentType (Compartment_t *c, const char *sid)
  */
 LIBSBML_EXTERN
 int
-Compartment_setSpatialDimensions (Compartment_t *c, double value)
+Compartment_setSpatialDimensions (Compartment_t *c, unsigned int value)
 {
   return c->setSpatialDimensions(value);
 }
